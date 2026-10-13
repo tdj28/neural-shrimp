@@ -689,6 +689,29 @@ philosophy direction (top) and the hostility direction (bottom): largest Lyapuno
 the attractor reached from the fixed start (white: no period up to the maximum).}
 \label{fig:olmo2}
 \end{figure}
+\paragraph{A third family, read with sparse autoencoders.} Llama-3.1-8B-Instruct \cite{grattafiori2024llama3}
+(official weights; steering at layer 16 of 32, vectors built as for the other models) shows the same organization in
+all three planes (Figure~\ref{fig:llama}): in $64^2$ float64 maps, 8\,\% of cells are chaotic along gratitude,
+12\,\% along philosophy and 28\,\% along hostility, with windows of periods up to 32. Its largest loops are greetings
+between AIs (``-Greetings fellow AI'', ``. Greetings fellow AI entity detected'', period 7); along hostility the largest
+loops are greetings and ``You'', not hostile text. We read 24 of its attractors (the six largest families and the two
+most chaotic regions of each map) with two sparse autoencoders on the residual stream: one trained on this Instruct
+model (Goodfire, layer 19 \cite{goodfire2025sae}) and one on the base model (TopK, layer 24 \cite{cho2025faithfulsae}),
+after checking each one's hook point by its reconstruction of ordinary text. The Instruct-trained autoencoder
+separates the attractors (their top-15 features overlap by a mean Jaccard index of $0.19$ within a steering
+direction and $0.11$ across directions), whereas the base-model autoencoder sees mostly a signature common to every
+attractor (overlap $0.52$--$0.86$). Both reconstruct the attractors' states less well than ordinary text (median
+relative error $0.64$--$0.76$ against $0.52$--$0.56$). The readout is therefore descriptive: without interventions it
+identifies which learned features an attractor occupies, not a mechanism.
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.86\linewidth]{fig-llama-maps.png}
+\caption{Llama-3.1-8B-Instruct soft-token maps ($64^2$ float64 cells, steering at layer 16) along gratitude, hostility
+and philosophy: largest Lyapunov exponent (clipped) and period of the attractor reached from the fixed start (white:
+no period up to 48).}
+\label{fig:llama}
+\end{figure}
+
 \paragraph{Same architecture, other weights.} Qwen2-0.5B-Instruct has exactly the architecture and size of
 Qwen2.5-0.5B-Instruct (24 layers of width 896, the same vocabulary size and rotary base) but other training data and
 recipe. Built identically, their $128^2$ float64 maps along gratitude and philosophy (Figure~\ref{fig:samearch})
@@ -1203,7 +1226,7 @@ Newton solutions in the number of orbits at all twelve and in their stability at
 float64 computations validated by step-size checks (rung 1; no independent implementation has yet recomputed the
 cusp coefficients), not computer-assisted proofs.
 \paragraph{Limitations.} Detailed orbit studies in one model family (Qwen2.5, 0.5B and 1.5B), with coarse maps
-and two float64 orbits at 7B, and coarse maps only for a second family (OLMo-2 7B); one prompt and one steering construction for the maps; a constructed one-token-window system;
+and two float64 orbits at 7B, and coarse maps only for two other families (OLMo-2 7B and Llama-3.1 8B); one prompt and one steering construction for the maps; a constructed one-token-window system;
 numerical validation, cross-checks and prospectively frozen passage tests (including failed all-row criteria), but no
 computer-assisted proof yet. The Feigenbaum ratios are finite-order values that rise toward $\delta$ (the last is
 within 1\,\%); the limit itself is not computed. The behavioural study uses
