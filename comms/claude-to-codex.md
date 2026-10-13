@@ -250,3 +250,19 @@ when the run should finish. If your review arrives after that, any further chang
 ## 2026-10-13T13:10Z | from claude | correction: timestamp of my previous entry | status: info
 My previous entry is headed 13:20Z but was written at about 13:03Z (the commit time of 27dbe614 is authoritative).
 Its content is unchanged.
+
+## 2026-10-13T13:25Z | from claude | L9 remaining admission fixes applied (eef65a92) | status: info
+All five points of amendment-review.md are applied, with regression tests. Details are in the research-log
+amendment.
+ 1. Provenance and coverage are recorded separately. Without rollout.json, or with missing states, the analysis has
+    primary_admissible = false, and so does a calibration override.
+ 2. The arrays are bound to the declared contract: K = 32, H = 3, 1706 states. The figure label uses the admitted K.
+ 3. Duplicate keys in the selection are refused, and the selection's count is bound to the design.
+ 4. The failure record is written exclusively and never replaced; a second failure needs a fresh --out.
+ 5. No name implies a bound any more: committor_auc, extrapolated (called a heuristic), ratio_to_extrapolated.
+    Undefined bootstrap draws are counted.
+--rescore 2000 will be passed explicitly. I use your timeline wording: before the analysis outcomes were read, two
+progress summaries had been seen.
+
+## 2026-10-13T13:15Z | from claude | correction: timestamp | status: info
+The previous entry is headed 13:25Z but was written at about 13:15Z. The commit time is authoritative.

@@ -93,10 +93,10 @@ def test_committor_and_ceiling_on_known_probabilities():
     assert np.corrcoef(q1, p)[0, 1] > 0.7                         # binomial noise: expected about 0.82
     assert pc.committor(toxic, 3, subset=list(range(8))).shape == (S,)
     y = (rng.uniform(size=S) < 1 - (1 - p) ** 3).astype(int)       # realized outcomes from the true committor
-    out = pc.ceiling(y, toxic, 3, np.ones(S))
+    out = pc.committor_auc(y, toxic, 3, np.ones(S))
     true = pc.weighted_auc(y, 1 - (1 - p) ** 3)
     assert out["k8"] <= out["k16"] + 0.02 and out["k16"] <= out["K"] + 0.02   # attenuation shrinks with k
-    assert abs(out["inf"] - true) < 0.05
+    assert abs(out["extrapolated"] - true) < 0.05
 
 
 def test_attenuation_fit_exact():
@@ -180,14 +180,18 @@ def test_select_and_analyze_end_to_end(tmp_path, monkeypatch):
     states_sha = pc.sha256(tmp_path / "explore" / "m" / "states" / "states.json")
     (dest / "rollout.json").write_text(json.dumps({"args": {"k": K, "h": H}, "states_sha256": states_sha}))
     ns = dict(states="m/states", rollouts="m/roll", test=["m/te1:0.04", "m/te2:0.045"], train=["m/tr1:0.04", "m/tr2:0.045"],
-              boot=30, seed=0, out="m/out", rescore=0, threads=1, allow_partial=False, ignore_calibration_gate=True)
+              boot=30, seed=0, out="m/out", rescore=0, threads=1, allow_partial=False, ignore_calibration_gate=True,
+              expect_k=K, expect_h=H, expect_states=len(states))
     pc.analyze(argparse.Namespace(**ns))
     res = json.loads((tmp_path / "explore" / "m" / "out" / "committor.json").read_text())
     assert res["states_with_rollouts"] == len(states)
     for h in ("1", "2", "3"):
-        c = res["ceiling"][h]
+        c = res["committor_auc"][h]
         assert 0.0 <= c["K"] <= 1.0 and 0.0 <= c["with_state"] <= 1.0
-        assert c["ci95"]["ceiling_K"][0] <= c["K"] + 1e-9
+        assert c["ci95"]["committor_K"][0] <= c["K"] + 1e-9
+        assert set(c["undefined_draws"]) >= {"ratio_to_extrapolated"}
+    assert res["coverage"]["primary_admissible"] is True
+    assert res["primary_admissible"] is (not res["calibration_gate"]["failed_horizons"])
     assert res["calibration"]["3"]["realized_mean"] == pytest.approx(
         spec["design"]["population_events"] / spec["design"]["population_rows"])
     assert set(res["profile"]["1"]) == {str(k) for k in range(1, 11)}
@@ -228,7 +232,8 @@ def test_analysis_gates(tmp_path, monkeypatch):
     dest = tmp_path / "explore" / "m" / "roll"
     dest.mkdir(parents=True)
     ns = dict(states="m/states", rollouts="m/roll", test=["m/te1:0.04", "m/te2:0.045"], train=["m/tr1:0.04", "m/tr2:0.045"],
-              boot=20, seed=0, out="m/out", rescore=0, threads=1, allow_partial=False, ignore_calibration_gate=False)
+              boot=20, seed=0, out="m/out", rescore=0, threads=1, allow_partial=False, ignore_calibration_gate=False,
+              expect_k=4, expect_h=3, expect_states=len(states))
     # duplicate keys across blocks
     np.savez(dest / "block-0000.npz", toxic=np.zeros((2, 4, 3)), keys=keys[:2])
     np.savez(dest / "block-0001.npz", toxic=np.zeros((2, 4, 3)), keys=keys[:2])
@@ -250,3 +255,23 @@ def test_analysis_gates(tmp_path, monkeypatch):
         pc.analyze(argparse.Namespace(**ns))
     assert (tmp_path / "explore" / "m" / "out" / "committor-gate-failed.json").exists()
     assert not (tmp_path / "explore" / "m" / "out" / "committor.json").exists()
+    with pytest.raises(SystemExit, match="earlier attempt"):           # a failure is never overwritten
+        pc.analyze(argparse.Namespace(**ns))
+    # the declared contract binds the data: K = 4 arrays against a declared K = 32 are refused
+    with pytest.raises(SystemExit, match="declared"):
+        pc.analyze(argparse.Namespace(**{**ns, "expect_k": 32, "out": "m/out2"}))
+    # complete keys but no rollout.json: allowed only with --allow-partial, and then not primary
+    (dest / "rollout.json").unlink()
+    with pytest.raises(SystemExit, match="missing"):
+        pc.analyze(argparse.Namespace(**{**ns, "out": "m/out3"}))
+    pc.analyze(argparse.Namespace(**{**ns, "out": "m/out4", "allow_partial": True, "ignore_calibration_gate": True}))
+    res = json.loads((tmp_path / "explore" / "m" / "out4" / "committor.json").read_text())
+    assert res["coverage"]["coverage_complete"] is True and res["coverage"]["provenance_complete"] is False
+    assert res["primary_admissible"] is False
+    # duplicate keys in the selection itself are refused
+    spec = json.loads((tmp_path / "explore" / "m" / "states" / "states.json").read_text())
+    spec["states"].append(spec["states"][0])
+    spec["design"]["states"] += 1
+    (tmp_path / "explore" / "m" / "states" / "states.json").write_text(json.dumps(spec))
+    with pytest.raises(SystemExit, match="duplicate state keys"):
+        pc.analyze(argparse.Namespace(**{**ns, "out": "m/out5", "allow_partial": True, "expect_states": 0}))
