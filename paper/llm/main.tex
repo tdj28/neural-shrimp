@@ -439,7 +439,11 @@ derivatives, by central differences of float64 Jacobian-vector products; the cod
 with a known reduction). At both cusps $c$ is nonzero far beyond its step-size uncertainty and keeps its sign through
 the zero of $b$, which crosses zero with nonzero slope along the curve: both are nondegenerate cusps, numerically.
 The negative sign of $c$ means that between the fold branches near each cusp two stable period-6 orbits coexist with
-a saddle.
+a saddle. A generic codimension-two cusp also needs the two parameters to unfold it independently. At the outer-arc
+cusp, the matrix of derivatives of the reduced equation's constant and linear coefficients with respect to
+$(\log_{10}T,10\alpha)$ has determinant $2737$ (singular values $1630$ and $1.7$). With these derivatives, the local
+cubic model predicted the number of period-6 orbits and their stability at six parameter offsets, written to disk
+before any orbit was solved. Newton solutions matched at all six.
 \begin{table}[H]
 \centering\small
 \begin{tabular}{>{\raggedright\arraybackslash}p{0.24\linewidth}>{\raggedright\arraybackslash}p{0.3\linewidth}>{\raggedright\arraybackslash}p{0.36\linewidth}}
@@ -877,7 +881,10 @@ inside the body and closes around the map's period-14 cells. The cubic coefficie
 $c\approx-1.4\times10^{6}$ to $-2.0\times10^{6}$ (step agreement $5\,\%$; the smallest steps converge like the
 square of the step, and extrapolation leaves the sign) and $-5.8\times10^{5}$ to $-5.3\times10^{5}$. Both cusps are
 therefore nondegenerate numerically, and $c<0$ agrees with the three coexisting period-7 orbits, two of them stable,
-found between the S-shaped folds. The hostile period-7 body has the same skeleton as the period-6 window of
+found between the S-shaped folds. At the lower cusp the unfolding is regular too (determinant $53.5$, singular values
+$262$ and $0.20$). Its local predictions at six frozen offsets matched Newton solutions in the number of orbits at all
+six and in their stability at five; the miss, at the largest offset beyond the edge of the cusp's wedge, marks the
+range of the cubic model. The hostile period-7 body has the same skeleton as the period-6 window of
 Section~\ref{sec:curves}.
 
 Its interior is a shrimp's too. Float64 bifurcation diagrams through the body (Figure~\ref{fig:hubcascade}; 1400
@@ -1168,7 +1175,9 @@ forms on such a model. We do not claim that ordinary sampled generation is chaot
 body have, numerically, shrimp-like organization: connected fold curves ending in nondegenerate cusps (simple
 critical multiplier; quadratic coefficient through zero with nonzero slope; cubic coefficient nonzero) and flip
 curves inside, with superstable curves running through the windows. The rank-two dependence of the two unfolding
-coefficients on the two parameters, which a generic codimension-two cusp also requires, has not been computed. These are
+coefficients on the two parameters, which a generic codimension-two cusp also requires, was computed at one cusp of
+each window (determinants $2737$ and $53.5$), where the local model's predictions at twelve frozen offsets matched
+Newton solutions in the number of orbits at all twelve and in their stability at eleven. These are
 float64 computations validated by step-size checks (rung 1; no independent implementation has yet recomputed the
 cusp coefficients), not computer-assisted proofs.
 \paragraph{Limitations.} Detailed orbit studies in one model family (Qwen2.5, 0.5B and 1.5B), with coarse maps
