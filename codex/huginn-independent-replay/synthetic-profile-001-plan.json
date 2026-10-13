@@ -1,0 +1,28 @@
+{
+  "schema": "codex-huginn-synthetic-profile-v1",
+  "attempt": "synthetic-profile-001",
+  "synthetic_only": true,
+  "target_access_authorized": false,
+  "counts": {
+    "A_questions": 64,
+    "A_arms": 4,
+    "A_bootstrap": 2000,
+    "B_questions": 200,
+    "B_arms": 4,
+    "B_bootstrap": 10000
+  },
+  "envelope": {
+    "cpu_threads": 1,
+    "supervisor_slots": 1,
+    "nice": 10,
+    "address_space_gib": 4,
+    "timeout_seconds": 120,
+    "startup_available_gib": 20,
+    "runtime_available_gib": 16
+  },
+  "sources": {
+    "statistics.py": "0a76f6ad2949d2234aa560ec4e9267f4a3fe429332b1c33c1b85d3551498581c",
+    "profile.py": "551e80dd18eb57f9fbb5b5b0b7602e958676b94dcedbee53f347ab55f6006b59"
+  },
+  "basis": "Root source review accepts one full-size synthetic profile; no target evidence or model work. Actual replay remains unlaunchable."
+}

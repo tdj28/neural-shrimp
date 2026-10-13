@@ -22154,3 +22154,12 @@ _commit `a2de2c1018b2` (dirty worktree)_
 - **Would surprise us:** no capture at any dose up to 0.12 (the larger model resists the push), capture also along the random direction, or detect-and-replace no better than constant prevention
 
 _commit `f8358cfbfa57`_
+
+## 2026-10-13 16:17 UTC: run (exploratory)
+
+- **Question:** Task8: measure independent frozen-contract statistical reducer cost using a full-size synthetic A64x4/B200x4 fixture only
+- **Setup:** Root-reviewed synthetic-profile-001; plan a7835860f336319ee8437c26bf6a0a7b1a9c57b2e1071a39fd57ff3dc8ab3e49, reducer0a76f6ad, driver551e80dd; CPU1+supervisor/nice10/threads1/4GiB/120s with5s cleanup grace and20GiB-start/16GiB-runtime available floors.45 synthetic controls passed. Task11 waits; no target data/model/producer/pod/GPU access. Source/card private push before external dispatch; all failures retained.
+- **Output:** `/data2/neural-shrimp-data/codex/huginn-independent-replay/synthetic-profile-001`
+- **Would surprise us:** Only runtime or memory exceeding this bounded synthetic profile; no scientific outcome is measured.
+
+_commit `73dbd5ec687a` (dirty worktree)_
