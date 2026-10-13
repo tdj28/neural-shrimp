@@ -1,0 +1,62 @@
+{
+  "schema": "codex-task8-synthetic-profile-receipt-v1",
+  "source_commit": "d03f8f3c974b2d5d946706b320ac3993fd56ac3c",
+  "plan_sha256": "a7835860f336319ee8437c26bf6a0a7b1a9c57b2e1071a39fd57ff3dc8ab3e49",
+  "manifest": {
+    "path": "/data2/neural-shrimp-data/codex/huginn-independent-replay/synthetic-profile-001-manifest.json",
+    "sha256": "5a4efaf1917ed32544bf4027be1cac2920d1e3fda4f843fb43a16d0c50a20c78"
+  },
+  "artifact_count": 17,
+  "git_blob_count": 6,
+  "status": {
+    "synthetic_only": true,
+    "target_accessed": false,
+    "certificate_passed": false,
+    "source_commit": "d03f8f3c974b2d5d946706b320ac3993fd56ac3c",
+    "plan_sha256": "a7835860f336319ee8437c26bf6a0a7b1a9c57b2e1071a39fd57ff3dc8ab3e49",
+    "status": "synthetic_profile_completed",
+    "elapsed_seconds": 0.8397775120101869,
+    "max_rss_kib": 72936,
+    "min_available_bytes": 32954056704,
+    "stages": [
+      {
+        "stage": "source_captured",
+        "elapsed_seconds": 0.0004952920135110617
+      },
+      {
+        "stage": "fixtures_ready",
+        "elapsed_seconds": 0.04065351909957826,
+        "a_rows": 256,
+        "b_rows": 800
+      },
+      {
+        "stage": "part_a_completed",
+        "elapsed_seconds": 0.6540653749834746,
+        "seconds": 0.613279877929017
+      },
+      {
+        "stage": "part_b_completed",
+        "elapsed_seconds": 0.8370038298889995,
+        "seconds": 0.18092758301645517
+      }
+    ]
+  },
+  "closure": {
+    "utc": "2026-10-13T16:19:04Z",
+    "wrapper_exit_code": 0,
+    "worker_original_identity_absent": true,
+    "worker": {
+      "pid": 715319,
+      "start": 185490755,
+      "pgid": 715318,
+      "sid": 715243,
+      "uid": 1000,
+      "nice": 10,
+      "script_sha256": "551e80dd18eb57f9fbb5b5b0b7602e958676b94dcedbee53f347ab55f6006b59"
+    },
+    "timeout": false,
+    "supervisor_command_returned_and_reaped": true
+  },
+  "scientific_result": false,
+  "target_replay_authorized": false
+}

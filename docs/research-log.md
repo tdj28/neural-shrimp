@@ -22163,3 +22163,9 @@ _commit `f8358cfbfa57`_
 - **Would surprise us:** Only runtime or memory exceeding this bounded synthetic profile; no scientific outcome is measured.
 
 _commit `73dbd5ec687a` (dirty worktree)_
+
+## 2026-10-13 16:24 UTC: Task8 synthetic full-size profile complete; no target access
+
+Privately frozen source d03f8f3c974b2d5d946706b320ac3993fd56ac3c, plan a7835860f336319ee8437c26bf6a0a7b1a9c57b2e1071a39fd57ff3dc8ab3e49: invented A64x4/2000 and B200x4/10000 completed in 0.839777512s (A0.613279878s/B0.180927583s), peak72936KiB. External120s watchdog returned/reaped exit0/no timeout; original worker715319/start185490755 absent. All17 retained artifacts and six exact Git blobs checked; manifest 5a4efaf1917ed32544bf4027be1cac2920d1e3fda4f843fb43a16d0c50a20c78. Source/closure/status in codex/huginn-independent-replay/synthetic-profile-001-receipt.json. No target inputs, models or producer analysis read/run. CPU lease released; actual replay remains unadmitted pending immutable retrieved archive/termination/producer outputs and reviewed driver/card.
+
+_commit `d03f8f3c974b` (dirty worktree)_
