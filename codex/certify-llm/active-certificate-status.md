@@ -1,6 +1,6 @@
 # Active exact-real Qwen certificate work
 
-13 October 2026, 10:20 UTC. **Campaign002 is running; no orbit certificate yet.** This is the assigned896-dimensional full-state soft-token inference map with all151,936 vocabulary entries. No training-cycle or task-performance claim follows.
+13 October 2026, 11:23 UTC. **Campaign002 is running; no orbit certificate yet.** This is the assigned896-dimensional full-state soft-token inference map with all151,936 vocabulary entries. No training-cycle or task-performance claim follows.
 
 ## Current owner and bounded active campaign
 
@@ -16,6 +16,14 @@ Inference retains task-owned lifecycle/Git ownership unless explicitly transferr
 Final exact source/private-remote/first-authority/resource admission passed at10:19:06UTC, with59,580,162,048bytes available and2,803,699,830,784bytes free disk; no owned model job was already running. At10:20:48UTC, all five live worker identities/limits/thread settings were independently checked, with35,342,938,112bytes MemAvailable. The state file saves at transitions; its stored19s elapsed/15.7GB peak was the last registration snapshot, not a fresh RSS measurement. The watchdog itself samples every2seconds.
 
 Immutable startup evidence: `/data2/neural-shrimp-data/codex/llm-p8-certificate/campaign002-startup-observations`, manifest **`5daa1fc394be20a72eb1284162e73e0b660042e4adaa62fd562108fb6b0d3de5`**. No partial numerical outcome was inspected. Monitor ownership/stage/failure metadata; wait for complete immutable receipts before mathematical audits. No automatic retry, changed radius or missing-column substitution is authorized.
+
+## Latest completed operational checkpoint
+
+At the11:23UTC checkpoint, **ten new campaign shards completed**, phase0 columns64..703, plus the separately audited original columns0..63 shard: **11 of112 operationally complete**, with101 still incomplete and five workers running. All ten original receipts/status/input/source-plan assignments passed the existing completed-metadata verifier:2,920 artifact hashes, exact sourceafdaa76f, common map/domain/backend/evaluator, complete64-column status, exit0/no timeout and controller-recorded termination. This is **operational completion only**; the ten new mathematical enclosures still require the final independent scientific audit. No array was decoded or replayed. Durations1532.066–1960.083s and maximum5,420,880KiB worker RSS remain within frozen limits.
+
+Immutable checkpoint `/data2/neural-shrimp-data/codex/llm-p8-certificate/campaign002-operational-progress-010`, manifest `d0504d27d0d5bf7a4679d0732723ed0c7456be1f2b3ef4846bae02b8d332c208`. Git compact: `certificates/llm-p8-derivative-campaign-002-progress-010.json`. Root independently found all completed launcher/worker birth identities absent (former groups were not independently rescanned at this checkpoint) and verified current healthy CPU1/nice10/18GiB workers with fresh progress and empty stderr, no stop or uncertainty.
+
+Current worker PID/start pairs at the saved snapshot: final-derivative-p0-c704-001 **515458/183683680**; final-derivative-p0-c768-001 **515781/183684321**; final-derivative-p0-c832-001 **516179/183684553**; final-derivative-p1-c000-001 **516504/183685294**; final-derivative-p1-c064-001 **516832/183685695**. These are observations, not permanently assigned PIDs; always re-read current `run/state.json` and birth identities before acting. Controller486164/start183333706 and tool session20078 remain the owner. No duplicate or additional campaign was launched.
 
 ## First shard complete; original campaign001 preserved
 
