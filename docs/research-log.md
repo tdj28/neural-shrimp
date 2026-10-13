@@ -20851,3 +20851,12 @@ _commit `f0630473b6e2` (dirty worktree)_
 Adapted after seeing the negative pre-specified result (pooled-dose training). tools/p1_lead_time.py fit on p1-h050 and tested on p1-h050s2, and fit on p1-h060 and tested on p1-h060s2 (300 bootstrap draws): incremental AUC of the dynamical features over the combined baseline -0.008, -0.011, -0.023, -0.033 (0.05; horizons 1, 2, 3, 5) and -0.026, -0.033, -0.028, -0.020 (0.06), CIs mostly including zero; the Markov forecast is now uninformative rather than anti-predictive (AUC 0.43-0.49); probe 0.47-0.55; rolling variance 0.52-0.64 (0.59-0.64 at horizons 1-2); axis 0.53-0.63; combined baseline 0.61-0.71. The negative result is robust to dose matching; the variance signal is the consistent dynamical quantity. Outputs llm-msm/p1-lead-time-dose050, -dose060.
 
 _commit `3c4f99a10e0d`_
+
+## 2026-10-13 01:45 UTC: run (exploratory)
+
+- **Question:** The second (high-temperature) doubling region of the 0.5B map: along log10 T = 0.0319 (T about 1.08), P2 '\n\nThe' -> P4 -> P8 -> a non-chaotic core with no period up to 32. Float64 flips: is it a period-doubling sequence, and are its finite-order ratios closer to 4.669 than the low-temperature crescent's (2.84, 2.86, 3.78), as the softmax-crossover hypothesis predicts at higher T? Or does the sequence end in a torus (a complex pair crossing)?
+- **Setup:** RunPod H100 (run C4), job set cascade, commit ae8d981b: tools/llm_feigenbaum.py cascade --device cuda float64, --log-temperature 0.0319 --alpha 0.0775 --free alpha --period 2 --next 0.0745 (direction: decreasing alpha), 6 flips, period-aware tolerance; the search stops with an error at a complex critical pair near -1 (not a flip)
+- **Output:** `../neural-shrimp-data/explore/llm-soft-loop/pod64/cascade/hiT-t0.0319`
+- **Would surprise us:** early ratios even lower than 2.8 (against the crossover hypothesis)
+
+_commit `2580543bdf79`_
