@@ -806,8 +806,12 @@ baselines. These values use labels corrected after a review found that the last 
 turn had been marked positive; with the faulty labels the increments had read three times larger. The probe's
 direction in the layer-18 state is nearly orthogonal to the steering direction (cosine $0.04$), so the warning is not
 simply more push along the hostility axis. Because these predictors were secondary, the result is exploratory.
-\inprogress{frozen confirmation: probe and baseline models fit on this study and applied unchanged to 1024 fresh
-dialogues (design pushed before the data).}
+A frozen confirmation (design and analysis pushed before the data, with the label correction added before any
+confirmation dialogue was read) fit both models on this study and applied them unchanged to 1024 fresh dialogues. The
+in-context state again adds warning for capture within three turns: AUC $0.656\to0.689$, $+0.033$ $[+0.018,+0.048]$
+(within one turn $+0.036$, within five $+0.037$; both doses separately positive). The warning in the model's own state
+is therefore real and reproducible, but small: at the training threshold for 10\,\% false positives it flags 29\,\% of
+upcoming captures against 28\,\% for the baselines. It is not a reliable detector by itself.
 \planned{a hazard model; longer holds to separate slow release from bistability; probe-timed counter-steering
 against constant prevention at matched dose; other openers and steering directions.}
 
