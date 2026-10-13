@@ -1,0 +1,406 @@
+{
+  "schema": "codex-llm-p8-planning-estimate-v1",
+  "certificate_passed": false,
+  "rigorous_enclosures": false,
+  "evidence": "Ordinary float64 estimates using existing authenticated preconditioner proposals. No target model evaluation or actual Jacobian enclosure.",
+  "source_commit": "95693c8cb73e6ed182f418f9e18c3bf4e69d1b26",
+  "attempt": "/data2/neural-shrimp-data/codex/llm-p8-certificate/proposal-budget-001",
+  "receipt_sha256": "16745bba2341309a50592f827bd764331ae01e5d1892e2f0897d8672b20417ee",
+  "artifact_hashes_checked": 63,
+  "source_blobs_checked": 57,
+  "elapsed_seconds": 3.3286484768614173,
+  "exit_code": 0,
+  "timed_out": false,
+  "status": {
+    "status": "proposal_budget_completed",
+    "certificate_passed": false,
+    "rigorous_enclosures": false,
+    "phase_pair_count": 64,
+    "phase_rows_completed": 8,
+    "estimates_sha256": "38886e8e4f8ec840fde1b4df1781cf59ba4f84a3a694a0cfed0c38edc5a0acf1",
+    "elapsed_seconds": 2.210669755935669,
+    "max_rss_kib": 686524
+  },
+  "input_plan_sha256": "b5f68f9573e0098f6557d0bd20fe4a8720cfca6b9126a7d9bfa0f4ad2ec690ce",
+  "preconditioner_sha256": "c853fceb10036ff6229b6435a01951eccc2e629c6d70bc967da8cde1fb008b43",
+  "phase_rows": [
+    {
+      "phase_index": 0,
+      "inverse_defect_constant": 3.0221396927105457e-15,
+      "epsilon_coefficient": 238.70305239188085,
+      "epsilon_threshold": 0.004189305457050832,
+      "threshold_error": null
+    },
+    {
+      "phase_index": 1,
+      "inverse_defect_constant": 7.80563601302258e-16,
+      "epsilon_coefficient": 428.7656118092464,
+      "epsilon_threshold": 0.002332276592286252,
+      "threshold_error": null
+    },
+    {
+      "phase_index": 2,
+      "inverse_defect_constant": 5.718535618048129e-16,
+      "epsilon_coefficient": 336.8600656820201,
+      "epsilon_threshold": 0.0029685917147090745,
+      "threshold_error": null
+    },
+    {
+      "phase_index": 3,
+      "inverse_defect_constant": 6.801491686226932e-16,
+      "epsilon_coefficient": 1009.9959626592182,
+      "epsilon_threshold": 0.0009901029677060287,
+      "threshold_error": null
+    },
+    {
+      "phase_index": 4,
+      "inverse_defect_constant": 3.6388667246675887e-16,
+      "epsilon_coefficient": 23828.53894641628,
+      "epsilon_threshold": 4.19664840655451e-05,
+      "threshold_error": null
+    },
+    {
+      "phase_index": 5,
+      "inverse_defect_constant": 1.4171965802360156e-15,
+      "epsilon_coefficient": 1232343.3992291784,
+      "epsilon_threshold": 8.114621303002808e-07,
+      "threshold_error": null
+    },
+    {
+      "phase_index": 6,
+      "inverse_defect_constant": 3.069119190767185e-15,
+      "epsilon_coefficient": 45470811.73241341,
+      "epsilon_threshold": 2.199212993787742e-08,
+      "threshold_error": null
+    },
+    {
+      "phase_index": 7,
+      "inverse_defect_constant": 1.4574609679078766e-15,
+      "epsilon_coefficient": 386013110.5409732,
+      "epsilon_threshold": 2.5905855855480174e-09,
+      "threshold_error": null
+    }
+  ],
+  "nominal_uniform_epsilon_threshold": 2.5905855855480174e-09,
+  "limiting_phase_indices": [
+    7
+  ],
+  "interpretation": "For equal nominal phase radii, the float planning formula suggests a common absolute induced-infinity error ||J_j(X_j)-A_j|| below this threshold might permit q<1. This is not a rigorous bound, not an entrywise error tolerance, and not a residual inclusion or attraction test.",
+  "raw_artifacts": [
+    {
+      "path": "manifest.json",
+      "bytes": 10630,
+      "sha256": "adff92ff4fae4dfcf7ee23995c98426213c93cffcbd575d0eb89f905c1497242"
+    },
+    {
+      "path": "run/estimates.json",
+      "bytes": 33550,
+      "sha256": "38886e8e4f8ec840fde1b4df1781cf59ba4f84a3a694a0cfed0c38edc5a0acf1"
+    },
+    {
+      "path": "run/inputs.json",
+      "bytes": 6641,
+      "sha256": "edca8de3fc8e18cc4b1051b496cb8dfa42dc393701403784fb4f8d6a10e83ae6"
+    },
+    {
+      "path": "run/status.json",
+      "bytes": 317,
+      "sha256": "df68f5675f7d91c9f211a66e8dc1224abf8dc58bfd5d5be4542d08c9aa9d8465"
+    },
+    {
+      "path": "source/codex/certify-llm/README.md",
+      "bytes": 9195,
+      "sha256": "9b1bd3f50eaa7cec7d75718cc7dc24dae37cb8cb0fb46f47d899be0ccf4358cf"
+    },
+    {
+      "path": "source/codex/certify-llm/acceleration-options.md",
+      "bytes": 8106,
+      "sha256": "88030bd532cc129e5ab9f5d6b500434799bf84f1c7d506dd17ddb30b899ceee5"
+    },
+    {
+      "path": "source/codex/certify-llm/affine-code-review.md",
+      "bytes": 7880,
+      "sha256": "b950ed2f2108091df4d737d6657b41045ef5f82fa04637c47e2de2252f57c7c6"
+    },
+    {
+      "path": "source/codex/certify-llm/ball_jet.py",
+      "bytes": 9871,
+      "sha256": "46b14d8bd65ed6c80174758daf37d00110cfa908813917bdb46c13749f999719"
+    },
+    {
+      "path": "source/codex/certify-llm/ball_linear.py",
+      "bytes": 9512,
+      "sha256": "5d54200f5880d818eabc97e7eed2f1cf02b83b617b39380bef38d49a7ac45ff2"
+    },
+    {
+      "path": "source/codex/certify-llm/ball_qwen.py",
+      "bytes": 14008,
+      "sha256": "fcc90849601984506adf26f651067734f9faef408c8f42dffe64bf5c68e98a80"
+    },
+    {
+      "path": "source/codex/certify-llm/box-derivative-001-plan.json",
+      "bytes": 2254,
+      "sha256": "d150e0efeaffe0fe8228b99071e9308130bdf21932a3e732c8a6ce125084c642"
+    },
+    {
+      "path": "source/codex/certify-llm/box_derivative_pilot.py",
+      "bytes": 22571,
+      "sha256": "ed969bbb85f6fe42f5f2329d1be56f76a6aea21cb4e911129be2b9b48c7da11e"
+    },
+    {
+      "path": "source/codex/certify-llm/boxed-pilot-design.md",
+      "bytes": 5709,
+      "sha256": "d26a5b76631caa8330ad7f94b345000c47570869e87fbe22c460ef159fd0a2c7"
+    },
+    {
+      "path": "source/codex/certify-llm/boxed-pilot-review.md",
+      "bytes": 4834,
+      "sha256": "81f69f334f4bc3a1a9210ad3064d70463c7a6cac3807757165d6e05761fa0022"
+    },
+    {
+      "path": "source/codex/certify-llm/boxed-results-review.md",
+      "bytes": 5638,
+      "sha256": "64d535a231edcc5935cf56990e235e47a5d8e5af46381af5b8c22312111cb0a8"
+    },
+    {
+      "path": "source/codex/certify-llm/cache_io.py",
+      "bytes": 6547,
+      "sha256": "f4e25b2134bef8a71c27d3156baf01be9d25c593d7b780f90a66b9c1141abdef"
+    },
+    {
+      "path": "source/codex/certify-llm/center-refine-001-plan.json",
+      "bytes": 1689,
+      "sha256": "8cca7c0f2018560a005e524f12f976766ca51f4ca14654f38e5bb400c686bc9c"
+    },
+    {
+      "path": "source/codex/certify-llm/center-refine-results-review.md",
+      "bytes": 4186,
+      "sha256": "97e407f67fcb6d5d72319c84782e45e19c1c4cce0b44971ced49a5a35285df52"
+    },
+    {
+      "path": "source/codex/certify-llm/center-resume-001-plan.json",
+      "bytes": 4155,
+      "sha256": "0c13f8ec9459314616107eb7871b0f82f066f51c6dec879dd8aa2907663c1204"
+    },
+    {
+      "path": "source/codex/certify-llm/center-seed-review.md",
+      "bytes": 6093,
+      "sha256": "30a2dc314b56cf08bce2b5598cde0535ab9585425b743c4ca44ca8a6e6fddcdf"
+    },
+    {
+      "path": "source/codex/certify-llm/center_refine.py",
+      "bytes": 20425,
+      "sha256": "f24f9cdecec243abd25671a684aec03b8b105288526ff7fa4f60a963af745b02"
+    },
+    {
+      "path": "source/codex/certify-llm/center_resume.py",
+      "bytes": 29277,
+      "sha256": "c686ded97e5559407ab12982aec778cdc0aaf94d75bcd0e24795334ec583eda3"
+    },
+    {
+      "path": "source/codex/certify-llm/center_seed.py",
+      "bytes": 13786,
+      "sha256": "87cf27a05999641995d441704cd7a1ec3ea5aa0d2c0d200b0c05662e584572e5"
+    },
+    {
+      "path": "source/codex/certify-llm/derivative-cache-review.md",
+      "bytes": 10060,
+      "sha256": "694c13748b3de399f01357e527c37e7d5ff473f6daf54c4f3e22675141d59292"
+    },
+    {
+      "path": "source/codex/certify-llm/gates-review.md",
+      "bytes": 7338,
+      "sha256": "d081a6237425c788aa5fbf2ac1525c4d04282c9a523c2338232af3a1e19b77b0"
+    },
+    {
+      "path": "source/codex/certify-llm/inverse-secant-review.md",
+      "bytes": 7000,
+      "sha256": "5673f60190fd87dbc1556a74299ff4468ea8113f534880938ef4f379d1f909a7"
+    },
+    {
+      "path": "source/codex/certify-llm/inverse_secant.py",
+      "bytes": 9738,
+      "sha256": "01065e31a70b7b7b0b394609e2afef78ea96669455a72fd4c17546b94d8d914b"
+    },
+    {
+      "path": "source/codex/certify-llm/label-readout-note.md",
+      "bytes": 2223,
+      "sha256": "825312bda48d3255bea61751851541143c5d80dfebd2aa8797fca4232f8d8376"
+    },
+    {
+      "path": "source/codex/certify-llm/launch.py",
+      "bytes": 5944,
+      "sha256": "02ecf57f7c51decaea59fd9b08a6faff86df9ba5c0a4342b3d963dc6e11921fb"
+    },
+    {
+      "path": "source/codex/certify-llm/map-code-review.md",
+      "bytes": 13628,
+      "sha256": "6fff8d8b5d17cd316b155a14523a030997b27b25b168d27d4da54d76b8be19a9"
+    },
+    {
+      "path": "source/codex/certify-llm/mixed-precision-domain.md",
+      "bytes": 3289,
+      "sha256": "0343aa0ec8b7795aac9a12fe3e74cfc1bcac46d105096d5540208556753ecf15"
+    },
+    {
+      "path": "source/codex/certify-llm/multiple-shooting-design.md",
+      "bytes": 9684,
+      "sha256": "7b2c824a8a382728d953342a758895d6e8c4e5e3a12dea8c8ca8976fad426444"
+    },
+    {
+      "path": "source/codex/certify-llm/next-methods.md",
+      "bytes": 7268,
+      "sha256": "bf1e9fb5ada25169a1ceeb2c2451f33d9abe7986e1c8a35c16144f430a1bb37e"
+    },
+    {
+      "path": "source/codex/certify-llm/next-setup-review.md",
+      "bytes": 4952,
+      "sha256": "27ac89bda02fbac03c5a3f9ada62a72d01da48f13566036e8a36f823fc027166"
+    },
+    {
+      "path": "source/codex/certify-llm/phase-domain-review.md",
+      "bytes": 4576,
+      "sha256": "1cba2562c7d90052c60fa01385d9d713399299e299a027ea68af3ce2809a51c8"
+    },
+    {
+      "path": "source/codex/certify-llm/phase_domain.py",
+      "bytes": 12083,
+      "sha256": "a3856de84393068788c4cf4dc42fa6015da45b7912b56db995cc6b12922f8d8d"
+    },
+    {
+      "path": "source/codex/certify-llm/pilot-results-review.md",
+      "bytes": 10987,
+      "sha256": "2d009499abad75f14f56d4584b4bca989d40782f9221e2f5fa2b6053c897704e"
+    },
+    {
+      "path": "source/codex/certify-llm/pilot.py",
+      "bytes": 9569,
+      "sha256": "354f166af4ac0d7afbe68d2b9c61ed17e54aa9f3e4ed2b448bef5e70545ccca1"
+    },
+    {
+      "path": "source/codex/certify-llm/point-003-review.md",
+      "bytes": 8220,
+      "sha256": "a71ee4f13966c64be23a686b145ceb0d708c06e42fa3722d29a59bc302ca404c"
+    },
+    {
+      "path": "source/codex/certify-llm/proof-design-review.md",
+      "bytes": 17979,
+      "sha256": "cabe361495a2d370081a8fb890f97966708f98601008c7a450caeacf16a5c5ef"
+    },
+    {
+      "path": "source/codex/certify-llm/proof_gates.py",
+      "bytes": 15368,
+      "sha256": "ee6678b7dd5153ef095fd73d5711fcfc605f7a228c92b1335a9541cc3d7b2c6a"
+    },
+    {
+      "path": "source/codex/certify-llm/proposal-budget-001-plan.json",
+      "bytes": 3179,
+      "sha256": "b5f68f9573e0098f6557d0bd20fe4a8720cfca6b9126a7d9bfa0f4ad2ec690ce"
+    },
+    {
+      "path": "source/codex/certify-llm/proposal-budget-review.md",
+      "bytes": 3744,
+      "sha256": "5f789e975a59f9a587b0608dac801f6f340f32715ca6f88f495091ad7cf5295b"
+    },
+    {
+      "path": "source/codex/certify-llm/proposal_budget.py",
+      "bytes": 14142,
+      "sha256": "63893ec0c91739b0cd5668e1257163110c1846a3ea0d40389dce92e246deb8c2"
+    },
+    {
+      "path": "source/codex/certify-llm/refinement-next-design.md",
+      "bytes": 7024,
+      "sha256": "90c785e2a144256df6ec9131d44915017c5a89b655dd361176d347f524c2f945"
+    },
+    {
+      "path": "source/codex/certify-llm/refinement-review.md",
+      "bytes": 6258,
+      "sha256": "d08e97da2609f6b6002502a7b2933de773f55f2cf96d6ec80da183efd00d7d96"
+    },
+    {
+      "path": "source/codex/certify-llm/resume-design.md",
+      "bytes": 7279,
+      "sha256": "508a1baeec31cb8c09e184d84738dfec306150bb46455e23bfed08715944f541"
+    },
+    {
+      "path": "source/codex/certify-llm/resume-review.md",
+      "bytes": 4618,
+      "sha256": "867b15fa859c82de542d576cbc168b17c089422e168a9da6c84f93f624ea29ed"
+    },
+    {
+      "path": "source/codex/certify-llm/shooting-gates-review.md",
+      "bytes": 8777,
+      "sha256": "e60e08a8e1a8d12a42d20f3f08ff17492133d04577f06529bfe96c2fe5a67d1a"
+    },
+    {
+      "path": "source/codex/certify-llm/shooting_correction.py",
+      "bytes": 3817,
+      "sha256": "06a711c7becd970bb135bc28555bf91dfd24bd52a7c224f5ea2d25647f8bac1e"
+    },
+    {
+      "path": "source/codex/certify-llm/shooting_gates.py",
+      "bytes": 16007,
+      "sha256": "9c967c0dcb9783df53f33c05eb897050f4e8971f66767abbc8a01a8b1b85cf1f"
+    },
+    {
+      "path": "source/codex/certify-llm/signed-pilot-001-plan.json",
+      "bytes": 989,
+      "sha256": "d054cd2ce68030fafabf1e660d438e0af83338a3156f2ebbbd4826ff7c7e64ca"
+    },
+    {
+      "path": "source/codex/certify-llm/signed_pilot.py",
+      "bytes": 8768,
+      "sha256": "8f43241dac3fd54586f25b2b94d8a417a59b60369b67c4cd86aba5fa5fba653c"
+    },
+    {
+      "path": "source/codex/certify-llm/streamed-derivative-001-plan.json",
+      "bytes": 5578,
+      "sha256": "04f56aa29bf71c94a21e3cc75acc9845bb20ec096760bf366b022a61a6d6a98f"
+    },
+    {
+      "path": "source/codex/certify-llm/streamed-head-review.md",
+      "bytes": 5159,
+      "sha256": "2dbdd4bd0ab2a8cdc7df0e65b26c88fb6c55abf025a84bfd8ec893395889e77c"
+    },
+    {
+      "path": "source/codex/certify-llm/streamed-pilot-design.md",
+      "bytes": 5400,
+      "sha256": "204afa42b13c76d531a2f3669b9d42e1ea4468f024c6c00ba64d919b49b47d34"
+    },
+    {
+      "path": "source/codex/certify-llm/streamed-pilot-review.md",
+      "bytes": 4405,
+      "sha256": "5c92ff7c2a2172a41c1d972c8e290f8a243634490465629a390a3a8852e8253c"
+    },
+    {
+      "path": "source/codex/certify-llm/streamed_head.py",
+      "bytes": 11108,
+      "sha256": "f6096528f5748392386e97e9a4722f5967aeb0ae24897aac1465d205fca4f24a"
+    },
+    {
+      "path": "source/codex/certify-llm/streamed_pilot.py",
+      "bytes": 19803,
+      "sha256": "3400b36477168ffbbc2ba9d922641e1627c18bd264d63f700ecff9f811de82fc"
+    },
+    {
+      "path": "source/codex/certify-llm/streaming-head-options.md",
+      "bytes": 5542,
+      "sha256": "3ea0c474e2ad0c163da52646005df57269fbae205cb382f0e9dbae6fc3f0cf43"
+    },
+    {
+      "path": "source/codex/crosscheck/qwen_map.py",
+      "bytes": 14540,
+      "sha256": "493a3d1d57fec227f5ba2e3f8f9cfcfdd02d22495d1d44e6449ede901310ae6e"
+    },
+    {
+      "path": "stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "stdout.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ]
+}
