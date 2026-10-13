@@ -63,7 +63,7 @@ def main():
         dest.write_bytes(data)
     script = 'fold_setup.py' if a.stage == 'setup' else 'passage.py'
     arguments = a.arguments[1:] if a.arguments and a.arguments[0] == '--' else a.arguments
-    command = [sys.executable, '-B', '-u', str(source/'codex/confirm-fold'/script), '--output', str(attempt/'run'), '--threads', str(a.threads), *arguments]
+    command = [sys.executable, '-I', '-B', '-u', str(source/'codex/confirm-fold'/script), '--output', str(attempt/'run'), '--threads', str(a.threads), *arguments]
     if a.stage == 'passage':
         command += ['--freeze', a.freeze, '--pushed-at', verified]
     manifest = dict(source_commit=head, remote_main=remote, remote_ancestry_verified_at=verified,
@@ -74,6 +74,9 @@ def main():
     env.update(OMP_NUM_THREADS=str(a.threads), MKL_NUM_THREADS=str(a.threads), OPENBLAS_NUM_THREADS='1',
                NUMEXPR_NUM_THREADS='1', VECLIB_MAXIMUM_THREADS='1', CUDA_VISIBLE_DEVICES='',
                PYTHONDONTWRITEBYTECODE='1', HF_HUB_OFFLINE='1', TASK5_SOURCE_COMMIT=head)
+    if a.stage == 'passage':
+        env['TASK5_PLAN_SHA256'] = sha(source/'codex/confirm-fold/design.json')
+        env['TASK5_PUSH_VERIFIED_AT'] = verified
     env.pop('PYTHONPATH', None)
     env.pop('PYTHONHOME', None)
     def limits():
