@@ -21787,3 +21787,9 @@ _commit `7b68fa646a88` (dirty worktree)_
 Job 11d (07:06-11:01 UTC, local RTX 2000 Ada, float32; relaxed-transient fallback 0.75, 0.5 when the native transient does not converge): fixed points and leading spectra (LM, SR, LR) for ARC-Challenge train questions 4-29 with the correct choice appended; with questions 0-3 of job 11c, 30 prompts, all with fixed points (residual below 1e-4 after the fallback where needed). Natively unstable (rho(1) > 1, stable relaxation interval ending below 1): 6 of 30, rho(1) = 1.009, 1.029, 1.061, 1.072, 1.124, 1.273 (questions 4, 6, 7, 8, 25, 27 and one more as listed in the data); the other 24 are stable up to lam = 1.020-1.149 (median 1.095). Huginn's native recurrence is thus past its own instability for about a fifth of these prompts, consistent with the latent orbits that Geiping et al. (2025, Section 7) report for some tokens of harder questions. Paper updated (6 of 30).
 
 _commit `7b68fa646a88` (dirty worktree)_
+
+## 2026-10-13 11:01 UTC: Correction to the previous note (11d tally)
+
+The six natively unstable prompts are exactly ARC train questions 4, 6, 7, 8, 25 and 27 (rho(1) 1.029, 1.061, 1.072, 1.273, 1.009, 1.124); the phrase 'and one more as listed in the data' in the previous note is wrong.
+
+_commit `c96c87a24565`_
