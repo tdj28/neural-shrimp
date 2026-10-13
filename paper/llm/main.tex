@@ -651,6 +651,25 @@ better than''.}
 Lyapunov exponent, period of the attractor reached from the fixed start, and next-token entropy at the last step.}
 \label{fig:qwen7b}
 \end{figure}
+
+\paragraph{A second model family.} OLMo-2-1124-7B-Instruct \cite{olmo2024olmo2} comes from another laboratory, with
+other data, training and code. Steered at layer 16 of 32, with concept vectors built exactly as for Qwen, it shows the
+same kind of organization (Figure~\ref{fig:olmo2}). In $64^2$ float64 maps, 6\,\% of cells are chaotic along the
+philosophy direction and 13\,\% along the hostility direction, in a band near $\log_{10}T=0.03$--$0.17$ that bends to
+lower temperatures under strong hostility steering ($\alpha>0.07$). Below the band the attractor is a fixed point or
+the 2-cycle ``!Hello''; inside it lie periodic windows of periods 4 to 31. Along the hostility direction the
+largest windows, of periods 8 to 12, are loops of $k$ laps of the 2-cycle ``!<|endoftext|>'' with a short excursion
+(``there is an''), so each lap adds two to the period, as each lap of ``!Yes'' does in the hostile cascade of
+Qwen2.5-0.5B (Section~\ref{sec:misalignment}). Whether a fold of that 2-cycle organizes them is not tested; these are
+coarse pixels, and no OLMo orbit has been continued.
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.92\linewidth]{fig-olmo2-maps.png}
+\caption{OLMo-2-1124-7B-Instruct soft-token maps, $64^2$ float64 cells each, steered at layer 16 along the
+philosophy direction (top) and the hostility direction (bottom): largest Lyapunov exponent (clipped) and period of
+the attractor reached from the fixed start (white: no period up to the maximum).}
+\label{fig:olmo2}
+\end{figure}
 \planned{scaling of $ab$ and of the window law with model size.}
 \begin{figure}[H]
 \centering
@@ -1047,8 +1066,8 @@ forms on such a model. We do not claim that ordinary sampled generation is chaot
 body have, numerically, the codimension-two organization of a shrimp: fold curves ending in nondegenerate cusps
 (quadratic coefficient through zero with nonzero slope, cubic coefficient nonzero) and flip curves inside. These are
 float64 computations validated by step-size and cross-implementation checks, not computer-assisted proofs.
-\paragraph{Limitations.} One model family, with detailed orbit studies at 0.5B and 1.5B and coarse maps and two
-float64 orbits at 7B; one prompt and one steering construction for the maps; a constructed one-token-window system;
+\paragraph{Limitations.} Detailed orbit studies in one model family (Qwen2.5, 0.5B and 1.5B), with coarse maps
+and two float64 orbits at 7B, and coarse maps only for a second family (OLMo-2 7B); one prompt and one steering construction for the maps; a constructed one-token-window system;
 numerical validation, cross-checks and prospectively frozen passage tests (including failed all-row criteria), but no
 computer-assisted proof yet. The Feigenbaum ratios are finite-order values that rise toward $\delta$ (the last is
 within 1\,\%); the limit itself is not computed. The behavioural study uses one
