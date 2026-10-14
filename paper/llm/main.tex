@@ -20,7 +20,7 @@
 
 \title{Ghosts, cusps and chaos:\\ bifurcation theory predicts the dynamics\\ of a language model fed its own output}
 \author{Authorship to be decided by the human researcher}
-\date{Private working draft, 13 October 2026}
+\date{Private working draft, 14 October 2026}
 
 \begin{document}
 \maketitle
@@ -33,21 +33,22 @@ computer-assisted proof is that of the period-8 orbit of Table~\ref{tab:orbits} 
 \begin{abstract}
 Feed a frozen language model its own expected next-token embedding, at a fixed position after a fixed prompt, and it
 can lock into a loop of text such as ``. This is there is a is a'' or wander with positive finite-horizon Lyapunov
-exponents. This exactly defined smooth map, with temperature and activation-steering strength as parameters, shows
-both regimes in Qwen2.5 models of 0.5B to 7B, OLMo-2 7B and Llama-3.1 8B. Chaos needs no steering, and equal-norm
-random directions produce it as readily as concept directions. Universality makes such structure plausible but
-cannot say whether a trained model realizes it, or whether bifurcation theory predicts its behaviour from the model's
-own derivatives. In the cases we tested, it does. Fold curves of two periodic windows end in numerically
-nondegenerate cusps whose local unfolding, frozen before solving, predicted the number of periodic orbits at all
-twelve tested parameter offsets and their stability at eleven. In the recurrent-depth model Huginn, fixed-point
-spectra predict each question's convergence under relaxation and where chain-of-thought accuracy breaks; a frozen
-test on held-out data confirms both. Fold normal forms predict bottleneck passage times without fitting: at two new
-folds, 23 of 24 prospectively frozen forecasts fell within one iterate, failing the all-row criterion by one row.
-Interval arithmetic proves that one period-8 orbit exists and is locally attracting, to our knowledge the first such
-proof for a full transformer language model. In sampled self-dialogue, hostility steering has a non-monotone dose
-response. Where it rises, in two model sizes, replacing classifier-flagged replies before they enter the context
-lowers the model's own hostility far more per unit of steering than constant prevention; past the peak,
-counter-steering backfires. The constructed map is not ordinary autoregressive generation.
+exponents. This smooth map, with temperature and steering strength as parameters, shows both regimes
+in Qwen2.5 (0.5B to 7B), OLMo-2 7B and Llama-3.1 8B. Its derivative factorizes into the inverse temperature, an
+embedding covariance under the model's own next-token distribution, and the network's Jacobian. With tied embeddings
+and no network it would be a modern Hopfield update, which cannot cycle; the factorization confines chaos to
+intermediate temperatures, as sweeps of four models show. Chaos needs no steering in these dense models, and
+equal-norm random directions produce it as readily as concept directions. Applied to the model's own derivatives,
+bifurcation theory predicts its behaviour in the cases we tested. Near numerically nondegenerate cusps of two periodic
+windows, local unfoldings frozen before solving predicted the number of periodic orbits at all twelve tested offsets
+and their stability at eleven. Fold normal forms predict bottleneck passage
+times without fitting: at two new folds, 23 of 24 prospectively frozen forecasts fell within one iterate, failing the
+all-row criterion by one row. In the recurrent-depth model Huginn, fixed-point spectra predict where chain-of-thought
+accuracy breaks, confirmed on held-out data. Interval arithmetic proves that one period-8 orbit exists and is locally
+attracting, to our knowledge the first such proof for a transformer language model. In sampled self-dialogue,
+hostility steering has a non-monotone dose response; keeping flagged replies out of the context controls hostility at
+a fraction of the steering dose, and counter-steering can backfire. The map is not ordinary autoregressive
+generation.
 \end{abstract}
 
 \section{Introduction}
@@ -88,7 +89,10 @@ dissipative two-parameter maps \cite{feigenbaum1978quantitative,gallas1993struct
 structure can occur. They do not say whether a trained language model realizes it, where in its parameter space,
 with which texts, or whether the quantitative predictions of bifurcation theory hold for it, so that derivatives
 computed from the model predict its behaviour before that behaviour is measured. The models we studied do realize
-it, and in the cases we tested the predictions hold. Fold normal forms predict how long trajectories linger in the ghost of a vanished orbit, cusp unfoldings predict how
+it, and in the cases we tested the predictions hold. We also show where the chaos comes from (Section~\ref{sec:theory}). The loop's
+derivative factorizes into the inverse temperature, the covariance of token embeddings under the model's own
+next-token distribution, and the network's Jacobian. The network turns a Hopfield retrieval, which cannot cycle, into
+a map that can, and the factorization confines chaos to intermediate temperatures. Fold normal forms predict how long trajectories linger in the ghost of a vanished orbit, cusp unfoldings predict how
 many periodic orbits exist near a cusp and which of them are stable, and the fixed-point spectra of a recurrent-depth
 model predict its response to relaxation and the onset of task failure on held-out data. Ordinary sampled generation
 with a growing context is a different system. Section~\ref{sec:bridge} measures how much of the mechanism survives
@@ -96,6 +100,13 @@ sampling, and Section~\ref{sec:misalignment} studies sampled dialogue directly.
 
 \paragraph{Contributions.}
 \begin{enumerate}
+\item \emph{The loop's derivative shows where chaos can occur.} The derivative of the soft-token map factorizes into
+  the inverse temperature, the covariance of token embeddings under the model's own next-token distribution, and the
+  network's Jacobian. Without the network, the map would be a modern Hopfield update, which cannot cycle. The
+  factorization rules out chaos at low and at high temperature, as sweeps of four models and a high-temperature sweep
+  confirm, and nothing in it depends on what a steering direction means, consistent with random directions steering
+  into chaos as readily as concept directions. Along a period-8 orbit every step expands while the cycle contracts:
+  stability belongs to the loop, not to any step (Section~\ref{sec:theory}).
 \item \emph{A fold's normal form predicts how long the model lingers near a vanished orbit.} The 2-cycle ``is it''
   dies in a fold, and the fold's normal form, computed from derivatives, predicts bottleneck passage times without
   fitting. We tested it prospectively at two new folds: 23 of 24 forecasts fell within one iterate, and the all-row
@@ -130,8 +141,9 @@ sampling, and Section~\ref{sec:misalignment} studies sampled dialogue directly.
   (Section~\ref{sec:adding}), shrimp-like windows (Section~\ref{sec:curves}), and a doubling cascade with superstable
   points through period 384 and finite-order Feigenbaum ratios (Section~\ref{sec:cascade}). The same organization
   appears in Qwen2.5-1.5B and 7B, OLMo-2 7B, Llama-3.1 8B (with sparse-autoencoder readouts) and a second checkpoint of
-  the 0.5B architecture, which shares the organization but not the attractors (Section~\ref{sec:scale}). Chaos needs
-  no steering, and norm-matched random directions produce it as readily as concept directions
+  the 0.5B architecture, which shares the organization but not the attractors (Section~\ref{sec:scale}). Our one
+  mixture-of-experts model, Qwen3.5-35B-A3B, is the exception: its unsteered map contracts everywhere we tested.
+  Chaos needs no steering in the dense models, and norm-matched random directions produce it as readily as concept directions
   (Section~\ref{sec:discussion}). A bridge to sampled decoding measures what survives sampling
   (Section~\ref{sec:bridge}).
 \end{enumerate}
@@ -146,8 +158,11 @@ concern output statistics; they are not bifurcation analyses of a defined map. R
 decoding \cite{holtzman2019degeneration,xu2022loop}, successive paraphrasing converges to attractor cycles
 \cite{wang2025attractor}, and multi-turn conversations between models settle into attractor states
 \cite{ko2026attractor}. These attractors are behavioural: they are observed in generated text rather than computed as
-invariant sets of a defined map. Attractors and bifurcation diagrams have been studied in recurrent language models
-\cite{ribeiro2020attractors}. Equilibrium, looped and recurrent-depth models iterate a block to a fixed point or for
+invariant sets of a defined map. Feeding a model its own output during training degrades it over generations
+\cite{shumailov2024collapse}; we study the inference-time loop of a model with fixed weights. The attractors of
+recurrent networks have been related to the difficulty of training them \cite{ribeiro2020attractors}, and fixed points
+with their linearizations have long been used to reverse-engineer trained recurrent networks
+\cite{sussillo2013opening,maheswaranathan2019reverse}. Equilibrium, looped and recurrent-depth models iterate a block to a fixed point or for
 many steps, and their stability has been analysed through Jacobians and fixed points
 \cite{bai2019deq,bai2021stabilizing,geiping2025recurrent,zhu2025ouro,tomihari2025recurrent,yang2026stars,luo2026prediction,prairie2026parcae,buehlmaier2026layernorm,labovich2026stability,movahedi2026fixedpoint};
 that analysis concerns fixed points. The closest precedent is a derivative-based fold analysis of a small task-trained
@@ -206,6 +221,77 @@ step. That is enough for phase maps (245 of 256 test cells agree with float64) b
 maps: one-step float32 Jacobian-vector products are accurate to $5\times10^{-5}$, yet the 8-step monodromy of a
 period-8 orbit is off by 3\%. All orbits, multipliers and test functions below are therefore computed in float64.
 
+\section{Why the loop can be chaotic}
+\label{sec:theory}
+The soft-token map has a simple derivative. With $p=\operatorname{softmax}(z/T)$,
+\begin{equation}
+DF(x)=\frac{1}{T}\,E^{\top}\bigl(\operatorname{diag}p-pp^{\top}\bigr)J_z(x).
+\end{equation}
+Qwen2.5-0.5B ties its output matrix to the input embedding, so $z=E\tilde h(x)$, where $\tilde h$ is the final
+normalized hidden state, and the derivative factorizes:
+\begin{equation}
+DF(x)=\frac{1}{T}\,\Sigma_p\,J_{\tilde h}(x),\qquad
+\Sigma_p=E^{\top}\bigl(\operatorname{diag}p-pp^{\top}\bigr)E=\operatorname{Cov}_{t\sim p}(e_t).
+\label{eq:gain}
+\end{equation}
+The derivative of the loop is the covariance of the token embeddings under the model's own next-token distribution,
+amplified by the inverse temperature and composed with the derivative of the network. At a state of the period-8
+orbit of Table~\ref{tab:orbits}, \eqref{eq:gain} agrees with forward-mode derivatives of the full map to a relative
+error of at most $1.3\times10^{-13}$ over eight random directions (\texttt{tools/softmax\_gain.py}). Without tied embeddings, as in the 7B and 8B models, $\Sigma_p$ becomes the cross-covariance of input
+and output embeddings under $p$; the temperature limits below do not change.
+
+\paragraph{A Hopfield network with a transformer inside.} If the network passed its input straight through,
+$\tilde h(x)=x$, the map would be $F(x)=E^{\top}\operatorname{softmax}(Ex/T)$. This is exactly the update rule of a
+modern Hopfield network whose stored patterns are the token embeddings, at inverse temperature $\beta=1/T$
+\cite{ramsauer2020hopfield}. That update lowers an energy function at every step and converges to fixed points.
+In \eqref{eq:gain} it is the case $J_{\tilde h}=I$, where $DF=\Sigma_p/T$ is symmetric and positive semidefinite.
+More generally, if $DF$ were symmetric and positive semidefinite everywhere, $F$ would be the gradient of a convex
+function, and the same energy argument would exclude every periodic orbit other than fixed points, and chaos with
+them. Every cycle and every chaotic cell in this paper therefore depends on the network factor $J_{\tilde h}$ breaking
+that structure. Attention has itself been read as a Hopfield retrieval \cite{ramsauer2020hopfield}; in the soft-token
+map the retrieval closes a loop around the whole network.
+
+\paragraph{Chaos needs intermediate temperatures.} The largest Lyapunov exponent of an orbit cannot exceed the orbit
+average of $\log\|DF\|$, so chaos needs $\|DF\|>1$ on a substantial part of the attractor. Both ends of the
+temperature axis prevent this. As $T\to0$, $p$ becomes one-hot except near ties between the two leading tokens; the
+gain $\|\Sigma_p\|/T$ decays like $e^{-\Delta/T}/T$, where $\Delta$ is the gap between the two largest logits, and $F$
+tends to the piecewise-constant greedy map, every orbit of which is eventually periodic (Section~\ref{sec:bridge}).
+As $T\to\infty$, $p$ tends to the uniform distribution and $\|\Sigma_p\|$ stays bounded, while $J_{\tilde h}$ is
+bounded on the convex hull of the embeddings, which contains every soft token. For large enough $T$, $F$ is therefore
+a contraction with a single attracting fixed point, which tends to the mean embedding. Chaos thus needs temperatures
+at which the next-token distribution is spread enough to make $\Sigma_p$ large while $1/T$ still amplifies it. The
+unsteered sweeps agree (Figure~\ref{fig:alpha0}). In all four models the chaotic temperatures lie in one band, interleaved with
+periodic windows, and every band lies between $\log_{10}T=-0.20$ and $0.28$. Below the bands, all 1547 temperatures swept have negative
+exponents, and all but five have a detected period; above them, up to the end of the sweeps at $\log_{10}T=0.3$, the
+orbits are periodic again, fixed points among them. A further sweep of the unsteered 0.5B map from
+$\log_{10}T=0.3$ to $1.5$ finds an attracting fixed point at all 25 temperatures. Its entropy approaches $\log V$
+(11.928 against 11.931 nats at $\log_{10}T=1.5$), and its exponent falls steadily, by 2.14 per decade of temperature
+at the top of the range, toward the slope $-\ln10\approx-2.30$ expected once $p$ is uniform.
+
+\paragraph{Stability belongs to the loop, not to the step.} The gain condition is necessary, not sufficient. Along
+the period-8 orbit of Table~\ref{tab:orbits}, the largest singular value of $DF$ lies between 1.2 and 21 at every
+step, so every step expands some direction, and no step is close to rank one: the second singular value is at least
+0.15 of the first, and the second eigenvalue of $\Sigma_p$ at least 0.24 of the first. Yet the Jacobian of the whole
+cycle, the product of the eight step Jacobians, has norm 0.19, against $1.1\times10^{7}$ for the product of the step
+norms, and its eigenvalues reproduce the multipliers of Table~\ref{tab:orbits} ($0.01104$ and $2.96\times10^{-7}$).
+Its second singular value is $4\times10^{-5}$ of its first. The expansion of each step is undone by the steps that
+follow, and the effective one-dimensionality of the stripe orbits is a property of the composed cycle, not of any
+single step or of the rank of $\Sigma_p$. Stability cannot be read from the steps; it has to be computed from the
+loop.
+
+\paragraph{Steering acts on the gain, not on meaning.} Steering enters both factors of \eqref{eq:gain}: it moves the
+logits, and with them $\Sigma_p$, and it moves the hidden states, and with them $J_{\tilde h}$. Nothing in this
+mechanism depends on what a direction means. This is consistent with the controls of Section~\ref{sec:discussion},
+in which norm-matched random directions produce chaos as readily as concept directions. What a direction does select
+is which tokens dominate $p$, and therefore what the attractors write.
+
+\paragraph{Contraction and expansion in the network.} Analyses of deep attention identify contracting tendencies:
+pure self-attention collapses token representations toward a common vector with depth \cite{dong2021attention}, and
+idealized attention dynamics form clusters \cite{geshkovski2023emergence}. Residual connections and MLPs counteract
+the collapse \cite{dong2021attention}. Which tendency wins along an orbit is a property of the trained weights that
+only computation settles. In every dense model we mapped, both outcomes occur: the same map contracts onto cycles in some
+regions of its parameter plane and expands in others.
+
 \section{Methods}
 \label{sec:methods}
 \paragraph{Phase maps.} Each cell of a phase map is one parameter pair. Unless stated otherwise, we discard 300
@@ -213,7 +299,9 @@ transient steps and measure over the next 300. The largest Lyapunov exponent com
 trajectory at offset $10^{-6}$. The period is the smallest $q\le32$ (48 in the later zooms) with return distance below
 $10^{-8}$, and the attractor is identified by its leading-token loop, up to rotation. We call a cell chaotic when this
 finite-horizon exponent exceeds $10^{-3}$ and no period is found; the label is a finite-horizon diagnostic, not a
-proof of chaos. A $256^2$ map takes about 100 minutes on one H100 GPU in float64. Every cell starts from the same
+proof of chaos. Panels coloured by period or attractor text follow an older drawing convention: black marks every
+cell whose exponent exceeds $0.005$, and light grey the other cells without a period. The drawn black area differs
+from the chaotic count in at most $0.42\,\%$ of a map's cells. A $256^2$ map takes about 100 minutes on one H100 GPU in float64. Every cell starts from the same
 state, so where attractors coexist, a map shows the one whose basin contains that state. Labels are text, not
 dynamical identities: one continuous orbit changes its label where two tokens tie for the maximum. We therefore call
 two labelled regions different attractors only when the contraction rate jumps between them or when float64 orbits of
@@ -343,6 +431,29 @@ X'' pair to the text. The 2-cycle ``is it'' itself has multipliers $-0.2706$ and
 $(\log_{10}T,\alpha)=(-0.17263,0.061579)$. The period-2 and period-8 orbits were also reproduced by an independent
 implementation, and the period-8 orbit is certified by a computer-assisted proof (Section~\ref{sec:evidence}).}
 \label{tab:orbits}
+\end{table}
+Table~\ref{tab:transcripts} shows what the map writes: two of these loops, cycle by cycle, next to chaotic cells
+between the stripes. The chaotic cells reuse the phrases of the neighbouring loops but do not settle into a fixed
+order.
+\begin{table}[H]
+\centering\small
+\begin{tabular}{@{}l l r p{0.6\linewidth}@{}}
+\toprule
+$\alpha$ & regime & $H$ & leading token at 40 consecutive steps \\
+\midrule
+$0.071674$ & period 8 & 1.9 & \texttt{\ is\ a\ is\ a.\ This\ is\ there\,$\mid$\,\ is\ a\ is\ a.\ This\ is\ there\,$\mid$\,\ is\ a\ is\ a.\ This\ is\ there\,$\mid$\,\ is\ a\ is\ a.\ This\ is\ there\,$\mid$\,\ is\ a\ is\ a.\ This\ is\ there} \\
+$0.072940$ & chaotic ($\lambda=0.13$) & 2.4 & \texttt{\ a\ is\ a.\ This\ is\ there\ is\ a\ is$\hookleftarrow$The\ is\ there\ is\ a\ is$\hookleftarrow$$\hookleftarrow$The\ is$\hookleftarrow$$\hookleftarrow$The\ is$\hookleftarrow$$\hookleftarrow$The\ is\ a\ is\ a.\ This\ is\ there\ is\ a\ is$\hookleftarrow$The\ is\ there} \\
+\midrule
+$0.067766$ & period 10 & 1.8 & \texttt{\ is\ a.\ This\ is\ there\ is\ it\ is\ a\,$\mid$\,\ is\ a.\ This\ is\ there\ is\ it\ is\ a\,$\mid$\,\ is\ a.\ This\ is\ there\ is\ it\ is\ a\,$\mid$\,\ is\ a.\ This\ is\ there\ is\ it\ is\ a} \\
+$0.069060$ & chaotic ($\lambda=0.20$) & 2.4 & \texttt{.\ -\ certainly$\hookleftarrow$$\hookleftarrow$The\ is\ there\ is\ it\ is\ a.$\hookleftarrow$$\hookleftarrow$The\ is\ a\ is\ a.\ This\ is\ there\ is\ it\ is\ a\ is$\hookleftarrow$$\hookleftarrow$The\ existence\ isThe\ is\ it\ is\ it\ is\ a.\ This} \\
+\bottomrule
+\end{tabular}
+\caption{What the attractors write. Qwen2.5-0.5B-Instruct soft-token map steered along philosophy at layer 12, at
+$\log_{10}T=-0.115$: the leading token at 40 consecutive steps after 600 transient steps, for the period-8 and
+period-10 loops of Table~\ref{tab:orbits} (bars mark the start of each cycle) and a chaotic cell beside each.
+$\lambda$: largest exponent over 2000 steps after 1000 transient steps, the same to two decimals at twin offsets
+$10^{-6}$ and $10^{-9}$. $H$: mean entropy of the next-token distribution in nats. $\hookleftarrow$: line break.}
+\label{tab:transcripts}
 \end{table}
 
 \section{Mechanism: a saddle-node bottleneck}
@@ -532,11 +643,14 @@ $0.1$ and $0.7\,\%$). Numerically validated, not certified.}
 \end{table}
 \begin{figure}[H]
 \centering
-\includegraphics[width=0.62\linewidth]{fig-zoom-z3-curves.png}
+\includegraphics[width=0.8\linewidth]{fig-zoom-z3-curves.png}
 \caption{The period-6 window of the Qwen2.5-0.5B-Instruct map (philosophy direction, layer 12) with its float64
-fold curves (cyan, long dashes), flip curve (magenta, short dashes) and the two normal-form-tested cusps (yellow
-circles), drawn over the $256^2$ map of Figure~\ref{fig:stripes} (whose data end at $\log_{10}T=-0.04$). \planned{the lower ends of the fold curves, which approach each other near
-$(0.0753,-0.089)$.}}
+fold curves (cyan), flip curve (magenta, dotted) and the two normal-form-tested cusps (yellow circles). The background
+is a float32 phase map of $480\times400$ cells (largest exponent from 300 steps after 300 transient steps; chaotic
+cells coloured by the exponent, periodic cells in grey by how strongly they contract). Where it overlaps the float64
+map of Figure~\ref{fig:stripes}, 95\,\% of cells carry the same chaotic or periodic label at the nearest grid point. Some fold branches were continued from two starting points
+and overlap. Continuation of the lower branches stopped after 60 points near $(0.0753,-0.089)$, where they approach
+each other; how they join there is not resolved.}
 \label{fig:z3curves}
 \end{figure}
 
@@ -701,7 +815,10 @@ tokens interpolates between the two. For every $K\ge2$ the loops leave the one-t
 collapses to the level of the growing context between $K=16$ and $32$; steered, the share of runs whose loop equals
 the growing-context loop rises from 0 at $K=1$ to 58\,\% at $K=64$. The soft-token map's low-temperature attractors
 are therefore those of decoding with a one-token memory. Which loop ordinary decoding enters depends on the context
-it keeps, but the tendency of steering to drive decoding into loops is shared.
+it keeps, but the tendency of steering to drive decoding into loops is shared. In ordinary decoding, repetition is
+known to reinforce itself \cite{holtzman2019degeneration,xu2022loop,fu2021repetition}, and induction heads, which copy
+earlier context \cite{olsson2022induction}, are one mechanism by which a longer context can favour loops that repeat
+earlier text.
 \begin{table}[H]
 \centering\small
 \begin{tabular}{rrrrr}
@@ -874,6 +991,22 @@ Figure~\ref{fig:teaser}) and attractor texts (right, as Figure~\ref{fig:cross512
 touch without a gap; as explained in Section~\ref{sec:methods}, such boundaries may be label switches of one orbit.}
 \label{fig:qwen15}
 \end{figure}
+
+\paragraph{A mixture-of-experts model.} Qwen3.5-35B-A3B differs from the dense models in two ways. Thirty of its 40
+layers use linear (Gated DeltaNet) attention, with gated full attention in every fourth layer, and each layer routes
+a token to 8 of 256 experts plus a shared expert, so that about 3B of its 35B parameters are active. Hugging Face
+computes several parts of this architecture in float32 even when the model is cast to float64 (the normalizations,
+the delta-rule recurrences, the rotary tables and the router softmax), and some tensors are stored in float32; we
+patch these paths, restore the stored tensors exactly, and disable the thinking block that the default chat template
+opens (a first run with the block open is kept in the research log). Steered at layer 20, the map behaves unlike
+those of the dense models. Unsteered, 128 temperatures over $\log_{10}T\in[-1,0.3]$ give no positive exponent (largest
+$-0.265$): periodic loops at all but 15 temperatures (``!Hello'' with period 2 at 92 of them, other periods up to 52),
+and the remaining 15, above $\log_{10}T\approx0.1$, contract without a detected period. Along philosophy, none of 1024
+cells is chaotic (largest exponent $-0.112$). Along hostility, 52 of 1024 cells ($5.1\,\%$) have a positive exponent
+and no period, against $28\,\%$ for Llama-3.1 8B on the same plane. Routing is discontinuous: a twin trajectory that
+crosses a routing boundary jumps, which can inflate a finite-difference exponent, so we call these cells irregular
+rather than chaotic. Whether the contraction comes from the experts or from the Qwen3.5 architecture would take the
+dense Qwen3.5-9B as a control, which we have not run.
 
 \section{A second system: recurrent depth}
 \label{sec:huginn}
@@ -1367,7 +1500,8 @@ sharply in the large-network limit, and finite networks pass through limit cycle
 \cite{sompolinsky1988chaos} (see also \cite{kadmon2015transition}). External input can suppress that chaos
 \cite{rajan2010stimulus}, and deep networks at initialization show an order-to-chaos transition in signal propagation
 \cite{poole2016exponential,schoenholz2017deep}. In our map, temperature plays the role of an inverse gain and the
-steering vector that of an input. Periodic windows, shrimp-shaped domains with their cusps and spirals, and doubling
+steering vector that of an input; Section~\ref{sec:theory} makes the analogy exact, with the softmax derivative
+$(\operatorname{diag}p-pp^{\top})/T$ in the place of the slope of the transfer function. Periodic windows, shrimp-shaped domains with their cusps and spirals, and doubling
 cascades with Feigenbaum scaling are universal in dissipative two-parameter systems
 \cite{feigenbaum1978quantitative,gallas1993structure,bonatto2008periodicity,vitolo2011hubs,facanha2013endoskeletons}
 and are seen in experiments \cite{stoop2010real}, and intermittency near folds is classical
@@ -1476,6 +1610,47 @@ periodic orbits, and the dose at which they appear is a boundary that can be map
 deterministic map is where such sets can be defined precisely and computed numerically. Whether its boundaries
 predict boundaries of sampled behaviour is open. The bridge of Section~\ref{sec:bridge} shows that sampling noise
 shortens the laminar phases of the bottleneck, by an amount that depends on how many samples are averaged.
+
+\paragraph{What this suggests for interpretability and alignment.} Our results come from small open models and a
+constructed loop, but they suggest four things about models whose outputs feed back into their inputs, as in
+self-dialogue, agent loops and pipelines of model calls. First, where the loop is chaotic, a perturbation of
+$10^{-6}$ grows to order one within roughly 20 to 50 steps (the largest unsteered exponents of the 7B and 8B
+models are 0.30 to 0.74 per step). Even a complete account of single forward passes then predicts a long trajectory
+only if the state is known far more precisely than any interpretation supplies. Step-level explanations do not
+compose into predictions of the loop; even step Jacobians mislead, since every step of the period-8 orbit expands
+while the cycle contracts (Section~\ref{sec:theory}). What remains predictable are the invariant sets, their
+statistics and the boundaries between them. This extends the analysis of trained recurrent networks through their
+fixed points \cite{sussillo2013opening,maheswaranathan2019reverse} to the periodic orbits, chaos and bifurcations of a
+pretrained transformer. Second, feature dictionaries say which features an attractor occupies, but the boundaries
+between attractors, which decide what a small change does, are properties of the map's derivatives. In our controls,
+sparse-autoencoder feature directions drove the map into chaos no differently from random directions, and the
+mechanism of Section~\ref{sec:theory} explains why: steering acts through the gain, whatever the direction means.
+Third, when a behaviour sustains itself through a loop, acting on the loop can be cheaper than pushing against the
+behaviour. In sampled dialogue, the most dose-efficient control we found kept flagged replies out of the context,
+while counter-steering against the activations was less efficient and, in the larger model, backfired past the
+peak of the dose response (Section~\ref{sec:misalignment}). Fourth, conclusions drawn at one operating point need not transfer: which loop a
+model enters depends on how much context it keeps (Table~\ref{tab:memory}), on the path by which a boundary is
+approached, and on the sampling noise (Section~\ref{sec:bridge}). Treating a looped model as a dynamical system, with
+regimes and boundaries to be mapped, rather than as a function to be evaluated point by point, seems to us the
+appropriate stance for both interpretability and safety evaluation.
+
+\paragraph{Which findings might reach frontier models.} Today's frontier systems include closed models such as
+GPT-6 Astra and Claude Opus 5.5 and open-weight mixture-of-experts models such as the GLM-5 family. Some of our findings rest only on structure
+that every softmax-readout language model shares and should carry over: the factorization of the loop's derivative
+\eqref{eq:gain}, the absence of chaos in the limits of low and high temperature, the reduction of zero-temperature
+attractors to greedy cycles of whatever memory the loop keeps, and the role of a steering coefficient as a
+bifurcation parameter. Others belong to particular weights and will not carry over as such: the attractor texts, the
+positions of windows, folds and cusps, and every number we report; a second checkpoint of the same architecture
+already has different attractors (Section~\ref{sec:scale}). Whether frontier models show chaos at all is open. In the
+dense models we swept, the unsteered chaotic band was narrow at 0.5B parameters and broad at 7 and 8B, but our one
+mixture-of-experts model, Qwen3.5-35B-A3B, contracted everywhere we tested without steering and showed irregular
+cells only under hostility steering (Section~\ref{sec:scale}). Reasoning models open a thinking block that changes the
+prefix, post-training can remove some attractors and create others, and deployed inference samples tokens, in low
+precision, over long contexts; our bridge results show that sampling shortens laminar phases and that a longer
+context changes which loops are entered.
+Closed models permit none of these computations: the map needs the input embedding matrix, full next-token
+distributions and a way to feed a vector in place of a token, and its analysis needs derivatives. For closed models
+the method and the questions transfer, not the numbers.
 
 
 \section{Evidence and reproducibility}

@@ -1,6 +1,11 @@
 % References for the LLM-dynamics draft. Every entry was checked on 12 October 2026 against its primary record
-% (Crossref for DOIs, the arXiv API for preprints); venues of arXiv preprints are given only where the record
-% shows them.
+% (Crossref for DOIs, the arXiv API for preprints).
+% Checked again on 13 October 2026 against arXiv abstract pages, Crossref, OpenReview and the NeurIPS, ICLR, PMLR
+% and ACL proceedings pages. Where a peer-reviewed version exists it is cited, with the arXiv ID kept in the note.
+% Preprints carry howpublished and url, because unsrtnat does not print eprint fields.
+% Author lists: all authors when there are eight or fewer, otherwise the first three and "others".
+% NeurIPS 2025 (volume 38) page ranges follow the Crossref record of each DOI (Curran Associates); the NeurIPS
+% proceedings website currently lists different page numbers for the same papers.
 
 @article{pomeau1980intermittent,
   author  = {Pomeau, Yves and Manneville, Paul},
@@ -18,16 +23,21 @@
   title   = {Structure of the parameter space of the {H}{\'e}non map},
   journal = {Physical Review Letters},
   volume  = {70},
+  number  = {18},
   pages   = {2714--2717},
   year    = {1993},
   doi     = {10.1103/PhysRevLett.70.2714}
 }
 
 @article{facanha2013endoskeletons,
-  author = {Fa{\c{c}}anha, Wilson and Oldeman, Bart and Glass, Leon},
-  title = {Bifurcation structures in two-dimensional maps: The endoskeletons of shrimps},
-  journal = {Physics Letters A}, volume = {377}, number = {18},
-  pages = {1264--1268}, year = {2013}, doi = {10.1016/j.physleta.2013.03.025}
+  author  = {Fa{\c{c}}anha, Wilson and Oldeman, Bart and Glass, Leon},
+  title   = {Bifurcation structures in two-dimensional maps: The endoskeletons of shrimps},
+  journal = {Physics Letters A},
+  volume  = {377},
+  number  = {18},
+  pages   = {1264--1268},
+  year    = {2013},
+  doi     = {10.1016/j.physleta.2013.03.025}
 }
 
 @article{vitolo2011hubs,
@@ -46,6 +56,7 @@
   title   = {Shrimp hubs in the {H}indmarsh--{R}ose model},
   journal = {Chaos: An Interdisciplinary Journal of Nonlinear Science},
   volume  = {35},
+  number  = {2},
   pages   = {023148},
   year    = {2025},
   doi     = {10.1063/5.0239268}
@@ -56,6 +67,7 @@
   title     = {Elements of Applied Bifurcation Theory},
   series    = {Applied Mathematical Sciences},
   publisher = {Springer},
+  address   = {Cham},
   year      = {2023},
   doi       = {10.1007/978-3-031-22007-4}
 }
@@ -78,27 +90,37 @@
   doi     = {10.1016/j.sbi.2014.04.002}
 }
 
-@misc{zeng2025ponderlm,
+@inproceedings{zeng2025ponderlm,
   author        = {Zeng, Boyi and Song, Shixiang and Huang, Siyuan and others},
   title         = {{PonderLM}: Pretraining Language Models to Ponder in Continuous Space},
-  year          = {2025},
+  booktitle     = {The Fourteenth International Conference on Learning Representations},
+  pages         = {91874--91893},
+  year          = {2026},
+  url           = {https://proceedings.iclr.cc/paper_files/paper/2026/hash/94572a66c6b0710c5263f15d8ef6b463-Abstract-Conference.html},
+  note          = {arXiv:2505.20674},
   eprint        = {2505.20674},
   archivePrefix = {arXiv}
 }
 
-@misc{hao2024coconut,
-  author        = {Hao, Shibo and Sukhbaatar, Sainbayar and Su, DiJia and Li, Xian and others},
+@inproceedings{hao2024coconut,
+  author        = {Hao, Shibo and Sukhbaatar, Sainbayar and Su, DiJia and Li, Xian and Hu, Zhiting and Weston, Jason E.
+                   and Tian, Yuandong},
   title         = {Training Large Language Models to Reason in a Continuous Latent Space},
-  year          = {2024},
+  booktitle     = {Second Conference on Language Modeling},
+  year          = {2025},
+  url           = {https://openreview.net/forum?id=Itxz7S4Ip3},
+  note          = {arXiv:2412.06769},
   eprint        = {2412.06769},
   archivePrefix = {arXiv}
 }
 
 @misc{li2025quasilyapunov,
-  author        = {Li, Xiaojian and Leng, Yongkang and Ding, Ruiqing and others},
+  author        = {Li, Xiaojian and Leng, Yongkang and Ding, Ruiqing and Mo, Hangjie and Yang, Shanlin},
   title         = {Cognitive Activation and Chaotic Dynamics in Large Language Models: A Quasi-{L}yapunov Analysis of
                    Reasoning Mechanisms},
   year          = {2025},
+  howpublished  = {arXiv preprint arXiv:2503.13530},
+  url           = {https://arxiv.org/abs/2503.13530},
   eprint        = {2503.13530},
   archivePrefix = {arXiv}
 }
@@ -107,14 +129,18 @@
   author        = {Jaca, Gregorio and Benedek, Krist{\'o}f and T{\"o}r{\"o}k, J{\'a}nos},
   title         = {Chaos in reason: How chain-of-thought {LLMs} can look for an answer},
   year          = {2026},
+  howpublished  = {arXiv preprint arXiv:2607.27805},
+  url           = {https://arxiv.org/abs/2607.27805},
   eprint        = {2607.27805},
   archivePrefix = {arXiv}
 }
 
 @misc{arnold2024phase,
-  author        = {Arnold, Julian and Holtorf, Flemming and Sch{\"a}fer, Frank and others},
+  author        = {Arnold, Julian and Holtorf, Flemming and Sch{\"a}fer, Frank and L{\"o}rch, Niels},
   title         = {Phase Transitions in the Output Distribution of Large Language Models},
   year          = {2024},
+  howpublished  = {arXiv preprint arXiv:2405.17088},
+  url           = {https://arxiv.org/abs/2405.17088},
   eprint        = {2405.17088},
   archivePrefix = {arXiv}
 }
@@ -123,22 +149,28 @@
   author        = {Nakaishi, Kai and Nishikawa, Yoshihiko and Hukushima, Koji},
   title         = {Phase transition in large language models and the criticality of natural languages},
   year          = {2024},
+  howpublished  = {arXiv preprint arXiv:2406.05335},
+  url           = {https://arxiv.org/abs/2406.05335},
   eprint        = {2406.05335},
   archivePrefix = {arXiv}
 }
 
 @misc{sun2025phase,
   author        = {Sun, Youran and Haghighat, Babak},
-  title         = {Phase Transitions in Large Language Models and the ${O}(N)$ Model},
+  title         = {Phase Transitions in Large Language Models and the {$O(N)$} Model},
   year          = {2025},
+  howpublished  = {arXiv preprint arXiv:2501.16241},
+  url           = {https://arxiv.org/abs/2501.16241},
   eprint        = {2501.16241},
   archivePrefix = {arXiv}
 }
 
 @misc{ruan2026criticality,
-  author        = {Ruan, Huajian and Li, Jinyang and Guo, Xingyu and others},
+  author        = {Ruan, Huajian and Li, Jinyang and Guo, Xingyu and Wang, Lingxiao},
   title         = {Generative Criticality in Large Language Model Temperature Scaling},
   year          = {2026},
+  howpublished  = {arXiv preprint arXiv:2606.06238},
+  url           = {https://arxiv.org/abs/2606.06238},
   eprint        = {2606.06238},
   archivePrefix = {arXiv}
 }
@@ -147,97 +179,139 @@
   author        = {Johnson, Neil F. and Huo, Frank Yingjie and Li, Bella Xinrui},
   title         = {Temperature-driven inversion and nonlinear dynamics in {ChatGPT}-like {AIs}},
   year          = {2026},
+  howpublished  = {arXiv preprint arXiv:2608.00939},
+  url           = {https://arxiv.org/abs/2608.00939},
   eprint        = {2608.00939},
   archivePrefix = {arXiv}
 }
 
-@misc{wang2025attractor,
-  author        = {Wang, Zhilin and Li, Yafu and Yan, Jianhao and others},
+@inproceedings{wang2025attractor,
+  author        = {Wang, Zhilin and Li, Yafu and Yan, Jianhao and Cheng, Yu and Zhang, Yue},
   title         = {Unveiling Attractor Cycles in Large Language Models: A Dynamical Systems View of Successive
                    Paraphrasing},
+  booktitle     = {Proceedings of the 63rd Annual Meeting of the Association for Computational Linguistics (Volume 1:
+                   Long Papers)},
+  pages         = {12740--12755},
   year          = {2025},
+  publisher     = {Association for Computational Linguistics},
+  doi           = {10.18653/v1/2025.acl-long.624},
+  note          = {arXiv:2502.15208},
   eprint        = {2502.15208},
   archivePrefix = {arXiv}
 }
 
 @inproceedings{tomihari2025recurrent,
-  author = {Tomihari, Akiyoshi and Karakida, Ryo},
-  title = {Recurrent Self-Attention Dynamics: An Energy-Agnostic Perspective from {J}acobians},
-  booktitle = {Advances in Neural Information Processing Systems}, volume = {38},
-  pages = {155236--155269}, year = {2025}, doi = {10.52202/085713-4675},
-  url = {https://proceedings.neurips.cc/paper_files/paper/2025/hash/cca569b38ec3612904e625dad7a743dc-Abstract-Conference.html}
+  author    = {Tomihari, Akiyoshi and Karakida, Ryo},
+  title     = {Recurrent Self-Attention Dynamics: An Energy-Agnostic Perspective from {J}acobians},
+  booktitle = {Advances in Neural Information Processing Systems},
+  volume    = {38},
+  pages     = {155236--155269},
+  year      = {2025},
+  doi       = {10.52202/085713-4675},
+  url       = {https://proceedings.neurips.cc/paper_files/paper/2025/hash/cca569b38ec3612904e625dad7a743dc-Abstract-Conference.html}
 }
 
 @inproceedings{geiping2025recurrent,
-  author = {Geiping, Jonas and McLeish, Sean and Jain, Neel and Kirchenbauer, John and Singh, Siddharth and Bartoldson, Brian and Kailkhura, Bhavya and Bhatele, Abhinav and Goldstein, Tom},
-  title = {Scaling up Test-Time Compute with Latent Reasoning: A Recurrent Depth Approach},
-  booktitle = {Advances in Neural Information Processing Systems}, volume = {38},
-  pages = {46242--46293}, year = {2025}, doi = {10.52202/085713-1380},
-  url = {https://proceedings.nips.cc/paper_files/paper/2025/hash/3b01972cf31e6fa0fe29e4b8b5c2a0a1-Abstract-Conference.html}
+  author    = {Geiping, Jonas and McLeish, Sean and Jain, Neel and others},
+  title     = {Scaling up Test-Time Compute with Latent Reasoning: A Recurrent Depth Approach},
+  booktitle = {Advances in Neural Information Processing Systems},
+  volume    = {38},
+  pages     = {46242--46293},
+  year      = {2025},
+  doi       = {10.52202/085713-1380},
+  url       = {https://proceedings.neurips.cc/paper_files/paper/2025/hash/3b01972cf31e6fa0fe29e4b8b5c2a0a1-Abstract-Conference.html}
 }
 
 @misc{zhu2025ouro,
   author        = {Zhu, Rui-Jie and Wang, Zixuan and Hua, Kai and others},
   title         = {Scaling Latent Reasoning via Looped Language Models},
   year          = {2025},
+  howpublished  = {arXiv preprint arXiv:2510.25741},
+  url           = {https://arxiv.org/abs/2510.25741},
   eprint        = {2510.25741},
   archivePrefix = {arXiv}
 }
 
 @inproceedings{yang2026stars,
-  author = {Yang, Xiao-Wen and Han, Ziyu and Zhang, Xi-Hua and Wei, Wen-Da and Shao, Jie-Jing and Guo, Lan-Zhe and Li, Yu-Feng},
-  title = {Stabilizing Recurrent Dynamics for Test-Time Scalable Latent Reasoning in Looped Language Models},
+  author    = {Yang, Xiao-Wen and Han, Ziyu and Zhang, Xi-Hua and Wei, Wen-Da and Shao, Jie-Jing and Guo, Lan-Zhe and
+               Li, Yu-Feng},
+  title     = {Stabilizing Recurrent Dynamics for Test-Time Scalable Latent Reasoning in Looped Language Models},
   booktitle = {Proceedings of the 43rd International Conference on Machine Learning},
-  series = {Proceedings of Machine Learning Research}, volume = {306},
-  pages = {144670--144682}, year = {2026}, publisher = {PMLR},
-  url = {https://proceedings.mlr.press/v306/yang26t.html}
+  series    = {Proceedings of Machine Learning Research},
+  volume    = {306},
+  pages     = {144670--144682},
+  year      = {2026},
+  publisher = {PMLR},
+  url       = {https://proceedings.mlr.press/v306/yang26t.html}
 }
 
 @misc{luo2026prediction,
   author        = {Luo, Xinyue and Yu, Fei},
   title         = {Prediction Dynamics in Depth-Recurrent Language Models},
   year          = {2026},
+  howpublished  = {arXiv preprint arXiv:2609.21383},
+  url           = {https://arxiv.org/abs/2609.21383},
   eprint        = {2609.21383},
   archivePrefix = {arXiv}
 }
 
-@misc{ko2026attractor,
+@inproceedings{ko2026attractor,
   author        = {Ko, Ting-Wen and Geiping, Jonas},
   title         = {Attractor States Emerge in Multi-Turn {LLM} Conversations},
+  booktitle     = {Third Conference on Language Modeling},
   year          = {2026},
+  url           = {https://openreview.net/forum?id=umwOiCSh4I},
+  note          = {arXiv:2606.30571},
   eprint        = {2606.30571},
   archivePrefix = {arXiv}
 }
 
-@misc{bai2019deq,
+@inproceedings{bai2019deq,
   author        = {Bai, Shaojie and Kolter, J. Zico and Koltun, Vladlen},
   title         = {Deep Equilibrium Models},
+  booktitle     = {Advances in Neural Information Processing Systems},
+  volume        = {32},
+  pages         = {690--701},
   year          = {2019},
+  url           = {https://proceedings.neurips.cc/paper_files/paper/2019/hash/01386bd6d8e091c2ab4c7c7de644d37b-Abstract.html},
+  note          = {arXiv:1909.01377},
   eprint        = {1909.01377},
   archivePrefix = {arXiv}
 }
 
 @inproceedings{bai2021stabilizing,
-  author = {Bai, Shaojie and Koltun, Vladlen and Kolter, Zico},
-  title = {Stabilizing Equilibrium Models by {J}acobian Regularization},
+  author    = {Bai, Shaojie and Koltun, Vladlen and Kolter, Zico},
+  title     = {Stabilizing Equilibrium Models by {J}acobian Regularization},
   booktitle = {Proceedings of the 38th International Conference on Machine Learning},
-  series = {Proceedings of Machine Learning Research}, volume = {139},
-  pages = {554--565}, year = {2021}, publisher = {PMLR},
-  url = {https://proceedings.mlr.press/v139/bai21b.html}
+  series    = {Proceedings of Machine Learning Research},
+  volume    = {139},
+  pages     = {554--565},
+  year      = {2021},
+  publisher = {PMLR},
+  url       = {https://proceedings.mlr.press/v139/bai21b.html}
 }
 
-@misc{holtzman2019degeneration,
-  author        = {Holtzman, Ari and Buys, Jan and Du, Li and Forbes, Maxwell and others},
+@inproceedings{holtzman2019degeneration,
+  author        = {Holtzman, Ari and Buys, Jan and Du, Li and Forbes, Maxwell and Choi, Yejin},
   title         = {The Curious Case of Neural Text Degeneration},
-  year          = {2019},
+  booktitle     = {The Eighth International Conference on Learning Representations},
+  year          = {2020},
+  url           = {https://openreview.net/forum?id=rygGQyrFvH},
+  note          = {arXiv:1904.09751},
   eprint        = {1904.09751},
   archivePrefix = {arXiv}
 }
 
-@misc{xu2022loop,
-  author        = {Xu, Jin and Liu, Xiaojiang and Yan, Jianhao and Cai, Deng and others},
+@inproceedings{xu2022loop,
+  author        = {Xu, Jin and Liu, Xiaojiang and Yan, Jianhao and Cai, Deng and Li, Huayang and Li, Jian},
   title         = {Learning to Break the Loop: Analyzing and Mitigating Repetitions for Neural Text Generation},
+  booktitle     = {Advances in Neural Information Processing Systems},
+  volume        = {35},
+  pages         = {3082--3095},
   year          = {2022},
+  doi           = {10.52202/068431-0223},
+  url           = {https://proceedings.neurips.cc/paper_files/paper/2022/hash/148c0aeea1c5da82f4fa86a09d4190da-Abstract-Conference.html},
+  note          = {arXiv:2206.02369},
   eprint        = {2206.02369},
   archivePrefix = {arXiv}
 }
@@ -250,6 +324,7 @@
                Long Papers)},
   pages     = {7128--7141},
   year      = {2025},
+  publisher = {Association for Computational Linguistics},
   doi       = {10.18653/v1/2025.acl-long.353}
 }
 
@@ -266,8 +341,7 @@
 }
 
 @article{scheffer2009early,
-  author  = {Scheffer, Marten and Bascompte, Jordi and Brock, William A. and Brovkin, Victor and Carpenter, Stephen R.
-             and Dakos, Vasilis and Held, Hermann and van Nes, Egbert H. and Rietkerk, Max and Sugihara, George},
+  author  = {Scheffer, Marten and Bascompte, Jordi and Brock, William A. and others},
   title   = {Early-warning signals for critical transitions},
   journal = {Nature},
   volume  = {461},
@@ -303,389 +377,441 @@
 % checked against its primary record; sources in codex/literature/). Spot-checked again here: kim2026phase and
 % liu2026learningchaos (arXiv abstract pages), dinc2026ghost (Crossref).
 @misc{kim2026phase,
-  author = {Kim, Gunn},
-  title = {Dynamical phase selection controls compute scaling in looped transformers},
-  year = {2026},
-  eprint = {2608.26556},
+  author        = {Kim, Gunn},
+  title         = {Dynamical phase selection controls compute scaling in looped transformers},
+  year          = {2026},
+  howpublished  = {arXiv preprint arXiv:2608.26556},
+  url           = {https://arxiv.org/abs/2608.26556},
+  note          = {Version 1, 27 August 2026},
+  eprint        = {2608.26556},
   archivePrefix = {arXiv},
-  primaryClass = {cond-mat.dis-nn},
-  doi = {10.48550/arXiv.2608.26556},
-  url = {https://arxiv.org/abs/2608.26556},
-  note = {Version 1, 27 August 2026}
+  primaryClass  = {cond-mat.dis-nn},
+  doi           = {10.48550/arXiv.2608.26556}
 }
 
 @inproceedings{ribeiro2020attractors,
-  author = {Ribeiro, Ant\'onio H. and Tiels, Koen and Aguirre, Luis A. and Sch\"on, Thomas},
-  title = {Beyond exploding and vanishing gradients: analysing {RNN} training using attractors and smoothness},
+  author    = {Ribeiro, Ant{\'o}nio H. and Tiels, Koen and Aguirre, Luis A. and Sch{\"o}n, Thomas},
+  title     = {Beyond exploding and vanishing gradients: analysing {RNN} training using attractors and smoothness},
   booktitle = {Proceedings of the Twenty Third International Conference on Artificial Intelligence and Statistics},
-  series = {Proceedings of Machine Learning Research},
-  volume = {108},
-  pages = {2370--2380},
-  year = {2020},
+  series    = {Proceedings of Machine Learning Research},
+  volume    = {108},
+  pages     = {2370--2380},
+  year      = {2020},
   publisher = {PMLR},
-  url = {https://proceedings.mlr.press/v108/ribeiro20a.html}
-}
-% Explicitly cite arXiv authors/version. NeurIPS landing page's author list differs; see inference.md.
-
-@misc{zhang2025softthinking,
-  author = {Zhang, Zhen and He, Xuehai and Yan, Weixiang and Shen, Ao and Zhao, Chenyang and Wang, Shuohang and Shen, Yelong and Wang, Xin Eric},
-  title = {Soft Thinking: Unlocking the Reasoning Potential of {LLMs} in Continuous Concept Space},
-  year = {2025},
-  eprint = {2505.15778},
-  archivePrefix = {arXiv},
-  primaryClass = {cs.CL},
-  doi = {10.48550/arXiv.2505.15778},
-  url = {https://arxiv.org/abs/2505.15778},
-  note = {Version 1, 21 May 2025}
+  url       = {https://proceedings.mlr.press/v108/ribeiro20a.html}
 }
 
-@misc{wu2025singlethreaded,
-  author = {Wu, Junhong and Lu, Jinliang and Ren, Zixuan and Hu, Gangqiang and Wu, Zhi and Dai, Dai and Wu, Hua},
-  title = {{LLMs} are Single-threaded Reasoners: Demystifying the Working Mechanism of Soft Thinking},
-  year = {2025},
-  eprint = {2508.03440},
-  archivePrefix = {arXiv},
-  primaryClass = {cs.CL},
-  doi = {10.48550/arXiv.2508.03440},
-  url = {https://arxiv.org/abs/2508.03440},
-  note = {Version 4, 16 October 2025}
+% NeurIPS 2025 version. Its byline (Crossref, NeurIPS proceedings, OpenReview) has six authors; arXiv v1 lists eight
+% (also Shuohang Wang and Yelong Shen). The author list below is the published one.
+@inproceedings{zhang2025softthinking,
+  author        = {Zhang, Zhen and He, Xuehai and Yan, Weixiang and Shen, Ao and Zhao, Chenyang and Wang, Xin Eric},
+  title         = {{Soft Thinking}: Unlocking the Reasoning Potential of {LLMs} in Continuous Concept Space},
+  booktitle     = {Advances in Neural Information Processing Systems},
+  volume        = {38},
+  pages         = {187190--187212},
+  year          = {2025},
+  doi           = {10.52202/085713-5629},
+  url           = {https://proceedings.neurips.cc/paper_files/paper/2025/hash/f7396d1c54d51416958d63e285377103-Abstract-Conference.html},
+  note          = {arXiv:2505.15778},
+  eprint        = {2505.15778},
+  archivePrefix = {arXiv}
 }
 
-@misc{prairie2026parcae,
-  author = {Prairie, Hayden and Novack, Zachary and Berg-Kirkpatrick, Taylor and Fu, Daniel Y.},
-  title = {Parcae: Scaling Laws For Stable Looped Language Models},
-  year = {2026},
-  eprint = {2604.12946},
-  archivePrefix = {arXiv},
-  primaryClass = {cs.LG},
-  doi = {10.48550/arXiv.2604.12946},
-  url = {https://arxiv.org/abs/2604.12946},
-  note = {Version 1, 14 April 2026}
+@inproceedings{wu2025singlethreaded,
+  author        = {Wu, Junhong and Lu, Jinliang and Ren, Zixuan and Hu, Gangqiang and Wu, Zhi and Dai, Dai and Wu, Hua},
+  title         = {{LLMs} are Single-threaded Reasoners: Demystifying the Working Mechanism of {Soft Thinking}},
+  booktitle     = {The Fourteenth International Conference on Learning Representations},
+  pages         = {4533--4548},
+  year          = {2026},
+  url           = {https://proceedings.iclr.cc/paper_files/paper/2026/hash/0895de150660b6c2aef9b0f098cb1dcd-Abstract-Conference.html},
+  note          = {arXiv:2508.03440},
+  eprint        = {2508.03440},
+  archivePrefix = {arXiv}
+}
+
+@inproceedings{prairie2026parcae,
+  author        = {Prairie, Hayden and Novack, Zachary and Berg-Kirkpatrick, Taylor and Fu, Daniel Y.},
+  title         = {{Parcae}: Scaling Laws For Stable Looped Language Models},
+  booktitle     = {Third Conference on Language Modeling},
+  year          = {2026},
+  url           = {https://openreview.net/forum?id=pIBqtrqFeP},
+  note          = {arXiv:2604.12946},
+  eprint        = {2604.12946},
+  archivePrefix = {arXiv}
 }
 
 @misc{buehlmaier2026layernorm,
-  author = {Buehlmaier, Matthias M. M.},
-  title = {{LayerNorm} as Implicit Gain Control in Looped Transformers},
-  year = {2026},
-  eprint = {2607.10681},
+  author        = {Buehlmaier, Matthias M. M.},
+  title         = {{LayerNorm} as Implicit Gain Control in Looped Transformers},
+  year          = {2026},
+  howpublished  = {arXiv preprint arXiv:2607.10681},
+  url           = {https://arxiv.org/abs/2607.10681},
+  note          = {Version 1, 12 July 2026},
+  eprint        = {2607.10681},
   archivePrefix = {arXiv},
-  primaryClass = {cs.LG},
-  doi = {10.48550/arXiv.2607.10681},
-  url = {https://arxiv.org/abs/2607.10681},
-  note = {Version 1, 12 July 2026}
+  primaryClass  = {cs.LG},
+  doi           = {10.48550/arXiv.2607.10681}
 }
 
 @misc{labovich2026stability,
-  author = {Labovich, Asher},
-  title = {Stability and Generalization in Looped Transformers},
-  year = {2026},
-  eprint = {2604.15259},
+  author        = {Labovich, Asher},
+  title         = {Stability and Generalization in Looped Transformers},
+  year          = {2026},
+  howpublished  = {arXiv preprint arXiv:2604.15259},
+  url           = {https://arxiv.org/abs/2604.15259},
+  note          = {Version 2, 22 April 2026},
+  eprint        = {2604.15259},
   archivePrefix = {arXiv},
-  primaryClass = {cs.LG},
-  doi = {10.48550/arXiv.2604.15259},
-  url = {https://arxiv.org/abs/2604.15259},
-  note = {Version 2, 22 April 2026}
+  primaryClass  = {cs.LG},
+  doi           = {10.48550/arXiv.2604.15259}
 }
 
+% Presented only at ICML 2026 workshops (non-archival), so cited as the preprint.
 @misc{movahedi2026fixedpoint,
-  author = {Movahedi, Sajad and Milovanovi{\'c}, Vera and Feigin, Shlomo Libo and Theus, Alexander and Hofmann, Thomas and Boeva, Valentina and Rusch, T. Konstantin and Orvieto, Antonio},
-  title = {Fixed-Point Reasoners: Stable and Adaptive Deep Looped Transformers},
-  year = {2026},
-  eprint = {2606.18206},
+  author        = {Movahedi, Sajad and Milovanovi{\'c}, Vera and Feigin, Shlomo Libo and Theus, Alexander and
+                   Hofmann, Thomas and Boeva, Valentina and Rusch, T. Konstantin and Orvieto, Antonio},
+  title         = {Fixed-Point Reasoners: Stable and Adaptive Deep Looped Transformers},
+  year          = {2026},
+  howpublished  = {arXiv preprint arXiv:2606.18206},
+  url           = {https://arxiv.org/abs/2606.18206},
+  note          = {Version 1, 16 June 2026},
+  eprint        = {2606.18206},
   archivePrefix = {arXiv},
-  primaryClass = {cs.AI},
-  doi = {10.48550/arXiv.2606.18206},
-  url = {https://arxiv.org/abs/2606.18206},
-  note = {Version 1, 16 June 2026}
+  primaryClass  = {cs.AI},
+  doi           = {10.48550/arXiv.2606.18206}
 }
 
 % Follow-up primary-record checks, accessed 2026-10-12.
 
 @misc{zou2023representation,
-  author = {Zou, Andy and Phan, Long and Chen, Sarah and Campbell, James and Guo, Phillip and Ren, Richard and Pan, Alexander and Yin, Xuwang and Mazeika, Mantas and Dombrowski, Ann-Kathrin and Goel, Shashwat and Li, Nathaniel and Byun, Michael J. and Wang, Zifan and Mallen, Alex and Basart, Steven and Koyejo, Sanmi and Song, Dawn and Fredrikson, Matt and Kolter, J. Zico and Hendrycks, Dan},
-  title = {Representation Engineering: A Top-Down Approach to {AI} Transparency},
-  year = {2023},
-  eprint = {2310.01405},
+  author        = {Zou, Andy and Phan, Long and Chen, Sarah and others},
+  title         = {Representation Engineering: A Top-Down Approach to {AI} Transparency},
+  year          = {2023},
+  howpublished  = {arXiv preprint arXiv:2310.01405},
+  url           = {https://arxiv.org/abs/2310.01405},
+  note          = {Version 4, 3 March 2025; first posted 2 October 2023},
+  eprint        = {2310.01405},
   archivePrefix = {arXiv},
-  primaryClass = {cs.LG},
-  doi = {10.48550/arXiv.2310.01405},
-  url = {https://arxiv.org/abs/2310.01405},
-  note = {Version 4, 3 March 2025; first posted 2 October 2023}
+  primaryClass  = {cs.LG},
+  doi           = {10.48550/arXiv.2310.01405}
 }
-% Cites the exact original Anthropic report. The later NeurIPS PDF and its
-% BibTeX both contain apparent author-name typos; no venue fields are mixed in.
 
-@techreport{anil2024manyshot,
-  author = {Anil, Cem and Durmus, Esin and Sharma, Mrinank and Benton, Joe and Kundu, Sandipan and Batson, Joshua and Rimsky, Nina and Tong, Meg and Mu, Jesse and Ford, Daniel and Mosconi, Francesco and Agrawal, Rajashree and Schaeffer, Rylan and Bashkansky, Naomi and Svenningsen, Samuel and Lambert, Mike and Radhakrishnan, Ansh and Denison, Carson and Hubinger, Evan J and Bai, Yuntao and Bricken, Trenton and Maxwell, Timothy and Schiefer, Nicholas and Sully, Jamie and Tamkin, Alex and Lanham, Tamera and Nguyen, Karina and Korbak, Tomasz and Kaplan, Jared and Ganguli, Deep and Bowman, Samuel R. and Perez, Ethan and Grosse, Roger and Duvenaud, David},
-  title = {Many-shot Jailbreaking},
-  institution = {Anthropic},
-  year = {2024},
-  note = {Original report, 2 April 2024},
-  url = {https://www-cdn.anthropic.com/af5633c94ed2beb282f6a53c595eb437e8e7b630/Many_Shot_Jailbreaking2024_04_02_0936.pdf}
+% NeurIPS 2024 version (the original Anthropic report of 2 April 2024 is
+% https://www-cdn.anthropic.com/af5633c94ed2beb282f6a53c595eb437e8e7b630/Many_Shot_Jailbreaking2024_04_02_0936.pdf).
+% First three authors as on the NeurIPS record; the record misspells two later authors (Francesco Mosconi,
+% Tamera Lanham), which the shortened list does not include.
+@inproceedings{anil2024manyshot,
+  author    = {Anil, Cem and Durmus, Esin and Panickssery, Nina and others},
+  title     = {Many-shot Jailbreaking},
+  booktitle = {Advances in Neural Information Processing Systems},
+  volume    = {37},
+  pages     = {129696--129742},
+  year      = {2024},
+  doi       = {10.52202/079017-4121},
+  url       = {https://proceedings.neurips.cc/paper_files/paper/2024/hash/ea456e232efb72d261715e33ce25f208-Abstract-Conference.html}
 }
 
 % Candidate entries: primary records checked 2026-10-12; see cascades.md.
-% Existing stenzinger2025shrimp is deliberately omitted: its current metadata is correct.
 
 @misc{liu2026learningchaos,
-  author = {Liu, Yilun and Zhang, Yi and Wu, Ganyu and Yan, Sikuan and Wang, Mengyue and Knoll, Alois and Tresp, Volker and Ma, Yunpu},
-  title = {Learning Chaos Without Seeing Chaos: Extrapolation of Global Dynamics in Autoregressive Transformers},
-  year = {2026},
-  eprint = {2609.38814},
+  author        = {Liu, Yilun and Zhang, Yi and Wu, Ganyu and Yan, Sikuan and Wang, Mengyue and Knoll, Alois and
+                   Tresp, Volker and Ma, Yunpu},
+  title         = {Learning Chaos Without Seeing Chaos: Extrapolation of Global Dynamics in Autoregressive Transformers},
+  year          = {2026},
+  howpublished  = {arXiv preprint arXiv:2609.38814},
+  url           = {https://arxiv.org/abs/2609.38814v1},
+  note          = {Version 1, 30 September 2026},
+  eprint        = {2609.38814},
   archivePrefix = {arXiv},
-  primaryClass = {cs.LG},
-  url = {https://arxiv.org/abs/2609.38814v1},
-  note = {Version 1, 30 September 2026}
+  primaryClass  = {cs.LG}
 }
 
 @article{battaglia2007temporal,
-  author = {Battaglia, Demian and Brunel, Nicolas and Hansel, David},
-  title = {Temporal Decorrelation of Collective Oscillations in Neural Networks with Local Inhibition and Long-Range Excitation},
+  author  = {Battaglia, Demian and Brunel, Nicolas and Hansel, David},
+  title   = {Temporal Decorrelation of Collective Oscillations in Neural Networks with Local Inhibition and Long-Range
+             Excitation},
   journal = {Physical Review Letters},
-  volume = {99},
-  number = {23},
-  pages = {238106},
-  year = {2007},
-  doi = {10.1103/PhysRevLett.99.238106}
+  volume  = {99},
+  number  = {23},
+  pages   = {238106},
+  year    = {2007},
+  doi     = {10.1103/PhysRevLett.99.238106}
 }
 
 @article{papasavvas2015gain,
-  author = {Papasavvas, Christoforos A. and Wang, Yujiang and Trevelyan, Andrew J. and Kaiser, Marcus},
-  title = {Gain control through divisive inhibition prevents abrupt transition to chaos in a neural mass model},
+  author  = {Papasavvas, Christoforos A. and Wang, Yujiang and Trevelyan, Andrew J. and Kaiser, Marcus},
+  title   = {Gain control through divisive inhibition prevents abrupt transition to chaos in a neural mass model},
   journal = {Physical Review E},
-  volume = {92},
-  number = {3},
-  pages = {032723},
-  year = {2015},
-  doi = {10.1103/PhysRevE.92.032723}
+  volume  = {92},
+  number  = {3},
+  pages   = {032723},
+  year    = {2015},
+  doi     = {10.1103/PhysRevE.92.032723}
 }
 
 @article{kim2021teaching,
-  author = {Kim, Jason Z. and Lu, Zhixin and Nozari, Erfan and Pappas, George J. and Bassett, Danielle S.},
-  title = {Teaching recurrent neural networks to infer global temporal structure from local examples},
+  author  = {Kim, Jason Z. and Lu, Zhixin and Nozari, Erfan and Pappas, George J. and Bassett, Danielle S.},
+  title   = {Teaching recurrent neural networks to infer global temporal structure from local examples},
   journal = {Nature Machine Intelligence},
-  volume = {3},
-  number = {4},
-  pages = {316--323},
-  year = {2021},
-  doi = {10.1038/s42256-021-00321-2}
+  volume  = {3},
+  number  = {4},
+  pages   = {316--323},
+  year    = {2021},
+  doi     = {10.1038/s42256-021-00321-2}
 }
 
 @inproceedings{kalra2025universal,
-  author = {Kalra, Dayal Singh and He, Tianyu and Barkeshli, Maissam},
-  title = {Universal Sharpness Dynamics in Neural Network Training: Fixed Point Analysis, Edge of Stability, and Route to Chaos},
+  author    = {Kalra, Dayal Singh and He, Tianyu and Barkeshli, Maissam},
+  title     = {Universal Sharpness Dynamics in Neural Network Training: Fixed Point Analysis, Edge of Stability, and
+               Route to Chaos},
   booktitle = {The Thirteenth International Conference on Learning Representations},
-  year = {2025},
-  url = {https://proceedings.iclr.cc/paper_files/paper/2025/hash/8c8cd1b78cdae751265c88efc136e5bd-Abstract-Conference.html}
+  pages     = {55966--56000},
+  year      = {2025},
+  url       = {https://proceedings.iclr.cc/paper_files/paper/2025/hash/8c8cd1b78cdae751265c88efc136e5bd-Abstract-Conference.html}
 }
 
 @article{marichal2015multiple,
-  author = {Marichal, R. L. and Pi{\~n}eiro, J. D.},
-  title = {Analysis of multiple quasi-periodic orbits in recurrent neural networks},
+  author  = {Marichal, R. L. and Pi{\~n}eiro, J. D.},
+  title   = {Analysis of multiple quasi-periodic orbits in recurrent neural networks},
   journal = {Neurocomputing},
-  volume = {162},
-  pages = {85--95},
-  year = {2015},
-  doi = {10.1016/j.neucom.2015.04.001}
+  volume  = {162},
+  pages   = {85--95},
+  year    = {2015},
+  doi     = {10.1016/j.neucom.2015.04.001}
 }
 
 @article{gomez2014universal,
-  author = {Gomez, Florian and Stoop, Ralph L. and Stoop, Ruedi},
-  title = {Universal dynamical properties preclude standard clustering in a large class of biochemical data},
+  author  = {Gomez, Florian and Stoop, Ralph L. and Stoop, Ruedi},
+  title   = {Universal dynamical properties preclude standard clustering in a large class of biochemical data},
   journal = {Bioinformatics},
-  volume = {30},
-  number = {17},
-  pages = {2486--2493},
-  year = {2014},
-  doi = {10.1093/bioinformatics/btu332}
+  volume  = {30},
+  number  = {17},
+  pages   = {2486--2493},
+  year    = {2014},
+  doi     = {10.1093/bioinformatics/btu332}
 }
 
 @article{caixeta2025staircase,
-  author = {Caixeta, Luiz F. B. and Gon{\c{c}}alves, Matheus H. P. and Tragtenberg, M. H. R. and Girardi-Schappo, Mauricio},
-  title = {Devil's staircase inside shrimp-shaped regions reveals periodicity of plateau spikes and bursts},
+  author  = {Caixeta, Luiz F. B. and Gon{\c{c}}alves, Matheus H. P. and Tragtenberg, M. H. R. and Girardi-Schappo,
+             Mauricio},
+  title   = {Devil's staircase inside shrimp-shaped regions reveals periodicity of plateau spikes and bursts},
   journal = {Chaos: An Interdisciplinary Journal of Nonlinear Science},
-  volume = {35},
-  number = {3},
-  pages = {033122},
-  year = {2025},
-  doi = {10.1063/5.0250342}
+  volume  = {35},
+  number  = {3},
+  pages   = {033122},
+  year    = {2025},
+  doi     = {10.1063/5.0250342}
 }
 
 @misc{clark2026lyapunov,
-  author = {Clark, David G.},
-  title = {{Lyapunov} spectrum of random neural networks},
-  year = {2026},
-  eprint = {2610.12426},
+  author        = {Clark, David G.},
+  title         = {{Lyapunov} spectrum of random neural networks},
+  year          = {2026},
+  howpublished  = {arXiv preprint arXiv:2610.12426},
+  url           = {https://arxiv.org/abs/2610.12426v1},
+  note          = {Version 1, 8 October 2026},
+  eprint        = {2610.12426},
   archivePrefix = {arXiv},
-  primaryClass = {cond-mat.dis-nn},
-  url = {https://arxiv.org/abs/2610.12426v1},
-  note = {Version 1, 8 October 2026}
+  primaryClass  = {cond-mat.dis-nn}
 }
 
 @article{dinc2026ghost,
-  author = {Dinc, Fatih and Cirakman, Ege and Kurtkaya, Bariscan and Yuksekgonul, Mert and Jiang, Yiqi and Schnitzer, Mark J. and Tanaka, Hidenori},
-  title = {Ghost Mechanism: An Analytical Model of Abrupt Learning in Recurrent Networks},
+  author  = {Dinc, Fatih and Cirakman, Ege and Kurtkaya, Bariscan and Yuksekgonul, Mert and Jiang, Yiqi and
+             Schnitzer, Mark J. and Tanaka, Hidenori},
+  title   = {Ghost Mechanism: An Analytical Model of Abrupt Learning in Recurrent Networks},
   journal = {Physical Review X},
-  volume = {16},
-  number = {2},
-  pages = {021058},
-  year = {2026},
-  doi = {10.1103/mjcl-lb4x}
+  volume  = {16},
+  number  = {2},
+  pages   = {021058},
+  year    = {2026},
+  doi     = {10.1103/mjcl-lb4x}
 }
 
-% Task 3 behavioral sources. Primary records inspected 12 October 2026.
-% Versioned preprints are cited without unconfirmed journal fields.
+% Task 3 behavioral sources. Primary records inspected 12 October 2026 and again 13 October 2026.
 
 @inproceedings{ashok2025behavior,
-  author = {Ashok, Dhananjay and May, Jonathan},
-  title = {Language Models Can Predict Their Own Behavior},
+  author    = {Ashok, Dhananjay and May, Jonathan},
+  title     = {Language Models Can Predict Their Own Behavior},
   booktitle = {Advances in Neural Information Processing Systems},
-  volume = {38},
-  year = {2025},
-  doi = {10.52202/085713-2102},
-  url = {https://proceedings.neurips.cc/paper_files/paper/2025/hash/5a9c1af5f76da0bd37903b6f23e96c74-Abstract-Conference.html}
+  volume    = {38},
+  pages     = {69806--69837},
+  year      = {2025},
+  doi       = {10.52202/085713-2102},
+  url       = {https://proceedings.neurips.cc/paper_files/paper/2025/hash/5a9c1af5f76da0bd37903b6f23e96c74-Abstract-Conference.html}
 }
 
 @misc{chen2025persona,
-  author = {Chen, Runjin and Arditi, Andy and Sleight, Henry and Evans, Owain and Lindsey, Jack},
-  title = {Persona Vectors: Monitoring and Controlling Character Traits in Language Models},
-  year = {2025},
-  eprint = {2507.21509},
-  archivePrefix = {arXiv},
-  url = {https://arxiv.org/abs/2507.21509v1},
-  note = {Version 1, 29 July 2025}
+  author        = {Chen, Runjin and Arditi, Andy and Sleight, Henry and Evans, Owain and Lindsey, Jack},
+  title         = {Persona Vectors: Monitoring and Controlling Character Traits in Language Models},
+  year          = {2025},
+  howpublished  = {arXiv preprint arXiv:2507.21509},
+  url           = {https://arxiv.org/abs/2507.21509v1},
+  note          = {Version 1, 29 July 2025},
+  eprint        = {2507.21509},
+  archivePrefix = {arXiv}
 }
 
-@misc{lu2026assistant,
-  author = {Lu, Christina and Gallagher, Jack and Michala, Jonathan and Fish, Kyle and Lindsey, Jack},
-  title = {The Assistant Axis: Situating and Stabilizing the Default Persona of Language Models},
-  year = {2026},
-  eprint = {2601.10387},
-  archivePrefix = {arXiv},
-  url = {https://arxiv.org/abs/2601.10387v1},
-  note = {Version 1, 15 January 2026}
+@inproceedings{lu2026assistant,
+  author        = {Lu, Christina and Gallagher, Jack and Michala, Jonathan and Fish, Kyle and Lindsey, Jack},
+  title         = {The Assistant Axis: Situating and Stabilizing the Default Persona of Language Models},
+  booktitle     = {Proceedings of the 43rd International Conference on Machine Learning},
+  series        = {Proceedings of Machine Learning Research},
+  volume        = {306},
+  pages         = {80955--81003},
+  year          = {2026},
+  publisher     = {PMLR},
+  url           = {https://proceedings.mlr.press/v306/lu26g.html},
+  note          = {arXiv:2601.10387},
+  eprint        = {2601.10387},
+  archivePrefix = {arXiv}
 }
 
 @misc{leins2026drift,
-  author = {Leins, Nicolas and Haase, Jennifer and Geronimus, Varvara and Gonnermann-M{\"u}ller, Jana and Pokutta, Sebastian},
-  title = {Prompting Against Persona Drift: Comparing Intervention Timing and Content in {LLM}-Simulated Conversations},
-  year = {2026},
-  eprint = {2609.24532},
-  archivePrefix = {arXiv},
-  url = {https://arxiv.org/abs/2609.24532v1},
-  note = {Version 1, 21 September 2026}
+  author        = {Leins, Nicolas and Haase, Jennifer and Geronimus, Varvara and Gonnermann-M{\"u}ller, Jana and
+                   Pokutta, Sebastian},
+  title         = {Prompting Against Persona Drift: Comparing Intervention Timing and Content in {LLM}-Simulated
+                   Conversations},
+  year          = {2026},
+  howpublished  = {arXiv preprint arXiv:2609.24532},
+  url           = {https://arxiv.org/abs/2609.24532v1},
+  note          = {Version 1, 21 September 2026},
+  eprint        = {2609.24532},
+  archivePrefix = {arXiv}
 }
 
 @misc{zhou2026commitment,
-  author = {Zhou, Fan and Wang, Weitian and Van de Cruys, Tim},
-  title = {Commitment Before Realization: When Classifier-Free Guidance Becomes Unnecessary in Masked Diffusion Language Models},
-  year = {2026},
-  eprint = {2608.08082},
-  archivePrefix = {arXiv},
-  url = {https://arxiv.org/abs/2608.08082v1},
-  note = {Version 1, 8 August 2026}
+  author        = {Zhou, Fan and Wang, Weitian and Van de Cruys, Tim},
+  title         = {Commitment Before Realization: When Classifier-Free Guidance Becomes Unnecessary in Masked Diffusion
+                   Language Models},
+  year          = {2026},
+  howpublished  = {arXiv preprint arXiv:2608.08082},
+  url           = {https://arxiv.org/abs/2608.08082v1},
+  note          = {Version 1, 8 August 2026},
+  eprint        = {2608.08082},
+  archivePrefix = {arXiv}
 }
 
 @techreport{anthropic2025claude4,
-  author = {{Anthropic}},
-  title = {System Card: Claude Opus 4 \& Claude Sonnet 4},
+  author      = {{Anthropic}},
+  title       = {System Card: {Claude Opus 4} \& {Claude Sonnet 4}},
   institution = {Anthropic},
-  year = {2025},
-  url = {https://www-cdn.anthropic.com/6d8a8055020700718b0c49369f60816ba2a7c285/Claude%204%20System%20Card.pdf},
-  note = {May 2025; revision 2 September 2025; sections 5.5.1--5.5.2}
+  type        = {System card},
+  year        = {2025},
+  url         = {https://www-cdn.anthropic.com/6d8a8055020700718b0c49369f60816ba2a7c285/Claude%204%20System%20Card.pdf},
+  note        = {May 2025; revision 2 September 2025; sections 5.5.1--5.5.2}
 }
 
-@misc{betley2025emergent,
-  author = {Betley, Jan and Tan, Daniel and Warncke, Niels and Sztyber-Betley, Anna and Bao, Xuchan and Soto, Mart{\'i}n and Labenz, Nathan and Evans, Owain},
-  title = {Emergent Misalignment: Narrow finetuning can produce broadly misaligned {LLMs}},
-  year = {2025},
-  eprint = {2502.17424},
-  archivePrefix = {arXiv},
-  url = {https://arxiv.org/abs/2502.17424v7},
-  note = {Version 7, 20 January 2026; preprint originally submitted in 2025}
+% ICML 2025 version, whose title and byline match arXiv. An extended version with a different title and nine
+% authors appeared in Nature 649, 584--589 (2026), doi:10.1038/s41586-025-09937-5.
+@inproceedings{betley2025emergent,
+  author        = {Betley, Jan and Tan, Daniel Chee Hian and Warncke, Niels and Sztyber-Betley, Anna and Bao, Xuchan and
+                   Soto, Mart{\'i}n and Labenz, Nathan and Evans, Owain},
+  title         = {Emergent Misalignment: Narrow finetuning can produce broadly misaligned {LLMs}},
+  booktitle     = {Proceedings of the 42nd International Conference on Machine Learning},
+  series        = {Proceedings of Machine Learning Research},
+  volume        = {267},
+  pages         = {4043--4068},
+  year          = {2025},
+  publisher     = {PMLR},
+  url           = {https://proceedings.mlr.press/v267/betley25a.html},
+  note          = {arXiv:2502.17424},
+  eprint        = {2502.17424},
+  archivePrefix = {arXiv}
 }
 
 @misc{liu2025truthdecay,
-  author = {Liu, Joshua and Jain, Aarav and Takuri, Soham and Vege, Srihan and Akalin, Aslihan and Zhu, Kevin and O'Brien, Sean and Sharma, Vasu},
-  title = {{TRUTH DECAY}: Quantifying Multi-Turn Sycophancy in Language Models},
-  year = {2025},
-  eprint = {2503.11656},
-  archivePrefix = {arXiv},
-  url = {https://arxiv.org/abs/2503.11656v1},
-  note = {Version 1}
+  author        = {Liu, Joshua and Jain, Aarav and Takuri, Soham and Vege, Srihan and Akalin, Aslihan and Zhu, Kevin and
+                   O'Brien, Sean and Sharma, Vasu},
+  title         = {{TRUTH DECAY}: Quantifying Multi-Turn Sycophancy in Language Models},
+  year          = {2025},
+  howpublished  = {arXiv preprint arXiv:2503.11656},
+  url           = {https://arxiv.org/abs/2503.11656v1},
+  note          = {Version 1},
+  eprint        = {2503.11656},
+  archivePrefix = {arXiv}
 }
 
 @inproceedings{tan2025persuasion,
-  author = {Tan, Bryan Chen Zhengyu and Chin, Daniel Wai Kit and Liu, Zhengyuan and Chen, Nancy F. and Lee, Roy Ka-Wei},
-  title = {Persuasion Dynamics in {LLMs}: Investigating Robustness and Adaptability in Knowledge and Safety with {DuET-PD}},
+  author    = {Tan, Bryan Chen Zhengyu and Chin, Daniel Wai Kit and Liu, Zhengyuan and Chen, Nancy F. and
+               Lee, Roy Ka-Wei},
+  title     = {Persuasion Dynamics in {LLMs}: Investigating Robustness and Adaptability in Knowledge and Safety with
+               {DuET-PD}},
   booktitle = {Proceedings of the 2025 Conference on Empirical Methods in Natural Language Processing},
-  pages = {1550--1575},
-  year = {2025},
+  pages     = {1550--1575},
+  year      = {2025},
   publisher = {Association for Computational Linguistics},
-  doi = {10.18653/v1/2025.emnlp-main.81},
-  url = {https://aclanthology.org/2025.emnlp-main.81/}
+  doi       = {10.18653/v1/2025.emnlp-main.81},
+  url       = {https://aclanthology.org/2025.emnlp-main.81/}
 }
 
 @article{maturana2020slowing,
-  author = {Maturana, Matias I. and Meisel, Christian and Dell, Katrina and Karoly, Philippa J. and D'Souza, Wendyl and Grayden, David B. and Burkitt, Anthony N. and Jiruska, Premysl and Kudlacek, Jan and Hlinka, Jaroslav and Cook, Mark J. and Kuhlmann, Levin and Freestone, Dean R.},
-  title = {Critical slowing down as a biomarker for seizure susceptibility},
+  author  = {Maturana, Matias I. and Meisel, Christian and Dell, Katrina and others},
+  title   = {Critical slowing down as a biomarker for seizure susceptibility},
   journal = {Nature Communications},
-  volume = {11},
-  pages = {2172},
-  year = {2020},
-  doi = {10.1038/s41467-020-15908-3}
+  volume  = {11},
+  number  = {1},
+  pages   = {2172},
+  year    = {2020},
+  doi     = {10.1038/s41467-020-15908-3}
 }
 
 @article{hagemann2021criticality,
-  author = {Hagemann, Annika and Wilting, Jens and Samimizad, Bita and Mormann, Florian and Priesemann, Viola},
-  title = {Assessing criticality in pre-seizure single-neuron activity of human epileptic cortex},
+  author  = {Hagemann, Annika and Wilting, Jens and Samimizad, Bita and Mormann, Florian and Priesemann, Viola},
+  title   = {Assessing criticality in pre-seizure single-neuron activity of human epileptic cortex},
   journal = {PLOS Computational Biology},
-  volume = {17},
-  number = {3},
-  pages = {e1008773},
-  year = {2021},
-  doi = {10.1371/journal.pcbi.1008773}
+  volume  = {17},
+  number  = {3},
+  pages   = {e1008773},
+  year    = {2021},
+  doi     = {10.1371/journal.pcbi.1008773}
 }
 
 @article{e2010transition,
-  author = {E, Weinan and Vanden-Eijnden, Eric},
-  title = {Transition-Path Theory and Path-Finding Algorithms for the Study of Rare Events},
+  author  = {E, Weinan and Vanden-Eijnden, Eric},
+  title   = {Transition-Path Theory and Path-Finding Algorithms for the Study of Rare Events},
   journal = {Annual Review of Physical Chemistry},
-  volume = {61},
-  number = {1},
-  pages = {391--420},
-  year = {2010},
-  doi = {10.1146/annurev.physchem.040808.090412}
+  volume  = {61},
+  number  = {1},
+  pages   = {391--420},
+  year    = {2010},
+  doi     = {10.1146/annurev.physchem.040808.090412}
 }
 
 @misc{wang2026taps,
   author        = {Wang, Boyuan and Yu, Chengyao and Ren, Jiaxi and Wei, Hongxin and Jing, Bingyi and Tao, Yuxin},
   title         = {Scheduling Recursive Reasoning in Looped Transformers},
   year          = {2026},
+  howpublished  = {arXiv preprint arXiv:2609.36653},
+  url           = {https://arxiv.org/abs/2609.36653},
+  note          = {Submitted 29 September 2026},
   eprint        = {2609.36653},
   archivePrefix = {arXiv},
-  doi           = {10.48550/arXiv.2609.36653},
-  note          = {Submitted 29 September 2026}
+  doi           = {10.48550/arXiv.2609.36653}
 }
 
 @misc{huang2026loopedfixed,
-  author        = {Huang, Benhao and Shi, Chufan and Chen, Junlin and Wen, Shicheng and Liu, Zhengzhong and Xing, Eric and Ma, Xuezhe},
+  author        = {Huang, Benhao and Shi, Chufan and Chen, Junlin and Wen, Shicheng and Liu, Zhengzhong and Xing, Eric and
+                   Ma, Xuezhe},
   title         = {Towards Looped Models Done Right, Part {II}: Rethinking at Fixed Points},
   year          = {2026},
+  howpublished  = {arXiv preprint arXiv:2610.06833},
+  url           = {https://arxiv.org/abs/2610.06833},
+  note          = {Submitted 5 October 2026},
   eprint        = {2610.06833},
   archivePrefix = {arXiv},
-  doi           = {10.48550/arXiv.2610.06833},
-  note          = {Submitted 5 October 2026}
+  doi           = {10.48550/arXiv.2610.06833}
 }
 
 @misc{wang2026jacobianlens,
   author        = {Wang, Wenlong and Reid, Fergal},
   title         = {Looped Transformers under the {J}acobian Lens: Does the Global Workspace Survive Recurrence?},
   year          = {2026},
+  howpublished  = {arXiv preprint arXiv:2609.01924},
+  url           = {https://arxiv.org/abs/2609.01924},
+  note          = {Submitted 1 September 2026},
   eprint        = {2609.01924},
   archivePrefix = {arXiv},
-  doi           = {10.48550/arXiv.2609.01924},
-  note          = {Submitted 1 September 2026}
+  doi           = {10.48550/arXiv.2609.01924}
 }
 
 @misc{hanu2020detoxify,
@@ -709,13 +835,16 @@
   doi       = {10.18653/v1/2022.acl-long.469}
 }
 
+% Peer-reviewed shorter version (COLM 2025); the arXiv report (Team OLMo et al.) is the extended version.
 @misc{olmo2024olmo2,
-  author        = {{Team OLMo} and Walsh, Pete and Soldaini, Luca and Groeneveld, Dirk and Lo, Kyle and Arora, Shane
-                   and others},
+  author        = {{Team OLMo} and Walsh, Pete and Soldaini, Luca and Groeneveld, Dirk and others},
   title         = {2 {OLMo} 2 Furious},
   year          = {2024},
   eprint        = {2501.00656},
-  archivePrefix = {arXiv}
+  archivePrefix = {arXiv},
+  howpublished  = {arXiv preprint arXiv:2501.00656},
+  url           = {https://arxiv.org/abs/2501.00656},
+  note          = {Shorter version in the Second Conference on Language Modeling (2025)}
 }
 
 @article{pasemann2002complex,
@@ -736,23 +865,28 @@
                Papers)},
   pages     = {15504--15522},
   year      = {2024},
+  publisher = {Association for Computational Linguistics},
   doi       = {10.18653/v1/2024.acl-long.828}
 }
 
 @inproceedings{azaria2023internal,
   author    = {Azaria, Amos and Mitchell, Tom},
   title     = {The Internal State of an {LLM} Knows When It's Lying},
-  booktitle = {Findings of the Association for Computational Linguistics: EMNLP 2023},
+  booktitle = {Findings of the Association for Computational Linguistics: {EMNLP} 2023},
   pages     = {967--976},
   year      = {2023},
+  publisher = {Association for Computational Linguistics},
   doi       = {10.18653/v1/2023.findings-emnlp.68}
 }
 
-@misc{welleck2022selfcorrect,
+@inproceedings{welleck2022selfcorrect,
   author        = {Welleck, Sean and Lu, Ximing and West, Peter and Brahman, Faeze and Shen, Tianxiao and Khashabi,
                    Daniel and Choi, Yejin},
   title         = {Generating Sequences by Learning to Self-Correct},
-  year          = {2022},
+  booktitle     = {The Eleventh International Conference on Learning Representations},
+  year          = {2023},
+  url           = {https://openreview.net/forum?id=hH36JeQZDaO},
+  note          = {arXiv:2211.00053},
   eprint        = {2211.00053},
   archivePrefix = {arXiv}
 }
@@ -761,6 +895,8 @@
   author        = {Grattafiori, Aaron and Dubey, Abhimanyu and Jauhri, Abhinav and others},
   title         = {The {Llama} 3 Herd of Models},
   year          = {2024},
+  howpublished  = {arXiv preprint arXiv:2407.21783},
+  url           = {https://arxiv.org/abs/2407.21783},
   eprint        = {2407.21783},
   archivePrefix = {arXiv}
 }
@@ -773,28 +909,41 @@
   note         = {Sparse autoencoder on the residual stream after layer 19; revision f6775a22}
 }
 
-@misc{cho2025faithfulsae,
-  author        = {Cho, Seonglae and Oh, Harryn and Lee, Donghyun and Rodrigues Vieira, Luis Eduardo and Bermingham,
-                   Andrew and El Sayed, Ziad},
-  title         = {{FaithfulSAE}: Towards Capturing Faithful Features with Sparse Autoencoders without External Dataset
-                   Dependencies},
+% ACL 2025 Student Research Workshop version; its title ends "External Datasets Dependency" (arXiv: "External
+% Dataset Dependencies").
+@inproceedings{cho2025faithfulsae,
+  author        = {Cho, Seonglae and Oh, Harryn and Lee, Donghyun and Rodrigues Vieira, Luis and Bermingham, Andrew and
+                   El Sayed, Ziad},
+  title         = {{FaithfulSAE}: Towards Capturing Faithful Features with Sparse Autoencoders without External Datasets
+                   Dependency},
+  booktitle     = {Proceedings of the 63rd Annual Meeting of the Association for Computational Linguistics (Volume 4:
+                   Student Research Workshop)},
+  pages         = {297--314},
   year          = {2025},
+  publisher     = {Association for Computational Linguistics},
+  doi           = {10.18653/v1/2025.acl-srw.20},
+  note          = {arXiv:2506.17673},
   eprint        = {2506.17673},
   archivePrefix = {arXiv}
 }
 
 @misc{cobbe2021gsm8k,
-  author        = {Cobbe, Karl and Kosaraju, Vineet and Bavarian, Mohammad and Chen, Mark and others},
+  author        = {Cobbe, Karl and Kosaraju, Vineet and Bavarian, Mohammad and others},
   title         = {Training Verifiers to Solve Math Word Problems},
   year          = {2021},
+  howpublished  = {arXiv preprint arXiv:2110.14168},
+  url           = {https://arxiv.org/abs/2110.14168},
   eprint        = {2110.14168},
   archivePrefix = {arXiv}
 }
 
 @misc{clark2018arc,
-  author        = {Clark, Peter and Cowhey, Isaac and Etzioni, Oren and Khot, Tushar and others},
-  title         = {Think you have Solved Question Answering? {Try} {ARC}, the {AI2} Reasoning Challenge},
+  author        = {Clark, Peter and Cowhey, Isaac and Etzioni, Oren and Khot, Tushar and Sabharwal, Ashish and
+                   Schoenick, Carissa and Tafjord, Oyvind},
+  title         = {Think you have Solved Question Answering? {Try} {ARC}, the {AI2 Reasoning Challenge}},
   year          = {2018},
+  howpublished  = {arXiv preprint arXiv:1803.05457},
+  url           = {https://arxiv.org/abs/1803.05457},
   eprint        = {1803.05457},
   archivePrefix = {arXiv}
 }
@@ -826,6 +975,7 @@
   title   = {Transition to Chaos in Random Neuronal Networks},
   journal = {Physical Review X},
   volume  = {5},
+  number  = {4},
   pages   = {041030},
   year    = {2015},
   doi     = {10.1103/PhysRevX.5.041030}
@@ -836,6 +986,7 @@
   title   = {Stimulus-dependent suppression of chaos in recurrent neural networks},
   journal = {Physical Review E},
   volume  = {82},
+  number  = {1},
   pages   = {011903},
   year    = {2010},
   doi     = {10.1103/PhysRevE.82.011903}
@@ -846,6 +997,7 @@
   title   = {Periodicity Hub and Nested Spirals in the Phase Diagram of a Simple Resistive Circuit},
   journal = {Physical Review Letters},
   volume  = {101},
+  number  = {5},
   pages   = {054101},
   year    = {2008},
   doi     = {10.1103/PhysRevLett.101.054101}
@@ -856,23 +1008,34 @@
   title   = {Real-World Existence and Origins of the Spiral Organization of Shrimp-Shaped Domains},
   journal = {Physical Review Letters},
   volume  = {105},
+  number  = {7},
   pages   = {074102},
   year    = {2010},
   doi     = {10.1103/PhysRevLett.105.074102}
 }
 
-@misc{poole2016exponential,
+% NeurIPS 2016 and 2019 pages: the publisher's own records (papers.nips.cc, archived 2017 and 2020); the current
+% proceedings.neurips.cc pages give volume and year only.
+@inproceedings{poole2016exponential,
   author        = {Poole, Ben and Lahiri, Subhaneil and Raghu, Maithra and Sohl-Dickstein, Jascha and Ganguli, Surya},
   title         = {Exponential expressivity in deep neural networks through transient chaos},
+  booktitle     = {Advances in Neural Information Processing Systems},
+  volume        = {29},
+  pages         = {3360--3368},
   year          = {2016},
+  url           = {https://proceedings.neurips.cc/paper_files/paper/2016/hash/148510031349642de5ca0c544f31b2ef-Abstract.html},
+  note          = {arXiv:1606.05340},
   eprint        = {1606.05340},
   archivePrefix = {arXiv}
 }
 
-@misc{schoenholz2017deep,
+@inproceedings{schoenholz2017deep,
   author        = {Schoenholz, Samuel S. and Gilmer, Justin and Ganguli, Surya and Sohl-Dickstein, Jascha},
   title         = {Deep Information Propagation},
-  year          = {2016},
+  booktitle     = {The Fifth International Conference on Learning Representations},
+  year          = {2017},
+  url           = {https://openreview.net/forum?id=H1W1UN9gg},
+  note          = {arXiv:1611.01232},
   eprint        = {1611.01232},
   archivePrefix = {arXiv}
 }
@@ -881,46 +1044,63 @@
   author        = {Berg, Cameron and de Lucena, Diogo and Rosenblatt, Judd},
   title         = {Large Language Models Report Subjective Experience Under Self-Referential Processing},
   year          = {2025},
+  howpublished  = {arXiv preprint arXiv:2510.24797},
+  url           = {https://arxiv.org/abs/2510.24797},
   eprint        = {2510.24797},
   archivePrefix = {arXiv}
 }
 
-@misc{ramsauer2020hopfield,
+% ICLR 2021 version (13 authors on the ICLR record; arXiv lists 16).
+@inproceedings{ramsauer2020hopfield,
   author        = {Ramsauer, Hubert and Sch{\"a}fl, Bernhard and Lehner, Johannes and others},
   title         = {Hopfield Networks is All You Need},
-  year          = {2020},
+  booktitle     = {The Ninth International Conference on Learning Representations},
+  year          = {2021},
+  url           = {https://openreview.net/forum?id=tL89RnzIiCd},
+  note          = {arXiv:2008.02217},
   eprint        = {2008.02217},
   archivePrefix = {arXiv}
 }
 
-@misc{xu2022learning,
-  author        = {Xu, Jin and Liu, Xiaojiang and Yan, Jianhao and others},
-  title         = {Learning to Break the Loop: Analyzing and Mitigating Repetitions for Neural Text Generation},
-  year          = {2022},
-  eprint        = {2206.02369},
-  archivePrefix = {arXiv}
-}
-
-@misc{geshkovski2023emergence,
+@inproceedings{geshkovski2023emergence,
   author        = {Geshkovski, Borjan and Letrouit, Cyril and Polyanskiy, Yury and Rigollet, Philippe},
   title         = {The emergence of clusters in self-attention dynamics},
+  booktitle     = {Advances in Neural Information Processing Systems},
+  volume        = {36},
+  pages         = {57026--57037},
   year          = {2023},
+  doi           = {10.52202/075280-2493},
+  url           = {https://proceedings.neurips.cc/paper_files/paper/2023/hash/b2b3e1d9840eba17ad9bbf073e009afe-Abstract-Conference.html},
+  note          = {arXiv:2305.05465},
   eprint        = {2305.05465},
   archivePrefix = {arXiv}
 }
 
-@misc{dong2021attention,
+@inproceedings{dong2021attention,
   author        = {Dong, Yihe and Cordonnier, Jean-Baptiste and Loukas, Andreas},
   title         = {Attention is Not All You Need: Pure Attention Loses Rank Doubly Exponentially with Depth},
+  booktitle     = {Proceedings of the 38th International Conference on Machine Learning},
+  series        = {Proceedings of Machine Learning Research},
+  volume        = {139},
+  pages         = {2793--2803},
   year          = {2021},
+  publisher     = {PMLR},
+  url           = {https://proceedings.mlr.press/v139/dong21a.html},
+  note          = {arXiv:2103.03404},
   eprint        = {2103.03404},
   archivePrefix = {arXiv}
 }
 
-@misc{fu2021repetition,
-  author        = {Fu, Zihao and Lam, Wai and So, Anthony Man-Cho and others},
+@article{fu2021repetition,
+  author        = {Fu, Zihao and Lam, Wai and So, Anthony Man-Cho and Shi, Bei},
   title         = {A Theoretical Analysis of the Repetition Problem in Text Generation},
-  year          = {2020},
+  journal       = {Proceedings of the AAAI Conference on Artificial Intelligence},
+  volume        = {35},
+  number        = {14},
+  pages         = {12848--12856},
+  year          = {2021},
+  doi           = {10.1609/aaai.v35i14.17520},
+  note          = {arXiv:2012.14660},
   eprint        = {2012.14660},
   archivePrefix = {arXiv}
 }
@@ -929,6 +1109,9 @@
   author        = {Olsson, Catherine and Elhage, Nelson and Nanda, Neel and others},
   title         = {In-context Learning and Induction Heads},
   year          = {2022},
+  howpublished  = {Transformer Circuits Thread},
+  url           = {https://transformer-circuits.pub/2022/in-context-learning-and-induction-heads/index.html},
+  note          = {arXiv:2209.11895},
   eprint        = {2209.11895},
   archivePrefix = {arXiv}
 }
@@ -944,19 +1127,26 @@
   doi     = {10.1162/NECO_a_00409}
 }
 
-@misc{maheswaranathan2019reverse,
-  author        = {Maheswaranathan, Niru and Williams, Alex and Golub, Matthew D. and others},
+@inproceedings{maheswaranathan2019reverse,
+  author        = {Maheswaranathan, Niru and Williams, Alex and Golub, Matthew and Ganguli, Surya and Sussillo, David},
   title         = {Reverse engineering recurrent networks for sentiment classification reveals line attractor dynamics},
+  booktitle     = {Advances in Neural Information Processing Systems},
+  volume        = {32},
+  pages         = {15696--15705},
   year          = {2019},
+  url           = {https://proceedings.neurips.cc/paper_files/paper/2019/hash/d921c3c762b1522c475ac8fc0811bb0f-Abstract.html},
+  note          = {arXiv:1906.10720},
   eprint        = {1906.10720},
   archivePrefix = {arXiv}
 }
 
 @article{shumailov2024collapse,
-  author  = {Shumailov, Ilia and Shumaylov, Zakhar and Zhao, Yiren and others},
+  author  = {Shumailov, Ilia and Shumaylov, Zakhar and Zhao, Yiren and Papernot, Nicolas and Anderson, Ross and
+             Gal, Yarin},
   title   = {{AI} models collapse when trained on recursively generated data},
   journal = {Nature},
   volume  = {631},
+  number  = {8022},
   pages   = {755--759},
   year    = {2024},
   doi     = {10.1038/s41586-024-07566-y}
