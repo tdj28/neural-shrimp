@@ -1110,19 +1110,19 @@ increase (shading). Chaotic: exponents above $10^{-3}$ at both twin offsets ($10
 model & params (B) & chaotic, $[-1,0.3]$ (\%) & unres. & sweep, $\log_{10}T$ & chaotic dec. & breadth & max $\lambda$ \\
 \midrule
 Qwen2.5-0.5B & 0.5 & 7/512 (1.4) & 1 & $-1.0$ to $0.3$ & 0.018 & 0.053 & $+0.28$ \\
-Qwen2.5-1.5B & 1.5 & 2/130 (1.5) & 0 & $-1.0$ to $0.6$ & 0.231 & 0.191 & $+0.85$ \\
-Qwen2.5-3B & 3.1 & 0/130 (0.0) & 0 & $-1.0$ to $0.6$ & 0.030 & 0.060 & $+0.85$ \\
-Qwen2.5-7B & 7.6 & 65/512 (12.7) & 6 & $-1.0$ to $0.6$ & 0.226 & 0.249 & $+0.88$ \\
-Qwen2.5-14B & 14.7 & 0/130 (0.0) & 0 & $-1.0$ to $0.6$ & 0.050 & 0.191 & $+0.81$ \\
-Qwen2.5-32B & 32.8 & 0/130 (0.0) & 0 & $-1.0$ to $0.6$ & 0.010 & 0.091 & $+0.36$ \\
+Qwen2.5-1.5B & 1.5 & 2/130 (1.5) & 0 & $-1.0$ to $1.2$ & 0.531 & 0.191 & $+0.85$ \\
+Qwen2.5-3B & 3.1 & 0/130 (0.0) & 0 & $-1.0$ to $1.2$ & 0.030 & 0.060 & $+0.85$ \\
+Qwen2.5-7B & 7.6 & 65/512 (12.7) & 6 & $-1.0$ to $1.2$ & 0.226 & 0.249 & $+0.88$ \\
+Qwen2.5-14B & 14.7 & 0/130 (0.0) & 0 & $-1.0$ to $1.2$ & 0.500 & 0.191 & $+1.14$ \\
+Qwen2.5-32B & 32.8 & 0/130 (0.0) & 0 & $-1.0$ to $1.2$ & 0.010 & 0.091 & $+0.36$ \\
 Qwen2.5-72B & 72.7 & 0/128 (0.0) & 0 & $-1.0$ to $1.2$ & 0.000 & 0.014 & $-0.45$ \\
-Llama-3.1-8B & 8.0 & 96/512 (18.8) & 2 & $-1.0$ to $0.6$ & 0.241 & 0.634 & $+0.66$ \\
+Llama-3.1-8B & 8.0 & 96/512 (18.8) & 2 & $-1.0$ to $1.2$ & 0.241 & 0.634 & $+0.66$ \\
 Llama-3.1-70B & 70.6 & 3/128 (2.3) & 28 & $-1.0$ to $0.3$ & 0.031 & 0.307 & $+0.41$ \\
 Llama-3.3-70B & 70.6 & 0/128 (0.0) & 19 & $-1.0$ to $0.3$ & 0.000 & 0.225 & $-0.27$ \\
-OLMo-2-1B & 1.5 & 5/130 (3.8) & 0 & $-1.0$ to $0.6$ & 0.050 & 0.322 & $+0.23$ \\
-OLMo-2-7B & 7.3 & 32/512 (6.2) & 3 & $-1.0$ to $0.6$ & 0.083 & 0.197 & $+0.30$ \\
-OLMo-2-13B & 13.7 & 0/130 (0.0) & 0 & $-1.0$ to $0.6$ & 0.000 & 0.131 & $-0.00$ \\
-OLMo-2-32B & 32.2 & 21/130 (16.2) & 0 & $-1.0$ to $0.6$ & 0.252 & 0.694 & $+0.62$ \\
+OLMo-2-1B & 1.5 & 5/130 (3.8) & 0 & $-1.0$ to $1.2$ & 0.050 & 0.322 & $+0.23$ \\
+OLMo-2-7B & 7.3 & 32/512 (6.2) & 3 & $-1.0$ to $1.2$ & 0.083 & 0.197 & $+0.30$ \\
+OLMo-2-13B & 13.7 & 0/130 (0.0) & 0 & $-1.0$ to $1.2$ & 0.000 & 0.131 & $-0.00$ \\
+OLMo-2-32B & 32.2 & 21/130 (16.2) & 0 & $-1.0$ to $1.2$ & 0.252 & 0.694 & $+0.62$ \\
 Qwen3.5-35B-A3B & 35.0 & 0/128 (0.0) & 15 & $-1.0$ to $0.3$ & 0.000 & 0.143 & $-0.27$ \\
 \bottomrule
 \end{tabular}
@@ -1132,7 +1132,8 @@ detected period nor a positive exponent. Chaotic decades: length of the temperat
 whole sweep, each temperature weighted by its grid spacing; breadth: decades in which the mean next-token entropy on
 the orbit lies between 1 and 10 nats. The Qwen2.5-72B sweep joins two grids that share $\log_{10}T=0.3$, counted
 once; for the 7--8B models the share in $[-1,0.3]$ comes from their 512-temperature sweeps, on which the frozen
-predictions are scored, and the whole-axis columns also include a 160-temperature sweep over $[-1,0.6]$. Positive cells found later on finer lines (Qwen2.5-32B, -72B; Llama-3.3-70B) are not in these regular-grid
+predictions are scored, and the whole-axis columns also include sweeps over $[-1,0.6]$ and $[0.61,1.2]$ (64
+temperatures), as for the other models swept to $1.2$. Positive cells found later on finer lines (Qwen2.5-32B, -72B; Llama-3.3-70B) are not in these regular-grid
 counts.}
 \label{tab:scale}
 \end{table}
@@ -1141,8 +1142,10 @@ counts.}
 \includegraphics[width=\linewidth]{fig-scale.png}
 \caption{How much of the temperature axis is chaotic, for the fifteen unsteered maps of Table~\ref{tab:scale}:
 against parameter count, by family (left), and against the breadth of the intermediate-entropy regime (right).
-Spearman correlations over the fifteen models. The breadth is measured on the loop's own orbits; the loop-free test of
-the same idea is described in the text.}
+Spearman correlations over the fifteen models. Each model's sweeps cover the range listed in Table~\ref{tab:scale};
+those of the two Llama-70B models and the mixture of experts end at $\log_{10}T=0.3$, so their values are lower
+bounds. The breadth is measured on the loop's own orbits; the loop-free test of the same idea is described in the
+text.}
 \label{fig:scale}
 \end{figure}
 
@@ -1160,12 +1163,14 @@ alike, with exponents that agree within 0.05, and the drawn periodic and unresol
 on one GPU, the exponents at $10^{-7}$ and $10^{-5}$ agree within 0.02 at every chaotic temperature of the
 prompt-blocked test. Whether the Qwen2.5-72B window hides structure finer than $10^{-5}$ or a numerical effect specific
 to that computation, we cannot tell. \inprogress{A plateau test of Llama-3.1-70B's three unsteered chaotic temperatures
-is running.} Several Qwen2.5 models also have chaotic temperatures above
-$\log_{10}T=0.3$ on the paper's prompt, where the next-token entropy on the orbit is high (6.8 to 11.6 nats): 1.5B at
-21 temperatures between $0.31$ and $0.58$, 3B at 3, 7B at 6 of the 30 temperatures of its wider sweep, and 14B at 5.
-For the 1.5B model a longer test (3000 measured steps) at twin offsets $10^{-5}$ and $10^{-7}$ confirms chaos at 9 of
-12 temperatures between $0.29$ and $0.58$, with the two exponents agreeing within 0.003 at every temperature.
-\inprogress{Sweeps from $\log_{10}T=0.61$ to $1.2$ for the models of the scaling series are running.}
+is running.} Two Qwen2.5 models are chaotic far above the
+fixed window on the paper's prompt, where the next-token distribution is nearly uniform: the 1.5B model at 55 of 224
+temperatures, between $\log_{10}T=0.29$ and $1.03$, and the 14B model at 53, between $0.52$ and $1.14$ (exponents up to 1.14), at mean
+entropies up to 11.9 nats against $\log V=11.93$. The other models of the series are not chaotic above
+$\log_{10}T=0.6$. For the 1.5B model a longer test (3000 measured steps) at twin offsets $10^{-5}$ and $10^{-7}$ confirms
+chaos at 9 of 12 temperatures between $0.29$ and $0.58$, with the two exponents agreeing within 0.003 at every
+temperature. The contraction that Section~\ref{sec:theory} proves for large enough temperature sets in only above
+$\log_{10}T\approx1.1$ in these two models.
 
 \paragraph{What sets it: the gain of the loop.} The gain split of Section~\ref{sec:theory} shows which factor removes or
 keeps the chaos (Figure~\ref{fig:gainscale}). We compare medians of the two factors in bins of the mean next-token
@@ -1203,9 +1208,10 @@ exponent up to a boundary term. Medians per entropy bin are given in the text.}
 readout is neither saturated nor uniform, so a model whose next-token distribution jumps from sharp to flat over a
 small range of temperature leaves little room for it. The breadth of this intermediate regime, the decades of
 $\log_{10}T$ in which the mean entropy on the orbit lies between 1 and 10 nats, ranges from 0.014 (Qwen2.5-72B) to
-0.69 (OLMo-2-32B), and it orders the fifteen models' chaotic length (Spearman $+0.69$) better than their parameter
-count does ($-0.46$; Figure~\ref{fig:scale}, right). This analysis was adapted after the OLMo-2-32B result, and the
-breadth is measured on the loop's own orbits, which chaos itself spreads, so the test is partly circular.
+0.69 (OLMo-2-32B). It orders the fifteen models' chaotic length (Spearman $+0.55$) somewhat better than their parameter
+count does ($-0.44$; Figure~\ref{fig:scale}, right), but it misses the chaos of Qwen2.5-1.5B and -14B at nearly
+uniform distributions, above its 10-nat bound. This analysis was adapted after the OLMo-2-32B result, and the breadth
+is measured on the loop's own orbits, which chaos itself spreads, so the test is partly circular.
 \inprogress{A loop-free version, from one forward pass per model at the start state, is frozen in \texttt{docs/start-state-predictor.md} and not yet run.}
 
 \paragraph{Across prefixes.} \inprogress{A prompt-blocked test over ten prefixes for Qwen2.5-7B and -14B, frozen in \texttt{docs/prefix-scale-test.md}, is running.}

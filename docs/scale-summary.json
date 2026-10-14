@@ -40,17 +40,18 @@
    "chaotic_core": 2,
    "unresolved_core": 0,
    "share_core": 0.015384615384615385,
-   "temperatures_all": 160,
-   "chaotic_all": 23,
+   "temperatures_all": 224,
+   "chaotic_all": 55,
    "log10T_range": [
     -1.0,
-    0.6
+    1.2
    ],
    "max_exponent": 0.854805511814244,
-   "chaos_decades": 0.2314465408805031,
+   "chaos_decades": 0.5314465408805031,
    "intermediate_entropy_decades": 0.19119496855345908,
    "sweeps": [
-    "llm-soft-loop/pod64/big/qwen1.5b-alpha0-wide"
+    "llm-soft-loop/pod64/big/qwen1.5b-alpha0-wide",
+    "llm-soft-loop/pod64/big/qwen1.5b-alpha0-upper"
    ],
    "chaotic_log10T": [
     0.2881,
@@ -75,7 +76,39 @@
     0.4994,
     0.5195,
     0.5698,
-    0.5799
+    0.5799,
+    0.61,
+    0.6194,
+    0.6287,
+    0.6475,
+    0.6568,
+    0.6662,
+    0.6756,
+    0.6849,
+    0.6943,
+    0.7037,
+    0.713,
+    0.7224,
+    0.7317,
+    0.7598,
+    0.7692,
+    0.7786,
+    0.7879,
+    0.7973,
+    0.8067,
+    0.8441,
+    0.8629,
+    0.8722,
+    0.8816,
+    0.891,
+    0.9097,
+    0.919,
+    0.9378,
+    0.9471,
+    0.9565,
+    0.9659,
+    1.0221,
+    1.0314
    ]
   },
   {
@@ -87,17 +120,18 @@
    "chaotic_core": 0,
    "unresolved_core": 0,
    "share_core": 0.0,
-   "temperatures_all": 160,
+   "temperatures_all": 224,
    "chaotic_all": 3,
    "log10T_range": [
     -1.0,
-    0.6
+    1.2
    ],
    "max_exponent": 0.8471919762376028,
    "chaos_decades": 0.030188679245283012,
    "intermediate_entropy_decades": 0.060377358490566024,
    "sweeps": [
-    "llm-soft-loop/pod64/big/qwen3b-alpha0-wide"
+    "llm-soft-loop/pod64/big/qwen3b-alpha0-wide",
+    "llm-soft-loop/pod64/big/qwen3b-alpha0-upper"
    ],
    "chaotic_log10T": [
     0.439,
@@ -114,18 +148,19 @@
    "chaotic_core": 65,
    "unresolved_core": 6,
    "share_core": 0.126953125,
-   "temperatures_all": 671,
+   "temperatures_all": 735,
    "chaotic_all": 89,
    "log10T_range": [
     -1.0,
-    0.6
+    1.2
    ],
    "max_exponent": 0.8774694574141603,
    "chaos_decades": 0.22623786138906316,
    "intermediate_entropy_decades": 0.2486473679676061,
    "sweeps": [
     "llm-soft-loop/pod64/controls/q7-alpha0",
-    "llm-soft-loop/pod64/big/qwen7b-alpha0-wide"
+    "llm-soft-loop/pod64/big/qwen7b-alpha0-wide",
+    "llm-soft-loop/pod64/big/qwen7b-alpha0-upper"
    ],
    "chaotic_log10T": [
     -0.1145,
@@ -228,24 +263,73 @@
    "chaotic_core": 0,
    "unresolved_core": 0,
    "share_core": 0.0,
-   "temperatures_all": 160,
-   "chaotic_all": 5,
+   "temperatures_all": 224,
+   "chaotic_all": 53,
    "log10T_range": [
     -1.0,
-    0.6
+    1.2
    ],
-   "max_exponent": 0.8130425428946295,
-   "chaos_decades": 0.050314465408804854,
+   "max_exponent": 1.1394301767064778,
+   "chaos_decades": 0.5001242887091943,
    "intermediate_entropy_decades": 0.19119496855345908,
    "sweeps": [
-    "llm-soft-loop/pod64/big/qwen14b-alpha0-wide"
+    "llm-soft-loop/pod64/big/qwen14b-alpha0-wide",
+    "llm-soft-loop/pod64/big/qwen14b-alpha0-upper"
    ],
    "chaotic_log10T": [
     0.5195,
     0.5698,
     0.5799,
     0.5899,
-    0.6
+    0.6,
+    0.61,
+    0.6194,
+    0.6287,
+    0.6381,
+    0.6568,
+    0.6662,
+    0.6756,
+    0.6849,
+    0.6943,
+    0.7037,
+    0.713,
+    0.7317,
+    0.7411,
+    0.7505,
+    0.7692,
+    0.7786,
+    0.7879,
+    0.7973,
+    0.8067,
+    0.816,
+    0.8254,
+    0.8348,
+    0.8441,
+    0.8535,
+    0.8722,
+    0.9003,
+    0.9097,
+    0.919,
+    0.9284,
+    0.9378,
+    0.9471,
+    0.9565,
+    0.9659,
+    0.9752,
+    0.9846,
+    0.994,
+    1.0033,
+    1.0127,
+    1.0314,
+    1.0408,
+    1.0502,
+    1.0595,
+    1.0689,
+    1.0783,
+    1.0876,
+    1.097,
+    1.1344,
+    1.1438
    ]
   },
   {
@@ -257,17 +341,18 @@
    "chaotic_core": 0,
    "unresolved_core": 0,
    "share_core": 0.0,
-   "temperatures_all": 160,
+   "temperatures_all": 224,
    "chaotic_all": 1,
    "log10T_range": [
     -1.0,
-    0.6
+    1.2
    ],
    "max_exponent": 0.3556818793083529,
    "chaos_decades": 0.010062893081761004,
    "intermediate_entropy_decades": 0.09056603773584904,
    "sweeps": [
-    "llm-soft-loop/pod64/big/qwen32b-alpha0-wide"
+    "llm-soft-loop/pod64/big/qwen32b-alpha0-wide",
+    "llm-soft-loop/pod64/big/qwen32b-alpha0-upper"
    ],
    "chaotic_log10T": [
     0.5799
@@ -306,18 +391,19 @@
    "chaotic_core": 96,
    "unresolved_core": 2,
    "share_core": 0.1875,
-   "temperatures_all": 671,
+   "temperatures_all": 735,
    "chaotic_all": 116,
    "log10T_range": [
     -1.0,
-    0.6
+    1.2
    ],
    "max_exponent": 0.6629316521852896,
    "chaos_decades": 0.24080419451316293,
    "intermediate_entropy_decades": 0.6337733387487848,
    "sweeps": [
     "llm-soft-loop/pod64/llama8b-hires/alpha0",
-    "llm-soft-loop/pod64/big/llama3.1-8b-alpha0-wide"
+    "llm-soft-loop/pod64/big/llama3.1-8b-alpha0-wide",
+    "llm-soft-loop/pod64/big/llama3.1-8b-alpha0-upper"
    ],
    "chaotic_log10T": [
     -0.1961,
@@ -497,17 +583,18 @@
    "chaotic_core": 5,
    "unresolved_core": 0,
    "share_core": 0.038461538461538464,
-   "temperatures_all": 160,
+   "temperatures_all": 224,
    "chaotic_all": 5,
    "log10T_range": [
     -1.0,
-    0.6
+    1.2
    ],
    "max_exponent": 0.23285797225516813,
    "chaos_decades": 0.05031446540880502,
    "intermediate_entropy_decades": 0.32201257861635213,
    "sweeps": [
-    "llm-soft-loop/pod64/big/olmo2-1b-alpha0-wide"
+    "llm-soft-loop/pod64/big/olmo2-1b-alpha0-wide",
+    "llm-soft-loop/pod64/big/olmo2-1b-alpha0-upper"
    ],
    "chaotic_log10T": [
     -0.5472,
@@ -526,18 +613,19 @@
    "chaotic_core": 32,
    "unresolved_core": 3,
    "share_core": 0.0625,
-   "temperatures_all": 671,
+   "temperatures_all": 735,
    "chaotic_all": 41,
    "log10T_range": [
     -1.0,
-    0.6
+    1.2
    ],
    "max_exponent": 0.3041023056260902,
    "chaos_decades": 0.08333025637238622,
    "intermediate_entropy_decades": 0.19703011729375153,
    "sweeps": [
     "llm-soft-loop/pod64/controls/o-alpha0c",
-    "llm-soft-loop/pod64/big/olmo2-7b-alpha0-wide"
+    "llm-soft-loop/pod64/big/olmo2-7b-alpha0-wide",
+    "llm-soft-loop/pod64/big/olmo2-7b-alpha0-upper"
    ],
    "chaotic_log10T": [
     0.0431,
@@ -592,17 +680,18 @@
    "chaotic_core": 0,
    "unresolved_core": 0,
    "share_core": 0.0,
-   "temperatures_all": 160,
+   "temperatures_all": 224,
    "chaotic_all": 0,
    "log10T_range": [
     -1.0,
-    0.6
+    1.2
    ],
    "max_exponent": -0.0006737156509113927,
    "chaos_decades": 0.0,
    "intermediate_entropy_decades": 0.13081761006289305,
    "sweeps": [
-    "llm-soft-loop/pod64/big/olmo2-13b-alpha0-wide"
+    "llm-soft-loop/pod64/big/olmo2-13b-alpha0-wide",
+    "llm-soft-loop/pod64/big/olmo2-13b-alpha0-upper"
    ],
    "chaotic_log10T": []
   },
@@ -615,17 +704,18 @@
    "chaotic_core": 21,
    "unresolved_core": 0,
    "share_core": 0.16153846153846155,
-   "temperatures_all": 160,
+   "temperatures_all": 224,
    "chaotic_all": 25,
    "log10T_range": [
     -1.0,
-    0.6
+    1.2
    ],
    "max_exponent": 0.6244037461170138,
    "chaos_decades": 0.25157232704402516,
    "intermediate_entropy_decades": 0.6943396226415096,
    "sweeps": [
-    "llm-soft-loop/pod64/big/olmo2-32b-alpha0-wide"
+    "llm-soft-loop/pod64/big/olmo2-32b-alpha0-wide",
+    "llm-soft-loop/pod64/big/olmo2-32b-alpha0-upper"
    ],
    "chaotic_log10T": [
     -0.4164,
@@ -692,8 +782,8 @@
  "P1_holds": false,
  "P2_holds": false,
  "spearman": {
-  "breadth": 0.6889316138632753,
-  "log_params": -0.45718367569199025,
+  "breadth": 0.5500631995505209,
+  "log_params": -0.44275578849066516,
   "models": 15
  }
 }
