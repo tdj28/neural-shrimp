@@ -1162,6 +1162,8 @@ small-offset bias is upward. \inprogress{Plateau tests of the Llama-3.3-70B zoom
 offsets $10^{-4}$, $10^{-5}$ and $10^{-6}$ are running.} Several Qwen2.5 models also have chaotic temperatures above
 $\log_{10}T=0.3$ on the paper's prompt, where the next-token entropy on the orbit is high (6.8 to 11.6 nats): 1.5B at
 21 temperatures between $0.31$ and $0.58$, 3B at 3, 7B at 6 of the 30 temperatures of its wider sweep, and 14B at 5.
+For the 1.5B model a longer test (3000 measured steps) at twin offsets $10^{-5}$ and $10^{-7}$ confirms chaos at 9 of
+12 temperatures between $0.29$ and $0.58$, with the two exponents agreeing within 0.003 at every temperature.
 \inprogress{Sweeps from $\log_{10}T=0.61$ to $1.2$ for the models of the scaling series are running.}
 
 \paragraph{What sets it: the gain of the loop.} The gain split of Section~\ref{sec:theory} shows which factor removes or
