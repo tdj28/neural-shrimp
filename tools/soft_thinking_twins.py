@@ -8,7 +8,13 @@ without renormalization, measures whether an early perturbation grows. Per twin:
 of log d_t against t over the steps where 10 eps0 <= d_t <= DMAX (the linear regime), or over all steps when d_t never
 leaves the start (decay or no growth); and the first step at which d_t exceeds DMAX.
 
+Steered cells (--cells-file with [log10 T, alpha] pairs, --vectors, --concept, --layer) add alpha times the concept
+vector at that layer at every position, prefix and soft tokens alike, as in the one-token map; a cell's twins share its
+steering.
+
 Usage: python tools/soft_thinking_twins.py --model qwen0.5b --log-temperature LO HI --n N --steps S --out OUT
+       python tools/soft_thinking_twins.py --model M --cells-file F [--cells-index I ...] --vectors V --concept C
+              --layer L --steps S --out OUT
 """
 import argparse
 import json
@@ -39,11 +45,14 @@ def growth_rate(d, eps0, dmax=DMAX):
     return float(slope), first, int(len(sel))
 
 
-def run(loop, log_ts, steps, eps0, n_twins, seed=0):
+def run(loop, log_ts, steps, eps0, n_twins, seed=0, alphas=None, v=None):
     torch = loop.torch
     n = len(log_ts)
-    B = n * (1 + n_twins)
-    X = loop.prepare(np.zeros((B, loop.E.shape[1])))          # (B, 1, d): start state at position L0, unsteered
+    alphas = np.zeros(n) if alphas is None else np.asarray(alphas, dtype=float)
+    if v is None and np.any(alphas != 0):
+        raise ValueError("steered cells need a steering vector")
+    steer = np.zeros((n, loop.E.shape[1])) if v is None else alphas[:, None] * np.asarray(v, dtype=float)[None, :]
+    X = loop.prepare(np.tile(steer, (1 + n_twins, 1)))        # (B, 1, d): start state at position L0; base rows first
     rng = np.random.default_rng(seed)
     base = X[:n]
     parts = [base]
@@ -72,7 +81,7 @@ def run(loop, log_ts, steps, eps0, n_twins, seed=0):
     out = []
     for c in range(n):
         rates = [growth_rate(dist[:, k, c], eps0) for k in range(n_twins)]
-        out.append({"log10_temperature": float(log_ts[c]), "growth_rates": [r[0] for r in rates],
+        out.append({"log10_temperature": float(log_ts[c]), "alpha": float(alphas[c]), "growth_rates": [r[0] for r in rates],
                     "first_above_dmax": [r[1] for r in rates], "points": [r[2] for r in rates],
                     "growth_rate_median": float(np.nanmedian([r[0] for r in rates])),
                     "entropy_mean": float(ent[:, c].mean()), "final_distance": dist[-1, :, c].tolist()})
@@ -81,11 +90,17 @@ def run(loop, log_ts, steps, eps0, n_twins, seed=0):
 
 def main():
     import explore_llm_attractors as ela
+    import explore_llm_phase_map as elpm
     import explore_llm_soft_loop as esl
 
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--model", default="qwen0.5b")
-    ap.add_argument("--log-temperature", type=float, nargs=2, required=True)
+    ap.add_argument("--log-temperature", type=float, nargs=2, default=None)
+    ap.add_argument("--cells-file", default=None, help="JSON with a list 'cells' of [log10T, alpha] pairs")
+    ap.add_argument("--cells-index", type=int, nargs="+", default=None, help="the cells of --cells-file to run")
+    ap.add_argument("--vectors", default=None, help="steering vectors (DATA/explore-relative); unsteered without")
+    ap.add_argument("--concept", default=None)
+    ap.add_argument("--layer", type=int, default=0, help="steering layer")
     ap.add_argument("--n", type=int, default=24)
     ap.add_argument("--steps", type=int, default=400)
     ap.add_argument("--eps0", type=float, default=1e-10)
@@ -103,22 +118,42 @@ def main():
         pref = json.loads(Path(args.prefix_file).read_text())["prefixes"][args.prefix_index]
         ela.PROMPTS["custom"] = pref["system"]
         prompt, opener = "custom", pref["opener"]
-    loop = esl.SoftLoop(args.model, 0, 16, prompt, opener, 1, "float64", args.device, args.weights)
-    log_ts = np.linspace(args.log_temperature[0], args.log_temperature[1], args.n)
+    if args.cells_file is not None:
+        pairs = np.array(json.loads(Path(args.cells_file).read_text())["cells"], dtype=float)
+        if args.cells_index is not None:
+            pairs = pairs[args.cells_index]
+        log_ts, alphas = pairs[:, 0], pairs[:, 1]
+    elif args.log_temperature is not None:
+        log_ts = np.linspace(args.log_temperature[0], args.log_temperature[1], args.n)
+        alphas = np.zeros(args.n)
+    else:
+        raise SystemExit("give --log-temperature or --cells-file")
+    if np.any(alphas != 0) and not (args.vectors and args.concept):
+        raise SystemExit("steered cells need --vectors and --concept")
+    loop = esl.SoftLoop(args.model, args.layer, 16, prompt, opener, 1, "float64", args.device, args.weights)
+    v = None
+    if args.vectors:
+        v = elpm.load_vectors(args.vectors)[args.concept]
+        if len(v) != loop.E.shape[1]:
+            raise SystemExit(f"steering vector dimension {len(v)} does not match the model ({loop.E.shape[1]})")
+    out = ela.DATA / "explore" / args.out
+    out.mkdir(parents=True, exist_ok=True)
     cells, dists, ents = [], [], []
-    for s in range(0, args.n, args.chunk):
-        got, dist, ent = run(loop, log_ts[s:s + args.chunk], args.steps, args.eps0, args.twins, args.seed + s)
+    for s in range(0, len(log_ts), args.chunk):
+        got, dist, ent = run(loop, log_ts[s:s + args.chunk], args.steps, args.eps0, args.twins, args.seed + s,
+                             alphas[s:s + args.chunk], v)
         cells += got
         dists.append(dist)
         ents.append(ent)
-        print(json.dumps({"done": len(cells), "of": args.n}), flush=True)
-    out = ela.DATA / "explore" / args.out
-    out.mkdir(parents=True, exist_ok=True)
-    (out / "soft-thinking-twins.json").write_text(json.dumps({"args": vars(args), "dmax": DMAX, "cells": cells}, indent=1))
-    np.savez_compressed(out / "distances.npz", distance=np.concatenate(dists, axis=2), entropy=np.concatenate(ents, axis=1),
-                        log10_temperature=log_ts)
+        # written after every chunk, so a run stopped by its time limit keeps the finished chunks
+        (out / "soft-thinking-twins.json").write_text(json.dumps({"args": vars(args), "dmax": DMAX, "cells": cells,
+                                                                  "complete": len(cells) == len(log_ts)}, indent=1))
+        np.savez_compressed(out / "distances.npz", distance=np.concatenate(dists, axis=2),
+                            entropy=np.concatenate(ents, axis=1), log10_temperature=log_ts[:len(cells)],
+                            alpha=alphas[:len(cells)])
+        print(json.dumps({"done": len(cells), "of": len(log_ts)}), flush=True)
     for c in cells:
-        print(json.dumps({k: c[k] for k in ("log10_temperature", "growth_rate_median", "entropy_mean")}))
+        print(json.dumps({k: c[k] for k in ("log10_temperature", "alpha", "growth_rate_median", "entropy_mean")}))
 
 
 if __name__ == "__main__":

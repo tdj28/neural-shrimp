@@ -969,6 +969,31 @@ snapshot_download('$REPO', revision='$MREV', cache_dir='$NEURAL_SHRIMP_DATA/mode
         --log-temperature -0.3 0.6 --n 24 --steps 400 --twins 3 --eps0 1e-10 --chunk 24 --out $D/big/$model-softthink
     done
     ;;
+  softthink72) # growing-context soft thinking twins at 72B (run ST72): no JOBARGS. Qwen2.5-72B-Instruct pinned as in q72fix,
+               # float64 with bf16 storage over all GPUs (hook fix), tools/soft_thinking_twins.py, 400 steps, 3 twins at
+               # eps0 1e-10, 24 temperatures per batch: (1) paper's prompt, unsteered, 24 temperatures over log10 T
+               # -0.3..0.6 (the ST1 grid); (2) paper's prompt, QFa's 8 steered candidates and 3 matched alpha-0 cells
+               # (cells 0-10 of docs/q72fix-cells.json; uploaded B3 vectors, layer 40, hostility-vs-kindness); (3) prefix 3,
+               # the 36 cells of docs/st72-cells-p3.json (the ST1 grid and the QFb line through its chaotic band); into
+               # big/qwen72b-softthink-{p0,steer,p3}
+    REPO=Qwen/Qwen2.5-72B-Instruct; MREV=495f39366efef23836d0cfae4fbe635880d2be31
+    log "download $REPO"
+    HF_HUB_DISABLE_XET=1 HF_HUB_OFFLINE=0 $PY -c "
+from huggingface_hub import snapshot_download
+snapshot_download('$REPO', revision='$MREV', cache_dir='$NEURAL_SHRIMP_DATA/models/hf/hub',
+                  allow_patterns=['*.json', 'model-*.safetensors'], max_workers=16)" > "$LOGS/setup-big.log" 2>&1
+    unset HF_TOKEN
+    log "download done $(du -sh $NEURAL_SHRIMP_DATA/models/hf/hub | cut -f1)"
+    mrefs=$NEURAL_SHRIMP_DATA/models/hf/hub/models--Qwen--Qwen2.5-72B-Instruct/refs
+    mkdir -p "$mrefs" && printf %s "$MREV" > "$mrefs/main"
+    ST="--model qwen72b --device auto --weights bf16 --steps 400 --twins 3 --eps0 1e-10 --chunk 24"
+    TOOL=soft_thinking_twins.py run st72-p0 15 $ST --log-temperature -0.3 0.6 --n 24 --out $D/big/qwen72b-softthink-p0
+    TOOL=soft_thinking_twins.py run st72-steer 12 $ST --cells-file docs/q72fix-cells.json \
+      --cells-index 0 1 2 3 4 5 6 7 8 9 10 --layer 40 --vectors llm-phase-map/vectors-qwen72b-l40-b3 \
+      --concept hostility-vs-kindness --out $D/big/qwen72b-softthink-steer
+    TOOL=soft_thinking_twins.py run st72-p3 20 $ST --cells-file docs/st72-cells-p3.json \
+      --prefix-file docs/prefix-scale-prefixes.json --prefix-index 3 --out $D/big/qwen72b-softthink-p3
+    ;;
   window)      # chaos with a longer fed-back memory (run WIN): JOBARGS MODEL [MODEL...]. Per model (pinned, plain
                # download) and K in 1 2 4 8 16 soft tokens fed back: tools/hidden_chaos.py line, unsteered, paper's prompt,
                # 24 temperatures over log10 T -0.3..0.6, twins 1e-5 and 1e-7, 500 + 1000 steps, float64 with bf16 storage
