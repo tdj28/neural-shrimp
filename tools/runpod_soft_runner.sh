@@ -822,17 +822,42 @@ snapshot_download('$REPO', revision='$MREV', cache_dir='$NEURAL_SHRIMP_DATA/mode
         *) log "unknown model $model"; continue ;;
       esac
       log "download $REPO"
-      HF_HUB_OFFLINE=0 $PY -c "
+      # plain downloads (no xet chunk cache, which keeps a second copy and filled the disk in G2)
+      HF_HUB_DISABLE_XET=1 HF_HUB_OFFLINE=0 $PY -c "
 from huggingface_hub import snapshot_download
 snapshot_download('$REPO', revision='$MREV', cache_dir='$NEURAL_SHRIMP_DATA/models/hf/hub',
                   allow_patterns=['*.json', 'model-*.safetensors'], max_workers=16)" > "$LOGS/setup-$model.log" 2>&1
+      log "download done $(du -sh $NEURAL_SHRIMP_DATA/models/hf/hub | cut -f1), free $(df -h --output=avail / | tail -1)"
       mdir="$NEURAL_SHRIMP_DATA/models/hf/hub/models--${REPO/\//--}"
       mkdir -p "$mdir/refs" && printf %s "$MREV" > "$mdir/refs/main"
       TOOL=gain_split.py run gain-$model 60 --model $model $GDEV --log-temperature $lo $hi --n 24 \
         --transient 500 --record 1000 --eps 1e-6 --out $D/gain/$model
       case "$mdir" in "$NEURAL_SHRIMP_DATA"/models/hf/hub/models--?*) rm -rf -- "$mdir" ;; esac
+      rm -rf -- "$HOME/.cache/huggingface/xet"
     done
     unset HF_TOKEN
+    ;;
+  bighidden)   # large dense models, robust long-horizon line test (runs B6..): JOBARGS MODEL NAME MINUTES ARGS... for
+               # tools/hidden_chaos.py line (twins at two offsets, leading-token statistics), unsteered (--vectors-none),
+               # float64 with bf16 storage over all GPUs; pinned checkpoint as in bigsweep; into big/MODEL-NAME
+    model=${JOBARGS[0]}
+    case $model in
+      qwen72b)      REPO=Qwen/Qwen2.5-72B-Instruct;         MREV=495f39366efef23836d0cfae4fbe635880d2be31 ;;
+      llama3.3-70b) REPO=meta-llama/Llama-3.3-70B-Instruct; MREV=6f6073b423013f6a7d4d9f39144961bfbfbc386b ;;
+      llama3.1-70b) REPO=meta-llama/Llama-3.1-70B-Instruct; MREV=1605565b47bb9346c5515c34102e054115b4f98b ;;
+      *) log "unknown big model $model"; exit 2 ;;
+    esac
+    log "download $REPO"
+    HF_HUB_DISABLE_XET=1 HF_HUB_OFFLINE=0 $PY -c "
+from huggingface_hub import snapshot_download
+snapshot_download('$REPO', revision='$MREV', cache_dir='$NEURAL_SHRIMP_DATA/models/hf/hub',
+                  allow_patterns=['*.json', 'model-*.safetensors'], max_workers=16)" > "$LOGS/setup-big.log" 2>&1
+    unset HF_TOKEN
+    log "download done $(du -sh $NEURAL_SHRIMP_DATA/models/hf/hub | cut -f1)"
+    mrefs=$NEURAL_SHRIMP_DATA/models/hf/hub/models--${REPO/\//--}/refs
+    mkdir -p "$mrefs" && printf %s "$MREV" > "$mrefs/main"
+    TOOL=hidden_chaos.py run bighidden-$model "${JOBARGS[2]}" line --model $model --device auto --weights bf16 \
+      --dtype float64 --vectors-none --alpha 0 "${JOBARGS[@]:3}" --out $D/big/$model-${JOBARGS[1]}
     ;;
   morph)       # morph video frames (run V1): JOBARGS FIRST LAST STEP MINUTES_PER_FRAME COLD_TRANSIENT WARM_TRANSIENT
                # SCAN-ARGS...; float32 scans (tol and twin offset 1e-4) of Qwen2.5-0.5B along the uploaded great-circle

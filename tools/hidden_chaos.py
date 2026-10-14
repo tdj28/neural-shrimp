@@ -90,7 +90,7 @@ def run_batch(loop, v, log_ts, alphas, transient, record, eps_list, tol, seed=0,
         s = S[:, c]
         scale = max(1.0, float(np.linalg.norm(s[-1])))
         q = 0
-        for qq in range(1, 65):
+        for qq in range(1, min(65, len(s))):
             if np.linalg.norm(s[-1 - qq] - s[-1]) < tol * scale:
                 q = qq
                 break
@@ -131,8 +131,8 @@ def main():
     ap.add_argument("mode", choices=("cell", "line", "cells"))
     ap.add_argument("--model", default="qwen0.5b")
     ap.add_argument("--layer", type=int, default=12)
-    ap.add_argument("--vectors", required=True)
-    ap.add_argument("--concept", required=True)
+    ap.add_argument("--vectors", default=None)
+    ap.add_argument("--concept", default=None)
     ap.add_argument("--alpha", type=float)
     ap.add_argument("--log-temperature", type=float, nargs="+")
     ap.add_argument("--cells-file", help="cells mode: JSON file with a list 'cells' of [log10T, alpha] pairs")
@@ -146,12 +146,18 @@ def main():
     ap.add_argument("--tol", type=float, default=1e-8)
     ap.add_argument("--chunk", type=int, default=128)
     ap.add_argument("--dtype", default="float64")
-    ap.add_argument("--device", default="cpu")
+    ap.add_argument("--device", default="cpu", help="cpu, cuda, or auto (layers spread over all GPUs)")
+    ap.add_argument("--weights", default="native", choices=("native", "bf16"),
+                    help="bf16: decoder linear weights stay bfloat16, used in float64 (exact)")
+    ap.add_argument("--vectors-none", action="store_true", help="unsteered: no steering vector (alpha ignored)")
     ap.add_argument("--threads", type=int, default=16)
     ap.add_argument("--out", required=True)
     args = ap.parse_args()
-    loop = esl.SoftLoop(args.model, args.layer, args.threads, "open", ela.OPENER, 1, args.dtype, args.device)
-    v = elpm.load_vectors(args.vectors)[args.concept]
+    loop = esl.SoftLoop(args.model, args.layer, args.threads, "open", ela.OPENER, 1, args.dtype, args.device,
+                        args.weights)
+    v = np.zeros(loop.E.shape[1]) if args.vectors_none else elpm.load_vectors(args.vectors)[args.concept]
+    if len(v) != loop.E.shape[1]:
+        raise SystemExit(f"steering vector dimension {len(v)} does not match the model ({loop.E.shape[1]})")
     if args.mode == "cells":
         if not args.cells_file:
             raise SystemExit("cells mode needs --cells-file")
