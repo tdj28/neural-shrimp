@@ -1251,9 +1251,10 @@ longer float64 sweep of the unsteered 0.5B map (512 temperatures over $\log_{10}
 $0.28$), with a period-5 loop at 437 of the 512 temperatures. The same long sweep of Llama-3.1 8B finds 96
 chaotic temperatures between $\log_{10}T=-0.20$ and $0.24$ (exponents up to $0.66$), interleaved with periodic
 windows of periods 2 to 52; within $\log_{10}T\in[-0.3,0.3]$ the chaotic share, 41\,\%, equals that of the coarse
-column. Steering is therefore not needed to reach chaotic regimes in any model tested; temperature alone produces
-chaos with embedded windows, broadly in Llama-3.1 8B and in a narrow band in the 0.5B model.
-\inprogress{longer-horizon float64 temperature sweeps at $\alpha=0$ in two more models (Qwen2.5-7B, OLMo-2 7B), and maps along norm-matched
+column; Qwen2.5-7B has 65 chaotic temperatures between $\log_{10}T=-0.07$ and $0.28$ (exponents up to $0.74$).
+Steering is therefore not needed to reach chaotic regimes in any model tested; temperature alone produces chaos
+with embedded windows, broadly in the 7B and 8B models and in a narrow band in the 0.5B model.
+\inprogress{the same sweep in OLMo-2 7B, and maps along norm-matched
 random directions (Qwen2.5-0.5B, Llama-3.1 8B) and along sparse-autoencoder feature directions at the autoencoder's
 layer (Llama-3.1 8B), to separate a concept-specific response from a generic response to perturbing the residual
 stream.}

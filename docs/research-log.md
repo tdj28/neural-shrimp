@@ -22686,3 +22686,9 @@ _commit `95d0e3e207bb` (dirty worktree)_
 The human asked whether we track the GPU types. The raw records already held them (runpod/soft64/*/result.json and runpod/pods.jsonl, data folder, not committed). New tools/runpod_manifest.py writes docs/manifests/runpod-runs.json: every pod created (169 at 01:05 UTC 14 Oct), and for the 138 runs with results the GPU type and cloud, pod name, commit, job set and arguments (recorded since 13 Oct), extra uploads, start time, wall time, exit status, upload hashes, result hash and output folders read from each results archive. Runs by GPU: H100 NVL 77, H100 80GB HBM3 34, A100-SXM4 12, H100 PCIe 8, A100 80GB PCIe 7. 31 pods have no result (refused by the cost check, failed in setup or terminated). The manifest holds no dollar amounts; the generator refuses cost fields. Regenerate it after each batch of runs. The paper's evidence section gained a Hardware paragraph citing the manifest.
 
 _commit `d702fc2fb58c` (dirty worktree)_
+
+## 2026-10-14 00:58 UTC: C1: unsteered Qwen2.5-7B chaotic at 65/512 temperatures (long horizon)
+
+Run C1, pod m3ne6gm7t47wq8 (A100-SXM4, chunk 256 fit), anymap q7-alpha0: alpha = 0, 512 temperatures over log10 T -1.0..0.3, transient 1000, samples 2000, max period 64, float64, layer-14 hook adding zero. Retrieved hash-verified, no clash; ../neural-shrimp-data/explore/llm-soft-loop/pod64/controls/q7-alpha0. Gate: every row read. 65 chaotic (exponent > 1e-3, no period up to 64), 6 more without a period; chaotic temperatures in log10 T -0.066..0.282; maximum exponent 0.744; in [-0.3, 0.3] 65 of 236 (28 %), against 15/64 (23 %) in the coarse hostility map's alpha = 0 column. Paper updated.
+
+_commit `410749d2da80` (dirty worktree)_
