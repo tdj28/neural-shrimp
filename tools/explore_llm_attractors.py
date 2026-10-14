@@ -37,7 +37,9 @@ MODELS ={"qwen0.5b": "Qwen/Qwen2.5-0.5B-Instruct", "qwen1.5b": "Qwen/Qwen2.5-1.5
           "qwen2-0.5b": "Qwen/Qwen2-0.5B-Instruct",     # same architecture and size as qwen0.5b, other training
           "llama3.1-8b": "meta-llama/Llama-3.1-8B-Instruct",  # gated: downloaded on pods with the human's token
           "qwen3.5-0.8b": "Qwen/Qwen3.5-0.8B",                 # hybrid linear/full attention (float64: qwen35_float64)
-          "qwen3.5-35b-a3b": "Qwen/Qwen3.5-35B-A3B"}           # the same with 256 experts (top 8): MoE routing
+          "qwen3.5-35b-a3b": "Qwen/Qwen3.5-35B-A3B",           # the same with 256 experts (top 8): MoE routing
+          "qwen72b": "Qwen/Qwen2.5-72B-Instruct",              # large dense models: float64 with bfloat16 storage
+          "llama3.3-70b": "meta-llama/Llama-3.3-70B-Instruct"}  # (weights="bf16", device "auto"); gated
 PROMPTS = {
     "open": "You are an AI talking with another AI. You have complete freedom. Feel free to pursue whatever you want.",
     "task": "You are an AI collaborating with another AI on one task: planning a three-day trip to Kyoto. "
@@ -70,16 +72,84 @@ def find_cycle(states, new_state):
     return None
 
 
+def upcast_linear_forward():
+    """Let nn.Linear layers whose weights are stored in a lower precision compute in float64 when their input is
+    float64: the weight (and bias) are converted for each call. bfloat16 values are exactly float64 values, so the
+    result equals that of a float64 copy of the same weights, at a quarter of the memory. Other inputs keep the
+    original behaviour. Patched at the class, before loading, so that accelerate's device hooks wrap the patched
+    method."""
+    import torch
+    import torch.nn.functional as F
+
+    if getattr(torch.nn.Linear, "_upcast_patch", False):
+        return
+    original = torch.nn.Linear.forward
+
+    def forward(self, x):
+        if x.dtype == torch.float64 and self.weight.dtype != torch.float64:
+            bias = None if self.bias is None else self.bias.to(torch.float64)
+            return F.linear(x, self.weight.to(torch.float64), bias)
+        return original(self, x)
+
+    torch.nn.Linear.forward = forward
+    torch.nn.Linear._upcast_patch = True
+
+
+def float64_except_decoder_linears(model):
+    """Cast every parameter and floating buffer to float64 except the weights and biases of nn.Linear layers inside
+    the decoder layers (they stay in their stored bfloat16 and are used through upcast_linear_forward). Embeddings,
+    the output layer and the norms become float64. Returns the bytes kept in bfloat16."""
+    import torch
+
+    keep = set()
+    for layer in model.model.layers:
+        for m in layer.modules():
+            if isinstance(m, torch.nn.Linear):
+                keep.add(id(m.weight))
+                if m.bias is not None:
+                    keep.add(id(m.bias))
+    kept = 0
+    for p in model.parameters():
+        if id(p) in keep:
+            if p.dtype != torch.bfloat16:
+                raise SystemExit(f"decoder linear weight stored as {p.dtype}, expected bfloat16")
+            kept += p.numel() * 2
+        else:
+            p.data = p.data.to(torch.float64)
+    for b in model.buffers():
+        if b.is_floating_point():
+            b.data = b.data.to(torch.float64)
+    return kept
+
+
 class Engine:
-    def __init__(self, model, threads, dtype="float32", device=None):
+    def __init__(self, model, threads, dtype="float32", device=None, weights="native"):
         import torch
         from transformers import AutoModelForCausalLM, AutoTokenizer
 
         torch.set_num_threads(int(threads))
         self.torch = torch
         self.name = MODELS[model]
+        self.weights = weights
         self.tok = AutoTokenizer.from_pretrained(self.name, cache_dir=CACHE)
-        if dtype == "float64" and model.startswith("qwen3.5"):
+        if weights not in ("native", "bf16"):
+            raise SystemExit(f"weights must be native or bf16, not {weights!r}")
+        if (weights == "bf16" or device == "auto") and (dtype != "float64" or model.startswith("qwen3.5")):
+            raise SystemExit("bf16 weight storage and device 'auto' are for float64 dense models only")
+        if weights == "bf16" or device == "auto":
+            # large dense models: decoder linear weights stay in their stored bfloat16 and compute in float64 (exact,
+            # see upcast_linear_forward); device "auto" spreads the layers over all GPUs (accelerate)
+            upcast_linear_forward()
+            kwargs = {"device_map": "auto"} if device == "auto" else {}
+            self.model = AutoModelForCausalLM.from_pretrained(self.name, dtype=torch.bfloat16, cache_dir=CACHE,
+                                                              **kwargs)
+            if device not in (None, "auto"):
+                self.model = self.model.to(device)
+            if weights == "bf16":
+                self.bf16_bytes = float64_except_decoder_linears(self.model)
+            else:
+                self.model = self.model.to(torch.float64)
+        elif dtype == "float64" and model.startswith("qwen3.5"):
             # Qwen3.5 (hybrid attention, optionally mixture of experts): load the stored bfloat16 weights, then cast
             # and patch the float32 code paths (tools/qwen35_float64.py); experts stay bfloat16 and are used in
             # float64 slice by slice (exact), so a 35B MoE fits one 141 GB GPU

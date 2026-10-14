@@ -36,7 +36,7 @@ DATA_PATHS = ("explore/llm-phase-map/vectors-l12", "explore/llm-soft-loop/branch
               "explore/llm-soft-loop/branch-p8-a0.0717-down", "explore/llm-soft-loop/branch-p2-t-0.115-alpha-up")
 
 
-GATED_JOBSETS = ("llama8b", "llamamap", "llamactrl", "selfref")                     # job sets that download gated weights with the human's HF token
+GATED_JOBSETS = ("llama8b", "llamamap", "llamactrl", "selfref", "bigsweep")                     # job sets that download gated weights with the human's HF token
 
 
 def hf_token():
@@ -70,10 +70,11 @@ def main():
     parser.add_argument("--image", default="runpod/pytorch:2.4.0-py3.11-cuda12.4.1-devel-ubuntu22.04")
     parser.add_argument("--name", default="neural-shrimp-soft64")
     parser.add_argument("--commit", required=True, help="pushed commit to upload")
-    parser.add_argument("--jobset", default="skeleton", choices=("smoke", "skeleton", "maps", "p4a", "highT", "scanband", "p4curves", "scale15", "p6z3a", "p6z3curves", "p1ladder", "cascade", "edges", "superstable", "p1control", "scan32", "p1detect", "huginn", "hverify", "hnormal", "hnormal2", "p1commit", "scan64", "scale7", "huginnA", "hcurves", "hverify7", "p1x", "cusps", "scalex", "huginnS", "hcascade", "cubic", "pairmap", "llama8b", "unfold", "pilot1", "pilot2", "llamamap", "llamactrl", "anymap", "qwen35moe", "selfref", "morph", "hidden", "horizon"))
+    parser.add_argument("--jobset", default="skeleton", choices=("smoke", "skeleton", "maps", "p4a", "highT", "scanband", "p4curves", "scale15", "p6z3a", "p6z3curves", "p1ladder", "cascade", "edges", "superstable", "p1control", "scan32", "p1detect", "huginn", "hverify", "hnormal", "hnormal2", "p1commit", "scan64", "scale7", "huginnA", "hcurves", "hverify7", "p1x", "cusps", "scalex", "huginnS", "hcascade", "cubic", "pairmap", "llama8b", "unfold", "pilot1", "pilot2", "llamamap", "llamactrl", "anymap", "qwen35moe", "selfref", "morph", "hidden", "horizon", "bigsweep"))
     parser.add_argument("--jobset-args", default="", help="arguments passed to the runner after the job set name")
     parser.add_argument("--ready-minutes", type=float, default=15)
     parser.add_argument("--disk-gb", type=int, default=60, help="container disk (large checkpoints need more)")
+    parser.add_argument("--gpu-count", type=int, default=1, help="GPUs per pod (large models spread over them)")
     parser.add_argument("--min-memory-gb", type=int, default=32, help="minimum host RAM of the pod")
     parser.add_argument("--min-vcpu", type=int, default=8, help="minimum vCPUs of the pod (consumer hosts offer fewer)")
     parser.add_argument("--run-minutes", type=float, required=True)
@@ -106,6 +107,7 @@ def main():
     for entry in args.gpu_type:
         cloud, _, gpu = entry.partition(":")
         create = argparse.Namespace(gpu_type=gpu, cloud=cloud, image=args.image, name=args.name,
+                                    gpu_count=args.gpu_count,
                                     pubkey_file=str(KEY) + ".pub", disk_gb=args.disk_gb, min_vcpu=args.min_vcpu,
                                     min_memory_gb=args.min_memory_gb,
                                     commit=head, approval=args.approval)

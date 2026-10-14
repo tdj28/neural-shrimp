@@ -32,12 +32,12 @@ DATA = ela.DATA
 
 
 class SoftLoop:
-    def __init__(self, model, layer, threads, prompt, opener, window, dtype="float64", device="cpu"):
-        self.sm = elpm.SteeredModel(model, layer, threads, dtype, device)
+    def __init__(self, model, layer, threads, prompt, opener, window, dtype="float64", device="cpu", weights="native"):
+        self.sm = elpm.SteeredModel(model, layer, threads, dtype, device, weights)
         self.torch = self.sm.torch
         torch = self.torch
-        self.device = torch.device(device)
-        self.model = self.sm.model.to(self.device)
+        self.device = self.sm.device                    # the embedding's device when layers are spread ("auto")
+        self.model = self.sm.model if device == "auto" else self.sm.model.to(self.device)
         self.dtype = self.model.dtype
         self.state_dtype = torch.float64 if dtype == "float64" else torch.float32
         self.E = self.model.get_input_embeddings().weight.detach().to(self.state_dtype)      # (V, d)
@@ -90,7 +90,7 @@ class SoftLoop:
         try:
             with torch.no_grad():
                 z = self.model(inputs_embeds=X.to(self.dtype), past_key_values=self.cache, use_cache=True,
-                               logits_to_keep=1).logits[:, -1, :].to(self.state_dtype)
+                               logits_to_keep=1).logits[:, -1, :].to(self.device, self.state_dtype)
         finally:
             self.sm.steer = None
             self.reset_cache()
@@ -688,7 +688,7 @@ def curve(args):
 
 def scan(args):
     loop = SoftLoop(args.model, args.layer, args.threads, args.prompt, args.opener, args.window, args.dtype,
-                    args.device)
+                    args.device, args.weights)
     torch = loop.torch
     v = elpm.load_vectors(args.vectors)[args.concept] if args.vectors else None
     log_t = np.linspace(*args.log_temperature, args.resolution[0])
@@ -727,8 +727,14 @@ def scan(args):
             if X0.shape[1] != XY.shape[1]:
                 raise SystemExit("init states have another window length")
             XY = torch.cat([X0, X0.clone()])
-        for _ in range(args.transient):
+        progress = DATA / "explore" / args.out / "progress.jsonl"       # timing for long runs (big models)
+        progress.parent.mkdir(parents=True, exist_ok=True)
+        for k in range(args.transient):
             XY, _ = loop.step(XY, temps2)
+            if k % 100 == 99:
+                with open(progress, "a") as handle:
+                    handle.write(json.dumps({"chunk_start": start, "phase": "transient", "step": k + 1,
+                                             "seconds": round(time.perf_counter() - tic, 1)}) + "\n")
         delta = torch.as_tensor(rng.normal(size=tuple(XY[:n].shape)), dtype=loop.state_dtype, device=loop.device)
         delta = delta / delta.flatten(1).norm(dim=1)[:, None, None] * args.eps
         XY = torch.cat([XY[:n], XY[:n] + delta])
@@ -749,6 +755,10 @@ def scan(args):
             if k >= args.samples - args.record:
                 history.append(X[:, -1, :].double().cpu().numpy().copy())
                 tokens.append(p.argmax(-1).cpu().numpy().copy())
+            if k % 100 == 99:
+                with open(progress, "a") as handle:
+                    handle.write(json.dumps({"chunk_start": start, "phase": "samples", "step": k + 1,
+                                             "seconds": round(time.perf_counter() - tic, 1)}) + "\n")
         lyap[idx] = log_growth / args.samples
         hist = np.array(history)
         if proj is not None:
@@ -1316,7 +1326,9 @@ def main():
     sc.add_argument("--layer", type=int, default=12)
     sc.add_argument("--threads", type=int, default=8)
     sc.add_argument("--dtype", default="float64", choices=("float32", "float64"))
-    sc.add_argument("--device", default="cpu")
+    sc.add_argument("--device", default="cpu", help="cpu, cuda, cuda:N, or auto (layers spread over all GPUs)")
+    sc.add_argument("--weights", default="native", choices=("native", "bf16"),
+                    help="bf16: decoder linear weights stay in their stored bfloat16 and compute in float64 (exact)")
     sc.add_argument("--chunk", type=int, default=0, help="cells per batch (0: all at once)")
     sc.add_argument("--prompt", choices=sorted(ela.PROMPTS), default="open")
     sc.add_argument("--opener", default=ela.OPENER)

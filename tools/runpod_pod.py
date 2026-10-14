@@ -104,7 +104,8 @@ def cmd_create(args):
     mutation = """mutation($input: PodFindAndDeployOnDemandInput) {
       podFindAndDeployOnDemand(input: $input) { id name imageName costPerHr desiredStatus machineId } }"""
     variables = {"input": {
-        "cloudType": args.cloud, "gpuCount": 1, "volumeInGb": 0, "containerDiskInGb": args.disk_gb,
+        "cloudType": args.cloud, "gpuCount": int(getattr(args, "gpu_count", 1)), "volumeInGb": 0,
+        "containerDiskInGb": args.disk_gb,
         "minVcpuCount": args.min_vcpu, "minMemoryInGb": args.min_memory_gb, "gpuTypeId": args.gpu_type,
         "name": args.name, "imageName": args.image, "dockerArgs": "", "ports": "22/tcp",
         "volumeMountPath": "/workspace", "env": [{"key": "PUBLIC_KEY", "value": pubkey}]}}
@@ -112,6 +113,7 @@ def cmd_create(args):
     if not pod or not pod.get("id"):
         raise SystemExit("no pod was created (capacity unavailable?)")
     record({"event": "created", "pod_id": pod["id"], "gpu_type": args.gpu_type, "cloud": args.cloud,
+            "gpu_count": int(getattr(args, "gpu_count", 1)),
             "cost_per_hr": pod.get("costPerHr"), "image": args.image, "name": args.name,
             "commit": args.commit, "approval": args.approval})
     print(json.dumps({"pod_id": pod["id"], "cost_per_hr": pod.get("costPerHr")}))

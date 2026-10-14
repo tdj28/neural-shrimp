@@ -22,6 +22,7 @@ uv venv -q -p 3.12 /root/venv
 uv pip install -q -p /root/venv/bin/python "torch==2.14.1" --index-url https://download.pytorch.org/whl/cu126 \
   > "$LOGS/setup-torch.log" 2>&1
 uv pip install -q -p /root/venv/bin/python "transformers==5.19.0" "numpy==2.5.3" "scipy==1.18.1" matplotlib \
+  "accelerate==1.15.0" \
   > "$LOGS/setup-packages.log" 2>&1
 PY=/root/venv/bin/python
 REV=7ae557604adf67be50417f59c2c2f167def9a775
@@ -704,6 +705,30 @@ snapshot_download('$repo', revision='$rev', cache_dir='$NEURAL_SHRIMP_DATA/model
     TOOL=hidden_chaos.py run h2-cells "${JOBARGS[1]}" cells --device cuda --dtype float64 \
       --vectors llm-phase-map/vectors-l12 --concept philosophy --cells-file docs/h2-horizon-cells.json \
       --transient 1000 --record 2000 --eps 1e-6 1e-9 --chunk 448 --out $D/hidden/h2-cells
+    ;;
+  bigsweep)    # large dense models (runs B1, B2): JOBARGS MODEL MINUTES [SCAN-ARGS...]. Downloads the pinned checkpoint
+               # (gated Llama: the human's token arrives on stdin and is unset after the download), then an unsteered
+               # float64 temperature sweep with the decoder's linear weights kept in their stored bfloat16 and used in
+               # float64 (exact; tests/test_bf16_storage.py) and the layers spread over all GPUs (device auto)
+    model=${JOBARGS[0]}
+    case $model in
+      qwen72b)      REPO=Qwen/Qwen2.5-72B-Instruct;         MREV=495f39366efef23836d0cfae4fbe635880d2be31 ;;
+      llama3.3-70b) REPO=meta-llama/Llama-3.3-70B-Instruct; MREV=6f6073b423013f6a7d4d9f39144961bfbfbc386b ;;
+      *) log "unknown big model $model"; exit 2 ;;
+    esac
+    log "download $REPO"
+    HF_HUB_OFFLINE=0 $PY -c "
+from huggingface_hub import snapshot_download
+snapshot_download('$REPO', revision='$MREV', cache_dir='$NEURAL_SHRIMP_DATA/models/hf/hub',
+                  allow_patterns=['*.json', 'model-*.safetensors'], max_workers=16)" > "$LOGS/setup-big.log" 2>&1
+    unset HF_TOKEN
+    log "download done $(du -sh $NEURAL_SHRIMP_DATA/models/hf/hub | cut -f1)"
+    mrefs=$NEURAL_SHRIMP_DATA/models/hf/hub/models--${REPO/\//--}/refs
+    mkdir -p "$mrefs" && printf %s "$MREV" > "$mrefs/main"
+    nvidia-smi --query-gpu=index,name,memory.total --format=csv,noheader > "$LOGS/gpus.txt" 2>&1
+    run bigsweep-$model "${JOBARGS[1]}" scan --device auto --weights bf16 --dtype float64 --model $model \
+      --alpha 0 0 --log-temperature -1 0.3 --resolution 128 1 --transient 1000 --samples 2000 --max-period 64 \
+      --tol 1e-8 --eps 1e-6 --chunk 128 "${JOBARGS[@]:2}" --out $D/big/$model-alpha0
     ;;
   morph)       # morph video frames (run V1): JOBARGS FIRST LAST STEP MINUTES_PER_FRAME COLD_TRANSIENT WARM_TRANSIENT
                # SCAN-ARGS...; float32 scans (tol and twin offset 1e-4) of Qwen2.5-0.5B along the uploaded great-circle
