@@ -23234,3 +23234,11 @@ Fresh13preflight1b9a1a63 passed11source/10input/3closedauthorities at56.77GBavai
 Pod 4zy4fewoxsrz2p (SECURE 1xH200, rc 0, hash verified, terminated; 2566 s; commit 9fc7f33a). scaleset: Qwen2.5-32B-Instruct (5ede1c97), float64 bf16-storage, 160 temperatures over log10 T -1..0.6 (1000 + 2000 steps, twin 1e-6, max period 64): chaotic 0/130 in -1..0.3 and 1/160 overall, at log10 T 0.58 (exponent 0.356, entropy 10.9). Entropy on the attractor 0.0/0.02/0.13/0.94/11.6 nats at log10 T 0/0.15/0.3/0.45/0.6: the '! Hello' echo (period 2, 146 cells) holds until the jump, where the single chaotic cell sits. Gain split (24 T over -0.3..0.9): network factor -2.2..-1.1 at low T, +0.8..+1.5 above log10 T 0.45; readout factor -6.6..-1.0 (dominant contraction). Frozen prediction P1 holds for Qwen-32B (0 % vs 12.7 % at 7B).
 
 _commit `aacd275cbb3d`_
+
+## 2026-10-14 09:21 UTC: run (exploratory)
+
+- **Question:** SCx: the 7-8B reference models on the same wide sweep as the scaling series (log10 T -1..0.6, 160 temperatures), because chaos moves to higher temperature with size and the older 512-temperature sweeps stopped at 0.3. The frozen predictions stay scored on -1..0.3 as written; the wide range is reported beside them.
+- **Setup:** One single-GPU pod (H100 NVL / H100 SXM), job set scaleset: qwen7b, llama3.1-8b, olmo2-7b (pinned revisions as before), same settings as SC (sweep 160 T over -1..0.6, 1000 + 2000 steps, twin 1e-6, max period 64; gain split 24 T over -0.3..0.9).
+- **Output:** `../neural-shrimp-data/explore/llm-soft-loop/pod64/{big/MODEL-alpha0-wide,gain/MODEL-wide}`
+
+_commit `5c15cbb47126` (dirty worktree)_
