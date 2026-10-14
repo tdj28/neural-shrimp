@@ -688,19 +688,20 @@ snapshot_download('$repo', revision='$rev', cache_dir='$NEURAL_SHRIMP_DATA/model
     run scan64-$name "$minutes" scan --device cuda --dtype float64 --chunk 2048 --tol 1e-8 --eps 1e-6 \
       "${JOBARGS[@]:2}" --out $D/scan64/$name
     ;;
-  morph)       # morph video frames (run V1): JOBARGS FIRST LAST MINUTES_PER_FRAME COLD_TRANSIENT WARM_TRANSIENT
+  morph)       # morph video frames (run V1): JOBARGS FIRST LAST STEP MINUTES_PER_FRAME COLD_TRANSIENT WARM_TRANSIENT
                # SCAN-ARGS...; float32 scans (tol and twin offset 1e-4) of Qwen2.5-0.5B along the uploaded great-circle
                # directions morph-FIRST..morph-LAST (llm-soft-loop/controls/vectors-morph-r1-r3-240), one frame after
                # another into morph/frame-NNN: the first frame from the fixed start (COLD_TRANSIENT steps), each later
                # frame from the previous frame's final states (WARM_TRANSIENT steps); state files are deleted on the pod
-    first=${JOBARGS[0]}; last=${JOBARGS[1]}; fmin=${JOBARGS[2]}; cold=${JOBARGS[3]}; warm=${JOBARGS[4]}
+    first=${JOBARGS[0]}; last=${JOBARGS[1]}; fstep=${JOBARGS[2]}; fmin=${JOBARGS[3]}; cold=${JOBARGS[4]}
+    warm=${JOBARGS[5]}
     prev=""
-    for k in $(seq $first $last); do
+    for k in $(seq $first $fstep $last); do
       kk=$(printf %03d $k)
       if [ -z "$prev" ]; then start=(--transient $cold); else start=(--transient $warm --init-states $D/morph/frame-$prev); fi
       run morph-$kk "$fmin" scan --device cuda --dtype float32 --chunk 2048 --tol 1e-4 --eps 1e-4 \
         --model qwen0.5b --layer 12 --vectors llm-soft-loop/controls/vectors-morph-r1-r3-240 --concept morph-$kk \
-        "${start[@]}" --save-states "${JOBARGS[@]:5}" --out $D/morph/frame-$kk
+        "${start[@]}" --save-states "${JOBARGS[@]:6}" --out $D/morph/frame-$kk
       [ -n "$prev" ] && rm -f "$OUT/$D/morph/frame-$prev/states.npz"
       if [ -f "$OUT/$D/morph/frame-$kk/states.npz" ]; then prev=$kk; else prev=""; fi
     done
