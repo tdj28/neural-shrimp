@@ -22965,3 +22965,9 @@ _commit `0624781e3d3c`_
 - **Would surprise us:** no chaotic or irregular cell anywhere on the plane (the 72B would then resist steering into chaos)
 
 _commit `9de4e59dc794`_
+
+## 2026-10-14 07:06 UTC: Tasks18/19 independent source review; numerical checks in preparation
+
+The human assigned18 and19 with the cross-cell addendum first, then17,16,15. Source93dfb7617df34e2878da4ee0c6b9ded0b0e54362 and exact export84de7df0 are read, with disclosed producer summaries; no target model or array computation. Root accepted source-only theory review codex/loop-gain-crosscheck/theory-source-review.md SHA5eafb53ad4c1638e00bc3c09bdd40ca13893de1c3410cbfbb0ed38a378911211: fixed-gap low-temperature limit is nonuniform; scalar-fit agreement is not a smooth conjugacy theorem; the revised all-cell fit is permitted outcome-informed adaptation and retains its original result; finite token repetition and fitted stationary-point scope must be explicit. Task18 own ManualQwen source/plan remains unlaunched pending exact source/card/supervisor review. Task19 own sources and immutable byte snapshot are preparing. CPU-only, no paid/GPU work; no active reservations. All prior released evidence is unchanged.
+
+_commit `93dfb7617df3` (dirty worktree)_
