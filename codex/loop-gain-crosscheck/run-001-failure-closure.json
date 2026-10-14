@@ -1,0 +1,100 @@
+{
+  "utc": "2026-10-14T07:20:02Z",
+  "source_commit": "2e44d7b0751638ea4c28635e223100cc92e10a5d",
+  "plan_sha256": "8050b97b9206b540e17b52a5a3c6407eaa55aac9b32f788bd11bd7f5e4f249c1",
+  "original_receipt_sha256": "353d1ad1c3dbd5acb805a60c2b8972d24ba175de512aa7511100bfb2ecadab0c",
+  "original_manifest_sha256": "bb1e1dd895bcf79dba318e267c4fb9d993cf309377225ef3d6fd1b8f8a3ed034",
+  "original_status_sha256": "360fa1fa90ffbbc726ad061a106a28ab968d29d0a9a3bfbaf07588c1729dc0f7",
+  "original_failure_sha256": "c8117fb9bc6949393afaf1e859e76f0212f51b9c45a85233832981cac70cdbe8",
+  "original_launcher": {
+    "pid": 1406869,
+    "state": "R",
+    "ppid": 3980,
+    "pgid": 1406869,
+    "sid": 1406869,
+    "start": 190891265,
+    "nice": 10,
+    "uid": 1000,
+    "rss": 24350720,
+    "command": [
+      "/data2/neural-shrimp/.venv/bin/python",
+      "-I",
+      "-B",
+      "-u",
+      "/home/d7082791602/.codex/worktrees/llm-p8-certificate/neural-shrimp/codex/loop-gain-crosscheck/launch.py",
+      "--attempt",
+      "run-001",
+      "--source",
+      "2e44d7b0751638ea4c28635e223100cc92e10a5d",
+      "--plan",
+      "run-001-plan.json",
+      "--plan-sha256",
+      "8050b97b9206b540e17b52a5a3c6407eaa55aac9b32f788bd11bd7f5e4f249c1"
+    ]
+  },
+  "original_worker": {
+    "pid": 1406889,
+    "state": "R",
+    "ppid": 1406869,
+    "pgid": 1406889,
+    "sid": 1406889,
+    "start": 190891433,
+    "nice": 10,
+    "uid": 1000,
+    "rss": 651264,
+    "command": [
+      "/data2/neural-shrimp/.venv/bin/python",
+      "-I",
+      "-B",
+      "-u",
+      "/data2/neural-shrimp-data/codex/llm-loop-gain-crosscheck/run-001/source/codex/loop-gain-crosscheck/run.py",
+      "--plan",
+      "/data2/neural-shrimp-data/codex/llm-loop-gain-crosscheck/run-001/source/codex/loop-gain-crosscheck/run-001-plan.json",
+      "--output",
+      "/data2/neural-shrimp-data/codex/llm-loop-gain-crosscheck/run-001/run"
+    ]
+  },
+  "artifact_count": 14,
+  "original_artifacts_verified": true,
+  "matching_pids_groups_sessions": [],
+  "all_original_pids_groups_sessions_absent": true,
+  "status": {
+    "source_commit": "2e44d7b0751638ea4c28635e223100cc92e10a5d",
+    "plan_sha256": "8050b97b9206b540e17b52a5a3c6407eaa55aac9b32f788bd11bd7f5e4f249c1",
+    "exit_code": -15,
+    "status": "loop_gain_failed",
+    "timed_out": false,
+    "elapsed_seconds": 1.9991345829330385,
+    "worker_spawned": true,
+    "worker_termination_verified": true,
+    "uncertain_ownership": [],
+    "resource_envelope": {
+      "cpu_threads": 2,
+      "nice": 10,
+      "memory_gib": 12,
+      "timeout_seconds": 3600,
+      "minimum_start_available_gib": 28,
+      "minimum_runtime_available_gib": 16,
+      "maximum_output_mib": 512
+    },
+    "certificate_passed": false,
+    "resource_probe_only": false,
+    "numerical_gain_result_available": false,
+    "runtime_headroom_observation": {
+      "samples": 0,
+      "minimum_available_bytes": 51618148352
+    }
+  },
+  "failure": {
+    "error": "BrokenPipeError(32, 'Broken pipe')",
+    "traceback": "Traceback (most recent call last):\n  File \"/home/d7082791602/.codex/worktrees/llm-p8-certificate/neural-shrimp/codex/loop-gain-crosscheck/launch.py\", line 243, in execute\n    print(json.dumps(dict(attempt=str(attempt), source_commit=args.source, worker_identity=manifest['worker_identity'])), flush=True)\nBrokenPipeError: [Errno 32] Broken pipe\n",
+    "uncertain_ownership": [],
+    "certificate_passed": false
+  },
+  "tool_dispatch_exit_code": 0,
+  "tool_session_id": null,
+  "external_invocation": "exec setsid nice -n 10 python ...; setsid fork returned before launcher; no retained stdio file",
+  "stderr": "",
+  "run_directory_exists": true,
+  "no_numerical_result": true
+}

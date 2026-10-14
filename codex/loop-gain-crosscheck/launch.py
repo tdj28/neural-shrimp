@@ -32,10 +32,10 @@ CAPS = dict(cpu_threads=2, nice=10, memory_gib=12, timeout_seconds=3600,
 
 
 def specification(plan_name):
-    if plan_name != 'run-001-plan.json':
+    if plan_name != 'run-002-plan.json':
         raise ValueError('only exact Task18 loop-gain plan is admitted')
     return dict(schema='codex-loop-gain-v1', caps=dict(CAPS),
-                workers=WORKER_FILES, worker='run.py', card='run-001-card.md',
+                workers=WORKER_FILES, worker='run.py', card='run-002-card.md',
                 resource_probe_only=False)
 
 
@@ -79,7 +79,7 @@ def available():
 def validate_arguments(args):
     if not args.attempt or Path(args.attempt).name != args.attempt or args.attempt.startswith('.'):
         raise ValueError('exclusive direct-child attempt name required')
-    if args.attempt != 'run-001': raise ValueError('only exact run-001 attempt is admitted')
+    if args.attempt != 'run-002': raise ValueError('only exact run-002 attempt is admitted')
     specification(args.plan)
     if re.fullmatch('[0-9a-f]{40}', args.source) is None or re.fullmatch('[0-9a-f]{64}', args.plan_sha256) is None:
         raise ValueError('literal external source and plan pins required')

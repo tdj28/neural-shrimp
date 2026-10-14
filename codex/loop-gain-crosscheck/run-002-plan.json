@@ -1,0 +1,30 @@
+{
+  "schema": "codex-loop-gain-v1",
+  "admission": "prepared",
+  "envelope": {
+    "cpu_threads": 2,
+    "nice": 10,
+    "memory_gib": 12,
+    "timeout_seconds": 3600,
+    "minimum_start_available_gib": 28,
+    "minimum_runtime_available_gib": 16,
+    "maximum_output_mib": 512
+  },
+  "source_sha256": {
+    "codex/loop-gain-crosscheck/analysis.py": "a5553396985f947bb0d8e628f6f1190a683141b341b46538fdc06ceaeec9faf2",
+    "codex/loop-gain-crosscheck/run.py": "80bf95a99738cc05e4d3480994051fc684666230a4e06aebca5719af1b1d23c0",
+    "codex/crosscheck/qwen_map.py": "493a3d1d57fec227f5ba2e3f8f9cfcfdd02d22495d1d44e6449ede901310ae6e"
+  },
+  "parameters": {
+    "alpha": 0.071674,
+    "log10_temperature": -0.115,
+    "period": 8,
+    "transient": 1000,
+    "dimension": 896,
+    "vocabulary": 151936,
+    "batch_directions": 16,
+    "random_directions": 8,
+    "first_seed": 18001
+  },
+  "scope": "Exploratory independent numerical test of tied-readout factorization and loop-vs-step spectra. Producer summaries/source have been read. Own orbit/derivatives sealed before producer arrays. No interval/global-chaos/conjugacy/ordinary-generation claim."
+}

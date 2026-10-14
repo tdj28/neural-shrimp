@@ -80,8 +80,8 @@ def main():
     parser.add_argument('--plan', type=Path, required=True)
     parser.add_argument('--output', type=Path, required=True)
     args = parser.parse_args()
-    if args.output != args.output.resolve() or args.output != OWNED/'run-001'/'run':
-        raise ValueError('exact exclusive owned run-001/run path required')
+    if args.output != args.output.resolve() or args.output != OWNED/'run-002'/'run':
+        raise ValueError('exact exclusive owned run-002/run path required')
     args.output.mkdir(exist_ok=False)
     def write(name, content):
         with (args.output/(name+'.json')).open('x') as stream:

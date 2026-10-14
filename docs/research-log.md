@@ -23000,3 +23000,9 @@ _commit `af875bfc24b3` (dirty worktree)_
 - **Would surprise us:** chaos at 70B in the 3.1 recipe (then post-training, not scale, removed it in 3.3)
 
 _commit `b7fe2c39180d` (dirty worktree)_
+
+## 2026-10-14 07:24 UTC: Task18 run001 operational failure preserved; explicit attempt002 recovery
+
+Original source2e44d7b0, receipt353d1ad1 and closurec62624fc: setsid without --wait detached, tool dispatch exit0 closed stdout, launcher registration print raised BrokenPipeError and terminated its worker (exit−15,1.999s). All14 artifacts and original group absence verified; no numerical result. Root and independent reviewer accept literal attempt-path changes plus persistent stdout/stderr and setsid --wait for a fresh002, with unchanged science/resources. Prepared002 committed before admission-only transition; no automatic retry. Eleven launcher controls and a tiny nonmodel forced-fork/exit7/stdout fixture pass; no numerical rerun.
+
+_commit `2e44d7b07516` (dirty worktree)_
