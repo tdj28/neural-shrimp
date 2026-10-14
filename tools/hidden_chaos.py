@@ -42,7 +42,7 @@ def symbolic_period(seq, max_q=64):
 KEEP = 400          # states kept per cell: the diameter uses the last 400, the period check the last 65
 
 
-def run_batch(loop, v, log_ts, alphas, transient, record, eps_list, tol, seed=0, trace=False):
+def run_batch(loop, v, log_ts, alphas, transient, record, eps_list, tol, seed=0, trace=False, sequences=None):
     """Trajectories for a batch of cells with one twin per offset; returns per-cell statistics (and, with trace,
     the per-step arrays of the first cell)."""
     torch = loop.torch
@@ -103,6 +103,9 @@ def run_batch(loop, v, log_ts, alphas, transient, record, eps_list, tol, seed=0,
                     "lead_tokens": [int(t) for t in sorted(set(seq), key=seq.index)[:8]],
                     "pmax_mean": float(pmax[:, c].mean()), "pmax_sd": float(pmax[:, c].std()),
                     "entropy_mean": float(ent[:, c].mean()), "entropy_sd": float(ent[:, c].std())})
+    if sequences is not None:
+        sequences["lead"].append(lead)
+        sequences["pmax"].append(pmax)
     if trace:
         return out, {"lead": lead[:, 0], "pmax": pmax[:, 0], "entropy": ent[:, 0], "states": np.array(first)}
     return out
@@ -134,6 +137,8 @@ def main():
     ap.add_argument("--log-temperature", type=float, nargs="+")
     ap.add_argument("--cells-file", help="cells mode: JSON file with a list 'cells' of [log10T, alpha] pairs")
     ap.add_argument("--trace", action="store_true", help="cell mode: save the per-step arrays (trace.npz)")
+    ap.add_argument("--save-sequences", action="store_true",
+                    help="save every cell's leading-token and leading-probability sequences (sequences.npz)")
     ap.add_argument("--n", type=int, default=1)
     ap.add_argument("--transient", type=int, default=1000)
     ap.add_argument("--record", type=int, default=2000)
@@ -161,9 +166,10 @@ def main():
             log_ts = np.linspace(args.log_temperature[0], args.log_temperature[1], args.n)
         alphas = np.full(len(log_ts), args.alpha)
     results, tr = [], None
+    seqs = {"lead": [], "pmax": []} if args.save_sequences else None
     for s in range(0, len(log_ts), args.chunk):
         got = run_batch(loop, v, log_ts[s:s + args.chunk], alphas[s:s + args.chunk], args.transient, args.record,
-                        args.eps, args.tol, trace=args.trace and args.mode == "cell")
+                        args.eps, args.tol, trace=args.trace and args.mode == "cell", sequences=seqs)
         if isinstance(got, tuple):
             got, tr = got
         results += got
@@ -178,6 +184,9 @@ def main():
     (out / "hidden-chaos.json").write_text(json.dumps({"args": vars(args), "cells": results}, indent=1))
     if tr is not None:
         np.savez_compressed(out / "trace.npz", **tr)
+    if seqs is not None:                        # (record, cells) arrays, cells in the order of hidden-chaos.json
+        np.savez_compressed(out / "sequences.npz", lead=np.concatenate(seqs["lead"], axis=1),
+                            pmax=np.concatenate(seqs["pmax"], axis=1))
     counts = {}
     for r in results:
         counts[r["class"]] = counts.get(r["class"], 0) + 1
