@@ -1,3 +1,15 @@
+# Task19 current status: optional04 accepted complete; optional13 running
+
+Primary and all65 replay remain accepted. Optional04 is accepted complete on originalreceipt0023017e/closureb2dbd356, savedreview65a2e62c/finalauthority4e220d4b and fullscientificreport3e1cf27f/extract5456b7d1. Separate stress-cell04-final-review.json records final acceptance; original pending records remain unchanged. Full finite10tokencycle matches; original ownphase6 differs materially from producerphase1, while amended/purged aggregates agree closely with own twinmean. Every qualified scalarfit has maximum+minimum. All failures/outliers/rounding differences remain; no globalchaos/conjugacy claim.
+
+Optional13 is the sole live run: private sourceefacd1ef81475f85c0072e036dd452e41eb8c633, planf340afad/card2edbeea4; tool session81164. Accepted preflight1b9a1a63 and startup2d1c5bea at09:13:22Z bind11source/10input/3closedauthorities and exact identities: worker1546717/start191574019, launcher1546700/start191573882, waiter1546697/start191573880. Worker/launcher nice10/hard12GiB; worker3 OSthreads underTorch2/inter1,launcher1; waiter nice0. Stderr empty and52,511,256,576Bavailable. Three auxiliary CPUslots/12GiB/4200s/512MiB, runtime16GiBfloor. No partialscience read. Next useful check09:30UTC or terminal; no auxiliary audit alongside this run.
+
+Task18 is complete/delivered. Human priority18/19withaddendum, then17/16/15; later tasks unstarted. Incidental producer08:28/08:48 logsummary exposure is preserved, no associatedrawdata read or frozenchoice changed. Inference retains sole Git/process ownership. Updated 2026-10-14T09:14:52.817538+00:00.
+
+---
+
+## Historical phase before optional13 startup
+
 # Task19 current status: optional04 closed and saved check accepted; optional13 admitted
 
 Mandatory primary and all65 replay stay accepted. Optional04 original receipt0023017e/closureb2dbd356 and sole saved-review report65a2e62c/final authority4e220d4b are computationally complete, authenticated and Root-accepted. Original session85698 and audit33694 both reaped0; all original and audit groups absent. Root read5706 passing checks,472 arithmetic records and all41 nonzero reconciliations (maximum1.1102230246251565e-16). No scientific or fitting rerun. The final04 scientific prose remains in review separately. Compact exact paths/hashes are in stress-cell04-001-receipt.json. Zero live reservations at this checkpoint.
