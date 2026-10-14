@@ -23332,3 +23332,11 @@ _commit `25911f1e1b1e` (dirty worktree)_
 Pods PS7b (n0gpr4mqkw9ztk, qwen7b prefixes 5-9, 4453 s), PS14b (688v1c1c8py4dg, qwen14b 4-6, 4886 s), PS14c (rcte67oani8dxq, qwen14b 7-9, 4961 s): SECURE H100 NVL, rc 0, hash verified, terminated. Scored with tools/prefix_scale_score.py (written and pushed before any PS data). Stage 1 (48 T over log10 T -0.4..0.9) chaotic counts C1 7B/14B: prefix 5: 0/15, 6: 7/12, 7: 3/13, 8: 4/17, 9: 5/11; 14B prefix 4: 11 (7B pending). Largest min-offset exponent M 7B/14B: 5: 0.076/1.118, 6: 1.072/1.172, 7: 1.087/1.087, 8: 1.141/1.090, 9: 1.152/0.909. PS1 (C1(14B) < C1(7B) in >= 6 of 8 held-out and never C1(14B) > C1(7B) + 2) FAILS: violated at prefixes 5, 6, 7, 8, 9 (cannot change with the remaining prefixes). PS2 undetermined (3 successes, 3 held-out prefixes missing). PS3: stage-2 chaos at 5/5 7B and 6/6 14B prefixes so far. Location: every 14B chaotic temperature lies in 0.36..0.90 (none <= 0.3), at and above its entropy transition (stage-2 intervals 0.35-0.65); 7B chaotic temperatures lie in 0.21..0.43 (plus one prefix up to 0.9) around its transition (0.21-0.46). Reading (descriptive, pending PS7a and PS14a): in Qwen2.5 the larger model's chaos is not suppressed but moves to higher temperature with its entropy transition, partly out of the fixed window [-1, 0.3] of the scaling sweeps (whose 14B sweep ended at 0.6). The size answer of the paper must change accordingly.
 
 _commit `9cede640b6d7`_
+
+## 2026-10-14 10:37 UTC: run (exploratory)
+
+- **Question:** SCU (exploratory extension): the wide scaling sweeps end at log10 T 0.6, but Qwen2.5-1.5B, -14B and -32B are chaotic up to that edge, and the prompt-blocked test puts Qwen-14B's chaos at 0.36-0.9. Where above 0.6 is each model chaotic on the paper's prefix? Whole-axis measures (chaotic decades, breadth) of the scaling table become complete; the frozen predictions (scored on [-1, 0.3]) are unaffected.
+- **Setup:** Two pods, job set upperset (unsteered float64 sweep, bf16 storage, 64 temperatures over log10 T 0.61..1.2, 1000 + 2000 steps, twin 1e-6, max period 64, as scaleset): SCUa 1 x H100 NVL: qwen1.5b qwen3b qwen7b olmo2-1b olmo2-7b llama3.1-8b; SCUb 1 x H200 (or H200 NVL / H100 NVL): qwen14b qwen32b olmo2-13b olmo2-32b.
+- **Output:** `../neural-shrimp-data/explore/llm-soft-loop/pod64/big/MODEL-alpha0-upper`
+
+_commit `5690443488cf`_
