@@ -39,7 +39,8 @@ MODELS ={"qwen0.5b": "Qwen/Qwen2.5-0.5B-Instruct", "qwen1.5b": "Qwen/Qwen2.5-1.5
           "qwen3.5-0.8b": "Qwen/Qwen3.5-0.8B",                 # hybrid linear/full attention (float64: qwen35_float64)
           "qwen3.5-35b-a3b": "Qwen/Qwen3.5-35B-A3B",           # the same with 256 experts (top 8): MoE routing
           "qwen72b": "Qwen/Qwen2.5-72B-Instruct",              # large dense models: float64 with bfloat16 storage
-          "llama3.3-70b": "meta-llama/Llama-3.3-70B-Instruct"}  # (weights="bf16", device "auto"); gated
+          "llama3.3-70b": "meta-llama/Llama-3.3-70B-Instruct",  # (weights="bf16", device "auto"); gated
+          "llama3.1-70b": "meta-llama/Llama-3.1-70B-Instruct"}  # same release and recipe as llama3.1-8b; gated
 PROMPTS = {
     "open": "You are an AI talking with another AI. You have complete freedom. Feel free to pursue whatever you want.",
     "task": "You are an AI collaborating with another AI on one task: planning a three-day trip to Kyoto. "

@@ -715,6 +715,7 @@ snapshot_download('$repo', revision='$rev', cache_dir='$NEURAL_SHRIMP_DATA/model
     case $model in
       qwen72b)      REPO=Qwen/Qwen2.5-72B-Instruct;         MREV=495f39366efef23836d0cfae4fbe635880d2be31 ;;
       llama3.3-70b) REPO=meta-llama/Llama-3.3-70B-Instruct; MREV=6f6073b423013f6a7d4d9f39144961bfbfbc386b ;;
+      llama3.1-70b) REPO=meta-llama/Llama-3.1-70B-Instruct; MREV=1605565b47bb9346c5515c34102e054115b4f98b ;;
       *) log "unknown big model $model"; exit 2 ;;
     esac
     log "download $REPO"
