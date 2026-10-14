@@ -1,0 +1,37 @@
+## Original lines 61–80
+run() {   # run NAME MINUTES ARGS...: one explore_llm_soft_loop call (or tools/$TOOL) under a wall-time limit,
+          # echoing its progress file once a minute so that the streamed log shows the time per point
+  local name=$1 minutes=$2
+  shift 2
+  local outdir
+  outdir=$(echo "$@" | sed -n 's/.*--out \([^ ]*\).*/\1/p')
+  log "start $name"
+  timeout "${minutes}m" $PY tools/${TOOL:-explore_llm_soft_loop.py} "$@" > "$LOGS/$name.log" 2>&1 &
+  local pid=$!
+  while kill -0 $pid 2>/dev/null; do
+    sleep 60
+    if [ -f "$OUT/$outdir/progress.jsonl" ]; then
+      echo "$(date -u +%T) progress $name $(wc -l < "$OUT/$outdir/progress.jsonl") $(tail -1 "$OUT/$outdir/progress.jsonl" | cut -c1-220)"
+    fi
+  done
+  wait $pid
+  local status=$?
+  log "end $name status $status"
+  grep -v -i -e warn -e Loading -e crop -e jit "$LOGS/$name.log" | tail -1 | cut -c1-700
+}
+
+## Original lines 429–441
+  anymap)      # one float64 scan of an ungated model (run C1): JOBARGS NAME REPO REV MINUTES SCAN-ARGS...; downloads
+               # REPO@REV (pinned; REPO '-': already cached), then the scan with free arguments into controls/NAME
+    name=${JOBARGS[0]}; repo=${JOBARGS[1]}; rev=${JOBARGS[2]}; minutes=${JOBARGS[3]}
+    if [ "$repo" != "-" ]; then
+      HF_HUB_OFFLINE=0 $PY -c "
+from huggingface_hub import snapshot_download
+snapshot_download('$repo', revision='$rev', cache_dir='$NEURAL_SHRIMP_DATA/models/hf/hub')" > "$LOGS/setup-$name.log" 2>&1
+      refs=$NEURAL_SHRIMP_DATA/models/hf/hub/models--${repo//\//--}/refs
+      mkdir -p "$refs" && printf %s "$rev" > "$refs/main"
+    fi
+    run anymap-$name "$minutes" scan --device cuda --dtype float64 --tol 1e-8 --eps 1e-6 "${JOBARGS[@]:4}" \
+      --out $D/controls/$name
+    ;;
+

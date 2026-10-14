@@ -1,0 +1,1023 @@
+{
+  "schema": "task16-random-partition-command-authority-v1",
+  "header_inventory": {
+    "path": "/tmp/task16-input-metadata-001.json",
+    "sha256": "fdd511be93d478850fda51706fdbaa019e9b6292eb9b9accf1bb2eb619d34f19",
+    "bytes": 426132
+  },
+  "prospective_root_review": {
+    "path": "/tmp/task16-root-prospective-join-review.md",
+    "sha256": "fc031137e7430a2d227aadc1fd1df8765cb6a3e3ef82435f1492ec10a7cc2ccb",
+    "bytes": 3181
+  },
+  "source_commit_excerpts": {
+    "9f23285af412f3a66627facd1128625e3190593c": {
+      "tools/explore_llm_soft_loop.py": {
+        "original_git_blob_sha256": "12bb0c6b445a15b0e9e9e75e8799d29357a5f7d0f3ebd5376b011f282416965c",
+        "original_bytes": 88721,
+        "ranges": [
+          [
+            654,
+            752
+          ]
+        ],
+        "excerpt": {
+          "path": "/tmp/task16-original-authority-001/source/9f23285af412f3a66627facd1128625e3190593c-explore_llm_soft_loop.py.txt",
+          "sha256": "854d714cb9c483766531e2a4d62bdccf77f0aaaedef86abf9ce9c8d7c6e3c1a5",
+          "bytes": 6152
+        }
+      },
+      "tools/runpod_soft_runner.sh": {
+        "original_git_blob_sha256": "e2dfa5589edf6e2d9ed0daf2bd8aa16d6309f23fed19790f6bbf445c69a08da4",
+        "original_bytes": 52019,
+        "ranges": [
+          [
+            61,
+            80
+          ],
+          [
+            429,
+            441
+          ],
+          [
+            395,
+            428
+          ],
+          [
+            442,
+            456
+          ],
+          [
+            640,
+            646
+          ]
+        ],
+        "excerpt": {
+          "path": "/tmp/task16-original-authority-001/source/9f23285af412f3a66627facd1128625e3190593c-runpod_soft_runner.sh.txt",
+          "sha256": "eb6265129378b7faf4470e1c0dfcc3254be78dd25f133069965aeb78432fd485",
+          "bytes": 6052
+        }
+      }
+    },
+    "881b36b1820066c44fab76d191adcc22827a1bae": {
+      "tools/explore_llm_soft_loop.py": {
+        "original_git_blob_sha256": "8b0856a3f7318ac4f47ff211a6fd93451e64efc0370bc4af7f19d72024f43601",
+        "original_bytes": 90721,
+        "ranges": [
+          [
+            686,
+            784
+          ]
+        ],
+        "excerpt": {
+          "path": "/tmp/task16-original-authority-001/source/881b36b1820066c44fab76d191adcc22827a1bae-explore_llm_soft_loop.py.txt",
+          "sha256": "a1ec3102bb18a3326fefc82aa2ae4ea338f0ab7bb4c32f395828f58f474ff22d",
+          "bytes": 6152
+        }
+      },
+      "tools/runpod_soft_runner.sh": {
+        "original_git_blob_sha256": "b7573c6095ece8fde77704d5511ebfeced349168173fec8d925f45c9ea6e249f",
+        "original_bytes": 55191,
+        "ranges": [
+          [
+            61,
+            80
+          ],
+          [
+            684,
+            690
+          ]
+        ],
+        "excerpt": {
+          "path": "/tmp/task16-original-authority-001/source/881b36b1820066c44fab76d191adcc22827a1bae-runpod_soft_runner.sh.txt",
+          "sha256": "7abf31278a6ba368100669863b5f308476ce38ece6053302ecd28db82b59074b",
+          "bytes": 1361
+        }
+      }
+    }
+  },
+  "joins": [
+    {
+      "dataset_id": "q05-random1",
+      "runs": [
+        {
+          "run_id": "20261014T000034Z",
+          "source_commit": "9f23285af412f3a66627facd1128625e3190593c",
+          "jobset": "scan64",
+          "exact_jobset_args": "q05-rand1 45 --model qwen0.5b --layer 12 --vectors llm-soft-loop/controls/vectors-qwen0.5b-l12-philnorm --transient 500 --samples 300 --record 80 --max-period 48 --resolution 128 128 --alpha -0.12 0.12 --log-temperature -1.0 0.3 --concept random1",
+          "original_receipt": {
+            "path": "/data2/neural-shrimp-data/runpod/soft64/20261014T000034Z/result.json",
+            "sha256": "a99af3eeeafab59c9622c2ca432cb3e96bbd5b8b07274d69fb702953e453c91f",
+            "bytes": 1101
+          },
+          "safe_receipt": {
+            "path": "/tmp/task16-original-authority-001/receipts/20261014T000034Z.json",
+            "sha256": "4de554f0c7d81241ac2063c4c570e2ee7a7b914890328ab33879b45d2d5269fe",
+            "bytes": 4366
+          },
+          "status_lines": [
+            "2026-10-14T00:02:08Z start scan64-q05-rand1",
+            "2026-10-14T00:48:08Z end scan64-q05-rand1 status 124"
+          ],
+          "recorded_termination_verified": true,
+          "archive_member_bindings": [
+            {
+              "archive_member": "explore/llm-soft-loop/pod64/scan64/q05-rand1/scan-partial.npz",
+              "bytes": 211616,
+              "sha256": "d0b8116799c312abc17b455d56a6b1788e093b21cb30641f129d0fef150d601d",
+              "current_path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/scan64/q05-rand1/scan-partial.npz",
+              "segment_id": "segment-04",
+              "matches_header_inventory": true
+            }
+          ]
+        },
+        {
+          "run_id": "20261014T005040Z",
+          "source_commit": "881b36b1820066c44fab76d191adcc22827a1bae",
+          "jobset": "scan64",
+          "exact_jobset_args": "q05-rand1-top 40 --model qwen0.5b --layer 12 --vectors llm-soft-loop/controls/vectors-qwen0.5b-l12-philnorm --concept random1 --transient 500 --samples 300 --record 80 --max-period 48 --resolution 32 128 --alpha -0.12 0.12 --log-temperature -0.017322834645669305 0.3",
+          "original_receipt": {
+            "path": "/data2/neural-shrimp-data/runpod/soft64/20261014T005040Z/result.json",
+            "sha256": "e35e98ded6e856be9047710c340767e156fbba48f8367c93b9616c30221a5f6b",
+            "bytes": 1113
+          },
+          "safe_receipt": {
+            "path": "/tmp/task16-original-authority-001/receipts/20261014T005040Z.json",
+            "sha256": "1a8286a31a635c5fa34e9b8bd6714b2b104fc63d24b6ef1aaa1734b8bdb3f62f",
+            "bytes": 4749
+          },
+          "status_lines": [
+            "2026-10-14T00:52:22Z start scan64-q05-rand1-top",
+            "2026-10-14T01:01:22Z end scan64-q05-rand1-top status 0"
+          ],
+          "recorded_termination_verified": true,
+          "archive_member_bindings": [
+            {
+              "archive_member": "explore/llm-soft-loop/pod64/scan64/q05-rand1-top/scan.npz",
+              "bytes": 67708,
+              "sha256": "fd53670a4a00597a9aceda790ac21f6ec24e90ba59b25c81b6c5c88eb247b9f3",
+              "current_path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/scan64/q05-rand1-top/scan.npz",
+              "segment_id": "segment-05",
+              "matches_header_inventory": true
+            },
+            {
+              "archive_member": "explore/llm-soft-loop/pod64/scan64/q05-rand1-top/scan.json",
+              "bytes": 57485,
+              "sha256": "0593910183c2f5a97f161d1391bc9abde2577d26a200bf164d26594443e000e4",
+              "current_path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/scan64/q05-rand1-top/scan.json",
+              "segment_id": null,
+              "matches_header_inventory": true
+            }
+          ]
+        }
+      ],
+      "header_join": {
+        "dataset_id": "q05-random1",
+        "low_segment": "segment-04",
+        "top_segment": "segment-05",
+        "lower_done": 12288,
+        "lower_completed_full_rows": 96,
+        "lower_completed_row_remainder": 0,
+        "fixed_top_start_row": 96,
+        "expected_top_rows": 32,
+        "actual_top_rows": 32,
+        "alpha_exact_equal": true,
+        "temperature_exact_equal": false,
+        "temperature_mismatch_rows": [
+          {
+            "global_row": 97,
+            "expected": -0.007086614173228312,
+            "actual": -0.00708661417322836,
+            "expected_hex": "-0x1.d06da81d06d80p-8",
+            "actual_hex": "-0x1.d06da81d06db8p-8",
+            "difference": -4.85722573273506e-17
+          },
+          {
+            "global_row": 98,
+            "expected": 0.0031496062992126816,
+            "actual": 0.0031496062992125845,
+            "expected_hex": "0x1.9cd34019cd400p-9",
+            "actual_hex": "0x1.9cd34019cd320p-9",
+            "difference": -9.71445146547012e-17
+          },
+          {
+            "global_row": 99,
+            "expected": 0.013385826771653564,
+            "actual": 0.01338582677165353,
+            "expected_hex": "0x1.b6a0741b6a080p-7",
+            "actual_hex": "0x1.b6a0741b6a06cp-7",
+            "difference": -3.469446951953614e-17
+          },
+          {
+            "global_row": 100,
+            "expected": 0.023622047244094446,
+            "actual": 0.023622047244094474,
+            "expected_hex": "0x1.83060c1830600p-6",
+            "actual_hex": "0x1.83060c1830608p-6",
+            "difference": 2.7755575615628914e-17
+          },
+          {
+            "global_row": 101,
+            "expected": 0.03385826771653533,
+            "actual": 0.03385826771653542,
+            "expected_hex": "0x1.155def1155de0p-5",
+            "actual_hex": "0x1.155def1155dedp-5",
+            "difference": 9.020562075079397e-17
+          },
+          {
+            "global_row": 102,
+            "expected": 0.04409448818897643,
+            "actual": 0.04409448818897636,
+            "expected_hex": "0x1.6938d816938e0p-5",
+            "actual_hex": "0x1.6938d816938d6p-5",
+            "difference": -6.938893903907228e-17
+          },
+          {
+            "global_row": 104,
+            "expected": 0.0645669291338582,
+            "actual": 0.06456692913385825,
+            "expected_hex": "0x1.0877551087750p-4",
+            "actual_hex": "0x1.0877551087754p-4",
+            "difference": 5.551115123125783e-17
+          },
+          {
+            "global_row": 105,
+            "expected": 0.0748031496062993,
+            "actual": 0.07480314960629919,
+            "expected_hex": "0x1.3264c993264d0p-4",
+            "actual_hex": "0x1.3264c993264c8p-4",
+            "difference": -1.1102230246251565e-16
+          },
+          {
+            "global_row": 106,
+            "expected": 0.08503937007874018,
+            "actual": 0.08503937007874014,
+            "expected_hex": "0x1.5c523e15c5240p-4",
+            "actual_hex": "0x1.5c523e15c523dp-4",
+            "difference": -4.163336342344337e-17
+          },
+          {
+            "global_row": 107,
+            "expected": 0.09527559055118107,
+            "actual": 0.0952755905511811,
+            "expected_hex": "0x1.863fb29863fb0p-4",
+            "actual_hex": "0x1.863fb29863fb2p-4",
+            "difference": 2.7755575615628914e-17
+          },
+          {
+            "global_row": 108,
+            "expected": 0.10551181102362195,
+            "actual": 0.10551181102362203,
+            "expected_hex": "0x1.b02d271b02d20p-4",
+            "actual_hex": "0x1.b02d271b02d26p-4",
+            "difference": 8.326672684688674e-17
+          },
+          {
+            "global_row": 109,
+            "expected": 0.11574803149606305,
+            "actual": 0.11574803149606297,
+            "expected_hex": "0x1.da1a9b9da1aa0p-4",
+            "actual_hex": "0x1.da1a9b9da1a9ap-4",
+            "difference": -8.326672684688674e-17
+          },
+          {
+            "global_row": 111,
+            "expected": 0.13622047244094482,
+            "actual": 0.13622047244094487,
+            "expected_hex": "0x1.16fac2516fac0p-3",
+            "actual_hex": "0x1.16fac2516fac2p-3",
+            "difference": 5.551115123125783e-17
+          },
+          {
+            "global_row": 112,
+            "expected": 0.14645669291338592,
+            "actual": 0.1464566929133858,
+            "expected_hex": "0x1.2bf17c92bf180p-3",
+            "actual_hex": "0x1.2bf17c92bf17cp-3",
+            "difference": -1.1102230246251565e-16
+          },
+          {
+            "global_row": 113,
+            "expected": 0.1566929133858268,
+            "actual": 0.15669291338582675,
+            "expected_hex": "0x1.40e836d40e838p-3",
+            "actual_hex": "0x1.40e836d40e836p-3",
+            "difference": -5.551115123125783e-17
+          },
+          {
+            "global_row": 115,
+            "expected": 0.17716535433070857,
+            "actual": 0.17716535433070865,
+            "expected_hex": "0x1.6ad5ab56ad5a8p-3",
+            "actual_hex": "0x1.6ad5ab56ad5abp-3",
+            "difference": 8.326672684688674e-17
+          },
+          {
+            "global_row": 116,
+            "expected": 0.18740157480314967,
+            "actual": 0.1874015748031496,
+            "expected_hex": "0x1.7fcc6597fcc68p-3",
+            "actual_hex": "0x1.7fcc6597fcc65p-3",
+            "difference": -8.326672684688674e-17
+          },
+          {
+            "global_row": 117,
+            "expected": 0.19763779527559056,
+            "actual": 0.19763779527559053,
+            "expected_hex": "0x1.94c31fd94c320p-3",
+            "actual_hex": "0x1.94c31fd94c31fp-3",
+            "difference": -2.7755575615628914e-17
+          },
+          {
+            "global_row": 118,
+            "expected": 0.20787401574803144,
+            "actual": 0.2078740157480315,
+            "expected_hex": "0x1.a9b9da1a9b9d8p-3",
+            "actual_hex": "0x1.a9b9da1a9b9dap-3",
+            "difference": 5.551115123125783e-17
+          },
+          {
+            "global_row": 119,
+            "expected": 0.21811023622047232,
+            "actual": 0.21811023622047243,
+            "expected_hex": "0x1.beb0945beb090p-3",
+            "actual_hex": "0x1.beb0945beb094p-3",
+            "difference": 1.1102230246251565e-16
+          },
+          {
+            "global_row": 120,
+            "expected": 0.22834645669291342,
+            "actual": 0.22834645669291337,
+            "expected_hex": "0x1.d3a74e9d3a750p-3",
+            "actual_hex": "0x1.d3a74e9d3a74ep-3",
+            "difference": -5.551115123125783e-17
+          },
+          {
+            "global_row": 122,
+            "expected": 0.2488188976377952,
+            "actual": 0.24881889763779524,
+            "expected_hex": "0x1.fd94c31fd94c0p-3",
+            "actual_hex": "0x1.fd94c31fd94c2p-3",
+            "difference": 5.551115123125783e-17
+          },
+          {
+            "global_row": 123,
+            "expected": 0.2590551181102363,
+            "actual": 0.2590551181102362,
+            "expected_hex": "0x1.0945beb0945c0p-2",
+            "actual_hex": "0x1.0945beb0945bep-2",
+            "difference": -1.1102230246251565e-16
+          },
+          {
+            "global_row": 125,
+            "expected": 0.27952755905511806,
+            "actual": 0.2795275590551181,
+            "expected_hex": "0x1.1e3c78f1e3c78p-2",
+            "actual_hex": "0x1.1e3c78f1e3c79p-2",
+            "difference": 5.551115123125783e-17
+          },
+          {
+            "global_row": 126,
+            "expected": 0.28976377952755894,
+            "actual": 0.28976377952755905,
+            "expected_hex": "0x1.28b7d6128b7d4p-2",
+            "actual_hex": "0x1.28b7d6128b7d6p-2",
+            "difference": 1.1102230246251565e-16
+          }
+        ],
+        "alpha_mismatch_columns": [],
+        "mapping_selected": false,
+        "note": "Metadata-only observation; no tolerant join or canonical replacement has been performed."
+      },
+      "prospective_selection": {
+        "lower_rows": [
+          0,
+          96
+        ],
+        "top_rows_global": [
+          96,
+          128
+        ],
+        "extra_lower_rows_nonselected": [],
+        "coordinate_mapping": "Fixed ordinal row correspondence from explicit original grid endpoints/resolutions; preserve actual coordinate floats and their nominal-grid differences. No interpolation or tolerance search."
+      }
+    },
+    {
+      "dataset_id": "q05-random2",
+      "runs": [
+        {
+          "run_id": "20261014T000049Z",
+          "source_commit": "9f23285af412f3a66627facd1128625e3190593c",
+          "jobset": "scan64",
+          "exact_jobset_args": "q05-rand2 45 --model qwen0.5b --layer 12 --vectors llm-soft-loop/controls/vectors-qwen0.5b-l12-philnorm --transient 500 --samples 300 --record 80 --max-period 48 --resolution 128 128 --alpha -0.12 0.12 --log-temperature -1.0 0.3 --concept random2",
+          "original_receipt": {
+            "path": "/data2/neural-shrimp-data/runpod/soft64/20261014T000049Z/result.json",
+            "sha256": "b8725abcbfd75a2af0a6c4105f46f0496c579bf621c4971a2de8e09509b4fb61",
+            "bytes": 1101
+          },
+          "safe_receipt": {
+            "path": "/tmp/task16-original-authority-001/receipts/20261014T000049Z.json",
+            "sha256": "326d04cb7639038a8202b7f84376c2eabe62995c61e4c467eb2681518bfc536b",
+            "bytes": 4366
+          },
+          "status_lines": [
+            "2026-10-14T00:02:16Z start scan64-q05-rand2",
+            "2026-10-14T00:48:16Z end scan64-q05-rand2 status 124"
+          ],
+          "recorded_termination_verified": true,
+          "archive_member_bindings": [
+            {
+              "archive_member": "explore/llm-soft-loop/pod64/scan64/q05-rand2/scan-partial.npz",
+              "bytes": 250682,
+              "sha256": "c56d2940c73217748a7c5246d9b256bde5db3e3e6d78d2ab5f369ec72be7a3c7",
+              "current_path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/scan64/q05-rand2/scan-partial.npz",
+              "segment_id": "segment-06",
+              "matches_header_inventory": true
+            }
+          ]
+        },
+        {
+          "run_id": "20261014T005055Z",
+          "source_commit": "881b36b1820066c44fab76d191adcc22827a1bae",
+          "jobset": "scan64",
+          "exact_jobset_args": "q05-rand2-top 40 --model qwen0.5b --layer 12 --vectors llm-soft-loop/controls/vectors-qwen0.5b-l12-philnorm --concept random2 --transient 500 --samples 300 --record 80 --max-period 48 --resolution 32 128 --alpha -0.12 0.12 --log-temperature -0.017322834645669305 0.3",
+          "original_receipt": {
+            "path": "/data2/neural-shrimp-data/runpod/soft64/20261014T005055Z/result.json",
+            "sha256": "a2427d2ea21fa6363b2bd9e104c4a795caf4de1e63a91c345aa105480bf7ff95",
+            "bytes": 1114
+          },
+          "safe_receipt": {
+            "path": "/tmp/task16-original-authority-001/receipts/20261014T005055Z.json",
+            "sha256": "6705911ed9691edb38465a7a5c1d4cc223cfdf923a3ce552c91aeb6faa8f7d6b",
+            "bytes": 4750
+          },
+          "status_lines": [
+            "2026-10-14T00:53:40Z start scan64-q05-rand2-top",
+            "2026-10-14T01:02:40Z end scan64-q05-rand2-top status 0"
+          ],
+          "recorded_termination_verified": true,
+          "archive_member_bindings": [
+            {
+              "archive_member": "explore/llm-soft-loop/pod64/scan64/q05-rand2-top/scan.npz",
+              "bytes": 67610,
+              "sha256": "c2e691f0f8caa419e9cd947ace39d7033920c2de5a54ac720c993cc355677366",
+              "current_path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/scan64/q05-rand2-top/scan.npz",
+              "segment_id": "segment-07",
+              "matches_header_inventory": true
+            },
+            {
+              "archive_member": "explore/llm-soft-loop/pod64/scan64/q05-rand2-top/scan.json",
+              "bytes": 47023,
+              "sha256": "e2f9376a80ccca06f02fe3200ab651315c196713758104d20941f498db7d5f43",
+              "current_path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/scan64/q05-rand2-top/scan.json",
+              "segment_id": null,
+              "matches_header_inventory": true
+            }
+          ]
+        }
+      ],
+      "header_join": {
+        "dataset_id": "q05-random2",
+        "low_segment": "segment-06",
+        "top_segment": "segment-07",
+        "lower_done": 14336,
+        "lower_completed_full_rows": 112,
+        "lower_completed_row_remainder": 0,
+        "fixed_top_start_row": 96,
+        "expected_top_rows": 32,
+        "actual_top_rows": 32,
+        "alpha_exact_equal": true,
+        "temperature_exact_equal": false,
+        "temperature_mismatch_rows": [
+          {
+            "global_row": 97,
+            "expected": -0.007086614173228312,
+            "actual": -0.00708661417322836,
+            "expected_hex": "-0x1.d06da81d06d80p-8",
+            "actual_hex": "-0x1.d06da81d06db8p-8",
+            "difference": -4.85722573273506e-17
+          },
+          {
+            "global_row": 98,
+            "expected": 0.0031496062992126816,
+            "actual": 0.0031496062992125845,
+            "expected_hex": "0x1.9cd34019cd400p-9",
+            "actual_hex": "0x1.9cd34019cd320p-9",
+            "difference": -9.71445146547012e-17
+          },
+          {
+            "global_row": 99,
+            "expected": 0.013385826771653564,
+            "actual": 0.01338582677165353,
+            "expected_hex": "0x1.b6a0741b6a080p-7",
+            "actual_hex": "0x1.b6a0741b6a06cp-7",
+            "difference": -3.469446951953614e-17
+          },
+          {
+            "global_row": 100,
+            "expected": 0.023622047244094446,
+            "actual": 0.023622047244094474,
+            "expected_hex": "0x1.83060c1830600p-6",
+            "actual_hex": "0x1.83060c1830608p-6",
+            "difference": 2.7755575615628914e-17
+          },
+          {
+            "global_row": 101,
+            "expected": 0.03385826771653533,
+            "actual": 0.03385826771653542,
+            "expected_hex": "0x1.155def1155de0p-5",
+            "actual_hex": "0x1.155def1155dedp-5",
+            "difference": 9.020562075079397e-17
+          },
+          {
+            "global_row": 102,
+            "expected": 0.04409448818897643,
+            "actual": 0.04409448818897636,
+            "expected_hex": "0x1.6938d816938e0p-5",
+            "actual_hex": "0x1.6938d816938d6p-5",
+            "difference": -6.938893903907228e-17
+          },
+          {
+            "global_row": 104,
+            "expected": 0.0645669291338582,
+            "actual": 0.06456692913385825,
+            "expected_hex": "0x1.0877551087750p-4",
+            "actual_hex": "0x1.0877551087754p-4",
+            "difference": 5.551115123125783e-17
+          },
+          {
+            "global_row": 105,
+            "expected": 0.0748031496062993,
+            "actual": 0.07480314960629919,
+            "expected_hex": "0x1.3264c993264d0p-4",
+            "actual_hex": "0x1.3264c993264c8p-4",
+            "difference": -1.1102230246251565e-16
+          },
+          {
+            "global_row": 106,
+            "expected": 0.08503937007874018,
+            "actual": 0.08503937007874014,
+            "expected_hex": "0x1.5c523e15c5240p-4",
+            "actual_hex": "0x1.5c523e15c523dp-4",
+            "difference": -4.163336342344337e-17
+          },
+          {
+            "global_row": 107,
+            "expected": 0.09527559055118107,
+            "actual": 0.0952755905511811,
+            "expected_hex": "0x1.863fb29863fb0p-4",
+            "actual_hex": "0x1.863fb29863fb2p-4",
+            "difference": 2.7755575615628914e-17
+          },
+          {
+            "global_row": 108,
+            "expected": 0.10551181102362195,
+            "actual": 0.10551181102362203,
+            "expected_hex": "0x1.b02d271b02d20p-4",
+            "actual_hex": "0x1.b02d271b02d26p-4",
+            "difference": 8.326672684688674e-17
+          },
+          {
+            "global_row": 109,
+            "expected": 0.11574803149606305,
+            "actual": 0.11574803149606297,
+            "expected_hex": "0x1.da1a9b9da1aa0p-4",
+            "actual_hex": "0x1.da1a9b9da1a9ap-4",
+            "difference": -8.326672684688674e-17
+          },
+          {
+            "global_row": 111,
+            "expected": 0.13622047244094482,
+            "actual": 0.13622047244094487,
+            "expected_hex": "0x1.16fac2516fac0p-3",
+            "actual_hex": "0x1.16fac2516fac2p-3",
+            "difference": 5.551115123125783e-17
+          },
+          {
+            "global_row": 112,
+            "expected": 0.14645669291338592,
+            "actual": 0.1464566929133858,
+            "expected_hex": "0x1.2bf17c92bf180p-3",
+            "actual_hex": "0x1.2bf17c92bf17cp-3",
+            "difference": -1.1102230246251565e-16
+          },
+          {
+            "global_row": 113,
+            "expected": 0.1566929133858268,
+            "actual": 0.15669291338582675,
+            "expected_hex": "0x1.40e836d40e838p-3",
+            "actual_hex": "0x1.40e836d40e836p-3",
+            "difference": -5.551115123125783e-17
+          },
+          {
+            "global_row": 115,
+            "expected": 0.17716535433070857,
+            "actual": 0.17716535433070865,
+            "expected_hex": "0x1.6ad5ab56ad5a8p-3",
+            "actual_hex": "0x1.6ad5ab56ad5abp-3",
+            "difference": 8.326672684688674e-17
+          },
+          {
+            "global_row": 116,
+            "expected": 0.18740157480314967,
+            "actual": 0.1874015748031496,
+            "expected_hex": "0x1.7fcc6597fcc68p-3",
+            "actual_hex": "0x1.7fcc6597fcc65p-3",
+            "difference": -8.326672684688674e-17
+          },
+          {
+            "global_row": 117,
+            "expected": 0.19763779527559056,
+            "actual": 0.19763779527559053,
+            "expected_hex": "0x1.94c31fd94c320p-3",
+            "actual_hex": "0x1.94c31fd94c31fp-3",
+            "difference": -2.7755575615628914e-17
+          },
+          {
+            "global_row": 118,
+            "expected": 0.20787401574803144,
+            "actual": 0.2078740157480315,
+            "expected_hex": "0x1.a9b9da1a9b9d8p-3",
+            "actual_hex": "0x1.a9b9da1a9b9dap-3",
+            "difference": 5.551115123125783e-17
+          },
+          {
+            "global_row": 119,
+            "expected": 0.21811023622047232,
+            "actual": 0.21811023622047243,
+            "expected_hex": "0x1.beb0945beb090p-3",
+            "actual_hex": "0x1.beb0945beb094p-3",
+            "difference": 1.1102230246251565e-16
+          },
+          {
+            "global_row": 120,
+            "expected": 0.22834645669291342,
+            "actual": 0.22834645669291337,
+            "expected_hex": "0x1.d3a74e9d3a750p-3",
+            "actual_hex": "0x1.d3a74e9d3a74ep-3",
+            "difference": -5.551115123125783e-17
+          },
+          {
+            "global_row": 122,
+            "expected": 0.2488188976377952,
+            "actual": 0.24881889763779524,
+            "expected_hex": "0x1.fd94c31fd94c0p-3",
+            "actual_hex": "0x1.fd94c31fd94c2p-3",
+            "difference": 5.551115123125783e-17
+          },
+          {
+            "global_row": 123,
+            "expected": 0.2590551181102363,
+            "actual": 0.2590551181102362,
+            "expected_hex": "0x1.0945beb0945c0p-2",
+            "actual_hex": "0x1.0945beb0945bep-2",
+            "difference": -1.1102230246251565e-16
+          },
+          {
+            "global_row": 125,
+            "expected": 0.27952755905511806,
+            "actual": 0.2795275590551181,
+            "expected_hex": "0x1.1e3c78f1e3c78p-2",
+            "actual_hex": "0x1.1e3c78f1e3c79p-2",
+            "difference": 5.551115123125783e-17
+          },
+          {
+            "global_row": 126,
+            "expected": 0.28976377952755894,
+            "actual": 0.28976377952755905,
+            "expected_hex": "0x1.28b7d6128b7d4p-2",
+            "actual_hex": "0x1.28b7d6128b7d6p-2",
+            "difference": 1.1102230246251565e-16
+          }
+        ],
+        "alpha_mismatch_columns": [],
+        "mapping_selected": false,
+        "note": "Metadata-only observation; no tolerant join or canonical replacement has been performed."
+      },
+      "prospective_selection": {
+        "lower_rows": [
+          0,
+          96
+        ],
+        "top_rows_global": [
+          96,
+          128
+        ],
+        "extra_lower_rows_nonselected": [
+          96,
+          112
+        ],
+        "coordinate_mapping": "Fixed ordinal row correspondence from explicit original grid endpoints/resolutions; preserve actual coordinate floats and their nominal-grid differences. No interpolation or tolerance search."
+      }
+    },
+    {
+      "dataset_id": "q05-random3",
+      "runs": [
+        {
+          "run_id": "20261014T000104Z",
+          "source_commit": "9f23285af412f3a66627facd1128625e3190593c",
+          "jobset": "scan64",
+          "exact_jobset_args": "q05-rand3 45 --model qwen0.5b --layer 12 --vectors llm-soft-loop/controls/vectors-qwen0.5b-l12-philnorm --transient 500 --samples 300 --record 80 --max-period 48 --resolution 128 128 --alpha -0.12 0.12 --log-temperature -1.0 0.3 --concept random3",
+          "original_receipt": {
+            "path": "/data2/neural-shrimp-data/runpod/soft64/20261014T000104Z/result.json",
+            "sha256": "775c772558a67ce687c5e7083fe7c53ed2d874a8b9581fa0b31b42b33a282179",
+            "bytes": 1101
+          },
+          "safe_receipt": {
+            "path": "/tmp/task16-original-authority-001/receipts/20261014T000104Z.json",
+            "sha256": "b1f0c48ab0e5320ed4ff5d469456c3961aa226030ff464a48cd443bee8131cd8",
+            "bytes": 4366
+          },
+          "status_lines": [
+            "2026-10-14T00:02:29Z start scan64-q05-rand3",
+            "2026-10-14T00:48:30Z end scan64-q05-rand3 status 124"
+          ],
+          "recorded_termination_verified": true,
+          "archive_member_bindings": [
+            {
+              "archive_member": "explore/llm-soft-loop/pod64/scan64/q05-rand3/scan-partial.npz",
+              "bytes": 237675,
+              "sha256": "ce86f82f9ce42d6673833b5ae023b4211a89ad9c05d7484dcc7189038caf906e",
+              "current_path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/scan64/q05-rand3/scan-partial.npz",
+              "segment_id": "segment-08",
+              "matches_header_inventory": true
+            }
+          ]
+        },
+        {
+          "run_id": "20261014T005110Z",
+          "source_commit": "881b36b1820066c44fab76d191adcc22827a1bae",
+          "jobset": "scan64",
+          "exact_jobset_args": "q05-rand3-top 40 --model qwen0.5b --layer 12 --vectors llm-soft-loop/controls/vectors-qwen0.5b-l12-philnorm --concept random3 --transient 500 --samples 300 --record 80 --max-period 48 --resolution 32 128 --alpha -0.12 0.12 --log-temperature -0.017322834645669305 0.3",
+          "original_receipt": {
+            "path": "/data2/neural-shrimp-data/runpod/soft64/20261014T005110Z/result.json",
+            "sha256": "54ae26628f6a78c0963d8a6c02516e45784594b32e55c330cc9275acc8535284",
+            "bytes": 1114
+          },
+          "safe_receipt": {
+            "path": "/tmp/task16-original-authority-001/receipts/20261014T005110Z.json",
+            "sha256": "935254368ca9084a482bbee6d476ba3f9dbbf78ca2f827cdcc0767e0491a2557",
+            "bytes": 4750
+          },
+          "status_lines": [
+            "2026-10-14T00:52:39Z start scan64-q05-rand3-top",
+            "2026-10-14T01:01:39Z end scan64-q05-rand3-top status 0"
+          ],
+          "recorded_termination_verified": true,
+          "archive_member_bindings": [
+            {
+              "archive_member": "explore/llm-soft-loop/pod64/scan64/q05-rand3-top/scan.npz",
+              "bytes": 68740,
+              "sha256": "ea7b8710d4fc9763544abb0647a756ad5dc9ab4235ec2302e6dc6d9fdfba3313",
+              "current_path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/scan64/q05-rand3-top/scan.npz",
+              "segment_id": "segment-09",
+              "matches_header_inventory": true
+            },
+            {
+              "archive_member": "explore/llm-soft-loop/pod64/scan64/q05-rand3-top/scan.json",
+              "bytes": 71556,
+              "sha256": "0291ea687b6774d20bf2115473ecaa84694f952a8b481df83448792daea4719b",
+              "current_path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/scan64/q05-rand3-top/scan.json",
+              "segment_id": null,
+              "matches_header_inventory": true
+            }
+          ]
+        }
+      ],
+      "header_join": {
+        "dataset_id": "q05-random3",
+        "low_segment": "segment-08",
+        "top_segment": "segment-09",
+        "lower_done": 14336,
+        "lower_completed_full_rows": 112,
+        "lower_completed_row_remainder": 0,
+        "fixed_top_start_row": 96,
+        "expected_top_rows": 32,
+        "actual_top_rows": 32,
+        "alpha_exact_equal": true,
+        "temperature_exact_equal": false,
+        "temperature_mismatch_rows": [
+          {
+            "global_row": 97,
+            "expected": -0.007086614173228312,
+            "actual": -0.00708661417322836,
+            "expected_hex": "-0x1.d06da81d06d80p-8",
+            "actual_hex": "-0x1.d06da81d06db8p-8",
+            "difference": -4.85722573273506e-17
+          },
+          {
+            "global_row": 98,
+            "expected": 0.0031496062992126816,
+            "actual": 0.0031496062992125845,
+            "expected_hex": "0x1.9cd34019cd400p-9",
+            "actual_hex": "0x1.9cd34019cd320p-9",
+            "difference": -9.71445146547012e-17
+          },
+          {
+            "global_row": 99,
+            "expected": 0.013385826771653564,
+            "actual": 0.01338582677165353,
+            "expected_hex": "0x1.b6a0741b6a080p-7",
+            "actual_hex": "0x1.b6a0741b6a06cp-7",
+            "difference": -3.469446951953614e-17
+          },
+          {
+            "global_row": 100,
+            "expected": 0.023622047244094446,
+            "actual": 0.023622047244094474,
+            "expected_hex": "0x1.83060c1830600p-6",
+            "actual_hex": "0x1.83060c1830608p-6",
+            "difference": 2.7755575615628914e-17
+          },
+          {
+            "global_row": 101,
+            "expected": 0.03385826771653533,
+            "actual": 0.03385826771653542,
+            "expected_hex": "0x1.155def1155de0p-5",
+            "actual_hex": "0x1.155def1155dedp-5",
+            "difference": 9.020562075079397e-17
+          },
+          {
+            "global_row": 102,
+            "expected": 0.04409448818897643,
+            "actual": 0.04409448818897636,
+            "expected_hex": "0x1.6938d816938e0p-5",
+            "actual_hex": "0x1.6938d816938d6p-5",
+            "difference": -6.938893903907228e-17
+          },
+          {
+            "global_row": 104,
+            "expected": 0.0645669291338582,
+            "actual": 0.06456692913385825,
+            "expected_hex": "0x1.0877551087750p-4",
+            "actual_hex": "0x1.0877551087754p-4",
+            "difference": 5.551115123125783e-17
+          },
+          {
+            "global_row": 105,
+            "expected": 0.0748031496062993,
+            "actual": 0.07480314960629919,
+            "expected_hex": "0x1.3264c993264d0p-4",
+            "actual_hex": "0x1.3264c993264c8p-4",
+            "difference": -1.1102230246251565e-16
+          },
+          {
+            "global_row": 106,
+            "expected": 0.08503937007874018,
+            "actual": 0.08503937007874014,
+            "expected_hex": "0x1.5c523e15c5240p-4",
+            "actual_hex": "0x1.5c523e15c523dp-4",
+            "difference": -4.163336342344337e-17
+          },
+          {
+            "global_row": 107,
+            "expected": 0.09527559055118107,
+            "actual": 0.0952755905511811,
+            "expected_hex": "0x1.863fb29863fb0p-4",
+            "actual_hex": "0x1.863fb29863fb2p-4",
+            "difference": 2.7755575615628914e-17
+          },
+          {
+            "global_row": 108,
+            "expected": 0.10551181102362195,
+            "actual": 0.10551181102362203,
+            "expected_hex": "0x1.b02d271b02d20p-4",
+            "actual_hex": "0x1.b02d271b02d26p-4",
+            "difference": 8.326672684688674e-17
+          },
+          {
+            "global_row": 109,
+            "expected": 0.11574803149606305,
+            "actual": 0.11574803149606297,
+            "expected_hex": "0x1.da1a9b9da1aa0p-4",
+            "actual_hex": "0x1.da1a9b9da1a9ap-4",
+            "difference": -8.326672684688674e-17
+          },
+          {
+            "global_row": 111,
+            "expected": 0.13622047244094482,
+            "actual": 0.13622047244094487,
+            "expected_hex": "0x1.16fac2516fac0p-3",
+            "actual_hex": "0x1.16fac2516fac2p-3",
+            "difference": 5.551115123125783e-17
+          },
+          {
+            "global_row": 112,
+            "expected": 0.14645669291338592,
+            "actual": 0.1464566929133858,
+            "expected_hex": "0x1.2bf17c92bf180p-3",
+            "actual_hex": "0x1.2bf17c92bf17cp-3",
+            "difference": -1.1102230246251565e-16
+          },
+          {
+            "global_row": 113,
+            "expected": 0.1566929133858268,
+            "actual": 0.15669291338582675,
+            "expected_hex": "0x1.40e836d40e838p-3",
+            "actual_hex": "0x1.40e836d40e836p-3",
+            "difference": -5.551115123125783e-17
+          },
+          {
+            "global_row": 115,
+            "expected": 0.17716535433070857,
+            "actual": 0.17716535433070865,
+            "expected_hex": "0x1.6ad5ab56ad5a8p-3",
+            "actual_hex": "0x1.6ad5ab56ad5abp-3",
+            "difference": 8.326672684688674e-17
+          },
+          {
+            "global_row": 116,
+            "expected": 0.18740157480314967,
+            "actual": 0.1874015748031496,
+            "expected_hex": "0x1.7fcc6597fcc68p-3",
+            "actual_hex": "0x1.7fcc6597fcc65p-3",
+            "difference": -8.326672684688674e-17
+          },
+          {
+            "global_row": 117,
+            "expected": 0.19763779527559056,
+            "actual": 0.19763779527559053,
+            "expected_hex": "0x1.94c31fd94c320p-3",
+            "actual_hex": "0x1.94c31fd94c31fp-3",
+            "difference": -2.7755575615628914e-17
+          },
+          {
+            "global_row": 118,
+            "expected": 0.20787401574803144,
+            "actual": 0.2078740157480315,
+            "expected_hex": "0x1.a9b9da1a9b9d8p-3",
+            "actual_hex": "0x1.a9b9da1a9b9dap-3",
+            "difference": 5.551115123125783e-17
+          },
+          {
+            "global_row": 119,
+            "expected": 0.21811023622047232,
+            "actual": 0.21811023622047243,
+            "expected_hex": "0x1.beb0945beb090p-3",
+            "actual_hex": "0x1.beb0945beb094p-3",
+            "difference": 1.1102230246251565e-16
+          },
+          {
+            "global_row": 120,
+            "expected": 0.22834645669291342,
+            "actual": 0.22834645669291337,
+            "expected_hex": "0x1.d3a74e9d3a750p-3",
+            "actual_hex": "0x1.d3a74e9d3a74ep-3",
+            "difference": -5.551115123125783e-17
+          },
+          {
+            "global_row": 122,
+            "expected": 0.2488188976377952,
+            "actual": 0.24881889763779524,
+            "expected_hex": "0x1.fd94c31fd94c0p-3",
+            "actual_hex": "0x1.fd94c31fd94c2p-3",
+            "difference": 5.551115123125783e-17
+          },
+          {
+            "global_row": 123,
+            "expected": 0.2590551181102363,
+            "actual": 0.2590551181102362,
+            "expected_hex": "0x1.0945beb0945c0p-2",
+            "actual_hex": "0x1.0945beb0945bep-2",
+            "difference": -1.1102230246251565e-16
+          },
+          {
+            "global_row": 125,
+            "expected": 0.27952755905511806,
+            "actual": 0.2795275590551181,
+            "expected_hex": "0x1.1e3c78f1e3c78p-2",
+            "actual_hex": "0x1.1e3c78f1e3c79p-2",
+            "difference": 5.551115123125783e-17
+          },
+          {
+            "global_row": 126,
+            "expected": 0.28976377952755894,
+            "actual": 0.28976377952755905,
+            "expected_hex": "0x1.28b7d6128b7d4p-2",
+            "actual_hex": "0x1.28b7d6128b7d6p-2",
+            "difference": 1.1102230246251565e-16
+          }
+        ],
+        "alpha_mismatch_columns": [],
+        "mapping_selected": false,
+        "note": "Metadata-only observation; no tolerant join or canonical replacement has been performed."
+      },
+      "prospective_selection": {
+        "lower_rows": [
+          0,
+          96
+        ],
+        "top_rows_global": [
+          96,
+          128
+        ],
+        "extra_lower_rows_nonselected": [
+          96,
+          112
+        ],
+        "coordinate_mapping": "Fixed ordinal row correspondence from explicit original grid endpoints/resolutions; preserve actual coordinate floats and their nominal-grid differences. No interpolation or tolerance search."
+      }
+    }
+  ],
+  "scientific_values_decoded": false
+}

@@ -1,0 +1,519 @@
+{
+  "schema": "task16-vector-declaration-metadata-v1",
+  "created_utc": "2026-10-14T10:11:58.025696+00:00",
+  "records": [
+    {
+      "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/controls/vectors-qwen0.5b-l12-philnorm/vectors.json",
+      "sha256": "ab5c0164a8742036eec2af8e7e1f1659438469d4af788f2a97ba890c6d447c02",
+      "bytes": 605,
+      "producer_declared_metadata": {
+        "command": "rescale",
+        "source": "llm-soft-loop/pod64/pairmap-qwen0.5b/vectors",
+        "source_sha256": "adc78571487f362b994055cc15dd34df41c15e501c198faffd533feb97c0a423",
+        "reference_concept": "philosophy",
+        "reference_norm": 188.9948284931374,
+        "source_norms": {
+          "random1": 215.3862858100788,
+          "random2": 215.38628581007876,
+          "random3": 215.38628581007882
+        },
+        "cosines": {
+          "random1|philosophy": 0.04431061844648861,
+          "random2|philosophy": -0.06673478288712423,
+          "random3|philosophy": 0.004022262388070706
+        },
+        "vectors_sha256": "0480e29ea125761dc53109f5be1a9b8ec64ac77395e42f90bea7d3562b129c09"
+      }
+    },
+    {
+      "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/controls/vectors-llama8b-l16-hostnorm/vectors.json",
+      "sha256": "4bb84b1f9e85382c0a6c59306ca35a93a2c55d8f71d8928380a25bfd5f58f205",
+      "bytes": 553,
+      "producer_declared_metadata": {
+        "command": "rescale",
+        "source": "llm-soft-loop/pod64/llama8b-b/vectors",
+        "source_sha256": "64eb5689d32a8b67b5f771b2413116f6053959edfab10a3a5e0bc107e3beec9a",
+        "reference_concept": "hostility-vs-kindness",
+        "reference_norm": 61.8173370088694,
+        "source_norms": {
+          "random1": 70.07249949477037,
+          "random2": 70.07249949477035
+        },
+        "cosines": {
+          "random1|hostility-vs-kindness": -0.029271677823878444,
+          "random2|hostility-vs-kindness": -0.015863568174339465
+        },
+        "vectors_sha256": "a42f3d5fc6364a3b5fdaab2d493310004a594654151553fa7258a716abab5e40"
+      }
+    },
+    {
+      "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/pairmap-qwen0.5b/vectors/vectors.json",
+      "sha256": "77c2951def00d3d6c63868bbdc6a54f531a3f21ded97f45c43caf875f694923c",
+      "bytes": 1788,
+      "producer_declared_metadata": {
+        "args": {
+          "command": "vectors",
+          "model": "qwen0.5b",
+          "layer": 12,
+          "threads": 8,
+          "out": "llm-phase-map/vectors-qwen0.5b-l12-pair",
+          "device": "cuda",
+          "dtype": "float64",
+          "random": 3,
+          "contrasts": [
+            "hostility:kindness"
+          ]
+        },
+        "info": {
+          "gratitude": {
+            "raw_difference_norm": 8.056987635715378,
+            "mean_residual_norm": 200.5861730285094
+          },
+          "philosophy": {
+            "raw_difference_norm": 8.095698409848358,
+            "mean_residual_norm": 188.99482849313736
+          },
+          "hostility": {
+            "raw_difference_norm": 8.478721291099086,
+            "mean_residual_norm": 198.88836930839466
+          },
+          "kindness": {
+            "raw_difference_norm": 7.889854367054206,
+            "mean_residual_norm": 203.81869013033162
+          },
+          "cooking": {
+            "raw_difference_norm": 7.34659018476665,
+            "mean_residual_norm": 186.94128172337824
+          },
+          "hostility-vs-kindness": {
+            "raw_difference_norm": 4.758441096707704,
+            "mean_residual_norm": 187.3207736286475
+          },
+          "cosine": 0.5717141210872694,
+          "cosines": {
+            "gratitude|philosophy": 0.5717141210872695,
+            "gratitude|hostility": 0.7674218955356298,
+            "gratitude|kindness": 0.8478943698272434,
+            "gratitude|cooking": 0.22662332226712167,
+            "gratitude|hostility-vs-kindness": -0.03845938783926701,
+            "philosophy|hostility": 0.5503903675562314,
+            "philosophy|kindness": 0.5429453932083658,
+            "philosophy|cooking": 0.2012627733258256,
+            "philosophy|hostility-vs-kindness": 0.08045627514497752,
+            "hostility|kindness": 0.8333529756896154,
+            "hostility|cooking": 0.17522268261051704,
+            "hostility|hostility-vs-kindness": 0.4000654075289261,
+            "kindness|cooking": 0.18533486126187593,
+            "kindness|hostility-vs-kindness": -0.17318418623360868,
+            "cooking|hostility-vs-kindness": 0.004917414078127624
+          },
+          "neutral_mean_residual_norm": 215.3862858100788
+        }
+      }
+    },
+    {
+      "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/llama8b-b/vectors/vectors.json",
+      "sha256": "9684d375f6882e5ad867920fb26f9b2031c8f55bd183ff51979fa2586cc9999c",
+      "bytes": 1786,
+      "producer_declared_metadata": {
+        "args": {
+          "command": "vectors",
+          "model": "llama3.1-8b",
+          "layer": 16,
+          "threads": 8,
+          "out": "llm-phase-map/vectors-llama3.1-8b-l16",
+          "device": "cuda",
+          "dtype": "float64",
+          "random": 3,
+          "contrasts": [
+            "hostility:kindness"
+          ]
+        },
+        "info": {
+          "gratitude": {
+            "raw_difference_norm": 8.56264892013386,
+            "mean_residual_norm": 65.7317445033713
+          },
+          "philosophy": {
+            "raw_difference_norm": 7.846824364721768,
+            "mean_residual_norm": 62.33494981109891
+          },
+          "hostility": {
+            "raw_difference_norm": 7.934905663244754,
+            "mean_residual_norm": 65.4410966168563
+          },
+          "kindness": {
+            "raw_difference_norm": 7.520113923627633,
+            "mean_residual_norm": 66.44873988678344
+          },
+          "cooking": {
+            "raw_difference_norm": 7.35161513837124,
+            "mean_residual_norm": 62.6368384396729
+          },
+          "hostility-vs-kindness": {
+            "raw_difference_norm": 5.902058378679575,
+            "mean_residual_norm": 61.8173370088694
+          },
+          "cosine": 0.47619003440162705,
+          "cosines": {
+            "gratitude|philosophy": 0.47619003440162716,
+            "gratitude|hostility": 0.5083044944797013,
+            "gratitude|kindness": 0.7544922738454859,
+            "gratitude|cooking": 0.23818278607568208,
+            "gratitude|hostility-vs-kindness": -0.27795720351417297,
+            "philosophy|hostility": 0.43365961172486445,
+            "philosophy|kindness": 0.46800560624305354,
+            "philosophy|cooking": 0.24221317419866017,
+            "philosophy|hostility-vs-kindness": -0.013284749458132461,
+            "hostility|kindness": 0.7095573082111655,
+            "hostility|cooking": 0.21073262625652212,
+            "hostility|hostility-vs-kindness": 0.44034702868114767,
+            "kindness|cooking": 0.2528615440578341,
+            "kindness|hostility-vs-kindness": -0.3202007670972843,
+            "cooking|hostility-vs-kindness": -0.03886849197132236
+          },
+          "neutral_mean_residual_norm": 70.07249949477037
+        }
+      }
+    },
+    {
+      "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/controls/l19-concept/vectors/vectors.json",
+      "sha256": "eec359fee7c1cfd1fc95424132b5cdeb704e35ee88fd6f82a0b2378d02f58979",
+      "bytes": 2772,
+      "producer_declared_metadata": {
+        "command": "build",
+        "concept_vectors": "llm-phase-map/vectors-llama3.1-8b-l19",
+        "concept_vectors_sha256": "90a6e972d65e3bf57e36f89ba3eac0fe7850081f8772702230582348d798b0fa",
+        "sae_kind": "goodfire",
+        "sae_path": "/root/neural-shrimp-data/models/sae/goodfire-8b-l19/Llama-3.1-8B-Instruct-SAE-l19.pth",
+        "sae_sha256": "bbdc6fad591d3d420e8859dcb6eefa4ec642026090f7f39a963b1c0f27290e4f",
+        "sae_index": 20,
+        "layer": 19,
+        "selection": "docs/steering-controls-selection.json",
+        "selection_sha256": "3e9a501864ce28afeb024c76ce8ca2d85b18dc834295422b4c6e89eb7b5ed4d5",
+        "vectors": {
+          "sae-hostility-37512": {
+            "role": "hostility",
+            "feature": 37512,
+            "decoder_norm": 1.0653818646258089,
+            "reference": "hostility-vs-kindness"
+          },
+          "sae-philosophy-46250": {
+            "role": "philosophy",
+            "feature": 46250,
+            "decoder_norm": 1.2902107259543791,
+            "reference": "philosophy"
+          },
+          "sae-random_live-55786": {
+            "role": "random_live",
+            "feature": 55786,
+            "decoder_norm": 0.9778714080978027,
+            "reference": "hostility-vs-kindness"
+          },
+          "sae-neighbour-37513": {
+            "role": "neighbour",
+            "feature": 37513,
+            "decoder_norm": 1.0789326494717513,
+            "reference": "hostility-vs-kindness"
+          },
+          "random1": {
+            "role": "gaussian random",
+            "reference": "hostility-vs-kindness"
+          },
+          "random2": {
+            "role": "gaussian random",
+            "reference": "hostility-vs-kindness"
+          },
+          "random3": {
+            "role": "gaussian random",
+            "reference": "hostility-vs-kindness"
+          }
+        },
+        "norms": {
+          "hostility-vs-kindness": 66.31898752610785,
+          "philosophy": 66.39321979252203,
+          "sae-hostility-37512": 66.31898752610785,
+          "sae-philosophy-46250": 66.39321979252205,
+          "sae-random_live-55786": 66.31898752610786,
+          "sae-neighbour-37513": 66.31898752610786,
+          "random1": 66.31898752610785,
+          "random2": 66.31898752610785,
+          "random3": 66.31898752610785
+        },
+        "cosines": {
+          "sae-hostility-37512|hostility-vs-kindness": 0.09481931554140735,
+          "sae-hostility-37512|philosophy": -0.010868060367358946,
+          "sae-philosophy-46250|hostility-vs-kindness": 0.016612847052643712,
+          "sae-philosophy-46250|philosophy": 0.2995714644612783,
+          "sae-random_live-55786|hostility-vs-kindness": -0.03766292113421215,
+          "sae-random_live-55786|philosophy": 0.0220956688609935,
+          "sae-neighbour-37513|hostility-vs-kindness": -0.026775366469402175,
+          "sae-neighbour-37513|philosophy": 0.014407646399434955,
+          "random1|hostility-vs-kindness": -0.0023050359052808676,
+          "random1|philosophy": 0.012532299951464643,
+          "random2|hostility-vs-kindness": -0.013442725130196611,
+          "random2|philosophy": -0.012455094821062154,
+          "random3|hostility-vs-kindness": -0.009892049317858965,
+          "random3|philosophy": -0.013294767954869446
+        },
+        "vectors_sha256": "d43306c399446b491795c57c372cd06354d45408463cc167c7aa265719624a87"
+      }
+    },
+    {
+      "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/controls/l19-saeH/vectors/vectors.json",
+      "sha256": "013c4129dc7914a104e9e4d516cf5ffe03025cedf05f059285d974931cc03133",
+      "bytes": 2773,
+      "producer_declared_metadata": {
+        "command": "build",
+        "concept_vectors": "llm-phase-map/vectors-llama3.1-8b-l19",
+        "concept_vectors_sha256": "94f607ef3e884bc9424f5d51815ac06e028568eff1095433a4a1cfbe43d56e5c",
+        "sae_kind": "goodfire",
+        "sae_path": "/root/neural-shrimp-data/models/sae/goodfire-8b-l19/Llama-3.1-8B-Instruct-SAE-l19.pth",
+        "sae_sha256": "bbdc6fad591d3d420e8859dcb6eefa4ec642026090f7f39a963b1c0f27290e4f",
+        "sae_index": 20,
+        "layer": 19,
+        "selection": "docs/steering-controls-selection.json",
+        "selection_sha256": "3e9a501864ce28afeb024c76ce8ca2d85b18dc834295422b4c6e89eb7b5ed4d5",
+        "vectors": {
+          "sae-hostility-37512": {
+            "role": "hostility",
+            "feature": 37512,
+            "decoder_norm": 1.0653818646258084,
+            "reference": "hostility-vs-kindness"
+          },
+          "sae-philosophy-46250": {
+            "role": "philosophy",
+            "feature": 46250,
+            "decoder_norm": 1.2902107259543791,
+            "reference": "philosophy"
+          },
+          "sae-random_live-55786": {
+            "role": "random_live",
+            "feature": 55786,
+            "decoder_norm": 0.9778714080978027,
+            "reference": "hostility-vs-kindness"
+          },
+          "sae-neighbour-37513": {
+            "role": "neighbour",
+            "feature": 37513,
+            "decoder_norm": 1.0789326494717513,
+            "reference": "hostility-vs-kindness"
+          },
+          "random1": {
+            "role": "gaussian random",
+            "reference": "hostility-vs-kindness"
+          },
+          "random2": {
+            "role": "gaussian random",
+            "reference": "hostility-vs-kindness"
+          },
+          "random3": {
+            "role": "gaussian random",
+            "reference": "hostility-vs-kindness"
+          }
+        },
+        "norms": {
+          "hostility-vs-kindness": 66.31898752610786,
+          "philosophy": 66.39321979252223,
+          "sae-hostility-37512": 66.3189875261079,
+          "sae-philosophy-46250": 66.39321979252225,
+          "sae-random_live-55786": 66.31898752610789,
+          "sae-neighbour-37513": 66.31898752610788,
+          "random1": 66.31898752610786,
+          "random2": 66.31898752610786,
+          "random3": 66.31898752610788
+        },
+        "cosines": {
+          "sae-hostility-37512|hostility-vs-kindness": 0.09481931554140736,
+          "sae-hostility-37512|philosophy": -0.01086806036735881,
+          "sae-philosophy-46250|hostility-vs-kindness": 0.016612847052643757,
+          "sae-philosophy-46250|philosophy": 0.29957146446127814,
+          "sae-random_live-55786|hostility-vs-kindness": -0.037662921134211894,
+          "sae-random_live-55786|philosophy": 0.022095668860993536,
+          "sae-neighbour-37513|hostility-vs-kindness": -0.026775366469401873,
+          "sae-neighbour-37513|philosophy": 0.014407646399435094,
+          "random1|hostility-vs-kindness": -0.0023050359052808186,
+          "random1|philosophy": 0.01253229995146457,
+          "random2|hostility-vs-kindness": -0.013442725130196627,
+          "random2|philosophy": -0.012455094821062164,
+          "random3|hostility-vs-kindness": -0.009892049317858956,
+          "random3|philosophy": -0.013294767954869337
+        },
+        "vectors_sha256": "7092d1f2f552d03442de84365d32a52e3ae799ae7e2e10e995a52fc9bc0b6afa"
+      }
+    },
+    {
+      "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/controls/l19-saeR/vectors/vectors.json",
+      "sha256": "013c4129dc7914a104e9e4d516cf5ffe03025cedf05f059285d974931cc03133",
+      "bytes": 2773,
+      "producer_declared_metadata": {
+        "command": "build",
+        "concept_vectors": "llm-phase-map/vectors-llama3.1-8b-l19",
+        "concept_vectors_sha256": "94f607ef3e884bc9424f5d51815ac06e028568eff1095433a4a1cfbe43d56e5c",
+        "sae_kind": "goodfire",
+        "sae_path": "/root/neural-shrimp-data/models/sae/goodfire-8b-l19/Llama-3.1-8B-Instruct-SAE-l19.pth",
+        "sae_sha256": "bbdc6fad591d3d420e8859dcb6eefa4ec642026090f7f39a963b1c0f27290e4f",
+        "sae_index": 20,
+        "layer": 19,
+        "selection": "docs/steering-controls-selection.json",
+        "selection_sha256": "3e9a501864ce28afeb024c76ce8ca2d85b18dc834295422b4c6e89eb7b5ed4d5",
+        "vectors": {
+          "sae-hostility-37512": {
+            "role": "hostility",
+            "feature": 37512,
+            "decoder_norm": 1.0653818646258084,
+            "reference": "hostility-vs-kindness"
+          },
+          "sae-philosophy-46250": {
+            "role": "philosophy",
+            "feature": 46250,
+            "decoder_norm": 1.2902107259543791,
+            "reference": "philosophy"
+          },
+          "sae-random_live-55786": {
+            "role": "random_live",
+            "feature": 55786,
+            "decoder_norm": 0.9778714080978027,
+            "reference": "hostility-vs-kindness"
+          },
+          "sae-neighbour-37513": {
+            "role": "neighbour",
+            "feature": 37513,
+            "decoder_norm": 1.0789326494717513,
+            "reference": "hostility-vs-kindness"
+          },
+          "random1": {
+            "role": "gaussian random",
+            "reference": "hostility-vs-kindness"
+          },
+          "random2": {
+            "role": "gaussian random",
+            "reference": "hostility-vs-kindness"
+          },
+          "random3": {
+            "role": "gaussian random",
+            "reference": "hostility-vs-kindness"
+          }
+        },
+        "norms": {
+          "hostility-vs-kindness": 66.31898752610786,
+          "philosophy": 66.39321979252223,
+          "sae-hostility-37512": 66.3189875261079,
+          "sae-philosophy-46250": 66.39321979252225,
+          "sae-random_live-55786": 66.31898752610789,
+          "sae-neighbour-37513": 66.31898752610788,
+          "random1": 66.31898752610786,
+          "random2": 66.31898752610786,
+          "random3": 66.31898752610788
+        },
+        "cosines": {
+          "sae-hostility-37512|hostility-vs-kindness": 0.09481931554140736,
+          "sae-hostility-37512|philosophy": -0.01086806036735881,
+          "sae-philosophy-46250|hostility-vs-kindness": 0.016612847052643757,
+          "sae-philosophy-46250|philosophy": 0.29957146446127814,
+          "sae-random_live-55786|hostility-vs-kindness": -0.037662921134211894,
+          "sae-random_live-55786|philosophy": 0.022095668860993536,
+          "sae-neighbour-37513|hostility-vs-kindness": -0.026775366469401873,
+          "sae-neighbour-37513|philosophy": 0.014407646399435094,
+          "random1|hostility-vs-kindness": -0.0023050359052808186,
+          "random1|philosophy": 0.01253229995146457,
+          "random2|hostility-vs-kindness": -0.013442725130196627,
+          "random2|philosophy": -0.012455094821062164,
+          "random3|hostility-vs-kindness": -0.009892049317858956,
+          "random3|philosophy": -0.013294767954869337
+        },
+        "vectors_sha256": "7092d1f2f552d03442de84365d32a52e3ae799ae7e2e10e995a52fc9bc0b6afa"
+      }
+    },
+    {
+      "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/controls/l19-gauss/vectors/vectors.json",
+      "sha256": "013c4129dc7914a104e9e4d516cf5ffe03025cedf05f059285d974931cc03133",
+      "bytes": 2773,
+      "producer_declared_metadata": {
+        "command": "build",
+        "concept_vectors": "llm-phase-map/vectors-llama3.1-8b-l19",
+        "concept_vectors_sha256": "94f607ef3e884bc9424f5d51815ac06e028568eff1095433a4a1cfbe43d56e5c",
+        "sae_kind": "goodfire",
+        "sae_path": "/root/neural-shrimp-data/models/sae/goodfire-8b-l19/Llama-3.1-8B-Instruct-SAE-l19.pth",
+        "sae_sha256": "bbdc6fad591d3d420e8859dcb6eefa4ec642026090f7f39a963b1c0f27290e4f",
+        "sae_index": 20,
+        "layer": 19,
+        "selection": "docs/steering-controls-selection.json",
+        "selection_sha256": "3e9a501864ce28afeb024c76ce8ca2d85b18dc834295422b4c6e89eb7b5ed4d5",
+        "vectors": {
+          "sae-hostility-37512": {
+            "role": "hostility",
+            "feature": 37512,
+            "decoder_norm": 1.0653818646258084,
+            "reference": "hostility-vs-kindness"
+          },
+          "sae-philosophy-46250": {
+            "role": "philosophy",
+            "feature": 46250,
+            "decoder_norm": 1.2902107259543791,
+            "reference": "philosophy"
+          },
+          "sae-random_live-55786": {
+            "role": "random_live",
+            "feature": 55786,
+            "decoder_norm": 0.9778714080978027,
+            "reference": "hostility-vs-kindness"
+          },
+          "sae-neighbour-37513": {
+            "role": "neighbour",
+            "feature": 37513,
+            "decoder_norm": 1.0789326494717513,
+            "reference": "hostility-vs-kindness"
+          },
+          "random1": {
+            "role": "gaussian random",
+            "reference": "hostility-vs-kindness"
+          },
+          "random2": {
+            "role": "gaussian random",
+            "reference": "hostility-vs-kindness"
+          },
+          "random3": {
+            "role": "gaussian random",
+            "reference": "hostility-vs-kindness"
+          }
+        },
+        "norms": {
+          "hostility-vs-kindness": 66.31898752610786,
+          "philosophy": 66.39321979252223,
+          "sae-hostility-37512": 66.3189875261079,
+          "sae-philosophy-46250": 66.39321979252225,
+          "sae-random_live-55786": 66.31898752610789,
+          "sae-neighbour-37513": 66.31898752610788,
+          "random1": 66.31898752610786,
+          "random2": 66.31898752610786,
+          "random3": 66.31898752610788
+        },
+        "cosines": {
+          "sae-hostility-37512|hostility-vs-kindness": 0.09481931554140736,
+          "sae-hostility-37512|philosophy": -0.01086806036735881,
+          "sae-philosophy-46250|hostility-vs-kindness": 0.016612847052643757,
+          "sae-philosophy-46250|philosophy": 0.29957146446127814,
+          "sae-random_live-55786|hostility-vs-kindness": -0.037662921134211894,
+          "sae-random_live-55786|philosophy": 0.022095668860993536,
+          "sae-neighbour-37513|hostility-vs-kindness": -0.026775366469401873,
+          "sae-neighbour-37513|philosophy": 0.014407646399435094,
+          "random1|hostility-vs-kindness": -0.0023050359052808186,
+          "random1|philosophy": 0.01253229995146457,
+          "random2|hostility-vs-kindness": -0.013442725130196627,
+          "random2|philosophy": -0.012455094821062164,
+          "random3|hostility-vs-kindness": -0.009892049317858956,
+          "random3|philosophy": -0.013294767954869337
+        },
+        "vectors_sha256": "7092d1f2f552d03442de84365d32a52e3ae799ae7e2e10e995a52fc9bc0b6afa"
+      }
+    }
+  ],
+  "interpretation": {
+    "q05_randoms": "Gaussian1\u20133 were rescaled to philosophy reference norm188.9948284931374. Gratitude is a separate reference direction; its producer mean_residual_norm200.5861730285094 differs. Do not call all five directions norm matched.",
+    "llama_layer16": "Gaussian1\u20132 rescaled to hostility-vs-kindness reference norm61.8173370088694.",
+    "llama_layer19": "Per-run vector JSON declares each Gaussian and chosen SAE-hostility/random-live direction rescaled to own hostility-vs-kindness norm. Exact per-run tiny differences are preserved in records; concept-run norm66.31898752610785, other-run norm66.31898752610786."
+  },
+  "scope": "Current original vector JSON metadata and already reviewed steering_controls.py source only. No vector arrays/models or scientific scan fields were decoded; no norm recomputation or historical asset-byte attestation is claimed. Source/data upload hashes and scan receipt lineage are separately bound by original-authority001.",
+  "steering_controls_source_sha256": "1022ec33fd3d484a2957061c4324b8b68865291fd5170c56dcf92490dee59a54"
+}

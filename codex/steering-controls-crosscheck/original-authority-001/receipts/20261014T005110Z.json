@@ -1,0 +1,127 @@
+{
+  "pod_id": "oyec9qbsx5uj4x",
+  "gpu_type": "SECURE:NVIDIA H100 NVL",
+  "commit": "881b36b1820066c44fab76d191adcc22827a1bae",
+  "jobset": "scan64",
+  "started": 1791939071.8147352,
+  "runner_returncode": 0,
+  "hash_verified": true,
+  "local_sha256": "c80fb9d396417fb9cd74ce23972587eec1a62e126998bfa7f8fb90f18077c48f",
+  "remote_sha256": "c80fb9d396417fb9cd74ce23972587eec1a62e126998bfa7f8fb90f18077c48f",
+  "wall_seconds": 637,
+  "upload": {
+    "code_bytes": 583680,
+    "data_bytes": 1218560,
+    "code_sha256": "628b72701269b0f577b10dc332dab54a71434bc97f321ea0120d92a5c7f41769",
+    "data_sha256": "182d014361e32931063702e77559ce686fe6d7641d6a4a1506e9ab9a399798fa",
+    "extra_data": [
+      "explore/llm-soft-loop/controls/vectors-qwen0.5b-l12-philnorm"
+    ],
+    "jobset_args": "q05-rand3-top 40 --model qwen0.5b --layer 12 --vectors llm-soft-loop/controls/vectors-qwen0.5b-l12-philnorm --concept random3 --transient 500 --samples 300 --record 80 --max-period 48 --resolution 32 128 --alpha -0.12 0.12 --log-temperature -0.017322834645669305 0.3"
+  },
+  "run_id": "20261014T005110Z",
+  "original_receipt": {
+    "path": "/data2/neural-shrimp-data/runpod/soft64/20261014T005110Z/result.json",
+    "sha256": "54ae26628f6a78c0963d8a6c02516e45784594b32e55c330cc9275acc8535284",
+    "bytes": 1114
+  },
+  "stdout": {
+    "path": "/data2/neural-shrimp-data/runpod/soft64/20261014T005110Z/runner-stdout.txt",
+    "sha256": "e22241dd9f7df6f87e2206e9f298582fec90e1994bf0374e267f93547cbb6f06",
+    "bytes": 858
+  },
+  "status_lines": [
+    "2026-10-14T00:52:39Z start scan64-q05-rand3-top",
+    "2026-10-14T01:01:39Z end scan64-q05-rand3-top status 0"
+  ],
+  "ledger_records": [
+    {
+      "line_number": 2035,
+      "original_line_sha256": "924823d8fed00c42fcb1ab895f48d37b7fa0f546d4d449b40e48189e2f282d82",
+      "fields": {
+        "event": "created",
+        "time": "2026-10-14T00:51:11+00:00",
+        "pod_id": "oyec9qbsx5uj4x",
+        "commit": "881b36b1820066c44fab76d191adcc22827a1bae",
+        "gpu_type": "NVIDIA H100 NVL"
+      }
+    },
+    {
+      "line_number": 2038,
+      "original_line_sha256": "2192212d1246b89a53c4c5bf5f8b0ff74f4a016a28fc8631df4dfc1c04ef3519",
+      "fields": {
+        "event": "ssh_ready",
+        "time": "2026-10-14T00:51:44+00:00",
+        "pod_id": "oyec9qbsx5uj4x",
+        "seconds_after_create": 33
+      }
+    },
+    {
+      "line_number": 2039,
+      "original_line_sha256": "2a8f47a8c8abf0b28153201ca991667b087607931d3a0d86ef680eee2a7fd809",
+      "fields": {
+        "event": "uploaded",
+        "time": "2026-10-14T00:51:47+00:00",
+        "pod_id": "oyec9qbsx5uj4x",
+        "archive_bytes": 583680,
+        "data_bytes": 1218560
+      }
+    },
+    {
+      "line_number": 2075,
+      "original_line_sha256": "8e6e801e559edf4bf034b04eb3e7086d8f72e7abd54a4c57d849fca91a4fb004",
+      "fields": {
+        "event": "retrieved",
+        "time": "2026-10-14T01:01:42+00:00",
+        "pod_id": "oyec9qbsx5uj4x",
+        "hash_verified": true,
+        "sha256": "c80fb9d396417fb9cd74ce23972587eec1a62e126998bfa7f8fb90f18077c48f"
+      }
+    },
+    {
+      "line_number": 2076,
+      "original_line_sha256": "53c2e7392023cd2a4ce8d7d4be7d49e86d6df961a8c01d31282bb5af44cc4ec4",
+      "fields": {
+        "event": "terminate_requested",
+        "time": "2026-10-14T01:01:43+00:00",
+        "pod_id": "oyec9qbsx5uj4x"
+      }
+    },
+    {
+      "line_number": 2077,
+      "original_line_sha256": "dea3d15c7dc9f0726430080dceceb4cdff64ecff24a12bc0cd56e8ee917dd48b",
+      "fields": {
+        "event": "terminated_verified",
+        "time": "2026-10-14T01:01:48+00:00",
+        "pod_id": "oyec9qbsx5uj4x"
+      }
+    }
+  ],
+  "recorded_termination_verified": true,
+  "archive": {
+    "path": "/data2/neural-shrimp-data/runpod/soft64/20261014T005110Z/results.tgz",
+    "sha256": "c80fb9d396417fb9cd74ce23972587eec1a62e126998bfa7f8fb90f18077c48f",
+    "bytes": 257242
+  },
+  "selected_member_bindings": [
+    {
+      "archive_member": "explore/llm-soft-loop/pod64/scan64/q05-rand3-top/scan.npz",
+      "bytes": 68740,
+      "sha256": "ea7b8710d4fc9763544abb0647a756ad5dc9ab4235ec2302e6dc6d9fdfba3313",
+      "current_path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/scan64/q05-rand3-top/scan.npz",
+      "segment_id": "segment-09",
+      "matches_header_inventory": true
+    },
+    {
+      "archive_member": "explore/llm-soft-loop/pod64/scan64/q05-rand3-top/scan.json",
+      "bytes": 71556,
+      "sha256": "0291ea687b6774d20bf2115473ecaa84694f952a8b481df83448792daea4719b",
+      "current_path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/scan64/q05-rand3-top/scan.json",
+      "segment_id": null,
+      "matches_header_inventory": true
+    }
+  ],
+  "segment_ids": [
+    "segment-09"
+  ]
+}

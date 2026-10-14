@@ -1,0 +1,101 @@
+## Original lines 686–784
+def scan(args):
+    loop = SoftLoop(args.model, args.layer, args.threads, args.prompt, args.opener, args.window, args.dtype,
+                    args.device)
+    torch = loop.torch
+    v = elpm.load_vectors(args.vectors)[args.concept] if args.vectors else None
+    log_t = np.linspace(*args.log_temperature, args.resolution[0])
+    alphas = np.linspace(*args.alpha, args.resolution[1])
+    cells = [(lt, a) for lt in log_t for a in alphas]
+    B = len(cells)
+    d = loop.E.shape[1]
+    lyap = np.zeros(B)
+    period = np.zeros(B, dtype=int)
+    entropy = np.zeros(B)
+    family = np.full(B, -1, dtype=int)            # identity of the periodic attractor: its leading-token loop
+    families = {}                                 # canonical token loop -> family index
+    rng = np.random.default_rng(0)
+    proj, dirs = None, None
+    if args.projections:                          # bifurcation diagrams: the recorded states on two fixed directions
+        r = np.random.default_rng(12345).normal(size=d)
+        first = v / np.linalg.norm(v) if v is not None else np.random.default_rng(54321).normal(size=d)
+        dirs = np.stack([first / np.linalg.norm(first), r / np.linalg.norm(r)])
+        proj = np.full((B, args.record, 2), np.nan)
+    tic = time.perf_counter()
+    chunk = args.chunk or B
+    for start in range(0, B, chunk):
+        idx = list(range(start, min(start + chunk, B)))
+        n = len(idx)
+        steer = np.zeros((n, d)) if v is None else np.array([cells[i][1] * v for i in idx])
+        temps2 = np.tile(np.array([10.0 ** cells[i][0] for i in idx]), 2)
+        XY = loop.prepare(np.concatenate([steer, steer]))     # rows 0..n-1: trajectory, n..2n-1: its twin
+        for _ in range(args.transient):
+            XY, _ = loop.step(XY, temps2)
+        delta = torch.as_tensor(rng.normal(size=tuple(XY[:n].shape)), dtype=loop.state_dtype, device=loop.device)
+        delta = delta / delta.flatten(1).norm(dim=1)[:, None, None] * args.eps
+        XY = torch.cat([XY[:n], XY[:n] + delta])
+        log_growth = np.zeros(n)
+        history, tokens = [], []
+        for k in range(args.samples):
+            XY, p = loop.step(XY, temps2)
+            X, Y = XY[:n], XY[n:]
+            p = p[:n]
+            diff = (Y - X)
+            dist = diff.flatten(1).norm(dim=1).double().cpu().numpy()
+            # a twin that collapses onto the trajectory (super-stable cycles, exact zero in float32) contributes a
+            # floor of log(1e-30) per step; the floor also keeps the renormalization factor finite in float32
+            dist = np.maximum(dist, args.eps * 1e-30)
+            log_growth += np.log(dist / args.eps)
+            Y = X + diff * torch.as_tensor(args.eps / dist, dtype=loop.state_dtype, device=loop.device)[:, None, None]
+            XY = torch.cat([X, Y])
+            if k >= args.samples - args.record:
+                history.append(X[:, -1, :].double().cpu().numpy().copy())
+                tokens.append(p.argmax(-1).cpu().numpy().copy())
+        lyap[idx] = log_growth / args.samples
+        hist = np.array(history)
+        if proj is not None:
+            proj[idx] = np.einsum("rnd,kd->nrk", hist, dirs)
+        scale = np.maximum(1.0, np.linalg.norm(hist[-1], axis=1))
+        per = np.zeros(n, dtype=int)
+        for q in range(min(args.max_period, len(hist) - 1), 0, -1):
+            close = np.linalg.norm(hist[-1 - q] - hist[-1], axis=1) < args.tol * scale
+            per = np.where(close, q, per)
+        period[idx] = per
+        toks = np.array(tokens)                               # (record, n): leading token per step
+        for c in range(n):
+            q = int(per[c])
+            if q > 0:
+                loop_ = tuple(int(t) for t in toks[-q:, c])
+                key = min(loop_[i:] + loop_[:i] for i in range(q))  # rotation-invariant
+                family[idx[c]] = families.setdefault(key, len(families))
+        last_p = p.double().cpu().numpy()
+        entropy[idx] = -(last_p * np.log(np.maximum(last_p, 1e-300))).sum(1)
+        del p, XY, X, Y
+        print(json.dumps({"done": idx[-1] + 1, "of": B, "seconds": round(time.perf_counter() - tic, 1)}), flush=True)
+        part = DATA / "explore" / args.out                    # checkpoint: a timed-out scan still yields its rows
+        part.mkdir(parents=True, exist_ok=True)
+        extra = {} if proj is None else {"projection": proj, "projection_directions": dirs}
+        np.savez_compressed(part / "scan-partial.npz", done=idx[-1] + 1, log10_temperature=log_t, alpha=alphas,
+                            lyapunov=lyap, period=period, entropy=entropy, family=family,
+                            family_keys=np.array(json.dumps([list(k) for k in families])), **extra)
+    seconds = round(time.perf_counter() - tic, 1)
+    shape = tuple(args.resolution)
+    out = DATA / "explore" / args.out
+    out.mkdir(parents=True, exist_ok=True)
+    extra = {} if proj is None else {"projection": proj.reshape(*shape, args.record, 2),
+                                     "projection_directions": dirs}
+    np.savez_compressed(out / "scan.npz", log10_temperature=log_t, alpha=alphas, lyapunov=lyap.reshape(shape),
+                        period=period.reshape(shape), entropy=entropy.reshape(shape), family=family.reshape(shape),
+                        **extra)
+    tok = loop.sm.tok
+    fam_list = [{"family": i, "period": len(key), "cells": int((family == i).sum()),
+                 "tokens": [tok.decode([t]) for t in key]} for key, i in families.items()]
+    fam_list.sort(key=lambda f: -f["cells"])
+    summary = {"args": vars(args), "seconds": seconds, "cells": B, "families": fam_list,
+               "lyapunov_positive": int((lyap > args.chaos_level).sum()),
+               "period_counts": {int(q): int((period == q).sum()) for q in np.unique(period)},
+               "lyapunov_range": [float(lyap.min()), float(lyap.max())]}
+    (out / "scan.json").write_text(json.dumps(summary, indent=1))
+    print(json.dumps({k: v for k, v in summary.items() if k not in ("args", "families")}))
+    figure(log_t, alphas, lyap.reshape(shape), period.reshape(shape), entropy.reshape(shape), out / "scan.png", args)
+

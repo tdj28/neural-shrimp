@@ -1,0 +1,119 @@
+{
+  "pod_id": "cfy9hgksoejz4u",
+  "gpu_type": "SECURE:NVIDIA A100-SXM4-80GB",
+  "commit": "9f23285af412f3a66627facd1128625e3190593c",
+  "jobset": "scan64",
+  "started": 1791936039.0283885,
+  "runner_returncode": 0,
+  "hash_verified": true,
+  "local_sha256": "70b02d2b205069e2786206d4f28a8588f5f992b87d577ab3e572e70a3cda8400",
+  "remote_sha256": "70b02d2b205069e2786206d4f28a8588f5f992b87d577ab3e572e70a3cda8400",
+  "wall_seconds": 2863,
+  "upload": {
+    "code_bytes": 552960,
+    "data_bytes": 1218560,
+    "code_sha256": "4de46453d78a41775480cfdb1792011870cdaabe1a43714cfbf21cc62b2d21ec",
+    "data_sha256": "182d014361e32931063702e77559ce686fe6d7641d6a4a1506e9ab9a399798fa",
+    "extra_data": [
+      "explore/llm-soft-loop/controls/vectors-qwen0.5b-l12-philnorm"
+    ],
+    "jobset_args": "q05-rand1 45 --model qwen0.5b --layer 12 --vectors llm-soft-loop/controls/vectors-qwen0.5b-l12-philnorm --transient 500 --samples 300 --record 80 --max-period 48 --resolution 128 128 --alpha -0.12 0.12 --log-temperature -1.0 0.3 --concept random1"
+  },
+  "run_id": "20261014T000034Z",
+  "original_receipt": {
+    "path": "/data2/neural-shrimp-data/runpod/soft64/20261014T000034Z/result.json",
+    "sha256": "a99af3eeeafab59c9622c2ca432cb3e96bbd5b8b07274d69fb702953e453c91f",
+    "bytes": 1101
+  },
+  "stdout": {
+    "path": "/data2/neural-shrimp-data/runpod/soft64/20261014T000034Z/runner-stdout.txt",
+    "sha256": "6eeba201e668ce7690bc998b1d2304c2159fa78be1bb0acfa81d5fdd7d15d96b",
+    "bytes": 497
+  },
+  "status_lines": [
+    "2026-10-14T00:02:08Z start scan64-q05-rand1",
+    "2026-10-14T00:48:08Z end scan64-q05-rand1 status 124"
+  ],
+  "ledger_records": [
+    {
+      "line_number": 1893,
+      "original_line_sha256": "69213f7755ac3e8fa035d74a066271c1c2f640e936048c8f6a20d24fff5231a3",
+      "fields": {
+        "event": "created",
+        "time": "2026-10-14T00:00:39+00:00",
+        "pod_id": "cfy9hgksoejz4u",
+        "commit": "9f23285af412f3a66627facd1128625e3190593c",
+        "gpu_type": "NVIDIA A100-SXM4-80GB"
+      }
+    },
+    {
+      "line_number": 1918,
+      "original_line_sha256": "2a8a8d92a5dcaee447f7e4321818a70fc27e6d9fb0243cf99905040190159577",
+      "fields": {
+        "event": "ssh_ready",
+        "time": "2026-10-14T00:01:11+00:00",
+        "pod_id": "cfy9hgksoejz4u",
+        "seconds_after_create": 32
+      }
+    },
+    {
+      "line_number": 1919,
+      "original_line_sha256": "f82f3c6662a1aba2b7d406bd94b2738fcef15820e388bfc9f11dd9d48e45b0f4",
+      "fields": {
+        "event": "uploaded",
+        "time": "2026-10-14T00:01:14+00:00",
+        "pod_id": "cfy9hgksoejz4u",
+        "archive_bytes": 552960,
+        "data_bytes": 1218560
+      }
+    },
+    {
+      "line_number": 2015,
+      "original_line_sha256": "69d455dd633ddb8ba07fe0d1773761aa99e606eb9d91d7a206f8195c122ca0cc",
+      "fields": {
+        "event": "retrieved",
+        "time": "2026-10-14T00:48:09+00:00",
+        "pod_id": "cfy9hgksoejz4u",
+        "hash_verified": true,
+        "sha256": "70b02d2b205069e2786206d4f28a8588f5f992b87d577ab3e572e70a3cda8400"
+      }
+    },
+    {
+      "line_number": 2016,
+      "original_line_sha256": "7be27e9b5869b0160330e868c21dcf9165eefd8eeebf9ff6b39d43ed81eaa9aa",
+      "fields": {
+        "event": "terminate_requested",
+        "time": "2026-10-14T00:48:15+00:00",
+        "pod_id": "cfy9hgksoejz4u"
+      }
+    },
+    {
+      "line_number": 2019,
+      "original_line_sha256": "12e7aec671ecede6e8f31ed76da188cc87ee975e71b6e38c488e8f5b48e0b6e7",
+      "fields": {
+        "event": "terminated_verified",
+        "time": "2026-10-14T00:48:21+00:00",
+        "pod_id": "cfy9hgksoejz4u"
+      }
+    }
+  ],
+  "recorded_termination_verified": true,
+  "archive": {
+    "path": "/data2/neural-shrimp-data/runpod/soft64/20261014T000034Z/results.tgz",
+    "sha256": "70b02d2b205069e2786206d4f28a8588f5f992b87d577ab3e572e70a3cda8400",
+    "bytes": 211997
+  },
+  "selected_member_bindings": [
+    {
+      "archive_member": "explore/llm-soft-loop/pod64/scan64/q05-rand1/scan-partial.npz",
+      "bytes": 211616,
+      "sha256": "d0b8116799c312abc17b455d56a6b1788e093b21cb30641f129d0fef150d601d",
+      "current_path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/scan64/q05-rand1/scan-partial.npz",
+      "segment_id": "segment-04",
+      "matches_header_inventory": true
+    }
+  ],
+  "segment_ids": [
+    "segment-04"
+  ]
+}

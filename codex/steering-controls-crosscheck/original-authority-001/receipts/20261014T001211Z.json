@@ -1,0 +1,129 @@
+{
+  "pod_id": "oifwwd2gptgt1l",
+  "gpu_type": "COMMUNITY:NVIDIA A100-SXM4-80GB",
+  "commit": "d283d5380d34b6c84ef02b9a808f37f43e623579",
+  "jobset": "llamactrl",
+  "started": 1791936732.7738066,
+  "runner_returncode": 0,
+  "hash_verified": true,
+  "local_sha256": "8324bb57407fd3baa79a2b8bfb5394a90e9946985bc9181e57498c52d57fb948",
+  "remote_sha256": "8324bb57407fd3baa79a2b8bfb5394a90e9946985bc9181e57498c52d57fb948",
+  "wall_seconds": 6806,
+  "upload": {
+    "code_bytes": 552960,
+    "data_bytes": 1177600,
+    "code_sha256": "841ce645aae1358e91e7bf0ea7a4900dc9338991158c09316e15ec39006f3c02",
+    "data_sha256": "f425388da2f9fe2392ca7e1dea3826d44b492fd4b1c6106e5f0874784f29d778",
+    "extra_data": [],
+    "jobset_args": "l19-saeR 200 --concept sae-random_live-55786 --alpha 0 0.12 --log-temperature -0.3 0.3 --resolution 64 64"
+  },
+  "run_id": "20261014T001211Z",
+  "original_receipt": {
+    "path": "/data2/neural-shrimp-data/runpod/soft64/20261014T001211Z/result.json",
+    "sha256": "5ea9ae1ce3d5f5ef9f1d185172697fbf218a75ccb8118adc2a174c0a725af59f",
+    "bytes": 897
+  },
+  "stdout": {
+    "path": "/data2/neural-shrimp-data/runpod/soft64/20261014T001211Z/runner-stdout.txt",
+    "sha256": "d6b8e1b5f935abd361bc0022b4ff533cfd6effac32c19af79a8f3acb83bda4ea",
+    "bytes": 2708
+  },
+  "status_lines": [
+    "2026-10-14T00:15:28Z start ctrl-vectors",
+    "2026-10-14T00:16:28Z end ctrl-vectors status 0",
+    "2026-10-14T00:16:28Z start ctrl-build",
+    "2026-10-14T00:17:28Z end ctrl-build status 0",
+    "2026-10-14T00:17:28Z start llamactrl-l19-saeR",
+    "2026-10-14T02:05:28Z end llamactrl-l19-saeR status 0"
+  ],
+  "ledger_records": [
+    {
+      "line_number": 1973,
+      "original_line_sha256": "8eefaa29a25617b38b47d286022acf6c5f6a9c710004c2a773aa0f6da5f54c40",
+      "fields": {
+        "event": "created",
+        "time": "2026-10-14T00:12:12+00:00",
+        "pod_id": "oifwwd2gptgt1l",
+        "commit": "d283d5380d34b6c84ef02b9a808f37f43e623579",
+        "gpu_type": "NVIDIA A100-SXM4-80GB"
+      }
+    },
+    {
+      "line_number": 1980,
+      "original_line_sha256": "a84e3a55d62ef0682ad5905d90969ca32b511fd9707a745b5f9390e00ac0947e",
+      "fields": {
+        "event": "ssh_ready",
+        "time": "2026-10-14T00:12:45+00:00",
+        "pod_id": "oifwwd2gptgt1l",
+        "seconds_after_create": 32
+      }
+    },
+    {
+      "line_number": 1982,
+      "original_line_sha256": "781ac56a6490ab2bb041789df780007e37911961ede91efc0c65f1b426f9305b",
+      "fields": {
+        "event": "uploaded",
+        "time": "2026-10-14T00:12:49+00:00",
+        "pod_id": "oifwwd2gptgt1l",
+        "archive_bytes": 552960,
+        "data_bytes": 1177600
+      }
+    },
+    {
+      "line_number": 2389,
+      "original_line_sha256": "ee6403b7bbffefa82a7c99c7bbf8aa7c17895cde990036ccc9000bd066beb05b",
+      "fields": {
+        "event": "retrieved",
+        "time": "2026-10-14T02:05:32+00:00",
+        "pod_id": "oifwwd2gptgt1l",
+        "hash_verified": true,
+        "sha256": "8324bb57407fd3baa79a2b8bfb5394a90e9946985bc9181e57498c52d57fb948"
+      }
+    },
+    {
+      "line_number": 2390,
+      "original_line_sha256": "dfc38f4ae35b5b43a97ee6410108df2f511723311fb616b1bf11bba483eb9d21",
+      "fields": {
+        "event": "terminate_requested",
+        "time": "2026-10-14T02:05:33+00:00",
+        "pod_id": "oifwwd2gptgt1l"
+      }
+    },
+    {
+      "line_number": 2391,
+      "original_line_sha256": "816ecb049cff9950071fe79bb481ab46177ea3a960f3aa5672ecfaeb5f7f001b",
+      "fields": {
+        "event": "terminated_verified",
+        "time": "2026-10-14T02:05:38+00:00",
+        "pod_id": "oifwwd2gptgt1l"
+      }
+    }
+  ],
+  "recorded_termination_verified": true,
+  "archive": {
+    "path": "/data2/neural-shrimp-data/runpod/soft64/20261014T001211Z/results.tgz",
+    "sha256": "8324bb57407fd3baa79a2b8bfb5394a90e9946985bc9181e57498c52d57fb948",
+    "bytes": 849258
+  },
+  "selected_member_bindings": [
+    {
+      "archive_member": "explore/llm-soft-loop/pod64/controls/l19-saeR/scan/scan.npz",
+      "bytes": 69629,
+      "sha256": "e94d7ea082d2b5ee7be894cb228b2e47b4bd0f7afcee773efd082011b683bf7d",
+      "current_path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/controls/l19-saeR/scan/scan.npz",
+      "segment_id": "segment-17",
+      "matches_header_inventory": true
+    },
+    {
+      "archive_member": "explore/llm-soft-loop/pod64/controls/l19-saeR/scan/scan.json",
+      "bytes": 164243,
+      "sha256": "f222336e8d441e97ff0e40750e2b304a11010bd0e87d319a556fccbf4807f307",
+      "current_path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/controls/l19-saeR/scan/scan.json",
+      "segment_id": null,
+      "matches_header_inventory": true
+    }
+  ],
+  "segment_ids": [
+    "segment-17"
+  ]
+}

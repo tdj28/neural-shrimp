@@ -1,0 +1,127 @@
+{
+  "pod_id": "rp52yizc8cvoss",
+  "gpu_type": "SECURE:NVIDIA A100-SXM4-80GB",
+  "commit": "d283d5380d34b6c84ef02b9a808f37f43e623579",
+  "jobset": "llamamap",
+  "started": 1791936688.6161098,
+  "runner_returncode": 0,
+  "hash_verified": true,
+  "local_sha256": "53e26586c92c07d034c357d0e3839ef524b5b4174e0c5de8cefd0f589316bc01",
+  "remote_sha256": "53e26586c92c07d034c357d0e3839ef524b5b4174e0c5de8cefd0f589316bc01",
+  "wall_seconds": 6577,
+  "upload": {
+    "code_bytes": 552960,
+    "data_bytes": 1280000,
+    "code_sha256": "841ce645aae1358e91e7bf0ea7a4900dc9338991158c09316e15ec39006f3c02",
+    "data_sha256": "5a517770a7c1262a158d58783514407b97c0940d5dddc8508e304ed2074b459e",
+    "extra_data": [
+      "explore/llm-soft-loop/controls/vectors-llama8b-l16-hostnorm"
+    ],
+    "jobset_args": "rand16-1 210 --vectors llm-soft-loop/controls/vectors-llama8b-l16-hostnorm --concept random1 --alpha 0 0.12 --log-temperature -0.3 0.3 --resolution 64 64"
+  },
+  "run_id": "20261014T001126Z",
+  "original_receipt": {
+    "path": "/data2/neural-shrimp-data/runpod/soft64/20261014T001126Z/result.json",
+    "sha256": "f2c8486b9ce264088b0065e330641bdb9d9379ba785689d3af2e4a874c120f7d",
+    "bytes": 1009
+  },
+  "stdout": {
+    "path": "/data2/neural-shrimp-data/runpod/soft64/20261014T001126Z/runner-stdout.txt",
+    "sha256": "5380d7c104dd12d30915c237a81201b1a5bc01cbfbca45171a52fe32c41de7e3",
+    "bytes": 897
+  },
+  "status_lines": [
+    "2026-10-14T00:12:57Z start llamamap-rand16-1",
+    "2026-10-14T02:00:57Z end llamamap-rand16-1 status 0"
+  ],
+  "ledger_records": [
+    {
+      "line_number": 1959,
+      "original_line_sha256": "13ee7cf81f278119ba9307ce681332d7e08e1ef9e7a17d657aa399ba32c77afa",
+      "fields": {
+        "event": "created",
+        "time": "2026-10-14T00:11:28+00:00",
+        "pod_id": "rp52yizc8cvoss",
+        "commit": "d283d5380d34b6c84ef02b9a808f37f43e623579",
+        "gpu_type": "NVIDIA A100-SXM4-80GB"
+      }
+    },
+    {
+      "line_number": 1964,
+      "original_line_sha256": "462b705c59f3f54e38dd46dc98a764e3178002a941c9681b7d728408ad5e0f0d",
+      "fields": {
+        "event": "ssh_ready",
+        "time": "2026-10-14T00:11:45+00:00",
+        "pod_id": "rp52yizc8cvoss",
+        "seconds_after_create": 17
+      }
+    },
+    {
+      "line_number": 1965,
+      "original_line_sha256": "c9ed2d5a579f72351a674fa3cca1cef00803d58691cc4b4c99e36537c7a80338",
+      "fields": {
+        "event": "uploaded",
+        "time": "2026-10-14T00:11:47+00:00",
+        "pod_id": "rp52yizc8cvoss",
+        "archive_bytes": 552960,
+        "data_bytes": 1280000
+      }
+    },
+    {
+      "line_number": 2379,
+      "original_line_sha256": "7ff175bd13f8f8af6afd4158d9d347204809e09e3596bb148b96176c04e283fc",
+      "fields": {
+        "event": "retrieved",
+        "time": "2026-10-14T02:00:59+00:00",
+        "pod_id": "rp52yizc8cvoss",
+        "hash_verified": true,
+        "sha256": "53e26586c92c07d034c357d0e3839ef524b5b4174e0c5de8cefd0f589316bc01"
+      }
+    },
+    {
+      "line_number": 2380,
+      "original_line_sha256": "8fbccc3666021abfcc14ace17dfb0f74fb252b3816ba46ca8d022f123287b6d4",
+      "fields": {
+        "event": "terminate_requested",
+        "time": "2026-10-14T02:01:00+00:00",
+        "pod_id": "rp52yizc8cvoss"
+      }
+    },
+    {
+      "line_number": 2381,
+      "original_line_sha256": "25c58635aae83f79c41e2e111b9597c2ef39bd5d923c83be324b84714900b5f8",
+      "fields": {
+        "event": "terminated_verified",
+        "time": "2026-10-14T02:01:06+00:00",
+        "pod_id": "rp52yizc8cvoss"
+      }
+    }
+  ],
+  "recorded_termination_verified": true,
+  "archive": {
+    "path": "/data2/neural-shrimp-data/runpod/soft64/20261014T001126Z/results.tgz",
+    "sha256": "53e26586c92c07d034c357d0e3839ef524b5b4174e0c5de8cefd0f589316bc01",
+    "bytes": 252404
+  },
+  "selected_member_bindings": [
+    {
+      "archive_member": "explore/llm-soft-loop/pod64/llama8b-hires/rand16-1/scan.npz",
+      "bytes": 67673,
+      "sha256": "408d863b8c269c4cb4d1b917b88ffc82ee46824593f7b1611ceb739b267962da",
+      "current_path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/llama8b-hires/rand16-1/scan.npz",
+      "segment_id": "segment-13",
+      "matches_header_inventory": true
+    },
+    {
+      "archive_member": "explore/llm-soft-loop/pod64/llama8b-hires/rand16-1/scan.json",
+      "bytes": 90290,
+      "sha256": "1b07153beb5c29eb47c4e7acb4068da82d57fd33cf28c52f6524768cbca7e97a",
+      "current_path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/llama8b-hires/rand16-1/scan.json",
+      "segment_id": null,
+      "matches_header_inventory": true
+    }
+  ],
+  "segment_ids": [
+    "segment-13"
+  ]
+}
