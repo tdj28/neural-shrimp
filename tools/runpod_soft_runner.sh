@@ -773,6 +773,33 @@ hf_hub_download('Goodfire/Llama-3.3-70B-Instruct-SAE-l50', 'Llama-3.3-70B-Instru
         --out $D/controls70/$key/scan
     fi
     ;;
+  bigmap)      # large dense models, one steered float64 map (run B3): JOBARGS MODEL LAYER MINUTES CONCEPT [SCAN-ARGS...].
+               # Pinned checkpoint as in bigsweep; concept vectors at LAYER built on the pod (hostility:kindness and three
+               # norm-matched random directions, exactly as for every model), then one scan of CONCEPT into
+               # big/MODEL-lLAYER-CONCEPT; float64 with bfloat16 weight storage over all GPUs (exact)
+    model=${JOBARGS[0]}; layer=${JOBARGS[1]}; concept=${JOBARGS[3]}
+    case $model in
+      qwen72b)      REPO=Qwen/Qwen2.5-72B-Instruct;         MREV=495f39366efef23836d0cfae4fbe635880d2be31 ;;
+      llama3.3-70b) REPO=meta-llama/Llama-3.3-70B-Instruct; MREV=6f6073b423013f6a7d4d9f39144961bfbfbc386b ;;
+      *) log "unknown big model $model"; exit 2 ;;
+    esac
+    log "download $REPO"
+    HF_HUB_OFFLINE=0 $PY -c "
+from huggingface_hub import snapshot_download
+snapshot_download('$REPO', revision='$MREV', cache_dir='$NEURAL_SHRIMP_DATA/models/hf/hub',
+                  allow_patterns=['*.json', 'model-*.safetensors'], max_workers=16)" > "$LOGS/setup-big.log" 2>&1
+    unset HF_TOKEN
+    mrefs=$NEURAL_SHRIMP_DATA/models/hf/hub/models--${REPO/\//--}/refs
+    mkdir -p "$mrefs" && printf %s "$MREV" > "$mrefs/main"
+    BIG="--model $model --device auto --dtype float64 --weights bf16"
+    cvec=llm-phase-map/vectors-$model-l$layer
+    TOOL=explore_llm_phase_map.py run big-vectors 40 vectors $BIG --layer $layer --contrasts hostility:kindness \
+      --random 3 --out $cvec
+    bdir=$D/big/$model-l$layer-$concept
+    mkdir -p "$OUT/$bdir" && cp -r "$OUT/$cvec" "$OUT/$bdir/vectors"
+    run bigmap-$model "${JOBARGS[2]}" scan $BIG --layer $layer --chunk 128 --tol 1e-8 --eps 1e-6 --vectors $cvec \
+      --concept $concept "${JOBARGS[@]:4}" --out $bdir/scan
+    ;;
   morph)       # morph video frames (run V1): JOBARGS FIRST LAST STEP MINUTES_PER_FRAME COLD_TRANSIENT WARM_TRANSIENT
                # SCAN-ARGS...; float32 scans (tol and twin offset 1e-4) of Qwen2.5-0.5B along the uploaded great-circle
                # directions morph-FIRST..morph-LAST (llm-soft-loop/controls/vectors-morph-r1-r3-240), one frame after
