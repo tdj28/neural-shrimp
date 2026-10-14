@@ -163,3 +163,17 @@ skill, section 7A). Spend is recorded only in the gitignored `cost-ledger.md`
   scaling predictions (docs/scaling-predictions.md), so that its advice can still shape the running scaling series;
   the human answered "Go". Same model, mode, effort, output cap and budget as above; one request, no retry or second
   pass without a new recorded decision. A later final check would be a separate request needing its own approval.
+
+## Consult 8 (approved): is Qwen2.5-72B's absence of chaos real?
+
+- **Approval (human, in session, 14 October 2026, about 14:48 UTC):** "Get a pro consult qwen 72 b not being chaotic
+  at all feels fishy". This was an explicit request for one paid consult, following the agent's report that the 72B's
+  steered chaos labels (0.8 % of cells) rest on a single twin offset that is unreliable for this model.
+- **Milestone:** the paper's headline answer on chaos and model size (section 7A: a result that changes the central
+  claim). The decision it can improve: whether the 72B result is a property of the model or of the computation, which
+  diagnostics settle it, and how the paper states it.
+- **Scope:** one `research-strategy` request with the compact brief
+  `2026-10-14-qwen72b-diagnosis/brief.md`. No retry or second pass without a new recorded decision.
+- **Model:** `gpt-6-astra`, Responses Pro mode, xhigh effort, at most 40,000 output tokens; the canonical client's
+  reserves and authorization guard apply (amount in the private cost ledger). Advice is advisory: references are
+  checked at their primary source before use, and material advice is adjudicated locally in `adjudication.md`.
