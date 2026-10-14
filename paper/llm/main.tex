@@ -289,8 +289,8 @@ is which tokens dominate $p$, and therefore what the attractors write.
 pure self-attention collapses token representations toward a common vector with depth \cite{dong2021attention}, and
 idealized attention dynamics form clusters \cite{geshkovski2023emergence}. Residual connections and MLPs counteract
 the collapse \cite{dong2021attention}. Which tendency wins along an orbit is a property of the trained weights that
-only computation settles. In every dense model we mapped, both outcomes occur: the same map contracts onto cycles in some
-regions of its parameter plane and expands in others.
+only computation settles. In every dense model we mapped, both outcomes occur: the same map has negative largest
+exponents in some regions of its parameter plane and positive ones in others.
 
 \section{Methods}
 \label{sec:methods}
@@ -1623,8 +1623,8 @@ statistics and the boundaries between them. This extends the analysis of trained
 fixed points \cite{sussillo2013opening,maheswaranathan2019reverse} to the periodic orbits, chaos and bifurcations of a
 pretrained transformer. Second, feature dictionaries say which features an attractor occupies, but the boundaries
 between attractors, which decide what a small change does, are properties of the map's derivatives. In our controls,
-sparse-autoencoder feature directions drove the map into chaos no differently from random directions, and the
-mechanism of Section~\ref{sec:theory} explains why: steering acts through the gain, whatever the direction means.
+sparse-autoencoder feature directions drove the map into chaos no differently from random directions, consistent
+with the mechanism of Section~\ref{sec:theory}, in which steering acts through the gain whatever the direction means.
 Third, when a behaviour sustains itself through a loop, acting on the loop can be cheaper than pushing against the
 behaviour. In sampled dialogue, the most dose-efficient control we found kept flagged replies out of the context,
 while counter-steering against the activations was less efficient and, in the larger model, backfired past the
@@ -1645,7 +1645,7 @@ already has different attractors (Section~\ref{sec:scale}). Whether frontier mod
 dense models we swept, the unsteered chaotic band was narrow at 0.5B parameters and broad at 7 and 8B, but our one
 mixture-of-experts model, Qwen3.5-35B-A3B, contracted everywhere we tested without steering and showed irregular
 cells only under hostility steering (Section~\ref{sec:scale}). Reasoning models open a thinking block that changes the
-prefix, post-training can remove some attractors and create others, and deployed inference samples tokens, in low
+prefix, post-training may remove some attractors and create others, and deployed inference samples tokens, in low
 precision, over long contexts; our bridge results show that sampling shortens laminar phases and that a longer
 context changes which loops are entered.
 Closed models permit none of these computations: the map needs the input embedding matrix, full next-token
