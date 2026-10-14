@@ -1,3 +1,15 @@
+# Current Tasks18/19 phase: original model runs closed
+
+Task18run002 session44216 ended exit1 at final JSON serialization; original receipt/partial status/failure preserved, all native evidence authenticated, no model retry. A separate finite saved-summary recovery is in preparation. Task19trajectory001 session57156 completed and closed; accepted finite saved checker is next, then the required all65 original/amended/purged-CV replay. Both original process reservations are released. Exact task status and closure receipts are in codex/loop-gain-crosscheck and codex/return-map-crosscheck.
+
+Human priority remains18/19 with addendum, then17,16,15. Later tasks have not begun. All previous assignments including Task1 certificate remain completed; no old evidence or frozen execution checkout is changed. Optional fresh Task19 stresscells4/13 are prospective only, not admitted. No monitoring automation is active.
+
+Updated 2026-10-14 08:08:07 UTC.
+
+---
+
+## Historical status before this closure
+
 # Tasks18/19 running — 2026-10-14 07:41 UTC
 
 Inference retains sole Git/process coordination. Both immutable original source

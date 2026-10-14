@@ -1,3 +1,15 @@
+# Task18 current status: original run002 closed with reporting failure
+
+Original session44216 was reaped exit1. The complete native computation reached the final status writer, which could not serialize a NumPy Boolean; its failure handler then encountered the exclusive partial status file. This is an operational reporting failure, not a successful original receipt. All original evidence remains unchanged.
+
+Original receipt SHA4a3153f174bec42f034e245b63d5fe48978962908cbf82478ace3498b632b4fa; closure run-002-closure-001/report.json SHA2d3a679a6dabde4379f95c56c66b303d9a82a5e1ddad6b76f4a3d7296c66b047 authenticates3765 artifacts,7 original Git blobs and the absent original waiter/launcher/worker groups/sessions. External elapsed2031.3848s; no timeout or ownership uncertainty. Zero model reservation. A separately reviewed saved-summary reconstruction is being prepared; no model replay or numerical retuning is authorized. Producer comparison remains pending.
+
+Updated 2026-10-14 08:08:07 UTC.
+
+---
+
+## Historical status before this closure
+
 # Current Tasks18/19 phase — 2026-10-14 07:28 UTC
 
 Inference is sole Git/process coordinator. Task18 run-002 is active from privately

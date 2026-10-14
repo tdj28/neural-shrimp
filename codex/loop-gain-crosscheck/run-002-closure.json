@@ -1,0 +1,205 @@
+{
+  "passed": true,
+  "task": 18,
+  "root": "/data2/neural-shrimp-data/codex/llm-loop-gain-crosscheck/run-002",
+  "tool_session_id": 44216,
+  "tool_session_reaped_exit_code": 1,
+  "tool_exit_observation": "Inference write_stdin terminal result; stdout/stderr redirected to original supervision files",
+  "numerical_values_decoded": false,
+  "numerical_replay": false,
+  "receipt_sha256": "4a3153f174bec42f034e245b63d5fe48978962908cbf82478ace3498b632b4fa",
+  "startup_sha256": "542fb95b19409d70acfdf0391ddd5fa5f2064eb14be9b720be1aaf70615b7591",
+  "manifest_sha256": "be540ef8285450869b98d01204443a8e57883bd3a6cb53175e50940861491f48",
+  "source_commit": "7918af949fa60cb8bb123504e78c2dc959943d9c",
+  "plan_sha256": "98a01706d756e3271f3f566dedf792719bf088055ba084c753b199b649b198c4",
+  "source_files": [
+    {
+      "path": "codex/loop-gain-crosscheck/analysis.py",
+      "bytes": 13902,
+      "sha256": "a5553396985f947bb0d8e628f6f1190a683141b341b46538fdc06ceaeec9faf2"
+    },
+    {
+      "path": "codex/loop-gain-crosscheck/run.py",
+      "bytes": 10788,
+      "sha256": "80bf95a99738cc05e4d3480994051fc684666230a4e06aebca5719af1b1d23c0"
+    },
+    {
+      "path": "codex/crosscheck/qwen_map.py",
+      "bytes": 14540,
+      "sha256": "493a3d1d57fec227f5ba2e3f8f9cfcfdd02d22495d1d44e6449ede901310ae6e"
+    },
+    {
+      "path": "codex/certify-llm/derivative_campaign.py",
+      "bytes": 54237,
+      "sha256": "9357d0aee5e5880b37c752a5c928c988480c63a1871db94f1fc3f8b3df70ee52"
+    },
+    {
+      "path": "codex/loop-gain-crosscheck/launch.py",
+      "bytes": 15804,
+      "sha256": "980275e4d82728f49b004e79ecaaa42e57e283a348cc0fb4862213650d2cda4e"
+    },
+    {
+      "path": "codex/loop-gain-crosscheck/run-002-plan.json",
+      "bytes": 1149,
+      "sha256": "98a01706d756e3271f3f566dedf792719bf088055ba084c753b199b649b198c4"
+    },
+    {
+      "path": "codex/loop-gain-crosscheck/run-002-card.md",
+      "bytes": 8210,
+      "sha256": "8f44e3255796dd2529840a32ca4a213987d5a68f3f2b31170aa7aa7f5fb1f5f5"
+    }
+  ],
+  "original_artifacts_checked": 3765,
+  "original_bytes_checked": 436662559,
+  "original_waiter_launcher_worker_pids_groups_sessions_absent": true,
+  "original_identities": {
+    "worker": {
+      "pid": 1419396,
+      "start": 190942973,
+      "ppid": 1419367,
+      "pgid": 1419396,
+      "sid": 1419396,
+      "uid": 1000,
+      "nice": 10,
+      "threads": 3,
+      "rss_kib": 4399152,
+      "state": "R",
+      "address_space_limits": [
+        "12884901888",
+        "12884901888"
+      ],
+      "command": [
+        "/data2/neural-shrimp/.venv/bin/python",
+        "-I",
+        "-B",
+        "-u",
+        "/data2/neural-shrimp-data/codex/llm-loop-gain-crosscheck/run-002/source/codex/loop-gain-crosscheck/run.py",
+        "--plan",
+        "/data2/neural-shrimp-data/codex/llm-loop-gain-crosscheck/run-002/source/codex/loop-gain-crosscheck/run-002-plan.json",
+        "--output",
+        "/data2/neural-shrimp-data/codex/llm-loop-gain-crosscheck/run-002/run"
+      ]
+    },
+    "launcher": {
+      "pid": 1419367,
+      "start": 190942856,
+      "ppid": 1419301,
+      "pgid": 1419367,
+      "sid": 1419367,
+      "uid": 1000,
+      "nice": 10,
+      "threads": 1,
+      "rss_kib": 24116,
+      "state": "S",
+      "address_space_limits": [
+        "12884901888",
+        "12884901888"
+      ],
+      "command": [
+        "/data2/neural-shrimp/.venv/bin/python",
+        "-I",
+        "-B",
+        "-u",
+        "/home/d7082791602/.codex/worktrees/llm-p8-certificate/neural-shrimp/codex/loop-gain-crosscheck/launch.py",
+        "--attempt",
+        "run-002",
+        "--source",
+        "7918af949fa60cb8bb123504e78c2dc959943d9c",
+        "--plan",
+        "run-002-plan.json",
+        "--plan-sha256",
+        "98a01706d756e3271f3f566dedf792719bf088055ba084c753b199b649b198c4"
+      ]
+    },
+    "waiter": {
+      "pid": 1419301,
+      "start": 190942837,
+      "ppid": 1535104,
+      "pgid": 1419301,
+      "sid": 1419301,
+      "uid": 1000,
+      "nice": 0,
+      "threads": 1,
+      "rss_kib": 2060,
+      "state": "S",
+      "address_space_limits": [
+        "unlimited",
+        "unlimited"
+      ],
+      "command": [
+        "setsid",
+        "--wait",
+        "nice",
+        "-n",
+        "10",
+        "/data2/neural-shrimp/.venv/bin/python",
+        "-I",
+        "-B",
+        "-u",
+        "/home/d7082791602/.codex/worktrees/llm-p8-certificate/neural-shrimp/codex/loop-gain-crosscheck/launch.py",
+        "--attempt",
+        "run-002",
+        "--source",
+        "7918af949fa60cb8bb123504e78c2dc959943d9c",
+        "--plan",
+        "run-002-plan.json",
+        "--plan-sha256",
+        "98a01706d756e3271f3f566dedf792719bf088055ba084c753b199b649b198c4"
+      ]
+    }
+  },
+  "worker_termination_verified": true,
+  "uncertain_ownership": [],
+  "supervision_root": "/data2/neural-shrimp-data/codex/llm-loop-gain-crosscheck/run-002-supervision",
+  "supervision_files": [
+    {
+      "path": "dispatch-pins.txt",
+      "sha256": "069c5c1329349c20b892e6a4de254ff39b27371bdaab790efcb67f1149b1dad2",
+      "bytes": 106
+    },
+    {
+      "path": "executed-dispatch.sh",
+      "sha256": "5f126aa40d247aa85fd546cc00f53a6cf048808315bd3e1ee300309ce99cf710",
+      "bytes": 800
+    },
+    {
+      "path": "launcher.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "launcher.stdout",
+      "sha256": "91e6323e1030623f46928a14ae8f3c25e375acc30af2c8924f1b4cf4342b6329",
+      "bytes": 1456
+    },
+    {
+      "path": "preflight.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "preflight.stdout",
+      "sha256": "3483d4585e4774af42fec0e4a518ad12102adc1a68d96acecc25fdb19193d082",
+      "bytes": 193
+    },
+    {
+      "path": "startup-check.py",
+      "sha256": "fab590de60888aa397c0b25fe1bddb936e79e1f139e197eaaa50380252251ea9",
+      "bytes": 3609
+    },
+    {
+      "path": "startup.json",
+      "sha256": "542fb95b19409d70acfdf0391ddd5fa5f2064eb14be9b720be1aaf70615b7591",
+      "bytes": 3651
+    }
+  ],
+  "computational_disposition": "loop_gain_failed",
+  "elapsed_seconds": 2031.384801283013,
+  "runtime_headroom_observation": {
+    "samples": 3962,
+    "minimum_available_bytes": 41249030144,
+    "maximum_output_bytes": 436661192
+  },
+  "utc": "2026-10-14T08:04:32Z",
+  "seconds": 0.5295864569488913
+}

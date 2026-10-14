@@ -1,3 +1,15 @@
+# Task19 current status: mandatory trajectory closed; saved checks pending
+
+Original session57156 was reaped exit0. Original trajectory receipt b0a72180d59cb626ccaec4a4c58ba5077f014e37c951c9994a78c9f5978fb44e records computational completion; worker1221.0129s and external supervisor1223.2864s are distinct. Peak workerRSS5,339,984KiB. Original stdout/stderr and all evidence remain retained; no scientific equivalence claim is made before the accepted finite saved check.
+
+Closure trajectory-001-closure-001/report.json SHAf30cae9c4ed82b6ed4c581995a46a1cf5b2825a3ee3549948f5853caca91a3b9 authenticates43 artifacts,10 original Git blobs and all original waiter/launcher/worker groups/sessions absent. Both model runs are closed; zero live reservations. The exact v2 saved checker and concrete card are privately prepared for oneCPU1+supervisor/4GiB/120s execution after Root admission. The required all65 saved001 replay follows with unchanged source/selection; optional fixed stresscells4/13 remain unlaunched.
+
+Updated 2026-10-14 08:08:07 UTC.
+
+---
+
+## Historical status before this closure
+
 # Tasks18/19 running — 2026-10-14 07:41 UTC
 
 Inference retains sole Git/process coordination. Both immutable original source
