@@ -23438,3 +23438,9 @@ _commit `b5a257e3c35d`_
 docs/prefix-scale-olmo.md says it was written 'about 12:25 UTC'; it was committed at 12:17:48 UTC (b5a257e3), before any OLMo prefix run (pods created after 12:18). The comms withdrawal of Codex's requests is headed 12:30Z; it was committed at 12:18:17 UTC. An earlier comms request (Task 20) was headed 10:45Z but posted at about 10:17Z (corrected in comms at the time). The frozen files are left unchanged; these entries record the true times.
 
 _commit `78b0cf424d90` (dirty worktree)_
+
+## 2026-10-14 12:56 UTC: PTc result: the Qwen2.5-72B window is not chaotic at offsets 1e-5 and above (all 16 temperatures negative at 1e-4, 3e-5, 1e-5; 11 on a plateau)
+
+Pod 6vu63mz09o5tav (SECURE 2xH200, rc 0, hash verified, terminated; 2323 s; commit 25d18085). bighidden line, Qwen2.5-72B unsteered, paper's prefix, 16 temperatures over log10 T 0.370..0.378, 1000 + 2000 steps, absolute twin offsets 1e-4, 3e-5, 1e-5. All 16 temperatures have negative exponents at all three offsets (from -1.28 to -0.007); 11 of 16 agree within 0.1 across the offsets (the frozen plateau rule), all negative; 0 positive at all three. Decision rule (fixed in the run card): non-chaotic at resolvable scales. The 1e-5 values reproduce B7b's on another pod (e.g. -1.117 vs -1.118 at 0.378, -1.046 vs -1.033 at 0.370, -1.279 vs -1.260 at 0.3727). One temperature (0.37427) is marginal, -0.010/-0.008/-0.007. Reading: the window's positive exponents at 1e-6 (B7) and 1e-7 (B7b) appear only below a perturbation size of about 1e-5; at the scales where the exponent sits on a plateau the window contracts. Whether something real lives below 1e-5 there or the small-offset growth is numerical, the window is not chaotic at resolvable scales.
+
+_commit `a61a0c222047`_

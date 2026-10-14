@@ -1156,15 +1156,18 @@ Finer lines found candidates: a window of positive exponents at Qwen2.5-72B's en
 ($\log_{10}T=0.3728$--$0.376$) and two isolated temperatures of Llama-3.3-70B ($0.250$, $0.306$), all at the single
 twin offset $10^{-6}$. The window failed a three-offset test: the exponent is negative at all 64 temperatures of the
 window at $10^{-5}$, near zero at $10^{-6}$, and positive at all 64 at $10^{-7}$, including temperatures whose state
-repeats with a period, which no stable periodic orbit allows. The exponent there depends on the offset without a
-plateau, and we withdraw the window. This is not a general property of our two-GPU computation. In the steered
+repeats with a period, which no stable periodic orbit allows. Larger offsets settle it: in a repeat on another
+pod, the exponent is negative at all 16 temperatures of the window at offsets $10^{-4}$, $3\times10^{-5}$ and
+$10^{-5}$, and the three agree within 0.1 at 11 of them (the $10^{-5}$ values reproduce those of the first run). The
+window is therefore not chaotic at perturbations of $10^{-5}$ and above, and we withdraw it. This is not a general property of our two-GPU computation. In the steered
 Llama-3.3-70B maps below, twelve randomly drawn chaotic cells are chaotic at offsets $10^{-4}$, $10^{-5}$ and $10^{-6}$
 alike, with exponents that agree within 0.05, and the drawn periodic and unresolved cells stay negative at all three;
 on one GPU, the exponents at $10^{-7}$ and $10^{-5}$ agree within 0.02 at every chaotic temperature of the
 prompt-blocked test. The same test on Llama-3.1-70B's three unsteered chaotic temperatures confirms two of them
 ($\log_{10}T=0.136$ and $0.198$; exponents 0.23 to 0.26 and 0.40 to 0.41 at the three offsets) and rejects the weakest
-($0.116$; positive only at $10^{-6}$), so unsteered chaos exists at 70B, if rarely. Whether the Qwen2.5-72B window
-hides structure finer than $10^{-5}$ or a numerical effect specific to that computation, we cannot tell. Two Qwen2.5 models are chaotic far above the
+($0.116$; positive only at $10^{-6}$), so unsteered chaos exists at 70B, if rarely. Whether the growth of smaller perturbations in
+the Qwen2.5-72B window reflects structure finer than $10^{-5}$ or a numerical effect specific to that computation, we
+cannot tell. Two Qwen2.5 models are chaotic far above the
 fixed window on the paper's prompt, where the next-token distribution is nearly uniform: the 1.5B model at 55 of 224
 temperatures, between $\log_{10}T=0.29$ and $1.03$, and the 14B model at 53, between $0.52$ and $1.14$ (exponents up to 1.14), at mean
 entropies up to 11.9 nats against $\log V=11.93$. The other models of the series are not chaotic above
