@@ -1,5 +1,8 @@
 # Task 19 complete — final finite evidence accepted
 
+Standalone Task 19 delivery was appended at 2026-10-14T09:45:23Z, entry SHA 11cbb28cfdb18d2647e7e5e3f53c520cd6b84850c68658fedba7bff276c3ea56, referencing private evidence checkpoint 20c25039fd1597c0327f59416af43ee6bcfd7f79. Task 19 is complete and delivered; zero reservations. Task 17 source export follows next.
+
+
 Task 19, its all-65-cell addendum and both fixed optional stress checks are complete and Root-accepted. Final synthesis `scientific-synthesis-final.md` SHA 66feba6283cd4ac70738d17699a0bee64c7fec8386a9d8ff434da9fac129914f and separate `final-acceptance.json` SHA 8fbe2bbbbbd8796d8967915a9cc80521447fb43cac61dd76c20f4aa468761ef6 bind the component reports and exact original authorities. Original pending/false records and all failures remain unchanged.
 
 The primary and fixed period-10/28 token records match all 2,000 original IDs; finite positive full-record twin estimates and absence of a detected state return through lag 64 are preserved. Scalar discrepancies remain approximately +2.31%, −5.90%, and +18.08% under the original rule. The all-65 count remains 49/62 within 10%, versus the disclosed amended and purged 51/62. Shape failures, early negative windows, all outliers/rank warnings and arithmetic differences are retained. No asymptotic-chaos, invariant-band or invertible-conjugacy proof is claimed.
