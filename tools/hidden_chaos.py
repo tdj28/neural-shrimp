@@ -11,11 +11,14 @@ largest Lyapunov exponent, zero symbolic information. This tool measures, per ce
 A cell is "hidden chaos" when the exponent is positive at both offsets, there is no state period, and the leading-token
 sequence is periodic (symbolic period >= 1).
 
-cell  one cell with a long record.
-line  every cell of a 1D line (log10 T range at fixed alpha), batched.
+cell   one cell with a long record (--trace also saves its per-step leading tokens, probabilities, entropies and
+       states, trace.npz).
+line   every cell of a 1D line (log10 T range at fixed alpha), batched.
+cells  a list of cells from a JSON file {"cells": [[log10T, alpha], ...]} (horizon checks of map labels), batched.
 
-Usage: python tools/hidden_chaos.py cell --vectors VEC --concept C --log-temperature LT --alpha A --out OUT
+Usage: python tools/hidden_chaos.py cell --vectors VEC --concept C --log-temperature LT --alpha A --out OUT [--trace]
        python tools/hidden_chaos.py line --vectors VEC --concept C --alpha A --log-temperature LO HI --n N --out OUT
+       python tools/hidden_chaos.py cells --vectors VEC --concept C --cells-file FILE --out OUT
 """
 import argparse
 import json
@@ -36,8 +39,12 @@ def symbolic_period(seq, max_q=64):
     return 0
 
 
-def run_batch(loop, v, log_ts, alphas, transient, record, eps_list, tol, seed=0):
-    """Trajectories for a batch of cells with one twin per offset; returns per-cell statistics."""
+KEEP = 400          # states kept per cell: the diameter uses the last 400, the period check the last 65
+
+
+def run_batch(loop, v, log_ts, alphas, transient, record, eps_list, tol, seed=0, trace=False):
+    """Trajectories for a batch of cells with one twin per offset; returns per-cell statistics (and, with trace,
+    the per-step arrays of the first cell)."""
     torch = loop.torch
     n = len(log_ts)
     m = len(eps_list)
@@ -55,7 +62,7 @@ def run_batch(loop, v, log_ts, alphas, transient, record, eps_list, tol, seed=0)
         twins.append(base + d / d.flatten(1).norm(dim=1)[:, None, None] * e)
     X = torch.cat([base] + twins)
     growth = np.zeros((m, n))
-    lead, pmax, ent, states = [], [], [], []
+    lead, pmax, ent, states, first = [], [], [], [], []
     for _ in range(record):
         X, p = loop.step(X, temps)
         base = X[:n]
@@ -73,7 +80,11 @@ def run_batch(loop, v, log_ts, alphas, transient, record, eps_list, tol, seed=0)
         pmax.append(top.values.cpu().numpy())
         ent.append((-(p0 * torch.log(torch.clamp(p0, min=1e-300))).sum(-1)).cpu().numpy())
         states.append(base[:, -1].double().cpu().numpy())
-    lead, pmax, ent, S = np.array(lead), np.array(pmax), np.array(ent), np.array(states)   # (record, n[, d])
+        if len(states) > KEEP:
+            states.pop(0)
+        if trace:
+            first.append(states[-1][0].copy())
+    lead, pmax, ent, S = np.array(lead), np.array(pmax), np.array(ent), np.array(states)   # (record|KEEP, n[, d])
     out = []
     for c in range(n):
         s = S[:, c]
@@ -83,7 +94,7 @@ def run_batch(loop, v, log_ts, alphas, transient, record, eps_list, tol, seed=0)
             if np.linalg.norm(s[-1 - qq] - s[-1]) < tol * scale:
                 q = qq
                 break
-        tail = s[-min(record, 400):]
+        tail = s[-min(record, KEEP):]
         diam = float(np.max(np.linalg.norm(tail - tail.mean(0), axis=1)) * 2 / scale)
         seq = lead[:, c].tolist()
         out.append({"log10_temperature": float(log_ts[c]), "alpha": float(alphas[c]),
@@ -92,6 +103,8 @@ def run_batch(loop, v, log_ts, alphas, transient, record, eps_list, tol, seed=0)
                     "lead_tokens": [int(t) for t in sorted(set(seq), key=seq.index)[:8]],
                     "pmax_mean": float(pmax[:, c].mean()), "pmax_sd": float(pmax[:, c].std()),
                     "entropy_mean": float(ent[:, c].mean()), "entropy_sd": float(ent[:, c].std())})
+    if trace:
+        return out, {"lead": lead[:, 0], "pmax": pmax[:, 0], "entropy": ent[:, 0], "states": np.array(first)}
     return out
 
 
@@ -112,13 +125,15 @@ def main():
     import explore_llm_soft_loop as esl
 
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    ap.add_argument("mode", choices=("cell", "line"))
+    ap.add_argument("mode", choices=("cell", "line", "cells"))
     ap.add_argument("--model", default="qwen0.5b")
     ap.add_argument("--layer", type=int, default=12)
     ap.add_argument("--vectors", required=True)
     ap.add_argument("--concept", required=True)
-    ap.add_argument("--alpha", type=float, required=True)
-    ap.add_argument("--log-temperature", type=float, nargs="+", required=True)
+    ap.add_argument("--alpha", type=float)
+    ap.add_argument("--log-temperature", type=float, nargs="+")
+    ap.add_argument("--cells-file", help="cells mode: JSON file with a list 'cells' of [log10T, alpha] pairs")
+    ap.add_argument("--trace", action="store_true", help="cell mode: save the per-step arrays (trace.npz)")
     ap.add_argument("--n", type=int, default=1)
     ap.add_argument("--transient", type=int, default=1000)
     ap.add_argument("--record", type=int, default=2000)
@@ -132,14 +147,26 @@ def main():
     args = ap.parse_args()
     loop = esl.SoftLoop(args.model, args.layer, args.threads, "open", ela.OPENER, 1, args.dtype, args.device)
     v = elpm.load_vectors(args.vectors)[args.concept]
-    if args.mode == "cell":
-        log_ts = np.array([args.log_temperature[0]])
+    if args.mode == "cells":
+        if not args.cells_file:
+            raise SystemExit("cells mode needs --cells-file")
+        pairs = np.array(json.loads(Path(args.cells_file).read_text())["cells"], dtype=float)
+        log_ts, alphas = pairs[:, 0], pairs[:, 1]
     else:
-        log_ts = np.linspace(args.log_temperature[0], args.log_temperature[1], args.n)
-    results = []
+        if args.alpha is None or not args.log_temperature:
+            raise SystemExit(f"{args.mode} mode needs --alpha and --log-temperature")
+        if args.mode == "cell":
+            log_ts = np.array([args.log_temperature[0]])
+        else:
+            log_ts = np.linspace(args.log_temperature[0], args.log_temperature[1], args.n)
+        alphas = np.full(len(log_ts), args.alpha)
+    results, tr = [], None
     for s in range(0, len(log_ts), args.chunk):
-        lt = log_ts[s:s + args.chunk]
-        results += run_batch(loop, v, lt, np.full(len(lt), args.alpha), args.transient, args.record, args.eps, args.tol)
+        got = run_batch(loop, v, log_ts[s:s + args.chunk], alphas[s:s + args.chunk], args.transient, args.record,
+                        args.eps, args.tol, trace=args.trace and args.mode == "cell")
+        if isinstance(got, tuple):
+            got, tr = got
+        results += got
         print(json.dumps({"done": len(results), "of": len(log_ts)}), flush=True)
     for r in results:
         r["class"] = classify(r)
@@ -149,6 +176,8 @@ def main():
     out = ela.DATA / "explore" / args.out
     out.mkdir(parents=True, exist_ok=True)
     (out / "hidden-chaos.json").write_text(json.dumps({"args": vars(args), "cells": results}, indent=1))
+    if tr is not None:
+        np.savez_compressed(out / "trace.npz", **tr)
     counts = {}
     for r in results:
         counts[r["class"]] = counts.get(r["class"], 0) + 1

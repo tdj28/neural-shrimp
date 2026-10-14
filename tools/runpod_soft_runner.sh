@@ -693,6 +693,18 @@ snapshot_download('$repo', revision='$rev', cache_dir='$NEURAL_SHRIMP_DATA/model
     TOOL=hidden_chaos.py run hidden-${JOBARGS[0]} "${JOBARGS[1]}" line --device cuda --dtype float64 \
       "${JOBARGS[@]:2}" --out $D/hidden/${JOBARGS[0]}
     ;;
+  horizon)     # horizon check H2 (tools/hidden_chaos.py, float64, twins at 1e-6 and 1e-9, 1000 transient + 2000 steps):
+               # JOBARGS LINE_MINUTES CELLS_MINUTES. (1) the exact grid of the hostile cascade line of Figure hubcascade
+               # (hcascade/tline-a0.0655: alpha 0.0655, log10 T 0.176..0.1935, 1400 cells); (2) the stratified random
+               # cells of two philosophy maps listed in docs/h2-horizon-cells.json
+    TOOL=hidden_chaos.py run h2-line "${JOBARGS[0]}" line --device cuda --dtype float64 \
+      --vectors llm-phase-map/vectors-l12-p1b --concept hostility-vs-kindness --alpha 0.0655 \
+      --log-temperature 0.176 0.1935 --n 1400 --transient 1000 --record 2000 --eps 1e-6 1e-9 --chunk 700 \
+      --out $D/hidden/h2-line-exact
+    TOOL=hidden_chaos.py run h2-cells "${JOBARGS[1]}" cells --device cuda --dtype float64 \
+      --vectors llm-phase-map/vectors-l12 --concept philosophy --cells-file docs/h2-horizon-cells.json \
+      --transient 1000 --record 2000 --eps 1e-6 1e-9 --chunk 448 --out $D/hidden/h2-cells
+    ;;
   morph)       # morph video frames (run V1): JOBARGS FIRST LAST STEP MINUTES_PER_FRAME COLD_TRANSIENT WARM_TRANSIENT
                # SCAN-ARGS...; float32 scans (tol and twin offset 1e-4) of Qwen2.5-0.5B along the uploaded great-circle
                # directions morph-FIRST..morph-LAST (llm-soft-loop/controls/vectors-morph-r1-r3-240), one frame after
