@@ -43,7 +43,8 @@ def main():
 
     run, out_png = sys.argv[1], sys.argv[2]
     base = ela.DATA / "explore" / run
-    cells = json.loads((base / "hidden-chaos.json").read_text())["cells"]
+    js = json.loads((base / "hidden-chaos.json").read_text())
+    cells, run_args = js["cells"], js["args"]
     seq = np.load(base / "sequences.npz")
     lead, pmax = seq["lead"], seq["pmax"]
     if lead.shape[1] != len(cells):
@@ -96,8 +97,9 @@ def main():
         qq = np.array([r["text_period"] for r in fitted])
         sc = ax.scatter(full[good], one[good], c=np.log2(qq[good] / 7), cmap="viridis", s=18,
                         label="single-valued return map")
-        ax.scatter(full[~good], one[~good], facecolors="none", edgecolors="0.5", s=18,
-                   label="no single-valued phase")
+        if (~good).any():
+            ax.scatter(full[~good], one[~good], facecolors="none", edgecolors="0.5", s=18,
+                       label="no single-valued phase")
         lim = [0, max(full.max(), one.max()) * 1.08]
         ax.plot(lim, lim, color="k", lw=0.8)
         ax.set_xlim(lim)
@@ -107,7 +109,9 @@ def main():
         ax.legend(fontsize=7, loc="upper left", frameon=False)
     ax.set_xlabel("largest exponent of the full map (per step)")
     ax.set_ylabel("exponent of the fitted 1D return map (per step)")
-    ax.set_title("Repeating-text chaos: one-dimensional reduction", fontsize=9)
+    model = ela.MODELS[run_args["model"]].split("/")[-1]
+    ax.set_title(f"{model}, {run_args['concept']} (layer {run_args['layer']}): {len(fitted)} chaotic cells\n"
+                 "with repeating text, one-dimensional reduction", fontsize=9)
     fig.tight_layout()
     fig.savefig(out_png, dpi=250)
 

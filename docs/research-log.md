@@ -22921,3 +22921,11 @@ _commit `9afe955da4bf` (dirty worktree)_
 - **Would surprise us:** chaos only along the concept direction (steering semantics matter at scale), or no chaos along any direction
 
 _commit `0683a6629c4a`_
+
+- run started 2026-10-14 04:35 UTC (../neural-shrimp-data/explore/llm-soft-loop/hidden-chaos/h3-cells) finished 05:59 UTC with exit status 0
+
+## 2026-10-14 06:05 UTC: H3 result: the one-dimensional reduction holds across the repeating-text chaos (62 cells)
+
+H3 (run card above; local RTX 2000 Ada float64, ~85 min; output hidden-chaos/h3-cells with sequences.npz; analysis tools/return_maps.py committed before the results, then a title change only). Of the 65 H1 cells, 62 again classify as chaos behind an exactly periodic leading-token text (2 periodic, 1 irregular: twin seeds and trajectories differ slightly from the pod run). In all 62, some phase of the text gives a single-valued return map of its leading-token probability (residual < 1e-2 of the range), 59 with exactly one interior critical point. Fitted-map exponent vs full twin exponent per step: median |relative discrepancy| 4.2 %, within 10 % in 49/62; period-7 texts (24 cells, 285 repetitions): median 1.5 %, max 19 %; period-28 texts (27 cells, 72 repetitions, exponents 0.003-0.015): median 7.1 %, the fitted maps overestimating small exponents; one outlier (period 10: 0.032 vs 0.057). Figure paper/llm/figures/fig-return-maps.png; paper paragraph extended.
+
+_commit `cb5e4cd33a45` (dirty worktree)_
