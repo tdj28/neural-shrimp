@@ -23037,3 +23037,9 @@ _commit `7918af949fa6` (dirty worktree)_
 Pod jl9g48i5cdxh7o (SECURE 2xH200, rc 0, hash verified, terminated; 5735 s wall; commit cb5e4cd3). Llama-3.3-70B-Instruct, layer 50, direction sae-hostility-38767 (frozen rule) rescaled to the concept norm 98.43; alpha 0..0.12 x log10 T -0.3..0.3, 32x32, 300 + 300 steps, float64 bf16-storage. Chaotic 36/1024 (3.5 %), largest exponent 0.476; 394 cells without a period up to 32 and exponent <= 1e-3; alpha = 0 column 0/32 chaotic (as B2); chaotic share by |alpha|: 1.0 % (<0.01, cells at alpha 0.004-0.008), 1.9, 3.1, 3.9, 5.5 % (0.09-0.12). Families: ' a fellow AI to' (period 4, 194 cells), 'I' (59), long 'It'suplifting/upgrading the infinite possibilities...' loops. Compare Llama-3.1-8B, same direction class at its SAE layer: 29 %. Reading: at 70B steering opens chaos the unsteered model lacks, but far less of the plane than at 8B. Other directions pending.
 
 _commit `0a8d0f5d7b7e` (dirty worktree)_
+
+## 2026-10-14 07:38 UTC: S70M: random SAE feature and Gaussian directions at 70B (0.2 % and 1.1 % chaotic)
+
+Pods 136qyand6xdn1d (sae-random_live-55957) and b7m3nzwhsmxxx6 (random1), SECURE 2xH200, rc 0, hash verified, terminated (5524 s and 5584 s; they shared the local out folder 20261014T060432Z, see the ledger note; extraction per key, no clash). Llama-3.3-70B-Instruct layer 50, both rescaled to the concept norm 98.43, same plane and settings as the SAE-hostility map. Random live SAE feature: chaotic 2/1024 (0.2 %; both cells at |alpha| < 0.01), largest exponent 0.180, 225 cells without a period. Gaussian random1: 11/1024 (1.1 %), largest 0.449, 435 without a period; by |alpha|: 0, 0, 0.4, 0.8, 3.1 %. With the SAE hostility feature (36/1024, 3.5 %): at 70B steering opens little chaos and the direction matters (36 vs 11 vs 2 cells), unlike 8B (27-39 % for all directions). Concept-vector map pending.
+
+_commit `3c87499cbe05` (dirty worktree)_
