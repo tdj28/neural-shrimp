@@ -23408,3 +23408,11 @@ _commit `65762f8ffb6a` (dirty worktree)_
 Pod 262sgk4ryllyiw (SECURE 2xH200, rc 0, hash verified, terminated; 1763 s; commit b35d1b53). bighidden cells mode, Llama-3.1-70B unsteered, docs/plateau-cells-l31-70b.json (the 3 chaotic temperatures of B5 and the temperature below each), 1000 + 2000 steps as B5, absolute twin offsets 1e-4, 1e-5, 1e-6. log10 T 0.1362 (map +0.298): +0.226/+0.228/+0.260, visible chaos, confirmed. 0.1976 (map +0.414): +0.413/+0.411/+0.404, confirmed. 0.1157 (map +0.042): -0.076/-0.102/+0.020, not confirmed (positive only at 1e-6), withdrawn. The three lower neighbours: negative at all offsets (-0.14 to -0.64), no state period, leading-token periods 3-14. Reading: unsteered chaos exists at 70B (Llama-3.1-70B, two temperatures, exponents 0.23-0.41, plateau over two decades of offset); the B7b failure is specific to the Qwen2.5-72B window.
 
 _commit `f5c883e09ba8`_
+
+## 2026-10-14 12:09 UTC: run (exploratory)
+
+- **Question:** PS72 (frozen in docs/prefix-scale-72b.md before any 72B prefix run; human approval 14 Oct ~12:05 UTC): does Qwen2.5-72B, like the 14B, have broad chaos on other prompts? Primary PS72: C1(72B) < C1(14B) on at least 3 of the 4 prefixes 2, 3, 4, 5.
+- **Setup:** One pod, 2 x H200 NVL or H100 NVL (Qwen2.5-72B has run on both), job set prefix72 with prefixes 2 3 4 5: per prefix tools/hidden_chaos.py line, Qwen2.5-72B pinned 495f3936, unsteered, float64 with bf16 storage, device auto, 48 temperatures over log10 T -0.4..0.9, 1000 + 2000 steps, twins 1e-5 and 1e-6, chaotic = positive at both offsets and no period up to 64 (classify). Disclosure: the frozen file calls the offsets relative; tools/hidden_chaos.py uses absolute state distances, as in the 7B/14B test, and the frozen numbers 1e-5, 1e-6 are used unchanged. Scoring as frozen (14B C1 from docs/prefix-scale-result.json). Estimate from B7b (256 rows x 3000 steps in 59 min): about 45 min per prefix, 3.2 h in all.
+- **Output:** `../neural-shrimp-data/explore/llm-soft-loop/pod64/prefix/qwen72b-pN-coarse`
+
+_commit `b8b385f29bbf`_
