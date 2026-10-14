@@ -74,6 +74,7 @@ def main():
     parser.add_argument("--ready-minutes", type=float, default=15)
     parser.add_argument("--disk-gb", type=int, default=60, help="container disk (large checkpoints need more)")
     parser.add_argument("--min-memory-gb", type=int, default=32, help="minimum host RAM of the pod")
+    parser.add_argument("--min-vcpu", type=int, default=8, help="minimum vCPUs of the pod (consumer hosts offer fewer)")
     parser.add_argument("--run-minutes", type=float, required=True)
     parser.add_argument("--out", default=str(rp.DATA / "runpod" / "soft64"))
     parser.add_argument("--approval", required=True)
@@ -104,7 +105,7 @@ def main():
     for entry in args.gpu_type:
         cloud, _, gpu = entry.partition(":")
         create = argparse.Namespace(gpu_type=gpu, cloud=cloud, image=args.image, name=args.name,
-                                    pubkey_file=str(KEY) + ".pub", disk_gb=args.disk_gb, min_vcpu=8,
+                                    pubkey_file=str(KEY) + ".pub", disk_gb=args.disk_gb, min_vcpu=args.min_vcpu,
                                     min_memory_gb=args.min_memory_gb,
                                     commit=head, approval=args.approval)
         try:
