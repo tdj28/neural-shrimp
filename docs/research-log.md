@@ -23424,3 +23424,11 @@ _commit `b8b385f29bbf`_
 - **Output:** `../neural-shrimp-data/explore/llm-soft-loop/pod64/big/qwen72b-window-plateau`
 
 _commit `91267340c278`_
+
+## 2026-10-14 12:17 UTC: run (exploratory)
+
+- **Question:** PSO (frozen in docs/prefix-scale-olmo.md; human approval 'Do it'): does OLMo-2-32B stay more chaotic than OLMo-2-7B across prompts? Primary PSO: C1(32B) > C1(7B) on at least 3 of the held-out prefixes 2, 3, 4, 5.
+- **Setup:** Two pods, job set prefixcoarse (stage 1 only: 48 temperatures over log10 T -0.4..0.9, 1000 + 2000 steps, absolute twins 1e-5 and 1e-7, float64 bf16 storage, device auto): PSOa OLMo-2-1124-7B on 1 GPU (H100 NVL / H100 SXM / H200); PSOb OLMo-2-0325-32B on 1 GPU (H200 / H200 NVL / H100 NVL).
+- **Output:** `../neural-shrimp-data/explore/llm-soft-loop/pod64/prefix/olmo2-{7b,32b}-pN-coarse`
+
+_commit `b5a257e3c35d`_
