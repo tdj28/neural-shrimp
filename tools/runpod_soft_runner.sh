@@ -730,6 +730,49 @@ snapshot_download('$REPO', revision='$MREV', cache_dir='$NEURAL_SHRIMP_DATA/mode
       --alpha 0 0 --log-temperature -1 0.3 --resolution 128 1 --transient 1000 --samples 2000 --max-period 64 \
       --tol 1e-8 --eps 1e-6 --chunk 128 "${JOBARGS[@]:2}" --out $D/big/$model-alpha0
     ;;
+  bigctrl)     # Llama-3.3-70B-Instruct with the Goodfire layer-50 SAE (runs S70P, S70M; the 8B protocol of run C1 at 70B):
+               # JOBARGS PART [MINUTES KEY SCAN-ARGS...]. Gated checkpoint and SAE, pinned; the token arrives on stdin and
+               # is unset after the downloads. Float64 with bfloat16 weight storage over all GPUs (exact).
+               # PART prof: SAE hook-point check and held-out category profiles (llm_sae_readout validate, profile),
+               #   for the frozen selection rule (tools/steering_controls.py select, run locally afterwards).
+               # PART map: concept vectors at layer 50 of 80 (hostility:kindness, 3 random), the SAE directions of the
+               #   uploaded frozen selection (docs/steering-controls-selection-70b.json) and norm-matched Gaussians
+               #   (steering_controls build), then one float64 scan of direction KEY into controls70/KEY
+    part=${JOBARGS[0]}
+    REPO=meta-llama/Llama-3.3-70B-Instruct; MREV=6f6073b423013f6a7d4d9f39144961bfbfbc386b
+    SAED=$NEURAL_SHRIMP_DATA/models/sae
+    log "download $REPO and the SAE"
+    HF_HUB_OFFLINE=0 $PY -c "
+from huggingface_hub import snapshot_download, hf_hub_download
+snapshot_download('$REPO', revision='$MREV', cache_dir='$NEURAL_SHRIMP_DATA/models/hf/hub',
+                  allow_patterns=['*.json', 'model-*.safetensors'], max_workers=16)
+hf_hub_download('Goodfire/Llama-3.3-70B-Instruct-SAE-l50', 'Llama-3.3-70B-Instruct-SAE-l50.pt',
+                revision='128ee921ecd1b8b3a87d776cbcc357c0855da134', local_dir='$SAED/goodfire-70b-l50')" \
+      > "$LOGS/setup-big.log" 2>&1
+    unset HF_TOKEN
+    mrefs=$NEURAL_SHRIMP_DATA/models/hf/hub/models--meta-llama--Llama-3.3-70B-Instruct/refs
+    mkdir -p "$mrefs" && printf %s "$MREV" > "$mrefs/main"
+    SAEP=$SAED/goodfire-70b-l50/Llama-3.3-70B-Instruct-SAE-l50.pt
+    sha256sum $SAEP | tee "$LOGS/sae70-sha256.txt"
+    BIG="--model llama3.3-70b --device auto --dtype float64 --weights bf16"
+    if [ "$part" = prof ]; then
+      TOOL=llm_sae_readout.py run s70-validate 40 validate $BIG --sae goodfire:$SAEP:50 --out $D/controls70/validate
+      TOOL=llm_sae_readout.py run s70-profile 60 profile $BIG --sae goodfire:$SAEP:50 --out $D/controls70/sae-profile
+    else
+      cvec=llm-phase-map/vectors-llama3.3-70b-l50
+      TOOL=explore_llm_phase_map.py run s70-vectors 40 vectors $BIG --layer 50 --contrasts hostility:kindness \
+        --random 3 --out $cvec
+      TOOL=steering_controls.py run s70-build 15 build --concept-vectors $cvec --sae-kind goodfire --sae-path $SAEP \
+        --layer 50 --selection docs/steering-controls-selection-70b.json --out llm-soft-loop/controls/vectors-llama70b-l50
+      key=${JOBARGS[2]}
+      mkdir -p "$OUT/$D/controls70/$key"
+      cp -r "$OUT/$cvec" "$OUT/$D/controls70/$key/concept-vectors"
+      cp -r "$OUT/llm-soft-loop/controls/vectors-llama70b-l50" "$OUT/$D/controls70/$key/vectors"
+      run s70-$key "${JOBARGS[1]}" scan $BIG --layer 50 --chunk 256 --tol 1e-8 --eps 1e-6 \
+        --vectors llm-soft-loop/controls/vectors-llama70b-l50 --concept $key "${JOBARGS[@]:3}" \
+        --out $D/controls70/$key/scan
+    fi
+    ;;
   morph)       # morph video frames (run V1): JOBARGS FIRST LAST STEP MINUTES_PER_FRAME COLD_TRANSIENT WARM_TRANSIENT
                # SCAN-ARGS...; float32 scans (tol and twin offset 1e-4) of Qwen2.5-0.5B along the uploaded great-circle
                # directions morph-FIRST..morph-LAST (llm-soft-loop/controls/vectors-morph-r1-r3-240), one frame after

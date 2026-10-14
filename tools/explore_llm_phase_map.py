@@ -270,7 +270,7 @@ def run_cells(sm, cells, system, opener, turns, window, max_new):
 
 
 def vectors_cmd(args):
-    sm = SteeredModel(args.model, args.layer, args.threads, args.dtype, args.device)
+    sm = SteeredModel(args.model, args.layer, args.threads, args.dtype, args.device, args.weights)
     vectors, info = build_vectors(sm, [tuple(c.split(":")) for c in args.contrasts])
     if args.random:
         d = len(next(iter(vectors.values())))
@@ -528,6 +528,8 @@ def main():
         sp.add_argument("--max-new", type=int, default=60)
     sub.choices["vectors"].add_argument("--device", default="cpu")
     sub.choices["vectors"].add_argument("--dtype", default="float32", choices=("float32", "float64"))
+    sub.choices["vectors"].add_argument("--weights", default="native", choices=("native", "bf16"),
+                                        help="bf16: decoder linear weights stay bfloat16, used in float64 (exact)")
     sub.choices["vectors"].add_argument("--random", type=int, default=0,
                                         help="also store this many norm-matched random directions")
     sub.choices["vectors"].add_argument("--contrasts", nargs="*", default=[], metavar="A:B",

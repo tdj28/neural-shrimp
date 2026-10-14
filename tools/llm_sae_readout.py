@@ -178,23 +178,35 @@ def parse_sae(spec, device):
     return SAE(kind, rest, None, device)
 
 
+def load_engine(args):
+    """The model for validate/profile/profile-csv: float32 by default (as for the 8B runs); large models in float64
+    with bfloat16 weight storage spread over GPUs (--dtype float64 --weights bf16 --device auto). Returns the engine
+    and the device for inputs and SAEs (the embedding's device when layers are spread)."""
+    import explore_llm_attractors as ela
+
+    eng = ela.Engine(args.model, args.threads, args.dtype, args.device, args.weights)
+    if args.device == "auto":
+        return eng, str(eng.model.get_input_embeddings().weight.device)
+    eng.model.to(args.device)                       # Engine moves only float64 models to the device itself
+    return eng, args.device
+
+
 def validate(args):
     """Hook-point check: FVE of each SAE on ordinary text at its documented index and the two neighbours."""
     import torch
 
     import explore_llm_attractors as ela
 
-    eng = ela.Engine(args.model, args.threads, "float32", args.device)
-    eng.model.to(args.device)                       # Engine moves only float64 models to the device itself
-    saes = [parse_sae(s, args.device) for s in args.sae]
-    report = {"model": args.model, "texts": len(TEXTS), "saes": []}
+    eng, dev = load_engine(args)
+    saes = [parse_sae(s, dev) for s in args.sae]
+    report = {"model": args.model, "texts": len(TEXTS), "saes": [], "dtype": args.dtype, "weights": args.weights}
     hs_all = {}
     with torch.no_grad():
         for text in TEXTS:
-            ids = eng.tok(text, return_tensors="pt").to(args.device)
+            ids = eng.tok(text, return_tensors="pt").to(dev)
             out = eng.model(**ids, output_hidden_states=True)
             for i, h in enumerate(out.hidden_states):
-                hs_all.setdefault(i, []).append(h[0, 1:].float())        # drop the first token (attention sink)
+                hs_all.setdefault(i, []).append(h[0, 1:].float().to(dev))  # drop the first token (attention sink)
     for sae in saes:
         rows, rel = {}, {}
         for i in (sae.index - 1, sae.index, sae.index + 1):
@@ -220,9 +232,8 @@ def profile(args):
 
     import explore_llm_attractors as ela
 
-    eng = ela.Engine(args.model, args.threads, "float32", args.device)
-    eng.model.to(args.device)
-    saes = [parse_sae(s, args.device) for s in args.sae]
+    eng, dev = load_engine(args)
+    saes = [parse_sae(s, dev) for s in args.sae]
     sums = {s.name: {} for s in saes}
     counts = {}
     with torch.no_grad():
@@ -230,10 +241,10 @@ def profile(args):
             acc = {s.name: None for s in saes}
             n = 0
             for text in texts:
-                ids = eng.tok(text, return_tensors="pt").to(args.device)
+                ids = eng.tok(text, return_tensors="pt").to(dev)
                 hs = eng.model(**ids, output_hidden_states=True).hidden_states
                 for s in saes:
-                    f = s.encode(hs[s.index][0, 1:].float()).sum(0)
+                    f = s.encode(hs[s.index][0, 1:].float().to(dev)).sum(0)
                     acc[s.name] = f if acc[s.name] is None else acc[s.name] + f
                 n += ids["input_ids"].shape[1] - 1
             counts[cat] = n
@@ -263,16 +274,15 @@ def profile_csv(args):
     import explore_llm_attractors as ela
 
     rows = list(csv.DictReader(open(args.corpus, newline="")))
-    eng = ela.Engine(args.model, args.threads, "float32", args.device)
-    eng.model.to(args.device)
-    saes = [parse_sae(s, args.device) for s in args.sae]
+    eng, dev = load_engine(args)
+    saes = [parse_sae(s, dev) for s in args.sae]
     maxima = {s.name: np.zeros((len(rows), s.n_features), dtype=np.float32) for s in saes}
     with torch.no_grad():
         for i, r in enumerate(rows):
-            ids = eng.tok(r["text"], return_tensors="pt").to(args.device)
+            ids = eng.tok(r["text"], return_tensors="pt").to(dev)
             hs = eng.model(**ids, output_hidden_states=True).hidden_states
             for s in saes:
-                maxima[s.name][i] = s.encode(hs[s.index][0, 1:].float()).max(0).values.cpu().numpy()
+                maxima[s.name][i] = s.encode(hs[s.index][0, 1:].float().to(dev)).max(0).values.cpu().numpy()
     out = ela.DATA / "explore" / args.out
     out.mkdir(parents=True, exist_ok=True)
     for s in saes:
@@ -400,6 +410,9 @@ def main():
         sp.add_argument("--device", default="cpu")
         sp.add_argument("--sae", action="append", required=True, help="goodfire:PATH:LAYER or saelens:DIR")
         sp.add_argument("--out", required=True)
+        sp.add_argument("--weights", default="native", choices=("native", "bf16"))
+        if name != "read":
+            sp.add_argument("--dtype", default="float32", choices=("float32", "float64"))
     sub.choices["profile-csv"].add_argument("--corpus", required=True, help="CSV with item_id, category, text")
     rd = sub.choices["read"]
     rd.add_argument("--layer", type=int, required=True, help="steering layer")
