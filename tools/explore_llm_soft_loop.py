@@ -705,6 +705,12 @@ def scan(args):
         first = v / np.linalg.norm(v) if v is not None else np.random.default_rng(54321).normal(size=d)
         dirs = np.stack([first / np.linalg.norm(first), r / np.linalg.norm(r)])
         proj = np.full((B, args.record, 2), np.nan)
+    init = None
+    if args.init_states:                          # warm start: each cell from a previous scan's final state, same grid
+        init = np.load(DATA / "explore" / args.init_states / "states.npz")["states"]
+        if init.shape[0] != B or init.shape[2] != d:
+            raise SystemExit(f"init states {init.shape} do not match {B} cells of dimension {d}")
+    final_states = np.zeros((B, loop.K, d), dtype=np.float32) if args.save_states else None
     tic = time.perf_counter()
     chunk = args.chunk or B
     for start in range(0, B, chunk):
@@ -713,6 +719,11 @@ def scan(args):
         steer = np.zeros((n, d)) if v is None else np.array([cells[i][1] * v for i in idx])
         temps2 = np.tile(np.array([10.0 ** cells[i][0] for i in idx]), 2)
         XY = loop.prepare(np.concatenate([steer, steer]))     # rows 0..n-1: trajectory, n..2n-1: its twin
+        if init is not None:
+            X0 = torch.as_tensor(init[idx], dtype=loop.state_dtype, device=loop.device)
+            if X0.shape[1] != XY.shape[1]:
+                raise SystemExit("init states have another window length")
+            XY = torch.cat([X0, X0.clone()])
         for _ in range(args.transient):
             XY, _ = loop.step(XY, temps2)
         delta = torch.as_tensor(rng.normal(size=tuple(XY[:n].shape)), dtype=loop.state_dtype, device=loop.device)
@@ -754,6 +765,8 @@ def scan(args):
                 family[idx[c]] = families.setdefault(key, len(families))
         last_p = p.double().cpu().numpy()
         entropy[idx] = -(last_p * np.log(np.maximum(last_p, 1e-300))).sum(1)
+        if final_states is not None:
+            final_states[idx] = X.float().cpu().numpy()
         del p, XY, X, Y
         print(json.dumps({"done": idx[-1] + 1, "of": B, "seconds": round(time.perf_counter() - tic, 1)}), flush=True)
         part = DATA / "explore" / args.out                    # checkpoint: a timed-out scan still yields its rows
@@ -780,6 +793,8 @@ def scan(args):
                "period_counts": {int(q): int((period == q).sum()) for q in np.unique(period)},
                "lyapunov_range": [float(lyap.min()), float(lyap.max())]}
     (out / "scan.json").write_text(json.dumps(summary, indent=1))
+    if final_states is not None:                  # float32 copy of each cell's final window, for warm starts
+        np.savez(out / "states.npz", states=final_states)
     print(json.dumps({k: v for k, v in summary.items() if k not in ("args", "families")}))
     figure(log_t, alphas, lyap.reshape(shape), period.reshape(shape), entropy.reshape(shape), out / "scan.png", args)
 
@@ -1315,6 +1330,9 @@ def main():
     sc.add_argument("--tol", type=float, default=1e-6)
     sc.add_argument("--eps", type=float, default=1e-6)
     sc.add_argument("--chaos-level", type=float, default=1e-3)
+    sc.add_argument("--init-states", default=None, help="explore-relative scan folder whose states.npz (same grid) "
+                    "gives each cell's start (warm start, e.g. the previous frame of a morph)")
+    sc.add_argument("--save-states", action="store_true", help="write each cell's final window to states.npz")
     sc.add_argument("--projections", action="store_true",
                     help="save the recorded states projected on the unit steering vector and a fixed random direction "
                          "(bifurcation diagrams)")
