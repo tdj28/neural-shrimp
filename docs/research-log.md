@@ -23107,3 +23107,12 @@ Next run card: codex/loop-gain-crosscheck/run-002-summary-recovery-card.json SHA
 - **Would surprise us:** no structure at the finer scale (isolated chaotic cells only), or vector sets differing between pods
 
 _commit `56df8e3e7006` (dirty worktree)_
+
+## 2026-10-14 08:24 UTC: run (exploratory)
+
+- **Question:** SC (human: 'we want an answer in the main paper'): how does the unsteered loop's chaos depend on size within three families, and why? Tests the predictions frozen in docs/scaling-predictions.md (decline above 7-8B, ordering, mechanism).
+- **Setup:** Three pods, job set scaleset: SC1 one H100 (80 GB class): qwen1.5b, qwen3b, olmo2-1b, qwen14b; SC2 one H200: qwen32b; SC3 one H200: olmo2-13b, olmo2-32b. Per model: pinned checkpoint, unsteered float64 sweep (bf16 storage, 160 temperatures over log10 T -1..0.6, 1000 + 2000 steps, twin 1e-6, max period 64) and gain split (24 temperatures over -0.3..0.9, 500 + 1000 steps).
+- **Output:** `../neural-shrimp-data/explore/llm-soft-loop/pod64/{big/MODEL-alpha0-wide,gain/MODEL-wide}`
+- **Would surprise us:** a model above 8B more chaotic than its family's 7B member (P1 fails)
+
+_commit `746a936f1f2a` (dirty worktree)_
