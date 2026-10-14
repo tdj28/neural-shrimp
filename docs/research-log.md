@@ -22872,3 +22872,22 @@ _commit `5b99b1e24d8f`_
 Trace (run card above; local RTX 2000 Ada, float64, commit 5b99b1e2 code; output hidden-chaos/trace-best: trace.npz, bands-summary.json; figure paper/llm/figures/fig-hidden-bands.png by tools/plot_hidden_bands.py). Cell log10 T 0.1899492, alpha 0.0655, hostility p1b. Exponent 0.0911 (1e-6) / 0.0907 (1e-9) (H1 on the pod: 0.0895/0.0901); no state period; text period 7: 'I', '!', 'Yes', ' heels', '\n\n', 'pee', '\n\n'. Bands by text phase: radii 0.0014..0.068 of the mean state norm; the minimum distance between states of different phases is 0.098 of the norm (all seven bands disjoint; min gap between bounding balls 0.093). Within-phase leading-token probability: 0.101..0.121 ('I'), 0.942..0.958 ('!'), 0.235..0.254 (last '\n\n'), the others within 1e-4..3e-3. Inside the widest band (phase 6) the attractor is effectively a curve. Return map of the phase-6 probability over repetitions (285 points): degree-8 polynomial residual 4.3e-4 of the range; one critical point inside the range (p = 0.24317, second derivative -403: a quadratic maximum); Lyapunov exponent of the fitted map 0.647 per repetition against 0.638/0.635 per 7 steps for the full 896-dimensional map from twins (discrepancy 1.7 % of the mean). Phase 5 gives 0.642 (residual 3.1e-3); phases 0-4 are poor coordinates (residuals 5-28 %). Reading: band chaos after the period-7 doubling cascade, effectively a one-dimensional unimodal (logistic-type) map once per repetition; the text repeats exactly while the state is chaotic.
 
 _commit `5b99b1e24d8f` (dirty worktree)_
+
+## 2026-10-14 04:35 UTC: run (exploratory)
+
+- **Question:** H3: does the one-dimensional reduction found at the strongest repeating-text chaotic cell hold across all 65 such cells of H1? For each cell, the return map of each phase's leading-token probability over repetitions of the text: best single-valued fit (polynomial degree 8), its residual, and its Lyapunov exponent per step against the full map's twin exponent.
+- **Setup:** Local RTX 2000 Ada, float64, tools/hidden_chaos.py cells --save-sequences on docs/h3-repeating-text-cells.json (Qwen2.5-0.5B, hostility p1b, layer 12, alpha 0.0655), transient 1000, record 2000, twins 1e-6 and 1e-9, one batch of 65 cells. Analysis afterwards in tools/return_maps.py (to be written before reading the results).
+- **Output:** `../neural-shrimp-data/explore/llm-soft-loop/hidden-chaos/h3-cells`
+- **Would surprise us:** cells reclassified as periodic or non-chaotic in this rerun; no phase with a single-valued return map in most cells; 1D exponents off by more than 10 % in most cells
+- **Command:** `bash -c set -o pipefail; uv run --no-sync python tools/hidden_chaos.py cells --vectors llm-phase-map/vectors-l12-p1b --concept hostility-vs-kindness --cells-file docs/h3-repeating-text-cells.json --transient 1000 --record 2000 --eps 1e-6 1e-9 --chunk 65 --device cuda --dtype float64 --save-sequences --out llm-soft-loop/hidden-chaos/h3-cells 2>&1 | grep -v Warn | tail -4`
+
+_commit `72275bc55f1a`_
+
+## 2026-10-14 05:03 UTC: run (exploratory)
+
+- **Question:** B1/B2 (human, 14 Oct: 'we need to show this isn't just an effect on the smaller models'; approved, funds added): is the unsteered soft-token map of 70B-class dense models chaotic? Qwen2.5-72B-Instruct (B1) and Llama-3.3-70B-Instruct (B2), the same test as Figure alpha0 for the 7-8B models.
+- **Setup:** One pod each, 2 x H200 (secure or community), job set bigsweep at the commit after 0f0160bb: pinned checkpoints (Qwen 495f3936, Llama 6f6073b4; Llama gated, token on stdin), float64 with decoder linear weights kept in their stored bfloat16 and used in float64 (exact; bitwise test on Qwen2.5-0.5B), layers spread over both GPUs; alpha = 0, 128 temperatures over log10 T -1..0.3, transient 1000, samples 2000, max period 64, tol 1e-8, twin 1e-6, one chunk (256 rows). Prompt 'open', opener 'Hello!', window 1, as every model. Timing from progress.jsonl; cost plan in the private ledger (pod rate cap 7.6/h, scan limit 200 min, run limit 240 min).
+- **Output:** `../neural-shrimp-data/explore/llm-soft-loop/pod64/big/{qwen72b,llama3.3-70b}-alpha0`
+- **Would surprise us:** no chaotic temperature in either model (the effect would then shrink with scale, as in the one MoE model); chaos at the lowest or highest temperatures (against the gain argument)
+
+_commit `0f0160bb7ca1` (dirty worktree)_
