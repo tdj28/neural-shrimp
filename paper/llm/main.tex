@@ -617,6 +617,43 @@ $m=64$ they last about 10.6 steps independently of $\eps$ (57\% of steps in the 
 steps (38\%); with single samples ($m=1$, sampled decoding of the same truncated system) essentially no
 laminar phases remain (11\% of steps in the channel). The deterministic intermittency mechanism belongs to the
 expected-embedding map; sampling noise turns the bottleneck into a noise-limited trap whose strength grows with $m$.
+
+\paragraph{Zero-temperature limit and ordinary greedy decoding.} As $T\to0$ the soft-token map becomes greedy
+decoding with a one-token memory, $g(t)=\arg\max_s z_s(\text{prefix},E_t)$, a map on the vocabulary whose cycles are
+the zero-temperature attractors. For Qwen2.5-0.5B we computed $g$ for all 151\,936 tokens. Unsteered it has 1060
+cycles, and one of them, the period-5 loop ``![](https:// Hello'', drains 86\,\% of the vocabulary; it is the
+largest attractor family of every 0.5B soft-token map. Ordinary greedy decoding with a growing context does not
+inherit these cycles (Table~\ref{tab:memory}): from 220 starts (the first tokens of the 20 largest cycles and 200
+random tokens), 19 runs end in a short loop within 256 tokens, and the dominant 5-cycle never appears. Steering
+along philosophy makes ordinary decoding loop almost always (218 of 220 runs at $\alpha=0.1$), but in other loops,
+mostly punctuation such as `` --'', none of them one-token cycles. Greedy decoding that keeps only the last $K$
+tokens interpolates between the two. For every $K\ge2$ the loops leave the one-token cycles; unsteered, looping
+collapses between $K=16$ and $32$ to the level of the growing context, and steered, the share of runs whose loop
+equals the growing-context loop rises from 0 at $K=1$ to 58\,\% at $K=64$. The soft-token map's low-temperature
+attractors are therefore those of decoding with a one-token memory. Which loop ordinary decoding enters depends on
+the context it keeps; that steering drives decoding into loops is shared.
+\begin{table}[H]
+\centering\small
+\begin{tabular}{rrrrr}
+\toprule
+ & \multicolumn{2}{c}{unsteered} & \multicolumn{2}{c}{$\alpha=0.1$ (philosophy)} \\
+memory $K$ & looped & loop as with full context & looped & loop as with full context \\
+\midrule
+1 & 220 & 5 & 220 & 0 \\
+2 & 220 & 5 & 220 & 0 \\
+8 & 220 & 5 & 220 & 3 \\
+16 & 169 & 5 & 219 & 24 \\
+32 & 32 & 7 & 219 & 71 \\
+64 & 26 & 11 & 219 & 126 \\
+full context & 19 & -- & 218 & -- \\
+\bottomrule
+\end{tabular}
+\caption{Greedy decoding of Qwen2.5-0.5B with a memory of the last $K$ generated tokens after the fixed prompt
+($K=1$ is the soft-token map's zero-temperature limit), 220 starts of 256 tokens each: runs ending in a loop of
+period up to 64 repeated three times, and runs whose final loop equals that of ordinary decoding with the full
+context from the same start.}
+\label{tab:memory}
+\end{table}
 \begin{figure}[H]
 \centering
 \includegraphics[width=0.55\linewidth]{fig-bridge.png}
@@ -1274,7 +1311,10 @@ In all five maps the chaotic share rises from about 1\,\% at $|\alpha|<0.01$ to 
 $|\alpha|$, and a chaotic region at high temperature with windows reaching down recurs. Chaos under steering in
 this model is therefore a generic response to perturbing the residual stream at this norm. The direction does
 select the texts: the largest attractor family in all five maps is the unsteered period-5 loop, but beyond it only
-26 to 56\,\% of one map's cells carry an attractor text that appears anywhere in another map.
+26 to 56\,\% of one map's cells carry an attractor text that appears anywhere in another map. Llama-3.1 8B
+agrees: on its hostility plane, two norm-matched random directions at the same layer give 26 and 17\,\% chaotic
+cells against 28\,\% along the concept direction; all three carry 34 to 44\,\% near $\alpha=0$, and the random
+directions thin out at large $|\alpha|$.
 \begin{figure}[H]
 \centering
 \includegraphics[width=0.92\linewidth]{fig-alpha0.png}
@@ -1292,8 +1332,7 @@ the philosophy vector's norm. Titles give the chaotic share (finite-horizon expo
 to 48).}
 \label{fig:controls}
 \end{figure}
-\inprogress{in Llama-3.1 8B, maps along norm-matched random directions and along sparse-autoencoder feature
-directions at the autoencoder's layer.}
+\inprogress{in Llama-3.1 8B, maps along sparse-autoencoder feature directions at the autoencoder's layer.}
 \paragraph{What is and is not claimed.} The objects here are invariant sets and bifurcations of an exactly defined
 smooth map built from a frozen model's own computation. We do not claim that ordinary sampled generation is chaotic in this sense
 (Section~\ref{sec:bridge}), nor that any window is a certified shrimp. The period-6 window and the hostile period-7
@@ -1332,7 +1371,7 @@ periodic orbits, and the dose at which they appear is a boundary that can be map
 precisely and computed numerically. Whether its boundaries predict boundaries of sampled behaviour is open; the bridge of
 Section~\ref{sec:bridge} shows that sampling noise shortens the laminar phases of the bottleneck, by an amount that
 depends on how many samples are averaged.
-\planned{repetition loops in ordinary decoding as stable periodic orbits of the greedy limit.}
+
 
 \section{Evidence and reproducibility}
 \label{sec:evidence}
