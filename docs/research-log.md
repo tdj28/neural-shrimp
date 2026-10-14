@@ -22971,3 +22971,12 @@ _commit `9de4e59dc794`_
 Run B2 (pod v6b5te22vy10tt, SECURE 2xH200 NVL, runner rc 0, hash verified, terminated; 4015 s wall, scan 3415 s; commit 306cd3b9; three earlier attempts failed on code and memory, all recorded). Llama-3.3-70B-Instruct (6f6073b4), float64 with bf16 storage (exact), unsteered, 128 temperatures over log10 T -1..0.3, 1000 + 2000 steps, twin 1e-6, max period 64. No chaotic temperature: largest exponent anywhere -0.265. Periods 5..63 (15-cycle family '. It'supgrading the infinite possibilities are you'recognized protocol' at 46 temperatures; its repeats and variants with periods 16, 21, 63); 19 temperatures without a period up to 64, all with negative exponents (-0.27 to -3.4; 5 near log10 T -0.24..-0.15 with entropy ~0.5 nats, 14 at log10 T 0.085..0.3 with entropy 1-10 nats: long cycles or slow convergence). Llama 3 family without steering: 3.1-8B chaotic at 96/512 temperatures (exponents to 0.66), 3.3-70B at 0/128. With B1: neither 70B-class dense model is chaotic without steering. Steered maps (S70M, B3) pending.
 
 _commit `93dfb7617df3`_
+
+## 2026-10-14 07:15 UTC: run (exploratory)
+
+- **Question:** B4 (human: 'do it, we must find out'): why is Qwen2.5-72B not chaotic without steering? In B1 its next-token entropy on the attractor stays <= 0.15 nats up to T = 2 (the over-confidence reading): does a chaotic band appear at higher temperature, where the distribution finally spreads, or does the map contract there as the gain argument allows?
+- **Setup:** One pod, 2 x H200 NVL / H100 NVL / H200, job set bigsweep with name=highT: Qwen2.5-72B-Instruct (495f3936), float64 with bf16 storage over both GPUs, unsteered, 64 temperatures over log10 T 0.3..1.2 (T 2..16), 1000 + 2000 steps, twin 1e-6, max period 64, chunk 128.
+- **Output:** `../neural-shrimp-data/explore/llm-soft-loop/pod64/big/qwen72b-alpha0-highT`
+- **Would surprise us:** chaos at high temperature (the band moved up with the logit scale); or the entropy still below 1 nat at T = 16
+
+_commit `0d4f292d619c` (dirty worktree)_
