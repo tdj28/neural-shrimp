@@ -23063,3 +23063,9 @@ _commit `f446ced757a4` (dirty worktree)_
 Sole trajectory001 frombe709c95, plan402d4b10/card75ebe71e. Preflighte693f675 verifies10 capsule files/10 immutable input byte rows, exact live Task18 ownership and36GiB floor; no input payload decode. Startupd7cc6ca6 retains tool session57156, waiter1440503/start191022134, launcher1440568/start191022144, worker1440586/start191022288, nice10/12GiB/CPU2 and current46.94GB available. Root read full actual startup and accepted. Task18 session44216 remains unchanged; original001 preserved. Six total/three auxiliary CPU slots, hard deadlines unchanged, no result interpreted. Saved001/optional cells unlaunched. Next useful health at completion or08:00UTC.
 
 _commit `be709c95e93e` (dirty worktree)_
+
+## 2026-10-14 07:55 UTC: G2 partial: Llama-3.3-70B gain split; the other two models failed on disk space; a possible unsteered chaotic cell above B2's range
+
+Pod 57gtlrjehean9v (SECURE 2xH200, rc 0, hash verified, terminated; 1075 s). gain-llama3.3-70b completed; llama3.1-70b and qwen72b failed: the HF xet chunk cache kept a second copy of the first checkpoint after its deletion, and the next downloads ran out of disk ('No space left on device'; IncompleteSnapshotError). Fixed (HF_HUB_DISABLE_XET=1, cache removal). Llama-3.3-70B vs Llama-3.1-8B at matched entropy: H 1-3: net -0.59 vs -0.05, read -2.33 vs +0.19 (medians); H 6-10: net -0.19 vs +0.28, read -0.24 vs -0.20; H > 10: net -0.72 vs -1.03, read -1.66 vs -1.75. Both factors are lower at 70B at moderate entropy, the readout most; at high entropy the network factor differs. NEW: at log10 T 0.304 (H 7.86) the 70B gives exponent +0.176 with no period (net +0.242, read -0.066), just above B2's range (which ended at 0.3); neighbours 0.267 (-0.56) and 0.341 (period 1, -1.26). 1000-step, one-offset label: to be confirmed (B6: robust line test 0.25..0.60).
+
+_commit `18314b4ded41` (dirty worktree)_
