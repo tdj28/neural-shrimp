@@ -25,7 +25,7 @@ MODELS = [
     ("Qwen2.5", "3B", 3.09, [P + "big/qwen3b-alpha0-wide"]),
     ("Qwen2.5", "7B", 7.62, [P + "controls/q7-alpha0"], [P + "big/qwen7b-alpha0-wide"]),
     ("Qwen2.5", "14B", 14.7, [P + "big/qwen14b-alpha0-wide"]),
-    ("Qwen2.5", "32B", 32.5, [P + "big/qwen32b-alpha0-wide"]),
+    ("Qwen2.5", "32B", 32.76, [P + "big/qwen32b-alpha0-wide"]),
     ("Qwen2.5", "72B", 72.7, [P + "big/qwen72b-alpha0", P + "big/qwen72b-alpha0-highT"]),
     ("Llama-3.1", "8B", 8.03, [P + "llama8b-hires/alpha0"], [P + "big/llama3.1-8b-alpha0-wide"]),
     ("Llama-3.1", "70B", 70.6, [P + "big/llama3.1-70b-alpha0"]),

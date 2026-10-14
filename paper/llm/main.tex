@@ -1057,8 +1057,9 @@ Is the chaos of the loop a small-model effect that larger models leave behind? W
 fifteen models: Qwen2.5 at seven sizes from 0.5B to 72B parameters, OLMo-2 at 1B, 7B, 13B and 32B, Llama-3.1 at 8B
 and 70B, Llama-3.3-70B, and the mixture of experts Qwen3.5-35B-A3B, all with the paper's prefix and the settings of
 Section~\ref{sec:methods} (1000 transient and 2000 measured steps in float64; chaotic: a positive exponent and no
-period). Models above 8B parameters keep their decoder weights in the stored bfloat16 and use them in float64, which
-reproduces the float64 map exactly (bitwise on Qwen2.5-0.5B); the 70B-class models are spread over two GPUs. The 7--8B
+period). Every checkpoint is stored entirely in bfloat16 (checked against its safetensors metadata). The newer sweeps
+keep the decoder weights in that format and use them in float64, which reproduces the map with float64 weights
+exactly (bitwise on Qwen2.5-0.5B); the 70B-class models are spread over two GPUs. The 7--8B
 and 70B-class models had shown a steep decline of chaos with size. Before measuring the others we fixed three
 predictions that extrapolate it (\texttt{docs/scaling-predictions.md}): within each family, every model above 8B is
 less chaotic than the family's 7--8B model (P1); the chaotic share does not increase with size above 7B (P2); and at
@@ -1087,7 +1088,7 @@ Qwen2.5-1.5B & 1.5 & 2/130 (1.5) & 0 & $-1.0$ to $0.6$ & 0.231 & 0.191 & $+0.85$
 Qwen2.5-3B & 3.1 & 0/130 (0.0) & 0 & $-1.0$ to $0.6$ & 0.030 & 0.060 & $+0.85$ \\
 Qwen2.5-7B & 7.6 & 65/512 (12.7) & 6 & $-1.0$ to $0.6$ & 0.226 & 0.249 & $+0.88$ \\
 Qwen2.5-14B & 14.7 & 0/130 (0.0) & 0 & $-1.0$ to $0.6$ & 0.050 & 0.191 & $+0.81$ \\
-Qwen2.5-32B & 32.5 & 0/130 (0.0) & 0 & $-1.0$ to $0.6$ & 0.010 & 0.091 & $+0.36$ \\
+Qwen2.5-32B & 32.8 & 0/130 (0.0) & 0 & $-1.0$ to $0.6$ & 0.010 & 0.091 & $+0.36$ \\
 Qwen2.5-72B & 72.7 & 0/128 (0.0) & 0 & $-1.0$ to $1.2$ & 0.000 & 0.014 & $-0.45$ \\
 Llama-3.1-8B & 8.0 & 96/512 (18.8) & 2 & $-1.0$ to $0.6$ & 0.241 & 0.634 & $+0.66$ \\
 Llama-3.1-70B & 70.6 & 3/128 (2.3) & 28 & $-1.0$ to $0.3$ & 0.031 & 0.307 & $+0.41$ \\
@@ -1193,9 +1194,9 @@ Gaussian); cells with neither a period nor a positive exponent: 468, 358, 223 an
 \paragraph{What this implies for larger models.} Our data give no reason to expect a model to be free of this chaos
 because it is large. In Qwen2.5 and Llama-3 the largest models are nearly stable in the loop, because their network
 or their readout damps a change of the fed-back token, but OLMo-2-32B is more chaotic than its 7B and 13B relatives,
-and post-training alone takes Llama's 70B model from 2.3\,\% to none. What decides is the gain of the loop at the
-temperatures where the model's next-token distribution is spread, and the breadth of that regime, which can be
-measured for any open model, predicts it better than size. Even the most stable models keep narrow chaotic windows
+and two 70B Llama checkpoints that differ in post-training differ from 2.3\,\% to none. What the chaos follows is the
+gain of the loop at the temperatures where the model's next-token distribution is spread, and the breadth of that
+regime, which can be measured for any open model, orders our fifteen models better than their size does. Even the most stable models keep narrow chaotic windows
 at the transition from sharp to spread distributions, which a coarse temperature grid misses. For a larger model we
 would therefore expect chaos in this loop, if anywhere, near that transition, and we would measure the breadth of
 its intermediate-entropy regime before predicting how much.
