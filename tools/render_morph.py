@@ -2,7 +2,7 @@
 of the attractor reached from the fixed start, both with fixed colour scales), the rotation angle from the first
 direction and a progress bar; then an H.264 MP4 with ffmpeg, and a figure of sample frames for the paper.
 
-Usage: python tools/render_morph.py FRAMES_DIR VECTORS_DIR OUT_DIR [--fps 24] [--samples 6] [--model LABEL]
+Usage: python tools/render_morph.py FRAMES_DIR VECTORS_DIR OUT_DIR [--fps 24] [--samples 6] [--model LABEL] [--step 2]
        (FRAMES_DIR holds frame-NNN/scan.npz; paths relative to the data folder's explore/)
 """
 import argparse
@@ -17,15 +17,15 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "tools"))
 
 
-def frames(folder):
-    found = sorted(folder.glob("frame-*/scan.npz"))
-    if not found:
-        raise SystemExit(f"no frames in {folder}")
+def frames(folder, step=1):
+    """Frame indices with a finished map (frame-NNN/scan.npz), sorted, and the planned indices on the grid of the
+    given step between the first and last that have none (reported, and bridged in the video)."""
+    found = sorted(folder.glob("frame-*/scan.npz"), key=lambda p: int(p.parent.name.split("-")[1]))
+    if len(found) < 2:
+        raise SystemExit(f"fewer than two frames in {folder}")
     idx = [int(p.parent.name.split("-")[1]) for p in found]
-    if idx != list(range(idx[0], idx[0] + len(idx))):
-        missing = sorted(set(range(idx[0], idx[-1] + 1)) - set(idx))
-        raise SystemExit(f"frames missing: {missing[:20]}")
-    return idx, found
+    missing = sorted(set(range(idx[0], idx[-1] + 1, step)) - set(idx))
+    return idx, found, missing
 
 
 def main():
@@ -42,9 +42,14 @@ def main():
     ap.add_argument("--fps", type=int, default=24)
     ap.add_argument("--samples", type=int, default=6)
     ap.add_argument("--model", default="Qwen2.5-0.5B-Instruct")
+    ap.add_argument("--step", type=int, default=1, help="planned spacing of the frame indices")
+    ap.add_argument("--seconds-per-index", type=float, default=1 / 12,
+                    help="video time per frame index: each map is held until the next one, so the rotation advances "
+                         "at a constant rate and missing frames are bridged by a longer crossfade")
     args = ap.parse_args()
     base = ela.DATA / "explore"
-    idx, paths = frames(base / args.frames)
+    idx, paths, missing = frames(base / args.frames, args.step)
+    print(json.dumps({"frames": len(idx), "missing": missing}), flush=True)
     info = json.loads((base / args.vectors / "vectors.json").read_text())
     angle_total = np.degrees(info["angle_rad"])
     out = Path(args.out)
@@ -88,9 +93,18 @@ def main():
                  f"state; constant push size", fontsize=12, color="0.35")
         fig.savefig(out / "png" / f"frame-{k:03d}.png", dpi=100)
         plt.close(fig)
-    subprocess.run(["ffmpeg", "-y", "-loglevel", "error", "-framerate", str(args.fps), "-start_number", str(idx[0]),
-                    "-i", str(out / "png" / "frame-%03d.png"), "-c:v", "libx264", "-pix_fmt", "yuv420p", "-crf", "18",
-                    "-movflags", "+faststart", str(out / "morph.mp4")], check=True)
+    # concat list: each map held until the next available one (constant rotation speed), then 24 fps with linear
+    # blending between consecutive maps (ffmpeg framerate filter), which bridges the missing frames
+    lines = []
+    for j, k in enumerate(idx):
+        nxt = idx[j + 1] if j + 1 < len(idx) else k + args.step
+        lines += [f"file '{(out / 'png' / f'frame-{k:03d}.png').resolve()}'", f"duration {(nxt - k) * args.seconds_per_index:.6f}"]
+    lines.append(f"file '{(out / 'png' / f'frame-{idx[-1]:03d}.png').resolve()}'")
+    (out / "frames.txt").write_text("\n".join(lines) + "\n")
+    subprocess.run(["ffmpeg", "-y", "-loglevel", "error", "-f", "concat", "-safe", "0", "-i", str(out / "frames.txt"),
+                    "-vf", f"framerate=fps={args.fps}:interp_start=0:interp_end=255:scene=100",
+                    "-c:v", "libx264", "-pix_fmt", "yuv420p", "-crf", "18", "-movflags", "+faststart",
+                    str(out / "morph.mp4")], check=True)
     pick = np.linspace(0, len(idx) - 1, args.samples).round().astype(int)
     fig, axes = plt.subplots(1, len(pick), figsize=(3.0 * len(pick), 3.2), squeeze=False)
     for ax, j in zip(axes[0], pick):
@@ -104,9 +118,10 @@ def main():
     axes[0, 0].set_ylabel("log10 T", fontsize=8)
     fig.tight_layout()
     fig.savefig(out / "morph-samples.png", dpi=250)
-    (out / "morph-shares.json").write_text(json.dumps([{"frame": k, "s": s, "chaotic_share": c}
-                                                       for k, s, c in shares], indent=1))
-    print(json.dumps({"frames": len(idx), "mp4": str(out / "morph.mp4"), "samples": str(out / "morph-samples.png")}))
+    (out / "morph-shares.json").write_text(json.dumps({"missing_frames": missing, "frames": [
+        {"frame": k, "s": s, "chaotic_share": c} for k, s, c in shares]}, indent=1))
+    print(json.dumps({"frames": len(idx), "missing": len(missing), "mp4": str(out / "morph.mp4"),
+                      "samples": str(out / "morph-samples.png")}))
 
 
 if __name__ == "__main__":
