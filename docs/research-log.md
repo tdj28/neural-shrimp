@@ -23006,3 +23006,12 @@ _commit `b7fe2c39180d` (dirty worktree)_
 Original source2e44d7b0, receipt353d1ad1 and closurec62624fc: setsid without --wait detached, tool dispatch exit0 closed stdout, launcher registration print raised BrokenPipeError and terminated its worker (exit−15,1.999s). All14 artifacts and original group absence verified; no numerical result. Root and independent reviewer accept literal attempt-path changes plus persistent stdout/stderr and setsid --wait for a fresh002, with unchanged science/resources. Prepared002 committed before admission-only transition; no automatic retry. Eleven launcher controls and a tiny nonmodel forced-fork/exit7/stdout fixture pass; no numerical rerun.
 
 _commit `2e44d7b07516` (dirty worktree)_
+
+## 2026-10-14 07:25 UTC: run (exploratory)
+
+- **Question:** Execute the unchanged independent Task18 experiment under the reviewed explicit operational recovery after startup001 pipe failure.
+- **Setup:** Root and independent review18a75774 accept attempt002 only. Prepared source1b03ae43 preserved, original failure353d1ad1/closurec62624fc unchanged. Plan 98a01706d756e3271f3f566dedf792719bf088055ba084c753b199b649b198c4; card 8f44e3255796dd2529840a32ca4a213987d5a68f3f2b31170aa7aa7f5fb1f5f5; launcher980275e4; dispatch5f126aa4 persistent stdout/stderr+setsid --wait; preflight7fc17e94. Science analysis a5553396 and map493a3d1d unchanged; worker80bf95a9 changes only literal output identity. CPU2+supervisor/nice10/12GiB/3600s+10s cleanup/512MiB, fresh36GiB start/runtime16GiB. Record waiter/tool/launcher/worker exact identity and exits. No automatic retry or new timing profile.
+- **Output:** `../neural-shrimp-data/codex/llm-loop-gain-crosscheck/run-002`
+- **Would surprise us:** Any original numerical gate fails or aligned independent spectra disagree; retain without retuning.
+
+_commit `1b03ae436fbf` (dirty worktree)_

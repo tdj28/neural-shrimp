@@ -1,13 +1,12 @@
 # Task18 status
 
-2026-10-14 07:20 UTC: run-001 failed operationally at the launcher registration
-print with BrokenPipeError after outer setsid detached and the tool stdout pipe
-closed. Original worker exit -15, no numerical result; all 14 artifacts verified
-and both original PID/birth/groups/sessions absent. Original receipt353d1ad1
-and closurec62624fc remain immutable; run-001-failure-closure.json records them.
+2026-10-14: attempt001 operational failure and closure are preserved. Root and
+independent review18a75774 accepted one explicit attempt002 with retained outer
+stdout/stderr and setsid --wait. Prepared recovery is private at1b03ae43.
+The admitted plan/card await private checkpoint and fresh reviewed preflight;
+no live job or reservation yet. All numerical gates and resources are unchanged.
 
-Root and independent review accept the narrow recovery: literal002 paths only,
-setsid --wait plus persistent outer stdout/stderr. New run-002 plan/card are
-prepared, awaiting admission checkpoint/fresh preflight. No active reservation.
-Original numerical source, parameters, gates and 3600s/12GiB envelope unchanged.
-Task19 source preparation is accepted separately; no target run yet.
+Original attempt001 receipt353d1ad1 and closurec62624fc: no numerical result,
+worker exit−15, all14 artifacts checked and original groups absent. Eleven
+launcher controls and a tiny nonmodel forced-fork pipe/wait fixture passed.
+Task19 accepted science remains in separate preparation;17,16,15 follow.
