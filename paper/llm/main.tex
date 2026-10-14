@@ -896,6 +896,19 @@ at layer 12, $\log_{10}T=-0.115$) against $\eps$, for the exact map and for mean
 \label{fig:bridge}
 \end{figure}
 
+\paragraph{Soft thinking with a growing context.} Soft Thinking \cite{zhang2025softthinking} feeds back the same
+expected embedding but appends it to the context, so that every earlier soft token stays visible. We ran that
+decoding in float64 from the paper's prompt and displaced the first soft token of twin trajectories by $10^{-10}$,
+without renormalization; the distance between the newest soft tokens then shows whether the early perturbation grows.
+The context grows, so these are finite-time growth rates of a non-autonomous system, not exponents of an attractor.
+In Qwen2.5-7B the perturbation grows exponentially at temperatures inside the one-token map's chaotic range: by 0.78
+to 0.82 per step at $\log_{10}T=0.17$ and $0.21$, reaching $10^{-3}$ within 50 to 58 steps, and by 0.02 to 0.18 per
+step at eight other temperatures between $-0.10$ and $0.40$. It does not grow at the sharpest distributions
+($\log_{10}T\le-0.14$) or at nearly uniform ones ($\log_{10}T\ge0.44$), where it stays between $10^{-13}$ and
+$10^{-7}$ for 400 steps. In Qwen2.5-0.5B the growth moves to sharper distributions ($\log_{10}T$ from $-0.30$ to
+$-0.07$, up to 0.33 per step) and is absent from 0.13 up, which includes its narrow one-token chaotic band. Sensitive
+dependence therefore survives when the whole context is kept, and in the 7B model the one-token map locates it.
+
 \section{Replication and scale}
 \label{sec:scale}
 In Qwen2.5-1.5B (steering at layer 14 of 28), a coarse $64^2$ float64 map over the same range again shows chaotic
@@ -1210,6 +1223,14 @@ per step) although its network factor is higher in two of them, whereas OLMo-2-3
 higher readout factor than the 7B in all three ($+0.10$ to $+0.35$), positive as in the chaotic 7--8B models. These
 are descriptive comparisons of trained checkpoints, not interventions on size or post-training: the split is a
 decomposition along the evolving tangent direction, and equal entropy does not imply equal embedding covariance.
+An intervention separates the two factors at 72B. If its loop were stable only because its distribution jumps from
+sharp to flat, holding the distribution in between should destabilize it. We therefore choose each step's
+temperature so that the next-token entropy equals a target and sweep the target instead of the temperature
+(entropy-clamped decoding; the map stays smooth and deterministic, and the entropy holds to $10^{-14}$). Held at any
+of 16 targets between 1 and 11 nats, Qwen2.5-72B has only periodic orbits, the echo of period 2 on the paper's prompt
+and periods 1 to 19 on a held-out prompt, with exponents between $-0.08$ and $-4.5$ that twins at $10^{-5}$ to
+$10^{-7}$ reproduce within 0.003, whereas Qwen2.5-0.5B under the same clamp is chaotic at 6.1 nats. Its network damps
+the fed-back token even where the readout is spread.
 
 \begin{figure}[H]
 \centering
