@@ -949,6 +949,26 @@ snapshot_download('$REPO', revision='$MREV', cache_dir='$NEURAL_SHRIMP_DATA/mode
     done
     unset HF_TOKEN
     ;;
+  softthink)   # growing-context soft thinking twins (runs ST): JOBARGS MODEL [MODEL...]. Per model (pinned, plain download):
+               # tools/soft_thinking_twins.py, unsteered, paper's prompt, 24 temperatures over log10 T -0.3..0.6, 400 steps,
+               # 3 twins at eps0 1e-10, float64 with bf16 storage on one GPU, into big/MODEL-softthink
+    for model in "${JOBARGS[@]}"; do
+      case $model in
+        qwen0.5b)    REPO=Qwen/Qwen2.5-0.5B-Instruct;        MREV=7ae557604adf67be50417f59c2c2f167def9a775 ;;
+        qwen7b)      REPO=Qwen/Qwen2.5-7B-Instruct;          MREV=a09a35458c702b33eeacc393d103063234e8bc28 ;;
+        *) log "unknown model $model"; continue ;;
+      esac
+      log "download $REPO"
+      HF_HUB_DISABLE_XET=1 HF_HUB_OFFLINE=0 $PY -c "
+from huggingface_hub import snapshot_download
+snapshot_download('$REPO', revision='$MREV', cache_dir='$NEURAL_SHRIMP_DATA/models/hf/hub',
+                  allow_patterns=['*.json', '*.safetensors', '*.txt'], max_workers=16)" > "$LOGS/setup-$model.log" 2>&1
+      mdir="$NEURAL_SHRIMP_DATA/models/hf/hub/models--${REPO/\//--}"
+      mkdir -p "$mdir/refs" && printf %s "$MREV" > "$mdir/refs/main"
+      TOOL=soft_thinking_twins.py run st-$model 60 --model $model --device auto --weights bf16 \
+        --log-temperature -0.3 0.6 --n 24 --steps 400 --twins 3 --eps0 1e-10 --chunk 24 --out $D/big/$model-softthink
+    done
+    ;;
   window)      # chaos with a longer fed-back memory (run WIN): JOBARGS MODEL [MODEL...]. Per model (pinned, plain
                # download) and K in 1 2 4 8 16 soft tokens fed back: tools/hidden_chaos.py line, unsteered, paper's prompt,
                # 24 temperatures over log10 T -0.3..0.6, twins 1e-5 and 1e-7, 500 + 1000 steps, float64 with bf16 storage

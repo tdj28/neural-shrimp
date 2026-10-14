@@ -23502,3 +23502,13 @@ Disclosure: this local exploratory run had no run card beforehand (the first att
 - **Question:** does a perturbation of the first soft token grow when every expected embedding is appended to the context (Soft Thinking, Zhang et al. 2025) instead of fed back through a one-token window? Validation of tools/soft_thinking_twins.py before any pod run.
 - **Setup:** local GPU, Qwen2.5-0.5B-Instruct, paper's prompt, unsteered, float64 bf16 storage, 8 temperatures over log10 T 0.0..0.3 (the one-token map is chaotic at 7 temperatures between 0.155 and 0.214 and periodic elsewhere), 400 steps, 3 twins at eps0 1e-10, growth rate = slope of log d over 1e-9 <= d <= 1e-3 (no renormalization).
 - **Output:** `../neural-shrimp-data/explore/scratch/st0-q05`
+
+## 2026-10-14 17:50 UTC: ST0 result (local): in growing-context soft thinking, Qwen2.5-0.5B shows no sustained growth of an early perturbation; one transient burst at log10 T 0
+
+tools/soft_thinking_twins.py, Qwen2.5-0.5B-Instruct, paper's prompt, float64 on the local GPU, 8 temperatures over log10 T 0.0..0.3, 400 steps, 3 twins at eps0 1e-10 (output ../neural-shrimp-data/explore/scratch/st0-q05). Growth rates (slope of log d over 1e-9..1e-3, else over all steps): log10 T 0.0 (entropy 0.76 nats): +0.58 to +0.60 per step, d reaches 1e-3 at step 73-75, peaks near 2e-2 at step 100, then decays (8e-4 at 200, 2e-5 at 400): a transient burst. 0.043-0.300 (entropy 1.3-10.9 nats): -0.014 to +0.006 per step; d stays between 1e-13 and 2e-6 for 400 steps, neither growing exponentially nor dying out. This includes 0.171 and 0.214, inside the band where the one-token map is chaotic (exponents up to 0.28). Reading: with the whole context kept, as in Soft Thinking, the perturbation's influence persists at a roughly constant level (the context remembers it) instead of growing; the one-token chaos does not carry over to this 0.5B setting. Next: the same on Qwen2.5-7B (ST1), whose one-token map is broadly chaotic.
+
+## 2026-10-14 17:50 UTC: run (exploratory): ST1, growing-context soft thinking twins on Qwen2.5-7B
+
+- **Question:** does the 7B, broadly chaotic as a one-token map (log10 T -0.11..0.38), show sustained growth of an early perturbation under growing-context soft thinking?
+- **Setup:** one pod, 1 GPU (H100 class), job set softthink: Qwen2.5-7B-Instruct pinned as in scaleset, paper's prompt, unsteered, float64 bf16 storage, 24 temperatures over log10 T -0.3..0.6, 400 steps, 3 twins, eps0 1e-10; then the same for Qwen2.5-0.5B on that grid.
+- **Output:** `../neural-shrimp-data/explore/llm-soft-loop/pod64/big/{qwen7b,qwen0.5b}-softthink`
