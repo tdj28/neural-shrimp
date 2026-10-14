@@ -1374,6 +1374,13 @@ sixth test, a cusp pilot in a second checkpoint, is the unreported bounded searc
   (Section~\ref{sec:misalignment}), whose design was pushed before the data and amended, before any outcome was read,
   to correct a labelling error.
 \end{itemize}
+\paragraph{Hardware.} Float64 GPU computations ran on rented NVIDIA H100 (NVL, PCIe and 80\,GB HBM3) and A100
+80\,GB (SXM4 and PCIe) GPUs, one GPU per run; cross-checks and the interval proof ran on CPUs. The manifest
+\path{docs/manifests/runpod-runs.json} records, for every run, the GPU type, the code commit, the job and its
+arguments, the wall time, the exit status and the hashes of the uploaded inputs and the retrieved results (138 runs
+with results on 14 October 2026). GPU types round float64 reductions differently, so quantities used across runs
+were checked across hardware where it mattered (for example, flip parameters agree between CPU and H100 to
+$4\times10^{-15}$).
 {\sloppy Code: \path{tools/explore_llm_soft_loop.py}, \path{tools/bifurcation_curves.py}, \path{tools/llm_feigenbaum.py},
 \path{tools/explore_latent_loop.py}, \path{tools/explore_llm_msm.py}, \path{tools/hostility_score.py},
 \path{tools/p1_committor.py}, \path{tools/p1_controller.py}, \path{tools/p1_degeneracy.py},

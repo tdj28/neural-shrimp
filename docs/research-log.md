@@ -22680,3 +22680,9 @@ _commit `95d0e3e207bb`_
 - **Would surprise us:** no feature passes the held-out check for either set
 
 _commit `95d0e3e207bb` (dirty worktree)_
+
+## 2026-10-14 00:56 UTC: GPU types documented: committed run manifest
+
+The human asked whether we track the GPU types. The raw records already held them (runpod/soft64/*/result.json and runpod/pods.jsonl, data folder, not committed). New tools/runpod_manifest.py writes docs/manifests/runpod-runs.json: every pod created (169 at 01:05 UTC 14 Oct), and for the 138 runs with results the GPU type and cloud, pod name, commit, job set and arguments (recorded since 13 Oct), extra uploads, start time, wall time, exit status, upload hashes, result hash and output folders read from each results archive. Runs by GPU: H100 NVL 77, H100 80GB HBM3 34, A100-SXM4 12, H100 PCIe 8, A100 80GB PCIe 7. 31 pods have no result (refused by the cost check, failed in setup or terminated). The manifest holds no dollar amounts; the generator refuses cost fields. Regenerate it after each batch of runs. The paper's evidence section gained a Hardware paragraph citing the manifest.
+
+_commit `d702fc2fb58c` (dirty worktree)_
