@@ -22821,3 +22821,27 @@ _commit `2f245d7515aa` (dirty worktree)_
 G1 (run card above; local CPU float64). identity: max relative error 1.34e-13 over 8 random directions (period-8 cell, alpha 0.071674, log10 T -0.115, after 1000 transient steps). orbit (period 8, closure 2.0e-15): monodromy from 8 dense forward-mode Jacobians gives mu1 = +0.011040, mu2 = -2.96e-7, mu3 = -6.8e-9 (Table orbits: +0.0110, 3e-7; independent method agrees). Per step: entropy 0.11..3.51 nats, leading probability 0.22..0.99; Sigma_p second/first eigenvalue 0.24..0.74 (NOT nearly rank-one); DF largest singular value 1.24..20.9 at every step (every step expands some direction), second/first 0.15..0.89. Products: prod sigma1 = 1.07e7 vs |mu1| = 0.011; prod sigma1 sigma2 = 4.2e10 vs |mu1 mu2| = 3.3e-9; prod (sigma2/sigma1) = 3.7e-4 vs |mu2/mu1| = 2.7e-5. Reading: the heuristic that the orbits' compression comes from near-rank-deficient Sigma_p at sharp steps is refuted (would surprise us: 'Sigma_p not nearly rank-one at most steps' happened). Contraction and compression are properties of the composed loop, not of single steps. Follow-up: rerun orbit mode with monodromy singular values (norm of the composed map) and saved Jacobians to see whether the monodromy is normal-like (norm close to |mu1|) or strongly non-normal.
 
 _commit `e93992ba9df9` (dirty worktree)_
+
+## 2026-10-14 03:58 UTC: run (exploratory)
+
+- **Question:** G1b: is the period-8 monodromy normal-like (norm near |mu1| = 0.011) or strongly non-normal (norm far above it)? Decides how to describe stability 'belonging to the loop'.
+- **Setup:** As G1 orbit mode (local CPU float64, Qwen2.5-0.5B, philosophy layer 12, alpha 0.071674, log10 T -0.115, period 8, transient 1000), at the commit adding monodromy singular values and saving the 8 dense step Jacobians.
+- **Output:** `../neural-shrimp-data/explore/llm-soft-loop/softmax-gain/p8b`
+- **Would surprise us:** monodromy norm below 0.02 (normal-like) would make the misalignment reading direct; a norm above 1 means strong transient amplification inside the cycle
+- **Command:** `bash -c set -o pipefail; uv run --no-sync python tools/softmax_gain.py orbit --vectors llm-phase-map/vectors-l12 --concept philosophy --alpha 0.071674 --log-temperature -0.115 --period 8 --out llm-soft-loop/softmax-gain/p8b 2>&1 | grep -v Warn | tail -25`
+
+_commit `88e78bb04944` (dirty worktree)_
+
+- run started 2026-10-14 03:58 UTC (../neural-shrimp-data/explore/llm-soft-loop/softmax-gain/p8b) finished 04:04 UTC with exit status 0
+
+## 2026-10-14 04:05 UTC: G1b: the period-8 cycle contracts in norm while every step expands
+
+G1b (run card above; output softmax-gain/p8b, dense step Jacobians saved in orbit-jacobians.npz). Closure 2.0e-15; multipliers 0.011040, 2.96e-7, 6.8e-9, 6.8e-11 (as G1). Monodromy singular values 0.1929, 7.8e-6, 8.2e-8, 1.4e-9: the composed cycle has norm 0.19 (17 times |mu1|, mildly non-normal) against prod of step norms 1.07e7, and is effectively rank one (sigma2/sigma1 = 4.0e-5) although no step is (step sigma2/sigma1 >= 0.153; Sigma_p ev2/ev1 >= 0.236). Every step expands (step sigma1 1.24..20.9). Paper (theory section): 'Stability belongs to the loop, not to the step'; the near-rank-one explanation via Sigma_p is not used.
+
+_commit `88e78bb04944` (dirty worktree)_
+
+## 2026-10-14 04:20 UTC: H1 result: chaos behind an exactly repeating text in the hostile cascade (65 cells), plus a label comparison
+
+Run H1 (pod 8bdbk1001ct13k, COMMUNITY H100 NVL, runner rc 0, hash verified, terminated; 986 s wall; commit 88e78bb0): tools/hidden_chaos.py line, Qwen2.5-0.5B hostility-vs-kindness (vectors-l12-p1b), alpha 0.0655, log10 T 0.176..0.191, 1400 cells, float64, transient 1000, record 2000, twins 1e-6 and 1e-9. Classes: periodic 1111, visible chaos 117 (positive exponent at both offsets, no state period, aperiodic leading tokens), 'hidden' chaos 65 (positive at both offsets, no state period, but the leading-token sequence exactly periodic over all 2000 steps), irregular 107 (no period up to 64, exponents -0.043..+0.0004, not positive at both offsets). Offsets agree for all chaotic cells (max |l1-l2| 0.0031, median 0.0004). The 65 periodic-text chaotic cells have leading-token periods 7 (26 cells), 28 (27), 10, 14, 17, 21, 24, 56 and 6-11 distinct tokens; lambda_min median 0.026, 35 cells above 0.02 (well above log(N)/N ~ 0.004 for a neutral direction), 55 above 0.01; strongest at log10 T 0.18995 (0.0895/0.0901, text period 7: 'I', '!', 'Yes', ' heels', '\n\n', 'pee'). No cell has a single fixed leading token (the original hidden-chaos idea is not observed). Reading: band chaos after the period-7 doubling cascade; the bands are visited in a fixed order that the argmax partition cannot resolve, so the greedy text repeats exactly while the state is chaotic. Label comparison with the 400-step scan of the same line (hcascade/tline-a0.0655) is NOT clean: its grid differs (0.176..0.1935); at the nearest long-test cell, 115 of 205 short-chaotic cells are chaotic, 82 periodic, 8 irregular. H2 repeats the line on the exact grid. Next: trace of the strongest cell (bands), H2 horizon check.
+
+_commit `a04d8069d97a` (dirty worktree)_
