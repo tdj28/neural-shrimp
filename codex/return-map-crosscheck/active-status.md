@@ -1,3 +1,15 @@
+# Task19 current status: both optional trajectories closed; final13 saved review admitted
+
+Primary/all65 and optional04 are accepted complete. Optional13 original session81164 reaped0 at09:29:37UTC. Receipta28412a2 records computationalcompletion, no timeout/uncertainty, worker992.153051s/5,339,140KiB and external993.941610s. Metadata-only closured6ce4750 authenticates43 immutable artifacts145,705,524B/11Gitblobs and all original waiter/launcher/worker births/groups/sessions absent. No13 scientific rows read by coordinator; zero live reservations at this checkpoint.
+
+Root accepted the exact final13 saved-reviewcard81f80a17, unchangedreviewer38a534ea and supervisor82b5501f. One CPU1+supervisor/nice10/4GiB/120s/16MiB check follows this private checkpoint and fresh20GiB/runtime16GiB admission; no model/fitting/root/eigen replay. Exactpreparedhistory is preserved at stress-cell13-review-preparation-001 with its trackedreceipt. No retry or extension.
+
+Task18 remainscomplete/delivered. Human priority18/19withaddendum, then17/16/15; later tasks unstarted. Limited producer08:28/08:48 logsummary exposure remains disclosed; no frozenchoice changed. Inference retains soleGit/process ownership. Updated 2026-10-14T09:32:02.989741+00:00.
+
+---
+
+## Historical phase before optional13 closure
+
 # Task19 current status: optional04 accepted complete; optional13 running
 
 Primary and all65 replay remain accepted. Optional04 is accepted complete on originalreceipt0023017e/closureb2dbd356, savedreview65a2e62c/finalauthority4e220d4b and fullscientificreport3e1cf27f/extract5456b7d1. Separate stress-cell04-final-review.json records final acceptance; original pending records remain unchanged. Full finite10tokencycle matches; original ownphase6 differs materially from producerphase1, while amended/purged aggregates agree closely with own twinmean. Every qualified scalarfit has maximum+minimum. All failures/outliers/rounding differences remain; no globalchaos/conjugacy claim.

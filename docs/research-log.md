@@ -23234,3 +23234,10 @@ Fresh13preflight1b9a1a63 passed11source/10input/3closedauthorities at56.77GBavai
 Pod 4zy4fewoxsrz2p (SECURE 1xH200, rc 0, hash verified, terminated; 2566 s; commit 9fc7f33a). scaleset: Qwen2.5-32B-Instruct (5ede1c97), float64 bf16-storage, 160 temperatures over log10 T -1..0.6 (1000 + 2000 steps, twin 1e-6, max period 64): chaotic 0/130 in -1..0.3 and 1/160 overall, at log10 T 0.58 (exponent 0.356, entropy 10.9). Entropy on the attractor 0.0/0.02/0.13/0.94/11.6 nats at log10 T 0/0.15/0.3/0.45/0.6: the '! Hello' echo (period 2, 146 cells) holds until the jump, where the single chaotic cell sits. Gain split (24 T over -0.3..0.9): network factor -2.2..-1.1 at low T, +0.8..+1.5 above log10 T 0.45; readout factor -6.6..-1.0 (dominant contraction). Frozen prediction P1 holds for Qwen-32B (0 % vs 12.7 % at 7B).
 
 _commit `aacd275cbb3d`_
+
+
+## 2026-10-14T09:32:02.989741+00:00 — Optional13 original closure and sole saved-review admission
+
+Original13 session81164 reaped0; receipta28412a2 computationally complete. Worker992.153051s/5,339,140KiB versus external993.941610s; no timeout or ownershipuncertainty. Exactclosured6ce4750 authenticated43artifacts145,705,524B/11Gitblobs/allthreebirthgroupssessionsabsent in0.138844s, with no numericaldecode. All originalevidence remains immutable.
+
+Root accepted finalcard81f80a17, unchangedreviewer38a534ea and supervisor82b5501f, ten literalactualclosureassertions plus originalcard2edbeea4/dispatchfed1a83a. This privatecheckpoint precedes sole CPU1+supervisor/nice10/4GiB/120s+5+5cleanup/16MiB savedreview, start20GiB/runtime16GiB. Prior same-structure04 audit0.462737s/381092KiB and actual145.71MB inventory inform bounds, not a timingguarantee. Preparedhistory /data2/neural-shrimp-data/codex/llm-return-map-crosscheck/stress-cell13-review-preparation-001, manifest90a774a102ced969579fe2663ea8d53c5010e0842db2ce8209bed70a6fd7bff9. No model,refit,root/eigen replay or retry. All adversefindings and nonzero comparisons retained.
