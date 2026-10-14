@@ -1872,7 +1872,10 @@ the 0.5B maps are as chaotic as along the concept directions (Figure~\ref{fig:co
 6.8\,\% for philosophy and 7.5\,\% for gratitude. In all five maps the chaotic share rises from about 1\,\% at
 $|\alpha|<0.01$ to between 5 and 22\,\% at larger $|\alpha|$, and a chaotic region at high temperature, with windows
 reaching down, recurs. In this model, chaos under steering is therefore a generic response to perturbing the residual
-stream at this norm. The direction does select the texts. The largest attractor family in all five maps is the
+stream at this norm. Rotating the steering direction makes the same point continuously: along the great circle from
+one Gaussian direction to another, $90^{\circ}$ away, at constant norm, the chaotic regions move and change shape, but
+the chaotic share stays between 13 and 24\,\% at every one of 103 angles (Figure~\ref{fig:morph}; a video of the
+rotation is in the supplementary material). The direction does select the texts. The largest attractor family in all five maps is the
 unsteered period-5 loop, but beyond it only 26 to 56\,\% of one map's cells carry an attractor text that appears
 anywhere in another map. Llama-3.1 8B agrees. On its hostility plane, two norm-matched random directions at the same
 layer give 26 and 17\,\% chaotic cells against 28\,\% along the concept direction; all three carry 34 to 44\,\% near
@@ -1903,6 +1906,18 @@ set of settings): largest Lyapunov exponent along the philosophy and gratitude d
 directions rescaled to the philosophy vector's norm. Titles give the chaotic share (finite-horizon exponent above $10^{-3}$, no period up
 to 48).}
 \label{fig:controls}
+\end{figure}
+\begin{figure}[H]
+\centering
+\includegraphics[width=\linewidth]{fig-morph-samples.png}
+\caption{The soft-token map of Qwen2.5-0.5B-Instruct (steering at layer 12) while the steering direction rotates at
+constant norm from one Gaussian direction ($0^{\circ}$) to another ($90^{\circ}$): largest Lyapunov exponent (red:
+positive) at six of 103 angles, with the chaotic share. Float32 maps of $296\times512$ cells over
+$\alpha\in[-0.12,0.12]$, $\log_{10}T\in[-0.45,0.3]$; exponents from 80 measured steps at twin offset $10^{-4}$; each map
+continues from the final states of the previous angle after 40 steps, and every tenth starts from the fixed start
+after 300 steps, so these short-horizon labels are coarser than those of the float64 maps. Of 120 planned angles, 17
+did not finish within the run limit.}
+\label{fig:morph}
 \end{figure}
 \paragraph{What is and is not claimed.} The objects studied here are invariant sets and bifurcations of an exactly
 defined smooth map built from a frozen model's own computation. We do not claim that ordinary sampled generation is
