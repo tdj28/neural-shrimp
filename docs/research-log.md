@@ -23032,3 +23032,8 @@ _commit `5774339c56d7` (dirty worktree)_
 Source7918af94, plan98a01706/card8f44e325. Preflight260361c0/startup542fb95b passed; tool session44216 with exact waiter1419301,launcher1419367,worker1419396 births retained. CPU2+supervisor/nice10/12GiB/3600s/512MiB, no numerical result interpreted. Original001 failure353d1ad1/closurec62624fc preserved. Theory-source review5eafb53a accepted, numerical verification remains pending; Task19 science accepted and own supervisor preparation continues. Next useful health at its fresh combined preflight or07:45UTC, no tight polling.
 
 _commit `7918af949fa6` (dirty worktree)_
+## 2026-10-14 07:35 UTC: S70M first result: steering along the frozen SAE hostility feature restores chaos in Llama-3.3-70B (3.5 % of cells)
+
+Pod jl9g48i5cdxh7o (SECURE 2xH200, rc 0, hash verified, terminated; 5735 s wall; commit cb5e4cd3). Llama-3.3-70B-Instruct, layer 50, direction sae-hostility-38767 (frozen rule) rescaled to the concept norm 98.43; alpha 0..0.12 x log10 T -0.3..0.3, 32x32, 300 + 300 steps, float64 bf16-storage. Chaotic 36/1024 (3.5 %), largest exponent 0.476; 394 cells without a period up to 32 and exponent <= 1e-3; alpha = 0 column 0/32 chaotic (as B2); chaotic share by |alpha|: 1.0 % (<0.01, cells at alpha 0.004-0.008), 1.9, 3.1, 3.9, 5.5 % (0.09-0.12). Families: ' a fellow AI to' (period 4, 194 cells), 'I' (59), long 'It'suplifting/upgrading the infinite possibilities...' loops. Compare Llama-3.1-8B, same direction class at its SAE layer: 29 %. Reading: at 70B steering opens chaos the unsteered model lacks, but far less of the plane than at 8B. Other directions pending.
+
+_commit `0a8d0f5d7b7e` (dirty worktree)_
