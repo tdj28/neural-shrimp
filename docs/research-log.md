@@ -23172,3 +23172,12 @@ _commit `acf3528d8762` (dirty worktree)_
 Pod stzl0zv5tf4xvj (SECURE 2xH200, rc 0, hash verified, terminated; 3084 s; commit 2db67412). tools/hidden_chaos.py line, Qwen2.5-72B unsteered, float64 bf16-storage over 2 GPUs, 64 temperatures over log10 T 0.355..0.395, 1000 + 2000 steps, twins 1e-6 and 1e-9. PRECISION: the 1e-9 twin gives exponents +1.1..+3.8 at every cell, periodic ones included, while 1e-6 gives the expected negative values at periodic cells: the differences F(x + delta) - F(x) of the 72B computation have a noise floor near 2e-8 (float64 rounding amplified through 80 layers and large activations), so 1e-9 is unusable and the two-offset classification of this run is invalid; 1e-6 is about 50 times above the floor. AGENTS.md precision gate not applied to the 70B path before this run; recorded as a gate failure. RESULT at 1e-6: five cells at log10 T 0.3728..0.3760 (entropy 7.0-7.6 nats, at the jump from the '!Hello' echo to the near-uniform fixed point) have positive exponents 0.082..0.192 and no period, with an exactly repeating leading-token text (' Hello', '!'); neighbours periodic. Consult 7's 'narrow displaced ridge' reading fits. To confirm with offsets 1e-5, 1e-6, 1e-7 on a finer grid (B7b). Implication: the 70B-class 'no unsteered chaos' statements hold for the swept grids only.
 
 _commit `4102aafd2510`_
+
+## 2026-10-14 08:51 UTC: run (exploratory)
+
+- **Question:** B7b: is Qwen2.5-72B's window at log10 T 0.3728..0.376 chaotic with offset-independent exponents (offsets above the 72B noise floor of about 2e-8)?
+- **Setup:** One pod (2 x H200 class), job set bighidden: Qwen2.5-72B unsteered, float64 bf16-storage, 64 temperatures over log10 T 0.370..0.378, 1000 + 2000 steps, twins at 1e-5, 1e-6 and 1e-7, chunk 64. Chaotic: positive at all three offsets, agreeing within 0.05, no period.
+- **Output:** `../neural-shrimp-data/explore/llm-soft-loop/pod64/big/qwen72b-window-line`
+- **Would surprise us:** exponents that change sign between 1e-5 and 1e-7 (then the window's positive exponents are numerical)
+
+_commit `51ab4c9ce152`_
