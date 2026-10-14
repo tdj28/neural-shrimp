@@ -50,13 +50,15 @@ def main():
     chaotic = (L > 1e-3) & (P <= 0)
     print("cells", L.size, "chaotic share", round(float(chaotic.mean()), 4))
     ext = [al[0], al[-1], lt[0], lt[-1]]
-    fig, ax = plt.subplots(figsize=(8.2, 7.6))
+    fig, ax = plt.subplots(figsize=(8.8, 7.6))
     grey = np.where(~chaotic, np.clip(L, -1.0, 0.0), np.nan)
     ax.imshow(grey, origin="lower", extent=ext, aspect="auto", cmap="Greys_r", vmin=-1.0, vmax=0.0,
               interpolation="nearest")
     hot = np.where(chaotic, np.clip(L, 0.0, 0.5), np.nan)
-    ax.imshow(hot, origin="lower", extent=ext, aspect="auto", cmap=ListedColormap(plt.get_cmap("plasma")(
+    im = ax.imshow(hot, origin="lower", extent=ext, aspect="auto", cmap=ListedColormap(plt.get_cmap("plasma")(
         np.linspace(0.15, 0.85, 256))), vmin=0.0, vmax=0.5, interpolation="nearest")
+    cb = fig.colorbar(im, ax=ax, fraction=0.035, pad=0.02)
+    cb.set_label("largest Lyapunov exponent (chaotic cells)", fontsize=9)
     base = ela.DATA / "explore" / CURVES
     for d in sorted(base.glob("curve-*")):
         c = json.loads((d / "curve.json").read_text())
@@ -64,8 +66,8 @@ def main():
         y = [p["log10_temperature"] for p in c["points"]]
         if c.get("kind") == "flip":
             ax.plot(x, y, color="magenta", ls=(0, (1.5, 1.5)), lw=1.8)
-        else:
-            ax.plot(x, y, color="cyan", ls=(0, (6, 3)), lw=1.8)
+        else:                       # solid: some branches were continued from two starts and overlap
+            ax.plot(x, y, color="cyan", lw=1.6)
     for curve, check in CUSPS:
         rows = [json.loads(line) for line in (base / check).read_text().splitlines() if line.strip()]
         c = json.loads((base / curve / "curve.json").read_text())
@@ -83,7 +85,7 @@ def main():
     handles = [Patch(color=plt.get_cmap("plasma")(0.6), label="chaotic (colour: largest exponent)"),
                Patch(color="0.2", label="periodic, strongly contracting"),
                Patch(color="0.85", label="periodic, weakly contracting"),
-               Line2D([], [], color="cyan", ls=(0, (6, 3)), lw=1.8, label="fold curve (float64)"),
+               Line2D([], [], color="cyan", lw=1.6, label="fold curve (float64)"),
                Line2D([], [], color="magenta", ls=(0, (1.5, 1.5)), lw=1.8, label="flip curve (float64)"),
                Line2D([], [], marker="o", ls="", mfc="none", mec="yellow", mew=2, ms=9, label="cusp (normal form)")]
     ax.legend(handles=handles, loc="upper center", bbox_to_anchor=(0.5, -0.09), ncol=3, fontsize=8, frameon=False)
