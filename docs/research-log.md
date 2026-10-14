@@ -22944,3 +22944,9 @@ _commit `763933ad64f1` (dirty worktree)_
 - **Claim impact:** The paper reports the amended method's numbers as the headline, with the pre-specified result in one clause.
 
 _commit `c13faa2f87c7`_
+
+## 2026-10-14 06:41 UTC: H3 amended analysis: 51/62 within 10 %, outlier fixed by the method
+
+Amended method (declared above, code committed before computing): cross-validated Chebyshev degree from {4..24}, single valued when the CV residual < 1e-2, median exponent over single-valued phases. Result (docs: ../neural-shrimp-data/explore/llm-soft-loop/hidden-chaos/h3-cells/return-maps.json): 62/62 cells with single-valued phases (median 10.5 phases), 59 with a unimodal phase; median |discrepancy| 3.7 %; within 10 % in 51/62, within 5 % in 35/62; median relative spread across phases 9.8 %. Period-7 texts: 23/24 within 10 % (median 1.9 %); period-28 texts: 18/27 (median 7.1 %, 72 repetitions, systematic overestimates of small exponents). The former outlier (period 10) is now 0.0533 vs 0.0573 (-7.1 %; phases 1, 6, 9). Remaining >10 %: nine period-28 cells, one period-56 cell (36 repetitions), one period-7 cell at log10 T 0.19026 (+18 %; CV chose degrees 22-24, the top of the declared range). Pre-specified analysis kept and reported in one clause (49/62).
+
+_commit `8f77046c0b2c` (dirty worktree)_

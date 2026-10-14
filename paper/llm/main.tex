@@ -1238,10 +1238,14 @@ probability of the last token, the dynamics is a smooth map with a single quadra
 logistic map: a polynomial of degree 8 fits it to $4\times10^{-4}$ of its range, and the fitted map's Lyapunov
 exponent, 0.647 per repetition, is within 2\,\% of the full map's 0.636 per seven steps, measured with twin
 trajectories in all 896 dimensions. The reduction holds across the cascade. Rerun with the leading-token sequences saved, 62 of the 65 cells are again
-chaotic behind a repeating text; in every one of them some phase of the text gives a single-valued return map, with
-one interior maximum in 59, and the fitted map's exponent matches the full map's within 10\,\% in 49 cells (median
-discrepancy 4\,\%; 1.5\,\% for the 24 cells with seven-token text, which give 285 repetitions in 2000 steps;
-Figure~\ref{fig:returnmaps}). These are the chaotic bands that follow a period-doubling cascade, and a smooth unimodal
+chaotic behind a repeating text, and in every one of them several phases of the text (a median of ten) give
+single-valued return maps; 59 cells have a phase whose map has a single interior maximum. A Lyapunov exponent does not
+change under a smooth change of coordinates, so all single-valued phases of a cell must give the same exponent: we fit
+each phase's map by a polynomial whose degree is chosen by cross-validation and take the median over the phases. It
+matches the full map's exponent within 10\,\% in 51 of the 62 cells (median discrepancy 3.7\,\%; within 10\,\% in 23
+of the 24 cells with seven-token text, which give 285 repetitions in 2000 steps; Figure~\ref{fig:returnmaps}). Our
+first, pre-specified analysis, a fixed degree of 8 at the single best-fitting phase, gave 49 of 62; it underfitted
+one cell whose maps are steep and have two turning points. These are the chaotic bands that follow a period-doubling cascade, and a smooth unimodal
 map is the setting of Feigenbaum's universality \cite{feigenbaum1978quantitative}; we have shown the reduction for this
 cascade only. A reader of the text sees a loop. Only the probabilities, or the state, reveal the
 chaos.
@@ -1262,12 +1266,11 @@ matches that of the full map.}
 \includegraphics[width=0.52\linewidth]{fig-return-maps.png}
 \caption{One-dimensional reduction across the hostile cascade (Qwen2.5-0.5B-Instruct, hostility at layer 12,
 $\alpha=0.0655$, $\log_{10}T\in[0.176,0.191]$): for each of the 62 chaotic cells whose leading-token text repeats
-exactly, the Lyapunov exponent of the fitted return map of the best phase's leading-token probability (per step)
-against the largest exponent of the full map from twin trajectories. Colour: text period relative to 7. The line is
-equality. With seven-token texts the 2000 steps give 285 repetitions; with 28-token texts only 72, and the fitted maps
-then overestimate small exponents. The one cell far below the line (ten-token text) has return maps with two turning
-points and steep ends, which degree 8 underfits: at degree 20, or at another single-valued phase of its text, its
-fitted exponent is within 6\,\% of the full map's.}
+exactly, the Lyapunov exponent of the fitted return maps of the leading-token probability (per step; median over the
+single-valued phases of the text, bars: their range; polynomial degree chosen by cross-validation) against the largest
+exponent of the full map from twin trajectories. Colour: text period relative to 7. The line is equality. With
+seven-token texts the 2000 steps give 285 repetitions; with 28-token texts only 72, and the fitted maps then
+overestimate small exponents.}
 \label{fig:returnmaps}
 \end{figure}
 \begin{figure}[H]
