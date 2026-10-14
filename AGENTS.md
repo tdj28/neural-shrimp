@@ -105,6 +105,11 @@ records an error that actually occurred.
   per step, so a float32 Newton stalled near 1e-5 and a period-8 orbit was
   read as period 16. Keep float32 detection and Newton tolerances above
   the measured error, and verify orbits in float64.
+- **Patch numerics before a model is dispatched over devices.** accelerate's device hooks (layers spread over GPUs,
+  CPU offload) keep the forward a module had at dispatch, so class patches applied after loading are silently
+  bypassed: every two-GPU run up to 14 October 2026 computed the final RMSNorm in float32 (its fixed points wandered by
+  1e-8, against 1e-15 on one GPU). `keep_float64_norms` now rebinds hooked modules and refuses stale ones. Before
+  trusting small-offset exponents of a split model, compare its fixed-point wander with a single-device run.
 - **Measure derivative precision on the composed map, not one step.**
   float32 one-step JVPs of the soft-token map were accurate to 5e-5, but
   the 8-step monodromy of the P8 orbit was off by 3 % (critical multiplier
