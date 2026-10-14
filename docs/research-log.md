@@ -22764,3 +22764,12 @@ _commit `b28aefa61a4d` (dirty worktree)_
 Run C1 Llama-3.1-8B hostility plane (alpha 0..0.12, log10 T -0.3..0.3, 64x64 float64), all directions at the norm of the concept vector of their layer; all pods hash-verified (l19-concept k2be20xqk0qmi6 H100 NVL; l19-saeH 3s81ongmicejm8, l19-saeR oifwwd2gptgt1l, l19-gauss w0izrgyd4j65hz, l16-rand1/2 A100). Chaotic share: layer 16 concept 0.282, random1 0.259, random2 0.173; layer 19 concept (rebuilt at 19, norm 66.32) 0.278, Goodfire feature 37512 (frozen hostility rule; cosine 0.095 with the concept vector) 0.290, random live feature 55786 0.265, Gaussian 0.389. By |alpha| bins in docs/c1-controls-llama.json. Every map's alpha = 0 column: 26-27/64 chaotic. Largest families are AI greetings in all layer-19 maps ('Greetings', '-Greetings fellow AI', '. Greetings fellow AI entity detected'). The vector sets built on the four layer-19 pods are identical in norms and cosines. Paper: steering-origin paragraph completed (in-progress marker removed); Limitations now say steering by contrastive vectors was checked against norm-matched random and SAE directions in two models.
 
 _commit `defe53dd0f13` (dirty worktree)_
+
+## 2026-10-14 02:56 UTC: run (exploratory)
+
+- **Question:** Run F6 (human: 'Figure 6 is heavily pixelated and there is no data above -0.04'): a background map for the period-6 window figure covering all its float64 fold and flip curves at high resolution.
+- **Setup:** Eight SECURE RTX 4090 pods, job set scan32 (float32, tol and twin offset 1e-4), each a band of 50 rows of one 400-row linspace over log10 T -0.11..-0.03 and 480 columns over alpha 0.066..0.082 (192,000 cells; 4.7x the old background's resolution in log10 T, which was the 256^2 stripes map clipped to this window and ending at -0.04). Settings as the stripes map otherwise: Qwen2.5-0.5B, layer 12, vectors-l12, philosophy, transient 300, samples 300, max period 32. float32 is labelled in the caption (pilot V0: 98.6 % chaotic-label agreement with float64); the curves and cusps drawn over it are the float64 results (p6z3 runs).
+- **Output:** `../neural-shrimp-data/explore/llm-soft-loop/pod64/scan32/z3bg-b{0..7}`
+- **Would surprise us:** a band disagreeing with the old float64 background where they overlap
+
+_commit `b0974ca99ee0`_
