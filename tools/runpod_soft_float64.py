@@ -38,7 +38,7 @@ DATA_PATHS = ("explore/llm-phase-map/vectors-l12", "explore/llm-soft-loop/branch
               "explore/llm-soft-loop/branch-p8-a0.0717-down", "explore/llm-soft-loop/branch-p2-t-0.115-alpha-up")
 
 
-GATED_JOBSETS = ("llama8b", "llamamap", "llamactrl", "selfref", "bigsweep", "bigctrl", "bigmap", "gainsplit", "bighidden", "scaleset", "startstate", "upperset", "prefix72")                     # job sets that download gated weights with the human's HF token
+GATED_JOBSETS = ("llama8b", "llamamap", "llamactrl", "selfref", "bigsweep", "bigctrl", "bigmap", "gainsplit", "bighidden", "scaleset", "startstate", "upperset")                     # job sets that download gated weights with the human's HF token
 
 
 def hf_token():
@@ -72,7 +72,7 @@ def main():
     parser.add_argument("--image", default="runpod/pytorch:2.4.0-py3.11-cuda12.4.1-devel-ubuntu22.04")
     parser.add_argument("--name", default="neural-shrimp-soft64")
     parser.add_argument("--commit", required=True, help="pushed commit to upload")
-    parser.add_argument("--jobset", default="skeleton", choices=("smoke", "skeleton", "maps", "p4a", "highT", "scanband", "p4curves", "scale15", "p6z3a", "p6z3curves", "p1ladder", "cascade", "edges", "superstable", "p1control", "scan32", "p1detect", "huginn", "hverify", "hnormal", "hnormal2", "p1commit", "scan64", "scale7", "huginnA", "hcurves", "hverify7", "p1x", "cusps", "scalex", "huginnS", "hcascade", "cubic", "pairmap", "llama8b", "unfold", "pilot1", "pilot2", "llamamap", "llamactrl", "anymap", "qwen35moe", "selfref", "morph", "hidden", "horizon", "bigsweep", "bigctrl", "bigmap", "gainsplit", "bighidden", "scaleset", "prefixscale", "startstate", "upperset"))
+    parser.add_argument("--jobset", default="skeleton", choices=("smoke", "skeleton", "maps", "p4a", "highT", "scanband", "p4curves", "scale15", "p6z3a", "p6z3curves", "p1ladder", "cascade", "edges", "superstable", "p1control", "scan32", "p1detect", "huginn", "hverify", "hnormal", "hnormal2", "p1commit", "scan64", "scale7", "huginnA", "hcurves", "hverify7", "p1x", "cusps", "scalex", "huginnS", "hcascade", "cubic", "pairmap", "llama8b", "unfold", "pilot1", "pilot2", "llamamap", "llamactrl", "anymap", "qwen35moe", "selfref", "morph", "hidden", "horizon", "bigsweep", "bigctrl", "bigmap", "gainsplit", "bighidden", "scaleset", "prefixscale", "startstate", "upperset", "prefix72"))
     parser.add_argument("--jobset-args", default="", help="arguments passed to the runner after the job set name")
     parser.add_argument("--ready-minutes", type=float, default=15)
     parser.add_argument("--disk-gb", type=int, default=60, help="container disk (large checkpoints need more)")
