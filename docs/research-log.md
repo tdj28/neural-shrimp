@@ -22728,3 +22728,9 @@ _commit `0c98e93b85cb` (dirty worktree)_
 - **Would surprise us:** frames that change abruptly between consecutive directions away from seams (bifurcations along the rotation would be worth reporting), or seams with visible jumps (would need overlapping chains)
 
 _commit `f2888b393eb3` (dirty worktree)_
+
+## 2026-10-14 01:32 UTC: C1: unsteered OLMo-2-7B chaotic at 32/512 temperatures; L14 Llama 128^2 maps complete
+
+Run C1, pod 1cltojt99bsy0y (A100-SXM4, chunk 64 after two OOMs), anymap o-alpha0c: alpha = 0, 512 temperatures, transient 1000, samples 2000, max period 64; retrieved hash-verified; clash only on the uploaded vectors (byte-identical); copied read-only to controls/o-alpha0c. 32 chaotic (exponent > 1e-3, no period), 3 more without a period; chaotic temperatures log10 T 0.043..0.137; maximum exponent 0.304; in [-0.3, 0.3] 32/236 (14 %) against 11/64 (17 %) in the coarse column. All four long alpha = 0 sweeps done (Llama 96, Qwen 7B 65, OLMo 32, Qwen 0.5B 7 chaotic temperatures of 512). Run L14: all eight Llama tiles retrieved hash-verified (clashes only on uploaded vectors, byte-identical), merged by tools/plot_llama_hires.py with grid checks: hostility 128^2 chaotic share 0.2856 (64^2: 0.284), philosophy region (alpha -0.04..0.08, log10 T -1.0..0.1) 0.0811; figure paper/llm/fig-llama-hires.png added to the paper, fig-alpha0.png now has four models.
+
+_commit `882fd7f4db5f` (dirty worktree)_

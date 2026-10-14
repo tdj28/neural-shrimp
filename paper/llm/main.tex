@@ -718,6 +718,17 @@ and philosophy: largest Lyapunov exponent (clipped) and period of the attractor 
 no period up to 48).}
 \label{fig:llama}
 \end{figure}
+Maps of $128^2$ cells (Figure~\ref{fig:llamahires}) resolve the windows: the hostility plane has 29\,\% chaotic
+cells, as at $64^2$, and the philosophy region below the chaotic band is filled with nested periodic tongues of
+periods 2 to 13.
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.86\linewidth]{fig-llama-hires.png}
+\caption{Llama-3.1-8B-Instruct at $128^2$ float64 cells (each map merged from four $64^2$ tiles on halves of one
+grid): hostility plane (top) and the philosophy region of the $64^2$ map's windows (bottom); largest Lyapunov
+exponent (clipped) and period (white: none up to 32).}
+\label{fig:llamahires}
+\end{figure}
 
 \paragraph{Same architecture, other weights.} Qwen2-0.5B-Instruct has exactly the architecture and size of
 Qwen2.5-0.5B-Instruct (24 layers of width 896, the same vocabulary size and rotary base) but other training data and
@@ -1251,9 +1262,10 @@ longer float64 sweep of the unsteered 0.5B map (512 temperatures over $\log_{10}
 $0.28$), with a period-5 loop at 437 of the 512 temperatures. The same long sweep of Llama-3.1 8B finds 96
 chaotic temperatures between $\log_{10}T=-0.20$ and $0.24$ (exponents up to $0.66$), interleaved with periodic
 windows of periods 2 to 52; within $\log_{10}T\in[-0.3,0.3]$ the chaotic share, 41\,\%, equals that of the coarse
-column; Qwen2.5-7B has 65 chaotic temperatures between $\log_{10}T=-0.07$ and $0.28$ (exponents up to $0.74$).
-Steering is therefore not needed to reach chaotic regimes in any model tested; temperature alone produces chaos
-with embedded windows, broadly in the 7B and 8B models and in a narrow band in the 0.5B model
+column; Qwen2.5-7B has 65 chaotic temperatures between $\log_{10}T=-0.07$ and $0.28$ (exponents up to $0.74$) and
+OLMo-2 7B 32 between $0.04$ and $0.14$ (up to $0.30$). Steering is therefore not needed to reach chaotic regimes in
+any of the four models tested; temperature alone produces chaos with embedded windows, broadly in the 7B and 8B
+models and in a narrow band in the 0.5B model
 (Figure~\ref{fig:alpha0}). Steering does widen the chaotic regions, but not as a property of the concept: along
 norm-matched random directions the 0.5B maps are as chaotic as along the concept directions
 (Figure~\ref{fig:controls}). On the same $128^2$ grid, 7.6, 8.3 and 12.5\,\% of cells are chaotic for three
@@ -1280,8 +1292,8 @@ the philosophy vector's norm. Titles give the chaotic share (finite-horizon expo
 to 48).}
 \label{fig:controls}
 \end{figure}
-\inprogress{the same sweep in OLMo-2 7B; in Llama-3.1 8B, maps along norm-matched random directions and along
-sparse-autoencoder feature directions at the autoencoder's layer.}
+\inprogress{in Llama-3.1 8B, maps along norm-matched random directions and along sparse-autoencoder feature
+directions at the autoencoder's layer.}
 \paragraph{What is and is not claimed.} The objects here are invariant sets and bifurcations of an exactly defined
 smooth map built from a frozen model's own computation. We do not claim that ordinary sampled generation is chaotic in this sense
 (Section~\ref{sec:bridge}), nor that any window is a certified shrimp. The period-6 window and the hostile period-7
