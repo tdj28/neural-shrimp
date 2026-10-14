@@ -22906,3 +22906,9 @@ _commit `0eff448d9b8c` (dirty worktree)_
 - **Would surprise us:** documented index not the best (hook mismatch); no feature with a positive hostility score
 
 _commit `2ba9a14c24bc`_
+
+## 2026-10-14 05:26 UTC: S70P result: 70B SAE hook check (flat across neighbours) and the frozen selection
+
+Pod v5kbqmr2psvvyz (SECURE 2xH100 NVL, rc 0, hash verified, terminated; 438 s wall, download 2 min). Llama-3.3-70B-Instruct (float64, bf16 storage, layers over 2 GPUs) loaded fine. Validate (10 texts): FVE at hidden_states 50/51/52 = 0.460/0.4655/0.4653: the documented index 51 is best but only by 2e-4 over 52 (the 8B Goodfire SAE peaked clearly: 0.463/0.604/0.491); FVE is lower than at 8B. Steering adds at hidden_states[51] (output of decoder layer 50), where the SAE reads; adjacent residual streams of the 80-layer model are nearly equally well reconstructed. Profiles: 23,944 active features; token counts 103-124 per category. Frozen rule (tools/steering_controls.py select, run locally): hostility feature 38767 (score 0.633: hostility 0.833, gratitude 0.200, swearing 0.258 excluded as related; runner-up 34636 at 0.471), philosophy 42226 (0.382), neighbour 38768, random live feature 55957 (pool 23,902). Receipt docs/steering-controls-selection-70b.json (profiles sha256 066a0219). As at 8B, Goodfire removed toxic features before release.
+
+_commit `9afe955da4bf` (dirty worktree)_

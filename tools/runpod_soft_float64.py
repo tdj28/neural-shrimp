@@ -31,6 +31,7 @@ UPLOAD_PATHS = ("tools/explore_llm_soft_loop.py", "tools/explore_llm_attractors.
                 "tools/huginn_relax_eval.py", "tools/p1_committor.py", "tools/p1_detection.py", "tools/p1_select_dose.py", "tools/cusp_check.py", "tools/llm_sae_readout.py", "tools/cusp_unfolding.py", "tools/pilot_stage2.py",
                 "tools/steering_controls.py", "docs/steering-controls-selection.json", "tools/qwen35_float64.py",
                 "tools/selfref_features.py", "tools/hidden_chaos.py", "docs/h2-horizon-cells.json",
+                "docs/steering-controls-selection-70b.json",
                 "pyproject.toml")
 DATA_PATHS = ("explore/llm-phase-map/vectors-l12", "explore/llm-soft-loop/branch-p8-a0.0717-up2",
               "explore/llm-soft-loop/branch-p8-a0.0717-down", "explore/llm-soft-loop/branch-p2-t-0.115-alpha-up")
