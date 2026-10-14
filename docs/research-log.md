@@ -23046,3 +23046,14 @@ _commit `0a8d0f5d7b7e` (dirty worktree)_
 - **Would surprise us:** The fixed trajectory, two twin estimates, actual token cycle or fixed phase6 fit disagrees materially; retain every discrepancy and failed/undefined row without changing the plan.
 
 _commit `9258b7b196be` (dirty worktree)_
+## 2026-10-14 07:38 UTC: S70M: random SAE feature and Gaussian directions at 70B (0.2 % and 1.1 % chaotic)
+
+Pods 136qyand6xdn1d (sae-random_live-55957) and b7m3nzwhsmxxx6 (random1), SECURE 2xH200, rc 0, hash verified, terminated (5524 s and 5584 s; they shared the local out folder 20261014T060432Z, see the ledger note; extraction per key, no clash). Llama-3.3-70B-Instruct layer 50, both rescaled to the concept norm 98.43, same plane and settings as the SAE-hostility map. Random live SAE feature: chaotic 2/1024 (0.2 %; both cells at |alpha| < 0.01), largest exponent 0.180, 225 cells without a period. Gaussian random1: 11/1024 (1.1 %), largest 0.449, 435 without a period; by |alpha|: 0, 0, 0.4, 0.8, 3.1 %. With the SAE hostility feature (36/1024, 3.5 %): at 70B steering opens little chaos and the direction matters (36 vs 11 vs 2 cells), unlike 8B (27-39 % for all directions). Concept-vector map pending.
+
+_commit `3c87499cbe05` (dirty worktree)_
+
+## 2026-10-14 07:39 UTC: G1 result: gain split of the chaotic 7-8B models
+
+Pod 4ln0if3atdcxgu (SECURE A100-SXM4-80GB, rc 0, hash verified, terminated; 427 s; commit 4e16a027). tools/gain_split.py, float64 one GPU, unsteered, 24 temperatures, 500 + 1000 steps, twins at relative 1e-6. Factors sum to the exponent (boundary terms below 1e-3). Llama-3.1-8B (log10 T -0.25..0.6): chaotic cells at -0.139..0.193 (entropy 1.7-8.0 nats) with log g_net -0.22..+0.72 and log g_read -0.23..+0.33; the readout factor is positive at moderate entropy (1.2-3.4 nats), negative above 5 nats; above log10 T 0.3 both negative (contraction; at 0.6: net -0.98, read -2.30). Qwen2.5-7B (-0.1..1.2): chaotic at 0.070 (H 2.8: net +0.09, read +0.34) and 0.352 (H 11.4: net +1.88, read -1.11); at high T the readout factor dominates the contraction (read -1.8..-3.3) while the network factor stays near zero or positive. Comparison with the 70B models (G2) pending; analysis at matched entropy then.
+
+_commit `f446ced757a4` (dirty worktree)_
