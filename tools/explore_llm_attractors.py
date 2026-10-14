@@ -85,8 +85,11 @@ class Engine:
             # float64 slice by slice (exact), so a 35B MoE fits one 141 GB GPU
             import qwen35_float64
 
-            self.model = AutoModelForCausalLM.from_pretrained(self.name, dtype="auto", cache_dir=CACHE)
-            if device is not None:
+            on_gpu = device is not None and str(device).startswith("cuda")
+            # straight to the GPU (host RAM never holds the 72 GB MoE checkpoint)
+            self.model = AutoModelForCausalLM.from_pretrained(self.name, dtype="auto", cache_dir=CACHE,
+                                                              **({"device_map": str(device)} if on_gpu else {}))
+            if device is not None and not on_gpu:
                 self.model = self.model.to(device)
             self.float64_patch = qwen35_float64.prepare(self.model, keep_experts_bf16="a3b" in model)
             repo = Path(CACHE) / ("models--" + self.name.replace("/", "--"))

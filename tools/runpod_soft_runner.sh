@@ -426,6 +426,25 @@ hf_hub_download('Goodfire/Llama-3.1-8B-Instruct-SAE-l19', 'Llama-3.1-8B-Instruct
       --model llama3.1-8b --layer 19 --vectors llm-soft-loop/controls/vectors-llama8b-l19 "${JOBARGS[@]:2}" \
       --out $D/controls/${JOBARGS[0]}/scan
     ;;
+  qwen35moe)   # Qwen3.5-35B-A3B chaos check (run M1): JOBARGS NAME MINUTES SCAN-ARGS...; downloads the pinned revision,
+               # builds concept vectors at layer 20 of 40 in float64 (tools/qwen35_float64.py: float32 paths patched,
+               # float32-stored tensors exact, bfloat16 experts used exactly), then one float64 scan into controls/NAME
+    QREV=59d61f3ce65a6d9863b86d2e96597125219dc754
+    HF_HUB_OFFLINE=0 $PY -c "
+from huggingface_hub import snapshot_download
+snapshot_download('Qwen/Qwen3.5-35B-A3B', revision='$QREV', cache_dir='$NEURAL_SHRIMP_DATA/models/hf/hub')" \
+      > "$LOGS/setup-qwen35.log" 2>&1
+    qrefs=$NEURAL_SHRIMP_DATA/models/hf/hub/models--Qwen--Qwen3.5-35B-A3B/refs
+    mkdir -p "$qrefs" && printf %s "$QREV" > "$qrefs/main"
+    (cd $NEURAL_SHRIMP_DATA/models && sha256sum hf/hub/models--Qwen--Qwen3.5-35B-A3B/snapshots/$QREV/*.safetensors) \
+      > "$LOGS/qwen35-sha256.txt"
+    qvec=llm-phase-map/vectors-qwen3.5-35b-a3b-l20
+    TOOL=explore_llm_phase_map.py run q35-vectors 40 vectors --model qwen3.5-35b-a3b --layer 20 --device cuda \
+      --dtype float64 --contrasts hostility:kindness --random 3 --out $qvec
+    mkdir -p "$OUT/$D/controls/${JOBARGS[0]}" && cp -r "$OUT/$qvec" "$OUT/$D/controls/${JOBARGS[0]}/vectors"
+    run qwen35-${JOBARGS[0]} "${JOBARGS[1]}" scan --device cuda --dtype float64 --chunk 64 --tol 1e-8 --eps 1e-6 \
+      --model qwen3.5-35b-a3b --layer 20 --vectors $qvec "${JOBARGS[@]:2}" --out $D/controls/${JOBARGS[0]}/scan
+    ;;
   anymap)      # one float64 scan of an ungated model (run C1): JOBARGS NAME REPO REV MINUTES SCAN-ARGS...; downloads
                # REPO@REV (pinned; REPO '-': already cached), then the scan with free arguments into controls/NAME
     name=${JOBARGS[0]}; repo=${JOBARGS[1]}; rev=${JOBARGS[2]}; minutes=${JOBARGS[3]}
