@@ -124,7 +124,10 @@ sampling, and Section~\ref{sec:misalignment} studies sampled dialogue directly.
   on all eight held-out prompts the 14B model is more chaotic than the 7B, at the higher temperatures where its
   next-token distribution spreads. A second frozen test finds Qwen2.5-72B nearly free of unsteered chaos on four
   held-out prompts (one chaotic temperature of 192; a finer line places it in a band 0.02 decades wide), yet steering
-  drives it, like Llama-3.3-70B, into chaos that an exact tangent exponent confirms. The gain split shows how network and readout damp or amplify the fed-back token
+  drives it, like Llama-3.3-70B, into chaos that an exact tangent exponent confirms. Its stability comes from the
+  network, not from post-training or a sharp readout: its pretrained base, whose distribution spreads far more, is no
+  more chaotic in a third frozen test, and holding its next-token entropy anywhere between 1 and 11 nats leaves the
+  loop periodic. The gain split shows how network and readout damp or amplify the fed-back token
   (Section~\ref{sec:size}).
 \item \emph{A fold's normal form predicts how long the model lingers near a vanished orbit.} The 2-cycle ``is it''
   dies in a fold, and the fold's normal form, computed from derivatives, predicts bottleneck passage times without
@@ -1258,7 +1261,14 @@ temperature so that the next-token entropy equals a target and sweep the target 
 of 16 targets between 1 and 11 nats, Qwen2.5-72B has only periodic orbits, the echo of period 2 on the paper's prompt
 and periods 1 to 19 on a held-out prompt, with exponents between $-0.08$ and $-4.5$ that twins at $10^{-5}$ to
 $10^{-7}$ reproduce within 0.003, whereas Qwen2.5-0.5B under the same clamp is chaotic at 6.1 nats. Its network damps
-the fed-back token even where the readout is spread.
+the fed-back token even where the readout is spread. Nor does post-training make the 72B stable. A test frozen before
+its data (\texttt{docs/prefix-scale-72b-base.md}) predicted that the pretrained base model of the same size would be
+chaotic at three or more temperatures more than Qwen2.5-72B-Instruct on at least three of the four held-out prompts.
+It fails on all four: the base model is chaotic at 1, 0, 0 and 0 of the 48 temperatures (and at 2 on the paper's
+prompt), although its next-token distribution spreads over 2.5 to 5 times the temperature range (intermediate-entropy
+breadth 0.28 to 0.61 decades against 0.11 to 0.22) and from lower temperatures on. At 72B, then, neither the sharpness
+that post-training adds nor post-training itself explains the stability; the network's damping of the fed-back token
+does, and the breadth that orders the fifteen models fails for this pair.
 
 \begin{figure}[H]
 \centering
@@ -2221,7 +2231,7 @@ sixth test, a cusp pilot in a second checkpoint, is the unreported bounded searc
   the 1.5B flips, the hostile windows' edges, the spiral region's period-7 body and the cascade inside it, the three 7B
   orbits, and Huginn's float32 spectral estimates.
 \item Prospectively frozen, not independently reproduced: the scaling predictions P1--P3, the prompt-blocked size
-  tests in Qwen2.5 (7B and 14B; 72B) and OLMo-2, and the loop-free predictor test of Section~\ref{sec:size}, all scored
+  tests in Qwen2.5 (7B and 14B; 72B; 72B base against Instruct) and OLMo-2, and the loop-free predictor test of Section~\ref{sec:size}, all scored
   by code pushed before the data, together with the three-offset plateau tests of the 70B-class maps and the float64
   recheck of the Qwen2.5-72B cells with exact tangent exponents. These are
   float64 computations at rung 1; no independent implementation has rechecked them.
