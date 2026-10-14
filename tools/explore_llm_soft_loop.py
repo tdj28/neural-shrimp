@@ -142,9 +142,12 @@ class SoftLoop:
     def step_jvp(self, X, temps, V):
         """One step with exact tangents: returns the step of X, p, and the Jacobian-vector products for the tangent
         rows V (B, K, d), by forward-mode AD through the model (math attention kernel). The model runs on a shallow
-        copy of the prefix cache, so the stored prefix tensors are never modified (as jvp_rows of soft_family)."""
+        copy of the prefix cache, so the stored prefix tensors are never modified (as jvp_rows of soft_family).
+        Dual tensors (torch.autograd.forward_ad) rather than torch.func.jvp: accelerate's device hooks need tensors
+        with storage when they load offloaded weights, which functorch's wrapped tensors lack."""
         import copy
 
+        import torch.autograd.forward_ad as fwAD
         from torch.nn.attention import SDPBackend, sdpa_kernel
 
         torch = self.torch
@@ -164,8 +167,12 @@ class SoftLoop:
             p = torch.softmax(z / T, dim=-1)
             return p @ self.E, p
 
-        with sdpa_kernel(SDPBackend.MATH):
-            (y, p), (jy, _) = torch.func.jvp(new_embedding, (X,), (V,))
+        with torch.no_grad(), sdpa_kernel(SDPBackend.MATH), fwAD.dual_level():
+            y, p = new_embedding(fwAD.make_dual(X, V))
+            y, jy = fwAD.unpack_dual(y)
+            p = fwAD.unpack_dual(p).primal
+        if jy is None:
+            raise SystemExit("step_jvp: the tangent was lost in the forward pass")
         return (torch.cat([X[:, 1:, :], y[:, None, :]], dim=1), p,
                 torch.cat([V[:, 1:, :], jy[:, None, :]], dim=1))
 
