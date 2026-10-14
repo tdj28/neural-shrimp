@@ -1092,7 +1092,11 @@ above the temperature where its next-token distribution spreads ($0.35$--$0.65$)
 between $0.21$ and $0.43$, around its own, lower transition ($0.21$--$0.46$). On the paper's prompt the 14B model is
 chaotic at 12 of the 48 temperatures, between $0.52$ and $0.90$; its sweep in Table~\ref{tab:scale}, which ends at
 $0.6$, saw only the lower edge. Within Qwen2.5, then, the larger model is not less chaotic: its distribution stays
-sharp up to higher temperature, and its chaos sits there. The decline in the fixed window is largely a shift.
+sharp up to higher temperature, and its chaos sits there. The decline in the fixed window is largely a shift. A
+second frozen test (\texttt{docs/prefix-scale-olmo.md}; stage 1 only, four held-out prompts) asked whether the OLMo-2
+order survives other prompts. It does, with small counts: OLMo-2-32B is chaotic at more of the 48 temperatures than
+OLMo-2-7B on three of the four prompts (4, 5, 3 and 0 against 3, 0, 1 and 3), as predicted, and its chaos again lies
+somewhat higher (log$_{10}T=0.10$--$0.35$ against $-0.01$--$0.21$).
 \begin{figure}[H]
 \centering
 \includegraphics[width=\linewidth]{fig-prefix-scale.png}
