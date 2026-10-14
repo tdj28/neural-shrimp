@@ -127,7 +127,8 @@ sampling, and Section~\ref{sec:misalignment} studies sampled dialogue directly.
   drives it, like Llama-3.3-70B, into chaos that an exact tangent exponent confirms. Its stability comes from the
   network, not from post-training or a sharp readout: its pretrained base, whose distribution spreads far more, is no
   more chaotic in a third frozen test, and holding its next-token entropy anywhere between 1 and 11 nats leaves the
-  loop periodic. The gain split shows how network and readout damp or amplify the fed-back token
+  loop periodic. In Soft Thinking's growing context it stays insensitive, even where steering makes its one-token map
+  chaotic. The gain split shows how network and readout damp or amplify the fed-back token
   (Section~\ref{sec:size}).
 \item \emph{A fold's normal form predicts how long the model lingers near a vanished orbit.} The 2-cycle ``is it''
   dies in a fold, and the fold's normal form, computed from derivatives, predicts bottleneck passage times without
@@ -935,10 +936,21 @@ to 0.82 per step at $\log_{10}T=0.17$ and $0.21$, reaching $10^{-3}$ within 50 t
 within 400 steps at nine other temperatures between $-0.10$ and $0.40$, at 0.02 to 0.18 per step (0.8 at $0.33$ for two
 of three twins). It does not grow at the sharpest distributions
 ($\log_{10}T\le-0.14$) or at nearly uniform ones ($\log_{10}T\ge0.44$), where it stays between $10^{-13}$ and
-$10^{-7}$ for 400 steps. In Qwen2.5-0.5B the growth moves to sharper distributions: it appears at $\log_{10}T$ from
-$-0.30$ to $-0.07$ (up to 0.33 per step) and at $0.09$, and is absent from $0.13$ up, which includes its narrow one-token
-chaotic band. Sensitive
+$10^{-7}$ for 400 steps. In Qwen2.5-0.5B the growth moves to sharper distributions: it appears at six of the seven temperatures from
+$\log_{10}T=-0.30$ to $-0.07$ (up to 0.33 per step) and at $0.09$, with a late transient burst at $0.05$, and is absent
+from $0.13$ up, which includes its narrow one-token chaotic band. Sensitive
 dependence therefore survives when the whole context is kept, and in the 7B model the one-token map locates it.
+Qwen2.5-72B, run the same way on two GPUs, stays insensitive. We count a temperature as growing when two of its three
+twins reach $10^{-3}$ within 400 steps, a rule fixed before the 72B run that gives 11 of 24 temperatures for the 7B
+model and 8 for the 0.5B model. The 72B model grows at one of 24 temperatures on the paper's prompt, and only
+transiently: at $\log_{10}T=0.09$ the twins pass $10^{-3}$ at step 123 and fall back to $5\times10^{-6}$. It grows at
+none of 24 on the held-out prompt with its narrow unsteered band, including $\log_{10}T=0.326$, between two temperatures
+where its one-token map is chaotic; there the distance never exceeds $1.1\times10^{-9}$. It also grows at none of the
+eleven steered cells of Section~\ref{sec:size}, including the six where its one-token map is chaotic: there the
+distance never exceeds $3\times10^{-7}$ and ends between $5\times10^{-13}$ and $6\times10^{-10}$, and the growing
+context holds the next-token entropy at 2.3 to 3.6 nats instead of the one-token map's 7.3 to 11.1. At 72B the growing context therefore damps even
+the chaos that steering produces, while the one transient burst shows that the method registers growth at this
+scale.
 
 \section{Replication and scale}
 \label{sec:scale}
@@ -1268,7 +1280,10 @@ It fails on all four: the base model is chaotic at 1, 0, 0 and 0 of the 48 tempe
 prompt), although its next-token distribution spreads over 2.5 to 5 times the temperature range (intermediate-entropy
 breadth 0.28 to 0.61 decades against 0.11 to 0.22) and from lower temperatures on. At 72B, then, neither the sharpness
 that post-training adds nor post-training itself explains the stability; the network's damping of the fed-back token
-does, and the breadth that orders the fifteen models fails for this pair.
+does, and the breadth that orders the fifteen models fails for this pair. The damping holds when the whole
+context is kept as well: in Soft Thinking's growing context (Section~\ref{sec:bridge}), an early perturbation grows at
+none of eleven steered cells, six of them chaotic as one-token maps, and at one of 48 unsteered temperatures on two
+prompts, transiently.
 
 \begin{figure}[H]
 \centering
@@ -2249,8 +2264,8 @@ on CPUs. The manifest
 \path{docs/manifests/runpod-runs.json} records for each run the GPU type, the code commit, the job and its
 arguments, the wall time and the exit status, and the available hashes of the uploaded code and input archives and of
 the retrieved results, with absent fields left explicit; per-run receipts and accepted provenance limitations are
-kept with it. Regenerated at 19:09 UTC on 14 October 2026, it lists 242 runs with retrieved results (code and
-input-archive hashes for 134, result-archive hashes for 226) and 16 pods that ended without results. GPU types round float64 reductions differently, so quantities used across runs
+kept with it. Regenerated at 22:13 UTC on 14 October 2026, it lists 243 runs with retrieved results (code and
+input-archive hashes for 135, result-archive hashes for 227) and 16 pods that ended without results. GPU types round float64 reductions differently, so quantities used across runs
 were checked across hardware where it mattered (for example, flip parameters agree between CPU and H100 to
 $4\times10^{-15}$).
 {\sloppy Code: \path{tools/explore_llm_soft_loop.py}, \path{tools/bifurcation_curves.py}, \path{tools/llm_feigenbaum.py},
