@@ -902,11 +902,13 @@ decoding in float64 from the paper's prompt and displaced the first soft token o
 without renormalization; the distance between the newest soft tokens then shows whether the early perturbation grows.
 The context grows, so these are finite-time growth rates of a non-autonomous system, not exponents of an attractor.
 In Qwen2.5-7B the perturbation grows exponentially at temperatures inside the one-token map's chaotic range: by 0.78
-to 0.82 per step at $\log_{10}T=0.17$ and $0.21$, reaching $10^{-3}$ within 50 to 58 steps, and by 0.02 to 0.18 per
-step at eight other temperatures between $-0.10$ and $0.40$. It does not grow at the sharpest distributions
+to 0.82 per step at $\log_{10}T=0.17$ and $0.21$, reaching $10^{-3}$ within 50 to 58 steps, and it reaches $10^{-3}$
+within 400 steps at nine other temperatures between $-0.10$ and $0.40$, at 0.02 to 0.18 per step (0.8 at $0.33$ for two
+of three twins). It does not grow at the sharpest distributions
 ($\log_{10}T\le-0.14$) or at nearly uniform ones ($\log_{10}T\ge0.44$), where it stays between $10^{-13}$ and
-$10^{-7}$ for 400 steps. In Qwen2.5-0.5B the growth moves to sharper distributions ($\log_{10}T$ from $-0.30$ to
-$-0.07$, up to 0.33 per step) and is absent from 0.13 up, which includes its narrow one-token chaotic band. Sensitive
+$10^{-7}$ for 400 steps. In Qwen2.5-0.5B the growth moves to sharper distributions: it appears at $\log_{10}T$ from
+$-0.30$ to $-0.07$ (up to 0.33 per step) and at $0.09$, and is absent from $0.13$ up, which includes its narrow one-token
+chaotic band. Sensitive
 dependence therefore survives when the whole context is kept, and in the 7B model the one-token map locates it.
 
 \section{Replication and scale}
