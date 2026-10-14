@@ -1204,17 +1204,22 @@ exponent up to a boundary term. Medians per entropy bin are given in the text.}
 \label{fig:gainscale}
 \end{figure}
 
-\paragraph{A predictor that needs no exponents.} Section~\ref{sec:theory} confines chaos to temperatures where the
+\paragraph{Can a cheap property predict it?} Section~\ref{sec:theory} confines chaos to temperatures where the
 readout is neither saturated nor uniform, so a model whose next-token distribution jumps from sharp to flat over a
 small range of temperature leaves little room for it. The breadth of this intermediate regime, the decades of
 $\log_{10}T$ in which the mean entropy on the orbit lies between 1 and 10 nats, ranges from 0.014 (Qwen2.5-72B) to
 0.69 (OLMo-2-32B). It orders the fifteen models' chaotic length (Spearman $+0.55$) somewhat better than their parameter
 count does ($-0.44$; Figure~\ref{fig:scale}, right), but it misses the chaos of Qwen2.5-1.5B and -14B at nearly
 uniform distributions, above its 10-nat bound. This analysis was adapted after the OLMo-2-32B result, and the breadth
-is measured on the loop's own orbits, which chaos itself spreads, so the test is partly circular.
-\inprogress{A loop-free version, from one forward pass per model at the start state, is frozen in \texttt{docs/start-state-predictor.md} and not yet run.}
-
-\paragraph{Across prefixes.} \inprogress{A prompt-blocked test over ten prefixes for Qwen2.5-7B and -14B, frozen in \texttt{docs/prefix-scale-test.md}, is running.}
+is measured on the loop's own orbits, which chaos itself spreads, so the test is partly circular. A loop-free version,
+frozen before it was run (\texttt{docs/start-state-predictor.md}), uses one forward pass per model and prompt: the
+entropy profile of the logits at the loop's start state, and the one-step gain there. Its primary prediction fails: the
+start-state breadth on the paper's prompt orders the fourteen dense models' chaotic length with Spearman $+0.30$,
+below the frozen threshold of $0.5$. Its median over ten prompts reaches $+0.52$, just above it ($p=0.06$; $+0.44$
+against the complete sweeps), and the one-step gain at the start state is negative in every model, the most chaotic
+ones included ($-0.5$ to $-3.4$ per step), and orders nothing ($-0.32$). No property of a single forward pass that we
+tested predicts the loop's chaos usefully: as for the period-8 orbit of Section~\ref{sec:theory}, it has to be measured
+on the loop.
 
 \paragraph{Steering at 70B.} Under steering, the 70B maps show chaos, rarely and not independently of the
 direction (Figure~\ref{fig:controls70}; labels at the single offset $10^{-6}$, which the plateau test above supports
@@ -1224,7 +1229,7 @@ concept vector, 3.5\,\% along the frozen-rule hostility feature, 1.1\,\% along a
 a random live feature, against 28, 29, 39 and 27\,\% for the same four directions in Llama-3.1-8B (on one GPU);
 Qwen2.5-72B along hostility gives 0.8\,\%. The chaotic cells of the hostility
 directions lie on a ridge that steering moves from $\log_{10}T\approx0.3$ to $0.1$. A $64\times64$ zoom of the concept
-plane, at the same offset, (Figure~\ref{fig:zoom70}; $\alpha\in[0.06,0.12]$, $\log_{10}T\in[0.12,0.27]$, four bands computed separately with
+plane at the same offset (Figure~\ref{fig:zoom70}; $\alpha\in[0.06,0.12]$, $\log_{10}T\in[0.12,0.27]$, four bands computed separately with
 identical vectors and joined) resolves it: a chaotic band, with periodic cells interspersed, whose centre steering
 moves from $\log_{10}T=0.25$ at $\alpha=0.06$ to $0.19$ at $\alpha=0.12$ while its extent grows from about 0.02 to 0.05
 decades, and a thinner chaotic layer near $\log_{10}T=0.15$--$0.16$ at strong steering; 22\,\% of the 4096 cells are
@@ -1261,8 +1266,8 @@ because it is large. In the one family where we varied the prompt, the larger mo
 to higher temperature, to where its next-token distribution spreads; in another family the largest model was the most
 chaotic; post-training changed the chaos of two 70B Llama checkpoints of the same size; and at 70B steering still produced
 chaos that passes a three-offset test. A fixed temperature window is therefore the wrong yardstick. A model's chaos follows
-the gain of its loop where its own next-token distribution is spread, and to find it in a larger model one has to look
-there, across prompts. Whether the shift continues beyond 14B is open: on the paper's prompt, Qwen2.5-72B showed no
+the gain of its loop where its own next-token distribution is spread, no single forward pass we tested predicts it,
+and to find it in a larger model one has to run the loop there, across prompts. Whether the shift continues beyond 14B is open: on the paper's prompt, Qwen2.5-72B showed no
 robust chaos anywhere up to $\log_{10}T=1.2$, and a prompt-blocked test at 72B, frozen in
 \texttt{docs/prefix-scale-72b.md}, has not been run. For frontier models, size alone gives no reason to expect
 stability, and a search for chaos should start at the temperatures where their own distributions spread.
