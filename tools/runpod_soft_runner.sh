@@ -706,7 +706,8 @@ snapshot_download('$repo', revision='$rev', cache_dir='$NEURAL_SHRIMP_DATA/model
       --vectors llm-phase-map/vectors-l12 --concept philosophy --cells-file docs/h2-horizon-cells.json \
       --transient 1000 --record 2000 --eps 1e-6 1e-9 --chunk 448 --out $D/hidden/h2-cells
     ;;
-  bigsweep)    # large dense models (runs B1, B2): JOBARGS MODEL MINUTES [SCAN-ARGS...]. Downloads the pinned checkpoint
+  bigsweep)    # large dense models (runs B1, B2, B4): JOBARGS MODEL MINUTES [name=SUFFIX] [SCAN-ARGS...] (output
+               # big/MODEL-alpha0[-SUFFIX]; later scan arguments override the defaults). Downloads the pinned checkpoint
                # (gated Llama: the human's token arrives on stdin and is unset after the download), then an unsteered
                # float64 temperature sweep with the decoder's linear weights kept in their stored bfloat16 and used in
                # float64 (exact; tests/test_bf16_storage.py) and the layers spread over all GPUs (device auto)
@@ -726,9 +727,11 @@ snapshot_download('$REPO', revision='$MREV', cache_dir='$NEURAL_SHRIMP_DATA/mode
     mrefs=$NEURAL_SHRIMP_DATA/models/hf/hub/models--${REPO/\//--}/refs
     mkdir -p "$mrefs" && printf %s "$MREV" > "$mrefs/main"
     nvidia-smi --query-gpu=index,name,memory.total --format=csv,noheader > "$LOGS/gpus.txt" 2>&1
+    suffix=""; extra=("${JOBARGS[@]:2}")
+    if [[ "${extra[0]}" == name=* ]]; then suffix="-${extra[0]#name=}"; extra=("${extra[@]:1}"); fi
     run bigsweep-$model "${JOBARGS[1]}" scan --device auto --weights bf16 --dtype float64 --model $model --vectors "" \
       --alpha 0 0 --log-temperature -1 0.3 --resolution 128 1 --transient 1000 --samples 2000 --max-period 64 \
-      --tol 1e-8 --eps 1e-6 --chunk 128 "${JOBARGS[@]:2}" --out $D/big/$model-alpha0
+      --tol 1e-8 --eps 1e-6 --chunk 128 "${extra[@]}" --out $D/big/$model-alpha0$suffix
     ;;
   bigctrl)     # Llama-3.3-70B-Instruct with the Goodfire layer-50 SAE (runs S70P, S70M; the 8B protocol of run C1 at 70B):
                # JOBARGS PART [MINUTES KEY SCAN-ARGS...]. Gated checkpoint and SAE, pinned; the token arrives on stdin and
