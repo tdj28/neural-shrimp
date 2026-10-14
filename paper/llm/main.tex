@@ -1315,7 +1315,12 @@ select the texts: the largest attractor family in all five maps is the unsteered
 26 to 56\,\% of one map's cells carry an attractor text that appears anywhere in another map. Llama-3.1 8B
 agrees: on its hostility plane, two norm-matched random directions at the same layer give 26 and 17\,\% chaotic
 cells against 28\,\% along the concept direction; all three carry 34 to 44\,\% near $\alpha=0$, and the random
-directions thin out at large $|\alpha|$.
+directions thin out at large $|\alpha|$. At layer 19, where a sparse autoencoder trained on this model reads the
+residual stream \cite{goodfire2025sae}, the concept vector rebuilt there gives 28\,\%. The decoder direction of the
+autoencoder feature most specific to hostility on held-out texts (chosen by a rule fixed before any map; cosine
+$0.10$ with the concept vector) gives 29\,\%, a random live feature 27\,\% and a Gaussian direction 39\,\%, all at
+the same norm. Feature directions of an autoencoder therefore steer the map into chaos no differently from
+contrastive or random directions.
 \begin{figure}[H]
 \centering
 \includegraphics[width=0.92\linewidth]{fig-alpha0.png}
@@ -1333,7 +1338,6 @@ the philosophy vector's norm. Titles give the chaotic share (finite-horizon expo
 to 48).}
 \label{fig:controls}
 \end{figure}
-\inprogress{in Llama-3.1 8B, maps along sparse-autoencoder feature directions at the autoencoder's layer.}
 \paragraph{What is and is not claimed.} The objects here are invariant sets and bifurcations of an exactly defined
 smooth map built from a frozen model's own computation. We do not claim that ordinary sampled generation is chaotic in this sense
 (Section~\ref{sec:bridge}), nor that any window is a certified shrimp. The period-6 window and the hostile period-7
@@ -1346,7 +1350,8 @@ Newton solutions in the number of orbits at all twelve and in their stability at
 float64 computations validated by step-size checks (rung 1; an independent recomputation at one cusp is in
 progress), not computer-assisted proofs.
 \paragraph{Limitations.} Detailed orbit studies in one model family (Qwen2.5, 0.5B and 1.5B), with coarse maps
-and three float64 orbits at 7B, and coarse maps only for two other families (OLMo-2 7B and Llama-3.1 8B); one prompt and one steering construction for the maps; a constructed one-token-window system;
+and three float64 orbits at 7B, and coarse maps only for two other families (OLMo-2 7B and Llama-3.1 8B); one prompt for the maps, with steering by contrastive vectors checked against norm-matched random and
+sparse-autoencoder directions in two models; a constructed one-token-window system;
 numerical validation, cross-checks and prospectively frozen passage tests (including failed all-row criteria), and
 a computer-assisted proof for only one orbit at one parameter point. Chaos labels are finite-horizon estimates
 (300 measured steps after 300 to 500 transient steps); no chaotic cell is proved chaotic. The Feigenbaum ratios are
