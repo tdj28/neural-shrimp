@@ -23196,3 +23196,9 @@ _commit `05bee7d1faf1` (dirty worktree)_
 - **Would surprise us:** 14B more chaotic than 7B in most held-out prefixes (PS1 fails)
 
 _commit `7d3e9a4e62e7`_
+
+## 2026-10-14 08:58 UTC: B5 result: Llama-3.1-70B (8B's recipe) is weakly chaotic without steering (3/128): scale and post-training both reduce the chaos
+
+Pod f6p6qhyzjpowm7 (SECURE 2xH200, runner done 08:34 UTC, hash verified, terminated; commit 3c87499c; first attempt failed on a script bug, recorded). Llama-3.1-70B-Instruct (1605565b), unsteered, 128 temperatures over log10 T -1..0.3, 1000 + 2000 steps, twin 1e-6, float64 bf16-storage. Chaotic 3/128 (2.3 %): log10 T 0.116 (0.042, H 4.3), 0.136 (0.298, H 1.6), 0.198 (0.414, H 6.9); 31 temperatures without a period; families ' to another AI' (period 3), ". It'sup" (4) and long repeats. Entropy at log10 T 0/0.15/0.3: 2.5/7.2/10.5 nats (Llama-3.3-70B: 0.6/2.4/5.4). Llama 3 without steering: 3.1-8B 96/512 (19 %), 3.1-70B 3/128 (2.3 %), 3.3-70B 0/128. Reading: within one recipe, 8B to 70B reduces the chaotic share about eightfold; the 3.3 post-training removes the rest in the swept range. Note: 1e-6 offset only; the 70B noise floor (about 2e-8, B7) is 50x below it.
+
+_commit `f3d0f9f4d364`_
