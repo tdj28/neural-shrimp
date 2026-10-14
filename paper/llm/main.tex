@@ -38,8 +38,8 @@ OLMo-2 and Llama-3. Its derivative factorizes into the inverse temperature, an e
 model's next-token distribution, and the network's Jacobian; with tied embeddings and no network it would be a
 modern Hopfield update, which cannot cycle. It contracts at high temperature; in our sweeps chaos occupies
 intermediate temperatures and needs no steering in most dense models. Across fifteen models of 0.5B to 72B parameters,
-size does not set the chaos: it nearly vanishes in the largest Qwen2.5 and Llama models but not in OLMo-2-32B, and the
-breadth of a model's intermediate-entropy regime orders it better than size. Bifurcation theory applied to the
+size does not remove the chaos: on ten prompts a 14B model is more chaotic than a 7B, at higher temperatures, and
+OLMo-2-32B is the most chaotic OLMo model. Bifurcation theory applied to the
 model's own derivatives predicts its behaviour where tested. Near cusp candidates of two
 windows, local unfoldings frozen before solving matched the orbits recovered at all twelve tested offsets and their
 stability at eleven. Fold normal forms predict bottleneck passage times without fitting: at two new folds, 23 of 24
@@ -96,8 +96,8 @@ next-token distribution (a cross-covariance when input and output embeddings are
 With tied embeddings, the network turns a Hopfield retrieval, which cannot cycle, into a map that can. The
 factorization proves contraction at sufficiently high temperature for this smooth fixed-prefix map, and at zero
 temperature the finite-memory greedy map is eventually periodic; in our sweeps chaos occupies intermediate
-temperatures. The answer to whether larger models leave this chaos behind is no: across fifteen models, size does not
-set it (Section~\ref{sec:size}). Fold normal forms predict how long trajectories linger in the ghost of a vanished
+temperatures. The answer to whether larger models leave this chaos behind is no: a larger model's chaos can move to
+higher temperature instead of vanishing, and size does not order the chaos across families (Section~\ref{sec:size}). Fold normal forms predict how long trajectories linger in the ghost of a vanished
 orbit, local unfoldings near cusp candidates predict which periodic orbits coexist and which of them are stable, and
 spectral estimates of a recurrent-depth model predict how its questions respond to relaxation, with a predicted
 accuracy loss confirmed on held-out data. Ordinary sampled generation
@@ -115,11 +115,12 @@ sampling, and Section~\ref{sec:misalignment} studies sampled dialogue directly.
   concept-labelled directions: in the norm-matched controls of the 0.5B and 8B models, random directions also steer
   into chaos. Along a period-8 orbit every step expands some direction while the cycle contracts: the loop's stability
   is a property of the ordered product of its steps, not of any one step (Section~\ref{sec:theory}).
-\item \emph{Size does not set the chaos; the loop's gain does.} Across fifteen models from 0.5B to 72B parameters, the
-  unsteered chaos nearly vanishes in the largest Qwen2.5 and Llama models but not in OLMo-2-32B, the most chaotic OLMo
-  model, so two frozen scaling predictions fail for that family. The gain split shows how the larger Qwen and Llama
-  models damp a change of their fed-back token, and the breadth of a model's intermediate-entropy regime orders its
-  chaos better than its parameter count does (Section~\ref{sec:size}).
+\item \emph{Size does not remove the chaos.} Across fifteen models from 0.5B to 72B parameters, the unsteered chaos
+  in a fixed temperature window nearly vanishes in the largest Qwen2.5 and Llama models but not in OLMo-2-32B, the
+  most chaotic OLMo model. A frozen prompt-blocked test shows that the Qwen decline is largely a shift: on all eight
+  held-out prompts the 14B model is more chaotic than the 7B, at the higher temperatures where its next-token
+  distribution spreads. The gain split shows how network and readout damp or amplify the fed-back token; at 70B our
+  two-GPU numerics resolve no chaos (Section~\ref{sec:size}).
 \item \emph{A fold's normal form predicts how long the model lingers near a vanished orbit.} The 2-cycle ``is it''
   dies in a fold, and the fold's normal form, computed from derivatives, predicts bottleneck passage times without
   fitting. We tested it prospectively at two new folds: 23 of 24 forecasts fell within one iterate, and the all-row
@@ -162,7 +163,7 @@ sampling, and Section~\ref{sec:misalignment} studies sampled dialogue directly.
   the 0.5B architecture, which shares the organization but not the attractors (Section~\ref{sec:scale}). Our one
   mixture-of-experts model, Qwen3.5-35B-A3B, is the exception: no unsteered temperature we tested gave a positive
   exponent. Chaos needs no steering in most dense models; in the norm-matched controls of the 0.5B and 8B models random
-  directions also produce it, while at 70B it is rarer and more frequent along hostility-related directions
+  directions also produce it, while at 70B candidate chaos is rarer and more frequent along hostility-related directions
   (Sections~\ref{sec:discussion} and~\ref{sec:size}). A bridge to sampled decoding measures what survives sampling
   (Section~\ref{sec:bridge}).
 \end{enumerate}
@@ -1064,19 +1065,44 @@ and 70B-class models had shown a steep decline of chaos with size. Before measur
 predictions that extrapolate it (\texttt{docs/scaling-predictions.md}): within each family, every model above 8B is
 less chaotic than the family's 7--8B model (P1); the chaotic share does not increase with size above 7B (P2); and at
 matched next-token entropy, both gain factors of Section~\ref{sec:theory} of the 14B and 32B models lie at or below
-those of the 7B model (P3).
+those of the 7B model (P3). After a review pointed out that a single prompt and a fixed temperature window could
+mislead, we froze a fourth test across ten prompts (\texttt{docs/prefix-scale-test.md}).
 
-\paragraph{Size does not set the chaos.} Table~\ref{tab:scale} and Figure~\ref{fig:scale} give each model's chaotic
-share of the temperatures in $\log_{10}T\in[-1,0.3]$, the range common to all sweeps, and the chaotic length of its
-whole temperature axis. In two families the largest models are nearly free of chaos. Qwen2.5-7B is chaotic at
+\paragraph{In a fixed temperature window, chaos seems to fade with size.} Table~\ref{tab:scale} and
+Figure~\ref{fig:scale} give each model's chaotic share of the temperatures in $\log_{10}T\in[-1,0.3]$, the range
+common to all sweeps, and the chaotic length of its whole temperature axis. In two families the largest models are
+nearly free of chaos in this window. Qwen2.5-7B is chaotic at
 12.7\,\% of the temperatures in the common range, and the 14B, 32B and 72B models at none. Llama-3.1-8B is chaotic at
 19\,\%, Llama-3.1-70B, from the same release and training recipe, at 2.3\,\%, and Llama-3.3-70B, which differs from
 Llama-3.1-70B only in post-training, at none. In the third family the order fails: OLMo-2-32B is the most chaotic
 OLMo model, at 16.2\,\% against 6.2\,\% at 7B, 3.8\,\% at 1B and none at 13B. (The 32B model is a later release,
 0325, than the 7B and 13B models, 1124, so within OLMo-2 size and release are confounded.) The frozen predictions P1
 and P2 hold for Qwen2.5 and fail for OLMo-2. Below 7B we predicted no order, and none appears (Qwen2.5 0.5B, 1.5B and
-3B: 1.4, 1.5 and 0\,\%). So the answer is no: chaos of the loop is not a small-model effect that size removes. It
-belongs to the trained weights, and size and post-training can move it in either direction.
+3B: 1.4, 1.5 and 0\,\%).
+
+\paragraph{Across prompts, the chaos moves to higher temperature instead.} The fixed window hides where larger models
+are chaotic. The frozen prompt-blocked test compares Qwen2.5-7B and -14B on ten system prompts and openers (two for
+development, eight held out), over $\log_{10}T\in[-0.4,0.9]$ (48 temperatures) and then over the temperature interval
+where each model's next-token entropy rises most (24 temperatures), with twins at offsets $10^{-5}$ and $10^{-7}$; a
+temperature counts as chaotic only when both exponents are positive (Figure~\ref{fig:prefixscale}). It predicted that
+the 14B model would be less chaotic. Both predictions fail: on all eight held-out prompts the 14B model is chaotic at
+more of the 48 temperatures (9 to 17, against 0 to 7 for the 7B), and its largest exponent is lower on only three.
+Every chaotic temperature of the 14B model, on all ten prompts, lies between $\log_{10}T=0.36$ and $0.90$, at and
+above the temperature where its next-token distribution spreads ($0.35$--$0.65$); the 7B model's chaos lies mostly
+between $0.21$ and $0.43$, around its own, lower transition ($0.21$--$0.46$). On the paper's prompt the 14B model is
+chaotic at 12 of the 48 temperatures, between $0.52$ and $0.90$; its sweep in Table~\ref{tab:scale}, which ends at
+$0.6$, saw only the lower edge. Within Qwen2.5, then, the larger model is not less chaotic: its distribution stays
+sharp up to higher temperature, and its chaos sits there. The decline in the fixed window is largely a shift.
+\begin{figure}[H]
+\centering
+\includegraphics[width=\linewidth]{fig-prefix-scale.png}
+\caption{Prompt-blocked size test (frozen before any run), Qwen2.5-7B and -14B on ten prompts (grey: development).
+Left: chaotic temperatures among 48 over $\log_{10}T\in[-0.4,0.9]$, the primary endpoint. Right: where the chaotic
+temperatures lie (dashes; both stages), with each model's entropy transition, the interval of its largest entropy
+increase (shading). Chaotic: exponents above $10^{-3}$ at both twin offsets ($10^{-5}$, $10^{-7}$) and no period up to
+64; 1000 transient and 2000 measured steps, float64.}
+\label{fig:prefixscale}
+\end{figure}
 \begin{table}[H]
 \centering\footnotesize\setlength{\tabcolsep}{4pt}
 \begin{tabular}{lrcrccc r}
@@ -1120,15 +1146,23 @@ the same idea is described in the text.}
 \label{fig:scale}
 \end{figure}
 
-Where it survives in the large models, chaos sits at the temperature where the next-token distribution on the orbit
-jumps from sharp to spread. Qwen2.5-72B is chaotic in a window between $\log_{10}T=0.3728$ and $0.376$, Qwen2.5-32B at
-one temperature of its jump ($0.58$; exponent $0.36$), and Llama-3.3-70B at two isolated temperatures of a finer line
-($0.250$ and $0.306$; exponents $0.14$ and $0.13$ at the one twin offset that lies above the 70B noise floor; the gain
-split, an independent run, gives $0.18$ near $0.306$). In Qwen2.5-72B's window the leading token alternates ``Hello''
-and ``!'' at every step while the state is chaotic, as in the repeating-text chaos of Section~\ref{sec:misalignment}.
-\inprogress{A confirmation of the Qwen2.5-72B window at three twin offsets above the noise floor (run B7b) is running; until it lands, the window's cells are candidates from one valid offset.} Several Qwen2.5 models also have chaotic temperatures above $\log_{10}T=0.3$, where the next-token
-entropy on the orbit is high (6.8 to 11.6 nats): 1.5B at 21 temperatures between $0.31$ and $0.58$, 3B at 3, 7B at 6
-of the 30 temperatures of its wider sweep, and 14B at 5. \inprogress{A two-offset check of the 1.5B cells is running.}
+\paragraph{At 70B our numerics resolve no chaos.} The regular grids of the 70B-class models find little: Qwen2.5-72B
+has no positive exponent at any of 191 temperatures between $\log_{10}T=-1$ and $1.2$, Llama-3.3-70B none in
+$[-1,0.3]$, and Llama-3.1-70B three temperatures in $[-1,0.3]$. Finer lines found candidates: a window of positive
+exponents at Qwen2.5-72B's entropy jump ($\log_{10}T=0.3728$--$0.376$), and two isolated temperatures of
+Llama-3.3-70B ($0.250$, $0.306$), all at the single twin offset $10^{-6}$. The window failed a three-offset test: the
+exponent is negative at all 64 temperatures of the window at $10^{-5}$, near zero at $10^{-6}$, and positive at all 64
+at $10^{-7}$, including temperatures whose state repeats with a period to $10^{-8}$, which no stable periodic orbit
+allows. The exponent therefore depends on the offset without a plateau, and we withdraw the window. On one GPU the
+same comparison is clean (exponents at $10^{-7}$ and $10^{-5}$ agree within 0.02 on all chaotic temperatures of the
+prompt-blocked test), so the offset dependence belongs to our two-GPU computation of the 70B-class models; we have not
+found its mechanism. Until a plateau test at larger offsets (running) confirms them, every positive cell of the
+70B-class models, including the steered maps below, is a candidate. Negative exponents are unaffected, since the
+small-offset bias is upward. \inprogress{Plateau tests of the Llama-3.3-70B zoom and the Llama-3.1-70B temperatures at
+offsets $10^{-4}$, $10^{-5}$ and $10^{-6}$ are running.} Several Qwen2.5 models also have chaotic temperatures above
+$\log_{10}T=0.3$ on the paper's prompt, where the next-token entropy on the orbit is high (6.8 to 11.6 nats): 1.5B at
+21 temperatures between $0.31$ and $0.58$, 3B at 3, 7B at 6 of the 30 temperatures of its wider sweep, and 14B at 5.
+\inprogress{Sweeps from $\log_{10}T=0.61$ to $1.2$ for the models of the scaling series are running.}
 
 \paragraph{What sets it: the gain of the loop.} The gain split of Section~\ref{sec:theory} shows which factor removes or
 keeps the chaos (Figure~\ref{fig:gainscale}). We compare medians of the two factors in bins of the mean next-token
@@ -1173,13 +1207,14 @@ breadth is measured on the loop's own orbits, which chaos itself spreads, so the
 
 \paragraph{Across prefixes.} \inprogress{A prompt-blocked test over ten prefixes for Qwen2.5-7B and -14B, frozen in \texttt{docs/prefix-scale-test.md}, is running.}
 
-\paragraph{Steering at 70B.} Steering still opens chaos at 70B, but rarely, and no longer independently of the
-direction (Figure~\ref{fig:controls70}). On Llama-3.3-70B's hostility plane, at the layer of Goodfire's 70B SAE and at
-equal norm, 4.3\,\% of cells are chaotic along the concept vector, 3.5\,\% along the frozen-rule hostility feature,
-1.1\,\% along a Gaussian direction and 0.2\,\% along a random live feature, against 28, 29, 39 and 27\,\% for the same
-four directions in Llama-3.1-8B; Qwen2.5-72B along hostility gives 0.8\,\%. The chaotic cells of the hostility
+\paragraph{Steering at 70B.} Under steering, the 70B maps show candidate chaos, rarely and not independently of
+the direction (Figure~\ref{fig:controls70}; single offset $10^{-6}$, so candidates as above). On Llama-3.3-70B's
+hostility plane, at the layer of Goodfire's 70B SAE and at equal norm, 4.3\,\% of cells are labelled chaotic along the
+concept vector, 3.5\,\% along the frozen-rule hostility feature, 1.1\,\% along a Gaussian direction and 0.2\,\% along
+a random live feature, against 28, 29, 39 and 27\,\% for the same four directions in Llama-3.1-8B (on one GPU);
+Qwen2.5-72B along hostility gives 0.8\,\%. The chaotic cells of the hostility
 directions lie on a ridge that steering moves from $\log_{10}T\approx0.3$ to $0.1$. A $64\times64$ zoom of the concept
-plane (Figure~\ref{fig:zoom70}; $\alpha\in[0.06,0.12]$, $\log_{10}T\in[0.12,0.27]$, four bands computed separately with
+plane, at the same offset, (Figure~\ref{fig:zoom70}; $\alpha\in[0.06,0.12]$, $\log_{10}T\in[0.12,0.27]$, four bands computed separately with
 identical vectors and joined) resolves it: a chaotic band, with periodic cells interspersed, whose centre steering
 moves from $\log_{10}T=0.25$ at $\alpha=0.06$ to $0.19$ at $\alpha=0.12$ while its extent grows from about 0.02 to 0.05
 decades, and a thinner chaotic layer near $\log_{10}T=0.15$--$0.16$ at strong steering; 22\,\% of the 4096 cells are
@@ -1211,15 +1246,16 @@ exponent).}
 \label{fig:zoom70}
 \end{figure}
 
-\paragraph{What this implies for larger models.} Our data give no reason to expect a model to be free of this chaos
-because it is large. In Qwen2.5 and Llama-3 the largest models are nearly stable in the loop, because their network
-or their readout damps a change of the fed-back token, but OLMo-2-32B is more chaotic than its 7B and 13B relatives,
-and two 70B Llama checkpoints that differ in post-training differ from 2.3\,\% to none. What the chaos follows is the
-gain of the loop at the temperatures where the model's next-token distribution is spread, and the breadth of that
-regime, which can be measured for any open model, orders our fifteen models better than their size does. Even the most stable models keep narrow chaotic windows
-at the transition from sharp to spread distributions, which a coarse temperature grid misses. For a larger model we
-would therefore expect chaos in this loop, if anywhere, near that transition, and we would measure the breadth of
-its intermediate-entropy regime before predicting how much.
+\paragraph{What this implies for larger models.} Nothing in our data says that a model is free of this chaos
+because it is large. In the one family where we varied the prompt, the larger model's chaos did not vanish but moved
+to higher temperature, to where its next-token distribution spreads; in another family the largest model was the most
+chaotic; post-training changed the chaos of two 70B Llama checkpoints of the same size; and at 70B our numerics could
+not resolve the few candidates. A fixed temperature window is therefore the wrong yardstick. A model's chaos follows
+the gain of its loop where its own next-token distribution is spread, and to find it in a larger model one has to look
+there, across prompts. Whether the shift continues beyond 14B is open: on the paper's prompt, Qwen2.5-72B showed no
+robust chaos anywhere up to $\log_{10}T=1.2$, and a prompt-blocked test at 72B, frozen in
+\texttt{docs/prefix-scale-72b.md}, has not been run. For frontier models, size alone gives no reason to expect
+stability, and a search for chaos should start at the temperatures where their own distributions spread.
 
 \section{A second system: recurrent depth}
 \label{sec:huginn}
@@ -1824,8 +1860,9 @@ Qwen2.5-7B has 65 chaotic temperatures between $\log_{10}T=-0.07$ and $0.28$ (ex
 has 32 between $0.04$ and $0.14$ (up to $0.30$). Steering is therefore not needed to reach chaotic regimes in any of
 these four models. Temperature alone produces chaos with embedded windows, broadly in the 7B and 8B models and in
 a narrow band in the 0.5B model (Figure~\ref{fig:alpha0}). Across the fifteen models of Section~\ref{sec:size}, the
-regular-grid sweeps find unsteered chaos in eleven of the fourteen dense models, but not in Qwen2.5-72B, Llama-3.3-70B,
-OLMo-2-13B or the mixture of experts; finer lines then found candidate windows in the first two.
+regular-grid sweeps find unsteered chaos in eleven of the fourteen dense models (in Llama-3.1-70B only as
+candidates), but not in Qwen2.5-72B, Llama-3.3-70B, OLMo-2-13B or the mixture of experts; finer lines found
+candidates in the first two that our two-GPU numerics could not confirm.
 
 Steering does widen the chaotic regions, but not as a property of the concept: along norm-matched random directions,
 the 0.5B maps are as chaotic as along the concept directions (Figure~\ref{fig:controls}). On the same $128^2$ grid,
@@ -1884,8 +1921,9 @@ opposite orientation of the null vector, which flips the signs of $a$ and $b$ to
 \paragraph{Limitations.} The detailed orbit studies cover one model family (Qwen2.5, 0.5B and 1.5B), with coarse
 maps and three float64 orbits at 7B; the two other families (OLMo-2 7B and Llama-3.1 8B) have maps, including
 $128^2$ refinements for Llama, but no continued orbits. The size comparison of Section~\ref{sec:size} uses regular
-temperature grids that can miss narrow windows and mostly one twin offset per label; at 70B the twin differences have
-a noise floor near $2\times10^{-8}$ that invalidated the smallest offset, so its positive cells there are candidates.
+temperature grids that can miss narrow windows, a window that missed most of the larger models' chaos, and mostly
+one twin offset per label; at 70B, computed on two GPUs, the exponent depends on the twin offset below about
+$10^{-6}$, so positive cells there are candidates.
 The maps use one prompt (Section~\ref{sec:size} adds ten for two models), and steering uses contrastive vectors, checked against norm-matched random and sparse-autoencoder
 directions in two models. The system is a constructed one-token window. The evidence consists of numerical
 validation, cross-checks and prospectively frozen passage tests (including failed all-row criteria), with a
@@ -1934,8 +1972,8 @@ fixed points \cite{sussillo2013opening,maheswaranathan2019reverse} to the period
 pretrained transformer. Second, feature dictionaries say which features an attractor occupies, but the boundaries
 between attractors, which decide what a small change does, are properties of the map's derivatives. In our 8B controls,
 a sparse-autoencoder feature direction, contrastive and random directions all drove the map into chaos (27 to 39\,\%
-of cells); at 70B the hostility-related directions did so more often than the random ones (4.3 and 3.5\,\% against
-1.1 and 0.2\,\%; Section~\ref{sec:size}). Steering acts through the gain of Section~\ref{sec:theory}, which is not
+of cells); at 70B the hostility-related directions gave more candidate chaotic cells than the random ones (4.3 and 3.5\,\%
+against 1.1 and 0.2\,\%; Section~\ref{sec:size}). Steering acts through the gain of Section~\ref{sec:theory}, which is not
 specific to concept-labelled directions, but a direction's geometry and its meaning can be correlated. Text can
 also hide the dynamics: in the hostile cascade, a seven-token text repeats exactly while the state underneath is
 chaotic (Figure~\ref{fig:hiddenbands}), so a monitor that reads only the emitted text would call a chaotic regime
@@ -1958,9 +1996,9 @@ comes from sampling and a growing context, which wash out much of this structure
 the chaos does matter for is predictability and control. Positive finite-horizon exponents limit open-loop
 prediction of a trajectory at fixed state precision (our experiments do not establish mixing or limits on feedback
 stabilization); a stable attractor is predictable, but it can also hold a model in a state it should leave, as the
-hostile capture of sampled dialogue shows (Section~\ref{sec:misalignment}). Among the models we tested, the largest Qwen2.5 and
-Llama models sit near the stable end: their coarse unsteered sweeps found no positive exponent, and finer lines found
-only sparse candidate windows, whereas OLMo-2-32B is among the most chaotic (Section~\ref{sec:size}). Whether regimes
+hostile capture of sampled dialogue shows (Section~\ref{sec:misalignment}). On the paper's prompt, the largest Qwen2.5 and Llama
+models sit near the stable end, but across prompts a 14B Qwen model is more chaotic than the 7B, at higher
+temperatures, and OLMo-2-32B is among the most chaotic models we tested (Section~\ref{sec:size}). Whether regimes
 near the boundary between order and chaos are especially useful, as has been argued for computation in dynamical
 systems and recurrent networks \cite{langton1990computation,bertschinger2004realtime} and shown for signal propagation
 in deep networks at initialization \cite{poole2016exponential,schoenholz2017deep}, is open for language models: our
@@ -1974,11 +2012,11 @@ otherwise), contraction at sufficiently high temperature, the reduction of zero-
 cycles of whatever memory the loop keeps, and the role of a steering coefficient as a bifurcation parameter. Others
 belong to particular weights and will not carry over as such: the attractor texts, the positions of windows, folds and
 cusp candidates, and every number we report; a second checkpoint of the same architecture already has different
-attractors (Section~\ref{sec:scale}). Size gives no guarantee either way. Across fifteen models up to 72B parameters,
-the unsteered chaos nearly vanished in the largest Qwen2.5 and Llama models but not in OLMo-2-32B, Llama's
-post-training changed it at fixed size, and even the most stable models kept narrow candidate windows where their
-next-token distribution spreads (Section~\ref{sec:size}). For an open frontier model, the breadth of its
-intermediate-entropy regime is the quantity we would measure first. Our one mixture-of-experts model,
+attractors (Section~\ref{sec:scale}). Size gives no guarantee of stability. In a fixed temperature window the unsteered
+chaos nearly vanished in the largest Qwen2.5 and Llama models, but across prompts a 14B Qwen model was more chaotic
+than the 7B, at higher temperatures, OLMo-2-32B was the most chaotic OLMo model, and post-training changed the chaos
+of two Llama checkpoints of the same size (Section~\ref{sec:size}). For an open frontier model we would search for
+chaos where its own next-token distribution spreads, across prompts. Our one mixture-of-experts model,
 Qwen3.5-35B-A3B, gave no positive exponent without steering and irregular cells only under hostility steering, and
 hard routing falls outside the smooth theory of Section~\ref{sec:theory} (Section~\ref{sec:scale}). Reasoning models
 open a thinking block that changes the prefix, post-training may remove some attractors and create others, and
