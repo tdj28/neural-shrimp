@@ -1,0 +1,212 @@
+{
+  "passed": true,
+  "task": 19,
+  "root": "/data2/neural-shrimp-data/codex/llm-return-map-crosscheck/stress-cell04-001",
+  "tool_session_id": 85698,
+  "tool_session_reaped_exit_code": 0,
+  "tool_exit_observation": "Inference write_stdin terminal result; stdout/stderr redirected to original supervision files",
+  "numerical_values_decoded": false,
+  "numerical_replay": false,
+  "receipt_sha256": "0023017e561b9cc477b39cf82567064c511c7ef2ce411aed2dfba33bec610168",
+  "startup_sha256": "f99ec13175493ae8bac0f69cb53443bcfab2148cedef02a645332ec9bf5d1642",
+  "manifest_sha256": "fccba11509a2251c6d4d2cc5779212cc600309f5fcbc97736a77b717f16b82bf",
+  "source_commit": "6b946a069420390b773eb6a7327dbf2d7323477b",
+  "plan_sha256": "3cd70f0d2f186730da64e73cb811b4993cedf0518b3dac6e1695e0a6b63d8e7c",
+  "source_files": [
+    {
+      "path": "codex/return-map-crosscheck/reduce.py",
+      "bytes": 12405,
+      "sha256": "d87ec765cde3c0cc1145e6225b9b98b9a9c85468df85368c938c571aebda098b"
+    },
+    {
+      "path": "codex/return-map-crosscheck/trajectory.py",
+      "bytes": 4376,
+      "sha256": "8da808f5413d4f7caca49b6c0cba4c8182ff4322c91e123513e9ccb3e9737524"
+    },
+    {
+      "path": "codex/return-map-crosscheck/runtime.py",
+      "bytes": 23541,
+      "sha256": "41f0f19f023f2bbd5f6842929bb07cad70b86ea8d0399eec717a22ae478d468a"
+    },
+    {
+      "path": "codex/hostile-fold-crosscheck/assets.py",
+      "bytes": 2611,
+      "sha256": "06477ee36a78f15ee8f1e8ae196dc53ae230ff19368fbda638eb6a6e0ef758e0"
+    },
+    {
+      "path": "codex/crosscheck/qwen_map.py",
+      "bytes": 14540,
+      "sha256": "493a3d1d57fec227f5ba2e3f8f9cfcfdd02d22495d1d44e6449ede901310ae6e"
+    },
+    {
+      "path": "codex/return-map-crosscheck/stress_runtime.py",
+      "bytes": 18136,
+      "sha256": "b125e6b5c09a83aee18eb1550611b2b719d10d1063f846286ee528cb6c88effe"
+    },
+    {
+      "path": "codex/certify-llm/derivative_campaign.py",
+      "bytes": 54237,
+      "sha256": "9357d0aee5e5880b37c752a5c928c988480c63a1871db94f1fc3f8b3df70ee52"
+    },
+    {
+      "path": "codex/return-map-crosscheck/stress_launch.py",
+      "bytes": 18691,
+      "sha256": "6e355b855f0a083f7e6da4acb5836cb3b726cd4114c60c457cb3041af0a15605"
+    },
+    {
+      "path": "codex/return-map-crosscheck/stress-cell04-001-plan.json",
+      "bytes": 1820,
+      "sha256": "3cd70f0d2f186730da64e73cb811b4993cedf0518b3dac6e1695e0a6b63d8e7c"
+    },
+    {
+      "path": "codex/return-map-crosscheck/stress-cell04-001-card.md",
+      "bytes": 8517,
+      "sha256": "9dfb7e30a653a60360932d7676cffb14a76239c02af9e74b5d599249aee3da26"
+    },
+    {
+      "path": "codex/return-map-crosscheck/stress-cell04-001-dispatch.sh",
+      "bytes": 1009,
+      "sha256": "1b7c7b3587169a63dddb6e6afcc14ac4953a151db9ed2cdb47287cefde38a1fc"
+    }
+  ],
+  "original_artifacts_checked": 43,
+  "original_bytes_checked": 145491373,
+  "original_waiter_launcher_worker_pids_groups_sessions_absent": true,
+  "original_identities": {
+    "worker": {
+      "pid": 1510289,
+      "start": 191406298,
+      "ppid": 1510259,
+      "pgid": 1510289,
+      "sid": 1510289,
+      "uid": 1000,
+      "nice": 10,
+      "threads": 3,
+      "rss_kib": 4540824,
+      "state": "R",
+      "address_space_limits": [
+        "12884901888",
+        "12884901888"
+      ],
+      "command": [
+        "/data2/neural-shrimp/.venv/bin/python",
+        "-I",
+        "-B",
+        "-u",
+        "/data2/neural-shrimp-data/codex/llm-return-map-crosscheck/stress-cell04-001/source/codex/return-map-crosscheck/stress_runtime.py",
+        "--plan",
+        "/data2/neural-shrimp-data/codex/llm-return-map-crosscheck/stress-cell04-001/source/codex/return-map-crosscheck/stress-cell04-001-plan.json",
+        "--output",
+        "/data2/neural-shrimp-data/codex/llm-return-map-crosscheck/stress-cell04-001/run"
+      ]
+    },
+    "launcher": {
+      "pid": 1510259,
+      "start": 191406147,
+      "ppid": 1510256,
+      "pgid": 1510259,
+      "sid": 1510259,
+      "uid": 1000,
+      "nice": 10,
+      "threads": 1,
+      "rss_kib": 24164,
+      "state": "S",
+      "address_space_limits": [
+        "12884901888",
+        "12884901888"
+      ],
+      "command": [
+        "/data2/neural-shrimp/.venv/bin/python",
+        "-I",
+        "-B",
+        "-u",
+        "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/return-map-crosscheck/stress_launch.py",
+        "--attempt",
+        "stress-cell04-001",
+        "--source",
+        "6b946a069420390b773eb6a7327dbf2d7323477b",
+        "--plan",
+        "stress-cell04-001-plan.json",
+        "--plan-sha256",
+        "3cd70f0d2f186730da64e73cb811b4993cedf0518b3dac6e1695e0a6b63d8e7c"
+      ]
+    },
+    "waiter": {
+      "pid": 1510256,
+      "start": 191406144,
+      "ppid": 1535104,
+      "pgid": 1510256,
+      "sid": 1510256,
+      "uid": 1000,
+      "nice": 0,
+      "threads": 1,
+      "rss_kib": 2060,
+      "state": "S",
+      "address_space_limits": [
+        "unlimited",
+        "unlimited"
+      ],
+      "command": [
+        "setsid",
+        "--wait",
+        "/data2/neural-shrimp/.venv/bin/python",
+        "-I",
+        "-B",
+        "-u",
+        "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/return-map-crosscheck/stress_launch.py",
+        "--attempt",
+        "stress-cell04-001",
+        "--source",
+        "6b946a069420390b773eb6a7327dbf2d7323477b",
+        "--plan",
+        "stress-cell04-001-plan.json",
+        "--plan-sha256",
+        "3cd70f0d2f186730da64e73cb811b4993cedf0518b3dac6e1695e0a6b63d8e7c"
+      ]
+    }
+  },
+  "worker_termination_verified": true,
+  "uncertain_ownership": [],
+  "supervision_root": "/data2/neural-shrimp-data/codex/llm-return-map-crosscheck/stress-cell04-001-supervision",
+  "supervision_files": [
+    {
+      "path": "dispatch-pins.txt",
+      "sha256": "28bba0defe77073de9e66845cf5b8c0b7ee28146c07512cbbc5fa9908aefde7a",
+      "bytes": 106
+    },
+    {
+      "path": "executed-dispatch.sh",
+      "sha256": "1b7c7b3587169a63dddb6e6afcc14ac4953a151db9ed2cdb47287cefde38a1fc",
+      "bytes": 1009
+    },
+    {
+      "path": "launcher.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "launcher.stdout",
+      "sha256": "c03f0a72ecde07fd45972f65385a916730a8d7d8053d89cb9fce515f563b11b5",
+      "bytes": 1553
+    },
+    {
+      "path": "startup-check.py",
+      "sha256": "0f41b28cb7c04d58687d978df684ed2405d2b71ef1046cf2b9e6fea3975cddcf",
+      "bytes": 3898
+    },
+    {
+      "path": "startup.json",
+      "sha256": "f99ec13175493ae8bac0f69cb53443bcfab2148cedef02a645332ec9bf5d1642",
+      "bytes": 3847
+    }
+  ],
+  "computational_disposition": "return_map_completed",
+  "elapsed_seconds": 1068.619080628967,
+  "runtime_headroom_observation": {
+    "samples": 2131,
+    "minimum_available_bytes": 47390883840,
+    "maximum_output_bytes": 145490502
+  },
+  "utc": "2026-10-14T09:03:53Z",
+  "seconds": 0.17927959212101996
+}

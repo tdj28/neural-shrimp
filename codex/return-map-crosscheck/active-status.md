@@ -1,3 +1,15 @@
+# Task19 current status: cell04 closed; saved review admitted
+
+The primary trajectory and all65 original/amended/purged replay remain accepted. Optional cell04 completed once: original session85698 reaped0, receipt0023017e, source6b946a06/plan3cd70f0d. Worker1066.456581s/5,339,104KiB; external1068.619081s. Closureb2dbd356 authenticates43 immutable artifacts145,491,373B/11Gitblobs and all original waiter/launcher/worker births/groups/sessions absent. Original closed supervision is sealed; zero live reservations at this checkpoint.
+
+Root accepted one finite saved review with unchanged reviewer38a534ea, card479ce10f and supervisorb86ba668: CPU1+supervisor/nice10/4GiB/120s/16MiB, startup20GiB/runtime16GiB. It follows this private checkpoint and fresh admission. Preparation history is preserved in stress-cell04-review-preparation-001 and compact receipt here. No scientific conclusion from04 yet. Cell13 remains unlaunched until this audit closes and its separate fresh preflight passes.
+
+Task18 is complete/delivered. Inference retains sole Git/process ownership. Human priority18/19 with addendum, then17/16/15; later tasks remain unstarted. No paid/GPU work or retries. Updated 2026-10-14T09:06:05.920432+00:00.
+
+---
+
+## Historical phase before optional04 closure
+
 # Task19 current status: primary and all65 accepted; cell04 running
 
 Primary trajectory/result and saved review are accepted; all65 original/amended/purged replay is accepted. Reports primary-scientific-report.md and addendum-scientific-report.md retain49/62 versus51/62, every outlier/rank warning and finite producer/short-run ownership limits.
