@@ -774,9 +774,15 @@ hf_hub_download('Goodfire/Llama-3.3-70B-Instruct-SAE-l50', 'Llama-3.3-70B-Instru
       mkdir -p "$OUT/$D/controls70/$kdir"
       cp -r "$OUT/$cvec" "$OUT/$D/controls70/$kdir/concept-vectors"
       cp -r "$OUT/llm-soft-loop/controls/vectors-llama70b-l50" "$OUT/$D/controls70/$kdir/vectors"
-      run s70-$kdir "${JOBARGS[1]}" scan $BIG --layer 50 --chunk 256 --tol 1e-8 --eps 1e-6 \
-        --vectors llm-soft-loop/controls/vectors-llama70b-l50 --concept $key "${sargs[@]}" \
-        --out $D/controls70/$kdir/scan
+      if [ "$part" = cells ]; then   # plateau test (run PT): JOBARGS cells MINUTES KEY name=SUFFIX CELLS-FILE [ARGS...]
+        TOOL=hidden_chaos.py run s70-$kdir "${JOBARGS[1]}" cells $BIG --layer 50 --chunk 32 --tol 1e-8 \
+          --vectors llm-soft-loop/controls/vectors-llama70b-l50 --concept $key --cells-file "${sargs[@]}" \
+          --out $D/controls70/$kdir/cells
+      else
+        run s70-$kdir "${JOBARGS[1]}" scan $BIG --layer 50 --chunk 256 --tol 1e-8 --eps 1e-6 \
+          --vectors llm-soft-loop/controls/vectors-llama70b-l50 --concept $key "${sargs[@]}" \
+          --out $D/controls70/$kdir/scan
+      fi
     fi
     ;;
   bigmap)      # large dense models, one steered float64 map (run B3): JOBARGS MODEL LAYER MINUTES CONCEPT [SCAN-ARGS...].
@@ -858,8 +864,10 @@ snapshot_download('$REPO', revision='$MREV', cache_dir='$NEURAL_SHRIMP_DATA/mode
     log "download done $(du -sh $NEURAL_SHRIMP_DATA/models/hf/hub | cut -f1)"
     mrefs=$NEURAL_SHRIMP_DATA/models/hf/hub/models--${REPO/\//--}/refs
     mkdir -p "$mrefs" && printf %s "$MREV" > "$mrefs/main"
-    TOOL=hidden_chaos.py run bighidden-$model "${JOBARGS[2]}" line --model $model --device auto --weights bf16 \
-      --dtype float64 --vectors-none --alpha 0 "${JOBARGS[@]:3}" --out $D/big/$model-${JOBARGS[1]}
+    mode=line; hargs=("${JOBARGS[@]:3}")      # optional first argument cells=FILE: cells mode (plateau test, run PT)
+    if [[ "${hargs[0]:-}" == cells=* ]]; then mode=cells; hargs=(--cells-file "${hargs[0]#cells=}" "${hargs[@]:1}"); fi
+    TOOL=hidden_chaos.py run bighidden-$model "${JOBARGS[2]}" $mode --model $model --device auto --weights bf16 \
+      --dtype float64 --vectors-none --alpha 0 "${hargs[@]}" --out $D/big/$model-${JOBARGS[1]}
     ;;
   scaleset)    # scaling series (run SC): JOBARGS MODEL [MODEL...]. For each model, sequentially: pinned checkpoint (plain
                # download; gated ones with the token on stdin), an unsteered float64 sweep (bf16 storage, layers over all
