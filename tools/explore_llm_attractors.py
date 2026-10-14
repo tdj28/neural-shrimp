@@ -72,6 +72,9 @@ def find_cycle(states, new_state):
     return None
 
 
+AUTO_RESERVE_GIB = 20          # free memory kept on each GPU when a large model is spread (device "auto")
+
+
 def upcast_linear_forward():
     """Let nn.Linear layers whose weights are stored in a lower precision compute in float64 when their input is
     float64: the weight (and bias) are converted for each call. bfloat16 values are exactly float64 values, so the
@@ -140,7 +143,14 @@ class Engine:
             # large dense models: decoder linear weights stay in their stored bfloat16 and compute in float64 (exact,
             # see upcast_linear_forward); device "auto" spreads the layers over all GPUs (accelerate)
             upcast_linear_forward()
-            kwargs = {"device_map": "auto"} if device == "auto" else {}
+            kwargs = {}
+            if device == "auto":
+                # balanced over the GPUs, leaving AUTO_RESERVE_GIB free on each for what grows after placement: the
+                # float64 embedding and output layer, the per-row prefix caches and the float64 weight copies
+                gib = 2 ** 30
+                total = [torch.cuda.get_device_properties(i).total_memory / gib for i in range(torch.cuda.device_count())]
+                budget = {i: f"{int(max(t - AUTO_RESERVE_GIB, 0.5 * t))}GiB" for i, t in enumerate(total)}
+                kwargs = {"device_map": "balanced", "max_memory": budget}
             self.model = AutoModelForCausalLM.from_pretrained(self.name, dtype=torch.bfloat16, cache_dir=CACHE,
                                                               **kwargs)
             if device not in (None, "auto"):
