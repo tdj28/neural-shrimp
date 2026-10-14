@@ -1,0 +1,124 @@
+{
+  "utc": "2026-10-14T07:41:24Z",
+  "tool_session_id": 57156,
+  "source_commit": "be709c95e93e1e075d9ced10f27e8453a301ba75",
+  "plan_sha256": "402d4b107a8a9a7b5832d0824fa40208e28a13caeb1f7c0f8d1e127b9cafe8c4",
+  "card_sha256": "75ebe71e47a04f4acc6128092a21ae6d2dbab82d586f09a25cb00f25afc473be",
+  "remote_main_at_launch": "3943f05dbb56dc116091c448eca37b202e451e6c",
+  "manifest_sha256": "3e33fb4dc6a3691c65001797f58dde6c4bd1a467596d7c8b889d8b8d81143879",
+  "preflight_report_sha256": "e693f675524e54533fc9a8b2ba9c574578454fc1c0fec2d91872f1c369587839",
+  "identities": {
+    "worker": {
+      "pid": 1440586,
+      "start": 191022288,
+      "ppid": 1440568,
+      "pgid": 1440586,
+      "sid": 1440586,
+      "uid": 1000,
+      "nice": 10,
+      "threads": 3,
+      "rss_kib": 4541344,
+      "state": "R",
+      "address_space_limits": [
+        "12884901888",
+        "12884901888"
+      ],
+      "command": [
+        "/data2/neural-shrimp/.venv/bin/python",
+        "-I",
+        "-B",
+        "-u",
+        "/data2/neural-shrimp-data/codex/llm-return-map-crosscheck/trajectory-001/source/codex/return-map-crosscheck/runtime.py",
+        "--plan",
+        "/data2/neural-shrimp-data/codex/llm-return-map-crosscheck/trajectory-001/source/codex/return-map-crosscheck/trajectory-001-plan.json",
+        "--output",
+        "/data2/neural-shrimp-data/codex/llm-return-map-crosscheck/trajectory-001/run"
+      ]
+    },
+    "launcher": {
+      "pid": 1440568,
+      "start": 191022144,
+      "ppid": 1440503,
+      "pgid": 1440568,
+      "sid": 1440568,
+      "uid": 1000,
+      "nice": 10,
+      "threads": 1,
+      "rss_kib": 24256,
+      "state": "S",
+      "address_space_limits": [
+        "12884901888",
+        "12884901888"
+      ],
+      "command": [
+        "/data2/neural-shrimp/.venv/bin/python",
+        "-I",
+        "-B",
+        "-u",
+        "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/return-map-crosscheck/launch.py",
+        "--attempt",
+        "trajectory-001",
+        "--source",
+        "be709c95e93e1e075d9ced10f27e8453a301ba75",
+        "--plan",
+        "trajectory-001-plan.json",
+        "--plan-sha256",
+        "402d4b107a8a9a7b5832d0824fa40208e28a13caeb1f7c0f8d1e127b9cafe8c4"
+      ]
+    },
+    "waiter": {
+      "pid": 1440503,
+      "start": 191022134,
+      "ppid": 1535104,
+      "pgid": 1440503,
+      "sid": 1440503,
+      "uid": 1000,
+      "nice": 0,
+      "threads": 1,
+      "rss_kib": 2056,
+      "state": "S",
+      "address_space_limits": [
+        "unlimited",
+        "unlimited"
+      ],
+      "command": [
+        "setsid",
+        "--wait",
+        "/data2/neural-shrimp/.venv/bin/python",
+        "-I",
+        "-B",
+        "-u",
+        "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/return-map-crosscheck/launch.py",
+        "--attempt",
+        "trajectory-001",
+        "--source",
+        "be709c95e93e1e075d9ced10f27e8453a301ba75",
+        "--plan",
+        "trajectory-001-plan.json",
+        "--plan-sha256",
+        "402d4b107a8a9a7b5832d0824fa40208e28a13caeb1f7c0f8d1e127b9cafe8c4"
+      ]
+    }
+  },
+  "source_files_verified": 10,
+  "dispatch_sha256": "3f84bf1e005baec34b3f377fe098798a02d37812bfa5219fcafce9f6b78c3ecf",
+  "mem_available_bytes": 46938755072,
+  "reservation": {
+    "task18_cpu_including_supervisor": 3,
+    "task18_as_gib": 12,
+    "task19_cpu_including_supervisor": 3,
+    "task19_as_gib": 12,
+    "total_cpu": 6,
+    "auxiliary_cpu": 3,
+    "waiter_is_idle_dispatch_control": true,
+    "task19_active": true,
+    "deadline_seconds": 4200,
+    "output_mib": 512
+  },
+  "worker_stderr_bytes": 0,
+  "worker_stderr_text": "",
+  "outer_stdout_bytes": 742,
+  "outer_stderr_bytes": 0,
+  "no_failure_or_receipt": true,
+  "scientific_result_read": false
+}

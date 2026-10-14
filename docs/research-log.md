@@ -23057,3 +23057,9 @@ _commit `3c87499cbe05` (dirty worktree)_
 Pod 4ln0if3atdcxgu (SECURE A100-SXM4-80GB, rc 0, hash verified, terminated; 427 s; commit 4e16a027). tools/gain_split.py, float64 one GPU, unsteered, 24 temperatures, 500 + 1000 steps, twins at relative 1e-6. Factors sum to the exponent (boundary terms below 1e-3). Llama-3.1-8B (log10 T -0.25..0.6): chaotic cells at -0.139..0.193 (entropy 1.7-8.0 nats) with log g_net -0.22..+0.72 and log g_read -0.23..+0.33; the readout factor is positive at moderate entropy (1.2-3.4 nats), negative above 5 nats; above log10 T 0.3 both negative (contraction; at 0.6: net -0.98, read -2.30). Qwen2.5-7B (-0.1..1.2): chaotic at 0.070 (H 2.8: net +0.09, read +0.34) and 0.352 (H 11.4: net +1.88, read -1.11); at high T the readout factor dominates the contraction (read -1.8..-3.3) while the network factor stays near zero or positive. Comparison with the 70B models (G2) pending; analysis at matched entropy then.
 
 _commit `f446ced757a4` (dirty worktree)_
+
+## 2026-10-14 07:42 UTC: Task19 mandatory trajectory running; six-slot combined startup accepted
+
+Sole trajectory001 frombe709c95, plan402d4b10/card75ebe71e. Preflighte693f675 verifies10 capsule files/10 immutable input byte rows, exact live Task18 ownership and36GiB floor; no input payload decode. Startupd7cc6ca6 retains tool session57156, waiter1440503/start191022134, launcher1440568/start191022144, worker1440586/start191022288, nice10/12GiB/CPU2 and current46.94GB available. Root read full actual startup and accepted. Task18 session44216 remains unchanged; original001 preserved. Six total/three auxiliary CPU slots, hard deadlines unchanged, no result interpreted. Saved001/optional cells unlaunched. Next useful health at completion or08:00UTC.
+
+_commit `be709c95e93e` (dirty worktree)_
