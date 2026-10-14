@@ -21,7 +21,8 @@ def main():
     import explore_llm_attractors as ela
 
     out, specs = sys.argv[1], [a.split("=", 1) for a in sys.argv[2:]]
-    fig, axes = plt.subplots(len(specs), 1, figsize=(8.5, 2.3 * len(specs)), sharex=True, squeeze=False)
+    fig, axes = plt.subplots(len(specs), 1, figsize=(8.5, 1.9 * len(specs)), sharex=True, squeeze=False)
+    fig.subplots_adjust(left=0.11, right=0.86, top=0.97, bottom=0.05, hspace=0.42)
     cmap = plt.get_cmap("viridis")
     for ax, (label, folder) in zip(axes[:, 0], specs):
         z = np.load(ela.DATA / "explore" / folder / "scan.npz")
@@ -38,13 +39,14 @@ def main():
             ax.scatter(lt[other], np.clip(L[other], -1.5, 1), color="k", marker="x", s=8, label="no period, exponent <= 0")
         ax.set_ylim(-1.55, 1.0)
         ax.set_ylabel("largest exponent\n(clipped at -1.5)")
-        ax.set_title(f"{label}: {int(chaotic.sum())} of {lt.size} temperatures without a period and with a positive "
-                     f"exponent", fontsize=9)
-        ax.legend(loc="lower left", fontsize=7, frameon=False)
+        ax.set_title(f"{label}: chaotic at {int(chaotic.sum())} of {lt.size} temperatures", fontsize=9)
+        if chaotic.any() or other.any():
+            ax.legend(loc="upper left", fontsize=7, frameon=False)
     axes[-1, 0].set_xlabel("log10 temperature (steering strength 0)")
-    cb = fig.colorbar(sc, ax=axes[:, 0], shrink=0.8, pad=0.01)
+    cax = fig.add_axes([0.885, 0.25, 0.018, 0.5])
+    cb = fig.colorbar(sc, cax=cax)
     cb.set_label("log2 period (periodic cells)")
-    fig.savefig(out, dpi=250, bbox_inches="tight")
+    fig.savefig(out, dpi=250)
 
 
 if __name__ == "__main__":
