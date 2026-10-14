@@ -22854,3 +22854,21 @@ _commit `a04d8069d97a` (dirty worktree)_
 - **Would surprise us:** fewer than half of the map-labelled chaotic cells chaotic in the long test, or periodic labels turning chaotic in more than a few per cent
 
 _commit `53f1bc7da3c1`_
+
+## 2026-10-14 04:21 UTC: run (exploratory)
+
+- **Question:** Trace of the strongest periodic-text chaotic cell of H1 (log10 T 0.1899492494639028, alpha 0.0655, hostility p1b): does the state visit 7 separated bands in a fixed order (band chaos), and how much do the leading-token probability and the blend vary within each phase of the repeating text?
+- **Setup:** Local RTX 2000 Ada, float64, tools/hidden_chaos.py cell --trace, transient 1000, record 2000, twins 1e-6 and 1e-9 (as H1).
+- **Output:** `../neural-shrimp-data/explore/llm-soft-loop/hidden-chaos/trace-best`
+- **Would surprise us:** exponent not reproduced (H1: 0.0895/0.0901); bands overlapping
+- **Command:** `bash -c set -o pipefail; uv run --no-sync python tools/hidden_chaos.py cell --vectors llm-phase-map/vectors-l12-p1b --concept hostility-vs-kindness --alpha 0.0655 --log-temperature 0.1899492494639028 --transient 1000 --record 2000 --eps 1e-6 1e-9 --device cuda --dtype float64 --trace --out llm-soft-loop/hidden-chaos/trace-best 2>&1 | grep -v Warn | tail -28`
+
+_commit `5b99b1e24d8f`_
+
+- run started 2026-10-14 04:21 UTC (../neural-shrimp-data/explore/llm-soft-loop/hidden-chaos/trace-best) finished 04:29 UTC with exit status 0
+
+## 2026-10-14 04:33 UTC: Trace of the strongest periodic-text chaotic cell: seven disjoint bands, a unimodal return map whose exponent matches the full map within 1.7 %
+
+Trace (run card above; local RTX 2000 Ada, float64, commit 5b99b1e2 code; output hidden-chaos/trace-best: trace.npz, bands-summary.json; figure paper/llm/figures/fig-hidden-bands.png by tools/plot_hidden_bands.py). Cell log10 T 0.1899492, alpha 0.0655, hostility p1b. Exponent 0.0911 (1e-6) / 0.0907 (1e-9) (H1 on the pod: 0.0895/0.0901); no state period; text period 7: 'I', '!', 'Yes', ' heels', '\n\n', 'pee', '\n\n'. Bands by text phase: radii 0.0014..0.068 of the mean state norm; the minimum distance between states of different phases is 0.098 of the norm (all seven bands disjoint; min gap between bounding balls 0.093). Within-phase leading-token probability: 0.101..0.121 ('I'), 0.942..0.958 ('!'), 0.235..0.254 (last '\n\n'), the others within 1e-4..3e-3. Inside the widest band (phase 6) the attractor is effectively a curve. Return map of the phase-6 probability over repetitions (285 points): degree-8 polynomial residual 4.3e-4 of the range; one critical point inside the range (p = 0.24317, second derivative -403: a quadratic maximum); Lyapunov exponent of the fitted map 0.647 per repetition against 0.638/0.635 per 7 steps for the full 896-dimensional map from twins (discrepancy 1.7 % of the mean). Phase 5 gives 0.642 (residual 3.1e-3); phases 0-4 are poor coordinates (residuals 5-28 %). Reading: band chaos after the period-7 doubling cascade, effectively a one-dimensional unimodal (logistic-type) map once per repetition; the text repeats exactly while the state is chaotic.
+
+_commit `5b99b1e24d8f` (dirty worktree)_
