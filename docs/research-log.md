@@ -23093,3 +23093,12 @@ The next required independent saved replay uses all65 original ordered cells, in
 Concept map pod zw6r1hd6hr2iif (COMMUNITY 2xH100 NVL, rc 0, hash verified, terminated; 8127 s, finished inside its 150-min scan limit). Llama-3.3-70B-Instruct, layer 50, hostility plane 32x32, 300 + 300 steps, float64 bf16-storage, all directions at the concept norm 98.43. Chaotic share: concept hostility-vs-kindness 44/1024 (4.3 %, largest 0.436; by |alpha| 2.1, 2.5, 3.1, 4.7, 7.0 %); SAE hostility feature 38767 3.5 %; Gaussian random1 1.1 %; random live SAE feature 55957 0.2 %. alpha = 0 columns 0/32 in all maps. Llama-3.1-8B at its SAE layer 19 (C1): 28, 29, 39, 27 %. Figure paper/llm/figures/fig-controls-llama70b.png (tools/analyze_controls.py; json beside it): the chaotic cells of the two hostility directions lie on a ridge from log10 T ~0.3 at small alpha to ~0.1 at alpha 0.12; the Gaussian's stay near 0.2-0.3; the random feature's only at the top edge near alpha 0. Many cells without a period (512 of 1024 for the concept map): slow at 600 steps. Reading: at 8B chaos under steering is generic; at 70B it is rare and direction-dependent (44 vs 11 cells, concept vs Gaussian).
 
 _commit `2db674124805` (dirty worktree)_
+
+## 2026-10-14 08:16 UTC: run (exploratory)
+
+- **Question:** Z70 (human: 'for 70b the resolution is not great, can we zoom in on a chaos region and do a much higher resolution map to see the structure?'): the structure of the chaotic ridge of Llama-3.3-70B along its hostility concept vector at four times the steering and seven times the temperature resolution of S70M.
+- **Setup:** Four pods (2 x H100 NVL / H200 NVL / H200), job set bigctrl PART map with name=zoom-bB: concept vectors built on each pod at layer 50 as in S70M (identical construction; their norms are checked when merging), direction hostility-vs-kindness; one 64 x 64 grid over alpha 0.06..0.12 and log10 T 0.12..0.27 (window of the S70M ridge), each pod 16 rows (bands b0..b3 of one linspace); 300 + 300 steps, max period 32, tol 1e-8, twin 1e-6, chunk 128; float64 with bf16 storage.
+- **Output:** `../neural-shrimp-data/explore/llm-soft-loop/pod64/controls70/hostility-vs-kindness-zoom-b{0..3}/scan`
+- **Would surprise us:** no structure at the finer scale (isolated chaotic cells only), or vector sets differing between pods
+
+_commit `56df8e3e7006` (dirty worktree)_
