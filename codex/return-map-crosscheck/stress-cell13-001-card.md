@@ -1,6 +1,6 @@
 # Task19 optional stress cell13, attempt001 — 2026-10-14
 
-**Admission: PREPARED. No execution is authorized by this card.** Root accepts the scientific adapter and prospective supervisor; this concrete plan/card still requires Root admission, the coordinator's private source/card/run-log checkpoint, exact external pins and fresh serialized preflight. The worker and supervisor reject a prepared plan. Preserve these original prepared bytes before any admission-only change.
+**Admission: REVIEWED.** Root accepted this exact scientific/resource/serial plan on2026-10-14. Prepared history is preserved at private checkpoint00a87d6d. One fixed attempt may execute only after the exact private admission checkpoint and fresh coordinator source/input/resource/closed-ownership preflight. All scientific parameters and limits remain unchanged; no automatic retry.
 
 ## Fixed question and exposure
 
@@ -12,7 +12,7 @@ Observed symbolic period determines every actual phase fit and band row; the exp
 
 ## Exact inputs and scientific source
 
-Prepared plan: `stress-cell13-001-plan.json`, SHA256 **37e16acc4f179af9fd30efcbc58c94e75d3860840c6ba6727715cd3d2487ec15**. Schema `codex-return-map-stress-v1`; mode `stress`; exact integer cell_index13. The reviewed/admitted plan will have a different hash only after the disclosed admission change; the dispatch must receive that actual final hash.
+Reviewed plan: `stress-cell13-001-plan.json`, SHA256 **f340afad9c85dc9d72e396a8cdaf48f0b4fcb5e46a3ce63d0caae22bef10e715**. Schema `codex-return-map-stress-v1`; mode `stress`; exact integer cell_index13. Only the admission field changed from the preserved prepared plan. The dispatch receives the exact reviewed hash above.
 
 Input authority `/data2/neural-shrimp-data/codex/llm-return-map-crosscheck/input-authority-001/manifest.json`, SHA256 **d3014365b8445f8508271959137b922f694f0519665e9dfcb8f459e49517d2e8**, retains all ten immutable original input/assignment/source/readiness members and the full65-cell ordering. Original writer termination is not newly inferred from file modes or existence. Six exact scientific source hashes are fully listed in the plan and hard-bound by the supervisor; the original five remain unchanged, and the new adapter is **b125e6b5c09a83aee18eb1550611b2b719d10d1063f846286ee528cb6c88effe**. Model/vector assets remain bound by the unchanged loader and are checked again after the run.
 
@@ -31,7 +31,7 @@ Same3000 calls/7000 row-forwards provide a per-cell forecast of **2742.026s**, t
 
 ## Required serial admission and failure handling
 
-The completed Task18 comparator must first be preserved and closed: prospective root `/data2/neural-shrimp-data/codex/llm-loop-gain-crosscheck/run-002-comparison-001` with its supervision/authority. Its actual receipt/source/closure hashes are not yet available in this prepared card and must be explicitly bound by the coordinator's fresh preflight. No guessed future success or ownership record is supplied. This is the second optional stress attempt. It additionally requires the exact stress-cell04-001 original receipt and independently verified owned closure before dispatch. Those future pins are intentionally not invented here; the coordinator must record them in the separate admitted preflight.
+The completed Task18 comparator must first be preserved and closed: prospective root `/data2/neural-shrimp-data/codex/llm-loop-gain-crosscheck/run-002-comparison-001` with its supervision/authority. Its completed report SHA5d1e63c58275c5f8500c0f242f81555b03921bf63d92dcfa98833a2bec6dbd5d and accepted final authority SHA398388244c818e7d341ab2c8de5ed14bbc29354d06a81083ebae9c76e3498a6b bind source2e1fbc3d/tool14835 reaped0 and original group absence. The fresh preflight binds these exact authority fields; no comparison reservation remains. This is the second optional stress attempt. It additionally requires the exact stress-cell04-001 original receipt and independently verified owned closure before dispatch. Those future pins are intentionally not invented here; the coordinator must record them in the separate admitted preflight.
 
 Scientific disagreement or lack of a fitted/chaotic/expected-period result is **not** an execution failure. A completed cell04 with negative scientific findings does not disqualify cell13. Conversely, a real execution failure, resource stop or uncertain ownership is preserved and pauses further dispatch for coordinator/Root disposition; no silent retry or successful-attempt selection is authorized. In all cases the prior writer/group must be verified absent before the next cell. Fresh capacity and exact source/card/input checks are required separately for each attempt.
 
