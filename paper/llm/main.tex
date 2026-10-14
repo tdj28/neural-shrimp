@@ -139,7 +139,9 @@ sampling, and Section~\ref{sec:misalignment} studies sampled dialogue directly.
   Float64 phase maps in temperature and steering strength show chaos (positive finite-horizon exponents) with embedded
   windows (Section~\ref{sec:maps}), a period-adding family whose text gains one ``is X'' pair per period step
   (Section~\ref{sec:adding}), shrimp-like windows (Section~\ref{sec:curves}), and a doubling cascade with superstable
-  points through period 384 and finite-order Feigenbaum ratios (Section~\ref{sec:cascade}). The same organization
+  points through period 384 and finite-order Feigenbaum ratios (Section~\ref{sec:cascade}). Past the cascade of a
+  hostile window, chaos hides behind an exactly repeating text and reduces to a one-dimensional map with a single
+  maximum (Section~\ref{sec:misalignment}). The same organization
   appears in Qwen2.5-1.5B and 7B, OLMo-2 7B, Llama-3.1 8B (with sparse-autoencoder readouts) and a second checkpoint of
   the 0.5B architecture, which shares the organization but not the attractors (Section~\ref{sec:scale}). Our one
   mixture-of-experts model, Qwen3.5-35B-A3B, is the exception: its unsteered map contracts everywhere we tested.
@@ -1222,6 +1224,35 @@ encloses a period-28 ring around a chaotic core. Period-21 windows sit in the ch
 legs, and curves of very negative exponent, where the orbits are superstable (the leading multiplier crosses zero),
 run through the windows as the ``endoskeleton'' of shrimps does \cite{facanha2013endoskeletons}. In this zoom
 18\,\% of cells are chaotic.
+
+\paragraph{Chaos behind a repeating text.} Along the temperature line of Figure~\ref{fig:hubcascade} (left), a longer
+test (2000 measured steps after 1000 transient steps, twins at offsets $10^{-6}$ and $10^{-9}$, whose exponents agree
+to within 0.003 in every chaotic cell) finds 182 chaotic cells among 1400 between $\log_{10}T=0.176$ and $0.191$. In
+65 of them the leading token repeats exactly for all 2000 steps while the state moves chaotically; in 59 of these the
+period of the text is a multiple of 7, most often 7 or 28. Figure~\ref{fig:hiddenbands} shows the strongest case
+($\log_{10}T=0.18995$, largest exponent 0.091 at both offsets). Its states fall into seven disjoint bands, visited in
+a fixed order and at least 0.098 of the state norm apart, and every band lies inside one cell of the partition by
+leading token, so the text \texttt{I!Yes\ heels$\hookleftarrow\hookleftarrow$pee$\hookleftarrow\hookleftarrow$}
+repeats without end. Inside a band the attractor is effectively a curve. Read once per repetition through the
+probability of the last token, the dynamics is a smooth map with a single quadratic maximum, the shape of the
+logistic map: a polynomial of degree 8 fits it to $4\times10^{-4}$ of its range, and the fitted map's Lyapunov
+exponent, 0.647 per repetition, is within 2\,\% of the full map's 0.636 per seven steps, measured with twin
+trajectories in all 896 dimensions. These are the chaotic bands that follow a period-doubling cascade, and a smooth
+unimodal map is the setting of Feigenbaum's universality \cite{feigenbaum1978quantitative}; we have shown the
+reduction for this cascade only. A reader of the text sees a loop. Only the probabilities, or the state, reveal the
+chaos.
+\begin{figure}[H]
+\centering
+\includegraphics[width=\linewidth]{fig-hidden-bands.png}
+\caption{Chaos behind a repeating text: the soft-token map of Qwen2.5-0.5B-Instruct steered along hostility at
+layer 12 ($\alpha=0.0655$, $\log_{10}T=0.18995$; float64, 2000 steps after 1000 transient steps). (a) All states on
+their first two principal components, coloured by the phase of the seven-token text that the leading token repeats:
+seven disjoint bands. (b) The widest band (phase 6, leading token a double line break) on its own principal
+components: inside the band the attractor is effectively a curve. (c) The probability of that token at successive
+repetitions of the text: a smooth unimodal return map (black: polynomial fit of degree 8) whose Lyapunov exponent
+matches that of the full map.}
+\label{fig:hiddenbands}
+\end{figure}
 \begin{figure}[H]
 \centering
 \includegraphics[width=\linewidth]{fig-hub-zoom.png}
@@ -1578,8 +1609,10 @@ flip curves inside, and in the hostile body superstable curves run through the w
 cusp also requires the two unfolding coefficients to depend on the two parameters with rank two. We computed this at
 one cusp of each window (determinants $2737$ and $53.5$), and there the local model's predictions at twelve frozen
 offsets matched Newton solutions in the number of orbits at all twelve and in their stability at eleven. These are
-float64 computations validated by step-size checks (rung 1; an independent recomputation at one cusp is in
-progress), not computer-assisted proofs.
+float64 computations validated by step-size checks (rung 1), not computer-assisted proofs. At the two continuation
+points that bracket the lower cusp of the hostile body, an independent implementation of the model reproduced the
+normal-form coefficients, including the sign change of $b$: $|b|$ within $1.2\,\%$ and $c$ to two figures, with the
+opposite orientation of the null vector, which flips the signs of $a$ and $b$ together.
 
 \paragraph{Limitations.} The detailed orbit studies cover one model family (Qwen2.5, 0.5B and 1.5B), with coarse
 maps and three float64 orbits at 7B; the two other families (OLMo-2 7B and Llama-3.1 8B) have coarse maps only. The
@@ -1624,7 +1657,10 @@ fixed points \cite{sussillo2013opening,maheswaranathan2019reverse} to the period
 pretrained transformer. Second, feature dictionaries say which features an attractor occupies, but the boundaries
 between attractors, which decide what a small change does, are properties of the map's derivatives. In our controls,
 sparse-autoencoder feature directions drove the map into chaos no differently from random directions, consistent
-with the mechanism of Section~\ref{sec:theory}, in which steering acts through the gain whatever the direction means.
+with the mechanism of Section~\ref{sec:theory}, in which steering acts through the gain whatever the direction means. Text can
+also hide the dynamics: in the hostile cascade, a seven-token text repeats exactly while the state underneath is
+chaotic (Figure~\ref{fig:hiddenbands}), so a monitor that reads only the emitted text would call a chaotic regime
+periodic.
 Third, when a behaviour sustains itself through a loop, acting on the loop can be cheaper than pushing against the
 behaviour. In sampled dialogue, the most dose-efficient control we found kept flagged replies out of the context,
 while counter-steering against the activations was less efficient and, in the larger model, backfired past the
