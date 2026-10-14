@@ -16,20 +16,22 @@ import numpy as np
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "tools"))
 P = "llm-soft-loop/pod64/"
-# family, label, parameters (billions), sweep folders (explore-relative; several are joined)
+# family, label, parameters (billions), sweep folders (explore-relative; several are joined), and optionally further
+# sweeps that extend the temperature axis: they enter the whole-axis measures (chaotic decades, breadth, largest
+# exponent) but not the share in [-1, 0.3], which the frozen predictions define on the first sweeps
 MODELS = [
     ("Qwen2.5", "0.5B", 0.49, [P + "scan64/q05-alpha0"]),
     ("Qwen2.5", "1.5B", 1.54, [P + "big/qwen1.5b-alpha0-wide"]),
     ("Qwen2.5", "3B", 3.09, [P + "big/qwen3b-alpha0-wide"]),
-    ("Qwen2.5", "7B", 7.62, [P + "controls/q7-alpha0"]),
+    ("Qwen2.5", "7B", 7.62, [P + "controls/q7-alpha0"], [P + "big/qwen7b-alpha0-wide"]),
     ("Qwen2.5", "14B", 14.7, [P + "big/qwen14b-alpha0-wide"]),
     ("Qwen2.5", "32B", 32.5, [P + "big/qwen32b-alpha0-wide"]),
     ("Qwen2.5", "72B", 72.7, [P + "big/qwen72b-alpha0", P + "big/qwen72b-alpha0-highT"]),
-    ("Llama-3.1", "8B", 8.03, [P + "llama8b-hires/alpha0"]),
+    ("Llama-3.1", "8B", 8.03, [P + "llama8b-hires/alpha0"], [P + "big/llama3.1-8b-alpha0-wide"]),
     ("Llama-3.1", "70B", 70.6, [P + "big/llama3.1-70b-alpha0"]),
     ("Llama-3.3", "70B", 70.6, [P + "big/llama3.3-70b-alpha0"]),
     ("OLMo-2", "1B", 1.48, [P + "big/olmo2-1b-alpha0-wide"]),
-    ("OLMo-2", "7B", 7.30, [P + "controls/o-alpha0c"]),
+    ("OLMo-2", "7B", 7.30, [P + "controls/o-alpha0c"], [P + "big/olmo2-7b-alpha0-wide"]),
     ("OLMo-2", "13B", 13.7, [P + "big/olmo2-13b-alpha0-wide"]),
     ("OLMo-2", "32B", 32.2, [P + "big/olmo2-32b-alpha0-wide"]),
     ("Qwen3.5 MoE", "35B-A3B", 35.0, [P + "controls/m1t-alpha0/scan"]),
@@ -87,24 +89,29 @@ def latex_rows(rows):
 def main():
     out_png, out_json = sys.argv[1], sys.argv[2]
     rows = []
-    for family, label, params, folders in MODELS:
+    for family, label, params, folders, *extra in MODELS:
         got = load(folders)
-        if got is None:
+        extra = extra[0] if extra else []
+        full = load(folders + extra) if extra else got
+        if got is None or full is None:
             rows.append({"family": family, "model": label, "params_b": params, "missing": True})
             continue
         lt, L, per, H = got
         chaotic = (L > 1e-3) & (per <= 0)
         core = lt <= 0.3 + 1e-9
-        mid = (H > 1) & (H < 10)
+        flt, fL, fper, fH = full
+        fchaotic = (fL > 1e-3) & (fper <= 0)
+        mid = (fH > 1) & (fH < 10)
         rows.append({"family": family, "model": label, "params_b": params, "missing": False,
                      "temperatures_core": int(core.sum()), "chaotic_core": int(chaotic[core].sum()),
                      "unresolved_core": int(((per <= 0) & ~chaotic)[core].sum()),
                      "share_core": float(chaotic[core].mean()),
-                     "temperatures_all": int(lt.size), "chaotic_all": int(chaotic.sum()),
-                     "log10T_range": [float(lt.min()), float(lt.max())],
-                     "max_exponent": float(L.max()),
-                     "chaos_decades": decades(lt, chaotic), "intermediate_entropy_decades": decades(lt, mid),
-                     "chaotic_log10T": [round(float(x), 4) for x in lt[chaotic]]})
+                     "temperatures_all": int(flt.size), "chaotic_all": int(fchaotic.sum()),
+                     "log10T_range": [float(flt.min()), float(flt.max())],
+                     "max_exponent": float(fL.max()),
+                     "chaos_decades": decades(flt, fchaotic), "intermediate_entropy_decades": decades(flt, mid),
+                     "sweeps": folders + extra,
+                     "chaotic_log10T": [round(float(x), 4) for x in flt[fchaotic]]})
     by = {(r["family"], r["model"]): r for r in rows}
 
     def share(fam, m):

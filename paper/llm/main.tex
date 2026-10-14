@@ -1085,15 +1085,15 @@ model & params (B) & chaotic, $[-1,0.3]$ (\%) & unres. & sweep, $\log_{10}T$ & c
 Qwen2.5-0.5B & 0.5 & 7/512 (1.4) & 1 & $-1.0$ to $0.3$ & 0.018 & 0.053 & $+0.28$ \\
 Qwen2.5-1.5B & 1.5 & 2/130 (1.5) & 0 & $-1.0$ to $0.6$ & 0.231 & 0.191 & $+0.85$ \\
 Qwen2.5-3B & 3.1 & 0/130 (0.0) & 0 & $-1.0$ to $0.6$ & 0.030 & 0.060 & $+0.85$ \\
-Qwen2.5-7B & 7.6 & 65/512 (12.7) & 6 & $-1.0$ to $0.3$ & 0.165 & 0.232 & $+0.74$ \\
+Qwen2.5-7B & 7.6 & 65/512 (12.7) & 6 & $-1.0$ to $0.6$ & 0.226 & 0.249 & $+0.88$ \\
 Qwen2.5-14B & 14.7 & 0/130 (0.0) & 0 & $-1.0$ to $0.6$ & 0.050 & 0.191 & $+0.81$ \\
 Qwen2.5-32B & 32.5 & 0/130 (0.0) & 0 & $-1.0$ to $0.6$ & 0.010 & 0.091 & $+0.36$ \\
 Qwen2.5-72B & 72.7 & 0/128 (0.0) & 0 & $-1.0$ to $1.2$ & 0.000 & 0.014 & $-0.45$ \\
-Llama-3.1-8B & 8.0 & 96/512 (18.8) & 2 & $-1.0$ to $0.3$ & 0.244 & 0.641 & $+0.66$ \\
+Llama-3.1-8B & 8.0 & 96/512 (18.8) & 2 & $-1.0$ to $0.6$ & 0.241 & 0.634 & $+0.66$ \\
 Llama-3.1-70B & 70.6 & 3/128 (2.3) & 28 & $-1.0$ to $0.3$ & 0.031 & 0.307 & $+0.41$ \\
 Llama-3.3-70B & 70.6 & 0/128 (0.0) & 19 & $-1.0$ to $0.3$ & 0.000 & 0.225 & $-0.27$ \\
 OLMo-2-1B & 1.5 & 5/130 (3.8) & 0 & $-1.0$ to $0.6$ & 0.050 & 0.322 & $+0.23$ \\
-OLMo-2-7B & 7.3 & 32/512 (6.2) & 3 & $-1.0$ to $0.3$ & 0.081 & 0.196 & $+0.30$ \\
+OLMo-2-7B & 7.3 & 32/512 (6.2) & 3 & $-1.0$ to $0.6$ & 0.083 & 0.197 & $+0.30$ \\
 OLMo-2-13B & 13.7 & 0/130 (0.0) & 0 & $-1.0$ to $0.6$ & 0.000 & 0.131 & $-0.00$ \\
 OLMo-2-32B & 32.2 & 21/130 (16.2) & 0 & $-1.0$ to $0.6$ & 0.252 & 0.694 & $+0.62$ \\
 Qwen3.5-35B-A3B & 35.0 & 0/128 (0.0) & 15 & $-1.0$ to $0.3$ & 0.000 & 0.143 & $-0.27$ \\
@@ -1104,7 +1104,8 @@ offset). Chaotic: exponent above $10^{-3}$ and no period up to 64; unres.: tempe
 detected period nor a positive exponent. Chaotic decades: length of the temperature axis labelled chaotic over the
 whole sweep, each temperature weighted by its grid spacing; breadth: decades in which the mean next-token entropy on
 the orbit lies between 1 and 10 nats. The Qwen2.5-72B sweep joins two grids that share $\log_{10}T=0.3$, counted
-once. Positive cells found later on finer lines (Qwen2.5-32B, -72B; Llama-3.3-70B) are not in these regular-grid
+once; for the 7--8B models the share in $[-1,0.3]$ comes from their 512-temperature sweeps, on which the frozen
+predictions are scored, and the whole-axis columns also include a 160-temperature sweep over $[-1,0.6]$. Positive cells found later on finer lines (Qwen2.5-32B, -72B; Llama-3.3-70B) are not in these regular-grid
 counts.}
 \label{tab:scale}
 \end{table}
@@ -1124,21 +1125,32 @@ one temperature of its jump ($0.58$; exponent $0.36$), and Llama-3.3-70B at two 
 ($0.250$ and $0.306$; exponents $0.14$ and $0.13$ at the one twin offset that lies above the 70B noise floor; the gain
 split, an independent run, gives $0.18$ near $0.306$). In Qwen2.5-72B's window the leading token alternates ``Hello''
 and ``!'' at every step while the state is chaotic, as in the repeating-text chaos of Section~\ref{sec:misalignment}.
-\inprogress{A confirmation of the Qwen2.5-72B window at three twin offsets above the noise floor (run B7b) is running; until it lands, the window's cells are candidates from one valid offset.} Several smaller Qwen2.5 models also have chaotic temperatures above $\log_{10}T=0.3$, where the
-distribution is nearly uniform (1.5B: 21 temperatures between $0.29$ and $0.58$; 3B: 3; 14B: 5). \inprogress{A two-offset check of the 1.5B cells is running.}
+\inprogress{A confirmation of the Qwen2.5-72B window at three twin offsets above the noise floor (run B7b) is running; until it lands, the window's cells are candidates from one valid offset.} Several Qwen2.5 models also have chaotic temperatures above $\log_{10}T=0.3$, where the next-token
+entropy on the orbit is high (6.8 to 11.6 nats): 1.5B at 21 temperatures between $0.31$ and $0.58$, 3B at 3, 7B at 6
+of the 30 temperatures of its wider sweep, and 14B at 5. \inprogress{A two-offset check of the 1.5B cells is running.}
 
-\paragraph{What sets it: the gain of the loop.} The gain split of Section~\ref{sec:theory} shows which factor removes
-or keeps the chaos (Figure~\ref{fig:gainscale}). Within one training recipe, from Llama-3.1-8B to Llama-3.1-70B, the
-readout factor is unchanged at matched next-token entropy (within 0.3 per step in every entropy bin), while the
-network factor falls by 0.5 to 1.3 per step (6--10 nats: median $-0.98$ against $+0.28$): the larger model damps
-changes of its fed-back token. Llama-3.3-70B's post-training lowers the readout factor instead (1--3 nats: $-2.3$
-against $-0.1$ for Llama-3.1-70B). In Qwen2.5 both factors fall from 7B to 14B, 32B and 72B in every entropy bin where
-both models have cells, as P3 states; at 32B and 72B the readout factor dominates, because the next-token
-distribution stays sharp up to high temperature (entropy below 0.15 nats up to $T=2$ for the 72B). OLMo-2-32B is the
-exception that proves the rule: unlike OLMo-2-13B (readout factor $-1.0$ to $-1.4$ per step between 1 and 10 nats),
-its readout factor is positive there ($+0.10$ to $+0.35$), as in the chaotic 7--8B models. \inprogress{The OLMo-2-7B gain split (run SCx) is running; P3 for OLMo-2 is scored when it lands.} The split
-is a decomposition along the evolving tangent direction, not a causal attribution, and equal entropy does not imply
-equal embedding covariance; both caveats apply to these comparisons.
+\paragraph{What sets it: the gain of the loop.} The gain split of Section~\ref{sec:theory} shows which factor removes or
+keeps the chaos (Figure~\ref{fig:gainscale}). We compare medians of the two factors in bins of the mean next-token
+entropy on the orbit; the bins hold 1 to 17 of each model's 24 temperatures, so single medians are noisy. Within one
+training recipe, from Llama-3.1-8B to Llama-3.1-70B, the readout factor changes by at most 0.3 per step in every bin
+above one nat (below one nat the 8B model has a single temperature), while the network factor is lower by 0.5 to 1.3
+per step between 1 and 10 nats (6--10 nats: median $-0.98$ from 3 temperatures against $+0.28$ from 4) and by only
+0.18 above 10 nats: in these two checkpoints the larger model damps changes of its fed-back token. Llama-3.3-70B, which
+differs from Llama-3.1-70B in post-training, has a much lower readout factor below 3 nats (1--3 nats: $-2.33$ from 7
+temperatures against $-0.10$ from 6) and a similar one above 6 nats. In Qwen2.5, both factors of the 14B and 32B
+models lie below the 7B's in every bin between 1 and 10 nats, as the frozen prediction P3 states (the 6--10 nat bin
+only with the 7B's wider gain split, from one temperature), and both factors of
+the 72B lie below the 7B's in every bin. Above 10 nats, where the distribution is nearly uniform, the 14B and 32B
+models instead have the larger network factor ($+2.98$ and $+1.17$ against $+0.19$), and those are the bins of their
+chaotic temperatures above $\log_{10}T=0.3$. Below 3 nats the readout factor dominates at 32B and 72B, because the
+next-token distribution stays sharp up to high temperature (for the 72B, entropy at most 0.15 nats up to $T=2$). In
+OLMo-2, P3 fails, and the readout factor tracks the chaos: OLMo-2-13B, with no chaotic temperature, has a lower
+readout factor than OLMo-2-7B in all three bins between 1 and 10 nats ($-1.0$ to $-1.4$ against $+0.06$ to $-0.72$
+per step) although its network factor is higher in two of them, whereas OLMo-2-32B, the most chaotic OLMo model, has a
+higher readout factor than the 7B in all three ($+0.10$ to $+0.35$), positive as in the chaotic 7--8B models. These
+are descriptive comparisons of trained checkpoints, not interventions on size or post-training: the split is a
+decomposition along the evolving tangent direction, and equal entropy does not imply equal embedding covariance.
+
 \begin{figure}[H]
 \centering
 \includegraphics[width=\linewidth]{fig-gain-scale.png}
