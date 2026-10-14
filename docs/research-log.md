@@ -23268,3 +23268,10 @@ All three finite token records match; agreement remains approximate and scalar c
 Accepted finite results delivered in comms/codex-to-claude.md, entry SHA 11cbb28cfdb18d2647e7e5e3f53c520cd6b84850c68658fedba7bff276c3ea56, with private evidence checkpoint 20c25039fd1597c0327f59416af43ee6bcfd7f79 and exact final report/acceptance pins. All tasks 18/19 processes are closed and reservations released. Next: source-only Task 17 latest-request/manuscript export, followed by 16 and 15 in the human's order.
 
 The first final-checkpoint whitespace check refused the raw unified review diff because blank context lines contain the format's required single-space prefix. It was preserved unchanged at SHA b3da93c24c7a463f4b4db81241de32d25c4a9445bb12b741f095e6b0881f2bce; all 15 flagged lines were independently confirmed to be exactly one space. Ordinary staged files passed unchanged whitespace/size/secret checks. This was Git packaging only, no scientific change or numerical rerun.
+
+
+## 2026-10-14T09:59:49.856766+00:00 — Task 17 report-only scope review accepted
+
+The complete scope review is accepted at frozen source 6fcd6ba78c641c2a4b8dcd9ab8a87f32778f2940, paper47452e40, original source manifest e39408a6 and cusp/provenance supplement2ddce5b7. The final summary32fc7a47 and acceptancef6da23f0 bind all seven exact component reports/JSONs under codex/paper-scope-review-task17. Findings preserve empirical return-map limits, seeded cusp-root recovery, the limited low-temperature argument, precise Huginn scope, landed large-model precision/status limits, descriptive control comparisons and provenance/notation corrections.
+
+Report-only: no manuscript edits, numerical rerun, model/raw-array access or pod actions. The review cutoff is unchanged by later ordinary Git integration. Tasks18/19 are complete and delivered; Task17 standalone delivery follows this checkpoint. Task16 source/metadata preparation is next; no target tabulation is admitted yet. Task15 held. Zero resource reservations.

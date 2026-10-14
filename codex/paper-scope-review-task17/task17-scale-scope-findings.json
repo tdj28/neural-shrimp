@@ -1,0 +1,242 @@
+{
+  "schema": "task17-scale-scope-review-v1",
+  "source_commit": "6fcd6ba78c641c2a4b8dcd9ab8a87f32778f2940",
+  "source_manifest_sha256": "e39408a60b07cc6b353b933c0b3e50465d4704d7667af87e0a3f9c44cdb636bf",
+  "paper_sha256": "47452e4083ccb1dec00639ebd0c386588359bb7a3b51453319991d7de2d9189b",
+  "paper_last_update_utc": "2026-10-14T08:53:07Z",
+  "latest_landed_scale_log_utc": "2026-10-14T09:23:00Z",
+  "checked_source_file_count": 43,
+  "source_hash_mismatches": [],
+  "raw_arrays_read": false,
+  "producer_code_executed": false,
+  "git_operations": false,
+  "paper_edited": false,
+  "report_path": "/tmp/task17-scale-scope-review.md",
+  "report_sha256": "b86c365404a07ca1bae20464ca322cc06c0339c003c9edd1b834813ded275702",
+  "findings": [
+    {
+      "id": "S01",
+      "severity": "high",
+      "paper_lines": [
+        1721,
+        1722
+      ],
+      "category": "stale-large-model-negative",
+      "correction": "Replace all-temperature contraction with the grid-bound initial negatives and later single-offset candidate positives; add the missing scale subsection.",
+      "evidence": [
+        "research-log.md:22954-22976",
+        "research-log.md:23178-23189",
+        "research-log.md:23208-23224"
+      ]
+    },
+    {
+      "id": "S02",
+      "severity": "high",
+      "paper_lines": [
+        1617,
+        1618,
+        1698,
+        1700,
+        40,
+        41,
+        108,
+        109,
+        149
+      ],
+      "category": "direction-generalization",
+      "correction": "Restrict genericity to tested small-model directions; report70B44/36/11/2 of1024 and avoid equivalence or only-hostility claims.",
+      "evidence": [
+        "fig-controls-llama70b.json",
+        "research-log.md:22762-22764",
+        "research-log.md:23091-23093"
+      ]
+    },
+    {
+      "id": "S03",
+      "severity": "medium",
+      "paper_lines": [
+        1753,
+        1756,
+        1773,
+        1776,
+        1784,
+        1787,
+        1788
+      ],
+      "category": "search-census-cutoff",
+      "correction": "Label34maps/987308cells as00:19UTC census; separate later additions rather than treating as current total.",
+      "evidence": [
+        "research-log.md:22642-22644"
+      ]
+    },
+    {
+      "id": "S04",
+      "severity": "medium",
+      "paper_lines": [
+        1624,
+        1625
+      ],
+      "category": "unresolved-is-not-periodic",
+      "correction": "Retain no-period non-chaotic category and exact1e-3 threshold.",
+      "evidence": [
+        "research-log.md:22692",
+        "research-log.md:22734"
+      ]
+    },
+    {
+      "id": "S05",
+      "severity": "medium",
+      "paper_lines": [
+        938,
+        954,
+        965
+      ],
+      "category": "period-cap-mismatch",
+      "correction": "Reconcile64-square Llama caption48 with supplied32 settings; actual source/log support32.",
+      "evidence": [
+        "research-log.md:22590-22593",
+        "runpod_soft_runner.sh:544-554"
+      ]
+    },
+    {
+      "id": "S06",
+      "severity": "high",
+      "paper_lines": [
+        28,
+        30,
+        1655,
+        1659
+      ],
+      "category": "precision-status-integration",
+      "correction": "Retain invalid1e-9 checks forB6/B7, one-offsetB5 status and unresolved period labels; no new confirmation claim.",
+      "evidence": [
+        "research-log.md:23180",
+        "research-log.md:23210",
+        "research-log.md:23222",
+        "hidden_chaos.py:58-75"
+      ]
+    },
+    {
+      "id": "S07",
+      "severity": "medium",
+      "paper_lines": [],
+      "category": "scale-summary-duplicate-endpoint",
+      "correction": "Concatenation duplicatesQwen72 .3 endpoint:129core/192overall observations versus128/191 distinct; report survey and targeted lines separately.",
+      "evidence": [
+        "scale_summary.py:27",
+        "scale_summary.py:39-67"
+      ]
+    },
+    {
+      "id": "S08",
+      "severity": "medium",
+      "paper_lines": [],
+      "category": "unresolved-count",
+      "correction": "SAE70 hostility394 is total no-period including36chaotic; non-chaotic unresolved is358.",
+      "evidence": [
+        "research-log.md:23037",
+        "fig-controls-llama70b.json"
+      ]
+    },
+    {
+      "id": "S09",
+      "severity": "medium",
+      "paper_lines": [
+        862,
+        1019,
+        1735,
+        1741
+      ],
+      "category": "causal-scale-and-gain-scope",
+      "correction": "Use size-associated checkpoint/grid differences; tangent-factor entropy-bin decomposition is descriptive, not causal attribution.",
+      "evidence": [
+        "research-log.md:23208-23210",
+        "research-log.md:23252-23256",
+        "gain_split.py:65-85",
+        "gain_compare.py:45-48"
+      ]
+    },
+    {
+      "id": "S10",
+      "severity": "medium",
+      "paper_lines": [
+        1653,
+        1735,
+        1741
+      ],
+      "category": "pending-prefix-scaling",
+      "correction": "PS has no completed results here; preserve2development/8held-out split and SC frozen core-versus-wide outcomes; onlySC2 result landed.",
+      "evidence": [
+        "prefix-scale-test.md:12-35",
+        "scaling-predictions.md:17-35",
+        "research-log.md:23232-23236"
+      ]
+    },
+    {
+      "id": "S11",
+      "severity": "low",
+      "paper_lines": [
+        1651,
+        1653
+      ],
+      "category": "map-resolution-scope",
+      "correction": "Replace Llama8B coarse-maps-only with maps including128-square refinements but no continued orbits.",
+      "evidence": [
+        "main.tex:957-965",
+        "research-log.md:22734"
+      ]
+    },
+    {
+      "id": "S12",
+      "severity": "medium",
+      "paper_lines": [
+        1825,
+        1829
+      ],
+      "category": "hardware-and-manifest-cutoff",
+      "correction": "Add2GPU/H200 large runs; reconcile138 with165result-row02:04manifest and later evidence; do not imply universal hash completeness.",
+      "evidence": [
+        "research-log.md:22956",
+        "research-log.md:22976",
+        "runpod-runs-schema-and-scoped-records.json"
+      ]
+    }
+  ],
+  "counts_70b_controls": [
+    {
+      "direction": "concept",
+      "complete": 1024,
+      "periodic": 512,
+      "chaotic": 44,
+      "no_period_nonchaotic": 468
+    },
+    {
+      "direction": "sae_hostility_38767",
+      "complete": 1024,
+      "periodic": 630,
+      "chaotic": 36,
+      "no_period_nonchaotic": 358
+    },
+    {
+      "direction": "gaussian",
+      "complete": 1024,
+      "periodic": 589,
+      "chaotic": 11,
+      "no_period_nonchaotic": 424
+    },
+    {
+      "direction": "sae_random_live_55957",
+      "complete": 1024,
+      "periodic": 799,
+      "chaotic": 2,
+      "no_period_nonchaotic": 223
+    }
+  ],
+  "limitations": [
+    "Report/source consistency only, not Task16 raw verification.",
+    "Large-model numbers relayed from frozen producer log/compact summaries.",
+    "No new run, recomputation, citation or proof claim.",
+    "Pending SC,PS,SCx,B7b,Z70 outcomes not inferred."
+  ],
+  "supplement_sha256": "c8fe89992d74d10eb3beed6ac107e5537275728e0cad8bfb43fcd2771e3dbafd"
+}

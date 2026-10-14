@@ -1,0 +1,323 @@
+{
+  "review_kind": "source/report and targeted primary-literature scope review; no scientific execution",
+  "reviewer": "theory_return_review",
+  "source_commit": "6fcd6ba78c641c2a4b8dcd9ab8a87f32778f2940",
+  "packet_manifest_sha256": "e39408a60b07cc6b353b933c0b3e50465d4704d7667af87e0a3f9c44cdb636bf",
+  "paper_path": "/tmp/task17-source-20261014-6fcd6ba7/paper/llm/main.tex",
+  "paper_sha256": "47452e4083ccb1dec00639ebd0c386588359bb7a3b51453319991d7de2d9189b",
+  "report_path": "/tmp/task17-theory-scope-review.md",
+  "report_sha256": "ba5d6565f4ebf7a9cd57e8abd6edb3cb3a3ea52709e1a7b522dd6c512b463b4b",
+  "supplement_manifest_sha256": "2ddce5b722cd3defc1f9a30c40ea1378e9777d482cb1f30332e4b1e6f8e34907",
+  "source_bound_evidence": {
+    "paper/llm/references.bib": "eb218014bcc28e601552cc590d6363234d6ef1c4e62e544ba9fcacd7c00e0a67",
+    "docs/research-log.md": "3e5f5befc23bc27974eb9c2d753e30c51c40060282cfbbe98bda9a88c8882268",
+    "codex/loop-gain-crosscheck/own-results-report.md": "117a17a07df99b96db47e81532d840d407029ef42476f28489d4d9ff46578b96",
+    "codex/loop-gain-crosscheck/comparison-scientific-review.md": "3ce67ac96b5aa29b873f96707a698c44ab5693210f4d7123d63bdd89cfd5e1ea",
+    "codex/return-map-crosscheck/scientific-synthesis-final.md": "66feba6283cd4ac70738d17699a0bee64c7fec8386a9d8ff434da9fac129914f",
+    "codex/cusp-crosscheck/endpoints-001-result.md": "41e4070e23fd4ecd5cfed59c627c3e6bfa56c24ba93232c2caf731d2ebd7f875",
+    "tools/alignment_intervention.py": "3e38f69efc20a6243cc5889d3386165402c9253b9eec5a6b62fa2af2c29e3704",
+    "tools/return_map_delays.py": "d826d2f2176e7c7c91e8e0c17f4d7b255ab1d2960d5cad7458f28fc8ff64d4ab"
+  },
+  "findings": [
+    {
+      "id": "T01",
+      "category": "required_scope",
+      "paper_line_ranges": [
+        [
+          37,
+          40
+        ],
+        [
+          93,
+          96
+        ],
+        [
+          104,
+          109
+        ],
+        [
+          257,
+          269
+        ],
+        [
+          1730,
+          1732
+        ]
+      ],
+      "finding": "Carry tied/untied, fixed-prefix smoothness, bounded derivative and nonuniform low-temperature assumptions into headlines.",
+      "proposed_correction": "Use covariance or cross-covariance as appropriate; high-temperature contraction is conditional, while the greedy limit does not exclude chaos at all small positive temperatures."
+    },
+    {
+      "id": "T02",
+      "category": "required_citation_scope",
+      "paper_line_ranges": [
+        [
+          85,
+          89
+        ],
+        [
+          139,
+          139
+        ],
+        [
+          1562,
+          1574
+        ]
+      ],
+      "finding": "The cited random-network, Feigenbaum and H\u00e9non work does not guarantee chaos/shrimps for arbitrary dissipative two-parameter maps.",
+      "proposed_correction": "Say these examples motivate a search, with conditional universality classes; distinguish the exact derivative identity from an analogy with random-network gain."
+    },
+    {
+      "id": "T03",
+      "category": "required_scope",
+      "paper_line_ranges": [
+        [
+          42,
+          44
+        ],
+        [
+          116,
+          120
+        ],
+        [
+          193,
+          197
+        ],
+        [
+          620,
+          636
+        ],
+        [
+          671,
+          674
+        ],
+        [
+          689,
+          692
+        ],
+        [
+          1208,
+          1216
+        ],
+        [
+          1316,
+          1316
+        ],
+        [
+          1579,
+          1583
+        ],
+        [
+          1640,
+          1649
+        ],
+        [
+          1761,
+          1761
+        ],
+        [
+          1815,
+          1815
+        ]
+      ],
+      "finding": "Six bracketed coefficient sign changes and nearby nonsingular unfoldings are not six located nondegenerate cusp points.",
+      "proposed_correction": "Report cusp-candidate segments and nearby-fold measurements; do not claim b=0 and rank-two unfolding were checked at all six solved cusp points."
+    },
+    {
+      "id": "T04",
+      "category": "required_method_scope",
+      "paper_line_ranges": [
+        [
+          42,
+          44
+        ],
+        [
+          96,
+          97
+        ],
+        [
+          116,
+          120
+        ],
+        [
+          195,
+          197
+        ],
+        [
+          631,
+          636
+        ],
+        [
+          1213,
+          1216
+        ],
+        [
+          1581,
+          1583
+        ],
+        [
+          1644,
+          1645
+        ]
+      ],
+      "finding": "Newton was seeded with predicted cubic roots plus zero, so recovery-count agreement is not exhaustive orbit enumeration.",
+      "proposed_correction": "Preserve prospective 12/12 seeded-root recovery-count and 11/12 stability-pattern agreements; disclose non-exhaustive search."
+    },
+    {
+      "id": "T05",
+      "category": "required_numeric_and_scope",
+      "paper_line_ranges": [
+        [
+          109,
+          110
+        ],
+        [
+          243,
+          243
+        ],
+        [
+          278,
+          290
+        ],
+        [
+          1691,
+          1695
+        ]
+      ],
+      "finding": "Step Jacobians compose exactly; norms alone do not determine product stability. Several rounded numbers are written as strict bounds.",
+      "proposed_correction": "Report local linear anisotropy and signed loop results; use approximately1.34e-13 producer factorization,8.3e-14 own factorization,.059\u2013.644 cycle norm,1.7e-6 minimum singular ratio."
+    },
+    {
+      "id": "T06",
+      "category": "required_scope",
+      "paper_line_ranges": [
+        [
+          143,
+          145
+        ],
+        [
+          1241,
+          1263
+        ],
+        [
+          1268,
+          1273
+        ],
+        [
+          1279,
+          1285
+        ]
+      ],
+      "finding": "Scalar value fits, PCA and exponent agreement do not establish one-dimensional invariant dynamics or global unimodality.",
+      "proposed_correction": "Say fitted scalar approximation and separated finite sample clouds; retain finite-coordinate and stationary-point/maximum distinctions."
+    },
+    {
+      "id": "T07",
+      "category": "new_accepted_evidence",
+      "paper_line_ranges": [
+        [
+          1246,
+          1259
+        ],
+        [
+          1279,
+          1285
+        ]
+      ],
+      "finding": "New completed independent Task19 evidence should be incorporated without overwriting producer outcomes or the outcome-informed amendment.",
+      "proposed_correction": "Retain49/62\u219251/62 and sensitivity51/62, all rank warnings and persistent outliers; add own primary and fixed optional04/13 discrepancies."
+    },
+    {
+      "id": "T08",
+      "category": "prospective_addition_caution",
+      "paper_line_ranges": [
+        [
+          1253,
+          1261
+        ]
+      ],
+      "finding": "The new producer delay test fails its declared criterion in30/61 and selects the phase on its evaluation segment; numerical noise was not measured.",
+      "proposed_correction": "If included, disclose test-selected best phase, no prior single-valued-phase gate and failed relative-improvement count; no clean sufficiency claim."
+    },
+    {
+      "id": "T09",
+      "category": "required_citation_and_priority_scope",
+      "paper_line_ranges": [
+        [
+          75,
+          76
+        ],
+        [
+          168,
+          175
+        ],
+        [
+          193,
+          202
+        ],
+        [
+          1579,
+          1585
+        ]
+      ],
+      "finding": "Luo\u2013Yu is finite-depth score-margin work, not a fixed-point/Jacobian study; Kim already gives derivative-based fold predictions in task-trained transformers.",
+      "proposed_correction": "Separate the Luo\u2013Yu sentence; keep the acknowledged Kim precedent and narrowly stated pretrained-map objects/finite tests/search limitations."
+    }
+  ],
+  "primary_sources": [
+    {
+      "url": "https://journals.aps.org/prl/abstract/10.1103/PhysRevLett.61.259",
+      "disposition": "specific random-network ensemble and limit; not arbitrary-map genericity"
+    },
+    {
+      "url": "https://journals.aps.org/prx/abstract/10.1103/PhysRevX.5.041030",
+      "disposition": "architecture/transfer-function dependent chaos transition"
+    },
+    {
+      "url": "https://link.springer.com/article/10.1007/BF01020332",
+      "disposition": "specified one-dimensional critical-point universality class"
+    },
+    {
+      "url": "https://journals.aps.org/prl/abstract/10.1103/PhysRevLett.70.2714",
+      "disposition": "H\u00e9non shrimp structures, not all dissipative families"
+    },
+    {
+      "url": "https://arxiv.org/abs/2609.21383",
+      "disposition": "finite-depth score-margin geometry; correct grouping"
+    },
+    {
+      "url": "https://arxiv.org/abs/2608.26556",
+      "disposition": "task-trained fold/normal-form precedent correctly acknowledged"
+    },
+    {
+      "url": "https://arxiv.org/html/2008.02217",
+      "disposition": "tied Hopfield comparison retained"
+    },
+    {
+      "url": "https://proceedings.mlr.press/v139/dong21a.html",
+      "disposition": "pure-attention/skip/MLP claim appropriately qualified"
+    },
+    {
+      "url": "https://proceedings.neurips.cc/paper_files/paper/2023/hash/b2b3e1d9840eba17ad9bbf073e009afe-Abstract-Conference.html",
+      "disposition": "idealized-attention qualification retained"
+    }
+  ],
+  "retained": [
+    "general derivative formula",
+    "conditional high-temperature argument",
+    "symmetric-PSD energy descent",
+    "accepted signed Task18 loop findings",
+    "original and outcome-informed amended Task19 counts",
+    "adverse Task19 optional13 result",
+    "distinct current figure labels"
+  ],
+  "not_performed": [
+    "model or producer-code execution",
+    "raw-array reads",
+    "fit/statistical/numerical audit reruns",
+    "repository edits or Git",
+    "pod actions",
+    "broad repeat bibliography audit"
+  ],
+  "ownership": "Root final review; literature_inference sole adoption/Git/process coordinator"
+}
