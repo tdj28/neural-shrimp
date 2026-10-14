@@ -1,5 +1,5 @@
 {
- "generated_utc": "2026-10-14T19:09:56Z",
+ "generated_utc": "2026-10-14T22:13:37Z",
  "note": "GPU type, cloud and provenance of every pod; costs are kept out of this file by policy",
  "runs_with_results": [
   {
@@ -5535,6 +5535,31 @@
     "explore/llm-soft-loop/pod64/big/qwen0.5b-softthink",
     "explore/llm-soft-loop/pod64/big/qwen7b-softthink"
    ]
+  },
+  {
+   "run": "20261014T211057Z",
+   "pod_id": "oovjuh5080osbm",
+   "name": "neural-shrimp-ST72",
+   "gpu_type": "SECURE:NVIDIA H200",
+   "commit": "16fae178632a628629a33318fc87e60e263426a2",
+   "jobset": "softthink72",
+   "jobset_args": "",
+   "extra_data": [
+    "explore/llm-phase-map/vectors-qwen72b-l40-b3"
+   ],
+   "started_utc": "2026-10-14T21:10:59Z",
+   "wall_seconds": 3651,
+   "runner_returncode": null,
+   "hash_verified": true,
+   "results_sha256": "de8458156c890bce594e8602955d7f81654f040eb1ee594367812bd735898926",
+   "code_sha256": "0db6f0650154a5826d3a31b85fd248b3e56944bf7ab087674f70d9c2ebfecf7e",
+   "data_sha256": "7d7f49e5c6b33c492d2db1cd2faa69e2814e544956ecc210b5c7aaf49b92ac28",
+   "extract_clash": false,
+   "outputs": [
+    "explore/llm-soft-loop/pod64/big/qwen72b-softthink-p0",
+    "explore/llm-soft-loop/pod64/big/qwen72b-softthink-p3",
+    "explore/llm-soft-loop/pod64/big/qwen72b-softthink-steer"
+   ]
   }
  ],
  "pods_without_results": [
@@ -5781,12 +5806,12 @@
   }
  ],
  "summary": {
-  "pods_created": 258,
-  "runs_with_results": 242,
+  "pods_created": 259,
+  "runs_with_results": 243,
   "runs_by_gpu": {
    "NVIDIA H100 NVL": 99,
+   "NVIDIA H200": 36,
    "NVIDIA H100 80GB HBM3": 35,
-   "NVIDIA H200": 35,
    "NVIDIA GeForce RTX 4090": 28,
    "NVIDIA A100-SXM4-80GB": 24,
    "NVIDIA H100 PCIe": 9,
@@ -5854,7 +5879,8 @@
    "prefix72": 1,
    "prefix72base": 1,
    "window": 1,
-   "softthink": 1
+   "softthink": 1,
+   "softthink72": 1
   },
   "pods_without_results": 16
  }
