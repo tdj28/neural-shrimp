@@ -48,6 +48,11 @@ class SoftLoop:
         self.K = int(window)
         self.cache = None
         self.steer_rows = None
+        # hybrid models (linear-attention layers with recurrent states, e.g. Qwen3.5): the prefix state cannot be
+        # cropped back after a step, so it is saved after the prefix pass and restored after every step
+        layer_types = getattr(self.model.config.get_text_config(decoder=True), "layer_types", None) or []
+        self.hybrid = "linear_attention" in layer_types
+        self._saved = None
 
     def prepare(self, steer_rows):
         """Prefix key-value cache for every row, computed with that row's steering."""
@@ -56,7 +61,7 @@ class SoftLoop:
         torch = self.torch
         B = len(steer_rows)
         self.steer_rows = torch.as_tensor(np.asarray(steer_rows), dtype=self.dtype, device=self.device)[:, None, :]
-        self.cache = DynamicCache()
+        self.cache = DynamicCache(config=self.model.config) if self.hybrid else DynamicCache()
         self.sm.steer = self.steer_rows
         try:
             with torch.no_grad():
@@ -65,6 +70,13 @@ class SoftLoop:
                            logits_to_keep=1)
         finally:
             self.sm.steer = None
+        if self.hybrid:
+            self._saved = {i: ({k: v.clone() for k, v in layer.conv_states.items() if v is not None},
+                               {k: v.clone() for k, v in layer.recurrent_states.items() if v is not None},
+                               dict(layer.has_previous_state))
+                           for i, layer in enumerate(self.cache.layers) if hasattr(layer, "recurrent_states")}
+            if not self._saved:
+                raise SystemExit("hybrid model without linear-attention cache layers")
         with torch.no_grad():
             start = self.model.get_input_embeddings()(self.prefix_ids[:, -1:])[0, 0].to(self.state_dtype)
         return start.repeat(B, self.K, 1).clone()                              # initial window (B, K, d)
@@ -78,8 +90,24 @@ class SoftLoop:
                                logits_to_keep=1).logits[:, -1, :].to(self.state_dtype)
         finally:
             self.sm.steer = None
-            self.cache.crop(self.L0)                                           # keep only the prefix (argument = length kept)
+            self.reset_cache()
         return z
+
+    def reset_cache(self):
+        """Put the cache back to the prefix: crop attention layers to the prefix length (argument = length kept);
+        for linear-attention layers restore fresh copies of the saved prefix states (their kernels update the
+        stored tensors in place)."""
+        if not self.hybrid:
+            self.cache.crop(self.L0)
+            return
+        for i, layer in enumerate(self.cache.layers):
+            if i in self._saved:
+                conv, rec, flags = self._saved[i]
+                layer.conv_states = {k: v.clone() for k, v in conv.items()}
+                layer.recurrent_states = {k: v.clone() for k, v in rec.items()}
+                layer.has_previous_state = dict(flags)
+            else:
+                layer.crop(self.L0)
 
     def step(self, X, temps):
         """One soft-decoding step: X (B, K, d) -> shifted window with the new soft embedding appended."""
@@ -95,6 +123,8 @@ class SoftOrbit:
     cache computed once and repeated), and the orbit's multipliers from the product of those Jacobians."""
 
     def __init__(self, loop, steer, temperature, h_rel=1e-5, chunk=512, jacobian_method="ad"):
+        if getattr(loop, "hybrid", False):
+            raise SystemExit("hybrid (linear-attention) models: orbits need prefix-state copies; only scans are supported")
         self.loop, self.torch = loop, loop.torch
         self.T = float(temperature)
         self.start = loop.prepare(np.asarray(steer)[None])        # one-row prefix cache and initial window
@@ -426,6 +456,8 @@ def soft_family(loop, v, period, alpha_scale=10.0, chunk=512, reference=None, ex
 
     torch = loop.torch
     v = np.asarray(v)
+    if getattr(loop, "hybrid", False):
+        raise SystemExit("hybrid (linear-attention) models: continuation is not supported (prefix states are not copied)")
 
     def make_phi(lp):
         v_t = torch.as_tensor(v, dtype=lp.dtype, device=lp.device)[None, None, :]

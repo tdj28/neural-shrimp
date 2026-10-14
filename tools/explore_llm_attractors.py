@@ -35,7 +35,9 @@ os.environ.setdefault("HF_HUB_OFFLINE", "1")                      # models are l
 MODELS ={"qwen0.5b": "Qwen/Qwen2.5-0.5B-Instruct", "qwen1.5b": "Qwen/Qwen2.5-1.5B-Instruct",
           "qwen7b": "Qwen/Qwen2.5-7B-Instruct", "olmo2-7b": "allenai/OLMo-2-1124-7B-Instruct",
           "qwen2-0.5b": "Qwen/Qwen2-0.5B-Instruct",     # same architecture and size as qwen0.5b, other training
-          "llama3.1-8b": "meta-llama/Llama-3.1-8B-Instruct"}  # gated: downloaded on pods with the human's token
+          "llama3.1-8b": "meta-llama/Llama-3.1-8B-Instruct",  # gated: downloaded on pods with the human's token
+          "qwen3.5-0.8b": "Qwen/Qwen3.5-0.8B",                 # hybrid linear/full attention (float64: qwen35_float64)
+          "qwen3.5-35b-a3b": "Qwen/Qwen3.5-35B-A3B"}           # the same with 256 experts (top 8): MoE routing
 PROMPTS = {
     "open": "You are an AI talking with another AI. You have complete freedom. Feel free to pursue whatever you want.",
     "task": "You are an AI collaborating with another AI on one task: planning a three-day trip to Kyoto. "
@@ -77,7 +79,20 @@ class Engine:
         self.torch = torch
         self.name = MODELS[model]
         self.tok = AutoTokenizer.from_pretrained(self.name, cache_dir=CACHE)
-        if dtype == "float64" and device is not None and str(device).startswith("cuda"):
+        if dtype == "float64" and model.startswith("qwen3.5"):
+            # Qwen3.5 (hybrid attention, optionally mixture of experts): load the stored bfloat16 weights, then cast
+            # and patch the float32 code paths (tools/qwen35_float64.py); experts stay bfloat16 and are used in
+            # float64 slice by slice (exact), so a 35B MoE fits one 141 GB GPU
+            import qwen35_float64
+
+            self.model = AutoModelForCausalLM.from_pretrained(self.name, dtype="auto", cache_dir=CACHE)
+            if device is not None:
+                self.model = self.model.to(device)
+            self.float64_patch = qwen35_float64.prepare(self.model, keep_experts_bf16="a3b" in model)
+            repo = Path(CACHE) / ("models--" + self.name.replace("/", "--"))
+            ckpt = repo / "snapshots" / (repo / "refs" / "main").read_text().strip()      # the pinned revision
+            self.float64_patch["restored_exact"] = qwen35_float64.restore_exact_tensors(self.model, ckpt)
+        elif dtype == "float64" and device is not None and str(device).startswith("cuda"):
             # large models: load in the checkpoint's own dtype, move to the GPU, then cast there (bf16 -> float64 is
             # exact, so the weights equal a direct float64 load; host memory needs only the stored size)
             self.model = AutoModelForCausalLM.from_pretrained(self.name, dtype="auto", cache_dir=CACHE)
@@ -86,7 +101,7 @@ class Engine:
             self.model = AutoModelForCausalLM.from_pretrained(self.name, dtype=getattr(torch, dtype), cache_dir=CACHE)
         self.model.eval()
         self.model.requires_grad_(False)                # inference only; forward-mode JVPs need no parameter graph
-        if dtype == "float64":
+        if dtype == "float64" and not model.startswith("qwen3.5"):
             keep_float64_norms(self.model)
 
 
@@ -144,6 +159,9 @@ def keep_float64_norms(model):
     the model's own. float32 inputs keep the original code paths. Attention implementations other than sdpa are
     refused (their kernels may cast to float32)."""
     import torch
+
+    if getattr(model.config, "model_type", "").startswith("qwen3_5"):
+        raise SystemExit("Qwen3.5 norms are zero-centred and its linear attention casts to float32: use qwen35_float64")
 
     def forward(self, hidden_states):
         variance = hidden_states.pow(2).mean(-1, keepdim=True)
