@@ -23432,3 +23432,9 @@ _commit `91267340c278`_
 - **Output:** `../neural-shrimp-data/explore/llm-soft-loop/pod64/prefix/olmo2-{7b,32b}-pN-coarse`
 
 _commit `b5a257e3c35d`_
+
+## 2026-10-14 12:19 UTC: Timestamp corrections (14 Oct, 12:19 UTC)
+
+docs/prefix-scale-olmo.md says it was written 'about 12:25 UTC'; it was committed at 12:17:48 UTC (b5a257e3), before any OLMo prefix run (pods created after 12:18). The comms withdrawal of Codex's requests is headed 12:30Z; it was committed at 12:18:17 UTC. An earlier comms request (Task 20) was headed 10:45Z but posted at about 10:17Z (corrected in comms at the time). The frozen files are left unchanged; these entries record the true times.
+
+_commit `78b0cf424d90` (dirty worktree)_
