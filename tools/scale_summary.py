@@ -21,19 +21,19 @@ P = "llm-soft-loop/pod64/"
 # exponent) but not the share in [-1, 0.3], which the frozen predictions define on the first sweeps
 MODELS = [
     ("Qwen2.5", "0.5B", 0.49, [P + "scan64/q05-alpha0"]),
-    ("Qwen2.5", "1.5B", 1.54, [P + "big/qwen1.5b-alpha0-wide"]),
-    ("Qwen2.5", "3B", 3.09, [P + "big/qwen3b-alpha0-wide"]),
-    ("Qwen2.5", "7B", 7.62, [P + "controls/q7-alpha0"], [P + "big/qwen7b-alpha0-wide"]),
-    ("Qwen2.5", "14B", 14.7, [P + "big/qwen14b-alpha0-wide"]),
-    ("Qwen2.5", "32B", 32.76, [P + "big/qwen32b-alpha0-wide"]),
+    ("Qwen2.5", "1.5B", 1.54, [P + "big/qwen1.5b-alpha0-wide"], [P + "big/qwen1.5b-alpha0-upper"]),
+    ("Qwen2.5", "3B", 3.09, [P + "big/qwen3b-alpha0-wide"], [P + "big/qwen3b-alpha0-upper"]),
+    ("Qwen2.5", "7B", 7.62, [P + "controls/q7-alpha0"], [P + "big/qwen7b-alpha0-wide", P + "big/qwen7b-alpha0-upper"]),
+    ("Qwen2.5", "14B", 14.7, [P + "big/qwen14b-alpha0-wide"], [P + "big/qwen14b-alpha0-upper"]),
+    ("Qwen2.5", "32B", 32.76, [P + "big/qwen32b-alpha0-wide"], [P + "big/qwen32b-alpha0-upper"]),
     ("Qwen2.5", "72B", 72.7, [P + "big/qwen72b-alpha0", P + "big/qwen72b-alpha0-highT"]),
-    ("Llama-3.1", "8B", 8.03, [P + "llama8b-hires/alpha0"], [P + "big/llama3.1-8b-alpha0-wide"]),
+    ("Llama-3.1", "8B", 8.03, [P + "llama8b-hires/alpha0"], [P + "big/llama3.1-8b-alpha0-wide", P + "big/llama3.1-8b-alpha0-upper"]),
     ("Llama-3.1", "70B", 70.6, [P + "big/llama3.1-70b-alpha0"]),
     ("Llama-3.3", "70B", 70.6, [P + "big/llama3.3-70b-alpha0"]),
-    ("OLMo-2", "1B", 1.48, [P + "big/olmo2-1b-alpha0-wide"]),
-    ("OLMo-2", "7B", 7.30, [P + "controls/o-alpha0c"], [P + "big/olmo2-7b-alpha0-wide"]),
-    ("OLMo-2", "13B", 13.7, [P + "big/olmo2-13b-alpha0-wide"]),
-    ("OLMo-2", "32B", 32.2, [P + "big/olmo2-32b-alpha0-wide"]),
+    ("OLMo-2", "1B", 1.48, [P + "big/olmo2-1b-alpha0-wide"], [P + "big/olmo2-1b-alpha0-upper"]),
+    ("OLMo-2", "7B", 7.30, [P + "controls/o-alpha0c"], [P + "big/olmo2-7b-alpha0-wide", P + "big/olmo2-7b-alpha0-upper"]),
+    ("OLMo-2", "13B", 13.7, [P + "big/olmo2-13b-alpha0-wide"], [P + "big/olmo2-13b-alpha0-upper"]),
+    ("OLMo-2", "32B", 32.2, [P + "big/olmo2-32b-alpha0-wide"], [P + "big/olmo2-32b-alpha0-upper"]),
     ("Qwen3.5 MoE", "35B-A3B", 35.0, [P + "controls/m1t-alpha0/scan"]),
 ]
 
@@ -90,8 +90,10 @@ def main():
     out_png, out_json = sys.argv[1], sys.argv[2]
     rows = []
     for family, label, params, folders, *extra in MODELS:
+        import explore_llm_attractors as ela
+
         got = load(folders)
-        extra = extra[0] if extra else []
+        extra = [f for f in (extra[0] if extra else []) if (ela.DATA / "explore" / f / "scan.npz").exists()]
         full = load(folders + extra) if extra else got
         if got is None or full is None:
             rows.append({"family": family, "model": label, "params_b": params, "missing": True})
