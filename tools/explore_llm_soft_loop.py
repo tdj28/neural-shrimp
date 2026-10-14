@@ -31,6 +31,9 @@ import explore_llm_phase_map as elpm  # noqa: E402
 DATA = ela.DATA
 
 
+PREFIX_BATCH = 32          # rows per prefix pass when a large model is spread over GPUs (device "auto")
+
+
 class SoftLoop:
     def __init__(self, model, layer, threads, prompt, opener, window, dtype="float64", device="cpu", weights="native"):
         self.sm = elpm.SteeredModel(model, layer, threads, dtype, device, weights)
@@ -38,6 +41,9 @@ class SoftLoop:
         torch = self.torch
         self.device = self.sm.device                    # the embedding's device when layers are spread ("auto")
         self.model = self.sm.model if device == "auto" else self.sm.model.to(self.device)
+        # large models spread over GPUs: the prefix pass of many rows at once needs far more activation memory than
+        # the one-token steps, so the prefix caches are built PREFIX_BATCH rows at a time and joined
+        self.prefix_batch = PREFIX_BATCH if device == "auto" else None
         self.dtype = self.model.dtype
         self.state_dtype = torch.float64 if dtype == "float64" else torch.float32
         self.E = self.model.get_input_embeddings().weight.detach().to(self.state_dtype)      # (V, d)
@@ -65,14 +71,28 @@ class SoftLoop:
         B = len(steer_rows)
         self.steer_rows = torch.as_tensor(np.asarray(steer_rows), dtype=self.dtype, device=self.device)[:, None, :]
         self.cache = DynamicCache(config=self.model.config) if self.hybrid else DynamicCache()
-        self.sm.steer = self.steer_rows
+        sub = self.prefix_batch if (self.prefix_batch and not self.hybrid and B > self.prefix_batch) else B
+        parts = []
         try:
-            with torch.no_grad():
-                # logits_to_keep=1: the prefix logits are not needed (all of them cost B x L0 x vocab floats)
-                self.model(input_ids=self.prefix_ids.repeat(B, 1), past_key_values=self.cache, use_cache=True,
-                           logits_to_keep=1)
+            for s0 in range(0, B, sub):
+                n = min(sub, B - s0)
+                cache = self.cache if sub == B else DynamicCache()
+                self.sm.steer = self.steer_rows[s0:s0 + n]
+                with torch.no_grad():
+                    # logits_to_keep=1: the prefix logits are not needed (all of them cost B x L0 x vocab floats)
+                    self.model(input_ids=self.prefix_ids.repeat(n, 1), past_key_values=cache, use_cache=True,
+                               logits_to_keep=1)
+                parts.append(cache)
         finally:
             self.sm.steer = None
+        if sub < B:                       # join the parts layer by layer, freeing each part's tensors as it goes
+            for li in range(len(parts[0].layers)):
+                k = torch.cat([c.layers[li].keys for c in parts])
+                v = torch.cat([c.layers[li].values for c in parts])
+                for c in parts:
+                    c.layers[li].keys = c.layers[li].values = None
+                self.cache.update(k, v, li)
+            del parts
         if self.hybrid:
             self._saved = {i: ({k: v.clone() for k, v in layer.conv_states.items() if v is not None},
                                {k: v.clone() for k, v in layer.recurrent_states.items() if v is not None},
