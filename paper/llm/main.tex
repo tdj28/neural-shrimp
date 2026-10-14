@@ -119,8 +119,8 @@ sampling, and Section~\ref{sec:misalignment} studies sampled dialogue directly.
   in a fixed temperature window nearly vanishes in the largest Qwen2.5 and Llama models but not in OLMo-2-32B, the
   most chaotic OLMo model. A frozen prompt-blocked test shows that the Qwen decline is largely a shift: on all eight
   held-out prompts the 14B model is more chaotic than the 7B, at the higher temperatures where its next-token
-  distribution spreads. The gain split shows how network and readout damp or amplify the fed-back token; at 70B our
-  two-GPU numerics resolve no chaos (Section~\ref{sec:size}).
+  distribution spreads. The gain split shows how network and readout damp or amplify the fed-back token; at 70B, steered
+  chaos passes a three-offset test while the few unsteered candidates do not (Section~\ref{sec:size}).
 \item \emph{A fold's normal form predicts how long the model lingers near a vanished orbit.} The 2-cycle ``is it''
   dies in a fold, and the fold's normal form, computed from derivatives, predicts bottleneck passage times without
   fitting. We tested it prospectively at two new folds: 23 of 24 forecasts fell within one iterate, and the all-row
@@ -163,7 +163,7 @@ sampling, and Section~\ref{sec:misalignment} studies sampled dialogue directly.
   the 0.5B architecture, which shares the organization but not the attractors (Section~\ref{sec:scale}). Our one
   mixture-of-experts model, Qwen3.5-35B-A3B, is the exception: no unsteered temperature we tested gave a positive
   exponent. Chaos needs no steering in most dense models; in the norm-matched controls of the 0.5B and 8B models random
-  directions also produce it, while at 70B candidate chaos is rarer and more frequent along hostility-related directions
+  directions also produce it, while at 70B chaos is rarer and more frequent along hostility-related directions
   (Sections~\ref{sec:discussion} and~\ref{sec:size}). A bridge to sampled decoding measures what survives sampling
   (Section~\ref{sec:bridge}).
 \end{enumerate}
@@ -1146,20 +1146,21 @@ the same idea is described in the text.}
 \label{fig:scale}
 \end{figure}
 
-\paragraph{At 70B our numerics resolve no chaos.} The regular grids of the 70B-class models find little: Qwen2.5-72B
-has no positive exponent at any of 191 temperatures between $\log_{10}T=-1$ and $1.2$, Llama-3.3-70B none in
-$[-1,0.3]$, and Llama-3.1-70B three temperatures in $[-1,0.3]$. Finer lines found candidates: a window of positive
-exponents at Qwen2.5-72B's entropy jump ($\log_{10}T=0.3728$--$0.376$), and two isolated temperatures of
-Llama-3.3-70B ($0.250$, $0.306$), all at the single twin offset $10^{-6}$. The window failed a three-offset test: the
-exponent is negative at all 64 temperatures of the window at $10^{-5}$, near zero at $10^{-6}$, and positive at all 64
-at $10^{-7}$, including temperatures whose state repeats with a period to $10^{-8}$, which no stable periodic orbit
-allows. The exponent therefore depends on the offset without a plateau, and we withdraw the window. On one GPU the
-same comparison is clean (exponents at $10^{-7}$ and $10^{-5}$ agree within 0.02 on all chaotic temperatures of the
-prompt-blocked test), so the offset dependence belongs to our two-GPU computation of the 70B-class models; we have not
-found its mechanism. Until a plateau test at larger offsets (running) confirms them, every positive cell of the
-70B-class models, including the steered maps below, is a candidate. Negative exponents are unaffected, since the
-small-offset bias is upward. \inprogress{Plateau tests of the Llama-3.3-70B zoom and the Llama-3.1-70B temperatures at
-offsets $10^{-4}$, $10^{-5}$ and $10^{-6}$ are running.} Several Qwen2.5 models also have chaotic temperatures above
+\paragraph{At 70B, steered chaos survives a plateau test; the unsteered candidates do not.} The regular grids of the
+70B-class models find little unsteered chaos: Qwen2.5-72B has no positive exponent at any of 191 temperatures between
+$\log_{10}T=-1$ and $1.2$, Llama-3.3-70B none in $[-1,0.3]$, and Llama-3.1-70B three temperatures in $[-1,0.3]$.
+Finer lines found candidates: a window of positive exponents at Qwen2.5-72B's entropy jump
+($\log_{10}T=0.3728$--$0.376$) and two isolated temperatures of Llama-3.3-70B ($0.250$, $0.306$), all at the single
+twin offset $10^{-6}$. The window failed a three-offset test: the exponent is negative at all 64 temperatures of the
+window at $10^{-5}$, near zero at $10^{-6}$, and positive at all 64 at $10^{-7}$, including temperatures whose state
+repeats with a period, which no stable periodic orbit allows. The exponent there depends on the offset without a
+plateau, and we withdraw the window. This is not a general property of our two-GPU computation. In the steered
+Llama-3.3-70B maps below, twelve randomly drawn chaotic cells are chaotic at offsets $10^{-4}$, $10^{-5}$ and $10^{-6}$
+alike, with exponents that agree within 0.05, and the drawn periodic and unresolved cells stay negative at all three;
+on one GPU, the exponents at $10^{-7}$ and $10^{-5}$ agree within 0.02 at every chaotic temperature of the
+prompt-blocked test. Whether the Qwen2.5-72B window hides structure finer than $10^{-5}$ or a numerical effect specific
+to that computation, we cannot tell. \inprogress{A plateau test of Llama-3.1-70B's three unsteered chaotic temperatures
+is running.} Several Qwen2.5 models also have chaotic temperatures above
 $\log_{10}T=0.3$ on the paper's prompt, where the next-token entropy on the orbit is high (6.8 to 11.6 nats): 1.5B at
 21 temperatures between $0.31$ and $0.58$, 3B at 3, 7B at 6 of the 30 temperatures of its wider sweep, and 14B at 5.
 For the 1.5B model a longer test (3000 measured steps) at twin offsets $10^{-5}$ and $10^{-7}$ confirms chaos at 9 of
@@ -1209,8 +1210,9 @@ breadth is measured on the loop's own orbits, which chaos itself spreads, so the
 
 \paragraph{Across prefixes.} \inprogress{A prompt-blocked test over ten prefixes for Qwen2.5-7B and -14B, frozen in \texttt{docs/prefix-scale-test.md}, is running.}
 
-\paragraph{Steering at 70B.} Under steering, the 70B maps show candidate chaos, rarely and not independently of
-the direction (Figure~\ref{fig:controls70}; single offset $10^{-6}$, so candidates as above). On Llama-3.3-70B's
+\paragraph{Steering at 70B.} Under steering, the 70B maps show chaos, rarely and not independently of the
+direction (Figure~\ref{fig:controls70}; labels at the single offset $10^{-6}$, which the plateau test above supports
+for this computation). On Llama-3.3-70B's
 hostility plane, at the layer of Goodfire's 70B SAE and at equal norm, 4.3\,\% of cells are labelled chaotic along the
 concept vector, 3.5\,\% along the frozen-rule hostility feature, 1.1\,\% along a Gaussian direction and 0.2\,\% along
 a random live feature, against 28, 29, 39 and 27\,\% for the same four directions in Llama-3.1-8B (on one GPU);
@@ -1251,8 +1253,8 @@ exponent).}
 \paragraph{What this implies for larger models.} Nothing in our data says that a model is free of this chaos
 because it is large. In the one family where we varied the prompt, the larger model's chaos did not vanish but moved
 to higher temperature, to where its next-token distribution spreads; in another family the largest model was the most
-chaotic; post-training changed the chaos of two 70B Llama checkpoints of the same size; and at 70B our numerics could
-not resolve the few candidates. A fixed temperature window is therefore the wrong yardstick. A model's chaos follows
+chaotic; post-training changed the chaos of two 70B Llama checkpoints of the same size; and at 70B steering still produced
+chaos that passes a three-offset test. A fixed temperature window is therefore the wrong yardstick. A model's chaos follows
 the gain of its loop where its own next-token distribution is spread, and to find it in a larger model one has to look
 there, across prompts. Whether the shift continues beyond 14B is open: on the paper's prompt, Qwen2.5-72B showed no
 robust chaos anywhere up to $\log_{10}T=1.2$, and a prompt-blocked test at 72B, frozen in
@@ -1864,7 +1866,7 @@ these four models. Temperature alone produces chaos with embedded windows, broad
 a narrow band in the 0.5B model (Figure~\ref{fig:alpha0}). Across the fifteen models of Section~\ref{sec:size}, the
 regular-grid sweeps find unsteered chaos in eleven of the fourteen dense models (in Llama-3.1-70B only as
 candidates), but not in Qwen2.5-72B, Llama-3.3-70B, OLMo-2-13B or the mixture of experts; finer lines found
-candidates in the first two that our two-GPU numerics could not confirm.
+candidates in the first two, and the Qwen2.5-72B window failed a three-offset test.
 
 Steering does widen the chaotic regions, but not as a property of the concept: along norm-matched random directions,
 the 0.5B maps are as chaotic as along the concept directions (Figure~\ref{fig:controls}). On the same $128^2$ grid,
@@ -1939,8 +1941,9 @@ opposite orientation of the null vector, which flips the signs of $a$ and $b$ to
 maps and three float64 orbits at 7B; the two other families (OLMo-2 7B and Llama-3.1 8B) have maps, including
 $128^2$ refinements for Llama, but no continued orbits. The size comparison of Section~\ref{sec:size} uses regular
 temperature grids that can miss narrow windows, a window that missed most of the larger models' chaos, and mostly
-one twin offset per label; at 70B, computed on two GPUs, the exponent depends on the twin offset below about
-$10^{-6}$, so positive cells there are candidates.
+one twin offset per label; at the entropy jump of Qwen2.5-72B, computed on two GPUs, the exponent depends on the
+twin offset between $10^{-5}$ and $10^{-7}$, so we withdrew those cells, while a sample of the steered 70B maps passes
+a three-offset test.
 The maps use one prompt (Section~\ref{sec:size} adds ten for two models), and steering uses contrastive vectors, checked against norm-matched random and sparse-autoencoder
 directions in two models. The system is a constructed one-token window. The evidence consists of numerical
 validation, cross-checks and prospectively frozen passage tests (including failed all-row criteria), with a
@@ -1989,7 +1992,7 @@ fixed points \cite{sussillo2013opening,maheswaranathan2019reverse} to the period
 pretrained transformer. Second, feature dictionaries say which features an attractor occupies, but the boundaries
 between attractors, which decide what a small change does, are properties of the map's derivatives. In our 8B controls,
 a sparse-autoencoder feature direction, contrastive and random directions all drove the map into chaos (27 to 39\,\%
-of cells); at 70B the hostility-related directions gave more candidate chaotic cells than the random ones (4.3 and 3.5\,\%
+of cells); at 70B the hostility-related directions gave more chaotic cells than the random ones (4.3 and 3.5\,\%
 against 1.1 and 0.2\,\%; Section~\ref{sec:size}). Steering acts through the gain of Section~\ref{sec:theory}, which is not
 specific to concept-labelled directions, but a direction's geometry and its meaning can be correlated. Text can
 also hide the dynamics: in the hostile cascade, a seven-token text repeats exactly while the state underneath is
