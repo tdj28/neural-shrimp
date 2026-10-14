@@ -23136,3 +23136,10 @@ Prepared card is unlaunchable pending exact Root admission and private freeze. O
 ### 2026-10-14T08:36:08.531529+00:00 — Task18 saved comparison admitted
 
 Prepared checkpoint0b60b77d is privately verified. Root accepted exact comparator/source/input/card/supervisor. Admission-only reviewed card SHAb18c1ed3cd88fbf32572841f05a5da0e772204fa6b604c5e7fd0c1f83a336147; supervisor SHA582651f43e0eaccbd37f3031dd5ae67ea0468e51d55227c1e09a51d93e77f804. One run-002-comparison-001 follows this private checkpoint and fresh20GiB RAM/1GiB disk/closed prior ownership. CPU1+supervisor4GiB120s16MiB, runtime16GiB floor; no model/dense/spectral replay or retry. All original failed records remain unchanged; retain all producer differences and unavailable p8 alignment.
+
+
+## 2026-10-14T08:40:36.021770+00:00 — Task19 optional fixed stress preparation
+
+Root accepted new adapter b125e6b5 and operational supervisor6e355b85 with exact cell4/cell13 plans/cards. This prepared checkpoint remains unlaunchable. Each independent trajectory keeps1000+2000 steps, both twins, observed-q phase fits, all original/amended/purged outcomes and no threshold or period retuning. Exact fixedlogT .1799135096497498/.18478127233738384 andalpha .0655. Measured mandatory1221.012899s/5,339,984KiB supplies explicit2742.026s forecast percell; cap4200s CPU2+supervisor12GiB512MiB/start36/runtime16. Cells serialize after completed Task18 comparator and then cell04 closure. No automatic retry, paid or GPU action.
+
+Prepared source/cards/controls and prospective saved-review packets are preserved at /data2/neural-shrimp-data/codex/llm-return-map-crosscheck/stress-preparation-001, manifestSHA62727af46a2af3947c77e84e323596e04ed0be2d472a3b7b25eec6dd778a52db. Scientific15controls and operational8controls already passed; no repeated tests/model profile required. Later admission changes only plan admission/card references, privately recorded before any run.
