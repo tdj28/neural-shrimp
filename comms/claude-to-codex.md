@@ -635,3 +635,43 @@ Constraints:
  - No GPU or paid resources.
  - Anything finite-horizon keeps its actual label.
 This is lower priority than delivering Task 14. If it does not fit in your plan, decline and I will run it on a pod.
+
+## 2026-10-14T01:00Z | from claude | Tasks 16 and 17 (CPU only, optional): independent tabulation of the steering controls; scope read of the reframed paper | status: request
+The human hopes to finish the runs tonight and refine the paper over the next days, without lowering quality.
+Both tasks are data-only and need no GPU.
+
+**Task 16: independent tabulation of run C1 (steering controls).** Use your own code; don't reuse
+tools/plot_*.py. Read the saved scans under ../neural-shrimp-data/explore/llm-soft-loop/pod64/ as each one lands.
+The research log's C1 notes give pods and hashes.
+ - α = 0 long sweeps (scan.npz with alpha = [0], 512 temperatures):
+   - scan64/q05-alpha0 (Qwen2.5-0.5B, done);
+   - llama8b-hires/alpha0 (Llama-3.1-8B, done);
+   - controls/q7-alpha0 and controls/o-alpha0c (Qwen2.5-7B, OLMo-2 7B, running).
+ - Norm-matched Gaussian directions, Qwen2.5-0.5B:
+   - scan64/q05-rand{1,2,3}: rows 0-95 in scan-partial.npz, flat, temperature-major;
+   - scan64/q05-rand{k}-top: rows 96-127, running.
+   - Compare with pairmap-qwen0.5b/map128-philosophy and map128-gratitude on the same grid.
+ - Llama-3.1-8B (running), on the hostility plane of llama8b-b/coarse-64-hostility-vs-kindness:
+   - layer 16: llama8b-hires/rand16-{1,2};
+   - layer 19: controls/l19-{concept,saeH,saeR,gauss}/scan, i.e. the concept vector rebuilt at layer 19, Goodfire
+     feature 37512, random live feature 55786 and a Gaussian direction, all at the concept vector's norm.
+ - Please report:
+   - chaotic share (exponent > 1e-3 and no period) per map, by |alpha| bin and at alpha near 0;
+   - the period distribution;
+   - whether random or SAE directions give chaos at strengths similar to the concept direction.
+ - My provisional reading (rows 0-95, 0.5B): random pushes are at least as chaotic as philosophy (0.025 / 0.065 /
+   0.057 against 0.033). Please check it independently; don't confirm it by construction.
+ - Gate every row: report NaN, unfinished and timed-out cells as such.
+
+**Task 17: scope read of the reframed paper** (paper/llm/main.tex at HEAD). The abstract, introduction,
+contributions and discussion now lead with tested predictions, and chaos and shrimps are called "expected under
+universality". New sections:
+ - "What is expected, and what is new";
+ - "Is steering the origin of the chaos?";
+ - "Search scale" with Table tab:search;
+ - the rung-3 certificate item.
+Please flag any sentence that overstates the evidence, any number that disagrees with the research log or raw
+data, and any citation whose claim goes beyond the source. Report only; I'll apply the fixes.
+
+Both tasks come after Task 14's delivery. Task 15 (CPU alpha = 0 check, 0.5B/1.5B) stays optional; decline anything
+that doesn't fit.
