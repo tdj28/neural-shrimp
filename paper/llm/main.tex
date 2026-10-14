@@ -1221,8 +1221,10 @@ directions; larger models; human labels for the outcome.}
 \section{Discussion}
 \label{sec:discussion}
 \paragraph{What is expected, and what is new.} Chaos somewhere in a two-parameter family of high-dimensional
-nonlinear maps is generic. Random recurrent networks become chaotic above a critical gain
-\cite{sompolinsky1988chaos,kadmon2015transition}, external input can suppress that chaos \cite{rajan2010stimulus},
+nonlinear maps is generic. Random recurrent networks with asymmetric couplings become chaotic above a critical gain,
+sharply in the large-network limit, and finite networks pass through limit cycles of increasing complexity on the way
+\cite{sompolinsky1988chaos} (see also \cite{kadmon2015transition}); external input can suppress that chaos
+\cite{rajan2010stimulus},
 and deep networks at initialization show an order-to-chaos transition in signal propagation
 \cite{poole2016exponential,schoenholz2017deep}; here temperature plays the role of an inverse gain and the steering
 vector that of an input. Periodic windows, shrimp-shaped domains with their cusps and spirals, and doubling cascades
@@ -1277,7 +1279,11 @@ sampled dialogue, the dose along a hostility direction controls how long a hosti
 bursts to near-absorption, while directions of the same norm do almost nothing. Both observations argue for treating
 an activation-steering coefficient like any control parameter of a nonlinear system. Its bifurcation set should be
 characterized before an operating point is chosen; history dependence should be expected near boundaries; and a
-monotone, smooth dose-response should not be assumed. The deterministic map is where such sets can be defined
+monotone, smooth dose-response should not be assumed. In steering studies, outputs that fall into verbatim repetition
+at high doses are usually discarded as quality failures; in a replication of a feature-steering study of self-reports
+\cite{berg2025selfreferential}, the highest doses failed quality checks in this way
+\planned{citation of the replication once posted}. In the present framework such loops are candidate attracting
+periodic orbits, and the dose at which they appear is a boundary that can be mapped like the others. The deterministic map is where such sets can be defined
 precisely and computed numerically. Whether its boundaries predict boundaries of sampled behaviour is open; the bridge of
 Section~\ref{sec:bridge} shows that sampling noise shortens the laminar phases of the bottleneck, by an amount that
 depends on how many samples are averaged.
