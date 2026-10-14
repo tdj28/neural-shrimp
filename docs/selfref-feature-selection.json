@@ -1,0 +1,178 @@
+{
+ "rule": "Frozen feature-selection rule for the self-referential dynamics study (docs/selfref-dynamics-design.md).\n\nInput: maxima-SAE.npz from `llm_sae_readout.py profile-csv` on the designed corpus (per-text maximum activation of\nevery feature). The rule was fixed before any steering run:\n- each category's texts are split by their order in the corpus into a selection half (even positions) and a\n  held-out half (odd positions);\n- per half, m_f[c] is the mean over category c's texts of feature f's per-text maximum;\n- for a target set S, margin_f = mean over c in S of m_f[c] minus the largest m_f[c] over the competitor categories\n  (all categories outside S and outside EXCLUDED);\n- on the selection half, live features (nonzero somewhere) are ranked by margin and the top TOP with a positive\n  margin are candidates;\n- a candidate is kept only if its held-out margin is positive and ranks within the top HELD_OUT_SHARE of live features.\nSets: deception = deception_cover_story, tactical_misdirection, dishonesty_confession; roleplay = roleplay_persona,\npersona_maintenance, fictional_pretending. EXCLUDED for both: the two sets and false_self_attribution. Reported as\ncomparators: each kept feature's +-3 index neighbours and RANDOM random live features (seed 0) with their held-out\nmargins.",
+ "texts": 1120,
+ "live_features": 23258,
+ "sets": {
+  "deception": {
+   "categories": [
+    "deception_cover_story",
+    "tactical_misdirection",
+    "dishonesty_confession"
+   ],
+   "candidates": [
+    {
+     "feature": 62798,
+     "selection_margin": 2.1670048236846924,
+     "held_out_margin": 2.0478644371032715,
+     "held_out_rank": 0,
+     "kept": true,
+     "neighbours": {
+      "62795": 0.0,
+      "62796": 0.0,
+      "62797": -0.2560035288333893,
+      "62799": 0.0,
+      "62800": 0.0,
+      "62801": 0.0
+     }
+    },
+    {
+     "feature": 56153,
+     "selection_margin": 2.0780930519104004,
+     "held_out_margin": 1.807265043258667,
+     "held_out_rank": 2,
+     "kept": true,
+     "neighbours": {
+      "56150": -0.18459126353263855,
+      "56151": 0.0,
+      "56152": -0.0128049086779356,
+      "56154": 0.0,
+      "56155": 0.0,
+      "56156": 0.0
+     }
+    },
+    {
+     "feature": 3328,
+     "selection_margin": 2.0180888175964355,
+     "held_out_margin": 1.8928600549697876,
+     "held_out_rank": 1,
+     "kept": true,
+     "neighbours": {
+      "3325": 0.0,
+      "3326": -0.005131336860358715,
+      "3327": 0.0,
+      "3329": 0.0,
+      "3330": -0.016228564083576202,
+      "3331": 0.0
+     }
+    }
+   ],
+   "kept": [
+    62798,
+    56153,
+    3328
+   ],
+   "random_comparators": {
+    "63618": -0.011634131893515587,
+    "35435": -0.23966845870018005,
+    "41434": 0.0,
+    "138": -0.040910352021455765,
+    "2371": 0.0,
+    "4535": -0.00042242807103320956,
+    "59809": -0.02854277193546295,
+    "11083": -0.28434720635414124,
+    "42569": 0.003114807652309537,
+    "19847": -0.05449029803276062,
+    "17434": -0.005707854870706797,
+    "36523": -0.1444249153137207,
+    "897": 0.0,
+    "17928": -0.002732874359935522,
+    "53439": 0.0,
+    "41727": -0.000848079682327807,
+    "33239": -0.006163131445646286,
+    "44057": 0.0,
+    "39775": -0.11671754717826843,
+    "47795": -1.333736777305603,
+    "55656": -0.10580126941204071,
+    "32724": 0.00011990504572167993,
+    "61207": -0.0003140689805150032,
+    "53235": -0.5428359508514404
+   }
+  },
+  "roleplay": {
+   "categories": [
+    "roleplay_persona",
+    "persona_maintenance",
+    "fictional_pretending"
+   ],
+   "candidates": [
+    {
+     "feature": 46325,
+     "selection_margin": 2.4902610778808594,
+     "held_out_margin": 2.2930119037628174,
+     "held_out_rank": 0,
+     "kept": true,
+     "neighbours": {
+      "46322": 0.0,
+      "46323": -0.07069867104291916,
+      "46324": 0.0,
+      "46326": 0.0,
+      "46327": -0.0024581276811659336,
+      "46328": 0.0
+     }
+    },
+    {
+     "feature": 26548,
+     "selection_margin": 1.640156626701355,
+     "held_out_margin": 1.2790334224700928,
+     "held_out_rank": 2,
+     "kept": true,
+     "neighbours": {
+      "26545": 0.0,
+      "26546": -0.20629537105560303,
+      "26547": 0.0,
+      "26549": 0.0,
+      "26550": 0.0,
+      "26551": 0.0
+     }
+    },
+    {
+     "feature": 40005,
+     "selection_margin": 1.6181339025497437,
+     "held_out_margin": 1.7534140348434448,
+     "held_out_rank": 1,
+     "kept": true,
+     "neighbours": {
+      "40002": 0.0,
+      "40003": 0.0,
+      "40004": -0.006801622454077005,
+      "40006": 0.0,
+      "40007": -0.03303256258368492,
+      "40008": 0.0
+     }
+    }
+   ],
+   "kept": [
+    46325,
+    26548,
+    40005
+   ],
+   "random_comparators": {
+    "54991": -0.1020120233297348,
+    "65304": -0.07993964850902557,
+    "42385": -0.0036752461455762386,
+    "62270": 0.0,
+    "8495": 0.16556672751903534,
+    "45147": -0.02436358854174614,
+    "37881": 0.005070940591394901,
+    "40323": -0.0252821147441864,
+    "24877": 0.000146149963256903,
+    "47298": -0.009746473282575607,
+    "24391": 0.0023341274354606867,
+    "42657": 0.0,
+    "49999": -0.02988947182893753,
+    "64254": -0.1201319471001625,
+    "55336": 0.08491923660039902,
+    "29981": -0.008287759497761726,
+    "34231": -0.11395355314016342,
+    "25233": -0.03714490681886673,
+    "16661": -0.037106696516275406,
+    "57307": -0.00031753291841596365,
+    "46240": -0.000920229940675199,
+    "44929": 0.01322325412184,
+    "24623": -0.003309988882392645,
+    "52665": -0.04208075627684593
+   }
+  }
+ },
+ "input": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/selfref/profile/maxima-goodfire-l19.npz"
+}
