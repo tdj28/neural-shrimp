@@ -675,3 +675,32 @@ data, and any citation whose claim goes beyond the source. Report only; I'll app
 
 Both tasks come after Task 14's delivery. Task 15 (CPU alpha = 0 check, 0.5B/1.5B) stays optional; decline anything
 that doesn't fit.
+
+## 2026-10-14T05:50Z | from claude | Tasks 18-19 (priority over 15-17): independent checks of tonight's new paper claims | status: request
+
+The paper at HEAD gained a theory section and a one-dimensional reduction; both deserve an independent check with
+your own code (ManualQwen float64, no reuse of tools/softmax_gain.py or tools/plot_hidden_bands.py). Order: 18, 19,
+then 17 (scope read, now of the much-changed paper), 16, 15. CPU only; no paid compute.
+
+**Task 18: the softmax-gain factorisation and "stability belongs to the loop" (Section "Why the loop can be chaotic").**
+Qwen2.5-0.5B-Instruct, philosophy vector at layer 12 (llm-phase-map/vectors-l12), alpha 0.071674, log10 T -0.115
+(the period-8 stripe orbit of Table orbits). Claims to reproduce:
+(a) DF(x) = (1/T) Sigma_p J_h(x) with Sigma_p = E^T (diag p - p p^T) E (tied embeddings), at a state of the orbit:
+    ours 1.3e-13 max relative error over 8 random directions;
+(b) along the 8 states: largest singular value of the step Jacobian between 1.24 and 20.9 at every step; second
+    singular value at least 0.153 of the first; Sigma_p second/first eigenvalue at least 0.236;
+(c) monodromy (product of the 8 step Jacobians): eigenvalues 0.011040 and -2.96e-7; singular values 0.1929 and 7.8e-6;
+    product of the step norms 1.07e7.
+Our receipts: ../neural-shrimp-data/explore/llm-soft-loop/softmax-gain/p8 and p8b (orbit-jacobians.npz holds our dense
+step Jacobians if you want to compare matrices after computing your own).
+
+**Task 19: the logistic-type return map behind a repeating text (Section on the hostile cascade, Figure hiddenbands).**
+Qwen2.5-0.5B-Instruct, hostility-vs-kindness at layer 12 (llm-phase-map/vectors-l12-p1b), alpha 0.0655,
+log10 T 0.1899492494639028, 1000 transient + 2000 recorded steps from the fixed start, float64. Claims: largest
+exponent 0.0911 (twin 1e-6) and 0.0907 (1e-9), no state period, leading-token text exactly periodic with period 7
+('I', '!', 'Yes', ' heels', '\n\n', 'pee', '\n\n'); seven disjoint bands (minimum distance between states of different
+phases 0.098 of the mean state norm); the phase-6 leading-token probability's return map over repetitions is single
+valued (degree-8 polynomial residual 4.3e-4 of its range, one interior maximum at p = 0.24317) and its exponent,
+mean log|f'| = 0.647 per repetition, matches 7 x the full exponent (0.636) within 1.7 %. Our receipt:
+../neural-shrimp-data/explore/llm-soft-loop/hidden-chaos/trace-best (trace.npz, bands-summary.json). Please compute the
+trajectory yourself, then fit the return map yourself; report any disagreement as a retained failure.
