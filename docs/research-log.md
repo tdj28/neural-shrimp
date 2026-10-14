@@ -22956,3 +22956,12 @@ _commit `8f77046c0b2c` (dirty worktree)_
 Run B1 (pod 5kyztkw7ogmr80, SECURE 2xH200 NVL, runner rc 0, hash verified, terminated; 4090 s wall, scan 3467 s at 1.18-1.42 s per step for 256 rows; commit 2ba9a14c): Qwen2.5-72B-Instruct (495f3936), float64 with bf16 storage (exact), unsteered, 128 temperatures over log10 T -1..0.3, 1000 + 2000 steps, twin 1e-6, max period 64. No chaotic temperature: every cell periodic (period 2 '!Hello' at 125 temperatures, its repeats with periods 4 and 8 at 3); largest exponent anywhere -2.76 (strongly contracting). Same '!Hello' echo loop as the unsteered Qwen3.5-35B-A3B. Qwen2.5 family without steering: 0.5B narrow chaotic band (7/512 temperatures), 7B broad (65/512), 72B none (0/128): not monotone in size. Would surprise us (run card): 'no chaotic temperature in either model' - half of it has happened. Paper: the frontier paragraph's 'breadth grew with size' must go. Next: a steered Qwen2.5-72B map (hostility, mid-depth layer), and the Llama-3.3-70B sweep and SAE maps.
 
 _commit `0624781e3d3c`_
+
+## 2026-10-14 06:45 UTC: run (exploratory)
+
+- **Question:** B3: Qwen2.5-72B's unsteered map contracts everywhere (B1). Can steering still drive it into chaos, as hostility steering did in the MoE model (5 % irregular cells) and in every dense 0.5-8B model? Hostility plane of Qwen2.5-72B.
+- **Setup:** One pod, 2 x H200 NVL / H100 NVL / H200, job set bigmap at the commit after the bigmap job set: Qwen2.5-72B-Instruct (495f3936), float64 with bf16 storage over both GPUs; concept vectors at layer 40 of 80 (mid-depth, as layer 14 of 28 for Qwen2.5-7B), hostility:kindness and 3 random; scan of hostility-vs-kindness: alpha 0..0.12, log10 T -0.3..0.3, 32 x 32, transient 300, samples 300, max period 32, tol 1e-8, twin 1e-6, chunk 128 (ranges as the 7-8B hostility planes).
+- **Output:** `../neural-shrimp-data/explore/llm-soft-loop/pod64/big/qwen72b-l40-hostility-vs-kindness/scan`
+- **Would surprise us:** no chaotic or irregular cell anywhere on the plane (the 72B would then resist steering into chaos)
+
+_commit `9de4e59dc794`_
