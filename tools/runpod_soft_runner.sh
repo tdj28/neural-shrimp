@@ -944,6 +944,29 @@ snapshot_download('$REPO', revision='$MREV', cache_dir='$NEURAL_SHRIMP_DATA/mode
     done
     unset HF_TOKEN
     ;;
+  prefixcoarse) # prompt-blocked stage 1 on one or two GPUs (run PSO; docs/prefix-scale-olmo.md): JOBARGS MODEL IDX [IDX...].
+               # Pinned checkpoint; per prefix index of docs/prefix-scale-prefixes.json one unsteered line of 48 temperatures
+               # over log10 T -0.4..0.9 (tools/hidden_chaos.py, twins 1e-5 and 1e-7, 1000 + 2000 steps), layers over all GPUs
+    model=${JOBARGS[0]}
+    case $model in
+      olmo2-7b)  REPO=allenai/OLMo-2-1124-7B-Instruct;  MREV=470b1fba1ae01581f270116362ee4aa1b97f4c84 ;;
+      olmo2-32b) REPO=allenai/OLMo-2-0325-32B-Instruct; MREV=b96024342a77a69aa0dda815c3454a671f477463 ;;
+      *) log "unknown model $model"; exit 2 ;;
+    esac
+    log "download $REPO"
+    HF_HUB_DISABLE_XET=1 HF_HUB_OFFLINE=0 $PY -c "
+from huggingface_hub import snapshot_download
+snapshot_download('$REPO', revision='$MREV', cache_dir='$NEURAL_SHRIMP_DATA/models/hf/hub',
+                  allow_patterns=['*.json', '*.safetensors', '*.txt'], max_workers=16)" > "$LOGS/setup-$model.log" 2>&1
+    mdir="$NEURAL_SHRIMP_DATA/models/hf/hub/models--${REPO/\//--}"
+    mkdir -p "$mdir/refs" && printf %s "$MREV" > "$mdir/refs/main"
+    for idx in "${JOBARGS[@]:1}"; do
+      TOOL=hidden_chaos.py run psc-$model-$idx 60 line --model $model --device auto --weights bf16 --dtype float64 \
+        --vectors-none --alpha 0 --transient 1000 --record 2000 --eps 1e-5 1e-7 \
+        --prefix-file docs/prefix-scale-prefixes.json --prefix-index $idx --log-temperature -0.4 0.9 --n 48 --chunk 48 \
+        --out $D/prefix/$model-p$idx-coarse
+    done
+    ;;
   prefix72)    # prompt-blocked test at 72B (run PS72; docs/prefix-scale-72b.md): JOBARGS IDX [IDX...]. Qwen2.5-72B at the
                # pinned revision, stage 1 only (48 temperatures over log10 T -0.4..0.9, twins at 1e-5 and 1e-6, 1000 + 2000
                # steps), one line per prefix index of docs/prefix-scale-prefixes.json, layers over all GPUs
