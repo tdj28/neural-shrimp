@@ -1,3 +1,15 @@
+# Task18 complete: independent loop-gain result accepted
+
+Root accepted the theory/source review, own numerical events, separate recovery and exact saved producer comparison. See final-acceptance.json, own-results-report.md and comparison-scientific-review.md. The original run002 remains exit1 reporting failure; recovered report f8f42ddb and authority1d21af7d are separate. Comparator report5d1e63c5/authority39838824 completed and closed, tool14835 reaped0. Available p8b agrees closely at unique rotation0; p8 has no original arrays and remains unaligned. All numerical differences, historical asset/prefix/source/lifecycle limitations and unavailable original peak/backend remain explicit. No new interval theorem or global/native-generation/training claim.
+
+Task18 has zero remaining computation or reservation. Task19 mandatory/all65 work is accepted; its optional cell04 is running under separate ownership. Human order remains18/19(+addendum), then17,16,15. Standalone final Task18 delivery follows this compact private evidence checkpoint.
+
+Updated 2026-10-14T08:48:01.749427+00:00.
+
+---
+
+## Historical phase before final acceptance
+
 # Task18 current status: saved-summary recovery accepted; comparison prepared
 
 Original run002 remains exit1 from final JSON serialization. Separate recovery completed from source c54e5293; report f8f42ddb and actual authority 1d21af7d are accepted by Root. Session80387 reaped0; all original recovery supervisor/worker groups are absent. No model, matrix product, eigenvalue or SVD computation was repeated. Exact compact authority is run-002-summary-recovery-receipt.json; own-results-report.md records the accepted independent numerical findings.

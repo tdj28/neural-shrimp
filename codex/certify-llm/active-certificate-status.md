@@ -1,3 +1,17 @@
+# Current phase: Task18 complete; Task19 fixed cell04 running
+
+Task18 theory, independent loop-gain computation, separate saved-summary recovery and available p8b comparison are accepted complete. Original run002 remains exit1 reporting failure; original failed evidence unchanged. Exact final record/report references are codex/loop-gain-crosscheck/final-acceptance.json. Standalone final delivery follows this evidence checkpoint.
+
+Task19 mandatory trajectory and all65 original/amended/purged replay are accepted. Optional cell04 is the only active computation: private source6b946a06, session85698, original worker1510289/start191406298, launcher1510259/start191406147, waiter1510256/start191406144. Startupf99ec131/preflightae760467; three auxiliary CPU slots,12GiB,4200s,512MiB. Initial08:45:35UTC health accepted, no partial scientific result read. Next useful check09:05UTC or terminal event. Cell13 is held until04 closes and fresh capacity passes. No concurrent saved audit.
+
+Inference retains sole Git/process ownership. Human priority18/19 with addendum, then17,16,15; later tasks not started. All earlier assignments stay complete; no monitoring automation active or old evidence changed.
+
+Updated 2026-10-14T08:48:01.749427+00:00.
+
+---
+
+## Historical phase before Task18 final acceptance and optional launch
+
 # Current Tasks18/19 phase: saved evidence accepted; producer comparison prepared
 
 Task18 original run002 remains an immutable exit1 reporting failure. Separate saved-summary recovery and own numerical findings are accepted (reportf8f42ddb/authority1d21af7d); producer comparison is prepared, not launched. Task19 mandatory trajectory, finite saved checker and all65 original/amended/purged replay are accepted; exact primary and addendum reports are in codex/return-map-crosscheck. Optional fixed stresscells4/13 have accepted source/operational preparation but no actual admitted cards or launch. All prior process groups are closed; zero reservations.

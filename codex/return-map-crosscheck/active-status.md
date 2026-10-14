@@ -1,3 +1,17 @@
+# Task19 current status: primary and all65 accepted; cell04 running
+
+Primary trajectory/result and saved review are accepted; all65 original/amended/purged replay is accepted. Reports primary-scientific-report.md and addendum-scientific-report.md retain49/62 versus51/62, every outlier/rank warning and finite producer/short-run ownership limits.
+
+Optional stress cell04 launched once from private source6b946a069420390b773eb6a7327dbf2d7323477b, plan3cd70f0d/card9dfb7e30, preflightae760467. Tool session85698 remains owned. At08:45:35Z worker1510289/start191406298, launcher1510259/start191406147, waiter1510256/start191406144 matched original commands/UID/groups. Worker/launcher nice10/12GiB; worker3 observed OS threads under Torch2/inter1; launcher1. Startup f99ec131 is copied here. Stderr empty and52,430,565,376B available. Three auxiliary CPU slots/12GiB reservation;4200s hard deadline and512MiB sampled output cap. No partial scientific interpretation. Next useful check around09:05UTC or terminal event.
+
+Cell13 is separately reviewed but unlaunched; it waits original04 receipt/closed ownership and fresh capacity. No concurrent auxiliary saved audit is admitted. All Task18 processes are closed and its result is complete. Inference is sole Git/process owner; later17/16/15 not started.
+
+Updated 2026-10-14T08:48:01.749427+00:00.
+
+---
+
+## Historical phase before optional launch
+
 # Task19 current status: mandatory trajectory accepted; all65 saved replay accepted; optional stress pending
 
 Original session57156 was reaped exit0. Original trajectory receipt b0a72180d59cb626ccaec4a4c58ba5077f014e37c951c9994a78c9f5978fb44e records computational completion; worker1221.0129s and external supervisor1223.2864s are distinct. Peak workerRSS5,339,984KiB. Original stdout/stderr and all evidence remain retained; no scientific equivalence claim is made before the accepted finite saved check.

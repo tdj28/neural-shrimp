@@ -23148,3 +23148,10 @@ Prepared source/cards/controls and prospective saved-review packets are preserve
 ### 2026-10-14T08:42:36.605138+00:00 — Task19 exact optional stress admission
 
 Root accepted the two concrete prepared cards and plans, and first-cell metadata preflightbec18367. Original prepared private checkpoint00a87d6d remains. Only admission/card references and final plan hashes change. Finalpins {"4": {"plan": "3cd70f0d2f186730da64e73cb811b4993cedf0518b3dac6e1695e0a6b63d8e7c", "card": "9dfb7e30a653a60360932d7676cffb14a76239c02af9e74b5d599249aee3da26"}, "13": {"plan": "f340afad9c85dc9d72e396a8cdaf48f0b4fcb5e46a3ce63d0caae22bef10e715", "card": "2edbeea44bcf8c12073d36cb41122d644cf7b3f2c99f3cdd3c4836e25a59a3fe"}}. Comparator report5d1e63c5 and authority39838824 are accepted and closed; zero current reservations. Cell04 follows this private checkpoint and fresh36GiB/16GiBdisk admission; cell13 waits actual04 receipt/closed ownership and fresh capacity. No parallel optional run, no model profile, no retry. Each4200s CPU2+supervisor12GiB512MiB, complete actualq/gates and adverse outcomes retained.
+
+
+## 2026-10-14T08:48:01.749427+00:00 — Task18 complete and Task19 optional cell04 started
+
+Root accepted actual comparatorreport5d1e63c5/authority39838824 and full final scientific review3ce67ac9. Task18 completes on finite binary64 evidence; original exit1 reporting failure stays preserved. Close p8b agreement, p8 unavailable arrays, all scalar/matrix differences and historical provenance limits are retained. Separate final-acceptance.json and reports record this, without changing original scientific_acceptance_pending fields. No further model/numerical audit requested.
+
+Cell04 fresh preflightae760467 admitted exact11files and10input hashes at56.66GBavailable. Sole persistent dispatch source6b946a06/session85698 started; accepted startupf99ec131 records three original births, exactlimits andempty stderr at08:45:35Z. Three auxiliary slots/12GiB/4200s/512MiB; no other task resource reservation. Cell13 waits04closure and fresh preflight.
