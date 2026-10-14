@@ -1,0 +1,55 @@
+{
+  "schema": "codex-task18-comparison-run-card-v2",
+  "admission": "prepared_unlaunchable",
+  "attempt": "run-002-comparison-001",
+  "purpose": "Compare sealed own recovered numerical events with original producer p8/p8b without model or spectral replay. Original run002 remains exit1; only the separate recovery and this comparison can complete.",
+  "source_sha256": "9f549e77472c783586e48215591f1505fa1ce652656c9e26c8bd35bef8e90263",
+  "input_manifest": {
+    "path": "/data2/neural-shrimp-data/codex/llm-loop-gain-crosscheck/comparison-input-authority-001/inputs.json",
+    "sha256": "cdbbaaa908d30635e76e8d1135aa93a19a59203e709a5d71a880095568ceb08c"
+  },
+  "input_capture_sha256": "3051cb8f6691aa0e9ee633bb98ce401fc0cfa2482a382416c128e49f42d186ba",
+  "original_source_commit": "7918af949fa60cb8bb123504e78c2dc959943d9c",
+  "original_receipt_sha256": "4a3153f174bec42f034e245b63d5fe48978962908cbf82478ace3498b632b4fa",
+  "recovery_report_sha256": "f8f42ddb1dcd25ce13cd602f2a8aa670335d79b72cc0fbd21f5aed3a46825fef",
+  "recovery_authority_sha256": "1d21af7d1d50d5078db5596a49e219acc42ba363d72efa744024e4b53532adbb",
+  "output": "/data2/neural-shrimp-data/codex/llm-loop-gain-crosscheck/run-002-comparison-001",
+  "envelope": {
+    "cpu_threads": 1,
+    "supervisor_slots": 1,
+    "nice": 10,
+    "memory_gib": 4,
+    "wall_seconds": 120,
+    "terminate_grace_seconds": 5,
+    "kill_grace_seconds": 5,
+    "maximum_output_mib": 16,
+    "minimum_start_available_gib": 20,
+    "minimum_runtime_available_gib": 16,
+    "minimum_disk_free_gib": 1,
+    "no_gpu": true,
+    "no_paid_resources": true,
+    "automatic_retry": false
+  },
+  "cost_basis": {
+    "explicit_input_bytes": 51012450,
+    "conservative_input_bytes_including_entire_original_own_inventory": 487675009,
+    "input_limit_bytes": 1073741824,
+    "streaming_copy_hash_metadata_seconds": 0.2080028501804918,
+    "whole_preparation_seconds": 0.24,
+    "prior_own_436MB_stream_hash_seconds": 0.53,
+    "unmeasured_work": "64 phase-pair matrix differences per available producer archive, eight aligned matrices and column errors, saved scalar/readout reductions; no eigensolver/SVD/product. CPU time is not inferred from streaming IO; fixed120s hard envelope and partial retention apply.",
+    "memory_basis": "Own eight896-square matrices~49MiB plus original p8b~49MiB, selected probabilities/spectra and per-pair temporaries;4GiB ceiling provides headroom, without guaranteed completion."
+  },
+  "science": {
+    "alignment_tolerance": 1e-08,
+    "all_eight_forward_rotations": true,
+    "reversal_transpose_retuning": false,
+    "all_nonzero_differences_retained": true,
+    "no_model_derivative_product_eigen_or_svd": true,
+    "p8_missing_arrays": "Explicit unaligned disposition, no substitute.",
+    "producer_authority": "Stable copied local original artifacts with assignment/dirty-run log; no cryptographic historical model/source/prefix/lifecycle attestation.",
+    "completed_vs_scientific": "Successful execution can retain unaligned or differing producer evidence; scientific interpretation remains separately reviewed."
+  },
+  "preparation_controls": "Original12 tiny comparison controls and9 adapter controls passed; accepted science unchanged, no repeat controls or target timing run.",
+  "acceptance_reference": "Root accepted comparator v2 and actual inputs prospectively; exact card/supervisor still require final review before admission."
+}

@@ -23122,3 +23122,12 @@ _commit `746a936f1f2a` (dirty worktree)_
 Pod 7zfy9d8n4csmo7 (SECURE 2xH200, rc 0, hash verified, terminated; 6050 s; commit 93dfb761). Qwen2.5-72B-Instruct, concept vectors built on the pod at layer 40 of 80 (hostility-vs-kindness norm 720.1), hostility plane alpha 0..0.12 x log10 T -0.3..0.3, 32x32, 300 + 300 steps, float64 bf16-storage. Chaotic 8/1024 (0.8 %), largest exponent 0.354; by |alpha| 0, 0, 0.4, 2.0, 0.8 %; 109 cells without a period. Next-token entropy median 0.08 nats (range 0-11.3). Families: '!Hello' (period 2, 239 cells), ' .' (176), '! Hello' (155) and the echo's repeats. Qwen2.5-7B on the same plane: 8-24 % (coarse maps). With S70M: at 70B steering opens rare chaos (0.8-4.3 %), against 8-39 % at 7-8B.
 
 _commit `9fc7f33ac4c5` (dirty worktree)_
+
+
+## 2026-10-14T08:34:38.104134+00:00 — Task18 recovered saved evidence and prepared producer comparison
+
+Original run002 exit1 reporting failure remains immutable. The separately reviewed saved-summary recovery completed once, source c54e5293, report f8f42ddb, authority1d21af7d, session80387 reaped0. Root accepted all saved phase/cyclic/composed controls and closure. No model/dense/eigen/SVD replay. Own findings and Task19 accepted all65 addendum report are checkpointed here.
+
+Prepare one saved comparison using unchanged comparator9f549e77, inputs cdbbaaa9, CPU1+supervisor/nice10/4GiB/120s/16MiB and20/16GiB memory floors. All eight forward rotations are retained, unique full-state alignment threshold1e-8 fixed; every numerical delta remains. p8 original arrays are absent, p8b archive available. Current copied artifacts plus original dirty-run log are finite producer authority; historical asset/prefix/source/lifecycle proof is not invented. Streaming copy/hash metadata measured 0.208003s; conservative selected+entire-own bytes487,675,009. This does not measure comparison CPU time.
+
+Prepared card is unlaunchable pending exact Root admission and private freeze. Original and adapted preparation source/cards/controls are preserved at /data2/neural-shrimp-data/codex/llm-loop-gain-crosscheck/comparison-preparation-001, manifest SHAc0ccb3f0ce46d238de869cf790c08dd1b1d692781d6a40d078f71cb46a5023f7. No producer arrays decoded during preparation. No paid/GPU action. Optional Task19 stress runs remain deferred until comparison closure.

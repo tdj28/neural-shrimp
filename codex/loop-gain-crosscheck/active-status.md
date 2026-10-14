@@ -1,3 +1,15 @@
+# Task18 current status: saved-summary recovery accepted; comparison prepared
+
+Original run002 remains exit1 from final JSON serialization. Separate recovery completed from source c54e5293; report f8f42ddb and actual authority 1d21af7d are accepted by Root. Session80387 reaped0; all original recovery supervisor/worker groups are absent. No model, matrix product, eigenvalue or SVD computation was repeated. Exact compact authority is run-002-summary-recovery-receipt.json; own-results-report.md records the accepted independent numerical findings.
+
+The prospective saved producer comparison has source9f549e77 and immutable inputs cdbbaaa9. Its prepared card remains unlaunchable pending exact final admission/private checkpoint. Producer p8 has no original arrays; p8b has the original saved archive. Historical source/asset/prefix/lifecycle limitations remain explicit. Zero live reservations. Human priority18/19(+addendum), then17,16,15.
+
+Updated 2026-10-14T08:34:38.104134+00:00.
+
+---
+
+## Historical phase before recovered-summary acceptance
+
 # Task18 current status: original run002 closed with reporting failure
 
 Original session44216 was reaped exit1. The complete native computation reached the final status writer, which could not serialize a NumPy Boolean; its failure handler then encountered the exclusive partial status file. This is an operational reporting failure, not a successful original receipt. All original evidence remains unchanged.

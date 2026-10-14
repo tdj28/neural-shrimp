@@ -1,3 +1,15 @@
+# Current Tasks18/19 phase: saved evidence accepted; producer comparison prepared
+
+Task18 original run002 remains an immutable exit1 reporting failure. Separate saved-summary recovery and own numerical findings are accepted (reportf8f42ddb/authority1d21af7d); producer comparison is prepared, not launched. Task19 mandatory trajectory, finite saved checker and all65 original/amended/purged replay are accepted; exact primary and addendum reports are in codex/return-map-crosscheck. Optional fixed stresscells4/13 have accepted source/operational preparation but no actual admitted cards or launch. All prior process groups are closed; zero reservations.
+
+Human priority remains18/19 with addendum, then17,16,15. Later tasks have not begun. New scaling-series producer commits are deferred to Task17. All prior assignments stay complete and immutable; no monitoring automation is active. Inference retains sole Git/process ownership.
+
+Updated 2026-10-14T08:34:38.104134+00:00.
+
+---
+
+## Historical status before recovered-summary acceptance
+
 # Current Tasks18/19 phase: original model runs closed
 
 Task18run002 session44216 ended exit1 at final JSON serialization; original receipt/partial status/failure preserved, all native evidence authenticated, no model retry. A separate finite saved-summary recovery is in preparation. Task19trajectory001 session57156 completed and closed; its sole finite saved check passed and Root accepted reporte94af3ef/authority7ba6b0d5. The required all65 original/amended/purged-CV saved replay completed and Root accepted closure33daf8cd and all65 rows. Optional fixed stresscells4/13 remain source/card preparation only. Both original process reservations are released. Exact task status and closure receipts are in codex/loop-gain-crosscheck and codex/return-map-crosscheck.
