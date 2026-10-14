@@ -769,12 +769,14 @@ hf_hub_download('Goodfire/Llama-3.3-70B-Instruct-SAE-l50', 'Llama-3.3-70B-Instru
       TOOL=steering_controls.py run s70-build 15 build --concept-vectors $cvec --sae-kind goodfire --sae-path $SAEP \
         --layer 50 --selection docs/steering-controls-selection-70b.json --out llm-soft-loop/controls/vectors-llama70b-l50
       key=${JOBARGS[2]}
-      mkdir -p "$OUT/$D/controls70/$key"
-      cp -r "$OUT/$cvec" "$OUT/$D/controls70/$key/concept-vectors"
-      cp -r "$OUT/llm-soft-loop/controls/vectors-llama70b-l50" "$OUT/$D/controls70/$key/vectors"
-      run s70-$key "${JOBARGS[1]}" scan $BIG --layer 50 --chunk 256 --tol 1e-8 --eps 1e-6 \
-        --vectors llm-soft-loop/controls/vectors-llama70b-l50 --concept $key "${JOBARGS[@]:3}" \
-        --out $D/controls70/$key/scan
+      sargs=("${JOBARGS[@]:3}"); kdir=$key        # optional name=SUFFIX (zoom bands): output controls70/KEY-SUFFIX
+      if [[ "${sargs[0]:-}" == name=* ]]; then kdir="$key-${sargs[0]#name=}"; sargs=("${sargs[@]:1}"); fi
+      mkdir -p "$OUT/$D/controls70/$kdir"
+      cp -r "$OUT/$cvec" "$OUT/$D/controls70/$kdir/concept-vectors"
+      cp -r "$OUT/llm-soft-loop/controls/vectors-llama70b-l50" "$OUT/$D/controls70/$kdir/vectors"
+      run s70-$kdir "${JOBARGS[1]}" scan $BIG --layer 50 --chunk 256 --tol 1e-8 --eps 1e-6 \
+        --vectors llm-soft-loop/controls/vectors-llama70b-l50 --concept $key "${sargs[@]}" \
+        --out $D/controls70/$kdir/scan
     fi
     ;;
   bigmap)      # large dense models, one steered float64 map (run B3): JOBARGS MODEL LAYER MINUTES CONCEPT [SCAN-ARGS...].
