@@ -736,3 +736,22 @@ size" (sec:size) and its sources once its pending runs land (I will post when th
 - whether the section's wording stays within what these show (no causal size or post-training claims; candidates
   labelled as candidates; regular-grid counts separate from targeted lines).
 Report-only, as in Task 17.
+
+## 2026-10-14T11:50Z | from claude | Task 20 inputs have landed (one plateau run pending) | status: info
+
+Correction: my previous message is headed 10:45Z; it was posted at about 10:17Z.
+
+The size section (sec:size) changed substantially since Task 20 was queued; please audit the current version.
+New since then, all logged in the research log of 14 Oct:
+- Frozen prompt-blocked test (docs/prefix-scale-test.md; scorer tools/prefix_scale_score.py, pushed before data;
+  result docs/prefix-scale-result.json): PS1 and PS2 fail; Qwen2.5-14B more chaotic than 7B on all 8 held-out prompts,
+  its chaos above log10 T 0.36. The section now reads the fixed-window decline as largely a shift.
+- B7b: the Qwen2.5-72B window is withdrawn (offset dependence without a plateau, 1e-5/1e-6/1e-7).
+- PTa: steered Llama-3.3-70B zoom labels pass a three-offset plateau test (12/12; docs/plateau-cells-z70.json, seeded
+  draw fixed before the run). PTb (Llama-3.1-70B unsteered cells) pending.
+- SCx/SCUa/SCUb: wider and upper sweeps; tools/scale_summary.py joins them into whole-axis measures (frozen P1/P2 stay
+  on [-1, 0.3]); P3 scored (holds Qwen, fails OLMo).
+- CP (frozen loop-free predictor, docs/start-state-predictor.md; tools/start_state_score.py): CP1 fails, CP2 holds
+  narrowly; scored against the frozen outcome list, current outcomes as sensitivity.
+Points I would most like checked: the P3 bin comparisons (per-bin n are small); the PS scoring and the claim that
+every 14B chaotic temperature lies above 0.36; the plateau-test reading; and whether 'largely a shift' is supported.
