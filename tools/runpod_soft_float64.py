@@ -38,7 +38,7 @@ DATA_PATHS = ("explore/llm-phase-map/vectors-l12", "explore/llm-soft-loop/branch
               "explore/llm-soft-loop/branch-p8-a0.0717-down", "explore/llm-soft-loop/branch-p2-t-0.115-alpha-up")
 
 
-GATED_JOBSETS = ("llama8b", "llamamap", "llamactrl", "selfref", "bigsweep", "bigctrl", "bigmap", "gainsplit", "bighidden", "scaleset", "startstate", "upperset")                     # job sets that download gated weights with the human's HF token
+GATED_JOBSETS = ("llama8b", "llamamap", "llamactrl", "selfref", "bigsweep", "bigctrl", "bigmap", "gainsplit", "bighidden", "scaleset", "startstate", "upperset", "prefix72")                     # job sets that download gated weights with the human's HF token
 
 
 def hf_token():

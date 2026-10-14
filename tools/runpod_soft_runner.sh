@@ -936,6 +936,24 @@ snapshot_download('$REPO', revision='$MREV', cache_dir='$NEURAL_SHRIMP_DATA/mode
     done
     unset HF_TOKEN
     ;;
+  prefix72)    # prompt-blocked test at 72B (run PS72; docs/prefix-scale-72b.md): JOBARGS IDX [IDX...]. Qwen2.5-72B at the
+               # pinned revision, stage 1 only (48 temperatures over log10 T -0.4..0.9, twins at 1e-5 and 1e-6, 1000 + 2000
+               # steps), one line per prefix index of docs/prefix-scale-prefixes.json, layers over all GPUs
+    REPO=Qwen/Qwen2.5-72B-Instruct; MREV=495f39366efef23836d0cfae4fbe635880d2be31
+    log "download $REPO"
+    HF_HUB_DISABLE_XET=1 HF_HUB_OFFLINE=0 $PY -c "
+from huggingface_hub import snapshot_download
+snapshot_download('$REPO', revision='$MREV', cache_dir='$NEURAL_SHRIMP_DATA/models/hf/hub',
+                  allow_patterns=['*.json', '*.safetensors', '*.txt'], max_workers=16)" > "$LOGS/setup-qwen72b.log" 2>&1
+    mdir="$NEURAL_SHRIMP_DATA/models/hf/hub/models--${REPO/\//--}"
+    mkdir -p "$mdir/refs" && printf %s "$MREV" > "$mdir/refs/main"
+    for idx in "${JOBARGS[@]}"; do
+      TOOL=hidden_chaos.py run ps72-$idx 75 line --model qwen72b --device auto --weights bf16 --dtype float64 \
+        --vectors-none --alpha 0 --transient 1000 --record 2000 --eps 1e-5 1e-6 \
+        --prefix-file docs/prefix-scale-prefixes.json --prefix-index $idx --log-temperature -0.4 0.9 --n 48 --chunk 48 \
+        --out $D/prefix/qwen72b-p$idx-coarse
+    done
+    ;;
   startstate)  # loop-free cheap predictor (run CP; docs/start-state-predictor.md): JOBARGS MODEL [MODEL...]. For each
                # model: pinned checkpoint (gated ones with the token on stdin), tools/start_state.py on the ten prefixes of
                # docs/prefix-scale-prefixes.json (float64, bf16 storage, layers over all GPUs) into
