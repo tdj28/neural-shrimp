@@ -6,7 +6,7 @@ B=Path('/data2/neural-shrimp-data/codex/llm-loop-gain-crosscheck')
 OUT=B/'run-002-comparison-001';SUP=OUT.with_name(OUT.name+'-supervision')
 WRAPPER='codex/loop-gain-crosscheck/compare.py';CARD='codex/loop-gain-crosscheck/comparison-001-card.json'
 INPUTS='codex/loop-gain-crosscheck/comparison-001-inputs.json';INPUTS_SHA='cdbbaaa908d30635e76e8d1135aa93a19a59203e709a5d71a880095568ceb08c'
-WRAPPER_SHA='9f549e77472c783586e48215591f1505fa1ce652656c9e26c8bd35bef8e90263';CARD_SHA='9d73371731ae7a47626be032492062da6f030006d8bdcd95f47fa82b2ecd08bc'
+WRAPPER_SHA='9f549e77472c783586e48215591f1505fa1ce652656c9e26c8bd35bef8e90263';CARD_SHA='b18c1ed3cd88fbf32572841f05a5da0e772204fa6b604c5e7fd0c1f83a336147'
 GIB=1024**3;WALL=120;MAX_OUTPUT=16*1024**2
 
 def sha(p):return hashlib.sha256(Path(p).read_bytes()).hexdigest()
