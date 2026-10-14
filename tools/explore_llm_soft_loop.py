@@ -690,7 +690,10 @@ def scan(args):
     loop = SoftLoop(args.model, args.layer, args.threads, args.prompt, args.opener, args.window, args.dtype,
                     args.device, args.weights)
     torch = loop.torch
-    v = elpm.load_vectors(args.vectors)[args.concept] if args.vectors else None
+    v = elpm.load_vectors(args.vectors)[args.concept] if args.vectors else None      # --vectors "": unsteered
+    if v is not None and len(v) != loop.E.shape[1]:
+        raise SystemExit(f"steering vector {args.vectors}/{args.concept} has dimension {len(v)}, the model "
+                         f"{loop.E.shape[1]}")
     log_t = np.linspace(*args.log_temperature, args.resolution[0])
     alphas = np.linspace(*args.alpha, args.resolution[1])
     cells = [(lt, a) for lt in log_t for a in alphas]
@@ -1333,7 +1336,7 @@ def main():
     sc.add_argument("--prompt", choices=sorted(ela.PROMPTS), default="open")
     sc.add_argument("--opener", default=ela.OPENER)
     sc.add_argument("--window", type=int, default=1)
-    sc.add_argument("--vectors", default="llm-phase-map/vectors-l12")
+    sc.add_argument("--vectors", default="llm-phase-map/vectors-l12", help='explore-relative vector set; "" for none')
     sc.add_argument("--concept", default="philosophy", help="a vector name in --vectors (e.g. hostility-vs-kindness)")
     sc.add_argument("--log-temperature", type=float, nargs=2, default=[-1.0, 0.3])
     sc.add_argument("--alpha", type=float, nargs=2, default=[-0.12, 0.12])

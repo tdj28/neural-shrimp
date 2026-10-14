@@ -726,7 +726,7 @@ snapshot_download('$REPO', revision='$MREV', cache_dir='$NEURAL_SHRIMP_DATA/mode
     mrefs=$NEURAL_SHRIMP_DATA/models/hf/hub/models--${REPO/\//--}/refs
     mkdir -p "$mrefs" && printf %s "$MREV" > "$mrefs/main"
     nvidia-smi --query-gpu=index,name,memory.total --format=csv,noheader > "$LOGS/gpus.txt" 2>&1
-    run bigsweep-$model "${JOBARGS[1]}" scan --device auto --weights bf16 --dtype float64 --model $model \
+    run bigsweep-$model "${JOBARGS[1]}" scan --device auto --weights bf16 --dtype float64 --model $model --vectors "" \
       --alpha 0 0 --log-temperature -1 0.3 --resolution 128 1 --transient 1000 --samples 2000 --max-period 64 \
       --tol 1e-8 --eps 1e-6 --chunk 128 "${JOBARGS[@]:2}" --out $D/big/$model-alpha0
     ;;
