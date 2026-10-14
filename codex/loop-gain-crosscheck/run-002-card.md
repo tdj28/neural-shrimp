@@ -1,10 +1,11 @@
-# Task18 independent loop-gain run002 (prepared recovery)
+# Task18 independent loop-gain run002 (reviewed recovery)
 
-Status: prepared operational recovery; no retry is authorized by this document.
-Root accepted the original scientific source and resource envelope. Attempt001
-failed during launcher stdout publication; its original artifacts are preserved.
-The new outer dispatch, literal attempt paths and concrete card require review
-and private checkpoint before one attempt002. No mathematical gate is changed.
+Status: Root accepted the original science/resources and this exact operational
+recovery on 2026-10-14, after independent review18a75774. One attempt002 is
+authorized after the private admission checkpoint and fresh reviewed preflight.
+Prepared recovery is preserved at1b03ae436fbfc2913edf61486e809fa597014a49.
+Attempt001 and all original failure/closure evidence remain unchanged.
+No mathematical gate is changed; no further automatic retry is authorized.
 
 The human requests Tasks18 and19 (including the cross-cell addendum), followed
 by17,16,15. Task18 is an exploratory independent numerical check after exposure

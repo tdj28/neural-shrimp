@@ -804,6 +804,36 @@ snapshot_download('$REPO', revision='$MREV', cache_dir='$NEURAL_SHRIMP_DATA/mode
     run bigmap-$model "${JOBARGS[2]}" scan $BIG --layer $layer --chunk 128 --tol 1e-8 --eps 1e-6 --vectors $cvec \
       --concept $concept "${JOBARGS[@]:4}" --out $bdir/scan
     ;;
+  gainsplit)   # where the loop's gain comes from (runs G1, G2; tools/gain_split.py): JOBARGS MODE SPEC [SPEC...], MODE small
+               # (one GPU, float64) or big (float64 with bf16 storage over all GPUs), SPEC = MODEL:LOG10T_LO:LOG10T_HI;
+               # unsteered, 24 temperatures, 500 transient + 1000 recorded steps, twins at relative offset 1e-6. Each
+               # pinned checkpoint is downloaded (gated Llama: token on stdin, unset after the downloads), measured and
+               # then deleted from the pod's disk
+    mode=${JOBARGS[0]}
+    if [ "$mode" = big ]; then GDEV="--device auto --weights bf16"; else GDEV="--device cuda --weights native"; fi
+    for spec in "${JOBARGS[@]:1}"; do
+      IFS=: read -r model lo hi <<< "$spec"
+      case $model in
+        llama3.1-8b)  REPO=meta-llama/Llama-3.1-8B-Instruct;  MREV=0e9e39f249a16976918f6564b8830bc894c89659 ;;
+        qwen7b)       REPO=Qwen/Qwen2.5-7B-Instruct;          MREV=a09a35458c702b33eeacc393d103063234e8bc28 ;;
+        qwen72b)      REPO=Qwen/Qwen2.5-72B-Instruct;         MREV=495f39366efef23836d0cfae4fbe635880d2be31 ;;
+        llama3.3-70b) REPO=meta-llama/Llama-3.3-70B-Instruct; MREV=6f6073b423013f6a7d4d9f39144961bfbfbc386b ;;
+        llama3.1-70b) REPO=meta-llama/Llama-3.1-70B-Instruct; MREV=1605565b47bb9346c5515c34102e054115b4f98b ;;
+        *) log "unknown model $model"; continue ;;
+      esac
+      log "download $REPO"
+      HF_HUB_OFFLINE=0 $PY -c "
+from huggingface_hub import snapshot_download
+snapshot_download('$REPO', revision='$MREV', cache_dir='$NEURAL_SHRIMP_DATA/models/hf/hub',
+                  allow_patterns=['*.json', 'model-*.safetensors'], max_workers=16)" > "$LOGS/setup-$model.log" 2>&1
+      mdir="$NEURAL_SHRIMP_DATA/models/hf/hub/models--${REPO/\//--}"
+      mkdir -p "$mdir/refs" && printf %s "$MREV" > "$mdir/refs/main"
+      TOOL=gain_split.py run gain-$model 60 --model $model $GDEV --log-temperature $lo $hi --n 24 \
+        --transient 500 --record 1000 --eps 1e-6 --out $D/gain/$model
+      case "$mdir" in "$NEURAL_SHRIMP_DATA"/models/hf/hub/models--?*) rm -rf -- "$mdir" ;; esac
+    done
+    unset HF_TOKEN
+    ;;
   morph)       # morph video frames (run V1): JOBARGS FIRST LAST STEP MINUTES_PER_FRAME COLD_TRANSIENT WARM_TRANSIENT
                # SCAN-ARGS...; float32 scans (tol and twin offset 1e-4) of Qwen2.5-0.5B along the uploaded great-circle
                # directions morph-FIRST..morph-LAST (llm-soft-loop/controls/vectors-morph-r1-r3-240), one frame after

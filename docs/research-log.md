@@ -23012,3 +23012,23 @@ _commit `2e44d7b07516` (dirty worktree)_
 Root accepted reduce d87ec765/trajectory8da808f5/runtime41f0f19f and two prepared plans2c4f76d6/11d6071d after16 tiny controls0.12s. Exact scientific-release manifest and source/scalar-factor/postrun notes retained; Theory source review74e6d190 precedes only q=1 None-distance handling (Root-reviewed final runtime). Input authorityd3014365 freezes ten owned files,15MB, no target values decoded by coordinator. Own trajectory and65-cell historical/amended/purged reducers are independent producer implementations; original summary exposure/adaptation disclosed. Exact outer launcher/card/private checkpoint and shared capacity precede any target run; optional stress cells remain prospective.
 
 _commit `1b03ae436fbf` (dirty worktree)_
+## 2026-10-14 07:25 UTC: run (exploratory)
+
+- **Question:** Execute the unchanged independent Task18 experiment under the reviewed explicit operational recovery after startup001 pipe failure.
+- **Setup:** Root and independent review18a75774 accept attempt002 only. Prepared source1b03ae43 preserved, original failure353d1ad1/closurec62624fc unchanged. Plan 98a01706d756e3271f3f566dedf792719bf088055ba084c753b199b649b198c4; card 8f44e3255796dd2529840a32ca4a213987d5a68f3f2b31170aa7aa7f5fb1f5f5; launcher980275e4; dispatch5f126aa4 persistent stdout/stderr+setsid --wait; preflight7fc17e94. Science analysis a5553396 and map493a3d1d unchanged; worker80bf95a9 changes only literal output identity. CPU2+supervisor/nice10/12GiB/3600s+10s cleanup/512MiB, fresh36GiB start/runtime16GiB. Record waiter/tool/launcher/worker exact identity and exits. No automatic retry or new timing profile.
+- **Output:** `../neural-shrimp-data/codex/llm-loop-gain-crosscheck/run-002`
+- **Would surprise us:** Any original numerical gate fails or aligned independent spectra disagree; retain without retuning.
+
+_commit `1b03ae436fbf` (dirty worktree)_
+- **Question:** G1/G2 (human: 'do all the confirmation tests, we must find out why'): which factor of the loop's gain collapses in the 70B-class models? Exact split of each step's growth into the network's relative amplification (g_net) and the readout's (g_read), log-averages adding to the exponent; compared at matched next-token entropy between Llama-3.1-8B and Llama-3.3-70B / Llama-3.1-70B, and Qwen2.5-7B and Qwen2.5-72B. Readings fixed now: over-confidence predicts a collapsed g_read (sharp distributions) with g_net comparable; insensitivity predicts a collapsed g_net at comparable entropy.
+- **Setup:** tools/gain_split.py (validated on Qwen2.5-0.5B against the 512-temperature sweep: exponents agree at matching periodic cells, factors sum exactly). G1: one GPU pod (H100 NVL / A100-80GB), mode small, float64: llama3.1-8b over log10 T -0.25..0.6, qwen7b over -0.1..1.2. G2: one 2-GPU pod, mode big (float64, bf16 storage): llama3.3-70b and llama3.1-70b over -0.25..0.6, qwen72b over -0.1..1.2. 24 temperatures each, unsteered, 500 transient + 1000 recorded steps, twins at relative 1e-6.
+- **Output:** `../neural-shrimp-data/explore/llm-soft-loop/pod64/gain/{MODEL}`
+- **Would surprise us:** both factors comparable between sizes at matched entropy (neither reading); g_read the collapsing factor for Llama-70B
+
+_commit `5774339c56d7` (dirty worktree)_
+
+## 2026-10-14 07:29 UTC: Task18 explicit recovery running with retained outer session; source-only Tasks18/19 review accepted
+
+Source7918af94, plan98a01706/card8f44e325. Preflight260361c0/startup542fb95b passed; tool session44216 with exact waiter1419301,launcher1419367,worker1419396 births retained. CPU2+supervisor/nice10/12GiB/3600s/512MiB, no numerical result interpreted. Original001 failure353d1ad1/closurec62624fc preserved. Theory-source review5eafb53a accepted, numerical verification remains pending; Task19 science accepted and own supervisor preparation continues. Next useful health at its fresh combined preflight or07:45UTC, no tight polling.
+
+_commit `7918af949fa6` (dirty worktree)_
