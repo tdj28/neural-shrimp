@@ -1,7 +1,10 @@
-# Task18 independent loop-gain run001 (prepared)
+# Task18 independent loop-gain run001 (reviewed)
 
-Status: source preparation only. No target/model run has been launched. The
-prepared plan must be reviewed and privately checkpointed before one execution.
+Status: Root accepted the full scientific source, composed-map controls, outer
+supervisor and metadata preflight on 2026-10-14. One exploratory run is authorized
+after the exact private admission checkpoint and fresh resource/ownership gates.
+The prepared version remains in commit 2f9489fbeb163168dce296960f1471052f8807d2;
+no target/model run has yet been launched.
 
 The human requests Tasks18 and19 (including the cross-cell addendum), followed
 by17,16,15. Task18 is an exploratory independent numerical check after exposure
@@ -46,8 +49,11 @@ multiplier. No source/data/gate adjustment or silent retry follows disagreement.
 One CPU2 worker plus one supervisor reserves3 CPU slots; nice10,12GiB hard AS,
 3600s external wall deadline plus5s TERM/5s KILL cleanup; maximum512MiB output
 including16MiB worker closing reserve. Startup available RAM>=28GiB and runtime
-floor16GiB; disk>=16GiB. CPU-only, no GPU/pod/paid action. Other auxiliary numerical
-work is serialized until Root accepts a combined resource card.
+floor16GiB; disk>=16GiB. CPU-only, no GPU/pod/paid action. Root accepts Task18 as the primary three slots and a later separately admitted
+Task19 trajectory as three auxiliary slots: six total, with both 12 GiB hard AS
+reservations plus 12 GiB headroom. This first launch uses a conservative external
+36 GiB available-memory floor. Task19 still requires its own exact card and launch
+admission; this card does not launch it.
 
 The accepted Task14 period7 profile receipt75523fb2 and compact
 codex/cusp-crosscheck/profile-001-receipt.json report dense896 time777.9554249s,
@@ -70,7 +76,20 @@ supervisor must snapshot every source/plan/card at its private Git commit,
 establish limits before importing Torch, create fresh owned sessions and retain
 PID birth/UID/PGID/SID, stdout/stderr, receipt and group closure. The worker's
 cooperative checks do not interrupt a native call; outer timeout is authoritative.
-Full actual capsule/supervisor source, launch command and preflight pins will be
-added at admission. Missing/failed rows remain explicit. No automatic retry,
+The accepted supervisor is launch.py SHA-256
+0b27e91d3d9671e64e8f8c3aa5eb556bcfa390e95c7932096ed4079fc8d45d6f,
+with the original reviewed ownership helper 9357d0ae. The metadata-only preflight
+/tmp/task18-run001-preflight.py is pinned at
+485e166fc7b438468ef73bf5e8d7303da7f170fbbc26bf5304dbda7e6b600ad7
+and runs under an external 60 s limit before launch. It verifies all seven
+committed capsule files, private remote ancestry, clean owned source, no duplicate
+Task18/19 target process, 36 GiB available RAM and 16 GiB free disk.
+Launch the accepted Python with -I -B -u launch.py --attempt run-001
+--source <exact privately checkpointed commit> --plan run-001-plan.json
+--plan-sha256 <this admitted plan hash>. Exact actual commit/hash/command, preflight
+and process births are retained in the immutable admission/startup records.
+Twenty-eight focused controls passed in 1.92 s with one Torch deprecation warning;
+no target data or model weights were used. Only admission/documentation changed
+after those controls. Missing/failed rows remain explicit. No automatic retry,
 wall extension or changes to frozen earlier evidence. Status and certificate
 are distinct: computational completion is not an interval certificate.

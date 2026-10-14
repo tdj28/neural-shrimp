@@ -1,10 +1,12 @@
 # Task18 status
 
-2026-10-14: independent source preparation, no live reservation or target run.
-Task18 precedes19+addendum,17,16,15. Prior Tasks1/14 and their artifacts remain
-complete and unchanged. New worktree branch codex/llm-loop-gain.
+2026-10-14: Root accepted the numerical source, composed-map controls, supervisor
+and metadata preflight. The sole run-001 awaits its private admission checkpoint
+and fresh 36 GiB RAM / 16 GiB disk / no-duplicate preflight. No live reservation
+or target run yet. The prepared history is preserved at 2f9489fb.
 
-Own analysis/worker and prepared3600s card use the unchanged ManualQwen map.
-Twenty-eight scientific and launcher controls passed1.92s with one Torch deprecation warning;
-no model weights, raw target arrays or producer code were executed. Root accepted the numerical source and composed-map check. Final supervisor
-and preflight review precede the sole bounded exploratory run.
+Twenty-eight focused controls passed in 1.92 s; no target/model execution.
+Scientific source hashes and all numerical/resource gates are unchanged at
+admission. Task19 source preparation continues separately; later Task19 launch
+requires its own exact reviewed card. Tasks18/19 precede17,16,15. All prior
+completed evidence remains unchanged.

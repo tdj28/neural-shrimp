@@ -22985,3 +22985,12 @@ _commit `93dfb7617df3`_
 - **Would surprise us:** chaos at high temperature (the band moved up with the logit scale); or the entropy still below 1 nat at T = 16
 
 _commit `0d4f292d619c` (dirty worktree)_
+
+## 2026-10-14 07:17 UTC: run (exploratory)
+
+- **Question:** Does our independent full-state P8 computation reproduce tied-readout factorization and the distinction between step and closed-loop spectra?
+- **Setup:** Exploratory Task18, source/producer-summary exposure disclosed. Root accepted analysis a5553396, worker bf906dbe, launcher0b27e91d, preflight485e166f and 28 focused controls. Admitted plan 8050b97b9206b540e17b52a5a3c6407eaa55aac9b32f788bd11bd7f5e4f249c1, card e6745c514e6165ebad8221dba45959d7010ef4436ec065389a58f6abd5d79cde. Unchanged fixed 1000-step warmup, eight full896 joint Jacobians/all151936 covariance, eight cyclic products and three original composed-map JVP controls. CPU2+supervisor/nice10/12GiB/3600s+10s cleanup/512MiB; external startup36GiB/runtime16GiB, disk16GiB. Own outputs sealed before producer arrays; no automatic retry. Actual captured source/private ancestry and process births in original admission. No model launch by this log command.
+- **Output:** `../neural-shrimp-data/codex/llm-loop-gain-crosscheck/run-001`
+- **Would surprise us:** A precision gate fails, the fixed warmup does not qualify primitive P8, or correctly phase-aligned spectra materially disagree; retain the outcome rather than retune.
+
+_commit `af875bfc24b3` (dirty worktree)_
