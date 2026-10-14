@@ -1802,8 +1802,10 @@ Llama-3.1 8B, between $\log_{10}T=-0.20$ and $0.24$ (exponents up to $0.66$), in
 periods 2 to 52; within $\log_{10}T\in[-0.3,0.3]$ its chaotic share, 41\,\%, equals that of the coarse column.
 Qwen2.5-7B has 65 chaotic temperatures between $\log_{10}T=-0.07$ and $0.28$ (exponents up to $0.74$), and OLMo-2 7B
 has 32 between $0.04$ and $0.14$ (up to $0.30$). Steering is therefore not needed to reach chaotic regimes in any of
-the four models tested. Temperature alone produces chaos with embedded windows, broadly in the 7B and 8B models and in
-a narrow band in the 0.5B model (Figure~\ref{fig:alpha0}).
+these four models. Temperature alone produces chaos with embedded windows, broadly in the 7B and 8B models and in
+a narrow band in the 0.5B model (Figure~\ref{fig:alpha0}). Across the fifteen models of Section~\ref{sec:size}, the
+regular-grid sweeps find unsteered chaos in eleven of the fourteen dense models, but not in Qwen2.5-72B, Llama-3.3-70B,
+OLMo-2-13B or the mixture of experts; finer lines then found candidate windows in the first two.
 
 Steering does widen the chaotic regions, but not as a property of the concept: along norm-matched random directions,
 the 0.5B maps are as chaotic as along the concept directions (Figure~\ref{fig:controls}). On the same $128^2$ grid,
@@ -1901,8 +1903,8 @@ shortens the laminar phases of the bottleneck, by an amount that depends on how 
 \paragraph{What this suggests for interpretability and alignment.} Our results come from open models of 0.5B to
 72B parameters and a constructed loop, but they suggest four things about models whose outputs feed back into their inputs, as in
 self-dialogue, agent loops and pipelines of model calls. First, where the loop is chaotic, a perturbation of
-$10^{-6}$ grows to order one within roughly 20 to 50 steps (the largest unsteered exponents of the 7B and 8B
-models are 0.30 to 0.74 per step). Even a complete account of single forward passes then predicts a long trajectory
+$10^{-6}$ grows to order one within roughly 15 to 50 steps (the largest unsteered exponents of the 7B and 8B
+models are 0.30 to 0.88 per step). Even a complete account of single forward passes then predicts a long trajectory
 only if the state is known far more precisely than any interpretation supplies. Stepwise summaries can be
 inconclusive: every step of the period-8 orbit expands some direction while the cycle contracts, so the ordered
 product of the step Jacobians, not a summary of each step, captures the loop's stability
