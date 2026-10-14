@@ -426,6 +426,31 @@ hf_hub_download('Goodfire/Llama-3.1-8B-Instruct-SAE-l19', 'Llama-3.1-8B-Instruct
       --model llama3.1-8b --layer 19 --vectors llm-soft-loop/controls/vectors-llama8b-l19 "${JOBARGS[@]:2}" \
       --out $D/controls/${JOBARGS[0]}/scan
     ;;
+  selfref)     # self-referential dynamics study (docs/selfref-dynamics-design.md): JOBARGS PART ...; official gated
+               # Llama-3.1-8B-Instruct and the Goodfire layer-19 SAE (revisions as llama8b). PART p: per-text maximum
+               # SAE activations on the uploaded designed corpus (llm_sae_readout.py profile-csv) for the frozen
+               # feature rule (tools/selfref_features.py, run locally afterwards)
+    LREV=0e9e39f249a16976918f6564b8830bc894c89659
+    HF_HUB_OFFLINE=0 $PY -c "
+from huggingface_hub import snapshot_download
+snapshot_download('meta-llama/Llama-3.1-8B-Instruct', revision='$LREV', cache_dir='$NEURAL_SHRIMP_DATA/models/hf/hub',
+                  allow_patterns=['*.json', 'model-*.safetensors'])" > "$LOGS/setup-llama.log" 2>&1
+    unset HF_TOKEN
+    lrefs=$NEURAL_SHRIMP_DATA/models/hf/hub/models--meta-llama--Llama-3.1-8B-Instruct/refs
+    mkdir -p "$lrefs" && printf %s "$LREV" > "$lrefs/main"
+    SAED=$NEURAL_SHRIMP_DATA/models/sae
+    HF_HUB_OFFLINE=0 $PY -c "
+from huggingface_hub import hf_hub_download
+hf_hub_download('Goodfire/Llama-3.1-8B-Instruct-SAE-l19', 'Llama-3.1-8B-Instruct-SAE-l19.pth',
+                revision='f6775a221e47b44233af4bac2c7b65189265519a', local_dir='$SAED/goodfire-8b-l19')" \
+      > "$LOGS/setup-sae.log" 2>&1
+    GF="goodfire:$SAED/goodfire-8b-l19/Llama-3.1-8B-Instruct-SAE-l19.pth:19"
+    if [ "${JOBARGS[0]}" = p ]; then
+      TOOL=llm_sae_readout.py run selfref-profile 60 profile-csv --model llama3.1-8b --device cuda --sae $GF \
+        --corpus $NEURAL_SHRIMP_DATA/explore/selfref/corpus/public_sae_feature_mapping_corpus.csv \
+        --out $D/selfref/profile
+    fi
+    ;;
   qwen35moe)   # Qwen3.5-35B-A3B chaos check (run M1): JOBARGS NAME MINUTES SCAN-ARGS...; downloads the pinned revision,
                # builds concept vectors at layer 20 of 40 in float64 (tools/qwen35_float64.py: float32 paths patched,
                # float32-stored tensors exact, bfloat16 experts used exactly), then one float64 scan into controls/NAME
