@@ -1,0 +1,37 @@
+{
+  "schema": "codex-return-map-v1",
+  "admission": "prepared",
+  "mode": "trajectory",
+  "envelope": {
+    "cpu_threads": 2,
+    "nice": 10,
+    "memory_gib": 12,
+    "timeout_seconds": 4200,
+    "minimum_start_available_gib": 36,
+    "minimum_runtime_available_gib": 16,
+    "maximum_output_mib": 512
+  },
+  "source_sha256": {
+    "codex/return-map-crosscheck/reduce.py": "d87ec765cde3c0cc1145e6225b9b98b9a9c85468df85368c938c571aebda098b",
+    "codex/return-map-crosscheck/trajectory.py": "8da808f5413d4f7caca49b6c0cba4c8182ff4322c91e123513e9ccb3e9737524",
+    "codex/return-map-crosscheck/runtime.py": "41f0f19f023f2bbd5f6842929bb07cad70b86ea8d0399eec717a22ae478d468a",
+    "codex/hostile-fold-crosscheck/assets.py": "06477ee36a78f15ee8f1e8ae196dc53ae230ff19368fbda638eb6a6e0ef758e0",
+    "codex/crosscheck/qwen_map.py": "493a3d1d57fec227f5ba2e3f8f9cfcfdd02d22495d1d44e6449ede901310ae6e"
+  },
+  "input_manifest_sha256": "d3014365b8445f8508271959137b922f694f0519665e9dfcb8f459e49517d2e8",
+  "experiment": {
+    "alpha": 0.0655,
+    "log10_temperature": 0.1899492494639028,
+    "transient": 1000,
+    "record": 2000,
+    "offsets": [
+      1e-06,
+      1e-09
+    ],
+    "seed": 0,
+    "primary_phase": 6,
+    "maximum_period": 64,
+    "threshold": 1e-08
+  },
+  "scope": "Disclosed exploratory independent finite-horizon crosscheck. No fresh confirmation, exact chaos or conjugacy proof. Every failure/disagreement retained; no automatic retry."
+}
