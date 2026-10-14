@@ -50,15 +50,18 @@ mapped rather than a failure to discard.
 - Corpus: the replication's designed corpus, 1,120 texts in 14 categories of 80
   (paper/results/public_sae_feature_mapping_corpus.csv, SHA-256 prefix 5c77a4f2a0252e1e).
 - SAE: Goodfire Llama-3.1-8B-Instruct layer 19, as in run L13. Its hook point was validated there.
-- Rule:
-  - For each feature, take the per-text maximum activation, then the category means.
-  - Deception set: deception_cover_story, tactical_misdirection, dishonesty_confession.
-  - Roleplay set: roleplay_persona, persona_maintenance, fictional_pretending.
-  - A feature qualifies for a set when its mean over the set's categories exceeds its mean over every other
-    category, except the set's own neighbours, by the largest margin.
-  - It must also beat all ±3-ID neighbours and 24 random live features on that margin, as in the replication's
-    construct-validity check.
-  - Up to three features per set.
+- Rule (implemented in tools/selfref_features.py, fixed before any steering run):
+  - Per-text maximum activation of each feature (llm_sae_readout.py profile-csv); each category's texts split by
+    corpus order into a selection half (even positions) and a held-out half (odd).
+  - Per half, m_f[c] is the category mean of the per-text maxima. For a target set S, the margin is the mean over S
+    minus the largest m_f[c] over competitor categories (everything outside the deception set, the roleplay set
+    and false_self_attribution).
+    - Deception set: deception_cover_story, tactical_misdirection, dishonesty_confession.
+    - Roleplay set: roleplay_persona, persona_maintenance, fictional_pretending.
+  - The top three features by selection-half margin are candidates. A candidate is kept only if its held-out margin
+    is positive and ranks in the top 1 % of live features.
+  - Reported comparators: the kept features' ±3-ID neighbours and 24 random live features (seed 0). For an argmax
+    rule, beating them on the selection half is automatic; the held-out half is the real test.
 - Controls: norm-matched panels of random live features, index neighbours, Gaussian directions of equal norm.
 
 ## Methods

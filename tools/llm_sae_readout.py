@@ -252,6 +252,40 @@ def profile(args):
     print(json.dumps({"token_counts": counts, "active_features": {k: len(v) for k, v in out_profiles.items()}}))
 
 
+def profile_csv(args):
+    """Per-text maximum activation of every SAE feature (first token dropped) on a designed corpus (CSV with
+    item_id, category and text columns), saved as a compressed matrix (texts x features) per SAE with the item IDs
+    and categories, for tools/selfref_features.py select."""
+    import csv
+
+    import torch
+
+    import explore_llm_attractors as ela
+
+    rows = list(csv.DictReader(open(args.corpus, newline="")))
+    eng = ela.Engine(args.model, args.threads, "float32", args.device)
+    eng.model.to(args.device)
+    saes = [parse_sae(s, args.device) for s in args.sae]
+    maxima = {s.name: np.zeros((len(rows), s.n_features), dtype=np.float32) for s in saes}
+    with torch.no_grad():
+        for i, r in enumerate(rows):
+            ids = eng.tok(r["text"], return_tensors="pt").to(args.device)
+            hs = eng.model(**ids, output_hidden_states=True).hidden_states
+            for s in saes:
+                maxima[s.name][i] = s.encode(hs[s.index][0, 1:].float()).max(0).values.cpu().numpy()
+    out = ela.DATA / "explore" / args.out
+    out.mkdir(parents=True, exist_ok=True)
+    for s in saes:
+        np.savez_compressed(out / f"maxima-{s.name}.npz", maxima=maxima[s.name],
+                            item_id=np.array([r["item_id"] for r in rows]),
+                            category=np.array([r["category"] for r in rows]))
+    import hashlib
+    meta = {"corpus": str(args.corpus), "corpus_sha256": hashlib.sha256(Path(args.corpus).read_bytes()).hexdigest(),
+            "texts": len(rows), "saes": [s.name for s in saes], "model": args.model}
+    (out / "profile-csv.json").write_text(json.dumps(meta, indent=1))
+    print(json.dumps(meta))
+
+
 def cells_from_scan(folder, per_family=1, families=6, chaotic=2):
     """Interior cells of the largest attractor families of a finished scan, and of its most chaotic region: for
     each family the cell whose 5 x 5 neighbourhood holds the most cells of that family; for chaos the cells with the
@@ -359,13 +393,14 @@ def read(args):
 def main():
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     sub = parser.add_subparsers(dest="cmd", required=True)
-    for name in ("validate", "read", "profile"):
+    for name in ("validate", "read", "profile", "profile-csv"):
         sp = sub.add_parser(name)
         sp.add_argument("--model", required=True)
         sp.add_argument("--threads", type=int, default=8)
         sp.add_argument("--device", default="cpu")
         sp.add_argument("--sae", action="append", required=True, help="goodfire:PATH:LAYER or saelens:DIR")
         sp.add_argument("--out", required=True)
+    sub.choices["profile-csv"].add_argument("--corpus", required=True, help="CSV with item_id, category, text")
     rd = sub.choices["read"]
     rd.add_argument("--layer", type=int, required=True, help="steering layer")
     rd.add_argument("--vectors", required=True)
@@ -385,7 +420,7 @@ def main():
     if args.cmd == "read" and args.opener is None:
         import explore_llm_attractors as ela
         args.opener = ela.OPENER
-    {"validate": validate, "read": read, "profile": profile}[args.cmd](args)
+    {"validate": validate, "read": read, "profile": profile, "profile-csv": profile_csv}[args.cmd](args)
 
 
 if __name__ == "__main__":
