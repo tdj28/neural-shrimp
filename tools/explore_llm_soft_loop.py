@@ -42,7 +42,10 @@ class SoftLoop:
         self.state_dtype = torch.float64 if dtype == "float64" else torch.float32
         self.E = self.model.get_input_embeddings().weight.detach().to(self.state_dtype)      # (V, d)
         messages = [{"role": "system", "content": ela.PROMPTS[prompt]}, {"role": "user", "content": opener}]
-        text = self.sm.tok.apply_chat_template(messages, add_generation_prompt=True, tokenize=False)
+        # reasoning models (Qwen3.5) open a <think> block by default; without thinking the prefix ends at the start
+        # of the reply, as for every other model
+        extra = {"enable_thinking": False} if str(model).startswith("qwen3.5") else {}
+        text = self.sm.tok.apply_chat_template(messages, add_generation_prompt=True, tokenize=False, **extra)
         self.prefix_ids = torch.tensor([self.sm.tok(text, add_special_tokens=False)["input_ids"]], device=self.device)
         self.L0 = self.prefix_ids.shape[1]
         self.K = int(window)
