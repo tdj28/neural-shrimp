@@ -39,6 +39,7 @@ MODELS ={"qwen0.5b": "Qwen/Qwen2.5-0.5B-Instruct", "qwen1.5b": "Qwen/Qwen2.5-1.5
           "qwen3.5-0.8b": "Qwen/Qwen3.5-0.8B",                 # hybrid linear/full attention (float64: qwen35_float64)
           "qwen3.5-35b-a3b": "Qwen/Qwen3.5-35B-A3B",           # the same with 256 experts (top 8): MoE routing
           "qwen72b": "Qwen/Qwen2.5-72B-Instruct",              # large dense models: float64 with bfloat16 storage
+          "qwen72b-base": "Qwen/Qwen2.5-72B",                   # its pretrained base, before post-training
           "llama3.3-70b": "meta-llama/Llama-3.3-70B-Instruct",  # (weights="bf16", device "auto"); gated
           "llama3.1-70b": "meta-llama/Llama-3.1-70B-Instruct",  # same release and recipe as llama3.1-8b; gated
           # scaling series (run SC): Qwen2.5 3B/14B/32B and OLMo-2 1B/13B/32B

@@ -25,3 +25,11 @@ def test_stage1_counts_both_offsets():
     cell = lambda lt, l, period=0, lead=0: {"log10_temperature": lt, "lyapunov": l, "period": period, "lead_period": lead}
     r = pps.stage1([cell(0.1, [0.2, 0.3]), cell(0.2, [0.2, -0.1]), cell(0.3, [-0.5, -0.5], period=2)])
     assert r["C1"] == 1 and r["chaotic_log10T"] == [0.1] and abs(r["M"] - 0.2) < 1e-12
+
+
+def test_more_with_margin():
+    t = {"qwen72b-base": {2: e(3), 3: e(4), 4: e(2), 5: e(9)}, "qwen72b": {2: e(0), 3: e(1), 4: e(0), 5: e(0)}}
+    s = pps.score(t, "qwen72b-base", "qwen72b", "more", 3)
+    assert s["per_prefix"] == {2: True, 3: True, 4: False, 5: True} and s["holds"]
+    s = pps.score({**t, "qwen72b-base": {2: e(2), 3: e(4), 4: e(2), 5: e(9)}}, "qwen72b-base", "qwen72b", "more", 3)
+    assert s["successes"] == 2 and not s["holds"]

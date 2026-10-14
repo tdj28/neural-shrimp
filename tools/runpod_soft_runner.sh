@@ -998,6 +998,25 @@ snapshot_download('$REPO', revision='$MREV', cache_dir='$NEURAL_SHRIMP_DATA/mode
         --out $D/prefix/$model-p$idx-coarse
     done
     ;;
+  prefix72base) # base against Instruct at 72B (run PB72; docs/prefix-scale-72b-base.md): JOBARGS IDX [IDX...]. Qwen2.5-72B
+               # (pretrained base) at the pinned revision, stage 1 as PS72 (48 temperatures over log10 T -0.4..0.9, twins at
+               # 1e-5 and 1e-6) with 500 + 1000 steps, one line per prefix index, layers over all GPUs (float64 hook fix)
+    REPO=Qwen/Qwen2.5-72B; MREV=efba10c8e54e91e0d9570ab5f7b51a958474d4cb
+    log "download $REPO"
+    HF_HUB_DISABLE_XET=1 HF_HUB_OFFLINE=0 $PY -c "
+from huggingface_hub import snapshot_download
+snapshot_download('$REPO', revision='$MREV', cache_dir='$NEURAL_SHRIMP_DATA/models/hf/hub',
+                  allow_patterns=['*.json', '*.safetensors', '*.txt'], max_workers=16)" > "$LOGS/setup-qwen72b-base.log" 2>&1
+    log "download done $(du -sh $NEURAL_SHRIMP_DATA/models/hf/hub | cut -f1)"
+    mdir="$NEURAL_SHRIMP_DATA/models/hf/hub/models--${REPO/\//--}"
+    mkdir -p "$mdir/refs" && printf %s "$MREV" > "$mdir/refs/main"
+    for idx in "${JOBARGS[@]}"; do
+      TOOL=hidden_chaos.py run pb72-$idx 45 line --model qwen72b-base --device auto --weights bf16 --dtype float64 \
+        --vectors-none --alpha 0 --transient 500 --record 1000 --eps 1e-5 1e-6 \
+        --prefix-file docs/prefix-scale-prefixes.json --prefix-index $idx --log-temperature -0.4 0.9 --n 48 --chunk 48 \
+        --out $D/prefix/qwen72b-base-p$idx-coarse
+    done
+    ;;
   prefix72)    # prompt-blocked test at 72B (run PS72; docs/prefix-scale-72b.md): JOBARGS IDX [IDX...]. Qwen2.5-72B at the
                # pinned revision, stage 1 only (48 temperatures over log10 T -0.4..0.9, twins at 1e-5 and 1e-6, 1000 + 2000
                # steps), one line per prefix index of docs/prefix-scale-prefixes.json, layers over all GPUs
