@@ -22773,3 +22773,9 @@ _commit `defe53dd0f13` (dirty worktree)_
 - **Would surprise us:** a band disagreeing with the old float64 background where they overlap
 
 _commit `b0974ca99ee0`_
+
+## 2026-10-14 03:01 UTC: M1t: Qwen3.5-35B-A3B (non-thinking prompt) shows no chaos unsteered or steered
+
+Run M1t, pods 6eb6pj4sldgui7 (alpha 0), ff0vlte94vd439 (philosophy), grc48bhbp6l574 (hostility); SECURE H200; non-thinking chat template; float64 via tools/qwen35_float64.py; layer 20 of 40; all hash-verified. alpha = 0 sweep (128 temperatures, transient 1000, samples 2000, max period 64): no positive exponent (largest -0.265); periods 2 (92 temperatures: '!Hello'), 4, 8, 10 (its repeats), long periods 15-52 and 15 cells without a period at log10 T >= ~0.1 (entropy 8-11 nats), all with negative exponents. Philosophy 32x32 (alpha -0.12..0.12, log10 T -1..0.3): 0 chaotic cells of 1024, largest exponent -0.112, 184 without a period up to 32 (negative exponents), families '!Hello', ',Hello' and their repeats. Hostility 32x32: see the line printed in the session. Reading: in this mixture-of-experts model the soft-token map contracts everywhere tested; whether that is the experts or the Qwen3.5 family needs the dense Qwen3.5-9B (same hybrid attention, no experts) as a control (not run). Caveat: routing is discontinuous across expert boundaries, which does not create spurious positive exponents in a contracting map.
+
+_commit `ac509982ad55` (dirty worktree)_
