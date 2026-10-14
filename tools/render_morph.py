@@ -89,8 +89,8 @@ def main():
         bar.barh([0], [s], color="0.25", height=1.0)
         bar.set_xlim(0, 1)
         bar.axis("off")
-        fig.text(0.05, 0.065, f"float32 maps, {L.shape[0]} x {L.shape[1]} cells, every cell started from the same "
-                 f"state; constant push size", fontsize=12, color="0.35")
+        fig.text(0.05, 0.065, f"float32 maps, {L.shape[0]} x {L.shape[1]} cells; each map continues from the previous "
+                 f"map's final states (every tenth from the fixed start); constant push size", fontsize=12, color="0.35")
         fig.savefig(out / "png" / f"frame-{k:03d}.png", dpi=100)
         plt.close(fig)
     # concat list: each map held until the next available one (constant rotation speed), then 24 fps with linear
