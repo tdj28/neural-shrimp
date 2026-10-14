@@ -10,8 +10,9 @@ identity  checks the factorisation against forward-mode derivatives of the full 
           one cell: relative error of (1/T) Sigma_p J_h u against DF u for random directions u.
 orbit     at q consecutive states on the attractor of a period-q cell: per step the entropy, the leading
           probabilities, the leading eigenvalues of Sigma_p and the leading singular values of the dense DF (from
-          forward-mode derivatives); for the cycle the multipliers of the monodromy DF_q ... DF_1, the closure error,
-          and the products prod sigma_1 and prod sigma_1 sigma_2, which bound |mu_1| and |mu_1 mu_2|.
+          forward-mode derivatives); for the cycle the multipliers and singular values of the monodromy DF_q ... DF_1,
+          the closure error, and the products prod sigma_1 and prod sigma_1 sigma_2, which bound |mu_1| and
+          |mu_1 mu_2|; the dense step Jacobians and states are saved (orbit-jacobians.npz).
 
 Usage: python tools/softmax_gain.py identity --vectors VEC --concept C --alpha A --log-temperature LT --out OUT
        python tools/softmax_gain.py orbit --vectors VEC --concept C --alpha A --log-temperature LT --period Q --out OUT
@@ -159,7 +160,7 @@ def main():
         else:
             maps = Maps(loop, v, args.alpha, temp, args.batch)
             closure = float((states[q] - states[0]).norm() / states[0].norm())
-            steps, M = [], None
+            steps, M, jacobians = [], None, []
             for k in range(q):
                 x = states[k]
                 p = maps.p(x)
@@ -173,18 +174,24 @@ def main():
                               "sigma_p_eigenvalues": [float(e) for e in ev],
                               "df_singular_values": [float(s) for s in sv]})
                 M = D if M is None else D @ M
+                jacobians.append(D.cpu().numpy())
                 print(json.dumps({"step": k, **steps[-1]}), flush=True)
             mu = torch.linalg.eigvals(M)
             mu = mu[torch.argsort(mu.abs(), descending=True)][:4]
+            msv = torch.linalg.svdvals(M)[:4]
             s1 = np.array([s["df_singular_values"][0] for s in steps])
             s2 = np.array([s["df_singular_values"][1] for s in steps])
             result.update({"closure_relative": closure, "steps": steps,
                            "multipliers": [[float(m.real), float(m.imag)] for m in mu],
                            "multiplier_moduli": [float(m.abs()) for m in mu],
+                           "monodromy_singular_values": [float(x) for x in msv],
                            "prod_sigma1": float(np.prod(s1)), "prod_sigma1_sigma2": float(np.prod(s1 * s2)),
                            "prod_sigma2_over_sigma1": float(np.prod(s2 / s1))})
     out = ela.DATA / "explore" / args.out
     out.mkdir(parents=True, exist_ok=True)
+    if args.mode == "orbit":
+        np.savez_compressed(out / "orbit-jacobians.npz", jacobians=np.array(jacobians),
+                            states=np.array([x.cpu().numpy() for x in states]))
     (out / f"softmax-gain-{args.mode}.json").write_text(json.dumps(result, indent=1))
     summary = {k: v for k, v in result.items() if k not in ("steps", "args")}
     print(json.dumps(summary, indent=1))
