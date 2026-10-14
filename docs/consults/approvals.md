@@ -140,7 +140,7 @@ skill, section 7A). Spend is recorded only in the gitignored `cost-ledger.md`
   reserves and authorization guard apply. The advice is advisory only: every cited reference is checked at its
   primary source before use, and material advice is adjudicated locally.
 
-## Consult 7 (approved, not yet sent)
+## Consult 7 (approved; re-scoped and sent before the scaling series)
 
 - **Approval (human, in session, 14 October 2026, about 06:40 UTC):** "Yes", answering the proposal of one Pro consult
   on the revised paper once the 70B results are inserted (amount in the private cost ledger).
@@ -158,3 +158,8 @@ skill, section 7A). Spend is recorded only in the gitignored `cost-ledger.md`
 - **Model:** `gpt-6-astra`, Responses Pro mode, xhigh effort, at most 40,000 output tokens; the canonical client's
   reserves and authorization guard apply. Advice is advisory: every cited reference is checked at its primary source
   before use, and material advice is adjudicated locally in `adjudication.md`.
+- **Re-scope (human, in session, 14 October 2026, about 08:35 UTC):** asked "Do you want to do a pro consult first
+  btw?"; the agent proposed sending the approved consult now, with the brief updated to all 70B results and the frozen
+  scaling predictions (docs/scaling-predictions.md), so that its advice can still shape the running scaling series;
+  the human answered "Go". Same model, mode, effort, output cap and budget as above; one request, no retry or second
+  pass without a new recorded decision. A later final check would be a separate request needing its own approval.
