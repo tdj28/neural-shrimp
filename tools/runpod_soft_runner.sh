@@ -688,6 +688,17 @@ snapshot_download('$repo', revision='$rev', cache_dir='$NEURAL_SHRIMP_DATA/model
     run scan64-$name "$minutes" scan --device cuda --dtype float64 --chunk 2048 --tol 1e-8 --eps 1e-6 \
       "${JOBARGS[@]:2}" --out $D/scan64/$name
     ;;
+  morph)       # morph video frames (run V1): JOBARGS FIRST LAST MINUTES_PER_FRAME SCAN-ARGS...; float32 scans (tol and
+               # twin offset 1e-4) of Qwen2.5-0.5B along the uploaded great-circle directions morph-FIRST..morph-LAST
+               # (llm-soft-loop/controls/vectors-morph-r1-r3-240), one frame after another, into morph/frame-NNN
+    first=${JOBARGS[0]}; last=${JOBARGS[1]}; fmin=${JOBARGS[2]}
+    for k in $(seq $first $last); do
+      kk=$(printf %03d $k)
+      run morph-$kk "$fmin" scan --device cuda --dtype float32 --chunk 2048 --tol 1e-4 --eps 1e-4 \
+        --model qwen0.5b --layer 12 --vectors llm-soft-loop/controls/vectors-morph-r1-r3-240 --concept morph-$kk \
+        "${JOBARGS[@]:3}" --out $D/morph/frame-$kk
+    done
+    ;;
   scan32)      # one float32 scan with free arguments: scan32 OUT-NAME MINUTES SCAN-ARGS... (coarse maps)
     name=${JOBARGS[0]}
     minutes=${JOBARGS[1]}
