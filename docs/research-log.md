@@ -23547,3 +23547,35 @@ Pod oovjuh5080osbm (SECURE 2 x H200, hash verified, terminated and verified; 365
 ## 2026-10-14 23:07 UTC: Correction: PB72 ran commit 181d175e
 
 The PB72 result entry (19:08 UTC) cites commit 0196f83e. Pod ku79hlmuth56xk ran 181d175e (pods.jsonl and result.json), the child of 0196f83e, which changed only docs/research-log.md (the run card's time). The executed code and the frozen design are identical. All other result entries of 14 October cite the commit their pod ran.
+
+## 2026-10-14 23:58 UTC: External check of the 14 October results by a second AI agent: ten minor findings, all confirmed; paper corrected
+
+The human gave a read-only audit brief (/data2/CHECK_THESE.md, outside Git, sha256 4e8d7957...ab91) to a second AI agent (Grok 4.7, run by the human in Cursor). It checked commit 459891bd against the raw pod outputs, the frozen designs, the scorers and a local Qwen2.5-0.5B reproduction. Its report is /data2/CHECK_THESE_FINDINGS.md (outside Git, sha256 dd4214d0...90d8), with recounts in ../neural-shrimp-data/scratch/audit-cursor/. No blocker. It confirmed:
+- the hook fix: removing the rebind fails the hooked-norm test;
+- the tangent exponent: JVPs decay like h^2 against central differences, and tangent and twins agree on 0.5B;
+- the QFa/QFb scorer output, byte for byte;
+- the PS72 and PB72 counts and the order of freeze and pod;
+- the clamp, the window counts, the ST72 scorer and its crossing steps;
+- the manifest counts and hashes, the 14 October citations, and the build.
+Not run: the CPU-offload wander test (this transformers build left the offloaded weights on the meta device).
+
+Every finding was rechecked from the raw files with independent scripts, not the auditor's code:
+- F1, clamp twins: largest spans 0.00393 (prefix 2, target 1.667 nats) and 0.00386 (paper's prompt, 10.333 nats); 5 of 32 cells exceed 0.003. All cells periodic, exponents -4.463 to -0.084. Paper: within 0.004.
+- F2, jump window: at log10 T 0.370 the five estimates span 0.0162, and each twin lies within 0.0150 of the tangent; the other temperatures span at most 0.0125. Paper: the four twin exponents lie within 0.015 of the tangent exponent.
+- F3, 7B/14B prompt-blocked test (one GPU): 331 chaotic temperatures over both stages. One gap is 0.0207 (14B, prefix 8, log10 T 0.6787); the next largest is 0.0129. Paper: within 0.021.
+- F4, ST72 steered cells: final distances per twin are 1.4e-13 to 5.6e-10, and the largest distance is 2.6e-7. The ST72 result entry quoted the per-cell maximum over twins, 4.9e-13 to 5.6e-10. Paper: 1e-13 to 6e-10.
+- F5, ST1 7B: rates 0.775 to 0.820, crossings at steps 49 to 58. Paper: 0.77 to 0.82, 49 to 58.
+- F6, breadth ratios base/Instruct: 2.75, 5.50, 2.60 and 2.50. Paper: 2.5 to 5.5 times.
+- F7, PS72: pod o41hga4tat6h71 ran commit 91267340, which does not contain the hook fix 6a4775ae (git merge-base). On the coarse lines no temperature is positive at exactly one offset. The one chaotic cell (prefix 3, log10 T 0.3191, 0.349/0.336) is chaotic after the fix (QFb tangent 0.341 at 0.3192). Paper: the PS72 paragraph now says the lines ran before the fix and gives the rule and the recheck; the limitations say the coarse lines were not recomputed.
+- F8, PB72: commit 181d175e contains the fix. The run used 500 + 1000 steps against PS72's 1000 + 2000; its design discloses this, but the paper did not. The base model's largest min-offset exponents on prefixes 2-5 are +0.049, -0.066, -0.089 and -0.380. Paper: now states the horizon and that the run followed the fix.
+- F9, summaries: the abstract's growing-context sentence now names Qwen2.5-7B (abstract 1914 characters, whitespace collapsed). The contribution keeps the transient ("nearly insensitive (one transient burst)"). The limitations list the added prompts and say which bridge tests are sampled and which are deterministic.
+- F10, alpha-0 cells: -3.790, -3.616 and -3.588. Paper: between -3.8 and -3.6.
+
+A sweep of the paper's other agreement bounds, outside the audit's scope, found two more:
+- The Llama-3.3-70B plateau test (controls70/hostility-vs-kindness-plateau/cells): the 12 chaotic cells spread by up to 0.0517 over the three offsets. The PTa result entry gives 0.052; its heading and the paper gave 0.05.
+- The hostile cascade line H1 (pod64/hidden/tline-a0.0655): the largest twin gap over the 182 chaotic cells is 0.0031, as in the H1 entry; the paper gave 0.003.
+Both are corrected. The paper now also reports the one 72B twin of three that passes 1e-3 at log10 T 0.13 on the paper's prompt (step 381). The ST72 result entry had it; the paper did not.
+
+The PS72 design (docs/prefix-scale-72b.md) calls its twin offsets "relative". tools/hidden_chaos.py displaces the whole window state by a vector of norm eps, an absolute offset, as in the 7B/14B test the design is compared with, so the comparison is like for like. The frozen design stays unchanged; this entry records the wording error.
+
+None of these corrections changes a label, a count or a conclusion. New gate in AGENTS.md: round bounds up and quote range ends at their true extremes.

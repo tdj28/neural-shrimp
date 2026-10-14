@@ -37,8 +37,8 @@ exponents. This smooth map, with temperature and steering strength as parameters
 OLMo-2 and Llama-3. Its derivative factorizes into the inverse temperature, an embedding covariance under the
 model's next-token distribution, and the network's Jacobian; with tied embeddings and no network it would be a
 modern Hopfield update, which cannot cycle. It contracts at high temperature; chaos occupies
-intermediate temperatures and needs no steering in most dense models. It persists, and spreads, with a 16-token feedback window, and early
-perturbations still grow under Soft Thinking's growing context. Across fifteen models of 0.5B to 72B,
+intermediate temperatures and needs no steering in most dense models. In Qwen2.5-7B it persists, and spreads, with a 16-token feedback window, and early
+perturbations grow under Soft Thinking's growing context. Across fifteen models of 0.5B to 72B,
 size does not set the chaos: on ten prompts a 14B model is more chaotic than a 7B, at higher temperatures;
 OLMo-2-32B is the most chaotic OLMo model; and Qwen2.5-72B, nearly free of it on five prompts, is chaotic when steered. Bifurcation theory applied to the model's own derivatives predicts its behaviour where tested: frozen local
 unfoldings near cusp candidates matched the recovered orbits at all twelve tested offsets, and fold normal forms predicted bottleneck passage times without fitting, with 23 of 24 frozen forecasts within one
@@ -127,8 +127,8 @@ sampling, and Section~\ref{sec:misalignment} studies sampled dialogue directly.
   drives it, like Llama-3.3-70B, into chaos that an exact tangent exponent confirms. Its stability comes from the
   network, not from post-training or a sharp readout: its pretrained base, whose distribution spreads far more, is no
   more chaotic in a third frozen test, and holding its next-token entropy anywhere between 1 and 11 nats leaves the
-  loop periodic. In Soft Thinking's growing context it stays insensitive, even where steering makes its one-token map
-  chaotic. The gain split shows how network and readout damp or amplify the fed-back token
+  loop periodic. In Soft Thinking's growing context it stays nearly insensitive (one transient burst), even where
+  steering makes its one-token map chaotic. The gain split shows how network and readout damp or amplify the fed-back token
   (Section~\ref{sec:size}).
 \item \emph{A fold's normal form predicts how long the model lingers near a vanished orbit.} The 2-cycle ``is it''
   dies in a fold, and the fold's normal form, computed from derivatives, predicts bottleneck passage times without
@@ -931,8 +931,8 @@ expected embedding but appends it to the context, so that every earlier soft tok
 decoding in float64 from the paper's prompt and displaced the first soft token of twin trajectories by $10^{-10}$,
 without renormalization; the distance between the newest soft tokens then shows whether the early perturbation grows.
 The context grows, so these are finite-time growth rates of a non-autonomous system, not exponents of an attractor.
-In Qwen2.5-7B the perturbation grows exponentially at temperatures inside the one-token map's chaotic range: by 0.78
-to 0.82 per step at $\log_{10}T=0.17$ and $0.21$, reaching $10^{-3}$ within 50 to 58 steps, and it reaches $10^{-3}$
+In Qwen2.5-7B the perturbation grows exponentially at temperatures inside the one-token map's chaotic range: by 0.77
+to 0.82 per step at $\log_{10}T=0.17$ and $0.21$, reaching $10^{-3}$ within 49 to 58 steps, and it reaches $10^{-3}$
 within 400 steps at nine other temperatures between $-0.10$ and $0.40$, at 0.02 to 0.18 per step (0.8 at $0.33$ for two
 of three twins). It does not grow at the sharpest distributions
 ($\log_{10}T\le-0.14$) or at nearly uniform ones ($\log_{10}T\ge0.44$), where it stays between $10^{-13}$ and
@@ -940,14 +940,15 @@ $10^{-7}$ for 400 steps. In Qwen2.5-0.5B the growth moves to sharper distributio
 $\log_{10}T=-0.30$ to $-0.07$ (up to 0.33 per step) and at $0.09$, with a late transient burst at $0.05$, and is absent
 from $0.13$ up, which includes its narrow one-token chaotic band. Sensitive
 dependence therefore survives when the whole context is kept, and in the 7B model the one-token map locates it.
-Qwen2.5-72B, run the same way on two GPUs, stays insensitive. We count a temperature as growing when two of its three
+Qwen2.5-72B, run the same way on two GPUs, stays nearly insensitive. We count a temperature as growing when two of its three
 twins reach $10^{-3}$ within 400 steps, a rule fixed before the 72B run that gives 11 of 24 temperatures for the 7B
 model and 8 for the 0.5B model. The 72B model grows at one of 24 temperatures on the paper's prompt, and only
-transiently: at $\log_{10}T=0.09$ the twins pass $10^{-3}$ at step 123 and fall back to $5\times10^{-6}$. It grows at
+transiently: at $\log_{10}T=0.09$ the twins pass $10^{-3}$ at step 123 and fall back to $5\times10^{-6}$ (at $0.13$ one twin of three passes
+$10^{-3}$ at step 381). It grows at
 none of 24 on the held-out prompt with its narrow unsteered band, including $\log_{10}T=0.326$, between two temperatures
 where its one-token map is chaotic; there the distance never exceeds $1.1\times10^{-9}$. It also grows at none of the
 eleven steered cells of Section~\ref{sec:size}, including the six where its one-token map is chaotic: there the
-distance never exceeds $3\times10^{-7}$ and ends between $5\times10^{-13}$ and $6\times10^{-10}$, and the growing
+distance never exceeds $3\times10^{-7}$ and ends between $1\times10^{-13}$ and $6\times10^{-10}$, and the growing
 context holds the next-token entropy at 2.3 to 3.6 nats instead of the one-token map's 7.3 to 11.1. At 72B the growing context therefore damps even
 the chaos that steering produces, while the one transient burst shows that the method registers growth at this
 scale.
@@ -1229,11 +1230,12 @@ at $10^{-4}$, $3\times10^{-5}$ and $10^{-5}$. The growth of small perturbations 
 two-GPU runs computed the final normalization in float32 (see the start of this section). Recomputed in float64
 throughout, the window's orbits have periods 2 and 4, and their exponents are negative at all four offsets from
 $10^{-4}$ to $10^{-7}$ and for an exact tangent vector carried along the orbit by forward-mode differentiation, which
-needs no offset; the five estimates agree within 0.015 at every temperature, and the exponent approaches zero only
+needs no offset; the four twin exponents lie within 0.015 of the tangent exponent at every temperature, and the
+exponent approaches zero only
 where the period doubles from 2 to 4 ($\log_{10}T=0.374$). Where exponents are large, the defect does not matter. In
 the steered Llama-3.3-70B maps below, twelve randomly drawn chaotic cells are chaotic at offsets $10^{-4}$, $10^{-5}$
-and $10^{-6}$ alike, with exponents that agree within 0.05, and the drawn periodic and unresolved cells stay negative
-at all three; on one GPU, the exponents at $10^{-7}$ and $10^{-5}$ agree within 0.02 at every chaotic temperature of the
+and $10^{-6}$ alike, with exponents that agree within 0.052, and the drawn periodic and unresolved cells stay negative
+at all three; on one GPU, the exponents at $10^{-7}$ and $10^{-5}$ agree within 0.021 at every chaotic temperature of the
 prompt-blocked test. The same test on Llama-3.1-70B's three unsteered chaotic temperatures confirms two of them
 ($\log_{10}T=0.136$ and $0.198$; exponents 0.23 to 0.26 and 0.40 to 0.41 at the three offsets) and rejects the weakest
 ($0.116$; positive only at $10^{-6}$), so unsteered chaos exists at 70B, if rarely. Two Qwen2.5 models are chaotic far above the
@@ -1272,12 +1274,13 @@ temperature so that the next-token entropy equals a target and sweep the target 
 (entropy-clamped decoding; the map stays smooth and deterministic, and the entropy holds to $10^{-14}$). Held at any
 of 16 targets between 1 and 11 nats, Qwen2.5-72B has only periodic orbits, the echo of period 2 on the paper's prompt
 and periods 1 to 19 on a held-out prompt, with exponents between $-0.08$ and $-4.5$ that twins at $10^{-5}$ to
-$10^{-7}$ reproduce within 0.003, whereas Qwen2.5-0.5B under the same clamp is chaotic at 6.1 nats. Its network damps
+$10^{-7}$ reproduce within 0.004, whereas Qwen2.5-0.5B under the same clamp is chaotic at 6.1 nats. Its network damps
 the fed-back token even where the readout is spread. Nor does post-training make the 72B stable. A test frozen before
 its data (\texttt{docs/prefix-scale-72b-base.md}) predicted that the pretrained base model of the same size would be
 chaotic at three or more temperatures more than Qwen2.5-72B-Instruct on at least three of the four held-out prompts.
 It fails on all four: the base model is chaotic at 1, 0, 0 and 0 of the 48 temperatures (and at 2 on the paper's
-prompt), although its next-token distribution spreads over 2.5 to 5 times the temperature range (intermediate-entropy
+prompt; computed after the precision fix, with 500 transient and 1000 measured steps, half the Instruct model's
+horizon), although its next-token distribution spreads over 2.5 to 5.5 times the temperature range (intermediate-entropy
 breadth 0.28 to 0.61 decades against 0.11 to 0.22) and from lower temperatures on. At 72B, then, neither the sharpness
 that post-training adds nor post-training itself explains the stability; the network's damping of the fed-back token
 does, and the breadth that orders the fifteen models fails for this pair. The damping holds when the whole
@@ -1322,7 +1325,7 @@ Qwen2.5-72B along hostility gives 0.8\,\%: eight cells, all at $\log_{10}T=0.26$
 throughout, six of the eight are chaotic, with exact tangent exponents of 0.23 to 0.36 that the twins at all four
 offsets from $10^{-4}$ to $10^{-7}$ reproduce within 0.01; five have nearly uniform next-token distributions (11.0 to
 11.1 nats) and one alternates between sharp and flat behind a period-2 leading token. The same temperatures without
-steering are period-2 orbits with exponents near $-3.6$, and the steered cells above $\log_{10}T=0.325$ are
+steering are period-2 orbits with exponents between $-3.8$ and $-3.6$, and the steered cells above $\log_{10}T=0.325$ are
 near-uniform fixed points, so steering drives Qwen2.5-72B into chaos too, in a narrow band. The chaotic cells of the hostility
 directions lie on a ridge that steering moves from $\log_{10}T\approx0.3$ to $0.1$. A $64\times64$ zoom of the concept
 plane at the same offset (Figure~\ref{fig:zoom70}; $\alpha\in[0.06,0.12]$, $\log_{10}T\in[0.12,0.27]$, four bands computed separately with
@@ -1363,9 +1366,12 @@ the largest model was the most chaotic; post-training changed the chaos of two 7
 and at 70B, chaos that passes a three-offset test remains, rarer, with and without steering. The shift does not
 continue to Qwen2.5-72B. A prompt-blocked test frozen before its data (\texttt{docs/prefix-scale-72b.md}) predicted
 that the 72B model would be chaotic at fewer of the 48 temperatures than the 14B on at least three of four held-out
-prompts. It is chaotic at 0, 1, 0 and 0 of them, against 14, 9, 11 and 15, so the prediction holds on all four; with
-the paper's prompt, where it showed no robust chaos up to $\log_{10}T=1.2$, that makes five prompts on which the 72B
-model is nearly free of unsteered chaos. Its next-token distribution jumps from sharp to nearly uniform within less
+prompts. It is chaotic at 0, 1, 0 and 0 of them, against 14, 9, 11 and 15, so the prediction holds on all four. These
+lines ran before the precision fix (1000 transient and 2000 measured steps, twins at $10^{-5}$ and $10^{-6}$, chaotic
+only when both exponents are positive); no temperature on them is positive at only one offset, and the one chaotic
+temperature ($\log_{10}T=0.319$, exponents 0.35 and 0.34) is chaotic again when recomputed in float64 throughout,
+with an exact tangent exponent of 0.34. With the paper's prompt, where it showed no robust chaos up to
+$\log_{10}T=1.2$, that makes five prompts on which the 72B model is nearly free of unsteered chaos. Its next-token distribution jumps from sharp to nearly uniform within less
 than the grid spacing (0.03 decades), so a narrow chaotic band at the jump would be missed by the grid. Fine lines
 through the jump, computed in float64 throughout with exact tangent exponents, find only periodic orbits on the
 paper's prompt and on three of the four held-out prompts, and on the fourth a band of chaos about 0.02 decades wide
@@ -1598,7 +1604,7 @@ run through the windows as the ``endoskeleton'' of shrimps does \cite{facanha201
 
 \paragraph{Chaos behind a repeating text.} Along the temperature line of Figure~\ref{fig:hubcascade} (left), a longer
 test (2000 measured steps after 1000 transient steps, twins at offsets $10^{-6}$ and $10^{-9}$, whose exponents agree
-to within 0.003 in every chaotic cell) finds 182 chaotic cells among 1400 between $\log_{10}T=0.176$ and $0.191$. In
+to within 0.0031 in every chaotic cell) finds 182 chaotic cells among 1400 between $\log_{10}T=0.176$ and $0.191$. In
 65 of them the leading token repeats exactly for all 2000 steps while the state moves chaotically; in 59 of these the
 period of the text is a multiple of 7, most often 7 or 28. Figure~\ref{fig:hiddenbands} shows the strongest case
 ($\log_{10}T=0.18995$, largest exponent 0.091 at both offsets). Its 2000 sampled states fall into seven separated
@@ -2067,8 +2073,11 @@ temperature grids that can miss narrow windows, a window that missed most of the
 one twin offset per label. The two-GPU runs of the 70B-class models computed their final normalization in float32
 until we fixed it; their labels rest on offsets of $10^{-6}$ or more, and the cells we rechecked, the Qwen2.5-72B jump
 window and steered candidates in float64 throughout and samples of the Llama maps at three offsets, behave as stated,
-but the rest of those maps were not recomputed.
-The maps use one prompt (Section~\ref{sec:size} adds ten for two models), and steering uses contrastive vectors, checked against norm-matched random and sparse-autoencoder
+but the rest of those maps were not recomputed. Neither were the four coarse lines of the frozen 72B test; after the
+fix we computed only fine lines through their entropy jumps, one of which passes through their single chaotic
+temperature.
+The maps use one prompt (Section~\ref{sec:size} adds ten for Qwen2.5-7B and -14B, and four for Qwen2.5-72B, its base
+model, and OLMo-2-7B and -32B), and steering uses contrastive vectors, checked against norm-matched random and sparse-autoencoder
 directions in two models. The system is a constructed loop: Section~\ref{sec:bridge} extends it to memories of up to sixteen soft tokens and to the growing context of Soft Thinking, but sampled decoding of discrete tokens is a different system. The evidence consists of numerical
 validation, cross-checks and prospectively frozen passage tests (including failed all-row criteria), with a
 computer-assisted proof for only one orbit at one parameter point. Chaos labels are finite-horizon estimates (300
@@ -2080,8 +2089,9 @@ label turned out to be slow periodic transients. Near the accumulation of a casc
 the hostile line of Figure~\ref{fig:hubcascade} (left), 135 of the 235 cells labelled chaotic from 400 measured steps
 stayed chaotic and 91 were periodic. The Feigenbaum ratios are
 finite-order values that rise toward $\delta$ (the last is within 1\,\%); the limit itself is not computed. All
-orbit, bifurcation and chaos results concern the constructed map, not sampled generation with a growing context. The
-bridge of Section~\ref{sec:bridge} tests only whether the bottleneck's laminar phases survive sampling noise, and the
+orbit, bifurcation and chaos results concern the constructed map, not sampled generation with a growing context. With
+sampling, the bridge of Section~\ref{sec:bridge} tests only whether the bottleneck's laminar phases survive the noise;
+its other tests are deterministic (greedy decoding, longer fed-back memories and Soft Thinking's growing context). The
 behavioural results are statistics of sampled dialogue, not orbits. The behavioural study uses two small models of
 one family (0.5B and 1.5B), one opener and a proxy defined by two automated classifiers without human labels. Its
 first lead-time test is negative, and the confirmed warning from the in-context state is small.

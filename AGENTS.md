@@ -122,3 +122,9 @@ records an error that actually occurred.
   are not accurate. An iterative solver below the precision floor of its
   operator never converges and silently spends its whole budget: record
   solver counts per point (`jvps`, `gmres_unconverged`).
+- **Round bounds up; quote range ends at their true extremes.** A bound ("within", "at most", "never exceeds") must
+  hold for every value it covers, so round the largest gap up (0.0207 as 0.021, not 0.02). The ends of a stated range
+  are the actual extremes at the quoted precision (a smallest rate of 0.7746 is 0.77, not 0.78; ratios up to 5.50 run
+  "to 5.5", not "to 5"). Say what each covers: twins, cells or temperatures, per twin or per cell. On 14 October
+  2026, an external check and the sweep after it found nine bounds and ranges in the LLM paper that the data
+  exceeded. Compute each bound from the raw file, never from a rounded figure in the log.
