@@ -23320,3 +23320,9 @@ _commit `ada3e522ea55` (dirty worktree)_
 - **Output:** `../neural-shrimp-data/explore/llm-soft-loop/pod64/start-state/MODEL/start-state.json`
 
 _commit `3c7f76e0f354`_
+
+## 2026-10-14 10:33 UTC: Z70 result: 64x64 zoom of Llama-3.3-70B's chaotic ridge (hostility concept)
+
+Four pods (bands b0-b3 of 16 log10 T rows each; b0 COMMUNITY 2xH100 NVL 8081 s, b1-b3 SECURE 2xH200 5505-6123 s; all rc 0, hash verified, terminated; commits 044ef31e/9fc7f33a/4102aafd), job set bigctrl map, concept vectors built on each pod at layer 50 (identical norms 98.4289). Stitched by tools/plot_zoom70.py (refuses gaps, differing steering grids or vector norms; tested): alpha 0.06..0.12 x log10 T 0.12..0.27, 64x64, 300 + 300 steps, max period 32, no unfinished or non-finite cells. Chaotic 898/4096 (21.9 %), largest exponent 0.593; periodic 1411; unresolved (no period up to 32, exponent <= 1e-3) 1787 (44 %, mostly below the band). Ridge: centre of the chaotic cells above log10 T 0.165 moves from 0.253 (alpha 0.06) to 0.189 (0.12), extent about 0.02 to 0.05 decades, periodic cells interspersed; a thinner chaotic layer near 0.15-0.16 at strong steering. Above the ridge 994/1105 cells periodic, 479 of them period 1-2; below it bands of period 6 (284 cells of period 6 overall). Caveat: at 70B the period test's state tolerance 1e-8 is near the noise floor (~2e-8), and B6 found negative-exponent no-period cells with repeating leading tokens, so many unresolved cells are probably periodic; left unresolved. Figure paper/llm/figures/fig-zoom-llama70b.png (fig:zoom70).
+
+_commit `25911f1e1b1e` (dirty worktree)_

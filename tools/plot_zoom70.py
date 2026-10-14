@@ -2,8 +2,9 @@
 stitched from four bands of 16 temperature rows. The bands must join into one temperature grid, share the steering
 grid, and carry concept vectors of identical norm (built on each pod); otherwise the script stops.
 
-Left: largest Lyapunov exponent (chaotic cells coloured by the exponent, periodic cells in grey by how strongly they
-contract). Right: the attractor families (leading-token loops) of periodic cells, the most frequent in colour.
+Left: largest Lyapunov exponent (chaotic cells coloured by the exponent, other cells in grey by how strongly they
+contract). Right: the period of the attractor reached from the fixed start; chaotic cells black, cells with neither a
+detected period nor a positive exponent light grey.
 
 Usage: python tools/plot_zoom70.py OUT.png [BAND_PREFIX]   (default llm-soft-loop/pod64/controls70/hostility-vs-kindness-zoom-b)
 """
@@ -52,6 +53,7 @@ def main():
     lt, al, L, P, norms = m["log10_temperature"], m["alpha"], m["lyapunov"], m["period"], m["norms"]
     chaotic = (L > 1e-3) & (P <= 0)
     print(json.dumps({"cells": int(L.size), "chaotic": int(chaotic.sum()), "share": round(float(chaotic.mean()), 4),
+                      "periodic": int((P > 0).sum()), "unresolved": int(((P <= 0) & ~chaotic).sum()),
                       "max_exponent": round(float(L.max()), 4), "norms": norms,
                       "log10T": [float(lt[0]), float(lt[-1])], "alpha": [float(al[0]), float(al[-1])]}))
     ext = [al[0], al[-1], lt[0], lt[-1]]
@@ -65,16 +67,19 @@ def main():
     cb = fig.colorbar(im, ax=ax, fraction=0.04, pad=0.02)
     cb.set_label("largest Lyapunov exponent (chaotic cells)", fontsize=8)
     ax.set_title(f"largest exponent; chaotic {100 * chaotic.mean():.0f} % of {L.size} cells", fontsize=9)
-    fam = m["family"]
-    img = np.ones(fam.shape + (4,))
+    periodic = P > 0
+    unresolved = ~periodic & ~chaotic
+    img = np.ones(P.shape + (4,))
+    cmap = plt.get_cmap("viridis")
+    img[periodic] = cmap(np.clip(np.log2(np.maximum(P[periodic], 1)) / 5.0, 0, 1))
     img[chaotic] = (0.0, 0.0, 0.0, 1.0)
-    vals, counts = np.unique(fam[(fam >= 0) & ~chaotic], return_counts=True)
-    order = vals[np.argsort(-counts)][:10]
-    palette = plt.get_cmap("tab10")
-    for k, f in enumerate(order):
-        img[(fam == f) & ~chaotic] = palette(k)
+    img[unresolved] = (0.82, 0.82, 0.82, 1.0)
     bx.imshow(img, origin="lower", extent=ext, aspect="auto", interpolation="nearest")
-    bx.set_title("attractor families (black: chaotic; white: other or no period)", fontsize=9)
+    sm = plt.cm.ScalarMappable(cmap=cmap, norm=plt.Normalize(0, 5))
+    cb2 = fig.colorbar(sm, ax=bx, fraction=0.04, pad=0.02)
+    cb2.set_label("log2 period (periodic cells)", fontsize=8)
+    bx.set_title(f"period (black: chaotic; light grey: no period up to 32 and no positive exponent, "
+                 f"{100 * unresolved.mean():.0f} %)", fontsize=9)
     for a in (ax, bx):
         a.set_xlabel("steering strength alpha (hostility concept vector, layer 50)")
     ax.set_ylabel("log10 temperature")

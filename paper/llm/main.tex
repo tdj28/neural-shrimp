@@ -1178,7 +1178,16 @@ direction (Figure~\ref{fig:controls70}). On Llama-3.3-70B's hostility plane, at 
 equal norm, 4.3\,\% of cells are chaotic along the concept vector, 3.5\,\% along the frozen-rule hostility feature,
 1.1\,\% along a Gaussian direction and 0.2\,\% along a random live feature, against 28, 29, 39 and 27\,\% for the same
 four directions in Llama-3.1-8B; Qwen2.5-72B along hostility gives 0.8\,\%. The chaotic cells of the hostility
-directions lie on a ridge that steering moves from $\log_{10}T\approx0.3$ to $0.1$. \inprogress{A $64\times64$ zoom of the ridge is running (three of four bands done).}
+directions lie on a ridge that steering moves from $\log_{10}T\approx0.3$ to $0.1$. A $64\times64$ zoom of the concept
+plane (Figure~\ref{fig:zoom70}; $\alpha\in[0.06,0.12]$, $\log_{10}T\in[0.12,0.27]$, four bands computed separately with
+identical vectors and joined) resolves it: a chaotic band, with periodic cells interspersed, whose centre steering
+moves from $\log_{10}T=0.25$ at $\alpha=0.06$ to $0.19$ at $\alpha=0.12$ while its extent grows from about 0.02 to 0.05
+decades, and a thinner chaotic layer near $\log_{10}T=0.15$--$0.16$ at strong steering; 22\,\% of the 4096 cells are
+chaotic (largest exponent 0.59). Above the band, 90\,\% of the cells are periodic, half of them fixed points or
+2-cycles, and below it bands of period-6 windows cross the plane. A further 44\,\% of all cells, mostly below the
+band, have neither a detected period up to 32 nor a positive exponent. At 70B the state tolerance of the period test
+($10^{-8}$) lies near the noise floor of the computation, and in a finer unsteered line such cells had repeating
+leading tokens, so many of them are probably periodic, but we leave them unresolved.
 \begin{figure}[H]
 \centering
 \includegraphics[width=\linewidth]{fig-controls-llama70b.png}
@@ -1189,6 +1198,17 @@ any map, a random live feature and a Gaussian
 direction, all at the same norm. Chaotic cells: 44, 36, 2 and 11 of 1024 (concept, feature, random feature,
 Gaussian); cells with neither a period nor a positive exponent: 468, 358, 223 and 424.}
 \label{fig:controls70}
+\end{figure}
+\begin{figure}[H]
+\centering
+\includegraphics[width=\linewidth]{fig-zoom-llama70b.png}
+\caption{Zoom on the chaotic ridge of Llama-3.3-70B-Instruct steered along the hostility concept vector (after
+zero-based block 50): $64\times64$ float64 cells (300 transient and 300 measured steps, maximum period 32), joined
+from four bands of 16 temperatures computed on separate pods with identical vectors. Left: largest Lyapunov exponent
+(chaotic cells coloured by the exponent; other cells in grey by how strongly they contract). Right: period of the
+attractor reached from the fixed start (black: chaotic; light grey: neither a detected period nor a positive
+exponent).}
+\label{fig:zoom70}
 \end{figure}
 
 \paragraph{What this implies for larger models.} Our data give no reason to expect a model to be free of this chaos
