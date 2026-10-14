@@ -1,6 +1,6 @@
 # Current phase: Task18 complete; Task19 fixed cell04 running
 
-Task18 theory, independent loop-gain computation, separate saved-summary recovery and available p8b comparison are accepted complete. Original run002 remains exit1 reporting failure; original failed evidence unchanged. Exact final record/report references are codex/loop-gain-crosscheck/final-acceptance.json. Standalone final delivery follows this evidence checkpoint.
+Task18 theory, independent loop-gain computation, separate saved-summary recovery and available p8b comparison are accepted complete. Original run002 remains exit1 reporting failure; original failed evidence unchanged. Exact final record/report references are codex/loop-gain-crosscheck/final-acceptance.json. Standalone final delivery is privately verified at99978119495c34dc8971ed18ddc3f3b725bff4b7; comms entry2026-10-14T08:49:10Z SHA5bb8ea19341bb6f3afe5754ff089525dcfc9be4079b34d5a3e7a494285f96a24.
 
 Task19 mandatory trajectory and all65 original/amended/purged replay are accepted. Optional cell04 is the only active computation: private source6b946a06, session85698, original worker1510289/start191406298, launcher1510259/start191406147, waiter1510256/start191406144. Startupf99ec131/preflightae760467; three auxiliary CPU slots,12GiB,4200s,512MiB. Initial08:45:35UTC health accepted, no partial scientific result read. Next useful check09:05UTC or terminal event. Cell13 is held until04 closes and fresh capacity passes. No concurrent saved audit.
 

@@ -2,7 +2,7 @@
 
 Root accepted the theory/source review, own numerical events, separate recovery and exact saved producer comparison. See final-acceptance.json, own-results-report.md and comparison-scientific-review.md. The original run002 remains exit1 reporting failure; recovered report f8f42ddb and authority1d21af7d are separate. Comparator report5d1e63c5/authority39838824 completed and closed, tool14835 reaped0. Available p8b agrees closely at unique rotation0; p8 has no original arrays and remains unaligned. All numerical differences, historical asset/prefix/source/lifecycle limitations and unavailable original peak/backend remain explicit. No new interval theorem or global/native-generation/training claim.
 
-Task18 has zero remaining computation or reservation. Task19 mandatory/all65 work is accepted; its optional cell04 is running under separate ownership. Human order remains18/19(+addendum), then17,16,15. Standalone final Task18 delivery follows this compact private evidence checkpoint.
+Task18 has zero remaining computation or reservation. Task19 mandatory/all65 work is accepted; its optional cell04 is running under separate ownership. Human order remains18/19(+addendum), then17,16,15. Standalone final Task18 delivery was privately verified at99978119495c34dc8971ed18ddc3f3b725bff4b7 (standalone commit51ef5f2f, entry2026-10-14T08:49:10Z, SHA5bb8ea19341bb6f3afe5754ff089525dcfc9be4079b34d5a3e7a494285f96a24).
 
 Updated 2026-10-14T08:48:01.749427+00:00.
 
