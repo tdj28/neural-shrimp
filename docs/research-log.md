@@ -23116,3 +23116,9 @@ _commit `56df8e3e7006` (dirty worktree)_
 - **Would surprise us:** a model above 8B more chaotic than its family's 7B member (P1 fails)
 
 _commit `746a936f1f2a` (dirty worktree)_
+
+## 2026-10-14 08:28 UTC: B3 result: hostility steering opens 0.8 % chaos in Qwen2.5-72B
+
+Pod 7zfy9d8n4csmo7 (SECURE 2xH200, rc 0, hash verified, terminated; 6050 s; commit 93dfb761). Qwen2.5-72B-Instruct, concept vectors built on the pod at layer 40 of 80 (hostility-vs-kindness norm 720.1), hostility plane alpha 0..0.12 x log10 T -0.3..0.3, 32x32, 300 + 300 steps, float64 bf16-storage. Chaotic 8/1024 (0.8 %), largest exponent 0.354; by |alpha| 0, 0, 0.4, 2.0, 0.8 %; 109 cells without a period. Next-token entropy median 0.08 nats (range 0-11.3). Families: '!Hello' (period 2, 239 cells), ' .' (176), '! Hello' (155) and the echo's repeats. Qwen2.5-7B on the same plane: 8-24 % (coarse maps). With S70M: at 70B steering opens rare chaos (0.8-4.3 %), against 8-39 % at 7-8B.
+
+_commit `9fc7f33ac4c5` (dirty worktree)_
