@@ -1,10 +1,14 @@
 # Task19 saved001 operational run card
 
-Prepared 2026-10-14. Scientific source/design accepted by Root; this operational
-packet still requires exact review and private admission. This card authorizes
-no launch. The byte-preserved prepared plan SHA is 11d6071ddec1185384167f9b32dfb2a41b7684658b0b83a6523064aecc87268b.
-An admission-only prepared→reviewed edit will have its own external plan hash;
-preserve the prepared bytes and record the actual hash/source before execution.
+Prepared source/card history is preserved in private Git at9258b7b1 and the unchanged original plan SHA11d6071ddec1185384167f9b32dfb2a41b7684658b0b83a6523064aecc87268b. Root accepted the scientific/operational package and the prospective admission-only saved001 transition. This concrete card records actual mandatory trajectory closure and the independently accepted finite saved check; launch still requires Root's exact-card/preflight acceptance, private source checkpoint and fresh capacity.
+
+The only plan change is admission prepared→reviewed. Final plan SHA 0133ca50ce20b70202cdad2e8a88796bbb6d6219c33b688a1b8b1a22e9c85bc9. No scientific source, selection, threshold, resource envelope or input bytes changed.
+
+Mandatory original trajectory source be709c95e93e1e075d9ced10f27e8453a301ba75, receipt b0a72180d59cb626ccaec4a4c58ba5077f014e37c951c9994a78c9f5978fb44e and closure f30cae9c4ed82b6ed4c581995a46a1cf5b2825a3ee3549948f5853caca91a3b9 are immutable. Worker runtime1221.0129s and external supervisor1223.2864s are distinct; peakRSS5,339,984KiB. The original trajectory and Task18 run002 are both reaped/closed, so no model reservation overlaps this saved replay.
+
+The accepted one-time trajectory saved check report is /data2/neural-shrimp-data/codex/llm-return-map-crosscheck/trajectory-001-review-001/report.json SHA e94af3ef46c33bdf2f8078ffbde551528f26438fcc02e27df3c2930b5cad76c4, with separate source/output/closure authority trajectory-001-review-001-authority/report.json SHA7ba6b0d5519efff2c882ba5ab688afe6d56b968c50620918f65abf44031def11. All retained numerical differences remain visible; this card authorizes no change based on them. Actual whole trajectory inventory146MB and prepared input snapshot14,955,122B were streamed during required authentication in under1s; this is an IO observation, not an all65-fit runtime guarantee.
+
+The exact metadata-only saved preflight /tmp/task19-saved001-preflight.py SHA84a4d537a3d7aa27e2a4ffd57d2805cb8979607d965b1dfc0f9602a0115e5444 reuses the admitted original snapshot admission, all10 immutable input-byte hashes, exact closed authority pins, absent attempt/duplicate checks, private ancestry and fresh20GiB RAM/16GiB disk. CPU1/nice10/4GiB with external60s bound; no numerical input values decoded. Original preflight/report will be retained under saved-001-preflight.
 
 ## Fixed computation and resource basis
 
