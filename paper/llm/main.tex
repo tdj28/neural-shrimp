@@ -120,8 +120,8 @@ sampling, and Section~\ref{sec:misalignment} studies sampled dialogue directly.
   most chaotic OLMo model. A frozen prompt-blocked test shows that the Qwen decline from 7B to 14B is largely a shift:
   on all eight held-out prompts the 14B model is more chaotic than the 7B, at the higher temperatures where its
   next-token distribution spreads. A second frozen test finds Qwen2.5-72B nearly free of unsteered chaos on four
-  held-out prompts (one chaotic temperature of 192), yet steering drives it, like Llama-3.3-70B, into chaos that an
-  exact tangent exponent confirms. The gain split shows how network and readout damp or amplify the fed-back token
+  held-out prompts (one chaotic temperature of 192; a finer line places it in a band 0.02 decades wide), yet steering
+  drives it, like Llama-3.3-70B, into chaos that an exact tangent exponent confirms. The gain split shows how network and readout damp or amplify the fed-back token
   (Section~\ref{sec:size}).
 \item \emph{A fold's normal form predicts how long the model lingers near a vanished orbit.} The 2-cycle ``is it''
   dies in a fold, and the fold's normal form, computed from derivatives, predicts bottleneck passage times without
@@ -1291,9 +1291,11 @@ that the 72B model would be chaotic at fewer of the 48 temperatures than the 14B
 prompts. It is chaotic at 0, 1, 0 and 0 of them, against 14, 9, 11 and 15, so the prediction holds on all four; with
 the paper's prompt, where it showed no robust chaos up to $\log_{10}T=1.2$, that makes five prompts on which the 72B
 model is nearly free of unsteered chaos. Its next-token distribution jumps from sharp to nearly uniform within less
-than the grid spacing (0.03 decades), so a narrow chaotic band at the jump would be missed by the grid; on the
-paper's prompt, a fine line through the jump, recomputed in float64 with exact tangent exponents, finds only periodic
-orbits. A fixed temperature window is therefore the wrong yardstick, and so is size alone. A model's chaos follows the
+than the grid spacing (0.03 decades), so a narrow chaotic band at the jump would be missed by the grid. Fine lines
+through the jump, computed in float64 throughout with exact tangent exponents, find only periodic orbits on the
+paper's prompt and on three of the four held-out prompts, and on the fourth a band of chaos about 0.02 decades wide
+just above the jump ($\log_{10}T=0.319$--$0.336$; exponents up to 0.40, which twins at $10^{-5}$ to $10^{-7}$ reproduce
+within 0.004), at nearly uniform distributions, as the 14B model's chaos but far narrower. A fixed temperature window is therefore the wrong yardstick, and so is size alone. A model's chaos follows the
 gain of its loop where its own next-token distribution is spread, no single forward pass we tested predicts it, and
 to find it in a larger model one has to run the loop there, across prompts. For frontier models this means two
 things: their unsteered chaos may be rare, if, like the largest models here, their distributions spread over a narrow
