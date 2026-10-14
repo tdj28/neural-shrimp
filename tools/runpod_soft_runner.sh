@@ -899,6 +899,34 @@ snapshot_download('$REPO', revision='$MREV', cache_dir='$NEURAL_SHRIMP_DATA/mode
     done
     unset HF_TOKEN
     ;;
+  prefixscale) # prompt-blocked size test (run PS; docs/prefix-scale-test.md): JOBARGS MODEL IDX [IDX...]. Pinned checkpoint;
+               # for each prefix index of docs/prefix-scale-prefixes.json: stage 1, an unsteered line of 48 temperatures
+               # over log10 T -0.4..0.9 (tools/hidden_chaos.py, twins at 1e-5 and 1e-7, 1000 + 2000 steps); stage 2, 24
+               # temperatures across the largest entropy increase of stage 1 (tools/prefix_transition.py)
+    model=${JOBARGS[0]}
+    case $model in
+      qwen7b)  REPO=Qwen/Qwen2.5-7B-Instruct;  MREV=a09a35458c702b33eeacc393d103063234e8bc28 ;;
+      qwen14b) REPO=Qwen/Qwen2.5-14B-Instruct; MREV=cf98f3b3bbb457ad9e2bb7baf9a0125b6b88caa8 ;;
+      *) log "unknown model $model"; exit 2 ;;
+    esac
+    log "download $REPO"
+    HF_HUB_DISABLE_XET=1 HF_HUB_OFFLINE=0 $PY -c "
+from huggingface_hub import snapshot_download
+snapshot_download('$REPO', revision='$MREV', cache_dir='$NEURAL_SHRIMP_DATA/models/hf/hub',
+                  allow_patterns=['*.json', '*.safetensors', '*.txt'], max_workers=16)" > "$LOGS/setup-$model.log" 2>&1
+    mdir="$NEURAL_SHRIMP_DATA/models/hf/hub/models--${REPO/\//--}"
+    mkdir -p "$mdir/refs" && printf %s "$MREV" > "$mdir/refs/main"
+    PSARGS="--model $model --device auto --weights bf16 --dtype float64 --vectors-none --alpha 0 --transient 1000
+            --record 2000 --eps 1e-5 1e-7 --prefix-file docs/prefix-scale-prefixes.json"
+    for idx in "${JOBARGS[@]:1}"; do
+      TOOL=hidden_chaos.py run ps-$model-$idx-coarse 60 line $PSARGS --prefix-index $idx --log-temperature -0.4 0.9 \
+        --n 48 --chunk 48 --out $D/prefix/$model-p$idx-coarse
+      read -r tlo thi < <($PY tools/prefix_transition.py $D/prefix/$model-p$idx-coarse 2>/dev/null)
+      log "prefix $idx transition $tlo $thi"
+      TOOL=hidden_chaos.py run ps-$model-$idx-fine 40 line $PSARGS --prefix-index $idx --log-temperature $tlo $thi \
+        --n 24 --chunk 24 --out $D/prefix/$model-p$idx-fine
+    done
+    ;;
   morph)       # morph video frames (run V1): JOBARGS FIRST LAST STEP MINUTES_PER_FRAME COLD_TRANSIENT WARM_TRANSIENT
                # SCAN-ARGS...; float32 scans (tol and twin offset 1e-4) of Qwen2.5-0.5B along the uploaded great-circle
                # directions morph-FIRST..morph-LAST (llm-soft-loop/controls/vectors-morph-r1-r3-240), one frame after

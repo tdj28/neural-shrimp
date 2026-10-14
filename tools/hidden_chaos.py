@@ -150,10 +150,17 @@ def main():
     ap.add_argument("--weights", default="native", choices=("native", "bf16"),
                     help="bf16: decoder linear weights stay bfloat16, used in float64 (exact)")
     ap.add_argument("--vectors-none", action="store_true", help="unsteered: no steering vector (alpha ignored)")
+    ap.add_argument("--prefix-file", default=None, help="JSON with a list 'prefixes' of {system, opener}")
+    ap.add_argument("--prefix-index", type=int, default=None)
     ap.add_argument("--threads", type=int, default=16)
     ap.add_argument("--out", required=True)
     args = ap.parse_args()
-    loop = esl.SoftLoop(args.model, args.layer, args.threads, "open", ela.OPENER, 1, args.dtype, args.device,
+    prompt, opener = "open", ela.OPENER
+    if args.prefix_file is not None:
+        pref = json.loads(Path(args.prefix_file).read_text())["prefixes"][args.prefix_index]
+        ela.PROMPTS["custom"] = pref["system"]
+        prompt, opener = "custom", pref["opener"]
+    loop = esl.SoftLoop(args.model, args.layer, args.threads, prompt, opener, 1, args.dtype, args.device,
                         args.weights)
     v = np.zeros(loop.E.shape[1]) if args.vectors_none else elpm.load_vectors(args.vectors)[args.concept]
     if len(v) != loop.E.shape[1]:
