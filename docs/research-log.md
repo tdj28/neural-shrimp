@@ -23021,3 +23021,9 @@ _commit `1b03ae436fbf` (dirty worktree)_
 - **Would surprise us:** both factors comparable between sizes at matched entropy (neither reading); g_read the collapsing factor for Llama-70B
 
 _commit `5774339c56d7` (dirty worktree)_
+
+## 2026-10-14 07:29 UTC: Task18 explicit recovery running with retained outer session; source-only Tasks18/19 review accepted
+
+Source7918af94, plan98a01706/card8f44e325. Preflight260361c0/startup542fb95b passed; tool session44216 with exact waiter1419301,launcher1419367,worker1419396 births retained. CPU2+supervisor/nice10/12GiB/3600s/512MiB, no numerical result interpreted. Original001 failure353d1ad1/closurec62624fc preserved. Theory-source review5eafb53a accepted, numerical verification remains pending; Task19 science accepted and own supervisor preparation continues. Next useful health at its fresh combined preflight or07:45UTC, no tight polling.
+
+_commit `7918af949fa6` (dirty worktree)_
