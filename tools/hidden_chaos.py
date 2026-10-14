@@ -56,6 +56,7 @@ class EntropyClamp:
         self.tsum, self.steps = None, 0
 
     def prepare(self, rows):
+        self.tsum, self.steps = None, 0             # a new batch (rows may change, as in fd_probe)
         return self.loop.prepare(rows)
 
     def step(self, X, targets):

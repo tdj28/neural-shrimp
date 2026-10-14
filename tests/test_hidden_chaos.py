@@ -74,3 +74,26 @@ def test_solve_beta_hits_entropy_targets():
     # smooth in z: a tiny change of the logits changes beta by a proportionally tiny amount
     beta2 = esl.solve_beta(z + 1e-9 * torch.randn_like(z), targets)
     assert ((beta2 - beta).abs() / beta).max() < 1e-7
+
+
+def test_entropy_clamp_runs_with_probe():
+    """The clamp wrapper through run_batch, including the probe's differently sized batch."""
+    import numpy as np
+    import torch
+
+    class Tiny:
+        def __init__(self):
+            self.torch, self.state_dtype, self.device = torch, torch.float64, torch.device("cpu")
+            g = torch.Generator().manual_seed(0)
+            self.E = torch.randn(50, 3, dtype=torch.float64, generator=g)
+            self.W = torch.randn(50, 3, dtype=torch.float64, generator=g) * 2
+
+        def prepare(self, rows):
+            return torch.zeros((len(rows), 1, 3), dtype=torch.float64) + 0.1
+
+        def logits(self, X):
+            return torch.tanh(X[:, -1, :]) @ self.W.T
+
+    loop = hc.EntropyClamp(Tiny())
+    out = hc.run_batch(loop, np.zeros(3), np.log10([1.0, 2.5]), [0.0, 0.0], 20, 50, [1e-5, 1e-6], 1e-8, probe=True)
+    assert all(np.isfinite(r["mean_temperature"]) and "fd_probe" in r for r in out)
