@@ -1,3 +1,17 @@
+# Task 19 complete — final finite evidence accepted
+
+Task 19, its all-65-cell addendum and both fixed optional stress checks are complete and Root-accepted. Final synthesis `scientific-synthesis-final.md` SHA 66feba6283cd4ac70738d17699a0bee64c7fec8386a9d8ff434da9fac129914f and separate `final-acceptance.json` SHA 8fbe2bbbbbd8796d8967915a9cc80521447fb43cac61dd76c20f4aa468761ef6 bind the component reports and exact original authorities. Original pending/false records and all failures remain unchanged.
+
+The primary and fixed period-10/28 token records match all 2,000 original IDs; finite positive full-record twin estimates and absence of a detected state return through lag 64 are preserved. Scalar discrepancies remain approximately +2.31%, −5.90%, and +18.08% under the original rule. The all-65 count remains 49/62 within 10%, versus the disclosed amended and purged 51/62. Shape failures, early negative windows, all outliers/rank warnings and arithmetic differences are retained. No asymptotic-chaos, invariant-band or invertible-conjugacy proof is claimed.
+
+All original and audit sessions are reaped; all recorded groups are closed. Zero live jobs or resource reservations. No further Task 19 computation or audit is planned. Task 18 is already complete and delivered. The next human priority is Task 17, then 16 and 15; they are not started at this completion checkpoint. Inference retains sole Git/process coordination. Limited 08:28/08:48 producer-summary exposure remains disclosed.
+
+Recorded 2026-10-14T09:43:44.514589+00:00. Standalone Claude delivery follows this evidence checkpoint.
+
+---
+
+## Preserved phase history
+
 # Task19 current status: both optional trajectories closed; final13 saved review admitted
 
 Primary/all65 and optional04 are accepted complete. Optional13 original session81164 reaped0 at09:29:37UTC. Receipta28412a2 records computationalcompletion, no timeout/uncertainty, worker992.153051s/5,339,140KiB and external993.941610s. Metadata-only closured6ce4750 authenticates43 immutable artifacts145,705,524B/11Gitblobs and all original waiter/launcher/worker births/groups/sessions absent. No13 scientific rows read by coordinator; zero live reservations at this checkpoint.

@@ -1,3 +1,13 @@
+# Current coordination: Tasks 18 and 19 complete; zero live reservations
+
+Task 18 was completed and delivered in standalone entry 2026-10-14T08:49:10Z, accepted record 51aa5631. Task 19, the addendum and both fixed optional stress checks are now fully Root-accepted. Its final synthesis is `codex/return-map-crosscheck/scientific-synthesis-final.md` SHA 66feba6283cd4ac70738d17699a0bee64c7fec8386a9d8ff434da9fac129914f; separate final acceptance is SHA 8fbe2bbbbbd8796d8967915a9cc80521447fb43cac61dd76c20f4aa468761ef6. All original evidence and failed/pending records remain immutable.
+
+Every original and audit process is closed, with zero live resource reservations. No more computation or audit is needed for these assignments. All earlier certificate/review releases remain complete. No monitoring automation is active. The human's remaining order is Task 17, then 16, then 15; those tasks are unstarted at this checkpoint. Final Task 19 standalone delivery follows the private evidence checkpoint. Inference owns Git/process coordination. Recorded 2026-10-14T09:43:44.514589+00:00.
+
+---
+
+## Preserved phase history
+
 # Current phase: Task19 final saved review admitted; no live model run
 
 Task18 and Task19primary/all65/optional04 are accepted complete. Original13 completed/reaped0: receipta28412a2/closured6ce4750,43artifacts/11sourceblobs and allthreegroups absent. Zero live reservations. Exactfinal13 savedreviewcard81f80a17/reviewer38a534ea/supervisor82b5501f is Root-accepted for one120s/4GiB/16MiB CPU1+supervisor run after privatecheckpoint/fresh20GiB capacity; no scientific13claim yet.
