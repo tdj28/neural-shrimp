@@ -1,0 +1,24 @@
+{
+  "schema": "task18-saved-summary-recovery-v1",
+  "admission": "reviewed",
+  "script_sha256": "49006cea46e3a4c5891fdb5d55a5146988b05a0ad29adb6fd67e5b70ac3a7648",
+  "caps": {
+    "cpu_threads": 1,
+    "nice": 10,
+    "memory_gib": 1,
+    "timeout_seconds": 120,
+    "maximum_output_mib": 8,
+    "minimum_start_available_gib": 20,
+    "minimum_runtime_available_gib": 16
+  },
+  "source_commit": "7918af949fa60cb8bb123504e78c2dc959943d9c",
+  "plan_sha256": "98a01706d756e3271f3f566dedf792719bf088055ba084c753b199b649b198c4",
+  "receipt_sha256": "4a3153f174bec42f034e245b63d5fe48978962908cbf82478ace3498b632b4fa",
+  "closure_sha256": "2d3a679a6dabde4379f95c56c66b303d9a82a5e1ddad6b76f4a3d7296c66b047",
+  "expected_stderr_markers": [
+    "TypeError: Object of type bool is not JSON serializable",
+    "FileExistsError",
+    "/run/status.json"
+  ],
+  "scope": "Separate saved-summary recovery only. Original exit1/truncated status/receipt unchanged. No model/dense product/eigen/SVD/statistical replay. Exact original authorities received from Inference; Root must accept source/card and closure before admission."
+}

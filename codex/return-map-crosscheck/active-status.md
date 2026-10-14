@@ -1,4 +1,4 @@
-# Task19 current status: mandatory trajectory accepted; all65 saved replay admitted next
+# Task19 current status: mandatory trajectory accepted; all65 saved replay accepted; optional stress pending
 
 Original session57156 was reaped exit0. Original trajectory receipt b0a72180d59cb626ccaec4a4c58ba5077f014e37c951c9994a78c9f5978fb44e records computational completion; worker1221.0129s and external supervisor1223.2864s are distinct. Peak workerRSS5,339,984KiB. Original stdout/stderr and all evidence remain retained; no scientific equivalence claim is made before the accepted finite saved check.
 
@@ -44,3 +44,7 @@ amended and own purged-CV dispositions remain planned. Human priority is18/19
 with addendum, then17,16,15. Task17 will refresh the paper/70B source then.
 No GPU/pod/paid action. All prior certificate/review releases stay complete.
 No prior result or failed attempt has been overwritten.
+
+## 2026-10-14 08:22:13 UTC — all65 replay closed and accepted
+
+Saved001 source917393f8, receipte8bdb1df and closure33daf8cd passed the accepted finite review. Worker10.47449s/61,296KiB; external supervisor12.25742s. All148 artifacts,10Git blobs,65 rows,1128 phases,12400 candidates and62000 folds are retained, including60 fold-rank warnings and cell48 selected-per-phase rank warnings. Original/amended/purged within10% counts are49/62,51/62,51/62. No refit after the original saved replay. The short run ended before its postlaunch observer: original launcher/worker births are captured; waiterbirth is unavailable and explicitly disclosed. Tool89822 reaped0, no live reservations. Required optional fixed stresscells4/13 await their reviewed exact adapter/cards. Tasks18/19 remain ahead of17/16/15.
