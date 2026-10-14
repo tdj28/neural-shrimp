@@ -119,8 +119,8 @@ sampling, and Section~\ref{sec:misalignment} studies sampled dialogue directly.
   in a fixed temperature window nearly vanishes in the largest Qwen2.5 and Llama models but not in OLMo-2-32B, the
   most chaotic OLMo model. A frozen prompt-blocked test shows that the Qwen decline is largely a shift: on all eight
   held-out prompts the 14B model is more chaotic than the 7B, at the higher temperatures where its next-token
-  distribution spreads. The gain split shows how network and readout damp or amplify the fed-back token; at 70B, steered
-  chaos passes a three-offset test while the few unsteered candidates do not (Section~\ref{sec:size}).
+  distribution spreads. The gain split shows how network and readout damp or amplify the fed-back token; at 70B, rarer
+  chaos, steered and unsteered, passes a three-offset test (Section~\ref{sec:size}).
 \item \emph{A fold's normal form predicts how long the model lingers near a vanished orbit.} The 2-cycle ``is it''
   dies in a fold, and the fold's normal form, computed from derivatives, predicts bottleneck passage times without
   fitting. We tested it prospectively at two new folds: 23 of 24 forecasts fell within one iterate, and the all-row
@@ -1149,7 +1149,7 @@ text.}
 \label{fig:scale}
 \end{figure}
 
-\paragraph{At 70B, steered chaos survives a plateau test; the unsteered candidates do not.} The regular grids of the
+\paragraph{At 70B, chaos is rare, and a plateau test separates real from spurious.} The regular grids of the
 70B-class models find little unsteered chaos: Qwen2.5-72B has no positive exponent at any of 191 temperatures between
 $\log_{10}T=-1$ and $1.2$, Llama-3.3-70B none in $[-1,0.3]$, and Llama-3.1-70B three temperatures in $[-1,0.3]$.
 Finer lines found candidates: a window of positive exponents at Qwen2.5-72B's entropy jump
@@ -1161,9 +1161,10 @@ plateau, and we withdraw the window. This is not a general property of our two-G
 Llama-3.3-70B maps below, twelve randomly drawn chaotic cells are chaotic at offsets $10^{-4}$, $10^{-5}$ and $10^{-6}$
 alike, with exponents that agree within 0.05, and the drawn periodic and unresolved cells stay negative at all three;
 on one GPU, the exponents at $10^{-7}$ and $10^{-5}$ agree within 0.02 at every chaotic temperature of the
-prompt-blocked test. Whether the Qwen2.5-72B window hides structure finer than $10^{-5}$ or a numerical effect specific
-to that computation, we cannot tell. \inprogress{A plateau test of Llama-3.1-70B's three unsteered chaotic temperatures
-is running.} Two Qwen2.5 models are chaotic far above the
+prompt-blocked test. The same test on Llama-3.1-70B's three unsteered chaotic temperatures confirms two of them
+($\log_{10}T=0.136$ and $0.198$; exponents 0.23 to 0.26 and 0.40 to 0.41 at the three offsets) and rejects the weakest
+($0.116$; positive only at $10^{-6}$), so unsteered chaos exists at 70B, if rarely. Whether the Qwen2.5-72B window
+hides structure finer than $10^{-5}$ or a numerical effect specific to that computation, we cannot tell. Two Qwen2.5 models are chaotic far above the
 fixed window on the paper's prompt, where the next-token distribution is nearly uniform: the 1.5B model at 55 of 224
 temperatures, between $\log_{10}T=0.29$ and $1.03$, and the 14B model at 53, between $0.52$ and $1.14$ (exponents up to 1.14), at mean
 entropies up to 11.9 nats against $\log V=11.93$. The other models of the series are not chaotic above
@@ -1264,8 +1265,8 @@ exponent).}
 \paragraph{What this implies for larger models.} Nothing in our data says that a model is free of this chaos
 because it is large. In the one family where we varied the prompt, the larger model's chaos did not vanish but moved
 to higher temperature, to where its next-token distribution spreads; in another family the largest model was the most
-chaotic; post-training changed the chaos of two 70B Llama checkpoints of the same size; and at 70B steering still produced
-chaos that passes a three-offset test. A fixed temperature window is therefore the wrong yardstick. A model's chaos follows
+chaotic; post-training changed the chaos of two 70B Llama checkpoints of the same size; and at 70B, chaos that passes a three-offset
+test remains, rarer, with and without steering. A fixed temperature window is therefore the wrong yardstick. A model's chaos follows
 the gain of its loop where its own next-token distribution is spread, no single forward pass we tested predicts it,
 and to find it in a larger model one has to run the loop there, across prompts. Whether the shift continues beyond 14B is open: on the paper's prompt, Qwen2.5-72B showed no
 robust chaos anywhere up to $\log_{10}T=1.2$, and a prompt-blocked test at 72B, frozen in
@@ -1875,9 +1876,9 @@ Qwen2.5-7B has 65 chaotic temperatures between $\log_{10}T=-0.07$ and $0.28$ (ex
 has 32 between $0.04$ and $0.14$ (up to $0.30$). Steering is therefore not needed to reach chaotic regimes in any of
 these four models. Temperature alone produces chaos with embedded windows, broadly in the 7B and 8B models and in
 a narrow band in the 0.5B model (Figure~\ref{fig:alpha0}). Across the fifteen models of Section~\ref{sec:size}, the
-regular-grid sweeps find unsteered chaos in eleven of the fourteen dense models (in Llama-3.1-70B only as
-candidates), but not in Qwen2.5-72B, Llama-3.3-70B, OLMo-2-13B or the mixture of experts; finer lines found
-candidates in the first two, and the Qwen2.5-72B window failed a three-offset test.
+regular-grid sweeps find unsteered chaos in eleven of the fourteen dense models (in Llama-3.1-70B at two
+temperatures that pass a three-offset test), but not in Qwen2.5-72B, Llama-3.3-70B, OLMo-2-13B or the mixture of
+experts; finer lines found candidates in the first two, and the Qwen2.5-72B window failed a three-offset test.
 
 Steering does widen the chaotic regions, but not as a property of the concept: along norm-matched random directions,
 the 0.5B maps are as chaotic as along the concept directions (Figure~\ref{fig:controls}). On the same $128^2$ grid,
@@ -1953,8 +1954,8 @@ maps and three float64 orbits at 7B; the two other families (OLMo-2 7B and Llama
 $128^2$ refinements for Llama, but no continued orbits. The size comparison of Section~\ref{sec:size} uses regular
 temperature grids that can miss narrow windows, a window that missed most of the larger models' chaos, and mostly
 one twin offset per label; at the entropy jump of Qwen2.5-72B, computed on two GPUs, the exponent depends on the
-twin offset between $10^{-5}$ and $10^{-7}$, so we withdrew those cells, while a sample of the steered 70B maps passes
-a three-offset test.
+twin offset between $10^{-5}$ and $10^{-7}$, so we withdrew those cells, while a sample of the steered 70B maps and
+two of Llama-3.1-70B's three unsteered chaotic temperatures pass a three-offset test.
 The maps use one prompt (Section~\ref{sec:size} adds ten for two models), and steering uses contrastive vectors, checked against norm-matched random and sparse-autoencoder
 directions in two models. The system is a constructed one-token window. The evidence consists of numerical
 validation, cross-checks and prospectively frozen passage tests (including failed all-row criteria), with a
