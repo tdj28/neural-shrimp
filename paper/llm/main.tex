@@ -92,7 +92,8 @@ computed from the model predict its behaviour before that behaviour is measured.
 it, and in the cases we tested the predictions hold. We also show where the chaos comes from (Section~\ref{sec:theory}). The loop's
 derivative factorizes into the inverse temperature, the covariance of token embeddings under the model's own
 next-token distribution, and the network's Jacobian. The network turns a Hopfield retrieval, which cannot cycle, into
-a map that can, and the factorization confines chaos to intermediate temperatures. Fold normal forms predict how long trajectories linger in the ghost of a vanished orbit, cusp unfoldings predict how
+a map that can, and the factorization excludes chaos at high temperature and in the zero-temperature limit, leaving
+it to intermediate temperatures. Fold normal forms predict how long trajectories linger in the ghost of a vanished orbit, cusp unfoldings predict how
 many periodic orbits exist near a cusp and which of them are stable, and the fixed-point spectra of a recurrent-depth
 model predict its response to relaxation and the onset of task failure on held-out data. Ordinary sampled generation
 with a growing context is a different system. Section~\ref{sec:bridge} measures how much of the mechanism survives
@@ -103,7 +104,7 @@ sampling, and Section~\ref{sec:misalignment} studies sampled dialogue directly.
 \item \emph{The loop's derivative shows where chaos can occur.} The derivative of the soft-token map factorizes into
   the inverse temperature, the covariance of token embeddings under the model's own next-token distribution, and the
   network's Jacobian. Without the network, the map would be a modern Hopfield update, which cannot cycle. The
-  factorization rules out chaos at low and at high temperature, as sweeps of four models and a high-temperature sweep
+  factorization rules out chaos at high temperature and in the zero-temperature limit, as sweeps of four models and a high-temperature sweep
   confirm, and nothing in it depends on what a steering direction means, consistent with random directions steering
   into chaos as readily as concept directions. Along a period-8 orbit every step expands while the cycle contracts:
   stability belongs to the loop, not to any step (Section~\ref{sec:theory}).
@@ -255,13 +256,17 @@ map the retrieval closes a loop around the whole network.
 
 \paragraph{Chaos needs intermediate temperatures.} The largest Lyapunov exponent of an orbit cannot exceed the orbit
 average of $\log\|DF\|$, so chaos needs $\|DF\|>1$ on a substantial part of the attractor. Both ends of the
-temperature axis prevent this. As $T\to0$, $p$ becomes one-hot except near ties between the two leading tokens; the
-gain $\|\Sigma_p\|/T$ decays like $e^{-\Delta/T}/T$, where $\Delta$ is the gap between the two largest logits, and $F$
-tends to the piecewise-constant greedy map, every orbit of which is eventually periodic (Section~\ref{sec:bridge}).
+temperature axis work against this, in different ways. As $T\to0$, $p$ becomes one-hot except near ties between the
+two leading tokens; away from ties the gain $\|\Sigma_p\|/T$ decays like $e^{-\Delta/T}/T$, where $\Delta$ is the gap
+between the two largest logits, and $F$ tends to the piecewise-constant greedy map, every orbit of which is eventually
+periodic (Section~\ref{sec:bridge}). This limit is pointwise, not uniform: near a tie the gain is of order $1/T$, so at
+small positive temperature chaos is excluded only on invariant sets that keep a uniform logit gap, and a chaotic set
+would have to return to near-ties again and again.
 As $T\to\infty$, $p$ tends to the uniform distribution and $\|\Sigma_p\|$ stays bounded, while $J_{\tilde h}$ is
 bounded on the convex hull of the embeddings, which contains every soft token. For large enough $T$, $F$ is therefore
-a contraction with a single attracting fixed point, which tends to the mean embedding. Chaos thus needs temperatures
-at which the next-token distribution is spread enough to make $\Sigma_p$ large while $1/T$ still amplifies it. The
+a contraction with a single attracting fixed point, which tends to the mean embedding: here the exclusion is a
+bound. Chaos thus needs temperatures at which the next-token distribution is spread enough to make $\Sigma_p$ large
+while $1/T$ still amplifies it. The
 unsteered sweeps agree (Figure~\ref{fig:alpha0}). In all four models the chaotic temperatures lie in one band, interleaved with
 periodic windows, and every band lies between $\log_{10}T=-0.20$ and $0.28$. Below the bands, all 1547 temperatures swept have negative
 exponents, and all but five have a detected period; above them, up to the end of the sweeps at $\log_{10}T=0.3$, the
@@ -274,9 +279,10 @@ at the top of the range, toward the slope $-\ln10\approx-2.30$ expected once $p$
 the period-8 orbit of Table~\ref{tab:orbits}, the largest singular value of $DF$ lies between 1.2 and 21 at every
 step, so every step expands some direction, and no step is close to rank one: the second singular value is at least
 0.15 of the first, and the second eigenvalue of $\Sigma_p$ at least 0.24 of the first. Yet the Jacobian of the whole
-cycle, the product of the eight step Jacobians, has norm 0.19, against $1.1\times10^{7}$ for the product of the step
-norms, and its eigenvalues reproduce the multipliers of Table~\ref{tab:orbits} ($0.01104$ and $2.96\times10^{-7}$).
-Its second singular value is $4\times10^{-5}$ of its first. The expansion of each step is undone by the steps that
+cycle, the product of the eight step Jacobians, has norm between 0.06 and 0.64, depending on the phase at which the
+cycle is started, against $1.1\times10^{7}$ for the product of the step norms. Its eigenvalues, which do not depend
+on that phase, reproduce the multipliers of Table~\ref{tab:orbits} ($0.01104$ and $-2.96\times10^{-7}$; the table
+lists moduli), and its second singular value is $2\times10^{-6}$ to $2\times10^{-4}$ of its first. The expansion of each step is undone by the steps that
 follow, and the effective one-dimensionality of the stripe orbits is a property of the composed cycle, not of any
 single step or of the rank of $\Sigma_p$. Stability cannot be read from the steps; it has to be computed from the
 loop.
@@ -1233,19 +1239,23 @@ period of the text is a multiple of 7, most often 7 or 28. Figure~\ref{fig:hidde
 ($\log_{10}T=0.18995$, largest exponent 0.091 at both offsets). Its states fall into seven disjoint bands, visited in
 a fixed order and at least 0.098 of the state norm apart, and every band lies inside one cell of the partition by
 leading token, so the text \texttt{I!Yes\ heels$\hookleftarrow\hookleftarrow$pee$\hookleftarrow\hookleftarrow$}
-repeats without end. Inside a band the attractor is effectively a curve. Read once per repetition through the
+repeats at every one of the 2000 steps we followed. Inside a band the attractor is effectively a curve. Read once per repetition through the
 probability of the last token, the dynamics is a smooth map with a single quadratic maximum, the shape of the
 logistic map: a polynomial of degree 8 fits it to $4\times10^{-4}$ of its range, and the fitted map's Lyapunov
 exponent, 0.647 per repetition, is within 2\,\% of the full map's 0.636 per seven steps, measured with twin
 trajectories in all 896 dimensions. The reduction holds across the cascade. Rerun with the leading-token sequences saved, 62 of the 65 cells are again
 chaotic behind a repeating text, and in every one of them several phases of the text (a median of ten) give
-single-valued return maps; 59 cells have a phase whose map has a single interior maximum. A Lyapunov exponent does not
-change under a smooth change of coordinates, so all single-valued phases of a cell must give the same exponent: we fit
-each phase's map by a polynomial whose degree is chosen by cross-validation and take the median over the phases. It
+single-valued return maps; 59 cells have a phase whose fitted map has a single interior turning point. If the dynamics
+were exactly one-dimensional and each phase's probability a smooth invertible coordinate on it, all single-valued
+phases would give the same exponent, since exponents do not change under such a change of coordinates. We therefore
+fit each phase's map by a polynomial whose degree is chosen by cross-validation over random folds of the return-map
+pairs, and take the median over the phases. It
 matches the full map's exponent within 10\,\% in 51 of the 62 cells (median discrepancy 3.7\,\%; within 10\,\% in 23
-of the 24 cells with seven-token text, which give 285 repetitions in 2000 steps; Figure~\ref{fig:reduction}). Our
-first, pre-specified analysis, a fixed degree of 8 at the single best-fitting phase, gave 49 of 62; it underfitted
-one cell whose maps are steep and have two turning points. These are the chaotic bands that follow a period-doubling cascade, and a smooth unimodal
+of the 24 cells with seven-token text, which give 285 repetitions in 2000 steps; Figure~\ref{fig:reduction}). This
+analysis was adopted after we inspected an outlier of our first, pre-specified analysis (a fixed degree of 8 at the
+single best-fitting phase), which gave 49 of 62 and underfitted one cell whose maps are steep and have two turning
+points; we report both. Agreement of a fitted one-dimensional map with the full exponent supports, but does not prove,
+an underlying one-dimensional reduction. These are the chaotic bands that follow a period-doubling cascade, and a smooth unimodal
 map is the setting of Feigenbaum's universality \cite{feigenbaum1978quantitative}; we have shown the reduction for this
 cascade only. A reader of the text sees a loop. Only the probabilities, or the state, reveal the
 chaos.
@@ -1716,7 +1726,7 @@ maps locate such boundaries but do not test it.
 \paragraph{Which findings might reach frontier models.} Today's frontier systems include closed models such as
 GPT-6 Astra and Claude Opus 5.5 and open-weight mixture-of-experts models such as the GLM-5 family. Some of our findings rest only on structure
 that every softmax-readout language model shares and should carry over: the factorization of the loop's derivative
-\eqref{eq:gain}, the absence of chaos in the limits of low and high temperature, the reduction of zero-temperature
+\eqref{eq:gain}, the absence of chaos at high temperature and in the zero-temperature limit, the reduction of zero-temperature
 attractors to greedy cycles of whatever memory the loop keeps, and the role of a steering coefficient as a
 bifurcation parameter. Others belong to particular weights and will not carry over as such: the attractor texts, the
 positions of windows, folds and cusps, and every number we report; a second checkpoint of the same architecture
