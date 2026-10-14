@@ -228,6 +228,8 @@ def main():
     ap.add_argument("--prefix-file", default=None, help="JSON with a list 'prefixes' of {system, opener}")
     ap.add_argument("--prefix-index", type=int, default=None)
     ap.add_argument("--threads", type=int, default=16)
+    ap.add_argument("--window", type=int, default=1,
+                    help="soft tokens fed back (the state is the window of the last K expected embeddings)")
     ap.add_argument("--tangent", action="store_true",
                     help="also the exact tangent exponent (forward-mode AD along each base orbit, no offset)")
     ap.add_argument("--fd-probe", action="store_true",
@@ -244,7 +246,7 @@ def main():
         pref = json.loads(Path(args.prefix_file).read_text())["prefixes"][args.prefix_index]
         ela.PROMPTS["custom"] = pref["system"]
         prompt, opener = "custom", pref["opener"]
-    loop = esl.SoftLoop(args.model, args.layer, args.threads, prompt, opener, 1, args.dtype, args.device,
+    loop = esl.SoftLoop(args.model, args.layer, args.threads, prompt, opener, args.window, args.dtype, args.device,
                         args.weights)
     v = np.zeros(loop.E.shape[1]) if args.vectors_none else elpm.load_vectors(args.vectors)[args.concept]
     if len(v) != loop.E.shape[1]:

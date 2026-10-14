@@ -888,7 +888,15 @@ snapshot_download('$REPO', revision='$MREV', cache_dir='$NEURAL_SHRIMP_DATA/mode
     mrefs=$NEURAL_SHRIMP_DATA/models/hf/hub/models--Qwen--Qwen2.5-72B-Instruct/refs
     mkdir -p "$mrefs" && printf %s "$MREV" > "$mrefs/main"
     QF="--model qwen72b --device auto --weights bf16 --dtype float64 --tangent --fd-probe"
-    if [ "$part" = cells ]; then
+    if [ "$part" = clamp ]; then   # run QC: JOBARGS clamp MINUTES LO HI N IDX [IDX...]: entropy-clamped lines
+      lo=${JOBARGS[2]}; hi=${JOBARGS[3]}; nt=${JOBARGS[4]}
+      for idx in "${JOBARGS[@]:5}"; do
+        TOOL=hidden_chaos.py run qc-p$idx "$minutes" line --model qwen72b --device auto --weights bf16 --dtype float64 \
+          --fd-probe --vectors-none --alpha 0 --prefix-file docs/prefix-scale-prefixes.json --prefix-index $idx \
+          --clamp-entropy $lo $hi --n $nt --eps 1e-5 1e-6 1e-7 --transient 500 --record 1000 --chunk 32 \
+          --out $D/big/qwen72b-clamp-p$idx
+      done
+    elif [ "$part" = cells ]; then
       TOOL=hidden_chaos.py run qf-cells "$minutes" cells $QF --layer 40 --vectors llm-phase-map/vectors-qwen72b-l40-b3 \
         --concept hostility-vs-kindness "${JOBARGS[@]:2}" --out $D/big/qwen72b-fix-cells
     else
@@ -940,6 +948,31 @@ snapshot_download('$REPO', revision='$MREV', cache_dir='$NEURAL_SHRIMP_DATA/mode
       rm -rf -- "$HOME/.cache/huggingface/xet"
     done
     unset HF_TOKEN
+    ;;
+  window)      # chaos with a longer fed-back memory (run WIN): JOBARGS MODEL [MODEL...]. Per model (pinned, plain
+               # download) and K in 1 2 4 8 16 soft tokens fed back: tools/hidden_chaos.py line, unsteered, paper's prompt,
+               # 24 temperatures over log10 T -0.3..0.6, twins 1e-5 and 1e-7, 500 + 1000 steps, float64 with bf16 storage
+               # on one GPU, into big/MODEL-window-K
+    for model in "${JOBARGS[@]}"; do
+      case $model in
+        qwen0.5b)    REPO=Qwen/Qwen2.5-0.5B-Instruct;        MREV=7ae557604adf67be50417f59c2c2f167def9a775 ;;
+        qwen1.5b)    REPO=Qwen/Qwen2.5-1.5B-Instruct;        MREV=989aa7980e4cf806f80c7fef2b1adb7bc71aa306 ;;
+        qwen7b)      REPO=Qwen/Qwen2.5-7B-Instruct;          MREV=a09a35458c702b33eeacc393d103063234e8bc28 ;;
+        *) log "unknown model $model"; continue ;;
+      esac
+      log "download $REPO"
+      HF_HUB_DISABLE_XET=1 HF_HUB_OFFLINE=0 $PY -c "
+from huggingface_hub import snapshot_download
+snapshot_download('$REPO', revision='$MREV', cache_dir='$NEURAL_SHRIMP_DATA/models/hf/hub',
+                  allow_patterns=['*.json', '*.safetensors', '*.txt'], max_workers=16)" > "$LOGS/setup-$model.log" 2>&1
+      mdir="$NEURAL_SHRIMP_DATA/models/hf/hub/models--${REPO/\//--}"
+      mkdir -p "$mdir/refs" && printf %s "$MREV" > "$mdir/refs/main"
+      for K in 1 2 4 8 16; do
+        TOOL=hidden_chaos.py run win-$model-$K 60 line --model $model --device auto --weights bf16 --dtype float64 \
+          --vectors-none --alpha 0 --window $K --log-temperature -0.3 0.6 --n 24 --eps 1e-5 1e-7 \
+          --transient 500 --record 1000 --chunk 24 --out $D/big/$model-window-$K
+      done
+    done
     ;;
   upperset)    # upper-temperature extension of the scaling sweeps (exploratory; run SCU): JOBARGS MODEL [MODEL...]. For
                # each model: pinned checkpoint, an unsteered float64 sweep (bf16 storage, layers over all GPUs) of 64
