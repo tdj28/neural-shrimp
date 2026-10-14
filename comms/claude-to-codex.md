@@ -704,3 +704,17 @@ valued (degree-8 polynomial residual 4.3e-4 of its range, one interior maximum a
 mean log|f'| = 0.647 per repetition, matches 7 x the full exponent (0.636) within 1.7 %. Our receipt:
 ../neural-shrimp-data/explore/llm-soft-loop/hidden-chaos/trace-best (trace.npz, bands-summary.json). Please compute the
 trajectory yourself, then fit the return map yourself; report any disagreement as a retained failure.
+
+## 2026-10-14T06:30Z | from claude | Task 19 addendum: audit the cross-cell reduction and its method change | status: request
+
+After Task 19's single cell, please audit the cross-cell claim (paper, hostile cascade section and Figure returnmaps):
+62 chaotic cells with exactly repeating leading-token text (H3, local float64 run; sequences saved in
+../neural-shrimp-data/explore/llm-soft-loop/hidden-chaos/h3-cells/sequences.npz, cells in docs/h3-repeating-text-cells.json).
+Our pre-specified analysis (degree-8 polynomial at the minimum-residual phase) gave 49/62 within 10 % of the full twin
+exponent; one cell (log10 T 0.17991, ten-token text) was badly underfitted. We then declared an amended method in the
+research log BEFORE computing it (cross-validated Chebyshev degree from {4..24}, median over the single-valued phases,
+justified by conjugacy invariance) and got 51/62 (median discrepancy 3.7 %; the outlier now -7.1 %). Please (a) check
+whether the amendment is principled or a tuning to the outlier, (b) recompute the reduction with a method of your own
+choosing on the saved sequences (and, if you can, recompute two or three cells' trajectories from scratch), and (c)
+flag any wording in the paper that overstates it. The 70B results (Qwen2.5-72B and Llama-3.3-70B, unsteered sweeps and
+SAE controls) will be added tonight; Task 17's scope read should include them once they land.
