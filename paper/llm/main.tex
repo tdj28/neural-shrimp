@@ -35,13 +35,14 @@ Does standard bifurcation theory predict, quantitatively, the dynamics of repeat
 model? We study an exactly defined autonomous system: the expected next-token embedding of a frozen model is fed back
 at a fixed position after a fixed prefix, with temperature and an activation-steering strength as parameters. Its
 parameter plane holds periodic text loops among regimes with positive finite-horizon Lyapunov exponents, in Qwen2.5
-models of 0.5B to 7B parameters, OLMo-2 7B and Llama-3.1 8B. Such chaos, its windows and shrimp-like structures are
-expected under universality; our results are predictions computed from the model's own derivatives and then tested.
-The normal form of a two-cycle's fold predicts bottleneck passage times without fitting (at two new folds, 23 of 24
-prospectively frozen forecasts within one iterate, failing the all-row criterion). Fold curves of two windows end in
-numerically nondegenerate cusps whose local unfolding, frozen before solving, predicted the number of periodic orbits
-at all twelve tested parameter offsets and their stability at eleven. Interval arithmetic proves one period-8 orbit
-exists and is locally attracting. In the recurrent-depth model Huginn, fixed-point spectra predict each question's
+models of 0.5B to 7B parameters, OLMo-2 7B and Llama-3.1 8B. Chaos needs no steering, and equal-norm random directions
+produce it as readily as concept directions. Such chaos, its windows and shrimp-like structures are expected under
+universality; our results are predictions computed from the model's own derivatives and then tested. The normal form
+of a two-cycle's fold predicts bottleneck passage times without fitting (at two new folds, 23 of 24 prospectively
+frozen forecasts within one iterate, failing the all-row criterion). Fold curves of two windows end in numerically
+nondegenerate cusps whose local unfolding, frozen before solving, predicted the number of periodic orbits at all
+twelve tested parameter offsets and their stability at eleven. Interval arithmetic proves one period-8 orbit exists
+and is locally attracting. In the recurrent-depth model Huginn, fixed-point spectra predict each question's
 convergence under relaxation and where chain-of-thought accuracy breaks; a frozen test on held-out data confirms both.
 In sampled self-dialogue, hostility steering has a non-monotone dose response: replacing classifier-flagged replies
 before they enter the context lowers the model's own hostility far more per unit of steering than constant prevention,
