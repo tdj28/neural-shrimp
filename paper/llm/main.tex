@@ -116,8 +116,8 @@ sampling, and Section~\ref{sec:misalignment} studies sampled dialogue directly.
   is a property of the ordered product of its steps, not of any one step (Section~\ref{sec:theory}).
 \item \emph{The chaos is not an artifact of the one-token window.} Fed back the last 8 or 16 soft tokens instead of
   one, Qwen2.5-7B is chaotic at 21 and 20 of 24 temperatures, against 8 with one; and in Soft Thinking's growing
-  context, where every soft token stays visible, an early perturbation of $10^{-10}$ grows exponentially inside the
-  one-token map's chaotic band (Section~\ref{sec:bridge}).
+  context, where every soft token stays visible, an early perturbation of $10^{-10}$ grows exponentially in the same
+  model inside its one-token chaotic band (Section~\ref{sec:bridge}).
 \item \emph{Size does not set the chaos.} Across fifteen models from 0.5B to 72B parameters, the unsteered chaos
   in a fixed temperature window nearly vanishes in the largest Qwen2.5 and Llama models but not in OLMo-2-32B, the
   most chaotic OLMo model. A frozen prompt-blocked test shows that the Qwen decline from 7B to 14B is largely a shift:
