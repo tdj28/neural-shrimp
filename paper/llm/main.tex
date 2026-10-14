@@ -1243,9 +1243,12 @@ counter-steering can backfire.
 a steering axis could belong to the push rather than to the model. At $\alpha=0$ the map is the unsteered model's
 own feedback map, with temperature as its only parameter. The $\alpha=0$ columns of the hostility maps contain cells
 with positive finite-horizon exponents in Llama-3.1 8B (26 of 64 temperatures), Qwen2.5-7B (15 of 64) and OLMo-2 7B
-(11 of 64), while the near-zero columns of the 0.5B and 1.5B maps contain one such cell each (of 128 and 64). In
-the larger models steering is not needed to reach these regimes; in the small ones it is.
-\inprogress{longer-horizon float64 temperature sweeps at $\alpha=0$ in four models, and maps along norm-matched
+(11 of 64), while the near-zero columns of the 0.5B and 1.5B maps contain one such cell each (of 128 and 64). A
+longer float64 sweep of the unsteered 0.5B map (512 temperatures over $\log_{10}T\in[-1,0.3]$, 1000 transient and
+2000 measured steps) finds a narrow chaotic band at $\log_{10}T\approx0.15$--$0.21$ (7 temperatures, exponents up to
+$0.28$), with a period-5 loop at 437 of the 512 temperatures. Steering is therefore not needed to reach chaotic
+regimes in any model tested; in the 0.5B model the unsteered band is narrow.
+\inprogress{longer-horizon float64 temperature sweeps at $\alpha=0$ in three more models, and maps along norm-matched
 random directions (Qwen2.5-0.5B, Llama-3.1 8B) and along sparse-autoencoder feature directions at the autoencoder's
 layer (Llama-3.1 8B), to separate a concept-specific response from a generic response to perturbing the residual
 stream.}
