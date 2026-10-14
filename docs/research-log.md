@@ -22662,3 +22662,21 @@ _commit `fc6ed290a413` (dirty worktree)_
 Run C1, scan64/q05-rand{1,2,3} (pods cfy9hgksoejz4u, y7atbpke8k6zmq, 68jgmgk4w11zc7, A100): each map stopped at the 45-min scan limit after 12288 of 16384 cells (temperature-major order: rows 0-95 of 128, log10 T -1.0..-0.03); scan-partial.npz retrieved hash-verified. The missing rows 96-127 (log10 T -0.0173..0.3, where most of this model's chaos lies) were relaunched as 32x128 sub-grids (q05-rand{k}-top). PROVISIONAL comparison on rows 0-95, same grid and settings as pairmap map128 (alpha -0.12..0.12, transient 500, samples 300, max period 48), Gaussian directions rescaled to the philosophy vector's norm: chaotic share philosophy 0.033, gratitude 0.007, random1 0.025, random2 0.065, random3 0.057; by |alpha| bins [0,.01),[.01,.03),[.03,.06),[.06,.09),[.09,.12]: philosophy 0/0/0.010/0.056/0.068, random1 0/0.002/0.002/0.061/0.035, random2 0/0/0.052/0.096/0.113, random3 0/0/0.009/0.043/0.175. Reading so far: norm-matched random pushes are at least as chaotic as the concept direction in the 0.5B model, i.e. chaos under steering is a generic response to perturbing the residual stream at this norm, not concept-specific. Final numbers after the top rows land.
 
 _commit `881b36b18200`_
+
+## 2026-10-14 00:53 UTC: run (exploratory)
+
+- **Question:** Run M1 (human request 13-14 Oct: does mixture-of-experts routing kill the chaos finding or does it persist?): is the soft-token map of Qwen3.5-35B-A3B (hybrid Gated DeltaNet / gated attention, 256 experts top 8) chaotic, with and without steering?
+- **Setup:** Three pods, H200 or B200 (one GPU each), job set qwen35moe at the commit after 881b36b1: Qwen/Qwen3.5-35B-A3B at revision 59d61f3c, loaded straight to the GPU, float64 evaluation by tools/qwen35_float64.py (float32 paths patched; 36-class float32-stored tensors re-read exactly; bfloat16 experts used exactly; validated on Qwen3.5-0.8B: cached step = full recomputation to 7e-15, h^2 convergence); concept vectors built on each pod at layer 20 of 40 exactly as for every model; prompt 'open', opener 'Hello!', window 1; tol 1e-8, eps 1e-6, chunk 64. (a) alpha = 0 sweep, 128 temperatures over log10 T -1.0..0.3, transient 1000, samples 2000, max period 64; (b) philosophy map 32x32 over alpha -0.12..0.12, log10 T -1.0..0.3; (c) hostility-vs-kindness map 32x32 over alpha 0..0.12, log10 T -0.3..0.3 (ranges as the 7-8B models). Caveat to report: the expert router's top-8 choice makes the map discontinuous across routing boundaries, so a positive finite-difference exponent without a period may include jumps; we report such cells as irregular (no period, positive exponent) and do not compute orbits (hybrid caches are scan-only).
+- **Output:** `../neural-shrimp-data/explore/llm-soft-loop/pod64/controls/{m1-alpha0,m1-phil,m1-host}`
+- **Would surprise us:** no irregular cells anywhere (routing destroys chaos), or chaos only at alpha = 0
+
+_commit `95d0e3e207bb`_
+
+## 2026-10-14 00:53 UTC: run (exploratory)
+
+- **Question:** Run SR1 (self-referential study, step 1): which Goodfire layer-19 features of Llama-3.1-8B-Instruct does the frozen held-out rule select for the deception and roleplay sets of the designed corpus?
+- **Setup:** One pod (H100 or A100), job set selfref PART p at the commit after 881b36b1: official gated Llama-3.1-8B-Instruct (0e9e39f2) in float32, Goodfire SAE l19 (f6775a22); per-text maximum activations on the replication's designed corpus (1120 texts, 14 categories; sha256 5c77a4f2...) with llm_sae_readout.py profile-csv; selection run locally afterwards with tools/selfref_features.py (rule committed at d368ba27 before any data).
+- **Output:** `../neural-shrimp-data/explore/llm-soft-loop/pod64/selfref/profile`
+- **Would surprise us:** no feature passes the held-out check for either set
+
+_commit `95d0e3e207bb` (dirty worktree)_
