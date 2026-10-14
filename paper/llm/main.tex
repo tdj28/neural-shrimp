@@ -84,7 +84,8 @@ We study one constructed but exactly defined system: the expected-embedding (``s
 released pretrained language model, run with a fixed chat prefix at a fixed position. The map is smooth. Its
 Jacobians come from automatic differentiation, and its periodic orbits can be computed and continued like those of
 any smooth map. Chaos and periodic windows occur in many nonlinear feedback systems. Random-network theory, in which
-a specified ensemble of recurrent networks becomes chaotic above a critical gain \cite{sompolinsky1988chaos}, and the
+a specified ensemble of recurrent networks becomes chaotic above a critical gain, in continuous time
+\cite{sompolinsky1988chaos} and in discrete time by a quasi-periodic route \cite{doyon1994bifurcations}, and the
 period-doubling cascades and shrimp-shaped domains of low-dimensional maps \cite{feigenbaum1978quantitative,gallas1993structure}
 motivate looking for such structure here, but they do not imply that a trained map realizes it. Whether a trained
 language model does, where in its parameter space, with which texts, and whether the quantitative predictions of
@@ -1864,7 +1865,13 @@ directions; larger models; human labels for the outcome.}
 systems. In a specified ensemble of random recurrent networks with asymmetric couplings, chaos sets in above a
 critical gain, sharply in the large-network limit, and finite networks pass through limit cycles of increasing
 complexity on the way \cite{sompolinsky1988chaos}; how the transition looks depends on the architecture and the
-transfer function \cite{kadmon2015transition}. External input can suppress that chaos
+transfer function \cite{kadmon2015transition}. Discrete-time random networks, $x(t+1)=\tanh(gJx(t))$, iterate a map
+as our loop does: their fixed point loses stability when the gain times the spectral radius of the couplings exceeds
+one, the first bifurcation of large networks is a Neimark--Sacker bifurcation, and chaos follows by a quasi-periodic
+route, through a torus and frequency locking, over a range of gain that narrows as the network grows
+\cite{doyon1994bifurcations}. Our largest model narrows differently: Qwen2.5-72B passes from a confident echo to a
+nearly uniform fixed point within 0.03 decades of temperature, and its chaos is confined to narrow bands, whereas in
+random networks chaos is generic above the transition. External input can suppress that chaos
 \cite{rajan2010stimulus}, and deep networks at initialization show an order-to-chaos transition in signal propagation
 \cite{poole2016exponential,schoenholz2017deep}. In our map, temperature plays the role of an inverse gain and the
 steering vector that of an input. Section~\ref{sec:theory} makes the correspondence concrete through an exact
