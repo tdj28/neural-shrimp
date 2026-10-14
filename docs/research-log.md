@@ -23187,3 +23187,12 @@ _commit `51ab4c9ce152`_
 Codex (own ManualQwen float64, no producer imports) at the period-8 cell: factorization max relative error 8.3e-14 over 64 directions (dense 3.4e-14); step norms 1.2401..20.9078; min step sigma2/sigma1 0.15254; min Sigma_p eigenvalue ratio 0.23630; multipliers +0.011040155870 and -2.96117e-7; loop singular values 0.19290 and 7.775e-6 (phase 0); product of step norms 1.0680e7; loop norms over the 8 starting phases 0.05947..0.64370, all below 1; matched to our p8b archive at rotation 0 (state mismatch 3.9e-13, Jacobian Frobenius error 2.7e-12). Correction applied: the paper said 'at least 0.24' for the Sigma_p ratio whose minimum is 0.2363 (now 'at least 0.23, minimum 0.236'); the independent reproduction is cited in the theory section. Reports in codex/loop-gain-crosscheck/ (evidence checkpoint faab56fe). Task 19 primary and 65-cell replay accepted by Codex; report pending.
 
 _commit `05bee7d1faf1` (dirty worktree)_
+
+## 2026-10-14 08:55 UTC: run (exploratory)
+
+- **Question:** PS (consult 7 rec. 1; human: definite main-paper answer on size): does the size-associated suppression of the loop's chaos replicate across conversation prefixes, including at the entropy transition (docs/prefix-scale-test.md, frozen at 7d3e9a4e)?
+- **Setup:** Five single-GPU pods (H100 NVL / H100 SXM), job set prefixscale: PS7a qwen7b prefixes 0-4, PS7b qwen7b 5-9, PS14a qwen14b 0-3, PS14b qwen14b 4-6, PS14c qwen14b 7-9; per prefix stage 1 (48 temperatures, -0.4..0.9) and stage 2 (24 across the largest entropy jump), twins 1e-5 and 1e-7, 1000 + 2000 steps, float64 bf16-storage.
+- **Output:** `../neural-shrimp-data/explore/llm-soft-loop/pod64/prefix/{MODEL}-p{IDX}-{coarse,fine}`
+- **Would surprise us:** 14B more chaotic than 7B in most held-out prefixes (PS1 fails)
+
+_commit `7d3e9a4e62e7`_
