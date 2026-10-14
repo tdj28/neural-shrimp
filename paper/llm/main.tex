@@ -335,7 +335,8 @@ $1/\sqrt{\alpha_N-\alpha_c}$ against the lap count $N$, with the full- and half-
 the bottleneck's middle ($u\approx-3\times10^{-4}$ to $-7\times10^{-4}$). From each measured entry point the
 normal form predicts the natural laminar durations within 4--8\% for $\eps\le10^{-4}$, and a natural passage lasts
 about 0.6 of a full one. The stripes therefore follow the $N^{-2}$ law of a saddle-node ghost with about a third
-of the full-passage prefactor: stripe centres give $d_N N^2=0.0263$--$0.0265$ for $N=4$--$7$ (log-log slope
+of the full-passage prefactor: stripe centres (located on a float32 cut along $\log_{10}T=-0.115$) give
+$d_N N^2=0.0263$--$0.0265$ for $N=4$--$7$ (log-log slope
 $-2.00$), compared with $\pi^2/(4ab)=0.0201$ for a half passage. Two-step return maps of $p(\text{``it''})$
 (Figure~\ref{fig:returnmaps}) show the near-tangency.
 Numerically estimated stripe edges along $\log_{10}T=-0.115$ (Table~\ref{tab:edges}) sharpen this. Each window is bounded by a fold,
@@ -480,8 +481,9 @@ $(0.0753,-0.089)$.}}
 are no longer effectively one-dimensional (second multipliers $0.06$--$0.09$). In temperature at
 $\alpha=0.06484$ the branch of the period-4 orbit ``$\backslash$n$\backslash$n - $\backslash$n$\backslash$n The''
 is S-shaped, with folds at $\log_{10}T=0.0640$ and $0.0664$. Continuing that fold in the plane, its parameter
-tangent reverses twice; at both reversals the quadratic coefficient $b$ changes sign while $a$ stays away from
-zero, and the cubic coefficient $c$ (defined above) is nonzero (Table~\ref{tab:cusps}). Both are therefore
+tangent reverses at three points. At the two we tested the quadratic coefficient $b$ changes sign while $a$ stays
+away from zero, and the cubic coefficient $c$ (defined above) is nonzero (Table~\ref{tab:cusps}); the third, at
+$(\alpha,\log_{10}T)=(0.08308,0.10863)$, was not tested. The two tested points are therefore
 nondegenerate cusps of the fold curve, numerically, at $(\alpha,\log_{10}T)=(0.06296,0.05996)$ and
 $(0.06557,0.07445)$. Between the two fold branches three period-4 orbits coexist; near the first cusp ($c<0$) two of
 them are stable (Figure~\ref{fig:p4}).
@@ -1261,8 +1263,8 @@ and in the hostile body superstable curves run through the windows. The rank-two
 coefficients on the two parameters, which a generic codimension-two cusp also requires, was computed at one cusp of
 each window (determinants $2737$ and $53.5$), where the local model's predictions at twelve frozen offsets matched
 Newton solutions in the number of orbits at all twelve and in their stability at eleven. These are
-float64 computations validated by step-size checks (rung 1; no independent implementation has yet recomputed the
-cusp coefficients), not computer-assisted proofs.
+float64 computations validated by step-size checks (rung 1; an independent recomputation at one cusp is in
+progress), not computer-assisted proofs.
 \paragraph{Limitations.} Detailed orbit studies in one model family (Qwen2.5, 0.5B and 1.5B), with coarse maps
 and three float64 orbits at 7B, and coarse maps only for two other families (OLMo-2 7B and Llama-3.1 8B); one prompt and one steering construction for the maps; a constructed one-token-window system;
 numerical validation, cross-checks and prospectively frozen passage tests (including failed all-row criteria), and
@@ -1297,6 +1299,44 @@ depends on how many samples are averaged.
 We label claims by an evidence ladder: rung 1, numerically validated (tolerances, residuals, convergence,
 precision varied); rung 2, cross-checked (independent estimate, implementation or hardware); rung 3,
 computer-assisted proof.
+\paragraph{Search scale.} The soft-token results come from an exploratory search. By 14 October 2026 we had
+computed 34 distinct maps (987\,308 cells, 27 maps in float64) in six models, each with one prompt and one of three
+steering directions or none, plus one partial map; 29 of these maps and the partial one appear here, and the five
+omitted are early discovery or side maps (the steering-control maps of Section~\ref{sec:discussion} are additional).
+The labelled maps contain about 2600 periodic families of at least six cells, counted per map. We singled out about
+26 windows or families for float64 work: 20 are reported in detail, 2 only as map features and 4 not at all (an
+orbit whose continuation was abandoned, a cell that proved aperiodic, a band whose float32 orbit did not converge and
+a pilot that found no cusp within a bounded search). Of 54 Newton orbit attempts, 7 failed. Of seven tangent
+reversals on continued fold curves, six were tested and all six are reported as numerically nondegenerate cusps; one
+is untested. Two of the five regions we flagged as shrimp candidates are reported as shrimp-like. One further
+language model (Ouro-1.4B) was explored and is not reported; its apparent chaos was a long transient. Every window
+was chosen after the maps were inspected, and only the passage forecasts, the cusp-unfolding offsets, Huginn's
+relaxation test and the dialogue warning confirmation were fixed before the computations that test them
+(Table~\ref{tab:search}).
+\begin{table}[H]
+\centering\small
+\begin{tabular}{lrrl}
+\toprule
+ & explored & reported & note \\
+\midrule
+Soft-token maps (distinct) & 34 & 29 & plus one partial map, reported \\
+\quad cells & 987\,308 & 893\,868 & omitted: 5 discovery or side maps \\
+\quad float32 maps & 7 & 4 & \\
+Models with maps & 6 & 6 & one prompt; 3 directions and $\alpha=0$ \\
+Periodic families ($\ge6$ cells) & $\approx2600$ & -- & counted per labelled map \\
+Windows given float64 work & $\approx26$ & 20 (+2) & +2: map features only \\
+Newton orbit attempts & 54 & -- & 7 failed \\
+Tangent reversals on fold curves & 7 & 6 & 1 untested \\
+Unfolding offsets, frozen & 12 & 12 & counts 12/12, stability 11/12 \\
+Shrimp-candidate regions & 5 & 2 & reported as shrimp-like \\
+Tests fixed before outcomes & 6 & 5 & 2 all-row criteria failed by one row \\
+Language models loaded & 8 & 7 & Ouro-1.4B not reported \\
+\bottomrule
+\end{tabular}
+\caption{Search scale on 14 October 2026, before the steering-control maps (Huginn's frozen test counted once; the
+sixth test, a cusp pilot in a second checkpoint, is the unreported bounded search).}
+\label{tab:search}
+\end{table}
 \begin{itemize}
 \item Rung 3: the period-8 stripe orbit of Table~\ref{tab:orbits}. At $\alpha=0.071674$ and $\log_{10}T=-0.115$,
   read as exact binary64 rationals, the expected-embedding map of the stored Qwen2.5-0.5B-Instruct checkpoint (all 24
