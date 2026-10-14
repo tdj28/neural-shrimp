@@ -23015,3 +23015,9 @@ _commit `2e44d7b07516` (dirty worktree)_
 - **Would surprise us:** Any original numerical gate fails or aligned independent spectra disagree; retain without retuning.
 
 _commit `1b03ae436fbf` (dirty worktree)_
+- **Question:** G1/G2 (human: 'do all the confirmation tests, we must find out why'): which factor of the loop's gain collapses in the 70B-class models? Exact split of each step's growth into the network's relative amplification (g_net) and the readout's (g_read), log-averages adding to the exponent; compared at matched next-token entropy between Llama-3.1-8B and Llama-3.3-70B / Llama-3.1-70B, and Qwen2.5-7B and Qwen2.5-72B. Readings fixed now: over-confidence predicts a collapsed g_read (sharp distributions) with g_net comparable; insensitivity predicts a collapsed g_net at comparable entropy.
+- **Setup:** tools/gain_split.py (validated on Qwen2.5-0.5B against the 512-temperature sweep: exponents agree at matching periodic cells, factors sum exactly). G1: one GPU pod (H100 NVL / A100-80GB), mode small, float64: llama3.1-8b over log10 T -0.25..0.6, qwen7b over -0.1..1.2. G2: one 2-GPU pod, mode big (float64, bf16 storage): llama3.3-70b and llama3.1-70b over -0.25..0.6, qwen72b over -0.1..1.2. 24 temperatures each, unsteered, 500 transient + 1000 recorded steps, twins at relative 1e-6.
+- **Output:** `../neural-shrimp-data/explore/llm-soft-loop/pod64/gain/{MODEL}`
+- **Would surprise us:** both factors comparable between sizes at matched entropy (neither reading); g_read the collapsing factor for Llama-70B
+
+_commit `5774339c56d7` (dirty worktree)_
