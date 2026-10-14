@@ -861,6 +861,44 @@ snapshot_download('$REPO', revision='$MREV', cache_dir='$NEURAL_SHRIMP_DATA/mode
     TOOL=hidden_chaos.py run bighidden-$model "${JOBARGS[2]}" line --model $model --device auto --weights bf16 \
       --dtype float64 --vectors-none --alpha 0 "${JOBARGS[@]:3}" --out $D/big/$model-${JOBARGS[1]}
     ;;
+  scaleset)    # scaling series (run SC): JOBARGS MODEL [MODEL...]. For each model, sequentially: pinned checkpoint (plain
+               # download; gated ones with the token on stdin), an unsteered float64 sweep (bf16 storage, layers over all
+               # GPUs; 160 temperatures over log10 T -1..0.6, 1000 + 2000 steps, twin 1e-6, max period 64) into
+               # big/MODEL-alpha0-wide, then the gain split (tools/gain_split.py, 24 temperatures over log10 T -0.3..0.9,
+               # 500 + 1000 steps) into gain/MODEL-wide; the checkpoint and the download cache are then deleted
+    for model in "${JOBARGS[@]}"; do
+      case $model in
+        qwen0.5b)    REPO=Qwen/Qwen2.5-0.5B-Instruct;        MREV=7ae557604adf67be50417f59c2c2f167def9a775 ;;
+        qwen1.5b)    REPO=Qwen/Qwen2.5-1.5B-Instruct;        MREV=989aa7980e4cf806f80c7fef2b1adb7bc71aa306 ;;
+        qwen3b)      REPO=Qwen/Qwen2.5-3B-Instruct;          MREV=aa8e72537993ba99e69dfaafa59ed015b17504d1 ;;
+        qwen14b)     REPO=Qwen/Qwen2.5-14B-Instruct;         MREV=cf98f3b3bbb457ad9e2bb7baf9a0125b6b88caa8 ;;
+        qwen32b)     REPO=Qwen/Qwen2.5-32B-Instruct;         MREV=5ede1c97bbab6ce5cda5812749b4c0bdf79b18dd ;;
+        olmo2-1b)    REPO=allenai/OLMo-2-0425-1B-Instruct;   MREV=48d788eca847d4d7548f375ad03d3c9312f6139e ;;
+        olmo2-13b)   REPO=allenai/OLMo-2-1124-13B-Instruct;  MREV=3a5c85baefbb1896a54d56fe2e76c0395627ddf4 ;;
+        olmo2-32b)   REPO=allenai/OLMo-2-0325-32B-Instruct;  MREV=b96024342a77a69aa0dda815c3454a671f477463 ;;
+        *) log "unknown model $model"; continue ;;
+      esac
+      [ "$model" = qwen0.5b ] && true                    # already cached by the setup step
+      log "download $REPO"
+      HF_HUB_DISABLE_XET=1 HF_HUB_OFFLINE=0 $PY -c "
+from huggingface_hub import snapshot_download
+snapshot_download('$REPO', revision='$MREV', cache_dir='$NEURAL_SHRIMP_DATA/models/hf/hub',
+                  allow_patterns=['*.json', '*.safetensors', '*.txt', '*.model'], max_workers=16)" > "$LOGS/setup-$model.log" 2>&1
+      log "download done $(du -sh $NEURAL_SHRIMP_DATA/models/hf/hub | cut -f1), free $(df -h --output=avail / | tail -1)"
+      mdir="$NEURAL_SHRIMP_DATA/models/hf/hub/models--${REPO/\//--}"
+      mkdir -p "$mdir/refs" && printf %s "$MREV" > "$mdir/refs/main"
+      run sweep-$model 150 scan --device auto --weights bf16 --dtype float64 --model $model --vectors "" \
+        --alpha 0 0 --log-temperature -1 0.6 --resolution 160 1 --transient 1000 --samples 2000 --max-period 64 \
+        --tol 1e-8 --eps 1e-6 --chunk 160 --out $D/big/$model-alpha0-wide
+      TOOL=gain_split.py run gain-$model 60 --model $model --device auto --weights bf16 --log-temperature -0.3 0.9 \
+        --n 24 --transient 500 --record 1000 --eps 1e-6 --out $D/gain/$model-wide
+      if [ "$model" != qwen0.5b ]; then
+        case "$mdir" in "$NEURAL_SHRIMP_DATA"/models/hf/hub/models--?*) rm -rf -- "$mdir" ;; esac
+      fi
+      rm -rf -- "$HOME/.cache/huggingface/xet"
+    done
+    unset HF_TOKEN
+    ;;
   morph)       # morph video frames (run V1): JOBARGS FIRST LAST STEP MINUTES_PER_FRAME COLD_TRANSIENT WARM_TRANSIENT
                # SCAN-ARGS...; float32 scans (tol and twin offset 1e-4) of Qwen2.5-0.5B along the uploaded great-circle
                # directions morph-FIRST..morph-LAST (llm-soft-loop/controls/vectors-morph-r1-r3-240), one frame after
