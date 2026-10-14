@@ -278,11 +278,13 @@ at the top of the range, toward the slope $-\ln10\approx-2.30$ expected once $p$
 \paragraph{Stability belongs to the loop, not to the step.} The gain condition is necessary, not sufficient. Along
 the period-8 orbit of Table~\ref{tab:orbits}, the largest singular value of $DF$ lies between 1.2 and 21 at every
 step, so every step expands some direction, and no step is close to rank one: the second singular value is at least
-0.15 of the first, and the second eigenvalue of $\Sigma_p$ at least 0.24 of the first. Yet the Jacobian of the whole
+0.15 of the first, and the second eigenvalue of $\Sigma_p$ is at least 0.23 of the first (minimum 0.236). Yet the Jacobian of the whole
 cycle, the product of the eight step Jacobians, has norm between 0.06 and 0.64, depending on the phase at which the
 cycle is started, against $1.1\times10^{7}$ for the product of the step norms. Its eigenvalues, which do not depend
 on that phase, reproduce the multipliers of Table~\ref{tab:orbits} ($0.01104$ and $-2.96\times10^{-7}$; the table
-lists moduli), and its second singular value is $2\times10^{-6}$ to $2\times10^{-4}$ of its first. The expansion of each step is undone by the steps that
+lists moduli), and its second singular value is $2\times10^{-6}$ to $2\times10^{-4}$ of its first. An independent
+implementation of the model reproduced the factorization (to $8\times10^{-14}$), the step singular values, the
+multipliers and the cycle norms at all eight starting phases. The expansion of each step is undone by the steps that
 follow, and the effective one-dimensionality of the stripe orbits is a property of the composed cycle, not of any
 single step or of the rank of $\Sigma_p$. Stability cannot be read from the steps; it has to be computed from the
 loop.

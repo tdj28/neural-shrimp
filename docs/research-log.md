@@ -23175,3 +23175,38 @@ Cell04 completed computationally with original receipt0023017e; session85698 rea
 Root accepted exact reviewer38a534ea, concretecard479ce10f, supervisorb86ba668 and ten original closure assertions. This private checkpoint precedes the sole saved review: CPU1+supervisor/nice10/4GiB/120s plus5+5s cleanup,16MiBoutput,start20GiB/runtime16GiB; no other auxiliary reservation. Prior same-structure primary audit0.446s/381,740KiB and current145.49MB inventory bound the finite allowance, not a guaranteed runtime. Prepared versions are preserved at /data2/neural-shrimp-data/codex/llm-return-map-crosscheck/stress-cell04-review-preparation-001, manifest0ab4efb754643b93aad167adda11a166925b6624fdfc41d4477cb253987957f4. No model/refit/root/eigen work, retry or numerical threshold change. Cell13 remains held until this audit closes and a separate fresh preflight passes.
 
 Incidental current-log producer summaries of08:28/08:48 were exposed while locating this append point; no raw outputs or new producer analysis were opened. These separate claims are deferred to Task17 and change no frozen Task19 selection or accepted Task18 result.
+## 2026-10-14 08:51 UTC: B7: a narrow chaotic window at Qwen2.5-72B's entropy jump; offset 1e-9 is below the 72B noise floor
+
+Pod stzl0zv5tf4xvj (SECURE 2xH200, rc 0, hash verified, terminated; 3084 s; commit 2db67412). tools/hidden_chaos.py line, Qwen2.5-72B unsteered, float64 bf16-storage over 2 GPUs, 64 temperatures over log10 T 0.355..0.395, 1000 + 2000 steps, twins 1e-6 and 1e-9. PRECISION: the 1e-9 twin gives exponents +1.1..+3.8 at every cell, periodic ones included, while 1e-6 gives the expected negative values at periodic cells: the differences F(x + delta) - F(x) of the 72B computation have a noise floor near 2e-8 (float64 rounding amplified through 80 layers and large activations), so 1e-9 is unusable and the two-offset classification of this run is invalid; 1e-6 is about 50 times above the floor. AGENTS.md precision gate not applied to the 70B path before this run; recorded as a gate failure. RESULT at 1e-6: five cells at log10 T 0.3728..0.3760 (entropy 7.0-7.6 nats, at the jump from the '!Hello' echo to the near-uniform fixed point) have positive exponents 0.082..0.192 and no period, with an exactly repeating leading-token text (' Hello', '!'); neighbours periodic. Consult 7's 'narrow displaced ridge' reading fits. To confirm with offsets 1e-5, 1e-6, 1e-7 on a finer grid (B7b). Implication: the 70B-class 'no unsteered chaos' statements hold for the swept grids only.
+
+_commit `4102aafd2510`_
+
+## 2026-10-14 08:51 UTC: run (exploratory)
+
+- **Question:** B7b: is Qwen2.5-72B's window at log10 T 0.3728..0.376 chaotic with offset-independent exponents (offsets above the 72B noise floor of about 2e-8)?
+- **Setup:** One pod (2 x H200 class), job set bighidden: Qwen2.5-72B unsteered, float64 bf16-storage, 64 temperatures over log10 T 0.370..0.378, 1000 + 2000 steps, twins at 1e-5, 1e-6 and 1e-7, chunk 64. Chaotic: positive at all three offsets, agreeing within 0.05, no period.
+- **Output:** `../neural-shrimp-data/explore/llm-soft-loop/pod64/big/qwen72b-window-line`
+- **Would surprise us:** exponents that change sign between 1e-5 and 1e-7 (then the window's positive exponents are numerical)
+
+_commit `51ab4c9ce152`_
+
+## 2026-10-14 08:53 UTC: Codex Task 18 accepted: independent reproduction of the theory numbers
+
+Codex (own ManualQwen float64, no producer imports) at the period-8 cell: factorization max relative error 8.3e-14 over 64 directions (dense 3.4e-14); step norms 1.2401..20.9078; min step sigma2/sigma1 0.15254; min Sigma_p eigenvalue ratio 0.23630; multipliers +0.011040155870 and -2.96117e-7; loop singular values 0.19290 and 7.775e-6 (phase 0); product of step norms 1.0680e7; loop norms over the 8 starting phases 0.05947..0.64370, all below 1; matched to our p8b archive at rotation 0 (state mismatch 3.9e-13, Jacobian Frobenius error 2.7e-12). Correction applied: the paper said 'at least 0.24' for the Sigma_p ratio whose minimum is 0.2363 (now 'at least 0.23, minimum 0.236'); the independent reproduction is cited in the theory section. Reports in codex/loop-gain-crosscheck/ (evidence checkpoint faab56fe). Task 19 primary and 65-cell replay accepted by Codex; report pending.
+
+_commit `05bee7d1faf1` (dirty worktree)_
+
+## 2026-10-14 08:55 UTC: run (exploratory)
+
+- **Question:** PS (consult 7 rec. 1; human: definite main-paper answer on size): does the size-associated suppression of the loop's chaos replicate across conversation prefixes, including at the entropy transition (docs/prefix-scale-test.md, frozen at 7d3e9a4e)?
+- **Setup:** Five single-GPU pods (H100 NVL / H100 SXM), job set prefixscale: PS7a qwen7b prefixes 0-4, PS7b qwen7b 5-9, PS14a qwen14b 0-3, PS14b qwen14b 4-6, PS14c qwen14b 7-9; per prefix stage 1 (48 temperatures, -0.4..0.9) and stage 2 (24 across the largest entropy jump), twins 1e-5 and 1e-7, 1000 + 2000 steps, float64 bf16-storage.
+- **Output:** `../neural-shrimp-data/explore/llm-soft-loop/pod64/prefix/{MODEL}-p{IDX}-{coarse,fine}`
+- **Would surprise us:** 14B more chaotic than 7B in most held-out prefixes (PS1 fails)
+
+_commit `7d3e9a4e62e7`_
+
+## 2026-10-14 08:58 UTC: B5 result: Llama-3.1-70B (8B's recipe) is weakly chaotic without steering (3/128): scale and post-training both reduce the chaos
+
+Pod f6p6qhyzjpowm7 (SECURE 2xH200, runner done 08:34 UTC, hash verified, terminated; commit 3c87499c; first attempt failed on a script bug, recorded). Llama-3.1-70B-Instruct (1605565b), unsteered, 128 temperatures over log10 T -1..0.3, 1000 + 2000 steps, twin 1e-6, float64 bf16-storage. Chaotic 3/128 (2.3 %): log10 T 0.116 (0.042, H 4.3), 0.136 (0.298, H 1.6), 0.198 (0.414, H 6.9); 31 temperatures without a period; families ' to another AI' (period 3), ". It'sup" (4) and long repeats. Entropy at log10 T 0/0.15/0.3: 2.5/7.2/10.5 nats (Llama-3.3-70B: 0.6/2.4/5.4). Llama 3 without steering: 3.1-8B 96/512 (19 %), 3.1-70B 3/128 (2.3 %), 3.3-70B 0/128. Reading: within one recipe, 8B to 70B reduces the chaotic share about eightfold; the 3.3 post-training removes the rest in the swept range. Note: 1e-6 offset only; the 70B noise floor (about 2e-8, B7) is 50x below it.
+
+_commit `f3d0f9f4d364`_
