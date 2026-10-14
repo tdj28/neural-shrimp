@@ -1,10 +1,13 @@
 # Task19 trajectory001 operational run card
 
-Prepared 2026-10-14. Scientific source/design accepted by Root; this operational
-packet still requires exact review and private admission. This card authorizes
-no launch. The byte-preserved prepared plan SHA is 2c4f76d6d2bac2ade7964e9e2ec4a8ce7f58e286b3efbe4250871569d5f4e7ce.
-An admission-only prepared→reviewed edit will have its own external plan hash;
-preserve the prepared bytes and record the actual hash/source before execution.
+Reviewed 2026-10-14. Root accepted the complete scientific and operational
+packet for one trajectory001 after private admission and exact fresh combined
+preflight. The prepared history is preserved at9258b7b196be34b6ad063367240d4168bc7b7bda,
+including prepared plan2c4f76d6 and cardcf0827c3. This transition changes only
+admission/documentation; all scientific bytes and resource gates are unchanged.
+The actual source commit and final plan/card hashes are bound by the immutable
+preflight, capsule and startup. Saved001 remains separately prepared and may run
+only after original trajectory closure and its own admission/capacity check.
 
 ## Fixed computation and resource basis
 
@@ -127,3 +130,17 @@ headroom refusal, negative scientific outcomes, partial completion rejection,
 real tiny success/failure/timeout closure, and forced setsid fork/wait with
 persistent exclusive logs and exit propagation. No Task19 target, model,
 producer-array or Git action occurred in these controls.
+
+## Exact combined preflight
+
+The coordinator uses /tmp/task19-trajectory001-preflight.py SHA-256
+6478883f9c790df7d04d1099062814bb5857305ab238fe95303e5a9d0502bdfb under
+CPU1/nice10/12GiB and an external60s limit. It binds all ten private capsule
+files and ten immutable input-byte rows, without decoding numerical payloads.
+It binds Task18 startup542fb95b and all three current birth/UID/parent/group/
+session/command/AS/nice identities; worker OS threads1..3 and control threads1.
+Only the exact known Torch deprecation warning e6ff90d4 is permitted and its
+full bytes are retained; any other diagnostic or terminal phase refuses this
+live-overlap admission. Fresh36GiB available memory,16GiB free disk, no duplicate
+Task19 owner, six total/three auxiliary CPU slots, and read-only GPU inventory
+are explicit. No pod action or scientific output is part of the preflight.

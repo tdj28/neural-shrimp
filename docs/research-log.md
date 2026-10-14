@@ -23037,3 +23037,12 @@ _commit `7918af949fa6` (dirty worktree)_
 Pod jl9g48i5cdxh7o (SECURE 2xH200, rc 0, hash verified, terminated; 5735 s wall; commit cb5e4cd3). Llama-3.3-70B-Instruct, layer 50, direction sae-hostility-38767 (frozen rule) rescaled to the concept norm 98.43; alpha 0..0.12 x log10 T -0.3..0.3, 32x32, 300 + 300 steps, float64 bf16-storage. Chaotic 36/1024 (3.5 %), largest exponent 0.476; 394 cells without a period up to 32 and exponent <= 1e-3; alpha = 0 column 0/32 chaotic (as B2); chaotic share by |alpha|: 1.0 % (<0.01, cells at alpha 0.004-0.008), 1.9, 3.1, 3.9, 5.5 % (0.09-0.12). Families: ' a fellow AI to' (period 4, 194 cells), 'I' (59), long 'It'suplifting/upgrading the infinite possibilities...' loops. Compare Llama-3.1-8B, same direction class at its SAE layer: 29 %. Reading: at 70B steering opens chaos the unsteered model lacks, but far less of the plane than at 8B. Other directions pending.
 
 _commit `0a8d0f5d7b7e` (dirty worktree)_
+
+## 2026-10-14 07:39 UTC: run (exploratory)
+
+- **Question:** Does our independently generated hostile-map trajectory reproduce the finite twin-growth, token repetition, band and phase6 return-map evidence?
+- **Setup:** Root accepted source runtime41f0f19f/trajectory8da808f5/reduced87ec765 and launcher259e056e, dispatch3f84bf1e. Plan402d4b107a8a9a7b5832d0824fa40208e28a13caeb1f7c0f8d1e127b9cafe8c4, card75ebe71e47a04f4acc6128092a21ae6d2dbab82d586f09a25cb00f25afc473be, input byte authorityd3014365. Fixed alpha.0655/logT.1899492494639028;1000 one-row transient+2000 batch-three steps, absolute1e-6/1e-9 twins seed0, all native input/returns retained. CPU2+supervisor/nice10/12GiB/4200s+10s cleanup/512MiB; fresh36GiB start/runtime16GiB/disk16GiB and exact Task18 ownership preflight6478883f precede sole launch. Six total/three auxiliary slots. Source/producer-summary exposure and outcome-informed producer amendment disclosed; no conjugacy/exact-chaos claim. No optional trajectory or automatic retry. Saved65-cell run remains separate after closure.
+- **Output:** `../neural-shrimp-data/codex/llm-return-map-crosscheck/trajectory-001`
+- **Would surprise us:** The fixed trajectory, two twin estimates, actual token cycle or fixed phase6 fit disagrees materially; retain every discrepancy and failed/undefined row without changing the plan.
+
+_commit `9258b7b196be` (dirty worktree)_
