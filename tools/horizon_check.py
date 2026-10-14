@@ -76,7 +76,9 @@ def main():
     result["cells"] = {}
     for src in sorted(set(spec["source"])):
         idx = [i for i, s in enumerate(spec["source"]) if s == src]
-        pairs = [(spec["label"][i], long_label(long_cells[i], 32)) for i in idx]
+        # the sample file calls the third map class "other" (no period, exponent not above 1e-3): "neither" here
+        pairs = [({"other": "neither"}.get(spec["label"][i], spec["label"][i]), long_label(long_cells[i], 32))
+                 for i in idx]
         result["cells"][src] = {"cells": len(idx), "map_settings": "float64, 300 transient + 300 measured steps, "
                                 "twin offset 1e-6, period up to 32", "table": table(pairs)}
     Path(sys.argv[1]).write_text(json.dumps(result, indent=1))

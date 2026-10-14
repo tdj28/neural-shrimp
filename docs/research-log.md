@@ -22891,3 +22891,9 @@ _commit `72275bc55f1a`_
 - **Would surprise us:** no chaotic temperature in either model (the effect would then shrink with scale, as in the one MoE model); chaos at the lowest or highest temperatures (against the gain argument)
 
 _commit `0f0160bb7ca1` (dirty worktree)_
+
+## 2026-10-14 05:08 UTC: H2 horizon check: map labels hold (chaotic 90-96 %, periodic 100 %); cascade-line labels do not (57 %)
+
+Run H2 (pod b01m08wc3cbaja, SECURE H100 NVL, runner rc 0, hash verified, terminated; 1312 s; commit 5b99b1e2). Analysis tools/horizon_check.py (written while H2 ran; one fix after the first reading: the sample file's third class is called 'other', the tool expected 'neither'; mapping added, no other change) -> docs/h2-horizon-check.json. Long test: 1000 transient + 2000 measured steps, twins 1e-6 and 1e-9, period up to the map's own maximum (like for like). (a) Float64 philosophy maps (300 + 300 steps, twin 1e-6, period up to 32), stratified random cells: cross-512: chaotic 86/96 stay chaotic (9 periodic, 1 neither), periodic 96/96, other 32 -> 18 periodic, 14 neither, 0 chaotic; map-stripes-256: chaotic 92/96 (4 periodic), periodic 96/96, other 32 -> 20 periodic, 12 neither. (b) Hostile cascade line hcascade/tline-a0.0655 on its exact grid (1000 + 400 steps, period up to 48): short chaotic 235 -> 135 chaotic, 91 periodic, 9 neither (57 %); short periodic 903 -> 882 periodic, 20 chaotic, 1 neither; short neither 262 -> 136 periodic, 110 neither, 16 chaotic. Reading: in typical map regions the finite-horizon labels are reliable; near the accumulation of a doubling cascade (slow convergence near flips) 400-step labels overstate chaos. Paper: Limitations sentence and the hub-cascade caption.
+
+_commit `0eff448d9b8c` (dirty worktree)_

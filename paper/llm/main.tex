@@ -1271,7 +1271,9 @@ bifurcation diagrams along temperature at $\alpha=0.0655$ (left) and along the s
 $\log_{10}T=0.1830$ (right). Top: the last 160 states of the attractor reached from
 the fixed start, projected on the steering direction (red: cells with a positive largest exponent). Bottom: largest
 Lyapunov exponent, with the cells' periods marked. On the right, period 7 doubles to 14 and 28, enters chaos with
-windows of periods 28, 35 and 42, and undoubles back to 7.}
+windows of periods 28, 35 and 42, and undoubles back to 7. Labels come from 400 measured steps after 1000 transient
+steps; with 2000 measured steps at two twin offsets, 135 of the 235 red cells on the left stay chaotic and 91 are
+periodic (Section~\ref{sec:discussion}, Limitations).}
 \label{fig:hubcascade}
 \end{figure}
 \begin{figure}[H]
@@ -1620,7 +1622,13 @@ maps use one prompt, and steering uses contrastive vectors, checked against norm
 directions in two models. The system is a constructed one-token window. The evidence consists of numerical
 validation, cross-checks and prospectively frozen passage tests (including failed all-row criteria), with a
 computer-assisted proof for only one orbit at one parameter point. Chaos labels are finite-horizon estimates (300
-measured steps after 300 to 500 transient steps), and no chaotic cell is proved chaotic. The Feigenbaum ratios are
+measured steps after 300 to 500 transient steps), and no chaotic cell is proved chaotic. A horizon check retested
+random cells of two float64 maps (Figures~\ref{fig:teaser} and~\ref{fig:stripes}) with 1000 transient and 2000
+measured steps at two twin offsets: 86 and 92 of 96 cells labelled chaotic stayed chaotic (all but one of the rest
+settled on periodic orbits), all 96 periodic cells in each map stayed periodic, and 18 and 20 of 32 cells with neither
+label turned out to be slow periodic transients. Near the accumulation of a cascade the labels are less reliable: on
+the hostile line of Figure~\ref{fig:hubcascade} (left), 135 of the 235 cells labelled chaotic from 400 measured steps
+stayed chaotic and 91 were periodic. The Feigenbaum ratios are
 finite-order values that rise toward $\delta$ (the last is within 1\,\%); the limit itself is not computed. All
 orbit, bifurcation and chaos results concern the constructed map, not sampled generation with a growing context. The
 bridge of Section~\ref{sec:bridge} tests only whether the bottleneck's laminar phases survive sampling noise, and the
