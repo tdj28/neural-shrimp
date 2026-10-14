@@ -48,7 +48,6 @@ def main():
                                       "median_log_g_read": float(np.median(read[m])), "chaotic": int(chaotic[m].sum())}
         summary[label] = rows
         for ax, y in zip(axes, (net, read)):
-            ax.plot(H, y, "-", color=colours(i), lw=0.8, alpha=0.6)
             ax.scatter(H[~chaotic], y[~chaotic], color=colours(i), s=14, label=label)
             ax.scatter(H[chaotic], y[chaotic], facecolors="none", edgecolors=colours(i), s=60, linewidths=1.2)
     for ax, name in zip(axes, ("network factor  log g_net", "readout factor  log g_read")):

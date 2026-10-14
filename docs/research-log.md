@@ -23241,3 +23241,16 @@ _commit `aacd275cbb3d`_
 Original13 session81164 reaped0; receipta28412a2 computationally complete. Worker992.153051s/5,339,140KiB versus external993.941610s; no timeout or ownershipuncertainty. Exactclosured6ce4750 authenticated43artifacts145,705,524B/11Gitblobs/allthreebirthgroupssessionsabsent in0.138844s, with no numericaldecode. All originalevidence remains immutable.
 
 Root accepted finalcard81f80a17, unchangedreviewer38a534ea and supervisor82b5501f, ten literalactualclosureassertions plus originalcard2edbeea4/dispatchfed1a83a. This privatecheckpoint precedes sole CPU1+supervisor/nice10/4GiB/120s+5+5cleanup/16MiB savedreview, start20GiB/runtime16GiB. Prior same-structure04 audit0.462737s/381092KiB and actual145.71MB inventory inform bounds, not a timingguarantee. Preparedhistory /data2/neural-shrimp-data/codex/llm-return-map-crosscheck/stress-cell13-review-preparation-001, manifest90a774a102ced969579fe2663ea8d53c5010e0842db2ce8209bed70a6fd7bff9. No model,refit,root/eigen replay or retry. All adversefindings and nonzero comparisons retained.
+## 2026-10-14 09:21 UTC: run (exploratory)
+
+- **Question:** SCx: the 7-8B reference models on the same wide sweep as the scaling series (log10 T -1..0.6, 160 temperatures), because chaos moves to higher temperature with size and the older 512-temperature sweeps stopped at 0.3. The frozen predictions stay scored on -1..0.3 as written; the wide range is reported beside them.
+- **Setup:** One single-GPU pod (H100 NVL / H100 SXM), job set scaleset: qwen7b, llama3.1-8b, olmo2-7b (pinned revisions as before), same settings as SC (sweep 160 T over -1..0.6, 1000 + 2000 steps, twin 1e-6, max period 64; gain split 24 T over -0.3..0.9).
+- **Output:** `../neural-shrimp-data/explore/llm-soft-loop/pod64/{big/MODEL-alpha0-wide,gain/MODEL-wide}`
+
+_commit `5c15cbb47126` (dirty worktree)_
+
+## 2026-10-14 09:23 UTC: G2b result: within one recipe (Llama-3.1, 8B to 70B) the network factor carries the scale effect; post-training (3.3) lowers the readout factor
+
+Pod ijhmjh7n7rucxr (SECURE 2xH100 NVL, rc 0, hash verified, terminated; 5223 s; commit 672b9b99; reran the two models that failed on disk in G2). Gain split (24 T, 500 + 1000 steps, relative twin 1e-6) of Llama-3.1-70B (-0.25..0.6) and Qwen2.5-72B (-0.1..1.2). Medians network/readout by entropy bin (1-3 / 3-6 / 6-10 / >10 nats): Llama-3.1-8B -0.05/+0.19, +0.24/-0.10, +0.28/-0.20, -1.03/-1.75; Llama-3.1-70B -0.79/-0.10, -0.24/-0.01, -0.98/-0.16, -1.21/-1.75; Llama-3.3-70B -0.59/-2.33, -, -0.19/-0.24, -0.72/-1.66; Qwen2.5-7B -0.90/+0.34, -0.03/-0.13, -, +0.19/-2.43; Qwen2.5-72B -1.46/-1.72, -0.94/-1.04, -, -0.91/-2.83. Reading: same recipe 8B -> 70B: readout factor unchanged within 0.3, network factor lower by 0.5-1.3 per step (the larger model damps the fed-back token); Llama-3.3's post-training lowers the readout factor at moderate entropy (-2.33 vs -0.10); Qwen 7B -> 72B: both lower. Caution (consult 7): the split is a decomposition along the evolving tangent, not a causal attribution; equal entropy does not mean equal embedding covariance.
+
+_commit `d28deabde237` (dirty worktree)_

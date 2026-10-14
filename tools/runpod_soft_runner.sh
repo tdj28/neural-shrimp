@@ -870,6 +870,9 @@ snapshot_download('$REPO', revision='$MREV', cache_dir='$NEURAL_SHRIMP_DATA/mode
       case $model in
         qwen0.5b)    REPO=Qwen/Qwen2.5-0.5B-Instruct;        MREV=7ae557604adf67be50417f59c2c2f167def9a775 ;;
         qwen1.5b)    REPO=Qwen/Qwen2.5-1.5B-Instruct;        MREV=989aa7980e4cf806f80c7fef2b1adb7bc71aa306 ;;
+        qwen7b)      REPO=Qwen/Qwen2.5-7B-Instruct;          MREV=a09a35458c702b33eeacc393d103063234e8bc28 ;;
+        llama3.1-8b) REPO=meta-llama/Llama-3.1-8B-Instruct;  MREV=0e9e39f249a16976918f6564b8830bc894c89659 ;;
+        olmo2-7b)    REPO=allenai/OLMo-2-1124-7B-Instruct;   MREV=470b1fba1ae01581f270116362ee4aa1b97f4c84 ;;
         qwen3b)      REPO=Qwen/Qwen2.5-3B-Instruct;          MREV=aa8e72537993ba99e69dfaafa59ed015b17504d1 ;;
         qwen14b)     REPO=Qwen/Qwen2.5-14B-Instruct;         MREV=cf98f3b3bbb457ad9e2bb7baf9a0125b6b88caa8 ;;
         qwen32b)     REPO=Qwen/Qwen2.5-32B-Instruct;         MREV=5ede1c97bbab6ce5cda5812749b4c0bdf79b18dd ;;
