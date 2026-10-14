@@ -490,3 +490,28 @@ The finite source/math review is complete at source93dfb7617df34e2878da4ee0c6b9d
 Task18's sole active recovery002 uses source7918af949fa60cb8bb123504e78c2dc959943d9c, admitted plan98a01706/card8f44e325, with the full896-state/all151936-token computation, all eight cyclic phases and three direct original composed-map JVP controls. It is bounded at CPU2+supervisor/nice10/12GiB/3600s/512MiB. Original attempt001 failed at launcher stdout registration after detached setsid lost its pipe; its worker was terminated, all14 artifacts and original process closure were preserved, and no numerical result was produced. The reviewed explicit002 uses setsid --wait and persistent outer logs; no mathematical gate or scientific parameter changed. Exact live startup is recorded in codex/loop-gain-crosscheck/run-002-startup.json SHA542fb95b; this is not a result claim.
 
 Task19's scientific source and immutable input-byte snapshot are prepared and reviewed. Its mandatory fresh trajectory and all65 saved-cell checks still require the separate exact launcher/capacity admission. Optional stress trajectories remain prospective, not launched. All prior released certificates/reviews and failed evidence remain unchanged.
+
+
+## 2026-10-14T08:49:10Z | from codex | Task 18 final independent loop-gain check | status: complete
+
+The fixed period-8 feedback orbit forgets small state perturbations over a complete loop even though each individual step expands some direction. Our independent ManualQwen float64 computation supports the chain-rule factorization and the ordered-loop interpretation at alpha 0.071674, log10(T) = -0.115. This is a local finite numerical result, not a new interval certificate, global basin or native-generation/training claim.
+
+All eight phase gates and the three direct composed-eight-step controls passed. Maximum factorized-direction relative error over 64 own directions is 8.265928151997498e-14; maximum full dense-factorization error is 3.442218647050999e-14. Step norms range 1.2400819535801617–20.90777695714715. Minimum step sigma2/sigma1 is 0.15254083321426204 and minimum covariance eigenvalue ratio is 0.236303659446. Please write approximately 0.153/20.9, not literal lower/upper bounds at those rounded values.
+
+| Phase-0 loop quantity | Independent value |
+| --- | ---: |
+| Leading signed multiplier | +0.011040155870127638 |
+| Second signed multiplier | -2.9611745420202473e-7 |
+| Leading singular value | 0.19289912009484797 |
+| Second singular value | 7.775419053585182e-6 |
+| Product of step norms | 10679877.352872368 |
+
+The negative sign of the second multiplier must remain unless calling it a modulus. The loop norm depends on starting phase: all eight cyclic starts are retained, with leading norms 0.05947348924060834–0.6437022935052745, all below 1. Their orientation-sensitive ordered product is much smaller than the product-of-norms bound. The small second return singular value is local linear compression; it does not prove a one-dimensional nonlinear invariant attractor.
+
+The sealed producer p8b archive uniquely aligns at forward rotation 0 (maximum normalized state mismatch 3.922114626768719e-13). Maximum matched full-Jacobian relative Frobenius error is 2.7117439338905806e-12. All matrix/896-column comparisons, 96 nonzero phase scalar leaves, signed loop differences and all alternative rotations remain retained; this is close agreement, not bit identity. p8 has no original state/Jacobian archive here and remains explicitly unaligned. Historical producer source/asset/prefix-ID/process-closure attestation remains unavailable; current byte hashes and the declared producer record are the finite trust basis.
+
+Operational disclosure: original run001 lost its output pipe and remains preserved. Original run002 completed all native numerical events but exited 1 while serializing a NumPy Boolean in its final status; its partial status/failed receipt remain unchanged. A separate reviewed saved-summary recovery reproduced the already-saved scalars without model, Jacobian, matrix-product, eigenvalue or SVD replay. Original peak RSS and final backend identity are unavailable; recovery measurements are not substituted. The later saved comparator completed and closed normally.
+
+Reports: `codex/loop-gain-crosscheck/theory-source-review.md`, `own-results-report.md`, `comparison-scientific-review.md`, `comparison-review-extract.json`, and `final-acceptance.json`. Evidence checkpoint faab56fe2613fb78f88627ed0ca39c86bf62e0e9. Final review SHA 3ce67ac96b5aa29b873f96707a698c44ab5693210f4d7123d63bdd89cfd5e1ea; accepted record SHA 51aa5631d57f5dca9a0fc71e6b35d5b4d7fee74a9ab8ca601b421fef7d989fef. Original scientific source 7918af949fa60cb8bb123504e78c2dc959943d9c; recovery report f8f42ddb1dcd25ce13cd602f2a8aa670335d79b72cc0fbd21f5aed3a46825fef; comparator report 5d1e63c58275c5f8500c0f242f81555b03921bf63d92dcfa98833a2bec6dbd5d and source/closure authority 398388244c818e7d341ab2c8de5ed14bbc29354d06a81083ebae9c76e3498a6b. All original evidence remains outside Git at `/data2/neural-shrimp-data/codex/llm-loop-gain-crosscheck/`.
+
+The previously delivered theory corrections remain: the low-temperature fixed-gap limit is nonuniform near ties and cannot globally exclude chaos at small positive temperature; scalar return-map fits alone do not establish invertible smooth conjugacy. Task 19 primary and all 65 replay are accepted; the first fixed optional stress trajectory is now running. Tasks 17, 16, 15 follow Task 19 in the human's requested order. No paid/GPU/pod action.
