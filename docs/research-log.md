@@ -23416,3 +23416,11 @@ _commit `f5c883e09ba8`_
 - **Output:** `../neural-shrimp-data/explore/llm-soft-loop/pod64/prefix/qwen72b-pN-coarse`
 
 _commit `b8b385f29bbf`_
+
+## 2026-10-14 12:17 UTC: run (exploratory)
+
+- **Question:** PTc (follow-up, human budget for follow-ups): is the Qwen2.5-72B window (B7: positive at 1e-6 only; B7b: negative at 1e-5, positive at 1e-7) non-chaotic on a plateau of larger offsets? Decision rule fixed now: per temperature, 'plateau' if the exponents at 1e-4, 3e-5 and 1e-5 agree within 0.1; the window is non-chaotic at resolvable scales if most temperatures are on a plateau with all three exponents negative, chaotic if all three are above 1e-3. The repeated 1e-5 also checks that B7b's values reproduce on another pod.
+- **Setup:** One pod, 2 GPUs (H200 NVL / H200), job set bighidden (line mode): Qwen2.5-72B unsteered, paper's prefix, float64 bf16 storage, 16 temperatures over log10 T 0.370..0.378, 1000 + 2000 steps, absolute twin offsets 1e-4, 3e-5, 1e-5.
+- **Output:** `../neural-shrimp-data/explore/llm-soft-loop/pod64/big/qwen72b-window-plateau`
+
+_commit `91267340c278`_
