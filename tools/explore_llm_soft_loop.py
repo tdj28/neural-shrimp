@@ -177,6 +177,30 @@ class SoftLoop:
                 torch.cat([V[:, 1:, :], jy[:, None, :]], dim=1))
 
 
+def solve_beta(z, targets, iters=60):
+    """Inverse temperatures beta (B,) with entropy H(softmax(beta z)) = targets (B,) nats, for logits z (B, V): Newton
+    in u = log beta, safeguarded by bisection (H decreases strictly in beta when the logits are not all equal;
+    dH/du = -beta^2 Var_p(z)). A fixed number of iterations, so the solution is one deterministic function of z."""
+    torch = __import__("torch")
+    H = torch.as_tensor(targets, dtype=z.dtype, device=z.device)
+    lo = torch.full_like(H, -12.0)                 # u bracket: beta from 6e-6 to 1.6e5
+    hi = torch.full_like(H, 12.0)
+    u = torch.zeros_like(H)
+    for _ in range(iters):
+        b = u.exp()
+        p = torch.softmax(b[:, None] * z, dim=-1)
+        logp = torch.log_softmax(b[:, None] * z, dim=-1)
+        h = -(p * logp).sum(-1)
+        m = (p * z).sum(-1)
+        var = (p * (z - m[:, None]) ** 2).sum(-1)
+        hi = torch.where(h < H, u, hi)              # entropy too low: beta too large
+        lo = torch.where(h >= H, u, lo)
+        step = (h - H) / torch.clamp(b * b * var, min=1e-300)
+        nxt = u + step
+        u = torch.where((nxt > lo) & (nxt < hi), nxt, 0.5 * (lo + hi))
+    return u.exp()
+
+
 class SoftOrbit:
     """Periodic orbits of the soft-decoding map at one (temperature, steering) cell: Newton's method on the
     p-fold map with dense central-difference Jacobians (2n rows per Jacobian in chunked batches over a prefix

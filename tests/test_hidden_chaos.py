@@ -57,3 +57,20 @@ def test_tangent_exponent_matches_twins_and_probe_is_flat():
         assert all(abs(l - np.log(0.5)) < 1e-2 for l in r["lyapunov"])
         ratio = np.array(r["fd_probe"]["central_ratio"])
         assert np.allclose(ratio, ratio[4], rtol=1e-3) and r["fd_probe"]["repeat_diff"] == 0.0
+
+
+def test_solve_beta_hits_entropy_targets():
+    import numpy as np
+    import torch
+    import explore_llm_soft_loop as esl
+
+    torch.manual_seed(0)
+    z = torch.randn(4, 5000, dtype=torch.float64) * 3
+    targets = np.array([0.05, 1.0, 4.0, 8.0])
+    beta = esl.solve_beta(z, targets)
+    p = torch.softmax(beta[:, None] * z, -1)
+    h = -(p * torch.log(p.clamp_min(1e-300))).sum(-1).numpy()
+    assert np.allclose(h, targets, rtol=0, atol=1e-10)
+    # smooth in z: a tiny change of the logits changes beta by a proportionally tiny amount
+    beta2 = esl.solve_beta(z + 1e-9 * torch.randn_like(z), targets)
+    assert ((beta2 - beta).abs() / beta).max() < 1e-7

@@ -45,6 +45,31 @@ KEEP = 400          # states kept per cell: the diameter uses the last 400, the 
 FD_STEPS = (1e-1, 3e-2, 1e-2, 1e-3, 1e-4, 1e-5, 1e-6, 1e-7, 1e-8, 1e-9, 1e-10, 1e-11)
 
 
+class EntropyClamp:
+    """Entropy-clamped soft decoding: at every step each row's temperature is chosen so that its next-token entropy
+    equals the row's target (nats); the "temperatures" passed to step are those targets. The map stays smooth and
+    deterministic (explore_llm_soft_loop.solve_beta, a fixed number of safeguarded Newton steps). tsum/steps: running
+    sum of the temperatures used, per row, since the last reset."""
+
+    def __init__(self, loop):
+        self.loop, self.torch, self.state_dtype, self.device = loop, loop.torch, loop.state_dtype, loop.device
+        self.tsum, self.steps = None, 0
+
+    def prepare(self, rows):
+        return self.loop.prepare(rows)
+
+    def step(self, X, targets):
+        import explore_llm_soft_loop as esl
+
+        z = self.loop.logits(X)
+        beta = esl.solve_beta(z, targets)
+        p = self.torch.softmax(beta[:, None] * z, dim=-1)
+        t = (1.0 / beta).double().cpu().numpy()
+        self.tsum = t if self.tsum is None else self.tsum + t
+        self.steps += 1
+        return self.torch.cat([X[:, 1:, :], (p @ self.loop.E)[:, None, :]], dim=1), p
+
+
 def fd_probe(loop, v, log_ts, alphas, base, hs=FD_STEPS, seed=1):
     """Precision probe of one step at the states base (n, K, d): the central-difference ratio
     |F(x + h u) - F(x - h u)| / (2h) for one random unit direction u per cell and each h (constant down to the rounding
@@ -97,6 +122,8 @@ def run_batch(loop, v, log_ts, alphas, transient, record, eps_list, tol, seed=0,
         Vt = torch.as_tensor(rng.normal(size=tuple(base.shape)), dtype=loop.state_dtype, device=loop.device)
         Vt = Vt / Vt.flatten(1).norm(dim=1)[:, None, None]
     lead, pmax, ent, states, first = [], [], [], [], []
+    if isinstance(loop, EntropyClamp):         # mean temperature over the recorded steps
+        loop.tsum, loop.steps = None, 0
     for _ in range(record):
         if tangent:
             X, p, JV = loop.step_jvp(X, temps, torch.cat([Vt, torch.zeros_like(X[n:])]))
@@ -145,6 +172,8 @@ def run_batch(loop, v, log_ts, alphas, transient, record, eps_list, tol, seed=0,
                     "entropy_mean": float(ent[:, c].mean()), "entropy_sd": float(ent[:, c].std())})
         if tangent:
             out[-1]["lyapunov_tangent"] = float(tgrowth[c] / record)
+        if isinstance(loop, EntropyClamp):
+            out[-1]["mean_temperature"] = float(loop.tsum[c] / loop.steps)
     if probe:
         for r, f in zip(out, fd_probe(loop, v, log_ts, alphas, X[:n])):
             r["fd_probe"] = f
@@ -202,8 +231,13 @@ def main():
                     help="also the exact tangent exponent (forward-mode AD along each base orbit, no offset)")
     ap.add_argument("--fd-probe", action="store_true",
                     help="one-step central differences at the final states for h = 1e-1..1e-11 (precision probe)")
+    ap.add_argument("--clamp-entropy", type=float, nargs=2, default=None, metavar=("LO", "HI"),
+                    help="entropy-clamped decoding: line mode sweeps the next-token entropy from LO to HI nats instead "
+                         "of the temperature (--log-temperature unused); in cells mode the first column is the target")
     ap.add_argument("--out", required=True)
     args = ap.parse_args()
+    if args.clamp_entropy and args.tangent:
+        raise SystemExit("--tangent is not implemented for entropy-clamped decoding")
     prompt, opener = "open", ela.OPENER
     if args.prefix_file is not None:
         pref = json.loads(Path(args.prefix_file).read_text())["prefixes"][args.prefix_index]
@@ -219,6 +253,15 @@ def main():
             raise SystemExit("cells mode needs --cells-file")
         pairs = np.array(json.loads(Path(args.cells_file).read_text())["cells"], dtype=float)
         log_ts, alphas = pairs[:, 0], pairs[:, 1]
+        if args.clamp_entropy:
+            log_ts = np.log10(log_ts)            # entropy targets, passed to the loop as "temperatures"
+    elif args.clamp_entropy:
+        if args.alpha is None:
+            raise SystemExit(f"{args.mode} mode needs --alpha")
+        targets = np.linspace(args.clamp_entropy[0], args.clamp_entropy[1], args.n)
+        if targets.max() >= np.log(loop.E.shape[0]) or targets.min() <= 0:
+            raise SystemExit("entropy targets must lie strictly between 0 and log V")
+        log_ts, alphas = np.log10(targets), np.full(args.n, args.alpha)
     else:
         if args.alpha is None or not args.log_temperature:
             raise SystemExit(f"{args.mode} mode needs --alpha and --log-temperature")
@@ -227,6 +270,8 @@ def main():
         else:
             log_ts = np.linspace(args.log_temperature[0], args.log_temperature[1], args.n)
         alphas = np.full(len(log_ts), args.alpha)
+    if args.clamp_entropy:
+        loop = EntropyClamp(loop)
     results, tr = [], None
     seqs = {"lead": [], "pmax": []} if args.save_sequences else None
     for s in range(0, len(log_ts), args.chunk):
@@ -239,7 +284,10 @@ def main():
         print(json.dumps({"done": len(results), "of": len(log_ts)}), flush=True)
     for r in results:
         r["class"] = classify(r)
-    tok = loop.sm.tok
+        if args.clamp_entropy:                 # the swept value was the entropy target
+            r["entropy_target"] = float(10.0 ** r["log10_temperature"])
+            r["log10_temperature"] = float(np.log10(r["mean_temperature"]))
+    tok = getattr(loop, "loop", loop).sm.tok
     for r in results:
         r["lead_text"] = [tok.decode([t]) for t in r["lead_tokens"]]
     out = ela.DATA / "explore" / args.out
