@@ -1243,7 +1243,7 @@ single-valued return maps; 59 cells have a phase whose map has a single interior
 change under a smooth change of coordinates, so all single-valued phases of a cell must give the same exponent: we fit
 each phase's map by a polynomial whose degree is chosen by cross-validation and take the median over the phases. It
 matches the full map's exponent within 10\,\% in 51 of the 62 cells (median discrepancy 3.7\,\%; within 10\,\% in 23
-of the 24 cells with seven-token text, which give 285 repetitions in 2000 steps; Figure~\ref{fig:returnmaps}). Our
+of the 24 cells with seven-token text, which give 285 repetitions in 2000 steps; Figure~\ref{fig:reduction}). Our
 first, pre-specified analysis, a fixed degree of 8 at the single best-fitting phase, gave 49 of 62; it underfitted
 one cell whose maps are steep and have two turning points. These are the chaotic bands that follow a period-doubling cascade, and a smooth unimodal
 map is the setting of Feigenbaum's universality \cite{feigenbaum1978quantitative}; we have shown the reduction for this
@@ -1263,7 +1263,7 @@ matches that of the full map.}
 \end{figure}
 \begin{figure}[H]
 \centering
-\includegraphics[width=0.52\linewidth]{fig-return-maps.png}
+\includegraphics[width=0.52\linewidth]{fig-repeating-text-reduction.png}
 \caption{One-dimensional reduction across the hostile cascade (Qwen2.5-0.5B-Instruct, hostility at layer 12,
 $\alpha=0.0655$, $\log_{10}T\in[0.176,0.191]$): for each of the 62 chaotic cells whose leading-token text repeats
 exactly, the Lyapunov exponent of the fitted return maps of the leading-token probability (per step; median over the
@@ -1271,7 +1271,7 @@ single-valued phases of the text, bars: their range; polynomial degree chosen by
 exponent of the full map from twin trajectories. Colour: text period relative to 7. The line is equality. With
 seven-token texts the 2000 steps give 285 repetitions; with 28-token texts only 72, and the fitted maps then
 overestimate small exponents.}
-\label{fig:returnmaps}
+\label{fig:reduction}
 \end{figure}
 \begin{figure}[H]
 \centering
