@@ -139,3 +139,22 @@ skill, section 7A). Spend is recorded only in the gitignored `cost-ledger.md`
 - **Model:** `gpt-6-astra`, Responses Pro mode, xhigh effort, at most 40,000 output tokens. The canonical client's
   reserves and authorization guard apply. The advice is advisory only: every cited reference is checked at its
   primary source before use, and material advice is adjudicated locally.
+
+## Consult 7 (approved, not yet sent)
+
+- **Approval (human, in session, 14 October 2026, about 06:40 UTC):** "Yes", answering the proposal of one Pro consult
+  on the revised paper once the 70B results are inserted (amount in the private cost ledger).
+- **Milestone:** publication-ready synthesis, second version (section 7A of the integrity playbook): a theory section
+  (Jacobian factorisation through the next-token covariance; Hopfield limit; temperature limits; stability of the
+  loop versus its steps); chaos behind an exactly repeating text and its one-dimensional, logistic-type reduction; the
+  horizon check of map labels; the mixture-of-experts result; scale tests on Qwen2.5-72B and Llama-3.3-70B with the
+  70B sparse-autoencoder steering controls; new interpretability, alignment and frontier-model paragraphs; a new title
+  and abstract.
+- **Decision it can improve:** claims against evidence in the new sections; whether the alignment and
+  interpretability paragraphs overreach; framing for cs.LG and nlin.CD, including the human's proposed title; the gap
+  a referee would hit first.
+- **Scope:** one `research-strategy` request with a compact brief, `2026-10-14-llm-paper-synthesis-v2/brief.md`, built
+  from the paper at the commit that inserts the 70B results. No retry or second pass without a new recorded decision.
+- **Model:** `gpt-6-astra`, Responses Pro mode, xhigh effort, at most 40,000 output tokens; the canonical client's
+  reserves and authorization guard apply. Advice is advisory: every cited reference is checked at its primary source
+  before use, and material advice is adjudicated locally in `adjudication.md`.
