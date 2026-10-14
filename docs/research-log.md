@@ -22985,3 +22985,12 @@ _commit `93dfb7617df3`_
 - **Would surprise us:** chaos at high temperature (the band moved up with the logit scale); or the entropy still below 1 nat at T = 16
 
 _commit `0d4f292d619c` (dirty worktree)_
+
+## 2026-10-14 07:17 UTC: run (exploratory)
+
+- **Question:** B5 (human: 'do all the confirmation tests, we must find out why'): is the loss of unsteered chaos from Llama-3.1-8B to Llama-3.3-70B a scale effect or a post-training effect? Llama-3.1-70B-Instruct shares the 8B's release and training recipe.
+- **Setup:** One pod, 2 x H200 NVL / H100 NVL / H200, job set bigsweep: Llama-3.1-70B-Instruct (1605565b, gated, token on stdin), float64 with bf16 storage over both GPUs, unsteered, 128 temperatures over log10 T -1..0.3, 1000 + 2000 steps, twin 1e-6, max period 64, chunk 128 (as B2).
+- **Output:** `../neural-shrimp-data/explore/llm-soft-loop/pod64/big/llama3.1-70b-alpha0`
+- **Would surprise us:** chaos at 70B in the 3.1 recipe (then post-training, not scale, removed it in 3.3)
+
+_commit `b7fe2c39180d` (dirty worktree)_
