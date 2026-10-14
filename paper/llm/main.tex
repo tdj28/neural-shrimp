@@ -2133,6 +2133,10 @@ sixth test, a cusp pilot in a second checkpoint, is the unreported bounded searc
 \item Rung 1: the other orbits, the curves, the six cusp candidates, the superstable parameters,
   the 1.5B flips, the hostile windows' edges, the spiral region's period-7 body and the cascade inside it, the three 7B
   orbits, and Huginn's float32 spectral estimates.
+\item Prospectively frozen, not independently reproduced: the scaling predictions P1--P3, the prompt-blocked size
+  tests in Qwen2.5 (7B and 14B; 72B) and OLMo-2, and the loop-free predictor test of Section~\ref{sec:size}, all scored
+  by code pushed before the data, together with the three-offset plateau tests of the 70B-class maps. These are
+  float64 computations at rung 1; no independent implementation has rechecked them.
 \item Prospectively frozen and independently replayed: Huginn's relaxation test on held-out data, confirmed in both
   parts; an independent implementation reproduced both from the saved rows and spectra (GSM8K part exactly,
   item-level part to $10^{-12}$) (Section~\ref{sec:huginn}).
