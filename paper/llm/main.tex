@@ -37,17 +37,15 @@ exponents. This smooth map, with temperature and steering strength as parameters
 OLMo-2 and Llama-3. Its derivative factorizes into the inverse temperature, an embedding covariance under the
 model's next-token distribution, and the network's Jacobian; with tied embeddings and no network it would be a
 modern Hopfield update, which cannot cycle. It contracts at high temperature; chaos occupies
-intermediate temperatures and needs no steering in most dense models. Across fifteen models of 0.5B to 72B,
+intermediate temperatures and needs no steering in most dense models. It persists, and spreads, with a 16-token feedback window, and early
+perturbations still grow under Soft Thinking's growing context. Across fifteen models of 0.5B to 72B,
 size does not set the chaos: on ten prompts a 14B model is more chaotic than a 7B, at higher temperatures;
-OLMo-2-32B is the most chaotic OLMo model; and Qwen2.5-72B, nearly free of it on five prompts, is chaotic when steered. Bifurcation theory applied to the
-model's own derivatives predicts its behaviour where tested. Near cusp candidates of two
-windows, local unfoldings frozen before solving matched the orbits recovered at all twelve tested offsets and their
-stability at eleven. Fold normal forms predict bottleneck passage times without fitting: at two new folds, 23 of 24
-frozen forecasts fell within one iterate. In the recurrent-depth model Huginn, spectral estimates
-predict how held-out questions respond to relaxation, and a frozen test confirmed a predicted accuracy loss.
-Interval arithmetic proves one period-8 orbit exists and is locally attracting, to our knowledge the first such
-proof for a transformer language model. In sampled self-dialogue, keeping flagged replies out of the context controls
-steered hostility at a fraction of the dose, and counter-steering can backfire. The map is not ordinary
+OLMo-2-32B is the most chaotic OLMo model; and Qwen2.5-72B, nearly free of it on five prompts, is chaotic when steered. Bifurcation theory applied to the model's own derivatives predicts its behaviour where tested: frozen local
+unfoldings near cusp candidates matched the recovered orbits at all twelve tested offsets, and fold normal forms predicted bottleneck passage times without fitting, with 23 of 24 frozen forecasts within one
+iterate. In the recurrent-depth model Huginn, a frozen test confirmed a spectrally predicted accuracy loss under relaxation.
+Interval arithmetic proves one period-8 orbit exists and is locally attracting, to our knowledge a first for a transformer
+language model. In sampled self-dialogue, keeping flagged replies out of context controls steered hostility at a fraction of the dose;
+counter-steering can backfire. The map is not ordinary
 autoregressive generation.
 \end{abstract}
 
@@ -116,6 +114,10 @@ sampling, and Section~\ref{sec:misalignment} studies sampled dialogue directly.
   concept-labelled directions: in the norm-matched controls of the 0.5B and 8B models, random directions also steer
   into chaos. Along a period-8 orbit every step expands some direction while the cycle contracts: the loop's stability
   is a property of the ordered product of its steps, not of any one step (Section~\ref{sec:theory}).
+\item \emph{The chaos is not an artifact of the one-token window.} Fed back the last 8 or 16 soft tokens instead of
+  one, Qwen2.5-7B is chaotic at 21 and 20 of 24 temperatures, against 8 with one; and in Soft Thinking's growing
+  context, where every soft token stays visible, an early perturbation of $10^{-10}$ grows exponentially inside the
+  one-token map's chaotic band (Section~\ref{sec:bridge}).
 \item \emph{Size does not set the chaos.} Across fifteen models from 0.5B to 72B parameters, the unsteered chaos
   in a fixed temperature window nearly vanishes in the largest Qwen2.5 and Llama models but not in OLMo-2-32B, the
   most chaotic OLMo model. A frozen prompt-blocked test shows that the Qwen decline from 7B to 14B is largely a shift:
@@ -895,6 +897,30 @@ context from the same start.}
 at layer 12, $\log_{10}T=-0.115$) against $\eps$, for the exact map and for means of $m$ sampled embeddings.}
 \label{fig:bridge}
 \end{figure}
+
+\paragraph{A longer fed-back memory.} The one-token window is the main simplification of the map. Feeding back the
+last $K$ expected embeddings instead, so that the state is a window of $K$ soft tokens at fixed positions after the
+prompt, we measured 24 temperatures between $\log_{10}T=-0.3$ and $0.6$ for $K$ from 1 to 16 (Table~\ref{tab:window};
+twins at $10^{-5}$ and $10^{-7}$ agree within 0.006 at every chaotic temperature). In Qwen2.5-7B the chaos does not
+vanish but spreads: it is chaotic at 8 temperatures with one token of memory, at 13 with four, and at 21 and 20 with
+eight and sixteen, nearly the whole range, with smaller exponents (largest 0.96 for $K=1$, 0.43 for $K=16$).
+Qwen2.5-0.5B, chaotic at one temperature with one or two tokens of memory and at none with four, is chaotic at ten
+with eight. The chaos is therefore not an artifact of the one-token window.
+\begin{table}[H]
+\centering\small
+\begin{tabular}{rccccc}
+\toprule
+memory $K$ & 1 & 2 & 4 & 8 & 16 \\
+\midrule
+Qwen2.5-7B & 8 (0.96) & 10 (1.08) & 13 (0.70) & 21 (0.58) & 20 (0.43) \\
+Qwen2.5-0.5B & 1 (0.20) & 1 (0.24) & 0 & 10 (0.31) & 3 (0.23) \\
+\bottomrule
+\end{tabular}
+\caption{Chaotic temperatures, of 24 between $\log_{10}T=-0.3$ and $0.6$, when the loop feeds back the last $K$
+expected embeddings (largest exponent in parentheses); paper's prompt, unsteered, float64, 500 transient and 1000
+measured steps, twins at $10^{-5}$ and $10^{-7}$ (chaotic: both positive and no period up to 64).}
+\label{tab:window}
+\end{table}
 
 \paragraph{Soft thinking with a growing context.} Soft Thinking \cite{zhang2025softthinking} feeds back the same
 expected embedding but appends it to the context, so that every earlier soft token stays visible. We ran that
@@ -2018,7 +2044,7 @@ until we fixed it; their labels rest on offsets of $10^{-6}$ or more, and the ce
 window and steered candidates in float64 throughout and samples of the Llama maps at three offsets, behave as stated,
 but the rest of those maps were not recomputed.
 The maps use one prompt (Section~\ref{sec:size} adds ten for two models), and steering uses contrastive vectors, checked against norm-matched random and sparse-autoencoder
-directions in two models. The system is a constructed one-token window. The evidence consists of numerical
+directions in two models. The system is a constructed loop: Section~\ref{sec:bridge} extends it to memories of up to sixteen soft tokens and to the growing context of Soft Thinking, but sampled decoding of discrete tokens is a different system. The evidence consists of numerical
 validation, cross-checks and prospectively frozen passage tests (including failed all-row criteria), with a
 computer-assisted proof for only one orbit at one parameter point. Chaos labels are finite-horizon estimates (300
 measured steps after 300 to 500 transient steps), and no chaotic cell is proved chaotic. A horizon check retested
