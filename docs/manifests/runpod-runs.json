@@ -1,5 +1,5 @@
 {
- "generated_utc": "2026-10-14T11:57:14Z",
+ "generated_utc": "2026-10-14T19:09:56Z",
  "note": "GPU type, cloud and provenance of every pod; costs are kept out of this file by policy",
  "runs_with_results": [
   {
@@ -5296,6 +5296,245 @@
    "outputs": [
     "explore/llm-soft-loop/pod64/big/llama3.1-70b-plateau"
    ]
+  },
+  {
+   "run": "20261014T121049Z",
+   "pod_id": "o41hga4tat6h71",
+   "name": "neural-shrimp-PS72",
+   "gpu_type": "SECURE:NVIDIA H200",
+   "commit": "91267340c27836db39f612f854862f0fd68bf04c",
+   "jobset": "prefix72",
+   "jobset_args": "2 3 4 5",
+   "extra_data": [],
+   "started_utc": "2026-10-14T12:10:52Z",
+   "wall_seconds": 11302,
+   "runner_returncode": 0,
+   "hash_verified": true,
+   "results_sha256": "0d1ca22e9b58759224be45c66816ceec487221ee709883f8412c8eeb42b089a0",
+   "code_sha256": "bf5a5dc038e0be778f104a35323d05afa6ecf732e3663c64d95af40a437e497d",
+   "data_sha256": "f425388da2f9fe2392ca7e1dea3826d44b492fd4b1c6106e5f0874784f29d778",
+   "extract_clash": false,
+   "outputs": [
+    "explore/llm-soft-loop/pod64/prefix/qwen72b-p2-coarse",
+    "explore/llm-soft-loop/pod64/prefix/qwen72b-p3-coarse",
+    "explore/llm-soft-loop/pod64/prefix/qwen72b-p4-coarse",
+    "explore/llm-soft-loop/pod64/prefix/qwen72b-p5-coarse"
+   ]
+  },
+  {
+   "run": "20261014T121711Z",
+   "pod_id": "6vu63mz09o5tav",
+   "name": "neural-shrimp-PTc",
+   "gpu_type": "SECURE:NVIDIA H200",
+   "commit": "25d180856135fa143687b5c27c149abdf72f6615",
+   "jobset": "bighidden",
+   "jobset_args": "qwen72b window-plateau 60 --log-temperature 0.370 0.378 --n 16 --transient 1000 --record 2000 --eps 1e-4 3e-5 1e-5 --chunk 16",
+   "extra_data": [],
+   "started_utc": "2026-10-14T12:17:12Z",
+   "wall_seconds": 2323,
+   "runner_returncode": 0,
+   "hash_verified": true,
+   "results_sha256": "7a2f9a821dabcaa1edeb909dcdf2fdc26ef451ebf2ade68753d9bfa686b66fdb",
+   "code_sha256": "e2fb0ec7625351d4ba31a35f9f4d57edce925648f89befebc9087f4d26aca4a3",
+   "data_sha256": "f425388da2f9fe2392ca7e1dea3826d44b492fd4b1c6106e5f0874784f29d778",
+   "extract_clash": false,
+   "outputs": [
+    "explore/llm-soft-loop/pod64/big/qwen72b-window-plateau"
+   ]
+  },
+  {
+   "run": "20261014T121755Z",
+   "pod_id": "ofjlfung30otho",
+   "name": "neural-shrimp-PSOa",
+   "gpu_type": "SECURE:NVIDIA H200",
+   "commit": "a5197e6d04547caff8eafcc87c26de4b3aeb1345",
+   "jobset": "prefixcoarse",
+   "jobset_args": "olmo2-7b 2 3 4 5",
+   "extra_data": [],
+   "started_utc": "2026-10-14T12:17:55Z",
+   "wall_seconds": 1424,
+   "runner_returncode": 0,
+   "hash_verified": true,
+   "results_sha256": "360391060108e22614535be2397d44d18adeab1068d284e7c51cf5f68fc712b7",
+   "code_sha256": "a84f682340e8698f451e8cc944ac4d2a5df97c703b9822d42b9ba91d6f06ba83",
+   "data_sha256": "f425388da2f9fe2392ca7e1dea3826d44b492fd4b1c6106e5f0874784f29d778",
+   "extract_clash": false,
+   "outputs": [
+    "explore/llm-soft-loop/pod64/prefix/olmo2-7b-p2-coarse",
+    "explore/llm-soft-loop/pod64/prefix/olmo2-7b-p3-coarse",
+    "explore/llm-soft-loop/pod64/prefix/olmo2-7b-p4-coarse",
+    "explore/llm-soft-loop/pod64/prefix/olmo2-7b-p5-coarse"
+   ]
+  },
+  {
+   "run": "20261014T121810Z",
+   "pod_id": "y3yw6uf7ih1gi2",
+   "name": "neural-shrimp-PSOb",
+   "gpu_type": "SECURE:NVIDIA H200",
+   "commit": "a5197e6d04547caff8eafcc87c26de4b3aeb1345",
+   "jobset": "prefixcoarse",
+   "jobset_args": "olmo2-32b 2 3 4 5",
+   "extra_data": [],
+   "started_utc": "2026-10-14T12:18:10Z",
+   "wall_seconds": 4781,
+   "runner_returncode": 0,
+   "hash_verified": true,
+   "results_sha256": "da437ddf0c7c00472796f1ad06f6488259e913d6a9754e41330db59140ccbdce",
+   "code_sha256": "a84f682340e8698f451e8cc944ac4d2a5df97c703b9822d42b9ba91d6f06ba83",
+   "data_sha256": "f425388da2f9fe2392ca7e1dea3826d44b492fd4b1c6106e5f0874784f29d778",
+   "extract_clash": false,
+   "outputs": [
+    "explore/llm-soft-loop/pod64/prefix/olmo2-32b-p2-coarse",
+    "explore/llm-soft-loop/pod64/prefix/olmo2-32b-p3-coarse",
+    "explore/llm-soft-loop/pod64/prefix/olmo2-32b-p4-coarse",
+    "explore/llm-soft-loop/pod64/prefix/olmo2-32b-p5-coarse"
+   ]
+  },
+  {
+   "run": "20261014T161457Z",
+   "pod_id": "wd8piatucc13t3",
+   "name": "neural-shrimp-QFa",
+   "gpu_type": "SECURE:NVIDIA H200",
+   "commit": "426b24cd6ce52bb811b12d6f59d7d19f6ab36597",
+   "jobset": "q72fix",
+   "jobset_args": "cells 120 --cells-file docs/q72fix-cells.json --eps 1e-4 1e-5 1e-6 1e-7 --transient 500 --record 1000 --chunk 64 --tol 1e-8",
+   "extra_data": [
+    "explore/llm-phase-map/vectors-qwen72b-l40-b3"
+   ],
+   "started_utc": "2026-10-14T16:14:59Z",
+   "wall_seconds": 3817,
+   "runner_returncode": 0,
+   "hash_verified": true,
+   "results_sha256": "33ea33f498c594d7763575e2c8a51e5929e761008978e984596be9aaf12d1a36",
+   "code_sha256": "a03eb218f23c9625e3b0cc44380a6dad60b80587138bfa6a0f2be96764e0f385",
+   "data_sha256": "7d7f49e5c6b33c492d2db1cd2faa69e2814e544956ecc210b5c7aaf49b92ac28",
+   "extract_clash": false,
+   "outputs": [
+    "explore/llm-soft-loop/pod64/big/qwen72b-fix-cells"
+   ]
+  },
+  {
+   "run": "20261014T161517Z",
+   "pod_id": "gaseh2womsxudr",
+   "name": "neural-shrimp-QFb",
+   "gpu_type": "SECURE:NVIDIA H200",
+   "commit": "426b24cd6ce52bb811b12d6f59d7d19f6ab36597",
+   "jobset": "q72fix",
+   "jobset_args": "lines 40 2:0.254:0.314 3:0.281:0.341 4:0.392:0.452 5:0.364:0.424",
+   "extra_data": [],
+   "started_utc": "2026-10-14T16:15:19Z",
+   "wall_seconds": 4761,
+   "runner_returncode": 0,
+   "hash_verified": true,
+   "results_sha256": "f8509fd9a19d2b362305975820c8094d78917c8c575d9ea8bcb79973d40fe92d",
+   "code_sha256": "a03eb218f23c9625e3b0cc44380a6dad60b80587138bfa6a0f2be96764e0f385",
+   "data_sha256": "f425388da2f9fe2392ca7e1dea3826d44b492fd4b1c6106e5f0874784f29d778",
+   "extract_clash": false,
+   "outputs": [
+    "explore/llm-soft-loop/pod64/big/qwen72b-fix-p2",
+    "explore/llm-soft-loop/pod64/big/qwen72b-fix-p3",
+    "explore/llm-soft-loop/pod64/big/qwen72b-fix-p4",
+    "explore/llm-soft-loop/pod64/big/qwen72b-fix-p5"
+   ]
+  },
+  {
+   "run": "20261014T170241Z",
+   "pod_id": "ku79hlmuth56xk",
+   "name": "neural-shrimp-PB72",
+   "gpu_type": "SECURE:NVIDIA H200",
+   "commit": "181d175eb48f2982fb0417f209fcf96cde404048",
+   "jobset": "prefix72base",
+   "jobset_args": "2 3 4 5 0",
+   "extra_data": [],
+   "started_utc": "2026-10-14T17:02:43Z",
+   "wall_seconds": 7528,
+   "runner_returncode": 0,
+   "hash_verified": true,
+   "results_sha256": "bc49956f862d81bbddfd9280871cac6c8ef9b84f0e0d4109911c290247e8b6f3",
+   "code_sha256": "f6e891371a47c20d6a0054c9c6e2a5a343f177b69de195bae747f66847da8895",
+   "data_sha256": "f425388da2f9fe2392ca7e1dea3826d44b492fd4b1c6106e5f0874784f29d778",
+   "extract_clash": false,
+   "outputs": [
+    "explore/llm-soft-loop/pod64/prefix/qwen72b-base-p0-coarse",
+    "explore/llm-soft-loop/pod64/prefix/qwen72b-base-p2-coarse",
+    "explore/llm-soft-loop/pod64/prefix/qwen72b-base-p3-coarse",
+    "explore/llm-soft-loop/pod64/prefix/qwen72b-base-p4-coarse",
+    "explore/llm-soft-loop/pod64/prefix/qwen72b-base-p5-coarse"
+   ]
+  },
+  {
+   "run": "20261014T174445Z",
+   "pod_id": "4xq9n3lnf0j7y4",
+   "name": "neural-shrimp-QC",
+   "gpu_type": "SECURE:NVIDIA H200",
+   "commit": "0e4dfc2a248d88727d9bbff1157298357bd3e3c3",
+   "jobset": "q72fix",
+   "jobset_args": "clamp 40 1 11 16 0 2",
+   "extra_data": [],
+   "started_utc": "2026-10-14T17:44:47Z",
+   "wall_seconds": 2457,
+   "runner_returncode": 0,
+   "hash_verified": true,
+   "results_sha256": "cfffcb9fc1b3767099748a9e86f734675d6cc74d370431c56269144926b51943",
+   "code_sha256": "2a5e05b4a7d0c14dba79ddd2a16ef616bd70bd6dbdbf786e679dc18ab603bf5a",
+   "data_sha256": "f425388da2f9fe2392ca7e1dea3826d44b492fd4b1c6106e5f0874784f29d778",
+   "extract_clash": false,
+   "outputs": [
+    "explore/llm-soft-loop/pod64/big/qwen72b-clamp-p0",
+    "explore/llm-soft-loop/pod64/big/qwen72b-clamp-p2"
+   ]
+  },
+  {
+   "run": "20261014T174500Z",
+   "pod_id": "gbam364iqfbns9",
+   "name": "neural-shrimp-WIN",
+   "gpu_type": "COMMUNITY:NVIDIA A100 80GB PCIe",
+   "commit": "0e4dfc2a248d88727d9bbff1157298357bd3e3c3",
+   "jobset": "window",
+   "jobset_args": "qwen0.5b qwen7b",
+   "extra_data": [],
+   "started_utc": "2026-10-14T17:45:03Z",
+   "wall_seconds": 4662,
+   "runner_returncode": 0,
+   "hash_verified": true,
+   "results_sha256": "86a05bfaa0a3ad1ea6eb62eecc727c1a1ee890d36b740bc87b2bc61cfe65506d",
+   "code_sha256": "2a5e05b4a7d0c14dba79ddd2a16ef616bd70bd6dbdbf786e679dc18ab603bf5a",
+   "data_sha256": "f425388da2f9fe2392ca7e1dea3826d44b492fd4b1c6106e5f0874784f29d778",
+   "extract_clash": false,
+   "outputs": [
+    "explore/llm-soft-loop/pod64/big/qwen0.5b-window-1",
+    "explore/llm-soft-loop/pod64/big/qwen0.5b-window-16",
+    "explore/llm-soft-loop/pod64/big/qwen0.5b-window-2",
+    "explore/llm-soft-loop/pod64/big/qwen0.5b-window-4",
+    "explore/llm-soft-loop/pod64/big/qwen0.5b-window-8",
+    "explore/llm-soft-loop/pod64/big/qwen7b-window-1",
+    "explore/llm-soft-loop/pod64/big/qwen7b-window-16",
+    "explore/llm-soft-loop/pod64/big/qwen7b-window-2",
+    "explore/llm-soft-loop/pod64/big/qwen7b-window-4",
+    "explore/llm-soft-loop/pod64/big/qwen7b-window-8"
+   ]
+  },
+  {
+   "run": "20261014T175048Z",
+   "pod_id": "u5xpv9zigas6wx",
+   "name": "neural-shrimp-ST1",
+   "gpu_type": "SECURE:NVIDIA H100 PCIe",
+   "commit": "3ee571ef991891c17a8becd7a91590ac5595e5e7",
+   "jobset": "softthink",
+   "jobset_args": "qwen7b qwen0.5b",
+   "extra_data": [],
+   "started_utc": "2026-10-14T17:50:51Z",
+   "wall_seconds": 413,
+   "runner_returncode": 0,
+   "hash_verified": true,
+   "results_sha256": "91727763aa38c6829c8fe140ddeeb7c87332620bb0a8088b74a46239aa39ec73",
+   "code_sha256": "5930c32d2010d229373c23e6764ca4ea4251f63ec3c8a0082956ff0e3a472738",
+   "data_sha256": "f425388da2f9fe2392ca7e1dea3826d44b492fd4b1c6106e5f0874784f29d778",
+   "extract_clash": false,
+   "outputs": [
+    "explore/llm-soft-loop/pod64/big/qwen0.5b-softthink",
+    "explore/llm-soft-loop/pod64/big/qwen7b-softthink"
+   ]
   }
  ],
  "pods_without_results": [
@@ -5542,16 +5781,16 @@
   }
  ],
  "summary": {
-  "pods_created": 248,
-  "runs_with_results": 232,
+  "pods_created": 258,
+  "runs_with_results": 242,
   "runs_by_gpu": {
    "NVIDIA H100 NVL": 99,
    "NVIDIA H100 80GB HBM3": 35,
+   "NVIDIA H200": 35,
    "NVIDIA GeForce RTX 4090": 28,
-   "NVIDIA H200": 27,
    "NVIDIA A100-SXM4-80GB": 24,
-   "NVIDIA H100 PCIe": 8,
-   "NVIDIA A100 80GB PCIe": 7,
+   "NVIDIA H100 PCIe": 9,
+   "NVIDIA A100 80GB PCIe": 8,
    "NVIDIA H200 NVL": 4
   },
   "runs_by_jobset": {
@@ -5571,17 +5810,18 @@
    "p4curves": 5,
    "p1ladder": 5,
    "llama8b": 5,
+   "bighidden": 5,
    "prefixscale": 5,
    "p6z3curves": 4,
    "anymap": 4,
    "llamactrl": 4,
-   "bighidden": 4,
    "scaleset": 4,
    "superstable": 3,
    "p1control": 3,
    "hcurves": 3,
    "unfold": 3,
    "gainsplit": 3,
+   "q72fix": 3,
    "smoke": 2,
    "p1detect": 2,
    "hverify": 2,
@@ -5590,6 +5830,7 @@
    "p1x": 2,
    "pairmap": 2,
    "upperset": 2,
+   "prefixcoarse": 2,
    "maps": 1,
    "p4a": 1,
    "highT": 1,
@@ -5609,7 +5850,11 @@
    "hidden": 1,
    "horizon": 1,
    "bigmap": 1,
-   "startstate": 1
+   "startstate": 1,
+   "prefix72": 1,
+   "prefix72base": 1,
+   "window": 1,
+   "softthink": 1
   },
   "pods_without_results": 16
  }
