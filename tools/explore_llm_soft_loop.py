@@ -139,6 +139,36 @@ class SoftLoop:
         p = torch.softmax(z / torch.as_tensor(temps, dtype=self.state_dtype, device=self.device)[:, None], dim=-1)
         return torch.cat([X[:, 1:, :], (p @ self.E)[:, None, :]], dim=1), p
 
+    def step_jvp(self, X, temps, V):
+        """One step with exact tangents: returns the step of X, p, and the Jacobian-vector products for the tangent
+        rows V (B, K, d), by forward-mode AD through the model (math attention kernel). The model runs on a shallow
+        copy of the prefix cache, so the stored prefix tensors are never modified (as jvp_rows of soft_family)."""
+        import copy
+
+        from torch.nn.attention import SDPBackend, sdpa_kernel
+
+        torch = self.torch
+        if self.hybrid:
+            raise SystemExit("step_jvp: hybrid (linear-attention) caches are not supported")
+        T = torch.as_tensor(temps, dtype=self.state_dtype, device=self.device)[:, None]
+        cache = copy.copy(self.cache)
+        cache.layers = [copy.copy(layer) for layer in self.cache.layers]
+
+        def new_embedding(inp):
+            self.sm.steer = self.steer_rows
+            try:
+                z = self.model(inputs_embeds=inp.to(self.dtype), past_key_values=cache, use_cache=True,
+                               logits_to_keep=1).logits[:, -1, :].to(self.device, self.state_dtype)
+            finally:
+                self.sm.steer = None
+            p = torch.softmax(z / T, dim=-1)
+            return p @ self.E, p
+
+        with sdpa_kernel(SDPBackend.MATH):
+            (y, p), (jy, _) = torch.func.jvp(new_embedding, (X,), (V,))
+        return (torch.cat([X[:, 1:, :], y[:, None, :]], dim=1), p,
+                torch.cat([V[:, 1:, :], jy[:, None, :]], dim=1))
+
 
 class SoftOrbit:
     """Periodic orbits of the soft-decoding map at one (temperature, steering) cell: Newton's method on the

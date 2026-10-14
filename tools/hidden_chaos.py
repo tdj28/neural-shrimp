@@ -42,9 +42,39 @@ def symbolic_period(seq, max_q=64):
 KEEP = 400          # states kept per cell: the diameter uses the last 400, the period check the last 65
 
 
-def run_batch(loop, v, log_ts, alphas, transient, record, eps_list, tol, seed=0, trace=False, sequences=None):
+FD_STEPS = (1e-1, 3e-2, 1e-2, 1e-3, 1e-4, 1e-5, 1e-6, 1e-7, 1e-8, 1e-9, 1e-10, 1e-11)
+
+
+def fd_probe(loop, v, log_ts, alphas, base, hs=FD_STEPS, seed=1):
+    """Precision probe of one step at the states base (n, K, d): the central-difference ratio
+    |F(x + h u) - F(x - h u)| / (2h) for one random unit direction u per cell and each h (constant down to the rounding
+    level for a smooth float64 map), and the largest difference between two evaluations of F(x) at different batch
+    positions (zero for a batch-invariant computation)."""
+    torch = loop.torch
+    n, H = len(log_ts), len(hs)
+    rng = np.random.default_rng(seed)
+    u = torch.as_tensor(rng.normal(size=tuple(base.shape)), dtype=loop.state_dtype, device=loop.device)
+    u = u / u.flatten(1).norm(dim=1)[:, None, None]
+    rows = [base]
+    for h in hs:
+        rows += [base + h * u, base - h * u]
+    rows.append(base)
+    reps = 2 * H + 2
+    loop.prepare(np.concatenate([np.array([a * v for a in alphas])] * reps))
+    Y, _ = loop.step(torch.cat(rows), np.tile(10.0 ** np.asarray(log_ts), reps))
+    Y = Y[:, -1].double()
+    out = []
+    for c in range(n):
+        ratio = [float((Y[n * (1 + 2 * k) + c] - Y[n * (2 + 2 * k) + c]).norm() / (2 * h)) for k, h in enumerate(hs)]
+        out.append({"h": list(hs), "central_ratio": ratio, "repeat_diff": float((Y[c] - Y[n * (reps - 1) + c]).abs().max())})
+    return out
+
+
+def run_batch(loop, v, log_ts, alphas, transient, record, eps_list, tol, seed=0, trace=False, sequences=None,
+              tangent=False, probe=False):
     """Trajectories for a batch of cells with one twin per offset; returns per-cell statistics (and, with trace,
-    the per-step arrays of the first cell)."""
+    the per-step arrays of the first cell). tangent: also the exact exponent of a renormalised tangent vector carried
+    along each base orbit by forward-mode AD (no offset). probe: fd_probe at the final base states."""
     torch = loop.torch
     n = len(log_ts)
     m = len(eps_list)
@@ -62,9 +92,19 @@ def run_batch(loop, v, log_ts, alphas, transient, record, eps_list, tol, seed=0,
         twins.append(base + d / d.flatten(1).norm(dim=1)[:, None, None] * e)
     X = torch.cat([base] + twins)
     growth = np.zeros((m, n))
+    tgrowth = np.zeros(n)
+    if tangent:                 # drawn after the twins, so the twins equal those of a run without tangents
+        Vt = torch.as_tensor(rng.normal(size=tuple(base.shape)), dtype=loop.state_dtype, device=loop.device)
+        Vt = Vt / Vt.flatten(1).norm(dim=1)[:, None, None]
     lead, pmax, ent, states, first = [], [], [], [], []
     for _ in range(record):
-        X, p = loop.step(X, temps)
+        if tangent:
+            X, p, JV = loop.step_jvp(X, temps, torch.cat([Vt, torch.zeros_like(X[n:])]))
+            size = np.maximum(JV[:n].flatten(1).norm(dim=1).double().cpu().numpy(), 1e-300)
+            tgrowth += np.log(size)
+            Vt = JV[:n] / torch.as_tensor(size, dtype=loop.state_dtype, device=loop.device)[:, None, None]
+        else:
+            X, p = loop.step(X, temps)
         base = X[:n]
         new = [base]
         for k, e in enumerate(eps_list):
@@ -103,6 +143,11 @@ def run_batch(loop, v, log_ts, alphas, transient, record, eps_list, tol, seed=0,
                     "lead_tokens": [int(t) for t in sorted(set(seq), key=seq.index)[:8]],
                     "pmax_mean": float(pmax[:, c].mean()), "pmax_sd": float(pmax[:, c].std()),
                     "entropy_mean": float(ent[:, c].mean()), "entropy_sd": float(ent[:, c].std())})
+        if tangent:
+            out[-1]["lyapunov_tangent"] = float(tgrowth[c] / record)
+    if probe:
+        for r, f in zip(out, fd_probe(loop, v, log_ts, alphas, X[:n])):
+            r["fd_probe"] = f
     if sequences is not None:
         sequences["lead"].append(lead)
         sequences["pmax"].append(pmax)
@@ -153,6 +198,10 @@ def main():
     ap.add_argument("--prefix-file", default=None, help="JSON with a list 'prefixes' of {system, opener}")
     ap.add_argument("--prefix-index", type=int, default=None)
     ap.add_argument("--threads", type=int, default=16)
+    ap.add_argument("--tangent", action="store_true",
+                    help="also the exact tangent exponent (forward-mode AD along each base orbit, no offset)")
+    ap.add_argument("--fd-probe", action="store_true",
+                    help="one-step central differences at the final states for h = 1e-1..1e-11 (precision probe)")
     ap.add_argument("--out", required=True)
     args = ap.parse_args()
     prompt, opener = "open", ela.OPENER
@@ -182,7 +231,8 @@ def main():
     seqs = {"lead": [], "pmax": []} if args.save_sequences else None
     for s in range(0, len(log_ts), args.chunk):
         got = run_batch(loop, v, log_ts[s:s + args.chunk], alphas[s:s + args.chunk], args.transient, args.record,
-                        args.eps, args.tol, trace=args.trace and args.mode == "cell", sequences=seqs)
+                        args.eps, args.tol, trace=args.trace and args.mode == "cell", sequences=seqs,
+                        tangent=args.tangent, probe=args.fd_probe)
         if isinstance(got, tuple):
             got, tr = got
         results += got

@@ -22,3 +22,38 @@ def test_classify():
     assert hc.classify({**base, "lead_period": 0}) == "visible chaos"
     assert hc.classify({**base, "period": 7}) == "periodic"
     assert hc.classify({**base, "lyapunov": [0.05, -0.01]}).startswith("irregular")
+
+
+class FakeLoop:
+    """Linear map x -> A x on (B, 1, d) states with a three-token readout, and exact tangents."""
+
+    def __init__(self, A):
+        import torch
+
+        self.torch, self.state_dtype, self.device = torch, torch.float64, torch.device("cpu")
+        self.A = torch.as_tensor(A, dtype=torch.float64)
+
+    def prepare(self, rows):
+        return self.torch.ones((len(rows), 1, self.A.shape[0]), dtype=self.torch.float64)
+
+    def step(self, X, temps):
+        Y = X @ self.A.T
+        y = Y[:, 0, 0]
+        return Y, self.torch.softmax(self.torch.stack([y, -y, 0 * y], -1), -1)
+
+    def step_jvp(self, X, temps, V):
+        Y, p = self.step(X, temps)
+        return Y, p, V @ self.A.T
+
+
+def test_tangent_exponent_matches_twins_and_probe_is_flat():
+    import numpy as np
+
+    loop = FakeLoop([[0.5, 0.0], [0.0, 0.25]])
+    out = hc.run_batch(loop, np.zeros(2), [0.0, 0.1], [0.0, 0.0], 50, 400, [1e-4, 1e-6], 1e-8, tangent=True,
+                       probe=True)
+    for r in out:
+        assert abs(r["lyapunov_tangent"] - np.log(0.5)) < 1e-2
+        assert all(abs(l - np.log(0.5)) < 1e-2 for l in r["lyapunov"])
+        ratio = np.array(r["fd_probe"]["central_ratio"])
+        assert np.allclose(ratio, ratio[4], rtol=1e-3) and r["fd_probe"]["repeat_diff"] == 0.0

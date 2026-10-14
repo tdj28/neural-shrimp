@@ -869,6 +869,37 @@ snapshot_download('$REPO', revision='$MREV', cache_dir='$NEURAL_SHRIMP_DATA/mode
     TOOL=hidden_chaos.py run bighidden-$model "${JOBARGS[2]}" $mode --model $model --device auto --weights bf16 \
       --dtype float64 --vectors-none --alpha 0 "${hargs[@]}" --out $D/big/$model-${JOBARGS[1]}
     ;;
+  q72fix)      # consult 8 follow-up after the float64 hook fix (runs QFa, QFb): Qwen2.5-72B-Instruct pinned as in
+               # bighidden, float64 with bf16 storage over all GPUs, tools/hidden_chaos.py with exact tangent exponents
+               # (--tangent) and the one-step precision probe (--fd-probe). JOBARGS PART MINUTES [ARGS...]:
+               # PART cells: cells mode on the uploaded B3 concept vectors (llm-phase-map/vectors-qwen72b-l40-b3,
+               #   layer 40, hostility-vs-kindness) with ARGS (cells file, offsets, steps), into big/qwen72b-fix-cells
+               # PART lines: unsteered lines of 12 temperatures, ARGS = IDX:LO:HI ... (prefix index of
+               #   docs/prefix-scale-prefixes.json and log10 T range), into big/qwen72b-fix-pIDX
+    part=${JOBARGS[0]}; minutes=${JOBARGS[1]}
+    REPO=Qwen/Qwen2.5-72B-Instruct; MREV=495f39366efef23836d0cfae4fbe635880d2be31
+    log "download $REPO"
+    HF_HUB_DISABLE_XET=1 HF_HUB_OFFLINE=0 $PY -c "
+from huggingface_hub import snapshot_download
+snapshot_download('$REPO', revision='$MREV', cache_dir='$NEURAL_SHRIMP_DATA/models/hf/hub',
+                  allow_patterns=['*.json', 'model-*.safetensors'], max_workers=16)" > "$LOGS/setup-big.log" 2>&1
+    unset HF_TOKEN
+    log "download done $(du -sh $NEURAL_SHRIMP_DATA/models/hf/hub | cut -f1)"
+    mrefs=$NEURAL_SHRIMP_DATA/models/hf/hub/models--Qwen--Qwen2.5-72B-Instruct/refs
+    mkdir -p "$mrefs" && printf %s "$MREV" > "$mrefs/main"
+    QF="--model qwen72b --device auto --weights bf16 --dtype float64 --tangent --fd-probe"
+    if [ "$part" = cells ]; then
+      TOOL=hidden_chaos.py run qf-cells "$minutes" cells $QF --layer 40 --vectors llm-phase-map/vectors-qwen72b-l40-b3 \
+        --concept hostility-vs-kindness "${JOBARGS[@]:2}" --out $D/big/qwen72b-fix-cells
+    else
+      for spec in "${JOBARGS[@]:2}"; do
+        IFS=: read -r idx lo hi <<< "$spec"
+        TOOL=hidden_chaos.py run qf-p$idx "$minutes" line $QF --vectors-none --alpha 0 \
+          --prefix-file docs/prefix-scale-prefixes.json --prefix-index $idx --log-temperature $lo $hi --n 12 \
+          --eps 1e-5 1e-6 1e-7 --transient 400 --record 800 --chunk 16 --out $D/big/qwen72b-fix-p$idx
+      done
+    fi
+    ;;
   scaleset)    # scaling series (run SC): JOBARGS MODEL [MODEL...]. For each model, sequentially: pinned checkpoint (plain
                # download; gated ones with the token on stdin), an unsteered float64 sweep (bf16 storage, layers over all
                # GPUs; 160 temperatures over log10 T -1..0.6, 1000 + 2000 steps, twin 1e-6, max period 64) into
