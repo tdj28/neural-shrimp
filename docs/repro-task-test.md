@@ -42,3 +42,7 @@ docs/repro-task-problems.json (fixed before any run).
 - **Null:** short-horizon robustness at this budget. It does not refute long-run chaos.
 - **No numerical difference between layouts:** an operational null. The injected perturbations then estimate the threshold.
 - Accuracy differences are reported, but this test makes no accuracy-harm claim.
+
+## Extension, frozen before its run (15 October 2026, after the 0.5B result): Qwen2.5-7B-Instruct
+
+The same design, problems (docs/repro-task-problems.json), distractors, temperatures, budget, cue, extraction and endpoints, with Qwen2.5-7B-Instruct (pinned a09a3545) instead of the 0.5B model. The primary endpoint is again the bfloat16 Delta, with the same interval and test. Run REPRO-T7, job set reprotask, at the commit that adds this section. The interpretation rules are unchanged. The 0.5B result is not used to choose anything here.

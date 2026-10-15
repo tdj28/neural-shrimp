@@ -157,7 +157,7 @@ def main():
         sel = chao & held
         if sel.sum():
             m = X[sel].mean(0)
-            ax.plot(range(4), m, "o-", color="darkred", lw=2, label="chaotic cells, mean")
+            ax.plot(range(4), m, "o-", color="darkred", lw=2, label="Qwen2.5-0.5B chaotic cells, mean")
             contr = {"readout_effect (10-00)": X[sel, 1] - X[sel, 0], "network_effect (01-00)": X[sel, 2] - X[sel, 0],
                      "interaction (11-10-01+00)": X[sel, 3] - X[sel, 1] - X[sel, 2] + X[sel, 0],
                      "full_minus_readout_only (11-10)": X[sel, 3] - X[sel, 1]}
@@ -177,6 +177,22 @@ def main():
                                         "readout_effect": float((X[part, 1] - X[part, 0]).mean()),
                                         "network_effect": float((X[part, 2] - X[part, 0]).mean()),
                                         "interaction": float((X[part, 3] - X[part, 1] - X[part, 2] + X[part, 0]).mean())}
+        xo7_f = DATA / "xo" / "cells7" / "crossover.json"
+        if xo7_f.exists():                               # the 7B replication (run XO7): mean over held-out chaotic cells
+            xo7 = json.loads(xo7_f.read_text())
+            lab7 = xo7.get("labels") or []
+            X7 = np.array([[c[a] for a in arms] for c in xo7["cells"]])
+            sel7 = np.array([lab == "chaotic" and i >= 2 for i, lab in enumerate(lab7)])
+            if sel7.sum():
+                ax.plot(range(4), X7[sel7].mean(0), "s--", color="navy", lw=2, label="Qwen2.5-7B chaotic cells, mean")
+                v = X7[sel7, 2] - X7[sel7, 0]
+                b = [rng.choice(v, len(v)).mean() for _ in range(10000)]
+                stats.setdefault("XO7", {})["network_effect (01-00)"] = {
+                    "mean": float(v.mean()), "ci95": [float(np.quantile(b, .025)), float(np.quantile(b, .975))], "cells": int(len(v))}
+                v = X7[sel7, 1] - X7[sel7, 0]
+                b = [rng.choice(v, len(v)).mean() for _ in range(10000)]
+                stats["XO7"]["readout_effect (10-00)"] = {
+                    "mean": float(v.mean()), "ci95": [float(np.quantile(b, .025)), float(np.quantile(b, .975))], "cells": int(len(v))}
         ax.set_xticks(range(4))
         ax.set_xticklabels(["00\nunsteered\nboth", "10\nsteered\nreadout", "01\nsteered\nnetwork", "11\nsteered\nboth"], fontsize=7)
         ax.axhline(0, color="0.5", lw=0.6)

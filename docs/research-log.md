@@ -24627,3 +24627,54 @@ The two-block figure was also regenerated with shared y axes (tools/plot_two_blo
 FBC148b (pod b15nhi8uic06dg, runner done 07:50) started at s96 (mu = -4e-9), then refused: "period-96 Newton did not converge at lambda = 0.0661242927". The residuals wandered between 2e-5 and 3e-3: the step from s96 to the far end spans about 0.54 of the period-96 band.
 - **FBC148c.** Start 0.06612361 (about s96 + 0.32 w96, still inside the attracting range) and next 0.06612418868 (f96 + 0.1 w192). The Newton step is now about 0.18 w96. Otherwise as FBC148b.
 - If this also fails, the -0.148 flips stay at period 96 in the paper, as the caption already says, and no further attempt is made tonight.
+
+## 2026-10-15 08:03 UTC: REPRO7 result: in unsteered Qwen2.5-7B a batch-size change alone makes all 24 chaotic temperatures diverge (median step 56, as lambda predicts) and none of 24 periodic ones
+
+Pods lzd2y8s940fuog (REPRO7a, float64) and sj3h0wu7ffntlw (REPRO7b, float32 and bfloat16): SECURE H100 NVL; runner rc 0, hashes verified, terminated; 340 and 412 s; commit 0f91c457. Cells: docs/repro7-cells.json, unsteered (alpha 0), 1500 steps. Inline analysis in this session.
+
+| comparison | label | reach 1e-2 | median step | median final distance | end with different tokens |
+|---|---|---|---|---|---|
+| batch, float64 | chaotic | 24 / 24 | 56 | 0.96 | 95.8 % |
+| | periodic | 0 / 24 | | 4.3e-15 | 0 % |
+| batch, float32 | chaotic | 24 / 24 | 16 | 1.12 | 95.8 % |
+| | periodic | 4 / 24 | | 2.2e-6 | 8.3 % |
+| batch, bfloat16 | chaotic | 24 / 24 | 2 | 0.63 | 75.0 % |
+| | periodic | 24 / 24 | 2 | 0.28 | 50.0 % |
+
+- **float64.** The divergence step of the chaotic cells against ln(1e-2/d_1)/lambda: median ratio 0.95, log-log correlation 0.63 (24 cells). The periodic cells' final distances: 95th percentile 1.3e-13; median largest distance 3.6e-13.
+- **Reading.** The 0.5B result replicates without steering, in a model with untied embeddings: in float64 the dynamical regime decides whether the batch layout changes the text, and the exponent predicts when. In bfloat16 the layout changes the trajectory everywhere.
+
+## 2026-10-15 08:04 UTC: XO7 result: in Qwen2.5-7B the crossover replicates the damping by the network change; the expansion is already present in the unsteered derivative at the steered states
+
+Pod v25l1gmcwmk72c (SECURE H100 NVL; runner rc 0, hash verified, terminated; 529 s; commit 0f91c457). Output xo/cells7: 18 cells of docs/xo7-cells.json (philosophy at block 14, untied embeddings). Inline analysis in this session.
+- **Validation.** Arm 11 equals the twin exponent within 1e-4 at all 18 cells.
+- **Contrasts.** 10 held-out chaotic cells, nats per step, bootstrap 95 % intervals:
+  - readout effect (10 - 00): +0.23 [-0.11, 0.64];
+  - network effect (01 - 00): **-1.14 [-1.61, -0.65]**;
+  - interaction: +0.20 [-0.03, 0.40];
+  - 11 - 10: -0.94 [-1.37, -0.53].
+- **By temperature.** 8 of the 10 cells lie at log10 T >= 0; there the arm means are 00 +1.33, 10 +1.42, 01 +0.19, 11 +0.52. The two cells at log10 T < 0 have 00 +0.63, 10 +1.42, 01 -0.53, 11 +0.31 (readout effect +0.79, as in the 0.5B; too few cells to rely on).
+- **Reading.**
+  - Replicated in a second, larger model with untied embeddings: steering's change of the network response damps the instability.
+  - Not replicated as a general rule: steering's change of the readout at fixed states adds only a little in the 7B. Its unsteered derivative already expands strongly at the steered states (arm 00 +1.33). Steering therefore acts mainly by carrying the orbit into states where the derivative expands, as in the 0.5B at high temperature.
+  - The paper's mechanism text is narrowed accordingly. Readout creation at fixed states is a low-temperature 0.5B finding; network damping holds in both models.
+
+## 2026-10-15 08:06 UTC: Note: the XO7 intervals in the paper come from tools/plot_mechanism.py (seeded bootstrap; fig-mechanism.json): readout effect +0.23 [-0.11, 0.63], network effect -1.14 [-1.61, -0.64]. The inline values in the XO7 entry used another random stream.
+
+## 2026-10-15 08:07 UTC: run (frozen extension): REPRO-T7, the answer-level reproducibility test in Qwen2.5-7B
+
+Frozen in docs/repro-task-test.md ("Extension ... Qwen2.5-7B-Instruct"), pushed with this entry before the run. It uses the same 96 held-out problems, distractors, temperatures, 32-step budget and endpoints. Job set reprotask now downloads the pinned 7B. One H100 NVL pod (the float64 7B needs about 61 GB).
+
+## 2026-10-15 08:12 UTC: run (exploratory): TP, a search for return maps with two turning points (human: "How might we find a turning point?")
+
+- **Why.** A shrimp centre needs an orbit that passes two critical points at once, so the effectively one-dimensional return map must have two turning points. Every return map we have measured has one per phase (RM). The hostile body's superstable curves avoid each other, and its orbit turns two-dimensional where a centre would be (DSS2).
+- **Tool.** tools/turning_scan.py; tests/test_turning_scan.py passes 4 tests: logistic 1, the Chebyshev cubic 3x - x^3 two, a noisy monotone map zero, symbolic periods.
+  - Per cell: the symbolic period q of the leading tokens.
+  - Per phase: the leading principal component, the return map reduced to equal-count binned medians (40 bins), and turning points counted after pruning swings below 5 % of the curve's range.
+  - A phase counts as one-dimensional if its leading component carries at least 90 % of the variance.
+  - Transient 1000, record 6000, float64.
+- **Cells.** docs/tp/*.json, seeded draws (20261015) of chaotic cells, fixed before any TP data, 1584 in all:
+  - the four two-block planes (200 each);
+  - the philosophy maps at blocks 4, 8, 12, 16 and 20 (150 each);
+  - all 34 chaotic cells of the hostile line.
+- **Reading.** Descriptive. Report per configuration the cells with two or more turning points in a one-dimensional phase. Each flagged cell is inspected by eye, because a projection can fold a monotone curve. A cluster of such cells is a candidate region for a doubly superstable centre, to be tested by continuing the window's superstable curves (tools/doubly_superstable.py).
