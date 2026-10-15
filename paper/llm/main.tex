@@ -82,6 +82,9 @@ strength, explain why steering makes it so, and measure what the chaos does.
   the instability in a 0.5B and a 7B model, and adds nothing to it along the other directions we tested.
 \item The depth at which a steering vector enters sets how much chaos it causes, in a 0.5B model and in a 70B
   model, and two steering vectors at different depths create chaos that neither causes alone.
+\item Two loops writing one text lock each other into periodic orbits. Of the pairs of differently steered 0.5B
+  agents that are each chaotic alone, 60\,\% are periodic together, on orbits verified by Newton's method, and an
+  unsteered 0.5B model regularizes a chaotic 1.5B model at 39 of 41 temperatures.
 \end{itemize}
 The same loops obey the quantitative laws of low-dimensional dynamics, down to Feigenbaum's constant.
 
@@ -2326,6 +2329,53 @@ at the last window.}
 \label{fig:hostile-cascade}
 \end{figure}
 
+\section{Two loops in conversation}
+\label{sec:dialogue}
+Two instances of a language model left to talk with each other drift into recurring states
+\cite{ko2026attractor}. The best-known case is the ``spiritual bliss'' attractor of two Claude Opus 4 instances, whose
+open-ended conversations end in repeated exchanges of gratitude and silence \cite{anthropic2025claude4}. The soft-token map poses the deterministic version of the
+question: can two loops that are each chaotic on their own lock each other into a periodic orbit? Agents A and B are
+Qwen2.5-0.5B-Instruct with the prompt of the self-dialogue pilots, each with its own steering strength along the
+philosophy direction at layer 12. They write one reply together, alternating soft tokens, $x_{n+1}=F_A(x_n)$ and
+$x_{n+2}=F_B(x_{n+1})$, so one exchange is the map $G=F_B\circ F_A$. Equal agents reproduce the single loop bitwise in
+float64, so on a map over $(\alpha_A,\alpha_B)$ the diagonal holds each agent writing alone
+(Figure~\ref{fig:dialogue}).
+
+At $\log_{10}T=-0.10$, over $\alpha_A,\alpha_B\in[0.060,0.082]$ ($48\times48$ cells), 27 of the 48 agents are chaotic
+alone and 21 periodic. Of the 702 pairs whose two agents are both chaotic alone, 422 are periodic together; of the 420
+pairs of two periodic agents, 91 are chaotic together. Writing together favours order (70\,\% of pairs are periodic,
+against 44\,\% of single agents), though some chaos is inherited: pairs of chaotic agents are periodic less often than
+pairs in general. The exponent map is plaid, as if each agent contributed its own stability, and where one agent is
+weakly steered ($\alpha\lesssim0.064$) and the other is not, the pair settles into a fixed two-token exchange. Twelve
+entrained pairs spread over the map all converge under Newton's method to attracting primitive orbits of $G$
+(residuals at most $2\times10^{-13}$, leading multipliers $0.0008$ to $0.79$ in modulus, exchange periods 1, 3, 5 and
+6). Their texts show how two chaotic writers share a loop. At period 1, A writes ``is'' and B ``it'', the single loop's
+2-cycle split between two writers. At period 5, B answers ``is'' every time while A cycles through ``This'',
+``there'', ``it'' and ``a''. That alternating two chaotic maps can produce order is known for quadratic maps
+\cite{almeida2005chaos}; here it happens in a language model's own dynamics.
+
+Two different models behave alike. Qwen2.5-0.5B and 1.5B share a tokenizer, so a message can be passed as a
+distribution over the shared vocabulary and embedded by each model with its own matrix. Unsteered, the 1.5B writing
+with itself is chaotic at 41 of 131 temperatures ($\log_{10}T$ from $0.29$ to $0.80$, exponents $0.21$ to $1.76$ per
+exchange), the 0.5B at one. Writing together they are periodic at 39 of those 41 temperatures, mostly in a fixed
+two-token exchange: the stable partner sets the rhythm. A dialogue framing behaves differently. With each one-token
+message placed in a user turn and the first token of the reply as the answer, every map we computed is periodic, for
+one agent alone and for every pair. The reply is decided by the replier's own prompt and steering, and the partner's
+message barely moves it; mutual locking of the kind seen in long conversations would need longer messages than this
+frame provides.
+\begin{figure}[tbp]
+\centering
+\includegraphics[width=\linewidth]{fig-dialogue.png}
+\caption{Two loops writing one text. (a) Agents A and B (Qwen2.5-0.5B-Instruct, philosophy direction at layer 12,
+strengths $\alpha_A$ and $\alpha_B$) alternate soft tokens at $\log_{10}T=-0.10$: period of the exchange map
+$G=F_B\circ F_A$ per cell (black: chaotic). The dotted diagonal holds each agent alone; white crosses mark pairs that
+are periodic although both agents alone are chaotic, and circles the twelve such pairs verified by Newton's method.
+(b) The smaller twin exponent of $G$ per exchange on the same cells. (c) Two different models, unsteered: the smaller
+twin exponent per exchange of Qwen2.5-0.5B and of Qwen2.5-1.5B each writing with itself, and of the two writing
+together; dots mark periodic cells.}
+\label{fig:dialogue}
+\end{figure}
+
 \section{Discussion}
 \label{sec:discussion}
 \paragraph{What theory allows, and what is new.} Chaos and periodic windows occur in many nonlinear feedback
@@ -2555,9 +2605,27 @@ temperatures, and OLMo-2-32B is among the most chaotic models we tested (Section
 near the boundary between order and chaos are especially useful, as has been argued for computation in dynamical
 systems and recurrent networks \cite{langton1990computation,bertschinger2004realtime} and shown for signal propagation
 in deep networks at initialization \cite{poole2016exponential,schoenholz2017deep}, is open for language models. We
-tested only one narrow version. Prompts whose own loop sits at the edge ($|\lambda|\le0.1$) are answered no better by
-ordinary sampling than prompts whose loop is deeply periodic or deeply chaotic (Section~\ref{sec:consequences}).
-Whether computation carried out in the loop itself benefits from the edge is untested.
+tested three versions, and none shows an advantage at the edge. Prompts whose own loop sits at the edge
+($|\lambda|\le0.1$) are answered no better by ordinary sampling than prompts whose loop is deeply periodic or deeply
+chaotic (Section~\ref{sec:consequences}). Used as a reservoir, the loop remembers a weak injected input best in short
+stable cycles. Its linear memory capacity falls at every period doubling toward the onset of chaos, does not rise as
+the exponent approaches zero within a period, and is nearly erased by chaos (Figure~\ref{fig:reservoir}). In Huginn,
+whose reasoning is itself a latent loop, a pilot on 40 development problems recorded the decay rate of every generated
+token's recurrence. Accuracy holds while that recurrence is comfortably stable and falls as it approaches its edge. The
+gain at $\lambda=1.05$ (Section~\ref{sec:huginn}) comes where the token recurrence is nearly as stable as natively
+(median decay rate $0.921$ against $0.912$), and the collapse at $1.15$ where it is near critical ($0.981$, with half
+of the tokens no longer converging).
+\begin{figure}[tbp]
+\centering
+\includegraphics[width=\linewidth]{fig-reservoir.png}
+\caption{Memory capacity of the soft-token loop used as a reservoir (Qwen2.5-0.5B-Instruct, philosophy direction at
+layer 12, float64). A weak random input enters the map, $x_{n+1}=F(x_n+\epsilon|x|u_nr)$, and linear readouts of the
+state reconstruct the past inputs; the capacity is the sum of their held-out $R^2$ over 41 delays. (a) Along the
+doubling cascade at $\log_{10}T=-0.148$: capacity for two input sizes, the input-free twin exponent (grey), the flips
+(red) and the onset of chaos (dotted). (b) The 448 labelled cells of the horizon check against the map exponent, with
+bin means and bootstrap 95\,\% intervals.}
+\label{fig:reservoir}
+\end{figure}
 
 \paragraph{Which findings might reach frontier models.} Today's frontier systems include closed models such as
 GPT-6 Astra and Claude Opus 5.5 and open-weight mixture-of-experts models such as the GLM-5 family. Some of our
