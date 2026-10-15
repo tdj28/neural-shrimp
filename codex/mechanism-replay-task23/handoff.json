@@ -1,6 +1,6 @@
 {
-  "updated_utc": "2026-10-15T17:20:13.026230+00:00",
-  "phase": "Task23 final science accepted; standalone delivery integration; Task25 source preparation only",
+  "updated_utc": "2026-10-15T17:22:26.524668+00:00",
+  "phase": "Task23 complete/private-delivered; Task25 manufactured source/plan preparation",
   "human_extension": "Continue watching indefinitely until explicit human stop; continue authorized Claude queue. Prior cutoff superseded.",
   "automation": {
     "id": "watch-claude-and-work-queue",
@@ -10,7 +10,6 @@
     "owner": "Root"
   },
   "queue": [
-    "Task23 four-cell mechanism replay",
     "Task25 saved-data size audit"
   ],
   "deferred": [
@@ -20,7 +19,8 @@
   "completed": [
     "Task21a\u2013i",
     "Task26",
-    "Task27"
+    "Task27",
+    "Task23"
   ],
   "ownership": {
     "git_and_processes": "Inference",
@@ -32,11 +32,11 @@
   "actual_profile_admitted": true,
   "actual_scientific_run_admitted": true,
   "latest_claude_comms_sha256": "4783e5f9525e0ec52805d7d1524e59e850443384b40de54ed37dbb36e1569024",
-  "latest_scoped_fetch": "2026-10-15T17:05:07.956377+00:00",
+  "latest_scoped_fetch": "2026-10-15T17:22:26.524668+00:00",
   "source_packet_manifest_sha256": "957f293f43a34aa62f99d2ef4c60a0531904b6b132427507e003ad5fa23b6d40",
   "preserved_previous_handoff": "codex/night-results-review-task21/task21i/final-handoff.json",
-  "latest_observed_private_main": "8be809a3b29e820f2c594bec5a7d70e064ddaf2e",
-  "preparation": "All Task23 execution closed and final finite science accepted. Zero numerical jobs. Task25 controls/target execution not admitted.",
+  "latest_observed_private_main": "3af7d14c4cd6249be341a9a2aa7ce34aac4e5d8d",
+  "preparation": "Task23 complete and delivered with no repeat work. Task25 combined source accepted; exact37-group manufactured plan/supervisor and finite actual manifest remain pending review. No controls or target execution admitted.",
   "prepared_supervision_manifest_sha256": "903472384139d6a9c644d3bfbeb75ba4945da9bd4cdd507cc34be9023f1fbb50",
   "controls_plan_sha256": "11b728a692c075a4bc633a4ce7d766880b6aa0a527ce6b27d57d8a26678c0d85",
   "controls_source_manifest_sha256": "6ff856fa5ae7a77a8e22b76839d8843816e8c94ec1737ff413735bd804101c27",
@@ -109,5 +109,17 @@
     "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/mechanism-replay-task23/final-acceptance.json",
     "bytes": 1822,
     "sha256": "b92c58f9f1cd6ae4108798b354262f40ad145e99936ad9216c6f8f4533126aac"
-  }
+  },
+  "delivery_receipt": {
+    "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/mechanism-replay-task23/delivery-receipt.json",
+    "bytes": 3075,
+    "sha256": "6c2835c67e06c8bb939e0ae0babda1fb96bfd03a4530cf45d54e99d04038c091"
+  },
+  "task25_source_release": {
+    "path": "/tmp/task25-adapter-prep/release.json",
+    "bytes": 4974,
+    "sha256": "79248b21fce4235664ac872b1ca757386f76306bbaf7b0f1695212a201aa3cf2"
+  },
+  "task25_controls_executed": false,
+  "task25_target_execution_admitted": false
 }
