@@ -1,3 +1,15 @@
+# Task 21a complete and privately delivered; Task 21b metadata preparation
+
+Task 21a is complete under the accepted finite saved-data scope. Root read and accepted the full final scientific Markdown 32d0ece0 and the companion 738202ae as the precisely scoped bound transcription; final Root acceptance d573c1dd and final-acceptance c9ec418b remain unchanged. Standalone delivery was privately verified at ee79415057bb6b90c4aa64b114a899b655e8668f, entry SHA256 7c89f7f8a380ea3d932dd4bb9db2f948ef50c132c5b8dd8f31f383b41657a350, and Root read it in full. The compact delivery receipt binds the original evidence checkpoint. No further Task 21a computation or audit remains.
+
+Zero live jobs or resource reservations. Task 21b KY1/KY2/TC source and metadata preparation is now active; no spectrum values have been decoded. Original timeout, nonchaotic controls, prior TC membership and unknown spectrum tails will remain distinct. Queue then continues 21c–i, 22, 23 only with its concrete MECH card, 24, 25, 15. Inference retains sole Git/process coordination. Overnight watch remains active and quiet when nonactionable.
+
+2026-10-15T07:41:23.990325+00:00
+
+---
+
+## Preserved earlier status
+
 # Task 21a complete and accepted; standalone delivery follows
 
 Root accepted the full final scientific Markdown32d0ece0 and the companion738202ae as precisely scoped bound transcription; exact Root acceptance d573c1dd is preserved. All confirmed results, discrepancies, excluded prefixes and cannot-check items are final finite findings. No further Task21a arithmetic or audit remains. The complete original scalar report and companion transcription remain outside Git at their hash-pinned owned paths. The compact final-acceptance.json records all authority.
