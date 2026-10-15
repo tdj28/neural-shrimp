@@ -1,0 +1,44 @@
+--- accepted-task21c-launch.py
++++ prepared-task21e-launch.py
+@@ -1,12 +1,12 @@
+-"""One Task21c independent saved-arithmetic run; minimal accepted supervisor adaptation."""
++"""One Task21e independent saved-arithmetic run; minimal accepted supervisor adaptation."""
+ from pathlib import Path
+ import argparse,hashlib,json,os,resource,shutil,signal,subprocess,sys,time,traceback
+ R=Path('/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp')
+-B=Path('/data2/neural-shrimp-data/codex/night-results-review-task21/task21c')
++B=Path('/data2/neural-shrimp-data/codex/night-results-review-task21/task21e')
+ OUT=B/'run-001';SUP=OUT.with_name(OUT.name+'-supervision')
+-WRAPPER='codex/night-results-review-task21/task21c/analyze.py';CARD='codex/night-results-review-task21/task21c/run-001-card.json'
+-WRAPPER_SHA='96c332bc5f7705a024a2a3018ad7797325510eea8d9860ee1fef99bb2aa89641'  # Final accepted independent scalar analyzer pin required.
+-ADMISSION='reviewed';CARD_SHA='78255873e67890369c079368bee552af800412c49d92934ef061805ba0048e62'  # Exact source and reviewed card pins required before launch.
++WRAPPER='codex/night-results-review-task21/task21e/analyze.py';CARD='codex/night-results-review-task21/task21e/run-001-card.json'
++WRAPPER_SHA=None  # Final accepted independent scalar analyzer pin required.
++ADMISSION='prepared';CARD_SHA=None  # Exact source and reviewed card pins required before launch.
+ GIB=1024**3;WALL=30;MAX_OUTPUT=16*1024**2
+ 
+ def sha(p):return hashlib.sha256(Path(p).read_bytes()).hexdigest()
+@@ -27,7 +27,7 @@
+ 
+ def main():
+  ap=argparse.ArgumentParser();ap.add_argument('--source',required=True);args=ap.parse_args()
+- assert ADMISSION=='reviewed' and isinstance(CARD_SHA,str) and len(CARD_SHA)==64 and all(c in '0123456789abcdef'for c in CARD_SHA),'prepared Task21c supervisor cannot run'
++ assert ADMISSION=='reviewed' and isinstance(CARD_SHA,str) and len(CARD_SHA)==64 and all(c in '0123456789abcdef'for c in CARD_SHA),'prepared Task21e supervisor cannot run'
+  assert len(args.source)==40 and all(c in '0123456789abcdef'for c in args.source)
+  os.nice(10-os.getpriority(os.PRIO_PROCESS,0));resource.setrlimit(resource.RLIMIT_AS,(GIB,)*2)
+  assert not OUT.exists() and not SUP.exists()
+@@ -38,12 +38,12 @@
+  sources={}
+  for name,pin in [(WRAPPER,WRAPPER_SHA),(CARD,CARD_SHA)]:
+   data=git('show',args.source+':'+name);assert hashlib.sha256(data).hexdigest()==pin==sha(R/name),name;sources[name]=data
+- own=Path(__file__);launch_rel='codex/night-results-review-task21/task21c/run-001-launch.py';assert git('show',args.source+':'+launch_rel)==own.read_bytes();sources[launch_rel]=own.read_bytes()
++ own=Path(__file__);launch_rel='codex/night-results-review-task21/task21e/run-001-launch.py';assert git('show',args.source+':'+launch_rel)==own.read_bytes();sources[launch_rel]=own.read_bytes()
+  available=next(int(x.split()[1])*1024 for x in Path('/proc/meminfo').read_text().splitlines()if x.startswith('MemAvailable:'));assert available>=20*GIB and shutil.disk_usage('/data2').free>=16*GIB
+  SUP.mkdir();src=SUP/'source'
+  for name,data in sources.items():p=src/name;p.parent.mkdir(parents=True,exist_ok=True);p.write_bytes(data);p.chmod(0o444)
+  command=['/data2/neural-shrimp/.venv/bin/python','-I','-B','-u',str(src/WRAPPER),'--card',str(src/CARD),'--out',str(OUT)]
+- save(SUP/'admission.json',{'source_commit':args.source,'private_remote_ancestor':remote,'sources':{n:hashlib.sha256(d).hexdigest()for n,d in sources.items()},'available_bytes':available,'disk_free_bytes':shutil.disk_usage('/data2').free,'load_average':os.getloadavg(),'cpu_affinity_count':len(os.sched_getaffinity(0)),'scope':'One Task21c independent stdlib scalar reconstruction over two pinned completed FNF2b/FNF4 JSON files, four coefficient-step rows and five offsets each. No model, derivatives, eigenanalysis, state projection or producer imports. Original FNF2 failure and all scientific discrepancies/complex values remain outcomes. Source and finite original-input authority are bound by exact card. CPU1 plus supervisor,1GiB AS,20CPU/30s wall plus5s TERM/5s KILL cleanup,16MiB output,20/16GiB available RAM and16GiB disk; no concurrent numerical reservation. Exit success means schema-complete reconstruction, not favorable scientific gates','command':command,'seconds':WALL,'memory_gib':1,'cpu_worker':1,'supervisor_slots':1,'output_cap_bytes':MAX_OUTPUT,'supervisor':identity(os.getpid())})
++ save(SUP/'admission.json',{'source_commit':args.source,'private_remote_ancestor':remote,'sources':{n:hashlib.sha256(d).hexdigest()for n,d in sources.items()},'available_bytes':available,'disk_free_bytes':shutil.disk_usage('/data2').free,'load_average':os.getloadavg(),'cpu_affinity_count':len(os.sched_getaffinity(0)),'scope':'One Task21e independent stdlib saved-scalar audit of nine declared cusp localizations across seven pinned source curves, with six other candidate dispositions retained separately. Reconstruct available scalar conditions and finite candidate coverage; broader curve universe remains producer-declared. No model, derivatives, native states, eigenanalysis or producer imports. Original failed/incomplete attempts, unavailable native premises and all scientific discrepancies remain outcomes. Source and finite original-input authority are bound by exact card. CPU1 plus supervisor,1GiB AS,20CPU/30s wall plus5s TERM/5s KILL cleanup,16MiB output,20/16GiB available RAM and16GiB disk; no concurrent numerical reservation. Exit success means schema-complete reconstruction, not favorable scientific gates','command':command,'seconds':WALL,'memory_gib':1,'cpu_worker':1,'supervisor_slots':1,'output_cap_bytes':MAX_OUTPUT,'supervisor':identity(os.getpid())})
+  env=dict(os.environ,OMP_NUM_THREADS='1',OPENBLAS_NUM_THREADS='1',MKL_NUM_THREADS='1',NUMEXPR_NUM_THREADS='1',PYTHONDONTWRITEBYTECODE='1');env.pop('PYTHONPATH',None);env.pop('PYTHONHOME',None)
+  child=None;birth=None;failure=None;code=None;timed_out=False;closed=False;start=time.monotonic();max_bytes=0
+  def stopped(signum,frame):raise InterruptedError('owned audit supervisor interrupted')

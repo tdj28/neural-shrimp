@@ -1,0 +1,61 @@
+{
+  "schema": "codex-task21e-saved-cusps-v1",
+  "admission": "prepared",
+  "output": "/data2/neural-shrimp-data/codex/night-results-review-task21/task21e/run-001",
+  "source_sha256": {
+    "analyze.py": "71249d233412d88fae8705c317867cdb5d34fa3b7309321dc8a826e8f231ca8a"
+  },
+  "inputs_manifest": {
+    "path": "/data2/neural-shrimp-data/codex/night-results-review-task21/task21e/source-001/inputs.json",
+    "bytes": 81966,
+    "sha256": "14d98bb661dffa4de69f6db438b40394c91fa2aa60a8bca5c97fab3b62cd7242"
+  },
+  "limits": {
+    "cpu_seconds": 20,
+    "wall_seconds": 30,
+    "as_bytes": 1073741824,
+    "input_bytes": 4194304,
+    "output_bytes": 16777216,
+    "startup_available_bytes": 21474836480,
+    "runtime_available_bytes": 17179869184
+  },
+  "resource_policy": {
+    "worker_cpus": 1,
+    "supervisor_cpus": 1,
+    "nice": 10,
+    "hard_rss_cap": false,
+    "external_watchdog_required": true,
+    "gpu": false,
+    "paid_calls": false
+  },
+  "declared_input_scope": {
+    "cusps": 9,
+    "other_dispositions": 6,
+    "curves": 7,
+    "curve_points": 410,
+    "scientific_json_bytes": 665293,
+    "unique_runtime_pins": 51,
+    "unique_declared_runtime_bytes": 1030170,
+    "full_curve_universe": "seven producer-declared curves only"
+  },
+  "preparation_evidence": [
+    {
+      "path": "/tmp/task21e-design-final.md",
+      "sha256": "38e6898c51515f357617ae348ccb44750c19a55d420fa5aed24a41ee81cfac73"
+    },
+    {
+      "path": "/tmp/task21e-controls-001/report.json",
+      "sha256": "0b53f72c9160fe3eba9911cd02d71197a52b6e64855c4854b11338b158e79aa2"
+    },
+    {
+      "path": "/tmp/task21e-coverage-controls-001/report.json",
+      "sha256": "9b0f47c7909a6267904db383912a8dd559ff804afc1fefe2eb045d9ff92e70d8"
+    },
+    {
+      "path": "/tmp/task21e-driver-controls-001/report.json",
+      "sha256": "176491aa7d5e102720a920396589a731ece6624949d9a0743540f9326dffff3f"
+    }
+  ],
+  "scope": "Independent unblinded saved-scalar arithmetic. No producer import/model/native derivative/eigenanalysis; original operational authority inherited. No actual run admitted by prepared card.",
+  "history_note": "Original core and staged control sources preserved; no scientific thresholds changed."
+}

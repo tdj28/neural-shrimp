@@ -1,0 +1,14 @@
+--- prepared-before-contract.py
++++ prepared-actual-contract.py
+@@ -71,7 +71,10 @@
+    count=size();max_bytes=max(max_bytes,count);assert count<=MAX_OUTPUT,'final audit output cap'
+    assert code==0,'saved audit nonzero exit'
+    assert OUT.exists() and (OUT/'report.json').is_file()
+-   result=json.loads((OUT/'report.json').read_text());assert result['computational_completed'] is True and result['all_records_schema_complete'] is True
++   result=json.loads((OUT/'report.json').read_text());assert result['schema']=='codex-task21e-saved-cusps-v1' and result['computational_completed'] is True
++   assert len(result['cusps'])==9 and len(result['curves'])==7 and len(result['other_dispositions'])==6
++   assert set(p.name for p in OUT.iterdir())=={'report.json','manifest.json'}
++   assert json.loads((OUT/'manifest.json').read_text())['files']==[{'path':'report.json','bytes':(OUT/'report.json').stat().st_size,'sha256':sha(OUT/'report.json')}]
+    for name,pin in [(WRAPPER,WRAPPER_SHA),(CARD,CARD_SHA)]:assert sha(R/name)==pin
+  except BaseException as exc:
+   for signum in old_handlers:signal.signal(signum,signal.SIG_IGN)

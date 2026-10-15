@@ -1,0 +1,70 @@
+--- /tmp/task21e-core-v1.py	2026-10-15 04:54:37.883116350 -0700
++++ /tmp/task21e-analyze.py	2026-10-15 04:54:37.973292920 -0700
+@@ -231,3 +231,67 @@
+                    "comparisons": comparisons,
+                    "nonexact_comparisons": [x for x in comparisons if not x["exact_equal"]],
+                    "native_evidence_recomputed": False, "rigorous_cusp_certificate": False})
++
++
++def analyze_curve(curve, identity):
++    """Every stored tangent reversal, within the declared original curve only."""
++    require(curve["kind"] == "fold", "selected source curve is not a fold")
++    require(type(curve["period"]) is int and curve["period"] > 0, "curve period invalid")
++    points = curve["points"]
++    require(isinstance(points, list) and points, "curve has no saved points")
++    rows, computed_reversals, saved_reversals = [], [], []
++    previous = None
++    for i, point in enumerate(points):
++        require(type(point["index"]) is int and point["index"] == i, "curve index coverage invalid")
++        require(type(point["cusp_candidate"]) is bool, "cusp_candidate is not Boolean")
++        tangent = pair(point["parameter_tangent"], "parameter_tangent")
++        dot = None if previous is None else previous[0] * tangent[0] + previous[1] * tangent[1]
++        computed = previous is not None and dot < 0
++        if computed:
++            computed_reversals.append({"left": i - 1, "right": i})
++        if point["cusp_candidate"]:
++            saved_reversals.append({"left": i - 1, "right": i})
++        rows.append({"index": i, "original": point, "tangent_dot_previous": dot,
++                     "candidate_comparison": compare(f"/points/{i}/cusp_candidate", computed, point["cusp_candidate"]),
++                     "nonfinite_paths": nonfinite_paths(point)})
++        previous = tangent
++    return tagged({"id": identity, "kind": curve["kind"], "period": curve["period"],
++                   "args": curve["args"], "point_count": len(points), "rows": rows,
++                   "computed_reversals": computed_reversals, "saved_reversals": saved_reversals,
++                   "candidate_mismatches": [x["candidate_comparison"] for x in rows
++                                            if not x["candidate_comparison"]["exact_equal"]],
++                   "scope": "complete saved points of this declared curve, not all possible continuations"})
++
++
++def reversal_coverage(curves, selected):
++    """Compare the frozen nine-row selection with every admitted curve reversal."""
++    require(len({c["id"] for c in curves}) == len(curves), "duplicate source curve id")
++    by_id = {c["id"]: c for c in curves}
++    selected_pairs = []
++    rows = []
++    require(len({s["id"] for s in selected}) == len(selected), "duplicate selected cusp id")
++    for item in selected:
++        curve_id, left = item["curve_id"], item["left"]
++        require(curve_id in by_id, "selected cusp source curve missing")
++        require(type(left) is int and 0 <= left < by_id[curve_id]["point_count"] - 1,
++                "selected bracket index outside source curve")
++        key = (curve_id, left)
++        require(key not in selected_pairs, "duplicate selected reversal bracket")
++        selected_pairs.append(key)
++        curve = by_id[curve_id]
++        bracket = {"left": left, "right": left + 1}
++        rows.append({"id": item["id"], "curve_id": curve_id, **bracket,
++                     "matches_saved_candidate": bracket in curve["saved_reversals"],
++                     "matches_reconstructed_reversal": bracket in curve["computed_reversals"]})
++    computed = {(c["id"], p["left"]) for c in curves for p in c["computed_reversals"]}
++    saved = {(c["id"], p["left"]) for c in curves for p in c["saved_reversals"]}
++    chosen = set(selected_pairs)
++    encode = lambda pairs: [{"curve_id": c, "left": i, "right": i + 1} for c, i in sorted(pairs)]
++    return {"selected_count": len(rows), "rows": rows,
++            "computed_reversal_count": len(computed), "saved_candidate_count": len(saved),
++            "unselected_computed_reversals": encode(computed - chosen),
++            "selected_without_computed_reversal": encode(chosen - computed),
++            "unselected_saved_candidates": encode(saved - chosen),
++            "selected_without_saved_candidate": encode(chosen - saved),
++            "selection_exactly_covers_declared_curve_reversals": chosen == computed,
++            "global_curve_universe_exhaustion_claimed": False}
