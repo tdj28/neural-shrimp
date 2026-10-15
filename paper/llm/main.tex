@@ -1228,8 +1228,9 @@ can be reached by forward iteration and cannot slide onto its half-period parent
 ratios are $3.19$, $4.02$, $4.478$, $4.625$ and $4.660$. The last three come from parameters resolved to $10^{-14}$ and
 differ from Feigenbaum's value by $0.19$, $0.044$ and $0.0097$; from $4.02$ on, the distance shrinks by factors of
 $3.4$, $4.3$ and $4.6$.
-The flip ratios $2.84$, $2.86$, $3.78$ and $4.36$ rise in step (Figure~\ref{fig:feigenbaum}); the last comes from a
-run started inside the period-96 band, which located the $96\to192$ flip directly. The accumulation point lies
+The flip ratios $2.84$, $2.86$, $3.78$, $4.36$, $4.60$ and $4.65$ rise in step (Figure~\ref{fig:feigenbaum}); the
+last three come from runs started inside the period-96 band, which located the flips of periods 96, 192 and 384
+directly. The accumulation point lies
 near $\alpha_\infty\approx0.0661250$. The early superstable values are less precise. The other computed Ritz values of
 the period-12 and period-24 orbits blur the root, so $s_{12}$ and $s_{24}$ are known only within brackets of
 $1.2\times10^{-5}$ and $7\times10^{-7}$, and the ratios $3.19$ and $4.02$ have worst-case ranges $[2.90,3.34]$ and
@@ -1289,8 +1290,7 @@ $s_{12}$ and $s_{24}$. At $\log_{10}T=-0.148$, and in the 1.5B model, the ratios
 last superstable ratio at $-0.148$ is within 0.21\,\% of it, and the last 1.5B ratio ($4.665$) within 0.1\,\%. At $\log_{10}T=-0.156$ the first ratio, $14.9$, lies off the scale
 (arrow), and the later ratios approach $\delta$ from below, the last ($4.6688$) within $0.01\,\%$ of it. Its first two
 superstable ratios carry no bars: the brackets of $s_{12}$ and $s_{24}$ allow $[3.40,29.3]$ and $[1.01,4.65]$. Each
-sequence ends at the deepest level computed: the flips at $-0.148$ at period 96 (a search for the next flip ended short of it), the superstable points at period
-768, the 1.5B route at period 256, and the cut at
+sequence ends at the deepest level computed: the flips at $-0.148$ at period 384, the superstable points at period 768, the 1.5B route at period 256, and the cut at
 $-0.156$, which we followed furthest, at period 1536.
 }
 \label{fig:feigenbaum}
@@ -1308,19 +1308,26 @@ $n$ & orbit & flip parameter $\alpha_n$ & next modulus & ratio $\delta_n=\frac{\
 3 & $12\to24$ & $0.0660549041785$ & $2.4\times10^{-6}$ & $2.859$ \\
 4 & $24\to48$ & $0.0661071412523$ & $2.3\times10^{-12}$ & $3.781$ \\
 5 & $48\to96$ & $0.0661209563174$ & $<10^{-13}$ & $4.365$ \\
-6 & $96\to192$ & $0.0661241213732$ & $<10^{-13}$ & \\
+6 & $96\to192$ & $0.0661241213732$ & $<10^{-13}$ & $4.596$ \\
+7 & $192\to384$ & $0.0661248100141$ & $<10^{-13}$ & $4.653$ \\
+8 & $384\to768$ & $0.0661249580173$ & $<10^{-13}$ & \\
 \bottomrule
 \end{tabular}
-\caption{Flips of the crescent's period-doubling sequence along $\log_{10}T=-0.14798$. For the five displayed H100 flips the
+\caption{Flips of the crescent's period-doubling sequence along $\log_{10}T=-0.14798$. For the first five flips (H100) the
 critical Ritz value is real and differs from $-1$ by at most $4\times10^{-10}$, the Newton residuals are below
 $4\times10^{-13}$, and the other computed Ritz values lie inside the unit circle. The sixth flip was located at the
 precision floor of the period-96 multiplier: the critical value differs from $-1$ by $5.7\times10^{-7}$, its scatter
 between bracket points $10^{-13}$ apart is about $10^{-6}$, and the Newton residual is $5.5\times10^{-12}$; the
-location is uncertain by about $2\times10^{-12}$, which changes $\delta_5$ by less than $10^{-5}$. Feigenbaum's constant is
+location is uncertain by about $2\times10^{-12}$, which changes $\delta_5$ by less than $10^{-5}$. The seventh flip is
+clean (critical value $-1.000000016$, Newton residual $2.8\times10^{-12}$). The eighth was accepted at the precision
+floor of the period-384 multiplier: there the critical value differs from $-1$ by $5.3\times10^{-5}$ (acceptance
+threshold $10^{-4}$), bracket evaluations within $4\times10^{-12}$ of it scatter by about $10^{-4}$ in that difference,
+and the Newton residuals are below $4\times10^{-11}$. Its location is uncertain by about $4\times10^{-12}$, which
+changes $\delta_7$ by about $10^{-4}$. Feigenbaum's constant is
 $\delta=4.6692\ldots$ \cite{feigenbaum1978quantitative}; for the logistic map the first ratios are $4.751$, $4.656$,
 $4.668$.
 The first four parameters agree between the completed CPU and H100 computations to $4\times10^{-15}$. Superstable parameters (Table~\ref{tab:superstable}) extend the ratio
-sequence through period 384.}
+sequence through period 768.}
 \label{tab:cascade}
 \end{table}
 \begin{table}[H]

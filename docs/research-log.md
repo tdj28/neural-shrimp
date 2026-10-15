@@ -25402,3 +25402,20 @@ The generated tokens' recurrence approaches its edge (rate -> 1) near lam 1.15, 
 - Ordinary answers against the loop's regime (frozen): no edge optimum.
 - The soft-token loop's memory capacity: no edge peak; it is set by the period and erased by chaos.
 - Huginn's latent reasoning: best well inside stability, falling near the edge.
+
+## 2026-10-15 11:43 UTC: FBC148d result: flips of periods 96, 192 and 384 at log10 T -0.148; flip ratios to 4.653
+
+**Run.** Pod esht41lf1apcir (H100 NVL); commit 6e71f783 from the orchestrator log; runner rc 0; job status 0; terminated; 143 min. Output: cascade/crescent-t-0.14798-p96d. Run card FBC148d: the wider search, --max-substeps 48.
+
+**Flips:**
+- 96 -> 192 at 0.06612412137318323. This reproduces FBC148c exactly.
+- 192 -> 384 at 0.06612481001406094: critical value -1.000000016, next modulus 6.0e-14, Newton residual 2.8e-12. Bracket width 4.5e-14.
+- 384 -> 768 at 0.0661249580173026: critical value -0.99995 (|mu + 1| = 5.3e-5 < g_accept 1e-4); next modulus 5.0e-14.
+  - **This one is at the precision floor of the period-384 multiplier.** Bracket evaluations within 4e-12 scatter by about 1e-4 in mu + 1, and Newton residuals are below 4e-11.
+  - Location uncertain by about 4e-12, changing the last ratio by about 1e-4.
+
+**Ratios at -0.148:** 2.844, 2.859, 3.781, 4.365, **4.596, 4.653**. The last is 0.016 from delta.
+
+The extrapolated accumulation point (0.0661249983) agrees with alpha_inf about 0.0661250, and the superstable point s_768 = 0.0661249745 lies below it.
+
+**Paper.** Text, Table tab:cascade (rows 6 to 8, the precision statements in the caption), the figure (flips through period 384) and the figure caption.
