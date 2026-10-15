@@ -1,6 +1,6 @@
 {
-  "updated_utc": "2026-10-15T16:57:53.141194+00:00",
-  "phase": "Task23 saved comparison admitted/private checkpoint; audit controls serialized next; Task25 adapter source-only",
+  "updated_utc": "2026-10-15T17:05:07.956377+00:00",
+  "phase": "Task23 saved comparator complete; consistency audit admitted pending checkpoint/preflight; Task25 adapter source-only",
   "human_extension": "Continue watching indefinitely until explicit human stop; continue authorized Claude queue. Prior cutoff superseded.",
   "automation": {
     "id": "watch-claude-and-work-queue",
@@ -31,12 +31,12 @@
   "reservations": [],
   "actual_profile_admitted": true,
   "actual_scientific_run_admitted": true,
-  "latest_claude_comms_sha256": "ad8ddcb67aff9e1f17a619de0c2a100daab2f5c387007707830cbceede1aa1a2",
-  "latest_scoped_fetch": "2026-10-15T15:46:13.614729+00:00",
+  "latest_claude_comms_sha256": "4783e5f9525e0ec52805d7d1524e59e850443384b40de54ed37dbb36e1569024",
+  "latest_scoped_fetch": "2026-10-15T17:05:07.956377+00:00",
   "source_packet_manifest_sha256": "957f293f43a34aa62f99d2ef4c60a0531904b6b132427507e003ad5fa23b6d40",
   "preserved_previous_handoff": "codex/night-results-review-task21/task21i/final-handoff.json",
-  "latest_observed_private_main": "a540c33b7ca34a5d61d029d7ac530f7359c95181",
-  "preparation": "Model and comparator controls closed. Comparison card53f1f716/launcher c4a76fb0; audit-controls plan4c3eb875/supervisor578921cd; no target25 execution.",
+  "latest_observed_private_main": "8be809a3b29e820f2c594bec5a7d70e064ddaf2e",
+  "preparation": "Seven comparator controls and seven saved-audit controls completed once and sealed; comparator completed/sealed. Final audit card7a564896/launcherf7f18007; no model replay or Task25 execution.",
   "prepared_supervision_manifest_sha256": "903472384139d6a9c644d3bfbeb75ba4945da9bd4cdd507cc34be9023f1fbb50",
   "controls_plan_sha256": "11b728a692c075a4bc633a4ce7d766880b6aa0a527ce6b27d57d8a26678c0d85",
   "controls_source_manifest_sha256": "6ff856fa5ae7a77a8e22b76839d8843816e8c94ec1737ff413735bd804101c27",
@@ -74,5 +74,20 @@
     "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/mechanism-replay-task23/saved-consistency/controls-001-plan.json",
     "bytes": 2452,
     "sha256": "4c3eb87522554f1cc200021e708b1c6660ef15c74f3783c648baa504efd3a590"
+  },
+  "comparison_report": {
+    "path": "/data2/neural-shrimp-data/codex/mechanism-replay-task23/comparison-001/report.json",
+    "bytes": 52121,
+    "sha256": "efd89b19259f3d671a78a468158830762d2d697f29d032548f3c57786c50e563"
+  },
+  "comparison_authority": {
+    "path": "/data2/neural-shrimp-data/codex/mechanism-replay-task23/comparison-001-dispatch/outer-closure.json",
+    "bytes": 4851,
+    "sha256": "e8d3fcff4d7edf467ac8cd6db70abf86fdff9960d9a854188233e0141ad8c67d"
+  },
+  "saved_audit_card": {
+    "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/mechanism-replay-task23/saved-consistency/saved-consistency-001-card.json",
+    "bytes": 6780,
+    "sha256": "7a564896f1c90dd6960d1ecfdee50782be8ada95b862e628e65322d1217dc05e"
   }
 }

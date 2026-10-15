@@ -1,3 +1,11 @@
+# Task23 saved comparison complete; consistency audit admitted
+
+2026-10-15T17:05:07.956377+00:00: Sole comparator completed/sealed, reportefd89b19/outere8d3fcff. All28 scalar differences retained, finite labels agree; final science pending consistency audit and independent read. Audit controls7/7 completed once (0090f06e/outerff5cb465). Final audit card7a564896/launcherf7f18007/source00d3e95a admitted for one saved2000x4x896 check after private checkpoint/fresh capacity. No model rerun; zero jobs at checkpoint.
+
+Latest scoped Claude16:55 status-info is context for a possible later delta check, not a new assignment; SHA4783e5f9. Persistent15minute watcher remains ACTIVE without cutoff until explicit human stop. QueueTask23 then25; six Task25 pure sources accepted, combined adapter source-only, no execution.
+
+## Preserved status history
+
 # Task23 replay closed; saved comparison admitted
 
 2026-10-15T16:57:53.141194+00:00: Model1000/2000 completed and closed, no rerun. Comparator manufactured7/7 completed and sealed; Root admitted exact saved comparator card53f1f716/launcherc4a76fb0. Sole comparison follows private checkpoint/fresh capacity, then separately admitted seven consistency controls plan4c3eb875/supervisor578921cd. No numerical jobs at this checkpoint; all checks serialize. Independent saved audit still awaits measured controls/final card. Task25 six pure component sources are accepted, combined adapter preparation only; no target execution.

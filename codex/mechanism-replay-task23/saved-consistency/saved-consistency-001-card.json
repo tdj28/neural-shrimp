@@ -1,0 +1,138 @@
+{
+  "schema": "task23-saved-consistency-card-v1",
+  "status": "reviewed-for-execution",
+  "audit_sha256": "00d3e95a0b97b3689fe986dd597257a5a5f087582d5752e1fb45bdbf93bd114b",
+  "inputs": {
+    "report": {
+      "path": "/data2/neural-shrimp-data/codex/mechanism-replay-task23/run-001/report.json",
+      "bytes": 21467,
+      "sha256": "0039ef4c2732bbf4641010543a33b761cd85821167a5ba20ebb7d9f2c391dfd7"
+    },
+    "manifest": {
+      "path": "/data2/neural-shrimp-data/codex/mechanism-replay-task23/run-001/final-manifest.json",
+      "bytes": 1082,
+      "sha256": "9652ee09743854e54bc31b66bcd37c1598c1db3fe866125a059515c3c5ffe82b"
+    },
+    "closure": {
+      "path": "/data2/neural-shrimp-data/codex/mechanism-replay-task23/run-001-supervision/closure.json",
+      "bytes": 2471,
+      "sha256": "02b2459c55c9fa9bd348e834dc140eb43a211cb1b6cd22614cddc3472c2af498"
+    },
+    "authority": {
+      "path": "/data2/neural-shrimp-data/codex/mechanism-replay-task23/run-001-dispatch/outer-closure.json",
+      "bytes": 6781,
+      "sha256": "e6072e7fd0aa87a86b9c7f912630ae9cdebffbb2bb7a8773cb9d6f81ccc91b54"
+    },
+    "original_card": {
+      "path": "/data2/neural-shrimp-data/codex/mechanism-replay-task23/run-001-supervision/source/codex/mechanism-replay-task23/run-001-card.json",
+      "bytes": 13432,
+      "sha256": "93f519a6ac731486f761921efbc1a9e909be44d16a0ea16f2c75cb8d9d2cdd78"
+    }
+  },
+  "repo": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp",
+  "output": "/data2/neural-shrimp-data/codex/mechanism-replay-task23/saved-consistency-001",
+  "supervision": "/data2/neural-shrimp-data/codex/mechanism-replay-task23/saved-consistency-001-supervision",
+  "resources_proposed": {
+    "worker_cpu_threads": 1,
+    "supervisor_slots": 1,
+    "nice": 10,
+    "address_space_bytes": 1073741824,
+    "cpu_seconds": 55,
+    "wall_seconds": 60,
+    "terminate_grace_seconds": 5,
+    "kill_grace_seconds": 5,
+    "maximum_output_bytes": 16777216,
+    "startup_available_bytes": 21474836480,
+    "runtime_available_bytes": 17179869184,
+    "free_disk_floor_bytes": 17179869184,
+    "maximum_input_bytes": 134217728,
+    "declared_unique_input_count": 11,
+    "declared_input_bytes": 64547671
+  },
+  "declared_unique_inputs": [
+    {
+      "path": "/data2/neural-shrimp-data/codex/mechanism-replay-task23/run-001/report.json",
+      "bytes": 21467,
+      "sha256": "0039ef4c2732bbf4641010543a33b761cd85821167a5ba20ebb7d9f2c391dfd7"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/codex/mechanism-replay-task23/run-001/final-manifest.json",
+      "bytes": 1082,
+      "sha256": "9652ee09743854e54bc31b66bcd37c1598c1db3fe866125a059515c3c5ffe82b"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/codex/mechanism-replay-task23/run-001-supervision/closure.json",
+      "bytes": 2471,
+      "sha256": "02b2459c55c9fa9bd348e834dc140eb43a211cb1b6cd22614cddc3472c2af498"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/codex/mechanism-replay-task23/run-001-dispatch/outer-closure.json",
+      "bytes": 6781,
+      "sha256": "e6072e7fd0aa87a86b9c7f912630ae9cdebffbb2bb7a8773cb9d6f81ccc91b54"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/codex/mechanism-replay-task23/run-001-supervision/source/codex/mechanism-replay-task23/run-001-card.json",
+      "bytes": 13432,
+      "sha256": "93f519a6ac731486f761921efbc1a9e909be44d16a0ea16f2c75cb8d9d2cdd78"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/codex/mechanism-replay-task23/run-001/base-states.npy",
+      "bytes": 57372800,
+      "sha256": "375a39d21a68d700d0f51147dc5de044830cddd43873b321ca5ea341568c5519"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/codex/mechanism-replay-task23/run-001/final-twins.npz",
+      "bytes": 1978874,
+      "sha256": "d419ebc1479733cdc503496180c9dc8560f20c3d1f2f6cff18513df9dd0d5f75"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/codex/mechanism-replay-task23/run-001/initialization.npz",
+      "bytes": 144460,
+      "sha256": "836cd27ee296cfa1d7fdd43b97bd7edf161973545cfdf65a8d3a9ac24d6a10f0"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/codex/mechanism-replay-task23/run-001/metadata.json",
+      "bytes": 9802,
+      "sha256": "e7b7944769f907019883360c234b6defa2b418ce4e681962dcd29ac7659836c2"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/codex/mechanism-replay-task23/run-001/progress.jsonl",
+      "bytes": 9392,
+      "sha256": "48326ab910d5c97f25946d1eb6c71498c9baaf80075abe56f4d97e791a1102c1"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/codex/mechanism-replay-task23/run-001/step-records.jsonl",
+      "bytes": 4987110,
+      "sha256": "00164c0bcdca13f95c44e7a7eec34b4493402a61261f4b770509681fa39f9d3e"
+    }
+  ],
+  "scope": "Independent saved native arrays/scalar stream/accounting only. No model or producer execution. Differences retained, existing original arithmetic/period criteria unchanged. Authentication repeats within this scientific saved-consistency pass; original process/source closure inherited.",
+  "pending": "Root fully reviewed exact audit00d3e95a, measured cardc668b37c and launcher5e24c5b5. Sole saved consistency audit authorized after exact private checkpoint and fresh closed-ownership/capacity preflight. Both seven-group control attempts passed once and closed. No model replay, new numerical agreement gate, retry or extension.",
+  "controls_evidence": {
+    "report": {
+      "path": "/data2/neural-shrimp-data/codex/mechanism-replay-task23/audit-controls-001/report.json",
+      "bytes": 816,
+      "sha256": "0090f06ea1bf6a3039dd0edee04675a3d89c0ee7dd7ba1078d61c37b5ff2c4a5"
+    },
+    "receipt": {
+      "path": "/data2/neural-shrimp-data/codex/mechanism-replay-task23/audit-controls-001-supervision/receipt.json",
+      "bytes": 2943,
+      "sha256": "967b3565769dba767a1d53911216129d56dd578e744119e7ac6a69c11a821502"
+    },
+    "outer_closure": {
+      "path": "/data2/neural-shrimp-data/codex/mechanism-replay-task23/audit-controls-001-dispatch/outer-closure.json",
+      "bytes": 4751,
+      "sha256": "ff5cb465fe957ace8a94f7dd411249f9cd7310e723b97f8d6f9bfd5cd5a97b06"
+    },
+    "measurement": {
+      "groups_passed": 7,
+      "groups_failed": 0,
+      "seconds_before_report": 0.016759044025093317,
+      "external_seconds": 0.10349690308794379,
+      "final_output_bytes": 1525,
+      "maximum_sampled_output_bytes": 0,
+      "sampling_limit": "The tiny worker completed between samples; zero sampled output is not zero final output. No peak RSS measurement is claimed."
+    },
+    "limits": "Manufactured3-step/4cell/2dim and sparse66x4x896 cases test the source contract, not actual full-array/2000step hashing/decode/serialization cost. Fixed60s/1GiB/16MiB actual bounds remain conservative finite caps, not a measured full-shape guarantee."
+  }
+}

@@ -1,0 +1,1363 @@
+{
+  "batch_platform_scope": {
+    "own": "CPU float64,4 transient bases/12 measured rows",
+    "producer": "original CUDA float64 path,201 cells/603 rows; historical runtime/source limits inherited"
+  },
+  "comparison_card_sha256": "53f1f7169470e8befb539145e964679373ecfd6833314f7b095edd9a5d237e9b",
+  "computational_status": "complete",
+  "execution_attribution": "Original run/receipt/reaping observed by Inference; this worker compares authenticated saved fields only.",
+  "input_pins": {
+    "original_authority": {
+      "bytes": 3441,
+      "path": "/tmp/task23-source-002/original-authority.json",
+      "sha256": "d89dd9a86e001f082fc42efd6c8e5c83580ed9ea30be4fecbc2e8cb9c68cf4b6"
+    },
+    "original_metadata": {
+      "bytes": 2682,
+      "path": "/tmp/task23-source-002/target-metadata.json",
+      "sha256": "82061d45e87c3f553df94bfd29fac837ae699a08ab767331a2dbd19f7749b6a8"
+    },
+    "original_source": {
+      "bytes": 13529,
+      "path": "/tmp/task23-source-002/original/tools/steer_gain.py",
+      "sha256": "ccb427ec06f21620858808a8d51220c0056bfb218f742d54c625ba61d7d0e8a5"
+    },
+    "own_authority": {
+      "bytes": 6781,
+      "path": "/data2/neural-shrimp-data/codex/mechanism-replay-task23/run-001-dispatch/outer-closure.json",
+      "sha256": "e6072e7fd0aa87a86b9c7f912630ae9cdebffbb2bb7a8773cb9d6f81ccc91b54"
+    },
+    "own_card": {
+      "bytes": 13432,
+      "path": "/data2/neural-shrimp-data/codex/mechanism-replay-task23/run-001-supervision/source/codex/mechanism-replay-task23/run-001-card.json",
+      "sha256": "93f519a6ac731486f761921efbc1a9e909be44d16a0ea16f2c75cb8d9d2cdd78"
+    },
+    "own_closure": {
+      "bytes": 2471,
+      "path": "/data2/neural-shrimp-data/codex/mechanism-replay-task23/run-001-supervision/closure.json",
+      "sha256": "02b2459c55c9fa9bd348e834dc140eb43a211cb1b6cd22614cddc3472c2af498"
+    },
+    "own_gain_source": {
+      "bytes": 12263,
+      "path": "/data2/neural-shrimp-data/codex/mechanism-replay-task23/run-001-supervision/source/codex/mechanism-replay-task23/gain.py",
+      "sha256": "229d79a788589b5f860a0774f7273e9e93b54cecf8e6f474a3c5c3734eca751f"
+    },
+    "own_map_source": {
+      "bytes": 14540,
+      "path": "/data2/neural-shrimp-data/codex/mechanism-replay-task23/run-001-supervision/source/codex/mechanism-replay-task23/qwen_map.py",
+      "sha256": "493a3d1d57fec227f5ba2e3f8f9cfcfdd02d22495d1d44e6449ede901310ae6e"
+    },
+    "own_metadata": {
+      "bytes": 9802,
+      "path": "/data2/neural-shrimp-data/codex/mechanism-replay-task23/run-001/metadata.json",
+      "sha256": "e7b7944769f907019883360c234b6defa2b418ce4e681962dcd29ac7659836c2"
+    },
+    "own_report": {
+      "bytes": 21467,
+      "path": "/data2/neural-shrimp-data/codex/mechanism-replay-task23/run-001/report.json",
+      "sha256": "0039ef4c2732bbf4641010543a33b761cd85821167a5ba20ebb7d9f2c391dfd7"
+    },
+    "own_run_source": {
+      "bytes": 12716,
+      "path": "/data2/neural-shrimp-data/codex/mechanism-replay-task23/run-001-supervision/source/codex/mechanism-replay-task23/run.py",
+      "sha256": "a6e83da06332cb5a27e1a167537226aaa38cfccdd1f87e92e28f17a5cc1093ed"
+    },
+    "producer_gain": {
+      "bytes": 142871,
+      "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/mech/host/gain.json",
+      "sha256": "a084574483fed4f7905212412eb2a80259b064ea836f6ee7d424f475bc9184bf"
+    }
+  },
+  "numeric_disagreement_is_a_failure": false,
+  "producer_aggregate_rounding": "Required fields are Python float conversions of float64 sums/record or finite norms, written by json.dumps without explicit decimal rounding. The first1000 saved step arrays are float32 and are not used here.",
+  "required_scalar_comparisons": 28,
+  "rows": [
+    {
+      "chaotic_label_equal": true,
+      "comparisons": [
+        {
+          "absolute_difference": 0.035152435006497784,
+          "agreement_gate": null,
+          "both_finite": true,
+          "difference_finite": true,
+          "exact_saved_scalar_equality": false,
+          "field": "lyapunov_eps_1e-06",
+          "own": 0.4950137968265117,
+          "own_binary64_hex": "0x1.fae4e591c12f2p-2",
+          "producer": 0.5301662318330095,
+          "producer_binary64_hex": "0x1.0f71f2c655293p-1",
+          "producer_precision": "JSON round-trip of source float64 aggregate; no explicit decimal rounding in writer",
+          "signed_own_minus_producer": -0.035152435006497784
+        },
+        {
+          "absolute_difference": 0.03465819608056481,
+          "agreement_gate": null,
+          "both_finite": true,
+          "difference_finite": true,
+          "exact_saved_scalar_equality": false,
+          "field": "lyapunov_eps_1e-09",
+          "own": 0.4951925533604417,
+          "own_binary64_hex": "0x1.fb13c1b79f927p-2",
+          "producer": 0.5298507494410065,
+          "producer_binary64_hex": "0x1.0f4898f1386dep-1",
+          "producer_precision": "JSON round-trip of source float64 aggregate; no explicit decimal rounding in writer",
+          "signed_own_minus_producer": -0.03465819608056481
+        },
+        {
+          "absolute_difference": 0.01299255684798084,
+          "agreement_gate": null,
+          "both_finite": true,
+          "difference_finite": true,
+          "exact_saved_scalar_equality": false,
+          "field": "mean_log_g_net",
+          "own": 0.5917462603039746,
+          "own_binary64_hex": "0x1.2ef95da7125e1p-1",
+          "producer": 0.6047388171519554,
+          "producer_binary64_hex": "0x1.35a053849428ap-1",
+          "producer_precision": "JSON round-trip of source float64 aggregate; no explicit decimal rounding in writer",
+          "signed_own_minus_producer": -0.01299255684798084
+        },
+        {
+          "absolute_difference": 0.022068389657685705,
+          "agreement_gate": null,
+          "both_finite": true,
+          "difference_finite": true,
+          "exact_saved_scalar_equality": false,
+          "field": "mean_log_g_read",
+          "own": -0.09673621245132731,
+          "own_binary64_hex": "-0x1.8c3b454d13e6dp-4",
+          "producer": -0.0746678227936416,
+          "producer_binary64_hex": "-0x1.31d6e30f653a9p-4",
+          "producer_precision": "JSON round-trip of source float64 aggregate; no explicit decimal rounding in writer",
+          "signed_own_minus_producer": -0.022068389657685705
+        },
+        {
+          "absolute_difference": 9.148850083323338e-05,
+          "agreement_gate": null,
+          "both_finite": true,
+          "difference_finite": true,
+          "exact_saved_scalar_equality": false,
+          "field": "boundary_term",
+          "own": 3.7489738624098855e-06,
+          "own_binary64_hex": "0x1.f72dc2d4e2ac8p-19",
+          "producer": 9.523747469564326e-05,
+          "producer_binary64_hex": "0x1.8f7475b4fc063p-14",
+          "producer_precision": "JSON round-trip of source float64 aggregate; no explicit decimal rounding in writer",
+          "signed_own_minus_producer": -9.148850083323338e-05
+        },
+        {
+          "absolute_difference": 0.012824857970609393,
+          "agreement_gate": null,
+          "both_finite": true,
+          "difference_finite": true,
+          "exact_saved_scalar_equality": false,
+          "field": "mean_entropy",
+          "own": 6.328119091338987,
+          "own_binary64_hex": "0x1.94ffe7379fa0cp+2",
+          "producer": 6.315294233368378,
+          "producer_binary64_hex": "0x1.942dc7dd3bd01p+2",
+          "producer_precision": "JSON round-trip of source float64 aggregate; no explicit decimal rounding in writer",
+          "signed_own_minus_producer": 0.012824857970609393
+        },
+        {
+          "absolute_difference": 0.004766252599647691,
+          "agreement_gate": null,
+          "both_finite": true,
+          "difference_finite": true,
+          "exact_saved_scalar_equality": false,
+          "field": "mean_gap",
+          "own": 1.2245618191946803,
+          "own_binary64_hex": "0x1.397ce2255f153p+0",
+          "producer": 1.2197955665950326,
+          "producer_binary64_hex": "0x1.384485b254da4p+0",
+          "producer_precision": "JSON round-trip of source float64 aggregate; no explicit decimal rounding in writer",
+          "signed_own_minus_producer": 0.004766252599647691
+        }
+      ],
+      "exact_requested_float_match": true,
+      "excluded_auxiliary_fields": [
+        "readout power/trace/rank/Rayleigh statistics are retained raw only, not recomputed or compared"
+      ],
+      "own_full_saved_row": {
+        "alpha": 0.0655,
+        "beta": 0.0,
+        "both_twin_mean_log_g_net": [
+          0.5917462603039746,
+          0.5919791795445389
+        ],
+        "both_twin_mean_log_g_read": [
+          -0.09673621245132731,
+          -0.09679037515796009
+        ],
+        "boundary_term": 3.7489738624098855e-06,
+        "eps": [
+          1e-06,
+          1e-09
+        ],
+        "frac_gap_below_1": 0.5455,
+        "frac_gap_below_2": 0.7665,
+        "identity_abs_tolerance": 1e-10,
+        "identity_residual": [
+          2.0076408797139317e-15,
+          4.533286452387125e-16
+        ],
+        "lag_distances": [
+          0.5139515849926026,
+          0.07057595377788753,
+          0.20280866096487446,
+          0.08635743021211578,
+          0.052119764289056424,
+          0.5214692646936693,
+          0.1607923131577778,
+          0.2818328434807661,
+          0.24552329764120956,
+          0.4811573434619229,
+          0.10199466281749495,
+          0.06678455151870241,
+          0.016449106593873806,
+          0.36361600028000457,
+          0.011074783255121417,
+          0.43752231806965164,
+          0.005964191415555184,
+          0.5067513351004577,
+          0.18306473974380627,
+          0.15319397348030142,
+          0.0840313556263979,
+          0.059930645149696274,
+          0.21833005337882083,
+          0.1734401649385374,
+          0.39322947488414267,
+          0.0956069350122461,
+          0.06809769859981823,
+          0.08464433016692784,
+          0.01862927412152805,
+          0.3308099006548405,
+          0.011142610783354732,
+          0.4410334256139268,
+          0.06091351539215496,
+          0.19329192076382865,
+          0.08605334624770757,
+          0.042319441409777454,
+          0.2893619214233968,
+          0.15499689893211668,
+          0.32651365914596864,
+          0.20299203299181862,
+          0.4241026554150223,
+          0.09336592343644667,
+          0.04442991766997254,
+          0.2497988933813202,
+          0.19965881986857242,
+          0.219418094661708,
+          0.3298009855106559,
+          0.5291840079639712,
+          0.10652586737030247,
+          0.09887725209238211,
+          0.12621898184478175,
+          0.10388269412284873,
+          0.12743001793703032,
+          0.10125295058272457,
+          0.10410201714981382,
+          0.09660016383824226,
+          0.10447742127315837,
+          0.09484021472510645,
+          0.09530399691370259,
+          0.09153000273241063,
+          0.05894120952801577,
+          0.07232695307559153,
+          0.16404348031322377,
+          0.20911888572545273
+        ],
+        "literal_chaotic": true,
+        "log10_temperature": 0.125,
+        "lyapunov": [
+          0.4950137968265117,
+          0.4951925533604417
+        ],
+        "max_step_identity_abs": [
+          6.661338147750939e-16,
+          5.828670879282072e-16
+        ],
+        "mean_entropy": 6.328119091338987,
+        "mean_gap": 1.2245618191946803,
+        "mean_log_g_net": 0.5917462603039746,
+        "mean_log_g_read": -0.09673621245132731,
+        "mean_p_top": 0.2520449131031583,
+        "measurement_steps": 2000,
+        "nonzero_step_identity_count": [
+          1672,
+          1666
+        ],
+        "numerically_defined": true,
+        "period": 0,
+        "physical_temperature": 1.333521432163324,
+        "scope": "last-state recurrence only",
+        "source_index": 25,
+        "tail_states": 66,
+        "threshold": 1e-08
+      },
+      "own_identity": [
+        {
+          "boundary": 3.7489738624098855e-06,
+          "eps": 1e-06,
+          "lambda": 0.4950137968265117,
+          "net": 0.5917462603039746,
+          "predicted_lambda_net_plus_read_plus_boundary": 0.4950137968265097,
+          "read": -0.09673621245132731,
+          "recomputed_source_order_residual": 2.0076408797139317e-15,
+          "saved_residual": 2.0076408797139317e-15,
+          "saved_residual_exactly_matches": true,
+          "scope": "floating scalar consistency, not a certified bound or agreement gate",
+          "tolerance": 1e-10,
+          "within_own_prospective_floating_tolerance": true
+        },
+        {
+          "boundary": 3.7489738624098855e-06,
+          "eps": 1e-09,
+          "lambda": 0.4951925533604417,
+          "net": 0.5919791795445389,
+          "predicted_lambda_net_plus_read_plus_boundary": 0.49519255336044127,
+          "read": -0.09679037515796009,
+          "recomputed_source_order_residual": 4.533286452387125e-16,
+          "saved_residual": 4.533286452387125e-16,
+          "saved_residual_exactly_matches": true,
+          "scope": "floating scalar consistency, not a certified bound or agreement gate",
+          "tolerance": 1e-10,
+          "within_own_prospective_floating_tolerance": true
+        }
+      ],
+      "own_label": {
+        "literal_chaotic_from_saved_rates_and_period": true,
+        "period": 0,
+        "rates_finite": true,
+        "scope": "finite last-state return and two finite-twin rates; not primitive-orbit/chaos proof",
+        "stored_chaotic": true,
+        "stored_label_matches_literal": true
+      },
+      "period_equal": true,
+      "producer_first_twin_identity": {
+        "agreement_or_identity_pass_gate": null,
+        "available": true,
+        "raw_components": [
+          0.5301662318330095,
+          0.6047388171519554,
+          -0.0746678227936416,
+          9.523747469564326e-05
+        ],
+        "residual_lambda_minus_net_minus_read_minus_boundary": 1.2536087619363645e-17,
+        "scope": "source-rounded binary64 scalar accounting only; original per-step float64 record is not available",
+        "twin": 1e-06
+      },
+      "producer_full_saved_row": {
+        "alpha": 0.0655,
+        "beta": 0.0,
+        "boundary_term": 9.523747469564326e-05,
+        "chaotic": true,
+        "eps": [
+          1e-06,
+          1e-09
+        ],
+        "frac_gap_below_1": 0.5485,
+        "frac_gap_below_2": 0.7665,
+        "log10_temperature": 0.125,
+        "lyapunov": [
+          0.5301662318330095,
+          0.5298507494410065
+        ],
+        "max_rayleigh_change": 0.06811562180519104,
+        "mean_entropy": 6.315294233368378,
+        "mean_gap": 1.2197955665950326,
+        "mean_log_g_net": 0.6047388171519554,
+        "mean_log_g_read": -0.0746678227936416,
+        "mean_log_r1_rel": 3.011421057040576,
+        "mean_p_top": 0.2535704345061652,
+        "mean_rayleigh_change": 0.0010797462594175195,
+        "mean_stable_rank": 11.227390852731494,
+        "period": 0
+      },
+      "producer_label": {
+        "literal_chaotic_from_saved_rates_and_period": true,
+        "period": 0,
+        "rates_finite": true,
+        "scope": "finite last-state return and two finite-twin rates; not primitive-orbit/chaos proof",
+        "stored_chaotic": true,
+        "stored_label_matches_literal": true
+      },
+      "requested_log10_temperature": 0.125,
+      "requested_position": 0,
+      "saved_log10_temperature": 0.125,
+      "saved_log10_temperature_hex": "0x1.0000000000000p-3",
+      "source_index": 25,
+      "unavailable_comparisons": [
+        "producer second-twin net/read split",
+        "producer full2000-step float64 scalar stream",
+        "producer exact runtime prefix IDs/native twin states"
+      ]
+    },
+    {
+      "chaotic_label_equal": true,
+      "comparisons": [
+        {
+          "absolute_difference": 0.006701266221312174,
+          "agreement_gate": null,
+          "both_finite": true,
+          "difference_finite": true,
+          "exact_saved_scalar_equality": false,
+          "field": "lyapunov_eps_1e-06",
+          "own": 0.516734394657097,
+          "own_binary64_hex": "0x1.0891691b8a8aap-1",
+          "producer": 0.5234356608784092,
+          "producer_binary64_hex": "0x1.0bffc24a10da2p-1",
+          "producer_precision": "JSON round-trip of source float64 aggregate; no explicit decimal rounding in writer",
+          "signed_own_minus_producer": -0.006701266221312174
+        },
+        {
+          "absolute_difference": 0.005291129053870303,
+          "agreement_gate": null,
+          "both_finite": true,
+          "difference_finite": true,
+          "exact_saved_scalar_equality": false,
+          "field": "lyapunov_eps_1e-09",
+          "own": 0.5179621168353872,
+          "own_binary64_hex": "0x1.093254a0bff56p-1",
+          "producer": 0.5232532458892575,
+          "producer_binary64_hex": "0x1.0be7d9753d8bdp-1",
+          "producer_precision": "JSON round-trip of source float64 aggregate; no explicit decimal rounding in writer",
+          "signed_own_minus_producer": -0.005291129053870303
+        },
+        {
+          "absolute_difference": 0.017820636760248254,
+          "agreement_gate": null,
+          "both_finite": true,
+          "difference_finite": true,
+          "exact_saved_scalar_equality": false,
+          "field": "mean_log_g_net",
+          "own": 0.6071165675051129,
+          "own_binary64_hex": "0x1.36d7fb9496a62p-1",
+          "producer": 0.6249372042653611,
+          "producer_binary64_hex": "0x1.3ff7c4ecbf2e0p-1",
+          "producer_precision": "JSON round-trip of source float64 aggregate; no explicit decimal rounding in writer",
+          "signed_own_minus_producer": -0.017820636760248254
+        },
+        {
+          "absolute_difference": 0.01117799462472005,
+          "agreement_gate": null,
+          "both_finite": true,
+          "difference_finite": true,
+          "exact_saved_scalar_equality": false,
+          "field": "mean_log_g_read",
+          "own": -0.0903113529331758,
+          "own_binary64_hex": "-0x1.71ea5134e357ep-4",
+          "producer": -0.10148934755789585,
+          "producer_binary64_hex": "-0x1.9fb34b4a74e68p-4",
+          "producer_precision": "JSON round-trip of source float64 aggregate; no explicit decimal rounding in writer",
+          "signed_own_minus_producer": 0.01117799462472005
+        },
+        {
+          "absolute_difference": 5.8624085785353566e-05,
+          "agreement_gate": null,
+          "both_finite": true,
+          "difference_finite": true,
+          "exact_saved_scalar_equality": false,
+          "field": "boundary_term",
+          "own": -7.08199148408509e-05,
+          "own_binary64_hex": "-0x1.290a4df61eaa6p-14",
+          "producer": -1.2195829055497335e-05,
+          "producer_binary64_hex": "-0x1.99395fb6b9fc7p-17",
+          "producer_precision": "JSON round-trip of source float64 aggregate; no explicit decimal rounding in writer",
+          "signed_own_minus_producer": -5.8624085785353566e-05
+        },
+        {
+          "absolute_difference": 0.03175657249898034,
+          "agreement_gate": null,
+          "both_finite": true,
+          "difference_finite": true,
+          "exact_saved_scalar_equality": false,
+          "field": "mean_entropy",
+          "own": 6.59992713280153,
+          "own_binary64_hex": "0x1.a66534c5d7665p+2",
+          "producer": 6.63168370530051,
+          "producer_binary64_hex": "0x1.a86d817deba28p+2",
+          "producer_precision": "JSON round-trip of source float64 aggregate; no explicit decimal rounding in writer",
+          "signed_own_minus_producer": -0.03175657249898034
+        },
+        {
+          "absolute_difference": 0.04216787494750718,
+          "agreement_gate": null,
+          "both_finite": true,
+          "difference_finite": true,
+          "exact_saved_scalar_equality": false,
+          "field": "mean_gap",
+          "own": 1.1487947664787075,
+          "own_binary64_hex": "0x1.261769efd78dbp+0",
+          "producer": 1.1909626414262147,
+          "producer_binary64_hex": "0x1.30e2ed7baef12p+0",
+          "producer_precision": "JSON round-trip of source float64 aggregate; no explicit decimal rounding in writer",
+          "signed_own_minus_producer": -0.04216787494750718
+        }
+      ],
+      "exact_requested_float_match": true,
+      "excluded_auxiliary_fields": [
+        "readout power/trace/rank/Rayleigh statistics are retained raw only, not recomputed or compared"
+      ],
+      "own_full_saved_row": {
+        "alpha": 0.0655,
+        "beta": 0.0,
+        "both_twin_mean_log_g_net": [
+          0.6071165675051129,
+          0.6082423584424876
+        ],
+        "both_twin_mean_log_g_read": [
+          -0.0903113529331758,
+          -0.0902094216922601
+        ],
+        "boundary_term": -7.08199148408509e-05,
+        "eps": [
+          1e-06,
+          1e-09
+        ],
+        "frac_gap_below_1": 0.561,
+        "frac_gap_below_2": 0.796,
+        "identity_abs_tolerance": 1e-10,
+        "identity_residual": [
+          7.863447306494242e-16,
+          4.810333988775062e-16
+        ],
+        "lag_distances": [
+          0.3183948134228903,
+          0.4891709252340285,
+          0.27999450023362593,
+          0.23579724749625516,
+          0.23118907984158227,
+          0.3901802851769598,
+          0.23170742200517055,
+          0.4544701693466449,
+          0.24223624483226217,
+          0.3584649078872803,
+          0.27152754287361086,
+          0.23532249463938082,
+          0.2652668356595708,
+          0.2513438132258121,
+          0.2511609701704489,
+          0.2339078431850753,
+          0.4868187661130033,
+          0.2321872743863421,
+          0.07895229346762235,
+          0.27449827220642076,
+          0.45001645242195765,
+          0.2746133690946593,
+          0.24297750577989294,
+          0.22946049716051953,
+          0.2599048138999127,
+          0.21779469779357116,
+          0.24810315828283216,
+          0.30024957930654295,
+          0.2670883117087486,
+          0.2320836565952762,
+          0.26421093208511237,
+          0.2376584263508286,
+          0.26175645035232903,
+          0.2451438481886985,
+          0.28795780239346425,
+          0.23827507991880853,
+          0.01728529388722374,
+          0.3078622532508364,
+          0.4856225256929767,
+          0.27166139958064883,
+          0.23806544941438207,
+          0.224197644625209,
+          0.29057574300851013,
+          0.26853476033546464,
+          0.27517410196527775,
+          0.2701954768162918,
+          0.265757577753143,
+          0.2703144940292228,
+          0.27336043602505106,
+          0.27493850694696537,
+          0.27333092390102504,
+          0.26817489447302084,
+          0.2687017721982232,
+          0.2591930373904317,
+          0.2627841080656812,
+          0.2508181311687804,
+          0.2623502483841454,
+          0.24517634568783875,
+          0.26047729403371817,
+          0.24906546906387167,
+          0.2569622366632743,
+          0.24612307995537577,
+          0.2655052251198317,
+          0.23394787715751242
+        ],
+        "literal_chaotic": true,
+        "log10_temperature": 0.129,
+        "lyapunov": [
+          0.516734394657097,
+          0.5179621168353872
+        ],
+        "max_step_identity_abs": [
+          6.106226635438361e-16,
+          6.661338147750939e-16
+        ],
+        "mean_entropy": 6.59992713280153,
+        "mean_gap": 1.1487947664787075,
+        "mean_log_g_net": 0.6071165675051129,
+        "mean_log_g_read": -0.0903113529331758,
+        "mean_p_top": 0.22457780100371427,
+        "measurement_steps": 2000,
+        "nonzero_step_identity_count": [
+          1697,
+          1690
+        ],
+        "numerically_defined": true,
+        "period": 0,
+        "physical_temperature": 1.3458603540559484,
+        "scope": "last-state recurrence only",
+        "source_index": 29,
+        "tail_states": 66,
+        "threshold": 1e-08
+      },
+      "own_identity": [
+        {
+          "boundary": -7.08199148408509e-05,
+          "eps": 1e-06,
+          "lambda": 0.516734394657097,
+          "net": 0.6071165675051129,
+          "predicted_lambda_net_plus_read_plus_boundary": 0.5167343946570963,
+          "read": -0.0903113529331758,
+          "recomputed_source_order_residual": 7.863447306494242e-16,
+          "saved_residual": 7.863447306494242e-16,
+          "saved_residual_exactly_matches": true,
+          "scope": "floating scalar consistency, not a certified bound or agreement gate",
+          "tolerance": 1e-10,
+          "within_own_prospective_floating_tolerance": true
+        },
+        {
+          "boundary": -7.08199148408509e-05,
+          "eps": 1e-09,
+          "lambda": 0.5179621168353872,
+          "net": 0.6082423584424876,
+          "predicted_lambda_net_plus_read_plus_boundary": 0.5179621168353867,
+          "read": -0.0902094216922601,
+          "recomputed_source_order_residual": 4.810333988775062e-16,
+          "saved_residual": 4.810333988775062e-16,
+          "saved_residual_exactly_matches": true,
+          "scope": "floating scalar consistency, not a certified bound or agreement gate",
+          "tolerance": 1e-10,
+          "within_own_prospective_floating_tolerance": true
+        }
+      ],
+      "own_label": {
+        "literal_chaotic_from_saved_rates_and_period": true,
+        "period": 0,
+        "rates_finite": true,
+        "scope": "finite last-state return and two finite-twin rates; not primitive-orbit/chaos proof",
+        "stored_chaotic": true,
+        "stored_label_matches_literal": true
+      },
+      "period_equal": true,
+      "producer_first_twin_identity": {
+        "agreement_or_identity_pass_gate": null,
+        "available": true,
+        "raw_components": [
+          0.5234356608784092,
+          0.6249372042653611,
+          -0.10148934755789585,
+          -1.2195829055497335e-05
+        ],
+        "residual_lambda_minus_net_minus_read_minus_boundary": -5.968414374920086e-16,
+        "scope": "source-rounded binary64 scalar accounting only; original per-step float64 record is not available",
+        "twin": 1e-06
+      },
+      "producer_full_saved_row": {
+        "alpha": 0.0655,
+        "beta": 0.0,
+        "boundary_term": -1.2195829055497335e-05,
+        "chaotic": true,
+        "eps": [
+          1e-06,
+          1e-09
+        ],
+        "frac_gap_below_1": 0.5385,
+        "frac_gap_below_2": 0.787,
+        "log10_temperature": 0.129,
+        "lyapunov": [
+          0.5234356608784092,
+          0.5232532458892575
+        ],
+        "max_rayleigh_change": 0.10932199656963348,
+        "mean_entropy": 6.63168370530051,
+        "mean_gap": 1.1909626414262147,
+        "mean_log_g_net": 0.6249372042653611,
+        "mean_log_g_read": -0.10148934755789585,
+        "mean_log_r1_rel": 3.0000081798294542,
+        "mean_p_top": 0.22344337433657172,
+        "mean_rayleigh_change": 0.00141563464657019,
+        "mean_stable_rank": 11.364183139732756,
+        "period": 0
+      },
+      "producer_label": {
+        "literal_chaotic_from_saved_rates_and_period": true,
+        "period": 0,
+        "rates_finite": true,
+        "scope": "finite last-state return and two finite-twin rates; not primitive-orbit/chaos proof",
+        "stored_chaotic": true,
+        "stored_label_matches_literal": true
+      },
+      "requested_log10_temperature": 0.129,
+      "requested_position": 1,
+      "saved_log10_temperature": 0.129,
+      "saved_log10_temperature_hex": "0x1.083126e978d50p-3",
+      "source_index": 29,
+      "unavailable_comparisons": [
+        "producer second-twin net/read split",
+        "producer full2000-step float64 scalar stream",
+        "producer exact runtime prefix IDs/native twin states"
+      ]
+    },
+    {
+      "chaotic_label_equal": true,
+      "comparisons": [
+        {
+          "absolute_difference": 4.28136742725016e-09,
+          "agreement_gate": null,
+          "both_finite": true,
+          "difference_finite": true,
+          "exact_saved_scalar_equality": false,
+          "field": "lyapunov_eps_1e-06",
+          "own": -0.42334643917864945,
+          "own_binary64_hex": "-0x1.b181ba9c99f60p-2",
+          "producer": -0.423346434897282,
+          "producer_binary64_hex": "-0x1.b181ba530c4edp-2",
+          "producer_precision": "JSON round-trip of source float64 aggregate; no explicit decimal rounding in writer",
+          "signed_own_minus_producer": -4.28136742725016e-09
+        },
+        {
+          "absolute_difference": 1.6175830368836408e-05,
+          "agreement_gate": null,
+          "both_finite": true,
+          "difference_finite": true,
+          "exact_saved_scalar_equality": false,
+          "field": "lyapunov_eps_1e-09",
+          "own": -0.4229000409855568,
+          "own_binary64_hex": "-0x1.b10cb5560a444p-2",
+          "producer": -0.42288386515518794,
+          "producer_binary64_hex": "-0x1.b10877cb63f2ep-2",
+          "producer_precision": "JSON round-trip of source float64 aggregate; no explicit decimal rounding in writer",
+          "signed_own_minus_producer": -1.6175830368836408e-05
+        },
+        {
+          "absolute_difference": 3.887828392556969e-10,
+          "agreement_gate": null,
+          "both_finite": true,
+          "difference_finite": true,
+          "exact_saved_scalar_equality": false,
+          "field": "mean_log_g_net",
+          "own": 0.2391864799012664,
+          "own_binary64_hex": "0x1.e9da99e692060p-3",
+          "producer": 0.23918648029004924,
+          "producer_binary64_hex": "0x1.e9da99f3edcb2p-3",
+          "producer_precision": "JSON round-trip of source float64 aggregate; no explicit decimal rounding in writer",
+          "signed_own_minus_producer": -3.887828392556969e-10
+        },
+        {
+          "absolute_difference": 3.892585920262093e-09,
+          "agreement_gate": null,
+          "both_finite": true,
+          "difference_finite": true,
+          "exact_saved_scalar_equality": false,
+          "field": "mean_log_g_read",
+          "own": -0.6625329190799171,
+          "own_binary64_hex": "-0x1.533783c7f17d3p-1",
+          "producer": -0.6625329151873312,
+          "producer_binary64_hex": "-0x1.533783a6819a2p-1",
+          "producer_precision": "JSON round-trip of source float64 aggregate; no explicit decimal rounding in writer",
+          "signed_own_minus_producer": -3.892585920262093e-09
+        },
+        {
+          "absolute_difference": 2.0428103653103284e-17,
+          "agreement_gate": null,
+          "both_finite": true,
+          "difference_finite": true,
+          "exact_saved_scalar_equality": false,
+          "field": "boundary_term",
+          "own": 3.3306690738754687e-19,
+          "own_binary64_hex": "0x1.89374bc6a7ef8p-62",
+          "producer": -2.0095036745715736e-17,
+          "producer_binary64_hex": "-0x1.72b020c49bae1p-56",
+          "producer_precision": "JSON round-trip of source float64 aggregate; no explicit decimal rounding in writer",
+          "signed_own_minus_producer": 2.0428103653103284e-17
+        },
+        {
+          "absolute_difference": 9.50350909079134e-14,
+          "agreement_gate": null,
+          "both_finite": true,
+          "difference_finite": true,
+          "exact_saved_scalar_equality": false,
+          "field": "mean_entropy",
+          "own": 5.184826964178679,
+          "own_binary64_hex": "0x1.4bd43479a43fcp+2",
+          "producer": 5.184826964178584,
+          "producer_binary64_hex": "0x1.4bd43479a4391p+2",
+          "producer_precision": "JSON round-trip of source float64 aggregate; no explicit decimal rounding in writer",
+          "signed_own_minus_producer": 9.50350909079134e-14
+        },
+        {
+          "absolute_difference": 5.950795411990839e-14,
+          "agreement_gate": null,
+          "both_finite": true,
+          "difference_finite": true,
+          "exact_saved_scalar_equality": false,
+          "field": "mean_gap",
+          "own": 1.9480913024177033,
+          "own_binary64_hex": "0x1.f2b61c91818e9p+0",
+          "producer": 1.9480913024177628,
+          "producer_binary64_hex": "0x1.f2b61c91819f5p+0",
+          "producer_precision": "JSON round-trip of source float64 aggregate; no explicit decimal rounding in writer",
+          "signed_own_minus_producer": -5.950795411990839e-14
+        }
+      ],
+      "exact_requested_float_match": false,
+      "excluded_auxiliary_fields": [
+        "readout power/trace/rank/Rayleigh statistics are retained raw only, not recomputed or compared"
+      ],
+      "own_full_saved_row": {
+        "alpha": 0.0655,
+        "beta": 0.0,
+        "both_twin_mean_log_g_net": [
+          0.2391864799012664,
+          0.2398046863571525
+        ],
+        "both_twin_mean_log_g_read": [
+          -0.6625329190799171,
+          -0.6627047273427089
+        ],
+        "boundary_term": 3.3306690738754687e-19,
+        "eps": [
+          1e-06,
+          1e-09
+        ],
+        "frac_gap_below_1": 0.5,
+        "frac_gap_below_2": 0.5,
+        "identity_abs_tolerance": 1e-10,
+        "identity_residual": [
+          1.2209122601802846e-15,
+          -3.333999742949345e-16
+        ],
+        "lag_distances": [
+          0.4344930300564031,
+          1.1144712335618982e-15,
+          0.4344930300564031,
+          2.4425664481252125e-15,
+          0.43449303005640283,
+          9.606395621185718e-15,
+          0.4344930300564026,
+          1.303946849658319e-14,
+          0.43449303005640316,
+          6.628393504354448e-15,
+          0.43449303005640333,
+          1.691530198764949e-15,
+          0.4344930300564035,
+          6.562037783067918e-15,
+          0.4344930300564037,
+          9.571004928906026e-15,
+          0.4344930300564037,
+          8.752494232888865e-15,
+          0.4344930300564031,
+          1.2351421261955317e-15,
+          0.43449303005640316,
+          1.8027767326303714e-15,
+          0.43449303005640316,
+          2.631914808754645e-15,
+          0.43449303005640355,
+          7.172953999073293e-15,
+          0.43449303005640333,
+          2.1018568837377436e-15,
+          0.43449303005640255,
+          1.5565774769507074e-14,
+          0.4344930300564029,
+          1.0753471255183687e-14,
+          0.43449303005640244,
+          1.731224478429934e-14,
+          0.43449303005640205,
+          2.581882973464879e-14,
+          0.43449303005640283,
+          1.2780543002747106e-14,
+          0.43449303005640266,
+          1.3587083922569833e-14,
+          0.43449303005640316,
+          4.203715476896919e-15,
+          0.4344930300564031,
+          4.310366352714683e-15,
+          0.43449303005640255,
+          1.4532114183304744e-14,
+          0.43449303005640255,
+          1.5529890445314397e-14,
+          0.43449303005640255,
+          1.7020299380051963e-14,
+          0.4344930300564027,
+          1.0998032754312442e-14,
+          0.4344930300564028,
+          9.814154970944185e-15,
+          0.4344930300564034,
+          1.6392264004036081e-15,
+          0.43449303005640316,
+          3.2210820824038255e-15,
+          0.4344930300564027,
+          1.1390545272856352e-14,
+          0.43449303005640316,
+          2.720483715450838e-15,
+          0.4344930300564033,
+          3.117678776836018e-15
+        ],
+        "literal_chaotic": false,
+        "log10_temperature": 0.11900000000000001,
+        "lyapunov": [
+          -0.42334643917864945,
+          -0.4229000409855568
+        ],
+        "max_step_identity_abs": [
+          4.440892098500626e-16,
+          5.551115123125783e-16
+        ],
+        "mean_entropy": 5.184826964178679,
+        "mean_gap": 1.9480913024177033,
+        "mean_log_g_net": 0.2391864799012664,
+        "mean_log_g_read": -0.6625329190799171,
+        "mean_p_top": 0.41431130826605317,
+        "measurement_steps": 2000,
+        "nonzero_step_identity_count": [
+          1447,
+          1404
+        ],
+        "numerically_defined": true,
+        "period": 2,
+        "physical_temperature": 1.3152248321922384,
+        "scope": "last-state recurrence only",
+        "source_index": 19,
+        "tail_states": 66,
+        "threshold": 1e-08
+      },
+      "own_identity": [
+        {
+          "boundary": 3.3306690738754687e-19,
+          "eps": 1e-06,
+          "lambda": -0.42334643917864945,
+          "net": 0.2391864799012664,
+          "predicted_lambda_net_plus_read_plus_boundary": -0.42334643917865067,
+          "read": -0.6625329190799171,
+          "recomputed_source_order_residual": 1.2209122601802846e-15,
+          "saved_residual": 1.2209122601802846e-15,
+          "saved_residual_exactly_matches": true,
+          "scope": "floating scalar consistency, not a certified bound or agreement gate",
+          "tolerance": 1e-10,
+          "within_own_prospective_floating_tolerance": true
+        },
+        {
+          "boundary": 3.3306690738754687e-19,
+          "eps": 1e-09,
+          "lambda": -0.4229000409855568,
+          "net": 0.2398046863571525,
+          "predicted_lambda_net_plus_read_plus_boundary": -0.42290004098555645,
+          "read": -0.6627047273427089,
+          "recomputed_source_order_residual": -3.333999742949345e-16,
+          "saved_residual": -3.333999742949345e-16,
+          "saved_residual_exactly_matches": true,
+          "scope": "floating scalar consistency, not a certified bound or agreement gate",
+          "tolerance": 1e-10,
+          "within_own_prospective_floating_tolerance": true
+        }
+      ],
+      "own_label": {
+        "literal_chaotic_from_saved_rates_and_period": false,
+        "period": 2,
+        "rates_finite": true,
+        "scope": "finite last-state return and two finite-twin rates; not primitive-orbit/chaos proof",
+        "stored_chaotic": false,
+        "stored_label_matches_literal": true
+      },
+      "period_equal": true,
+      "producer_first_twin_identity": {
+        "agreement_or_identity_pass_gate": null,
+        "available": true,
+        "raw_components": [
+          -0.423346434897282,
+          0.23918648029004924,
+          -0.6625329151873312,
+          -2.0095036745715736e-17
+        ],
+        "residual_lambda_minus_net_minus_read_minus_boundary": -9.092726571679992e-17,
+        "scope": "source-rounded binary64 scalar accounting only; original per-step float64 record is not available",
+        "twin": 1e-06
+      },
+      "producer_full_saved_row": {
+        "alpha": 0.0655,
+        "beta": 0.0,
+        "boundary_term": -2.0095036745715736e-17,
+        "chaotic": false,
+        "eps": [
+          1e-06,
+          1e-09
+        ],
+        "frac_gap_below_1": 0.5,
+        "frac_gap_below_2": 0.5,
+        "log10_temperature": 0.11900000000000001,
+        "lyapunov": [
+          -0.423346434897282,
+          -0.42288386515518794
+        ],
+        "max_rayleigh_change": 0.00013532268349081278,
+        "mean_entropy": 5.184826964178584,
+        "mean_gap": 1.9480913024177628,
+        "mean_log_g_net": 0.23918648029004924,
+        "mean_log_g_read": -0.6625329151873312,
+        "mean_log_r1_rel": 2.7174298631835785,
+        "mean_p_top": 0.41431130826606,
+        "mean_rayleigh_change": 1.776703834569236e-06,
+        "mean_stable_rank": 9.938911418374172,
+        "period": 2
+      },
+      "producer_label": {
+        "literal_chaotic_from_saved_rates_and_period": false,
+        "period": 2,
+        "rates_finite": true,
+        "scope": "finite last-state return and two finite-twin rates; not primitive-orbit/chaos proof",
+        "stored_chaotic": false,
+        "stored_label_matches_literal": true
+      },
+      "requested_log10_temperature": 0.119,
+      "requested_position": 2,
+      "saved_log10_temperature": 0.11900000000000001,
+      "saved_log10_temperature_hex": "0x1.e76c8b4395811p-4",
+      "source_index": 19,
+      "unavailable_comparisons": [
+        "producer second-twin net/read split",
+        "producer full2000-step float64 scalar stream",
+        "producer exact runtime prefix IDs/native twin states"
+      ]
+    },
+    {
+      "chaotic_label_equal": true,
+      "comparisons": [
+        {
+          "absolute_difference": 0.00045621586370286904,
+          "agreement_gate": null,
+          "both_finite": true,
+          "difference_finite": true,
+          "exact_saved_scalar_equality": false,
+          "field": "lyapunov_eps_1e-06",
+          "own": -0.1852612573584068,
+          "own_binary64_hex": "-0x1.7b6a410c8fc33p-3",
+          "producer": -0.18571747322210966,
+          "producer_binary64_hex": "-0x1.7c59714e47199p-3",
+          "producer_precision": "JSON round-trip of source float64 aggregate; no explicit decimal rounding in writer",
+          "signed_own_minus_producer": 0.00045621586370286904
+        },
+        {
+          "absolute_difference": 0.00091690285406551,
+          "agreement_gate": null,
+          "both_finite": true,
+          "difference_finite": true,
+          "exact_saved_scalar_equality": false,
+          "field": "lyapunov_eps_1e-09",
+          "own": -0.18533732202995704,
+          "own_binary64_hex": "-0x1.7b922246c66c1p-3",
+          "producer": -0.18625422488402255,
+          "producer_binary64_hex": "-0x1.7d72dae4f31c4p-3",
+          "producer_precision": "JSON round-trip of source float64 aggregate; no explicit decimal rounding in writer",
+          "signed_own_minus_producer": 0.00091690285406551
+        },
+        {
+          "absolute_difference": 0.00028366883750102767,
+          "agreement_gate": null,
+          "both_finite": true,
+          "difference_finite": true,
+          "exact_saved_scalar_equality": false,
+          "field": "mean_log_g_net",
+          "own": 0.38499265815998346,
+          "own_binary64_hex": "0x1.8a3b83effd2b9p-2",
+          "producer": 0.38470898932248243,
+          "producer_binary64_hex": "0x1.89f1273e78170p-2",
+          "producer_precision": "JSON round-trip of source float64 aggregate; no explicit decimal rounding in writer",
+          "signed_own_minus_producer": 0.00028366883750102767
+        },
+        {
+          "absolute_difference": 0.00024211690790287843,
+          "agreement_gate": null,
+          "both_finite": true,
+          "difference_finite": true,
+          "exact_saved_scalar_equality": false,
+          "field": "mean_log_g_read",
+          "own": -0.5703094305793245,
+          "own_binary64_hex": "-0x1.23ff9901e08dbp-1",
+          "producer": -0.5705515474872274,
+          "producer_binary64_hex": "-0x1.241f551a47982p-1",
+          "producer_precision": "JSON round-trip of source float64 aggregate; no explicit decimal rounding in writer",
+          "signed_own_minus_producer": 0.00024211690790287843
+        },
+        {
+          "absolute_difference": 6.956988169933146e-05,
+          "agreement_gate": null,
+          "both_finite": true,
+          "difference_finite": true,
+          "exact_saved_scalar_equality": false,
+          "field": "boundary_term",
+          "own": 5.551506093574617e-05,
+          "own_binary64_hex": "0x1.d1b1af81fd6a2p-15",
+          "producer": 0.00012508494263507763,
+          "producer_binary64_hex": "0x1.0652779c61fdbp-13",
+          "producer_precision": "JSON round-trip of source float64 aggregate; no explicit decimal rounding in writer",
+          "signed_own_minus_producer": -6.956988169933146e-05
+        },
+        {
+          "absolute_difference": 0.00401725921915741,
+          "agreement_gate": null,
+          "both_finite": true,
+          "difference_finite": true,
+          "exact_saved_scalar_equality": false,
+          "field": "mean_entropy",
+          "own": 6.392994595859047,
+          "own_binary64_hex": "0x1.9926d2ce2e09cp+2",
+          "producer": 6.397011855078205,
+          "producer_binary64_hex": "0x1.9968a4696bda0p+2",
+          "producer_precision": "JSON round-trip of source float64 aggregate; no explicit decimal rounding in writer",
+          "signed_own_minus_producer": -0.00401725921915741
+        },
+        {
+          "absolute_difference": 0.0006222831343623003,
+          "agreement_gate": null,
+          "both_finite": true,
+          "difference_finite": true,
+          "exact_saved_scalar_equality": false,
+          "field": "mean_gap",
+          "own": 1.3479591832058568,
+          "own_binary64_hex": "0x1.5913da6036477p+0",
+          "producer": 1.3473369000714945,
+          "producer_binary64_hex": "0x1.58eb123280476p+0",
+          "producer_precision": "JSON round-trip of source float64 aggregate; no explicit decimal rounding in writer",
+          "signed_own_minus_producer": 0.0006222831343623003
+        }
+      ],
+      "exact_requested_float_match": true,
+      "excluded_auxiliary_fields": [
+        "readout power/trace/rank/Rayleigh statistics are retained raw only, not recomputed or compared"
+      ],
+      "own_full_saved_row": {
+        "alpha": 0.0655,
+        "beta": 0.0,
+        "both_twin_mean_log_g_net": [
+          0.38499265815998346,
+          0.3849011421661905
+        ],
+        "both_twin_mean_log_g_read": [
+          -0.5703094305793245,
+          -0.5702939792570844
+        ],
+        "boundary_term": 5.551506093574617e-05,
+        "eps": [
+          1e-06,
+          1e-09
+        ],
+        "frac_gap_below_1": 0.571,
+        "frac_gap_below_2": 0.714,
+        "identity_abs_tolerance": 1e-10,
+        "identity_residual": [
+          -1.4825516031838348e-15,
+          1.0709613534540252e-15
+        ],
+        "lag_distances": [
+          0.27535530104749545,
+          0.16219566828625373,
+          0.27248564443970885,
+          0.3121101117371223,
+          0.3213236085819659,
+          0.2854767365024034,
+          0.008072090997255305,
+          0.2758970883257243,
+          0.17124106662217226,
+          0.2688966822648118,
+          0.32349971420377266,
+          0.32162627882636374,
+          0.28694377950351024,
+          3.895063458190642e-14,
+          0.27535530104749695,
+          0.16219566828628,
+          0.2724856444397046,
+          0.3121101117371548,
+          0.3213236085819669,
+          0.2854767365024072,
+          0.008072090997233227,
+          0.2758970883257251,
+          0.17124106662218114,
+          0.26889668226480273,
+          0.323499714203795,
+          0.3216262788263639,
+          0.2869437795035142,
+          1.6292670882676243e-14,
+          0.2753553010474965,
+          0.16219566828627105,
+          0.27248564443970563,
+          0.31211011173714803,
+          0.3213236085819665,
+          0.2854767365024067,
+          0.008072090997236728,
+          0.2758970883257254,
+          0.17124106662218433,
+          0.268896682264797,
+          0.32349971420380846,
+          0.3216262788263644,
+          0.2869437795035157,
+          5.66576800110058e-15,
+          0.27535530104749556,
+          0.16219566828625265,
+          0.2724856444397091,
+          0.3121101117371207,
+          0.32132360858196585,
+          0.2854767365024029,
+          0.008072090997259218,
+          0.275897088325725,
+          0.17124106662218258,
+          0.268896682264804,
+          0.32349971420379114,
+          0.32162627882636396,
+          0.28694377950351413,
+          1.7548385938981046e-14,
+          0.2753553010474959,
+          0.16219566828625978,
+          0.27248564443970774,
+          0.3121101117371277,
+          0.321323608581966,
+          0.28547673650240385,
+          0.008072090997253218,
+          0.2758970883257253
+        ],
+        "literal_chaotic": false,
+        "log10_temperature": 0.135,
+        "lyapunov": [
+          -0.1852612573584068,
+          -0.18533732202995704
+        ],
+        "max_step_identity_abs": [
+          6.661338147750939e-16,
+          6.106226635438361e-16
+        ],
+        "mean_entropy": 6.392994595859047,
+        "mean_gap": 1.3479591832058568,
+        "mean_log_g_net": 0.38499265815998346,
+        "mean_log_g_read": -0.5703094305793245,
+        "mean_p_top": 0.2664095741249796,
+        "measurement_steps": 2000,
+        "nonzero_step_identity_count": [
+          1615,
+          1617
+        ],
+        "numerically_defined": true,
+        "period": 14,
+        "physical_temperature": 1.3645831365889245,
+        "scope": "last-state recurrence only",
+        "source_index": 35,
+        "tail_states": 66,
+        "threshold": 1e-08
+      },
+      "own_identity": [
+        {
+          "boundary": 5.551506093574617e-05,
+          "eps": 1e-06,
+          "lambda": -0.1852612573584068,
+          "net": 0.38499265815998346,
+          "predicted_lambda_net_plus_read_plus_boundary": -0.1852612573584053,
+          "read": -0.5703094305793245,
+          "recomputed_source_order_residual": -1.4825516031838348e-15,
+          "saved_residual": -1.4825516031838348e-15,
+          "saved_residual_exactly_matches": true,
+          "scope": "floating scalar consistency, not a certified bound or agreement gate",
+          "tolerance": 1e-10,
+          "within_own_prospective_floating_tolerance": true
+        },
+        {
+          "boundary": 5.551506093574617e-05,
+          "eps": 1e-09,
+          "lambda": -0.18533732202995704,
+          "net": 0.3849011421661905,
+          "predicted_lambda_net_plus_read_plus_boundary": -0.18533732202995815,
+          "read": -0.5702939792570844,
+          "recomputed_source_order_residual": 1.0709613534540252e-15,
+          "saved_residual": 1.0709613534540252e-15,
+          "saved_residual_exactly_matches": true,
+          "scope": "floating scalar consistency, not a certified bound or agreement gate",
+          "tolerance": 1e-10,
+          "within_own_prospective_floating_tolerance": true
+        }
+      ],
+      "own_label": {
+        "literal_chaotic_from_saved_rates_and_period": false,
+        "period": 14,
+        "rates_finite": true,
+        "scope": "finite last-state return and two finite-twin rates; not primitive-orbit/chaos proof",
+        "stored_chaotic": false,
+        "stored_label_matches_literal": true
+      },
+      "period_equal": true,
+      "producer_first_twin_identity": {
+        "agreement_or_identity_pass_gate": null,
+        "available": true,
+        "raw_components": [
+          -0.18571747322210966,
+          0.38470898932248243,
+          -0.5705515474872274,
+          0.00012508494263507763
+        ],
+        "residual_lambda_minus_net_minus_read_minus_boundary": 2.230474919345804e-16,
+        "scope": "source-rounded binary64 scalar accounting only; original per-step float64 record is not available",
+        "twin": 1e-06
+      },
+      "producer_full_saved_row": {
+        "alpha": 0.0655,
+        "beta": 0.0,
+        "boundary_term": 0.00012508494263507763,
+        "chaotic": false,
+        "eps": [
+          1e-06,
+          1e-09
+        ],
+        "frac_gap_below_1": 0.5715,
+        "frac_gap_below_2": 0.714,
+        "log10_temperature": 0.135,
+        "lyapunov": [
+          -0.18571747322210966,
+          -0.18625422488402255
+        ],
+        "max_rayleigh_change": 0.006966195069253445,
+        "mean_entropy": 6.397011855078205,
+        "mean_gap": 1.3473369000714945,
+        "mean_log_g_net": 0.38470898932248243,
+        "mean_log_g_read": -0.5705515474872274,
+        "mean_log_r1_rel": 2.8782844848341047,
+        "mean_p_top": 0.266159043879865,
+        "mean_rayleigh_change": 0.0007265240605665403,
+        "mean_stable_rank": 13.429685296565829,
+        "period": 14
+      },
+      "producer_label": {
+        "literal_chaotic_from_saved_rates_and_period": false,
+        "period": 14,
+        "rates_finite": true,
+        "scope": "finite last-state return and two finite-twin rates; not primitive-orbit/chaos proof",
+        "stored_chaotic": false,
+        "stored_label_matches_literal": true
+      },
+      "requested_log10_temperature": 0.135,
+      "requested_position": 3,
+      "saved_log10_temperature": 0.135,
+      "saved_log10_temperature_hex": "0x1.147ae147ae148p-3",
+      "source_index": 35,
+      "unavailable_comparisons": [
+        "producer second-twin net/read split",
+        "producer full2000-step float64 scalar stream",
+        "producer exact runtime prefix IDs/native twin states"
+      ]
+    }
+  ],
+  "schema": "task23-independent-saved-comparison-v1",
+  "scope": "Aligned parameters and RNG positions do not force trajectory equality. Finite exponents/period labels do not prove asymptotic chaos, stability or causality.",
+  "selected_cells": 4
+}
