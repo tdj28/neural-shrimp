@@ -24935,3 +24935,38 @@ With the 64 -> 128 flip of FB15D (-0.001824434015999929), **the next ratio is 2.
 - **TBZg:** gratitude@4 + hostility@16 over alpha1 in [-0.1225, -0.0973] and alpha2 in [0.0872, 0.1124].
 
 The question is whether the periodic windows near these cells show shrimp anatomy: a body with four legs, period-doubling on its boundary, and the darkest-contraction curves crossing inside. A doubly superstable search follows if they do.
+
+## 2026-10-15 09:37 UTC: Run card DLG (exploratory): two agents in one soft-token conversation
+
+**Question** (human, 15 Oct, after the "spiritual bliss" attractor of model-to-model conversations: "couldn't we try to show two LLMs inducing each other into a periodic orbit of some form?"). Do two soft-token agents, one model with two steering personas, lock into periodic orbits that neither has when talking with itself? And conversely, does pairing create chaos that neither agent has alone?
+
+**Background.** The 12 Oct pilots ran identical agents in greedy text dialogue and found absorbing synchronized greeting and farewell loops: periodic, but trivial and between identical agents. The sampled dialogue study (now reported separately) is stochastic.
+
+**Setup.** tools/soft_dialogue.py, tests/test_soft_dialogue.py (3 pass).
+- Model: Qwen2.5-0.5B-Instruct, float64, steering after block 12, the pilots' open prompt.
+- One soft token per message.
+- Frames:
+  - cowrite: the paper's loop with the steering alternating between the agents.
+  - dialogue: each message sits in a user turn and is answered as the assistant; it opens with "Hello" from B.
+- The classifier steps the exchange map G = F_B o F_A (hidden_chaos.run_batch and classify; twins 1e-6 and 1e-9, tol 1e-8, transient 500, record 800 exchanges).
+- CPU smoke test at launch: framing tokens checked (prefix ends with the user header, suffix "<|im_end|>\n<|im_start|>assistant\n", opener token "Hello"); the identity of equal cowrite agents with the single loop is still running (reported in the next entry).
+
+**Maps.** DLGa:
+- cowrite pair maps, philosophy for both agents, over alpha_A, alpha_B in [0.060, 0.082] (48 x 48), at log10 T -0.10 and -0.14. The diagonal is the paper's map along these temperatures.
+
+DLGb:
+- dialogue self-map over log10 T in [-0.4, 0.4] x alpha in [0, 0.12] (40 x 40), philosophy;
+- dialogue pair map at log10 T 0: gratitude (A) against hostility (B) at block 12 (vectors-l12-p1b) over [0, 0.12]^2 (40 x 40);
+- the two agents alone: gratitude and hostility self-dialogue lines at log10 T 0 (40 cells each).
+
+**Measures.**
+- Per cell: class, period of G and exponents.
+- Pair maps with one direction: each off-diagonal cell compared with its two diagonal agents. Counts of "periodic pair of two chaotic agents" (mutual entrainment) and of "chaotic pair of two periodic agents".
+
+**Would surprise us.** Off-diagonal cells always inheriting their agents' class; or every pair periodic.
+
+**Follow-up.**
+- soft_dialogue verify on selected cells: settle, period of G, Newton on G^P in float64, multipliers, primitive period, transcript of one period.
+- Explicit chaos diagnostics for the agents alone: twin exponents at both offsets, and tangent where needed.
+
+**Compute.** Two H100-class pods, about 2.5 h each; ceilings in the private ledger.
