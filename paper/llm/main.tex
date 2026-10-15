@@ -139,9 +139,10 @@ system; Section~\ref{sec:beyond} also measures how much of the mechanism survive
   all thirteen tangent reversals are located cusps, and near them local unfoldings, frozen before solving, matched the
   orbits that Newton solves recovered at twelve parameter offsets in number and at eleven in stability. A doubling
   cascade has superstable points through period 768 and finite-order Feigenbaum ratios that approach $\delta$ (the
-  last, $4.6688$, against $4.6692$). The shrimp-like windows are built from bent fold curves with cusps and flip
-  curves; where a one-dimensional map would have a shrimp's centre, their orbits' leading multiplier meets the second
-  instead. An interval-arithmetic proof shows that a primitive period-8 orbit exists and is locally attracting, to our
+  last, $4.6688$, against $4.6692$). The shrimp-like windows have the anatomy of shrimps in two-dimensional maps: fold and flip
+  curves bound a main cell with legs and doubling shells, the head of a one-dimensional shrimp is replaced by the
+  trace-zero geometry of two-dimensional maps, and in one window two cusps and a crossing of the fold curve enclose a
+  bistable pocket whose orbit counts a census fixed in advance matched at 9 of 13 points. An interval-arithmetic proof shows that a primitive period-8 orbit exists and is locally attracting, to our
   knowledge the first proof of a periodic orbit of a full transformer language-model map
   (Appendix~\ref{sec:evidence}).
 \item \emph{Beyond the one-token loop} (Sections~\ref{sec:beyond} and~\ref{sec:dialogue}). The chaos is not an
@@ -727,45 +728,59 @@ $-0.156$, which we followed furthest, at the $768\to1536$ flip.
 \end{figure}
 
 \paragraph{What the shrimp-like shapes are.} The maps show bodies with legs, hooks and crescents that resemble the
-shrimps of two-parameter maps \cite{gallas1993structure}. They are made of the bifurcation curves of single windows
-(Figure~\ref{fig:shrimpschematic}). A periodic window is the region where one periodic orbit attracts. The windows we
-continued are bounded by fold curves, where the orbit is born or dies together with a saddle (multiplier $+1$), and
-flip curves, where it doubles (multiplier $-1$). Steering strength and temperature move the orbit in different
-directions, so the fold curves bend; where a fold curve turns back it can form a cusp (a visual turn alone is not our criterion: the
-located cusps pass the degeneracy and unfolding checks of Appendix~\ref{sec:curves}), and between the two branches
-leaving the cusp the window continues as a thin leg. Flip curves inside the window start its doubling sequences. In a
-one-dimensional map the leading multiplier runs from $+1$ through $0$ to $-1$ across a window, so every window holds
-a superstable curve: the dark lines of strongly negative exponent in the maps. Bent fold curves
-with cusps, flip curves inside them and a superstable line through the body produce the bodies, legs, hooks and
-crescents.
+shrimp-shaped domains that Gallas found in the parameter plane of the H\'enon map: a main body of period $k$, followed
+by domains of periods $k\cdot2^n$, with thin legs \cite{gallas1993structure}. They are made of the bifurcation curves
+of single windows. A periodic window is the region where one periodic orbit attracts. It is bounded by fold curves,
+where the orbit is born or dies together with a saddle (multiplier $+1$), and flip curves, where it doubles
+(multiplier $-1$); beyond the flips lie the period-doubled shells. In a one-dimensional map the leading multiplier
+runs from $+1$ through $0$ to $-1$ across a window, so every window holds a superstable curve: the dark lines of
+strongly negative exponent in the maps. Gallas's dissection of one-dimensional shrimps names the parts of a cell
+(Figure~\ref{fig:anatomy}a) \cite{gallas1994dissecting}. The superstable curves of the map's two critical points
+cross at the head, where the orbit passes both critical points at once. At the end of the cell two legs, each a thin
+strip between a fold and a flip curve, cross in a kite. The kite begins at a cusp, where the two legs' fold curves
+meet; inside it two attracting orbits of the same period coexist, and their superstable curves cross at the tail.
+Carcass\`es et al.\ call such an organization around a cusp, in which the flip curves of the cusp's two branches
+cross, a crossroad area, and the alternative, in which a flip curve loops around the cusp, a spring area
+\cite{carcasses1991crossroad,mira1991crossroad}. In a two-dimensional map whose Jacobian is never singular, such as
+H\'enon's, no multiplier can vanish. There the curves on which the trace of the cycle's two multipliers vanishes take
+the place of the superstable curves, and the head is no longer generic: near it these curves either close into a loop
+(Type~A of Fa\c{c}anha, Oldeman and Glass) or form no loop (Type~B) \cite{facanha2013endoskeletons}.
 
-A shrimp in the sense of Gallas has one more element: a centre where two superstable curves of the same orbit cross,
-so that the orbit passes two critical points at once. That needs two turning points in a one-dimensional reduction.
-We continued the orbit of the hostile period-7 body over a grid of its upper part, and the orbit of a period-5 window
-in a plane steered at two depths, near which the band return maps do have two or more turning points
-(Appendix~\ref{sec:hostility}). In the hostile body the tracked real leading multiplier changes sign along two superstable arcs,
-but where the arcs approach each other it meets the second multiplier, and the arcs turn away without crossing. In
-the period-5 window it never reaches zero (its modulus stays at least $0.0139$): where a one-dimensional map would be
-superstable, the two leading multipliers form a complex pair or pass each other as real numbers of opposite sign,
-and the curves on which their trace changes sign do not cross. On the tracked branches the windows therefore have no
-one-dimensional shrimp centre: near their superstable strips the orbit's linearization has two comparable leading
-directions. They are shrimp-like in body, legs and internal cascade, with located cusps on the fold curves of the
-period-6 and period-7 windows. Whether they
-are the shrimps of an effectively two-dimensional map, as in the H\'enon
-family \cite{henon1976two,gallas1993structure}, is open.
 \paragraph{The skeleton of one window.} The continuation grid above left two anomalies in the period-5 window, signs
 of folds it could not resolve, so we continued the window's fold and flip curves in float64 (Figure~\ref{fig:period5folds};
 Appendix~\ref{sec:hostility}). One fold curve bounds the body on its right, runs over its top and along one side of
 each leg. Flip curves bound the body's upper-left and lower sides and the other side of each leg, so each leg lies
-between a fold curve and a flip curve. Where the upper leg leaves the body, the fold curve has two located cusps and
-crosses itself, the shape of a section through a swallowtail. At the crossing the two arms are folds of two
-different period-5 orbits with the same token loop (their states differ by about 4\,\%), so the crossing joins two
-separate saddle-node events rather than marking a degeneracy of one orbit; we do not claim a swallowtail point
-itself, which would need a third parameter. A second fold curve, on the far left, where the orbit dies after regaining stability beyond a doubling
-bubble, has two more located cusps. Along every continued curve the critical multiplier stays at $+1$ or $-1$ to
-within $1.2\times10^{-7}$, and no other multiplier exceeds $0.4$ in modulus, so no second multiplier reaches the unit
-circle along them; this does not exclude cusps, which need only a nonlinear degeneracy. The window therefore has the fold-and-flip skeleton of the period-6 and period-7
-windows, a body with legs and fold curves with cusps, and, like them, no one-dimensional centre.
+between a fold curve and a flip curve, as in Gallas's anatomy, and beyond the flips lie shells of periods 10 and 20.
+Where the upper leg leaves the body, the fold curve has two located cusps that share a segment of the curve, and its
+other two branches cross (Figure~\ref{fig:period5folds}d). At the crossing the two arms are folds of two different
+period-5 orbits with the same token loop (their states differ by about 4\,\%). A second fold curve, on the far left,
+where the orbit dies after regaining stability beyond a doubling bubble, has two more located cusps. Along every
+continued curve the critical multiplier stays at $+1$ or $-1$ to within $1.2\times10^{-7}$, and no other multiplier
+exceeds $0.4$ in modulus, so no second multiplier reaches the unit circle along them; this does not exclude cusps,
+which need only a nonlinear degeneracy.
+
+\paragraph{Shrimps of a two-dimensional kind.} The windows have this anatomy except the head. Beyond the leading
+pair, the multipliers of the period-5 window's orbits are below $0.002$, so the two-dimensional reading applies. The
+leading multiplier never vanishes (its modulus stays at least $0.0139$): where a one-dimensional map would be
+superstable, the two leading multipliers form a complex pair or pass each other as real numbers of opposite sign,
+and one trace-zero curve closes into a loop around an island of negative trace (Figure~\ref{fig:period5folds}c), the
+Type~A geometry at the resolution of the grid. In the hostile period-7 body the superstable arcs approach each other
+and turn away without crossing, and no loop is seen, as in Type~B (Appendix~\ref{sec:hostility}). The junction of the
+period-5 window's upper leg is the configuration that Mira et al.\ call a dovetail: two cusps that share a segment of
+the fold curve, whose other branches cross \cite{mira1996chaotic}. It is the plane section of a swallowtail and
+predicts four orbits in the pocket between the cusps and the crossing, none beyond the crossing and two elsewhere
+(Figure~\ref{fig:anatomy}b). An orbit census at 13 points fixed before the computation found exactly these numbers at
+nine (Figure~\ref{fig:period5folds}d): four orbits at three of five pocket points, none at either point beyond the
+crossing, and two at four of five surrounding points. At the other four points the census missed repelling orbits
+(its counts are lower bounds) or, at one point beyond a flip curve, also found an orbit with another token loop. At
+every pocket point two attracting period-5 orbits coexist. The pocket therefore plays the kite's part, a bistable
+region at the end of a leg, with two cusps and a crossing where Gallas's kite has one cusp; both configurations are
+plane sections of the swallowtail of a quartic fixed-point equation (Figure~\ref{fig:anatomy}). We do not claim the
+swallowtail point itself, which needs a third parameter, and we have not traced the tail, determined symbolic
+sequences or tested for a periodicity hub \cite{jones2012rossler}. With these qualifications the windows carry the
+anatomy of shrimps in two-dimensional maps such as H\'enon's \cite{henon1976two,gallas1993structure}; whether a
+two-dimensional map also reproduces their nonlinear dynamics is not tested (a closure test failed for numerical
+reasons; Appendix~\ref{sec:hostility}).
 \begin{figure}[tbp]
 \centering
 \includegraphics[width=\linewidth]{fig-period5-folds.png}
@@ -775,11 +790,32 @@ the flip curves (red, dashed; multiplier $-1$) of the window's period-5 orbit, o
 over a finer grid (as Figure~\ref{fig:period5}a), with the four branches (dotted) that found the first boundary points
 from a common start (circle); white: the continuation grid of (c). (c) The same curves over the trace of the continued
 orbit's two leading multipliers (Figure~\ref{fig:period5}b; grey: repelling). (d) The junction of the upper leg with
-the body: the fold curve has two cusps and crosses itself (x), where its arms are folds of two different period-5
-orbits. Its two traces, continued from two different boundary points (black, and orange dashed), coincide.}
+the body: the fold curve has two cusps that share a segment and crosses itself (x), where its arms are folds of two
+different period-5 orbits; its two traces, continued from two different boundary points (black, and orange dashed),
+coincide. Circles: the 13 points of the orbit census, with the number of period-5 orbits found and, in brackets, the
+number attracting (green: the count predicted before the computation; orange: not).}
 \label{fig:period5folds}
 \end{figure}
-\input{figures/tikz-shrimp}
+\begin{figure}[tbp]
+\centering
+\includegraphics[width=\linewidth]{fig-shrimp-anatomy.png}
+\caption{The anatomy of a shrimp's cell in two classical one-dimensional models, computed (grey: one attracting fixed
+point; blue: two). (a) Gallas's canonical period-1 cell, $x\mapsto(a-x^2)^2-b$ (his eq.~(5.3), rotated as in his
+Figure~7 \cite{gallas1994dissecting}). Fold curves (black; multiplier $+1$) and flip curves (red, dashed; $-1$)
+bound the main cell, and the superstable curves (blue, dotted; $0$) of the map's critical points cross at the head H.
+Two legs, each between a fold and a flip curve, cross in the kite C--A--R--B, which begins at the cusp C of the fold
+curve; in the kite two attracting fixed points coexist, and their superstable curves cross at the tail T. The flip
+curves of the two legs cross at R, which makes the kite a crossroad area in the sense of Carcass\`es et al. The
+computed corners A and B agree with Gallas's to six digits. (b) The quartic model of Carcass\`es et
+al.\ \cite{carcasses1991crossroad}, $x\mapsto c+(1+a)x+bx^2+x^4$, in the plane of $a$ and $c$ at $b=-1$, a plane they
+did not draw: the fold curve has two cusps $C_1$ and $C_2$ that share a segment and crosses itself at X, the dovetail
+of Mira et al.\ \cite{mira1996chaotic}. Numbers: real fixed points in each region; a flip curve crosses the pocket,
+and two fixed points attract only to its left. Both fixed-point equations are quartics $x^4+ux^2+vx+w=0$, whose fold
+set is the swallowtail: (a) is a section at fixed $v$, with one cusp, (b) a section at fixed $u<0$, with two cusps
+and a crossing.}
+\label{fig:anatomy}
+\end{figure}
+
 
 \paragraph{Chaos behind a repeating text.} Past the cascade of the hostile period-7 window, the leading token can
 repeat exactly while the state moves chaotically (Appendix~\ref{sec:hostility}). Along one temperature line, 65 of
@@ -907,12 +943,12 @@ Section~\ref{sec:theory} is measured along three directions in a 0.5B model and 
 temperature the network factor can carry the instability. The loop's regime does not mark the accuracy of ordinary
 sampled answers beyond the model's first-token uncertainty, and when slight steering moved a prompt's loop into chaos no change of that accuracy was detected ($+0.36$ points,
 $[-0.36,1.08]$; Section~\ref{sec:consequences}). We do not claim that ordinary sampled generation is
-chaotic in this sense (Appendix~\ref{sec:bridge}), nor that any window is a certified shrimp. The period-6 and period-7 windows have numerically shrimp-like
-organization, fold curves with located cusps and flip curves inside, with superstable curves through the hostile
-period-7 body, and the period-5 window of a two-block plane has the same fold-and-flip skeleton, with four located cusps
-on its two fold curves. On the tracked
-branches none of them has a one-dimensional shrimp centre (Section~\ref{sec:organization}), and we have not determined
-their symbolic sequences or tested for a periodicity hub \cite{gallas1993structure,jones2012rossler}. The cusps are float64
+chaotic in this sense (Appendix~\ref{sec:bridge}), nor that any window is a certified shrimp. The windows carry the anatomy of shrimps in two-dimensional maps
+(Section~\ref{sec:organization}): fold and flip curves with located cusps, legs and doubling shells, the trace-zero
+geometry of Fa\c{c}anha et al.\ in place of a one-dimensional head, and in the period-5 window a dovetail around a
+bistable pocket. We have not traced their tails or symbolic sequences, tested for a periodicity hub
+\cite{gallas1993structure,jones2012rossler}, or shown that a two-dimensional map reproduces their nonlinear
+dynamics. The cusps are float64
 computations validated by step-size checks, not proofs (Appendix~\ref{sec:curves}).
 
 \paragraph{Limitations.} The detailed orbit studies cover Qwen2.5 at 0.5B and 1.5B, with three float64 orbits at 7B;
@@ -1919,7 +1955,7 @@ run through the windows, as superstable lines run through the windows of low-dim
 18\,\% of cells are chaotic.
 
 \paragraph{No one-dimensional shrimp centre.} In a shrimp of a one-dimensional map, two superstable curves of the
-window's orbit cross at a doubly superstable centre \cite{gallas1993structure,facanha2013endoskeletons}. We continued
+window's orbit cross at a doubly superstable centre, the head \cite{gallas1994dissecting,facanha2013endoskeletons}. We continued
 one period-7 orbit over a $31\times31$ grid of the body's upper part and followed the sign of its leading multiplier
 (Figure~\ref{fig:superstable}). Its superstable curves form two arcs that approach each other near
 $(\alpha,\log_{10}T)=(0.0700,0.206)$ and turn away without crossing at this resolution ($10^{-4}$ in $\alpha$,
@@ -1935,11 +1971,10 @@ partitions keep extra extrema, especially in phases 4 and 5, which we do not att
 points split into two thin strands, an observation of the projection that does not establish a second invariant
 dimension (Figure~\ref{fig:returnmapsbody}). Cobwebs on these maps show the doubling cascade and the chaos as on a
 one-humped interval map (Figure~\ref{fig:cobwebs}). On the tracked branch and in the sampled region, the body is
-therefore not the shrimp of a one-dimensional map. Whether it is the shrimp of an effectively
-two-dimensional map, as in the H\'enon family, is open.
+therefore not the shrimp of a one-dimensional map. In the two-dimensional theory of Fa\c{c}anha et al.\ the head is
+not generic, and arcs that turn away without a loop are its Type~B unfolding (Section~\ref{sec:organization}).
 
-\paragraph{Details of the shrimp-like shapes.} Section~\ref{sec:organization} summarizes the anatomy
-(Figure~\ref{fig:shrimpschematic}); three details belong here. In higher dimensions a window can also end where a
+\paragraph{Details of the shrimp-like shapes.} Section~\ref{sec:organization} summarizes the anatomy (Figure~\ref{fig:anatomy}); three details belong here. In higher dimensions a window can also end where a
 complex pair crosses the unit circle, and the leading multiplier can change sign through a complex pair, as it does in
 parts of our windows; beyond some of the flip curves we followed lie the doubling sequences of
 Appendix~\ref{sec:cascade}, but a flip need not start a complete cascade. The period-6 hook's orbit never comes close
@@ -1995,8 +2030,7 @@ continued from different boundary points, and both reversals are located cusps (
 Appendix~\ref{sec:curves}, applied on each trace): at $(\alpha_1,\alpha_2)=(-0.1192221,0.1040536)$, with
 $c=+2.60\times10^{4}$ and $\det J=176.6$, and at $(-0.1191670,0.1028019)$, with $c=-2.05\times10^{4}$ and
 $\det J=88.6$. The two traces agree to $2\times10^{-12}$ in these positions and to five figures in $c$ and $\det J$.
-Its outer arms cross
-at $(-0.11901,0.10346)$ (Figure~\ref{fig:period5folds}c). There they are folds of two different period-5 orbits with
+Its outer arms cross at $(-0.11901,0.10346)$ (Figure~\ref{fig:period5folds}d). There they are folds of two different period-5 orbits with
 the same token loop: at the nearest continuation points on the two arms, the orbits differ by $3.9\,\%$ of the state
 norm (root-mean-square over the five points, at the best phase alignment), 8 to 26 times the state change
 between neighbouring curve points. The second fold curve, continued both ways from the left fold, runs from below the lower leg
@@ -2009,6 +2043,50 @@ lower sides and run along the legs. The fold curve resolves both anomalies of th
 lies $1.2\times10^{-5}$ from it, on the saddle branch, and the column of failed Newton solves at $\alpha_1=-0.119167$
 runs into the lower reversal, at $\alpha_1=-0.119166$, where the followed orbit ceases to exist between the folded
 branches.
+
+\paragraph{Orbit census of the junction.} Before any solve we fixed 13 points around the junction
+(\path{docs/oc/oc-points.json}) and the number of period-5 orbits that a plane section of a swallowtail predicts at
+each: four in the pocket bounded by the two cusps and the crossing, none beyond the crossing, and two elsewhere. At each
+point, Newton's method (low-rank, at most 20 steps) starts from the states of the nearest point on each arm of the
+fold curve, shifted along that point's critical eigenvector by $s\lvert x\rvert$ for
+$s\in\{0,\pm10^{-3},\pm3\times10^{-3},\pm10^{-2},\pm3\times10^{-2}\}$ (27 starts per point). Orbits are distinct when
+they differ by more than $10^{-7}$ of the state norm at every phase, so the counts are lower bounds.
+Table~\ref{tab:census} gives the results: 9 of the 13 counts match. The three undercounts each miss a repelling orbit.
+Above the upper cusp, two of the three orbits found share one token loop: a saddle (multiplier $+1.44$) and the node,
+which lies beyond the flip curve that passes the cusp (multiplier $-1.35$), so that nothing attracts there. The third
+has another token loop and the multiplier $-130$, and only one start reached it; that it does not belong to the
+junction's family is a reading after the fact.
+\begin{table}[tbp]
+\centering\small
+\begin{tabular}{llccc}
+\toprule
+points & region & predicted & found & attracting \\
+\midrule
+T-low, T-high, T-near-U & pocket & 4 & 4 & 2 \\
+T-centroid, T-near-L & pocket & 4 & 3 & 2 \\
+E-low, E-high & beyond the crossing & 0 & 0 & 0 \\
+W-low, S-low, N-high, below-L & around the pocket & 2 & 2 & 1 \\
+W-high & around the pocket & 2 & 1 & 1 \\
+above-U & beyond the upper cusp & 2 & 3 & 0 \\
+\bottomrule
+\end{tabular}
+\caption{Orbit census of the junction of the period-5 window (run OC; Figure~\ref{fig:period5folds}d): period-5
+orbits found from 27 starts per point, and how many attract. The predictions were fixed before any solve.}
+\label{tab:census}
+\end{table}
+
+\paragraph{A closure test that failed.} We also tested whether two coordinates forecast the window's nonlinear return
+map (run CL2). Perturbations of relative size $10^{-3}$ and $10^{-2}$ (64 per size, half to fit and half to test) were
+followed for eight returns; quadratic return models in one, two or four modal coordinates (the spectral projections
+on the leading eigenvectors), with a fitted lift back to the state, were iterated from the first return, and the error
+is the squared forecast error over the squared deviation, summed over returns 2 to 8. The test failed for numerical
+reasons: at most locations the iterated models diverged (median errors up to $10^{122}$, against below $1$ for the
+linearized map), because the modal coordinates span many orders of magnitude and the unregularized fits put large
+coefficients on nearly empty features. At one location the divergence of the four-coordinate model satisfied the
+frozen two-coordinate criterion spuriously. A guard added after the run marks fits with a median error above 1 as
+degenerate; 12 of the 18 location-and-size rows are. At the body location, one coordinate gives errors of $0.026$ and
+$0.031$ and two coordinates below $6\times10^{-5}$. We draw no conclusion about two-dimensional closure from this
+test.
 \begin{figure}[tbp]
 \centering
 \includegraphics[width=\linewidth]{fig-bimodal.png}

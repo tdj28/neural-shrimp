@@ -243,9 +243,16 @@ def figure(branches, curves, located, out):
         for i, j, x in self_crossings(P):
             ax.plot(*x, "x", color="m", ms=8, mew=1.6, zorder=7)
     stars(ax, 12)
-    ax.set_xlim(-0.11935, -0.11885)
+    census = ROOT / "docs" / "oc" / "oc-summary.json"          # run OC: period-5 orbits found (attracting) per point
+    if census.exists():
+        for q in json.loads(census.read_text())["points"]:
+            ax.plot(q["alpha"], q["alpha2"], "o", ms=4.5, color="tab:green" if q["match"] else "tab:orange", mec="k",
+                    mew=0.4, zorder=8)
+            ax.annotate(f"{q['found']} ({q['attracting']})", (q["alpha"], q["alpha2"]), xytext=(3, 2),
+                        textcoords="offset points", fontsize=6.5, zorder=9)
+    ax.set_xlim(-0.11935, -0.11880)
     ax.set_ylim(0.10255, 0.10425)
-    ax.set_title("(d) junction of the upper leg: two cusps (stars), crossing (x)", fontsize=7.5)
+    ax.set_title("(d) junction of the upper leg: cusps (stars), crossing (x), orbits found (attracting)", fontsize=7.5)
     ax.ticklabel_format(useOffset=False)
     for ax in axes:
         ax.set_xlabel(r"$\alpha_1$ (gratitude, block 4)", fontsize=8)
