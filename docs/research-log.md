@@ -24345,3 +24345,11 @@ Pods ne3g7xyh71mqf1, zz5die5hoxmnog, vntgz6n0hu6p8x (runner rc 0, hashes verifie
   - Where a one-dimensional map would place its doubly superstable centre, the orbit is two-dimensional. A scalar superstable curve is not defined there, so the question "do two superstable curves cross?" has no answer.
   - The per-step factor curves cross many times in the zoom. Those factors rest on a leading direction that is ill-defined where the multipliers are comparable, so the crossings are not evidence.
 - **Conclusion.** The hostile period-7 body is not a one-dimensional shrimp. Whether it is the shrimp of an effectively two-dimensional map stays open. A two-dimensional test would locate the curves where the complex pair is born (the discriminant curves) and ask whether two such strips cross (compare DSS4 on the period-6 hook). The paper keeps the body unlabelled.
+
+## 2026-10-15 07:00 UTC: Consult 9 completed and adjudicated (are we missing anything huge?)
+
+One research-strategy request (gpt-6-astra, Pro, xhigh) with the brief docs/consults/2026-10-15-missing-anything-huge/brief.md at af9489ff: completed, 60,143 tokens. The conservative cost is recorded privately. A first attempt failed locally before any request (no --env-file), so nothing was sent or billed. The review is copied unchanged, with docs/consults/2026-10-15-missing-anything-huge/adjudication.md.
+- **Main advice.** The missing bridge is operational relevance at a finite inference budget, not more evidence of chaos. Adopted: REPRO-T, a task-level reproducibility test of Soft Thinking under batch-layout changes against greedy decoding.
+- **Mechanism.** The decisive test is an orbit-preserving readout/network crossover. Adopted: XO.
+- **Deferred:** BP confirmatory (not decisive at feasible sizes) and the stabilization envelope.
+- **Title.** Keep it (the human decides). Open the abstract with continuous-feedback inference, and claim consequences only at demonstrated horizons.
