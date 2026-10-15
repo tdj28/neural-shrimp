@@ -71,19 +71,52 @@ def curve_summary(rec, near=0.05):
             "cusp_candidates": cusps, "codim2_approaches": codim2}
 
 
-def load(run):
-    base = DATA / "explore" / run
-    branches, curves = {}, {}
-    for d in sorted(base.glob("branch-*")):
-        if (d / "branch.json").exists():
-            branches[d.name] = json.loads((d / "branch.json").read_text())
-    for d in sorted(base.glob("curve-*")):
-        if (d / "curve.json").exists():
-            curves[d.name] = json.loads((d / "curve.json").read_text())
-    return branches, curves
+def load(run, extra=()):
+    """Branches and curves of the run, curves of further runs (prefixed with the run's folder name), and located
+    points (locate-*/locate.json, from tools/cusp_locate.py) of all runs."""
+    branches, curves, located = {}, {}, {}
+    for k, r in enumerate((run, *extra)):
+        base = DATA / "explore" / r
+        pre = "" if k == 0 else base.name + "/"
+        if k == 0:
+            for d in sorted(base.glob("branch-*")):
+                if (d / "branch.json").exists():
+                    branches[d.name] = json.loads((d / "branch.json").read_text())
+        for d in sorted(base.glob("curve-*")):
+            if (d / "curve.json").exists():
+                curves[pre + d.name] = json.loads((d / "curve.json").read_text())
+        for d in sorted(base.glob("locate-*")):
+            if (d / "locate.json").exists():
+                located[pre + d.name] = json.loads((d / "locate.json").read_text())
+    return branches, curves, located
 
 
-def figure(branches, curves, out):
+def locate_summary(rec):
+    fin = rec["final"]
+    return {"curve": rec["curve"], "left": rec["left"], "located": rec["located"], "checks": rec["checks"],
+            "alpha": fin.get("alpha"), "alpha2": fin.get("alpha2"), "f": fin["f"], "initial_f_max": rec["initial_f_max"],
+            "b": fin.get("b"), "c": fin.get("c"), "c_plateau_relative_spread": fin.get("c_plateau_relative_spread"),
+            "det_J": fin.get("det_J"), "condition": fin.get("condition"), "multiplier": fin.get("multiplier"),
+            "second_modulus": fin.get("second_modulus"), "normal_form_parameter": rec.get("normal_form_parameter")}
+
+
+def self_crossings(P):
+    """Crossings of a polyline with itself (non-adjacent segments), as (i, j, point)."""
+    out = []
+    for i in range(len(P) - 1):
+        for j in range(i + 2, len(P) - 1):
+            p1, p2, q1, q2 = P[i], P[i + 1], P[j], P[j + 1]
+            d = (p2[0] - p1[0]) * (q2[1] - q1[1]) - (p2[1] - p1[1]) * (q2[0] - q1[0])
+            if abs(d) < 1e-30:
+                continue
+            t = ((q1[0] - p1[0]) * (q2[1] - q1[1]) - (q1[1] - p1[1]) * (q2[0] - q1[0])) / d
+            u = ((q1[0] - p1[0]) * (p2[1] - p1[1]) - (q1[1] - p1[1]) * (p2[0] - p1[0])) / d
+            if 0 <= t <= 1 and 0 <= u <= 1:
+                out.append((i, j, (p1 + t * (p2 - p1)).tolist()))
+    return out
+
+
+def figure(branches, curves, located, out):
     import matplotlib
     matplotlib.use("Agg")
     import matplotlib.pyplot as plt
@@ -95,7 +128,7 @@ def figure(branches, curves, out):
 
     tb = np.load(DATA / "explore" / TB, allow_pickle=True)
     z = np.load(DATA / "explore" / DSS / "grid.npz", allow_pickle=True)
-    fig, axes = plt.subplots(1, 2, figsize=(11.0, 4.6), dpi=170)
+    fig, axes = plt.subplots(1, 3, figsize=(15.5, 4.6), dpi=170, gridspec_kw={"width_ratios": [1.15, 1.15, 0.9]})
 
     def overlay(ax, label=True):
         for name, rec in sorted(curves.items()):
@@ -108,8 +141,12 @@ def figure(branches, curves, out):
             ax.plot(a1, a2, "-" if fold else "--", color="k" if fold else "r", lw=1.3 if fold else 1.1,
                     label=None)
             cz = [(p["alpha"], p["alpha2"]) for p in pts if p["cusp_candidate"]]
-            if cz:
+            if cz and not located:
                 ax.plot(*zip(*cz), "*", color="gold", ms=9, mec="k", mew=0.5, zorder=5)
+        for rec in located.values():
+            fin = rec["final"]
+            ax.plot(fin["alpha"], fin["alpha2"], "*", color="gold" if rec["located"] else "w", ms=10, mec="k", mew=0.6,
+                    zorder=6)
         for name, rec in sorted(branches.items()):
             ta = rec["args"]
             lam = [p["lambda"] for p in rec["points"]]
@@ -159,6 +196,35 @@ def figure(branches, curves, out):
     ax.set_xlim(ext[0] - pad1, ext[1] + pad1)
     ax.set_ylim(ext[2] - pad2, ext[3] + pad2)
     ax.set_title("(b) the same curves over the continued orbit's trace (grey: repelling)", fontsize=7.5)
+
+    ax = axes[2]                                   # (c) the junction of the upper leg with the body
+    styles = {"curve-a1-up-fold-minus": ("k", "-", 1.6), "curve-a2-up-fold-plus": ("tab:orange", "--", 1.0)}
+    for name, rec in sorted(curves.items()):
+        pts = rec["points"]
+        if not pts:
+            continue
+        a1 = np.array([p["alpha"] for p in pts])
+        a2 = np.array([p["alpha2"] for p in pts])
+        col, ls, lw = styles.get(name, ("k" if rec["kind"] == "fold" else "r", "-" if rec["kind"] == "fold" else "--", 0.9))
+        ax.plot(a1, a2, ls, color=col, lw=lw, marker=".", ms=2.5)
+    fold = [r for n, r in curves.items() if n == "curve-a1-up-fold-minus"]
+    if fold:
+        P = np.array([[p["alpha"], p["alpha2"]] for p in fold[0]["points"]])
+        for i, j, x in self_crossings(P):
+            ax.plot(*x, "x", color="m", ms=8, mew=1.6, zorder=7)
+    for rec in located.values():
+        fin = rec["final"]
+        ax.plot(fin["alpha"], fin["alpha2"], "*", color="gold" if rec["located"] else "w", ms=12, mec="k", mew=0.6,
+                zorder=6)
+    if not located:
+        for rec in curves.values():
+            cz = [(p["alpha"], p["alpha2"]) for p in rec["points"] if p["cusp_candidate"]]
+            if cz:
+                ax.plot(*zip(*cz), "*", color="gold", ms=12, mec="k", mew=0.6, zorder=6)
+    ax.set_xlim(-0.11935, -0.11885)
+    ax.set_ylim(0.10255, 0.10425)
+    ax.set_title("(c) junction of the upper leg: two reversals (stars), crossing (x)", fontsize=7.5)
+    ax.ticklabel_format(useOffset=False)
     for ax in axes:
         ax.set_xlabel(r"$\alpha_1$ (gratitude, block 4)", fontsize=8)
         ax.set_ylabel(r"$\alpha_2$ (hostility, block 16)", fontsize=8)
@@ -170,21 +236,27 @@ def figure(branches, curves, out):
 def main():
     ap = argparse.ArgumentParser(description=__doc__.split("\n\n")[0])
     ap.add_argument("--run", default="llm-soft-loop/pod64/fm5")
+    ap.add_argument("--extra-run", nargs="*", default=[], help="further runs whose curves and located points are added")
     ap.add_argument("--json")
     ap.add_argument("--out")
     args = ap.parse_args()
-    branches, curves = load(args.run)
+    branches, curves, located = load(args.run, args.extra_run)
     if not branches and not curves:
         raise SystemExit(f"no branch or curve results under {args.run}")
-    summary = {"run": args.run, "branches": {k: branch_summary(v) for k, v in branches.items()},
-               "curves": {k: curve_summary(v) for k, v in curves.items()}}
+    summary = {"run": args.run, "extra_runs": args.extra_run,
+               "branches": {k: branch_summary(v) for k, v in branches.items()},
+               "curves": {k: curve_summary(v) for k, v in curves.items()},
+               "located": {k: locate_summary(v) for k, v in located.items()}}
+    if "curve-a1-up-fold-minus" in curves:
+        P = np.array([[p["alpha"], p["alpha2"]] for p in curves["curve-a1-up-fold-minus"]["points"]])
+        summary["fold_self_crossings"] = [{"segments": [i, j], "at": x} for i, j, x in self_crossings(P)]
     text = json.dumps(summary, indent=1)
     if args.json:
         Path(args.json).parent.mkdir(parents=True, exist_ok=True)
         Path(args.json).write_text(text + "\n")
     print(text)
     if args.out:
-        figure(branches, curves, args.out)
+        figure(branches, curves, located, args.out)
 
 
 if __name__ == "__main__":

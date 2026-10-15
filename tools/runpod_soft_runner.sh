@@ -1529,6 +1529,27 @@ snapshot_download('$REPO', revision='$MREV', cache_dir='$NEURAL_SHRIMP_DATA/mode
     done
     wait
     ;;
+  fm5c)        # run FM5c: the two tangent reversals of the FM5 fold curve located and checked as cusps (tools/cusp_locate.py,
+               # cusp test, on both traces), and the left fold of the alpha1-down branch continued both ways; all six in
+               # parallel (fm5 branches/curves and the vectors uploaded with --extra-data). JOBARGS: LOCATE-MINUTES
+               # CURVE-MINUTES CURVE-STEPS
+    lmin=${JOBARGS[0]}; cmin=${JOBARGS[1]}; csteps=${JOBARGS[2]}
+    export OMP_NUM_THREADS=2 OPENBLAS_NUM_THREADS=2 MKL_NUM_THREADS=2
+    F=$D/fm5
+    for spec in curve-a1-up-fold-minus:19 curve-a1-up-fold-minus:30 curve-a2-up-fold-plus:12 curve-a2-up-fold-plus:23; do
+      IFS=: read -r cv left <<< "$spec"
+      TOOL=cusp_locate.py run fm5c-locate-$cv-$left "$lmin" $F/$cv $left --test cusp --device cuda --threads 2 \
+        --out $D/fm5c/locate-$cv-$left &
+    done
+    C5="curve --device cuda --threads 2 --dtype float64 --reference-dtype none --no-exact-jvp --gmres-tol 1e-10
+        --tol 1e-10 --gtol 1e-9 --max-newton 10 --chunk 448 --steps $csteps --ds 0.002 --ds-max 0.02
+        --alpha-bounds -0.130 -0.100 --alpha2-bounds 0.085 0.120"
+    for dir in 1 -1; do n=$([ $dir = 1 ] && echo plus || echo minus)
+      run fm5c-curve-a1-down-fold-$n "$cmin" $C5 --start $F/branch-a1-down --kind fold --direction $dir \
+        --out $D/fm5c/curve-a1-down-fold-$n &
+    done
+    wait
+    ;;
   p4curves)    # fold and flip curves of the period-4 body orbit from the p4a branches (uploaded with
                # --extra-data): SET A = both folds of the S-shaped temperature branch (cusp candidate), C = the
                # alpha fold and the lower temperature fold, E = the first flip of the alpha branch toward the legs

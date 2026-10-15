@@ -25602,3 +25602,64 @@ Every number in the paper's depth and two-block paragraphs agrees with Codex's i
 - the layer-sweep entry's "late-block steering (20) leaves only a thin chaotic band at log10 T 0.1-0.25": block 20's chaos extends from -0.089 to 0.219, three fifths of it above 0.1;
 - "near zero steering every block gives 1-2 %" should read 0.8 to 2.1 % (|alpha| < 0.02);
 - the original two-block counts against the nearest-axis slices (1574/880/1084/1273) used alpha = -0.00126, not zero. They are superseded by the exact-zero controls above.
+
+## 2026-10-15 15:44 UTC: FM5 result: one fold curve bounds the period-5 window and its two legs; at the junction of the upper leg with the body it has two tangent reversals and crosses itself (a swallowtail-shaped projection); flips bound the other sides
+
+**Run.** Pod 38erj188eo9ued (COMMUNITY NVIDIA H100 NVL); commit 8de79a56 from the orchestrator log; runner rc 0; results hash verified (feaf3ba5...); terminated and verified 15:42 UTC; 4981 s wall.
+- Phase 1: four branches.
+- Phase 2: seven of eight curves. One curve, a2-up-fold-minus, failed at start with CUDA out of memory: eight processes of about 12.3 GB each on a 93 GB GPU.
+- Analysis: tools/plot_fm5.py, written before the data (smoke-tested on the CPU branch). Summary: docs/fm5/fm5-summary.json. Figure: paper/llm/figures/fig-period5-folds.png.
+
+**Gates (every raw point read).**
+- All seven curves: residuals below 1.0e-10 and |g| below 1.0e-9 at every point.
+- The critical multiplier stays real and within 5.4e-8 of +1 on the fold curves and of -1 on the flip curves.
+- No other multiplier approaches the unit circle (largest other modulus 0.122), so no codimension-two point lies on these curves.
+- Branch crossings all real: folds +1, flips -1.
+
+**Branches from the DSS5 seed (-0.118730, 0.100693).**
+- alpha1 up: fold at -0.118166, with next modulus 0.0012.
+- alpha2 up: fold at 0.102715 (next 0.0008).
+- alpha1 down:
+  - flip at -0.12147;
+  - a second flip at -0.12305, where the orbit restabilizes (a doubling bubble);
+  - a fold at -0.123323 (next 0.0027).
+- alpha2 down: flip at 0.09954, a second flip at 0.09586, and a fold at 0.095720.
+
+**The fold curve.** The alpha1-up fold, traced both ways (49 and 120 points), is one curve.
+- It also contains the alpha2-up fold point (distance 1.1e-7) and the bottom fold of the alpha2-down branch (3.1e-7). The alpha2-up trace (120 points) runs on top of it.
+- Path: it bounds the lower leg on its right, runs up the body's right edge and over its top, and leaves along the upper leg up to (-0.1068, 0.1138).
+- Near (-0.1192, 0.103-0.104) its parameter tangent reverses twice, seen identically on both traces:
+  - at (-0.119221, 0.104049);
+  - at (-0.119166, 0.102811).
+- The outer arms cross in projection at (-0.11901, 0.10346). Two reversals and a self-crossing are the shape of a swallowtail section.
+- The two reversals are cusp candidates, not yet located or checked.
+- The left fold (-0.123323, 0.100693) is not on this curve (4.7e-3 away) and is not traced.
+
+**The flip curves.**
+- The flip of the alpha1-down branch, traced both ways (48 and 85 points), bounds the body's upper left. It runs out along the upper leg, parallel to the fold curve, so the upper leg lies between the fold curve and this flip curve.
+- The bottom flip, traced both ways (30 and 57 points), bounds the body below and runs down the lower leg's left side.
+- No flip curve reverses its tangent.
+
+**DSS5's anomalies explained.**
+- The repelling cell (mu1 = +1.65) at (-0.1185, 0.1020) lies 1.2e-5 from the fold curve, so it is the saddle partner just across it.
+- The failed Newton column at alpha1 -0.119167 above alpha2 0.1029 runs straight into the reversal pair: the lower reversal is at alpha1 -0.119166, alpha2 0.102811. Between the fold branches the orbit the grid followed ceases to exist.
+
+**Reading.** The window's existence and stability are bounded by:
+- one fold curve: the right edge, the top, and one side of each leg;
+- flip curves: the body's left and bottom, and the other side of each leg.
+
+Where the upper leg leaves the body, the fold curve folds twice and crosses itself. That is the organization of the period-6 window and the hostile body (fold curves with cusps, flips inside), with a swallowtail-shaped junction. The two reversals must still be located and checked as cusps (b sign a = 0, c != 0, det J != 0).
+
+## 2026-10-15 15:47 UTC: run card FM5c (exploratory): locate and check the two reversals of the FM5 fold curve; trace the left fold
+
+Follow-up of FM5, under its run card ("tangent reversals are cusp candidates, to be located and checked before they are called cusps").
+- **Locate.** tools/cusp_locate.py, cusp test, now with two-block support (theta = alpha1, alpha2; the normal form is taken in the parameter most transverse to the curve; the existing locator tests pass, 5). It runs on both traces of the fold curve:
+  - curve-a1-up-fold-minus, brackets [19, 20] and [30, 31];
+  - curve-a2-up-fold-plus, brackets [12, 13] and [23, 24].
+  So each reversal is located twice, from independent continuations.
+- **Criteria (those of the paper's nine located cusps):**
+  - b sign a changes sign and is reduced below 1e-2 of its bracket values;
+  - the cubic coefficient c is nonzero, with its step plateau spread below 10 %;
+  - the unfolding is regular (det J nonzero, finite condition).
+- **Curve.** The fold of the alpha1-down branch at (-0.123323, 0.100693), continued both ways: up to 120 points, bounds alpha1 [-0.130, -0.100] and alpha2 [0.085, 0.120], settings as FM5.
+- **Run.** One H100 NVL, six processes. Locates have 100 minutes each, curves 110; the run limit is 125 minutes. The cost ceiling is in the private ledger.

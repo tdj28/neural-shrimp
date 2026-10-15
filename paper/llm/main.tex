@@ -1058,7 +1058,28 @@ one-dimensional shrimp centre: near their superstable strips the orbit's lineari
 directions. They are shrimp-like in body, legs and internal cascade, with located cusps on the fold curves of the
 period-6 and period-7 windows. Whether they are the shrimps of an effectively two-dimensional map, as in the H\'enon
 family, is open.
-%%FM5%%
+\paragraph{The skeleton of one window.} The continuation grid above left two anomalies in the period-5 window, signs
+of folds it could not resolve, so we continued the window's fold and flip curves in float64 (Figure~\ref{fig:period5folds};
+Appendix~\ref{sec:hostility}). One fold curve bounds the body on its right, runs over its top and along one side of
+each leg. Flip curves bound the body's upper-left and lower sides and the other side of each leg, so each leg lies
+between a fold curve and a flip curve. Where the upper leg leaves the body, the fold curve reverses its direction
+twice and crosses itself, the shape of a swallowtail section. Along every continued curve the critical multiplier
+stays at $+1$ or $-1$ to within $6\times10^{-8}$, and no other multiplier exceeds $0.13$ in modulus, so no
+codimension-two point lies on them. The window therefore has the fold-and-flip skeleton of the period-6 and period-7
+windows, a body with legs and a twice-folded fold curve at the junction, and, like them, no one-dimensional centre.
+\begin{figure}[tbp]
+\centering
+\includegraphics[width=\linewidth]{fig-period5-folds.png}
+\caption{The skeleton of the period-5 window in the plane steered at two depths (Qwen2.5-0.5B-Instruct, gratitude at
+block~4 and hostility at block~16, $\log_{10}T=-0.1$, float64). (a) Fold curve (black; multiplier $+1$) and flip
+curves (red, dashed; multiplier $-1$) of the window's period-5 orbit over the attractor reached from the fixed start
+(as in Figure~\ref{fig:period5}a); dotted: the four branches that found the first boundary points from a common start
+(circle); white: the box of the continuation grid; stars: the two reversals of the fold curve. (b) The same curves
+over the trace of the continued orbit's two leading multipliers (Figure~\ref{fig:period5}b). (c) The junction of the
+upper leg with the body: the fold curve reverses twice and crosses itself (x). Its two traces, continued from two
+different boundary points (black, and orange dashed), coincide.}
+\label{fig:period5folds}
+\end{figure}
 \input{figures/tikz-shrimp}
 
 \paragraph{Chaos behind a repeating text.} Past the cascade of the hostile period-7 window, the leading token can
@@ -1886,10 +1907,29 @@ strips the orbit's linearization has two comparable leading directions. The curv
 superstable curves, and they do not cross: no $2\times2$ block of attracting cells has the alternating signs of a
 crossing (Figure~\ref{fig:period5}b). One isolated cell holds a repelling orbit with the same token loop
 ($\mu_1=1.65$), and near the top of the grid one column of Newton solves failed above cells whose leading multiplier
-rises to $0.88$; these are signs of folds inside the window that this spacing does not resolve. A second turning point
+rises to $0.88$; both are explained by the window's fold curve (next paragraph). A second turning point
 in the band maps therefore does not give this window a one-dimensional shrimp centre. Like the hostile body, it is a window whose
 orbit has two comparable leading directions near its superstable strips, and whether it is the shrimp of a
 two-dimensional map is open.
+\paragraph{The folds and flips of the period-5 window.} To resolve the folds the grid did not, we continued the
+window's period-5 orbit along four lines from one attracting cell, $(\alpha_1,\alpha_2)=(-0.118730,0.100693)$, and
+then the boundaries the lines found, each in both directions (float64; 18 to 73 points per line, 30 to 120 per curve;
+one of the eight curve runs failed at its start for lack of GPU memory, and its curve is covered by the other trace of
+the same fold). At every curve point the residual is below $10^{-10}$ and the test function below $10^{-9}$. The
+critical multiplier stays real and within $6\times10^{-8}$ of $+1$ on the fold curve and of $-1$ on the flip curves,
+and the largest other multiplier modulus on any curve is $0.122$. Going right and up from the start, the orbit dies
+in folds at $\alpha_1=-0.118166$ and $\alpha_2=0.102715$ (next moduli $0.0012$ and $0.0008$). Going left and down, it
+first loses stability in flips (at $\alpha_1=-0.12147$ and $\alpha_2=0.09954$), regains it where the same multiplier
+crosses $-1$ again (at $-0.12305$ and $0.09586$; a doubling bubble), and dies in a fold (at $-0.123323$ and
+$0.095720$). Three of these four folds lie on one continued fold curve (within $3.1\times10^{-7}$); the left one does
+not. The fold curve bounds the lower leg on its right, runs up the body's right edge and over its top, and leaves
+along the upper leg. Near $\alpha_1=-0.1192$ its parameter tangent reverses twice, at $(-0.119221,0.104049)$ and
+$(-0.119166,0.102811)$, identically on two traces continued from different boundary points, and its outer arms cross
+at $(-0.11901,0.10346)$ (Figure~\ref{fig:period5folds}c). The flip curves bound the body's upper-left and lower sides
+and run along the legs. The fold curve resolves both anomalies of the grid. The isolated repelling cell ($\mu_1=+1.65$)
+lies $1.2\times10^{-5}$ from it, on the saddle branch, and the column of failed Newton solves at $\alpha_1=-0.119167$
+runs into the lower reversal, at $\alpha_1=-0.119166$, where the followed orbit ceases to exist between the folded
+branches.
 \begin{figure}[tbp]
 \centering
 \includegraphics[width=\linewidth]{fig-bimodal.png}
@@ -1929,7 +1969,7 @@ have its centre, the orbit's linearization has two comparable leading directions
 \end{figure}
 \begin{figure}[t]
 \centering
-\includegraphics[width=\linewidth]{fig-return-maps-body.png}
+\includegraphics[width=0.93\linewidth]{fig-return-maps-body.png}
 \caption{Seven-step return maps $s_{n+7}$ against $s_n$, for each phase of the 7-periodic text, of chaotic cells next to
 the hostile period-7 body (top three rows: $\alpha=0.07136$--$0.07142$, $\log_{10}T=0.2057$--$0.2062$) and on the
 hostile line of Figure~\ref{fig:hubcascade} (bottom row: $\alpha=0.0655$, $\log_{10}T=0.1848$); $s$ is the projection on
@@ -2042,7 +2082,7 @@ periodic (Section~\ref{sec:discussion}, Limitations).}
 \end{figure}
 \begin{figure}[H]
 \centering
-\includegraphics[width=0.75\linewidth]{fig-hub-shrimp.png}
+\includegraphics[width=0.65\linewidth]{fig-hub-shrimp.png}
 \caption{The period-7 body of the spiral region (Qwen2.5-0.5B-Instruct, hostility direction at layer 12):
 attractor periods of a float64 zoom (white at $\alpha<0.062$: outside the zoom), the float64 fold curves of the
 period-7 orbit (black) and the flip curves into period 14 (red, dashed), with the two located cusps (gold).}
