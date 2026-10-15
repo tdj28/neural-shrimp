@@ -1,0 +1,446 @@
+{
+  "schema": "task21b-original-authority-v1",
+  "runs": [
+    {
+      "pod_id": "3en7yg96v92ysm",
+      "gpu_type": "COMMUNITY:NVIDIA H100 NVL",
+      "commit": "f8219106923cd0d5bff07c6702fab731808e3187",
+      "jobset": "spectrum",
+      "started": 1792038099.064127,
+      "runner_returncode": 0,
+      "hash_verified": true,
+      "local_sha256": "8f3c6e67f7906bdcbe514efe23ac304a71df5c03b2c5d479e9b8126ba117471d",
+      "remote_sha256": "8f3c6e67f7906bdcbe514efe23ac304a71df5c03b2c5d479e9b8126ba117471d",
+      "wall_seconds": 3751,
+      "upload": {
+        "code_bytes": 1013760,
+        "data_bytes": 1177600,
+        "code_sha256": "0978f8dc446a60093fe024c913fcb1d9de547b5cb30f2586fcc58a5ccb887e7d",
+        "data_sha256": "f425388da2f9fe2392ca7e1dea3826d44b492fd4b1c6106e5f0874784f29d778",
+        "extra_data": [],
+        "jobset_args": "ky-philosophy 60 --vectors llm-phase-map/vectors-l12 --concept philosophy --cells-file docs/ky-cells-philosophy.json --cells-index 0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 --k 4 --transient 1000 --record 2000 --checkpoints 1000 2000"
+      },
+      "id": "KY1",
+      "receipt": {
+        "path": "/data2/neural-shrimp-data/runpod/soft64/20261015T042138Z/result.json",
+        "sha256": "e0393282d37ebe543c3afc6c727e2aca860cb3e7eae635f348921ee87d7b47f8",
+        "bytes": 1026
+      },
+      "archive": {
+        "path": "/data2/neural-shrimp-data/runpod/soft64/20261015T042138Z/results.tgz",
+        "sha256": "8f3c6e67f7906bdcbe514efe23ac304a71df5c03b2c5d479e9b8126ba117471d",
+        "bytes": 4452
+      },
+      "stdout": {
+        "path": "/data2/neural-shrimp-data/runpod/soft64/20261015T042138Z/runner-stdout.txt",
+        "sha256": "e0d6564624cc0c991e72851662e01da52778d62c44578cd517da4bf9358f6b9d",
+        "bytes": 512
+      },
+      "status_lines": [
+        "2026-10-15T04:23:01Z start spectrum-ky-philosophy",
+        "2026-10-15T05:24:01Z end spectrum-ky-philosophy status 124"
+      ],
+      "ledger_records": [
+        {
+          "line_number": 3878,
+          "original_line_sha256": "42950e217afe00b8a9a54505be1884b30cb5ac106d662fc9d96fcad1c2049f23",
+          "fields": {
+            "event": "created",
+            "time": "2026-10-15T04:21:39+00:00",
+            "pod_id": "3en7yg96v92ysm",
+            "commit": "f8219106923cd0d5bff07c6702fab731808e3187",
+            "gpu_type": "NVIDIA H100 NVL"
+          }
+        },
+        {
+          "line_number": 3883,
+          "original_line_sha256": "872db559231e76e2037e791144e7f72c8d00f3b1aba680a8f744024798b3dc19",
+          "fields": {
+            "event": "ssh_ready",
+            "time": "2026-10-15T04:22:12+00:00",
+            "pod_id": "3en7yg96v92ysm",
+            "seconds_after_create": 33
+          }
+        },
+        {
+          "line_number": 3885,
+          "original_line_sha256": "4d732ff29bcbcae3b7b01087674061ae435dd935bb6aa0013c4702f25fd4f949",
+          "fields": {
+            "event": "uploaded",
+            "time": "2026-10-15T04:22:17+00:00",
+            "pod_id": "3en7yg96v92ysm",
+            "archive_bytes": 1013760,
+            "data_bytes": 1177600
+          }
+        },
+        {
+          "line_number": 4254,
+          "original_line_sha256": "f46edc6eff1852808d0fda623af38beaa9fda96dbab5ab40eeaabf411acef2a0",
+          "fields": {
+            "event": "retrieved",
+            "time": "2026-10-15T05:24:03+00:00",
+            "pod_id": "3en7yg96v92ysm",
+            "hash_verified": true,
+            "sha256": "8f3c6e67f7906bdcbe514efe23ac304a71df5c03b2c5d479e9b8126ba117471d"
+          }
+        },
+        {
+          "line_number": 4255,
+          "original_line_sha256": "a3b6c694c7d56b4d9aa5f4763ef974011fde8f0430ae5d7d935a7c639d541f0c",
+          "fields": {
+            "event": "terminate_requested",
+            "time": "2026-10-15T05:24:04+00:00",
+            "pod_id": "3en7yg96v92ysm"
+          }
+        },
+        {
+          "line_number": 4256,
+          "original_line_sha256": "5b7ad4ea2741902f3885aad502e26dcecfee50eb4f0f8e5c014913d89f552bda",
+          "fields": {
+            "event": "terminated_verified",
+            "time": "2026-10-15T05:24:10+00:00",
+            "pod_id": "3en7yg96v92ysm"
+          }
+        }
+      ],
+      "recorded_termination_verified": true,
+      "selected_member": {
+        "path": "explore/llm-soft-loop/pod64/hidden/spectrum-ky-philosophy/lyapunov-spectrum.json",
+        "member": "explore/llm-soft-loop/pod64/hidden/spectrum-ky-philosophy/lyapunov-spectrum.json",
+        "file": {
+          "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/hidden/spectrum-ky-philosophy/lyapunov-spectrum.json",
+          "sha256": "001b592cdcddfe86d5f07f49aa241990584e5f7291b3bb285292f2e331bcc137",
+          "bytes": 11971
+        },
+        "archive_match": true
+      },
+      "source": {
+        "path": "/tmp/task21b-input-authority-002/source/KY1/lyapunov_spectrum.py",
+        "sha256": "2615641932edea59f29c6c47a51ff828b7dc13d70c2bdf38b2999017c250721b",
+        "bytes": 5308
+      },
+      "cells_file": {
+        "path": "/tmp/task21b-input-authority-002/source/KY1/ky-cells-philosophy.json",
+        "sha256": "676d04d264599502c06986a8b7cded99228277d8c0ea2ba06dfb2bdd38b82d9d",
+        "bytes": 1674
+      },
+      "runner_excerpt": {
+        "path": "/tmp/task21b-input-authority-002/source/KY1/runner-command.sh",
+        "sha256": "befe508c8dd71b3d5f57c68898ddf55d7ca58ec5ada7273ab91e15f909a2455d",
+        "bytes": 444
+      },
+      "runner_full_source_sha256": "2fd452dee4f7d38d4734eb0746aefb2348c89e80c346f9bdfa4286ea5de2cb77",
+      "selection_basis": {
+        "source_commit": "f8219106923cd0d5bff07c6702fab731808e3187",
+        "cells_file": {
+          "path": "/tmp/task21b-input-authority-002/source/KY1/ky-cells-philosophy.json",
+          "sha256": "676d04d264599502c06986a8b7cded99228277d8c0ea2ba06dfb2bdd38b82d9d",
+          "bytes": 1674
+        },
+        "rule": "KY pre-spectrum percentile design in pinned cells file and source-metadata-001 original card; source-derived fixed group membership, no selection from current spectra."
+      }
+    },
+    {
+      "pod_id": "cjlui0q6npnllj",
+      "gpu_type": "SECURE:NVIDIA H100 NVL",
+      "commit": "f8219106923cd0d5bff07c6702fab731808e3187",
+      "jobset": "spectrum",
+      "started": 1792038103.8422384,
+      "runner_returncode": 0,
+      "hash_verified": true,
+      "local_sha256": "e1ff0a97d21350125b78e39ab1f64002739aa31325b7bf38d06042e2c0988d74",
+      "remote_sha256": "e1ff0a97d21350125b78e39ab1f64002739aa31325b7bf38d06042e2c0988d74",
+      "wall_seconds": 2018,
+      "upload": {
+        "code_bytes": 1013760,
+        "data_bytes": 1249280,
+        "code_sha256": "0978f8dc446a60093fe024c913fcb1d9de547b5cb30f2586fcc58a5ccb887e7d",
+        "data_sha256": "55b77ea6fc0c285cea7da7688e8b855b4af7af0b5474c38d513cd949fb96a1bf",
+        "extra_data": [
+          "explore/llm-phase-map/vectors-l12-p1b"
+        ],
+        "jobset_args": "ky-hostility 40 --vectors llm-phase-map/vectors-l12-p1b --concept hostility-vs-kindness --cells-file docs/ky-cells-hostility.json --cells-index 0 1 2 3 4 5 6 7 8 9 --k 4 --transient 1000 --record 2000 --checkpoints 1000 2000"
+      },
+      "id": "KY2",
+      "receipt": {
+        "path": "/data2/neural-shrimp-data/runpod/soft64/20261015T042142Z/result.json",
+        "sha256": "ff92b0eaadf6b36113afb8e4acd739f0c3aa552a3e8c57eac3dd3a24098a4162",
+        "bytes": 1053
+      },
+      "archive": {
+        "path": "/data2/neural-shrimp-data/runpod/soft64/20261015T042142Z/results.tgz",
+        "sha256": "e1ff0a97d21350125b78e39ab1f64002739aa31325b7bf38d06042e2c0988d74",
+        "bytes": 3074
+      },
+      "stdout": {
+        "path": "/data2/neural-shrimp-data/runpod/soft64/20261015T042142Z/runner-stdout.txt",
+        "sha256": "fa2d61089c1733aa3c02c3d316f9f31f8f010b38bb04f42815d5c282bf5afed0",
+        "bytes": 509
+      },
+      "status_lines": [
+        "2026-10-15T04:23:13Z start spectrum-ky-hostility",
+        "2026-10-15T04:55:13Z end spectrum-ky-hostility status 0"
+      ],
+      "ledger_records": [
+        {
+          "line_number": 3882,
+          "original_line_sha256": "51bc68ee8920106b58a3ea1bd46064360779b4b9e3b37fa4d7fb79b17091b94c",
+          "fields": {
+            "event": "created",
+            "time": "2026-10-15T04:21:43+00:00",
+            "pod_id": "cjlui0q6npnllj",
+            "commit": "f8219106923cd0d5bff07c6702fab731808e3187",
+            "gpu_type": "NVIDIA H100 NVL"
+          }
+        },
+        {
+          "line_number": 3884,
+          "original_line_sha256": "0fc98db438533b73ecc79c021e3d20b62f19b4e8404f072ef72d531e2f06d1b4",
+          "fields": {
+            "event": "ssh_ready",
+            "time": "2026-10-15T04:22:16+00:00",
+            "pod_id": "cjlui0q6npnllj",
+            "seconds_after_create": 32
+          }
+        },
+        {
+          "line_number": 3886,
+          "original_line_sha256": "183c6789002432aa011d5c3de1632a64a27a6f71d0040d7cb073e90207cac99a",
+          "fields": {
+            "event": "uploaded",
+            "time": "2026-10-15T04:22:19+00:00",
+            "pod_id": "cjlui0q6npnllj",
+            "archive_bytes": 1013760,
+            "data_bytes": 1249280
+          }
+        },
+        {
+          "line_number": 4045,
+          "original_line_sha256": "cb3491ac520c761a3768e844491aeb91ba6e1d28f7df76884f5fc450fb4b1500",
+          "fields": {
+            "event": "retrieved",
+            "time": "2026-10-15T04:55:15+00:00",
+            "pod_id": "cjlui0q6npnllj",
+            "hash_verified": true,
+            "sha256": "e1ff0a97d21350125b78e39ab1f64002739aa31325b7bf38d06042e2c0988d74"
+          }
+        },
+        {
+          "line_number": 4046,
+          "original_line_sha256": "2c9a33d2ae0e7f68a9f9a58a020377eaef2a5b7a16419e5ebd75d4950933c407",
+          "fields": {
+            "event": "terminate_requested",
+            "time": "2026-10-15T04:55:16+00:00",
+            "pod_id": "cjlui0q6npnllj"
+          }
+        },
+        {
+          "line_number": 4047,
+          "original_line_sha256": "49e22f8a7bd15e740b522bfdea8a7054e4a56aa8b17467baec6aa041521d0473",
+          "fields": {
+            "event": "terminated_verified",
+            "time": "2026-10-15T04:55:21+00:00",
+            "pod_id": "cjlui0q6npnllj"
+          }
+        }
+      ],
+      "recorded_termination_verified": true,
+      "selected_member": {
+        "path": "explore/llm-soft-loop/pod64/hidden/spectrum-ky-hostility/lyapunov-spectrum.json",
+        "member": "explore/llm-soft-loop/pod64/hidden/spectrum-ky-hostility/lyapunov-spectrum.json",
+        "file": {
+          "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/hidden/spectrum-ky-hostility/lyapunov-spectrum.json",
+          "sha256": "68c24277e7b8c9ba16757658a8e191bd9f4d630451647ecb444f3d944d7e32ea",
+          "bytes": 6771
+        },
+        "archive_match": true
+      },
+      "source": {
+        "path": "/tmp/task21b-input-authority-002/source/KY2/lyapunov_spectrum.py",
+        "sha256": "2615641932edea59f29c6c47a51ff828b7dc13d70c2bdf38b2999017c250721b",
+        "bytes": 5308
+      },
+      "cells_file": {
+        "path": "/tmp/task21b-input-authority-002/source/KY2/ky-cells-hostility.json",
+        "sha256": "ba7092982fad89c6bc08b766f12f7480267db22b7ec0eceb8c809d221143122c",
+        "bytes": 940
+      },
+      "runner_excerpt": {
+        "path": "/tmp/task21b-input-authority-002/source/KY2/runner-command.sh",
+        "sha256": "befe508c8dd71b3d5f57c68898ddf55d7ca58ec5ada7273ab91e15f909a2455d",
+        "bytes": 444
+      },
+      "runner_full_source_sha256": "2fd452dee4f7d38d4734eb0746aefb2348c89e80c346f9bdfa4286ea5de2cb77",
+      "selection_basis": {
+        "source_commit": "f8219106923cd0d5bff07c6702fab731808e3187",
+        "cells_file": {
+          "path": "/tmp/task21b-input-authority-002/source/KY2/ky-cells-hostility.json",
+          "sha256": "ba7092982fad89c6bc08b766f12f7480267db22b7ec0eceb8c809d221143122c",
+          "bytes": 940
+        },
+        "rule": "KY pre-spectrum percentile design in pinned cells file and source-metadata-001 original card; source-derived fixed group membership, no selection from current spectra."
+      }
+    },
+    {
+      "pod_id": "wgzy8bc7psxcb3",
+      "gpu_type": "COMMUNITY:NVIDIA H100 NVL",
+      "commit": "2ae8f53a416b14645ae6ac739c7da02213bb9fa1",
+      "jobset": "tangentcheck",
+      "started": 1792025256.7929878,
+      "runner_returncode": 0,
+      "hash_verified": true,
+      "local_sha256": "ce70146e68bf168f28c8c41f1bd647b53ddaf28346931525c279ae9b17aa02fb",
+      "remote_sha256": "ce70146e68bf168f28c8c41f1bd647b53ddaf28346931525c279ae9b17aa02fb",
+      "wall_seconds": 2298,
+      "upload": {
+        "code_bytes": 747520,
+        "data_bytes": 1177600,
+        "code_sha256": "57db22a8ada6374d1553a1f36c9772af9815008de961c287a3ed7b9315548770",
+        "data_sha256": "f425388da2f9fe2392ca7e1dea3826d44b492fd4b1c6106e5f0874784f29d778",
+        "extra_data": [],
+        "jobset_args": "40 25"
+      },
+      "id": "TC",
+      "receipt": {
+        "path": "/data2/neural-shrimp-data/runpod/soft64/20261015T004735Z/result.json",
+        "sha256": "495d4fda60e18de9c3c454a332670f84d406bd5bcad4929bc903022bc2223983",
+        "bytes": 794
+      },
+      "archive": {
+        "path": "/data2/neural-shrimp-data/runpod/soft64/20261015T004735Z/results.tgz",
+        "sha256": "ce70146e68bf168f28c8c41f1bd647b53ddaf28346931525c279ae9b17aa02fb",
+        "bytes": 110762
+      },
+      "stdout": {
+        "path": "/data2/neural-shrimp-data/runpod/soft64/20261015T004735Z/runner-stdout.txt",
+        "sha256": "2c98044a18f913ab735653847d3623010398ed1d52d85bde81f678cd8b8f930b",
+        "bytes": 686
+      },
+      "status_lines": [
+        "2026-10-15T00:48:45Z start tc-cells",
+        "2026-10-15T00:59:45Z end tc-cells status 0",
+        "2026-10-15T00:59:46Z start tc-spectrum",
+        "2026-10-15T01:25:46Z end tc-spectrum status 124"
+      ],
+      "ledger_records": [
+        {
+          "line_number": 3523,
+          "original_line_sha256": "a9103eee3326754dfead62b0df9bec1d6bdf64b700161f179531bdcf6030cf6c",
+          "fields": {
+            "event": "created",
+            "time": "2026-10-15T00:47:36+00:00",
+            "pod_id": "wgzy8bc7psxcb3",
+            "commit": "2ae8f53a416b14645ae6ac739c7da02213bb9fa1",
+            "gpu_type": "NVIDIA H100 NVL"
+          }
+        },
+        {
+          "line_number": 3524,
+          "original_line_sha256": "2cabfa7808f8d1d6312909536a4287788ba6da97704f847388a01902191163a7",
+          "fields": {
+            "event": "ssh_ready",
+            "time": "2026-10-15T00:47:53+00:00",
+            "pod_id": "wgzy8bc7psxcb3",
+            "seconds_after_create": 17
+          }
+        },
+        {
+          "line_number": 3525,
+          "original_line_sha256": "f6dff10ab76ff39344a967d6bc149513dc2d2da39b1c481213b5f05cdf5d5c4a",
+          "fields": {
+            "event": "uploaded",
+            "time": "2026-10-15T00:47:57+00:00",
+            "pod_id": "wgzy8bc7psxcb3",
+            "archive_bytes": 747520,
+            "data_bytes": 1177600
+          }
+        },
+        {
+          "line_number": 3626,
+          "original_line_sha256": "ecab737dc9cced2c8c1b46c34af0541b031e944e7b98f1bf13360ecdb6fe8233",
+          "fields": {
+            "event": "retrieved",
+            "time": "2026-10-15T01:25:48+00:00",
+            "pod_id": "wgzy8bc7psxcb3",
+            "hash_verified": true,
+            "sha256": "ce70146e68bf168f28c8c41f1bd647b53ddaf28346931525c279ae9b17aa02fb"
+          }
+        },
+        {
+          "line_number": 3627,
+          "original_line_sha256": "b34dce717db295bbcaa4c46f383159225f2eaab1bff96ef4a8733073fe6b61a7",
+          "fields": {
+            "event": "terminate_requested",
+            "time": "2026-10-15T01:25:49+00:00",
+            "pod_id": "wgzy8bc7psxcb3"
+          }
+        },
+        {
+          "line_number": 3628,
+          "original_line_sha256": "0259b2a5c2c22c0ae4e0f1aec8b779f4a6742f355078ee096ae11742be13d248",
+          "fields": {
+            "event": "terminated_verified",
+            "time": "2026-10-15T01:25:54+00:00",
+            "pod_id": "wgzy8bc7psxcb3"
+          }
+        }
+      ],
+      "recorded_termination_verified": true,
+      "selected_member": {
+        "path": "explore/llm-soft-loop/pod64/hidden/tc-spectrum/lyapunov-spectrum.json",
+        "member": "explore/llm-soft-loop/pod64/hidden/tc-spectrum/lyapunov-spectrum.json",
+        "file": {
+          "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/hidden/tc-spectrum/lyapunov-spectrum.json",
+          "sha256": "4fa09d4cc4fa6f381dcf853c52c685f25ae34634670037bf202d57fe2bb789c1",
+          "bytes": 7275
+        },
+        "archive_match": true
+      },
+      "source": {
+        "path": "/tmp/task21b-input-authority-002/source/TC/lyapunov_spectrum.py",
+        "sha256": "2615641932edea59f29c6c47a51ff828b7dc13d70c2bdf38b2999017c250721b",
+        "bytes": 5308
+      },
+      "cells_file": {
+        "path": "/tmp/task21b-input-authority-002/source/TC/h2-horizon-cells.json",
+        "sha256": "2eaee5280d01ca2a4d37497880efa5b414c0b9d9f7b28da668d5f004b6ba7e53",
+        "bytes": 44243
+      },
+      "runner_excerpt": {
+        "path": "/tmp/task21b-input-authority-002/source/TC/runner-command.sh",
+        "sha256": "104bbfb3ad82e3b09d78980d597dff9e4b0608fc31248f9b64ea72d8bdbe4466",
+        "bytes": 1237
+      },
+      "runner_full_source_sha256": "31fbb6eeb4d869f0e26681cd7cabe6678c2f55459aa7df00792784f2a65c01e5",
+      "selection_basis": {
+        "source_commit": "2ae8f53a416b14645ae6ac739c7da02213bb9fa1",
+        "selection_file": {
+          "path": "/tmp/task21b-input-authority-002/source/TC/tc-spectrum-cells.json",
+          "sha256": "f7bdb7f1f75de583301896f77d44a6c4ce05021b0b316403df6cf494bab9a6f4",
+          "bytes": 1057
+        },
+        "scoped_card": {
+          "path": "/tmp/task21b-input-authority-002/source/TC/original-card-scoped.md",
+          "sha256": "883bdbf4206a7cb2698f197107ae3c771cfb9ee4790d6512071c07bf16a80eaf",
+          "bytes": 2378
+        },
+        "omitted_lines": [
+          {
+            "source_line": 23617,
+            "sha256": "fe0270cf75f93729bff2283d4591960dc97cdc184790382bfc8d205be9e0157a",
+            "reason": "Private pricing/rate material omitted; resource durations retained from actual command/source."
+          }
+        ],
+        "original_block_sha256": "b445f5c18120004d0905c6064b78071de1fe12dfc1c440e88b833ac92d4587ec",
+        "rule": "Prior H2 outcome-based percentile selection fixed before TC spectra: three chaotic and one periodic control per map; distinct from later KY percentile design."
+      }
+    }
+  ],
+  "scope": "Local original receipts, allowlisted ledger events, exact source/commands/cell metadata, streamed hashes and unique archive-member equality. Target JSON reads restricted to args, index labels and final complete boolean; no exponent, entropy or checkpoint-vector values parsed.",
+  "limitations": [
+    "No new pod or model query; original recorded remote source/upload/archive/termination is finite historical authority.",
+    "No independent reconstruction of historical model/tokenizer/vector bytes or original process births.",
+    "KY1 and TC spectrum timeouts and original outer runner zero remain distinct. TC grouping comes from its prior design, not the later KY design.",
+    "Producer log/paper summaries were exposed before independent arithmetic; later computations are unblinded reproduction."
+  ]
+}

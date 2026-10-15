@@ -1,0 +1,57 @@
+--- accepted-task21a-launcher
++++ prepared-task21b-launcher
+@@ -1,12 +1,13 @@
+-"""One Task21a independent saved-arithmetic run; minimal accepted supervisor adaptation."""
++"""One Task21b independent saved-arithmetic run; minimal accepted supervisor adaptation."""
+ from pathlib import Path
+ import argparse,hashlib,json,os,resource,shutil,signal,subprocess,sys,time,traceback
+ R=Path('/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp')
+-B=Path('/data2/neural-shrimp-data/codex/night-results-review-task21/task21a')
++B=Path('/data2/neural-shrimp-data/codex/night-results-review-task21/task21b')
+ OUT=B/'run-001';SUP=OUT.with_name(OUT.name+'-supervision')
+-WRAPPER='codex/night-results-review-task21/task21a/run.py';CORE='codex/night-results-review-task21/task21a/arithmetic.py';CARD='codex/night-results-review-task21/task21a/run-001-card.json'
+-WRAPPER_SHA='1001669b8714e1cb5fc81d69c55c658d939210025fbaff261539829230381629';CORE_SHA='45b3945f127d3f308d6d88f4f49c626d286eec3555af9b5faefc497d5ff951dd'
+-ADMISSION='reviewed';CARD_SHA='58fed3c41e8aa3c6ed4512370a6d01afb8f99e99d2cb6d9c571cb88888af3d16'  # Exact source and reviewed card pins required before launch.
++WRAPPER='codex/night-results-review-task21/task21b/run.py';CORE='codex/night-results-review-task21/task21b/kaplan_yorke.py';CARD='codex/night-results-review-task21/task21b/run-001-card.json'
++WRAPPER_SHA=None;CORE_SHA='8b073638a0e4466cbbb45f6c07ea0b0d0632be30ece2d36a4628968214f55cde'
++ADAPTER='codex/night-results-review-task21/task21b/adapter.py';ADAPTER_SHA='97b2582667c10e9587bb79744567c655732613b2ec581f3b2eb1846a4800d9c9'
++ADMISSION='prepared';CARD_SHA=None  # Exact source and reviewed card pins required before launch.
+ GIB=1024**3;WALL=60;MAX_OUTPUT=16*1024**2
+ 
+ def sha(p):return hashlib.sha256(Path(p).read_bytes()).hexdigest()
+@@ -27,7 +28,7 @@
+ 
+ def main():
+  ap=argparse.ArgumentParser();ap.add_argument('--source',required=True);args=ap.parse_args()
+- assert ADMISSION=='reviewed' and isinstance(CARD_SHA,str) and len(CARD_SHA)==64 and all(c in '0123456789abcdef'for c in CARD_SHA),'prepared Task21a supervisor cannot run'
++ assert ADMISSION=='reviewed' and isinstance(CARD_SHA,str) and len(CARD_SHA)==64 and all(c in '0123456789abcdef'for c in CARD_SHA),'prepared Task21b supervisor cannot run'
+  assert len(args.source)==40 and all(c in '0123456789abcdef'for c in args.source)
+  os.nice(10-os.getpriority(os.PRIO_PROCESS,0));resource.setrlimit(resource.RLIMIT_AS,(GIB,)*2)
+  assert not OUT.exists() and not SUP.exists()
+@@ -36,14 +37,14 @@
+  assert not git('status','--porcelain','--untracked-files=all').strip()
+  remote=git('ls-remote','--exit-code','origin','refs/heads/main').decode().split()[0];git('merge-base','--is-ancestor',args.source,remote)
+  sources={}
+- for name,pin in [(WRAPPER,WRAPPER_SHA),(CORE,CORE_SHA),(CARD,CARD_SHA)]:
++ for name,pin in [(WRAPPER,WRAPPER_SHA),(CORE,CORE_SHA),(ADAPTER,ADAPTER_SHA),(CARD,CARD_SHA)]:
+   data=git('show',args.source+':'+name);assert hashlib.sha256(data).hexdigest()==pin==sha(R/name),name;sources[name]=data
+- own=Path(__file__);launch_rel='codex/night-results-review-task21/task21a/run-001-launch.py';assert git('show',args.source+':'+launch_rel)==own.read_bytes();sources[launch_rel]=own.read_bytes()
++ own=Path(__file__);launch_rel='codex/night-results-review-task21/task21b/run-001-launch.py';assert git('show',args.source+':'+launch_rel)==own.read_bytes();sources[launch_rel]=own.read_bytes()
+  available=next(int(x.split()[1])*1024 for x in Path('/proc/meminfo').read_text().splitlines()if x.startswith('MemAvailable:'));assert available>=20*GIB and shutil.disk_usage('/data2').free>=16*GIB
+  SUP.mkdir();src=SUP/'source'
+  for name,data in sources.items():p=src/name;p.parent.mkdir(parents=True,exist_ok=True);p.write_bytes(data);p.chmod(0o444)
+  command=['/data2/neural-shrimp/.venv/bin/python','-I','-B','-u',str(src/WRAPPER),'--card',str(src/CARD),'--out',str(OUT)]
+- save(SUP/'admission.json',{'source_commit':args.source,'private_remote_ancestor':remote,'sources':{n:hashlib.sha256(d).hexdigest()for n,d in sources.items()},'available_bytes':available,'disk_free_bytes':shutil.disk_usage('/data2').free,'load_average':os.getloadavg(),'cpu_affinity_count':len(os.sched_getaffinity(0)),'scope':'One Task21a independent arithmetic pass over sixteen pinned saved JSON/JSONL inputs plus scoped refusal metadata. No model, eigensolver, Newton, continuation or producer imports. Source and original finite-input authority are bound by exact card. CPU1 plus supervisor,1GiB AS,55CPU/60s wall plus5s TERM/5s KILL cleanup,16MiB output,20/16GiB available RAM and16GiB disk; no active concurrent reservation. Scientific failure, missing levels and unavailable evidence remain reported outcomes.','command':command,'seconds':WALL,'memory_gib':1,'cpu_worker':1,'supervisor_slots':1,'output_cap_bytes':MAX_OUTPUT,'supervisor':identity(os.getpid())})
++ save(SUP/'admission.json',{'source_commit':args.source,'private_remote_ancestor':remote,'sources':{n:hashlib.sha256(d).hexdigest()for n,d in sources.items()},'available_bytes':available,'disk_free_bytes':shutil.disk_usage('/data2').free,'load_average':os.getloadavg(),'cpu_affinity_count':len(os.sched_getaffinity(0)),'scope':'One Task21b independent arithmetic pass over three pinned saved leading-QR-spectrum JSON files (35 completed of38 requested cells), all checkpoints, original missing rows and controls. No model, QR iteration, eigensolver, trajectory or producer imports. Source and original finite-input authority are bound by exact card. CPU1 plus supervisor,1GiB AS,55CPU/60s wall plus5s TERM/5s KILL cleanup,16MiB output,20/16GiB available RAM and16GiB disk; no active concurrent reservation. Finite estimate disagreements, original timeouts/missing cells, controls and unknown spectrum tails remain reported outcomes.','command':command,'seconds':WALL,'memory_gib':1,'cpu_worker':1,'supervisor_slots':1,'output_cap_bytes':MAX_OUTPUT,'supervisor':identity(os.getpid())})
+  env=dict(os.environ,OMP_NUM_THREADS='1',OPENBLAS_NUM_THREADS='1',MKL_NUM_THREADS='1',NUMEXPR_NUM_THREADS='1',PYTHONDONTWRITEBYTECODE='1');env.pop('PYTHONPATH',None);env.pop('PYTHONHOME',None)
+  child=None;birth=None;failure=None;code=None;timed_out=False;closed=False;start=time.monotonic();max_bytes=0
+  def stopped(signum,frame):raise InterruptedError('owned audit supervisor interrupted')
+@@ -72,7 +73,7 @@
+    assert code==0,'saved audit nonzero exit'
+    assert OUT.exists() and (OUT/'report.json').is_file()
+    result=json.loads((OUT/'report.json').read_text());assert result['computational_status']=='complete'
+-   for name,pin in [(WRAPPER,WRAPPER_SHA),(CORE,CORE_SHA),(CARD,CARD_SHA)]:assert sha(R/name)==pin
++   for name,pin in [(WRAPPER,WRAPPER_SHA),(CORE,CORE_SHA),(ADAPTER,ADAPTER_SHA),(CARD,CARD_SHA)]:assert sha(R/name)==pin
+  except BaseException as exc:
+   for signum in old_handlers:signal.signal(signum,signal.SIG_IGN)
+   failure={'error':repr(exc),'traceback':traceback.format_exc()}

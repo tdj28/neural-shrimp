@@ -1,0 +1,1 @@
+Task 21b Kaplan-Yorke dimensions (KY1, KY2): docs/ky-cells-*.json and the spectrum outputs named in those entries. Recompute D_KY from the saved spectra and check the ranges in main.tex paragraph "How many dimensions does the chaos have?" under the "round bounds up" rule.
