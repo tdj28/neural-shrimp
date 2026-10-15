@@ -1550,6 +1550,16 @@ snapshot_download('$REPO', revision='$MREV', cache_dir='$NEURAL_SHRIMP_DATA/mode
     done
     wait
     ;;
+  rr)          # reset test (run RR2; tools/repro_reset.py; consult 10): JOBARGS = specs NAME:MODEL:LAYER:LOG10T:DTYPE:SET:MINUTES,
+               # run in order on one GPU; Qwen2.5-7B is downloaded once at its pinned revision when a spec needs it
+    have7b=0
+    for spec in "${JOBARGS[@]}"; do
+      IFS=: read -r name model layer lt dtype set_ minutes <<< "$spec"
+      if [ "$model" = qwen7b ] && [ $have7b = 0 ]; then get7b; have7b=1; fi
+      TOOL=repro_reset.py run rr-$name "$minutes" run --problems docs/rr-problems.json --set "$set_" --dtype "$dtype" \
+        --model "$model" --layer "$layer" --log-temperature "$lt" --device cuda --out $D/rr/$name
+    done
+    ;;
   fm5d)        # run FM5d: the two tangent reversals of the left fold curve of the period-5 window (FM5c,
                # curve-a1-down-fold-minus, brackets 14-15 and 39-40) located and checked as cusps, in parallel (the fm5c
                # curve, the fm5 branch and the vectors uploaded with --extra-data). JOBARGS: LOCATE-MINUTES
