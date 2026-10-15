@@ -24776,3 +24776,7 @@ Pods qj1mu8edfno9ui and g1z1317zrhlqpz (2 x H200 placement; runner rc 0, hashes 
 ## 2026-10-15 08:53 UTC: Amendment: FBS768m timed out (90-minute tool limit, no progress record); relaunched as FBS768n with 190 minutes
 
 FBS768m (pod a1i1o7txau28j2; runner rc 0, job status 124, terminated; 5549 s) found no s768 within its 90-minute job limit: the transient of 80000 steps plus the period-768 Ritz evaluations take longer. FBS768n repeats it unchanged with a 190-minute job limit.
+
+## 2026-10-15 08:54 UTC: Amendment to BPC (operational, before any outcome): the generation pod ran out of memory; relaunched with 50 prompts per chunk
+
+BPCgen (runner rc 0, job status 1, 159 s) failed with CUDA out of memory: 400 prompts x 10 samples per sampled batch is too large for the float32 7B. No outcome was produced or seen. It is relaunched as BPCgen2 with --chunk-prompts 50; everything else is as frozen. The chunk size changes the random streams of chunks after the first, which the design does not fix.
