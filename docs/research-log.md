@@ -25250,3 +25250,33 @@ Reference for the discussion: Almeida, Peralta-Salas and Romera, Physica D 200, 
 - Speckled periods 1, 5 and 7 at the right edge, where attractors coexist.
 
 No shrimp body with a centre is visible at this resolution. The decisive test is DSS5 (period-5 window of the mirrored plane), still running.
+
+## 2026-10-15 10:46 UTC: DLGv1 result: all 12 entrained co-writing pairs are verified attracting primitive orbits
+
+**Run.** Pod (H100 class); commit d20044a0 from the orchestrator log; runner rc 0; job status 0; terminated; 20 min. Output: dialogue/v-cw/verify.json, copied to docs/dlg/dlgv1-verify.json.
+
+**Result.** All 12 cells of docs/dlg/dlga-entrained-cells.json (log10 T -0.1; both agents chaotic alone by the map's twin exponents) give "verified attracting primitive orbit":
+- Newton residuals 1.7e-16 to 1.8e-13 (tolerance 1e-11).
+- Leading multiplier moduli 0.0008 to 0.786.
+- No return at any proper divisor of the period.
+- Exchange periods: 1 (three cells), 3 (two), 5 (four), 6 (three).
+
+**Transcripts** (leading tokens of A and B over one period):
+- **Period 1:** A " is", B " it". This is the single loop's "is it" 2-cycle, now made of one word from each agent.
+- **Period 5:** A " This", B " is" / A " there", B " is" / A " it", B " is" / A " a", B " is" / ...; B answers " is" every time while A cycles through four words.
+- **Period 6:** "This is it is it is ..." and ". This is a is a" variants.
+
+**Follow-up.** Exact tangent exponents for the agents alone at these strengths (hidden_chaos --tangent), to qualify their chaos beyond the twin pair.
+
+## 2026-10-15 10:48 UTC: FBS768n result: superstable period 768 at log10 T -0.148; the superstable ratio reaches 4.6595
+
+**Run.** Pod 1bf4nlcy02jcpw (H100 NVL); commit d27f6673 from the orchestrator log; runner rc 0; job status 0; terminated; 111 min. Output: superstable/crescent-t-0.14798-768b.
+- s_768 = 0.06612497449023565, converged.
+- Clean bracket [0.06612497449023315, 0.06612497449023717], width 4.0e-15. The critical multiplier changes sign from +7.45e-7 to -4.62e-7.
+- Newton residual 1.17e-12. Other Ritz moduli up to 3.0e-20; the next modulus at the bracket ends is 1.5e-20 and 2.7e-21.
+
+**Ratios at -0.148:** 3.190, 4.019, 4.478, 4.625, **4.6595**.
+- The new ratio differs from delta by 0.00968 (0.21 %).
+- Distances to delta shrink by 3.40, 4.33 and 4.56 per level.
+
+**Paper.** Text, Table tab:superstable (new row 768; ratio 4.6595 on row 384), the table caption (768 residual and moduli stated separately), the figure (legend period from the data) and the figure caption (within 0.21 %; superstable points to period 768).

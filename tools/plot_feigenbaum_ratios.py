@@ -57,8 +57,11 @@ def edge_flip(run):
 def superstable():
     """Superstable points (period, value, clean bracket) of the crescent at log10 T = -0.14798, period 12 on."""
     rows = []
-    for run in ("crescent-t-0.14798", "crescent-deep2"):
-        for b in json.loads((DATA / "superstable" / run / "superstable.json").read_text())["bands"]:
+    for run in ("crescent-t-0.14798", "crescent-deep2", "crescent-t-0.14798-768b"):     # 768b: run FBS768n
+        f = DATA / "superstable" / run / "superstable.json"
+        if not f.exists():
+            continue
+        for b in json.loads(f.read_text())["bands"]:
             if b.get("superstable") is not None and b["period"] >= 12:
                 rows.append((b["period"], b["superstable"], b["clean_bracket"]))
     return sorted(rows)
@@ -128,7 +131,7 @@ def main():
     lo, hi = zip(*(worst_case(ss, i) for i in range(1, len(ss) - 1)))
     err = [[max(v - a, 0) for v, a in zip(s148, lo)], [max(b - v, 0) for v, b in zip(s148, hi)]]
     ax.errorbar(xs, s148, yerr=err, fmt="s--", color=blue, mfc="white", capsize=3,
-                label=r"0.5B, $\log_{10}T=-0.148$, superstable points (to period 384)")
+                label=r"0.5B, $\log_{10}T=-0.148$, superstable points (to period %d)" % ss[-1][0])
     top = 5.0
     inside = [(n, v) for n, v in enumerate(f156, start=1) if v <= top]
     ax.plot(*zip(*inside), "D-", color=green, ms=5,
