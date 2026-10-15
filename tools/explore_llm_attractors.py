@@ -39,6 +39,7 @@ MODELS ={"qwen0.5b": "Qwen/Qwen2.5-0.5B-Instruct", "qwen1.5b": "Qwen/Qwen2.5-1.5
           "qwen3.5-0.8b": "Qwen/Qwen3.5-0.8B",                 # hybrid linear/full attention (float64: qwen35_float64)
           "qwen3.5-35b-a3b": "Qwen/Qwen3.5-35B-A3B",           # the same with 256 experts (top 8): MoE routing
           "qwen72b": "Qwen/Qwen2.5-72B-Instruct",              # large dense models: float64 with bfloat16 storage
+          "qwen72b-base": "Qwen/Qwen2.5-72B",                   # its pretrained base, before post-training
           "llama3.3-70b": "meta-llama/Llama-3.3-70B-Instruct",  # (weights="bf16", device "auto"); gated
           "llama3.1-70b": "meta-llama/Llama-3.1-70B-Instruct",  # same release and recipe as llama3.1-8b; gated
           # scaling series (run SC): Qwen2.5 3B/14B/32B and OLMo-2 1B/13B/32B
@@ -295,6 +296,22 @@ def keep_float64_norms(model):
         if "_float32_forward" not in cls.__dict__:
             cls._float32_forward = cls.forward
             cls.forward = rotary_forward
+    # accelerate's device hooks (layers spread over GPUs, CPU offload) keep the forward that a module had when the
+    # model was dispatched, before these class patches: a hooked norm or rotary module would still run the float32
+    # original (the final norm and the rotary tables of every two-GPU run up to 14 October 2026, measured as a 1e-8
+    # wander at fixed points). Rebind each hooked module to its patched class forward, and refuse to continue if any
+    # still wraps an original.
+    import types
+
+    patched = {cls for cls in {type(m) for m in model.modules()}
+               if cls.__name__.endswith("RMSNorm") or "_float32_forward" in cls.__dict__}
+    for m in model.modules():
+        if type(m) in patched and hasattr(m, "_old_forward"):
+            m._old_forward = types.MethodType(type(m).forward, m)
+    stale = [n for n, m in model.named_modules() if type(m) in patched and hasattr(m, "_old_forward")
+             and getattr(m._old_forward, "__func__", None) is not type(m).forward]
+    if stale:
+        raise SystemExit(f"float64 patches bypassed by device hooks: {stale[:5]}")
     impl = getattr(model.config, "_attn_implementation", None)
     if impl not in ("sdpa", None):
         raise SystemExit(f"attention implementation {impl!r} may cast to float32; use sdpa for float64 runs")

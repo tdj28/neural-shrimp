@@ -42,9 +42,66 @@ def symbolic_period(seq, max_q=64):
 KEEP = 400          # states kept per cell: the diameter uses the last 400, the period check the last 65
 
 
-def run_batch(loop, v, log_ts, alphas, transient, record, eps_list, tol, seed=0, trace=False, sequences=None):
+FD_STEPS = (1e-1, 3e-2, 1e-2, 1e-3, 1e-4, 1e-5, 1e-6, 1e-7, 1e-8, 1e-9, 1e-10, 1e-11)
+
+
+class EntropyClamp:
+    """Entropy-clamped soft decoding: at every step each row's temperature is chosen so that its next-token entropy
+    equals the row's target (nats); the "temperatures" passed to step are those targets. The map stays smooth and
+    deterministic (explore_llm_soft_loop.solve_beta, a fixed number of safeguarded Newton steps). tsum/steps: running
+    sum of the temperatures used, per row, since the last reset."""
+
+    def __init__(self, loop):
+        self.loop, self.torch, self.state_dtype, self.device = loop, loop.torch, loop.state_dtype, loop.device
+        self.tsum, self.steps = None, 0
+
+    def prepare(self, rows):
+        self.tsum, self.steps = None, 0             # a new batch (rows may change, as in fd_probe)
+        return self.loop.prepare(rows)
+
+    def step(self, X, targets):
+        import explore_llm_soft_loop as esl
+
+        z = self.loop.logits(X)
+        beta = esl.solve_beta(z, targets)
+        p = self.torch.softmax(beta[:, None] * z, dim=-1)
+        t = (1.0 / beta).double().cpu().numpy()
+        self.tsum = t if self.tsum is None else self.tsum + t
+        self.steps += 1
+        return self.torch.cat([X[:, 1:, :], (p @ self.loop.E)[:, None, :]], dim=1), p
+
+
+def fd_probe(loop, v, log_ts, alphas, base, hs=FD_STEPS, seed=1):
+    """Precision probe of one step at the states base (n, K, d): the central-difference ratio
+    |F(x + h u) - F(x - h u)| / (2h) for one random unit direction u per cell and each h (constant down to the rounding
+    level for a smooth float64 map), and the largest difference between two evaluations of F(x) at different batch
+    positions (zero for a batch-invariant computation)."""
+    torch = loop.torch
+    n, H = len(log_ts), len(hs)
+    rng = np.random.default_rng(seed)
+    u = torch.as_tensor(rng.normal(size=tuple(base.shape)), dtype=loop.state_dtype, device=loop.device)
+    u = u / u.flatten(1).norm(dim=1)[:, None, None]
+    rows = [base]
+    for h in hs:
+        rows += [base + h * u, base - h * u]
+    rows.append(base)
+    reps = 2 * H + 2
+    loop.prepare(np.concatenate([np.array([a * v for a in alphas])] * reps))
+    Y, _ = loop.step(torch.cat(rows), np.tile(10.0 ** np.asarray(log_ts), reps))
+    Y = Y[:, -1].double()
+    out = []
+    for c in range(n):
+        ratio = [float((Y[n * (1 + 2 * k) + c] - Y[n * (2 + 2 * k) + c]).norm() / (2 * h)) for k, h in enumerate(hs)]
+        out.append({"h": list(hs), "central_ratio": ratio, "repeat_diff": float((Y[c] - Y[n * (reps - 1) + c]).abs().max())})
+    return out
+
+
+def run_batch(loop, v, log_ts, alphas, transient, record, eps_list, tol, seed=0, trace=False, sequences=None,
+              tangent=False, probe=False, checkpoints=()):
     """Trajectories for a batch of cells with one twin per offset; returns per-cell statistics (and, with trace,
-    the per-step arrays of the first cell)."""
+    the per-step arrays of the first cell). tangent: also the exact exponent of a renormalised tangent vector carried
+    along each base orbit by forward-mode AD (no offset). probe: fd_probe at the final base states. checkpoints:
+    measured-step counts at which the running exponents are also reported (convergence with the horizon)."""
     torch = loop.torch
     n = len(log_ts)
     m = len(eps_list)
@@ -62,9 +119,22 @@ def run_batch(loop, v, log_ts, alphas, transient, record, eps_list, tol, seed=0,
         twins.append(base + d / d.flatten(1).norm(dim=1)[:, None, None] * e)
     X = torch.cat([base] + twins)
     growth = np.zeros((m, n))
+    tgrowth = np.zeros(n)
+    if tangent:                 # drawn after the twins, so the twins equal those of a run without tangents
+        Vt = torch.as_tensor(rng.normal(size=tuple(base.shape)), dtype=loop.state_dtype, device=loop.device)
+        Vt = Vt / Vt.flatten(1).norm(dim=1)[:, None, None]
     lead, pmax, ent, states, first = [], [], [], [], []
-    for _ in range(record):
-        X, p = loop.step(X, temps)
+    marks, snaps = set(checkpoints), []
+    if isinstance(loop, EntropyClamp):         # mean temperature over the recorded steps
+        loop.tsum, loop.steps = None, 0
+    for i in range(record):
+        if tangent:
+            X, p, JV = loop.step_jvp(X, temps, torch.cat([Vt, torch.zeros_like(X[n:])]))
+            size = np.maximum(JV[:n].flatten(1).norm(dim=1).double().cpu().numpy(), 1e-300)
+            tgrowth += np.log(size)
+            Vt = JV[:n] / torch.as_tensor(size, dtype=loop.state_dtype, device=loop.device)[:, None, None]
+        else:
+            X, p = loop.step(X, temps)
         base = X[:n]
         new = [base]
         for k, e in enumerate(eps_list):
@@ -74,6 +144,8 @@ def run_batch(loop, v, log_ts, alphas, transient, record, eps_list, tol, seed=0,
             growth[k] += np.log(dist / e)
             new.append(base + diff * torch.as_tensor(e / dist, dtype=loop.state_dtype, device=loop.device)[:, None, None])
         X = torch.cat(new)
+        if i + 1 in marks:
+            snaps.append((i + 1, growth / (i + 1), tgrowth / (i + 1)))
         p0 = p[:n].double()
         top = p0.max(dim=-1)
         lead.append(top.indices.cpu().numpy())
@@ -103,6 +175,18 @@ def run_batch(loop, v, log_ts, alphas, transient, record, eps_list, tol, seed=0,
                     "lead_tokens": [int(t) for t in sorted(set(seq), key=seq.index)[:8]],
                     "pmax_mean": float(pmax[:, c].mean()), "pmax_sd": float(pmax[:, c].std()),
                     "entropy_mean": float(ent[:, c].mean()), "entropy_sd": float(ent[:, c].std())})
+        if tangent:
+            out[-1]["lyapunov_tangent"] = float(tgrowth[c] / record)
+        if snaps:
+            out[-1]["checkpoints"] = {"steps": [s for s, _, _ in snaps],
+                                      "lyapunov": [[float(g[k][c]) for k in range(m)] for _, g, _ in snaps]}
+            if tangent:
+                out[-1]["checkpoints"]["lyapunov_tangent"] = [float(t[c]) for _, _, t in snaps]
+        if isinstance(loop, EntropyClamp):
+            out[-1]["mean_temperature"] = float(loop.tsum[c] / loop.steps)
+    if probe:
+        for r, f in zip(out, fd_probe(loop, v, log_ts, alphas, X[:n])):
+            r["fd_probe"] = f
     if sequences is not None:
         sequences["lead"].append(lead)
         sequences["pmax"].append(pmax)
@@ -153,14 +237,29 @@ def main():
     ap.add_argument("--prefix-file", default=None, help="JSON with a list 'prefixes' of {system, opener}")
     ap.add_argument("--prefix-index", type=int, default=None)
     ap.add_argument("--threads", type=int, default=16)
+    ap.add_argument("--window", type=int, default=1,
+                    help="soft tokens fed back (the state is the window of the last K expected embeddings)")
+    ap.add_argument("--tangent", action="store_true",
+                    help="also the exact tangent exponent (forward-mode AD along each base orbit, no offset)")
+    ap.add_argument("--checkpoints", type=int, nargs="+", default=None,
+                    help="also report the running exponents after these numbers of measured steps")
+    ap.add_argument("--fd-probe", action="store_true",
+                    help="one-step central differences at the final states for h = 1e-1..1e-11 (precision probe)")
+    ap.add_argument("--clamp-entropy", type=float, nargs=2, default=None, metavar=("LO", "HI"),
+                    help="entropy-clamped decoding: line mode sweeps the next-token entropy from LO to HI nats instead "
+                         "of the temperature (--log-temperature unused); in cells mode the first column is the target")
     ap.add_argument("--out", required=True)
     args = ap.parse_args()
+    if args.clamp_entropy and args.tangent:
+        raise SystemExit("--tangent is not implemented for entropy-clamped decoding")
+    if args.checkpoints and not all(0 < c <= args.record for c in args.checkpoints):
+        raise SystemExit("--checkpoints must lie between 1 and --record")
     prompt, opener = "open", ela.OPENER
     if args.prefix_file is not None:
         pref = json.loads(Path(args.prefix_file).read_text())["prefixes"][args.prefix_index]
         ela.PROMPTS["custom"] = pref["system"]
         prompt, opener = "custom", pref["opener"]
-    loop = esl.SoftLoop(args.model, args.layer, args.threads, prompt, opener, 1, args.dtype, args.device,
+    loop = esl.SoftLoop(args.model, args.layer, args.threads, prompt, opener, args.window, args.dtype, args.device,
                         args.weights)
     v = np.zeros(loop.E.shape[1]) if args.vectors_none else elpm.load_vectors(args.vectors)[args.concept]
     if len(v) != loop.E.shape[1]:
@@ -170,6 +269,15 @@ def main():
             raise SystemExit("cells mode needs --cells-file")
         pairs = np.array(json.loads(Path(args.cells_file).read_text())["cells"], dtype=float)
         log_ts, alphas = pairs[:, 0], pairs[:, 1]
+        if args.clamp_entropy:
+            log_ts = np.log10(log_ts)            # entropy targets, passed to the loop as "temperatures"
+    elif args.clamp_entropy:
+        if args.alpha is None:
+            raise SystemExit(f"{args.mode} mode needs --alpha")
+        targets = np.linspace(args.clamp_entropy[0], args.clamp_entropy[1], args.n)
+        if targets.max() >= np.log(loop.E.shape[0]) or targets.min() <= 0:
+            raise SystemExit("entropy targets must lie strictly between 0 and log V")
+        log_ts, alphas = np.log10(targets), np.full(args.n, args.alpha)
     else:
         if args.alpha is None or not args.log_temperature:
             raise SystemExit(f"{args.mode} mode needs --alpha and --log-temperature")
@@ -178,18 +286,24 @@ def main():
         else:
             log_ts = np.linspace(args.log_temperature[0], args.log_temperature[1], args.n)
         alphas = np.full(len(log_ts), args.alpha)
+    if args.clamp_entropy:
+        loop = EntropyClamp(loop)
     results, tr = [], None
     seqs = {"lead": [], "pmax": []} if args.save_sequences else None
     for s in range(0, len(log_ts), args.chunk):
         got = run_batch(loop, v, log_ts[s:s + args.chunk], alphas[s:s + args.chunk], args.transient, args.record,
-                        args.eps, args.tol, trace=args.trace and args.mode == "cell", sequences=seqs)
+                        args.eps, args.tol, trace=args.trace and args.mode == "cell", sequences=seqs,
+                        tangent=args.tangent, probe=args.fd_probe, checkpoints=tuple(args.checkpoints or ()))
         if isinstance(got, tuple):
             got, tr = got
         results += got
         print(json.dumps({"done": len(results), "of": len(log_ts)}), flush=True)
     for r in results:
         r["class"] = classify(r)
-    tok = loop.sm.tok
+        if args.clamp_entropy:                 # the swept value was the entropy target
+            r["entropy_target"] = float(10.0 ** r["log10_temperature"])
+            r["log10_temperature"] = float(np.log10(r["mean_temperature"]))
+    tok = getattr(loop, "loop", loop).sm.tok
     for r in results:
         r["lead_text"] = [tok.decode([t]) for t in r["lead_tokens"]]
     out = ela.DATA / "explore" / args.out

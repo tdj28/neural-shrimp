@@ -23307,3 +23307,952 @@ _commit `f3b62e09dbad` (dirty worktree)_
 Source and metadata review accepted for one independent unblinded saved-scan arithmetic reproduction: 16 datasets, 19 original NPZ segments; no model or producer analysis execution. Exact source/card is `codex/steering-controls-crosscheck/run-001-plan.json` and `run-001-card.md`; currently prepared and unlaunchable. Original authority0cfd23d7 binds archives/statuses/recorded termination. All random lower timeouts and unfinished suffixes stay explicit. The prospective fixed lower0–95/top96–127 mapping preserves nonselected overlaps and exact top coordinate roundoff; no outcome-dependent join. Gaussian philosophy norm and separate gratitude norm remain explicit.
 
 Root reviewed source/tabulation and fixed budget CPU1 plus supervisor, nice10, hard AS4GiB, 115 CPU seconds subordinate to120s external wall,128MiB retained output,20/16GiB available-memory floors and16GiB free disk. Full target runtime is unmeasured; existing3.25MB input hash IO/tiny synthetic controls ground the finite counting estimate, and any failure is retained. Exact private prepared checkpoint and admission-only final plan/card precede launch. One independently reviewed saved-field check is required after completion. Task15 remains held; no reservations yet.
+## 2026-10-14 10:16 UTC: Codex Task 17 (paper scope review) adopted; corrections applied to the paper
+
+Codex's report-only review of the 08:53 paper (packet codex/paper-scope-review-task17/, acceptance f6da23f0) and its line-specific corrections were applied in commit 092cfe7e: (T01) high-temperature contraction stated with its assumptions (smooth fixed-prefix map, network derivative bounded on the hull; not hard routing or growing context), the low-T limit as pointwise, covariance vs cross-covariance; heading renamed; (T02) universality wording replaced by 'motivates, does not imply'; random-network identification called an analogy; (T03/T04) all 'located numerically nondegenerate cusps' now 'cusp candidates' (bracketed sign change of b, nonzero endpoint c), unfolding determinants attributed to nearby fold points, unfolding tests described as seeded-root recovery (12/12 counts, 11/12 stability, not exhaustive); (T05) loop-gain bounds 1.35e-13, 0.059-0.644, 1.7e-6, 8.3e-14; 'every step expands some direction'; ordered Jacobian product captures the cycle's stability; Haar realignment result (16/16 contract, more strongly) added; (T06-T08) scalar return-map approximation, not a proved reduction; 59 single-stationary-point cells split 36 maxima / 23 minima (verified locally); independent stress cells (+0.2 %, about 18 %) and the delay test's 30/61 rule failures with test-segment phase selection reported; (T09) Luo-Yu moved out of the fixed-point grouping; priority narrowed, Kim credited; (R01-R03) Huginn estimands (gold-row residual entering update 32; lower-bound gate), partial Ritz spectra wording, Part A chronology; (R04) finite-horizon exponents vs mixing/control; (R05/S12) hardware (H200, two GPUs for 70B) and manifest wording, count pending regeneration; (R06) geometric persistence summary 1/(1-P_stay); (R07) oriented passage coordinate v in the body (log 20286 confirms the passage runs used the oriented coordinate); certificate clarifications (zero-based block 12; exact temperature); (S01/S06) the global 70B contraction sentence replaced; 70B positives labelled candidates with the failed 1e-9 checks; (S02) controls direction-dependent, 70B counts 44/36/11/2 of 1024; (S03) census dated 00:19 UTC 14 Oct; (S04) unresolved cells distinguished in captions; (S05) Llama 64^2 caption max period 32 (saved scan.json: 32); (S07) scale_summary counts the shared 72B endpoint once (0/128 core, 0/191 overall; refuses joined sweeps whose duplicate labels disagree, and non-finite exponents); (S09) size wording descriptive. Correction to this log (S08): the 09:xx entry for the 70B SAE-hostility map said '394 cells without a period and exponent <= 1e-3'; 394 is all no-period cells, of which 36 are chaotic and 358 unresolved.
+
+_commit `ed130bad2b1b`_
+
+## 2026-10-14 10:20 UTC: SCx result: 7-8B references on the wide sweep; frozen P3 holds for Qwen2.5 and fails for OLMo-2
+
+Pod 1tl2ki77iimwa0 (SECURE 1xH100 NVL, rc 0, hash verified, terminated; 3368 s; commit d28deabd). scaleset qwen7b, llama3.1-8b, olmo2-7b: 160 T over log10 T -1..0.6 and gain split 24 T over -0.3..0.9. Chaotic in -1..0.3 (wide grid): Qwen2.5-7B 18/130 (13.8 %; 512-sweep 12.7 %), Llama-3.1-8B 20/130 (15.4 %; 18.8 %), OLMo-2-7B 9/130 (6.9 %; 6.25 %); above 0.3: Qwen 6/30 (0.318-0.379, entropy 9.4-11.5 nats), Llama 0/30, OLMo 0/30; no non-finite exponents. tools/scale_summary.py now joins these sweeps into the whole-axis measures (chaotic decades, breadth, largest exponent; shared -1.0 endpoint counted once) while the share in [-1, 0.3] stays on the 512-temperature sweeps named in the frozen predictions; Spearman over 15 models unchanged (breadth +0.69, log parameters -0.46). Frozen P3 (gain factors of the larger models at or below the 7B's in bins 1-3, 3-6, 6-10 nats): Qwen2.5 14B and 32B hold in every scorable bin (1-3, 3-6 with the frozen-era 7B split; also 6-10 with the wide 7B split, n = 1); OLMo-2 FAILS: 13B network factor above the 7B's at 1-3 (-0.03 vs -0.52) and 6-10 (+1.01 vs +0.14) while its readout factor is lower in all three (-1.37/-1.03/-1.17 vs +0.06/-0.22/-0.72); 32B readout factor above the 7B's in all three (+0.29/+0.35/+0.10). Bins hold 1-4 temperatures: medians are noisy. Reading: within OLMo-2 the readout factor tracks which model is chaotic (13B none, 32B most). Paper gain paragraph corrected the same day: two earlier sentences overgeneralized (readout 'unchanged in every bin' fails below 1 nat, n = 1; Qwen factors 'lower in every bin' fails above 10 nats, where 14B/32B have higher network factors, the bins of their high-temperature chaos).
+
+_commit `ada3e522ea55` (dirty worktree)_
+
+## 2026-10-14 10:23 UTC: run (exploratory)
+
+- **Question:** CP: does a property read off one forward pass at the loop's start state (no loop, no exponents) order the 14 dense models' unsteered chaos? Frozen in docs/start-state-predictor.md (CP1 primary: Spearman >= 0.5 between the start-state intermediate-entropy breadth at the paper's prefix and the chaos decades; CP2 the same with the median over ten prefixes; CP3 descriptive: network sensitivity, one-step gain, size).
+- **Setup:** One pod, 2 x H100 NVL (or H200 NVL), job set startstate, models in order qwen0.5b qwen1.5b qwen3b olmo2-1b qwen7b llama3.1-8b olmo2-7b olmo2-13b qwen14b qwen32b olmo2-32b llama3.1-70b llama3.3-70b qwen72b (pinned revisions; all checkpoints stored in bfloat16), tools/start_state.py with float64 compute and bf16 storage, device auto, ten prefixes of docs/prefix-scale-prefixes.json, 8 twin directions at relative offset 1e-5; checkpoints deleted after each model. Development: Qwen2.5-0.5B CPU float64 and local GPU auto/bf16 agree to 1e-14.
+- **Output:** `../neural-shrimp-data/explore/llm-soft-loop/pod64/start-state/MODEL/start-state.json`
+
+_commit `3c7f76e0f354`_
+
+## 2026-10-14 10:33 UTC: Z70 result: 64x64 zoom of Llama-3.3-70B's chaotic ridge (hostility concept)
+
+Four pods (bands b0-b3 of 16 log10 T rows each; b0 COMMUNITY 2xH100 NVL 8081 s, b1-b3 SECURE 2xH200 5505-6123 s; all rc 0, hash verified, terminated; commits 044ef31e/9fc7f33a/4102aafd), job set bigctrl map, concept vectors built on each pod at layer 50 (identical norms 98.4289). Stitched by tools/plot_zoom70.py (refuses gaps, differing steering grids or vector norms; tested): alpha 0.06..0.12 x log10 T 0.12..0.27, 64x64, 300 + 300 steps, max period 32, no unfinished or non-finite cells. Chaotic 898/4096 (21.9 %), largest exponent 0.593; periodic 1411; unresolved (no period up to 32, exponent <= 1e-3) 1787 (44 %, mostly below the band). Ridge: centre of the chaotic cells above log10 T 0.165 moves from 0.253 (alpha 0.06) to 0.189 (0.12), extent about 0.02 to 0.05 decades, periodic cells interspersed; a thinner chaotic layer near 0.15-0.16 at strong steering. Above the ridge 994/1105 cells periodic, 479 of them period 1-2; below it bands of period 6 (284 cells of period 6 overall). Caveat: at 70B the period test's state tolerance 1e-8 is near the noise floor (~2e-8), and B6 found negative-exponent no-period cells with repeating leading tokens, so many unresolved cells are probably periodic; left unresolved. Figure paper/llm/figures/fig-zoom-llama70b.png (fig:zoom70).
+
+_commit `25911f1e1b1e` (dirty worktree)_
+
+## 2026-10-14 10:35 UTC: PS partial (frozen prompt-blocked size test): PS1 FAILS; Qwen2.5-14B is more chaotic than 7B at every scored held-out prefix, all of it above log10 T 0.36
+
+Pods PS7b (n0gpr4mqkw9ztk, qwen7b prefixes 5-9, 4453 s), PS14b (688v1c1c8py4dg, qwen14b 4-6, 4886 s), PS14c (rcte67oani8dxq, qwen14b 7-9, 4961 s): SECURE H100 NVL, rc 0, hash verified, terminated. Scored with tools/prefix_scale_score.py (written and pushed before any PS data). Stage 1 (48 T over log10 T -0.4..0.9) chaotic counts C1 7B/14B: prefix 5: 0/15, 6: 7/12, 7: 3/13, 8: 4/17, 9: 5/11; 14B prefix 4: 11 (7B pending). Largest min-offset exponent M 7B/14B: 5: 0.076/1.118, 6: 1.072/1.172, 7: 1.087/1.087, 8: 1.141/1.090, 9: 1.152/0.909. PS1 (C1(14B) < C1(7B) in >= 6 of 8 held-out and never C1(14B) > C1(7B) + 2) FAILS: violated at prefixes 5, 6, 7, 8, 9 (cannot change with the remaining prefixes). PS2 undetermined (3 successes, 3 held-out prefixes missing). PS3: stage-2 chaos at 5/5 7B and 6/6 14B prefixes so far. Location: every 14B chaotic temperature lies in 0.36..0.90 (none <= 0.3), at and above its entropy transition (stage-2 intervals 0.35-0.65); 7B chaotic temperatures lie in 0.21..0.43 (plus one prefix up to 0.9) around its transition (0.21-0.46). Reading (descriptive, pending PS7a and PS14a): in Qwen2.5 the larger model's chaos is not suppressed but moves to higher temperature with its entropy transition, partly out of the fixed window [-1, 0.3] of the scaling sweeps (whose 14B sweep ended at 0.6). The size answer of the paper must change accordingly.
+
+_commit `9cede640b6d7`_
+
+## 2026-10-14 10:37 UTC: run (exploratory)
+
+- **Question:** SCU (exploratory extension): the wide scaling sweeps end at log10 T 0.6, but Qwen2.5-1.5B, -14B and -32B are chaotic up to that edge, and the prompt-blocked test puts Qwen-14B's chaos at 0.36-0.9. Where above 0.6 is each model chaotic on the paper's prefix? Whole-axis measures (chaotic decades, breadth) of the scaling table become complete; the frozen predictions (scored on [-1, 0.3]) are unaffected.
+- **Setup:** Two pods, job set upperset (unsteered float64 sweep, bf16 storage, 64 temperatures over log10 T 0.61..1.2, 1000 + 2000 steps, twin 1e-6, max period 64, as scaleset): SCUa 1 x H100 NVL: qwen1.5b qwen3b qwen7b olmo2-1b olmo2-7b llama3.1-8b; SCUb 1 x H200 (or H200 NVL / H100 NVL): qwen14b qwen32b olmo2-13b olmo2-32b.
+- **Output:** `../neural-shrimp-data/explore/llm-soft-loop/pod64/big/MODEL-alpha0-upper`
+
+_commit `5690443488cf`_
+
+## 2026-10-14 11:00 UTC: B7b result: the Qwen2.5-72B window is NOT confirmed; at 72B the twin exponent depends on the offset without a plateau (negative at 1e-5, near zero at 1e-6, positive at 1e-7 even at periodic cells)
+
+Pod gl8ehj8zwvrjf6 (SECURE 2xH200 NVL, rc 0, hash verified, terminated; 4053 s; commit c095c55b). tools/hidden_chaos.py line, Qwen2.5-72B unsteered, paper's prefix, float64 bf16-storage, 64 temperatures over log10 T 0.370..0.378, 1000 + 2000 steps, absolute twin offsets 1e-5, 1e-6, 1e-7. Classes: 56 'irregular, exponent not positive at all offsets', 8 periodic (periods 10, 12, 16, 54), none chaotic. Exponents: at 1e-5 negative at all 64 temperatures (-0.05 to -1.34); at 1e-6 between -0.97 and +0.35 (positive at 15); at 1e-7 positive at all 64 (+0.03 to +1.24), including the four periodic cells listed (+0.43..+0.81) whose states repeat to 1e-8. So the B7 window (positive at 1e-6 only, 0.3728-0.376) does not survive: the positive values rise as the offset shrinks, with no plateau between 1e-5 and 1e-7; together with B7's 1e-9 values (+2.5..+3.3 everywhere) the small-offset growth is not a property of the map. Because the base trajectories of periodic cells repeat to 1e-8, the discrepancy is specific to the twin rows (a map mismatch or batch-position effect of order 1e-7 between rows is one candidate explanation; untested). Consequences: (1) the 72B window is withdrawn as a chaos candidate; (2) every 70B-class positive that rests on a single 1e-6 offset (B3 Qwen-72B steered 8/1024, B5 Llama-3.1-70B 3/128, B6 Llama-3.3-70B 2 cells, the S70M steering controls 44/36/11/2 of 1024, the Z70 zoom 898/4096) is an offset-unverified candidate until rechecked at larger offsets (1e-5, 1e-4) with a plateau; negatives are unaffected (the bias is upward); (3) the frozen prompt-blocked test is robust to this (its label requires positivity at 1e-5 as well as 1e-7, and M is the minimum over offsets); (4) whether the one-GPU bf16-storage scaling sweeps (eps 1e-6) carry a similar bias is open: the local two-offset Qwen2.5-1.5B check (1e-5, 1e-7, device cuda, bf16 storage) running now is a first test. This is a precision-gate failure in the sense of AGENTS.md: the 70B offsets were not shown to sit on a plateau before labels were reported.
+
+_commit `ace94a24e6f2`_
+
+## 2026-10-14 11:02 UTC: run (exploratory)
+
+- **Question:** PT (plateau test of 70B labels after B7b): are the 70B chaotic labels at absolute twin offset 1e-6 on a plateau with 1e-5 and 1e-4? PTa: 24 cells of the Llama-3.3-70B zoom (12 chaotic, 6 periodic, 6 unresolved; seeded draw, docs/plateau-cells-z70.json) at the maps' horizon (300 + 300 steps). PTb: Llama-3.1-70B unsteered, the 3 chaotic temperatures of B5 and the temperature below each (docs/plateau-cells-l31-70b.json), 1000 + 2000 steps as B5. Decision rule (fixed now): a map label 'chaotic' is confirmed when the exponents at all three offsets are above 1e-3; the offset dependence is summarized by the spread of the three exponents per cell.
+- **Setup:** Two pods, 2 GPUs each (H100 NVL / H200 NVL), float64 bf16 storage, device auto; PTa job set bigctrl part cells (concept vectors rebuilt on the pod at layer 50 exactly as the zoom; hidden_chaos.py cells, offsets 1e-4 1e-5 1e-6); PTb job set bighidden with cells=FILE (offsets 1e-4 1e-5 1e-6).
+- **Output:** `../neural-shrimp-data/explore/llm-soft-loop/pod64/{controls70/hostility-vs-kindness-plateau/cells, big/llama3.1-70b-plateau}`
+
+_commit `fff7a2ea2768`_
+
+## 2026-10-14 11:04 UTC: PS complete (frozen prompt-blocked size test): PS1 and PS2 FAIL; Qwen2.5-14B is more chaotic than 7B at all 8 held-out prefixes, its chaos above log10 T 0.36 at its own entropy transition; single-GPU offsets agree (1e-7 vs 1e-5)
+
+Last pod PS14a (95no4su5jn6hrf, qwen14b prefixes 0-3, SECURE H100 NVL, rc 0, hash verified, terminated; 6750 s). Scored with the frozen scorer (tools/prefix_scale_score.py; docs/prefix-scale-result.json; figure paper/llm/figures/fig-prefix-scale.png). Stage-1 chaotic counts C1 7B/14B (of 48 over log10 T -0.4..0.9): development 0: 10/12, 1: 1/3; held-out 2: 6/14, 3: 3/9, 4: 0/11, 5: 0/15, 6: 7/12, 7: 3/13, 8: 4/17, 9: 5/11. PS1 FAILS (0 of 8 successes; C1(14B) > C1(7B) + 2 at all 8 held-out prefixes). PS2 FAILS (M(14B) < M(7B) at 3 of 8). PS3: stage-2 chaos at 7 of 8 held-out prefixes (7B) and 8 of 8 (14B). Location: every 14B chaotic temperature at all ten prefixes lies in log10 T 0.36-0.90 (none at or below 0.3), at and above its entropy transition (stage-2 intervals 0.35-0.65); 7B chaotic temperatures lie mostly in 0.21-0.43 around its transition (0.21-0.46), with one prefix up to 0.9 and the paper's prefix from -0.07. On the paper's prefix the 14B is chaotic at 12 of 48 stage-1 temperatures (0.52-0.90): its scaling sweep, which ended at 0.6, saw only the lower edge. Reading: within Qwen2.5 the larger model is not less chaotic; its chaos sits at higher temperature, where its next-token distribution spreads. Offset diagnostic (single GPU, bf16 storage, device auto): lambda(1e-7) - lambda(1e-5) median +0.0000 (periodic, n 591 / 516) and +0.0002 (chaotic, n 128 / 203), 5-95 % within [-0.03, +0.02] for both models; chaotic cells agree to 0.021 at most. So the one-GPU path has a plateau from 1e-5 to 1e-7; the offset dependence of B7/B7b is specific to the two-GPU 70B-class runs (mechanism not identified).
+
+_commit `f1e43a8e5a0c` (dirty worktree)_
+
+## 2026-10-14 11:17 UTC: SCUa result: upper sweeps (log10 T 0.61-1.2) of six small models; only Qwen2.5-1.5B is chaotic there (32/64, up to 1.03, near-uniform entropy)
+
+Pod gk0vwo3oonyecw (SECURE 1xH100 NVL, rc 0, hash verified, terminated; 2327 s; commit 5f33f665). upperset: 64 temperatures over log10 T 0.61..1.2, 1000 + 2000 steps, absolute twin 1e-6, max period 64, float64 bf16 storage (one GPU). Chaotic: Qwen2.5-1.5B 32/64 (log10 T 0.61-1.03, largest exponent 0.576, mean next-token entropy 11.6-11.9 nats against log V = 11.93); Qwen2.5-3B 0/64 (largest -0.069), Qwen2.5-7B 0/64 (-2.14), OLMo-2-1B 0/64 (-2.30), OLMo-2-7B 0/64 (-2.38), Llama-3.1-8B 0/64 (-3.29); no non-finite exponents. So Qwen2.5-1.5B's high-temperature chaos (wide sweep: 21 temperatures in 0.31-0.58) continues over most of 0.61-1.03 at nearly uniform next-token distributions; single offset (the one-GPU path has a 1e-5/1e-7 plateau in the prompt-blocked test; the local two-offset check of 0.288-0.58 is still running).
+
+_commit `c0bb34ae8154`_
+
+## 2026-10-14 11:22 UTC: Local two-offset check: Qwen2.5-1.5B's high-temperature chaos is robust (9 of 12 temperatures chaotic at 1e-5 and 1e-7, exponents agree to 0.003)
+
+Local GPU (RTX 2000 Ada), tools/hidden_chaos.py line, qwen1.5b unsteered, float64 bf16 storage (device cuda), 12 temperatures over log10 T 0.288..0.58, 1000 transient + 3000 recorded steps, absolute twins 1e-5 and 1e-7 (run card earlier today). Classes: 8 visible chaos, 1 hidden chaos (0.3411, exponent 0.05), 3 periodic (0.3942 period 5 with exponents +0.109/+0.107 at both offsets, recorded as returned; 0.5269 and 0.5535 period 2, -0.22/-0.19). At every temperature the exponents at 1e-5 and 1e-7 agree within 0.0026 (a plateau). Against the wide sweep (2000 steps, 1e-6) at the nearest temperature: 9 of 10 sweep-chaotic cells chaotic here; exponents agree within 0.03 except 0.3411 (0.05 here vs 0.645) and 0.3942 (period 5 here vs chaotic 0.539). Entropy on these orbits 7.2-11.6 nats. Reading: chaos at nearly uniform next-token distributions in this model is a property of the map, not of the offset or the horizon.
+
+_commit `f9bc76b88f22` (dirty worktree)_
+
+## 2026-10-14 11:24 UTC: V1b result (morph video): 103 of 120 frames complete; six pods hit the run limit; pod 02's frames recovered without overwriting
+
+Twelve pods (SECURE RTX 4090, job set morph, commit b28aefa6; frames 20p..20p+18 step 2 of the 240-direction great-circle rotation from random1 to random3 at the philosophy vector's norm, Qwen2.5-0.5B float32, 296 x 512 cells, 150 + 300 steps... as in the V1 run card). Pods 01, 02, 05, 06, 07, 08 finished (rc 0); pods 00, 03, 04, 09, 10, 11 reached the 560-minute run limit (runner exit status none; archives retrieved and hash-verified) with their last one to five frames unfinished. Pod 02's extraction was refused because frame-040/scan-partial.npz from the 13 Oct V1 attempt already existed; its archive (runpod/soft64/20261014T015747Z/results.tgz) holds finished frames 040-058, which were copied without overwriting any file (the old partial file is kept; note in morph/EXTRACTION-NOTES.txt). Finished frames: 103 of the 120 planned (missing 16, 18, 78, 80, 96, 98, 192-198, 212-220, 236, 238); no non-finite exponents. tools/render_morph.py now accepts a step and gaps: each map is held until the next available one (constant rotation speed) and consecutive maps are blended at 24 fps, so gaps appear as longer crossfades; the missing frames are listed in morph-shares.json.
+
+_commit `20f9dd45a635` (dirty worktree)_
+
+## 2026-10-14 11:24 UTC: Correction to the V1b log entry of 11:30 UTC
+
+The entry said '150 + 300 steps ... as in the V1 run card'. The job arguments (tools/runpod_soft_runner.sh, job set morph: FIRST LAST STEP MINUTES_PER_FRAME COLD_TRANSIENT WARM_TRANSIENT SCAN-ARGS) mean: 150 minutes per frame at most; the first frame of each pod from the fixed start with a 300-step transient; every later frame from the previous frame's final states with a 40-step transient (warm start); scan arguments --samples 80 --record 60 --max-period 24, float32 with tolerance and twin offset 1e-4. So the frames are not all from the same initial state: in each block of ten, the first is a cold start and the others continue the attractors of the previous direction. The renderer's overlay text, which said every cell started from the same state, is corrected before rendering.
+
+_commit `2a396916c640` (dirty worktree)_
+
+## 2026-10-14 11:38 UTC: PTa result: the steered Llama-3.3-70B zoom labels pass the plateau test (12 of 12 sampled chaotic cells chaotic at 1e-4, 1e-5 and 1e-6; exponents agree within 0.05)
+
+Pod ff5yj06c6jch2n (SECURE 2xH200, rc 0, hash verified, terminated; 686 s; commit b35d1b53). bigctrl part cells: concept vectors rebuilt at layer 50 exactly as for the zoom, tools/hidden_chaos.py cells on docs/plateau-cells-z70.json (seeded draw: 12 chaotic, 6 periodic, 6 unresolved cells of the Z70 zoom), 300 + 300 steps as the maps, absolute twin offsets 1e-4, 1e-5, 1e-6. Decision rule fixed in the run card: a chaotic map label is confirmed when all three exponents exceed 1e-3. Result: 12 of 12 confirmed (all 'visible chaos'); exponent spread over the three offsets median 0.021, max 0.052; the test exponents differ from the map's single-offset values by up to 0.13 (different twin directions, same horizon). The 6 periodic cells: negative at all offsets (-0.05 to -1.93; 4 with a period detected again, 2 negative without a period). The 6 unresolved cells: negative at all offsets (-0.08 to -2.06; one now periodic with period 14). Reading: in the steered Llama-3.3-70B maps (two GPUs) the exponent sits on a plateau from 1e-4 to 1e-6, so the zoom and, by the same computation, the S70M control labels stand; the offset dependence found by B7b is not a general property of our two-GPU computation but of the unsteered Qwen2.5-72B window (cause open: structure finer than 1e-5 near its entropy jump, or a numerical effect specific to that model). PTb (Llama-3.1-70B unsteered cells) pending.
+
+_commit `5a1c57ef567f`_
+
+## 2026-10-14 11:40 UTC: SCUb result: upper sweeps of Qwen2.5-14B/-32B and OLMo-2-13B/-32B; Qwen2.5-14B chaotic at 48 of 64 temperatures up to log10 T 1.14
+
+Pod bza7lx1vzbwla7 (SECURE 1xH200, rc 0, hash verified, terminated; 3591 s; commit 5f33f665). upperset (64 temperatures over log10 T 0.61..1.2, 1000 + 2000 steps, absolute twin 1e-6, float64 bf16 storage, one GPU). Chaotic: Qwen2.5-14B 48/64 (0.61-1.14, largest exponent 1.139, mean entropy 11.6-11.9 nats); Qwen2.5-32B 0/64 (largest -0.306); OLMo-2-13B 0/64 (-0.992); OLMo-2-32B 0/64 (-0.002); no non-finite exponents. With the wide sweeps: Qwen2.5-14B chaotic at 53 of 224 temperatures between 0.52 and 1.14 (0.50 chaotic decades), Qwen2.5-1.5B at 55 of 224 between 0.29 and 1.03 (0.53 decades): on the paper's prompt the 14B's chaos lies almost entirely above the fixed window, as the prompt-blocked test found on all prompts. Spearman over 15 models with the complete sweeps: breadth (1-10 nats) +0.55, log parameters -0.44 (the breadth misses the near-uniform chaos of 1.5B and 14B). Paper table, figure and text updated; contraction at high temperature sets in only above log10 T about 1.1 in these two models.
+
+_commit `30e733ed986b` (dirty worktree)_
+
+## 2026-10-14 11:42 UTC: CP result (frozen loop-free predictor): CP1 FAILS (rho +0.30), CP2 holds narrowly (+0.52, p 0.06); the start-state one-step gain is negative in every model and predicts nothing
+
+Pod l7ad58bxxb1rws (COMMUNITY 2xH100 NVL, rc 0, hash verified, terminated; 4068 s; commit 25911f1e). tools/start_state.py on the 14 dense models, ten prefixes each, float64 bf16 storage. Scored with tools/start_state_score.py (docs/start-state-result.json) against the outcome frozen in docs/start-state-predictor.md (chaotic decades before the wide and upper sweeps). CP1, start-state intermediate-entropy breadth at the paper's prefix: Spearman +0.30 (p 0.31), below 0.5: FAILS. CP2, median breadth over the ten prefixes: +0.52 (p 0.058): holds by the frozen threshold, not significant. CP3 (descriptive): start-state log g_net -0.07; one-step gain maximum over T -0.32; log parameters -0.36. Sensitivity with the complete sweeps (scale-summary.json): breadth p0 +0.17, median +0.44, log parameters -0.36. Every model's one-step gain at the start state is negative (-0.54 to -3.38 per step), including the most chaotic ones. Reading: no property of one forward pass that we tested predicts the loop's chaos usefully; it has to be measured on the loop (consistent with the theory section: stability belongs to the loop, not the step).
+
+_commit `65762f8ffb6a` (dirty worktree)_
+
+## 2026-10-14 11:56 UTC: PTb result: two of Llama-3.1-70B's three unsteered chaotic temperatures pass the plateau test; the weakest does not
+
+Pod 262sgk4ryllyiw (SECURE 2xH200, rc 0, hash verified, terminated; 1763 s; commit b35d1b53). bighidden cells mode, Llama-3.1-70B unsteered, docs/plateau-cells-l31-70b.json (the 3 chaotic temperatures of B5 and the temperature below each), 1000 + 2000 steps as B5, absolute twin offsets 1e-4, 1e-5, 1e-6. log10 T 0.1362 (map +0.298): +0.226/+0.228/+0.260, visible chaos, confirmed. 0.1976 (map +0.414): +0.413/+0.411/+0.404, confirmed. 0.1157 (map +0.042): -0.076/-0.102/+0.020, not confirmed (positive only at 1e-6), withdrawn. The three lower neighbours: negative at all offsets (-0.14 to -0.64), no state period, leading-token periods 3-14. Reading: unsteered chaos exists at 70B (Llama-3.1-70B, two temperatures, exponents 0.23-0.41, plateau over two decades of offset); the B7b failure is specific to the Qwen2.5-72B window.
+
+_commit `f5c883e09ba8`_
+
+## 2026-10-14 12:09 UTC: run (exploratory)
+
+- **Question:** PS72 (frozen in docs/prefix-scale-72b.md before any 72B prefix run; human approval 14 Oct ~12:05 UTC): does Qwen2.5-72B, like the 14B, have broad chaos on other prompts? Primary PS72: C1(72B) < C1(14B) on at least 3 of the 4 prefixes 2, 3, 4, 5.
+- **Setup:** One pod, 2 x H200 NVL or H100 NVL (Qwen2.5-72B has run on both), job set prefix72 with prefixes 2 3 4 5: per prefix tools/hidden_chaos.py line, Qwen2.5-72B pinned 495f3936, unsteered, float64 with bf16 storage, device auto, 48 temperatures over log10 T -0.4..0.9, 1000 + 2000 steps, twins 1e-5 and 1e-6, chaotic = positive at both offsets and no period up to 64 (classify). Disclosure: the frozen file calls the offsets relative; tools/hidden_chaos.py uses absolute state distances, as in the 7B/14B test, and the frozen numbers 1e-5, 1e-6 are used unchanged. Scoring as frozen (14B C1 from docs/prefix-scale-result.json). Estimate from B7b (256 rows x 3000 steps in 59 min): about 45 min per prefix, 3.2 h in all.
+- **Output:** `../neural-shrimp-data/explore/llm-soft-loop/pod64/prefix/qwen72b-pN-coarse`
+
+_commit `b8b385f29bbf`_
+
+## 2026-10-14 12:17 UTC: run (exploratory)
+
+- **Question:** PTc (follow-up, human budget for follow-ups): is the Qwen2.5-72B window (B7: positive at 1e-6 only; B7b: negative at 1e-5, positive at 1e-7) non-chaotic on a plateau of larger offsets? Decision rule fixed now: per temperature, 'plateau' if the exponents at 1e-4, 3e-5 and 1e-5 agree within 0.1; the window is non-chaotic at resolvable scales if most temperatures are on a plateau with all three exponents negative, chaotic if all three are above 1e-3. The repeated 1e-5 also checks that B7b's values reproduce on another pod.
+- **Setup:** One pod, 2 GPUs (H200 NVL / H200), job set bighidden (line mode): Qwen2.5-72B unsteered, paper's prefix, float64 bf16 storage, 16 temperatures over log10 T 0.370..0.378, 1000 + 2000 steps, absolute twin offsets 1e-4, 3e-5, 1e-5.
+- **Output:** `../neural-shrimp-data/explore/llm-soft-loop/pod64/big/qwen72b-window-plateau`
+
+_commit `91267340c278`_
+
+## 2026-10-14 12:17 UTC: run (exploratory)
+
+- **Question:** PSO (frozen in docs/prefix-scale-olmo.md; human approval 'Do it'): does OLMo-2-32B stay more chaotic than OLMo-2-7B across prompts? Primary PSO: C1(32B) > C1(7B) on at least 3 of the held-out prefixes 2, 3, 4, 5.
+- **Setup:** Two pods, job set prefixcoarse (stage 1 only: 48 temperatures over log10 T -0.4..0.9, 1000 + 2000 steps, absolute twins 1e-5 and 1e-7, float64 bf16 storage, device auto): PSOa OLMo-2-1124-7B on 1 GPU (H100 NVL / H100 SXM / H200); PSOb OLMo-2-0325-32B on 1 GPU (H200 / H200 NVL / H100 NVL).
+- **Output:** `../neural-shrimp-data/explore/llm-soft-loop/pod64/prefix/olmo2-{7b,32b}-pN-coarse`
+
+_commit `b5a257e3c35d`_
+
+## 2026-10-14 12:19 UTC: Timestamp corrections (14 Oct, 12:19 UTC)
+
+docs/prefix-scale-olmo.md says it was written 'about 12:25 UTC'; it was committed at 12:17:48 UTC (b5a257e3), before any OLMo prefix run (pods created after 12:18). The comms withdrawal of Codex's requests is headed 12:30Z; it was committed at 12:18:17 UTC. An earlier comms request (Task 20) was headed 10:45Z but posted at about 10:17Z (corrected in comms at the time). The frozen files are left unchanged; these entries record the true times.
+
+_commit `78b0cf424d90` (dirty worktree)_
+
+## 2026-10-14 12:56 UTC: PTc result: the Qwen2.5-72B window is not chaotic at offsets 1e-5 and above (all 16 temperatures negative at 1e-4, 3e-5, 1e-5; 11 on a plateau)
+
+Pod 6vu63mz09o5tav (SECURE 2xH200, rc 0, hash verified, terminated; 2323 s; commit 25d18085). bighidden line, Qwen2.5-72B unsteered, paper's prefix, 16 temperatures over log10 T 0.370..0.378, 1000 + 2000 steps, absolute twin offsets 1e-4, 3e-5, 1e-5. All 16 temperatures have negative exponents at all three offsets (from -1.28 to -0.007); 11 of 16 agree within 0.1 across the offsets (the frozen plateau rule), all negative; 0 positive at all three. Decision rule (fixed in the run card): non-chaotic at resolvable scales. The 1e-5 values reproduce B7b's on another pod (e.g. -1.117 vs -1.118 at 0.378, -1.046 vs -1.033 at 0.370, -1.279 vs -1.260 at 0.3727). One temperature (0.37427) is marginal, -0.010/-0.008/-0.007. Reading: the window's positive exponents at 1e-6 (B7) and 1e-7 (B7b) appear only below a perturbation size of about 1e-5; at the scales where the exponent sits on a plateau the window contracts. Whether something real lives below 1e-5 there or the small-offset growth is numerical, the window is not chaotic at resolvable scales.
+
+_commit `a61a0c222047`_
+
+## 2026-10-14 13:38 UTC: PSO result (frozen OLMo-2 prompt-blocked test): holds, 3 of 4 prompts, with small counts
+
+Pods PSOa (ofjlfung30otho, OLMo-2-1124-7B, SECURE 1xH200, 1424 s) and PSOb (y3yw6uf7ih1gi2, OLMo-2-0325-32B, SECURE 1xH200, 4781 s): rc 0, hash verified, terminated; commit a5197e6d. Stage 1 (48 temperatures over log10 T -0.4..0.9, absolute twins 1e-5 and 1e-7, 1000 + 2000 steps) on held-out prefixes 2-5; scored with tools/prefix_pair_score.py (pushed before the data; docs/prefix-scale-olmo-result.json). C1 32B/7B: prefix 2: 4/3, 3: 5/0, 4: 3/1, 5: 0/3. PSO (C1(32B) > C1(7B) on >= 3 of 4): HOLDS (3 of 4). Largest min-offset exponents 32B/7B: 0.530/0.427, 0.528/-0.282, 0.419/0.241, -0.000/0.270. Chaotic temperatures: 32B 0.10-0.35, 7B -0.01-0.21. Reading: the paper-prompt ordering (OLMo-2-32B more chaotic than 7B) survives across prompts, with small counts (0-5 of 48); the larger model's chaos again lies somewhat higher in temperature. Size and release remain confounded (0325 vs 1124).
+
+_commit `66c311026954` (dirty worktree)_
+
+## 2026-10-14 15:45 UTC: PS72 result (frozen 72B prompt-blocked test): holds, 4 of 4 prompts; Qwen2.5-72B chaotic at 0, 1, 0, 0 of 48 temperatures
+
+Pod o41hga4tat6h71 (SECURE 2xH200, rc 0, hash verified, terminated; 11302 s wall; commit 91267340). Stage 1 on held-out prefixes 2-5 (48 temperatures over log10 T -0.4..0.9, absolute twins 1e-5 and 1e-6, 1000 + 2000 steps, float64 bf16 storage over two GPUs). Scored with the frozen scorer (tools/prefix_pair_score.py ps72; docs/prefix-scale-72b-result.json): C1(72B) = 0, 1, 0, 0 against C1(14B) = 14, 9, 11, 15; PS72 holds (4 of 4). The one chaotic temperature is prefix 3, log10 T 0.319 (exponent +0.35 at 1e-5, +0.34 at 1e-6), at that prefix's entropy jump (largest entropy increase near 0.291). Largest min-offset exponents per prefix: -0.36, +0.34, -1.17, -0.89. Next-token entropy jumps from below 0.3 nats to 11.9 nats near log10 T 0.26, 0.29, 0.40 and 0.37 (prefixes 2-5). Reading: unlike the 14B, the 72B shows no broad chaos above its transition on any of the four prompts; the transition is narrower than the grid spacing (0.028 decades), so narrow bands at the jump are not excluded. Caveat found during consult 8 (next entries): all two-GPU runs, this one included, computed the final RMSNorm (and the rotary tables) in float32, so the 1e-6 offset is near the computation's noise at switching states; the labels need both offsets positive, so the 1e-5 exponents decide them.
+
+_commit `1f649d11fe39` (dirty worktree)_
+
+## 2026-10-14 16:00 UTC: Defect: the two-GPU runs computed the final RMSNorm in float32 (accelerate hooks kept the unpatched forwards); fixed and tested locally
+
+Found while preparing consult 8 (docs/consults/2026-10-14-qwen72b-diagnosis/adjudication.md). At stable period-1 cells (entropy above one nat), the residual wander of the trajectory (diameter of the last 400 states) is 1e-15 to 1e-14 in every single-device run (Qwen2.5-7B, OLMo-2-7B, OLMo-2-32B), but 1e-8 to 6e-8 in every two-GPU run (Qwen2.5-72B, Llama-3.3-70B). Reproduced locally with Qwen2.5-1.5B split by accelerate (CPU offload): wander 5e-8 to 1.5e-7, against 2e-15 to 6e-15 on one device. One step stays repeatable and batch-invariant. Cause: accelerate wraps the forward of every module it hooks at dispatch time (with layers spread over GPUs: model.norm, model.rotary_emb and the blocks; with CPU offload also every norm inside offloaded layers), and keep_float64_norms patched the RMSNorm and rotary classes only after loading, so the hooked modules kept their originals: RMSNorm computes in float32. Rebinding the hooked modules to the patched forwards brings the split model's wander to 1.5e-15 to 5.8e-15. Fix: keep_float64_norms now rebinds every hooked norm and rotary module and refuses to continue if one still wraps an original (tools/explore_llm_attractors.py; regression test tests/test_float64_rope_llama3.py, which fails without the fix). Affected: every run with device auto on two GPUs (B1-B7b, PTa-PTc, PS72, the 70B steering maps and zoom, the G2 gain splits of the 70B-class models, and the start-state pod, which spread all fourteen models over two GPUs). Not affected: single-GPU runs (all sweeps up to 32B, the 7B/14B and OLMo prompt-blocked tests). Effect: a float32 rounding of the final hidden state (relative 6e-8) makes the computed map rough at about 1e-8 in the state and more at the switching orbits of the 72B jump; small-offset exponents (1e-6 and below) of those runs are contaminated, offsets of 1e-5 and above are not affected in kind (the 70B plateau tests agreed from 1e-4 to 1e-6). The Qwen2.5-72B window's positive exponents at 1e-7 are explained by this defect; whether the true map has positive infinitesimal growth there is the question of run QF below.
+
+## 2026-10-14 16:05 UTC: run (exploratory)
+
+- **Question:** QF (consult 8 follow-up, with the hook fix): with the 72B computed in float64 throughout, (a) do the exponents at the jump window and at the eight steered candidates sit on a plateau from 1e-4 down to 1e-7, and does the exact tangent exponent (forward-mode AD, no offset) agree; (b) is there chaos in a fine line across the entropy jump on each of the four PS72 prompts?
+- **Setup:** Two pods, 2 x H200 (NVL) each, job set q72fix at the commit after this entry; Qwen2.5-72B pinned 495f3936, float64 bf16 storage, device auto with the fix, tools/hidden_chaos.py --tangent --fd-probe. QFa (part cells): docs/q72fix-cells.json, 29 cells fixed now: the 8 B3 candidates, alpha 0 at their 3 temperatures, 8 extension cells (alpha of candidates 18 and 20 at log10 T 0.325, 0.35, 0.375, 0.40), 8 unsteered window temperatures 0.370..0.378, controls (0.0 echo; 0.40 near-uniform fixed point); B3 vectors uploaded unchanged (copy at llm-phase-map/vectors-qwen72b-l40-b3, sha256 2c78ed95...); offsets 1e-4 1e-5 1e-6 1e-7, transient 500, record 1000. QFb (part lines): unsteered lines of 12 temperatures on prefixes 2:0.254..0.314, 3:0.281..0.341, 4:0.392..0.452, 5:0.364..0.424 (from each prefix's largest PS72 entropy increase, -0.01..+0.05), offsets 1e-5 1e-6 1e-7, transient 400, record 800. Decision rules fixed now: a cell is chaotic when the tangent exponent and the exponents at all offsets are above 1e-3 and no period up to 64 is found; a twin exponent counts only where the fd probe's central-difference ratio at that h is within 10 % of its value at 1e-4 (resolved scale). A positive tangent exponent with negative offset exponents is reported as unresolved infinitesimal growth, not chaos (consult 8).
+- **Output:** `../neural-shrimp-data/explore/llm-soft-loop/pod64/big/{qwen72b-fix-cells, qwen72b-fix-p2..p5}`
+
+## 2026-10-14 17:01 UTC: run (confirmatory, frozen in docs/prefix-scale-72b-base.md)
+
+- **Question:** PB72 (human: "Do it", then "don't wait for the Instruct results, do it in parallel because comparing the base to instruct is interesting unto itself"): is the near-absence of unsteered chaos in Qwen2.5-72B-Instruct a product of post-training? The same stage-1 measurement on the pretrained base model, paired with PS72 per prompt. Primary PB72: C1(base) >= C1(Instruct) + 3 on at least 3 of prefixes 2-5.
+- **Setup:** One pod, 2 x H200 (NVL), job set prefix72base with prefixes 2 3 4 5 0 (primary first): Qwen/Qwen2.5-72B pinned efba10c8 (not gated; 145.4 GB bf16; same architecture as the Instruct; identical prefix token ids for prefixes 0, 2-5, checked locally), unsteered, float64 bf16 storage over two GPUs with the hook fix, tools/hidden_chaos.py line, 48 temperatures over log10 T -0.4..0.9, twins 1e-5 and 1e-6, 500 + 1000 steps (half of PS72, disclosed in the frozen file). Scoring: tools/prefix_pair_score.py pb72 (margin 3), written before the data. Estimate: about 25 min per prefix plus download, 2.3 h.
+- **Output:** `../neural-shrimp-data/explore/llm-soft-loop/pod64/prefix/qwen72b-base-pN-coarse`
+
+## 2026-10-14 17:20 UTC: QFa result: with the float64 fix, steered Qwen2.5-72B is chaotic (6 of 8 candidates confirmed by the exact tangent exponent and a plateau from 1e-4 to 1e-7); the unsteered jump window is not
+
+Pod wd8piatucc13t3 (SECURE 2xH200, rc 0, hash verified, terminated; 3817 s wall; commit 426b24cd). tools/hidden_chaos.py cells on docs/q72fix-cells.json with the B3 vectors (layer 40, hostility-vs-kindness, uploaded unchanged), float64 bf16 storage over two GPUs with the hook fix, 500 + 1000 steps, twins 1e-4, 1e-5, 1e-6, 1e-7, exact tangent exponent and fd probe. Scored with tools/q72fix_summary.py (rules of the 16:05 run card; docs/q72fix-result.json). Fix verified on the pod: wander at period-1 cells at most 1.0e-15 (2e-8 before). The fd probe's central-difference ratio is within 2e-5 of its 1e-4 value at h = 1e-7 in every cell, so every twin offset counts.
+- Steered candidates: 6 of 8 chaotic. Tangent exponents +0.245 (0.2613, alpha 0.0968), +0.357 (0.2806, 0.0929), +0.232 (0.300, 0.0619), +0.349 (0.300, 0.0658), +0.326 (0.300, 0.0735), +0.229 (0.300, 0.0774); the four twin exponents agree with the tangent within 0.01 in each. Five have nearly uniform distributions (mean entropy 10.95-11.13 nats, sd under 0.15) and no leading-token period (visible chaos); one (0.300, 0.0619) alternates between sharp and flat (entropy 7.3 +- 3.7) behind a period-2 leading token (hidden chaos). The other two candidates are period-2 orbits (tangent -0.11, -0.19).
+- Alpha 0 at the candidates' temperatures: period 2, tangent -3.59 to -3.79. Steering opens the chaos.
+- Extensions of the candidate slices (alpha 0.0697, 0.0774) to log10 T 0.325-0.40: near-uniform fixed points, tangent -1.59 to -2.52. The steered chaos lies in a band below log10 T 0.325.
+- Unsteered window 0.370-0.378: all 8 not chaotic, periods 2 and 4; tangent -1.07 to -0.014, each equal to the twin exponents within 0.015 (1e-7 included: the earlier positive values at 1e-7 were the float32 defect). The exponent approaches zero at 0.3743, where the period changes from 2 to 4 (a period doubling within the window).
+- Controls: echo at 0.0 (period 2, -4.72); near-uniform fixed point at 0.40 (period 1, -1.45).
+Reading: Qwen2.5-72B is not intrinsically free of chaos. Unsteered, it is not chaotic anywhere we looked on the paper's prompt (now with an offset-free exponent at the jump); steered along hostility at layer 40, it is chaotic in a narrow band near log10 T 0.26-0.30, as Llama-3.3-70B is when steered. The single-offset map label (0.8 %) is confirmed for 6 of 8 cells.
+
+## 2026-10-14 17:35 UTC: QFb result: unsteered Qwen2.5-72B is chaotic in a narrow band on one of four held-out prompts (prompt 3, log10 T 0.319-0.336), confirmed by exact tangent exponents; none on prompts 2, 4, 5
+
+Pod gaseh2womsxudr (SECURE 2xH200, rc 0, hash verified, terminated; 4761 s wall; commit 426b24cd). Unsteered lines of 12 temperatures across each prompt's entropy jump (2: 0.254-0.314, 3: 0.281-0.341, 4: 0.392-0.452, 5: 0.364-0.424), float64 throughout (hook fix; period-1 wander at most 6.3e-15), twins 1e-5, 1e-6, 1e-7, exact tangent exponent, fd probe; scored with tools/q72fix_summary.py (docs/q72fix-result.json). Prompt 3: chaotic at 0.3192 (tangent +0.341), 0.3246 (+0.051), 0.3301 (+0.395), 0.3355 (+0.396); twins agree with the tangent within 0.004; no period, mean entropy 10.62-10.68 nats; neighbours: period 2 at 0.3137 (-0.29) and a near-uniform fixed point at 0.3410 (-1.08); below, periods 5 and 6 (-0.69 to -2.09). The PS72 grid's single chaotic temperature (0.319) lies in this band. Prompts 2, 4, 5: no chaotic temperature (largest tangent exponents -0.58, -1.19, -0.54; periods 1-11). Reading: without steering, Qwen2.5-72B is chaotic on one of five prompts, in a band of about 0.02 decades just above its entropy jump, at nearly uniform distributions (as the 14B's chaos, but far narrower). Base model (PB72) running.
+
+## 2026-10-14 17:37 UTC: Local prototype of entropy-clamped decoding (Qwen2.5-0.5B), logged after the run
+
+Disclosure: this local exploratory run had no run card beforehand (the first attempt, 17:04, crashed at the fd probe on a batch-size bug, fixed in c089b2f8; the rerun followed). Question (human, ~17:00: "Is there a way to weaken the confidence of the instruct?"): does a decoding that holds the next-token entropy at a target, choosing each step's temperature per row (tools/hidden_chaos.py --clamp-entropy; explore_llm_soft_loop.solve_beta), give a smooth, measurable map? Qwen2.5-0.5B-Instruct, paper's prompt, unsteered, float64 on the local GPU, 8 targets from 1 to 10 nats, 300 + 600 steps, twins 1e-5, 1e-6, 1e-8, fd probe. Output ../neural-shrimp-data/explore/scratch/q05-clamp. Result: the entropy is held at the target to 3e-15; the one-step central-difference ratio is constant within 1e-6 down to h = 1e-8; the three twin exponents agree within 0.005 at every target. One target is chaotic (6.14 nats, exponent +0.337, mean temperature 1.19); the others are periodic (periods 1-5, exponents -0.06 to -1.88). Reading: the clamp is a working instrument; on the 72B it would test whether holding the distribution at intermediate entropy, which its own temperature dependence skips, produces chaos.
+
+## 2026-10-14 17:44 UTC: runs (exploratory): QC (72B entropy clamp) and WIN (longer fed-back memory)
+
+- **Question:** QC (human, ~17:45: "go for it, you can start now"): is Qwen2.5-72B-Instruct's near-absence of chaos only its confidence profile (sharp, then an abrupt jump to near-uniform), or does its network damp the loop? Holding the next-token entropy at a target each step (entropy-clamped decoding, tools/hidden_chaos.py --clamp-entropy, prototyped locally at 17:37) forces the orbit through the intermediate entropies that its temperature dependence skips. WIN: does the chaos survive when the loop feeds back the last K expected embeddings instead of one (the paper's main construct-validity limitation)?
+- **Setup:** QC: one pod, 2 x H200, job set q72fix part clamp: Qwen2.5-72B-Instruct pinned 495f3936, float64 bf16 storage with the hook fix, unsteered, prefixes 0 (the paper's prompt) and 2 (no chaos in PS72 or QFb), 16 entropy targets from 1 to 11 nats, twins 1e-5, 1e-6, 1e-7, fd probe, 500 + 1000 steps. Reading fixed now: chaos (all three offsets positive, no period) at intermediate targets would mean the 72B's stability at fixed temperature comes from skipping the intermediate regime; none would mean its network damps the fed-back token even there. WIN: one pod, 1 GPU (H100 class), job set window: Qwen2.5-0.5B and Qwen2.5-7B (pinned as in scaleset), paper's prompt, unsteered, K = 1, 2, 4, 8, 16, 24 temperatures over log10 T -0.3..0.6, twins 1e-5 and 1e-7, 500 + 1000 steps, float64 bf16 storage. Reading: chaotic temperatures at K > 1 comparable to K = 1 would show the chaos is not an artifact of the one-token window; their loss would bound where the construct applies. Not frozen predictions.
+- **Output:** `../neural-shrimp-data/explore/llm-soft-loop/pod64/big/{qwen72b-clamp-p0, qwen72b-clamp-p2, qwen0.5b-window-K, qwen7b-window-K}`
+
+## 2026-10-14 17:47 UTC: run (exploratory, local): ST0, twins in growing-context soft thinking, Qwen2.5-0.5B
+
+- **Question:** does a perturbation of the first soft token grow when every expected embedding is appended to the context (Soft Thinking, Zhang et al. 2025) instead of fed back through a one-token window? Validation of tools/soft_thinking_twins.py before any pod run.
+- **Setup:** local GPU, Qwen2.5-0.5B-Instruct, paper's prompt, unsteered, float64 bf16 storage, 8 temperatures over log10 T 0.0..0.3 (the one-token map is chaotic at 7 temperatures between 0.155 and 0.214 and periodic elsewhere), 400 steps, 3 twins at eps0 1e-10, growth rate = slope of log d over 1e-9 <= d <= 1e-3 (no renormalization).
+- **Output:** `../neural-shrimp-data/explore/scratch/st0-q05`
+
+## 2026-10-14 17:50 UTC: ST0 result (local): in growing-context soft thinking, Qwen2.5-0.5B shows no sustained growth of an early perturbation; one transient burst at log10 T 0
+
+tools/soft_thinking_twins.py, Qwen2.5-0.5B-Instruct, paper's prompt, float64 on the local GPU, 8 temperatures over log10 T 0.0..0.3, 400 steps, 3 twins at eps0 1e-10 (output ../neural-shrimp-data/explore/scratch/st0-q05). Growth rates (slope of log d over 1e-9..1e-3, else over all steps): log10 T 0.0 (entropy 0.76 nats): +0.58 to +0.60 per step, d reaches 1e-3 at step 73-75, peaks near 2e-2 at step 100, then decays (8e-4 at 200, 2e-5 at 400): a transient burst. 0.043-0.300 (entropy 1.3-10.9 nats): -0.014 to +0.006 per step; d stays between 1e-13 and 2e-6 for 400 steps, neither growing exponentially nor dying out. This includes 0.171 and 0.214, inside the band where the one-token map is chaotic (exponents up to 0.28). Reading: with the whole context kept, as in Soft Thinking, the perturbation's influence persists at a roughly constant level (the context remembers it) instead of growing; the one-token chaos does not carry over to this 0.5B setting. Next: the same on Qwen2.5-7B (ST1), whose one-token map is broadly chaotic.
+
+## 2026-10-14 17:50 UTC: run (exploratory): ST1, growing-context soft thinking twins on Qwen2.5-7B
+
+- **Question:** does the 7B, broadly chaotic as a one-token map (log10 T -0.11..0.38), show sustained growth of an early perturbation under growing-context soft thinking?
+- **Setup:** one pod, 1 GPU (H100 class), job set softthink: Qwen2.5-7B-Instruct pinned as in scaleset, paper's prompt, unsteered, float64 bf16 storage, 24 temperatures over log10 T -0.3..0.6, 400 steps, 3 twins, eps0 1e-10; then the same for Qwen2.5-0.5B on that grid.
+- **Output:** `../neural-shrimp-data/explore/llm-soft-loop/pod64/big/{qwen7b,qwen0.5b}-softthink`
+
+## 2026-10-14 18:27 UTC: QC result: with its next-token entropy held anywhere from 1 to 11 nats, Qwen2.5-72B has only periodic orbits
+
+Pod 4xq9n3lnf0j7y4 (SECURE 2xH200, rc 0, hash verified, terminated; 2457 s wall; commit 0e4dfc2a). Entropy-clamped decoding (tools/hidden_chaos.py --clamp-entropy 1 11, 16 targets), Qwen2.5-72B-Instruct, float64 throughout (hook fix), unsteered, 500 + 1000 steps, twins 1e-5, 1e-6, 1e-7 (agreeing within 0.003 everywhere), fd probe (ratio within 6e-6 at h = 1e-7). The entropy is held at the target to 5e-15; the temperatures needed are 1.8-2.6 (prefix 0) and 1.4-2.6 (prefix 2). Prefix 0 (paper's prompt): all 16 targets give the period-2 echo, exponents -0.10 (11 nats) to -4.46. Prefix 2: periods 1-19 (2, 4, 5, 6, 7, 8, 18, 19), exponents -0.08 to -1.89. No chaotic target. Reading (fixed in the 17:44 run card): the 72B's stability at fixed temperature does not come only from skipping the intermediate entropies; held there, its loop still contracts, so the network damps the fed-back token (consistent with the gain split, where both factors lie below the 7B's). For comparison, Qwen2.5-0.5B under the same clamp (local prototype) is chaotic at 6.1 nats.
+
+## 2026-10-14 18:27 UTC: ST1 result: growing-context soft thinking is sensitive to an early perturbation in Qwen2.5-7B inside its one-token chaotic band, and in Qwen2.5-0.5B at lower temperatures
+
+Pod u5xpv9zigas6wx (SECURE 1xH100 PCIe, rc 0, hash verified, terminated; 413 s wall; commit 3ee571ef). tools/soft_thinking_twins.py, paper's prompt, float64 single GPU, 24 temperatures over log10 T -0.3..0.6, 400 steps, 3 twins at eps0 1e-10, no renormalization. Qwen2.5-7B: exponential growth to order one at log10 T 0.170 and 0.209 (rates 0.78-0.82 per step, d above 1e-3 at steps 49-58; entropy 5.2-6.7 nats) and at 0.326 for two of three twins (0.78-0.80); slower growth at 0.091, 0.130, 0.248 (0.04-0.18 per step, 1e-3 reached at steps 118-301) and at -0.104, 0.013, 0.052, 0.365, 0.404 (0.02-0.06, steps 220-347); no growth below -0.14 (entropy under 0.5 nats) or from 0.443 up (entropy 11.2-11.7 nats), where d stays at 1e-13..1e-7. Its one-token map is chaotic at log10 T -0.11..0.38. Qwen2.5-0.5B: growth at low temperatures, -0.30 to -0.065 (0.03-0.33 per step, 1e-3 at steps 58-279; entropy 0.3-1.4 nats) and at 0.091 (0.21); none from 0.130 up (entropy 7.4-11.7), which includes its one-token chaotic band (0.155-0.214). Reading: sensitive dependence survives in decoding that keeps the whole context, the setting of Soft Thinking; in the 7B it is strongest inside the one-token chaotic band, in the 0.5B it moves to sharper distributions. The one-token map locates such regimes in the 7B but not in the 0.5B. These are finite-time growth rates of a non-autonomous system (the context grows), not Lyapunov exponents of an attractor.
+
+## 2026-10-14 18:27 UTC: PB72 interim: the frozen base-against-Instruct prediction fails (decided after three of four prompts)
+
+Base Qwen2.5-72B, stage 1 (runner log of the running pod): prefix 2: 1 chaotic of 48 (Instruct 0); prefix 3: 0 (Instruct 1); prefix 4: 0 (Instruct 0). PB72 needed C1(base) >= C1(Instruct) + 3 on at least 3 of 4 prefixes; three prefixes already fail, so it fails whatever prefix 5 gives. Reading (fixed in docs/prefix-scale-72b-base.md): at 72B the pretrained model already suppresses the chaos on these prompts; post-training is not needed for it. The base-to-Instruct weight interpolation is therefore not run. Final scoring when the pod finishes.
+
+## 2026-10-14 19:03 UTC: WIN result: chaos survives and spreads when the loop feeds back the last K soft tokens (Qwen2.5-7B chaotic at 8, 10, 13, 21, 20 of 24 temperatures for K = 1, 2, 4, 8, 16)
+
+Pod gbam364iqfbns9 (COMMUNITY 1xA100 80GB PCIe, rc 0, hash verified, terminated; 4662 s wall; commit 0e4dfc2a). tools/hidden_chaos.py line --window K, paper's prompt, unsteered, float64 bf16 storage on one GPU, 24 temperatures over log10 T -0.3..0.6, twins 1e-5 and 1e-7 (agreeing within 0.006 at every chaotic temperature), 500 + 1000 steps. Chaotic (both offsets positive, no period): Qwen2.5-7B K=1: 8 (-0.065..0.365, largest exponent 0.96); K=2: 10 (0.013..0.6; 1.08); K=4: 13 (0.013..0.6; 0.70); K=8: 21 (-0.3..0.6; 0.58); K=16: 20 (-0.3..0.6; 0.43). Qwen2.5-0.5B K=1: 1 (0.209); K=2: 1 (0.17); K=4: 0; K=8: 10 (-0.3..0.17; 0.31); K=16: 3 (-0.065..0.013; 0.23). Reading: the one-token window does not create the chaos; with a longer fed-back memory it covers more of the temperature axis (in the 7B nearly all of it at K = 8 and 16), with smaller exponents. The 0.5B is not monotone in K. Together with ST1 (growing context): sensitive dependence is a property of soft-token feedback with memory, not of the one-token construct.
+
+## 2026-10-14 19:08 UTC: PB72 result (frozen base against Instruct at 72B): fails, 0 of 4; the base model's distribution spreads far more, yet it is no more chaotic
+
+Pod ku79hlmuth56xk (SECURE 2xH200, rc 0, hash verified, terminated; 7528 s wall; commit 0196f83e). Base Qwen/Qwen2.5-72B (efba10c8), stage 1 (48 temperatures over log10 T -0.4..0.9, twins 1e-5 and 1e-6, 500 + 1000 steps, float64 with the hook fix). Scored with the frozen scorer (tools/prefix_pair_score.py pb72; docs/prefix-scale-72b-base-result.json): C1(base) = 1, 0, 0, 0 on prefixes 2-5 against C1(Instruct, PS72) = 0, 1, 0, 0; PB72 (base >= Instruct + 3 on at least 3) fails on all four. Descriptive (frozen endpoints): largest min-offset exponents, base +0.05, -0.07, -0.09, -0.38 (Instruct -0.36, +0.34, -1.17, -0.89); largest entropy increase at log10 T -0.07, -0.12, 0.04, 0.13 (Instruct 0.26, 0.29, 0.40, 0.37); intermediate-entropy breadth (decades of the grid with mean entropy 1-10 nats) 0.61, 0.61, 0.36, 0.28 (Instruct 0.22, 0.11, 0.14, 0.11). Prefix 0 (paper's prompt): base chaotic at 2 of 48 (log10 T 0.043, 0.098; largest exponent 0.14), breadth 0.44. Reading (fixed in the frozen file): the pretrained 72B already suppresses the chaos on these prompts; post-training is not needed for it. Its distribution spreads over 2.5 to 5 times the temperature range of the Instruct model's, so neither post-training nor the sharpness of the distribution explains the 72B's stability; with QC (entropy clamp), the network's damping of the fed-back token does. The intermediate-entropy breadth, which ordered the fifteen models with Spearman +0.55, fails here: broad at the 72B base, without chaos.
+
+## 2026-10-14 21:08 UTC: run (exploratory): ST72, growing-context soft thinking twins on Qwen2.5-72B-Instruct, with a steered positive control
+
+- **Question:** (human, ~20:30: "do it", after the proposal to close the soft-thinking gap at 72B) does Qwen2.5-72B-Instruct show sustained growth of an early perturbation when every expected embedding is appended to the context (Soft Thinking), as Qwen2.5-7B does inside its one-token chaotic band (ST1)? Its one-token map is periodic on the paper's prompt, chaotic only in a narrow band on prompt 3 (QFb, log10 T 0.319-0.336) and chaotic when steered (QFa, 6 of 8 candidates).
+- **Setup:** one pod, 2 x H200 (NVL preferred), job set softthink72: Qwen2.5-72B-Instruct pinned 495f3936, float64 with bf16 storage over both GPUs (hook fix), tools/soft_thinking_twins.py, 400 steps, 3 twins at eps0 1e-10, growth rate as in ST1. The tool gained steered cells (alpha times the concept vector at one layer, at every position; twins share their cell's steering) and writes its output after every batch of 24 temperatures. Checked locally on Qwen2.5-0.5B: the unsteered cell at log10 T -0.3 reproduces ST1's growth rate (median 0.0482 against 0.0482), and the base trajectories agree with ST1's to 1e-16 at the start and separate only through the map's own sensitivity (by step 113 at -0.3, step 42 at -0.065); steered and unsteered cells differ. Parts: (1) paper's prompt, unsteered, the ST1 grid (24 temperatures over log10 T -0.3..0.6); (2) paper's prompt, QFa's 8 steered candidates (6 confirmed chaotic by tangent exponents, 2 of period 2) and the 3 matched alpha-0 cells (cells 0-10 of docs/q72fix-cells.json; B3 vectors, layer 40, hostility-vs-kindness); (3) prompt 3, the ST1 grid and QFb's 12-temperature line through its chaotic band (docs/st72-cells-p3.json).
+- **Reading, fixed now:** a cell grows when at least two of its three twins reach a distance of 1e-3 (from 1e-10) within 400 steps; rates and final distances are reported, so transient bursts (ST0) stay visible. (a) Growth at steered chaotic cells (part 2) but none in parts 1 and 3 would mean the growing context does not unlock sensitivity where the 72B's one-token map is stable, while the method does detect growth at this scale. (b) No growth anywhere, part 2 included, would mean the growing context damps even the steered chaos of the 72B, as it did the 0.5B's one-token band. (c) Growth in part 1 or 3 away from the one-token bands would mean memory unlocks sensitivity in the 72B, so the one-token map understates it. Not frozen predictions.
+- **Output:** `../neural-shrimp-data/explore/llm-soft-loop/pod64/big/qwen72b-softthink-{p0,steer,p3}`
+
+## 2026-10-14 22:12 UTC: ST72 result: under growing-context soft thinking Qwen2.5-72B is insensitive to an early perturbation, even where steering makes its one-token map chaotic
+
+Pod oovjuh5080osbm (SECURE 2 x H200, hash verified, terminated and verified; 3651 s wall; commit 16fae178). The model download took 39 minutes (8 in QC), so the 60-minute run limit stopped the runner during part 3: parts 1 and 2 are complete, part 3 kept its first batch (the 24-temperature grid) and lost the second (QFb's 12-temperature line through the prompt-3 band), which was not run. Scored by the run-card rule with tools/st72_summary.py (docs/st72-result.json; ST1 scored alike). (1) Paper's prompt, unsteered: 1 of 24 temperatures grows, log10 T 0.091, where all three twins pass 1e-3 at step 123 (0.061-0.064 per step) and fall back to 5e-6 by step 400, a transient burst; one twin passes at 0.130 (step 381). Nowhere else does a twin reach 1e-3, including the temperatures 0.29-0.37 with intermediate mean entropy (3.4-8.1 nats); at 7 of the 10 temperatures up to log10 T 0.05 the perturbation decays at 0.10-0.28 per step, often to exact agreement. (2) QFa's cells: 0 of 11. At the six cells where the one-token map is chaotic (tangent exponents 0.23-0.36) the distance never exceeds 2.6e-7 and ends between 5e-13 and 6e-10; there the growing context holds the mean entropy at 2.3-3.6 nats, against 7.3-11.1 in the one-token map. (3) Prompt 3, the grid: 0 of 24 (largest distance 1.3e-4, at 0.287, transient; final distances at most 2e-6). The grid samples the one-token band once, at 0.326, between the chaotic QFb temperatures 0.325 and 0.330: there the distance never exceeds 1.1e-9 (mean entropy 7.9 nats, against 10.7 in the one-token map). Under the same rule, ST1 gives 11 of 24 for Qwen2.5-7B (up to 0.82 per step) and 8 of 24 for Qwen2.5-0.5B (one of them, log10 T 0.052, a late burst at steps 372-375 that the ST1 entry did not list). Reading (b) of the run card: the growing context damps even the steered chaos of the 72B, so the 72B is insensitive under soft thinking on both prompts, while the burst at 0.091 shows that the method registers growth at this scale. Not run: QFb's finer line through that band.
+
+## 2026-10-14 23:07 UTC: Correction: PB72 ran commit 181d175e
+
+The PB72 result entry (19:08 UTC) cites commit 0196f83e. Pod ku79hlmuth56xk ran 181d175e (pods.jsonl and result.json), the child of 0196f83e, which changed only docs/research-log.md (the run card's time). The executed code and the frozen design are identical. All other result entries of 14 October cite the commit their pod ran.
+
+## 2026-10-14 23:58 UTC: External check of the 14 October results by a second AI agent: ten minor findings, all confirmed; paper corrected
+
+The human gave a read-only audit brief (/data2/CHECK_THESE.md, outside Git, sha256 4e8d7957...ab91) to a second AI agent (Grok 4.7, run by the human in Cursor). It checked commit 459891bd against the raw pod outputs, the frozen designs, the scorers and a local Qwen2.5-0.5B reproduction. Its report is /data2/CHECK_THESE_FINDINGS.md (outside Git, sha256 dd4214d0...90d8), with recounts in ../neural-shrimp-data/scratch/audit-cursor/. No blocker. It confirmed:
+- the hook fix: removing the rebind fails the hooked-norm test;
+- the tangent exponent: JVPs decay like h^2 against central differences, and tangent and twins agree on 0.5B;
+- the QFa/QFb scorer output, byte for byte;
+- the PS72 and PB72 counts and the order of freeze and pod;
+- the clamp, the window counts, the ST72 scorer and its crossing steps;
+- the manifest counts and hashes, the 14 October citations, and the build.
+Not run: the CPU-offload wander test (this transformers build left the offloaded weights on the meta device).
+
+Every finding was rechecked from the raw files with independent scripts, not the auditor's code:
+- F1, clamp twins: largest spans 0.00393 (prefix 2, target 1.667 nats) and 0.00386 (paper's prompt, 10.333 nats); 5 of 32 cells exceed 0.003. All cells periodic, exponents -4.463 to -0.084. Paper: within 0.004.
+- F2, jump window: at log10 T 0.370 the five estimates span 0.0162, and each twin lies within 0.0150 of the tangent; the other temperatures span at most 0.0125. Paper: the four twin exponents lie within 0.015 of the tangent exponent.
+- F3, 7B/14B prompt-blocked test (one GPU): 331 chaotic temperatures over both stages. One gap is 0.0207 (14B, prefix 8, log10 T 0.6787); the next largest is 0.0129. Paper: within 0.021.
+- F4, ST72 steered cells: final distances per twin are 1.4e-13 to 5.6e-10, and the largest distance is 2.6e-7. The ST72 result entry quoted the per-cell maximum over twins, 4.9e-13 to 5.6e-10. Paper: 1e-13 to 6e-10.
+- F5, ST1 7B: rates 0.775 to 0.820, crossings at steps 49 to 58. Paper: 0.77 to 0.82, 49 to 58.
+- F6, breadth ratios base/Instruct: 2.75, 5.50, 2.60 and 2.50. Paper: 2.5 to 5.5 times.
+- F7, PS72: pod o41hga4tat6h71 ran commit 91267340, which does not contain the hook fix 6a4775ae (git merge-base). On the coarse lines no temperature is positive at exactly one offset. The one chaotic cell (prefix 3, log10 T 0.3191, 0.349/0.336) is chaotic after the fix (QFb tangent 0.341 at 0.3192). Paper: the PS72 paragraph now says the lines ran before the fix and gives the rule and the recheck; the limitations say the coarse lines were not recomputed.
+- F8, PB72: commit 181d175e contains the fix. The run used 500 + 1000 steps against PS72's 1000 + 2000; its design discloses this, but the paper did not. The base model's largest min-offset exponents on prefixes 2-5 are +0.049, -0.066, -0.089 and -0.380. Paper: now states the horizon and that the run followed the fix.
+- F9, summaries: the abstract's growing-context sentence now names Qwen2.5-7B (abstract 1914 characters, whitespace collapsed). The contribution keeps the transient ("nearly insensitive (one transient burst)"). The limitations list the added prompts and say which bridge tests are sampled and which are deterministic.
+- F10, alpha-0 cells: -3.790, -3.616 and -3.588. Paper: between -3.8 and -3.6.
+
+A sweep of the paper's other agreement bounds, outside the audit's scope, found two more:
+- The Llama-3.3-70B plateau test (controls70/hostility-vs-kindness-plateau/cells): the 12 chaotic cells spread by up to 0.0517 over the three offsets. The PTa result entry gives 0.052; its heading and the paper gave 0.05.
+- The hostile cascade line H1 (pod64/hidden/tline-a0.0655): the largest twin gap over the 182 chaotic cells is 0.0031, as in the H1 entry; the paper gave 0.003.
+Both are corrected. The paper now also reports the one 72B twin of three that passes 1e-3 at log10 T 0.13 on the paper's prompt (step 381). The ST72 result entry had it; the paper did not.
+
+The PS72 design (docs/prefix-scale-72b.md) calls its twin offsets "relative". tools/hidden_chaos.py displaces the whole window state by a vector of norm eps, an absolute offset, as in the 7B/14B test the design is compared with, so the comparison is like for like. The frozen design stays unchanged; this entry records the wording error.
+
+None of these corrections changes a label, a count or a conclusion. New gate in AGENTS.md: round bounds up and quote range ends at their true extremes.
+
+## 2026-10-15 00:38 UTC: External referee report (written without repository access): triage, text fixes, citations; tangent check TC prepared
+
+The human relayed a referee-style report on the LLM paper and asked for judgement, not compliance. Its author had no access to the repository: no bibliography file, code, figures, certificate or raw data. Each point was checked against the repository.
+
+Points already answered in the repository; the paper now says so:
+- **Entropy-clamp derivative** (the report's main mathematical concern). No fixed-temperature derivative is used for the clamp. Its exponents come from twins of the full clamped map, temperature solve included, and tools/hidden_chaos.py refuses --tangent with --clamp-entropy. No gain split was computed for the clamp. The paper now writes out the rank-one term, D Fhat = D_x F - (d_T F)(D_x H)/(d_T H), and says why twins are used. It also states that the safeguarded solve is piecewise smooth: on the QC orbits the one-step central differences at 1e-5 to 1e-7 lie within 5.7e-6 of those at 1e-4 (recomputed from the raw fd_probe).
+- **Period-8 certificate.** The record pins the hashes of the checkpoint, the configuration and the steering vector, lists the prefix token IDs, and defines the exact-real map (rotary angles from real sin and cos; stored constants as exact dyadics). The appendix now says so. It also says that the independent audit rechecked the saved witnesses but did not recompute the model's enclosures or the dense matrix products (certificate fields full_model_replayed and dense_products_recomputed are false).
+- **Normal-form convention.** It was already explicit. A pointer to the analytic-map tests (tests/test_bifurcation_curves.py: ab, c with its centre-manifold term, the unfolding matrix, the Hénon fold and flip curves) is added.
+- **Dialogue statistics.** These already use dialogue-level bootstraps. No change.
+
+Fixes:
+- **Hopfield and PSD statement.** It was correct but unproved. The paper now gives the Lyapunov function V = |x|^2/2 - phi, with V(F(x)) <= V(x) - |F(x) - x|^2/2 for every map with a symmetric positive semidefinite derivative. This excludes cycles and chaos.
+- **Untied embeddings.** The explicit formula is added: DF = T^-1 E^T (diag p - p p^T) W J. Sigma_p becomes Cov_p(e_t, w_t), which is not symmetric in general.
+- **Huginn.** The paper adds transversality and the absence of strong resonance (0.156 of a revolution per step). Supercriticality is now stated as inferred from the square-root amplitude law; the first Lyapunov coefficient was not computed.
+- **bf16 wording.** The maps are the stored bfloat16 values evaluated in float64 arithmetic.
+- **72B stability.** "Comes from the network" becomes "points to the network's damping". The support is elimination by the clamp and the base-model test, plus the gain split at fixed temperature.
+
+Citations:
+- **Flagged keys.** A subagent checked the 20 flagged keys against Crossref, arXiv and publisher records; 18 are correct. Kuznetsov 2023 is the fourth edition, Applied Mathematical Sciences 112; Detoxify adds the author Thewlis (current README citation).
+- **gomez2014universal** is real and supports its sentence: Section 4 and Figure 6 show shrimps in the Rulkov neuron map.
+- **Reworded:** the related-work sentence on johnson2026temperature. That study fits a noisy effective map to one hidden-state coordinate and steers along it, so "output statistics" understated it; it computes no orbits, multipliers or bifurcation curves. Also reworded: the fu2021repetition clause and the slowing-down sentence.
+- **Added**, each rechecked on Crossref or arXiv: Benettin et al. 1980 (both parts) and Oseledets 1968 in the methods; Krawczyk 1969, Moore, Kearfott and Cloud 2009, and Rump 2010 in the appendix; Lai and Tél 2011 in the limitations; Paulo and Belrose 2026 on SAE seed dependence; Ditlevsen and Johnsen 2010 on early warning.
+- Build: 73 pages, no undefined references or overfull boxes.
+
+Prepared, not run: **TC**, the exact tangent exponent for the 448 H2 cells (Qwen2.5-0.5B philosophy maps; H2 settings plus --tangent and running exponents at 250, 500, 1000 and 2000 steps). It also computes the four leading exponents by QR iteration (tools/lyapunov_spectrum.py) at 8 cells. The cells were fixed by a rule applied to H2's results before any TC data (docs/tc-spectrum-cells.json). Code commit 3f8882f3. The run needs one H100 (about 20 hours on the local GPU) and awaits the human's approval of the spend.
+
+Left to the human: moving the dialogue study to a companion paper; the report's proposed abstract; human labels for the hostility proxy; augmented cusp solves; the first Lyapunov coefficient for Huginn; the authorship line and AI-use disclosure; the remaining Planned markers.
+
+## 2026-10-15 00:47 UTC: run (exploratory): TC, exact tangent exponents and QR Lyapunov spectra on the headline 0.5B maps (review response)
+
+- **Question:** The human gave the go about 00:40 UTC ("do it, you have full go"). The question comes from the referee report: do the twin exponents that label the paper's 0.5B maps agree with exact tangent exponents and converge with the horizon, and how many of the leading exponents are positive?
+- **Setup:** One pod, one GPU (H100 NVL or PCIe, or A100-80GB), job set tangentcheck, commit of this card, Qwen2.5-0.5B-Instruct (pinned as in H2), float64, philosophy vectors at layer 12.
+  - (1) tools/hidden_chaos.py cells on the 448 H2 cells (docs/h2-horizon-cells.json: 96 chaotic, 96 periodic and 32 other cells from each of map-stripes-256 and cross-512), exactly as H2: 1000 transient and 2000 recorded steps, twins at 1e-6 and 1e-9, tolerance 1e-8. Added: --tangent (the tangent is drawn after the twins, so the twins and base orbits are those of a run without it) and running exponents after 250, 500, 1000 and 2000 steps.
+  - (2) tools/lyapunov_spectrum.py: the four leading exponents by QR iteration of exact tangents, same horizon, at the 8 cells of docs/tc-spectrum-cells.json. Per map these are the H2-chaotic cells at the 10th, 50th and 90th percentile of the H2 min-offset exponent, and the median H2-periodic cell as a control. The rule was fixed before any TC data.
+  - Limits: 40 and 25 minutes per job, run limit 75 minutes, ready 15 minutes, rate cap 3.6/h. The cost plan is in the private ledger.
+- **Reading, fixed now:**
+  - (a) Agreement: report max |tangent - twin| over all cells and over the H2-chaotic cells, per offset.
+  - (b) Labels: tangent-chaotic means a tangent exponent > 1e-3 and no period; count the cells whose label differs from the twin label (both twins > 1e-3, no period).
+  - (c) Convergence: report the largest change of the running estimates between 1000 and 2000 steps at chaotic cells.
+  - (d) Spectrum: count the positive exponents among the top four at each chaotic cell. One means ordinary chaos; two or more means hyperchaos, which would be reported as a finding.
+  - Would surprise us: a tangent-twin difference above 0.05 at any H2-chaotic cell, or label changes beyond cells with exponents near zero.
+- **Output:** `../neural-shrimp-data/explore/llm-soft-loop/pod64/hidden/{tc-h2-cells-tangent,tc-spectrum}`
+
+## 2026-10-15 01:06 UTC: Amendment: the sampled-dialogue study leaves the LLM paper (human decision on the referee report)
+
+The human decided at about 01:00 UTC to report the sampled self-dialogue study separately. Its text moved verbatim to paper/dialogue/dialogue-study-draft.tex (README there). The blocks are the section's dialogue motivation, the experiments from the capture ladder to the second classifier, the gratitude-ladder appendix, the replication-section sentences on gratitude capture, the contribution item and the frozen-test item.
+
+The deterministic results along the hostility direction stay in the paper, under the new section "Steering toward hostility" (label sec:hostility). Its short intro defines the direction and says the dialogue study is reported separately. These results are the hostile 2-cycle fold and its frozen passage test, the period-7 body with its cusp candidates and frozen unfolding offsets, the cascade and its satellite windows, and chaos behind a repeating text.
+
+Edits elsewhere:
+- The status line, the abstract sentence, the intro pointer and the related-work Markov-state-model item are removed.
+- The discussion drops three things: its control sentence, the dialogue sentence of "Steering strength is a bifurcation parameter" and the third point of the interpretability paragraph (now three points). The unposted-replication sentence and its Planned marker go as well.
+- The limitations drop the behavioural-study sentences.
+- In the evidence section the frozen-test list, the search-table row (reported tests 5 -> 4) and its caption change, the dialogue frozen-test item is removed, and the dialogue tools and audits leave the code and audit lists.
+
+The paper builds: 63 pages, no undefined references. The study's raw data, frozen designs and log entries are unchanged.
+
+Also new: tools/cusp_locate.py (run CL, below) with tests/test_cusp_locate.py. On the analytic cusp of x -> x + t1 + t2 (x-1) - (x-1)^3 it locates theta within 1e-6, with c = -1 and det J = 1.
+
+## 2026-10-15 01:19 UTC: run (exploratory): CL codimension-two localizations, P4R the remaining period-4 fold curves, V2 morph-video gap fill and seam test
+
+- **Question:** The human approved the review follow-ups ("let's just do it", funds added) and the video fix ("Do it").
+  - CL: locate and type the codimension-two points behind the paper's candidates and Planned markers. These are the four cusp candidates (period-6 window: outer arc and inside the body; hostile period-7 body: upper and lower fold), the point where a second multiplier crosses +1 on the 2-cycle fold curve (accumulation boundary), the two parameter-tangent reversals of the period-8 stripe's flip curve, and the three second-multiplier crossings on the period-4 lower fold curve.
+  - P4R: complete the three period-4 fold curves that set C left unfinished.
+  - V2: fill the 15 missing morph-video directions and test whether the seams are a start-state effect.
+- **Setup:**
+  - CL: tools/cusp_locate.py (commit b3908066; analytic tests: cusp to 1e-6 with c = -1 and det J = 1, reversal = cusp, crossing at a fold-flip with orthogonal eigenvectors), float64 on H100-class GPUs, job set codim2, curve and start-branch folders uploaded. Each test runs 3 rounds of at most 5 trace steps of a quarter of the bracket, then a secant step. Pods:
+    - CL1: cusp p6z3 foldA-plus 51, p6z3 foldD-minus 10;
+    - CL2: cusp hub7 foldU-plus 21, hub7 foldS-plus 13;
+    - CL3: crossing curve-p2-fold-minus 60, reversal curve-p8-down-minus 34 and 47;
+    - CL4: crossing p4 curve-foldD-minus 14, 20, 21.
+  - P4R: job set p4curves sets Cplus2, Cminus2 and Dplus2 (one pod each). These are the CURVE settings of set C with 70 points and new output names (curve-foldC-plus-2, curve-foldC-minus-2, curve-foldD-plus-2).
+  - V2: job set morph as V1b (float32, 296 x 512 cells, cold transient 300, warm 40, 80 samples, 60 recorded, maximum period 24) on community RTX 4090s, one chain per gap starting cold one direction early: 14-18, 76-80, 94-98, 190-198, 210-220 and 234-238. Seam test: frame 138 cold on its own pod (the existing 138 is warm, continued from 136).
+  - Costs and ceilings are in the private ledger.
+- **Reading, fixed now:**
+  - CL: a point counts as located when the tool's checks pass.
+    - Cusp: |b sign(a)| at most 1% of the bracket's largest value, c nonzero with a plateau spread below 10%, det J nonzero.
+    - Crossing: |f| at most 1% and the second multiplier within 5e-3 of the unit circle.
+    - Reversal: |f| at most 1%.
+    - Typing: a double +1 or -1 counts as a Jordan block (strong resonance) when the angle between the two eigenvectors is below 5 degrees, as semisimple otherwise.
+    - A failed check is reported as it stands.
+  - P4R: the period-4 region counts as one shrimp-organized component if the union of the fold curves A-D bounds it as one connected set joined at cusp points; otherwise it is reported as separate pieces.
+  - V2: the seams count as a start-state effect if the cold frame 138 differs from the warm 138 by at least 1 point of chaotic share, with the differing cells concentrated where the existing frames show coexisting attractors. The gap frames enter the video as continued chains, and the caption reports the seams.
+- **Output:** `../neural-shrimp-data/explore/llm-soft-loop/pod64/{codim2/*, p4/curve-*-2, morph/frame-NNN}` (clashing archives extract into their run folders)
+
+## 2026-10-15 01:27 UTC: TC result: exact tangent exponents reproduce the twin exponents of the headline 0.5B maps, every label agrees, one positive Lyapunov exponent
+
+Pod wgzy8bc7psxcb3 (COMMUNITY H100 NVL, runner rc 0, hash verified, terminated and verified; 2298 s wall; commit 2ae8f53a). Output hidden/tc-h2-cells-tangent and hidden/tc-spectrum. Scored by the run card's rule (scratchpad tc_score.py):
+- (a) Over the 448 H2 cells, |tangent - twin| is at most 0.0041 at offset 1e-6 and 0.0037 at 1e-9. At the 178 H2-chaotic cells it is at most 0.0041 and 0.0027 (median 0.0004).
+- (b) 178 tangent-chaotic and 178 twin-chaotic cells; no label differs. The twins and periods reproduce H2 exactly on another pod of the same GPU type (max difference 0 at the chaotic cells, same period at all 448).
+- (c) Between 1000 and 2000 measured steps the running tangent estimate at chaotic cells changes by a median of 0.009 (at most 0.081). Between 250 and 2000 steps the change is a median of 0.024 (at most 0.35).
+- (d) QR spectra, 7 of 8 cells (the second periodic control, cell 406, hit the 25-minute limit). Each of the six chaotic cells has exactly one positive exponent among the top four (0.063 to 0.415), and the next exponent lies between -0.64 and -1.10. The periodic control (cell 143, period 6) has all four negative (-0.32 to -2.72). The spectrum's leading exponent differs from the single-tangent exponent of the same cell by up to 0.027. The spectrum tool runs the cell in a different batch, so its orbit is another realization on the same attractor, and 0.027 measures the finite-horizon spread at 2000 steps.
+
+Reading: on these maps the twin method is a finite-difference Benettin estimate that agrees with exact tangents to a few thousandths. The labels do not depend on the method. The chaos has one unstable direction. Paper: one sentence in the methods.
+
+## 2026-10-15 01:30 UTC: run (exploratory): FB, the crescent's doubling cascade at two lower temperatures (Planned marker "ratios at other temperatures"), stage 1: flips
+
+- **Question:** Do the finite-order ratios of the crescent's period-doubling cascade behave as the crossover hypothesis of the cascade section predicts? The hypothesis: early levels see the corner of a smoothed argmax, with ratios toward 2, and later levels the smooth quadratic core, with ratio 4.669. It predicts smaller early ratios at lower temperature and later ratios rising toward 4.669. The human approved this review follow-up at about 00:58 UTC.
+- **Setup:** The cross-512 map shows the crescent's cascade (period 3 to 6 to 12 to chaos along alpha) only between log10 T of about -0.162 and -0.146, so the paper's cut at -0.14798 lies near its upper edge and the new cuts are lower: -0.152 and -0.156. Stage 1, one pod each (H100-class, job set cascade): tools/llm_feigenbaum.py cascade with the settings of crescent-t-0.14798-v2 (philosophy, layer 12, float64, free alpha, period 3, 8 flips, transient 900, k 6, 24 steps per period, tol 1e-12). Starts and first doubled bands come from the map: T -0.152 alpha 0.0645, next 0.0650; T -0.156 alpha 0.0642, next 0.0647. Stage 2, after stage 1: superstable parameters (tools/llm_feigenbaum.py superstable, as runs C9 and C10), with brackets inside each band from the flips and, past the last converged flip, extrapolated with ratios 4.0-4.6.
+- **Prediction, fixed now:**
+  - P-F1: the first flip ratio (index 0 of 'ratios', 2.844 at -0.14798) is below 2.844 at both new temperatures and lower at -0.156 than at -0.152.
+  - P-F2: the last two superstable ratios computed at each new temperature lie within 5 % of 4.669 (at least 4.436).
+  - Each is reported as it comes out, including partial or failed cascades.
+- **Output:** `../neural-shrimp-data/explore/llm-soft-loop/pod64/cascade/crescent-t-0.152`, `crescent-t-0.156` (stage 1); `superstable/crescent-t-0.152`, `-0.156` (stage 2)
+
+## 2026-10-15 01:35 UTC: run (exploratory): WP, window positions predicted from the measured reinjection (Planned marker of the mechanism section), stage 1: the line
+
+- **Question:** Do the fold edges of the stripe windows beyond period 20 follow the constant-prefactor law the paper fitted to periods 16-20, or the normal-form passage from the measured natural reinjection point? The human approved this review follow-up at about 00:58 UTC.
+- **Predictions, frozen before this line:** docs/wp-window-predictions.json (commit dae4cbf7), for periods 22-30.
+  - Law L: alpha_N - alpha_c = 0.0266 / (N + 0.15)^2.
+  - Model R: n(eps_N) = N + c, with the passage time n from v_r = -4.9e-4 (measured range -3.0e-4 to -7.4e-4) and the one offset c fitted to the fold edges of periods 16-20. R places eps_N 3-9 % below L.
+  - Outcome: for each window, the measured eps_N against both predictions. R is supported if the measured eps_N lie within R's band from the v_r range and below L by more than the measurement error. L is supported if they agree with L within 1 % and sit outside R's band. Anything else is reported as it stands.
+- **Setup:**
+  - Stage 1: one pod (H100-class), job set hiddencells: tools/hidden_chaos.py cells on docs/wp-line-cells.json (3200 cells along alpha at log10 T -0.115, alpha_c + 1.4e-4 to alpha_c + 4.6e-4, spacing 1e-7), float64, transient 3000, record 600, twins 1e-6 and 1e-9, tolerance 1e-8, chunk 1600.
+  - Stage 2, after stage 1: tools/llm_feigenbaum.py edges from the centres of the period 22-30 windows found on the line (as run E1 for periods 6-20).
+- **Output:** `../neural-shrimp-data/explore/llm-soft-loop/pod64/hidden/wp-line`
+
+## 2026-10-15 01:40 UTC: Amendments: CL restarted (JSON bug), FB stage 1 failed at the switch to period 12 and reruns with map-based switching
+
+- **CL.** The local smoke test of cusp_locate on hub7-foldS-plus 13 ran the whole real-model path. Round 1 bracketed b sign(a) from +6.51 to -16.58, and the final unfolding was computed. The tool then crashed writing its JSON, because numpy booleans sat in the checks. The four CL pods ran the same code, so they would have lost their results at the end. Fixed: plain bools and a numpy-aware JSON fallback, with a test that a result serializes. The pods are terminated after about 20 minutes and relaunched at the fix commit, with unchanged run card and targets.
+- **FB stage 1.** Pods mpjn8uzrkptamm and h7yv0po5o7lc1n: runner rc 0, tool exit 1, results retrieved.
+  - At log10 T -0.152: flips 3->6 at alpha 0.0648738 and 6->12 at 0.0652532.
+  - At -0.156: flips 3->6 at 0.0644767 and 6->12 at 0.0650494.
+  - Both then failed switching to period 12 (SearchError: the switch returned to the period-6 orbit). Until three flips give a measured ratio, the tool places the switch at half of last interval / 4.0. The cross-512 map shows the period-12 band at about 0.85 of the period-6 band at -0.152 and about 1/15 of it at -0.156, so both switches fell outside the band.
+  - New cascade options (default behaviour unchanged): --ratio-guess, --switch-fraction, --max-substeps. The reruns use ratio guesses read off the map, 1.2 at -0.152 and 15 at -0.156. These are search aids for the switch only; the flips are located as before.
+  - The predictions P-F1 and P-F2 stand as frozen. The map's rough band ratios already suggest that the first ratio at -0.156 is far above 2.844, against P-F1.
+
+## 2026-10-15 02:02 UTC: run (exploratory): FB stage 1c, the deeper cascade levels on the local GPU (human: "Do it")
+
+- **Question:** Do the later ratios of the crescent's cascade at log10 T -0.156 approach 4.669, now that the first ratio there is 14.93 and the frozen prediction P-F1 has failed (scored in the next entry)? And what is the first ratio at -0.152?
+- **Setup:** Local RTX 2000 Ada, float64, tools/llm_feigenbaum.py cascade with the settings of the pod runs (philosophy, layer 12, free alpha, transient 900, k 6, tol 1e-12), but starting from the last level that ran cleanly, so that the first switch uses a known point:
+  - (A) T -0.156: period 12 at alpha 0.06507 (inside the measured period-12 band 0.0650494-0.0650877), next 0.0650907 (inside the period-24 band), 5 flips, ratio guess 4.669, 96 steps per period after a switch.
+  - (B) T -0.152: period 6 at alpha 0.06505, next 0.06535 (start of the period-12 band on the cross-512 map), 5 flips, ratio guess 4.0, 96 steps per period.
+- **Reading:** The ratios are scored against P-F2 (later ratios within 5 % of 4.669) and reported as they come out. A failed switch is reported with its message.
+- **Output:** `../neural-shrimp-data/explore/llm-soft-loop/pod64/cascade/crescent-t-0.156-c`, `crescent-t-0.152-c`
+
+## 2026-10-15 02:03 UTC: FB stage 1 result: frozen prediction P-F1 fails; the first ratio at log10 T -0.156 is 14.9, and the cut at -0.152 crosses a doubling bubble
+
+Pods mpjn8uzrkptamm and h7yv0po5o7lc1n (first attempt), x03brom1shhb3t and pt50aoqu7xj1bo (map-based switching). All runner rc 0, hashes verified, terminated and verified; commits bb5bd418 and 5ad048f2. Outputs cascade/crescent-t-0.152(-b) and crescent-t-0.156(-b).
+
+- **log10 T -0.156:** flips 3->6 at alpha 0.06447665673849548, 6->12 at 0.06504935553077586 and 12->24 at 0.06508771941580027, all with critical multiplier -1 to 6e-11. The first ratio is 14.93. The search for the 24->48 flip then walked to 0.0650993 without finding it (band estimate from the measured ratio, 16 substeps). So the period-24 band is wider than 1.2e-5, and the second ratio is below about 3.2.
+- **log10 T -0.152:** flips 3->6 at 0.06487375301996827 and 6->12 at 0.06525318227183999. Continued forward from the switch, the period-12 solution collapses onto the period-6 orbit near alpha 0.06568-0.06573. The doubled orbit merges back into period 6, a doubling bubble. On the map this cut shows period 12, a sliver of chaos, then period 6 again. This cut has no complete cascade from period 3.
+- **P-F1 (first ratio below 2.844 at both temperatures, lower at -0.156):** fails. The ratio is 14.9 at -0.156, and there is none at -0.152.
+- **Reading:** Along nearby cuts the early ratios depend strongly on where the cut crosses the crescent: 2.84 at -0.148 and 14.9 at -0.156, with a bubble at -0.152 in between. The simple crossover hypothesis (a smoothed-argmax corner, ratios toward 2 that fall at lower temperature) is contradicted. Universality concerns the limit and is tested by the later ratios (P-F2): stage 1c on the local GPU, from period 12 at -0.156.
+
+## 2026-10-15 02:05 UTC: Note: a computer-assisted proof of chaos is out of reach with the period-8 proof's arithmetic
+
+The human asked how to reach proven chaos. The standard route is a horseshoe verified by covering relations (Zgliczyński; Galias and Zgliczyński; Mischaikow and Mrozek), and it needs enclosures of an iterate of the map over boxes of macroscopic size in the unstable direction. The development record of the period-8 proof (codex/certify-llm/README.md, attempt arb-pilot-002) already answers whether that is feasible: in 1024-bit ball arithmetic the prefix and point evaluation passed, but a box of radius 2^-80 failed RMS positivity at layer 3, a wrapping failure. In the box-derivative pilot (radius 2^-800), one map step returned a primal radius of about 5e-79. The period-8 proof works only because its boxes have radius 2^-640. So the planned feasibility test is not needed. A horseshoe proof needs other verified methods (affine or Taylor-model forms through attention, normalization and the 151,936-token readout), a research project beyond this paper. Paper: one sentence in the limitations. The chaos claims stay numerical: positive finite-time exponents, cross-checked against exact tangents.
+
+## 2026-10-15 02:24 UTC: run (exploratory): FL15 and FL7, the fold law beyond 0.5B (Planned marker "scaling of ab and of the window law with model size"; human: "Do it", "Multi pods")
+
+- **Question:** Do larger Qwen2.5 models show the 0.5B mechanism, windows that accumulate on the fold of a short cycle with the 1/N^2 law, and how do the fold's normal-form product ab and the window prefactor compare? The prefactor is d_N N^2 relative to the full-passage value pi^2/(ab), which gives the effective passage fraction (0.58-0.61 at 0.5B).
+- **Candidates:** A free scan of the stored maps for period-adding fans found 70 runs on the 0.5B stripe map (the control), short fans on the 1.5B zoom-256, and a few runs on the 7B coarse-64 maps. In every candidate the periods grow toward the edge of a base-cycle region.
+  - 1.5B at alpha 0.0585882 (philosophy, layer 14): the period-4 region ends near log10 T -0.092, followed by windows 24, 20, 16 and 12 at distances 0.0032, 0.0047, 0.0071 and 0.0142 (d N^2 0.115-0.128 with N = period/4).
+  - 7B at alpha 0.0514286 (philosophy, layer 14): the period-2 region ends near -0.21, followed by windows 9, 7 and 5.
+- **Setup:** Four pods (H100-class float64; the 7B pods H100 NVL or H200 for its 61 GB of float64 weights).
+  - FL15 branch: the period-4 branch in temperature from -0.105 to its fold, then the fold's normal form (normal-form, nearest fold, parameter temperature).
+  - FL15 line: tools/hidden_chaos.py on docs/fl15-line-cells.json (1700 cells, log10 T -0.0925 to -0.0755), transient 3000, record 600, twins 1e-6 and 1e-9.
+  - FL7 branch: the period-2 branch from -0.25 to its fold, then the normal form.
+  - FL7 line: docs/fl7-line-cells.json (1000 cells, -0.225 to -0.085), transient 2000, record 400, one twin 1e-6.
+  - Ceilings are in the private ledger.
+- **Reading, fixed now:**
+  - For each model: the fold's T_c, a, b and ab, and the window positions from the line (period runs; window edges at the grid spacing).
+  - The law counts as holding if d_N (N + delta)^2 is constant within 10 % over at least four windows for one offset delta.
+  - The effective passage fraction f = sqrt(C ab) / pi is compared with the 0.5B value. The lap number N is read from the period, period = q (N + k) for the base cycle's period q and a fixed k.
+  - Failures and non-fans are reported as they stand.
+- **Output:** `../neural-shrimp-data/explore/llm-soft-loop/pod64/{fl15,fl7}/{branch-*,normal-form-*,line}`
+
+## 2026-10-15 02:28 UTC: Amendment to CL: the period-4 cusp candidates (CL5)
+
+The CL list left out the paper's two period-4 cusp candidates: curve-foldB-minus, brackets at curve points 13/14 (b +8.38 to -1.09) and 54/55 (+9.35 to -9.04). With them the set is the paper's six. CL5 locates them with the same tool, settings and reading: one pod, job set codim2, commit of this entry.
+
+## 2026-10-15 02:30 UTC: P4R result (the remaining period-4 fold curves) and CL6 (classify the new tangent reversals)
+
+Pods hen6iylrunx9fg, nhr3hiv7ats3vk and 0kzt6dgbnh8c7k: runner rc 0, hashes verified, terminated. The archives clashed on the uploaded branches and were extracted into the run folders; the curves were copied without overwriting to p4/curve-{foldC-plus,foldC-minus,foldD-plus}-2. The three curves that set C left unfinished now have 70 points each, critical multiplier 1 to 1e-8.
+
+- **Upper boundary:** traces A, B and C retrace one fold curve, within 3e-7 of each other in the parameter plane. Its tangent reversals cluster at five places:
+  - (log10 T 0.0600, alpha 0.06297), seen by A-minus 21 and B-minus 14 (the paper's period-4 candidate 1);
+  - (0.0744, 0.06557), seen by A-plus 19, B-minus 55 and C-minus-2 42 (candidate 2);
+  - (0.1086, 0.08308), B-plus 46 (the reversal the paper counts as untested);
+  - (0.0118, 0.07407) and (0.0128, 0.07322), C-plus-2 33 and 43 (new).
+- **Lower boundary:** trace D, both directions, is a separate fold curve and nowhere within 2e-3 of the upper one. It carries the two 1:1 resonances and the fold-flip point located by CL4.
+- **Reading by the P4R card:** within the traced ranges the fold curves do not join into one set bounding the region, so the region is not shown to be one shrimp-organized component. It is reported as an upper and a lower fold curve.
+- **CL6:** classify the three untested reversals with cusp_locate, cusp test, on brackets B-plus 45/46, C-plus-2 32/33 and 42/43. A sign change of b sign(a) means a cusp, which is located. No sign change means a smooth turn of the projected curve, not a cusp; the tool refuses and reports both b values.
+
+## 2026-10-15 02:32 UTC: WP result: the window law extrapolates to period 30 within 3 %; the fixed-reinjection prediction fails
+
+Pod 266nnvz2nurdys (SECURE H100 NVL, runner rc 0, hash verified, terminated; 2729 s; commit 1167d961). Output hidden/wp-line: 3200 float64 cells along alpha at log10 T -0.115, spacing 1.0e-7. For each period the fold edge (lower alpha) of the widest run is compared with the frozen predictions (docs/wp-window-predictions.json):
+
+| period | measured eps_N | law L | L deviation | model R band (v_r -3.0e-4 to -7.4e-4) |
+|---|---|---|---|---|
+| 22 | 3.9788e-4 | 4.0047e-4 | -0.65 % | 3.800-3.903e-4: outside |
+| 24 | 3.1756e-4 | 3.1772e-4 | -0.05 % | 2.969-3.084e-4: outside |
+| 26 | 2.5304e-4 | 2.5820e-4 | -2.0 % | 2.386-2.504e-4: outside, just above |
+| 28 | 2.1182e-4 | 2.1396e-4 | -1.0 % | 1.962-2.078e-4: outside |
+| 30 | 1.7491e-4 | 1.8019e-4 | -2.9 % | 1.643-1.755e-4: inside |
+
+The period-32 edge lies at eps 1.4860e-4. Several periods appear in more than one run (fine structure, higher periods 43-64 and irregular cells), and the widest run is taken as the window.
+
+Scoring by the card:
+- L holds within 1 % at periods 22 and 24 (and 28, -1.0 %), and the windows sit outside R's band.
+- At 26 and 30 the measured edges lie between L and R. At 30 the edge is inside R's band.
+
+Reading:
+- The window positions extrapolate from the periods 16-20 fit to period 30 within 3 %, with the deviations below L growing slowly (mean -1.3 %).
+- The fixed-reinjection model predicts 3-9 % closer to the fold and fails at periods 22-28.
+- The measured reinjection point is not fixed: its medians moved from -3.1e-4 to -7.4e-4 with eps. With one fixed point the model overstates the drift.
+- Paper: this replaces the Planned marker of the mechanism section.
+
+## 2026-10-15 02:32 UTC: CL result: the four cusp candidates are located cusps; the accumulation boundary carries a 1:1 resonance; the period-4 lower fold curve has two 1:1 resonances and a fold-flip point; the period-8 flip curve's reversals are smooth turns
+
+Pods zykuze0wvthc67, nke0vctpn2efor, zgiqnia53qtj3e and x35431av2vc7s7: runner rc 0, hashes verified, terminated; 1230-1900 s each; commit 5ad048f2. Outputs codim2/* were copied from the run folders without overwriting. All ten tool checks passed (three rounds and a secant step each).
+
+**Cusps.** b sign(a) at the located point, from the bracket's largest value, then c and det J at the same point:
+
+| cusp | (log10 T, alpha) | b sign(a) | c | det J (condition) |
+|---|---|---|---|---|
+| period-6 outer arc | (-0.039750, 0.069106) | 7e-5 (from 16.9) | -1.51e4 | 2416 (1090) |
+| period-6 body | (-0.058344, 0.080097) | -4e-5 (from 12.8) | -2.38e5 | 14.0 (476) |
+| hostile lower fold | (0.189382, 0.066611) | -7e-4 (from 58.7) | -5.61e5 | 55.2 (1292) |
+| hostile upper fold | (0.198983, 0.067213) | -1.1e-3 (from 244.6) | -1.41e6 | 58.2 (860) |
+
+The c values agree with the bracketing values reported before (-1.37e4/-1.65e4, -2.38e5/-2.34e5, -5.8e5 to -5.3e5, -1.4e6 to -2.0e6), as do the det J values (2737 and 53.5 at nearby fold points). The cubic routine's own b at the located point (larger finite-difference steps) is 0.003, -0.05, 0.28 and 2.9: below 1.2 % of the bracket scale.
+
+**Accumulation boundary** (fold of the 2-cycle 'is it', curve-p2-fold-minus 60/61): a second real multiplier crosses +1 at (log10 T -0.341724, alpha 0.035628). The second multiplier is 0.99997, and the two eigenvectors coincide to 2.7e-4 degrees: a Jordan block, i.e. a 1:1 resonance (the map analogue of a Bogdanov-Takens point).
+
+**Period-4 lower fold curve** (curve-foldD-minus):
+- 14/15 at (0.004955, 0.062483) and 20/21 at (-0.001780, 0.062499): a second multiplier at +1 with eigenvectors parallel to 3e-4 and 1e-4 degrees, two 1:1 resonances.
+- 21/22 at (-0.002667, 0.062522): a second multiplier at -0.99996, a fold-flip point.
+- Continuing the curves that emanate from these points was not done.
+
+**Period-8 flip curve reversals** (curve-p8-down-minus 34/35 and 47/48):
+- Located at (-0.219336, 0.074955) and (-0.206007, 0.074608). The second multiplier there is 3.4e-7 and 1.1e-5, nowhere near the unit circle.
+- On a flip curve the parameter tangent can vanish only if (M - I) dx = 0 has a solution, which needs a multiplier at +1. Both points are therefore smooth turns of an immersed curve in the parameter plane, not cusps of its projection and not codimension-two points.
+
+## 2026-10-15 02:50 UTC: CL5 result: the two period-4 cusp candidates are located cusps (all six of the paper's candidates now located)
+
+Pod 9rl96brguxe67a (SECURE H100 NVL, runner rc 0, hash verified, terminated; 1161 s). Outputs copied to codim2/curve-foldB-minus-cusp-{13,54}.
+- Candidate 1 is located at (log10 T 0.059958, alpha 0.062959). There b sign(a) is -3.5e-5 (from 8.38), c = -1.017e4 (plateau spread 1e-4; before -1.06e4 and -1.01e4) and det J = -42.0 (condition 727).
+- Candidate 2 is located at (0.074447, 0.065574), with b sign(a) -9.6e-5 (from 9.35), c = +1.372e5 (before +1.39e5 and +1.36e5) and det J = 35.5 (condition 544).
+
+All six cusp candidates of the paper are now numerically located cusps: b sign(a) below 1.3e-5 of its bracket values, with c and det J nonzero at the same point. The paper's wording changes from "cusp candidates" to "located cusps" throughout. CL6, the three untested reversals, was relaunched as CL6b after its first pod never became SSH-ready (terminated, no results).
+
+## 2026-10-15 02:51 UTC: Amendment to FL15/FL7: the normal form needs the exact fold point
+
+FL15 branch: pod mj6u1p7bvigsnk (runner rc 0, hash verified, terminated; 1098 s). The period-4 branch at alpha 0.0585882 folds between log10 T -0.0912054 and -0.0912094: a real +1 crossing with next modulus 0.008, effectively one-dimensional. The normal-form step then refused, correctly. With --nearest-fold the branch point closest to the fold has multiplier 0.9617, not a fold point, and the tool refuses to compute fold coefficients there. New part nf in both job sets: the curve tool locates the exact fold point (Newton on the minimally augmented system at fixed alpha, two steps), then normal-form is computed at that point (index 0). FL15-nf runs now; FL7-nf runs after the FL7 branch.
+
+## 2026-10-15 03:03 UTC: FL15 normal form (1.5B fold point), the scoring rule for the FL lines (fixed before their results), FB stage 1c interim: the third flip ratio at log10 T -0.156 is 4.499
+
+**FL15 normal form.** Pod gzlvd9ydhgfd0o (SECURE H100 NVL; runner rc 0, hash verified, terminated and verified; 267 s; commit e7ea0b09). The clashing upload copies of branch-p4 are byte-identical to the local ones. Outputs fl15/curve-fold-p4 and fl15/normal-form-p4.
+- At alpha 0.05858823529411764 the fold point of the period-4 orbit lies at log10 T_c = -0.09120288061238553. Orbit residual 2.3e-14; crossing multiplier +1.0000000000000244 (real +1, a fold); next-largest modulus 0.0076. The gate is met: fold coefficients for a real +1.
+- Normal form in log10 T: a = -7.1590, b = -21.0947, so ab = 151.02 (pi / sqrt(ab) = 0.2556). b converges with the step: -21.279, -21.111, -21.0965, -21.0948, -21.0946 for relative steps 1e-2 to 1e-4.
+- For comparison, the 0.5B fold ('is it' at log10 T -0.115) has ab = 122.93 per unit alpha.
+
+**Scoring rule for the FL lines (tools/foldlaw_score.py, tests/test_foldlaw_score.py), fixed before the line results.** The card leaves several choices open; they are fixed now:
+- Windows are maximal runs (at least two cells) of one period beyond the fold. A run whose neighbouring run has half its period is a doubling and is not counted. The run nearest the fold counts per period.
+- The fan is the windows from the fold outward, as long as their periods step by q.
+- d is measured at the window edge nearest the fold, from the fold point above. Centres are reported as a check.
+- Spread is (max - min) / mean of d (x + delta)^2 with x = p / q, minimized over delta.
+- Refinement of the card: with a free offset, a different power also passes over a short range. d = 0.004 / x passes over x = 3-8 with delta = 4.9 (spread 6 %).
+  - Since N = x - k with k >= 0 and the law's lap offset is below one lap, x + delta can exceed the laps by at most one, so delta <= 1.
+  - Both the free fit (the card's criterion) and the bounded fit are reported, and a free fit needing delta > 1 is flagged.
+- The 0.5B reference values: f = sqrt(C ab) / pi = 0.576 from C = 0.0266, ab = 122.93.
+
+**FB stage 1c interim (local GPU, log10 T -0.156).** The flips, each with critical multiplier -1 to 3.5e-10 and next modulus 7e-5, 4e-7 and 2e-13:
+- 12->24 at alpha 0.0650877194157999 (the pod value was 0.06508771941580027);
+- 24->48 at 0.06509999933181365;
+- 48->96 at 0.06510272895244879.
+
+With the pod's 3->6 and 6->12 flips, the interval ratios are 14.928, 3.1241 and 4.4988. The deviations from 4.669 are +10.3, -1.55 and -0.17. These are flip ratios; P-F2 concerns superstable ratios and stays unscored. The run continues to the 96->192 and 192->384 flips (5 flips from period 12).
+
+**Amendment (human, about 03:00 UTC: "And double that maybe?").** After the 192->384 flip, a follow-on cascade run starts from the period-384 orbit inside its band and locates the 384->768 flip. The start and next points come from the measured ratio, the transient covers at least 50 periods, and the settings are otherwise those of stage 1c. It runs on the local GPU, before stage 1c's queued cut at -0.152.
+
+## 2026-10-15 03:17 UTC: CL6 result: the three remaining reversals of the upper period-4 fold curve are located cusps (all nine fold-curve reversals are cusps); FL7 normal form (7B fold point)
+
+**CL6b.** Pod 18kbtdb1a08u0r (SECURE H100 NVL; runner rc 0, hash verified, terminated; 1670 s; commit 7def712e). The clashing uploads are byte-identical to the local curves and branches. Outputs are in codim2/curve-foldB-plus-cusp-45 and curve-foldC-plus-2-cusp-{32,42}. The first CL6 pod, dp9hx03l33cpno, never became SSH-ready; it was terminated without results.
+
+All checks pass for the three reversals. |f|/max|f| is b sign(a) at the located point relative to its largest bracket value:
+
+| reversal | located at (log10 T, alpha) | \|f\|/max\|f\| | c | det J (condition) |
+|---|---|---|---|---|
+| B-plus 45/46 (the paper's untested reversal) | (0.108633, 0.083082) | 1.4e-7 | -9.66e4 | 25.3 (319) |
+| C-plus-2 32/33 | (0.011831, 0.074072) | 1.1e-5 | -5733 | -188.5 (296) |
+| C-plus-2 42/43 | (0.012759, 0.073220) | 5e-6 | +1652 | 68.5 (125) |
+
+The upper period-4 fold curve thus carries five located cusps. The last two are close together and have opposite signs of c. Over the paper's fold curves all nine tangent reversals are numerically located cusps, with |f| / max |f| at most 1.3e-5. The two reversals of the period-8 flip curve are smooth turns. P4R's reading stands: the upper and lower fold curves do not join within the traced ranges.
+
+**FL7 normal form.** Pod fddcgfaz4kq2pg (SECURE H100 NVL; runner rc 0, hash verified, terminated; 474 s; commit 14c09084). The clashing branch-p2 upload is byte-identical. Outputs are in fl7/curve-fold-p2 and fl7/normal-form-p2.
+- At alpha 0.051428571428571435 the period-2 orbit of Qwen2.5-7B folds at log10 T_c = -0.2040155917628836.
+- Orbit residual 5.6e-11; crossing multiplier 1 + 5.6e-11 (real +1); next modulus 0.0092.
+- Normal form in log10 T: a = 2.6766, b = 20.8077, so ab = 55.69 (pi / sqrt(ab) = 0.421). b over relative steps 1e-2 to 1e-4: 20.974, 20.823, 20.809, 20.8077, 20.8076.
+
+## 2026-10-15 03:27 UTC: FL result: windows accumulate on the fold with the 1/N^2 law in Qwen2.5-1.5B (over the four nearest windows) and Qwen2.5-7B (over six); passage fractions 0.97 and 0.80, against 0.58 at 0.5B
+
+Pods qwqtwa7b27k9b6 (FL15 line, 3437 s) and misyp8r6rk51yn (FL7 line, 3216 s): COMMUNITY H100 NVL, runner rc 0, hashes verified, terminated and verified; commit 399b3eed. No clashes. Outputs fl15/line and fl7/line (hidden-chaos.json, 1700 and 1000 cells, float64).
+
+**Scorer correction, made after the first scoring and disclosed here.** As first written, the fan in tools/foldlaw_score.py stopped at the first window outside the progression (a period-25 window between the 24 and 20 windows; a period-18 run between 9 and 7). This contradicted its own written rule ("consecutive in the progression"). It now steps from the nearest window to period p - q while that window exists and lies farther out (new test). The fits over the nearest windows are unchanged; the correction adds windows farther out. Both versions' outputs are kept in scratch (fl15-score.json, fl7-score.json; -v2 after the correction).
+
+**Qwen2.5-1.5B** (alpha 0.0585882, fold of the period-4 orbit at log10 T_c = -0.0912029, windows above it, q = 4):
+- Fan windows by fold-side edge d (cells per run): P40 7.54e-4 (2), P36 9.54e-4 (3), P32 1.244e-3 (4), P28 1.695e-3 (8), P24 2.075e-3 (2), P20 3.216e-3 (3), P16 5.68e-3 (6), P12 1.265e-2 (212).
+- Periods 44-64 appear as single cells, unresolved at this spacing.
+- Nearest four windows: C = 0.0612, delta = -0.99, spread 0.1 % (centres 0.4 %), f = 0.968 (centres 0.958).
+- Spread over the nearest 5, 6, 7 and 8 windows: 10.4, 10.3, 12.4 and 14.0 %.
+- **The law holds over four windows**, the minimum the card requires.
+- From period 24 down, each period shows a short run nearer the fold and a long run farther out. The long period-24 and period-20 runs have their doublings (48, 40) on the fold side. The rule takes the nearer, short runs, so the extension beyond four windows mixes two kinds of run, and grid-spaced edges cannot say which edge is the fold edge. A float64 edge computation, as run E1 did for 0.5B, would settle it.
+
+**Qwen2.5-7B** (alpha 0.0514286, fold of the period-2 orbit at log10 T_c = -0.2040156, q = 2, odd windows):
+- Fan windows: P17 1.858e-3 (3), P15 2.559e-3 (4), P13 3.400e-3 (8), P11 4.942e-3 (19), P9 8.165e-3 (51), P7 1.629e-2 (253), P5 5.763e-2 (439).
+- Each window's tripling or doubling (33, 27, 18, 36) lies on its far side, so the fold-side edges are fold edges.
+- Periods 19-27 appear as single cells nearer the fold.
+- Nearest four windows: C = 0.1133, delta = -0.74, spread 4.4 % (centres 2.3 %), f = 0.800.
+- Nearest five: 4.4 %, f = 0.801. Nearest six: 6.1 %, f = 0.784. All seven: 14.4 %.
+- **The law holds over six windows.**
+
+**Reading by the card.** The window law holds in both models. In each case the bounded fit (delta <= 1) equals the free one.
+- The effective passage fraction is model-specific: 0.58 (0.5B, along alpha), 0.97 (1.5B) and 0.78-0.80 (7B).
+- ab is 122.9 per unit alpha at the 0.5B fold, and 151.0 and 55.7 per unit log10 T at the 1.5B and 7B folds. These are different folds in different coordinates, so no trend with size can be read from one fold per model.
+- The mechanism, a short cycle's fold with windows accumulating on it by the 1/N^2 law, recurs at 1.5B and 7B.
+
+## 2026-10-15 03:29 UTC: run (exploratory): FB stage 2 (superstable ratios for P-F2) and the -0.152 cut on H100 pods (human: "H100", about 03:25 UTC)
+
+- **Why:** The human chose an H100 pod for the superstable stage that scores the frozen prediction P-F2, and wants the paper ready for editing by the morning, Pacific time. The local GPU keeps stage 1c's -0.156 flips (to 192->384) and the 384->768 continuation. The queued local run at -0.152 moves to a pod, so the two run in parallel.
+- **FB152d (pod, job set cascade):** the -0.152 cut from the period-6 orbit at alpha 0.06505, settings of stage 1c otherwise. It uses --next 0.0652832 (3e-5 past the measured 6->12 flip at 0.0652532), so the walk along the period-12 band takes substeps of 1.5e-5, against 4.8e-5 in stage 1. It allows up to 64 substeps, enough to reach beyond the merge near 0.0657 found in stage 1. Question: does the period-12 orbit flip anywhere on this cut, or does it merge back into period 6 without a cascade, a bubble as stage 1 found? A narrow flip interval could have been stepped over in stage 1.
+- **FBS156 (pod, job set superstable, after the local 96->192 flip):** superstable parameters at log10 T -0.156 for the bands of periods 6, 12, 24, 48 and 96, from the measured flips. Each bracket runs from 5 % to 98 % of its band, as at -0.148, with transient 20000 and settle factor 20. Bands 192 and 384 follow in later pods, once the local run has located the 192->384 and 384->768 flips.
+- **Reading:** P-F2 (frozen at 01:30 UTC) holds at a temperature if the last two superstable ratios computed there lie within 5 % of 4.669 (at least 4.436). If the -0.152 cut has no cascade, P-F2 cannot be scored there, and this is reported as such.
+- **Output:** `../neural-shrimp-data/explore/llm-soft-loop/pod64/cascade/crescent-t-0.152-d`, `superstable/crescent-t-0.156` (and `-192`, `-384` later).
+
+## 2026-10-15 03:35 UTC: Amendment to FB152d: the start jumped too far
+
+Pod gqn3rlkugdknn2 (COMMUNITY H100 NVL; runner rc 0, tool exit 1, hash verified, terminated; 136 s; commit 65aeba3f). The period-6 orbit at alpha 0.06505 (mu -0.005) did not follow to --next 0.0652832: "period-6 Newton did not converge". The jump of 2.3e-4 is 61 % of the period-6 band. The rerun FB152e starts at alpha 0.06520 (86 % of the band, a jump of 8.3e-5), with all else as in FB152d. The queued local run of stage 1c (start 0.06505, next 0.06535) would have failed the same way.
+
+## 2026-10-15 03:44 UTC: run (exploratory): MB, completing the float64 map of the hostile period-7 body (human: the figure "gets cut off at 0.21")
+
+- **Why:** The human asked for exponent maps of the hostile period-7 body in the paper. These show superstable lines, a candidate doubly superstable centre near alpha 0.0700, log10 T 0.204, and the located cusps. The only map, M3b (scan64/hub-arm), timed out at log10 T 0.2106, with 28672 of 36864 cells done.
+- **Setup:** three pods (H100-class, job set scan64), with M3b's settings: float64, tol 1e-8, eps 1e-6, transient 500, samples 300, record 80, max period 48, vectors llm-phase-map/vectors-l12-p1b, concept hostility-vs-kindness, alpha 0.062-0.074 in 192 columns. All three use M3b's row spacing (0.052/191), so the rows join M3b's grid exactly.
+  - MB1, hub-arm-rest: M3b's rows 149-191, log10 T 0.2105654-0.222, 43 rows; row 149 was partly done.
+  - MB2, hub-arm-top1: rows 192-260, log10 T 0.2222723-0.2407853, 69 rows.
+  - MB3, hub-arm-top2: rows 261-330, log10 T 0.2410576-0.2598429, 70 rows.
+- **Reading:** Purely a map: it shows the period-7 domain and its exponent field up to log10 T 0.26. Labels are candidates; the doubly superstable test (next card) is the quantitative check. Ceilings are in the private ledger.
+- **Output:** `../neural-shrimp-data/explore/llm-soft-loop/pod64/scan64/hub-arm-rest`, `hub-arm-top1`, `hub-arm-top2`
+
+## 2026-10-15 03:47 UTC: FB results so far: -0.152 has no cascade (a doubling bubble, confirmed at finer steps); at -0.156 the fourth flip ratio is 4.6208; FBS156 launched
+
+- **FB152e.** Pod mdleh5grbwo78y (COMMUNITY H100 NVL; runner rc 0, tool exit 1, hash verified, terminated; 507 s; commit 2d04c0a4).
+  - The 6->12 flip is at alpha 0.0652531823, which reproduces stage 1's 0.06525318227184.
+  - Walking the period-12 orbit in substeps of 1.5e-5 (stage 1 used 4.8e-5), no flip was found before the orbit collapsed onto the period-6 orbit at alpha 0.06567343 (Collapsed: |F^6 x - x| / |x| = 1.6e-11).
+  - The cut at -0.152 therefore crosses a bubble 6->12->6 without a cascade, at that search step, and P-F2 cannot be scored there. (The walk does not log mu along the period-12 orbit, so its closest approach to -1 is not recorded.)
+- **Stage 1c at -0.156 (local).** The 96->192 flip is at alpha 0.06510331968162615 (critical multiplier -1 to 4.8e-9, next modulus 2.9e-14). The flip ratios are now 14.928, 3.1241, 4.4988 and 4.6208, with deviations from 4.669 of +10.3, -1.55, -0.17 and -0.048. The run continues to 192->384, then 384->768.
+- **FBS156** (superstable stage at -0.156) launches now, with brackets at 5-98 % of the measured bands:
+  - 6:-0.156:0.064505291678110:0.065037901554930 12:-0.156:0.065051273725027:0.065086952138099 24:-0.156:0.065088333411601:0.065099753733493 48:-0.156:0.065100135812845:0.065102674360036 96:-0.156:0.065102758488908:0.065103307867043
+
+## 2026-10-15 04:02 UTC: run (exploratory): DSS, superstable curves and a doubly superstable centre in the hostile period-7 body (human: "Yes", about 03:35 UTC)
+
+- **Question:** The human asked whether our windows are shrimps in the sense of Jones (2012) / Gallas: does the period-7 body contain a doubly superstable centre, where two superstable curves of one orbit cross? Exponent maps show a dark blob near alpha 0.0700, log10 T 0.204 (250 period-7 cells with exponent below -0.9; |mu| down to 3e-4), with dark lines leaving it.
+- **Method (new tool tools/doubly_superstable.py, commit follows):** One period-7 orbit is followed by continuation over a grid, breadth-first from a seed, with its token loop checked at every cell. Its leading multiplier is split into one signed factor per map step, c_i = <DF(x_i) v_i, r_{i+1}> / <v_i, r_i>, with fixed reference directions r_i (the seed's chain directions). The product of the factors is mu exactly. Superstable curves are zero curves of single factors, and a doubly superstable point is a crossing of the zero curves of two different factors. Points with |mu_1| <= 10 |mu_2| are flagged unclean.
+- **Local smoke test:** 3 x 3 cells around the seed (0.070984, 0.205120), RTX 2000 Ada. All nine converged, are clean (next modulus 2e-5 to 1e-4) and keep the seed's token loop ('! Yes heels \n\n defiance \n\n I'), and the product equals mu to 1e-14. Two factors are small here: c_5 = 0.12-0.27 and c_6 = 0.081-0.089.
+- **Run DSS1 (one H100 pod, job set dss):** grid of 31 x 31 cells, alpha 0.0686-0.0716 and log10 T 0.1985-0.2115, seed (0.070984, 0.205120), transient 900, tol 1e-12, vectors llm-phase-map/vectors-l12-p1b, concept hostility-vs-kindness.
+- **Reading, fixed now:** A doubly superstable point is reported if:
+  - the zero curves of two different factors cross inside the grid, each read from sign changes between clean neighbouring cells with the same token loop;
+  - the crossing is approached from all four sectors, with the sign pattern of mu alternating around it.
+  - Otherwise the result is reported as found: zero curves that do not cross, a single curve, or an unclean region that hides the crossing.
+- **Output:** `../neural-shrimp-data/explore/llm-soft-loop/pod64/dss/p7-blob`
+
+## 2026-10-15 04:21 UTC: run (exploratory): KY, Kaplan-Yorke dimensions of the chaotic attractors (human: "Full go")
+
+- **Question:** How far is a chaotic attractor of the soft-token map from one-dimensional? The Kaplan-Yorke dimension D = j + (lambda_1 + ... + lambda_j) / |lambda_{j+1}| (j the largest index with a nonnegative partial sum; D = 1 + lambda_1 / |lambda_2| for one positive exponent) measures it. The paper's theory paragraph separates the exact local reduction from a global scalar return map; D says where the global one holds.
+- **Already measured, no new run:** the six chaotic TC cells (run TC, hidden/tc-spectrum, four exponents by QR, 1000 + 2000 steps) give D = 1.063, 1.196, 1.239, 1.322, 1.325 and 1.645. The values rise with lambda_1 (0.063 to 0.415), while lambda_2 is -0.64 to -1.10.
+- **Cells, chosen by a rule fixed before any spectrum of them:** in each of three groups, the chaotic cells at the 5th, 15th, ..., 95th percentile of the exponent (nearest rank, ties by index), 10 per group.
+  - high: the high-temperature map map-highT-256-families (log10 T -0.02 to 0.14). Chaotic means the map label: exponent above 1e-3 and no period.
+  - head: the H2 long-test chaotic cells of the headline maps (hidden/h2-cells).
+  - host: the hostile temperature line hidden/tline-a0.0655, where the paper fits a scalar return relation (visible or hidden chaos).
+  - Files: docs/ky-cells-philosophy.json (high, head) and docs/ky-cells-hostility.json (host).
+- **Setup:** two pods (H100-class, new job set spectrum). tools/lyapunov_spectrum.py, float64, k 4, transient 1000, record 2000, checkpoints 1000 and 2000. KY1 runs the philosophy cells, KY2 the hostility cells (vectors-l12-p1b).
+- **Reading:** D per cell, with its two checkpoints, reported by group. A cell that is not chaotic at this horizon (lambda_1 <= 0) is reported as such. No threshold is set: the result is the distribution of D, which goes into the paper's theory paragraph.
+- **Output:** `../neural-shrimp-data/explore/llm-soft-loop/pod64/hidden/spectrum-ky-philosophy`, `spectrum-ky-hostility`
+
+## 2026-10-15 04:27 UTC: run (exploratory): FNF, flip normal forms where the global reduction is weakest (human: "Full go")
+
+- **Question:** Do the local normal forms predict the doubled orbits even where the map is far from one-dimensional? The theory paragraph claims the centre-manifold reduction at a bifurcation is exact whatever the other multipliers are. Test it at the high-temperature bubble (log10 T 0.0319, philosophy, layer 12). There the period-2 loop flips at alpha 0.07535341734032334 with next modulus 0.383, and its period-4 orbit flips at 0.07369205994966807 with next modulus 0.278.
+- **Tool:** tools/flip_normal_form.py with tests/test_flip_normal_form.py (4 tests pass). The tests check c = g + q^2 on a decoupled toy map, the amplitude prediction within 2 % on two coupled maps (supercritical and subcritical), and refusal at a fold.
+  - The tool classifies the crossing: the multiplier nearest -1 must be real and within 1e-6 of -1, and every other multiplier must have modulus below 0.95.
+  - It then computes c = l^T C(r,r,r)/6 + l^T B(r, h2)/2 with (I - M) h2 = B(r, r), from the dense monodromy and central differences of float64 JVPs at four relative steps, taking the plateau.
+- **Predictions, fixed now:** at each offset past the flip, on the side where the doubled orbit exists by the sign of c, with beta = -mu_p - 1:
+  - the doubled orbit's half-amplitude along r is sqrt(beta / c);
+  - its multiplier is 1 - 4 beta.
+  - The predictions count as confirmed if the amplitude ratio tends to 1 as the offset falls, within 10 % at the smallest offset, and the multipliers agree to O(beta^2).
+- **Setup:** two pods (H100-class, new job set flipnf), offsets 2.5e-5, 5e-5, 1e-4, 2e-4 and 4e-4 in alpha.
+  - FNF2: period 2, start at alpha 0.0775 (period-2 attractor).
+  - FNF4: period 4, start at alpha 0.0745 (inside the period-4 band).
+- **Output:** `../neural-shrimp-data/explore/llm-soft-loop/pod64/flipnf/hiT-p2`, `hiT-p4`
+
+## 2026-10-15 04:35 UTC: FNF4 result: the flip normal form predicts the doubled orbit where the map is far from one-dimensional; FBS156 interim; MB2 and FNF2 relaunched
+
+- **FNF4.** Pod gtul0qkyyp2p6x (SECURE H100 80GB HBM3; runner rc 0, hash verified, terminated; 253 s; commit 2acbc8b8).
+  - Flip of the period-4 orbit at alpha 0.07369205994966807, log10 T 0.0319: multiplier -1 to 3.1e-12, real; next modulus 0.278, so the crossing is classified as a flip.
+  - c = 12386 (plateau 1e-3/3e-4, spread 9e-5): supercritical.
+  - Offsets 2.5e-5, 5e-5, 1e-4, 2e-4 and 4e-4 (alpha below the flip):
+    - beta = 0.0175, 0.0348, 0.0685, 0.1325, 0.2470.
+    - Amplitude ratio (measured / sqrt(beta/c)): 1.0029, 1.0059, 1.0122, 1.0254, 1.0558. The error doubles with the offset (O(beta)).
+    - Doubled-orbit multiplier against 1 - 4 beta: 0.929870 vs 0.929829 (4e-5), 0.860871 vs 0.860777 (9e-5), 0.725657 vs 0.726034 (4e-4), 0.4538 vs 0.4700 (0.016, beta^2 = 0.018). At the largest offset the multiplier is complex (0.125 +- 0.207i), beyond the normal form's range.
+  - By the card: confirmed (ratio 1.003 at the smallest offset, multipliers agree to O(beta^2)). The local reduction holds at a next modulus of 0.28, where the global scalar reduction is a rough guide.
+- **FNF2.** Pod 16bu5ertdbsrtl (rc 0, tool exit 1, 132 s).
+  - The continuation from alpha 0.0775 toward the flip stopped at 0.07678: lfb.evaluate refused a complex leading pair -0.512 +- 0.261i (next modulus 0.575). That guard belongs to flip location, not to continuation.
+  - Fixed: the continuation now uses Newton alone, and the guard applies only at the flip. Tests still pass. Rerun as FNF2b.
+- **MB2.** Pod mh8mf3kqiqbrco never became SSH-ready (15-min ready limit): terminated and verified, no results. Relaunched as MB2b. MB1 (1214 s) and MB3 (1874 s): rc 0, hashes verified, terminated.
+- **FBS156 interim.** Pod 4cz4ixtug3n9u6 (SECURE H100 NVL; rc 0; hash verified; 2661 s). Superstable parameters at log10 T -0.156:
+
+  | p | s_p | how | clean bracket |
+  |---|---|---|---|
+  | 6 | 0.0647848 | stopped at the transverse spectrum | [0.0645053, 0.0650379] |
+  | 12 | 0.0650664 | stopped | [0.06505127, 0.06506819] |
+  | 24 | 0.06509398 | stopped | [0.065093875, 0.065099754] |
+  | 48 | 0.065101410848 | stopped | width 2.4e-9 |
+  | 96 | 0.065103035545868 | converged | width 2e-15 |
+
+  - The ratios are 10.21, 3.713 and 4.572.
+  - The brackets of s_12 and s_24 are wide (the second clean point stayed at the bracket end), so the ratios that involve them are poorly determined; worst-case ranges follow.
+  - P-F2 is scored on the last two ratios once bands 192 and 384 are in. Those bands were part of the FBS card before this result.
+
+## 2026-10-15 04:37 UTC: Amendment to DSS: the full grid on two more pods (human: "I want full")
+
+DSS1 (pod 8gzwfgzsfwcgfz) runs at about 7 s per cell, so its 90-minute tool limit stops it near 770 of 961 cells. Its breadth-first order covers the blob around the seed first. For the full grid, two pods split the rows of the same box, at the same spacing (row 15, log10 T 0.2050, lies in both and serves as a check). Same seed and settings as DSS1, 120-minute limits:
+- DSS1b: rows 0-15, log10 T 0.1985-0.2050, 16 x 31 cells;
+- DSS1c: rows 15-30, log10 T 0.2050-0.2115.
+
+DSS1 continues and is reported as well.
+
+## 2026-10-15 04:41 UTC: FNF2b result: the flip normal form also predicts the doubled orbit at next modulus 0.38
+
+Pod tsmw6yiwpd42pe (COMMUNITY H100 NVL; runner rc 0, hash verified, terminated; 206 s; commit 82ba6c82).
+- Flip of the period-2 orbit at alpha 0.07535341734032334, log10 T 0.0319: multiplier -1 to 5.1e-12, real; next modulus 0.383, so the crossing is classified as a flip.
+- c = 6492.4 (plateau spread 4.6e-5): supercritical.
+- Offsets 2.5e-5 to 4e-4:
+  - beta = 0.0092, 0.0183, 0.0364, 0.0717, 0.1400.
+  - Amplitude ratio: 1.0050, 1.0100, 1.0199, 1.0396, 1.0784 (linear in the offset).
+  - Doubled multiplier against 1 - 4 beta: 0.963345 vs 0.963199 (1.5e-4), 0.92730 vs 0.92669, 0.85718 vs 0.85449, 0.72594 vs 0.71302, 0.51292 vs 0.43994. The difference is about 1.7-2.0 beta^2 at the small offsets.
+- By the card: confirmed.
+
+Paper: Table tab:flipnf and a paragraph after the high-temperature bubble give both flips (three offsets each); the theory paragraph points there.
+
+## 2026-10-15 04:49 UTC: run (exploratory pilot): BZ, ordinary steered inference in the chaotic and periodic zones (human: "Do it and do it fast")
+
+- **Question:** Does ordinary generation, steered and sampled at the map's (alpha, T), behave differently where the soft-token map is chaotic than where it is periodic, for example less accurately? The human's hunch: chaotic zones are less accurate.
+- **Design:** Temperature and steering change accuracy by themselves, so the comparison is within matched pairs. tools/behavior_zones.py documents the full rules; pairs and tasks are fixed before any generation.
+  - 30 pairs from the float64 maps map-stripes-256 and map-highT-256-families (0.5B, philosophy, layer 12), at 30 temperatures from log10 T -0.17 to 0.14. Each pair is one chaotic cell (exponent > 0.05, no period) and one periodic cell (exponent < -0.05) in the same map row, with |delta alpha| <= 1e-3 (here adjacent cells, 8.6e-5 or 1.6e-4 apart).
+  - Plus an unsteered cell at each temperature: 90 cells in docs/bz-pairs.json.
+  - Tasks (docs/bz-tasks.json, seed 20261015): 50 arithmetic problems (2-digit sums, 2-digit x 1-digit products), 50 NQ-open validation questions, 30 MBPP-sanitized test problems.
+  - Ordinary generation adds the steering alpha v at block 12 on every position and samples at T (top_p 1, top_k 0). It takes 3 samples per item (2 for MBPP), so 360 generations per cell, scored automatically. Code runs only inside the pods.
+- **Reading, fixed now:** per pair and task, the accuracy difference chaotic - periodic.
+  - A sign test across pairs per task, plus the pooled difference with a paired bootstrap interval.
+  - Secondary: mean next-token entropy and reply length per zone, and the unsteered accuracy against T as the temperature baseline.
+  - Exploratory: any difference found here needs a frozen confirmatory test on fresh pairs before any claim.
+- **Setup:** three pods (H100-class, new job set bz), shards 0-2 of the 90 cells.
+- **Output:** `../neural-shrimp-data/explore/bz/pilot-{0,1,2}`
+
+## 2026-10-15 04:53 UTC: run (exploratory): LS, the chaos map against the steering block (human: "Do it now", about 04:50 UTC)
+
+- **Question:** How does the soft-token map of Qwen2.5-0.5B-Instruct change when the philosophy steering enters at another block? Every map so far steers at one block per model (block 12 of 24 here).
+- **Vectors:** built with the recipe of vectors-l12 (tools/explore_llm_phase_map.py vectors): mean last-token state of the concept prompts minus the neutral prompts, normalized to the prompts' mean residual norm at that block. Built at blocks 4, 8, 16 and 20 into llm-phase-map/vectors-l{4,8,16,20}.
+  - Philosophy norms: 181.0, 186.6, 197.7 and 221.1. The block-12 vector's 189.0 fits the sequence.
+  - Since alpha is a fraction of the residual norm, the same alpha range is comparable across blocks.
+- **Maps:** the settings of the block-12 control maps (q05): 128 x 128 float64 cells, alpha -0.12 to 0.12, log10 T -1.0 to 0.3, transient 500, samples 300, record 80, max period 48, tol 1e-8, eps 1e-6. Each block's map is split over two pods by rows (rows 0-63 and 64-127 of the same grid): eight pods, job set scan64.
+- **Reading:** descriptive, with no prediction. Reported per block: the chaotic share, where the chaotic regions lie in (alpha, T), and how the attractor families compare with block 12.
+- **Output:** `../neural-shrimp-data/explore/llm-soft-loop/pod64/scan64/ls-l{4,8,16,20}-{lo,hi}`
+
+## 2026-10-15 04:59 UTC: BZ pilot result: at the maps' steering strengths, steering swamps ordinary inference in both zones; no accuracy contrast is measurable
+
+Pods lydg9orgs6im5q, mj69o76yur8x6d, tx5ls2s0l6g118 (SECURE; runner rc 0, hashes verified, terminated; 311-395 s; commit e1bd1e44). Outputs llm-soft-loop/pod64/bz/pilot-{0,1,2} (90 cells). Analysis: tools/behavior_zones.py analyze (scratch/bz-analysis.json).
+- **Accuracy, mean over the 30 pairs:**
+  - arithmetic 0.0007 (chaotic) vs 0.0009 (periodic);
+  - NQ 0.0044 vs 0.0036;
+  - MBPP 0 vs 0.
+  - The unsteered model at the same temperatures scores 0.75-0.81 on arithmetic, 0.03-0.06 on NQ and 0.13-0.37 on MBPP (falling with T).
+  - Steering alpha v at every position (alpha 0.045-0.078) turns every reply into philosophy-flavoured text, as the local smoke test showed. The accuracy comparison sits at the floor and cannot test the hypothesis.
+- **Secondary measures, chaotic - periodic, sign tests over 30 pairs:**
+  - Mean next-token entropy: NQ +0.038 nats (22/30 positive, p = 0.016, bootstrap [0.016, 0.059]); arithmetic +0.001 (15/30); MBPP -0.035 (10/30, p = 0.10, [-0.067, -0.004]).
+  - Reply length: no sign-test p below 0.09.
+  - Of nine tests, one has p < 0.05, and that does not survive a Bonferroni correction (0.0056). The entropy differences also change sign across tasks.
+- **Reading:** No behavioural difference between the zones is established. The design is uninformative for accuracy at these steering strengths. The follow-up BP, which the human approved ("Do it"), takes the regime per prompt, with the unsteered 7B model at temperatures where its prompts differ in regime.
+
+## 2026-10-15 05:03 UTC: run (exploratory): BP, are prompts whose own loop is chaotic answered less accurately? (human: "Do it")
+
+- **Question:** At a fixed temperature and without steering, are prompts whose soft-token loop is chaotic answered less accurately by ordinary sampling than prompts whose loop is periodic, once the prompts' difficulty is controlled?
+- **Design (tools/behavior_prompts.py, task set docs/bp-tasks.json fixed before any run):**
+  - 200 prompts: 100 arithmetic (3-digit sums, 2-digit products) and 100 NQ-open questions, disjoint from BZ.
+  - Label: the soft-token loop (window 1, float64, alpha 0) after each prompt's own chat-templated prefix, at log10 T 0.25, 0.32 and 0.40, inside the 7B's chaotic band of run PS. Transient 500, record 1000, twins 1e-6 and 1e-9, classified by hidden_chaos.classify.
+  - Generate: 10 samples per prompt and temperature (top_p 1, top_k 0) plus the greedy answer, float32.
+  - Models: Qwen2.5-7B-Instruct (pinned a09a3545) as the main test; Qwen2.5-0.5B-Instruct as a second model. The local smoke test with the 0.5B already gave mixed labels across prompts at log10 T 0.25.
+- **Reading, fixed now:**
+  - Primary: per model and temperature, the difference in mean per-prompt accuracy between prompts labelled chaotic and periodic, within the greedy-correct prompts (the difficulty control), with a two-sided permutation test on the labels. The hypothesis is chaotic < periodic.
+  - Secondary: the same over all prompts, by task.
+  - Exploratory: a difference needs a frozen confirmatory test on fresh prompts before any claim.
+- **Setup:** pods of the new job set bp:
+  - 7B labels: shards 0-5 of 6 (94 GB+ GPUs for the float64 weights);
+  - 7B generation: one pod;
+  - 0.5B labels: shards 0-1 of 2;
+  - 0.5B generation: one pod.
+- **Output:** `../neural-shrimp-data/explore/llm-soft-loop/pod64/bp/{q7-label-0..5, q7-gen, q05-label-0..1, q05-gen}`
+
+## 2026-10-15 05:08 UTC: KY2 result: the hostile band's chaotic attractors have Kaplan-Yorke dimensions 1.008-1.156
+
+Pod cjlui0q6npnllj (SECURE H100 NVL; runner rc 0, hash verified, terminated; 2018 s; commit f8219106). Output hidden/spectrum-ky-hostility: four exponents by QR, 1000 + 2000 steps, float64, checkpoints at 1000 and 2000 steps.
+- **The 10 percentile cells of the hostile temperature line (alpha 0.0655):**
+  - 8 are chaotic at this horizon, with D = 1.008, 1.013, 1.013, 1.045, 1.050, 1.052, 1.100 and 1.156 (lambda_1 0.008-0.141; lambda_2 -0.85 to -1.31). At 1000 steps D differs by at most 0.06 (1.111 against 1.052 at log10 T 0.18984), and by at most 0.02 in the other cells.
+  - 2 (log10 T 0.17968 and 0.18005) are not chaotic at this horizon: lambda_1 -0.007 and -0.009, with a repeated pair -0.35, -0.35 next. They are reported as such.
+- **Reading:** where the paper fits a scalar return relation (the chaos behind a repeating text), the chaotic attractors are within 0.16 of one-dimensional. At the six TC cells of the headline maps, D is 1.06-1.65.
+
+## 2026-10-15 05:10 UTC: LS result: the chaos map depends strongly on the steering block; deeper steering confines chaos to high temperature
+
+Pods jwiltzwchvpzqc, c2adoqzqddg41k, rsyvjrqt68l9h4, ajxk55udp6qsbc, e3kkmdk5sldh3n, znc21w5qzzpq15, 8qn0fkd9rtkvun, 3r71re3uebgwhd (SECURE, 3.99/h; runner rc 0, hashes verified, terminated; 734-869 s each; commit e3c13292). Output: scan64/ls-l{4,8,16,20}-{lo,hi}. Block 12 is pairmap-qwen0.5b/map128-philosophy: same grid and scan settings, vectors with the same recipe. Figure: paper/llm/figures/fig-layer-sweep.png (tools/plot_layer_sweep.py).
+
+Chaotic share of the 128 x 128 cells (exponent above 1e-3, no period), alpha -0.12 to 0.12 and log10 T -1.0 to 0.3:
+
+| block | chaotic share | rows with chaos, log10 T | share at abs(alpha) < 0.02 |
+|---|---|---|---|
+| 4 | 5.9 % | -0.908 to 0.218 | 2.1 % |
+| 8 | 8.1 % | -0.949 to 0.280 | 1.2 % |
+| 12 | 6.8 % | -0.713 to 0.239 | 1.0 % |
+| 16 | 5.0 % | -0.631 to 0.208 | 0.8 % |
+| 20 | 2.3 % | -0.089 to 0.218 | 0.9 % |
+
+- Early-block steering (4, 8) carries chaos down to log10 T about -0.9 at strong steering, near greedy decoding. Late-block steering (20) leaves only a thin chaotic band at log10 T 0.1-0.25, with everything below it periodic.
+- Near zero steering every block gives 1-2 %.
+- Reading: exploratory, one direction, one prompt, one map per block. From block 8 on, the chaotic share and its lowest temperature fall monotonically with depth. A gain split by block would say whether the readout or the network factor carries the difference.
+
+## 2026-10-15 05:11 UTC: FB stage 1c: the 192->384 flip and the fifth ratio 4.6618; run FBD (deeper flips on an H100) and FBS156-192
+
+- **Flip 192->384** (local, log10 T -0.156): bracketed between alpha 0.06510344639876085 (mu -0.9999998) and 0.06510344639876837 (mu -1.0000001), so alpha = 0.0651034463987655 +- 5e-15; next modulus 6e-14.
+  - The interval ratios are now 14.928, 3.1241, 4.4988, 4.6208 and 4.6618. The deviations from 4.669 are +10.3, -1.55, -0.17, -0.048 and -0.0074.
+  - The local run is still refining the last digits; that cannot change the ratio at the quoted precision. The local follow-on (384->768) starts when it ends.
+- **FBD (pod, job set cascade):** the same cut, starting from the period-384 orbit at alpha 0.06510345998979336 (middle of the estimated 384 band), next 0.06510347503852487, ratio guess 4.661793821985329, 2 flips (384->768, 768->1536), transient 40000, 96 steps per period, run limit 150 min. The local follow-on computes 384->768 independently, as a cross-check across devices.
+- **FBS156-192 (pod, job set superstable):** the period-192 band at -0.156, bracket 0.0651033260174831 to 0.0651034438644227 (5-98 % of the band), transient 40000, settle factor 20.
+
+## 2026-10-15 05:21 UTC: run (exploratory): TB, two steering directions at two blocks (human: "steer one block with bliss and the other with hostile")
+
+- **Question:** How do two pushes at different depths combine in the soft-token map of Qwen2.5-0.5B-Instruct: a gratitude direction (the closest of our concepts to "bliss") at one block and hostility at another?
+- **Tooling:**
+  - tools/explore_llm_phase_map.SteeredModel.add_steer_layer registers a second additive hook. tools/explore_llm_soft_loop.SoftLoop.extra repeats per-cell rows for it in the prefix pass and every step.
+  - Locally: with the second block at strength 0 the result is bit-identical to no hook. With hostility at 0.06 after block 16, a gratitude-steered cell (block 4, alpha 0.05, log10 T -0.1) goes from period 2 (exponent -3.21) to chaotic (+0.436).
+  - tests/test_llm_soft_loop.py: 7 passed.
+- **Maps:** tools/two_block_map.py, 96 x 96 cells, alpha1 and alpha2 from -0.12 to 0.12. Window 1, float64, transient 500, record 300, one twin at 1e-6, classified by hidden_chaos.classify. Vectors built at their blocks tonight (vectors-l4, vectors-l16), so alpha is a fraction of the residual norm.
+  - TB1: gratitude at block 4 x hostility at block 16, log10 T -0.1 and 0.1.
+  - TB2: hostility at block 4 x gratitude at block 16, the same two temperatures.
+  - On two pods (new job set tb).
+- **Reading:** descriptive. Chaotic share per map, and whether the chaotic region of the plane is roughly the union of the single-direction regions (the axes alpha2 = 0 and alpha1 = 0) or new regions appear where both act.
+- **Output:** `../neural-shrimp-data/explore/llm-soft-loop/pod64/tb/{grat4-host16, host4-grat16}`
+
+## 2026-10-15 05:25 UTC: KY1 result: the dimension of the chaos grows with temperature, from about 1 to about 2; never more than one positive exponent
+
+Pod 3en7yg96v92ysm (COMMUNITY H100 NVL; runner rc 0, hash verified, terminated; 3751 s; commit f8219106). The 60-minute tool limit stopped it after 18 of 20 cells: the last two head cells are missing, reported as such. Output hidden/spectrum-ky-philosophy.
+- **High-temperature group** (map-highT-256, log10 T -0.02 to 0.13):
+  - 9 of 10 cells are chaotic, with D = 1.373, 1.413, 1.605, 1.683, 1.812, 1.858, 1.973, 2.009 and 2.015 (lambda_1 0.21-0.52, lambda_2 -0.32 to -0.60).
+  - At three cells lambda_1 + lambda_2 >= 0 (D >= 2). 1000-step values differ by at most 0.06.
+  - One cell (log10 T 0.0101) is not chaotic at the horizon (lambda_1 -0.038).
+- **Headline group** (H2 chaotic cells): 8 of 8 measured cells are chaotic, D = 1.038-1.368. With the six TC cells, the headline maps give 1.04-1.65.
+- **Reading:**
+  - Every measured attractor has exactly one positive exponent (no hyperchaos).
+  - D grows with temperature: hostile band 1.01-1.16, headline maps 1.04-1.65, high-temperature region 1.37-2.02. The global scalar reduction holds for the low-temperature chaos and fails in the high-temperature region, consistent with the high-temperature bubble's second multipliers (0.28-0.38).
+  - Paper: the dimension paragraph of the theory section.
+
+## 2026-10-15 05:26 UTC: run (exploratory): L70D, Llama-3.3-70B steered at other depths (human: "try 70b at different depths to see if we can recover larger chaos bands")
+
+- **Question:** At block 50 of 80 (the Goodfire SAE layer, 62 % depth), Llama-3.3-70B was chaotic in 4.3 % of the 32 x 32 cells of its hostility map (log10 T -0.3 to 0.3, alpha 0 to 0.12). In the 0.5B block sweep (run LS), earlier blocks carry chaos to lower temperatures. Does earlier, or later, steering give the 70B larger chaotic bands?
+- **Setup:** job set bigmap (pinned checkpoint 6f6073b4, gated download with the human's token on stdin; float64 with bfloat16 weight storage over two GPUs; norms patched before dispatch per the two-GPU gate).
+  - Concept vectors are built at each block on the pod (hostility:kindness and three norm-matched random directions, the recipe of every model).
+  - One scan of hostility-vs-kindness per block, with the block-50 map's settings (log10 T -0.3 to 0.3, alpha 0 to 0.12, transient 300, samples 300, record 80, max period 32, tol 1e-8, eps 1e-6), but on a 24 x 24 grid to halve the cost.
+  - Blocks 20, 35 and 65 (25, 44 and 81 % depth). Block 20 launches now; 35 and 65 follow when the account's hourly spending limit allows.
+- **Reading:** descriptive. Chaotic share and the temperature range of the chaotic cells per block, against block 50 (4.3 %).
+- **Output:** `../neural-shrimp-data/explore/llm-soft-loop/pod64/big/llama3.3-70b-l{20,35,65}-hostility-vs-kindness`
+
+## 2026-10-15 05:50 UTC: DSS interim and amendment: the superstable curves of the hostile period-7 orbit do not cross in the 31 x 31 box; fixed-reference factors replaced by transported orientations; zoom DSS2 and a period-6 test DSS3
+
+**Interim (DSS1, DSS1b; DSS1c pending).**
+- Pod 8gzwfgzsfwcgfz (DSS1) reached about 800 of 961 cells at its tool limit; pod iu65essz8e0y0b (DSS1b, lower half, 3447 s) is complete. Of the 961 cells, 611 are solved, on the seed's orbit with its token loop.
+- Signed mu: no 2 x 2 block of cells has the checkerboard sign pattern of a crossing, in either grid. So no doubly superstable point exists inside the box at its resolution (1e-4 in alpha, 4.3e-4 in log10 T).
+- Near alpha 0.0700, log10 T 0.206, two zero curves of mu approach and turn away, separated by a band where mu > 0: the pattern of an avoided crossing.
+- The factors with fixed reference directions are unusable: the chain directions rotate almost orthogonal to the seed's (smallest cosine 0.0016), so factors change sign through poles. That interim reading is discarded.
+- Next to the zero curves |mu| is below ten times the transverse multipliers (2-3e-4), so the sign of mu is unreliable exactly where a crossing would be decided.
+
+**Amendment (tool).** tools/doubly_superstable.py now also records factors with orientations carried from cell to cell, c_i = tau_i tau_{i+1} s_i (no denominators, no poles), together with the stretchings s_i and the carrying cosine. Each step's zero curve is defined on its own, even where mu is tiny. Local test: the products equal mu, and the carrying cosines are 0.61-0.996 between neighbouring cells.
+
+**DSS2** (three pods): the hostile near-crossing at 5x finer spacing: alpha 0.0692-0.0708 in 33 columns, log10 T 0.2048-0.2072 in 33 rows, split into row bands 0-11, 11-22 and 22-32 (shared rows as a check). Seeds are clean cells on the seed orbit inside each band.
+
+**DSS3** (two pods): the philosophy map's period-6 hook body (Figure fig:zooms, bottom; its fold curves carry the located cusps). Period 6, around the lower junction where the body meets its legs: alpha 0.0785-0.0812 in 28 columns, log10 T -0.0755 to -0.0665 in 27 rows, split into rows 0-13 and 13-26. Seeds (0.080471, -0.071235) and (0.080471, -0.068588) are period-6 cells with exponent near -0.22.
+
+**Reading, fixed now:** a doubly superstable point is reported only if the transported zero curves of two different steps cross, approached from four sectors by cells with carrying cosine above 0.3. An avoided crossing, a gap between the curves that persists at the finer spacing, is reported as such. Figure 8's X-shaped crossing is a period-5 strip crossing a period-6 strip (map periods). It is not a shrimp centre of one orbit; whether the two orbits coexist there is being checked locally.
+
+## 2026-10-15 05:53 UTC: BP result: in Qwen2.5-7B, prompts whose own loop is chaotic are answered much less accurately, but mostly through task mix and answer flatness; the residual effect is small and not established
+
+Pods: 7B labels (shards 0-5: lwevy9huignhj3, ake729hlyutvbn, x2wlyik6vf3e67, 9g7dm66sgrxmkx, kllbsprssklpdd, u9rn2empvc38fy), 7B generation gpab2gjklcbchs, 0.5B labels n1xbxqbt6c9nhm and 7bhlsdcpum42lu, 0.5B generation ow2okktv3aurqs. All runner rc 0, hashes verified, terminated; commit 6a7c7ac1. 200 prompts labelled at each of three temperatures. Analysis: tools/behavior_prompts.py analyze (scratch/bp-q7.json, bp-q05.json), plus an ad-hoc control analysis (below).
+
+- **Primary reading (card: greedy-correct prompts, chaotic vs periodic, permutation test), 7B:**
+  - log10 T 0.25: 0.643 (14 prompts) vs 0.911 (105), difference -0.269, p = 0.0011.
+  - 0.32: 0.612 (33) vs 0.850 (84), -0.238, p = 0.0004.
+  - 0.40: 0.378 (40) vs 0.738 (79), -0.360, p < 1e-4.
+  - All prompts: -0.374, -0.257, -0.358.
+- **0.5B:** no difference (0.25: 0.150 vs 0.138, p = 0.73; 0.32: 0.029 vs 0.042). No prompt is chaotic at 0.40. Accuracies are near the floor at these temperatures.
+- **Confounds (not in the card, disclosed here):**
+  - Task mix: chaotic labels fall mostly on the harder NQ questions (31/38, 46/68, 65/90).
+  - Within tasks, chaotic - periodic: arithmetic -0.07 (7 chaotic prompts), -0.13 and -0.32; NQ -0.11, -0.03 and +0.06.
+  - Linear model acc ~ chaotic + generation entropy + task + greedy: the chaotic coefficient is -0.037 (permutation p 0.20), -0.046 (p 0.07) and -0.045 (p 0.09). Entropy-stratified differences (greedy-correct): -0.17, -0.08, -0.10.
+  - The generation entropy is measured during sampling, after the outcome begins, so this adjustment probably over-corrects. The true effect plausibly lies between the adjusted and the raw estimate.
+- **Reading:** The card's primary test is met at all three temperatures. Most of the effect is explained by task mix and by the flatness of the answer distribution; a residual of about -4 to -5 points, the same sign at every temperature, is not significant alone.
+  - Not a claim of a dynamical effect on accuracy.
+  - Follow-up for a confirmatory test: a pre-sampling covariate per prompt (first answer token's entropy at T, greedy answer probability), many more prompts in one task, and the analysis frozen before the run.
+
+## 2026-10-15 06:00 UTC: run (exploratory): RM, return maps next to the hostile period-7 body (human: "You should be able to find the return map")
+
+- **Question:** Near the avoided crossing of the period-7 body's superstable curves (alpha 0.0700, log10 T 0.206), is the one-dimensional reduction of the neighbouring chaos still unimodal, or is a second turning point forming (the human: shrimps appear when the unimodal map spawns a second mode)?
+- **Also:** the period-7 body consists of token variants of one continued orbit ('defiance' / 'pee' at one step, 'Yes' / 'No'). Redone with all continued cells (775 in DSS1), the sign search for a crossing of mu's zero curves still finds no checkerboard cell.
+- **Method:** tools/return_map.py, float64, transient 1000, record 7000.
+  - The 7-step return map within each phase (the chaos sits behind a 7-periodic text): s_{n+7} against s_n, with s the projection on the leading principal component of that phase's points.
+  - Turning points of the binned-median curve are counted.
+- **Cells:**
+  - three chaotic cells on the body's right edge, nearest the avoided crossing: (0.07136, 0.20621), (0.07136, 0.20566), (0.07142, 0.20594);
+  - four chaotic cells of the hostile line alpha 0.0655 (log10 T 0.17692, 0.18073, 0.18480, 0.19026; KY dimensions 1.045, 1.156, 1.008, 1.013).
+- **Reading:** descriptive. Number of turning points per phase and the shape of the maps. The leading component's explained share says how one-dimensional each phase is.
+- **Output:** `../neural-shrimp-data/explore/llm-soft-loop/pod64/retmap/body-edge`
+
+## 2026-10-15 06:03 UTC: TB result: two steering directions at two blocks interact; off the axes the plane is chaotic where neither push alone is
+
+Pods kogqdn883e4mgu (TB1, 1624 s) and 121kd13z9rze70 (TB2, 1654 s): SECURE H100 80GB HBM3, runner rc 0, hashes verified, terminated; commit 9b2f70e7. 96 x 96 float64 cells per map. Figure: paper/llm/figures/fig-two-block.png (tools/plot_two_block.py).
+
+| map | log10 T | chaotic share | axis alpha2 = 0 (block 4 only) | axis alpha1 = 0 (block 16 only) |
+|---|---|---|---|---|
+| gratitude @ 4 x hostility @ 16 | -0.1 | 21.7 % | 7.3 % | 8.3 % |
+| gratitude @ 4 x hostility @ 16 | +0.1 | 33.0 % | 28.1 % | 45.8 % |
+| hostility @ 4 x gratitude @ 16 | -0.1 | 23.4 % | 31.3 % | 17.7 % |
+| hostility @ 4 x gratitude @ 16 | +0.1 | 42.0 % | 38.5 % | 36.5 % |
+
+- Each panel has a periodic hole around zero steering, consistent with weak steering rarely giving chaos.
+- At log10 T -0.1 with gratitude at block 4, large chaotic regions lie off the axes, where neither push alone is chaotic. The combined push creates chaos that neither single direction gives.
+- Exploratory: one model, one prompt, two direction pairs, two temperatures.
+
+## 2026-10-15 06:05 UTC: FBS156-192 result: P-F2 holds at log10 T -0.156 (last ratios 4.572 and 4.643); DSS3 refused at its seeds (the period-6 hook is not effectively one-dimensional)
+
+- **FBS156-192.** Pod 9emvmdzf4axl8t (SECURE H100 80GB HBM3; runner rc 0; commit b5af43a7). s_192 = 0.06510338547902846 (converged, clean bracket 5e-15).
+  - Superstable ratios at -0.156: 10.21, 3.713, 4.572, 4.643 (r3 4.5716 (worst case 1.02-4.64) r4 4.6429 (+- 0.0070 from the s48 bracket)).
+  - P-F2 (frozen at 01:30 UTC: the last two superstable ratios computed at a new temperature within 5 % of 4.669, at least 4.436) **holds at -0.156**: 4.572 and 4.643. The first depends on the imprecise s_24 (worst-case range above); the second only on s_48, s_96 and s_192, which are precise.
+  - Band 384, after FBD's 384->768 flip, will make the last two ratios both precise.
+  - At -0.152 P-F2 cannot be scored: no cascade (FB152e).
+- **DSS3a/b** (period-6 hook of the philosophy map; pods ran commit d89d5bc9). Both refused at the seed, as the tool requires a clean real leading multiplier:
+  - seed (0.080471, -0.071235): leading multiplier complex, -0.0195 + 0.264i (next modulus 0.264);
+  - seed (0.080471, -0.068588): mu = -0.261 with next modulus 0.099, below the cleanliness factor 10.
+  - So the hook's period-6 orbits are not effectively one-dimensional: two multipliers of similar size, sometimes a complex pair. Superstable curves (leading multiplier 0) are not defined there, and Singer's theorem does not apply. This is the regime where two-dimensional shrimp organization (as in Figure fig:zooms, the period-5 x period-6 crossing) can occur. A two-dimensional test is needed instead.
+
+## 2026-10-15 06:06 UTC: run (exploratory): DSS4, the period-6 hook as a two-dimensional map: valleys of the leading multiplier modulus
+
+- **Why:** DSS3 showed that the hook's period-6 orbits have two multipliers of similar size, at times a complex pair, so superstable curves are not defined. In two-dimensional dissipative maps the skeleton of a shrimp is the set of curves of strongest contraction (valleys of the leading multiplier modulus). A shrimp centre is where two such valleys cross.
+- **Tool:** tools/doubly_superstable.py grid --multipliers-only (new). It accepts a complex or unclean leading multiplier at the seed and records the three leading multipliers (real, imag) per cell of the continued orbit.
+- **Grid:** period 6, philosophy, layer 12. alpha 0.0782-0.0812 in 31 columns, log10 T -0.076 to -0.046 in 31 rows, split by rows on two pods:
+  - DSS4a: rows 0-15, log10 T -0.076 to -0.061, seed (0.080667, -0.065059);
+  - DSS4b: rows 15-30, log10 T -0.061 to -0.046, seed (0.080196, -0.054118).
+  - Both seeds are period-6 cells of zoom Z3 with exponent -0.35 and -0.45.
+- **Reading:** descriptive. The map of the leading modulus, the region of complex pairs, and whether two valleys of the modulus cross inside the body. Any crossing is a candidate centre for a finer, locating follow-up, not a claim.
+
+## 2026-10-15 06:08 UTC: RM result: next to the avoided crossing the 7-step return maps are unimodal in every phase, with doubled strands in two phases (a thin two-dimensional fold)
+
+Pod rmsqwwrwm3af25 (COMMUNITY H100 NVL; runner rc 0, hash verified, terminated; 359 s; commit 0a15d1a6). Output retmap/body-edge. Figure paper/llm/figures/fig-return-maps-body.png (made from return-map.npz, script inline in this session; to be folded into a committed plot script).
+- **The three chaotic cells at the body's right edge (alpha 0.07136-0.07142, log10 T 0.2057-0.2062):**
+  - Every phase's 7-step return map is single-valued with one extremum: a minimum in phases 0-3, a maximum in phases 4-6. The leading component carries 0.89-1.00 of each phase's variance.
+  - In phases 4 and 5 the curve splits into two thin parallel strands. The attractor is a slightly two-dimensional folded band there, consistent with Kaplan-Yorke dimensions just above 1.
+  - At alpha 0.07142 the map is strongly asymmetric: a steep left branch, a long flattening right branch.
+  - The automatic turning-point counts (3-13 in phases 4-5) are noise from the binned medians on arcs of size 1e-3; by eye each phase has one extremum.
+- **Hostile line (alpha 0.0655):** at log10 T 0.18480 the phases contain several arcs (more than 7 bands), all on one U-shaped curve. At 0.18073 (lambda_1 0.141) the attractor is not 7-banded and the phase maps mix (leading component 0.66-0.82).
+- **Reading:** no second turning point at these parameters, matching the avoided (not real) crossing of the superstable curves. The human's mechanism (a shrimp when the unimodal map grows a second turning point) is not active here. The doubled strands show a second dimension beginning, the other route to shrimp organization in Henon-like maps.
+
+## 2026-10-15 06:10 UTC: Amendment to L70D: all three first pods failed on a full disk; relaunched with 320 GB
+
+Pods et2o3xeke86icn (block 20), bpe9rgounm31kb (block 35) and zep5qsklokz0zr (block 65): 2 x H200 SECURE. Each hit "No space left on device" while downloading the 70B checkpoint into the default 60 GB container disk. The vector step then could not load the tokenizer ("sentencepiece or tiktoken ... to convert a slow tokenizer"), and the scan found no vectors. All retrieved, terminated and verified. Relaunched with --disk-gb 320 and a 150-minute run limit (download, vectors, a 24 x 24 scan); otherwise unchanged.

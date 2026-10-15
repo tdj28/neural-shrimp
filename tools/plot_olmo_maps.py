@@ -22,21 +22,22 @@ def main():
     import matplotlib.pyplot as plt
 
     import explore_llm_attractors as ela
+    import period_colors as pc
 
+    scans = [np.load(ela.DATA / "explore" / folder / "scan.npz") for _, folder in MAPS]
     fig, axes = plt.subplots(2, 2, figsize=(10.5, 7.6))
-    for row, (concept, folder) in enumerate(MAPS):
-        z = np.load(ela.DATA / "explore" / folder / "scan.npz")
+    # one colour per period, the same in both rows; rare periods share an "other" block if the labels would not fit
+    cats = pc.categorize([z["period"] for z in scans], max_blocks=pc.blocks_that_fit(axes[0, 1]))
+    for row, ((concept, folder), z) in enumerate(zip(MAPS, scans)):
         lt, al, L, P = z["log10_temperature"], z["alpha"], z["lyapunov"], z["period"]
         ext = [al[0], al[-1], lt[0], lt[-1]]
         print(concept, "chaotic share", round(float((L > 1e-3).mean()), 4), "cells", L.size)
         im = axes[row, 0].imshow(np.clip(L, -0.5, 0.5), origin="lower", extent=ext, aspect="auto", cmap="RdBu_r",
                                  vmin=-0.5, vmax=0.5, interpolation="nearest")
         fig.colorbar(im, ax=axes[row, 0], label="largest Lyapunov exponent (clipped)")
-        cmap = plt.get_cmap("tab20").copy()
-        cmap.set_bad("white")
-        im = axes[row, 1].imshow(np.where(P > 0, P, np.nan), origin="lower", extent=ext, aspect="auto", cmap=cmap,
-                                 vmin=0.5, vmax=40.5, interpolation="nearest")
-        fig.colorbar(im, ax=axes[row, 1], label="period")
+        im = axes[row, 1].imshow(cats.index(P), origin="lower", extent=ext, aspect="auto", cmap=cats.cmap,
+                                 norm=cats.norm, interpolation="nearest")
+        cats.colorbar(im, ax=axes[row, 1], label="period")
         for ax in axes[row]:
             ax.set_xlabel(f"steering along '{concept}'")
             ax.set_ylabel("log10 temperature")

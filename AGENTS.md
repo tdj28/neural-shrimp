@@ -105,6 +105,11 @@ records an error that actually occurred.
   per step, so a float32 Newton stalled near 1e-5 and a period-8 orbit was
   read as period 16. Keep float32 detection and Newton tolerances above
   the measured error, and verify orbits in float64.
+- **Patch numerics before a model is dispatched over devices.** accelerate's device hooks (layers spread over GPUs,
+  CPU offload) keep the forward a module had at dispatch, so class patches applied after loading are silently
+  bypassed: every two-GPU run up to 14 October 2026 computed the final RMSNorm in float32 (its fixed points wandered by
+  1e-8, against 1e-15 on one GPU). `keep_float64_norms` now rebinds hooked modules and refuses stale ones. Before
+  trusting small-offset exponents of a split model, compare its fixed-point wander with a single-device run.
 - **Measure derivative precision on the composed map, not one step.**
   float32 one-step JVPs of the soft-token map were accurate to 5e-5, but
   the 8-step monodromy of the P8 orbit was off by 3 % (critical multiplier
@@ -117,3 +122,9 @@ records an error that actually occurred.
   are not accurate. An iterative solver below the precision floor of its
   operator never converges and silently spends its whole budget: record
   solver counts per point (`jvps`, `gmres_unconverged`).
+- **Round bounds up; quote range ends at their true extremes.** A bound ("within", "at most", "never exceeds") must
+  hold for every value it covers, so round the largest gap up (0.0207 as 0.021, not 0.02). The ends of a stated range
+  are the actual extremes at the quoted precision (a smallest rate of 0.7746 is 0.77, not 0.78; ratios up to 5.50 run
+  "to 5.5", not "to 5"). Say what each covers: twins, cells or temperatures, per twin or per cell. On 14 October
+  2026, an external check and the sweep after it found nine bounds and ranges in the LLM paper that the data
+  exceeded. Compute each bound from the raw file, never from a rounded figure in the log.

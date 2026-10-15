@@ -84,6 +84,7 @@ def test_hybrid_cache_restore(models):
     loop.sm = types.SimpleNamespace(steer=None)
     loop.prefix_ids = torch.tensor([[1, 5, 9, 13, 17, 21, 25, 29, 33, 37]])
     loop.L0, loop.K, loop.hybrid, loop._saved = loop.prefix_ids.shape[1], 1, True, None
+    loop.prefix_batch = None                    # one prefix pass (single device)
     X0 = loop.prepare(np.zeros((3, 64)))
     rng = np.random.default_rng(0)
     X = X0 + torch.as_tensor(rng.normal(size=X0.shape) * 0.05)

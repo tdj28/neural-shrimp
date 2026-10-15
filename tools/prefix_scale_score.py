@@ -82,20 +82,29 @@ def main():
     matplotlib.use("Agg")
     import matplotlib.pyplot as plt
 
-    fig, (ax, bx) = plt.subplots(1, 2, figsize=(10, 3.8))
-    for k, (m, colour, label) in enumerate((("qwen7b", "tab:red", "Qwen2.5-7B"), ("qwen14b", "tab:purple", "Qwen2.5-14B"))):
+    fig, (ax, bx) = plt.subplots(1, 2, figsize=(11, 4.0))
+    styles = (("qwen7b", "tab:red", "Qwen2.5-7B", -0.19), ("qwen14b", "tab:purple", "Qwen2.5-14B", 0.19))
+    for m, colour, label, dx in styles:
         xs = [i for i in range(10) if table[m][i] is not None]
-        ax.bar([x + (k - 0.5) * 0.38 for x in xs], [table[m][i]["C1"] + table[m][i]["C2"] for i in xs], 0.38,
-               color=colour, label=label)
-        bx.plot(xs, [table[m][i]["M"] for i in xs], "o", color=colour, label=label)
+        ax.bar([x + dx for x in xs], [table[m][i]["C1"] for i in xs], 0.38, color=colour, label=label)
+        for i in xs:
+            e = table[m][i]
+            lo, hi = e["stage2_log10T"]
+            bx.add_patch(plt.Rectangle((i + dx - 0.17, lo), 0.34, hi - lo, color=colour, alpha=0.18, lw=0))
+            pts = e["chaotic_log10T"]
+            bx.plot([i + dx] * len(pts), pts, "_", color=colour, ms=9, mew=1.6)
     for a in (ax, bx):
-        a.axvspan(-0.5, 1.5, color="0.92", zorder=0)
+        a.axvspan(-0.5, 1.5, color="0.93", zorder=0)
         a.set_xticks(range(10))
+        a.set_xlim(-0.5, 9.5)
         a.set_xlabel("prefix (grey: development, 0-1; held out: 2-9)")
-    ax.set_ylabel("chaotic temperatures (stage 1 + stage 2)")
-    bx.axhline(0, color="0.6", lw=0.6)
-    bx.set_ylabel("largest exponent (min over the two offsets)")
-    ax.legend(fontsize=8, frameon=False)
+    ax.set_ylabel("chaotic temperatures in stage 1 (of 48)")
+    ax.legend(fontsize=8, frameon=False, loc="upper left")
+    bx.set_ylabel("log10 T of the chaotic temperatures")
+    bx.axhline(0.3, color="0.5", lw=0.7, ls="--")
+    bx.text(9.45, 0.31, "end of the fixed window", fontsize=7, ha="right", va="bottom", color="0.4")
+    bx.set_title("dashes: chaotic temperatures; shading: entropy transition (stage-2 interval)",
+                 fontsize=8)
     sc = result["score"]
     fig.suptitle(f"Prompt-blocked size test (frozen): PS1 {sc['PS1']} ({sc['PS1_successes']}/8), "
                  f"PS2 {sc['PS2']} ({sc['PS2_successes']}/8)", fontsize=10)

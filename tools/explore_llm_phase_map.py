@@ -93,6 +93,25 @@ class SteeredModel:
         self.layer = int(layer)
         self.steer = None                                  # tensor (batch, 1, d) or None
         self.model.model.layers[self.layer].register_forward_hook(self._hook)
+        self.steer_extra = {}                              # further steering blocks: layer -> tensor (batch, 1, d)
+        self._extra_hooks = {}
+
+    def add_steer_layer(self, layer):
+        """Register an additive steering hook on another decoder layer; it adds steer_extra[layer] when set (two-block
+        steering, run TB). Without entries in steer_extra the model is unchanged."""
+        layer = int(layer)
+        if layer == self.layer or layer in self._extra_hooks:
+            raise ValueError(f"layer {layer} already steered")
+
+        def hook(module, inputs, output, layer=layer):
+            s = self.steer_extra.get(layer)
+            if s is None:
+                return output
+            if isinstance(output, tuple):
+                return (output[0] + s.to(output[0]),) + tuple(output[1:])
+            return output + s.to(output)
+
+        self._extra_hooks[layer] = self.model.model.layers[layer].register_forward_hook(hook)
 
     def _hook(self, module, inputs, output):
         if self.steer is None:

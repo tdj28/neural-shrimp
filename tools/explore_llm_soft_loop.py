@@ -57,6 +57,8 @@ class SoftLoop:
         self.K = int(window)
         self.cache = None
         self.steer_rows = None
+        self.extra = None              # (layer, per-cell rows (n, d)): a second steering block (run TB), or None
+        self.extra_rows = None
         # hybrid models (linear-attention layers with recurrent states, e.g. Qwen3.5): the prefix state cannot be
         # cropped back after a step, so it is saved after the prefix pass and restored after every step
         layer_types = getattr(self.model.config.get_text_config(decoder=True), "layer_types", None) or []
@@ -70,6 +72,13 @@ class SoftLoop:
         torch = self.torch
         B = len(steer_rows)
         self.steer_rows = torch.as_tensor(np.asarray(steer_rows), dtype=self.dtype, device=self.device)[:, None, :]
+        self.extra_rows = None
+        if self.extra is not None:     # per-cell rows of the second block, repeated like the batch's cells
+            rows2 = np.asarray(self.extra[1])
+            if B % len(rows2):
+                raise ValueError(f"{B} rows are not a multiple of {len(rows2)} second-block cells")
+            self.extra_rows = torch.as_tensor(np.concatenate([rows2] * (B // len(rows2))), dtype=self.dtype,
+                                              device=self.device)[:, None, :]
         self.cache = DynamicCache(config=self.model.config) if self.hybrid else DynamicCache()
         sub = self.prefix_batch if (self.prefix_batch and not self.hybrid and B > self.prefix_batch) else B
         parts = []
@@ -78,6 +87,8 @@ class SoftLoop:
                 n = min(sub, B - s0)
                 cache = self.cache if sub == B else DynamicCache()
                 self.sm.steer = self.steer_rows[s0:s0 + n]
+                if self.extra_rows is not None:
+                    self.sm.steer_extra = {self.extra[0]: self.extra_rows[s0:s0 + n]}
                 with torch.no_grad():
                     # logits_to_keep=1: the prefix logits are not needed (all of them cost B x L0 x vocab floats)
                     self.model(input_ids=self.prefix_ids.repeat(n, 1), past_key_values=cache, use_cache=True,
@@ -85,6 +96,7 @@ class SoftLoop:
                 parts.append(cache)
         finally:
             self.sm.steer = None
+            self.sm.steer_extra = {}
         if sub < B:                       # join the parts layer by layer, freeing each part's tensors as it goes
             for li in range(len(parts[0].layers)):
                 k = torch.cat([c.layers[li].keys for c in parts])
@@ -107,12 +119,15 @@ class SoftLoop:
     def logits(self, X):
         torch = self.torch
         self.sm.steer = self.steer_rows
+        if self.extra_rows is not None:
+            self.sm.steer_extra = {self.extra[0]: self.extra_rows}
         try:
             with torch.no_grad():
                 z = self.model(inputs_embeds=X.to(self.dtype), past_key_values=self.cache, use_cache=True,
                                logits_to_keep=1).logits[:, -1, :].to(self.device, self.state_dtype)
         finally:
             self.sm.steer = None
+            self.sm.steer_extra = {}
             self.reset_cache()
         return z
 
@@ -138,6 +153,67 @@ class SoftLoop:
         z = self.logits(X)
         p = torch.softmax(z / torch.as_tensor(temps, dtype=self.state_dtype, device=self.device)[:, None], dim=-1)
         return torch.cat([X[:, 1:, :], (p @ self.E)[:, None, :]], dim=1), p
+
+    def step_jvp(self, X, temps, V):
+        """One step with exact tangents: returns the step of X, p, and the Jacobian-vector products for the tangent
+        rows V (B, K, d), by forward-mode AD through the model (math attention kernel). The model runs on a shallow
+        copy of the prefix cache, so the stored prefix tensors are never modified (as jvp_rows of soft_family).
+        Dual tensors (torch.autograd.forward_ad) rather than torch.func.jvp: accelerate's device hooks need tensors
+        with storage when they load offloaded weights, which functorch's wrapped tensors lack."""
+        import copy
+
+        import torch.autograd.forward_ad as fwAD
+        from torch.nn.attention import SDPBackend, sdpa_kernel
+
+        torch = self.torch
+        if self.hybrid:
+            raise SystemExit("step_jvp: hybrid (linear-attention) caches are not supported")
+        T = torch.as_tensor(temps, dtype=self.state_dtype, device=self.device)[:, None]
+        cache = copy.copy(self.cache)
+        cache.layers = [copy.copy(layer) for layer in self.cache.layers]
+
+        def new_embedding(inp):
+            self.sm.steer = self.steer_rows
+            try:
+                z = self.model(inputs_embeds=inp.to(self.dtype), past_key_values=cache, use_cache=True,
+                               logits_to_keep=1).logits[:, -1, :].to(self.device, self.state_dtype)
+            finally:
+                self.sm.steer = None
+            p = torch.softmax(z / T, dim=-1)
+            return p @ self.E, p
+
+        with torch.no_grad(), sdpa_kernel(SDPBackend.MATH), fwAD.dual_level():
+            y, p = new_embedding(fwAD.make_dual(X, V))
+            y, jy = fwAD.unpack_dual(y)
+            p = fwAD.unpack_dual(p).primal
+        if jy is None:
+            raise SystemExit("step_jvp: the tangent was lost in the forward pass")
+        return (torch.cat([X[:, 1:, :], y[:, None, :]], dim=1), p,
+                torch.cat([V[:, 1:, :], jy[:, None, :]], dim=1))
+
+
+def solve_beta(z, targets, iters=60):
+    """Inverse temperatures beta (B,) with entropy H(softmax(beta z)) = targets (B,) nats, for logits z (B, V): Newton
+    in u = log beta, safeguarded by bisection (H decreases strictly in beta when the logits are not all equal;
+    dH/du = -beta^2 Var_p(z)). A fixed number of iterations, so the solution is one deterministic function of z."""
+    torch = __import__("torch")
+    H = torch.as_tensor(targets, dtype=z.dtype, device=z.device)
+    lo = torch.full_like(H, -12.0)                 # u bracket: beta from 6e-6 to 1.6e5
+    hi = torch.full_like(H, 12.0)
+    u = torch.zeros_like(H)
+    for _ in range(iters):
+        b = u.exp()
+        p = torch.softmax(b[:, None] * z, dim=-1)
+        logp = torch.log_softmax(b[:, None] * z, dim=-1)
+        h = -(p * logp).sum(-1)
+        m = (p * z).sum(-1)
+        var = (p * (z - m[:, None]) ** 2).sum(-1)
+        hi = torch.where(h < H, u, hi)              # entropy too low: beta too large
+        lo = torch.where(h >= H, u, lo)
+        step = (h - H) / torch.clamp(b * b * var, min=1e-300)
+        nxt = u + step
+        u = torch.where((nxt > lo) & (nxt < hi), nxt, 0.5 * (lo + hi))
+    return u.exp()
 
 
 class SoftOrbit:
@@ -846,10 +922,13 @@ def figure(log_t, alphas, lyap, period, entropy, path, args):
                              shading="auto")
     axes[0].set_title("largest Lyapunov exponent per step (clipped)")
     fig.colorbar(im0, ax=axes[0])
-    im1 = axes[1].pcolormesh(alphas, log_t, np.where(period > 0, period, np.nan), cmap="tab20", vmin=0.5,
-                             vmax=20.5, shading="auto")
+    if (period > 0).any():                                  # one colour and one colour-bar block per period
+        import period_colors as pc
+
+        cats = pc.categorize(period, max_blocks=pc.blocks_that_fit(axes[1]))
+        im1 = axes[1].pcolormesh(alphas, log_t, cats.index(period), cmap=cats.cmap, norm=cats.norm, shading="auto")
+        cats.colorbar(im1, ax=axes[1])
     axes[1].set_title("period of the attractor (white: none up to the maximum)")
-    fig.colorbar(im1, ax=axes[1])
     im2 = axes[2].pcolormesh(alphas, log_t, entropy, cmap="viridis", shading="auto")
     axes[2].set_title("next-token entropy at the last step (nats)")
     fig.colorbar(im2, ax=axes[2])
@@ -859,6 +938,14 @@ def figure(log_t, alphas, lyap, period, entropy, path, args):
     fig.suptitle(f"soft-token decoding, {ela.MODELS[args.model]}, window {args.window}, layer {args.layer}")
     fig.tight_layout()
     fig.savefig(path, dpi=110)
+
+
+def replot(args):
+    """Redraw a finished scan's overview figure from scan.npz and the arguments saved in scan.json."""
+    src = DATA / "explore" / args.scan
+    z = np.load(src / "scan.npz")
+    run = argparse.Namespace(**json.loads((src / "scan.json").read_text())["args"])
+    figure(z["log10_temperature"], z["alpha"], z["lyapunov"], z["period"], z["entropy"], args.out, run)
 
 
 def curve_points(src):
@@ -875,22 +962,21 @@ def curve_points(src):
 
 
 def render(args):
-    """Period map of a finished scan with chaos marked: discrete colours for periods 1..max, black where the
-    largest Lyapunov exponent exceeds --chaos-level, grey where no period was found below it."""
+    """Period map of a finished scan with chaos marked: one colour and one legend entry per period drawn (periods
+    above --max-period, if given, as one 'other' entry), black where the largest Lyapunov exponent exceeds
+    --chaos-level, grey where no period was found below it."""
     import matplotlib
     matplotlib.use("Agg")
     import matplotlib.pyplot as plt
-    from matplotlib.colors import ListedColormap
+
+    import period_colors as pc
 
     src = DATA / "explore" / args.scan
     d = np.load(src / "scan.npz")
     lt, al, per, ly = d["log10_temperature"], d["alpha"], d["period"], d["lyapunov"]
-    top = int(args.max_period)
-    base = plt.get_cmap("tab20")(np.arange(20))
-    colours = np.concatenate([np.delete(base, [14, 15], axis=0), plt.get_cmap("tab20b")(np.arange(20))])[:top]
-    # (tab20's two greys are dropped: grey marks 'no period')
     img = np.full(per.shape + (4,), 0.0)
-    family_handles = []
+    family_handles, period_handles = [], []
+    none_colour = (0.8, 0.8, 0.8, 1.0) if args.families else (0.75, 0.75, 0.75, 1.0)   # 'no period, not chaotic'
     if args.style == "lyapunov":                          # as in the shrimp literature: chaos in colour by the
         # largest exponent, periodic regions in grey by how contracting they are (superstable curves dark)
         from matplotlib.colors import Normalize
@@ -908,33 +994,49 @@ def render(args):
         info = {f["family"]: f for f in json.loads((src / "scan.json").read_text())["families"]}
         ids, counts = np.unique(fam[fam >= 0], return_counts=True)
         chosen = ids[np.argsort(-counts)][: args.families]
-        palette = plt.get_cmap("tab20")(np.arange(20))
-        img[(per > 0)] = (0.55, 0.55, 0.62, 1.0)          # other periodic attractors
+        # tab20 without its greys, then tab20b (grey marks 'no period' and the other attractors)
+        palette = np.concatenate([np.delete(plt.get_cmap("tab20")(np.arange(20)), [14, 15], axis=0),
+                                  plt.get_cmap("tab20b")(np.arange(20))])
+        if len(chosen) > len(palette):
+            raise SystemExit(f"--families {args.families}: only {len(palette)} distinct colours")
+        img[(per > 0)] = pc.OTHER_COLOUR                    # other periodic attractors
         for k, f in enumerate(chosen):
-            colour = palette[k % 20]
+            colour = palette[k]
             img[fam == f] = colour
             text = "".join(info[int(f)]["tokens"]).replace("\n", "\\n")[:28] if int(f) in info else "?"
             family_handles.append(matplotlib.patches.Patch(color=colour,
                                   label=f"P{info[int(f)]['period'] if int(f) in info else '?'} {text!r}"))
-        img[per == 0] = (0.8, 0.8, 0.8, 1.0)
+        if ((per > 0) & ~np.isin(fam, chosen) & ~(ly > args.chaos_level)).any():
+            family_handles.append(matplotlib.patches.Patch(color=pc.OTHER_COLOUR, label="other periodic attractors"))
+        img[per == 0] = none_colour
     else:
-        for q in range(1, top + 1):
-            img[per == q] = colours[(q - 1) % len(colours)]
-        img[(per == 0) | (per > top)] = (0.75, 0.75, 0.75, 1.0)
+        drawn = (per > 0) & ~(ly > args.chaos_level)       # chaotic cells are drawn black below
+        own = drawn & (per <= args.max_period) if args.max_period else drawn
+        if own.any():
+            cats = pc.categorize(np.where(own, per, 0))
+            img[own] = cats.rgba(per[own])
+            period_handles = cats.handles()
+        if (drawn & ~own).any():                            # longer than --max-period: one labelled entry
+            merged = bool(period_handles) and period_handles[-1].get_label() == "other"   # same colour: one entry
+            if merged:
+                period_handles.pop()
+            img[drawn & ~own] = pc.OTHER_COLOUR
+            period_handles.append(matplotlib.patches.Patch(
+                color=pc.OTHER_COLOUR, label="other" if merged else f"other (> {args.max_period})"))
+        img[per <= 0] = none_colour
     if args.style != "lyapunov":
         img[ly > args.chaos_level] = (0.0, 0.0, 0.0, 1.0)
     fig, ax = plt.subplots(figsize=(7.5, 8))
     ax.imshow(img, origin="lower", aspect="auto", interpolation="nearest",
               extent=(al[0], al[-1], lt[0], lt[-1]))
-    handles = family_handles or [matplotlib.patches.Patch(color=colours[(q - 1) % len(colours)], label=str(q))
-                                 for q in range(1, top + 1) if np.any(per == q)]
+    handles = family_handles or period_handles
     if args.style == "lyapunov":
         handles = [matplotlib.patches.Patch(color=plt.get_cmap("plasma")(0.8), label="chaotic (largest exponent)"),
                    matplotlib.patches.Patch(color=(0.2, 0.2, 0.2), label="periodic, strongly contracting"),
                    matplotlib.patches.Patch(color=(0.9, 0.9, 0.9), label="periodic, weakly contracting")]
     if args.style != "lyapunov":
         handles += [matplotlib.patches.Patch(color="black", label=f"Lyapunov > {args.chaos_level}"),
-                    matplotlib.patches.Patch(color=(0.75, 0.75, 0.75), label="no period, not chaotic")]
+                    matplotlib.patches.Patch(color=none_colour, label="no period, not chaotic")]
     # fold: cyan, long dashes; flip: magenta, short dashes (white would read as a weakly contracting periodic cell)
     styles = {"fold": dict(color="#00e5ff", lw=1.8, ls=(0, (7, 3))), "flip": dict(color="magenta", lw=1.6, ls=(0, (2, 2)))}
     for path in args.curves or []:                         # traced bifurcation curves over the brute-force map
@@ -1433,7 +1535,8 @@ def main():
     tl.add_argument("--out", required=True)
     rd = sub.add_parser("render")
     rd.add_argument("--scan", required=True, help="explore-relative directory of a finished scan")
-    rd.add_argument("--max-period", type=int, default=16)
+    rd.add_argument("--max-period", type=int, default=None,
+                    help="periods above this share one 'other' legend entry (default: every period its own colour)")
     rd.add_argument("--chaos-level", type=float, default=0.005)
     rd.add_argument("--curves", nargs="*", help="explore-relative directories of curve runs to draw on the map")
     rd.add_argument("--name", default="", help="output file name inside the scan directory (default render.png)")
@@ -1445,6 +1548,9 @@ def main():
                          "(superstable curves dark), as in the shrimp literature")
     rd.add_argument("--families", type=int, default=0,
                     help="colour the N most common attractor identities (token loops) instead of periods")
+    rp = sub.add_parser("replot", help="redraw a finished scan's overview figure (scan.png) from its saved files")
+    rp.add_argument("--scan", required=True, help="explore-relative directory of a finished scan")
+    rp.add_argument("--out", required=True, help="output image path")
     ro = sub.add_parser("readout")
     ro.add_argument("--run", required=True, help="explore-relative orbit, branch, tline or curve run directory")
     ro.add_argument("--index", type=int, default=0, help="point of a branch/tline/curve run")
@@ -1611,7 +1717,8 @@ def main():
     args = parser.parse_args()
     {"scan": scan, "orbit": orbit, "tline": tline, "branch": branch, "curve": curve, "precision": precision,
      "walk": walk, "normal-form": normal_form, "passage": passage, "stitch": stitch,
-     "render": render, "windows": windows, "branch-plot": branch_plot, "readout": readout}[args.command](args)
+     "render": render, "windows": windows, "branch-plot": branch_plot, "readout": readout,
+     "replot": replot}[args.command](args)
 
 
 if __name__ == "__main__":

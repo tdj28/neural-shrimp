@@ -1,0 +1,111 @@
+% Schematic atlas of the bifurcation objects in the (alpha, log10 T) plane. Not data: positions and shapes are
+% illustrative. Preamble: \usepackage{tikz} and \usetikzlibrary{arrows.meta,calc}.
+\begin{figure}[H]
+\centering
+\definecolor{atlasaccent}{RGB}{204,85,0}
+\begin{tikzpicture}[
+    font=\footnotesize,
+    >={Stealth[length=2mm,width=1.5mm]},
+    fold/.style={black, line width=0.9pt},
+    flip/.style={black, line width=0.9pt, dash pattern=on 3.2pt off 1.8pt},
+    sstab/.style={black!75, line width=1pt, line cap=round, dash pattern=on 0pt off 2.1pt},
+    window/.style={fill=black!10},
+    lead/.style={black!45, thin},
+    cusp/.pic={\fill[atlasaccent, draw=white, line width=0.4pt] (0,0) circle (2.1pt);},
+    resonance/.pic={\fill[atlasaccent, draw=white, line width=0.4pt] (-2pt,-2pt) rectangle (2pt,2pt);},
+    foldflip/.pic={\fill[atlasaccent, draw=white, line width=0.4pt] (90:2.9pt) -- (210:2.9pt) -- (330:2.9pt) -- cycle;},
+    dss/.pic={\fill[atlasaccent, draw=white, line width=0.4pt] (90:3.6pt) -- (126:1.45pt) -- (162:3.6pt) -- (198:1.45pt)
+      -- (234:3.6pt) -- (270:1.45pt) -- (306:3.6pt) -- (342:1.45pt) -- (18:3.6pt) -- (54:1.45pt) -- cycle;},
+  ]
+  % axes (schematic: no ticks)
+  \draw[->, black!70] (0,0) -- (12.9,0) node[below left, inner sep=2pt, text=black] {steering strength $\alpha$};
+  \draw[->, black!70] (0,0) -- (0,6.45) node[above, inner sep=2pt, text=black] {$\log_{10}T$};
+
+  % ---- two fold curves meeting in a cusp; three orbits coexist between them
+  \coordinate (C) at (1.35,4.9);
+  \fill[black!17] (C) .. controls (2.1,4.92) and (2.8,5.15) .. (4.0,5.85) -- (4.0,3.95)
+    .. controls (2.8,4.65) and (2.1,4.88) .. (C) -- cycle;
+  \draw[fold] (C) .. controls (2.1,4.92) and (2.8,5.15) .. (4.0,5.85);
+  \draw[fold] (C) .. controls (2.1,4.88) and (2.8,4.65) .. (4.0,3.95);
+  \pic at (C) {cusp};
+  \node[anchor=east, inner sep=3pt] at (C) {cusp};
+  \node[align=center, font=\scriptsize, inner sep=0pt] at (3.42,4.9) {three\\ orbits};
+
+  % ---- a window between a fold curve and a flip curve, with a superstable curve inside;
+  %      the flip curve continues and turns twice, smoothly
+  \fill[window] (2.3,3.45) .. controls (3.7,3.25) and (4.9,2.65) .. (6.25,2.0)
+    -- (6.25,1.54) .. controls (4.9,2.19) and (3.7,2.79) .. (2.3,2.99) -- cycle;
+  \draw[fold] (2.3,3.45) .. controls (3.7,3.25) and (4.9,2.65) .. (6.25,2.0);
+  \draw[sstab] (2.3,3.22) .. controls (3.7,3.02) and (4.9,2.42) .. (6.25,1.77);
+  \draw[flip] (2.3,2.99) .. controls (3.7,2.79) and (4.9,2.19) .. (6.25,1.54)
+    .. controls (6.75,1.30) and (6.95,1.12) .. (7.1,0.88)
+    to[out=-60, in=-60, looseness=1.7] (7.36,1.03)
+    -- (7.06,1.55)
+    to[out=120, in=120, looseness=1.7] (7.32,1.70)
+    -- (8.12,0.31);
+  \draw[lead] (7.08,0.80) -- (5.95,0.62);
+  \node[anchor=east, align=right, inner sep=1.5pt] at (5.95,0.62) {smooth turns of a flip curve\\(not codimension two)};
+
+  % ---- a fold curve carrying a 1:1 resonance and a fold-flip point (a flip curve touching it)
+  \draw[fold] (9.6,0.35) -- (11.7,2.75);
+  \draw[flip, domain=-1.05:0.9, samples=40, smooth, variable=\q]
+    plot ({11.07+0.658*\q-0.752*0.45*\q*\q}, {2.03+0.752*\q+0.658*0.45*\q*\q});
+  \pic at (10.062,0.878) {resonance};
+  \node[anchor=west, align=left, inner sep=1pt] at (10.28,0.80) {1:1 resonance\\ $\mu_1=\mu_2=1$};
+  \pic at (11.07,2.03) {foldflip};
+  \node[anchor=west, align=left, inner sep=1pt] at (11.28,1.88) {fold-flip\\ $\mu_1=1$, $\mu_2=-1$};
+
+  % ---- two superstable curves crossing at a doubly superstable point; near it the window is a cross
+  %      whose boundaries alternate between fold and flip curves (multiplier ~ s t)
+  \def\Sx{8.4}\def\Sy{4.3}
+  \def\ax{0.8829}\def\ay{0.4695}\def\bx{0.6691}\def\by{-0.7431}
+  \def\hr{0.3162}\def\tmax{1.653}\def\legL{1.65}
+  % branches (s,t) = r(e^u, e^-u) (fold), r(e^u, -e^-u) (flip), -r(e^u, e^-u) (fold), r(-e^u, e^-u) (flip),
+  % each traversed so that the four join across the ends of the legs
+  \fill[window]
+    plot[domain=-\tmax:\tmax, samples=40, variable=\q]
+      ({\Sx+\hr*(exp(\q)*\ax+exp(-\q)*\bx)}, {\Sy+\hr*(exp(\q)*\ay+exp(-\q)*\by)})
+    -- plot[domain=\tmax:-\tmax, samples=40, variable=\q]
+      ({\Sx+\hr*(exp(\q)*\ax-exp(-\q)*\bx)}, {\Sy+\hr*(exp(\q)*\ay-exp(-\q)*\by)})
+    -- plot[domain=-\tmax:\tmax, samples=40, variable=\q]
+      ({\Sx-\hr*(exp(\q)*\ax+exp(-\q)*\bx)}, {\Sy-\hr*(exp(\q)*\ay+exp(-\q)*\by)})
+    -- plot[domain=\tmax:-\tmax, samples=40, variable=\q]
+      ({\Sx+\hr*(-exp(\q)*\ax+exp(-\q)*\bx)}, {\Sy+\hr*(-exp(\q)*\ay+exp(-\q)*\by)})
+    -- cycle;
+  \draw[fold] plot[domain=-\tmax:\tmax, samples=40, smooth, variable=\q]
+    ({\Sx+\hr*(exp(\q)*\ax+exp(-\q)*\bx)}, {\Sy+\hr*(exp(\q)*\ay+exp(-\q)*\by)});
+  \draw[fold] plot[domain=-\tmax:\tmax, samples=40, smooth, variable=\q]
+    ({\Sx-\hr*(exp(\q)*\ax+exp(-\q)*\bx)}, {\Sy-\hr*(exp(\q)*\ay+exp(-\q)*\by)});
+  \draw[flip] plot[domain=\tmax:-\tmax, samples=40, smooth, variable=\q]
+    ({\Sx+\hr*(exp(\q)*\ax-exp(-\q)*\bx)}, {\Sy+\hr*(exp(\q)*\ay-exp(-\q)*\by)});
+  \draw[flip] plot[domain=\tmax:-\tmax, samples=40, smooth, variable=\q]
+    ({\Sx+\hr*(-exp(\q)*\ax+exp(-\q)*\bx)}, {\Sy+\hr*(-exp(\q)*\ay+exp(-\q)*\by)});
+  \draw[sstab] ({\Sx-\legL*\ax},{\Sy-\legL*\ay}) -- ({\Sx+\legL*\ax},{\Sy+\legL*\ay});
+  \draw[sstab] ({\Sx-\legL*\bx},{\Sy-\legL*\by}) -- ({\Sx+\legL*\bx},{\Sy+\legL*\by});
+  \pic at (\Sx,\Sy) {dss};
+  \draw[lead] ({\Sx+0.08},{\Sy+0.12}) -- ({\Sx+0.45},{\Sy+0.98});
+  \node[anchor=south west, align=left, inner sep=1.5pt] at ({\Sx+0.3},{\Sy+0.98})
+    {doubly superstable point\\ (shrimp centre)};
+
+  % ---- legend
+  \begin{scope}[shift={(1.2,-0.95)}]
+    \draw[fold] (0,0) -- (0.75,0) node[right, text=black] {fold curve: a multiplier is $+1$};
+    \draw[flip] (0,-0.45) -- (0.75,-0.45) node[right, text=black] {flip curve: a multiplier is $-1$};
+    \draw[sstab] (6.0,0) -- (6.75,0) node[right, text=black] {superstable curve: a multiplier is $0$};
+    \fill[window] (6.0,-0.58) rectangle (6.75,-0.32);
+    \node[anchor=west] at (6.75,-0.45) {window: the orbit is stable};
+  \end{scope}
+\end{tikzpicture}
+\caption{Schematic of the bifurcation objects in the plane of steering strength $\alpha$ and $\log_{10}T$ (not data;
+positions and shapes are illustrative). On the curves a multiplier of the orbit equals $+1$ (fold), $-1$ (flip) or
+$0$ (superstable); grey marks windows, where the orbit is stable. Between two fold curves that meet in a cusp, three
+orbits coexist. A flip curve can turn tightly but smoothly, which is not a codimension-two point. On a fold curve, a
+1:1 resonance is a point where a second multiplier also reaches $+1$, and a fold-flip point is one where a flip curve
+touches it. Two superstable curves of one orbit cross at a doubly superstable point, the centre of a shrimp
+\cite{gallas1993structure,jones2012rossler}; near it the multiplier is approximately proportional to the product of
+the distances from the two curves, so the window is a cross whose sides alternate between fold and flip curves.
+Section~\ref{sec:curves} locates cusps, 1:1 resonances, a fold-flip point and smooth turns of a flip curve in the
+soft-token map, superstable curves appear in its exponent maps (Section~\ref{sec:hostility}), and
+Section~\ref{sec:discussion} states which parts of this anatomy are not verified.}
+\label{fig:atlas}
+\end{figure}

@@ -56,10 +56,14 @@ def main():
     matplotlib.use("Agg")
     import matplotlib.pyplot as plt
 
+    import period_colors as pc
+
     out, specs = sys.argv[1], [a.split("=", 1) for a in sys.argv[2:]]
+    merged = [merge(prefix) for _, prefix in specs]
     fig, axes = plt.subplots(len(specs), 2, figsize=(11, 4.4 * len(specs)), squeeze=False)
-    for row, (plane, prefix) in enumerate(specs):
-        L, P, al, lt, present = merge(prefix)
+    # one colour per period, the same in every row; rare periods share an "other" block if the labels would not fit
+    cats = pc.categorize([m[1] for m in merged], max_blocks=pc.blocks_that_fit(axes[0, 1]))
+    for row, ((plane, prefix), (L, P, al, lt, present)) in enumerate(zip(specs, merged)):
         done = ~np.isnan(L)
         chaotic = (L > 1e-3) & (P <= 0) & done
         print(plane, "tiles", present, "cells", int(done.sum()), "chaotic share",
@@ -68,11 +72,9 @@ def main():
         im = axes[row, 0].imshow(np.clip(L, -0.5, 0.5), origin="lower", extent=ext, aspect="auto", cmap="RdBu_r",
                                  vmin=-0.5, vmax=0.5, interpolation="nearest")
         fig.colorbar(im, ax=axes[row, 0], label="largest Lyapunov exponent (clipped)")
-        cmap = plt.get_cmap("tab20").copy()
-        cmap.set_bad("white")
-        im = axes[row, 1].imshow(np.where(P > 0, P, np.nan), origin="lower", extent=ext, aspect="auto", cmap=cmap,
-                                 vmin=0.5, vmax=40.5, interpolation="nearest")
-        fig.colorbar(im, ax=axes[row, 1], label="period (white: none)")
+        im = axes[row, 1].imshow(cats.index(P), origin="lower", extent=ext, aspect="auto", cmap=cats.cmap,
+                                 norm=cats.norm, interpolation="nearest")
+        cats.colorbar(im, ax=axes[row, 1], label="period (white: none)")
         for ax in axes[row]:
             ax.set_xlabel(f"steering strength along '{plane}'")
             ax.set_ylabel("log10 temperature")

@@ -39,3 +39,33 @@ def test_llama3_rope_is_rebuilt_in_float64_and_matches_float32():
     assert torch.allclose(cos64.float(), cos32, atol=1e-6) and torch.allclose(sin64.float(), sin32, atol=1e-6)
     out = model(torch.tensor([[1, 2, 3]])).logits
     assert out.dtype == torch.float64 and torch.isfinite(out).all()
+
+
+def test_hooked_norm_and_rotary_compute_in_float64():
+    """A device hook attached before keep_float64_norms (layers spread over GPUs) holds the forward the module had
+    then; the patch must rebind it, or the final norm keeps its float32 round trip."""
+    import types
+
+    hooks = pytest.importorskip("accelerate.hooks")
+    model = tiny_llama3(torch.float64)
+    norm, rot = model.model.norm, model.model.rotary_emb
+
+    def float32_norm(self, h):                     # the transformers original: computes in float32
+        dt = h.dtype
+        h = h.to(torch.float32)
+        return self.weight * (h * torch.rsqrt(h.pow(2).mean(-1, keepdim=True) + self.variance_epsilon)).to(dt)
+
+    def float32_rotary(self, x, position_ids):     # stands in for the float32 rotary original
+        return (torch.zeros(1, dtype=torch.float32),) * 2
+
+    for mod, old in ((norm, float32_norm), (rot, float32_rotary)):
+        hooks.add_hook_to_module(mod, hooks.AlignDevicesHook(execution_device="cpu", io_same_device=True))
+        mod._old_forward = types.MethodType(old, mod)      # what a hook attached before the class patch holds
+    x = torch.randn(1, 3, 64, dtype=torch.float64) * 1e3
+    assert not torch.equal(norm(x), norm.weight * (x * torch.rsqrt(x.pow(2).mean(-1, keepdim=True)
+                                                                     + norm.variance_epsilon)))
+    ela.keep_float64_norms(model)
+    expect = norm.weight * (x * torch.rsqrt(x.pow(2).mean(-1, keepdim=True) + norm.variance_epsilon))
+    assert torch.equal(norm(x), expect)                    # bitwise: no float32 round trip
+    cos, sin = rot(x, torch.arange(3)[None])
+    assert cos.dtype == torch.float64 and cos.shape[-1] == 16
