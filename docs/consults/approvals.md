@@ -193,3 +193,22 @@ skill, section 7A). Spend is recorded only in the gitignored `cost-ledger.md`
   reserves and its authorization guard apply. The human's stated budget is far above the expected cost (consults 5-8
   cost about 2 each; amounts in the private cost ledger). Advice is advisory: references are checked at their primary
   source before use, and material advice is adjudicated locally in `adjudication.md`.
+
+## Consult 10 (approved): final check of the restructured paper and the two-dimensional shrimp anatomy
+
+- **Approval (human, in session, 15 October 2026, about 13:55 UTC):** "Do both and get a gpt pro consult". This is an
+  explicit request for one paid consult, given together with the approval of the editorial restructure (new title,
+  grouped contributions, catalogues moved to appendices) and of the fold map of the period-5 window (run FM5).
+- **Milestone:** a publication-ready synthesis after a structural revision (section 7A of the integrity playbook): new
+  title, four grouped contributions, a 37-page main text with ten appendices, and the fold-and-flip anatomy of the
+  shrimp-like windows. The decisions it can improve: what a skeptical referee or a frontier-lab reader would hit
+  first in the restructured paper; what else belongs in the appendices; whether the shrimp claims (no one-dimensional
+  centre; fold curves with cusps) are stated at the right strength; which last experiment, if any, would most change
+  the paper.
+- **Scope:** one `research-strategy` request with a compact brief, `2026-10-15-restructure-final-check/brief.md`. No
+  retry or second pass without a new recorded decision.
+- **Model:** `gpt-6-astra`, Responses Pro mode, xhigh effort, at most 40,000 output tokens. The latest-model guide and
+  the pricing page were rechecked on 15 October at about 14:25 UTC (same model and rates as consult 9; short-context
+  rates apply). The canonical client's reserves and authorization guard apply (amounts in the private cost ledger).
+  Advice is advisory: references are checked at their primary source before use, and material advice is adjudicated
+  locally in `adjudication.md`.
