@@ -1,0 +1,68 @@
+{
+ "model": "Qwen/Qwen2.5-0.5B-Instruct",
+ "layer": 12,
+ "profiles": "/data2/neural-shrimp-data/explore/llm-soft-loop/controls/neurons-qwen0.5b-l12/profiles.npz",
+ "profiles_sha256": "157dfee7396578f2a7af9f3dafbb70cb8f1afe4ced4b317f344170344aa1ed35",
+ "rule": "For the target category, neuron f scores profile_f[target] minus the largest profile_f over the other categories, leaving out the related ones in RELATED; the highest score wins (ties: lower ID). Also: its index neighbour (ID + 1) and a random neuron (numpy default_rng(0), uniform over all neurons of the layer).",
+ "related": {
+  "hostility": [
+   "swearing"
+  ],
+  "philosophy": [],
+  "gratitude": [
+   "politeness"
+  ]
+ },
+ "target": "philosophy",
+ "neurons": {
+  "target": {
+   "neuron": 832,
+   "score": 0.21702,
+   "profile": {
+    "gratitude": -0.283999,
+    "hostility": -0.022912,
+    "kindness": -0.229933,
+    "philosophy": 0.270583,
+    "cooking": -0.409157,
+    "neutral": 0.022279,
+    "politeness": -0.278375,
+    "sadness": 0.053563,
+    "swearing": -0.069647
+   },
+   "runner_up": {
+    "neuron": 2985,
+    "score": 0.129554
+   }
+  },
+  "neighbour": {
+   "neuron": 833,
+   "of": 832,
+   "profile": {
+    "gratitude": 0.048743,
+    "hostility": 0.002092,
+    "kindness": 0.028851,
+    "philosophy": 0.003769,
+    "cooking": 0.026114,
+    "neutral": -0.016101,
+    "politeness": 0.023247,
+    "sadness": 0.034413,
+    "swearing": -0.038756
+   }
+  },
+  "random": {
+   "neuron": 4137,
+   "pool": 4864,
+   "profile": {
+    "gratitude": -0.01941,
+    "hostility": 0.018068,
+    "kindness": -0.040033,
+    "philosophy": -0.015413,
+    "cooking": -0.005501,
+    "neutral": -0.011246,
+    "politeness": -0.020489,
+    "sadness": 0.011565,
+    "swearing": -0.003638
+   }
+  }
+ }
+}

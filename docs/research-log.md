@@ -26144,3 +26144,27 @@ SHC-P2 and SHC-P4 are running, SHC-P8 has also started. The P2 and P8 pods share
 ## 2026-10-15 19:35 UTC: Mira (1987) pp. 358-373 saved by the human
 
 The human saved pp. 358-373 of Mira (1987) as screenshots in /data2/neural-shrimp-data/references/mira1987/; they are paywalled, so never commit them. Page-named copies p358.png to p373.png sit beside the originals; the pages were identified from their printed numbers on a contact sheet. With pp. 353-357 the folder now covers pp. 353-373. The paper's statements about the saddle area (6.36), the spring area (6.37), the node becoming a focus and property P6.16 can be checked against stored pages.
+
+## 2026-10-15 19:53 UTC: Run card NC (exploratory): steering along single neurons' output directions (human-approved control after Cammarata's essay)
+
+**Question.** Does steering along the output direction of one MLP neuron drive the soft-token map into chaos, as the contrastive, random and sparse-autoencoder directions of run C1 and of the 8B controls did? Cammarata's essay ("Neural Networks Are Already Clean", Goodfire) argues that most units have one interpretable job. The paper's claim is that the loop's regime is set by next-token competition, not by a direction's meaning.
+
+**Directions.** tools/neuron_controls.py on Qwen2.5-0.5B-Instruct, decoder layer 12, whose MLP writes into the residual stream that the steering hook at layer 12 adds to.
+- **Profiles.** Mean down_proj input over the held-out category sentences of tools/llm_sae_readout.py (CPU float32). Saved as explore/llm-soft-loop/controls/neurons-qwen0.5b-l12/profiles.npz, sha256 157dfee7...
+- **Selection rule** (that of the SAE controls; docs/nc/nc-selection.json, fixed before any map):
+  - target: the most philosophy-specific neuron, **832** (philosophy 0.271; runner-up 2985);
+  - its index neighbour, **833**;
+  - a random neuron, **4137** (default_rng(0)).
+- **Scaling.** Each output column is rescaled to the philosophy vector's norm (188.99). Cosines to the philosophy vector are 0.013, -0.028 and 0.022.
+- **Vector set:** explore/llm-soft-loop/controls/vectors-qwen0.5b-l12-neurons, vectors.npz sha256 a951b0c44683a0dc...
+
+**Maps.** Three pods (H100 class, job set scan64), one direction each, with C1's exact settings:
+- model qwen0.5b, layer 12, prompt open, window 1;
+- alpha -0.12..0.12, log10 T -1.0..0.3, 128 x 128;
+- transient 500, samples 300, record 80, max period 48, tol 1e-8, eps 1e-6, chaos level 1e-3, float64.
+
+**Readout.** The chaotic share overall and by |alpha| bins, against C1's: philosophy 6.8 %, gratitude 7.5 %, three Gaussian directions 7.6, 8.3 and 12.5 %. The full 128 x 128 maps cover the same region.
+
+**Expectation, stated before the data.** All three neuron directions produce chaos, with shares in the range of C1's directions (roughly 5-15 %). A neuron direction without chaos would contradict the claim that the regime is set by next-token competition rather than by the direction.
+
+**Cost.** About 50 min per map at H100 rates. The ceilings, in the private ledger, follow from the run limits at $4.00/h.
