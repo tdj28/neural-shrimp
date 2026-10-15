@@ -32,23 +32,22 @@ as such. Huginn's spectra are float32 and its accuracy runs bfloat16. \planned{R
 computer-assisted proof is that of the period-8 orbit of Table~\ref{tab:orbits} (rung 3, Section~\ref{sec:evidence}).
 
 \begin{abstract}
-Feed a frozen language model its own expected next-token embedding, at a fixed position after a fixed prompt, and it
-can lock into a loop of text such as ``. This is there is a is a'' or wander with a positive finite-horizon Lyapunov
-exponent that exact tangent dynamics reproduce. This smooth map, parametrized by temperature and steering strength,
-shows both regimes in Qwen2.5, OLMo-2 and Llama-3. Its derivative factorizes into inverse temperature, the embedding
-covariance under the next-token distribution and the network's Jacobian; with tied embeddings and no network it would
-be a modern Hopfield update, which cannot cycle. It contracts at high temperature; chaos occupies intermediate
-temperatures and needs no steering in most dense models. In Qwen2.5-7B it survives a 16-token feedback window and Soft
-Thinking's growing context. Across fifteen models of 0.5B to 72B, size does not set the chaos: on ten prompts a 14B
-model is more chaotic than a 7B, OLMo-2-32B is the most chaotic OLMo model, and Qwen2.5-72B, nearly free of it on five
-prompts, is chaotic when steered. Bifurcation theory applied to the model's derivatives predicts its behaviour where
-tested. Fold normal forms predicted bottleneck passage times without fitting (23 of 24 frozen forecasts within one
-iterate), and windows accumulating on the fold follow a $1/N^2$ law, extrapolating to period 30 within 3\,\%. Local
-unfoldings near numerically located cusps matched the recovered orbits at all twelve tested offsets, and a doubling
-cascade's interval ratios approach Feigenbaum's constant, the last within 1\,\%. In the recurrent-depth model Huginn,
-a frozen test confirmed a spectrally predicted accuracy loss. Interval arithmetic proves one period-8 orbit exists and
-is locally attracting, to our knowledge a first for a transformer language model; the chaos remains numerical. The map
-is not ordinary autoregressive generation.
+Feeding a language model the expected embedding of its own next token, as continuous reasoning methods such as Soft
+Thinking do, turns inference into a nonlinear dynamical system. In Qwen2.5, OLMo-2 and Llama-3 models of 0.5B to 72B
+parameters, temperature and steering move this loop between repeating text and chaos, with positive Lyapunov
+exponents that exact tangents reproduce. The chaos has practical consequences. Rerun with only the batch size
+changed, chaotic float64 loops diverge into different text after the number of steps the Lyapunov exponent predicts,
+while periodic loops stay identical to $10^{-12}$. In a frozen test on arithmetic, the batch layout changed 56\,\% of
+the answers of bfloat16 soft-thinking inference and none of greedy decoding's. Exactly repeating text can hide a
+chaotic internal state. Steering causes the chaos by making
+next tokens compete: in an orbit-preserving crossover its change of the softmax readout creates the instability and
+its change of the network damps it, and a logit bias alone suffices. Earlier injection carries chaos to lower
+temperature, in Qwen2.5-0.5B and Llama-3.3-70B, and two steering vectors at different depths create chaos neither
+causes alone. Size does not remove the chaos: on ten prompts a 14B model is more chaotic than a 7B. The loop obeys the
+quantitative laws of low-dimensional maps: doubling ratios approach Feigenbaum's constant (4.6673 against 4.6692),
+periodic windows accumulate on folds with a $1/N^2$ law, fold normal forms predicted passage times without fitting,
+and interval arithmetic proves an attracting period-8 orbit. In the recurrent-depth model Huginn, a frozen test
+confirmed a spectrally predicted accuracy loss. The loop is not ordinary sampled generation.
 \end{abstract}
 
 \section{Introduction}
