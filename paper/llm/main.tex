@@ -376,7 +376,14 @@ and flip curves in two parameters with minimally augmented systems \cite{govaert
 The test function $g$ of the bordered system $[[M\mp I,v],[w^\top,0]]$ is obtained by GMRES (generalized minimal
 residual iterations) with Jacobian-vector products, and its gradient by reverse-mode differentiation through a
 Jacobian-vector product. When the parameter tangent reverses, we flag a cusp candidate and test it with the normal
-form.
+form. To locate a codimension-two point on a continued curve (\texttt{tools/cusp\_locate.py}), we bracket a sign
+change between two curve points, then retrace the curve from the left end with steps of a quarter of the bracket.
+We do this for three rounds and finish with a secant step. The function whose sign changes is the oriented quadratic
+coefficient $b\operatorname{sign}a$ for a cusp, $|\mu_2|-1$ for a second multiplier $\mu_2$ leaving the unit
+circle, and the projected parameter tangent for a turn of the curve. At a cusp we then evaluate $c$ and the unfolding
+matrix at the located point. Elsewhere, the multipliers and the angle between their eigenvectors type the point: a
+double multiplier whose eigenvectors coincide is a Jordan block. On maps with known answers the tool recovers a
+cusp to $10^{-6}$ (with $c=-1$ and $\det J=1$) and a fold-flip point.
 
 \paragraph{Normal form and passages.} Consider a fold of the two-step map $G=F^2$, with right and left eigenvectors
 $r$ and $\ell$ normalized by $\|r\|=1$ and $\ell^\top r=1$. Along the critical direction the reduced map is
@@ -597,7 +604,13 @@ Table~\ref{tab:orbits}. Flips: critical multiplier a real $-1$ to $3\times10^{-1
 extrapolated to 1 through $(1-\mu)^2$, which is linear near a fold; last converged multiplier $0.991$--$0.998$.}
 \label{tab:edges}
 \end{table}
-\planned{prediction of the window positions from the measured reinjection distribution.}
+We tested whether the measured reinjection predicts windows beyond the fitted range. A model with one fixed entry
+point (the median measured one) and one lap offset fitted to the fold edges of periods 16--20 places the fold edges
+of periods 22--30 3 to 9\,\% closer to the fold than the constant-prefactor law. Both predictions were frozen
+before a float64 line of 3200 cells (spacing $10^{-7}$) located the windows. The measured edges follow the law
+within 3\,\% through period 30 (within 1\,\% at periods 22, 24 and 28) and fall outside the model's range except
+at period 30. So the law extrapolates, but one fixed reinjection point does not predict it. The measured entry
+points move with $\eps$ ($-3\times10^{-4}$ to $-7\times10^{-4}$).
 \begin{figure}[H]
 \centering
 \includegraphics[width=0.85\linewidth]{fig-return-maps.png}
@@ -643,14 +656,20 @@ $\log_{10}T=-0.065$ (Figure~\ref{fig:stripes}). At $\alpha=0.0717$ the stripe li
 $\log_{10}T=-0.128955$ and the fold at $-0.1033462$. Continued downward, the flip curve keeps its multiplier at $-1$
 for 115 points to $(\alpha,\log_{10}T)=(0.0776,-0.402)$, with two reversals of its parameter tangent near
 $(0.0750,-0.219)$ and $(0.0746,-0.206)$, and the fold curve keeps its multiplier at $+1$ for 120 points to
-$(0.0758,-0.200)$. \planned{classify the two reversals on the flip curve (on a flip curve they are not fold cusps).}
+$(0.0758,-0.200)$. Located by bisection along the curve (Section~\ref{sec:methods}), the two reversals of the flip
+curve, at $(0.074955,-0.219336)$ and $(0.074608,-0.206007)$, carry no second multiplier near the unit circle (the
+next ones are $3\times10^{-7}$ and $1\times10^{-5}$). On a flip curve the parameter tangent can vanish only where a
+second multiplier reaches $+1$, so both are tight but smooth turns of the curve in the parameter plane, not
+codimension-two points.
 
 \paragraph{The accumulation boundary.} The fold curve of the 2-cycle ``is it'', continued from
 $(\alpha,\log_{10}T)=(0.0628,-0.115)$ in both directions (38 and 126 points, critical multiplier $1$ to $10^{-7}$, no
 cusp), traces the boundary of the period-2 region in Figures~\ref{fig:stripes} and~\ref{fig:cross512}. The stripe fan
 accumulates on this boundary, as the mechanism of Section~\ref{sec:mechanism} requires. Further along one direction,
-outside the plotted window, another multiplier leaves the unit circle (moduli up to 11). This is a codimension-two
-point, \planned{to be located and typed}.
+outside the plotted window, another multiplier leaves the unit circle (moduli up to 11). Located along the curve,
+this second real multiplier reaches $+1$ at $(\alpha,\log_{10}T)=(0.035628,-0.341724)$, where the eigenvectors of
+the two multipliers at $+1$ coincide to $3\times10^{-4}$ degrees: a double multiplier $+1$ with a Jordan block,
+the 1:1 resonance of maps (the analogue of a Bogdanov--Takens point).
 
 \paragraph{A period-6 window with shrimp-like anatomy.} The hooks of Figure~\ref{fig:zooms} (bottom) belong to
 the period-6 loop ``. -\textbackslash n\textbackslash nThe is a''. Float64 orbits (Newton residuals
@@ -679,8 +698,11 @@ term, $c=\ell^\top C(r,r,r)/6+\ell^\top B(r,h_2)/2$ with $(I-M)h_2=B(r,r)-2br$ a
 the monodromy matrix and $B$ and $C$ are the second and third derivatives of its map, obtained by central differences
 of float64 Jacobian-vector products. (The code reproduces $c$ to $10^{-6}$ on a map with a known reduction.) At the two
 curve points that bracket each sign change, $c$ is nonzero far beyond its step-size uncertainty and has the same sign,
-and $b$ changes sign with nonzero slope between them. This supports a nondegenerate cusp inside each bracket. We did
-not solve for the point where $b$ vanishes or evaluate $c$ there, so we call these points cusp candidates. The
+and $b$ changes sign with nonzero slope between them. This supports a nondegenerate cusp inside each bracket. Located along each fold curve (Section~\ref{sec:methods}),
+$b\operatorname{sign}a$ falls to below $5\times10^{-6}$ of its bracket values at $(\alpha,\log_{10}T)=(0.069106,-0.039750)$
+on the outer arc and at $(0.080097,-0.058344)$ inside the body. At these same points $c=-1.51\times10^{4}$ and
+$-2.38\times10^{5}$, and the unfolding matrix $J$ defined below is regular ($\det J=2416$ and $14.0$): two
+numerically located cusps. The
 negative sign of $c$ means that near each candidate, two stable period-6 orbits coexist with a saddle between the fold
 branches.
 
@@ -707,8 +729,8 @@ $c$ at the two points around $b=0$ & $-1.37\times10^{4}$, $-1.65\times10^{4}$ & 
 \end{tabular}
 \caption{Normal-form test at the two parameter-tangent reversals of the period-6 window's fold curves (bold: the
 flagged points; critical multiplier $1$ to $10^{-7}$). $c$: cubic coefficient at the two curve points that bracket
-the sign change (finite-difference steps agree to $0.1$ and $0.7\,\%$). Numerically validated cusp candidates, not
-located or certified cusps.}
+the sign change (finite-difference steps agree to $0.1$ and $0.7\,\%$). Bisection along the curves then located both
+cusps (text); they are numerical, not certified.}
 \label{tab:z3cusps}
 \end{table}
 \begin{figure}[H]
@@ -766,8 +788,10 @@ to be a second cascade.
 \planned{the remaining fold curves of the period-4 region; whether the region is one shrimp-organized component.}}
 \label{fig:p4}
 \end{figure}
-\planned{Codimension-two points where a second multiplier crosses the unit circle along the lower fold curve
-(candidate fold-flip points): locate, type and continue.}
+Along the lower fold curve a second real multiplier reaches $+1$ twice, at
+$(\alpha,\log_{10}T)=(0.062483,0.004955)$ and $(0.062499,-0.001780)$. Both points are 1:1 resonances, with the eigenvectors of the double multiplier parallel
+to $3\times10^{-4}$ degrees. Close by, at $(0.062522,-0.002667)$, a multiplier reaches $-1$: a fold-flip point. We
+did not continue the curves that emanate from these points.
 
 \section{A period-doubling cascade to chaos}
 \label{sec:cascade}
@@ -1570,7 +1594,9 @@ fold curves leaves on a nearby cut. When these boundaries are continued in the p
 (Figure~\ref{fig:hubshrimp}), each of the two fold curves reverses its parameter tangent once. There the oriented
 quadratic coefficient $b$ of the fold's normal form passes through zero (upper fold: $-23.9$ to $+244.6$ between
 adjacent points, with $a\approx2.0$; lower fold: $+31.2$ to $-58.7$, with $a\approx0.55$) while $a$ stays away from
-zero. These are two numerical cusp candidates, at $(\alpha,\log_{10}T)\approx(0.0672,0.1990)$ and $(0.0666,0.1894)$.
+zero. Located along the curves, the two cusps lie at $(\alpha,\log_{10}T)=(0.067213,0.198983)$ and
+$(0.066611,0.189382)$. There $b\operatorname{sign}a$ is below $1.3\times10^{-5}$ of its bracket values,
+$c=-1.41\times10^{6}$ and $-5.61\times10^{5}$, and $\det J=58.2$ and $55.2$, all evaluated at the located points.
 The flip curve of the period-14 bubble lies inside the body and closes around the map's period-14 cells. The cubic
 coefficient is nonzero at the points that bracket both sign changes: $c\approx-1.4\times10^{6}$ to $-2.0\times10^{6}$ (step agreement $5\,\%$; the
 smallest steps converge like the square of the step, and extrapolation leaves the sign) and $-5.8\times10^{5}$ to
@@ -1818,10 +1844,10 @@ did not finish within the run limit.}
 \paragraph{What is and is not claimed.} The objects studied here are invariant sets and bifurcations of an exactly
 defined smooth map built from a frozen model's own computation. We do not claim that ordinary sampled generation is
 chaotic in this sense (Section~\ref{sec:bridge}), nor that any window is a certified shrimp. The period-6 window and
-the hostile period-7 body have, numerically, shrimp-like organization: fold curves with cusp candidates (simple
-critical multiplier; quadratic coefficient changing sign between adjacent curve points with nonzero slope; cubic
-coefficient nonzero at the bracketing points) and flip curves inside, and in the hostile body superstable curves run
-through the windows. We did not locate the points where the quadratic coefficient vanishes. A generic codimension-two
+the hostile period-7 body have, numerically, shrimp-like organization: fold curves with numerically located cusps (simple
+critical multiplier; quadratic coefficient vanishing at a point where the cubic coefficient is nonzero and the
+unfolding is regular) and flip curves inside, and in the hostile body superstable curves run
+through the windows. A generic codimension-two
 cusp also requires the two unfolding coefficients to depend on the two parameters with rank two. We estimated this at
 a fold point near one candidate of each window (determinants $2737$ and $53.5$), and there the local model's
 predictions at twelve frozen offsets matched the orbits recovered by Newton solves seeded at the predicted roots and
