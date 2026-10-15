@@ -1,0 +1,30 @@
+--- preserved-controls-001
++++ controls-v2-refusal-only
+@@ -4,7 +4,7 @@
+ 
+ 
+ def main():
+- ap=argparse.ArgumentParser();ap.add_argument('--capsule',required=True);ap.add_argument('--out',required=True);a=ap.parse_args()
++ ap=argparse.ArgumentParser();ap.add_argument('--capsule',required=True);ap.add_argument('--out',required=True);ap.add_argument('--refusal-only',action='store_true');a=ap.parse_args()
+  resource.setrlimit(resource.RLIMIT_AS,(1024**3,1024**3));resource.setrlimit(resource.RLIMIT_CPU,(25,25))
+  priority=os.getpriority(os.PRIO_PROCESS,0)
+  if priority>10:raise RuntimeError('nice >10')
+@@ -70,10 +70,17 @@
+   r,g=fixture(name,specification);packet['runs'].append(r);grids[name]=g
+  def schema_refusals():
+   r=copy.deepcopy(packet['runs'][0]);r['metadata']['axis_and_seed_metadata']['alpha'][0]+=1e-12;refuses(lambda:d.load_run(r))
+-  r=copy.deepcopy(packet['runs'][0]);r['metadata']['progress']['indices'][0]=[0,0];refuses(lambda:d.load_run(r))
++  r=copy.deepcopy(packet['runs'][0]);r['metadata']['progress']['indices'][0]=[0,1];refuses(lambda:d.load_run(r))
+   r=copy.deepcopy(packet['runs'][0]);r['metadata']['npz_members'].append(r['metadata']['npz_members'][0]);refuses(lambda:d.load_run(r))
+   r=copy.deepcopy(packet['runs'][0]);r['id']='p7-zoom-a';refuses(lambda:d.load_run(r))
+  test('strict axis, BFS order, duplicate field and historical-method association refusal',schema_refusals)
++ if a.refusal_only:
++  result={'manufactured_only':True,'target_data_read':False,'profile_repeated':False,'controls':controls,
++          'all_passed':all(r['passed'] for r in controls),'source_sha256':{'run.py':d.sha(Path(a.capsule)/'run.py'),'core.py':d.sha(Path(a.capsule)/'core.py')},
++          'correction':'First fake BFS index [0,0] is now changed to [0,1]; original fixture had reassigned its existing value.',
++          'elapsed_before_report':time.perf_counter()-tic,'peak_rss_kib_observed':resource.getrusage(resource.RUSAGE_SELF).ru_maxrss}
++  (out/'report.json').write_text(json.dumps(result,indent=2)+'\n');print(json.dumps(result))
++  return 0 if result['all_passed'] else 1
+  def mask_and_sectors():
+   g={k:v[:2,:2].copy() if getattr(v,'ndim',0)>=2 else v[:2].copy() if k in ('alpha','log10_temperature') else v.copy() for k,v in grids['p7-zoom-a'].items()}
+   for k in d.C.FLAGS:g[k][:]=True

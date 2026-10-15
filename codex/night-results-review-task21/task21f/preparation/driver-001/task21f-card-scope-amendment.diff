@@ -1,0 +1,11 @@
+--- prepared-v1-1cd64abf
++++ prepared-v2-output-scope
+@@ -38,7 +38,7 @@
+   "resources": {
+     "cpu_reservation": "one worker plus inherited supervisor; no concurrent reservation assumed without coordinator check",
+     "as_scope": "hard address-space bound; RSS is measured at stated observation points, not a separate hard RSS promise",
+-    "output_scope": "Worker Sink accounts for all eleven science outputs including final report and manifest. Supervisor separately samples the combined attempt including captured source/logs and may stop earlier; small forensic failure.json is preserved outside Sink accounting.",
++    "output_scope": "Worker Sink accounts for all eleven science outputs including final report and manifest. The supervisor samples the science attempt directory plus stdout/stderr, excluding captured source/admission receipts. Those excluded overheads are separately covered by the 1 GiB storage-headroom reserve. A small forensic failure.json is preserved outside Sink accounting but inside the sampled attempt directory.",
+     "current_selected_input_pins": 44,
+     "current_selected_input_bytes": 3197811,
+     "original_target_files_bytes": 2453313,

@@ -1,0 +1,20 @@
+{
+  "command": [
+    "/usr/bin/timeout",
+    "--signal=TERM",
+    "--kill-after=2s",
+    "30s",
+    "/data2/neural-shrimp/.venv/bin/python",
+    "-I",
+    "/tmp/task21f-driver-controls-v2.py",
+    "--capsule",
+    "/tmp/task21f-driver-preparation",
+    "--out",
+    "/tmp/task21f-driver-controls-002",
+    "--refusal-only"
+  ],
+  "returncode": 0,
+  "external_seconds": 0.205157530028373,
+  "manufactured_only": true,
+  "profile_repeated": false
+}

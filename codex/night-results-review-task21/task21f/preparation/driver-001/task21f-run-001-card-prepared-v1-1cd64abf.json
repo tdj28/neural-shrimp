@@ -1,0 +1,168 @@
+{
+  "schema": "codex-task21f-card-v1",
+  "admission": "prepared",
+  "source_expected_commit": null,
+  "objective": "Independent unblinded saved-scalar/grid reconstruction for the six declared historical DSS runs; no model/native/producer execution.",
+  "output": "/data2/neural-shrimp-data/codex/night-results-review-task21/task21f/run-001",
+  "inputs": {
+    "path": "/data2/neural-shrimp-data/codex/night-results-review-task21/task21f/source-001/inputs.json",
+    "bytes": 265462,
+    "sha256": "bff3fbc5937f345f35ca6312e87517c9927b7a9b709c48a4ade1ba0292100aff"
+  },
+  "axis_metadata": {
+    "path": "/tmp/task21f-axis-metadata.json",
+    "bytes": 2732,
+    "sha256": "69302df5649a263fb0089c92fd5e82aa1e766ad58e0211b36b73b58b4d3d9547"
+  },
+  "sources": [
+    {
+      "name": "run.py",
+      "sha256": "91ca864a64caf62b7b3cc8be77308869c1e96fa36df602e8329c068924297e5a"
+    },
+    {
+      "name": "core.py",
+      "sha256": "b7b29685e9c1bf4a9211a9a76d9fa04e451de6a1a3de1ad63783965bbee9c60a"
+    }
+  ],
+  "limits": {
+    "cpu_threads": 1,
+    "nice": 10,
+    "as_bytes": 1073741824,
+    "cpu_seconds": 120,
+    "wall_seconds": 180,
+    "max_output_bytes": 268435456,
+    "max_input_bytes": 8388608,
+    "startup_available_gib": 20,
+    "runtime_available_gib": 16
+  },
+  "resources": {
+    "cpu_reservation": "one worker plus inherited supervisor; no concurrent reservation assumed without coordinator check",
+    "as_scope": "hard address-space bound; RSS is measured at stated observation points, not a separate hard RSS promise",
+    "output_scope": "Worker Sink accounts for all eleven science outputs including final report and manifest. Supervisor separately samples the combined attempt including captured source/logs and may stop earlier; small forensic failure.json is preserved outside Sink accounting.",
+    "current_selected_input_pins": 44,
+    "current_selected_input_bytes": 3197811,
+    "original_target_files_bytes": 2453313,
+    "npz_uncompressed_array_bytes": 488906,
+    "whole_coordinator_packet": 3233345,
+    "coordinator_metadata_io": {
+      "metadata_bytes_read": 4108709,
+      "metadata_elapsed_seconds": 0.33480004221200943,
+      "measurement_scope": "Archive/member/hash/header/axis/progress-index preparation; source Git reads and final manifest hashing excluded from byte counter. Not target arithmetic runtime."
+    },
+    "manufactured_six_shape_measurement": {
+      "seconds_through_all_scientific_writes": 2.5677049418445677,
+      "output_bytes": 33929430,
+      "peak_rss_kib_observed": 74300,
+      "runs": 6,
+      "allocated_cells": 3174,
+      "available_factor_methods": 9,
+      "actual_segment_pairs": 91674
+    },
+    "manufactured_six_shape_report": {
+      "path": "/tmp/task21f-driver-controls-001/report.json",
+      "bytes": 2015,
+      "sha256": "cbff9a6dfa02830c51f323829cd394943c584fd76254d14d311b3456a91bc039"
+    },
+    "original_control_failure": "A bad-index fixture reassigned [0,0] to its existing value. The original run exited1 only for that control; full six-shape calculation/serialization and other controls completed. Original bytes retained.",
+    "corrected_refusal_only_report": {
+      "path": "/tmp/task21f-driver-controls-002/report.json",
+      "bytes": 659,
+      "sha256": "d9df7642dc21cdf4657f900729f63fd4f961a5ae1c83b60a0696508c4a03aef7"
+    },
+    "fixture_delta": {
+      "path": "/tmp/task21f-fixture-correction.diff",
+      "bytes": 2325,
+      "sha256": "9b1c69074427074eb52f6c897279b50a1f15f2a6e487c837a6e0b8f8c9fb8467"
+    },
+    "core_oscillatory_measurement": {
+      "name": "manufactured_checkerboard_12_by_12",
+      "rows": 12,
+      "columns": 12,
+      "phases": 7,
+      "serialized_bytes": 4324402,
+      "seconds_through_serialization": 0.5856586887966841,
+      "peak_rss_kib_observed": 114852,
+      "segment_pairs": 1229844,
+      "intersections_retained": 2982,
+      "collinear_overlaps_retained": 11340
+    },
+    "maximum_segment_pair_denominator": 168464352,
+    "crude_max_pair_extrapolation_seconds": 80.2236799962459,
+    "forecast_scope": "Measurements are manufactured, not an upper-bound proof. Pair extrapolation treats the oscillatory core rate as planning evidence only and excludes some driver metadata/serialization cost. Fixed CPU120/wall180/1GiB/256MiB bounds dominate; any limit failure is retained without silent retry.",
+    "storage_headroom_bytes": 1073741824
+  },
+  "coverage": {
+    "run_order": [
+      "p7-blob",
+      "p7-blob-lo",
+      "p7-blob-hi",
+      "p7-zoom-a",
+      "p7-zoom-b",
+      "p7-zoom-c"
+    ],
+    "shapes": {
+      "p7-blob": [
+        31,
+        31
+      ],
+      "p7-blob-lo": [
+        16,
+        31
+      ],
+      "p7-blob-hi": [
+        16,
+        31
+      ],
+      "p7-zoom-a": [
+        12,
+        33
+      ],
+      "p7-zoom-b": [
+        12,
+        33
+      ],
+      "p7-zoom-c": [
+        13,
+        33
+      ]
+    },
+    "allocated_cells": 3174,
+    "available_factor_method_grids": 9,
+    "all_phase_pairs_per_available_method": 21,
+    "no_factor_gauge_alignment": true,
+    "masks": "Exact equivalence names and all distinct filtered counts/witnesses retained; base-ok geometry reused, zoom not-complex multiplier geometry separate.",
+    "source_progress": "All original BFS indices and seed records. Failed/unvisited initialized NPZ payloads and possible later progress tails remain distinct.",
+    "overlaps": "Exact coordinate pairs plus separately labelled fixed-ordinal lo/hi-to-original scalar comparisons. No tolerant matching.",
+    "four_sector": "All quad sign-pair counts and same-quad witness support. Cross-quad/boundary four-sector support unresolved; no new crossing pass.",
+    "spacing": "Actual per-axis spacing/extrema and coarse-to-zoom ratios, not a universal five-times refinement.",
+    "gap_claim": "No exact original distance definition/source; quoted1.3e-3 not independently verified."
+  },
+  "outputs": [
+    "cells.jsonl",
+    "progress.jsonl",
+    "coverage.jsonl",
+    "masks.jsonl",
+    "geometry.jsonl",
+    "run-summaries.jsonl",
+    "overlaps.jsonl",
+    "zoom.json",
+    "coarse-ordinal.json",
+    "report.json",
+    "manifest.json"
+  ],
+  "success_contract": {
+    "report_schema": "codex-task21f-saved-dss-v1",
+    "computational_completed": true,
+    "scientific_claims_accepted": false,
+    "run_count": 6,
+    "allocated_cells": 3174,
+    "manifest_schema": "codex-task21f-output-v1",
+    "manifest_files": 10
+  },
+  "provenance_scope": "Own selected target/metadata/source bytes hashed before/after. Nested historical receipt/archive/termination authority is inherited from coordinator authentication; no fresh Git/pod/native check. Durable outer inputs is byte-identical; nested/tmp paths unchanged.",
+  "scientific_limits": [
+    "Original native orbit/eigenvectors/parent signs/closing dots/Ritz residuals not saved.",
+    "No proof of exact intersection, unsampled absence, full-spectrum nonzero eigenvalues or global dimension.",
+    "Method and token-cohort amendments were made after producer outcomes; exposure disclosed."
+  ]
+}

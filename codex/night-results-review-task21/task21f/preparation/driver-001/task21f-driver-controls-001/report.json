@@ -1,0 +1,45 @@
+{
+  "manufactured_only": true,
+  "target_data_read": false,
+  "source_sha256": {
+    "run.py": "91ca864a64caf62b7b3cc8be77308869c1e96fa36df602e8329c068924297e5a",
+    "core.py": "b7b29685e9c1bf4a9211a9a76d9fa04e451de6a1a3de1ad63783965bbee9c60a"
+  },
+  "controls": [
+    {
+      "name": "strict axis, BFS order, duplicate field and historical-method association refusal",
+      "passed": false,
+      "traceback": "Traceback (most recent call last):\n  File \"/tmp/task21f-driver-controls.py\", line 22, in test\n    try:fn();controls.append({'name':name,'passed':True})\n        ^^^^\n  File \"/tmp/task21f-driver-controls.py\", line 73, in schema_refusals\n    r=copy.deepcopy(packet['runs'][0]);r['metadata']['progress']['indices'][0]=[0,0];refuses(lambda:d.load_run(r))\n                                                                                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/tmp/task21f-driver-controls.py\", line 20, in refuses\n    raise AssertionError('expected refusal')\nAssertionError: expected refusal\n"
+    },
+    {
+      "name": "exact mask reuse, distinct reality views and same-quad four-sector witness",
+      "passed": true
+    },
+    {
+      "name": "exclusive writes and declared output cap preserve earlier bytes",
+      "passed": true
+    },
+    {
+      "name": "six shapes, all rows, nine method grids and eleven output files",
+      "passed": true
+    }
+  ],
+  "all_passed": false,
+  "measurement": {
+    "seconds_through_all_scientific_writes": 2.5677049418445677,
+    "output_bytes": 33929430,
+    "peak_rss_kib_observed": 74300,
+    "runs": 6,
+    "allocated_cells": 3174,
+    "available_factor_methods": 9,
+    "actual_segment_pairs": 91674
+  },
+  "elapsed_before_control_report": 2.657644514925778,
+  "limits": {
+    "cpu_seconds": 25,
+    "wall_seconds_external": 30,
+    "as_bytes": 1073741824,
+    "nice": 10
+  },
+  "scope": "Manufactured fields at exact declared shapes; no actual metadata/targets/producer/model loaded. Not worst-case contour/output proof."
+}

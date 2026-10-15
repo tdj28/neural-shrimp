@@ -1,0 +1,18 @@
+{
+  "command": [
+    "/usr/bin/timeout",
+    "--signal=TERM",
+    "--kill-after=2s",
+    "30s",
+    "/data2/neural-shrimp/.venv/bin/python",
+    "-I",
+    "/tmp/task21f-controls.py",
+    "--core",
+    "/tmp/task21f-core.py",
+    "--out",
+    "/tmp/task21f-controls-001"
+  ],
+  "returncode": 0,
+  "external_seconds": 1.1071388719137758,
+  "manufactured_only": true
+}

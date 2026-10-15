@@ -1,3 +1,9 @@
+# Task 21f final source adopted; actual admission pending
+
+Updated 2026-10-15T12:56:27.346617+00:00. Task 21e is complete and delivered. Task 21f final source 91ca864a/core b7b29685, corrected prepared card df9e8dd6, measured six-shape controls and Root/Theory reviews are adopted. No target run has started; zero owned jobs/reservations. Next step is the exact reviewed-card/supervisor pin delta, private checkpoint, Root final authorization and fresh capacity/closure admission. Task 21g RM1 metadata is privately verified at 383e4516; sequences remain unread. Latest Claude comms 296723e8 is unchanged; later DSS5 is outside this six-run scope.
+
+## Preserved status history
+
 # Task 21e delivered; Task 21f metadata and source preparation
 
 Updated 2026-10-15T12:36:50.490948+00:00. Task 21e is complete, accepted and privately delivered at 22f736a80d5145485957ad1b1ce2f1dd6af48f70; final receipt 6aab35c3. No further Task 21e work. Earlier 18/19/17/16/21a/b/26/27 (22/24 folded)/21c/d remain complete and delivered.
