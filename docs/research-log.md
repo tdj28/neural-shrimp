@@ -23579,3 +23579,31 @@ Both are corrected. The paper now also reports the one 72B twin of three that pa
 The PS72 design (docs/prefix-scale-72b.md) calls its twin offsets "relative". tools/hidden_chaos.py displaces the whole window state by a vector of norm eps, an absolute offset, as in the 7B/14B test the design is compared with, so the comparison is like for like. The frozen design stays unchanged; this entry records the wording error.
 
 None of these corrections changes a label, a count or a conclusion. New gate in AGENTS.md: round bounds up and quote range ends at their true extremes.
+
+## 2026-10-15 00:38 UTC: External referee report (written without repository access): triage, text fixes, citations; tangent check TC prepared
+
+The human relayed a referee-style report on the LLM paper and asked for judgement, not compliance. Its author had no access to the repository: no bibliography file, code, figures, certificate or raw data. Each point was checked against the repository.
+
+Points already answered in the repository; the paper now says so:
+- **Entropy-clamp derivative** (the report's main mathematical concern). No fixed-temperature derivative is used for the clamp. Its exponents come from twins of the full clamped map, temperature solve included, and tools/hidden_chaos.py refuses --tangent with --clamp-entropy. No gain split was computed for the clamp. The paper now writes out the rank-one term, D Fhat = D_x F - (d_T F)(D_x H)/(d_T H), and says why twins are used. It also states that the safeguarded solve is piecewise smooth: on the QC orbits the one-step central differences at 1e-5 to 1e-7 lie within 5.7e-6 of those at 1e-4 (recomputed from the raw fd_probe).
+- **Period-8 certificate.** The record pins the hashes of the checkpoint, the configuration and the steering vector, lists the prefix token IDs, and defines the exact-real map (rotary angles from real sin and cos; stored constants as exact dyadics). The appendix now says so. It also says that the independent audit rechecked the saved witnesses but did not recompute the model's enclosures or the dense matrix products (certificate fields full_model_replayed and dense_products_recomputed are false).
+- **Normal-form convention.** It was already explicit. A pointer to the analytic-map tests (tests/test_bifurcation_curves.py: ab, c with its centre-manifold term, the unfolding matrix, the Hénon fold and flip curves) is added.
+- **Dialogue statistics.** These already use dialogue-level bootstraps. No change.
+
+Fixes:
+- **Hopfield and PSD statement.** It was correct but unproved. The paper now gives the Lyapunov function V = |x|^2/2 - phi, with V(F(x)) <= V(x) - |F(x) - x|^2/2 for every map with a symmetric positive semidefinite derivative. This excludes cycles and chaos.
+- **Untied embeddings.** The explicit formula is added: DF = T^-1 E^T (diag p - p p^T) W J. Sigma_p becomes Cov_p(e_t, w_t), which is not symmetric in general.
+- **Huginn.** The paper adds transversality and the absence of strong resonance (0.156 of a revolution per step). Supercriticality is now stated as inferred from the square-root amplitude law; the first Lyapunov coefficient was not computed.
+- **bf16 wording.** The maps are the stored bfloat16 values evaluated in float64 arithmetic.
+- **72B stability.** "Comes from the network" becomes "points to the network's damping". The support is elimination by the clamp and the base-model test, plus the gain split at fixed temperature.
+
+Citations:
+- **Flagged keys.** A subagent checked the 20 flagged keys against Crossref, arXiv and publisher records; 18 are correct. Kuznetsov 2023 is the fourth edition, Applied Mathematical Sciences 112; Detoxify adds the author Thewlis (current README citation).
+- **gomez2014universal** is real and supports its sentence: Section 4 and Figure 6 show shrimps in the Rulkov neuron map.
+- **Reworded:** the related-work sentence on johnson2026temperature. That study fits a noisy effective map to one hidden-state coordinate and steers along it, so "output statistics" understated it; it computes no orbits, multipliers or bifurcation curves. Also reworded: the fu2021repetition clause and the slowing-down sentence.
+- **Added**, each rechecked on Crossref or arXiv: Benettin et al. 1980 (both parts) and Oseledets 1968 in the methods; Krawczyk 1969, Moore, Kearfott and Cloud 2009, and Rump 2010 in the appendix; Lai and Tél 2011 in the limitations; Paulo and Belrose 2026 on SAE seed dependence; Ditlevsen and Johnsen 2010 on early warning.
+- Build: 73 pages, no undefined references or overfull boxes.
+
+Prepared, not run: **TC**, the exact tangent exponent for the 448 H2 cells (Qwen2.5-0.5B philosophy maps; H2 settings plus --tangent and running exponents at 250, 500, 1000 and 2000 steps). It also computes the four leading exponents by QR iteration (tools/lyapunov_spectrum.py) at 8 cells. The cells were fixed by a rule applied to H2's results before any TC data (docs/tc-spectrum-cells.json). Code commit 3f8882f3. The run needs one H100 (about 20 hours on the local GPU) and awaits the human's approval of the spend.
+
+Left to the human: moving the dialogue study to a companion paper; the report's proposed abstract; human labels for the hostility proxy; augmented cusp solves; the first Lyapunov coefficient for Huginn; the authorship line and AI-use disclosure; the remaining Planned markers.

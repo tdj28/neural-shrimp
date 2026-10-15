@@ -124,10 +124,10 @@ sampling, and Section~\ref{sec:misalignment} studies sampled dialogue directly.
   on all eight held-out prompts the 14B model is more chaotic than the 7B, at the higher temperatures where its
   next-token distribution spreads. A second frozen test finds Qwen2.5-72B nearly free of unsteered chaos on four
   held-out prompts (one chaotic temperature of 192; a finer line places it in a band 0.02 decades wide), yet steering
-  drives it, like Llama-3.3-70B, into chaos that an exact tangent exponent confirms. Its stability comes from the
-  network, not from post-training or a sharp readout: its pretrained base, whose distribution spreads far more, is no
-  more chaotic in a third frozen test, and holding its next-token entropy anywhere between 1 and 11 nats leaves the
-  loop periodic. In Soft Thinking's growing context it stays nearly insensitive (one transient burst), even where
+  drives it, like Llama-3.3-70B, into chaos that an exact tangent exponent confirms. Neither post-training
+  nor a sharp readout explains its stability: its pretrained base, whose distribution spreads far more, is no more
+  chaotic in a third frozen test, and holding its next-token entropy anywhere between 1 and 11 nats leaves the loop
+  periodic, which points to the network's damping of the fed-back token. In Soft Thinking's growing context it stays nearly insensitive (one transient burst), even where
   steering makes its one-token map chaotic. The gain split shows how network and readout damp or amplify the fed-back token
   (Section~\ref{sec:size}).
 \item \emph{A fold's normal form predicts how long the model lingers near a vanished orbit.} The 2-cycle ``is it''
@@ -182,8 +182,11 @@ the closest studies differ from ours in what they compute. Lyapunov-like quantit
 sensitivity to small perturbations in reasoning traces \cite{li2025quasilyapunov,jaca2026chaos}, but these studies
 measure chaos-like sensitivity in generation without computing orbits or bifurcations. Output statistics change
 abruptly with sampling temperature, and several studies analyse the changes as phase transitions or criticality
-\cite{arnold2024phase,nakaishi2024phase,sun2025phase,ruan2026criticality,johnson2026temperature}. These analyses
-concern output statistics; they are not bifurcation analyses of a defined map. Repetition loops are a known failure of
+\cite{arnold2024phase,nakaishi2024phase,sun2025phase,ruan2026criticality}. These analyses concern output statistics;
+they are not bifurcation analyses of a defined map. Closest to ours, a study of eleven models sorts sampled
+continuations into classes from frozen and periodic to intermittent and noisy across temperature, fits a noisy effective map to one
+hidden-state coordinate that predicts repetition, and steers along it \cite{johnson2026temperature}; that map is
+fitted to sampled trajectories, and no orbits, multipliers or bifurcation curves of the model's own map are computed. Repetition loops are a known failure of
 decoding \cite{holtzman2019degeneration,xu2022loop}, successive paraphrasing converges to attractor cycles
 \cite{wang2025attractor}, and multi-turn conversations between models settle into attractor states
 \cite{ko2026attractor}. These attractors are behavioural: they are observed in generated text rather than computed as
@@ -268,18 +271,26 @@ DF(x)=\frac{1}{T}\,\Sigma_p\,J_{\tilde h}(x),\qquad
 The derivative of the loop is the covariance of the token embeddings under the model's own next-token distribution,
 amplified by the inverse temperature and composed with the derivative of the network. At a state of the period-8
 orbit of Table~\ref{tab:orbits}, \eqref{eq:gain} agrees with forward-mode derivatives of the full map to a relative
-error of at most $1.35\times10^{-13}$ over eight random directions (\texttt{tools/softmax\_gain.py}). Without tied embeddings, as in the 7B and 8B models, $\Sigma_p$ becomes the cross-covariance of input
-and output embeddings under $p$; the temperature limits below do not change.
+error of at most $1.35\times10^{-13}$ over eight random directions (\texttt{tools/softmax\_gain.py}). Without tied embeddings, as in the 7B and 8B models, the logits are $z=W\tilde h(x)$ with an
+output matrix $W\neq E$, and $DF=T^{-1}E^{\top}(\operatorname{diag}p-pp^{\top})W J_{\tilde h}(x)$: $\Sigma_p$ becomes
+the cross-covariance $\operatorname{Cov}_{t\sim p}(e_t,w_t)$ of input and output embeddings, which is not symmetric in
+general. The temperature limits below do not change.
 
 \paragraph{A Hopfield network with a transformer inside.} If the network passed its input straight through,
 $\tilde h(x)=x$, the map would be $F(x)=E^{\top}\operatorname{softmax}(Ex/T)$. This is exactly the update rule of a
 modern Hopfield network whose stored patterns are the token embeddings, at inverse temperature $\beta=1/T$
 \cite{ramsauer2020hopfield}. That update lowers an energy function at every step and converges to fixed points.
 In \eqref{eq:gain} it is the case $J_{\tilde h}=I$, where $DF=\Sigma_p/T$ is symmetric and positive semidefinite.
-More generally, if $DF$ were symmetric and positive semidefinite everywhere, $F$ would be the gradient of a convex
-function, and the same energy argument would exclude every periodic orbit other than fixed points, and chaos with
-them. Every cycle and every chaotic cell in this paper therefore depends on the network factor $J_{\tilde h}$ breaking
-that structure. Attention has itself been read as a Hopfield retrieval \cite{ramsauer2020hopfield}; in the soft-token
+The energy argument covers every map with that property. If $DF$ is symmetric and positive semidefinite everywhere,
+then $F=\nabla\phi$ for a convex $\phi$, and convexity, $\phi(F(x))\ge\phi(x)+F(x)^{\top}(F(x)-x)$, gives for
+$V(x)=\tfrac12\|x\|^2-\phi(x)$
+\begin{equation}
+V(F(x))\le V(x)-\tfrac12\|F(x)-x\|^2 .
+\end{equation}
+Along a cycle these decreases sum to zero, so every point of the cycle is fixed. $F$ maps every state into the
+convex hull of the embeddings, where $V$ is bounded below, so the steps of every orbit tend to zero and its limit
+points are fixed points: such a map has neither cycles nor chaos. Every cycle and every chaotic cell in this paper
+therefore depends on the network factor $J_{\tilde h}$ breaking that structure. Attention has itself been read as a Hopfield retrieval \cite{ramsauer2020hopfield}; in the soft-token
 map the retrieval closes a loop around the whole network.
 
 \paragraph{High-temperature contraction and the greedy limit.} The largest Lyapunov exponent of an orbit cannot exceed the orbit
@@ -341,8 +352,10 @@ exponents in some regions of its parameter plane and positive ones in others.
 \section{Methods}
 \label{sec:methods}
 \paragraph{Phase maps.} Each cell of a phase map is one parameter pair. Unless stated otherwise, we discard 300
-transient steps and measure over the next 300. The largest Lyapunov exponent comes from a renormalized twin
-trajectory at offset $10^{-6}$. The period is the smallest $q\le32$ (48 in the later zooms) with return distance below
+transient steps and measure over the next 300. The largest Lyapunov exponent comes from a twin trajectory at
+offset $10^{-6}$ that is renormalized to that offset after every step, Benettin's method with a finite-difference
+tangent \cite{benettin1980lyapunovI,benettin1980lyapunovII}; it estimates over a finite horizon the exponent that the
+multiplicative ergodic theorem defines as a limit \cite{oseledets1968multiplicative}. The period is the smallest $q\le32$ (48 in the later zooms) with return distance below
 $10^{-8}$, and the attractor is identified by its leading-token loop, up to rotation. We call a cell chaotic when this
 finite-horizon exponent exceeds $10^{-3}$ and no period is found; the label is a finite-horizon diagnostic, not a
 proof of chaos. Panels coloured by period or attractor text follow an older drawing convention: black marks every
@@ -370,7 +383,9 @@ $u'=u+a\eps+bu^2$, with $a=\ell^\top\partial_\alpha G$ and $b=\tfrac12\ell^\top 
 central differences of float64 Jacobian-vector products over a step-size plateau (later cross-checks use nested
 automatic differentiation), and $a$ includes the steering's effect on the prefix. The signed coefficients are kept in
 the original eigenvector gauge, with $\eps$ measured in the free parameter ($\alpha$ or $\log_{10}T$, whose units
-apply to $a$). For passages we set $v=\operatorname{sign}(b)\,u$ and take the ghost side
+apply to $a$). On maps with known normal forms the code recovers $ab$, the cubic coefficient $c$ with its
+centre-manifold term and the two-parameter unfolding matrix, and it traces the analytic fold and flip curves of the
+H\'enon map (\texttt{tests/test\_bifurcation\_curves.py}). For passages we set $v=\operatorname{sign}(b)\,u$ and take the ghost side
 $p-p_c=\operatorname{sign}(ab)\,\epsilon$ with $\epsilon>0$, so that $v'=v+|a|\epsilon+|b|v^2$ to quadratic order. A
 full passage starts at $v=-U$ and a midpoint passage at $v=0$; both end at the first strict crossing $v>U$, with
 $U=0.1/|b|$. We compare passage counts with the iterated quadratic map and with the arctangent formula
@@ -869,7 +884,8 @@ collapses to the level of the growing context between $K=16$ and $32$; steered, 
 the growing-context loop rises from 0 at $K=1$ to 58\,\% at $K=64$. The soft-token map's low-temperature attractors
 are therefore those of decoding with a one-token memory. Which loop ordinary decoding enters depends on the context
 it keeps, but the tendency of steering to drive decoding into loops is shared. In ordinary decoding, repetition is
-known to reinforce itself \cite{holtzman2019degeneration,xu2022loop,fu2021repetition}, and induction heads, which copy
+known to reinforce itself \cite{holtzman2019degeneration,xu2022loop}, a theoretical analysis ties loops to words of
+high inflow \cite{fu2021repetition}, and induction heads, which copy
 earlier context \cite{olsson2022induction}, are one mechanism by which a longer context can favour loops that repeat
 earlier text.
 \begin{table}[H]
@@ -1039,7 +1055,9 @@ Instruct-trained autoencoder separates the attractors (their top-15 features ove
 $0.19$ within a steering direction and $0.11$ across directions), whereas the base-model autoencoder sees mostly a
 signature common to every attractor (overlap $0.52$--$0.86$). Both reconstruct the attractors' states less well than
 ordinary text (median relative error $0.64$--$0.76$ against $0.52$--$0.56$). The readout is therefore descriptive:
-without interventions it identifies which learned features an attractor occupies, not a mechanism.
+without interventions it identifies which learned features an attractor occupies, not a mechanism, and since
+autoencoders trained with different seeds learn different features \cite{paulo2026sae}, the features are those of
+these two autoencoders.
 \begin{figure}[H]
 \centering
 \includegraphics[width=0.86\linewidth]{fig-llama-maps.png}
@@ -1118,9 +1136,10 @@ Is the chaos of the loop a small-model effect that larger models leave behind? W
 fifteen models: Qwen2.5 at seven sizes from 0.5B to 72B parameters, OLMo-2 at 1B, 7B, 13B and 32B, Llama-3.1 at 8B
 and 70B, Llama-3.3-70B, and the mixture of experts Qwen3.5-35B-A3B, all with the paper's prefix and the settings of
 Section~\ref{sec:methods} (1000 transient and 2000 measured steps in float64; chaotic: a positive exponent and no
-period). Every checkpoint is stored entirely in bfloat16 (checked against its safetensors metadata). The newer sweeps
-keep the decoder weights in that format and use them in float64, which reproduces the map with float64 weights
-exactly (bitwise on Qwen2.5-0.5B); the 70B-class models are spread over two GPUs. In those two-GPU runs the final
+period). Every checkpoint is stored entirely in bfloat16 (checked against its safetensors metadata), and every map here is the
+map of those stored values evaluated in float64 arithmetic; float64 does not make the weights more precise than
+stored. The newer sweeps keep the decoder weights in bfloat16 and convert them on use, which gives the same map as
+converting them once (bitwise on Qwen2.5-0.5B); the 70B-class models are spread over two GPUs. In those two-GPU runs the final
 RMS normalization was computed in float32: the hooks that move tensors between the GPUs keep a layer's original code,
 so our float64 version of that layer was bypassed. This makes the computed map rough at about $10^{-8}$ of the
 state (its fixed points wander by $10^{-8}$, against $10^{-15}$ on one GPU) and matters only for exponents measured
@@ -1271,19 +1290,26 @@ decomposition along the evolving tangent direction, and equal entropy does not i
 An intervention separates the two factors at 72B. If its loop were stable only because its distribution jumps from
 sharp to flat, holding the distribution in between should destabilize it. We therefore choose each step's
 temperature so that the next-token entropy equals a target and sweep the target instead of the temperature
-(entropy-clamped decoding; the map stays smooth and deterministic, and the entropy holds to $10^{-14}$). Held at any
-of 16 targets between 1 and 11 nats, Qwen2.5-72B has only periodic orbits, the echo of period 2 on the paper's prompt
-and periods 1 to 19 on a held-out prompt, with exponents between $-0.08$ and $-4.5$ that twins at $10^{-5}$ to
-$10^{-7}$ reproduce within 0.004, whereas Qwen2.5-0.5B under the same clamp is chaotic at 6.1 nats. Its network damps
-the fed-back token even where the readout is spread. Nor does post-training make the 72B stable. A test frozen before
+(entropy-clamped decoding; the map stays deterministic, and the entropy holds to $10^{-14}$). The temperature then
+depends on the state, $T=\tau(x)$ with $H(x,\tau(x))=H_\star$ for the entropy $H$, so the derivative of the clamped
+map $\hat F(x)=F(x,\tau(x))$ gains a rank-one term, $D\hat F=D_xF-\partial_TF\,D_xH/\partial_TH$. We therefore take
+its exponents from twins of the clamped map itself, temperature solve included, and use no fixed-temperature
+derivative or gain split for it. The safeguarded solve is only piecewise smooth, but on these orbits one-step central
+differences at $10^{-5}$ to $10^{-7}$ agree with those at $10^{-4}$ within $6\times10^{-6}$. Held at any of 16 targets
+between 1 and 11 nats, Qwen2.5-72B has only periodic orbits, the echo of period 2 on the paper's prompt and periods 1
+to 19 on a held-out prompt, with twin exponents between $-0.08$ and $-4.5$ that agree within 0.004 across offsets
+$10^{-5}$ to $10^{-7}$, whereas Qwen2.5-0.5B under the same clamp is chaotic at 6.1 nats. The 72B loop thus stays
+stable even where its readout is spread, which points to damping by the network. Nor does post-training make the 72B
+stable. A test frozen before
 its data (\texttt{docs/prefix-scale-72b-base.md}) predicted that the pretrained base model of the same size would be
 chaotic at three or more temperatures more than Qwen2.5-72B-Instruct on at least three of the four held-out prompts.
 It fails on all four: the base model is chaotic at 1, 0, 0 and 0 of the 48 temperatures (and at 2 on the paper's
 prompt; computed after the precision fix, with 500 transient and 1000 measured steps, half the Instruct model's
 horizon), although its next-token distribution spreads over 2.5 to 5.5 times the temperature range (intermediate-entropy
 breadth 0.28 to 0.61 decades against 0.11 to 0.22) and from lower temperatures on. At 72B, then, neither the sharpness
-that post-training adds nor post-training itself explains the stability; the network's damping of the fed-back token
-does, and the breadth that orders the fifteen models fails for this pair. The damping holds when the whole
+that post-training adds nor post-training itself explains the stability. What remains is the network's damping of the
+fed-back token, which the gain split shows at fixed temperature (the 72B's network factor lies below the 7B's in every
+entropy bin), and the breadth that orders the fifteen models fails for this pair. The damping holds when the whole
 context is kept as well: in Soft Thinking's growing context (Section~\ref{sec:bridge}), an early perturbation grows at
 none of eleven steered cells, six of them chaotic as one-token maps, and at one of 48 unsteered temperatures on two
 prompts, transiently.
@@ -1387,10 +1413,13 @@ Qwen2.5-72B, into chaos.
 \label{sec:huginn}
 Huginn-0125 iterates a recurrent block at fixed input tokens \cite{geiping2025recurrent}. For a GSM8K-style
 \cite{cobbe2021gsm8k} prompt, the native loop converges to a fixed point whose leading Jacobian pair is
-$0.588\pm0.771i$ (modulus $0.970$). For the relaxed loop $h\leftarrow(1-\lambda)h+\lambda F(h)$, this predicts a
-Neimark--Sacker bifurcation at $\lambda_c=2(1-\operatorname{Re}\mu)/|1-\mu|^2=1.0777$. Below it the latent state
+$0.588\pm0.771i$ (modulus $0.970$). For the relaxed loop $h\leftarrow(1-\lambda)h+\lambda F(h)$, whose multipliers
+are $1-\lambda+\lambda\mu$, this predicts that the pair crosses the unit circle at
+$\lambda_c=2(1-\operatorname{Re}\mu)/|1-\mu|^2=1.0777$, transversally and away from the strong resonances (at
+0.156 of a revolution per step): a Neimark--Sacker bifurcation. Below it the latent state
 decays; above it the state settles on a closed curve. A fit of the squared amplitude gives $\lambda_c=1.0778$, with
-$A/\sqrt{\lambda-\lambda_c}=0.52$--$0.54$ (supercritical). Causal attention makes the loop block lower-triangular in
+$A/\sqrt{\lambda-\lambda_c}=0.52$--$0.54$. A stable circle that grows like the square root of the distance is the
+signature of a supercritical bifurcation; we did not compute its first Lyapunov coefficient directly. Causal attention makes the loop block lower-triangular in
 token positions. The first position to oscillate is the ``.'' of the prompt, and all later positions follow. On the
 invariant circle the motion turns by $0.156$ of a revolution per step, matching the argument of the critical pair.
 The rotation number changes smoothly, by about $10^{-4}$ over $\lambda\in[1.079,1.092]$, and no return within 60
@@ -1520,7 +1549,8 @@ strong baselines that see the same turns (the classifier's score, its change and
 persona-axis projection)? The dynamical estimates are a Markov-chain hitting probability, a finite-horizon committor
 \cite{e2006transition,e2010transition} and slowing-down indicators \cite{scheffer2009early}. Barrier-crossing rates
 would follow Kramers' law \cite{kramers1940brownian} only under a justified stochastic reduction, and slowing-down
-proxies are known to depend on the mechanism \cite{maturana2020slowing,hagemann2021criticality}. A secondary question
+proxies depend on the mechanism of the transition \cite{ditlevsen2010tipping}; before epileptic seizures, for
+example, the evidence for them is mixed \cite{maturana2020slowing,hagemann2021criticality}. A secondary question
 is whether interventions timed by those estimates prevent capture at lower cost than scheduled or constant
 counter-steering. Early warning is not expected for noise-induced jumps without a nearby bifurcation, or for
 transitions faster than the slowing-down; such a monitor would complement classifiers, not replace them.
@@ -2085,7 +2115,8 @@ measured steps after 300 to 500 transient steps), and no chaotic cell is proved 
 random cells of two float64 maps (Figures~\ref{fig:teaser} and~\ref{fig:stripes}) with 1000 transient and 2000
 measured steps at two twin offsets: 86 and 92 of 96 cells labelled chaotic stayed chaotic (all but one of the rest
 settled on periodic orbits), all 96 periodic cells in each map stayed periodic, and 18 and 20 of 32 cells with neither
-label turned out to be slow periodic transients. Near the accumulation of a cascade the labels are less reliable: on
+label turned out to be slow periodic transients. Near the accumulation of a cascade the labels are less reliable, because orbits there converge
+slowly or wander chaotically before they settle (transient chaos \cite{lai2011transient}): on
 the hostile line of Figure~\ref{fig:hubcascade} (left), 135 of the 235 cells labelled chaotic from 400 measured steps
 stayed chaotic and 91 were periodic. The Feigenbaum ratios are
 finite-order values that rise toward $\delta$ (the last is within 1\,\%); the limit itself is not computed. All
@@ -2235,12 +2266,17 @@ sixth test, a cusp pilot in a second checkpoint, is the unreported bounded searc
   period-8 orbit, which is the unique multiple-shooting root in a product of eight boxes of coordinate radius
   $2^{-640}$ around refined centres, and the orbit is locally attracting. Ball arithmetic (Arb
   \cite{johansson2017arb}) encloses the map and its Jacobian over each box ($8\times896$ directions); a Krawczyk-type
-  inclusion for the preconditioned shooting system gives existence and uniqueness, separation of the first point
+  inclusion \cite{krawczyk1969newton,moore2009interval,rump2010verification} for the preconditioned shooting system gives existence and uniqueness, separation of the first point
   from the points one, two and four steps later gives the primitive period, and a norm bound on powers of the
-  enclosed monodromy gives attraction. An independent audit in exact rational arithmetic rechecked the saved
-  witnesses. The proof trusts the Python, FLINT and Arb stack and the stored weights. It does not exclude other
-  period-8 points in the first box, and it says nothing about the window's boundaries or global organization
-  (record: \path{certificates/llm-p8-certificate-final-001.json}).
+  enclosed monodromy gives attraction. The map is the real-number map of the stored constants, read as exact
+  dyadic rationals: rotary angles, exponentials and square roots are real functions enclosed by the balls, not
+  floating-point tables. An independent audit in exact rational arithmetic rechecked the saved witnesses (the
+  scalar inequalities, the primitive-period separations and the row norms of the saved monodromy powers); it did
+  not recompute the enclosures of the model or the dense matrix products, which rest on one execution. The proof
+  trusts the Python, FLINT and Arb stack and the stored weights. It does not exclude other period-8 points in the
+  first box, and it says nothing about the window's boundaries or global organization. The record
+  (\path{certificates/llm-p8-certificate-final-001.json}) pins the SHA-256 hashes of the checkpoint, its
+  configuration and the steering vector, and lists the 37 prefix token IDs.
 \item Rung 2: the 2-cycle's fold and its normal form. An independent reimplementation of the forward map and solver
   recovers $\alpha_c$, $a$ and $b$ (to $6\times10^{-15}$, $3\times10^{-12}$ and $2\times10^{-6}$ relatively), and $ab$
   also follows from the stable-branch multipliers. The same reimplementation reproduces all 18 fixed-entrance counts
