@@ -555,15 +555,6 @@ each push alone is periodic. Over the four planes (two block orders, $\log_{10}T
 gratitude at 16) the plane is 23.4\,\% chaotic, and at $\log_{10}T=0.1$ both pairs give 33 and 42\,\%. Each plane keeps
 a periodic hole around zero steering. Combining steering vectors is therefore not additive in its effect on the loop's
 stability: a composition of two pushes can be chaotic where each push alone is periodic.
-\begin{figure}[tbp]
-\centering
-\includegraphics[width=0.85\linewidth]{fig-two-block.png}
-\caption{Two steering directions at two blocks of Qwen2.5-0.5B-Instruct: largest Lyapunov exponent on $96\times96$
-float64 cells over the two strengths, at $\log_{10}T=-0.1$ (left) and $0.1$ (right). Top: gratitude at block 4,
-hostility at block 16; bottom: the blocks exchanged. Dotted lines mark the zero axes; the grid does not sample them,
-and the single-push controls quoted in the text were computed separately on exact zero lines.}
-\label{fig:twoblock}
-\end{figure}
 
 \paragraph{Does a chaotic loop predict worse answers in ordinary decoding? Not beyond the model's own uncertainty.}
 Two exploratory designs found no accuracy signature of the regimes that survives controls
@@ -919,37 +910,15 @@ branches none of them has a one-dimensional shrimp centre (Section~\ref{sec:orga
 their symbolic sequences or tested for a periodicity hub \cite{gallas1993structure,jones2012rossler}. The cusps are float64
 computations validated by step-size checks, not proofs (Appendix~\ref{sec:curves}).
 
-\paragraph{Limitations.} The detailed orbit studies cover one model family (Qwen2.5, 0.5B and 1.5B), with coarse
-maps and three float64 orbits at 7B; the two other families (OLMo-2 7B and Llama-3.1 8B) have maps, including
-$128^2$ refinements for Llama, but no continued orbits. The size comparison of Appendix~\ref{sec:size} uses regular
-temperature grids that can miss narrow windows, a window that missed most of the larger models' chaos, and mostly
-one twin offset per label. The two-GPU runs of the 70B-class models computed their final normalization in float32
-until we fixed it; their labels rest on offsets of $10^{-6}$ or more, and the cells we rechecked, the Qwen2.5-72B jump
-window and steered candidates in float64 throughout and samples of the Llama maps at three offsets, behave as stated,
-but the rest of those maps were not recomputed. Neither were the four coarse lines of the frozen 72B test; after the
-fix we computed only fine lines through their entropy jumps, one of which passes through their single chaotic
-temperature.
-The maps use one prompt (Appendix~\ref{sec:size} adds ten for Qwen2.5-7B and -14B, and four for Qwen2.5-72B, its base
-model, and OLMo-2-7B and -32B), and steering uses contrastive vectors, checked against norm-matched random and sparse-autoencoder
-directions in two models. The system is a constructed loop: Appendix~\ref{sec:bridge} extends it to memories of up to sixteen soft tokens and to the growing context of Soft Thinking, but sampled decoding of discrete tokens is a different system. The evidence consists of numerical
-validation, cross-checks and prospectively frozen passage tests (including failed all-row criteria), with a
-computer-assisted proof for only one orbit at one parameter point. Chaos labels are finite-horizon estimates (300
-measured steps after 300 to 500 transient steps), and no chaotic cell is proved chaotic. A computer-assisted proof of chaos, such as a horseshoe verified by covering
-relations, would need enclosures of the map over boxes many orders of magnitude larger than the period-8 proof's
-(radius $2^{-640}$). With the ball arithmetic used there, a box of radius $2^{-80}$ already loses the positivity
-of an RMS normalization at layer 3 (the enclosures overestimate through the layers), so such a proof needs other
-verified methods. A horizon check retested
-random cells of two float64 maps (Figures~\ref{fig:teaser} and~\ref{fig:stripes}) with 1000 transient and 2000
-measured steps at two twin offsets: 86 and 92 of 96 cells labelled chaotic stayed chaotic (all but one of the rest
-settled on periodic orbits), all 96 periodic cells in each map stayed periodic, and 18 and 20 of 32 cells with neither
-label turned out to be slow periodic transients. Near the accumulation of a cascade the labels are less reliable, because orbits there converge
-slowly or wander chaotically before they settle (transient chaos \cite{lai2011transient}): on
-the hostile line of Figure~\ref{fig:hubcascade} (left), 135 of the 235 cells labelled chaotic from 400 measured steps
-stayed chaotic and 91 were periodic. The Feigenbaum ratios are
-finite-order values that rise toward $\delta$ (the last is within 1\,\%); the limit itself is not computed. All
-orbit, bifurcation and chaos results concern the constructed map, not sampled generation with a growing context. With
-sampling, the bridge of Appendix~\ref{sec:bridge} tests only whether the bottleneck's laminar phases survive the noise;
-its other tests are deterministic (greedy decoding, longer fed-back memories and Soft Thinking's growing context).
+\paragraph{Limitations.} The detailed orbit studies cover Qwen2.5 at 0.5B and 1.5B; the other families have maps
+and a few orbits but no continued curves. The size comparison rests on regular temperature grids and mostly one twin
+offset per label, and part of the 70B-class maps predate a precision fix and were rechecked only in samples. The maps
+use one prompt (more in the size tests), and steering uses contrastive vectors, checked against random and
+sparse-autoencoder directions in two models. Chaos labels are finite-horizon estimates: a longer horizon check kept 86
+and 92 of 96 chaotic labels in two maps, near the accumulation of a cascade transient chaos makes labels less
+reliable, no chaotic cell is proved chaotic, and only one periodic orbit is proved to exist. The Feigenbaum ratios are
+finite-order values. All orbit, bifurcation and chaos results concern the constructed map, not sampled generation with
+a growing context. Appendix~\ref{sec:limits} gives the details.
 
 \paragraph{Steering strength is a bifurcation parameter.} In the soft-token map, small changes of the steering
 strength switch the model between distinct repeating texts, chaos and coexisting attractors. Near a fold curve,
@@ -1018,26 +987,16 @@ it rose from $0.375$ natively to $0.425$ at relaxation $1.05$, where the token r
 natively (median decay rate $0.921$ against $0.912$), and fell to $0.29$ at $1.15$, where the recurrence is near
 critical ($0.981$, with half of the tokens no longer converging; Appendix~\ref{sec:huginn}).
 
-\paragraph{Which findings might reach frontier models.} Today's frontier systems include closed models and
-open-weight mixture-of-experts models. Some of our
-findings rest only on structure that every smooth softmax-readout language model with a fixed prefix shares and should
-carry over: the factorization of the loop's derivative (a covariance for tied embeddings, a cross-covariance
-otherwise), contraction at sufficiently high temperature, the reduction of zero-temperature attractors to greedy
-cycles of whatever memory the loop keeps, and the role of a steering coefficient as a bifurcation parameter. Others
-belong to particular weights and will not carry over as such: the attractor texts, the positions of windows, folds and
-cusps, and every number we report; a second checkpoint of the same architecture already has different
-attractors (Appendix~\ref{sec:scale}). Size gives no guarantee of stability (Section~\ref{sec:beyond}), and post-training changed the chaos of
-two Llama checkpoints of the same size (Appendix~\ref{sec:size}). For an open frontier model we would search for
-chaos where its own next-token distribution spreads, across prompts. Our one mixture-of-experts model,
-Qwen3.5-35B-A3B, gave no positive exponent without steering and irregular cells only under hostility steering, and
-hard routing falls outside the smooth theory of Section~\ref{sec:theory} (Appendix~\ref{sec:scale}). Reasoning models
-open a thinking block that changes the prefix, post-training may remove some attractors and create others, and
-deployed inference samples tokens, in low precision, over long contexts; our bridge results show that sampling
-shortens laminar phases and that a longer context changes which loops are entered. Closed models permit none of these
-computations: the map needs the input embedding matrix, full next-token distributions and a way to feed a vector in
-place of a token, and its analysis needs derivatives. For closed models the method and the questions transfer, not
-the numbers.
-
+\paragraph{Which findings might reach frontier models.} The parts that rest only on structure every smooth
+softmax-readout language model with a fixed prefix shares should carry over: the factorization of the loop's
+derivative, contraction at sufficiently high temperature, greedy cycles at zero temperature, and the role of a
+steering coefficient as a bifurcation parameter. The attractor texts, the positions of windows, folds and cusps, and
+every number we report belong to particular weights; a second checkpoint of the same architecture already has
+different attractors (Appendix~\ref{sec:scale}). Size gives no guarantee of stability (Section~\ref{sec:beyond}), hard
+routing in mixture-of-experts models falls outside the smooth theory of Section~\ref{sec:theory}, and deployed
+inference samples tokens, in low precision, over long contexts. Closed models permit none of these computations, which
+need the input embeddings, full next-token distributions and derivatives; for them the method and the questions
+transfer, not the numbers.
 
 \section*{Use of AI assistance}
 This work was carried out with AI coding and research agents (Anthropic's Claude Code and OpenAI's Codex) working
@@ -1376,6 +1335,15 @@ doubling cascade at $\log_{10}T=-0.148$: capacity for two input sizes, the input
 (red) and the onset of chaos (dotted). (b) The 448 labelled cells of the horizon check against the map exponent, with
 bin means and bootstrap 95\,\% intervals.}
 \label{fig:reservoir}
+\end{figure}
+\begin{figure}[tbp]
+\centering
+\includegraphics[width=0.85\linewidth]{fig-two-block.png}
+\caption{Two steering directions at two blocks of Qwen2.5-0.5B-Instruct: largest Lyapunov exponent on $96\times96$
+float64 cells over the two strengths, at $\log_{10}T=-0.1$ (left) and $0.1$ (right). Top: gratitude at block 4,
+hostility at block 16; bottom: the blocks exchanged. Dotted lines mark the zero axes; the grid does not sample them,
+and the single-push controls quoted in the text were computed separately on exact zero lines.}
+\label{fig:twoblock}
 \end{figure}
 \FloatBarrier
 \section{Behavioural tests in detail}
@@ -2977,6 +2945,40 @@ rotation video, can jump at every tenth angle and across the 17 of 120 planned a
 the run limit. These short-horizon labels are coarser than those of the float64 maps.}
 \label{fig:morph}
 \end{figure}
+\section{Limitations in detail}
+\label{sec:limits}
+The detailed orbit studies cover one model family (Qwen2.5, 0.5B and 1.5B), with coarse
+maps and three float64 orbits at 7B; the two other families (OLMo-2 7B and Llama-3.1 8B) have maps, including
+$128^2$ refinements for Llama, but no continued orbits. The size comparison of Appendix~\ref{sec:size} uses regular
+temperature grids that can miss narrow windows, a window that missed most of the larger models' chaos, and mostly
+one twin offset per label. The two-GPU runs of the 70B-class models computed their final normalization in float32
+until we fixed it; their labels rest on offsets of $10^{-6}$ or more, and the cells we rechecked, the Qwen2.5-72B jump
+window and steered candidates in float64 throughout and samples of the Llama maps at three offsets, behave as stated,
+but the rest of those maps were not recomputed. Neither were the four coarse lines of the frozen 72B test; after the
+fix we computed only fine lines through their entropy jumps, one of which passes through their single chaotic
+temperature.
+The maps use one prompt (Appendix~\ref{sec:size} adds ten for Qwen2.5-7B and -14B, and four for Qwen2.5-72B, its base
+model, and OLMo-2-7B and -32B), and steering uses contrastive vectors, checked against norm-matched random and sparse-autoencoder
+directions in two models. The system is a constructed loop: Appendix~\ref{sec:bridge} extends it to memories of up to sixteen soft tokens and to the growing context of Soft Thinking, but sampled decoding of discrete tokens is a different system. The evidence consists of numerical
+validation, cross-checks and prospectively frozen passage tests (including failed all-row criteria), with a
+computer-assisted proof for only one orbit at one parameter point. Chaos labels are finite-horizon estimates (300
+measured steps after 300 to 500 transient steps), and no chaotic cell is proved chaotic. A computer-assisted proof of chaos, such as a horseshoe verified by covering
+relations, would need enclosures of the map over boxes many orders of magnitude larger than the period-8 proof's
+(radius $2^{-640}$). With the ball arithmetic used there, a box of radius $2^{-80}$ already loses the positivity
+of an RMS normalization at layer 3 (the enclosures overestimate through the layers), so such a proof needs other
+verified methods. A horizon check retested
+random cells of two float64 maps (Figures~\ref{fig:teaser} and~\ref{fig:stripes}) with 1000 transient and 2000
+measured steps at two twin offsets: 86 and 92 of 96 cells labelled chaotic stayed chaotic (all but one of the rest
+settled on periodic orbits), all 96 periodic cells in each map stayed periodic, and 18 and 20 of 32 cells with neither
+label turned out to be slow periodic transients. Near the accumulation of a cascade the labels are less reliable, because orbits there converge
+slowly or wander chaotically before they settle (transient chaos \cite{lai2011transient}): on
+the hostile line of Figure~\ref{fig:hubcascade} (left), 135 of the 235 cells labelled chaotic from 400 measured steps
+stayed chaotic and 91 were periodic. The Feigenbaum ratios are
+finite-order values that rise toward $\delta$ (the last is within 1\,\%); the limit itself is not computed. All
+orbit, bifurcation and chaos results concern the constructed map, not sampled generation with a growing context. With
+sampling, the bridge of Appendix~\ref{sec:bridge} tests only whether the bottleneck's laminar phases survive the noise;
+its other tests are deterministic (greedy decoding, longer fed-back memories and Soft Thinking's growing context).
+
 \section{Evidence and reproducibility}
 \label{sec:evidence}
 We grade claims on an evidence ladder. Rung 1 means numerically validated (tolerances, residuals, convergence,
