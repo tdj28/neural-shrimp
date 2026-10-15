@@ -24166,3 +24166,22 @@ Pod 3en7yg96v92ysm (COMMUNITY H100 NVL; runner rc 0, hash verified, terminated; 
 **DSS3** (two pods): the philosophy map's period-6 hook body (Figure fig:zooms, bottom; its fold curves carry the located cusps). Period 6, around the lower junction where the body meets its legs: alpha 0.0785-0.0812 in 28 columns, log10 T -0.0755 to -0.0665 in 27 rows, split into rows 0-13 and 13-26. Seeds (0.080471, -0.071235) and (0.080471, -0.068588) are period-6 cells with exponent near -0.22.
 
 **Reading, fixed now:** a doubly superstable point is reported only if the transported zero curves of two different steps cross, approached from four sectors by cells with carrying cosine above 0.3. An avoided crossing, a gap between the curves that persists at the finer spacing, is reported as such. Figure 8's X-shaped crossing is a period-5 strip crossing a period-6 strip (map periods). It is not a shrimp centre of one orbit; whether the two orbits coexist there is being checked locally.
+
+## 2026-10-15 05:53 UTC: BP result: in Qwen2.5-7B, prompts whose own loop is chaotic are answered much less accurately, but mostly through task mix and answer flatness; the residual effect is small and not established
+
+Pods: 7B labels (shards 0-5: lwevy9huignhj3, ake729hlyutvbn, x2wlyik6vf3e67, 9g7dm66sgrxmkx, kllbsprssklpdd, u9rn2empvc38fy), 7B generation gpab2gjklcbchs, 0.5B labels n1xbxqbt6c9nhm and 7bhlsdcpum42lu, 0.5B generation ow2okktv3aurqs. All runner rc 0, hashes verified, terminated; commit 2c86b6e8. 200 prompts labelled at each of three temperatures. Analysis: tools/behavior_prompts.py analyze (scratch/bp-q7.json, bp-q05.json), plus an ad-hoc control analysis (below).
+
+- **Primary reading (card: greedy-correct prompts, chaotic vs periodic, permutation test), 7B:**
+  - log10 T 0.25: 0.643 (14 prompts) vs 0.911 (105), difference -0.269, p = 0.0011.
+  - 0.32: 0.612 (33) vs 0.850 (84), -0.238, p = 0.0004.
+  - 0.40: 0.378 (40) vs 0.738 (79), -0.360, p < 1e-4.
+  - All prompts: -0.374, -0.257, -0.358.
+- **0.5B:** no difference (0.25: 0.150 vs 0.138, p = 0.73; 0.32: 0.029 vs 0.042). No prompt is chaotic at 0.40. Accuracies are near the floor at these temperatures.
+- **Confounds (not in the card, disclosed here):**
+  - Task mix: chaotic labels fall mostly on the harder NQ questions (31/38, 46/68, 65/90).
+  - Within tasks, chaotic - periodic: arithmetic -0.07 (7 chaotic prompts), -0.13 and -0.32; NQ -0.11, -0.03 and +0.06.
+  - Linear model acc ~ chaotic + generation entropy + task + greedy: the chaotic coefficient is -0.037 (permutation p 0.20), -0.046 (p 0.07) and -0.045 (p 0.09). Entropy-stratified differences (greedy-correct): -0.17, -0.08, -0.10.
+  - The generation entropy is measured during sampling, after the outcome begins, so this adjustment probably over-corrects. The true effect plausibly lies between the adjusted and the raw estimate.
+- **Reading:** The card's primary test is met at all three temperatures. Most of the effect is explained by task mix and by the flatness of the answer distribution; a residual of about -4 to -5 points, the same sign at every temperature, is not significant alone.
+  - Not a claim of a dynamical effect on accuracy.
+  - Follow-up for a confirmatory test: a pre-sampling covariate per prompt (first answer token's entropy at T, greedy answer probability), many more prompts in one task, and the analysis frozen before the run.
