@@ -1,0 +1,1205 @@
+{
+  "created_utc": "2026-10-15T14:10:43.137372+00:00",
+  "scope": "Original BZ/BP attempt/source/command/retrieval/status/recorded-termination metadata index only. All attempts retained; no target outcomes decoded, archive reads or model execution. BPC/BPCS are later source/exposure context, not added numeric scope.",
+  "attempts": [
+    {
+      "id": "BPq05G",
+      "orchestrator": {
+        "path": "/data2/neural-shrimp-data/runpod/BPq05G-orchestrator.log",
+        "bytes": 1443,
+        "sha256": "ef23ef0c55801c892825083887c319fa6bd2951da30b4d2206a3d9446e5a094b"
+      },
+      "initial": {
+        "commit": "6a7c7ac1c1cbef76a93bc798d712bb2d5d965970",
+        "jobset": "bp",
+        "code_bytes": 1126400,
+        "data_bytes": 1177600,
+        "code_sha256": "2385ccc8889f834d4a7cd6a0f1da89db9af5ca753f54ecb8a1dd7480fbb23e18",
+        "data_sha256": "f425388da2f9fe2392ca7e1dea3826d44b492fd4b1c6106e5f0874784f29d778",
+        "extra_data": [],
+        "jobset_args": "q05-gen 25 qwen0.5b generate"
+      },
+      "recorded_termination": {
+        "pod_id": "ow2okktv3aurqs",
+        "terminated": true,
+        "direct_lookup": null,
+        "in_inventory": false
+      },
+      "retrieval_available": true,
+      "retrieval_dir": "/data2/neural-shrimp-data/runpod/soft64/20261015T050340Z",
+      "retrieval": {
+        "pod_id": "ow2okktv3aurqs",
+        "gpu_type": "SECURE:NVIDIA H100 80GB HBM3",
+        "commit": "6a7c7ac1c1cbef76a93bc798d712bb2d5d965970",
+        "jobset": "bp",
+        "started": 1792040623.6040695,
+        "out": "/data2/neural-shrimp-data/runpod/soft64/20261015T050340Z",
+        "upload": {
+          "code_bytes": 1126400,
+          "data_bytes": 1177600,
+          "code_sha256": "2385ccc8889f834d4a7cd6a0f1da89db9af5ca753f54ecb8a1dd7480fbb23e18",
+          "data_sha256": "f425388da2f9fe2392ca7e1dea3826d44b492fd4b1c6106e5f0874784f29d778",
+          "extra_data": [],
+          "jobset_args": "q05-gen 25 qwen0.5b generate"
+        },
+        "runner_returncode": 0,
+        "remote_sha256": "02d7211e69e2df8ff80c00ea379e19a4d92a6cb4cd2b2969793242e86e49daf4",
+        "local_sha256": "02d7211e69e2df8ff80c00ea379e19a4d92a6cb4cd2b2969793242e86e49daf4",
+        "hash_verified": true,
+        "wall_seconds": 144
+      },
+      "retrieval_record": {
+        "path": "/data2/neural-shrimp-data/runpod/soft64/20261015T050340Z/result.json",
+        "bytes": 810,
+        "sha256": "7b1200dc44aa57e8f39e858357cc9c4de9d1c24f38812f0f49987295d94bf3f9"
+      },
+      "archive": {
+        "path": "/data2/neural-shrimp-data/runpod/soft64/20261015T050340Z/results.tgz",
+        "bytes": 600388,
+        "hash_scope": "Recorded retrieval hash only at this index stage; no archive opened or rehashed."
+      },
+      "runner_stdout": {
+        "path": "/data2/neural-shrimp-data/runpod/soft64/20261015T050340Z/runner-stdout.txt",
+        "bytes": 485,
+        "sha256": "b4952e59adabbd3daf18c5a77d1405c6c1652fba0972b58775232cc56bef4237"
+      },
+      "exact_status_lines": [
+        "2026-10-15T05:04:58Z start bp-q05-gen",
+        "2026-10-15T05:05:58Z end bp-q05-gen status 0",
+        "2026-10-15T05:05:58Z runner done"
+      ]
+    },
+    {
+      "id": "BPq05L0",
+      "orchestrator": {
+        "path": "/data2/neural-shrimp-data/runpod/BPq05L0-orchestrator.log",
+        "bytes": 1388,
+        "sha256": "d3b545281d4ef64d1945a81d4e58d0264d509375713427ecad3ba7b33986a54b"
+      },
+      "initial": {
+        "commit": "6a7c7ac1c1cbef76a93bc798d712bb2d5d965970",
+        "jobset": "bp",
+        "code_bytes": 1126400,
+        "data_bytes": 1177600,
+        "code_sha256": "2385ccc8889f834d4a7cd6a0f1da89db9af5ca753f54ecb8a1dd7480fbb23e18",
+        "data_sha256": "f425388da2f9fe2392ca7e1dea3826d44b492fd4b1c6106e5f0874784f29d778",
+        "extra_data": [],
+        "jobset_args": "q05-label-0 50 qwen0.5b label --shard 0 2"
+      },
+      "recorded_termination": {
+        "pod_id": "n1xbxqbt6c9nhm",
+        "terminated": true,
+        "direct_lookup": null,
+        "in_inventory": false
+      },
+      "retrieval_available": true,
+      "retrieval_dir": "/data2/neural-shrimp-data/runpod/soft64/20261015T050334Z",
+      "retrieval": {
+        "pod_id": "n1xbxqbt6c9nhm",
+        "gpu_type": "SECURE:NVIDIA H100 NVL",
+        "commit": "6a7c7ac1c1cbef76a93bc798d712bb2d5d965970",
+        "jobset": "bp",
+        "started": 1792040616.6293707,
+        "out": "/data2/neural-shrimp-data/runpod/soft64/20261015T050334Z",
+        "upload": {
+          "code_bytes": 1126400,
+          "data_bytes": 1177600,
+          "code_sha256": "2385ccc8889f834d4a7cd6a0f1da89db9af5ca753f54ecb8a1dd7480fbb23e18",
+          "data_sha256": "f425388da2f9fe2392ca7e1dea3826d44b492fd4b1c6106e5f0874784f29d778",
+          "extra_data": [],
+          "jobset_args": "q05-label-0 50 qwen0.5b label --shard 0 2"
+        },
+        "runner_returncode": 0,
+        "remote_sha256": "43841480f9e99f7daf893e6dd424bfd649ab29e0ca71b836acd655d316e196ba",
+        "local_sha256": "43841480f9e99f7daf893e6dd424bfd649ab29e0ca71b836acd655d316e196ba",
+        "hash_verified": true,
+        "wall_seconds": 2421
+      },
+      "retrieval_record": {
+        "path": "/data2/neural-shrimp-data/runpod/soft64/20261015T050334Z/result.json",
+        "bytes": 818,
+        "sha256": "bfc27f4da1fdefb3d1ad9b9187eec8097c31e5cd5ed5aba465886c9419a066ea"
+      },
+      "archive": {
+        "path": "/data2/neural-shrimp-data/runpod/soft64/20261015T050334Z/results.tgz",
+        "bytes": 18138,
+        "hash_scope": "Recorded retrieval hash only at this index stage; no archive opened or rehashed."
+      },
+      "runner_stdout": {
+        "path": "/data2/neural-shrimp-data/runpod/soft64/20261015T050334Z/runner-stdout.txt",
+        "bytes": 665,
+        "sha256": "73c60fa4dc4ebb7809d989e0334c28025aa89c5d5a3a0ce6f076720b6f54d559"
+      },
+      "exact_status_lines": [
+        "2026-10-15T05:04:48Z start bp-q05-label-0",
+        "2026-10-15T05:43:48Z end bp-q05-label-0 status 0",
+        "2026-10-15T05:43:48Z runner done"
+      ]
+    },
+    {
+      "id": "BPq05L1",
+      "orchestrator": {
+        "path": "/data2/neural-shrimp-data/runpod/BPq05L1-orchestrator.log",
+        "bytes": 1388,
+        "sha256": "3fc923376fd8e025f8ce2828512fd313eb5d80e278a7893219e67a6668caa917"
+      },
+      "initial": {
+        "commit": "6a7c7ac1c1cbef76a93bc798d712bb2d5d965970",
+        "jobset": "bp",
+        "code_bytes": 1126400,
+        "data_bytes": 1177600,
+        "code_sha256": "2385ccc8889f834d4a7cd6a0f1da89db9af5ca753f54ecb8a1dd7480fbb23e18",
+        "data_sha256": "f425388da2f9fe2392ca7e1dea3826d44b492fd4b1c6106e5f0874784f29d778",
+        "extra_data": [],
+        "jobset_args": "q05-label-1 50 qwen0.5b label --shard 1 2"
+      },
+      "recorded_termination": {
+        "pod_id": "7bhlsdcpum42lu",
+        "terminated": true,
+        "direct_lookup": null,
+        "in_inventory": false
+      },
+      "retrieval_available": true,
+      "retrieval_dir": "/data2/neural-shrimp-data/runpod/soft64/20261015T050337Z",
+      "retrieval": {
+        "pod_id": "7bhlsdcpum42lu",
+        "gpu_type": "SECURE:NVIDIA H100 NVL",
+        "commit": "6a7c7ac1c1cbef76a93bc798d712bb2d5d965970",
+        "jobset": "bp",
+        "started": 1792040619.3269308,
+        "out": "/data2/neural-shrimp-data/runpod/soft64/20261015T050337Z",
+        "upload": {
+          "code_bytes": 1126400,
+          "data_bytes": 1177600,
+          "code_sha256": "2385ccc8889f834d4a7cd6a0f1da89db9af5ca753f54ecb8a1dd7480fbb23e18",
+          "data_sha256": "f425388da2f9fe2392ca7e1dea3826d44b492fd4b1c6106e5f0874784f29d778",
+          "extra_data": [],
+          "jobset_args": "q05-label-1 50 qwen0.5b label --shard 1 2"
+        },
+        "runner_returncode": 0,
+        "remote_sha256": "c65e7e8d95ba889cf0284919c74d66dd38a459d520649b104901e5fe5041906c",
+        "local_sha256": "c65e7e8d95ba889cf0284919c74d66dd38a459d520649b104901e5fe5041906c",
+        "hash_verified": true,
+        "wall_seconds": 2482
+      },
+      "retrieval_record": {
+        "path": "/data2/neural-shrimp-data/runpod/soft64/20261015T050337Z/result.json",
+        "bytes": 818,
+        "sha256": "1f537b7038f572d3e85bca040b487f3f2d27e178ce7741f9c3d8f30dbd7d11f5"
+      },
+      "archive": {
+        "path": "/data2/neural-shrimp-data/runpod/soft64/20261015T050337Z/results.tgz",
+        "bytes": 18133,
+        "hash_scope": "Recorded retrieval hash only at this index stage; no archive opened or rehashed."
+      },
+      "runner_stdout": {
+        "path": "/data2/neural-shrimp-data/runpod/soft64/20261015T050337Z/runner-stdout.txt",
+        "bytes": 662,
+        "sha256": "80726f7957d5aa60dc410bfb0a101b628bed1164116cba6b432d1501eadae053"
+      },
+      "exact_status_lines": [
+        "2026-10-15T05:04:53Z start bp-q05-label-1",
+        "2026-10-15T05:44:53Z end bp-q05-label-1 status 0",
+        "2026-10-15T05:44:53Z runner done"
+      ]
+    },
+    {
+      "id": "BPq7G",
+      "orchestrator": {
+        "path": "/data2/neural-shrimp-data/runpod/BPq7G-orchestrator.log",
+        "bytes": 1355,
+        "sha256": "d53b600c1f840221e39606a4c51ae2062eed6ae8226bb0fa630ea400d7c14107"
+      },
+      "initial": {
+        "commit": "6a7c7ac1c1cbef76a93bc798d712bb2d5d965970",
+        "jobset": "bp",
+        "code_bytes": 1126400,
+        "data_bytes": 1177600,
+        "code_sha256": "2385ccc8889f834d4a7cd6a0f1da89db9af5ca753f54ecb8a1dd7480fbb23e18",
+        "data_sha256": "f425388da2f9fe2392ca7e1dea3826d44b492fd4b1c6106e5f0874784f29d778",
+        "extra_data": [],
+        "jobset_args": "q7-gen 40 qwen7b generate"
+      },
+      "recorded_termination": {
+        "pod_id": "gpab2gjklcbchs",
+        "terminated": true,
+        "direct_lookup": null,
+        "in_inventory": false
+      },
+      "retrieval_available": true,
+      "retrieval_dir": "/data2/neural-shrimp-data/runpod/soft64/20261015T050331Z",
+      "retrieval": {
+        "pod_id": "gpab2gjklcbchs",
+        "gpu_type": "SECURE:NVIDIA H100 NVL",
+        "commit": "6a7c7ac1c1cbef76a93bc798d712bb2d5d965970",
+        "jobset": "bp",
+        "started": 1792040613.4810455,
+        "out": "/data2/neural-shrimp-data/runpod/soft64/20261015T050331Z",
+        "upload": {
+          "code_bytes": 1126400,
+          "data_bytes": 1177600,
+          "code_sha256": "2385ccc8889f834d4a7cd6a0f1da89db9af5ca753f54ecb8a1dd7480fbb23e18",
+          "data_sha256": "f425388da2f9fe2392ca7e1dea3826d44b492fd4b1c6106e5f0874784f29d778",
+          "extra_data": [],
+          "jobset_args": "q7-gen 40 qwen7b generate"
+        },
+        "runner_returncode": 0,
+        "remote_sha256": "bdfe6e41c55264b6384c92d8e3fd823f53ad05c5e9d74301502e5c2fb7cf6ebf",
+        "local_sha256": "bdfe6e41c55264b6384c92d8e3fd823f53ad05c5e9d74301502e5c2fb7cf6ebf",
+        "hash_verified": true,
+        "wall_seconds": 339
+      },
+      "retrieval_record": {
+        "path": "/data2/neural-shrimp-data/runpod/soft64/20261015T050331Z/result.json",
+        "bytes": 801,
+        "sha256": "dc0493220a379996ef02e46a6e66718e48b3a348a092551927e658862762c6de"
+      },
+      "archive": {
+        "path": "/data2/neural-shrimp-data/runpod/soft64/20261015T050331Z/results.tgz",
+        "bytes": 464180,
+        "hash_scope": "Recorded retrieval hash only at this index stage; no archive opened or rehashed."
+      },
+      "runner_stdout": {
+        "path": "/data2/neural-shrimp-data/runpod/soft64/20261015T050331Z/runner-stdout.txt",
+        "bytes": 471,
+        "sha256": "d5b163b81339a107ff9399e5ad9549c4a017bb9ede3d834c6a5f61ec6e9f2893"
+      },
+      "exact_status_lines": [
+        "2026-10-15T05:05:03Z start bp-q7-gen",
+        "2026-10-15T05:09:03Z end bp-q7-gen status 0",
+        "2026-10-15T05:09:03Z runner done"
+      ]
+    },
+    {
+      "id": "BPq7L0",
+      "orchestrator": {
+        "path": "/data2/neural-shrimp-data/runpod/BPq7L0-orchestrator.log",
+        "bytes": 1152,
+        "sha256": "2d9ec7dfa488357fc0216debc6da030fac1fefe547300fef7b89e5d838b99c5a"
+      },
+      "initial": {
+        "commit": "6a7c7ac1c1cbef76a93bc798d712bb2d5d965970",
+        "jobset": "bp",
+        "code_bytes": 1126400,
+        "data_bytes": 1177600,
+        "code_sha256": "2385ccc8889f834d4a7cd6a0f1da89db9af5ca753f54ecb8a1dd7480fbb23e18",
+        "data_sha256": "f425388da2f9fe2392ca7e1dea3826d44b492fd4b1c6106e5f0874784f29d778",
+        "extra_data": [],
+        "jobset_args": "q7-label-0 90 qwen7b label --shard 0 6"
+      },
+      "recorded_termination": {
+        "pod_id": "aiekqjloooftqm",
+        "terminated": true,
+        "direct_lookup": null,
+        "in_inventory": false
+      },
+      "retrieval_available": true,
+      "retrieval_dir": "/data2/neural-shrimp-data/runpod/soft64/20261015T050313Z",
+      "retrieval": {
+        "pod_id": "aiekqjloooftqm",
+        "gpu_type": "SECURE:NVIDIA H200",
+        "commit": "6a7c7ac1c1cbef76a93bc798d712bb2d5d965970",
+        "jobset": "bp",
+        "started": 1792040594.7006426,
+        "out": "/data2/neural-shrimp-data/runpod/soft64/20261015T050313Z",
+        "upload": {
+          "code_bytes": 1126400,
+          "data_bytes": 1177600,
+          "code_sha256": "2385ccc8889f834d4a7cd6a0f1da89db9af5ca753f54ecb8a1dd7480fbb23e18",
+          "data_sha256": "f425388da2f9fe2392ca7e1dea3826d44b492fd4b1c6106e5f0874784f29d778",
+          "extra_data": [],
+          "jobset_args": "q7-label-0 90 qwen7b label --shard 0 6"
+        },
+        "wall_seconds": 7
+      },
+      "retrieval_record": {
+        "path": "/data2/neural-shrimp-data/runpod/soft64/20261015T050313Z/result.json",
+        "bytes": 588,
+        "sha256": "bbacabc1a97ad42b812ffcaf4f551ccaeb7bd3063630e4012ce5225773061c12"
+      }
+    },
+    {
+      "id": "BPq7L0b",
+      "orchestrator": {
+        "path": "/data2/neural-shrimp-data/runpod/BPq7L0b-orchestrator.log",
+        "bytes": 1451,
+        "sha256": "b1ea1cded29e57a9eb39468e8a5867cb1fa1a912820487dcc50f16cd4dd1e9b1"
+      },
+      "initial": {
+        "commit": "6a7c7ac1c1cbef76a93bc798d712bb2d5d965970",
+        "jobset": "bp",
+        "code_bytes": 1126400,
+        "data_bytes": 1177600,
+        "code_sha256": "2385ccc8889f834d4a7cd6a0f1da89db9af5ca753f54ecb8a1dd7480fbb23e18",
+        "data_sha256": "f425388da2f9fe2392ca7e1dea3826d44b492fd4b1c6106e5f0874784f29d778",
+        "extra_data": [],
+        "jobset_args": "q7-label-0 90 qwen7b label --shard 0 6"
+      },
+      "recorded_termination": {
+        "pod_id": "lwevy9huignhj3",
+        "terminated": true,
+        "direct_lookup": null,
+        "in_inventory": false
+      },
+      "retrieval_available": true,
+      "retrieval_dir": "/data2/neural-shrimp-data/runpod/soft64/20261015T050524Z",
+      "retrieval": {
+        "pod_id": "lwevy9huignhj3",
+        "gpu_type": "SECURE:NVIDIA H200",
+        "commit": "6a7c7ac1c1cbef76a93bc798d712bb2d5d965970",
+        "jobset": "bp",
+        "started": 1792040727.3068717,
+        "out": "/data2/neural-shrimp-data/runpod/soft64/20261015T050524Z",
+        "upload": {
+          "code_bytes": 1126400,
+          "data_bytes": 1177600,
+          "code_sha256": "2385ccc8889f834d4a7cd6a0f1da89db9af5ca753f54ecb8a1dd7480fbb23e18",
+          "data_sha256": "f425388da2f9fe2392ca7e1dea3826d44b492fd4b1c6106e5f0874784f29d778",
+          "extra_data": [],
+          "jobset_args": "q7-label-0 90 qwen7b label --shard 0 6"
+        },
+        "runner_returncode": 0,
+        "remote_sha256": "84db788ccbc5738d572a8a62750de4fb2df74c31a66624b4051766b3a81104b3",
+        "local_sha256": "84db788ccbc5738d572a8a62750de4fb2df74c31a66624b4051766b3a81104b3",
+        "hash_verified": true,
+        "wall_seconds": 1901
+      },
+      "retrieval_record": {
+        "path": "/data2/neural-shrimp-data/runpod/soft64/20261015T050524Z/result.json",
+        "bytes": 811,
+        "sha256": "b9228322fb1c02074eac42ccae81383493b77381cc15d51b6095c80fcdcb2f23"
+      },
+      "archive": {
+        "path": "/data2/neural-shrimp-data/runpod/soft64/20261015T050524Z/results.tgz",
+        "bytes": 6335,
+        "hash_scope": "Recorded retrieval hash only at this index stage; no archive opened or rehashed."
+      },
+      "runner_stdout": {
+        "path": "/data2/neural-shrimp-data/runpod/soft64/20261015T050524Z/runner-stdout.txt",
+        "bytes": 653,
+        "sha256": "e08a9d4d4b0421b4b0f8fca4a3a22d06a10be5af13d5d414513c7de6362e83f7"
+      },
+      "exact_status_lines": [
+        "2026-10-15T05:17:57Z start bp-q7-label-0",
+        "2026-10-15T05:36:57Z end bp-q7-label-0 status 0",
+        "2026-10-15T05:36:57Z runner done"
+      ]
+    },
+    {
+      "id": "BPq7L1",
+      "orchestrator": {
+        "path": "/data2/neural-shrimp-data/runpod/BPq7L1-orchestrator.log",
+        "bytes": 1152,
+        "sha256": "1317d58394e2dcecf953b9a6f16f6029e866ecb1545fd48226902f72a1f5ff2b"
+      },
+      "initial": {
+        "commit": "6a7c7ac1c1cbef76a93bc798d712bb2d5d965970",
+        "jobset": "bp",
+        "code_bytes": 1126400,
+        "data_bytes": 1177600,
+        "code_sha256": "2385ccc8889f834d4a7cd6a0f1da89db9af5ca753f54ecb8a1dd7480fbb23e18",
+        "data_sha256": "f425388da2f9fe2392ca7e1dea3826d44b492fd4b1c6106e5f0874784f29d778",
+        "extra_data": [],
+        "jobset_args": "q7-label-1 90 qwen7b label --shard 1 6"
+      },
+      "recorded_termination": {
+        "pod_id": "6f2gqqv04rbrjo",
+        "terminated": true,
+        "direct_lookup": null,
+        "in_inventory": false
+      },
+      "retrieval_available": true,
+      "retrieval_dir": "/data2/neural-shrimp-data/runpod/soft64/20261015T050316Z",
+      "retrieval": {
+        "pod_id": "6f2gqqv04rbrjo",
+        "gpu_type": "SECURE:NVIDIA H200",
+        "commit": "6a7c7ac1c1cbef76a93bc798d712bb2d5d965970",
+        "jobset": "bp",
+        "started": 1792040597.5584311,
+        "out": "/data2/neural-shrimp-data/runpod/soft64/20261015T050316Z",
+        "upload": {
+          "code_bytes": 1126400,
+          "data_bytes": 1177600,
+          "code_sha256": "2385ccc8889f834d4a7cd6a0f1da89db9af5ca753f54ecb8a1dd7480fbb23e18",
+          "data_sha256": "f425388da2f9fe2392ca7e1dea3826d44b492fd4b1c6106e5f0874784f29d778",
+          "extra_data": [],
+          "jobset_args": "q7-label-1 90 qwen7b label --shard 1 6"
+        },
+        "wall_seconds": 7
+      },
+      "retrieval_record": {
+        "path": "/data2/neural-shrimp-data/runpod/soft64/20261015T050316Z/result.json",
+        "bytes": 588,
+        "sha256": "7d8f4bc64429dc98afdc27d14fdcbdee6400fa8640a53d77ab67edb610108596"
+      }
+    },
+    {
+      "id": "BPq7L1b",
+      "orchestrator": {
+        "path": "/data2/neural-shrimp-data/runpod/BPq7L1b-orchestrator.log",
+        "bytes": 1451,
+        "sha256": "dff696e514bcfb11fb9d74f2b9d6b1c0a27e26bc649563e53bde3c0eac44aff2"
+      },
+      "initial": {
+        "commit": "6a7c7ac1c1cbef76a93bc798d712bb2d5d965970",
+        "jobset": "bp",
+        "code_bytes": 1126400,
+        "data_bytes": 1177600,
+        "code_sha256": "2385ccc8889f834d4a7cd6a0f1da89db9af5ca753f54ecb8a1dd7480fbb23e18",
+        "data_sha256": "f425388da2f9fe2392ca7e1dea3826d44b492fd4b1c6106e5f0874784f29d778",
+        "extra_data": [],
+        "jobset_args": "q7-label-1 90 qwen7b label --shard 1 6"
+      },
+      "recorded_termination": {
+        "pod_id": "ake729hlyutvbn",
+        "terminated": true,
+        "direct_lookup": null,
+        "in_inventory": false
+      },
+      "retrieval_available": true,
+      "retrieval_dir": "/data2/neural-shrimp-data/runpod/soft64/20261015T050527Z",
+      "retrieval": {
+        "pod_id": "ake729hlyutvbn",
+        "gpu_type": "SECURE:NVIDIA H200",
+        "commit": "6a7c7ac1c1cbef76a93bc798d712bb2d5d965970",
+        "jobset": "bp",
+        "started": 1792040730.1770668,
+        "out": "/data2/neural-shrimp-data/runpod/soft64/20261015T050527Z",
+        "upload": {
+          "code_bytes": 1126400,
+          "data_bytes": 1177600,
+          "code_sha256": "2385ccc8889f834d4a7cd6a0f1da89db9af5ca753f54ecb8a1dd7480fbb23e18",
+          "data_sha256": "f425388da2f9fe2392ca7e1dea3826d44b492fd4b1c6106e5f0874784f29d778",
+          "extra_data": [],
+          "jobset_args": "q7-label-1 90 qwen7b label --shard 1 6"
+        },
+        "runner_returncode": 0,
+        "remote_sha256": "06f327165c0cf3721459f40b212e4053b1bc465d27db74599301aa01fbfa22e7",
+        "local_sha256": "06f327165c0cf3721459f40b212e4053b1bc465d27db74599301aa01fbfa22e7",
+        "hash_verified": true,
+        "wall_seconds": 1323
+      },
+      "retrieval_record": {
+        "path": "/data2/neural-shrimp-data/runpod/soft64/20261015T050527Z/result.json",
+        "bytes": 811,
+        "sha256": "711aa9dc9f49425daf9b82109c8142e80e7b7711c31b11e73ca24060ab214cb0"
+      },
+      "archive": {
+        "path": "/data2/neural-shrimp-data/runpod/soft64/20261015T050527Z/results.tgz",
+        "bytes": 6295,
+        "hash_scope": "Recorded retrieval hash only at this index stage; no archive opened or rehashed."
+      },
+      "runner_stdout": {
+        "path": "/data2/neural-shrimp-data/runpod/soft64/20261015T050527Z/runner-stdout.txt",
+        "bytes": 659,
+        "sha256": "e9edceb413833b181b77fba471a32e0d41dd9179ddf99b47801bbcdbe145b19a"
+      },
+      "exact_status_lines": [
+        "2026-10-15T05:08:20Z start bp-q7-label-1",
+        "2026-10-15T05:27:20Z end bp-q7-label-1 status 0",
+        "2026-10-15T05:27:20Z runner done"
+      ]
+    },
+    {
+      "id": "BPq7L2",
+      "orchestrator": {
+        "path": "/data2/neural-shrimp-data/runpod/BPq7L2-orchestrator.log",
+        "bytes": 1151,
+        "sha256": "02d30c19b87c0c7ffe4a02ba29cf6fadbeeba70f64865376abba66d4384b47e3"
+      },
+      "initial": {
+        "commit": "6a7c7ac1c1cbef76a93bc798d712bb2d5d965970",
+        "jobset": "bp",
+        "code_bytes": 1126400,
+        "data_bytes": 1177600,
+        "code_sha256": "2385ccc8889f834d4a7cd6a0f1da89db9af5ca753f54ecb8a1dd7480fbb23e18",
+        "data_sha256": "f425388da2f9fe2392ca7e1dea3826d44b492fd4b1c6106e5f0874784f29d778",
+        "extra_data": [],
+        "jobset_args": "q7-label-2 90 qwen7b label --shard 2 6"
+      },
+      "recorded_termination": {
+        "pod_id": "q0fyomwkpnzuk5",
+        "terminated": true,
+        "direct_lookup": null,
+        "in_inventory": false
+      },
+      "retrieval_available": true,
+      "retrieval_dir": "/data2/neural-shrimp-data/runpod/soft64/20261015T050319Z",
+      "retrieval": {
+        "pod_id": "q0fyomwkpnzuk5",
+        "gpu_type": "SECURE:NVIDIA H200",
+        "commit": "6a7c7ac1c1cbef76a93bc798d712bb2d5d965970",
+        "jobset": "bp",
+        "started": 1792040600.688222,
+        "out": "/data2/neural-shrimp-data/runpod/soft64/20261015T050319Z",
+        "upload": {
+          "code_bytes": 1126400,
+          "data_bytes": 1177600,
+          "code_sha256": "2385ccc8889f834d4a7cd6a0f1da89db9af5ca753f54ecb8a1dd7480fbb23e18",
+          "data_sha256": "f425388da2f9fe2392ca7e1dea3826d44b492fd4b1c6106e5f0874784f29d778",
+          "extra_data": [],
+          "jobset_args": "q7-label-2 90 qwen7b label --shard 2 6"
+        },
+        "wall_seconds": 7
+      },
+      "retrieval_record": {
+        "path": "/data2/neural-shrimp-data/runpod/soft64/20261015T050319Z/result.json",
+        "bytes": 587,
+        "sha256": "8b855b5cd1d16efd037a1631d559baf902a896c827c4f10b306c24198e859aa2"
+      }
+    },
+    {
+      "id": "BPq7L2b",
+      "orchestrator": {
+        "path": "/data2/neural-shrimp-data/runpod/BPq7L2b-orchestrator.log",
+        "bytes": 1450,
+        "sha256": "b623065e05d517112f0a501b373113e5f102bb7ffc656077bc0bdd7bb95bc51a"
+      },
+      "initial": {
+        "commit": "6a7c7ac1c1cbef76a93bc798d712bb2d5d965970",
+        "jobset": "bp",
+        "code_bytes": 1126400,
+        "data_bytes": 1177600,
+        "code_sha256": "2385ccc8889f834d4a7cd6a0f1da89db9af5ca753f54ecb8a1dd7480fbb23e18",
+        "data_sha256": "f425388da2f9fe2392ca7e1dea3826d44b492fd4b1c6106e5f0874784f29d778",
+        "extra_data": [],
+        "jobset_args": "q7-label-2 90 qwen7b label --shard 2 6"
+      },
+      "recorded_termination": {
+        "pod_id": "x2wlyik6vf3e67",
+        "terminated": true,
+        "direct_lookup": null,
+        "in_inventory": false
+      },
+      "retrieval_available": true,
+      "retrieval_dir": "/data2/neural-shrimp-data/runpod/soft64/20261015T050530Z",
+      "retrieval": {
+        "pod_id": "x2wlyik6vf3e67",
+        "gpu_type": "SECURE:NVIDIA H200",
+        "commit": "6a7c7ac1c1cbef76a93bc798d712bb2d5d965970",
+        "jobset": "bp",
+        "started": 1792040733.467279,
+        "out": "/data2/neural-shrimp-data/runpod/soft64/20261015T050530Z",
+        "upload": {
+          "code_bytes": 1126400,
+          "data_bytes": 1177600,
+          "code_sha256": "2385ccc8889f834d4a7cd6a0f1da89db9af5ca753f54ecb8a1dd7480fbb23e18",
+          "data_sha256": "f425388da2f9fe2392ca7e1dea3826d44b492fd4b1c6106e5f0874784f29d778",
+          "extra_data": [],
+          "jobset_args": "q7-label-2 90 qwen7b label --shard 2 6"
+        },
+        "runner_returncode": 0,
+        "remote_sha256": "10cbd6442be9e20e2c2795f465f5379dc263cef22f6cd5ab6f86b654d4801df4",
+        "local_sha256": "10cbd6442be9e20e2c2795f465f5379dc263cef22f6cd5ab6f86b654d4801df4",
+        "hash_verified": true,
+        "wall_seconds": 1957
+      },
+      "retrieval_record": {
+        "path": "/data2/neural-shrimp-data/runpod/soft64/20261015T050530Z/result.json",
+        "bytes": 810,
+        "sha256": "b8c7fc83b4f3346edf547a5b29dd59a8039d39779839bd011ff55f35dd32755c"
+      },
+      "archive": {
+        "path": "/data2/neural-shrimp-data/runpod/soft64/20261015T050530Z/results.tgz",
+        "bytes": 6173,
+        "hash_scope": "Recorded retrieval hash only at this index stage; no archive opened or rehashed."
+      },
+      "runner_stdout": {
+        "path": "/data2/neural-shrimp-data/runpod/soft64/20261015T050530Z/runner-stdout.txt",
+        "bytes": 658,
+        "sha256": "2c4a844a88268b40c9fb47a4739c1566109c5578b1bbf675c97ef6d6a114b9d5"
+      },
+      "exact_status_lines": [
+        "2026-10-15T05:18:59Z start bp-q7-label-2",
+        "2026-10-15T05:37:59Z end bp-q7-label-2 status 0",
+        "2026-10-15T05:37:59Z runner done"
+      ]
+    },
+    {
+      "id": "BPq7L3",
+      "orchestrator": {
+        "path": "/data2/neural-shrimp-data/runpod/BPq7L3-orchestrator.log",
+        "bytes": 1151,
+        "sha256": "8113c918ff165028bf55add018694aaec505461ee627297bd10e18fb53af3eb9"
+      },
+      "initial": {
+        "commit": "6a7c7ac1c1cbef76a93bc798d712bb2d5d965970",
+        "jobset": "bp",
+        "code_bytes": 1126400,
+        "data_bytes": 1177600,
+        "code_sha256": "2385ccc8889f834d4a7cd6a0f1da89db9af5ca753f54ecb8a1dd7480fbb23e18",
+        "data_sha256": "f425388da2f9fe2392ca7e1dea3826d44b492fd4b1c6106e5f0874784f29d778",
+        "extra_data": [],
+        "jobset_args": "q7-label-3 90 qwen7b label --shard 3 6"
+      },
+      "recorded_termination": {
+        "pod_id": "t3it2l3agnmxon",
+        "terminated": true,
+        "direct_lookup": null,
+        "in_inventory": false
+      },
+      "retrieval_available": true,
+      "retrieval_dir": "/data2/neural-shrimp-data/runpod/soft64/20261015T050322Z",
+      "retrieval": {
+        "pod_id": "t3it2l3agnmxon",
+        "gpu_type": "SECURE:NVIDIA H200",
+        "commit": "6a7c7ac1c1cbef76a93bc798d712bb2d5d965970",
+        "jobset": "bp",
+        "started": 1792040603.705115,
+        "out": "/data2/neural-shrimp-data/runpod/soft64/20261015T050322Z",
+        "upload": {
+          "code_bytes": 1126400,
+          "data_bytes": 1177600,
+          "code_sha256": "2385ccc8889f834d4a7cd6a0f1da89db9af5ca753f54ecb8a1dd7480fbb23e18",
+          "data_sha256": "f425388da2f9fe2392ca7e1dea3826d44b492fd4b1c6106e5f0874784f29d778",
+          "extra_data": [],
+          "jobset_args": "q7-label-3 90 qwen7b label --shard 3 6"
+        },
+        "wall_seconds": 7
+      },
+      "retrieval_record": {
+        "path": "/data2/neural-shrimp-data/runpod/soft64/20261015T050322Z/result.json",
+        "bytes": 587,
+        "sha256": "f6eeb15dcb442ef849c773bde86be353d6d26cd8f4fe2e08c4ac74b3426611c5"
+      }
+    },
+    {
+      "id": "BPq7L3b",
+      "orchestrator": {
+        "path": "/data2/neural-shrimp-data/runpod/BPq7L3b-orchestrator.log",
+        "bytes": 1450,
+        "sha256": "9549a8d76da5e4971c0d97241a4104972f4b8cc05e05f906ebb022a19b122437"
+      },
+      "initial": {
+        "commit": "6a7c7ac1c1cbef76a93bc798d712bb2d5d965970",
+        "jobset": "bp",
+        "code_bytes": 1126400,
+        "data_bytes": 1177600,
+        "code_sha256": "2385ccc8889f834d4a7cd6a0f1da89db9af5ca753f54ecb8a1dd7480fbb23e18",
+        "data_sha256": "f425388da2f9fe2392ca7e1dea3826d44b492fd4b1c6106e5f0874784f29d778",
+        "extra_data": [],
+        "jobset_args": "q7-label-3 90 qwen7b label --shard 3 6"
+      },
+      "recorded_termination": {
+        "pod_id": "9g7dm66sgrxmkx",
+        "terminated": true,
+        "direct_lookup": null,
+        "in_inventory": false
+      },
+      "retrieval_available": true,
+      "retrieval_dir": "/data2/neural-shrimp-data/runpod/soft64/20261015T050533Z",
+      "retrieval": {
+        "pod_id": "9g7dm66sgrxmkx",
+        "gpu_type": "SECURE:NVIDIA H200",
+        "commit": "6a7c7ac1c1cbef76a93bc798d712bb2d5d965970",
+        "jobset": "bp",
+        "started": 1792040736.297483,
+        "out": "/data2/neural-shrimp-data/runpod/soft64/20261015T050533Z",
+        "upload": {
+          "code_bytes": 1126400,
+          "data_bytes": 1177600,
+          "code_sha256": "2385ccc8889f834d4a7cd6a0f1da89db9af5ca753f54ecb8a1dd7480fbb23e18",
+          "data_sha256": "f425388da2f9fe2392ca7e1dea3826d44b492fd4b1c6106e5f0874784f29d778",
+          "extra_data": [],
+          "jobset_args": "q7-label-3 90 qwen7b label --shard 3 6"
+        },
+        "runner_returncode": 0,
+        "remote_sha256": "fd3555147bc552e454b2963147eac26fb4490d9e750d7b7b3334c2273eaca1cd",
+        "local_sha256": "fd3555147bc552e454b2963147eac26fb4490d9e750d7b7b3334c2273eaca1cd",
+        "hash_verified": true,
+        "wall_seconds": 1963
+      },
+      "retrieval_record": {
+        "path": "/data2/neural-shrimp-data/runpod/soft64/20261015T050533Z/result.json",
+        "bytes": 810,
+        "sha256": "cc18a6b7ddc7919d1833927fb0c8db5051b89a63eae9ff99d69ca7a61e9f558b"
+      },
+      "archive": {
+        "path": "/data2/neural-shrimp-data/runpod/soft64/20261015T050533Z/results.tgz",
+        "bytes": 6048,
+        "hash_scope": "Recorded retrieval hash only at this index stage; no archive opened or rehashed."
+      },
+      "runner_stdout": {
+        "path": "/data2/neural-shrimp-data/runpod/soft64/20261015T050533Z/runner-stdout.txt",
+        "bytes": 656,
+        "sha256": "6ed6df5a0e1c871a356fd5101b6ca0c9deb8713d0d528a40831eead258a88ec1"
+      },
+      "exact_status_lines": [
+        "2026-10-15T05:19:08Z start bp-q7-label-3",
+        "2026-10-15T05:38:08Z end bp-q7-label-3 status 0",
+        "2026-10-15T05:38:08Z runner done"
+      ]
+    },
+    {
+      "id": "BPq7L4",
+      "orchestrator": {
+        "path": "/data2/neural-shrimp-data/runpod/BPq7L4-orchestrator.log",
+        "bytes": 1151,
+        "sha256": "19db49f767e1476bc99ec6f78891fb6da4be2f9beb8e53f0e404f793215c1f62"
+      },
+      "initial": {
+        "commit": "6a7c7ac1c1cbef76a93bc798d712bb2d5d965970",
+        "jobset": "bp",
+        "code_bytes": 1126400,
+        "data_bytes": 1177600,
+        "code_sha256": "2385ccc8889f834d4a7cd6a0f1da89db9af5ca753f54ecb8a1dd7480fbb23e18",
+        "data_sha256": "f425388da2f9fe2392ca7e1dea3826d44b492fd4b1c6106e5f0874784f29d778",
+        "extra_data": [],
+        "jobset_args": "q7-label-4 90 qwen7b label --shard 4 6"
+      },
+      "recorded_termination": {
+        "pod_id": "761u2csvxarfwr",
+        "terminated": true,
+        "direct_lookup": null,
+        "in_inventory": false
+      },
+      "retrieval_available": true,
+      "retrieval_dir": "/data2/neural-shrimp-data/runpod/soft64/20261015T050325Z",
+      "retrieval": {
+        "pod_id": "761u2csvxarfwr",
+        "gpu_type": "SECURE:NVIDIA H200",
+        "commit": "6a7c7ac1c1cbef76a93bc798d712bb2d5d965970",
+        "jobset": "bp",
+        "started": 1792040606.732681,
+        "out": "/data2/neural-shrimp-data/runpod/soft64/20261015T050325Z",
+        "upload": {
+          "code_bytes": 1126400,
+          "data_bytes": 1177600,
+          "code_sha256": "2385ccc8889f834d4a7cd6a0f1da89db9af5ca753f54ecb8a1dd7480fbb23e18",
+          "data_sha256": "f425388da2f9fe2392ca7e1dea3826d44b492fd4b1c6106e5f0874784f29d778",
+          "extra_data": [],
+          "jobset_args": "q7-label-4 90 qwen7b label --shard 4 6"
+        },
+        "wall_seconds": 7
+      },
+      "retrieval_record": {
+        "path": "/data2/neural-shrimp-data/runpod/soft64/20261015T050325Z/result.json",
+        "bytes": 587,
+        "sha256": "162bf7f37cf37adf86b8c61b9591ce36129839b1469164fc75bc230857c0872d"
+      }
+    },
+    {
+      "id": "BPq7L4b",
+      "orchestrator": {
+        "path": "/data2/neural-shrimp-data/runpod/BPq7L4b-orchestrator.log",
+        "bytes": 658,
+        "sha256": "3b9ad39bf02260d5c491c5437ebb90be86448d8655ae449ee3923e8aa7268dd2"
+      },
+      "initial": {
+        "commit": "6a7c7ac1c1cbef76a93bc798d712bb2d5d965970",
+        "jobset": "bp",
+        "code_bytes": 1126400,
+        "data_bytes": 1177600,
+        "code_sha256": "2385ccc8889f834d4a7cd6a0f1da89db9af5ca753f54ecb8a1dd7480fbb23e18",
+        "data_sha256": "f425388da2f9fe2392ca7e1dea3826d44b492fd4b1c6106e5f0874784f29d778",
+        "extra_data": [],
+        "jobset_args": "q7-label-4 90 qwen7b label --shard 4 6"
+      },
+      "recorded_termination": null,
+      "retrieval_available": false
+    },
+    {
+      "id": "BPq7L4c",
+      "orchestrator": {
+        "path": "/data2/neural-shrimp-data/runpod/BPq7L4c-orchestrator.log",
+        "bytes": 1383,
+        "sha256": "be3bc5dcefba5f9775cd84ac2dd38abe69c9895bbfe10163b84594042d9d1a26"
+      },
+      "initial": {
+        "commit": "6a7c7ac1c1cbef76a93bc798d712bb2d5d965970",
+        "jobset": "bp",
+        "code_bytes": 1126400,
+        "data_bytes": 1177600,
+        "code_sha256": "2385ccc8889f834d4a7cd6a0f1da89db9af5ca753f54ecb8a1dd7480fbb23e18",
+        "data_sha256": "f425388da2f9fe2392ca7e1dea3826d44b492fd4b1c6106e5f0874784f29d778",
+        "extra_data": [],
+        "jobset_args": "q7-label-4 90 qwen7b label --shard 4 6"
+      },
+      "recorded_termination": {
+        "pod_id": "kllbsprssklpdd",
+        "terminated": true,
+        "direct_lookup": null,
+        "in_inventory": false
+      },
+      "retrieval_available": true,
+      "retrieval_dir": "/data2/neural-shrimp-data/runpod/soft64/20261015T050727Z",
+      "retrieval": {
+        "pod_id": "kllbsprssklpdd",
+        "gpu_type": "SECURE:NVIDIA H100 NVL",
+        "commit": "6a7c7ac1c1cbef76a93bc798d712bb2d5d965970",
+        "jobset": "bp",
+        "started": 1792040849.5534167,
+        "out": "/data2/neural-shrimp-data/runpod/soft64/20261015T050727Z",
+        "upload": {
+          "code_bytes": 1126400,
+          "data_bytes": 1177600,
+          "code_sha256": "2385ccc8889f834d4a7cd6a0f1da89db9af5ca753f54ecb8a1dd7480fbb23e18",
+          "data_sha256": "f425388da2f9fe2392ca7e1dea3826d44b492fd4b1c6106e5f0874784f29d778",
+          "extra_data": [],
+          "jobset_args": "q7-label-4 90 qwen7b label --shard 4 6"
+        },
+        "runner_returncode": 0,
+        "remote_sha256": "93fbb9cefab2e4a759a9ba4799a312ed7c82bc7808b9cbf886b0014868c2021c",
+        "local_sha256": "93fbb9cefab2e4a759a9ba4799a312ed7c82bc7808b9cbf886b0014868c2021c",
+        "hash_verified": true,
+        "wall_seconds": 1624
+      },
+      "retrieval_record": {
+        "path": "/data2/neural-shrimp-data/runpod/soft64/20261015T050727Z/result.json",
+        "bytes": 815,
+        "sha256": "7f3eff8e9e174087a5cca33db4493ebc989db62655f4de2fe4e79a886c7d65f6"
+      },
+      "archive": {
+        "path": "/data2/neural-shrimp-data/runpod/soft64/20261015T050727Z/results.tgz",
+        "bytes": 5938,
+        "hash_scope": "Recorded retrieval hash only at this index stage; no archive opened or rehashed."
+      },
+      "runner_stdout": {
+        "path": "/data2/neural-shrimp-data/runpod/soft64/20261015T050727Z/runner-stdout.txt",
+        "bytes": 663,
+        "sha256": "24972314830e51468557f511f8bfe1b5f79a118633b2937187958c3fa037e4b7"
+      },
+      "exact_status_lines": [
+        "2026-10-15T05:09:25Z start bp-q7-label-4",
+        "2026-10-15T05:34:25Z end bp-q7-label-4 status 0",
+        "2026-10-15T05:34:25Z runner done"
+      ]
+    },
+    {
+      "id": "BPq7L5",
+      "orchestrator": {
+        "path": "/data2/neural-shrimp-data/runpod/BPq7L5-orchestrator.log",
+        "bytes": 1152,
+        "sha256": "b95fea387fecc41b195d2f331e30c7ddbf987ca62f8bc4ea2c971f23fc1eb282"
+      },
+      "initial": {
+        "commit": "6a7c7ac1c1cbef76a93bc798d712bb2d5d965970",
+        "jobset": "bp",
+        "code_bytes": 1126400,
+        "data_bytes": 1177600,
+        "code_sha256": "2385ccc8889f834d4a7cd6a0f1da89db9af5ca753f54ecb8a1dd7480fbb23e18",
+        "data_sha256": "f425388da2f9fe2392ca7e1dea3826d44b492fd4b1c6106e5f0874784f29d778",
+        "extra_data": [],
+        "jobset_args": "q7-label-5 90 qwen7b label --shard 5 6"
+      },
+      "recorded_termination": {
+        "pod_id": "9d7lqih9pti9sd",
+        "terminated": true,
+        "direct_lookup": null,
+        "in_inventory": false
+      },
+      "retrieval_available": true,
+      "retrieval_dir": "/data2/neural-shrimp-data/runpod/soft64/20261015T050328Z",
+      "retrieval": {
+        "pod_id": "9d7lqih9pti9sd",
+        "gpu_type": "SECURE:NVIDIA H200",
+        "commit": "6a7c7ac1c1cbef76a93bc798d712bb2d5d965970",
+        "jobset": "bp",
+        "started": 1792040609.6141481,
+        "out": "/data2/neural-shrimp-data/runpod/soft64/20261015T050328Z",
+        "upload": {
+          "code_bytes": 1126400,
+          "data_bytes": 1177600,
+          "code_sha256": "2385ccc8889f834d4a7cd6a0f1da89db9af5ca753f54ecb8a1dd7480fbb23e18",
+          "data_sha256": "f425388da2f9fe2392ca7e1dea3826d44b492fd4b1c6106e5f0874784f29d778",
+          "extra_data": [],
+          "jobset_args": "q7-label-5 90 qwen7b label --shard 5 6"
+        },
+        "wall_seconds": 7
+      },
+      "retrieval_record": {
+        "path": "/data2/neural-shrimp-data/runpod/soft64/20261015T050328Z/result.json",
+        "bytes": 588,
+        "sha256": "bc490c03f049c797a337c98e65a8a5e1fa663ed22de85ce3f6160f21401bea43"
+      }
+    },
+    {
+      "id": "BPq7L5b",
+      "orchestrator": {
+        "path": "/data2/neural-shrimp-data/runpod/BPq7L5b-orchestrator.log",
+        "bytes": 658,
+        "sha256": "dfb5afb87369610c21e571a54040525686ffa0e1c495e7a3dfdc83fa2db0f8cc"
+      },
+      "initial": {
+        "commit": "6a7c7ac1c1cbef76a93bc798d712bb2d5d965970",
+        "jobset": "bp",
+        "code_bytes": 1126400,
+        "data_bytes": 1177600,
+        "code_sha256": "2385ccc8889f834d4a7cd6a0f1da89db9af5ca753f54ecb8a1dd7480fbb23e18",
+        "data_sha256": "f425388da2f9fe2392ca7e1dea3826d44b492fd4b1c6106e5f0874784f29d778",
+        "extra_data": [],
+        "jobset_args": "q7-label-5 90 qwen7b label --shard 5 6"
+      },
+      "recorded_termination": null,
+      "retrieval_available": false
+    },
+    {
+      "id": "BPq7L5c",
+      "orchestrator": {
+        "path": "/data2/neural-shrimp-data/runpod/BPq7L5c-orchestrator.log",
+        "bytes": 1451,
+        "sha256": "aaed07099cef3f082fb1da834c69e42d546a1ed516f35f590f8c942ce7365fd1"
+      },
+      "initial": {
+        "commit": "6a7c7ac1c1cbef76a93bc798d712bb2d5d965970",
+        "jobset": "bp",
+        "code_bytes": 1126400,
+        "data_bytes": 1177600,
+        "code_sha256": "2385ccc8889f834d4a7cd6a0f1da89db9af5ca753f54ecb8a1dd7480fbb23e18",
+        "data_sha256": "f425388da2f9fe2392ca7e1dea3826d44b492fd4b1c6106e5f0874784f29d778",
+        "extra_data": [],
+        "jobset_args": "q7-label-5 90 qwen7b label --shard 5 6"
+      },
+      "recorded_termination": {
+        "pod_id": "u9rn2empvc38fy",
+        "terminated": true,
+        "direct_lookup": null,
+        "in_inventory": false
+      },
+      "retrieval_available": true,
+      "retrieval_dir": "/data2/neural-shrimp-data/runpod/soft64/20261015T050747Z",
+      "retrieval": {
+        "pod_id": "u9rn2empvc38fy",
+        "gpu_type": "SECURE:NVIDIA H200",
+        "commit": "6a7c7ac1c1cbef76a93bc798d712bb2d5d965970",
+        "jobset": "bp",
+        "started": 1792040870.8397832,
+        "out": "/data2/neural-shrimp-data/runpod/soft64/20261015T050747Z",
+        "upload": {
+          "code_bytes": 1126400,
+          "data_bytes": 1177600,
+          "code_sha256": "2385ccc8889f834d4a7cd6a0f1da89db9af5ca753f54ecb8a1dd7480fbb23e18",
+          "data_sha256": "f425388da2f9fe2392ca7e1dea3826d44b492fd4b1c6106e5f0874784f29d778",
+          "extra_data": [],
+          "jobset_args": "q7-label-5 90 qwen7b label --shard 5 6"
+        },
+        "runner_returncode": 0,
+        "remote_sha256": "8e654a140b62e19e188ecd492194cc947d327f44f8795810918b9b30813a6d13",
+        "local_sha256": "8e654a140b62e19e188ecd492194cc947d327f44f8795810918b9b30813a6d13",
+        "hash_verified": true,
+        "wall_seconds": 1383
+      },
+      "retrieval_record": {
+        "path": "/data2/neural-shrimp-data/runpod/soft64/20261015T050747Z/result.json",
+        "bytes": 811,
+        "sha256": "8377b19daebb02d12615d2e424e974d1292c844caddafda3df7a6f8ea7c572a4"
+      },
+      "archive": {
+        "path": "/data2/neural-shrimp-data/runpod/soft64/20261015T050747Z/results.tgz",
+        "bytes": 6066,
+        "hash_scope": "Recorded retrieval hash only at this index stage; no archive opened or rehashed."
+      },
+      "runner_stdout": {
+        "path": "/data2/neural-shrimp-data/runpod/soft64/20261015T050747Z/runner-stdout.txt",
+        "bytes": 656,
+        "sha256": "19a62c69a0cbd2d6fe78732a6b7d0950addb5d3846a552ffc4f53ffc0c2138ae"
+      },
+      "exact_status_lines": [
+        "2026-10-15T05:09:42Z start bp-q7-label-5",
+        "2026-10-15T05:30:42Z end bp-q7-label-5 status 0",
+        "2026-10-15T05:30:42Z runner done"
+      ]
+    },
+    {
+      "id": "BZ0",
+      "orchestrator": {
+        "path": "/data2/neural-shrimp-data/runpod/BZ0-orchestrator.log",
+        "bytes": 1348,
+        "sha256": "f9d9198f2661c48f422b251ac4e74812e7818a6832ee7f1d5b6bd6c9b2a4d732"
+      },
+      "initial": {
+        "commit": "9113b64e73f6b4f9981ef45ac31fe5b6f2f02280",
+        "jobset": "bz",
+        "code_bytes": 1085440,
+        "data_bytes": 1177600,
+        "code_sha256": "9eeb386395735599d15a1330f3d31fb78a50bb6e7ce3dd7901df573fbecd499a",
+        "data_sha256": "f425388da2f9fe2392ca7e1dea3826d44b492fd4b1c6106e5f0874784f29d778",
+        "extra_data": [],
+        "jobset_args": "pilot-0 40 --shard 0 3"
+      },
+      "recorded_termination": {
+        "pod_id": "lydg9orgs6im5q",
+        "terminated": true,
+        "direct_lookup": null,
+        "in_inventory": false
+      },
+      "retrieval_available": true,
+      "retrieval_dir": "/data2/neural-shrimp-data/runpod/soft64/20261015T045106Z",
+      "retrieval": {
+        "pod_id": "lydg9orgs6im5q",
+        "gpu_type": "SECURE:NVIDIA H100 NVL",
+        "commit": "9113b64e73f6b4f9981ef45ac31fe5b6f2f02280",
+        "jobset": "bz",
+        "started": 1792039867.802867,
+        "out": "/data2/neural-shrimp-data/runpod/soft64/20261015T045106Z",
+        "upload": {
+          "code_bytes": 1085440,
+          "data_bytes": 1177600,
+          "code_sha256": "9eeb386395735599d15a1330f3d31fb78a50bb6e7ce3dd7901df573fbecd499a",
+          "data_sha256": "f425388da2f9fe2392ca7e1dea3826d44b492fd4b1c6106e5f0874784f29d778",
+          "extra_data": [],
+          "jobset_args": "pilot-0 40 --shard 0 3"
+        },
+        "runner_returncode": 0,
+        "remote_sha256": "01fab0dd22f43a92af6950ea943ac255bb7fe39e6051e908986c53bda137c4f4",
+        "local_sha256": "01fab0dd22f43a92af6950ea943ac255bb7fe39e6051e908986c53bda137c4f4",
+        "hash_verified": true,
+        "wall_seconds": 395
+      },
+      "retrieval_record": {
+        "path": "/data2/neural-shrimp-data/runpod/soft64/20261015T045106Z/result.json",
+        "bytes": 797,
+        "sha256": "85a5178ca0f7ed0337af91a4dc9c6f437553debcdde26bc00c5f6eec27cb2b3a"
+      },
+      "archive": {
+        "path": "/data2/neural-shrimp-data/runpod/soft64/20261015T045106Z/results.tgz",
+        "bytes": 861171,
+        "hash_scope": "Recorded retrieval hash only at this index stage; no archive opened or rehashed."
+      },
+      "runner_stdout": {
+        "path": "/data2/neural-shrimp-data/runpod/soft64/20261015T045106Z/runner-stdout.txt",
+        "bytes": 536,
+        "sha256": "f71c4865dba7891f403f88108be6e629f86dab0a9c1b3233b94009ff59b42577"
+      },
+      "exact_status_lines": [
+        "2026-10-15T04:52:33Z start bz-pilot-0",
+        "2026-10-15T04:57:33Z end bz-pilot-0 status 0",
+        "2026-10-15T04:57:33Z runner done"
+      ]
+    },
+    {
+      "id": "BZ1",
+      "orchestrator": {
+        "path": "/data2/neural-shrimp-data/runpod/BZ1-orchestrator.log",
+        "bytes": 1431,
+        "sha256": "138a91e6cdc3c5cbe74d925b31ee765bef446a6379e574ee8b7cb92b06c99321"
+      },
+      "initial": {
+        "commit": "9113b64e73f6b4f9981ef45ac31fe5b6f2f02280",
+        "jobset": "bz",
+        "code_bytes": 1085440,
+        "data_bytes": 1177600,
+        "code_sha256": "9eeb386395735599d15a1330f3d31fb78a50bb6e7ce3dd7901df573fbecd499a",
+        "data_sha256": "f425388da2f9fe2392ca7e1dea3826d44b492fd4b1c6106e5f0874784f29d778",
+        "extra_data": [],
+        "jobset_args": "pilot-1 40 --shard 1 3"
+      },
+      "recorded_termination": {
+        "pod_id": "mj69o76yur8x6d",
+        "terminated": true,
+        "direct_lookup": null,
+        "in_inventory": false
+      },
+      "retrieval_available": true,
+      "retrieval_dir": "/data2/neural-shrimp-data/runpod/soft64/20261015T045108Z",
+      "retrieval": {
+        "pod_id": "mj69o76yur8x6d",
+        "gpu_type": "SECURE:NVIDIA H100 80GB HBM3",
+        "commit": "9113b64e73f6b4f9981ef45ac31fe5b6f2f02280",
+        "jobset": "bz",
+        "started": 1792039871.8237424,
+        "out": "/data2/neural-shrimp-data/runpod/soft64/20261015T045108Z",
+        "upload": {
+          "code_bytes": 1085440,
+          "data_bytes": 1177600,
+          "code_sha256": "9eeb386395735599d15a1330f3d31fb78a50bb6e7ce3dd7901df573fbecd499a",
+          "data_sha256": "f425388da2f9fe2392ca7e1dea3826d44b492fd4b1c6106e5f0874784f29d778",
+          "extra_data": [],
+          "jobset_args": "pilot-1 40 --shard 1 3"
+        },
+        "runner_returncode": 0,
+        "remote_sha256": "5420fc5136c42f37d9e98c9165364a0c7d187f51094a5a79432628340be368f7",
+        "local_sha256": "5420fc5136c42f37d9e98c9165364a0c7d187f51094a5a79432628340be368f7",
+        "hash_verified": true,
+        "wall_seconds": 311
+      },
+      "retrieval_record": {
+        "path": "/data2/neural-shrimp-data/runpod/soft64/20261015T045108Z/result.json",
+        "bytes": 804,
+        "sha256": "a96e58074f21946e07e848d83783310985fd570a097cf993e320cd9e779b44ff"
+      },
+      "archive": {
+        "path": "/data2/neural-shrimp-data/runpod/soft64/20261015T045108Z/results.tgz",
+        "bytes": 869270,
+        "hash_scope": "Recorded retrieval hash only at this index stage; no archive opened or rehashed."
+      },
+      "runner_stdout": {
+        "path": "/data2/neural-shrimp-data/runpod/soft64/20261015T045108Z/runner-stdout.txt",
+        "bytes": 548,
+        "sha256": "f2d2e70ccd08fd2d53aae1e4004bb953ca14db209d2bde997152d86018c30451"
+      },
+      "exact_status_lines": [
+        "2026-10-15T04:52:14Z start bz-pilot-1",
+        "2026-10-15T04:56:14Z end bz-pilot-1 status 0",
+        "2026-10-15T04:56:14Z runner done"
+      ]
+    },
+    {
+      "id": "BZ2",
+      "orchestrator": {
+        "path": "/data2/neural-shrimp-data/runpod/BZ2-orchestrator.log",
+        "bytes": 1431,
+        "sha256": "aa95ef05cdaaf673a0119fa18cfdff96da1ab0e394c668e960c3a066846b782a"
+      },
+      "initial": {
+        "commit": "9113b64e73f6b4f9981ef45ac31fe5b6f2f02280",
+        "jobset": "bz",
+        "code_bytes": 1085440,
+        "data_bytes": 1177600,
+        "code_sha256": "9eeb386395735599d15a1330f3d31fb78a50bb6e7ce3dd7901df573fbecd499a",
+        "data_sha256": "f425388da2f9fe2392ca7e1dea3826d44b492fd4b1c6106e5f0874784f29d778",
+        "extra_data": [],
+        "jobset_args": "pilot-2 40 --shard 2 3"
+      },
+      "recorded_termination": {
+        "pod_id": "tx5ls2s0l6g118",
+        "terminated": true,
+        "direct_lookup": null,
+        "in_inventory": false
+      },
+      "retrieval_available": true,
+      "retrieval_dir": "/data2/neural-shrimp-data/runpod/soft64/20261015T045111Z",
+      "retrieval": {
+        "pod_id": "tx5ls2s0l6g118",
+        "gpu_type": "SECURE:NVIDIA H100 80GB HBM3",
+        "commit": "9113b64e73f6b4f9981ef45ac31fe5b6f2f02280",
+        "jobset": "bz",
+        "started": 1792039875.0107164,
+        "out": "/data2/neural-shrimp-data/runpod/soft64/20261015T045111Z",
+        "upload": {
+          "code_bytes": 1085440,
+          "data_bytes": 1177600,
+          "code_sha256": "9eeb386395735599d15a1330f3d31fb78a50bb6e7ce3dd7901df573fbecd499a",
+          "data_sha256": "f425388da2f9fe2392ca7e1dea3826d44b492fd4b1c6106e5f0874784f29d778",
+          "extra_data": [],
+          "jobset_args": "pilot-2 40 --shard 2 3"
+        },
+        "runner_returncode": 0,
+        "remote_sha256": "6528d1b3ba3a85816de45f95a3cbce605c595c196781b158121b35288b2037aa",
+        "local_sha256": "6528d1b3ba3a85816de45f95a3cbce605c595c196781b158121b35288b2037aa",
+        "hash_verified": true,
+        "wall_seconds": 388
+      },
+      "retrieval_record": {
+        "path": "/data2/neural-shrimp-data/runpod/soft64/20261015T045111Z/result.json",
+        "bytes": 804,
+        "sha256": "a07e5aa746a8055f29f0db5cd50842be1a6ea4e994840275d94269b635b0b62d"
+      },
+      "archive": {
+        "path": "/data2/neural-shrimp-data/runpod/soft64/20261015T045111Z/results.tgz",
+        "bytes": 447200,
+        "hash_scope": "Recorded retrieval hash only at this index stage; no archive opened or rehashed."
+      },
+      "runner_stdout": {
+        "path": "/data2/neural-shrimp-data/runpod/soft64/20261015T045111Z/runner-stdout.txt",
+        "bytes": 537,
+        "sha256": "2646c877e7665cd7600514f1c35c0d70ab8c3ae34dbe91b6b89e9d2e9f6fb317"
+      },
+      "exact_status_lines": [
+        "2026-10-15T04:52:34Z start bz-pilot-2",
+        "2026-10-15T04:57:34Z end bz-pilot-2 status 0",
+        "2026-10-15T04:57:35Z runner done"
+      ]
+    }
+  ]
+}
