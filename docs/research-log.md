@@ -25915,3 +25915,21 @@ Façanha, Oldeman and Glass, "Bifurcation structures in two-dimensional maps: Th
 - With the fold curves with cusps, the flip curves and the bistability, these are the shrimps of two-dimensional maps in the sense of this paper, approximately two-dimensional in the leading pair.
 
 The paper's wording will be revised after runs OC and CL2, and the "endoskeleton" term can return with its definition. Consult 10's caution (not to attach the terminology unread) is resolved.
+
+## 2026-10-15 17:42 UTC: RR2 result: the reset test replicates on the H100 and in Qwen2.5-7B
+
+Pod 0yxvaphaxhovgb (SECURE H100 NVL); commit a5606676 from the orchestrator log; runner rc 0; hash verified; terminated and verified 17:41 UTC; 2249 s. Analyses: docs/rr/rr2-h05-heldout-analysis.json (0.5B, both precisions), rr2-q7-heldout-analysis.json (7B, both precisions), rr2-q7-dev-analysis.json. All 640 problem runs pass the exactness checks.
+
+| run (128 held-out problems) | free | reset | native | Delta [bootstrap 95 %] | McNemar (free-only / reset-only, p) |
+|---|---|---|---|---|---|
+| 0.5B, T = 1, bf16 | 85 (66.4 %) | 2 (1.6 %) | 85 (66.4 %) | 64.8 [56.3, 72.7] | 83 / 0, 2.1e-25 |
+| 0.5B, T = 1, float32 | 5 (3.9 %) | 0 | 6 (4.7 %) | 3.9 [0.8, 7.8] | 5 / 0, 0.062 |
+| 7B, log10 T 0.2, bf16 | 82 (64.1 %) | 2 (1.6 %) | 99 (77.3 %) | 62.5 [53.9, 71.1] | 80 / 0, 1.7e-24 |
+| 7B, log10 T 0.2, float32 | 47 (36.7 %) | 0 | 53 (41.4 %) | 36.7 [28.1, 45.3] | 47 / 0, 1.4e-14 |
+
+- **Accuracy.** No arm differs from the reference by more than 4.7 points (0.5B bf16: reference 21.1 %, free 24.2 %; 7B bf16: 60.2 % and 57.8 %; 7B float32: 62.5 % and 67.2 %). Invalid answers are 8 to 24 per arm in 7B, counted as outcomes.
+- **Drift.** On the H100 in bf16, the median one-step logit distance under reset is exactly 0 at every step: most batched steps are bitwise identical to the reference. In the free arm the median distance is 0 at step 1, 2.1e-2 at step 8 and 0.21 at step 32 (0.5B); in 7B, 4.1e-2 at step 8 and 0.97 at step 32. In 7B float32 the free drift grows from 5.9e-7 to 1.4e-2 over the 32 steps.
+- **7B dev (24).** Free 11, reset 0, native 21.
+- **Native disagreement on this H100.** 66 % (0.5B; REPRO-T's frozen test on 96 other problems gave 56 %) and 77 % (7B; 55 %).
+
+**Reading (pre-stated rule).** Delta exceeds 15 points with an interval excluding zero in every bf16 run and in 7B float32. On a second GPU type and in a 7B model, resetting the fed-back state before every soft step removes nearly all layout-dependent answer changes. On the H100 the layout changes few single steps; the loop amplifies the rare step that differs. In 7B the amplification reaches answer changes even in float32.

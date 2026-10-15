@@ -114,7 +114,8 @@ system; Section~\ref{sec:beyond} also measures how much of the mechanism survive
   loop diverges, and in a frozen test on 96 additions the batch layout changed the answer of a soft-thinking pipeline
   in 56\,\% of problems in Qwen2.5-0.5B and 55\,\% in Qwen2.5-7B, against never and 10\,\% for a forced greedy
   baseline. A causal test shows that the loop carries this: resetting the fed-back state before every soft step
-  removes most of it (80 against 11\,\% of answers changed, on a workstation GPU), and accuracy is unchanged. Exactly repeating text can hide a chaotic state (Section~\ref{sec:organization}). Beyond the model's
+  removes nearly all of it (on an H100, 66 against 1.6\,\% of answers changed in Qwen2.5-0.5B, and 64 against
+  1.6\,\% in Qwen2.5-7B), and accuracy changes by at most 5 points. Exactly repeating text can hide a chaotic state (Section~\ref{sec:organization}). Beyond the model's
   first-token uncertainty, the loop's regime carries no detectable information about the accuracy of ordinary sampled
   answers, and we find no advantage at the edge of chaos.
 \item \emph{Why the loop is chaotic, and how steering makes it so} (Section~\ref{sec:theory}). The loop's derivative
@@ -494,7 +495,7 @@ batch, and where the loop expands, even float64 rounding does. Over longer runs,
 rounding into different readout tokens, on the schedule its Lyapunov exponent sets.
 
 A causal test locates the low-precision effect in the loop. Following a suggestion of an external review, we reran
-the 0.5B pipeline at $T=1$ on 128 fresh additions, after a batch-1 reference run of each (exploratory; on a
+the 0.5B pipeline at $T=1$ on 128 fresh additions, after a batch-1 reference run of each (exploratory; first on a
 workstation GPU, where the native pipeline's answers changed with the layout in 85\,\% of the problems, against
 56\,\% on the H100 of the frozen test). In the batch of four, two arms start from the reference's prompt state and
 are answered by the same batch-1 decoder. In the free arm the soft phase runs on its own; in the reset arm the
@@ -504,7 +505,12 @@ but only one at a time. In bfloat16 the answer changed in 102 of the 128 problem
 McNemar $p=2\times10^{-24}$), while accuracy stayed between 23 and 25\,\% in every arm. One batched step moves the
 target's logits by about $1.5\,\%$ of their norm; in the free arm the difference grows to $0.79$ of it by step 32,
 while each reset step stays between $1.3$ and $3.1\,\%$. In float32 the free arm's drift grows about 140-fold over the
-32 steps but stays near $10^{-4}$, and 4 of the 128 answers changed (none with reset). Within this budget, the batch
+32 steps but stays near $10^{-4}$, and 4 of the 128 answers changed (none with reset). The test replicates on an H100
+and in Qwen2.5-7B. On the H100, in bfloat16, the answer changed in 85 of the 128 problems (66\,\%) in the free arm and
+in 2 (1.6\,\%) with reset in the 0.5B model, and in 82 (64\,\%) against 2 (1.6\,\%) in Qwen2.5-7B at $T=10^{0.2}$
+(exact McNemar $p\le2\times10^{-24}$); in the 7B model even float32 answers changed in 47 (37\,\%) against none. There
+most batched steps reproduce the reference bitwise, and the free loop amplifies the rare step that does not. No arm's
+accuracy differs from the reference's by more than 5 points. Within this budget, the batch
 decides low-precision answers because the loop carries each step's rounding forward and amplifies it, not because the
 last steps alone are fragile, and the answers change without becoming worse.
 \begin{figure}[tbp]
