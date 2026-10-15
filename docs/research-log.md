@@ -26680,3 +26680,31 @@ Recomputed from docs/h2-horizon-cells.json and pod64/hidden/h2-cells/hidden-chao
 - Stripes map: 35,431, 35,244 and 34,646 of 35,650 (not quoted in the paper).
 
 **Citation.** Grebogi, Ott and Yorke 1983 is added for transient chaos, verified at Crossref: Physica D 7(1-3), 181-200, doi 10.1016/0167-2789(83)90126-4.
+
+## 2026-10-15 23:48 UTC: PT2 design frozen (before any passage): 24 predictions, continuous passage integral primary
+
+**Design.** codex/confirm-fold-2/design.json, sha256 5a8ac959ebb38d54814116043c5b2a6866856f0078c96a040cadfe0ba260aa15. Inputs: task5b-fresh-prediction/frozen-inputs-v1. The audit (codex/confirm-fold-2/audit.py) is frozen with it.
+
+**Targets.**
+- **C:** setup-C-01. 2-cycle fold, alpha_c = 0.071369030053 at log10 T = -0.200. a = 10.95048, b = 25.33001, U = 0.0039479, ghost side +alpha.
+- **D:** setup-D-02. Period-6 fold, alpha_c = 0.075632912551 at log10 T = -0.087439016387. a = 72.69497, b = 72.23677, U = 0.0013843, ghost side -alpha.
+
+**Distances.** eps = q^2/(a b), q = 0.08, 0.05, 0.03, 0.018.
+- C: eps = 2.3073e-5, 9.0130e-6, 3.2447e-6, 1.1681e-6.
+- D: eps = 1.2188e-6, 4.7608e-7, 1.7139e-7, 6.1700e-8.
+
+**Frozen forecasts.** They depend only on q, so they are the same for both targets. Each pair is (continuous T_arc, primary / discrete count, secondary):
+
+| q | full channel | midpoint | full + kick |
+|---|---|---|---|
+| 0.08 | 22.401 / 23 | 11.201 / 12 | 22.401 / 23 |
+| 0.05 | 44.286 / 45 | 22.143 / 23 | 44.286 / 45 |
+| 0.03 | 85.289 / 86 | 42.645 / 44 | 85.289 / 86 |
+| 0.018 | 154.745 / 155 | 77.372 / 80 | 154.745 / 155 |
+
+The smallest forecast is 11.201. At q = 0.018 the midpoint acceptance sets {77, 78} (primary) and {79, 80, 81} (secondary) are disjoint.
+
+**Criteria.**
+- **Primary:** |N - T_arc| <= 1 on all 24 rows.
+- **Secondary:** |N - discrete| <= 1.
+- **Sign hypothesis** (not a criterion): N - discrete <= 0 on the 16 midpoint and kick rows.

@@ -34,3 +34,14 @@ def test_transverse_kick_is_in_the_kernel_of_l():
     w, starts = bd.entrances(x, r, l, 0.01, 7)
     assert abs(l @ w) < 1e-12 and abs(np.linalg.norm(w) - 1) < 1e-12
     assert np.allclose(starts[1], x) and math.isclose((starts[0] - x) @ l, -0.01, rel_tol=1e-12)
+
+
+def test_audit_predictors_agree_with_the_builder():
+    import audit as au
+    U = 0.1 / B
+    for q in bd.Q:
+        eps = q * q / (A * B)
+        for u in (-U, 0.0):
+            p = bd.predictions(u, A, B, eps, U)
+            assert au.quad_count(u, A, B, eps, U) == p["quadratic_G"]
+            assert abs(au.arctan_count(u, A, B, eps, U) - p["arctan_G"]) < 1e-12
