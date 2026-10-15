@@ -25186,3 +25186,17 @@ soft_dialogue verify on the 12 cells of docs/dlg/dlga-entrained-cells.json (cowr
 The agents alone are chaotic at these strengths by the map's twin exponents at both offsets. One H100-class pod; ceiling in the private ledger.
 
 Reference for the discussion: Almeida, Peralta-Salas and Romera, Physica D 200, 124-132 (2005), checked against Crossref and added to references.bib. Alternating two chaotic quadratic maps can give order.
+
+## 2026-10-15 10:28 UTC: DLGx result: a stable model regularizes a chaotic one (two different LLMs)
+
+**Run.** Pod (H100 class); commit fa52453d from the orchestrator log; runner rc 0; all six jobs status 0; terminated. Lines along log10 T in [-0.5, 0.8] (131 temperatures), unsteered: Qwen2.5-0.5B alone, Qwen2.5-1.5B alone, and the 0.5B <-> 1.5B pair (messages as distributions over the shared vocabulary), in both frames. Analysis: tools/plot_dialogue_x.py; outputs docs/dlg/dlgx-stats.json and docs/dlg/dlgx-lines.png.
+
+**Dialogue frame.** Everything is periodic: 0.5B alone 131/131, 1.5B alone 130/131, the pair 131/131. One-token replies to one-token messages collapse onto greeting-type fixed points, as in the 12 Oct text pilots. No entrainment test is possible here.
+
+**Cowrite frame.** 0.5B alone: 130 periodic, 1 chaotic. 1.5B alone: 90 periodic, 41 chaotic. The pair: 127 periodic, 4 chaotic.
+- **The 1.5B's chaos is regularized by its partner.** At the 41 temperatures where it is chaotic alone (log10 T >= 0.29; exponents 0.21 to 1.76 per exchange, median 0.99), the conversation with the periodic 0.5B is periodic at 39.
+  - Periods of the exchange map: 1 (36), 3 (2), 4 (1).
+  - Only 2 stay chaotic.
+- **Pairing makes chaos only rarely:** at 2 temperatures (log10 T 0.19 and 0.27) where both models alone are periodic.
+- No temperature has both models chaotic alone, so "chaos + chaos" cannot be tested in this unsteered pair.
+- In the figure the pair's exponent follows the more stable model's curve at high temperature.
