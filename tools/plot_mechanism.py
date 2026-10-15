@@ -193,6 +193,19 @@ def main():
                 b = [rng.choice(v, len(v)).mean() for _ in range(10000)]
                 stats["XO7"]["readout_effect (10-00)"] = {
                     "mean": float(v.mean()), "ci95": [float(np.quantile(b, .025)), float(np.quantile(b, .975))], "cells": int(len(v))}
+        for run, key in (("grat", "XO_gratitude"), ("rand1", "XO_random1")):   # runs XOG and XOR: statistics only
+            f = DATA / "xo" / run / "crossover.json"
+            if f.exists():
+                dd = json.loads(f.read_text())
+                lb = dd.get("labels") or []
+                Xd = np.array([[c[a] for a in arms] for c in dd["cells"]])
+                sd = np.array([lab == "chaotic" and i >= 2 for i, lab in enumerate(lb)])
+                stats[key] = {}
+                for name, v in (("readout_effect (10-00)", Xd[sd, 1] - Xd[sd, 0]), ("network_effect (01-00)", Xd[sd, 2] - Xd[sd, 0]),
+                                ("interaction (11-10-01+00)", Xd[sd, 3] - Xd[sd, 1] - Xd[sd, 2] + Xd[sd, 0])):
+                    b = [rng.choice(v, len(v)).mean() for _ in range(10000)]
+                    stats[key][name] = {"mean": float(v.mean()), "ci95": [float(np.quantile(b, .025)), float(np.quantile(b, .975))],
+                                        "cells": int(len(v))}
         ax.set_xticks(range(4))
         ax.set_xticklabels(["00\nunsteered\nboth", "10\nsteered\nreadout", "01\nsteered\nnetwork", "11\nsteered\nboth"], fontsize=7)
         ax.axhline(0, color="0.5", lw=0.6)
