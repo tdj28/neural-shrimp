@@ -23696,3 +23696,13 @@ Reading: on these maps the twin method is a finite-difference Benettin estimate 
   - Stage 1: one pod (H100-class), job set hiddencells: tools/hidden_chaos.py cells on docs/wp-line-cells.json (3200 cells along alpha at log10 T -0.115, alpha_c + 1.4e-4 to alpha_c + 4.6e-4, spacing 1e-7), float64, transient 3000, record 600, twins 1e-6 and 1e-9, tolerance 1e-8, chunk 1600.
   - Stage 2, after stage 1: tools/llm_feigenbaum.py edges from the centres of the period 22-30 windows found on the line (as run E1 for periods 6-20).
 - **Output:** `../neural-shrimp-data/explore/llm-soft-loop/pod64/hidden/wp-line`
+
+## 2026-10-15 01:40 UTC: Amendments: CL restarted (JSON bug), FB stage 1 failed at the switch to period 12 and reruns with map-based switching
+
+- **CL.** The local smoke test of cusp_locate on hub7-foldS-plus 13 ran the whole real-model path. Round 1 bracketed b sign(a) from +6.51 to -16.58, and the final unfolding was computed. The tool then crashed writing its JSON, because numpy booleans sat in the checks. The four CL pods ran the same code, so they would have lost their results at the end. Fixed: plain bools and a numpy-aware JSON fallback, with a test that a result serializes. The pods are terminated after about 20 minutes and relaunched at the fix commit, with unchanged run card and targets.
+- **FB stage 1.** Pods mpjn8uzrkptamm and h7yv0po5o7lc1n: runner rc 0, tool exit 1, results retrieved.
+  - At log10 T -0.152: flips 3->6 at alpha 0.0648738 and 6->12 at 0.0652532.
+  - At -0.156: flips 3->6 at 0.0644767 and 6->12 at 0.0650494.
+  - Both then failed switching to period 12 (SearchError: the switch returned to the period-6 orbit). Until three flips give a measured ratio, the tool places the switch at half of last interval / 4.0. The cross-512 map shows the period-12 band at about 0.85 of the period-6 band at -0.152 and about 1/15 of it at -0.156, so both switches fell outside the band.
+  - New cascade options (default behaviour unchanged): --ratio-guess, --switch-fraction, --max-substeps. The reruns use ratio guesses read off the map, 1.2 at -0.152 and 15 at -0.156. These are search aids for the switch only; the flips are located as before.
+  - The predictions P-F1 and P-F2 stand as frozen. The map's rough band ratios already suggest that the first ratio at -0.156 is far above 2.844, against P-F1.

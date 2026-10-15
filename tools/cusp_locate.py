@@ -172,17 +172,26 @@ def locate(family, xl, thl, xr, thr, tpl, test="cusp", kind="fold", recl=None, r
                       "J": unf["J"], "det_J": float(unf["det_J"]), "singular_values": unf["singular_values"],
                       "condition": float(unf["condition"]), "multiplier": unf["multiplier"],
                       "second_modulus": unf["second_modulus"]})
-        checks = {"b_small": abs(final["f"]) <= btol * f0,
-                  "c_nonzero": final["c"] != 0 and (spread is None or spread < 0.1),
-                  "unfolding_regular": abs(final["det_J"]) > 0 and np.isfinite(final["condition"])}
+        checks = {"b_small": bool(abs(final["f"]) <= btol * f0),
+                  "c_nonzero": bool(final["c"] != 0 and (spread is None or spread < 0.1)),
+                  "unfolding_regular": bool(abs(final["det_J"]) > 0 and np.isfinite(final["condition"]))}
     else:
         final.update(type_point(family, xf, thf, kind))
-        checks = {"f_small": abs(final["f"]) <= btol * f0}
+        checks = {"f_small": bool(abs(final["f"]) <= btol * f0)}
         if test == "crossing":
             d = final["second_distance_to_circle"]
-            checks["second_on_circle"] = d is not None and d <= 5e-3
+            checks["second_on_circle"] = bool(d is not None and d <= 5e-3)
     return {"test": test, "kind": kind, "points": points, "brackets": brackets, "final": final, "initial_f_max": f0,
-            "btol": btol, "checks": checks, "located": all(checks.values()), "state": xf}
+            "btol": btol, "checks": checks, "located": bool(all(checks.values())), "state": xf}
+
+
+def _plain(o):
+    """JSON fallback for numpy scalars and arrays."""
+    if isinstance(o, np.generic):
+        return o.item()
+    if isinstance(o, np.ndarray):
+        return o.tolist()
+    raise TypeError(f"not JSON serializable: {type(o).__name__}")
 
 
 def main():
@@ -239,7 +248,7 @@ def main():
     fin["log10_temperature"], fin["alpha"] = fin["theta"][0], fin["theta"][1] / sc
     res.update({"curve": args.curve, "left": args.left, "period": int(cv["period"]), "args": vars(args),
                 "seconds": round(time.time() - tic, 1)})
-    path.write_text(json.dumps(res, indent=1))
+    path.write_text(json.dumps(res, indent=1, default=_plain))
     keys = ("type", "second_multiplier", "eigenvector_angle_degrees", "c", "det_J")
     print(json.dumps({"located": res["located"], "checks": res["checks"], "log10_T": fin["log10_temperature"],
                       "alpha": fin["alpha"], "f": fin["f"], **{k: fin[k] for k in keys if k in fin},

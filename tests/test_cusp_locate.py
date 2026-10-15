@@ -77,3 +77,15 @@ def test_refuses_a_bracket_without_a_sign_change():
         cl.locate(fam, states[k - 3], records[k - 3]["theta"], states[k - 2], records[k - 2]["theta"],
                   records[k - 3]["parameter_tangent"], test="cusp", kind="fold", param=0, param_scale=1.0,
                   nf_steps=(1e-2, 3e-3, 1e-3))
+
+
+def test_results_serialize_to_json():
+    import json
+
+    fam, records, states, k = traced_cubic()
+    res = cl.locate(fam, states[k], records[k]["theta"], states[k + 1], records[k + 1]["theta"],
+                    records[k]["parameter_tangent"], test="cusp", kind="fold", rounds=1, per_round=5, param=0,
+                    param_scale=1.0, nf_steps=(1e-2, 3e-3, 1e-3))
+    res.pop("state")
+    json.loads(json.dumps(res, default=cl._plain))
+    assert all(type(v) is bool for v in res["checks"].values()) and type(res["located"]) is bool

@@ -270,15 +270,19 @@ def interval_ratios(lams):
 
 
 def cascade(make_cell, X0, Q0, period, lam0, lam_next, flips, direction, steps_per_period=24, k=6,
-            displacement=1e-3, tol=1e-12, lam_rel_tol=1e-13, log=print, tokens=None, on_flip=None):
+            displacement=1e-3, tol=1e-12, lam_rel_tol=1e-13, log=print, tokens=None, on_flip=None, ratio_guess=4.0,
+            switch_fraction=0.5, max_substeps=16):
     """Successive flips along the cut, starting from the period-`period` orbit near X0 at lam0; lam_next lies inside
-    the first doubled band (beyond the first flip). Returns the list of flip records."""
+    the first doubled band (beyond the first flip). Until three flips give a measured ratio, the width of the next
+    doubled band is the last interval divided by ratio_guess; the switch to the doubled orbit happens at
+    switch_fraction of that width beyond the flip, and the walk toward the next flip takes at most max_substeps
+    substeps of a quarter width. Returns the list of flip records."""
     s = 1.0 if direction > 0 else -1.0
     half = None                                           # the start orbit is not checked against a half period
     a = evaluate(make_cell, lam0, X0, period, Q0, tol)
     log(json.dumps({"start": {"period": period, "lambda": lam0, "mu": float(a.critical.real)}}))
     b = evaluate(make_cell, lam_next, a.X, period, a.Q, tol)
-    results, ratio, split = [], 4.0, None
+    results, ratio, split = [], ratio_guess, None
     for n in range(flips):
         width = abs(b.lam - a.lam)
         root, evals = locate_flip(make_cell, period, a, b, lam_tol=max(lam_rel_tol * abs(root_scale(a, b)),
@@ -305,7 +309,7 @@ def cascade(make_cell, X0, Q0, period, lam0, lam_next, flips, direction, steps_p
             band = abs(lam_next - root.lam) * 2.0
         else:
             band = width
-            lam_s = root.lam + s * 0.5 * band                # the middle of the doubled band (estimated)
+            lam_s = root.lam + s * switch_fraction * band    # inside the doubled band (estimated)
         X2, Q2, hist, split = switch(make_cell, root, period, lam_s, displacement, steps_per_period * 2 * period,
                                      k, tol)
         displacement = max(split / 2.5, 1e-6)
@@ -320,7 +324,7 @@ def cascade(make_cell, X0, Q0, period, lam0, lam_next, flips, direction, steps_p
         # the flip (g < 0), which brackets it together with the previous point
         sub = 0.25 * band
         prev, b = a, None
-        for _ in range(16):
+        for _ in range(max_substeps):
             cur = evaluate(make_cell, prev.lam + s * sub, prev.X, period, prev.Q, tol, half=half)
             if cur.g < 0:
                 a, b = prev, cur
@@ -624,6 +628,11 @@ def main():
     c.add_argument("--flips", type=int, default=6)
     c.add_argument("--transient", type=int, default=900)
     c.add_argument("--k", type=int, default=6, help="dimension of the dominant subspace")
+    c.add_argument("--ratio-guess", type=float, default=4.0,
+                   help="interval ratio assumed for the next doubled band until three flips give a measured one")
+    c.add_argument("--switch-fraction", type=float, default=0.5,
+                   help="switch to the doubled orbit at this fraction of the estimated band beyond the flip")
+    c.add_argument("--max-substeps", type=int, default=16, help="substeps of a quarter band toward the next flip")
     c.add_argument("--steps-per-period", type=int, default=24,
                    help="forward iterations after a switch, in units of the doubled period")
     c.add_argument("--tol", type=float, default=1e-12)
@@ -685,7 +694,9 @@ def main():
         (out / "cascade.json").write_text(json.dumps(rec, indent=1, ensure_ascii=False))
 
     results = cascade(make_cell, X, Q0, args.period, lam0, args.next, args.flips, np.sign(args.next - lam0),
-                      args.steps_per_period, args.k, tol=args.tol, log=log, tokens=tokens, on_flip=save)
+                      args.steps_per_period, args.k, tol=args.tol, log=log, tokens=tokens, on_flip=save,
+                      ratio_guess=args.ratio_guess, switch_fraction=args.switch_fraction,
+                      max_substeps=args.max_substeps)
     save(results)
     log(json.dumps({"done": True, "ratios": interval_ratios([r["flip"]["lambda"] for r in results])}))
 
