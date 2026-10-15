@@ -235,6 +235,36 @@ def problems(split):
         return [json.loads(line) for line in f]
 
 
+def token_stats(trace, steps, margin=0.02):
+    """Recurrence statistics of one generation from Relaxed.trace (entries (aggregate native residual, step, rows)):
+    the first `steps` entries are the prompt's prefill, then one block of `steps` entries per generated token after the
+    first. Per block: the final native residual and the late decay rate (exp of the least-squares slope of log r over
+    the second half of the block). Returns medians over the generated tokens, the share of tokens whose late rate is at
+    least 1 - margin (not converging), and the prefill block's values."""
+    import math
+
+    import numpy as np
+
+    r = [e[0] for e in trace]
+    blocks = [r[i:i + steps] for i in range(0, len(r) - steps + 1, steps)]
+
+    def summary(b):
+        v = np.asarray(b[len(b) // 2:], dtype=float)
+        ok = np.isfinite(v) & (v > 0)
+        rate = float(math.exp(np.polyfit(np.arange(len(v))[ok], np.log(v[ok]), 1)[0])) if ok.sum() >= 4 else None
+        return float(b[-1]), rate
+
+    if not blocks:
+        return {"tokens": 0}
+    pre = summary(blocks[0])
+    toks = [summary(b) for b in blocks[1:]]
+    rates = [q for _, q in toks if q is not None]
+    return {"tokens": len(toks), "prefill_final": pre[0], "prefill_rate": pre[1],
+            "median_final": float(np.median([f for f, _ in toks])) if toks else None,
+            "median_rate": float(np.median(rates)) if rates else None,
+            "share_not_converging": float(np.mean([q >= 1.0 - margin for q in rates])) if rates else None}
+
+
 def accuracy(args):
     torch, tok, model, relax = load(args)
     import explore_llm_attractors as ela
@@ -276,8 +306,12 @@ def accuracy(args):
             ids = tok(gsm8k_prompt(ex["question"], args.prompt_style), return_tensors="pt")["input_ids"].to(args.device)
             t0 = time.perf_counter()                   # the same seed per problem in every arm (paired)
             stop = StoppingCriteriaList([StopAtQuestion(ids.shape[1])]) if args.prompt_style == "cot8" else None
+            if args.trace_stats:
+                relax.trace = []
             with torch.no_grad():
                 gen = model.generate(ids, cfg, num_steps=args.steps, stopping_criteria=stop)
+            stats = token_stats(relax.trace, args.steps) if args.trace_stats else None
+            relax.trace = None
             new_tokens = int(gen.shape[1] - ids.shape[1])
             full = tok.decode(gen[0, ids.shape[1]:], skip_special_tokens=True)
             text = full.split("\nQuestion:")[0].split("Q:")[0]
@@ -297,6 +331,7 @@ def accuracy(args):
                                    "correct": ok, "strict_pred": strict, "correct_strict": ok_strict,
                                    "prompt_style": args.prompt_style,
                                    "new_tokens": new_tokens, "core_calls": new_tokens * args.steps,
+                                   "recurrence": stats,
                                    "seconds": round(seconds, 2), "text": full}) + "\n")
             rows.flush()
             tally[str(arm)][0] += ok
@@ -523,6 +558,8 @@ def main():
     acc.add_argument("--count", type=int, default=40)
     acc.add_argument("--max-new", type=int, default=256)
     acc.add_argument("--interleave", action="store_true", help="every problem in all arms before the next problem")
+    acc.add_argument("--trace-stats", action="store_true",
+                     help="record per generation the generated tokens' recurrence statistics (token_stats)")
     acc.add_argument("--prompt-style", default="zero-shot", choices=("zero-shot", "cot8"),
                      help="cot8: the 8-shot chain-of-thought prompt of lm-eval gsm8k_cot, stopping at 'Q:'")
     conv = sub.choices["convergence"]
