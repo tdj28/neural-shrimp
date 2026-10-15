@@ -26392,3 +26392,20 @@ The paragraph "Shrimps of a two-dimensional kind" now reports the doubling casca
 - **Unresolved:** anything else, including unsolved cells at the meeting point.
 
 **Cost.** In the private ledger.
+
+## 2026-10-15 22:01 UTC: External check (Cursor, 15 checks at f49ca5e5): two findings, both confirmed and fixed
+
+The report is at /data2/CHECK_THESE_FINDINGS.md, archived as CHECK_THESE_FINDINGS-2026-10-15.md. Each finding was rechecked against the raw curve files before editing.
+
+**Finding 1.** In the appendix paragraph "The folds and flips of the period-5 window", "the largest other multiplier modulus on any curve is 0.122" was ambiguous.
+- It holds for the curves that sentence describes: the flip curves reach 0.1217, and the first fold curve's traces at most 0.0394.
+- It does not hold for the second fold curve, introduced later in the paragraph: fm5c/curve-a1-down-fold-plus reaches 0.3945. Its "below 0.4" bound, and the main text's 0.4, hold.
+- Now: "0.040 on that fold curve and 0.122 on the flip curves".
+
+**Finding 2.** "16 to 44 times" rounded the lower end up. docs/fm5/crossing-orbits.json gives ratios 15.838 to 44.445 on the first dovetail's two traces. Now "15.8 to 44.5", with both ends at their true extremes. The second dovetail's "23 to 31" (23.361 to 30.672) is correct.
+
+**Also.** The essay's bib entry gets year "n.d.", which removes the bibtex empty-year warning the checker noted.
+
+**No findings.** The other 13 checks confirmed the census, the self-crossings and cusp values, the cusp kinds, Gallas's corners, the source statements, the trace-zero bounds, the closure test, the reset test, the restored main text, the Huginn pilot, the essay citation, the 70B zoom caveat, the neuron controls, the redrawn maps and the Feigenbaum bounds.
+
+Neither finding's sentence is in the Chaos version.

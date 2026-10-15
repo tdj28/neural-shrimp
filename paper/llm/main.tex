@@ -2439,8 +2439,8 @@ window's period-5 orbit along four lines from one attracting cell, $(\alpha_1,\a
 then the boundaries the lines found, each in both directions (float64; 18 to 73 points per line, 30 to 120 per curve;
 one of the eight curve runs failed at its start for lack of GPU memory, and its curve is covered by the other trace of
 the same fold). At every curve point the residual is below $10^{-10}$ and the test function below $10^{-9}$. The
-critical multiplier stays real and within $6\times10^{-8}$ of $+1$ on the fold curve and of $-1$ on the flip curves,
-and the largest other multiplier modulus on any curve is $0.122$. Going right and up from the start, the orbit dies
+critical multiplier stays real and within $6\times10^{-8}$ of $+1$ on the fold curve and of $-1$ on the flip curves;
+the largest other multiplier modulus is $0.040$ on that fold curve and $0.122$ on the flip curves. Going right and up from the start, the orbit dies
 in folds at $\alpha_1=-0.118166$ and $\alpha_2=0.102715$ (next moduli $0.0012$ and $0.0008$). Going left and down, it
 first loses stability in flips (at $\alpha_1=-0.12147$ and $\alpha_2=0.09954$), regains it where the same multiplier
 crosses $-1$ again (at $-0.12305$ and $0.09586$; a doubling bubble), and dies in a fold (at $-0.123323$ and
@@ -2453,8 +2453,8 @@ $c=+2.60\times10^{4}$ and $\det J=176.6$, and at $(-0.1191670,0.1028019)$, with 
 $\det J=88.6$. The two traces agree to $2\times10^{-12}$ in these positions and to five figures in $c$ and $\det J$.
 Its outer arms cross at $(-0.11901,0.10346)$ (Figure~\ref{fig:period5folds}d). There they are folds of two different period-5 orbits with
 the same token loop: at the four continuation points that bracket the crossing, the orbits on the two arms differ by $3.65$ to
-$3.78\,\%$ of the state norm (root-mean-square over the five points, at the best phase alignment; both traces), 16
-to 44 times the state change between neighbouring curve points (\path{docs/fm5/crossing-orbits.json}). The second fold curve, continued both ways from the left fold, runs from below the lower leg
+$3.78\,\%$ of the state norm (root-mean-square over the five points, at the best phase alignment; both traces), 15.8
+to 44.5 times the state change between neighbouring curve points (\path{docs/fm5/crossing-orbits.json}). The second fold curve, continued both ways from the left fold, runs from below the lower leg
 far up the left of the plane, where the orbit has regained stability beyond its doubling bubble (critical
 multiplier within $1.2\times10^{-7}$ of $+1$; other multipliers below $0.4$). It has two more reversals, both located
 cusps: $(-0.1238662,0.0961512)$, with $c=-9.65\times10^{3}$ and $\det J=405.9$, and $(-0.1214073,0.1028234)$, with
