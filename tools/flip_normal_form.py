@@ -120,10 +120,13 @@ def main():
     if found != p:
         raise SystemExit(f"the attractor at alpha {args.start_alpha} has period {found}, not {p}: refusing to start")
     Q = np.linalg.qr(np.random.default_rng(0).normal(size=(X.numel(), args.k)))[0]
-    ev = None
-    for a in np.linspace(args.start_alpha, args.alpha_flip, args.continuation_steps + 1):
-        ev = lfb.evaluate(make_cell, float(a), X if ev is None else ev.X, p, Q if ev is None else ev.Q, args.tol)
-    flip = ev
+    # continuation to the flip by Newton alone: the guard of lfb.evaluate against a complex pair near -1 belongs to
+    # flip location, and along the way the leading pair may be complex (FNF2, 15 Oct 2026: -0.51 +- 0.26i)
+    for a in np.linspace(args.start_alpha, args.alpha_flip, args.continuation_steps + 1)[:-1]:
+        X, Q, hist = lfb.newton(make_cell(float(a)), X, p, Q, lfb.tol_for(p, args.tol), 12)
+        if not hist[-1] < lfb.tol_for(p, args.tol):
+            raise SystemExit(f"continuation Newton did not converge at alpha {a}: {hist}")
+    flip = lfb.evaluate(make_cell, args.alpha_flip, X, p, Q, args.tol)
     fam = esl.soft_family(loop, v, p, 10.0, args.chunk)
     theta = np.array([lt, args.alpha_flip * 10.0])
     nf = flip_cubic(fam, lfb._flat(flip.X), theta)

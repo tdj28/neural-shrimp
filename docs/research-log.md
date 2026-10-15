@@ -23970,3 +23970,31 @@ Pod gqn3rlkugdknn2 (COMMUNITY H100 NVL; runner rc 0, tool exit 1, hash verified,
   - FNF2: period 2, start at alpha 0.0775 (period-2 attractor).
   - FNF4: period 4, start at alpha 0.0745 (inside the period-4 band).
 - **Output:** `../neural-shrimp-data/explore/llm-soft-loop/pod64/flipnf/hiT-p2`, `hiT-p4`
+
+## 2026-10-15 04:35 UTC: FNF4 result: the flip normal form predicts the doubled orbit where the map is far from one-dimensional; FBS156 interim; MB2 and FNF2 relaunched
+
+- **FNF4.** Pod gtul0qkyyp2p6x (SECURE H100 80GB HBM3; runner rc 0, hash verified, terminated; 253 s; commit 2acbc8b8).
+  - Flip of the period-4 orbit at alpha 0.07369205994966807, log10 T 0.0319: multiplier -1 to 3.1e-12, real; next modulus 0.278, so the crossing is classified as a flip.
+  - c = 12386 (plateau 1e-3/3e-4, spread 9e-5): supercritical.
+  - Offsets 2.5e-5, 5e-5, 1e-4, 2e-4 and 4e-4 (alpha below the flip):
+    - beta = 0.0175, 0.0348, 0.0685, 0.1325, 0.2470.
+    - Amplitude ratio (measured / sqrt(beta/c)): 1.0029, 1.0059, 1.0122, 1.0254, 1.0558. The error doubles with the offset (O(beta)).
+    - Doubled-orbit multiplier against 1 - 4 beta: 0.929870 vs 0.929829 (4e-5), 0.860871 vs 0.860777 (9e-5), 0.725657 vs 0.726034 (4e-4), 0.4538 vs 0.4700 (0.016, beta^2 = 0.018). At the largest offset the multiplier is complex (0.125 +- 0.207i), beyond the normal form's range.
+  - By the card: confirmed (ratio 1.003 at the smallest offset, multipliers agree to O(beta^2)). The local reduction holds at a next modulus of 0.28, where the global scalar reduction is a rough guide.
+- **FNF2.** Pod 16bu5ertdbsrtl (rc 0, tool exit 1, 132 s).
+  - The continuation from alpha 0.0775 toward the flip stopped at 0.07678: lfb.evaluate refused a complex leading pair -0.512 +- 0.261i (next modulus 0.575). That guard belongs to flip location, not to continuation.
+  - Fixed: the continuation now uses Newton alone, and the guard applies only at the flip. Tests still pass. Rerun as FNF2b.
+- **MB2.** Pod mh8mf3kqiqbrco never became SSH-ready (15-min ready limit): terminated and verified, no results. Relaunched as MB2b. MB1 (1214 s) and MB3 (1874 s): rc 0, hashes verified, terminated.
+- **FBS156 interim.** Pod 4cz4ixtug3n9u6 (SECURE H100 NVL; rc 0; hash verified; 2661 s). Superstable parameters at log10 T -0.156:
+
+  | p | s_p | how | clean bracket |
+  |---|---|---|---|
+  | 6 | 0.0647848 | stopped at the transverse spectrum | [0.0645053, 0.0650379] |
+  | 12 | 0.0650664 | stopped | [0.06505127, 0.06506819] |
+  | 24 | 0.06509398 | stopped | [0.065093875, 0.065099754] |
+  | 48 | 0.065101410848 | stopped | width 2.4e-9 |
+  | 96 | 0.065103035545868 | converged | width 2e-15 |
+
+  - The ratios are 10.21, 3.713 and 4.572.
+  - The brackets of s_12 and s_24 are wide (the second clean point stayed at the bracket end), so the ratios that involve them are poorly determined; worst-case ranges follow.
+  - P-F2 is scored on the last two ratios once bands 192 and 384 are in. Those bands were part of the FBS card before this result.
