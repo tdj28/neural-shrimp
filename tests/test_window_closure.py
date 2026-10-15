@@ -76,6 +76,14 @@ def test_slow_third_coordinate_fails_two_dimensional_closure():
     assert g["median"][4] < 0.5 * g["median"][2], g
 
 
+def test_degenerate_fit_sets_no_closure_flag():
+    # run CL2, complex-1 at amplitude 1e-2: E4 diverged and alone satisfied "E4 >= 0.8 E2"
+    g = wcl.gates({1: [0.344], 2: [0.00457], 4: [1.04e12]})
+    assert g["degenerate_k"] == [4] and not g["closure_2d"] and g["dimension_at_0.05"] is None, g
+    g = wcl.gates({1: [0.344], 2: [0.00457], 4: [0.004]})
+    assert g["closure_2d"] and not g["degenerate_k"], g
+
+
 def test_quad_features_and_modal_coordinates():
     Y = np.array([[1.0, 2.0]])
     assert np.allclose(wcl.quad_features(Y), [[1, 1, 2, 1, 2, 4]])

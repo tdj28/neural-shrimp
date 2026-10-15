@@ -25969,3 +25969,51 @@ Labels:
 This is a first look. Folds, cusps and legs need the curve continuation of FM5 and come only if the grids show a candidate. A cell can hold several attractors, so a crossing seen on the classifier map alone is not evidence.
 
 **Cost.** Expected about 1, 1.8, 2 and 0.75 hours on H100 NVL class at about $3.2/h. Hard ceilings, in the private ledger, are set from the run limits at a $3.50/h maximum rate.
+
+## 2026-10-15 18:17 UTC: OC and CL2 results: the census supports the swallowtail pocket (9 of 13 frozen counts exact, two attracting orbits at every pocket point, none beyond the crossing); the closure test failed numerically
+
+**Run.** Pod zexok9v975lvsu (NVIDIA A100-SXM4-80GB); commit 0a09d31e from the orchestrator log; runner rc 0; all four jobs status 0; results hash-verified; pod terminated and absent from the inventory. Wall time 2079 s. The archive also carried the 15 FM5 input files, so the orchestrator unpacked into the run folder. Those files are byte-identical to the local copies (checked with cmp), and oc/ and cl/ were copied to explore/llm-soft-loop/pod64/.
+
+**OC** (docs/oc/oc-summary.json, merged from the three parts). Predicted counts are from the frozen docs/oc/oc-points.json; found counts are lower bounds from 27 seeds per point.
+
+- **Pocket T**, predicted 4:
+  - T-low, T-high and T-near-U: 4 found, 2 attracting.
+  - T-centroid: 3 found, 2 attracting (moduli 0.58, 0.08, 1.39).
+  - T-near-L: 3 found, 2 attracting (0.94, 1.06 and 0.47; near the cusp two orbits are close to merging).
+  - Every pocket point has two coexisting attracting period-5 orbits: the bistability a swallowtail pocket implies.
+- **Beyond the crossing, E**, predicted 0: E-low and E-high, 0 found. No seed converged (27 each).
+- **Surrounding region**, predicted 2:
+  - W-low, S-low, N-high and below-L: 2 found, 1 attracting.
+  - W-high: 1 found, attracting (the saddle was missed).
+- **above-U**, predicted 2: 3 found, none attracting.
+  - Two share one token loop: a saddle (multiplier +1.44) and the node, which has passed the flip curve that runs next to U (multiplier -1.35, real). That is why nothing attracts there.
+  - The third has another token loop and multiplier -130.4. Only one seed reached it (arm C, shift +0.01).
+  - Post hoc: it is probably not part of the junction's family. Token loops can change along one family, so this is a reading, not a test.
+- **Score.** 9 of 13 counts match exactly (frozen criterion). The three undercounts are missed repelling orbits, allowed by the lower-bound design. The one overcount is the above-U orbit just described.
+
+**CL2** (docs/cl/cl2-summary.json): **a setup failure, not a result.**
+- At most locations the iterated quadratic models diverge: median errors reach 1e7 at near-fold and up to 1e122 elsewhere, against a sane linear baseline everywhere. The modal coordinates span many orders of magnitude, so unregularized least squares puts huge coefficients on nearly empty features, and seven iterations amplify them.
+- As run, the gates also passed complex-1 at amplitude 1e-2 spuriously: the 4-coordinate error had diverged (1e12), which satisfies "E4 >= 0.8 E2".
+- **Change after the data (disclosed).** tools/window_closure.py now marks a median error above 1 or not finite as a degenerate fit and sets no closure flag there. summary recomputes the gates from the stored per-seed errors and keeps the flags as run beside them. tests/test_window_closure.py adds the CL2 case (4 tests pass). With the guard, 12 of the 18 location-amplitude rows are degenerate.
+- The clean evaluation rows:
+  - the body location: one coordinate within 2.6 and 3.1 %, two within 5e-5, four within 3e-7. The strict 1D criterion fails because two coordinates help, and the location was not blind.
+  - pocket-orbit1 at 1e-2.
+- **Conclusion.** CL2 says nothing about two-dimensional closure. A repeat would need regularized fits, per-coordinate scaling or one-step forecasts.
+
+## 2026-10-15 18:21 UTC: Amendment to SHC: seeds replaced after three refusals at the seed
+
+The first SHC-P2, P4 and P8 pods ended at the seed check of tools/doubly_superstable.py. The seeds were the most strongly contracting cells, next to superstable curves, where the leading multiplier is not dominant:
+- P8: -0.029 (next 0.017);
+- P4: a complex pair of modulus 0.062 (next 0.062);
+- P2: a complex pair of modulus 0.18 (next 0.18).
+
+No grid was computed. The pods ran 2 to 3 minutes each and were terminated (hash-verified results).
+
+The new seeds are interior cells (5 x 5 neighbourhood of the same period) with moderate exponents, checked first on the local CPU with a one-cell grid:
+- **P4:** (-0.104443, 0.101883), mu -0.703 real, next 0.038, clean; token loop 56568, 13, 56568, 13.
+- **P8:** (-0.104642, 0.107241), mu -0.631 real, next 0.010, clean.
+- **P2:** (-0.099681, 0.103074), mu +0.825, next 0.501, not clean.
+  - The period-2 cell has two comparable multipliers throughout the cells checked, so it runs with --multipliers-only (the tool's two-dimensional mode).
+  - That mode records the three leading multipliers for the trace and product reading. The per-step factors it writes are not meaningful.
+
+Boxes and resolutions are unchanged.

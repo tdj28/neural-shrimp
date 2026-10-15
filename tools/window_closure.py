@@ -111,16 +111,21 @@ def fit_and_score(D_train, D_test, P, M=None, ks=KS):
 
 
 def gates(errs):
-    """Operational two-dimensional closure (consult 10): median E(k=2) < 0.05, E1/E2 >= 2, and E4 not below 0.8 E2."""
+    """Operational two-dimensional closure (consult 10): median E(k=2) < 0.05, E1/E2 >= 2, and E4 not below 0.8 E2.
+    A median error above 1 (worse than forecasting zero) or not finite marks a degenerate fit, not a measurement: the
+    iterated quadratic model diverged (added after run CL2, where E4 reached 1e122 and so passed "E4 >= 0.8 E2"). Then
+    no closure flag is set."""
     m = {k: float(np.nanmedian(v)) for k, v in errs.items()}
+    degenerate = sorted(k for k in m if not np.isfinite(m[k]) or m[k] > 1.0)
+    ok = not degenerate
     dim = lambda eps: next((k for k in sorted(m) if m[k] < eps), None)          # noqa: E731
-    return {"median": m, "e2_below_0.05": m[2] < 0.05, "two_better_than_one_2x": m[1] >= 2 * m[2],
+    return {"median": m, "degenerate_k": degenerate, "e2_below_0.05": m[2] < 0.05, "two_better_than_one_2x": m[1] >= 2 * m[2],
             "four_adds_less_than_20pct": m[4] >= 0.8 * m[2],
-            "closure_2d": bool(m[2] < 0.05 and m[1] >= 2 * m[2] and m[4] >= 0.8 * m[2]),
-            "closure_1d": bool(m[1] < 0.05 and m[2] >= 0.8 * m[1]),
+            "closure_2d": bool(ok and m[2] < 0.05 and m[1] >= 2 * m[2] and m[4] >= 0.8 * m[2]),
+            "closure_1d": bool(ok and m[1] < 0.05 and m[2] >= 0.8 * m[1]),
             # secondary (added after the CPU smoke test at the body location; disclosed): the smallest number of
             # coordinates whose median error is below an absolute level
-            "dimension_at_0.05": dim(0.05), "dimension_at_0.005": dim(0.005)}
+            "dimension_at_0.05": dim(0.05) if ok else None, "dimension_at_0.005": dim(0.005) if ok else None}
 
 
 def run(args):
@@ -212,12 +217,17 @@ def summary(args):
         if "scores" not in r:
             rows.append({"name": r["name"], "role": r["role"], "status": r.get("status")})
             continue
-        rows.append({"name": r["name"], "role": r["role"], "region": r.get("region"),
+        cur = {a: gates({int(k): v for k, v in s["errors"].items() if k != "linear"}) for a, s in r["scores"].items()}
+        rows.append({"name": r["name"], "role": r["role"], "region": r.get("region"), "predicted": r.get("predicted"),
                      "leading_moduli": [round(float(np.hypot(*z)), 5) for z in r["multipliers"][:3]],
-                     **{a: {"median": s["gates"]["median"], "linear_median": s["linear_median"],
-                            "closure_2d": s["gates"]["closure_2d"], "closure_1d": s["gates"]["closure_1d"],
-                            "dimension_at_0.05": s["gates"]["dimension_at_0.05"],
-                            "dimension_at_0.005": s["gates"]["dimension_at_0.005"]}
+                     **{a: {"median": cur[a]["median"], "linear_median": s["linear_median"],
+                            "degenerate_k": cur[a]["degenerate_k"],
+                            "closure_2d": cur[a]["closure_2d"], "closure_1d": cur[a]["closure_1d"],
+                            "dimension_at_0.05": cur[a]["dimension_at_0.05"],
+                            "dimension_at_0.005": cur[a]["dimension_at_0.005"],
+                            # flags as computed on the pod, before the degenerate-fit guard
+                            "as_run": {"closure_2d": s["gates"]["closure_2d"],
+                                       "closure_1d": s["gates"].get("closure_1d")}}
                         for a, s in r["scores"].items()}})
     text = json.dumps({"locations": rows}, indent=1)
     if args.json:
