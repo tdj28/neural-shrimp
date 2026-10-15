@@ -23822,3 +23822,7 @@ Pod 9rl96brguxe67a (SECURE H100 NVL, runner rc 0, hash verified, terminated; 116
 - Candidate 2 is located at (0.074447, 0.065574), with b sign(a) -9.6e-5 (from 9.35), c = +1.372e5 (before +1.39e5 and +1.36e5) and det J = 35.5 (condition 544).
 
 All six cusp candidates of the paper are now numerically located cusps: b sign(a) below 1.3e-5 of its bracket values, with c and det J nonzero at the same point. The paper's wording changes from "cusp candidates" to "located cusps" throughout. CL6, the three untested reversals, was relaunched as CL6b after its first pod never became SSH-ready (terminated, no results).
+
+## 2026-10-15 02:51 UTC: Amendment to FL15/FL7: the normal form needs the exact fold point
+
+FL15 branch: pod mj6u1p7bvigsnk (runner rc 0, hash verified, terminated; 1098 s). The period-4 branch at alpha 0.0585882 folds between log10 T -0.0912054 and -0.0912094: a real +1 crossing with next modulus 0.008, effectively one-dimensional. The normal-form step then refused, correctly. With --nearest-fold the branch point closest to the fold has multiplier 0.9617, not a fold point, and the tool refuses to compute fold coefficients there. New part nf in both job sets: the curve tool locates the exact fold point (Newton on the minimally augmented system at fixed alpha, two steps), then normal-form is computed at that point (index 0). FL15-nf runs now; FL7-nf runs after the FL7 branch.

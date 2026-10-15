@@ -721,6 +721,12 @@ snapshot_download('Qwen/Qwen2.5-7B-Instruct', revision='$REV7', cache_dir='$NEUR
                 --out $D/fl7/branch-p2
               run fl7-normal-form 40 normal-form --device cuda --run $D/fl7/branch-p2 --nearest-fold \
                 --param temperature --chunk 512 --out $D/fl7/normal-form-p2 ;;
+      nf) run fl7-foldpoint 60 curve --device cuda --dtype float64 --reference-dtype none --no-exact-jvp \
+            --start $D/fl7/branch-p2 --kind fold --steps 2 --ds 1e-4 --ds-max 1e-4 --tol 1e-10 --gtol 1e-9 \
+            --max-newton 10 --chunk 512 --log-temperature-bounds -0.4 0.0 --alpha-bounds 0.0 0.1 \
+            --out $D/fl7/curve-fold-p2
+          run fl7-normal-form-b 60 normal-form --device cuda --run $D/fl7/curve-fold-p2 --index 0 \
+            --param temperature --chunk 512 --out $D/fl7/normal-form-p2 ;;
       line) TOOL=hidden_chaos.py run hidden-fl7-line 140 cells --device cuda --dtype float64 \
               --cells-file docs/fl7-line-cells.json $M7 --transient 2000 --record 400 --eps 1e-6 --tol 1e-8 \
               --chunk 250 --out $D/fl7/line ;;
@@ -737,6 +743,12 @@ snapshot_download('Qwen/Qwen2.5-7B-Instruct', revision='$REV7', cache_dir='$NEUR
                 --out $D/fl15/branch-p4
               run fl15-normal-form 40 normal-form --device cuda --run $D/fl15/branch-p4 --nearest-fold \
                 --param temperature --chunk 1536 --out $D/fl15/normal-form-p4 ;;
+      nf) run fl15-foldpoint 40 curve --device cuda --dtype float64 --reference-dtype none --no-exact-jvp \
+            --start $D/fl15/branch-p4 --kind fold --steps 2 --ds 1e-4 --ds-max 1e-4 --tol 1e-10 --gtol 1e-9 \
+            --max-newton 10 --chunk 1536 --log-temperature-bounds -0.2 0.0 --alpha-bounds 0.0 0.1 \
+            --out $D/fl15/curve-fold-p4
+          run fl15-normal-form-b 40 normal-form --device cuda --run $D/fl15/curve-fold-p4 --index 0 \
+            --param temperature --chunk 1536 --out $D/fl15/normal-form-p4 ;;
       line) TOOL=hidden_chaos.py run hidden-fl15-line 110 cells --device cuda --dtype float64 \
               --cells-file docs/fl15-line-cells.json $M15 --transient 3000 --record 600 --eps 1e-6 1e-9 --tol 1e-8 \
               --chunk 850 --out $D/fl15/line ;;
