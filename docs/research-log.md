@@ -25072,3 +25072,30 @@ Transient 500, record 800 exchanges; twins 1e-6 and 1e-9; tol 1e-8.
 **Would surprise us.** The pair always inheriting one model's regime. **Interesting either way:** temperatures where the pair is periodic and both models alone are chaotic, or the converse.
 
 **Compute.** One H100-class pod, about 100 min; ceiling in the private ledger.
+
+## 2026-10-15 09:59 UTC: Run card HE (exploratory): each GSM8K problem's own stability edge in Huginn
+
+**Question** (human, 15 Oct: "since the broader edge-of-chaos question remains untested <- how do we test?"). Does computation done by a loop work best at the edge? Huginn's reasoning is a latent loop, and the frozen GSM8K test already showed:
+
+| relaxation | accuracy |
+|---|---|
+| 1.00 (native) | 0.330 |
+| 1.05, just inside the typical edge | 0.395 (+6.5 points, one-sided lower bound +2.5) |
+| 1.15, past it | 0.255 |
+| 1.20 | 0.095 |
+
+Those were fixed values, not each problem's own edge. **Step 1** measures every problem's own edge before any outcome that uses it.
+
+**Tool.** tools/huginn_edge.py; tests/test_huginn_edge.py, 2 pass: it recovers the analytic lam_c = 1.0783 of an affine map with Huginn's critical pair to 3e-3, and reports an unstable native point.
+- Per problem: the 8-shot prompt of the generation runs, the relaxed prefill recurrence from the seeded initial state (float32, adapter and core on the GPU).
+- Coarse lam grid 1.00 to 1.28 in steps of 0.04, 96 steps each; fine grid of 6 values inside the bracket, 192 steps each.
+- Late decay rate fitted over the second half of each run. lam_e is the zero of log rate, extrapolated, and must lie inside the bracket.
+- Gates reported, never replaced: native unstable; no edge in range; non-monotone; extrapolation outside the bracket.
+
+**HEdev.** GSM8K train 0-119, the development problems of run H1b with generations at six fixed lam. Development analysis: accuracy against lam - lam_e(q), pooled over the H1b arms.
+- Edge hypothesis: accuracy rises toward offset 0 from below and collapses above it.
+- Offset should explain accuracy better than raw lam.
+
+**Next.** Step 2 measures the edges of fresh test problems 200-599, so that a frozen test can place arms relative to each problem's own edge. The design will be pushed before any of those problems is generated.
+
+**Compute.** One H100-class pod for HEdev, about 150 min limit (timing unknown, resumable); ceiling in the private ledger.

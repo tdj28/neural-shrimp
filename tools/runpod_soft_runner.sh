@@ -351,7 +351,7 @@ snapshot_download('Qwen/Qwen2.5-7B-Instruct', revision='$REV7', cache_dir='$NEUR
     TOOL=p1_committor.py run p1-committor ${JOBARGS[1]} rollout --states ${JOBARGS[0]} "${JOBARGS[@]:2}" \
       --out $D/msm/p1-committor
     ;;
-  huginn|huginnA|huginnS)  # Huginn-0125 in its own venv with transformers 4.55, as in the local llm env. huginn: JOBARGS NAME
+  huginn|huginnA|huginnS|hedge)  # Huginn-0125 in its own venv with transformers 4.55, as in the local llm env. huginn: JOBARGS NAME
                # MINUTES then huginn_relax_eval arguments. huginnA (Part A of the frozen test): JOBARGS START COUNT
                # SPEC_MINUTES READ_MINUTES; spectra of the gold rows (fixed-spectrum --arc-ids batch) are computed and
                # saved before the read-out run on the same questions. Exports uploaded with --extra-data.
@@ -375,6 +375,9 @@ snapshot_download('tomg-group-umd/huginn-0125', revision='$HREV', cache_dir='$NE
       PY=/root/venv-huginn/bin/python TOOL=explore_latent_loop.py run spectra-${JOBARGS[0]} "${JOBARGS[1]}" \
         fixed-spectrum --model huginn --dtype float32 --device cuda --arc-split test --arc-indices "${JOBARGS[@]:2}" \
         --arc-ids batch --lam 1.0 --out $D/huginn/${JOBARGS[0]}
+    elif [ "$JOBSET" = hedge ]; then           # per-problem stability edges (tools/huginn_edge.py): JOBARGS NAME MINUTES ARGS
+      PY=/root/venv-huginn/bin/python TOOL=huginn_edge.py run hedge-${JOBARGS[0]} "${JOBARGS[1]}" "${JOBARGS[@]:2}" \
+        --device cuda --out $D/huginn/edge-${JOBARGS[0]}
     elif [ "$JOBSET" = huginn ]; then
       name=${JOBARGS[0]}
       minutes=${JOBARGS[1]}
