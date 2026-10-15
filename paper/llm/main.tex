@@ -102,24 +102,22 @@ We study the expected-embedding (``soft-token'') map of released pretrained lang
 their stored weights and run with a fixed chat prefix at a fixed position. We follow it in fifteen models, from
 Qwen2.5-0.5B to Llama-3.3-70B and Qwen2.5-72B (three dense families and a mixture of experts), in most detail in
 Qwen2.5-0.5B-Instruct, and in two variations: two models writing one text, and a recurrent-depth model that iterates
-its own block. The map is smooth. Its
+its own block. We chose these families because each releases open weights at several sizes, so that size can be varied within a family, and because they come from three developers with different training data and recipes; OLMo-2 also releases its training data, and Llama-3 has public sparse autoencoders, which we use for feature controls. The map is smooth. Its
 Jacobians come from automatic differentiation, and its periodic orbits can be computed and continued like those of
 any smooth map. Chaos and periodic windows occur in many nonlinear feedback systems. Random-network theory, in which
 a specified ensemble of recurrent networks becomes chaotic above a critical gain, in continuous time
 \cite{sompolinsky1988chaos} and in discrete time by a quasi-periodic route \cite{doyon1994bifurcations}, and the
 period-doubling cascades and shrimp-shaped domains of low-dimensional maps \cite{feigenbaum1978quantitative,gallas1993structure}
-motivate looking for such structure here, but they do not imply that a trained map realizes it. Whether a trained
-language model does, where in its parameter space, with which texts, and whether the quantitative predictions of
-bifurcation theory hold for it, so that derivatives computed from the model predict its behaviour before that
-behaviour is measured, has to be tested. The models we studied do realize it, and in the cases we tested the
-predictions hold. We also show where the chaos comes from (Section~\ref{sec:theory}), and that larger models do not simply leave it behind (Section~\ref{sec:sizemain}). Ordinary sampled generation with a growing context is a different
+motivate looking for such structure here, but they do not show that a trained network realizes it. We test this
+directly. We locate chaos and periodic windows in the models' parameter space, read the texts the loop writes there,
+and check whether bifurcation theory, applied to derivatives computed from the model, predicts its behaviour before
+the behaviour is measured. The models realize this structure, and the predictions largely hold. We also show where the chaos comes from (Section~\ref{sec:theory}), and that larger models do not simply leave it behind (Section~\ref{sec:sizemain}). Ordinary sampled generation with a growing context is a different
 system; Section~\ref{sec:beyond} also measures how much of the mechanism survives sampling.
 
 \paragraph{Contributions.} The results fall into four groups.
 \begin{enumerate}
 \item \emph{Chaos in released models, and what it does to inference} (Sections~\ref{sec:maps}
-  and~\ref{sec:consequences}; Appendix~\ref{sec:scale}). Temperature and steering move the loop of Qwen2.5, OLMo-2 and
-  Llama-3 models between repeating text and chaos with embedded windows. The regime decides whether a run can be
+  and~\ref{sec:consequences}; Appendix~\ref{sec:scale}). Temperature and steering move the loop between repeating text and chaos with embedded windows in all three model families, Qwen2.5, OLMo-2 and Llama-3. The regime decides whether a run can be
   reproduced. Run twice with only the batch layout changed, 190 of 192 chaotic float64 loops of Qwen2.5-0.5B grow past
   a relative distance of $10^{-2}$ after a median of 102 steps, in line with the Lyapunov exponent (median ratio
   0.91), and at 173 of them the most probable readout token comes to differ; 182 of 192 periodic loops stay within
@@ -134,7 +132,7 @@ system; Section~\ref{sec:beyond} also measures how much of the mechanism survive
   answers, and we find no advantage at the edge of chaos.
 \item \emph{Why the loop is chaotic, and how steering makes it so} (Section~\ref{sec:theory}). The loop's derivative
   factorizes into the inverse temperature, the covariance of token embeddings under the model's own next-token
-  distribution, and the network's Jacobian; without the network the map would be a modern Hopfield update, which
+  distribution, and the network's Jacobian; with tied embeddings and without the network the map would be a modern Hopfield update, which
   cannot cycle. The factorization proves contraction at sufficiently high temperature, the zero-temperature limit is
   eventually periodic, and chaos in our sweeps occupies intermediate temperatures. Stability belongs to the loop, not
   to its steps: along a period-8 orbit every step expands some direction while the cycle contracts. Along the sampled
@@ -272,8 +270,11 @@ V(F(x))\le V(x)-\tfrac12\|F(x)-x\|^2 .
 \end{equation}
 Along a cycle these decreases sum to zero, so every point of the cycle is fixed. $F$ maps every state into the
 convex hull of the embeddings, where $V$ is bounded below, so the steps of every orbit tend to zero and its limit
-points are fixed points: such a map has neither cycles nor chaos. Every cycle and every chaotic cell in this paper
-therefore depends on the network factor $J_{\tilde h}$ breaking that structure. Attention has itself been read as a Hopfield retrieval \cite{ramsauer2020hopfield}; in the soft-token
+points are fixed points: such a map has neither cycles nor chaos. In models with tied embeddings, such as Qwen2.5-0.5B, every cycle and
+every chaotic cell therefore depends on the network factor $J_{\tilde h}$ breaking that structure. With untied
+embeddings the network-free map $x\mapsto E^{\top}\operatorname{softmax}(Wx/T)$ already has the non-symmetric derivative
+$\operatorname{Cov}_{t\sim p}(e_t,w_t)/T$ and can cycle (two tokens whose output vectors point at each other's input
+embeddings exchange at low temperature), so the argument does not apply to those models. Attention has itself been read as a Hopfield retrieval \cite{ramsauer2020hopfield}; in the soft-token
 map the retrieval closes a loop around the whole network.
 
 \input{figures/fig-readout-gain}
@@ -461,7 +462,7 @@ and the checks on maps with known answers.
 \section{Chaos with periodic windows}
 \label{sec:maps}
 Figure~\ref{fig:stripes} shows a $256\times256$ float64 map over $\alpha\in[0.060,0.082]$ and
-$\log_{10}T\in[-0.17,-0.04]$. More than half of its cells are chaotic (35{,}759 of 65{,}536), and periodic windows of
+$\log_{10}T\in[-0.17,-0.04]$. More than half of its cells are chaotic (35{,}650 of 65{,}536), and periodic windows of
 periods 2--32 are embedded in the chaos. Rendered as in the shrimp literature \cite{stenzinger2025shrimp}, the
 windows show dark curves of maximal contraction.
 \begin{figure}[H]
@@ -476,7 +477,7 @@ period-8 fold curve (Appendix~\ref{sec:curves}).}
 \label{fig:stripes}
 \end{figure}
 
-Figure~\ref{fig:teaser} resolves the stripes' lower ends at $512\times512$ cells (79{,}278 chaotic), and
+Figure~\ref{fig:teaser} resolves the stripes' lower ends at $512\times512$ cells (78{,}868 chaotic), and
 Figure~\ref{fig:cross512} labels the same cells by their attractor texts. Three structures stand out. The 2-cycle ``is
 it'' fills the left, bounded by its fold curve, on which the stripes accumulate. A closed crescent of the period-3
 loop ``\textbackslash n\textbackslash nThe existence'' contains its period doublings and a chaotic core

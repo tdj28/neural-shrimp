@@ -26480,3 +26480,27 @@ Local CPU only: two workers of four threads, nice 10, 18 GiB each. No paid compu
 - A gate failure at either target. It would be reported, and the target's rows kept as not run.
 - Systematic primary errors beyond one iterate.
 - A positive discrete residual at a midpoint or kicked entrance.
+
+## 2026-10-15 22:48 UTC: Physics referee review (Chaos paper theory): first fixes applied; text changes requested by the human
+
+The referee subagent's report is saved at ../neural-shrimp-data/scratch/physics-review-1015/REPORT.md, with its scripts and Crossref records. Each finding is rechecked before it is applied.
+
+**Applied, in both papers.**
+- **A1.** The Hopfield no-cycle argument is restricted to tied embeddings (Qwen2.5-0.5B). With untied embeddings the network-free map E^T softmax(Wx/T) has a non-symmetric derivative and can cycle. Rechecked: two tokens whose output vectors point at each other's input embeddings exchange at low T. The abstract and summaries now say "with tied embeddings".
+- **A2.** The chaotic counts follow the stated criterion (exponent > 1e-3 and no period): 35,650 of 65,536 (was 35,759) and 78,868 (was 79,278). Rechecked earlier from the scans.
+
+**Text changes requested by the human.**
+- The convoluted "whether a trained language model does ..." sentence is rewritten.
+- The introduction states that chaos appears in all three families (Qwen2.5, OLMo-2, Llama-3).
+- It gives why these families were chosen: open weights at several sizes; three developers with different data and recipes; OLMo-2 releases its data; Llama-3 has public SAEs, used for the feature controls.
+- Chaos version: Figure 1 is on page 1.
+
+**Pending from the report.**
+- A3, the near-nilpotent point of the period-5 window. Recheck from p5-nilpotent/log.jsonl.
+- A4, period 21 and the wrong term "satellite".
+- B1, the determinant D changes sign. The SHC-L rule needs an amendment for T = D = 0.
+- B2, horizon errors of the chaos labels.
+- B3, the window law's prefactor is empirical.
+- B4, signed passage residuals.
+- C1-C15.
+- The missing references (D).
