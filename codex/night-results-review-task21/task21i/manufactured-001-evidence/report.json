@@ -1,0 +1,79 @@
+{
+ "passed": [
+  "literal_text_normalization_and_first_integer",
+  "truncation_and_no_generated_code_execution",
+  "exact_two_sided_nonzero_sign_test_and_invalid_flag",
+  "paired_resampling_linear_percentiles",
+  "paired_generator_consumption_matches_declared_sequence",
+  "empty_groups_explicit_without_rng_consumption",
+  "prompt_permutation_inclusive_two_sided_ties",
+  "task_composition_identity_with_unequal_mix",
+  "missing_task_support_not_imputed",
+  "nonfinite_out_of_range_prompt_accuracy_refusal",
+  "adjustment_known_full_rank_coefficients",
+  "adjustment_rank_deficiency_and_nonfinite_retained",
+  "adjustment_sequential_seed1_consumption_three_temperatures",
+  "adjustment_quartile_ties_empty_contrasts_and_mincount_weights",
+  "adjustment_undefined_draws_and_printed_precision_retained",
+  "duplicate_json_key_refused",
+  "period_precedence_union_and_invalid_label_diagnostics",
+  "every_leaf_nonzero_and_missing_comparison_retained",
+  "BZ_missing_response_refused",
+  "BP_missing_label_identity_refused",
+  "full_fixed_coverage_and_source_RNG_workload_serialized"
+ ],
+ "failed": 0,
+ "measurement": {
+  "seconds_through_scientific_serialization": 2.3443395579233766,
+  "observed_peak_kib_before_final_report": 75684,
+  "response_rows": 44800,
+  "BZ_pairs": 30,
+  "BZ_cells": 90,
+  "BP_models": 2,
+  "BP_prompt_temperature_rows": 1200,
+  "BZ_bootstrap_draws": 90000,
+  "BP_permutation_draws": 120000,
+  "adjustment_OLS_permutation_draws": 15000,
+  "files": [
+   {
+    "path": "/tmp/task21i-manufactured-001/responses.jsonl",
+    "bytes": 18663214,
+    "sha256": "52dddb8d347a26f3ca6c3678b96f4a0504c88ed5a94d3239e969b2f0f3b5b7fe"
+   },
+   {
+    "path": "/tmp/task21i-manufactured-001/scientific-shape.json",
+    "bytes": 6867565,
+    "sha256": "06290bf3c675f93ceaf0d989bc35596177c3e7364977e9e6d538ae16198afa7d"
+   }
+  ],
+  "scientific_bytes": 25530779,
+  "scope": "One manufactured full allocation and full declared RNG workload; original hash/I/O/decode and actual-value string lengths unmeasured; no worst-case claim."
+ },
+ "sources": [
+  {
+   "path": "/tmp/task21i-manufactured-001-supervision/source/statistics.py",
+   "bytes": 7808,
+   "sha256": "4985313cb433a69fc51bbfbdfe06f665fa82f372487e371897038d30271363ca"
+  },
+  {
+   "path": "/tmp/task21i-manufactured-001-supervision/source/run.py",
+   "bytes": 20570,
+   "sha256": "f1e6f0679f877913ad1571c8d70dc36f5d0403469a82ac6d754a9bfbdd6b3ced"
+  },
+  {
+   "path": "/tmp/task21i-manufactured-001-supervision/source/controls.py",
+   "bytes": 3808,
+   "sha256": "37623683da30be4cfcc1d279cc2b303198fd8bb06ed50c931322f015ddbb280e"
+  },
+  {
+   "path": "/tmp/task21i-manufactured-001-supervision/source/manufactured.py",
+   "bytes": 11947,
+   "sha256": "9b0f08d76ec3422aceb3d3c3ad847ce699d10571fe16a525934b25e552a0d90e"
+  },
+  {
+   "path": "/tmp/task21i-manufactured-001-supervision/source/adjustment.py",
+   "bytes": 9368,
+   "sha256": "5557b4e6c6169c071548664f8e7fc0502d7a2da724e0fb5c5fe5469423709f78"
+  }
+ ]
+}

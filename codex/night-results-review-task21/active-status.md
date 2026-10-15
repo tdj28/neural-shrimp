@@ -1,3 +1,33 @@
+# Task21i manufactured complete; sole actual admission
+
+2026-10-15T14:50:36.753193+00:00: All21 manufactured controls passed; source2ad1d5f6, report115a3083/receipt222ca14e/outerclosure84ec1e1f accepted. Actual card/source/supervisor now Root-admitted conditional on exact private checkpoint/fresh capacity. No actual run yet; zero jobs/reservations. Inference sole Git/process owner; Theory deferred metadata-authority preparation, Boundary later saved-scientific review. Same BZ/BP plus transcript-attested original adjustment only; no BPC/BPCS or paper expansion. Task21h fully delivered. Latest Claude f1229d8a; watch ends15:00UTC with no interruption of an admitted bounded job.
+
+## Preserved status history
+
+# Task21i sole manufactured check admitted
+
+2026-10-15T14:44:54.281567+00:00: Task21h fully delivered/receipt accepted; no further work. Root and Boundary accepted amended21i source/fixture. Sole manufactured check admitted after private exact checkpoint/fresh capacity; no actual targets admitted. Inference owns Git/processes, Theory actualcard after measurement, Boundary independent source and later review. Zero jobs at this checkpoint. Original prepared001 remains unexecuted; transcriptattestation and prior exposure disclosed. LatestClaude f1229d8a. Watch ends15:00UTC without terminating an admitted bounded job.
+
+## Preserved status history
+
+# Task 21h privately delivered; Task21i source amendment
+
+Updated 2026-10-15T14:34:41.111675+00:00. Task21h final report76554ef4/acceptance86247eaa privately delivered5c924daf at4a6046d9, no further work. Zero live jobs or reservations. Task21i prepared001 source/control/plan preserved unexecuted; new producer transcriptcb94f35a closes historical order/inline-source gaps on stated attestation basis. Root authorized narrow OLS/quartile addition before the sole manufactured run; Theory implements, Boundary reviews, Inference owns all Git/processes. No actual target run admitted. Latest Claude fullcommsf1229d8a;14:27 restructure/dispositions are acknowledged context, no paper/FM5 audit. Quiet watch through15:00UTC.
+
+## Preserved status history
+
+# Task 21h complete; standalone private delivery
+
+2026-10-15T14:32:45Z: Task21h accepted report76554ef4 and acceptance86247eaa delivered as the standalone entry at this checkpoint, with exact evidenceba93cbf5. Publication verification follows. All original calculations/presentation closed; zero jobs/reservations. Task21i source/fixture preparation only. New Claude14:29 existing-estimator transcriptcb94f35a and historical analyzer order received, pending Root scope review; fullcommshashf1229d8a. LaterDSS5/FM5/restructure are producer context, no expanded audit. Watch through15:00UTC.
+
+## Preserved status history
+
+# Task 21h accepted; private delivery integration
+
+Updated 2026-10-15T14:30:42.471682+00:00. Task21h finite saved-grid science is Root-accepted: all21 grids/5 depths/4 controls and369 exact producer comparisons, with all historical failures and native limits retained. Original computation, metadata authority and sole literal presentation are closed/reaped. Final adoption/private delivery is underway; no further21h calculation. Tasks21c–g and earlier review units remain fully delivered. Task21i has accepted original metadata and source design; Theory prepares the manufactured fixture/card, Boundary reviews source, Inference alone owns Git/processes. Zero live jobs/reservations; no actual21i target run admitted. Latest Claude296723e8 remains the last observed queue; existing-code query4897dfb8 sent without requesting a rerun. Quiet watch through15:00UTC.
+
+## Preserved status history
+
 # Task 21h computation closed; saved scientific review
 
 Updated 2026-10-15T14:07:54.931846+00:00. Task 21h sole source1fe08093 completed/reaped0; authority8c8107d1 authenticates four outputs, nine supervision files, four Git blobs and82 input pins. Root accepted operational closure. Boundary owns one accepted saved-only presentation traversal then scientific prose; no numerical replay. Inference owns Git/process coordination and Task21i metadata-only preparation; Theory prepares21i source/adapter without target reads. Tasks21f/g fully delivered. Latest Claude296723e8 unchanged at14:01 checkpoint; watch through08:00PDT. Original LS failures and all scientific differences remain.

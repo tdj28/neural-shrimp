@@ -1,0 +1,44 @@
+{
+  "returncode": 0,
+  "failure": null,
+  "external_seconds": 2.520012228982523,
+  "maximum_sampled_output_bytes": 25530779,
+  "worker": {
+    "pid": 3135777,
+    "starttime": 202214618,
+    "pgrp": 3135777,
+    "session": 3135777,
+    "uid": 1000,
+    "command": "/data2/neural-shrimp/.venv/bin/python -I /tmp/task21i-manufactured-001-supervision/source/manufactured.py --out /tmp/task21i-manufactured-001 "
+  },
+  "worker_after_reap": null,
+  "owned_group_absent": true,
+  "outputs": [
+    {
+      "path": "/tmp/task21i-manufactured-001/report.json",
+      "bytes": 2972,
+      "sha256": "115a30833a254fa49dedb4a970c6dc9f61bf93de3c2a1a4def5cd64a28083b26"
+    },
+    {
+      "path": "/tmp/task21i-manufactured-001/responses.jsonl",
+      "bytes": 18663214,
+      "sha256": "52dddb8d347a26f3ca6c3678b96f4a0504c88ed5a94d3239e969b2f0f3b5b7fe"
+    },
+    {
+      "path": "/tmp/task21i-manufactured-001/scientific-shape.json",
+      "bytes": 6867565,
+      "sha256": "06290bf3c675f93ceaf0d989bc35596177c3e7364977e9e6d538ae16198afa7d"
+    }
+  ],
+  "source_commit": "2ad1d5f675051b2bfbeef29a9efc89b2309a270a",
+  "manufactured_only": true,
+  "scientific_claims_accepted": false,
+  "command": [
+    "/data2/neural-shrimp/.venv/bin/python",
+    "-I",
+    "/tmp/task21i-manufactured-001-supervision/source/manufactured.py",
+    "--out",
+    "/tmp/task21i-manufactured-001"
+  ],
+  "output_cap_scope": "Only manufactured output directory plus stdout/stderr; source and receipts excluded."
+}

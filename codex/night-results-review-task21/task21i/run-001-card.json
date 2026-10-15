@@ -1,0 +1,153 @@
+{
+  "schema": "codex-task21i-card-v1",
+  "admission": "reviewed",
+  "source_expected_commit": null,
+  "objective": "Independent unblinded saved-response BZ/BP arithmetic and disclosed original q7 post-outcome OLS/quartile adjustment. No producer import, model, generated-code execution or new experiment.",
+  "output": "/data2/neural-shrimp-data/codex/night-results-review-task21/task21i/run-001",
+  "inputs": {
+    "path": "/data2/neural-shrimp-data/codex/night-results-review-task21/task21i/source-001/inputs.json",
+    "bytes": 2651218,
+    "sha256": "44dd14a95c2c1f88a862bcc06c9b9110dc22d9eea4ae76395d8f2f269edba706"
+  },
+  "function_contract": "single --card PATH --out FRESH_DIR; original and supplemental pins verified before/after; computational complete independent of scientific verdicts",
+  "source_sha256": {
+    "run.py": "f1e6f0679f877913ad1571c8d70dc36f5d0403469a82ac6d754a9bfbdd6b3ced",
+    "statistics.py": "4985313cb433a69fc51bbfbdfe06f665fa82f372487e371897038d30271363ca",
+    "adjustment.py": "5557b4e6c6169c071548664f8e7fc0502d7a2da724e0fb5c5fe5469423709f78"
+  },
+  "limits": {
+    "cpu_threads": 1,
+    "nice": 10,
+    "as_bytes": 1073741824,
+    "cpu_seconds": 55,
+    "wall_seconds": 60,
+    "max_output_bytes": 134217728,
+    "max_input_bytes": 33554432,
+    "startup_available_gib": 20,
+    "runtime_available_gib": 16
+  },
+  "resources": {
+    "cpu_reservation": "one worker plus external supervisor; coordinator checks fresh shared capacity before admission",
+    "storage_headroom_bytes": 536870912,
+    "selected_pin_count": 145,
+    "selected_input_bytes": 13449666,
+    "target_file_count": 100,
+    "target_files_bytes": 10231893,
+    "published_summaries": 3,
+    "published_summary_bytes": 27684,
+    "manufactured_full_shape": {
+      "report": {
+        "path": "/tmp/task21i-manufactured-001/report.json",
+        "bytes": 2972,
+        "sha256": "115a30833a254fa49dedb4a970c6dc9f61bf93de3c2a1a4def5cd64a28083b26"
+      },
+      "external_receipt": {
+        "path": "/tmp/task21i-manufactured-001-supervision/receipt.json",
+        "bytes": 1479,
+        "sha256": "222ca14ebd3b35f7e1f4f37ec7508e71ce13cf3187d4c95f4300338198bfe5e6"
+      },
+      "captured_source_commit": "2ad1d5f675051b2bfbeef29a9efc89b2309a270a",
+      "controls_passed": 21,
+      "controls_failed": 0,
+      "seconds_through_scientific_serialization": 2.3443395579233766,
+      "observed_peak_kib_before_final_report": 75684,
+      "response_rows": 44800,
+      "BZ_pairs": 30,
+      "BZ_cells": 90,
+      "BP_models": 2,
+      "BP_prompt_temperature_rows": 1200,
+      "BZ_bootstrap_draws": 90000,
+      "BP_permutation_draws": 120000,
+      "adjustment_OLS_permutation_draws": 15000,
+      "scientific_bytes": 25530779,
+      "external_seconds": 2.520012228982523,
+      "external_returncode": 0,
+      "owned_group_absent": true,
+      "execution_observer": "Inference observed execution/reaping and owned-group closure; theory reviewer read the saved complete report/receipt. No second numerical run."
+    },
+    "fixed_shape_serialization_forecast_bytes": 25530779,
+    "forecast_scope": "Reference forecast copies the sole full-shape manufactured serialization measurement, not an exact target-size prediction or worst-case bound. Actual stored replies may be much longer than synthetic ones; target hash/I/O/JSON decode, metadata/comparison report serialization and complete-worker peak are unmeasured. The fixed55CPU/60wall/1GiB/128MiB ceilings bound one attempt; no target-prefix profile, extension or automatic retry.",
+    "output_cap_scope": "External supervisor samples fresh scientific output plus worker stdout/stderr. Captured source and compact operational receipts are outside that sampled budget; reserved disk headroom includes overhead. No streaming worker-enforced aggregate cap is claimed.",
+    "no_profile_repeat": true,
+    "no_automatic_retry_or_extension": true
+  },
+  "coverage": {
+    "target_files": 100,
+    "BZ_cells": 90,
+    "BZ_pairs": 30,
+    "BZ_responses": 32400,
+    "BP_models": 2,
+    "BP_label_prompts": 400,
+    "BP_prompt_temperature_rows": 1200,
+    "BP_responses": 12400,
+    "all_response_rows": 44800,
+    "BZ_bootstrap_draws": 90000,
+    "BP_permutation_draws": 120000,
+    "adjustment_OLS_permutation_draws": 15000,
+    "adjustment_temperatures": [
+      0.25,
+      0.32,
+      0.4
+    ],
+    "adjustment_printed_fields": 120
+  },
+  "outputs": [
+    "responses.jsonl",
+    "report.json",
+    "manifest.json"
+  ],
+  "success_contract": {
+    "report_schema": "task21i-independent-saved-behavior-v1",
+    "computational_status": "complete",
+    "coverage": {
+      "target_files": 100,
+      "BZ_cells": 90,
+      "BZ_pairs": 30,
+      "BZ_responses": 32400,
+      "BP_models": 2,
+      "BP_label_prompts": 400,
+      "BP_prompt_temperature_rows": 1200,
+      "BP_responses": 12400,
+      "all_response_rows": 44800
+    },
+    "response_stream_records": 44800,
+    "adjustment_draws": 15000,
+    "manifest_files": 2,
+    "manifest_computational_status": "complete",
+    "scientific_acceptance_required_for_computational_completion": false,
+    "no_manifest_schema_field": "Writer stores files and computational_status only."
+  },
+  "source_review": {
+    "path": "/tmp/task21i-independent-source-review.md",
+    "bytes": 5535,
+    "sha256": "e31bc4f64b03ee1bb0202d8abdc4ce0eee11b5a1ca227ec6f135ab756578176f"
+  },
+  "adjustment_source_review": {
+    "path": "/tmp/task21i-adjustment-source-review.md",
+    "bytes": 5023,
+    "sha256": "f0c17459664867d24024f9a80b05a6f1de754eba3b10f07c87f26ba031991a95"
+  },
+  "source_association": {
+    "path": "/tmp/task21i-preparation/source-association.md",
+    "bytes": 6077,
+    "sha256": "4d573cdc9fa9fac4bc945c9609afe0df2c2543651d0b4a2a145f59d34ff46677"
+  },
+  "design": {
+    "path": "/tmp/task21i-preparation/adapter-design.md",
+    "bytes": 3476,
+    "sha256": "83d46179fc8dff1508804824cedff6293c1035ce6a7c789254f6da7adaa9098b"
+  },
+  "adjustment_amendment": {
+    "path": "/tmp/task21i-preparation/adjustment-amendment.md",
+    "bytes": 4459,
+    "sha256": "1bd2cd5f310d6af6e821ca53886760db676a50eeb7cea09e33408d3593a7e99b"
+  },
+  "authority_scope": "Original archive/retrieval/recorded termination and source association are inherited from exact coordinator authority. Later producer transcript attests original inline command/output and CLI order, not independently observed historical execution. Original inputs and former missing-evidence statements remain preserved and explicitly superseded, never rewritten.",
+  "interpretation": "Finite retrospective arithmetic on original fixed cohorts and inherited labels. Exposed BP/BPC/BPCS outcomes; later studies are context only. Post-generation entropy adjustment implies neither causal effect, overcorrection direction nor a true-effect interval. Raw Monte Carlo zero is an estimate, not exact calibrated p<1e-4. Full response scoring and native label/precision premise limits remain. No inferred producer full precision from printed output.",
+  "launch_requirements": "Root review of this concrete measured card and exact supervisor, private source/card checkpoint, coordinator-owned fresh capacity and reviewed admission. Prepared status is unlaunchable.",
+  "transcript_supplement": {
+    "path": "/data2/neural-shrimp-data/codex/night-results-review-task21/task21i/transcript-supplement-001/manifest.json",
+    "bytes": 1357,
+    "sha256": "3b5bcecc019bfb3080e5b83a83287cfa6b9852de6f4fdb42727077b23c986b49"
+  }
+}
