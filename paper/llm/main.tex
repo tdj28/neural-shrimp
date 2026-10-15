@@ -838,11 +838,16 @@ the other computed Ritz moduli below $10^{-20}$ from period 96 on. Brackets for 
 the critical multiplier is cleanly identified.}
 \label{tab:superstable}
 \end{table}
-Why are the early ratios so small? One candidate explanation is a crossover. Softmax at temperature $T$ is a
-smoothed argmax, so the reduced one-dimensional map may have a nearly corner-like extremum, rounded only on a scale
-set by $T$. Early doublings would
-then see the corner, where ratios tend toward 2, and later doublings the smooth quadratic core, where the ratio is
-$4.669$. This predicts ratios rising toward $4.669$ at higher periods, and smaller early ratios at lower temperature.
+Why are the early ratios so small? We first considered a crossover. Softmax at temperature $T$ is a smoothed argmax,
+so the reduced one-dimensional map might have a nearly corner-like extremum, rounded only on a scale set by $T$. Early
+doublings would then see the corner, where ratios tend toward 2, and later ones the smooth quadratic core. This
+predicts smaller early ratios at lower temperature. We fixed that prediction before locating the flips along two
+lower cuts, and it fails. At $\log_{10}T=-0.156$ the first ratio is $14.93$, five times its value at $-0.148$
+(Table~\ref{tab:cascade156}). The cut at $-0.152$ crosses a doubling bubble: its period-12 orbit merges back into the
+period-6 orbit near $\alpha\approx0.0657$, so that cut has no complete cascade. The early ratios thus depend strongly
+on where a cut crosses the crescent, and we withdraw the crossover explanation. The later ratios at $-0.156$ behave as
+universality requires: the next ratios are $3.124$ and $4.4988$, with deviations
+from $4.669$ of $-1.55$ and $-0.17$. %%FB156%%
 \begin{figure}[H]
 \centering
 \includegraphics[width=0.58\linewidth]{fig-feigenbaum-ratios.png}
@@ -850,12 +855,13 @@ $4.669$. This predicts ratios rising toward $4.669$ at higher periods, and small
 direction, layer 12), from flips and from superstable points (which reach period 384), and the route of Qwen2.5-1.5B
 (philosophy direction, layer 14; Figure~\ref{fig:qwen15route}), from flips. A superstable ratio spans half-bands, so
 it is plotted half a level after the flip ratio of its first band. Bars: worst-case ranges from the brackets of
-$s_{12}$ and $s_{24}$. Each sequence rises toward Feigenbaum's $\delta$ from below; the last superstable ratio is
-within 1\,\% of it. Under the crossover hypothesis, early levels see the corner of a smoothed argmax (ratios toward 2)
-and later levels the smooth quadratic core.}
+$s_{12}$ and $s_{24}$. At $\log_{10}T=-0.148$, and in the 1.5B model, the ratios rise toward Feigenbaum's $\delta$ from below, and the
+last superstable ratio is within 1\,\% of it. At $\log_{10}T=-0.156$ the first ratio, $14.9$, lies off the scale
+(arrow), and the later ratios approach $\delta$ from below. %%FB156CAP%%
+}
 \label{fig:feigenbaum}
 \end{figure}
-\planned{ratios at other temperatures.} Finite-order ratios also depend on the parameter coordinate, so only the trend of later ratios can
+Finite-order ratios also depend on the parameter coordinate, so only the trend of later ratios can
 test universality \cite{feigenbaum1978quantitative,papasavvas2015gain,liu2026learningchaos}.
 \begin{table}[H]
 \centering\small
@@ -878,6 +884,25 @@ $4.668$.
 The first four parameters agree between the completed CPU and H100 computations to $4\times10^{-15}$. Superstable parameters (Table~\ref{tab:superstable}) extend the ratio
 sequence through period 384.}
 \label{tab:cascade}
+\end{table}
+\begin{table}[H]
+\centering\small
+\begin{tabular}{rllll}
+\toprule
+$n$ & orbit & flip parameter $\alpha_n$ & next modulus & ratio $\delta_n$ \\
+\midrule
+1 & $3\to6$ & $0.0644766567385$ & $0.12$ & \\
+2 & $6\to12$ & $0.0650493555308$ & $0.045$ & $14.93$ \\
+3 & $12\to24$ & $0.0650877194158$ & $7.0\times10^{-5}$ & $3.124$ \\
+4 & $24\to48$ & $0.0650999993318$ & $4.3\times10^{-7}$ & $4.4988$ \\
+5 & $48\to96$ & $0.0651027289524$ & $1.8\times10^{-13}$ & \\
+%%FB156ROWS%%
+\bottomrule
+\end{tabular}
+\caption{Flips of the crescent's doubling sequence along $\log_{10}T=-0.156$, in float64. Flips 1--3 were computed on
+an H100 and flips 3 onward on a workstation GPU (NVIDIA RTX 2000 Ada); the two computations of flip 3 agree to
+$4\times10^{-16}$. Every critical multiplier is real and differs from $-1$ by at most $4\times10^{-10}$.}
+\label{tab:cascade156}
 \end{table}
 Not every doubling leads to chaos. In the high-temperature region (Figure~\ref{fig:p4}), along
 $\log_{10}T=0.0319$, the period-2 loop ``\textbackslash n\textbackslash nThe'' flips at $\alpha=0.0753534$ and its
@@ -1010,9 +1035,9 @@ are two distinct attractors, not a flip. The period-4 loop then doubles, with fl
 $\log_{10}T=-0.0031269$ (period $4\to8$, next modulus $0.014$), $-0.0021666$ (period $8\to16$, next modulus
 $8\times10^{-5}$), $-0.0019002$ (period $16\to32$, next modulus $5\times10^{-9}$) and $-0.0018380$ (period
 $32\to64$). Along the way the exponent rises continuously to zero, and chaos follows. The interval ratios are $3.60$
-and $4.28$. Like those of the 0.5B crescent, they rise toward $4.669$, and they start from higher values at higher
-temperature ($T\approx0.99$ against $0.71$), as the crossover hypothesis of Section~\ref{sec:cascade} would have it.
-With different models and levels, the comparison is only suggestive.
+and $4.28$. Like those of the 0.5B crescent at $\log_{10}T=-0.148$, they rise toward $4.669$. Their higher start does not
+indicate a temperature trend, since along nearby cuts of the 0.5B crescent the early ratios range from $2.84$ to
+$14.9$ (Section~\ref{sec:cascade}).
 \begin{figure}[H]
 \centering
 \includegraphics[width=0.62\linewidth]{fig-qwen15-route.png}
