@@ -1,7 +1,8 @@
 {
  "run": "llm-soft-loop/pod64/fm5",
  "extra_runs": [
-  "llm-soft-loop/pod64/fm5c"
+  "llm-soft-loop/pod64/fm5c",
+  "llm-soft-loop/pod64/fm5d"
  ],
  "branches": {
   "branch-a1-down": {
@@ -579,6 +580,56 @@
     0.0
    ],
    "second_modulus": 0.0011845341925384714,
+   "normal_form_parameter": 0
+  },
+  "fm5d/locate-curve-a1-down-fold-minus-14": {
+   "curve": "llm-soft-loop/pod64/fm5c/curve-a1-down-fold-minus",
+   "left": 14,
+   "located": true,
+   "checks": {
+    "b_small": true,
+    "c_nonzero": true,
+    "unfolding_regular": true
+   },
+   "alpha": -0.12386621738049544,
+   "alpha2": 0.09615120479510422,
+   "f": -3.869106826925872e-05,
+   "initial_f_max": 16.31240177782209,
+   "b": 0.0005468393244143499,
+   "c": -9650.631602944686,
+   "c_plateau_relative_spread": 0.0004439756495221283,
+   "det_J": 405.9048332622431,
+   "condition": 418.9661075753588,
+   "multiplier": [
+    1.0000000002661762,
+    0.0
+   ],
+   "second_modulus": 0.007880388437016245,
+   "normal_form_parameter": 0
+  },
+  "fm5d/locate-curve-a1-down-fold-minus-39": {
+   "curve": "llm-soft-loop/pod64/fm5c/curve-a1-down-fold-minus",
+   "left": 39,
+   "located": true,
+   "checks": {
+    "b_small": true,
+    "c_nonzero": true,
+    "unfolding_regular": true
+   },
+   "alpha": -0.12140734865186564,
+   "alpha2": 0.1028234301442621,
+   "f": 0.00015633047135565903,
+   "initial_f_max": 25.113456277265954,
+   "b": -0.01647712845698379,
+   "c": 47463.30515353251,
+   "c_plateau_relative_spread": 0.002562069529826343,
+   "det_J": -535.3947907774698,
+   "condition": 11608.07583717103,
+   "multiplier": [
+    1.0000000001337404,
+    0.0
+   ],
+   "second_modulus": 0.0048992933093937,
    "normal_form_parameter": 0
   }
  },
