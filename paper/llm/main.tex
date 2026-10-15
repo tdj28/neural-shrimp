@@ -1846,7 +1846,11 @@ model, and OLMo-2-7B and -32B), and steering uses contrastive vectors, checked a
 directions in two models. The system is a constructed loop: Section~\ref{sec:bridge} extends it to memories of up to sixteen soft tokens and to the growing context of Soft Thinking, but sampled decoding of discrete tokens is a different system. The evidence consists of numerical
 validation, cross-checks and prospectively frozen passage tests (including failed all-row criteria), with a
 computer-assisted proof for only one orbit at one parameter point. Chaos labels are finite-horizon estimates (300
-measured steps after 300 to 500 transient steps), and no chaotic cell is proved chaotic. A horizon check retested
+measured steps after 300 to 500 transient steps), and no chaotic cell is proved chaotic. A computer-assisted proof of chaos, such as a horseshoe verified by covering
+relations, would need enclosures of the map over boxes many orders of magnitude larger than the period-8 proof's
+(radius $2^{-640}$). With the ball arithmetic used there, a box of radius $2^{-80}$ already loses the positivity
+of an RMS normalization at layer 3 (the enclosures overestimate through the layers), so such a proof needs other
+verified methods. A horizon check retested
 random cells of two float64 maps (Figures~\ref{fig:teaser} and~\ref{fig:stripes}) with 1000 transient and 2000
 measured steps at two twin offsets: 86 and 92 of 96 cells labelled chaotic stayed chaotic (all but one of the rest
 settled on periodic orbits), all 96 periodic cells in each map stayed periodic, and 18 and 20 of 32 cells with neither
