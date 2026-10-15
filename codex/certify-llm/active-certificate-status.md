@@ -1,3 +1,17 @@
+# Task 21b sole saved-arithmetic run admitted; private prelaunch checkpoint
+
+Root read and accepted final card ecf9deba and supervisor 04c522c8, exact admission delta 544fc8d7, scientific source2f34384e/97b25826/8b073638 and input0025406ce14/authorityfdccec18. Prepared private history is b7c403ba. Only status/pins changed; no scientific source, selection, thresholds or resource bounds changed. One CPU worker plus supervisor, nice10,1GiB AS,55CPU/60s wall plus bounded cleanup,16MiB output,20GiB available RAM startup/16GiB runtime and16GiB disk. No retry or extension.
+
+Actual source/private verification and fresh capacity precede the sole run. There are zero live jobs or reservations at this checkpoint. All 35 completed cells and 84 checkpoint records, three missing cells, controls, original timeouts and nonzero differences remain in scope. Computational completion remains distinct from the following actual scientific review. Task21a is complete/delivered; no work remains there.
+
+Queue: finish21b, then21c–i,22,23 four-cell replay only under separately reviewed measured own-code plan (optionalXO feasibility later),24,25,report-only26,then full current-paper report-only27,then15. Concrete27 is accepted after26, reusing accepted earlier evidence without repeated computation; later cascade additions remain pending until complete. Inference owns all Git/process coordination. Overnight watch remains active and quiet when nonactionable.
+
+2026-10-15T07:57:02.562671+00:00
+
+---
+
+## Preserved earlier status
+
 # Task 21b: exact saved-spectrum input preparation
 
 Task 21a is complete and privately delivered (ee794150; exact entry 7c89f7f8; durable receipt 1f579793). Task 21b source and finite original input authority are accepted by Root; actual driver/card and final launch admission remain pending.
