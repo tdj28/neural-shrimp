@@ -1,0 +1,41 @@
+{
+  "schema": "task26cd-synthetic-profile-v1",
+  "admission": "prepared",
+  "kind": "synthetic only; no target inputs or producer/model execution",
+  "command_interface": [
+    "python",
+    "-I",
+    "-B",
+    "synthetic_profile.py",
+    "--output",
+    "EXACT_FRESH_OUTPUT"
+  ],
+  "output_must_be_outside_source": true,
+  "source_sha256": {
+    "synthetic_profile.py": "a31e5cffbd090916c7ad2db0e19364f5ae733b84418799d1e454d4db606cea55",
+    "statistics.py": "ba48cbca6df70be8581a161a1fa6fc57a884dc92bad126cf24ddb2bd0e7ba904",
+    "map_evidence.py": "7c288d51d8b6b28156a119d7618e37e9b6d6c16af0fcf0d3c2f164e5d4f68a1b",
+    "test_statistics.py": "4b029511ab5e8d099f94b037beab81dc7c06d11bf23ced75d1dce85c274da063"
+  },
+  "resources": {
+    "worker_cpu_slots": 1,
+    "supervisor_cpu_slots": 1,
+    "nice": 10,
+    "address_space_bytes": 4294967296,
+    "wall_seconds": 600,
+    "cpu_seconds": 580,
+    "kill_grace_seconds": 5,
+    "max_output_bytes": 134217728,
+    "startup_mem_available_bytes": 21474836480,
+    "runtime_mem_available_bytes": 17179869184
+  },
+  "scope": [
+    "four synthetic maps with exactly 5353 alpha and 6837 bias cells",
+    "8 float32 fields with 1000 stored steps per cell; sequential partition allocation",
+    "all 53 temperature rows eligible for both R1 and all six R2 comparisons",
+    "one seed0 stream for 8x10000 bootstrap and permutation loops then 4x10000 original-shape XO bootstraps",
+    "24 synthetic XO cells and four windows each, no real outcomes",
+    "includes synthetic generation/ledger/statistics serialization and hashing; excludes compressed target NPZ read/decompression, target hashing measured separately",
+    "no retry, no extension; preserve partial output and exact supervisor closure"
+  ]
+}

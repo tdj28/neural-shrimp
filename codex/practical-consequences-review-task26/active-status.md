@@ -1,3 +1,13 @@
+# Task 26(a) accepted; (b) closed under scientific review; (c/d) profile prepared
+
+Task 26(a) is Root-accepted complete under its finite scope; final scientific note b104389d and selected transcription53eb9850 bind immutable report7dbdaad8 and authority7cb369ef. Task26(b) sole actual replay completed/reaped0, source d7db3f64, report3b95ea55 and final authority5e88e844; all original processes are closed, scientific review pending. Task26(c/d) source-only runtime and synthetic full-shape resource profile are prepared/unlaunchable. Zero live jobs/reservations. No repeat computations or model/GPU/pod actions. Combined Task26 report is for Claude after remaining component acceptance; then Task27 with22/24 folded in. Overnight communications watch active.
+
+2026-10-15T09:12:59.650226+00:00
+
+---
+
+## Preserved earlier status
+
 # Task 26(a) completed and closed; Task 26(b) synthetic profile prepared
 
 Task 26(a) sole saved-data pass completed with original session 99356 reaped 0. Exact report 7dbdaad8 and final authority 7cb369ef retain all 832 pipeline, 54 mechanism and 208 progress records, all differences and explicit timing scopes. Scientific review is pending Root; no further arithmetic is planned. Task 26(b) accepted source and its one manufactured full-shape resource profile are prepared and unlaunchable, pending admission-only private checkpoint. Task 26(c/d) remains source preparation. Zero live jobs or reservations. Overnight communications watch remains active; latest scoped fetch through 86207e77 had no new Claude queue entry. Priority remains 26 then 27 for Claude, with 22/24 folded in, then remaining assigned work if time.

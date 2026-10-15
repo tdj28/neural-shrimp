@@ -1,0 +1,2816 @@
+{
+  "review_scope": "Final scientific reading of completed Task26a saved report; no resampling, producer/model execution, raw-input audit or numerical rerun in this review.",
+  "report": {
+    "path": "/data2/neural-shrimp-data/codex/practical-consequences-review-task26/task26a/run-001/report.json",
+    "sha256": "7dbdaad85343eece750927ec59cf699f8b95a38b7785690a31bc762862e50726",
+    "final_manifest_sha256": "701c37889db7578822a5b1378375161f8aea8602f4ba8e77cafbe298ceab26f1"
+  },
+  "final_authority": {
+    "path": "/data2/neural-shrimp-data/codex/practical-consequences-review-task26/task26a/run-001-authority/report.json",
+    "sha256": "7cb369ef209daec091133741db095c17f59f8c96c4d1b90eeaa2b0dac1124f1e",
+    "manifest_sha256": "0316bbf313a2a0cfe57c6c6067ab7cae760d45a6db780a8075531e78fffbed8f",
+    "accepted_by_root": true,
+    "execution_and_closure_observer": "Inference",
+    "session": 99356,
+    "exit_code": 0,
+    "original_supervisor_worker_groups_sessions_absent": true
+  },
+  "original_source_commit": "a9c411ff1bf992a20f595039000c55be15c6d12c",
+  "own_source_commit": "883ee479329618992775a0ea30fe498fda87b5c3",
+  "own_source_sha256": {
+    "run.py": "03f7a7eddfcc9faa94720e748a5d05c195ef4d16e815669273b9d10d700b57a7",
+    "reduce.py": "f43f98e9f48cb4d3f2419c424417d775f7a4165078bc11b0b652e72dba3fb8d9"
+  },
+  "coverage": {
+    "pipeline_records": 832,
+    "mechanism_records": 54,
+    "progress_records": 208,
+    "heldout_instances": 96,
+    "development_instances": 8
+  },
+  "saved_field_consistency_passed": true,
+  "saved_field_differences": [],
+  "findings": [
+    {
+      "id": "A1",
+      "verdict": "confirmed",
+      "finding": "Complete admitted saved rows reproduce the operational batch-layout disagreement: primary 32.291666666666664 pp and positive paired-bootstrap interval.",
+      "scope": "Independent unblinded saved-record arithmetic; no new model replay or causal proof."
+    },
+    {
+      "id": "A2",
+      "verdict": "wording correction",
+      "finding": "Canonical first-integer disagreement and raw-text disagreement differ. Heldout bf16 canonical/text counts are 54/68, 8/26, and 0/5 at log10(T)=0,.2,.4."
+    },
+    {
+      "id": "A3",
+      "verdict": "confirmed with statistical convention",
+      "finding": "Primary paired sign flips have 0/10000 exceedances; raw Monte Carlo p is zero and plus-one p is 1/10001. The original inline RNG implementation is unavailable."
+    },
+    {
+      "id": "A4",
+      "verdict": "wording correction",
+      "finding": "The greedy comparator is forced32 tokens plus cue plus8 answer tokens, without EOS stopping. Both precisions have 0/96 heldout accuracy. It is not ordinary greedy decoding accuracy."
+    },
+    {
+      "id": "A5",
+      "verdict": "wording correction",
+      "finding": "T=1 deliberate-kick growth median is .033011474309378244, but individual values span -.12687039525407393 to .24040185753056742. A claim of growth bounded by .03 is false."
+    },
+    {
+      "id": "A6",
+      "verdict": "confirmed with text exception",
+      "finding": "All54 deliberate-kick comparisons preserve canonical answers. One T=1, delta1e-4, problem3 row changes trailing text while both canonical answers remain63."
+    },
+    {
+      "id": "A7",
+      "verdict": "scope correction",
+      "finding": "The96 frozen heldout indices contain95 unique ordered and94 unique unordered additions, a development overlap, a distractor overlap, and one earlier unidentified heldout smoke instance. No posthoc deduplication."
+    },
+    {
+      "id": "A8",
+      "verdict": "cannot check from retained evidence",
+      "finding": "Full original state trajectories and answer-token IDs are unavailable; exact trajectory/readout flags inherit reviewed source. Historical remote model-byte identity is not reconstructed."
+    },
+    {
+      "id": "A9",
+      "verdict": "not established",
+      "finding": "Finite growing-context perturbations do not identify an asymptotic exponent, exclude other amplification mechanisms, or attribute the layout effect to or away from autonomous-loop chaos."
+    },
+    {
+      "id": "A10",
+      "verdict": "confirmed",
+      "finding": "All saved-field consistency checks pass;56 exposed producer comparisons retain34 nonzero numeric differences, primarily rounded quantities or stated statistical conventions, not34 scientific errors."
+    }
+  ],
+  "endpoints": {
+    "bf16:primary_temperatures_mean": {
+      "n": 96,
+      "sum_half_units": 62,
+      "delta_pp": 32.291666666666664,
+      "ci95_pp": [
+        26.562500000000004,
+        38.020833333333336
+      ],
+      "ci95_pp_outward_1dp": [
+        "26.5",
+        "38.1"
+      ],
+      "interval_excludes_zero": true,
+      "positive_lower_above_zero": true,
+      "draws": 10000,
+      "undefined_draws": 0,
+      "signflip_exceedances": 0,
+      "signflip_p_raw": 0.0,
+      "signflip_p_plus_one": 9.999000099990002e-05
+    },
+    "bf16:soft:0.0_minus_greedy": {
+      "n": 96,
+      "sum_half_units": 108,
+      "delta_pp": 56.25,
+      "ci95_pp": [
+        46.875,
+        65.625
+      ],
+      "ci95_pp_outward_1dp": [
+        "46.8",
+        "65.7"
+      ],
+      "interval_excludes_zero": true,
+      "positive_lower_above_zero": true,
+      "draws": 10000,
+      "undefined_draws": 0,
+      "signflip_exceedances": 0,
+      "signflip_p_raw": 0.0,
+      "signflip_p_plus_one": 9.999000099990002e-05
+    },
+    "bf16:soft:0.2_minus_greedy": {
+      "n": 96,
+      "sum_half_units": 16,
+      "delta_pp": 8.333333333333334,
+      "ci95_pp": [
+        3.125,
+        14.583333333333334
+      ],
+      "ci95_pp_outward_1dp": [
+        "3.1",
+        "14.6"
+      ],
+      "interval_excludes_zero": true,
+      "positive_lower_above_zero": true,
+      "draws": 10000,
+      "undefined_draws": 0,
+      "signflip_exceedances": 71,
+      "signflip_p_raw": 0.0071,
+      "signflip_p_plus_one": 0.0071992800719928
+    },
+    "bf16:soft:0.4_minus_greedy": {
+      "n": 96,
+      "sum_half_units": 0,
+      "delta_pp": 0.0,
+      "ci95_pp": [
+        0.0,
+        0.0
+      ],
+      "ci95_pp_outward_1dp": [
+        "0.0",
+        "0.0"
+      ],
+      "interval_excludes_zero": false,
+      "positive_lower_above_zero": false,
+      "draws": 10000,
+      "undefined_draws": 0,
+      "signflip_exceedances": 10000,
+      "signflip_p_raw": 1.0,
+      "signflip_p_plus_one": 1.0
+    },
+    "float64:primary_temperatures_mean": {
+      "n": 96,
+      "sum_half_units": 0,
+      "delta_pp": 0.0,
+      "ci95_pp": [
+        0.0,
+        0.0
+      ],
+      "ci95_pp_outward_1dp": [
+        "0.0",
+        "0.0"
+      ],
+      "interval_excludes_zero": false,
+      "positive_lower_above_zero": false,
+      "draws": 10000,
+      "undefined_draws": 0,
+      "signflip_exceedances": 10000,
+      "signflip_p_raw": 1.0,
+      "signflip_p_plus_one": 1.0
+    },
+    "float64:soft:0.0_minus_greedy": {
+      "n": 96,
+      "sum_half_units": 0,
+      "delta_pp": 0.0,
+      "ci95_pp": [
+        0.0,
+        0.0
+      ],
+      "ci95_pp_outward_1dp": [
+        "0.0",
+        "0.0"
+      ],
+      "interval_excludes_zero": false,
+      "positive_lower_above_zero": false,
+      "draws": 10000,
+      "undefined_draws": 0,
+      "signflip_exceedances": 10000,
+      "signflip_p_raw": 1.0,
+      "signflip_p_plus_one": 1.0
+    },
+    "float64:soft:0.2_minus_greedy": {
+      "n": 96,
+      "sum_half_units": 0,
+      "delta_pp": 0.0,
+      "ci95_pp": [
+        0.0,
+        0.0
+      ],
+      "ci95_pp_outward_1dp": [
+        "0.0",
+        "0.0"
+      ],
+      "interval_excludes_zero": false,
+      "positive_lower_above_zero": false,
+      "draws": 10000,
+      "undefined_draws": 0,
+      "signflip_exceedances": 10000,
+      "signflip_p_raw": 1.0,
+      "signflip_p_plus_one": 1.0
+    },
+    "float64:soft:0.4_minus_greedy": {
+      "n": 96,
+      "sum_half_units": 0,
+      "delta_pp": 0.0,
+      "ci95_pp": [
+        0.0,
+        0.0
+      ],
+      "ci95_pp_outward_1dp": [
+        "0.0",
+        "0.0"
+      ],
+      "interval_excludes_zero": false,
+      "positive_lower_above_zero": false,
+      "draws": 10000,
+      "undefined_draws": 0,
+      "signflip_exceedances": 10000,
+      "signflip_p_raw": 1.0,
+      "signflip_p_plus_one": 1.0
+    }
+  },
+  "conditions": {
+    "dev": {
+      "bf16:soft:0.0": {
+        "n": 8,
+        "canonical_disagreement_count": 6,
+        "text_disagreement_count": 7,
+        "pair_invalid_count": 0,
+        "rerun_text_equal_count": 8,
+        "reported_rerun_identical_count": 8,
+        "text_vs_canonical_disagreement_count": 1,
+        "layouts": {
+          "single": {
+            "correct_count": 3,
+            "invalid_count": 0,
+            "margin": {
+              "n": 8,
+              "mean": 1.4375,
+              "median": 1.0,
+              "min": 0.5,
+              "max": 3.75
+            },
+            "accuracy": 0.375,
+            "invalid_percent": 0.0
+          },
+          "batch4": {
+            "correct_count": 2,
+            "invalid_count": 0,
+            "margin": {
+              "n": 8,
+              "mean": 2.09375,
+              "median": 1.6875,
+              "min": 0.125,
+              "max": 4.375
+            },
+            "accuracy": 0.25,
+            "invalid_percent": 0.0
+          },
+          "rerun": {
+            "correct_count": 3,
+            "invalid_count": 0,
+            "margin": {
+              "n": 8,
+              "mean": 1.4375,
+              "median": 1.0,
+              "min": 0.5,
+              "max": 3.75
+            },
+            "accuracy": 0.375,
+            "invalid_percent": 0.0
+          }
+        },
+        "canonical_disagreement_percent": 75.0,
+        "batch_minus_single_accuracy_pp": -12.5,
+        "distance": {
+          "step1": {
+            "n": 8,
+            "mean": 6.970585651662664e-07,
+            "median": 7.338611296503964e-07,
+            "min": 3.180464831003142e-07,
+            "max": 8.848866481354988e-07
+          },
+          "step32": {
+            "n": 8,
+            "mean": 0.7097391862494925,
+            "median": 0.2998265280237368,
+            "min": 0.028903877756990434,
+            "max": 2.218709207971297
+          },
+          "growth": {
+            "n": 8,
+            "mean": 0.4173614367323951,
+            "median": 0.4189483645765204,
+            "min": 0.33681454968516905,
+            "max": 0.4854362459073119
+          },
+          "growth_undefined_count": 0
+        }
+      },
+      "bf16:soft:0.2": {
+        "n": 8,
+        "canonical_disagreement_count": 0,
+        "text_disagreement_count": 0,
+        "pair_invalid_count": 0,
+        "rerun_text_equal_count": 8,
+        "reported_rerun_identical_count": 8,
+        "text_vs_canonical_disagreement_count": 0,
+        "layouts": {
+          "single": {
+            "correct_count": 4,
+            "invalid_count": 0,
+            "margin": {
+              "n": 8,
+              "mean": 0.671875,
+              "median": 0.8125,
+              "min": 0.125,
+              "max": 1.0
+            },
+            "accuracy": 0.5,
+            "invalid_percent": 0.0
+          },
+          "batch4": {
+            "correct_count": 4,
+            "invalid_count": 0,
+            "margin": {
+              "n": 8,
+              "mean": 0.6875,
+              "median": 0.875,
+              "min": 0.125,
+              "max": 1.0
+            },
+            "accuracy": 0.5,
+            "invalid_percent": 0.0
+          },
+          "rerun": {
+            "correct_count": 4,
+            "invalid_count": 0,
+            "margin": {
+              "n": 8,
+              "mean": 0.671875,
+              "median": 0.8125,
+              "min": 0.125,
+              "max": 1.0
+            },
+            "accuracy": 0.5,
+            "invalid_percent": 0.0
+          }
+        },
+        "canonical_disagreement_percent": 0.0,
+        "batch_minus_single_accuracy_pp": 0.0,
+        "distance": {
+          "step1": {
+            "n": 8,
+            "mean": 2.4890466391470615e-06,
+            "median": 2.4699400198606247e-06,
+            "min": 2.215693856505983e-06,
+            "max": 2.7844577901127585e-06
+          },
+          "step32": {
+            "n": 8,
+            "mean": 0.009292089294229726,
+            "median": 0.008753318007896128,
+            "min": 0.003331513097744392,
+            "max": 0.020162902304323587
+          },
+          "growth": {
+            "n": 8,
+            "mean": 0.2616029067170531,
+            "median": 0.26354704161211473,
+            "min": 0.23171479676105378,
+            "max": 0.2909239968141331
+          },
+          "growth_undefined_count": 0
+        }
+      },
+      "bf16:soft:0.4": {
+        "n": 8,
+        "canonical_disagreement_count": 0,
+        "text_disagreement_count": 0,
+        "pair_invalid_count": 0,
+        "rerun_text_equal_count": 8,
+        "reported_rerun_identical_count": 8,
+        "text_vs_canonical_disagreement_count": 0,
+        "layouts": {
+          "single": {
+            "correct_count": 8,
+            "invalid_count": 0,
+            "margin": {
+              "n": 8,
+              "mean": 6.765625,
+              "median": 6.8125,
+              "min": 4.875,
+              "max": 8.875
+            },
+            "accuracy": 1.0,
+            "invalid_percent": 0.0
+          },
+          "batch4": {
+            "correct_count": 8,
+            "invalid_count": 0,
+            "margin": {
+              "n": 8,
+              "mean": 6.703125,
+              "median": 6.9375,
+              "min": 4.75,
+              "max": 8.75
+            },
+            "accuracy": 1.0,
+            "invalid_percent": 0.0
+          },
+          "rerun": {
+            "correct_count": 8,
+            "invalid_count": 0,
+            "margin": {
+              "n": 8,
+              "mean": 6.765625,
+              "median": 6.8125,
+              "min": 4.875,
+              "max": 8.875
+            },
+            "accuracy": 1.0,
+            "invalid_percent": 0.0
+          }
+        },
+        "canonical_disagreement_percent": 0.0,
+        "batch_minus_single_accuracy_pp": 0.0,
+        "distance": {
+          "step1": {
+            "n": 8,
+            "mean": 7.718517967176951e-07,
+            "median": 6.76867169430547e-07,
+            "min": 5.565572991579187e-07,
+            "max": 1.409975214070255e-06
+          },
+          "step32": {
+            "n": 8,
+            "mean": 0.004309538104444409,
+            "median": 0.0036532219250935798,
+            "min": 0.0029664615841673452,
+            "max": 0.006751457135435781
+          },
+          "growth": {
+            "n": 8,
+            "mean": 0.2786177000218242,
+            "median": 0.2783502072646859,
+            "min": 0.2516898301176886,
+            "max": 0.29776980434987305
+          },
+          "growth_undefined_count": 0
+        }
+      },
+      "bf16:greedy:None": {
+        "n": 8,
+        "canonical_disagreement_count": 0,
+        "text_disagreement_count": 0,
+        "pair_invalid_count": 1,
+        "rerun_text_equal_count": 8,
+        "reported_rerun_identical_count": 8,
+        "text_vs_canonical_disagreement_count": 0,
+        "layouts": {
+          "single": {
+            "correct_count": 1,
+            "invalid_count": 1,
+            "margin": {
+              "n": 8,
+              "mean": 1.203125,
+              "median": 1.1875,
+              "min": 0.625,
+              "max": 1.75
+            },
+            "accuracy": 0.125,
+            "invalid_percent": 12.5
+          },
+          "batch4": {
+            "correct_count": 1,
+            "invalid_count": 1,
+            "margin": {
+              "n": 8,
+              "mean": 1.203125,
+              "median": 1.1875,
+              "min": 0.625,
+              "max": 1.75
+            },
+            "accuracy": 0.125,
+            "invalid_percent": 12.5
+          },
+          "rerun": {
+            "correct_count": 1,
+            "invalid_count": 1,
+            "margin": {
+              "n": 8,
+              "mean": 1.203125,
+              "median": 1.1875,
+              "min": 0.625,
+              "max": 1.75
+            },
+            "accuracy": 0.125,
+            "invalid_percent": 12.5
+          }
+        },
+        "canonical_disagreement_percent": 0.0,
+        "batch_minus_single_accuracy_pp": 0.0,
+        "first_token_difference_counts": {
+          "None": 8
+        },
+        "distance": null
+      },
+      "float64:soft:0.0": {
+        "n": 8,
+        "canonical_disagreement_count": 0,
+        "text_disagreement_count": 0,
+        "pair_invalid_count": 0,
+        "rerun_text_equal_count": 8,
+        "reported_rerun_identical_count": 8,
+        "text_vs_canonical_disagreement_count": 0,
+        "layouts": {
+          "single": {
+            "correct_count": 1,
+            "invalid_count": 0,
+            "margin": {
+              "n": 8,
+              "mean": 1.014170091509912,
+              "median": 0.5976129933720706,
+              "min": 0.059260623097721066,
+              "max": 2.9011109081535267
+            },
+            "accuracy": 0.125,
+            "invalid_percent": 0.0
+          },
+          "batch4": {
+            "correct_count": 1,
+            "invalid_count": 0,
+            "margin": {
+              "n": 8,
+              "mean": 1.014170091510874,
+              "median": 0.5976129933706567,
+              "min": 0.05926062309758251,
+              "max": 2.901110908142435
+            },
+            "accuracy": 0.125,
+            "invalid_percent": 0.0
+          },
+          "rerun": {
+            "correct_count": 1,
+            "invalid_count": 0,
+            "margin": {
+              "n": 8,
+              "mean": 1.014170091509912,
+              "median": 0.5976129933720706,
+              "min": 0.059260623097721066,
+              "max": 2.9011109081535267
+            },
+            "accuracy": 0.125,
+            "invalid_percent": 0.0
+          }
+        },
+        "canonical_disagreement_percent": 0.0,
+        "batch_minus_single_accuracy_pp": 0.0,
+        "distance": {
+          "step1": {
+            "n": 8,
+            "mean": 6.0098127921362985e-15,
+            "median": 4.852798669026668e-15,
+            "min": 4.3357436670615916e-15,
+            "max": 1.3535980997816328e-14
+          },
+          "step32": {
+            "n": 8,
+            "mean": 4.5748010609334836e-12,
+            "median": 5.474074949823562e-14,
+            "min": 5.348938711329949e-16,
+            "max": 3.3106649597549006e-11
+          },
+          "growth": {
+            "n": 8,
+            "mean": 0.09031442145332226,
+            "median": 0.07097261003650109,
+            "min": -0.06962693523002284,
+            "max": 0.28840633194708504
+          },
+          "growth_undefined_count": 0
+        }
+      },
+      "float64:soft:0.2": {
+        "n": 8,
+        "canonical_disagreement_count": 0,
+        "text_disagreement_count": 0,
+        "pair_invalid_count": 0,
+        "rerun_text_equal_count": 8,
+        "reported_rerun_identical_count": 8,
+        "text_vs_canonical_disagreement_count": 0,
+        "layouts": {
+          "single": {
+            "correct_count": 4,
+            "invalid_count": 0,
+            "margin": {
+              "n": 8,
+              "mean": 0.6516344184295924,
+              "median": 0.8374865954559976,
+              "min": 0.014119388672980904,
+              "max": 1.0417746572427902
+            },
+            "accuracy": 0.5,
+            "invalid_percent": 0.0
+          },
+          "batch4": {
+            "correct_count": 4,
+            "invalid_count": 0,
+            "margin": {
+              "n": 8,
+              "mean": 0.6516344184295941,
+              "median": 0.8374865954560224,
+              "min": 0.014119388672984456,
+              "max": 1.0417746572428115
+            },
+            "accuracy": 0.5,
+            "invalid_percent": 0.0
+          },
+          "rerun": {
+            "correct_count": 4,
+            "invalid_count": 0,
+            "margin": {
+              "n": 8,
+              "mean": 0.6516344184295924,
+              "median": 0.8374865954559976,
+              "min": 0.014119388672980904,
+              "max": 1.0417746572427902
+            },
+            "accuracy": 0.5,
+            "invalid_percent": 0.0
+          }
+        },
+        "canonical_disagreement_percent": 0.0,
+        "batch_minus_single_accuracy_pp": 0.0,
+        "distance": {
+          "step1": {
+            "n": 8,
+            "mean": 8.31165798999696e-15,
+            "median": 6.892746674062216e-15,
+            "min": 4.683086615127538e-15,
+            "max": 1.7135883923817067e-14
+          },
+          "step32": {
+            "n": 8,
+            "mean": 5.687979816407414e-15,
+            "median": 5.123438525412399e-15,
+            "min": 2.3502947267807227e-15,
+            "max": 1.0051289631815628e-14
+          },
+          "growth": {
+            "n": 8,
+            "mean": -0.011347414882454289,
+            "median": -0.006542515496304171,
+            "min": -0.06408496786834512,
+            "max": 0.012486037330592722
+          },
+          "growth_undefined_count": 0
+        }
+      },
+      "float64:soft:0.4": {
+        "n": 8,
+        "canonical_disagreement_count": 0,
+        "text_disagreement_count": 0,
+        "pair_invalid_count": 0,
+        "rerun_text_equal_count": 8,
+        "reported_rerun_identical_count": 8,
+        "text_vs_canonical_disagreement_count": 0,
+        "layouts": {
+          "single": {
+            "correct_count": 8,
+            "invalid_count": 0,
+            "margin": {
+              "n": 8,
+              "mean": 6.787374005865686,
+              "median": 6.931218236035818,
+              "min": 4.57200955346503,
+              "max": 8.944426197549205
+            },
+            "accuracy": 1.0,
+            "invalid_percent": 0.0
+          },
+          "batch4": {
+            "correct_count": 8,
+            "invalid_count": 0,
+            "margin": {
+              "n": 8,
+              "mean": 6.787374005865691,
+              "median": 6.931218236035814,
+              "min": 4.572009553464994,
+              "max": 8.944426197549202
+            },
+            "accuracy": 1.0,
+            "invalid_percent": 0.0
+          },
+          "rerun": {
+            "correct_count": 8,
+            "invalid_count": 0,
+            "margin": {
+              "n": 8,
+              "mean": 6.787374005865686,
+              "median": 6.931218236035818,
+              "min": 4.57200955346503,
+              "max": 8.944426197549205
+            },
+            "accuracy": 1.0,
+            "invalid_percent": 0.0
+          }
+        },
+        "canonical_disagreement_percent": 0.0,
+        "batch_minus_single_accuracy_pp": 0.0,
+        "distance": {
+          "step1": {
+            "n": 8,
+            "mean": 3.367222589989274e-15,
+            "median": 3.499381248866072e-15,
+            "min": 1.6996148794442934e-15,
+            "max": 4.890774003457375e-15
+          },
+          "step32": {
+            "n": 8,
+            "mean": 1.8811558965221548e-15,
+            "median": 1.820181086148681e-15,
+            "min": 1.1746185106790895e-15,
+            "max": 3.101410946741503e-15
+          },
+          "growth": {
+            "n": 8,
+            "mean": -0.018551118253019246,
+            "median": -0.020909311441942597,
+            "min": -0.04074103950365484,
+            "max": -0.0003504176454283065
+          },
+          "growth_undefined_count": 0
+        }
+      },
+      "float64:greedy:None": {
+        "n": 8,
+        "canonical_disagreement_count": 0,
+        "text_disagreement_count": 0,
+        "pair_invalid_count": 0,
+        "rerun_text_equal_count": 8,
+        "reported_rerun_identical_count": 8,
+        "text_vs_canonical_disagreement_count": 0,
+        "layouts": {
+          "single": {
+            "correct_count": 1,
+            "invalid_count": 0,
+            "margin": {
+              "n": 8,
+              "mean": 1.2498153147704931,
+              "median": 1.2511340424750408,
+              "min": 0.9627798043330031,
+              "max": 1.7665141263112005
+            },
+            "accuracy": 0.125,
+            "invalid_percent": 0.0
+          },
+          "batch4": {
+            "correct_count": 1,
+            "invalid_count": 0,
+            "margin": {
+              "n": 8,
+              "mean": 1.2498153147704851,
+              "median": 1.2511340424750177,
+              "min": 0.9627798043330067,
+              "max": 1.766514126311229
+            },
+            "accuracy": 0.125,
+            "invalid_percent": 0.0
+          },
+          "rerun": {
+            "correct_count": 1,
+            "invalid_count": 0,
+            "margin": {
+              "n": 8,
+              "mean": 1.2498153147704931,
+              "median": 1.2511340424750408,
+              "min": 0.9627798043330031,
+              "max": 1.7665141263112005
+            },
+            "accuracy": 0.125,
+            "invalid_percent": 0.0
+          }
+        },
+        "canonical_disagreement_percent": 0.0,
+        "batch_minus_single_accuracy_pp": 0.0,
+        "first_token_difference_counts": {
+          "None": 8
+        },
+        "distance": null
+      }
+    },
+    "heldout": {
+      "bf16:soft:0.0": {
+        "n": 96,
+        "canonical_disagreement_count": 54,
+        "text_disagreement_count": 68,
+        "pair_invalid_count": 0,
+        "rerun_text_equal_count": 96,
+        "reported_rerun_identical_count": 96,
+        "text_vs_canonical_disagreement_count": 14,
+        "layouts": {
+          "single": {
+            "correct_count": 23,
+            "invalid_count": 1,
+            "margin": {
+              "n": 96,
+              "mean": 1.7473958333333333,
+              "median": 1.5,
+              "min": 0.0,
+              "max": 6.375
+            },
+            "accuracy": 0.23958333333333334,
+            "invalid_percent": 1.0416666666666667
+          },
+          "batch4": {
+            "correct_count": 22,
+            "invalid_count": 0,
+            "margin": {
+              "n": 96,
+              "mean": 1.6705729166666667,
+              "median": 1.375,
+              "min": 0.0,
+              "max": 8.0
+            },
+            "accuracy": 0.22916666666666666,
+            "invalid_percent": 0.0
+          },
+          "rerun": {
+            "correct_count": 23,
+            "invalid_count": 1,
+            "margin": {
+              "n": 96,
+              "mean": 1.7473958333333333,
+              "median": 1.5,
+              "min": 0.0,
+              "max": 6.375
+            },
+            "accuracy": 0.23958333333333334,
+            "invalid_percent": 1.0416666666666667
+          }
+        },
+        "canonical_disagreement_percent": 56.25,
+        "batch_minus_single_accuracy_pp": -1.0416666666666667,
+        "distance": {
+          "step1": {
+            "n": 96,
+            "mean": 6.603704566212141e-07,
+            "median": 6.134470740212301e-07,
+            "min": 3.3441432151267875e-07,
+            "max": 1.3909186216289124e-06
+          },
+          "step32": {
+            "n": 96,
+            "mean": 0.6170842996318197,
+            "median": 0.2237169631880111,
+            "min": 3.1325647231407897e-07,
+            "max": 2.687289246078446
+          },
+          "growth": {
+            "n": 96,
+            "mean": 0.3819153085220976,
+            "median": 0.41272287731500235,
+            "min": -0.012917164266588305,
+            "max": 0.4956205040455685
+          },
+          "growth_undefined_count": 0
+        }
+      },
+      "bf16:soft:0.2": {
+        "n": 96,
+        "canonical_disagreement_count": 8,
+        "text_disagreement_count": 26,
+        "pair_invalid_count": 0,
+        "rerun_text_equal_count": 96,
+        "reported_rerun_identical_count": 96,
+        "text_vs_canonical_disagreement_count": 18,
+        "layouts": {
+          "single": {
+            "correct_count": 48,
+            "invalid_count": 0,
+            "margin": {
+              "n": 96,
+              "mean": 0.72265625,
+              "median": 0.75,
+              "min": 0.0,
+              "max": 1.25
+            },
+            "accuracy": 0.5,
+            "invalid_percent": 0.0
+          },
+          "batch4": {
+            "correct_count": 51,
+            "invalid_count": 0,
+            "margin": {
+              "n": 96,
+              "mean": 0.72265625,
+              "median": 0.8125,
+              "min": 0.125,
+              "max": 1.375
+            },
+            "accuracy": 0.53125,
+            "invalid_percent": 0.0
+          },
+          "rerun": {
+            "correct_count": 48,
+            "invalid_count": 0,
+            "margin": {
+              "n": 96,
+              "mean": 0.72265625,
+              "median": 0.75,
+              "min": 0.0,
+              "max": 1.25
+            },
+            "accuracy": 0.5,
+            "invalid_percent": 0.0
+          }
+        },
+        "canonical_disagreement_percent": 8.333333333333334,
+        "batch_minus_single_accuracy_pp": 3.125,
+        "distance": {
+          "step1": {
+            "n": 96,
+            "mean": 2.4837690613747068e-06,
+            "median": 2.4876866452628344e-06,
+            "min": 2.0325162827102088e-06,
+            "max": 2.9355043052812187e-06
+          },
+          "step32": {
+            "n": 96,
+            "mean": 0.014383857018602566,
+            "median": 0.012577752819178948,
+            "min": 5.598423225373406e-07,
+            "max": 0.05999844936122562
+          },
+          "growth": {
+            "n": 96,
+            "mean": 0.2662589739708183,
+            "median": 0.276053416428921,
+            "min": -0.05105401071637411,
+            "max": 0.32923725840973417
+          },
+          "growth_undefined_count": 0
+        }
+      },
+      "bf16:soft:0.4": {
+        "n": 96,
+        "canonical_disagreement_count": 0,
+        "text_disagreement_count": 5,
+        "pair_invalid_count": 0,
+        "rerun_text_equal_count": 96,
+        "reported_rerun_identical_count": 96,
+        "text_vs_canonical_disagreement_count": 5,
+        "layouts": {
+          "single": {
+            "correct_count": 90,
+            "invalid_count": 0,
+            "margin": {
+              "n": 96,
+              "mean": 6.315104166666667,
+              "median": 6.375,
+              "min": 0.375,
+              "max": 10.875
+            },
+            "accuracy": 0.9375,
+            "invalid_percent": 0.0
+          },
+          "batch4": {
+            "correct_count": 90,
+            "invalid_count": 0,
+            "margin": {
+              "n": 96,
+              "mean": 6.296875,
+              "median": 6.5,
+              "min": 0.0,
+              "max": 10.75
+            },
+            "accuracy": 0.9375,
+            "invalid_percent": 0.0
+          },
+          "rerun": {
+            "correct_count": 90,
+            "invalid_count": 0,
+            "margin": {
+              "n": 96,
+              "mean": 6.315104166666667,
+              "median": 6.375,
+              "min": 0.375,
+              "max": 10.875
+            },
+            "accuracy": 0.9375,
+            "invalid_percent": 0.0
+          }
+        },
+        "canonical_disagreement_percent": 0.0,
+        "batch_minus_single_accuracy_pp": 0.0,
+        "distance": {
+          "step1": {
+            "n": 96,
+            "mean": 8.286438444948577e-07,
+            "median": 7.909331308336545e-07,
+            "min": 4.526441728828542e-07,
+            "max": 1.4820238543190594e-06
+          },
+          "step32": {
+            "n": 96,
+            "mean": 0.005009197218502538,
+            "median": 0.003980488623475259,
+            "min": 7.556340164968868e-07,
+            "max": 0.015332890221945618
+          },
+          "growth": {
+            "n": 96,
+            "mean": 0.26458477844311346,
+            "median": 0.2764170711623818,
+            "min": -0.016854120722866395,
+            "max": 0.33100657536746136
+          },
+          "growth_undefined_count": 0
+        }
+      },
+      "bf16:greedy:None": {
+        "n": 96,
+        "canonical_disagreement_count": 0,
+        "text_disagreement_count": 0,
+        "pair_invalid_count": 8,
+        "rerun_text_equal_count": 96,
+        "reported_rerun_identical_count": 96,
+        "text_vs_canonical_disagreement_count": 0,
+        "layouts": {
+          "single": {
+            "correct_count": 0,
+            "invalid_count": 8,
+            "margin": {
+              "n": 96,
+              "mean": 0.96484375,
+              "median": 0.875,
+              "min": 0.375,
+              "max": 1.875
+            },
+            "accuracy": 0.0,
+            "invalid_percent": 8.333333333333334
+          },
+          "batch4": {
+            "correct_count": 0,
+            "invalid_count": 8,
+            "margin": {
+              "n": 96,
+              "mean": 0.9635416666666666,
+              "median": 0.875,
+              "min": 0.375,
+              "max": 1.875
+            },
+            "accuracy": 0.0,
+            "invalid_percent": 8.333333333333334
+          },
+          "rerun": {
+            "correct_count": 0,
+            "invalid_count": 8,
+            "margin": {
+              "n": 96,
+              "mean": 0.96484375,
+              "median": 0.875,
+              "min": 0.375,
+              "max": 1.875
+            },
+            "accuracy": 0.0,
+            "invalid_percent": 8.333333333333334
+          }
+        },
+        "canonical_disagreement_percent": 0.0,
+        "batch_minus_single_accuracy_pp": 0.0,
+        "first_token_difference_counts": {
+          "None": 96
+        },
+        "distance": null
+      },
+      "float64:soft:0.0": {
+        "n": 96,
+        "canonical_disagreement_count": 0,
+        "text_disagreement_count": 0,
+        "pair_invalid_count": 0,
+        "rerun_text_equal_count": 96,
+        "reported_rerun_identical_count": 96,
+        "text_vs_canonical_disagreement_count": 0,
+        "layouts": {
+          "single": {
+            "correct_count": 30,
+            "invalid_count": 0,
+            "margin": {
+              "n": 96,
+              "mean": 1.9505689249572464,
+              "median": 1.5307633006161154,
+              "min": 0.04845119916137364,
+              "max": 7.749562272863269
+            },
+            "accuracy": 0.3125,
+            "invalid_percent": 0.0
+          },
+          "batch4": {
+            "correct_count": 30,
+            "invalid_count": 0,
+            "margin": {
+              "n": 96,
+              "mean": 1.9505689244349407,
+              "median": 1.530763300695126,
+              "min": 0.04845119916771523,
+              "max": 7.749562272865887
+            },
+            "accuracy": 0.3125,
+            "invalid_percent": 0.0
+          },
+          "rerun": {
+            "correct_count": 30,
+            "invalid_count": 0,
+            "margin": {
+              "n": 96,
+              "mean": 1.9505689249572464,
+              "median": 1.5307633006161154,
+              "min": 0.04845119916137364,
+              "max": 7.749562272863269
+            },
+            "accuracy": 0.3125,
+            "invalid_percent": 0.0
+          }
+        },
+        "canonical_disagreement_percent": 0.0,
+        "batch_minus_single_accuracy_pp": 0.0,
+        "distance": {
+          "step1": {
+            "n": 96,
+            "mean": 5.5472535609284e-15,
+            "median": 4.746268131185358e-15,
+            "min": 4.116691279747931e-15,
+            "max": 2.0328133702520267e-14
+          },
+          "step32": {
+            "n": 96,
+            "mean": 3.34553345769294e-11,
+            "median": 1.3061946196516364e-13,
+            "min": 4.650528589881559e-15,
+            "max": 1.7276517581926647e-09
+          },
+          "growth": {
+            "n": 96,
+            "mean": 0.1055246285438443,
+            "median": 0.10638747277175581,
+            "min": -0.033697858366622084,
+            "max": 0.41273067237693933
+          },
+          "growth_undefined_count": 0
+        }
+      },
+      "float64:soft:0.2": {
+        "n": 96,
+        "canonical_disagreement_count": 0,
+        "text_disagreement_count": 0,
+        "pair_invalid_count": 0,
+        "rerun_text_equal_count": 96,
+        "reported_rerun_identical_count": 96,
+        "text_vs_canonical_disagreement_count": 0,
+        "layouts": {
+          "single": {
+            "correct_count": 49,
+            "invalid_count": 0,
+            "margin": {
+              "n": 96,
+              "mean": 0.7065675319045446,
+              "median": 0.7762294124698315,
+              "min": 0.012908358546063425,
+              "max": 1.225195461993838
+            },
+            "accuracy": 0.5104166666666666,
+            "invalid_percent": 0.0
+          },
+          "batch4": {
+            "correct_count": 49,
+            "invalid_count": 0,
+            "margin": {
+              "n": 96,
+              "mean": 0.7065675319045507,
+              "median": 0.7762294124698457,
+              "min": 0.012908358546091847,
+              "max": 1.2251954619937955
+            },
+            "accuracy": 0.5104166666666666,
+            "invalid_percent": 0.0
+          },
+          "rerun": {
+            "correct_count": 49,
+            "invalid_count": 0,
+            "margin": {
+              "n": 96,
+              "mean": 0.7065675319045446,
+              "median": 0.7762294124698315,
+              "min": 0.012908358546063425,
+              "max": 1.225195461993838
+            },
+            "accuracy": 0.5104166666666666,
+            "invalid_percent": 0.0
+          }
+        },
+        "canonical_disagreement_percent": 0.0,
+        "batch_minus_single_accuracy_pp": 0.0,
+        "distance": {
+          "step1": {
+            "n": 96,
+            "mean": 7.58850117546166e-15,
+            "median": 6.3658721522963945e-15,
+            "min": 4.4064352380022555e-15,
+            "max": 2.9235436622434836e-14
+          },
+          "step32": {
+            "n": 96,
+            "mean": 5.741266841000546e-15,
+            "median": 4.9843273299608914e-15,
+            "min": 1.939463807073841e-15,
+            "max": 1.728995204985393e-14
+          },
+          "growth": {
+            "n": 96,
+            "mean": -0.00941750949995238,
+            "median": -0.007968189605729516,
+            "min": -0.06227876048823184,
+            "max": 0.03988779086751542
+          },
+          "growth_undefined_count": 0
+        }
+      },
+      "float64:soft:0.4": {
+        "n": 96,
+        "canonical_disagreement_count": 0,
+        "text_disagreement_count": 0,
+        "pair_invalid_count": 0,
+        "rerun_text_equal_count": 96,
+        "reported_rerun_identical_count": 96,
+        "text_vs_canonical_disagreement_count": 0,
+        "layouts": {
+          "single": {
+            "correct_count": 92,
+            "invalid_count": 0,
+            "margin": {
+              "n": 96,
+              "mean": 6.279206616135213,
+              "median": 6.536427047628589,
+              "min": 0.46643699315406195,
+              "max": 10.786515890025083
+            },
+            "accuracy": 0.9583333333333334,
+            "invalid_percent": 0.0
+          },
+          "batch4": {
+            "correct_count": 92,
+            "invalid_count": 0,
+            "margin": {
+              "n": 96,
+              "mean": 6.279206616135226,
+              "median": 6.536427047628594,
+              "min": 0.46643699315410103,
+              "max": 10.786515890025044
+            },
+            "accuracy": 0.9583333333333334,
+            "invalid_percent": 0.0
+          },
+          "rerun": {
+            "correct_count": 92,
+            "invalid_count": 0,
+            "margin": {
+              "n": 96,
+              "mean": 6.279206616135213,
+              "median": 6.536427047628589,
+              "min": 0.46643699315406195,
+              "max": 10.786515890025083
+            },
+            "accuracy": 0.9583333333333334,
+            "invalid_percent": 0.0
+          }
+        },
+        "canonical_disagreement_percent": 0.0,
+        "batch_minus_single_accuracy_pp": 0.0,
+        "distance": {
+          "step1": {
+            "n": 96,
+            "mean": 4.699243969942015e-15,
+            "median": 3.48983865817866e-15,
+            "min": 1.4690009367895239e-15,
+            "max": 1.8778254806772082e-14
+          },
+          "step32": {
+            "n": 96,
+            "mean": 2.251247674988955e-15,
+            "median": 1.749919140535584e-15,
+            "min": 9.441106397519014e-16,
+            "max": 7.22087030701354e-15
+          },
+          "growth": {
+            "n": 96,
+            "mean": -0.02192944350930247,
+            "median": -0.0179208666728594,
+            "min": -0.08787002920248271,
+            "max": 0.0388002426966101
+          },
+          "growth_undefined_count": 0
+        }
+      },
+      "float64:greedy:None": {
+        "n": 96,
+        "canonical_disagreement_count": 0,
+        "text_disagreement_count": 0,
+        "pair_invalid_count": 0,
+        "rerun_text_equal_count": 96,
+        "reported_rerun_identical_count": 96,
+        "text_vs_canonical_disagreement_count": 0,
+        "layouts": {
+          "single": {
+            "correct_count": 0,
+            "invalid_count": 0,
+            "margin": {
+              "n": 96,
+              "mean": 1.1687858919487708,
+              "median": 1.2159133366074926,
+              "min": 0.65939944924828,
+              "max": 1.5813613390824948
+            },
+            "accuracy": 0.0,
+            "invalid_percent": 0.0
+          },
+          "batch4": {
+            "correct_count": 0,
+            "invalid_count": 0,
+            "margin": {
+              "n": 96,
+              "mean": 1.1687858919487655,
+              "median": 1.2159133366074801,
+              "min": 0.6593994492482729,
+              "max": 1.5813613390825303
+            },
+            "accuracy": 0.0,
+            "invalid_percent": 0.0
+          },
+          "rerun": {
+            "correct_count": 0,
+            "invalid_count": 0,
+            "margin": {
+              "n": 96,
+              "mean": 1.1687858919487708,
+              "median": 1.2159133366074926,
+              "min": 0.65939944924828,
+              "max": 1.5813613390824948
+            },
+            "accuracy": 0.0,
+            "invalid_percent": 0.0
+          }
+        },
+        "canonical_disagreement_percent": 0.0,
+        "batch_minus_single_accuracy_pp": 0.0,
+        "first_token_difference_counts": {
+          "None": 96
+        },
+        "distance": null
+      }
+    }
+  },
+  "mechanism_summaries": {
+    "0.0": {
+      "all_deltas": {
+        "n": 18,
+        "canonical_disagreement_count": 0,
+        "text_disagreement_count": 1,
+        "distance": {
+          "step1": {
+            "n": 18,
+            "mean": 3.333666699999916e-05,
+            "median": 9.999999999254006e-09,
+            "min": 9.999959308995606e-13,
+            "max": 0.00010000000000000101
+          },
+          "step32": {
+            "n": 18,
+            "mean": 0.001175385539493528,
+            "median": 2.6852631806738786e-08,
+            "min": 2.882248303384787e-14,
+            "max": 0.01994766341814745
+          },
+          "growth": {
+            "n": 18,
+            "mean": 0.03771408171592924,
+            "median": 0.033011474309378244,
+            "min": -0.12687039525407393,
+            "max": 0.24040185753056742
+          },
+          "growth_undefined_count": 0
+        }
+      },
+      "1e-12": {
+        "n": 6,
+        "canonical_disagreement_count": 0,
+        "text_disagreement_count": 0,
+        "distance": {
+          "step1": {
+            "n": 6,
+            "mean": 9.999981091337539e-13,
+            "median": 9.999981392567066e-13,
+            "min": 9.999959308995606e-13,
+            "max": 9.999995585782244e-13
+          },
+          "step32": {
+            "n": 6,
+            "mean": 2.8972372222566653e-10,
+            "median": 3.115620596431836e-12,
+            "min": 2.882248303384787e-14,
+            "max": 1.724088035058315e-09
+          },
+          "growth": {
+            "n": 6,
+            "mean": 0.04696318946416025,
+            "median": 0.03629844626325246,
+            "min": -0.11440635395593363,
+            "max": 0.24040185753056742
+          },
+          "growth_undefined_count": 0
+        }
+      },
+      "1e-08": {
+        "n": 6,
+        "canonical_disagreement_count": 0,
+        "text_disagreement_count": 0,
+        "distance": {
+          "step1": {
+            "n": 6,
+            "mean": 9.999999999867286e-09,
+            "median": 9.999999999254006e-09,
+            "min": 9.99999999810296e-09,
+            "max": 1.000000000301541e-08
+          },
+          "step32": {
+            "n": 6,
+            "mean": 1.0671797551590625e-06,
+            "median": 2.6852631806738786e-08,
+            "min": 1.9585487469412508e-10,
+            "max": 6.278098676598316e-06
+          },
+          "growth": {
+            "n": 6,
+            "mean": 0.03659653568022792,
+            "median": 0.03174112320288842,
+            "min": -0.12686988458217982,
+            "max": 0.20781410845780232
+          },
+          "growth_undefined_count": 0
+        }
+      },
+      "0.0001": {
+        "n": 6,
+        "canonical_disagreement_count": 0,
+        "text_disagreement_count": 1,
+        "distance": {
+          "step1": {
+            "n": 6,
+            "mean": 9.999999999999952e-05,
+            "median": 9.999999999999957e-05,
+            "min": 9.999999999999724e-05,
+            "max": 0.00010000000000000101
+          },
+          "step32": {
+            "n": 6,
+            "mean": 0.0035250891490017024,
+            "median": 0.00025697660829903393,
+            "min": 1.958517742108441e-06,
+            "max": 0.01994766341814745
+          },
+          "growth": {
+            "n": 6,
+            "mean": 0.02958252000339955,
+            "median": 0.029962706087141938,
+            "min": -0.12687039525407393,
+            "max": 0.1708289389539753
+          },
+          "growth_undefined_count": 0
+        }
+      }
+    },
+    "0.2": {
+      "all_deltas": {
+        "n": 18,
+        "canonical_disagreement_count": 0,
+        "text_disagreement_count": 0,
+        "distance": {
+          "step1": {
+            "n": 18,
+            "mean": 3.333666700000031e-05,
+            "median": 9.999999999979015e-09,
+            "min": 9.999988285803438e-13,
+            "max": 0.0001000000000000026
+          },
+          "step32": {
+            "n": 18,
+            "mean": 5.156500207299269e-07,
+            "median": 1.2555668466632953e-10,
+            "min": 1.001927860205558e-14,
+            "max": 2.470800263340503e-06
+          },
+          "growth": {
+            "n": 18,
+            "mean": -0.13619157874986745,
+            "median": -0.14121655361463398,
+            "min": -0.14849181446609633,
+            "max": -0.11937509982475608
+          },
+          "growth_undefined_count": 0
+        }
+      },
+      "1e-12": {
+        "n": 6,
+        "canonical_disagreement_count": 0,
+        "text_disagreement_count": 0,
+        "distance": {
+          "step1": {
+            "n": 6,
+            "mean": 1.0000001927835116e-12,
+            "median": 9.99999750079564e-13,
+            "min": 9.999988285803438e-13,
+            "max": 1.0000020667310431e-12
+          },
+          "step32": {
+            "n": 6,
+            "mean": 1.501451916445262e-14,
+            "median": 1.4287923172500145e-14,
+            "min": 1.001927860205558e-14,
+            "max": 2.268823084050137e-14
+          },
+          "growth": {
+            "n": 6,
+            "mean": -0.13668213086128925,
+            "median": -0.13738235080712735,
+            "min": -0.14849181446609633,
+            "max": -0.12212605750645587
+          },
+          "growth_undefined_count": 0
+        }
+      },
+      "1e-08": {
+        "n": 6,
+        "canonical_disagreement_count": 0,
+        "text_disagreement_count": 0,
+        "distance": {
+          "step1": {
+            "n": 6,
+            "mean": 1.0000000000281382e-08,
+            "median": 9.999999999979015e-09,
+            "min": 9.999999997442775e-09,
+            "max": 1.0000000003362574e-08
+          },
+          "step32": {
+            "n": 6,
+            "mean": 1.5467008912190912e-10,
+            "median": 1.2555668466632953e-10,
+            "min": 1.1226070088852e-10,
+            "max": 2.470667460637706e-10
+          },
+          "growth": {
+            "n": 6,
+            "mean": -0.13594698376834988,
+            "median": -0.14121722852912766,
+            "min": -0.14482311351782742,
+            "max": -0.1193768337164635
+          },
+          "growth_undefined_count": 0
+        }
+      },
+      "0.0001": {
+        "n": 6,
+        "canonical_disagreement_count": 0,
+        "text_disagreement_count": 0,
+        "distance": {
+          "step1": {
+            "n": 6,
+            "mean": 0.00010000000000000044,
+            "median": 0.0001000000000000011,
+            "min": 9.999999999999701e-05,
+            "max": 0.0001000000000000026
+          },
+          "step32": {
+            "n": 6,
+            "mean": 1.5467953770861397e-06,
+            "median": 1.2557071540458122e-06,
+            "min": 1.1225061201256224e-06,
+            "max": 2.470800263340503e-06
+          },
+          "growth": {
+            "n": 6,
+            "mean": -0.13594562161996326,
+            "median": -0.14121366253749354,
+            "min": -0.1448260126819668,
+            "max": -0.11937509982475608
+          },
+          "growth_undefined_count": 0
+        }
+      }
+    },
+    "0.4": {
+      "all_deltas": {
+        "n": 18,
+        "canonical_disagreement_count": 0,
+        "text_disagreement_count": 0,
+        "distance": {
+          "step1": {
+            "n": 18,
+            "mean": 3.333666699999994e-05,
+            "median": 9.999999999076643e-09,
+            "min": 9.99997995993477e-13,
+            "max": 0.00010000000000000318
+          },
+          "step32": {
+            "n": 18,
+            "mean": 1.4170893908371015e-06,
+            "median": 4.263496094298976e-10,
+            "min": 2.3568769336913214e-14,
+            "max": 6.983829693175576e-06
+          },
+          "growth": {
+            "n": 18,
+            "mean": -0.10438230464427506,
+            "median": -0.10230577703895946,
+            "min": -0.12089785263635447,
+            "max": -0.08584962827750224
+          },
+          "growth_undefined_count": 0
+        }
+      },
+      "1e-12": {
+        "n": 6,
+        "canonical_disagreement_count": 0,
+        "text_disagreement_count": 0,
+        "distance": {
+          "step1": {
+            "n": 6,
+            "mean": 1.000000227420186e-12,
+            "median": 1.000000943548647e-12,
+            "min": 9.99997995993477e-13,
+            "max": 1.0000015940951872e-12
+          },
+          "step32": {
+            "n": 6,
+            "mean": 4.2071510675748333e-14,
+            "median": 4.2824328952917623e-14,
+            "min": 2.3568769336913214e-14,
+            "max": 6.47480222948837e-14
+          },
+          "growth": {
+            "n": 6,
+            "mean": -0.10453732522441193,
+            "median": -0.10238902274490938,
+            "min": -0.12089785263635447,
+            "max": -0.08829850698939475
+          },
+          "growth_undefined_count": 0
+        }
+      },
+      "1e-08": {
+        "n": 6,
+        "canonical_disagreement_count": 0,
+        "text_disagreement_count": 0,
+        "distance": {
+          "step1": {
+            "n": 6,
+            "mean": 9.999999999025391e-09,
+            "median": 9.999999999076643e-09,
+            "min": 9.999999996880624e-09,
+            "max": 1.000000000104261e-08
+          },
+          "step32": {
+            "n": 6,
+            "mean": 4.250894250594287e-10,
+            "median": 4.263496094298976e-10,
+            "min": 2.376070046558451e-10,
+            "max": 6.985466030565257e-10
+          },
+          "growth": {
+            "n": 6,
+            "mean": -0.10430522275637251,
+            "median": -0.10231041623143439,
+            "min": -0.1206362033556405,
+            "max": -0.08584962827750224
+          },
+          "growth_undefined_count": 0
+        }
+      },
+      "0.0001": {
+        "n": 6,
+        "canonical_disagreement_count": 0,
+        "text_disagreement_count": 0,
+        "distance": {
+          "step1": {
+            "n": 6,
+            "mean": 0.00010000000000000057,
+            "median": 0.00010000000000000036,
+            "min": 9.99999999999982e-05,
+            "max": 0.00010000000000000318
+          },
+          "step32": {
+            "n": 6,
+            "mean": 4.250843041014733e-06,
+            "median": 4.264098429908106e-06,
+            "min": 2.3765471831299494e-06,
+            "max": 6.983829693175576e-06
+          },
+          "growth": {
+            "n": 6,
+            "mean": -0.10430436595204073,
+            "median": -0.1023051378701216,
+            "min": -0.12062972629263378,
+            "max": -0.08585718558168576
+          },
+          "growth_undefined_count": 0
+        }
+      }
+    }
+  },
+  "mechanism_text_disagreement_rows": [
+    {
+      "input_line": 862,
+      "i": 3,
+      "temperature": 0.0,
+      "delta": 0.0001,
+      "base_canonical": 63,
+      "perturbed_canonical": 63,
+      "canonical_disagreement": false,
+      "text_disagreement": true,
+      "base_text": "63<|im_end|>\n<|endoftext|>Human: What",
+      "text": "63<|im_end|>\n<|endoftext|>Human: Write",
+      "distance": [
+        0.00010000000000000015,
+        2.8770421553510666e-10,
+        1.9485705682985565e-07,
+        8.871828891712226e-10,
+        1.4391659458571632e-14,
+        3.9380809325075555e-07,
+        3.546938475422033e-06,
+        2.9685066654631004e-06,
+        4.246566051459217e-06,
+        1.682297691361415e-05,
+        3.0748339925957405e-06,
+        1.1753945965203936e-07,
+        7.632105415322343e-07,
+        4.512086526020421e-07,
+        7.538525858101292e-06,
+        3.1747690650741166e-05,
+        0.00039909430015873544,
+        0.00016519102250849745,
+        9.2350775693845e-06,
+        0.002355359296209865,
+        0.0005345149032919899,
+        1.2950850147740052e-08,
+        0.0047069550966741605,
+        0.07568700079970862,
+        0.2779472834466669,
+        0.3550345923606993,
+        0.10207703526598179,
+        0.0016339216699711413,
+        0.01928602752643807,
+        0.00013686005907112363,
+        0.0006830881499858084,
+        0.0002128408064416085
+      ],
+      "growth": {
+        "value": 0.024366913312577433,
+        "reason": null
+      }
+    }
+  ],
+  "cohort": {
+    "dev": {
+      "n": 8,
+      "carry": 4,
+      "unique_ordered": 8,
+      "unique_unordered": 8,
+      "ordered_duplicates": [],
+      "unordered_duplicates": []
+    },
+    "heldout": {
+      "n": 96,
+      "carry": 48,
+      "unique_ordered": 95,
+      "unique_unordered": 94,
+      "ordered_duplicates": [
+        {
+          "operands": [
+            77,
+            96
+          ],
+          "indices": [
+            23,
+            67
+          ]
+        }
+      ],
+      "unordered_duplicates": [
+        {
+          "operands": [
+            28,
+            93
+          ],
+          "indices": [
+            14,
+            24
+          ]
+        },
+        {
+          "operands": [
+            77,
+            96
+          ],
+          "indices": [
+            23,
+            67
+          ]
+        }
+      ]
+    },
+    "distractors": {
+      "n": 3,
+      "carry": 1,
+      "unique_ordered": 3,
+      "unique_unordered": 3,
+      "ordered_duplicates": [],
+      "unordered_duplicates": []
+    },
+    "cross_set_overlaps": [
+      {
+        "left": "dev",
+        "left_index": 4,
+        "right": "heldout",
+        "right_index": 50,
+        "ordered_equal": false
+      },
+      {
+        "left": "distractors",
+        "left_index": 0,
+        "right": "heldout",
+        "right_index": 22,
+        "ordered_equal": true
+      }
+    ]
+  },
+  "conventions": {
+    "rng": "PCG64(0) independently reset for each endpoint bootstrap/sign-flip",
+    "quantile": "linear",
+    "signflip": "inclusive absolute half-unit integer sums; plus-one and raw p retained",
+    "growth": "(log(d32)-log(d1))/31; zero endpoint undefined",
+    "identity": "trajectory equality is a reported source flag, not independent raw trajectory/token proof",
+    "mechanism_pooling": "18 dependent perturbation observations per temperature; six problem units"
+  },
+  "scope_limits": [
+    "Own parsing/statistics of complete saved records, no producer/model execution or new generation.",
+    "Canonical integer disagreement is primary; saved answers_differ is raw-text disagreement.",
+    "All96 frozen problem indices retained, including source-known duplicates/overlaps and one previously smoke-tested held-out instance of unidentified index.",
+    "Eight development instances are not held-out endpoints; mechanism contains six problem units with three dependent perturbations per temperature.",
+    "Separate seed0 PCG64 bootstrap/sign-flip; linear quantiles; plus-one and raw p retained. Producer inline RNG code unavailable.",
+    "Original full trajectory and answer token IDs unavailable; exact trajectory and hard-token flags remain reviewed-source claims.",
+    "BF16 soft distances are on float32 expected embeddings before bf16 input cast; no post-cast state-distance reconstruction.",
+    "Forced32 greedy tokens plus cue plus8 answer tokens is the comparator, not early-stop greedy accuracy.",
+    "Growing context differs from fixed one-slot autonomous map; finite operational effect does not establish chaos attribution.",
+    "Producer numerical summary exposed before replay; no claim of blinded validation or independently reconstructed historical remote model bytes."
+  ],
+  "producer_comparisons": [
+    {
+      "name": "primary delta_pp",
+      "pointer": "/endpoints/bf16:primary_temperatures_mean/delta_pp",
+      "reported": 32.3,
+      "source": "repro-task-log-card-and-results.md",
+      "source_lines": "13",
+      "unit": "pp",
+      "precision": "as printed in original exposed summary; not an expected exact value",
+      "calculated": 32.291666666666664,
+      "signed_difference": -0.00833333333333286,
+      "exactly_equal_to_reported_number": false,
+      "disposition": "compared",
+      "comparison_role": "disclosed rounded producer claim, never an admission gate"
+    },
+    {
+      "name": "primary ci95_pp/0",
+      "pointer": "/endpoints/bf16:primary_temperatures_mean/ci95_pp/0",
+      "reported": 26.6,
+      "source": "repro-task-log-card-and-results.md",
+      "source_lines": "13",
+      "unit": "pp",
+      "precision": "as printed in original exposed summary; not an expected exact value",
+      "calculated": 26.562500000000004,
+      "signed_difference": -0.03749999999999787,
+      "exactly_equal_to_reported_number": false,
+      "disposition": "compared",
+      "comparison_role": "disclosed rounded producer claim, never an admission gate"
+    },
+    {
+      "name": "primary ci95_pp/1",
+      "pointer": "/endpoints/bf16:primary_temperatures_mean/ci95_pp/1",
+      "reported": 38.0,
+      "source": "repro-task-log-card-and-results.md",
+      "source_lines": "13",
+      "unit": "pp",
+      "precision": "as printed in original exposed summary; not an expected exact value",
+      "calculated": 38.020833333333336,
+      "signed_difference": 0.020833333333335702,
+      "exactly_equal_to_reported_number": false,
+      "disposition": "compared",
+      "comparison_role": "disclosed rounded producer claim, never an admission gate"
+    },
+    {
+      "name": "primary signflip_p_plus_one",
+      "pointer": "/endpoints/bf16:primary_temperatures_mean/signflip_p_plus_one",
+      "reported": 0.0001,
+      "source": "repro-task-log-card-and-results.md",
+      "source_lines": "13",
+      "unit": "p",
+      "precision": "as printed in original exposed summary; not an expected exact value",
+      "calculated": 9.999000099990002e-05,
+      "signed_difference": -9.999000099989363e-09,
+      "exactly_equal_to_reported_number": false,
+      "disposition": "compared",
+      "comparison_role": "disclosed rounded producer claim, never an admission gate"
+    },
+    {
+      "name": "primary signflip_p_raw",
+      "pointer": "/endpoints/bf16:primary_temperatures_mean/signflip_p_raw",
+      "reported": 0.0001,
+      "source": "repro-task-log-card-and-results.md",
+      "source_lines": "13",
+      "unit": "p",
+      "precision": "as printed in original exposed summary; not an expected exact value",
+      "calculated": 0.0,
+      "signed_difference": -0.0001,
+      "exactly_equal_to_reported_number": false,
+      "disposition": "compared",
+      "comparison_role": "disclosed rounded producer claim, never an admission gate"
+    },
+    {
+      "name": "bf16:soft:0.0 canonical_disagreement_percent",
+      "pointer": "/conditions/heldout/bf16:soft:0.0/canonical_disagreement_percent",
+      "reported": 56.2,
+      "source": "repro-task-log-card-and-results.md",
+      "source_lines": "18",
+      "unit": "percent",
+      "precision": "as printed in original exposed summary; not an expected exact value",
+      "calculated": 56.25,
+      "signed_difference": 0.04999999999999716,
+      "exactly_equal_to_reported_number": false,
+      "disposition": "compared",
+      "comparison_role": "disclosed rounded producer claim, never an admission gate"
+    },
+    {
+      "name": "bf16:soft:0.0 layouts/single/accuracy",
+      "pointer": "/conditions/heldout/bf16:soft:0.0/layouts/single/accuracy",
+      "reported": 0.24,
+      "source": "repro-task-log-card-and-results.md",
+      "source_lines": "18",
+      "unit": "fraction",
+      "precision": "as printed in original exposed summary; not an expected exact value",
+      "calculated": 0.23958333333333334,
+      "signed_difference": -0.00041666666666664853,
+      "exactly_equal_to_reported_number": false,
+      "disposition": "compared",
+      "comparison_role": "disclosed rounded producer claim, never an admission gate"
+    },
+    {
+      "name": "bf16:soft:0.0 layouts/batch4/accuracy",
+      "pointer": "/conditions/heldout/bf16:soft:0.0/layouts/batch4/accuracy",
+      "reported": 0.229,
+      "source": "repro-task-log-card-and-results.md",
+      "source_lines": "18",
+      "unit": "fraction",
+      "precision": "as printed in original exposed summary; not an expected exact value",
+      "calculated": 0.22916666666666666,
+      "signed_difference": 0.0001666666666666483,
+      "exactly_equal_to_reported_number": false,
+      "disposition": "compared",
+      "comparison_role": "disclosed rounded producer claim, never an admission gate"
+    },
+    {
+      "name": "bf16:soft:0.0 reported identical reruns",
+      "pointer": "/conditions/heldout/bf16:soft:0.0/reported_rerun_identical_count",
+      "reported": 96,
+      "source": "repro-task-log-card-and-results.md",
+      "source_lines": "27",
+      "unit": "instances",
+      "precision": "as printed in original exposed summary; not an expected exact value",
+      "calculated": 96,
+      "signed_difference": 0,
+      "exactly_equal_to_reported_number": true,
+      "disposition": "compared",
+      "comparison_role": "disclosed rounded producer claim, never an admission gate"
+    },
+    {
+      "name": "bf16:soft:0.0 distance step1 median",
+      "pointer": "/conditions/heldout/bf16:soft:0.0/distance/by_step/0/median",
+      "reported": 6.1e-07,
+      "source": "repro-task-log-card-and-results.md",
+      "source_lines": "18",
+      "unit": "relative distance",
+      "precision": "as printed in original exposed summary; not an expected exact value",
+      "calculated": 6.134470740212301e-07,
+      "signed_difference": 3.447074021230161e-09,
+      "exactly_equal_to_reported_number": false,
+      "disposition": "compared",
+      "comparison_role": "disclosed rounded producer claim, never an admission gate"
+    },
+    {
+      "name": "bf16:soft:0.0 distance step32 median",
+      "pointer": "/conditions/heldout/bf16:soft:0.0/distance/by_step/31/median",
+      "reported": 0.22,
+      "source": "repro-task-log-card-and-results.md",
+      "source_lines": "18",
+      "unit": "relative distance",
+      "precision": "as printed in original exposed summary; not an expected exact value",
+      "calculated": 0.2237169631880111,
+      "signed_difference": 0.0037169631880110965,
+      "exactly_equal_to_reported_number": false,
+      "disposition": "compared",
+      "comparison_role": "disclosed rounded producer claim, never an admission gate"
+    },
+    {
+      "name": "bf16:soft:0.2 canonical_disagreement_percent",
+      "pointer": "/conditions/heldout/bf16:soft:0.2/canonical_disagreement_percent",
+      "reported": 8.3,
+      "source": "repro-task-log-card-and-results.md",
+      "source_lines": "19",
+      "unit": "percent",
+      "precision": "as printed in original exposed summary; not an expected exact value",
+      "calculated": 8.333333333333334,
+      "signed_difference": 0.033333333333333215,
+      "exactly_equal_to_reported_number": false,
+      "disposition": "compared",
+      "comparison_role": "disclosed rounded producer claim, never an admission gate"
+    },
+    {
+      "name": "bf16:soft:0.2 layouts/single/accuracy",
+      "pointer": "/conditions/heldout/bf16:soft:0.2/layouts/single/accuracy",
+      "reported": 0.5,
+      "source": "repro-task-log-card-and-results.md",
+      "source_lines": "19",
+      "unit": "fraction",
+      "precision": "as printed in original exposed summary; not an expected exact value",
+      "calculated": 0.5,
+      "signed_difference": 0.0,
+      "exactly_equal_to_reported_number": true,
+      "disposition": "compared",
+      "comparison_role": "disclosed rounded producer claim, never an admission gate"
+    },
+    {
+      "name": "bf16:soft:0.2 layouts/batch4/accuracy",
+      "pointer": "/conditions/heldout/bf16:soft:0.2/layouts/batch4/accuracy",
+      "reported": 0.531,
+      "source": "repro-task-log-card-and-results.md",
+      "source_lines": "19",
+      "unit": "fraction",
+      "precision": "as printed in original exposed summary; not an expected exact value",
+      "calculated": 0.53125,
+      "signed_difference": 0.00024999999999997247,
+      "exactly_equal_to_reported_number": false,
+      "disposition": "compared",
+      "comparison_role": "disclosed rounded producer claim, never an admission gate"
+    },
+    {
+      "name": "bf16:soft:0.2 reported identical reruns",
+      "pointer": "/conditions/heldout/bf16:soft:0.2/reported_rerun_identical_count",
+      "reported": 96,
+      "source": "repro-task-log-card-and-results.md",
+      "source_lines": "27",
+      "unit": "instances",
+      "precision": "as printed in original exposed summary; not an expected exact value",
+      "calculated": 96,
+      "signed_difference": 0,
+      "exactly_equal_to_reported_number": true,
+      "disposition": "compared",
+      "comparison_role": "disclosed rounded producer claim, never an admission gate"
+    },
+    {
+      "name": "bf16:soft:0.2 distance step1 median",
+      "pointer": "/conditions/heldout/bf16:soft:0.2/distance/by_step/0/median",
+      "reported": 2.5e-06,
+      "source": "repro-task-log-card-and-results.md",
+      "source_lines": "19",
+      "unit": "relative distance",
+      "precision": "as printed in original exposed summary; not an expected exact value",
+      "calculated": 2.4876866452628344e-06,
+      "signed_difference": -1.2313354737165812e-08,
+      "exactly_equal_to_reported_number": false,
+      "disposition": "compared",
+      "comparison_role": "disclosed rounded producer claim, never an admission gate"
+    },
+    {
+      "name": "bf16:soft:0.2 distance step32 median",
+      "pointer": "/conditions/heldout/bf16:soft:0.2/distance/by_step/31/median",
+      "reported": 0.013,
+      "source": "repro-task-log-card-and-results.md",
+      "source_lines": "19",
+      "unit": "relative distance",
+      "precision": "as printed in original exposed summary; not an expected exact value",
+      "calculated": 0.012577752819178948,
+      "signed_difference": -0.00042224718082105143,
+      "exactly_equal_to_reported_number": false,
+      "disposition": "compared",
+      "comparison_role": "disclosed rounded producer claim, never an admission gate"
+    },
+    {
+      "name": "bf16:soft:0.4 canonical_disagreement_percent",
+      "pointer": "/conditions/heldout/bf16:soft:0.4/canonical_disagreement_percent",
+      "reported": 0.0,
+      "source": "repro-task-log-card-and-results.md",
+      "source_lines": "20",
+      "unit": "percent",
+      "precision": "as printed in original exposed summary; not an expected exact value",
+      "calculated": 0.0,
+      "signed_difference": 0.0,
+      "exactly_equal_to_reported_number": true,
+      "disposition": "compared",
+      "comparison_role": "disclosed rounded producer claim, never an admission gate"
+    },
+    {
+      "name": "bf16:soft:0.4 layouts/single/accuracy",
+      "pointer": "/conditions/heldout/bf16:soft:0.4/layouts/single/accuracy",
+      "reported": 0.938,
+      "source": "repro-task-log-card-and-results.md",
+      "source_lines": "20",
+      "unit": "fraction",
+      "precision": "as printed in original exposed summary; not an expected exact value",
+      "calculated": 0.9375,
+      "signed_difference": -0.0004999999999999449,
+      "exactly_equal_to_reported_number": false,
+      "disposition": "compared",
+      "comparison_role": "disclosed rounded producer claim, never an admission gate"
+    },
+    {
+      "name": "bf16:soft:0.4 layouts/batch4/accuracy",
+      "pointer": "/conditions/heldout/bf16:soft:0.4/layouts/batch4/accuracy",
+      "reported": 0.938,
+      "source": "repro-task-log-card-and-results.md",
+      "source_lines": "20",
+      "unit": "fraction",
+      "precision": "as printed in original exposed summary; not an expected exact value",
+      "calculated": 0.9375,
+      "signed_difference": -0.0004999999999999449,
+      "exactly_equal_to_reported_number": false,
+      "disposition": "compared",
+      "comparison_role": "disclosed rounded producer claim, never an admission gate"
+    },
+    {
+      "name": "bf16:soft:0.4 reported identical reruns",
+      "pointer": "/conditions/heldout/bf16:soft:0.4/reported_rerun_identical_count",
+      "reported": 96,
+      "source": "repro-task-log-card-and-results.md",
+      "source_lines": "27",
+      "unit": "instances",
+      "precision": "as printed in original exposed summary; not an expected exact value",
+      "calculated": 96,
+      "signed_difference": 0,
+      "exactly_equal_to_reported_number": true,
+      "disposition": "compared",
+      "comparison_role": "disclosed rounded producer claim, never an admission gate"
+    },
+    {
+      "name": "bf16:soft:0.4 distance step1 median",
+      "pointer": "/conditions/heldout/bf16:soft:0.4/distance/by_step/0/median",
+      "reported": 7.9e-07,
+      "source": "repro-task-log-card-and-results.md",
+      "source_lines": "20",
+      "unit": "relative distance",
+      "precision": "as printed in original exposed summary; not an expected exact value",
+      "calculated": 7.909331308336545e-07,
+      "signed_difference": 9.33130833654559e-10,
+      "exactly_equal_to_reported_number": false,
+      "disposition": "compared",
+      "comparison_role": "disclosed rounded producer claim, never an admission gate"
+    },
+    {
+      "name": "bf16:soft:0.4 distance step32 median",
+      "pointer": "/conditions/heldout/bf16:soft:0.4/distance/by_step/31/median",
+      "reported": 0.004,
+      "source": "repro-task-log-card-and-results.md",
+      "source_lines": "20",
+      "unit": "relative distance",
+      "precision": "as printed in original exposed summary; not an expected exact value",
+      "calculated": 0.003980488623475259,
+      "signed_difference": -1.9511376524740907e-05,
+      "exactly_equal_to_reported_number": false,
+      "disposition": "compared",
+      "comparison_role": "disclosed rounded producer claim, never an admission gate"
+    },
+    {
+      "name": "bf16:greedy:None canonical_disagreement_percent",
+      "pointer": "/conditions/heldout/bf16:greedy:None/canonical_disagreement_percent",
+      "reported": 0.0,
+      "source": "repro-task-log-card-and-results.md",
+      "source_lines": "21",
+      "unit": "percent",
+      "precision": "as printed in original exposed summary; not an expected exact value",
+      "calculated": 0.0,
+      "signed_difference": 0.0,
+      "exactly_equal_to_reported_number": true,
+      "disposition": "compared",
+      "comparison_role": "disclosed rounded producer claim, never an admission gate"
+    },
+    {
+      "name": "bf16:greedy:None layouts/single/accuracy",
+      "pointer": "/conditions/heldout/bf16:greedy:None/layouts/single/accuracy",
+      "reported": 0.0,
+      "source": "repro-task-log-card-and-results.md",
+      "source_lines": "21",
+      "unit": "fraction",
+      "precision": "as printed in original exposed summary; not an expected exact value",
+      "calculated": 0.0,
+      "signed_difference": 0.0,
+      "exactly_equal_to_reported_number": true,
+      "disposition": "compared",
+      "comparison_role": "disclosed rounded producer claim, never an admission gate"
+    },
+    {
+      "name": "bf16:greedy:None layouts/batch4/accuracy",
+      "pointer": "/conditions/heldout/bf16:greedy:None/layouts/batch4/accuracy",
+      "reported": 0.0,
+      "source": "repro-task-log-card-and-results.md",
+      "source_lines": "21",
+      "unit": "fraction",
+      "precision": "as printed in original exposed summary; not an expected exact value",
+      "calculated": 0.0,
+      "signed_difference": 0.0,
+      "exactly_equal_to_reported_number": true,
+      "disposition": "compared",
+      "comparison_role": "disclosed rounded producer claim, never an admission gate"
+    },
+    {
+      "name": "bf16:greedy:None reported identical reruns",
+      "pointer": "/conditions/heldout/bf16:greedy:None/reported_rerun_identical_count",
+      "reported": 96,
+      "source": "repro-task-log-card-and-results.md",
+      "source_lines": "27",
+      "unit": "instances",
+      "precision": "as printed in original exposed summary; not an expected exact value",
+      "calculated": 96,
+      "signed_difference": 0,
+      "exactly_equal_to_reported_number": true,
+      "disposition": "compared",
+      "comparison_role": "disclosed rounded producer claim, never an admission gate"
+    },
+    {
+      "name": "float64:soft:0.0 canonical_disagreement_percent",
+      "pointer": "/conditions/heldout/float64:soft:0.0/canonical_disagreement_percent",
+      "reported": 0.0,
+      "source": "repro-task-log-card-and-results.md",
+      "source_lines": "22",
+      "unit": "percent",
+      "precision": "as printed in original exposed summary; not an expected exact value",
+      "calculated": 0.0,
+      "signed_difference": 0.0,
+      "exactly_equal_to_reported_number": true,
+      "disposition": "compared",
+      "comparison_role": "disclosed rounded producer claim, never an admission gate"
+    },
+    {
+      "name": "float64:soft:0.0 layouts/single/accuracy",
+      "pointer": "/conditions/heldout/float64:soft:0.0/layouts/single/accuracy",
+      "reported": 0.312,
+      "source": "repro-task-log-card-and-results.md",
+      "source_lines": "22",
+      "unit": "fraction",
+      "precision": "as printed in original exposed summary; not an expected exact value",
+      "calculated": 0.3125,
+      "signed_difference": 0.0005000000000000004,
+      "exactly_equal_to_reported_number": false,
+      "disposition": "compared",
+      "comparison_role": "disclosed rounded producer claim, never an admission gate"
+    },
+    {
+      "name": "float64:soft:0.0 layouts/batch4/accuracy",
+      "pointer": "/conditions/heldout/float64:soft:0.0/layouts/batch4/accuracy",
+      "reported": 0.312,
+      "source": "repro-task-log-card-and-results.md",
+      "source_lines": "22",
+      "unit": "fraction",
+      "precision": "as printed in original exposed summary; not an expected exact value",
+      "calculated": 0.3125,
+      "signed_difference": 0.0005000000000000004,
+      "exactly_equal_to_reported_number": false,
+      "disposition": "compared",
+      "comparison_role": "disclosed rounded producer claim, never an admission gate"
+    },
+    {
+      "name": "float64:soft:0.0 reported identical reruns",
+      "pointer": "/conditions/heldout/float64:soft:0.0/reported_rerun_identical_count",
+      "reported": 96,
+      "source": "repro-task-log-card-and-results.md",
+      "source_lines": "27",
+      "unit": "instances",
+      "precision": "as printed in original exposed summary; not an expected exact value",
+      "calculated": 96,
+      "signed_difference": 0,
+      "exactly_equal_to_reported_number": true,
+      "disposition": "compared",
+      "comparison_role": "disclosed rounded producer claim, never an admission gate"
+    },
+    {
+      "name": "float64:soft:0.0 distance step1 median",
+      "pointer": "/conditions/heldout/float64:soft:0.0/distance/by_step/0/median",
+      "reported": 4.7e-15,
+      "source": "repro-task-log-card-and-results.md",
+      "source_lines": "22",
+      "unit": "relative distance",
+      "precision": "as printed in original exposed summary; not an expected exact value",
+      "calculated": 4.746268131185358e-15,
+      "signed_difference": 4.626813118535837e-17,
+      "exactly_equal_to_reported_number": false,
+      "disposition": "compared",
+      "comparison_role": "disclosed rounded producer claim, never an admission gate"
+    },
+    {
+      "name": "float64:soft:0.0 distance step32 median",
+      "pointer": "/conditions/heldout/float64:soft:0.0/distance/by_step/31/median",
+      "reported": 1.3e-13,
+      "source": "repro-task-log-card-and-results.md",
+      "source_lines": "22",
+      "unit": "relative distance",
+      "precision": "as printed in original exposed summary; not an expected exact value",
+      "calculated": 1.3061946196516364e-13,
+      "signed_difference": 6.194619651636347e-16,
+      "exactly_equal_to_reported_number": false,
+      "disposition": "compared",
+      "comparison_role": "disclosed rounded producer claim, never an admission gate"
+    },
+    {
+      "name": "float64:soft:0.2 canonical_disagreement_percent",
+      "pointer": "/conditions/heldout/float64:soft:0.2/canonical_disagreement_percent",
+      "reported": 0.0,
+      "source": "repro-task-log-card-and-results.md",
+      "source_lines": "23",
+      "unit": "percent",
+      "precision": "as printed in original exposed summary; not an expected exact value",
+      "calculated": 0.0,
+      "signed_difference": 0.0,
+      "exactly_equal_to_reported_number": true,
+      "disposition": "compared",
+      "comparison_role": "disclosed rounded producer claim, never an admission gate"
+    },
+    {
+      "name": "float64:soft:0.2 layouts/single/accuracy",
+      "pointer": "/conditions/heldout/float64:soft:0.2/layouts/single/accuracy",
+      "reported": 0.51,
+      "source": "repro-task-log-card-and-results.md",
+      "source_lines": "23",
+      "unit": "fraction",
+      "precision": "as printed in original exposed summary; not an expected exact value",
+      "calculated": 0.5104166666666666,
+      "signed_difference": 0.0004166666666666208,
+      "exactly_equal_to_reported_number": false,
+      "disposition": "compared",
+      "comparison_role": "disclosed rounded producer claim, never an admission gate"
+    },
+    {
+      "name": "float64:soft:0.2 layouts/batch4/accuracy",
+      "pointer": "/conditions/heldout/float64:soft:0.2/layouts/batch4/accuracy",
+      "reported": 0.51,
+      "source": "repro-task-log-card-and-results.md",
+      "source_lines": "23",
+      "unit": "fraction",
+      "precision": "as printed in original exposed summary; not an expected exact value",
+      "calculated": 0.5104166666666666,
+      "signed_difference": 0.0004166666666666208,
+      "exactly_equal_to_reported_number": false,
+      "disposition": "compared",
+      "comparison_role": "disclosed rounded producer claim, never an admission gate"
+    },
+    {
+      "name": "float64:soft:0.2 reported identical reruns",
+      "pointer": "/conditions/heldout/float64:soft:0.2/reported_rerun_identical_count",
+      "reported": 96,
+      "source": "repro-task-log-card-and-results.md",
+      "source_lines": "27",
+      "unit": "instances",
+      "precision": "as printed in original exposed summary; not an expected exact value",
+      "calculated": 96,
+      "signed_difference": 0,
+      "exactly_equal_to_reported_number": true,
+      "disposition": "compared",
+      "comparison_role": "disclosed rounded producer claim, never an admission gate"
+    },
+    {
+      "name": "float64:soft:0.2 distance step1 median",
+      "pointer": "/conditions/heldout/float64:soft:0.2/distance/by_step/0/median",
+      "reported": 6.4e-15,
+      "source": "repro-task-log-card-and-results.md",
+      "source_lines": "23",
+      "unit": "relative distance",
+      "precision": "as printed in original exposed summary; not an expected exact value",
+      "calculated": 6.3658721522963945e-15,
+      "signed_difference": -3.412784770360541e-17,
+      "exactly_equal_to_reported_number": false,
+      "disposition": "compared",
+      "comparison_role": "disclosed rounded producer claim, never an admission gate"
+    },
+    {
+      "name": "float64:soft:0.2 distance step32 median",
+      "pointer": "/conditions/heldout/float64:soft:0.2/distance/by_step/31/median",
+      "reported": 5e-15,
+      "source": "repro-task-log-card-and-results.md",
+      "source_lines": "23",
+      "unit": "relative distance",
+      "precision": "as printed in original exposed summary; not an expected exact value",
+      "calculated": 4.9843273299608914e-15,
+      "signed_difference": -1.5672670039108597e-17,
+      "exactly_equal_to_reported_number": false,
+      "disposition": "compared",
+      "comparison_role": "disclosed rounded producer claim, never an admission gate"
+    },
+    {
+      "name": "float64:soft:0.4 canonical_disagreement_percent",
+      "pointer": "/conditions/heldout/float64:soft:0.4/canonical_disagreement_percent",
+      "reported": 0.0,
+      "source": "repro-task-log-card-and-results.md",
+      "source_lines": "24",
+      "unit": "percent",
+      "precision": "as printed in original exposed summary; not an expected exact value",
+      "calculated": 0.0,
+      "signed_difference": 0.0,
+      "exactly_equal_to_reported_number": true,
+      "disposition": "compared",
+      "comparison_role": "disclosed rounded producer claim, never an admission gate"
+    },
+    {
+      "name": "float64:soft:0.4 layouts/single/accuracy",
+      "pointer": "/conditions/heldout/float64:soft:0.4/layouts/single/accuracy",
+      "reported": 0.958,
+      "source": "repro-task-log-card-and-results.md",
+      "source_lines": "24",
+      "unit": "fraction",
+      "precision": "as printed in original exposed summary; not an expected exact value",
+      "calculated": 0.9583333333333334,
+      "signed_difference": 0.00033333333333340764,
+      "exactly_equal_to_reported_number": false,
+      "disposition": "compared",
+      "comparison_role": "disclosed rounded producer claim, never an admission gate"
+    },
+    {
+      "name": "float64:soft:0.4 layouts/batch4/accuracy",
+      "pointer": "/conditions/heldout/float64:soft:0.4/layouts/batch4/accuracy",
+      "reported": 0.958,
+      "source": "repro-task-log-card-and-results.md",
+      "source_lines": "24",
+      "unit": "fraction",
+      "precision": "as printed in original exposed summary; not an expected exact value",
+      "calculated": 0.9583333333333334,
+      "signed_difference": 0.00033333333333340764,
+      "exactly_equal_to_reported_number": false,
+      "disposition": "compared",
+      "comparison_role": "disclosed rounded producer claim, never an admission gate"
+    },
+    {
+      "name": "float64:soft:0.4 reported identical reruns",
+      "pointer": "/conditions/heldout/float64:soft:0.4/reported_rerun_identical_count",
+      "reported": 96,
+      "source": "repro-task-log-card-and-results.md",
+      "source_lines": "27",
+      "unit": "instances",
+      "precision": "as printed in original exposed summary; not an expected exact value",
+      "calculated": 96,
+      "signed_difference": 0,
+      "exactly_equal_to_reported_number": true,
+      "disposition": "compared",
+      "comparison_role": "disclosed rounded producer claim, never an admission gate"
+    },
+    {
+      "name": "float64:soft:0.4 distance step1 median",
+      "pointer": "/conditions/heldout/float64:soft:0.4/distance/by_step/0/median",
+      "reported": 3.5e-15,
+      "source": "repro-task-log-card-and-results.md",
+      "source_lines": "24",
+      "unit": "relative distance",
+      "precision": "as printed in original exposed summary; not an expected exact value",
+      "calculated": 3.48983865817866e-15,
+      "signed_difference": -1.016134182134011e-17,
+      "exactly_equal_to_reported_number": false,
+      "disposition": "compared",
+      "comparison_role": "disclosed rounded producer claim, never an admission gate"
+    },
+    {
+      "name": "float64:soft:0.4 distance step32 median",
+      "pointer": "/conditions/heldout/float64:soft:0.4/distance/by_step/31/median",
+      "reported": 1.7e-15,
+      "source": "repro-task-log-card-and-results.md",
+      "source_lines": "24",
+      "unit": "relative distance",
+      "precision": "as printed in original exposed summary; not an expected exact value",
+      "calculated": 1.749919140535584e-15,
+      "signed_difference": 4.9919140535584083e-17,
+      "exactly_equal_to_reported_number": false,
+      "disposition": "compared",
+      "comparison_role": "disclosed rounded producer claim, never an admission gate"
+    },
+    {
+      "name": "float64:greedy:None canonical_disagreement_percent",
+      "pointer": "/conditions/heldout/float64:greedy:None/canonical_disagreement_percent",
+      "reported": 0.0,
+      "source": "repro-task-log-card-and-results.md",
+      "source_lines": "25",
+      "unit": "percent",
+      "precision": "as printed in original exposed summary; not an expected exact value",
+      "calculated": 0.0,
+      "signed_difference": 0.0,
+      "exactly_equal_to_reported_number": true,
+      "disposition": "compared",
+      "comparison_role": "disclosed rounded producer claim, never an admission gate"
+    },
+    {
+      "name": "float64:greedy:None layouts/single/accuracy",
+      "pointer": "/conditions/heldout/float64:greedy:None/layouts/single/accuracy",
+      "reported": 0.0,
+      "source": "repro-task-log-card-and-results.md",
+      "source_lines": "25",
+      "unit": "fraction",
+      "precision": "as printed in original exposed summary; not an expected exact value",
+      "calculated": 0.0,
+      "signed_difference": 0.0,
+      "exactly_equal_to_reported_number": true,
+      "disposition": "compared",
+      "comparison_role": "disclosed rounded producer claim, never an admission gate"
+    },
+    {
+      "name": "float64:greedy:None layouts/batch4/accuracy",
+      "pointer": "/conditions/heldout/float64:greedy:None/layouts/batch4/accuracy",
+      "reported": 0.0,
+      "source": "repro-task-log-card-and-results.md",
+      "source_lines": "25",
+      "unit": "fraction",
+      "precision": "as printed in original exposed summary; not an expected exact value",
+      "calculated": 0.0,
+      "signed_difference": 0.0,
+      "exactly_equal_to_reported_number": true,
+      "disposition": "compared",
+      "comparison_role": "disclosed rounded producer claim, never an admission gate"
+    },
+    {
+      "name": "float64:greedy:None reported identical reruns",
+      "pointer": "/conditions/heldout/float64:greedy:None/reported_rerun_identical_count",
+      "reported": 96,
+      "source": "repro-task-log-card-and-results.md",
+      "source_lines": "27",
+      "unit": "instances",
+      "precision": "as printed in original exposed summary; not an expected exact value",
+      "calculated": 96,
+      "signed_difference": 0,
+      "exactly_equal_to_reported_number": true,
+      "disposition": "compared",
+      "comparison_role": "disclosed rounded producer claim, never an admission gate"
+    },
+    {
+      "name": "float64 soft0 distance step32 maximum",
+      "pointer": "/conditions/heldout/float64:soft:0.0/distance/by_step/31/max",
+      "reported": 1.7e-09,
+      "source": "repro-task-log-card-and-results.md",
+      "source_lines": "22",
+      "unit": "relative distance",
+      "precision": "as printed in original exposed summary; not an expected exact value",
+      "calculated": 1.7276517581926647e-09,
+      "signed_difference": 2.7651758192664733e-11,
+      "exactly_equal_to_reported_number": false,
+      "disposition": "compared",
+      "comparison_role": "disclosed rounded producer claim, never an admission gate"
+    },
+    {
+      "name": "mechanism 0.0 pooled median growth",
+      "pointer": "/mechanism_summaries/0.0/all_deltas/distance/growth/median",
+      "reported": 0.03,
+      "source": "repro-task-log-card-and-results.md",
+      "source_lines": "31",
+      "unit": "nats per step",
+      "precision": "as printed in original exposed summary; not an expected exact value",
+      "calculated": 0.033011474309378244,
+      "signed_difference": 0.0030114743093782453,
+      "exactly_equal_to_reported_number": false,
+      "disposition": "compared",
+      "comparison_role": "disclosed rounded producer claim, never an admission gate"
+    },
+    {
+      "name": "mechanism 0.0 canonical changes",
+      "pointer": "/mechanism_summaries/0.0/all_deltas/canonical_disagreement_count",
+      "reported": 0,
+      "source": "repro-task-log-card-and-results.md",
+      "source_lines": "34",
+      "unit": "perturbation observations",
+      "precision": "as printed in original exposed summary; not an expected exact value",
+      "calculated": 0,
+      "signed_difference": 0,
+      "exactly_equal_to_reported_number": true,
+      "disposition": "compared",
+      "comparison_role": "disclosed rounded producer claim, never an admission gate"
+    },
+    {
+      "name": "mechanism 0.2 pooled median growth",
+      "pointer": "/mechanism_summaries/0.2/all_deltas/distance/growth/median",
+      "reported": -0.14,
+      "source": "repro-task-log-card-and-results.md",
+      "source_lines": "32",
+      "unit": "nats per step",
+      "precision": "as printed in original exposed summary; not an expected exact value",
+      "calculated": -0.14121655361463398,
+      "signed_difference": -0.001216553614633964,
+      "exactly_equal_to_reported_number": false,
+      "disposition": "compared",
+      "comparison_role": "disclosed rounded producer claim, never an admission gate"
+    },
+    {
+      "name": "mechanism 0.2 canonical changes",
+      "pointer": "/mechanism_summaries/0.2/all_deltas/canonical_disagreement_count",
+      "reported": 0,
+      "source": "repro-task-log-card-and-results.md",
+      "source_lines": "34",
+      "unit": "perturbation observations",
+      "precision": "as printed in original exposed summary; not an expected exact value",
+      "calculated": 0,
+      "signed_difference": 0,
+      "exactly_equal_to_reported_number": true,
+      "disposition": "compared",
+      "comparison_role": "disclosed rounded producer claim, never an admission gate"
+    },
+    {
+      "name": "mechanism 0.4 pooled median growth",
+      "pointer": "/mechanism_summaries/0.4/all_deltas/distance/growth/median",
+      "reported": -0.1,
+      "source": "repro-task-log-card-and-results.md",
+      "source_lines": "33",
+      "unit": "nats per step",
+      "precision": "as printed in original exposed summary; not an expected exact value",
+      "calculated": -0.10230577703895946,
+      "signed_difference": -0.0023057770389594556,
+      "exactly_equal_to_reported_number": false,
+      "disposition": "compared",
+      "comparison_role": "disclosed rounded producer claim, never an admission gate"
+    },
+    {
+      "name": "mechanism 0.4 canonical changes",
+      "pointer": "/mechanism_summaries/0.4/all_deltas/canonical_disagreement_count",
+      "reported": 0,
+      "source": "repro-task-log-card-and-results.md",
+      "source_lines": "34",
+      "unit": "perturbation observations",
+      "precision": "as printed in original exposed summary; not an expected exact value",
+      "calculated": 0,
+      "signed_difference": 0,
+      "exactly_equal_to_reported_number": true,
+      "disposition": "compared",
+      "comparison_role": "disclosed rounded producer claim, never an admission gate"
+    }
+  ],
+  "producer_comparison_nonzero_count": 34,
+  "producer_comparison_undefined_count": 0,
+  "runtime": {
+    "arithmetic_elapsed_before_final_rehash_serialization_write_seconds": 0.11576672806404531,
+    "process_peak_rss_observed_before_final_rehash_serialization_write_kib": 60860,
+    "scope": "Neither field is a separately measured full worker lifetime/final peak; supervisor closure supplies external execution measurements.",
+    "python": "3.12.14",
+    "numpy": "2.5.3"
+  },
+  "supervisor_window_seconds": 0.551870169,
+  "resource_interpretation": "1GiB AS is the hard bound; the observed60860KiB RSS and .11576672806404531s arithmetic timer precede final rehash/serialization/write and are not separately measured final lifetime/peak.",
+  "all_original_rows_retained_in_report": true,
+  "input_pins": {
+    "authority": {
+      "path": "/tmp/task26a-source-metadata-001/original-run-authority.json",
+      "sha256": "49c34660303d06c14c8ba826b84f4fc8f04a79de96a84d7a3eee1f35dd04d9bc",
+      "bytes": 5080
+    },
+    "problems": {
+      "path": "/tmp/task26a-source-metadata-001/original/docs/repro-task-problems.json",
+      "sha256": "3683191612c1517dd3b75d4b5a31a37b5f1206f909667774d6084542a697d5fe",
+      "bytes": 7516
+    },
+    "design": {
+      "path": "/tmp/task26a-source-metadata-001/original/docs/repro-task-test.md",
+      "sha256": "df0c146eb9f0d43167033904191bba34a81a2ed266931dc2e5a0ffbb0fc9a347",
+      "bytes": 3755
+    },
+    "source_manifest": {
+      "path": "/tmp/task26a-source-metadata-001/manifest.json",
+      "sha256": "008c566befb4826479dafaa1671cae8a8f74d48290e5196cb1055dd922a10640",
+      "bytes": 3390
+    },
+    "loader_manifest": {
+      "path": "/tmp/task26a-loader-supplement-001/manifest.json",
+      "sha256": "fcfd7216de9cbb86e4346c2746dd1452b10f2442e34e2e53f8e3edfb638dcfc1",
+      "bytes": 2041
+    },
+    "producer_summary": {
+      "path": "/tmp/task26a-source-metadata-001/repro-task-log-card-and-results.md",
+      "sha256": "e7cefdc86b343b3414dd908e048f0b060ede675d2b445692a064c35ba2e84064",
+      "bytes": 4305
+    },
+    "receipt": {
+      "path": "/data2/neural-shrimp-data/runpod/soft64/20261015T070508Z/result.json",
+      "sha256": "98c4f3b55b960747dafe5849e520f419ba9ba2edf03b082f720eb805ec3af08b",
+      "bytes": 882
+    },
+    "archive": {
+      "path": "/data2/neural-shrimp-data/runpod/soft64/20261015T070508Z/results.tgz",
+      "sha256": "1e815d388edf84d1f812b6acd56f85455630a37d4399338d07e51b97546a23a2",
+      "bytes": 255613
+    },
+    "stdout": {
+      "path": "/data2/neural-shrimp-data/runpod/soft64/20261015T070508Z/runner-stdout.txt",
+      "sha256": "fa8ac5f0bf1b73e84fba9f21481718abccea087190685c060f1b1c554eed383e",
+      "bytes": 3142
+    },
+    "progress": {
+      "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/repro/t05/progress.jsonl",
+      "sha256": "715af3b31be390ae459c0da50b532972d835adcefd3a9fed0994a0fb096b01d8",
+      "bytes": 16043
+    },
+    "runs": {
+      "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/repro/t05/runs.jsonl",
+      "sha256": "dc87493a22e985596ad5a5747d1849ea1f5f0343da54fa4ab6683157deae0fef",
+      "bytes": 975408
+    },
+    "source_11": {
+      "path": "/tmp/task26a-source-metadata-001/original/tools/repro_task.py",
+      "sha256": "6d06a09c3e079db2dfef4dc1af1d56893dcd6848fabc18fa6ad3c6eaeb677489",
+      "bytes": 10030
+    },
+    "source_12": {
+      "path": "/tmp/task26a-source-metadata-001/original/tools/explore_llm_attractors.py",
+      "sha256": "8e4537194026fe4dc73e8788d77bd3da9390fb4ea1d65ef34fb5efbaede179c9",
+      "bytes": 35792
+    },
+    "source_13": {
+      "path": "/tmp/task26a-source-metadata-001/current/tools/repro_task.py",
+      "sha256": "6d06a09c3e079db2dfef4dc1af1d56893dcd6848fabc18fa6ad3c6eaeb677489",
+      "bytes": 10030
+    },
+    "source_14": {
+      "path": "/tmp/task26a-source-metadata-001/repro-task-source-delta.diff",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    "source_15": {
+      "path": "/tmp/task26a-source-metadata-001/original/reprotask-runner-command.sh",
+      "sha256": "53b6c7ebefe3eefec12f225964732ddd8d0a37afa86295fac6127d585ec586d9",
+      "bytes": 383
+    },
+    "source_16": {
+      "path": "/tmp/task26a-source-metadata-001/assignment-task26.md",
+      "sha256": "2bf645e3ed05daa50be66ccf27be9dcf42249313a153579431ea2a7595e24ff2",
+      "bytes": 724
+    },
+    "source_17": {
+      "path": "/tmp/task26a-source-metadata-001/queue-reprioritization.md",
+      "sha256": "471d325e01adfbdd2194c6260ea63de4ff1530cc88cf476f015fb5f932be015a",
+      "bytes": 989
+    },
+    "source_18": {
+      "path": "/tmp/task26a-source-metadata-001/paper-consequences-section.tex",
+      "sha256": "18fa6a1b5ff206c9cd24b078f248c46590e764cf4b2460924902d12dcb12eced",
+      "bytes": 11273
+    },
+    "loader_19": {
+      "path": "/tmp/task26a-loader-supplement-001/SoftLoop-initializer.py",
+      "sha256": "dc4947884a458b241a263bd052ca3ce6bad5a190d878e58be15f1aa872d0218e",
+      "bytes": 2249
+    },
+    "loader_20": {
+      "path": "/tmp/task26a-loader-supplement-001/SteeredModel-initializer.py",
+      "sha256": "290a0948769827bd83fb4040fdfdc9dda85f6db007d5f7beb28fad01d9ae666b",
+      "bytes": 1073
+    },
+    "loader_21": {
+      "path": "/tmp/task26a-loader-supplement-001/Engine-initializer.py",
+      "sha256": "4dbdba41d83c106982ac687a4bb61ce04b31e2036e1c6fb54416593634c198a6",
+      "bytes": 4182
+    },
+    "loader_22": {
+      "path": "/tmp/task26a-loader-supplement-001/scope.md",
+      "sha256": "578dc0f5eae62a5d3f677b0f2817cb607b1c1a916d0f3985bf3f7b98fd5141c4",
+      "bytes": 1140
+    }
+  },
+  "companion_kind": "Hash-bound selected-field transcription and interpretations; the complete original report remains authority for832/54 individual rows and bootstrap/sign-flip draws.",
+  "root_editorial_proposals": {
+    "path": "/tmp/task26e-editorial-replacements.md",
+    "sha256": "a24b5ce306fdc0e2f3c44cd4cbd696871f80d2b2e1a191b76b65fdcb2d46550c"
+  },
+  "scientific_note": {
+    "path": "/tmp/task26a-scientific-review.md",
+    "sha256": "b104389db3056ab138f3ed32427b45197dfd9d8ad4431a35dbc58367fc10a2a5"
+  }
+}
