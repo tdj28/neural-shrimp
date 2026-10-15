@@ -226,9 +226,20 @@ def main():
                         args.device)
     v = elpm.load_vectors(ta["vectors"])[ta["concept"]]
     sc = float(ca.get("alpha_scale", 10.0))
-    fam = esl.soft_family(loop, v, int(cv["period"]), sc, 512)
+    two = ta.get("block2") is not None                  # a curve of a two-block plane: theta = (alpha, alpha2) * scale
+    second = None
+    if two:
+        loop.sm.add_steer_layer(ta["block2"])
+        second = (ta["block2"], elpm.load_vectors(ta["vectors2"])[ta["concept2"]])
+    fam = esl.soft_family(loop, v, int(cv["period"]), sc, 512, second=second,
+                          log_temperature=ta["log_temperature"] if two else None)
     pl, pr = cv["points"][args.left], cv["points"][args.left + 1]
-    th = lambda p: np.array([p["log10_temperature"], p["alpha"] * sc])        # noqa: E731
+    if two:   # the normal form's parameter: the one most transverse to the curve (smaller tangent component)
+        th = lambda p: np.array([p["alpha"] * sc, p["alpha2"] * sc])         # noqa: E731
+        param = int(np.argmin(np.abs(pl["parameter_tangent"])))
+    else:
+        th = lambda p: np.array([p["log10_temperature"], p["alpha"] * sc])   # noqa: E731
+        param = 1
     trace_kw = {k: ca[k] for k in ("tol", "gtol", "max_newton", "gmres_tol", "gmres_maxiter", "refine_k") if k in ca}
     progress = out / "progress.jsonl"
     progress.write_text("")
@@ -242,17 +253,21 @@ def main():
     tic = time.time()
     res = locate(fam, states[args.left].ravel(), th(pl), states[args.left + 1].ravel(), th(pr),
                  pl["parameter_tangent"], test=args.test, kind=cv["kind"], recl=pl, recr=pr, rounds=args.rounds,
-                 per_round=args.per_round, param=1, param_scale=sc, btol=args.btol, trace_kw=trace_kw, log=log)
+                 per_round=args.per_round, param=param, param_scale=sc, btol=args.btol, trace_kw=trace_kw, log=log)
     np.save(out / "state.npy", res.pop("state"))
     fin = res["final"]
-    fin["log10_temperature"], fin["alpha"] = fin["theta"][0], fin["theta"][1] / sc
+    if two:
+        fin["alpha"], fin["alpha2"] = fin["theta"][0] / sc, fin["theta"][1] / sc
+        where = {"alpha": fin["alpha"], "alpha2": fin["alpha2"]}
+    else:
+        fin["log10_temperature"], fin["alpha"] = fin["theta"][0], fin["theta"][1] / sc
+        where = {"log10_T": fin["log10_temperature"], "alpha": fin["alpha"]}
     res.update({"curve": args.curve, "left": args.left, "period": int(cv["period"]), "args": vars(args),
-                "seconds": round(time.time() - tic, 1)})
+                "normal_form_parameter": param, "seconds": round(time.time() - tic, 1)})
     path.write_text(json.dumps(res, indent=1, default=_plain))
     keys = ("type", "second_multiplier", "eigenvector_angle_degrees", "c", "det_J")
-    print(json.dumps({"located": res["located"], "checks": res["checks"], "log10_T": fin["log10_temperature"],
-                      "alpha": fin["alpha"], "f": fin["f"], **{k: fin[k] for k in keys if k in fin},
-                      "seconds": res["seconds"]}), flush=True)
+    print(json.dumps({"located": res["located"], "checks": res["checks"], **where, "f": fin["f"],
+                      **{k: fin[k] for k in keys if k in fin}, "seconds": res["seconds"]}), flush=True)
 
 
 if __name__ == "__main__":
