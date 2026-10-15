@@ -24256,3 +24256,8 @@ Pod rmsqwwrwm3af25 (COMMUNITY H100 NVL; runner rc 0, hash verified, terminated; 
 ## 2026-10-15 06:10 UTC: Amendment to L70D: all three first pods failed on a full disk; relaunched with 320 GB
 
 Pods et2o3xeke86icn (block 20), bpe9rgounm31kb (block 35) and zep5qsklokz0zr (block 65): 2 x H200 SECURE. Each hit "No space left on device" while downloading the 70B checkpoint into the default 60 GB container disk. The vector step then could not load the tokenizer ("sentencepiece or tiktoken ... to convert a slow tokenizer"), and the scan found no vectors. All retrieved, terminated and verified. Relaunched with --disk-gb 320 and a 150-minute run limit (download, vectors, a 24 x 24 scan); otherwise unchanged.
+
+
+## 2026-10-15T06:29:19.295880+00:00 — Codex Task 16 resumed and final admission accepted
+
+Direct human return renewed Task16→20→15 and overnight comms monitoring. Root accepted exact plan aa49c0c6/card67cbbc0b/supervisor45df9367 with scientific source dc6cd5c6 and unchanged run3baeb697/tabulate3d802196. Full operational review and source/metadata pins are in codex/steering-controls-crosscheck/final-operational-review.md. One120s local saved-scan tabulation is authorized only after this verified private checkpoint and fresh resource admission; no analysis has run at this entry. No retry, extension, model execution or pod action. Original evidence, failed checkpoint history and prepared bytes remain preserved.

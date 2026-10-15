@@ -7,7 +7,7 @@ OUT=B/'run-001'/'run';SUP=B/'run-001-supervision'
 WRAPPER='codex/steering-controls-crosscheck/run.py';PLAN='codex/steering-controls-crosscheck/run-001-plan.json';CARD='codex/steering-controls-crosscheck/run-001-card.md'
 WRAPPER_SHA='3baeb6974044f093f9cd866fedc2a23ce507539221e63ae4030f6fd1bd7e9e2e'
 TABULATE='codex/steering-controls-crosscheck/tabulate.py';TABULATE_SHA='3d8021966621f80dbb8e3aecc7088df518cef9231e58820c76fd5bb5f139cef2'
-ADMISSION='prepared';PLAN_SHA=None;CARD_SHA=None  # Refuse until exact concrete admission.
+ADMISSION='reviewed';PLAN_SHA='aa49c0c6d508f2e605bc53ebdb4b0f5fdb4099cbfb5c4e5d1b1a4a126cc54d76';CARD_SHA='67cbbc0b9a554b79becaba983375c26b5dcd50f2c69ed136f253738919a7df5f'  # Exact proposed final admission, held pending private checkpoint and Root review.
 
 GIB=1024**3;WALL=120;MAX_OUTPUT=128*1024**2
 
