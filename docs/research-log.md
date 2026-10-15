@@ -24772,3 +24772,7 @@ Pods qj1mu8edfno9ui and g1z1317zrhlqpz (2 x H200 placement; runner rc 0, hashes 
 - **Cells.** docs/repro70-cells.json: 24 chaotic (map label, so candidates) and 24 periodic cells of that map, seeded draw (20261015) fixed before data.
 - **Comparison.** Batch layout only (n against 2n rows), 1000 steps: a float32 or bfloat16 copy of the 70B does not fit next to it.
 - **Pod.** One pod, 2 x H200, gated job set repro70; the token goes on stdin and is unset after the download. Readings as for REPRO1.
+
+## 2026-10-15 08:53 UTC: Amendment: FBS768m timed out (90-minute tool limit, no progress record); relaunched as FBS768n with 190 minutes
+
+FBS768m (pod a1i1o7txau28j2; runner rc 0, job status 124, terminated; 5549 s) found no s768 within its 90-minute job limit: the transient of 80000 steps plus the period-768 Ritz evaluations take longer. FBS768n repeats it unchanged with a 190-minute job limit.
