@@ -24425,3 +24425,20 @@ Pods p2dnawuk7ajzfp, 6xc4ok0nj21d0o (runner rc 0, hashes verified, terminated; 1
   - **FBS768m:** the superstable point s768 at log10 T -0.14798. Bracket [0.0661249646696678, 0.0661249836696678] around the estimate s384 + (s384 - s192)/4.65. Band positions are scaled from -0.156, where s sits at 0.519 of its band.
   - **FBC148:** flips at -0.14798 from period 96: start s96, next s192, ratio guess 4.62, 3 flips.
   - **FB15D:** the 1.5B route (alpha 0.1, philosophy at block 14, free log10 T) from period 64: start -0.0018311, next -0.0018207, ratio guess 4.3, 3 flips.
+
+## 2026-10-15 07:17 UTC: L70D result (blocks 20 and 35): in Llama-3.3-70B, earlier steering also gives more chaos, down to lower temperature
+
+Pods 3nm9b8atx4ucdm (block 20) and zm38p578aca433 (block 35): 2 x H200 SECURE, 320 GB disk; runner rc 0, hashes verified, terminated; 3351 and 3730 s; commit 183dead4.
+- **Packaging.** Each scan finished and saved scan.npz. The job then failed at its figure step: tools/period_colors.py was missing from the pod upload list. It is now added (tools/runpod_soft_float64.py). The data are complete.
+- **Settings.** Vectors built on the pod at each block (hostility-vs-kindness, the paper's recipe). Map 24 x 24 over log10 T -0.3 to 0.3 and alpha 0 to 0.12, 300 transient and 300 sample steps; labels from the map protocol (single twin offset), so the chaotic cells are candidates until plateau-tested.
+
+| block (of 80) | chaotic share | chaotic log10 T | max exponent |
+|---|---|---|---|
+| 20 | 8.0 % (46 / 576) | -0.143 to 0.300 | 0.615 |
+| 35 | 4.3 % (25 / 576) | 0.013 to 0.300 | 0.418 |
+| 50 (earlier map, 32 x 32) | 4.3 % | | |
+| 65 | pending | | |
+
+- **Reading.** As in the 0.5B block sweep (LS), steering at an earlier block gives more chaos and carries it to lower temperature. The block dependence is not specific to the small model.
+  - The block-50 map was the paper's only steered 70B map, and its depth limited how much chaos it showed.
+  - The grids differ in resolution (24 against 32 per axis), so the shares compare coarsely.
