@@ -104,8 +104,17 @@ def main():
         raise SystemExit("time limits times the maximum rate exceed --max-cost; shorten the run")
     if args.dry_run:
         return
-    out = Path(args.out) / time.strftime("%Y%m%dT%H%M%SZ", time.gmtime())
-    out.mkdir(parents=True, exist_ok=True)
+    # one folder per run: launches in the same second used to share it (and overwrite each other's receipts), so the
+    # folder is created atomically and a clash takes the next free suffix
+    stamp = time.strftime("%Y%m%dT%H%M%SZ", time.gmtime())
+    Path(args.out).mkdir(parents=True, exist_ok=True)
+    out, k = Path(args.out) / stamp, 1
+    while True:
+        try:
+            out.mkdir()
+            break
+        except FileExistsError:
+            out, k = Path(args.out) / f"{stamp}-{k}", k + 1
     pod_id, chosen = None, None
     for entry in args.gpu_type:
         cloud, _, gpu = entry.partition(":")

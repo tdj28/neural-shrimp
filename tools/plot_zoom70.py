@@ -7,6 +7,8 @@ for the cells that are not chaotic, colour from 0 to 0.5 for the chaotic cells. 
 detected period nor a positive exponent light grey.
 
 Usage: python tools/plot_zoom70.py OUT.png [BAND_PREFIX]   (default llm-soft-loop/pod64/controls70/hostility-vs-kindness-zoom-b)
+  The bands are the folders BAND_PREFIX0, BAND_PREFIX1, ... (or zero-padded: BAND_PREFIX00, ...), numbered from 0
+  without gaps. Run Z70 (pre-fix, 64 x 64) has four bands (zoom-b); run Z128 (post-fix, 128 x 128) sixteen (z128-b).
 """
 import json
 import sys
@@ -16,6 +18,20 @@ import numpy as np
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "tools"))
+
+
+def band_dirs(prefix):
+    """The band folders of PREFIX in band order; stops unless they are numbered 0..N-1 without gaps."""
+    import explore_llm_attractors as ela
+    root = ela.DATA / "explore" / prefix
+    found = {}
+    for d in root.parent.glob(root.name + "*"):
+        tail = d.name[len(root.name):]
+        if tail.isdigit():
+            found.setdefault(int(tail), []).append(d)
+    if not found or sorted(found) != list(range(len(found))) or any(len(v) > 1 for v in found.values()):
+        raise SystemExit(f"bands of {prefix}: found {sorted(found)}; need one folder per band 0..N-1")
+    return [found[k][0] for k in range(len(found))]
 
 
 def stitch(dirs, concept="hostility-vs-kindness"):
@@ -50,7 +66,8 @@ def main():
 
     out = sys.argv[1]
     prefix = sys.argv[2] if len(sys.argv) > 2 else "llm-soft-loop/pod64/controls70/hostility-vs-kindness-zoom-b"
-    m = stitch([ela.DATA / "explore" / f"{prefix}{b}" for b in range(4)])
+    dirs = band_dirs(prefix)
+    m = stitch(dirs)
     lt, al, L, P, norms = m["log10_temperature"], m["alpha"], m["lyapunov"], m["period"], m["norms"]
     chaotic = (L > 1e-3) & (P <= 0)
     print(json.dumps({"cells": int(L.size), "chaotic": int(chaotic.sum()), "share": round(float(chaotic.mean()), 4),
@@ -87,8 +104,8 @@ def main():
     for a in (ax, bx):
         a.set_xlabel("steering strength alpha (hostility concept vector, layer 50)")
     ax.set_ylabel("log10 temperature")
-    fig.suptitle("Llama-3.3-70B-Instruct: zoom on the chaotic ridge (64 x 64 float64 cells, four stitched bands)",
-                 fontsize=10)
+    fig.suptitle(f"Llama-3.3-70B-Instruct: zoom on the chaotic ridge ({len(lt)} x {len(al)} float64 cells, "
+                 f"{len(dirs)} stitched bands)", fontsize=10)
     fig.tight_layout()
     fig.savefig(out, dpi=250)
 

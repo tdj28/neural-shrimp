@@ -26178,3 +26178,31 @@ The human asked what the black in the left panel of fig:zoom70 means, since it i
   - all of them contract (median exponent -0.88; largest -0.090).
   Their long periods are probably the period test (tolerance 1e-8) meeting the noise floor of this pre-fix two-GPU computation (about 2e-8), not orbits. The paper's sentence "half of them fixed points or 2-cycles" now says this, and the caption marks the zoom as pre-fix.
 - **Consequence.** The zoom's period panel, and probably its 44 % unresolved cells, need the post-fix computation before the figure can carry a main-text claim. Its exponent panel rests on the plateau test PTa (12 of 12 sampled chaotic cells chaotic at offsets 1e-4 to 1e-6).
+
+## 2026-10-15 20:15 UTC: Run card Z128 (exploratory): the 70B zoom recomputed after the precision fix, at 128 x 128
+
+**Question.** The human asked whether we have a good 70B chaos figure for the main text, then for the zoom at higher resolution. They chose 128 x 128 and added funds.
+- The Z70 zoom (64 x 64) ran on two GPUs before the precision fix. Its period panel is corrupted: 44 % of cells are unresolved, and the long periods above the ridge are artifacts (entry above).
+- What does the ridge look like, computed float64 throughout, at four times the cells?
+
+**Setup.** Sixteen pods (2 x H100 NVL, else 2 x H200 NVL or H200), one band each.
+- Job set and settings: bigctrl PART map with name=z128-bNN, at the commit of this entry (post-fix). Concept vectors are built on each pod at layer 50 as in Z70; the stitcher checks that their norms agree. Direction hostility-vs-kindness.
+- Grid: one 128 x 128 grid over alpha 0.06..0.12 and log10 T 0.12..0.27 (the Z70 window), in bands of 8 temperature rows of one linspace. Band edges are in the launcher.
+- Steps and tolerances: 300 transient and 300 measured steps, max period 32, tol 1e-8, twin 1e-6, chunk 128, float64 with bf16 storage (all as Z70).
+- Stitching: tools/plot_zoom70.py OUT llm-soft-loop/pod64/controls70/hostility-vs-kindness-z128-b. It refuses gaps, different steering grids or vector norms.
+
+**Output.** ../neural-shrimp-data/explore/llm-soft-loop/pod64/controls70/hostility-vs-kindness-z128-b{00..15}/scan
+
+**Readout.** Chaotic, periodic and unresolved shares; the ridge's centre and width against alpha (the Z70 definitions); the period structure above and below the ridge.
+
+**Expectations, stated before the data.**
+- The unresolved share falls well below Z70's 44 %.
+- Above the ridge the cells become period 1 or 2 (the leading tokens are constant).
+- The chaotic share stays near Z70's 22 %. PTa found the sampled chaotic labels stable at offsets 1e-4 to 1e-6.
+- The ridge's centre moves from about 0.25 to 0.19 as alpha goes from 0.06 to 0.12, as in Z70.
+
+**Would surprise us.** A chaotic share far from 22 % (below 15 % or above 30 %), which would mean that the pre-fix exponents at 1e-6 were also affected.
+
+**Follow-up.** A post-fix plateau test of sampled chaotic cells at three offsets, as a separate small run.
+
+**Cost.** In the private ledger. Measured scan time per cell: 7.5 s on 2 x H100 NVL, 5.1 s on 2 x H200.
