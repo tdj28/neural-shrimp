@@ -25200,3 +25200,40 @@ Reference for the discussion: Almeida, Peralta-Salas and Romera, Physica D 200, 
 - **Pairing makes chaos only rarely:** at 2 temperatures (log10 T 0.19 and 0.27) where both models alone are periodic.
 - No temperature has both models chaotic alone, so "chaos + chaos" cannot be tested in this unsteered pair.
 - In the figure the pair's exponent follows the more stable model's curve at high temperature.
+
+## 2026-10-15 10:31 UTC: RC1 result: the loop's memory capacity is set by the period, falls at every doubling, collapses in chaos; no edge-of-chaos peak
+
+**Run.** Pod (H100 class); commit 0cb11aa5 from the orchestrator log; runner rc 0; jobs feig and h2 status 0; terminated. All 151 + 448 cells have capacities at both input sizes. Statistics and figure: tools/plot_reservoir.py (committed before the data) -> docs/rc1-stats.json and paper/llm/figures/fig-reservoir.png.
+
+**448 labelled cells** (input 1e-4; input 1e-3 the same shape):
+
+| lambda bin | [-1.6, -0.6] | [-0.6, -0.3] | [-0.3, -0.15] | [-0.15, -0.05] | [-0.05, 0.05] | [0.05, 0.15] | [0.15, 0.3] | [0.3, 0.6] |
+|---|---|---|---|---|---|---|---|---|
+| mean MC | 2.66 | 2.04 | 2.13 | 2.00 | 1.51 | 0.59 | 0.13 | 0.07 |
+
+- By group: deep periodic (lambda <= -0.3, n 115) 2.39 [2.27, 2.51]; near zero (|lambda| <= 0.05, n 79) 1.51 [1.28, 1.74]; chaotic (lambda >= 0.1, n 168) 0.14 [0.07, 0.23].
+- Spearman(MC, |lambda|) = 0.12.
+
+**Within a period (post hoc), MC is roughly flat in lambda.** MC per third of the period's exponent range, from most contracting to closest to 0:
+
+| period | n | MC by thirds |
+|---|---|---|
+| 2 | 68 | 2.90, 2.79, 2.97 |
+| 6 | 38 | 2.11, 2.82, 2.75 |
+| 8 | 19 | 1.75, 1.78, 1.68 |
+| 12 | 15 | 1.54, 1.76, 1.90 |
+| 10 | 12 | 1.72, 1.53, 1.82 |
+| 3 | 11 | 3.98, 3.93, 3.43 |
+
+- Irregular ("other") cells: 1.33.
+- **The period and chaos set MC, not the distance to lambda = 0.** Near-zero cells are mostly long-period or irregular. A fixed linear readout cannot decode a phase-dependent response fully.
+
+**Cascade line (log10 T -0.148):**
+- MC is flat in the period-2 region and jumps up where the period-3 attractor appears (alpha ~ 0.0647).
+- It then steps down at every flip: period 3 about 3.2 to 3.35, period 6 about 2.1 to 2.3, period 12 about 1.4, period 24 about 1.3, hidden chaos 1.0 (input 1e-4).
+- It is lowest just past the onset of chaos (alpha_inf ~ 0.066125) and recovers in the windows beyond.
+- Where the exponent touches 0 at each flip, MC does not spike. Within the period-3 window it falls as lambda -> 0 at the first flip (3.35 -> 2.84).
+- Maximum: 3.40 at alpha 0.06508 (input 1e-4) and 4.42 at 0.06494 (1e-3), both inside the period-3 window.
+
+**Verdict for the reservoir version of the edge hypothesis: not supported.** With fixed linear readouts (Jaeger's definition), the loop remembers best in short stable cycles; memory falls with every period doubling toward the onset of chaos and is erased by chaos.
+- Caveats: one model and one direction; linear readouts only (nonlinear information-processing capacity not measured); finite records.
