@@ -25890,3 +25890,28 @@ Method:
 - The body location is therefore not blind.
 
 **Run.** One H100-class pod, job set shrimp: the census in three parallel parts (75 minutes each), then the closure test (30 minutes). Run limit 110 minutes. The cost ceiling is in the private ledger.
+
+## 2026-10-15 17:41 UTC: Façanha, Oldeman and Glass (2013) read (PDF supplied by the human; stored outside git)
+
+Façanha, Oldeman and Glass, "Bifurcation structures in two-dimensional maps: The endoskeletons of shrimps", Phys. Lett. A 377(18):1264-1268. The copy is at /data2/neural-shrimp-data/references/facanha-oldeman-glass-shrimp.pdf; it is paywalled, so never commit it. Statements relevant to our windows:
+
+1. **The skeleton in one-dimensional maps.** It is the locus of superstable cycles, M = 0 (p. 1264). Shrimps, in Vitolo, Glendinning and Gallas's definition (their [16], our vitolo2011hubs), "are formed by a regular set of adjacent windows centered around the main pair of intersecting superstable parabolic arcs", together with the adjacent domains of two period-doubling cascades (p. 1265).
+2. **The two-dimensional replacement** (p. 1265). The cycle's trace T = mu1 + mu2 and determinant D = mu1 mu2 place it in the stability triangle. "Provided |D| < 1, the locus of points in parameter space for which T = 0 defines a structure that plays the same role as the skeleton in one-dimensional maps since it lies between the boundaries at which there is a saddle-node bifurcation ... and a period-doubling boundary."
+   - If -1 < D < 0 there is necessarily a point where T = 0.
+   - If 0 < D < 1 there is typically a region where the eigenvalues are complex, with two values where they are real and equal.
+   - Both loci (T = 0 and T^2 - 4D = 0) are traced by continuation (their Eqs. 3-4).
+   - This is the construction of our DSS5 reading (trace of the leading pair; complex strips where the product is positive, real exchange where it is negative).
+3. **The doubly superstable centre is non-generic in two dimensions** (pp. 1266-1267, Fig. 4).
+   - In the classic bimodal one-dimensional structure, the upper crossing of the superstable curves lies in the bistable diamond bounded by the cusped saddle-node curve and two period-doubling curves. The lower crossing is a cycle with two critical iterates: our "doubly superstable centre".
+   - "In two-dimensional maps, the lower crossing represents a non-generic situation, so generically it will not exist" (a branch point of codimension three).
+   - "Rather the skeletal structure unfolds in two different ways": Type A, a loop; Type B, a crossing without a loop.
+   - In the Hénon map at b near 0.18, the period-5 shrimp is Type A and the period-10 shrimp Type B (their Fig. 3c,e). Its period-5 stable region is bounded by a saddle-node curve and a period-doubling curve, and "a second saddle-node bifurcation generates a cusp configuration".
+4. **Higher dimensions.** For n-dimensional maps, the further coefficients of the characteristic polynomial also matter (p. 1267). For our windows the third multiplier is below 0.008, so the leading pair carries the reduction.
+
+**Consequence for our reading.**
+- The absence of a one-dimensional centre is what the two-dimensional theory predicts; it is not evidence against shrimps.
+- The hostile period-7 body (arcs that approach and turn away; DSS1/DSS2) matches Type B.
+- The period-5 window (DSS5: a trace-zero arc closing around an island of negative trace, with separate arcs) matches Type A, at grid resolution.
+- With the fold curves with cusps, the flip curves and the bistability, these are the shrimps of two-dimensional maps in the sense of this paper, approximately two-dimensional in the leading pair.
+
+The paper's wording will be revised after runs OC and CL2, and the "endoskeleton" term can return with its definition. Consult 10's caution (not to attach the terminology unread) is resolved.
