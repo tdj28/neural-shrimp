@@ -1,3 +1,17 @@
+# Task 21b saved arithmetic complete and closed; final scientific report pending
+
+The sole run-001 source c4c9fa9189d7a0c1aca2bb0eae04103975507986 completed; original session30657 was reaped0. Exact report f3f7354b remains outside Git (2,226,009 bytes). Worker arithmetic0.031602957s; supervisor0.538462949s, exit0/no timeout/failure. Peak RSS was not captured; verified hard AS1GiB is a limit, not a peak measurement. Original supervisor/worker birth identities and closed groups are bound in final authority968c86c2. Its sole metadata authentication took0.043582948s and verified2output/10supervision entries plus5original Git source blobs, with no numerical rerun.
+
+All35 final rows and84 checkpoints are finite in the saved report; all35 final-step2000 checkpoints exactly match. Actual scientific findings, differences and paper comparisons are being read by Root/Boundary; computational completion is not a substitute for that review. OriginalKY1/TC timeouts, three missing observations and allcontrols remain preserved. No further numerical computation is requested.
+
+Zero live jobs or reservations. Inference owns Git/process coordination. Task21a is complete/delivered. Queue remains21b–i,22,23underitsseparate measured own-code card,24,25,26,27,15. The human explicitly directed Task27's full prioritized paper report to Claude: authorized private report+standalone summary, with only a brief completion/action notification to the human. No producer paper/tools/research-log edits. Overnight watch remains active and quiet when nonactionable.
+
+2026-10-15T08:02:16.220182+00:00
+
+---
+
+## Preserved earlier status
+
 # Task 21b sole saved-arithmetic run admitted; private prelaunch checkpoint
 
 Root read and accepted final card ecf9deba and supervisor 04c522c8, exact admission delta 544fc8d7, scientific source2f34384e/97b25826/8b073638 and input0025406ce14/authorityfdccec18. Prepared private history is b7c403ba. Only status/pins changed; no scientific source, selection, thresholds or resource bounds changed. One CPU worker plus supervisor, nice10,1GiB AS,55CPU/60s wall plus bounded cleanup,16MiB output,20GiB available RAM startup/16GiB runtime and16GiB disk. No retry or extension.

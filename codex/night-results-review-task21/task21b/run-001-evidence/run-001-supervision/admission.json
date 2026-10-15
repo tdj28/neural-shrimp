@@ -1,0 +1,55 @@
+{
+  "source_commit": "c4c9fa9189d7a0c1aca2bb0eae04103975507986",
+  "private_remote_ancestor": "8a220c68cae49981317a5c8d3d3aa86078332cc1",
+  "sources": {
+    "codex/night-results-review-task21/task21b/run.py": "2f34384e0957baf3450ffb7352a8d6fa35153a6d4855ebe02169188b2379901c",
+    "codex/night-results-review-task21/task21b/kaplan_yorke.py": "8b073638a0e4466cbbb45f6c07ea0b0d0632be30ece2d36a4628968214f55cde",
+    "codex/night-results-review-task21/task21b/adapter.py": "97b2582667c10e9587bb79744567c655732613b2ec581f3b2eb1846a4800d9c9",
+    "codex/night-results-review-task21/task21b/run-001-card.json": "ecf9debac4578a1b397c9c7164aaaf161ebfcec7c77c6bc7ee255a193de3b321",
+    "codex/night-results-review-task21/task21b/run-001-launch.py": "04c522c88c1a7a4a05363b2d5b90ef5dd9f239ed13dfe3724a139d536437cd0c"
+  },
+  "available_bytes": 57627590656,
+  "disk_free_bytes": 2752524378112,
+  "load_average": [
+    1.7998046875,
+    1.88671875,
+    2.1806640625
+  ],
+  "cpu_affinity_count": 32,
+  "scope": "One Task21b independent arithmetic pass over three pinned saved leading-QR-spectrum JSON files (35 completed of38 requested cells), all checkpoints, original missing rows and controls. No model, QR iteration, eigensolver, trajectory or producer imports. Source and original finite-input authority are bound by exact card. CPU1 plus supervisor,1GiB AS,55CPU/60s wall plus5s TERM/5s KILL cleanup,16MiB output,20/16GiB available RAM and16GiB disk; no active concurrent reservation. Finite estimate disagreements, original timeouts/missing cells, controls and unknown spectrum tails remain reported outcomes.",
+  "command": [
+    "/data2/neural-shrimp/.venv/bin/python",
+    "-I",
+    "-B",
+    "-u",
+    "/data2/neural-shrimp-data/codex/night-results-review-task21/task21b/run-001-supervision/source/codex/night-results-review-task21/task21b/run.py",
+    "--card",
+    "/data2/neural-shrimp-data/codex/night-results-review-task21/task21b/run-001-supervision/source/codex/night-results-review-task21/task21b/run-001-card.json",
+    "--out",
+    "/data2/neural-shrimp-data/codex/night-results-review-task21/task21b/run-001"
+  ],
+  "seconds": 60,
+  "memory_gib": 1,
+  "cpu_worker": 1,
+  "supervisor_slots": 1,
+  "output_cap_bytes": 16777216,
+  "supervisor": {
+    "pid": 2843904,
+    "start": 199765009,
+    "pgid": 2843904,
+    "sid": 2843904,
+    "uid": 1000,
+    "nice": 10,
+    "threads": 1,
+    "limits": "Limit                     Soft Limit           Hard Limit           Units     \nMax cpu time              unlimited            unlimited            seconds   \nMax file size             unlimited            unlimited            bytes     \nMax data size             unlimited            unlimited            bytes     \nMax stack size            8388608              unlimited            bytes     \nMax core file size        0                    unlimited            bytes     \nMax resident set          unlimited            unlimited            bytes     \nMax processes             375398               375398               processes \nMax open files            65535                65535                files     \nMax locked memory         8388608              8388608              bytes     \nMax address space         1073741824           1073741824           bytes     \nMax file locks            unlimited            unlimited            locks     \nMax pending signals       375398               375398               signals   \nMax msgqueue size         819200               819200               bytes     \nMax nice priority         0                    0                    \nMax realtime priority     0                    0                    \nMax realtime timeout      200000               200000               us        \n",
+    "command": [
+      "/data2/neural-shrimp/.venv/bin/python",
+      "-I",
+      "-B",
+      "-u",
+      "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/night-results-review-task21/task21b/run-001-launch.py",
+      "--source",
+      "c4c9fa9189d7a0c1aca2bb0eae04103975507986"
+    ]
+  }
+}

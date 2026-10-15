@@ -1,0 +1,79 @@
+{
+  "passed": true,
+  "tool_session_id": 30657,
+  "tool_session_reaped_exit_code": 0,
+  "numerical_replay": false,
+  "outer_logs": [
+    {
+      "path": "/data2/neural-shrimp-data/codex/night-results-review-task21/task21b/run-001-dispatch/stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/codex/night-results-review-task21/task21b/run-001-dispatch/stdout.log",
+      "bytes": 4443,
+      "sha256": "947e616f7dd9317c204ef341dc64870e80876db10fb91f0270085441143ecd8a"
+    }
+  ],
+  "source_commit": "c4c9fa9189d7a0c1aca2bb0eae04103975507986",
+  "report_sha256": "f3f7354b6918cfbf889be23ed2896f26ba26c20835054a16dc9371199047ae58",
+  "closure_sha256": "5b90ee22e5dd4b13ae3d93966ae33e7d68e5ed0f9d217be839d578f4c6f7ce63",
+  "manifests": [
+    {
+      "root": "/data2/neural-shrimp-data/codex/night-results-review-task21/task21b/run-001",
+      "manifest_sha256": "8c42a9f88278f3a218d52cd1aff90dba797ac7c703f4d470380f55d9a4e4ce05",
+      "files": 2
+    },
+    {
+      "root": "/data2/neural-shrimp-data/codex/night-results-review-task21/task21b/run-001-supervision",
+      "manifest_sha256": "68e140420ce464a029ec7dffaf48b1f0f54de6c1ba4f6d339e75c1b34248bedd",
+      "files": 10
+    }
+  ],
+  "captured_git_source_blobs_verified": 5,
+  "original_supervisor_worker_groups_sessions_absent": true,
+  "identities": [
+    {
+      "pid": 2843904,
+      "start": 199765009,
+      "pgid": 2843904,
+      "sid": 2843904,
+      "uid": 1000,
+      "nice": 10,
+      "threads": 1,
+      "limits": "Limit                     Soft Limit           Hard Limit           Units     \nMax cpu time              unlimited            unlimited            seconds   \nMax file size             unlimited            unlimited            bytes     \nMax data size             unlimited            unlimited            bytes     \nMax stack size            8388608              unlimited            bytes     \nMax core file size        0                    unlimited            bytes     \nMax resident set          unlimited            unlimited            bytes     \nMax processes             375398               375398               processes \nMax open files            65535                65535                files     \nMax locked memory         8388608              8388608              bytes     \nMax address space         1073741824           1073741824           bytes     \nMax file locks            unlimited            unlimited            locks     \nMax pending signals       375398               375398               signals   \nMax msgqueue size         819200               819200               bytes     \nMax nice priority         0                    0                    \nMax realtime priority     0                    0                    \nMax realtime timeout      200000               200000               us        \n",
+      "command": [
+        "/data2/neural-shrimp/.venv/bin/python",
+        "-I",
+        "-B",
+        "-u",
+        "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/night-results-review-task21/task21b/run-001-launch.py",
+        "--source",
+        "c4c9fa9189d7a0c1aca2bb0eae04103975507986"
+      ]
+    },
+    {
+      "pid": 2843916,
+      "start": 199765119,
+      "pgid": 2843916,
+      "sid": 2843916,
+      "uid": 1000,
+      "nice": 10,
+      "threads": 1,
+      "limits": "Limit                     Soft Limit           Hard Limit           Units     \nMax cpu time              55                   55                   seconds   \nMax file size             unlimited            unlimited            bytes     \nMax data size             unlimited            unlimited            bytes     \nMax stack size            8388608              unlimited            bytes     \nMax core file size        0                    unlimited            bytes     \nMax resident set          unlimited            unlimited            bytes     \nMax processes             375398               375398               processes \nMax open files            65535                65535                files     \nMax locked memory         8388608              8388608              bytes     \nMax address space         1073741824           1073741824           bytes     \nMax file locks            unlimited            unlimited            locks     \nMax pending signals       375398               375398               signals   \nMax msgqueue size         819200               819200               bytes     \nMax nice priority         0                    0                    \nMax realtime priority     0                    0                    \nMax realtime timeout      200000               200000               us        \n",
+      "command": [
+        "/data2/neural-shrimp/.venv/bin/python",
+        "-I",
+        "-B",
+        "-u",
+        "/data2/neural-shrimp-data/codex/night-results-review-task21/task21b/run-001-supervision/source/codex/night-results-review-task21/task21b/run.py",
+        "--card",
+        "/data2/neural-shrimp-data/codex/night-results-review-task21/task21b/run-001-supervision/source/codex/night-results-review-task21/task21b/run-001-card.json",
+        "--out",
+        "/data2/neural-shrimp-data/codex/night-results-review-task21/task21b/run-001"
+      ]
+    }
+  ],
+  "scope": "Saved source/output/closure authentication only; no numerical checks repeated",
+  "seconds": 0.04358294792473316
+}
