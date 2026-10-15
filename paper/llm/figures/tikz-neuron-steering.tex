@@ -1,0 +1,68 @@
+% Steering along one MLP neuron (Appendix "Unsteered chaos and steering controls"): the neuron's down-projection
+% column, rescaled to the steering norm, added at the steering hook, is the same as raising that neuron's activation.
+% A tikzpicture only; each paper wraps it in its own figure, and the caption carries the explanation.
+% Preamble: \usepackage{tikz} and \usetikzlibrary{arrows.meta,positioning,calc,decorations.pathreplacing}.
+\definecolor{loopaccent}{RGB}{204,85,0}
+\begin{tikzpicture}[
+    font=\small,
+    >={Stealth[length=2mm,width=1.6mm]},
+    box/.style={draw=black!70, rounded corners=2pt, fill=black!4, minimum height=8mm, inner sep=3pt, align=center},
+    flow/.style={->, semithick, black!80},
+    plus/.style={draw=black!80, fill=white, circle, minimum size=3.6mm, inner sep=0pt},
+    neuron/.style={draw=black!60, fill=white, circle, minimum size=4.2mm, inner sep=0pt},
+    lab/.style={font=\footnotesize, inner sep=1.5pt},
+  ]
+  % residual stream through decoder layer 12, then the steering hook at the layer's output
+  \coordinate (in) at (0,0);
+  \node[plus] (pa) at (3.7,0) {};
+  \node[plus] (pm) at (11.15,0) {};
+  \node[plus, draw=loopaccent] (ps) at (12.65,0) {};
+  \foreach \p in {pa,pm} {\draw[black!80] (\p.north) -- (\p.south) (\p.west) -- (\p.east);}
+  \draw[loopaccent] (ps.north) -- (ps.south) (ps.west) -- (ps.east);
+  \coordinate (out) at (14.4,0);
+  \draw[flow] (in) -- (pa.west);
+  \draw[flow] (pa.east) -- (pm.west);
+  \draw[flow] (pm.east) -- (ps.west);
+  \draw[flow] (ps.east) -- (out);
+  \node[lab, anchor=north west, align=left] at (0,-0.1) {residual stream\\[-1pt]{\color{black!60}(896 dimensions)}};
+  \node[lab, anchor=north east] at ($(out)+(0,-0.1)$) {to layer 13};
+
+  % attention branch
+  \node[box, minimum width=20mm] (att) at (2.2,1.15) {attention};
+  \draw[flow] (0.9,0) |- (att.west);
+  \draw[flow] (att.east) -| (pa.north);
+
+  % MLP branch: the gate and up projections give the activations h_i of 4864 neurons
+  \node[box, minimum width=44mm] (gu) at (6.85,-0.7)
+    {$h=\operatorname{SiLU}(W_{\mathrm{gate}}\,\hat x)\odot W_{\mathrm{up}}\,\hat x$};
+  \draw[flow] (4.2,0) |- (gu.west);
+  \foreach \x/\name in {4.95/n1, 5.55/n2, 6.15/n3, 7.45/n832, 8.62/nlast} {\node[neuron] (\name) at (\x,-2.2) {};}
+  \node[neuron, draw=loopaccent, fill=loopaccent!20] at (n832) {};
+  \node[lab] at (6.8,-2.2) {$\cdots$};
+  \node[lab] at (8.04,-2.2) {$\cdots$};
+  \node[lab, below=0.4mm of n1] {$h_1$};
+  \node[lab, below=0.4mm of n2] {$h_2$};
+  \node[lab, below=0.4mm of n3] {$h_3$};
+  \node[lab, below=0.4mm of n832, text=loopaccent] {$h_{832}$};
+  \node[lab, below=0.4mm of nlast] {$h_{4864}$};
+  \node[draw=black!45, dashed, rounded corners=3pt, fit={(4.55,-1.88) (9.22,-2.85)}, inner sep=0pt] (row) {};
+  \node[lab, text=black!60, anchor=north west] at (row.south west) {4864 neurons};
+  \draw[flow] (gu.south) -- (gu.south |- row.north);
+
+  % down projection: neuron i writes h_i times its column w_i into the stream
+  \node[box, minimum width=27mm, inner sep=4pt] (wd) at (11.15,-2.2)
+    {$\sum_i h_i\,w_i$\\[-1pt]{\scriptsize $w_i$: column $i$ of $W_{\mathrm{down}}$}};
+  \draw[flow, black!55] (row.east) -- (wd.west);
+  \draw[->, semithick, loopaccent] (n832.north) to[out=45, in=168]
+    node[pos=0.6, above=0pt, lab, text=loopaccent] {$h_{832}\,w_{832}$} (wd.north west);
+  \draw[flow] (wd.north) -- (pm.south);
+
+  % steering hook: alpha v added to the layer's output at every position
+  \node[lab, text=loopaccent, align=center] (steer) at (12.65,1.3)
+    {$+\,\alpha v$, \ $v=312\,w_{832}$\\[-1pt]\footnotesize at every position};
+  \draw[->, semithick, loopaccent] (steer.south) -- (ps.north);
+
+  % the layer
+  \draw[decorate, decoration={brace, amplitude=4pt, raise=1pt}, draw=black!55]
+    (0.6,1.75) -- node[above=5pt, lab] {decoder layer 12 of Qwen2.5-0.5B-Instruct} (11.5,1.75);
+\end{tikzpicture}

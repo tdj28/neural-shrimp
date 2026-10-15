@@ -9,7 +9,7 @@
 \usepackage[numbers,sort&compress]{natbib}
 \usepackage[dvipsnames]{xcolor}
 \usepackage{tikz}
-\usetikzlibrary{arrows.meta,positioning,calc,decorations.pathreplacing}
+\usetikzlibrary{arrows.meta,positioning,calc,decorations.pathreplacing,fit}
 \usepackage[colorlinks=true,allcolors=blue]{hyperref}
 \usepackage{microtype}
 \hypersetup{pdftitle={Chaos and bifurcations in continuous language-model feedback},
@@ -3011,7 +3011,7 @@ reaching down, recurs. In this model, chaos under steering is therefore a generi
 stream at this norm. Rotating the steering direction makes the same point continuously: along the great circle from
 one Gaussian direction to another, $90^{\circ}$ away, at constant norm, the chaotic regions move and change shape, but
 the chaotic share stays between 13 and 24\,\% at every one of 103 angles (Figure~\ref{fig:morph}; a video of the
-rotation is in the supplementary material). Single neurons behave the same way. Steering along the output direction
+rotation is in the supplementary material). Single neurons behave the same way. Steering along the output direction (Figure~\ref{fig:neuronsteer})
 of one MLP neuron of the steered layer (its column of the down-projection, rescaled to the same norm; adding it is the same as raising that neuron's activation by a fixed amount at every position: by 37.4 at $|\alpha|=0.12$ for the neuron most specific to philosophy, whose mean activation on the philosophy texts is 0.27) gives 9.9\,\%
 chaotic cells for the neuron most specific to philosophy on held-out texts, chosen like the autoencoder feature below
 by a rule fixed before any map, 5.1\,\% for its index neighbour and 12.9\,\% for a random neuron
@@ -3046,6 +3046,20 @@ set of settings): largest Lyapunov exponent along the philosophy and gratitude d
 directions rescaled to the philosophy vector's norm. Titles give the chaotic share (finite-horizon exponent above $10^{-3}$, no period up
 to 48); colour gives the exponent, clipped at $\pm0.5$.}
 \label{fig:controls}
+\end{figure}
+\begin{figure}[H]
+\centering
+\input{figures/tikz-neuron-steering}
+\caption{Steering along one MLP neuron, in decoder layer 12 of Qwen2.5-0.5B-Instruct (normalizations omitted; $\hat x$
+is the normalized residual state). The layer's 4864 MLP neurons write $\sum_i h_i w_i$ into the residual stream: neuron
+$i$ always writes along its own column $w_i$ of the down-projection, scaled by its activation $h_i$. Steering adds
+$\alpha v$ to the layer's output at every position, prefix included. For a neuron direction, $v$ is that neuron's column
+rescaled to the norm of the philosophy vector, $v=(\lVert v_{\mathrm{phil}}\rVert/\lVert w_{832}\rVert)\,w_{832}
+=(188.99/0.606)\,w_{832}=312\,w_{832}$ for neuron 832. Adding $\alpha v$ therefore adds $312\alpha\,w_{832}$, exactly
+what the neuron writes when its activation is raised by $312\alpha$ at every position: by 37.4 at $|\alpha|=0.12$,
+against a mean of 0.27 on the philosophy texts. The factors for neurons 833 and 4137 are 329 and 346. The concept and
+Gaussian directions of Figure~\ref{fig:controls} have the same norm.}
+\label{fig:neuronsteer}
 \end{figure}
 \begin{figure}[H]
 \centering
