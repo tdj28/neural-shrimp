@@ -25589,3 +25589,16 @@ DSS5's anomalies are tested at the same time: the repelling cell with mu1 = +1.6
   - sec:beyond, "Beyond the one-token loop".
 - **Numbers.** Every number in the summaries is copied from the moved sections.
 - **Pages.** The main text is now 37 pages (it was about 80 of 91); the paper has 92 pages in all. Clean build: 0 overfull, 0 undefined references, 0 multiply defined labels.
+
+## 2026-10-15 14:58 UTC: Codex Task 21h processed (steering depth and exact two-block controls)
+
+Every number in the paper's depth and two-block paragraphs agrees with Codex's independent recount from the saved grids:
+- the block shares 5.9/8.1/6.8/5.0/2.3 % (961, 1321, 1119, 821 and 378 of 16,384 cells);
+- block 20's chaotic cells between log10 T -0.09 and 0.22;
+- 0.8 to 2.1 % in the strip |alpha| < 0.02 (22-59 of 2816 cells);
+- with the exact-zero single-push controls, 1561/761/1194/1354 of 9216 cells chaotic where neither push alone is, and 1525/720/1154/1173 with both pushes periodic (8.3 to 16.9 % and 7.8 to 16.5 %).
+
+**Corrections to this log** (the paper already had the right values):
+- the layer-sweep entry's "late-block steering (20) leaves only a thin chaotic band at log10 T 0.1-0.25": block 20's chaos extends from -0.089 to 0.219, three fifths of it above 0.1;
+- "near zero steering every block gives 1-2 %" should read 0.8 to 2.1 % (|alpha| < 0.02);
+- the original two-block counts against the nearest-axis slices (1574/880/1084/1273) used alpha = -0.00126, not zero. They are superseded by the exact-zero controls above.
