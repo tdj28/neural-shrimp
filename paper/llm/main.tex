@@ -464,7 +464,8 @@ n\textbackslash nThe existence'' loops.
 \includegraphics[width=0.62\linewidth]{fig-cross512-families.png}
 \caption{The cells of Figure~\ref{fig:teaser} (Qwen2.5-0.5B-Instruct, philosophy direction at layer 12; $512^2$
 float64 cells over $\alpha\in[0.0625,0.0775]$, $\log_{10}T\in[-0.17,-0.125]$), coloured by the attractor's
-leading-token loop (black: chaotic; grey: no period up to 32). Figure~\ref{fig:teaser} shows the largest Lyapunov
+leading-token loop (black: chaotic; grey: no period up to 32; bluish grey: other periodic attractors).
+Figure~\ref{fig:teaser} shows the largest Lyapunov
 exponent of the same cells.}
 \label{fig:cross512}
 \end{figure}
@@ -1109,8 +1110,8 @@ Lyapunov exponent, period of the attractor reached from the fixed start, and nex
 other data, training and code. Steered at layer 16 of 32, with concept vectors built exactly as for Qwen, it shows the
 same kind of organization (Figure~\ref{fig:olmo2}). In $64^2$ float64 maps, 6\,\% of cells are chaotic along the
 philosophy direction and 13\,\% along the hostility direction, in a band near $\log_{10}T=0.03$--$0.17$ that bends to
-lower temperatures under strong hostility steering ($\alpha>0.07$). Below the band the attractor is a fixed point or
-the 2-cycle ``!Hello''; inside it lie periodic windows of periods 4 to 31. Along the hostility direction the
+lower temperatures under strong hostility steering ($\alpha>0.07$). Below the band the attractor is the 2-cycle
+``!Hello''; above it, at high temperature, the fixed point ``!''; inside it lie periodic windows of periods 4 to 31. Along the hostility direction the
 largest windows, of periods 8 to 12, are loops of $k$ laps of the 2-cycle ``!<|endoftext|>'' with a short excursion
 (``there is an''). Each lap adds two to the period, as each lap of ``!Yes'' does in the hostile cascade of
 Qwen2.5-0.5B (Section~\ref{sec:hostility}). Whether a fold of that 2-cycle organizes them is not tested: these are
@@ -1780,7 +1781,8 @@ and 21 (stars).}
 bifurcation diagrams along temperature at $\alpha=0.0655$ (left) and along the steering strength at
 $\log_{10}T=0.1830$ (right). Top: the last 160 states of the attractor reached from
 the fixed start, projected on the steering direction (red: cells with a positive largest exponent). Bottom: largest
-Lyapunov exponent, with the cells' periods marked. On the right, period 7 doubles to 14 and 28, enters chaos with
+Lyapunov exponent, with the cells of periods 7, 14, 21, 28, 35 and 42 marked (cells of other periods are not marked).
+On the right, period 7 doubles to 14 and 28, enters chaos with
 windows of periods 28, 35 and 42, and undoubles back to 7. Labels come from 400 measured steps after 1000 transient
 steps; with 2000 measured steps at two twin offsets, 135 of the 235 red cells on the left stay chaotic and 91 are
 periodic (Section~\ref{sec:discussion}, Limitations).}

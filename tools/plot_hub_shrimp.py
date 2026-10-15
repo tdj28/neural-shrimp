@@ -20,6 +20,7 @@ def main():
     import matplotlib.pyplot as plt
 
     import explore_llm_attractors as ela
+    import period_colors as pc
 
     base = ela.DATA / "explore" / "llm-soft-loop" / "pod64"
     z = np.load(base / "scan64" / "hub-arm" / "scan-partial.npz")
@@ -29,12 +30,16 @@ def main():
     P[done:] = np.nan
     P = P.reshape(len(lt), len(al))
     Pm = np.where(P > 0, P, np.nan)
+    xlim, ylim = (0.0600, 0.0700), (0.172, 0.204)
+    # colour-bar categories: the periods of the cells drawn inside the axes (the scan extends beyond them)
+    xe, ye = np.linspace(al[0], al[-1], len(al) + 1), np.linspace(lt[0], lt[-1], len(lt) + 1)
+    shown = (((ye[1:] > ylim[0]) & (ye[:-1] < ylim[1]))[:, None]
+             & ((xe[1:] > xlim[0]) & (xe[:-1] < xlim[1]))[None, :])
     fig, ax = plt.subplots(figsize=(7.2, 5.6))
-    cmap = plt.get_cmap("tab20").copy()
-    cmap.set_bad("white")
-    im = ax.imshow(Pm, origin="lower", extent=[al[0], al[-1], lt[0], lt[-1]], aspect="auto", cmap=cmap,
-                   interpolation="nearest", vmin=0.5, vmax=40.5, alpha=0.55)
-    plt.colorbar(im, ax=ax, label="period of the attractor (white: none or not computed)")
+    cats = pc.categorize(np.where(shown, Pm, np.nan), max_blocks=pc.blocks_that_fit(ax))
+    im = ax.imshow(cats.index(Pm, valid=shown), origin="lower", extent=[al[0], al[-1], lt[0], lt[-1]],
+                   aspect="auto", cmap=cats.cmap, norm=cats.norm, interpolation="nearest", alpha=0.55)
+    cats.colorbar(im, ax=ax, label="period of the attractor (white: none or not computed)")
     styles = {"fold": dict(color="k", lw=1.6), "flip": dict(color="C3", lw=1.6, ls="--")}
     for c in sorted((base / "hcurves").glob("hub7-*")):
         d = json.loads((c / "curve.json").read_text())
@@ -49,8 +54,8 @@ def main():
     ax.plot([], [], **styles["fold"], label="fold curves (period 7)")
     ax.plot([], [], **styles["flip"], label="flip curves (period 7 to 14)")
     ax.plot([], [], "o", ms=8, mfc="gold", mec="k", ls="none", label="nondegenerate cusps ($b=0$, $c\\neq0$)")
-    ax.set_xlim(0.0600, 0.0700)
-    ax.set_ylim(0.172, 0.204)
+    ax.set_xlim(*xlim)
+    ax.set_ylim(*ylim)
     ax.set_xlabel("steering along 'hostility-vs-kindness'")
     ax.set_ylabel("log10 temperature")
     ax.legend(fontsize=8, loc="lower right")

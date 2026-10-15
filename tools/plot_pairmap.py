@@ -49,9 +49,17 @@ def main():
     matplotlib.use("Agg")
     import matplotlib.pyplot as plt
 
+    import period_colors as pc
+
     fig, axes = plt.subplots(2, 2, figsize=(11, 8.6))
-    cmap = plt.get_cmap("tab20").copy()
-    cmap.set_bad("white")
+    # one colour per period of the non-chaotic cells, the same in all four maps; rare periods share an "other"
+    # block if the labels would not fit
+    shown = []
+    for key in MODELS:
+        for concept in CONCEPTS:
+            z, _ = load_map(key, concept)
+            shown.append(np.where(z["lyapunov"] > 1e-3, 0, z["period"]))
+    cats = pc.categorize(shown, max_blocks=pc.blocks_that_fit(axes[0, 0]))
     loops = {}
     for col, key in enumerate(MODELS):
         for row, concept in enumerate(CONCEPTS):
@@ -66,9 +74,9 @@ def main():
                                                    for f in fams[:8]]}, ensure_ascii=False))
             ax = axes[row, col]
             ext = [al[0], al[-1], lt[0], lt[-1]]
-            im = ax.imshow(np.where((P > 0) & ~chaotic, P, np.nan), origin="lower", extent=ext, aspect="auto",
-                           cmap=cmap, vmin=0.5, vmax=40.5, interpolation="nearest")
-            fig.colorbar(im, ax=ax, label="period (black: chaotic)")
+            im = ax.imshow(cats.index(P, valid=~chaotic), origin="lower", extent=ext, aspect="auto",
+                           cmap=cats.cmap, norm=cats.norm, interpolation="nearest")
+            cats.colorbar(im, ax=ax, label="period (black: chaotic)")
             ax.imshow(np.where(chaotic, 1.0, np.nan), origin="lower", extent=ext, aspect="auto", cmap="gray_r",
                       vmin=0, vmax=1, interpolation="nearest")
             ax.set_title(f"{MODELS[key]}, {concept} ({100 * chaotic.mean():.0f} % chaotic)", fontsize=9)

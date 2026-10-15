@@ -24,6 +24,7 @@ def main():
     import matplotlib.pyplot as plt
 
     import explore_llm_attractors as ela
+    import period_colors as pc
 
     base = ela.DATA / "explore" / "llm-soft-loop" / "pod64"
     path = ela.DATA / "explore" / ZOOM
@@ -39,14 +40,13 @@ def main():
           "periods", {int(q): int((P == q).sum()) for q in np.unique(P[~np.isnan(P)])})
     ext = [al[0], al[-1], lt[0], lt[-1]]
     fig, axes = plt.subplots(1, 2, figsize=(12, 5.2))
-    cmap = plt.get_cmap("tab20").copy()
-    cmap.set_bad("white")
     Pm = np.where((P > 0) & ~chaotic, P, np.nan)
-    im = axes[0].imshow(Pm, origin="lower", extent=ext, aspect="auto", cmap=cmap, vmin=0.5, vmax=40.5,
+    cats = pc.categorize(Pm, max_blocks=pc.blocks_that_fit(axes[0]))   # one colour and colour-bar block per period
+    im = axes[0].imshow(cats.index(Pm), origin="lower", extent=ext, aspect="auto", cmap=cats.cmap, norm=cats.norm,
                         interpolation="nearest")
     axes[0].imshow(np.where(chaotic, 1.0, np.nan), origin="lower", extent=ext, aspect="auto", cmap="gray_r",
                    vmin=0, vmax=1, interpolation="nearest")
-    fig.colorbar(im, ax=axes[0], label="period (black: positive exponent; white: none)")
+    cats.colorbar(im, ax=axes[0], label="period (black: positive exponent; white: none)")
     im = axes[1].imshow(np.clip(L, -0.4, 0.4), origin="lower", extent=ext, aspect="auto", cmap="RdBu_r",
                         vmin=-0.4, vmax=0.4, interpolation="nearest")
     fig.colorbar(im, ax=axes[1], label="largest Lyapunov exponent (clipped)")

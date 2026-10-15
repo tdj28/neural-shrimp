@@ -907,10 +907,13 @@ def figure(log_t, alphas, lyap, period, entropy, path, args):
                              shading="auto")
     axes[0].set_title("largest Lyapunov exponent per step (clipped)")
     fig.colorbar(im0, ax=axes[0])
-    im1 = axes[1].pcolormesh(alphas, log_t, np.where(period > 0, period, np.nan), cmap="tab20", vmin=0.5,
-                             vmax=20.5, shading="auto")
+    if (period > 0).any():                                  # one colour and one colour-bar block per period
+        import period_colors as pc
+
+        cats = pc.categorize(period, max_blocks=pc.blocks_that_fit(axes[1]))
+        im1 = axes[1].pcolormesh(alphas, log_t, cats.index(period), cmap=cats.cmap, norm=cats.norm, shading="auto")
+        cats.colorbar(im1, ax=axes[1])
     axes[1].set_title("period of the attractor (white: none up to the maximum)")
-    fig.colorbar(im1, ax=axes[1])
     im2 = axes[2].pcolormesh(alphas, log_t, entropy, cmap="viridis", shading="auto")
     axes[2].set_title("next-token entropy at the last step (nats)")
     fig.colorbar(im2, ax=axes[2])
@@ -920,6 +923,14 @@ def figure(log_t, alphas, lyap, period, entropy, path, args):
     fig.suptitle(f"soft-token decoding, {ela.MODELS[args.model]}, window {args.window}, layer {args.layer}")
     fig.tight_layout()
     fig.savefig(path, dpi=110)
+
+
+def replot(args):
+    """Redraw a finished scan's overview figure from scan.npz and the arguments saved in scan.json."""
+    src = DATA / "explore" / args.scan
+    z = np.load(src / "scan.npz")
+    run = argparse.Namespace(**json.loads((src / "scan.json").read_text())["args"])
+    figure(z["log10_temperature"], z["alpha"], z["lyapunov"], z["period"], z["entropy"], args.out, run)
 
 
 def curve_points(src):
@@ -936,22 +947,21 @@ def curve_points(src):
 
 
 def render(args):
-    """Period map of a finished scan with chaos marked: discrete colours for periods 1..max, black where the
-    largest Lyapunov exponent exceeds --chaos-level, grey where no period was found below it."""
+    """Period map of a finished scan with chaos marked: one colour and one legend entry per period drawn (periods
+    above --max-period, if given, as one 'other' entry), black where the largest Lyapunov exponent exceeds
+    --chaos-level, grey where no period was found below it."""
     import matplotlib
     matplotlib.use("Agg")
     import matplotlib.pyplot as plt
-    from matplotlib.colors import ListedColormap
+
+    import period_colors as pc
 
     src = DATA / "explore" / args.scan
     d = np.load(src / "scan.npz")
     lt, al, per, ly = d["log10_temperature"], d["alpha"], d["period"], d["lyapunov"]
-    top = int(args.max_period)
-    base = plt.get_cmap("tab20")(np.arange(20))
-    colours = np.concatenate([np.delete(base, [14, 15], axis=0), plt.get_cmap("tab20b")(np.arange(20))])[:top]
-    # (tab20's two greys are dropped: grey marks 'no period')
     img = np.full(per.shape + (4,), 0.0)
-    family_handles = []
+    family_handles, period_handles = [], []
+    none_colour = (0.8, 0.8, 0.8, 1.0) if args.families else (0.75, 0.75, 0.75, 1.0)   # 'no period, not chaotic'
     if args.style == "lyapunov":                          # as in the shrimp literature: chaos in colour by the
         # largest exponent, periodic regions in grey by how contracting they are (superstable curves dark)
         from matplotlib.colors import Normalize
@@ -969,33 +979,49 @@ def render(args):
         info = {f["family"]: f for f in json.loads((src / "scan.json").read_text())["families"]}
         ids, counts = np.unique(fam[fam >= 0], return_counts=True)
         chosen = ids[np.argsort(-counts)][: args.families]
-        palette = plt.get_cmap("tab20")(np.arange(20))
-        img[(per > 0)] = (0.55, 0.55, 0.62, 1.0)          # other periodic attractors
+        # tab20 without its greys, then tab20b (grey marks 'no period' and the other attractors)
+        palette = np.concatenate([np.delete(plt.get_cmap("tab20")(np.arange(20)), [14, 15], axis=0),
+                                  plt.get_cmap("tab20b")(np.arange(20))])
+        if len(chosen) > len(palette):
+            raise SystemExit(f"--families {args.families}: only {len(palette)} distinct colours")
+        img[(per > 0)] = pc.OTHER_COLOUR                    # other periodic attractors
         for k, f in enumerate(chosen):
-            colour = palette[k % 20]
+            colour = palette[k]
             img[fam == f] = colour
             text = "".join(info[int(f)]["tokens"]).replace("\n", "\\n")[:28] if int(f) in info else "?"
             family_handles.append(matplotlib.patches.Patch(color=colour,
                                   label=f"P{info[int(f)]['period'] if int(f) in info else '?'} {text!r}"))
-        img[per == 0] = (0.8, 0.8, 0.8, 1.0)
+        if ((per > 0) & ~np.isin(fam, chosen) & ~(ly > args.chaos_level)).any():
+            family_handles.append(matplotlib.patches.Patch(color=pc.OTHER_COLOUR, label="other periodic attractors"))
+        img[per == 0] = none_colour
     else:
-        for q in range(1, top + 1):
-            img[per == q] = colours[(q - 1) % len(colours)]
-        img[(per == 0) | (per > top)] = (0.75, 0.75, 0.75, 1.0)
+        drawn = (per > 0) & ~(ly > args.chaos_level)       # chaotic cells are drawn black below
+        own = drawn & (per <= args.max_period) if args.max_period else drawn
+        if own.any():
+            cats = pc.categorize(np.where(own, per, 0))
+            img[own] = cats.rgba(per[own])
+            period_handles = cats.handles()
+        if (drawn & ~own).any():                            # longer than --max-period: one labelled entry
+            merged = bool(period_handles) and period_handles[-1].get_label() == "other"   # same colour: one entry
+            if merged:
+                period_handles.pop()
+            img[drawn & ~own] = pc.OTHER_COLOUR
+            period_handles.append(matplotlib.patches.Patch(
+                color=pc.OTHER_COLOUR, label="other" if merged else f"other (> {args.max_period})"))
+        img[per <= 0] = none_colour
     if args.style != "lyapunov":
         img[ly > args.chaos_level] = (0.0, 0.0, 0.0, 1.0)
     fig, ax = plt.subplots(figsize=(7.5, 8))
     ax.imshow(img, origin="lower", aspect="auto", interpolation="nearest",
               extent=(al[0], al[-1], lt[0], lt[-1]))
-    handles = family_handles or [matplotlib.patches.Patch(color=colours[(q - 1) % len(colours)], label=str(q))
-                                 for q in range(1, top + 1) if np.any(per == q)]
+    handles = family_handles or period_handles
     if args.style == "lyapunov":
         handles = [matplotlib.patches.Patch(color=plt.get_cmap("plasma")(0.8), label="chaotic (largest exponent)"),
                    matplotlib.patches.Patch(color=(0.2, 0.2, 0.2), label="periodic, strongly contracting"),
                    matplotlib.patches.Patch(color=(0.9, 0.9, 0.9), label="periodic, weakly contracting")]
     if args.style != "lyapunov":
         handles += [matplotlib.patches.Patch(color="black", label=f"Lyapunov > {args.chaos_level}"),
-                    matplotlib.patches.Patch(color=(0.75, 0.75, 0.75), label="no period, not chaotic")]
+                    matplotlib.patches.Patch(color=none_colour, label="no period, not chaotic")]
     # fold: cyan, long dashes; flip: magenta, short dashes (white would read as a weakly contracting periodic cell)
     styles = {"fold": dict(color="#00e5ff", lw=1.8, ls=(0, (7, 3))), "flip": dict(color="magenta", lw=1.6, ls=(0, (2, 2)))}
     for path in args.curves or []:                         # traced bifurcation curves over the brute-force map
@@ -1494,7 +1520,8 @@ def main():
     tl.add_argument("--out", required=True)
     rd = sub.add_parser("render")
     rd.add_argument("--scan", required=True, help="explore-relative directory of a finished scan")
-    rd.add_argument("--max-period", type=int, default=16)
+    rd.add_argument("--max-period", type=int, default=None,
+                    help="periods above this share one 'other' legend entry (default: every period its own colour)")
     rd.add_argument("--chaos-level", type=float, default=0.005)
     rd.add_argument("--curves", nargs="*", help="explore-relative directories of curve runs to draw on the map")
     rd.add_argument("--name", default="", help="output file name inside the scan directory (default render.png)")
@@ -1506,6 +1533,9 @@ def main():
                          "(superstable curves dark), as in the shrimp literature")
     rd.add_argument("--families", type=int, default=0,
                     help="colour the N most common attractor identities (token loops) instead of periods")
+    rp = sub.add_parser("replot", help="redraw a finished scan's overview figure (scan.png) from its saved files")
+    rp.add_argument("--scan", required=True, help="explore-relative directory of a finished scan")
+    rp.add_argument("--out", required=True, help="output image path")
     ro = sub.add_parser("readout")
     ro.add_argument("--run", required=True, help="explore-relative orbit, branch, tline or curve run directory")
     ro.add_argument("--index", type=int, default=0, help="point of a branch/tline/curve run")
@@ -1672,7 +1702,8 @@ def main():
     args = parser.parse_args()
     {"scan": scan, "orbit": orbit, "tline": tline, "branch": branch, "curve": curve, "precision": precision,
      "walk": walk, "normal-form": normal_form, "passage": passage, "stitch": stitch,
-     "render": render, "windows": windows, "branch-plot": branch_plot, "readout": readout}[args.command](args)
+     "render": render, "windows": windows, "branch-plot": branch_plot, "readout": readout,
+     "replot": replot}[args.command](args)
 
 
 if __name__ == "__main__":

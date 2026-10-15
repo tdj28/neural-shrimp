@@ -46,6 +46,7 @@ def main():
     from matplotlib.colors import ListedColormap
 
     import explore_llm_attractors as ela
+    import period_colors as pc
 
     out = sys.argv[1]
     prefix = sys.argv[2] if len(sys.argv) > 2 else "llm-soft-loop/pod64/controls70/hostility-vs-kindness-zoom-b"
@@ -69,15 +70,13 @@ def main():
     ax.set_title(f"largest exponent; chaotic {100 * chaotic.mean():.0f} % of {L.size} cells", fontsize=9)
     periodic = P > 0
     unresolved = ~periodic & ~chaotic
-    img = np.ones(P.shape + (4,))
-    cmap = plt.get_cmap("viridis")
-    img[periodic] = cmap(np.clip(np.log2(np.maximum(P[periodic], 1)) / 5.0, 0, 1))
+    cats = pc.categorize(P, max_blocks=pc.blocks_that_fit(bx))    # one colour and colour-bar block per period
+    img = cats.rgba(P, fill=(1.0, 1.0, 1.0, 1.0))
     img[chaotic] = (0.0, 0.0, 0.0, 1.0)
     img[unresolved] = (0.82, 0.82, 0.82, 1.0)
     bx.imshow(img, origin="lower", extent=ext, aspect="auto", interpolation="nearest")
-    sm = plt.cm.ScalarMappable(cmap=cmap, norm=plt.Normalize(0, 5))
-    cb2 = fig.colorbar(sm, ax=bx, fraction=0.04, pad=0.02)
-    cb2.set_label("log2 period (periodic cells)", fontsize=8)
+    cb2 = cats.colorbar(ax=bx, fraction=0.04, pad=0.02)
+    cb2.set_label("period (periodic cells)", fontsize=8)
     bx.set_title(f"period (black: chaotic; light grey: no period up to 32 and no positive exponent, "
                  f"{100 * unresolved.mean():.0f} %)", fontsize=9)
     for a in (ax, bx):
