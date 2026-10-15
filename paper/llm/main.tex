@@ -663,8 +663,9 @@ chaotic state from anyone who reads only the output, is shown in Section~\ref{se
 reproducible: GPU kernels choose different reduction orders for different matrix shapes, so a request's result depends
 on the batch it shares and on the hardware \cite{he2025nondeterminism,yuan2025nondeterminism}. We ran the 448 labelled
 cells of the horizon check (192 chaotic, 192 periodic and 64 other cells of two float64 maps; Section~\ref{sec:methods})
-twice in lockstep from the same start. The two runs differ only in the batch: the cells alone, or followed by the same
-cells in reverse order, which changes the matrix shapes the kernels see and nothing else (Figure~\ref{fig:repro},
+twice in lockstep from the same start. The two runs differ only in the batch: all cells in one batch of $n$ rows, or
+the same rows followed by the same cells in reverse order ($2n$ rows), which changes the matrix shapes the kernels see
+and nothing else (Figure~\ref{fig:repro},
 Table~\ref{tab:repro}). In float64 the two runs first differ by about $6\times10^{-15}$, the rounding level. At 190 of
 the 192 chaotic cells this difference grows to order one, after a median of 102 steps, and 90\,\% of the chaotic cells
 end up writing different tokens. At 182 of the 192 periodic cells the two runs stay within $10^{-2}$ for all 1500
@@ -672,14 +673,15 @@ steps; their median largest distance is $2\times10^{-12}$, and 95\,\% of all per
 $3\times10^{-12}$. The Lyapunov exponent predicts when a chaotic run
 diverges: the step at which the distance passes $10^{-2}$ follows $\ln(10^{-2}/d_1)/\lambda$, where $d_1$ is the first
 nonzero distance, with a median ratio of $0.91$ and a log-log correlation of $0.73$ over 190 cells. The two chaotic
-cells that never diverge have exponents of $0.013$ and $0.0013$, for which the predicted step lies beyond the run. In
-lower precision the rounding is larger. In float32 every chaotic cell diverges within about 20 steps. In bfloat16, a
-common serving precision, the two layouts differ by $10^{-2}$ after two steps at every cell, periodic ones included.
-At that precision the loop is not reproducible across batch layouts anywhere in this steered region.
+cells that never diverge have exponents of $0.013$ and $0.0013$, for which the predicted step lies beyond the run.
 The same holds without steering in Qwen2.5-7B, whose embeddings are untied. Over 24 chaotic and 24 periodic
-temperatures of its unsteered loop, all 24 chaotic runs diverge after a median of 56 steps (the exponent again predicts
-the step, median ratio $0.95$), and 96\,\% of them end up writing different tokens. None of the 24 periodic runs moves
-past $10^{-2}$, and 95\,\% end within $1.3\times10^{-13}$ of each other.
+temperatures of its unsteered loop, all 24 chaotic float64 runs diverge, after a median of 56 steps (the exponent again
+predicts the step, median ratio $0.95$), and 96\,\% of them end up writing different tokens. None of the 24 periodic runs
+moves past $10^{-2}$, and 95\,\% end within $1.3\times10^{-13}$ of each other. In lower precision the rounding is
+larger. In float32 every chaotic cell of both models diverges, after a median of 20 steps (0.5B) or 16 (7B). In
+bfloat16, a common serving precision, the two layouts pass a distance of $10^{-2}$ after a median of two steps, at every
+cell, periodic ones included. At that precision the loop is not reproducible across batch layouts in any regime we
+tested.
 
 The same test at the level of answers, with a design frozen before the run, shows what this means for a task. We
 asked Qwen2.5-0.5B 96 held-out two-digit additions through a short soft-thinking pipeline: 32 expected-embedding steps
