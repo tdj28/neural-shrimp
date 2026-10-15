@@ -25331,3 +25331,19 @@ The float32 accuracies may differ from H1b's bfloat16 ones. Ceilings in the priv
 - Period-4, 7, 10 and 12 bands and stripes.
 
 **Next.** A doubly superstable search of the period-6 orbit here if DSS5 (period 5, mirrored plane) shows the method works in two-block planes.
+
+## 2026-10-15 11:07 UTC: TBZg2 result: the period-5 window resolved: body, legs, doubling border, converging dark curves
+
+**Run.** Pod (H100 class); commit f19216a2 from the orchestrator log; runner rc 0; terminated. Map: tb/zg2-grat4-host16-t-0.1, gratitude@4 + hostility@16, log10 T -0.1, 128 x 128 over alpha1 [-0.1215, -0.1165] and alpha2 [0.0970, 0.1050]. Chaotic share 44.0 %. Render: docs/tp/tbzg2-period5-window.png.
+- Periods: 4 (5715), 5 (2362), 10 (639), 20 (135), 40 (21), 12, 8, 16, 15, 30, 6, 24.
+
+**Structure.**
+- **Body.** The period-5 window is a large region, rounded on its right edge, where it meets chaos at alpha1 about -0.1182, and tapering to a tip on the left near (-0.1196, 0.1012).
+- **Legs:**
+  - a comb of thin period-5 legs running left into the period-4 domain, interleaved with period-4 and period-10 bands (coexisting attractors);
+  - a long leg running up-right, from (-0.1188, 0.1025) to (-0.1175, 0.1045);
+  - a leg running down along alpha1 about -0.1185.
+- **Border.** The internal doubling cascade, period 10 then 20 (40 in a few cells).
+- **Exponent panel.** Inside the body, darker curves of strongest contraction converge toward the left tip. The most contracting period-5 cells: lambda -0.93 at (-0.11847, 0.10166), -0.83 at (-0.11902, 0.10229).
+
+This is the anatomy of a shrimp at map resolution. Whether two superstable curves of the period-5 orbit cross (a doubly superstable centre) is decided by DSS5, still running.
