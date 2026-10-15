@@ -497,7 +497,13 @@ headline maps ($\log_{10}T$ from $-0.17$ to $-0.04$) it is $1.04$ to $1.65$, ris
 high-temperature region ($\log_{10}T$ from $-0.02$ to $0.13$), nine chaotic cells have $D_{\mathrm{KY}}=1.37$ to
 $2.02$; at three of them $\lambda_1+\lambda_2\ge0$, and the attractor is effectively two-dimensional. A scalar return
 map describes the low-temperature chaos well and the high-temperature chaos poorly, consistent with the large second
-multipliers of the high-temperature bubble.
+multipliers of the high-temperature bubble. The number of competing tokens does not set the dimension. The readout's
+stable rank, $\operatorname{tr}\Sigma_p/\lambda_{\max}(\Sigma_p)$ averaged along the orbit, counts the directions in which
+the readout amplifies comparably. $D_{\mathrm{KY}}$ never exceeds it and rises with it within each group of cells
+(Spearman $0.72$ over 17 philosophy cells, $0.69$ over 8 hostile cells, both confounded with temperature). Across
+groups it does not predict the dimension: the hostile cells have stable ranks of 16 to 19 and next-token entropies of 7
+to 9 nats, yet $D_{\mathrm{KY}}\le1.16$. The readout supplies many competing directions; the network decides how many
+of them expand.
 \input{figures/tikz-atlas}
 
 \section{Methods}
@@ -1137,7 +1143,7 @@ universality requires. The next ratios are $3.124$, $4.4988$, $4.6208$, $4.6618$
 $\delta=4.6692$ are $-1.55$, $-0.17$, $-0.048$, $-0.0074$ and $-0.0019$, and from the third on each step closes the gap
 by a factor of 3.5 to 6.5. The last flip, of the period-384 orbit, approaches the precision floor of its multiplier,
 a product of 384 step Jacobians. On an H100 the computed $\mu+1$ scatters by $1.8\times10^{-5}$ about a straight line
-near the root, which places the flip within $\pm2.3\times10^{-13}$. The workstation GPU located it at
+near the root; the largest residual divided by the slope places the flip within $\pm3.3\times10^{-13}$. The workstation GPU located it at
 $\alpha=0.06510347354866666$ with $|\mu+1|=4\times10^{-9}$, $9\times10^{-14}$ from the H100 estimate. Over that range the
 ratio lies between $4.6672$ and $4.6675$. The
 superstable points along the same cut, through period 384, give the ratios $10.21$, $3.713$, $4.572$, $4.643$ and

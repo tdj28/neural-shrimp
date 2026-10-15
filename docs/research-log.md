@@ -24525,3 +24525,38 @@ Pod 9oreujzv1m3s7r (SECURE H100 NVL; runner rc 0, hash verified, terminated; 154
 - **Caveats.**
   - 0.5B model; one task family; a soft-thinking pipeline without top-k (not the published method's exact settings).
   - Accuracy rises with temperature here (soft tokens at T = 2.5 are nearly uninformative, and the model then answers from the question). Answer changes are therefore largest where the soft trace carries the most information.
+
+## 2026-10-15 07:36 UTC: Amendment to the FB extensions: FBC148 and FB15D stopped at their bracket checks; FB15D located the 1.5B route's 64->128 flip (fourth ratio 4.578); both relaunched with nearer far ends
+
+- Relaunched at commit 9684d66f (same code; this entry was committed after the launch). **FBC148** (pod 208222ah6uhvvh). It refused at the start: "no flip bracketed for period 96: mu + 1 = 1 at 0.066122589892689 and 1 at 0.066124478510077". The far end s192 lies too far past the 96->192 flip for the period-96 evaluation used there.
+  - Relaunch (FBC148b) with next = f96 + 0.25 w192 = 0.0661242927. The estimate comes from the measured -0.148 flips: f96 is about 0.06612411968 (from f48 = 0.06612095632 and the band position of s96, 0.516); w192 is about 6.9e-7.
+- **FB15D** (pod khn3ry7hqoi4fg). It located the 64->128 flip of the 1.5B route at log10 T = -0.001824434015999929 (mu = -0.9999999999, next modulus 2e-14; 9 evaluations). It then refused to switch: "period-128 orbit at the switching point -0.0018207 is already beyond its flip (mu = -1.611)".
+  - New 1.5B flip ratio: (f32 - f16) / (f64 - f32) = **4.578**. The route's ratios are now 3.60, 4.28, 4.578.
+  - Relaunch (FB15E) from period 128: start f64 + 0.5 w128 = -0.0018229570, next f128 + 0.25 w256 = -0.00182132, with w128 = (f64 - f32)/4.6 and ratio guess 4.58; 2 flips (128->256, 256->512).
+
+## 2026-10-15 07:39 UTC: Corrections from Codex Task 21a (independent Feigenbaum audit, comms 07:35 UTC)
+
+Codex recomputed the flip and superstable ratios at -0.156 from the saved files and confirmed them (14.928, 3.1241, 4.4988, 4.6208, 4.6618; superstable 10.212, 3.7125, 4.5716, 4.6429). It also confirmed the FBD floor root 0.065103473548573818, with next ratio 4.66733. Corrections adopted:
+- **FBD entry.** "Ritz residual below 1e-14" should read "below 2e-14". The saved maximum is 1.96e-14.
+- **Band of the floor root.** "+-2.3e-13 (scatter divided by slope)" is not a bound. The outward bound from the largest residual over the slope, across Codex's three fit variants, is below 3.24e-13. The paper now says +-3.3e-13. The clean local location lies 9.3e-14 away.
+- **P-F2.** As scored at 06:05 the first of the two ratios had a bracket envelope [1.018, 4.642], not wholly inside the frozen range. The current scoring (FBS384 entry) uses 4.643 [4.639, 4.647] and 4.6646, both resolved.
+- **--g-accept.** It is a fixed threshold on the best single residual, not a scatter-based gate. FBD's root came from the stated line fit, not from the gate.
+
+## 2026-10-15 07:40 UTC: MECH1 results: the block-12 and block-4 lines confirm the readout mechanism; R5: the readout's stable rank does not set the Kaplan-Yorke dimension across groups
+
+Pod xg535b59iooop9 (COMMUNITY H100 NVL; runner rc 0, hash verified, terminated; 3089 s; commit b203fb56). Outputs mech/b12, b4, host, ky-host, ky-phil. Inline analysis in this session.
+- **Alpha lines** (1205 cells per block; |alpha| <= 0.01 against chaotic cells, mean factors in nats per step):
+  - block 12: chaotic cells 0 / 2 / 19 / 87 / 0 at log10 T -0.6 / -0.3 / 0.0 / 0.15 / 0.25.
+    - Readout near zero steering: -7.16, -2.93, -0.91 at -0.3, 0.0, 0.15. In chaotic cells: +0.63, +0.46, +0.25.
+    - Network near zero: -0.32, -0.10, +0.31. In chaotic cells: -0.47, -0.16, +0.13.
+  - block 4: chaotic cells 2 / 17 / 35 / 25 / 0.
+    - Readout near zero: -6.71, -2.57, -0.94. In chaotic cells: +0.48 (at -0.6), +0.79, +0.63, -0.35.
+    - Network in chaotic cells: -0.27, -0.49, -0.44, +0.72.
+  - The exception is block 4 at log10 T 0.15: chaos there comes through the network factor (+0.72) with a contracting readout (-0.35).
+  - Elsewhere, at both blocks, chaos comes with an expanding readout and a network factor at or below its unsteered value. Block 4 reaches chaos at lower temperature (17 cells at -0.3 against 2).
+- **R5 (frozen: Spearman of D_KY against the mean stable rank of the readout at the KY cells).** 25 chaotic cells with spectra matched; KY spectra from hidden/spectrum-ky-{philosophy,hostility}.
+  - Overall: **-0.31** (p 0.13). Not positive.
+  - Within groups: philosophy (17 cells) +0.72 (p 0.001), but entropy +0.80 and log10 T +0.79 move with it; hostility (8 cells) +0.69 (p 0.057).
+  - D_KY never exceeds the stable rank: 1.0-2.0 against 2.7-19.3.
+  - The hostile cells have stable rank 16-19 and entropy 7-9 nats, yet D_KY 1.01-1.16.
+  - **Reading:** the number of competing readout directions is at most a loose ceiling on the dimension. Which of them expand is decided by the network. This withdraws the speculation (in conversation, 15 Oct) that the dimension grows with temperature because more tokens compete.
