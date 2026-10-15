@@ -26555,3 +26555,21 @@ This is critical slowing down. Near a flip the multiplier is close to -1, and 30
 **Verdict, by the frozen rule:** unresolved (unsolved cells at the meeting point). A one-cell CPU check at the band's centre (-0.1054, 0.1055) is running, to see whether Newton converges there from the fixed start and what its multipliers are.
 
 **Cost:** about $3.6.
+
+## 2026-10-15 23:21 UTC: PT2 setup results; pre-outcome amendment for target D (no passage has run)
+
+**setup-C-01: qualified** (723 s; source 05e4c9be).
+- Fold: alpha_c = 0.071369030053 at log10 T = -0.200. Critical multiplier real, 1 - 2e-14; complementary modulus 0.0909. Primitive period 2; closure and eigenpair gates passed; corrector residual 2.4e-14.
+- Coefficients: a = 10.95048 (raw -10.95048), b = 25.33001 (raw -25.33001).
+  - Finite differences: a from -10.950508 to -10.950481; b from -25.3654 to -25.3304.
+  - Composed precision converges.
+- U = 0.0039479; ghost side +alpha.
+
+**setup-D-01: fold corrector failed** (1930 s): line search failed at residual 9.5e-4 (relative 1.3e-4).
+- The target's fixed log10 T had been rounded to -0.0874, against the seed's -0.087439 on the producer fold curve.
+- The attempt is retained as is (task5b-fresh-prediction/setup-D-01).
+
+**Amendment, before any passage or design.**
+- Target D is pinned at the producer point's exact coordinates: log10 T = -0.08743901638683393, initial alpha 0.07563291254991963. That producer point has critical multiplier 1 - 1.8e-8 and complementary modulus 0.0037.
+- It is rerun as setup-D-02 with a larger corrector budget: --max-newton 10, --max-backtracks 4.
+- Every gate and tolerance is unchanged.

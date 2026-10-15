@@ -44,7 +44,8 @@ class Target:
 # pod64/p6z3/curve-foldD-plus). Both cross their fold curve transversally in alpha.
 TARGETS = {
     "C": Target("C", 2, "alpha", "log10T", -.200, .07137, (.0700, .0730)),
-    "D": Target("D", 6, "alpha", "log10T", -.0874, .07563, (.0750, .0765)),
+    # Pre-outcome amendment (setup-D-01 corrector failed at the rounded -0.0874): the producer point's exact coordinates
+    "D": Target("D", 6, "alpha", "log10T", -0.08743901638683393, 0.07563291254991963, (.0750, .0765)),
 }
 OWNED_OUTPUT = Path("/data2/neural-shrimp-data/codex/task5b-fresh-prediction")
 # Pre-outcome amendment: avoid every frozen passage epsilon at the midpoint.
