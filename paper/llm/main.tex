@@ -341,8 +341,7 @@ can expand. Steered at block 4, the chaotic
 cells at $\log_{10}T=0.15$ have a network factor of $+0.72$ and a contracting readout ($-0.35$). Along a line of the hostility-steered map (Section~\ref{sec:hostile})
 at $\log_{10}T=0.12$--$0.13$ the network factor of the chaotic cells is $+0.60$ against $+0.24$ to $+0.38$ at the
 neighbouring periodic cells. The mechanism is not specific to
-concept-labelled directions. This is consistent with the controls of Appendix~\ref{sec:origin}, in which
-norm-matched random directions also produce chaos in the 0.5B and 8B models; at 70B the directions differ
+concept-labelled directions. This is consistent with the controls of Appendix~\ref{sec:origin}, in which norm-matched random directions also produce chaos in the 0.5B and 8B models, and rotating the steering direction at constant norm moves the chaotic regions but keeps the chaotic share between 13 and 24\,\% at every one of 103 angles (Figure~\ref{fig:morph}); at 70B the directions differ
 (Appendix~\ref{sec:size}). What a direction does select is which tokens compete, and therefore what the attractors
 write.
 \begin{figure}[tbp]
@@ -388,6 +387,19 @@ temperature rows (gain split) or over held-out cells (crossover). Runs MECH and 
 \texttt{tools/plot\_mechanism.py}.}
 \label{tab:mechanism}
 \end{table}
+\begin{figure}[tbp]
+\centering
+\includegraphics[width=\linewidth]{fig-morph-samples.png}
+\caption{The soft-token map of Qwen2.5-0.5B-Instruct (steering at layer 12) while the steering direction rotates at
+constant norm from one Gaussian direction ($0^{\circ}$) to another ($90^{\circ}$): largest Lyapunov exponent (red:
+positive) at six of 103 angles, with the chaotic share. Float32 maps of $296\times512$ cells over
+$\alpha\in[-0.12,0.12]$, $\log_{10}T\in[-0.45,0.3]$; exponents from 80 measured steps at twin offset $10^{-4}$; each map
+continues from the final states of the previous angle after 40 steps, and every tenth starts from the fixed start
+after 300 steps. Where attractors coexist, continued and fresh starts can reach different ones, so the maps, and the
+rotation video, can jump at every tenth angle and across the 17 of 120 planned angles that did not finish within
+the run limit. These short-horizon labels are coarser than those of the float64 maps.}
+\label{fig:morph}
+\end{figure}
 
 \paragraph{Why low-dimensional structure can appear.} Near a bifurcation of a periodic orbit the centre manifold
 theorem reduces the dynamics exactly to the critical directions, so the normal forms of folds, flips and cusps apply
@@ -1433,13 +1445,23 @@ about 10.6 steps with $m=64$ and 7.7 with $m=8$, and with single samples essenti
 intermittency belongs to the expected-embedding map; sampling noise turns the bottleneck into a noise-limited trap
 whose strength grows with $m$.
 
-\paragraph{Other models.} The organization recurs in Qwen2.5-1.5B and 7B, in OLMo-2 7B, in Llama-3.1 8B, whose
+\paragraph{Other models.} The organization recurs in Qwen2.5-1.5B (Figure~\ref{fig:qwen15}) and 7B, in OLMo-2 7B, in Llama-3.1 8B, whose
 attractors we also read with sparse-autoencoder features, and in a second checkpoint of the 0.5B architecture, which
 shares the organization but not the attractors (Appendix~\ref{sec:scale}). The fold law of
 Section~\ref{sec:mechanism} recurs at 1.5B and 7B: windows accumulate on the fold of a short cycle, and the nearest
 four resolved windows meet a criterion fixed before the lines were computed, within $0.12\,\%$ at 1.5B and $4.5\,\%$
 at 7B (a correction of the period selector after the first scoring is disclosed); farther out, the 1.5B windows
 spread by $10.3$ to $14.0\,\%$. 
+\begin{figure}[tbp]
+\centering
+\includegraphics[width=0.49\linewidth]{fig-qwen15-zoom-lyapunov.png}\hfill
+\includegraphics[width=0.49\linewidth]{fig-qwen15-zoom-families.png}
+\caption{Qwen2.5-1.5B soft-token map steered along the philosophy direction at layer 14, $256^2$ float64 cells over
+$\alpha\in[0.03,0.12]$, $\log_{10}T\in[-0.2,0.2]$: largest Lyapunov exponent (left, rendered as
+Figure~\ref{fig:teaser}) and attractor texts (right, as Figure~\ref{fig:cross512}). Several period-2 label regions
+touch without a gap; as explained in Appendix~\ref{sec:methods}, such boundaries may be label switches of one orbit.}
+\label{fig:qwen15}
+\end{figure}
 
 \section{Chaos and model size}
 \label{sec:sizemain}
@@ -2815,16 +2837,6 @@ at 1.5B and $0.78$ to $0.81$ at 7B, against $0.58$ at 0.5B. The fold and its win
 while $f$, an effective constant that absorbs the global reinjection, differs between the models. With one
 fold per model, crossed in different coordinates ($\alpha$ at 0.5B, $\log_{10}T$ at 1.5B and 7B), no trend of $ab$
 with size can be read.
-\begin{figure}[H]
-\centering
-\includegraphics[width=0.49\linewidth]{fig-qwen15-zoom-lyapunov.png}\hfill
-\includegraphics[width=0.49\linewidth]{fig-qwen15-zoom-families.png}
-\caption{Qwen2.5-1.5B soft-token map steered along the philosophy direction at layer 14, $256^2$ float64 cells over
-$\alpha\in[0.03,0.12]$, $\log_{10}T\in[-0.2,0.2]$: largest Lyapunov exponent (left, rendered as
-Figure~\ref{fig:teaser}) and attractor texts (right, as Figure~\ref{fig:cross512}). Several period-2 label regions
-touch without a gap; as explained in Appendix~\ref{sec:methods}, such boundaries may be label switches of one orbit.}
-\label{fig:qwen15}
-\end{figure}
 
 \paragraph{A mixture-of-experts model.} Qwen3.5-35B-A3B differs from the dense models in two ways. Thirty of its 40
 layers use linear (Gated DeltaNet) attention, with gated full attention in every fourth layer, and each layer routes
@@ -3023,19 +3035,6 @@ set of settings): largest Lyapunov exponent along the philosophy and gratitude d
 directions rescaled to the philosophy vector's norm. Titles give the chaotic share (finite-horizon exponent above $10^{-3}$, no period up
 to 48).}
 \label{fig:controls}
-\end{figure}
-\begin{figure}[H]
-\centering
-\includegraphics[width=\linewidth]{fig-morph-samples.png}
-\caption{The soft-token map of Qwen2.5-0.5B-Instruct (steering at layer 12) while the steering direction rotates at
-constant norm from one Gaussian direction ($0^{\circ}$) to another ($90^{\circ}$): largest Lyapunov exponent (red:
-positive) at six of 103 angles, with the chaotic share. Float32 maps of $296\times512$ cells over
-$\alpha\in[-0.12,0.12]$, $\log_{10}T\in[-0.45,0.3]$; exponents from 80 measured steps at twin offset $10^{-4}$; each map
-continues from the final states of the previous angle after 40 steps, and every tenth starts from the fixed start
-after 300 steps. Where attractors coexist, continued and fresh starts can reach different ones, so the maps, and the
-rotation video, can jump at every tenth angle and across the 17 of 120 planned angles that did not finish within
-the run limit. These short-horizon labels are coarser than those of the float64 maps.}
-\label{fig:morph}
 \end{figure}
 \section{Limitations in detail}
 \label{sec:limits}
