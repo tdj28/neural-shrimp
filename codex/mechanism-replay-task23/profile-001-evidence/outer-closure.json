@@ -1,0 +1,100 @@
+{
+  "schema": "task23-profile-owner-closure-v1",
+  "closed_utc": "2026-10-15T16:11:48.463335+00:00",
+  "source_commit": "07c566caaaef52fea4610315e5decca42745cb5d",
+  "tool_session": 71776,
+  "tool_session_reaped_exit_code": 0,
+  "identities": [
+    {
+      "pid": 3183129,
+      "start": 202718183,
+      "pgid": 3183129,
+      "sid": 3183129,
+      "uid": 1000,
+      "nice": 10,
+      "threads": 1,
+      "limits": "Limit                     Soft Limit           Hard Limit           Units     \nMax cpu time              unlimited            unlimited            seconds   \nMax file size             unlimited            unlimited            bytes     \nMax data size             unlimited            unlimited            bytes     \nMax stack size            8388608              unlimited            bytes     \nMax core file size        0                    unlimited            bytes     \nMax resident set          unlimited            unlimited            bytes     \nMax processes             375398               375398               processes \nMax open files            65535                65535                files     \nMax locked memory         8388608              8388608              bytes     \nMax address space         1073741824           12884901888          bytes     \nMax file locks            unlimited            unlimited            locks     \nMax pending signals       375398               375398               signals   \nMax msgqueue size         819200               819200               bytes     \nMax nice priority         0                    0                    \nMax realtime priority     0                    0                    \nMax realtime timeout      200000               200000               us        \n",
+      "command": [
+        "/data2/neural-shrimp/.venv/bin/python",
+        "-I",
+        "-B",
+        "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/mechanism-replay-task23/profile-001-launch.py",
+        "--source",
+        "07c566caaaef52fea4610315e5decca42745cb5d"
+      ]
+    },
+    {
+      "pid": 3183210,
+      "start": 202718433,
+      "pgid": 3183210,
+      "sid": 3183210,
+      "uid": 1000,
+      "nice": 10,
+      "threads": 1,
+      "limits": "Limit                     Soft Limit           Hard Limit           Units     \nMax cpu time              1100                 1100                 seconds   \nMax file size             unlimited            unlimited            bytes     \nMax data size             unlimited            unlimited            bytes     \nMax stack size            8388608              unlimited            bytes     \nMax core file size        0                    unlimited            bytes     \nMax resident set          unlimited            unlimited            bytes     \nMax processes             375398               375398               processes \nMax open files            65535                65535                files     \nMax locked memory         8388608              8388608              bytes     \nMax address space         12884901888          12884901888          bytes     \nMax file locks            unlimited            unlimited            locks     \nMax pending signals       375398               375398               signals   \nMax msgqueue size         819200               819200               bytes     \nMax nice priority         0                    0                    \nMax realtime priority     0                    0                    \nMax realtime timeout      200000               200000               us        \n",
+      "command": [
+        "/data2/neural-shrimp/.venv/bin/python",
+        "-I",
+        "-B",
+        "-u",
+        "/data2/neural-shrimp-data/codex/mechanism-replay-task23/profile-001-supervision/source/codex/mechanism-replay-task23/run.py",
+        "--card",
+        "/data2/neural-shrimp-data/codex/mechanism-replay-task23/profile-001-supervision/source/codex/mechanism-replay-task23/profile-001-card.json",
+        "--out",
+        "/data2/neural-shrimp-data/codex/mechanism-replay-task23/profile-001"
+      ]
+    }
+  ],
+  "both_original_pids_absent": true,
+  "both_original_groups_and_sessions_absent": true,
+  "source_blobs_verified": 5,
+  "worker_and_supervision_manifests_verified": true,
+  "report": {
+    "path": "/data2/neural-shrimp-data/codex/mechanism-replay-task23/profile-001/report.json",
+    "bytes": 15706,
+    "sha256": "7f9c17397d48aa5d7ef337da2831272464c8a1a57148640586c0a871126974ea"
+  },
+  "worker_closure": {
+    "path": "/data2/neural-shrimp-data/codex/mechanism-replay-task23/profile-001-supervision/closure.json",
+    "bytes": 2485,
+    "sha256": "02d8a8c1979ce48c83629310b11a7adc230609aef3472a40611d6e123a339d25"
+  },
+  "worker_manifest": {
+    "path": "/data2/neural-shrimp-data/codex/mechanism-replay-task23/profile-001/final-manifest.json",
+    "bytes": 1076,
+    "sha256": "bc96ffbf1106b39181e7a1e52f582316db7ff362545a971c1d5586437a08ef6f"
+  },
+  "supervision_manifest": {
+    "path": "/data2/neural-shrimp-data/codex/mechanism-replay-task23/profile-001-supervision/final-manifest.json",
+    "bytes": 1676,
+    "sha256": "19d38581a85186c535d9b9ce2365cbcd6d2f6ca3926a25ce451bff91d9b450dc"
+  },
+  "preflight": {
+    "path": "/data2/neural-shrimp-data/codex/mechanism-replay-task23/profile-001-dispatch/preflight.json",
+    "bytes": 1925,
+    "sha256": "9a9b98bf77e4a3f1c52971e643fa62f288f728358b018f0e3f0978a6725aac87"
+  },
+  "outer_stdout": {
+    "path": "/data2/neural-shrimp-data/codex/mechanism-replay-task23/profile-001-dispatch/outer.stdout",
+    "bytes": 4346,
+    "sha256": "bdc82e953ecdd288ccef45c171596ddd9d64772b0dcfef62b654400b553f9ef3"
+  },
+  "outer_stderr": {
+    "path": "/data2/neural-shrimp-data/codex/mechanism-replay-task23/profile-001-dispatch/outer.stderr",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "runtime": {
+    "accounting_and_stream_write_seconds": 0.05113378237001598,
+    "base_forward_seconds": 10.245516877388582,
+    "load_and_initial_hash_seconds": 2.2376036380883306,
+    "measured_forward_seconds": 6.036369271343574,
+    "peak_rss_kib_observed_before_final_rehash_and_report": 5335544,
+    "prefix_seconds": 0.34308698889799416,
+    "scope": "Full worker wall belongs to external supervisor; no independent full-worker peak measurement.",
+    "seconds_before_final_rehash_and_report": 18.966920892940834
+  },
+  "supervisor_window_seconds": 20.54395120101981,
+  "output_bytes_sampled": 1243020,
+  "scope": "Original owner metadata/source/outer closure. No scientific recomputation or asset rehash. Worker timer/RSS before final rehash/report; external supervisor window separately measured. Profile32/16 only; no full1000/2000 evidence."
+}

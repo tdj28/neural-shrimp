@@ -1,3 +1,13 @@
+# Task23 short profile closed; full replay admitted
+
+2026-10-15T16:17:15.294165+00:00: One32/16 profile completed/reaped0, source07c566ca, report7f9c1739, original supervisor closure and owner closurece6ada53 accepted. External20.5439512s; observed worker18.9669209s and5,335,544KiB before final rehash/report, not independent full-worker wall/final peak. Sampled1,243,020B. All five captured source blobs and manifests authenticated; zero jobs at this checkpoint. Profile labels are not full-run evidence.
+
+Sole actual four-cell1000-transient/2000-measured finite-twin replay: unchanged gain229d79a7/run a6e83da0/map493a3d1d, card93f519a6/launcherf852d844. CPU2+supervisor,nice10,12GiBAS,4600CPU/2400wall plus fixed5+5cleanup,128MiB sampledoutputs,28/16GiB available memory and16GiBdisk floors. Linear cost1083.691s plus unmodeled finalization; projected66,560,405B including57,372,672B base payload. Fixed bounds, no retry/extension/AD/FD/power/XO. Exact private checkpoint/fresh admission precedes launch.
+
+Task25 source-only packet is frozen at07c566ca:40files128199B, manifest3f8d7423. Exact historical input/header/receipt association remains pending. Persistent watch ACTIVE every15minutes without cutoff until explicit human stop. Completed21/26/27 stay complete.
+
+## Preserved status history
+
 # Task23 controls passed; sole short profile admitted
 
 2026-10-15T16:08:20.043733+00:00: All9 manufactured groups passed in the sole attempt, report698ab72c, original receipt34062075, outer/source closureade0e1b8. No pretrained assets or producer outcomes were read by those controls. Worker and supervisor/groups are closed; tool78684reaped0. Observed control timer0.0416215s and peak522,948KiB precede its final report; external worker window1.259213373s is separately measured.

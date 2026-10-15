@@ -1,0 +1,34 @@
+{
+  "exit_code": 0,
+  "timed_out": false,
+  "seconds": 20.54395120101981,
+  "worker": {
+    "pid": 3183210,
+    "start": 202718433,
+    "pgid": 3183210,
+    "sid": 3183210,
+    "uid": 1000,
+    "nice": 10,
+    "threads": 1,
+    "limits": "Limit                     Soft Limit           Hard Limit           Units     \nMax cpu time              1100                 1100                 seconds   \nMax file size             unlimited            unlimited            bytes     \nMax data size             unlimited            unlimited            bytes     \nMax stack size            8388608              unlimited            bytes     \nMax core file size        0                    unlimited            bytes     \nMax resident set          unlimited            unlimited            bytes     \nMax processes             375398               375398               processes \nMax open files            65535                65535                files     \nMax locked memory         8388608              8388608              bytes     \nMax address space         12884901888          12884901888          bytes     \nMax file locks            unlimited            unlimited            locks     \nMax pending signals       375398               375398               signals   \nMax msgqueue size         819200               819200               bytes     \nMax nice priority         0                    0                    \nMax realtime priority     0                    0                    \nMax realtime timeout      200000               200000               us        \n",
+    "command": [
+      "/data2/neural-shrimp/.venv/bin/python",
+      "-I",
+      "-B",
+      "-u",
+      "/data2/neural-shrimp-data/codex/mechanism-replay-task23/profile-001-supervision/source/codex/mechanism-replay-task23/run.py",
+      "--card",
+      "/data2/neural-shrimp-data/codex/mechanism-replay-task23/profile-001-supervision/source/codex/mechanism-replay-task23/profile-001-card.json",
+      "--out",
+      "/data2/neural-shrimp-data/codex/mechanism-replay-task23/profile-001"
+    ]
+  },
+  "owned_worker_and_groups_closed": true,
+  "failure": null,
+  "maximum_output_bytes_sampled": 1243020,
+  "source_commit": "07c566caaaef52fea4610315e5decca42745cb5d",
+  "wrapper_sha256": "a6e83da06332cb5a27e1a167537226aaa38cfccdd1f87e92e28f17a5cc1093ed",
+  "card_sha256": "fc81c7be849c3c08875e15f2a961c56e86ec8d1d0ca52ef1672dcc2a7fd7163b",
+  "certificate_passed": false,
+  "experimental_claims": false
+}
