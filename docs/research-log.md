@@ -24678,3 +24678,10 @@ Frozen in docs/repro-task-test.md ("Extension ... Qwen2.5-7B-Instruct"), pushed 
   - the philosophy maps at blocks 4, 8, 12, 16 and 20 (150 each);
   - all 34 chaotic cells of the hostile line.
 - **Reading.** Descriptive. Report per configuration the cells with two or more turning points in a one-dimensional phase. Each flagged cell is inspected by eye, because a projection can fold a monotone curve. A cluster of such cells is a candidate region for a doubly superstable centre, to be tested by continuing the window's superstable curves (tools/doubly_superstable.py).
+
+## 2026-10-15 08:17 UTC: run (exploratory): XOG and XOR, the crossover along a second concept and a random direction (human: "where we are weak ... run more experiments")
+
+The mechanism's crossover so far covers one concept direction (philosophy) in two models. Same protocol as XO (tools/crossover.py, float64, transient 1000, record 1000), at block 12 of Qwen2.5-0.5B:
+- **XOG.** Gratitude, with the vectors of its own map (pairmap-qwen0.5b/vectors). Cells docs/xo-cells-gratitude.json: 16 chaotic cells (log10 T -0.66 to 0.27) and 8 periodic cells of pairmap-qwen0.5b/map128-gratitude.
+- **XOR.** A random direction norm-matched to philosophy (controls/vectors-qwen0.5b-l12-philnorm, random1). Cells docs/xo-cells-random1.json: 16 chaotic (log10 T -0.68 to 0.30) and 8 periodic, from scan64/q05-rand1 (completed rows) and q05-rand1-top.
+- Both draws are seeded (20261015) and were fixed before any data. Readings as for XO, reported per direction and split at log10 T = 0.
