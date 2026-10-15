@@ -24693,3 +24693,9 @@ The REPRO1 and REPRO7 settings applied to Llama-3.1-8B-Instruct (official gated 
 - tools/repro_noise.py --vectors none (new: unsteered runs need no vector; CPU smoke test passed).
 - REPRO-L8a: float64 batch layout. REPRO-L8b: float32 and bfloat16 batch layouts. 1500 steps.
 - Readings as for REPRO1.
+
+## 2026-10-15 08:25 UTC: run (frozen design): BPC, the confirmatory behaviour test (docs/bpc-test.md)
+
+Design frozen in docs/bpc-test.md, with the analysis tools/bpc_analyze.py (tests/test_bpc_analyze.py passes 3 tests: a planted direct effect is detected, a purely confounded label is not, and a planted inverted U is found). Both are pushed with this entry before any data. 4000 fresh two-digit products (docs/bpc-tasks.json), Qwen2.5-7B, log10 T 0.40.
+- Pods: 12 labelling shards (batched, 16 prompts per batch); one covariates pod; one generation pod (10 samples per prompt, chunked).
+- Tool changes: behavior_prompts.py gains tasks-c, covariates and generate --chunk-prompts (chunk 0 draws as the unchunked run did).
