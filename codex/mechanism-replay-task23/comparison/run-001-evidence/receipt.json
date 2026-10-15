@@ -1,0 +1,45 @@
+{
+  "returncode": 0,
+  "failure": null,
+  "external_seconds": 0.05222603399306536,
+  "maximum_sampled_output_bytes": 0,
+  "worker": {
+    "pid": 3212747,
+    "starttime": 203018799,
+    "pgrp": 3212747,
+    "session": 3212747,
+    "uid": 1000,
+    "nice": 10,
+    "threads": 1,
+    "limits": "Limit                     Soft Limit           Hard Limit           Units     \nMax cpu time              55                   55                   seconds   \nMax file size             16777216             16777216             bytes     \nMax data size             unlimited            unlimited            bytes     \nMax stack size            8388608              unlimited            bytes     \nMax core file size        0                    0                    bytes     \nMax resident set          unlimited            unlimited            bytes     \nMax processes             375398               375398               processes \nMax open files            65535                65535                files     \nMax locked memory         8388608              8388608              bytes     \nMax address space         1073741824           1073741824           bytes     \nMax file locks            unlimited            unlimited            locks     \nMax pending signals       375398               375398               signals   \nMax msgqueue size         819200               819200               bytes     \nMax nice priority         0                    0                    \nMax realtime priority     0                    0                    \nMax realtime timeout      200000               200000               us        \n",
+    "command": "/data2/neural-shrimp/.venv/bin/python -I -B /data2/neural-shrimp-data/codex/mechanism-replay-task23/comparison-001-supervision/source/compare.py --card /data2/neural-shrimp-data/codex/mechanism-replay-task23/comparison-001-supervision/source/comparison-001-card.json --out /data2/neural-shrimp-data/codex/mechanism-replay-task23/comparison-001 "
+  },
+  "worker_after_reap": null,
+  "owned_group_absent": true,
+  "outputs": [
+    {
+      "path": "/data2/neural-shrimp-data/codex/mechanism-replay-task23/comparison-001/input-manifest.json",
+      "bytes": 3378,
+      "sha256": "ceb93e5d8bb2d63402e270b41c405f5d2a6acd1929ff27143abe4772c100b1b2"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/codex/mechanism-replay-task23/comparison-001/report.json",
+      "bytes": 52121,
+      "sha256": "efd89b19259f3d671a78a468158830762d2d697f29d032548f3c57786c50e563"
+    }
+  ],
+  "source_commit": "8be809a3b29e820f2c594bec5a7d70e064ddaf2e",
+  "saved_comparison_only": true,
+  "scientific_claims_accepted": false,
+  "command": [
+    "/data2/neural-shrimp/.venv/bin/python",
+    "-I",
+    "-B",
+    "/data2/neural-shrimp-data/codex/mechanism-replay-task23/comparison-001-supervision/source/compare.py",
+    "--card",
+    "/data2/neural-shrimp-data/codex/mechanism-replay-task23/comparison-001-supervision/source/comparison-001-card.json",
+    "--out",
+    "/data2/neural-shrimp-data/codex/mechanism-replay-task23/comparison-001"
+  ],
+  "output_cap_scope": "Only saved-comparison output directory plus stdout/stderr; source and receipts excluded."
+}

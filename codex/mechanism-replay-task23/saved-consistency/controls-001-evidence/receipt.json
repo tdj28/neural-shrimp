@@ -1,0 +1,43 @@
+{
+  "returncode": 0,
+  "failure": null,
+  "external_seconds": 0.10349690308794379,
+  "maximum_sampled_output_bytes": 0,
+  "worker": {
+    "pid": 3213459,
+    "starttime": 203029167,
+    "pgrp": 3213459,
+    "session": 3213459,
+    "uid": 1000,
+    "nice": 10,
+    "threads": 1,
+    "limits": "Limit                     Soft Limit           Hard Limit           Units     \nMax cpu time              55                   55                   seconds   \nMax file size             16777216             16777216             bytes     \nMax data size             unlimited            unlimited            bytes     \nMax stack size            8388608              unlimited            bytes     \nMax core file size        0                    0                    bytes     \nMax resident set          unlimited            unlimited            bytes     \nMax processes             375398               375398               processes \nMax open files            65535                65535                files     \nMax locked memory         8388608              8388608              bytes     \nMax address space         1073741824           1073741824           bytes     \nMax file locks            unlimited            unlimited            locks     \nMax pending signals       375398               375398               signals   \nMax msgqueue size         819200               819200               bytes     \nMax nice priority         0                    0                    \nMax realtime priority     0                    0                    \nMax realtime timeout      200000               200000               us        \n",
+    "command": "/data2/neural-shrimp/.venv/bin/python -I -B /data2/neural-shrimp-data/codex/mechanism-replay-task23/audit-controls-001-supervision/source/controls.py --out /data2/neural-shrimp-data/codex/mechanism-replay-task23/audit-controls-001 "
+  },
+  "worker_after_reap": null,
+  "owned_group_absent": true,
+  "outputs": [
+    {
+      "path": "/data2/neural-shrimp-data/codex/mechanism-replay-task23/audit-controls-001/fixture.json",
+      "bytes": 709,
+      "sha256": "8eff3cb2d5d8a4c5f85b7b41bd3cc54fec800ae3dd422197f97a4f243988dbdc"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/codex/mechanism-replay-task23/audit-controls-001/report.json",
+      "bytes": 816,
+      "sha256": "0090f06ea1bf6a3039dd0edee04675a3d89c0ee7dd7ba1078d61c37b5ff2c4a5"
+    }
+  ],
+  "source_commit": "8be809a3b29e820f2c594bec5a7d70e064ddaf2e",
+  "manufactured_only": true,
+  "scientific_claims_accepted": false,
+  "command": [
+    "/data2/neural-shrimp/.venv/bin/python",
+    "-I",
+    "-B",
+    "/data2/neural-shrimp-data/codex/mechanism-replay-task23/audit-controls-001-supervision/source/controls.py",
+    "--out",
+    "/data2/neural-shrimp-data/codex/mechanism-replay-task23/audit-controls-001"
+  ],
+  "output_cap_scope": "Only manufactured output directory plus stdout/stderr; source and receipts excluded."
+}

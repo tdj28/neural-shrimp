@@ -1,0 +1,67 @@
+{
+  "schema": "task23-audit-controls-preflight-v1",
+  "utc": "2026-10-15T17:01:38.098743+00:00",
+  "source_commit": "8be809a3b29e820f2c594bec5a7d70e064ddaf2e",
+  "remote_main": "8be809a3b29e820f2c594bec5a7d70e064ddaf2e",
+  "both_owned_worktrees_clean": true,
+  "exact_source_git_pins": [
+    {
+      "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/mechanism-replay-task23/saved-consistency/audit.py",
+      "bytes": 19500,
+      "sha256": "00d3e95a0b97b3689fe986dd597257a5a5f087582d5752e1fb45bdbf93bd114b"
+    },
+    {
+      "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/mechanism-replay-task23/saved-consistency/controls.py",
+      "bytes": 7629,
+      "sha256": "6259984cae697d04941076f61d76a4a81a492bc9750ceb2727c31561a98c3b0f"
+    },
+    {
+      "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/mechanism-replay-task23/saved-consistency/controls-001-plan.json",
+      "bytes": 2452,
+      "sha256": "4c3eb87522554f1cc200021e708b1c6660ef15c74f3783c648baa504efd3a590"
+    },
+    {
+      "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/mechanism-replay-task23/saved-consistency/controls-001-supervise.py",
+      "bytes": 5410,
+      "sha256": "578921cdaf888f17bfd70c287436d4206b2ec0264f541d6cc4f9db77d58ce1eb"
+    }
+  ],
+  "prior_comparison_closure": {
+    "path": "/data2/neural-shrimp-data/codex/mechanism-replay-task23/comparison-001-dispatch/outer-closure.json",
+    "bytes": 4851,
+    "sha256": "e8d3fcff4d7edf467ac8cd6db70abf86fdff9960d9a854188233e0141ad8c67d"
+  },
+  "old_original_identities_groups_sessions_absent": [
+    {
+      "pid": 3212656,
+      "starttime": 203018783,
+      "pgrp": 3212656,
+      "session": 3212656,
+      "uid": 1000,
+      "nice": 10,
+      "threads": 1,
+      "limits": "Limit                     Soft Limit           Hard Limit           Units     \nMax cpu time              unlimited            unlimited            seconds   \nMax file size             unlimited            unlimited            bytes     \nMax data size             unlimited            unlimited            bytes     \nMax stack size            8388608              unlimited            bytes     \nMax core file size        0                    unlimited            bytes     \nMax resident set          unlimited            unlimited            bytes     \nMax processes             375398               375398               processes \nMax open files            65535                65535                files     \nMax locked memory         8388608              8388608              bytes     \nMax address space         unlimited            unlimited            bytes     \nMax file locks            unlimited            unlimited            locks     \nMax pending signals       375398               375398               signals   \nMax msgqueue size         819200               819200               bytes     \nMax nice priority         0                    0                    \nMax realtime priority     0                    0                    \nMax realtime timeout      200000               200000               us        \n",
+      "command": "/data2/neural-shrimp/.venv/bin/python -I -B /home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/mechanism-replay-task23/comparison/comparison-001-launch.py --source 8be809a3b29e820f2c594bec5a7d70e064ddaf2e "
+    },
+    {
+      "pid": 3212747,
+      "starttime": 203018799,
+      "pgrp": 3212747,
+      "session": 3212747,
+      "uid": 1000,
+      "nice": 10,
+      "threads": 1,
+      "limits": "Limit                     Soft Limit           Hard Limit           Units     \nMax cpu time              55                   55                   seconds   \nMax file size             16777216             16777216             bytes     \nMax data size             unlimited            unlimited            bytes     \nMax stack size            8388608              unlimited            bytes     \nMax core file size        0                    0                    bytes     \nMax resident set          unlimited            unlimited            bytes     \nMax processes             375398               375398               processes \nMax open files            65535                65535                files     \nMax locked memory         8388608              8388608              bytes     \nMax address space         1073741824           1073741824           bytes     \nMax file locks            unlimited            unlimited            locks     \nMax pending signals       375398               375398               signals   \nMax msgqueue size         819200               819200               bytes     \nMax nice priority         0                    0                    \nMax realtime priority     0                    0                    \nMax realtime timeout      200000               200000               us        \n",
+      "command": "/data2/neural-shrimp/.venv/bin/python -I -B /data2/neural-shrimp-data/codex/mechanism-replay-task23/comparison-001-supervision/source/compare.py --card /data2/neural-shrimp-data/codex/mechanism-replay-task23/comparison-001-supervision/source/comparison-001-card.json --out /data2/neural-shrimp-data/codex/mechanism-replay-task23/comparison-001 "
+    }
+  ],
+  "owned_numerical_jobs": [],
+  "available_bytes": 56678182912,
+  "disk_free_bytes": 2751240925184,
+  "load_average": [
+    1.4990234375,
+    1.58154296875,
+    1.86279296875
+  ],
+  "reservation": "CPU1 worker plus supervisor; sole seven manufactured controls; no target audit/model/other numerical job."
+}
