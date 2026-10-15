@@ -26333,3 +26333,31 @@ The methods text had documented the 0.005 convention for period and attractor pa
 - Lead paragraph 146 words; abstract 247 words.
 - Full paper as supplementary material.
 - TODOs for the author: affiliation and e-mail, CRediT roles, data availability, a post-fix 70B figure.
+
+## 2026-10-15 21:45 UTC: SHC-P8 result (partial grid): the period-8 cell is more one-dimensional again; its trace-zero arms meet the bottom of the V where the grid does not resolve them
+
+**Run.** Pod zkedjkc1c58fcn (SECURE H100 PCIe): runner rc 0, archive hash verified, terminated and verified gone; wall 12100 s; commit 1b1ef257 (from the orchestrator receipt). Job set dss.
+- **Orbit.** Period 8, seed (-0.104642, 0.107241).
+- **Grid.** 19 x 32 cells over alpha1 [-0.1080, -0.1025] and alpha2 [0.1030, 0.1124].
+- **The job hit its 200-minute limit** (status 124, 21:43 UTC) after 566 of 608 cells, so grid.json was never written. The last saved grid.npz (saved every 25 cells) holds 519 converged cells.
+- The breadth-first continuation reaches the cells far from the seed last, so the unreached cells lie at the grid's edges.
+
+**Gates.**
+- A cell counts as solved when Newton converged and the orbit has not collapsed to a divisor period (return distance at q | 8 above 1e-7). This gives 324 genuine period-8 orbits; the other converged cells lie below the 4 -> 8 flip, where the continuation falls onto the doubled period-4 orbit.
+- Of the solved cells, 209 attract and 115 repel (past the 8 -> 16 flip).
+- tools/dss_window.py --partial reads the saved grid and marks the statistics partial; docs/dss/shc-p8-window.json.
+- Figure ../neural-shrimp-data/figures/dss/shc-p8-window.png, sha256 aefe554a8e1d5ad3...
+
+**Statistics, attracting cells.**
+- Median |mu2|/|mu1| is 0.027. Down the cascade it falls by about a factor 5 per doubling: 0.59 (P2), 0.125 (P4), 0.027 (P8). The transverse multiplier of a period-p orbit shrinks like the p-th power of the per-step contraction, so the cells look more one-dimensional at higher periods.
+- Complex leading pairs in 31 cells, along a U-shaped band at the bottom of the period-8 V and along its right arm.
+- Strongest contraction: |mu1| = 0.034, a complex pair, near (-0.1068, 0.1088), versus 0.041 for P4 and at least 0.222 for P2. Near its strongest contraction the cell still meets the second multiplier, the two-dimensional replacement of superstability.
+- 54 trace sign changes; 8 attracting cells have a negative product.
+
+**Geometry.**
+- The trace-zero curve follows both arms of the V. The arms approach each other at the bottom, near (-0.1056, 0.1052), where unsolved cells interrupt the contour.
+- No checkerboard: no crossing is resolved. Whether the arms cross (a head), close into a loop (Type A) or turn away (Type B) is not decided at this resolution.
+- A small closed contour around one cell near (-0.1063, 0.1077) is at cell resolution and is not interpreted.
+- In P4 the corresponding meeting point lay below the grid (extrapolated near (-0.103, 0.097)). In P8 it lies inside, unresolved.
+
+**Follow-up worth doing** (not launched). Fine local grids at the two meeting points, P8 near (-0.1056, 0.1052) and P4 near (-0.103, 0.097), would decide head against neck for the cascade cells, about $10-20 in all.

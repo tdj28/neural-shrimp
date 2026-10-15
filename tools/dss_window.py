@@ -10,7 +10,9 @@ The modulus of the leading multiplier is read from the stored multipliers, not f
 the real part (a complex pair with small real part would look superstable).
 
 Usage:
-  python tools/dss_window.py RUN [--tb TB_NPZ] [--json OUT_JSON] [--out PNG]
+  python tools/dss_window.py RUN [--tb TB_NPZ] [--json OUT_JSON] [--out PNG] [--partial]
+    --partial: a grid cut by its time limit has no grid.json; read the seed from the last saved grid.npz (written every
+    25 cells) and mark the statistics as partial, with the number of cells it holds
     RUN: folder with grid.npz and grid.json (for example explore/llm-soft-loop/pod64/dss/p5-grat4-host16)
 """
 import argparse
@@ -163,6 +165,7 @@ def main():
     ap.add_argument("--json")
     ap.add_argument("--out")
     ap.add_argument("--title", default="")
+    ap.add_argument("--partial", action="store_true", help="read a grid cut by its time limit (no grid.json)")
     args = ap.parse_args()
     run = Path(args.run)
     if not run.is_absolute() and not run.exists():
@@ -170,8 +173,15 @@ def main():
     z = np.load(run / "grid.npz", allow_pickle=True)
     if str(z["row_axis"]) != "alpha2":
         raise SystemExit("grid rows are not alpha2: this reading is written for two-block planes")
-    meta = json.loads((run / "grid.json").read_text())
+    if (run / "grid.json").exists():
+        meta = json.loads((run / "grid.json").read_text())
+    elif args.partial:                                  # cut by its time limit: the seed is in the saved grid
+        meta = {"seed_tokens": [int(t) for t in z["seed_tokens"]], "seed_text": None}
+    else:
+        raise SystemExit(f"{run}: no grid.json (unfinished run?); pass --partial to read the last saved grid.npz")
     s = stats(z, len(meta["seed_tokens"]))
+    if args.partial and not (run / "grid.json").exists():
+        s.update({"partial": True, "cells_converged_in_saved_grid": int(np.isfinite(z["mu"]).sum())})
     s.update({"run": str(run.relative_to(DATA)) if str(run).startswith(str(DATA)) else str(run),
               "seed_text": meta["seed_text"], "alpha1_range": [float(z["alpha"][0]), float(z["alpha"][-1])],
               "alpha2_range": [float(z["log10_temperature"][0]), float(z["log10_temperature"][-1])],
