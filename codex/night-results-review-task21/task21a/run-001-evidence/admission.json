@@ -1,0 +1,54 @@
+{
+  "source_commit": "4babfa7895bc4a519f41220fead1c2d43b1ed9c4",
+  "private_remote_ancestor": "57e1decb22e4bb44c623eec9aa88160eea25e13a",
+  "sources": {
+    "codex/night-results-review-task21/task21a/run.py": "1001669b8714e1cb5fc81d69c55c658d939210025fbaff261539829230381629",
+    "codex/night-results-review-task21/task21a/arithmetic.py": "45b3945f127d3f308d6d88f4f49c626d286eec3555af9b5faefc497d5ff951dd",
+    "codex/night-results-review-task21/task21a/run-001-card.json": "58fed3c41e8aa3c6ed4512370a6d01afb8f99e99d2cb6d9c571cb88888af3d16",
+    "codex/night-results-review-task21/task21a/run-001-launch.py": "4d3d75a83bb40e89758e69f5bf3f79c4579d783e5233228d1f2100bc4819e041"
+  },
+  "available_bytes": 56497606656,
+  "disk_free_bytes": 2752840343552,
+  "load_average": [
+    2.2236328125,
+    3.32421875,
+    5.65283203125
+  ],
+  "cpu_affinity_count": 32,
+  "scope": "One Task21a independent arithmetic pass over sixteen pinned saved JSON/JSONL inputs plus scoped refusal metadata. No model, eigensolver, Newton, continuation or producer imports. Source and original finite-input authority are bound by exact card. CPU1 plus supervisor,1GiB AS,55CPU/60s wall plus5s TERM/5s KILL cleanup,16MiB output,20/16GiB available RAM and16GiB disk; no active concurrent reservation. Scientific failure, missing levels and unavailable evidence remain reported outcomes.",
+  "command": [
+    "/data2/neural-shrimp/.venv/bin/python",
+    "-I",
+    "-B",
+    "-u",
+    "/data2/neural-shrimp-data/codex/night-results-review-task21/task21a/run-001-supervision/source/codex/night-results-review-task21/task21a/run.py",
+    "--card",
+    "/data2/neural-shrimp-data/codex/night-results-review-task21/task21a/run-001-supervision/source/codex/night-results-review-task21/task21a/run-001-card.json",
+    "--out",
+    "/data2/neural-shrimp-data/codex/night-results-review-task21/task21a/run-001"
+  ],
+  "seconds": 60,
+  "memory_gib": 1,
+  "cpu_worker": 1,
+  "supervisor_slots": 1,
+  "output_cap_bytes": 16777216,
+  "supervisor": {
+    "pid": 2799909,
+    "start": 199525321,
+    "pgid": 2799909,
+    "sid": 2799909,
+    "uid": 1000,
+    "nice": 10,
+    "threads": 1,
+    "limits": "Limit                     Soft Limit           Hard Limit           Units     \nMax cpu time              unlimited            unlimited            seconds   \nMax file size             unlimited            unlimited            bytes     \nMax data size             unlimited            unlimited            bytes     \nMax stack size            8388608              unlimited            bytes     \nMax core file size        0                    unlimited            bytes     \nMax resident set          unlimited            unlimited            bytes     \nMax processes             375398               375398               processes \nMax open files            65535                65535                files     \nMax locked memory         8388608              8388608              bytes     \nMax address space         1073741824           1073741824           bytes     \nMax file locks            unlimited            unlimited            locks     \nMax pending signals       375398               375398               signals   \nMax msgqueue size         819200               819200               bytes     \nMax nice priority         0                    0                    \nMax realtime priority     0                    0                    \nMax realtime timeout      200000               200000               us        \n",
+    "command": [
+      "/data2/neural-shrimp/.venv/bin/python",
+      "-I",
+      "-B",
+      "-u",
+      "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/night-results-review-task21/task21a/run-001-launch.py",
+      "--source",
+      "4babfa7895bc4a519f41220fead1c2d43b1ed9c4"
+    ]
+  }
+}
