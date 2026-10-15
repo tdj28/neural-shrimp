@@ -38,7 +38,8 @@ parameters, temperature and steering move this loop between repeating text and c
 exponents that exact tangents reproduce. The chaos has practical consequences. Rerun with only the batch size
 changed, chaotic float64 loops diverge into different text after the number of steps the Lyapunov exponent predicts,
 while periodic loops stay together: 95\,\% end within $3\times10^{-12}$. In a frozen test on arithmetic, the batch layout changed 56\,\% of
-the answers of bfloat16 soft-thinking inference and none of greedy decoding's. Exactly repeating text can hide a
+the answers of bfloat16 soft-thinking inference in a 0.5B model and 55\,\% in a 7B model, far more than of
+greedy decoding's. Exactly repeating text can hide a
 chaotic internal state. Steering causes the chaos by making
 next tokens compete, which turns the softmax readout from a contraction into an expansion; a logit bias alone
 suffices, and in an orbit-preserving crossover steering's change of the network damps the instability, in a 0.5B and a
@@ -128,8 +129,8 @@ sampling.
   a median of 102 steps and as the Lyapunov exponent predicts (median ratio 0.91), while 182 of 192 periodic loops
   stay within $10^{-2}$ and 95\,\% end within $3\times10^{-12}$. In bfloat16 every loop tested diverges within a few steps
   (Section~\ref{sec:consequences}). At the level of answers, in a frozen test on 96 additions, the batch layout
-  changed the answer of a bfloat16 soft-thinking pipeline in 56\,\% of problems at $T=1$ and never changed greedy
-  decoding's output; in float64 no answer changed within its 32 steps.
+  changed the answer of a bfloat16 soft-thinking pipeline in 56\,\% of problems at $T=1$ in Qwen2.5-0.5B and in
+  55\,\% at $T=10^{0.2}$ in Qwen2.5-7B, far more often than it changed greedy decoding's output (never and 10\,\%).
 \item \emph{Steering makes next tokens compete.} An exact split of each step's growth shows that steering into chaos
   raises the readout factor by 2.58 nats per step and leaves the network factor flat. A logit bias alone, with the
   network untouched, makes 3.5\,\% of the plane chaotic. An orbit-preserving crossover attributes the expansion at
@@ -703,9 +704,16 @@ at $T=1$ and shrinks at higher temperature, and even a relative kick of $10^{-4}
 discrepancies are therefore not the float64 map's chaos. They arise from bfloat16's rounding differences accumulating
 through continuous feedback, which a discrete argmax would absorb. (The greedy baseline's accuracy is not
 informative: forced through 32 tokens, the model writes past its answer, and the cue then extracts another number.)
+The same frozen test in Qwen2.5-7B, which answers these problems well, replicates the result. In bfloat16 the batch
+layout changed the soft-thinking answer in 55\,\% of the problems at $T=10^{0.2}$, the temperature at which the soft
+trace still matters (accuracy 51 to 64\,\%). At this precision even greedy decoding changed in 10\,\% of the
+problems, the known batch-variance effect. The excess over greedy decoding is 17.7 points ($[9.4,25.5]$, $p=2\times10^{-4}$).
+In float64, at that temperature, the 7B's loop amplifies an injected perturbation (median $+0.034$ nats per step),
+injected kicks change answers (2 of 18 runs), and the rounding-level difference between the layouts changed 5\,\% of
+the answers within the 32 steps.
 Two horizons thus matter. Within a short budget, continuous feedback in low precision makes answers depend on the
-batch. Over longer runs, a chaotic regime amplifies even float64 rounding into different text, on the schedule its
-Lyapunov exponent sets.
+batch, and where the loop expands, even float64 rounding does. Over longer runs, a chaotic regime amplifies float64
+rounding into different text, on the schedule its Lyapunov exponent sets.
 \begin{figure}[tbp]
 \centering
 \includegraphics[width=\linewidth]{fig-repro.png}

@@ -24724,3 +24724,28 @@ Pods dl6ms3w3qjdkrt (XOG) and duykxff8ocb26y (XOR): runner rc 0, hashes verified
 - **Validation.** Arm 11 equals the twin exponent within 0.02 at 23 and 22 of 24 cells. The twin is undefined (NaN) at the remaining cells, which contract to the rounding floor.
 - **Labels.** Two random1 cells labelled chaotic by their map are contracting in this run (twin -2.58 and -0.16); they stay in the held-out set as labelled.
 - **Reading.** Steering's change of the readout adds expansion at fixed states for all three directions of the 0.5B: philosophy +0.81, gratitude +0.33, random +0.77. Its change of the network does not: -0.49, -0.14 and -0.09, and -1.14 in the 7B. The mechanism does not depend on the direction's meaning.
+
+## 2026-10-15 08:49 UTC: REPRO-T7 result (frozen extension): in Qwen2.5-7B the batch layout changes 55 % of bfloat16 soft-thinking answers at T = 10^0.2 (Delta 17.7 points); in float64 it changes 5 % there
+
+Pod 1t5pj3ccx9legg (SECURE H100 NVL; runner rc 0, hash verified, terminated; 2321 s; commit 187e891b). Output repro/t7. 96 held-out problems; inline analysis following the frozen endpoints.
+- **Primary, bfloat16.** Delta = **17.7 points**, 95 % interval [9.4, 25.5], sign-flip p = 2e-4. **Positive.**
+- **float64.** Delta = 2.6 points [0.5, 5.2], p = 0.06.
+- **Per condition** (answers differing between layouts; accuracy single / batch; median soft-token distance at step 1 and step 32):
+
+| precision | mode | log10 T | answers differ | accuracy | distance step 1 / 32 |
+|---|---|---|---|---|---|
+| bfloat16 | soft | 0.0 | 1.0 % | 0.00 / 0.00 | 1.1e-11 / 0.40 |
+| bfloat16 | soft | 0.2 | 55.2 % | 0.51 / 0.64 | 3.3e-7 / 1.2 |
+| bfloat16 | soft | 0.4 | 0 % | 1.00 / 1.00 | 2.5e-4 / 0.17 |
+| bfloat16 | greedy | | 10.4 % (token sequences differ in 24 / 96) | 0.01 / 0.01 | |
+| float64 | soft | 0.0 | 0 % | 0.00 / 0.00 | 1.5e-15 / 2.7e-14 |
+| float64 | soft | 0.2 | 5.2 % | 0.53 / 0.54 | 3.4e-15 / 1.9e-11 |
+| float64 | soft | 0.4 | 0 % | 1.00 / 1.00 | 3.4e-15 / 2.6e-12 |
+| float64 | greedy | | 0 % | 0.00 / 0.00 | |
+
+- **Mechanism subset** (float64, injected kicks of 1e-12, 1e-8, 1e-4; 6 problems): median growth -0.125, +0.034 and +0.104 nats per step at log10 T 0.0, 0.2 and 0.4. Answers changed in 0/18, 2/18 and 0/18 runs.
+- **Reading.**
+  - The 0.5B result replicates in a capable model.
+  - In bfloat16 the layout decides more than half of the soft-thinking answers at the temperature where the soft trace still matters (accuracy 51-64 %). Even greedy decoding is layout-dependent in 10 % of problems at this precision, the known batch-variance effect (Delta subtracts it).
+  - In float64, at T = 10^0.2, the 7B's loop amplifies perturbations, injected kicks change answers, and rounding-level layout differences change 5 % of answers. Within the budget, the chaos attribution holds at this temperature, unlike in the 0.5B model.
+  - Greedy accuracy is again uninformative (forced 32 tokens).
