@@ -1,0 +1,54 @@
+{
+  "source_commit": "3e103261c546d128c9b6212cdaeda78d677148ad",
+  "private_remote_ancestor": "3e103261c546d128c9b6212cdaeda78d677148ad",
+  "sources": {
+    "codex/mechanism-replay-task23/run.py": "a6e83da06332cb5a27e1a167537226aaa38cfccdd1f87e92e28f17a5cc1093ed",
+    "codex/mechanism-replay-task23/gain.py": "229d79a788589b5f860a0774f7273e9e93b54cecf8e6f474a3c5c3734eca751f",
+    "codex/mechanism-replay-task23/qwen_map.py": "493a3d1d57fec227f5ba2e3f8f9cfcfdd02d22495d1d44e6449ede901310ae6e",
+    "codex/mechanism-replay-task23/run-001-card.json": "93f519a6ac731486f761921efbc1a9e909be44d16a0ea16f2c75cb8d9d2cdd78",
+    "codex/mechanism-replay-task23/run-001-launch.py": "f852d844f6fabbab0da2bd865b38bdcfadd63a30548cebea95b11f57958d81ac"
+  },
+  "available_bytes": 54902853632,
+  "disk_free_bytes": 2751353081856,
+  "load_average": [
+    1.9951171875,
+    2.185546875,
+    2.23486328125
+  ],
+  "cpu_affinity_count": 32,
+  "scope": "One Task23 independent four-cell finite-twin replay:1000 transient and2000 measured steps, two original201-row-seeded twins, required net/read/boundary/entropy/normalized-gap fields. No AD/FD, covariance power iteration, crossover or automatic scientific agreement. Exact source/assets/card must be admitted before execution. CPU2 plus supervisor,12GiB worker AS,4600CPU/2400s wall plus5s TERM/5s KILL cleanup,128MiB sampled replay output plus stdout/stderr,28/16GiB available RAM and16GiB disk; captured source/receipts are separate. No concurrent numerical reservation. Exit success means computational full-horizon completion, not scientific acceptance",
+  "command": [
+    "/data2/neural-shrimp/.venv/bin/python",
+    "-I",
+    "-B",
+    "-u",
+    "/data2/neural-shrimp-data/codex/mechanism-replay-task23/run-001-supervision/source/codex/mechanism-replay-task23/run.py",
+    "--card",
+    "/data2/neural-shrimp-data/codex/mechanism-replay-task23/run-001-supervision/source/codex/mechanism-replay-task23/run-001-card.json",
+    "--out",
+    "/data2/neural-shrimp-data/codex/mechanism-replay-task23/run-001"
+  ],
+  "seconds": 2400,
+  "memory_gib": 12,
+  "cpu_worker": 2,
+  "supervisor_slots": 1,
+  "output_cap_bytes": 134217728,
+  "supervisor": {
+    "pid": 3189186,
+    "start": 202765444,
+    "pgid": 3189186,
+    "sid": 3189186,
+    "uid": 1000,
+    "nice": 10,
+    "threads": 1,
+    "limits": "Limit                     Soft Limit           Hard Limit           Units     \nMax cpu time              unlimited            unlimited            seconds   \nMax file size             unlimited            unlimited            bytes     \nMax data size             unlimited            unlimited            bytes     \nMax stack size            8388608              unlimited            bytes     \nMax core file size        0                    unlimited            bytes     \nMax resident set          unlimited            unlimited            bytes     \nMax processes             375398               375398               processes \nMax open files            65535                65535                files     \nMax locked memory         8388608              8388608              bytes     \nMax address space         1073741824           12884901888          bytes     \nMax file locks            unlimited            unlimited            locks     \nMax pending signals       375398               375398               signals   \nMax msgqueue size         819200               819200               bytes     \nMax nice priority         0                    0                    \nMax realtime priority     0                    0                    \nMax realtime timeout      200000               200000               us        \n",
+    "command": [
+      "/data2/neural-shrimp/.venv/bin/python",
+      "-I",
+      "-B",
+      "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/mechanism-replay-task23/run-001-launch.py",
+      "--source",
+      "3e103261c546d128c9b6212cdaeda78d677148ad"
+    ]
+  }
+}

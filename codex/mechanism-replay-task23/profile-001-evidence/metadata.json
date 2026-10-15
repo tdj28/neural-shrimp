@@ -1,0 +1,277 @@
+{
+  "alpha": 0.0655,
+  "asset_pins": {
+    "config": {
+      "bytes": 659,
+      "path": "/data2/neural-shrimp-data/models/hf/hub/models--Qwen--Qwen2.5-0.5B-Instruct/snapshots/7ae557604adf67be50417f59c2c2f167def9a775/config.json",
+      "sha256": "18e18afcaccafade98daf13a54092927904649e1dd4eba8299ab717d5d94ff45"
+    },
+    "model": {
+      "bytes": 988097824,
+      "path": "/data2/neural-shrimp-data/models/hf/hub/models--Qwen--Qwen2.5-0.5B-Instruct/snapshots/7ae557604adf67be50417f59c2c2f167def9a775/model.safetensors",
+      "sha256": "fdf756fa7fcbe7404d5c60e26bff1a0c8b8aa1f72ced49e7dd0210fe288fb7fe"
+    },
+    "vector": {
+      "bytes": 66792,
+      "path": "/data2/neural-shrimp-data/explore/llm-phase-map/vectors-l12-p1b/vectors.npz",
+      "sha256": "d18395239dba63c7deacb8aa9431d768269617c9cc44a98f89cc1e22423b5958"
+    }
+  },
+  "batch_scope": "Original transient had three identical copies per cell; own transient evaluates four bases. CPU/batch arithmetic can diverge.",
+  "config": {
+    "architectures": [
+      "Qwen2ForCausalLM"
+    ],
+    "attention_dropout": 0.0,
+    "bos_token_id": 151643,
+    "eos_token_id": 151645,
+    "hidden_act": "silu",
+    "hidden_size": 896,
+    "initializer_range": 0.02,
+    "intermediate_size": 4864,
+    "max_position_embeddings": 32768,
+    "max_window_layers": 21,
+    "model_type": "qwen2",
+    "num_attention_heads": 14,
+    "num_hidden_layers": 24,
+    "num_key_value_heads": 2,
+    "rms_norm_eps": 1e-06,
+    "rope_theta": 1000000.0,
+    "sliding_window": 32768,
+    "tie_word_embeddings": true,
+    "torch_dtype": "bfloat16",
+    "transformers_version": "4.43.1",
+    "use_cache": true,
+    "use_sliding_window": false,
+    "vocab_size": 151936
+  },
+  "eps": [
+    1e-06,
+    1e-09
+  ],
+  "initialization": "last-prefix-token embedding; then original two201x896 RNG blocks at selected row indices",
+  "input_pins": [
+    {
+      "bytes": 9559,
+      "path": "/data2/neural-shrimp-data/codex/mechanism-replay-task23/source-002/manifest.json",
+      "sha256": "957f293f43a34aa62f99d2ef4c60a0531904b6b132427507e003ad5fa23b6d40"
+    },
+    {
+      "bytes": 13529,
+      "path": "/data2/neural-shrimp-data/codex/mechanism-replay-task23/source-002/original/tools/steer_gain.py",
+      "sha256": "ccb427ec06f21620858808a8d51220c0056bfb218f742d54c625ba61d7d0e8a5"
+    },
+    {
+      "bytes": 5772,
+      "path": "/data2/neural-shrimp-data/codex/mechanism-replay-task23/source-002/original/tools/gain_split.py",
+      "sha256": "1e640d66f8450d01a04879dcfb9dbe30a8e35b0c52c57d2f8ae434f0a802380f"
+    },
+    {
+      "bytes": 2287,
+      "path": "/data2/neural-shrimp-data/codex/mechanism-replay-task23/source-002/original/tests/test_steer_gain.py",
+      "sha256": "3b42d409709a2f96fb5047f2c1e0924f6a4e6e206e51a198290e2e5f89a9da76"
+    },
+    {
+      "bytes": 101114,
+      "path": "/data2/neural-shrimp-data/codex/mechanism-replay-task23/source-002/original/tools/explore_llm_soft_loop.py",
+      "sha256": "92200c8e0e259ba718f5a6502e8731f1f5b2702518a4ca20baae6d6667f1fa62"
+    },
+    {
+      "bytes": 35792,
+      "path": "/data2/neural-shrimp-data/codex/mechanism-replay-task23/source-002/original/tools/explore_llm_attractors.py",
+      "sha256": "8e4537194026fe4dc73e8788d77bd3da9390fb4ea1d65ef34fb5efbaede179c9"
+    },
+    {
+      "bytes": 32128,
+      "path": "/data2/neural-shrimp-data/codex/mechanism-replay-task23/source-002/original/tools/explore_llm_phase_map.py",
+      "sha256": "a3635bd83bd2448a5af6c0a04188d549cfb6a158604833146399e74a8bcd29bf"
+    },
+    {
+      "bytes": 660,
+      "path": "/data2/neural-shrimp-data/codex/mechanism-replay-task23/source-002/original/mech-runner.txt",
+      "sha256": "8eb990ccfdf18e3b2a14ae4179e0d5e293d586acd2a63c8c5815719cc545bed4"
+    },
+    {
+      "bytes": 14540,
+      "path": "/data2/neural-shrimp-data/codex/mechanism-replay-task23/source-002/independent-reuse/codex/crosscheck/qwen_map.py",
+      "sha256": "493a3d1d57fec227f5ba2e3f8f9cfcfdd02d22495d1d44e6449ede901310ae6e"
+    },
+    {
+      "bytes": 21479,
+      "path": "/data2/neural-shrimp-data/codex/mechanism-replay-task23/source-002/independent-reuse/codex/crosscheck/numerics.py",
+      "sha256": "8267668ccd6ebdef4d97b684059e9e85212b7a3363b4a0d93253f94a4ed31abc"
+    },
+    {
+      "bytes": 2611,
+      "path": "/data2/neural-shrimp-data/codex/mechanism-replay-task23/source-002/independent-reuse/codex/hostile-fold-crosscheck/assets.py",
+      "sha256": "06477ee36a78f15ee8f1e8ae196dc53ae230ff19368fbda638eb6a6e0ef758e0"
+    },
+    {
+      "bytes": 3714,
+      "path": "/data2/neural-shrimp-data/codex/mechanism-replay-task23/source-002/independent-reuse/codex/hostile-fold-crosscheck/profile-001-review.json",
+      "sha256": "9095cf5244e7b64ecd6ceb47b139b1548eaaf9cb77556340ec8907df876ad57c"
+    },
+    {
+      "bytes": 1284,
+      "path": "/data2/neural-shrimp-data/codex/mechanism-replay-task23/source-002/independent-reuse/codex/hostile-fold-crosscheck/profile-001-plan.json",
+      "sha256": "303a2be6cc15ca3e57cc7e748cd64f69d62690a6394512750b06311af1eee530"
+    },
+    {
+      "bytes": 2375,
+      "path": "/data2/neural-shrimp-data/codex/mechanism-replay-task23/source-002/independent-reuse/codex/hostile-fold-crosscheck/profile-001-review.md",
+      "sha256": "2d396d69f5e75f57e72c9b792a5c442edba9a7ab6723781ec9d7db0137d1b1dd"
+    },
+    {
+      "bytes": 9472,
+      "path": "/data2/neural-shrimp-data/codex/mechanism-replay-task23/source-002/independent-reuse/tests/test_codex_qwen_map.py",
+      "sha256": "2074d803a30943db1374aab36d15c31be3fad0ec71a31c6dcca5aa495b21038e"
+    },
+    {
+      "bytes": 5012,
+      "path": "/data2/neural-shrimp-data/codex/mechanism-replay-task23/source-002/independent-reuse/tests/test_codex_hostile_fold.py",
+      "sha256": "94955e90209c05f61a170b54fc62e6dc5e10fce98598fac76f22d8a0c6dceae2"
+    },
+    {
+      "bytes": 15386,
+      "path": "/data2/neural-shrimp-data/codex/mechanism-replay-task23/source-002/independent-reuse/codex/certify-llm/prefix-asset-authority-review.md",
+      "sha256": "189a4eb6bdf85fd96acfb478778d69604bb116efb1723d0cb1cb9c1542e4e49f"
+    },
+    {
+      "bytes": 2358,
+      "path": "/data2/neural-shrimp-data/codex/mechanism-replay-task23/source-002/assignment.md",
+      "sha256": "accc98f27e1edc84ce847ab7da1aee23ad163895b47bc8ebf3c53c2de39e5d57"
+    },
+    {
+      "bytes": 3116,
+      "path": "/data2/neural-shrimp-data/codex/mechanism-replay-task23/source-002/original/MECH-card.md",
+      "sha256": "f7dafb9e77dfdfae8900c4f48b47b910416051b8b8c3b2fa0cdcde319afcfe59"
+    },
+    {
+      "bytes": 3441,
+      "path": "/data2/neural-shrimp-data/codex/mechanism-replay-task23/source-002/original-authority.json",
+      "sha256": "d89dd9a86e001f082fc42efd6c8e5c83580ed9ea30be4fecbc2e8cb9c68cf4b6"
+    },
+    {
+      "bytes": 2682,
+      "path": "/data2/neural-shrimp-data/codex/mechanism-replay-task23/source-002/target-metadata.json",
+      "sha256": "82061d45e87c3f553df94bfd29fac837ae699a08ab767331a2dbd19f7749b6a8"
+    },
+    {
+      "bytes": 1909,
+      "path": "/data2/neural-shrimp-data/codex/mechanism-replay-task23/source-002/asset-metadata.json",
+      "sha256": "121c7df2399313d2d15b70cae2904d3a9e37040c8b3ebb48c4c3450317015592"
+    },
+    {
+      "bytes": 782,
+      "path": "/data2/neural-shrimp-data/codex/mechanism-replay-task23/source-002/preparation-status.json",
+      "sha256": "ff6cd87e40c13cca7e3258f7553546be24b31654a35527caeeca8264ab025613"
+    },
+    {
+      "bytes": 586,
+      "path": "/data2/neural-shrimp-data/codex/mechanism-replay-task23/source-association-001/manifest.json",
+      "sha256": "6a5a5a969cff20f06b5883aa052af32325c9f959a9fe28efc32e989bb4989a84"
+    },
+    {
+      "bytes": 3421,
+      "path": "/data2/neural-shrimp-data/codex/mechanism-replay-task23/source-association-001/association.json",
+      "sha256": "b6faeb70b355101f67b6eb2fbe4ffd4be5d9b3b3ec4704e260a3a92686aa3ade"
+    },
+    {
+      "bytes": 2535,
+      "path": "/data2/neural-shrimp-data/codex/mechanism-replay-task23/source-association-001/source-association.md",
+      "sha256": "bfcb5952c77199a2680ed7087eb42b21502681eebd249c746532b77ecb793ed6"
+    }
+  ],
+  "log10_temperature_hex": [
+    "0x1.0000000000000p-3",
+    "0x1.083126e978d50p-3",
+    "0x1.e76c8b4395811p-4",
+    "0x1.147ae147ae148p-3"
+  ],
+  "log10_temperatures": [
+    0.125,
+    0.129,
+    0.11900000000000001,
+    0.135
+  ],
+  "measured_batch": 12,
+  "no_AD_power_iteration_or_crossover": true,
+  "no_producer_outcomes_read": true,
+  "numpy_version": "2.5.3",
+  "physical_temperature_hex": [
+    "0x1.5561a91ba8144p+0",
+    "0x1.588a4ddda73d5p+0",
+    "0x1.50b29319271acp+0",
+    "0x1.5d55520852917p+0"
+  ],
+  "physical_temperatures": [
+    1.333521432163324,
+    1.3458603540559484,
+    1.3152248321922384,
+    1.3645831365889245
+  ],
+  "prefix_ids": [
+    151644,
+    8948,
+    198,
+    2610,
+    525,
+    458,
+    15235,
+    7404,
+    448,
+    2441,
+    15235,
+    13,
+    1446,
+    614,
+    4583,
+    11290,
+    13,
+    31733,
+    1910,
+    311,
+    22729,
+    8820,
+    498,
+    1366,
+    13,
+    151645,
+    198,
+    151644,
+    872,
+    198,
+    9707,
+    0,
+    151645,
+    198,
+    151644,
+    77091,
+    198
+  ],
+  "rotary_dtype": "torch.float64",
+  "schema": "task23-native-metadata-v1",
+  "source_indices": [
+    25,
+    29,
+    19,
+    35
+  ],
+  "source_sha256": {
+    "gain": "229d79a788589b5f860a0774f7273e9e93b54cecf8e6f474a3c5c3734eca751f",
+    "qwen_map": "493a3d1d57fec227f5ba2e3f8f9cfcfdd02d22495d1d44e6449ede901310ae6e",
+    "run": "a6e83da06332cb5a27e1a167537226aaa38cfccdd1f87e92e28f17a5cc1093ed"
+  },
+  "stage": "profile",
+  "steering_dtype": "torch.float64",
+  "tensor_devices": [
+    "cpu"
+  ],
+  "tensor_dtypes": [
+    "torch.float64"
+  ],
+  "torch_interop_threads": 1,
+  "torch_intraop_threads": 2,
+  "torch_version": "2.14.1+cu130",
+  "transient_batch": 4
+}
