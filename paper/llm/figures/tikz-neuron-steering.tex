@@ -24,7 +24,7 @@
   \draw[flow] (pa.east) -- (pm.west);
   \draw[flow] (pm.east) -- (ps.west);
   \draw[flow] (ps.east) -- (out);
-  \node[lab, anchor=north west, align=left] at (0,-0.1) {residual stream\\[-1pt]{\color{black!60}(896 dimensions)}};
+  \node[lab, anchor=north west, align=left] at (0,-0.1) {residual stream\\[-1pt]of one token\\[-1pt]{\color{black!60}(896 dimensions)}};
   \node[lab, anchor=north east] at ($(out)+(0,-0.1)$) {to layer 13};
 
   % attention branch
@@ -59,7 +59,7 @@
 
   % steering hook: alpha v added to the layer's output at every position
   \node[lab, text=loopaccent, align=center] (steer) at (12.65,1.3)
-    {$+\,\alpha v$, \ $v=312\,w_{832}$\\[-1pt]\footnotesize at every position};
+    {$+\,\alpha v$, \ $v=312\,w_{832}$\\[-1pt]\footnotesize added for each token of the input};
   \draw[->, semithick, loopaccent] (steer.south) -- (ps.north);
 
   % the layer
