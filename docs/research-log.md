@@ -24765,3 +24765,10 @@ Pods qj1mu8edfno9ui and g1z1317zrhlqpz (2 x H200 placement; runner rc 0, hashes 
 
 - **float64.** The divergence step of the chaotic cells follows ln(1e-2/d_1)/lambda: median ratio 1.05, log-log correlation 0.71 (20 cells).
 - **Reading.** Three models and two families now show the same picture. In float64 a batch-size change alone diverges chaotic loops on the exponent's schedule and leaves periodic loops together; in bfloat16 nearly every loop diverges.
+
+## 2026-10-15 08:52 UTC: run (exploratory): REPRO70, the reproducibility test at 70B (human: "70b?")
+
+- **Model.** Llama-3.3-70B-Instruct steered along hostility-vs-kindness at block 20, with the vectors built on the L70D20b pod. Float64 arithmetic with bf16 weight storage over two H200s (repro_noise.py --weights bf16 --device auto, new).
+- **Cells.** docs/repro70-cells.json: 24 chaotic (map label, so candidates) and 24 periodic cells of that map, seeded draw (20261015) fixed before data.
+- **Comparison.** Batch layout only (n against 2n rows), 1000 steps: a float32 or bfloat16 copy of the 70B does not fit next to it.
+- **Pod.** One pod, 2 x H200, gated job set repro70; the token goes on stdin and is unset after the download. Readings as for REPRO1.
