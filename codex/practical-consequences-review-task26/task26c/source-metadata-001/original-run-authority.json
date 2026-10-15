@@ -1,0 +1,1084 @@
+{
+  "schema": "task26cd-original-metadata-v1",
+  "runs": [
+    {
+      "pod_id": "p2dnawuk7ajzfp",
+      "gpu_type": "SECURE:NVIDIA H100 80GB HBM3",
+      "commit": "b203fb56d0daa41441a926097baa7c6743d42b8a",
+      "jobset": "mech",
+      "started": 1792046589.8002484,
+      "runner_returncode": 0,
+      "hash_verified": true,
+      "local_sha256": "935195df9ca102cc69a46074cd7a846cb95cf41a25b3a6fdb92690c4df46ef7c",
+      "remote_sha256": "935195df9ca102cc69a46074cd7a846cb95cf41a25b3a6fdb92690c4df46ef7c",
+      "wall_seconds": 1334,
+      "name": "amap-a",
+      "receipt": {
+        "path": "/data2/neural-shrimp-data/runpod/soft64/20261015T064306Z/result.json",
+        "sha256": "bdfe208961f105325a13d868b9d8bfffab7b93ed545edaabe347322658896a5f",
+        "bytes": 876
+      },
+      "archive": {
+        "path": "/data2/neural-shrimp-data/runpod/soft64/20261015T064306Z/results.tgz",
+        "sha256": "935195df9ca102cc69a46074cd7a846cb95cf41a25b3a6fdb92690c4df46ef7c",
+        "bytes": 55733903
+      },
+      "stdout": {
+        "path": "/data2/neural-shrimp-data/runpod/soft64/20261015T064306Z/runner-stdout.txt",
+        "sha256": "ab00203fd9154189080d60d8f33cb09faa16154e72826c0004a2e1f6ffa9a7b8",
+        "bytes": 1779
+      },
+      "upload": {
+        "code_bytes": 1167360,
+        "data_bytes": 1177600,
+        "code_sha256": "b9d421c13b5f235a24f5c1fb3d3729a9e5caa9f02763a0f61c5fb8266fabf0b6",
+        "data_sha256": "f425388da2f9fe2392ca7e1dea3826d44b492fd4b1c6106e5f0874784f29d778",
+        "extra_data": [],
+        "jobset_args": "amap-a 75 --tgrid -1.0 -0.35 27 --chunk 1364 --alpha -0.12 0.12 101 --iters 4 --record 1500"
+      },
+      "status_lines": [
+        "2026-10-15T06:45:00Z start mech-amap-a",
+        "2026-10-15T07:05:01Z end mech-amap-a status 0"
+      ],
+      "ledger_records": [
+        {
+          "line_number": 4417,
+          "original_line_sha256": "6dbdf5712ee078c81b58367430aa658c436830574464d5ad6bc535a6babfd905",
+          "fields": {
+            "event": "created",
+            "time": "2026-10-15T06:43:09+00:00",
+            "pod_id": "p2dnawuk7ajzfp",
+            "commit": "b203fb56d0daa41441a926097baa7c6743d42b8a",
+            "gpu_type": "NVIDIA H100 80GB HBM3"
+          }
+        },
+        {
+          "line_number": 4452,
+          "original_line_sha256": "b1ad1fa6b96d8d455d80adefb4b0e9bf2fa0ba5f819418592b55caa53144ae0d",
+          "fields": {
+            "event": "ssh_ready",
+            "time": "2026-10-15T06:44:01+00:00",
+            "pod_id": "p2dnawuk7ajzfp",
+            "seconds_after_create": 51
+          }
+        },
+        {
+          "line_number": 4453,
+          "original_line_sha256": "1479ae241d30550a66ecc088a5577fc8f7c111bce1feecce3748f5fb1685c7a8",
+          "fields": {
+            "event": "uploaded",
+            "time": "2026-10-15T06:44:11+00:00",
+            "pod_id": "p2dnawuk7ajzfp",
+            "archive_bytes": 1167360,
+            "data_bytes": 1177600
+          }
+        },
+        {
+          "line_number": 4476,
+          "original_line_sha256": "4ada843120cb21c872e348f92a5247663600f7b696ef488d0a7d7a18756f1dbb",
+          "fields": {
+            "event": "retrieved",
+            "time": "2026-10-15T07:05:16+00:00",
+            "pod_id": "p2dnawuk7ajzfp",
+            "hash_verified": true,
+            "sha256": "935195df9ca102cc69a46074cd7a846cb95cf41a25b3a6fdb92690c4df46ef7c"
+          }
+        },
+        {
+          "line_number": 4477,
+          "original_line_sha256": "c9e6d656347637cc8fdc4491cc7e3f9d76acb102b5974873ff7a628970b49a5d",
+          "fields": {
+            "event": "terminate_requested",
+            "time": "2026-10-15T07:05:18+00:00",
+            "pod_id": "p2dnawuk7ajzfp"
+          }
+        },
+        {
+          "line_number": 4478,
+          "original_line_sha256": "3ef19d22341aa6571b0cf06276dc53776f18d8dc9069b1e0b76745382c84870e",
+          "fields": {
+            "event": "terminated_verified",
+            "time": "2026-10-15T07:05:24+00:00",
+            "pod_id": "p2dnawuk7ajzfp"
+          }
+        }
+      ],
+      "recorded_termination_verified": true,
+      "selected_files": [
+        {
+          "file": {
+            "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/mech/amap-a/gain.json",
+            "sha256": "750db45365507693ace61bf8c6a8fb08036d1fa6bd445d61163999784bd4ef2c",
+            "bytes": 1868223
+          },
+          "archive_member": "explore/llm-soft-loop/pod64/mech/amap-a/gain.json",
+          "archive_member_match": true,
+          "scientific_payload_decoded": false
+        },
+        {
+          "file": {
+            "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/mech/amap-a/progress.jsonl",
+            "sha256": "5736571e641e66770453cdb1c8de44f19d337416e077efa535e2d4d401807328",
+            "bytes": 411
+          },
+          "archive_member": "explore/llm-soft-loop/pod64/mech/amap-a/progress.jsonl",
+          "archive_member_match": true,
+          "scientific_payload_decoded": false
+        },
+        {
+          "file": {
+            "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/mech/amap-a/steps.npz",
+            "sha256": "3365cae81c7e0836a1306e22ab10157ce9738b0c573a3969fdbe1805408268e9",
+            "bytes": 55460040
+          },
+          "archive_member": "explore/llm-soft-loop/pod64/mech/amap-a/steps.npz",
+          "archive_member_match": true,
+          "scientific_payload_decoded": false,
+          "npy_headers": [
+            {
+              "member": "log_g_net.npy",
+              "header": {
+                "descr": "<f4",
+                "fortran_order": false,
+                "shape": [
+                  1000,
+                  2727
+                ]
+              }
+            },
+            {
+              "member": "log_g_read.npy",
+              "header": {
+                "descr": "<f4",
+                "fortran_order": false,
+                "shape": [
+                  1000,
+                  2727
+                ]
+              }
+            },
+            {
+              "member": "entropy.npy",
+              "header": {
+                "descr": "<f4",
+                "fortran_order": false,
+                "shape": [
+                  1000,
+                  2727
+                ]
+              }
+            },
+            {
+              "member": "gap.npy",
+              "header": {
+                "descr": "<f4",
+                "fortran_order": false,
+                "shape": [
+                  1000,
+                  2727
+                ]
+              }
+            },
+            {
+              "member": "p_top.npy",
+              "header": {
+                "descr": "<f4",
+                "fortran_order": false,
+                "shape": [
+                  1000,
+                  2727
+                ]
+              }
+            },
+            {
+              "member": "log_r1_rel.npy",
+              "header": {
+                "descr": "<f4",
+                "fortran_order": false,
+                "shape": [
+                  1000,
+                  2727
+                ]
+              }
+            },
+            {
+              "member": "stable_rank.npy",
+              "header": {
+                "descr": "<f4",
+                "fortran_order": false,
+                "shape": [
+                  1000,
+                  2727
+                ]
+              }
+            },
+            {
+              "member": "rayleigh_change.npy",
+              "header": {
+                "descr": "<f4",
+                "fortran_order": false,
+                "shape": [
+                  1000,
+                  2727
+                ]
+              }
+            },
+            {
+              "member": "cells.npy",
+              "header": {
+                "descr": "<f8",
+                "fortran_order": false,
+                "shape": [
+                  2727,
+                  3
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "pod_id": "6xc4ok0nj21d0o",
+      "gpu_type": "SECURE:NVIDIA H100 80GB HBM3",
+      "commit": "b203fb56d0daa41441a926097baa7c6743d42b8a",
+      "jobset": "mech",
+      "started": 1792046592.7185736,
+      "runner_returncode": 0,
+      "hash_verified": true,
+      "local_sha256": "88a32e22bbb872e269904f9df085e5c90a30d6f644c49a6f7305513675bdf864",
+      "remote_sha256": "88a32e22bbb872e269904f9df085e5c90a30d6f644c49a6f7305513675bdf864",
+      "wall_seconds": 1295,
+      "name": "amap-b",
+      "receipt": {
+        "path": "/data2/neural-shrimp-data/runpod/soft64/20261015T064309Z/result.json",
+        "sha256": "e120285dd1f687628aac799da61eec088a5198ff04c65e99434fd110d36ae42f",
+        "bytes": 876
+      },
+      "archive": {
+        "path": "/data2/neural-shrimp-data/runpod/soft64/20261015T064309Z/results.tgz",
+        "sha256": "88a32e22bbb872e269904f9df085e5c90a30d6f644c49a6f7305513675bdf864",
+        "bytes": 53273328
+      },
+      "stdout": {
+        "path": "/data2/neural-shrimp-data/runpod/soft64/20261015T064309Z/runner-stdout.txt",
+        "sha256": "80dd92789133a5a241e64ce16e221151cf0facc916db30fbbd540fc3a24ad5f4",
+        "bytes": 1783
+      },
+      "upload": {
+        "code_bytes": 1167360,
+        "data_bytes": 1177600,
+        "code_sha256": "b9d421c13b5f235a24f5c1fb3d3729a9e5caa9f02763a0f61c5fb8266fabf0b6",
+        "data_sha256": "f425388da2f9fe2392ca7e1dea3826d44b492fd4b1c6106e5f0874784f29d778",
+        "extra_data": [],
+        "jobset_args": "amap-b 75 --tgrid -0.325 0.3 26 --chunk 1313 --alpha -0.12 0.12 101 --iters 4 --record 1500"
+      },
+      "status_lines": [
+        "2026-10-15T06:44:34Z start mech-amap-b",
+        "2026-10-15T07:04:34Z end mech-amap-b status 0"
+      ],
+      "ledger_records": [
+        {
+          "line_number": 4425,
+          "original_line_sha256": "fc5ac67ca4c58108ab39e24c075d9b0264f6fdcc992f874e947238b3383fdf19",
+          "fields": {
+            "event": "created",
+            "time": "2026-10-15T06:43:12+00:00",
+            "pod_id": "6xc4ok0nj21d0o",
+            "commit": "b203fb56d0daa41441a926097baa7c6743d42b8a",
+            "gpu_type": "NVIDIA H100 80GB HBM3"
+          }
+        },
+        {
+          "line_number": 4442,
+          "original_line_sha256": "4ebc2b0a2d386ca8a274ad6f540e06ffe7724aab28c9d6776bba232f894e0cb8",
+          "fields": {
+            "event": "ssh_ready",
+            "time": "2026-10-15T06:43:29+00:00",
+            "pod_id": "6xc4ok0nj21d0o",
+            "seconds_after_create": 17
+          }
+        },
+        {
+          "line_number": 4443,
+          "original_line_sha256": "214724797e709391bba3218cc19cd488a8d29ada429bc42e9b6d024dee49f8af",
+          "fields": {
+            "event": "uploaded",
+            "time": "2026-10-15T06:43:32+00:00",
+            "pod_id": "6xc4ok0nj21d0o",
+            "archive_bytes": 1167360,
+            "data_bytes": 1177600
+          }
+        },
+        {
+          "line_number": 4469,
+          "original_line_sha256": "56a890f638c876da44ec63fb5cfd11a68077aaaf2007a1c38be19960c01227d7",
+          "fields": {
+            "event": "retrieved",
+            "time": "2026-10-15T07:04:40+00:00",
+            "pod_id": "6xc4ok0nj21d0o",
+            "hash_verified": true,
+            "sha256": "88a32e22bbb872e269904f9df085e5c90a30d6f644c49a6f7305513675bdf864"
+          }
+        },
+        {
+          "line_number": 4470,
+          "original_line_sha256": "8b0b9b9ac89aa75e8ac2f4cfce16e346746d687881d377de433de79e61f7d3b6",
+          "fields": {
+            "event": "terminate_requested",
+            "time": "2026-10-15T07:04:41+00:00",
+            "pod_id": "6xc4ok0nj21d0o"
+          }
+        },
+        {
+          "line_number": 4471,
+          "original_line_sha256": "f50b404a0a0c044b80e1e6b9beec24b53548401de8c032d756d0c4b2941a059c",
+          "fields": {
+            "event": "terminated_verified",
+            "time": "2026-10-15T07:04:47+00:00",
+            "pod_id": "6xc4ok0nj21d0o"
+          }
+        }
+      ],
+      "recorded_termination_verified": true,
+      "selected_files": [
+        {
+          "file": {
+            "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/mech/amap-b/gain.json",
+            "sha256": "32927431e51887c7c220d4f1833fe54ff2b4c63f4f147449f6188a3576baf44f",
+            "bytes": 1878744
+          },
+          "archive_member": "explore/llm-soft-loop/pod64/mech/amap-b/gain.json",
+          "archive_member_match": true,
+          "scientific_payload_decoded": false
+        },
+        {
+          "file": {
+            "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/mech/amap-b/progress.jsonl",
+            "sha256": "9a0b825c76b48e3a7480f03a02fa3b56158e7e528de17852bed96e701042df62",
+            "bytes": 415
+          },
+          "archive_member": "explore/llm-soft-loop/pod64/mech/amap-b/progress.jsonl",
+          "archive_member_match": true,
+          "scientific_payload_decoded": false
+        },
+        {
+          "file": {
+            "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/mech/amap-b/steps.npz",
+            "sha256": "70b63ab87cc4dd3046f6081a658bfaecc2ce62da57912cbce45846b1b75a7b07",
+            "bytes": 53056136
+          },
+          "archive_member": "explore/llm-soft-loop/pod64/mech/amap-b/steps.npz",
+          "archive_member_match": true,
+          "scientific_payload_decoded": false,
+          "npy_headers": [
+            {
+              "member": "log_g_net.npy",
+              "header": {
+                "descr": "<f4",
+                "fortran_order": false,
+                "shape": [
+                  1000,
+                  2626
+                ]
+              }
+            },
+            {
+              "member": "log_g_read.npy",
+              "header": {
+                "descr": "<f4",
+                "fortran_order": false,
+                "shape": [
+                  1000,
+                  2626
+                ]
+              }
+            },
+            {
+              "member": "entropy.npy",
+              "header": {
+                "descr": "<f4",
+                "fortran_order": false,
+                "shape": [
+                  1000,
+                  2626
+                ]
+              }
+            },
+            {
+              "member": "gap.npy",
+              "header": {
+                "descr": "<f4",
+                "fortran_order": false,
+                "shape": [
+                  1000,
+                  2626
+                ]
+              }
+            },
+            {
+              "member": "p_top.npy",
+              "header": {
+                "descr": "<f4",
+                "fortran_order": false,
+                "shape": [
+                  1000,
+                  2626
+                ]
+              }
+            },
+            {
+              "member": "log_r1_rel.npy",
+              "header": {
+                "descr": "<f4",
+                "fortran_order": false,
+                "shape": [
+                  1000,
+                  2626
+                ]
+              }
+            },
+            {
+              "member": "stable_rank.npy",
+              "header": {
+                "descr": "<f4",
+                "fortran_order": false,
+                "shape": [
+                  1000,
+                  2626
+                ]
+              }
+            },
+            {
+              "member": "rayleigh_change.npy",
+              "header": {
+                "descr": "<f4",
+                "fortran_order": false,
+                "shape": [
+                  1000,
+                  2626
+                ]
+              }
+            },
+            {
+              "member": "cells.npy",
+              "header": {
+                "descr": "<f8",
+                "fortran_order": false,
+                "shape": [
+                  2626,
+                  3
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "pod_id": "v6zndolr40ecev",
+      "gpu_type": "SECURE:NVIDIA H100 80GB HBM3",
+      "commit": "b203fb56d0daa41441a926097baa7c6743d42b8a",
+      "jobset": "mech",
+      "started": 1792046595.7888775,
+      "runner_returncode": 0,
+      "hash_verified": true,
+      "local_sha256": "5e6e3f20125ee163e785e65834d56c489a881f244ea0b3478e7ab7fc69804790",
+      "remote_sha256": "5e6e3f20125ee163e785e65834d56c489a881f244ea0b3478e7ab7fc69804790",
+      "wall_seconds": 1685,
+      "name": "bmap-a",
+      "receipt": {
+        "path": "/data2/neural-shrimp-data/runpod/soft64/20261015T064312Z/result.json",
+        "sha256": "911f605fac304cae1437757b0a156594b0258636f8fb1ce1423bfb140edc8ccf",
+        "bytes": 883
+      },
+      "archive": {
+        "path": "/data2/neural-shrimp-data/runpod/soft64/20261015T064312Z/results.tgz",
+        "sha256": "5e6e3f20125ee163e785e65834d56c489a881f244ea0b3478e7ab7fc69804790",
+        "bytes": 52684802
+      },
+      "stdout": {
+        "path": "/data2/neural-shrimp-data/runpod/soft64/20261015T064312Z/runner-stdout.txt",
+        "sha256": "089feedc50bd9c43e7421675719b991186bdace995ddd240309bd579a41275d3",
+        "bytes": 2392
+      },
+      "upload": {
+        "code_bytes": 1167360,
+        "data_bytes": 1177600,
+        "code_sha256": "b9d421c13b5f235a24f5c1fb3d3729a9e5caa9f02763a0f61c5fb8266fabf0b6",
+        "data_sha256": "f425388da2f9fe2392ca7e1dea3826d44b492fd4b1c6106e5f0874784f29d778",
+        "extra_data": [],
+        "jobset_args": "bmap-a 85 --tgrid -1.0 -0.35 27 --chunk 1161 --alpha 0 0 1 --beta -8 8 129 --iters 4 --record 1500"
+      },
+      "status_lines": [
+        "2026-10-15T06:45:01Z start mech-bmap-a",
+        "2026-10-15T07:11:01Z end mech-bmap-a status 0"
+      ],
+      "ledger_records": [
+        {
+          "line_number": 4433,
+          "original_line_sha256": "616c326ff6402e4e918848f6c60153819b0f4f1c3b2e714bc3efab08c1786cb8",
+          "fields": {
+            "event": "created",
+            "time": "2026-10-15T06:43:15+00:00",
+            "pod_id": "v6zndolr40ecev",
+            "commit": "b203fb56d0daa41441a926097baa7c6743d42b8a",
+            "gpu_type": "NVIDIA H100 80GB HBM3"
+          }
+        },
+        {
+          "line_number": 4445,
+          "original_line_sha256": "0ba96cc42bdb4f7f02b8e90b927e1600ed3d9ea1d09b7b194f07db2e912e21e1",
+          "fields": {
+            "event": "ssh_ready",
+            "time": "2026-10-15T06:43:34+00:00",
+            "pod_id": "v6zndolr40ecev",
+            "seconds_after_create": 19
+          }
+        },
+        {
+          "line_number": 4449,
+          "original_line_sha256": "59c387b2f12bc40957008db7f5f72b566bb662f78e277e60b9959f3a374f53a2",
+          "fields": {
+            "event": "uploaded",
+            "time": "2026-10-15T06:43:43+00:00",
+            "pod_id": "v6zndolr40ecev",
+            "archive_bytes": 1167360,
+            "data_bytes": 1177600
+          }
+        },
+        {
+          "line_number": 4487,
+          "original_line_sha256": "3682b89f223add7a4241410ff51187459fe35fbf7ada78a612a7133348937c0c",
+          "fields": {
+            "event": "retrieved",
+            "time": "2026-10-15T07:11:13+00:00",
+            "pod_id": "v6zndolr40ecev",
+            "hash_verified": true,
+            "sha256": "5e6e3f20125ee163e785e65834d56c489a881f244ea0b3478e7ab7fc69804790"
+          }
+        },
+        {
+          "line_number": 4488,
+          "original_line_sha256": "cbbdd231ab2d6df38e816f06cc94128f7579775136c2e961e2a03245a4a77b1e",
+          "fields": {
+            "event": "terminate_requested",
+            "time": "2026-10-15T07:11:15+00:00",
+            "pod_id": "v6zndolr40ecev"
+          }
+        },
+        {
+          "line_number": 4489,
+          "original_line_sha256": "e99c223a8b614df5b8573d9ff8615369e4ec04edb39771d0b9332eb3b5cfefe0",
+          "fields": {
+            "event": "terminated_verified",
+            "time": "2026-10-15T07:11:20+00:00",
+            "pod_id": "v6zndolr40ecev"
+          }
+        }
+      ],
+      "recorded_termination_verified": true,
+      "selected_files": [
+        {
+          "file": {
+            "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/mech/bmap-a/gain.json",
+            "sha256": "56ec9f70d3740ef2e04e91da2b65971b8ad95e508edde65334352df52c3c4697",
+            "bytes": 2311247
+          },
+          "archive_member": "explore/llm-soft-loop/pod64/mech/bmap-a/gain.json",
+          "archive_member_match": true,
+          "scientific_payload_decoded": false
+        },
+        {
+          "file": {
+            "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/mech/bmap-a/progress.jsonl",
+            "sha256": "badadca3bf9f4b26df6dc565e3497afa68901cacf65e5c448d7a97619343c7c0",
+            "bytes": 617
+          },
+          "archive_member": "explore/llm-soft-loop/pod64/mech/bmap-a/progress.jsonl",
+          "archive_member_match": true,
+          "scientific_payload_decoded": false
+        },
+        {
+          "file": {
+            "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/mech/bmap-a/steps.npz",
+            "sha256": "cd92f80fd3757709a5162d244fe451dc264a5b5aba3eea69f19a2db84583826c",
+            "bytes": 52385245
+          },
+          "archive_member": "explore/llm-soft-loop/pod64/mech/bmap-a/steps.npz",
+          "archive_member_match": true,
+          "scientific_payload_decoded": false,
+          "npy_headers": [
+            {
+              "member": "log_g_net.npy",
+              "header": {
+                "descr": "<f4",
+                "fortran_order": false,
+                "shape": [
+                  1000,
+                  3483
+                ]
+              }
+            },
+            {
+              "member": "log_g_read.npy",
+              "header": {
+                "descr": "<f4",
+                "fortran_order": false,
+                "shape": [
+                  1000,
+                  3483
+                ]
+              }
+            },
+            {
+              "member": "entropy.npy",
+              "header": {
+                "descr": "<f4",
+                "fortran_order": false,
+                "shape": [
+                  1000,
+                  3483
+                ]
+              }
+            },
+            {
+              "member": "gap.npy",
+              "header": {
+                "descr": "<f4",
+                "fortran_order": false,
+                "shape": [
+                  1000,
+                  3483
+                ]
+              }
+            },
+            {
+              "member": "p_top.npy",
+              "header": {
+                "descr": "<f4",
+                "fortran_order": false,
+                "shape": [
+                  1000,
+                  3483
+                ]
+              }
+            },
+            {
+              "member": "log_r1_rel.npy",
+              "header": {
+                "descr": "<f4",
+                "fortran_order": false,
+                "shape": [
+                  1000,
+                  3483
+                ]
+              }
+            },
+            {
+              "member": "stable_rank.npy",
+              "header": {
+                "descr": "<f4",
+                "fortran_order": false,
+                "shape": [
+                  1000,
+                  3483
+                ]
+              }
+            },
+            {
+              "member": "rayleigh_change.npy",
+              "header": {
+                "descr": "<f4",
+                "fortran_order": false,
+                "shape": [
+                  1000,
+                  3483
+                ]
+              }
+            },
+            {
+              "member": "cells.npy",
+              "header": {
+                "descr": "<f8",
+                "fortran_order": false,
+                "shape": [
+                  3483,
+                  3
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "pod_id": "026rfinp1b3h8d",
+      "gpu_type": "SECURE:NVIDIA H100 80GB HBM3",
+      "commit": "b203fb56d0daa41441a926097baa7c6743d42b8a",
+      "jobset": "mech",
+      "started": 1792046598.7621515,
+      "runner_returncode": 0,
+      "hash_verified": true,
+      "local_sha256": "99e2c7bfceecdddeef8698a4335e8548076f935eb398679a9dbcd8de8ed11221",
+      "remote_sha256": "99e2c7bfceecdddeef8698a4335e8548076f935eb398679a9dbcd8de8ed11221",
+      "wall_seconds": 1771,
+      "name": "bmap-b",
+      "receipt": {
+        "path": "/data2/neural-shrimp-data/runpod/soft64/20261015T064315Z/result.json",
+        "sha256": "30bec36dc7bc735c240c1afa11dca36a52cf4f8b7f81ef5daada86693bc7c604",
+        "bytes": 883
+      },
+      "archive": {
+        "path": "/data2/neural-shrimp-data/runpod/soft64/20261015T064315Z/results.tgz",
+        "sha256": "99e2c7bfceecdddeef8698a4335e8548076f935eb398679a9dbcd8de8ed11221",
+        "bytes": 57721761
+      },
+      "stdout": {
+        "path": "/data2/neural-shrimp-data/runpod/soft64/20261015T064315Z/runner-stdout.txt",
+        "sha256": "26a38c45b47ec498f3bfe6c6350f292af28205012973e2bcc1a8c73c47f5cca5",
+        "bytes": 2482
+      },
+      "upload": {
+        "code_bytes": 1167360,
+        "data_bytes": 1177600,
+        "code_sha256": "b9d421c13b5f235a24f5c1fb3d3729a9e5caa9f02763a0f61c5fb8266fabf0b6",
+        "data_sha256": "f425388da2f9fe2392ca7e1dea3826d44b492fd4b1c6106e5f0874784f29d778",
+        "extra_data": [],
+        "jobset_args": "bmap-b 85 --tgrid -0.325 0.3 26 --chunk 1118 --alpha 0 0 1 --beta -8 8 129 --iters 4 --record 1500"
+      },
+      "status_lines": [
+        "2026-10-15T06:44:36Z start mech-bmap-b",
+        "2026-10-15T07:12:36Z end mech-bmap-b status 0"
+      ],
+      "ledger_records": [
+        {
+          "line_number": 4441,
+          "original_line_sha256": "dcf9dab455d93131b1848f645177e02e5b1fb8550729fe0032903a38b8cc9541",
+          "fields": {
+            "event": "created",
+            "time": "2026-10-15T06:43:18+00:00",
+            "pod_id": "026rfinp1b3h8d",
+            "commit": "b203fb56d0daa41441a926097baa7c6743d42b8a",
+            "gpu_type": "NVIDIA H100 80GB HBM3"
+          }
+        },
+        {
+          "line_number": 4450,
+          "original_line_sha256": "4c11ad2471310ec562b92c5440f7ee5fca2dc11e5618b6ace87fb8e07aa7a326",
+          "fields": {
+            "event": "ssh_ready",
+            "time": "2026-10-15T06:43:50+00:00",
+            "pod_id": "026rfinp1b3h8d",
+            "seconds_after_create": 32
+          }
+        },
+        {
+          "line_number": 4451,
+          "original_line_sha256": "b48d4ab233a50609ce42ff2bfb75300ddb4096a0b250933af56a7b664b829e3a",
+          "fields": {
+            "event": "uploaded",
+            "time": "2026-10-15T06:43:53+00:00",
+            "pod_id": "026rfinp1b3h8d",
+            "archive_bytes": 1167360,
+            "data_bytes": 1177600
+          }
+        },
+        {
+          "line_number": 4492,
+          "original_line_sha256": "c7ca26d513b084fbdc87f89c18bc16afc7df526459a050f032761f27df4a1b49",
+          "fields": {
+            "event": "retrieved",
+            "time": "2026-10-15T07:12:42+00:00",
+            "pod_id": "026rfinp1b3h8d",
+            "hash_verified": true,
+            "sha256": "99e2c7bfceecdddeef8698a4335e8548076f935eb398679a9dbcd8de8ed11221"
+          }
+        },
+        {
+          "line_number": 4493,
+          "original_line_sha256": "39fbfca0c7882a4833ba05925957d324a129957647049d1f2c2a3ef8fc980165",
+          "fields": {
+            "event": "terminate_requested",
+            "time": "2026-10-15T07:12:43+00:00",
+            "pod_id": "026rfinp1b3h8d"
+          }
+        },
+        {
+          "line_number": 4496,
+          "original_line_sha256": "4c3f6db404303d177716189789efea297643560e00ed8cca8cda858b94987c0f",
+          "fields": {
+            "event": "terminated_verified",
+            "time": "2026-10-15T07:12:49+00:00",
+            "pod_id": "026rfinp1b3h8d"
+          }
+        }
+      ],
+      "recorded_termination_verified": true,
+      "selected_files": [
+        {
+          "file": {
+            "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/mech/bmap-b/gain.json",
+            "sha256": "e5c4ef2a3905716d40edead71b9aaca26e4b77d0981cfa279626f9c9aae37ec6",
+            "bytes": 2366902
+          },
+          "archive_member": "explore/llm-soft-loop/pod64/mech/bmap-b/gain.json",
+          "archive_member_match": true,
+          "scientific_payload_decoded": false
+        },
+        {
+          "file": {
+            "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/mech/bmap-b/progress.jsonl",
+            "sha256": "a7b92538daf63966e23dc1ba2d66a54802cab1aa01cf94e478d4dfa7a0caab51",
+            "bytes": 620
+          },
+          "archive_member": "explore/llm-soft-loop/pod64/mech/bmap-b/progress.jsonl",
+          "archive_member_match": true,
+          "scientific_payload_decoded": false
+        },
+        {
+          "file": {
+            "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/mech/bmap-b/steps.npz",
+            "sha256": "0fb7edbcf4f30071a29dbbb436dfe5135c495d8e1a24eddaaf8ea15e4656871d",
+            "bytes": 57342288
+          },
+          "archive_member": "explore/llm-soft-loop/pod64/mech/bmap-b/steps.npz",
+          "archive_member_match": true,
+          "scientific_payload_decoded": false,
+          "npy_headers": [
+            {
+              "member": "log_g_net.npy",
+              "header": {
+                "descr": "<f4",
+                "fortran_order": false,
+                "shape": [
+                  1000,
+                  3354
+                ]
+              }
+            },
+            {
+              "member": "log_g_read.npy",
+              "header": {
+                "descr": "<f4",
+                "fortran_order": false,
+                "shape": [
+                  1000,
+                  3354
+                ]
+              }
+            },
+            {
+              "member": "entropy.npy",
+              "header": {
+                "descr": "<f4",
+                "fortran_order": false,
+                "shape": [
+                  1000,
+                  3354
+                ]
+              }
+            },
+            {
+              "member": "gap.npy",
+              "header": {
+                "descr": "<f4",
+                "fortran_order": false,
+                "shape": [
+                  1000,
+                  3354
+                ]
+              }
+            },
+            {
+              "member": "p_top.npy",
+              "header": {
+                "descr": "<f4",
+                "fortran_order": false,
+                "shape": [
+                  1000,
+                  3354
+                ]
+              }
+            },
+            {
+              "member": "log_r1_rel.npy",
+              "header": {
+                "descr": "<f4",
+                "fortran_order": false,
+                "shape": [
+                  1000,
+                  3354
+                ]
+              }
+            },
+            {
+              "member": "stable_rank.npy",
+              "header": {
+                "descr": "<f4",
+                "fortran_order": false,
+                "shape": [
+                  1000,
+                  3354
+                ]
+              }
+            },
+            {
+              "member": "rayleigh_change.npy",
+              "header": {
+                "descr": "<f4",
+                "fortran_order": false,
+                "shape": [
+                  1000,
+                  3354
+                ]
+              }
+            },
+            {
+              "member": "cells.npy",
+              "header": {
+                "descr": "<f8",
+                "fortran_order": false,
+                "shape": [
+                  3354,
+                  3
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "pod_id": "slk055l1wkl6hq",
+      "gpu_type": "COMMUNITY:NVIDIA H100 NVL",
+      "commit": "92f1a20eea7794ca6348cf773e3757026568775e",
+      "jobset": "xo",
+      "started": 1792048484.4251537,
+      "runner_returncode": 0,
+      "hash_verified": true,
+      "local_sha256": "af31d713a652900940e5c180cf3065e5372603c766b1635029d644b8762f9193",
+      "remote_sha256": "af31d713a652900940e5c180cf3065e5372603c766b1635029d644b8762f9193",
+      "wall_seconds": 270,
+      "name": "cells",
+      "receipt": {
+        "path": "/data2/neural-shrimp-data/runpod/soft64/20261015T071443Z/result.json",
+        "sha256": "826fd1481e3f86c24fc77f571d7ed128e9e7e267bd6abdb4ff18c4edff9a2ccc",
+        "bytes": 874
+      },
+      "archive": {
+        "path": "/data2/neural-shrimp-data/runpod/soft64/20261015T071443Z/results.tgz",
+        "sha256": "af31d713a652900940e5c180cf3065e5372603c766b1635029d644b8762f9193",
+        "bytes": 7231
+      },
+      "stdout": {
+        "path": "/data2/neural-shrimp-data/runpod/soft64/20261015T071443Z/runner-stdout.txt",
+        "sha256": "72495994a40b38a281105b02b07689823bec687625a3cae1d22dc8534540735a",
+        "bytes": 647
+      },
+      "upload": {
+        "code_bytes": 1218560,
+        "data_bytes": 1177600,
+        "code_sha256": "01edc93ffa7f1486dea19236f2e3d00ff86ca84b131fb238907d50c2ec25c308",
+        "data_sha256": "f425388da2f9fe2392ca7e1dea3826d44b492fd4b1c6106e5f0874784f29d778",
+        "extra_data": [],
+        "jobset_args": "cells 45 --cells-file docs/xo-cells.json --transient 1000 --record 1000 --window 250 --chunk 24"
+      },
+      "status_lines": [
+        "2026-10-15T07:16:06Z start xo-cells",
+        "2026-10-15T07:19:06Z end xo-cells status 0"
+      ],
+      "ledger_records": [
+        {
+          "line_number": 4500,
+          "original_line_sha256": "0f596bba684645a34573ecda4ccdb8f43663bdb411acda66a7614b81f0bd9857",
+          "fields": {
+            "event": "created",
+            "time": "2026-10-15T07:14:44+00:00",
+            "pod_id": "slk055l1wkl6hq",
+            "commit": "92f1a20eea7794ca6348cf773e3757026568775e",
+            "gpu_type": "NVIDIA H100 NVL"
+          }
+        },
+        {
+          "line_number": 4524,
+          "original_line_sha256": "9ea43bf1d00815d3dad0552dd160f97f9364ae22281006fdefd9f72643ec9b74",
+          "fields": {
+            "event": "ssh_ready",
+            "time": "2026-10-15T07:15:16+00:00",
+            "pod_id": "slk055l1wkl6hq",
+            "seconds_after_create": 32
+          }
+        },
+        {
+          "line_number": 4525,
+          "original_line_sha256": "520f2a0d6e15b10140e806fd94c18acb23699dbbf2c96513ca94e892b320af9c",
+          "fields": {
+            "event": "uploaded",
+            "time": "2026-10-15T07:15:20+00:00",
+            "pod_id": "slk055l1wkl6hq",
+            "archive_bytes": 1218560,
+            "data_bytes": 1177600
+          }
+        },
+        {
+          "line_number": 4529,
+          "original_line_sha256": "3d406d36dce27ec3b6fbeb29c22efd2a7a791f3ebf0395692e2922f9548e98bc",
+          "fields": {
+            "event": "retrieved",
+            "time": "2026-10-15T07:19:07+00:00",
+            "pod_id": "slk055l1wkl6hq",
+            "hash_verified": true,
+            "sha256": "af31d713a652900940e5c180cf3065e5372603c766b1635029d644b8762f9193"
+          }
+        },
+        {
+          "line_number": 4530,
+          "original_line_sha256": "c996c80571cbeb338f99ecab0287cafdae34f7cac4fe54753fec0308c9f2bad7",
+          "fields": {
+            "event": "terminate_requested",
+            "time": "2026-10-15T07:19:08+00:00",
+            "pod_id": "slk055l1wkl6hq"
+          }
+        },
+        {
+          "line_number": 4531,
+          "original_line_sha256": "dc589fe82dd44801c54d79a5ebbcb120a8cba38671f03ee81eb2d1052de0c197",
+          "fields": {
+            "event": "terminated_verified",
+            "time": "2026-10-15T07:19:14+00:00",
+            "pod_id": "slk055l1wkl6hq"
+          }
+        }
+      ],
+      "recorded_termination_verified": true,
+      "selected_files": [
+        {
+          "file": {
+            "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/xo/cells/crossover.json",
+            "sha256": "4e9ba93600772e1129c559e29e3591736a787ab8e9c94a01c6e3daf716e923dd",
+            "bytes": 18537
+          },
+          "archive_member": "explore/llm-soft-loop/pod64/xo/cells/crossover.json",
+          "archive_member_match": true,
+          "scientific_payload_decoded": false
+        },
+        {
+          "file": {
+            "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/xo/cells/progress.jsonl",
+            "sha256": "824043fa57839cc5b9f50c571eb534242072bd510b7e20b732012a9404c5fc06",
+            "bytes": 214
+          },
+          "archive_member": "explore/llm-soft-loop/pod64/xo/cells/progress.jsonl",
+          "archive_member_match": true,
+          "scientific_payload_decoded": false
+        }
+      ]
+    }
+  ],
+  "scope": "Exactly original four MECH3/4 partitions and original 24-cell XO. Later XO7/gratitude/random1 excluded. Selected scientific JSON/JSONL are opaque bytes; NPZ headers only. No model/producer/statistical execution.",
+  "historical_limits": [
+    "Recorded source/upload/retrieval/archive-member/termination basis; no original loaded model-byte or process-birth reconstruction.",
+    "Source-log/paper summaries were exposed; no independent numerical acceptance inferred."
+  ]
+}
