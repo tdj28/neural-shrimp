@@ -25006,3 +25006,30 @@ SoftLoop.step_jvp, MultiPrefixSoftLoop.step_jvp and SoftOrbit.jvp_rows set only 
 SoftOrbit's start trajectory equals the loop's (maximum difference 0).
 
 **Impact: none on reported results.** No two-block result used these paths. Two-block maps (two_block_map.py), the TP scans (turning_scan.py) and the TBZ zooms use hidden_chaos.run_batch without tangents, and no Newton or tangent run was made in a two-block plane. The fix precedes the planned two-block doubly superstable search.
+
+## 2026-10-15 09:44 UTC: BPCS result (steered arm, within-prompt test): NULL
+
+**Gates.** All nine stage-2 pods have runner rc 0, are terminated and ran commit a6ddcc38 (orchestrator logs). Labels: 1000 per direction (500 + 500). Generations: 1000 prompts x 10 samples per direction. The prompt ids equal the first 1000 of BPC's (items identical). Analysis: tools/bpcs_analyze.py and its tests, committed at 5ccdf733 before any stage-2 data. Output: docs/bpcs-result.json.
+
+**Task kept intact.** On these 1000 prompts:
+
+| condition | greedy accuracy | sampled accuracy (log10 T 0.4) |
+|---|---|---|
+| unsteered | 0.893 | 0.426 |
+| philosophy | 0.891 | 0.409 |
+| hostility-vs-kindness | 0.879 | 0.422 |
+| random direction | 0.873 | 0.442 |
+
+**Labels move.** Chaotic share (chaotic or periodic labels only): unsteered 36.7 %, hostility 35.9 %, philosophy 39.3 %, random 40.1 %. **508 of the 1000 prompts change label** between conditions under a push of 1 % of the residual norm. The regime of a prompt's loop is fragile.
+
+**Primary (fixed before the data).** Accuracy ~ chaotic + prompt fixed effects + condition fixed effects, over 3992 rows: beta = +0.0036, i.e. +0.36 points, 95 % bootstrap over prompts [-0.36, +1.08] points, within-prompt permutation p = 0.34. **Null.** Moving a prompt's loop into or out of chaos does not change the accuracy of its ordinary sampled answers, to within about 1 point.
+
+**Edge bins** (residual after both fixed effects, descriptive):
+
+| bin | n | residual (points) |
+|---|---|---|
+| deep periodic | 1877 | -0.11 |
+| edge | 256 | -0.28 |
+| deep chaotic | 1417 | +0.13 |
+
+**Together with BPC.** The loop's regime is not an accuracy diagnostic across prompts beyond first-token uncertainty, and it does not move accuracy within a prompt. The behavioural consequences of the regime are confined to the loop itself (reproducibility, soft-thinking answers), not to ordinary sampled decoding.
