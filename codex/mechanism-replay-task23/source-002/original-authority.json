@@ -1,0 +1,70 @@
+{
+  "receipt_original": {
+    "path": "/data2/neural-shrimp-data/runpod/soft64/20261015T064300Z/result.json",
+    "bytes": 1600,
+    "sha256": "aa6ddc3cc7992c61880e4342e070c7cc3d8324a860ae75e0a10da3fdab48ac22"
+  },
+  "receipt_allowed_fields": {
+    "pod_id": "xg535b59iooop9",
+    "gpu_type": "COMMUNITY:NVIDIA H100 NVL",
+    "commit": "b203fb56d0daa41441a926097baa7c6743d42b8a",
+    "jobset": "mech",
+    "started": 1792046581.7308478,
+    "out": "/data2/neural-shrimp-data/runpod/soft64/20261015T064300Z",
+    "upload": {
+      "code_bytes": 1167360,
+      "data_bytes": 1300480,
+      "code_sha256": "b9d421c13b5f235a24f5c1fb3d3729a9e5caa9f02763a0f61c5fb8266fabf0b6",
+      "data_sha256": "881222a0635410b95d336bca4d646006084ca9b47006a59552095dd41fe10645",
+      "extra_data": [
+        "explore/llm-phase-map/vectors-l4",
+        "explore/llm-phase-map/vectors-l12-p1b"
+      ],
+      "jobset_args": "b12 50 --layer 12 --vectors llm-phase-map/vectors-l12 --alpha -0.12 0.12 241 --log-temperature -0.6 -0.3 0.0 0.15 0.25 --iters 8 --concept philosophy :: b4 50 --layer 4 --vectors llm-phase-map/vectors-l4 --alpha -0.12 0.12 241 --log-temperature -0.6 -0.3 0.0 0.15 0.25 --iters 8 --concept philosophy :: host 15 --layer 12 --vectors llm-phase-map/vectors-l12-p1b --concept hostility-vs-kindness --alpha 0.0655 0.0655 1 --tgrid 0.10 0.30 201 --iters 8 :: ky-host 10 --layer 12 --vectors llm-phase-map/vectors-l12-p1b --concept hostility-vs-kindness --cells-file docs/ky-cells-hostility.json --iters 8 :: ky-phil 10 --layer 12 --vectors llm-phase-map/vectors-l12 --concept philosophy --cells-file docs/ky-cells-philosophy.json --iters 8"
+    },
+    "runner_returncode": 0,
+    "remote_sha256": "10fc3c104050dfab553a9f8ecf7ac4f3cbbb268b428bcad796619ea78791285e",
+    "local_sha256": "10fc3c104050dfab553a9f8ecf7ac4f3cbbb268b428bcad796619ea78791285e",
+    "hash_verified": true,
+    "wall_seconds": 3089
+  },
+  "original_stdout": {
+    "path": "/data2/neural-shrimp-data/runpod/soft64/20261015T064300Z/runner-stdout.txt",
+    "bytes": 3654,
+    "sha256": "7ca7891185b7f45247aca18cc55dfcfd6bc5790100a8bf2f487dc4366c33d146"
+  },
+  "host_statuses": [
+    {
+      "line_number": 39,
+      "text": "2026-10-15T07:26:18Z start mech-host"
+    },
+    {
+      "line_number": 43,
+      "text": "2026-10-15T07:30:18Z end mech-host status 0"
+    }
+  ],
+  "orchestrator_log": {
+    "path": "/data2/neural-shrimp-data/runpod/MECH1-orchestrator.log",
+    "bytes": 2892,
+    "sha256": "7572b332fb8833b277a996f4f48662ee11b848d15a2c9630730d4e8249a50af4"
+  },
+  "termination_records": [
+    {
+      "line_number": 3,
+      "original_line_sha256": "c8be5ed0aae9d777dd77cde47e1ffe43118239972409e53c3e7246203033daa4",
+      "fields": {
+        "pod_id": "xg535b59iooop9",
+        "terminated": true,
+        "direct_lookup": null,
+        "in_inventory": false
+      }
+    }
+  ],
+  "archive": {
+    "path": "/data2/neural-shrimp-data/runpod/soft64/20261015T064300Z/results.tgz",
+    "bytes": 29515303,
+    "sha256_status": "Historical accepted pin only; no new large-asset hash in source preparation."
+  },
+  "archive_recorded_sha256": "10fc3c104050dfab553a9f8ecf7ac4f3cbbb268b428bcad796619ea78791285e",
+  "scope": "Existing local receipt/source/recorded retrieval and termination only. No provider/pod action, historical loaded bytes or process-birth reconstruction. Original archive not rescanned for this preparation; gain comparison file is bound locally."
+}

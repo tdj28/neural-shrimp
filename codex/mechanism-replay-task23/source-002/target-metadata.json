@@ -1,0 +1,113 @@
+{
+  "gain": {
+    "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/mech/host/gain.json",
+    "bytes": 142871,
+    "sha256": "a084574483fed4f7905212412eb2a80259b064ea836f6ee7d424f475bc9184bf"
+  },
+  "top_level_keys": [
+    "args",
+    "bias",
+    "cells",
+    "seconds"
+  ],
+  "args": {
+    "model": "qwen0.5b",
+    "layer": 12,
+    "vectors": "llm-phase-map/vectors-l12-p1b",
+    "concept": "hostility-vs-kindness",
+    "alpha": [
+      0.0655,
+      0.0655,
+      1.0
+    ],
+    "beta": [
+      0.0,
+      0.0,
+      1
+    ],
+    "log_temperature": null,
+    "tgrid": [
+      0.1,
+      0.3,
+      201.0
+    ],
+    "cells_file": null,
+    "transient": 1000,
+    "record": 2000,
+    "eps": [
+      1e-06,
+      1e-09
+    ],
+    "iters": 8,
+    "chunk": 1300,
+    "threads": 8,
+    "device": "cuda",
+    "out": "llm-soft-loop/pod64/mech/host"
+  },
+  "cell_count": 201,
+  "fields": [
+    "alpha",
+    "beta",
+    "log10_temperature",
+    "lyapunov",
+    "eps",
+    "period",
+    "chaotic",
+    "boundary_term",
+    "frac_gap_below_1",
+    "frac_gap_below_2",
+    "mean_log_g_net",
+    "mean_log_g_read",
+    "mean_entropy",
+    "mean_gap",
+    "mean_p_top",
+    "mean_log_r1_rel",
+    "mean_stable_rank",
+    "mean_rayleigh_change",
+    "max_rayleigh_change"
+  ],
+  "selected": [
+    {
+      "requested_label": "chaotic",
+      "source_index": 25,
+      "requested_log10_temperature": 0.125,
+      "saved_log10_temperature": 0.125,
+      "requested_alpha": 0.0655,
+      "saved_alpha": 0.0655,
+      "saved_beta": 0.0,
+      "exact_requested_float_match": true
+    },
+    {
+      "requested_label": "chaotic",
+      "source_index": 29,
+      "requested_log10_temperature": 0.129,
+      "saved_log10_temperature": 0.129,
+      "requested_alpha": 0.0655,
+      "saved_alpha": 0.0655,
+      "saved_beta": 0.0,
+      "exact_requested_float_match": true
+    },
+    {
+      "requested_label": "periodic",
+      "source_index": 19,
+      "requested_log10_temperature": 0.119,
+      "saved_log10_temperature": 0.11900000000000001,
+      "requested_alpha": 0.0655,
+      "saved_alpha": 0.0655,
+      "saved_beta": 0.0,
+      "exact_requested_float_match": false
+    },
+    {
+      "requested_label": "periodic",
+      "source_index": 35,
+      "requested_log10_temperature": 0.135,
+      "saved_log10_temperature": 0.135,
+      "requested_alpha": 0.0655,
+      "saved_alpha": 0.0655,
+      "saved_beta": 0.0,
+      "exact_requested_float_match": true
+    }
+  ],
+  "outcome_fields_decoded_for_preparation": false,
+  "scope": "JSON parsed only to select args/schema and declared coordinate rows; gain, Lyapunov, entropy, gap, period and classification values not exported/read."
+}
