@@ -1,3 +1,7 @@
+# Task 21a exact saved-arithmetic launch preparation
+
+Root accepted source45b3945f/driver1001669b, input002 f8e3e50a/authoritye0aecfbb and the bounded supervisor design. Reviewed card 58fed3c41e8aa3c6ed4512370a6d01afb8f99e99d2cb6d9c571cb88888af3d16 and final supervisor 4d3d75a83bb40e89758e69f5bf3f79c4579d783e5233228d1f2100bc4819e041 contain only the documented admission/pin changes. Prepared history and all original attempts remain preserved. Final exact-pin review, private checkpoint verification and fresh capacity precede the sole run. No Task 21a arithmetic has launched; zero jobs or reservations.
+
 # Task 21a source and input preparation
 
 Task 16 is complete and privately delivered at c847bc24c6fac4bef73d3cfbc0e39cdff11df2a2; its final evidence and acceptance remain unchanged. The separate Task 16 acceptance-attribution amendment records Root's precise reading scope without altering scientific acceptance.

@@ -1,0 +1,216 @@
+{
+  "schema": "task21a-saved-arithmetic-card-v1",
+  "status": "prepared_unlaunchable",
+  "input_manifest": {
+    "path": "/tmp/task21a-input-authority-002/inputs.json",
+    "sha256": "f8e3e50a644310594d54da329b5e51133146cd26a74b99c0ef0565dcf5a81af0",
+    "bytes": 16502
+  },
+  "local_c_original_card": {
+    "path": "/tmp/task21a-local-c-original-card.md",
+    "sha256": "42c5b014a4fccf69d6cfee748e94533deb21ddc9244257573110ad297e7176fd",
+    "bytes": 1279
+  },
+  "source_sha256": {
+    "run.py": "1001669b8714e1cb5fc81d69c55c658d939210025fbaff261539829230381629",
+    "arithmetic.py": "45b3945f127d3f308d6d88f4f49c626d286eec3555af9b5faefc497d5ff951dd"
+  },
+  "original_runs": [
+    "FB152",
+    "FB156",
+    "FB152b",
+    "FB156b",
+    "FB152d",
+    "FB152e",
+    "FBD",
+    "FBS156",
+    "FBS192"
+  ],
+  "attempt_order": [
+    "FB152",
+    "FB156",
+    "FB152b",
+    "FB156b",
+    "FB152d",
+    "FB152e",
+    "FBD",
+    "FBS156",
+    "FBS192",
+    "local-FB156c"
+  ],
+  "local_c_start_period": 12,
+  "local_c_requested_flips": 5,
+  "flip_156_sequence": [
+    [
+      "FB156b",
+      3
+    ],
+    [
+      "FB156b",
+      6
+    ],
+    [
+      "local-FB156c",
+      12
+    ],
+    [
+      "local-FB156c",
+      24
+    ],
+    [
+      "local-FB156c",
+      48
+    ],
+    [
+      "local-FB156c",
+      96
+    ],
+    [
+      "local-FB156c",
+      192
+    ]
+  ],
+  "superstable_156_sequence": [
+    [
+      "FBS156",
+      6
+    ],
+    [
+      "FBS156",
+      12
+    ],
+    [
+      "FBS156",
+      24
+    ],
+    [
+      "FBS156",
+      48
+    ],
+    [
+      "FBS156",
+      96
+    ],
+    [
+      "FBS192",
+      192
+    ]
+  ],
+  "overlap_comparisons": [
+    [
+      "FB156b",
+      "local-FB156c",
+      12
+    ],
+    [
+      "FB156",
+      "FB156b",
+      3
+    ],
+    [
+      "FB152",
+      "FB152b",
+      3
+    ],
+    [
+      "FB152b",
+      "FB152e",
+      6
+    ]
+  ],
+  "e_expected_evaluations": 12,
+  "e_ratio_prior_levels": [
+    [
+      "local-FB156c",
+      96
+    ],
+    [
+      "local-FB156c",
+      192
+    ]
+  ],
+  "e_fit_selection": "All twelve admitted period384 evaluation rows, no point selection; separate exact decimal-g, represented binary64-g, decimal-mu-plus-one variants. No original locator acceptance.",
+  "frozen_scores": {
+    "P-F1": "first flip ratio <2.844 at each temperature and ratio(-.156)<ratio(-.152); missing remains cannot check",
+    "P-F2": "last two superstable ratios within [4.43555,4.90245], scoring at 2026-10-15T06:05:00Z, latest completed period192; point and whole bracket-sensitivity scores separate"
+  },
+  "input_scope": {
+    "scientific_files": 16,
+    "scientific_bytes": 164161,
+    "refusal_stdout_files": [
+      {
+        "path": "/data2/neural-shrimp-data/runpod/soft64/20261015T013016Z/runner-stdout.txt",
+        "sha256": "494af6b4b093d23e98fab6ca3843ff5367ac17b4e7c8b963df1f06ce9cddbb70",
+        "bytes": 1655
+      },
+      {
+        "path": "/data2/neural-shrimp-data/runpod/soft64/20261015T013026Z/runner-stdout.txt",
+        "sha256": "f6e28591b5288d3c9a79511b1659e796cfeb6aaa43f76361260f0bce4af9d575",
+        "bytes": 1162
+      },
+      {
+        "path": "/data2/neural-shrimp-data/runpod/soft64/20261015T014204Z/runner-stdout.txt",
+        "sha256": "08c9751d1b2edf441d4a50bdf9a81137cb5e9cf6bb5fd6f0870137782e7a206b",
+        "bytes": 1118
+      },
+      {
+        "path": "/data2/neural-shrimp-data/runpod/soft64/20261015T014212Z/runner-stdout.txt",
+        "sha256": "56c0ca7168e9d3e82e5d02f5308e62f9954d23a6f2287bd0573615fe0d6a7177",
+        "bytes": 2299
+      },
+      {
+        "path": "/data2/neural-shrimp-data/runpod/soft64/20261015T033202Z/runner-stdout.txt",
+        "sha256": "2986205b181be9b9f51b1cd69dbdf2cfd75e4743f060376beaa44cfc0d4b8cf4",
+        "bytes": 929
+      },
+      {
+        "path": "/data2/neural-shrimp-data/runpod/soft64/20261015T033552Z/runner-stdout.txt",
+        "sha256": "65a8807fb7a5db7d357380ee95c5d16f6abbae642a5f39e4e0acc288a5a16834",
+        "bytes": 1936
+      },
+      {
+        "path": "/data2/neural-shrimp-data/runpod/soft64/20261015T051312Z/runner-stdout.txt",
+        "sha256": "e664d3b01feee6b0f383afabf6016461c727cd1350ddacfb94ad98015af51ddd",
+        "bytes": 10963
+      },
+      {
+        "path": "/data2/neural-shrimp-data/runpod/soft64/20261015T034721Z/runner-stdout.txt",
+        "sha256": "e879cefff0e9b47118215b453c2e046f3d3f167375fdd8278a06c7bbb95b577e",
+        "bytes": 745
+      },
+      {
+        "path": "/data2/neural-shrimp-data/runpod/soft64/20261015T051315Z/runner-stdout.txt",
+        "sha256": "37f993130db6a9734af3dffaad903b43c22d5c4e077dc7f785d774a552034fb7",
+        "bytes": 772
+      }
+    ],
+    "refusal_stdout_bytes": 21579,
+    "source_file_bytes": 230876,
+    "metadata_bytes": 71719
+  },
+  "resources": {
+    "cpu_worker": 1,
+    "supervisor_slots": 1,
+    "nice": 10,
+    "hard_as_bytes": 1073741824,
+    "external_deadline_seconds": 60,
+    "output_max_bytes": 16777216,
+    "retry": false,
+    "extension": false
+  },
+  "output_schema": {
+    "report.json": "All per-attempt original scalar JSON/progress, gate/discrepancy checks, strict sequences, original refusals, frozen scores and interpolation limitations; computational_status complete is separate from scientific failure.",
+    "manifest.json": "sha256/bytes of report.json"
+  },
+  "limits": [
+    "Original input authority was independently authenticated by Inference; this calculation rehashes selected values, declared source files and refusal stdout, not original archives again.",
+    "Local156c completed-file authority has no independent historical loaded-source/exit attestation.",
+    "No model, array, eigensolver, continuation or producer imports. Source/summary exposure predates this independent saved arithmetic."
+  ],
+  "prelaunch_requirements": [
+    "Root exact source/card review",
+    "Inference private checkpoint and bounded supervisor",
+    "fresh capacity and exact own lifecycle capture",
+    "change only status to reviewed after Root acceptance, retaining prepared card"
+  ]
+}

@@ -1,0 +1,84 @@
+--- accepted-task16-review-launch.py
++++ prepared-task21a-launch.py
+@@ -1,13 +1,13 @@
+-"""One Task16 independent saved-field check; minimal accepted supervisor adaptation."""
++"""One Task21a independent saved-arithmetic run; minimal accepted supervisor adaptation."""
+ from pathlib import Path
+ import argparse,hashlib,json,os,resource,shutil,signal,subprocess,sys,time,traceback
+ R=Path('/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp')
+-B=Path('/data2/neural-shrimp-data/codex/steering-controls-crosscheck')
+-OUT=B/'run-001-review-001';SUP=OUT.with_name(OUT.name+'-supervision')
+-WRAPPER='codex/steering-controls-crosscheck/saved-audit.py';CARD='codex/steering-controls-crosscheck/run-001-review-card.json'
+-WRAPPER_SHA='3d4436cf44fdf473c867846d5431161dc1583ac19f11eaca2b49c6f7d9b69ad3'
+-ADMISSION='reviewed';CARD_SHA='e835ab44ce3ceef3511dc16b15e8a534284edd3d274fe3b182d8a4f736832499'  # Exact completed original closure and admitted card.
+-GIB=1024**3;WALL=120;MAX_OUTPUT=16*1024**2
++B=Path('/data2/neural-shrimp-data/codex/night-results-review-task21/task21a')
++OUT=B/'run-001';SUP=OUT.with_name(OUT.name+'-supervision')
++WRAPPER='codex/night-results-review-task21/task21a/run.py';CORE='codex/night-results-review-task21/task21a/arithmetic.py';CARD='codex/night-results-review-task21/task21a/run-001-card.json'
++WRAPPER_SHA=None;CORE_SHA=None
++ADMISSION='prepared';CARD_SHA=None  # Exact source and reviewed card pins required before launch.
++GIB=1024**3;WALL=60;MAX_OUTPUT=16*1024**2
+ 
+ def sha(p):return hashlib.sha256(Path(p).read_bytes()).hexdigest()
+ def save(p,value):
+@@ -23,28 +23,27 @@
+   except(FileNotFoundError,ProcessLookupError):continue
+   assert int(f[2])!=row['pgid'] and int(f[3])!=row['sid'],('audit group remains',p.name)
+ def child_limits():
+- resource.setrlimit(resource.RLIMIT_AS,(4*GIB,)*2);resource.setrlimit(resource.RLIMIT_CPU,(115,115))
++ resource.setrlimit(resource.RLIMIT_AS,(GIB,)*2);resource.setrlimit(resource.RLIMIT_CPU,(55,55))
+ 
+ def main():
+  ap=argparse.ArgumentParser();ap.add_argument('--source',required=True);args=ap.parse_args()
+- assert ADMISSION=='reviewed' and isinstance(CARD_SHA,str) and len(CARD_SHA)==64 and all(c in '0123456789abcdef'for c in CARD_SHA),'prepared Task16 audit supervisor cannot run'
++ assert ADMISSION=='reviewed' and isinstance(CARD_SHA,str) and len(CARD_SHA)==64 and all(c in '0123456789abcdef'for c in CARD_SHA),'prepared Task21a supervisor cannot run'
+  assert len(args.source)==40 and all(c in '0123456789abcdef'for c in args.source)
+- os.nice(10-os.getpriority(os.PRIO_PROCESS,0));resource.setrlimit(resource.RLIMIT_AS,(4*GIB,)*2)
++ os.nice(10-os.getpriority(os.PRIO_PROCESS,0));resource.setrlimit(resource.RLIMIT_AS,(GIB,)*2)
+  assert not OUT.exists() and not SUP.exists()
+  def git(*words):return subprocess.check_output(['git','-c','core.preloadIndex=false','-c','core.packedGitWindowSize=32m','-c','core.packedGitLimit=64m',*words],cwd=R,timeout=30)
+  assert git('rev-parse','HEAD').decode().strip()==args.source
+  assert not git('status','--porcelain','--untracked-files=all').strip()
+  remote=git('ls-remote','--exit-code','origin','refs/heads/main').decode().split()[0];git('merge-base','--is-ancestor',args.source,remote)
+  sources={}
+- for name,pin in [(WRAPPER,WRAPPER_SHA),(CARD,CARD_SHA)]:
++ for name,pin in [(WRAPPER,WRAPPER_SHA),(CORE,CORE_SHA),(CARD,CARD_SHA)]:
+   data=git('show',args.source+':'+name);assert hashlib.sha256(data).hexdigest()==pin==sha(R/name),name;sources[name]=data
+- own=Path(__file__);launch_rel='codex/steering-controls-crosscheck/run-001-review-launch.py';assert git('show',args.source+':'+launch_rel)==own.read_bytes();sources[launch_rel]=own.read_bytes()
++ own=Path(__file__);launch_rel='codex/night-results-review-task21/task21a/run-001-launch.py';assert git('show',args.source+':'+launch_rel)==own.read_bytes();sources[launch_rel]=own.read_bytes()
+  available=next(int(x.split()[1])*1024 for x in Path('/proc/meminfo').read_text().splitlines()if x.startswith('MemAvailable:'));assert available>=20*GIB and shutil.disk_usage('/data2').free>=16*GIB
+- gpu=subprocess.run(['nvidia-smi'],capture_output=True,text=True,timeout=20)
+  SUP.mkdir();src=SUP/'source'
+  for name,data in sources.items():p=src/name;p.parent.mkdir(parents=True,exist_ok=True);p.write_bytes(data);p.chmod(0o444)
+- command=['/data2/neural-shrimp/.venv/bin/python','-I','-B','-u',str(src/WRAPPER),'--card',str(src/CARD)]
+- save(SUP/'admission.json',{'source_commit':args.source,'private_remote_ancestor':remote,'sources':{n:hashlib.sha256(d).hexdigest()for n,d in sources.items()},'available_bytes':available,'disk_free_bytes':shutil.disk_usage('/data2').free,'load_average':os.getloadavg(),'cpu_affinity_count':len(os.sched_getaffinity(0)),'gpu_read_only_inventory':{'exit_code':gpu.returncode,'stdout':gpu.stdout,'stderr':gpu.stderr},'scope':'One Task16 independent saved-field check of19 raw NPZ files and51 saved outputs plus original manifest. No model, fit, eigenanalysis or producer imports. Original closure and source/output authority are bound by exact card. CPU1 plus supervisor,4GiB AS,115CPU/120s wall,16MiB output,20/16GiB available RAM and16GiB disk; no active concurrent reservation.','command':command,'seconds':WALL,'memory_gib':4,'cpu_worker':1,'supervisor_slots':1,'output_cap_bytes':MAX_OUTPUT,'supervisor':identity(os.getpid())})
++ command=['/data2/neural-shrimp/.venv/bin/python','-I','-B','-u',str(src/WRAPPER),'--card',str(src/CARD),'--out',str(OUT)]
++ save(SUP/'admission.json',{'source_commit':args.source,'private_remote_ancestor':remote,'sources':{n:hashlib.sha256(d).hexdigest()for n,d in sources.items()},'available_bytes':available,'disk_free_bytes':shutil.disk_usage('/data2').free,'load_average':os.getloadavg(),'cpu_affinity_count':len(os.sched_getaffinity(0)),'scope':'One Task21a independent arithmetic pass over sixteen pinned saved JSON/JSONL inputs plus scoped refusal metadata. No model, eigensolver, Newton, continuation or producer imports. Source and original finite-input authority are bound by exact card. CPU1 plus supervisor,1GiB AS,55CPU/60s wall plus5s TERM/5s KILL cleanup,16MiB output,20/16GiB available RAM and16GiB disk; no active concurrent reservation. Scientific failure, missing levels and unavailable evidence remain reported outcomes.','command':command,'seconds':WALL,'memory_gib':1,'cpu_worker':1,'supervisor_slots':1,'output_cap_bytes':MAX_OUTPUT,'supervisor':identity(os.getpid())})
+  env=dict(os.environ,OMP_NUM_THREADS='1',OPENBLAS_NUM_THREADS='1',MKL_NUM_THREADS='1',NUMEXPR_NUM_THREADS='1',PYTHONDONTWRITEBYTECODE='1');env.pop('PYTHONPATH',None);env.pop('PYTHONHOME',None)
+  child=None;birth=None;failure=None;code=None;timed_out=False;closed=False;start=time.monotonic();max_bytes=0
+  def stopped(signum,frame):raise InterruptedError('owned audit supervisor interrupted')
+@@ -60,10 +59,10 @@
+    while birth['command']!=command:
+     assert time.monotonic()<deadline;time.sleep(.01);fresh=identity(child.pid);assert fresh['start']==birth['start'];birth=fresh
+    assert birth['uid']==os.getuid() and birth['nice']==10 and birth['threads']==1
+-   assert '4294967296' in birth['limits']
++   assert '1073741824' in birth['limits']
+    save(SUP/'worker.json',birth);print(json.dumps({'worker':birth,'output':str(OUT)}),flush=True)
+    while child.poll() is None:
+-    if time.monotonic()-start>=WALL:timed_out=True;raise TimeoutError('120s audit deadline')
++    if time.monotonic()-start>=WALL:timed_out=True;raise TimeoutError('60s arithmetic deadline')
+     assert next(int(x.split()[1])*1024 for x in Path('/proc/meminfo').read_text().splitlines()if x.startswith('MemAvailable:'))>=16*GIB,'shared RAM floor'
+     count=size();max_bytes=max(max_bytes,count)
+     if count>MAX_OUTPUT:raise RuntimeError('saved audit output cap')
+@@ -72,9 +71,8 @@
+    count=size();max_bytes=max(max_bytes,count);assert count<=MAX_OUTPUT,'final audit output cap'
+    assert code==0,'saved audit nonzero exit'
+    assert OUT.exists() and (OUT/'report.json').is_file()
+-   result=json.loads((OUT/'report.json').read_text());assert result['passed'] is True and result['completed'] is True
+-   assert result['auditor_sha256']==WRAPPER_SHA and result['audit_card_sha256']==CARD_SHA
+-   for name,pin in [(WRAPPER,WRAPPER_SHA),(CARD,CARD_SHA)]:assert sha(R/name)==pin
++   result=json.loads((OUT/'report.json').read_text());assert result['computational_status']=='complete'
++   for name,pin in [(WRAPPER,WRAPPER_SHA),(CORE,CORE_SHA),(CARD,CARD_SHA)]:assert sha(R/name)==pin
+  except BaseException as exc:
+   for signum in old_handlers:signal.signal(signum,signal.SIG_IGN)
+   failure={'error':repr(exc),'traceback':traceback.format_exc()}

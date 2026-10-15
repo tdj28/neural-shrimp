@@ -1,0 +1,13 @@
+--- run-001-launch-prepared.py
++++ run-001-launch-pinned-prepared.py
+@@ -5,8 +5,8 @@
+ B=Path('/data2/neural-shrimp-data/codex/night-results-review-task21/task21a')
+ OUT=B/'run-001';SUP=OUT.with_name(OUT.name+'-supervision')
+ WRAPPER='codex/night-results-review-task21/task21a/run.py';CORE='codex/night-results-review-task21/task21a/arithmetic.py';CARD='codex/night-results-review-task21/task21a/run-001-card.json'
+-WRAPPER_SHA=None;CORE_SHA=None
+-ADMISSION='prepared';CARD_SHA=None  # Exact source and reviewed card pins required before launch.
++WRAPPER_SHA='1001669b8714e1cb5fc81d69c55c658d939210025fbaff261539829230381629';CORE_SHA='45b3945f127d3f308d6d88f4f49c626d286eec3555af9b5faefc497d5ff951dd'
++ADMISSION='prepared';CARD_SHA='be9ef1f4a30dbcb03948d41515b656439211ac7d751c3340a5d0a434f1ade50e'  # Exact source and reviewed card pins required before launch.
+ GIB=1024**3;WALL=60;MAX_OUTPUT=16*1024**2
+ 
+ def sha(p):return hashlib.sha256(Path(p).read_bytes()).hexdigest()

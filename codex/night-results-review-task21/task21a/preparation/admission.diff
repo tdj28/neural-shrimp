@@ -1,0 +1,21 @@
+--- prepared-card.json
++++ run-001-card.json
+@@ -1,6 +1,6 @@
+ {
+   "schema": "task21a-saved-arithmetic-card-v1",
+-  "status": "prepared_unlaunchable",
++  "status": "reviewed",
+   "input_manifest": {
+     "path": "/tmp/task21a-input-authority-002/inputs.json",
+     "sha256": "f8e3e50a644310594d54da329b5e51133146cd26a74b99c0ef0565dcf5a81af0",
+--- launch-pinned-prepared.py
++++ run-001-launch.py
+@@ -6,7 +6,7 @@
+ OUT=B/'run-001';SUP=OUT.with_name(OUT.name+'-supervision')
+ WRAPPER='codex/night-results-review-task21/task21a/run.py';CORE='codex/night-results-review-task21/task21a/arithmetic.py';CARD='codex/night-results-review-task21/task21a/run-001-card.json'
+ WRAPPER_SHA='1001669b8714e1cb5fc81d69c55c658d939210025fbaff261539829230381629';CORE_SHA='45b3945f127d3f308d6d88f4f49c626d286eec3555af9b5faefc497d5ff951dd'
+-ADMISSION='prepared';CARD_SHA='be9ef1f4a30dbcb03948d41515b656439211ac7d751c3340a5d0a434f1ade50e'  # Exact source and reviewed card pins required before launch.
++ADMISSION='reviewed';CARD_SHA='58fed3c41e8aa3c6ed4512370a6d01afb8f99e99d2cb6d9c571cb88888af3d16'  # Exact source and reviewed card pins required before launch.
+ GIB=1024**3;WALL=60;MAX_OUTPUT=16*1024**2
+ 
+ def sha(p):return hashlib.sha256(Path(p).read_bytes()).hexdigest()
