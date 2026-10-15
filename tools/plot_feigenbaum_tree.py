@@ -78,8 +78,10 @@ def main():
         ax = fig.add_subplot(inner[0])
         lx = fig.add_subplot(inner[1], sharex=ax)
         xs = np.repeat(al[:, None], proj.shape[1], axis=1)
-        ax.plot(xs[~chaotic].ravel(), proj[~chaotic].ravel(), ",", color="black", alpha=0.55, rasterized=True)
-        ax.plot(xs[chaotic].ravel(), proj[chaotic].ravel(), ",", color="#c0392b", alpha=0.55, rasterized=True)
+        # solid points at full opacity: periodic branches read as lines, chaotic bands as filled red regions
+        ax.plot(xs[~chaotic].ravel(), proj[~chaotic].ravel(), "o", ms=1.1, mew=0, color="black", rasterized=True)
+        ax.plot(xs[chaotic].ravel(), proj[chaotic].ravel(), "o", ms=0.8, mew=0, color="#d62728", alpha=0.8,
+                rasterized=True)
         lo, hi = float(al[0]), float(al[-1])
         checks = {}
         for p in pers:
