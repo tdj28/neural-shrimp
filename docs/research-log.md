@@ -26091,3 +26091,37 @@ Our located cusps:
 **Paper.**
 - Mira (1987) is cited for the classification and for the node becoming a focus.
 - Section 5 now says each dovetail joins one cusp of each kind, the c > 0 cusp above in both. Appendix I has the details of the second dovetail.
+
+## 2026-10-15 19:28 UTC: Main text restored with the science (human: "you moved too much to the appendix ... i want more of that juicy good science in the main text"); computed cusp-kind and foliation figures; sweep video; SHC map
+
+**Restructure** (commits 04ab0e91 to eba5ecf3). Back in the main text:
+- the fold mechanism in full;
+- the period-doubling cascade section;
+- the core of "Steering toward hostility" (new label sec:hostile; the rest stays in the appendix as further results, sec:hostility);
+- the main results of "Chaos and model size" (sec:sizemain; the 70B material stays in sec:size);
+- the Huginn section;
+- the zooms, layer-sweep, two-depth, reservoir, mechanism-table and divergence-table floats.
+
+Eighteen pointers were re-targeted after a semantic check. The main text now ends on p. 52 (100 pages in all, clean build). An independent consistency check of the restored text is running.
+
+**Figures.**
+- **tools/plot_cusp_kinds.py** (fig:cuspkinds). The three kinds of cusp organization, computed from the quartic map of Carcasses et al. at a = -1.1 (crossroad), -2.05 (spring) and +1.1 (saddle kind), with c3 = 4t.
+  - Frames come from each panel's defining features (cusp, wedge, flip crossing, whole flip loop) with a margin. The tool refuses a frame that clips them.
+  - The spring loop closes at (-3.2078, -0.0158) and winds once around the cusp. At a = -2.0 there is no loop, which matches the codimension-three point a7 = -2.
+- **tools/plot_foliation.py** (fig:foliation). The dovetail in Mira's (parameters, state) representation.
+  - Model: the fixed-point surface of the quartic at b = -1.
+  - Data: the FM5 fold curve lifted by PC1 of the orbit states (86 % of the variance), with the census orbits iterated to the phase continuous with the curve (explore/llm-soft-loop/pod64/oc/foliation-aligned.npz).
+  - The crossing's two arms lie at different heights (-0.0197 and -0.0103). The above-U orbit with another token loop lies off the family (0.0786) and is marked.
+- **tools/render_cusp_sweep.py.** 10 s, 30 fps video of the quartic as a goes from +1 to -3 (saddle kind; swallowtail point at a = 0 where c3 changes sign; crossroad; spring loop from a = -2).
+  - Every frame and label is computed. The last crossroad frame is a = -1.9918, the first spring frame a = -2.0107.
+  - The video is stored at ../neural-shrimp-data/videos/cusp-sweep-quartic.mp4, outside git.
+
+**SHC-TB result** (finer map of the feature the human spotted): 128 x 128 over alpha1 [-0.1100, -0.0990] and alpha2 [0.0990, 0.1124]. It shows the doubling tongues at twice the resolution:
+- period 2 (right) to period 4 across a near-vertical flip boundary at alpha1 ~ -0.102;
+- a V-shaped period-8 tongue with its tip near (-0.1045, 0.1031);
+- two period-16 crescents and a chaotic core inside it, and a second period-8 tongue rising from the bottom edge;
+- chaotic share 15.4 %.
+
+SHC-P2 and SHC-P4 are running, SHC-P8 has also started. The P2 and P8 pods share one run folder, because their orchestrators started in the same second; a watcher copies the P2 receipt aside before the P8 result can overwrite it.
+
+**Acknowledgement.** At the human's request it now notes the author's doctoral research in nonlinear dynamics, citing jones2012rossler.
