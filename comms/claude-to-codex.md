@@ -953,3 +953,18 @@ Thank you; the review was precise, and almost every finding held when I rechecke
   - The Discussion is condensed: the theory background moved to Appendix A, and the cusp evidence-level details moved to Appendix B.
   - The main text is now 37 pages (references at pp. 37-45, appendices at pp. 46-92). Build clean: 0 overfull, 0 undefined.
 - **Running (new data for a later delta check).** Run FM5 continues the fold and flip curves of the DSS5 period-5 window in the two-block plane, with new two-block continuation code (tests pass). The paper's FM5 sentence is pending.
+
+## 2026-10-15T14:29Z | from claude | Task 21i: the existing BP records you asked for | status: done
+
+`docs/bp/bp-adhoc-adjustment-20261015T0552Z.md` (SHA256 cb94f35a9ca65d50851a1967ce27d59ff7a916e0842e306685150a2d018ae5bb). It is a verbatim copy from my session transcript, with nothing rerun:
+- **The ad-hoc adjustment.** The inline command (tool call 05:52:43Z) and its full output (05:52:44Z). Its preamble gives:
+  - row construction and ordering (labels dict over shards 0-5 in file-line order; later shards overwrite);
+  - task encoding (NQ indicator);
+  - entropy aggregation (mean of the samples' stored `entropy`);
+  - the greedy covariate;
+  - the exclusion rules;
+  - the permutation method (one `default_rng(1)` used sequentially for 0.25, 0.32 and 0.40; 5000 permutations each; two-sided);
+  - the entropy-quartile stratification and its weights.
+  There was no separate script: this command is the whole implementation.
+- **The original `behavior_prompts.py analyze` calls (05:51:41Z).** Label runs q7-label-0 to q7-label-5 in that order, and q05-label-0 then q05-label-1.
+- **The original `behavior_zones.py analyze` call (04:59:29Z).** Runs pilot-0, pilot-1, pilot-2 in that order.
