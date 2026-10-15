@@ -26432,3 +26432,20 @@ Added to both the main paper and the Chaos version.
 - Steering strength is a bifurcation parameter.
 - Prediction: 23 of 24 frozen passage times; larger models do not leave the chaos behind.
 - The null result on ordinary sampled accuracy, stated.
+
+## 2026-10-15 22:24 UTC: Run card FT (exploratory): a Feigenbaum tree along the crescent cut
+
+**Question.** The paper shows the crescent cascade's Feigenbaum ratios (fig:feigenbaum) but no bifurcation diagram of that cascade. What does the doubling tree look like at three zoom levels?
+
+**Setup.** Three pods (H100 class), job set scan64 at HEAD, scan --projections: the recorded attractor states on fixed directions, as for the hub diagram fig:hubcascade.
+- Map: Qwen2.5-0.5B, philosophy at layer 12 (llm-phase-map/vectors-l12), log10 T = -0.156, float64, from the fixed start.
+- Steps: transient 3000 (convergence near flips is slow), samples 400, record 256, max period 48.
+- **(a) full cut:** alpha [0.0640, 0.0656], 1600 cells.
+- **(b) zoom:** alpha [0.06504, 0.065108], 1360 cells, spacing 5e-8.
+- **(c) zoom:** alpha [0.0650990, 0.0651040], 1000 cells, spacing 5e-9. It brackets the flips 24 -> 48 to 384 -> 768 of tab:cascade156 and the accumulation near 0.0651035.
+
+**Readout.** Bifurcation diagrams with the flip parameters of tab:cascade156 marked, and the largest exponent below each.
+
+**Check.** The branchings must sit at the Newton-located flips, to the line's spacing. A mismatch beyond a few cells would mean transients too short or coexisting attractors. Both would be reported, not smoothed.
+
+**Cost.** In the private ledger.
