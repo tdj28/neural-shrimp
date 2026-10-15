@@ -393,6 +393,15 @@ snapshot_download('Qwen/Qwen2.5-7B-Instruct', revision='$REV7', cache_dir='$NEUR
       cut -c1-300 "$OUT/$crun/cusp-check.jsonl"
     done
     ;;
+  codim2)      # codimension-two points on uploaded fold and flip curves (run CL, tools/cusp_locate.py, float64 on the GPU):
+               # each JOBARGS entry is TEST:CURVE_RUN:LEFT (TEST cusp, crossing or reversal; LEFT the curve index before
+               # the sign change), output llm-soft-loop/pod64/codim2/<curve name>-<test>-<left>
+    for spec in "${JOBARGS[@]}"; do
+      ctest=${spec%%:*}; rest=${spec#*:}; crun=${rest%:*}; left=${rest##*:}
+      name=$(basename "$crun")-$ctest-$left
+      TOOL=cusp_locate.py run cl-$name 120 "$crun" "$left" --test "$ctest" --device cuda --out $D/codim2/$name
+    done
+    ;;
   llamactrl)   # steering controls at the Goodfire SAE's layer (run C1): JOBARGS NAME MINUTES SCAN-ARGS...; official gated
                # weights (token on stdin, unset after the download) and the Goodfire layer-19 SAE (revisions as llama8b);
                # concept vectors at layer 19 of 32 built exactly as llama8b's layer-16 ones, then the frozen SAE feature
@@ -1279,6 +1288,12 @@ snapshot_download('$REPO', revision='$MREV', cache_dir='$NEURAL_SHRIMP_DATA/mode
              --log-temperature-bounds -0.1 0.2 --alpha-bounds 0.03 0.1 --out $D/p4/curve-foldB-minus ;;
         Dminus) run p4-foldD-minus 60 $C4 --start $P/branch-T-down --kind fold --direction -1 \
              --log-temperature-bounds -0.1 0.2 --alpha-bounds 0.03 0.1 --out $D/p4/curve-foldD-minus ;;
+        Cplus2|Cminus2|Dplus2)       # review follow-up (run P4R): the three curves that set C left unfinished, 70 points,
+                                     # new output names (the unfinished folders keep their progress files)
+             case $set_ in Cplus2) st=branch-a-up; dir=1; nm=foldC-plus;; Cminus2) st=branch-a-up; dir=-1; nm=foldC-minus;;
+                           Dplus2) st=branch-T-down; dir=1; nm=foldD-plus;; esac
+             run p4-$nm-2 100 $C4 --start $P/$st --kind fold --direction $dir \
+               --log-temperature-bounds -0.1 0.2 --alpha-bounds 0.03 0.1 --out $D/p4/curve-$nm-2 ;;
         E) for dir in 1 -1; do n=$([ $dir = 1 ] && echo plus || echo minus)
              run p4-flipE-$n 45 $C4 --start $P/branch-a-down --kind flip --direction $dir \
                --log-temperature-bounds -0.1 0.2 --alpha-bounds 0.03 0.1 --out $D/p4/curve-flipE-$n
