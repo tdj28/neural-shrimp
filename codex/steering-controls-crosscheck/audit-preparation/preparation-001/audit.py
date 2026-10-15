@@ -1,0 +1,499 @@
+"""Task16 independent finite saved-field audit. No model or producer imports."""
+import argparse
+from collections import Counter, defaultdict
+import hashlib
+import json
+import math
+import os
+from pathlib import Path
+import resource
+import statistics
+import time
+import zipfile
+
+DATA = Path('/data2/neural-shrimp-data/explore/llm-soft-loop/pod64')
+EXPECTED = {
+    'q05-alpha0': (512, 1, 64), 'llama8-alpha0': (512, 1, 64),
+    'q7-alpha0': (512, 1, 64), 'olmo7-alpha0': (512, 1, 64),
+    **{f'q05-{x}': (128, 128, 48) for x in ('random1', 'random2', 'random3', 'philosophy', 'gratitude')},
+    **{f'llama8-layer16-{x}': (64, 64, 32) for x in ('concept', 'random1', 'random2')},
+    **{f'llama8-layer19-{x}': (64, 64, 32) for x in ('concept', 'saeH', 'saeR', 'gauss')},
+}
+EDGES = (0., .01, .03, .06, .09, .12)
+VALID = {'chaotic', 'no_period_not_above_threshold', 'detected_period'}
+CAPS = {'cpu_threads': 1, 'nice': 10, 'hard_as_bytes': 4 * 1024**3,
+        'external_seconds': 120, 'output_bytes': 16 * 1024**2}
+AUTHORITY_SHA = {
+    'inventory': 'fdd511be93d478850fda51706fdbaa019e9b6292eb9b9accf1bb2eb619d34f19',
+    'runs': '0cfd23d7cb4e34787fbbdcebf08455d87ae6b35ccdcf1cc94ab86a40d14f9357',
+    'commands': '44c5191c45d43537e7a3f3a946512e855ee309be460b11125fde524e30d9f761',
+    'join_policy': 'fc031137e7430a2d227aadc1fd1df8765cb6a3e3ef82435f1492ec10a7cc2ccb',
+    'vector_metadata': '7389e5a5bc44df50dea9fffbacba67af95bfd6f44e072b453836c518394b7d25',
+    'producer_source_manifest': '27a27b2dc6c9b9f3827cecff21424902faca7efbc584549bd9a4781966d7c57e',
+}
+
+
+def need(condition, message):
+    if not condition:
+        raise ValueError(message)
+
+
+def sha(path):
+    h = hashlib.sha256()
+    with open(path, 'rb') as stream:
+        for block in iter(lambda: stream.read(1024**2), b''):
+            h.update(block)
+    return h.hexdigest()
+
+
+def strict_pairs(pairs):
+    out = {}
+    for key, value in pairs:
+        need(key not in out, 'duplicate JSON key: ' + key)
+        out[key] = value
+    return out
+
+
+def decode(text):
+    def invalid(value):
+        raise ValueError('nonstandard JSON number: ' + value)
+    return json.loads(text, object_pairs_hook=strict_pairs, parse_constant=invalid)
+
+
+def read_json(path):
+    return decode(Path(path).read_text())
+
+
+def pointer(value, location):
+    need(location == '' or location.startswith('/'), 'JSON pointer syntax')
+    for part in location.split('/')[1:]:
+        key = part.replace('~1', '/').replace('~0', '~')
+        value = value[int(key)] if isinstance(value, list) else value[key]
+    return value
+
+
+def pin(ref):
+    need(isinstance(ref, dict) and all(k in ref for k in ('path', 'sha256', 'bytes')), 'missing concrete pin')
+    path = Path(ref['path'])
+    need(path.is_absolute() and path.is_file() and not path.is_symlink(), 'pinned regular absolute file')
+    need(type(ref['bytes']) is int and path.stat().st_size == ref['bytes'], 'pinned size: ' + str(path))
+    need(sha(path) == ref['sha256'], 'pinned hash: ' + str(path))
+    return path
+
+
+class Checks:
+    """Count every leaf, retain every difference; any output overflow refuses completion."""
+    def __init__(self, sink=None):
+        self.total = self.failed = self.numeric_nonzero = 0
+        self.max_abs_difference = 0.
+        self.sink = sink
+        self.examples = []
+        self.bytes = 0
+
+    def different(self, label, actual, expected):
+        self.failed += 1
+        row = {'path': label, 'saved': actual, 'expected': expected}
+        if type(actual) in (int, float) and type(expected) in (int, float):
+            delta = actual - expected
+            if delta != 0:
+                self.numeric_nonzero += 1
+                self.max_abs_difference = max(self.max_abs_difference, abs(delta))
+                row['saved_minus_expected'] = delta
+        text = json.dumps(row, allow_nan=False, separators=(',', ':')) + '\n'
+        self.bytes += len(text.encode())
+        need(self.bytes <= CAPS['output_bytes'] - 1024**2, 'difference-output budget exhausted; audit incomplete')
+        if self.sink:
+            self.sink.write(text)
+        else:
+            self.examples.append(row)
+
+    def same(self, actual, expected, label):
+        if isinstance(expected, dict) and isinstance(actual, dict):
+            self.total += 1
+            if set(actual) != set(expected):
+                self.different(label + '/@keys', sorted(actual), sorted(expected))
+            for key in expected.keys() & actual.keys():
+                self.same(actual[key], expected[key], label + '/' + str(key))
+        elif isinstance(expected, list) and isinstance(actual, list):
+            self.total += 1
+            if len(actual) != len(expected):
+                self.different(label + '/@length', len(actual), len(expected))
+            for i, (a, b) in enumerate(zip(actual, expected)):
+                self.same(a, b, label + '/' + str(i))
+        else:
+            self.total += 1
+            if type(actual) is not type(expected) or actual != expected:
+                self.different(label, actual, expected)
+
+
+def numeric(value):
+    x = float(value)
+    if math.isnan(x):
+        return 'NaN'
+    if math.isinf(x):
+        return '+Inf' if x > 0 else '-Inf'
+    return x
+
+
+def classification(exponent, period, maximum, completed):
+    if not completed:
+        return dict(completed=False, lyapunov=None, period=None, exponent_finite=False,
+                    period_valid=False, disposition='unfinished', issues=[])
+    l, q = float(exponent), float(period)
+    finite_l, finite_q = math.isfinite(l), math.isfinite(q)
+    valid_q = finite_q and q.is_integer() and 0 <= q <= maximum
+    problems = []
+    if not finite_l:
+        problems.append('exponent_' + numeric(l))
+    if not finite_q:
+        problems.append('period_' + numeric(q))
+    elif not valid_q:
+        problems.append('period_invalid_integer_or_range')
+    state = ('invalid' if problems else 'detected_period' if q > 0 else
+             'chaotic' if l > .001 else 'no_period_not_above_threshold')
+    return dict(completed=True, lyapunov=numeric(l), period=numeric(q), exponent_finite=finite_l,
+                period_valid=valid_q, disposition=state, issues=problems)
+
+
+def aggregate(rows):
+    states, issues, periods, marginal = Counter(), Counter(), Counter(), Counter()
+    completed = finite = qvalid = discordance = 0
+    positive = []
+    for row in rows:
+        state = row['disposition']
+        states[state] += 1
+        issues.update(row['issues'])
+        completed += row['completed']
+        finite += row['exponent_finite']
+        qvalid += row['period_valid']
+        if row['period_valid']:
+            marginal[str(int(row['period']))] += 1
+        if state in VALID:
+            periods[str(int(row['period']))] += 1
+        if state == 'detected_period':
+            positive.append(int(row['period']))
+            discordance += row['lyapunov'] > .001
+    n, valid = len(rows), sum(states[x] for x in VALID)
+    need(valid + states['invalid'] == completed, 'independent completion reconciliation')
+    return dict(expected=n, completed=completed, valid=valid, dispositions=dict(states), issues=dict(issues),
+        finite_exponent_count=finite, valid_period_field_count=qvalid,
+        period_histogram_all_completed_valid_period_fields=dict(marginal), chaotic=states['chaotic'],
+        chaotic_share_valid=states['chaotic'] / valid if valid else None,
+        chaotic_share_completed=states['chaotic'] / completed if completed else None,
+        completed_share_expected=completed / n if n else None,
+        chaotic_share_expected_lower_bound=states['chaotic'] / n if n else None,
+        period_histogram_including_zero=dict(periods), detected_period_count=len(positive),
+        median_detected_period=float(statistics.median(positive)) if positive else None,
+        detected_period_above_exponent_threshold=discordance)
+
+
+def expected_subsets(rows, temperatures, alphas):
+    bins = []
+    for n in range(5):
+        lo, hi = EDGES[n:n + 2]
+        selected = [r for r in rows if lo <= abs(r['alpha']) and (abs(r['alpha']) <= hi if n == 4 else abs(r['alpha']) < hi)]
+        bins.append(dict(lower=lo, upper=hi, upper_inclusive=n == 4, all=aggregate(selected),
+            negative=aggregate([r for r in selected if r['alpha'] < 0]),
+            zero=aggregate([r for r in selected if r['alpha'] == 0]),
+            positive=aggregate([r for r in selected if r['alpha'] > 0])))
+    by_row, by_col = defaultdict(list), defaultdict(list)
+    for r in rows:
+        by_row[r['row']].append(r)
+        by_col[r['column']].append(r)
+    negative = [j for j, a in enumerate(alphas) if a < 0]
+    positive = [j for j, a in enumerate(alphas) if a > 0]
+    selections = {'exact_zero': [j for j, a in enumerate(alphas) if a == 0],
+                  'nearest_negative': negative[-1:], 'nearest_positive': positive[:1]}
+    return dict(absolute_alpha_bins=bins, outside_bins=aggregate([r for r in rows if abs(r['alpha']) > .12]),
+        zero_and_signed_nearest={key: dict(column_indices=indices, alpha=[alphas[j] for j in indices],
+            summary=aggregate([r for j in indices for r in by_col[j]])) for key, indices in selections.items()},
+        by_temperature_row=[dict(row=i, canonical_temperature=t,
+            actual_selected_temperatures=sorted({r['log10_temperature'] for r in by_row[i] if r['log10_temperature'] is not None}),
+            summary=aggregate(by_row[i])) for i, t in enumerate(temperatures)],
+        by_signed_alpha_column=[dict(column=j, alpha=a, summary=aggregate(by_col[j])) for j, a in enumerate(alphas)])
+
+
+def load_numeric(segment, raw_root):
+    import numpy as np
+    path = (raw_root / segment['path']).resolve()
+    need(path.is_relative_to(raw_root.resolve()), 'raw path leaves fixed root')
+    ref = dict(path=str(path), sha256=segment['sha256'], bytes=segment['bytes'])
+    pin(ref)
+    with zipfile.ZipFile(path) as archive:
+        members = archive.infolist()
+        need(len({m.filename for m in members}) == len(members), 'duplicate NPZ member')
+        need(sum(m.file_size for m in members) <= 128 * 1024**2, 'NPZ uncompressed limit')
+    with np.load(path, allow_pickle=False) as archive:
+        t = archive['log10_temperature'].copy()
+        a = archive['alpha'].copy()
+        l = archive['lyapunov'].copy()
+        q = archive['period'].copy()
+        shape = tuple(segment['shape'])
+        need(t.dtype.str == a.dtype.str == l.dtype.str == '<f8' and q.dtype.str == '<i8', 'recorded numeric dtype')
+        need(t.shape == (shape[0],) and a.shape == (shape[1],), 'axis shape')
+        need(np.isfinite(t).all() and np.isfinite(a).all() and (np.diff(t) > 0).all() and (np.diff(a) > 0).all(), 'axis finite and increasing')
+        expected = (math.prod(shape),) if segment['layout'] == 'partial' else shape
+        need(l.shape == q.shape == expected, 'raw layout')
+        if segment['layout'] == 'partial':
+            d = archive['done']
+            need(d.shape == () and d.dtype.kind in 'iu', 'integer scalar done')
+            done = int(d)
+        else:
+            done = l.size
+        need(done == segment['expected_done'] and 0 <= done <= l.size, 'completed prefix')
+    pin(ref)
+    return list(map(float, t)), list(map(float, a)), l.reshape(-1), q.reshape(-1), done
+
+
+def bind_spec(spec, meta, authority, refs):
+    """Validate each admitted specification against original metadata, not analysis values."""
+    name = spec['id']
+    nt, na, maximum = EXPECTED[name]
+    need(spec['shape'] == [nt, na] and spec['max_period'] == maximum and spec['axis_segment'] == 0, 'fixed logical grid')
+    originals = [r for r in meta['segments'] if r['dataset_id'] == name]
+    random = name.startswith('q05-random')
+    need(len(spec['segments']) == len(originals) == (2 if random else 1), 'exact segment count')
+    need(spec['ordinal_amendment'] == (refs['join_policy']['sha256'] if random else None), 'fixed ordinal policy')
+    for k, (seg, original) in enumerate(zip(spec['segments'], originals)):
+        partial = random and k == 0
+        shape = [128 if partial else 32 if random else nt, na]
+        need(seg['shape'] == shape and seg['layout'] == ('partial' if partial else 'full'), 'fixed segment layout')
+        need(seg['row_offset'] == (96 if random and k else 0), 'fixed row offset')
+        need(seg['selected_local_flat_range'] == [0, 96 * na if partial else math.prod(shape)], 'prospective selection')
+        need(seg['expected_done'] == (original['done'] if partial else math.prod(shape)), 'original done pin')
+        need(str(DATA / seg['path']) == original['path'] and seg['sha256'] == original['sha256'] and seg['bytes'] == original['bytes'], 'original raw member identity')
+        need(seg['temperature_hex'] == original['axes']['log10_temperature']['float_hex'] and
+             seg['alpha_hex'] == original['axes']['alpha']['float_hex'], 'header axes identity')
+        need(seg['scan_args'] == original['scan_args'], 'original scan metadata')
+        matches = [(r, m) for r in authority['records'] for m in r['selected_member_bindings'] if m['segment_id'] == original['segment_id']]
+        need(len(matches) == 1, 'unique original writer/member authority')
+        record, member = matches[0]
+        need(record['recorded_termination_verified'] is True and record['hash_verified'] is True and member['matches_header_inventory'] is True, 'original closure and retrieval basis')
+        need(member['sha256'] == seg['sha256'] and member['bytes'] == seg['bytes'] and member['current_path'] == original['path'], 'original receipt member')
+        need(seg['original_attempt_outcome'] == dict(runner_returncode=record['runner_returncode'], status_lines=record['status_lines']), 'original timeout/status retained')
+        need(seg['outcome_authority'] == dict(run_id=record['run_id'], receipt=record['original_receipt'], archive=record['archive'], member=member, source_commit=record['commit'], termination_recorded=True), 'original source/receipt binding')
+        need(seg['original_jobset_args'] == record['upload']['jobset_args'], 'original command')
+    need(spec['metadata'] == dict(original_args_by_segment=[s['scan_args'] for s in spec['segments']],
+        original_commands_by_segment=[s['original_jobset_args'] for s in spec['segments']],
+        scope='Frozen named directions; gratitude is not asserted norm-matched to philosophy.'), 'map metadata')
+
+
+def independent_records(spec, loaded):
+    """Build pointwise references from raw values, with prefix membership before classification."""
+    name = spec['id']
+    nt, na = spec['shape']
+    ts, alphas = loaded[0][:2]
+    need(len(ts) == nt and len(alphas) == na, 'canonical full axes')
+    allocations = [[] for _ in range(nt * na)]
+    chosen = {}
+    source_rows, segment_rows = [], []
+    for k, (seg, raw) in enumerate(zip(spec['segments'], loaded)):
+        t, a, l, q, done = raw
+        need([v.hex() for v in t] == seg['temperature_hex'] and [v.hex() for v in a] == seg['alpha_hex'], 'actual frozen axes')
+        need(a == alphas, 'alpha equality')
+        offset = seg['row_offset']
+        if spec['ordinal_amendment'] is None:
+            need(t == ts[offset:offset + len(t)], 'literal unamended temperatures')
+        lo, hi = seg['selected_local_flat_range']
+        count = len(l)
+        need(len(q) == count == len(t) * na and offset + len(t) <= nt, 'raw allocation')
+        for local in range(count):
+            i, j = divmod(local, na)
+            global_flat = (offset + i) * na + j
+            allocations[global_flat].append(k)
+            completed = local < done
+            # Never classify uncommitted initialized zeros.
+            flags = classification(l[local], q[local], spec['max_period'], True) if completed else classification(None, None, spec['max_period'], False)
+            row = dict(dataset=name, segment=k, local_flat=local, row=offset + i, column=j,
+                log10_temperature=t[i], alpha=a[j], selected_ordinal=lo <= local < hi, **flags)
+            source_rows.append(row)
+            if lo <= local < hi:
+                need(global_flat not in chosen, 'duplicate selected ordinal')
+                chosen[global_flat] = row
+        segment_rows.append(dict(path=seg['path'], row_offset=offset, allocated_cells=count,
+            completed_prefix=done, selected_local_flat_range=[lo, hi], uncommitted_allocation=count - done,
+            nonselected_completed=sum(r < lo or r >= hi for r in range(done)),
+            original_attempt_outcome=seg['original_attempt_outcome'], outcome_authority=seg['outcome_authority'], sha256=seg['sha256'],
+            coordinate_rows=[dict(global_row=offset + i, canonical=ts[offset + i], actual=value,
+                canonical_hex=ts[offset + i].hex(), actual_hex=value.hex(), difference=value - ts[offset + i]) for i, value in enumerate(t)]))
+    cells = []
+    flag_keys = ('completed', 'lyapunov', 'period', 'exponent_finite', 'period_valid', 'disposition', 'issues')
+    for flat in range(nt * na):
+        i, j = divmod(flat, na)
+        row = chosen.get(flat)
+        flags = {key: row[key] for key in flag_keys} if row else classification(None, None, spec['max_period'], False)
+        if row is None:
+            flags['disposition'] = 'uncovered'
+        cells.append(dict(dataset=name, row=i, column=j, log10_temperature=row['log10_temperature'] if row else None,
+            canonical_temperature=ts[i], alpha=alphas[j], source_segment=row['segment'] if row else None,
+            allocated_segments=allocations[flat], **flags))
+    overlaps = []
+    for row in source_rows:
+        if row['completed'] and not row['selected_ordinal']:
+            selected = cells[row['row'] * na + row['column']]
+            temperature = selected['log10_temperature']
+            overlaps.append(dict(row=row['row'], column=row['column'], nonselected_segment=row['segment'],
+                selected_segment=selected['source_segment'], nonselected_temperature=row['log10_temperature'], selected_temperature=temperature,
+                temperature_difference=temperature - row['log10_temperature'] if temperature is not None else None,
+                nonselected_exponent=row['lyapunov'], selected_exponent=selected['lyapunov'],
+                exponent_selected_minus_nonselected=selected['lyapunov'] - row['lyapunov'] if selected['exponent_finite'] and row['exponent_finite'] else None,
+                nonselected_period=row['period'], selected_period=selected['period'], nonselected_disposition=row['disposition'], selected_disposition=selected['disposition']))
+    summary = dict(id=name, admitted=True, metadata=spec['metadata'], shape=spec['shape'], max_period=spec['max_period'],
+        segments=segment_rows, summary=aggregate(cells), **expected_subsets(cells, ts, alphas),
+        ordinal_amendment=spec['ordinal_amendment'], nonselected_completed_observations=overlaps,
+        all_source_prefix_summaries=[aggregate([r for r in source_rows if r['segment'] == k]) for k in range(len(loaded))])
+    return cells, source_rows, summary
+
+
+def compare_lines(path, expected, checks, label):
+    with open(path) as stream:
+        count = 0
+        for count, line in enumerate(stream, 1):
+            need(count <= len(expected), label + ': extra record')
+            checks.same(decode(line), expected[count - 1], label + '/' + str(count - 1))
+    checks.same(count, len(expected), label + '/record_count')
+
+
+def expected_groups(all_cells):
+    groups = []
+    for prefix in ('q05-', 'llama8-layer16-', 'llama8-layer19-'):
+        names = [name for name in EXPECTED if name.startswith(prefix) and 'alpha0' not in name]
+        maps = {}
+        for name in names:
+            rows = [r for r in all_cells[name] if r['disposition'] in VALID]
+            table = {(r['log10_temperature'], r['alpha']): r for r in rows}
+            need(len(table) == len(rows), 'duplicate literal selected coordinate')
+            maps[name] = table
+        common = set.intersection(*[set(table) for table in maps.values()])
+        groups.append(dict(id=prefix, metadata_basis='actual-coordinate intersection; named directions, no population or equal-norm inference',
+            common_valid_exact_coordinates=len(common), datasets={name: aggregate([table[key] for key in sorted(common)]) for name, table in maps.items()}))
+    return groups
+
+
+def audit(card, checks):
+    """All lifecycle/source/output pins are checked before any raw numeric read."""
+    plan_path = pin(card['original_plan'])
+    plan = read_json(plan_path)
+    need(plan['schema'] == 'task16-saved-scans-v1' and plan['status'] == 'reviewed', 'original reviewed plan')
+    need(set(plan['sources']) == set(card['original_sources']) == {'run.py', 'tabulate.py'}, 'original scientific source inventory')
+    for name, ref in card['original_sources'].items():
+        pin(ref)
+        need(ref['sha256'] == plan['sources'][name], 'original source hash')
+    original_card_path = pin(card['original_run_card'])
+    closure_path = pin(card['original_closure'])
+    closure = read_json(closure_path)
+    need(closure['exit_code'] == 0 and closure['timed_out'] is False and closure['owned_worker_and_groups_closed'] is True and closure['failure'] is None, 'original terminal receipt and worker closure')
+    need(closure['scientific_source_commit'] == plan['source_commit'], 'closure scientific source commit')
+    need(closure['plan_sha256'] == card['original_plan']['sha256'] and closure['card_sha256'] == card['original_run_card']['sha256'] and closure['wrapper_sha256'] == plan['sources']['run.py'], 'original terminal plan/card/wrapper binding')
+    assertions = card['authority_assertions']
+    need({a['role'] for a in assertions} >= {'supervisor_closure', 'source_and_output_inventory'}, 'required owner authority roles')
+    for assertion in assertions:
+        obj = read_json(pin(assertion['file']))
+        need(len(assertion['assertions']) > 0, 'empty owner assertion')
+        for claim in assertion['assertions']:
+            value = pointer(obj, claim['pointer'])
+            need(type(value) is type(claim['equals']) and value == claim['equals'], 'owner authority assertion: ' + claim['pointer'])
+    expected_names = {'report.json', 'status.json', 'input-admission.json'} | {name + suffix for name in EXPECTED for suffix in ('-cells.jsonl', '-sources.jsonl', '-summary.json')}
+    need(set(card['output_files']) == expected_names, 'all 51 original output pins')
+    root = Path(card['original_run_directory']).resolve()
+    need(str(root) == plan['output'], 'original output directory')
+    need({p.name for p in root.iterdir()} == expected_names, 'exact original output inventory')
+    output_bytes = 0
+    for name, ref in card['output_files'].items():
+        path = pin(ref)
+        need(path.resolve() == root / name, 'output filename binding')
+        output_bytes += ref['bytes']
+    status = read_json(root / 'status.json')
+    need(status['computational_completed'] is True and status['all_datasets_admitted'] is True and not status.get('error') and not status.get('resource_failure'), 'original computational completion')
+    need(status['source_commit'] == plan['source_commit'] and status['plan_sha256'] == card['original_plan']['sha256'] and status['sources'] == plan['sources'], 'actual status source/plan')
+    refs = plan['authorities']
+    need(set(refs) == set(AUTHORITY_SHA), 'exact original input authority set')
+    for key, ref in refs.items():
+        need(ref['sha256'] == AUTHORITY_SHA[key], 'accepted prospective authority: ' + key)
+        pin(ref)
+    admission = read_json(root / 'input-admission.json')
+    inventory, authority, commands, norms = [read_json(refs[k]['path']) for k in ('inventory', 'runs', 'commands', 'vector_metadata')]
+    need(inventory['datasets'] == 16 and len(inventory['segments']) == 19, 'header scope')
+    need([s['segment_id'] for s in inventory['segments']] == [f'segment-{i:02d}' for i in range(19)], 'original segment ordering')
+    need(authority['header_inventory']['sha256'] == commands['header_inventory']['sha256'] == refs['inventory']['sha256'] and authority['random_partition_authority']['sha256'] == refs['commands']['sha256'] and commands['prospective_root_review']['sha256'] == refs['join_policy']['sha256'], 'authority cross association')
+    specs = admission['specifications']
+    need([s['id'] for s in specs] == list(EXPECTED), 'fixed exact dataset ordering')
+    checks.same(admission, dict(authorities=refs, specifications=specs, limits=authority['trust_limits'], vector_metadata=norms,
+        original_git_archive_checks='inherited from accepted Inference metadata authority; not rerun'), '/input_admission')
+    for spec in specs:
+        bind_spec(spec, inventory, authority, refs)
+    need(Path(card['raw_directory']) == DATA, 'fixed raw directory')
+    all_cells, summaries, dataset_counts = {}, [], []
+    raw_refs = []
+    for spec in specs:
+        loaded = [load_numeric(seg, DATA) for seg in spec['segments']]
+        cells, sources, summary = independent_records(spec, loaded)
+        name = spec['id']
+        compare_lines(root / (name + '-cells.jsonl'), cells, checks, '/' + name + '/cells')
+        compare_lines(root / (name + '-sources.jsonl'), sources, checks, '/' + name + '/sources')
+        checks.same(read_json(root / (name + '-summary.json')), summary, '/' + name + '/summary')
+        all_cells[name] = cells
+        summaries.append(summary)
+        dataset_counts.append(dict(id=name, selected=len(cells), allocated_source=len(sources),
+            completed_source=sum(r['completed'] for r in sources), nonselected_completed=len(summary['nonselected_completed_observations'])))
+        raw_refs.extend(dict(path=str(DATA / s['path']), sha256=s['sha256'], bytes=s['bytes']) for s in spec['segments'])
+    need(sum(r['selected'] for r in dataset_counts) == 112640 and sum(r['allocated_source'] for r in dataset_counts) == 124928 and sum(r['completed_source'] for r in dataset_counts) == 116736 and sum(r['nonselected_completed'] for r in dataset_counts) == 4096, 'frozen workload coverage')
+    expected_report = dict(schema='task16-saved-report-v1', prior_producer_summary_exposure=True,
+        scope='independent unblinded arithmetic reproduction, not fresh confirmation', datasets=summaries,
+        exact_common_valid_groups=expected_groups(all_cells), vector_metadata_authority=refs['vector_metadata'],
+        expected_selected_cells=112640, actual_cell_records=sum(len(rows) for rows in all_cells.values()))
+    checks.same(read_json(root / 'report.json'), expected_report, '/report')
+    for ref in [card['original_plan'], card['original_run_card'], card['original_closure'], *card['original_sources'].values(), *card['output_files'].values(), *refs.values(), *raw_refs, *[a['file'] for a in assertions]]:
+        pin(ref)
+    return dict(dataset_coverage=dataset_counts, original_output_files=len(expected_names),
+        original_output_bytes=output_bytes, raw_files=len(raw_refs), raw_bytes=sum(r['bytes'] for r in raw_refs),
+        scientific_source_commit=plan['source_commit'], original_plan_sha256=card['original_plan']['sha256'],
+        original_closure_sha256=card['original_closure']['sha256'], original_run_card_sha256=card['original_run_card']['sha256'], original_output_pins=card['output_files'],
+        raw_input_pins=raw_refs, authority_assertions=assertions,
+        input_authority=refs, inherited_provenance_limits=authority['trust_limits'])
+
+
+def main():
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--card', required=True)
+    args = parser.parse_args()
+    card = read_json(args.card)
+    need(card['schema'] == 'task16-saved-field-audit-v1' and card['status'] == 'reviewed', 'prepared audit is unlaunchable')
+    need(card['resources'] == CAPS and sha(__file__) == card['auditor_sha256'], 'reviewed source/resource pins')
+    need(card['requested_attempts'] == 1, 'single audit attempt')
+    nice = os.getpriority(os.PRIO_PROCESS, 0)
+    need(nice <= 10, 'inherited nice exceeds exact envelope')
+    if nice < 10:
+        os.nice(10 - nice)
+    resource.setrlimit(resource.RLIMIT_AS, (CAPS['hard_as_bytes'], CAPS['hard_as_bytes']))
+    for key in ('OPENBLAS_NUM_THREADS', 'OMP_NUM_THREADS', 'MKL_NUM_THREADS', 'NUMEXPR_NUM_THREADS'):
+        os.environ[key] = '1'
+    output = Path(card['output'])
+    output.mkdir(parents=True, exist_ok=False)
+    started = time.monotonic()
+    report = dict(schema='task16-saved-field-audit-result-v1', passed=False, completed=False,
+        audit_card_sha256=sha(args.card), auditor_sha256=sha(__file__),
+        scope='Independent finite raw-to-ledger/summary arithmetic; no model, fit, eigenanalysis, producer imports or historical pod access.',
+        tolerance='Exact JSON field/IEEE float equality; every nonzero arithmetic difference is retained and fails this audit.')
+    with open(output / 'differences.jsonl', 'x') as sink:
+        checks = Checks(sink)
+        try:
+            report.update(audit(card, checks))
+            report['completed'] = True
+            report['passed'] = checks.failed == 0
+        except Exception as exc:
+            report['failure'] = type(exc).__name__ + ': ' + str(exc)
+        report.update(checks=checks.total, failed_checks=checks.failed, numeric_nonzero_differences=checks.numeric_nonzero,
+            maximum_absolute_numeric_difference=checks.max_abs_difference, elapsed_seconds=time.monotonic() - started,
+            peak_rss_kib=resource.getrusage(resource.RUSAGE_SELF).ru_maxrss)
+    if report['elapsed_seconds'] >= CAPS['external_seconds']:
+        report.update(passed=False, completed=False, failure='audit deadline exceeded')
+    text = json.dumps(report, allow_nan=False, indent=2) + '\n'
+    need(len(text.encode()) + checks.bytes <= CAPS['output_bytes'], 'final output limit')
+    with open(output / 'report.json', 'x') as stream:
+        stream.write(text)
+    return 0 if report['passed'] else 2
+
+
+if __name__ == '__main__':
+    raise SystemExit(main())

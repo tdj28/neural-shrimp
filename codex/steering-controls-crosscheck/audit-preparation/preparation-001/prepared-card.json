@@ -1,0 +1,71 @@
+{
+  "schema": "task16-saved-field-audit-v1",
+  "status": "prepared",
+  "auditor_sha256": "08db5ad69f29e876816c3feeb5c8271d4dd3b006e50990b5a47a60ef8f1111c1",
+  "requested_attempts": 1,
+  "original_plan": null,
+  "original_run_card": null,
+  "original_sources": {},
+  "original_closure": null,
+  "authority_assertions": [],
+  "original_run_directory": "/data2/neural-shrimp-data/codex/steering-controls-crosscheck/run-001/run",
+  "raw_directory": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64",
+  "output_files": {},
+  "output": "/data2/neural-shrimp-data/codex/steering-controls-crosscheck/run-001-review-001",
+  "resources": {
+    "cpu_threads": 1,
+    "nice": 10,
+    "hard_as_bytes": 4294967296,
+    "external_seconds": 120,
+    "output_bytes": 16777216
+  },
+  "external_supervision_requirements": {
+    "supervisor_slots": 1,
+    "startup_memavailable_gib": 20,
+    "runtime_memavailable_gib": 16,
+    "absolute_wall_deadline_seconds": 120,
+    "no_automatic_extension_or_retry": true
+  },
+  "workload": {
+    "datasets": 16,
+    "raw_files": 19,
+    "raw_compressed_bytes": 3248045,
+    "original_outputs": 51,
+    "original_output_bytes": null,
+    "selected_records": 112640,
+    "allocated_source_records": 124928,
+    "completed_source_records": 116736,
+    "nonselected_completed_overlaps": 4096
+  },
+  "measurements": {
+    "tiny_controls_passed": 12,
+    "tiny_controls_test_seconds": 0.003,
+    "tiny_controls_external_wall_seconds": 0.1,
+    "tiny_controls_peak_rss_kib": 20880,
+    "synthetic_read": {
+      "scope": "synthetic JSONL hashing, parsing and exact field checks only; no target data",
+      "records": 4096,
+      "bytes": 1232938,
+      "checks": 69633,
+      "failures": 0,
+      "elapsed_seconds": 0.08354601194150746,
+      "sha256": "95ca21e3a79fc9f39f48276a036188262e13bf2deaf647a648926cc1ba7269fd",
+      "unchanged": true,
+      "peak_rss_kib": 20744,
+      "source_sha256": "7bb9cd4853fcfcdc858732825da94b8ed07faf5221a5896a7b6f2992ac9701a8",
+      "prediction_limitation": "Does not measure actual target archive decoding, total bookkeeping, cold disk or source/authority IO."
+    },
+    "target_archive_or_full_audit_timing_measured": false,
+    "synthetic_source_delta": "Final source adds only original terminal plan/card/wrapper association and its output pins; measured comparison/arithmetic functions unchanged."
+  },
+  "basis": "Bounded finite saved-field audit; thresholds, ordinal choices and all expected datasets fixed before outcomes; prior producer summary exposure remains disclosed.",
+  "authority_contract": "Each authority_assertions entry has role supervisor_closure or source_and_output_inventory, file pin {path,sha256,bytes}, and nonempty assertions [{pointer,equals}]. Original receipt is terminal closure.json. Populate only from actual closed evidence.",
+  "original_failure_policy": "Refuse missing/failed original completion; preserve failure rather than create substitute success.",
+  "launch_requirements": [
+    "Root review of exact source and concrete card",
+    "Actual original terminal and separate supervisor/source/output authority",
+    "All51 output pins and measured manifest bytes",
+    "Private source/card checkpoint",
+    "Fresh capacity and exact external supervisor source/command review"
+  ]
+}

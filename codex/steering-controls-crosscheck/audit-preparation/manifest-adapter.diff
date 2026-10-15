@@ -1,0 +1,59 @@
+--- preparation-001/audit.py
++++ audit.py
+@@ -370,6 +370,26 @@
+     return groups
+ 
+ 
++def verify_output_inventory(root, outputs, manifest_ref, expected_names):
++    """The supervisor seals 51 worker files, then appends its separate manifest."""
++    need(set(outputs) == expected_names, 'all 51 original output pins')
++    manifest_path = pin(manifest_ref)
++    need(manifest_path.resolve() == root / 'final-manifest.json', 'original output manifest path')
++    need({p.name for p in root.iterdir()} == expected_names | {'final-manifest.json'}, 'exact sealed original inventory')
++    expected_rows = []
++    for name, ref in sorted(outputs.items()):
++        path = pin(ref)
++        need(path.resolve() == root / name, 'output filename binding')
++        expected_rows.append(dict(path=name, bytes=ref['bytes'], sha256=ref['sha256']))
++    manifest = read_json(manifest_path)
++    need(set(manifest) == {'files'} and isinstance(manifest['files'], list), 'original manifest schema')
++    need(len(manifest['files']) == len(expected_rows), 'original manifest file count')
++    for row in manifest['files']:
++        need(set(row) == {'path', 'bytes', 'sha256'} and type(row['bytes']) is int, 'original manifest row schema')
++    need(manifest['files'] == expected_rows, 'original manifest path/bytes/hash inventory differs from output pins')
++    return sum(row['bytes'] for row in expected_rows)
++
++
+ def audit(card, checks):
+     """All lifecycle/source/output pins are checked before any raw numeric read."""
+     plan_path = pin(card['original_plan'])
+@@ -394,15 +414,9 @@
+             value = pointer(obj, claim['pointer'])
+             need(type(value) is type(claim['equals']) and value == claim['equals'], 'owner authority assertion: ' + claim['pointer'])
+     expected_names = {'report.json', 'status.json', 'input-admission.json'} | {name + suffix for name in EXPECTED for suffix in ('-cells.jsonl', '-sources.jsonl', '-summary.json')}
+-    need(set(card['output_files']) == expected_names, 'all 51 original output pins')
+     root = Path(card['original_run_directory']).resolve()
+     need(str(root) == plan['output'], 'original output directory')
+-    need({p.name for p in root.iterdir()} == expected_names, 'exact original output inventory')
+-    output_bytes = 0
+-    for name, ref in card['output_files'].items():
+-        path = pin(ref)
+-        need(path.resolve() == root / name, 'output filename binding')
+-        output_bytes += ref['bytes']
++    output_bytes = verify_output_inventory(root, card['output_files'], card['original_output_manifest'], expected_names)
+     status = read_json(root / 'status.json')
+     need(status['computational_completed'] is True and status['all_datasets_admitted'] is True and not status.get('error') and not status.get('resource_failure'), 'original computational completion')
+     need(status['source_commit'] == plan['source_commit'] and status['plan_sha256'] == card['original_plan']['sha256'] and status['sources'] == plan['sources'], 'actual status source/plan')
+@@ -443,10 +457,10 @@
+         exact_common_valid_groups=expected_groups(all_cells), vector_metadata_authority=refs['vector_metadata'],
+         expected_selected_cells=112640, actual_cell_records=sum(len(rows) for rows in all_cells.values()))
+     checks.same(read_json(root / 'report.json'), expected_report, '/report')
+-    for ref in [card['original_plan'], card['original_run_card'], card['original_closure'], *card['original_sources'].values(), *card['output_files'].values(), *refs.values(), *raw_refs, *[a['file'] for a in assertions]]:
++    for ref in [card['original_plan'], card['original_run_card'], card['original_closure'], card['original_output_manifest'], *card['original_sources'].values(), *card['output_files'].values(), *refs.values(), *raw_refs, *[a['file'] for a in assertions]]:
+         pin(ref)
+     return dict(dataset_coverage=dataset_counts, original_output_files=len(expected_names),
+-        original_output_bytes=output_bytes, raw_files=len(raw_refs), raw_bytes=sum(r['bytes'] for r in raw_refs),
++        original_output_bytes=output_bytes, original_output_manifest=card['original_output_manifest'], raw_files=len(raw_refs), raw_bytes=sum(r['bytes'] for r in raw_refs),
+         scientific_source_commit=plan['source_commit'], original_plan_sha256=card['original_plan']['sha256'],
+         original_closure_sha256=card['original_closure']['sha256'], original_run_card_sha256=card['original_run_card']['sha256'], original_output_pins=card['output_files'],
+         raw_input_pins=raw_refs, authority_assertions=assertions,

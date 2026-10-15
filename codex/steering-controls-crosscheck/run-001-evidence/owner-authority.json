@@ -1,0 +1,150 @@
+{
+  "passed": true,
+  "tool_session_id": 25265,
+  "tool_session_reaped_exit_code": 0,
+  "tool_exit_observation": "Inference write_stdin terminal result; foreground exec supervisor with persistent outer logs; no separate waiter",
+  "numerical_values_decoded": false,
+  "numerical_replay": false,
+  "source_commit": "9b97f9f6e0d55bc5f02e3dc8676b398ab5812541",
+  "scientific_source_commit": "dc6cd5c6f3e04c6f17302509035288dcad2e4e77",
+  "plan_sha256": "aa49c0c6d508f2e605bc53ebdb4b0f5fdb4099cbfb5c4e5d1b1a4a126cc54d76",
+  "card_sha256": "67cbbc0b9a554b79becaba983375c26b5dcd50f2c69ed136f253738919a7df5f",
+  "wrapper_sha256": "3baeb6974044f093f9cd866fedc2a23ce507539221e63ae4030f6fd1bd7e9e2e",
+  "report_sha256": "23e936a8f62c6b925dd1ea247f11a99890a975b66be534b343ed765903577ad5",
+  "status_sha256": "21579f825b201b443ebbbbb56f6b491703868ea75370828464baaeb70ec0ceba",
+  "closure_sha256": "2c210be28006b0dd251e60ea3e019b0761c42852f0965949fe73a0a5c462fcb9",
+  "manifests": [
+    {
+      "root": "/data2/neural-shrimp-data/codex/steering-controls-crosscheck/run-001/run",
+      "manifest_sha256": "c6242ae732d7959b82bf17e9c703d968e3216ca62b66cc38abfc5d86c02cdcbf",
+      "files": 51,
+      "bytes": 91126083
+    },
+    {
+      "root": "/data2/neural-shrimp-data/codex/steering-controls-crosscheck/run-001-supervision",
+      "manifest_sha256": "0d58dc96557e6b4b0e9b749a9100d6e22c16b2d69a319d4360b87d936dee725a",
+      "files": 16,
+      "bytes": 661023
+    }
+  ],
+  "captured_git_source_blobs_verified": 11,
+  "source_files": [
+    {
+      "path": "codex/steering-controls-crosscheck/run.py",
+      "sha256": "3baeb6974044f093f9cd866fedc2a23ce507539221e63ae4030f6fd1bd7e9e2e",
+      "bytes": 11107
+    },
+    {
+      "path": "codex/steering-controls-crosscheck/tabulate.py",
+      "sha256": "3d8021966621f80dbb8e3aecc7088df518cef9231e58820c76fd5bb5f139cef2",
+      "bytes": 17812
+    },
+    {
+      "path": "codex/steering-controls-crosscheck/run-001-plan.json",
+      "sha256": "aa49c0c6d508f2e605bc53ebdb4b0f5fdb4099cbfb5c4e5d1b1a4a126cc54d76",
+      "bytes": 3118
+    },
+    {
+      "path": "codex/steering-controls-crosscheck/run-001-card.md",
+      "sha256": "67cbbc0b9a554b79becaba983375c26b5dcd50f2c69ed136f253738919a7df5f",
+      "bytes": 6080
+    },
+    {
+      "path": "codex/steering-controls-crosscheck/input-metadata-001.json",
+      "sha256": "fdd511be93d478850fda51706fdbaa019e9b6292eb9b9accf1bb2eb619d34f19",
+      "bytes": 426132
+    },
+    {
+      "path": "codex/steering-controls-crosscheck/original-authority-001/authority.json",
+      "sha256": "0cfd23d7cb4e34787fbbdcebf08455d87ae6b35ccdcf1cc94ab86a40d14f9357",
+      "bytes": 109143
+    },
+    {
+      "path": "codex/steering-controls-crosscheck/original-authority-001/random-partition-command-authority.json",
+      "sha256": "44c5191c45d43537e7a3f3a946512e855ee309be460b11125fde524e30d9f761",
+      "bytes": 40201
+    },
+    {
+      "path": "codex/steering-controls-crosscheck/prospective-join-review.md",
+      "sha256": "fc031137e7430a2d227aadc1fd1df8765cb6a3e3ef82435f1492ec10a7cc2ccb",
+      "bytes": 3181
+    },
+    {
+      "path": "codex/steering-controls-crosscheck/vector-metadata-001.json",
+      "sha256": "7389e5a5bc44df50dea9fffbacba67af95bfd6f44e072b453836c518394b7d25",
+      "bytes": 22883
+    },
+    {
+      "path": "codex/steering-controls-crosscheck/producer-source-manifest.json",
+      "sha256": "27a27b2dc6c9b9f3827cecff21424902faca7efbc584549bd9a4781966d7c57e",
+      "bytes": 752
+    },
+    {
+      "path": "codex/steering-controls-crosscheck/launch.py",
+      "sha256": "45df93672ba0f5e9f98a613ebffd055d33d57373225610010b015591d8923237",
+      "bytes": 9554
+    }
+  ],
+  "original_supervisor_worker_groups_sessions_absent": true,
+  "identities": [
+    {
+      "pid": 2757544,
+      "start": 199251816,
+      "pgid": 2757544,
+      "sid": 2757544,
+      "uid": 1000,
+      "nice": 10,
+      "threads": 1,
+      "limits": "Limit                     Soft Limit           Hard Limit           Units     \nMax cpu time              unlimited            unlimited            seconds   \nMax file size             unlimited            unlimited            bytes     \nMax data size             unlimited            unlimited            bytes     \nMax stack size            8388608              unlimited            bytes     \nMax core file size        0                    unlimited            bytes     \nMax resident set          unlimited            unlimited            bytes     \nMax processes             375398               375398               processes \nMax open files            65535                65535                files     \nMax locked memory         8388608              8388608              bytes     \nMax address space         4294967296           4294967296           bytes     \nMax file locks            unlimited            unlimited            locks     \nMax pending signals       375398               375398               signals   \nMax msgqueue size         819200               819200               bytes     \nMax nice priority         0                    0                    \nMax realtime priority     0                    0                    \nMax realtime timeout      200000               200000               us        \n",
+      "command": [
+        "/data2/neural-shrimp/.venv/bin/python",
+        "-I",
+        "-B",
+        "-u",
+        "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/steering-controls-crosscheck/launch.py",
+        "--source",
+        "9b97f9f6e0d55bc5f02e3dc8676b398ab5812541"
+      ]
+    },
+    {
+      "pid": 2757585,
+      "start": 199251964,
+      "pgid": 2757585,
+      "sid": 2757585,
+      "uid": 1000,
+      "nice": 10,
+      "threads": 1,
+      "limits": "Limit                     Soft Limit           Hard Limit           Units     \nMax cpu time              115                  115                  seconds   \nMax file size             unlimited            unlimited            bytes     \nMax data size             unlimited            unlimited            bytes     \nMax stack size            8388608              unlimited            bytes     \nMax core file size        0                    unlimited            bytes     \nMax resident set          unlimited            unlimited            bytes     \nMax processes             375398               375398               processes \nMax open files            65535                65535                files     \nMax locked memory         8388608              8388608              bytes     \nMax address space         4294967296           4294967296           bytes     \nMax file locks            unlimited            unlimited            locks     \nMax pending signals       375398               375398               signals   \nMax msgqueue size         819200               819200               bytes     \nMax nice priority         0                    0                    \nMax realtime priority     0                    0                    \nMax realtime timeout      200000               200000               us        \n",
+      "command": [
+        "/data2/neural-shrimp/.venv/bin/python",
+        "-I",
+        "-B",
+        "-u",
+        "/data2/neural-shrimp-data/codex/steering-controls-crosscheck/run-001-supervision/source/codex/steering-controls-crosscheck/run.py",
+        "--plan",
+        "/data2/neural-shrimp-data/codex/steering-controls-crosscheck/run-001-supervision/source/codex/steering-controls-crosscheck/run-001-plan.json",
+        "--output",
+        "/data2/neural-shrimp-data/codex/steering-controls-crosscheck/run-001/run"
+      ]
+    }
+  ],
+  "outer_logs": [
+    {
+      "path": "/data2/neural-shrimp-data/codex/steering-controls-crosscheck/run-001-dispatch/stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/codex/steering-controls-crosscheck/run-001-dispatch/stdout.log",
+      "bytes": 4540,
+      "sha256": "832d124d155aeac8fe100d22927cd07648fef15f47a4db0e15645670a6711a61"
+    }
+  ],
+  "computational_completed": true,
+  "worker_elapsed_seconds": 10.691473881946877,
+  "worker_peak_rss_kib": 161504,
+  "supervisor_elapsed_seconds": 11.600534365978092,
+  "scope": "Original saved output/source/closure authentication only; scientific saved-field check and report acceptance remain separate",
+  "seconds": 0.45862359390594065,
+  "utc": "2026-10-15T06:38:53Z"
+}

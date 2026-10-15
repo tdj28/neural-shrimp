@@ -1,0 +1,48 @@
+--- preparation-001/prepared-card.json
++++ prepared-card.json
+@@ -1,7 +1,7 @@
+ {
+   "schema": "task16-saved-field-audit-v1",
+   "status": "prepared",
+-  "auditor_sha256": "08db5ad69f29e876816c3feeb5c8271d4dd3b006e50990b5a47a60ef8f1111c1",
++  "auditor_sha256": "3d4436cf44fdf473c867846d5431161dc1583ac19f11eaca2b49c6f7d9b69ad3",
+   "requested_attempts": 1,
+   "original_plan": null,
+   "original_run_card": null,
+@@ -35,7 +35,8 @@
+     "selected_records": 112640,
+     "allocated_source_records": 124928,
+     "completed_source_records": 116736,
+-    "nonselected_completed_overlaps": 4096
++    "nonselected_completed_overlaps": 4096,
++    "supervisor_appended_output_manifests": 1
+   },
+   "measurements": {
+     "tiny_controls_passed": 12,
+@@ -56,7 +57,14 @@
+       "prediction_limitation": "Does not measure actual target archive decoding, total bookkeeping, cold disk or source/authority IO."
+     },
+     "target_archive_or_full_audit_timing_measured": false,
+-    "synthetic_source_delta": "Final source adds only original terminal plan/card/wrapper association and its output pins; measured comparison/arithmetic functions unchanged."
++    "synthetic_source_delta": "Final source adds only original terminal plan/card/wrapper association and its output pins; measured comparison/arithmetic functions unchanged.",
++    "manifest_adapter_controls": {
++      "passed": 4,
++      "test_seconds": 0.003,
++      "external_wall_seconds": 0.06,
++      "peak_rss_kib": 20388,
++      "scope": "Only the new appended-manifest association; original 12 controls not repeated."
++    }
+   },
+   "basis": "Bounded finite saved-field audit; thresholds, ordinal choices and all expected datasets fixed before outcomes; prior producer summary exposure remains disclosed.",
+   "authority_contract": "Each authority_assertions entry has role supervisor_closure or source_and_output_inventory, file pin {path,sha256,bytes}, and nonempty assertions [{pointer,equals}]. Original receipt is terminal closure.json. Populate only from actual closed evidence.",
+@@ -66,6 +74,8 @@
+     "Actual original terminal and separate supervisor/source/output authority",
+     "All51 output pins and measured manifest bytes",
+     "Private source/card checkpoint",
+-    "Fresh capacity and exact external supervisor source/command review"
+-  ]
++    "Fresh capacity and exact external supervisor source/command review",
++    "Separate final-manifest.json pin and exact association of its 51 file rows"
++  ],
++  "original_output_manifest": null
+ }

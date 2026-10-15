@@ -1,0 +1,443 @@
+{
+  "schema": "task16-saved-field-audit-v1",
+  "status": "reviewed",
+  "auditor_sha256": "3d4436cf44fdf473c867846d5431161dc1583ac19f11eaca2b49c6f7d9b69ad3",
+  "requested_attempts": 1,
+  "original_plan": {
+    "path": "/data2/neural-shrimp-data/codex/steering-controls-crosscheck/run-001-supervision/source/codex/steering-controls-crosscheck/run-001-plan.json",
+    "sha256": "aa49c0c6d508f2e605bc53ebdb4b0f5fdb4099cbfb5c4e5d1b1a4a126cc54d76",
+    "bytes": 3118
+  },
+  "original_run_card": {
+    "path": "/data2/neural-shrimp-data/codex/steering-controls-crosscheck/run-001-supervision/source/codex/steering-controls-crosscheck/run-001-card.md",
+    "sha256": "67cbbc0b9a554b79becaba983375c26b5dcd50f2c69ed136f253738919a7df5f",
+    "bytes": 6080
+  },
+  "original_sources": {
+    "run.py": {
+      "path": "/data2/neural-shrimp-data/codex/steering-controls-crosscheck/run-001-supervision/source/codex/steering-controls-crosscheck/run.py",
+      "sha256": "3baeb6974044f093f9cd866fedc2a23ce507539221e63ae4030f6fd1bd7e9e2e",
+      "bytes": 11107
+    },
+    "tabulate.py": {
+      "path": "/data2/neural-shrimp-data/codex/steering-controls-crosscheck/run-001-supervision/source/codex/steering-controls-crosscheck/tabulate.py",
+      "sha256": "3d8021966621f80dbb8e3aecc7088df518cef9231e58820c76fd5bb5f139cef2",
+      "bytes": 17812
+    }
+  },
+  "original_closure": {
+    "path": "/data2/neural-shrimp-data/codex/steering-controls-crosscheck/run-001-supervision/closure.json",
+    "sha256": "2c210be28006b0dd251e60ea3e019b0761c42852f0965949fe73a0a5c462fcb9",
+    "bytes": 2662
+  },
+  "authority_assertions": [
+    {
+      "role": "supervisor_closure",
+      "file": {
+        "path": "/data2/neural-shrimp-data/codex/steering-controls-crosscheck/run-001-supervision/closure.json",
+        "sha256": "2c210be28006b0dd251e60ea3e019b0761c42852f0965949fe73a0a5c462fcb9",
+        "bytes": 2662
+      },
+      "assertions": [
+        {
+          "pointer": "/exit_code",
+          "equals": 0
+        },
+        {
+          "pointer": "/timed_out",
+          "equals": false
+        },
+        {
+          "pointer": "/failure",
+          "equals": null
+        },
+        {
+          "pointer": "/owned_worker_and_groups_closed",
+          "equals": true
+        },
+        {
+          "pointer": "/source_commit",
+          "equals": "9b97f9f6e0d55bc5f02e3dc8676b398ab5812541"
+        }
+      ]
+    },
+    {
+      "role": "source_and_output_inventory",
+      "file": {
+        "path": "/data2/neural-shrimp-data/codex/steering-controls-crosscheck/run-001-closure-001/report.json",
+        "sha256": "bb921c5fc1962c510daafc64c88021622632c9deed7bc70df6275ef07eea6cdc",
+        "bytes": 8484
+      },
+      "assertions": [
+        {
+          "pointer": "/passed",
+          "equals": true
+        },
+        {
+          "pointer": "/tool_session_reaped_exit_code",
+          "equals": 0
+        },
+        {
+          "pointer": "/original_supervisor_worker_groups_sessions_absent",
+          "equals": true
+        },
+        {
+          "pointer": "/captured_git_source_blobs_verified",
+          "equals": 11
+        },
+        {
+          "pointer": "/source_commit",
+          "equals": "9b97f9f6e0d55bc5f02e3dc8676b398ab5812541"
+        },
+        {
+          "pointer": "/manifests/0/files",
+          "equals": 51
+        },
+        {
+          "pointer": "/manifests/0/bytes",
+          "equals": 91126083
+        },
+        {
+          "pointer": "/manifests/0/manifest_sha256",
+          "equals": "c6242ae732d7959b82bf17e9c703d968e3216ca62b66cc38abfc5d86c02cdcbf"
+        },
+        {
+          "pointer": "/closure_sha256",
+          "equals": "2c210be28006b0dd251e60ea3e019b0761c42852f0965949fe73a0a5c462fcb9"
+        }
+      ]
+    }
+  ],
+  "original_run_directory": "/data2/neural-shrimp-data/codex/steering-controls-crosscheck/run-001/run",
+  "raw_directory": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64",
+  "output_files": {
+    "input-admission.json": {
+      "path": "/data2/neural-shrimp-data/codex/steering-controls-crosscheck/run-001/run/input-admission.json",
+      "sha256": "c10262e2e61786ab4632133af746a1941afe57f7a864dbb4a04e7a6a8e0d9f49",
+      "bytes": 184747
+    },
+    "llama8-alpha0-cells.jsonl": {
+      "path": "/data2/neural-shrimp-data/codex/steering-controls-crosscheck/run-001/run/llama8-alpha0-cells.jsonl",
+      "sha256": "e7f0e5261926f0b856c6611414a4e4853d6600c39ce16a2b4f7e87d77ff568db",
+      "bytes": 171726
+    },
+    "llama8-alpha0-sources.jsonl": {
+      "path": "/data2/neural-shrimp-data/codex/steering-controls-crosscheck/run-001/run/llama8-alpha0-sources.jsonl",
+      "sha256": "2b3863aebad81e2e9e21fe6908b7ae7654a5ebc9e6929b719426255c72218f51",
+      "bytes": 153633
+    },
+    "llama8-alpha0-summary.json": {
+      "path": "/data2/neural-shrimp-data/codex/steering-controls-crosscheck/run-001/run/llama8-alpha0-summary.json",
+      "sha256": "6bbed9b7e464c344188f6d58a9b230c605daf0667d071f8b9a524063b1c50526",
+      "bytes": 416395
+    },
+    "llama8-layer16-concept-cells.jsonl": {
+      "path": "/data2/neural-shrimp-data/codex/steering-controls-crosscheck/run-001/run/llama8-layer16-concept-cells.jsonl",
+      "sha256": "aa96c6569ee12b2c1cf0999e64eb176f392c2b1da2d69a1e5307dc6d9946ee5d",
+      "bytes": 1467232
+    },
+    "llama8-layer16-concept-sources.jsonl": {
+      "path": "/data2/neural-shrimp-data/codex/steering-controls-crosscheck/run-001/run/llama8-layer16-concept-sources.jsonl",
+      "sha256": "97309e62912e7e31287a2ff59d551cfa14814eb6f79c837b2c88c73be5f76401",
+      "bytes": 1328394
+    },
+    "llama8-layer16-concept-summary.json": {
+      "path": "/data2/neural-shrimp-data/codex/steering-controls-crosscheck/run-001/run/llama8-layer16-concept-summary.json",
+      "sha256": "791130c04a962bd05549a18005b696cbaf657c2d7d17f39268eca1a222d20fab",
+      "bytes": 126357
+    },
+    "llama8-layer16-random1-cells.jsonl": {
+      "path": "/data2/neural-shrimp-data/codex/steering-controls-crosscheck/run-001/run/llama8-layer16-random1-cells.jsonl",
+      "sha256": "f58fd287171c3db9c5b265f1ac8d9ecc0fb12c11a299a6120cd3bddffcf8a02d",
+      "bytes": 1469042
+    },
+    "llama8-layer16-random1-sources.jsonl": {
+      "path": "/data2/neural-shrimp-data/codex/steering-controls-crosscheck/run-001/run/llama8-layer16-random1-sources.jsonl",
+      "sha256": "f55ffaeb23b7cfdee069cd9318bb98e54929bd9711c5ec9c7a04dc3577f7b826",
+      "bytes": 1330204
+    },
+    "llama8-layer16-random1-summary.json": {
+      "path": "/data2/neural-shrimp-data/codex/steering-controls-crosscheck/run-001/run/llama8-layer16-random1-summary.json",
+      "sha256": "fbc0b66042c3a05c7c97cadfb8ff1c9b0ac6840ab8890b3d8f579cadd975c833",
+      "bytes": 125840
+    },
+    "llama8-layer16-random2-cells.jsonl": {
+      "path": "/data2/neural-shrimp-data/codex/steering-controls-crosscheck/run-001/run/llama8-layer16-random2-cells.jsonl",
+      "sha256": "130ce31dd6398c5920e797d08c297b189e33d55dc73a0c18d0be796d0be432b3",
+      "bytes": 1471793
+    },
+    "llama8-layer16-random2-sources.jsonl": {
+      "path": "/data2/neural-shrimp-data/codex/steering-controls-crosscheck/run-001/run/llama8-layer16-random2-sources.jsonl",
+      "sha256": "a9269418933a192e8a335bc75e207ee656894d50d424be6f1d93e39f07973a8c",
+      "bytes": 1332955
+    },
+    "llama8-layer16-random2-summary.json": {
+      "path": "/data2/neural-shrimp-data/codex/steering-controls-crosscheck/run-001/run/llama8-layer16-random2-summary.json",
+      "sha256": "6ea79f8889c077a190fa1f4319475620638e50eb3cc31b5aa1930ecc14659f96",
+      "bytes": 122416
+    },
+    "llama8-layer19-concept-cells.jsonl": {
+      "path": "/data2/neural-shrimp-data/codex/steering-controls-crosscheck/run-001/run/llama8-layer19-concept-cells.jsonl",
+      "sha256": "507b16819f2c711a556b4ff90fa659869b0c2ad5e318e783986d96b0582610be",
+      "bytes": 1468027
+    },
+    "llama8-layer19-concept-sources.jsonl": {
+      "path": "/data2/neural-shrimp-data/codex/steering-controls-crosscheck/run-001/run/llama8-layer19-concept-sources.jsonl",
+      "sha256": "522ad2a9d522cca1d400864512cfb429efedb18590858cb758534b1e6f4d1191",
+      "bytes": 1329189
+    },
+    "llama8-layer19-concept-summary.json": {
+      "path": "/data2/neural-shrimp-data/codex/steering-controls-crosscheck/run-001/run/llama8-layer19-concept-summary.json",
+      "sha256": "195a6f54d2fee194534be8db6953076639901f472a96393804031be2e3c18f5d",
+      "bytes": 128583
+    },
+    "llama8-layer19-gauss-cells.jsonl": {
+      "path": "/data2/neural-shrimp-data/codex/steering-controls-crosscheck/run-001/run/llama8-layer19-gauss-cells.jsonl",
+      "sha256": "f1b583e00b736ed02b3326ac689c634bd9c15a8013ab5cee7b8b7af72007b407",
+      "bytes": 1456864
+    },
+    "llama8-layer19-gauss-sources.jsonl": {
+      "path": "/data2/neural-shrimp-data/codex/steering-controls-crosscheck/run-001/run/llama8-layer19-gauss-sources.jsonl",
+      "sha256": "d3b581db6906bc85d7e6e6f981da37c788defe01dc88f0794ae0c3e317ecca1f",
+      "bytes": 1318026
+    },
+    "llama8-layer19-gauss-summary.json": {
+      "path": "/data2/neural-shrimp-data/codex/steering-controls-crosscheck/run-001/run/llama8-layer19-gauss-summary.json",
+      "sha256": "2508145d30e4efbf4b2c473ac6a857de254d3cb1e7a7d23dbaae78ebfd43f1c4",
+      "bytes": 130205
+    },
+    "llama8-layer19-saeH-cells.jsonl": {
+      "path": "/data2/neural-shrimp-data/codex/steering-controls-crosscheck/run-001/run/llama8-layer19-saeH-cells.jsonl",
+      "sha256": "3e79972bd86392b72a63d8f93aef81e68beaa41a62d167d49316905145a65d31",
+      "bytes": 1456378
+    },
+    "llama8-layer19-saeH-sources.jsonl": {
+      "path": "/data2/neural-shrimp-data/codex/steering-controls-crosscheck/run-001/run/llama8-layer19-saeH-sources.jsonl",
+      "sha256": "438b6a917176d70c8e358460030d0a0a00c46cde99996a708e9721bfe326ec22",
+      "bytes": 1317540
+    },
+    "llama8-layer19-saeH-summary.json": {
+      "path": "/data2/neural-shrimp-data/codex/steering-controls-crosscheck/run-001/run/llama8-layer19-saeH-summary.json",
+      "sha256": "bbad8d22fa61a81ef5f715ffaff0cd500a9a52509ac13a49efb4b3958f3c0ed8",
+      "bytes": 130803
+    },
+    "llama8-layer19-saeR-cells.jsonl": {
+      "path": "/data2/neural-shrimp-data/codex/steering-controls-crosscheck/run-001/run/llama8-layer19-saeR-cells.jsonl",
+      "sha256": "f52622cc4d91dfedda91919e1e1536300ca1cd1e5fc02de69e8203b5a6b53f61",
+      "bytes": 1457144
+    },
+    "llama8-layer19-saeR-sources.jsonl": {
+      "path": "/data2/neural-shrimp-data/codex/steering-controls-crosscheck/run-001/run/llama8-layer19-saeR-sources.jsonl",
+      "sha256": "ff5a6f44b71e6ae55e70fb6e6b8194cfc30561bf1aae9c9dbb5c885f894e6a90",
+      "bytes": 1318306
+    },
+    "llama8-layer19-saeR-summary.json": {
+      "path": "/data2/neural-shrimp-data/codex/steering-controls-crosscheck/run-001/run/llama8-layer19-saeR-summary.json",
+      "sha256": "0dcd4a98d3ff8439d5b08a8848666274584ec635570f480d684ae783a85c2b67",
+      "bytes": 133521
+    },
+    "olmo7-alpha0-cells.jsonl": {
+      "path": "/data2/neural-shrimp-data/codex/steering-controls-crosscheck/run-001/run/olmo7-alpha0-cells.jsonl",
+      "sha256": "0702c09249d65083fb8192e7f8e0bd3b008cb5b8aab383a30ea742fc218063f5",
+      "bytes": 171632
+    },
+    "olmo7-alpha0-sources.jsonl": {
+      "path": "/data2/neural-shrimp-data/codex/steering-controls-crosscheck/run-001/run/olmo7-alpha0-sources.jsonl",
+      "sha256": "2f3865d370447661df3675148be9873c787ddb8b44c66e1daea8f7f21d4e7f58",
+      "bytes": 153539
+    },
+    "olmo7-alpha0-summary.json": {
+      "path": "/data2/neural-shrimp-data/codex/steering-controls-crosscheck/run-001/run/olmo7-alpha0-summary.json",
+      "sha256": "fd31ccc148b2215bd159e6679f58e7a1b472f4a200acbf06a5ba458cd0914afc",
+      "bytes": 415410
+    },
+    "q05-alpha0-cells.jsonl": {
+      "path": "/data2/neural-shrimp-data/codex/steering-controls-crosscheck/run-001/run/q05-alpha0-cells.jsonl",
+      "sha256": "cf4065103aa7a96cf26d07bf946dd3042585fc2159fed89b58e7dec24d406b27",
+      "bytes": 170619
+    },
+    "q05-alpha0-sources.jsonl": {
+      "path": "/data2/neural-shrimp-data/codex/steering-controls-crosscheck/run-001/run/q05-alpha0-sources.jsonl",
+      "sha256": "9d0d9f7f212bfd93284e3bf815792483d70923cb97c0e28b979f4c16813d281e",
+      "bytes": 152526
+    },
+    "q05-alpha0-summary.json": {
+      "path": "/data2/neural-shrimp-data/codex/steering-controls-crosscheck/run-001/run/q05-alpha0-summary.json",
+      "sha256": "8b2e23dbdb8fc8e3d5b3d27ad47c4ac46c1a8c43ece40f206e074c820ecf0fd9",
+      "bytes": 415338
+    },
+    "q05-gratitude-cells.jsonl": {
+      "path": "/data2/neural-shrimp-data/codex/steering-controls-crosscheck/run-001/run/q05-gratitude-cells.jsonl",
+      "sha256": "1f387f65a57f4b4bd7facdeda6093ab8b24906350e24218c145f46da6d26c3ef",
+      "bytes": 5778111
+    },
+    "q05-gratitude-sources.jsonl": {
+      "path": "/data2/neural-shrimp-data/codex/steering-controls-crosscheck/run-001/run/q05-gratitude-sources.jsonl",
+      "sha256": "1ca587875b369153608e622edd0c4e14154300c0e55b9485854243d9bd34cb7d",
+      "bytes": 5227097
+    },
+    "q05-gratitude-summary.json": {
+      "path": "/data2/neural-shrimp-data/codex/steering-controls-crosscheck/run-001/run/q05-gratitude-summary.json",
+      "sha256": "9014db82ab1bb053f90bbf167316ce2c3f7042eeb0eeefaf3b064e667215ea0d",
+      "bytes": 229428
+    },
+    "q05-philosophy-cells.jsonl": {
+      "path": "/data2/neural-shrimp-data/codex/steering-controls-crosscheck/run-001/run/q05-philosophy-cells.jsonl",
+      "sha256": "b338baf9b854767fd0a711ee673c9fedca6d5dd25ac7f0a9f41581ecb1996198",
+      "bytes": 5796733
+    },
+    "q05-philosophy-sources.jsonl": {
+      "path": "/data2/neural-shrimp-data/codex/steering-controls-crosscheck/run-001/run/q05-philosophy-sources.jsonl",
+      "sha256": "49bf9efb24d4845ea6a484693e1ff4ce9915e6aaab4073b69e40c04ac2ee0a69",
+      "bytes": 5245719
+    },
+    "q05-philosophy-summary.json": {
+      "path": "/data2/neural-shrimp-data/codex/steering-controls-crosscheck/run-001/run/q05-philosophy-summary.json",
+      "sha256": "987f28ade2a505b89c60ddd23204633439bb525e378ca77f626135886c53b181",
+      "bytes": 236140
+    },
+    "q05-random1-cells.jsonl": {
+      "path": "/data2/neural-shrimp-data/codex/steering-controls-crosscheck/run-001/run/q05-random1-cells.jsonl",
+      "sha256": "a0847cc86b739695d3e664805882e895d1a4fc9c108bb8368f800cffde2783f3",
+      "bytes": 5755795
+    },
+    "q05-random1-sources.jsonl": {
+      "path": "/data2/neural-shrimp-data/codex/steering-controls-crosscheck/run-001/run/q05-random1-sources.jsonl",
+      "sha256": "b243da71e10ac651dca58521defa2d93a69097408d4bb42a434a5b439a0b748a",
+      "bytes": 6436535
+    },
+    "q05-random1-summary.json": {
+      "path": "/data2/neural-shrimp-data/codex/steering-controls-crosscheck/run-001/run/q05-random1-summary.json",
+      "sha256": "cb72bd0ecc8b4e9e34b46f417fa52f8011bd27211544bdb621313a8a1c6896f8",
+      "bytes": 251682
+    },
+    "q05-random2-cells.jsonl": {
+      "path": "/data2/neural-shrimp-data/codex/steering-controls-crosscheck/run-001/run/q05-random2-cells.jsonl",
+      "sha256": "772aafe6de1eea321d6311083c0a5ee9d3202cfb2bbb188195497489404a17b3",
+      "bytes": 5756646
+    },
+    "q05-random2-sources.jsonl": {
+      "path": "/data2/neural-shrimp-data/codex/steering-controls-crosscheck/run-001/run/q05-random2-sources.jsonl",
+      "sha256": "10be8c86d38550bcd12732f7ecbaca4d7987c1f8e57aaf7e3328760a10d06baa",
+      "bytes": 6467760
+    },
+    "q05-random2-summary.json": {
+      "path": "/data2/neural-shrimp-data/codex/steering-controls-crosscheck/run-001/run/q05-random2-summary.json",
+      "sha256": "a884acc2986ac7b0c791401c47f8ba6ef71fb07b24f09add18b94ad0ce06d198",
+      "bytes": 1228163
+    },
+    "q05-random3-cells.jsonl": {
+      "path": "/data2/neural-shrimp-data/codex/steering-controls-crosscheck/run-001/run/q05-random3-cells.jsonl",
+      "sha256": "cfb287da74ac1ce2d00510987f5dd853a53e5c68809c08615e7e7d91a1c6d818",
+      "bytes": 5747675
+    },
+    "q05-random3-sources.jsonl": {
+      "path": "/data2/neural-shrimp-data/codex/steering-controls-crosscheck/run-001/run/q05-random3-sources.jsonl",
+      "sha256": "c2cc2b610f1b39e332cd3569f70555e54d22e706b915336db745c851222b4b73",
+      "bytes": 6456241
+    },
+    "q05-random3-summary.json": {
+      "path": "/data2/neural-shrimp-data/codex/steering-controls-crosscheck/run-001/run/q05-random3-summary.json",
+      "sha256": "26dc775241f3b01684b4964598b425efd3826ffbcbe21d28e709f60dcf817fac",
+      "bytes": 1211503
+    },
+    "q7-alpha0-cells.jsonl": {
+      "path": "/data2/neural-shrimp-data/codex/steering-controls-crosscheck/run-001/run/q7-alpha0-cells.jsonl",
+      "sha256": "e95307539aba523df8ee8f37f1e951dc86cfd26e76544e0434505331aa53ebb7",
+      "bytes": 170185
+    },
+    "q7-alpha0-sources.jsonl": {
+      "path": "/data2/neural-shrimp-data/codex/steering-controls-crosscheck/run-001/run/q7-alpha0-sources.jsonl",
+      "sha256": "3933b31a5881bbd665005edc2ec9e74b1b1942f6768e03b17c9777d93c98073c",
+      "bytes": 152092
+    },
+    "q7-alpha0-summary.json": {
+      "path": "/data2/neural-shrimp-data/codex/steering-controls-crosscheck/run-001/run/q7-alpha0-summary.json",
+      "sha256": "a84b24a8d55cc4c17320b3aa2788269e598bfe605861e9b8a23dcb66dc623588",
+      "bytes": 418377
+    },
+    "report.json": {
+      "path": "/data2/neural-shrimp-data/codex/steering-controls-crosscheck/run-001/run/report.json",
+      "sha256": "23e936a8f62c6b925dd1ea247f11a99890a975b66be534b343ed765903577ad5",
+      "bytes": 5735196
+    },
+    "status.json": {
+      "path": "/data2/neural-shrimp-data/codex/steering-controls-crosscheck/run-001/run/status.json",
+      "sha256": "21579f825b201b443ebbbbb56f6b491703868ea75370828464baaeb70ec0ceba",
+      "bytes": 621
+    }
+  },
+  "output": "/data2/neural-shrimp-data/codex/steering-controls-crosscheck/run-001-review-001",
+  "resources": {
+    "cpu_threads": 1,
+    "nice": 10,
+    "hard_as_bytes": 4294967296,
+    "external_seconds": 120,
+    "output_bytes": 16777216
+  },
+  "external_supervision_requirements": {
+    "supervisor_slots": 1,
+    "startup_memavailable_gib": 20,
+    "runtime_memavailable_gib": 16,
+    "absolute_wall_deadline_seconds": 120,
+    "no_automatic_extension_or_retry": true
+  },
+  "workload": {
+    "datasets": 16,
+    "raw_files": 19,
+    "raw_compressed_bytes": 3248045,
+    "original_outputs": 51,
+    "original_output_bytes": 91126083,
+    "selected_records": 112640,
+    "allocated_source_records": 124928,
+    "completed_source_records": 116736,
+    "nonselected_completed_overlaps": 4096,
+    "supervisor_appended_output_manifests": 1
+  },
+  "measurements": {
+    "tiny_controls_passed": 12,
+    "tiny_controls_test_seconds": 0.003,
+    "tiny_controls_external_wall_seconds": 0.1,
+    "tiny_controls_peak_rss_kib": 20880,
+    "synthetic_read": {
+      "scope": "synthetic JSONL hashing, parsing and exact field checks only; no target data",
+      "records": 4096,
+      "bytes": 1232938,
+      "checks": 69633,
+      "failures": 0,
+      "elapsed_seconds": 0.08354601194150746,
+      "sha256": "95ca21e3a79fc9f39f48276a036188262e13bf2deaf647a648926cc1ba7269fd",
+      "unchanged": true,
+      "peak_rss_kib": 20744,
+      "source_sha256": "7bb9cd4853fcfcdc858732825da94b8ed07faf5221a5896a7b6f2992ac9701a8",
+      "prediction_limitation": "Does not measure actual target archive decoding, total bookkeeping, cold disk or source/authority IO."
+    },
+    "target_archive_or_full_audit_timing_measured": false,
+    "synthetic_source_delta": "Final source adds only original terminal plan/card/wrapper association and its output pins; measured comparison/arithmetic functions unchanged.",
+    "manifest_adapter_controls": {
+      "passed": 4,
+      "test_seconds": 0.003,
+      "external_wall_seconds": 0.06,
+      "peak_rss_kib": 20388,
+      "scope": "Only the new appended-manifest association; original 12 controls not repeated."
+    }
+  },
+  "basis": "Bounded finite saved-field audit; thresholds, ordinal choices and all expected datasets fixed before outcomes; prior producer summary exposure remains disclosed.",
+  "authority_contract": "Each authority_assertions entry has role supervisor_closure or source_and_output_inventory, file pin {path,sha256,bytes}, and nonempty assertions [{pointer,equals}]. Original receipt is terminal closure.json. Populate only from actual closed evidence.",
+  "original_failure_policy": "Refuse missing/failed original completion; preserve failure rather than create substitute success.",
+  "launch_requirements": [
+    "Root review of exact source and concrete card",
+    "Actual original terminal and separate supervisor/source/output authority",
+    "All51 output pins and measured manifest bytes",
+    "Private source/card checkpoint",
+    "Fresh capacity and exact external supervisor source/command review",
+    "Separate final-manifest.json pin and exact association of its 51 file rows"
+  ],
+  "original_output_manifest": {
+    "path": "/data2/neural-shrimp-data/codex/steering-controls-crosscheck/run-001/run/final-manifest.json",
+    "sha256": "c6242ae732d7959b82bf17e9c703d968e3216ca62b66cc38abfc5d86c02cdcbf",
+    "bytes": 8447
+  },
+  "acceptance": "Root accepted final checker3d4436cf and concrete card/source/closure and supervisor are submitted together for final bounded admission; no execution before that acceptance and private checkpoint.",
+  "resource_detail": "External supervisor applies115 CPU seconds subordinate to120s wall plus5s TERM/5s KILL cleanup; CPU1 plus supervisor,4GiB hard AS,16MiB sampled output,20/16GiB available RAM and16GiB disk. One exact attempt, no automatic retry. No other task reservation active. Actual full-audit timing remains unmeasured; accepted finite workload and synthetic read measurement support this fixed ceiling."
+}

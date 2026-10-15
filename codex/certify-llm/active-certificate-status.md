@@ -1,3 +1,17 @@
+# Task 16 original tabulation complete; independent saved check admitted
+
+Updated 2026-10-15T06:42:55.569060+00:00. Task 16 run-001 completed and original session 25265 was reaped with exit 0. Original source 9b97f9f6e0d55bc5f02e3dc8676b398ab5812541, scientific source dc6cd5c6, plan aa49c0c6 and card 67cbbc0b remain unchanged. The worker measured 10.691474 seconds and 161,504 KiB peak RSS; supervisor elapsed 11.600534 seconds. Owner authority bb921c5f authenticated all 51 output files (91,126,083 bytes), 16 supervision entries, 11 captured Git blobs and both original process/group/session absences. These establish computational completion; scientific acceptance remains pending the independent saved-field check.
+
+Root read the final concrete audit card e835ab44, supervisor a12c6be4 and unchanged auditor 3d4436cf and authorized exactly one run-001-review-001 after this private checkpoint and fresh capacity. Bounds: one CPU plus supervisor, nice 10, 4 GiB address space, 115 CPU seconds subordinate to 120 seconds wall plus bounded cleanup, 16 MiB output, 20/16 GiB available-memory floors and 16 GiB disk. Original manifest c6242ae7 is separately pinned from its 51 output rows. No automatic retry or extension. No audit has launched at this checkpoint.
+
+The renewed human-directed queue, reconciled against Claude's entry at c68a14a054a4514ed8cf68835f69405206066ae4 (export c080312d), is: finish 16; then 21a–i in listed order; 22; 23 only after its concrete MECH card; 24; 25 (former 20 plus L70D); then 15 under the existing human request. Tasks 18, 19 including addendum and both fixed stress checks, and 17 remain complete and delivered. No later-task outcomes are decoded here. New work stays in owned codex paths and standalone comms; no producer paper, research-log or tool edits, .env or lexical-repository access, GPUs, pods or paid work.
+
+Inference retains sole Git/process coordination. Zero live jobs and reservations before the single admitted audit. Overnight automation watch-claude-overnight remains active every 30 minutes until the morning of 15 October (approximately 08:00 PDT), quiet for unchanged healthy state. Historical status below remains unchanged.
+
+---
+
+## Preserved earlier status
+
 # Task 16 resumed — concrete tabulation admission preparation
 
 The human returned after the quota interruption and renewed work plus overnight Claude-communications monitoring. Root reconciled Claude's temporary cancellation: current order is Task 16, then Task 20 (current size-section saved-data/source audit), then Task 15 feasibility. Tasks 18, 19 including its addendum and both fixed stress checks, and 17 remain complete and delivered. No new Task 20 outcomes or Task 15 work has begun.

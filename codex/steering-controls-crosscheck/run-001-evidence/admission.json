@@ -1,0 +1,66 @@
+{
+  "source_commit": "9b97f9f6e0d55bc5f02e3dc8676b398ab5812541",
+  "private_remote_ancestor": "9b97f9f6e0d55bc5f02e3dc8676b398ab5812541",
+  "sources": {
+    "codex/steering-controls-crosscheck/run.py": "3baeb6974044f093f9cd866fedc2a23ce507539221e63ae4030f6fd1bd7e9e2e",
+    "codex/steering-controls-crosscheck/tabulate.py": "3d8021966621f80dbb8e3aecc7088df518cef9231e58820c76fd5bb5f139cef2",
+    "codex/steering-controls-crosscheck/run-001-plan.json": "aa49c0c6d508f2e605bc53ebdb4b0f5fdb4099cbfb5c4e5d1b1a4a126cc54d76",
+    "codex/steering-controls-crosscheck/run-001-card.md": "67cbbc0b9a554b79becaba983375c26b5dcd50f2c69ed136f253738919a7df5f",
+    "codex/steering-controls-crosscheck/input-metadata-001.json": "fdd511be93d478850fda51706fdbaa019e9b6292eb9b9accf1bb2eb619d34f19",
+    "codex/steering-controls-crosscheck/original-authority-001/authority.json": "0cfd23d7cb4e34787fbbdcebf08455d87ae6b35ccdcf1cc94ab86a40d14f9357",
+    "codex/steering-controls-crosscheck/original-authority-001/random-partition-command-authority.json": "44c5191c45d43537e7a3f3a946512e855ee309be460b11125fde524e30d9f761",
+    "codex/steering-controls-crosscheck/prospective-join-review.md": "fc031137e7430a2d227aadc1fd1df8765cb6a3e3ef82435f1492ec10a7cc2ccb",
+    "codex/steering-controls-crosscheck/vector-metadata-001.json": "7389e5a5bc44df50dea9fffbacba67af95bfd6f44e072b453836c518394b7d25",
+    "codex/steering-controls-crosscheck/producer-source-manifest.json": "27a27b2dc6c9b9f3827cecff21424902faca7efbc584549bd9a4781966d7c57e",
+    "codex/steering-controls-crosscheck/launch.py": "45df93672ba0f5e9f98a613ebffd055d33d57373225610010b015591d8923237"
+  },
+  "available_bytes": 44253569024,
+  "disk_free_bytes": 2753419747328,
+  "load_average": [
+    25.80029296875,
+    27.8623046875,
+    26.36474609375
+  ],
+  "cpu_affinity_count": 32,
+  "gpu_read_only_inventory": {
+    "exit_code": 0,
+    "stdout": "Wed Oct 14 23:32:35 2026       \n+-----------------------------------------------------------------------------------------+\n| NVIDIA-SMI 580.178.04             Driver Version: 580.178.04     CUDA Version: 13.0     |\n+-----------------------------------------+------------------------+----------------------+\n| GPU  Name                 Persistence-M | Bus-Id          Disp.A | Volatile Uncorr. ECC |\n| Fan  Temp   Perf          Pwr:Usage/Cap |           Memory-Usage | GPU-Util  Compute M. |\n|                                         |                        |               MIG M. |\n|=========================================+========================+======================|\n|   0  NVIDIA RTX 2000 Ada Gene...    Off |   00000000:01:00.0 Off |                  Off |\n| 45%   69C    P2             33W /   70W |    5508MiB /  16380MiB |     41%      Default |\n|                                         |                        |                  N/A |\n+-----------------------------------------+------------------------+----------------------+\n\n+-----------------------------------------------------------------------------------------+\n| Processes:                                                                              |\n|  GPU   GI   CI              PID   Type   Process name                        GPU Memory |\n|        ID   ID                                                               Usage      |\n|=========================================================================================|\n|    0   N/A  N/A         2697451      C   ...eural-shrimp/.venv/bin/python       5498MiB |\n+-----------------------------------------------------------------------------------------+\n",
+    "stderr": ""
+  },
+  "scope": "One independent Task16 saved-scan tabulation. No model, producer import or parameter fitting. Original input and prospective fixed partition authority are bound by the reviewed plan. CPU1 plus supervisor, 4GiB AS, 115 CPU seconds and120s wall, fresh20GiB startup and16GiB runtime floor;128MiB output cap. A separate finite independent saved-output check remains pending.",
+  "command": [
+    "/data2/neural-shrimp/.venv/bin/python",
+    "-I",
+    "-B",
+    "-u",
+    "/data2/neural-shrimp-data/codex/steering-controls-crosscheck/run-001-supervision/source/codex/steering-controls-crosscheck/run.py",
+    "--plan",
+    "/data2/neural-shrimp-data/codex/steering-controls-crosscheck/run-001-supervision/source/codex/steering-controls-crosscheck/run-001-plan.json",
+    "--output",
+    "/data2/neural-shrimp-data/codex/steering-controls-crosscheck/run-001/run"
+  ],
+  "seconds": 120,
+  "memory_gib": 4,
+  "cpu_worker": 1,
+  "supervisor_slots": 1,
+  "output_cap_bytes": 134217728,
+  "supervisor": {
+    "pid": 2757544,
+    "start": 199251816,
+    "pgid": 2757544,
+    "sid": 2757544,
+    "uid": 1000,
+    "nice": 10,
+    "threads": 1,
+    "limits": "Limit                     Soft Limit           Hard Limit           Units     \nMax cpu time              unlimited            unlimited            seconds   \nMax file size             unlimited            unlimited            bytes     \nMax data size             unlimited            unlimited            bytes     \nMax stack size            8388608              unlimited            bytes     \nMax core file size        0                    unlimited            bytes     \nMax resident set          unlimited            unlimited            bytes     \nMax processes             375398               375398               processes \nMax open files            65535                65535                files     \nMax locked memory         8388608              8388608              bytes     \nMax address space         4294967296           4294967296           bytes     \nMax file locks            unlimited            unlimited            locks     \nMax pending signals       375398               375398               signals   \nMax msgqueue size         819200               819200               bytes     \nMax nice priority         0                    0                    \nMax realtime priority     0                    0                    \nMax realtime timeout      200000               200000               us        \n",
+    "command": [
+      "/data2/neural-shrimp/.venv/bin/python",
+      "-I",
+      "-B",
+      "-u",
+      "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/steering-controls-crosscheck/launch.py",
+      "--source",
+      "9b97f9f6e0d55bc5f02e3dc8676b398ab5812541"
+    ]
+  }
+}

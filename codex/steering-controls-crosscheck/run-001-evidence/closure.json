@@ -1,0 +1,36 @@
+{
+  "exit_code": 0,
+  "timed_out": false,
+  "seconds": 11.600534365978092,
+  "worker": {
+    "pid": 2757585,
+    "start": 199251964,
+    "pgid": 2757585,
+    "sid": 2757585,
+    "uid": 1000,
+    "nice": 10,
+    "threads": 1,
+    "limits": "Limit                     Soft Limit           Hard Limit           Units     \nMax cpu time              115                  115                  seconds   \nMax file size             unlimited            unlimited            bytes     \nMax data size             unlimited            unlimited            bytes     \nMax stack size            8388608              unlimited            bytes     \nMax core file size        0                    unlimited            bytes     \nMax resident set          unlimited            unlimited            bytes     \nMax processes             375398               375398               processes \nMax open files            65535                65535                files     \nMax locked memory         8388608              8388608              bytes     \nMax address space         4294967296           4294967296           bytes     \nMax file locks            unlimited            unlimited            locks     \nMax pending signals       375398               375398               signals   \nMax msgqueue size         819200               819200               bytes     \nMax nice priority         0                    0                    \nMax realtime priority     0                    0                    \nMax realtime timeout      200000               200000               us        \n",
+    "command": [
+      "/data2/neural-shrimp/.venv/bin/python",
+      "-I",
+      "-B",
+      "-u",
+      "/data2/neural-shrimp-data/codex/steering-controls-crosscheck/run-001-supervision/source/codex/steering-controls-crosscheck/run.py",
+      "--plan",
+      "/data2/neural-shrimp-data/codex/steering-controls-crosscheck/run-001-supervision/source/codex/steering-controls-crosscheck/run-001-plan.json",
+      "--output",
+      "/data2/neural-shrimp-data/codex/steering-controls-crosscheck/run-001/run"
+    ]
+  },
+  "owned_worker_and_groups_closed": true,
+  "failure": null,
+  "maximum_output_bytes_sampled": 91126083,
+  "source_commit": "9b97f9f6e0d55bc5f02e3dc8676b398ab5812541",
+  "wrapper_sha256": "3baeb6974044f093f9cd866fedc2a23ce507539221e63ae4030f6fd1bd7e9e2e",
+  "plan_sha256": "aa49c0c6d508f2e605bc53ebdb4b0f5fdb4099cbfb5c4e5d1b1a4a126cc54d76",
+  "card_sha256": "67cbbc0b9a554b79becaba983375c26b5dcd50f2c69ed136f253738919a7df5f",
+  "scientific_source_commit": "dc6cd5c6f3e04c6f17302509035288dcad2e4e77",
+  "certificate_passed": false,
+  "experimental_claims": false
+}
