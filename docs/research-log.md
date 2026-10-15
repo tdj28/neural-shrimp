@@ -26140,3 +26140,7 @@ SHC-P2 and SHC-P4 are running, SHC-P8 has also started. The P2 and P8 pods share
   - Of the 47 most contracting attracting cells (the lowest 5 %, |mu1| <= 0.347), 35 are foci, and the global minimum is one.
   - Algebraically, a real pair has |mu1| >= sqrt|det| and a complex pair |mu1| = sqrt(det), checked to 1e-16 in every cell. So the attracting node contracts most where it has become a focus (Mira 1987, p. 353).
 - **Trace-zero geometry.** A tongue of positive trace runs diagonally through the cell, bounded by two trace-zero arcs that meet near its top; it is open at the grid's lower edge. One cell-resolution checkerboard lies near the tip, at row 41, col 16 (alpha1 ~ -0.0983, alpha2 ~ 0.1099). It is a candidate crossing of trace-zero curves that this grid does not resolve.
+
+## 2026-10-15 19:35 UTC: Mira (1987) pp. 358-373 saved by the human
+
+The human saved pp. 358-373 of Mira (1987) as screenshots in /data2/neural-shrimp-data/references/mira1987/; they are paywalled, so never commit them. Page-named copies p358.png to p373.png sit beside the originals; the pages were identified from their printed numbers on a contact sheet. With pp. 353-357 the folder now covers pp. 353-373. The paper's statements about the saddle area (6.36), the spring area (6.37), the node becoming a focus and property P6.16 can be checked against stored pages.
