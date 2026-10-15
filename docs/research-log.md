@@ -26538,3 +26538,20 @@ In the period-5 window, a two-parameter Newton search on the invariants of the l
 - line c: 24 -> 48 2.4e-7; 48 -> 96 7.5e-8.
 
 This is critical slowing down. Near a flip the multiplier is close to -1, and 3000 transient steps leave a decaying oscillation that the period test reads as the doubled period. It is reported, not smoothed; the caption states it.
+
+## 2026-10-15 23:13 UTC: SHC-L result, P8L: unresolved under the rule fixed before the data. The meeting band was not reached by the continuation
+
+**Run.** Pod on SECURE H100 NVL: runner rc 0, job status 0, archive hash verified, terminated and verified gone; wall 4094 s; commit 87b97564.
+
+**Grid.** 20 x 20 cells, --multipliers-only, around (-0.1056, 0.1052). Reading: tools/dss_window.py with the amended rule (D = 0 curves; T-D quads; third multiplier), docs/dss/shc-p8l-window.json.
+- **Solved:** 211 of 400 cells, all attracting.
+- **D > 0 in every solved cell,** so no T = D = 0 point is possible among them.
+- **Trace:** 14 sign changes; no trace checkerboard; no T-D quad.
+- **Third multiplier:** at most 5.7e-5 of the second, so the two-dimensional reading is excellent where solved.
+- **Leading pair:** complex in 38 cells; smallest leading modulus 0.046.
+
+**The gap.** A band of unsolved cells, alpha2 from about 0.1051 to 0.1059 across the whole grid, separates negative trace above from positive trace below. That is exactly where the two arms should meet. The continuation could not enter it from either side, the same failure as in SHC-P8. The classifier map has period 8 there.
+
+**Verdict, by the frozen rule:** unresolved (unsolved cells at the meeting point). A one-cell CPU check at the band's centre (-0.1054, 0.1055) is running, to see whether Newton converges there from the fixed start and what its multipliers are.
+
+**Cost:** about $3.6.
