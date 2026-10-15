@@ -24086,3 +24086,21 @@ Pod cjlui0q6npnllj (SECURE H100 NVL; runner rc 0, hash verified, terminated; 201
   - 8 are chaotic at this horizon, with D = 1.008, 1.013, 1.013, 1.045, 1.050, 1.052, 1.100 and 1.156 (lambda_1 0.008-0.141; lambda_2 -0.85 to -1.31). At 1000 steps D differs by at most 0.06 (1.111 against 1.052 at log10 T 0.18984), and by at most 0.02 in the other cells.
   - 2 (log10 T 0.17968 and 0.18005) are not chaotic at this horizon: lambda_1 -0.007 and -0.009, with a repeated pair -0.35, -0.35 next. They are reported as such.
 - **Reading:** where the paper fits a scalar return relation (the chaos behind a repeating text), the chaotic attractors are within 0.16 of one-dimensional. At the six TC cells of the headline maps, D is 1.06-1.65.
+
+## 2026-10-15 05:10 UTC: LS result: the chaos map depends strongly on the steering block; deeper steering confines chaos to high temperature
+
+Pods jwiltzwchvpzqc, c2adoqzqddg41k, rsyvjrqt68l9h4, ajxk55udp6qsbc, e3kkmdk5sldh3n, znc21w5qzzpq15, 8qn0fkd9rtkvun, 3r71re3uebgwhd (SECURE, 3.99/h; runner rc 0, hashes verified, terminated; 734-869 s each; commit 5d6f0f4c?). Output: scan64/ls-l{4,8,16,20}-{lo,hi}. Block 12 is pairmap-qwen0.5b/map128-philosophy: same grid and scan settings, vectors with the same recipe. Figure: paper/llm/figures/fig-layer-sweep.png (tools/plot_layer_sweep.py).
+
+Chaotic share of the 128 x 128 cells (exponent above 1e-3, no period), alpha -0.12 to 0.12 and log10 T -1.0 to 0.3:
+
+| block | chaotic share | rows with chaos, log10 T | share at abs(alpha) < 0.02 |
+|---|---|---|---|
+| 4 | 5.9 % | -0.908 to 0.218 | 2.1 % |
+| 8 | 8.1 % | -0.949 to 0.280 | 1.2 % |
+| 12 | 6.8 % | -0.713 to 0.239 | 1.0 % |
+| 16 | 5.0 % | -0.631 to 0.208 | 0.8 % |
+| 20 | 2.3 % | -0.089 to 0.218 | 0.9 % |
+
+- Early-block steering (4, 8) carries chaos down to log10 T about -0.9 at strong steering, near greedy decoding. Late-block steering (20) leaves only a thin chaotic band at log10 T 0.1-0.25, with everything below it periodic.
+- Near zero steering every block gives 1-2 %.
+- Reading: exploratory, one direction, one prompt, one map per block. From block 8 on, the chaotic share and its lowest temperature fall monotonically with depth. A gain split by block would say whether the readout or the network factor carries the difference.
