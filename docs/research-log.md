@@ -25127,3 +25127,62 @@ Those were fixed values, not each problem's own edge. **Step 1** measures every 
 **Fix.** classify returns a Python bool; both tests now json.dumps every record (2 pass).
 
 **Relaunch.** Two pods, the same settings: train 0-59 and 60-119. The failed job's run time (two minutes including model loading) suggests about a minute per problem.
+
+## 2026-10-15 10:16 UTC: TBZg result (zoom around the three-hump cell) and run cards DSS5 and TBZg2
+
+**TBZg.** Pod (H100 class), commit 22bc4cf3 (orchestrator log); runner rc 0, job status 0; terminated; 2538 s. Map: tb/zg-grat4-host16-t-0.1, gratitude@4 + hostility@16, log10 T -0.1, 128 x 128 over alpha1 [-0.1225, -0.0973] and alpha2 [0.0872, 0.1124]. Chaotic share 39.0 %.
+
+**What the zoom shows.**
+- A doubling cascade crosses the plane: period 2 (right), bands of period 4 and 8, then 16, then chaos.
+- **A period-5 window** at about alpha1 -0.1185, alpha2 0.101 (316 period-5 cells in the zoom):
+  - **Legs:** thin diagonal period-5 legs crossing the chaotic region (up-right toward (-0.110, 0.112), down-right toward (-0.107, 0.094)).
+  - **Internal cascade:** a period-10 border, then period 20, on its left.
+  - **Coexistence:** where it meets the period-4 band (alpha1 -0.122 to -0.119, alpha2 0.100 to 0.1035), cells alternate patchily between periods 4, 5, 10 and 20, i.e. coexisting attractors reached from the fixed start.
+  - **Darkest cells:** the most strongly contracting period-5 cells lie inside the body, lambda -0.695 at (-0.11853, 0.10188).
+- **Why the coexistence matters.** A single unimodal map with negative Schwarzian derivative cannot have it (Singer). This is consistent with the multi-humped band maps of this plane.
+
+**Run card DSS5 (exploratory).** tools/doubly_superstable.py grid in the two-block plane (new path, two-block exact tangents fixed and checked earlier today):
+- period 5, gratitude@4 + hostility@16 at log10 T -0.1;
+- seed (-0.118730, 0.100693), lambda -0.268, all 8 neighbours period 5;
+- grid 31 x 31 over alpha1 [-0.1200, -0.1175] and alpha2 [0.0990, 0.1035];
+- k 6, tol 1e-12.
+
+Measure: the zero curves of the per-step factors of the leading multiplier. **A crossing of two different factors' zero curves is a doubly superstable point, the centre of a shrimp in Gallas' sense.** Where the leading multiplier is complex or not clean, the factors are undefined; such cells are flagged, as for the hostile body.
+
+**Run card TBZg2 (exploratory).** A finer map of the period-5 window: 128 x 128 over alpha1 [-0.1215, -0.1165] and alpha2 [0.0970, 0.1050], same settings as TBZg.
+
+## 2026-10-15 10:22 UTC: DLGa result: two chaotic co-writing agents usually lock each other into a periodic orbit
+
+**Run.** Pod (H100 class); commit 01a335d6 from the orchestrator log; runner rc 0; both jobs status 0; terminated. Maps: dialogue/cw-t-0.10 and cw-t-0.14, cowrite frame, philosophy at block 12 for both agents, 48 x 48 over alpha_A, alpha_B in [0.060, 0.082], 2304 cells each. Analysis: tools/plot_dialogue.py, written before the data. Outputs: docs/dlg/dlga-stats.json and the figure docs/dlg/dlga-cowrite-maps.png. The diagonal is the single loop (bitwise identity, smoke test).
+
+**log10 T -0.10:**
+- Single agents (diagonal): 27 chaotic, 21 periodic. Off-diagonal pairs: 1582 periodic, 667 chaotic, 7 other.
+- **Entrained** (pair periodic, both agents chaotic alone): **422 of 702** pairs (60 %). The null, drawing pair classes at the off-diagonal frequency, expects 492.
+- **Made chaotic** (pair chaotic, both agents periodic alone): 91 of 420 (22 %); null 124.
+- Inherited (pair class equals both agents'): 606 of 2256.
+
+**log10 T -0.14:**
+- Single agents: 9 chaotic, 39 periodic. Pairs: 2085 periodic, 162 chaotic.
+- Entrained: 34 of 72 (47 %; null 66.5). Made chaotic: 44 of 1482 (3 %; null 106).
+
+**Reading.**
+- **Alternating two personas favours order.** 70 % (log10 T -0.10) and 92 % (-0.14) of pairs are periodic, against 44 % and 81 % of single agents.
+- **Some chaos is inherited.** Pairs of chaotic agents are periodic less often than the pair base rate, and pairs of periodic agents are chaotic less often.
+- **The most frequent locked state** is period 1 of the exchange map: a two-message cycle (731 and 1161 cells). It fills the strips where either agent's alpha is below about 0.064: **the weakly steered agent dictates the exchange**.
+- **The exponent map is plaid** (stripes in alpha_A and in alpha_B), as if each agent contributed its own stability. It is not purely additive, since entrainment occurs.
+
+**Precedent to check before citing:** alternating two chaotic maps can produce order (the dynamical form of Parrondo's paradox).
+
+**Next.** soft_dialogue verify on the 12 entrained cells picked by plot_dialogue (docs/dlg/dlga-entrained-cells.json): Newton on G^P in float64, multipliers, primitive period, transcript. The dialogue-frame cells will be added when DLGb lands.
+
+## 2026-10-15 10:23 UTC: Run card DLGv1 (verification of entrained co-writing pairs)
+
+soft_dialogue verify on the 12 cells of docs/dlg/dlga-entrained-cells.json (cowrite, philosophy at block 12, log10 T -0.1):
+- settle 3000 exchanges from the fixed start;
+- period of G up to 64 at a relative return distance of 1e-7;
+- Newton on G^P (float64, exact forward-mode Jacobians composed over the two agents), tolerance 1e-11;
+- multipliers of the monodromy; primitive period (no return at a proper divisor); the transcript of one period (both agents' leading tokens).
+
+The agents alone are chaotic at these strengths by the map's twin exponents at both offsets. One H100-class pod; ceiling in the private ledger.
+
+Reference for the discussion: Almeida, Peralta-Salas and Romera, Physica D 200, 124-132 (2005), checked against Crossref and added to references.bib. Alternating two chaotic quadratic maps can give order.
