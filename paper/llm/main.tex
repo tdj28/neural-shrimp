@@ -71,8 +71,8 @@ that the expected-embedding loop of released language models is chaotic over wid
 strength, explain why steering makes it so, and measure what the chaos does.
 \begin{itemize}
 \item In a chaotic regime, an irrelevant change of batch size makes two otherwise identical float64 runs write
-  different text, after a number of steps that the Lyapunov exponent predicts. In a periodic regime 95\,\% of the
-  run pairs end within $3\times10^{-12}$ of each other. In bfloat16, the batch layout changed the answers of a short
+  different text, after a number of steps that the Lyapunov exponent predicts, in Qwen2.5-0.5B and, without steering,
+  in Qwen2.5-7B. In a periodic regime 95\,\% of the run pairs end within $3\times10^{-12}$ of each other. In bfloat16, the batch layout changed the answers of a short
   soft-thinking pipeline on 56\,\% of arithmetic problems and never changed greedy decoding's.
 \item Steering creates the chaos by making next tokens compete. Its change of the softmax readout produces the
   expansion, while its change of the network's response damps it; a logit bias alone suffices.
@@ -664,6 +664,10 @@ cells that never diverge have exponents of $0.013$ and $0.0013$, for which the p
 lower precision the rounding is larger. In float32 every chaotic cell diverges within about 20 steps. In bfloat16, a
 common serving precision, the two layouts differ by $10^{-2}$ after two steps at every cell, periodic ones included.
 At that precision the loop is not reproducible across batch layouts anywhere in this steered region.
+The same holds without steering in Qwen2.5-7B, whose embeddings are untied. Over 24 chaotic and 24 periodic
+temperatures of its unsteered loop, all 24 chaotic runs diverge after a median of 56 steps (the exponent again predicts
+the step, median ratio $0.95$), and 96\,\% of them end up writing different tokens. None of the 24 periodic runs moves
+past $10^{-2}$, and 95\,\% end within $1.3\times10^{-13}$ of each other.
 
 The same test at the level of answers, with a design frozen before the run, shows what this means for a task. We
 asked Qwen2.5-0.5B 96 held-out two-digit additions through a short soft-thinking pipeline: 32 expected-embedding steps
@@ -705,10 +709,18 @@ float32 against float64 & chaotic & 192 / 192 & 20 & 92.7\,\% \\
  & periodic & 75 / 192 & & 19.3\,\% \\
 batch layout, bfloat16 & chaotic & 192 / 192 & 2 & 99.5\,\% \\
  & periodic & 192 / 192 & 2 & 95.3\,\% \\
+\midrule
+7B unsteered, float64 & chaotic & 24 / 24 & 56 & 95.8\,\% \\
+ & periodic & 0 / 24 & & 0\,\% \\
+7B unsteered, float32 & chaotic & 24 / 24 & 16 & 95.8\,\% \\
+ & periodic & 4 / 24 & & 8.3\,\% \\
+7B unsteered, bfloat16 & chaotic & 24 / 24 & 2 & 75.0\,\% \\
+ & periodic & 24 / 24 & 2 & 50.0\,\% \\
 \bottomrule
 \end{tabular}
 \caption{Divergence of two otherwise identical runs, by the cells' float64 labels (1500 steps; ``end with different
-tokens'': the most probable tokens differ at some step of the last 500). In float32 the periodic cells that diverge may
+tokens'': the most probable tokens differ at some step of the last 500). Top: Qwen2.5-0.5B, philosophy direction at
+layer 12. Bottom: Qwen2.5-7B unsteered, 24 chaotic and 24 periodic temperatures of its long sweep. In float32 the periodic cells that diverge may
 change phase on the same cycle or switch between coexisting attractors; the run does not distinguish the two.}
 \label{tab:repro}
 \end{table}

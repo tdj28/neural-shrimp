@@ -24627,3 +24627,19 @@ The two-block figure was also regenerated with shared y axes (tools/plot_two_blo
 FBC148b (pod b15nhi8uic06dg, runner done 07:50) started at s96 (mu = -4e-9), then refused: "period-96 Newton did not converge at lambda = 0.0661242927". The residuals wandered between 2e-5 and 3e-3: the step from s96 to the far end spans about 0.54 of the period-96 band.
 - **FBC148c.** Start 0.06612361 (about s96 + 0.32 w96, still inside the attracting range) and next 0.06612418868 (f96 + 0.1 w192). The Newton step is now about 0.18 w96. Otherwise as FBC148b.
 - If this also fails, the -0.148 flips stay at period 96 in the paper, as the caption already says, and no further attempt is made tonight.
+
+## 2026-10-15 08:03 UTC: REPRO7 result: in unsteered Qwen2.5-7B a batch-size change alone makes all 24 chaotic temperatures diverge (median step 56, as lambda predicts) and none of 24 periodic ones
+
+Pods lzd2y8s940fuog (REPRO7a, float64) and sj3h0wu7ffntlw (REPRO7b, float32 and bfloat16): SECURE H100 NVL; runner rc 0, hashes verified, terminated; 340 and 412 s; commit 0f91c457. Cells: docs/repro7-cells.json, unsteered (alpha 0), 1500 steps. Inline analysis in this session.
+
+| comparison | label | reach 1e-2 | median step | median final distance | end with different tokens |
+|---|---|---|---|---|---|
+| batch, float64 | chaotic | 24 / 24 | 56 | 0.96 | 95.8 % |
+| | periodic | 0 / 24 | | 4.3e-15 | 0 % |
+| batch, float32 | chaotic | 24 / 24 | 16 | 1.12 | 95.8 % |
+| | periodic | 4 / 24 | | 2.2e-6 | 8.3 % |
+| batch, bfloat16 | chaotic | 24 / 24 | 2 | 0.63 | 75.0 % |
+| | periodic | 24 / 24 | 2 | 0.28 | 50.0 % |
+
+- **float64.** The divergence step of the chaotic cells against ln(1e-2/d_1)/lambda: median ratio 0.95, log-log correlation 0.63 (24 cells). The periodic cells' final distances: 95th percentile 1.3e-13; median largest distance 3.6e-13.
+- **Reading.** The 0.5B result replicates without steering, in a model with untied embeddings: in float64 the dynamical regime decides whether the batch layout changes the text, and the exponent predicts when. In bfloat16 the layout changes the trajectory everywhere.
