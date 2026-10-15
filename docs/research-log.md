@@ -26231,3 +26231,7 @@ The human asked what the black in the left panel of fig:zoom70 means, since it i
 - Whether its two curves cross (Type A head) or turn away (Type B) is not decided by this grid.
 - A grid extended to alpha2 0.095 would settle it (exploratory; not launched).
 - P8 is still running.
+
+## 2026-10-15 20:17 UTC: Note: the definition of "above the ridge" in the Z70 counts
+
+The Z70 result entry and the artifact check above count cells "above the ridge" the same way, though the Z70 entry did not state the definition: in each steering column, the cells above the highest chaotic cell (exponent above 1e-3, no period) with log10 T above 0.165. Recomputing with it gives the entry's 1105 cells, 994 of them periodic and 479 of period 1 or 2.
