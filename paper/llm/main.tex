@@ -339,12 +339,79 @@ contract, and more strongly than the actual cycle (\texttt{tools/alignment\_inte
 spectral summaries can be inconclusive; the ordered product of the step Jacobians captures the cycle's linear
 stability.
 
-\paragraph{Steering acts on the gain.} Steering enters both factors of \eqref{eq:gain}: it moves the logits, and
-with them $\Sigma_p$, and it moves the hidden states, and with them $J_{\tilde h}$. The gain mechanism is not
-specific to concept-labelled directions, although a direction's geometry affects both factors and can correlate with
-its meaning. This is consistent with the controls of Section~\ref{sec:discussion}, in which norm-matched random
-directions also produce chaos in the 0.5B and 8B models; at 70B the directions differ (Section~\ref{sec:size}). What
-a direction does select is which tokens dominate $p$, and therefore what the attractors write.
+\paragraph{Steering makes tokens compete.} Steering enters both factors of \eqref{eq:gain}: it moves the logits, and
+with them $\Sigma_p$, and it moves the hidden states, and with them $J_{\tilde h}$. Which change makes the loop
+chaotic? Three measurements on Qwen2.5-0.5B, steered along the philosophy direction, give one answer
+(Figure~\ref{fig:mechanism}, Table~\ref{tab:mechanism}). First, each step's growth splits exactly into a network
+factor $g_{\mathrm{net}}=(|\delta\tilde h|/|\tilde h|)/(|\delta x|/|x|)$ and a readout factor
+$g_{\mathrm{read}}=(|\delta F|/|F|)/(|\delta\tilde h|/|\tilde h|)$. Averaged along an orbit, their logarithms add up
+to the largest Lyapunov exponent, up to a boundary term. Over a $101\times53$ map in steering strength and temperature
+(block 12; 5353 cells, 331 chaotic), the chaotic cells' readout factor exceeds that of nearly unsteered cells
+($|\alpha|\le0.01$) at the same temperature by $2.58$ nats per step (95\,\% interval $[1.79,3.58]$ over 18 temperature
+rows). Their network factor differs by only $-0.07$ $[-0.21,0.11]$. Without steering the readout contracts strongly,
+by $0.9$ to $5.5$ nats per step; in the chaotic cells it expands. Compared with periodic cells at the same temperature,
+chaotic cells have a higher next-token entropy ($+1.62$ nats, $[1.26,1.91]$), a smaller gap between the two largest
+logits ($-1.37$ in units of $T$, $[-1.98,-0.87]$) and a larger readout factor ($+1.36$, $[0.92,1.92]$), each with
+$p\le10^{-4}$ in a permutation test within temperature rows.
+
+Second, a readout-only intervention gives chaos. We add to the logits a bias $\beta\,b$ along the direct logit effect
+of the steering vector ($b=Wv$, centred and scaled to unit standard deviation over the vocabulary), with no residual
+steering. This leaves the network untouched and changes only which tokens compete. It makes 3.5\,\% of the same
+temperature range chaotic (241 of 6837 cells), against 6.2\,\% for residual steering, mostly at
+$\log_{10}T>0.1$. Creating token competition therefore suffices for chaos, given the unmodified network.
+
+Third, a gain split compares different orbits, so steering could act simply by moving the orbit to other states. A
+crossover at fixed states rules this out. Along recorded steered orbits we evaluated the steered and the unsteered
+model at the same states and carried four tangent dynamics. Each pairs the steered or unsteered readout $R(p)$ with the
+steered or unsteered network Jacobian: arms 11, 10, 01 and 00. Arm 11 reproduces the twin exponent within $0.012$ at 23
+of 24 cells. Over 14 held-out chaotic cells, steering only the readout raises the growth by $0.81$ nats per step
+($[0.29,1.35]$). Steering only the network response lowers it by $0.49$ ($[-0.63,-0.35]$). The interaction is $+0.26$
+($[0.10,0.45]$). Below $\log_{10}T=0$ the steered readout turns a contracting unsteered derivative ($-1.03$ nats per
+step) into an expanding one ($+0.72$), more strongly than the full steered map ($+0.34$). Above it, the unsteered
+derivative already expands at the steered states ($+0.41$), and steering acts by bringing the orbit there.
+
+Steering thus makes the loop chaotic by making next tokens compete. This turns the softmax readout from a contraction
+into an expansion, while the network's own response, if anything, damps the growth. The mechanism is not specific to
+concept-labelled directions. This is consistent with the controls of Section~\ref{sec:discussion}, in which
+norm-matched random directions also produce chaos in the 0.5B and 8B models; at 70B the directions differ
+(Section~\ref{sec:size}). What a direction does select is which tokens compete, and therefore what the attractors
+write.
+\begin{figure}[tbp]
+\centering
+\includegraphics[width=\linewidth]{fig-mechanism.png}
+\caption{Why steering makes the loop chaotic (Qwen2.5-0.5B-Instruct, philosophy direction, float64).
+(a) Readout factor (solid) and network factor (dotted) along steering lines at block 12, at five temperatures; dots mark
+chaotic cells. (b) Row-matched differences between chaotic and periodic cells (black) and between chaotic and nearly
+unsteered cells (red) on the $101\times53$ map, with 95\,\% bootstrap intervals over temperature rows and
+permutation $p$-values. (c) Orbit-preserving crossover: finite-time growth along each recorded steered orbit when the
+readout and the network Jacobian are taken from the unsteered (0) or steered (1) model; red, chaotic cells; blue,
+periodic cells; dark red, the mean over held-out chaotic cells. (d) Share of chaotic cells per temperature under
+residual steering at block 12 and under a pure logit bias along $Wv$. (e) The two factors of the chaotic cells by
+steering block.}
+\label{fig:mechanism}
+\end{figure}
+\begin{table}[!htb]
+\centering\small
+\begin{tabular}{lll}
+\toprule
+measurement & contrast & estimate (95\,\% interval) \\
+\midrule
+gain split, $101\times53$ map & readout factor, chaotic $-$ $|\alpha|\le0.01$ & $+2.58$ $[1.79,3.58]$ nats/step \\
+ & network factor, chaotic $-$ $|\alpha|\le0.01$ & $-0.07$ $[-0.21,0.11]$ nats/step \\
+ & entropy, chaotic $-$ periodic & $+1.62$ $[1.26,1.91]$ nats \\
+ & top-2 logit gap$/T$, chaotic $-$ periodic & $-1.37$ $[-1.98,-0.87]$ \\
+logit bias only, $\alpha=0$ & chaotic share & 3.5\,\% (241 of 6837 cells) \\
+residual steering, block 12 & chaotic share & 6.2\,\% (331 of 5353 cells) \\
+crossover, 14 held-out cells & readout effect, arm 10 $-$ arm 00 & $+0.81$ $[0.29,1.35]$ nats/step \\
+ & network effect, arm 01 $-$ arm 00 & $-0.49$ $[-0.63,-0.35]$ nats/step \\
+ & interaction & $+0.26$ $[0.10,0.45]$ nats/step \\
+\bottomrule
+\end{tabular}
+\caption{Where steering's instability comes from. Intervals: bootstrap over temperature rows (gain split) or over
+held-out cells (crossover). Runs MECH and XO; \texttt{tools/steer\_gain.py}, \texttt{tools/crossover.py},
+\texttt{tools/plot\_mechanism.py}.}
+\label{tab:mechanism}
+\end{table}
 
 \paragraph{Contraction and expansion in the network.} Analyses of deep attention identify contracting tendencies:
 pure self-attention collapses token representations toward a common vector with depth \cite{dong2021attention}, and
