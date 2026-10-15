@@ -1221,9 +1221,10 @@ CPU and an H100 to $4\times10^{-15}$.
 Continuing a just-born doubled orbit past period 48 failed: Newton's method slides onto the half-period orbit, which
 is also periodic with the doubled period. We therefore also located the superstable parameters $s_p$, where the
 critical multiplier vanishes in the middle of each band (Table~\ref{tab:superstable}). There the orbit attracts, so it
-can be reached by forward iteration and cannot slide onto its half-period parent. Through period 384 the superstable
-ratios are $3.19$, $4.02$, $4.478$ and $4.625$. The last two come from parameters resolved to $10^{-14}$ and differ
-from Feigenbaum's value by $0.19$ and $0.044$; from $4.02$ on, the distance shrinks by factors of $3.4$ and $4.3$.
+can be reached by forward iteration and cannot slide onto its half-period parent. Through period 768 the superstable
+ratios are $3.19$, $4.02$, $4.478$, $4.625$ and $4.660$. The last three come from parameters resolved to $10^{-14}$ and
+differ from Feigenbaum's value by $0.19$, $0.044$ and $0.0097$; from $4.02$ on, the distance shrinks by factors of
+$3.4$, $4.3$ and $4.6$.
 The flip ratios $2.84$, $2.86$, $3.78$ and $4.36$ rise in step (Figure~\ref{fig:feigenbaum}); the last comes from a
 run started inside the period-96 band, which located the $96\to192$ flip directly. The accumulation point lies
 near $\alpha_\infty\approx0.0661250$. The early superstable values are less precise. The other computed Ritz values of
@@ -1241,12 +1242,14 @@ period $p$ & superstable parameter $s_p$ & bracket width & ratio $\frac{s_p-s_{p
 48 & $0.066114132784466$ & $3\times10^{-15}$ & $4.02$ \\
 96 & $0.066122589892689$ & $7\times10^{-15}$ & $4.4779$ \\
 192 & $0.066124478510077$ & $6\times10^{-15}$ & $4.6251$ \\
-384 & $0.066124886853811$ & $5\times10^{-15}$ & \\
+384 & $0.066124886853811$ & $5\times10^{-15}$ & $4.6595$ \\
+768 & $0.066124974490236$ & $4\times10^{-15}$ & \\
 \bottomrule
 \end{tabular}
 \caption{Superstable parameters of the crescent's doubling sequence along $\log_{10}T=-0.14798$: the critical
 multiplier of the period-$p$ orbit changes sign across the bracket, with Newton residuals below $3\times10^{-13}$ and
-the other computed Ritz moduli below $10^{-20}$ from period 96 on. Brackets for periods 12 and 24 are the closest points where
+the other computed Ritz moduli below $10^{-20}$ from period 96 to 384; at period 768 the residual is
+$1.2\times10^{-12}$ and the other moduli are below $3\times10^{-20}$. Brackets for periods 12 and 24 are the closest points where
 the critical multiplier is cleanly identified.}
 \label{tab:superstable}
 \end{table}
@@ -1276,15 +1279,15 @@ within a bracket of $5.9\times10^{-6}$ (worst-case range $[1.01,4.65]$).
 \centering
 \includegraphics[width=0.58\linewidth]{fig-feigenbaum-ratios.png}
 \caption{Finite-order interval ratios of the doubling sequences: the crescent of Qwen2.5-0.5B-Instruct (philosophy
-direction, layer 12), from flips and from superstable points (which reach period 384), and the route of Qwen2.5-1.5B
+direction, layer 12), from flips and from superstable points (which reach period 768), and the route of Qwen2.5-1.5B
 (philosophy direction, layer 14; Figure~\ref{fig:qwen15route}), from flips. A superstable ratio spans half-bands, so
 it is plotted half a level after the flip ratio of its first band. Bars: worst-case ranges from the brackets of
 $s_{12}$ and $s_{24}$. At $\log_{10}T=-0.148$, and in the 1.5B model, the ratios rise toward Feigenbaum's $\delta$ from below; the
-last superstable ratio at $-0.148$ is within 1\,\% of it, and the last 1.5B ratio ($4.665$) within 0.1\,\%. At $\log_{10}T=-0.156$ the first ratio, $14.9$, lies off the scale
+last superstable ratio at $-0.148$ is within 0.21\,\% of it, and the last 1.5B ratio ($4.665$) within 0.1\,\%. At $\log_{10}T=-0.156$ the first ratio, $14.9$, lies off the scale
 (arrow), and the later ratios approach $\delta$ from below, the last ($4.6688$) within $0.01\,\%$ of it. Its first two
 superstable ratios carry no bars: the brackets of $s_{12}$ and $s_{24}$ allow $[3.40,29.3]$ and $[1.01,4.65]$. Each
 sequence ends at the deepest level computed: the flips at $-0.148$ at period 96 (a search for the next flip ended short of it), the superstable points at period
-384, the 1.5B route at period 256, and the cut at
+768, the 1.5B route at period 256, and the cut at
 $-0.156$, which we followed furthest, at period 1536.
 }
 \label{fig:feigenbaum}
