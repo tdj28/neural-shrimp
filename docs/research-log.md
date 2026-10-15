@@ -24525,3 +24525,11 @@ Pod 9oreujzv1m3s7r (SECURE H100 NVL; runner rc 0, hash verified, terminated; 154
 - **Caveats.**
   - 0.5B model; one task family; a soft-thinking pipeline without top-k (not the published method's exact settings).
   - Accuracy rises with temperature here (soft tokens at T = 2.5 are nearly uninformative, and the model then answers from the question). Answer changes are therefore largest where the soft trace carries the most information.
+
+## 2026-10-15 07:36 UTC: Amendment to the FB extensions: FBC148 and FB15D stopped at their bracket checks; FB15D located the 1.5B route's 64->128 flip (fourth ratio 4.578); both relaunched with nearer far ends
+
+- Relaunched at commit 9684d66f (same code; this entry was committed after the launch). **FBC148** (pod 208222ah6uhvvh). It refused at the start: "no flip bracketed for period 96: mu + 1 = 1 at 0.066122589892689 and 1 at 0.066124478510077". The far end s192 lies too far past the 96->192 flip for the period-96 evaluation used there.
+  - Relaunch (FBC148b) with next = f96 + 0.25 w192 = 0.0661242927. The estimate comes from the measured -0.148 flips: f96 is about 0.06612411968 (from f48 = 0.06612095632 and the band position of s96, 0.516); w192 is about 6.9e-7.
+- **FB15D** (pod khn3ry7hqoi4fg). It located the 64->128 flip of the 1.5B route at log10 T = -0.001824434015999929 (mu = -0.9999999999, next modulus 2e-14; 9 evaluations). It then refused to switch: "period-128 orbit at the switching point -0.0018207 is already beyond its flip (mu = -1.611)".
+  - New 1.5B flip ratio: (f32 - f16) / (f64 - f32) = **4.578**. The route's ratios are now 3.60, 4.28, 4.578.
+  - Relaunch (FB15E) from period 128: start f64 + 0.5 w128 = -0.0018229570, next f128 + 0.25 w256 = -0.00182132, with w128 = (f64 - f32)/4.6 and ratio guess 4.58; 2 flips (128->256, 256->512).
