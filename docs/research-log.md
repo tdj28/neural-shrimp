@@ -24533,3 +24533,11 @@ Pod 9oreujzv1m3s7r (SECURE H100 NVL; runner rc 0, hash verified, terminated; 154
 - **FB15D** (pod khn3ry7hqoi4fg). It located the 64->128 flip of the 1.5B route at log10 T = -0.001824434015999929 (mu = -0.9999999999, next modulus 2e-14; 9 evaluations). It then refused to switch: "period-128 orbit at the switching point -0.0018207 is already beyond its flip (mu = -1.611)".
   - New 1.5B flip ratio: (f32 - f16) / (f64 - f32) = **4.578**. The route's ratios are now 3.60, 4.28, 4.578.
   - Relaunch (FB15E) from period 128: start f64 + 0.5 w128 = -0.0018229570, next f128 + 0.25 w256 = -0.00182132, with w128 = (f64 - f32)/4.6 and ratio guess 4.58; 2 flips (128->256, 256->512).
+
+## 2026-10-15 07:39 UTC: Corrections from Codex Task 21a (independent Feigenbaum audit, comms 07:35 UTC)
+
+Codex recomputed the flip and superstable ratios at -0.156 from the saved files and confirmed them (14.928, 3.1241, 4.4988, 4.6208, 4.6618; superstable 10.212, 3.7125, 4.5716, 4.6429). It also confirmed the FBD floor root 0.065103473548573818, with next ratio 4.66733. Corrections adopted:
+- **FBD entry.** "Ritz residual below 1e-14" should read "below 2e-14". The saved maximum is 1.96e-14.
+- **Band of the floor root.** "+-2.3e-13 (scatter divided by slope)" is not a bound. The outward bound from the largest residual over the slope, across Codex's three fit variants, is below 3.24e-13. The paper now says +-3.3e-13. The clean local location lies 9.3e-14 away.
+- **P-F2.** As scored at 06:05 the first of the two ratios had a bracket envelope [1.018, 4.642], not wholly inside the frozen range. The current scoring (FBS384 entry) uses 4.643 [4.639, 4.647] and 4.6646, both resolved.
+- **--g-accept.** It is a fixed threshold on the best single residual, not a scatter-based gate. FBD's root came from the stated line fit, not from the gate.
