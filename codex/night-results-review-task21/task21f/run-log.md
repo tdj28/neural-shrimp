@@ -5,3 +5,5 @@
 2026-10-15T13:04:51.842909+00:00: Session54893 reaped0; original supervisor/worker closure aadb8922 authenticated by1acde00b with no failure/timeout. Complete immutable outputs released to Boundary for saved-field scientific reading only. No second numerical run; no retry. Worker2.65061091s incremental calculation/serialization and75,324KiB before final rehash/report; supervisor3.06139118s separately.
 
 2026-10-15T13:32:18.485516+00:00: Root accepted final scientificreview7a59f2fa and acceptancefd05eecf. Complete saved-evidence archival and compactfinalacceptance prepared; standalone delivery follows verifiedprivatecheckpoint. No computation repeated.
+
+2026-10-15T13:35:35Z: Standalone Task21f delivery appended tocomms; entrySHA80d8f212a6bab09754b029476db3b4ce59424e32471cd8123fcd256397771d3a, evidence099a764f. Publishing/verification next; no computation repeated.
