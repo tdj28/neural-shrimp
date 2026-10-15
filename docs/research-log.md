@@ -26125,3 +26125,18 @@ Eighteen pointers were re-targeted after a semantic check. The main text now end
 SHC-P2 and SHC-P4 are running, SHC-P8 has also started. The P2 and P8 pods share one run folder, because their orchestrators started in the same second; a watcher copies the P2 receipt aside before the P8 result can overwrite it.
 
 **Acknowledgement.** At the human's request it now notes the author's doctoral research in nonlinear dynamics, citing jones2012rossler.
+
+## 2026-10-15 19:31 UTC: SHC-P2 result: the period-2 cell is two-dimensional throughout, and its oval of strongest contraction is mostly a focus region
+
+**Run.** Pod 356pr9qcyijx6r (NVIDIA H100 80GB HBM3); commit 1b1ef257 from the orchestrator log; runner rc 0; results hash-verified (e192f5a9...); terminated and absent from the inventory; 4078 s.
+- The P2 and P8 orchestrators started in the same second and therefore share the run folder 20261015T182127Z. A watcher copied the P2 receipt, archive and extracted results to 20261015T182127Z-p2 before the P8 result could overwrite them.
+- The refused 18:06 attempts had left empty progress.jsonl files in dss/p2-, p4- and p8-grat4-host16-cascade. Those folders are kept as *.refused-seed-20261015T1806, and the P2 results were installed in place.
+
+**Grid** (--multipliers-only): 52 x 20 cells over alpha1 [-0.1025, -0.0975] and alpha2 [0.0995, 0.1124]. All 1040 cells are solved; 928 attracting and 112 repelling (beyond the 2 -> 4 flip). Statistics are in docs/dss/shc-p2-window.json (tools/dss_window.py).
+- **Two-dimensional throughout.** In attracting cells the median ratio |mu2|/|mu1| is 0.59. Only 19 attracting cells are clean in the one-dimensional sense (|mu1| > 10 |mu2|); 235 have a complex leading pair and 489 a real pair of opposite signs.
+- **No head.** The leading modulus never falls below 0.222 (a complex pair, -0.112 +- 0.192i): the period-2 orbit is never close to superstable.
+- **The oval of strongest contraction seen on the maps is mostly the focus region.**
+  - Complex-pair cells have median |mu1| 0.413 (0.222-0.667), real-pair cells 0.678 (0.264-0.999).
+  - Of the 47 most contracting attracting cells (the lowest 5 %, |mu1| <= 0.347), 35 are foci, and the global minimum is one.
+  - Algebraically, a real pair has |mu1| >= sqrt|det| and a complex pair |mu1| = sqrt(det), checked to 1e-16 in every cell. So the attracting node contracts most where it has become a focus (Mira 1987, p. 353).
+- **Trace-zero geometry.** A tongue of positive trace runs diagonally through the cell, bounded by two trace-zero arcs that meet near its top; it is open at the grid's lower edge. One cell-resolution checkerboard lies near the tip, at row 41, col 16 (alpha1 ~ -0.0983, alpha2 ~ 0.1099). It is a candidate crossing of trace-zero curves that this grid does not resolve.
