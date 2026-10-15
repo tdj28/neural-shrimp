@@ -72,14 +72,15 @@ hidden states back \cite{hao2024coconut}, and recurrent-depth models iterate a b
 that the expected-embedding loop of released language models is chaotic over wide ranges of temperature and steering
 strength, explain why steering makes it so, and measure what the chaos does.
 \begin{itemize}
-\item In a chaotic regime, an irrelevant change of batch size makes two otherwise identical float64 runs write
-  different text, after a number of steps that the Lyapunov exponent predicts, in Qwen2.5-0.5B, Llama-3.3-70B and,
+\item In a chaotic regime, an irrelevant change of batch size makes two otherwise identical float64 runs diverge
+  until their most probable tokens differ, after about the number of steps that the Lyapunov exponent sets, in Qwen2.5-0.5B, Llama-3.3-70B and,
   without steering, Qwen2.5-7B and Llama-3.1-8B; in a periodic regime the two runs stay together. In bfloat16, the batch layout
   changed the answers of a short soft-thinking pipeline on 56\,\% of arithmetic problems in a 0.5B model and 55\,\% in
   a 7B model, far more often than it changed greedy decoding's (never and 10\,\%).
 \item Steering creates the chaos by making next tokens compete, which turns the softmax readout from a contraction
   into an expansion; a logit bias alone suffices. At fixed states, steering's change of the network's response damps
-  the instability in a 0.5B and a 7B model, and adds nothing to it along the other directions we tested.
+  the instability along the philosophy direction in a 0.5B and a 7B model, and does not add to it along the other
+  directions we tested.
 \item The depth at which a steering vector enters sets how much chaos it causes, in a 0.5B model and in a 70B
   model, and two steering vectors at different depths create chaos that neither causes alone.
 \item Two loops writing one text lock each other into periodic orbits. Of the pairs of differently steered 0.5B
@@ -129,14 +130,16 @@ sampling.
 \paragraph{Contributions.}
 \begin{enumerate}
 \item \emph{The dynamical regime decides whether a run can be reproduced.} Run twice with only the batch layout changed,
-  190 of 192 chaotic float64 loops of Qwen2.5-0.5B diverge from rounding-level differences to different text, after
-  a median of 102 steps and as the Lyapunov exponent predicts (median ratio 0.91), while 182 of 192 periodic loops
-  stay within $10^{-2}$ and 95\,\% end within $3\times10^{-12}$. The same holds without steering in Qwen2.5-7B (24 of 24
+  190 of 192 chaotic float64 loops of Qwen2.5-0.5B grow from rounding-level differences past a relative distance of
+  $10^{-2}$, after a median of 102 steps and in line with the Lyapunov exponent (median ratio 0.91), and at 173 of them
+  the most probable readout token comes to differ; 182 of 192 periodic loops stay within $10^{-2}$, and 182 end within
+  $3\times10^{-12}$. The same holds without steering in Qwen2.5-7B (24 of 24
   chaotic loops diverge, none of 24 periodic ones) and Llama-3.1-8B (20 of 20, and 1 of 20), and with steering in
   Llama-3.3-70B (24 of 24, and none of 24). In bfloat16 nearly every
   loop diverges within a few steps (Section~\ref{sec:consequences}). At the level of answers, in a frozen test on 96 additions, the batch layout
   changed the answer of a bfloat16 soft-thinking pipeline in 56\,\% of problems at $T=1$ in Qwen2.5-0.5B and in
-  55\,\% at $T=10^{0.2}$ in Qwen2.5-7B, far more often than it changed greedy decoding's output (never and 10\,\%).
+  55\,\% at $T=10^{0.2}$ in Qwen2.5-7B, far more often than it changed a forced greedy baseline's output (never and
+  10\,\%).
 \item \emph{Steering makes next tokens compete.} An exact split of each step's growth shows that steering into chaos
   raises the readout factor by 2.58 nats per step and leaves the network factor flat. A logit bias alone, with the
   network untouched, makes 3.5\,\% of the plane chaotic. An orbit-preserving crossover attributes the expansion at
@@ -236,7 +239,8 @@ many steps, and their stability has been analysed through Jacobians and fixed po
 \cite{bai2019deq,bai2021stabilizing,geiping2025recurrent,zhu2025ouro,tomihari2025recurrent,yang2026stars,prairie2026parcae,buehlmaier2026layernorm,labovich2026stability,movahedi2026fixedpoint},
 and recent analyses of looped reasoners follow their internal dynamics, their settling, marginal or drifting regimes
 and slowly decaying oscillatory modes \cite{blayney2026mechanistic,viakhirev2026thinkshallow,park2026loopedearlier};
-that analysis concerns fixed points and their spectra. A minimal recurrent self-attention with a repulsive value map
+these studies examine fixed-point stability, finite-depth dynamics and nonstationary regimes. Here we continue
+full-state periodic branches and classify their bifurcations in specified frozen-model feedback maps. A minimal recurrent self-attention with a repulsive value map
 becomes chaotic \cite{gao2026repulsive}, but it is a constructed model, not a trained one. A separate line predicts the answers of looped models from the geometry of
 score margins along completed finite-depth trajectories \cite{luo2026prediction}, without fixed points or Jacobians. The closest precedent is a derivative-based fold analysis of a small task-trained
 looped transformer, whose passage and spectral-gap predictions are unfitted \cite{kim2026phase}. That model was
@@ -373,8 +377,8 @@ lists moduli), and its second singular value is $1.7\times10^{-6}$ to $2\times10
 implementation of the model reproduced the factorization (to $8.3\times10^{-14}$), the step singular values, the
 signed multipliers and the cycle norms at all eight starting phases. The expansion of each step is undone by the
 steps that follow, and the strongly anisotropic linear return of the stripe orbits is a property of the composed
-cycle, not of any single step or of the rank of $\Sigma_p$. Nor does the contraction depend on a special alignment of
-the steps: with independent random (Haar) rotations inserted between the eight step Jacobians, all 16 products
+cycle, not of any single step or of the rank of $\Sigma_p$. Nor does the contraction need the actual alignment of
+the steps: with independent random (Haar) rotations inserted between the eight step Jacobians, all 16 tested products
 contract, and more strongly than the actual cycle (\texttt{tools/alignment\_intervention.py}). Stepwise norm or
 spectral summaries can be inconclusive; the ordered product of the step Jacobians captures the cycle's linear
 stability.
@@ -388,8 +392,9 @@ $g_{\mathrm{read}}=(|\delta F|/|F|)/(|\delta\tilde h|/|\tilde h|)$. Averaged alo
 to the largest Lyapunov exponent, up to a boundary term. Over a $101\times53$ map in steering strength and temperature
 (block 12; 5353 cells, 331 chaotic), the chaotic cells' readout factor exceeds that of nearly unsteered cells
 ($|\alpha|\le0.01$) at the same temperature by $2.58$ nats per step (95\,\% interval $[1.78,3.59]$ over 18 temperature
-rows). Their network factor differs by only $-0.07$ $[-0.23,0.12]$. Without steering the readout contracts strongly,
-by $0.9$ to $5.5$ nats per step; in the chaotic cells it expands. Compared with periodic cells at the same temperature,
+rows; 321 chaotic and 162 nearly unsteered cells). Their network factor differs by only $-0.07$ $[-0.23,0.12]$. With
+nearly no steering the readout contracts strongly, by $0.87$ to $5.49$ nats per step. In the chaotic cells it expands,
+except in the three highest temperature rows ($\log_{10}T=0.175$--$0.225$), where it still contracts but less. Compared with periodic cells at the same temperature,
 chaotic cells have a higher next-token entropy ($+1.62$ nats, $[1.26,1.91]$), a smaller gap between the two largest
 logits ($-1.37$ in units of $T$, $[-1.98,-0.87]$) and a larger readout factor ($+1.36$, $[0.91,1.93]$), each with
 $p\le10^{-4}$ in a permutation test within temperature rows.
@@ -401,29 +406,34 @@ temperature range chaotic (241 of 6837 cells), against 6.2\,\% for residual stee
 $\log_{10}T>0.1$. Creating token competition therefore suffices for chaos, given the unmodified network.
 
 Third, a gain split compares different orbits, so steering could act simply by moving the orbit to other states. A
-crossover at fixed states rules this out. Along recorded steered orbits we evaluated the steered and the unsteered
-model at the same states and carried four tangent dynamics. Each pairs the steered or unsteered readout $R(p)$ with the
-steered or unsteered network Jacobian: arms 11, 10, 01 and 00. Arm 11 reproduces the twin exponent within $0.012$ at 23
-of 24 cells. Over 14 held-out chaotic cells, steering only the readout raises the growth by $0.81$ nats per step
+crossover at fixed states separates the two contributions along the recorded orbits. Along recorded steered orbits we
+evaluated the steered and the unsteered model at the same states and carried four tangent dynamics. Each pairs the
+steered or unsteered readout $R(p)$ with the steered or unsteered network Jacobian: arms 11, 10, 01 and 00. The frozen
+validation (arm 11 within $0.02$ of the twin exponent at every cell) holds at 23 of 24 cells, all within $0.012$; at
+the remaining periodic cell, which contracts at about $-12$ per step, the twin offset falls to the rounding floor. The
+frozen sufficiency criterion (arm 10 within $0.1$ of arm 11 on average) fails by overshoot: steering only the readout
+gives more growth than the full steered map, by $0.23$, because steering's change of the network damps it. Over 14 held-out chaotic cells, steering only the readout raises the growth by $0.81$ nats per step
 ($[0.29,1.35]$). Steering only the network response lowers it by $0.49$ ($[-0.63,-0.35]$). The interaction is $+0.26$
 ($[0.09,0.45]$). Below $\log_{10}T=0$ the steered readout turns a contracting unsteered derivative ($-1.03$ nats per
 step) into an expanding one ($+0.72$), more strongly than the full steered map ($+0.34$). Above it, the unsteered
-derivative already expands at the steered states ($+0.41$), and steering acts by bringing the orbit there. In
+derivative already expands at the steered states ($+0.41$), and steering may act by bringing the orbit there. In
 Qwen2.5-7B, whose embeddings are untied, the same crossover (18 cells of its steered map at block 14; arm 11 equals the
-twin exponent within $10^{-4}$ at every cell) reproduces the damping. Over 10 held-out chaotic cells, steering only the
-network response lowers the growth by $1.14$ nats per step ($[-1.61,-0.64]$). Eight of these cells lie at
-$\log_{10}T\ge0$, where the unsteered derivative already expands at the steered states ($+1.33$), and steering only the
-readout adds $+0.23$ ($[-0.11,0.63]$). The crossover along two more directions of the 0.5B model gives the same
+twin exponent within $10^{-4}$ at every cell) reproduces the damping. Over its 10 held-out chaotic cells, steering only
+the network response lowers the growth by $1.14$ nats per step ($[-1.61,-0.64]$), and steering only the readout adds
+$+0.23$ ($[-0.11,0.63]$). Eight of the ten lie at $\log_{10}T\ge0$, where the unsteered derivative already expands at
+the steered states (mean $+1.33$). The crossover along two more directions of the 0.5B model gives the same
 signs. For gratitude the readout effect is $+0.33$ ($[0.07,0.59]$) and the network effect $-0.14$ ($[-0.29,0.01]$). For
 a random direction matched in norm to the philosophy vector, they are $+0.77$ ($[0.47,1.12]$) and $-0.09$
 ($[-0.22,0.06]$); 14 held-out chaotic cells each. The readout effect is positive along all three directions, and the
-network effect is negative but compatible with zero along these two. The mechanism does not depend on the
-direction's meaning.
+network effect is negative but compatible with zero along these two. In these three directions the readout effect
+does not depend on the direction's meaning.
 
-Steering thus makes the loop chaotic by making next tokens compete, which turns the softmax readout from a
-contraction into an expansion. At low temperature it creates that competition at fixed states. At higher temperature it
-mainly carries the orbit into states that are already competitive. In both models its change of the network's response
-damps the growth. The readout rule holds below $\log_{10}T\approx0.1$; at higher temperature the network factor itself
+Along the sampled orbits, then, steering makes the loop chaotic mainly by making next tokens compete, which turns the
+softmax readout from a contraction into an expansion. At low temperature it creates that competition at fixed states.
+At higher temperature the orbit lies in states that are already competitive, consistent with steering having carried it
+there. Along the philosophy direction, in both models, its change of the network's response damps the growth. These are
+conditional comparisons on recorded trajectories; they do not establish that the readout change alone would sustain
+the same attractor. The readout rule holds below $\log_{10}T\approx0.1$; at higher temperature the network factor itself
 can expand. Steered at block 4, the chaotic
 cells at $\log_{10}T=0.15$ have a network factor of $+0.72$ and a contracting readout ($-0.35$). Along the hostile line
 at $\log_{10}T=0.12$--$0.13$ the network factor of the chaotic cells is $+0.60$ against $+0.24$ to $+0.38$ at the
@@ -443,7 +453,7 @@ permutation $p$-values. (c) Orbit-preserving crossover: finite-time growth along
 readout and the network Jacobian are taken from the unsteered (0) or steered (1) model; red, chaotic cells; blue,
 periodic cells; dark red, the mean over held-out chaotic cells; navy, the same mean in Qwen2.5-7B. (d) Share of chaotic cells per temperature under
 residual steering at block 12 and under a pure logit bias along $Wv$. (e) The two factors of the chaotic cells by
-steering block, at $\log_{10}T\le0$. (f) Kaplan--Yorke dimension against the readout's stable rank at the chaotic cells of the dimension
+steering block, at $\log_{10}T\le0$. (f) Kaplan--Yorke dimension against the readout's trace-to-leading-eigenvalue ratio at the chaotic cells of the dimension
 measurement (Section~\ref{sec:theory}); dotted, equality.}
 \label{fig:mechanism}
 \end{figure}
@@ -488,54 +498,59 @@ exponents in some regions of its parameter plane and positive ones in others.
 dimensions, yet two reductions make low-dimensional theory apply (Figure~\ref{fig:tworeductions}). Near a bifurcation of a periodic orbit the centre
 manifold theorem reduces the dynamics exactly to the critical directions, whatever the size of the other multipliers,
 as long as they stay off the unit circle. Our normal forms of folds, flips, cusps and 1:1 resonances rest on this
-reduction alone. Global statements, that a whole attractor follows a scalar return map, need more: the other
-multipliers must be small. Near the periodic orbits we compute they are, from a few times $10^{-2}$ at short periods
-to below $10^{-13}$ along the cascade (Sections~\ref{sec:mechanism} to~\ref{sec:cascade}), and the reduction improves
-with period: along the cascade at $\log_{10}T=-0.156$ the next modulus falls from $0.12$ at the first flip to
-$0.045$, $7\times10^{-5}$, $4\times10^{-7}$ and $2\times10^{-13}$ at the next four. Temperature,
-through the gain of \eqref{eq:gain}, and steering unfold the reduced map as a two-parameter family. Generic
-two-parameter families of smooth one-dimensional maps with a quadratic extremum have universal features: fold and flip
-curves with cusps where fold curves turn, period-doubling cascades whose interval ratios tend to Feigenbaum's
-$\delta$, and saddle-node windows that accumulate on a fold with $d_N\propto N^{-2}$ (Figure~\ref{fig:atlas} sketches the
-objects we locate). The organization of shrimps needs
+reduction alone. A scalar description of a whole attractor needs additional, global evidence. The small non-critical
+multipliers of the periodic orbits we computed show strong transverse contraction near those orbits and motivate that
+description: they range from a few times $10^{-2}$ at short periods to below $10^{-13}$ along the cascade
+(Sections~\ref{sec:mechanism} to~\ref{sec:cascade}), and along the cascade at $\log_{10}T=-0.156$ the next modulus
+falls from $0.12$ at the first flip to $0.045$, $7\times10^{-5}$, $4\times10^{-7}$ and $2\times10^{-13}$ at the next
+four. Temperature, through the gain of \eqref{eq:gain}, and steering act as two parameters. One-dimensional families of
+maps with a quadratic extremum can exhibit fold and flip curves, nondegenerate cusps, period-doubling cascades whose
+interval ratios tend to Feigenbaum's $\delta$, and saddle-node windows that accumulate on a fold with
+$d_N\propto N^{-2}$ (Figure~\ref{fig:atlas} sketches the objects we locate); we test these predictions on specific
+branches and parameter sequences below. The organization of shrimps needs
 more, either a second turning point of the reduced map or a second dimension
 \cite{gallas1993structure,jones2012rossler}. We test the consequences where we state them: the multipliers of each
 orbit, the interval ratios, and the normal-form predictions of passage times and coexisting orbits. Where the second
 multiplier is not small, as in the high-temperature bubble of Section~\ref{sec:cascade} (next moduli $0.28$ and
 $0.38$), the global reduction is only a rough guide, while the local normal forms still apply.
 
-\paragraph{Coexisting attractors mark the limits of one dimension.} A classical theorem says what a one-dimensional
-reduction cannot do. If an interval map is three times differentiable, unimodal and has negative Schwarzian derivative,
-$Sf=f'''/f'-\tfrac32(f''/f')^2<0$, the immediate basin of every attracting periodic orbit contains the turning point or
-an endpoint of the interval, so the map has at most one attracting periodic orbit in the interior
-\cite{singer1978stable}. The soft-token map violates this conclusion in several places. Near each located cusp with
+\paragraph{Coexisting attractors constrain one-dimensional descriptions.} A classical theorem says what a
+one-dimensional reduction cannot do. If an interval map is three times differentiable, unimodal and has negative
+Schwarzian derivative, $Sf=f'''/f'-\tfrac32(f''/f')^2<0$, the immediate basin of every attracting periodic orbit
+contains the turning point or an endpoint of the interval \cite{singer1978stable}; if basins reaching an endpoint are
+excluded, at most one attracting periodic orbit remains. The soft-token map has coexisting attracting orbits in several
+places. Near each located cusp with
 $c<0$, two attracting orbits of the same period coexist with a saddle between them (periods 4 and 6,
 Section~\ref{sec:curves}; period 7, Section~\ref{sec:hostility}). Inside the hostile period-7 body, the period-7 loop
-coexists with a fixed point, which the fixed start reaches at isolated cells. Wherever two attractors coexist, the
-effective one-dimensional dynamics cannot be a single unimodal map with negative Schwarzian derivative: it needs a
-second turning point, a stretch of positive Schwarzian derivative, or a second dimension. A second turning point is
-also what a doubly superstable shrimp centre requires.
+coexists with a fixed point, which the fixed start reaches at isolated cells. Such coexistence constrains a scalar
+interpretation: unless one attractor's basin reaches an end of the scalar interval, the effective one-dimensional
+dynamics cannot be a single unimodal map with negative Schwarzian derivative, and needs a second turning point, a
+stretch of positive Schwarzian derivative, or a second dimension. A second turning point is also what a doubly
+superstable shrimp centre requires.
 
 \paragraph{How many dimensions does the chaos have?} For chaotic attractors the corresponding measure is the
 Kaplan--Yorke dimension \cite{kaplan1979chaotic}, $D_{\mathrm{KY}}=j+\sum_{i\le j}\lambda_i/|\lambda_{j+1}|$ with $j$ the
 largest index at which the partial sum of the ordered Lyapunov exponents is still nonnegative; with one positive
-exponent and $\lambda_1+\lambda_2<0$, $D_{\mathrm{KY}}=1+\lambda_1/|\lambda_2|$. We computed the four leading exponents
-by QR iteration (Section~\ref{sec:methods}; 1000 transient and 2000 measured steps, float64) at chaotic cells chosen
-by percentile of their largest exponent, before any of their spectra were seen. Of the 35 cells measured, 31 have a
-positive leading exponent, and each of these has exactly one, so none of them is hyperchaotic (the other four have
-none at this horizon). The dimension grows with temperature. Along the hostile
-temperature line, where we fit a scalar return relation (Section~\ref{sec:hostility}), eight chaotic cells have
-$D_{\mathrm{KY}}=1.008$ to $1.16$: one-dimensional to within a sixth of a dimension. At fourteen chaotic cells of the
+exponent and $\lambda_1+\lambda_2<0$, $D_{\mathrm{KY}}=1+\lambda_1/|\lambda_2|$. We estimated the four leading
+exponents by QR iteration (Section~\ref{sec:methods}; 1000 transient and 2000 measured steps, float64) at 35 completed
+cells: 28 chosen by percentile of their largest exponent before any of their spectra were seen (of 30 requested), and
+seven from the earlier horizon check, six chaotic and one periodic control. At this horizon 31 have a positive leading
+estimate and none has two positive estimates. These are finite-time estimates, not asymptotic dimensions. They grow
+with temperature. Along the hostile temperature line, where we fit a scalar return relation
+(Section~\ref{sec:hostility}), eight chaotic cells have $D_{\mathrm{KY}}=1.008$ to $1.16$, consistent with nearly
+one-dimensional chaos. At fourteen chaotic cells of the
 headline maps ($\log_{10}T$ from $-0.17$ to $-0.04$) it is $1.03$ to $1.65$, rising with $\lambda_1$. In the
 high-temperature region ($\log_{10}T$ from $-0.02$ to $0.13$), nine chaotic cells have $D_{\mathrm{KY}}=1.37$ to
-$2.02$; at two of them $\lambda_1+\lambda_2\ge0$, and the attractor is effectively two-dimensional. A scalar return
+$2.02$; at two of them the sum of the first two estimates is nonnegative, which suggests a second expanding direction
+at this horizon. A scalar return
 map describes the low-temperature chaos well and the high-temperature chaos poorly, consistent with the large second
 multipliers of the high-temperature bubble. The number of competing tokens does not set the dimension. The readout's
-stable rank, $\operatorname{tr}\Sigma_p/\lambda_{\max}(\Sigma_p)$ averaged along the orbit, counts the directions in which
-the readout amplifies comparably. $D_{\mathrm{KY}}$ never exceeds it and rises with it within each group of cells
-(Spearman $0.72$ over 17 philosophy cells, $0.69$ over 8 hostile cells, both confounded with temperature). Across
-groups it does not predict the dimension: the hostile cells have stable ranks of 16 to 19 and next-token entropies of 7
-to 9 nats, yet $D_{\mathrm{KY}}\le1.16$. The readout supplies many competing directions; the network decides how many
+trace-to-leading-eigenvalue ratio, $\operatorname{tr}\Sigma_p/\lambda_{\max}(\Sigma_p)$ averaged along the orbit (with
+$\lambda_{\max}$ estimated by eight power iterations), counts the directions in which the readout amplifies comparably.
+$D_{\mathrm{KY}}$ never exceeds it and rises with it within each group of cells (Spearman $0.72$ over 17 philosophy
+cells and $0.69$ over 8 hostile cells, computed when the data came in and not independently reproduced; both are
+confounded with temperature). Across groups it does not predict the dimension: the hostile cells have ratios of about
+16 to 19 and next-token entropies of about 7 to 9 nats, yet $D_{\mathrm{KY}}\le1.16$. The readout supplies many competing directions; the network decides how many
 of them expand.
 \input{figures/tikz-atlas}
 
@@ -682,60 +697,66 @@ reproducible: GPU kernels choose different reduction orders for different matrix
 on the batch it shares and on the hardware \cite{he2025nondeterminism,yuan2025nondeterminism}. We ran the 448 labelled
 cells of the horizon check (192 chaotic, 192 periodic and 64 other cells of two float64 maps; Section~\ref{sec:methods})
 twice in lockstep from the same start. The two runs differ only in the batch: all cells in one batch of $n$ rows, or
-the same rows followed by the same cells in reverse order ($2n$ rows), which changes the matrix shapes the kernels see
-and nothing else (Figure~\ref{fig:repro},
-Table~\ref{tab:repro}). In float64 the two runs first differ by about $6\times10^{-15}$, the rounding level. At 190 of
-the 192 chaotic cells this difference grows to order one, after a median of 102 steps, and 90\,\% of the chaotic cells
-end up writing different tokens. At 182 of the 192 periodic cells the two runs stay within $10^{-2}$ for all 1500
-steps; their median largest distance is $2\times10^{-12}$, and 95\,\% of all periodic cells end the run within
-$3\times10^{-12}$. The Lyapunov exponent predicts when a chaotic run
-diverges: the step at which the distance passes $10^{-2}$ follows $\ln(10^{-2}/d_1)/\lambda$, where $d_1$ is the first
-nonzero distance, with a median ratio of $0.91$ and a log-log correlation of $0.73$ over 190 cells. The two chaotic
+the same rows followed by $n$ further rows whose steering vectors are those of the first $n$ in reverse order, at the
+original temperatures ($2n$ rows). This changes the matrix shapes the kernels see; the first $n$ rows compute the same
+cells (Figure~\ref{fig:repro}, Table~\ref{tab:repro}). In float64 the two runs first differ by about
+$6\times10^{-15}$, the rounding level. At 190 of the 192 chaotic cells this difference passes a relative distance of
+$10^{-2}$, after a median of 102 steps, and grows on to order one (median final distance $0.91$); at 173 of the 192
+chaotic cells the most probable token of the loop's readout differs between the runs at some step of the last 500. At
+182 of the 192 periodic cells the two runs stay within $10^{-2}$ for all 1500 steps, with a median largest distance of
+$2.3\times10^{-12}$, and 182 of the 192 periodic cells end the run within $3\times10^{-12}$. The Lyapunov exponent
+accounts for when a chaotic run diverges: the step at which the distance passes $10^{-2}$ follows
+$\ln(10^{-2}/d_1)/\lambda$, where $d_1$ is the smallest nonzero distance in the run, with a median ratio of $0.91$
+and a log-log correlation of $0.73$ over 190 cells. This uses the whole run and is therefore retrospective; an
+independent recomputation with the first nonzero distance instead gives the same rounded values. The two chaotic
 cells that never diverge have exponents of $0.013$ and $0.0013$, for which the predicted step lies beyond the run.
 The same holds without steering in Qwen2.5-7B, whose embeddings are untied. Over 24 chaotic and 24 periodic
 temperatures of its unsteered loop, all 24 chaotic float64 runs diverge, after a median of 56 steps (the exponent again
-predicts the step, median ratio $0.95$), and 96\,\% of them end up writing different tokens. None of the 24 periodic runs
-moves past $10^{-2}$, and 95\,\% end within $1.3\times10^{-13}$ of each other. A second model family, unsteered
-Llama-3.1-8B, gives the same picture: all 20 chaotic temperatures diverge after a median of 68 steps (median ratio to
-the exponent's prediction $1.05$), all 20 end up writing different tokens, and 19 of the 20 periodic ones stay within
+accounts for the step, median ratio $0.95$), and at 23 of them the readout's most probable token differs at some step
+of the last 500. None of the 24 periodic runs moves past $10^{-2}$; 22 end within $1.3\times10^{-13}$ of each other
+and all within $2.2\times10^{-12}$. A second model family, unsteered Llama-3.1-8B, gives the same picture: all 20
+chaotic temperatures diverge after a median of 68 steps (median ratio to the exponent's estimate $1.05$), all 20 differ
+in their readout's most probable token in the last 500 steps, and 19 of the 20 periodic ones stay within
 $10^{-2}$. At 70B the picture is unchanged. In Llama-3.3-70B-Instruct steered along hostility-vs-kindness at block 20
 (float64 arithmetic on its stored bfloat16 weights, layers spread over two GPUs, 1000 steps), all 24 chaotic cells
-diverge, after a median of 114.5 steps (median ratio to the prediction $0.83$, log-log correlation $0.74$), and 21 of
-them end up writing different tokens. None of the 24 periodic cells moves past $10^{-2}$, and all end within
+diverge, after a median of 114.5 steps (median ratio to the exponent's estimate $0.83$, log-log correlation $0.74$),
+and at 21 of them the readout's most probable token differs at some step of the last 300. None of the 24 periodic cells moves past $10^{-2}$, and all end within
 $1.3\times10^{-12}$. In lower precision the rounding is
 larger. In float32 every chaotic cell of both models diverges, after a median of 20 steps (0.5B) or 16 (7B). In
 bfloat16, a common serving precision, the two layouts pass a distance of $10^{-2}$ after a median of one or two steps
-at every cell of the two Qwen models and at 38 of the 40 Llama cells, periodic ones included. At that precision the
-loop is not reproducible across batch layouts in any regime we tested.
+at every cell of the two Qwen models and at 38 of the 40 Llama cells, periodic ones included. With these kernels and at
+that precision, the loop was not reproducible across batch layouts in any regime we tested.
 
 The same test at the level of answers, with a design frozen before the run, shows what this means for a task. We
 asked Qwen2.5-0.5B 96 held-out two-digit additions through a short soft-thinking pipeline: 32 expected-embedding steps
 appended to a growing context, then a fixed answer cue and greedy extraction of the number. Each problem ran alone and
 in a batch with three fixed distractor problems of the same length, so nothing is padded and only the matrix shapes
 differ. In bfloat16 the extracted answer changed with the batch layout in 56\,\% of the problems at $T=1$ and in
-8\,\% at $T=10^{0.2}$. Ordinary greedy decoding, run with the same budget, produced identical token sequences in both
-layouts for every problem. The excess disagreement of soft over greedy decoding, averaged over the two temperatures,
-is 32.3 percentage points (95\,\% interval $[26.6,38.0]$; sign-flip $p=10^{-4}$, the smallest attainable). In float64 no
-answer changed within the 32 steps. There, a perturbation of the first soft token grows by only $0.03$ nats per step
-at $T=1$ and shrinks at higher temperature, and even a relative kick of $10^{-4}$ changes no answer. The bfloat16
-discrepancies are therefore not the float64 map's chaos. They arise from bfloat16's rounding differences accumulating
-through continuous feedback, which a discrete argmax would absorb. (The greedy baseline's accuracy is not
+8\,\% at $T=10^{0.2}$. A forced greedy baseline with the same budget (32 greedy tokens, then the same cue) produced
+identical token sequences in both layouts for every problem. The excess disagreement of soft over greedy decoding,
+averaged over the two temperatures, is 32.3 percentage points (95\,\% interval $[26.5,38.1]$; sign-flip $p=10^{-4}$,
+the smallest attainable). In float64 no answer changed within the 32 steps. There, the median growth of an injected
+kick to the first soft token is $0.033$ nats per step at $T=1$ (range $-0.13$ to $0.24$ over six problems and three
+kick sizes), and even a relative kick of $10^{-4}$ changes no answer. The bfloat16 discrepancies therefore do not
+require the float64 map's chaos; they are consistent with bfloat16's rounding differences accumulating through
+continuous feedback, which a discrete argmax would absorb. (The forced greedy baseline's accuracy is zero and not
 informative: forced through 32 tokens, the model writes past its answer, and the cue then extracts another number.)
-The same frozen test in Qwen2.5-7B, which answers these problems well, replicates the result. In bfloat16 the batch
-layout changed the soft-thinking answer in 55\,\% of the problems at $T=10^{0.2}$, the temperature at which the soft
-trace still matters (accuracy 51 to 64\,\%). At this precision even greedy decoding changed in 10\,\% of the
-problems, the known batch-variance effect. The excess over greedy decoding is 17.7 points ($[9.4,25.5]$, $p=2\times10^{-4}$).
-In float64, at that temperature, the 7B's loop amplifies an injected perturbation (median $+0.034$ nats per step),
-injected kicks change answers (2 of 18 runs), and the rounding-level difference between the layouts changed 5\,\% of
-the answers within the 32 steps.
+The same frozen test in Qwen2.5-7B, whose soft-thinking pipeline answers 51 to 64\,\% of these problems, replicates
+the result. In bfloat16 the batch layout changed the soft-thinking answer in 53 of the 96 problems (55\,\%) at
+$T=10^{0.2}$, the temperature at which the soft trace still matters. At this precision even the forced greedy baseline
+changed in 10 of the 96, the known batch-variance effect. The excess over greedy decoding is 17.7 points
+($[9.3,25.6]$, $p=2\times10^{-4}$). In float64, at that temperature, the 7B's loop amplifies an injected perturbation
+(median $+0.034$ nats per step), injected kicks change answers (2 of 18 kicks: six problems and three kick sizes), and
+the rounding-level difference between the layouts changed 5\,\% of the answers within the 32 steps.
 Two horizons thus matter. Within a short budget, continuous feedback in low precision makes answers depend on the
 batch, and where the loop expands, even float64 rounding does. Over longer runs, a chaotic regime amplifies float64
-rounding into different text, on the schedule its Lyapunov exponent sets.
+rounding into different readout tokens, on the schedule its Lyapunov exponent sets.
 \begin{figure}[tbp]
 \centering
 \includegraphics[width=\linewidth]{fig-repro.png}
 \caption{Only the batch layout differs. The 448 labelled cells of Qwen2.5-0.5B-Instruct (philosophy direction, layer
-12) run twice from the same start, alone in a batch or followed by the same cells reversed. (a) float64: median and
+12) run twice from the same start, alone in a batch or followed by $n$ further rows with the steering vectors in
+reverse order. (a) float64: median and
 interquartile range of the relative distance between the two runs, by the cells' float64 labels. (b) Medians for
 float32 and bfloat16 batch layouts. (c) float64 chaotic cells: the step at which the distance passes $10^{-2}$ against
 $\ln(10^{-2}/d_1)/\lambda$, with $d_1$ the first nonzero distance and $\lambda$ the map exponent; dotted, equality.}
@@ -787,9 +808,9 @@ change phase on the same cycle or switch between coexisting attractors; the run 
 controlling and probing models \cite{zou2023representation,rimsky2024steering}, usually added at one layer chosen by
 hand. In Qwen2.5-0.5B the philosophy direction, built with the same recipe at blocks 4, 8, 12, 16 and 20 and scaled to
 each block's residual norm, makes 5.9, 8.1, 6.8, 5.0 and 2.3\,\% of the same $128\times128$ plane chaotic
-(Figure~\ref{fig:layersweep}). Early steering carries the chaos down to $\log_{10}T\approx-0.9$, close to greedy
-decoding, while steering at block 20 confines it to a thin band at $\log_{10}T=0.1$--$0.25$. Near zero steering every
-block gives 1--2\,\%. Llama-3.3-70B behaves the same way. Steered along its hostility direction, it is chaotic in 8.0\,\%
+(Figure~\ref{fig:layersweep}). Early steering carries the chaos down to $\log_{10}T=-0.95$ (block 8) and $-0.91$
+(block 4), while at block 20 the chaotic cells lie between $\log_{10}T=-0.09$ and $0.22$, three fifths of them above
+$0.1$. In the strip $|\alpha|<0.02$ every block gives 0.8 to 2.1\,\%. Llama-3.3-70B behaves the same way. Steered along its hostility direction, it is chaotic in 8.0\,\%
 of a $24\times24$ map at block 20 of 80, down to $\log_{10}T=-0.14$, against 4.3\,\% at block 35, where the chaos starts
 at $\log_{10}T=0.01$, 4.3\,\% at block 50 (32 by 32 cells), and 0.7\,\% at block 65, all above
 $\log_{10}T=0.19$. These 70B labels are those of the map
@@ -804,27 +825,30 @@ where the network factor carries it (block 20: network $+1.09$, readout $-0.78$;
 \begin{figure}[tbp]
 \centering
 \includegraphics[width=\linewidth]{fig-layer-sweep.png}
-\caption{The same steering direction (philosophy, Qwen2.5-0.5B-Instruct) entering at five blocks of 24: largest
+\caption{The philosophy direction of Qwen2.5-0.5B-Instruct, built with the same recipe at each of five blocks of 24: largest
 Lyapunov exponent on $128\times128$ float64 cells over the steering strength and $\log_{10}T\in[-1,0.3]$. The share of
 chaotic cells is given above each panel.}
 \label{fig:layersweep}
 \end{figure}
 
 \paragraph{Two steering vectors interact.} Steering at two blocks at once, gratitude at block 4 and hostility at block
-16 of Qwen2.5-0.5B, makes 21.7\,\% of a $96\times96$ plane chaotic at $\log_{10}T=-0.1$. Along the two axes, where only one
-push acts, the shares are 7.3 and 8.3\,\%. Large chaotic regions lie off the axes, where neither push alone is chaotic
-(Figure~\ref{fig:twoblock}): in 17.1\,\% of that plane (1574 cells, 79\,\% of its chaotic off-axis cells) the combined
-push is chaotic although each push alone, at the same strength, is not. Over the four planes this share is 9.5 to
-17.1\,\%. With the blocks exchanged (hostility at 4, gratitude at 16) the plane is 23.4\,\% chaotic,
-and at $\log_{10}T=0.1$ both pairs give 33 and 42\,\%. Each plane keeps a periodic hole around zero steering. Combining
-steering vectors is therefore not additive in its effect on the loop's stability: a composition of two pushes can be
-chaotic where each push alone is periodic.
+16 of Qwen2.5-0.5B, makes 21.7\,\% of a $96\times96$ plane chaotic at $\log_{10}T=-0.1$. The grid has no row or column at
+exactly zero, so we computed the single pushes separately, each with the other exactly absent and on the same grid: they
+make 12.5\,\% (gratitude at block 4 alone) and 5.2\,\% (hostility at block 16 alone) of their lines chaotic. Large
+chaotic regions lie where neither push alone is chaotic (Figure~\ref{fig:twoblock}): 1561 cells, 16.9\,\% of the plane
+and 78\,\% of its chaotic cells, are chaotic although each push alone, at the same strength, is not, and in 1525 of them
+each push alone is periodic. Over the four planes (two block orders, $\log_{10}T=\pm0.1$) this share is 8.3 to
+16.9\,\% of the plane, and 7.8 to 16.5\,\% with both single pushes periodic. With the blocks exchanged (hostility at 4,
+gratitude at 16) the plane is 23.4\,\% chaotic, and at $\log_{10}T=0.1$ both pairs give 33 and 42\,\%. Each plane keeps
+a periodic hole around zero steering. Combining steering vectors is therefore not additive in its effect on the loop's
+stability: a composition of two pushes can be chaotic where each push alone is periodic.
 \begin{figure}[tbp]
 \centering
 \includegraphics[width=0.85\linewidth]{fig-two-block.png}
 \caption{Two steering directions at two blocks of Qwen2.5-0.5B-Instruct: largest Lyapunov exponent on $96\times96$
 float64 cells over the two strengths, at $\log_{10}T=-0.1$ (left) and $0.1$ (right). Top: gratitude at block 4,
-hostility at block 16; bottom: the blocks exchanged. Dotted lines mark the axes, where only one push acts.}
+hostility at block 16; bottom: the blocks exchanged. Dotted lines mark the zero axes; the grid does not sample them,
+and the single-push controls quoted in the text were computed separately on exact zero lines.}
 \label{fig:twoblock}
 \end{figure}
 
@@ -837,26 +861,29 @@ both zones. Second, labelling each of 200 prompts by the regime of its own unste
 a chaotic loop were answered far less accurately, but mostly because chaotic labels fell on the harder task and on
 flatter answer distributions.
 
-A frozen test settles the second design. Its design, covariates and analysis were pushed before any data. It uses
+A frozen test addresses the second design. Its design, covariates and analysis were pushed before any data. It uses
 4000 fresh products of two two-digit numbers and the unsteered Qwen2.5-7B-Instruct at $\log_{10}T=0.40$: 1484 prompts
-have a chaotic loop and 2509 a periodic one. Chaotic-loop prompts are again answered less accurately by ordinary
+have a chaotic loop and 2509 a periodic one (seven with other labels are excluded). Chaotic-loop prompts are again answered less accurately by ordinary
 sampling, by 7.1 points (95\,\% interval $[4.8,9.3]$; 10 samples per prompt). The gap vanishes once seven difficulty
 covariates, all fixed before sampling, enter the fit. Beyond them the label's coefficient is $+0.15$ points
 ($[-1.4,1.7]$, permutation $p=0.84$), and the label adds no held-out predictive value. The first-token entropy alone
 absorbs nearly all of the gap (post hoc: $-0.8$ points remain). This is what the mechanism of
 Section~\ref{sec:theory} predicts. The loop turns chaotic where next tokens compete, and a model unsure of its first
-token also answers worse. The loop's regime adds nothing beyond that uncertainty.
+token also answers worse. Beyond that uncertainty, no association of the loop's regime with accuracy is detected at
+this precision; this does not show that the regime has no effect.
 
-Within a prompt the regime does not matter either. We steered the first 1000 of these prompts slightly, at block 14
+Within a prompt no association is detected either. We steered the first 1000 of these prompts slightly, at block 14
 along philosophy, hostility-vs-kindness and a random direction. The strength, 1\,\% of the residual norm, is the largest
-at which greedy accuracy stayed within 5 points of the unsteered model on 200 calibration prompts; on the 1000 prompts it
-is 0.87 to 0.89, against 0.89 unsteered. This push changes
-the loop's label in 508 of the 1000 prompts. With prompt and condition fixed effects, in an analysis fixed before the
-data, a chaotic loop changes the accuracy of the prompt's ordinary sampled answers by $+0.36$ points (95\,\% interval
-$[-0.36,1.08]$; permutation within prompts, $p=0.34$).
+at which greedy accuracy stayed within 5 points of the unsteered model on the first 200 of these prompts (so the
+calibration overlaps the test prompts); on the 1000 prompts it is 0.87 to 0.89, against 0.89 unsteered. Under these
+pushes the loop's label differs between conditions for 508 of the 1000 prompts. With prompt and condition fixed
+effects (3992 prompt-condition rows), in an analysis fixed before the data, a chaotic label is associated with a change
+of $+0.36$ points in the accuracy of the prompt's ordinary sampled answers (95\,\% interval $[-0.36,1.08]$;
+permutation within prompts, $p=0.34$). This does not identify a causal effect of entering chaos: the pushes can act on
+the answers through other paths as well.
 
-Nor does accuracy peak at the edge of chaos. Adjusted for the covariates, three groups of prompts are answered
-alike:
+Nor does accuracy peak at the edge of chaos. Adjusted for the covariates, three groups of prompts (3603 of the 4000;
+the rest have intermediate exponents) are answered alike:
 \begin{itemize}
   \item deep periodic ($\lambda\le-0.3$, 1961 prompts): $+0.3$ points;
   \item edge ($|\lambda|\le0.1$, 242 prompts): $-0.1$ points;
@@ -864,7 +891,7 @@ alike:
 \end{itemize}
 All three intervals lie within $[-3.1,3.0]$. The edge contrast is $-0.4$ points ($[-3.5,2.6]$), and the curvature in
 $\lambda$ is positive, the opposite of an edge optimum. Post hoc, the curvature comes from the most strongly
-contracting tenth of prompts ($\lambda\le-3.4$), answered 5.3 points ($[3.0,7.6]$) better than the covariates
+contracting tenth of prompts ($\lambda\le-3.42$), answered 5.3 points ($[3.0,7.6]$) better than the covariates
 predict. That is a lead for a future test, not a finding.
 
 \section{Period adding written in text}
@@ -1233,21 +1260,21 @@ last three come from runs started inside the period-96 band, which located the f
 directly. The accumulation point lies
 near $\alpha_\infty\approx0.0661250$. The early superstable values are less precise. The other computed Ritz values of
 the period-12 and period-24 orbits blur the root, so $s_{12}$ and $s_{24}$ are known only within brackets of
-$1.2\times10^{-5}$ and $7\times10^{-7}$, and the ratios $3.19$ and $4.02$ have worst-case ranges $[2.90,3.34]$ and
-$[4.02,4.10]$. $s_6$ is less precise still, and $s_3$ was not bracketed.
+$1.24\times10^{-5}$ and $6.9\times10^{-7}$, and the ratios $3.19$ and $4.019$ have worst-case ranges $[2.895,3.338]$
+and $[4.019,4.101]$. $s_6$ is less precise still, and $s_3$ was not bracketed.
 \begin{table}[H]
 \centering\small
 \begin{tabular}{rlll}
 \toprule
 period $p$ & superstable parameter $s_p$ & bracket width & ratio $\frac{s_p-s_{p/2}}{s_{2p}-s_p}$ \\
 \midrule
-12 & $0.0659717$ & $1.2\times10^{-5}$ & \\
+12 & $0.0659717$ & $1.24\times10^{-5}$ & \\
 24 & $0.06608014$ & $6.9\times10^{-7}$ & $3.19$ \\
-48 & $0.066114132784466$ & $3\times10^{-15}$ & $4.02$ \\
+48 & $0.066114132784466$ & $3.3\times10^{-15}$ & $4.019$ \\
 96 & $0.066122589892689$ & $7\times10^{-15}$ & $4.4779$ \\
-192 & $0.066124478510077$ & $6\times10^{-15}$ & $4.6251$ \\
+192 & $0.066124478510077$ & $6.4\times10^{-15}$ & $4.6251$ \\
 384 & $0.066124886853811$ & $5\times10^{-15}$ & $4.6595$ \\
-768 & $0.066124974490236$ & $4\times10^{-15}$ & \\
+768 & $0.066124974490236$ & $4.1\times10^{-15}$ & \\
 \bottomrule
 \end{tabular}
 \caption{Superstable parameters of the crescent's doubling sequence along $\log_{10}T=-0.14798$: the critical
@@ -1262,20 +1289,25 @@ so the reduced one-dimensional map might have a nearly corner-like extremum, rou
 doublings would then see the corner, where ratios tend toward 2, and later ones the smooth quadratic core. This
 predicts smaller early ratios at lower temperature. We fixed that prediction before locating the flips along two
 lower cuts, and it fails. At $\log_{10}T=-0.156$ the first ratio is $14.93$, five times its value at $-0.148$
-(Table~\ref{tab:cascade156}). The cut at $-0.152$ crosses a doubling bubble: its period-12 orbit merges back into the
-period-6 orbit near $\alpha\approx0.0657$, so that cut has no complete cascade. The early ratios thus depend strongly
+(Table~\ref{tab:cascade156}). At $-0.152$ the continued period-12 solution collapsed onto its period-6 parent near
+$\alpha\approx0.0657$, and the forward search found no next flip. This is compatible with a doubling bubble, but we
+did not locate its reverse boundary or exclude a narrower cascade on that cut. The early ratios thus depend strongly
 on where a cut crosses the crescent, and we withdraw the crossover explanation. The later ratios at $-0.156$ behave as
 universality requires. The next ratios are $3.124$, $4.4988$, $4.6208$, $4.6618$, $4.6673$ and $4.6688$. Their
 deviations from $\delta=4.6692$ are $-1.55$, $-0.17$, $-0.048$, $-0.0074$, $-0.0019$ and $-0.00036$, and from the third
-on each step closes the gap by a factor of 3.5 to 6.5. The last ratio uses the flip of the period-768 orbit, located
-with $|\mu+1|=4\times10^{-7}$. The last flip, of the period-384 orbit, approaches the precision floor of its multiplier,
-a product of 384 step Jacobians. On an H100 the computed $\mu+1$ scatters by $1.8\times10^{-5}$ about a straight line
-near the root; the largest residual divided by the slope places the flip within $\pm3.3\times10^{-13}$. The workstation GPU located it at
+on each step closes the gap by a factor of 3.5 to 6.5. The last ratio uses the flip of the period-768 orbit (the
+$768\to1536$ flip), located with $|\mu+1|=4.1\times10^{-7}$. The penultimate flip, of the period-384 orbit,
+approaches the precision floor of its multiplier, a product of 384 step Jacobians. On an H100 the computed $\mu+1$
+scatters by $1.8\times10^{-5}$ about a straight line near the root; under that local linear fit, the largest residual
+divided by the slope gives a location uncertainty of about $\pm3.3\times10^{-13}$, an estimate rather than a
+certified bound. The workstation GPU located it at
 $\alpha=0.06510347354866666$ with $|\mu+1|=4\times10^{-9}$, $9\times10^{-14}$ from the H100 estimate. Over that range the
 ratio lies between $4.6672$ and $4.6675$. The
 superstable points along the same cut, through period 384, give the ratios $10.21$, $3.713$, $4.572$, $4.643$ and
 $4.6646$. Before computing them we fixed the prediction that the last two superstable ratios at a new temperature
-would lie within 5\,\% of $\delta$. Both do. The last, $4.6646$, rests on parameters resolved to $5\times10^{-15}$ and
+would lie within 5\,\% of $\delta$, in $[4.436,4.902]$. At the original readout, through period 192, the point
+estimates $4.572$ and $4.643$ met it, but the bracket envelope of $4.572$ did not; extending the computation to period
+384 later gave the pair $4.643$ and $4.6646$, both inside the interval. The last, $4.6646$, rests on parameters resolved to $5\times10^{-15}$ and
 differs from $\delta$ by $0.1\,\%$. Over the corners of the brackets the one before lies in $[4.639,4.647]$,
 limited by $s_{48}$, whose bracket is $2.4\times10^{-9}$ wide. The earlier ratio $4.572$ depends on $s_{24}$, known only
 within a bracket of $5.9\times10^{-6}$ (worst-case range $[1.01,4.65]$).
@@ -1291,7 +1323,7 @@ last superstable ratio at $-0.148$ is within 0.21\,\% of it, and the last 1.5B r
 (arrow), and the later ratios approach $\delta$ from below, the last ($4.6688$) within $0.01\,\%$ of it. Its first two
 superstable ratios carry no bars: the brackets of $s_{12}$ and $s_{24}$ allow $[3.40,29.3]$ and $[1.01,4.65]$. Each
 sequence ends at the deepest level computed: the flips at $-0.148$ at period 384, the superstable points at period 768, the 1.5B route at period 256, and the cut at
-$-0.156$, which we followed furthest, at period 1536.
+$-0.156$, which we followed furthest, at the $768\to1536$ flip.
 }
 \label{fig:feigenbaum}
 \end{figure}
@@ -1350,7 +1382,8 @@ $n$ & orbit & flip parameter $\alpha_n$ & next modulus & ratio $\delta_n$ \\
 \caption{Flips of the crescent's doubling sequence along $\log_{10}T=-0.156$, in float64. Flips 1--3 were computed on
 an H100 and flips 3--8 on a workstation GPU (NVIDIA RTX 2000 Ada); the two computations of flip 3 agree to
 $4\times10^{-16}$, and an H100 computation of flip 8 from its evaluations at the multiplier's precision floor lies
-$9\times10^{-14}$ away. Flip 9 was computed on an H100. Every critical multiplier is real and differs from $-1$ by at most $5\times10^{-8}$.}
+$9\times10^{-14}$ away. Flip 9 was computed on an H100. Every critical multiplier is real; for flips 1--8 it differs from $-1$ by at most
+$5\times10^{-8}$, and for flip 9 by $4.1\times10^{-7}$.}
 \label{tab:cascade156}
 \end{table}
 Not every doubling leads to chaos. In the high-temperature region (Figure~\ref{fig:p4}), along
@@ -1386,8 +1419,9 @@ flip normal form, $\eta\mapsto-(1+\beta)\eta+c\,\eta^3$ on the critical directio
 float64 directional derivatives, $c=\ell^\top C(r,r,r)/6+\ell^\top B(r,h_2)/2$ with $(I-M)h_2=B(r,r)$
 \cite{kuznetsov2023elements}. It predicts the doubled orbit without fitting: half-amplitude $\sqrt{\beta/c}$ along $r$
 and multiplier $1-4\beta$. At the smallest offset the amplitude ratios are $1.005$ and $1.003$, and the multipliers agree
-within $1.5\times10^{-4}$ and $5\times10^{-5}$, and both discrepancies grow as the next order of the normal form
-requires (Table~\ref{tab:flipnf}).
+within $1.5\times10^{-4}$ and $5\times10^{-5}$; the larger discrepancies at larger offsets are consistent with
+higher-order corrections (Table~\ref{tab:flipnf}). These finite comparisons support the leading-order prediction; they
+do not establish the order of the remainder.
 
 
 \section{Bridge to sampled decoding}
@@ -1409,7 +1443,8 @@ inherit these cycles (Table~\ref{tab:memory}). From 220 starts (the first tokens
 random tokens), 19 runs end in a short loop within 256 tokens, and the dominant 5-cycle never appears. Steering
 along philosophy makes ordinary decoding loop almost always (218 of 220 runs at $\alpha=0.1$), but in other loops,
 mostly punctuation such as `` --'', none of them one-token cycles. Greedy decoding that keeps only the last $K$
-tokens interpolates between the two. For every $K\ge2$ the loops leave the one-token cycles. Unsteered, looping
+tokens interpolates between the two. For the tested $K\ge2$ most final loops differ from the one-token cycles: at
+$K=2$ only 7 of 220 unsteered runs and 1 of 220 steered runs keep one of them. Unsteered, looping
 collapses to the level of the growing context between $K=16$ and $32$; steered, the share of runs whose loop equals
 the growing-context loop rises from 0 at $K=1$ to 58\,\% at $K=64$. The soft-token map's low-temperature attractors
 are therefore those of decoding with a one-token memory. Which loop ordinary decoding enters depends on the context
@@ -1487,17 +1522,18 @@ $\log_{10}T=-0.30$ to $-0.07$ (up to 0.33 per step) and at $0.09$, with a late t
 from $0.13$ up, which includes its narrow one-token chaotic band. Sensitive
 dependence therefore survives when the whole context is kept, and in the 7B model the one-token map locates it.
 Qwen2.5-72B, run the same way on two GPUs, stays nearly insensitive. We count a temperature as growing when two of its three
-twins reach $10^{-3}$ within 400 steps, a rule fixed before the 72B run that gives 11 of 24 temperatures for the 7B
-model and 8 for the 0.5B model. The 72B model grows at one of 24 temperatures on the paper's prompt, and only
+twins reach $10^{-3}$ within 400 steps, a rule fixed before the 72B run and applied afterwards to the earlier 0.5B
+and 7B records, where it gives 11 of 24 temperatures for the 7B model and 8 for the 0.5B model. The 72B model grows at one of 24 temperatures on the paper's prompt, and only
 transiently: at $\log_{10}T=0.09$ the twins pass $10^{-3}$ at step 123 and fall back to $5\times10^{-6}$ (at $0.13$ one twin of three passes
 $10^{-3}$ at step 381). It grows at
-none of 24 on the held-out prompt with its narrow unsteered band, including $\log_{10}T=0.326$, between two temperatures
+none of the 24 completed temperatures on the held-out prompt with its narrow unsteered band (a planned finer line there
+was not completed), including $\log_{10}T=0.326$, between two temperatures
 where its one-token map is chaotic; there the distance never exceeds $1.1\times10^{-9}$. It also grows at none of the
 eleven steered cells of Section~\ref{sec:size}, including the six where its one-token map is chaotic: there the
 distance never exceeds $3\times10^{-7}$ and ends between $1\times10^{-13}$ and $6\times10^{-10}$, and the growing
-context holds the next-token entropy at 2.3 to 3.6 nats instead of the one-token map's 7.3 to 11.1. At 72B the growing context therefore damps even
-the chaos that steering produces, while the one transient burst shows that the method registers growth at this
-scale.
+context holds the next-token entropy at 2.3 to 3.6 nats instead of the one-token map's 7.3 to 11.1. At these 72B
+prompts and cells, over 400 steps, the growing-context decoder therefore did not reproduce the sustained sensitivity of
+the fixed-window loop, while the one transient burst shows that the method registers growth at this scale.
 
 \section{Replication and scale}
 \label{sec:scale}
@@ -2155,35 +2191,39 @@ run through the windows as the ``endoskeleton'' of shrimps does \cite{facanha201
 window's orbit cross at a doubly superstable centre \cite{gallas1993structure,facanha2013endoskeletons}. We continued
 one period-7 orbit over a $31\times31$ grid of the body's upper part and followed the sign of its leading multiplier
 (Figure~\ref{fig:superstable}). Its superstable curves form two arcs that approach within $1.3\times10^{-3}$ in
-$\log_{10}T$ near $(\alpha,\log_{10}T)=(0.0700,0.206)$ and do not cross. A five times finer grid of that approach
+$\log_{10}T$ near $(\alpha,\log_{10}T)=(0.0700,0.206)$ and do not cross at this resolution. A five times finer grid of that approach
 (1155 cells) shows why. There the leading multiplier is tiny (median modulus $9\times10^{-4}$) and as small as the next
-one, and in 221 cells the two form a complex pair, in two wedges that flank the gap. The map's derivative has no zero
-eigenvalue, so the leading multiplier can change sign only by exchanging places with the next one or by merging with
-it into a complex pair. Where a one-dimensional map would place its doubly superstable centre, the orbit is
-two-dimensional, and a scalar superstable curve is not defined. Next to the body, the 7-step return maps of chaotic
+one, and in 221 cells the two form a complex pair, in two wedges that flank the gap. On this sampled approach the two
+computed leading multipliers exchange dominance and form a complex pair, so the sign of a leading real multiplier no
+longer defines a scalar superstable curve there. Where a one-dimensional map would place its doubly superstable centre,
+the orbit's local linearization has two comparable directions. Next to the body, the 7-step return maps of chaotic
 cells are single-humped in every phase, with doubled strands in two phases, the trace of a thin second dimension
 (Figure~\ref{fig:returnmapsbody}); cobwebs on these maps show the doubling cascade and the chaos as on a
-one-humped interval map (Figure~\ref{fig:cobwebs}). The body is therefore not the shrimp of a one-dimensional map. Whether it is the shrimp of an effectively
+one-humped interval map (Figure~\ref{fig:cobwebs}). On the tracked branch and in the sampled region, the body is
+therefore not the shrimp of a one-dimensional map. Whether it is the shrimp of an effectively
 two-dimensional map, as in the H\'enon family, is open.
 
 \paragraph{What the shrimp-like shapes are.} The shapes are made of the bifurcation curves of single windows
-(Figure~\ref{fig:shrimpschematic}). A periodic window is the region where one periodic orbit attracts. Its boundary
-consists of fold curves, where the orbit is born or dies together with a saddle (multiplier $+1$), and flip curves,
-where it doubles (multiplier $-1$). In a one-dimensional map the multiplier runs from $+1$ through $0$ to $-1$ across the
+(Figure~\ref{fig:shrimpschematic}). A periodic window is the region where one periodic orbit attracts. The windows
+we continued are bounded by fold curves, where the orbit is born or dies together with a saddle (multiplier $+1$), and
+flip curves, where it doubles (multiplier $-1$); in higher dimensions other boundaries, such as a complex pair crossing
+the unit circle, are also possible. In a one-dimensional map the multiplier runs from $+1$ through $0$ to $-1$ across the
 window, so every window holds a superstable curve: the dark ``endoskeleton'' lines of our maps. In a higher-dimensional
-map the leading multiplier can instead change sign through a complex pair, as it does in parts of our windows. Beyond the flip curve lies a doubling cascade
-into chaos (Section~\ref{sec:cascade}).
+map the leading multiplier can instead change sign through a complex pair, as it does in parts of our windows. Beyond
+some of the flip curves we followed lie the doubling sequences of Section~\ref{sec:cascade}; a flip need not start a
+complete cascade.
 
 Steering strength and temperature move the orbit in different directions, so the fold curves bend. Where a fold curve
-turns back on itself it forms a cusp, and between the two branches leaving the cusp the window continues as a thin leg.
+turns back, a cusp can form (a visual turn alone is not our criterion: the located cusps satisfy the degeneracy and
+unfolding checks of Section~\ref{sec:curves}), and between the two branches leaving the cusp the window continues as a
+thin leg.
 Bent fold curves with cusps, flip curves inside them and a superstable line through the body produce the bodies, legs,
 hooks and crescents of the maps. All nine reversals of the fold curves we continued are located cusps
 (Section~\ref{sec:curves}).
 
 A shrimp in the sense of Gallas has one more element: a centre, where two superstable curves of the same orbit cross.
-There the orbit passes two critical points at once, which needs two turning points in a one-dimensional reduction, or
-two independent folds in a two-dimensional one. Our reductions have one turning point per phase
-(Figure~\ref{fig:returnmapsbody}). Where the hostile body's superstable curves approach each other, the orbit becomes
+There the orbit passes two critical points at once, which needs two turning points in a one-dimensional reduction.
+The return maps of the hostile body have one turning point per phase (Figure~\ref{fig:returnmapsbody}). Where the hostile body's superstable curves approach each other, the orbit becomes
 two-dimensional instead of doubly superstable (Figure~\ref{fig:superstable}). The period-6 hook's orbit never comes
 close to superstable: its leading multiplier stays above $0.028$ in modulus.
 
@@ -2281,7 +2321,7 @@ the text, with a fitted return curve with one quadratic maximum (black: polynomi
 exponent is within 2\,\% of the full map's.}
 \label{fig:hiddenbands}
 \end{figure}
-\begin{figure}[H]
+\begin{figure}[tbp]
 \centering
 \includegraphics[width=0.52\linewidth]{fig-repeating-text-reduction.png}
 \caption{Scalar return-map approximation across the hostile cascade (Qwen2.5-0.5B-Instruct, hostility at layer 12,
