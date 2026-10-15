@@ -25826,3 +25826,23 @@ Both locations pass every check (tools/cusp_locate.py, cusp test):
 - fig:period5folds redrawn as 2 x 2: overview on the wider TBZg map with one colour scheme for both maps, body, trace and junction.
 - Text: sec:organization, Appendix D, Appendix B (|det J| range over thirteen cusps unchanged, 14 to 2416), Appendix J (rung 1 and search scale), Discussion and contribution 3.
 - Two appendix D floats moved from [H] to [tbp] (float-page overflow).
+
+## 2026-10-15 17:03 UTC: human "Do it all yes"; run card RR2 (the reset test on the H100 and in Qwen2.5-7B)
+
+The human approves all three offers:
+- cut the main text toward 25 pages;
+- run consult 10's two shrimp follow-ups (two-coordinate closure; orbit census around the swallowtail);
+- repeat the reset test on an H100 and in the 7B model.
+
+**Run card RR2 (exploratory, same design and problems as RR; tools/repro_reset.py unchanged since 292493ab).** One H100-class pod; job set rr runs these specs in order:
+- 0.5B at T = 1 (log10 T 0, REPRO-T's 0.5B setting): held-out set (128) in bf16 and in float32;
+- 7B (pinned Qwen2.5-7B-Instruct, hook block 14 as in REPRO-T) at log10 T 0.2, the temperature of REPRO-T's 7B result: dev set (24) in bf16, then held-out set (128) in bf16 and float32.
+
+Endpoint and decision rule as for RR: Delta = P(disagree | free) - P(disagree | reset), paired, with bootstrap and exact McNemar. Large recurrent contribution if Delta > 15 points with an interval excluding zero; no large contribution if the interval's upper end is below 15.
+
+Secondary:
+- the native (REPRO-T) disagreement on the H100, against REPRO-T's 56 % (0.5B) and 55 % (7B);
+- accuracy per arm;
+- the logit-drift profiles.
+
+The cost ceiling is in the private ledger.
