@@ -24478,3 +24478,10 @@ Pod slk055l1wkl6hq (COMMUNITY H100 NVL; runner rc 0, hash verified, terminated; 
   - log10 T >= 0 (8 cells): arm means 00 +0.41, 10 +0.51, 01 -0.01, 11 +0.40. At these states the unsteered derivative already expands, so steering acts by moving the orbit into competitive states, not by changing the derivative there.
 - **Frozen sufficiency criterion** (arm 10 within 0.1 of arm 11 on average, interval excluding arm 00). The second part holds. The first fails by overshoot: arm 10 exceeds arm 11 by 0.23, because the steered network response partly damps the growth.
 - **Reading.** At low temperature, steering destabilises the loop through the readout: the token competition it creates at fixed states. Its effect on the network response works against the instability. Together with MECH3 (the readout factor carries the difference; network flat) and MECH4 (a logit bias alone gives chaos), the answer to "why does steering induce chaos" is: it creates competition between next tokens, which turns the softmax readout from a contraction into an expansion.
+
+## 2026-10-15 07:23 UTC: FBS384 result: s384 at log10 T -0.156 and the superstable ratio 4.6646 (P-F2 holds on two well-resolved ratios)
+
+Pod grbl0g13hht0nk (SECURE H100 NVL; runner rc 0, hash verified, terminated; 2700 s; commit c07513aa). s384 = 0.06510346049810714, clean bracket 5e-15.
+- **Ratio.** (s192 - s96) / (s384 - s192) = **4.66459**. Over the corners of the three brackets it stays 4.66459 to five decimals, a deviation from delta of -0.0046.
+- **Superstable ratios at -0.156:** 10.21, 3.713, 4.572, 4.643, 4.6646.
+- **P-F2** (frozen 01:30 UTC; the last two superstable ratios at a new temperature at least 4.436). Holds with 4.643 (within [4.639, 4.647]) and 4.6646, both resolved well enough to score. This replaces the earlier pair, whose first ratio depended on the wide s24 bracket.
