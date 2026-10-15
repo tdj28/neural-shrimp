@@ -82,6 +82,9 @@ strength, explain why steering makes it so, and measure what the chaos does.
   the instability in a 0.5B and a 7B model, and adds nothing to it along the other directions we tested.
 \item The depth at which a steering vector enters sets how much chaos it causes, in a 0.5B model and in a 70B
   model, and two steering vectors at different depths create chaos that neither causes alone.
+\item Two loops writing one text lock each other into periodic orbits. Of the pairs of differently steered 0.5B
+  agents that are each chaotic alone, 60\,\% are periodic together, on orbits verified by Newton's method, and an
+  unsteered 0.5B model regularizes a chaotic 1.5B model at 39 of 41 temperatures.
 \end{itemize}
 The same loops obey the quantitative laws of low-dimensional dynamics, down to Feigenbaum's constant.
 
@@ -2328,9 +2331,9 @@ at the last window.}
 
 \section{Two loops in conversation}
 \label{sec:dialogue}
-Two instances of a language model left to talk with each other drift into recurring states. The best-known case is the
-``spiritual bliss'' attractor of two Claude Opus 4 instances, whose open-ended conversations end in repeated exchanges
-of gratitude and silence \cite{anthropic2025claude4}. The soft-token map poses the deterministic version of the
+Two instances of a language model left to talk with each other drift into recurring states
+\cite{ko2026attractor}. The best-known case is the ``spiritual bliss'' attractor of two Claude Opus 4 instances, whose
+open-ended conversations end in repeated exchanges of gratitude and silence \cite{anthropic2025claude4}. The soft-token map poses the deterministic version of the
 question: can two loops that are each chaotic on their own lock each other into a periodic orbit? Agents A and B are
 Qwen2.5-0.5B-Instruct with the prompt of the self-dialogue pilots, each with its own steering strength along the
 philosophy direction at layer 12. They write one reply together, alternating soft tokens, $x_{n+1}=F_A(x_n)$ and
