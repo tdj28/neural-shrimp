@@ -23871,3 +23871,30 @@ The upper period-4 fold curve thus carries five located cusps. The last two are 
 - At alpha 0.051428571428571435 the period-2 orbit of Qwen2.5-7B folds at log10 T_c = -0.2040155917628836.
 - Orbit residual 5.6e-11; crossing multiplier 1 + 5.6e-11 (real +1); next modulus 0.0092.
 - Normal form in log10 T: a = 2.6766, b = 20.8077, so ab = 55.69 (pi / sqrt(ab) = 0.421). b over relative steps 1e-2 to 1e-4: 20.974, 20.823, 20.809, 20.8077, 20.8076.
+
+## 2026-10-15 03:27 UTC: FL result: windows accumulate on the fold with the 1/N^2 law in Qwen2.5-1.5B (over the four nearest windows) and Qwen2.5-7B (over six); passage fractions 0.97 and 0.80, against 0.58 at 0.5B
+
+Pods qwqtwa7b27k9b6 (FL15 line, 3437 s) and misyp8r6rk51yn (FL7 line, 3216 s): COMMUNITY H100 NVL, runner rc 0, hashes verified, terminated and verified; commit 399b3eed. No clashes. Outputs fl15/line and fl7/line (hidden-chaos.json, 1700 and 1000 cells, float64).
+
+**Scorer correction, made after the first scoring and disclosed here.** As first written, the fan in tools/foldlaw_score.py stopped at the first window outside the progression (a period-25 window between the 24 and 20 windows; a period-18 run between 9 and 7). This contradicted its own written rule ("consecutive in the progression"). It now steps from the nearest window to period p - q while that window exists and lies farther out (new test). The fits over the nearest windows are unchanged; the correction adds windows farther out. Both versions' outputs are kept in scratch (fl15-score.json, fl7-score.json; -v2 after the correction).
+
+**Qwen2.5-1.5B** (alpha 0.0585882, fold of the period-4 orbit at log10 T_c = -0.0912029, windows above it, q = 4):
+- Fan windows by fold-side edge d (cells per run): P40 7.54e-4 (2), P36 9.54e-4 (3), P32 1.244e-3 (4), P28 1.695e-3 (8), P24 2.075e-3 (2), P20 3.216e-3 (3), P16 5.68e-3 (6), P12 1.265e-2 (212).
+- Periods 44-64 appear as single cells, unresolved at this spacing.
+- Nearest four windows: C = 0.0612, delta = -0.99, spread 0.1 % (centres 0.4 %), f = 0.968 (centres 0.958).
+- Spread over the nearest 5, 6, 7 and 8 windows: 10.4, 10.3, 12.4 and 14.0 %.
+- **The law holds over four windows**, the minimum the card requires.
+- From period 24 down, each period shows a short run nearer the fold and a long run farther out. The long period-24 and period-20 runs have their doublings (48, 40) on the fold side. The rule takes the nearer, short runs, so the extension beyond four windows mixes two kinds of run, and grid-spaced edges cannot say which edge is the fold edge. A float64 edge computation, as run E1 did for 0.5B, would settle it.
+
+**Qwen2.5-7B** (alpha 0.0514286, fold of the period-2 orbit at log10 T_c = -0.2040156, q = 2, odd windows):
+- Fan windows: P17 1.858e-3 (3), P15 2.559e-3 (4), P13 3.400e-3 (8), P11 4.942e-3 (19), P9 8.165e-3 (51), P7 1.629e-2 (253), P5 5.763e-2 (439).
+- Each window's tripling or doubling (33, 27, 18, 36) lies on its far side, so the fold-side edges are fold edges.
+- Periods 19-27 appear as single cells nearer the fold.
+- Nearest four windows: C = 0.1133, delta = -0.74, spread 4.4 % (centres 2.3 %), f = 0.800.
+- Nearest five: 4.4 %, f = 0.801. Nearest six: 6.1 %, f = 0.784. All seven: 14.4 %.
+- **The law holds over six windows.**
+
+**Reading by the card.** The window law holds in both models. In each case the bounded fit (delta <= 1) equals the free one.
+- The effective passage fraction is model-specific: 0.58 (0.5B, along alpha), 0.97 (1.5B) and 0.78-0.80 (7B).
+- ab is 122.9 per unit alpha at the 0.5B fold, and 151.0 and 55.7 per unit log10 T at the 1.5B and 7B folds. These are different folds in different coordinates, so no trend with size can be read from one fold per model.
+- The mechanism, a short cycle's fold with windows accumulating on it by the 1/N^2 law, recurs at 1.5B and 7B.

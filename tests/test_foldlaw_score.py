@@ -62,3 +62,12 @@ def test_another_power_needs_an_unphysical_offset():
     full = res["fits"][-1]
     assert full["spread"] < 0.10 and full["delta"] > 1 and not full["offset_physical"]
     assert full["bounded"]["spread"] > 0.10 and not res["law_holds_bounded"]
+
+
+def test_windows_outside_the_progression_do_not_end_the_fan():
+    cells, _ = synthetic_line()
+    tc = -0.0912
+    e = tc + 0.11 / (5 - 0.6) ** 2 + 0.0004            # a period-21 window between the period-20 and period-16 windows
+    cells = [dict(c, period=21, **{"class": "periodic"}) if e <= c["log10_temperature"] < e + 5e-5 else c for c in cells]
+    res = fs.score(cells, {"a": -7.0, "b": -21.0, "source": {"log10_temperature": tc, "alpha": 0.0586}}, 4)
+    assert 21 in {w["period"] for w in res["windows"]} and res["fan"] == [32, 28, 24, 20, 16, 12]

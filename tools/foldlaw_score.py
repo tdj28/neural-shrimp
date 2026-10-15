@@ -67,14 +67,16 @@ def windows(cells, tc, q, coordinate="log10_temperature", min_cells=2):
 
 
 def fan(ws, q):
-    """The windows from the fold outward while their periods step by q (consecutive laps)."""
+    """The windows from the fold outward while their periods step by q (consecutive laps): from the window nearest the
+    fold, step to period p - q as long as that window exists and lies farther out. Windows outside the progression
+    (other periods between the fan windows) are skipped. (Correction of 15 Oct 2026, after the first FL scoring: the
+    first version stopped at the first window outside the progression, against the rule above.)"""
     if not ws:
         return []
+    by = {w["period"]: w for w in ws}
     out = [ws[0]]
-    for w in ws[1:]:
-        if w["period"] != out[-1]["period"] - q:
-            break
-        out.append(w)
+    while out[-1]["period"] - q in by and by[out[-1]["period"] - q]["d"] > out[-1]["d"]:
+        out.append(by[out[-1]["period"] - q])
     return out
 
 
