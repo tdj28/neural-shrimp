@@ -1,0 +1,195 @@
+{
+  "source_commit": "66ffa102c56f6d5b22f116a1bb194f503c75562e",
+  "source_log_sha256": "6214e86376b09e7f77ecc1054dafee9601a7ad95d585dfa107940973f32704ed",
+  "scope": "Literal producer source-log excerpts; original claims/commands/outcomes as recorded, not new numerical acceptance or reconstruction of historical process births.",
+  "excerpts_sha256": "630e5e6fd543f8da7530466e001683ba2f36b2acb47f7371a98441fd2c2a917a",
+  "entries": [
+    {
+      "line_start": 22717,
+      "line_end": 22722,
+      "heading": "## 2026-10-14 01:27 UTC: Zero-temperature bridge, part 1: the soft map's low-T attractors are one-token greedy cycles; growing-context greedy decoding falls into other loops",
+      "sha256": "58118edf4d8aaa8c2f57150956f7b6ece25ee293f4b561889dcb3217dd0b59e2",
+      "bytes": 2574,
+      "literal_paths": [
+        "../neural-shrimp-data/explore/llm-soft-loop/bridge/{graph,decode}-a{0,006,01}.",
+        "tools/greedy_bridge.py"
+      ]
+    },
+    {
+      "line_start": 22756,
+      "line_end": 22761,
+      "heading": "## 2026-10-14 02:03 UTC: Zero-temperature bridge, part 2: memory length K; Llama random-direction controls at layer 16",
+      "sha256": "2a997d3626d7a11aa24112b613806cfb5187a0697011e6836d0a17477c6fa3fe",
+      "bytes": 1777,
+      "literal_paths": [
+        "tools/greedy_bridge.py"
+      ]
+    },
+    {
+      "line_start": 23500,
+      "line_end": 23505,
+      "heading": "## 2026-10-14 17:44 UTC: runs (exploratory): QC (72B entropy clamp) and WIN (longer fed-back memory)",
+      "sha256": "ec47c4d5844e120e87406c3dd5c97a23f393641f87f051932a6fb049b2971da2",
+      "bytes": 1868,
+      "literal_paths": [
+        "../neural-shrimp-data/explore/llm-soft-loop/pod64/big/{qwen72b-clamp-p0,",
+        "tools/hidden_chaos.py"
+      ]
+    },
+    {
+      "line_start": 23506,
+      "line_end": 23511,
+      "heading": "## 2026-10-14 17:47 UTC: run (exploratory, local): ST0, twins in growing-context soft thinking, Qwen2.5-0.5B",
+      "sha256": "d63943a32b5ccc0c5a714c4d790b08ae3f56f4092180751b51814ae9b2794319",
+      "bytes": 779,
+      "literal_paths": [
+        "../neural-shrimp-data/explore/scratch/st0-q05",
+        "tools/soft_thinking_twins.py"
+      ]
+    },
+    {
+      "line_start": 23512,
+      "line_end": 23515,
+      "heading": "## 2026-10-14 17:50 UTC: ST0 result (local): in growing-context soft thinking, Qwen2.5-0.5B shows no sustained growth of an early perturbation; one transient burst at log10 T 0",
+      "sha256": "73308f804b556d547da24f0edfc1f10c52158be9ba2030b411f0fe80d72d6c4c",
+      "bytes": 1216,
+      "literal_paths": [
+        "../neural-shrimp-data/explore/scratch/st0-q05",
+        "tools/soft_thinking_twins.py,"
+      ]
+    },
+    {
+      "line_start": 23516,
+      "line_end": 23521,
+      "heading": "## 2026-10-14 17:50 UTC: run (exploratory): ST1, growing-context soft thinking twins on Qwen2.5-7B",
+      "sha256": "66924dad6082c7118161be248136b347f2c697b6285ad9cd558cb0135dd4f1ec",
+      "bytes": 640,
+      "literal_paths": [
+        "../neural-shrimp-data/explore/llm-soft-loop/pod64/big/{qwen7b,qwen0.5b}-softthink"
+      ]
+    },
+    {
+      "line_start": 23526,
+      "line_end": 23529,
+      "heading": "## 2026-10-14 18:27 UTC: ST1 result: growing-context soft thinking is sensitive to an early perturbation in Qwen2.5-7B inside its one-token chaotic band, and in Qwen2.5-0.5B at lower temperatures",
+      "sha256": "eb848b6a1f27f19e77c6aaca957bedcf21da67b25a3565fdc7229f798efd9d7f",
+      "bytes": 1643,
+      "literal_paths": [
+        "tools/soft_thinking_twins.py,"
+      ]
+    },
+    {
+      "line_start": 23534,
+      "line_end": 23537,
+      "heading": "## 2026-10-14 19:03 UTC: WIN result: chaos survives and spreads when the loop feeds back the last K soft tokens (Qwen2.5-7B chaotic at 8, 10, 13, 21, 20 of 24 temperatures for K = 1, 2, 4, 8, 16)",
+      "sha256": "d81bcf643b604e69dac95999501b4c75c5a113db3a9befb84fed37271b9d54ed",
+      "bytes": 1232,
+      "literal_paths": [
+        "tools/hidden_chaos.py"
+      ]
+    },
+    {
+      "line_start": 23542,
+      "line_end": 23548,
+      "heading": "## 2026-10-14 21:08 UTC: run (exploratory): ST72, growing-context soft thinking twins on Qwen2.5-72B-Instruct, with a steered positive control",
+      "sha256": "91de2849d35606b1202ae0e48ac88560ff3a86116fe4d86f906374698d0a9864",
+      "bytes": 2662,
+      "literal_paths": [
+        "../neural-shrimp-data/explore/llm-soft-loop/pod64/big/qwen72b-softthink-{p0,steer,p3}",
+        "docs/q72fix-cells.json;",
+        "docs/st72-cells-p3.json",
+        "tools/soft_thinking_twins.py,"
+      ]
+    },
+    {
+      "line_start": 23549,
+      "line_end": 23552,
+      "heading": "## 2026-10-14 22:12 UTC: ST72 result: under growing-context soft thinking Qwen2.5-72B is insensitive to an early perturbation, even where steering makes its one-token map chaotic",
+      "sha256": "19908d1ce283fb7c899fde73fab6e13d8fd2e05e775a818520eb7942ce384143",
+      "bytes": 2216,
+      "literal_paths": [
+        "docs/st72-result.json;",
+        "tools/st72_summary.py"
+      ]
+    },
+    {
+      "line_start": 23916,
+      "line_end": 23919,
+      "heading": "## 2026-10-15 03:35 UTC: Amendment to FB152d: the start jumped too far",
+      "sha256": "1b2b208e75a3e228101adff000ad5ff18a3adf31f50f0fdf4f4d6d4229b2e5b6",
+      "bytes": 562,
+      "literal_paths": []
+    },
+    {
+      "line_start": 24278,
+      "line_end": 24288,
+      "heading": "## 2026-10-15 06:27 UTC: run (exploratory): FBD2 (the 768->1536 flip) and FBS384 (the band-384 superstable point) at log10 T -0.156",
+      "sha256": "3b408711e418d7c240172d89e5fa02ae2cacb54ce04d79d5691625623060f73f",
+      "bytes": 1285,
+      "literal_paths": []
+    },
+    {
+      "line_start": 24413,
+      "line_end": 24428,
+      "heading": "## 2026-10-15 07:14 UTC: run (exploratory): XO, the orbit-preserving four-arm crossover (consult 9, direction 2), and FB extensions toward the asymptote (human: \"Yes I'd like them to approach the asymptote\")",
+      "sha256": "08f24e4e3bc454cf4933b71636f10492d02346485825b493c24af3dc338861b1",
+      "bytes": 1991,
+      "literal_paths": [
+        "docs/xo-cells.json,",
+        "tools/crossover.py"
+      ]
+    },
+    {
+      "line_start": 24482,
+      "line_end": 24488,
+      "heading": "## 2026-10-15 07:23 UTC: FBS384 result: s384 at log10 T -0.156 and the superstable ratio 4.6646 (P-F2 holds on two well-resolved ratios)",
+      "sha256": "9bdcd3564ec7beb0e6266fecce3605e872acbb261e5dc5c9b71579bb1a25925f",
+      "bytes": 802,
+      "literal_paths": []
+    },
+    {
+      "line_start": 24529,
+      "line_end": 24536,
+      "heading": "## 2026-10-15 07:36 UTC: Amendment to the FB extensions: FBC148 and FB15D stopped at their bracket checks; FB15D located the 1.5B route's 64->128 flip (fourth ratio 4.578); both relaunched with nearer far ends",
+      "sha256": "4f537869b022bac9602b060fde9af5ec4237032b243e87b19ce57ba80a1f6c67",
+      "bytes": 1374,
+      "literal_paths": []
+    },
+    {
+      "line_start": 24564,
+      "line_end": 24573,
+      "heading": "## 2026-10-15 07:46 UTC: FBD2 result: the 768->1536 flip at log10 T -0.156; sixth flip ratio 4.6688 (delta = 4.6692)",
+      "sha256": "663532bac32de8cc387b02713e7c4825648dc953855bd4456161474fe527cc43",
+      "bytes": 1022,
+      "literal_paths": [
+        "cascade/crescent-t-0.156-f."
+      ]
+    },
+    {
+      "line_start": 24625,
+      "line_end": 24630,
+      "heading": "## 2026-10-15 07:58 UTC: Amendment: FBC148b also stopped (Newton across the bracket); FBC148c relaunched with a nearer start",
+      "sha256": "827689db08d31f3dd5248528e004854f1396785aaf763cd872fbe49c9bad6541",
+      "bytes": 731,
+      "literal_paths": []
+    },
+    {
+      "line_start": 24776,
+      "line_end": 24779,
+      "heading": "## 2026-10-15 08:53 UTC: Amendment: FBS768m timed out (90-minute tool limit, no progress record); relaunched as FBS768n with 190 minutes",
+      "sha256": "429ab4cbb4a0a408c699a03aaef09c1b3d2c68b01c717463c0aad43ea1306d94",
+      "bytes": 400,
+      "literal_paths": []
+    },
+    {
+      "line_start": 24884,
+      "line_end": 24901,
+      "heading": "## 2026-10-15 09:15 UTC: FB15E and FBC148c results; run card FBC148d",
+      "sha256": "536a7ff459a11496ace70d703dc3a23feaff18a0cdc64791116fa141cf5322d8",
+      "bytes": 2084,
+      "literal_paths": [
+        "cascade/q15-a0.100-p128."
+      ]
+    }
+  ]
+}

@@ -1,0 +1,3766 @@
+{
+  "source_commit": "66ffa102c56f6d5b22f116a1bb194f503c75562e",
+  "lines": 2708,
+  "sections": [
+    {
+      "line": 55,
+      "source": "\\section{Introduction}"
+    },
+    {
+      "line": 126,
+      "source": "\\paragraph{Contributions.}"
+    },
+    {
+      "line": 212,
+      "source": "\\paragraph{Related work.} Language-model generation has been studied as a dynamical system at several levels, and"
+    },
+    {
+      "line": 274,
+      "source": "\\section{The inference map}"
+    },
+    {
+      "line": 276,
+      "source": "\\paragraph{Definition.} We describe the map for Qwen2.5-0.5B-Instruct, the model studied in most detail; the other"
+    },
+    {
+      "line": 291,
+      "source": "\\paragraph{Precision.} Hugging Face RMSNorm layers and rotary-embedding tables compute in float32 even when the"
+    },
+    {
+      "line": 297,
+      "source": "\\section{Why the loop can be chaotic}"
+    },
+    {
+      "line": 319,
+      "source": "\\paragraph{A Hopfield network with a transformer inside.} If the network passed its input straight through,"
+    },
+    {
+      "line": 337,
+      "source": "\\paragraph{High-temperature contraction and the greedy limit.} The largest Lyapunov exponent of an orbit cannot exceed the orbit"
+    },
+    {
+      "line": 362,
+      "source": "\\paragraph{Stability belongs to the loop, not to the step.} The gain condition is necessary, not sufficient. Along"
+    },
+    {
+      "line": 379,
+      "source": "\\paragraph{Steering makes tokens compete.} Steering enters both factors of \\eqref{eq:gain}: it moves the logits, and"
+    },
+    {
+      "line": 476,
+      "source": "\\paragraph{Contraction and expansion in the network.} Analyses of deep attention identify contracting tendencies:"
+    },
+    {
+      "line": 484,
+      "source": "\\paragraph{Why the structures of low-dimensional maps appear.} The map acts on a space of hundreds to thousands of"
+    },
+    {
+      "line": 504,
+      "source": "\\paragraph{Coexisting attractors mark the limits of one dimension.} A classical theorem says what a one-dimensional"
+    },
+    {
+      "line": 516,
+      "source": "\\paragraph{How many dimensions does the chaos have?} For chaotic attractors the corresponding measure is the"
+    },
+    {
+      "line": 539,
+      "source": "\\section{Methods}"
+    },
+    {
+      "line": 541,
+      "source": "\\paragraph{Precision.} Every result on the soft-token map labelled float64 is computed in float64 arithmetic"
+    },
+    {
+      "line": 550,
+      "source": "\\paragraph{Phase maps.} Each cell of a phase map is one parameter pair. Unless stated otherwise, we discard 300"
+    },
+    {
+      "line": 569,
+      "source": "\\paragraph{Periodic orbits.} We solve $F^p(x)=x$ by Newton's method with forward-mode Jacobians. The multipliers are"
+    },
+    {
+      "line": 573,
+      "source": "\\paragraph{Continuation.} Periodic branches are continued in one parameter by pseudo-arclength continuation, and fold"
+    },
+    {
+      "line": 587,
+      "source": "\\paragraph{Normal form and passages.} Consider a fold of the two-step map $G=F^2$, with right and left eigenvectors"
+    },
+    {
+      "line": 601,
+      "source": "\\paragraph{Period-doubling cascade.} Along a cut in one parameter, we locate the flip of each period-$p$ orbit as the"
+    },
+    {
+      "line": 612,
+      "source": "\\section{Chaos with periodic windows}"
+    },
+    {
+      "line": 669,
+      "source": "\\section{What the chaos does to inference and steering}"
+    },
+    {
+      "line": 677,
+      "source": "\\paragraph{The regime decides whether a run can be reproduced.} Language-model inference is not bitwise"
+    },
+    {
+      "line": 783,
+      "source": "\\paragraph{Where a steering vector enters decides how much chaos it causes.} Steering vectors are a common tool for"
+    },
+    {
+      "line": 810,
+      "source": "\\paragraph{Two steering vectors interact.} Steering at two blocks at once, gratitude at block 4 and hostility at block"
+    },
+    {
+      "line": 828,
+      "source": "\\paragraph{Does a chaotic loop predict worse answers in ordinary decoding? Not beyond the model's own uncertainty.}"
+    },
+    {
+      "line": 867,
+      "source": "\\section{Period adding written in text}"
+    },
+    {
+      "line": 926,
+      "source": "\\section{Mechanism: a saddle-node bottleneck}"
+    },
+    {
+      "line": 928,
+      "source": "\\paragraph{The fold.} At $\\log_{10}T=-0.115$ the 2-cycle ``is it'' dies in a fold at $\\alpha_c=0.06279827$ (float64"
+    },
+    {
+      "line": 937,
+      "source": "\\paragraph{Controlled passages.} In the oriented coordinate $v=\\operatorname{sign}(b)\\,u$ of"
+    },
+    {
+      "line": 969,
+      "source": "\\paragraph{Natural reinjection and the window law.} Free trajectories re-enter the channel slightly upstream of"
+    },
+    {
+      "line": 1020,
+      "source": "\\paragraph{A prospective test.} To test the normal form at folds that played no part in shaping the mechanism, an"
+    },
+    {
+      "line": 1049,
+      "source": "\\section{Bifurcation curves and cusps}"
+    },
+    {
+      "line": 1051,
+      "source": "\\paragraph{Period-8 stripe.} Continued for 80 points with a float64 test function, the fold curve of the period-8"
+    },
+    {
+      "line": 1063,
+      "source": "\\paragraph{The accumulation boundary.} The fold curve of the 2-cycle ``is it'', continued from"
+    },
+    {
+      "line": 1072,
+      "source": "\\paragraph{A period-6 window with shrimp-like anatomy.} The hooks of Figure~\\ref{fig:zooms} (bottom) belong to"
+    },
+    {
+      "line": 1152,
+      "source": "\\paragraph{A period-4 window with five cusps on one fold curve.} At higher temperature, $\\log_{10}T\\approx0$--$0.1$, periodic orbits"
+    },
+    {
+      "line": 1208,
+      "source": "\\section{A period-doubling cascade to chaos}"
+    },
+    {
+      "line": 1380,
+      "source": "\\section{Bridge to sampled decoding}"
+    },
+    {
+      "line": 1390,
+      "source": "\\paragraph{Zero-temperature limit and ordinary greedy decoding.} As $T\\to0$ the soft-token map becomes greedy"
+    },
+    {
+      "line": 1438,
+      "source": "\\paragraph{A longer fed-back memory.} The one-token window is the main simplification of the map. Feeding back the"
+    },
+    {
+      "line": 1462,
+      "source": "\\paragraph{Soft thinking with a growing context.} Soft Thinking \\cite{zhang2025softthinking} feeds back the same"
+    },
+    {
+      "line": 1489,
+      "source": "\\section{Replication and scale}"
+    },
+    {
+      "line": 1548,
+      "source": "\\paragraph{A second model family.} OLMo-2-1124-7B-Instruct \\cite{olmo2024olmo2} comes from another laboratory, with"
+    },
+    {
+      "line": 1566,
+      "source": "\\paragraph{A third family, read with sparse autoencoders.} Llama-3.1-8B-Instruct \\cite{grattafiori2024llama3},"
+    },
+    {
+      "line": 1602,
+      "source": "\\paragraph{Same architecture, other weights.} Qwen2-0.5B-Instruct has exactly the architecture and size of"
+    },
+    {
+      "line": 1621,
+      "source": "\\paragraph{The fold law at 1.5B and 7B.} We tested whether the mechanism of Section~\\ref{sec:mechanism}, windows"
+    },
+    {
+      "line": 1650,
+      "source": "\\paragraph{A mixture-of-experts model.} Qwen3.5-35B-A3B differs from the dense models in two ways. Thirty of its 40"
+    },
+    {
+      "line": 1666,
+      "source": "\\section{Chaos and model size}"
+    },
+    {
+      "line": 1688,
+      "source": "\\paragraph{In a fixed temperature window, chaos seems to fade with size.} Table~\\ref{tab:scale} and"
+    },
+    {
+      "line": 1700,
+      "source": "\\paragraph{Across prompts, the chaos moves to higher temperature instead.} The fixed window hides where larger models"
+    },
+    {
+      "line": 1773,
+      "source": "\\paragraph{At 70B, unsteered chaos is rare, and a precision defect made part of it spurious.} The regular grids of the"
+    },
+    {
+      "line": 1802,
+      "source": "\\paragraph{What sets it: the gain of the loop.} The gain split of Section~\\ref{sec:theory} shows which factor removes or"
+    },
+    {
+      "line": 1860,
+      "source": "\\paragraph{Can a cheap property predict it?} Section~\\ref{sec:theory} confines chaos to temperatures where the"
+    },
+    {
+      "line": 1877,
+      "source": "\\paragraph{Steering at 70B.} Under steering, the 70B maps show chaos, rarely and not independently of the"
+    },
+    {
+      "line": 1922,
+      "source": "\\paragraph{What this implies for larger models.} Size does not set this chaos in a simple way. In Qwen2.5, the 14B"
+    },
+    {
+      "line": 1945,
+      "source": "\\section{A second system: recurrent depth}"
+    },
+    {
+      "line": 1965,
+      "source": "\\paragraph{The spectrum predicts the relaxation response.} With the full instruction template, the GSM8K prompts'"
+    },
+    {
+      "line": 1984,
+      "source": "\\paragraph{Does the task notice? (development data).} On ARC-Challenge \\cite{clark2018arc} questions scored by"
+    },
+    {
+      "line": 2051,
+      "source": "\\section{Steering toward hostility}"
+    },
+    {
+      "line": 2059,
+      "source": "\\paragraph{The hostility direction in the deterministic map.} Steering the soft-token map of"
+    },
+    {
+      "line": 2141,
+      "source": "\\paragraph{No one-dimensional shrimp centre.} In a shrimp of a one-dimensional map, two superstable curves of the"
+    },
+    {
+      "line": 2156,
+      "source": "\\paragraph{What the shrimp-like shapes are.} The shapes are made of the bifurcation curves of single windows"
+    },
+    {
+      "line": 2218,
+      "source": "\\paragraph{Chaos behind a repeating text.} Along the temperature line of Figure~\\ref{fig:hubcascade} (left), a longer"
+    },
+    {
+      "line": 2326,
+      "source": "\\section{Discussion}"
+    },
+    {
+      "line": 2328,
+      "source": "\\paragraph{What theory allows, and what is new.} Chaos and periodic windows occur in many nonlinear feedback"
+    },
+    {
+      "line": 2363,
+      "source": "\\paragraph{Is steering the origin of the chaos?} Steering adds a fixed vector to the residual stream, so chaos along"
+    },
+    {
+      "line": 2437,
+      "source": "\\paragraph{What is and is not claimed.} The objects studied here are invariant sets and bifurcations of an exactly"
+    },
+    {
+      "line": 2465,
+      "source": "\\paragraph{Limitations.} The detailed orbit studies cover one model family (Qwen2.5, 0.5B and 1.5B), with coarse"
+    },
+    {
+      "line": 2497,
+      "source": "\\paragraph{Steering strength is a bifurcation parameter.} In the soft-token map, small changes of the steering"
+    },
+    {
+      "line": 2511,
+      "source": "\\paragraph{What this suggests for interpretability and alignment.} Our results come from open models of 0.5B to"
+    },
+    {
+      "line": 2540,
+      "source": "\\paragraph{Is the chaos useful?} The chaos we map is not a source of new content. The chaotic cells of"
+    },
+    {
+      "line": 2559,
+      "source": "\\paragraph{Which findings might reach frontier models.} Today's frontier systems include closed models such as"
+    },
+    {
+      "line": 2582,
+      "source": "\\section{Evidence and reproducibility}"
+    },
+    {
+      "line": 2588,
+      "source": "\\paragraph{Search scale.} The soft-token results come from an exploratory search. An initial census of the raw"
+    },
+    {
+      "line": 2676,
+      "source": "\\paragraph{Hardware.} Float64 GPU computations ran on rented NVIDIA H100 (NVL, PCIe and 80\\,GB HBM3), H200,"
+    },
+    {
+      "line": 2698,
+      "source": "\\section*{Use of AI assistance}"
+    }
+  ],
+  "citations": [
+    {
+      "line": 69,
+      "key": "zhang2025softthinking",
+      "command": "\\cite{zhang2025softthinking}"
+    },
+    {
+      "line": 70,
+      "key": "hao2024coconut",
+      "command": "\\cite{hao2024coconut}"
+    },
+    {
+      "line": 71,
+      "key": "geiping2025recurrent",
+      "command": "\\cite{geiping2025recurrent}"
+    },
+    {
+      "line": 92,
+      "key": "li2025quasilyapunov",
+      "command": "\\cite{li2025quasilyapunov,jaca2026chaos}"
+    },
+    {
+      "line": 92,
+      "key": "jaca2026chaos",
+      "command": "\\cite{li2025quasilyapunov,jaca2026chaos}"
+    },
+    {
+      "line": 93,
+      "key": "arnold2024phase",
+      "command": "\\cite{arnold2024phase,nakaishi2024phase,sun2025phase,ruan2026criticality,johnson2026temperature}"
+    },
+    {
+      "line": 93,
+      "key": "nakaishi2024phase",
+      "command": "\\cite{arnold2024phase,nakaishi2024phase,sun2025phase,ruan2026criticality,johnson2026temperature}"
+    },
+    {
+      "line": 93,
+      "key": "sun2025phase",
+      "command": "\\cite{arnold2024phase,nakaishi2024phase,sun2025phase,ruan2026criticality,johnson2026temperature}"
+    },
+    {
+      "line": 93,
+      "key": "ruan2026criticality",
+      "command": "\\cite{arnold2024phase,nakaishi2024phase,sun2025phase,ruan2026criticality,johnson2026temperature}"
+    },
+    {
+      "line": 93,
+      "key": "johnson2026temperature",
+      "command": "\\cite{arnold2024phase,nakaishi2024phase,sun2025phase,ruan2026criticality,johnson2026temperature}"
+    },
+    {
+      "line": 94,
+      "key": "wang2025attractor",
+      "command": "\\cite{wang2025attractor}"
+    },
+    {
+      "line": 95,
+      "key": "ko2026attractor",
+      "command": "\\cite{ko2026attractor}"
+    },
+    {
+      "line": 96,
+      "key": "bai2019deq",
+      "command": "\\cite{bai2019deq,bai2021stabilizing,tomihari2025recurrent,yang2026stars}"
+    },
+    {
+      "line": 96,
+      "key": "bai2021stabilizing",
+      "command": "\\cite{bai2019deq,bai2021stabilizing,tomihari2025recurrent,yang2026stars}"
+    },
+    {
+      "line": 96,
+      "key": "tomihari2025recurrent",
+      "command": "\\cite{bai2019deq,bai2021stabilizing,tomihari2025recurrent,yang2026stars}"
+    },
+    {
+      "line": 96,
+      "key": "yang2026stars",
+      "command": "\\cite{bai2019deq,bai2021stabilizing,tomihari2025recurrent,yang2026stars}"
+    },
+    {
+      "line": 97,
+      "key": "luo2026prediction",
+      "command": "\\cite{luo2026prediction}"
+    },
+    {
+      "line": 98,
+      "key": "zeng2025ponderlm",
+      "command": "\\cite{zeng2025ponderlm}"
+    },
+    {
+      "line": 99,
+      "key": "kim2026phase",
+      "command": "\\cite{kim2026phase}"
+    },
+    {
+      "line": 106,
+      "key": "sompolinsky1988chaos",
+      "command": "\\cite{sompolinsky1988chaos}"
+    },
+    {
+      "line": 106,
+      "key": "doyon1994bifurcations",
+      "command": "\\cite{doyon1994bifurcations}"
+    },
+    {
+      "line": 107,
+      "key": "feigenbaum1978quantitative",
+      "command": "\\cite{feigenbaum1978quantitative,gallas1993structure}"
+    },
+    {
+      "line": 107,
+      "key": "gallas1993structure",
+      "command": "\\cite{feigenbaum1978quantitative,gallas1993structure}"
+    },
+    {
+      "line": 214,
+      "key": "li2025quasilyapunov",
+      "command": "\\cite{li2025quasilyapunov,jaca2026chaos}"
+    },
+    {
+      "line": 214,
+      "key": "jaca2026chaos",
+      "command": "\\cite{li2025quasilyapunov,jaca2026chaos}"
+    },
+    {
+      "line": 216,
+      "key": "verazuniga2026selffeeding",
+      "command": "\\cite{verazuniga2026selffeeding}"
+    },
+    {
+      "line": 219,
+      "key": "arnold2024phase",
+      "command": "\\cite{arnold2024phase,nakaishi2024phase,sun2025phase,ruan2026criticality}"
+    },
+    {
+      "line": 219,
+      "key": "nakaishi2024phase",
+      "command": "\\cite{arnold2024phase,nakaishi2024phase,sun2025phase,ruan2026criticality}"
+    },
+    {
+      "line": 219,
+      "key": "sun2025phase",
+      "command": "\\cite{arnold2024phase,nakaishi2024phase,sun2025phase,ruan2026criticality}"
+    },
+    {
+      "line": 219,
+      "key": "ruan2026criticality",
+      "command": "\\cite{arnold2024phase,nakaishi2024phase,sun2025phase,ruan2026criticality}"
+    },
+    {
+      "line": 222,
+      "key": "johnson2026temperature",
+      "command": "\\cite{johnson2026temperature}"
+    },
+    {
+      "line": 224,
+      "key": "holtzman2019degeneration",
+      "command": "\\cite{holtzman2019degeneration,xu2022loop}"
+    },
+    {
+      "line": 224,
+      "key": "xu2022loop",
+      "command": "\\cite{holtzman2019degeneration,xu2022loop}"
+    },
+    {
+      "line": 225,
+      "key": "wang2025attractor",
+      "command": "\\cite{wang2025attractor}"
+    },
+    {
+      "line": 226,
+      "key": "ko2026attractor",
+      "command": "\\cite{ko2026attractor}"
+    },
+    {
+      "line": 228,
+      "key": "shumailov2024collapse",
+      "command": "\\cite{shumailov2024collapse}"
+    },
+    {
+      "line": 229,
+      "key": "ribeiro2020attractors",
+      "command": "\\cite{ribeiro2020attractors}"
+    },
+    {
+      "line": 231,
+      "key": "sussillo2013opening",
+      "command": "\\cite{sussillo2013opening,maheswaranathan2019reverse}"
+    },
+    {
+      "line": 231,
+      "key": "maheswaranathan2019reverse",
+      "command": "\\cite{sussillo2013opening,maheswaranathan2019reverse}"
+    },
+    {
+      "line": 233,
+      "key": "bai2019deq",
+      "command": "\\cite{bai2019deq,bai2021stabilizing,geiping2025recurrent,zhu2025ouro,tomihari2025recurrent,yang2026stars,prairie2026parcae,buehlmaier2026layernorm,labovich2026stability,movahedi2026fixedpoint}"
+    },
+    {
+      "line": 233,
+      "key": "bai2021stabilizing",
+      "command": "\\cite{bai2019deq,bai2021stabilizing,geiping2025recurrent,zhu2025ouro,tomihari2025recurrent,yang2026stars,prairie2026parcae,buehlmaier2026layernorm,labovich2026stability,movahedi2026fixedpoint}"
+    },
+    {
+      "line": 233,
+      "key": "geiping2025recurrent",
+      "command": "\\cite{bai2019deq,bai2021stabilizing,geiping2025recurrent,zhu2025ouro,tomihari2025recurrent,yang2026stars,prairie2026parcae,buehlmaier2026layernorm,labovich2026stability,movahedi2026fixedpoint}"
+    },
+    {
+      "line": 233,
+      "key": "zhu2025ouro",
+      "command": "\\cite{bai2019deq,bai2021stabilizing,geiping2025recurrent,zhu2025ouro,tomihari2025recurrent,yang2026stars,prairie2026parcae,buehlmaier2026layernorm,labovich2026stability,movahedi2026fixedpoint}"
+    },
+    {
+      "line": 233,
+      "key": "tomihari2025recurrent",
+      "command": "\\cite{bai2019deq,bai2021stabilizing,geiping2025recurrent,zhu2025ouro,tomihari2025recurrent,yang2026stars,prairie2026parcae,buehlmaier2026layernorm,labovich2026stability,movahedi2026fixedpoint}"
+    },
+    {
+      "line": 233,
+      "key": "yang2026stars",
+      "command": "\\cite{bai2019deq,bai2021stabilizing,geiping2025recurrent,zhu2025ouro,tomihari2025recurrent,yang2026stars,prairie2026parcae,buehlmaier2026layernorm,labovich2026stability,movahedi2026fixedpoint}"
+    },
+    {
+      "line": 233,
+      "key": "prairie2026parcae",
+      "command": "\\cite{bai2019deq,bai2021stabilizing,geiping2025recurrent,zhu2025ouro,tomihari2025recurrent,yang2026stars,prairie2026parcae,buehlmaier2026layernorm,labovich2026stability,movahedi2026fixedpoint}"
+    },
+    {
+      "line": 233,
+      "key": "buehlmaier2026layernorm",
+      "command": "\\cite{bai2019deq,bai2021stabilizing,geiping2025recurrent,zhu2025ouro,tomihari2025recurrent,yang2026stars,prairie2026parcae,buehlmaier2026layernorm,labovich2026stability,movahedi2026fixedpoint}"
+    },
+    {
+      "line": 233,
+      "key": "labovich2026stability",
+      "command": "\\cite{bai2019deq,bai2021stabilizing,geiping2025recurrent,zhu2025ouro,tomihari2025recurrent,yang2026stars,prairie2026parcae,buehlmaier2026layernorm,labovich2026stability,movahedi2026fixedpoint}"
+    },
+    {
+      "line": 233,
+      "key": "movahedi2026fixedpoint",
+      "command": "\\cite{bai2019deq,bai2021stabilizing,geiping2025recurrent,zhu2025ouro,tomihari2025recurrent,yang2026stars,prairie2026parcae,buehlmaier2026layernorm,labovich2026stability,movahedi2026fixedpoint}"
+    },
+    {
+      "line": 235,
+      "key": "blayney2026mechanistic",
+      "command": "\\cite{blayney2026mechanistic,viakhirev2026thinkshallow,park2026loopedearlier}"
+    },
+    {
+      "line": 235,
+      "key": "viakhirev2026thinkshallow",
+      "command": "\\cite{blayney2026mechanistic,viakhirev2026thinkshallow,park2026loopedearlier}"
+    },
+    {
+      "line": 235,
+      "key": "park2026loopedearlier",
+      "command": "\\cite{blayney2026mechanistic,viakhirev2026thinkshallow,park2026loopedearlier}"
+    },
+    {
+      "line": 237,
+      "key": "gao2026repulsive",
+      "command": "\\cite{gao2026repulsive}"
+    },
+    {
+      "line": 238,
+      "key": "luo2026prediction",
+      "command": "\\cite{luo2026prediction}"
+    },
+    {
+      "line": 239,
+      "key": "kim2026phase",
+      "command": "\\cite{kim2026phase}"
+    },
+    {
+      "line": 243,
+      "key": "zeng2025ponderlm",
+      "command": "\\cite{zeng2025ponderlm}"
+    },
+    {
+      "line": 244,
+      "key": "zhang2025softthinking",
+      "command": "\\cite{zhang2025softthinking,wu2025singlethreaded}"
+    },
+    {
+      "line": 244,
+      "key": "wu2025singlethreaded",
+      "command": "\\cite{zhang2025softthinking,wu2025singlethreaded}"
+    },
+    {
+      "line": 244,
+      "key": "hao2024coconut",
+      "command": "\\cite{hao2024coconut}"
+    },
+    {
+      "line": 245,
+      "key": "backour2026mixture",
+      "command": "\\cite{backour2026mixture}"
+    },
+    {
+      "line": 246,
+      "key": "rizvimartel2026illusion",
+      "command": "\\cite{rizvimartel2026illusion}"
+    },
+    {
+      "line": 250,
+      "key": "dinc2026ghost",
+      "command": "\\cite{dinc2026ghost}"
+    },
+    {
+      "line": 251,
+      "key": "battaglia2007temporal",
+      "command": "\\cite{battaglia2007temporal,papasavvas2015gain}"
+    },
+    {
+      "line": 251,
+      "key": "papasavvas2015gain",
+      "command": "\\cite{battaglia2007temporal,papasavvas2015gain}"
+    },
+    {
+      "line": 252,
+      "key": "liu2026learningchaos",
+      "command": "\\cite{liu2026learningchaos}"
+    },
+    {
+      "line": 252,
+      "key": "kim2021teaching",
+      "command": "\\cite{kim2021teaching}"
+    },
+    {
+      "line": 253,
+      "key": "kalra2025universal",
+      "command": "\\cite{kalra2025universal}"
+    },
+    {
+      "line": 254,
+      "key": "marichal2015multiple",
+      "command": "\\cite{marichal2015multiple}"
+    },
+    {
+      "line": 255,
+      "key": "gomez2014universal",
+      "command": "\\cite{gomez2014universal,stenzinger2025shrimp,caixeta2025staircase}"
+    },
+    {
+      "line": 255,
+      "key": "stenzinger2025shrimp",
+      "command": "\\cite{gomez2014universal,stenzinger2025shrimp,caixeta2025staircase}"
+    },
+    {
+      "line": 255,
+      "key": "caixeta2025staircase",
+      "command": "\\cite{gomez2014universal,stenzinger2025shrimp,caixeta2025staircase}"
+    },
+    {
+      "line": 256,
+      "key": "zou2023representation",
+      "command": "\\cite{zou2023representation,zhang2025steering}"
+    },
+    {
+      "line": 256,
+      "key": "zhang2025steering",
+      "command": "\\cite{zou2023representation,zhang2025steering}"
+    },
+    {
+      "line": 258,
+      "key": "kuznetsov2023elements",
+      "command": "\\cite{kuznetsov2023elements,govaerts2000numerical}"
+    },
+    {
+      "line": 258,
+      "key": "govaerts2000numerical",
+      "command": "\\cite{kuznetsov2023elements,govaerts2000numerical}"
+    },
+    {
+      "line": 258,
+      "key": "kuznetsov2019maps",
+      "command": "\\cite{kuznetsov2019maps}"
+    },
+    {
+      "line": 258,
+      "key": "pomeau1980intermittent",
+      "command": "\\cite{pomeau1980intermittent}"
+    },
+    {
+      "line": 259,
+      "key": "gallas1993structure",
+      "command": "\\cite{gallas1993structure,facanha2013endoskeletons,vitolo2011hubs,jones2012rossler}"
+    },
+    {
+      "line": 259,
+      "key": "facanha2013endoskeletons",
+      "command": "\\cite{gallas1993structure,facanha2013endoskeletons,vitolo2011hubs,jones2012rossler}"
+    },
+    {
+      "line": 259,
+      "key": "vitolo2011hubs",
+      "command": "\\cite{gallas1993structure,facanha2013endoskeletons,vitolo2011hubs,jones2012rossler}"
+    },
+    {
+      "line": 259,
+      "key": "jones2012rossler",
+      "command": "\\cite{gallas1993structure,facanha2013endoskeletons,vitolo2011hubs,jones2012rossler}"
+    },
+    {
+      "line": 260,
+      "key": "feigenbaum1978quantitative",
+      "command": "\\cite{feigenbaum1978quantitative}"
+    },
+    {
+      "line": 268,
+      "key": "kim2026phase",
+      "command": "\\cite{kim2026phase}"
+    },
+    {
+      "line": 322,
+      "key": "ramsauer2020hopfield",
+      "command": "\\cite{ramsauer2020hopfield}"
+    },
+    {
+      "line": 333,
+      "key": "ramsauer2020hopfield",
+      "command": "\\cite{ramsauer2020hopfield}"
+    },
+    {
+      "line": 477,
+      "key": "dong2021attention",
+      "command": "\\cite{dong2021attention}"
+    },
+    {
+      "line": 478,
+      "key": "geshkovski2023emergence",
+      "command": "\\cite{geshkovski2023emergence}"
+    },
+    {
+      "line": 479,
+      "key": "dong2021attention",
+      "command": "\\cite{dong2021attention}"
+    },
+    {
+      "line": 499,
+      "key": "gallas1993structure",
+      "command": "\\cite{gallas1993structure,jones2012rossler}"
+    },
+    {
+      "line": 499,
+      "key": "jones2012rossler",
+      "command": "\\cite{gallas1993structure,jones2012rossler}"
+    },
+    {
+      "line": 508,
+      "key": "singer1978stable",
+      "command": "\\cite{singer1978stable}"
+    },
+    {
+      "line": 517,
+      "key": "kaplan1979chaotic",
+      "command": "\\cite{kaplan1979chaotic}"
+    },
+    {
+      "line": 553,
+      "key": "benettin1980lyapunovI",
+      "command": "\\cite{benettin1980lyapunovI,benettin1980lyapunovII}"
+    },
+    {
+      "line": 553,
+      "key": "benettin1980lyapunovII",
+      "command": "\\cite{benettin1980lyapunovI,benettin1980lyapunovII}"
+    },
+    {
+      "line": 554,
+      "key": "oseledets1968multiplicative",
+      "command": "\\cite{oseledets1968multiplicative}"
+    },
+    {
+      "line": 574,
+      "key": "govaerts2000numerical",
+      "command": "\\cite{govaerts2000numerical,kuznetsov2023elements}"
+    },
+    {
+      "line": 574,
+      "key": "kuznetsov2023elements",
+      "command": "\\cite{govaerts2000numerical,kuznetsov2023elements}"
+    },
+    {
+      "line": 599,
+      "key": "pomeau1980intermittent",
+      "command": "\\cite{pomeau1980intermittent}"
+    },
+    {
+      "line": 616,
+      "key": "stenzinger2025shrimp",
+      "command": "\\cite{stenzinger2025shrimp}"
+    },
+    {
+      "line": 672,
+      "key": "zhang2025softthinking",
+      "command": "\\cite{zhang2025softthinking}"
+    },
+    {
+      "line": 679,
+      "key": "he2025nondeterminism",
+      "command": "\\cite{he2025nondeterminism,yuan2025nondeterminism}"
+    },
+    {
+      "line": 679,
+      "key": "yuan2025nondeterminism",
+      "command": "\\cite{he2025nondeterminism,yuan2025nondeterminism}"
+    },
+    {
+      "line": 784,
+      "key": "zou2023representation",
+      "command": "\\cite{zou2023representation,rimsky2024steering}"
+    },
+    {
+      "line": 784,
+      "key": "rimsky2024steering",
+      "command": "\\cite{zou2023representation,rimsky2024steering}"
+    },
+    {
+      "line": 1088,
+      "key": "facanha2013endoskeletons",
+      "command": "\\cite{facanha2013endoskeletons}"
+    },
+    {
+      "line": 1089,
+      "key": "pasemann2002complex",
+      "command": "\\cite{pasemann2002complex}"
+    },
+    {
+      "line": 1293,
+      "key": "feigenbaum1978quantitative",
+      "command": "\\cite{feigenbaum1978quantitative,papasavvas2015gain,liu2026learningchaos}"
+    },
+    {
+      "line": 1293,
+      "key": "papasavvas2015gain",
+      "command": "\\cite{feigenbaum1978quantitative,papasavvas2015gain,liu2026learningchaos}"
+    },
+    {
+      "line": 1293,
+      "key": "liu2026learningchaos",
+      "command": "\\cite{feigenbaum1978quantitative,papasavvas2015gain,liu2026learningchaos}"
+    },
+    {
+      "line": 1314,
+      "key": "feigenbaum1978quantitative",
+      "command": "\\cite{feigenbaum1978quantitative}"
+    },
+    {
+      "line": 1374,
+      "key": "kuznetsov2023elements",
+      "command": "\\cite{kuznetsov2023elements}"
+    },
+    {
+      "line": 1404,
+      "key": "holtzman2019degeneration",
+      "command": "\\cite{holtzman2019degeneration,xu2022loop}"
+    },
+    {
+      "line": 1404,
+      "key": "xu2022loop",
+      "command": "\\cite{holtzman2019degeneration,xu2022loop}"
+    },
+    {
+      "line": 1405,
+      "key": "fu2021repetition",
+      "command": "\\cite{fu2021repetition}"
+    },
+    {
+      "line": 1406,
+      "key": "olsson2022induction",
+      "command": "\\cite{olsson2022induction}"
+    },
+    {
+      "line": 1462,
+      "key": "zhang2025softthinking",
+      "command": "\\cite{zhang2025softthinking}"
+    },
+    {
+      "line": 1548,
+      "key": "olmo2024olmo2",
+      "command": "\\cite{olmo2024olmo2}"
+    },
+    {
+      "line": 1566,
+      "key": "grattafiori2024llama3",
+      "command": "\\cite{grattafiori2024llama3}"
+    },
+    {
+      "line": 1573,
+      "key": "goodfire2025sae",
+      "command": "\\cite{goodfire2025sae}"
+    },
+    {
+      "line": 1574,
+      "key": "cho2025faithfulsae",
+      "command": "\\cite{cho2025faithfulsae}"
+    },
+    {
+      "line": 1580,
+      "key": "paulo2026sae",
+      "command": "\\cite{paulo2026sae}"
+    },
+    {
+      "line": 1947,
+      "key": "geiping2025recurrent",
+      "command": "\\cite{geiping2025recurrent}"
+    },
+    {
+      "line": 1948,
+      "key": "cobbe2021gsm8k",
+      "command": "\\cite{cobbe2021gsm8k}"
+    },
+    {
+      "line": 1962,
+      "key": "yang2026stars",
+      "command": "\\cite{yang2026stars}"
+    },
+    {
+      "line": 1980,
+      "key": "wang2026taps",
+      "command": "\\citet{wang2026taps}"
+    },
+    {
+      "line": 1984,
+      "key": "clark2018arc",
+      "command": "\\cite{clark2018arc}"
+    },
+    {
+      "line": 1998,
+      "key": "geiping2025recurrent",
+      "command": "\\citet{geiping2025recurrent}"
+    },
+    {
+      "line": 2019,
+      "key": "wang2026taps",
+      "command": "\\citet{wang2026taps}"
+    },
+    {
+      "line": 2055,
+      "key": "rimsky2024steering",
+      "command": "\\cite{rimsky2024steering}"
+    },
+    {
+      "line": 2092,
+      "key": "vitolo2011hubs",
+      "command": "\\cite{vitolo2011hubs}"
+    },
+    {
+      "line": 2093,
+      "key": "jones2012rossler",
+      "command": "\\cite{jones2012rossler}"
+    },
+    {
+      "line": 2138,
+      "key": "facanha2013endoskeletons",
+      "command": "\\cite{facanha2013endoskeletons}"
+    },
+    {
+      "line": 2142,
+      "key": "gallas1993structure",
+      "command": "\\cite{gallas1993structure,facanha2013endoskeletons}"
+    },
+    {
+      "line": 2142,
+      "key": "facanha2013endoskeletons",
+      "command": "\\cite{gallas1993structure,facanha2013endoskeletons}"
+    },
+    {
+      "line": 2256,
+      "key": "feigenbaum1978quantitative",
+      "command": "\\cite{feigenbaum1978quantitative}"
+    },
+    {
+      "line": 2331,
+      "key": "sompolinsky1988chaos",
+      "command": "\\cite{sompolinsky1988chaos}"
+    },
+    {
+      "line": 2332,
+      "key": "kadmon2015transition",
+      "command": "\\cite{kadmon2015transition}"
+    },
+    {
+      "line": 2336,
+      "key": "doyon1994bifurcations",
+      "command": "\\cite{doyon1994bifurcations}"
+    },
+    {
+      "line": 2339,
+      "key": "rajan2010stimulus",
+      "command": "\\cite{rajan2010stimulus}"
+    },
+    {
+      "line": 2340,
+      "key": "poole2016exponential",
+      "command": "\\cite{poole2016exponential,schoenholz2017deep}"
+    },
+    {
+      "line": 2340,
+      "key": "schoenholz2017deep",
+      "command": "\\cite{poole2016exponential,schoenholz2017deep}"
+    },
+    {
+      "line": 2345,
+      "key": "feigenbaum1978quantitative",
+      "command": "\\cite{feigenbaum1978quantitative}"
+    },
+    {
+      "line": 2347,
+      "key": "gallas1993structure",
+      "command": "\\cite{gallas1993structure,bonatto2008periodicity,vitolo2011hubs,facanha2013endoskeletons}"
+    },
+    {
+      "line": 2347,
+      "key": "bonatto2008periodicity",
+      "command": "\\cite{gallas1993structure,bonatto2008periodicity,vitolo2011hubs,facanha2013endoskeletons}"
+    },
+    {
+      "line": 2347,
+      "key": "vitolo2011hubs",
+      "command": "\\cite{gallas1993structure,bonatto2008periodicity,vitolo2011hubs,facanha2013endoskeletons}"
+    },
+    {
+      "line": 2347,
+      "key": "facanha2013endoskeletons",
+      "command": "\\cite{gallas1993structure,bonatto2008periodicity,vitolo2011hubs,facanha2013endoskeletons}"
+    },
+    {
+      "line": 2348,
+      "key": "stoop2010real",
+      "command": "\\cite{stoop2010real}"
+    },
+    {
+      "line": 2348,
+      "key": "pomeau1980intermittent",
+      "command": "\\cite{pomeau1980intermittent}"
+    },
+    {
+      "line": 2360,
+      "key": "kim2026phase",
+      "command": "\\cite{kim2026phase}"
+    },
+    {
+      "line": 2397,
+      "key": "goodfire2025sae",
+      "command": "\\cite{goodfire2025sae}"
+    },
+    {
+      "line": 2452,
+      "key": "gallas1993structure",
+      "command": "\\cite{gallas1993structure,jones2012rossler}"
+    },
+    {
+      "line": 2452,
+      "key": "jones2012rossler",
+      "command": "\\cite{gallas1993structure,jones2012rossler}"
+    },
+    {
+      "line": 2489,
+      "key": "lai2011transient",
+      "command": "\\cite{lai2011transient}"
+    },
+    {
+      "line": 2521,
+      "key": "sussillo2013opening",
+      "command": "\\cite{sussillo2013opening,maheswaranathan2019reverse}"
+    },
+    {
+      "line": 2521,
+      "key": "maheswaranathan2019reverse",
+      "command": "\\cite{sussillo2013opening,maheswaranathan2019reverse}"
+    },
+    {
+      "line": 2544,
+      "key": "holtzman2019degeneration",
+      "command": "\\cite{holtzman2019degeneration,xu2022loop}"
+    },
+    {
+      "line": 2544,
+      "key": "xu2022loop",
+      "command": "\\cite{holtzman2019degeneration,xu2022loop}"
+    },
+    {
+      "line": 2553,
+      "key": "langton1990computation",
+      "command": "\\cite{langton1990computation,bertschinger2004realtime}"
+    },
+    {
+      "line": 2553,
+      "key": "bertschinger2004realtime",
+      "command": "\\cite{langton1990computation,bertschinger2004realtime}"
+    },
+    {
+      "line": 2554,
+      "key": "poole2016exponential",
+      "command": "\\cite{poole2016exponential,schoenholz2017deep}"
+    },
+    {
+      "line": 2554,
+      "key": "schoenholz2017deep",
+      "command": "\\cite{poole2016exponential,schoenholz2017deep}"
+    },
+    {
+      "line": 2636,
+      "key": "johansson2017arb",
+      "command": "\\cite{johansson2017arb}"
+    },
+    {
+      "line": 2637,
+      "key": "krawczyk1969newton",
+      "command": "\\cite{krawczyk1969newton,moore2009interval,rump2010verification}"
+    },
+    {
+      "line": 2637,
+      "key": "moore2009interval",
+      "command": "\\cite{krawczyk1969newton,moore2009interval,rump2010verification}"
+    },
+    {
+      "line": 2637,
+      "key": "rump2010verification",
+      "command": "\\cite{krawczyk1969newton,moore2009interval,rump2010verification}"
+    }
+  ],
+  "labels": [
+    {
+      "line": 56,
+      "key": "sec:intro"
+    },
+    {
+      "line": 66,
+      "key": "fig:teaser"
+    },
+    {
+      "line": 275,
+      "key": "sec:map"
+    },
+    {
+      "line": 298,
+      "key": "sec:theory"
+    },
+    {
+      "line": 308,
+      "key": "eq:gain"
+    },
+    {
+      "line": 445,
+      "key": "fig:mechanism"
+    },
+    {
+      "line": 473,
+      "key": "tab:mechanism"
+    },
+    {
+      "line": 540,
+      "key": "sec:methods"
+    },
+    {
+      "line": 613,
+      "key": "sec:maps"
+    },
+    {
+      "line": 627,
+      "key": "fig:stripes"
+    },
+    {
+      "line": 647,
+      "key": "fig:cross512"
+    },
+    {
+      "line": 666,
+      "key": "fig:zooms"
+    },
+    {
+      "line": 670,
+      "key": "sec:consequences"
+    },
+    {
+      "line": 739,
+      "key": "fig:repro"
+    },
+    {
+      "line": 780,
+      "key": "tab:repro"
+    },
+    {
+      "line": 807,
+      "key": "fig:layersweep"
+    },
+    {
+      "line": 825,
+      "key": "fig:twoblock"
+    },
+    {
+      "line": 868,
+      "key": "sec:adding"
+    },
+    {
+      "line": 900,
+      "key": "tab:orbits"
+    },
+    {
+      "line": 923,
+      "key": "tab:transcripts"
+    },
+    {
+      "line": 927,
+      "key": "sec:mechanism"
+    },
+    {
+      "line": 956,
+      "key": "tab:passages"
+    },
+    {
+      "line": 966,
+      "key": "fig:passages"
+    },
+    {
+      "line": 1003,
+      "key": "tab:edges"
+    },
+    {
+      "line": 1017,
+      "key": "fig:returnmaps"
+    },
+    {
+      "line": 1046,
+      "key": "tab:prospective"
+    },
+    {
+      "line": 1050,
+      "key": "sec:curves"
+    },
+    {
+      "line": 1137,
+      "key": "tab:z3cusps"
+    },
+    {
+      "line": 1149,
+      "key": "fig:z3curves"
+    },
+    {
+      "line": 1183,
+      "key": "tab:cusps"
+    },
+    {
+      "line": 1201,
+      "key": "fig:p4"
+    },
+    {
+      "line": 1209,
+      "key": "sec:cascade"
+    },
+    {
+      "line": 1251,
+      "key": "tab:superstable"
+    },
+    {
+      "line": 1290,
+      "key": "fig:feigenbaum"
+    },
+    {
+      "line": 1318,
+      "key": "tab:cascade"
+    },
+    {
+      "line": 1341,
+      "key": "tab:cascade156"
+    },
+    {
+      "line": 1369,
+      "key": "tab:flipnf"
+    },
+    {
+      "line": 1381,
+      "key": "sec:bridge"
+    },
+    {
+      "line": 1428,
+      "key": "tab:memory"
+    },
+    {
+      "line": 1435,
+      "key": "fig:bridge"
+    },
+    {
+      "line": 1459,
+      "key": "tab:window"
+    },
+    {
+      "line": 1490,
+      "key": "sec:scale"
+    },
+    {
+      "line": 1518,
+      "key": "fig:qwen15route"
+    },
+    {
+      "line": 1545,
+      "key": "fig:qwen7b"
+    },
+    {
+      "line": 1564,
+      "key": "fig:olmo2"
+    },
+    {
+      "line": 1588,
+      "key": "fig:llama"
+    },
+    {
+      "line": 1599,
+      "key": "fig:llamahires"
+    },
+    {
+      "line": 1619,
+      "key": "fig:samearch"
+    },
+    {
+      "line": 1647,
+      "key": "fig:qwen15"
+    },
+    {
+      "line": 1667,
+      "key": "sec:size"
+    },
+    {
+      "line": 1725,
+      "key": "fig:prefixscale"
+    },
+    {
+      "line": 1759,
+      "key": "tab:scale"
+    },
+    {
+      "line": 1770,
+      "key": "fig:scale"
+    },
+    {
+      "line": 1857,
+      "key": "fig:gainscale"
+    },
+    {
+      "line": 1908,
+      "key": "fig:controls70"
+    },
+    {
+      "line": 1919,
+      "key": "fig:zoom70"
+    },
+    {
+      "line": 1946,
+      "key": "sec:huginn"
+    },
+    {
+      "line": 2035,
+      "key": "fig:huginn-gsm8k"
+    },
+    {
+      "line": 2052,
+      "key": "sec:hostility"
+    },
+    {
+      "line": 2193,
+      "key": "fig:superstable"
+    },
+    {
+      "line": 2203,
+      "key": "fig:returnmapsbody"
+    },
+    {
+      "line": 2215,
+      "key": "fig:cobwebs"
+    },
+    {
+      "line": 2269,
+      "key": "fig:hiddenbands"
+    },
+    {
+      "line": 2281,
+      "key": "fig:reduction"
+    },
+    {
+      "line": 2291,
+      "key": "fig:hubzoom"
+    },
+    {
+      "line": 2305,
+      "key": "fig:hubcascade"
+    },
+    {
+      "line": 2313,
+      "key": "fig:hubshrimp"
+    },
+    {
+      "line": 2323,
+      "key": "fig:hostile-cascade"
+    },
+    {
+      "line": 2327,
+      "key": "sec:discussion"
+    },
+    {
+      "line": 2413,
+      "key": "fig:alpha0"
+    },
+    {
+      "line": 2422,
+      "key": "fig:controls"
+    },
+    {
+      "line": 2435,
+      "key": "fig:morph"
+    },
+    {
+      "line": 2583,
+      "key": "sec:evidence"
+    },
+    {
+      "line": 2627,
+      "key": "tab:search"
+    }
+  ],
+  "references": [
+    {
+      "line": 30,
+      "key": "sec:evidence",
+      "command": "\\ref{sec:evidence}"
+    },
+    {
+      "line": 32,
+      "key": "tab:orbits",
+      "command": "\\ref{tab:orbits}"
+    },
+    {
+      "line": 32,
+      "key": "sec:evidence",
+      "command": "\\ref{sec:evidence}"
+    },
+    {
+      "line": 63,
+      "key": "sec:methods",
+      "command": "\\ref{sec:methods}"
+    },
+    {
+      "line": 65,
+      "key": "fig:cross512",
+      "command": "\\ref{fig:cross512}"
+    },
+    {
+      "line": 88,
+      "key": "fig:teaser",
+      "command": "\\ref{fig:teaser}"
+    },
+    {
+      "line": 112,
+      "key": "sec:theory",
+      "command": "\\ref{sec:theory}"
+    },
+    {
+      "line": 119,
+      "key": "sec:size",
+      "command": "\\ref{sec:size}"
+    },
+    {
+      "line": 123,
+      "key": "sec:bridge",
+      "command": "\\ref{sec:bridge}"
+    },
+    {
+      "line": 134,
+      "key": "sec:consequences",
+      "command": "\\ref{sec:consequences}"
+    },
+    {
+      "line": 143,
+      "key": "sec:theory",
+      "command": "\\ref{sec:theory}"
+    },
+    {
+      "line": 146,
+      "key": "sec:consequences",
+      "command": "\\ref{sec:consequences}"
+    },
+    {
+      "line": 155,
+      "key": "sec:theory",
+      "command": "\\ref{sec:theory}"
+    },
+    {
+      "line": 159,
+      "key": "sec:bridge",
+      "command": "\\ref{sec:bridge}"
+    },
+    {
+      "line": 171,
+      "key": "sec:size",
+      "command": "\\ref{sec:size}"
+    },
+    {
+      "line": 176,
+      "key": "sec:mechanism",
+      "command": "\\ref{sec:mechanism}"
+    },
+    {
+      "line": 184,
+      "key": "sec:curves",
+      "command": "\\ref{sec:curves}"
+    },
+    {
+      "line": 184,
+      "key": "sec:hostility",
+      "command": "\\ref{sec:hostility}"
+    },
+    {
+      "line": 189,
+      "key": "sec:huginn",
+      "command": "\\ref{sec:huginn}"
+    },
+    {
+      "line": 191,
+      "key": "sec:map",
+      "command": "\\ref{sec:map}"
+    },
+    {
+      "line": 195,
+      "key": "sec:evidence",
+      "command": "\\ref{sec:evidence}"
+    },
+    {
+      "line": 198,
+      "key": "sec:maps",
+      "command": "\\ref{sec:maps}"
+    },
+    {
+      "line": 199,
+      "key": "sec:adding",
+      "command": "\\ref{sec:adding}"
+    },
+    {
+      "line": 199,
+      "key": "sec:curves",
+      "command": "\\ref{sec:curves}"
+    },
+    {
+      "line": 200,
+      "key": "sec:cascade",
+      "command": "\\ref{sec:cascade}"
+    },
+    {
+      "line": 202,
+      "key": "sec:hostility",
+      "command": "\\ref{sec:hostility}"
+    },
+    {
+      "line": 204,
+      "key": "sec:scale",
+      "command": "\\ref{sec:scale}"
+    },
+    {
+      "line": 208,
+      "key": "sec:discussion",
+      "command": "\\ref{sec:discussion}"
+    },
+    {
+      "line": 208,
+      "key": "sec:size",
+      "command": "\\ref{sec:size}"
+    },
+    {
+      "line": 209,
+      "key": "sec:bridge",
+      "command": "\\ref{sec:bridge}"
+    },
+    {
+      "line": 277,
+      "key": "sec:scale",
+      "command": "\\ref{sec:scale}"
+    },
+    {
+      "line": 311,
+      "key": "fig:loop",
+      "command": "\\ref{fig:loop}"
+    },
+    {
+      "line": 313,
+      "key": "tab:orbits",
+      "command": "\\ref{tab:orbits}"
+    },
+    {
+      "line": 313,
+      "key": "eq:gain",
+      "command": "\\eqref{eq:gain}"
+    },
+    {
+      "line": 323,
+      "key": "eq:gain",
+      "command": "\\eqref{eq:gain}"
+    },
+    {
+      "line": 339,
+      "key": "fig:readoutgain",
+      "command": "\\ref{fig:readoutgain}"
+    },
+    {
+      "line": 342,
+      "key": "sec:bridge",
+      "command": "\\ref{sec:bridge}"
+    },
+    {
+      "line": 351,
+      "key": "fig:alpha0",
+      "command": "\\ref{fig:alpha0}"
+    },
+    {
+      "line": 355,
+      "key": "sec:size",
+      "command": "\\ref{sec:size}"
+    },
+    {
+      "line": 363,
+      "key": "tab:orbits",
+      "command": "\\ref{tab:orbits}"
+    },
+    {
+      "line": 368,
+      "key": "tab:orbits",
+      "command": "\\ref{tab:orbits}"
+    },
+    {
+      "line": 379,
+      "key": "eq:gain",
+      "command": "\\eqref{eq:gain}"
+    },
+    {
+      "line": 382,
+      "key": "fig:mechanism",
+      "command": "\\ref{fig:mechanism}"
+    },
+    {
+      "line": 382,
+      "key": "tab:mechanism",
+      "command": "\\ref{tab:mechanism}"
+    },
+    {
+      "line": 428,
+      "key": "sec:discussion",
+      "command": "\\ref{sec:discussion}"
+    },
+    {
+      "line": 430,
+      "key": "sec:size",
+      "command": "\\ref{sec:size}"
+    },
+    {
+      "line": 444,
+      "key": "sec:theory",
+      "command": "\\ref{sec:theory}"
+    },
+    {
+      "line": 485,
+      "key": "fig:tworeductions",
+      "command": "\\ref{fig:tworeductions}"
+    },
+    {
+      "line": 490,
+      "key": "sec:mechanism",
+      "command": "\\ref{sec:mechanism}"
+    },
+    {
+      "line": 490,
+      "key": "sec:cascade",
+      "command": "\\ref{sec:cascade}"
+    },
+    {
+      "line": 493,
+      "key": "eq:gain",
+      "command": "\\eqref{eq:gain}"
+    },
+    {
+      "line": 496,
+      "key": "fig:atlas",
+      "command": "\\ref{fig:atlas}"
+    },
+    {
+      "line": 501,
+      "key": "sec:cascade",
+      "command": "\\ref{sec:cascade}"
+    },
+    {
+      "line": 510,
+      "key": "sec:curves",
+      "command": "\\ref{sec:curves}"
+    },
+    {
+      "line": 510,
+      "key": "sec:hostility",
+      "command": "\\ref{sec:hostility}"
+    },
+    {
+      "line": 520,
+      "key": "sec:methods",
+      "command": "\\ref{sec:methods}"
+    },
+    {
+      "line": 524,
+      "key": "sec:hostility",
+      "command": "\\ref{sec:hostility}"
+    },
+    {
+      "line": 548,
+      "key": "sec:size",
+      "command": "\\ref{sec:size}"
+    },
+    {
+      "line": 555,
+      "key": "sec:discussion",
+      "command": "\\ref{sec:discussion}"
+    },
+    {
+      "line": 614,
+      "key": "fig:stripes",
+      "command": "\\ref{fig:stripes}"
+    },
+    {
+      "line": 626,
+      "key": "sec:curves",
+      "command": "\\ref{sec:curves}"
+    },
+    {
+      "line": 630,
+      "key": "fig:teaser",
+      "command": "\\ref{fig:teaser}"
+    },
+    {
+      "line": 631,
+      "key": "fig:cross512",
+      "command": "\\ref{fig:cross512}"
+    },
+    {
+      "line": 634,
+      "key": "sec:cascade",
+      "command": "\\ref{sec:cascade}"
+    },
+    {
+      "line": 642,
+      "key": "fig:teaser",
+      "command": "\\ref{fig:teaser}"
+    },
+    {
+      "line": 645,
+      "key": "fig:teaser",
+      "command": "\\ref{fig:teaser}"
+    },
+    {
+      "line": 650,
+      "key": "fig:zooms",
+      "command": "\\ref{fig:zooms}"
+    },
+    {
+      "line": 662,
+      "key": "fig:teaser",
+      "command": "\\ref{fig:teaser}"
+    },
+    {
+      "line": 665,
+      "key": "sec:curves",
+      "command": "\\ref{sec:curves}"
+    },
+    {
+      "line": 675,
+      "key": "sec:hostility",
+      "command": "\\ref{sec:hostility}"
+    },
+    {
+      "line": 680,
+      "key": "sec:methods",
+      "command": "\\ref{sec:methods}"
+    },
+    {
+      "line": 683,
+      "key": "fig:repro",
+      "command": "\\ref{fig:repro}"
+    },
+    {
+      "line": 684,
+      "key": "tab:repro",
+      "command": "\\ref{tab:repro}"
+    },
+    {
+      "line": 787,
+      "key": "fig:layersweep",
+      "command": "\\ref{fig:layersweep}"
+    },
+    {
+      "line": 794,
+      "key": "sec:theory",
+      "command": "\\ref{sec:theory}"
+    },
+    {
+      "line": 794,
+      "key": "sec:theory",
+      "command": "\\ref{sec:theory}"
+    },
+    {
+      "line": 800,
+      "key": "fig:mechanism",
+      "command": "\\ref{fig:mechanism}"
+    },
+    {
+      "line": 813,
+      "key": "fig:twoblock",
+      "command": "\\ref{fig:twoblock}"
+    },
+    {
+      "line": 844,
+      "key": "sec:theory",
+      "command": "\\ref{sec:theory}"
+    },
+    {
+      "line": 870,
+      "key": "tab:orbits",
+      "command": "\\ref{tab:orbits}"
+    },
+    {
+      "line": 875,
+      "key": "sec:cascade",
+      "command": "\\ref{sec:cascade}"
+    },
+    {
+      "line": 876,
+      "key": "sec:curves",
+      "command": "\\ref{sec:curves}"
+    },
+    {
+      "line": 899,
+      "key": "sec:evidence",
+      "command": "\\ref{sec:evidence}"
+    },
+    {
+      "line": 902,
+      "key": "tab:transcripts",
+      "command": "\\ref{tab:transcripts}"
+    },
+    {
+      "line": 920,
+      "key": "tab:orbits",
+      "command": "\\ref{tab:orbits}"
+    },
+    {
+      "line": 935,
+      "key": "tab:passages",
+      "command": "\\ref{tab:passages}"
+    },
+    {
+      "line": 938,
+      "key": "sec:methods",
+      "command": "\\ref{sec:methods}"
+    },
+    {
+      "line": 940,
+      "key": "tab:passages",
+      "command": "\\ref{tab:passages}"
+    },
+    {
+      "line": 940,
+      "key": "fig:passages",
+      "command": "\\ref{fig:passages}"
+    },
+    {
+      "line": 975,
+      "key": "fig:returnmaps",
+      "command": "\\ref{fig:returnmaps}"
+    },
+    {
+      "line": 977,
+      "key": "tab:edges",
+      "command": "\\ref{tab:edges}"
+    },
+    {
+      "line": 1001,
+      "key": "tab:orbits",
+      "command": "\\ref{tab:orbits}"
+    },
+    {
+      "line": 1024,
+      "key": "tab:orbits",
+      "command": "\\ref{tab:orbits}"
+    },
+    {
+      "line": 1027,
+      "key": "tab:prospective",
+      "command": "\\ref{tab:prospective}"
+    },
+    {
+      "line": 1053,
+      "key": "fig:stripes",
+      "command": "\\ref{fig:stripes}"
+    },
+    {
+      "line": 1057,
+      "key": "sec:methods",
+      "command": "\\ref{sec:methods}"
+    },
+    {
+      "line": 1065,
+      "key": "fig:stripes",
+      "command": "\\ref{fig:stripes}"
+    },
+    {
+      "line": 1065,
+      "key": "fig:cross512",
+      "command": "\\ref{fig:cross512}"
+    },
+    {
+      "line": 1066,
+      "key": "sec:mechanism",
+      "command": "\\ref{sec:mechanism}"
+    },
+    {
+      "line": 1072,
+      "key": "fig:zooms",
+      "command": "\\ref{fig:zooms}"
+    },
+    {
+      "line": 1089,
+      "key": "fig:z3curves",
+      "command": "\\ref{fig:z3curves}"
+    },
+    {
+      "line": 1096,
+      "key": "tab:z3cusps",
+      "command": "\\ref{tab:z3cusps}"
+    },
+    {
+      "line": 1104,
+      "key": "sec:methods",
+      "command": "\\ref{sec:methods}"
+    },
+    {
+      "line": 1146,
+      "key": "fig:stripes",
+      "command": "\\ref{fig:stripes}"
+    },
+    {
+      "line": 1157,
+      "key": "tab:cusps",
+      "command": "\\ref{tab:cusps}"
+    },
+    {
+      "line": 1166,
+      "key": "fig:p4",
+      "command": "\\ref{fig:p4}"
+    },
+    {
+      "line": 1195,
+      "key": "sec:cascade",
+      "command": "\\ref{sec:cascade}"
+    },
+    {
+      "line": 1210,
+      "key": "fig:cross512",
+      "command": "\\ref{fig:cross512}"
+    },
+    {
+      "line": 1214,
+      "key": "sec:methods",
+      "command": "\\ref{sec:methods}"
+    },
+    {
+      "line": 1215,
+      "key": "tab:cascade",
+      "command": "\\ref{tab:cascade}"
+    },
+    {
+      "line": 1216,
+      "key": "tab:cascade",
+      "command": "\\ref{tab:cascade}"
+    },
+    {
+      "line": 1223,
+      "key": "tab:superstable",
+      "command": "\\ref{tab:superstable}"
+    },
+    {
+      "line": 1227,
+      "key": "fig:feigenbaum",
+      "command": "\\ref{fig:feigenbaum}"
+    },
+    {
+      "line": 1258,
+      "key": "tab:cascade156",
+      "command": "\\ref{tab:cascade156}"
+    },
+    {
+      "line": 1280,
+      "key": "fig:qwen15route",
+      "command": "\\ref{fig:qwen15route}"
+    },
+    {
+      "line": 1316,
+      "key": "tab:superstable",
+      "command": "\\ref{tab:superstable}"
+    },
+    {
+      "line": 1343,
+      "key": "fig:p4",
+      "command": "\\ref{fig:p4}"
+    },
+    {
+      "line": 1371,
+      "key": "sec:theory",
+      "command": "\\ref{sec:theory}"
+    },
+    {
+      "line": 1377,
+      "key": "tab:flipnf",
+      "command": "\\ref{tab:flipnf}"
+    },
+    {
+      "line": 1383,
+      "key": "fig:bridge",
+      "command": "\\ref{fig:bridge}"
+    },
+    {
+      "line": 1395,
+      "key": "tab:memory",
+      "command": "\\ref{tab:memory}"
+    },
+    {
+      "line": 1440,
+      "key": "tab:window",
+      "command": "\\ref{tab:window}"
+    },
+    {
+      "line": 1483,
+      "key": "sec:size",
+      "command": "\\ref{sec:size}"
+    },
+    {
+      "line": 1492,
+      "key": "fig:qwen15",
+      "command": "\\ref{fig:qwen15}"
+    },
+    {
+      "line": 1498,
+      "key": "fig:qwen15route",
+      "command": "\\ref{fig:qwen15route}"
+    },
+    {
+      "line": 1510,
+      "key": "sec:cascade",
+      "command": "\\ref{sec:cascade}"
+    },
+    {
+      "line": 1521,
+      "key": "sec:hostility",
+      "command": "\\ref{sec:hostility}"
+    },
+    {
+      "line": 1524,
+      "key": "fig:qwen7b",
+      "command": "\\ref{fig:qwen7b}"
+    },
+    {
+      "line": 1550,
+      "key": "fig:olmo2",
+      "command": "\\ref{fig:olmo2}"
+    },
+    {
+      "line": 1556,
+      "key": "sec:hostility",
+      "command": "\\ref{sec:hostility}"
+    },
+    {
+      "line": 1568,
+      "key": "fig:llama",
+      "command": "\\ref{fig:llama}"
+    },
+    {
+      "line": 1590,
+      "key": "fig:llamahires",
+      "command": "\\ref{fig:llamahires}"
+    },
+    {
+      "line": 1605,
+      "key": "fig:samearch",
+      "command": "\\ref{fig:samearch}"
+    },
+    {
+      "line": 1621,
+      "key": "sec:mechanism",
+      "command": "\\ref{sec:mechanism}"
+    },
+    {
+      "line": 1645,
+      "key": "fig:teaser",
+      "command": "\\ref{fig:teaser}"
+    },
+    {
+      "line": 1645,
+      "key": "fig:cross512",
+      "command": "\\ref{fig:cross512}"
+    },
+    {
+      "line": 1646,
+      "key": "sec:methods",
+      "command": "\\ref{sec:methods}"
+    },
+    {
+      "line": 1671,
+      "key": "sec:methods",
+      "command": "\\ref{sec:methods}"
+    },
+    {
+      "line": 1684,
+      "key": "sec:theory",
+      "command": "\\ref{sec:theory}"
+    },
+    {
+      "line": 1688,
+      "key": "tab:scale",
+      "command": "\\ref{tab:scale}"
+    },
+    {
+      "line": 1689,
+      "key": "fig:scale",
+      "command": "\\ref{fig:scale}"
+    },
+    {
+      "line": 1704,
+      "key": "fig:prefixscale",
+      "command": "\\ref{fig:prefixscale}"
+    },
+    {
+      "line": 1710,
+      "key": "tab:scale",
+      "command": "\\ref{tab:scale}"
+    },
+    {
+      "line": 1764,
+      "key": "tab:scale",
+      "command": "\\ref{tab:scale}"
+    },
+    {
+      "line": 1766,
+      "key": "tab:scale",
+      "command": "\\ref{tab:scale}"
+    },
+    {
+      "line": 1799,
+      "key": "sec:theory",
+      "command": "\\ref{sec:theory}"
+    },
+    {
+      "line": 1802,
+      "key": "sec:theory",
+      "command": "\\ref{sec:theory}"
+    },
+    {
+      "line": 1803,
+      "key": "fig:gainscale",
+      "command": "\\ref{fig:gainscale}"
+    },
+    {
+      "line": 1846,
+      "key": "sec:bridge",
+      "command": "\\ref{sec:bridge}"
+    },
+    {
+      "line": 1853,
+      "key": "sec:theory",
+      "command": "\\ref{sec:theory}"
+    },
+    {
+      "line": 1860,
+      "key": "sec:theory",
+      "command": "\\ref{sec:theory}"
+    },
+    {
+      "line": 1865,
+      "key": "fig:scale",
+      "command": "\\ref{fig:scale}"
+    },
+    {
+      "line": 1874,
+      "key": "sec:theory",
+      "command": "\\ref{sec:theory}"
+    },
+    {
+      "line": 1878,
+      "key": "fig:controls70",
+      "command": "\\ref{fig:controls70}"
+    },
+    {
+      "line": 1890,
+      "key": "fig:zoom70",
+      "command": "\\ref{fig:zoom70}"
+    },
+    {
+      "line": 2026,
+      "key": "fig:huginn-gsm8k",
+      "command": "\\ref{fig:huginn-gsm8k}"
+    },
+    {
+      "line": 2060,
+      "key": "sec:map",
+      "command": "\\ref{sec:map}"
+    },
+    {
+      "line": 2064,
+      "key": "fig:hostile-cascade",
+      "command": "\\ref{fig:hostile-cascade}"
+    },
+    {
+      "line": 2066,
+      "key": "sec:adding",
+      "command": "\\ref{sec:adding}"
+    },
+    {
+      "line": 2067,
+      "key": "sec:mechanism",
+      "command": "\\ref{sec:mechanism}"
+    },
+    {
+      "line": 2107,
+      "key": "fig:hubshrimp",
+      "command": "\\ref{fig:hubshrimp}"
+    },
+    {
+      "line": 2122,
+      "key": "sec:curves",
+      "command": "\\ref{sec:curves}"
+    },
+    {
+      "line": 2125,
+      "key": "fig:hubcascade",
+      "command": "\\ref{fig:hubcascade}"
+    },
+    {
+      "line": 2135,
+      "key": "fig:hubzoom",
+      "command": "\\ref{fig:hubzoom}"
+    },
+    {
+      "line": 2144,
+      "key": "fig:superstable",
+      "command": "\\ref{fig:superstable}"
+    },
+    {
+      "line": 2152,
+      "key": "fig:returnmapsbody",
+      "command": "\\ref{fig:returnmapsbody}"
+    },
+    {
+      "line": 2153,
+      "key": "fig:cobwebs",
+      "command": "\\ref{fig:cobwebs}"
+    },
+    {
+      "line": 2157,
+      "key": "fig:shrimpschematic",
+      "command": "\\ref{fig:shrimpschematic}"
+    },
+    {
+      "line": 2162,
+      "key": "sec:cascade",
+      "command": "\\ref{sec:cascade}"
+    },
+    {
+      "line": 2168,
+      "key": "sec:curves",
+      "command": "\\ref{sec:curves}"
+    },
+    {
+      "line": 2173,
+      "key": "fig:returnmapsbody",
+      "command": "\\ref{fig:returnmapsbody}"
+    },
+    {
+      "line": 2174,
+      "key": "fig:superstable",
+      "command": "\\ref{fig:superstable}"
+    },
+    {
+      "line": 2177,
+      "key": "fig:zooms",
+      "command": "\\ref{fig:zooms}"
+    },
+    {
+      "line": 2178,
+      "key": "sec:curves",
+      "command": "\\ref{sec:curves}"
+    },
+    {
+      "line": 2200,
+      "key": "fig:hubcascade",
+      "command": "\\ref{fig:hubcascade}"
+    },
+    {
+      "line": 2213,
+      "key": "fig:returnmapsbody",
+      "command": "\\ref{fig:returnmapsbody}"
+    },
+    {
+      "line": 2218,
+      "key": "fig:hubcascade",
+      "command": "\\ref{fig:hubcascade}"
+    },
+    {
+      "line": 2222,
+      "key": "fig:hiddenbands",
+      "command": "\\ref{fig:hiddenbands}"
+    },
+    {
+      "line": 2241,
+      "key": "fig:reduction",
+      "command": "\\ref{fig:reduction}"
+    },
+    {
+      "line": 2289,
+      "key": "fig:hubcascade",
+      "command": "\\ref{fig:hubcascade}"
+    },
+    {
+      "line": 2304,
+      "key": "sec:discussion",
+      "command": "\\ref{sec:discussion}"
+    },
+    {
+      "line": 2341,
+      "key": "sec:theory",
+      "command": "\\ref{sec:theory}"
+    },
+    {
+      "line": 2376,
+      "key": "sec:theory",
+      "command": "\\ref{sec:theory}"
+    },
+    {
+      "line": 2377,
+      "key": "fig:alpha0",
+      "command": "\\ref{fig:alpha0}"
+    },
+    {
+      "line": 2377,
+      "key": "sec:size",
+      "command": "\\ref{sec:size}"
+    },
+    {
+      "line": 2384,
+      "key": "fig:controls",
+      "command": "\\ref{fig:controls}"
+    },
+    {
+      "line": 2391,
+      "key": "fig:morph",
+      "command": "\\ref{fig:morph}"
+    },
+    {
+      "line": 2402,
+      "key": "sec:size",
+      "command": "\\ref{sec:size}"
+    },
+    {
+      "line": 2411,
+      "key": "tab:scale",
+      "command": "\\ref{tab:scale}"
+    },
+    {
+      "line": 2440,
+      "key": "sec:consequences",
+      "command": "\\ref{sec:consequences}"
+    },
+    {
+      "line": 2441,
+      "key": "sec:theory",
+      "command": "\\ref{sec:theory}"
+    },
+    {
+      "line": 2444,
+      "key": "sec:consequences",
+      "command": "\\ref{sec:consequences}"
+    },
+    {
+      "line": 2445,
+      "key": "sec:bridge",
+      "command": "\\ref{sec:bridge}"
+    },
+    {
+      "line": 2451,
+      "key": "fig:superstable",
+      "command": "\\ref{fig:superstable}"
+    },
+    {
+      "line": 2467,
+      "key": "sec:size",
+      "command": "\\ref{sec:size}"
+    },
+    {
+      "line": 2475,
+      "key": "sec:size",
+      "command": "\\ref{sec:size}"
+    },
+    {
+      "line": 2477,
+      "key": "sec:bridge",
+      "command": "\\ref{sec:bridge}"
+    },
+    {
+      "line": 2485,
+      "key": "fig:teaser",
+      "command": "\\ref{fig:teaser}"
+    },
+    {
+      "line": 2485,
+      "key": "fig:stripes",
+      "command": "\\ref{fig:stripes}"
+    },
+    {
+      "line": 2490,
+      "key": "fig:hubcascade",
+      "command": "\\ref{fig:hubcascade}"
+    },
+    {
+      "line": 2494,
+      "key": "sec:bridge",
+      "command": "\\ref{sec:bridge}"
+    },
+    {
+      "line": 2504,
+      "key": "sec:consequences",
+      "command": "\\ref{sec:consequences}"
+    },
+    {
+      "line": 2508,
+      "key": "sec:bridge",
+      "command": "\\ref{sec:bridge}"
+    },
+    {
+      "line": 2519,
+      "key": "sec:theory",
+      "command": "\\ref{sec:theory}"
+    },
+    {
+      "line": 2526,
+      "key": "sec:size",
+      "command": "\\ref{sec:size}"
+    },
+    {
+      "line": 2526,
+      "key": "sec:theory",
+      "command": "\\ref{sec:theory}"
+    },
+    {
+      "line": 2529,
+      "key": "fig:hiddenbands",
+      "command": "\\ref{fig:hiddenbands}"
+    },
+    {
+      "line": 2532,
+      "key": "tab:memory",
+      "command": "\\ref{tab:memory}"
+    },
+    {
+      "line": 2533,
+      "key": "sec:bridge",
+      "command": "\\ref{sec:bridge}"
+    },
+    {
+      "line": 2536,
+      "key": "sec:consequences",
+      "command": "\\ref{sec:consequences}"
+    },
+    {
+      "line": 2541,
+      "key": "tab:transcripts",
+      "command": "\\ref{tab:transcripts}"
+    },
+    {
+      "line": 2545,
+      "key": "sec:bridge",
+      "command": "\\ref{sec:bridge}"
+    },
+    {
+      "line": 2549,
+      "key": "sec:hostility",
+      "command": "\\ref{sec:hostility}"
+    },
+    {
+      "line": 2551,
+      "key": "sec:size",
+      "command": "\\ref{sec:size}"
+    },
+    {
+      "line": 2556,
+      "key": "sec:consequences",
+      "command": "\\ref{sec:consequences}"
+    },
+    {
+      "line": 2567,
+      "key": "sec:scale",
+      "command": "\\ref{sec:scale}"
+    },
+    {
+      "line": 2570,
+      "key": "sec:size",
+      "command": "\\ref{sec:size}"
+    },
+    {
+      "line": 2573,
+      "key": "sec:theory",
+      "command": "\\ref{sec:theory}"
+    },
+    {
+      "line": 2573,
+      "key": "sec:scale",
+      "command": "\\ref{sec:scale}"
+    },
+    {
+      "line": 2592,
+      "key": "sec:discussion",
+      "command": "\\ref{sec:discussion}"
+    },
+    {
+      "line": 2593,
+      "key": "sec:size",
+      "command": "\\ref{sec:size}"
+    },
+    {
+      "line": 2603,
+      "key": "tab:search",
+      "command": "\\ref{tab:search}"
+    },
+    {
+      "line": 2630,
+      "key": "tab:orbits",
+      "command": "\\ref{tab:orbits}"
+    },
+    {
+      "line": 2651,
+      "key": "tab:passages",
+      "command": "\\ref{tab:passages}"
+    },
+    {
+      "line": 2652,
+      "key": "tab:prospective",
+      "command": "\\ref{tab:prospective}"
+    },
+    {
+      "line": 2654,
+      "key": "tab:orbits",
+      "command": "\\ref{tab:orbits}"
+    },
+    {
+      "line": 2663,
+      "key": "sec:size",
+      "command": "\\ref{sec:size}"
+    },
+    {
+      "line": 2669,
+      "key": "sec:consequences",
+      "command": "\\ref{sec:consequences}"
+    },
+    {
+      "line": 2674,
+      "key": "sec:huginn",
+      "command": "\\ref{sec:huginn}"
+    }
+  ],
+  "figures": [
+    {
+      "line": 59,
+      "argument": "fig-cross512-lyapunov.png",
+      "repository_path": "paper/llm/figures/fig-cross512-lyapunov.png",
+      "tracked_metadata": {
+        "git_blob": "7ee43f715e525523e2c6766fe4086fabe2caa9d7",
+        "bytes": 684284,
+        "mode": "100644"
+      }
+    },
+    {
+      "line": 434,
+      "argument": "fig-mechanism.png",
+      "repository_path": "paper/llm/figures/fig-mechanism.png",
+      "tracked_metadata": {
+        "git_blob": "1b3a352aa8765c0ce7b6c787cc99ab5e3e7cf43f",
+        "bytes": 490017,
+        "mode": "100644"
+      }
+    },
+    {
+      "line": 620,
+      "argument": "fig-stripes-lyapunov-curves.png",
+      "repository_path": "paper/llm/figures/fig-stripes-lyapunov-curves.png",
+      "tracked_metadata": {
+        "git_blob": "296485f4e08bf1c4c901408124ca8cbd63e41b7d",
+        "bytes": 329760,
+        "mode": "100644"
+      }
+    },
+    {
+      "line": 621,
+      "argument": "fig-stripes-period-fold.png",
+      "repository_path": "paper/llm/figures/fig-stripes-period-fold.png",
+      "tracked_metadata": {
+        "git_blob": "b5bb94e6e31123ddb2197c6f36a9dbf5d58caa2b",
+        "bytes": 121459,
+        "mode": "100644"
+      }
+    },
+    {
+      "line": 641,
+      "argument": "fig-cross512-families.png",
+      "repository_path": "paper/llm/figures/fig-cross512-families.png",
+      "tracked_metadata": {
+        "git_blob": "6c26ec2ba89f63c607fb02a78a76abc015edc116",
+        "bytes": 178885,
+        "mode": "100644"
+      }
+    },
+    {
+      "line": 657,
+      "argument": "fig-zoom-z2-lyapunov.png",
+      "repository_path": "paper/llm/figures/fig-zoom-z2-lyapunov.png",
+      "tracked_metadata": {
+        "git_blob": "26de6aedcaa8cd52b7f4964c41c599dc9d7763bf",
+        "bytes": 309688,
+        "mode": "100644"
+      }
+    },
+    {
+      "line": 658,
+      "argument": "fig-zoom-z2-families.png",
+      "repository_path": "paper/llm/figures/fig-zoom-z2-families.png",
+      "tracked_metadata": {
+        "git_blob": "f57ad58c8fb365aebd1ea844ac481423f1bcf7cb",
+        "bytes": 116134,
+        "mode": "100644"
+      }
+    },
+    {
+      "line": 659,
+      "argument": "fig-zoom-z3-lyapunov.png",
+      "repository_path": "paper/llm/figures/fig-zoom-z3-lyapunov.png",
+      "tracked_metadata": {
+        "git_blob": "92fae6edebd898f48c561c46124bb02700c920f9",
+        "bytes": 321133,
+        "mode": "100644"
+      }
+    },
+    {
+      "line": 660,
+      "argument": "fig-zoom-z3-families.png",
+      "repository_path": "paper/llm/figures/fig-zoom-z3-families.png",
+      "tracked_metadata": {
+        "git_blob": "e0da293a95d01dbc431544c5f081be4f4b37956b",
+        "bytes": 99904,
+        "mode": "100644"
+      }
+    },
+    {
+      "line": 733,
+      "argument": "fig-repro.png",
+      "repository_path": "paper/llm/figures/fig-repro.png",
+      "tracked_metadata": {
+        "git_blob": "f492cf29d8dcf7e93f8354da6247d6c04a42ccd8",
+        "bytes": 296213,
+        "mode": "100644"
+      }
+    },
+    {
+      "line": 803,
+      "argument": "fig-layer-sweep.png",
+      "repository_path": "paper/llm/figures/fig-layer-sweep.png",
+      "tracked_metadata": {
+        "git_blob": "dc9dda6f737f4003e3c0a73c4bacb6e5cccd1af6",
+        "bytes": 184346,
+        "mode": "100644"
+      }
+    },
+    {
+      "line": 821,
+      "argument": "fig-two-block.png",
+      "repository_path": "paper/llm/figures/fig-two-block.png",
+      "tracked_metadata": {
+        "git_blob": "3c82c36cc9ff1e234790ee8943a9badfcfef8382",
+        "bytes": 300791,
+        "mode": "100644"
+      }
+    },
+    {
+      "line": 960,
+      "argument": "fig-passages.png",
+      "repository_path": "paper/llm/figures/fig-passages.png",
+      "tracked_metadata": {
+        "git_blob": "528849ae50126734552e4466c707b4f0f08111cb",
+        "bytes": 88955,
+        "mode": "100644"
+      }
+    },
+    {
+      "line": 961,
+      "argument": "fig-window-law.png",
+      "repository_path": "paper/llm/figures/fig-window-law.png",
+      "tracked_metadata": {
+        "git_blob": "8a2c2fbec05a79dd316c63aa9d7adab49a8e3aff",
+        "bytes": 89115,
+        "mode": "100644"
+      }
+    },
+    {
+      "line": 1014,
+      "argument": "fig-return-maps.png",
+      "repository_path": "paper/llm/figures/fig-return-maps.png",
+      "tracked_metadata": {
+        "git_blob": "a2663e997999272be9ed9cd042355f18020ed5d0",
+        "bytes": 192722,
+        "mode": "100644"
+      }
+    },
+    {
+      "line": 1141,
+      "argument": "fig-zoom-z3-curves.png",
+      "repository_path": "paper/llm/figures/fig-zoom-z3-curves.png",
+      "tracked_metadata": {
+        "git_blob": "f815183ace8f348a7f9c8f9d490bdb341f52ec5e",
+        "bytes": 1009657,
+        "mode": "100644"
+      }
+    },
+    {
+      "line": 1187,
+      "argument": "fig-p4-curves.png",
+      "repository_path": "paper/llm/figures/fig-p4-curves.png",
+      "tracked_metadata": {
+        "git_blob": "ec555c2a33e208bfb4661ddc8cf72d4e92a4f3c9",
+        "bytes": 114563,
+        "mode": "100644"
+      }
+    },
+    {
+      "line": 1277,
+      "argument": "fig-feigenbaum-ratios.png",
+      "repository_path": "paper/llm/figures/fig-feigenbaum-ratios.png",
+      "tracked_metadata": {
+        "git_blob": "e4a1f7a97ceba04b6306316daa4855720f370f9a",
+        "bytes": 124963,
+        "mode": "100644"
+      }
+    },
+    {
+      "line": 1432,
+      "argument": "fig-bridge.png",
+      "repository_path": "paper/llm/figures/fig-bridge.png",
+      "tracked_metadata": {
+        "git_blob": "2f62ef711e66fd977d7e68a0944c996947fed25f",
+        "bytes": 60785,
+        "mode": "100644"
+      }
+    },
+    {
+      "line": 1513,
+      "argument": "fig-qwen15-route.png",
+      "repository_path": "paper/llm/figures/fig-qwen15-route.png",
+      "tracked_metadata": {
+        "git_blob": "4481556ddea3d6cdc669ea1e7302d12bf217a82c",
+        "bytes": 105798,
+        "mode": "100644"
+      }
+    },
+    {
+      "line": 1542,
+      "argument": "fig-qwen7b-hostility.png",
+      "repository_path": "paper/llm/figures/fig-qwen7b-hostility.png",
+      "tracked_metadata": {
+        "git_blob": "867d9db46d9cf9e47d502c7544929356e088922d",
+        "bytes": 124127,
+        "mode": "100644"
+      }
+    },
+    {
+      "line": 1560,
+      "argument": "fig-olmo2-maps.png",
+      "repository_path": "paper/llm/figures/fig-olmo2-maps.png",
+      "tracked_metadata": {
+        "git_blob": "e08b4d1b4349340b6cb9250986681ffb99d0349b",
+        "bytes": 215912,
+        "mode": "100644"
+      }
+    },
+    {
+      "line": 1584,
+      "argument": "fig-llama-maps.png",
+      "repository_path": "paper/llm/figures/fig-llama-maps.png",
+      "tracked_metadata": {
+        "git_blob": "96e41514aed683e18e9afa08e527943ebb7acc8d",
+        "bytes": 344900,
+        "mode": "100644"
+      }
+    },
+    {
+      "line": 1595,
+      "argument": "fig-llama-hires.png",
+      "repository_path": "paper/llm/figures/fig-llama-hires.png",
+      "tracked_metadata": {
+        "git_blob": "78c9c4e5e138aad80bb9cb03b2f96a3204726ed1",
+        "bytes": 521069,
+        "mode": "100644"
+      }
+    },
+    {
+      "line": 1615,
+      "argument": "fig-same-architecture.png",
+      "repository_path": "paper/llm/figures/fig-same-architecture.png",
+      "tracked_metadata": {
+        "git_blob": "a4f853f60b2e31eb887dccf01bcd864dc24c8c9e",
+        "bytes": 198319,
+        "mode": "100644"
+      }
+    },
+    {
+      "line": 1641,
+      "argument": "fig-qwen15-zoom-lyapunov.png",
+      "repository_path": "paper/llm/figures/fig-qwen15-zoom-lyapunov.png",
+      "tracked_metadata": {
+        "git_blob": "d8d40174be271b7a6e227a98a68d5bfd20ccf79b",
+        "bytes": 220009,
+        "mode": "100644"
+      }
+    },
+    {
+      "line": 1642,
+      "argument": "fig-qwen15-zoom-families.png",
+      "repository_path": "paper/llm/figures/fig-qwen15-zoom-families.png",
+      "tracked_metadata": {
+        "git_blob": "6c216f3dfbac2a65c17aab68e35f8d04bd405cd8",
+        "bytes": 97661,
+        "mode": "100644"
+      }
+    },
+    {
+      "line": 1719,
+      "argument": "fig-prefix-scale.png",
+      "repository_path": "paper/llm/figures/fig-prefix-scale.png",
+      "tracked_metadata": {
+        "git_blob": "324fba00637e132b8d2bc71b3cf4818cd473332a",
+        "bytes": 154464,
+        "mode": "100644"
+      }
+    },
+    {
+      "line": 1763,
+      "argument": "fig-scale.png",
+      "repository_path": "paper/llm/figures/fig-scale.png",
+      "tracked_metadata": {
+        "git_blob": "0ccdacf7f8e2e9479da7d038fea1d22e4580f583",
+        "bytes": 233384,
+        "mode": "100644"
+      }
+    },
+    {
+      "line": 1852,
+      "argument": "fig-gain-scale.png",
+      "repository_path": "paper/llm/figures/fig-gain-scale.png",
+      "tracked_metadata": {
+        "git_blob": "60e0d2aa618e21025865ceef944c2d8b25c2ce04",
+        "bytes": 250603,
+        "mode": "100644"
+      }
+    },
+    {
+      "line": 1901,
+      "argument": "fig-controls-llama70b.png",
+      "repository_path": "paper/llm/figures/fig-controls-llama70b.png",
+      "tracked_metadata": {
+        "git_blob": "40259363b12a260970090568060e3a71148dee9d",
+        "bytes": 140597,
+        "mode": "100644"
+      }
+    },
+    {
+      "line": 1912,
+      "argument": "fig-zoom-llama70b.png",
+      "repository_path": "paper/llm/figures/fig-zoom-llama70b.png",
+      "tracked_metadata": {
+        "git_blob": "55160821cf655f948ddc37e6fd799a6f84bcc12a",
+        "bytes": 242422,
+        "mode": "100644"
+      }
+    },
+    {
+      "line": 2029,
+      "argument": "fig-huginn-gsm8k.png",
+      "repository_path": "paper/llm/figures/fig-huginn-gsm8k.png",
+      "tracked_metadata": {
+        "git_blob": "a53bb8bd6e04f083c34bcffa2108d93a0d3846ce",
+        "bytes": 140093,
+        "mode": "100644"
+      }
+    },
+    {
+      "line": 2184,
+      "argument": "fig-superstable-lines.png",
+      "repository_path": "paper/llm/figures/fig-superstable-lines.png",
+      "tracked_metadata": {
+        "git_blob": "d9c986ff20da1a8aa5a82ca69a0b5a8ea9fb556c",
+        "bytes": 380322,
+        "mode": "100644"
+      }
+    },
+    {
+      "line": 2197,
+      "argument": "fig-return-maps-body.png",
+      "repository_path": "paper/llm/figures/fig-return-maps-body.png",
+      "tracked_metadata": {
+        "git_blob": "42c53c75f7c50f7db6b07ef212b23e741108e29a",
+        "bytes": 90431,
+        "mode": "100644"
+      }
+    },
+    {
+      "line": 2207,
+      "argument": "fig-cobwebs.png",
+      "repository_path": "paper/llm/figures/fig-cobwebs.png",
+      "tracked_metadata": {
+        "git_blob": "3b46d3e174d51108c48b78727c2998d9705cc41f",
+        "bytes": 171446,
+        "mode": "100644"
+      }
+    },
+    {
+      "line": 2261,
+      "argument": "fig-hidden-bands.png",
+      "repository_path": "paper/llm/figures/fig-hidden-bands.png",
+      "tracked_metadata": {
+        "git_blob": "6d5f2429a27467794386b7266436febc9765c372",
+        "bytes": 310490,
+        "mode": "100644"
+      }
+    },
+    {
+      "line": 2273,
+      "argument": "fig-repeating-text-reduction.png",
+      "repository_path": "paper/llm/figures/fig-repeating-text-reduction.png",
+      "tracked_metadata": {
+        "git_blob": "885610c4a78c48d5da19f52701f7da68139d1f71",
+        "bytes": 152004,
+        "mode": "100644"
+      }
+    },
+    {
+      "line": 2285,
+      "argument": "fig-hub-zoom.png",
+      "repository_path": "paper/llm/figures/fig-hub-zoom.png",
+      "tracked_metadata": {
+        "git_blob": "22ecac7c2c2ff79a7b61b4e2af826925a6f79043",
+        "bytes": 335347,
+        "mode": "100644"
+      }
+    },
+    {
+      "line": 2295,
+      "argument": "fig-hub-cascade.png",
+      "repository_path": "paper/llm/figures/fig-hub-cascade.png",
+      "tracked_metadata": {
+        "git_blob": "88e55fb4d62e6bd8b7b54ea318c6c83d84a728ae",
+        "bytes": 414026,
+        "mode": "100644"
+      }
+    },
+    {
+      "line": 2309,
+      "argument": "fig-hub-shrimp.png",
+      "repository_path": "paper/llm/figures/fig-hub-shrimp.png",
+      "tracked_metadata": {
+        "git_blob": "71c1fb16ae7b7de3e0d64388d1832724600584e6",
+        "bytes": 160790,
+        "mode": "100644"
+      }
+    },
+    {
+      "line": 2317,
+      "argument": "fig-hostile-cascade.png",
+      "repository_path": "paper/llm/figures/fig-hostile-cascade.png",
+      "tracked_metadata": {
+        "git_blob": "71ac9fe4f6960eff0ea914729bb98afd9b36c9cd",
+        "bytes": 181962,
+        "mode": "100644"
+      }
+    },
+    {
+      "line": 2405,
+      "argument": "fig-alpha0.png",
+      "repository_path": "paper/llm/figures/fig-alpha0.png",
+      "tracked_metadata": {
+        "git_blob": "268e632f00ddd0d83a60c3d7355d7ece3d1911f5",
+        "bytes": 555590,
+        "mode": "100644"
+      }
+    },
+    {
+      "line": 2417,
+      "argument": "fig-controls-q05.png",
+      "repository_path": "paper/llm/figures/fig-controls-q05.png",
+      "tracked_metadata": {
+        "git_blob": "074d01bbd5d8dd2dd60c9d3a65e49919d540347d",
+        "bytes": 261898,
+        "mode": "100644"
+      }
+    },
+    {
+      "line": 2426,
+      "argument": "fig-morph-samples.png",
+      "repository_path": "paper/llm/figures/fig-morph-samples.png",
+      "tracked_metadata": {
+        "git_blob": "f8335d1cddfc5c26c31a35fe917851f2ec9868b4",
+        "bytes": 1421017,
+        "mode": "100644"
+      }
+    }
+  ],
+  "input_sources": [
+    {
+      "line": 310,
+      "argument": "figures/tikz-loop",
+      "repository_path": "paper/llm/figures/tikz-loop.tex",
+      "tracked_metadata": {
+        "git_blob": "4896b5d27d9da9ae38d4c24cb8c8f59465f40fdb",
+        "bytes": 4914,
+        "mode": "100644"
+      }
+    },
+    {
+      "line": 336,
+      "argument": "figures/fig-readout-gain",
+      "repository_path": "paper/llm/figures/fig-readout-gain.tex",
+      "tracked_metadata": {
+        "git_blob": "085e181a1d364099d5e1fd5ba237603d999b4792",
+        "bytes": 1668,
+        "mode": "100644"
+      }
+    },
+    {
+      "line": 483,
+      "argument": "figures/tikz-reduction",
+      "repository_path": "paper/llm/figures/tikz-reduction.tex",
+      "tracked_metadata": {
+        "git_blob": "1ed3e8f55a2ad329b3cbe7c66c1f54090e7a6f35",
+        "bytes": 5338,
+        "mode": "100644"
+      }
+    },
+    {
+      "line": 537,
+      "argument": "figures/tikz-atlas",
+      "repository_path": "paper/llm/figures/tikz-atlas.tex",
+      "tracked_metadata": {
+        "git_blob": "370d1138009b7d730af30b516b00370929965d0a",
+        "bytes": 7316,
+        "mode": "100644"
+      }
+    },
+    {
+      "line": 2181,
+      "argument": "figures/tikz-shrimp",
+      "repository_path": "paper/llm/figures/tikz-shrimp.tex",
+      "tracked_metadata": {
+        "git_blob": "85b1811f05e659e48952338b4a681c82003b4354",
+        "bytes": 4826,
+        "mode": "100644"
+      }
+    }
+  ],
+  "literal_source_data_references": [
+    {
+      "line": 314,
+      "path": "tools/softmax_gain.py",
+      "tracked_metadata": {
+        "git_blob": "a4410c78db0988895e52e397e9adfd63a665d34d",
+        "bytes": 10007,
+        "mode": "100644"
+      }
+    },
+    {
+      "line": 375,
+      "path": "tools/alignment_intervention.py",
+      "tracked_metadata": {
+        "git_blob": "16a275b1af02df248e870d47592db208276769cb",
+        "bytes": 2964,
+        "mode": "100644"
+      }
+    },
+    {
+      "line": 471,
+      "path": "tools/steer_gain.py",
+      "tracked_metadata": {
+        "git_blob": "4698fa5868b0e7afb0d4110003c8055d8ea10527",
+        "bytes": 13529,
+        "mode": "100644"
+      }
+    },
+    {
+      "line": 471,
+      "path": "tools/crossover.py",
+      "tracked_metadata": {
+        "git_blob": "517cfc9726973586104ca2cc65a50c8cb49ce67f",
+        "bytes": 7820,
+        "mode": "100644"
+      }
+    },
+    {
+      "line": 472,
+      "path": "tools/plot_mechanism.py",
+      "tracked_metadata": {
+        "git_blob": "7ae303fc4811b7afbb9ac0b4cd42a44716e050cf",
+        "bytes": 17527,
+        "mode": "100644"
+      }
+    },
+    {
+      "line": 578,
+      "path": "tools/cusp_locate.py",
+      "tracked_metadata": {
+        "git_blob": "031da104d6324331b79885cbccd1311cfd596d5f",
+        "bytes": 14905,
+        "mode": "100644"
+      }
+    },
+    {
+      "line": 595,
+      "path": "tests/test_bifurcation_curves.py",
+      "tracked_metadata": {
+        "git_blob": "a5d8d2eea3fbf13621b3ecaf448fe880ff7c4816",
+        "bytes": 13554,
+        "mode": "100644"
+      }
+    },
+    {
+      "line": 1682,
+      "path": "docs/scaling-predictions.md",
+      "tracked_metadata": {
+        "git_blob": "881d6fe6754937a35921711dee002355118b0889",
+        "bytes": 1982,
+        "mode": "100644"
+      }
+    },
+    {
+      "line": 1686,
+      "path": "docs/prefix-scale-test.md",
+      "tracked_metadata": {
+        "git_blob": "04cdce4fe786d475d7531325600fc760f866376c",
+        "bytes": 2243,
+        "mode": "100644"
+      }
+    },
+    {
+      "line": 1713,
+      "path": "docs/prefix-scale-olmo.md",
+      "tracked_metadata": {
+        "git_blob": "c64441f12867af324bc6c8535f7976196e4491ac",
+        "bytes": 2079,
+        "mode": "100644"
+      }
+    },
+    {
+      "line": 1837,
+      "path": "docs/prefix-scale-72b-base.md",
+      "tracked_metadata": {
+        "git_blob": "a8f2fce2adba0224337741c92cae7293d8f75c39",
+        "bytes": 2817,
+        "mode": "100644"
+      }
+    },
+    {
+      "line": 1868,
+      "path": "docs/start-state-predictor.md",
+      "tracked_metadata": {
+        "git_blob": "e92271dc9698145c100266ba1aee5e402df16512",
+        "bytes": 3108,
+        "mode": "100644"
+      }
+    },
+    {
+      "line": 1926,
+      "path": "docs/prefix-scale-72b.md",
+      "tracked_metadata": {
+        "git_blob": "247efb531fd8065cbd71b535d821351b71532645",
+        "bytes": 2115,
+        "mode": "100644"
+      }
+    },
+    {
+      "line": 2646,
+      "path": "certificates/llm-p8-certificate-final-001.json",
+      "tracked_metadata": {
+        "git_blob": "17a3037d3baaa409e7a42361bbe41dad71ebff86",
+        "bytes": 10471,
+        "mode": "100644"
+      }
+    },
+    {
+      "line": 2670,
+      "path": "docs/repro-task-test.md",
+      "tracked_metadata": {
+        "git_blob": "ef9e05d7b4083d9e03e8d4b9814430f3f32f0be3",
+        "bytes": 4297,
+        "mode": "100644"
+      }
+    },
+    {
+      "line": 2670,
+      "path": "docs/bpc-test.md",
+      "tracked_metadata": {
+        "git_blob": "da788ab450b876869ad4739e24289b42b142f026",
+        "bytes": 3717,
+        "mode": "100644"
+      }
+    },
+    {
+      "line": 2680,
+      "path": "docs/manifests/runpod-runs.json",
+      "tracked_metadata": {
+        "git_blob": "fa47c4652d5d08ee8114cd7038e534a10b896266",
+        "bytes": 217916,
+        "mode": "100644"
+      }
+    },
+    {
+      "line": 2687,
+      "path": "tools/explore_llm_soft_loop.py",
+      "tracked_metadata": {
+        "git_blob": "303a4979e56887686dc2323925b29cb490f91d09",
+        "bytes": 112100,
+        "mode": "100644"
+      }
+    },
+    {
+      "line": 2687,
+      "path": "tools/bifurcation_curves.py",
+      "tracked_metadata": {
+        "git_blob": "b70f73ce4e8297ef0d70501380609618d9256745",
+        "bytes": 36566,
+        "mode": "100644"
+      }
+    },
+    {
+      "line": 2687,
+      "path": "tools/llm_feigenbaum.py",
+      "tracked_metadata": {
+        "git_blob": "2bcd3c98d7d22b474aed11cf481f52db3022cc76",
+        "bytes": 39318,
+        "mode": "100644"
+      }
+    },
+    {
+      "line": 2688,
+      "path": "tools/explore_latent_loop.py",
+      "tracked_metadata": {
+        "git_blob": "758554fbc7df23ba15cc5593e1b4f4dcad2613f8",
+        "bytes": 99642,
+        "mode": "100644"
+      }
+    },
+    {
+      "line": 2689,
+      "path": "tools/cusp_check.py",
+      "tracked_metadata": {
+        "git_blob": "58eb384d99d0ec7e06575f35feb34a066874628e",
+        "bytes": 2542,
+        "mode": "100644"
+      }
+    },
+    {
+      "line": 2689,
+      "path": "tools/huginn_relax_eval.py",
+      "tracked_metadata": {
+        "git_blob": "b51cdff2925efb423b09317e906f3ae7999215eb",
+        "bytes": 29036,
+        "mode": "100644"
+      }
+    },
+    {
+      "line": 2689,
+      "path": "tools/huginn_arc_analysis.py",
+      "tracked_metadata": {
+        "git_blob": "a60297b71eafe3e2e59d82a84aeff71c89ebafee",
+        "bytes": 26783,
+        "mode": "100644"
+      }
+    },
+    {
+      "line": 2690,
+      "path": "tools/steer_gain.py",
+      "tracked_metadata": {
+        "git_blob": "4698fa5868b0e7afb0d4110003c8055d8ea10527",
+        "bytes": 13529,
+        "mode": "100644"
+      }
+    },
+    {
+      "line": 2690,
+      "path": "tools/crossover.py",
+      "tracked_metadata": {
+        "git_blob": "517cfc9726973586104ca2cc65a50c8cb49ce67f",
+        "bytes": 7820,
+        "mode": "100644"
+      }
+    },
+    {
+      "line": 2690,
+      "path": "tools/repro_noise.py",
+      "tracked_metadata": {
+        "git_blob": "cf08e0f468f4621734bb9ec715850343279dea43",
+        "bytes": 8661,
+        "mode": "100644"
+      }
+    },
+    {
+      "line": 2690,
+      "path": "tools/repro_task.py",
+      "tracked_metadata": {
+        "git_blob": "6b3e5d6bfceb7546329f6644c22792246e5e6741",
+        "bytes": 10030,
+        "mode": "100644"
+      }
+    },
+    {
+      "line": 2691,
+      "path": "tools/repro_summary.py",
+      "tracked_metadata": {
+        "git_blob": "ab2576c521557d6b1912251368e24bd020330fb3",
+        "bytes": 6032,
+        "mode": "100644"
+      }
+    },
+    {
+      "line": 2691,
+      "path": "tools/bpc_analyze.py",
+      "tracked_metadata": {
+        "git_blob": "258f4b392fb9903c141650f85be251509fd34f18",
+        "bytes": 10843,
+        "mode": "100644"
+      }
+    },
+    {
+      "line": 2691,
+      "path": "tools/turning_scan.py",
+      "tracked_metadata": {
+        "git_blob": "fb59755706ab006f2cd08296baad599adde8f06f",
+        "bytes": 8156,
+        "mode": "100644"
+      }
+    },
+    {
+      "line": 2692,
+      "path": "evidence/llm-dynamics-data-receipts.json",
+      "tracked_metadata": {
+        "git_blob": "4ba33268b326e6ddd80ddca593b0facb9892fc3b",
+        "bytes": 45401,
+        "mode": "100644"
+      }
+    },
+    {
+      "line": 2693,
+      "path": "docs/backups/",
+      "tracked_metadata": null
+    },
+    {
+      "line": 2694,
+      "path": "codex/",
+      "tracked_metadata": null
+    }
+  ],
+  "figure_source_match_files": [
+    "tools/paper_llm_figures.py",
+    "tools/plot_cobwebs.py",
+    "tools/plot_feigenbaum_ratios.py",
+    "tools/plot_hostile_cascade.py",
+    "tools/plot_layer_sweep.py",
+    "tools/plot_mechanism.py",
+    "tools/plot_repro.py",
+    "tools/plot_return_maps.py",
+    "tools/plot_superstable_lines.py",
+    "tools/plot_two_block.py"
+  ],
+  "all_paper_tracked_metadata": {
+    "paper/llm/.gitignore": {
+      "git_blob": "c1ed4d59dc2bd4dda16e6b4243b5e6a0f18168db",
+      "bytes": 50,
+      "mode": "100644"
+    },
+    "paper/llm/figures/fig-alpha0.png": {
+      "git_blob": "268e632f00ddd0d83a60c3d7355d7ece3d1911f5",
+      "bytes": 555590,
+      "mode": "100644"
+    },
+    "paper/llm/figures/fig-bimodal.png": {
+      "git_blob": "f1d1e6a475a22756b0390a42e3f3c0279ecd9665",
+      "bytes": 139558,
+      "mode": "100644"
+    },
+    "paper/llm/figures/fig-bridge.png": {
+      "git_blob": "2f62ef711e66fd977d7e68a0944c996947fed25f",
+      "bytes": 60785,
+      "mode": "100644"
+    },
+    "paper/llm/figures/fig-cobwebs.png": {
+      "git_blob": "3b46d3e174d51108c48b78727c2998d9705cc41f",
+      "bytes": 171446,
+      "mode": "100644"
+    },
+    "paper/llm/figures/fig-committor.png": {
+      "git_blob": "c1d3095a9040c97e0379506a1480b82031bce4e0",
+      "bytes": 135439,
+      "mode": "100644"
+    },
+    "paper/llm/figures/fig-controls-llama.png": {
+      "git_blob": "b8a4845252cf0c8ba0901bd8a423ed2be4bdc3bc",
+      "bytes": 317585,
+      "mode": "100644"
+    },
+    "paper/llm/figures/fig-controls-llama70b.json": {
+      "git_blob": "d7fae05586129b58f40f1c6bd5d899a51e8a0c81",
+      "bytes": 1843,
+      "mode": "100644"
+    },
+    "paper/llm/figures/fig-controls-llama70b.png": {
+      "git_blob": "40259363b12a260970090568060e3a71148dee9d",
+      "bytes": 140597,
+      "mode": "100644"
+    },
+    "paper/llm/figures/fig-controls-q05.png": {
+      "git_blob": "074d01bbd5d8dd2dd60c9d3a65e49919d540347d",
+      "bytes": 261898,
+      "mode": "100644"
+    },
+    "paper/llm/figures/fig-cross512-families.png": {
+      "git_blob": "6c26ec2ba89f63c607fb02a78a76abc015edc116",
+      "bytes": 178885,
+      "mode": "100644"
+    },
+    "paper/llm/figures/fig-cross512-lyapunov.png": {
+      "git_blob": "7ee43f715e525523e2c6766fe4086fabe2caa9d7",
+      "bytes": 684284,
+      "mode": "100644"
+    },
+    "paper/llm/figures/fig-feigenbaum-ratios.png": {
+      "git_blob": "e4a1f7a97ceba04b6306316daa4855720f370f9a",
+      "bytes": 124963,
+      "mode": "100644"
+    },
+    "paper/llm/figures/fig-gain-scale.png": {
+      "git_blob": "60e0d2aa618e21025865ceef944c2d8b25c2ce04",
+      "bytes": 250603,
+      "mode": "100644"
+    },
+    "paper/llm/figures/fig-hidden-bands.png": {
+      "git_blob": "6d5f2429a27467794386b7266436febc9765c372",
+      "bytes": 310490,
+      "mode": "100644"
+    },
+    "paper/llm/figures/fig-hostile-cascade.png": {
+      "git_blob": "71ac9fe4f6960eff0ea914729bb98afd9b36c9cd",
+      "bytes": 181962,
+      "mode": "100644"
+    },
+    "paper/llm/figures/fig-hub-cascade.png": {
+      "git_blob": "88e55fb4d62e6bd8b7b54ea318c6c83d84a728ae",
+      "bytes": 414026,
+      "mode": "100644"
+    },
+    "paper/llm/figures/fig-hub-shrimp.png": {
+      "git_blob": "71c1fb16ae7b7de3e0d64388d1832724600584e6",
+      "bytes": 160790,
+      "mode": "100644"
+    },
+    "paper/llm/figures/fig-hub-zoom.png": {
+      "git_blob": "22ecac7c2c2ff79a7b61b4e2af826925a6f79043",
+      "bytes": 335347,
+      "mode": "100644"
+    },
+    "paper/llm/figures/fig-huginn-gsm8k.png": {
+      "git_blob": "a53bb8bd6e04f083c34bcffa2108d93a0d3846ce",
+      "bytes": 140093,
+      "mode": "100644"
+    },
+    "paper/llm/figures/fig-hysteresis-loop.png": {
+      "git_blob": "212f8ac8bd9b42dd1755ce59f25064e8a023413d",
+      "bytes": 86802,
+      "mode": "100644"
+    },
+    "paper/llm/figures/fig-hysteresis.png": {
+      "git_blob": "91a91d095780674a80963d5467bd35c674547838",
+      "bytes": 126261,
+      "mode": "100644"
+    },
+    "paper/llm/figures/fig-layer-sweep.png": {
+      "git_blob": "dc9dda6f737f4003e3c0a73c4bacb6e5cccd1af6",
+      "bytes": 184346,
+      "mode": "100644"
+    },
+    "paper/llm/figures/fig-llama-hires-hostility.png": {
+      "git_blob": "fddb63d1afc8377988b0be4e2b749ddc2a3cbf4d",
+      "bytes": 256474,
+      "mode": "100644"
+    },
+    "paper/llm/figures/fig-llama-hires.png": {
+      "git_blob": "78c9c4e5e138aad80bb9cb03b2f96a3204726ed1",
+      "bytes": 521069,
+      "mode": "100644"
+    },
+    "paper/llm/figures/fig-llama-maps.png": {
+      "git_blob": "96e41514aed683e18e9afa08e527943ebb7acc8d",
+      "bytes": 344900,
+      "mode": "100644"
+    },
+    "paper/llm/figures/fig-mechanism.json": {
+      "git_blob": "fd2df1207f6ace57f9ba36bf371d21a8e109774c",
+      "bytes": 6513,
+      "mode": "100644"
+    },
+    "paper/llm/figures/fig-mechanism.png": {
+      "git_blob": "1b3a352aa8765c0ce7b6c787cc99ab5e3e7cf43f",
+      "bytes": 490017,
+      "mode": "100644"
+    },
+    "paper/llm/figures/fig-morph-samples.png": {
+      "git_blob": "f8335d1cddfc5c26c31a35fe917851f2ec9868b4",
+      "bytes": 1421017,
+      "mode": "100644"
+    },
+    "paper/llm/figures/fig-olmo2-maps.png": {
+      "git_blob": "e08b4d1b4349340b6cb9250986681ffb99d0349b",
+      "bytes": 215912,
+      "mode": "100644"
+    },
+    "paper/llm/figures/fig-p1-ladders.png": {
+      "git_blob": "14ac8d8f4055af5ead9f432e869ab858b1683600",
+      "bytes": 190687,
+      "mode": "100644"
+    },
+    "paper/llm/figures/fig-p4-curves.png": {
+      "git_blob": "ec555c2a33e208bfb4661ddc8cf72d4e92a4f3c9",
+      "bytes": 114563,
+      "mode": "100644"
+    },
+    "paper/llm/figures/fig-p4body-families.png": {
+      "git_blob": "e132d84f0e55a63f57d1fdbf07c5fa5101d79ad4",
+      "bytes": 89403,
+      "mode": "100644"
+    },
+    "paper/llm/figures/fig-p4body-lyapunov.png": {
+      "git_blob": "986486fd31a62991831c6957f6e22b89d1132bef",
+      "bytes": 174490,
+      "mode": "100644"
+    },
+    "paper/llm/figures/fig-passages.png": {
+      "git_blob": "528849ae50126734552e4466c707b4f0f08111cb",
+      "bytes": 88955,
+      "mode": "100644"
+    },
+    "paper/llm/figures/fig-prefix-scale.png": {
+      "git_blob": "324fba00637e132b8d2bc71b3cf4818cd473332a",
+      "bytes": 154464,
+      "mode": "100644"
+    },
+    "paper/llm/figures/fig-qwen15-coarse.png": {
+      "git_blob": "1c884b485022afa5982417493aba3bc73feced19",
+      "bytes": 77825,
+      "mode": "100644"
+    },
+    "paper/llm/figures/fig-qwen15-route.png": {
+      "git_blob": "4481556ddea3d6cdc669ea1e7302d12bf217a82c",
+      "bytes": 105798,
+      "mode": "100644"
+    },
+    "paper/llm/figures/fig-qwen15-zoom-families.png": {
+      "git_blob": "6c216f3dfbac2a65c17aab68e35f8d04bd405cd8",
+      "bytes": 97661,
+      "mode": "100644"
+    },
+    "paper/llm/figures/fig-qwen15-zoom-lyapunov.png": {
+      "git_blob": "d8d40174be271b7a6e227a98a68d5bfd20ccf79b",
+      "bytes": 220009,
+      "mode": "100644"
+    },
+    "paper/llm/figures/fig-qwen7b-hostility.png": {
+      "git_blob": "867d9db46d9cf9e47d502c7544929356e088922d",
+      "bytes": 124127,
+      "mode": "100644"
+    },
+    "paper/llm/figures/fig-readout-gain.png": {
+      "git_blob": "de83bb71988c8eac2e887c1fa81247eaee19d632",
+      "bytes": 107977,
+      "mode": "100644"
+    },
+    "paper/llm/figures/fig-readout-gain.tex": {
+      "git_blob": "085e181a1d364099d5e1fd5ba237603d999b4792",
+      "bytes": 1668,
+      "mode": "100644"
+    },
+    "paper/llm/figures/fig-repeating-text-reduction.png": {
+      "git_blob": "885610c4a78c48d5da19f52701f7da68139d1f71",
+      "bytes": 152004,
+      "mode": "100644"
+    },
+    "paper/llm/figures/fig-repro.png": {
+      "git_blob": "f492cf29d8dcf7e93f8354da6247d6c04a42ccd8",
+      "bytes": 296213,
+      "mode": "100644"
+    },
+    "paper/llm/figures/fig-return-maps-body.png": {
+      "git_blob": "42c53c75f7c50f7db6b07ef212b23e741108e29a",
+      "bytes": 90431,
+      "mode": "100644"
+    },
+    "paper/llm/figures/fig-return-maps.png": {
+      "git_blob": "a2663e997999272be9ed9cd042355f18020ed5d0",
+      "bytes": 192722,
+      "mode": "100644"
+    },
+    "paper/llm/figures/fig-same-architecture.png": {
+      "git_blob": "a4f853f60b2e31eb887dccf01bcd864dc24c8c9e",
+      "bytes": 198319,
+      "mode": "100644"
+    },
+    "paper/llm/figures/fig-scale.png": {
+      "git_blob": "0ccdacf7f8e2e9479da7d038fea1d22e4580f583",
+      "bytes": 233384,
+      "mode": "100644"
+    },
+    "paper/llm/figures/fig-stripes-bottom.png": {
+      "git_blob": "30554c96ccf90c9300b4c7bd8eba84cf7e651e15",
+      "bytes": 71777,
+      "mode": "100644"
+    },
+    "paper/llm/figures/fig-stripes-lyapunov-curves.png": {
+      "git_blob": "296485f4e08bf1c4c901408124ca8cbd63e41b7d",
+      "bytes": 329760,
+      "mode": "100644"
+    },
+    "paper/llm/figures/fig-stripes-lyapunov.png": {
+      "git_blob": "663615c6cb66a6dc7d9d27b77a76a4d467f3d3cc",
+      "bytes": 310356,
+      "mode": "100644"
+    },
+    "paper/llm/figures/fig-stripes-period-fold.png": {
+      "git_blob": "b5bb94e6e31123ddb2197c6f36a9dbf5d58caa2b",
+      "bytes": 121459,
+      "mode": "100644"
+    },
+    "paper/llm/figures/fig-superstable-lines.png": {
+      "git_blob": "d9c986ff20da1a8aa5a82ca69a0b5a8ea9fb556c",
+      "bytes": 380322,
+      "mode": "100644"
+    },
+    "paper/llm/figures/fig-two-block.png": {
+      "git_blob": "3c82c36cc9ff1e234790ee8943a9badfcfef8382",
+      "bytes": 300791,
+      "mode": "100644"
+    },
+    "paper/llm/figures/fig-window-law.png": {
+      "git_blob": "8a2c2fbec05a79dd316c63aa9d7adab49a8e3aff",
+      "bytes": 89115,
+      "mode": "100644"
+    },
+    "paper/llm/figures/fig-zoom-llama70b.png": {
+      "git_blob": "55160821cf655f948ddc37e6fd799a6f84bcc12a",
+      "bytes": 242422,
+      "mode": "100644"
+    },
+    "paper/llm/figures/fig-zoom-z2-families.png": {
+      "git_blob": "f57ad58c8fb365aebd1ea844ac481423f1bcf7cb",
+      "bytes": 116134,
+      "mode": "100644"
+    },
+    "paper/llm/figures/fig-zoom-z2-lyapunov.png": {
+      "git_blob": "26de6aedcaa8cd52b7f4964c41c599dc9d7763bf",
+      "bytes": 309688,
+      "mode": "100644"
+    },
+    "paper/llm/figures/fig-zoom-z3-curves.png": {
+      "git_blob": "f815183ace8f348a7f9c8f9d490bdb341f52ec5e",
+      "bytes": 1009657,
+      "mode": "100644"
+    },
+    "paper/llm/figures/fig-zoom-z3-families.png": {
+      "git_blob": "e0da293a95d01dbc431544c5f081be4f4b37956b",
+      "bytes": 99904,
+      "mode": "100644"
+    },
+    "paper/llm/figures/fig-zoom-z3-lyapunov.png": {
+      "git_blob": "92fae6edebd898f48c561c46124bb02700c920f9",
+      "bytes": 321133,
+      "mode": "100644"
+    },
+    "paper/llm/figures/tikz-atlas.tex": {
+      "git_blob": "370d1138009b7d730af30b516b00370929965d0a",
+      "bytes": 7316,
+      "mode": "100644"
+    },
+    "paper/llm/figures/tikz-loop.tex": {
+      "git_blob": "4896b5d27d9da9ae38d4c24cb8c8f59465f40fdb",
+      "bytes": 4914,
+      "mode": "100644"
+    },
+    "paper/llm/figures/tikz-reduction.tex": {
+      "git_blob": "1ed3e8f55a2ad329b3cbe7c66c1f54090e7a6f35",
+      "bytes": 5338,
+      "mode": "100644"
+    },
+    "paper/llm/figures/tikz-shrimp.tex": {
+      "git_blob": "85b1811f05e659e48952338b4a681c82003b4354",
+      "bytes": 4826,
+      "mode": "100644"
+    },
+    "paper/llm/main.pdf": {
+      "git_blob": "f3180a8b3b65e0c6a49324c13d29e01cdbd9d254",
+      "bytes": 9748820,
+      "mode": "100644"
+    },
+    "paper/llm/main.tex": {
+      "git_blob": "6da94e5c750aca631d40182aa32baa81e85e1359",
+      "bytes": 237029,
+      "mode": "100644"
+    },
+    "paper/llm/references.bib": {
+      "git_blob": "5458585f4cbf4812b3fa8d30e226a42345144810",
+      "bytes": 56557,
+      "mode": "100644"
+    }
+  },
+  "duplicate_labels": {},
+  "unresolved_main_tex_labels": [
+    "fig:atlas",
+    "fig:loop",
+    "fig:readoutgain",
+    "fig:shrimpschematic",
+    "fig:tworeductions"
+  ],
+  "note": "Mechanical source inventory. References defined inside input TeX may not occur in main.tex labels. Figure names/source mentions do not establish numerical provenance."
+}

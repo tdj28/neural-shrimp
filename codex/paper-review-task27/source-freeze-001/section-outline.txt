@@ -1,0 +1,79 @@
+55: \section{Introduction}
+126: \paragraph{Contributions.}
+212: \paragraph{Related work.} Language-model generation has been studied as a dynamical system at several levels, and
+274: \section{The inference map}
+276: \paragraph{Definition.} We describe the map for Qwen2.5-0.5B-Instruct, the model studied in most detail; the other
+291: \paragraph{Precision.} Hugging Face RMSNorm layers and rotary-embedding tables compute in float32 even when the
+297: \section{Why the loop can be chaotic}
+319: \paragraph{A Hopfield network with a transformer inside.} If the network passed its input straight through,
+337: \paragraph{High-temperature contraction and the greedy limit.} The largest Lyapunov exponent of an orbit cannot exceed the orbit
+362: \paragraph{Stability belongs to the loop, not to the step.} The gain condition is necessary, not sufficient. Along
+379: \paragraph{Steering makes tokens compete.} Steering enters both factors of \eqref{eq:gain}: it moves the logits, and
+476: \paragraph{Contraction and expansion in the network.} Analyses of deep attention identify contracting tendencies:
+484: \paragraph{Why the structures of low-dimensional maps appear.} The map acts on a space of hundreds to thousands of
+504: \paragraph{Coexisting attractors mark the limits of one dimension.} A classical theorem says what a one-dimensional
+516: \paragraph{How many dimensions does the chaos have?} For chaotic attractors the corresponding measure is the
+539: \section{Methods}
+541: \paragraph{Precision.} Every result on the soft-token map labelled float64 is computed in float64 arithmetic
+550: \paragraph{Phase maps.} Each cell of a phase map is one parameter pair. Unless stated otherwise, we discard 300
+569: \paragraph{Periodic orbits.} We solve $F^p(x)=x$ by Newton's method with forward-mode Jacobians. The multipliers are
+573: \paragraph{Continuation.} Periodic branches are continued in one parameter by pseudo-arclength continuation, and fold
+587: \paragraph{Normal form and passages.} Consider a fold of the two-step map $G=F^2$, with right and left eigenvectors
+601: \paragraph{Period-doubling cascade.} Along a cut in one parameter, we locate the flip of each period-$p$ orbit as the
+612: \section{Chaos with periodic windows}
+669: \section{What the chaos does to inference and steering}
+677: \paragraph{The regime decides whether a run can be reproduced.} Language-model inference is not bitwise
+783: \paragraph{Where a steering vector enters decides how much chaos it causes.} Steering vectors are a common tool for
+810: \paragraph{Two steering vectors interact.} Steering at two blocks at once, gratitude at block 4 and hostility at block
+828: \paragraph{Does a chaotic loop predict worse answers in ordinary decoding? Not beyond the model's own uncertainty.}
+867: \section{Period adding written in text}
+926: \section{Mechanism: a saddle-node bottleneck}
+928: \paragraph{The fold.} At $\log_{10}T=-0.115$ the 2-cycle ``is it'' dies in a fold at $\alpha_c=0.06279827$ (float64
+937: \paragraph{Controlled passages.} In the oriented coordinate $v=\operatorname{sign}(b)\,u$ of
+969: \paragraph{Natural reinjection and the window law.} Free trajectories re-enter the channel slightly upstream of
+1020: \paragraph{A prospective test.} To test the normal form at folds that played no part in shaping the mechanism, an
+1049: \section{Bifurcation curves and cusps}
+1051: \paragraph{Period-8 stripe.} Continued for 80 points with a float64 test function, the fold curve of the period-8
+1063: \paragraph{The accumulation boundary.} The fold curve of the 2-cycle ``is it'', continued from
+1072: \paragraph{A period-6 window with shrimp-like anatomy.} The hooks of Figure~\ref{fig:zooms} (bottom) belong to
+1152: \paragraph{A period-4 window with five cusps on one fold curve.} At higher temperature, $\log_{10}T\approx0$--$0.1$, periodic orbits
+1208: \section{A period-doubling cascade to chaos}
+1380: \section{Bridge to sampled decoding}
+1390: \paragraph{Zero-temperature limit and ordinary greedy decoding.} As $T\to0$ the soft-token map becomes greedy
+1438: \paragraph{A longer fed-back memory.} The one-token window is the main simplification of the map. Feeding back the
+1462: \paragraph{Soft thinking with a growing context.} Soft Thinking \cite{zhang2025softthinking} feeds back the same
+1489: \section{Replication and scale}
+1548: \paragraph{A second model family.} OLMo-2-1124-7B-Instruct \cite{olmo2024olmo2} comes from another laboratory, with
+1566: \paragraph{A third family, read with sparse autoencoders.} Llama-3.1-8B-Instruct \cite{grattafiori2024llama3},
+1602: \paragraph{Same architecture, other weights.} Qwen2-0.5B-Instruct has exactly the architecture and size of
+1621: \paragraph{The fold law at 1.5B and 7B.} We tested whether the mechanism of Section~\ref{sec:mechanism}, windows
+1650: \paragraph{A mixture-of-experts model.} Qwen3.5-35B-A3B differs from the dense models in two ways. Thirty of its 40
+1666: \section{Chaos and model size}
+1688: \paragraph{In a fixed temperature window, chaos seems to fade with size.} Table~\ref{tab:scale} and
+1700: \paragraph{Across prompts, the chaos moves to higher temperature instead.} The fixed window hides where larger models
+1773: \paragraph{At 70B, unsteered chaos is rare, and a precision defect made part of it spurious.} The regular grids of the
+1802: \paragraph{What sets it: the gain of the loop.} The gain split of Section~\ref{sec:theory} shows which factor removes or
+1860: \paragraph{Can a cheap property predict it?} Section~\ref{sec:theory} confines chaos to temperatures where the
+1877: \paragraph{Steering at 70B.} Under steering, the 70B maps show chaos, rarely and not independently of the
+1922: \paragraph{What this implies for larger models.} Size does not set this chaos in a simple way. In Qwen2.5, the 14B
+1945: \section{A second system: recurrent depth}
+1965: \paragraph{The spectrum predicts the relaxation response.} With the full instruction template, the GSM8K prompts'
+1984: \paragraph{Does the task notice? (development data).} On ARC-Challenge \cite{clark2018arc} questions scored by
+2051: \section{Steering toward hostility}
+2059: \paragraph{The hostility direction in the deterministic map.} Steering the soft-token map of
+2141: \paragraph{No one-dimensional shrimp centre.} In a shrimp of a one-dimensional map, two superstable curves of the
+2156: \paragraph{What the shrimp-like shapes are.} The shapes are made of the bifurcation curves of single windows
+2218: \paragraph{Chaos behind a repeating text.} Along the temperature line of Figure~\ref{fig:hubcascade} (left), a longer
+2326: \section{Discussion}
+2328: \paragraph{What theory allows, and what is new.} Chaos and periodic windows occur in many nonlinear feedback
+2363: \paragraph{Is steering the origin of the chaos?} Steering adds a fixed vector to the residual stream, so chaos along
+2437: \paragraph{What is and is not claimed.} The objects studied here are invariant sets and bifurcations of an exactly
+2465: \paragraph{Limitations.} The detailed orbit studies cover one model family (Qwen2.5, 0.5B and 1.5B), with coarse
+2497: \paragraph{Steering strength is a bifurcation parameter.} In the soft-token map, small changes of the steering
+2511: \paragraph{What this suggests for interpretability and alignment.} Our results come from open models of 0.5B to
+2540: \paragraph{Is the chaos useful?} The chaos we map is not a source of new content. The chaotic cells of
+2559: \paragraph{Which findings might reach frontier models.} Today's frontier systems include closed models such as
+2582: \section{Evidence and reproducibility}
+2588: \paragraph{Search scale.} The soft-token results come from an exploratory search. An initial census of the raw
+2676: \paragraph{Hardware.} Float64 GPU computations ran on rented NVIDIA H100 (NVL, PCIe and 80\,GB HBM3), H200,
+2698: \section*{Use of AI assistance}

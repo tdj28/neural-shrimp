@@ -1,0 +1,367 @@
+{
+  "source_commit": "66ffa102c56f6d5b22f116a1bb194f503c75562e",
+  "source_log_sha256": "6214e86376b09e7f77ecc1054dafee9601a7ad95d585dfa107940973f32704ed",
+  "scope": "Literal producer source-log excerpts; original claims/commands/outcomes as recorded, not new numerical acceptance or reconstruction of historical process births.",
+  "excerpts_sha256": "c23585175e7e554a7d269f1a0feb26d80a6ea11479642f6c6a87d6c26eda34bc",
+  "entries": [
+    {
+      "line_start": 22843,
+      "line_end": 22848,
+      "heading": "## 2026-10-14 04:20 UTC: H1 result: chaos behind an exactly repeating text in the hostile cascade (65 cells), plus a label comparison",
+      "sha256": "aaa28832411de4cf78059b7126580b70f44c203c32b79ef1a3aeb982bb872c26",
+      "bytes": 1880,
+      "literal_paths": [
+        "cascade/tline-a0.0655",
+        "tools/hidden_chaos.py"
+      ]
+    },
+    {
+      "line_start": 23412,
+      "line_end": 23417,
+      "heading": "## 2026-10-14 11:56 UTC: PTb result: two of Llama-3.1-70B's three unsteered chaotic temperatures pass the plateau test; the weakest does not",
+      "sha256": "bfc65e38fcf757179edead44d277450fb2065b7890e32294f6aa1fc61b7f6c73",
+      "bytes": 998,
+      "literal_paths": [
+        "docs/plateau-cells-l31-70b.json"
+      ]
+    },
+    {
+      "line_start": 24029,
+      "line_end": 24043,
+      "heading": "## 2026-10-15 04:49 UTC: run (exploratory pilot): BZ, ordinary steered inference in the chaotic and periodic zones (human: \"Do it and do it fast\")",
+      "sha256": "e10eb5af089e1b5baad5de42a0f797624c3a8c36cf886f9e90b0696f85e5d2a6",
+      "bytes": 2038,
+      "literal_paths": [
+        "../neural-shrimp-data/explore/bz/pilot-{0,1,2}",
+        "docs/bz-pairs.json.",
+        "docs/bz-tasks.json,",
+        "tools/behavior_zones.py"
+      ]
+    },
+    {
+      "line_start": 24044,
+      "line_end": 24053,
+      "heading": "## 2026-10-15 04:53 UTC: run (exploratory): LS, the chaos map against the steering block (human: \"Do it now\", about 04:50 UTC)",
+      "sha256": "aa1dc3ebf2a5aaae99ca09b80c22a65b62a761363dbf1f06089aa67af0d3353f",
+      "bytes": 1433,
+      "literal_paths": [
+        "../neural-shrimp-data/explore/llm-soft-loop/pod64/scan64/ls-l{4,8,16,20}-{lo,hi}",
+        "tools/explore_llm_phase_map.py"
+      ]
+    },
+    {
+      "line_start": 24054,
+      "line_end": 24068,
+      "heading": "## 2026-10-15 04:59 UTC: BZ pilot result: at the maps' steering strengths, steering swamps ordinary inference in both zones; no accuracy contrast is measurable",
+      "sha256": "e6970a06e7a16f492715cdba23777f5258cb05ef1c967450803c95cfac543777",
+      "bytes": 1661,
+      "literal_paths": [
+        "bz/pilot-{0,1,2}",
+        "tools/behavior_zones.py"
+      ]
+    },
+    {
+      "line_start": 24096,
+      "line_end": 24113,
+      "heading": "## 2026-10-15 05:10 UTC: LS result: the chaos map depends strongly on the steering block; deeper steering confines chaos to high temperature",
+      "sha256": "1ab73b7becd917472ab16991214d6671d9af40afc877a3399b61570e7d35987b",
+      "bytes": 1545,
+      "literal_paths": [
+        "tools/plot_layer_sweep.py"
+      ]
+    },
+    {
+      "line_start": 24122,
+      "line_end": 24135,
+      "heading": "## 2026-10-15 05:21 UTC: run (exploratory): TB, two steering directions at two blocks (human: \"steer one block with bliss and the other with hostile\")",
+      "sha256": "b3fc81f35e5bf01e9259f789a11154e93d3407243aff482d1b58e90f9b32d6d0",
+      "bytes": 1685,
+      "literal_paths": [
+        "../neural-shrimp-data/explore/llm-soft-loop/pod64/tb/{grat4-host16,",
+        "tools/explore_llm_phase_map.SteeredModel.add_steer_layer",
+        "tools/explore_llm_soft_loop.SoftLoop.extra",
+        "tools/two_block_map.py,"
+      ]
+    },
+    {
+      "line_start": 24149,
+      "line_end": 24158,
+      "heading": "## 2026-10-15 05:26 UTC: run (exploratory): L70D, Llama-3.3-70B steered at other depths (human: \"try 70b at different depths to see if we can recover larger chaos bands\")",
+      "sha256": "990e635cd558ef2d70fa1a83f2b65b53c2ef6ad8b7e8c5999e4dc7009d97081a",
+      "bytes": 1488,
+      "literal_paths": [
+        "../neural-shrimp-data/explore/llm-soft-loop/pod64/big/llama3.3-70b-l{20,35,65}-hostility-vs-kindness"
+      ]
+    },
+    {
+      "line_start": 24176,
+      "line_end": 24194,
+      "heading": "## 2026-10-15 05:53 UTC: BP result: in Qwen2.5-7B, prompts whose own loop is chaotic are answered much less accurately, but mostly through task mix and answer flatness; the residual effect is small and not established",
+      "sha256": "9de3bf9f08b2c73528f24436e5aa9cf2f11623cbfe2d6637e54129cff738719f",
+      "bytes": 2406,
+      "literal_paths": [
+        "tools/behavior_prompts.py"
+      ]
+    },
+    {
+      "line_start": 24208,
+      "line_end": 24222,
+      "heading": "## 2026-10-15 06:03 UTC: TB result: two steering directions at two blocks interact; off the axes the plane is chaotic where neither push alone is",
+      "sha256": "886aa9cab0a7f4c1c01e3834ddfeac0e97a9c0bd01a64cb19292f727fac579b2",
+      "bytes": 1173,
+      "literal_paths": [
+        "tools/plot_two_block.py"
+      ]
+    },
+    {
+      "line_start": 24256,
+      "line_end": 24260,
+      "heading": "## 2026-10-15 06:10 UTC: Amendment to L70D: all three first pods failed on a full disk; relaunched with 320 GB",
+      "sha256": "c85cd4fe7873f47ffeba05406c5489c07002c6c09c11a337fe713c8eef249bae",
+      "bytes": 630,
+      "literal_paths": []
+    },
+    {
+      "line_start": 24429,
+      "line_end": 24445,
+      "heading": "## 2026-10-15 07:17 UTC: L70D result (blocks 20 and 35): in Llama-3.3-70B, earlier steering also gives more chaos, down to lower temperature",
+      "sha256": "2898c33cf975d7412e4aeb66bc0d595ef5996f77cd19deec48c6940364902203",
+      "bytes": 1483,
+      "literal_paths": [
+        "tools/period_colors.py",
+        "tools/runpod_soft_float64.py"
+      ]
+    },
+    {
+      "line_start": 24574,
+      "line_end": 24587,
+      "heading": "## 2026-10-15 07:48 UTC: L70D result (block 65) completes the 70B depth series: 8.0, 4.3, 4.3 and 0.7 % at blocks 20, 35, 50 and 65",
+      "sha256": "f77becbccb75b7f8b00e2033d079e61309b7961e5143c88d905519375baf234f",
+      "bytes": 813,
+      "literal_paths": []
+    },
+    {
+      "line_start": 24588,
+      "line_end": 24602,
+      "heading": "## 2026-10-15 07:49 UTC: MECH2 result: the gain split at five steering blocks shows where depth enters",
+      "sha256": "bcfa9f4bdb1268809e65125dbf78c6a1e8df92c883fc7071117c871f10ccdc6e",
+      "bytes": 1274,
+      "literal_paths": [
+        "mech/b8,"
+      ]
+    },
+    {
+      "line_start": 24603,
+      "line_end": 24614,
+      "heading": "## 2026-10-15 07:54 UTC: run (exploratory): XO7 and REPRO7, the crossover and the reproducibility test in Qwen2.5-7B (untied embeddings)",
+      "sha256": "a8c32df1c4804998c1df84223cfc6d93dae505c034c1d8c3b3b89bd1fdd1503c",
+      "bytes": 1322,
+      "literal_paths": [
+        "docs/repro7-cells.json:",
+        "docs/xo7-cells.json,",
+        "tools/crossover.py",
+        "tools/repro_noise.py"
+      ]
+    },
+    {
+      "line_start": 24615,
+      "line_end": 24624,
+      "heading": "## 2026-10-15 07:57 UTC: TB, quantified: chaos that neither single push gives",
+      "sha256": "1cb4ad23e362f1149d281678c5214c95132234c9aac11a24e644ef610713eec4",
+      "bytes": 694,
+      "literal_paths": [
+        "tb/*/tb-t*.npz",
+        "tools/plot_two_block.py"
+      ]
+    },
+    {
+      "line_start": 24631,
+      "line_end": 24646,
+      "heading": "## 2026-10-15 08:03 UTC: REPRO7 result: in unsteered Qwen2.5-7B a batch-size change alone makes all 24 chaotic temperatures diverge (median step 56, as lambda predicts) and none of 24 periodic ones",
+      "sha256": "99088fe374daeadd46dbe94461c8ae0689abcd636859bbcd3a09b61318b338a1",
+      "bytes": 1423,
+      "literal_paths": [
+        "docs/repro7-cells.json,"
+      ]
+    },
+    {
+      "line_start": 24647,
+      "line_end": 24661,
+      "heading": "## 2026-10-15 08:04 UTC: XO7 result: in Qwen2.5-7B the crossover replicates the damping by the network change; the expansion is already present in the unsteered derivative at the steered states",
+      "sha256": "ff62893477fa1f272b9c763d08827b7d1f64756a4d88fbc4cbf5abaec75e8522",
+      "bytes": 1677,
+      "literal_paths": [
+        "docs/xo7-cells.json",
+        "xo/cells7:"
+      ]
+    },
+    {
+      "line_start": 24662,
+      "line_end": 24663,
+      "heading": "## 2026-10-15 08:06 UTC: Note: the XO7 intervals in the paper come from tools/plot_mechanism.py (seeded bootstrap; fig-mechanism.json): readout effect +0.23 [-0.11, 0.63], network effect -1.14 [-1.61, -0.64]. The inline values in the XO7 entry used another random stream.",
+      "sha256": "df9e08f506c1c7ee488ee0da8adc7cbc1ed952e401e719ad3b8d33a1bee4624a",
+      "bytes": 273,
+      "literal_paths": [
+        "tools/plot_mechanism.py"
+      ]
+    },
+    {
+      "line_start": 24664,
+      "line_end": 24667,
+      "heading": "## 2026-10-15 08:07 UTC: run (frozen extension): REPRO-T7, the answer-level reproducibility test in Qwen2.5-7B",
+      "sha256": "4f7c4a06c275bc82044017c7fd6c069b01a98d7fdb1f3bf7cc2bef533c70001d",
+      "bytes": 421,
+      "literal_paths": [
+        "docs/repro-task-test.md"
+      ]
+    },
+    {
+      "line_start": 24689,
+      "line_end": 24696,
+      "heading": "## 2026-10-15 08:19 UTC: run (exploratory): REPRO-L8, the reproducibility test in a second family (Llama-3.1-8B-Instruct, unsteered)",
+      "sha256": "816f952eec4baf19fde463cbd557ac7db223219ee1e8387a8f74948397054cff",
+      "bytes": 704,
+      "literal_paths": [
+        "docs/repro-l8-cells.json.",
+        "tools/repro_noise.py"
+      ]
+    },
+    {
+      "line_start": 24697,
+      "line_end": 24702,
+      "heading": "## 2026-10-15 08:25 UTC: run (frozen design): BPC, the confirmatory behaviour test (docs/bpc-test.md)",
+      "sha256": "910d0e057e038af1e271b0e171a18fa91a1d6ce38aa3667bca8f3b6ddfa3b9b3",
+      "bytes": 723,
+      "literal_paths": [
+        "docs/bpc-tasks.json",
+        "docs/bpc-test.md",
+        "docs/bpc-test.md,",
+        "tools/bpc_analyze.py"
+      ]
+    },
+    {
+      "line_start": 24703,
+      "line_end": 24712,
+      "heading": "## 2026-10-15 08:45 UTC: run (exploratory): BPCS, a steered arm of the behaviour test (human: \"And different steerings too\")",
+      "sha256": "379bccf69ac622ff9accd8da62e1c78e327b2438463d3d202d6647b780eb8c5c",
+      "bytes": 1436,
+      "literal_paths": [
+        "tools/behavior_prompts.py"
+      ]
+    },
+    {
+      "line_start": 24728,
+      "line_end": 24752,
+      "heading": "## 2026-10-15 08:49 UTC: REPRO-T7 result (frozen extension): in Qwen2.5-7B the batch layout changes 55 % of bfloat16 soft-thinking answers at T = 10^0.2 (Delta 17.7 points); in float64 it changes 5 % there",
+      "sha256": "5155da1e2c051158829ad03df45b5534906618ef988dccfef9f4ba9b9b4a76fd",
+      "bytes": 2208,
+      "literal_paths": [
+        "repro/t7."
+      ]
+    },
+    {
+      "line_start": 24753,
+      "line_end": 24768,
+      "heading": "## 2026-10-15 08:50 UTC: REPRO-L8 result: the reproducibility result replicates in a second family (Llama-3.1-8B-Instruct, unsteered)",
+      "sha256": "252cb5828a4bfb7cffc53d3602008a2ecdcec43ea89ca22ce41133ad54aba826",
+      "bytes": 1153,
+      "literal_paths": [
+        "docs/repro-l8-cells.json"
+      ]
+    },
+    {
+      "line_start": 24769,
+      "line_end": 24775,
+      "heading": "## 2026-10-15 08:52 UTC: run (exploratory): REPRO70, the reproducibility test at 70B (human: \"70b?\")",
+      "sha256": "31da7bd11ac0f34289169d0b1d88df974e5049c1d68e2e5145123833ed79a085",
+      "bytes": 761,
+      "literal_paths": [
+        "docs/repro70-cells.json:"
+      ]
+    },
+    {
+      "line_start": 24780,
+      "line_end": 24783,
+      "heading": "## 2026-10-15 08:54 UTC: Amendment to BPC (operational, before any outcome): the generation pod ran out of memory; relaunched with 50 prompts per chunk",
+      "sha256": "1ef2ab60b46cb0b0852f5acd68046da75d9e2edfffa22ebf24ba5a513ef43389",
+      "bytes": 520,
+      "literal_paths": []
+    },
+    {
+      "line_start": 24791,
+      "line_end": 24809,
+      "heading": "## 2026-10-15 08:58 UTC: BPCS stage 1 result (calibration) and stage 2 launch: alpha = 0.01",
+      "sha256": "5608049e89f4c5e325ff9ce7324ced1c60ecde40e53c761f49135e28f7658ae0",
+      "bytes": 1187,
+      "literal_paths": [
+        "docs/bpcs-tasks.json,"
+      ]
+    },
+    {
+      "line_start": 24810,
+      "line_end": 24811,
+      "heading": "## 2026-10-15 08:59 UTC: BPCS analysis script committed before its data: tools/bpcs_analyze.py (within-prompt fixed-effects model, within-prompt permutation; tests/test_bpcs_analyze.py: 2 pass)",
+      "sha256": "217bfd8193006acc0409367f336819dd60b222325d8d7597b40eec8344adb821",
+      "bytes": 195,
+      "literal_paths": [
+        "tools/bpcs_analyze.py"
+      ]
+    },
+    {
+      "line_start": 24837,
+      "line_end": 24883,
+      "heading": "## 2026-10-15 09:11 UTC: BPC frozen result: NULL on the primary; no edge-of-chaos optimum",
+      "sha256": "fcb9f1746bde5dc5f027bc25d72754a0c144191752dc8a6660d81b31cba24a2d",
+      "bytes": 3157,
+      "literal_paths": [
+        "docs/bpc-posthoc.json;",
+        "docs/bpc-result.json.",
+        "tools/bpc_analyze.py",
+        "tools/bpc_posthoc.py,"
+      ]
+    },
+    {
+      "line_start": 24902,
+      "line_end": 24915,
+      "heading": "## 2026-10-15 09:27 UTC: REPRO70 result: the batch-layout test replicates at 70B",
+      "sha256": "171271b26b9693640fec5cb402654236e5a8c107e77361fc146cf7f655bf3357",
+      "bytes": 1331,
+      "literal_paths": [
+        "docs/repro-summary.json",
+        "docs/repro70-cells.json,",
+        "repro/r70",
+        "tools/repro_summary.py,"
+      ]
+    },
+    {
+      "line_start": 24916,
+      "line_end": 24938,
+      "heading": "## 2026-10-15 09:28 UTC: TPF result: genuine bimodal return maps in the two-block planes; run card TBZ (zooms)",
+      "sha256": "fd6f6571565aff4eb18134e94f7128455b0f82456608db4d3cf144535d8fb6aa",
+      "bytes": 2998,
+      "literal_paths": [
+        "docs/tp/tpf-returnmaps.png,",
+        "tools/plot_turning_candidates.py"
+      ]
+    },
+    {
+      "line_start": 25010,
+      "line_end": 25036,
+      "heading": "## 2026-10-15 09:44 UTC: BPCS result (steered arm, within-prompt test): NULL",
+      "sha256": "a90b813dee9aa7a8da32f2f075361f21beae61d234bf544ccba6cd3cfe4ec986",
+      "bytes": 1923,
+      "literal_paths": [
+        "docs/bpcs-result.json.",
+        "tools/bpcs_analyze.py"
+      ]
+    },
+    {
+      "line_start": 25055,
+      "line_end": 25058,
+      "heading": "## 2026-10-15 09:49 UTC: Run card TBZh2 (exploratory)",
+      "sha256": "56c685566ece9847f9c7d78e19577926f93847ff1a620ed3920cd3ac511f88ae",
+      "bytes": 331,
+      "literal_paths": []
+    }
+  ]
+}

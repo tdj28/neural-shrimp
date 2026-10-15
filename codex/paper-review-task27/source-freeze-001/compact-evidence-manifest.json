@@ -1,0 +1,887 @@
+{
+  "schema": "task27-compact-evidence-001",
+  "frozen_source_commit": "66ffa102c56f6d5b22f116a1bb194f503c75562e",
+  "captured_utc": "2026-10-15T10:06:34.316865+00:00",
+  "scope": "Literal completed producer summary/progress files selected from frozen research-log and generator-source paths. Hash/copy only; no JSON outcome parsing, model, statistics, fit, eigensolver, matrix, NPZ decoding or producer execution. Original run terminations remain producer-recorded history. This does not reconstruct original loaded source/assets or process births. Current frozen source is not asserted to be historical execution source. Reviewers must retain all refusal/partial gates within selected complete files.",
+  "excluded_pending": [
+    "FBC148d/crescent-t-0.14798-p96d",
+    "FBS768n/crescent-t-0.14798-768",
+    "ST72 finer-line unfinished attempts"
+  ],
+  "local_saved_files": [
+    {
+      "lane": "cascade_bridge",
+      "original_path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/cascade/crescent-t-0.14798-v2/cascade.json",
+      "snapshot_path": "saved-evidence-001/pod64/cascade/crescent-t-0.14798-v2/cascade.json",
+      "bytes": 42681,
+      "sha256": "b837737518c5d21a879a76441969cf6833ec522e8c7e5e64d4500fc194d64f0e",
+      "original_mtime_ns_at_capture": 1791854210000000000,
+      "before_after_bytes_match": true
+    },
+    {
+      "lane": "cascade_bridge",
+      "original_path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/cascade/crescent-t-0.14798-v2/progress.jsonl",
+      "snapshot_path": "saved-evidence-001/pod64/cascade/crescent-t-0.14798-v2/progress.jsonl",
+      "bytes": 16835,
+      "sha256": "47ce0e3ac182f3e5dcd674fe3963dd7d60bb728d6cce55eddb2358f104889766",
+      "original_mtime_ns_at_capture": 1791857906000000000,
+      "before_after_bytes_match": true
+    },
+    {
+      "lane": "cascade_bridge",
+      "original_path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/cascade/crescent-t-0.14798-p96c/cascade.json",
+      "snapshot_path": "saved-evidence-001/pod64/cascade/crescent-t-0.14798-p96c/cascade.json",
+      "bytes": 14423,
+      "sha256": "73827647ee41efca1965dfba62016fdef0d76cf0e5196049d9c084424a37a1c6",
+      "original_mtime_ns_at_capture": 1792052317000000000,
+      "before_after_bytes_match": true
+    },
+    {
+      "lane": "cascade_bridge",
+      "original_path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/cascade/crescent-t-0.14798-p96c/progress.jsonl",
+      "snapshot_path": "saved-evidence-001/pod64/cascade/crescent-t-0.14798-p96c/progress.jsonl",
+      "bytes": 2523,
+      "sha256": "f1c0f550ab40d2f5c61e47513e71abce1768222dd757a4dbb4b7fd154ac0ddf3",
+      "original_mtime_ns_at_capture": 1792052317000000000,
+      "before_after_bytes_match": true
+    },
+    {
+      "lane": "cascade_bridge",
+      "original_path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/cascade/q15-a0.100-p4/cascade.json",
+      "snapshot_path": "saved-evidence-001/pod64/cascade/q15-a0.100-p4/cascade.json",
+      "bytes": 18833,
+      "sha256": "f34ae48b56fc86ebb9715b474556419e87f9b5440ec1a5deabe8b13a860769f0",
+      "original_mtime_ns_at_capture": 1791856262000000000,
+      "before_after_bytes_match": true
+    },
+    {
+      "lane": "cascade_bridge",
+      "original_path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/cascade/q15-a0.100-p4/progress.jsonl",
+      "snapshot_path": "saved-evidence-001/pod64/cascade/q15-a0.100-p4/progress.jsonl",
+      "bytes": 3360,
+      "sha256": "fcf64ebad71881bb7de0c39750a86b62b273c7f348a710d08b460fbc3efec187",
+      "original_mtime_ns_at_capture": 1791856262000000000,
+      "before_after_bytes_match": true
+    },
+    {
+      "lane": "cascade_bridge",
+      "original_path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/cascade/q15-a0.100-p64/cascade.json",
+      "snapshot_path": "saved-evidence-001/pod64/cascade/q15-a0.100-p64/cascade.json",
+      "bytes": 12787,
+      "sha256": "a188f9524ecbfb28142ce11c6fa4c5a1237f827765e01d81e5dccd8cb97d4ff3",
+      "original_mtime_ns_at_capture": 1792049274000000000,
+      "before_after_bytes_match": true
+    },
+    {
+      "lane": "cascade_bridge",
+      "original_path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/cascade/q15-a0.100-p64/progress.jsonl",
+      "snapshot_path": "saved-evidence-001/pod64/cascade/q15-a0.100-p64/progress.jsonl",
+      "bytes": 2327,
+      "sha256": "9677b0209800867091d214e7ef27d071a47e2532a8b766d4c48e3d98f54b0de3",
+      "original_mtime_ns_at_capture": 1792049274000000000,
+      "before_after_bytes_match": true
+    },
+    {
+      "lane": "cascade_bridge",
+      "original_path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/cascade/q15-a0.100-p128/cascade.json",
+      "snapshot_path": "saved-evidence-001/pod64/cascade/q15-a0.100-p128/cascade.json",
+      "bytes": 34504,
+      "sha256": "ea7720e728617bd59ca407efcade66c78ef5c360b1c8049e17afd6488bcef920",
+      "original_mtime_ns_at_capture": 1792055079000000000,
+      "before_after_bytes_match": true
+    },
+    {
+      "lane": "cascade_bridge",
+      "original_path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/cascade/q15-a0.100-p128/progress.jsonl",
+      "snapshot_path": "saved-evidence-001/pod64/cascade/q15-a0.100-p128/progress.jsonl",
+      "bytes": 6064,
+      "sha256": "4063e78e34f60abf1188bddd457ecedd246b56a8a072303c658bad963dfc7784",
+      "original_mtime_ns_at_capture": 1792055079000000000,
+      "before_after_bytes_match": true
+    },
+    {
+      "lane": "cascade_bridge",
+      "original_path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/cascade/crescent-t-0.156-f/cascade.json",
+      "snapshot_path": "saved-evidence-001/pod64/cascade/crescent-t-0.156-f/cascade.json",
+      "bytes": 16884,
+      "sha256": "edf0b37d7e7b70d16b240ef12c97ece56e1b85a744212d72f2f6138923c7a321",
+      "original_mtime_ns_at_capture": 1792049774000000000,
+      "before_after_bytes_match": true
+    },
+    {
+      "lane": "cascade_bridge",
+      "original_path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/cascade/crescent-t-0.156-f/progress.jsonl",
+      "snapshot_path": "saved-evidence-001/pod64/cascade/crescent-t-0.156-f/progress.jsonl",
+      "bytes": 1187,
+      "sha256": "b42f8e3802a7bb3646149a900e499e8721a2ebd501f35ad1dbbf2e3b8f17e92a",
+      "original_mtime_ns_at_capture": 1792049774000000000,
+      "before_after_bytes_match": true
+    },
+    {
+      "lane": "cascade_bridge",
+      "original_path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/superstable/crescent-t-0.14798/superstable.json",
+      "snapshot_path": "saved-evidence-001/pod64/superstable/crescent-t-0.14798/superstable.json",
+      "bytes": 11545,
+      "sha256": "3be0c402e695e12d06259c3e2fb646c842f645ccf1b98ba9e90fcbc51e101e58",
+      "original_mtime_ns_at_capture": 1791861939000000000,
+      "before_after_bytes_match": true
+    },
+    {
+      "lane": "cascade_bridge",
+      "original_path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/superstable/crescent-deep2/superstable.json",
+      "snapshot_path": "saved-evidence-001/pod64/superstable/crescent-deep2/superstable.json",
+      "bytes": 5094,
+      "sha256": "773870f6e7f3978fc78bd8b53bf3d79365e2c41088ea5ca5ca7f3378f12bb95b",
+      "original_mtime_ns_at_capture": 1791867825000000000,
+      "before_after_bytes_match": true
+    },
+    {
+      "lane": "cascade_bridge",
+      "original_path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/superstable/crescent-t-0.156-384/superstable.json",
+      "snapshot_path": "saved-evidence-001/pod64/superstable/crescent-t-0.156-384/superstable.json",
+      "bytes": 2696,
+      "sha256": "a6f3d225013049d7a0bc0f40bf3cfcba395537eacf48e3a9f34857c29474bc4a",
+      "original_mtime_ns_at_capture": 1792048324000000000,
+      "before_after_bytes_match": true
+    },
+    {
+      "lane": "cascade_bridge",
+      "original_path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/edges/q15-a0.100-p16/edges.json",
+      "snapshot_path": "saved-evidence-001/pod64/edges/q15-a0.100-p16/edges.json",
+      "bytes": 1932,
+      "sha256": "21835010d1a556563b3007d095838ce0c1231d93ed99fdb5541be678492382df",
+      "original_mtime_ns_at_capture": 1791860674000000000,
+      "before_after_bytes_match": true
+    },
+    {
+      "lane": "cascade_bridge",
+      "original_path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/edges/q15-a0.100-p32/edges.json",
+      "snapshot_path": "saved-evidence-001/pod64/edges/q15-a0.100-p32/edges.json",
+      "bytes": 1939,
+      "sha256": "09c41b7d27d3870c1422290ba845f8df523fdca7c8752291470e0d277ccbddf8",
+      "original_mtime_ns_at_capture": 1791862385000000000,
+      "before_after_bytes_match": true
+    },
+    {
+      "lane": "cusps",
+      "original_path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/codim2/curve-foldA-plus-cusp-51/locate.json",
+      "snapshot_path": "saved-evidence-001/pod64/codim2/curve-foldA-plus-cusp-51/locate.json",
+      "bytes": 4952,
+      "sha256": "c70ee30a4353b612aa71f9eb6e20e1021647b620556a4d2eb159c22c4742577d",
+      "original_mtime_ns_at_capture": 1792031336884776628,
+      "before_after_bytes_match": true
+    },
+    {
+      "lane": "cusps",
+      "original_path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/codim2/curve-foldB-minus-cusp-13/locate.json",
+      "snapshot_path": "saved-evidence-001/pod64/codim2/curve-foldB-minus-cusp-13/locate.json",
+      "bytes": 4688,
+      "sha256": "c067deb261e05b1e3bc4cc088b3db8830d190ef63071fcb752ed209c97ce2ccc",
+      "original_mtime_ns_at_capture": 1792032496213532534,
+      "before_after_bytes_match": true
+    },
+    {
+      "lane": "cusps",
+      "original_path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/codim2/curve-foldB-minus-cusp-54/locate.json",
+      "snapshot_path": "saved-evidence-001/pod64/codim2/curve-foldB-minus-cusp-54/locate.json",
+      "bytes": 4403,
+      "sha256": "ce606c94e9b5bc3f7a8d911aad36150e9d0aac0e4ae7398623a7055b51e79bfd",
+      "original_mtime_ns_at_capture": 1792032496217497080,
+      "before_after_bytes_match": true
+    },
+    {
+      "lane": "cusps",
+      "original_path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/codim2/curve-foldB-plus-cusp-45/locate.json",
+      "snapshot_path": "saved-evidence-001/pod64/codim2/curve-foldB-plus-cusp-45/locate.json",
+      "bytes": 4396,
+      "sha256": "7adb5a4eb679d7faf7c3297336b8bf02118f7186fb809f3f7f2adb14d423fb66",
+      "original_mtime_ns_at_capture": 1792034195474110207,
+      "before_after_bytes_match": true
+    },
+    {
+      "lane": "cusps",
+      "original_path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/codim2/curve-foldC-plus-2-cusp-32/locate.json",
+      "snapshot_path": "saved-evidence-001/pod64/codim2/curve-foldC-plus-2-cusp-32/locate.json",
+      "bytes": 4961,
+      "sha256": "8132a5bb5e8c829dfe9b9a11701fd68942e98b7fe4aae93d14feff1daf9b344a",
+      "original_mtime_ns_at_capture": 1792034195477409489,
+      "before_after_bytes_match": true
+    },
+    {
+      "lane": "cusps",
+      "original_path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/codim2/curve-foldC-plus-2-cusp-42/locate.json",
+      "snapshot_path": "saved-evidence-001/pod64/codim2/curve-foldC-plus-2-cusp-42/locate.json",
+      "bytes": 4692,
+      "sha256": "476beecc7f8b2bf6a70cb580193654f9d6349d3eeb6aa2634853ff6de3bf9fd0",
+      "original_mtime_ns_at_capture": 1792034195480534474,
+      "before_after_bytes_match": true
+    },
+    {
+      "lane": "cusps",
+      "original_path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/codim2/curve-foldD-minus-crossing-14/locate.json",
+      "snapshot_path": "saved-evidence-001/pod64/codim2/curve-foldD-minus-crossing-14/locate.json",
+      "bytes": 5455,
+      "sha256": "87ccf8c3f569daef05a04e91719dfd09da57b986afa5a838ff066b5cc563d73a",
+      "original_mtime_ns_at_capture": 1792031336910797951,
+      "before_after_bytes_match": true
+    },
+    {
+      "lane": "cusps",
+      "original_path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/codim2/curve-foldD-minus-crossing-20/locate.json",
+      "snapshot_path": "saved-evidence-001/pod64/codim2/curve-foldD-minus-crossing-20/locate.json",
+      "bytes": 4848,
+      "sha256": "27ae44f1bfb40b956d4f08490b867ff0b7c3be87682324978919caf212cdeb7a",
+      "original_mtime_ns_at_capture": 1792031336913971519,
+      "before_after_bytes_match": true
+    },
+    {
+      "lane": "cusps",
+      "original_path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/codim2/curve-foldD-minus-crossing-21/locate.json",
+      "snapshot_path": "saved-evidence-001/pod64/codim2/curve-foldD-minus-crossing-21/locate.json",
+      "bytes": 4030,
+      "sha256": "958b006d467085c64b388011960b2a38bf74bf82d9207ae6132092cc2f90cb01",
+      "original_mtime_ns_at_capture": 1792031336917219753,
+      "before_after_bytes_match": true
+    },
+    {
+      "lane": "cusps",
+      "original_path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/codim2/curve-foldD-minus-cusp-10/locate.json",
+      "snapshot_path": "saved-evidence-001/pod64/codim2/curve-foldD-minus-cusp-10/locate.json",
+      "bytes": 4156,
+      "sha256": "ba3f23af613240181a1f58bcda260e5074f2248a82c95fcc8aaa27929b68890d",
+      "original_mtime_ns_at_capture": 1792031336889136918,
+      "before_after_bytes_match": true
+    },
+    {
+      "lane": "cusps",
+      "original_path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/codim2/curve-p2-fold-minus-crossing-60/locate.json",
+      "snapshot_path": "saved-evidence-001/pod64/codim2/curve-p2-fold-minus-crossing-60/locate.json",
+      "bytes": 5474,
+      "sha256": "400f59c83d04edb020217e99994be8cdc8453e1cf53e53253e4050980b92d933",
+      "original_mtime_ns_at_capture": 1792031336900293474,
+      "before_after_bytes_match": true
+    },
+    {
+      "lane": "cusps",
+      "original_path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/codim2/curve-p8-down-minus-reversal-34/locate.json",
+      "snapshot_path": "saved-evidence-001/pod64/codim2/curve-p8-down-minus-reversal-34/locate.json",
+      "bytes": 4334,
+      "sha256": "cc97bbc678266e09d6afd92c421ce272bfa27972b150c3cd687e5820270ad39a",
+      "original_mtime_ns_at_capture": 1792031336903768138,
+      "before_after_bytes_match": true
+    },
+    {
+      "lane": "cusps",
+      "original_path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/codim2/curve-p8-down-minus-reversal-47/locate.json",
+      "snapshot_path": "saved-evidence-001/pod64/codim2/curve-p8-down-minus-reversal-47/locate.json",
+      "bytes": 3805,
+      "sha256": "af713dda0415b3951ccc64802cc7e900b67631b3baadb88df00399a3e68ff582",
+      "original_mtime_ns_at_capture": 1792031336907242408,
+      "before_after_bytes_match": true
+    },
+    {
+      "lane": "cusps",
+      "original_path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/codim2/hub7-foldS-plus-cusp-13/locate.json",
+      "snapshot_path": "saved-evidence-001/pod64/codim2/hub7-foldS-plus-cusp-13/locate.json",
+      "bytes": 3870,
+      "sha256": "3d83d991c02be495098d278c22a92a550f56e6295e299900a70d6bd4b96065fc",
+      "original_mtime_ns_at_capture": 1792031336892856845,
+      "before_after_bytes_match": true
+    },
+    {
+      "lane": "cusps",
+      "original_path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/codim2/hub7-foldU-plus-cusp-21/locate.json",
+      "snapshot_path": "saved-evidence-001/pod64/codim2/hub7-foldU-plus-cusp-21/locate.json",
+      "bytes": 4137,
+      "sha256": "f325ae2d4926b7d18d2b340e2170261c449a1cab6a7a0b6f88e6ebc2dbcc9eb7",
+      "original_mtime_ns_at_capture": 1792031336896815588,
+      "before_after_bytes_match": true
+    },
+    {
+      "lane": "cascade_bridge",
+      "original_path": "/data2/neural-shrimp-data/explore/llm-soft-loop/bridge/decode-a0/decode.json",
+      "snapshot_path": "saved-evidence-001/bridge/decode-a0/decode.json",
+      "bytes": 28438,
+      "sha256": "49ea189fa6c572654f4e44c3f905eea889c4be5a099e49e89055a18b7f0b0905",
+      "original_mtime_ns_at_capture": 1791940923403085842,
+      "before_after_bytes_match": true
+    },
+    {
+      "lane": "cascade_bridge",
+      "original_path": "/data2/neural-shrimp-data/explore/llm-soft-loop/bridge/decode-a006/decode.json",
+      "snapshot_path": "saved-evidence-001/bridge/decode-a006/decode.json",
+      "bytes": 47906,
+      "sha256": "f719bc8205a7e7ec4b61803759704092609a49d56f9ad5733531414cacb31e13",
+      "original_mtime_ns_at_capture": 1791941030397141181,
+      "before_after_bytes_match": true
+    },
+    {
+      "lane": "cascade_bridge",
+      "original_path": "/data2/neural-shrimp-data/explore/llm-soft-loop/bridge/decode-a01/decode.json",
+      "snapshot_path": "saved-evidence-001/bridge/decode-a01/decode.json",
+      "bytes": 40749,
+      "sha256": "f933cfe20c7d9aad16657682fefa203536dd4fbdadd7ed76b35bf78380b84378",
+      "original_mtime_ns_at_capture": 1791941120210352178,
+      "before_after_bytes_match": true
+    },
+    {
+      "lane": "cascade_bridge",
+      "original_path": "/data2/neural-shrimp-data/explore/llm-soft-loop/bridge/graph-a0/graph.json",
+      "snapshot_path": "saved-evidence-001/bridge/graph-a0/graph.json",
+      "bytes": 8833,
+      "sha256": "c6432c0dda7c93f397e318749189da00e0adba5646fbb2dbc6a76fdbb1f392de",
+      "original_mtime_ns_at_capture": 1791940873147227890,
+      "before_after_bytes_match": true
+    },
+    {
+      "lane": "cascade_bridge",
+      "original_path": "/data2/neural-shrimp-data/explore/llm-soft-loop/bridge/graph-a006/graph.json",
+      "snapshot_path": "saved-evidence-001/bridge/graph-a006/graph.json",
+      "bytes": 8852,
+      "sha256": "111ce2251c45f92d843680f7112d9b76721b71bf1fdbd20e39b685da9244c318",
+      "original_mtime_ns_at_capture": 1791940992887711486,
+      "before_after_bytes_match": true
+    },
+    {
+      "lane": "cascade_bridge",
+      "original_path": "/data2/neural-shrimp-data/explore/llm-soft-loop/bridge/graph-a01/graph.json",
+      "snapshot_path": "saved-evidence-001/bridge/graph-a01/graph.json",
+      "bytes": 5986,
+      "sha256": "6746eea1b8c9e9b4c914d4952d7281eccf3d095427ccc9d8643f5ed54d9c85b7",
+      "original_mtime_ns_at_capture": 1791941082540524091,
+      "before_after_bytes_match": true
+    },
+    {
+      "lane": "cascade_bridge",
+      "original_path": "/data2/neural-shrimp-data/explore/llm-soft-loop/bridge/kdecode-a0/kdecode.json",
+      "snapshot_path": "saved-evidence-001/bridge/kdecode-a0/kdecode.json",
+      "bytes": 6302,
+      "sha256": "872e2f4ab345e0f66c251eba8540198d0e3608d5d3a594622753bb649ee3ea39",
+      "original_mtime_ns_at_capture": 1791942273607138747,
+      "before_after_bytes_match": true
+    },
+    {
+      "lane": "cascade_bridge",
+      "original_path": "/data2/neural-shrimp-data/explore/llm-soft-loop/bridge/kdecode-a01/kdecode.json",
+      "snapshot_path": "saved-evidence-001/bridge/kdecode-a01/kdecode.json",
+      "bytes": 4196,
+      "sha256": "d7dcac3ac5a0f1198cac5992adaede1cecc37f38daab967b0cc76f77835fffd4",
+      "original_mtime_ns_at_capture": 1791943328245494270,
+      "before_after_bytes_match": true
+    },
+    {
+      "lane": "cascade_bridge",
+      "original_path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/big/qwen0.5b-softthink/soft-thinking-twins.json",
+      "snapshot_path": "saved-evidence-001/pod64/big/qwen0.5b-softthink/soft-thinking-twins.json",
+      "bytes": 11259,
+      "sha256": "39b3b52924effde276106bdbf4d76b6bf2ed9a74b37973c3b84964407749b35d",
+      "original_mtime_ns_at_capture": 1792000615000000000,
+      "before_after_bytes_match": true
+    },
+    {
+      "lane": "cascade_bridge",
+      "original_path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/big/qwen7b-softthink/soft-thinking-twins.json",
+      "snapshot_path": "saved-evidence-001/pod64/big/qwen7b-softthink/soft-thinking-twins.json",
+      "bytes": 11162,
+      "sha256": "983f2b798d69f1e072c90d9efef06d0aa8160843cd4a8bf016bfebf77f3ac30a",
+      "original_mtime_ns_at_capture": 1792000555000000000,
+      "before_after_bytes_match": true
+    },
+    {
+      "lane": "cascade_bridge",
+      "original_path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/big/qwen72b-softthink-p0/soft-thinking-twins.json",
+      "snapshot_path": "saved-evidence-001/pod64/big/qwen72b-softthink-p0/soft-thinking-twins.json",
+      "bytes": 11754,
+      "sha256": "71447eb0edff59f062e048ce7157f35e1561ec95e625714c4567f69436d576fa",
+      "original_mtime_ns_at_capture": 1792015051000000000,
+      "before_after_bytes_match": true
+    },
+    {
+      "lane": "cascade_bridge",
+      "original_path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/big/qwen72b-softthink-p3/soft-thinking-twins.json",
+      "snapshot_path": "saved-evidence-001/pod64/big/qwen72b-softthink-p3/soft-thinking-twins.json",
+      "bytes": 11687,
+      "sha256": "30c5e4f563e500846af9277d8dda65c0bf84835c531b854d154af5fcfb9665ba",
+      "original_mtime_ns_at_capture": 1792015761000000000,
+      "before_after_bytes_match": true
+    },
+    {
+      "lane": "cascade_bridge",
+      "original_path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/big/qwen72b-softthink-steer/soft-thinking-twins.json",
+      "snapshot_path": "saved-evidence-001/pod64/big/qwen72b-softthink-steer/soft-thinking-twins.json",
+      "bytes": 5827,
+      "sha256": "4dfc53774246704ed61cc3980931f4d3c4353a74ba820ce483cd1b3aa2883896",
+      "original_mtime_ns_at_capture": 1792015370000000000,
+      "before_after_bytes_match": true
+    },
+    {
+      "lane": "cascade_bridge",
+      "original_path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/big/qwen0.5b-window-1/hidden-chaos.json",
+      "snapshot_path": "saved-evidence-001/pod64/big/qwen0.5b-window-1/hidden-chaos.json",
+      "bytes": 14297,
+      "sha256": "91515d7c91602f2bef7496bd8d6f7c5bb04160f6a17500f63a46381bc21b8fde",
+      "original_mtime_ns_at_capture": 1792000141000000000,
+      "before_after_bytes_match": true
+    },
+    {
+      "lane": "cascade_bridge",
+      "original_path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/big/qwen0.5b-window-2/hidden-chaos.json",
+      "snapshot_path": "saved-evidence-001/pod64/big/qwen0.5b-window-2/hidden-chaos.json",
+      "bytes": 14677,
+      "sha256": "afa206dc43b29a17062b95c4c298b80886a3a9487aabbad49a22a77d7b14cb95",
+      "original_mtime_ns_at_capture": 1792000263000000000,
+      "before_after_bytes_match": true
+    },
+    {
+      "lane": "cascade_bridge",
+      "original_path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/big/qwen0.5b-window-4/hidden-chaos.json",
+      "snapshot_path": "saved-evidence-001/pod64/big/qwen0.5b-window-4/hidden-chaos.json",
+      "bytes": 14897,
+      "sha256": "2ac6a8995c66e757dab33e2b7f7e13d2fce5852ce1e544db944a9079eabbe39c",
+      "original_mtime_ns_at_capture": 1792000385000000000,
+      "before_after_bytes_match": true
+    },
+    {
+      "lane": "cascade_bridge",
+      "original_path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/big/qwen0.5b-window-8/hidden-chaos.json",
+      "snapshot_path": "saved-evidence-001/pod64/big/qwen0.5b-window-8/hidden-chaos.json",
+      "bytes": 15417,
+      "sha256": "31fc32883d313277350809177062d62fca5df51ec196ecea02717144d24edd57",
+      "original_mtime_ns_at_capture": 1792000512000000000,
+      "before_after_bytes_match": true
+    },
+    {
+      "lane": "cascade_bridge",
+      "original_path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/big/qwen0.5b-window-16/hidden-chaos.json",
+      "snapshot_path": "saved-evidence-001/pod64/big/qwen0.5b-window-16/hidden-chaos.json",
+      "bytes": 15008,
+      "sha256": "890eb850043f18328466ad887d83779d74911fcee6c8252d6c06d9fff5da2bcd",
+      "original_mtime_ns_at_capture": 1792000668000000000,
+      "before_after_bytes_match": true
+    },
+    {
+      "lane": "cascade_bridge",
+      "original_path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/big/qwen7b-window-1/hidden-chaos.json",
+      "snapshot_path": "saved-evidence-001/pod64/big/qwen7b-window-1/hidden-chaos.json",
+      "bytes": 15465,
+      "sha256": "26db6076f5e0aa94a3dc7e4eb86e9de54caecfd42fb0136e8305d3ff5d67bcdf",
+      "original_mtime_ns_at_capture": 1792001176000000000,
+      "before_after_bytes_match": true
+    },
+    {
+      "lane": "cascade_bridge",
+      "original_path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/big/qwen7b-window-2/hidden-chaos.json",
+      "snapshot_path": "saved-evidence-001/pod64/big/qwen7b-window-2/hidden-chaos.json",
+      "bytes": 15955,
+      "sha256": "d6a7092b01c843bd093e5802cbec3abad229d6e6214ac13ff1bf75497c9bdb93",
+      "original_mtime_ns_at_capture": 1792001549000000000,
+      "before_after_bytes_match": true
+    },
+    {
+      "lane": "cascade_bridge",
+      "original_path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/big/qwen7b-window-4/hidden-chaos.json",
+      "snapshot_path": "saved-evidence-001/pod64/big/qwen7b-window-4/hidden-chaos.json",
+      "bytes": 16868,
+      "sha256": "71554c4395dae0f5a5df6a63183187c50feeb49a8113a88a13a52eb74ac28057",
+      "original_mtime_ns_at_capture": 1792002085000000000,
+      "before_after_bytes_match": true
+    },
+    {
+      "lane": "cascade_bridge",
+      "original_path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/big/qwen7b-window-8/hidden-chaos.json",
+      "snapshot_path": "saved-evidence-001/pod64/big/qwen7b-window-8/hidden-chaos.json",
+      "bytes": 17008,
+      "sha256": "6e73a326893bf72f11c3fef9ed2eefbdc0ab0a8ab312967affc7ba5f3a0b6aed",
+      "original_mtime_ns_at_capture": 1792002968000000000,
+      "before_after_bytes_match": true
+    },
+    {
+      "lane": "cascade_bridge",
+      "original_path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/big/qwen7b-window-16/hidden-chaos.json",
+      "snapshot_path": "saved-evidence-001/pod64/big/qwen7b-window-16/hidden-chaos.json",
+      "bytes": 16277,
+      "sha256": "b5f272af9364877bca8a59b36798676f5e2244a4121edf1247a5e8d9a3788d88",
+      "original_mtime_ns_at_capture": 1792004495000000000,
+      "before_after_bytes_match": true
+    },
+    {
+      "lane": "practical",
+      "original_path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/repro/q7-f64/repro.json",
+      "snapshot_path": "saved-evidence-001/pod64/repro/q7-f64/repro.json",
+      "bytes": 16511,
+      "sha256": "6e7b968186f23b572908cb10d04505ff5b8e274616c1475b7d3d5ab1cc8a620f",
+      "original_mtime_ns_at_capture": 1792051165000000000,
+      "before_after_bytes_match": true
+    },
+    {
+      "lane": "practical",
+      "original_path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/repro/q7-f64/progress.jsonl",
+      "snapshot_path": "saved-evidence-001/pod64/repro/q7-f64/progress.jsonl",
+      "bytes": 689,
+      "sha256": "7ad0e59a8a5e87374fd0b969cc407cadcf2255cb3f9d24e4ea7f9e35bb944f0b",
+      "original_mtime_ns_at_capture": 1792051165000000000,
+      "before_after_bytes_match": true
+    },
+    {
+      "lane": "practical",
+      "original_path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/repro/q7-lowp/repro.json",
+      "snapshot_path": "saved-evidence-001/pod64/repro/q7-lowp/repro.json",
+      "bytes": 29816,
+      "sha256": "914f425e374ebec6edadceca5832ba43ca4aafc2dae5670b3402e89292b57609",
+      "original_mtime_ns_at_capture": 1792051259000000000,
+      "before_after_bytes_match": true
+    },
+    {
+      "lane": "practical",
+      "original_path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/repro/q7-lowp/progress.jsonl",
+      "snapshot_path": "saved-evidence-001/pod64/repro/q7-lowp/progress.jsonl",
+      "bytes": 1323,
+      "sha256": "9eee19979b5b4eb61a1bda2d5b774fbe49fbcf16695093187340edc608153c9f",
+      "original_mtime_ns_at_capture": 1792051259000000000,
+      "before_after_bytes_match": true
+    },
+    {
+      "lane": "practical",
+      "original_path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/repro/l8-f64/repro.json",
+      "snapshot_path": "saved-evidence-001/pod64/repro/l8-f64/repro.json",
+      "bytes": 13826,
+      "sha256": "bf7dccabab77ca1108dedf171a6703a4843de05ddd361064efb7aed946e34b13",
+      "original_mtime_ns_at_capture": 1792052709000000000,
+      "before_after_bytes_match": true
+    },
+    {
+      "lane": "practical",
+      "original_path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/repro/l8-f64/progress.jsonl",
+      "snapshot_path": "saved-evidence-001/pod64/repro/l8-f64/progress.jsonl",
+      "bytes": 676,
+      "sha256": "048d3dc1bef8030a0b08b7d424474eb1102b93c254713833a427a30187a97565",
+      "original_mtime_ns_at_capture": 1792052709000000000,
+      "before_after_bytes_match": true
+    },
+    {
+      "lane": "practical",
+      "original_path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/repro/l8-lowp/repro.json",
+      "snapshot_path": "saved-evidence-001/pod64/repro/l8-lowp/repro.json",
+      "bytes": 24869,
+      "sha256": "93011dba4f9959c4778499c419d3c59921bce0cab21319a43068790d7569c435",
+      "original_mtime_ns_at_capture": 1792052797000000000,
+      "before_after_bytes_match": true
+    },
+    {
+      "lane": "practical",
+      "original_path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/repro/l8-lowp/progress.jsonl",
+      "snapshot_path": "saved-evidence-001/pod64/repro/l8-lowp/progress.jsonl",
+      "bytes": 1323,
+      "sha256": "7c1f689bcf71be150b0aece61054438251db64d06fb9fae41b878d55c3a21d86",
+      "original_mtime_ns_at_capture": 1792052797000000000,
+      "before_after_bytes_match": true
+    },
+    {
+      "lane": "practical",
+      "original_path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/repro/r70/repro.json",
+      "snapshot_path": "saved-evidence-001/pod64/repro/r70/repro.json",
+      "bytes": 17514,
+      "sha256": "18e8055a5e9d262f9336bf4d645569785ae8a8f74f817909d7698b4b66cefd2d",
+      "original_mtime_ns_at_capture": 1792056151000000000,
+      "before_after_bytes_match": true
+    },
+    {
+      "lane": "practical",
+      "original_path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/repro/r70/progress.jsonl",
+      "snapshot_path": "saved-evidence-001/pod64/repro/r70/progress.jsonl",
+      "bytes": 485,
+      "sha256": "93cfcbc9420f9743dac7e570ec49f0af264657e816efc79718a362a3c570c5f6",
+      "original_mtime_ns_at_capture": 1792056151000000000,
+      "before_after_bytes_match": true
+    },
+    {
+      "lane": "practical",
+      "original_path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/xo/cells7/crossover.json",
+      "snapshot_path": "saved-evidence-001/pod64/xo/cells7/crossover.json",
+      "bytes": 14135,
+      "sha256": "fb4a58c9afa88e37496b0d65c1eac4aa9a4f932f69a52ecc3f75b4e655e9b570",
+      "original_mtime_ns_at_capture": 1792051344000000000,
+      "before_after_bytes_match": true
+    },
+    {
+      "lane": "practical",
+      "original_path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/xo/cells7/progress.jsonl",
+      "snapshot_path": "saved-evidence-001/pod64/xo/cells7/progress.jsonl",
+      "bytes": 216,
+      "sha256": "28e2e29be40eaef532c5351b8f9c0b3b9c7716462d90c61749d9049ff6c99c6b",
+      "original_mtime_ns_at_capture": 1792051344000000000,
+      "before_after_bytes_match": true
+    },
+    {
+      "lane": "practical",
+      "original_path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/xo/grat/crossover.json",
+      "snapshot_path": "saved-evidence-001/pod64/xo/grat/crossover.json",
+      "bytes": 18933,
+      "sha256": "be9f1ebb545e05407488213ef5fc33ed3a95f158eeb9760f5e9adec7fecf55ae",
+      "original_mtime_ns_at_capture": 1792053957381761671,
+      "before_after_bytes_match": true
+    },
+    {
+      "lane": "practical",
+      "original_path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/xo/grat/progress.jsonl",
+      "snapshot_path": "saved-evidence-001/pod64/xo/grat/progress.jsonl",
+      "bytes": 213,
+      "sha256": "42d1defe74888545c712a0faeebae87a025e6c963e54c1a7e5e2ee75c611ccac",
+      "original_mtime_ns_at_capture": 1792053957381475050,
+      "before_after_bytes_match": true
+    },
+    {
+      "lane": "practical",
+      "original_path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/xo/rand1/crossover.json",
+      "snapshot_path": "saved-evidence-001/pod64/xo/rand1/crossover.json",
+      "bytes": 18853,
+      "sha256": "317fd014ebb4b4f40a62b5cdf934bebfa489548cc81ba289b2d534b23f8a0106",
+      "original_mtime_ns_at_capture": 1792052444000000000,
+      "before_after_bytes_match": true
+    },
+    {
+      "lane": "practical",
+      "original_path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/xo/rand1/progress.jsonl",
+      "snapshot_path": "saved-evidence-001/pod64/xo/rand1/progress.jsonl",
+      "bytes": 213,
+      "sha256": "f02b33e59b909a1e01cb76fcf54ac2daba058593a5c6d1088a8cc3125f3f6609",
+      "original_mtime_ns_at_capture": 1792052444000000000,
+      "before_after_bytes_match": true
+    }
+  ],
+  "local_saved_bytes": 782230,
+  "frozen_repository_files": [
+    {
+      "repository_path": "docs/repro-summary.json",
+      "source_commit": "66ffa102c56f6d5b22f116a1bb194f503c75562e",
+      "git_blob": "0d05f2f18966638fc134a060677c1d84b093af6a",
+      "bytes": 10268,
+      "sha256": "6ab6ec4f46f19dcc5e9d57c5010efcb1ce500b942ddaee29b3bf80cc30e5be23"
+    },
+    {
+      "repository_path": "docs/bpc-result.json",
+      "source_commit": "66ffa102c56f6d5b22f116a1bb194f503c75562e",
+      "git_blob": "08fd2a552562a602050e9369ba0fc25840abb578",
+      "bytes": 1642,
+      "sha256": "4afd15ee3b02c8e479694990ac022702d8ad42a2586f7f8a98f6e28d7edb89a9"
+    },
+    {
+      "repository_path": "docs/bpc-posthoc.json",
+      "source_commit": "66ffa102c56f6d5b22f116a1bb194f503c75562e",
+      "git_blob": "c51079524c056f17d35b5721873a7ec63bdc7aa0",
+      "bytes": 2994,
+      "sha256": "aaf20054e4a861cab12290eb07b631dd5d902bede3fcfea23e73177d9f2e7d5e"
+    },
+    {
+      "repository_path": "docs/bpcs-result.json",
+      "source_commit": "66ffa102c56f6d5b22f116a1bb194f503c75562e",
+      "git_blob": "7a39897a3128188e80c38f78ae4ed6bba98e262f",
+      "bytes": 846,
+      "sha256": "902c4830bede7a4cc27afa2a1763784056aa75c47b8e4e7f54e2c4b2219ea5fe"
+    },
+    {
+      "repository_path": "docs/st72-result.json",
+      "source_commit": "66ffa102c56f6d5b22f116a1bb194f503c75562e",
+      "git_blob": "fd79ee7d9d1e89e67293d75fec097a46b12026d8",
+      "bytes": 50045,
+      "sha256": "680c45dd0c92d4168ba8798fcbba6ac5b6e68c4a1e74a9b6c150eae746b82b5b"
+    },
+    {
+      "repository_path": "docs/repro7-cells.json",
+      "source_commit": "66ffa102c56f6d5b22f116a1bb194f503c75562e",
+      "git_blob": "41bfe3384608494169bb7733031ddaa5baccd901",
+      "bytes": 3885,
+      "sha256": "9629b9e36b1a491896faa7f7e8b4b2f62565b971340fba770ed28feed3bdf102"
+    },
+    {
+      "repository_path": "docs/repro-l8-cells.json",
+      "source_commit": "66ffa102c56f6d5b22f116a1bb194f503c75562e",
+      "git_blob": "5d63c5be6d1a10dc750b4fca2d4b9b27c4d51340",
+      "bytes": 3282,
+      "sha256": "1b027016e1e515345ef659b3a571783fd620f49414ead4cd9c934ba520918c9f"
+    },
+    {
+      "repository_path": "docs/repro70-cells.json",
+      "source_commit": "66ffa102c56f6d5b22f116a1bb194f503c75562e",
+      "git_blob": "07211bb8f3fd7c9f66c6366bc58886f5fb6c73bd",
+      "bytes": 4666,
+      "sha256": "bc0c873634d4d6a5878940cd48363f85f9014a2b157a99c8185243fba4054d79"
+    },
+    {
+      "repository_path": "docs/xo7-cells.json",
+      "source_commit": "66ffa102c56f6d5b22f116a1bb194f503c75562e",
+      "git_blob": "c9762f9ad3c48782023d7f51b7d2f00c0d51c12b",
+      "bytes": 2045,
+      "sha256": "4c8757a51a7dc5a67cbea93a9900675c339f4093d065d6cc1b40e5e24544d3a5"
+    },
+    {
+      "repository_path": "docs/xo-cells-gratitude.json",
+      "source_commit": "66ffa102c56f6d5b22f116a1bb194f503c75562e",
+      "git_blob": "d9f82feac2b86094a7c2c2c457e623fdd56a919c",
+      "bytes": 2060,
+      "sha256": "d28da5bfaedb9910fcbaf6c6e4902b399b4d03445421a8775c75ca40cb155a30"
+    },
+    {
+      "repository_path": "docs/xo-cells-random1.json",
+      "source_commit": "66ffa102c56f6d5b22f116a1bb194f503c75562e",
+      "git_blob": "469bdea50d0369700faf8006252d1b09517ba3a9",
+      "bytes": 2036,
+      "sha256": "c7c135f45fa4ee17fa9567c60ff370ddd1b99496e4d5b2d657ea00e18c93fe0d"
+    },
+    {
+      "repository_path": "docs/bz-pairs.json",
+      "source_commit": "66ffa102c56f6d5b22f116a1bb194f503c75562e",
+      "git_blob": "7547d0f43b9833ce3edaf84f553be38532f2f41e",
+      "bytes": 21123,
+      "sha256": "12abbeb81364f3b47ecaee658e35158b59ed2e097e25e90d9cfebaf39ccc6f33"
+    },
+    {
+      "repository_path": "docs/bz-tasks.json",
+      "source_commit": "66ffa102c56f6d5b22f116a1bb194f503c75562e",
+      "git_blob": "7fa643ffd7e36b7963a2b4ee483e1a54826313f0",
+      "bytes": 22912,
+      "sha256": "4dd1198615469f58af562ef6ff203f4472d04b98706e9cdb7f92924cf24a9237"
+    },
+    {
+      "repository_path": "docs/scale-summary.json",
+      "source_commit": "66ffa102c56f6d5b22f116a1bb194f503c75562e",
+      "git_blob": "7e480ba7fb38f8a41b0e1aa8b0b024523d735f19",
+      "bytes": 13708,
+      "sha256": "439ac00c6c78563128f292bee8b8a9f49693e0fc7944f7c2d5bea8324a6ed682"
+    },
+    {
+      "repository_path": "docs/scale-summary.tex",
+      "source_commit": "66ffa102c56f6d5b22f116a1bb194f503c75562e",
+      "git_blob": "13bb2766673ec9de6a665c46cdb1b80dc324f0a2",
+      "bytes": 1266,
+      "sha256": "ed980fa3ab957d1e65e4fad190ff84e9a57176de2ce28e62e6ef7b2d73ebeb31"
+    },
+    {
+      "repository_path": "docs/prefix-scale-result.json",
+      "source_commit": "66ffa102c56f6d5b22f116a1bb194f503c75562e",
+      "git_blob": "b5022ce1162c0b887fd408467d51488bce2151ad",
+      "bytes": 9227,
+      "sha256": "907a19d2145c9c5fe8860ec9ad7fb97ab126f294087bb6b19c5c9ffc0eaf69e4"
+    },
+    {
+      "repository_path": "docs/start-state-result.json",
+      "source_commit": "66ffa102c56f6d5b22f116a1bb194f503c75562e",
+      "git_blob": "1fd5cb0d4c0b32e80f928f9fa19df93b4a8f6c8a",
+      "bytes": 5570,
+      "sha256": "a42765d17a2bd33c426435fc317f28c3eed51060ae4da08fe33206029da1ca5f"
+    },
+    {
+      "repository_path": "paper/llm/figures/fig-mechanism.json",
+      "source_commit": "66ffa102c56f6d5b22f116a1bb194f503c75562e",
+      "git_blob": "fd2df1207f6ace57f9ba36bf371d21a8e109774c",
+      "bytes": 6513,
+      "sha256": "bd77b689caa2008e8a4baecb1835a72d11c0d65d91972141e630bf6451a35c6f"
+    },
+    {
+      "repository_path": "tools/greedy_bridge.py",
+      "source_commit": "66ffa102c56f6d5b22f116a1bb194f503c75562e",
+      "git_blob": "b74c251ab2a5384ebfdf5f431e096d76a0a779ce",
+      "bytes": 14008,
+      "sha256": "2e39c3fef8be6d2fb089c99ab110b2a5ecae276b845b6c24ee0c6cf6a18c469e"
+    },
+    {
+      "repository_path": "tools/soft_thinking_twins.py",
+      "source_commit": "66ffa102c56f6d5b22f116a1bb194f503c75562e",
+      "git_blob": "e18c0be0d34c7ac88fbe28fc78a8982bd42b029b",
+      "bytes": 8764,
+      "sha256": "dc968e66c7c4ed6ee2ac24a435527bed90c40aad2f4df6edb410cacc0315e247"
+    },
+    {
+      "repository_path": "tools/st72_summary.py",
+      "source_commit": "66ffa102c56f6d5b22f116a1bb194f503c75562e",
+      "git_blob": "753219208c87c5da85348e40b0a5a763fd841f48",
+      "bytes": 2858,
+      "sha256": "29af1c59e34adcf302abc2112bdeac5664e11da432c22fc7b9b54874f84794e7"
+    },
+    {
+      "repository_path": "tools/hidden_chaos.py",
+      "source_commit": "66ffa102c56f6d5b22f116a1bb194f503c75562e",
+      "git_blob": "1bb8274b1fd9b463d34344bc3bcb25099cc8a991",
+      "bytes": 18245,
+      "sha256": "2533a3eb0a3565265c630dde6d2cb45ad385dd63ac3997473cac249c0ffa4a5e"
+    },
+    {
+      "repository_path": "tools/two_block_map.py",
+      "source_commit": "66ffa102c56f6d5b22f116a1bb194f503c75562e",
+      "git_blob": "6f2d86596b415edcbc21c7ef222b32b5add61f39",
+      "bytes": 4691,
+      "sha256": "04171ee4a3105534fbd0af95774132c3a4a649725489ae1da0e47feff43431fe"
+    },
+    {
+      "repository_path": "tools/explore_llm_phase_map.py",
+      "source_commit": "66ffa102c56f6d5b22f116a1bb194f503c75562e",
+      "git_blob": "fa7339d85111b2dfdb7981b0f1c9682aa8c8ef1e",
+      "bytes": 32128,
+      "sha256": "a3635bd83bd2448a5af6c0a04188d549cfb6a158604833146399e74a8bcd29bf"
+    },
+    {
+      "repository_path": "tools/behavior_zones.py",
+      "source_commit": "66ffa102c56f6d5b22f116a1bb194f503c75562e",
+      "git_blob": "95d202ac5201caa0b4df7191fb7526336131ccbe",
+      "bytes": 13017,
+      "sha256": "58df9407dd4912a9258faf4f6ad55239c167cbc86230aaa6514684b729aa0ccc"
+    },
+    {
+      "repository_path": "tools/behavior_prompts.py",
+      "source_commit": "66ffa102c56f6d5b22f116a1bb194f503c75562e",
+      "git_blob": "fa262f460ec5b0912a4f75143b567ce9c70c72ee",
+      "bytes": 22563,
+      "sha256": "9e9dc30c0065b593371488dcc9f16ab1e006cd45e2f329bae4a6e2686fdfc29e"
+    },
+    {
+      "repository_path": "tools/bpcs_analyze.py",
+      "source_commit": "66ffa102c56f6d5b22f116a1bb194f503c75562e",
+      "git_blob": "09769019d2767e1f410d005bddc34a0224b807fe",
+      "bytes": 5777,
+      "sha256": "8ceed107633d0882c8ff50910354276816871ae63406355ffef04a77365fb388"
+    },
+    {
+      "repository_path": "tools/bpc_posthoc.py",
+      "source_commit": "66ffa102c56f6d5b22f116a1bb194f503c75562e",
+      "git_blob": "57fa40643207d3e86d5dad36d79aa95bbbef7063",
+      "bytes": 3980,
+      "sha256": "26cb2a99deb670d7239d7ece77cca9e9d04f75dbf3d5ed3403da11695b507a5b"
+    },
+    {
+      "repository_path": "tools/foldlaw_score.py",
+      "source_commit": "66ffa102c56f6d5b22f116a1bb194f503c75562e",
+      "git_blob": "0c34b4b7884f9cefffdfa5a70d27351ed6d3f459",
+      "bytes": 8383,
+      "sha256": "67eccf36b5f2564a900b0f43c6a5c80f4534b2b9930b2ba616cc6f8763599720"
+    },
+    {
+      "repository_path": "tools/scale_summary.py",
+      "source_commit": "66ffa102c56f6d5b22f116a1bb194f503c75562e",
+      "git_blob": "fe884ee7bbae9f1a16bc57f3145eafaf16776b71",
+      "bytes": 10045,
+      "sha256": "1d649b0b72a7aedcd9b46db0b91fe3f7ac9aecb45c48b3933201ffd9cd46efee"
+    },
+    {
+      "repository_path": "tools/gain_compare.py",
+      "source_commit": "66ffa102c56f6d5b22f116a1bb194f503c75562e",
+      "git_blob": "590bb8c8e06919f939848b68763d55dde7ab1096",
+      "bytes": 2871,
+      "sha256": "e51ff8e511c369d8b8500c84f042452f91488bb20cac100875795a72cbd49fd8"
+    },
+    {
+      "repository_path": "tools/prefix_scale_score.py",
+      "source_commit": "66ffa102c56f6d5b22f116a1bb194f503c75562e",
+      "git_blob": "440ed7f49987a9ecdcf0b0ee2527a925e9cb7214",
+      "bytes": 5718,
+      "sha256": "f9223ea1dd3c7743a48819624270ec5a9d70bc799e609c6f65375ac9cc9c0e6f"
+    },
+    {
+      "repository_path": "tools/start_state_score.py",
+      "source_commit": "66ffa102c56f6d5b22f116a1bb194f503c75562e",
+      "git_blob": "6f2149ebbeec7762b3f3dae8d4026af03cc5da0f",
+      "bytes": 4908,
+      "sha256": "9c357a13c3f16d35d8334a2ba4c1da887ca3416117a49ec85e3e533511459896"
+    }
+  ],
+  "missing": []
+}
