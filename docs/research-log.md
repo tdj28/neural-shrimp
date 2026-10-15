@@ -23728,3 +23728,22 @@ Pods mpjn8uzrkptamm and h7yv0po5o7lc1n (first attempt), x03brom1shhb3t and pt50a
 ## 2026-10-15 02:05 UTC: Note: a computer-assisted proof of chaos is out of reach with the period-8 proof's arithmetic
 
 The human asked how to reach proven chaos. The standard route is a horseshoe verified by covering relations (Zgliczyński; Galias and Zgliczyński; Mischaikow and Mrozek), and it needs enclosures of an iterate of the map over boxes of macroscopic size in the unstable direction. The development record of the period-8 proof (codex/certify-llm/README.md, attempt arb-pilot-002) already answers whether that is feasible: in 1024-bit ball arithmetic the prefix and point evaluation passed, but a box of radius 2^-80 failed RMS positivity at layer 3, a wrapping failure. In the box-derivative pilot (radius 2^-800), one map step returned a primal radius of about 5e-79. The period-8 proof works only because its boxes have radius 2^-640. So the planned feasibility test is not needed. A horseshoe proof needs other verified methods (affine or Taylor-model forms through attention, normalization and the 151,936-token readout), a research project beyond this paper. Paper: one sentence in the limitations. The chaos claims stay numerical: positive finite-time exponents, cross-checked against exact tangents.
+
+## 2026-10-15 02:24 UTC: run (exploratory): FL15 and FL7, the fold law beyond 0.5B (Planned marker "scaling of ab and of the window law with model size"; human: "Do it", "Multi pods")
+
+- **Question:** Do larger Qwen2.5 models show the 0.5B mechanism, windows that accumulate on the fold of a short cycle with the 1/N^2 law, and how do the fold's normal-form product ab and the window prefactor compare? The prefactor is d_N N^2 relative to the full-passage value pi^2/(ab), which gives the effective passage fraction (0.58-0.61 at 0.5B).
+- **Candidates:** A free scan of the stored maps for period-adding fans found 70 runs on the 0.5B stripe map (the control), short fans on the 1.5B zoom-256, and a few runs on the 7B coarse-64 maps. In every candidate the periods grow toward the edge of a base-cycle region.
+  - 1.5B at alpha 0.0585882 (philosophy, layer 14): the period-4 region ends near log10 T -0.092, followed by windows 24, 20, 16 and 12 at distances 0.0032, 0.0047, 0.0071 and 0.0142 (d N^2 0.115-0.128 with N = period/4).
+  - 7B at alpha 0.0514286 (philosophy, layer 14): the period-2 region ends near -0.21, followed by windows 9, 7 and 5.
+- **Setup:** Four pods (H100-class float64; the 7B pods H100 NVL or H200 for its 61 GB of float64 weights).
+  - FL15 branch: the period-4 branch in temperature from -0.105 to its fold, then the fold's normal form (normal-form, nearest fold, parameter temperature).
+  - FL15 line: tools/hidden_chaos.py on docs/fl15-line-cells.json (1700 cells, log10 T -0.0925 to -0.0755), transient 3000, record 600, twins 1e-6 and 1e-9.
+  - FL7 branch: the period-2 branch from -0.25 to its fold, then the normal form.
+  - FL7 line: docs/fl7-line-cells.json (1000 cells, -0.225 to -0.085), transient 2000, record 400, one twin 1e-6.
+  - Ceilings are in the private ledger.
+- **Reading, fixed now:**
+  - For each model: the fold's T_c, a, b and ab, and the window positions from the line (period runs; window edges at the grid spacing).
+  - The law counts as holding if d_N (N + delta)^2 is constant within 10 % over at least four windows for one offset delta.
+  - The effective passage fraction f = sqrt(C ab) / pi is compared with the 0.5B value. The lap number N is read from the period, period = q (N + k) for the base cycle's period q and a fixed k.
+  - Failures and non-fans are reported as they stand.
+- **Output:** `../neural-shrimp-data/explore/llm-soft-loop/pod64/{fl15,fl7}/{branch-*,normal-form-*,line}`

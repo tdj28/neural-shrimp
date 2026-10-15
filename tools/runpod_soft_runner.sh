@@ -703,6 +703,45 @@ snapshot_download('$repo', revision='$rev', cache_dir='$NEURAL_SHRIMP_DATA/model
     TOOL=hidden_chaos.py run hidden-${JOBARGS[0]} "${JOBARGS[1]}" line --device cuda --dtype float64 \
       "${JOBARGS[@]:2}" --out $D/hidden/${JOBARGS[0]}
     ;;
+  foldlaw7)    # fold law at Qwen2.5-7B (run FL7, philosophy at layer 14, vectors uploaded): JOBARGS PART ALPHA. Part
+               # branch: the period-2 branch in temperature from log10 T -0.25 up to its fold, then the fold's normal
+               # form; part line: tools/hidden_chaos.py on docs/fl7-line-cells.json, one twin offset (window positions)
+    REV7=a09a35458c702b33eeacc393d103063234e8bc28
+    HF_HUB_OFFLINE=0 $PY -c "
+from huggingface_hub import snapshot_download
+snapshot_download('Qwen/Qwen2.5-7B-Instruct', revision='$REV7', cache_dir='$NEURAL_SHRIMP_DATA/models/hf/hub')" \
+      > "$LOGS/setup-model7.log" 2>&1
+    REFS7=$NEURAL_SHRIMP_DATA/models/hf/hub/models--Qwen--Qwen2.5-7B-Instruct/refs
+    mkdir -p "$REFS7" && printf %s "$REV7" > "$REFS7/main"
+    M7="--model qwen7b --layer 14 --vectors llm-phase-map/vectors-7b-l14 --concept philosophy"
+    case ${JOBARGS[0]} in
+      branch) run fl7-branch 100 branch --device cuda --dtype float64 --reference-dtype none --no-exact-jvp $M7 \
+                --alpha "${JOBARGS[1]}" --log-temperature -0.25 --period 0 --free temperature --direction 1 \
+                --steps 60 --ds 0.002 --ds-max 0.006 --beyond 0.004 --bounds -0.32 -0.15 --chunk 512 \
+                --out $D/fl7/branch-p2
+              run fl7-normal-form 40 normal-form --device cuda --run $D/fl7/branch-p2 --nearest-fold \
+                --param temperature --chunk 512 --out $D/fl7/normal-form-p2 ;;
+      line) TOOL=hidden_chaos.py run hidden-fl7-line 140 cells --device cuda --dtype float64 \
+              --cells-file docs/fl7-line-cells.json $M7 --transient 2000 --record 400 --eps 1e-6 --tol 1e-8 \
+              --chunk 250 --out $D/fl7/line ;;
+    esac
+    ;;
+  foldlaw15)   # fold law at Qwen2.5-1.5B (run FL15, philosophy at layer 14, vectors uploaded): JOBARGS PART ALPHA. Part
+               # branch: the period-4 branch in temperature from log10 T -0.105 up to its fold, then the fold's normal
+               # form; part line: tools/hidden_chaos.py on docs/fl15-line-cells.json (the window fan above the fold)
+    M15="--model qwen1.5b --layer 14 --vectors llm-phase-map/vectors-1.5b-l14 --concept philosophy"
+    case ${JOBARGS[0]} in
+      branch) run fl15-branch 60 branch --device cuda --dtype float64 --reference-dtype none --no-exact-jvp $M15 \
+                --alpha "${JOBARGS[1]}" --log-temperature -0.105 --period 0 --free temperature --direction 1 \
+                --steps 60 --ds 0.001 --ds-max 0.003 --beyond 0.003 --bounds -0.12 -0.07 --chunk 1536 \
+                --out $D/fl15/branch-p4
+              run fl15-normal-form 40 normal-form --device cuda --run $D/fl15/branch-p4 --nearest-fold \
+                --param temperature --chunk 1536 --out $D/fl15/normal-form-p4 ;;
+      line) TOOL=hidden_chaos.py run hidden-fl15-line 110 cells --device cuda --dtype float64 \
+              --cells-file docs/fl15-line-cells.json $M15 --transient 3000 --record 600 --eps 1e-6 1e-9 --tol 1e-8 \
+              --chunk 850 --out $D/fl15/line ;;
+    esac
+    ;;
   hiddencells) # tools/hidden_chaos.py on an uploaded cells file (float64 on the GPU): JOBARGS NAME MINUTES CELLS_FILE ARGS...,
                # output hidden/NAME
     TOOL=hidden_chaos.py run hidden-${JOBARGS[0]} "${JOBARGS[1]}" cells --device cuda --dtype float64 \
