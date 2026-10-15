@@ -153,6 +153,12 @@ case "$JOBSET" in
     TOOL=llm_feigenbaum.py run edges-$name "$minutes" edges --device cuda --threads 8 "${JOBARGS[@]:2}" \
       --out $D/edges/$name
     ;;
+  flipnf)      # flip normal form and its doubled-orbit tests (tools/flip_normal_form.py, float64 on the GPU): JOBARGS = NAME
+               # MINUTES then tool arguments
+    name=${JOBARGS[0]}
+    minutes=${JOBARGS[1]}
+    TOOL=flip_normal_form.py run flipnf-$name "$minutes" --device cuda "${JOBARGS[@]:2}" --out $D/flipnf/$name
+    ;;
   spectrum)    # Lyapunov spectra by QR iteration (tools/lyapunov_spectrum.py, float64 on the GPU): JOBARGS = NAME MINUTES
                # then spectrum arguments (cells file in docs/, vectors uploaded with --extra-data if not the default)
     name=${JOBARGS[0]}

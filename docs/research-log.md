@@ -23955,3 +23955,18 @@ Pod gqn3rlkugdknn2 (COMMUNITY H100 NVL; runner rc 0, tool exit 1, hash verified,
 - **Setup:** two pods (H100-class, new job set spectrum). tools/lyapunov_spectrum.py, float64, k 4, transient 1000, record 2000, checkpoints 1000 and 2000. KY1 runs the philosophy cells, KY2 the hostility cells (vectors-l12-p1b).
 - **Reading:** D per cell, with its two checkpoints, reported by group. A cell that is not chaotic at this horizon (lambda_1 <= 0) is reported as such. No threshold is set: the result is the distribution of D, which goes into the paper's theory paragraph.
 - **Output:** `../neural-shrimp-data/explore/llm-soft-loop/pod64/hidden/spectrum-ky-philosophy`, `spectrum-ky-hostility`
+
+## 2026-10-15 04:27 UTC: run (exploratory): FNF, flip normal forms where the global reduction is weakest (human: "Full go")
+
+- **Question:** Do the local normal forms predict the doubled orbits even where the map is far from one-dimensional? The theory paragraph claims the centre-manifold reduction at a bifurcation is exact whatever the other multipliers are. Test it at the high-temperature bubble (log10 T 0.0319, philosophy, layer 12). There the period-2 loop flips at alpha 0.07535341734032334 with next modulus 0.383, and its period-4 orbit flips at 0.07369205994966807 with next modulus 0.278.
+- **Tool:** tools/flip_normal_form.py with tests/test_flip_normal_form.py (4 tests pass). The tests check c = g + q^2 on a decoupled toy map, the amplitude prediction within 2 % on two coupled maps (supercritical and subcritical), and refusal at a fold.
+  - The tool classifies the crossing: the multiplier nearest -1 must be real and within 1e-6 of -1, and every other multiplier must have modulus below 0.95.
+  - It then computes c = l^T C(r,r,r)/6 + l^T B(r, h2)/2 with (I - M) h2 = B(r, r), from the dense monodromy and central differences of float64 JVPs at four relative steps, taking the plateau.
+- **Predictions, fixed now:** at each offset past the flip, on the side where the doubled orbit exists by the sign of c, with beta = -mu_p - 1:
+  - the doubled orbit's half-amplitude along r is sqrt(beta / c);
+  - its multiplier is 1 - 4 beta.
+  - The predictions count as confirmed if the amplitude ratio tends to 1 as the offset falls, within 10 % at the smallest offset, and the multipliers agree to O(beta^2).
+- **Setup:** two pods (H100-class, new job set flipnf), offsets 2.5e-5, 5e-5, 1e-4, 2e-4 and 4e-4 in alpha.
+  - FNF2: period 2, start at alpha 0.0775 (period-2 attractor).
+  - FNF4: period 4, start at alpha 0.0745 (inside the period-4 band).
+- **Output:** `../neural-shrimp-data/explore/llm-soft-loop/pod64/flipnf/hiT-p2`, `hiT-p4`

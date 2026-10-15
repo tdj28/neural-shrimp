@@ -27,7 +27,7 @@ from runpod_phase0 import KEY, ssh_base, wait_for_ssh  # noqa: E402
 
 UPLOAD_PATHS = ("tools/explore_llm_soft_loop.py", "tools/explore_llm_attractors.py", "tools/explore_llm_phase_map.py",
                 "tools/bifurcation_curves.py", "tools/explore_latent_loop.py", "tools/runpod_soft_runner.sh",
-                "tools/explore_llm_msm.py", "tools/llm_feigenbaum.py", "tools/doubly_superstable.py", "tools/hostility_score.py",
+                "tools/explore_llm_msm.py", "tools/llm_feigenbaum.py", "tools/doubly_superstable.py", "tools/flip_normal_form.py", "tools/hostility_score.py",
                 "tools/huginn_relax_eval.py", "tools/p1_committor.py", "tools/p1_detection.py", "tools/p1_select_dose.py", "tools/cusp_check.py", "tools/llm_sae_readout.py", "tools/cusp_unfolding.py", "tools/pilot_stage2.py",
                 "tools/steering_controls.py", "docs/steering-controls-selection.json", "tools/qwen35_float64.py",
                 "tools/selfref_features.py", "tools/hidden_chaos.py", "tools/gain_split.py", "tools/start_state.py", "docs/h2-horizon-cells.json",
@@ -73,7 +73,7 @@ def main():
     parser.add_argument("--image", default="runpod/pytorch:2.4.0-py3.11-cuda12.4.1-devel-ubuntu22.04")
     parser.add_argument("--name", default="neural-shrimp-soft64")
     parser.add_argument("--commit", required=True, help="pushed commit to upload")
-    parser.add_argument("--jobset", default="skeleton", choices=("smoke", "dss", "spectrum", "skeleton", "maps", "p4a", "highT", "scanband", "p4curves", "scale15", "p6z3a", "p6z3curves", "p1ladder", "cascade", "edges", "superstable", "p1control", "scan32", "p1detect", "huginn", "hverify", "hnormal", "hnormal2", "p1commit", "scan64", "scale7", "huginnA", "hcurves", "hverify7", "p1x", "cusps", "scalex", "huginnS", "hcascade", "cubic", "pairmap", "llama8b", "unfold", "pilot1", "pilot2", "llamamap", "llamactrl", "anymap", "qwen35moe", "selfref", "morph", "hidden", "horizon", "bigsweep", "bigctrl", "bigmap", "gainsplit", "bighidden", "scaleset", "prefixscale", "startstate", "upperset", "prefix72", "prefixcoarse", "q72fix", "prefix72base", "window", "softthink", "softthink72", "tangentcheck", "codim2", "hiddencells", "foldlaw15", "foldlaw7"))
+    parser.add_argument("--jobset", default="skeleton", choices=("smoke", "dss", "spectrum", "flipnf", "skeleton", "maps", "p4a", "highT", "scanband", "p4curves", "scale15", "p6z3a", "p6z3curves", "p1ladder", "cascade", "edges", "superstable", "p1control", "scan32", "p1detect", "huginn", "hverify", "hnormal", "hnormal2", "p1commit", "scan64", "scale7", "huginnA", "hcurves", "hverify7", "p1x", "cusps", "scalex", "huginnS", "hcascade", "cubic", "pairmap", "llama8b", "unfold", "pilot1", "pilot2", "llamamap", "llamactrl", "anymap", "qwen35moe", "selfref", "morph", "hidden", "horizon", "bigsweep", "bigctrl", "bigmap", "gainsplit", "bighidden", "scaleset", "prefixscale", "startstate", "upperset", "prefix72", "prefixcoarse", "q72fix", "prefix72base", "window", "softthink", "softthink72", "tangentcheck", "codim2", "hiddencells", "foldlaw15", "foldlaw7"))
     parser.add_argument("--jobset-args", default="", help="arguments passed to the runner after the job set name")
     parser.add_argument("--ready-minutes", type=float, default=15)
     parser.add_argument("--disk-gb", type=int, default=60, help="container disk (large checkpoints need more)")
