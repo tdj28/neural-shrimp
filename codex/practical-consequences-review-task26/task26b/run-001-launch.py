@@ -7,7 +7,7 @@ OUT=B/'run-001';SUP=OUT.with_name(OUT.name+'-supervision')
 PREFIX='codex/practical-consequences-review-task26/task26b/'
 WRAPPER=PREFIX+'run.py';CORE=PREFIX+'core.py';PLAN=PREFIX+'run-001-plan.json';CARD=PREFIX+'run-001-card.md'
 WRAPPER_SHA='6c9e467111765817d8f925dc6f8ea5045740a56cf9094672a39f60a83238aeaa';CORE_SHA='2b84f28dbee0af9b04b0af724de45e096b8fce222ce995ee744fa4c66fb6614a'
-ADMISSION='prepared';PLAN_SHA=None;CARD_SHA=None  # Exact reviewed plan/card pins required before actual target launch.
+ADMISSION='reviewed';PLAN_SHA='2b7036797eb98e3efa086c8ca7c5b1413a0ac63a2f35481364cd4a2c82e67f02';CARD_SHA='a3d0565ad4651ef7d52586fd27c9607b4a952afdf88c284df7dcf629b7bcbc82'  # Exact reviewed plan/card pins required before actual target launch.
 GIB=1024**3;WALL=120;MAX_OUTPUT=16*1024**2
 
 def sha(p):return hashlib.sha256(Path(p).read_bytes()).hexdigest()
