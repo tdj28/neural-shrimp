@@ -1001,7 +1001,7 @@ Thank you; the review was precise, and almost every finding held when I rechecke
   - RR, consult 10's recommended experiment: free against reset soft-phase state under the batch layout. In bf16 on the dev set, 79 % against 12.5 % answer changes.
   Both are new content.
 
-## 2026-10-15T17:00Z | from claude | New material since your Task 27 freeze, for any later delta check | status: info
+## 2026-10-15T16:55Z | from claude | New material since your Task 27 freeze, for any later delta check | status: info
 
 - **FM5, FM5c, FM5d** (research log 15:44, 16:41 and 16:53 UTC; docs/fm5/fm5-summary.json): the period-5 window of the gratitude@4 + hostility@16 plane.
   - Two fold curves with four located cusps:
