@@ -13,7 +13,11 @@ tasks: docs/bp-tasks.json, seed 20261015: 100 arithmetic problems (50 sums of tw
   only"), disjoint from run BZ's 50.
 label: for a shard of the prompts, the soft-token loop (window 1, float64, alpha 0) after each prompt at log10 T 0.25,
   0.32 and 0.40, with twins at 1e-6 and 1e-9 (tools/hidden_chaos.run_batch and classify; transient and record as
-  given), one JSON line per prompt.
+  given), one JSON line per prompt. --batched --batch-prompts N: N prompts per batch, each cell with its own prefix
+  (explore_llm_soft_loop.MultiPrefixSoftLoop: left padding, masked, true positions) and each prompt's cells with the
+  twin directions of its per-prompt call; the same records, equal to the per-prompt ones up to rounding (amplified
+  in chaotic cells and at the 1e-9 offset, as by any other change of the batch); "seconds" is then the batch's
+  time divided by its prompts.
 generate: ordinary sampling (no steering, top_p 1, top_k 0) at the same temperatures, k samples per prompt, plus the
   greedy answer; scored as in run BZ (arithmetic: first integer; NQ: normalized gold answer as a substring).
 analyze: per temperature, accuracy of prompts labelled chaotic against prompts labelled periodic, overall and within
@@ -65,6 +69,27 @@ def tasks(args):
     print(len(items), "prompts")
 
 
+def prefix_ids(tok, item):
+    """Token ids of a prompt's fixed prefix: the chat template (default system prompt) with the generation prompt,
+    tokenized without special tokens (the template holds them)."""
+    text = tok.apply_chat_template([{"role": "user", "content": prompt_text(item)}], add_generation_prompt=True,
+                                   tokenize=False)
+    return tok(text, add_special_tokens=False)["input_ids"]
+
+
+def label_cells(log_ts, res):
+    """The labels.jsonl cells of one prompt from its run_batch results (one per temperature)."""
+    import hidden_chaos as hc
+
+    cells = []
+    for lt, r in zip(log_ts, res):
+        r = dict(r) if isinstance(r, dict) else r
+        cls = hc.classify(r)
+        cells.append({"log10_temperature": lt, "class": cls, "lyapunov": r.get("lyapunov"), "period": r.get("period"),
+                      "entropy_mean": r.get("entropy_mean")})
+    return cells
+
+
 def label(args):
     import explore_llm_attractors as ela
     import explore_llm_soft_loop as esl
@@ -74,6 +99,8 @@ def label(args):
     if args.shard is not None:
         k, n = args.shard
         items = [it for it in items if it["prompt"] % n == k]
+    if args.batched:
+        return label_batched(args, items)
     loop = esl.SoftLoop(args.model, args.layer, args.threads, "open", ela.OPENER, 1, "float64", args.device)
     torch = loop.torch
     v0 = np.zeros(loop.E.shape[1])
@@ -85,24 +112,53 @@ def label(args):
         if it["prompt"] in done:
             continue
         tic = time.perf_counter()
-        text = loop.sm.tok.apply_chat_template([{"role": "user", "content": prompt_text(it)}], add_generation_prompt=True,
-                                               tokenize=False)
-        loop.prefix_ids = torch.tensor([loop.sm.tok(text, add_special_tokens=False)["input_ids"]], device=loop.device)
+        loop.prefix_ids = torch.tensor([prefix_ids(loop.sm.tok, it)], device=loop.device)
         loop.L0 = loop.prefix_ids.shape[1]
         res = hc.run_batch(loop, v0, list(args.log_temperatures), [0.0] * len(args.log_temperatures), args.transient,
                            args.record, args.eps, args.tol)
-        cells = []
-        for lt, r in zip(args.log_temperatures, res):
-            r = dict(r) if isinstance(r, dict) else r
-            cls = hc.classify(r)
-            cells.append({"log10_temperature": lt, "class": cls, "lyapunov": r.get("lyapunov"), "period": r.get("period"),
-                          "entropy_mean": r.get("entropy_mean")})
+        cells = label_cells(args.log_temperatures, res)
         rec = {"prompt": it["prompt"], "task": it["task"], "prefix_tokens": int(loop.L0), "cells": cells,
                "seconds": round(time.perf_counter() - tic, 1)}
         f.write(json.dumps(rec) + "\n")
         f.flush()
         print(json.dumps({"prompt": it["prompt"], "classes": [c["class"] for c in cells],
                           "exponents": [c["lyapunov"] for c in cells], "seconds": rec["seconds"]}), flush=True)
+
+
+def label_batched(args, items):
+    """label with --batch-prompts prompts per batch: every cell (prompt, temperature) has its own prefix
+    (MultiPrefixSoftLoop), the cells run prompt by prompt, and each prompt's cells get the twin directions of its
+    per-prompt call (run_batch twin_groups). One record per prompt, as label writes them; "seconds" is the batch's
+    time divided by its prompts."""
+    import explore_llm_soft_loop as esl
+    import hidden_chaos as hc
+
+    if args.batch_prompts < 1:
+        raise SystemExit("--batch-prompts must be at least 1")
+    loop = esl.MultiPrefixSoftLoop(args.model, args.layer, args.threads, 1, "float64", args.device)
+    v0 = np.zeros(loop.E.shape[1])
+    lts = list(args.log_temperatures)
+    out = DATA / "explore" / args.out
+    out.mkdir(parents=True, exist_ok=True)
+    f = open(out / "labels.jsonl", "a")
+    done = {json.loads(l)["prompt"] for l in open(out / "labels.jsonl")} if (out / "labels.jsonl").stat().st_size else set()
+    todo = [it for it in items if it["prompt"] not in done]
+    for s in range(0, len(todo), args.batch_prompts):
+        group = todo[s:s + args.batch_prompts]
+        tic = time.perf_counter()
+        ids = [prefix_ids(loop.sm.tok, it) for it in group]
+        loop.set_prefixes([p for p in ids for _ in lts])           # cell g * len(lts) + j: prompt g, temperature j
+        res = hc.run_batch(loop, v0, lts * len(group), [0.0] * (len(lts) * len(group)), args.transient, args.record,
+                           args.eps, args.tol, twin_groups=[len(lts)] * len(group))
+        seconds = round((time.perf_counter() - tic) / len(group), 1)
+        for g, it in enumerate(group):
+            cells = label_cells(lts, res[g * len(lts):(g + 1) * len(lts)])
+            rec = {"prompt": it["prompt"], "task": it["task"], "prefix_tokens": len(ids[g]), "cells": cells,
+                   "seconds": seconds}
+            f.write(json.dumps(rec) + "\n")
+            print(json.dumps({"prompt": it["prompt"], "classes": [c["class"] for c in cells],
+                              "exponents": [c["lyapunov"] for c in cells], "seconds": seconds}), flush=True)
+        f.flush()
 
 
 def generate(args):
@@ -192,6 +248,9 @@ def main():
     lab.add_argument("--record", type=int, default=1000)
     lab.add_argument("--eps", type=float, nargs="+", default=[1e-6, 1e-9])
     lab.add_argument("--tol", type=float, default=1e-8)
+    lab.add_argument("--batched", action="store_true",
+                     help="label --batch-prompts prompts per batch (one prefix per cell; the same records)")
+    lab.add_argument("--batch-prompts", type=int, default=8, help="prompts per batch with --batched")
     gen = sub.choices["generate"]
     gen.add_argument("--k", type=int, default=10)
     gen.add_argument("--dtype", default="float32")
