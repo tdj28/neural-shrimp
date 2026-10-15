@@ -23751,3 +23751,16 @@ The human asked how to reach proven chaos. The standard route is a horseshoe ver
 ## 2026-10-15 02:28 UTC: Amendment to CL: the period-4 cusp candidates (CL5)
 
 The CL list left out the paper's two period-4 cusp candidates: curve-foldB-minus, brackets at curve points 13/14 (b +8.38 to -1.09) and 54/55 (+9.35 to -9.04). With them the set is the paper's six. CL5 locates them with the same tool, settings and reading: one pod, job set codim2, commit of this entry.
+
+## 2026-10-15 02:30 UTC: P4R result (the remaining period-4 fold curves) and CL6 (classify the new tangent reversals)
+
+Pods hen6iylrunx9fg, nhr3hiv7ats3vk and 0kzt6dgbnh8c7k: runner rc 0, hashes verified, terminated. The archives clashed on the uploaded branches and were extracted into the run folders; the curves were copied without overwriting to p4/curve-{foldC-plus,foldC-minus,foldD-plus}-2. The three curves that set C left unfinished now have 70 points each, critical multiplier 1 to 1e-8.
+
+- **Upper boundary:** traces A, B and C retrace one fold curve, within 3e-7 of each other in the parameter plane. Its tangent reversals cluster at five places:
+  - (log10 T 0.0600, alpha 0.06297), seen by A-minus 21 and B-minus 14 (the paper's period-4 candidate 1);
+  - (0.0744, 0.06557), seen by A-plus 19, B-minus 55 and C-minus-2 42 (candidate 2);
+  - (0.1086, 0.08308), B-plus 46 (the reversal the paper counts as untested);
+  - (0.0118, 0.07407) and (0.0128, 0.07322), C-plus-2 33 and 43 (new).
+- **Lower boundary:** trace D, both directions, is a separate fold curve and nowhere within 2e-3 of the upper one. It carries the two 1:1 resonances and the fold-flip point located by CL4.
+- **Reading by the P4R card:** within the traced ranges the fold curves do not join into one set bounding the region, so the region is not shown to be one shrimp-organized component. It is reported as an upper and a lower fold curve.
+- **CL6:** classify the three untested reversals with cusp_locate, cusp test, on brackets B-plus 45/46, C-plus-2 32/33 and 42/43. A sign change of b sign(a) means a cusp, which is located. No sign change means a smooth turn of the projected curve, not a cusp; the tool refuses and reports both b values.
