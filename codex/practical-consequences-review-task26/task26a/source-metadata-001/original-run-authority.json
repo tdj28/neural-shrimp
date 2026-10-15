@@ -1,0 +1,135 @@
+{
+  "pod_id": "9oreujzv1m3s7r",
+  "gpu_type": "SECURE:NVIDIA H100 NVL",
+  "commit": "a9c411ff1bf992a20f595039000c55be15c6d12c",
+  "jobset": "reprotask",
+  "started": 1792047910.3270073,
+  "runner_returncode": 0,
+  "hash_verified": true,
+  "local_sha256": "1e815d388edf84d1f812b6acd56f85455630a37d4399338d07e51b97546a23a2",
+  "remote_sha256": "1e815d388edf84d1f812b6acd56f85455630a37d4399338d07e51b97546a23a2",
+  "wall_seconds": 1548,
+  "upload": {
+    "code_bytes": 1208320,
+    "data_bytes": 1177600,
+    "code_sha256": "93ab696c6f68ef279d755bf3ca27fe8c2b53f1c57aff9f4ed03b47109fc5ee94",
+    "data_sha256": "f425388da2f9fe2392ca7e1dea3826d44b492fd4b1c6106e5f0874784f29d778",
+    "extra_data": [],
+    "jobset_args": "t05 65 --problems docs/repro-task-problems.json --log-temperature 0.0 0.2 0.4 --soft 32 --answer 8"
+  },
+  "receipt": {
+    "path": "/data2/neural-shrimp-data/runpod/soft64/20261015T070508Z/result.json",
+    "sha256": "98c4f3b55b960747dafe5849e520f419ba9ba2edf03b082f720eb805ec3af08b",
+    "bytes": 882
+  },
+  "archive": {
+    "path": "/data2/neural-shrimp-data/runpod/soft64/20261015T070508Z/results.tgz",
+    "sha256": "1e815d388edf84d1f812b6acd56f85455630a37d4399338d07e51b97546a23a2",
+    "bytes": 255613
+  },
+  "stdout": {
+    "path": "/data2/neural-shrimp-data/runpod/soft64/20261015T070508Z/runner-stdout.txt",
+    "sha256": "fa8ac5f0bf1b73e84fba9f21481718abccea087190685c060f1b1c554eed383e",
+    "bytes": 3142
+  },
+  "status_lines": [
+    "2026-10-15T07:06:49Z start reprotask-t05",
+    "2026-10-15T07:30:49Z end reprotask-t05 status 0"
+  ],
+  "ledger_records": [
+    {
+      "line_number": 4475,
+      "original_line_sha256": "1805e5205ca50a6c401a4a6871cf2637a86b3a392c264ec7bff29ae94463218c",
+      "fields": {
+        "event": "created",
+        "time": "2026-10-15T07:05:10+00:00",
+        "pod_id": "9oreujzv1m3s7r",
+        "commit": "a9c411ff1bf992a20f595039000c55be15c6d12c",
+        "gpu_type": "NVIDIA H100 NVL"
+      }
+    },
+    {
+      "line_number": 4479,
+      "original_line_sha256": "3f378c0cf7c8d5ee1710152d47312e0d13423ee64ac33ec07cd36e0039fbf14a",
+      "fields": {
+        "event": "ssh_ready",
+        "time": "2026-10-15T07:05:57+00:00",
+        "pod_id": "9oreujzv1m3s7r",
+        "seconds_after_create": 48
+      }
+    },
+    {
+      "line_number": 4480,
+      "original_line_sha256": "2247572dfcf9eb39dfe0ba8d8aab78c50bba1a21776be67e544f0bc494d46113",
+      "fields": {
+        "event": "uploaded",
+        "time": "2026-10-15T07:06:01+00:00",
+        "pod_id": "9oreujzv1m3s7r",
+        "archive_bytes": 1208320,
+        "data_bytes": 1177600
+      }
+    },
+    {
+      "line_number": 4535,
+      "original_line_sha256": "c26ffe656916a99cc933ce4c497043cf6ab67261d7764bb0783908d98676774e",
+      "fields": {
+        "event": "retrieved",
+        "time": "2026-10-15T07:30:51+00:00",
+        "pod_id": "9oreujzv1m3s7r",
+        "hash_verified": true,
+        "sha256": "1e815d388edf84d1f812b6acd56f85455630a37d4399338d07e51b97546a23a2"
+      }
+    },
+    {
+      "line_number": 4536,
+      "original_line_sha256": "429442bd22fb2a23b15ba31ba68ad638f6d9e0c1234b2ef1ba5688b28678e6d2",
+      "fields": {
+        "event": "terminate_requested",
+        "time": "2026-10-15T07:30:52+00:00",
+        "pod_id": "9oreujzv1m3s7r"
+      }
+    },
+    {
+      "line_number": 4537,
+      "original_line_sha256": "a2a66daa0758e6b12227af3da7a0c7e253c671c75daec489bd988c5885b2e0fa",
+      "fields": {
+        "event": "terminated_verified",
+        "time": "2026-10-15T07:30:58+00:00",
+        "pod_id": "9oreujzv1m3s7r"
+      }
+    }
+  ],
+  "recorded_termination_verified": true,
+  "selected_files": [
+    {
+      "file": {
+        "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/repro/t05/progress.jsonl",
+        "sha256": "715af3b31be390ae459c0da50b532972d835adcefd3a9fed0994a0fb096b01d8",
+        "bytes": 16043
+      },
+      "archive_member": "explore/llm-soft-loop/pod64/repro/t05/progress.jsonl",
+      "archive_member_match": true,
+      "content_decoded": false
+    },
+    {
+      "file": {
+        "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/repro/t05/runs.jsonl",
+        "sha256": "dc87493a22e985596ad5a5747d1849ea1f5f0343da54fa4ab6683157deae0fef",
+        "bytes": 975408
+      },
+      "archive_member": "explore/llm-soft-loop/pod64/repro/t05/runs.jsonl",
+      "archive_member_match": true,
+      "content_decoded": false
+    }
+  ],
+  "source_contract": {
+    "path": "/tmp/task26a-source-metadata-001/original/docs/repro-task-test.md",
+    "sha256": "df0c146eb9f0d43167033904191bba34a81a2ed266931dc2e5a0ffbb0fc9a347",
+    "bytes": 3755
+  },
+  "historical_limits": [
+    "Original recorded source/upload/archive/termination finite authority; no historical loaded model-byte reconstruction or new remote query.",
+    "No target runs/progress payload decoded in this packet. Producer summary/paper claims exposed from source log; independent statistics remain pending.",
+    "Frozen source/card is the exact original uploaded commit; no separate historical remote push receipt is inferred."
+  ]
+}

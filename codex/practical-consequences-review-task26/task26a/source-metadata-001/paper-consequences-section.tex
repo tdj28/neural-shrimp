@@ -1,0 +1,133 @@
+\section{What the chaos does to inference and steering}
+\label{sec:consequences}
+The loop studied here is the expected-embedding feedback that continuous reasoning methods such as Soft Thinking use
+\cite{zhang2025softthinking}, and its chaos has consequences that can be measured without any reference to dynamical
+systems. We report three: whether a run can be reproduced, how the depth at which a steering vector enters sets the
+chaos it causes, and what happens when two steering vectors are combined. A fourth, that a repeating text can hide a
+chaotic state from anyone who reads only the output, is shown in Section~\ref{sec:hostility}.
+
+\paragraph{The regime decides whether a run can be reproduced.} Language-model inference is not bitwise
+reproducible: GPU kernels choose different reduction orders for different matrix shapes, so a request's result depends
+on the batch it shares and on the hardware \cite{he2025nondeterminism,yuan2025nondeterminism}. We ran the 448 labelled
+cells of the horizon check (192 chaotic, 192 periodic and 64 other cells of two float64 maps; Section~\ref{sec:methods})
+twice in lockstep from the same start. The two runs differ only in the batch: the cells alone, or followed by the same
+cells in reverse order, which changes the matrix shapes the kernels see and nothing else (Figure~\ref{fig:repro},
+Table~\ref{tab:repro}). In float64 the two runs first differ by about $6\times10^{-15}$, the rounding level. At 190 of
+the 192 chaotic cells this difference grows to order one, after a median of 102 steps, and 90\,\% of the chaotic cells
+end up writing different tokens. At 182 of the 192 periodic cells the two runs stay within $10^{-2}$ for all 1500
+steps; their median largest distance is $2\times10^{-12}$, and 95\,\% of all periodic cells end the run within
+$3\times10^{-12}$. The Lyapunov exponent predicts when a chaotic run
+diverges: the step at which the distance passes $10^{-2}$ follows $\ln(10^{-2}/d_1)/\lambda$, where $d_1$ is the first
+nonzero distance, with a median ratio of $0.91$ and a log-log correlation of $0.73$ over 190 cells. The two chaotic
+cells that never diverge have exponents of $0.013$ and $0.0013$, for which the predicted step lies beyond the run. In
+lower precision the rounding is larger. In float32 every chaotic cell diverges within about 20 steps. In bfloat16, a
+common serving precision, the two layouts differ by $10^{-2}$ after two steps at every cell, periodic ones included.
+At that precision the loop is not reproducible across batch layouts anywhere in this steered region.
+
+The same test at the level of answers, with a design frozen before the run, shows what this means for a task. We
+asked Qwen2.5-0.5B 96 held-out two-digit additions through a short soft-thinking pipeline: 32 expected-embedding steps
+appended to a growing context, then a fixed answer cue and greedy extraction of the number. Each problem ran alone and
+in a batch with three fixed distractor problems of the same length, so nothing is padded and only the matrix shapes
+differ. In bfloat16 the extracted answer changed with the batch layout in 56\,\% of the problems at $T=1$ and in
+8\,\% at $T=10^{0.2}$. Ordinary greedy decoding, run with the same budget, produced identical token sequences in both
+layouts for every problem. The excess disagreement of soft over greedy decoding, averaged over the two temperatures,
+is 32.3 percentage points (95\,\% interval $[26.6,38.0]$; sign-flip $p=10^{-4}$, the smallest attainable). In float64 no
+answer changed within the 32 steps. There, a perturbation of the first soft token grows by only $0.03$ nats per step
+at $T=1$ and shrinks at higher temperature, and even a relative kick of $10^{-4}$ changes no answer. The bfloat16
+discrepancies are therefore not the float64 map's chaos. They arise from bfloat16's rounding differences accumulating
+through continuous feedback, which a discrete argmax would absorb. (The greedy baseline's accuracy is not
+informative: forced through 32 tokens, the model writes past its answer, and the cue then extracts another number.)
+Two horizons thus matter. Within a short budget, continuous feedback in low precision makes answers depend on the
+batch. Over longer runs, a chaotic regime amplifies even float64 rounding into different text, on the schedule its
+Lyapunov exponent sets.
+\begin{figure}[tbp]
+\centering
+\includegraphics[width=\linewidth]{fig-repro.png}
+\caption{Only the batch layout differs. The 448 labelled cells of Qwen2.5-0.5B-Instruct (philosophy direction, layer
+12) run twice from the same start, alone in a batch or followed by the same cells reversed. (a) float64: median and
+interquartile range of the relative distance between the two runs, by the cells' float64 labels. (b) Medians for
+float32 and bfloat16 batch layouts. (c) float64 chaotic cells: the step at which the distance passes $10^{-2}$ against
+$\ln(10^{-2}/d_1)/\lambda$, with $d_1$ the first nonzero distance and $\lambda$ the map exponent; dotted, equality.}
+\label{fig:repro}
+\end{figure}
+\begin{table}[tbp]
+\centering\small
+\begin{tabular}{llrrr}
+\toprule
+comparison & cells & reach $10^{-2}$ & median step & end with different tokens \\
+\midrule
+batch layout, float64 & chaotic & 190 / 192 & 102 & 90.1\,\% \\
+ & periodic & 10 / 192 & & 3.6\,\% \\
+batch layout, float32 & chaotic & 192 / 192 & 20.5 & 92.2\,\% \\
+ & periodic & 72 / 192 & & 22.9\,\% \\
+float32 against float64 & chaotic & 192 / 192 & 20 & 92.7\,\% \\
+ & periodic & 75 / 192 & & 19.3\,\% \\
+batch layout, bfloat16 & chaotic & 192 / 192 & 2 & 99.5\,\% \\
+ & periodic & 192 / 192 & 2 & 95.3\,\% \\
+\bottomrule
+\end{tabular}
+\caption{Divergence of two otherwise identical runs, by the cells' float64 labels (1500 steps; ``end with different
+tokens'': the most probable tokens differ at some step of the last 500). In float32 the periodic cells that diverge may
+change phase on the same cycle or switch between coexisting attractors; the run does not distinguish the two.}
+\label{tab:repro}
+\end{table}
+
+\paragraph{Where a steering vector enters decides how much chaos it causes.} Steering vectors are a common tool for
+controlling and probing models \cite{zou2023representation,rimsky2024steering}, usually added at one layer chosen by
+hand. In Qwen2.5-0.5B the philosophy direction, built with the same recipe at blocks 4, 8, 12, 16 and 20 and scaled to
+each block's residual norm, makes 5.9, 8.1, 6.8, 5.0 and 2.3\,\% of the same $128\times128$ plane chaotic
+(Figure~\ref{fig:layersweep}). Early steering carries the chaos down to $\log_{10}T\approx-0.9$, close to greedy
+decoding, while steering at block 20 confines it to a thin band at $\log_{10}T=0.1$--$0.25$. Near zero steering every
+block gives 1--2\,\%. Llama-3.3-70B behaves the same way. Steered along its hostility direction, it is chaotic in 8.0\,\%
+of a $24\times24$ map at block 20 of 80, down to $\log_{10}T=-0.14$, against 4.3\,\% at block 35, where the chaos starts
+at $\log_{10}T=0.01$, 4.3\,\% at block 50 (32 by 32 cells), and 0.7\,\% at block 65, all above
+$\log_{10}T=0.19$. These 70B labels are those of the map
+protocol, one twin offset, and so are candidates. A logit bias, the latest possible point of entry, gives chaos mostly
+above $\log_{10}T=0.1$ (Section~\ref{sec:theory}). The gain split of Section~\ref{sec:theory}, repeated along
+steering lines at all five blocks of the 0.5B model, shows where the depth enters. At low temperature
+($\log_{10}T\le0$) the chaotic cells of blocks 4, 8 and 12 have expanding readout factors (medians $+0.74$, $+0.46$ and
+$+0.46$ nats per step over 54, 56 and 21 cells) and contracting network factors ($-0.47$ to $-0.21$). At block 16
+the readout factor of such cells is only $+0.15$, and block 20 gives just 6 of them. Early injection creates token
+competition at low temperature more readily; late injection mostly does not. Its chaos lives at higher temperature,
+where the network factor carries it (block 20: network $+1.09$, readout $-0.78$; Figure~\ref{fig:mechanism}e).
+\begin{figure}[tbp]
+\centering
+\includegraphics[width=\linewidth]{fig-layer-sweep.png}
+\caption{The same steering direction (philosophy, Qwen2.5-0.5B-Instruct) entering at five blocks of 24: largest
+Lyapunov exponent on $128\times128$ float64 cells over the steering strength and $\log_{10}T\in[-1,0.3]$. The share of
+chaotic cells is given above each panel.}
+\label{fig:layersweep}
+\end{figure}
+
+\paragraph{Two steering vectors interact.} Steering at two blocks at once, gratitude at block 4 and hostility at block
+16 of Qwen2.5-0.5B, makes 21.7\,\% of a $96\times96$ plane chaotic at $\log_{10}T=-0.1$. Along the two axes, where only one
+push acts, the shares are 7.3 and 8.3\,\%. Large chaotic regions lie off the axes, where neither push alone is chaotic
+(Figure~\ref{fig:twoblock}): in 17.1\,\% of that plane (1574 cells, 79\,\% of its chaotic off-axis cells) the combined
+push is chaotic although each push alone, at the same strength, is not. Over the four planes this share is 9.5 to
+17.1\,\%. With the blocks exchanged (hostility at 4, gratitude at 16) the plane is 23.4\,\% chaotic,
+and at $\log_{10}T=0.1$ both pairs give 33 and 42\,\%. Each plane keeps a periodic hole around zero steering. Combining
+steering vectors is therefore not additive in its effect on the loop's stability: a composition of two pushes can be
+chaotic where each push alone is periodic.
+\begin{figure}[tbp]
+\centering
+\includegraphics[width=0.85\linewidth]{fig-two-block.png}
+\caption{Two steering directions at two blocks of Qwen2.5-0.5B-Instruct: largest Lyapunov exponent on $96\times96$
+float64 cells over the two strengths, at $\log_{10}T=-0.1$ (left) and $0.1$ (right). Top: gratitude at block 4,
+hostility at block 16; bottom: the blocks exchanged. Dotted lines mark the axes, where only one push acts.}
+\label{fig:twoblock}
+\end{figure}
+
+\paragraph{Does a chaotic loop predict worse answers in ordinary decoding? Not demonstrably.} We looked for a
+behavioural signature of the regimes outside the loop, in two exploratory designs, and found none that survives
+controls. First, ordinary sampled answers of Qwen2.5-0.5B under steering at the strengths of chaotic and periodic map
+cells (30 matched pairs; arithmetic, open questions, short programs) showed no measurable accuracy contrast. At those
+strengths, steering every position turns every reply into philosophy-flavoured text, so accuracy sits at the floor in
+both zones. Second, we labelled each of 200 prompts by the regime of its own unsteered loop in Qwen2.5-7B at three
+temperatures and compared the prompts' ordinary sampled accuracy. Prompts whose loop is chaotic were answered far less
+accurately (by 23 to 36 points among prompts the model answers correctly when greedy), but mostly because chaotic
+labels fall on the harder task and on flatter answer distributions. With task and answer entropy as covariates, a
+residual of $-4$ to $-5$ points remains, with the same sign at each temperature and no significance alone. Answer
+entropy is measured during sampling, so this adjustment may over-correct. A regime label measured on the loop may yet
+add predictive value beyond simpler difficulty measures, but establishing it needs a frozen test on fresh, single-task
+prompts with covariates fixed before sampling; we have not run one.
+

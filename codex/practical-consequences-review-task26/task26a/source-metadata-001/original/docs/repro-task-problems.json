@@ -1,0 +1,651 @@
+{
+ "note": "REPRO-T problems: two-digit additions, half with a units carry; dev seed 1015001, held-out seed 1015002 (96), distractors seed 1015003 (3). Fixed before any run.",
+ "dev": [
+  {
+   "a": 41,
+   "b": 47,
+   "carry": false,
+   "answer": 88
+  },
+  {
+   "a": 67,
+   "b": 31,
+   "carry": false,
+   "answer": 98
+  },
+  {
+   "a": 55,
+   "b": 70,
+   "carry": false,
+   "answer": 125
+  },
+  {
+   "a": 36,
+   "b": 87,
+   "carry": true,
+   "answer": 123
+  },
+  {
+   "a": 31,
+   "b": 12,
+   "carry": false,
+   "answer": 43
+  },
+  {
+   "a": 78,
+   "b": 47,
+   "carry": true,
+   "answer": 125
+  },
+  {
+   "a": 85,
+   "b": 67,
+   "carry": true,
+   "answer": 152
+  },
+  {
+   "a": 78,
+   "b": 25,
+   "carry": true,
+   "answer": 103
+  }
+ ],
+ "heldout": [
+  {
+   "a": 80,
+   "b": 31,
+   "carry": false,
+   "answer": 111
+  },
+  {
+   "a": 28,
+   "b": 70,
+   "carry": false,
+   "answer": 98
+  },
+  {
+   "a": 89,
+   "b": 58,
+   "carry": true,
+   "answer": 147
+  },
+  {
+   "a": 43,
+   "b": 20,
+   "carry": false,
+   "answer": 63
+  },
+  {
+   "a": 21,
+   "b": 81,
+   "carry": false,
+   "answer": 102
+  },
+  {
+   "a": 86,
+   "b": 10,
+   "carry": false,
+   "answer": 96
+  },
+  {
+   "a": 98,
+   "b": 27,
+   "carry": true,
+   "answer": 125
+  },
+  {
+   "a": 48,
+   "b": 56,
+   "carry": true,
+   "answer": 104
+  },
+  {
+   "a": 16,
+   "b": 12,
+   "carry": false,
+   "answer": 28
+  },
+  {
+   "a": 33,
+   "b": 48,
+   "carry": true,
+   "answer": 81
+  },
+  {
+   "a": 83,
+   "b": 75,
+   "carry": false,
+   "answer": 158
+  },
+  {
+   "a": 71,
+   "b": 63,
+   "carry": false,
+   "answer": 134
+  },
+  {
+   "a": 99,
+   "b": 91,
+   "carry": true,
+   "answer": 190
+  },
+  {
+   "a": 24,
+   "b": 51,
+   "carry": false,
+   "answer": 75
+  },
+  {
+   "a": 28,
+   "b": 93,
+   "carry": true,
+   "answer": 121
+  },
+  {
+   "a": 11,
+   "b": 49,
+   "carry": true,
+   "answer": 60
+  },
+  {
+   "a": 35,
+   "b": 44,
+   "carry": false,
+   "answer": 79
+  },
+  {
+   "a": 98,
+   "b": 29,
+   "carry": true,
+   "answer": 127
+  },
+  {
+   "a": 39,
+   "b": 91,
+   "carry": true,
+   "answer": 130
+  },
+  {
+   "a": 13,
+   "b": 39,
+   "carry": true,
+   "answer": 52
+  },
+  {
+   "a": 79,
+   "b": 57,
+   "carry": true,
+   "answer": 136
+  },
+  {
+   "a": 58,
+   "b": 22,
+   "carry": true,
+   "answer": 80
+  },
+  {
+   "a": 97,
+   "b": 56,
+   "carry": true,
+   "answer": 153
+  },
+  {
+   "a": 77,
+   "b": 96,
+   "carry": true,
+   "answer": 173
+  },
+  {
+   "a": 93,
+   "b": 28,
+   "carry": true,
+   "answer": 121
+  },
+  {
+   "a": 35,
+   "b": 71,
+   "carry": false,
+   "answer": 106
+  },
+  {
+   "a": 95,
+   "b": 80,
+   "carry": false,
+   "answer": 175
+  },
+  {
+   "a": 40,
+   "b": 50,
+   "carry": false,
+   "answer": 90
+  },
+  {
+   "a": 54,
+   "b": 53,
+   "carry": false,
+   "answer": 107
+  },
+  {
+   "a": 28,
+   "b": 35,
+   "carry": true,
+   "answer": 63
+  },
+  {
+   "a": 28,
+   "b": 21,
+   "carry": false,
+   "answer": 49
+  },
+  {
+   "a": 33,
+   "b": 29,
+   "carry": true,
+   "answer": 62
+  },
+  {
+   "a": 78,
+   "b": 34,
+   "carry": true,
+   "answer": 112
+  },
+  {
+   "a": 55,
+   "b": 67,
+   "carry": true,
+   "answer": 122
+  },
+  {
+   "a": 45,
+   "b": 33,
+   "carry": false,
+   "answer": 78
+  },
+  {
+   "a": 62,
+   "b": 78,
+   "carry": true,
+   "answer": 140
+  },
+  {
+   "a": 34,
+   "b": 41,
+   "carry": false,
+   "answer": 75
+  },
+  {
+   "a": 52,
+   "b": 64,
+   "carry": false,
+   "answer": 116
+  },
+  {
+   "a": 22,
+   "b": 25,
+   "carry": false,
+   "answer": 47
+  },
+  {
+   "a": 95,
+   "b": 10,
+   "carry": false,
+   "answer": 105
+  },
+  {
+   "a": 67,
+   "b": 46,
+   "carry": true,
+   "answer": 113
+  },
+  {
+   "a": 69,
+   "b": 20,
+   "carry": false,
+   "answer": 89
+  },
+  {
+   "a": 32,
+   "b": 43,
+   "carry": false,
+   "answer": 75
+  },
+  {
+   "a": 43,
+   "b": 64,
+   "carry": false,
+   "answer": 107
+  },
+  {
+   "a": 16,
+   "b": 14,
+   "carry": true,
+   "answer": 30
+  },
+  {
+   "a": 77,
+   "b": 67,
+   "carry": true,
+   "answer": 144
+  },
+  {
+   "a": 65,
+   "b": 46,
+   "carry": true,
+   "answer": 111
+  },
+  {
+   "a": 10,
+   "b": 11,
+   "carry": false,
+   "answer": 21
+  },
+  {
+   "a": 85,
+   "b": 12,
+   "carry": false,
+   "answer": 97
+  },
+  {
+   "a": 24,
+   "b": 92,
+   "carry": false,
+   "answer": 116
+  },
+  {
+   "a": 12,
+   "b": 31,
+   "carry": false,
+   "answer": 43
+  },
+  {
+   "a": 82,
+   "b": 87,
+   "carry": false,
+   "answer": 169
+  },
+  {
+   "a": 64,
+   "b": 87,
+   "carry": true,
+   "answer": 151
+  },
+  {
+   "a": 24,
+   "b": 81,
+   "carry": false,
+   "answer": 105
+  },
+  {
+   "a": 31,
+   "b": 38,
+   "carry": false,
+   "answer": 69
+  },
+  {
+   "a": 97,
+   "b": 14,
+   "carry": true,
+   "answer": 111
+  },
+  {
+   "a": 53,
+   "b": 68,
+   "carry": true,
+   "answer": 121
+  },
+  {
+   "a": 23,
+   "b": 29,
+   "carry": true,
+   "answer": 52
+  },
+  {
+   "a": 36,
+   "b": 42,
+   "carry": false,
+   "answer": 78
+  },
+  {
+   "a": 27,
+   "b": 23,
+   "carry": true,
+   "answer": 50
+  },
+  {
+   "a": 96,
+   "b": 23,
+   "carry": false,
+   "answer": 119
+  },
+  {
+   "a": 52,
+   "b": 70,
+   "carry": false,
+   "answer": 122
+  },
+  {
+   "a": 23,
+   "b": 22,
+   "carry": false,
+   "answer": 45
+  },
+  {
+   "a": 96,
+   "b": 92,
+   "carry": false,
+   "answer": 188
+  },
+  {
+   "a": 72,
+   "b": 50,
+   "carry": false,
+   "answer": 122
+  },
+  {
+   "a": 60,
+   "b": 85,
+   "carry": false,
+   "answer": 145
+  },
+  {
+   "a": 28,
+   "b": 57,
+   "carry": true,
+   "answer": 85
+  },
+  {
+   "a": 77,
+   "b": 96,
+   "carry": true,
+   "answer": 173
+  },
+  {
+   "a": 66,
+   "b": 83,
+   "carry": false,
+   "answer": 149
+  },
+  {
+   "a": 78,
+   "b": 70,
+   "carry": false,
+   "answer": 148
+  },
+  {
+   "a": 62,
+   "b": 24,
+   "carry": false,
+   "answer": 86
+  },
+  {
+   "a": 51,
+   "b": 50,
+   "carry": false,
+   "answer": 101
+  },
+  {
+   "a": 44,
+   "b": 65,
+   "carry": false,
+   "answer": 109
+  },
+  {
+   "a": 16,
+   "b": 25,
+   "carry": true,
+   "answer": 41
+  },
+  {
+   "a": 20,
+   "b": 81,
+   "carry": false,
+   "answer": 101
+  },
+  {
+   "a": 83,
+   "b": 30,
+   "carry": false,
+   "answer": 113
+  },
+  {
+   "a": 72,
+   "b": 68,
+   "carry": true,
+   "answer": 140
+  },
+  {
+   "a": 34,
+   "b": 88,
+   "carry": true,
+   "answer": 122
+  },
+  {
+   "a": 21,
+   "b": 55,
+   "carry": false,
+   "answer": 76
+  },
+  {
+   "a": 12,
+   "b": 79,
+   "carry": true,
+   "answer": 91
+  },
+  {
+   "a": 14,
+   "b": 25,
+   "carry": false,
+   "answer": 39
+  },
+  {
+   "a": 82,
+   "b": 73,
+   "carry": false,
+   "answer": 155
+  },
+  {
+   "a": 52,
+   "b": 93,
+   "carry": false,
+   "answer": 145
+  },
+  {
+   "a": 46,
+   "b": 98,
+   "carry": true,
+   "answer": 144
+  },
+  {
+   "a": 16,
+   "b": 99,
+   "carry": true,
+   "answer": 115
+  },
+  {
+   "a": 94,
+   "b": 78,
+   "carry": true,
+   "answer": 172
+  },
+  {
+   "a": 63,
+   "b": 99,
+   "carry": true,
+   "answer": 162
+  },
+  {
+   "a": 28,
+   "b": 32,
+   "carry": true,
+   "answer": 60
+  },
+  {
+   "a": 49,
+   "b": 44,
+   "carry": true,
+   "answer": 93
+  },
+  {
+   "a": 17,
+   "b": 68,
+   "carry": true,
+   "answer": 85
+  },
+  {
+   "a": 45,
+   "b": 67,
+   "carry": true,
+   "answer": 112
+  },
+  {
+   "a": 89,
+   "b": 79,
+   "carry": true,
+   "answer": 168
+  },
+  {
+   "a": 88,
+   "b": 94,
+   "carry": true,
+   "answer": 182
+  },
+  {
+   "a": 69,
+   "b": 74,
+   "carry": true,
+   "answer": 143
+  },
+  {
+   "a": 97,
+   "b": 63,
+   "carry": true,
+   "answer": 160
+  },
+  {
+   "a": 99,
+   "b": 23,
+   "carry": true,
+   "answer": 122
+  }
+ ],
+ "distractors": [
+  {
+   "a": 97,
+   "b": 56,
+   "carry": true,
+   "answer": 153
+  },
+  {
+   "a": 41,
+   "b": 37,
+   "carry": false,
+   "answer": 78
+  },
+  {
+   "a": 80,
+   "b": 70,
+   "carry": false,
+   "answer": 150
+  }
+ ]
+}

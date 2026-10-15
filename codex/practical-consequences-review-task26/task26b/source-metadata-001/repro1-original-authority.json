@@ -1,0 +1,230 @@
+{
+  "pod_id": "frtqm5urstn2d3",
+  "gpu_type": "SECURE:NVIDIA H100 NVL",
+  "commit": "dbd125a70dd1b1a1f54a12c1ff2fde275b4c7a49",
+  "jobset": "repro",
+  "started": 1792047072.4584084,
+  "runner_returncode": 0,
+  "hash_verified": true,
+  "local_sha256": "86f609ea18e60e54c332d79ab2b6d253009d74ac22e6a074a9e6d6a6de664f66",
+  "remote_sha256": "86f609ea18e60e54c332d79ab2b6d253009d74ac22e6a074a9e6d6a6de664f66",
+  "wall_seconds": 560,
+  "upload": {
+    "code_bytes": 1187840,
+    "data_bytes": 1177600,
+    "code_sha256": "ec5b35da53c42d9e33653c925e4f44657a05cda6da4501d3d28de52a9072ecac",
+    "data_sha256": "f425388da2f9fe2392ca7e1dea3826d44b492fd4b1c6106e5f0874784f29d778",
+    "extra_data": [],
+    "jobset_args": "h2cells 55 --cells-file docs/h2-horizon-cells.json --steps 1500 --tail 500 --compare batch64 batch32 precision bf16"
+  },
+  "receipt": {
+    "path": "/data2/neural-shrimp-data/runpod/soft64/20261015T065110Z/result.json",
+    "sha256": "3b90487a5434f70256147179bd1d55ecec614a2661f22cf75b848a01995f31c0",
+    "bytes": 894
+  },
+  "archive": {
+    "path": "/data2/neural-shrimp-data/runpod/soft64/20261015T065110Z/results.tgz",
+    "sha256": "86f609ea18e60e54c332d79ab2b6d253009d74ac22e6a074a9e6d6a6de664f66",
+    "bytes": 10303895
+  },
+  "stdout": {
+    "path": "/data2/neural-shrimp-data/runpod/soft64/20261015T065110Z/runner-stdout.txt",
+    "sha256": "6584944ca46b36b3887802ddf23b468d6a5d20180b6f218819af06dae397e88d",
+    "bytes": 1511
+  },
+  "status_lines": [
+    "2026-10-15T06:52:23Z start repro-h2cells",
+    "2026-10-15T07:00:23Z end repro-h2cells status 0"
+  ],
+  "ledger_records": [
+    {
+      "line_number": 4460,
+      "original_line_sha256": "99d14d5c55391850da3f8260d36c21aa754e2ec799475d96936d6b99793558a5",
+      "fields": {
+        "event": "created",
+        "time": "2026-10-15T06:51:12+00:00",
+        "pod_id": "frtqm5urstn2d3",
+        "commit": "dbd125a70dd1b1a1f54a12c1ff2fde275b4c7a49",
+        "gpu_type": "NVIDIA H100 NVL"
+      }
+    },
+    {
+      "line_number": 4461,
+      "original_line_sha256": "bbf02c059c2bf80bdcbfcf474fbb138c32f3fd10f85eedb182b3be0c1201e777",
+      "fields": {
+        "event": "ssh_ready",
+        "time": "2026-10-15T06:51:29+00:00",
+        "pod_id": "frtqm5urstn2d3",
+        "seconds_after_create": 17
+      }
+    },
+    {
+      "line_number": 4462,
+      "original_line_sha256": "74b3cdd271c7bede8a6ed6be08913cdb258e8926c1e77ea95f8c0b9d202de56a",
+      "fields": {
+        "event": "uploaded",
+        "time": "2026-10-15T06:51:31+00:00",
+        "pod_id": "frtqm5urstn2d3",
+        "archive_bytes": 1187840,
+        "data_bytes": 1177600
+      }
+    },
+    {
+      "line_number": 4466,
+      "original_line_sha256": "e122293063429939ddf4dd58d43415d04a180b956686668d21a7c5db15115662",
+      "fields": {
+        "event": "retrieved",
+        "time": "2026-10-15T07:00:25+00:00",
+        "pod_id": "frtqm5urstn2d3",
+        "hash_verified": true,
+        "sha256": "86f609ea18e60e54c332d79ab2b6d253009d74ac22e6a074a9e6d6a6de664f66"
+      }
+    },
+    {
+      "line_number": 4467,
+      "original_line_sha256": "515b841fa6ddd29cc87bcc77c1e0313cbafbdeb8e26818598a57521161ce3f18",
+      "fields": {
+        "event": "terminate_requested",
+        "time": "2026-10-15T07:00:26+00:00",
+        "pod_id": "frtqm5urstn2d3"
+      }
+    },
+    {
+      "line_number": 4468,
+      "original_line_sha256": "12c8af87e4af427cf2fa7aed32dd840181341629a49eb026a0d5845b0598f472",
+      "fields": {
+        "event": "terminated_verified",
+        "time": "2026-10-15T07:00:32+00:00",
+        "pod_id": "frtqm5urstn2d3"
+      }
+    }
+  ],
+  "recorded_termination_verified": true,
+  "selected_files": [
+    {
+      "file": {
+        "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/repro/h2cells/progress.jsonl",
+        "sha256": "dd4044bf0c702447a5246472cdecac6be0ec7b2baf0e14ba77499612ac55bd6b",
+        "bytes": 2707
+      },
+      "archive_member": "explore/llm-soft-loop/pod64/repro/h2cells/progress.jsonl",
+      "archive_member_match": true,
+      "scientific_payload_decoded": false
+    },
+    {
+      "file": {
+        "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/repro/h2cells/repro.json",
+        "sha256": "ea92d75f137159a0b1ce814a593cbeaa0593f1fb27353398538fe41e13f2590d",
+        "bytes": 535407
+      },
+      "archive_member": "explore/llm-soft-loop/pod64/repro/h2cells/repro.json",
+      "archive_member_match": true,
+      "scientific_payload_decoded": false
+    },
+    {
+      "file": {
+        "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/repro/h2cells/repro.npz",
+        "sha256": "8f405d85e864a3109c6432c7fff729c68ba4097ed916429c3c5fec3367e8c8d2",
+        "bytes": 10224716
+      },
+      "archive_member": "explore/llm-soft-loop/pod64/repro/h2cells/repro.npz",
+      "archive_member_match": true,
+      "scientific_payload_decoded": false,
+      "npy_headers": [
+        {
+          "member": "batch64_dist.npy",
+          "header": {
+            "descr": "<f4",
+            "fortran_order": false,
+            "shape": [
+              1500,
+              448
+            ]
+          }
+        },
+        {
+          "member": "batch64_agree.npy",
+          "header": {
+            "descr": "|b1",
+            "fortran_order": false,
+            "shape": [
+              1500,
+              448
+            ]
+          }
+        },
+        {
+          "member": "batch32_dist.npy",
+          "header": {
+            "descr": "<f4",
+            "fortran_order": false,
+            "shape": [
+              1500,
+              448
+            ]
+          }
+        },
+        {
+          "member": "batch32_agree.npy",
+          "header": {
+            "descr": "|b1",
+            "fortran_order": false,
+            "shape": [
+              1500,
+              448
+            ]
+          }
+        },
+        {
+          "member": "precision_dist.npy",
+          "header": {
+            "descr": "<f4",
+            "fortran_order": false,
+            "shape": [
+              1500,
+              448
+            ]
+          }
+        },
+        {
+          "member": "precision_agree.npy",
+          "header": {
+            "descr": "|b1",
+            "fortran_order": false,
+            "shape": [
+              1500,
+              448
+            ]
+          }
+        },
+        {
+          "member": "bf16_dist.npy",
+          "header": {
+            "descr": "<f4",
+            "fortran_order": false,
+            "shape": [
+              1500,
+              448
+            ]
+          }
+        },
+        {
+          "member": "bf16_agree.npy",
+          "header": {
+            "descr": "|b1",
+            "fortran_order": false,
+            "shape": [
+              1500,
+              448
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "historical_limits": [
+    "Original recorded source/upload/retrieval/unique archive-member and termination basis; no new remote or model-asset-byte reconstruction.",
+    "Target scientific JSON is opaque hashed bytes; NPZ header shapes/dtypes only. No scientific values decoded or producer code executed.",
+    "Exposed source log/paper summaries are not independent numerical acceptance."
+  ]
+}
