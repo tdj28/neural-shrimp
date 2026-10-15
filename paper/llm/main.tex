@@ -2435,11 +2435,13 @@ the run limit. These short-horizon labels are coarser than those of the float64 
 \label{fig:morph}
 \end{figure}
 \paragraph{What is and is not claimed.} The objects studied here are invariant sets and bifurcations of an exactly
-defined smooth map built from a frozen model's own computation. The answer-level reproducibility test uses one small
-model, one task family and a soft-thinking pipeline without the top-$k$ filtering of the published method, and its
-bfloat16 effect is not the float64 map's chaos (Section~\ref{sec:consequences}). The mechanism of
-Section~\ref{sec:theory} is measured in one model and one direction, and at high temperature the network factor can
-carry the instability. We do not claim that ordinary sampled generation is
+defined smooth map built from a frozen model's own computation. The answer-level reproducibility tests use two Qwen2.5
+models (0.5B and 7B), one task family and a soft-thinking pipeline without the top-$k$ filtering of the published
+method, and their bfloat16 effect is not the float64 map's chaos (Section~\ref{sec:consequences}). The mechanism of
+Section~\ref{sec:theory} is measured along three directions in a 0.5B model and one in a 7B model, and at high
+temperature the network factor can carry the instability. The loop's regime does not mark the accuracy of ordinary
+sampled answers beyond the model's first-token uncertainty, and moving a prompt's loop into chaos does not change that
+accuracy (Section~\ref{sec:consequences}). We do not claim that ordinary sampled generation is
 chaotic in this sense (Section~\ref{sec:bridge}), nor that any window is a certified shrimp. The period-6 window and
 the hostile period-7 body have, numerically, shrimp-like organization: fold curves with numerically located cusps (simple
 critical multiplier; quadratic coefficient vanishing at a point where the cubic coefficient is nonzero and the
@@ -2549,8 +2551,10 @@ models sit near the stable end, but across prompts a 14B Qwen model is more chao
 temperatures, and OLMo-2-32B is among the most chaotic models we tested (Section~\ref{sec:size}). Whether regimes
 near the boundary between order and chaos are especially useful, as has been argued for computation in dynamical
 systems and recurrent networks \cite{langton1990computation,bertschinger2004realtime} and shown for signal propagation
-in deep networks at initialization \cite{poole2016exponential,schoenholz2017deep}, is open for language models: our
-maps locate such boundaries but do not test it.
+in deep networks at initialization \cite{poole2016exponential,schoenholz2017deep}, is open for language models. We
+tested only one narrow version. Prompts whose own loop sits at the edge ($|\lambda|\le0.1$) are answered no better by
+ordinary sampling than prompts whose loop is deeply periodic or deeply chaotic (Section~\ref{sec:consequences}).
+Whether computation carried out in the loop itself benefits from the edge is untested.
 
 \paragraph{Which findings might reach frontier models.} Today's frontier systems include closed models such as
 GPT-6 Astra and Claude Opus 5.5 and open-weight mixture-of-experts models such as the GLM-5 family. Some of our
