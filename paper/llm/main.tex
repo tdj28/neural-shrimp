@@ -98,9 +98,9 @@ been used to predict the answers of looped models \cite{luo2026prediction}. Besi
 Thinking, probability-weighted vocabulary embeddings are fed back in training \cite{zeng2025ponderlm}. In a small task-trained looped transformer, fold coefficients
 computed from derivatives predict passage times and spectral gaps without fitting \cite{kim2026phase}.
 
-We study one constructed but exactly defined class of systems: the expected-embedding (``soft-token'') map of
-frozen, released pretrained language models, run with a fixed chat prefix at a fixed position. We follow it in fifteen
-models from 0.5 to 72 billion parameters (three dense families and a mixture of experts), most closely in
+We study the expected-embedding (``soft-token'') map of released pretrained language models, defined exactly by
+their stored weights and run with a fixed chat prefix at a fixed position. We follow it in fifteen models, from
+Qwen2.5-0.5B to Llama-3.3-70B and Qwen2.5-72B (three dense families and a mixture of experts), in most detail in
 Qwen2.5-0.5B-Instruct, and in two variations: two models writing one text, and a recurrent-depth model that iterates
 its own block. The map is smooth. Its
 Jacobians come from automatic differentiation, and its periodic orbits can be computed and continued like those of
@@ -1882,7 +1882,7 @@ offset per label, and part of the 70B-class maps predate a precision fix and wer
 use one prompt (more in the size tests), and steering uses contrastive vectors, checked against random and
 sparse-autoencoder directions in two models. Chaos labels are finite-horizon estimates: a longer horizon check kept 86
 and 92 of 96 chaotic labels in two maps, near the accumulation of a cascade transient chaos makes labels less reliable (on one line only 135 of 235 chaotic labels held), no chaotic cell is proved chaotic, and only one periodic orbit is proved to exist. The Feigenbaum ratios are
-finite-order values. All orbit, bifurcation and chaos results concern the constructed map, not sampled generation with
+finite-order values. All orbit, bifurcation and chaos results concern the soft-token map, not sampled generation with
 a growing context. Appendix~\ref{sec:limits} gives the details.
 
 \paragraph{Steering strength is a bifurcation parameter.} In the soft-token map, small changes of the steering
@@ -1900,7 +1900,7 @@ predict boundaries of sampled behaviour is open. The bridge of Appendix~\ref{sec
 shortens the laminar phases of the bottleneck, by an amount that depends on how many samples are averaged.
 
 \paragraph{What this suggests for interpretability and alignment.} Our results come from open models of 0.5B to
-72B parameters and a constructed loop, but they suggest three things about models whose outputs feed back into their inputs, as in
+72B parameters and the soft-token loop, but they suggest three things about models whose outputs feed back into their inputs, as in
 self-dialogue, agent loops and pipelines of model calls. First, where the loop is chaotic, a perturbation of
 $10^{-6}$ grows to order one within roughly 15 to 50 steps (the largest unsteered exponents of the 7B and 8B
 models are 0.30 to 0.88 per step). Even a complete account of single forward passes then predicts a long trajectory
@@ -3133,7 +3133,7 @@ fix we computed only fine lines through their entropy jumps, one of which passes
 temperature.
 The maps use one prompt (Section~\ref{sec:sizemain} adds ten for Qwen2.5-7B and -14B, and four for Qwen2.5-72B, its base
 model, and OLMo-2-7B and -32B), and steering uses contrastive vectors, checked against norm-matched random and sparse-autoencoder
-directions in two models. The system is a constructed loop: Appendix~\ref{sec:bridge} extends it to memories of up to sixteen soft tokens and to the growing context of Soft Thinking, but sampled decoding of discrete tokens is a different system. The evidence consists of numerical
+directions in two models. The soft-token loop is one inference scheme: Appendix~\ref{sec:bridge} extends it to memories of up to sixteen soft tokens and to the growing context of Soft Thinking, but sampled decoding of discrete tokens is a different system. The evidence consists of numerical
 validation, cross-checks and prospectively frozen passage tests (including failed all-row criteria), with a
 computer-assisted proof for only one orbit at one parameter point. Chaos labels are finite-horizon estimates (300
 measured steps after 300 to 500 transient steps), and no chaotic cell is proved chaotic. A computer-assisted proof of chaos, such as a horseshoe verified by covering
@@ -3149,7 +3149,7 @@ slowly or wander chaotically before they settle (transient chaos \cite{lai2011tr
 the hostile line of Figure~\ref{fig:hubcascade} (left), 135 of the 235 cells labelled chaotic from 400 measured steps
 stayed chaotic and 91 were periodic. The Feigenbaum ratios are
 finite-order values that rise toward $\delta$ (the last is within 1\,\%); the limit itself is not computed. All
-orbit, bifurcation and chaos results concern the constructed map, not sampled generation with a growing context. With
+orbit, bifurcation and chaos results concern the soft-token map, not sampled generation with a growing context. With
 sampling, the bridge of Appendix~\ref{sec:bridge} tests only whether the bottleneck's laminar phases survive the noise;
 its other tests are deterministic (greedy decoding, longer fed-back memories and Soft Thinking's growing context).
 
