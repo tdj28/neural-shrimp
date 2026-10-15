@@ -24044,3 +24044,18 @@ Paper: Table tab:flipnf and a paragraph after the high-temperature bubble give b
 - **Maps:** the settings of the block-12 control maps (q05): 128 x 128 float64 cells, alpha -0.12 to 0.12, log10 T -1.0 to 0.3, transient 500, samples 300, record 80, max period 48, tol 1e-8, eps 1e-6. Each block's map is split over two pods by rows (rows 0-63 and 64-127 of the same grid): eight pods, job set scan64.
 - **Reading:** descriptive, with no prediction. Reported per block: the chaotic share, where the chaotic regions lie in (alpha, T), and how the attractor families compare with block 12.
 - **Output:** `../neural-shrimp-data/explore/llm-soft-loop/pod64/scan64/ls-l{4,8,16,20}-{lo,hi}`
+
+## 2026-10-15 04:59 UTC: BZ pilot result: at the maps' steering strengths, steering swamps ordinary inference in both zones; no accuracy contrast is measurable
+
+Pods lydg9orgs6im5q, mj69o76yur8x6d, tx5ls2s0l6g118 (SECURE; runner rc 0, hashes verified, terminated; 311-395 s; commit e1bd1e44). Outputs llm-soft-loop/pod64/bz/pilot-{0,1,2} (90 cells). Analysis: tools/behavior_zones.py analyze (scratch/bz-analysis.json).
+- **Accuracy, mean over the 30 pairs:**
+  - arithmetic 0.0007 (chaotic) vs 0.0009 (periodic);
+  - NQ 0.0044 vs 0.0036;
+  - MBPP 0 vs 0.
+  - The unsteered model at the same temperatures scores 0.75-0.81 on arithmetic, 0.03-0.06 on NQ and 0.13-0.37 on MBPP (falling with T).
+  - Steering alpha v at every position (alpha 0.045-0.078) turns every reply into philosophy-flavoured text, as the local smoke test showed. The accuracy comparison sits at the floor and cannot test the hypothesis.
+- **Secondary measures, chaotic - periodic, sign tests over 30 pairs:**
+  - Mean next-token entropy: NQ +0.038 nats (22/30 positive, p = 0.016, bootstrap [0.016, 0.059]); arithmetic +0.001 (15/30); MBPP -0.035 (10/30, p = 0.10, [-0.067, -0.004]).
+  - Reply length: no sign-test p below 0.09.
+  - Of nine tests, one has p < 0.05, and that does not survive a Bonferroni correction (0.0056). The entropy differences also change sign across tasks.
+- **Reading:** No behavioural difference between the zones is established. The design is uninformative for accuracy at these steering strengths. The follow-up BP, which the human approved ("Do it"), takes the regime per prompt, with the unsteered 7B model at temperatures where its prompts differ in regime.
