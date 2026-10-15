@@ -368,6 +368,18 @@ orbit, the interval ratios, and the normal-form predictions of passage times and
 multiplier is not small, as in the high-temperature bubble of Section~\ref{sec:cascade} (next moduli $0.28$ and
 $0.38$), the global reduction is only a rough guide, while the local normal forms still apply.
 
+\paragraph{How many dimensions does the chaos have?} For chaotic attractors the corresponding measure is the
+Kaplan--Yorke dimension \cite{kaplan1979chaotic}, $D_{\mathrm{KY}}=j+\sum_{i\le j}\lambda_i/|\lambda_{j+1}|$ with $j$ the
+largest index at which the partial sum of the ordered Lyapunov exponents is still nonnegative; with one positive
+exponent, $D_{\mathrm{KY}}=1+\lambda_1/|\lambda_2|$. We computed the four leading exponents by QR iteration
+(Section~\ref{sec:methods}; 1000 transient and 2000 measured steps, float64) at chaotic cells chosen by percentile of
+their largest exponent, before any of their spectra were seen. %%KYTEXT%%
+Every attractor we measured has exactly one positive exponent. Along the hostile temperature line, where we fit a
+scalar return relation (Section~\ref{sec:hostility}), the eight chaotic cells have $D_{\mathrm{KY}}=1.008$ to
+$1.16$, so the chaos there is one-dimensional to within a sixth of a dimension. At six chaotic cells of the headline
+maps $D_{\mathrm{KY}}$ is $1.06$ to $1.65$, rising with $\lambda_1$. Where the largest exponent is large, the
+attractor is visibly thicker than a curve, and a scalar return map describes it only approximately.
+
 \section{Methods}
 \label{sec:methods}
 \paragraph{Phase maps.} Each cell of a phase map is one parameter pair. Unless stated otherwise, we discard 300
