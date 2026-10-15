@@ -72,8 +72,8 @@ hidden states back \cite{hao2024coconut}, and recurrent-depth models iterate a b
 that the expected-embedding loop of released language models is chaotic over wide ranges of temperature and steering
 strength, explain why steering makes it so, and measure what the chaos does.
 \begin{itemize}
-\item In a chaotic regime, an irrelevant change of batch size makes two otherwise identical float64 runs write
-  different text, after a number of steps that the Lyapunov exponent predicts, in Qwen2.5-0.5B, Llama-3.3-70B and,
+\item In a chaotic regime, an irrelevant change of batch size makes two otherwise identical float64 runs diverge
+  until their most probable tokens differ, after about the number of steps that the Lyapunov exponent sets, in Qwen2.5-0.5B, Llama-3.3-70B and,
   without steering, Qwen2.5-7B and Llama-3.1-8B; in a periodic regime the two runs stay together. In bfloat16, the batch layout
   changed the answers of a short soft-thinking pipeline on 56\,\% of arithmetic problems in a 0.5B model and 55\,\% in
   a 7B model, far more often than it changed greedy decoding's (never and 10\,\%).
@@ -129,14 +129,16 @@ sampling.
 \paragraph{Contributions.}
 \begin{enumerate}
 \item \emph{The dynamical regime decides whether a run can be reproduced.} Run twice with only the batch layout changed,
-  190 of 192 chaotic float64 loops of Qwen2.5-0.5B diverge from rounding-level differences to different text, after
-  a median of 102 steps and as the Lyapunov exponent predicts (median ratio 0.91), while 182 of 192 periodic loops
-  stay within $10^{-2}$ and 95\,\% end within $3\times10^{-12}$. The same holds without steering in Qwen2.5-7B (24 of 24
+  190 of 192 chaotic float64 loops of Qwen2.5-0.5B grow from rounding-level differences past a relative distance of
+  $10^{-2}$, after a median of 102 steps and in line with the Lyapunov exponent (median ratio 0.91), and at 173 of them
+  the most probable readout token comes to differ; 182 of 192 periodic loops stay within $10^{-2}$, and 182 end within
+  $3\times10^{-12}$. The same holds without steering in Qwen2.5-7B (24 of 24
   chaotic loops diverge, none of 24 periodic ones) and Llama-3.1-8B (20 of 20, and 1 of 20), and with steering in
   Llama-3.3-70B (24 of 24, and none of 24). In bfloat16 nearly every
   loop diverges within a few steps (Section~\ref{sec:consequences}). At the level of answers, in a frozen test on 96 additions, the batch layout
   changed the answer of a bfloat16 soft-thinking pipeline in 56\,\% of problems at $T=1$ in Qwen2.5-0.5B and in
-  55\,\% at $T=10^{0.2}$ in Qwen2.5-7B, far more often than it changed greedy decoding's output (never and 10\,\%).
+  55\,\% at $T=10^{0.2}$ in Qwen2.5-7B, far more often than it changed a forced greedy baseline's output (never and
+  10\,\%).
 \item \emph{Steering makes next tokens compete.} An exact split of each step's growth shows that steering into chaos
   raises the readout factor by 2.58 nats per step and leaves the network factor flat. A logit bias alone, with the
   network untouched, makes 3.5\,\% of the plane chaotic. An orbit-preserving crossover attributes the expansion at
@@ -388,8 +390,9 @@ $g_{\mathrm{read}}=(|\delta F|/|F|)/(|\delta\tilde h|/|\tilde h|)$. Averaged alo
 to the largest Lyapunov exponent, up to a boundary term. Over a $101\times53$ map in steering strength and temperature
 (block 12; 5353 cells, 331 chaotic), the chaotic cells' readout factor exceeds that of nearly unsteered cells
 ($|\alpha|\le0.01$) at the same temperature by $2.58$ nats per step (95\,\% interval $[1.78,3.59]$ over 18 temperature
-rows). Their network factor differs by only $-0.07$ $[-0.23,0.12]$. Without steering the readout contracts strongly,
-by $0.9$ to $5.5$ nats per step; in the chaotic cells it expands. Compared with periodic cells at the same temperature,
+rows; 321 chaotic and 162 nearly unsteered cells). Their network factor differs by only $-0.07$ $[-0.23,0.12]$. With
+nearly no steering the readout contracts strongly, by $0.87$ to $5.49$ nats per step. In the chaotic cells it expands,
+except in the three highest temperature rows ($\log_{10}T=0.175$--$0.225$), where it still contracts but less. Compared with periodic cells at the same temperature,
 chaotic cells have a higher next-token entropy ($+1.62$ nats, $[1.26,1.91]$), a smaller gap between the two largest
 logits ($-1.37$ in units of $T$, $[-1.98,-0.87]$) and a larger readout factor ($+1.36$, $[0.91,1.93]$), each with
 $p\le10^{-4}$ in a permutation test within temperature rows.
@@ -401,29 +404,34 @@ temperature range chaotic (241 of 6837 cells), against 6.2\,\% for residual stee
 $\log_{10}T>0.1$. Creating token competition therefore suffices for chaos, given the unmodified network.
 
 Third, a gain split compares different orbits, so steering could act simply by moving the orbit to other states. A
-crossover at fixed states rules this out. Along recorded steered orbits we evaluated the steered and the unsteered
-model at the same states and carried four tangent dynamics. Each pairs the steered or unsteered readout $R(p)$ with the
-steered or unsteered network Jacobian: arms 11, 10, 01 and 00. Arm 11 reproduces the twin exponent within $0.012$ at 23
-of 24 cells. Over 14 held-out chaotic cells, steering only the readout raises the growth by $0.81$ nats per step
+crossover at fixed states separates the two contributions along the recorded orbits. Along recorded steered orbits we
+evaluated the steered and the unsteered model at the same states and carried four tangent dynamics. Each pairs the
+steered or unsteered readout $R(p)$ with the steered or unsteered network Jacobian: arms 11, 10, 01 and 00. The frozen
+validation (arm 11 within $0.02$ of the twin exponent at every cell) holds at 23 of 24 cells, all within $0.012$; at
+the remaining periodic cell, which contracts at about $-12$ per step, the twin offset falls to the rounding floor. The
+frozen sufficiency criterion (arm 10 within $0.1$ of arm 11 on average) fails by overshoot: steering only the readout
+gives more growth than the full steered map, by $0.23$, because steering's change of the network damps it. Over 14 held-out chaotic cells, steering only the readout raises the growth by $0.81$ nats per step
 ($[0.29,1.35]$). Steering only the network response lowers it by $0.49$ ($[-0.63,-0.35]$). The interaction is $+0.26$
 ($[0.09,0.45]$). Below $\log_{10}T=0$ the steered readout turns a contracting unsteered derivative ($-1.03$ nats per
 step) into an expanding one ($+0.72$), more strongly than the full steered map ($+0.34$). Above it, the unsteered
-derivative already expands at the steered states ($+0.41$), and steering acts by bringing the orbit there. In
+derivative already expands at the steered states ($+0.41$), and steering may act by bringing the orbit there. In
 Qwen2.5-7B, whose embeddings are untied, the same crossover (18 cells of its steered map at block 14; arm 11 equals the
-twin exponent within $10^{-4}$ at every cell) reproduces the damping. Over 10 held-out chaotic cells, steering only the
-network response lowers the growth by $1.14$ nats per step ($[-1.61,-0.64]$). Eight of these cells lie at
-$\log_{10}T\ge0$, where the unsteered derivative already expands at the steered states ($+1.33$), and steering only the
-readout adds $+0.23$ ($[-0.11,0.63]$). The crossover along two more directions of the 0.5B model gives the same
+twin exponent within $10^{-4}$ at every cell) reproduces the damping. Over its 10 held-out chaotic cells, steering only
+the network response lowers the growth by $1.14$ nats per step ($[-1.61,-0.64]$), and steering only the readout adds
+$+0.23$ ($[-0.11,0.63]$). Eight of the ten lie at $\log_{10}T\ge0$, where the unsteered derivative already expands at
+the steered states (mean $+1.33$). The crossover along two more directions of the 0.5B model gives the same
 signs. For gratitude the readout effect is $+0.33$ ($[0.07,0.59]$) and the network effect $-0.14$ ($[-0.29,0.01]$). For
 a random direction matched in norm to the philosophy vector, they are $+0.77$ ($[0.47,1.12]$) and $-0.09$
 ($[-0.22,0.06]$); 14 held-out chaotic cells each. The readout effect is positive along all three directions, and the
-network effect is negative but compatible with zero along these two. The mechanism does not depend on the
-direction's meaning.
+network effect is negative but compatible with zero along these two. In these three directions the readout effect
+does not depend on the direction's meaning.
 
-Steering thus makes the loop chaotic by making next tokens compete, which turns the softmax readout from a
-contraction into an expansion. At low temperature it creates that competition at fixed states. At higher temperature it
-mainly carries the orbit into states that are already competitive. In both models its change of the network's response
-damps the growth. The readout rule holds below $\log_{10}T\approx0.1$; at higher temperature the network factor itself
+Along the sampled orbits, then, steering makes the loop chaotic mainly by making next tokens compete, which turns the
+softmax readout from a contraction into an expansion. At low temperature it creates that competition at fixed states.
+At higher temperature the orbit lies in states that are already competitive, consistent with steering having carried it
+there. Along the philosophy direction, in both models, its change of the network's response damps the growth. These are
+conditional comparisons on recorded trajectories; they do not establish that the readout change alone would sustain
+the same attractor. The readout rule holds below $\log_{10}T\approx0.1$; at higher temperature the network factor itself
 can expand. Steered at block 4, the chaotic
 cells at $\log_{10}T=0.15$ have a network factor of $+0.72$ and a contracting readout ($-0.35$). Along the hostile line
 at $\log_{10}T=0.12$--$0.13$ the network factor of the chaotic cells is $+0.60$ against $+0.24$ to $+0.38$ at the
@@ -443,7 +451,7 @@ permutation $p$-values. (c) Orbit-preserving crossover: finite-time growth along
 readout and the network Jacobian are taken from the unsteered (0) or steered (1) model; red, chaotic cells; blue,
 periodic cells; dark red, the mean over held-out chaotic cells; navy, the same mean in Qwen2.5-7B. (d) Share of chaotic cells per temperature under
 residual steering at block 12 and under a pure logit bias along $Wv$. (e) The two factors of the chaotic cells by
-steering block, at $\log_{10}T\le0$. (f) Kaplan--Yorke dimension against the readout's stable rank at the chaotic cells of the dimension
+steering block, at $\log_{10}T\le0$. (f) Kaplan--Yorke dimension against the readout's trace-to-leading-eigenvalue ratio at the chaotic cells of the dimension
 measurement (Section~\ref{sec:theory}); dotted, equality.}
 \label{fig:mechanism}
 \end{figure}
@@ -682,60 +690,66 @@ reproducible: GPU kernels choose different reduction orders for different matrix
 on the batch it shares and on the hardware \cite{he2025nondeterminism,yuan2025nondeterminism}. We ran the 448 labelled
 cells of the horizon check (192 chaotic, 192 periodic and 64 other cells of two float64 maps; Section~\ref{sec:methods})
 twice in lockstep from the same start. The two runs differ only in the batch: all cells in one batch of $n$ rows, or
-the same rows followed by the same cells in reverse order ($2n$ rows), which changes the matrix shapes the kernels see
-and nothing else (Figure~\ref{fig:repro},
-Table~\ref{tab:repro}). In float64 the two runs first differ by about $6\times10^{-15}$, the rounding level. At 190 of
-the 192 chaotic cells this difference grows to order one, after a median of 102 steps, and 90\,\% of the chaotic cells
-end up writing different tokens. At 182 of the 192 periodic cells the two runs stay within $10^{-2}$ for all 1500
-steps; their median largest distance is $2\times10^{-12}$, and 95\,\% of all periodic cells end the run within
-$3\times10^{-12}$. The Lyapunov exponent predicts when a chaotic run
-diverges: the step at which the distance passes $10^{-2}$ follows $\ln(10^{-2}/d_1)/\lambda$, where $d_1$ is the first
-nonzero distance, with a median ratio of $0.91$ and a log-log correlation of $0.73$ over 190 cells. The two chaotic
+the same rows followed by $n$ further rows whose steering vectors are those of the first $n$ in reverse order, at the
+original temperatures ($2n$ rows). This changes the matrix shapes the kernels see; the first $n$ rows compute the same
+cells (Figure~\ref{fig:repro}, Table~\ref{tab:repro}). In float64 the two runs first differ by about
+$6\times10^{-15}$, the rounding level. At 190 of the 192 chaotic cells this difference passes a relative distance of
+$10^{-2}$, after a median of 102 steps, and grows on to order one (median final distance $0.91$); at 173 of the 192
+chaotic cells the most probable token of the loop's readout differs between the runs at some step of the last 500. At
+182 of the 192 periodic cells the two runs stay within $10^{-2}$ for all 1500 steps, with a median largest distance of
+$2.3\times10^{-12}$, and 182 of the 192 periodic cells end the run within $3\times10^{-12}$. The Lyapunov exponent
+accounts for when a chaotic run diverges: the step at which the distance passes $10^{-2}$ follows
+$\ln(10^{-2}/d_1)/\lambda$, where $d_1$ is the smallest nonzero distance in the run, with a median ratio of $0.91$
+and a log-log correlation of $0.73$ over 190 cells. This uses the whole run and is therefore retrospective; an
+independent recomputation with the first nonzero distance instead gives the same rounded values. The two chaotic
 cells that never diverge have exponents of $0.013$ and $0.0013$, for which the predicted step lies beyond the run.
 The same holds without steering in Qwen2.5-7B, whose embeddings are untied. Over 24 chaotic and 24 periodic
 temperatures of its unsteered loop, all 24 chaotic float64 runs diverge, after a median of 56 steps (the exponent again
-predicts the step, median ratio $0.95$), and 96\,\% of them end up writing different tokens. None of the 24 periodic runs
-moves past $10^{-2}$, and 95\,\% end within $1.3\times10^{-13}$ of each other. A second model family, unsteered
-Llama-3.1-8B, gives the same picture: all 20 chaotic temperatures diverge after a median of 68 steps (median ratio to
-the exponent's prediction $1.05$), all 20 end up writing different tokens, and 19 of the 20 periodic ones stay within
+accounts for the step, median ratio $0.95$), and at 23 of them the readout's most probable token differs at some step
+of the last 500. None of the 24 periodic runs moves past $10^{-2}$; 22 end within $1.3\times10^{-13}$ of each other
+and all within $2.2\times10^{-12}$. A second model family, unsteered Llama-3.1-8B, gives the same picture: all 20
+chaotic temperatures diverge after a median of 68 steps (median ratio to the exponent's estimate $1.05$), all 20 differ
+in their readout's most probable token in the last 500 steps, and 19 of the 20 periodic ones stay within
 $10^{-2}$. At 70B the picture is unchanged. In Llama-3.3-70B-Instruct steered along hostility-vs-kindness at block 20
 (float64 arithmetic on its stored bfloat16 weights, layers spread over two GPUs, 1000 steps), all 24 chaotic cells
-diverge, after a median of 114.5 steps (median ratio to the prediction $0.83$, log-log correlation $0.74$), and 21 of
-them end up writing different tokens. None of the 24 periodic cells moves past $10^{-2}$, and all end within
+diverge, after a median of 114.5 steps (median ratio to the exponent's estimate $0.83$, log-log correlation $0.74$),
+and at 21 of them the readout's most probable token differs at some step of the last 300. None of the 24 periodic cells moves past $10^{-2}$, and all end within
 $1.3\times10^{-12}$. In lower precision the rounding is
 larger. In float32 every chaotic cell of both models diverges, after a median of 20 steps (0.5B) or 16 (7B). In
 bfloat16, a common serving precision, the two layouts pass a distance of $10^{-2}$ after a median of one or two steps
-at every cell of the two Qwen models and at 38 of the 40 Llama cells, periodic ones included. At that precision the
-loop is not reproducible across batch layouts in any regime we tested.
+at every cell of the two Qwen models and at 38 of the 40 Llama cells, periodic ones included. With these kernels and at
+that precision, the loop was not reproducible across batch layouts in any regime we tested.
 
 The same test at the level of answers, with a design frozen before the run, shows what this means for a task. We
 asked Qwen2.5-0.5B 96 held-out two-digit additions through a short soft-thinking pipeline: 32 expected-embedding steps
 appended to a growing context, then a fixed answer cue and greedy extraction of the number. Each problem ran alone and
 in a batch with three fixed distractor problems of the same length, so nothing is padded and only the matrix shapes
 differ. In bfloat16 the extracted answer changed with the batch layout in 56\,\% of the problems at $T=1$ and in
-8\,\% at $T=10^{0.2}$. Ordinary greedy decoding, run with the same budget, produced identical token sequences in both
-layouts for every problem. The excess disagreement of soft over greedy decoding, averaged over the two temperatures,
-is 32.3 percentage points (95\,\% interval $[26.6,38.0]$; sign-flip $p=10^{-4}$, the smallest attainable). In float64 no
-answer changed within the 32 steps. There, a perturbation of the first soft token grows by only $0.03$ nats per step
-at $T=1$ and shrinks at higher temperature, and even a relative kick of $10^{-4}$ changes no answer. The bfloat16
-discrepancies are therefore not the float64 map's chaos. They arise from bfloat16's rounding differences accumulating
-through continuous feedback, which a discrete argmax would absorb. (The greedy baseline's accuracy is not
+8\,\% at $T=10^{0.2}$. A forced greedy baseline with the same budget (32 greedy tokens, then the same cue) produced
+identical token sequences in both layouts for every problem. The excess disagreement of soft over greedy decoding,
+averaged over the two temperatures, is 32.3 percentage points (95\,\% interval $[26.5,38.1]$; sign-flip $p=10^{-4}$,
+the smallest attainable). In float64 no answer changed within the 32 steps. There, the median growth of an injected
+kick to the first soft token is $0.033$ nats per step at $T=1$ (range $-0.13$ to $0.24$ over six problems and three
+kick sizes), and even a relative kick of $10^{-4}$ changes no answer. The bfloat16 discrepancies therefore do not
+require the float64 map's chaos; they are consistent with bfloat16's rounding differences accumulating through
+continuous feedback, which a discrete argmax would absorb. (The forced greedy baseline's accuracy is zero and not
 informative: forced through 32 tokens, the model writes past its answer, and the cue then extracts another number.)
-The same frozen test in Qwen2.5-7B, which answers these problems well, replicates the result. In bfloat16 the batch
-layout changed the soft-thinking answer in 55\,\% of the problems at $T=10^{0.2}$, the temperature at which the soft
-trace still matters (accuracy 51 to 64\,\%). At this precision even greedy decoding changed in 10\,\% of the
-problems, the known batch-variance effect. The excess over greedy decoding is 17.7 points ($[9.4,25.5]$, $p=2\times10^{-4}$).
-In float64, at that temperature, the 7B's loop amplifies an injected perturbation (median $+0.034$ nats per step),
-injected kicks change answers (2 of 18 runs), and the rounding-level difference between the layouts changed 5\,\% of
-the answers within the 32 steps.
+The same frozen test in Qwen2.5-7B, whose soft-thinking pipeline answers 51 to 64\,\% of these problems, replicates
+the result. In bfloat16 the batch layout changed the soft-thinking answer in 53 of the 96 problems (55\,\%) at
+$T=10^{0.2}$, the temperature at which the soft trace still matters. At this precision even the forced greedy baseline
+changed in 10 of the 96, the known batch-variance effect. The excess over greedy decoding is 17.7 points
+($[9.3,25.6]$, $p=2\times10^{-4}$). In float64, at that temperature, the 7B's loop amplifies an injected perturbation
+(median $+0.034$ nats per step), injected kicks change answers (2 of 18 kicks: six problems and three kick sizes), and
+the rounding-level difference between the layouts changed 5\,\% of the answers within the 32 steps.
 Two horizons thus matter. Within a short budget, continuous feedback in low precision makes answers depend on the
 batch, and where the loop expands, even float64 rounding does. Over longer runs, a chaotic regime amplifies float64
-rounding into different text, on the schedule its Lyapunov exponent sets.
+rounding into different readout tokens, on the schedule its Lyapunov exponent sets.
 \begin{figure}[tbp]
 \centering
 \includegraphics[width=\linewidth]{fig-repro.png}
 \caption{Only the batch layout differs. The 448 labelled cells of Qwen2.5-0.5B-Instruct (philosophy direction, layer
-12) run twice from the same start, alone in a batch or followed by the same cells reversed. (a) float64: median and
+12) run twice from the same start, alone in a batch or followed by $n$ further rows with the steering vectors in
+reverse order. (a) float64: median and
 interquartile range of the relative distance between the two runs, by the cells' float64 labels. (b) Medians for
 float32 and bfloat16 batch layouts. (c) float64 chaotic cells: the step at which the distance passes $10^{-2}$ against
 $\ln(10^{-2}/d_1)/\lambda$, with $d_1$ the first nonzero distance and $\lambda$ the map exponent; dotted, equality.}
