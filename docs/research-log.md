@@ -24139,3 +24139,13 @@ Pod 3en7yg96v92ysm (COMMUNITY H100 NVL; runner rc 0, hash verified, terminated; 
   - Every measured attractor has exactly one positive exponent (no hyperchaos).
   - D grows with temperature: hostile band 1.01-1.16, headline maps 1.04-1.65, high-temperature region 1.37-2.02. The global scalar reduction holds for the low-temperature chaos and fails in the high-temperature region, consistent with the high-temperature bubble's second multipliers (0.28-0.38).
   - Paper: the dimension paragraph of the theory section.
+
+## 2026-10-15 05:26 UTC: run (exploratory): L70D, Llama-3.3-70B steered at other depths (human: "try 70b at different depths to see if we can recover larger chaos bands")
+
+- **Question:** At block 50 of 80 (the Goodfire SAE layer, 62 % depth), Llama-3.3-70B was chaotic in 4.3 % of the 32 x 32 cells of its hostility map (log10 T -0.3 to 0.3, alpha 0 to 0.12). In the 0.5B block sweep (run LS), earlier blocks carry chaos to lower temperatures. Does earlier, or later, steering give the 70B larger chaotic bands?
+- **Setup:** job set bigmap (pinned checkpoint 6f6073b4, gated download with the human's token on stdin; float64 with bfloat16 weight storage over two GPUs; norms patched before dispatch per the two-GPU gate).
+  - Concept vectors are built at each block on the pod (hostility:kindness and three norm-matched random directions, the recipe of every model).
+  - One scan of hostility-vs-kindness per block, with the block-50 map's settings (log10 T -0.3 to 0.3, alpha 0 to 0.12, transient 300, samples 300, record 80, max period 32, tol 1e-8, eps 1e-6), but on a 24 x 24 grid to halve the cost.
+  - Blocks 20, 35 and 65 (25, 44 and 81 % depth). Block 20 launches now; 35 and 65 follow when the account's hourly spending limit allows.
+- **Reading:** descriptive. Chaotic share and the temperature range of the chaotic cells per block, against block 50 (4.3 %).
+- **Output:** `../neural-shrimp-data/explore/llm-soft-loop/pod64/big/llama3.3-70b-l{20,35,65}-hostility-vs-kindness`
