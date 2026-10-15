@@ -25715,7 +25715,7 @@ Free, reset and the reference decode in batch 1. Per-problem checks: the referen
 2. If it does, the held-out set (128) once, in both precisions.
 3. If it does not, report that, and plan the held-out run on an H100 under a costed plan instead.
 
-## 2026-10-15 16:13 UTC: RR dev pilot: in bf16, the accumulated feedback state carries most of the layout dependence
+## 2026-10-15 16:10 UTC: RR dev pilot: in bf16, the accumulated feedback state carries most of the layout dependence
 
 Local RTX 2000 Ada, commit 292493ab; dev set (24 problems) in bf16 and float32; analysis docs/rr/rr-dev-analysis.json (tools/repro_reset.py analyze). All 48 problem runs pass the exactness checks: the reference reruns bit for bit, and free and reset in batch 1 reproduce it exactly.
 
