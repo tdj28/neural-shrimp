@@ -1,0 +1,50 @@
+{
+  "schema": "task23-comparison-controls-owner-closure-v1",
+  "utc": "2026-10-15T16:47:14.143968+00:00",
+  "source_commit": "7e9d8c747e3b6996ea74bfe2b103a9c6c458a4c5",
+  "tool_exec_completed_exit_code": 0,
+  "tool_session": null,
+  "original_identities": [
+    {
+      "pid": 3203720,
+      "starttime": 202930653,
+      "pgrp": 3203719,
+      "session": 3203719,
+      "uid": 1000,
+      "nice": 10,
+      "threads": 1,
+      "limits": "Limit                     Soft Limit           Hard Limit           Units     \nMax cpu time              unlimited            unlimited            seconds   \nMax file size             unlimited            unlimited            bytes     \nMax data size             unlimited            unlimited            bytes     \nMax stack size            8388608              unlimited            bytes     \nMax core file size        0                    unlimited            bytes     \nMax resident set          unlimited            unlimited            bytes     \nMax processes             375398               375398               processes \nMax open files            65535                65535                files     \nMax locked memory         8388608              8388608              bytes     \nMax address space         unlimited            unlimited            bytes     \nMax file locks            unlimited            unlimited            locks     \nMax pending signals       375398               375398               signals   \nMax msgqueue size         819200               819200               bytes     \nMax nice priority         0                    0                    \nMax realtime priority     0                    0                    \nMax realtime timeout      200000               200000               us        \n",
+      "command": "/data2/neural-shrimp/.venv/bin/python -I -B /home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/mechanism-replay-task23/comparison/controls-001-supervise.py --source 7e9d8c747e3b6996ea74bfe2b103a9c6c458a4c5 "
+    },
+    {
+      "pid": 3203797,
+      "starttime": 202930674,
+      "pgrp": 3203797,
+      "session": 3203797,
+      "uid": 1000,
+      "nice": 10,
+      "threads": 1,
+      "limits": "Limit                     Soft Limit           Hard Limit           Units     \nMax cpu time              55                   55                   seconds   \nMax file size             16777216             16777216             bytes     \nMax data size             unlimited            unlimited            bytes     \nMax stack size            8388608              unlimited            bytes     \nMax core file size        0                    0                    bytes     \nMax resident set          unlimited            unlimited            bytes     \nMax processes             375398               375398               processes \nMax open files            65535                65535                files     \nMax locked memory         8388608              8388608              bytes     \nMax address space         1073741824           1073741824           bytes     \nMax file locks            unlimited            unlimited            locks     \nMax pending signals       375398               375398               signals   \nMax msgqueue size         819200               819200               bytes     \nMax nice priority         0                    0                    \nMax realtime priority     0                    0                    \nMax realtime timeout      200000               200000               us        \n",
+      "command": "/data2/neural-shrimp/.venv/bin/python -I -B /data2/neural-shrimp-data/codex/mechanism-replay-task23/comparison-controls-001-supervision/source/controls.py --out /data2/neural-shrimp-data/codex/mechanism-replay-task23/comparison-controls-001 "
+    }
+  ],
+  "both_original_pids_groups_sessions_absent": true,
+  "captured_git_blobs_verified": 4,
+  "output_receipt_verified": true,
+  "report": {
+    "path": "/data2/neural-shrimp-data/codex/mechanism-replay-task23/comparison-controls-001/report.json",
+    "bytes": 942,
+    "sha256": "615a97be36ca22d7d35f08a71b831549d36734b519b190f819e794c5b28a9739"
+  },
+  "receipt": {
+    "path": "/data2/neural-shrimp-data/codex/mechanism-replay-task23/comparison-controls-001-supervision/receipt.json",
+    "bytes": 3924,
+    "sha256": "f9692fe078f48648fe26da95447b0eea047303efd7320ce213a791aa75e5890c"
+  },
+  "preflight": {
+    "path": "/data2/neural-shrimp-data/codex/mechanism-replay-task23/comparison-controls-001-dispatch/preflight.json",
+    "bytes": 1097,
+    "sha256": "34d1c9aecc10e9ff30661b5b880e0e7b7c43e256e586f9a61253e8a232ff6977"
+  },
+  "scope": "Original owner metadata/source/output/outer closure only; no control or model replay."
+}
