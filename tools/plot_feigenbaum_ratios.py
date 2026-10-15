@@ -116,7 +116,8 @@ def main():
     f156 = ratios(sequence_156())
     q15 = ratios(flips("q15-a0.100-p4") + [edge_flip("q15-a0.100-p16"), edge_flip("q15-a0.100-p32")]
                  + progress_flips("q15-a0.100-p64") + progress_flips("q15-a0.100-p128"))
-    f148 = ratios(flips("crescent-t-0.14798-v2") + progress_flips("crescent-t-0.14798-p96b"))
+    f148 = ratios(flips("crescent-t-0.14798-v2") + progress_flips("crescent-t-0.14798-p96b")
+                  + (progress_flips("crescent-t-0.14798-p96d") or progress_flips("crescent-t-0.14798-p96c")))
 
     fig, ax = plt.subplots(figsize=(5.8, 3.9), dpi=200)
     ax.axhline(DELTA, color="0.3", ls=":", lw=1)
