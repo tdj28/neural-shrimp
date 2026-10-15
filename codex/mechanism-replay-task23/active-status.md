@@ -1,3 +1,11 @@
+# Task23 sole full replay running
+
+2026-10-15T16:19:49.021683+00:00: Original worker3189258/start202765716 and supervisor3189186/start202765444 are owned by Inference; tool session74234. Execution source3e103261, card93f519a6/launcherf852d844, immutable captured five-source snapshot. Started16:18:11UTC; fixed2400wall/4600CPU/12GiBAS/CPU2 plus supervisor/128MiB output, no retry. Startup/preflight accepted,54.84GB available. Root will rejoin around16:35UTC; only Inference polls/reaps. No partial result interpretation.
+
+Latest Claude16:11 acknowledgment is context only; Task23 then25 unchanged. Persistent watch continues without cutoff. No second numerical reservation. Task25 sources frozen, metadata-only inventory next.
+
+## Preserved status history
+
 # Task23 short profile closed; full replay admitted
 
 2026-10-15T16:17:15.294165+00:00: One32/16 profile completed/reaped0, source07c566ca, report7f9c1739, original supervisor closure and owner closurece6ada53 accepted. External20.5439512s; observed worker18.9669209s and5,335,544KiB before final rehash/report, not independent full-worker wall/final peak. Sampled1,243,020B. All five captured source blobs and manifests authenticated; zero jobs at this checkpoint. Profile labels are not full-run evidence.

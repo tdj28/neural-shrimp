@@ -1,6 +1,6 @@
 {
-  "updated_utc": "2026-10-15T16:17:15.294165+00:00",
-  "phase": "Task23 profile completed/closed; sole full1000/2000 replay admitted pending fresh preflight",
+  "updated_utc": "2026-10-15T16:19:49.021683+00:00",
+  "phase": "Task23 sole full1000/2000 replay running under admitted fixed limits",
   "human_extension": "Continue watching indefinitely until explicit human stop; continue authorized Claude queue. Prior cutoff superseded.",
   "automation": {
     "id": "watch-claude-and-work-queue",
@@ -27,16 +27,29 @@
     "new_source": "Theory",
     "independent_source_review": "Boundary"
   },
-  "owned_numerical_jobs": [],
-  "reservations": [],
+  "owned_numerical_jobs": [
+    {
+      "worker": 3189258,
+      "start": 202765716,
+      "supervisor": 3189186,
+      "supervisor_start": 202765444,
+      "raw_output": "/data2/neural-shrimp-data/codex/mechanism-replay-task23/run-001",
+      "supervision": "/data2/neural-shrimp-data/codex/mechanism-replay-task23/run-001-supervision",
+      "started_utc": "2026-10-15T16:18:11.791062+00:00",
+      "deadline_note": "2400s from supervisor monotonic start plus fixed cleanup; no retry/extension"
+    }
+  ],
+  "reservations": [
+    "CPU2 worker plus lightweight supervisor;12GiBAS;no other numerical worker"
+  ],
   "actual_profile_admitted": true,
   "actual_scientific_run_admitted": true,
-  "latest_claude_comms_sha256": "3f6ba81f9bead28d2c988284c0c569e6eb805d2493702c9fb4d9c1a6b2fd8470",
+  "latest_claude_comms_sha256": "ad8ddcb67aff9e1f17a619de0c2a100daab2f5c387007707830cbceede1aa1a2",
   "latest_scoped_fetch": "2026-10-15T15:46:13.614729+00:00",
   "source_packet_manifest_sha256": "957f293f43a34aa62f99d2ef4c60a0531904b6b132427507e003ad5fa23b6d40",
   "preserved_previous_handoff": "codex/night-results-review-task21/task21i/final-handoff.json",
   "latest_observed_private_main": "a540c33b7ca34a5d61d029d7ac530f7359c95181",
-  "preparation": "Profile accepted computationally only. Unchanged1000/2000 design, full-run exact card/source/limits admitted pending final private checkpoint/fresh preflight. Task25 source packet40files128199B frozen; original input/header/receipt scope remains pending. No concurrent numerical reservation.",
+  "preparation": "Current actual startup accepted. No partial numerical reading or labels; all outcomes retained. Root owns persistent watcher, Inference sole process polling/reaping. Task25 metadata/source-only while run is active; latest Claude16:11 dispositions acknowledge21i and mentionFM5/RR for possible later delta, no assignment.",
   "prepared_supervision_manifest_sha256": "903472384139d6a9c644d3bfbeb75ba4945da9bd4cdd507cc34be9023f1fbb50",
   "controls_plan_sha256": "11b728a692c075a4bc633a4ce7d766880b6aa0a527ce6b27d57d8a26678c0d85",
   "controls_source_manifest_sha256": "6ff856fa5ae7a77a8e22b76839d8843816e8c94ec1737ff413735bd804101c27",
@@ -47,5 +60,7 @@
   "profile_report_sha256": "7f9c17397d48aa5d7ef337da2831272464c8a1a57148640586c0a871126974ea",
   "profile_outer_closure_sha256": "ce6ada538e98642cf03a626080f92984365a9b3d3595c3eca0c8555453410caa",
   "actual_card_sha256": "93f519a6ac731486f761921efbc1a9e909be44d16a0ea16f2c75cb8d9d2cdd78",
-  "actual_launcher_sha256": "f852d844f6fabbab0da2bd865b38bdcfadd63a30548cebea95b11f57958d81ac"
+  "actual_launcher_sha256": "f852d844f6fabbab0da2bd865b38bdcfadd63a30548cebea95b11f57958d81ac",
+  "execution_source_commit": "3e103261c546d128c9b6212cdaeda78d677148ad",
+  "tool_session": 74234
 }
