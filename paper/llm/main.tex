@@ -128,7 +128,9 @@ sampling.
   190 of 192 chaotic float64 loops of Qwen2.5-0.5B diverge from rounding-level differences to different text, after
   a median of 102 steps and as the Lyapunov exponent predicts (median ratio 0.91), while 182 of 192 periodic loops
   stay within $10^{-2}$, mostly within $10^{-12}$. In bfloat16 every loop tested diverges within a few steps
-  (Section~\ref{sec:consequences}). %%REPROTCONTRIB%%
+  (Section~\ref{sec:consequences}). At the level of answers, in a frozen test on 96 additions, the batch layout
+  changed the answer of a bfloat16 soft-thinking pipeline in 56\,\% of problems at $T=1$ and never changed greedy
+  decoding's output; in float64 no answer changed within its 32 steps.
 \item \emph{Steering makes next tokens compete.} An exact split of each step's growth shows that steering into chaos
   raises the readout factor by 2.58 nats per step and leaves the network factor flat. A logit bias alone, with the
   network untouched, makes 3.5\,\% of the plane chaotic. An orbit-preserving crossover attributes the expansion at
@@ -653,7 +655,23 @@ cells that never diverge have exponents of $0.013$ and $0.0013$, for which the p
 lower precision the rounding is larger. In float32 every chaotic cell diverges within about 20 steps. In bfloat16, a
 common serving precision, the two layouts differ by $10^{-2}$ after two steps at every cell, periodic ones included.
 At that precision the loop is not reproducible across batch layouts anywhere in this steered region.
-%%REPROT%%
+
+The same test at the level of answers, with a design frozen before the run, shows what this means for a task. We
+asked Qwen2.5-0.5B 96 held-out two-digit additions through a short soft-thinking pipeline: 32 expected-embedding steps
+appended to a growing context, then a fixed answer cue and greedy extraction of the number. Each problem ran alone and
+in a batch with three fixed distractor problems of the same length, so nothing is padded and only the matrix shapes
+differ. In bfloat16 the extracted answer changed with the batch layout in 56\,\% of the problems at $T=1$ and in
+8\,\% at $T=10^{0.2}$. Ordinary greedy decoding, run with the same budget, produced identical token sequences in both
+layouts for every problem. The excess disagreement of soft over greedy decoding, averaged over the two temperatures,
+is 32.3 percentage points (95\,\% interval $[26.6,38.0]$; sign-flip $p=10^{-4}$, the smallest attainable). In float64 no
+answer changed within the 32 steps. There, a perturbation of the first soft token grows by only $0.03$ nats per step
+at $T=1$ and shrinks at higher temperature, and even a relative kick of $10^{-4}$ changes no answer. The bfloat16
+discrepancies are therefore not the float64 map's chaos. They arise from bfloat16's rounding differences accumulating
+through continuous feedback, which a discrete argmax would absorb. (The greedy baseline's accuracy is not
+informative: forced through 32 tokens, the model writes past its answer, and the cue then extracts another number.)
+Two horizons thus matter. Within a short budget, continuous feedback in low precision makes answers depend on the
+batch. Over longer runs, a chaotic regime amplifies even float64 rounding into different text, on the schedule its
+Lyapunov exponent sets.
 \begin{figure}[tbp]
 \centering
 \includegraphics[width=\linewidth]{fig-repro.png}
