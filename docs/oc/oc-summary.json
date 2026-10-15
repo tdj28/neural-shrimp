@@ -1,0 +1,243 @@
+{
+ "note": "Run OC (orbit census around the swallowtail-shaped junction of the period-5 window). Merged output of tools/window_census.py summary over the three parallel parts llm-soft-loop/pod64/oc/census, census-2 and census-3. Counts are lower bounds (seeded Newton search, 27 seeds per point).",
+ "points": [
+  {
+   "name": "T-low",
+   "region": "T",
+   "alpha": -0.119110947,
+   "alpha2": 0.10326,
+   "predicted": 4,
+   "found": 4,
+   "attracting": 2,
+   "match": true,
+   "leading_moduli": [
+    0.453222,
+    3.863212,
+    0.355799,
+    1.35526
+   ],
+   "tokens_shared": true,
+   "min_distance_between_orbits": 0.019785083930566622,
+   "converged_attempts": 25,
+   "attempts": 27
+  },
+  {
+   "name": "T-high",
+   "region": "T",
+   "alpha": -0.119128493,
+   "alpha2": 0.10366,
+   "predicted": 4,
+   "found": 4,
+   "attracting": 2,
+   "match": true,
+   "leading_moduli": [
+    0.577668,
+    0.424029,
+    2.043268,
+    1.531893
+   ],
+   "tokens_shared": true,
+   "min_distance_between_orbits": 0.022647744789843608,
+   "converged_attempts": 24,
+   "attempts": 27
+  },
+  {
+   "name": "T-centroid",
+   "region": "T",
+   "alpha": -0.119132965,
+   "alpha2": 0.103439461,
+   "predicted": 4,
+   "found": 3,
+   "attracting": 2,
+   "match": false,
+   "leading_moduli": [
+    0.57572,
+    0.08183,
+    1.38724
+   ],
+   "tokens_shared": false,
+   "min_distance_between_orbits": 0.008920466480775725,
+   "converged_attempts": 27,
+   "attempts": 27
+  },
+  {
+   "name": "T-near-L",
+   "region": "T",
+   "alpha": -0.119153396,
+   "alpha2": 0.103056949,
+   "predicted": 4,
+   "found": 3,
+   "attracting": 2,
+   "match": false,
+   "leading_moduli": [
+    0.936393,
+    1.058319,
+    0.472988
+   ],
+   "tokens_shared": true,
+   "min_distance_between_orbits": 0.00392055766059091,
+   "converged_attempts": 26,
+   "attempts": 27
+  },
+  {
+   "name": "T-near-U",
+   "region": "T",
+   "alpha": -0.119168634,
+   "alpha2": 0.1036851,
+   "predicted": 4,
+   "found": 4,
+   "attracting": 2,
+   "match": true,
+   "leading_moduli": [
+    0.607187,
+    0.812333,
+    1.198974,
+    2.42925
+   ],
+   "tokens_shared": false,
+   "min_distance_between_orbits": 0.009669623886709226,
+   "converged_attempts": 26,
+   "attempts": 27
+  },
+  {
+   "name": "W-low",
+   "region": "W",
+   "alpha": -0.119194447,
+   "alpha2": 0.10326,
+   "predicted": 2,
+   "found": 2,
+   "attracting": 1,
+   "match": true,
+   "leading_moduli": [
+    0.082898,
+    4.657629
+   ],
+   "tokens_shared": false,
+   "min_distance_between_orbits": 0.07420122094758409,
+   "converged_attempts": 12,
+   "attempts": 27
+  },
+  {
+   "name": "S-low",
+   "region": "S",
+   "alpha": -0.118999918,
+   "alpha2": 0.10326,
+   "predicted": 2,
+   "found": 2,
+   "attracting": 1,
+   "match": true,
+   "leading_moduli": [
+    0.246562,
+    2.564709
+   ],
+   "tokens_shared": true,
+   "min_distance_between_orbits": 0.02471357270929242,
+   "converged_attempts": 17,
+   "attempts": 27
+  },
+  {
+   "name": "E-low",
+   "region": "E",
+   "alpha": -0.118892388,
+   "alpha2": 0.10326,
+   "predicted": 0,
+   "found": 0,
+   "attracting": 0,
+   "match": true,
+   "leading_moduli": [],
+   "tokens_shared": true,
+   "min_distance_between_orbits": null,
+   "converged_attempts": 0,
+   "attempts": 27
+  },
+  {
+   "name": "W-high",
+   "region": "W",
+   "alpha": -0.119212168,
+   "alpha2": 0.10366,
+   "predicted": 2,
+   "found": 1,
+   "attracting": 1,
+   "match": false,
+   "leading_moduli": [
+    0.711108
+   ],
+   "tokens_shared": true,
+   "min_distance_between_orbits": null,
+   "converged_attempts": 15,
+   "attempts": 27
+  },
+  {
+   "name": "N-high",
+   "region": "N",
+   "alpha": -0.119016354,
+   "alpha2": 0.10366,
+   "predicted": 2,
+   "found": 2,
+   "attracting": 1,
+   "match": true,
+   "leading_moduli": [
+    1.647579,
+    0.076431
+   ],
+   "tokens_shared": true,
+   "min_distance_between_orbits": 0.01941315157731366,
+   "converged_attempts": 14,
+   "attempts": 27
+  },
+  {
+   "name": "E-high",
+   "region": "E",
+   "alpha": -0.118907891,
+   "alpha2": 0.10366,
+   "predicted": 0,
+   "found": 0,
+   "attracting": 0,
+   "match": true,
+   "leading_moduli": [],
+   "tokens_shared": true,
+   "min_distance_between_orbits": null,
+   "converged_attempts": 0,
+   "attempts": 27
+  },
+  {
+   "name": "below-L",
+   "region": "W/S (body, below the lower cusp)",
+   "alpha": -0.119157017,
+   "alpha2": 0.102681941,
+   "predicted": 2,
+   "found": 2,
+   "attracting": 1,
+   "match": true,
+   "leading_moduli": [
+    0.71802,
+    6.703264
+   ],
+   "tokens_shared": false,
+   "min_distance_between_orbits": 0.05421790997445553,
+   "converged_attempts": 25,
+   "attempts": 27
+  },
+  {
+   "name": "above-U",
+   "region": "W/N (above the upper cusp)",
+   "alpha": -0.119212137,
+   "alpha2": 0.104173558,
+   "predicted": 2,
+   "found": 3,
+   "attracting": 0,
+   "match": false,
+   "leading_moduli": [
+    1.444878,
+    1.351617,
+    130.39015
+   ],
+   "tokens_shared": false,
+   "min_distance_between_orbits": 0.01850031221255492,
+   "converged_attempts": 20,
+   "attempts": 27
+  }
+ ],
+ "matches": 9,
+ "of": 13
+}
