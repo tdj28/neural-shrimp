@@ -1,0 +1,714 @@
+{
+  "schema": "task26a-independent-saved-arithmetic-v1",
+  "admission": "prepared",
+  "original_source_commit": "a9c411ff1bf992a20f595039000c55be15c6d12c",
+  "source_sha256": {
+    "run.py": "03f7a7eddfcc9faa94720e748a5d05c195ef4d16e815669273b9d10d700b57a7",
+    "reduce.py": "f43f98e9f48cb4d3f2419c424417d775f7a4165078bc11b0b652e72dba3fb8d9"
+  },
+  "inputs": {
+    "authority": {
+      "path": "/tmp/task26a-source-metadata-001/original-run-authority.json",
+      "sha256": "49c34660303d06c14c8ba826b84f4fc8f04a79de96a84d7a3eee1f35dd04d9bc",
+      "bytes": 5080
+    },
+    "problems": {
+      "path": "/tmp/task26a-source-metadata-001/original/docs/repro-task-problems.json",
+      "sha256": "3683191612c1517dd3b75d4b5a31a37b5f1206f909667774d6084542a697d5fe",
+      "bytes": 7516
+    },
+    "design": {
+      "path": "/tmp/task26a-source-metadata-001/original/docs/repro-task-test.md",
+      "sha256": "df0c146eb9f0d43167033904191bba34a81a2ed266931dc2e5a0ffbb0fc9a347",
+      "bytes": 3755
+    },
+    "source_manifest": {
+      "path": "/tmp/task26a-source-metadata-001/manifest.json",
+      "sha256": "008c566befb4826479dafaa1671cae8a8f74d48290e5196cb1055dd922a10640",
+      "bytes": 3390
+    },
+    "loader_manifest": {
+      "path": "/tmp/task26a-loader-supplement-001/manifest.json",
+      "sha256": "fcfd7216de9cbb86e4346c2746dd1452b10f2442e34e2e53f8e3edfb638dcfc1",
+      "bytes": 2041
+    },
+    "producer_summary": {
+      "path": "/tmp/task26a-source-metadata-001/repro-task-log-card-and-results.md",
+      "sha256": "e7cefdc86b343b3414dd908e048f0b060ede675d2b445692a064c35ba2e84064",
+      "bytes": 4305
+    },
+    "receipt": {
+      "path": "/data2/neural-shrimp-data/runpod/soft64/20261015T070508Z/result.json",
+      "sha256": "98c4f3b55b960747dafe5849e520f419ba9ba2edf03b082f720eb805ec3af08b",
+      "bytes": 882
+    },
+    "archive": {
+      "path": "/data2/neural-shrimp-data/runpod/soft64/20261015T070508Z/results.tgz",
+      "sha256": "1e815d388edf84d1f812b6acd56f85455630a37d4399338d07e51b97546a23a2",
+      "bytes": 255613
+    },
+    "stdout": {
+      "path": "/data2/neural-shrimp-data/runpod/soft64/20261015T070508Z/runner-stdout.txt",
+      "sha256": "fa8ac5f0bf1b73e84fba9f21481718abccea087190685c060f1b1c554eed383e",
+      "bytes": 3142
+    },
+    "progress": {
+      "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/repro/t05/progress.jsonl",
+      "sha256": "715af3b31be390ae459c0da50b532972d835adcefd3a9fed0994a0fb096b01d8",
+      "bytes": 16043
+    },
+    "runs": {
+      "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/repro/t05/runs.jsonl",
+      "sha256": "dc87493a22e985596ad5a5747d1849ea1f5f0343da54fa4ab6683157deae0fef",
+      "bytes": 975408
+    },
+    "source_11": {
+      "path": "/tmp/task26a-source-metadata-001/original/tools/repro_task.py",
+      "sha256": "6d06a09c3e079db2dfef4dc1af1d56893dcd6848fabc18fa6ad3c6eaeb677489",
+      "bytes": 10030
+    },
+    "source_12": {
+      "path": "/tmp/task26a-source-metadata-001/original/tools/explore_llm_attractors.py",
+      "sha256": "8e4537194026fe4dc73e8788d77bd3da9390fb4ea1d65ef34fb5efbaede179c9",
+      "bytes": 35792
+    },
+    "source_13": {
+      "path": "/tmp/task26a-source-metadata-001/current/tools/repro_task.py",
+      "sha256": "6d06a09c3e079db2dfef4dc1af1d56893dcd6848fabc18fa6ad3c6eaeb677489",
+      "bytes": 10030
+    },
+    "source_14": {
+      "path": "/tmp/task26a-source-metadata-001/repro-task-source-delta.diff",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    "source_15": {
+      "path": "/tmp/task26a-source-metadata-001/original/reprotask-runner-command.sh",
+      "sha256": "53b6c7ebefe3eefec12f225964732ddd8d0a37afa86295fac6127d585ec586d9",
+      "bytes": 383
+    },
+    "source_16": {
+      "path": "/tmp/task26a-source-metadata-001/assignment-task26.md",
+      "sha256": "2bf645e3ed05daa50be66ccf27be9dcf42249313a153579431ea2a7595e24ff2",
+      "bytes": 724
+    },
+    "source_17": {
+      "path": "/tmp/task26a-source-metadata-001/queue-reprioritization.md",
+      "sha256": "471d325e01adfbdd2194c6260ea63de4ff1530cc88cf476f015fb5f932be015a",
+      "bytes": 989
+    },
+    "source_18": {
+      "path": "/tmp/task26a-source-metadata-001/paper-consequences-section.tex",
+      "sha256": "18fa6a1b5ff206c9cd24b078f248c46590e764cf4b2460924902d12dcb12eced",
+      "bytes": 11273
+    },
+    "loader_19": {
+      "path": "/tmp/task26a-loader-supplement-001/SoftLoop-initializer.py",
+      "sha256": "dc4947884a458b241a263bd052ca3ce6bad5a190d878e58be15f1aa872d0218e",
+      "bytes": 2249
+    },
+    "loader_20": {
+      "path": "/tmp/task26a-loader-supplement-001/SteeredModel-initializer.py",
+      "sha256": "290a0948769827bd83fb4040fdfdc9dda85f6db007d5f7beb28fad01d9ae666b",
+      "bytes": 1073
+    },
+    "loader_21": {
+      "path": "/tmp/task26a-loader-supplement-001/Engine-initializer.py",
+      "sha256": "4dbdba41d83c106982ac687a4bb61ce04b31e2036e1c6fb54416593634c198a6",
+      "bytes": 4182
+    },
+    "loader_22": {
+      "path": "/tmp/task26a-loader-supplement-001/scope.md",
+      "sha256": "578dc0f5eae62a5d3f677b0f2817cb607b1c1a916d0f3985bf3f7b98fd5141c4",
+      "bytes": 1140
+    }
+  },
+  "original_assertions": [
+    {
+      "pointer": "/commit",
+      "equals": "a9c411ff1bf992a20f595039000c55be15c6d12c"
+    },
+    {
+      "pointer": "/jobset",
+      "equals": "reprotask"
+    },
+    {
+      "pointer": "/runner_returncode",
+      "equals": 0
+    },
+    {
+      "pointer": "/hash_verified",
+      "equals": true
+    },
+    {
+      "pointer": "/local_sha256",
+      "equals": "1e815d388edf84d1f812b6acd56f85455630a37d4399338d07e51b97546a23a2"
+    },
+    {
+      "pointer": "/remote_sha256",
+      "equals": "1e815d388edf84d1f812b6acd56f85455630a37d4399338d07e51b97546a23a2"
+    },
+    {
+      "pointer": "/recorded_termination_verified",
+      "equals": true
+    },
+    {
+      "pointer": "/status_lines",
+      "equals": [
+        "2026-10-15T07:06:49Z start reprotask-t05",
+        "2026-10-15T07:30:49Z end reprotask-t05 status 0"
+      ]
+    },
+    {
+      "pointer": "/upload/jobset_args",
+      "equals": "t05 65 --problems docs/repro-task-problems.json --log-temperature 0.0 0.2 0.4 --soft 32 --answer 8"
+    }
+  ],
+  "draws": 10000,
+  "seed": 0,
+  "producer_comparisons": [
+    {
+      "name": "primary delta_pp",
+      "pointer": "/endpoints/bf16:primary_temperatures_mean/delta_pp",
+      "reported": 32.3,
+      "source": "repro-task-log-card-and-results.md",
+      "source_lines": "13",
+      "unit": "pp",
+      "precision": "as printed in original exposed summary; not an expected exact value"
+    },
+    {
+      "name": "primary ci95_pp/0",
+      "pointer": "/endpoints/bf16:primary_temperatures_mean/ci95_pp/0",
+      "reported": 26.6,
+      "source": "repro-task-log-card-and-results.md",
+      "source_lines": "13",
+      "unit": "pp",
+      "precision": "as printed in original exposed summary; not an expected exact value"
+    },
+    {
+      "name": "primary ci95_pp/1",
+      "pointer": "/endpoints/bf16:primary_temperatures_mean/ci95_pp/1",
+      "reported": 38.0,
+      "source": "repro-task-log-card-and-results.md",
+      "source_lines": "13",
+      "unit": "pp",
+      "precision": "as printed in original exposed summary; not an expected exact value"
+    },
+    {
+      "name": "primary signflip_p_plus_one",
+      "pointer": "/endpoints/bf16:primary_temperatures_mean/signflip_p_plus_one",
+      "reported": 0.0001,
+      "source": "repro-task-log-card-and-results.md",
+      "source_lines": "13",
+      "unit": "p",
+      "precision": "as printed in original exposed summary; not an expected exact value"
+    },
+    {
+      "name": "primary signflip_p_raw",
+      "pointer": "/endpoints/bf16:primary_temperatures_mean/signflip_p_raw",
+      "reported": 0.0001,
+      "source": "repro-task-log-card-and-results.md",
+      "source_lines": "13",
+      "unit": "p",
+      "precision": "as printed in original exposed summary; not an expected exact value"
+    },
+    {
+      "name": "bf16:soft:0.0 canonical_disagreement_percent",
+      "pointer": "/conditions/heldout/bf16:soft:0.0/canonical_disagreement_percent",
+      "reported": 56.2,
+      "source": "repro-task-log-card-and-results.md",
+      "source_lines": "18",
+      "unit": "percent",
+      "precision": "as printed in original exposed summary; not an expected exact value"
+    },
+    {
+      "name": "bf16:soft:0.0 layouts/single/accuracy",
+      "pointer": "/conditions/heldout/bf16:soft:0.0/layouts/single/accuracy",
+      "reported": 0.24,
+      "source": "repro-task-log-card-and-results.md",
+      "source_lines": "18",
+      "unit": "fraction",
+      "precision": "as printed in original exposed summary; not an expected exact value"
+    },
+    {
+      "name": "bf16:soft:0.0 layouts/batch4/accuracy",
+      "pointer": "/conditions/heldout/bf16:soft:0.0/layouts/batch4/accuracy",
+      "reported": 0.229,
+      "source": "repro-task-log-card-and-results.md",
+      "source_lines": "18",
+      "unit": "fraction",
+      "precision": "as printed in original exposed summary; not an expected exact value"
+    },
+    {
+      "name": "bf16:soft:0.0 reported identical reruns",
+      "pointer": "/conditions/heldout/bf16:soft:0.0/reported_rerun_identical_count",
+      "reported": 96,
+      "source": "repro-task-log-card-and-results.md",
+      "source_lines": "27",
+      "unit": "instances",
+      "precision": "as printed in original exposed summary; not an expected exact value"
+    },
+    {
+      "name": "bf16:soft:0.0 distance step1 median",
+      "pointer": "/conditions/heldout/bf16:soft:0.0/distance/by_step/0/median",
+      "reported": 6.1e-07,
+      "source": "repro-task-log-card-and-results.md",
+      "source_lines": "18",
+      "unit": "relative distance",
+      "precision": "as printed in original exposed summary; not an expected exact value"
+    },
+    {
+      "name": "bf16:soft:0.0 distance step32 median",
+      "pointer": "/conditions/heldout/bf16:soft:0.0/distance/by_step/31/median",
+      "reported": 0.22,
+      "source": "repro-task-log-card-and-results.md",
+      "source_lines": "18",
+      "unit": "relative distance",
+      "precision": "as printed in original exposed summary; not an expected exact value"
+    },
+    {
+      "name": "bf16:soft:0.2 canonical_disagreement_percent",
+      "pointer": "/conditions/heldout/bf16:soft:0.2/canonical_disagreement_percent",
+      "reported": 8.3,
+      "source": "repro-task-log-card-and-results.md",
+      "source_lines": "19",
+      "unit": "percent",
+      "precision": "as printed in original exposed summary; not an expected exact value"
+    },
+    {
+      "name": "bf16:soft:0.2 layouts/single/accuracy",
+      "pointer": "/conditions/heldout/bf16:soft:0.2/layouts/single/accuracy",
+      "reported": 0.5,
+      "source": "repro-task-log-card-and-results.md",
+      "source_lines": "19",
+      "unit": "fraction",
+      "precision": "as printed in original exposed summary; not an expected exact value"
+    },
+    {
+      "name": "bf16:soft:0.2 layouts/batch4/accuracy",
+      "pointer": "/conditions/heldout/bf16:soft:0.2/layouts/batch4/accuracy",
+      "reported": 0.531,
+      "source": "repro-task-log-card-and-results.md",
+      "source_lines": "19",
+      "unit": "fraction",
+      "precision": "as printed in original exposed summary; not an expected exact value"
+    },
+    {
+      "name": "bf16:soft:0.2 reported identical reruns",
+      "pointer": "/conditions/heldout/bf16:soft:0.2/reported_rerun_identical_count",
+      "reported": 96,
+      "source": "repro-task-log-card-and-results.md",
+      "source_lines": "27",
+      "unit": "instances",
+      "precision": "as printed in original exposed summary; not an expected exact value"
+    },
+    {
+      "name": "bf16:soft:0.2 distance step1 median",
+      "pointer": "/conditions/heldout/bf16:soft:0.2/distance/by_step/0/median",
+      "reported": 2.5e-06,
+      "source": "repro-task-log-card-and-results.md",
+      "source_lines": "19",
+      "unit": "relative distance",
+      "precision": "as printed in original exposed summary; not an expected exact value"
+    },
+    {
+      "name": "bf16:soft:0.2 distance step32 median",
+      "pointer": "/conditions/heldout/bf16:soft:0.2/distance/by_step/31/median",
+      "reported": 0.013,
+      "source": "repro-task-log-card-and-results.md",
+      "source_lines": "19",
+      "unit": "relative distance",
+      "precision": "as printed in original exposed summary; not an expected exact value"
+    },
+    {
+      "name": "bf16:soft:0.4 canonical_disagreement_percent",
+      "pointer": "/conditions/heldout/bf16:soft:0.4/canonical_disagreement_percent",
+      "reported": 0.0,
+      "source": "repro-task-log-card-and-results.md",
+      "source_lines": "20",
+      "unit": "percent",
+      "precision": "as printed in original exposed summary; not an expected exact value"
+    },
+    {
+      "name": "bf16:soft:0.4 layouts/single/accuracy",
+      "pointer": "/conditions/heldout/bf16:soft:0.4/layouts/single/accuracy",
+      "reported": 0.938,
+      "source": "repro-task-log-card-and-results.md",
+      "source_lines": "20",
+      "unit": "fraction",
+      "precision": "as printed in original exposed summary; not an expected exact value"
+    },
+    {
+      "name": "bf16:soft:0.4 layouts/batch4/accuracy",
+      "pointer": "/conditions/heldout/bf16:soft:0.4/layouts/batch4/accuracy",
+      "reported": 0.938,
+      "source": "repro-task-log-card-and-results.md",
+      "source_lines": "20",
+      "unit": "fraction",
+      "precision": "as printed in original exposed summary; not an expected exact value"
+    },
+    {
+      "name": "bf16:soft:0.4 reported identical reruns",
+      "pointer": "/conditions/heldout/bf16:soft:0.4/reported_rerun_identical_count",
+      "reported": 96,
+      "source": "repro-task-log-card-and-results.md",
+      "source_lines": "27",
+      "unit": "instances",
+      "precision": "as printed in original exposed summary; not an expected exact value"
+    },
+    {
+      "name": "bf16:soft:0.4 distance step1 median",
+      "pointer": "/conditions/heldout/bf16:soft:0.4/distance/by_step/0/median",
+      "reported": 7.9e-07,
+      "source": "repro-task-log-card-and-results.md",
+      "source_lines": "20",
+      "unit": "relative distance",
+      "precision": "as printed in original exposed summary; not an expected exact value"
+    },
+    {
+      "name": "bf16:soft:0.4 distance step32 median",
+      "pointer": "/conditions/heldout/bf16:soft:0.4/distance/by_step/31/median",
+      "reported": 0.004,
+      "source": "repro-task-log-card-and-results.md",
+      "source_lines": "20",
+      "unit": "relative distance",
+      "precision": "as printed in original exposed summary; not an expected exact value"
+    },
+    {
+      "name": "bf16:greedy:None canonical_disagreement_percent",
+      "pointer": "/conditions/heldout/bf16:greedy:None/canonical_disagreement_percent",
+      "reported": 0.0,
+      "source": "repro-task-log-card-and-results.md",
+      "source_lines": "21",
+      "unit": "percent",
+      "precision": "as printed in original exposed summary; not an expected exact value"
+    },
+    {
+      "name": "bf16:greedy:None layouts/single/accuracy",
+      "pointer": "/conditions/heldout/bf16:greedy:None/layouts/single/accuracy",
+      "reported": 0.0,
+      "source": "repro-task-log-card-and-results.md",
+      "source_lines": "21",
+      "unit": "fraction",
+      "precision": "as printed in original exposed summary; not an expected exact value"
+    },
+    {
+      "name": "bf16:greedy:None layouts/batch4/accuracy",
+      "pointer": "/conditions/heldout/bf16:greedy:None/layouts/batch4/accuracy",
+      "reported": 0.0,
+      "source": "repro-task-log-card-and-results.md",
+      "source_lines": "21",
+      "unit": "fraction",
+      "precision": "as printed in original exposed summary; not an expected exact value"
+    },
+    {
+      "name": "bf16:greedy:None reported identical reruns",
+      "pointer": "/conditions/heldout/bf16:greedy:None/reported_rerun_identical_count",
+      "reported": 96,
+      "source": "repro-task-log-card-and-results.md",
+      "source_lines": "27",
+      "unit": "instances",
+      "precision": "as printed in original exposed summary; not an expected exact value"
+    },
+    {
+      "name": "float64:soft:0.0 canonical_disagreement_percent",
+      "pointer": "/conditions/heldout/float64:soft:0.0/canonical_disagreement_percent",
+      "reported": 0.0,
+      "source": "repro-task-log-card-and-results.md",
+      "source_lines": "22",
+      "unit": "percent",
+      "precision": "as printed in original exposed summary; not an expected exact value"
+    },
+    {
+      "name": "float64:soft:0.0 layouts/single/accuracy",
+      "pointer": "/conditions/heldout/float64:soft:0.0/layouts/single/accuracy",
+      "reported": 0.312,
+      "source": "repro-task-log-card-and-results.md",
+      "source_lines": "22",
+      "unit": "fraction",
+      "precision": "as printed in original exposed summary; not an expected exact value"
+    },
+    {
+      "name": "float64:soft:0.0 layouts/batch4/accuracy",
+      "pointer": "/conditions/heldout/float64:soft:0.0/layouts/batch4/accuracy",
+      "reported": 0.312,
+      "source": "repro-task-log-card-and-results.md",
+      "source_lines": "22",
+      "unit": "fraction",
+      "precision": "as printed in original exposed summary; not an expected exact value"
+    },
+    {
+      "name": "float64:soft:0.0 reported identical reruns",
+      "pointer": "/conditions/heldout/float64:soft:0.0/reported_rerun_identical_count",
+      "reported": 96,
+      "source": "repro-task-log-card-and-results.md",
+      "source_lines": "27",
+      "unit": "instances",
+      "precision": "as printed in original exposed summary; not an expected exact value"
+    },
+    {
+      "name": "float64:soft:0.0 distance step1 median",
+      "pointer": "/conditions/heldout/float64:soft:0.0/distance/by_step/0/median",
+      "reported": 4.7e-15,
+      "source": "repro-task-log-card-and-results.md",
+      "source_lines": "22",
+      "unit": "relative distance",
+      "precision": "as printed in original exposed summary; not an expected exact value"
+    },
+    {
+      "name": "float64:soft:0.0 distance step32 median",
+      "pointer": "/conditions/heldout/float64:soft:0.0/distance/by_step/31/median",
+      "reported": 1.3e-13,
+      "source": "repro-task-log-card-and-results.md",
+      "source_lines": "22",
+      "unit": "relative distance",
+      "precision": "as printed in original exposed summary; not an expected exact value"
+    },
+    {
+      "name": "float64:soft:0.2 canonical_disagreement_percent",
+      "pointer": "/conditions/heldout/float64:soft:0.2/canonical_disagreement_percent",
+      "reported": 0.0,
+      "source": "repro-task-log-card-and-results.md",
+      "source_lines": "23",
+      "unit": "percent",
+      "precision": "as printed in original exposed summary; not an expected exact value"
+    },
+    {
+      "name": "float64:soft:0.2 layouts/single/accuracy",
+      "pointer": "/conditions/heldout/float64:soft:0.2/layouts/single/accuracy",
+      "reported": 0.51,
+      "source": "repro-task-log-card-and-results.md",
+      "source_lines": "23",
+      "unit": "fraction",
+      "precision": "as printed in original exposed summary; not an expected exact value"
+    },
+    {
+      "name": "float64:soft:0.2 layouts/batch4/accuracy",
+      "pointer": "/conditions/heldout/float64:soft:0.2/layouts/batch4/accuracy",
+      "reported": 0.51,
+      "source": "repro-task-log-card-and-results.md",
+      "source_lines": "23",
+      "unit": "fraction",
+      "precision": "as printed in original exposed summary; not an expected exact value"
+    },
+    {
+      "name": "float64:soft:0.2 reported identical reruns",
+      "pointer": "/conditions/heldout/float64:soft:0.2/reported_rerun_identical_count",
+      "reported": 96,
+      "source": "repro-task-log-card-and-results.md",
+      "source_lines": "27",
+      "unit": "instances",
+      "precision": "as printed in original exposed summary; not an expected exact value"
+    },
+    {
+      "name": "float64:soft:0.2 distance step1 median",
+      "pointer": "/conditions/heldout/float64:soft:0.2/distance/by_step/0/median",
+      "reported": 6.4e-15,
+      "source": "repro-task-log-card-and-results.md",
+      "source_lines": "23",
+      "unit": "relative distance",
+      "precision": "as printed in original exposed summary; not an expected exact value"
+    },
+    {
+      "name": "float64:soft:0.2 distance step32 median",
+      "pointer": "/conditions/heldout/float64:soft:0.2/distance/by_step/31/median",
+      "reported": 5e-15,
+      "source": "repro-task-log-card-and-results.md",
+      "source_lines": "23",
+      "unit": "relative distance",
+      "precision": "as printed in original exposed summary; not an expected exact value"
+    },
+    {
+      "name": "float64:soft:0.4 canonical_disagreement_percent",
+      "pointer": "/conditions/heldout/float64:soft:0.4/canonical_disagreement_percent",
+      "reported": 0.0,
+      "source": "repro-task-log-card-and-results.md",
+      "source_lines": "24",
+      "unit": "percent",
+      "precision": "as printed in original exposed summary; not an expected exact value"
+    },
+    {
+      "name": "float64:soft:0.4 layouts/single/accuracy",
+      "pointer": "/conditions/heldout/float64:soft:0.4/layouts/single/accuracy",
+      "reported": 0.958,
+      "source": "repro-task-log-card-and-results.md",
+      "source_lines": "24",
+      "unit": "fraction",
+      "precision": "as printed in original exposed summary; not an expected exact value"
+    },
+    {
+      "name": "float64:soft:0.4 layouts/batch4/accuracy",
+      "pointer": "/conditions/heldout/float64:soft:0.4/layouts/batch4/accuracy",
+      "reported": 0.958,
+      "source": "repro-task-log-card-and-results.md",
+      "source_lines": "24",
+      "unit": "fraction",
+      "precision": "as printed in original exposed summary; not an expected exact value"
+    },
+    {
+      "name": "float64:soft:0.4 reported identical reruns",
+      "pointer": "/conditions/heldout/float64:soft:0.4/reported_rerun_identical_count",
+      "reported": 96,
+      "source": "repro-task-log-card-and-results.md",
+      "source_lines": "27",
+      "unit": "instances",
+      "precision": "as printed in original exposed summary; not an expected exact value"
+    },
+    {
+      "name": "float64:soft:0.4 distance step1 median",
+      "pointer": "/conditions/heldout/float64:soft:0.4/distance/by_step/0/median",
+      "reported": 3.5e-15,
+      "source": "repro-task-log-card-and-results.md",
+      "source_lines": "24",
+      "unit": "relative distance",
+      "precision": "as printed in original exposed summary; not an expected exact value"
+    },
+    {
+      "name": "float64:soft:0.4 distance step32 median",
+      "pointer": "/conditions/heldout/float64:soft:0.4/distance/by_step/31/median",
+      "reported": 1.7e-15,
+      "source": "repro-task-log-card-and-results.md",
+      "source_lines": "24",
+      "unit": "relative distance",
+      "precision": "as printed in original exposed summary; not an expected exact value"
+    },
+    {
+      "name": "float64:greedy:None canonical_disagreement_percent",
+      "pointer": "/conditions/heldout/float64:greedy:None/canonical_disagreement_percent",
+      "reported": 0.0,
+      "source": "repro-task-log-card-and-results.md",
+      "source_lines": "25",
+      "unit": "percent",
+      "precision": "as printed in original exposed summary; not an expected exact value"
+    },
+    {
+      "name": "float64:greedy:None layouts/single/accuracy",
+      "pointer": "/conditions/heldout/float64:greedy:None/layouts/single/accuracy",
+      "reported": 0.0,
+      "source": "repro-task-log-card-and-results.md",
+      "source_lines": "25",
+      "unit": "fraction",
+      "precision": "as printed in original exposed summary; not an expected exact value"
+    },
+    {
+      "name": "float64:greedy:None layouts/batch4/accuracy",
+      "pointer": "/conditions/heldout/float64:greedy:None/layouts/batch4/accuracy",
+      "reported": 0.0,
+      "source": "repro-task-log-card-and-results.md",
+      "source_lines": "25",
+      "unit": "fraction",
+      "precision": "as printed in original exposed summary; not an expected exact value"
+    },
+    {
+      "name": "float64:greedy:None reported identical reruns",
+      "pointer": "/conditions/heldout/float64:greedy:None/reported_rerun_identical_count",
+      "reported": 96,
+      "source": "repro-task-log-card-and-results.md",
+      "source_lines": "27",
+      "unit": "instances",
+      "precision": "as printed in original exposed summary; not an expected exact value"
+    },
+    {
+      "name": "float64 soft0 distance step32 maximum",
+      "pointer": "/conditions/heldout/float64:soft:0.0/distance/by_step/31/max",
+      "reported": 1.7e-09,
+      "source": "repro-task-log-card-and-results.md",
+      "source_lines": "22",
+      "unit": "relative distance",
+      "precision": "as printed in original exposed summary; not an expected exact value"
+    },
+    {
+      "name": "mechanism 0.0 pooled median growth",
+      "pointer": "/mechanism_summaries/0.0/all_deltas/distance/growth/median",
+      "reported": 0.03,
+      "source": "repro-task-log-card-and-results.md",
+      "source_lines": "31",
+      "unit": "nats per step",
+      "precision": "as printed in original exposed summary; not an expected exact value"
+    },
+    {
+      "name": "mechanism 0.0 canonical changes",
+      "pointer": "/mechanism_summaries/0.0/all_deltas/canonical_disagreement_count",
+      "reported": 0,
+      "source": "repro-task-log-card-and-results.md",
+      "source_lines": "34",
+      "unit": "perturbation observations",
+      "precision": "as printed in original exposed summary; not an expected exact value"
+    },
+    {
+      "name": "mechanism 0.2 pooled median growth",
+      "pointer": "/mechanism_summaries/0.2/all_deltas/distance/growth/median",
+      "reported": -0.14,
+      "source": "repro-task-log-card-and-results.md",
+      "source_lines": "32",
+      "unit": "nats per step",
+      "precision": "as printed in original exposed summary; not an expected exact value"
+    },
+    {
+      "name": "mechanism 0.2 canonical changes",
+      "pointer": "/mechanism_summaries/0.2/all_deltas/canonical_disagreement_count",
+      "reported": 0,
+      "source": "repro-task-log-card-and-results.md",
+      "source_lines": "34",
+      "unit": "perturbation observations",
+      "precision": "as printed in original exposed summary; not an expected exact value"
+    },
+    {
+      "name": "mechanism 0.4 pooled median growth",
+      "pointer": "/mechanism_summaries/0.4/all_deltas/distance/growth/median",
+      "reported": -0.1,
+      "source": "repro-task-log-card-and-results.md",
+      "source_lines": "33",
+      "unit": "nats per step",
+      "precision": "as printed in original exposed summary; not an expected exact value"
+    },
+    {
+      "name": "mechanism 0.4 canonical changes",
+      "pointer": "/mechanism_summaries/0.4/all_deltas/canonical_disagreement_count",
+      "reported": 0,
+      "source": "repro-task-log-card-and-results.md",
+      "source_lines": "34",
+      "unit": "perturbation observations",
+      "precision": "as printed in original exposed summary; not an expected exact value"
+    }
+  ],
+  "resource_limits": {
+    "worker_cpu_threads": 1,
+    "supervisor_slots": 1,
+    "nice": 10,
+    "address_space_bytes": 1073741824,
+    "wall_seconds": 60,
+    "cpu_seconds": 55,
+    "output_bytes": 16777216,
+    "startup_mem_available_bytes": 21474836480,
+    "runtime_mem_available_bytes": 17179869184
+  },
+  "measurement": {
+    "synthetic_full_shape_profile": {
+      "path": "/tmp/task26a-arithmetic-preparation/synthetic-profile.json",
+      "sha256": "0de9bca8ef1ac79e0f76737d18505bb691815a234a365ffc43fe07f84c47e682",
+      "bytes": 446
+    },
+    "synthetic_external_time": {
+      "path": "/tmp/task26a-arithmetic-preparation/synthetic-profile.time.txt",
+      "sha256": "286af6916edb9524f0266fb26d39b6951d39494ad8a672db6be0b54620a61a0b",
+      "bytes": 839
+    },
+    "scope": "One synthetic832+54+208-record profile, eight10000-draw endpoints, through serialization; no target profile.",
+    "input_unique_bytes": 1355040,
+    "target_jsonl_bytes": 991451,
+    "planning_limitations": "Synthetic values/timing are a cost estimate, not a worst-case guarantee; original metadata hashing report supplies observed IO."
+  },
+  "scope_limits": [
+    "Own parsing/statistics of complete saved records, no producer/model execution or new generation.",
+    "Canonical integer disagreement is primary; saved answers_differ is raw-text disagreement.",
+    "All96 frozen problem indices retained, including source-known duplicates/overlaps and one previously smoke-tested held-out instance of unidentified index.",
+    "Eight development instances are not held-out endpoints; mechanism contains six problem units with three dependent perturbations per temperature.",
+    "Separate seed0 PCG64 bootstrap/sign-flip; linear quantiles; plus-one and raw p retained. Producer inline RNG code unavailable.",
+    "Original full trajectory and answer token IDs unavailable; exact trajectory and hard-token flags remain reviewed-source claims.",
+    "BF16 soft distances are on float32 expected embeddings before bf16 input cast; no post-cast state-distance reconstruction.",
+    "Forced32 greedy tokens plus cue plus8 answer tokens is the comparator, not early-stop greedy accuracy.",
+    "Growing context differs from fixed one-slot autonomous map; finite operational effect does not establish chaos attribution.",
+    "Producer numerical summary exposed before replay; no claim of blinded validation or independently reconstructed historical remote model bytes."
+  ]
+}

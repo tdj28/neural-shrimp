@@ -1,0 +1,21 @@
+# Task 26(a) independent saved-data release
+
+Scientific source reduce.py f43f98e9f48cb4d3f2419c424417d775f7a4165078bc11b0b652e72dba3fb8d9 and driver run.py 03f7a7eddfcc9faa94720e748a5d05c195ef4d16e815669273b9d10d700b57a7 are Root-accepted. The prepared card c89972a379e328286c52251cd395ef7a1d56eb95561218c8f2ffb9d6ef5ba6f4 pins 23 inputs totaling 1,355,040 unique bytes, including two original scientific JSONLs totaling 991,451 bytes. No target JSONL has been decoded in preparation. Inference alone owns adoption, private source/card checkpoint, supervision, fresh capacity admission and actual launch.
+
+CLI: python -I -B run.py --card REVIEWED_CARD --out FRESH_DIRECTORY. The driver explicitly loads only its adjacent own reducer. It requires an admitted card, exact own source hashes, all input hashes and original authority bindings; every input is rehashed after arithmetic. It creates the output directory exclusively and can write failure.json only after this invocation successfully created it. Successful output is report.json and a one-report manifest.json. Computational completion is separate from scientific positivity and saved-field consistency.
+
+The full report retains all832 pipeline rows,54 mechanism rows,208 progress coverage, every32-step distance, all canonical outcomes, source-field mismatches, eight paired contrasts, all bootstrap and sign-flip integer sums, all56 producer comparisons, individual growth values/undefined cases and summary extrema. It does not contain reconstructed trajectories, answer token IDs or model calls.
+
+## Published-claim comparison contract
+
+The 56 exact pointers and printed values are in prepared-card.json, producer_comparisons. They comprise five primary comparisons (contrast, two interval ends, plus-one p and raw p),24 per-condition disagreement/accuracy comparisons, eight reported rerun-count comparisons,12 distance-median comparisons, one distance maximum, and six mechanism growth/change comparisons. All are attributed to the already-exposed source-bound producer summary and its line numbers. They are not expected-value admission gates. Every finite signed difference is saved even if it is only rounding; an undefined independent quantity remains explicit with no fabricated difference. Printed rounded numbers cannot by themselves prove bit-exact agreement with unavailable producer inline statistics.
+
+The accepted source/statistical review is /tmp/task26a-source-statistical-review.md, SHA0691f8b90a62e3b0f6484c83cf7f2a7dab327ca5b5abeb74e1af2c8a41d51370. loader-review.md separately closes the original source initializer/precision path without rewriting that accepted note. The reviewed independent Monte Carlo convention remains PCG64 seed0,10,000 paired resamples, linear quantiles, independent reset for inclusive two-sided integer-sum sign flips, both raw and plus-one p values.
+
+## Focused validation and resources
+
+Twelve initial synthetic controls passed in0.154s. Root's prospective output-ownership/timing correction adds one focused existing-directory refusal control; a later None-summary comparison correction adds one focused undefined-comparison control. Each passed; unchanged arithmetic controls were not repeated. Original driver/control versions and correction history are retained. There has been no failed actual target attempt.
+
+One whole-shape synthetic cost check covers832+54+208 generated records and all eight10,000-draw endpoints. It took0.165488s through serialization; external total was0.30s with77,692KiB peak RSS. Its science report would occupy3,107,443 bytes. The actual card proposes CPU1 plus supervisor, one numerical thread,nice10,1GiB AS,60s wall/55s CPU,16MiB output,20GiB startup and16GiB runtime available-memory floors. Synthetic timing/output is measured planning evidence, not a worst-case guarantee. The actual driver labels its internal timing/RSS observations as before final input rehash, serialization and output write; the external supervisor supplies full execution measurements.
+
+No source changes, automatic retries, target timing profile, model execution, producer imports, remote queries, GPU/pod operations or statistical convention tuning are authorized by this preparation packet.
