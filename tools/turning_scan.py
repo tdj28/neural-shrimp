@@ -108,6 +108,7 @@ def main():
     ap.add_argument("--chunk", type=int, default=256)
     ap.add_argument("--threads", type=int, default=8)
     ap.add_argument("--device", default="cpu")
+    ap.add_argument("--save", action="store_true", help="also save every phase's projection s (projections.npz)")
     ap.add_argument("--out", required=True)
     args = ap.parse_args()
 
@@ -127,6 +128,7 @@ def main():
     out.mkdir(parents=True, exist_ok=True)
     tic = time.perf_counter()
     results = []
+    saved = {}
     for s0 in range(0, len(cells), args.chunk):
         part = cells[s0:s0 + args.chunk]
         steer = np.array([c[1] * v for c in part])
@@ -154,6 +156,8 @@ def main():
                 _, sv, vt = np.linalg.svd(Pc, full_matrices=False)
                 expl = float(sv[0] ** 2 / max(np.sum(sv ** 2), 1e-300))
                 sproj = Pc @ vt[0]
+                if args.save:
+                    saved[f"c{s0 + k}_p{ph}"] = sproj.astype(np.float32)
                 _, cy = return_curve(sproj, args.bins)
                 phases.append({"phase": ph, "explained": expl, "turning": count_turning(cy, args.prominence),
                                "spread": float(np.ptp(sproj))})
@@ -167,6 +171,8 @@ def main():
         with open(out / "progress.jsonl", "a") as f:
             f.write(line + "\n")
         (out / "turning.json").write_text(json.dumps({"args": vars(args), "cells": results}, indent=1))
+        if args.save:
+            np.savez_compressed(out / "projections.npz", **saved)
 
 
 if __name__ == "__main__":

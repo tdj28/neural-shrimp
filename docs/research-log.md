@@ -24806,3 +24806,5 @@ Calibration pod gph9d63z34azcl (SECURE H200; runner rc 0). First 200 BPC prompts
   - Labels: 2 shards per direction, batched as in BPC.
   - Generation: one pod per direction, 50 prompts per chunk.
   - The unsteered condition is BPC's own data for these prompts.
+
+## 2026-10-15 08:59 UTC: BPCS analysis script committed before its data: tools/bpcs_analyze.py (within-prompt fixed-effects model, within-prompt permutation; tests/test_bpcs_analyze.py: 2 pass)
