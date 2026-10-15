@@ -63,7 +63,7 @@ def main():
                       ticks=[-1.0, -0.75, -0.5, -0.25, 0.0, 0.1, 0.2, 0.3, 0.4, 0.5])
     cb.ax.set_yticklabels(["$\\leq -1$", "$-0.75$", "$-0.5$", "$-0.25$", "0", "0.1", "0.2", "0.3", "0.4", "$\\geq 0.5$"],
                           fontsize=8)
-    cb.set_label("largest Lyapunov exponent per step (grey: not chaotic; colour: chaotic)", fontsize=9)
+    cb.set_label("largest Lyapunov exponent per step (gray: not chaotic; color: chaotic)", fontsize=9)
     base = ela.DATA / "explore" / CURVES
     for d in sorted(base.glob("curve-*")):
         c = json.loads((d / "curve.json").read_text())

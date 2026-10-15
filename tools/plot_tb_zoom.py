@@ -17,7 +17,7 @@ ax = axes[0]
 ax.imshow(np.where(per, np.clip(L, -2, 0), np.nan), origin="lower", extent=ext, aspect="auto", cmap="Greys_r", vmin=-1.2, vmax=0, interpolation="nearest")
 im = ax.imshow(np.where(per, np.nan, L), origin="lower", extent=ext, aspect="auto", cmap="inferno", vmin=0, vmax=0.45, interpolation="nearest")
 fig.colorbar(im, ax=ax, fraction=0.046, label="exponent (chaotic cells)")
-ax.set_title(f"{run}: periodic cells grey (dark = strongly contracting)", fontsize=8); ax.set_xlabel("alpha1"); ax.set_ylabel("alpha2")
+ax.set_title(f"{run}: periodic cells gray (dark = strongly contracting)", fontsize=8); ax.set_xlabel("alpha1"); ax.set_ylabel("alpha2")
 ax = axes[1]
 Pm = np.where(per, P, np.nan).astype(float)
 cats = pc.categorize([Pm], max_blocks=16)

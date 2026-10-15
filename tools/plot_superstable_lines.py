@@ -204,7 +204,7 @@ def main():
         cx.legend(loc="upper right", fontsize=7)
         cx.set_xlabel("steering along 'hostility-vs-kindness'")
         cx.set_ylabel("log10 temperature")
-        cx.set_title("(c) zoom of the closest approach: where a 1D map would have its centre,\n"
+        cx.set_title("(c) zoom of the closest approach: where a 1D map would have its center,\n"
                      "the leading multipliers form a complex pair (x); white: mu = 0 between real cells", fontsize=8)
         if dss.exists():
             axes[0, 1].add_patch(plt.Rectangle((za[0], zt[0]), za[-1] - za[0], zt[-1] - zt[0], fill=False, ec="cyan",

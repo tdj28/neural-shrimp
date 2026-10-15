@@ -180,7 +180,7 @@ def main():
         side.text(0.0, 0.95, head, fontsize=16, weight="bold", va="top")
         side.text(0.0, 0.80, body, fontsize=13, va="top", linespacing=1.4)
         side.text(0.0, 0.30, "black: fold ($\\mu=+1$)\nred dashed: flip ($\\mu=-1$)\nblue dotted: superstable ($\\mu=0$)\n"
-                  "grey: one attracting fixed point\nblue: two attracting fixed points\nperiod-2 curves not drawn",
+                  "gray: one attracting fixed point\nblue: two attracting fixed points\nperiod-2 curves not drawn",
                   fontsize=10.5, va="top", color="0.25", linespacing=1.5)
         bar.set_xlim(1.0, -3.0); bar.set_ylim(0, 1); bar.set_yticks([])
         bar.axvspan(1.0, a, color="#8fb3d9")

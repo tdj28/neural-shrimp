@@ -254,7 +254,7 @@ def main():
         ax.set_xticklabels([f"block {b}\n(n={len(r)})" for b, r in zip(blk, read)], fontsize=7)
         ax.axhline(0, color="0.5", lw=0.6)
         ax.set_ylabel("mean log factor per step (nats)")
-        ax.set_title("(e) chaotic cells at log10 T <= 0 by steering block:\nreadout (orange) and network (grey) factors", fontsize=9)
+        ax.set_title("(e) chaotic cells at log10 T <= 0 by steering block:\nreadout (orange) and network (gray) factors", fontsize=9)
     ax = axes[5]
     H = DATA / "hidden"
     pts = []

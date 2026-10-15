@@ -232,7 +232,7 @@ def figure(branches, curves, located, out):
     pad1, pad2 = 4 * da1, 4 * da2
     ax.set_xlim(ext[0] - pad1, ext[1] + pad1)
     ax.set_ylim(ext[2] - pad2, ext[3] + pad2)
-    ax.set_title("(c) the curves over the continued orbit's trace (grey: repelling)", fontsize=7.5)
+    ax.set_title("(c) the curves over the continued orbit's trace (gray: repelling)", fontsize=7.5)
 
     ax = axes[3]                                   # (d) the junction of the upper leg with the body
     styles = {"curve-a1-up-fold-minus": ("k", "-", 1.6), "curve-a2-up-fold-plus": ("tab:orange", "--", 1.0)}

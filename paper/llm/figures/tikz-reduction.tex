@@ -12,7 +12,7 @@
     squeeze/.style={->, black!55, semithick},
   ]
   % ---------------- (a) local reduction at a bifurcation ----------------
-  \node[anchor=west, font=\small] at (-0.1,5.15) {(a) Local: centre manifold at a bifurcation};
+  \node[anchor=west, font=\small] at (-0.1,5.15) {(a) Local: center manifold at a bifurcation};
   % a period-q orbit of the map (q = 6), arcs: the map F
   \coordinate (oc) at (1.55,3.05);
   \foreach \ptk/\pta in {1/0,2/60,3/120,4/180,5/240,6/300} {
@@ -34,7 +34,7 @@
   \draw[black!40, fill=white] (zc) circle (\zr);
   \begin{scope}
     \clip (zc) circle (\zr-0.02);
-    % transverse directions contract onto the centre manifold (dashed: further directions of R^d)
+    % transverse directions contract onto the center manifold (dashed: further directions of R^d)
     \foreach \uu in {-1.05,0,1.05} {
       \pgfmathsetmacro{\ww}{0.24*\uu - 0.035*\uu*\uu*\uu}
       \draw[squeeze] ($(zc)+(\uu,\ww+1.15)$) -- ($(zc)+(\uu,\ww+0.17)$);
@@ -42,7 +42,7 @@
       \draw[squeeze, densely dashed] ($(zc)+(\uu+0.55,\ww+1.0)$) -- ($(zc)+(\uu+0.1,\ww+0.17)$);
       \draw[squeeze, densely dashed] ($(zc)+(\uu-0.55,\ww-1.0)$) -- ($(zc)+(\uu-0.1,\ww-0.17)$);
     }
-    % centre manifold, tangent to the critical eigenvector
+    % center manifold, tangent to the critical eigenvector
     \draw[redaccent, very thick, domain=-1.75:1.75, samples=40, smooth]
       plot ({5.05+\x}, {2.35+0.24*\x-0.035*\x*\x*\x});
   \end{scope}
@@ -76,11 +76,11 @@
 \end{tikzpicture}
 \caption{Two reductions to one dimension (Section~\ref{sec:theory}). (a) Near a bifurcation of a period-$q$ orbit of
 the soft-token map (dots; arcs: the map), the dynamics of $F^{q}$ near a point $x_1$ of the orbit reduce to its
-centre manifold $W^{c}$, tangent to the critical eigenvector of the monodromy matrix (multiplier $\mu_1=\pm1$; drawn
+center manifold $W^{c}$, tangent to the critical eigenvector of the monodromy matrix (multiplier $\mu_1=\pm1$; drawn
 with one critical direction, as at a fold, a flip or a cusp; a 1:1 resonance or a fold-flip point has two). The
 other multipliers lie off the unit circle; drawn here inside it, the transverse directions contract onto $W^{c}$
 (dashed arrows stand for the remaining dimensions). The reduction is exact near the bifurcation whatever the size of
 the other multipliers; the normal forms of folds, flips, cusps and 1:1 resonances rest on it. (b) A global scalar return map $u\mapsto f(u)$ with a quadratic extremum, the diagonal
-(dashed) and a few iterates (grey). It describes a whole attractor only when the other multipliers are small.}
+(dashed) and a few iterates (gray). It describes a whole attractor only when the other multipliers are small.}
 \label{fig:tworeductions}
 \end{figure}

@@ -1335,6 +1335,9 @@ def render(args):
                     if k in drawn_kinds]                    # only the kinds drawn on this map
         ax.set_xlim(al[0], al[-1])
         ax.set_ylim(lt[0], lt[-1])
+    if args.box:                                           # the region of a zoom shown elsewhere
+        a0, a1, t0, t1 = args.box
+        ax.add_patch(matplotlib.patches.Rectangle((a0, t0), a1 - a0, t1 - t0, fill=False, edgecolor="white", lw=1.4))
     if args.window:
         ax.set_xlim(*args.window[:2])
         ax.set_ylim(*args.window[2:])
@@ -1837,6 +1840,8 @@ def main():
     rd.add_argument("--style", default="period", choices=("period", "lyapunov"),
                     help="lyapunov: chaos coloured by the largest exponent, periodic cells in grey by contraction "
                          "(superstable curves dark), as in the shrimp literature")
+    rd.add_argument("--box", type=float, nargs=4, default=None, metavar=("ALPHA0", "ALPHA1", "LOGT0", "LOGT1"),
+                    help="outline this region on the map (e.g. the region of a zoom shown elsewhere)")
     rd.add_argument("--families", type=int, default=0,
                     help="colour the N most common attractor identities (token loops) instead of periods")
     rp = sub.add_parser("replot", help="redraw a finished scan's overview figure (scan.png) from its saved files")

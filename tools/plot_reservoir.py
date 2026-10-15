@@ -4,7 +4,7 @@ of Qwen2.5-0.5B-Instruct (philosophy, block 12, float64) across its regimes.
 (a) Along the cascade line log10 T = -0.14798: memory capacity against alpha for each input size, the twin exponent of
     the input-free map on a second axis, the float64 flips of the doubling sequence (Table tab:cascade) and the
     accumulation point alpha_inf (dotted).
-(b) The 448 labelled cells: capacity against the map exponent, coloured by label, with means in bins of the exponent
+(b) The 448 labeled cells: capacity against the map exponent, coloured by label, with means in bins of the exponent
     and bootstrap intervals over cells.
 Statistics: capacity in fixed exponent bins (deep periodic lambda <= -0.3, near zero |lambda| <= 0.05, chaotic
 lambda >= 0.1) with bootstrap intervals, the bin with the largest mean, and the Spearman correlation of capacity with
@@ -60,7 +60,7 @@ def main():
     lam = np.array([min(c["lyapunov"]) if "lyapunov" in c else np.nan for c in feig])
     axl.plot(al, lam, "-", color="0.55", lw=0.8)
     axl.axhline(0, color="0.55", lw=0.5, ls=":")
-    axl.set_ylabel("input-free twin exponent (grey)", fontsize=8)
+    axl.set_ylabel("input-free twin exponent (gray)", fontsize=8)
     for f in FLIPS:
         ax1.axvline(f, color="tab:red", lw=0.5, alpha=0.6)
     ax1.axvline(ALPHA_INF, color="k", lw=0.8, ls=":")
@@ -89,7 +89,7 @@ def main():
                  lw=1, capsize=2, label="bin mean, 95 % CI")
     ax2.axvline(0, color="k", lw=0.5, ls=":")
     ax2.set_xlabel("map exponent $\\lambda$", fontsize=8)
-    ax2.set_title(f"(b) 448 labelled cells, input {e}", fontsize=8)
+    ax2.set_title(f"(b) 448 labeled cells, input {e}", fontsize=8)
     ax2.legend(fontsize=7)
     for e in eps_keys:
         mc = np.array([c["capacity"][e]["mc"] for c in h2])

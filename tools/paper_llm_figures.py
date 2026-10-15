@@ -57,7 +57,7 @@ def window_law(plt):
     N = np.array([p // 2 - 3 for p in centres])                   # laps of the 'is it' channel: k - 2, period 2k+2
     d = np.array([centres[p] - alpha_c for p in centres])
     fig, ax = plt.subplots(figsize=(5.4, 4.0))
-    ax.plot(N, 1 / np.sqrt(d), "o", color="C0", label="stripe centres (fine cut)")
+    ax.plot(N, 1 / np.sqrt(d), "o", color="C0", label="stripe centers (fine cut)")
     n = np.linspace(1, 8, 50)
     ax.plot(n, np.sqrt(ab) * n / np.pi, "-", color="0.3", lw=1, label=r"full passage $\sqrt{ab}\,N/\pi$")
     ax.plot(n, 2 * np.sqrt(ab) * n / np.pi, "--", color="0.5", lw=1, label=r"half passage $2\sqrt{ab}\,N/\pi$")

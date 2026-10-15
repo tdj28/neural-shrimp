@@ -123,7 +123,7 @@ def main():
         ax.set_xlabel(r"$s_n$", fontsize=8)
         report.append({"cell": title, "phase": ph})
     fig.suptitle("Cobwebs on the 7-step return map of the hostility-steered loop (Qwen2.5-0.5B, alpha 0.0655 unless "
-                 "stated): grey, visits of one phase; red, the cobweb; blue, the attracting cycle", fontsize=9)
+                 "stated): gray, visits of one phase; red, the cobweb; blue, the attracting cycle", fontsize=9)
     fig.tight_layout()
     fig.savefig(args.out)
     print(json.dumps(report, indent=1))

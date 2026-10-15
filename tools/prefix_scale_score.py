@@ -97,7 +97,7 @@ def main():
         a.axvspan(-0.5, 1.5, color="0.93", zorder=0)
         a.set_xticks(range(10))
         a.set_xlim(-0.5, 9.5)
-        a.set_xlabel("prefix (grey: development, 0-1; held out: 2-9)")
+        a.set_xlabel("prefix (gray: development, 0-1; held out: 2-9)")
     ax.set_ylabel("chaotic temperatures in stage 1 (of 48)")
     ax.legend(fontsize=8, frameon=False, loc="upper left")
     bx.set_ylabel("log10 T of the chaotic temperatures")

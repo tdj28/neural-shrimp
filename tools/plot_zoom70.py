@@ -88,7 +88,7 @@ def main():
     cb = fig.colorbar(im, ax=ax, fraction=0.04, pad=0.02, ticks=[-1.0, -0.75, -0.5, -0.25, 0.0, 0.1, 0.2, 0.3, 0.4, 0.5])
     cb.ax.set_yticklabels(["$\\leq -1$", "$-0.75$", "$-0.5$", "$-0.25$", "0", "0.1", "0.2", "0.3", "0.4", "$\\geq 0.5$"],
                           fontsize=7)
-    cb.set_label("largest Lyapunov exponent per step\n(grey: not chaotic; colour: chaotic)", fontsize=8)
+    cb.set_label("largest Lyapunov exponent per step\n(gray: not chaotic; color: chaotic)", fontsize=8)
     ax.set_title(f"largest exponent; chaotic {100 * chaotic.mean():.0f} % of {L.size} cells", fontsize=9)
     periodic = P > 0
     unresolved = ~periodic & ~chaotic
@@ -99,7 +99,7 @@ def main():
     bx.imshow(img, origin="lower", extent=ext, aspect="auto", interpolation="nearest")
     cb2 = cats.colorbar(ax=bx, fraction=0.04, pad=0.02)
     cb2.set_label("period (periodic cells)", fontsize=8)
-    bx.set_title(f"period (black: chaotic; light grey: no period up to 32 and no positive exponent, "
+    bx.set_title(f"period (black: chaotic; light gray: no period up to 32 and no positive exponent, "
                  f"{100 * unresolved.mean():.0f} %)", fontsize=9)
     for a in (ax, bx):
         a.set_xlabel("steering strength alpha (hostility concept vector, layer 50)")

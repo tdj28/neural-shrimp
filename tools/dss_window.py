@@ -142,7 +142,7 @@ def figure(z, tb, out, title):
     ax.contour(a1, a2, np.where(ok, t, np.nan), levels=[0], colors="k", linewidths=0.8)
     ax.contour(a1, a2, np.where(ok, mod1, np.nan), levels=[1], colors="m", linewidths=1.0)
     ax.set_title(f"({'b' if k else 'a'}) continued period-{len(z['seed_tokens'])} orbit: trace (black: zero; "
-                 "magenta: |mu1| = 1; grey: repelling)", fontsize=7.5)
+                 "magenta: |mu1| = 1; gray: repelling)", fontsize=7.5)
     ax = axes[k + 1]
     im = ax.imshow(np.where(ok, np.log10(mod1), np.nan), origin="lower", extent=ext, aspect="auto", cmap="viridis",
                    vmin=-2, vmax=0.3, interpolation="nearest")
