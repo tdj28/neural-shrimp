@@ -24485,3 +24485,10 @@ Pod grbl0g13hht0nk (SECURE H100 NVL; runner rc 0, hash verified, terminated; 270
 - **Ratio.** (s192 - s96) / (s384 - s192) = **4.66459**. Over the corners of the three brackets it stays 4.66459 to five decimals, a deviation from delta of -0.0046.
 - **Superstable ratios at -0.156:** 10.21, 3.713, 4.572, 4.643, 4.6646.
 - **P-F2** (frozen 01:30 UTC; the last two superstable ratios at a new temperature at least 4.436). Holds with 4.643 (within [4.639, 4.647]) and 4.6646, both resolved well enough to score. This replaces the earlier pair, whose first ratio depended on the wide s24 bracket.
+
+## 2026-10-15 07:27 UTC: Local cross-check of the 384->768 flip at -0.156 (RTX 2000 Ada): located cleanly, 9e-14 from the H100 estimate
+
+The local run (scratch fb768b.sh, started 05:14, code before --g-accept; output cascade/crescent-t-0.156-d) needed 5 evaluations. It ended at alpha = 0.06510347354866666 with mu + 1 = -3.7e-9, accepted under the original 1e-6 criterion; next modulus 3.2e-13, Newton residual 3e-11.
+- The H100 root from the least-squares line through its evaluations (FBD) is 0.06510347354857382: 9.3e-14 lower, inside its stated band of +-2.3e-13.
+- Fifth flip ratio with the local root: 4.66731 (H100 estimate 4.66733).
+- The paper's table now gives the local value; the H100 value is the cross-check.

@@ -1087,9 +1087,11 @@ period-6 orbit near $\alpha\approx0.0657$, so that cut has no complete cascade. 
 on where a cut crosses the crescent, and we withdraw the crossover explanation. The later ratios at $-0.156$ behave as
 universality requires. The next ratios are $3.124$, $4.4988$, $4.6208$, $4.6618$ and $4.6673$. Their deviations from
 $\delta=4.6692$ are $-1.55$, $-0.17$, $-0.048$, $-0.0074$ and $-0.0019$, and from the third on each step closes the gap
-by a factor of 3.5 to 6.5. The last flip, of the period-384 orbit, lies at the precision floor of its multiplier, a
-product of 384 step Jacobians. Near the root the computed $\mu+1$ scatters by $1.8\times10^{-5}$ about a straight line
-in $\alpha$, which places the flip within $\pm2.3\times10^{-13}$ and the ratio between $4.6672$ and $4.6675$. The
+by a factor of 3.5 to 6.5. The last flip, of the period-384 orbit, approaches the precision floor of its multiplier,
+a product of 384 step Jacobians. On an H100 the computed $\mu+1$ scatters by $1.8\times10^{-5}$ about a straight line
+near the root, which places the flip within $\pm2.3\times10^{-13}$. The workstation GPU located it at
+$\alpha=0.06510347354866666$ with $|\mu+1|=4\times10^{-9}$, $9\times10^{-14}$ from the H100 estimate. Over that range the
+ratio lies between $4.6672$ and $4.6675$. The
 superstable points along the same cut, through period 384, give the ratios $10.21$, $3.713$, $4.572$, $4.643$ and
 $4.6646$. Before computing them we fixed the prediction that the last two superstable ratios at a new temperature
 would lie within 5\,\% of $\delta$. Both do. The last, $4.6646$, rests on parameters resolved to $5\times10^{-15}$ and
@@ -1150,14 +1152,13 @@ $n$ & orbit & flip parameter $\alpha_n$ & next modulus & ratio $\delta_n$ \\
 5 & $48\to96$ & $0.0651027289524$ & $1.8\times10^{-13}$ & $4.6208$ \\
 6 & $96\to192$ & $0.0651033196816$ & $2.9\times10^{-14}$ & $4.6618$ \\
 7 & $192\to384$ & $0.0651034463988$ & $1.5\times10^{-14}$ & $4.6673$ \\
-8 & $384\to768$ & $0.0651034735486$ & ${<}10^{-12}$ & \\
+8 & $384\to768$ & $0.0651034735487$ & $3.2\times10^{-13}$ & \\
 \bottomrule
 \end{tabular}
 \caption{Flips of the crescent's doubling sequence along $\log_{10}T=-0.156$, in float64. Flips 1--3 were computed on
-an H100, flips 3--7 on a workstation GPU (NVIDIA RTX 2000 Ada) and flip 8 on an H100; the two computations of flip 3
-agree to $4\times10^{-16}$. Every critical multiplier is real. Through flip 7 it differs from $-1$ by at most
-$5\times10^{-8}$; flip 8 is located from twelve evaluations at the precision floor of the period-384 multiplier (see
-text), within $\pm2.3\times10^{-13}$.}
+an H100 and flips 3--8 on a workstation GPU (NVIDIA RTX 2000 Ada); the two computations of flip 3 agree to
+$4\times10^{-16}$, and an H100 computation of flip 8 from its evaluations at the multiplier's precision floor lies
+$9\times10^{-14}$ away. Every critical multiplier is real and differs from $-1$ by at most $5\times10^{-8}$.}
 \label{tab:cascade156}
 \end{table}
 Not every doubling leads to chaos. In the high-temperature region (Figure~\ref{fig:p4}), along
