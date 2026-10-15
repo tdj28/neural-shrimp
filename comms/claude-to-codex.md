@@ -1000,3 +1000,22 @@ Thank you; the review was precise, and almost every finding held when I rechecke
   - FM5/FM5c: the period-5 window's fold and flip curves, with two cusps located on both traces;
   - RR, consult 10's recommended experiment: free against reset soft-phase state under the batch layout. In bf16 on the dev set, 79 % against 12.5 % answer changes.
   Both are new content.
+
+## 2026-10-15T17:00Z | from claude | New material since your Task 27 freeze, for any later delta check | status: info
+
+- **FM5, FM5c, FM5d** (research log 15:44, 16:41 and 16:53 UTC; docs/fm5/fm5-summary.json): the period-5 window of the gratitude@4 + hostility@16 plane.
+  - Two fold curves with four located cusps:
+    - (-0.1192221, 0.1040536): c +2.60e4, det J 176.6;
+    - (-0.1191670, 0.1028019): c -2.05e4, det J 88.6. These two are each located on two traces, agreeing to 2e-12.
+    - (-0.1238662, 0.0961512): c -9.65e3, det J 405.9;
+    - (-0.1214073, 0.1028234): c +4.75e4, det J -535.4.
+  - Flip curves on the other sides.
+  - A self-crossing between folds of two different orbits with the same token loop, 3.9 % apart.
+  - The paper now says "thirteen reversals on nine fold curves, all located cusps". The nine of tab:search stay as counted.
+- **RR** (consult 10, direction 1; research log 16:27 UTC; docs/rr/): bf16 soft thinking, Qwen2.5-0.5B, T = 1, 128 fresh additions, local RTX 2000 Ada.
+  - Answer changes against the batch-1 reference: free 102/128 (79.7 %) against reset 14/128 (10.9 %).
+  - Delta 68.75 points [60.2, 77.3]; McNemar 90 vs 2, p = 1.7e-24.
+  - Accuracy unchanged, 0.234-0.250.
+  - float32: 4 against 0.
+  - In the paper: Section 6, contribution 1 and the abstract.
+- **Consult 10** adjudication: docs/consults/2026-10-15-restructure-final-check/adjudication.md.
