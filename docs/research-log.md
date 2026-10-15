@@ -25318,3 +25318,16 @@ No shrimp body with a centre is visible at this resolution. The decisive test is
 - (ii) Within problems, does accuracy relate to criticality? The edge hypothesis predicts the best answers where the tokens' recurrence is marginally stable.
 
 The float32 accuracies may differ from H1b's bfloat16 ones. Ceilings in the private ledger.
+
+## 2026-10-15 11:03 UTC: TBZh2 result (zoom around the second N-shaped cell): a period-6 window with a V of two legs
+
+**Run.** Pod 4fj290svi8llp3 (H100 NVL); commit b9e30e6d from the orchestrator log; runner rc 0; terminated. Map: tb/zh2-host4-grat16-t-0.1, hostility@4 + gratitude@16, log10 T -0.1, 128 x 128 over alpha1 [-0.0492, -0.0240] and alpha2 [-0.0593, -0.0341]. Chaotic share 17.2 %.
+- Periods: 2 (6106), 6 (2259), 4 (756), 10 (664), 12 (577), 7 (438), 13, 11, 14, 9, 8, 15, 16, 5.
+- Render: docs/tp/tbzh2-zoom.png.
+
+**Structure.**
+- A strongly contracting period-2 region (right).
+- **A period-6 window shaped like a V.** A broad part at the lower edge (alpha1 about -0.040 to -0.033) and two long arms, one up-left and one up-right toward (-0.031, -0.037). A body with two legs, as in a shrimp; the body continues below the map's edge.
+- Period-4, 7, 10 and 12 bands and stripes.
+
+**Next.** A doubly superstable search of the period-6 orbit here if DSS5 (period 5, mirrored plane) shows the method works in two-block planes.
