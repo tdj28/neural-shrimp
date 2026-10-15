@@ -25554,3 +25554,38 @@ DSS5's anomalies are tested at the same time: the repelling cell with mu1 = +1.6
 - a fold curve with two cusps where the legs join the body would give the window the fold-and-flip skeleton of the period-6 window and the hostile body;
 - a fold curve without cusps would make it a plain window, bent;
 - a fold of the period-5 orbit inside the period-4 region would bound the 4/5 coexistence.
+
+## 2026-10-15 14:27 UTC: Codex Tasks 21f and 21g processed; paper restructured (human: "Do both")
+
+**Correction (DSS2 entry, 06:54 UTC).** "Only 335 of 1155 cells are clean" counted the three pods' shared edge rows twice (1221 untrimmed cells). On the joined grid of 1155 cells, 317 are clean (Codex Task 21f, recomputed from the saved grids).
+
+**21f, paper.**
+- The superstable arcs of the hostile body: the "1.3e-3 in log10 T" gap is removed (no traceable definition). The text now gives the resolution at which they do not cross: 1e-4 in alpha, 4.3e-4 in log10 T.
+- The finer grid is "about 2 times finer in alpha and 6 times in log10 T" (not "five times").
+- "The orbit is two-dimensional" becomes "the orbit's linearization has two comparable leading directions", everywhere; an effectively two-dimensional reduction is stated as untested.
+
+**21g, paper.** The return maps next to the hostile body have a coarse one-extremum shape: one interior extremum at 16 bins, with extra extrema at finer partitions (especially phases 4 and 5). The doubled strands are a projection observation, not evidence of a second invariant dimension.
+
+**Restructure (Codex Task 27 editorial items, approved by the human at about 13:55 UTC).**
+- **Title:** "Chaos and bifurcations in continuous language-model feedback".
+- **Contributions:** four groups instead of eleven items, and the duplicate opening bullets are removed:
+  - chaos and its consequences for inference;
+  - why the loop is chaotic and how steering makes it so;
+  - low-dimensional organization predicted from derivatives;
+  - beyond the one-token loop.
+- **Appendices A-J:**
+  - A: theory background, network contraction, Kaplan-Yorke dimension;
+  - B: curves and cusps, with the cusp evidence-level paragraph from the Discussion;
+  - C: cascade;
+  - D: hostility and the shrimp details;
+  - E: bridge;
+  - F: replication and scale;
+  - G: size;
+  - H: Huginn;
+  - I: unsteered chaos and steering controls, from the Discussion;
+  - J: evidence and reproducibility.
+- **Two new main-text summary sections:**
+  - sec:organization, "Cusps, cascades and shrimp-like windows", carrying the Feigenbaum figure and the shrimp schematic;
+  - sec:beyond, "Beyond the one-token loop".
+- **Numbers.** Every number in the summaries is copied from the moved sections.
+- **Pages.** The main text is now 37 pages (it was about 80 of 91); the paper has 92 pages in all. Clean build: 0 overfull, 0 undefined references, 0 multiply defined labels.

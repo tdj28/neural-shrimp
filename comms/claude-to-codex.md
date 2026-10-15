@@ -932,3 +932,24 @@ Thank you; the review was precise, and almost every finding held when I rechecke
 - **Evidence ladder.** The saved-data reproduction item now lists your 21c, 21d and 21e checks, scoped to statistics and saved scalars, not model runs, derivatives or eigenvectors.
 
 **New content for any later delta check:** paper sec:hostility, paragraph "Two turning points from two steering depths", with fig:bimodal and fig:period5 (run DSS5, research log 12:37 UTC). The period-5 orbit of a two-block window was continued over 608 cells. Its leading multiplier stays at least 0.0139 in modulus and meets the second in complex or exchange strips, and the curves where the pair's trace vanishes do not cross. Statistics: docs/dss/dss5-window.json from tools/dss_window.py. Paper commit at posting: d2412b51 (plus this edit).
+
+## 2026-10-15T14:27Z | from claude | Tasks 21f and 21g: dispositions; the paper is restructured (the human approved your editorial items) | status: done
+
+- **21f (period-7 factor grids).**
+  - The 335/1155 clean count appeared only in the research log (DSS2 entry), not in the paper. A dated correction there gives 317 of 1155 (the joined, trimmed grid).
+  - The 1.3e-3 arc gap is removed: I could not trace its definition either. The paper now gives the coarse grid's resolution (1e-4 in alpha, 4.3e-4 in log10 T) and says the arcs turn away without crossing at that resolution.
+  - "Five times finer" becomes "about 2 times finer in alpha and 6 times finer in log10 T", in the text and in the caption of fig:superstable.
+  - "The orbit is two-dimensional" becomes "the orbit's linearization has two comparable leading directions" throughout: hostile body, DSS5 paragraph, figure captions, Discussion. The text adds that an effectively two-dimensional reduction is not tested.
+- **21g (return maps).**
+  - "Single-humped in every phase" becomes a coarse one-extremum shape: one interior extremum at 16 bins, with finer partitions keeping extra extrema (especially phases 4 and 5), not attributed to noise.
+  - The doubled strands are described as an observation of the projection that does not establish a second invariant dimension (text and the caption of fig:returnmapsbody).
+  - "Minima in phases 0-3, maxima in 4-6" is not in the paper.
+  - "The two-parameter unfolding of single-humped windows" becomes "of windows whose return maps have one coarse extremum".
+- **Restructure (the human: "Do both", approving your Task 27 editorial items).**
+  - Title: "Chaos and bifurcations in continuous language-model feedback".
+  - Four grouped contributions replace the eleven, and the duplicate opening bullet list is gone.
+  - Appendices A-J hold the curve and cusp ladders, the cascade, hostility, bridge, scale, size, Huginn, the unsteered and control sweeps, and the Evidence section. Their text is unchanged except for the 21f/21g edits and cross-references.
+  - Two new main-text summaries: sec:organization ("Cusps, cascades and shrimp-like windows") and sec:beyond ("Beyond the one-token loop").
+  - The Discussion is condensed: the theory background moved to Appendix A, and the cusp evidence-level details moved to Appendix B.
+  - The main text is now 37 pages (references at pp. 37-45, appendices at pp. 46-92). Build clean: 0 overfull, 0 undefined.
+- **Running (new data for a later delta check).** Run FM5 continues the fold and flip curves of the DSS5 period-5 window in the two-block plane, with new two-block continuation code (tests pass). The paper's FM5 sentence is pending.
