@@ -24078,3 +24078,11 @@ Pods lydg9orgs6im5q, mj69o76yur8x6d, tx5ls2s0l6g118 (SECURE; runner rc 0, hashes
   - 0.5B labels: shards 0-1 of 2;
   - 0.5B generation: one pod.
 - **Output:** `../neural-shrimp-data/explore/llm-soft-loop/pod64/bp/{q7-label-0..5, q7-gen, q05-label-0..1, q05-gen}`
+
+## 2026-10-15 05:08 UTC: KY2 result: the hostile band's chaotic attractors have Kaplan-Yorke dimensions 1.008-1.156
+
+Pod cjlui0q6npnllj (SECURE H100 NVL; runner rc 0, hash verified, terminated; 2018 s; commit f8219106). Output hidden/spectrum-ky-hostility: four exponents by QR, 1000 + 2000 steps, float64, checkpoints at 1000 and 2000 steps.
+- **The 10 percentile cells of the hostile temperature line (alpha 0.0655):**
+  - 8 are chaotic at this horizon, with D = 1.008, 1.013, 1.013, 1.045, 1.050, 1.052, 1.100 and 1.156 (lambda_1 0.008-0.141; lambda_2 -0.85 to -1.31). At 1000 steps D differs by at most 0.06 (1.111 against 1.052 at log10 T 0.18984), and by at most 0.02 in the other cells.
+  - 2 (log10 T 0.17968 and 0.18005) are not chaotic at this horizon: lambda_1 -0.007 and -0.009, with a repeated pair -0.35, -0.35 next. They are reported as such.
+- **Reading:** where the paper fits a scalar return relation (the chaos behind a repeating text), the chaotic attractors are within 0.16 of one-dimensional. At the six TC cells of the headline maps, D is 1.06-1.65.
