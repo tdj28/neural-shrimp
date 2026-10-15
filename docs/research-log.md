@@ -24371,3 +24371,57 @@ Pods 6lini88kmg7dxs, adx6wj2vsij4gd (runner rc 0, hashes verified, terminated; 3
   - Elsewhere the second modulus is small (median ratio |mu_2|/|mu_1| = 0.021).
 - **Reading.** No cell of the continued orbit comes near mu = 0, so the hook carries no superstable curve and no shrimp centre of any kind for this orbit. Its attracting region is bounded by multiplier crossings, partly through complex pairs. Together with DSS3 (seeds with complex or comparable multipliers) and the coexistence result at the strip crossing, the period-6 hook is not a shrimp.
 - Inline analysis in this session.
+
+## 2026-10-15 07:09 UTC: REPRO1 result: in float64, a batch-size change alone makes 190 of 192 chaotic cells diverge (median step 102, as the Lyapunov exponent predicts) while 182 of 192 periodic cells stay within 1e-2; in bfloat16 every cell diverges within a few steps
+
+Pod frtqm5urstn2d3 (SECURE H100 NVL; runner rc 0, hash verified, terminated; 560 s; commit dbd125a7). Output repro/h2cells. The 448 cells of docs/h2-horizon-cells.json (192 chaotic, 192 periodic, 64 other; Qwen2.5-0.5B, philosophy at block 12); 1500 steps from the fixed start. Inline analysis in this session.
+
+| comparison | label | cells reaching distance 1e-2 | median step | median final distance | ending with disagreeing tokens |
+|---|---|---|---|---|---|
+| batch, float64 | chaotic | 190 / 192 | 102 | 0.91 | 90.1 % |
+| | periodic | 10 / 192 | (92) | 2.4e-14 | 3.6 % |
+| | other | 14 / 64 | (70.5) | 3.6e-13 | 15.6 % |
+| batch, float32 | chaotic | 192 / 192 | 20.5 | 0.98 | 92.2 % |
+| | periodic | 72 / 192 | 16.5 | 2.3e-5 | 22.9 % |
+| float32 vs float64 | chaotic | 192 / 192 | 20 | 0.94 | 92.7 % |
+| | periodic | 75 / 192 | 16 | 2.5e-5 | 19.3 % |
+| batch, bfloat16 | chaotic | 192 / 192 | 2 | 1.07 | 99.5 % |
+| | periodic | 192 / 192 | 2 | 1.01 | 95.3 % |
+
+"Ending with disagreeing tokens" means the most probable tokens disagree at some step of the last 500.
+- **float64.**
+  - The first nonzero distance between the layouts is about 6e-15, the rounding level.
+  - At the chaotic cells, the step at which the distance passes 1e-2 agrees with ln(1e-2 / d_1) / lambda, with lambda the map exponent: median ratio of observed to predicted 0.91, log-log correlation 0.73 over 190 cells. The two chaotic cells that never reach 1e-2 have lambda = 0.013 and 0.0013, where the predicted steps exceed the run.
+  - The 182 periodic cells that stay below 1e-2 have a median maximum distance of 2.3e-12.
+- **float32.** Every chaotic cell diverges within about 20 steps. 23 % of periodic cells also end with disagreeing tokens.
+  - Their float64 labels need not hold for the float32 map.
+  - A disagreement can also be a phase shift on the same cycle, or a switch between coexisting attractors. This is not resolved here (tokens were not saved).
+- **bfloat16.** The two layouts differ by about 1e-2 after two steps in every cell, and almost all cells end with different tokens, periodic ones included. At this precision the loop is not reproducible across batch layouts anywhere in this steered region, whatever its float64 regime.
+- **Reading.** In exact-enough arithmetic, the dynamical regime decides whether rounding-level execution differences grow into different outputs, and the Lyapunov exponent predicts when. In deployment precision (bfloat16), batch-layout noise is large enough to change the trajectory regardless.
+
+## 2026-10-15 07:14 UTC: MECH3 result (alpha map, block 12): steering into chaos raises the readout factor by 2.58 nats per step and leaves the network factor nearly flat
+
+Pods p2dnawuk7ajzfp, 6xc4ok0nj21d0o (runner rc 0, hashes verified, terminated; 1334 and 1295 s). Output mech/amap-{a,b}: 5353 cells, 331 chaotic, 5004 periodic. Inline analysis in this session; a committed analysis script and figure follow.
+- **R1** (rows with at least 3 chaotic and 3 |alpha| <= 0.01 cells; 18 rows): chaotic minus near-zero-steering cells, weighted by chaotic count.
+  - Network factor -0.068 nats per step; readout factor +2.581.
+  - The readout difference is the larger one in all 18 rows.
+  - At |alpha| <= 0.01 the readout factor is -5.5 to -0.9 nats per step (strongly contracting) while the network factor is -0.29 to +0.94. In the chaotic cells the readout factor is -0.6 to +0.8.
+- **R2** (row-matched chaotic minus periodic): log g_read +1.36, log g_net +0.23, entropy +1.62 nats, gap -1.37 (logit units divided by T), log r1_rel +1.29, stable rank +0.95.
+  - Degenerate periodic cells (nearly one-hot p, a twin collapsing to rounding) give infinite statistics. The final analysis will use medians and finite-value filters, stated in the script.
+- **Reading.** Steering destabilises the loop by turning the readout from strongly contracting into expanding, through token competition (higher entropy, smaller top-2 gaps). The network's factor barely changes. This is descriptive: it does not exclude that steering acts through which states are visited. XO tests that causally.
+
+## 2026-10-15 07:14 UTC: run (exploratory): XO, the orbit-preserving four-arm crossover (consult 9, direction 2), and FB extensions toward the asymptote (human: "Yes I'd like them to approach the asymptote")
+
+- **XO.** tools/crossover.py (new; CPU smoke test: arm 11 reproduces the twin exponent exactly, -0.132 at a short-transient chaotic cell). Along the steered reference orbit it carries four tangent dynamics:
+  - arm 11 = R(p_s) J_s; arm 10 = R(p_s) J_u; arm 01 = R(p_u) J_s; arm 00 = R(p_u) J_u;
+  - J_u and p_u come from the unsteered model at the same states, with its own unsteered prefix cache.
+  - Cells: docs/xo-cells.json, a seeded draw (seed 20261015) fixed before any XO data. 16 chaotic cells of the block-12 alpha map (two per temperature band of eight; both twin exponents > 0.05), and 8 attracting periodic cells of the same rows. The first two chaotic cells are development cells.
+  - Transient 1000, record 1000 in windows of 250. One H100 pod.
+  - **Readings fixed now:**
+    - Validation: arm 11 must match the twin exponent at every cell within 0.02.
+    - Per chaotic cell, report arms 10 - 00 (readout effect), 01 - 00 (network effect) and 11 - 10 - 01 + 00 (interaction), with means and 95 % intervals by a bootstrap over held-out cells.
+    - Readout sufficiency if arm 10 is within 0.1 nats per step of arm 11 on average and its interval excludes arm 00.
+- **FB extensions.** On three H100 pods; the root acceptance is set above the measured floors (--g-accept 1e-4).
+  - **FBS768m:** the superstable point s768 at log10 T -0.14798. Bracket [0.0661249646696678, 0.0661249836696678] around the estimate s384 + (s384 - s192)/4.65. Band positions are scaled from -0.156, where s sits at 0.519 of its band.
+  - **FBC148:** flips at -0.14798 from period 96: start s96, next s192, ratio guess 4.62, 3 flips.
+  - **FB15D:** the 1.5B route (alpha 0.1, philosophy at block 14, free log10 T) from period 64: start -0.0018311, next -0.0018207, ratio guess 4.3, 3 flips.

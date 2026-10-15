@@ -159,6 +159,12 @@ case "$JOBSET" in
     minutes=${JOBARGS[1]}
     TOOL=return_map.py run retmap-$name "$minutes" --device cuda "${JOBARGS[@]:2}" --out $D/retmap/$name
     ;;
+  xo)          # orbit-preserving readout/network crossover (run XO; tools/crossover.py, float64 on the GPU): JOBARGS =
+               # NAME MINUTES then tool arguments
+    name=${JOBARGS[0]}
+    minutes=${JOBARGS[1]}
+    TOOL=crossover.py run xo-$name "$minutes" --device cuda "${JOBARGS[@]:2}" --out $D/xo/$name
+    ;;
   reprotask)   # answers of continuous-feedback inference under batch-layout changes (run REPRO-T; tools/repro_task.py;
                # frozen design docs/repro-task-test.md): JOBARGS = NAME MINUTES then tool arguments
     name=${JOBARGS[0]}
