@@ -24169,7 +24169,7 @@ Pod 3en7yg96v92ysm (COMMUNITY H100 NVL; runner rc 0, hash verified, terminated; 
 
 ## 2026-10-15 05:53 UTC: BP result: in Qwen2.5-7B, prompts whose own loop is chaotic are answered much less accurately, but mostly through task mix and answer flatness; the residual effect is small and not established
 
-Pods: 7B labels (shards 0-5: lwevy9huignhj3, ake729hlyutvbn, x2wlyik6vf3e67, 9g7dm66sgrxmkx, kllbsprssklpdd, u9rn2empvc38fy), 7B generation gpab2gjklcbchs, 0.5B labels n1xbxqbt6c9nhm and 7bhlsdcpum42lu, 0.5B generation ow2okktv3aurqs. All runner rc 0, hashes verified, terminated; commit 2c86b6e8. 200 prompts labelled at each of three temperatures. Analysis: tools/behavior_prompts.py analyze (scratch/bp-q7.json, bp-q05.json), plus an ad-hoc control analysis (below).
+Pods: 7B labels (shards 0-5: lwevy9huignhj3, ake729hlyutvbn, x2wlyik6vf3e67, 9g7dm66sgrxmkx, kllbsprssklpdd, u9rn2empvc38fy), 7B generation gpab2gjklcbchs, 0.5B labels n1xbxqbt6c9nhm and 7bhlsdcpum42lu, 0.5B generation ow2okktv3aurqs. All runner rc 0, hashes verified, terminated; commit 6a7c7ac1. 200 prompts labelled at each of three temperatures. Analysis: tools/behavior_prompts.py analyze (scratch/bp-q7.json, bp-q05.json), plus an ad-hoc control analysis (below).
 
 - **Primary reading (card: greedy-correct prompts, chaotic vs periodic, permutation test), 7B:**
   - log10 T 0.25: 0.643 (14 prompts) vs 0.911 (105), difference -0.269, p = 0.0011.
