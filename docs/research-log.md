@@ -25347,3 +25347,18 @@ The float32 accuracies may differ from H1b's bfloat16 ones. Ceilings in the priv
 - **Exponent panel.** Inside the body, darker curves of strongest contraction converge toward the left tip. The most contracting period-5 cells: lambda -0.93 at (-0.11847, 0.10166), -0.83 at (-0.11902, 0.10229).
 
 This is the anatomy of a shrimp at map resolution. Whether two superstable curves of the period-5 orbit cross (a doubly superstable centre) is decided by DSS5, still running.
+
+## 2026-10-15 11:24 UTC: DLGb result: the one-token dialogue frame is entirely periodic; each reply is set by the replier's own persona
+
+**Run.** Pod (H100 class); commit 01a335d6 from the orchestrator log; runner rc 0; all four jobs status 0; terminated. All maps are periodic:
+
+| map | cells | periodic | periods | B's leading token |
+|---|---|---|---|---|
+| dl-self (philosophy self-dialogue, log10 T [-0.4, 0.4] x alpha [0, 0.12]) | 1600 | 1600 | all 1 | "The" 785, "Hello" 617, "As" 164, "I" 34 |
+| dl-gh-t0 (gratitude A against hostility B, log10 T 0, [0, 0.12]^2) | 1600 | 1600 | 1592 of period 1, 8 of period 2 | "I" 687, "You" 509, "Hello" 243, "我" 121, "你" 36 |
+| gratitude alone | 40 | 40 | 1 | "Hello", "You", "Thank" (10 cells), "I" |
+| hostility alone | 40 | 40 | 1 | "I", "Hello", "You", "你", "我" |
+
+- **The hostile agent's token depends only on its own strength:** "Hello" (alpha_B 0) -> "I" (0.06) -> "You" (0.09) -> "我" (0.12), across all alpha_A.
+- **Reading.** With one-token messages, the assistant's first reply token is decided by its own system prompt and steering, and the partner's message barely moves it. Every pair falls into a fixed exchange, and no entrainment or chaos test is possible in this frame. This agrees with DLGx's unsteered dialogue frame.
+- Mutual influence would need longer messages, i.e. a context that holds the partner's whole message; not built here.
