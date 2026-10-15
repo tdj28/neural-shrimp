@@ -154,37 +154,34 @@ def main():
     if dss.exists():
         g = np.load(dss)
         xs, ys = g["alpha"], g["log10_temperature"]
-        ax.add_patch(plt.Rectangle((xs[0], ys[0]), xs[-1] - xs[0], ys[-1] - ys[0], fill=False, ec="white", lw=1.0))
+        ax.add_patch(plt.Rectangle((xs[0], ys[0]), xs[-1] - xs[0], ys[-1] - ys[0], fill=False, ec="red", lw=1.0))
         bx = axes[0, 1]
-        mu, ok = g["mu"], g["ok"] & g["same_tokens"]
-        good = ok & g["clean"]
-        im2 = bx.imshow(np.log10(np.abs(np.where(ok, mu, np.nan))), origin="lower", aspect="auto", cmap="viridis",
-                        extent=[xs[0], xs[-1], ys[0], ys[-1]], vmin=-4, vmax=0, interpolation="nearest")
-        fig.colorbar(im2, ax=bx, label="log10 |leading multiplier|")
-        C = g["factors"]
-        p = C.shape[2]
-        colours = plt.get_cmap("tab10")(np.arange(p))
-        segs = {}
-        for k in range(p):
-            segs[k] = zero_segments(C[:, :, k], good, xs, ys)
-            for s in segs[k]:
-                bx.plot([s[0][0], s[1][0]], [s[0][1], s[1][1]], color=colours[k], lw=1.4)
-            if segs[k]:
-                bx.plot([], [], color=colours[k], lw=1.4, label=f"$c_{k}=0$")
-        cross = []
-        for a in range(p):
-            for b in range(a + 1, p):
-                for q in crossings(segs[a], segs[b]):
-                    cross.append((a, b, q))
-                    bx.plot(*q, "*", ms=11, mfc="white", mec="black")
+        mu, ok = g["mu"], g["ok"]                   # every cell on the continued orbit (token variants included)
+        sgn = np.where(ok, np.sign(mu), np.nan)
+        mag = np.where(ok, np.log10(np.abs(mu)), np.nan)
+        ext2 = [xs[0], xs[-1], ys[0], ys[-1]]
+        rgb = np.ones(mu.shape + (3,))
+        shade = np.clip((mag + 5) / 5, 0, 1)        # dark where |mu| is small
+        rgb[..., 0] = np.where(sgn > 0, 0.55 + 0.45 * shade, 0.25 * shade)
+        rgb[..., 1] = np.where(sgn > 0, 0.25 * shade, 0.35 * shade)
+        rgb[..., 2] = np.where(sgn > 0, 0.25 * shade, 0.55 + 0.45 * shade)
+        rgb[~ok] = 1.0
+        bx.imshow(rgb, origin="lower", aspect="auto", extent=ext2, interpolation="nearest")
+        segs = zero_segments(np.where(ok, mu, np.nan), ok, xs, ys)
+        for sg in segs:
+            bx.plot([sg[0][0], sg[1][0]], [sg[0][1], sg[1][1]], color="k", lw=1.2)
+        n_check = 0
+        for i2 in range(len(ys) - 1):
+            for j2 in range(len(xs) - 1):
+                if ok[i2:i2 + 2, j2:j2 + 2].all():
+                    q = np.sign(mu[i2:i2 + 2, j2:j2 + 2])
+                    n_check += int(q[0, 0] == q[1, 1] and q[0, 1] == q[1, 0] and q[0, 0] != q[0, 1])
         bx.set_xlabel("steering along 'hostility-vs-kindness'")
         bx.set_ylabel("log10 temperature")
-        bx.set_title("(b) one continued period-7 orbit: zero curves of the step factors", fontsize=9)
-        if any(segs.values()):
-            bx.legend(fontsize=7, loc="upper left")
-        report.update({"dss_cells": int(mu.size), "ok": int(ok.sum()), "clean": int(good.sum()),
-                       "zero_segments": {k: len(v) for k, v in segs.items()},
-                       "crossings": [{"steps": [a, b], "alpha": float(q[0]), "log10T": float(q[1])} for a, b, q in cross]})
+        bx.set_title("(b) one continued period-7 orbit: sign of its multiplier (red +, blue -),\n"
+                     "dark where |mu| is small; black: the superstable curves (mu = 0)", fontsize=8)
+        report.update({"dss_cells": int(mu.size), "ok": int(ok.sum()), "zero_segments": len(segs),
+                       "checkerboard_cells": n_check})
     fig.tight_layout()
     fig.savefig(args.out)
     print(json.dumps(report))
