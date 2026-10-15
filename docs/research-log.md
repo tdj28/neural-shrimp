@@ -24584,3 +24584,18 @@ Pod bg8uyc2xyzjtiu (2 x H200 SECURE; runner rc 0, hash verified, terminated; 575
 | 65 | 0.7 % | 0.196 |
 
 - **Reading.** As in Qwen2.5-0.5B (blocks 4-20: 5.9, 8.1, 6.8, 5.0, 2.3 %), deeper injection gives less chaos and pushes it to higher temperature.
+
+## 2026-10-15 07:49 UTC: MECH2 result: the gain split at five steering blocks shows where depth enters
+
+Pod 7qoonky4dot3yk (SECURE H100 NVL; runner rc 0, hash verified, terminated; 3881 s; commit b203fb56). Outputs mech/b8, b16, b20; with b4 and b12 from MECH1. 1205 cells per block. Chaotic cells: median readout and network factors, nats per step:
+
+| block | chaotic cells at log10 T -0.6 / -0.3 / 0 / 0.15 / 0.25 | log10 T <= 0: readout, network (n) | log10 T > 0: readout, network (n) |
+|---|---|---|---|
+| 4 | 2 / 17 / 35 / 25 / 0 | +0.74, -0.47 (54) | -0.40, +0.84 (25) |
+| 8 | 5 / 18 / 33 / 53 / 33 | +0.46, -0.23 (56) | +0.07, +0.36 (86) |
+| 12 | 0 / 2 / 19 / 87 / 0 | +0.46, -0.21 (21) | +0.39, +0.02 (87) |
+| 16 | 0 / 6 / 38 / 65 / 0 | +0.15, -0.04 (44) | +0.08, +0.09 (65) |
+| 20 | 0 / 0 / 6 / 29 / 0 | -0.10, +0.23 (6) | -0.78, +1.09 (29) |
+
+- **Near zero steering** the readout contracts at every block: -6.7 to -7.2 at log10 T -0.3, and -2.6 to -2.9 at 0.0.
+- **Reading.** Low-temperature chaos needs an expanding readout. Early and middle blocks produce it, while late blocks rarely do. Their chaos sits at high temperature and is carried by the network factor. This explains the block trend of LS and of the 70B depth series at the level of the derivative.

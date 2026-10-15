@@ -203,7 +203,12 @@ def main():
     for b, cells in lines.items():
         if cells:
             L = arrays(cells)
-            c = L["chaotic"]
+            c = L["chaotic"] & (L["log10_temperature"] <= 0.0)          # low temperature: the readout regime
+            hi = L["chaotic"] & (L["log10_temperature"] > 0.0)
+            if hi.sum():
+                stats.setdefault("blocks_highT", {})[str(b)] = {"chaotic": int(hi.sum()),
+                                                                "median_log_g_net": float(np.median(L["mean_log_g_net"][hi])),
+                                                                "median_log_g_read": float(np.median(L["mean_log_g_read"][hi]))}
             if c.sum():
                 blk.append(b)
                 net.append(L["mean_log_g_net"][c])
@@ -220,7 +225,7 @@ def main():
         ax.set_xticklabels([f"block {b}\n(n={len(r)})" for b, r in zip(blk, read)], fontsize=7)
         ax.axhline(0, color="0.5", lw=0.6)
         ax.set_ylabel("mean log factor per step (nats)")
-        ax.set_title("(e) chaotic cells by steering block:\nreadout (orange) and network (grey) factors", fontsize=9)
+        ax.set_title("(e) chaotic cells at log10 T <= 0 by steering block:\nreadout (orange) and network (grey) factors", fontsize=9)
     ax = axes[5]
     H = DATA / "hidden"
     pts = []
