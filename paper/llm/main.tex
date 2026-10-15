@@ -1679,11 +1679,10 @@ for the nearest four windows and changed which farther windows were selected. In
 layer 14, $\alpha=0.058588$) the period-4 orbit folds at $\log_{10}T_c=-0.0912029$ (multiplier $1$ to
 $3\times10^{-14}$, next modulus $0.008$), with normal-form coefficients $a=-7.16$ per unit $\log_{10}T$ and
 $b=-21.09$, so $ab=151.0$. A float64 line of 1700 cells, 1570 of them above the fold, shows
-windows of periods $4N$ accumulating on it, from single cells at periods 44--64 to a wide period-12 window. Measured
-from $T_c$ to their edges nearest the fold, the four nearest resolved windows (periods 28--40) meet the criterion
+windows of periods $4N$ accumulating on it, from single cells at periods 44--64 to a wide period-12 window. Measured in $\log_{10}T$ from $\log_{10}T_c$ to their edges nearest the fold, the four nearest resolved windows (periods 28--40) meet the criterion
 within $0.12\,\%$ ($\delta=-0.99$, $C=0.0612$). With the windows farther out the spread rises to $10.3$--$14.0\,\%$;
-there each period appears as two runs on the line's $10^{-5}$ grid, and grid-spaced edges no longer identify the fold
-edges. In Qwen2.5-7B ($\alpha=0.051429$) the period-2 orbit folds at $\log_{10}T_c=-0.2040156$ (next modulus $0.0092$,
+there several periods recur in multiple disconnected runs on the line's $10^{-5}$ grid, and grid-spaced edges no
+longer identify the fold edges. In Qwen2.5-7B ($\alpha=0.051429$) the period-2 orbit folds at $\log_{10}T_c=-0.2040156$ (next modulus $0.0092$,
 $ab=55.7$), and odd windows accumulate on it. The nearest four and five (periods 11--17 and 9--17) meet the criterion
 within $4.5\,\%$, and six (to period 7) within $6.1\,\%$. Each window's own doubling or tripling lies on its far side,
 as for the 0.5B windows of periods 16--20; this organization is consistent with fold edges on the near side, and the
@@ -2243,8 +2242,8 @@ turns back, a cusp can form (a visual turn alone is not our criterion: the locat
 unfolding checks of Section~\ref{sec:curves}), and between the two branches leaving the cusp the window continues as a
 thin leg.
 Bent fold curves with cusps, flip curves inside them and a superstable line through the body produce the bodies, legs,
-hooks and crescents of the maps. All nine reversals of the fold curves we continued are located cusps
-(Section~\ref{sec:curves}).
+hooks and crescents of the maps. On the seven fold curves we continued, all nine tangent reversals are located cusps (Section~\ref{sec:curves});
+this is not a global count of cusps.
 
 A shrimp in the sense of Gallas has one more element: a centre, where two superstable curves of the same orbit cross.
 There the orbit passes two critical points at once, which needs two turning points in a one-dimensional reduction.
@@ -2875,7 +2874,10 @@ second checkpoint, is the unreported bounded search).}
   (\path{docs/repro-task-test.md}, \path{docs/bpc-test.md}).
 \item Independently reproduced from saved data (15 October): every summary field of the 0.5B batch-layout comparison
   (448 cells, four comparisons) and the gain-split, logit-bias and crossover summaries of Section~\ref{sec:theory}
-  (5353, 6837 and 24 cells); this reproduces the statistics, not the model runs. The within-prompt steered test (null) used an analysis
+  (5353, 6837 and 24 cells); the coefficients and offset rows of the flip normal-form test (Table~\ref{tab:flipnf}); the
+  1.5B and 7B fold-law scores under both period selectors (all 2700 cells); and the scalar conditions of the nine
+  located cusps, matched one-to-one to the tangent reversals of the seven continued fold curves. This reproduces the
+  statistics and saved scalars, not the model runs, derivatives or eigenvectors. The within-prompt steered test (null) used an analysis
   fixed and pushed before its data, without a separate frozen design document.
 \item Prospectively frozen and independently replayed: Huginn's relaxation test on held-out data, confirmed in both
   parts; an independent implementation reproduced both from the saved rows and spectra (GSM8K part exactly,
