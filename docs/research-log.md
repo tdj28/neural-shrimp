@@ -25741,3 +25741,13 @@ Local RTX 2000 Ada, commit 292493ab; dev set (24 problems) in bf16 and float32; 
 - In float32 the same growth happens, but 32 steps do not take it to the scale of answer flips.
 
 The held-out run (128) follows, unchanged, per the card.
+
+## 2026-10-15 16:17 UTC: Codex Task 21i processed (BZ and BP saved-data reproduction)
+
+All 856 published JSON leaves and all 120 inline-transcript fields reproduce.
+
+**Paper.**
+- BZ: "no accuracy signature", with the 3/4500 against 4/4500 arithmetic counts and the one uncorrected entropy contrast.
+- BP: the descriptive gap, the task composition and the adjusted coefficient, stated as associations.
+
+**Correction to this log (BP entry, 05:53 UTC).** "This adjustment probably over-corrects. The true effect plausibly lies between the adjusted and the raw estimate" is withdrawn. The adjusted coefficients are conditional linear-projection associations, and they neither show the direction of any over-correction nor bracket the effect.

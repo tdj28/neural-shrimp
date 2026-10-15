@@ -765,13 +765,17 @@ and the single-push controls quoted in the text were computed separately on exac
 \end{figure}
 
 \paragraph{Does a chaotic loop predict worse answers in ordinary decoding? Not beyond the model's own uncertainty.}
-We looked for a behavioural signature of the regimes outside the loop. Two exploratory designs found none that survives
-controls. First, ordinary sampled answers of Qwen2.5-0.5B under steering at the strengths of chaotic and periodic map
+We looked for a behavioural signature of the regimes outside the loop. Two exploratory designs found no accuracy
+signature that survives controls. First, ordinary sampled answers of Qwen2.5-0.5B under steering at the strengths of chaotic and periodic map
 cells (30 matched pairs; arithmetic, open questions, short programs) showed no measurable accuracy contrast: at those
 strengths, steering every position turns every reply into philosophy-flavoured text, so accuracy sits at the floor in
-both zones. Second, labelling each of 200 prompts by the regime of its own unsteered loop in Qwen2.5-7B, prompts with
-a chaotic loop were answered far less accurately, but mostly because chaotic labels fell on the harder task and on
-flatter answer distributions.
+both zones (3 against 4 correct of 4500 arithmetic answers). Of nine secondary contrasts of entropy and reply length,
+one (open questions, next-token entropy, $p=0.016$) passes $0.05$ uncorrected, not after a correction for nine tests,
+and the entropy contrasts change sign across tasks. Second, labelling each of 200 prompts by the regime of its own unsteered loop in Qwen2.5-7B, prompts with
+a chaotic loop were answered far less accurately (by 26 to 37 points at three temperatures). The chaotic labels fell
+mostly on the harder task, and in a linear model with task, greedy correctness and the sampled answers' entropy, the
+label's coefficient is $-3.7$ to $-4.6$ points (permutation $p$ from $0.07$ to $0.20$). These are associations: the
+entropy is measured during sampling, so the adjustment does not identify a causal effect of the regime.
 
 A frozen test addresses the second design. Its design, covariates and analysis were pushed before any data. It uses
 4000 fresh products of two two-digit numbers and the unsteered Qwen2.5-7B-Instruct at $\log_{10}T=0.40$: 1484 prompts
