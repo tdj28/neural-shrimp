@@ -24353,3 +24353,11 @@ One research-strategy request (gpt-6-astra, Pro, xhigh) with the brief docs/cons
 - **Mechanism.** The decisive test is an orbit-preserving readout/network crossover. Adopted: XO.
 - **Deferred:** BP confirmatory (not decisive at feasible sizes) and the stabilization envelope.
 - **Title.** Keep it (the human decides). Open the abstract with continuous-feedback inference, and claim consequences only at demonstrated horizons.
+
+## 2026-10-15 07:05 UTC: run (frozen design): REPRO-T, answers of continuous-feedback inference under batch-layout changes (consult 9, direction 1)
+
+Design frozen in docs/repro-task-test.md (pushed with this entry, before any held-out run); problems in docs/repro-task-problems.json; tool tools/repro_task.py.
+- **Local CPU smoke test** (2 development problems and 1 held-out problem, 4 soft steps): the pipeline and scoring work, and every answer is correct.
+  - Batch-layout distances after 4 steps: up to 5e-3 in bf16 and 6e-15 in float64; no answer changed.
+  - Reruns are identical.
+- **Pod.** One H100 class, job set reprotask: all 8 development and 96 held-out problems, both precisions, log10 T 0.0, 0.2 (primary) and 0.4 (secondary), greedy baseline, mechanism subset.

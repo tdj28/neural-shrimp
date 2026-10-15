@@ -159,6 +159,12 @@ case "$JOBSET" in
     minutes=${JOBARGS[1]}
     TOOL=return_map.py run retmap-$name "$minutes" --device cuda "${JOBARGS[@]:2}" --out $D/retmap/$name
     ;;
+  reprotask)   # answers of continuous-feedback inference under batch-layout changes (run REPRO-T; tools/repro_task.py;
+               # frozen design docs/repro-task-test.md): JOBARGS = NAME MINUTES then tool arguments
+    name=${JOBARGS[0]}
+    minutes=${JOBARGS[1]}
+    TOOL=repro_task.py run reprotask-$name "$minutes" --device cuda "${JOBARGS[@]:2}" --out $D/repro/$name
+    ;;
   repro)       # incidental numerical differences against the dynamical regime (run REPRO; tools/repro_noise.py, on the
                # GPU): JOBARGS = NAME MINUTES then tool arguments
     name=${JOBARGS[0]}
