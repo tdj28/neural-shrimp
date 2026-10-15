@@ -99,7 +99,9 @@ def model_surface(ax):
     for xr in r:
         att = abs(1 + ap + 2 * b * xr + 4 * xr ** 3) < 1
         ax.plot([ap], [cp], [xr], "o", ms=5, mfc="#1f4e9a" if att else "white", mec="#1f4e9a", mew=1.1, zorder=12)
-    ax.set_xlabel("$a$", labelpad=-1); ax.set_ylabel("$c$", labelpad=-1); ax.set_zlabel("fixed point $x$", labelpad=-1)
+    ax.set_xticks([-1, -0.5, 0, 0.5, 1]); ax.set_yticks([-1.5, -1, -0.5, 0, 0.5, 1]); ax.set_zticks([-1.5, -1, -0.5, 0, 0.5, 1])
+    ax.tick_params(labelsize=7, pad=0)
+    ax.set_xlabel("$a$", labelpad=8); ax.set_ylabel("$c$", labelpad=8); ax.set_zlabel("fixed point $x$", labelpad=8)
     ax.set_zlim(z0, 1.2)
     ax.set_title("(a) model ($b=-1$): fixed points over the plane", fontsize=9)
 
@@ -151,12 +153,13 @@ def data_curve(ax, rec):
     rec["orbit_z"] = {str(n): [] for n in np.unique(Z["names"])}
     for n, z, att in zip(Z["names"], zo, Z["attracting"]):
         rec["orbit_z"][str(n)].append([round(float(z), 5), bool(att)])
-    ax.set_xlabel(r"$\alpha_1$", labelpad=-2); ax.set_ylabel(r"$\alpha_2$", labelpad=-2)
-    ax.set_zlabel("state coordinate (PC 1)", labelpad=-2)
+    ax.set_xlabel(r"$\alpha_1$", labelpad=16); ax.set_ylabel(r"$\alpha_2$", labelpad=16)
+    ax.set_zlabel("state (PC 1)", labelpad=14)
+    from matplotlib.ticker import MaxNLocator
+    ax.zaxis.set_major_locator(MaxNLocator(5)); ax.xaxis.set_major_locator(MaxNLocator(4)); ax.yaxis.set_major_locator(MaxNLocator(4))
     ax.set_zlim(z0, hi_ + 0.05 * (hi_ - lo_))
     ax.ticklabel_format(useOffset=False)
-    for lab in ax.get_xticklabels() + ax.get_yticklabels() + ax.get_zticklabels():
-        lab.set_fontsize(6)
+    ax.tick_params(labelsize=6.5, pad=2)
     ax.set_title("(b) data: the period-5 window's fold curve and census orbits", fontsize=9)
 
 
@@ -166,13 +169,12 @@ def plot(args):
     import matplotlib.pyplot as plt
     rec = {}
     fig = plt.figure(figsize=(11.5, 5.4), dpi=170)
-    ax = fig.add_subplot(1, 2, 1, projection="3d")
+    ax = fig.add_axes([0.0, 0.03, 0.47, 0.9], projection="3d")     # explicit positions: 3D labels need room
     model_surface(ax)
     ax.view_init(elev=args.elev, azim=args.azim)
-    ax = fig.add_subplot(1, 2, 2, projection="3d")
+    ax = fig.add_axes([0.48, 0.03, 0.44, 0.9], projection="3d")
     data_curve(ax, rec)
     ax.view_init(elev=args.elev, azim=args.azim2)
-    fig.tight_layout()
     Path(args.out).parent.mkdir(parents=True, exist_ok=True)
     fig.savefig(args.out)
     text = json.dumps(rec, indent=1)
