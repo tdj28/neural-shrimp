@@ -3012,7 +3012,7 @@ stream at this norm. Rotating the steering direction makes the same point contin
 one Gaussian direction to another, $90^{\circ}$ away, at constant norm, the chaotic regions move and change shape, but
 the chaotic share stays between 13 and 24\,\% at every one of 103 angles (Figure~\ref{fig:morph}; a video of the
 rotation is in the supplementary material). Single neurons behave the same way. Steering along the output direction
-of one MLP neuron of the steered layer (its column of the down-projection, rescaled to the same norm) gives 9.9\,\%
+of one MLP neuron of the steered layer (its column of the down-projection, rescaled to the same norm; adding it is the same as raising that neuron's activation by a fixed amount at every position: by 37.4 at $|\alpha|=0.12$ for the neuron most specific to philosophy, whose mean activation on the philosophy texts is 0.27) gives 9.9\,\%
 chaotic cells for the neuron most specific to philosophy on held-out texts, chosen like the autoencoder feature below
 by a rule fixed before any map, 5.1\,\% for its index neighbour and 12.9\,\% for a random neuron
 (Figure~\ref{fig:neurons}); near $\alpha=0$ the share is 0.4 to 1.2\,\%. The direction does select the texts. The largest attractor family in all five maps is the
