@@ -24034,3 +24034,13 @@ Paper: Table tab:flipnf and a paragraph after the high-temperature bubble give b
   - Exploratory: any difference found here needs a frozen confirmatory test on fresh pairs before any claim.
 - **Setup:** three pods (H100-class, new job set bz), shards 0-2 of the 90 cells.
 - **Output:** `../neural-shrimp-data/explore/bz/pilot-{0,1,2}`
+
+## 2026-10-15 04:53 UTC: run (exploratory): LS, the chaos map against the steering block (human: "Do it now", about 04:50 UTC)
+
+- **Question:** How does the soft-token map of Qwen2.5-0.5B-Instruct change when the philosophy steering enters at another block? Every map so far steers at one block per model (block 12 of 24 here).
+- **Vectors:** built with the recipe of vectors-l12 (tools/explore_llm_phase_map.py vectors): mean last-token state of the concept prompts minus the neutral prompts, normalized to the prompts' mean residual norm at that block. Built at blocks 4, 8, 16 and 20 into llm-phase-map/vectors-l{4,8,16,20}.
+  - Philosophy norms: 181.0, 186.6, 197.7 and 221.1. The block-12 vector's 189.0 fits the sequence.
+  - Since alpha is a fraction of the residual norm, the same alpha range is comparable across blocks.
+- **Maps:** the settings of the block-12 control maps (q05): 128 x 128 float64 cells, alpha -0.12 to 0.12, log10 T -1.0 to 0.3, transient 500, samples 300, record 80, max period 48, tol 1e-8, eps 1e-6. Each block's map is split over two pods by rows (rows 0-63 and 64-127 of the same grid): eight pods, job set scan64.
+- **Reading:** descriptive, with no prediction. Reported per block: the chaotic share, where the chaotic regions lie in (alpha, T), and how the attractor families compare with block 12.
+- **Output:** `../neural-shrimp-data/explore/llm-soft-loop/pod64/scan64/ls-l{4,8,16,20}-{lo,hi}`
