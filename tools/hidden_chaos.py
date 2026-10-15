@@ -97,10 +97,11 @@ def fd_probe(loop, v, log_ts, alphas, base, hs=FD_STEPS, seed=1):
 
 
 def run_batch(loop, v, log_ts, alphas, transient, record, eps_list, tol, seed=0, trace=False, sequences=None,
-              tangent=False, probe=False):
+              tangent=False, probe=False, checkpoints=()):
     """Trajectories for a batch of cells with one twin per offset; returns per-cell statistics (and, with trace,
     the per-step arrays of the first cell). tangent: also the exact exponent of a renormalised tangent vector carried
-    along each base orbit by forward-mode AD (no offset). probe: fd_probe at the final base states."""
+    along each base orbit by forward-mode AD (no offset). probe: fd_probe at the final base states. checkpoints:
+    measured-step counts at which the running exponents are also reported (convergence with the horizon)."""
     torch = loop.torch
     n = len(log_ts)
     m = len(eps_list)
@@ -123,9 +124,10 @@ def run_batch(loop, v, log_ts, alphas, transient, record, eps_list, tol, seed=0,
         Vt = torch.as_tensor(rng.normal(size=tuple(base.shape)), dtype=loop.state_dtype, device=loop.device)
         Vt = Vt / Vt.flatten(1).norm(dim=1)[:, None, None]
     lead, pmax, ent, states, first = [], [], [], [], []
+    marks, snaps = set(checkpoints), []
     if isinstance(loop, EntropyClamp):         # mean temperature over the recorded steps
         loop.tsum, loop.steps = None, 0
-    for _ in range(record):
+    for i in range(record):
         if tangent:
             X, p, JV = loop.step_jvp(X, temps, torch.cat([Vt, torch.zeros_like(X[n:])]))
             size = np.maximum(JV[:n].flatten(1).norm(dim=1).double().cpu().numpy(), 1e-300)
@@ -142,6 +144,8 @@ def run_batch(loop, v, log_ts, alphas, transient, record, eps_list, tol, seed=0,
             growth[k] += np.log(dist / e)
             new.append(base + diff * torch.as_tensor(e / dist, dtype=loop.state_dtype, device=loop.device)[:, None, None])
         X = torch.cat(new)
+        if i + 1 in marks:
+            snaps.append((i + 1, growth / (i + 1), tgrowth / (i + 1)))
         p0 = p[:n].double()
         top = p0.max(dim=-1)
         lead.append(top.indices.cpu().numpy())
@@ -173,6 +177,11 @@ def run_batch(loop, v, log_ts, alphas, transient, record, eps_list, tol, seed=0,
                     "entropy_mean": float(ent[:, c].mean()), "entropy_sd": float(ent[:, c].std())})
         if tangent:
             out[-1]["lyapunov_tangent"] = float(tgrowth[c] / record)
+        if snaps:
+            out[-1]["checkpoints"] = {"steps": [s for s, _, _ in snaps],
+                                      "lyapunov": [[float(g[k][c]) for k in range(m)] for _, g, _ in snaps]}
+            if tangent:
+                out[-1]["checkpoints"]["lyapunov_tangent"] = [float(t[c]) for _, _, t in snaps]
         if isinstance(loop, EntropyClamp):
             out[-1]["mean_temperature"] = float(loop.tsum[c] / loop.steps)
     if probe:
@@ -232,6 +241,8 @@ def main():
                     help="soft tokens fed back (the state is the window of the last K expected embeddings)")
     ap.add_argument("--tangent", action="store_true",
                     help="also the exact tangent exponent (forward-mode AD along each base orbit, no offset)")
+    ap.add_argument("--checkpoints", type=int, nargs="+", default=None,
+                    help="also report the running exponents after these numbers of measured steps")
     ap.add_argument("--fd-probe", action="store_true",
                     help="one-step central differences at the final states for h = 1e-1..1e-11 (precision probe)")
     ap.add_argument("--clamp-entropy", type=float, nargs=2, default=None, metavar=("LO", "HI"),
@@ -241,6 +252,8 @@ def main():
     args = ap.parse_args()
     if args.clamp_entropy and args.tangent:
         raise SystemExit("--tangent is not implemented for entropy-clamped decoding")
+    if args.checkpoints and not all(0 < c <= args.record for c in args.checkpoints):
+        raise SystemExit("--checkpoints must lie between 1 and --record")
     prompt, opener = "open", ela.OPENER
     if args.prefix_file is not None:
         pref = json.loads(Path(args.prefix_file).read_text())["prefixes"][args.prefix_index]
@@ -280,7 +293,7 @@ def main():
     for s in range(0, len(log_ts), args.chunk):
         got = run_batch(loop, v, log_ts[s:s + args.chunk], alphas[s:s + args.chunk], args.transient, args.record,
                         args.eps, args.tol, trace=args.trace and args.mode == "cell", sequences=seqs,
-                        tangent=args.tangent, probe=args.fd_probe)
+                        tangent=args.tangent, probe=args.fd_probe, checkpoints=tuple(args.checkpoints or ()))
         if isinstance(got, tuple):
             got, tr = got
         results += got

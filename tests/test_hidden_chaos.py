@@ -97,3 +97,25 @@ def test_entropy_clamp_runs_with_probe():
     loop = hc.EntropyClamp(Tiny())
     out = hc.run_batch(loop, np.zeros(3), np.log10([1.0, 2.5]), [0.0, 0.0], 20, 50, [1e-5, 1e-6], 1e-8, probe=True)
     assert all(np.isfinite(r["mean_temperature"]) and "fd_probe" in r for r in out)
+
+
+def test_checkpoints_report_running_exponents():
+    import numpy as np
+
+    loop = FakeLoop([[0.5, 0.0], [0.0, 0.25]])
+    out = hc.run_batch(loop, np.zeros(2), [0.0], [0.0], 20, 100, [1e-4, 1e-6], 1e-8, tangent=True,
+                       checkpoints=(10, 50, 100))
+    ck = out[0]["checkpoints"]
+    assert ck["steps"] == [10, 50, 100]
+    assert len(ck["lyapunov"]) == 3 and all(len(row) == 2 for row in ck["lyapunov"])
+    assert ck["lyapunov"][-1] == out[0]["lyapunov"]
+    assert ck["lyapunov_tangent"][-1] == out[0]["lyapunov_tangent"]
+    err = [abs(t - np.log(0.5)) for t in ck["lyapunov_tangent"]]
+    assert err[-1] < 1e-2 and err[-1] <= err[0]          # the running estimate converges with the horizon
+
+
+def test_no_checkpoints_key_by_default():
+    import numpy as np
+
+    out = hc.run_batch(FakeLoop([[0.5, 0.0], [0.0, 0.25]]), np.zeros(2), [0.0], [0.0], 5, 20, [1e-4], 1e-8)
+    assert "checkpoints" not in out[0]
