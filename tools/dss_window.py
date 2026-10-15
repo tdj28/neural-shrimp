@@ -26,6 +26,12 @@ ROOT = Path(__file__).resolve().parents[1]
 DATA = Path(os.environ.get("NEURAL_SHRIMP_DATA", ROOT.parent / "neural-shrimp-data"))
 
 
+def lam3(z):
+    """Third multiplier (complex array) from the stored three leading multipliers."""
+    m = z["multipliers"]
+    return m[..., 2, 0] + 1j * m[..., 2, 1]
+
+
 def leading_pair(z):
     """(mu1, mu2) as complex arrays of shape (rows, cols) from the stored three leading multipliers."""
     m = z["multipliers"]
@@ -43,6 +49,21 @@ def checkerboards(sign, valid):
                 continue
             s = sign[i:i + 2, j:j + 2]
             if s[0, 0] == s[1, 1] and s[0, 1] == s[1, 0] and s[0, 0] != s[0, 1] and 0 not in s:
+                out.append((i, j))
+    return out
+
+
+def td_quads(t, d, valid):
+    """2 x 2 blocks of valid cells in which all four sign combinations of the trace t and the determinant d occur: the
+    cell-resolution signature of a point where both vanish, mu1 = mu2 = 0 (a head of the two-dimensional reading).
+    Returns (row, col) of each block's lower-left cell."""
+    out = []
+    for i in range(t.shape[0] - 1):
+        for j in range(t.shape[1] - 1):
+            if not valid[i:i + 2, j:j + 2].all():
+                continue
+            combos = {(bool(t[a, b] > 0), bool(d[a, b] > 0)) for a in (i, i + 1) for b in (j, j + 1)}
+            if len(combos) == 4:
                 out.append((i, j))
     return out
 
@@ -85,6 +106,10 @@ def stats(z, period):
         "pair_product_negative_attracting": int((stable & (d < 0)).sum()),
         "trace_sign_changes_attracting": sign_changes(sgn, stable),
         "trace_checkerboards_attracting": [list(b) for b in boards],
+        "trace_det_quads_attracting": [list(b) for b in td_quads(t, d, stable)],
+        "pair_product_sign_changes_attracting": sign_changes(np.sign(np.where(stable, d, 0.0)), stable),
+        "third_over_second_max_attracting": float(np.nanmax(np.where(stable, np.abs(lam3(z)) / np.maximum(mod2, 1e-300),
+                                                                   np.nan))),
         "stretching_min_per_step": np.nanmin(np.where(ok[..., None], z["stretchings"], np.nan), axis=(0, 1)).tolist(),
     }
 
@@ -141,8 +166,12 @@ def figure(z, tb, out, title):
     fig.colorbar(im, ax=ax, fraction=0.046, label=r"trace $\mu_1+\mu_2$ of the leading pair")
     ax.contour(a1, a2, np.where(ok, t, np.nan), levels=[0], colors="k", linewidths=0.8)
     ax.contour(a1, a2, np.where(ok, mod1, np.nan), levels=[1], colors="m", linewidths=1.0)
+    d = np.real(mu1 * mu2)                                   # determinant of the leading pair: its zero curve (green)
+    if (d[stable] < 0).any() and (d[stable] > 0).any():
+        ax.contour(a1, a2, np.where(stable, d, np.nan), levels=[0], colors="#2ca02c", linewidths=0.9,
+                   linestyles="--")
     ax.set_title(f"({'b' if k else 'a'}) continued period-{len(z['seed_tokens'])} orbit: trace (black: zero; "
-                 "magenta: |mu1| = 1; gray: repelling)", fontsize=7.5)
+                 "green dashed: det = 0; magenta: |mu1| = 1; gray: repelling)", fontsize=7.5)
     ax = axes[k + 1]
     im = ax.imshow(np.where(ok, np.log10(mod1), np.nan), origin="lower", extent=ext, aspect="auto", cmap="viridis",
                    vmin=-2, vmax=0.3, interpolation="nearest")

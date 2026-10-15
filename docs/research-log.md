@@ -26573,3 +26573,61 @@ This is critical slowing down. Near a flip the multiplier is close to -1, and 30
 - Target D is pinned at the producer point's exact coordinates: log10 T = -0.08743901638683393, initial alpha 0.07563291254991963. That producer point has critical multiplier 1 - 1.8e-8 and complementary modulus 0.0037.
 - It is rerun as setup-D-02 with a larger corrector budget: --max-newton 10, --max-backtracks 4.
 - Every gate and tolerance is unchanged.
+
+## 2026-10-15 23:28 UTC: P8L's unsolved band is a continuation defect, not a gap in the dynamics. Fixed in tools/doubly_superstable.py
+
+**Trigger.** The human asked about the large white block in the P8L reading figure.
+
+**Diagnosis,** from the P8L progress.jsonl: 211 cells solved, 189 not.
+- 185 of the 189 converged, but onto an orbit of a divisor period: the return distance at q = 4 or 2 was 1e-14 to 1.2e-12. The cells' trace and multiplier values belong to the period-4 orbit the period-8 one doubled from. 4 did not converge.
+- **Genuine:** the lower-left triangle. It lies below the flip curve, where no period-8 orbit exists.
+- **Artifact:** the band alpha2 0.10514 to 0.10589 across all 20 columns. The classifier map has period 8 there.
+- **Mechanism.** The breadth-first continuation queued the neighbours of every converged cell, whether or not its orbit was primitive. Once one cell slipped onto the period-4 orbit, every cell reached through it was warm-started on that orbit and stayed there.
+
+**Probe** at the band centre (-0.1054, 0.1055), one-cell grid on CPU, the P8L settings:
+- primitive period-8 orbit: return distance 0.093 at the divisor periods, Newton residual 3.5e-14, same token loop;
+- attracting, mu1 = -0.1689 (real), next modulus 0.0287.
+
+**Fix.**
+- A Frontier class: only cells with a primitive period-p orbit seed their neighbours.
+- A failed cell (divisor period or no convergence) is retried from up to --attempts (default 3) distinct solved neighbours.
+- Records carry parent and attempt.
+- tests/test_dss_frontier.py: 4 tests. With tests/test_dss_window.py, 6 pass.
+
+**Consequences.**
+- The P8L verdict stays "unresolved" under the frozen rule. It is recorded with its cause.
+- P4L runs the old code (commit 87b97564). Its reading must separate divisor-period cells from failures, which the progress records allow.
+- Earlier dss grids (SHC-P4, SHC-P8, P7 blob) used the same continuation. Their unsolved regions may contain the same artifact; to be checked before any of them is cited as a gap.
+
+## 2026-10-15 23:28 UTC: Run card SHC-L2 (exploratory follow-up to SHC-L, after the fix): the P8L meeting band with the corrected continuation
+
+**Run.**
+- tools/doubly_superstable.py grid at the commit of this entry, --attempts 3, with the P8L settings (gratitude block 4 x hostility block 16, log10 T = -0.1, period 8, k 6, tol 1e-12, --multipliers-only).
+- Rows: P8L rows 8-16, alpha2 0.10501052631578947 to 0.10602105263157895, 9 rows on the P8L spacing. Columns: alpha1 -0.1068 to -0.1044, 20, as P8L.
+- Seed at the band centre (-0.1054, 0.1055), the probed primitive orbit.
+- Local CPU, 16 threads; the probe's 98 s per cell at 8 threads gives an estimate of 2-5 h.
+
+**Checks.**
+- Rows 8 and 16 were solved in P8L, except where the defect reached them. Where both runs solve a cell, mu1 must agree to 1e-8.
+- No cell may be counted as solved on a divisor-period orbit.
+
+**Decision rule:** the amended SHC-L rule, unchanged.
+- **Head:** a trace checkerboard, or a T-D quad (all four sign combinations of T and D in one 2 x 2 block of attracting cells).
+- **Loop or turn-away:** as written.
+- **Third multiplier:** reported per cell.
+- **Unresolved:** anything else, including cells at the meeting point left unsolved.
+- A candidate head is then refined by two-parameter Newton on T = D = 0, as for the period-5 point.
+
+## 2026-10-15 23:28 UTC: Derivative check drawn (human request): formula (3) against finite differences and forward mode
+
+**Run.** tools/softmax_gain.py convergence, local CPU, float64.
+- State: the period-8 orbit cell, alpha 0.071674, log10 T -0.115, after 1000 transient steps.
+- The identity check, with the same eight random directions as before, plus central differences along the unit directions for h = 1e-1 to 1e-10.
+- Receipt: docs/derivative-check/p8-convergence.json (sha256 5a99edc4...). Figure: tools/plot_derivative_check.py, paper/llm/figures/fig-derivative-check.png.
+
+**Results.**
+- **Formula (3) against forward mode:** 3.80e-14 to 1.347e-13 relative. The previous run with 16 threads gave a maximum of 1.342e-13; both are within the paper's "at most 1.35e-13".
+- **Central differences:** slopes 1.9777 to 1.9994 over 1e-4 <= h <= 1e-2. The minimum lies at h = 3.2e-6 in 7 of 8 directions (1e-6 in one), at 1.67e-9 to 4.84e-9. Beyond it, rounding grows like 1/h.
+- **Margin:** the best finite difference is 1.24e4 times the formula's largest error.
+
+**Paper.** fig:derivcheck in the main paper's derivative section. Also the sentence "Rendered as in the shrimp literature" in sec:maps was replaced by a plain description (human objection), and "rendered as" became "colored as" in two captions.

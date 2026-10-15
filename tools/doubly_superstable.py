@@ -20,6 +20,12 @@ grid: continuation over a box, breadth-first from the seed cell, each cell warm-
 neighbour (Newton on F^p(x) = x with the low-rank solver of tools/llm_feigenbaum.py, Ritz multipliers, the factors
 and the token loop). Writes grid.npz and grid.json under explore/OUT.
 
+A cell is solved only when Newton converges to a primitive period-p orbit. Only solved cells seed their neighbours:
+a cell where Newton converged onto an orbit of a divisor period (the orbit the period-p one doubled from) or did not
+converge propagates nothing, and is retried from up to --attempts distinct solved neighbours (Frontier). Before
+16 October 2026 every converged cell seeded its neighbours, so one cell that slipped onto the period-p/2 orbit passed
+the slip on to all the cells reached through it (run SHC-L, P8L).
+
 Usage:
   python tools/doubly_superstable.py grid --period 7 --seed 0.0700 0.2040 --alpha 0.0686 0.0714 \
       --log-temperature 0.199 0.209 --resolution 29 29 --vectors llm-phase-map/vectors-l12-p1b \
@@ -100,6 +106,57 @@ def leading(vals, vecs):
     v = np.real(v * np.exp(-1j * np.angle(v[np.argmax(np.abs(v))])))
     clean = bool(len(vals) < 2 or abs(mu) > 10.0 * abs(vals[1]))
     return mu, v, clean
+
+
+class Frontier:
+    """Breadth-first continuation order over an (nt, na) grid. A cell is queued from a solved neighbour (its parent);
+    only solved cells queue their neighbours. A cell whose attempt fails is queued again from another solved
+    neighbour it has not yet been tried from, until it has been tried from `attempts` parents."""
+
+    def __init__(self, shape, start, attempts):
+        self.shape, self.attempts = shape, attempts
+        self.queue = collections.deque([(start, None)])
+        self.pending = {start}
+        self.solved = set()
+        self.tries = collections.defaultdict(set)              # cell -> parents it was tried from
+
+    def neighbours(self, cell):
+        for di, dj in ((1, 0), (-1, 0), (0, 1), (0, -1)):
+            nb = (cell[0] + di, cell[1] + dj)
+            if 0 <= nb[0] < self.shape[0] and 0 <= nb[1] < self.shape[1]:
+                yield nb
+
+    def _open(self, cell, parent):
+        return (cell not in self.solved and cell not in self.pending and parent not in self.tries[cell]
+                and len(self.tries[cell]) < self.attempts)
+
+    def pop(self):
+        cell, parent = self.queue.popleft()
+        self.pending.discard(cell)
+        self.tries[cell].add(parent)
+        return cell, parent
+
+    def done(self, cell, solved):
+        if solved:
+            self.solved.add(cell)
+            for nb in self.neighbours(cell):
+                if self._open(nb, cell):
+                    self.pending.add(nb)
+                    self.queue.append((nb, cell))
+            return
+        for nb in self.neighbours(cell):                       # retry from a solved neighbour not yet used
+            if nb in self.solved and self._open(cell, nb):
+                self.pending.add(cell)
+                self.queue.append((cell, nb))
+                return
+
+    def parents_still_useful(self):
+        """Solved cells that are, or may yet become, the parent of a queued or retried cell."""
+        keep = {par for _, par in self.queue}
+        for c in self.solved:
+            if any(self._open(nb, c) or (nb in self.pending) for nb in self.neighbours(c)):
+                keep.add(c)
+        return keep
 
 
 def grid(args):
@@ -188,12 +245,11 @@ def grid(args):
     TCOS = np.full((nt, na), np.nan)                # smallest |cos| to the parent's oriented directions
     M2 = np.full((nt, na, 3, 2), np.nan)            # three leading multipliers (real, imag) by modulus
     states = {}
-    queue = collections.deque([((i0, j0), None)])
-    seen = {(i0, j0)}
+    front = Frontier((nt, na), (i0, j0), args.attempts)
     states[None] = (X, Q, orient_seed)
     n_done = 0
-    while queue:
-        (i, j), parent = queue.popleft()
+    while front.queue:
+        (i, j), parent = front.pop()
         Xs, Qs, Os = states[parent]
         t = time.perf_counter()
         cell = make_cell(als[j], lts[i])
@@ -202,7 +258,8 @@ def grid(args):
             ok = bool(hist[-1] < lfb.tol_for(p, args.tol))
         except Exception as err:                       # noqa: BLE001 - recorded, the cell stays unsolved
             ok, hist = False, [str(err)]
-        rec = {"i": i, "j": j, "alpha": float(als[j]), row_key: float(lts[i]), "converged": ok}
+        rec = {"i": i, "j": j, "alpha": float(als[j]), row_key: float(lts[i]), "converged": ok,
+               "parent": None if parent is None else list(parent), "attempt": len(front.tries[(i, j)])}
         if ok:
             split = min((lfb.return_distance(cell, Xn, q) for q in range(1, p) if p % q == 0), default=1.0)
             vals, vecs, res, rh, Qn = lfb.ritz(cell, Xn, p, Qn)
@@ -219,27 +276,25 @@ def grid(args):
             C[i, j], PROD[i, j], RES[i, j] = c, np.prod(c), hist[-1]
             COS[i, j] = min(abs(float(np.dot(d, r))) for d, r in zip(dirs, refs))
             SAME[i, j] = toks == seed_toks
-            states[(i, j)] = (Xn, Qn, orient)
+            if OK[i, j]:
+                states[(i, j)] = (Xn, Qn, orient)
             rec.update({"mu": float(mu.real), "mu_imag": float(mu.imag), "next_modulus": float(abs(vals[1])),
                         "clean": clean, "factors": c.tolist(), "product": float(np.prod(c)), "same_tokens": SAME[i, j].item(),
                         "min_reference_cosine": float(COS[i, j]), "newton": float(hist[-1]), "split": float(split),
                         "factors_transported": ct.tolist(), "stretchings": cs_.tolist(), "transport_cosine": tcos})
-            for di, dj in ((1, 0), (-1, 0), (0, 1), (0, -1)):
-                nb = (i + di, j + dj)
-                if 0 <= nb[0] < nt and 0 <= nb[1] < na and nb not in seen:
-                    seen.add(nb)
-                    queue.append((nb, (i, j)))
+        front.done((i, j), bool(OK[i, j]))
+        rec["solved"] = bool(OK[i, j])
         rec["seconds"] = round(time.perf_counter() - t, 2)
         emit(rec)
         n_done += 1
-        if n_done % 25 == 0 or not queue:
+        if n_done % 25 == 0 or not front.queue:
             np.savez_compressed(out / "grid.npz", alpha=als, log10_temperature=lts, mu=MU, mu_imag=MU_IM, next_modulus=NEXT,
                                 clean=CLEAN, ok=OK, same_tokens=SAME, factors=C, product=PROD, newton=RES,
                                 min_reference_cosine=COS, factors_transported=CT, stretchings=SM, transport_cosine=TCOS,
                                 multipliers=M2, row_axis=np.array("alpha2" if args.block2 is not None else "log10_temperature"),
                                 seed=np.array(args.seed), seed_tokens=np.array(seed_toks))
-        # free states that no queued cell still needs
-        live = {par for _, par in queue}
+        # free states that no queued or retried cell can still need
+        live = front.parents_still_useful()
         for key in [k for k in states if k is not None and k not in live]:
             del states[key]
     tok = loop.sm.tok
@@ -282,6 +337,8 @@ def main():
     g.add_argument("--multipliers-only", action="store_true",
                    help="two-dimensional regime: accept a complex or unclean leading multiplier at the seed and record "
                         "the three leading multipliers per cell (factors are still written but are not meaningful)")
+    g.add_argument("--attempts", type=int, default=3,
+                   help="distinct solved neighbours a failed cell is tried from (only solved cells seed neighbours)")
     g.add_argument("--out", required=True)
     args = ap.parse_args()
     if args.command == "grid":

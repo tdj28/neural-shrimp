@@ -252,10 +252,24 @@ DF(x)=\frac{1}{T}\,\Sigma_p\,J_{\tilde h}(x),\qquad
 The derivative of the loop (Figure~\ref{fig:loop}) is the covariance of the token embeddings under the model's own next-token distribution,
 amplified by the inverse temperature and composed with the derivative of the network. At a state of the period-8
 orbit of Table~\ref{tab:orbits}, \eqref{eq:gain} agrees with forward-mode derivatives of the full map to a relative
-error of at most $1.35\times10^{-13}$ over eight random directions (\texttt{tools/softmax\_gain.py}). Without tied embeddings, as in the 7B and 8B models, the logits are $z=W\tilde h(x)$ with an
+error of at most $1.35\times10^{-13}$ over eight random directions (Figure~\ref{fig:derivcheck};
+\texttt{tools/softmax\_gain.py}). Without tied embeddings, as in the 7B and 8B models, the logits are $z=W\tilde h(x)$ with an
 output matrix $W\neq E$, and $DF=T^{-1}E^{\top}(\operatorname{diag}p-pp^{\top})W J_{\tilde h}(x)$: $\Sigma_p$ becomes
 the cross-covariance $\operatorname{Cov}_{t\sim p}(e_t,w_t)$ of input and output embeddings, which is not symmetric in
 general. The temperature limits below do not change.
+\begin{figure}[tbp]
+\centering
+\includegraphics[width=0.5\linewidth]{fig-derivative-check.png}
+\caption{Formula \eqref{eq:gain} checked against the network's own derivatives at a state of the period-8 orbit of
+Table~\ref{tab:orbits} (Qwen2.5-0.5B-Instruct, philosophy direction at layer 12, $\alpha=0.071674$,
+$\log_{10}T=-0.115$, float64). Gray: relative error of central differences $(F(x+hu)-F(x-hu))/(2h)$ against the
+forward-mode derivative $DF(x)\,u$ along eight random unit directions $u$. They converge like $h^2$ (fitted slopes
+1.97 to 2.00 for $10^{-4}\le h\le10^{-2}$) until rounding takes over near $h=3\times10^{-6}$, where they reach
+$1.6\times10^{-9}$ to $4.9\times10^{-9}$. Orange: relative error of $T^{-1}\Sigma_p J_{\tilde h}(x)\,u$ against the
+same derivatives, $3.8\times10^{-14}$ to $1.35\times10^{-13}$, more than four orders of magnitude below the best
+finite difference.}
+\label{fig:derivcheck}
+\end{figure}
 
 \paragraph{A Hopfield network with a transformer inside.} If the network passed its input straight through,
 $\tilde h(x)=x$, the map would be $F(x)=E^{\top}\operatorname{softmax}(Ex/T)$. This is exactly the update rule of a
@@ -463,8 +477,8 @@ and the checks on maps with known answers.
 \label{sec:maps}
 Figure~\ref{fig:stripes} shows a $256\times256$ float64 map over $\alpha\in[0.060,0.082]$ and
 $\log_{10}T\in[-0.17,-0.04]$. More than half of its cells are chaotic (35{,}650 of 65{,}536), and periodic windows of
-periods 2--32 are embedded in the chaos. Rendered as in the shrimp literature \cite{stenzinger2025shrimp}, the
-windows show dark curves of maximal contraction.
+periods 2--32 are embedded in the chaos. Inside each window the gray darkens toward curves on which the periodic
+orbit is most strongly attracting (Section~\ref{sec:organization}).
 \begin{figure}[H]
 \centering
 \includegraphics[width=0.49\linewidth]{fig-stripes-lyapunov-curves.png}\hfill
@@ -510,7 +524,7 @@ Inside the period-8 and period-6 bands, two curves of maximal contraction meet i
 \includegraphics[width=0.49\linewidth]{fig-zoom-z3-lyapunov.png}\hfill
 \includegraphics[width=0.49\linewidth]{fig-zoom-z3-families.png}
 \caption{Zooms of $256^2$ float64 cells of the Qwen2.5-0.5B-Instruct map (philosophy direction, layer 12), with
-the largest Lyapunov exponent on the left, rendered as in Figure~\ref{fig:teaser}, and attractor texts on the right.
+the largest Lyapunov exponent on the left, colored as in Figure~\ref{fig:teaser}, and attractor texts on the right.
 Top: the period-8 window ($\alpha\in[0.068,0.076]$, $\log_{10}T\in[-0.135,-0.085]$). Bottom: the period-6 hooks
 ($\alpha\in[0.072,0.082]$, $\log_{10}T\in[-0.085,-0.04]$), whose curved period-6 body, period-12 foot and thin leg
 are analyzed in Appendix~\ref{sec:curves}.}
@@ -1532,8 +1546,8 @@ spread by $10.3$ to $14.0\,\%$.
 \includegraphics[width=0.49\linewidth]{fig-qwen15-zoom-lyapunov.png}\hfill
 \includegraphics[width=0.49\linewidth]{fig-qwen15-zoom-families.png}
 \caption{Qwen2.5-1.5B soft-token map steered along the philosophy direction at layer 14, $256^2$ float64 cells over
-$\alpha\in[0.03,0.12]$, $\log_{10}T\in[-0.2,0.2]$: largest Lyapunov exponent (left, rendered as
-Figure~\ref{fig:teaser}) and attractor texts (right, as Figure~\ref{fig:cross512}). Several period-2 label regions
+$\alpha\in[0.03,0.12]$, $\log_{10}T\in[-0.2,0.2]$: largest Lyapunov exponent (left, colored as in
+Figure~\ref{fig:teaser}) and attractor texts (right, as in Figure~\ref{fig:cross512}). Several period-2 label regions
 touch without a gap; as explained in Appendix~\ref{sec:methods}, such boundaries may be label switches of one orbit.}
 \label{fig:qwen15}
 \end{figure}

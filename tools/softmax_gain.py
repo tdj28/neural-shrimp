@@ -8,6 +8,10 @@ the probability, so steps with a sharp distribution are nearly rank-deficient.
 
 identity  checks the factorisation against forward-mode derivatives of the full map at a state on the attractor of
           one cell: relative error of (1/T) Sigma_p J_h u against DF u for random directions u.
+convergence  the identity check (same state, same random directions) together with central finite differences
+          (F(x + h u) - F(x - h u)) / (2h) along unit directions u for steps h from 1e-1 to 1e-10: their relative
+          error against the forward-mode derivative shows h^2 convergence down to the rounding floor, against which
+          the factorisation's agreement is read (figure with --fig)
 orbit     at q consecutive states on the attractor of a period-q cell: per step the entropy, the leading
           probabilities, the leading eigenvalues of Sigma_p and the leading singular values of the dense DF (from
           forward-mode derivatives); for the cycle the multipliers and singular values of the monodromy DF_q ... DF_1,
@@ -15,6 +19,8 @@ orbit     at q consecutive states on the attractor of a period-q cell: per step 
           |mu_1 mu_2|; the dense step Jacobians and states are saved (orbit-jacobians.npz).
 
 Usage: python tools/softmax_gain.py identity --vectors VEC --concept C --alpha A --log-temperature LT --out OUT
+       python tools/softmax_gain.py convergence --vectors VEC --concept C --alpha A --log-temperature LT --out OUT
+                                        [--directions 8] [--fig PNG]
        python tools/softmax_gain.py orbit --vectors VEC --concept C --alpha A --log-temperature LT --period Q --out OUT
 """
 import argparse
@@ -107,7 +113,7 @@ def main():
     import explore_llm_soft_loop as esl
 
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    ap.add_argument("mode", choices=("identity", "orbit"))
+    ap.add_argument("mode", choices=("identity", "convergence", "orbit"))
     ap.add_argument("--model", default="qwen0.5b")
     ap.add_argument("--layer", type=int, default=12)
     ap.add_argument("--vectors", required=True)
@@ -122,6 +128,7 @@ def main():
     ap.add_argument("--device", default="cpu")
     ap.add_argument("--threads", type=int, default=16)
     ap.add_argument("--out", required=True)
+    ap.add_argument("--fig", default=None, help="convergence mode: write the figure here")
     args = ap.parse_args()
     if args.dtype != "float64":
         raise SystemExit("float64 only: the check compares derivatives to rounding level")
@@ -143,7 +150,7 @@ def main():
     states = attractor(loop, v, args.alpha, temp, args.transient, q)
     result = {"args": vars(args), "temperature": temp}
     with sdpa_kernel(SDPBackend.MATH):
-        if args.mode == "identity":
+        if args.mode in ("identity", "convergence"):
             maps = Maps(loop, v, args.alpha, temp, 1)
             x = states[0]
             p = maps.p(x)
@@ -157,6 +164,25 @@ def main():
                 pred = (S @ dh[0]) / temp
                 errs.append(float((pred - dF[0]).norm() / dF[0].norm()))
             result.update({"entropy_nats": entropy(loop, p), "relative_errors": errs, "max_relative_error": max(errs)})
+            if args.mode == "convergence":
+                steps_h = np.logspace(-1, -10, 19)
+                rng = np.random.default_rng(0)                  # the same directions as the identity check
+                fd = []
+                with torch.no_grad():
+                    for _ in range(args.directions):
+                        u = torch.as_tensor(rng.normal(size=x.shape[0]), dtype=x.dtype, device=x.device)
+                        u = u / u.norm()
+                        _, dF = torch.func.jvp(maps.F, (x[None],), (u[None],))
+                        row = []
+                        for h in steps_h:
+                            diff = (maps.F((x + h * u)[None]) - maps.F((x - h * u)[None]))[0] / (2 * h)
+                            row.append(float((diff - dF[0]).norm() / dF[0].norm()))
+                        fd.append(row)
+                result.update({"fd_steps": steps_h.tolist(), "fd_relative_errors": fd,
+                               "state_norm": float(x.norm())})
+                if args.fig:
+                    from plot_derivative_check import plot_convergence
+                    plot_convergence(result, args.fig)
         else:
             maps = Maps(loop, v, args.alpha, temp, args.batch)
             closure = float((states[q] - states[0]).norm() / states[0].norm())
