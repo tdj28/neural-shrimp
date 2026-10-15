@@ -73,6 +73,48 @@ def pair_stats(cells, idx):
     return counts, marks
 
 
+def singles_stats(cells, aa, ab, idx, line_a, line_b):
+    """Pair map with two directions: each cell compared with agent A alone at alpha_A (self-dialogue line line_a) and
+    agent B alone at alpha_B (line_b); lines are dicts alpha -> class (chaotic, periodic or other)."""
+    cls = lambda c: "chaotic" if c["class"] in CHAOS else ("periodic" if c["class"] == "periodic" else "other")
+    counts = {"entrained": 0, "made_chaotic": 0, "inherited": 0, "cells": 0, "both_chaotic_agents": 0,
+              "both_periodic_agents": 0}
+    classes, marks = [], []
+    for (i, j), k in np.ndenumerate(idx):
+        if k < 0:
+            continue
+        a = line_a.get(round(float(aa[j]), 9))
+        b = line_b.get(round(float(ab[i]), 9))
+        if a is None or b is None:
+            continue
+        c = cls(cells[k])
+        classes.append(c)
+        counts["cells"] += 1
+        if a == b == "chaotic":
+            counts["both_chaotic_agents"] += 1
+            if c == "periodic":
+                counts["entrained"] += 1
+                marks.append((i, j, "entrained"))
+        if a == b == "periodic":
+            counts["both_periodic_agents"] += 1
+            if c == "chaotic":
+                counts["made_chaotic"] += 1
+                marks.append((i, j, "made_chaotic"))
+        if c == a == b:
+            counts["inherited"] += 1
+    freq = {k: classes.count(k) / max(len(classes), 1) for k in ("chaotic", "periodic", "other")}
+    counts["null_expected_entrained"] = counts["both_chaotic_agents"] * freq["periodic"]
+    counts["null_expected_made_chaotic"] = counts["both_periodic_agents"] * freq["chaotic"]
+    return counts, marks
+
+
+def line_classes(run):
+    """alpha -> class of a self-dialogue line (selfmap at one temperature)."""
+    d = json.loads((DATA / run / "dialogue.json").read_text())
+    cls = lambda c: "chaotic" if c["class"] in CHAOS else ("periodic" if c["class"] == "periodic" else "other")
+    return {round(float(c["alpha_a"]), 9): cls(c) for c in d["cells"]}
+
+
 def main():
     import matplotlib
     matplotlib.use("Agg")
@@ -83,7 +125,13 @@ def main():
     ap.add_argument("--runs", nargs="+", required=True, help="run folders under explore/llm-soft-loop/pod64")
     ap.add_argument("--out", required=True)
     ap.add_argument("--stats", default=None)
+    ap.add_argument("--singles", nargs=2, default=None, metavar=("RUN_A", "RUN_B"),
+                    help="self-dialogue lines of agents A and B, for pair maps with two directions")
+    ap.add_argument("--entrained-cells", default=None,
+                    help="write the entrained cells ([log10T, alpha_A, alpha_B]) to this JSON (for soft_dialogue verify)")
+    ap.add_argument("--max-cells", type=int, default=12)
     args = ap.parse_args()
+    picked = []
     maps = []
     for run in args.runs:
         d = json.loads((DATA / run / "dialogue.json").read_text())
@@ -120,13 +168,21 @@ def main():
                "concept_b": a["concept_b"], "cells": len(cells),
                "classes": {k: sum(1 for c in cells if c["class"] == k) for k in sorted({c["class"] for c in cells})},
                "periods": {str(q): int(np.sum(per == q)) for q in sorted(set(per[np.isfinite(per)].astype(int)))}}
-        if len(aa) == len(ab) and np.allclose(aa, ab) and a["concept_a"] == a["concept_b"]:
+        counts = None
+        if args.singles and a["concept_a"] != a["concept_b"]:
+            counts, marks = singles_stats(cells, aa, ab, idx, line_classes(args.singles[0]), line_classes(args.singles[1]))
+        elif len(aa) == len(ab) and np.allclose(aa, ab) and a["concept_a"] == a["concept_b"]:
             counts, marks = pair_stats(cells, idx)
+        if counts is not None:
             rec["pair_comparison"] = counts
             for i, j, kind in marks:
                 ax1.plot(aa[j], ab[i], "x" if kind == "entrained" else "+", ms=3,
                          color="white" if kind == "entrained" else "k")
-            ax1.plot(ext[:2], ext[2:], ":", color="k", lw=0.8)
+            if a["concept_a"] == a["concept_b"]:
+                ax1.plot(ext[:2], ext[2:], ":", color="k", lw=0.8)
+            for i, j, kind in marks:
+                if kind == "entrained":
+                    picked.append([float(t), float(aa[j]), float(ab[i])])
             title += f"\nentrained {counts['entrained']} (null {counts['null_expected_entrained']:.0f}), " \
                      f"made chaotic {counts['made_chaotic']} (null {counts['null_expected_made_chaotic']:.0f})"
         ax1.set_title(title, fontsize=7)
@@ -142,6 +198,12 @@ def main():
     fig.savefig(args.out)
     if args.stats:
         Path(args.stats).write_text(json.dumps(report, indent=1))
+    if args.entrained_cells:
+        step = max(1, len(picked) // args.max_cells)               # spread the picks over the list
+        sel = picked[::step][:args.max_cells]
+        Path(args.entrained_cells).write_text(json.dumps({"note": "entrained pair cells (pair periodic, both agents "
+                                                          "chaotic alone) picked by tools/plot_dialogue.py",
+                                                          "cells": sel}, indent=1))
     print(json.dumps(report, indent=1))
 
 
