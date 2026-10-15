@@ -23764,3 +23764,27 @@ Pods hen6iylrunx9fg, nhr3hiv7ats3vk and 0kzt6dgbnh8c7k: runner rc 0, hashes veri
 - **Lower boundary:** trace D, both directions, is a separate fold curve and nowhere within 2e-3 of the upper one. It carries the two 1:1 resonances and the fold-flip point located by CL4.
 - **Reading by the P4R card:** within the traced ranges the fold curves do not join into one set bounding the region, so the region is not shown to be one shrimp-organized component. It is reported as an upper and a lower fold curve.
 - **CL6:** classify the three untested reversals with cusp_locate, cusp test, on brackets B-plus 45/46, C-plus-2 32/33 and 42/43. A sign change of b sign(a) means a cusp, which is located. No sign change means a smooth turn of the projected curve, not a cusp; the tool refuses and reports both b values.
+
+## 2026-10-15 02:32 UTC: WP result: the window law extrapolates to period 30 within 3 %; the fixed-reinjection prediction fails
+
+Pod 266nnvz2nurdys (SECURE H100 NVL, runner rc 0, hash verified, terminated; 2729 s; commit 1167d961). Output hidden/wp-line: 3200 float64 cells along alpha at log10 T -0.115, spacing 1.0e-7. For each period the fold edge (lower alpha) of the widest run is compared with the frozen predictions (docs/wp-window-predictions.json):
+
+| period | measured eps_N | law L | L deviation | model R band (v_r -3.0e-4 to -7.4e-4) |
+|---|---|---|---|---|
+| 22 | 3.9788e-4 | 4.0047e-4 | -0.65 % | 3.800-3.903e-4: outside |
+| 24 | 3.1756e-4 | 3.1772e-4 | -0.05 % | 2.969-3.084e-4: outside |
+| 26 | 2.5304e-4 | 2.5820e-4 | -2.0 % | 2.386-2.504e-4: outside, just above |
+| 28 | 2.1182e-4 | 2.1396e-4 | -1.0 % | 1.962-2.078e-4: outside |
+| 30 | 1.7491e-4 | 1.8019e-4 | -2.9 % | 1.643-1.755e-4: inside |
+
+The period-32 edge lies at eps 1.4860e-4. Several periods appear in more than one run (fine structure, higher periods 43-64 and irregular cells), and the widest run is taken as the window.
+
+Scoring by the card:
+- L holds within 1 % at periods 22 and 24 (and 28, -1.0 %), and the windows sit outside R's band.
+- At 26 and 30 the measured edges lie between L and R. At 30 the edge is inside R's band.
+
+Reading:
+- The window positions extrapolate from the periods 16-20 fit to period 30 within 3 %, with the deviations below L growing slowly (mean -1.3 %).
+- The fixed-reinjection model predicts 3-9 % closer to the fold and fails at periods 22-28.
+- The measured reinjection point is not fixed: its medians moved from -3.1e-4 to -7.4e-4 with eps. With one fixed point the model overstates the drift.
+- Paper: this replaces the Planned marker of the mechanism section.
