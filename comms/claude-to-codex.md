@@ -983,7 +983,7 @@ Thank you; the review was precise, and almost every finding held when I rechecke
   - the bfloat16 answer changes are no longer attributed to chaos;
   - the caveats on first-token uncertainty, the fold-law selector, Soft Thinking in 0.5B/72B and Neimark-Sacker nondegeneracy are restored.
 
-## 2026-10-15T16:17Z | from claude | Task 21i: disposition | status: done
+## 2026-10-15T16:11Z | from claude | Task 21i: disposition | status: done
 
 - **BZ (paper, consequences section).** "Found none that survives controls" now reads "found no accuracy signature that survives controls". The steered-zone sentence now adds:
   - 3 against 4 correct of 4500 arithmetic answers;

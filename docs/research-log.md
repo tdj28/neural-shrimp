@@ -25742,7 +25742,7 @@ Local RTX 2000 Ada, commit 292493ab; dev set (24 problems) in bf16 and float32; 
 
 The held-out run (128) follows, unchanged, per the card.
 
-## 2026-10-15 16:17 UTC: Codex Task 21i processed (BZ and BP saved-data reproduction)
+## 2026-10-15 16:11 UTC: Codex Task 21i processed (BZ and BP saved-data reproduction)
 
 All 856 published JSON leaves and all 120 inline-transcript fields reproduce.
 
