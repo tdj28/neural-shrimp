@@ -24104,3 +24104,11 @@ Chaotic share of the 128 x 128 cells (exponent above 1e-3, no period), alpha -0.
 - Early-block steering (4, 8) carries chaos down to log10 T about -0.9 at strong steering, near greedy decoding. Late-block steering (20) leaves only a thin chaotic band at log10 T 0.1-0.25, with everything below it periodic.
 - Near zero steering every block gives 1-2 %.
 - Reading: exploratory, one direction, one prompt, one map per block. From block 8 on, the chaotic share and its lowest temperature fall monotonically with depth. A gain split by block would say whether the readout or the network factor carries the difference.
+
+## 2026-10-15 05:11 UTC: FB stage 1c: the 192->384 flip and the fifth ratio 4.6618; run FBD (deeper flips on an H100) and FBS156-192
+
+- **Flip 192->384** (local, log10 T -0.156): bracketed between alpha 0.06510344639876085 (mu -0.9999998) and 0.06510344639876837 (mu -1.0000001), so alpha = 0.0651034463987655 +- 5e-15; next modulus 6e-14.
+  - The interval ratios are now 14.928, 3.1241, 4.4988, 4.6208 and 4.6618. The deviations from 4.669 are +10.3, -1.55, -0.17, -0.048 and -0.0074.
+  - The local run is still refining the last digits; that cannot change the ratio at the quoted precision. The local follow-on (384->768) starts when it ends.
+- **FBD (pod, job set cascade):** the same cut, starting from the period-384 orbit at alpha 0.06510345998979336 (middle of the estimated 384 band), next 0.06510347503852487, ratio guess 4.661793821985329, 2 flips (384->768, 768->1536), transient 40000, 96 steps per period, run limit 150 min. The local follow-on computes 384->768 independently, as a cross-check across devices.
+- **FBS156-192 (pod, job set superstable):** the period-192 band at -0.156, bracket 0.0651033260174831 to 0.0651034438644227 (5-98 % of the band), transient 40000, settle factor 20.
