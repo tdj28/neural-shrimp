@@ -40,11 +40,11 @@ changed, chaotic float64 loops separate until their most probable tokens differ,
 Lyapunov exponent sets, while periodic loops mostly stay together, in four models of two families up to 70B. In frozen
 tests on arithmetic, the batch layout changed 56\,\% of the answers of bfloat16 soft-thinking inference in a 0.5B
 model and 55\,\% in a 7B model, far more often than those of a forced greedy baseline. Exactly repeating text can hide
-a chaotic internal state. Along the sampled orbits, steering creates the chaos mainly by making next tokens compete,
+a chaotic state. Along the sampled orbits, steering creates the chaos mainly by making next tokens compete,
 which turns the softmax readout from a contraction into an expansion; a logit bias alone suffices. Earlier injection
 carries chaos to lower temperature, two steering vectors at different depths create chaos neither causes alone, and two
-loops writing one text lock each other into periodic orbits that neither has alone. The loop's regime does not mark the
-accuracy of ordinary answers, and we find no advantage at the edge of chaos. The loop obeys quantitative laws of
+loops writing one text lock each other into periodic orbits that neither has alone. Beyond first-token uncertainty, the loop's regime does not mark
+the accuracy of ordinary answers, and we find no edge-of-chaos advantage. The loop obeys quantitative laws of
 low-dimensional maps: doubling ratios approach Feigenbaum's constant (4.6688 against 4.6692), periodic windows
 accumulate on folds with a $1/N^2$ law, fold normal forms predicted 23 of 24 frozen passage times within one iterate,
 and interval arithmetic proves an attracting period-8 orbit. In the recurrent-depth model Huginn, a frozen test
