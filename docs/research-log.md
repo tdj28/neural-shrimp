@@ -24898,3 +24898,17 @@ With the 64 -> 128 flip of FB15D (-0.001824434015999929), **the next ratio is 2.
 **Run card FBC148d.** The same job as FBC148c with --max-substeps 48 (reach 1.6e-6 beyond the switching point). Name crescent-t-0.14798-p96d, run 240 min, 3 flips (192 and an attempt at 384).
 - If the locator refuses at the floor, the line-fit root of the bracket evaluations (as for -0.156) is computed afterwards.
 - One H100-class pod; ceiling in the private ledger.
+
+## 2026-10-15 09:27 UTC: REPRO70 result: the batch-layout test replicates at 70B
+
+**Run.** Pod be8cws5h8aznhp: two H200, layers spread; commit 5744ed40 from the orchestrator log; runner rc 0; terminated. Settings: Llama-3.3-70B-Instruct, hostility-vs-kindness at block 20, float64 arithmetic on the stored bfloat16 weights, 1000 steps, tail 300, batch64 comparison only. Cells: docs/repro70-cells.json, 24 chaotic and 24 periodic, drawn before any data.
+
+**Extraction.** The result archive clashed on the uploaded vectors. Both vector files are byte-identical to the local copies (cmp), so repro/r70 was copied from the run's extracted folder.
+
+**Result** (tools/repro_summary.py, docs/repro-summary.json):
+- **Chaotic:** all 24 pass 1e-2, after a median of 114.5 steps (range 46 to 525). 21 of 24 (87.5 %) end with different leading tokens.
+  - Lyapunov prediction: median ratio 0.83, log-log r 0.74.
+- **Periodic:** none pass 1e-2. Final distances: median 2.7e-14, maximum 1.23e-12; the largest distance at any step is 3.9e-8.
+  - These are rounding-level final distances in a split model, consistent with the float64 norms being in force (the two-GPU defect was fixed at 6a4775ae, before this commit).
+
+**Paper.** Added to the text, Table tab:repro, the introduction and the abstract ("four models of two families up to 70B").

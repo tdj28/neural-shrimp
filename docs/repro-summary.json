@@ -233,7 +233,31 @@
     }
    }
   },
-  "llama3.3-70b steered (REPRO70)": {}
+  "llama3.3-70b steered (REPRO70)": {
+   "batch64": {
+    "chaotic": {
+     "cells": 24,
+     "reach_1e-2": 24,
+     "median_step": 114.5,
+     "median_final": 0.8636987507343292,
+     "p95_final": 1.4503984212875358,
+     "end_with_different_tokens": 0.875
+    },
+    "periodic": {
+     "cells": 24,
+     "reach_1e-2": 0,
+     "median_step": null,
+     "median_final": 2.727434994027238e-14,
+     "p95_final": 3.155048542303329e-13,
+     "end_with_different_tokens": 0.0
+    },
+    "lyapunov_prediction": {
+     "cells": 24,
+     "median_ratio": 0.8342463244618077,
+     "loglog_r": 0.7371360975695581
+    }
+   }
+  }
  },
  "answers": {
   "qwen0.5b (REPRO-T)": {

@@ -37,7 +37,7 @@ Thinking do, turns inference into a nonlinear dynamical system. In Qwen2.5, OLMo
 parameters, temperature and steering move this loop between repeating text and chaos, with positive Lyapunov
 exponents that exact tangents reproduce. The chaos has practical consequences. Rerun with only the batch size
 changed, chaotic float64 loops diverge into different text after the number of steps the Lyapunov exponent predicts,
-while periodic loops stay together, in three models of two families. In a frozen test on arithmetic, the batch
+while periodic loops stay together, in four models of two families up to 70B. In a frozen test on arithmetic, the batch
 layout changed 56\,\% of the answers of bfloat16 soft-thinking inference in a 0.5B model and 55\,\% in a 7B model,
 far more often than it changed greedy decoding's. Exactly repeating text can hide a chaotic internal state. Steering
 causes the chaos by making
@@ -73,8 +73,8 @@ that the expected-embedding loop of released language models is chaotic over wid
 strength, explain why steering makes it so, and measure what the chaos does.
 \begin{itemize}
 \item In a chaotic regime, an irrelevant change of batch size makes two otherwise identical float64 runs write
-  different text, after a number of steps that the Lyapunov exponent predicts, in Qwen2.5-0.5B and, without steering,
-  in Qwen2.5-7B and Llama-3.1-8B; in a periodic regime the two runs stay together. In bfloat16, the batch layout
+  different text, after a number of steps that the Lyapunov exponent predicts, in Qwen2.5-0.5B, Llama-3.3-70B and,
+  without steering, Qwen2.5-7B and Llama-3.1-8B; in a periodic regime the two runs stay together. In bfloat16, the batch layout
   changed the answers of a short soft-thinking pipeline on 56\,\% of arithmetic problems in a 0.5B model and 55\,\% in
   a 7B model, far more often than it changed greedy decoding's (never and 10\,\%).
 \item Steering creates the chaos by making next tokens compete, which turns the softmax readout from a contraction
@@ -129,7 +129,8 @@ sampling.
   190 of 192 chaotic float64 loops of Qwen2.5-0.5B diverge from rounding-level differences to different text, after
   a median of 102 steps and as the Lyapunov exponent predicts (median ratio 0.91), while 182 of 192 periodic loops
   stay within $10^{-2}$ and 95\,\% end within $3\times10^{-12}$. The same holds without steering in Qwen2.5-7B (24 of 24
-  chaotic loops diverge, none of 24 periodic ones) and Llama-3.1-8B (20 of 20, and 1 of 20). In bfloat16 nearly every
+  chaotic loops diverge, none of 24 periodic ones) and Llama-3.1-8B (20 of 20, and 1 of 20), and with steering in
+  Llama-3.3-70B (24 of 24, and none of 24). In bfloat16 nearly every
   loop diverges within a few steps (Section~\ref{sec:consequences}). At the level of answers, in a frozen test on 96 additions, the batch layout
   changed the answer of a bfloat16 soft-thinking pipeline in 56\,\% of problems at $T=1$ in Qwen2.5-0.5B and in
   55\,\% at $T=10^{0.2}$ in Qwen2.5-7B, far more often than it changed greedy decoding's output (never and 10\,\%).
@@ -694,7 +695,11 @@ predicts the step, median ratio $0.95$), and 96\,\% of them end up writing diffe
 moves past $10^{-2}$, and 95\,\% end within $1.3\times10^{-13}$ of each other. A second model family, unsteered
 Llama-3.1-8B, gives the same picture: all 20 chaotic temperatures diverge after a median of 68 steps (median ratio to
 the exponent's prediction $1.05$), all 20 end up writing different tokens, and 19 of the 20 periodic ones stay within
-$10^{-2}$. In lower precision the rounding is
+$10^{-2}$. At 70B the picture is unchanged. In Llama-3.3-70B-Instruct steered along hostility-vs-kindness at block 20
+(float64 arithmetic on its stored bfloat16 weights, layers spread over two GPUs, 1000 steps), all 24 chaotic cells
+diverge, after a median of 114.5 steps (median ratio to the prediction $0.83$, log-log correlation $0.74$), and 21 of
+them end up writing different tokens. None of the 24 periodic cells moves past $10^{-2}$, and all end within
+$1.3\times10^{-12}$. In lower precision the rounding is
 larger. In float32 every chaotic cell of both models diverges, after a median of 20 steps (0.5B) or 16 (7B). In
 bfloat16, a common serving precision, the two layouts pass a distance of $10^{-2}$ after a median of one or two steps
 at every cell of the two Qwen models and at 38 of the 40 Llama cells, periodic ones included. At that precision the
@@ -761,12 +766,16 @@ Llama 8B unsteered, float32 & chaotic & 20 / 20 & 10.5 & 100\,\% \\
  & periodic & 1 / 20 & & 0\,\% \\
 Llama 8B unsteered, bfloat16 & chaotic & 20 / 20 & 1 & 100\,\% \\
  & periodic & 18 / 20 & 2 & 45\,\% \\
+\midrule
+Llama 70B steered, float64 & chaotic & 24 / 24 & 114.5 & 87.5\,\% \\
+ & periodic & 0 / 24 & & 0\,\% \\
 \bottomrule
 \end{tabular}
 \caption{Divergence of two otherwise identical runs, by the cells' float64 labels (1500 steps; ``end with different
 tokens'': the most probable tokens differ at some step of the last 500). Top: Qwen2.5-0.5B, philosophy direction at
 layer 12. Middle: Qwen2.5-7B unsteered, 24 chaotic and 24 periodic temperatures of its long sweep. Bottom:
-Llama-3.1-8B-Instruct unsteered, 20 and 20. In float32 the periodic cells that diverge may
+Llama-3.1-8B-Instruct unsteered, 20 and 20. Last block: Llama-3.3-70B-Instruct, hostility-vs-kindness at block 20, 24
+and 24 (1000 steps; tokens compared over the last 300). In float32 the periodic cells that diverge may
 change phase on the same cycle or switch between coexisting attractors; the run does not distinguish the two.}
 \label{tab:repro}
 \end{table}
