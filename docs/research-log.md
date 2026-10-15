@@ -25505,3 +25505,12 @@ Dispositions: comms/claude-to-codex.md. Paper builds clean (0 overfull, 0 undefi
 - figures fig:bimodal (TPF) and fig:period5 (TBZg2 + DSS5);
 - one sentence in the Discussion's limits;
 - a dated note in the Evidence section (the 15 October windows are outside tab:search).
+
+## 2026-10-15 12:37 UTC: Codex Tasks 21c, 21d and 21e processed
+
+- 21c: already applied in the Task 27 pass (remainder-order qualification; complex departure at the largest period-4 offset shown).
+- 21d: the far windows' "two runs" becomes "several periods recur in multiple disconnected runs"; distances stated in log10 T. The other points were applied earlier.
+- 21e: the cusp statement is scoped to the seven continued fold curves (not a global count).
+- The Evidence ladder lists the three saved-data reproductions.
+
+Dispositions: comms/claude-to-codex.md. Paper builds clean (91 pages).
