@@ -1174,8 +1174,7 @@ chaos (largest exponent up to $+0.1$) for $\alpha\approx0.0659$--$0.0673$. Windo
 inside the chaotic band, and the orbit then undoubles through 28 and 14 back to 7; the exponent touches zero at every
 doubling. Newton's method converges at map cells to primitive orbits of periods 14, 28 and 21 (residuals
 $3\times10^{-15}$, $2\times10^{-14}$ and $5\times10^{-13}$; spectral radii $0.08$, $4\times10^{-4}$ and $0.006$).
-Periods 21, 35 and 42 are three, five and six times the body's period: the satellite windows expected in the chaotic
-bands of a period-7 cascade. Continued in temperature, the period-14 orbit flips into period 28 near
+Periods 21, 35 and 42 are three, five and six times the body's period, as expected for the windows that renormalization places inside the band chaos of a period-7 cascade. Continued in temperature, the period-14 orbit flips into period 28 near
 $\log_{10}T=0.1841$ and back near $0.1857$, the two ends of a doubling bubble that holds period 28 and chaos. Lower
 down, its branch is S-shaped (folds near $0.1824$ and $0.18244$, with three coexisting period-14 orbits between them)
 before another flip near $0.1819$. All these crossings are simple (next modulus below $4\times10^{-5}$). A $160^2$
@@ -1385,12 +1384,23 @@ continued curve the critical multiplier stays at $+1$ or $-1$ to within $1.2\tim
 exceeds $0.4$ in modulus, so no second multiplier reaches the unit circle along them; this does not exclude cusps,
 which need only a nonlinear degeneracy.
 
-\paragraph{Shrimps of a two-dimensional kind.} The period-5 window has this anatomy except the head. At every cell of that grid and every curve point, the multipliers beyond the leading pair are below $0.0032$, so the two-dimensional
-reading applies. The leading multiplier never vanishes (its modulus stays at least $0.0139$ on the grid): where a
-one-dimensional map would be superstable, the two leading multipliers form a complex pair, the node having become a
-focus, or pass each other as real numbers of opposite sign. The trace-zero curve around an island of negative trace
-(Figure~\ref{fig:period5folds}c) is closed on the grid except at one cell next to the fold curve, where it must close,
-because on a fold the trace is $1$ plus the second multiplier and therefore positive: the loop of Type~A. In the
+\paragraph{Shrimps of a two-dimensional kind.} The period-5 window has this anatomy; only its head differs. At
+every cell of that grid and every curve point, the multipliers beyond the leading pair are below $0.0032$, so on the
+grid the orbit's linearization has at most two non-negligible directions. On the grid the leading multiplier never
+vanishes (its modulus stays at least $0.0139$): where a one-dimensional map would be superstable, the two leading
+multipliers form a complex pair, the node having become a focus, or pass each other as real numbers of opposite sign.
+Between grid cells, however, a two-parameter Newton search for the point where the sum of the leading multipliers and
+the sum of their pairwise products vanish converges at $(\alpha_1,\alpha_2)=(-0.1184836,0.1017217)$
+(\path{docs/review/p5-nilpotent.jsonl}). There the three leading multipliers have nearly equal moduli, $3.4$ to
+$3.6\times10^{-3}$: the orbit contracts about 280-fold per period, and its linearization has no dominant one- or
+two-dimensional part. This point of strongest contraction plays the role of the head, but the two-dimensional
+reading does not describe it. The determinant $D=\mu_1\mu_2$ of the leading pair also changes sign in the window
+($D<0$ at 41 of its 447 attracting cells), so the effective two-dimensional map reverses orientation in part of the
+window: a noninvertible setting in the sense of Mira \cite{mira1996chaotic}, not that of H\'enon's map, whose
+determinant has a fixed sign. The trace-zero curve around an island of negative trace (Figure~\ref{fig:period5folds}c)
+is closed on the grid except at one cell next to the fold curve, where it must close, because on a fold the trace is
+$1$ plus the second multiplier and therefore positive: a closed trace-zero contour as in Type~A, a classification
+derived for determinants of fixed sign \cite{facanha2013endoskeletons}. In the
 hostile period-7 body the superstable arcs turn away without crossing, which resembles the head of Type~B
 (Section~\ref{sec:hostile}). The same plane holds a period-doubling cascade whose cells are nested
 V-shaped tongues near $\alpha_1=-0.105$, $\alpha_2=0.105$. Continued in float64 on grids over these cells, its
@@ -1423,7 +1433,7 @@ two cusps have cubic coefficients of opposite sign, as in any section of a swall
 ($c>0$, the upper cusp in both) and one of the crossroad or spring kind ($c<0$). We do not claim the swallowtail point
 itself, which needs a third parameter, and we have not traced the tail \cite{gallas1994dissecting}, determined
 symbolic sequences or tested for a periodicity hub \cite{vitolo2011hubs,jones2012rossler}. With these qualifications
-the period-5 window carries the anatomy of a shrimp in a two-dimensional map such as H\'enon's
+the period-5 window carries the anatomy of a shrimp, as Gallas found it in H\'enon's map, here in a two-dimensional map whose determinant changes sign
 \cite{henon1976two,gallas1993structure}; whether a two-dimensional map also reproduces its nonlinear dynamics is not
 tested (a closure test failed for numerical reasons; Appendix~\ref{sec:hostility}).
 \begin{figure}[tbp]
@@ -1870,8 +1880,7 @@ temperature the network factor can carry the instability. The loop's regime does
 sampled answers beyond the model's first-token uncertainty, and when slight steering moved a prompt's loop into chaos no change of that accuracy was detected ($+0.36$ points,
 $[-0.36,1.08]$; Appendix~\ref{sec:behaviour}). We do not claim that ordinary sampled generation is
 chaotic in this sense (Appendix~\ref{sec:bridge}), nor that any window is a certified shrimp. The period-5 window carries the anatomy of a shrimp in a two-dimensional map
-(Section~\ref{sec:organization}): fold curves with located cusps, legs, doubling shells, a trace-zero loop in place
-of a one-dimensional head, and two dovetails. The period-6 and period-7 windows have fold-and-flip skeletons with
+(Section~\ref{sec:organization}): fold curves with located cusps, legs, doubling shells, a closed trace-zero curve, and two dovetails. The period-6 and period-7 windows have fold-and-flip skeletons with
 located cusps, and in the hostile period-7 body the superstable arcs avoid each other where a head would be. We have
 not traced tails or symbolic sequences, tested for a periodicity hub \cite{vitolo2011hubs,jones2012rossler}, or shown
 that a two-dimensional map reproduces the windows' nonlinear dynamics. The cusps are float64
