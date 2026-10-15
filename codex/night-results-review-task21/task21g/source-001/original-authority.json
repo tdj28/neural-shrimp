@@ -1,0 +1,97 @@
+{
+  "schema": "task21g-original-authority-v1",
+  "original_id": "RM1",
+  "naming_note": "Queue labels return maps RM; original local orchestrator/manifest identity is RM1, not coordinator shorthand RM0. Exact source and seven-cell command identify the selected record.",
+  "source_commit": "0a15d1a66a4e9d34ff43d1d56e8cb42c5126fc9e",
+  "initial": {
+    "path": "/tmp/task21g-source-001/authority/initial.json",
+    "sha256": "b2104a9585f8a007c520b6cd4ae237cd8da809e2fef9e3a1e87c94b8a0033f9f",
+    "bytes": 517
+  },
+  "retrieval": {
+    "path": "/tmp/task21g-source-001/authority/retrieval.json",
+    "sha256": "f509bad8211c4a7e41430a5a9a1457059fee2ec7ca60f292533fd626dcb4d1c7",
+    "bytes": 1221
+  },
+  "termination": {
+    "path": "/tmp/task21g-source-001/authority/termination.json",
+    "sha256": "d9b94f611e519dad4322142e8ffc019c564fbcec30be8f107a163f16296e0657",
+    "bytes": 105
+  },
+  "tool_status": {
+    "path": "/tmp/task21g-source-001/authority/tool-status.json",
+    "sha256": "37dc56b0ff673442737065a6a7c6cdf9e595daedecc32087c4445bbc90aade9b",
+    "bytes": 401
+  },
+  "orchestrator": {
+    "path": "/data2/neural-shrimp-data/runpod/RM1-orchestrator.log",
+    "sha256": "ab5b2d352ac5ae8115ff93457296e99cda1613f32ec6fb12b504794635060ecf",
+    "bytes": 1610
+  },
+  "archive": {
+    "path": "/data2/neural-shrimp-data/runpod/soft64/20261015T060148Z/results.tgz",
+    "sha256": "0574c2e56faf46f370b101205dd5ad402c7d73b2fcb0719c749472bdabe48445",
+    "bytes": 381328
+  },
+  "archive_file_inventory": [
+    {
+      "name": "explore/llm-soft-loop/pod64/logs/setup-uv.log",
+      "bytes": 113
+    },
+    {
+      "name": "explore/llm-soft-loop/pod64/logs/setup-torch.log",
+      "bytes": 0
+    },
+    {
+      "name": "explore/llm-soft-loop/pod64/logs/setup-packages.log",
+      "bytes": 0
+    },
+    {
+      "name": "explore/llm-soft-loop/pod64/logs/setup-model.log",
+      "bytes": 1216
+    },
+    {
+      "name": "explore/llm-soft-loop/pod64/logs/versions.txt",
+      "bytes": 63
+    },
+    {
+      "name": "explore/llm-soft-loop/pod64/logs/hardware.txt",
+      "bytes": 80
+    },
+    {
+      "name": "explore/llm-soft-loop/pod64/logs/retmap-body-edge.log",
+      "bytes": 1314
+    },
+    {
+      "name": "explore/llm-soft-loop/pod64/retmap/body-edge/return-map.npz",
+      "bytes": 380460
+    },
+    {
+      "name": "explore/llm-soft-loop/pod64/retmap/body-edge/return-map.json",
+      "bytes": 9566
+    }
+  ],
+  "selected_members": [
+    {
+      "archive_member": "explore/llm-soft-loop/pod64/retmap/body-edge/return-map.npz",
+      "original_path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/retmap/body-edge/return-map.npz",
+      "path": "/tmp/task21g-source-001/inputs/return-map.npz",
+      "sha256": "954c40a28cd2e602e15b42d515c98f316eda0f9a009651ab8aeca7066a50e240",
+      "bytes": 380460
+    },
+    {
+      "archive_member": "explore/llm-soft-loop/pod64/retmap/body-edge/return-map.json",
+      "original_path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/retmap/body-edge/return-map.json",
+      "path": "/tmp/task21g-source-001/inputs/return-map.json",
+      "sha256": "c025203ec0ff4efae76760968e21221d8a7010466075736432e5d63d35695b62",
+      "bytes": 9566
+    }
+  ],
+  "source_map": {
+    "path": "/tmp/task21g-source-001/source-map.json",
+    "sha256": "d4fd39c16d86b85c539c9b4f93e0c99d0bf1e4d13ac8bad950105217c5c917c3",
+    "bytes": 4109
+  },
+  "scope": "Original local archive/member retrieval and recorded producer termination; no historical loaded-source/model-asset/birth reconstruction. No target scalar sequences decoded during preparation.",
+  "native_pca_limit": "Selected producer output saves scalar projections and summary shares, not native states/PCA vectors/means/singular values. Original code computes then discards native states; independent PCA explained variance/native clock/precision cannot be reconstructed from these selected artifacts."
+}
