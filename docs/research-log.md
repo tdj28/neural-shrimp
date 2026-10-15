@@ -26449,3 +26449,34 @@ Added to both the main paper and the Chaos version.
 **Check.** The branchings must sit at the Newton-located flips, to the line's spacing. A mismatch beyond a few cells would mean transients too short or coexisting attractors. Both would be reported, not smoothed.
 
 **Cost.** In the private ledger.
+
+## 2026-10-15 22:47 UTC: Run card PT2 (confirmatory, design to be frozen before outcomes): fresh fold-passage test with the continuous predictor as primary
+
+**Question.** Does the continuous passage integral of the fold normal form, T_arc = int du/(a eps + b u^2) from the entrance to U = 0.1/b, forecast full-model passage counts within one iterate at fresh folds? The human approved the test ("do it").
+- Task 5's frozen primary (the discrete quadratic count) failed one row of 24. Its frozen secondary (T_arc) passed all 24.
+- The two forms were 2.4 iterates apart at the failing entrance before any outcome.
+
+**Setup.** codex/confirm-fold-2/, adapted from Task 5: the same independent float64 map, checkpoint, prompt, philosophy vector at layer 12, fold gates, coefficients, entrances and endpoint.
+- Fold gates (unchanged): augmented Newton; a unique real +1 multiplier; complementary modulus below 0.95; primitive period; nested-AD a and b checked by finite differences; u = l.(x - x_c) with ||r|| = 1 and l.r = 1; exit at U = 0.1/|b|; entrances full channel, midpoint, and full plus a transverse kick of norm U.
+- **Targets**, both fresh (README gives the reasons):
+  - **C:** the 2-cycle fold at log10 T = -0.200, active alpha. Seed: index 12 of pod64/curve-p2-fold-plus.
+  - **D:** the period-6 window fold (G = F^6) at log10 T = -0.0874, active alpha. Seed: index 45 of pod64/p6z3/curve-foldD-plus.
+- **Distances.** Per target, eps = q^2/(a b) for q = 0.08, 0.05, 0.03 and 0.018, from the scalar predictions only. Every full-channel T_arc is at least 16 and every midpoint T_arc at least 8; the builder refuses a row below.
+
+**Criterion.**
+- **Primary:** |N - T_arc| <= 1 on all 24 rows, unrounded.
+- **Secondary:** |N - discrete count| <= 1, with its own verdict, never substituted.
+- **Secondary sign hypothesis** (not a criterion): N - discrete <= 0 on every midpoint and kicked row.
+
+**Protocol.**
+1. Setup; no passages.
+2. design.json with all frozen predictions, committed and pushed.
+3. Passages from a git worktree pinned at the freeze commit.
+4. Audit.
+
+Local CPU only: two workers of four threads, nice 10, 18 GiB each. No paid compute.
+
+**Would surprise us.**
+- A gate failure at either target. It would be reported, and the target's rows kept as not run.
+- Systematic primary errors beyond one iterate.
+- A positive discrete residual at a midpoint or kicked entrance.
