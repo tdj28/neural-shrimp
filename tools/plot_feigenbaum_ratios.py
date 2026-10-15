@@ -126,7 +126,7 @@ def main():
     ax.axhline(DELTA, color="0.3", ls=":", lw=1)
     ax.text(5.9, DELTA + 0.05, r"Feigenbaum $\delta=4.669$", ha="right", va="bottom", fontsize=8)
     blue, green, red = "tab:blue", "tab:green", "tab:red"
-    ax.plot(range(1, len(f148) + 1), f148, "o-", color=blue, label=r"0.5B, $\log_{10}T=-0.148$, flips")
+    ax.plot(range(1, len(f148) + 1), f148, "o-", color=blue, label=r"0.5B, $\log_{10}T=-0.148$, flips (to period %d)" % (3 * 2 ** (len(f148) + 2)))
     xs = [n + 1.5 for n in range(1, len(s148) + 1)]
     lo, hi = zip(*(worst_case(ss, i) for i in range(1, len(ss) - 1)))
     err = [[max(v - a, 0) for v, a in zip(s148, lo)], [max(b - v, 0) for v, b in zip(s148, hi)]]
