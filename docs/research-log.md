@@ -26316,3 +26316,20 @@ The methods text had documented the 0.005 convention for period and attractor pa
   - fig:cross512: black is now the criterion.
   - fig:stripes and fig:z3curves: colour bars named.
 - **Methods.** Maps draw chaos by the criterion. Panels whose legend reads "Lyapunov > 0.005" follow the older convention, which differs from the criterion in at most 0.56 % of a map's cells on the five redrawn maps.
+
+## 2026-10-15 21:02 UTC: Bound fixed: the last Feigenbaum ratio at log10 T = -0.156 (found by the Chaos-version agent)
+
+**What was wrong.** fig:feigenbaum said the last ratio, 4.6688, is within 0.01 % of delta. That holds for the point estimate only.
+
+**Recomputation.** From the raw flip parameters (cascade/crescent-t-0.156{,-b,-c,-d,-f}/cascade.json):
+- delta_8 = 4.668843, which is 0.0077 % from delta = 4.6692016.
+- Over the period-384 flip's stated location uncertainty (+-3.3e-13, an estimate), delta_8 runs from 4.668521 to 4.669165, up to 0.0146 % from delta.
+- delta_7 runs from 4.667258 to 4.667372. The text had quoted 4.6672 to 4.6675, a loose upper end.
+
+**Now.** The caption reads "within 0.008 % of it, and within 0.015 % over the location uncertainty of the period-384 flip". The text gives delta_7 as 4.6672 to 4.6674 and delta_8 as 4.6685 to 4.6692. Both bounds are rounded up, per the AGENTS.md gate. The same fix is in the Chaos version (e58e77e).
+
+**Chaos version.** /data2/chaos-journal-neural-shrimp (private repo tdj28/chaos-journal-neural-shrimp), commits 54e36d5, 5e718b8 and e58e77e.
+- REVTeX aip,cha. 20 pages in reprint mode; about 10,200 words of text; 12 figures; 4 tables.
+- Lead paragraph 146 words; abstract 247 words.
+- Full paper as supplementary material.
+- TODOs for the author: affiliation and e-mail, CRediT roles, data availability, a post-fix 70B figure.
