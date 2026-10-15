@@ -155,6 +155,8 @@ def run(args):
         T = 10.0 ** c["log10_temperature"]
         rec = {"cell": c, "groups": {}}
         for name, items, k, max_new, scorer, fmt in groups:
+            if not items:
+                continue
             msgs = [[{"role": "user", "content": fmt(it)}] for it in items for _ in range(k)]
             steer = np.tile(c["alpha"] * np.asarray(v, dtype=np.float64), (len(msgs), 1))
             texts, ent, lens, _ = sm.generate_batch(msgs, steer, max_new, temperature=T,
