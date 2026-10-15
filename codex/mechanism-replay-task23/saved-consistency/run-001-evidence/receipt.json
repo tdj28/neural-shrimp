@@ -1,0 +1,40 @@
+{
+  "returncode": 0,
+  "failure": null,
+  "external_seconds": 0.5561823910102248,
+  "maximum_sampled_output_bytes": 1558548,
+  "worker": {
+    "pid": 3216458,
+    "starttime": 203054039,
+    "pgrp": 3216458,
+    "session": 3216458,
+    "uid": 1000,
+    "nice": 10,
+    "threads": 1,
+    "limits": "Limit                     Soft Limit           Hard Limit           Units     \nMax cpu time              55                   55                   seconds   \nMax file size             16777216             16777216             bytes     \nMax data size             unlimited            unlimited            bytes     \nMax stack size            8388608              unlimited            bytes     \nMax core file size        0                    0                    bytes     \nMax resident set          unlimited            unlimited            bytes     \nMax processes             375398               375398               processes \nMax open files            65535                65535                files     \nMax locked memory         8388608              8388608              bytes     \nMax address space         1073741824           1073741824           bytes     \nMax file locks            unlimited            unlimited            locks     \nMax pending signals       375398               375398               signals   \nMax msgqueue size         819200               819200               bytes     \nMax nice priority         0                    0                    \nMax realtime priority     0                    0                    \nMax realtime timeout      200000               200000               us        \n",
+    "command": "/data2/neural-shrimp/.venv/bin/python -I -B /data2/neural-shrimp-data/codex/mechanism-replay-task23/saved-consistency-001-supervision/source/audit.py --card /data2/neural-shrimp-data/codex/mechanism-replay-task23/saved-consistency-001-supervision/source/saved-consistency-001-card.json --out /data2/neural-shrimp-data/codex/mechanism-replay-task23/saved-consistency-001 "
+  },
+  "worker_after_reap": null,
+  "owned_group_absent": true,
+  "outputs": [
+    {
+      "path": "/data2/neural-shrimp-data/codex/mechanism-replay-task23/saved-consistency-001/report.json",
+      "bytes": 2281905,
+      "sha256": "ac9719898adb66b7f73ea6a3bbb38d1375e002182af6e9323043a8e9acaf06e7"
+    }
+  ],
+  "source_commit": "c8f98a20b8b042eb294b5b34cb319eb2169de264",
+  "saved_consistency_only": true,
+  "scientific_claims_accepted": false,
+  "command": [
+    "/data2/neural-shrimp/.venv/bin/python",
+    "-I",
+    "-B",
+    "/data2/neural-shrimp-data/codex/mechanism-replay-task23/saved-consistency-001-supervision/source/audit.py",
+    "--card",
+    "/data2/neural-shrimp-data/codex/mechanism-replay-task23/saved-consistency-001-supervision/source/saved-consistency-001-card.json",
+    "--out",
+    "/data2/neural-shrimp-data/codex/mechanism-replay-task23/saved-consistency-001"
+  ],
+  "output_cap_scope": "Only saved-consistency output directory plus stdout/stderr; source and receipts excluded."
+}

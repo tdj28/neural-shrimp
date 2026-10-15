@@ -1,0 +1,50 @@
+{
+  "schema": "task23-saved-consistency-owner-closure-v1",
+  "utc": "2026-10-15T17:08:06.428637+00:00",
+  "source_commit": "c8f98a20b8b042eb294b5b34cb319eb2169de264",
+  "tool_exec_completed_exit_code": 0,
+  "tool_session": null,
+  "original_identities": [
+    {
+      "pid": 3216369,
+      "starttime": 203054020,
+      "pgrp": 3216369,
+      "session": 3216369,
+      "uid": 1000,
+      "nice": 10,
+      "threads": 1,
+      "limits": "Limit                     Soft Limit           Hard Limit           Units     \nMax cpu time              unlimited            unlimited            seconds   \nMax file size             unlimited            unlimited            bytes     \nMax data size             unlimited            unlimited            bytes     \nMax stack size            8388608              unlimited            bytes     \nMax core file size        0                    unlimited            bytes     \nMax resident set          unlimited            unlimited            bytes     \nMax processes             375398               375398               processes \nMax open files            65535                65535                files     \nMax locked memory         8388608              8388608              bytes     \nMax address space         unlimited            unlimited            bytes     \nMax file locks            unlimited            unlimited            locks     \nMax pending signals       375398               375398               signals   \nMax msgqueue size         819200               819200               bytes     \nMax nice priority         0                    0                    \nMax realtime priority     0                    0                    \nMax realtime timeout      200000               200000               us        \n",
+      "command": "/data2/neural-shrimp/.venv/bin/python -I -B /home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/mechanism-replay-task23/saved-consistency/saved-consistency-001-launch.py --source c8f98a20b8b042eb294b5b34cb319eb2169de264 "
+    },
+    {
+      "pid": 3216458,
+      "starttime": 203054039,
+      "pgrp": 3216458,
+      "session": 3216458,
+      "uid": 1000,
+      "nice": 10,
+      "threads": 1,
+      "limits": "Limit                     Soft Limit           Hard Limit           Units     \nMax cpu time              55                   55                   seconds   \nMax file size             16777216             16777216             bytes     \nMax data size             unlimited            unlimited            bytes     \nMax stack size            8388608              unlimited            bytes     \nMax core file size        0                    0                    bytes     \nMax resident set          unlimited            unlimited            bytes     \nMax processes             375398               375398               processes \nMax open files            65535                65535                files     \nMax locked memory         8388608              8388608              bytes     \nMax address space         1073741824           1073741824           bytes     \nMax file locks            unlimited            unlimited            locks     \nMax pending signals       375398               375398               signals   \nMax msgqueue size         819200               819200               bytes     \nMax nice priority         0                    0                    \nMax realtime priority     0                    0                    \nMax realtime timeout      200000               200000               us        \n",
+      "command": "/data2/neural-shrimp/.venv/bin/python -I -B /data2/neural-shrimp-data/codex/mechanism-replay-task23/saved-consistency-001-supervision/source/audit.py --card /data2/neural-shrimp-data/codex/mechanism-replay-task23/saved-consistency-001-supervision/source/saved-consistency-001-card.json --out /data2/neural-shrimp-data/codex/mechanism-replay-task23/saved-consistency-001 "
+    }
+  ],
+  "both_original_pids_groups_sessions_absent": true,
+  "captured_git_blobs_verified": 3,
+  "output_receipt_verified": true,
+  "report": {
+    "path": "/data2/neural-shrimp-data/codex/mechanism-replay-task23/saved-consistency-001/report.json",
+    "bytes": 2281905,
+    "sha256": "ac9719898adb66b7f73ea6a3bbb38d1375e002182af6e9323043a8e9acaf06e7"
+  },
+  "receipt": {
+    "path": "/data2/neural-shrimp-data/codex/mechanism-replay-task23/saved-consistency-001-supervision/receipt.json",
+    "bytes": 3036,
+    "sha256": "eb87423f576c06b2947baa99e7bd3de40697c4b70a7c29080789299460ac087a"
+  },
+  "preflight": {
+    "path": "/data2/neural-shrimp-data/codex/mechanism-replay-task23/saved-consistency-001-dispatch/preflight.json",
+    "bytes": 5538,
+    "sha256": "2f167feb6e105e1f31d41f9c5e224dbeee7bf9175d227ffc24379ce2e791f0fa"
+  },
+  "scope": "Original owner metadata/source/output/outer closure only; no audit or model replay."
+}
