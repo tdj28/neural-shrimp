@@ -1,0 +1,73 @@
+commit 44b22d3b43ac661df3a609abbeb49a86b3b1e3a2
+Author:     tdj28 <ti.do.jo@gmail.com>
+AuthorDate: Wed Oct 14 23:26:02 2026 -0700
+Commit:     tdj28 <ti.do.jo@gmail.com>
+CommitDate: Wed Oct 14 23:26:23 2026 -0700
+
+    FBD: 384->768 flip located at the precision floor, fifth ratio 4.6673; explicit --g-accept in the flip locator
+
+diff --git a/tools/llm_feigenbaum.py b/tools/llm_feigenbaum.py
+index 24d36d34..2bcd3c98 100644
+--- a/tools/llm_feigenbaum.py
++++ b/tools/llm_feigenbaum.py
+@@ -197,9 +197,11 @@ def evaluate(make_cell, lam, X0, period, Q0, tol=1e-12, max_newton=12, passes=3,
+     return ev
+ 
+ 
+-def locate_flip(make_cell, period, a, b, lam_tol, g_tol=1e-11, max_eval=40, log=print, **kw):
++def locate_flip(make_cell, period, a, b, lam_tol, g_tol=1e-11, max_eval=40, log=print, g_accept=1e-6, **kw):
+     """Flip of the period-p orbit between evaluations a and b (g = mu + 1 of opposite signs) by the Illinois method.
+-    Returns (root evaluation, list of all evaluation records)."""
++    The root is accepted if |g| <= g_accept at the best evaluation; g_accept must lie above the measured precision
++    floor of mu at that period (about 3e-5 at period 384, run FBD, 15 Oct 2026). Returns (root evaluation, list of all
++    evaluation records)."""
+     ga, gb = a.g, b.g
+     if not ga * gb < 0:
+         raise SearchError(f"no flip bracketed for period {period}: mu + 1 = {ga:.3g} at {a.lam!r} and {gb:.3g} at "
+@@ -234,7 +236,7 @@ def locate_flip(make_cell, period, a, b, lam_tol, g_tol=1e-11, max_eval=40, log=
+     else:
+         raise SearchError(f"flip of period {period} not located within {max_eval} evaluations")
+     mu = best.critical
+-    if abs(mu.imag) > 1e-8 or abs(best.g) > 1e-6 or best.residual > 1e-6 or not best.next_modulus < 1:
++    if abs(mu.imag) > 1e-8 or abs(best.g) > g_accept or best.residual > 1e-6 or not best.next_modulus < 1:
+         raise SearchError(f"the located root of period {period} at lambda = {best.lam!r} is not a clean flip: critical "
+                           f"multiplier {mu!r}, Ritz residual {best.residual:.3g}, next modulus {best.next_modulus}")
+     return best, evals
+@@ -271,7 +273,7 @@ def interval_ratios(lams):
+ 
+ def cascade(make_cell, X0, Q0, period, lam0, lam_next, flips, direction, steps_per_period=24, k=6,
+             displacement=1e-3, tol=1e-12, lam_rel_tol=1e-13, log=print, tokens=None, on_flip=None, ratio_guess=4.0,
+-            switch_fraction=0.5, max_substeps=16):
++            switch_fraction=0.5, max_substeps=16, g_accept=1e-6):
+     """Successive flips along the cut, starting from the period-`period` orbit near X0 at lam0; lam_next lies inside
+     the first doubled band (beyond the first flip). Until three flips give a measured ratio, the width of the next
+     doubled band is the last interval divided by ratio_guess; the switch to the doubled orbit happens at
+@@ -287,7 +289,7 @@ def cascade(make_cell, X0, Q0, period, lam0, lam_next, flips, direction, steps_p
+         width = abs(b.lam - a.lam)
+         root, evals = locate_flip(make_cell, period, a, b, lam_tol=max(lam_rel_tol * abs(root_scale(a, b)),
+                                                                          1e-9 * width * 1e-3), log=log, tol=tol,
+-                                  half=half)
++                                  half=half, g_accept=g_accept)
+         rec = {"period": period, "flip": root.record(), "evaluations": evals}
+         if tokens is not None:
+             rec["tokens"] = tokens(make_cell(root.lam), root.X, period)
+@@ -628,6 +630,10 @@ def main():
+     c.add_argument("--flips", type=int, default=6)
+     c.add_argument("--transient", type=int, default=900)
+     c.add_argument("--k", type=int, default=6, help="dimension of the dominant subspace")
++    c.add_argument("--g-accept", type=float, default=1e-6,
++                   help="accept a flip when |mu + 1| at the best evaluation is below this (keep it above the measured "
++                        "precision floor of mu at the deepest period)")
++    c.add_argument("--lam-rel-tol", type=float, default=1e-13, help="relative bracket width that ends a flip search")
+     c.add_argument("--ratio-guess", type=float, default=4.0,
+                    help="interval ratio assumed for the next doubled band until three flips give a measured one")
+     c.add_argument("--switch-fraction", type=float, default=0.5,
+@@ -696,7 +702,7 @@ def main():
+     results = cascade(make_cell, X, Q0, args.period, lam0, args.next, args.flips, np.sign(args.next - lam0),
+                       args.steps_per_period, args.k, tol=args.tol, log=log, tokens=tokens, on_flip=save,
+                       ratio_guess=args.ratio_guess, switch_fraction=args.switch_fraction,
+-                      max_substeps=args.max_substeps)
++                      max_substeps=args.max_substeps, g_accept=args.g_accept, lam_rel_tol=args.lam_rel_tol)
+     save(results)
+     log(json.dumps({"done": True, "ratios": interval_ratios([r["flip"]["lambda"] for r in results])}))
+ 

@@ -1,0 +1,356 @@
+{
+  "scope": "Metadata-only original logged command/upload/receipt/termination records; monetary fields excluded. No new pod query/archive member audit or numerical values decoded.",
+  "runs": [
+    {
+      "name": "FB152",
+      "orchestrator": {
+        "path": "/data2/neural-shrimp-data/runpod/FB152-orchestrator.log",
+        "sha256": "148458fdb81791bee500a9e8636c26f5a3e6a71d3dbeb620f95d71368ae45778",
+        "bytes": 1772
+      },
+      "upload": {
+        "commit": "bb5bd4181d1e1debf7e1bef5cd04061f29f05c5d",
+        "jobset": "cascade",
+        "code_bytes": 768000,
+        "data_bytes": 1177600,
+        "code_sha256": "2f37d9e647e7900db6fc8328d682f1dbe19e46db88ee2b62f69366c72295c7c7",
+        "data_sha256": "f425388da2f9fe2392ca7e1dea3826d44b492fd4b1c6106e5f0874784f29d778",
+        "extra_data": [],
+        "jobset_args": "crescent-t-0.152 90 --log-temperature -0.152 --alpha 0.0645 --next 0.0650 --model qwen0.5b --layer 12 --vectors llm-phase-map/vectors-l12 --concept philosophy --free alpha --period 3 --flips 8 --transient 900 --k 6 --steps-per-period 24 --tol 1e-12"
+      },
+      "receipt": {
+        "out": "/data2/neural-shrimp-data/runpod/soft64/20261015T013016Z",
+        "pod_id": "mpjn8uzrkptamm",
+        "gpu_type": "COMMUNITY:NVIDIA H100 NVL",
+        "commit": "bb5bd4181d1e1debf7e1bef5cd04061f29f05c5d",
+        "jobset": "cascade",
+        "started": 1792027817.9492838,
+        "runner_returncode": 0,
+        "hash_verified": true,
+        "local_sha256": "244bdad3a7a3cfcf9e7ed9a8ae14f4210bc14c17c63f88e9e48b34136a382d17",
+        "remote_sha256": "244bdad3a7a3cfcf9e7ed9a8ae14f4210bc14c17c63f88e9e48b34136a382d17",
+        "wall_seconds": 435
+      },
+      "termination_records": [
+        {
+          "pod_id": "mpjn8uzrkptamm",
+          "terminated": true,
+          "direct_lookup": null,
+          "in_inventory": false
+        }
+      ]
+    },
+    {
+      "name": "FB156",
+      "orchestrator": {
+        "path": "/data2/neural-shrimp-data/runpod/FB156-orchestrator.log",
+        "sha256": "47df585c67a00526e6602d2094e252264d340ce4d74be635b60012d1e0035aec",
+        "bytes": 1808
+      },
+      "upload": {
+        "commit": "bb5bd4181d1e1debf7e1bef5cd04061f29f05c5d",
+        "jobset": "cascade",
+        "code_bytes": 768000,
+        "data_bytes": 1177600,
+        "code_sha256": "2f37d9e647e7900db6fc8328d682f1dbe19e46db88ee2b62f69366c72295c7c7",
+        "data_sha256": "f425388da2f9fe2392ca7e1dea3826d44b492fd4b1c6106e5f0874784f29d778",
+        "extra_data": [],
+        "jobset_args": "crescent-t-0.156 90 --log-temperature -0.156 --alpha 0.0642 --next 0.0647 --model qwen0.5b --layer 12 --vectors llm-phase-map/vectors-l12 --concept philosophy --free alpha --period 3 --flips 8 --transient 900 --k 6 --steps-per-period 24 --tol 1e-12"
+      },
+      "receipt": {
+        "out": "/data2/neural-shrimp-data/runpod/soft64/20261015T013026Z",
+        "pod_id": "h7yv0po5o7lc1n",
+        "gpu_type": "SECURE:NVIDIA H100 NVL",
+        "commit": "bb5bd4181d1e1debf7e1bef5cd04061f29f05c5d",
+        "jobset": "cascade",
+        "started": 1792027828.5249112,
+        "runner_returncode": 0,
+        "hash_verified": true,
+        "local_sha256": "94a0acb91e304ad478237fdddb77dd49389ca0cb645f2a54fd49a2afc442a304",
+        "remote_sha256": "94a0acb91e304ad478237fdddb77dd49389ca0cb645f2a54fd49a2afc442a304",
+        "wall_seconds": 288
+      },
+      "termination_records": [
+        {
+          "pod_id": "h7yv0po5o7lc1n",
+          "terminated": true,
+          "direct_lookup": null,
+          "in_inventory": false
+        }
+      ]
+    },
+    {
+      "name": "FB152b",
+      "orchestrator": {
+        "path": "/data2/neural-shrimp-data/runpod/FB152b-orchestrator.log",
+        "sha256": "45ddc087114f9ca8f95a3f227d23e238579af7a0fc60b8016fa999741aa339f3",
+        "bytes": 1848
+      },
+      "upload": {
+        "commit": "5ad048f255732a210098fd7c7af724ccde3cdf0b",
+        "jobset": "cascade",
+        "code_bytes": 870400,
+        "data_bytes": 1177600,
+        "code_sha256": "f47bfd5bbd9d778a8b8cf59237573a9982bd10bb717bbf5a238c10580e639756",
+        "data_sha256": "f425388da2f9fe2392ca7e1dea3826d44b492fd4b1c6106e5f0874784f29d778",
+        "extra_data": [],
+        "jobset_args": "crescent-t-0.152-b 90 --log-temperature -0.152 --alpha 0.0645 --next 0.0650 --ratio-guess 1.2 --model qwen0.5b --layer 12 --vectors llm-phase-map/vectors-l12 --concept philosophy --free alpha --period 3 --flips 8 --transient 900 --k 6 --steps-per-period 24 --tol 1e-12"
+      },
+      "receipt": {
+        "out": "/data2/neural-shrimp-data/runpod/soft64/20261015T014204Z",
+        "pod_id": "x03brom1shhb3t",
+        "gpu_type": "SECURE:NVIDIA H100 NVL",
+        "commit": "5ad048f255732a210098fd7c7af724ccde3cdf0b",
+        "jobset": "cascade",
+        "started": 1792028526.5426974,
+        "runner_returncode": 0,
+        "hash_verified": true,
+        "local_sha256": "5d571683e26533ab8ae6ecc815dd7f6fd10dca8a1e46c53cc58f2abed5669c5f",
+        "remote_sha256": "5d571683e26533ab8ae6ecc815dd7f6fd10dca8a1e46c53cc58f2abed5669c5f",
+        "wall_seconds": 273
+      },
+      "termination_records": [
+        {
+          "pod_id": "x03brom1shhb3t",
+          "terminated": true,
+          "direct_lookup": null,
+          "in_inventory": false
+        }
+      ]
+    },
+    {
+      "name": "FB156b",
+      "orchestrator": {
+        "path": "/data2/neural-shrimp-data/runpod/FB156b-orchestrator.log",
+        "sha256": "ae1eb4699331588bbf09caa6ca2847df80f7bce264bc87bd36011214c31ea524",
+        "bytes": 1846
+      },
+      "upload": {
+        "commit": "5ad048f255732a210098fd7c7af724ccde3cdf0b",
+        "jobset": "cascade",
+        "code_bytes": 870400,
+        "data_bytes": 1177600,
+        "code_sha256": "f47bfd5bbd9d778a8b8cf59237573a9982bd10bb717bbf5a238c10580e639756",
+        "data_sha256": "f425388da2f9fe2392ca7e1dea3826d44b492fd4b1c6106e5f0874784f29d778",
+        "extra_data": [],
+        "jobset_args": "crescent-t-0.156-b 90 --log-temperature -0.156 --alpha 0.0642 --next 0.0647 --ratio-guess 15 --model qwen0.5b --layer 12 --vectors llm-phase-map/vectors-l12 --concept philosophy --free alpha --period 3 --flips 8 --transient 900 --k 6 --steps-per-period 24 --tol 1e-12"
+      },
+      "receipt": {
+        "out": "/data2/neural-shrimp-data/runpod/soft64/20261015T014212Z",
+        "pod_id": "pt50aoqu7xj1bo",
+        "gpu_type": "SECURE:NVIDIA H100 NVL",
+        "commit": "5ad048f255732a210098fd7c7af724ccde3cdf0b",
+        "jobset": "cascade",
+        "started": 1792028534.3820736,
+        "runner_returncode": 0,
+        "hash_verified": true,
+        "local_sha256": "d8f69a7adc6e3bbada5c584ba0e178a321b5831664765ef2217238930e59c961",
+        "remote_sha256": "d8f69a7adc6e3bbada5c584ba0e178a321b5831664765ef2217238930e59c961",
+        "wall_seconds": 621
+      },
+      "termination_records": [
+        {
+          "pod_id": "pt50aoqu7xj1bo",
+          "terminated": true,
+          "direct_lookup": null,
+          "in_inventory": false
+        }
+      ]
+    },
+    {
+      "name": "FB152d",
+      "orchestrator": {
+        "path": "/data2/neural-shrimp-data/runpod/FB152d-orchestrator.log",
+        "sha256": "79d70f2119ead608294b9db50dab97e74872a7a1734ba79add7f109e14340f8c",
+        "bytes": 1856
+      },
+      "upload": {
+        "commit": "65aeba3fa0b2e9e97988920bf4318766ddfed551",
+        "jobset": "cascade",
+        "code_bytes": 993280,
+        "data_bytes": 1177600,
+        "code_sha256": "57dbfcf18cf86e5a23522c7d3eff7fcce1ac60eebf9e67afbd1949c279432a4d",
+        "data_sha256": "f425388da2f9fe2392ca7e1dea3826d44b492fd4b1c6106e5f0874784f29d778",
+        "extra_data": [],
+        "jobset_args": "crescent-t-0.152-d 90 --log-temperature -0.152 --alpha 0.06505 --next 0.0652832 --ratio-guess 4.0 --max-substeps 64 --model qwen0.5b --layer 12 --vectors llm-phase-map/vectors-l12 --concept philosophy --free alpha --period 6 --flips 5 --transient 900 --k 6 --steps-per-period 96 --tol 1e-12"
+      },
+      "receipt": {
+        "out": "/data2/neural-shrimp-data/runpod/soft64/20261015T033202Z",
+        "pod_id": "gqn3rlkugdknn2",
+        "gpu_type": "COMMUNITY:NVIDIA H100 NVL",
+        "commit": "65aeba3fa0b2e9e97988920bf4318766ddfed551",
+        "jobset": "cascade",
+        "started": 1792035123.7306855,
+        "runner_returncode": 0,
+        "hash_verified": true,
+        "local_sha256": "ee8cbe63a4cc1dc7e01f3a96523b6e7b6966b8901e9a83530d2c7f751567d9fb",
+        "remote_sha256": "ee8cbe63a4cc1dc7e01f3a96523b6e7b6966b8901e9a83530d2c7f751567d9fb",
+        "wall_seconds": 136
+      },
+      "termination_records": [
+        {
+          "pod_id": "gqn3rlkugdknn2",
+          "terminated": true,
+          "direct_lookup": null,
+          "in_inventory": false
+        }
+      ]
+    },
+    {
+      "name": "FB152e",
+      "orchestrator": {
+        "path": "/data2/neural-shrimp-data/runpod/FB152e-orchestrator.log",
+        "sha256": "005d45dac476b516241149790ca7ee2114ab913148775a6b92c134fe1f51c839",
+        "bytes": 1855
+      },
+      "upload": {
+        "commit": "c8af6434d911b881656fbb0bf201fd6831beb30e",
+        "jobset": "cascade",
+        "code_bytes": 993280,
+        "data_bytes": 1177600,
+        "code_sha256": "fe53fd6e803e601930afa940e7a0706e2a739ffad68351d7ce316a153d77bcec",
+        "data_sha256": "f425388da2f9fe2392ca7e1dea3826d44b492fd4b1c6106e5f0874784f29d778",
+        "extra_data": [],
+        "jobset_args": "crescent-t-0.152-e 90 --log-temperature -0.152 --alpha 0.06520 --next 0.0652832 --ratio-guess 4.0 --max-substeps 64 --model qwen0.5b --layer 12 --vectors llm-phase-map/vectors-l12 --concept philosophy --free alpha --period 6 --flips 5 --transient 900 --k 6 --steps-per-period 96 --tol 1e-12"
+      },
+      "receipt": {
+        "out": "/data2/neural-shrimp-data/runpod/soft64/20261015T033552Z",
+        "pod_id": "mdleh5grbwo78y",
+        "gpu_type": "COMMUNITY:NVIDIA H100 NVL",
+        "commit": "c8af6434d911b881656fbb0bf201fd6831beb30e",
+        "jobset": "cascade",
+        "started": 1792035353.249611,
+        "runner_returncode": 0,
+        "hash_verified": true,
+        "local_sha256": "6edeeb623b338f35f733ec02329c7a3a5df536ee8026c73c375fe44afa904a06",
+        "remote_sha256": "6edeeb623b338f35f733ec02329c7a3a5df536ee8026c73c375fe44afa904a06",
+        "wall_seconds": 507
+      },
+      "termination_records": [
+        {
+          "pod_id": "mdleh5grbwo78y",
+          "terminated": true,
+          "direct_lookup": null,
+          "in_inventory": false
+        }
+      ]
+    },
+    {
+      "name": "FBD",
+      "orchestrator": {
+        "path": "/data2/neural-shrimp-data/runpod/FBD-orchestrator.log",
+        "sha256": "9f4a3e01292cfcb022eac340e48ac9b0c2d8346426f0c5e9cdf72ca825eaa799",
+        "bytes": 2023
+      },
+      "upload": {
+        "commit": "b5af43a7b3259b00e2e7cd573c097f999f6587f9",
+        "jobset": "cascade",
+        "code_bytes": 1126400,
+        "data_bytes": 1177600,
+        "code_sha256": "aaa6ca4940ff5c2cee72fcf67ff4992de076dc75e4a50553926f7f971eae40a7",
+        "data_sha256": "f425388da2f9fe2392ca7e1dea3826d44b492fd4b1c6106e5f0874784f29d778",
+        "extra_data": [],
+        "jobset_args": "crescent-t-0.156-e 150 --log-temperature -0.156 --period 384 --alpha 0.06510345998979336 --next 0.06510347503852487 --ratio-guess 4.661793821985329 --model qwen0.5b --layer 12 --vectors llm-phase-map/vectors-l12 --concept philosophy --free alpha --flips 2 --transient 40000 --k 6 --steps-per-period 96 --tol 1e-12"
+      },
+      "receipt": {
+        "out": "/data2/neural-shrimp-data/runpod/soft64/20261015T051312Z",
+        "pod_id": "5kcjngot3vja4p",
+        "gpu_type": "SECURE:NVIDIA H100 80GB HBM3",
+        "commit": "b5af43a7b3259b00e2e7cd573c097f999f6587f9",
+        "jobset": "cascade",
+        "started": 1792041196.05218,
+        "runner_returncode": 0,
+        "hash_verified": true,
+        "local_sha256": "3e34f62971a3b3b09e4f5e04be2decbfab2b1fc5d00e9bf93c7ffbf59ce6b6b1",
+        "remote_sha256": "3e34f62971a3b3b09e4f5e04be2decbfab2b1fc5d00e9bf93c7ffbf59ce6b6b1",
+        "wall_seconds": 3329
+      },
+      "termination_records": [
+        {
+          "pod_id": "5kcjngot3vja4p",
+          "terminated": true,
+          "direct_lookup": null,
+          "in_inventory": false
+        }
+      ]
+    },
+    {
+      "name": "FBS156",
+      "orchestrator": {
+        "path": "/data2/neural-shrimp-data/runpod/FBS156-orchestrator.log",
+        "sha256": "05877222a851a6b6065a66d70c33f5677ca9faa0698fc231596873f968fa03d4",
+        "bytes": 2115
+      },
+      "upload": {
+        "commit": "c3da24dcea14187209c37f1f9c1afc3a4b8459ef",
+        "jobset": "superstable",
+        "code_bytes": 993280,
+        "data_bytes": 1177600,
+        "code_sha256": "39ed6051dfa4922e3cf60519987c125f4666ff708cde360ff18c317aee77f35d",
+        "data_sha256": "f425388da2f9fe2392ca7e1dea3826d44b492fd4b1c6106e5f0874784f29d778",
+        "extra_data": [],
+        "jobset_args": "crescent-t-0.156 90 --points 6:-0.156:0.064505291678110:0.065037901554930 12:-0.156:0.065051273725027:0.065086952138099 24:-0.156:0.065088333411601:0.065099753733493 48:-0.156:0.065100135812845:0.065102674360036 96:-0.156:0.065102758488908:0.065103307867043 --transient 20000 --settle-factor 20 --model qwen0.5b --layer 12 --vectors llm-phase-map/vectors-l12 --concept philosophy --k 6 --tol 1e-12"
+      },
+      "receipt": {
+        "out": "/data2/neural-shrimp-data/runpod/soft64/20261015T034721Z",
+        "pod_id": "4cz4ixtug3n9u6",
+        "gpu_type": "SECURE:NVIDIA H100 NVL",
+        "commit": "c3da24dcea14187209c37f1f9c1afc3a4b8459ef",
+        "jobset": "superstable",
+        "started": 1792036043.2040474,
+        "runner_returncode": 0,
+        "hash_verified": true,
+        "local_sha256": "58c11a74664dc1e0aca3160d194516ef7c8c2e8bb94156b6413529a4343a0fa7",
+        "remote_sha256": "58c11a74664dc1e0aca3160d194516ef7c8c2e8bb94156b6413529a4343a0fa7",
+        "wall_seconds": 2661
+      },
+      "termination_records": [
+        {
+          "pod_id": "4cz4ixtug3n9u6",
+          "terminated": true,
+          "direct_lookup": null,
+          "in_inventory": false
+        }
+      ]
+    },
+    {
+      "name": "FBS192",
+      "orchestrator": {
+        "path": "/data2/neural-shrimp-data/runpod/FBS192-orchestrator.log",
+        "sha256": "2551b1e902b493a9700fa1efe9f782e218ff1ba20998960aa7e1d4c05c4b0eea",
+        "bytes": 1847
+      },
+      "upload": {
+        "commit": "b5af43a7b3259b00e2e7cd573c097f999f6587f9",
+        "jobset": "superstable",
+        "code_bytes": 1126400,
+        "data_bytes": 1177600,
+        "code_sha256": "aaa6ca4940ff5c2cee72fcf67ff4992de076dc75e4a50553926f7f971eae40a7",
+        "data_sha256": "f425388da2f9fe2392ca7e1dea3826d44b492fd4b1c6106e5f0874784f29d778",
+        "extra_data": [],
+        "jobset_args": "crescent-t-0.156-192 70 --points 192:-0.156:0.0651033260174831:0.0651034438644227 --transient 40000 --settle-factor 20 --model qwen0.5b --layer 12 --vectors llm-phase-map/vectors-l12 --concept philosophy --k 6 --tol 1e-12"
+      },
+      "receipt": {
+        "out": "/data2/neural-shrimp-data/runpod/soft64/20261015T051315Z",
+        "pod_id": "9emvmdzf4axl8t",
+        "gpu_type": "SECURE:NVIDIA H100 80GB HBM3",
+        "commit": "b5af43a7b3259b00e2e7cd573c097f999f6587f9",
+        "jobset": "superstable",
+        "started": 1792041198.799721,
+        "runner_returncode": 0,
+        "hash_verified": true,
+        "local_sha256": "4ca1e5b291884e4f54073155840a3b3acd2c848aad72c5306ac8836166bd7c89",
+        "remote_sha256": "4ca1e5b291884e4f54073155840a3b3acd2c848aad72c5306ac8836166bd7c89",
+        "wall_seconds": 2023
+      },
+      "termination_records": [
+        {
+          "pod_id": "9emvmdzf4axl8t",
+          "terminated": true,
+          "direct_lookup": null,
+          "in_inventory": false
+        }
+      ]
+    }
+  ]
+}

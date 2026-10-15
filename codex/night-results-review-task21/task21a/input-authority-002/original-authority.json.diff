@@ -1,0 +1,19 @@
+--- 001/original-authority.json
++++ 002/original-authority.json
+@@ -1193,13 +1193,14 @@
+     },
+     "terminal_done_true": true,
+     "pinned_card_commit": "40a2b11769696d94c1a6b4732c1e7fe9d57abac0",
+-    "complete_result_statement_commit": "b5af43a7b3259b00e2e7cd573c097f999f6587f9",
+     "observed_original_births": null,
+     "original_process_closure_independently_observed": false,
+     "limitations": [
+       "No query of Claude GPU/process or pods was performed.",
+       "Local completed output has no independent historical source capsule/exit receipt; no source identity or termination is manufactured."
+-    ]
++    ],
++    "interim_result_statement_commit": "b5af43a7b3259b00e2e7cd573c097f999f6587f9",
++    "completion_basis": "Final saved progress.jsonl and producer stdout records contain done:true. The b5af43a7 research-log statement is interim and explicitly says the run was still refining; it is not completion evidence."
+   },
+   "pending_local": [
+     {

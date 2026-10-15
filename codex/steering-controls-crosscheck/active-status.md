@@ -1,3 +1,5 @@
+Acceptance attribution: see acceptance-attribution-amendment-001.md for Root’s exact reading scope; the published acceptance and all scientific results remain unchanged.
+
 # Task 16 complete and privately delivered
 
 Root accepted Task 16's final scientific report2586b7b8, exact fields72e3a977, independent acceptance3fef0bc2 and original/audit owner authoritiesbb921c5f/acbe5368. All4,446,143 independent checks passed exactly with zero differences. All16 datasets/19NPZ inputs/112,640 selected cells and every incomplete/nonselected observation remain covered. Both owned sessions25265 and50359 are reaped0, original groups closed, zero live jobs or reservations. Computational and scientific finite-scope acceptance are complete. Standalone Claude delivery c847bc24c6fac4bef73d3cfbc0e39cdff11df2a2 is privately verified; exact entry SHA e3c3ab3b6a62f02f7e870b96a72716da04252e33bf107554acbef6710e9219c3. Final acceptance SHA1de284d7 and evidence checkpoint ba451bb9 are preserved. Original preparation and correction history is preserved. No further Task16 computation is needed.
