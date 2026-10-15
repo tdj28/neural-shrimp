@@ -141,7 +141,8 @@ sampling.
   55\,\% at $T=10^{0.2}$ in Qwen2.5-7B, far more often than it changed a forced greedy baseline's output (never and
   10\,\%).
 \item \emph{Steering makes next tokens compete.} An exact split of each step's growth shows that steering into chaos
-  raises the readout factor by 2.58 nats per step and leaves the network factor flat. A logit bias alone, with the
+  raises the readout factor by 2.58 nats per step relative to nearly unsteered cells, while the network factor changes
+  by only $-0.07$ (interval $[-0.23,0.12]$). A logit bias alone, with the
   network untouched, makes 3.5\,\% of the plane chaotic. An orbit-preserving crossover attributes the expansion at
   fixed states to steering's change of the readout ($+0.81$ nats per step in the 0.5B model, and $+0.33$ and $+0.77$
   along gratitude and a random direction), not of the network,
@@ -561,9 +562,10 @@ throughout: embeddings, activations, attention keys and values (the prefix cache
 library computes RMS normalization in float32 by default), rotary tables, logits, the softmax and the fed-back token.
 The released checkpoints store their weights in bfloat16, and a bfloat16 number is exactly a float64 number, so
 converting the weights is exact. For large models the decoder's linear weights stay in their stored bfloat16 and are
-converted to float64 at each use, which gives the same map as converting them once (bitwise on Qwen2.5-0.5B). No
-activation or result is stored below float64. The one exception we found, the final normalization of the two-GPU
-runs, is described in Section~\ref{sec:size}.
+converted to float64 at each use, which gives the same map as converting them once (bitwise on Qwen2.5-0.5B). The
+designated float64 computations use the patched normalization and rotary paths; some diagnostic traces, such as the
+step records of the gain split, are serialized in float32, as recorded in their artifacts. The historical two-GPU runs,
+whose final normalization was computed in float32, are identified separately in Section~\ref{sec:size}.
 
 \paragraph{Phase maps.} Each cell of a phase map is one parameter pair. Unless stated otherwise, we discard 300
 transient steps and measure over the next 300. The largest Lyapunov exponent comes from a twin trajectory at
@@ -899,7 +901,7 @@ predict. That is a lead for a future test, not a finding.
 Between a period-2 region and the chaos lies a fan of stripes of periods $6, 8, 10, \dots$ Their orbits, numerically
 validated in float64, can be read as text (Table~\ref{tab:orbits}). Each is ``. This'' followed by $k$ pairs ``is
 X'', with period $2k+2$, so each stripe adds one pair. The period-2 region itself is the 2-cycle ``is it''. At the
-stripe centres the orbits are effectively one-dimensional: the leading multiplier is $0.003$--$0.09$, and the next
+stripe centres the orbits are effectively one-dimensional: the leading multiplier is $0.0025$ to $0.086$, and the next
 falls from $3\times10^{-6}$ (period 6) to $2\times10^{-14}$ (period 20). This compression belongs to these orbits, not
 to the map. The 2-cycle's multipliers are $-0.271$ and $-0.058$ (the second modulus is about $0.037$ near its fold),
 the next modulus at the period-3 flip of Section~\ref{sec:cascade} is $0.088$, and one period-6 orbit in
@@ -1135,7 +1137,9 @@ and $b$ changes sign with nonzero slope between them. This supports a nondegener
 $b\operatorname{sign}a$ falls to below $5\times10^{-6}$ of its bracket values at $(\alpha,\log_{10}T)=(0.069106,-0.039750)$
 on the outer arc and at $(0.080097,-0.058344)$ inside the body. At these same points $c=-1.51\times10^{4}$ and
 $-2.38\times10^{5}$, and the unfolding matrix $J$ defined below is regular ($\det J=2416$ and $14.0$): two
-numerically located cusps. The
+numerically located cusps. (Location uses the small-step oriented coefficient $b\operatorname{sign}a$; the unfolding
+coefficients use a separate finite-difference ladder, and the selected plateau of $c$ spreads by at most 4.8\,\% over
+adjacent steps.) The
 negative sign of $c$ means that near each cusp, two stable period-6 orbits coexist with a saddle between the fold
 branches.
 
@@ -2019,8 +2023,9 @@ are $1-\lambda+\lambda\mu$, this predicts that the pair crosses the unit circle 
 $\lambda_c=2(1-\operatorname{Re}\mu)/|1-\mu|^2=1.0777$, transversally and away from the strong resonances (at
 0.156 of a revolution per step): a Neimark--Sacker bifurcation. Below it the latent state
 decays; above it the state settles on a closed curve. A fit of the squared amplitude gives $\lambda_c=1.0778$, with
-$A/\sqrt{\lambda-\lambda_c}=0.52$--$0.54$. A stable circle that grows like the square root of the distance is the
-signature of a supercritical bifurcation; we did not compute its first Lyapunov coefficient directly. Causal attention makes the loop block lower-triangular in
+$A/\sqrt{\lambda-\lambda_c}=0.52$--$0.54$. A stable circle that grows like the square root of the distance is
+consistent with a supercritical Neimark--Sacker bifurcation; we did not compute its first Lyapunov coefficient, so its
+nondegeneracy is not established. Causal attention makes the loop block lower-triangular in
 token positions. The first position to oscillate is the ``.'' of the prompt, and all later positions follow. On the
 invariant circle the motion turns by $0.156$ of a revolution per step, matching the argument of the critical pair.
 The rotation number changes smoothly, by about $10^{-4}$ over $\lambda\in[1.079,1.092]$, and no return within 60
@@ -2109,7 +2114,7 @@ fixed in advance. Every question passed the admission gates (fixed-point residua
 $2.6\times10^{-6}$; identical gold-row token IDs in every arm); for 13 questions one of the three Arnoldi sets was
 partial, which the design admits for an estimated feature. The pre-stated statistic, the mean of the within-arm
 Spearman correlations between $\hat\rho_q(\lambda)$ and the gold row's residual entering the 32nd update, is $0.701$
-(95\,\% bootstrap interval $[0.576,0.779]$; $0.68$, $0.73$, $0.73$ and $0.67$ at $\lambda=1$, $1.05$, $1.08$ and
+(95\,\% bootstrap interval $[0.575,0.780]$; $0.68$, $0.73$, $0.73$ and $0.67$ at $\lambda=1$, $1.05$, $1.08$ and
 $1.10$); the frozen primary gate, the interval's lower end above $0.3$, is met. On unseen questions, the fixed
 point's estimated spectrum therefore ranks each question by the size of the gold row's residual entering update 32;
 a residual is not in general a distance to the fixed point. Descriptively, the share of questions with a
@@ -2148,7 +2153,9 @@ six are within one iterate; the smallest-offset midpoint missed by two, failing 
 Finite-endpoint (arctan) forecasts, also frozen, were within $0.923$ iterates. These are controlled local transits. At
 the window distances the finite-channel correction to the asymptotic passage time is large, so the agreement of the
 window slope with the full-passage coefficient does not by itself show where the natural dynamics reinjects. The same
-type-I intermittency that organizes the philosophy-steered map thus generates a hostile cascade.
+type-I intermittency mechanism as in the philosophy-steered map is thus consistent with the hostile windows'
+organization, which the local fold normal form supports; the controlled passages do not identify the natural
+reinjection or the global organization.
 
 A second region, near $(\alpha,\log_{10}T)=(0.06,0.20)$, shows arms of period-7 and period-8 windows spiralling around
 the insult loop. In float64 the insult fixed point doubles into a 2-cycle at $\alpha\approx0.041$ and $0.079$, and
@@ -2468,7 +2475,8 @@ doubling cascades are found in many dissipative two-parameter systems
 looking for chaos, windows and shrimp-like structure in a language model's feedback map, but they do not imply it. They do not say whether a trained language model
 realizes it, where in its parameter plane, with which texts, or whether the theory's quantitative predictions hold for
 that model. This paper shows that the models we studied do realize it, with concrete texts as attractors, so that a
-bifurcation changes what the model writes, and that the quantitative predictions hold in the cases we tested.
+bifurcation changes what the model writes, and that several prospective quantitative predictions succeeded; the
+failed all-row criteria and the unresolved cases are reported with them.
 
 As far as we know, no earlier work has computed periodic orbits and their multipliers, continued fold and flip
 bifurcation curves and located cusps in the feedback map of a released pretrained language model. Nor do
@@ -2693,8 +2701,8 @@ bin means and bootstrap 95\,\% intervals.}
 \label{fig:reservoir}
 \end{figure}
 
-\paragraph{Which findings might reach frontier models.} Today's frontier systems include closed models such as
-GPT-6 Astra and Claude Opus 5.5 and open-weight mixture-of-experts models such as the GLM-5 family. Some of our
+\paragraph{Which findings might reach frontier models.} Today's frontier systems include closed models and
+open-weight mixture-of-experts models. Some of our
 findings rest only on structure that every smooth softmax-readout language model with a fixed prefix shares and should
 carry over: the factorization of the loop's derivative (a covariance for tied embeddings, a cross-covariance
 otherwise), contraction at sufficiently high temperature, the reduction of zero-temperature attractors to greedy
@@ -2758,7 +2766,8 @@ Tests fixed before outcomes & 6 & 4 & 2 all-row criteria failed by one row \\
 Language models loaded & 8 & 7 & Ouro-1.4B not reported \\
 \bottomrule
 \end{tabular}
-\caption{Search scale on 14 October 2026, before the steering-control maps (Huginn's frozen test counted once; of the two
+\caption{Search scale on 14 October 2026, before the steering-control maps; the reversal row includes the two cusps
+located on 15 October (Huginn's frozen test counted once; of the two
 tests not reported here, one belongs to the separately reported sampled-dialogue study and one, a cusp pilot in a
 second checkpoint, is the unreported bounded search).}
 \label{tab:search}
@@ -2801,10 +2810,14 @@ second checkpoint, is the unreported bounded search).}
   by code pushed before the data, together with the three-offset plateau tests of the 70B-class maps and the float64
   recheck of the Qwen2.5-72B cells with exact tangent exponents. These are
   float64 computations at rung 1; no independent implementation has rechecked them.
-\item Prospectively frozen on 15 October, not independently reproduced: the answer-level reproducibility tests in
-  Qwen2.5-0.5B and its 7B extension (positive), and the behaviour test (null on its primary question; no edge
-  optimum), all in Section~\ref{sec:consequences} and each scored by code pushed before the data
-  (\path{docs/repro-task-test.md}, \path{docs/bpc-test.md}). The within-prompt steered test (null) used an analysis
+\item Prospectively frozen on 15 October: the answer-level reproducibility test in Qwen2.5-0.5B (positive), whose
+  saved rows and statistics an independent implementation reproduced (the generation itself was not rerun); its 7B
+  extension (positive) and the behaviour test (null on its primary question; no edge optimum), not independently
+  reproduced. All are in Section~\ref{sec:consequences} and each was scored by code pushed before the data
+  (\path{docs/repro-task-test.md}, \path{docs/bpc-test.md}).
+\item Independently reproduced from saved data (15 October): every summary field of the 0.5B batch-layout comparison
+  (448 cells, four comparisons) and the gain-split, logit-bias and crossover summaries of Section~\ref{sec:theory}
+  (5353, 6837 and 24 cells); this reproduces the statistics, not the model runs. The within-prompt steered test (null) used an analysis
   fixed and pushed before its data, without a separate frozen design document.
 \item Prospectively frozen and independently replayed: Huginn's relaxation test on held-out data, confirmed in both
   parts; an independent implementation reproduced both from the saved rows and spectra (GSM8K part exactly,
