@@ -1,0 +1,310 @@
+{
+  "schema": "task21d-saved-inputs-v1",
+  "prepared_unlaunchable": true,
+  "source_commit": "a9529724df18a862f54d599d12a544b8d133d2c6",
+  "authority": {
+    "path": "/tmp/task21d-source-001/original-authority.json",
+    "bytes": 25334,
+    "sha256": "a76ee5603f59e95aea35fa66c3f9884581dc61492585c7bbb642406952641a36"
+  },
+  "source_map": {
+    "path": "/tmp/task21d-source-001/source-map.json",
+    "bytes": 13029,
+    "sha256": "b7172925e7c7cfd09db5bb5d0a6af07339a7ffd4ca2b5430e364235ad4ff012c"
+  },
+  "models": [
+    {
+      "id": "FL15",
+      "base_period": 4,
+      "expected_cells": 1700,
+      "line": {
+        "path": "/tmp/task21d-source-001/inputs/fl15-line.json",
+        "bytes": 1139009,
+        "sha256": "0eabd12c4c5e8db9957cf45d228db57e83a5ab493ce7331d364dc7e0643e0d40",
+        "original_path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/fl15/line/hidden-chaos.json",
+        "archive_member": "explore/llm-soft-loop/pod64/fl15/line/hidden-chaos.json",
+        "archive_sha256": "e8cc2e7495902ddb3dae63a730ed54443863709c95a56ac08d35629866310523",
+        "attempt": "FL15l"
+      },
+      "normal_form": {
+        "path": "/tmp/task21d-source-001/inputs/fl15-normal_form.json",
+        "bytes": 1360,
+        "sha256": "fe3205271b8d2890795aede077aee4bdde3c81fd508642073653d43aa16e4fd9",
+        "original_path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/fl15/normal-form-p4/normal-form.json",
+        "archive_member": "explore/llm-soft-loop/pod64/fl15/normal-form-p4/normal-form.json",
+        "archive_sha256": "197913402d0e9b4aa34532f69f5e249fbb18c45d24cf970631cf608280c9cc56",
+        "attempt": "FL15nf"
+      },
+      "normal_form_source_curve": {
+        "path": "/tmp/task21d-source-001/inputs/fl15-curve.json",
+        "bytes": 3807,
+        "sha256": "9ef3017275222d3cde6e778f3bac7e31ebf90fa06138c81f54a4109a8af9dd1d",
+        "original_path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/fl15/curve-fold-p4/curve.json",
+        "archive_member": "explore/llm-soft-loop/pod64/fl15/curve-fold-p4/curve.json",
+        "archive_sha256": "197913402d0e9b4aa34532f69f5e249fbb18c45d24cf970631cf608280c9cc56",
+        "attempt": "FL15nf"
+      },
+      "cell_definition": {
+        "path": "/tmp/task21d-source-001/source/399b3eed/docs/fl15-line-cells.json",
+        "bytes": 76450,
+        "sha256": "8d000083ebf86aaac80b4bc9943fdbcb5bd25e3e511d27c3831f3651accf222d"
+      },
+      "producer_scores": {
+        "original": {
+          "path": "/tmp/task21d-source-001/inputs/fl15-score.json",
+          "bytes": 3522,
+          "sha256": "463524f71bbf137aa5f65a23a470877aeb075777e0fa11eacabf52124e02d219",
+          "original_path": "/data2/neural-shrimp-data/scratch/fl15-score.json",
+          "source_attribution": "Preserved scratch filename and03:27 log; no captured original scoring process or command receipt."
+        },
+        "amended": {
+          "path": "/tmp/task21d-source-001/inputs/fl15-score-v2.json",
+          "bytes": 5088,
+          "sha256": "cb4efaed03a0003ad923582b24f41572b10699f8badbd2e7b765b55827c5abc3",
+          "original_path": "/data2/neural-shrimp-data/scratch/fl15-score-v2.json",
+          "source_attribution": "Preserved scratch filename and03:27 log; no captured original scoring process or command receipt."
+        }
+      },
+      "schema": {
+        "line_top_keys": [
+          "args",
+          "cells"
+        ],
+        "cell_key_sets": [
+          [
+            "log10_temperature",
+            "alpha",
+            "lyapunov",
+            "eps",
+            "period",
+            "diameter_rel",
+            "lead_distinct",
+            "lead_period",
+            "lead_tokens",
+            "pmax_mean",
+            "pmax_sd",
+            "entropy_mean",
+            "entropy_sd",
+            "class",
+            "lead_text"
+          ]
+        ],
+        "normal_form_top_keys": [
+          "args",
+          "source",
+          "orbit_residual",
+          "multiplier",
+          "second_modulus",
+          "a",
+          "b",
+          "ab",
+          "b_steps",
+          "b_plateau_pair",
+          "left_right_cosine",
+          "pi_over_sqrt_ab"
+        ],
+        "normal_form_source_keys": [
+          "run",
+          "index",
+          "log10_temperature",
+          "alpha",
+          "period",
+          "model",
+          "layer",
+          "prompt",
+          "opener",
+          "window",
+          "vectors",
+          "concept"
+        ],
+        "definition_top_keys": [
+          "note",
+          "cells"
+        ]
+      },
+      "declared_line_args": {
+        "mode": "cells",
+        "model": "qwen1.5b",
+        "layer": 14,
+        "vectors": "llm-phase-map/vectors-1.5b-l14",
+        "concept": "philosophy",
+        "alpha": null,
+        "log_temperature": null,
+        "cells_file": "docs/fl15-line-cells.json",
+        "trace": false,
+        "save_sequences": false,
+        "n": 1,
+        "transient": 3000,
+        "record": 600,
+        "eps": [
+          1e-06,
+          1e-09
+        ],
+        "tol": 1e-08,
+        "chunk": 850,
+        "dtype": "float64",
+        "device": "cuda",
+        "weights": "native",
+        "vectors_none": false,
+        "prefix_file": null,
+        "prefix_index": null,
+        "threads": 16,
+        "window": 1,
+        "tangent": false,
+        "checkpoints": null,
+        "fd_probe": false,
+        "clamp_entropy": null,
+        "out": "llm-soft-loop/pod64/fl15/line"
+      },
+      "definition_coordinate_order": "[log10_temperature, alpha] in original explicit cell list; exact cross-file equality is a prospective analyzer admission check, not assumed from matching counts."
+    },
+    {
+      "id": "FL7",
+      "base_period": 2,
+      "expected_cells": 1000,
+      "line": {
+        "path": "/tmp/task21d-source-001/inputs/fl7-line.json",
+        "bytes": 560147,
+        "sha256": "a54de62d224a44c523f713801f0d697be887ff92b20ef95e8e6639507ac7ca56",
+        "original_path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/fl7/line/hidden-chaos.json",
+        "archive_member": "explore/llm-soft-loop/pod64/fl7/line/hidden-chaos.json",
+        "archive_sha256": "27b18230fddce70efb571d8f1dbca511a3d70bb9bdab7b62968652ddf72c3cab",
+        "attempt": "FL7l"
+      },
+      "normal_form": {
+        "path": "/tmp/task21d-source-001/inputs/fl7-normal_form.json",
+        "bytes": 1341,
+        "sha256": "c3be0b2176f8a41cb995b0e9d982507b18c75bab134e4454f36e03bb63ee4e90",
+        "original_path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/fl7/normal-form-p2/normal-form.json",
+        "archive_member": "explore/llm-soft-loop/pod64/fl7/normal-form-p2/normal-form.json",
+        "archive_sha256": "007ea0e83bbfcca569511a8904d910a266f114f41a6fa788cc80c2336cc2d30d",
+        "attempt": "FL7nf"
+      },
+      "normal_form_source_curve": {
+        "path": "/tmp/task21d-source-001/inputs/fl7-curve.json",
+        "bytes": 3701,
+        "sha256": "2259c338de05ce9e9d3b4ced469a8ccd912951125e769935dac61f4e81673101",
+        "original_path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/fl7/curve-fold-p2/curve.json",
+        "archive_member": "explore/llm-soft-loop/pod64/fl7/curve-fold-p2/curve.json",
+        "archive_sha256": "007ea0e83bbfcca569511a8904d910a266f114f41a6fa788cc80c2336cc2d30d",
+        "attempt": "FL7nf"
+      },
+      "cell_definition": {
+        "path": "/tmp/task21d-source-001/source/399b3eed/docs/fl7-line-cells.json",
+        "bytes": 45963,
+        "sha256": "3a0672ae2e22320adf0a6ac00881f488e301d9ddd8bd02bb150a9e8d02608753"
+      },
+      "producer_scores": {
+        "original": {
+          "path": "/tmp/task21d-source-001/inputs/fl7-score.json",
+          "bytes": 2874,
+          "sha256": "f36414d926602bbec2e7ad2d637144911cbea1abec0cebdd4fd149456eb7bf24",
+          "original_path": "/data2/neural-shrimp-data/scratch/fl7-score.json",
+          "source_attribution": "Preserved scratch filename and03:27 log; no captured original scoring process or command receipt."
+        },
+        "amended": {
+          "path": "/tmp/task21d-source-001/inputs/fl7-score-v2.json",
+          "bytes": 3922,
+          "sha256": "2a0373049e5edbabec11742fa17adcfd2155c1818ddc7a5d4e3d50a9f7b805af",
+          "original_path": "/data2/neural-shrimp-data/scratch/fl7-score-v2.json",
+          "source_attribution": "Preserved scratch filename and03:27 log; no captured original scoring process or command receipt."
+        }
+      },
+      "schema": {
+        "line_top_keys": [
+          "args",
+          "cells"
+        ],
+        "cell_key_sets": [
+          [
+            "log10_temperature",
+            "alpha",
+            "lyapunov",
+            "eps",
+            "period",
+            "diameter_rel",
+            "lead_distinct",
+            "lead_period",
+            "lead_tokens",
+            "pmax_mean",
+            "pmax_sd",
+            "entropy_mean",
+            "entropy_sd",
+            "class",
+            "lead_text"
+          ]
+        ],
+        "normal_form_top_keys": [
+          "args",
+          "source",
+          "orbit_residual",
+          "multiplier",
+          "second_modulus",
+          "a",
+          "b",
+          "ab",
+          "b_steps",
+          "b_plateau_pair",
+          "left_right_cosine",
+          "pi_over_sqrt_ab"
+        ],
+        "normal_form_source_keys": [
+          "run",
+          "index",
+          "log10_temperature",
+          "alpha",
+          "period",
+          "model",
+          "layer",
+          "prompt",
+          "opener",
+          "window",
+          "vectors",
+          "concept"
+        ],
+        "definition_top_keys": [
+          "note",
+          "cells"
+        ]
+      },
+      "declared_line_args": {
+        "mode": "cells",
+        "model": "qwen7b",
+        "layer": 14,
+        "vectors": "llm-phase-map/vectors-7b-l14",
+        "concept": "philosophy",
+        "alpha": null,
+        "log_temperature": null,
+        "cells_file": "docs/fl7-line-cells.json",
+        "trace": false,
+        "save_sequences": false,
+        "n": 1,
+        "transient": 2000,
+        "record": 400,
+        "eps": [
+          1e-06
+        ],
+        "tol": 1e-08,
+        "chunk": 250,
+        "dtype": "float64",
+        "device": "cuda",
+        "weights": "native",
+        "vectors_none": false,
+        "prefix_file": null,
+        "prefix_index": null,
+        "threads": 16,
+        "window": 1,
+        "tangent": false,
+        "checkpoints": null,
+        "fd_probe": false,
+        "clamp_entropy": null,
+        "out": "llm-soft-loop/pod64/fl7/line"
+      },
+      "definition_coordinate_order": "[log10_temperature, alpha] in original explicit cell list; exact cross-file equality is a prospective analyzer admission check, not assumed from matching counts."
+    }
+  ],
+  "target_line_cells": 2700,
+  "selected_target_files": 10,
+  "selected_target_bytes": 1724771,
+  "desired_own_scope": "Both original and amended fan rules; every candidate/exclusion/closest prefix; literal22002-candidate first-minimum grid for free/bounded/centre; all producer-score differences retained. No fresh model or classifier."
+}
