@@ -1,5 +1,5 @@
-# Task25 actual saved-data run admitted; zero numerical jobs
+# Task25 actual run complete and owner-closed; saved scientific review pending
 
-2026-10-15T17:59:00.663422+00:00: Task23 complete/private-delivered. Sole Task25 manufacture complete38/0 and owner-closed; original report/receipt/source preserved. Root/Boundary accepted six-component source/input/P3 views and exact actual card/supervisor. One actual run-001 is admitted after final private checkpoint and fresh preflight; it has not started. No retry/model run or extra controls. Inference owns lifecycle/Git; later Boundary reads scale/gain/depth, Theory PS/CP/plateau; Root final science.
+2026-10-15T18:06:47.116379+00:00: Task23 complete/private-delivered. Task25 sole manufactured run passed38/0; sole actual six-component saved-data run completed exit0, all9 output files and8 Git blobs authenticated, original supervisor/worker groups and sessions absent. No owned numerical jobs remain. Boundary reads scale/gain/depth; Theory reads PS/CP/plateau; Root final scientific acceptance pending. No replay or new model/data run.
 
-Watch ACTIVE15min indefinitely until explicit human stop; latest Claude4783e5f9 unchanged. Owned code/log only; prior shared-log scope mistake and exact restoration are recorded.
+Watch ACTIVE every15 minutes indefinitely until explicit human stop. Latest scoped Claude comms4783e5f9 unchanged. Task15 remains optional/conditional, with no automatic sweep afterTask25. Keep reports/code/log only in owned codex scope and preserve all earlier failure/refusal/history.
