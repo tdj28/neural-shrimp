@@ -1,0 +1,79 @@
+{
+  "source_commit": "83108e8861302618af453558f0d693138cdd954d",
+  "source_blobs": {
+    "gain.py": {
+      "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/mechanism-replay-task23/gain.py",
+      "bytes": 12263,
+      "sha256": "229d79a788589b5f860a0774f7273e9e93b54cecf8e6f474a3c5c3734eca751f"
+    },
+    "run.py": {
+      "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/mechanism-replay-task23/run.py",
+      "bytes": 12716,
+      "sha256": "a6e83da06332cb5a27e1a167537226aaa38cfccdd1f87e92e28f17a5cc1093ed"
+    },
+    "controls.py": {
+      "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/mechanism-replay-task23/controls.py",
+      "bytes": 10260,
+      "sha256": "d8492508dd0ad8e8a15ed23dd69473cfe0ecddf63d6864eef4b93fdb38a61f18"
+    },
+    "qwen_map.py": {
+      "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/mechanism-replay-task23/qwen_map.py",
+      "bytes": 14540,
+      "sha256": "493a3d1d57fec227f5ba2e3f8f9cfcfdd02d22495d1d44e6449ede901310ae6e"
+    },
+    "controls-001-plan.json": {
+      "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/mechanism-replay-task23/controls-001-plan.json",
+      "bytes": 1858,
+      "sha256": "11b728a692c075a4bc633a4ce7d766880b6aa0a527ce6b27d57d8a26678c0d85"
+    },
+    "controls-001-supervise.py": {
+      "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/mechanism-replay-task23/controls-001-supervise.py",
+      "bytes": 4827,
+      "sha256": "2a20b120db184b09d0dc2c26f2fa7c33161838e7226e87ad05d046e2c320cd14"
+    }
+  },
+  "available_bytes": 56458956800,
+  "supervisor": {
+    "pid": 3174556,
+    "starttime": 202654298,
+    "pgrp": 3174503,
+    "session": 3174503,
+    "uid": 1000,
+    "command": "/data2/neural-shrimp/.venv/bin/python -I /home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/mechanism-replay-task23/controls-001-supervise.py --source 83108e8861302618af453558f0d693138cdd954d "
+  },
+  "plan": {
+    "schema": "task23-controls-plan-v1",
+    "status": "reviewed_manufactured_only",
+    "authorization": "Root fully read the exact four sources, controls plan8c6f5932 and corrected supervisor2a20b120; authorizes this sole nine-group manufactured run after exact private checkpoint and fresh owned capacity admission. No target model/profile run, no automatic retry or extension.",
+    "repo": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp",
+    "output": "/data2/neural-shrimp-data/codex/mechanism-replay-task23/controls-001",
+    "supervision": "/data2/neural-shrimp-data/codex/mechanism-replay-task23/controls-001-supervision",
+    "source_hashes": {
+      "gain.py": "229d79a788589b5f860a0774f7273e9e93b54cecf8e6f474a3c5c3734eca751f",
+      "run.py": "a6e83da06332cb5a27e1a167537226aaa38cfccdd1f87e92e28f17a5cc1093ed",
+      "controls.py": "d8492508dd0ad8e8a15ed23dd69473cfe0ecddf63d6864eef4b93fdb38a61f18",
+      "qwen_map.py": "493a3d1d57fec227f5ba2e3f8f9cfcfdd02d22495d1d44e6449ede901310ae6e"
+    },
+    "resources": {
+      "worker_cpu_threads": 1,
+      "supervisor_slots": 1,
+      "nice": 10,
+      "address_space_gib": 12,
+      "cpu_seconds": 55,
+      "external_wall_seconds": 60,
+      "cleanup_term_seconds": 5,
+      "cleanup_kill_seconds": 5,
+      "max_sampled_output_bytes": 134217728,
+      "minimum_start_available_gib": 28,
+      "minimum_runtime_available_gib": 16,
+      "minimum_disk_free_gib": 16
+    },
+    "scope": "Manufactured tiny model and algebraic/admission controls only. No actual pretrained model or target gain data. Conservative12GiB AS includes Torch import; not a measured tiny-fixture need.",
+    "expected_output_files": [
+      "report.json",
+      "fixture-evidence.json"
+    ],
+    "output_cap_scope": "Controls output directory plus stdout/stderr only; captured source and supervision receipts separate.",
+    "expected_control_groups": 9
+  }
+}

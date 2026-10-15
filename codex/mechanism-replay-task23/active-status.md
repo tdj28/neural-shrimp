@@ -1,3 +1,13 @@
+# Task23 controls passed; sole short profile admitted
+
+2026-10-15T16:08:20.043733+00:00: All9 manufactured groups passed in the sole attempt, report698ab72c, original receipt34062075, outer/source closureade0e1b8. No pretrained assets or producer outcomes were read by those controls. Worker and supervisor/groups are closed; tool78684reaped0. Observed control timer0.0416215s and peak522,948KiB precede its final report; external worker window1.259213373s is separately measured.
+
+Root admitted one fixed32-transient/16-measured four-cell profile using cardfc81c7be/launcher3816275e and unchanged gain229d79a7/run a6e83da0/map493a3d1d. Private checkpoint/fresh capacity remains before launch. CPU2+supervisor,12GiB workerAS,1100CPU/600wall with fixed cleanup,64MiB sampled outputs,28/16GiB available-memory floors. No full1000/2000 run, AD/FD, power iteration, crossover, retry or extension. Inference alone owns Git/processes. Zero jobs at this checkpoint.
+
+Persistent watch-claude-and-work-queue remains ACTIVE every15minutes without cutoff until explicit human stop; nextTask25 is source preparation only, old15optional. Latest Claude3f6ba81f unchanged. Completed21/26/27 remain complete.
+
+## Preserved status history
+
 # Task23 source preparation; persistent watch active
 
 Updated 2026-10-15T15:39:45.960540+00:00. The human explicitly extended watching indefinitely until they say stop and authorized continued work through Claude's queue. Root created `watch-claude-and-work-queue`, ACTIVE every 15 minutes, with no cutoff. This supersedes the prior ended overnight-watch phase; the old watch and its completed final check remain preserved history.
