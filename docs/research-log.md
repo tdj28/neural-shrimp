@@ -23910,3 +23910,13 @@ Pods qwqtwa7b27k9b6 (FL15 line, 3437 s) and misyp8r6rk51yn (FL7 line, 3216 s): C
 ## 2026-10-15 03:35 UTC: Amendment to FB152d: the start jumped too far
 
 Pod gqn3rlkugdknn2 (COMMUNITY H100 NVL; runner rc 0, tool exit 1, hash verified, terminated; 136 s; commit 65aeba3f). The period-6 orbit at alpha 0.06505 (mu -0.005) did not follow to --next 0.0652832: "period-6 Newton did not converge". The jump of 2.3e-4 is 61 % of the period-6 band. The rerun FB152e starts at alpha 0.06520 (86 % of the band, a jump of 8.3e-5), with all else as in FB152d. The queued local run of stage 1c (start 0.06505, next 0.06535) would have failed the same way.
+
+## 2026-10-15 03:44 UTC: run (exploratory): MB, completing the float64 map of the hostile period-7 body (human: the figure "gets cut off at 0.21")
+
+- **Why:** The human asked for exponent maps of the hostile period-7 body in the paper. These show superstable lines, a candidate doubly superstable centre near alpha 0.0700, log10 T 0.204, and the located cusps. The only map, M3b (scan64/hub-arm), timed out at log10 T 0.2106, with 28672 of 36864 cells done.
+- **Setup:** three pods (H100-class, job set scan64), with M3b's settings: float64, tol 1e-8, eps 1e-6, transient 500, samples 300, record 80, max period 48, vectors llm-phase-map/vectors-l12-p1b, concept hostility-vs-kindness, alpha 0.062-0.074 in 192 columns. All three use M3b's row spacing (0.052/191), so the rows join M3b's grid exactly.
+  - MB1, hub-arm-rest: M3b's rows 149-191, log10 T 0.2105654-0.222, 43 rows; row 149 was partly done.
+  - MB2, hub-arm-top1: rows 192-260, log10 T 0.2222723-0.2407853, 69 rows.
+  - MB3, hub-arm-top2: rows 261-330, log10 T 0.2410576-0.2598429, 70 rows.
+- **Reading:** Purely a map: it shows the period-7 domain and its exponent field up to log10 T 0.26. Labels are candidates; the doubly superstable test (next card) is the quantitative check. Ceilings are in the private ledger.
+- **Output:** `../neural-shrimp-data/explore/llm-soft-loop/pod64/scan64/hub-arm-rest`, `hub-arm-top1`, `hub-arm-top2`
