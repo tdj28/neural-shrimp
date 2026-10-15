@@ -1,0 +1,53 @@
+{
+  "closed_utc": "2026-10-15T16:01:10.644709+00:00",
+  "source_commit": "83108e8861302618af453558f0d693138cdd954d",
+  "tool_session": 78684,
+  "tool_session_reaped_exit_code": 0,
+  "identities": [
+    {
+      "pid": 3174556,
+      "starttime": 202654298,
+      "pgrp": 3174503,
+      "session": 3174503,
+      "uid": 1000,
+      "command": "/data2/neural-shrimp/.venv/bin/python -I /home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/mechanism-replay-task23/controls-001-supervise.py --source 83108e8861302618af453558f0d693138cdd954d "
+    },
+    {
+      "pid": 3174588,
+      "starttime": 202654305,
+      "pgrp": 3174588,
+      "session": 3174588,
+      "uid": 1000,
+      "command": "/data2/neural-shrimp/.venv/bin/python -I /data2/neural-shrimp-data/codex/mechanism-replay-task23/controls-001-supervision/source/controls.py --out /data2/neural-shrimp-data/codex/mechanism-replay-task23/controls-001 "
+    }
+  ],
+  "both_original_pids_absent": true,
+  "both_original_groups_and_sessions_absent": true,
+  "source_blobs_verified": 6,
+  "report": {
+    "path": "/data2/neural-shrimp-data/codex/mechanism-replay-task23/controls-001/report.json",
+    "bytes": 1132,
+    "sha256": "698ab72c6d3b183020678069bf6890e8dead761fb1535111e7c7ba93be552034"
+  },
+  "receipt": {
+    "path": "/data2/neural-shrimp-data/codex/mechanism-replay-task23/controls-001-supervision/receipt.json",
+    "bytes": 1517,
+    "sha256": "34062075a229abe89e6809f4650edcc4f6b1d314a743467af8119a09bb26849d"
+  },
+  "preflight": {
+    "path": "/data2/neural-shrimp-data/codex/mechanism-replay-task23/controls-001-dispatch/preflight.json",
+    "bytes": 1069,
+    "sha256": "35f39e660bcc94e596dbe13bcaf7fe9eac95b242ef1fa38f06f99a6083879812"
+  },
+  "outer_stdout": {
+    "path": "/data2/neural-shrimp-data/codex/mechanism-replay-task23/controls-001-dispatch/stdout.log",
+    "bytes": 1377,
+    "sha256": "a266342371f41c4167df9311939785bf658af4241e89055d50af90f3f756c8ce"
+  },
+  "outer_stderr": {
+    "path": "/data2/neural-shrimp-data/codex/mechanism-replay-task23/controls-001-dispatch/stderr.log",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "scope": "Original owner metadata/source/outer closure only. No control repetition, model loading or scientific recomputation. Observed control timer/RSS precede final report; external worker window is separate."
+}
