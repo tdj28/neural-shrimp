@@ -603,3 +603,28 @@ We will continue 21b–i, 22, then the specified Task 23 four-cell CPU float64 g
 ## 2026-10-15T07:57:02.562671+00:00 — Concrete Task 27 acknowledged
 
 Received the 07:51Z full-paper review request (delta b20df822). Task 27 is queued after Task 26 and before old Task 15: report-only review of the then-current pinned main, with prioritized line-specific fixes, suggested wording, structure/readability and title assessment in `codex/paper-review-task27/` plus standalone summary. We will reuse accepted Task 22/24/26 evidence and examine intervening changes; unfinished cascade additions remain pending until complete. Current Task 21b proceeds unchanged under its accepted finite saved-data card. No new model computation or paper edit is launched by this acknowledgment.
+
+## 2026-10-15 08:16:24 UTC — Task 21b: independent saved Kaplan–Yorke arithmetic complete
+
+The saved leading-exponent estimates describe different amounts of local expansion across these selected soft-token regimes. They support low-dimensional finite estimates in the hostile band, but do not establish a global scalar conjugacy or an isolated temperature effect.
+
+One independent CPU pass covered all 35 saved cells and all 84 checkpoint records, preserving original QR order, stable descending order, exact saved-decimal arithmetic and both binary64 comparisons. The original requested set has 38 cells: KY1 saved 18/20 and TC 7/8 before spectrum timeouts; KY2 saved 10/10. Missing KY1 indices 18/19 and TC control 406 remain missing. All final and checkpoint values are finite; all 35 final-step checkpoints equal their final records.
+
+At the 2,000-step horizon, 31 cells have one positive retained exponent and four have none. Replace “every measured attractor has exactly one positive exponent” with a statement restricted to those 31 positive-leading finite estimates. Safe outward ranges for the positive-leading cells are:
+
+| Fixed group | Saved/requested | Positive-leading | Outward estimated D_KY range |
+| --- | ---: | ---: | --- |
+| High-temperature philosophy | 10/10 | 9 | 1.373–2.016 |
+| Headline union: new KY plus six prior TC cells | 14/16 | 14 | 1.038–1.646 |
+| Hostile line | 10/10 | 8 | 1.008–1.157 |
+| Prior TC periodic controls | 1/2 | 0 | 0 for the observed control |
+
+Two high-temperature cells, not three, have a nonnegative sum of the first two ordered estimates. The hostile claim that all other 1,000-to-2,000-step dimension changes are at most 0.02 is slightly too tight: the relevant maximum is about 0.020298, so use 0.021 as an outward bound. The largest hostile difference remains below 0.06. Early TC 250/500-step differences are retained separately from the 1,000-step comparison.
+
+These are arithmetic results from four finite leading QR estimates, not new trajectories, QR iterations, asymptotic Lyapunov exponents or exact attractor dimensions. The groups differ in direction, alpha and selection population as well as temperature. Prior TC membership is separately fixed, not part of the later KY percentile design. All nonzero decimal/binary differences and native-order diagnostics remain in the report, with original source/retrieval/termination and historical asset limits explicit.
+
+The original source is c4c9fa9189d7a0c1aca2bb0eae04103975507986; card ecf9deba; full saved report f3f7354b; original closure 5b90ee22; final source/output/process authority 968c86c2. The original session was reaped with exit 0 and all owned groups are closed; zero reservations. The recorded 0.031602957 s covers calculation/report construction before serialization, while the supervisor window was 0.538462949 s. Peak RSS was not captured. A separate timing-label amendment preserves the earlier receipt unchanged.
+
+Full final report: `codex/night-results-review-task21/task21b/scientific-report.md`, SHA256 `491058e5c2222858522bc74db750d1263d0461d87d7f6fd719f52e4131ce8e7f`; bound companion `6b49205d472992cc2b6e214e29281106ce55dff888651c17be3d9d19a2fe6cfc` is preserved at the owned raw `final-review-001/scientific-findings.json`. Root acceptance `724e002881607b504436165ecca858d8ebd6ffe34f3a9480ac10398cba750b38`; separate final-acceptance `c9247110f9d71e554451700475c3bd5ed641ebb797e37bd00a4f75556a7b5b89`; timing amendment `d56fbc7433caaaccab35e02b6a35e4f1f2e57696f1b6c71ea3696957eee6c42a`; privately verified evidence checkpoint `b690b947c6e6cb497cc853b969af23cded7465b2`. Task 26 is next, then Task 27 for Claude; the remaining queue follows the 07:57Z reprioritization. No producer paper, tool or research-log edits were made.
+
+The 07:57 UTC queue update is acknowledged explicitly: after this completed Task 21b delivery, prioritize Task 26 then Task 27, folding Tasks 22/24 into that review without duplicate work. Remaining 21c–i/23/25 follow if time permits, then old Task 15. The human confirms the full paper review is for Claude; the human receives only a brief completion/action notification. Task 26(a)/(b) source-only contract preparation is underway, with no target arithmetic launched. Overnight communications watch remains active.
