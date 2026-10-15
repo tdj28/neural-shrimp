@@ -24935,3 +24935,123 @@ With the 64 -> 128 flip of FB15D (-0.001824434015999929), **the next ratio is 2.
 - **TBZg:** gratitude@4 + hostility@16 over alpha1 in [-0.1225, -0.0973] and alpha2 in [0.0872, 0.1124].
 
 The question is whether the periodic windows near these cells show shrimp anatomy: a body with four legs, period-doubling on its boundary, and the darkest-contraction curves crossing inside. A doubly superstable search follows if they do.
+
+## 2026-10-15 09:37 UTC: Run card DLG (exploratory): two agents in one soft-token conversation
+
+**Question** (human, 15 Oct, after the "spiritual bliss" attractor of model-to-model conversations: "couldn't we try to show two LLMs inducing each other into a periodic orbit of some form?"). Do two soft-token agents, one model with two steering personas, lock into periodic orbits that neither has when talking with itself? And conversely, does pairing create chaos that neither agent has alone?
+
+**Background.** The 12 Oct pilots ran identical agents in greedy text dialogue and found absorbing synchronized greeting and farewell loops: periodic, but trivial and between identical agents. The sampled dialogue study (now reported separately) is stochastic.
+
+**Setup.** tools/soft_dialogue.py, tests/test_soft_dialogue.py (3 pass).
+- Model: Qwen2.5-0.5B-Instruct, float64, steering after block 12, the pilots' open prompt.
+- One soft token per message.
+- Frames:
+  - cowrite: the paper's loop with the steering alternating between the agents.
+  - dialogue: each message sits in a user turn and is answered as the assistant; it opens with "Hello" from B.
+- The classifier steps the exchange map G = F_B o F_A (hidden_chaos.run_batch and classify; twins 1e-6 and 1e-9, tol 1e-8, transient 500, record 800 exchanges).
+- CPU smoke test at launch: framing tokens checked (prefix ends with the user header, suffix "<|im_end|>\n<|im_start|>assistant\n", opener token "Hello"); the identity of equal cowrite agents with the single loop is still running (reported in the next entry).
+
+**Maps.** DLGa:
+- cowrite pair maps, philosophy for both agents, over alpha_A, alpha_B in [0.060, 0.082] (48 x 48), at log10 T -0.10 and -0.14. The diagonal is the paper's map along these temperatures.
+
+DLGb:
+- dialogue self-map over log10 T in [-0.4, 0.4] x alpha in [0, 0.12] (40 x 40), philosophy;
+- dialogue pair map at log10 T 0: gratitude (A) against hostility (B) at block 12 (vectors-l12-p1b) over [0, 0.12]^2 (40 x 40);
+- the two agents alone: gratitude and hostility self-dialogue lines at log10 T 0 (40 cells each).
+
+**Measures.**
+- Per cell: class, period of G and exponents.
+- Pair maps with one direction: each off-diagonal cell compared with its two diagonal agents. Counts of "periodic pair of two chaotic agents" (mutual entrainment) and of "chaotic pair of two periodic agents".
+
+**Would surprise us.** Off-diagonal cells always inheriting their agents' class; or every pair periodic.
+
+**Follow-up.**
+- soft_dialogue verify on selected cells: settle, period of G, Newton on G^P in float64, multipliers, primitive period, transcript of one period.
+- Explicit chaos diagnostics for the agents alone: twin exponents at both offsets, and tangent where needed.
+
+**Compute.** Two H100-class pods, about 2.5 h each; ceilings in the private ledger.
+
+## 2026-10-15 09:38 UTC: DLG smoke test (CPU, float64) passed; DLGa and DLGb pods created
+
+Script: scratchpad smoke test of tools/soft_dialogue.py at commit 01a335d6, Qwen2.5-0.5B, 32 threads.
+- **Cowrite identity.** Equal agents (philosophy, alpha 0.07, log10 T -0.10) for 30 exchanges against the single soft-token loop for 60 steps: maximum absolute difference **0.0**, i.e. bitwise identical. The diagonal of a cowrite pair map is the paper's map.
+- **Dialogue frame, 4 cells at log10 T 0** (transient 20, record 40 exchanges; 514 s on the contended CPU):
+
+  | alpha_A, alpha_B | class | period | exponents (1e-6, 1e-9) | B's leading token | entropy |
+  |---|---|---|---|---|---|
+  | 0, 0 | periodic | 1 | -13.70, -13.75 | "Hello" | 0.01 |
+  | 0.06, 0.06 | periodic | 1 | -1.60, -1.68 | "As" | 2.06 |
+  | 0, 0.06 | irregular, exponents negative | - | -0.23, -0.25 | "As" | 3.76 |
+  | 0.06, 0 | irregular, exponents negative | - | -0.16, -0.21 | "Hello" | 1.65 |
+
+  - The first cell is the synchronized greeting fixed point of the 12 Oct text pilots, now as a soft-token fixed point.
+  - The two unequal pairs had not settled within 60 exchanges; the maps use 1300.
+
+## 2026-10-15 09:41 UTC: Latent bug fixed: exact tangents dropped the second steering block
+
+SoftLoop.step_jvp, MultiPrefixSoftLoop.step_jvp and SoftOrbit.jvp_rows set only the first steering block (sm.steer) before their forward-mode pass. The second block of run TB (sm.steer_extra) was absent there, although logits() applies it. SoftOrbit also did not keep its own second-block rows for repeated batches.
+
+**Fix** (tools/explore_llm_soft_loop.py):
+- the three derivative paths set and clear steer_extra as logits() does;
+- SoftOrbit stores extra1 at construction and repeats it in _use.
+
+**Check** (tools/check_two_block_jvp.py, CPU float64): at the bimodal cell (hostility@4 + gratitude@16, alpha1 0.0568, alpha2 -0.0189, log10 T -0.1), after 60 steps, one random tangent compared with central differences (h = 1e-6 |X|):
+
+| path | relative error |
+|---|---|
+| step_jvp (fixed) | 2.53e-8 |
+| SoftOrbit.jvp_rows (fixed) | 2.53e-8 |
+| old behaviour (second block dropped) | 2.56e-1 |
+
+SoftOrbit's start trajectory equals the loop's (maximum difference 0).
+
+**Impact: none on reported results.** No two-block result used these paths. Two-block maps (two_block_map.py), the TP scans (turning_scan.py) and the TBZ zooms use hidden_chaos.run_batch without tangents, and no Newton or tangent run was made in a two-block plane. The fix precedes the planned two-block doubly superstable search.
+
+## 2026-10-15 09:44 UTC: BPCS result (steered arm, within-prompt test): NULL
+
+**Gates.** All nine stage-2 pods have runner rc 0, are terminated and ran commit a6ddcc38 (orchestrator logs). Labels: 1000 per direction (500 + 500). Generations: 1000 prompts x 10 samples per direction. The prompt ids equal the first 1000 of BPC's (items identical). Analysis: tools/bpcs_analyze.py and its tests, committed at 5ccdf733 before any stage-2 data. Output: docs/bpcs-result.json.
+
+**Task kept intact.** On these 1000 prompts:
+
+| condition | greedy accuracy | sampled accuracy (log10 T 0.4) |
+|---|---|---|
+| unsteered | 0.893 | 0.426 |
+| philosophy | 0.891 | 0.409 |
+| hostility-vs-kindness | 0.879 | 0.422 |
+| random direction | 0.873 | 0.442 |
+
+**Labels move.** Chaotic share (chaotic or periodic labels only): unsteered 36.7 %, hostility 35.9 %, philosophy 39.3 %, random 40.1 %. **508 of the 1000 prompts change label** between conditions under a push of 1 % of the residual norm. The regime of a prompt's loop is fragile.
+
+**Primary (fixed before the data).** Accuracy ~ chaotic + prompt fixed effects + condition fixed effects, over 3992 rows: beta = +0.0036, i.e. +0.36 points, 95 % bootstrap over prompts [-0.36, +1.08] points, within-prompt permutation p = 0.34. **Null.** Moving a prompt's loop into or out of chaos does not change the accuracy of its ordinary sampled answers, to within about 1 point.
+
+**Edge bins** (residual after both fixed effects, descriptive):
+
+| bin | n | residual (points) |
+|---|---|---|
+| deep periodic | 1877 | -0.11 |
+| edge | 256 | -0.28 |
+| deep chaotic | 1417 | +0.13 |
+
+**Together with BPC.** The loop's regime is not an accuracy diagnostic across prompts beyond first-token uncertainty, and it does not move accuracy within a prompt. The behavioural consequences of the regime are confined to the loop itself (reproducibility, soft-thinking answers), not to ordinary sampled decoding.
+
+## 2026-10-15 09:49 UTC: TPF inspection completed (all strong candidates); figure fig-bimodal
+
+The first figure (docs/tp/tpf-returnmaps.png) stopped at 24 panels. The remaining flagged phases (two or more turning points, explained >= 0.99) are in docs/tp/tpf-returnmaps-rest.png, together with the q 12 cell's twelve phases.
+
+**Complete verdict on the 12 strong candidates:**
+- **Genuine, single-valued maps with two or more turning points: three cells, all in two-block planes at log10 T -0.1.**
+  - hostility@4 + gratitude@16, alpha1 0.0568, alpha2 -0.0189: q 20, N-shaped in every clean phase.
+  - **New:** the same plane at alpha1 -0.0366, alpha2 -0.0467: q 12; 11 of 12 phases are N-shaped maps on two intervals (explained 0.995 to 1.000); phase 6 is folded.
+  - gratitude@4 + hostility@16, alpha1 -0.1099, alpha2 0.0998: q 9, phase 4 with three maxima (explained 0.998).
+- **False positives:**
+  - Point sets: block 12 (-0.0173, 0.0501); block 20 (0.1055, -0.0501).
+  - Band split: block 4 (-0.6622, 0.0784).
+  - Folded (multi-valued) projections: block 16 (0.0236, 0.1087); block 20 (0.0953, -0.0633); hostility@4 + gratitude@16 at log10 T +0.1 (0.0644, -0.0417), phases 3 and 4; the mirrored plane's phase 8.
+  - Not reproduced as strong in the --save rerun: the two block-8 cells.
+- **Consequence for the paper.** "Our reductions have one turning point per phase" holds for the one-block maps (blocks 4 to 20 and the hostile body). It does not hold in the two-block planes.
+
+**Figure.** tools/plot_bimodal.py writes paper/llm/figures/fig-bimodal.png: (a) the q 20 cell's phase 0 with a cobweb; (b, c) q 12 phases 2 and 9; (d) the three-maximum phase. The paper text waits for the TBZ zooms.
+
+## 2026-10-15 09:49 UTC: Run card TBZh2 (exploratory)
+
+The same as TBZh, around the second bimodal cell of the hostility@4 + gratitude@16 plane: alpha1 in [-0.0492, -0.0240], alpha2 in [-0.0593, -0.0341], 128 x 128, log10 T -0.1, transient 1000, record 600, twin 1e-6, tol 1e-8. One H100-class pod; ceiling in the private ledger.

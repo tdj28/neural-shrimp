@@ -78,3 +78,41 @@ def test_run_batch_labels_the_exchange_map():
     out = hc.run_batch(pair, v, np.zeros(2), np.array([3.2, 3.9]), 300, 600, [1e-6, 1e-9], 1e-8)
     assert out[0]["period"] == 1 and hc.classify(out[0]) == "periodic"
     assert hc.classify(out[1]) in ("visible chaos", "hidden chaos") and out[1]["lyapunov"][0] > 0.5
+
+
+class LinearLoop:
+    """Stand-in model: logits = W (x + steer), embedding E (V x d); one row of steering per batch row."""
+
+    def __init__(self, V, d, seed):
+        g = torch.Generator().manual_seed(seed)
+        self.torch, self.state_dtype, self.device = torch, torch.float64, "cpu"
+        self.E = torch.randn(V, d, generator=g, dtype=torch.float64)
+        self.W = torch.randn(V, d, generator=g, dtype=torch.float64)
+        self.steer_rows = None
+
+    def prepare(self, rows):
+        self.steer_rows = torch.as_tensor(np.asarray(rows), dtype=torch.float64)
+        return torch.zeros((len(rows), 1, self.E.shape[1]), dtype=torch.float64)
+
+    def logits(self, X):
+        return (X[:, -1] + self.steer_rows) @ self.W.T
+
+
+def test_cross_pair_step_is_the_exchange_through_both_embeddings():
+    A, B = LinearLoop(7, 3, 0), LinearLoop(7, 5, 1)
+    pair = sd.CrossPairLoop(A, B)
+    pair.set_b_cells(np.full((2, 5), 0.1))
+    X = pair.prepare(np.full((2, 3), 0.2))
+    X = X + 0.3
+    temps = np.array([0.7, 1.3])
+    Y, pb = pair.step(X, temps)
+    T = torch.as_tensor(temps)[:, None]
+    pa = torch.softmax(((X[:, -1] + 0.2) @ A.W.T) / T, dim=-1)
+    pb_ref = torch.softmax(((pa @ B.E + 0.1) @ B.W.T) / T, dim=-1)
+    assert torch.allclose(pb, pb_ref, atol=1e-14) and torch.allclose(Y[:, -1], pb_ref @ A.E, atol=1e-14)
+
+
+def test_cross_pair_refuses_different_vocabularies():
+    import pytest
+    with pytest.raises(SystemExit):
+        sd.CrossPairLoop(LinearLoop(7, 3, 0), LinearLoop(8, 5, 1))

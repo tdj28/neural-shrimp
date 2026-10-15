@@ -131,24 +131,180 @@ class PairLoop:
         return self.loop.step_jvp(X, temps, V)
 
 
-def build(args):
-    """The loop of the chosen frame and the pair around it."""
+class PairOrbit(esl.SoftOrbit):
+    """Periodic orbits of the exchange map G = F_B o F_A at one cell: SoftOrbit's Newton method and multipliers with
+    f = G and the Jacobian of G as the product of the agents' one-step Jacobians, J_B(F_A(x)) J_A(x). Each agent has its
+    own one-row prefix cache (a SoftOrbit of its steering). In the dialogue frame the Jacobians are central differences
+    of the framed step (SoftOrbit's forward-mode AD calls the model without the frame's suffix)."""
+
+    def __init__(self, loop, steer_a, steer_b, temperature, start=None, h_rel=1e-5, chunk=256):
+        method = "fd" if isinstance(loop, DialogueLoop) else "ad"
+        self.oa = esl.SoftOrbit(loop, steer_a, temperature, h_rel, chunk, jacobian_method=method)
+        self.ob = esl.SoftOrbit(loop, steer_b, temperature, h_rel, chunk, jacobian_method=method)
+        self.loop, self.torch, self.T = loop, loop.torch, float(temperature)
+        self.shape, self.n = self.oa.shape, self.oa.n
+        self.start = self.oa.start if start is None else start.to(self.oa.start.dtype)[None, None, :].clone()
+
+    def f(self, X):
+        return self.ob.f(self.oa.f(X))
+
+    def jacobian(self, X, method=None):
+        return self.ob.jacobian(self.oa.f(X)) @ self.oa.jacobian(X)
+
+    def tokens(self, X, period):
+        """The leading tokens of A's and B's messages along the orbit through X (one exchange per entry)."""
+        out = []
+        for _ in range(period):
+            self.oa._use(1)
+            Y, pa = self.loop.step(X, np.array([self.T]))
+            self.ob._use(1)
+            X, pb = self.loop.step(Y, np.array([self.T]))
+            out.append((int(pa[0].argmax()), int(pb[0].argmax()), float(pa[0].max()), float(pb[0].max())))
+        return out
+
+
+def verify(args, pair, va, vb, cells):
+    """For each cell [log10T, alpha_A, alpha_B]: settle by iterating G, detect the period of G (full state, relative
+    return distance below --tol-period), Newton on G^P (float64), the monodromy's multipliers, the primitive period
+    (no return at a proper divisor of P) and the transcript of one period."""
+    loop, tok = pair.loop, pair.loop.sm.tok
+    rows = []
+    for lt, a, b in cells:
+        if isinstance(pair, CrossPairLoop):
+            orb = CrossOrbit(loop, pair.loop_b, a * va, b * vb, 10.0 ** lt, start=pair.start)
+        else:
+            orb = PairOrbit(loop, a * va, b * vb, 10.0 ** lt, start=pair.start)
+        X = orb.iterate(orb.start, args.settle)
+        P = orb.detect_period(X, args.max_period, args.tol_period)
+        rec = {"log10_temperature": float(lt), "alpha_a": float(a), "alpha_b": float(b), "period_detected": int(P)}
+        if P == 0:
+            rec["outcome"] = "no period up to --max-period after settling"
+            rows.append(rec)
+            print(json.dumps(rec), flush=True)
+            continue
+        X, hist, vals, pts = orb.newton(X, P, tol=args.newton_tol, max_newton=args.max_newton)
+        dist = orb.return_distances(X, P)
+        divisors = [q for q in range(1, P) if P % q == 0]
+        tokens = orb.tokens(X, P)
+        rec.update({"newton_residuals": hist, "converged": bool(hist[-1] < args.newton_tol),
+                    "multipliers_abs": [float(abs(v)) for v in vals[:8]],
+                    "multipliers_arg": [float(np.angle(v)) for v in vals[:8]],
+                    "attracting": bool(abs(vals[0]) < 1),
+                    "proper_divisor_returns": {str(q): dist[q - 1] for q in divisors},
+                    "primitive": bool(all(dist[q - 1] > 1e3 * args.newton_tol for q in divisors)),
+                    "transcript": [[tok.decode([ta]), tok.decode([tb]), pa, pb] for ta, tb, pa, pb in tokens]})
+        rec["outcome"] = ("verified attracting primitive orbit" if rec["converged"] and rec["attracting"]
+                          and rec["primitive"] else "not verified (see fields)")
+        rows.append(rec)
+        print(json.dumps({k: rec[k] for k in ("log10_temperature", "alpha_a", "alpha_b", "period_detected",
+                                              "outcome")}), flush=True)
+    return rows
+
+
+class CrossPairLoop:
+    """Two different models of one tokenizer (Qwen2.5-0.5B and 1.5B share a vocabulary of 151,936 rows): a message is a
+    next-token distribution p, which each model embeds with its own embedding matrix. The state is B's last message in
+    A's embedding space, x = E_A^T p_B; one step is an exchange: p_A from A at x, B at y = E_B^T p_A, x' = E_A^T p_B.
+    Each model keeps its own prefix cache and steering, so nothing is swapped. Same interface as PairLoop."""
+
+    def __init__(self, loop_a, loop_b, start=None, record_a=False):
+        if loop_a.E.shape[0] != loop_b.E.shape[0]:
+            raise SystemExit(f"vocabularies differ: {loop_a.E.shape[0]} and {loop_b.E.shape[0]} rows")
+        self.loop, self.loop_b = loop_a, loop_b
+        self.torch, self.state_dtype, self.device, self.E = loop_a.torch, loop_a.state_dtype, loop_a.device, loop_a.E
+        self.start = start
+        self.b_cells = None
+        self.record_a = record_a
+        self.a_lead = []
+
+    def set_b_cells(self, rows):
+        self.b_cells = np.asarray(rows)
+
+    def prepare(self, rows_a):
+        if self.b_cells is None:
+            raise ValueError("set_b_cells before prepare")
+        B, n = len(rows_a), len(self.b_cells)
+        if B % n:
+            raise ValueError(f"{B} rows are not a multiple of {n} cells of agent B")
+        self.loop_b.prepare(np.concatenate([self.b_cells] * (B // n)))
+        X = self.loop.prepare(rows_a)
+        self.a_lead = []
+        if self.start is not None:
+            X = self.start.to(device=X.device, dtype=X.dtype)[None, None, :].repeat(B, X.shape[1], 1).clone()
+        return X
+
+    def step(self, X, temps):
+        torch = self.torch
+        T = torch.as_tensor(temps, dtype=self.state_dtype, device=self.device)[:, None]
+        pa = torch.softmax(self.loop.logits(X) / T, dim=-1)
+        if self.record_a:
+            self.a_lead.append(pa.argmax(dim=-1).cpu().numpy())
+        Y = (pa.to(self.loop_b.device) @ self.loop_b.E)[:, None, :]
+        pb = torch.softmax(self.loop_b.logits(Y) / T.to(self.loop_b.device), dim=-1).to(self.device)
+        return (pb @ self.E)[:, None, :], pb
+
+    def step_jvp(self, X, temps, V):
+        raise SystemExit("cross-model pairs: exact tangents are not implemented (use the twins)")
+
+
+class CrossOrbit(esl.SoftOrbit):
+    """Periodic orbits of the cross-model exchange map (CrossPairLoop): SoftOrbit's Newton method and multipliers with
+    central-difference Jacobians of the whole exchange; each model's one-row prefix cache is repeated per batch size by
+    its own SoftOrbit."""
+
+    def __init__(self, loop_a, loop_b, steer_a, steer_b, temperature, start=None, h_rel=1e-5, chunk=256):
+        self.oa = esl.SoftOrbit(loop_a, steer_a, temperature, h_rel, chunk, jacobian_method="fd")
+        self.ob = esl.SoftOrbit(loop_b, steer_b, temperature, h_rel, chunk, jacobian_method="fd")
+        self.loop, self.loop_b, self.torch, self.T = loop_a, loop_b, loop_a.torch, float(temperature)
+        self.shape, self.n = self.oa.shape, self.oa.n
+        self.h_rel, self.chunk, self.jacobian_method = h_rel, int(chunk), "fd"
+        self.start = self.oa.start if start is None else start.to(self.oa.start.dtype)[None, None, :].clone()
+
+    def _exchange(self, X):
+        torch = self.torch
+        self.oa._use(X.shape[0])
+        pa = torch.softmax(self.loop.logits(X) / self.T, dim=-1)
+        self.ob._use(X.shape[0])
+        pb = torch.softmax(self.loop_b.logits((pa.to(self.loop_b.device) @ self.loop_b.E)[:, None, :]) / self.T, dim=-1)
+        return pa, pb.to(pa.device)
+
+    def f(self, X):
+        _, pb = self._exchange(X)
+        return (pb @ self.loop.E)[:, None, :]
+
+    def tokens(self, X, period):
+        out = []
+        for _ in range(period):
+            pa, pb = self._exchange(X)
+            out.append((int(pa[0].argmax()), int(pb[0].argmax()), float(pa[0].max()), float(pb[0].max())))
+            X = (pb @ self.loop.E)[:, None, :]
+        return out
+
+
+def frame_loop(args, model, layer):
     if args.frame == "dialogue":
-        loop = DialogueLoop(args.model, args.layer, args.threads, args.prompt, args.dtype, args.device, args.weights)
+        return DialogueLoop(model, layer, args.threads, args.prompt, args.dtype, args.device, args.weights)
+    return esl.SoftLoop(model, layer, args.threads, args.prompt, ela.OPENER, 1, args.dtype, args.device, args.weights)
+
+
+def build(args):
+    """The loop of the chosen frame and the pair around it (a CrossPairLoop when agent B is another model)."""
+    loop = frame_loop(args, args.model, args.layer)
+    start = None
+    if args.frame == "dialogue":
         first = loop.sm.tok(ela.OPENER, add_special_tokens=False)["input_ids"][0]
         with loop.torch.no_grad():
             start = loop.model.get_input_embeddings()(
                 loop.torch.tensor([first], device=loop.device))[0].to(loop.state_dtype)
-    else:
-        loop = esl.SoftLoop(args.model, args.layer, args.threads, args.prompt, ela.OPENER, 1, args.dtype, args.device,
-                            args.weights)
-        start = None
+    if args.model_b:
+        return CrossPairLoop(loop, frame_loop(args, args.model_b, args.layer_b), start=start,
+                             record_a=args.save_sequences)
     return PairLoop(loop, start=start, record_a=args.save_sequences)
 
 
 def cells_for(args):
     """[log10T, alpha_A, alpha_B] rows of the requested map."""
-    if args.mode == "cells":
+    if args.mode in ("cells", "verify"):
         return np.array(json.loads(Path(args.cells_file).read_text())["cells"], dtype=float)
     if args.mode == "pairmap":
         aa = np.linspace(args.alpha_a[0], args.alpha_a[1], int(args.alpha_a[2]))
@@ -163,12 +319,15 @@ def main():
     import explore_llm_phase_map as elpm
 
     ap = argparse.ArgumentParser(description=__doc__.split("\n\n")[0])
-    ap.add_argument("mode", choices=("pairmap", "selfmap", "cells"))
+    ap.add_argument("mode", choices=("pairmap", "selfmap", "cells", "verify"))
     ap.add_argument("--frame", choices=("dialogue", "cowrite"), required=True)
     ap.add_argument("--model", default="qwen0.5b")
     ap.add_argument("--layer", type=int, default=12)
     ap.add_argument("--prompt", default="open")
     ap.add_argument("--vectors", default="llm-phase-map/vectors-l12")
+    ap.add_argument("--model-b", default=None, help="agent B's model (same tokenizer), for a two-model conversation")
+    ap.add_argument("--layer-b", type=int, default=None, help="agent B's steering block (default: --layer)")
+    ap.add_argument("--vectors-b", default=None, help="agent B's vectors (default: --vectors)")
     ap.add_argument("--concept-a", default="philosophy")
     ap.add_argument("--concept-b", default=None, help="agent B's direction (default: agent A's)")
     ap.add_argument("--log-temperature", type=float, nargs="+",
@@ -189,15 +348,29 @@ def main():
     ap.add_argument("--device", default="cpu")
     ap.add_argument("--weights", default="native", choices=("native", "bf16"))
     ap.add_argument("--threads", type=int, default=16)
+    ap.add_argument("--settle", type=int, default=3000, help="verify: exchanges iterated before the period search")
+    ap.add_argument("--max-period", type=int, default=64, help="verify: largest period of G searched")
+    ap.add_argument("--tol-period", type=float, default=1e-7, help="verify: relative return distance for a period")
+    ap.add_argument("--newton-tol", type=float, default=1e-11)
+    ap.add_argument("--max-newton", type=int, default=6)
     ap.add_argument("--out", required=True)
     args = ap.parse_args()
     args.concept_b = args.concept_b or args.concept_a
+    args.layer_b = args.layer if args.layer_b is None else args.layer_b
     cells = cells_for(args)
     pair = build(args)
-    vecs = elpm.load_vectors(args.vectors)
-    va, vb = np.asarray(vecs[args.concept_a], dtype=float), np.asarray(vecs[args.concept_b], dtype=float)
-    if len(va) != pair.E.shape[1]:
-        raise SystemExit(f"steering vector dimension {len(va)} does not match the model ({pair.E.shape[1]})")
+    va = np.asarray(elpm.load_vectors(args.vectors)[args.concept_a], dtype=float)
+    vb = np.asarray(elpm.load_vectors(args.vectors_b or args.vectors)[args.concept_b], dtype=float)
+    d_b = pair.loop_b.E.shape[1] if isinstance(pair, CrossPairLoop) else pair.E.shape[1]
+    if len(va) != pair.E.shape[1] or len(vb) != d_b:
+        raise SystemExit(f"steering vector dimensions {len(va)}, {len(vb)} do not match the models "
+                         f"({pair.E.shape[1]}, {d_b})")
+    if args.mode == "verify":
+        rows = verify(args, pair, va, vb, cells)
+        out = ela.DATA / "explore" / args.out
+        out.mkdir(parents=True, exist_ok=True)
+        (out / "verify.json").write_text(json.dumps({"args": vars(args), "cells": rows}, indent=1))
+        return
     results, seq_b, seq_a = [], [], []
     seqs = {"lead": [], "pmax": []} if args.save_sequences else None
     for s in range(0, len(cells), args.chunk):
