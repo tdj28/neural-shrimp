@@ -195,12 +195,17 @@ def figure(branches, curves, located, out):
     ax.set_facecolor("0.93")
     attractor_map(ax, wide, True)
     overlay(ax, ms=8, branches_too=False)
+    for rec in curves.values():                    # self-crossings of every fold curve (the dovetails)
+        if rec["kind"] == "fold" and rec["points"]:
+            for i, j, x in self_crossings(np.array([[q["alpha"], q["alpha2"]] for q in rec["points"]])):
+                ax.plot(*x, "x", color="m", ms=7, mew=1.5, zorder=7)
     box(ax, (tb["alpha1"][0], tb["alpha1"][-1]), (tb["alpha2"][0], tb["alpha2"][-1]), color="c", lw=0.9)
     allx = [q["alpha"] for r in curves.values() for q in r["points"]]
     ally = [q["alpha2"] for r in curves.values() for q in r["points"]]
     ax.set_xlim(min(allx) - 0.001, max(max(allx), wide["alpha1"][-1]) + 0.0005)
     ax.set_ylim(min(min(ally), wide["alpha2"][0]) - 0.0005, max(ally) + 0.001)
-    ax.set_title("(a) fold (black) and flip (red) curves of the period-5 orbit; cyan: zoom of (b)", fontsize=7.5)
+    ax.set_title("(a) fold (black) and flip (red) curves of the period-5 orbit; x: self-crossings; cyan: zoom of (b)",
+                 fontsize=7.5)
 
     ax = axes[1]                                   # (b) the body over the fine zoom
     e2 = attractor_map(ax, tb, True)
@@ -276,9 +281,10 @@ def main():
                "branches": {k: branch_summary(v) for k, v in branches.items()},
                "curves": {k: curve_summary(v) for k, v in curves.items()},
                "located": {k: locate_summary(v) for k, v in located.items()}}
-    if "curve-a1-up-fold-minus" in curves:
-        P = np.array([[p["alpha"], p["alpha2"]] for p in curves["curve-a1-up-fold-minus"]["points"]])
-        summary["fold_self_crossings"] = [{"segments": [i, j], "at": x} for i, j, x in self_crossings(P)]
+    summary["fold_self_crossings"] = {                 # every fold curve (two traces of one curve repeat a crossing)
+        name: [{"segments": [i, j], "at": x} for i, j, x in
+               self_crossings(np.array([[p["alpha"], p["alpha2"]] for p in rec["points"]]))]
+        for name, rec in curves.items() if rec["kind"] == "fold" and rec["points"]}
     text = json.dumps(summary, indent=1)
     if args.json:
         Path(args.json).parent.mkdir(parents=True, exist_ok=True)

@@ -741,7 +741,7 @@ strip between a fold and a flip curve, cross in a kite. The kite begins at a cus
 meet; inside it two attracting orbits of the same period coexist, and their superstable curves cross at the tail.
 Carcass\`es et al.\ call such an organization around a cusp, in which the flip curves of the cusp's two branches
 cross, a crossroad area, and the alternative, in which a flip curve loops around the cusp, a spring area
-\cite{carcasses1991crossroad,mira1991crossroad}. In a two-dimensional map whose Jacobian is never singular, such as
+\cite{mira1987chaotic,carcasses1991crossroad,mira1991crossroad}. In a two-dimensional map whose Jacobian is never singular, such as
 H\'enon's, no multiplier can vanish. There the curves on which the trace of the cycle's two multipliers vanishes take
 the place of the superstable curves, and the head is no longer generic: near it these curves either close into a loop
 (Type~A of Fa\c{c}anha, Oldeman and Glass) or form no loop (Type~B) \cite{facanha2013endoskeletons}.
@@ -754,7 +754,9 @@ between a fold curve and a flip curve, as in Gallas's anatomy, and beyond the fl
 Where the upper leg leaves the body, the fold curve has two located cusps that share a segment of the curve, and its
 other two branches cross (Figure~\ref{fig:period5folds}d). At the crossing the two arms are folds of two different
 period-5 orbits with the same token loop (their states differ by about 4\,\%). A second fold curve, on the far left,
-where the orbit dies after regaining stability beyond a doubling bubble, has two more located cusps. Along every
+where the orbit dies after regaining stability beyond a doubling bubble, has two more located cusps, which also share
+a segment, and its other two branches cross as well, again as folds of two different period-5 orbits
+(Figure~\ref{fig:period5folds}a). Along every
 continued curve the critical multiplier stays at $+1$ or $-1$ to within $1.2\times10^{-7}$, and no other multiplier
 exceeds $0.4$ in modulus, so no second multiplier reaches the unit circle along them; this does not exclude cusps,
 which need only a nonlinear degeneracy.
@@ -762,14 +764,19 @@ which need only a nonlinear degeneracy.
 \paragraph{Shrimps of a two-dimensional kind.} The windows have this anatomy except the head. Beyond the leading
 pair, the multipliers of the period-5 window's orbits are below $0.002$, so the two-dimensional reading applies. The
 leading multiplier never vanishes (its modulus stays at least $0.0139$): where a one-dimensional map would be
-superstable, the two leading multipliers form a complex pair or pass each other as real numbers of opposite sign,
-and one trace-zero curve closes into a loop around an island of negative trace (Figure~\ref{fig:period5folds}c), the
+superstable, the two leading multipliers form a complex pair (the node becomes a focus, as Mira describes for
+two-dimensional maps \cite{mira1987chaotic}) or pass each other as real numbers of opposite sign, and one trace-zero
+curve closes into a loop around an island of negative trace (Figure~\ref{fig:period5folds}c), the
 Type~A geometry at the resolution of the grid. In the hostile period-7 body the superstable arcs approach each other
 and turn away without crossing, and no loop is seen, as in Type~B (Appendix~\ref{sec:hostility}). The junction of the
 period-5 window's upper leg is the configuration that Mira et al.\ call a dovetail: two cusps that share a segment of
 the fold curve, whose other branches cross \cite{mira1996chaotic}. It is the plane section of a swallowtail and
 predicts four orbits in the pocket between the cusps and the crossing, none beyond the crossing and two elsewhere
-(Figure~\ref{fig:anatomy}b). An orbit census at 13 points fixed before the computation found exactly these numbers at
+(Figure~\ref{fig:anatomy}b). Its two cusps are of the two kinds that Mira distinguishes in two-dimensional maps:
+passing through a cusp into its wedge splits a saddle into an attracting node and two saddles in a saddle area, and
+an attracting node into a saddle and two nodes in a crossroad or a spring area \cite{mira1987chaotic}. The sign of
+the cubic coefficient $c$ of the fold's normal form decides which, $c>0$ the first and $c<0$ the second. In both of
+the window's dovetails the upper cusp has $c>0$ and the lower $c<0$, as in any section of a swallowtail. An orbit census at 13 points fixed before the computation found exactly these numbers at
 nine (Figure~\ref{fig:period5folds}d): four orbits at three of five pocket points, none at either point beyond the
 crossing, and two at four of five surrounding points. At the other four points the census missed repelling orbits
 (its counts are lower bounds) or, at one point beyond a flip curve, also found an orbit with another token loop. At
@@ -786,7 +793,8 @@ reasons; Appendix~\ref{sec:hostility}).
 \includegraphics[width=\linewidth]{fig-period5-folds.png}
 \caption{The skeleton of the period-5 window in the plane steered at two depths (Qwen2.5-0.5B-Instruct, gratitude at
 block~4 and hostility at block~16, $\log_{10}T=-0.1$, float64). (a) The two fold curves (black; multiplier $+1$) and
-the flip curves (red, dashed; multiplier $-1$) of the window's period-5 orbit, over the attractor reached from the fixed start of every cell (Appendix~\ref{sec:methods}) on a wider grid (grey: outside it); gold stars: the four located cusps; cyan: the zoom of (b). (b) The body
+the flip curves (red, dashed; multiplier $-1$) of the window's period-5 orbit, over the attractor reached from the fixed start of every cell (Appendix~\ref{sec:methods}) on a wider grid (grey: outside it); gold stars: the four located cusps; magenta crosses: the self-crossings of the two fold curves; cyan: the zoom
+of (b). (b) The body
 over a finer grid (as Figure~\ref{fig:period5}a), with the four branches (dotted) that found the first boundary points
 from a common start (circle); white: the continuation grid of (c). (c) The same curves over the trace of the continued
 orbit's two leading multipliers (Figure~\ref{fig:period5}b; grey: repelling). (d) The junction of the upper leg with
@@ -2037,7 +2045,12 @@ between neighbouring curve points. The second fold curve, continued both ways fr
 far up the left of the plane, where the orbit has regained stability beyond its doubling bubble (critical
 multiplier within $1.2\times10^{-7}$ of $+1$; other multipliers below $0.4$). It has two more reversals, both located
 cusps: $(-0.1238662,0.0961512)$, with $c=-9.65\times10^{3}$ and $\det J=405.9$, and $(-0.1214073,0.1028234)$, with
-$c=+4.75\times10^{4}$ and $\det J=-535.4$ (condition $1.2\times10^{4}$). At all four cusps the critical multiplier is
+$c=+4.75\times10^{4}$ and $\det J=-535.4$ (condition $1.2\times10^{4}$). This curve also crosses itself, at
+$(-0.12341,0.09904)$, between its points 6 and 64, which lie on either side of the two cusps (points 15 and 40), so
+that the two cusps share a segment and their other branches cross: a second dovetail. There too the arms are folds of
+two different period-5 orbits with the same token loop, which differ by $8.8\,\%$ of the state norm (best phase,
+nearest points), 23 to 30 times the state change between neighbouring curve points. In both dovetails the cusp with
+$c>0$ lies above the one with $c<0$. At all four cusps the critical multiplier is
 within $1.3\times10^{-9}$ of $1$ and the second modulus below $0.008$. The flip curves bound the body's upper-left and
 lower sides and run along the legs. The fold curve resolves both anomalies of the grid. The isolated repelling cell ($\mu_1=+1.65$)
 lies $1.2\times10^{-5}$ from it, on the saddle branch, and the column of failed Newton solves at $\alpha_1=-0.119167$

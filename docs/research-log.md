@@ -26052,3 +26052,42 @@ Gallas 1993 (PRL 70:2714) was already cited.
    - The removed TikZ schematic drew a cusp in a one-turning-point window and an inaccurate "Gallas shrimp" with four cusps. The computed fig:anatomy replaces it.
 
 **Correction to the 18:17 entry.** The CL2 error is the squared forecast error over the squared deviation, not a percentage. At the body location E1 = 0.026 and 0.031, a relative RMS error of about 16 to 18 %; E2 is below 6e-5.
+
+## 2026-10-15 18:50 UTC: Mira (1987) pp. 353-373 read (page images supplied by the human, stored outside git); a second dovetail; cusp kinds from the sign of c
+
+**Source.** C. Mira, Chaotic Dynamics: From the One-Dimensional Endomorphism to the Two-Dimensional Diffeomorphism (World Scientific, 1987), doi:10.1142/0413 (Crossref-verified). The pages are in /data2/neural-shrimp-data/references/mira1987/ (p353-p357 saved; later pages were read in the session only).
+
+**What these pages say about the quadratic diffeomorphism (6.26), with b its Jacobian; b = 0 is the one-dimensional limit.**
+- **Node becomes focus.** For |b| < 1, a fold joins a saddle sheet (S1 > 1) to an attracting node sheet, "which can become a focus cycle sufficiently far from the junctions" (p. 353).
+- **The multiplier landscape** (p. 353). The family s = const has "the structure of contour lines", where s is the largest real multiplier, or the real part u of a complex pair. It has a "saddle point P in the topographic sense", the intersection of two s = const curves, plus a line of crest and a valley.
+  - Fig. 6.26 also draws U = 0 curves near the saddle points: for a complex pair, our trace-zero curves.
+- **Cross-road area** ZEk(j1, ..., jr): r cusps on r fold curves let r boxes of b = 0 communicate (pp. 353-358). The level curves have r - 1 saddle points.
+  - Figs. 6.27-6.28 show cross-road areas of periods 5-8 in the quadratic diffeomorphism: shrimp-like structures, before Gallas.
+- **Saddle area** ZCr(g; h) (6.9.3, pp. 358-361). Passing through the cusp into its wedge (6.36): saddle cycle -> attracting node + 2 saddles.
+- **Spring area** ZSk (6.9.4, pp. 361-370).
+  - A fold curve with a cusp, and a flip curve whose loop surrounds the cusp. The cycle turns flip-unstable, its multiplier passes a minimum and "resurges" as attracting inside the loop (hence "spring").
+  - The s = const curves form loops around the cusp, a "cuspidal caustic".
+  - Passing through the cusp gives (6.37): node -> saddle + 2 nodes, "an equivalent bifurcation" to that at the cusp of a cross-road area.
+- **Cascades and P6.16** (pp. 370-373).
+  - Spring areas form cascades by doubling, with an accumulation curve, in a fractal "box-within-a-box" organization.
+  - P6.16: "For a dynamical system, the effective dimension of which is two, the local existence of a cusp point on a fold bifurcation curve may be related for a whole part of the (a, b) plane to a global complex structure of communications."
+
+**Consequence: two kinds of cusp, decided by the sign of c.** In the reduced fold map u -> u + beta0 + beta1 u + b u^2 + c u^3:
+- c > 0 gives the saddle-area bifurcation (6.36): one attracting orbit inside the wedge, none outside.
+- c < 0 gives the cross-road and spring bifurcation (6.37): two attracting orbits inside, one outside.
+
+Our located cusps:
+- U has c = +2.60e4 and L has c = -2.05e4. The census agrees: near L it found two attracting orbits of the merging triple (0.94, 0.47) and a repelling one (1.06).
+- On the second fold curve, the upper cusp has c = +4.75e4 and the lower one c = -9.65e3.
+
+**A second dovetail** (found now, checked on the CPU in float64).
+- The second fold curve (fm5c/curve-a1-down-fold-minus) crosses itself at (-0.123411, 0.099041), between points 6 and 64. Its cusps are at points 15 and 40, so they share a segment and their outer branches cross.
+- Iterating the saved states at the four curve points that bracket the crossing (window_census helpers): the two arms are different period-5 orbits with the same token loop (13, 358, 13, 13, 56568). They differ by 8.8 % (RMS over the five points, best phase, nearest points), 23 to 30 times the per-step change.
+- The same computation at the first crossing gives 3.65 %. The paper's 3.9 % used a slightly different pairing.
+- tools/plot_fm5.py now records the self-crossings of every fold curve (docs/fm5/fm5-summary.json; the first crossing appears on both of its traces) and marks them in panel (a).
+
+**Spring area: not claimed.** The window's orbit does become flip-unstable and regain stability before dying at the second fold curve, along alpha2 = 0.100693. But the traced flip curves pass above cusp 3 (lowest near (-0.1230, 0.0988)) and do not surround it, so no spring area is claimed.
+
+**Paper.**
+- Mira (1987) is cited for the classification and for the node becoming a focus.
+- Section 5 now says each dovetail joins one cusp of each kind, the c > 0 cusp above in both. Appendix I has the details of the second dovetail.
