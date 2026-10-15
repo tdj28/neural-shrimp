@@ -1,0 +1,57 @@
+{
+ "passed": [
+  "strict_threshold_nonfinite_invalid_period_and_denominators",
+  "saved_mask_mismatch_retained_without_substitution",
+  "strict_nearzero_and_empty_denominator",
+  "exact_zero_vs_nearest_axis_nonchaotic_vs_periodic",
+  "all_plane_vs_explicit_nearest_row_column_exclusion",
+  "exact_axes_duplicates_and_shape_refusals",
+  "fixed_ordinal_join_preserves_actual_nonexact_coordinate",
+  "all_comparison_leaves_and_last_bit_difference",
+  "manufactured_NPZ_header_coordinate_association",
+  "existing_output_refused_without_mutation"
+ ],
+ "failed": 0,
+ "measurement": {
+  "seconds_through_scientific_serialization": 1.9460875210352242,
+  "observed_peak_kib": 66056,
+  "source_grid_count": 21,
+  "source_cell_count": 119552,
+  "join_cell_count": 36864,
+  "output_files": [
+   {
+    "path": "/tmp/task21h-manufactured-001/cells.jsonl",
+    "bytes": 28290608,
+    "sha256": "02db2436aad8a48971c32239c7d6c68fdb8754373d9f161f2bc269b539057ff6"
+   },
+   {
+    "path": "/tmp/task21h-manufactured-001/control-joins.jsonl",
+    "bytes": 19078136,
+    "sha256": "ff876f6424909bfa9a1f44b71fd0098681b290728eb2e1eeb2449db2cdacaedc"
+   },
+   {
+    "path": "/tmp/task21h-manufactured-001/scientific-shape.json",
+    "bytes": 3386029,
+    "sha256": "2c7aa063e9f96f1880205744e0853eb5e023cf3195cb2bb87cc3f850eb44a25e"
+   }
+  ],
+  "scope": "One manufactured full-shape arithmetic/serialization observation; no target data, input hashes/I/O excluded, not a worst-case timing/size guarantee."
+ },
+ "sources": [
+  {
+   "path": "/tmp/task21h-manufactured-001-supervision/source/reduce.py",
+   "bytes": 10450,
+   "sha256": "150e3777a52b5e0133ce3f95bb5475d166bbc1516a4f748b5dc44085b9c43503"
+  },
+  {
+   "path": "/tmp/task21h-manufactured-001-supervision/source/run.py",
+   "bytes": 12430,
+   "sha256": "4935bca02150ac2428c86a669ec86745804fca8a51f57b19659b0507666c09aa"
+  },
+  {
+   "path": "/tmp/task21h-manufactured-001-supervision/source/controls.py",
+   "bytes": 10138,
+   "sha256": "2aeddd0655fc517a332100604dc6fc7d3afe0c08621a33f1b6bc3217d461daa4"
+  }
+ ]
+}
