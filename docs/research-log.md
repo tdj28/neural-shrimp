@@ -26263,3 +26263,18 @@ The Z70 result entry and the artifact check above count cells "above the ridge" 
 - tools/analyze_controls.py now draws a colour bar and saves with a tight bounding box; the first rendering clipped the bar's labels.
 
 **Paper.** The neurons are reported in sec:origin and in the Discussion sentence on Cammarata's essay.
+
+## 2026-10-15 20:45 UTC: Rule fixed for PT128, the plateau test of the Z128 map (before any Z128 data)
+
+**Cells.** tools/plateau_cells.py on the stitched Z128 map (prefix llm-soft-loop/pod64/controls70/hostility-vs-kindness-z128-b), seed 20261015.
+- 12 chaotic, 6 periodic and 6 unresolved cells, each class drawn uniformly without replacement.
+- A class with too few cells gives all of them, and the shortfall is recorded, not filled.
+- Output: docs/plateau-cells-z128.json. Tests: tests/test_plateau_cells.py, 2 pass.
+
+**Run.** Job set bigctrl part cells, at the commit after the draw.
+- tools/hidden_chaos.py cells at the map's horizon (300 + 300 steps), absolute twin offsets 1e-4, 1e-5 and 1e-6, plus --tangent: the exact exponent of a tangent vector carried by forward-mode differentiation, which needs no offset.
+
+**Decision rule** (as PTa, plus the tangent).
+- A map label "chaotic" is confirmed when the exponents at all three offsets and the tangent exponent are above 1e-3.
+- A label "periodic" is confirmed when all four are negative.
+- Unresolved cells are reported as measured.
