@@ -24185,3 +24185,16 @@ Pods: 7B labels (shards 0-5: lwevy9huignhj3, ake729hlyutvbn, x2wlyik6vf3e67, 9g7
 - **Reading:** The card's primary test is met at all three temperatures. Most of the effect is explained by task mix and by the flatness of the answer distribution; a residual of about -4 to -5 points, the same sign at every temperature, is not significant alone.
   - Not a claim of a dynamical effect on accuracy.
   - Follow-up for a confirmatory test: a pre-sampling covariate per prompt (first answer token's entropy at T, greedy answer probability), many more prompts in one task, and the analysis frozen before the run.
+
+## 2026-10-15 06:00 UTC: run (exploratory): RM, return maps next to the hostile period-7 body (human: "You should be able to find the return map")
+
+- **Question:** Near the avoided crossing of the period-7 body's superstable curves (alpha 0.0700, log10 T 0.206), is the one-dimensional reduction of the neighbouring chaos still unimodal, or is a second turning point forming (the human: shrimps appear when the unimodal map spawns a second mode)?
+- **Also:** the period-7 body consists of token variants of one continued orbit ('defiance' / 'pee' at one step, 'Yes' / 'No'). Redone with all continued cells (775 in DSS1), the sign search for a crossing of mu's zero curves still finds no checkerboard cell.
+- **Method:** tools/return_map.py, float64, transient 1000, record 7000.
+  - The 7-step return map within each phase (the chaos sits behind a 7-periodic text): s_{n+7} against s_n, with s the projection on the leading principal component of that phase's points.
+  - Turning points of the binned-median curve are counted.
+- **Cells:**
+  - three chaotic cells on the body's right edge, nearest the avoided crossing: (0.07136, 0.20621), (0.07136, 0.20566), (0.07142, 0.20594);
+  - four chaotic cells of the hostile line alpha 0.0655 (log10 T 0.17692, 0.18073, 0.18480, 0.19026; KY dimensions 1.045, 1.156, 1.008, 1.013).
+- **Reading:** descriptive. Number of turning points per phase and the shape of the maps. The leading component's explained share says how one-dimensional each phase is.
+- **Output:** `../neural-shrimp-data/explore/llm-soft-loop/pod64/retmap/body-edge`
