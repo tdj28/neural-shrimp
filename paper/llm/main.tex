@@ -2253,9 +2253,63 @@ two-dimensional instead of doubly superstable (Figure~\ref{fig:superstable}). Th
 close to superstable: its leading multiplier stays above $0.028$ in modulus.
 
 The X-shaped crossing of a period-5 and a period-6 strip (Figure~\ref{fig:zooms}, bottom) is not one window's anatomy
-but two windows overlapping, and at the crossing both of their orbits are unstable (Section~\ref{sec:curves}). The
-shapes are therefore the two-parameter unfolding of single-humped windows. They are shrimp-like in body, legs and
-internal cascade, but have no shrimp centre.
+but two windows overlapping, and at the crossing both of their orbits are unstable (Section~\ref{sec:curves}). The shapes in these one-block planes are therefore the
+two-parameter unfolding of single-humped windows. They are shrimp-like in body, legs and internal cascade, but have no
+shrimp centre.
+
+\paragraph{Two turning points from two steering depths.} Steering at two depths gives the band dynamics a second
+turning point. We drew 1584 chaotic cells (200 from each of the four two-block planes of Figure~\ref{fig:twoblock},
+150 from each one-block map of Figure~\ref{fig:layersweep} and the 34 of the hostile line of
+Figure~\ref{fig:hubcascade}), counted the turning points
+of each band's return map and inspected every strong candidate by eye, since a projection can fold a single hump. Three
+cells, all in two-block planes at $\log_{10}T=-0.1$, have smooth, single-valued return maps with two or more turning
+points (Figure~\ref{fig:bimodal}); the other strong candidates were point sets, split bands or folded projections, or
+were not reproduced. In one cell (hostility at block~4, gratitude at block~16), every one-dimensional phase of a
+20-band attractor is N-shaped: a bimodal map. A $128\times128$ zoom around another, whose map has three maxima, shows
+a period-5 window with a body, legs, a period-10 and period-20 border, and patches where the fixed start settles on
+period~4 (Figure~\ref{fig:period5}a). We continued the window's period-5 orbit over a $31\times31$ grid of its body:
+608 cells solved, all with the same token loop, 447 of them attracting. In 61 of these 447 cells, the nearest cell of
+the zoom (at most $2.0\times10^{-5}$ away in $\alpha_1$ and $3.2\times10^{-5}$ in $\alpha_2$) settles on period~4, so
+attractors of periods 4 and 5 coexist at grid scale, which a single unimodal map with negative Schwarzian derivative
+allows only if a basin reaches an end of its interval (Section~\ref{sec:theory}).
+
+The window still has no one-dimensional centre. The leading multiplier of the continued orbit never comes near zero:
+its modulus is at least $0.0139$ in all 608 cells. Where a one-dimensional map would be superstable, it meets the
+second multiplier, and the two form a complex pair (91 cells, in narrow strips) or, where their product is negative
+(41 cells), pass each other as real numbers of opposite sign (Figure~\ref{fig:period5}c). Per step, the second
+direction contracts by a median factor of $0.44$ and the first by $0.76$ over the attracting cells, so near these
+strips the orbit is two-dimensional. The curves on which the trace $\mu_1+\mu_2$ changes sign take the place of
+superstable curves, and they do not cross: no $2\times2$ block of attracting cells has the alternating signs of a
+crossing (Figure~\ref{fig:period5}b). One isolated cell holds a repelling orbit with the same token loop
+($\mu_1=1.65$), and near the top of the grid one column of Newton solves failed above cells whose leading multiplier
+rises to $0.88$; these are signs of folds inside the window that this spacing does not resolve. A second turning point
+in the band maps therefore does not give this window a one-dimensional shrimp centre. Like the hostile body, it is the
+window of a map that is two-dimensional near its superstable strips, and whether it is the shrimp of a
+two-dimensional map is open.
+\begin{figure}[tbp]
+\centering
+\includegraphics[width=\linewidth]{fig-bimodal.png}
+\caption{Band return maps with two or more turning points, from two-block planes of Qwen2.5-0.5B-Instruct (float64,
+$\log_{10}T=-0.1$). Each panel shows one phase of a chaotic band attractor, projected on its leading principal
+component $s$ (explained variance in the title), with points $(s_n,s_{n+1})$ one band period apart. (a) Hostility at
+block~4 and gratitude at block~16, $(\alpha_1,\alpha_2)=(0.0568,-0.0189)$: phase 0 of a 20-band attractor, N-shaped,
+with a cobweb of consecutive visits. (b, c) The same plane at $(-0.0366,-0.0467)$: two phases of a 12-band attractor,
+N-shaped maps on two intervals. (d) Gratitude at block~4 and hostility at block~16, $(-0.1099,0.0998)$: phase 4 of a
+9-band attractor, with three maxima.}
+\label{fig:bimodal}
+\end{figure}
+\begin{figure}[tbp]
+\centering
+\includegraphics[width=\linewidth]{fig-period5-window.png}
+\caption{A period-5 window in the plane of gratitude at block~4 and hostility at block~16 (Qwen2.5-0.5B-Instruct,
+float64, $\log_{10}T=-0.1$). (a) Attractor reached from the fixed start on a $128\times128$ grid (black: chaotic),
+with the box of the continuation grid. (b) The window's period-5 orbit continued over the box ($31\times31$, 608
+cells solved, one token loop): trace $\mu_1+\mu_2$ of its two leading multipliers on attracting cells, its zero curves
+(black) and the curves $|\mu_1|=1$ (magenta); grey cells hold a repelling orbit. (c) Modulus of the leading
+multiplier; crosses mark a complex leading pair. The modulus never falls below $0.0139$; the dark strips, where a
+one-dimensional map would be superstable, are where the two leading multipliers meet.}
+\label{fig:period5}
+\end{figure}
 \input{figures/tikz-shrimp}
 \begin{figure}[t]
 \centering
@@ -2575,9 +2629,11 @@ unfolding is regular) and flip curves inside, and in the hostile body curves of 
 orbits are superstable, run through the windows. That is less than the full anatomy of a shrimp. For the hostile body
 we computed the superstable curves of one continued orbit. They do not cross, and at their closest approach the orbit
 is two-dimensional, so it has no one-dimensional shrimp centre (Figure~\ref{fig:superstable}). We have not determined
-the windows' symbolic sequences or tested for a periodicity hub \cite{gallas1993structure,jones2012rossler}. In a map that is effectively one-dimensional with a single critical
-point, a primitive orbit cannot be doubly superstable, so true shrimp centres would require a second critical point in
-the reduced dynamics. A generic codimension-two
+the windows' symbolic sequences or tested for a periodicity hub \cite{gallas1993structure,jones2012rossler}. In a map that is
+effectively one-dimensional with a single critical point, a primitive orbit cannot be doubly superstable, so true
+shrimp centres would require a second critical point in the reduced dynamics. Steering at two depths supplies one in
+band return maps (Figure~\ref{fig:bimodal}), but the period-5 window we continued in such a plane is again
+two-dimensional where its leading multiplier would vanish (Figure~\ref{fig:period5}). A generic codimension-two
 cusp also requires the two unfolding coefficients to depend on the two parameters with rank two. We estimated this at
 a fold point near one cusp of each window (determinants $2737$ and $53.5$), and there the local model's
 predictions at twelve frozen offsets matched the orbits recovered by Newton solves seeded at the predicted roots and
@@ -2740,7 +2796,10 @@ The labelled maps contain about 2600 periodic families of at least six cells, co
 orbit whose continuation was abandoned, a cell that proved aperiodic, a band whose float32 orbit did not converge and
 a pilot that found no cusp within a bounded search). Of 54 Newton orbit attempts, 7 failed. All nine tangent
 reversals on continued fold curves (seven found by 14 October, and two on traces of a period-4 fold curve continued on
-15 October) are numerically located cusps; the two reversals of a continued flip curve are smooth turns. Two of the five regions we flagged as shrimp candidates are reported as shrimp-like. One further
+15 October) are numerically located cusps; the two reversals of a continued flip curve are smooth turns. Two of the five
+regions we flagged as shrimp candidates are reported as shrimp-like. On 15 October, the turning-point search of the
+two-block planes (not counted in Table~\ref{tab:search}) led to two more windows: a period-5 window, reported with its
+continued orbit in Section~\ref{sec:hostility}, and a period-6 window that was mapped but not continued. One further
 language model (Ouro-1.4B) was explored and is not reported; its apparent chaos was a long transient. Every window
 was chosen after the maps were inspected. Only the passage forecasts, the cusp-unfolding offsets and Huginn's relaxation
 test were fixed before the computations that test them
@@ -2829,8 +2888,8 @@ on CPUs. The manifest
 \path{docs/manifests/runpod-runs.json} records for each run the GPU type, the code commit, the job and its
 arguments, the wall time and the exit status, and the available hashes of the uploaded code and input archives and of
 the retrieved results, with absent fields left explicit; per-run receipts and accepted provenance limitations are
-kept with it. Regenerated at 22:13 UTC on 14 October 2026, it lists 243 runs with retrieved results (code and
-input-archive hashes for 135, result-archive hashes for 227) and 16 pods that ended without results. GPU types round float64 reductions differently, so quantities used across runs
+kept with it. Regenerated at 12:33 UTC on 15 October 2026, after the last run, it lists 398 runs with retrieved results (code and
+input-archive hashes for 290, result-archive hashes for 373) and 20 pods that ended without results. GPU types round float64 reductions differently, so quantities used across runs
 were checked across hardware where it mattered (for example, flip parameters agree between CPU and H100 to
 $4\times10^{-15}$).
 {\sloppy Code: \path{tools/explore_llm_soft_loop.py}, \path{tools/bifurcation_curves.py}, \path{tools/llm_feigenbaum.py},

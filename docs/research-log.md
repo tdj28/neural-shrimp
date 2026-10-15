@@ -25461,3 +25461,47 @@ Every Task 27 finding (M01 to M15 with P01 to P17, T01 to T14, S01 to S12 and th
 - Citation gaps: unverified page ranges omitted; PARCAE reverted to its preprint identity; Pasemann's DOI alias verified via Crossref.
 
 Dispositions: comms/claude-to-codex.md. Paper builds clean (0 overfull, 0 undefined, 89 pages).
+
+## 2026-10-15 12:32 UTC: DSS5 result: the period-5 window of the two-block plane has no one-dimensional centre; where its leading multiplier would vanish, the orbit is two-dimensional
+
+**Run.** Pod ec9zg69l0pausz (NVIDIA H100 NVL); commit f19216a2 from the orchestrator log; runner rc 0; terminated. Output dss/p5-grat4-host16: 961 cells, 608 solved (converged, primitive), all 608 with the seed's token loop ". I . . 你"; 6541 s.
+
+**Analysis.** New tools/dss_window.py, written after the data (tests/test_dss_window.py: 2 pass). Statistics: docs/dss/dss5-window.json. Figure: paper/llm/figures/fig-period5-window.png.
+- **Cells.** 447 attracting; 161 repelling, beyond the flip curves on the upper left and below.
+- **No zero.** The leading multiplier's modulus is at least 0.0139, at a complex pair at (-0.119000, 0.10230).
+  - Correction of an inline reading earlier in this session: 4.6e-4 came from grid.npz's "mu", which keeps only the real part of a complex pair. The tool reads moduli from the stored multipliers.
+- **Where it would vanish, it meets the second multiplier.**
+  - The two form a complex pair in 91 cells (all attracting), in strips.
+  - Where their product is negative (41 cells, upper right), they exchange as real numbers.
+- **Per step** (geometric mean over the five steps, attracting cells):
+  - |mu1|: 0.425 to 0.996, median 0.759;
+  - |mu2|: 0.211 to 0.637, median 0.438;
+  - |mu1 mu2|: 0.159 to 0.407.
+- **The pre-stated measure is undefined where it applies.**
+  - Only 278 of the 447 attracting cells are clean (|mu1| > 10 |mu2|). The strips where superstable curves would run are all unclean.
+  - Per-step stretchings never fall below 0.039.
+  - The 61 2x2 blocks in which two transported factors change sign are almost all adjacent pairs (3-4, 0-1, 1-2). An orientation flip of one direction produces such pairs. These blocks lie at |mu| above 1 or across unclean cells, so they are not evidence (as in DSS2).
+- **Two-dimensional reading.** The trace mu1 + mu2 of the leading pair changes sign 95 times between neighbouring attracting cells, and no 2x2 block has the checkerboard of a crossing. Its zero set consists of:
+  - a left arc;
+  - an arc around an island of negative trace, open at one repelling cell;
+  - a lower arc;
+  - a three-point piece of the left arc, cut off by failed cells.
+  The trace changes steeply at the lower arc (up to 1.1 between rows), but monotonically.
+- **Anomalies (unresolved folds).**
+  - (-0.1185, 0.1020): a repelling orbit with the same token loop (mu1 = +1.651) among neighbours of trace -0.09 to +0.08. Probably the saddle branch of a nearby fold.
+  - Column alpha1 -0.119167: Newton failed at alpha2 0.1029, 0.10305, 0.1032 and 0.1035, while mu1 rises to 0.73 and 0.88 in the two cells below.
+- **Right edge.** The last solved cell of each row is still attracting (mu1 -0.31 to 0.43). So the edge is not resolved as a fold at this spacing.
+- **Coexistence at grid scale.** For each of the 447 attracting cells, the nearest TBZg2 cell (at most 2.0e-5 and 3.2e-5 away) settles on:
+  - period 5 in 382;
+  - period 4 in 61;
+  - chaos in 2;
+  - another label in 2.
+
+**Reading (pre-stated measure).** No doubly superstable point. The criterion (crossing zero curves of two different per-step factors, read on clean cells) has no clean cells on the strips where it would apply. The trace-zero curves that take the place of superstable curves do not cross in the box. This is the same outcome as for the hostile body (DSS2) and the period-6 hook (DSS4): bimodal band maps nearby do not make this window one-dimensional where a centre would be.
+
+**Amendment.** The doubly superstable search of the period-6 window of TBZh2 was planned "if DSS5 shows the method works in two-block planes". It is not run: the one-dimensional criterion again had no clean cells on the strips.
+
+**Paper** (sec:hostility, new paragraph "Two turning points from two steering depths"):
+- figures fig:bimodal (TPF) and fig:period5 (TBZg2 + DSS5);
+- one sentence in the Discussion's limits;
+- a dated note in the Evidence section (the 15 October windows are outside tab:search).
