@@ -24371,3 +24371,30 @@ Pods 6lini88kmg7dxs, adx6wj2vsij4gd (runner rc 0, hashes verified, terminated; 3
   - Elsewhere the second modulus is small (median ratio |mu_2|/|mu_1| = 0.021).
 - **Reading.** No cell of the continued orbit comes near mu = 0, so the hook carries no superstable curve and no shrimp centre of any kind for this orbit. Its attracting region is bounded by multiplier crossings, partly through complex pairs. Together with DSS3 (seeds with complex or comparable multipliers) and the coexistence result at the strip crossing, the period-6 hook is not a shrimp.
 - Inline analysis in this session.
+
+## 2026-10-15 07:09 UTC: REPRO1 result: in float64, a batch-size change alone makes 190 of 192 chaotic cells diverge (median step 102, as the Lyapunov exponent predicts) while 182 of 192 periodic cells stay within 1e-2; in bfloat16 every cell diverges within a few steps
+
+Pod frtqm5urstn2d3 (SECURE H100 NVL; runner rc 0, hash verified, terminated; 560 s; commit dbd125a7). Output repro/h2cells. The 448 cells of docs/h2-horizon-cells.json (192 chaotic, 192 periodic, 64 other; Qwen2.5-0.5B, philosophy at block 12); 1500 steps from the fixed start. Inline analysis in this session.
+
+| comparison | label | cells reaching distance 1e-2 | median step | median final distance | ending with disagreeing tokens |
+|---|---|---|---|---|---|
+| batch, float64 | chaotic | 190 / 192 | 102 | 0.91 | 90.1 % |
+| | periodic | 10 / 192 | (92) | 2.4e-14 | 3.6 % |
+| | other | 14 / 64 | (70.5) | 3.6e-13 | 15.6 % |
+| batch, float32 | chaotic | 192 / 192 | 20.5 | 0.98 | 92.2 % |
+| | periodic | 72 / 192 | 16.5 | 2.3e-5 | 22.9 % |
+| float32 vs float64 | chaotic | 192 / 192 | 20 | 0.94 | 92.7 % |
+| | periodic | 75 / 192 | 16 | 2.5e-5 | 19.3 % |
+| batch, bfloat16 | chaotic | 192 / 192 | 2 | 1.07 | 99.5 % |
+| | periodic | 192 / 192 | 2 | 1.01 | 95.3 % |
+
+"Ending with disagreeing tokens" means the most probable tokens disagree at some step of the last 500.
+- **float64.**
+  - The first nonzero distance between the layouts is about 6e-15, the rounding level.
+  - At the chaotic cells, the step at which the distance passes 1e-2 agrees with ln(1e-2 / d_1) / lambda, with lambda the map exponent: median ratio of observed to predicted 0.91, log-log correlation 0.73 over 190 cells. The two chaotic cells that never reach 1e-2 have lambda = 0.013 and 0.0013, where the predicted steps exceed the run.
+  - The 182 periodic cells that stay below 1e-2 have a median maximum distance of 2.3e-12.
+- **float32.** Every chaotic cell diverges within about 20 steps. 23 % of periodic cells also end with disagreeing tokens.
+  - Their float64 labels need not hold for the float32 map.
+  - A disagreement can also be a phase shift on the same cycle, or a switch between coexisting attractors. This is not resolved here (tokens were not saved).
+- **bfloat16.** The two layouts differ by about 1e-2 after two steps in every cell, and almost all cells end with different tokens, periodic ones included. At this precision the loop is not reproducible across batch layouts anywhere in this steered region, whatever its float64 regime.
+- **Reading.** In exact-enough arithmetic, the dynamical regime decides whether rounding-level execution differences grow into different outputs, and the Lyapunov exponent predicts when. In deployment precision (bfloat16), batch-layout noise is large enough to change the trajectory regardless.
