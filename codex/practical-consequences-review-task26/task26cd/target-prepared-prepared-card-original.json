@@ -1,0 +1,448 @@
+{
+  "schema": "task26cd-own-original-mechanism-crossover-v1",
+  "admission": "prepared",
+  "draws": 10000,
+  "seed": 0,
+  "source_sha256": {
+    "run.py": "ae8984f0ede44a33a47b8e805139dfaa4de90989fb4806b965f0a36b2fdcd826",
+    "statistics.py": "ba48cbca6df70be8581a161a1fa6fc57a884dc92bad126cf24ddb2bd0e7ba904",
+    "map_evidence.py": "7c288d51d8b6b28156a119d7618e37e9b6d6c16af0fcf0d3c2f164e5d4f68a1b"
+  },
+  "inputs": {
+    "source_manifest": {
+      "path": "/tmp/task26cd-source-metadata-001/manifest.json",
+      "sha256": "bca8cd513a1a082441868bd46d01a55a3434398f03dff4ff2ebd13b29867464e",
+      "bytes": 3335
+    },
+    "authority": {
+      "path": "/tmp/task26cd-source-metadata-001/original-run-authority.json",
+      "sha256": "df1d861e4e6b9eeed3a9870c5730699f378d3a5c9dd896afda9cba4226b3ca11",
+      "bytes": 37201
+    },
+    "xo_selection": {
+      "path": "/tmp/task26cd-source-metadata-001/original/xo/docs/xo-cells.json",
+      "sha256": "1f4d34c09d391bdaf5527a5bff593f0bb0c3a59d48e22b6d9706575f6ed571cb",
+      "bytes": 2305
+    },
+    "producer_statistics": {
+      "path": "/tmp/task26cd-source-metadata-001/current/paper/llm/figures/fig-mechanism.json",
+      "sha256": "3c09cc604076fa552ecf5b23e168f7ed4e976e91b31e3991b20c3936f1d9b610",
+      "bytes": 5563
+    },
+    "producer_statistics_source": {
+      "path": "/tmp/task26be-source-metadata-001/current/tools/plot_mechanism.py",
+      "sha256": "ed03becb44a3f8ac77e0b4554caad2b88f01f60d07eef4b717b82b71a8990080",
+      "bytes": 16528
+    },
+    "mechanism_frozen_card_and_exposed_results": {
+      "path": "/tmp/task26be-source-metadata-001/mechanism-log-card-and-results-scoped.md",
+      "sha256": "2bd9b6f9da334b2b963815227f261683fa8f4d3a3058a72968fa289fd0668ef9",
+      "bytes": 4919
+    },
+    "scope_review": {
+      "path": "/tmp/task26ce-root-source-scope-review.md",
+      "sha256": "932c7adcc58a7173be4904cf479db044f8ebcb3190f7a7054b5156fab52e2d17",
+      "bytes": 7406
+    },
+    "own_method": {
+      "path": "/tmp/task26cd-preparation/source-method.md",
+      "sha256": "02a470149d9f482f697f1cca5122ea7a8c5a091bb5499aaa09604284eea5fa9e",
+      "bytes": 4713
+    },
+    "source:original/mech/tools/steer_gain.py": {
+      "path": "/tmp/task26cd-source-metadata-001/original/mech/tools/steer_gain.py",
+      "sha256": "ccb427ec06f21620858808a8d51220c0056bfb218f742d54c625ba61d7d0e8a5",
+      "bytes": 13529
+    },
+    "source:original/mech/tools/gain_split.py": {
+      "path": "/tmp/task26cd-source-metadata-001/original/mech/tools/gain_split.py",
+      "sha256": "1e640d66f8450d01a04879dcfb9dbe30a8e35b0c52c57d2f8ae434f0a802380f",
+      "bytes": 5772
+    },
+    "source:original/mech/runner-command.sh": {
+      "path": "/tmp/task26cd-source-metadata-001/original/mech/runner-command.sh",
+      "sha256": "8eb990ccfdf18e3b2a14ae4179e0d5e293d586acd2a63c8c5815719cc545bed4",
+      "bytes": 660
+    },
+    "source:original/xo/tools/crossover.py": {
+      "path": "/tmp/task26cd-source-metadata-001/original/xo/tools/crossover.py",
+      "sha256": "7f3b74988256c848fc804cdeee11121f96567b6f74e532e3f5a62410361f6e86",
+      "bytes": 7820
+    },
+    "source:original/xo/runner-command.sh": {
+      "path": "/tmp/task26cd-source-metadata-001/original/xo/runner-command.sh",
+      "sha256": "678afa6326a8dde6095d7a75b9fd7f1b7af715624c13804c48f4e60dd6dfdc22",
+      "bytes": 322
+    },
+    "source:current/tools/crossover.py": {
+      "path": "/tmp/task26cd-source-metadata-001/current/tools/crossover.py",
+      "sha256": "7f3b74988256c848fc804cdeee11121f96567b6f74e532e3f5a62410361f6e86",
+      "bytes": 7820
+    },
+    "source:mech-source-delta.diff": {
+      "path": "/tmp/task26cd-source-metadata-001/mech-source-delta.diff",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    "source:xo-source-delta.diff": {
+      "path": "/tmp/task26cd-source-metadata-001/xo-source-delta.diff",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    "source:xo-log-card-and-results-scoped.md": {
+      "path": "/tmp/task26cd-source-metadata-001/xo-log-card-and-results-scoped.md",
+      "sha256": "2c6766c9b6bca181081b09c8dea14f5ce04e4ceeb4d40612932a7d290939d04c",
+      "bytes": 4701
+    },
+    "source:log-source-map.json": {
+      "path": "/tmp/task26cd-source-metadata-001/log-source-map.json",
+      "sha256": "57a916126b7d383fcb61f70fd947d72a6e07071c008556310c754272b89ce260",
+      "bytes": 587
+    },
+    "amap-a:receipt": {
+      "path": "/data2/neural-shrimp-data/runpod/soft64/20261015T064306Z/result.json",
+      "sha256": "bdfe208961f105325a13d868b9d8bfffab7b93ed545edaabe347322658896a5f",
+      "bytes": 876
+    },
+    "amap-a:archive": {
+      "path": "/data2/neural-shrimp-data/runpod/soft64/20261015T064306Z/results.tgz",
+      "sha256": "935195df9ca102cc69a46074cd7a846cb95cf41a25b3a6fdb92690c4df46ef7c",
+      "bytes": 55733903
+    },
+    "amap-a:stdout": {
+      "path": "/data2/neural-shrimp-data/runpod/soft64/20261015T064306Z/runner-stdout.txt",
+      "sha256": "ab00203fd9154189080d60d8f33cb09faa16154e72826c0004a2e1f6ffa9a7b8",
+      "bytes": 1779
+    },
+    "amap-a:gain.json": {
+      "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/mech/amap-a/gain.json",
+      "sha256": "750db45365507693ace61bf8c6a8fb08036d1fa6bd445d61163999784bd4ef2c",
+      "bytes": 1868223
+    },
+    "amap-a:progress.jsonl": {
+      "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/mech/amap-a/progress.jsonl",
+      "sha256": "5736571e641e66770453cdb1c8de44f19d337416e077efa535e2d4d401807328",
+      "bytes": 411
+    },
+    "amap-a:steps.npz": {
+      "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/mech/amap-a/steps.npz",
+      "sha256": "3365cae81c7e0836a1306e22ab10157ce9738b0c573a3969fdbe1805408268e9",
+      "bytes": 55460040
+    },
+    "amap-b:receipt": {
+      "path": "/data2/neural-shrimp-data/runpod/soft64/20261015T064309Z/result.json",
+      "sha256": "e120285dd1f687628aac799da61eec088a5198ff04c65e99434fd110d36ae42f",
+      "bytes": 876
+    },
+    "amap-b:archive": {
+      "path": "/data2/neural-shrimp-data/runpod/soft64/20261015T064309Z/results.tgz",
+      "sha256": "88a32e22bbb872e269904f9df085e5c90a30d6f644c49a6f7305513675bdf864",
+      "bytes": 53273328
+    },
+    "amap-b:stdout": {
+      "path": "/data2/neural-shrimp-data/runpod/soft64/20261015T064309Z/runner-stdout.txt",
+      "sha256": "80dd92789133a5a241e64ce16e221151cf0facc916db30fbbd540fc3a24ad5f4",
+      "bytes": 1783
+    },
+    "amap-b:gain.json": {
+      "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/mech/amap-b/gain.json",
+      "sha256": "32927431e51887c7c220d4f1833fe54ff2b4c63f4f147449f6188a3576baf44f",
+      "bytes": 1878744
+    },
+    "amap-b:progress.jsonl": {
+      "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/mech/amap-b/progress.jsonl",
+      "sha256": "9a0b825c76b48e3a7480f03a02fa3b56158e7e528de17852bed96e701042df62",
+      "bytes": 415
+    },
+    "amap-b:steps.npz": {
+      "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/mech/amap-b/steps.npz",
+      "sha256": "70b63ab87cc4dd3046f6081a658bfaecc2ce62da57912cbce45846b1b75a7b07",
+      "bytes": 53056136
+    },
+    "bmap-a:receipt": {
+      "path": "/data2/neural-shrimp-data/runpod/soft64/20261015T064312Z/result.json",
+      "sha256": "911f605fac304cae1437757b0a156594b0258636f8fb1ce1423bfb140edc8ccf",
+      "bytes": 883
+    },
+    "bmap-a:archive": {
+      "path": "/data2/neural-shrimp-data/runpod/soft64/20261015T064312Z/results.tgz",
+      "sha256": "5e6e3f20125ee163e785e65834d56c489a881f244ea0b3478e7ab7fc69804790",
+      "bytes": 52684802
+    },
+    "bmap-a:stdout": {
+      "path": "/data2/neural-shrimp-data/runpod/soft64/20261015T064312Z/runner-stdout.txt",
+      "sha256": "089feedc50bd9c43e7421675719b991186bdace995ddd240309bd579a41275d3",
+      "bytes": 2392
+    },
+    "bmap-a:gain.json": {
+      "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/mech/bmap-a/gain.json",
+      "sha256": "56ec9f70d3740ef2e04e91da2b65971b8ad95e508edde65334352df52c3c4697",
+      "bytes": 2311247
+    },
+    "bmap-a:progress.jsonl": {
+      "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/mech/bmap-a/progress.jsonl",
+      "sha256": "badadca3bf9f4b26df6dc565e3497afa68901cacf65e5c448d7a97619343c7c0",
+      "bytes": 617
+    },
+    "bmap-a:steps.npz": {
+      "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/mech/bmap-a/steps.npz",
+      "sha256": "cd92f80fd3757709a5162d244fe451dc264a5b5aba3eea69f19a2db84583826c",
+      "bytes": 52385245
+    },
+    "bmap-b:receipt": {
+      "path": "/data2/neural-shrimp-data/runpod/soft64/20261015T064315Z/result.json",
+      "sha256": "30bec36dc7bc735c240c1afa11dca36a52cf4f8b7f81ef5daada86693bc7c604",
+      "bytes": 883
+    },
+    "bmap-b:archive": {
+      "path": "/data2/neural-shrimp-data/runpod/soft64/20261015T064315Z/results.tgz",
+      "sha256": "99e2c7bfceecdddeef8698a4335e8548076f935eb398679a9dbcd8de8ed11221",
+      "bytes": 57721761
+    },
+    "bmap-b:stdout": {
+      "path": "/data2/neural-shrimp-data/runpod/soft64/20261015T064315Z/runner-stdout.txt",
+      "sha256": "26a38c45b47ec498f3bfe6c6350f292af28205012973e2bcc1a8c73c47f5cca5",
+      "bytes": 2482
+    },
+    "bmap-b:gain.json": {
+      "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/mech/bmap-b/gain.json",
+      "sha256": "e5c4ef2a3905716d40edead71b9aaca26e4b77d0981cfa279626f9c9aae37ec6",
+      "bytes": 2366902
+    },
+    "bmap-b:progress.jsonl": {
+      "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/mech/bmap-b/progress.jsonl",
+      "sha256": "a7b92538daf63966e23dc1ba2d66a54802cab1aa01cf94e478d4dfa7a0caab51",
+      "bytes": 620
+    },
+    "bmap-b:steps.npz": {
+      "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/mech/bmap-b/steps.npz",
+      "sha256": "0fb7edbcf4f30071a29dbbb436dfe5135c495d8e1a24eddaaf8ea15e4656871d",
+      "bytes": 57342288
+    },
+    "cells:receipt": {
+      "path": "/data2/neural-shrimp-data/runpod/soft64/20261015T071443Z/result.json",
+      "sha256": "826fd1481e3f86c24fc77f571d7ed128e9e7e267bd6abdb4ff18c4edff9a2ccc",
+      "bytes": 874
+    },
+    "cells:archive": {
+      "path": "/data2/neural-shrimp-data/runpod/soft64/20261015T071443Z/results.tgz",
+      "sha256": "af31d713a652900940e5c180cf3065e5372603c766b1635029d644b8762f9193",
+      "bytes": 7231
+    },
+    "cells:stdout": {
+      "path": "/data2/neural-shrimp-data/runpod/soft64/20261015T071443Z/runner-stdout.txt",
+      "sha256": "72495994a40b38a281105b02b07689823bec687625a3cae1d22dc8534540735a",
+      "bytes": 647
+    },
+    "cells:crossover.json": {
+      "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/xo/cells/crossover.json",
+      "sha256": "4e9ba93600772e1129c559e29e3591736a787ab8e9c94a01c6e3daf716e923dd",
+      "bytes": 18537
+    },
+    "cells:progress.jsonl": {
+      "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/xo/cells/progress.jsonl",
+      "sha256": "824043fa57839cc5b9f50c571eb534242072bd510b7e20b732012a9404c5fc06",
+      "bytes": 214
+    }
+  },
+  "original_commands": {
+    "amap-a": "amap-a 75 --tgrid -1.0 -0.35 27 --chunk 1364 --alpha -0.12 0.12 101 --iters 4 --record 1500",
+    "amap-b": "amap-b 75 --tgrid -0.325 0.3 26 --chunk 1313 --alpha -0.12 0.12 101 --iters 4 --record 1500",
+    "bmap-a": "bmap-a 85 --tgrid -1.0 -0.35 27 --chunk 1161 --alpha 0 0 1 --beta -8 8 129 --iters 4 --record 1500",
+    "bmap-b": "bmap-b 85 --tgrid -0.325 0.3 26 --chunk 1118 --alpha 0 0 1 --beta -8 8 129 --iters 4 --record 1500",
+    "cells": "cells 45 --cells-file docs/xo-cells.json --transient 1000 --record 1000 --window 250 --chunk 24"
+  },
+  "expected_args": {
+    "amap-a": {
+      "model": "qwen0.5b",
+      "layer": 12,
+      "vectors": "llm-phase-map/vectors-l12",
+      "concept": "philosophy",
+      "transient": 1000,
+      "record": 1500,
+      "eps": [
+        1e-06,
+        1e-09
+      ],
+      "iters": 4,
+      "threads": 8,
+      "device": "cuda",
+      "log_temperature": null,
+      "cells_file": null,
+      "tgrid": [
+        -1.0,
+        -0.35,
+        27
+      ],
+      "chunk": 1364,
+      "alpha": [
+        -0.12,
+        0.12,
+        101
+      ],
+      "beta": [
+        0.0,
+        0.0,
+        1
+      ]
+    },
+    "amap-b": {
+      "model": "qwen0.5b",
+      "layer": 12,
+      "vectors": "llm-phase-map/vectors-l12",
+      "concept": "philosophy",
+      "transient": 1000,
+      "record": 1500,
+      "eps": [
+        1e-06,
+        1e-09
+      ],
+      "iters": 4,
+      "threads": 8,
+      "device": "cuda",
+      "log_temperature": null,
+      "cells_file": null,
+      "tgrid": [
+        -0.325,
+        0.3,
+        26
+      ],
+      "chunk": 1313,
+      "alpha": [
+        -0.12,
+        0.12,
+        101
+      ],
+      "beta": [
+        0.0,
+        0.0,
+        1
+      ]
+    },
+    "bmap-a": {
+      "model": "qwen0.5b",
+      "layer": 12,
+      "vectors": "llm-phase-map/vectors-l12",
+      "concept": "philosophy",
+      "transient": 1000,
+      "record": 1500,
+      "eps": [
+        1e-06,
+        1e-09
+      ],
+      "iters": 4,
+      "threads": 8,
+      "device": "cuda",
+      "log_temperature": null,
+      "cells_file": null,
+      "tgrid": [
+        -1.0,
+        -0.35,
+        27
+      ],
+      "chunk": 1161,
+      "alpha": [
+        0.0,
+        0.0,
+        1
+      ],
+      "beta": [
+        -8.0,
+        8.0,
+        129
+      ]
+    },
+    "bmap-b": {
+      "model": "qwen0.5b",
+      "layer": 12,
+      "vectors": "llm-phase-map/vectors-l12",
+      "concept": "philosophy",
+      "transient": 1000,
+      "record": 1500,
+      "eps": [
+        1e-06,
+        1e-09
+      ],
+      "iters": 4,
+      "threads": 8,
+      "device": "cuda",
+      "log_temperature": null,
+      "cells_file": null,
+      "tgrid": [
+        -0.325,
+        0.3,
+        26
+      ],
+      "chunk": 1118,
+      "alpha": [
+        0.0,
+        0.0,
+        1
+      ],
+      "beta": [
+        -8.0,
+        8.0,
+        129
+      ]
+    },
+    "cells": {
+      "model": "qwen0.5b",
+      "layer": 12,
+      "vectors": "llm-phase-map/vectors-l12",
+      "concept": "philosophy",
+      "cells_file": "docs/xo-cells.json",
+      "transient": 1000,
+      "record": 1000,
+      "window": 250,
+      "chunk": 24,
+      "threads": 8,
+      "device": "cuda"
+    }
+  },
+  "resources": {
+    "worker_cpu_slots": 1,
+    "supervisor_cpu_slots": 1,
+    "nice": 10,
+    "address_space_bytes": 4294967296,
+    "wall_seconds": 600,
+    "cpu_seconds": 580,
+    "max_output_bytes": 134217728,
+    "startup_mem_available_bytes": 21474836480,
+    "runtime_mem_available_bytes": 17179869184
+  },
+  "resource_status": "prepared; final measured profile basis and resource card review pending",
+  "synthetic_profile_authority": null,
+  "scope": [
+    "Exactly four original MECH partitions and original XO. No later XO7/gratitude/random or other blocks/KY enter computation.",
+    "Complete 5353 alpha and 6837 bias cells, all eight 1000-step float32 arrays; original 1500-step float64 summaries remain distinct.",
+    "Shared RNG: R1 network then readout; six R2 fields in source order; then four original XO bootstrap contrasts. No RNG resets.",
+    "Field-finite exclusions, >=3 observations per group, chaotic-count weighting, literal overlaps and all row membership retained.",
+    "R1 map analysis differs from original line-design wording; disclosed exploratory amendment, not an original line audit.",
+    "Exact original 24 XO labels/cells, two development chaotic cells and14 fixed held-out chaotic cells, all four windows each.",
+    "All24 validation requires each absolute arm11-minus-twin <=.02; original signed-average .1 closeness and readout CI criteria remain separate.",
+    "R4 share/count gate uses exact integer arithmetic; all-row same-temperature mean factor pairs are descriptive with no pooled estimator or resampling.",
+    "Every selected figure-statistics leaf compared with full signed discrepancy. 1e-12 absolute tolerance is only reproduction bookkeeping, never proof or silent zeroing.",
+    "Source classifier and group labels reproduced literally; nonfinite twin exponents explicitly scientifically unqualified, no global outcome-based exclusion.",
+    "No model, derivative, orbit/eigen reconstruction or producer analysis import. Original period/classification is authenticated saved evidence, not a new stability proof.",
+    "Historical original receipt/source/archive/recorded termination basis; no recovered original process births or remote weight-byte attestation.",
+    "Source/log/paper numerical summaries exposed before reproduction. No target JSON/NPZ contents decoded during preparation.",
+    "Runtime elapsed and ru_maxrss sampled before final rehash/write; supervisor separately records full wall/closure only.",
+    "Data args.out retained but not used as historical asset identity; exact input path/hash/archive membership carries the saved-file identity."
+  ],
+  "expected_output_files": [
+    "amap-a-cells.jsonl",
+    "amap-b-cells.jsonl",
+    "bmap-a-cells.jsonl",
+    "bmap-b-cells.jsonl",
+    "report.json",
+    "manifest.json"
+  ],
+  "input_byte_scope": {
+    "roles": 47,
+    "unique_files": 47,
+    "total_unique_bytes": 446247320,
+    "original_selected_scientific_bytes": 226689639,
+    "source_metadata_hash_io_bytes": 446210419,
+    "source_metadata_hash_io_seconds": 0.576195438625291
+  }
+}

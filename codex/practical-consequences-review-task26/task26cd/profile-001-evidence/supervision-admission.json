@@ -1,0 +1,54 @@
+{
+  "source_commit": "f395d4d0a4f245444f4578d474f26df7eae1b809",
+  "private_remote_ancestor": "f395d4d0a4f245444f4578d474f26df7eae1b809",
+  "sources": {
+    "codex/practical-consequences-review-task26/task26cd/synthetic_profile.py": "a31e5cffbd090916c7ad2db0e19364f5ae733b84418799d1e454d4db606cea55",
+    "codex/practical-consequences-review-task26/task26cd/statistics.py": "ba48cbca6df70be8581a161a1fa6fc57a884dc92bad126cf24ddb2bd0e7ba904",
+    "codex/practical-consequences-review-task26/task26cd/map_evidence.py": "7c288d51d8b6b28156a119d7618e37e9b6d6c16af0fcf0d3c2f164e5d4f68a1b",
+    "codex/practical-consequences-review-task26/task26cd/test_statistics.py": "4b029511ab5e8d099f94b037beab81dc7c06d11bf23ced75d1dce85c274da063",
+    "codex/practical-consequences-review-task26/task26cd/synthetic-profile-card.json": "854342ed382d7ba1abc948e4a446abeacfd4a9b256e08068679b47c9b9d5d81d",
+    "codex/practical-consequences-review-task26/task26cd/profile-001-launch.py": "3d2a942d5eb1c074d12dd45644a2bc61a5cc7c09c46bce6c8582df0812a50d4e"
+  },
+  "available_bytes": 56583065600,
+  "disk_free_bytes": 2752176504832,
+  "load_average": [
+    1.55908203125,
+    1.93994140625,
+    2.2744140625
+  ],
+  "cpu_affinity_count": 32,
+  "scope": "One Task26cd full-shape synthetic profile: four maps with 5353 alpha and 6837 bias cells, eight float32 arrays of 1000 steps per cell, all53 temperature rows eligible for eight shared-seed bootstrap/permutation contrasts plus24synthetic XO cells/four contrasts. No target/model/producer execution. CPU1 plus supervisor,4GiB hard AS,580CPU/600s wall plus5s TERM/5s KILL cleanup,128MiB sampled output,20/16GiB available RAM and16GiB disk. One attempt serialized after Task26b; no retry/extension. Includes synthetic generation and ledger/statistics serialization, excludes target decompression/hashing and the later cheap deterministic R4 means. Synthetic cost evidence is not target validation or worst-case guarantee. Prepared admission/missing card pin refuses before capture or launch.",
+  "command": [
+    "/data2/neural-shrimp/.venv/bin/python",
+    "-I",
+    "-B",
+    "-u",
+    "/data2/neural-shrimp-data/codex/practical-consequences-review-task26/task26cd/profile-001-supervision/source/codex/practical-consequences-review-task26/task26cd/synthetic_profile.py",
+    "--output",
+    "/data2/neural-shrimp-data/codex/practical-consequences-review-task26/task26cd/profile-001"
+  ],
+  "seconds": 600,
+  "memory_gib": 4,
+  "cpu_worker": 1,
+  "supervisor_slots": 1,
+  "output_cap_bytes": 134217728,
+  "supervisor": {
+    "pid": 2922630,
+    "start": 200230831,
+    "pgid": 2922630,
+    "sid": 2922630,
+    "uid": 1000,
+    "nice": 10,
+    "threads": 1,
+    "limits": "Limit                     Soft Limit           Hard Limit           Units     \nMax cpu time              unlimited            unlimited            seconds   \nMax file size             unlimited            unlimited            bytes     \nMax data size             unlimited            unlimited            bytes     \nMax stack size            8388608              unlimited            bytes     \nMax core file size        0                    unlimited            bytes     \nMax resident set          unlimited            unlimited            bytes     \nMax processes             375398               375398               processes \nMax open files            65535                65535                files     \nMax locked memory         8388608              8388608              bytes     \nMax address space         4294967296           4294967296           bytes     \nMax file locks            unlimited            unlimited            locks     \nMax pending signals       375398               375398               signals   \nMax msgqueue size         819200               819200               bytes     \nMax nice priority         0                    0                    \nMax realtime priority     0                    0                    \nMax realtime timeout      200000               200000               us        \n",
+    "command": [
+      "/data2/neural-shrimp/.venv/bin/python",
+      "-I",
+      "-B",
+      "-u",
+      "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/practical-consequences-review-task26/task26cd/profile-001-launch.py",
+      "--source",
+      "f395d4d0a4f245444f4578d474f26df7eae1b809"
+    ]
+  }
+}
