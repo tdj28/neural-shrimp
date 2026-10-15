@@ -24787,3 +24787,24 @@ BPCgen (runner rc 0, job status 1, 159 s) failed with CUDA out of memory: 400 pr
 - **Headline range.** The lower end is 1.038, so the range is quoted as 1.03 to 1.65 (range ends at the true extremes).
 - **lambda_1 + lambda_2 >= 0** at two high-temperature cells, not three.
 - **KY1 entry.** The 1000-to-2000-step dimension changes are at most 0.021, not 0.02 (maximum 0.020298).
+
+## 2026-10-15 08:58 UTC: BPCS stage 1 result (calibration) and stage 2 launch: alpha = 0.01
+
+Calibration pod gph9d63z34azcl (SECURE H200; runner rc 0). First 200 BPC prompts, Qwen2.5-7B at block 14. Greedy accuracy (sampled accuracy at log10 T 0.40 in parentheses):
+
+| alpha | philosophy | hostility-vs-kindness | random:1 |
+|---|---|---|---|
+| 0 | 0.900 (0.457) | | |
+| 0.005 | 0.905 (0.458) | 0.880 (0.461) | 0.890 (0.464) |
+| 0.01 | 0.885 (0.442) | 0.850 (0.452) | 0.865 (0.470) |
+| 0.02 | 0.825 (0.349) | 0.810 (0.406) | 0.790 (0.415) |
+| 0.04 | 0.000 (0.000) | 0.290 (0.086) | 0.080 (0.000) |
+
+- At alpha 0.04 the task is swamped ("94 * 94 is a profound question").
+- **Rule** (fixed at the stage-1 entry): the largest alpha at which all three directions keep greedy accuracy within 5 points of 0.900 is **alpha = 0.01**. Hostility is at exactly 5.0 points; "within" is read as at most 5.
+- **Stage 2.** The first 1000 BPC prompts (docs/bpcs-tasks.json, same ids) under each direction at alpha 0.01.
+  - Labels: 2 shards per direction, batched as in BPC.
+  - Generation: one pod per direction, 50 prompts per chunk.
+  - The unsteered condition is BPC's own data for these prompts.
+
+## 2026-10-15 08:59 UTC: BPCS analysis script committed before its data: tools/bpcs_analyze.py (within-prompt fixed-effects model, within-prompt permutation; tests/test_bpcs_analyze.py: 2 pass)
