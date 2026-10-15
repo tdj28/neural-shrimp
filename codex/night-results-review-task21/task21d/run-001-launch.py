@@ -5,9 +5,9 @@ R=Path('/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-sh
 B=Path('/data2/neural-shrimp-data/codex/night-results-review-task21/task21d')
 OUT=B/'run-001';SUP=OUT.with_name(OUT.name+'-supervision')
 WRAPPER='codex/night-results-review-task21/task21d/run.py';CORE='codex/night-results-review-task21/task21d/score.py';CARD='codex/night-results-review-task21/task21d/run-001-card.json'
-WRAPPER_SHA=None;CORE_SHA=None  # Exact final accepted driver/core pins required.
-ADAPTER='codex/night-results-review-task21/task21d/inputs.py';ADAPTER_SHA=None
-ADMISSION='prepared';CARD_SHA=None  # Exact source and reviewed card pins required before launch.
+WRAPPER_SHA='cb13cba23d088aa01d5ea7d8eb4011234fc2ddff83b93de109fc47f44f61fa17';CORE_SHA='f0a835b3703e5ebc2e692ab4899f5fb53a473cfc02581af2948882de4f61ff88'  # Exact final accepted driver/core pins required.
+ADAPTER='codex/night-results-review-task21/task21d/inputs.py';ADAPTER_SHA='8c9e8617b90f5650d3c37bad5f4c9705cdaaa24e9250ced54a2ec04aa6dfa87f'
+ADMISSION='reviewed';CARD_SHA='1a850637ad2915ab004e15f84396318e1435e3835662b56c6826d1363af89bc3'  # Exact source and reviewed card pins required before launch.
 GIB=1024**3;WALL=60;MAX_OUTPUT=16*1024**2
 
 def sha(p):return hashlib.sha256(Path(p).read_bytes()).hexdigest()

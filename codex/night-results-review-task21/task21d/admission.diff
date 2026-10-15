@@ -1,0 +1,34 @@
+--- prepared/run-001-card.json
++++ reviewed/run-001-card.json
+@@ -1,6 +1,6 @@
+ {
+   "schema": "codex-task21d-saved-rescore-v1",
+-  "admission": "prepared",
++  "admission": "reviewed",
+   "source_commit": null,
+   "source_sha256": {
+     "run.py": "cb13cba23d088aa01d5ea7d8eb4011234fc2ddff83b93de109fc47f44f61fa17",
+@@ -54,7 +54,7 @@
+     "scientific_claims_accepted": false,
+     "failure": "preserve exclusive failure.json if generated, all original external logs/receipt; no retry"
+   },
+-  "authorization": "Prepared and unlaunchable pending Root exact source/card review, private checkpoint, coordinator-owned supervisor/capacity admission.",
++  "authorization": "Root fully read and accepted exact scientific source, input authority, synthetic controls, final Theory source review ee7591c2 and inherited supervisor design on 2026-10-15. Sole actual run remains conditional on exact private checkpoint and fresh coordinator-owned capacity/closure admission; preserve every refusal/failure without automatic retry.",
+   "classification_amendment": "Per-cell source scalar-classification and period0..64 diagnostics are retained, including all mismatches/nonfinite exponent flags. Original saved class remains the scoring selector; no new scientific acceptance/filtering gate.",
+   "classification_control": {
+     "path": "/tmp/task21d-classification-controls-001.json",
+--- prepared/run-001-launch.py
++++ reviewed/run-001-launch.py
+@@ -5,9 +5,9 @@
+ B=Path('/data2/neural-shrimp-data/codex/night-results-review-task21/task21d')
+ OUT=B/'run-001';SUP=OUT.with_name(OUT.name+'-supervision')
+ WRAPPER='codex/night-results-review-task21/task21d/run.py';CORE='codex/night-results-review-task21/task21d/score.py';CARD='codex/night-results-review-task21/task21d/run-001-card.json'
+-WRAPPER_SHA=None;CORE_SHA=None  # Exact final accepted driver/core pins required.
+-ADAPTER='codex/night-results-review-task21/task21d/inputs.py';ADAPTER_SHA=None
+-ADMISSION='prepared';CARD_SHA=None  # Exact source and reviewed card pins required before launch.
++WRAPPER_SHA='cb13cba23d088aa01d5ea7d8eb4011234fc2ddff83b93de109fc47f44f61fa17';CORE_SHA='f0a835b3703e5ebc2e692ab4899f5fb53a473cfc02581af2948882de4f61ff88'  # Exact final accepted driver/core pins required.
++ADAPTER='codex/night-results-review-task21/task21d/inputs.py';ADAPTER_SHA='8c9e8617b90f5650d3c37bad5f4c9705cdaaa24e9250ced54a2ec04aa6dfa87f'
++ADMISSION='reviewed';CARD_SHA='1a850637ad2915ab004e15f84396318e1435e3835662b56c6826d1363af89bc3'  # Exact source and reviewed card pins required before launch.
+ GIB=1024**3;WALL=60;MAX_OUTPUT=16*1024**2
+ 
+ def sha(p):return hashlib.sha256(Path(p).read_bytes()).hexdigest()
