@@ -24880,3 +24880,21 @@ There are 4000 labels, 4000 generations of 10 samples, and 4000 covariate rows. 
 - **Deciles of adjusted accuracy.** The most strongly contracting decile (lambda in [-11.70, -3.42], n 400) is +5.31 points [+3.08, +7.60]. The other nine lie between -2.68 and +2.33, with intervals within [-5.10, +4.51].
   - The positive quadratic comes from that tail: the deepest-periodic decile is answered better than its covariates predict. It is not an edge effect.
   - This is one of ten post-hoc bins and is a hypothesis for a future frozen test only.
+
+## 2026-10-15 09:15 UTC: FB15E and FBC148c results; run card FBC148d
+
+**FB15E** (pod v3crlux14kv8gr, H100 NVL, commit 9684d66f; runner rc 0; terminated). Qwen2.5-1.5B, alpha 0.100, from period 128. Output cascade/q15-a0.100-p128. Two flips located, each a real -1 crossing with the next modulus at the rounding level:
+- 128 -> 256 at lambda = -0.0018215102546514878 (mu -1.00000002, next modulus 2.9e-15);
+- 256 -> 512 at lambda = -0.0018208834782723728 (mu -0.99999999, next modulus 2.7e-15).
+
+At period 256 the test function scatters by about 1e-7 between bracket points 1e-15 apart, which is the float64 floor of the parameter. Since dmu/dlambda is about 3.4e6, the location error is about 3e-14, i.e. 5e-8 of the last gap.
+
+With the 64 -> 128 flip of FB15D (-0.001824434015999929), **the next ratio is 2.9237613e-6 / 6.2677638e-7 = 4.6648**. The previous last 1.5B ratio was 4.58. A second model now reaches Feigenbaum's 4.6692 to 0.1 %.
+
+**FBC148c** (pod 38ye1p0i6j98o8, H100 NVL, commit 2ec1cad2; runner rc 1 by design; terminated). Qwen2.5-0.5B crescent at log10 T -0.14798. The 96 -> 192 flip is at lambda = 0.06612412137318323 (mu -1.0000006, next modulus 2.3e-14). The test function's floor at period 96 is about 1e-6.
+- **Ratios.** The -0.148 ratios become 2.844, 2.859, 3.781, **4.365**.
+- **The failed search is a setup result.** The search for the 192 -> 384 flip stopped with "no flip of period 192 found up to lambda = 0.0661247271345343". After a first in-run flip the search band is 2 x (next - flip) = 1.35e-7, and 16 quarter-band substeps reach exactly that point. A ratio between 4.37 and 4.67 puts the flip 6.8e-7 to 7.2e-7 beyond the 96 flip, i.e. 0.06612480 to 0.06612485, past the reach.
+
+**Run card FBC148d.** The same job as FBC148c with --max-substeps 48 (reach 1.6e-6 beyond the switching point). Name crescent-t-0.14798-p96d, run 240 min, 3 flips (192 and an attempt at 384).
+- If the locator refuses at the floor, the line-fit root of the bracket evaluations (as for -0.156) is computed afterwards.
+- One H100-class pod; ceiling in the private ledger.
