@@ -138,7 +138,8 @@ sampling.
 \item \emph{Local unfoldings near cusps predict which periodic orbits coexist and which are stable.} Fold
   and flip curves continued with float64 test functions show that the fold curves of a period-6 window and of a
   hostile period-7 window contain cusps, located where the quadratic normal-form coefficient vanishes, with the cubic
-  coefficient nonzero and the two-parameter unfolding regular at the same points. At nearby fold points the estimated two-parameter
+  coefficient nonzero and the two-parameter unfolding regular at the same points; one fold curve of a period-4 window
+  carries five. At nearby fold points the estimated two-parameter
   unfolding is nonsingular, and its local cubic model, frozen before solving, matched the number of distinct orbits
   that Newton solves seeded at its predicted roots recovered at all twelve parameter offsets, and their stability at
   eleven; the search was not exhaustive (Sections~\ref{sec:curves} and~\ref{sec:hostility}).
@@ -691,7 +692,7 @@ fold arc extends far to the left as a thin arm and ends in a cusp at $(\alpha,\l
 The fold curve through the close fold pair has a second cusp inside the body, at $(0.080097,-0.058344)$, from
 which two fold branches descend.
 
-At both candidates the quadratic coefficient $b$ changes sign between consecutive curve points while $a$ stays away
+At both reversals the quadratic coefficient $b$ changes sign between consecutive curve points while $a$ stays away
 from zero (Table~\ref{tab:z3cusps}).
 Because the signs of $a$ and $b$ both flip with the orientation of the critical eigenvector, the test uses
 $b\operatorname{sign}a$. A cusp is nondegenerate when the cubic coefficient $c$ of the normal form
@@ -705,15 +706,15 @@ $b\operatorname{sign}a$ falls to below $5\times10^{-6}$ of its bracket values at
 on the outer arc and at $(0.080097,-0.058344)$ inside the body. At these same points $c=-1.51\times10^{4}$ and
 $-2.38\times10^{5}$, and the unfolding matrix $J$ defined below is regular ($\det J=2416$ and $14.0$): two
 numerically located cusps. The
-negative sign of $c$ means that near each candidate, two stable period-6 orbits coexist with a saddle between the fold
+negative sign of $c$ means that near each cusp, two stable period-6 orbits coexist with a saddle between the fold
 branches.
 
 A generic codimension-two cusp also needs the two parameters to unfold it independently. Near the cusp the reduced
 map is $u'=u+\beta_1+\beta_2u+bu^2+cu^3$, where $\beta_1$ and $\beta_2$ vanish at the cusp and depend on the
 parameters. The unfolding is regular when $J=\partial(\beta_1,\beta_2)/\partial(\log_{10}T,10\alpha)$ has rank two
-($\det J\neq0$). We estimated $J$ at a fold point near the outer-arc candidate (where $b\operatorname{sign}a=14.7$),
-not at the candidate itself: $\det J=2737$ (singular values $1630$ and $1.7$), so the estimated unfolding is
-nonsingular there. With these derivatives, the local cubic model predicted the number of period-6 orbits and their
+($\det J\neq0$). We first estimated $J$ at a fold point near the outer-arc cusp (where $b\operatorname{sign}a=14.7$):
+$\det J=2737$ (singular values $1630$ and $1.7$), so the estimated unfolding is nonsingular there, as it is at the
+located cusp ($\det J=2416$). With these derivatives, the local cubic model predicted the number of period-6 orbits and their
 stability at six parameter offsets, written to disk before any orbit was solved. Newton solves started from the
 predicted roots and from the base state recovered the predicted number of distinct orbits, with the predicted
 stability, at all six. The search was seeded, not exhaustive: orbits that these starts do not reach would be missed.
@@ -721,7 +722,7 @@ stability, at all six. The search was seeded, not exhaustive: orbits that these 
 \centering\small
 \begin{tabular}{>{\raggedright\arraybackslash}p{0.24\linewidth}>{\raggedright\arraybackslash}p{0.3\linewidth}>{\raggedright\arraybackslash}p{0.36\linewidth}}
 \toprule
- & candidate on the outer arc & candidate inside the body \\
+ & cusp on the outer arc & cusp inside the body \\
 \midrule
 $b\operatorname{sign}a$ at consecutive curve points & $+92.9$, $+42.9$, $+14.7$, $\mathbf{-16.9}$, $-52.8$ &
   $-24.7$, $-14.3$, $-2.0$, $\mathbf{+12.8}$, $+28.0$, $+45.9$, $+58.9$ \\
@@ -748,21 +749,26 @@ each other; how they join there is not resolved.}
 \label{fig:z3curves}
 \end{figure}
 
-\paragraph{A period-4 window with two cusps.} At higher temperature, $\log_{10}T\approx0$--$0.1$, periodic orbits
+\paragraph{A period-4 window with five cusps on one fold curve.} At higher temperature, $\log_{10}T\approx0$--$0.1$, periodic orbits
 are no longer effectively one-dimensional (second multipliers $0.06$--$0.09$). At $\alpha=0.06484$ the temperature
 branch of the period-4 orbit ``$\backslash$n$\backslash$n - $\backslash$n$\backslash$n The'' is S-shaped, with folds
 at $\log_{10}T=0.0640$ and $0.0664$. When that fold is continued in the plane, its parameter tangent reverses at three
-points, two of which we tested. At both, the quadratic coefficient $b$ changes sign while $a$ stays away from zero,
-and the cubic coefficient $c$ (defined above) is nonzero (Table~\ref{tab:cusps}). Located along the curve, the two cusps lie at
+points; at the first two, the quadratic coefficient $b$ changes sign while $a$ stays away from zero,
+and the cubic coefficient $c$ (defined above) is nonzero (Table~\ref{tab:cusps}). Located along the curve, these two cusps lie at
 $(\alpha,\log_{10}T)=(0.062959,0.059958)$ and $(0.065574,0.074447)$. There $b\operatorname{sign}a$ is below
-$1.1\times10^{-5}$ of its bracket values, $c=-1.02\times10^{4}$ and $+1.37\times10^{5}$, and $\det J=-42.0$ and $35.5$. The third, at $(\alpha,\log_{10}T)=(0.08308,0.10863)$, was not tested. Three period-4 orbits
+$1.1\times10^{-5}$ of its bracket values, $c=-1.02\times10^{4}$ and $+1.37\times10^{5}$, and $\det J=-42.0$ and $35.5$. Further traces of the same fold curve,
+started from other points of the period-4 branches, retrace it to within $3\times10^{-7}$, and one of them finds two
+more reversals near $\log_{10}T\approx0.012$. All five reversals are located cusps. The other three lie at
+$(\alpha,\log_{10}T)=(0.083082,0.108633)$, $(0.074072,0.011831)$ and $(0.073220,0.012759)$. There $c$ is
+$-9.7\times10^{4}$, $-5.7\times10^{3}$ and $+1.7\times10^{3}$, and $\det J$ is $25.3$, $-188.5$ and $68.5$. The last
+two cusps, close together, have opposite signs of $c$. Three period-4 orbits
 coexist between the two fold branches, and near the first cusp ($c<0$) two of them are stable
 (Figure~\ref{fig:p4}).
 \begin{table}[H]
 \centering\small
 \begin{tabular}{lcc}
 \toprule
- & candidate 1 & candidate 2 \\
+ & cusp 1 & cusp 2 \\
 \midrule
 $b$ at five curve points & $+28.1,\ +18.7,\ +8.4,\ \mathbf{-1.1},\ -12.8$ &
   $+51.8,\ +29.7,\ +9.3,\ \mathbf{-9.0},\ -23.4$ \\
@@ -783,12 +789,15 @@ a nondegenerate cusp inside each bracket; bisection then located both (text); at
 12; $192^2$ float64 cells) with float64 fold curves (cyan, long dashes) and flip curves (magenta, short dashes) of the
 period-4 orbit. The yellow circle is the first cusp; the second lies just above the window. The flip curves run along
 the boundary between period 4 and period 8. The fold curves run inside the period-4 region, where three period-4
-orbits coexist (near the first candidate, two of them stable). In this map a C-shaped band of the doubled loop
+orbits coexist (near the first cusp, two of them stable). In this map a C-shaped band of the doubled loop
 ``\textbackslash n\textbackslash nThe\textbackslash n\textbackslash nThe'' (period 4) inside the period-2 region
 ``\textbackslash n\textbackslash nThe'' contains period 8 and an irregular core. Along the cut of
 Section~\ref{sec:cascade} the period-8 orbit merges back into period 4 (a doubling bubble), so this band is not shown
 to be a second cascade.
-\planned{the remaining fold curves of the period-4 region; whether the region is one shrimp-organized component.}}
+Continued from all its fold points, the region's boundary consists of an upper fold curve, with the five cusps of
+the text, and a separate lower fold curve, nowhere within $2\times10^{-3}$ of it in the traced ranges; the lower curve
+carries the codimension-two points described below. Within the traced ranges the curves do not join, so the region is
+not shown to be one shrimp-organized component.}
 \label{fig:p4}
 \end{figure}
 Along the lower fold curve a second real multiplier reaches $+1$ twice, at $\alpha=0.062483$, $\log_{10}T=0.004955$
@@ -1630,7 +1639,7 @@ coefficient is nonzero at the points that bracket both sign changes: $c\approx-1
 smallest steps converge like the square of the step, and extrapolation leaves the sign) and $-5.8\times10^{5}$ to
 $-5.3\times10^{5}$. This supports nondegenerate cusps inside both brackets, and $c<0$ agrees with the three
 coexisting period-7 orbits, two of them stable, found between the S-shaped folds. At a fold point near the lower
-candidate (where $b=31.4$) the estimated unfolding is nonsingular too ($\det J=53.5$ in the same coordinates, singular
+cusp (where $b=31.4$) the estimated unfolding is nonsingular too ($\det J=53.5$ in the same coordinates, singular
 values $262$ and $0.20$). Its local predictions at six frozen offsets matched the orbits that Newton solves seeded at
 the predicted roots and the base state recovered: in number at all six and in stability at five. The miss, at the largest
 offset beyond the edge of the region with three orbits, marks the range of the cubic model. The hostile period-7 body
@@ -1792,8 +1801,8 @@ As far as we know, no earlier work has computed periodic orbits and their multip
 bifurcation curves and located cusps in the feedback map of a released pretrained language model. Nor do
 we know of earlier quantitative predictions from such a model's derivatives, for these objects, that were confirmed
 prospectively, as ours were for passage times at new folds (23 of 24 forecasts within one iterate, with the all-row
-criterion failing by one row) and for the orbits recovered and their stabilities at frozen offsets near cusp
-candidates; derivative-based normal-form predictions in a task-trained looped transformer precede ours
+criterion failing by one row) and for the orbits recovered and their stabilities at frozen offsets near numerically
+located cusps; derivative-based normal-form predictions in a task-trained looped transformer precede ours
 \cite{kim2026phase}. A frozen spectral prediction of the response to relaxation is confirmed on held-out data in
 Huginn, and one periodic orbit of the full transformer map of
 Qwen2.5-0.5B-Instruct is proved by interval arithmetic; we know of no earlier instance of either for a language model.
@@ -1877,11 +1886,12 @@ critical multiplier; quadratic coefficient vanishing at a point where the cubic 
 unfolding is regular) and flip curves inside, and in the hostile body superstable curves run
 through the windows. A generic codimension-two
 cusp also requires the two unfolding coefficients to depend on the two parameters with rank two. We estimated this at
-a fold point near one candidate of each window (determinants $2737$ and $53.5$), and there the local model's
+a fold point near one cusp of each window (determinants $2737$ and $53.5$), and there the local model's
 predictions at twelve frozen offsets matched the orbits recovered by Newton solves seeded at the predicted roots and
-the base state, in number at all twelve and in stability at eleven; the search was not exhaustive. These are float64
+the base state, in number at all twelve and in stability at eleven; the search was not exhaustive. At the nine
+located cusps themselves, $|\det J|$ lies between $14$ and $2416$. These are float64
 computations validated by step-size checks (rung 1), not computer-assisted proofs. At the two continuation points
-that bracket the lower candidate of the hostile body, an independent implementation of the model reproduced the
+that bracket the lower cusp of the hostile body, an independent implementation of the model reproduced the
 normal-form coefficients, including the sign change of $b$: $|b|$ within $1.2\,\%$ and $c$ to two figures, with the
 opposite orientation of the null vector, which flips the signs of $a$ and $b$ together.
 
@@ -2010,9 +2020,9 @@ of the models of Section~\ref{sec:size}.
 The labelled maps contain about 2600 periodic families of at least six cells, counted per map. We singled out about
 26 windows or families for float64 work: 20 are reported in detail, 2 only as map features and 4 not at all (an
 orbit whose continuation was abandoned, a cell that proved aperiodic, a band whose float32 orbit did not converge and
-a pilot that found no cusp within a bounded search). Of 54 Newton orbit attempts, 7 failed. Of seven tangent
-reversals on continued fold curves, six were tested, and all six are reported as cusp candidates (a bracketed sign
-change of the quadratic coefficient with nonzero cubic coefficients); one is untested. Two of the five regions we flagged as shrimp candidates are reported as shrimp-like. One further
+a pilot that found no cusp within a bounded search). Of 54 Newton orbit attempts, 7 failed. All nine tangent
+reversals on continued fold curves (seven found by 14 October, and two on traces of a period-4 fold curve continued on
+15 October) are numerically located cusps; the two reversals of a continued flip curve are smooth turns. Two of the five regions we flagged as shrimp candidates are reported as shrimp-like. One further
 language model (Ouro-1.4B) was explored and is not reported; its apparent chaos was a long transient. Every window
 was chosen after the maps were inspected. Only the passage forecasts, the cusp-unfolding offsets and Huginn's relaxation
 test were fixed before the computations that test them
@@ -2030,7 +2040,7 @@ Models with maps & 6 & 6 & one prompt; 3 directions and $\alpha=0$ \\
 Periodic families ($\ge6$ cells) & $\approx2600$ & -- & counted per labelled map \\
 Windows given float64 work & $\approx26$ & 20 (+2) & +2: map features only \\
 Newton orbit attempts & 54 & -- & 7 failed \\
-Tangent reversals on fold curves & 7 & 6 & 1 untested \\
+Tangent reversals on fold curves & 9 & 9 & all located cusps (2 found on 15 Oct.) \\
 Unfolding offsets, frozen & 12 & 12 & counts 12/12, stability 11/12 \\
 Shrimp-candidate regions & 5 & 2 & reported as shrimp-like \\
 Tests fixed before outcomes & 6 & 4 & 2 all-row criteria failed by one row \\
@@ -2072,7 +2082,7 @@ second checkpoint, is the unreported bounded search).}
 \item Rung 2 as well: the hostile 2-cycle fold and its normal form, reproduced by an independent float64 forward map
   with nested automatic differentiation (location to $6\times10^{-10}$, $ab$ to 8 parts per million); its controlled
   passages were also checked independently, with the frozen all-six criterion failing by one row.
-\item Rung 1: the other orbits, the curves, the six located cusps, the superstable parameters,
+\item Rung 1: the other orbits, the curves, the nine located cusps, the superstable parameters,
   the 1.5B flips, the hostile windows' edges, the spiral region's period-7 body and the cascade inside it, the three 7B
   orbits, and Huginn's float32 spectral estimates.
 \item Prospectively frozen, not independently reproduced: the scaling predictions P1--P3, the prompt-blocked size
