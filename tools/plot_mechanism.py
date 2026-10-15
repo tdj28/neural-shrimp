@@ -10,7 +10,8 @@ Panels (each drawn when its data exist):
   (b) chaotic minus periodic, row-matched, on the alpha map: factors, entropy, gap;
   (c) crossover arms per held-out chaotic cell and periodic control;
   (d) chaotic share per temperature: residual steering (alpha map) against the logit bias (beta map);
-  (e) the two factors of chaotic cells by steering block.
+  (e) the two factors of chaotic cells by steering block;
+  (f) Kaplan-Yorke dimension against the readout's stable rank at the KY cells (mech/ky-*, hidden/spectrum-ky-*).
 Statistics go to paper/llm/figures/fig-mechanism.json: per-row differences with bootstrap intervals over rows,
 row-stratified permutation tests, crossover contrasts with bootstrap intervals over held-out cells.
 
@@ -101,19 +102,19 @@ def main():
     ax = axes[0]
     if lines[12]:
         L = arrays(lines[12])
-        for t, col in zip((-0.6, -0.3, 0.0, 0.15, 0.25), ("tab:blue", "tab:cyan", "tab:green", "tab:orange", "tab:red")):
+        for t, col in zip((-0.3, 0.0, 0.15), ("tab:blue", "tab:green", "tab:orange")):
             m = np.isclose(L["log10_temperature"], t)
             o = np.argsort(L["alpha"][m])
             a = L["alpha"][m][o]
             ax.plot(a, L["mean_log_g_read"][m][o], "-", color=col, lw=1.2, label=f"readout, log10 T {t:+.2f}")
-            ax.plot(a, L["mean_log_g_net"][m][o], ":", color=col, lw=1.0)
+            ax.plot(a, L["mean_log_g_net"][m][o], "--", color=col, lw=1.0, alpha=0.8)
             c = L["chaotic"][m][o]
             ax.plot(a[c], L["mean_log_g_read"][m][o][c], "o", color=col, ms=2.5)
         ax.axhline(0, color="0.5", lw=0.6)
         ax.set_ylim(-8, 3)
         ax.set_xlabel("steering strength alpha (block 12)")
         ax.set_ylabel("mean log factor per step (nats)")
-        ax.set_title("(a) readout (solid) and network (dotted) factors;\ndots: chaotic cells", fontsize=9)
+        ax.set_title("(a) readout (solid) and network (dashed) factors, block 12;\ndots: chaotic cells", fontsize=9)
         ax.legend(fontsize=6, loc="lower left")
     # (b) chaotic minus periodic on the alpha map
     ax = axes[1]
@@ -202,7 +203,12 @@ def main():
     for b, cells in lines.items():
         if cells:
             L = arrays(cells)
-            c = L["chaotic"]
+            c = L["chaotic"] & (L["log10_temperature"] <= 0.0)          # low temperature: the readout regime
+            hi = L["chaotic"] & (L["log10_temperature"] > 0.0)
+            if hi.sum():
+                stats.setdefault("blocks_highT", {})[str(b)] = {"chaotic": int(hi.sum()),
+                                                                "median_log_g_net": float(np.median(L["mean_log_g_net"][hi])),
+                                                                "median_log_g_read": float(np.median(L["mean_log_g_read"][hi]))}
             if c.sum():
                 blk.append(b)
                 net.append(L["mean_log_g_net"][c])
@@ -219,8 +225,46 @@ def main():
         ax.set_xticklabels([f"block {b}\n(n={len(r)})" for b, r in zip(blk, read)], fontsize=7)
         ax.axhline(0, color="0.5", lw=0.6)
         ax.set_ylabel("mean log factor per step (nats)")
-        ax.set_title("(e) chaotic cells by steering block:\nreadout (orange) and network (grey) factors", fontsize=9)
-    axes[5].axis("off")
+        ax.set_title("(e) chaotic cells at log10 T <= 0 by steering block:\nreadout (orange) and network (grey) factors", fontsize=9)
+    ax = axes[5]
+    H = DATA / "hidden"
+    pts = []
+    for grp, run, col in (("philosophy", "ky-phil", "tab:green"), ("hostility", "ky-host", "tab:red")):
+        f, g = H / f"spectrum-ky-{grp}" / "lyapunov-spectrum.json", DATA / "mech" / run / "gain.json"
+        if not (f.exists() and g.exists()):
+            continue
+        spec = json.loads(f.read_text())["cells"]
+        mech = json.loads(g.read_text())["cells"]
+        xs, ys = [], []
+        for c in spec:
+            lam = sorted(c["exponents"], reverse=True)
+            acc, j = 0.0, 0
+            for i, l in enumerate(lam):
+                if acc + l < 0:
+                    break
+                acc += l
+                j = i + 1
+            if j == 0 or j >= len(lam):
+                continue
+            m = min(mech, key=lambda x: abs(x["log10_temperature"] - c["log10_temperature"]) + abs(x["alpha"] - c["alpha"]))
+            if abs(m["log10_temperature"] - c["log10_temperature"]) + abs(m["alpha"] - c["alpha"]) > 1e-9:
+                continue
+            xs.append(m["mean_stable_rank"])
+            ys.append(j + acc / abs(lam[j]))
+        if xs:
+            ax.plot(xs, ys, "o", color=col, label=f"{grp} cells (n={len(xs)})")
+            pts += list(zip(xs, ys))
+    if pts:
+        mx = max(x for x, _ in pts)
+        ax.plot([1, mx], [1, mx], ":", color="0.4", lw=1, label="D_KY = stable rank")
+        ax.set_xscale("log")
+        ax.set_ylim(0.9, 2.2)
+        ax.set_xlabel("readout stable rank (orbit mean)")
+        ax.set_ylabel("Kaplan-Yorke dimension")
+        ax.set_title("(f) many competing directions, few expanding:\nthe readout's rank does not set the dimension", fontsize=9)
+        ax.legend(fontsize=7)
+    else:
+        ax.axis("off")
     fig.tight_layout()
     fig.savefig(args.out)
     Path(args.out).with_suffix(".json").write_text(json.dumps(stats, indent=1))

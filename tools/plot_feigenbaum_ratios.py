@@ -7,7 +7,8 @@
   local continuations (cascade/crescent-t-0.156-c from 12->24 on, cascade/crescent-t-0.156-d if present), and the
   384->768 flip of run FBD (cascade/crescent-t-0.156-e), whose locator refused at the precision floor of the period-384
   multiplier: its root is the zero of the least-squares line through the logged evaluations (research log, FBD
-  result); superstable points (superstable/crescent-t-0.156, crescent-t-0.156-192, crescent-t-0.156-384 if present).
+  result), and the 768->1536 flip of run FBD2 (cascade/crescent-t-0.156-f); superstable points
+  (superstable/crescent-t-0.156, crescent-t-0.156-192, crescent-t-0.156-384 if present).
 - Qwen2.5-1.5B (philosophy, layer 14) along log10 T at alpha 0.100: flips (cascade/q15-a0.100-p4, edges/q15-a0.100-p16,
   edges/q15-a0.100-p32).
 
@@ -38,6 +39,14 @@ def ratios(lams):
 
 def flips(run):
     return json.loads((DATA / "cascade" / run / "cascade.json").read_text())["flip_parameters"]
+
+
+def progress_flips(run):
+    """Flip parameters recorded in a cascade run's progress file (runs that stopped after some flips), in order."""
+    f = DATA / "cascade" / run / "progress.jsonl"
+    if not f.exists():
+        return []
+    return [json.loads(line)["lambda"] for line in f.read_text().splitlines() if line.startswith('{"flip"')]
 
 
 def edge_flip(run):
@@ -79,6 +88,9 @@ def sequence_156():
         lams += json.loads(d.read_text())["flip_parameters"]
     elif (DATA / "cascade/crescent-t-0.156-e/progress.jsonl").exists():
         lams.append(floor_root("crescent-t-0.156-e"))
+    f = DATA / "cascade/crescent-t-0.156-f/progress.jsonl"       # FBD2: the 768->1536 flip
+    if f.exists():
+        lams += [json.loads(line)["lambda"] for line in f.read_text().splitlines() if line.startswith('{"flip"')]
     return lams
 
 
@@ -99,11 +111,12 @@ def main():
     ap.add_argument("--out", default=str(ROOT / "paper/llm/figures/fig-feigenbaum-ratios.png"))
     args = ap.parse_args()
 
-    f148 = ratios(flips("crescent-t-0.14798-v2"))
     ss = superstable()
     s148 = ratios([r[1] for r in ss])
     f156 = ratios(sequence_156())
-    q15 = ratios(flips("q15-a0.100-p4") + [edge_flip("q15-a0.100-p16"), edge_flip("q15-a0.100-p32")])
+    q15 = ratios(flips("q15-a0.100-p4") + [edge_flip("q15-a0.100-p16"), edge_flip("q15-a0.100-p32")]
+                 + progress_flips("q15-a0.100-p64") + progress_flips("q15-a0.100-p128"))
+    f148 = ratios(flips("crescent-t-0.14798-v2") + progress_flips("crescent-t-0.14798-p96b"))
 
     fig, ax = plt.subplots(figsize=(5.8, 3.9), dpi=200)
     ax.axhline(DELTA, color="0.3", ls=":", lw=1)
@@ -134,7 +147,7 @@ def main():
                 [0 if w else max(b - v, 0) for v, b, w in zip(s156, hi6, wide)]]
         ax.errorbar([n + 1.5 for n in range(1, len(s156) + 1)], s156, yerr=err6, fmt="D--", color=green, mfc="white",
                     ms=5, capsize=3, label=r"0.5B, $\log_{10}T=-0.156$, superstable points (to period %d)" % ss6[-1][0])
-    ax.plot(range(1, len(q15) + 1), q15, "^-", color=red, label="1.5B, flips (to period 64)")
+    ax.plot(range(1, len(q15) + 1), q15, "^-", color=red, label="1.5B, flips (to period %d)" % (4 * 2 ** (len(q15) + 2)))
     ax.set_xlim(0.6, 6.0 if len(f156) < 6 else len(f156) + 0.4)
     ax.set_ylim(2.6, top)
     ax.set_xlabel(r"doubling level $n$ (ratio of the $n$-th to the $(n+1)$-th band)")
