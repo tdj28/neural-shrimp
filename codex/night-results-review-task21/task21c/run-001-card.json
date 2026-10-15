@@ -1,0 +1,45 @@
+{
+  "schema": "codex-task21c-saved-scalar-v1",
+  "admission": "prepared",
+  "source_commit": null,
+  "analyzer_sha256": "96c332bc5f7705a024a2a3018ad7797325510eea8d9860ee1fef99bb2aa89641",
+  "inputs_manifest": {
+    "path": "/data2/neural-shrimp-data/codex/night-results-review-task21/task21c/source-001/inputs.json",
+    "bytes": 7514,
+    "sha256": "9d8fd948171b5747d43d2138991c53cbe491c6f1b3fe94d3f617222ed4b483f9"
+  },
+  "output": "/data2/neural-shrimp-data/codex/night-results-review-task21/task21c/run-001",
+  "limits": {
+    "cpu_seconds": 20,
+    "wall_seconds": 30,
+    "as_bytes": 1073741824,
+    "output_bytes": 16777216,
+    "input_bytes": 4194304,
+    "startup_available_bytes": 21474836480,
+    "runtime_available_bytes": 17179869184
+  },
+  "cpu_threads": 1,
+  "nice": 10,
+  "max_owned_cpu_slots_including_supervisor": 2,
+  "original_paths_preserved": "The durable manifest has byte-identical original /tmp nested paths; these are authenticated literally before/after. Durable copies and source-adoption evidence separately preserve them.",
+  "analysis": "Independent unblinded saved-scalar reconstruction of both complete attempts; retain original failed FNF2 authority. No model, derivatives, eigensolve, native state, primitive-orbit, interval or asymptotic proof.",
+  "synthetic_control_evidence": {
+    "path": "/tmp/task21c-controls-001.json",
+    "sha256": "89a5b450e9da4461a6ada115ea879ed3870515a1ffacbf7bc092da956ad3c9c1",
+    "tests": 10,
+    "through_serialization_write_seconds": 0.0016977060586214066,
+    "observed_peak_rss_kib": 21244,
+    "scientific_output_bytes": 56879
+  },
+  "resource_basis": "Tiny full-shape synthetic arithmetic and serialization; original two JSON inputs total8701B plus input manifest/authority/source-map. Metadata hashing and inherited authority embedding are additional small costs, not included in the synthetic arithmetic timing. Planning allowance5s/128MiB/512KiB; hard admitted limits dominate, synthetic measurement is not a worst-case proof.",
+  "completion_contract": {
+    "outputs": [
+      "report.json",
+      "manifest.json"
+    ],
+    "exit_zero": "computational_completed true AND all_records_schema_complete true; scientific false outcomes remain valid output",
+    "scientific_claims_accepted": false,
+    "failure": "nonzero exit and preserved supervisor stdout/stderr/receipt; no retry or overwrite"
+  },
+  "authorization": "Prepared and unlaunchable pending Root exact source/card review, private source/card freeze and coordinator-owned external supervisor."
+}

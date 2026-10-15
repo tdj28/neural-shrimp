@@ -1,0 +1,84 @@
+{
+  "schema": "task21c-runtime-preparation-adoption-v1",
+  "date_utc": "2026-10-15T10:57:34.478563+00:00",
+  "status": "prepared_unlaunchable",
+  "root_review": "Root accepted source96c332bc/card-a0ed39a7/design0f2a52db/controls89a5b450+1cf86a32+tests1bcdeea8/math60762c81 and supervisor a861c1a0 on15Oct2026. Final status/pin delta read remains before actual launch.",
+  "full_release": [
+    {
+      "path": "/tmp/task21c-analyze.py",
+      "bytes": 16782,
+      "sha256": "96c332bc5f7705a024a2a3018ad7797325510eea8d9860ee1fef99bb2aa89641",
+      "durable_copy": "/data2/neural-shrimp-data/codex/night-results-review-task21/task21c/preparation-001/task21c-analyze.py",
+      "adopted_git_path": "codex/night-results-review-task21/task21c/analyze.py"
+    },
+    {
+      "path": "/tmp/task21c-analyze-initial.py",
+      "bytes": 13510,
+      "sha256": "b7eec1602a226d9a9051e97cb2f1e2c20bf5236dcd2d359221e8678abe3e8fb6",
+      "durable_copy": "/data2/neural-shrimp-data/codex/night-results-review-task21/task21c/preparation-001/task21c-analyze-initial.py",
+      "adopted_git_path": "codex/night-results-review-task21/task21c/preparation/analyzer-001/analyze-initial.py"
+    },
+    {
+      "path": "/tmp/test_task21c_analyze.py",
+      "bytes": 7442,
+      "sha256": "1bcdeea838f10a6bba786542087a4ee6606f9a417ce16ab295b36ed43f9a9bb8",
+      "durable_copy": "/data2/neural-shrimp-data/codex/night-results-review-task21/task21c/preparation-001/test_task21c_analyze.py",
+      "adopted_git_path": "codex/night-results-review-task21/task21c/preparation/analyzer-001/test_task21c_analyze.py"
+    },
+    {
+      "path": "/tmp/task21c-controls-001.log",
+      "bytes": 1139,
+      "sha256": "1cf86a32256f2018cd6810677c054d363f17357dc30c14ec98ae98180f29c353",
+      "durable_copy": "/data2/neural-shrimp-data/codex/night-results-review-task21/task21c/preparation-001/task21c-controls-001.log",
+      "adopted_git_path": "codex/night-results-review-task21/task21c/preparation/analyzer-001/controls-output.txt"
+    },
+    {
+      "path": "/tmp/task21c-controls-001.json",
+      "bytes": 448,
+      "sha256": "89a5b450e9da4461a6ada115ea879ed3870515a1ffacbf7bc092da956ad3c9c1",
+      "durable_copy": "/data2/neural-shrimp-data/codex/night-results-review-task21/task21c/preparation-001/task21c-controls-001.json",
+      "adopted_git_path": "codex/night-results-review-task21/task21c/preparation/analyzer-001/controls.json"
+    },
+    {
+      "path": "/tmp/task21c-synthetic-output-001.json",
+      "bytes": 56879,
+      "sha256": "7b4f6656ec229a0c3b8a3111aa71b812bbc088951853ffd29c517e2bf7824ddd",
+      "durable_copy": "/data2/neural-shrimp-data/codex/night-results-review-task21/task21c/preparation-001/task21c-synthetic-output-001.json",
+      "adopted_git_path": null
+    },
+    {
+      "path": "/tmp/task21c-run-001-card.json",
+      "bytes": 2538,
+      "sha256": "a0ed39a778014195f6bdfe2c7bb5c60a8d56bf84b4c59e9d9b986b8eb93dcbb2",
+      "durable_copy": "/data2/neural-shrimp-data/codex/night-results-review-task21/task21c/preparation-001/task21c-run-001-card.json",
+      "adopted_git_path": "codex/night-results-review-task21/task21c/run-001-card.json"
+    },
+    {
+      "path": "/tmp/task21c-source-design.md",
+      "bytes": 5047,
+      "sha256": "0f2a52dbe6ae1fa1616b790e12f9087f624141efb6961dfd317db5561a5f9aa7",
+      "durable_copy": "/data2/neural-shrimp-data/codex/night-results-review-task21/task21c/preparation-001/task21c-source-design.md",
+      "adopted_git_path": "codex/night-results-review-task21/task21c/design.md"
+    },
+    {
+      "path": "/tmp/task21c-analyzer-finalization.diff",
+      "bytes": 10188,
+      "sha256": "183cf62d206ddab963fc2cc841ecbff30dda624c356c7dccb9a5d015a030f90d",
+      "durable_copy": "/data2/neural-shrimp-data/codex/night-results-review-task21/task21c/preparation-001/task21c-analyzer-finalization.diff",
+      "adopted_git_path": null
+    },
+    {
+      "path": "/tmp/task21c-math-review.md",
+      "bytes": 13964,
+      "sha256": "60762c815e6d92a41be241422027157a7d037524959b54e903dead2c8bb18bee",
+      "durable_copy": "/data2/neural-shrimp-data/codex/night-results-review-task21/task21c/preparation-001/task21c-math-review.md",
+      "adopted_git_path": "codex/night-results-review-task21/task21c/math-review.md"
+    }
+  ],
+  "history": "Original analyzer draft, exact finalization diff, synthetic output and all controls retained byte-identically. Diffs/synthetic raw remain external, bound here.",
+  "supervisor_prepared_sha256": "a861c1a0b1e39942a6434e1a37c416d1a9633114c9e9bae05758fe8209a07976",
+  "resource_amendment": "Earlier proposal25CPU remains historical; final analyzer/card/supervisor use20CPU seconds under30wall. No scientific/gate change.",
+  "source_identity": "Card.source_commit:null is deliberate; actual supervisor --source/private ancestry/capturedGitblobs will provide execution identity.",
+  "team_exposure": "Unblinded: Root and Theory read saved literal scalar records in Task27/source review; Boundary own code preparation did not decode either target. Coordinator source/provenance/status work exposed source summaries and runner-tail values; no arithmetic ran.",
+  "actual_target_run": false
+}
