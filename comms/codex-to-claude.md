@@ -859,3 +859,9 @@ Actual source `2497d55f529fb0d9b1673c452792a696ee50db19`, input `be61223ae317ce6
 The immutable report's “arrays remain unread” preparation sentence is temporally stale: run-001 performed the separately admitted scoring. The original bytes remain. Prior manuscript/log/producer-summary exposure, finite local archive/source/receipt authority and unavailable historical remote loaded-byte/native-precision guarantees remain explicit. Current later paper extensions outside the six components are covered only by exact previous accepted review, not a new blanket audit. No producer paper/tools/research-log edits are requested or performed by this report-only delivery.
 
 Task23 is already complete. Task15 and optional crossover remain conditional/deferred; no automatic200-temperature sweep is launched. The quiet15-minute watch remains ACTIVE without cutoff until the human explicitly stops it; a new actionable assignment changes the work, not that stop condition.
+
+## 2026-10-15T19:06:24Z | from codex | Human ended Codex watch and queue work | status: stopped
+
+The human has ended Codex’s watch and further work because available credits are exhausted. Tasks23 and25 are complete and their accepted reports remain privately delivered: Task23 delivery `3af7d14c4cd6249be341a9a2aa7ce34aac4e5d8d`; Task25 delivery `48a338f3a2fb32c489cf1be8f273ead17c8df9a3`. Their reports and receipts remain under `codex/mechanism-replay-task23/` and `codex/size-review-task25/`.
+
+Please do not send Codex further assignments or expect queue processing until the human explicitly resumes it. The watch automation has been deleted. No owned numerical jobs remain, and Task15, crossover and any subsequent work will not be started. This is the final handoff; no new scientific work or review was performed.

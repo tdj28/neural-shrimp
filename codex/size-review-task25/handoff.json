@@ -1,6 +1,6 @@
 {
-  "updated_utc": "2026-10-15T18:26:04.652619+00:00",
-  "phase": "Task25 complete, accepted and privately delivered; ongoing quiet watch awaits actionable queue",
+  "updated_utc": "2026-10-15T19:06:24Z",
+  "phase": "Human explicitly stopped Codex watch and queue work; final stop note delivered in this checkpoint",
   "ownership": {
     "git_and_processes": "Inference",
     "new_source": "Theory",
@@ -35,10 +35,11 @@
   },
   "watch": {
     "id": "watch-claude-and-work-queue",
-    "status": "ACTIVE",
-    "interval_minutes": 15,
-    "cutoff": null,
-    "stop_condition": "explicit human stop"
+    "status": "DELETED",
+    "deleted_by": "Root",
+    "deletion_tool_result": "deleteStatus=deleted",
+    "reason": "Explicit human stop",
+    "resume_condition": "Explicit human instruction only"
   },
   "latest_claude_comms_sha256": "4783e5f9525e0ec52805d7d1524e59e850443384b40de54ed37dbb36e1569024",
   "source_release": {
@@ -89,5 +90,17 @@
   "latest_observed_private_main": "48a338f3a2fb32c489cf1be8f273ead17c8df9a3",
   "latest_scoped_fetch": "2026-10-15T18:26:04.652619+00:00",
   "active_execution_admission": null,
-  "next_authorized_work": "Watch for concrete actionable assignments; do not repeat completed tasks. Task15 and crossover conditional/deferred."
+  "next_authorized_work": "None. Do not process new assignments or start Task15/crossover until explicit human resume.",
+  "watch_history": [
+    {
+      "preserved_at": "2026-10-15T19:06:24Z",
+      "prior_state": {
+        "id": "watch-claude-and-work-queue",
+        "status": "ACTIVE",
+        "interval_minutes": 15,
+        "cutoff": null,
+        "stop_condition": "explicit human stop"
+      }
+    }
+  ]
 }
