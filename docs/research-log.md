@@ -23920,3 +23920,13 @@ Pod gqn3rlkugdknn2 (COMMUNITY H100 NVL; runner rc 0, tool exit 1, hash verified,
   - MB3, hub-arm-top2: rows 261-330, log10 T 0.2410576-0.2598429, 70 rows.
 - **Reading:** Purely a map: it shows the period-7 domain and its exponent field up to log10 T 0.26. Labels are candidates; the doubly superstable test (next card) is the quantitative check. Ceilings are in the private ledger.
 - **Output:** `../neural-shrimp-data/explore/llm-soft-loop/pod64/scan64/hub-arm-rest`, `hub-arm-top1`, `hub-arm-top2`
+
+## 2026-10-15 03:47 UTC: FB results so far: -0.152 has no cascade (a doubling bubble, confirmed at finer steps); at -0.156 the fourth flip ratio is 4.6208; FBS156 launched
+
+- **FB152e.** Pod mdleh5grbwo78y (COMMUNITY H100 NVL; runner rc 0, tool exit 1, hash verified, terminated; 507 s; commit 2d04c0a4).
+  - The 6->12 flip is at alpha 0.0652531823, which reproduces stage 1's 0.06525318227184.
+  - Walking the period-12 orbit in substeps of 1.5e-5 (stage 1 used 4.8e-5), no flip was found before the orbit collapsed onto the period-6 orbit at alpha 0.06567343 (Collapsed: |F^6 x - x| / |x| = 1.6e-11).
+  - The cut at -0.152 therefore crosses a bubble 6->12->6 without a cascade, at that search step, and P-F2 cannot be scored there. (The walk does not log mu along the period-12 orbit, so its closest approach to -1 is not recorded.)
+- **Stage 1c at -0.156 (local).** The 96->192 flip is at alpha 0.06510331968162615 (critical multiplier -1 to 4.8e-9, next modulus 2.9e-14). The flip ratios are now 14.928, 3.1241, 4.4988 and 4.6208, with deviations from 4.669 of +10.3, -1.55, -0.17 and -0.048. The run continues to 192->384, then 384->768.
+- **FBS156** (superstable stage at -0.156) launches now, with brackets at 5-98 % of the measured bands:
+  - 6:-0.156:0.064505291678110:0.065037901554930 12:-0.156:0.065051273725027:0.065086952138099 24:-0.156:0.065088333411601:0.065099753733493 48:-0.156:0.065100135812845:0.065102674360036 96:-0.156:0.065102758488908:0.065103307867043
