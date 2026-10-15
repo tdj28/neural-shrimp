@@ -1,68 +1,127 @@
-% Steering along one MLP neuron (Appendix "Unsteered chaos and steering controls"): the neuron's down-projection
-% column, rescaled to the steering norm, added at the steering hook, is the same as raising that neuron's activation.
-% A tikzpicture only; each paper wraps it in its own figure, and the caption carries the explanation.
-% Preamble: \usepackage{tikz} and \usetikzlibrary{arrows.meta,positioning,calc,decorations.pathreplacing}.
-\definecolor{loopaccent}{RGB}{204,85,0}
+% Steering along one MLP neuron (Appendix "Unsteered chaos and steering controls"). The human's design; its prose
+% (the side note, the stream label, the zoom header and the legend) moved to the caption.
+% A tikzpicture only; each paper wraps it in its own figure and caption.
+% Preamble: \usepackage{tikz} and \usetikzlibrary{arrows.meta,decorations.pathreplacing,calc,fit}.
+\definecolor{steer}{HTML}{C8510A}
+\definecolor{steerfill}{HTML}{F5DCCB}
+\definecolor{boxfill}{HTML}{F3F3F3}
 \begin{tikzpicture}[
-    font=\small,
-    >={Stealth[length=2mm,width=1.6mm]},
-    box/.style={draw=black!70, rounded corners=2pt, fill=black!4, minimum height=8mm, inner sep=3pt, align=center},
-    flow/.style={->, semithick, black!80},
-    plus/.style={draw=black!80, fill=white, circle, minimum size=3.6mm, inner sep=0pt},
-    neuron/.style={draw=black!60, fill=white, circle, minimum size=4.2mm, inner sep=0pt},
-    lab/.style={font=\footnotesize, inner sep=1.5pt},
-  ]
-  % residual stream through decoder layer 12, then the steering hook at the layer's output
-  \coordinate (in) at (0,0);
-  \node[plus] (pa) at (3.7,0) {};
-  \node[plus] (pm) at (11.15,0) {};
-  \node[plus, draw=loopaccent] (ps) at (12.65,0) {};
-  \foreach \p in {pa,pm} {\draw[black!80] (\p.north) -- (\p.south) (\p.west) -- (\p.east);}
-  \draw[loopaccent] (ps.north) -- (ps.south) (ps.west) -- (ps.east);
-  \coordinate (out) at (14.4,0);
-  \draw[flow] (in) -- (pa.west);
-  \draw[flow] (pa.east) -- (pm.west);
-  \draw[flow] (pm.east) -- (ps.west);
-  \draw[flow] (ps.east) -- (out);
-  \node[lab, anchor=north west, align=left] at (0,-0.1) {residual stream\\[-1pt]of one token\\[-1pt]{\color{black!60}(896 dimensions)}};
-  \node[lab, anchor=north east] at ($(out)+(0,-0.1)$) {to layer 13};
+  >={Stealth[length=2.2mm]},
+  font=\small,
+  line/.style={line width=0.7pt, black!85},
+  lane/.style={line width=0.7pt, black!85, preaction={draw, white, line width=3.4pt, -}},
+  box/.style={draw=black!70, fill=boxfill, rounded corners=2pt, minimum height=7mm, inner sep=4pt},
+  mlp/.style={draw=black!70, fill=boxfill, rounded corners=2pt, minimum height=4.6mm,
+              inner sep=1pt, font=\footnotesize},
+  plus/.style={draw=#1, fill=white, circle, minimum size=3.6mm, inner sep=0pt,
+               path picture={\draw[#1] (path picture bounding box.north)--(path picture bounding box.south)
+                             (path picture bounding box.west)--(path picture bounding box.east);}},
+  plus/.default=black!85,
+  neuron/.style={draw=black!60, fill=white, circle, minimum size=5mm},
+  tok/.style={draw=black!80, fill=white, rounded corners=1.5pt, font=\ttfamily\footnotesize,
+              inner sep=2pt, minimum height=4.2mm, anchor=east},
+]
 
-  % attention branch
-  \node[box, minimum width=20mm] (att) at (2.2,1.15) {attention};
-  \draw[flow] (0.9,0) |- (att.west);
-  \draw[flow] (att.east) -| (pa.north);
+% geometry
+\def\gap{0.95}     % vertical distance between lanes
+\def\xL{0.0}       % lane start
+\def\xR{12.2}      % lane end
+\def\xMs{4.9}      % MLP branch point
+\def\xMo{10.6}     % MLP add
+\def\yAtt{1.25}    % attention box centre height
 
-  % MLP branch: the gate and up projections give the activations h_i of 4864 neurons
-  \node[box, minimum width=44mm] (gu) at (6.85,-0.7)
-    {$h=\operatorname{SiLU}(W_{\mathrm{gate}}\,\hat x)\odot W_{\mathrm{up}}\,\hat x$};
-  \draw[flow] (4.2,0) |- (gu.west);
-  \foreach \x/\name in {4.95/n1, 5.55/n2, 6.15/n3, 7.45/n832, 8.62/nlast} {\node[neuron] (\name) at (\x,-2.2) {};}
-  \node[neuron, draw=loopaccent, fill=loopaccent!20] at (n832) {};
-  \node[lab] at (6.8,-2.2) {$\cdots$};
-  \node[lab] at (8.04,-2.2) {$\cdots$};
-  \node[lab, below=0.4mm of n1] {$h_1$};
-  \node[lab, below=0.4mm of n2] {$h_2$};
-  \node[lab, below=0.4mm of n3] {$h_3$};
-  \node[lab, below=0.4mm of n832, text=loopaccent] {$h_{832}$};
-  \node[lab, below=0.4mm of nlast] {$h_{4864}$};
-  \node[draw=black!45, dashed, rounded corners=3pt, fit={(4.55,-1.88) (9.22,-2.85)}, inner sep=0pt] (row) {};
-  \node[lab, text=black!60, anchor=north west] at (row.south west) {4864 neurons};
-  \draw[flow] (gu.south) -- (gu.south |- row.north);
+% token lanes: nodes and per-token MLP branch
+\foreach \k/\tname in {0/The,1/{\ Eiffel},2/{\ Tower},3/{\ is}} {
+  \pgfmathsetmacro\y{-\k*\gap}
+  \pgfmathsetmacro\xr{0.75+0.3*\k}   % attention read
+  \pgfmathsetmacro\xa{3.6+0.3*\k}    % attention add
+  \node[tok] at (\xL-0.08,\y) {\tname};
+  \node[plus] (A\k) at (\xa,\y) {};
+  \node[plus] (M\k) at (\xMo,\y) {};
+  % this token's own MLP pass, with the steering offset on neuron 832
+  \node[mlp, minimum width=4.8cm] (mlp\k) at (7.75,\y-0.42)
+    {RMSNorm $\to$ MLP \quad{\color{steer}$h_{832}\mathrel{+}=312\alpha$}};
+  \draw[->, line] (\xMs,\y) |- (mlp\k.west);
+  \draw[->, line] (mlp\k.east) -| (M\k.south);
+  \coordinate (R\k) at (\xr,\y);
+  \coordinate (W\k) at (\xa,\yAtt);
+}
 
-  % down projection: neuron i writes h_i times its column w_i into the stream
-  \node[box, minimum width=27mm, inner sep=4pt] (wd) at (11.15,-2.2)
-    {$\sum_i h_i\,w_i$\\[-1pt]{\scriptsize $w_i$: column $i$ of $W_{\mathrm{down}}$}};
-  \draw[flow, black!55] (row.east) -- (wd.west);
-  \draw[->, semithick, loopaccent] (n832.north) to[out=45, in=168]
-    node[pos=0.6, above=0pt, lab, text=loopaccent] {$h_{832}\,w_{832}$} (wd.north west);
-  \draw[flow] (wd.north) -- (pm.south);
+% attention: one block over all lanes, causal
+\node[box, minimum width=3.2cm, minimum height=1.4cm, align=left, anchor=west] (att) at (0.05,\yAtt) {};
+\node[anchor=west, align=left, inner sep=0pt] at ([xshift=5pt]att.west)
+  {RMSNorm $\to$\\attention};
+% 4x4 causal mask: row = reading token, column = token read
+\begin{scope}[shift={([xshift=-0.95cm,yshift=-0.12cm]att.east)}, x=0.17cm, y=0.17cm]
+  \foreach \r in {0,...,3} \foreach \c in {0,...,3} {
+    \pgfmathtruncatemacro\on{\c<=\r ? 1 : 0}
+    \ifnum\on=1
+      \fill[black!60] (\c,3-\r) rectangle ++(1,1);
+    \fi
+    \draw[black!40, line width=0.2pt] (\c,3-\r) rectangle ++(1,1);
+  }
+\end{scope}
+\node[font=\scriptsize, black!55, anchor=north] at ([xshift=-0.78cm,yshift=-0.15cm]att.east) {causal mask};
 
-  % steering hook: alpha v added to the layer's output at every position
-  \node[lab, text=loopaccent, align=center] (steer) at (12.65,1.3)
-    {$+\,\alpha v$, \ $v=312\,w_{832}$\\[-1pt]\footnotesize added for each token of the input};
-  \draw[->, semithick, loopaccent] (steer.south) -- (ps.north);
+\foreach \k in {0,...,3}
+  \draw[->, line] (R\k) -- (R\k |- att.south);
+\draw[line] (att.east) -- (W3);
+\foreach \k in {0,...,3}
+  \draw[->, line] (W\k) -- (A\k.north);
 
-  % the layer
-  \draw[decorate, decoration={brace, amplitude=4pt, raise=1pt}, draw=black!55]
-    (0.6,1.75) -- node[above=5pt, lab] {decoder layer 12 of Qwen2.5-0.5B-Instruct} (11.5,1.75);
+% lanes on top of the vertical connectors (white halo = hop)
+\foreach \k in {0,...,3} {
+  \pgfmathsetmacro\y{-\k*\gap}
+  \draw[lane] (\xL,\y) -- (A\k.west);
+  \draw[lane] (A\k.east) -- (M\k.west);
+  \draw[->, lane] (M\k.east) -- (\xR,\y);
+  \node[plus] at (A\k) {};
+  \node[plus] at (M\k) {};
+}
+
+% labels and layer brace
+\node[anchor=south east, font=\footnotesize, black!55] at (-0.1,0.25) {input tokens};
+\node[anchor=west, inner sep=2pt] at (\xR,{-3*\gap}) {to layer 13};
+\draw[decorate, decoration={brace, amplitude=6pt}, black!55]
+  (-1.0,2.2) -- node[above=6pt, font=\small, black] {decoder layer 12 of Qwen2.5-0.5B-Instruct}
+  (\xMo+0.4,2.2);
+
+% zoom: inside every MLP box
+\def\zt{-4.4}
+\node[draw=black!45, dashed, rounded corners=4pt, minimum width=11.4cm, minimum height=4.1cm,
+      anchor=north] (zoom) at (6.25,\zt) {};
+\draw[black!40, dashed] (mlp3.south west) -- (zoom.north west);
+\draw[black!40, dashed] (mlp3.south east) -- (zoom.north east);
+
+\node[anchor=west, font=\small] (xin) at ([shift={(0.25,-0.6)}]zoom.north west) {$x$};
+\node[box, anchor=west] (norm) at ([xshift=0.3cm]xin.east) {$\hat x = \mathrm{RMSNorm}(x)$};
+\node[box, anchor=west] (gate) at ([xshift=0.45cm]norm.east)
+  {$h=\mathrm{SiLU}(W_{\mathrm{gate}}\,\hat x)\odot W_{\mathrm{up}}\,\hat x$};
+\draw[->, line] (xin) -- (norm);
+\draw[->, line] (norm) -- (gate);
+
+\begin{scope}[shift={(1.75,{\zt-2.4})}]
+  \node[neuron, label={[font=\small]below:$h_1$}] (n1) at (0,0) {};
+  \node[neuron, label={[font=\small]below:$h_2$}] (n2) at (0.6,0) {};
+  \node[neuron, label={[font=\small]below:$h_3$}] (n3) at (1.2,0) {};
+  \node at (1.8,0.05) {$\cdots$};
+  \node[neuron, draw=steer, fill=steerfill, line width=0.8pt,
+        label={[font=\small, text=steer]below:$h_{832}$}] (n832) at (2.55,0) {};
+  \node at (3.3,0.05) {$\cdots$};
+  \node[neuron, label={[font=\small]below:$h_{4864}$}] (nN) at (3.95,0) {};
+\end{scope}
+\node[draw=black!50, dashed, rounded corners=3pt, fit=(n1)(nN), inner xsep=5pt,
+      inner ysep=13pt, yshift=-5pt] (layer) {};
+\node[anchor=north west, black!55, font=\footnotesize] at ([yshift=-1pt]layer.south west) {4864 neurons};
+\draw[->, line] (gate.south) -- ++(0,-0.3) -| (n2 |- layer.north);
+
+% the intervention
+\node[text=steer, font=\small, align=center, anchor=south] (kick) at ([shift={(0.95,0.45)}]n832.north)
+  {$+\,312\alpha$};
+\draw[->, steer, line width=0.9pt] (kick.south) -- (n832.north east);
+
+\node[box, align=center] (down) at (10.2,{\zt-2.4})
+  {$\sum_i h_i\,w_i$\\[-1pt]{\footnotesize $w_i$: column $i$ of $W_{\mathrm{down}}$}};
+\draw[->, black!55, line width=0.6pt] (layer.east) -- (down.west);
+\draw[->, line] (down.north) -- ++(0,0.6) node[above, font=\footnotesize] {to this token's $\oplus$};
 \end{tikzpicture}

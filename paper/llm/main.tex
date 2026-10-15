@@ -3057,18 +3057,18 @@ to 48); colour gives the exponent, clipped at $\pm0.5$.}
 \end{figure}
 \begin{figure}[H]
 \centering
-\input{figures/tikz-neuron-steering}
-\caption{Steering along one MLP neuron, in decoder layer 12 of Qwen2.5-0.5B-Instruct (normalizations omitted; $\hat x$
-is the normalized residual state). The layer's 4864 MLP neurons write $\sum_i h_i w_i$ into the residual stream: neuron
-$i$ always writes along its own column $w_i$ of the down-projection, scaled by its activation $h_i$. The diagram follows one
-token; every token of the input (the prompt's tokens and the fed-back soft token) has its own residual stream and passes
-through the same layer. Steering adds the same $\alpha v$ to the layer's output for each of these tokens. For a neuron direction, $v$ is that neuron's column
-rescaled to the norm of the philosophy vector, $v=(\lVert v_{\mathrm{phil}}\rVert/\lVert w_{832}\rVert)\,w_{832}
-=(188.99/0.606)\,w_{832}=312\,w_{832}$ for neuron 832. Adding $\alpha v$ therefore adds $312\alpha\,w_{832}$, exactly
-what neuron 832 writes when its activation is raised by $312\alpha$, for each token; the other 4863 neurons are
-unchanged. The increase is 37.4 at $|\alpha|=0.12$,
-against a mean of 0.27 on the philosophy texts. The factors for neurons 833 and 4137 are 329 and 346. The concept and
-Gaussian directions of Figure~\ref{fig:controls} have the same norm.}
+\resizebox{\linewidth}{!}{\input{figures/tikz-neuron-steering}}
+\caption{Steering along one MLP neuron, in decoder layer 12 of Qwen2.5-0.5B-Instruct. Each token has its own
+residual stream, one 896-dimensional vector per token, and its own pass through the same MLP; attention, with its causal
+mask, is the only step that mixes tokens. Inside every MLP box (bottom, for one token with residual vector $x$), the
+4864 neurons write $\sum_i h_i w_i$ into the stream, neuron $i$ along its own column $w_i$ of the down-projection. The
+steering strength $\alpha$ is a scalar we set (negative values lower the activation), and
+$312=\lVert v_{\mathrm{phil}}\rVert/\lVert w_{832}\rVert=188.99/0.606$ is a fixed scale for neuron 832. Raising
+$h_{832}$ by $312\alpha$ for every token is the same as adding $\alpha v$, with $v=312\,w_{832}$, to the layer's output,
+which is how we implement it: $\sum_i h_i w_i+312\alpha\,w_{832}=\sum_{i\neq832}h_i w_i+(h_{832}+312\alpha)\,w_{832}$.
+At $|\alpha|=0.12$ the increase is 37.4, against a mean activation of 0.27 on the philosophy texts; for neurons 833 and
+4137 the scale is 329 and 346. The tokens shown are only an example: in the loop, the input is the fixed prompt followed
+by the fed-back soft token.}
 \label{fig:neuronsteer}
 \end{figure}
 \begin{figure}[H]
