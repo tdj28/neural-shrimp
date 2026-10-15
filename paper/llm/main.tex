@@ -37,10 +37,10 @@ Thinking do, turns inference into a nonlinear dynamical system. In Qwen2.5, OLMo
 parameters, temperature and steering move this loop between repeating text and chaos, with positive Lyapunov
 exponents that exact tangents reproduce. The chaos has practical consequences. Rerun with only the batch size
 changed, chaotic float64 loops diverge into different text after the number of steps the Lyapunov exponent predicts,
-while periodic loops stay together: 95\,\% end within $3\times10^{-12}$. In a frozen test on arithmetic, the batch layout changed 56\,\% of
-the answers of bfloat16 soft-thinking inference in a 0.5B model and 55\,\% in a 7B model, far more than of
-greedy decoding's. Exactly repeating text can hide a
-chaotic internal state. Steering causes the chaos by making
+while periodic loops stay together, in three models of two families. In a frozen test on arithmetic, the batch
+layout changed 56\,\% of the answers of bfloat16 soft-thinking inference in a 0.5B model and 55\,\% in a 7B model,
+far more often than it changed greedy decoding's. Exactly repeating text can hide a chaotic internal state. Steering
+causes the chaos by making
 next tokens compete, which turns the softmax readout from a contraction into an expansion; a logit bias alone
 suffices, and in an orbit-preserving crossover steering's change of the network damps the instability, in a 0.5B and a
 7B model. Earlier injection carries chaos to lower
