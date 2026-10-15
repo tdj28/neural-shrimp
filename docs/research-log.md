@@ -23852,3 +23852,22 @@ FL15 branch: pod mj6u1p7bvigsnk (runner rc 0, hash verified, terminated; 1098 s)
 With the pod's 3->6 and 6->12 flips, the interval ratios are 14.928, 3.1241 and 4.4988. The deviations from 4.669 are +10.3, -1.55 and -0.17. These are flip ratios; P-F2 concerns superstable ratios and stays unscored. The run continues to the 96->192 and 192->384 flips (5 flips from period 12).
 
 **Amendment (human, about 03:00 UTC: "And double that maybe?").** After the 192->384 flip, a follow-on cascade run starts from the period-384 orbit inside its band and locates the 384->768 flip. The start and next points come from the measured ratio, the transient covers at least 50 periods, and the settings are otherwise those of stage 1c. It runs on the local GPU, before stage 1c's queued cut at -0.152.
+
+## 2026-10-15 03:17 UTC: CL6 result: the three remaining reversals of the upper period-4 fold curve are located cusps (all nine fold-curve reversals are cusps); FL7 normal form (7B fold point)
+
+**CL6b.** Pod 18kbtdb1a08u0r (SECURE H100 NVL; runner rc 0, hash verified, terminated; 1670 s; commit 7def712e). The clashing uploads are byte-identical to the local curves and branches. Outputs are in codim2/curve-foldB-plus-cusp-45 and curve-foldC-plus-2-cusp-{32,42}. The first CL6 pod, dp9hx03l33cpno, never became SSH-ready; it was terminated without results.
+
+All checks pass for the three reversals. |f|/max|f| is b sign(a) at the located point relative to its largest bracket value:
+
+| reversal | located at (log10 T, alpha) | \|f\|/max\|f\| | c | det J (condition) |
+|---|---|---|---|---|
+| B-plus 45/46 (the paper's untested reversal) | (0.108633, 0.083082) | 1.4e-7 | -9.66e4 | 25.3 (319) |
+| C-plus-2 32/33 | (0.011831, 0.074072) | 1.1e-5 | -5733 | -188.5 (296) |
+| C-plus-2 42/43 | (0.012759, 0.073220) | 5e-6 | +1652 | 68.5 (125) |
+
+The upper period-4 fold curve thus carries five located cusps. The last two are close together and have opposite signs of c. Over the paper's fold curves all nine tangent reversals are numerically located cusps, with |f| / max |f| at most 1.3e-5. The two reversals of the period-8 flip curve are smooth turns. P4R's reading stands: the upper and lower fold curves do not join within the traced ranges.
+
+**FL7 normal form.** Pod fddcgfaz4kq2pg (SECURE H100 NVL; runner rc 0, hash verified, terminated; 474 s; commit 14c09084). The clashing branch-p2 upload is byte-identical. Outputs are in fl7/curve-fold-p2 and fl7/normal-form-p2.
+- At alpha 0.051428571428571435 the period-2 orbit of Qwen2.5-7B folds at log10 T_c = -0.2040155917628836.
+- Orbit residual 5.6e-11; crossing multiplier 1 + 5.6e-11 (real +1); next modulus 0.0092.
+- Normal form in log10 T: a = 2.6766, b = 20.8077, so ab = 55.69 (pi / sqrt(ab) = 0.421). b over relative steps 1e-2 to 1e-4: 20.974, 20.823, 20.809, 20.8077, 20.8076.
