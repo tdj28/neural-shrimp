@@ -1,0 +1,144 @@
+{
+  "schema": "task21c-original-completion-receipt-v1",
+  "created_utc": "2026-10-15T11:09:36.681526+00:00",
+  "computational_completed": true,
+  "all_records_schema_complete": true,
+  "scientific_review_pending": true,
+  "source_commit": "c24e6232513f113d4116261bab18e1032ea097dd",
+  "source_sha256": {
+    "codex/night-results-review-task21/task21c/analyze.py": "96c332bc5f7705a024a2a3018ad7797325510eea8d9860ee1fef99bb2aa89641",
+    "codex/night-results-review-task21/task21c/run-001-card.json": "78255873e67890369c079368bee552af800412c49d92934ef061805ba0048e62",
+    "codex/night-results-review-task21/task21c/run-001-launch.py": "a0bcaadfd22cd22c59c9906b692ec9bf88abac414b417dab32ea9792504b5fe8"
+  },
+  "card_sha256": "78255873e67890369c079368bee552af800412c49d92934ef061805ba0048e62",
+  "original_report": {
+    "path": "/data2/neural-shrimp-data/codex/night-results-review-task21/task21c/run-001/report.json",
+    "bytes": 94037,
+    "sha256": "d7fc53ff102514824d7f32cc3e878c3747d04e7ab28a5e3bfc5767becd44c9ad"
+  },
+  "metadata_authority": {
+    "path": "/data2/neural-shrimp-data/codex/night-results-review-task21/task21c/run-001-authority/report.json",
+    "bytes": 5693,
+    "sha256": "5e848889b8d1da69307dd9881c46f6bf64d5d52d1605c506b5ad7a0825daa46f"
+  },
+  "evidence_references": [
+    {
+      "path": "/data2/neural-shrimp-data/codex/night-results-review-task21/task21c/run-001/manifest.json",
+      "bytes": 212,
+      "sha256": "7d9c0ca8b34b4cde8a1e27fec660acab0716e866787b51da3d5b666271f8775d"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/codex/night-results-review-task21/task21c/run-001/final-manifest.json",
+      "bytes": 314,
+      "sha256": "6e8358c7782f0dc3faa960088324e0c3845cb534c7739603462a508b88c085d7"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/codex/night-results-review-task21/task21c/run-001-supervision/admission.json",
+      "bytes": 3841,
+      "sha256": "044ce89d4218cb2be4479cc8e72e9d7ce7e1170502c5d11d821cee71cc17ee2f"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/codex/night-results-review-task21/task21c/run-001-supervision/worker.json",
+      "bytes": 2002,
+      "sha256": "7ee4eebadfc758484637aeef0c82aae7c5b4a0d165cf01dd2351311a62050b6e"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/codex/night-results-review-task21/task21c/run-001-supervision/closure.json",
+      "bytes": 2532,
+      "sha256": "53223951e79703df1192ab672cbc670a1c54ee03523898b598c606717608c5b7"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/codex/night-results-review-task21/task21c/run-001-supervision/final-manifest.json",
+      "bytes": 1343,
+      "sha256": "184eb5cbca7bb296dc0d9956a81517cbbf3544a3ce2ed2da5cc64eeccf048729"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/codex/night-results-review-task21/task21c/run-001-authority/executed-check.py",
+      "bytes": 4865,
+      "sha256": "1795bc1105b32e43a91c33637ebce7e96847d8e8e21bc7383e0f22e48787aede"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/codex/night-results-review-task21/task21c/run-001-authority/report.json",
+      "bytes": 5693,
+      "sha256": "5e848889b8d1da69307dd9881c46f6bf64d5d52d1605c506b5ad7a0825daa46f"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/codex/night-results-review-task21/task21c/run-001-authority/manifest.json",
+      "bytes": 318,
+      "sha256": "6f421dedd70ec52eb5c0b75dfa2424561a228ac2db6221e1146249b32ac37244"
+    }
+  ],
+  "preflight": {
+    "path": "/data2/neural-shrimp-data/codex/night-results-review-task21/task21c/completion-metadata-001/preflight.json",
+    "bytes": 676,
+    "sha256": "0a08f89990757398cd3b0dca529a478cd8b11aadbfb8fe6782e6354bddee7c28"
+  },
+  "authority_delta": {
+    "path": "/data2/neural-shrimp-data/codex/night-results-review-task21/task21c/completion-metadata-001/authority.diff",
+    "bytes": 6329,
+    "sha256": "b8e852ad60c3ff95b270ba25757d37e60f10ceacc83e0010c3c9db0e977d774e"
+  },
+  "tool_session_id": 27826,
+  "tool_session_reaped_exit_code": 0,
+  "all_original_supervisor_worker_groups_sessions_absent": true,
+  "calculation_and_posthash_seconds": 0.00033857114613056183,
+  "calculation_timer_scope": "Saved scalar reconstruction and posthash only; excludes initial input admission, JSON serialization/output write and total worker process lifetime.",
+  "supervisor_window_seconds": 0.5338936040643603,
+  "supervisor_timer_scope": "Original measured supervisor window from worker-launch setup through wait/worker-group closure; excludes source/private preflight and final manifest serialization.",
+  "peak_rss_kib_observed_before_serialization": 17240,
+  "peak_rss_scope": "ru_maxrss sampled after calculations/posthash but before serialization; not a measured full-process peak.",
+  "fresh_available_bytes": 56553484288,
+  "fresh_disk_free_bytes": 2752006602752,
+  "original_outer_logs": [
+    {
+      "path": "/data2/neural-shrimp-data/codex/night-results-review-task21/task21c/run-001-dispatch/stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/codex/night-results-review-task21/task21c/run-001-dispatch/stdout.log",
+      "bytes": 4449,
+      "sha256": "b6b5226b1fe2cae6cdca2bf82bc3323923d2f8d871cac7b32a5132a64aa95716"
+    }
+  ],
+  "input_hash_rows": [
+    {
+      "path": "/data2/neural-shrimp-data/codex/night-results-review-task21/task21c/source-001/inputs.json",
+      "bytes": 7514,
+      "sha256": "9d8fd948171b5747d43d2138991c53cbe491c6f1b3fe94d3f617222ed4b483f9",
+      "role": "input_manifest"
+    },
+    {
+      "path": "/tmp/task21c-source-001/original-authority.json",
+      "bytes": 13106,
+      "sha256": "20b086dd377f02f1de14e56761f2f09befc22beb0e3e547cf0c3416f3d6c6151",
+      "role": "inherited_original_authority"
+    },
+    {
+      "path": "/tmp/task21c-source-001/source-map.json",
+      "bytes": 14970,
+      "sha256": "dbdc3dbc74148c7c269e14711d1dddcdcbab2db56d6d2cc7da4739dd5d2d4884",
+      "role": "inherited_original_source_association"
+    },
+    {
+      "path": "/tmp/task21c-source-001/inputs/FNF2b-flip-normal-form.json",
+      "bytes": 4347,
+      "sha256": "4f90f9b84340537c651afd987ec4bd6430add7d0c52461b1493805ee5329b1c8",
+      "role": "saved_scalar_record"
+    },
+    {
+      "path": "/tmp/task21c-source-001/inputs/FNF4-flip-normal-form.json",
+      "bytes": 4354,
+      "sha256": "223ae029043af578db5eb740ca3284d7abe4562f49123cadc3fdbd2518dcf839",
+      "role": "saved_scalar_record"
+    }
+  ],
+  "record_count": 2,
+  "coefficient_row_count": 8,
+  "offset_row_count": 10,
+  "unblinded_team_exposure": "Root and other team lanes previously read saved scalar results/log excerpts; Boundary independent code preparation did not read target data. No blinded claim.",
+  "native_limit": "No original l/r/x/M or derivative/projection arrays were emitted; scalar reconstruction does not reverify these or primitive-orbit/precision claims.",
+  "live_jobs": 0,
+  "reservations": 0,
+  "additional_numerical_replay": false
+}

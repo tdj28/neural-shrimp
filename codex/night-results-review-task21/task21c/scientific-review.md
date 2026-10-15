@@ -1,0 +1,34 @@
+# Task 21c actual saved-scalar review
+
+I accept the completed Task21c calculation as an independent reconstruction from the two authenticated FNF2b/FNF4 saved scalar records. I read every scientific record field: all eight coefficient-step rows, all ten offset rows, every arithmetic comparison, crossing/parent/Newton gate and finite confirmation summary. I compared the original `tab:flipnf` excerpt, original exploratory card and exposed producer summaries. I performed no new model, derivative, eigenvalue, orbit or arithmetic execution. Inference observed the sole execution and reaping; source/lifecycle metadata authentication remains its responsibility.
+
+The immutable report is `/data2/neural-shrimp-data/codex/night-results-review-task21/task21c/run-001/report.json`, SHA256 `d7fc53ff102514824d7f32cc3e878c3747d04e7ab28a5e3bfc5767becd44c9ad`. It identifies analyzer `96c332bc5f7705a024a2a3018ad7797325510eea8d9860ee1fef99bb2aa89641`, actual card `78255873e67890369c079368bee552af800412c49d92934ef061805ba0048e62`, input manifest `9d8fd948171b5747d43d2138991c53cbe491c6f1b3fe94d3f617222ed4b483f9`, original authority `20b086dd377f02f1de14e56761f2f09befc22beb0e3e547cf0c3416f3d6c6151` and source association `dbdc3dbc74148c7c269e14711d1dddcdcbab2db56d6d2cc7da4739dd5d2d4884`. The report's computational completion is distinct from its deliberately unset scientific-claim acceptance. This note supplies the finite scientific interpretation, not a new execution receipt.
+
+Both records are schema-complete, with no schema errors or missing offsets. Every reported saved-minus-recomputed arithmetic difference is zero: direct-plus-centre coefficient sums, selected adjacent-pair means/spreads, crossing modulus/argument, alpha, beta, predicted amplitude, measured/predicted amplitude ratio and predicted doubled multiplier. Both choose the final relative-step pair `[0.001, 0.0003]`. Reconstructed c is `6492.447473797511` for period 2→4 and `12386.105013755889` for period 4→8; relative adjacent-pair spreads are `4.581681829908274e-05` and `9.328480825010062e-05`. These reproduce the saved contractions and selection rule, not native derivatives that were not retained.
+
+Both saved dense-crossing scalar gates pass: real multiplier within 1e-6 of −1 and reported next modulus below .95. The next moduli are `0.38318915891505256` and `0.2783078883957146`. All ten saved parent complex guards and amplitude-domain checks pass, and all ten recorded doubled Newton residuals are strictly below 1e-12. These are saved-field checks, not newly evaluated residuals. The original source did not enforce Ritz residual convergence after its maximum pass count, and those histories are absent.
+
+The original smallest-offset amplitude criterion passes for both: at offset `2.5e-5`, the ratios are `1.0050130626568363` and `1.002920487048246`, both within 10% of 1. The absolute amplitude-ratio error increases at every successive larger offset in each five-row sequence, supporting the stated finite trend toward 1 as the offset decreases. All ten rows remain included below. Displayed values are rounded point summaries; full precision and every signed/complex component remain in the immutable report.
+
+| Parent period | Offset | Amplitude ratio | Measured doubled multiplier minus `1−4β` | Complex absolute error divided by β² |
+|---|---:|---:|---:|---:|
+| 2 | 2.5e−5 | 1.00501306 | +0.000146439344 | 1.73000933 |
+| 2 | 5e−5 | 1.01001207 | +0.000614392284 | 1.82901232 |
+| 2 | 1e−4 | 1.01993890 | +0.002696955862 | 2.03787192 |
+| 2 | 2e−4 | 1.03957944 | +0.012921427720 | 2.51036999 |
+| 2 | 4e−4 | 1.07843940 | +0.072981349920 | 3.72275242 |
+| 4 | 2.5e−5 | 1.00292049 | +0.000040845037 | 0.13272126 |
+| 4 | 5e−5 | 1.00593269 | +0.000094225596 | 0.07777932 |
+| 4 | 1e−4 | 1.01215429 | −0.000376908898 | 0.08034579 |
+| 4 | 2e−4 | 1.02543259 | −0.016209391914 | 0.92334005 |
+| 4 | 4e−4 | 1.05578491 | +0.113420271221 + 0.206699996395i | 3.86375081 |
+
+The paper's six selected rows, rounded coefficients, ratios and multiplier predictions agree with the saved results at their stated precision. Its smallest-offset error bounds also hold: actual absolute errors are `0.00014643934354841015` and `4.084503708334797e-05`, below 1.5e−4 and 5e−5 respectively. No numerical table correction is required. The largest period 4 offset is genuinely retained as complex: measured `0.12531607654246846 + 0.2066999963946033i`, real prediction `0.011895805321434416`, complex absolute discrepancy `0.23577329457209936`. It must not be replaced by its modulus, another Ritz value, or a scalar-real agreement claim.
+
+The asymptotic part is not a separately specified finite pass. The card gives neither a constant nor a cutoff for O(β²); a finite ladder cannot prove an asymptotic limit. The report correctly leaves `asymptotic_big_O_verified:false`. The period 4 signed real discrepancy also changes sign; the complete scaled errors give more information than the phrase “both discrepancies grow as the next order requires.” The small-offset results are compatible with the local leading-order prediction, while larger offsets show substantial finite departures, including the complex multiplier.
+
+Retain the scope from source review `60762c815e6d92a41be241422027157a7d037524959b54e903dead2c8bb18bee`: the measured amplitude and centre projection cannot be reconstructed without discarded states/eigenvectors; the primitive split is source-enforced but not saved; offset spectra are partial, convergence residuals absent; `mu_2p` selects nearest +1 while `next_modulus_2p` excludes a different smallest-real-part value and may contain `mu_2p` itself. No claim of new full attraction, primitive-period, effective-precision or model certification follows. Original FNF2's failed continuation/tool exit 1 remains preserved separately from the successful FNF2b and FNF4 records; original source/termination authority remains finite and producer-recorded. The review is unblinded to prior producer summaries.
+
+Recommended replacement for the final paper sentence: “At the smallest tested offset, the amplitude ratios are 1.005 and 1.003, and the doubled-multiplier errors are below 1.5×10⁻⁴ and 5×10⁻⁵. Across all five offsets, amplitude errors decrease toward the flip. These finite comparisons support the leading-order local predictions; they do not establish an asymptotic error law. The largest period 4 offset has a complex multiplier and lies outside the scalar-real approximation.”
+
+For independent-review attribution: “An independent saved-data calculation reproduced the coefficient sums and plateau selection, predicted amplitudes and multipliers, and all ten saved-row ratios exactly. Native model derivatives and measured orbit projections were not recomputed.” No further numerical audit is needed for this accepted finite scope.
