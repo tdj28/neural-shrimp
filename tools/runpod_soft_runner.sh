@@ -242,6 +242,16 @@ snapshot_download('meta-llama/Llama-3.1-8B-Instruct', revision='$LREV', cache_di
       TOOL=steer_gain.py run mech-$name "$minutes" --device cuda "${margs[@]}" --out $D/mech/$name
     done
     ;;
+  rc)          # memory capacity of the soft-token loop as a reservoir (run RC; tools/reservoir_capacity.py, float64 on
+               # the GPU): JOBARGS = NAME MINUTES ARGS [:: NAME MINUTES ARGS ...], one tool call per group, in order
+    i=0; n=${#JOBARGS[@]}
+    while [ $i -lt $n ]; do
+      name=${JOBARGS[$i]}; minutes=${JOBARGS[$((i+1))]}; i=$((i+2)); margs=()
+      while [ $i -lt $n ] && [ "${JOBARGS[$i]}" != "::" ]; do margs+=("${JOBARGS[$i]}"); i=$((i+1)); done
+      i=$((i+1))
+      TOOL=reservoir_capacity.py run rc-$name "$minutes" "${margs[@]}" --device cuda --out $D/rc/$name
+    done
+    ;;
   dialogue)    # two agents in one soft-token conversation (run DLG; tools/soft_dialogue.py, float64 on the GPU): JOBARGS =
                # NAME MINUTES MODE ARGS [:: NAME MINUTES MODE ARGS ...], one tool call per group, in order (vectors
                # uploaded with --extra-data)
@@ -351,7 +361,7 @@ snapshot_download('Qwen/Qwen2.5-7B-Instruct', revision='$REV7', cache_dir='$NEUR
     TOOL=p1_committor.py run p1-committor ${JOBARGS[1]} rollout --states ${JOBARGS[0]} "${JOBARGS[@]:2}" \
       --out $D/msm/p1-committor
     ;;
-  huginn|huginnA|huginnS)  # Huginn-0125 in its own venv with transformers 4.55, as in the local llm env. huginn: JOBARGS NAME
+  huginn|huginnA|huginnS|hedge)  # Huginn-0125 in its own venv with transformers 4.55, as in the local llm env. huginn: JOBARGS NAME
                # MINUTES then huginn_relax_eval arguments. huginnA (Part A of the frozen test): JOBARGS START COUNT
                # SPEC_MINUTES READ_MINUTES; spectra of the gold rows (fixed-spectrum --arc-ids batch) are computed and
                # saved before the read-out run on the same questions. Exports uploaded with --extra-data.
@@ -375,6 +385,9 @@ snapshot_download('tomg-group-umd/huginn-0125', revision='$HREV', cache_dir='$NE
       PY=/root/venv-huginn/bin/python TOOL=explore_latent_loop.py run spectra-${JOBARGS[0]} "${JOBARGS[1]}" \
         fixed-spectrum --model huginn --dtype float32 --device cuda --arc-split test --arc-indices "${JOBARGS[@]:2}" \
         --arc-ids batch --lam 1.0 --out $D/huginn/${JOBARGS[0]}
+    elif [ "$JOBSET" = hedge ]; then           # per-problem stability edges (tools/huginn_edge.py): JOBARGS NAME MINUTES ARGS
+      PY=/root/venv-huginn/bin/python TOOL=huginn_edge.py run hedge-${JOBARGS[0]} "${JOBARGS[1]}" "${JOBARGS[@]:2}" \
+        --device cuda --out $D/huginn/edge-${JOBARGS[0]}
     elif [ "$JOBSET" = huginn ]; then
       name=${JOBARGS[0]}
       minutes=${JOBARGS[1]}

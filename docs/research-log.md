@@ -25072,3 +25072,58 @@ Transient 500, record 800 exchanges; twins 1e-6 and 1e-9; tol 1e-8.
 **Would surprise us.** The pair always inheriting one model's regime. **Interesting either way:** temperatures where the pair is periodic and both models alone are chaotic, or the converse.
 
 **Compute.** One H100-class pod, about 100 min; ceiling in the private ledger.
+
+## 2026-10-15 09:59 UTC: Run card HE (exploratory): each GSM8K problem's own stability edge in Huginn
+
+**Question** (human, 15 Oct: "since the broader edge-of-chaos question remains untested <- how do we test?"). Does computation done by a loop work best at the edge? Huginn's reasoning is a latent loop, and the frozen GSM8K test already showed:
+
+| relaxation | accuracy |
+|---|---|
+| 1.00 (native) | 0.330 |
+| 1.05, just inside the typical edge | 0.395 (+6.5 points, one-sided lower bound +2.5) |
+| 1.15, past it | 0.255 |
+| 1.20 | 0.095 |
+
+Those were fixed values, not each problem's own edge. **Step 1** measures every problem's own edge before any outcome that uses it.
+
+**Tool.** tools/huginn_edge.py; tests/test_huginn_edge.py, 2 pass: it recovers the analytic lam_c = 1.0783 of an affine map with Huginn's critical pair to 3e-3, and reports an unstable native point.
+- Per problem: the 8-shot prompt of the generation runs, the relaxed prefill recurrence from the seeded initial state (float32, adapter and core on the GPU).
+- Coarse lam grid 1.00 to 1.28 in steps of 0.04, 96 steps each; fine grid of 6 values inside the bracket, 192 steps each.
+- Late decay rate fitted over the second half of each run. lam_e is the zero of log rate, extrapolated, and must lie inside the bracket.
+- Gates reported, never replaced: native unstable; no edge in range; non-monotone; extrapolation outside the bracket.
+
+**HEdev.** GSM8K train 0-119, the development problems of run H1b with generations at six fixed lam. Development analysis: accuracy against lam - lam_e(q), pooled over the H1b arms.
+- Edge hypothesis: accuracy rises toward offset 0 from below and collapses above it.
+- Offset should explain accuracy better than raw lam.
+
+**Next.** Step 2 measures the edges of fresh test problems 200-599, so that a frozen test can place arms relative to each problem's own edge. The design will be pushed before any of those problems is generated.
+
+**Compute.** One H100-class pod for HEdev, about 150 min limit (timing unknown, resumable); ceiling in the private ledger.
+
+## 2026-10-15 10:01 UTC: Run card RC1 (exploratory): memory capacity of the soft-token loop across its regimes
+
+**Question** (the same human question). Is the loop, used as a reservoir, most capable at the edge? This is the classical test (Bertschinger and Natschlaeger 2004; Jaeger 2001) on the language model's own map.
+
+**Setup.** tools/reservoir_capacity.py; tests/test_reservoir_capacity.py, 2 pass: linear reservoirs give MC about 4 for 4 distinct modes and 1 for one mode.
+- Model: Qwen2.5-0.5B, philosophy at block 12, float64.
+- Input: a weak input enters before the network, x_(n+1) = F(x_n + eps |x| u_n r), with u_n ~ U(-1, 1) per cell and step, r a seeded unit direction, eps 1e-4 and 1e-3.
+- Run: settle 1000 steps, record 3000.
+- Readout: linear ridge readouts of u_(n-k), k = 0..40, with contiguous train, validation and test blocks. MC = sum of held-out R^2.
+
+**Cells.**
+- (a) "feig": the cascade line log10 T -0.14798, alpha 0.0640 to 0.0670, 151 cells. It crosses the flips of the crescent's doubling sequence and its accumulation point alpha_inf about 0.066125, the LLM's own onset of chaos. Exponents and labels are computed in the run.
+- (b) "h2": the 448 labelled cells of docs/h2-horizon-cells.json (192 chaotic, 192 periodic, 64 other; map exponents -1.49 to +0.53, 79 within 0.05 of zero).
+
+**Predictions.**
+- Edge hypothesis: MC peaks as lambda -> 0. Along the cascade line it peaks at the accumulation point.
+- **Alternative to watch:** MC peaks at every bifurcation (critical slowing down at each flip), not specifically at the onset of chaos. This would mean criticality, not chaos, is what matters.
+
+**Compute.** One H100-class pod, run limit 150 min; ceiling in the private ledger.
+
+## 2026-10-15 10:05 UTC: HEdev failed on its first record (code error); fixed; relaunched as HEdev2a and HEdev2b
+
+**Failure.** Pod (H100 80GB HBM3; commit from the orchestrator log; runner rc 0, job status 1; terminated; archive in runpod/soft64/20261015T095923Z). The job loaded Huginn and measured problem 0, then failed writing it: "TypeError: Object of type bool is not JSON serializable". classify() returned a numpy bool, and the unit tests did not serialize records.
+
+**Fix.** classify returns a Python bool; both tests now json.dumps every record (2 pass).
+
+**Relaunch.** Two pods, the same settings: train 0-59 and 60-119. The failed job's run time (two minutes including model loading) suggests about a minute per problem.
