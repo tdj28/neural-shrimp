@@ -23622,3 +23622,19 @@ Left to the human: moving the dialogue study to a companion paper; the report's 
   - (d) Spectrum: count the positive exponents among the top four at each chaotic cell. One means ordinary chaos; two or more means hyperchaos, which would be reported as a finding.
   - Would surprise us: a tangent-twin difference above 0.05 at any H2-chaotic cell, or label changes beyond cells with exponents near zero.
 - **Output:** `../neural-shrimp-data/explore/llm-soft-loop/pod64/hidden/{tc-h2-cells-tangent,tc-spectrum}`
+
+## 2026-10-15 01:06 UTC: Amendment: the sampled-dialogue study leaves the LLM paper (human decision on the referee report)
+
+The human decided at about 01:00 UTC to report the sampled self-dialogue study separately. Its text moved verbatim to paper/dialogue/dialogue-study-draft.tex (README there). The blocks are the section's dialogue motivation, the experiments from the capture ladder to the second classifier, the gratitude-ladder appendix, the replication-section sentences on gratitude capture, the contribution item and the frozen-test item.
+
+The deterministic results along the hostility direction stay in the paper, under the new section "Steering toward hostility" (label sec:hostility). Its short intro defines the direction and says the dialogue study is reported separately. These results are the hostile 2-cycle fold and its frozen passage test, the period-7 body with its cusp candidates and frozen unfolding offsets, the cascade and its satellite windows, and chaos behind a repeating text.
+
+Edits elsewhere:
+- The status line, the abstract sentence, the intro pointer and the related-work Markov-state-model item are removed.
+- The discussion drops three things: its control sentence, the dialogue sentence of "Steering strength is a bifurcation parameter" and the third point of the interpretability paragraph (now three points). The unposted-replication sentence and its Planned marker go as well.
+- The limitations drop the behavioural-study sentences.
+- In the evidence section the frozen-test list, the search-table row (reported tests 5 -> 4) and its caption change, the dialogue frozen-test item is removed, and the dialogue tools and audits leave the code and audit lists.
+
+The paper builds: 63 pages, no undefined references. The study's raw data, frozen designs and log entries are unchanged.
+
+Also new: tools/cusp_locate.py (run CL, below) with tests/test_cusp_locate.py. On the analytic cusp of x -> x + t1 + t2 (x-1) - (x-1)^3 it locates theta within 1e-6, with c = -1 and det J = 1.

@@ -26,8 +26,7 @@
 \maketitle
 \noindent\textbf{Status of this draft.} Unless marked otherwise, results on the soft-token map are numerically
 validated in float64 (rung 1 or 2 of the evidence ladder in Section~\ref{sec:evidence}). Float32 maps are labelled
-as such. Huginn's spectra are float32 and its accuracy runs bfloat16, and the dialogue results are sampled
-statistics with stated intervals. \planned{Red} marks planned work and \inprogress{orange} running work. The only
+as such. Huginn's spectra are float32 and its accuracy runs bfloat16. \planned{Red} marks planned work and \inprogress{orange} running work. The only
 computer-assisted proof is that of the period-8 orbit of Table~\ref{tab:orbits} (rung 3, Section~\ref{sec:evidence}).
 
 \begin{abstract}
@@ -44,8 +43,7 @@ OLMo-2-32B is the most chaotic OLMo model; and Qwen2.5-72B, nearly free of it on
 unfoldings near cusp candidates matched the recovered orbits at all twelve tested offsets, and fold normal forms predicted bottleneck passage times without fitting, with 23 of 24 frozen forecasts within one
 iterate. In the recurrent-depth model Huginn, a frozen test confirmed a spectrally predicted accuracy loss under relaxation.
 Interval arithmetic proves one period-8 orbit exists and is locally attracting, to our knowledge a first for a transformer
-language model. In sampled self-dialogue, keeping flagged replies out of context controls steered hostility at a fraction of the dose;
-counter-steering can backfire. The map is not ordinary
+language model. The map is not ordinary
 autoregressive generation.
 \end{abstract}
 
@@ -101,7 +99,7 @@ orbit, local unfoldings near cusp candidates predict which periodic orbits coexi
 spectral estimates of a recurrent-depth model predict how its questions respond to relaxation, with a predicted
 accuracy loss confirmed on held-out data. Ordinary sampled generation
 with a growing context is a different system. Section~\ref{sec:bridge} measures how much of the mechanism survives
-sampling, and Section~\ref{sec:misalignment} studies sampled dialogue directly.
+sampling.
 
 \paragraph{Contributions.}
 \begin{enumerate}
@@ -141,7 +139,7 @@ sampling, and Section~\ref{sec:misalignment} studies sampled dialogue directly.
   with nonzero cubic coefficients at the bracketing points. At nearby fold points the estimated two-parameter
   unfolding is nonsingular, and its local cubic model, frozen before solving, matched the number of distinct orbits
   that Newton solves seeded at its predicted roots recovered at all twelve parameter offsets, and their stability at
-  eleven; the search was not exhaustive (Sections~\ref{sec:curves} and~\ref{sec:misalignment}).
+  eleven; the search was not exhaustive (Sections~\ref{sec:curves} and~\ref{sec:hostility}).
 \item \emph{In a second system, spectral estimates predict the response to relaxation.} In the recurrent-depth
   model Huginn we predict a Neimark--Sacker bifurcation and then observe it. On held-out questions, an estimated
   spectral feature predicts the size of each question's residual under relaxation, and a separate frozen generation
@@ -153,21 +151,13 @@ sampling, and Section~\ref{sec:misalignment} studies sampled dialogue directly.
   reproduces four flip parameters, and an independent replay reproduces the frozen Huginn test. An interval-arithmetic
   proof shows that a primitive period-8 orbit exists and is locally attracting, to our knowledge the first proof of a
   periodic orbit of a full transformer language-model map (Section~\ref{sec:evidence}).
-\item \emph{In sampled dialogue, keeping a flagged reply out of the context controls hostility at a fraction of the
-  steering dose, and counter-steering can backfire.} Hostility steering of sampled self-dialogue produces steep,
-  direction-specific capture with dose-dependent persistence and hysteresis. Replacing flagged replies before they
-  enter the dialogue keeps the model's own hostility low at a quarter of the dose of constant prevention, while
-  counter-steering triggered after a hostile reply is less efficient. In Qwen2.5-1.5B the same ordering holds where
-  the dose response rises, but the dose response is not monotone, and every counter-steer backfires beyond its peak.
-  A pre-specified lead-time test is negative; a small warning from the model's in-context state is confirmed on fresh
-  dialogues (Section~\ref{sec:misalignment}).
 \item \emph{Structure familiar from low-dimensional maps is realized, with concrete texts, in several models.}
   Float64 phase maps in temperature and steering strength show chaos (positive finite-horizon exponents) with embedded
   windows (Section~\ref{sec:maps}), a period-adding family whose text gains one ``is X'' pair per period step
   (Section~\ref{sec:adding}), shrimp-like windows (Section~\ref{sec:curves}), and a doubling cascade with superstable
   points through period 384 and finite-order Feigenbaum ratios (Section~\ref{sec:cascade}). Past the cascade of a
   hostile window, chaos hides behind an exactly repeating text, and a fitted scalar return relation with one
-  quadratic maximum approximates its dynamics (Section~\ref{sec:misalignment}). The same organization
+  quadratic maximum approximates its dynamics (Section~\ref{sec:hostility}). The same organization
   appears in Qwen2.5-1.5B and 7B, OLMo-2 7B, Llama-3.1 8B (with sparse-autoencoder readouts) and a second checkpoint of
   the 0.5B architecture, which shares the organization but not the attractors (Section~\ref{sec:scale}). Our one
   mixture-of-experts model, Qwen3.5-35B-A3B, is the exception: no unsteered temperature we tested gave a positive
@@ -217,8 +207,8 @@ neuron models \cite{gomez2014universal,stenzinger2025shrimp,caixeta2025staircase
 from activation steering along contrastive directions \cite{zou2023representation,zhang2025steering}. The
 dynamical-systems tools are standard: numerical continuation and normal forms
 \cite{kuznetsov2023elements,govaerts2000numerical}, type-I intermittency \cite{pomeau1980intermittent}, shrimps and
-hubs \cite{gallas1993structure,facanha2013endoskeletons,vitolo2011hubs}, period-doubling universality
-\cite{feigenbaum1978quantitative}, and Markov state models \cite{chodera2014msm}.
+hubs \cite{gallas1993structure,facanha2013endoskeletons,vitolo2011hubs}, and period-doubling universality
+\cite{feigenbaum1978quantitative}.
 
 To our knowledge, this is the first work to compute periodic orbits with their multipliers, continue fold and flip
 bifurcation curves and bracket cusp candidates in the feedback map of a released pretrained language model. It is
@@ -997,7 +987,7 @@ Dashed lines: float64 flip parameters. The doubled loops alternate the number of
 \label{fig:qwen15route}
 \end{figure}
 In Qwen2.5-0.5B, a second steering direction, hostility, reproduces the fold-and-adding mechanism
-(Section~\ref{sec:misalignment}).
+(Section~\ref{sec:hostility}).
 
 Qwen2.5-7B (steering at layer 14 of 28, concept vectors built as for the smaller models) shows the same kind of
 organization in coarse $64^2$ float64 maps (Figure~\ref{fig:qwen7b}). Over the philosophy range used for 0.5B and
@@ -1032,7 +1022,7 @@ lower temperatures under strong hostility steering ($\alpha>0.07$). Below the ba
 the 2-cycle ``!Hello''; inside it lie periodic windows of periods 4 to 31. Along the hostility direction the
 largest windows, of periods 8 to 12, are loops of $k$ laps of the 2-cycle ``!<|endoftext|>'' with a short excursion
 (``there is an''). Each lap adds two to the period, as each lap of ``!Yes'' does in the hostile cascade of
-Qwen2.5-0.5B (Section~\ref{sec:misalignment}). Whether a fold of that 2-cycle organizes them is not tested: these are
+Qwen2.5-0.5B (Section~\ref{sec:hostility}). Whether a fold of that 2-cycle organizes them is not tested: these are
 coarse pixels, and no OLMo orbit has been continued.
 \begin{figure}[H]
 \centering
@@ -1087,12 +1077,7 @@ in each map), and thin window families run along the flanks. The attractors them
 416 to 900 distinct loops per map, only 10 occur in both models, all short and generic (``.'', ``!'', `` you are'',
 `` is it''), and they cover less than 10\,\% of either model's cells. Qwen2's planes are dominated by one period-4
 loop, ``!<|im\_end|>\textbackslash nHello'' (an end of turn followed by a new greeting; 41 and 59\,\% of cells), and
-Qwen2.5's by period-5 and period-2 loops (``![](https:// Hello'', `` you have''). In sampled self-dialogue the
-gratitude capture saturates in both models. We count replies with a word from the gratitude-and-servility list of the
-controller analysis. That list also catches ordinary assistant politeness, so the unsteered baseline is high (55\,\%
-for Qwen2 and 63\,\% for Qwen2.5; the Markov-state measure of Appendix~\ref{app:gratitude} is stricter). The share
-reaches 99\,\% at $\alpha=0.04$ in both. Qwen2 needs more steering: it stays near its baseline at $\alpha=0.01$
-(53\,\%) and reaches 88\,\% at $0.02$, against 70 and 98\,\% for Qwen2.5. The two checkpoints share the organization
+Qwen2.5's by period-5 and period-2 loops (``![](https:// Hello'', `` you have''). The two checkpoints share the organization
 of the map; the weights set its content.
 \begin{figure}[H]
 \centering
@@ -1515,45 +1500,13 @@ a residual is not in general a distance to the fixed point. Descriptively, the s
 detected unstable mode rises from $8\,\%$ natively to $34$, $69$ and $84\,\%$ at $\lambda=1.05$, $1.08$ and $1.10$.
 An independent implementation reproduced both parts of the frozen test from the saved data.
 
-\section{Hostile behaviour under steering}
-\label{sec:misalignment}
-The maps show how a smooth change of a control parameter can create, destroy or exchange attractors, and how
-behaviour near the boundaries becomes intermittent and history-dependent. The same questions can be asked of
-undesirable behaviour in ordinary sampled dialogue, where attractor-like patterns and persona drift have been observed
-\cite{ko2026attractor,anthropic2025claude4,lu2026assistant} and input context can push behaviour progressively
-\cite{anil2024manyshot}. Do states such as hostility toward the interlocutor behave like basins of attraction, with
-capture thresholds, hysteresis and early-warning signals? (Misalignment produced by fine-tuning
-\cite{betley2025emergent} is a different, weight-level phenomenon.) The measurements below concern a
-classifier-defined proxy in sampled dialogue. They can show steering-dependent persistence, history dependence and the
-effect of controls. They cannot show semantic misalignment, nor a deterministic attractor, since a growing context
-itself carries memory.
-
-Appendix~\ref{app:gratitude} shows the coarse-grained instrument on a benign direction. Self-dialogue of the same
-model, sampled at $T=0.7$ and steered along a gratitude direction, falls into a metastable gratitude set. The capture
-is gradual at $\alpha=0.01$ (median entry turn 7), fast at $0.02$ (median 5) and imposed from the first reply at
-$0.04$, where the set is effectively absorbing within 40 turns.
-
-For hostility we steer along a valence direction, the contrast of hostile statements against matched kind ones, built
-in the manner of contrastive activation addition \cite{rimsky2024steering}; its cosine with the gratitude direction is
-$-0.04$. Hostility is scored by a pinned toxicity classifier, toxic-bert of Detoxify \cite{hanu2020detoxify}, and a
-reply counts as hostile when its toxic output exceeds $0.5$. On the prompt sets the classifier's toxic output is
-$0.95$ for the hostile statements and at most $0.002$ for the kind and neutral ones. In a dry run (8 dialogues of 10
-turns per dose), no turn was hostile at $\alpha=0.02$. At $0.04$, 7.5\,\% of turns were, in bursts and late captures,
-and at $0.08$, 87.5\,\% were, from the first turns.
-
-Activation-based methods already anticipate response behaviour \cite{ashok2025behavior,chen2025persona,lu2026assistant},
-committors have been used in language-model decoding \cite{zhou2026commitment}, and adaptive timing of
-counter-steering gave no consistent advantage in one persona setting \cite{leins2026drift}. Our primary question is
-therefore incremental. Near the threshold, does a dynamical estimate add several turns of warning of capture over
-strong baselines that see the same turns (the classifier's score, its change and history, the turn index and a fixed
-persona-axis projection)? The dynamical estimates are a Markov-chain hitting probability, a finite-horizon committor
-\cite{e2006transition,e2010transition} and slowing-down indicators \cite{scheffer2009early}. Barrier-crossing rates
-would follow Kramers' law \cite{kramers1940brownian} only under a justified stochastic reduction, and slowing-down
-proxies depend on the mechanism of the transition \cite{ditlevsen2010tipping}; before epileptic seizures, for
-example, the evidence for them is mixed \cite{maturana2020slowing,hagemann2021criticality}. A secondary question
-is whether interventions timed by those estimates prevent capture at lower cost than scheduled or constant
-counter-steering. Early warning is not expected for noise-induced jumps without a nearby bifurcation, or for
-transitions faster than the slowing-down; such a monitor would complement classifiers, not replace them.
+\section{Steering toward hostility}
+\label{sec:hostility}
+A second steering direction tests whether the organization of the philosophy-steered map is specific to one
+concept. We steer along a valence direction, the contrast of hostile statements against matched kind ones, built
+in the manner of contrastive activation addition \cite{rimsky2024steering}; its cosine with the gratitude
+direction is $-0.04$. Sampled self-dialogue under the same steering is a different system, with a growing context
+and sampling noise; we report that study separately and follow the direction here in the deterministic map.
 
 \paragraph{The hostility direction in the deterministic map.} Steering the soft-token map of
 Section~\ref{sec:map} along the same hostility direction gives a plane with chaos (a positive largest exponent in
@@ -1739,236 +1692,6 @@ at the last window.}
 \label{fig:hostile-cascade}
 \end{figure}
 
-\paragraph{Capture ladder.} With 128 dialogues of 40 turns per dose, the share of hostile turns rises steeply from
-$10\,\%$ at $\alpha=0.04$ to $30\,\%$, $57\,\%$ and $87\,\%$ at $0.05$, $0.06$ and $0.07$ (Table~\ref{tab:hostility}).
-Replicates with a second seed agree within three percentage points. Directions of the same norm do not produce this
-capture: at $0.06$, $0\,\%$ of turns are hostile for a random direction and $3\,\%$ for a cooking direction, and at
-$0.08$, $0.6\,\%$ and $12\,\%$ for two random directions and $7\,\%$ for cooking. After the first hostile turn, the
-probability of staying hostile in the next turn grows with the dose, from $0.36$ to $0.67$, $0.79$ and $0.94$. The
-hostile state therefore changes from flickering bursts (geometric persistence summary $1/(1-P_{\rm stay})$: $1.6$
-turns) to a near-absorbing state (16 turns),
-with an escape rate falling roughly exponentially with the dose. This is the same progression, from dynamic capture
-to imposed capture, as in the gratitude ladder (Appendix~\ref{app:gratitude}).
-\begin{table}[H]
-\centering\small
-\setlength{\tabcolsep}{4pt}
-\begin{tabular}{lccccc}
-\toprule
-direction, $\alpha$ & hostile turns & never hostile & median onset & $P(\text{stay hostile})$ & hostile, turns 30--39 \\
-\midrule
-none, $0$ & $0\,\%$ & 128/128 & -- & -- & $0\,\%$ \\
-hostility, $0.04$ & $10\,\%$ & 26/128 & 9 & $0.36$ & $12\,\%$ \\
-hostility, $0.05$ & $30\,\%$ ($28\,\%$) & 10/128 & 3 & $0.67$ ($0.63$) & $32\,\%$ \\
-hostility, $0.06$ & $57\,\%$ ($55\,\%$) & 4/128 & 2 & $0.79$ ($0.80$) & $66\,\%$ \\
-hostility, $0.07$ & $87\,\%$ & 0/128 & 1 & $0.94$ & $96\,\%$ \\
-random, $0.06$ / $0.08$ & $0\,\%$ / $12\,\%$ & 126 / 72 & & & \\
-cooking, $0.06$ / $0.08$ & $3\,\%$ / $7\,\%$ & 97 / 68 & & & \\
-\bottomrule
-\end{tabular}
-\caption{Sampled self-dialogue of Qwen2.5-0.5B (128 dialogues, 40 turns, $T=0.7$) steered along the hostility
-direction, with controls of the same norm. Hostile turn: toxicity classifier above $0.5$. Parentheses: replicate with a
-second seed. Exploratory.}
-\label{tab:hostility}
-\end{table}
-
-\paragraph{Hysteresis.} Dialogues driven through the high-dose regime do not recover when the dose returns. The
-test compares constant doses with a ramp that raises the dose from $0.04$ to $0.07$ by turn 20 and lowers it back to
-$0.04$ by turn 39 (Figure~\ref{fig:hysteresis}; 256 dialogues per arm, two seeds; analysis stated before the data).
-In turns 35--39, where the ramp's dose is back at $0.040$--$0.046$, the share of hostile turns is $0.42$ after the ramp
-against $0.13$ at a constant $0.04$: a difference of $+0.29$, 95\,\% interval $[+0.23,+0.35]$. It is also above the
-$0.33$ of a constant $0.05$ (difference $+0.09$, interval $[+0.02,+0.16]$), although the current dose is lower; this
-comparison alone does not survive a second classifier (see below). The per-turn probability of staying hostile in
-turns 30--39 is $0.74$ after the ramp and $0.44$ at a constant $0.04$. The hostile state is therefore
-history-dependent: undoing the push that produced it does not undo it.
-
-How far back must the dose go? After the same ramp up (38--44\,\% of turns hostile at turn 20), the dose was held
-from turn 21 at a lower value (Figure~\ref{fig:hysteresis-loop}; two seeds of 128 dialogues per arm unless stated;
-analyses stated before the data). At both doses with a fresh control, memory persists. Held at $0.04$, the late share
-is $0.23$ against $0.13$ for fresh dialogues (difference $+0.09$, 95\,\% interval $[+0.04,+0.15]$). Held at $0.03$,
-it is $0.13$ against $0.05$ ($+0.08$, $[+0.04,+0.12]$), and the probability of staying hostile is $0.56$ against
-$0.29$. Held at $0.02$ (one seed), the share is $0.09$. Only at zero dose do captured dialogues nearly clear ($0.03$
-against $0$ for fresh ones, within about six turns), and a counter-steer of $-0.02$ toward kindness clears them
-within three turns ($0.004$). Within 19 turns of the step, the capture and release branches therefore join only near
-zero dose. The hostile state has a wide hysteresis loop in the dose, and leaving it takes either removing the push
-entirely or a modest push in the opposite direction. The release curves are still falling at $0.03$, so this is
-hysteresis on the scale of tens of turns; whether captured dialogues would stay captured indefinitely is not tested.
-\begin{figure}[H]
-\centering
-\includegraphics[width=0.58\linewidth]{fig-hysteresis-loop.png}
-\caption{Capture and release in sampled self-dialogue of Qwen2.5-0.5B-Instruct steered along the hostility
-direction (layer 12). Share of hostile turns in turns 35--39 against the dose then applied, for fresh dialogues
-(constant dose) and for dialogues first ramped from $0.04$ to $0.07$ by turn 20 and then held at a lower dose (filled
-triangles) or ramped back down (open triangle). Bars: dialogue-level bootstrap 95\,\% intervals; 256
-dialogues per point (two seeds) except fresh $0$ and $0.07$ and held $0.02$ (128).}
-\label{fig:hysteresis-loop}
-\end{figure}
-\begin{figure}[H]
-\centering
-\includegraphics[width=0.6\linewidth]{fig-hysteresis.png}
-\caption{Hysteresis of the hostile state in sampled self-dialogue of Qwen2.5-0.5B-Instruct steered along the
-hostility direction (layer 12). Top: dose schedules. Bottom: share of hostile turns per turn. The grey band (turns
-35--39) is the pre-stated comparison window. Exploratory.}
-\label{fig:hysteresis}
-\end{figure}
-
-\paragraph{Exit control under persistent pressure.} Can a monitor detect the hostile state and push the dialogue
-out while the pressure persists? With a constant push of $0.06$ (58\,\% of turns 5--39 hostile without control), a
-counter-steer triggered by the classifier after each hostile reply and held for three turns cuts the hostile share
-to $15\,\%$ (mean counter-dose $0.026$ per turn); held for six turns, it cuts the share to $8.5\,\%$ (dose $0.030$).
-A constant mild counter-steer of $-0.02$ does as well with less dose ($8.5\,\%$ at $0.020$), and $-0.04$ almost
-removes hostility ($1.3\,\%$). Measured against the constant dose-response at equal mean dose, triggered control is
-less efficient by $4$--$11$ points (bootstrap intervals $[+0.02,+0.05]$ to $[+0.10,+0.13]$; one seed of 128 dialogues
-per arm, analysis stated before the data). It also overshoots: a triggered overshoot to a net $-0.02$ fills $30\,\%$
-of turns with gratitude or servility words (no control: $0.2\,\%$; constant $-0.02$: $0.2\,\%$), the gratitude set of
-Appendix~\ref{app:gratitude}. A triggered counter-steer along the generic kindness concept, whose direction shares
-much with the hostility concept (cosine $0.83$), leaves the hostile share at $57\,\%$ under the original classifier
-(no control: $58\,\%$) but lowers it from $37\,\%$ to $17\,\%$ under the second classifier introduced below. It
-changes the kind of reply rather than removing it. In this arm, 65\,\% of the replies that only the original
-classifier flags are shouted second-person repetitions such as ``You! You! You!'' (at least three such exclamations;
-without control, 4\,\%), which the two classifiers judge differently. Its mean counter-dose ($0.056$) also lies
-outside the range of the constant arms, so we draw no conclusion about the kindness direction. In this setting,
-reacting after detection costs more than mild prevention, consistent with the hysteresis above.
-
-\paragraph{Detect and replace.} Capture feeds on its own history (the hysteresis above), which suggests that the
-hostile reply itself carries the dialogue into the hostile state. A serving system need not show a flagged reply.
-(Regenerating flagged output relates to learned self-correction \cite{welleck2022selfcorrect}; here the
-regeneration is steered.) In a second controller experiment, with the same push, seed and analysis as above (stated
-before the data), every reply the classifier flags is discarded before it enters the dialogue and regenerated once
-with a counter-steer of $-0.04$ applied to that reply only. Sampled dialogues are not bit-reproducible across code
-versions, so this run's no-control arm, which reproduces the ladder's $0.06$ arm exactly, differs slightly from the
-previous paragraph's; arms are compared within each run. The model's own replies, counted before any replacement,
-are then hostile in $12\,\%$ of turns ($[11, 14]\,\%$; no control in the same run: $59\,\%$) at a mean counter-dose of
-$0.005$ per turn. Constant prevention at $-0.02$ needs four times that dose for a similar share ($11\,\%$). Against the
-constant dose-response at equal mean dose, replacement is better by $35$ points ($[30, 40]$). Hostile replies shown
-fall to $1\,\%$, gratitude words stay at $0.5\,\%$ of turns, and about one turn in eight is regenerated. Holding the
-counter-steer for three more turns lowers the share to $8\,\%$ at dose $0.013$, and the post-reply trigger of the
-previous paragraph, rerun here, again does worse than prevention ($13\,\%$ at $0.024$). The trigger and the outcome
-use the same classifier, so the measure is the classifier's verdict on the model's original replies, which is
-comparable across arms. The discarded originals were not stored, so the second classifier can score only the replies
-shown: $0.8\,\%$ hostile (no control: $34\,\%$). For this behaviour, the useful intervention is to keep the excursion
-out of the state at the moment it occurs.
-
-\paragraph{Replication in a larger model.} The same protocol in Qwen2.5-1.5B (hostility direction built identically
-at layer 14 of 28; 128 dialogues of 40 turns per arm; shares over turns 5--39) gives a steeper capture ladder that is
-not monotone (Figure~\ref{fig:p1ladders}). The hostile share rises from 0 at $\alpha=0.01$ to $44\,\%$ at $0.02$ and
-$80\,\%$ at $0.03$--$0.04$. It falls to $30$--$34\,\%$ at $0.06$--$0.10$, where most replies degenerate into token
-soup or tight accusatory loops ($87\,\%$ degenerate at $0.08$), and rises again to $75\,\%$ at $0.12$, where replies
-are coherent again. The second classifier shows the same shape ($32$, $58$, $41$, $28$, $20$, $41$ and $52\,\%$ from
-$0.02$ to $0.12$), and a random direction of the same norm gives at most $0.7\,\%$ hostile turns.
-
-We ran the controller experiment twice with the pre-stated rule: controllers run at the ladder dose whose hostile
-share is closest to one half, with ladders on seed 1 and controller arms on seed 2, so the no-control arms differ
-slightly from the ladder at the same dose. With a first ladder ($0.04$--$0.12$) the rule chose $0.08$, in the
-degenerate regime beyond the peak. There every counter-steer lowered the net dose toward the coherent-hostility peak:
-the share of the model's own replies judged hostile rose from $36\,\%$ without control to $54\,\%$ with replacement
-and $60\,\%$ with the post-reply trigger, while degenerate replies fell. With a second ladder ($0.01$--$0.04$) the
-rule chose $0.02$, on the rising side, where $96\,\%$ of replies are coherent. There the 0.5B results replicate in
-order and size. Replacement cuts the model's own hostile share from $43\,\%$ to $10\,\%$ ($[9,12]\,\%$; shown replies
-$0.3\,\%$) at a mean counter-dose of $0.004$, $24$ points ($[20,28]$) below the constant dose-response at equal dose,
-and the post-reply trigger is again slightly less efficient than constant prevention ($+2$ points, $[+1,+3]$). On the
-shown replies the second classifier agrees ($2.6\,\%$ against $32\,\%$ without control; $-23$ and $+3$ points).
-Constant counter-steering at $-0.02$ cancels this push, and the dialogues return to the model's ordinary politeness.
-The two ladders share the dose $0.04$ and the seed, and that arm reproduced exactly from vectors rebuilt on another
-machine. Control that works on the rising side of a dose response can therefore backfire beyond its peak. Much like a
-bifurcation diagram, the dose response has to be mapped before a counter-steer is chosen.
-\begin{figure}[H]
-\centering
-\includegraphics[width=\linewidth]{fig-p1-ladders.png}
-\caption{Hostility dose ladders of sampled self-dialogue in Qwen2.5-0.5B-Instruct (steered at layer 12) and
-Qwen2.5-1.5B (layer 14); 128 dialogues of 40 turns per point, shares over turns 5--39. Left: share of hostile turns
-along each model's own hostility direction, first classifier (filled) and second (open). Right (Qwen2.5-1.5B): share of degenerate replies (more than $30\,\%$ non-Latin characters, or fewer than
-$30\,\%$ distinct word pairs) and of coherent hostile replies. Steering strengths are each model's own $\alpha$;
-equal values are not claimed to be equal pushes across models.}
-\label{fig:p1ladders}
-\end{figure}
-
-\paragraph{Lead time.} The pre-specified test is negative. Models were fit on the first seed (all four doses) and
-tested on held-out dialogues of the second seed (doses $0.05$ and $0.06$). There, adding the dynamical features to the
-baselines lowers the AUC (area under the ROC curve) by $0.02$ to $0.06$ at horizons of 1--5 turns, with bootstrap
-intervals excluding zero. These values come after correcting a labelling error found in review, which had marked the
-last turns of dialogues without any hostile turn as positive; before the correction the losses read $0.02$ to $0.10$.
-The Markov hit-probability forecast does not transfer (AUC $0.37$--$0.43$ on test, $0.60$ in training), and the
-classifier's own score carries no warning before onset (AUC about $0.5$). Two signals carry modest warning one to five
-turns ahead (AUC $0.53$--$0.64$): the rolling variance of a hostility probe, the classical early-warning indicator,
-and the projection on the fixed steering axis, as in persona-vector monitoring \cite{chen2025persona}. In this design,
-then, the coarse-grained state estimate adds no warning beyond the baselines. An adapted analysis with dose-matched
-models (fit and test at the same dose) gives the same answer: incremental AUC $-0.01$ to $-0.03$ (recomputed with the
-corrected labels).
-
-\paragraph{The model's own state carries the warning.} The state variable of that test was each reply re-encoded
-without its context, not the model's state inside the dialogue. A second study (new seeds, doses $0.04$ and $0.045$,
-512 dialogues; analysis stated before the data, cross-fitted by dialogue) recorded the model's own state just before
-each reply and probed it actively; internal states are known to carry information that the text does not show
-\cite{azaria2023internal}. Its pre-stated primary predictor, the susceptibility (the change in the hostile fraction of
-eight sampled next replies when the dose is raised by $0.02$), adds nothing: $-0.002$ $[-0.006,+0.002]$ AUC at three
-turns. Two secondary predictors add modest warning beyond the baselines. A probe of the in-context state before the
-next reply (layer 18, 20 principal components) raises the AUC for capture within three turns from $0.64$ to $0.68$
-($+0.036$ $[+0.014,+0.058]$; within one turn $+0.045$ $[+0.019,+0.069]$; within five $+0.036$), and a forecast from
-eight sampled next replies adds $+0.016$ $[+0.007,+0.027]$ at three turns. At a 10\,\% false-positive rate (threshold
-from the out-of-fold negatives), the probe flags 27\,\% of the turns that are followed by capture within three turns,
-against 23\,\% for the baselines. These values use labels corrected after a review found that the last turns of
-dialogues without any hostile turn had been marked positive; with the faulty labels the increments had read three
-times larger. The probe's direction in the layer-18 state is nearly orthogonal to the steering direction (cosine
-$0.04$), so the warning is not simply more push along the hostility axis. Because these predictors were secondary,
-the result is exploratory.
-
-A frozen confirmation then fit both models on this study and applied them unchanged to 1024 fresh dialogues. Its
-design and analysis were pushed before the data, and the label correction was added before any confirmation dialogue
-was read. The in-context state again adds warning for capture within three turns: AUC $0.656\to0.689$, $+0.033$
-$[+0.018,+0.048]$ (within one turn $+0.036$, within five $+0.037$; both doses separately positive). The warning in the
-model's own state is therefore real and reproducible, but small. At thresholds fixed from the training negatives, the
-model with the state flags 29.1\,\% of the turns that are followed by capture within three turns, against 27.5\,\% for
-the baselines, at held-out false-positive rates of 10.3\,\% and 10.6\,\% (these are prediction windows, not distinct
-captures). It is not a reliable detector by itself.
-
-\paragraph{How much warning is there?} For the conversation state after a turn, the probability of capture within
-the next $h$ turns, the committor \cite{e2006transition}, ranks states optimally among all warnings that use the same
-information. We estimated it for 1706 states of the confirmation dialogues from 32 continuations of three turns each,
-sampled exactly like the dialogues. This analysis is exploratory: it was stated before the data and amended twice
-after an independent review, still before the analysis outcomes were read. The continuations reproduce the realized
-capture rates (population-weighted $0.049$, $0.094$, $0.134$ within one, two and three turns, against $0.046$, $0.095$,
-$0.136$). On a stratified sample of 800 states, the committor estimate warns with an AUC of $0.72$, $0.71$ and $0.70$
-(a heuristic extrapolation to infinitely many continuations gives $0.75$, $0.73$, $0.72$), and the in-context detector
-of the confirmation with $0.73$, $0.72$ and $0.71$. The differences are not significant, with intervals reaching about
-$\pm0.05$ (Figure~\ref{fig:committor}). Dialogues that were captured later sit at about twice the committor of
-never-captured ones over all ten preceding turns, with no visible ramp toward the onset (a description conditional on
-the outcome, not an identification of the mechanism). In this finite Monte Carlo experiment, the committor estimate
-did not provide detectably better warning than the in-context probe. The heuristic extrapolation leaves appreciable
-uncertainty, so these results do not identify the Bayes warning ceiling. Together with the persistent elevation of
-risk before capture, they motivate evaluating reactive control, such as detect-and-replace, alongside prediction;
-they do not prove that prediction cannot improve.
-\begin{figure}[H]
-\centering
-\includegraphics[width=\linewidth]{fig-committor.png}
-\caption{Warning of hostile capture in sampled self-dialogue of Qwen2.5-0.5B-Instruct (hostility direction at layer
-12): detectors and the Monte Carlo committor. Left: AUC for capture within $h$ turns on 800 stratified states of the
-confirmation dialogues, for the classifier baselines, the in-context detector (both fit on the exploration study), the
-Monte Carlo committor from 32 continuations, and its heuristic $1/K$ extrapolation (dialogue-bootstrap 95\,\%
-intervals). Right: mean committor in the ten turns before capture for 48 dialogues captured after turn 10, and for
-never-captured dialogues at the same turns (descriptive).}
-\label{fig:committor}
-\end{figure}
-\paragraph{A second classifier.} The Qwen2.5-0.5B outcomes above were first measured with one automated
-classifier. We therefore rescored all 44 of its dialogue sets with an independently trained RoBERTa classifier
-\cite{logacheva2022paradetox}, trained on the three Jigsaw toxicity datasets (which include the first classifier's
-training set) and used with the same threshold, and an independent audit recomputed every pre-stated contrast with
-it. This is a robustness check on dialogues already analysed, so it is exploratory. On these sets the second
-classifier is stricter. At $\alpha=0.06$ it flags $35\,\%$ of turns instead of $57\,\%$, and at $0.07$ $62\,\%$
-instead of $87\,\%$. Almost all disagreements are replies that only the original flags (at $0.06$, $23\,\%$ of turns
-against $0.7\,\%$ the other way), most of them repetitive exclamations such as ``You're an AI! You're an AI!''.
-Capture still rises steeply with the dose and stays specific to the hostility direction (random and cooking directions
-at $0.08$: at most $0.2\,\%$ of turns), but the hostile state is less persistent (geometric persistence summary at $0.07$:
-$6.5$ turns instead of $16$). History dependence survives. After the ramp, the late share exceeds that of a constant $0.04$ by
-$+0.16$ $[+0.11,+0.21]$, and the held contrasts are $+0.05$ $[+0.01,+0.10]$ at $0.04$ and $+0.04$ $[+0.01,+0.08]$ at
-$0.03$; only the comparison with a constant $0.05$ loses its positive lower bound ($+0.06$ $[-0.001,+0.12]$). Refitting the warning models with the second classifier's labels and baseline
-features (fit on the exploration study, applied unchanged to the confirmation dialogues) gives a pooled increment of
-$+0.043$ $[+0.024,+0.062]$ AUC for capture within three turns. It stays positive at dose $0.045$ ($+0.061$) and is
-$+0.020$ $[-0.009,+0.049]$ at $0.04$. The three replacement arms keep the replies shown below the constant-dose
-response at equal mean dose under both classifiers. Both instruments are automated and may share errors; no human
-labels were collected.
-\planned{a hazard model; longer holds to separate slow release from bistability; other openers and steering
-directions; larger models; human labels for the outcome.}
-
 \section{Discussion}
 \label{sec:discussion}
 \paragraph{What theory allows, and what is new.} Chaos and periodic windows occur in many nonlinear feedback
@@ -2006,8 +1729,6 @@ candidates; derivative-based normal-form predictions in a task-trained looped tr
 \cite{kim2026phase}. A frozen spectral prediction of the response to relaxation is confirmed on held-out data in
 Huginn, and one periodic orbit of the full transformer map of
 Qwen2.5-0.5B-Instruct is proved by interval arithmetic; we know of no earlier instance of either for a language model.
-The dynamical view also has consequences for control in sampled dialogue, where the dose response is not monotone and
-counter-steering can backfire.
 \paragraph{Is steering the origin of the chaos?} Steering adds a fixed vector to the residual stream, so chaos along
 a steering axis could belong to the push rather than to the model. At $\alpha=0$, however, the map is the unsteered
 model's own feedback map, with temperature as its only parameter. The $\alpha=0$ columns of the hostility maps contain
@@ -2122,29 +1843,22 @@ stayed chaotic and 91 were periodic. The Feigenbaum ratios are
 finite-order values that rise toward $\delta$ (the last is within 1\,\%); the limit itself is not computed. All
 orbit, bifurcation and chaos results concern the constructed map, not sampled generation with a growing context. With
 sampling, the bridge of Section~\ref{sec:bridge} tests only whether the bottleneck's laminar phases survive the noise;
-its other tests are deterministic (greedy decoding, longer fed-back memories and Soft Thinking's growing context). The
-behavioural results are statistics of sampled dialogue, not orbits. The behavioural study uses two small models of
-one family (0.5B and 1.5B), one opener and a proxy defined by two automated classifiers without human labels. Its
-first lead-time test is negative, and the confirmed warning from the in-context state is small.
+its other tests are deterministic (greedy decoding, longer fed-back memories and Soft Thinking's growing context).
 
 \paragraph{Steering strength is a bifurcation parameter.} In the soft-token map, small changes of the steering
 strength switch the model between distinct repeating texts, chaos and coexisting attractors. Near a fold curve,
-behaviour becomes intermittent, with laminar phases whose duration the fold's normal form predicts in advance. In
-sampled dialogue, the dose along a hostility direction controls how long a hostile state persists, continuously from
-bursts to near-absorption, while directions of the same norm do almost nothing. Both observations argue for treating
+behaviour becomes intermittent, with laminar phases whose duration the fold's normal form predicts in advance. This argues for treating
 an activation-steering coefficient like any control parameter of a nonlinear system. Its bifurcation set should be
 characterized before an operating point is chosen, history dependence should be expected near boundaries, and a
-monotone, smooth dose response should not be assumed. In steering studies, outputs that fall into verbatim repetition
-at high doses are usually discarded as quality failures. In a replication of a feature-steering study of self-reports
-\cite{berg2025selfreferential}, the highest doses failed quality checks in this way
-\planned{citation of the replication once posted}. In the present framework such loops are candidate attracting
+monotone, smooth dose response should not be assumed. Outputs that fall into verbatim repetition at high steering
+doses are naturally treated as quality failures. In the present framework such loops are candidate attracting
 periodic orbits, and the dose at which they appear is a boundary that can be mapped like the others. The
 deterministic map is where such sets can be defined precisely and computed numerically. Whether its boundaries
 predict boundaries of sampled behaviour is open. The bridge of Section~\ref{sec:bridge} shows that sampling noise
 shortens the laminar phases of the bottleneck, by an amount that depends on how many samples are averaged.
 
 \paragraph{What this suggests for interpretability and alignment.} Our results come from open models of 0.5B to
-72B parameters and a constructed loop, but they suggest four things about models whose outputs feed back into their inputs, as in
+72B parameters and a constructed loop, but they suggest three things about models whose outputs feed back into their inputs, as in
 self-dialogue, agent loops and pipelines of model calls. First, where the loop is chaotic, a perturbation of
 $10^{-6}$ grows to order one within roughly 15 to 50 steps (the largest unsteered exponents of the 7B and 8B
 models are 0.30 to 0.88 per step). Even a complete account of single forward passes then predicts a long trajectory
@@ -2163,10 +1877,7 @@ specific to concept-labelled directions, but a direction's geometry and its mean
 also hide the dynamics: in the hostile cascade, a seven-token text repeats exactly while the state underneath is
 chaotic (Figure~\ref{fig:hiddenbands}), so a monitor that reads only the emitted text would call a chaotic regime
 periodic.
-Third, when a behaviour sustains itself through a loop, acting on the loop can be cheaper than pushing against the
-behaviour. In sampled dialogue, the most dose-efficient control we found kept flagged replies out of the context,
-while counter-steering against the activations was less efficient and, in the larger model, backfired past the
-peak of the dose response (Section~\ref{sec:misalignment}). Fourth, conclusions drawn at one operating point need not transfer: which loop a
+Third, conclusions drawn at one operating point need not transfer: which loop a
 model enters depends on how much context it keeps (Table~\ref{tab:memory}), on the path by which a boundary is
 approached, and on the sampling noise (Section~\ref{sec:bridge}). Treating a looped model as a dynamical system, with
 regimes and boundaries to be mapped, rather than as a function to be evaluated point by point, seems to us the
@@ -2180,8 +1891,8 @@ The periodic loops are the familiar degeneration of decoding into repetition
 comes from sampling and a growing context, which wash out much of this structure (Section~\ref{sec:bridge}). What
 the chaos does matter for is predictability and control. Positive finite-horizon exponents limit open-loop
 prediction of a trajectory at fixed state precision (our experiments do not establish mixing or limits on feedback
-stabilization); a stable attractor is predictable, but it can also hold a model in a state it should leave, as the
-hostile capture of sampled dialogue shows (Section~\ref{sec:misalignment}). On the paper's prompt, the largest Qwen2.5 and Llama
+stabilization); a stable attractor is predictable, but it can also hold a model in a state it should leave, such as the
+hostile loops of Section~\ref{sec:hostility}. On the paper's prompt, the largest Qwen2.5 and Llama
 models sit near the stable end, but across prompts a 14B Qwen model is more chaotic than the 7B, at higher
 temperatures, and OLMo-2-32B is among the most chaotic models we tested (Section~\ref{sec:size}). Whether regimes
 near the boundary between order and chaos are especially useful, as has been argued for computation in dynamical
@@ -2231,8 +1942,8 @@ a pilot that found no cusp within a bounded search). Of 54 Newton orbit attempts
 reversals on continued fold curves, six were tested, and all six are reported as cusp candidates (a bracketed sign
 change of the quadratic coefficient with nonzero cubic coefficients); one is untested. Two of the five regions we flagged as shrimp candidates are reported as shrimp-like. One further
 language model (Ouro-1.4B) was explored and is not reported; its apparent chaos was a long transient. Every window
-was chosen after the maps were inspected. Only the passage forecasts, the cusp-unfolding offsets, Huginn's relaxation
-test and the dialogue warning confirmation were fixed before the computations that test them
+was chosen after the maps were inspected. Only the passage forecasts, the cusp-unfolding offsets and Huginn's relaxation
+test were fixed before the computations that test them
 (Table~\ref{tab:search}).
 \begin{table}[H]
 \centering\small
@@ -2250,12 +1961,13 @@ Newton orbit attempts & 54 & -- & 7 failed \\
 Tangent reversals on fold curves & 7 & 6 & 1 untested \\
 Unfolding offsets, frozen & 12 & 12 & counts 12/12, stability 11/12 \\
 Shrimp-candidate regions & 5 & 2 & reported as shrimp-like \\
-Tests fixed before outcomes & 6 & 5 & 2 all-row criteria failed by one row \\
+Tests fixed before outcomes & 6 & 4 & 2 all-row criteria failed by one row \\
 Language models loaded & 8 & 7 & Ouro-1.4B not reported \\
 \bottomrule
 \end{tabular}
-\caption{Search scale on 14 October 2026, before the steering-control maps (Huginn's frozen test counted once; the
-sixth test, a cusp pilot in a second checkpoint, is the unreported bounded search).}
+\caption{Search scale on 14 October 2026, before the steering-control maps (Huginn's frozen test counted once; of the two
+tests not reported here, one belongs to the separately reported sampled-dialogue study and one, a cusp pilot in a
+second checkpoint, is the unreported bounded search).}
 \label{tab:search}
 \end{table}
 \begin{itemize}
@@ -2299,9 +2011,6 @@ sixth test, a cusp pilot in a second checkpoint, is the unreported bounded searc
 \item Prospectively frozen and independently replayed: Huginn's relaxation test on held-out data, confirmed in both
   parts; an independent implementation reproduced both from the saved rows and spectra (GSM8K part exactly,
   item-level part to $10^{-12}$) (Section~\ref{sec:huginn}).
-\item Prospectively frozen as well: the confirmation of the in-context warning in sampled dialogue
-  (Section~\ref{sec:misalignment}), whose design was pushed before the data and amended, before any outcome was read,
-  to correct a labelling error.
 \end{itemize}
 \paragraph{Hardware.} Float64 GPU computations ran on rented NVIDIA H100 (NVL, PCIe and 80\,GB HBM3), H200,
 H200 NVL and A100 80\,GB (SXM4 and PCIe) GPUs, one GPU per run except for the 70B-class models, whose layers were
@@ -2315,43 +2024,13 @@ input-archive hashes for 135, result-archive hashes for 227) and 16 pods that en
 were checked across hardware where it mattered (for example, flip parameters agree between CPU and H100 to
 $4\times10^{-15}$).
 {\sloppy Code: \path{tools/explore_llm_soft_loop.py}, \path{tools/bifurcation_curves.py}, \path{tools/llm_feigenbaum.py},
-\path{tools/explore_latent_loop.py}, \path{tools/explore_llm_msm.py}, \path{tools/hostility_score.py},
-\path{tools/p1_committor.py}, \path{tools/p1_controller.py}, \path{tools/p1_degeneracy.py},
+\path{tools/explore_latent_loop.py},
 \path{tools/cusp_check.py}, \path{tools/huginn_relax_eval.py}, \path{tools/huginn_arc_analysis.py}. Raw-data hash
 receipts: \path{evidence/llm-dynamics-data-receipts.json} (to 12 October), the per-run receipts in the research log,
 and the verified snapshot manifests in \path{docs/backups/}; independent cross-check and audit receipts are under
-\path{codex/} (\path{crosscheck}, \path{confirm-fold}, \path{hostile-fold-crosscheck}, \path{misalignment-audit},
-\path{l9-committor-review}, \path{huginn-design-review}, \path{huginn-independent-replay},
-\path{p1-second-classifier-audit}, \path{paper-review}).\par}
+\path{codex/} (\path{crosscheck}, \path{confirm-fold}, \path{hostile-fold-crosscheck},
+\path{huginn-design-review}, \path{huginn-independent-replay}, \path{paper-review}).\par}
 \planned{public code and data release at submission.}
-
-\appendix
-\section{Self-dialogue under steering: the gratitude ladder (exploratory)}
-\label{app:gratitude}
-Two copies of Qwen2.5-0.5B-Instruct talk to each other: 128 replicas, 40 turns, opener ``Hello!'', a window of 7
-turns, 60 new tokens per turn, sampled at $T=0.7$, with the gratitude direction added at layer 12. Turn activations are
-clustered (principal component analysis to 20 dimensions, 40 states) into a Markov state model with four metastable
-sets \cite{chodera2014msm}. Table~\ref{tab:gratitude} lists finite-horizon measures for each strength.
-\begin{table}[H]
-\centering\small
-\begin{tabular}{>{\raggedright\arraybackslash}p{0.25\linewidth}*{4}{>{\raggedright\arraybackslash}p{0.15\linewidth}}}
-\toprule
-gratitude strength $\alpha$ & $0$ & $0.01$ & $0.02$ & $0.04$ \\
-\midrule
-gratitude set & none & 62\,\% weight & dominant & 95\,\% weight \\
-occupancy at turn 9 / 14 / 39 & -- & $0.34$ / $0.52$ / $0.73$ & $0.70$ / $0.91$ / $0.91$--$0.98$ & from turn 0 \\
-entry turn, quartiles & -- & $5$ / $7$ / $11.8$ & $4$ / $5$ / $7$ & 0 \\
-replicas never entering & -- & 14 of 128 & 2 of 128 & 0 \\
-residence per visit (turns) & -- & about 15 & about 18 & effectively absorbing \\
-replies with a gratitude word & $0.00$--$0.05$ & $0.66$ at turn 39 & $0.96$--$0.98$ from turn 9 & $0.88$ at turn 0 \\
-spiritual-word plateau & $0.00$--$0.02$ & $0.13$ & $0.26$--$0.30$ & $0.42$--$0.48$ \\
-\bottomrule
-\end{tabular}
-\caption{The gratitude ladder (one opener and seed per rung; word lists chosen after reading samples). At $0.02$
-the dialogue starts in the helper mode and enters the gratitude set within a few turns; at $0.04$ the set is imposed
-from the first reply. \planned{frozen confirmatory version on held-out openers with dialogue-level bootstrap.}}
-\label{tab:gratitude}
-\end{table}
 
 \bibliographystyle{unsrtnat}
 \bibliography{references}
