@@ -1,3 +1,9 @@
+# Task 21h accepted; private delivery integration
+
+Updated 2026-10-15T14:30:42.471682+00:00. Task21h finite saved-grid science is Root-accepted: all21 grids/5 depths/4 controls and369 exact producer comparisons, with all historical failures and native limits retained. Original computation, metadata authority and sole literal presentation are closed/reaped. Final adoption/private delivery is underway; no further21h calculation. Tasks21c–g and earlier review units remain fully delivered. Task21i has accepted original metadata and source design; Theory prepares the manufactured fixture/card, Boundary reviews source, Inference alone owns Git/processes. Zero live jobs/reservations; no actual21i target run admitted. Latest Claude296723e8 remains the last observed queue; existing-code query4897dfb8 sent without requesting a rerun. Quiet watch through15:00UTC.
+
+## Preserved status history
+
 # Task 21h computation closed; saved scientific review
 
 Updated 2026-10-15T14:07:54.931846+00:00. Task 21h sole source1fe08093 completed/reaped0; authority8c8107d1 authenticates four outputs, nine supervision files, four Git blobs and82 input pins. Root accepted operational closure. Boundary owns one accepted saved-only presentation traversal then scientific prose; no numerical replay. Inference owns Git/process coordination and Task21i metadata-only preparation; Theory prepares21i source/adapter without target reads. Tasks21f/g fully delivered. Latest Claude296723e8 unchanged at14:01 checkpoint; watch through08:00PDT. Original LS failures and all scientific differences remain.
