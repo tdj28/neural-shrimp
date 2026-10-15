@@ -24246,3 +24246,7 @@ Pod rmsqwwrwm3af25 (COMMUNITY H100 NVL; runner rc 0, hash verified, terminated; 
   - The automatic turning-point counts (3-13 in phases 4-5) are noise from the binned medians on arcs of size 1e-3; by eye each phase has one extremum.
 - **Hostile line (alpha 0.0655):** at log10 T 0.18480 the phases contain several arcs (more than 7 bands), all on one U-shaped curve. At 0.18073 (lambda_1 0.141) the attractor is not 7-banded and the phase maps mix (leading component 0.66-0.82).
 - **Reading:** no second turning point at these parameters, matching the avoided (not real) crossing of the superstable curves. The human's mechanism (a shrimp when the unimodal map grows a second turning point) is not active here. The doubled strands show a second dimension beginning, the other route to shrimp organization in Henon-like maps.
+
+## 2026-10-15 06:10 UTC: Amendment to L70D: all three first pods failed on a full disk; relaunched with 320 GB
+
+Pods et2o3xeke86icn (block 20), bpe9rgounm31kb (block 35) and zep5qsklokz0zr (block 65): 2 x H200 SECURE. Each hit "No space left on device" while downloading the 70B checkpoint into the default 60 GB container disk. The vector step then could not load the tokenizer ("sentencepiece or tiktoken ... to convert a slow tokenizer"), and the scan found no vectors. All retrieved, terminated and verified. Relaunched with --disk-gb 320 and a 150-minute run limit (download, vectors, a 24 x 24 scan); otherwise unchanged.
