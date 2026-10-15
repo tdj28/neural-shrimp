@@ -23906,3 +23906,7 @@ Pods qwqtwa7b27k9b6 (FL15 line, 3437 s) and misyp8r6rk51yn (FL7 line, 3216 s): C
 - **FBS156 (pod, job set superstable, after the local 96->192 flip):** superstable parameters at log10 T -0.156 for the bands of periods 6, 12, 24, 48 and 96, from the measured flips. Each bracket runs from 5 % to 98 % of its band, as at -0.148, with transient 20000 and settle factor 20. Bands 192 and 384 follow in later pods, once the local run has located the 192->384 and 384->768 flips.
 - **Reading:** P-F2 (frozen at 01:30 UTC) holds at a temperature if the last two superstable ratios computed there lie within 5 % of 4.669 (at least 4.436). If the -0.152 cut has no cascade, P-F2 cannot be scored there, and this is reported as such.
 - **Output:** `../neural-shrimp-data/explore/llm-soft-loop/pod64/cascade/crescent-t-0.152-d`, `superstable/crescent-t-0.156` (and `-192`, `-384` later).
+
+## 2026-10-15 03:35 UTC: Amendment to FB152d: the start jumped too far
+
+Pod gqn3rlkugdknn2 (COMMUNITY H100 NVL; runner rc 0, tool exit 1, hash verified, terminated; 136 s; commit 65aeba3f). The period-6 orbit at alpha 0.06505 (mu -0.005) did not follow to --next 0.0652832: "period-6 Newton did not converge". The jump of 2.3e-4 is 61 % of the period-6 band. The rerun FB152e starts at alpha 0.06520 (86 % of the band, a jump of 8.3e-5), with all else as in FB152d. The queued local run of stage 1c (start 0.06505, next 0.06535) would have failed the same way.
