@@ -1,0 +1,10 @@
+Traceback (most recent call last):
+  File "/root/neural-shrimp/tools/explore_llm_soft_loop.py", line 1710, in <module>
+    main()
+  File "/root/neural-shrimp/tools/explore_llm_soft_loop.py", line 1703, in main
+    {"scan": scan, "orbit": orbit, "tline": tline, "branch": branch, "curve": curve, "precision": precision,
+  File "/root/neural-shrimp/tools/explore_llm_soft_loop.py", line 896, in scan
+    figure(log_t, alphas, lyap.reshape(shape), period.reshape(shape), entropy.reshape(shape), out / "scan.png", args)
+  File "/root/neural-shrimp/tools/explore_llm_soft_loop.py", line 911, in figure
+    import period_colors as pc
+ModuleNotFoundError: No module named 'period_colors'

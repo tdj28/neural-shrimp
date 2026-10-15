@@ -1,0 +1,17 @@
+Loading weights:   0%|          | 0/290 [00:00<?, ?it/s]Loading weights: 100%|██████████| 290/290 [00:00<00:00, 8681.32it/s]
+[transformers] Calling `crop` with a positive value is deprecated and will be removed in version 5.18. Please use a negative integer to remove that number of tokens from the cache instead.
+{"done": 2048, "of": 8192, "seconds": 194.7}
+{"done": 4096, "of": 8192, "seconds": 421.3}
+{"done": 6144, "of": 8192, "seconds": 595.8}
+{"done": 8192, "of": 8192, "seconds": 754.7}
+{"seconds": 754.7, "cells": 8192, "lyapunov_positive": 849, "period_counts": {"0": 976, "1": 2265, "2": 2083, "3": 622, "4": 1039, "5": 700, "6": 115, "7": 45, "8": 94, "9": 25, "10": 20, "11": 18, "12": 41, "13": 9, "14": 16, "15": 15, "16": 30, "17": 4, "18": 11, "19": 2, "20": 13, "21": 2, "22": 7, "24": 6, "25": 5, "26": 2, "28": 4, "29": 2, "30": 3, "32": 6, "35": 1, "38": 1, "40": 1, "41": 1, "42": 1, "44": 1, "47": 1, "48": 5}, "lyapunov_range": [-8.805260102381126, 0.6053228955499327]}
+Traceback (most recent call last):
+  File "/root/neural-shrimp/tools/explore_llm_soft_loop.py", line 1710, in <module>
+    main()
+  File "/root/neural-shrimp/tools/explore_llm_soft_loop.py", line 1703, in main
+    {"scan": scan, "orbit": orbit, "tline": tline, "branch": branch, "curve": curve, "precision": precision,
+  File "/root/neural-shrimp/tools/explore_llm_soft_loop.py", line 896, in scan
+    figure(log_t, alphas, lyap.reshape(shape), period.reshape(shape), entropy.reshape(shape), out / "scan.png", args)
+  File "/root/neural-shrimp/tools/explore_llm_soft_loop.py", line 911, in figure
+    import period_colors as pc
+ModuleNotFoundError: No module named 'period_colors'

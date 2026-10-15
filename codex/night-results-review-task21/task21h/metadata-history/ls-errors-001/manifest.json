@@ -1,0 +1,294 @@
+{
+  "schema": "task21h-original-ls-failure-supplement-v1",
+  "rows": [
+    {
+      "id": "LS4lo",
+      "archive": {
+        "path": "/data2/neural-shrimp-data/runpod/soft64/20261015T045347Z/results.tgz",
+        "sha256": "6c12026d9e0964b5d62020eaad843360ad314de676ce22b091c3e3656c164c04",
+        "bytes": 284936
+      },
+      "archive_member": "explore/llm-soft-loop/pod64/logs/scan64-ls-l4-lo.log",
+      "original_tool_log": {
+        "path": "/tmp/task21h-ls-errors-001/LS4lo-original-tool.log.txt",
+        "bytes": 1749,
+        "sha256": "ed08f3702c8a6c9356e643651f6410601022d0fb65ce95d39d63540e26570567"
+      },
+      "traceback": {
+        "path": "/tmp/task21h-ls-errors-001/LS4lo-traceback.txt",
+        "bytes": 681,
+        "sha256": "e396c1cce8c9da58a33a8dd5728fb0d79dc685cd2a717c650ea8062a4f9e06ff"
+      },
+      "exact_error_excerpt": "Traceback (most recent call last):\n  File \"/root/neural-shrimp/tools/explore_llm_soft_loop.py\", line 1710, in <module>\n    main()\n  File \"/root/neural-shrimp/tools/explore_llm_soft_loop.py\", line 1703, in main\n    {\"scan\": scan, \"orbit\": orbit, \"tline\": tline, \"branch\": branch, \"curve\": curve, \"precision\": precision,\n  File \"/root/neural-shrimp/tools/explore_llm_soft_loop.py\", line 896, in scan\n    figure(log_t, alphas, lyap.reshape(shape), period.reshape(shape), entropy.reshape(shape), out / \"scan.png\", args)\n  File \"/root/neural-shrimp/tools/explore_llm_soft_loop.py\", line 911, in figure\n    import period_colors as pc\nModuleNotFoundError: No module named 'period_colors'\n",
+      "runner_stdout": {
+        "original_path": "/data2/neural-shrimp-data/runpod/soft64/20261015T045347Z/runner-stdout.txt",
+        "sha256": "b0fb0cac5485bf6dbc299e97e8b68be9a4d47619af8642932f12f051b855c012",
+        "bytes": 1708,
+        "exact_status_lines": [
+          "2026-10-15T04:55:45Z start scan64-ls-l4-lo",
+          "2026-10-15T05:06:46Z end scan64-ls-l4-lo status 1",
+          "2026-10-15T05:06:46Z runner done"
+        ],
+        "runner_returncode": 0
+      },
+      "runner_failure_line": [
+        "ModuleNotFoundError: No module named 'period_colors'"
+      ],
+      "scope": "Authenticated original archived tool traceback and runner status only; no target numeric array values decoded."
+    },
+    {
+      "id": "LS4hi",
+      "archive": {
+        "path": "/data2/neural-shrimp-data/runpod/soft64/20261015T045351Z/results.tgz",
+        "sha256": "507653d1d1508255f4b5f61bc6156519ac94e41a517c488665d3cc862e2df818",
+        "bytes": 285007
+      },
+      "archive_member": "explore/llm-soft-loop/pod64/logs/scan64-ls-l4-hi.log",
+      "original_tool_log": {
+        "path": "/tmp/task21h-ls-errors-001/LS4hi-original-tool.log.txt",
+        "bytes": 1696,
+        "sha256": "2512ff64ffa5f331684cf703d5643a4331c1eac10c02bebc0ca2e944215d2651"
+      },
+      "traceback": {
+        "path": "/tmp/task21h-ls-errors-001/LS4hi-traceback.txt",
+        "bytes": 681,
+        "sha256": "e396c1cce8c9da58a33a8dd5728fb0d79dc685cd2a717c650ea8062a4f9e06ff"
+      },
+      "exact_error_excerpt": "Traceback (most recent call last):\n  File \"/root/neural-shrimp/tools/explore_llm_soft_loop.py\", line 1710, in <module>\n    main()\n  File \"/root/neural-shrimp/tools/explore_llm_soft_loop.py\", line 1703, in main\n    {\"scan\": scan, \"orbit\": orbit, \"tline\": tline, \"branch\": branch, \"curve\": curve, \"precision\": precision,\n  File \"/root/neural-shrimp/tools/explore_llm_soft_loop.py\", line 896, in scan\n    figure(log_t, alphas, lyap.reshape(shape), period.reshape(shape), entropy.reshape(shape), out / \"scan.png\", args)\n  File \"/root/neural-shrimp/tools/explore_llm_soft_loop.py\", line 911, in figure\n    import period_colors as pc\nModuleNotFoundError: No module named 'period_colors'\n",
+      "runner_stdout": {
+        "original_path": "/data2/neural-shrimp-data/runpod/soft64/20261015T045351Z/runner-stdout.txt",
+        "sha256": "212f65b7d3a2a26aa3fa5b78e891ee6d5eb4aa6588f700e52aedc741e4dd387b",
+        "bytes": 1927,
+        "exact_status_lines": [
+          "2026-10-15T04:55:14Z start scan64-ls-l4-hi",
+          "2026-10-15T05:08:14Z end scan64-ls-l4-hi status 1",
+          "2026-10-15T05:08:14Z runner done"
+        ],
+        "runner_returncode": 0
+      },
+      "runner_failure_line": [
+        "ModuleNotFoundError: No module named 'period_colors'"
+      ],
+      "scope": "Authenticated original archived tool traceback and runner status only; no target numeric array values decoded."
+    },
+    {
+      "id": "LS8lo",
+      "archive": {
+        "path": "/data2/neural-shrimp-data/runpod/soft64/20261015T045353Z/results.tgz",
+        "sha256": "c98f67682c4884ca0a9f9359e81cce982851c14366195ccba46a2fb41900bf3d",
+        "bytes": 276775
+      },
+      "archive_member": "explore/llm-soft-loop/pod64/logs/scan64-ls-l8-lo.log",
+      "original_tool_log": {
+        "path": "/tmp/task21h-ls-errors-001/LS8lo-original-tool.log.txt",
+        "bytes": 1745,
+        "sha256": "812ca93394e211c0944e0bb2f73cd7020b7edddd35fe47b318d8ef9ee6b06b14"
+      },
+      "traceback": {
+        "path": "/tmp/task21h-ls-errors-001/LS8lo-traceback.txt",
+        "bytes": 681,
+        "sha256": "e396c1cce8c9da58a33a8dd5728fb0d79dc685cd2a717c650ea8062a4f9e06ff"
+      },
+      "exact_error_excerpt": "Traceback (most recent call last):\n  File \"/root/neural-shrimp/tools/explore_llm_soft_loop.py\", line 1710, in <module>\n    main()\n  File \"/root/neural-shrimp/tools/explore_llm_soft_loop.py\", line 1703, in main\n    {\"scan\": scan, \"orbit\": orbit, \"tline\": tline, \"branch\": branch, \"curve\": curve, \"precision\": precision,\n  File \"/root/neural-shrimp/tools/explore_llm_soft_loop.py\", line 896, in scan\n    figure(log_t, alphas, lyap.reshape(shape), period.reshape(shape), entropy.reshape(shape), out / \"scan.png\", args)\n  File \"/root/neural-shrimp/tools/explore_llm_soft_loop.py\", line 911, in figure\n    import period_colors as pc\nModuleNotFoundError: No module named 'period_colors'\n",
+      "runner_stdout": {
+        "original_path": "/data2/neural-shrimp-data/runpod/soft64/20261015T045353Z/runner-stdout.txt",
+        "sha256": "ba3100bc3c0b60c6697e4983836fd322e3fe2491f65c92d935848b2747f4fa60",
+        "bytes": 1708,
+        "exact_status_lines": [
+          "2026-10-15T04:55:01Z start scan64-ls-l8-lo",
+          "2026-10-15T05:06:02Z end scan64-ls-l8-lo status 1",
+          "2026-10-15T05:06:02Z runner done"
+        ],
+        "runner_returncode": 0
+      },
+      "runner_failure_line": [
+        "ModuleNotFoundError: No module named 'period_colors'"
+      ],
+      "scope": "Authenticated original archived tool traceback and runner status only; no target numeric array values decoded."
+    },
+    {
+      "id": "LS8hi",
+      "archive": {
+        "path": "/data2/neural-shrimp-data/runpod/soft64/20261015T045356Z/results.tgz",
+        "sha256": "dfa75205e1ce28d134081460edc41f7581393cd90e2f0b0ea4a7dcf1c3fd89a7",
+        "bytes": 288347
+      },
+      "archive_member": "explore/llm-soft-loop/pod64/logs/scan64-ls-l8-hi.log",
+      "original_tool_log": {
+        "path": "/tmp/task21h-ls-errors-001/LS8hi-original-tool.log.txt",
+        "bytes": 1739,
+        "sha256": "a1738e6da4f4597df7e8a87664ee5ddd4b5f3bd5caa07597c3ffe2635c04a577"
+      },
+      "traceback": {
+        "path": "/tmp/task21h-ls-errors-001/LS8hi-traceback.txt",
+        "bytes": 681,
+        "sha256": "e396c1cce8c9da58a33a8dd5728fb0d79dc685cd2a717c650ea8062a4f9e06ff"
+      },
+      "exact_error_excerpt": "Traceback (most recent call last):\n  File \"/root/neural-shrimp/tools/explore_llm_soft_loop.py\", line 1710, in <module>\n    main()\n  File \"/root/neural-shrimp/tools/explore_llm_soft_loop.py\", line 1703, in main\n    {\"scan\": scan, \"orbit\": orbit, \"tline\": tline, \"branch\": branch, \"curve\": curve, \"precision\": precision,\n  File \"/root/neural-shrimp/tools/explore_llm_soft_loop.py\", line 896, in scan\n    figure(log_t, alphas, lyap.reshape(shape), period.reshape(shape), entropy.reshape(shape), out / \"scan.png\", args)\n  File \"/root/neural-shrimp/tools/explore_llm_soft_loop.py\", line 911, in figure\n    import period_colors as pc\nModuleNotFoundError: No module named 'period_colors'\n",
+      "runner_stdout": {
+        "original_path": "/data2/neural-shrimp-data/runpod/soft64/20261015T045356Z/runner-stdout.txt",
+        "sha256": "e13a2023740ecf00329b6043036e7b89ffc977bedd2c44f9044d16afe6ef9c97",
+        "bytes": 1706,
+        "exact_status_lines": [
+          "2026-10-15T04:55:17Z start scan64-ls-l8-hi",
+          "2026-10-15T05:06:17Z end scan64-ls-l8-hi status 1",
+          "2026-10-15T05:06:17Z runner done"
+        ],
+        "runner_returncode": 0
+      },
+      "runner_failure_line": [
+        "ModuleNotFoundError: No module named 'period_colors'"
+      ],
+      "scope": "Authenticated original archived tool traceback and runner status only; no target numeric array values decoded."
+    },
+    {
+      "id": "LS16lo",
+      "archive": {
+        "path": "/data2/neural-shrimp-data/runpod/soft64/20261015T045359Z/results.tgz",
+        "sha256": "b4a43ef7dfc7bc5f15fbeb27165d7b1f19f5f11939244ee5fa50ddf78daacaed",
+        "bytes": 268364
+      },
+      "archive_member": "explore/llm-soft-loop/pod64/logs/scan64-ls-l16-lo.log",
+      "original_tool_log": {
+        "path": "/tmp/task21h-ls-errors-001/LS16lo-original-tool.log.txt",
+        "bytes": 1656,
+        "sha256": "422c3cd57046e6385abfbd8d31b52d638d550559e826c7f85333e788f419ce06"
+      },
+      "traceback": {
+        "path": "/tmp/task21h-ls-errors-001/LS16lo-traceback.txt",
+        "bytes": 681,
+        "sha256": "e396c1cce8c9da58a33a8dd5728fb0d79dc685cd2a717c650ea8062a4f9e06ff"
+      },
+      "exact_error_excerpt": "Traceback (most recent call last):\n  File \"/root/neural-shrimp/tools/explore_llm_soft_loop.py\", line 1710, in <module>\n    main()\n  File \"/root/neural-shrimp/tools/explore_llm_soft_loop.py\", line 1703, in main\n    {\"scan\": scan, \"orbit\": orbit, \"tline\": tline, \"branch\": branch, \"curve\": curve, \"precision\": precision,\n  File \"/root/neural-shrimp/tools/explore_llm_soft_loop.py\", line 896, in scan\n    figure(log_t, alphas, lyap.reshape(shape), period.reshape(shape), entropy.reshape(shape), out / \"scan.png\", args)\n  File \"/root/neural-shrimp/tools/explore_llm_soft_loop.py\", line 911, in figure\n    import period_colors as pc\nModuleNotFoundError: No module named 'period_colors'\n",
+      "runner_stdout": {
+        "original_path": "/data2/neural-shrimp-data/runpod/soft64/20261015T045359Z/runner-stdout.txt",
+        "sha256": "436724e83fd0c2cd61a89a9b4f5d65a99daba74d2fb4238de1283ddeb803371f",
+        "bytes": 1719,
+        "exact_status_lines": [
+          "2026-10-15T04:55:51Z start scan64-ls-l16-lo",
+          "2026-10-15T05:06:51Z end scan64-ls-l16-lo status 1",
+          "2026-10-15T05:06:51Z runner done"
+        ],
+        "runner_returncode": 0
+      },
+      "runner_failure_line": [
+        "ModuleNotFoundError: No module named 'period_colors'"
+      ],
+      "scope": "Authenticated original archived tool traceback and runner status only; no target numeric array values decoded."
+    },
+    {
+      "id": "LS16hi",
+      "archive": {
+        "path": "/data2/neural-shrimp-data/runpod/soft64/20261015T045402Z/results.tgz",
+        "sha256": "9fc9e3bd0eed64567a885f7379bf8ae3cd381935d297ed9d5ab03cd650f5e4d3",
+        "bytes": 283509
+      },
+      "archive_member": "explore/llm-soft-loop/pod64/logs/scan64-ls-l16-hi.log",
+      "original_tool_log": {
+        "path": "/tmp/task21h-ls-errors-001/LS16hi-original-tool.log.txt",
+        "bytes": 1702,
+        "sha256": "56f1cc345d7fb83e2be4026e562ac822314f779362a8e70ae626545764fa75da"
+      },
+      "traceback": {
+        "path": "/tmp/task21h-ls-errors-001/LS16hi-traceback.txt",
+        "bytes": 681,
+        "sha256": "e396c1cce8c9da58a33a8dd5728fb0d79dc685cd2a717c650ea8062a4f9e06ff"
+      },
+      "exact_error_excerpt": "Traceback (most recent call last):\n  File \"/root/neural-shrimp/tools/explore_llm_soft_loop.py\", line 1710, in <module>\n    main()\n  File \"/root/neural-shrimp/tools/explore_llm_soft_loop.py\", line 1703, in main\n    {\"scan\": scan, \"orbit\": orbit, \"tline\": tline, \"branch\": branch, \"curve\": curve, \"precision\": precision,\n  File \"/root/neural-shrimp/tools/explore_llm_soft_loop.py\", line 896, in scan\n    figure(log_t, alphas, lyap.reshape(shape), period.reshape(shape), entropy.reshape(shape), out / \"scan.png\", args)\n  File \"/root/neural-shrimp/tools/explore_llm_soft_loop.py\", line 911, in figure\n    import period_colors as pc\nModuleNotFoundError: No module named 'period_colors'\n",
+      "runner_stdout": {
+        "original_path": "/data2/neural-shrimp-data/runpod/soft64/20261015T045402Z/runner-stdout.txt",
+        "sha256": "464428a96e4b0cb7825ecb36e70f743b4c95755cadaafdd82e4cb5b08fa9edc0",
+        "bytes": 1721,
+        "exact_status_lines": [
+          "2026-10-15T04:55:26Z start scan64-ls-l16-hi",
+          "2026-10-15T05:06:26Z end scan64-ls-l16-hi status 1",
+          "2026-10-15T05:06:26Z runner done"
+        ],
+        "runner_returncode": 0
+      },
+      "runner_failure_line": [
+        "ModuleNotFoundError: No module named 'period_colors'"
+      ],
+      "scope": "Authenticated original archived tool traceback and runner status only; no target numeric array values decoded."
+    },
+    {
+      "id": "LS20lo",
+      "archive": {
+        "path": "/data2/neural-shrimp-data/runpod/soft64/20261015T045405Z/results.tgz",
+        "sha256": "8e22ad241afeb9c41b96b72b77a8ae06877b449d8ea6ffb0c4294ad201a82173",
+        "bytes": 248946
+      },
+      "archive_member": "explore/llm-soft-loop/pod64/logs/scan64-ls-l20-lo.log",
+      "original_tool_log": {
+        "path": "/tmp/task21h-ls-errors-001/LS20lo-original-tool.log.txt",
+        "bytes": 1399,
+        "sha256": "c92e04891fe1c958326fa53a7d7a27dba068c77df1bbf6c8511067107cf6f97a"
+      },
+      "traceback": {
+        "path": "/tmp/task21h-ls-errors-001/LS20lo-traceback.txt",
+        "bytes": 681,
+        "sha256": "e396c1cce8c9da58a33a8dd5728fb0d79dc685cd2a717c650ea8062a4f9e06ff"
+      },
+      "exact_error_excerpt": "Traceback (most recent call last):\n  File \"/root/neural-shrimp/tools/explore_llm_soft_loop.py\", line 1710, in <module>\n    main()\n  File \"/root/neural-shrimp/tools/explore_llm_soft_loop.py\", line 1703, in main\n    {\"scan\": scan, \"orbit\": orbit, \"tline\": tline, \"branch\": branch, \"curve\": curve, \"precision\": precision,\n  File \"/root/neural-shrimp/tools/explore_llm_soft_loop.py\", line 896, in scan\n    figure(log_t, alphas, lyap.reshape(shape), period.reshape(shape), entropy.reshape(shape), out / \"scan.png\", args)\n  File \"/root/neural-shrimp/tools/explore_llm_soft_loop.py\", line 911, in figure\n    import period_colors as pc\nModuleNotFoundError: No module named 'period_colors'\n",
+      "runner_stdout": {
+        "original_path": "/data2/neural-shrimp-data/runpod/soft64/20261015T045405Z/runner-stdout.txt",
+        "sha256": "6d75c87f9eb112e57c019420ef677f33da85fdab8f0e1921118f3e98da83dfa8",
+        "bytes": 1719,
+        "exact_status_lines": [
+          "2026-10-15T04:55:42Z start scan64-ls-l20-lo",
+          "2026-10-15T05:06:43Z end scan64-ls-l20-lo status 1",
+          "2026-10-15T05:06:43Z runner done"
+        ],
+        "runner_returncode": 0
+      },
+      "runner_failure_line": [
+        "ModuleNotFoundError: No module named 'period_colors'"
+      ],
+      "scope": "Authenticated original archived tool traceback and runner status only; no target numeric array values decoded."
+    },
+    {
+      "id": "LS20hi",
+      "archive": {
+        "path": "/data2/neural-shrimp-data/runpod/soft64/20261015T045408Z/results.tgz",
+        "sha256": "f0ba8cbb6be09edabccee70a7cd3c3e4796d39a062b996039ac1e29ed76d81f2",
+        "bytes": 270434
+      },
+      "archive_member": "explore/llm-soft-loop/pod64/logs/scan64-ls-l20-hi.log",
+      "original_tool_log": {
+        "path": "/tmp/task21h-ls-errors-001/LS20hi-original-tool.log.txt",
+        "bytes": 1630,
+        "sha256": "f4c9c7f888b1c88fcd0b9f0609bbab1fc21dd74271e6a56699b31d661ab634c1"
+      },
+      "traceback": {
+        "path": "/tmp/task21h-ls-errors-001/LS20hi-traceback.txt",
+        "bytes": 681,
+        "sha256": "e396c1cce8c9da58a33a8dd5728fb0d79dc685cd2a717c650ea8062a4f9e06ff"
+      },
+      "exact_error_excerpt": "Traceback (most recent call last):\n  File \"/root/neural-shrimp/tools/explore_llm_soft_loop.py\", line 1710, in <module>\n    main()\n  File \"/root/neural-shrimp/tools/explore_llm_soft_loop.py\", line 1703, in main\n    {\"scan\": scan, \"orbit\": orbit, \"tline\": tline, \"branch\": branch, \"curve\": curve, \"precision\": precision,\n  File \"/root/neural-shrimp/tools/explore_llm_soft_loop.py\", line 896, in scan\n    figure(log_t, alphas, lyap.reshape(shape), period.reshape(shape), entropy.reshape(shape), out / \"scan.png\", args)\n  File \"/root/neural-shrimp/tools/explore_llm_soft_loop.py\", line 911, in figure\n    import period_colors as pc\nModuleNotFoundError: No module named 'period_colors'\n",
+      "runner_stdout": {
+        "original_path": "/data2/neural-shrimp-data/runpod/soft64/20261015T045408Z/runner-stdout.txt",
+        "sha256": "ad430fc18129798f416d06fea808b1220b1a7a28766153ef171a1f6f68f424d3",
+        "bytes": 1720,
+        "exact_status_lines": [
+          "2026-10-15T04:57:20Z start scan64-ls-l20-hi",
+          "2026-10-15T05:08:20Z end scan64-ls-l20-hi status 1",
+          "2026-10-15T05:08:20Z runner done"
+        ],
+        "runner_returncode": 0
+      },
+      "runner_failure_line": [
+        "ModuleNotFoundError: No module named 'period_colors'"
+      ],
+      "scope": "Authenticated original archived tool traceback and runner status only; no target numeric array values decoded."
+    }
+  ],
+  "source": {
+    "path": "/tmp/task21h-source-002/source/e3c13292/tools/explore_llm_soft_loop.py",
+    "sha256": "0d91e9f08447e317b76800d685f63dab9c988204d90e7b3ba8298d8dc9424d28"
+  },
+  "save_before_figure_excerpt": "/tmp/task21h-ls-errors-001/writer-save-before-plot.lines878-914.txt",
+  "interpretation": "All eight tools exited1 because plot_scan failed importing period_colors after scan.npz and scan.json writes. This authenticates the original error/source order; saved payload completeness and scientific validity remain separately checked in any admitted reducer. Runnerexit0 does not overwrite toolfailure.",
+  "io_bytes_hashed_or_selected": 2233562,
+  "elapsed_seconds": 0.014490240020677447,
+  "no_target_scientific_values_decoded": true
+}

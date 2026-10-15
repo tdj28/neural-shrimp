@@ -1,0 +1,37 @@
+878:     out.mkdir(parents=True, exist_ok=True)
+879:     extra = {} if proj is None else {"projection": proj.reshape(*shape, args.record, 2),
+880:                                      "projection_directions": dirs}
+881:     np.savez_compressed(out / "scan.npz", log10_temperature=log_t, alpha=alphas, lyapunov=lyap.reshape(shape),
+882:                         period=period.reshape(shape), entropy=entropy.reshape(shape), family=family.reshape(shape),
+883:                         **extra)
+884:     tok = loop.sm.tok
+885:     fam_list = [{"family": i, "period": len(key), "cells": int((family == i).sum()),
+886:                  "tokens": [tok.decode([t]) for t in key]} for key, i in families.items()]
+887:     fam_list.sort(key=lambda f: -f["cells"])
+888:     summary = {"args": vars(args), "seconds": seconds, "cells": B, "families": fam_list,
+889:                "lyapunov_positive": int((lyap > args.chaos_level).sum()),
+890:                "period_counts": {int(q): int((period == q).sum()) for q in np.unique(period)},
+891:                "lyapunov_range": [float(lyap.min()), float(lyap.max())]}
+892:     (out / "scan.json").write_text(json.dumps(summary, indent=1))
+893:     if final_states is not None:                  # float32 copy of each cell's final window, for warm starts
+894:         np.savez(out / "states.npz", states=final_states)
+895:     print(json.dumps({k: v for k, v in summary.items() if k not in ("args", "families")}))
+896:     figure(log_t, alphas, lyap.reshape(shape), period.reshape(shape), entropy.reshape(shape), out / "scan.png", args)
+897: 
+898: 
+899: def figure(log_t, alphas, lyap, period, entropy, path, args):
+900:     import matplotlib
+901:     matplotlib.use("Agg")
+902:     import matplotlib.pyplot as plt
+903: 
+904:     fig, axes = plt.subplots(1, 3, figsize=(16, 4.8))
+905:     lim = max(float(np.nanmax(lyap)), 0.05)                 # clip: super-stable cells reach -700
+906:     im0 = axes[0].pcolormesh(alphas, log_t, np.clip(lyap, -lim, lim), cmap="RdBu_r", vmin=-lim, vmax=lim,
+907:                              shading="auto")
+908:     axes[0].set_title("largest Lyapunov exponent per step (clipped)")
+909:     fig.colorbar(im0, ax=axes[0])
+910:     if (period > 0).any():                                  # one colour and one colour-bar block per period
+911:         import period_colors as pc
+912: 
+913:         cats = pc.categorize(period, max_blocks=pc.blocks_that_fit(axes[1]))
+914:         im1 = axes[1].pcolormesh(alphas, log_t, cats.index(period), cmap=cats.cmap, norm=cats.norm, shading="auto")

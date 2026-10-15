@@ -1,3 +1,9 @@
+# Task21g accepted; standalone delivery next
+
+Updated 2026-10-15T13:41:28.800439+00:00. Root accepted finalscientifice5639cab and cb1b9ca0. All49/490rows retained;98literalcomparisons exact. Finitebinsensitivity/orientation/parity/nativePCA limits remain. No computationremaining.
+
+## Preserved status history
+
 # Task 21f calculation closed; saved scientific review pending
 
 Updated 2026-10-15T13:17:59.611894+00:00. Sole Task21g source34654dac completed/reaped0, authenticated final authority26da80d0. All three outputs, nine supervision entries, four Git blobs and15 selected input pins are bound. No repeated arithmetic or open numerical job. Boundary is reading completed saved output under one bounded presentation traversal; scientific acceptance remains pending. Inference owns Git/process coordination. Task21f and21g saved scientific review is pending; Task21h source/header/receipt preparation is next, with no numeric target admission. Latest Claude queue296723e8 unchanged; laterDSS5 outside current scope.
