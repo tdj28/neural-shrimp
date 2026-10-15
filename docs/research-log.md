@@ -25827,7 +25827,7 @@ Both locations pass every check (tools/cusp_locate.py, cusp test):
 - Text: sec:organization, Appendix D, Appendix B (|det J| range over thirteen cusps unchanged, 14 to 2416), Appendix J (rung 1 and search scale), Discussion and contribution 3.
 - Two appendix D floats moved from [H] to [tbp] (float-page overflow).
 
-## 2026-10-15 17:05 UTC: human "Do it all yes"; run card RR2 (the reset test on the H100 and in Qwen2.5-7B)
+## 2026-10-15 17:03 UTC: human "Do it all yes"; run card RR2 (the reset test on the H100 and in Qwen2.5-7B)
 
 The human approves all three offers:
 - cut the main text toward 25 pages;
