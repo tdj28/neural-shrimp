@@ -79,7 +79,8 @@ strength, explain why steering makes it so, and measure what the chaos does.
   a 7B model, far more often than it changed greedy decoding's (never and 10\,\%).
 \item Steering creates the chaos by making next tokens compete, which turns the softmax readout from a contraction
   into an expansion; a logit bias alone suffices. At fixed states, steering's change of the network's response damps
-  the instability in a 0.5B and a 7B model, and adds nothing to it along the other directions we tested.
+  the instability along the philosophy direction in a 0.5B and a 7B model, and does not add to it along the other
+  directions we tested.
 \item The depth at which a steering vector enters sets how much chaos it causes, in a 0.5B model and in a 70B
   model, and two steering vectors at different depths create chaos that neither causes alone.
 \item Two loops writing one text lock each other into periodic orbits. Of the pairs of differently steered 0.5B
@@ -801,9 +802,9 @@ change phase on the same cycle or switch between coexisting attractors; the run 
 controlling and probing models \cite{zou2023representation,rimsky2024steering}, usually added at one layer chosen by
 hand. In Qwen2.5-0.5B the philosophy direction, built with the same recipe at blocks 4, 8, 12, 16 and 20 and scaled to
 each block's residual norm, makes 5.9, 8.1, 6.8, 5.0 and 2.3\,\% of the same $128\times128$ plane chaotic
-(Figure~\ref{fig:layersweep}). Early steering carries the chaos down to $\log_{10}T\approx-0.9$, close to greedy
-decoding, while steering at block 20 confines it to a thin band at $\log_{10}T=0.1$--$0.25$. Near zero steering every
-block gives 1--2\,\%. Llama-3.3-70B behaves the same way. Steered along its hostility direction, it is chaotic in 8.0\,\%
+(Figure~\ref{fig:layersweep}). Early steering carries the chaos down to $\log_{10}T=-0.95$ (block 8) and $-0.91$
+(block 4), while at block 20 the chaotic cells lie between $\log_{10}T=-0.09$ and $0.22$, three fifths of them above
+$0.1$. In the strip $|\alpha|<0.02$ every block gives 0.8 to 2.1\,\%. Llama-3.3-70B behaves the same way. Steered along its hostility direction, it is chaotic in 8.0\,\%
 of a $24\times24$ map at block 20 of 80, down to $\log_{10}T=-0.14$, against 4.3\,\% at block 35, where the chaos starts
 at $\log_{10}T=0.01$, 4.3\,\% at block 50 (32 by 32 cells), and 0.7\,\% at block 65, all above
 $\log_{10}T=0.19$. These 70B labels are those of the map
@@ -818,7 +819,7 @@ where the network factor carries it (block 20: network $+1.09$, readout $-0.78$;
 \begin{figure}[tbp]
 \centering
 \includegraphics[width=\linewidth]{fig-layer-sweep.png}
-\caption{The same steering direction (philosophy, Qwen2.5-0.5B-Instruct) entering at five blocks of 24: largest
+\caption{The philosophy direction of Qwen2.5-0.5B-Instruct, built with the same recipe at each of five blocks of 24: largest
 Lyapunov exponent on $128\times128$ float64 cells over the steering strength and $\log_{10}T\in[-1,0.3]$. The share of
 chaotic cells is given above each panel.}
 \label{fig:layersweep}
@@ -851,26 +852,29 @@ both zones. Second, labelling each of 200 prompts by the regime of its own unste
 a chaotic loop were answered far less accurately, but mostly because chaotic labels fell on the harder task and on
 flatter answer distributions.
 
-A frozen test settles the second design. Its design, covariates and analysis were pushed before any data. It uses
+A frozen test addresses the second design. Its design, covariates and analysis were pushed before any data. It uses
 4000 fresh products of two two-digit numbers and the unsteered Qwen2.5-7B-Instruct at $\log_{10}T=0.40$: 1484 prompts
-have a chaotic loop and 2509 a periodic one. Chaotic-loop prompts are again answered less accurately by ordinary
+have a chaotic loop and 2509 a periodic one (seven with other labels are excluded). Chaotic-loop prompts are again answered less accurately by ordinary
 sampling, by 7.1 points (95\,\% interval $[4.8,9.3]$; 10 samples per prompt). The gap vanishes once seven difficulty
 covariates, all fixed before sampling, enter the fit. Beyond them the label's coefficient is $+0.15$ points
 ($[-1.4,1.7]$, permutation $p=0.84$), and the label adds no held-out predictive value. The first-token entropy alone
 absorbs nearly all of the gap (post hoc: $-0.8$ points remain). This is what the mechanism of
 Section~\ref{sec:theory} predicts. The loop turns chaotic where next tokens compete, and a model unsure of its first
-token also answers worse. The loop's regime adds nothing beyond that uncertainty.
+token also answers worse. Beyond that uncertainty, no association of the loop's regime with accuracy is detected at
+this precision; this does not show that the regime has no effect.
 
-Within a prompt the regime does not matter either. We steered the first 1000 of these prompts slightly, at block 14
+Within a prompt no association is detected either. We steered the first 1000 of these prompts slightly, at block 14
 along philosophy, hostility-vs-kindness and a random direction. The strength, 1\,\% of the residual norm, is the largest
-at which greedy accuracy stayed within 5 points of the unsteered model on 200 calibration prompts; on the 1000 prompts it
-is 0.87 to 0.89, against 0.89 unsteered. This push changes
-the loop's label in 508 of the 1000 prompts. With prompt and condition fixed effects, in an analysis fixed before the
-data, a chaotic loop changes the accuracy of the prompt's ordinary sampled answers by $+0.36$ points (95\,\% interval
-$[-0.36,1.08]$; permutation within prompts, $p=0.34$).
+at which greedy accuracy stayed within 5 points of the unsteered model on the first 200 of these prompts (so the
+calibration overlaps the test prompts); on the 1000 prompts it is 0.87 to 0.89, against 0.89 unsteered. Under these
+pushes the loop's label differs between conditions for 508 of the 1000 prompts. With prompt and condition fixed
+effects (3992 prompt-condition rows), in an analysis fixed before the data, a chaotic label is associated with a change
+of $+0.36$ points in the accuracy of the prompt's ordinary sampled answers (95\,\% interval $[-0.36,1.08]$;
+permutation within prompts, $p=0.34$). This does not identify a causal effect of entering chaos: the pushes can act on
+the answers through other paths as well.
 
-Nor does accuracy peak at the edge of chaos. Adjusted for the covariates, three groups of prompts are answered
-alike:
+Nor does accuracy peak at the edge of chaos. Adjusted for the covariates, three groups of prompts (3603 of the 4000;
+the rest have intermediate exponents) are answered alike:
 \begin{itemize}
   \item deep periodic ($\lambda\le-0.3$, 1961 prompts): $+0.3$ points;
   \item edge ($|\lambda|\le0.1$, 242 prompts): $-0.1$ points;
@@ -878,7 +882,7 @@ alike:
 \end{itemize}
 All three intervals lie within $[-3.1,3.0]$. The edge contrast is $-0.4$ points ($[-3.5,2.6]$), and the curvature in
 $\lambda$ is positive, the opposite of an edge optimum. Post hoc, the curvature comes from the most strongly
-contracting tenth of prompts ($\lambda\le-3.4$), answered 5.3 points ($[3.0,7.6]$) better than the covariates
+contracting tenth of prompts ($\lambda\le-3.42$), answered 5.3 points ($[3.0,7.6]$) better than the covariates
 predict. That is a lead for a future test, not a finding.
 
 \section{Period adding written in text}
