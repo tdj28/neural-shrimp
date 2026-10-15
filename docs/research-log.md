@@ -25714,3 +25714,30 @@ Free, reset and the reference decode in batch 1. Per-problem checks: the referen
 1. The dev set (24) in bf16 and float32: check the machinery and that layout disagreement occurs on this GPU at all. Nothing is tuned.
 2. If it does, the held-out set (128) once, in both precisions.
 3. If it does not, report that, and plan the held-out run on an H100 under a costed plan instead.
+
+## 2026-10-15 16:13 UTC: RR dev pilot: in bf16, the accumulated feedback state carries most of the layout dependence
+
+Local RTX 2000 Ada, commit 292493ab; dev set (24 problems) in bf16 and float32; analysis docs/rr/rr-dev-analysis.json (tools/repro_reset.py analyze). All 48 problem runs pass the exactness checks: the reference reruns bit for bit, and free and reset in batch 1 reproduce it exactly.
+
+**bf16.**
+- Answers that differ from the reference:
+  - free 19/24 (79.2 %);
+  - reset 3/24 (12.5 %);
+  - native (REPRO-T's pipeline on this GPU) 17/24 (70.8 %);
+  - reference rerun 0.
+- Delta = 66.7 points (bootstrap 95 % [45.8, 83.3]). Discordant pairs 16 free-only against 0 reset-only; exact McNemar p = 3.1e-5.
+- The target's logits drift from the reference's, median over problems (relative distance):
+  - free: 1.5e-2 after step 1, 2.1e-2 at step 4, 8.3e-2 at 8, 0.19 at 16, 0.96 at 32;
+  - reset (one step each time): 1.3e-2 to 2.4e-2 at every step.
+- Accuracy: reference 0.33, free 0.54, reset 0.33, native 0.33. n = 24, so the free arm's higher accuracy is not interpreted. No invalid answers.
+
+**float32.**
+- No answer differs from the reference in any arm.
+- The free arm's logit distance still grows, from 8.7e-7 to 1.4e-4 (about 160-fold over 32 steps); reset stays at 7e-7 to 3.3e-6.
+
+**Reading.**
+- On this hardware the layout dependence of bf16 soft-thinking answers comes mostly from accumulation through the feedback loop: a one-step bf16 layout difference of about 1.5 % in the logits grows to order one over 32 steps.
+- Resetting the state every step removes most answer changes.
+- In float32 the same growth happens, but 32 steps do not take it to the scale of answer flips.
+
+The held-out run (128) follows, unchanged, per the card.
