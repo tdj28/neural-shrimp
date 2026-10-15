@@ -26631,3 +26631,20 @@ This is critical slowing down. Near a flip the multiplier is close to -1, and 30
 - **Margin:** the best finite difference is 1.24e4 times the formula's largest error.
 
 **Paper.** fig:derivcheck in the main paper's derivative section. Also the sentence "Rendered as in the shrimp literature" in sec:maps was replaced by a plain description (human objection), and "rendered as" became "colored as" in two captions.
+
+## 2026-10-15 23:40 UTC: Referee B3 in the main paper: window-law exponent robust, prefactor empirical; soft-thinking test explained (human: "very opaque")
+
+**B3.** Recomputed from the raw edges: the fold edges of periods 16 to 20 from tab:edges, alpha_c = 0.0627983, and periods 22 to 32 from the WP line; |a| = 4.834227, |b| = 25.42846.
+- **Exponent:** the log-log slope over N = 5 to 13 is -1.9979. A free fit of C/(N + delta)^gamma, with 1 % errors assumed, gives gamma = 2.1779 +- 0.0581 and delta = 0.717 +- 0.231.
+- **Bottleneck:** its scale sqrt(|a| eps/|b|) is 1.3516 to 3.5092 times U = 0.1/|b|.
+- **Passage:** a full passage, pi/sqrt(ab eps), lasts 8.952 to 23.244 iterates of G.
+- **Robustness:** with alpha_c = 0.06279827 (the referee's value) or 0.0627972 (the earlier branch turn), the numbers move only in the fourth digit.
+
+The paper now says the windows lie outside the normal form's asymptotic regime and that the one-third factor is measured, not predicted. Hirsch, Huberman and Scalapino 1982 is added, verified at Crossref: Phys. Rev. A 25(1), 519-532, doi 10.1103/PhysRevA.25.519.
+
+**Soft-thinking test.** The opening of the answers test now says three things:
+- what the pipeline does (32 steps fed the probability-weighted average embedding, then a cue);
+- why the batch layout matters (same quantities, different grouping of sums, so rounding);
+- that the greedy baseline feeds back a discrete token.
+
+The Chaos article's version was rewritten the same way and sent to its editing agent.
