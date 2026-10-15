@@ -1,0 +1,103 @@
+{
+  "schema": "task21b-saved-arithmetic-card-v1",
+  "status": "prepared_unlaunchable",
+  "input_manifest": {
+    "path": "/tmp/task21b-input-authority-002/inputs.json",
+    "sha256": "5406ce14d9273306407ebeab5b8f3ad100cd103c8da62d7d0db03176790e13b8",
+    "bytes": 17313
+  },
+  "source_sha256": {
+    "run.py": "2f34384e0957baf3450ffb7352a8d6fa35153a6d4855ebe02169188b2379901c",
+    "adapter.py": "97b2582667c10e9587bb79744567c655732613b2ec581f3b2eb1846a4800d9c9",
+    "kaplan_yorke.py": "8b073638a0e4466cbbb45f6c07ea0b0d0632be30ece2d36a4628968214f55cde"
+  },
+  "additional_metadata_pins": [
+    {
+      "path": "/tmp/task21b-source-metadata-001/paper-dimension-paragraph.tex",
+      "sha256": "e528032302f411ed6a7a2248354da69343fd3793e138a3df8a56cf0ca07fbfff",
+      "bytes": 1605
+    },
+    {
+      "path": "/tmp/task21b-source-metadata-001/ky-log-cards-and-results.md",
+      "sha256": "c2944b1a0003354c52a79ac4aa27a0b0f5da20268f17c978540689affa4e7533",
+      "bytes": 4567
+    }
+  ],
+  "selection_policy": {
+    "KY1": "Fixed original10 high+10 head percentile selection;18 saved, head18/19 missing after original tool timeout124.",
+    "KY2": "Fixed original10 host percentile selection, all10 saved; original positive-label selection differs from >0 finite horizon scoring.",
+    "TC": "Earlier separate H2 selection: six designated chaotic indices10/47/56/240/293/242 and periodic controls143/406. Seven saved; control406 missing after original timeout124."
+  },
+  "group_membership_basis": {
+    "high": "KY1 original high indices0\u20139; retain nonpositive finite results.",
+    "head": "KY1 original head indices10\u201319;18/19 unsaved.",
+    "host": "KY2 original host indices0\u20139; retain nonpositive finite results.",
+    "prior_headline": "TC prior six designated chaotic cells10,47,56,240,293,242, not selected from current spectra.",
+    "periodic_control": "TC prior periodic control143(period6),406(period22);406 unsaved.",
+    "headline_union": "Original head selection10\u201319 plus prior six TC cells;16 requested/14 saved; missing KY1 18/19 stay explicit.",
+    "all_requested": "All38 original requested cells across three distinct runs;35 saved and three missing. No duplicate family merging."
+  },
+  "counts": {
+    "requested": 38,
+    "completed": 35,
+    "missing": [
+      "KY1:18",
+      "KY1:19",
+      "TC:406"
+    ],
+    "completed_checkpoint_records": 84,
+    "retained_exponents_per_record": 4,
+    "scientific_input_files": 3,
+    "scientific_input_bytes": 26017,
+    "all_read_bytes_before_rehash": 133002
+  },
+  "resources": {
+    "cpu_worker": 1,
+    "supervisor_slots": 1,
+    "nice": 10,
+    "address_space_bytes": 1073741824,
+    "cpu_seconds": 55,
+    "external_wall_seconds": 60,
+    "output_bytes": 16777216,
+    "available_memory_start_floor_bytes": 21474836480,
+    "available_memory_runtime_floor_bytes": 17179869184,
+    "retry": false,
+    "extension": false
+  },
+  "measurement_basis": {
+    "metadata_capture_seconds": "0.077622",
+    "metadata_hash_seconds": "0.000883",
+    "metadata_capture_bytes": 255258,
+    "own_full_shape_synthetic_reader_controls_seconds": "0.098",
+    "own_controls_external_seconds": "0.14",
+    "own_controls_peak_rss_kib": 32884,
+    "scope": "No target timing run. Metadata timings relayed by Inference; exact tiny synthetic receipt retained."
+  },
+  "scientific_policy": {
+    "leading_spectrum": "Reviewed original QR source contract; four leading finite estimates, not all896 dimensions or exact asymptotic values.",
+    "order": "Retain native QR order and stable descending permutation. Native-order substitution is a historical diagnostic only.",
+    "arithmetic": "Exact saved-decimal and represented-binary64 ratios/cumulative sums plus literal binary64 comparison; retain every nonzero difference.",
+    "positivity": "Strictly >0 at final measured horizon; original >1e-3+no-period/previous labels remain selection metadata only.",
+    "checkpoint_comparison": "All84 checkpoints retained. Separate per-step maxima keep1000\u21922000 distinct from earlier TC250/500.",
+    "range": "Actual min/max of supported point dimensions, outward2/3decimal bounds; nonpositive, bound-only, invalid and missing cases explicit.",
+    "unresolved_tail": "No denominator floor. Nonnegative last retained sum gives only conditional D>=4; no exact point from unobserved tail.",
+    "exposure": "Producer cards, numerical summaries and paper wording were read before this saved-data calculation; no blinded model replication claim."
+  },
+  "outputs": [
+    "report.json",
+    "manifest.json"
+  ],
+  "prelaunch_requirements": [
+    "Root exact source/card/supervisor acceptance",
+    "Inference private source/card checkpoint and fresh capacity admission",
+    "exact original worker/supervisor birth capture and owned closure"
+  ],
+  "no_authorized_actions": [
+    "model/tangent execution",
+    "producer code imports",
+    "new spectrum estimation",
+    "new cell selection",
+    "automatic retry/extension",
+    "GPU/pod/network action"
+  ]
+}
