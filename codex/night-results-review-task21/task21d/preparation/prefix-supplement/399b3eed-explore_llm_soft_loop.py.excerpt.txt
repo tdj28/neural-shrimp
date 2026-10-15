@@ -1,0 +1,56 @@
+# Original 399b3eedb3b11b823133d35baee7857dd4641455:tools/explore_llm_soft_loop.py lines 1185-1219
+def normal_form(args):
+    """Normal form u' = u + a eps + b u^2 of a period-p orbit's fold, in float64, at a point of a curve or branch
+    run (bifurcation_curves.fold_normal_form on the p-fold soft map, eps in units of alpha): a includes the
+    steering's effect on the prefix; b comes from central differences of JVPs over a step-size table. Writes
+    normal-form.json and vectors.npz (x_c, r, l) for `passage`."""
+    import bifurcation_curves as bc
+
+    src = DATA / "explore" / args.run
+    name = "curve.json" if (src / "curve.json").exists() else "branch.json"
+    rec = json.loads((src / name).read_text())
+    index = args.index
+    if args.nearest_fold:                     # the branch point whose real multiplier is nearest +1 (the turn)
+        gaps = [abs(1.0 - p["real_multiplier_nearest_one"]) if p.get("real_multiplier_nearest_one") is not None
+                else np.inf for p in rec["points"]]
+        index = int(np.argmin(gaps))
+        if not np.isfinite(gaps[index]):
+            raise SystemExit("no point with a real multiplier near +1 in the run")
+    pt = rec["points"][index]
+    x = np.load(src / "states.npy")[index].ravel()
+    ra = rec["args"]
+    if name == "curve.json":
+        start = json.loads((DATA / "explore" / ra["start"] / ("branch.json" if (DATA / "explore" / ra["start"] /
+                                                                    "branch.json").exists() else "tline.json"))
+                           .read_text())["args"]
+        log_t, alpha = pt["log10_temperature"], pt["alpha"]
+    else:
+        start = ra
+        log_t, alpha = ((pt["lambda"], ra["alpha"]) if rec.get("free", "temperature") == "temperature"
+                        else (ra["log_temperature"], pt["lambda"]))
+    loop = SoftLoop(start["model"], start["layer"], args.threads, start["prompt"], start["opener"], start["window"],
+                    "float64", args.device)
+    v = elpm.load_vectors(start["vectors"])[start["concept"]]
+    fam = soft_family(loop, v, int(rec["period"]), args.alpha_scale, args.chunk)
+    theta = np.array([log_t, alpha * args.alpha_scale])
+    res = float(np.linalg.norm(fam.residual(x, theta)) / np.linalg.norm(x))
+# Original 399b3eedb3b11b823133d35baee7857dd4641455:tools/explore_llm_soft_loop.py lines 1222-1236
+    nf = bc.fold_normal_form(fam, x, theta, param=param, param_scale=scale, steps=tuple(args.steps))
+    if abs(nf["multiplier"][1]) > 1e-9 or abs(nf["multiplier"][0] - 1.0) > 0.01:      # classify before trusting
+        raise SystemExit(f"multiplier nearest +1 is {nf['multiplier']}: not a fold point (refusing coefficients)")
+    out = DATA / "explore" / args.out
+    out.mkdir(parents=True, exist_ok=True)
+    np.savez(out / "vectors.npz", x_c=x, r=nf.pop("r"), l=nf.pop("l"))
+    rec_out = {"args": vars(args), "source": {"run": args.run, "index": index, "log10_temperature": log_t,
+               "alpha": alpha, "period": int(rec["period"]), "model": start["model"], "layer": start["layer"],
+               "prompt": start["prompt"], "opener": start["opener"], "window": start["window"],
+               "vectors": start["vectors"], "concept": start["concept"]},
+               "orbit_residual": res, **nf,
+               "pi_over_sqrt_ab": float(np.pi / np.sqrt(abs(nf["ab"])))}
+    (out / "normal-form.json").write_text(json.dumps(rec_out, indent=1))
+    print(json.dumps({k: rec_out[k] for k in ("orbit_residual", "multiplier", "second_modulus", "a", "b", "ab",
+                                              "b_steps", "pi_over_sqrt_ab")}))
+# Original 399b3eedb3b11b823133d35baee7857dd4641455:tools/explore_llm_soft_loop.py lines 1557-1559
+    bb.add_argument("--prompt", choices=sorted(ela.PROMPTS), default="open")
+    bb.add_argument("--opener", default=ela.OPENER)
+    bb.add_argument("--window", type=int, default=1)

@@ -1,0 +1,38 @@
+--- /tmp/task21d-inputs-reviewed-v2.py
++++ /tmp/task21d-inputs.py
+@@ -98,6 +98,9 @@
+         if isinstance(period,bool) or not isinstance(period,(int,float)) or not math.isfinite(period) or period<0 or int(period)!=period:
+             raise ValueError('invalid detected period')
+     if len(set(actual))!=n: raise ValueError('duplicate saved coordinate')
++    # Exact original399b writer defaults, confirmed by prefix supplement.
++    if (nf['source']['prompt'],nf['source']['opener'])!=('open','Hello!'):
++        raise ValueError('resolved line/normal-form prefix mismatch')
+     joint=['model','layer','vectors','concept','window']
+     for key in joint:
+         if args[key]!=nf['source'][key]: raise ValueError('line/normal-form identity mismatch: '+key)
+@@ -120,5 +123,5 @@
+             'source_period_range_violation_indices':[r['input_index'] for r in diagnostics if not r['period_in_source_range_0_to_64']],
+             'cell_count':n,'unique_coordinates':n,'exact_declared_grid':True,'model':args['model'],'alpha':alpha,
+             'first_coordinate':coords[0],'last_coordinate':coords[-1],
+-            'joint_keys_checked':joint,'classifications_inherited':True,'curve_source_point':pt,
++            'joint_keys_checked':joint,'effective_prefix_checked':{'prompt':'open','opener':'Hello!'},'classifications_inherited':True,'curve_source_point':pt,
+             'no_negative_lyapunov_gate_added':True}
+--- /tmp/task21d-run-reviewed-v1.py
++++ /tmp/task21d-run.py
+@@ -82,6 +82,7 @@
+             raise ValueError('exact two-model/period/coverage contract required')
+         authority=load(manifest['authority'],'inherited_original_authority')
+         sourcemap=load(manifest['source_map'],'inherited_source_association')
++        prefix_authority=load(card['prefix_authority'],'inherited_resolved_prefix_authority')
+         tic=time.perf_counter()
+         for spec in manifest['models']:
+             row={'id':spec['id'],'completed':False};records.append(row)
+@@ -104,7 +105,7 @@
+         result={'schema':SCHEMA,'computational_completed':True,'scientific_claims_accepted':False,'models':records,
+                 'input_pins':admitted,'card_sha256':sha(cardraw),'source_sha256':card['source_sha256'],
+                 'numpy_version':score.np.__version__,'original_authority_inherited':authority,
+-                'source_association_inherited':sourcemap,'target_cell_count':sum(m['expected_cells'] for m in manifest['models']),
++                'source_association_inherited':sourcemap,'prefix_authority_inherited':prefix_authority,'target_cell_count':sum(m['expected_cells'] for m in manifest['models']),
+                 'calculation_input_io_and_posthash_seconds':time.perf_counter()-tic,
+                 'observed_peak_rss_kib_before_serialization':resource.getrusage(resource.RUSAGE_SELF).ru_maxrss,
+                 'scope':'Independent unblinded saved-line arithmetic; original native model/fold/period/precision premises inherited.'}

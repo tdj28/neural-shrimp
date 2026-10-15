@@ -1,0 +1,40 @@
+--- inputs-v1-2ef98757
++++ inputs-v2-07f71146b0b8351c07f7b0cb8c0d4d072220c915cc3cf7cc74c08ed9a5518b24
+@@ -53,6 +53,24 @@
+             'coordinate':coordinate,'native_derivatives_or_orbit_recomputed':False}
+ 
+ 
++def classification_diagnostic(cell,index):
++    """Compare the original scalar rule without replacing the saved class."""
++    values=cell['lyapunov']
++    if not isinstance(values,list) or any(isinstance(x,bool) or not isinstance(x,(int,float)) for x in values):
++        raise ValueError('numeric saved exponent list required')
++    lead=finite(cell['lead_period'])
++    if lead<0 or lead!=int(lead): raise ValueError('nonnegative integer symbolic period required')
++    p=cell['period']
++    positive=all(x>1e-3 for x in values)
++    own=('periodic' if p>0 else 'hidden chaos' if positive and lead>=1 else
++         'visible chaos' if positive else 'irregular, exponent not positive at both offsets')
++    return {'input_index':index,'saved_class':cell['class'],'reconstructed_class':own,
++            'matches':cell['class']==own,'period_saved':p,'period_in_source_range_0_to_64':0<=p<=64,
++            'lyapunov_saved':values,'lyapunov_all_finite':all(math.isfinite(x) for x in values),
++            'all_exponents_strictly_above_1e_3':positive,'lead_period_saved':cell['lead_period'],
++            'saved_class_used_for_window_selection':True}
++
++
+ def admit_line(line,definition,nf,curve,spec):
+     """Require the complete unique declared cell list and frozen command association."""
+     args=line['args']
+@@ -96,7 +114,11 @@
+     pt=curve['points'][0]
+     for key in ['log10_temperature','alpha']:
+         if finite(pt[key])!=finite(nf['source'][key]): raise ValueError('normal-form curve coordinate mismatch: '+key)
+-    return {'cell_count':n,'unique_coordinates':n,'exact_declared_grid':True,'model':args['model'],'alpha':alpha,
++    diagnostics=[classification_diagnostic(c,i) for i,c in enumerate(cells)]
++    return {'classification_diagnostics':diagnostics,
++            'classification_mismatch_indices':[r['input_index'] for r in diagnostics if not r['matches']],
++            'source_period_range_violation_indices':[r['input_index'] for r in diagnostics if not r['period_in_source_range_0_to_64']],
++            'cell_count':n,'unique_coordinates':n,'exact_declared_grid':True,'model':args['model'],'alpha':alpha,
+             'first_coordinate':coords[0],'last_coordinate':coords[-1],
+             'joint_keys_checked':joint,'classifications_inherited':True,'curve_source_point':pt,
+             'no_negative_lyapunov_gate_added':True}

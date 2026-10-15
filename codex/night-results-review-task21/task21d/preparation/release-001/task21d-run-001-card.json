@@ -1,0 +1,58 @@
+{
+  "schema": "codex-task21d-saved-rescore-v1",
+  "admission": "prepared",
+  "source_commit": null,
+  "source_sha256": {
+    "run.py": "84a7a9abcfe801fdcdce498a6c0c835bd8eef82703d9cdadd435083e7c459ed4",
+    "score.py": "f0a835b3703e5ebc2e692ab4899f5fb53a473cfc02581af2948882de4f61ff88",
+    "inputs.py": "2ef9875739e19a872716073fefa79aa4039fd6828c57cb1844be198781ed21a0"
+  },
+  "inputs_manifest": {
+    "path": "/data2/neural-shrimp-data/codex/night-results-review-task21/task21d/source-001/inputs.json",
+    "bytes": 11134,
+    "sha256": "92a805d3470e198621e37e6edd1bda083ff0836109e692b29582b39b53428a92"
+  },
+  "output": "/data2/neural-shrimp-data/codex/night-results-review-task21/task21d/run-001",
+  "limits": {
+    "cpu_seconds": 30,
+    "wall_seconds": 60,
+    "as_bytes": 1073741824,
+    "input_bytes": 4194304,
+    "output_bytes": 16777216,
+    "startup_available_bytes": 21474836480,
+    "runtime_available_bytes": 17179869184
+  },
+  "numpy_version": "2.5.3",
+  "nice": 10,
+  "cpu_threads": 1,
+  "max_owned_slots_including_supervisor": 2,
+  "environment": {
+    "OMP_NUM_THREADS": "1",
+    "OPENBLAS_NUM_THREADS": "1",
+    "MKL_NUM_THREADS": "1",
+    "NUMEXPR_NUM_THREADS": "1"
+  },
+  "source_exposure": "Team is unblinded to original03:03/03:27 and later summaries; this independently reproduces saved arithmetic, not fresh confirmation.",
+  "runtime_paths": "Durable outer inputs.json is byte-identical92a805d3. Literal nested /tmp references remain valid and hash-bound; archived source-adoption maps durable backups without rewriting original metadata.",
+  "synthetic_measurements": [
+    {
+      "path": "/tmp/task21d-controls-001.json",
+      "sha256": "4b8a4c48934cd76880cd0e4a8eaec9210758d848650ffaf2b16d4c8b1ac59910"
+    },
+    {
+      "path": "/tmp/task21d-admission-controls-001.json",
+      "sha256": "693da3f2e491894a99220fc04a27141dd7eda46cbf70e3cf1e36e4097a8593ae"
+    }
+  ],
+  "forecast": "Both8/7-window variants0.3503s;32-window stress1.3122s; all scoring serialization1.6668s/33,408KiB/196,797B. Separate2700-cell hash/admission/ledger write0.021342s/39,760KiB/625,206B. Planning allowance10s/256MiB/4MiB; synthetic measurements are not worst-case proofs, and exact target1,724,771B plus definitions/metadata add hash/serialization costs. HardAS/output/deadline dominate.",
+  "completion_contract": {
+    "outputs": [
+      "report.json",
+      "manifest.json"
+    ],
+    "success": "computational_completed true with both full models; not a favorable-science flag",
+    "scientific_claims_accepted": false,
+    "failure": "preserve exclusive failure.json if generated, all original external logs/receipt; no retry"
+  },
+  "authorization": "Prepared and unlaunchable pending Root exact source/card review, private checkpoint, coordinator-owned supervisor/capacity admission."
+}
