@@ -25663,3 +25663,54 @@ Follow-up of FM5, under its run card ("tangent reversals are cusp candidates, to
   - the unfolding is regular (det J nonzero, finite condition).
 - **Curve.** The fold of the alpha1-down branch at (-0.123323, 0.100693), continued both ways: up to 120 points, bounds alpha1 [-0.130, -0.100] and alpha2 [0.085, 0.120], settings as FM5.
 - **Run.** One H100 NVL, six processes. Locates have 100 minutes each, curves 110; the run limit is 125 minutes. The cost ceiling is in the private ledger.
+
+## 2026-10-15 16:02 UTC: Consult 10 completed and adjudicated (final check of the restructured paper; shrimp anatomy)
+
+One research-strategy request (gpt-6-astra, Pro, xhigh) with docs/consults/2026-10-15-restructure-final-check/brief.md and its context file at 00ba9b95. It completed with 71,366 tokens; the cost is recorded privately. The review is copied unchanged, with adjudication.md.
+- **Applied:**
+  - "so no codimension-two point lies on them" corrected: cusps need only a nonlinear degeneracy;
+  - the "swallowtail" wording narrowed (no swallowtail point claimed);
+  - "41 other cells" (negative products are disjoint from complex pairs);
+  - the hostile body's "tracked real leading multiplier";
+  - "endoskeleton" removed (definitions not verifiable at the source);
+  - Hénon (1976) added after Crossref verification.
+- **New check (consult direction 3, cheapest pilot), CPU, float64, from saved states.** At the self-crossing of the FM5 fold curve the two arms are folds of different period-5 orbits. Both have the token loop ". I . . 你", and their states differ by 3.9 % (RMS over the five points, best phase), 8 to 26 times the state change per curve step. The crossing therefore joins two separate saddle-node events.
+- **Recommended experiment (not started).** A causal reset test of layout-dependent answers in bfloat16 soft thinking: free feedback against a reference-state reset before every soft step. It goes to the human as a proposal.
+
+## 2026-10-15 16:06 UTC: run card RR (exploratory; consult 10, direction 1): does accumulated feedback state make soft-thinking answers depend on the batch layout?
+
+**Question.** REPRO-T found that the batch layout changed 56 % of bf16 soft-thinking answers (Qwen2.5-0.5B, T = 1, H100). Two explanations compete:
+- the soft phase carries each step's layout-dependent rounding forward, so it accumulates or is amplified;
+- each step's difference, or only the final steps', flips vulnerable answers directly.
+
+**Tool.** tools/repro_reset.py (new; tests/test_repro_reset.py: 2 pass; CPU smoke run passes its per-problem checks). The pipeline is REPRO-T's:
+- 32 soft steps at T = 1, then the answer cue and 8 greedy tokens;
+- batch layout: the target alone, against row 0 of a batch of four with REPRO-T's three distractors (equal token length, no padding).
+
+Arms per problem:
+- reference (batch 1);
+- free: batch 4, prompt state copied from the reference;
+- reset: as free, but the target's cache and logits are replaced by the reference's before every soft step;
+- native: REPRO-T's pipeline entirely in batch 4.
+
+Free, reset and the reference decode in batch 1. Per-problem checks: the reference reruns bit for bit, and free and reset in batch 1 reproduce it exactly.
+
+**Problems.** docs/rr-problems.json, fixed now: fresh two-digit additions with none of REPRO-T's pairs; dev 24 and held-out 128, half with a units carry.
+
+**Primary endpoint (consult 10).** Delta = P(disagree | free) - P(disagree | reset) in bf16, paired over held-out problems, with a 10,000-draw bootstrap 95 % interval and an exact McNemar test. Decision rule:
+- Delta > 15 points with an interval excluding zero: a large recurrent contribution (expand the mechanism work);
+- the interval's upper end below 15 points: no large recurrent contribution under these conditions.
+
+**Secondary.**
+- float32 arms;
+- accuracy per arm;
+- invalid answers, counted as an outcome;
+- the per-step logit distance from the reference: free (accumulated) against reset (one step);
+- native disagreement, which REPRO-T measured on this hardware.
+
+**Hardware.** The local RTX 2000 Ada GPU. Its kernels differ from the H100's, so the base disagreement rates are measured anew here.
+
+**Sequence.**
+1. The dev set (24) in bf16 and float32: check the machinery and that layout disagreement occurs on this GPU at all. Nothing is tuned.
+2. If it does, the held-out set (128) once, in both precisions.
+3. If it does not, report that, and plan the held-out run on an H100 under a costed plan instead.

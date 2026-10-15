@@ -212,3 +212,5 @@ skill, section 7A). Spend is recorded only in the gitignored `cost-ledger.md`
   rates apply). The canonical client's reserves and authorization guard apply (amounts in the private cost ledger).
   Advice is advisory: references are checked at their primary source before use, and material advice is adjudicated
   locally in `adjudication.md`.
+- **Outcome:** sent at about 15:46 UTC, completed 15:58 UTC (71,366 tokens); adjudicated in
+  `2026-10-15-restructure-final-check/adjudication.md`.
