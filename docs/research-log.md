@@ -25999,3 +25999,21 @@ This is a first look. Folds, cusps and legs need the curve continuation of FM5 a
   - the body location: one coordinate within 2.6 and 3.1 %, two within 5e-5, four within 3e-7. The strict 1D criterion fails because two coordinates help, and the location was not blind.
   - pocket-orbit1 at 1e-2.
 - **Conclusion.** CL2 says nothing about two-dimensional closure. A repeat would need regularized fits, per-coordinate scaling or one-step forecasts.
+
+## 2026-10-15 18:21 UTC: Amendment to SHC: seeds replaced after three refusals at the seed
+
+The first SHC-P2, P4 and P8 pods ended at the seed check of tools/doubly_superstable.py. The seeds were the most strongly contracting cells, next to superstable curves, where the leading multiplier is not dominant:
+- P8: -0.029 (next 0.017);
+- P4: a complex pair of modulus 0.062 (next 0.062);
+- P2: a complex pair of modulus 0.18 (next 0.18).
+
+No grid was computed. The pods ran 2 to 3 minutes each and were terminated (hash-verified results).
+
+The new seeds are interior cells (5 x 5 neighbourhood of the same period) with moderate exponents, checked first on the local CPU with a one-cell grid:
+- **P4:** (-0.104443, 0.101883), mu -0.703 real, next 0.038, clean; token loop 56568, 13, 56568, 13.
+- **P8:** (-0.104642, 0.107241), mu -0.631 real, next 0.010, clean.
+- **P2:** (-0.099681, 0.103074), mu +0.825, next 0.501, not clean.
+  - The period-2 cell has two comparable multipliers throughout the cells checked, so it runs with --multipliers-only (the tool's two-dimensional mode).
+  - That mode records the three leading multipliers for the trace and product reading. The per-step factors it writes are not meaningful.
+
+Boxes and resolutions are unchanged.
