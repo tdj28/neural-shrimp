@@ -3209,9 +3209,14 @@ of an RMS normalization at layer 3 (the enclosures overestimate through the laye
 verified methods. A horizon check retested
 random cells of two float64 maps (Figures~\ref{fig:teaser} and~\ref{fig:stripes}) with 1000 transient and 2000
 measured steps at two twin offsets: 86 and 92 of 96 cells labeled chaotic stayed chaotic (all but one of the rest
-settled on periodic orbits), all 96 periodic cells in each map stayed periodic, and 18 and 20 of 32 cells with neither
-label turned out to be slow periodic transients. Near the accumulation of a cascade the labels are less reliable, because orbits there converge
-slowly or wander chaotically before they settle (transient chaos \cite{lai2011transient}): on
+settled on periodic orbits), all 96 periodic cells in each map stayed periodic, and 29 and 27 of 32 cells with neither
+label settled on periodic orbits (18 and 20 of them with periods up to 32, the maps' maximum, the others with periods
+up to 64). For the cells that stayed chaotic, the map's 300-step exponent differs from the 2000-step exponent by a
+median of 0.020 and 0.030 (90th percentiles 0.064 and 0.096, maxima 0.23 and 0.30), and the 2000-step exponents at
+offsets $10^{-6}$ and $10^{-9}$ agree within $3\times10^{-3}$. The chaotic counts do not hinge on the threshold:
+raising it from $10^{-3}$ to $0.01$, $0.02$ or $0.05$ leaves 77{,}646, 76{,}761 or 73{,}437 of the 78{,}868 chaotic
+cells of Figure~\ref{fig:teaser}. Near the accumulation of a cascade the labels are less reliable, because orbits there converge
+slowly or wander chaotically before they settle (transient chaos \cite{grebogi1983crises,lai2011transient}): on
 the hostile line of Figure~\ref{fig:hubcascade} (left), 135 of the 235 cells labeled chaotic from 400 measured steps
 stayed chaotic and 91 were periodic. The Feigenbaum ratios are
 finite-order values that rise toward $\delta$ (the last is within 1\,\%); the limit itself is not computed. All

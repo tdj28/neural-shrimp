@@ -26664,3 +26664,19 @@ The Chaos article's version was rewritten the same way and sent to its editing a
 **Paper.** The prospective paragraph gives the long-forecast count and the one-sided residual pattern: measured passages are systematically shorter than the iterated map. The continuous form's status is still left to PT2.
 
 **Local run note.** SHC-L2 runs at about 181 s per cell under CPU contention (i9-14900K, load 33). The breadth-first order from the band centre reaches the meeting region first.
+
+## 2026-10-15 23:45 UTC: Referee B2 in the main paper: finite-horizon error of the chaos labels, threshold sensitivity
+
+Recomputed from docs/h2-horizon-cells.json and pod64/hidden/h2-cells/hidden-chaos.json (the referee's check_labels.py, rerun).
+
+**Chaotic cells that stayed chaotic** (cross-512 n = 86, stripes n = 92):
+- |lambda_2000 - lambda_300|: median 0.0199 and 0.0301; 90th percentile 0.0636 and 0.0963; maximum 0.2284 and 0.2990.
+- The 2000-step exponents at offsets 1e-6 and 1e-9 differ by at most 2.52e-3 and 2.92e-3; quoted as "within 3e-3".
+
+**Neither-label cells.** 29 and 27 of 32 settled on periodic orbits at 2000 steps. 18 and 20 of them have periods up to 32, which is the old "18 and 20" count. The others have periods 33 to 64. The paper now gives both.
+
+**Threshold sensitivity** (chaotic count of Fig. 1 at thresholds 0.01, 0.02 and 0.05):
+- Fig. 1: 77,646, 76,761 and 73,437 of 78,868.
+- Stripes map: 35,431, 35,244 and 34,646 of 35,650 (not quoted in the paper).
+
+**Citation.** Grebogi, Ott and Yorke 1983 is added for transient chaos, verified at Crossref: Physica D 7(1-3), 181-200, doi 10.1016/0167-2789(83)90126-4.
