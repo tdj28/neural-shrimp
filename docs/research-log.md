@@ -24970,3 +24970,19 @@ DLGb:
 - Explicit chaos diagnostics for the agents alone: twin exponents at both offsets, and tangent where needed.
 
 **Compute.** Two H100-class pods, about 2.5 h each; ceilings in the private ledger.
+
+## 2026-10-15 09:38 UTC: DLG smoke test (CPU, float64) passed; DLGa and DLGb pods created
+
+Script: scratchpad smoke test of tools/soft_dialogue.py at commit 01a335d6, Qwen2.5-0.5B, 32 threads.
+- **Cowrite identity.** Equal agents (philosophy, alpha 0.07, log10 T -0.10) for 30 exchanges against the single soft-token loop for 60 steps: maximum absolute difference **0.0**, i.e. bitwise identical. The diagonal of a cowrite pair map is the paper's map.
+- **Dialogue frame, 4 cells at log10 T 0** (transient 20, record 40 exchanges; 514 s on the contended CPU):
+
+  | alpha_A, alpha_B | class | period | exponents (1e-6, 1e-9) | B's leading token | entropy |
+  |---|---|---|---|---|---|
+  | 0, 0 | periodic | 1 | -13.70, -13.75 | "Hello" | 0.01 |
+  | 0.06, 0.06 | periodic | 1 | -1.60, -1.68 | "As" | 2.06 |
+  | 0, 0.06 | irregular, exponents negative | - | -0.23, -0.25 | "As" | 3.76 |
+  | 0.06, 0 | irregular, exponents negative | - | -0.16, -0.21 | "Hello" | 1.65 |
+
+  - The first cell is the synchronized greeting fixed point of the 12 Oct text pilots, now as a soft-token fixed point.
+  - The two unequal pairs had not settled within 60 exchanges; the maps use 1300.
