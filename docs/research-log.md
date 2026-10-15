@@ -25751,3 +25751,52 @@ All 856 published JSON leaves and all 120 inline-transcript fields reproduce.
 - BP: the descriptive gap, the task composition and the adjusted coefficient, stated as associations.
 
 **Correction to this log (BP entry, 05:53 UTC).** "This adjustment probably over-corrects. The true effect plausibly lies between the adjusted and the raw estimate" is withdrawn. The adjusted coefficients are conditional linear-projection associations, and they neither show the direction of any over-correction nor bracket the effect.
+
+## 2026-10-15 16:27 UTC: RR held-out result: resetting the fed-back state removes most layout-dependent answer changes in bf16 (Delta 68.8 points)
+
+Local RTX 2000 Ada, commit 292493ab, held-out set (128 fresh additions), run once per the card. All 256 problem runs pass the exactness checks. Analysis: docs/rr/rr-heldout-analysis.json.
+
+**bf16.**
+- Answers that differ from the reference:
+  - free 102/128 (79.7 %);
+  - reset 14/128 (10.9 %);
+  - native 109/128 (85.2 %);
+  - reference rerun 0.
+- **Delta = 68.75 points** (bootstrap 95 % [60.2, 77.3]). Discordant pairs 90 free-only against 2 reset-only; exact McNemar p = 1.7e-24.
+- Accuracy is the same in all arms: reference 0.250, free 0.234, reset 0.242, native 0.250. Invalid answers: 2, 0, 1 and 1.
+- Logit drift from the reference, median relative distance:
+  - free: 1.5e-2 at step 1, 6.8e-2 at 8, 0.18 at 16, 0.21 at 24, 0.79 at 32;
+  - reset: 1.3e-2 to 3.1e-2 at every step.
+
+**float32.**
+- Free 4/128 (3.1 %), reset 0, native 2/128 (1.6 %).
+- Delta 3.1 points [0.8, 6.3]; McNemar p = 0.125.
+- Free drift 8.7e-7 to 1.2e-4 over 32 steps; reset 6.9e-7 to 5.0e-6.
+
+**Reading (pre-stated rule).** Delta exceeds 15 points and its interval excludes zero, so the loop's accumulation makes a large contribution.
+- In bf16, a one-step layout difference of about 1.5 % in the logits is carried forward and grows to order one within the 32-step budget, and about 86 % of the answer changes go with it (68.75 of 79.7 points).
+- What remains under reset (10.9 %) is the effect of a single batched step plus the decoder.
+- The answers change but are not worse: accuracy is unchanged.
+- This is on a workstation GPU, whose native rate (85 %) differs from REPRO-T's on the H100 (56 %).
+
+The consult's mechanism probe (controlled float32 kicks at three amplitudes) is not run; the free arm's float32 drift already shows growth of about 140-fold over 32 steps.
+
+## 2026-10-15 16:41 UTC: FM5c result (four cusp locations pass; the left fold curve has two more reversals) and run card FM5d
+
+**FM5c.** Pod d7e8gtdvaiq6x4 (COMMUNITY H100 NVL); commit aae497ca from the orchestrator log; runner rc 0; hash verified; terminated and verified 16:40 UTC; 3277 s.
+- The archive was extracted into the run folder: it contained the uploaded FM5 inputs. Three of them were compared and are bitwise identical to the local copies. The fm5c outputs are copied to explore/llm-soft-loop/pod64/fm5c.
+
+**Cusps of the right fold curve** (tools/cusp_locate.py, cusp test). Each reversal was located on both traces, and the two locations agree to about 1e-12 in parameters and to six figures in c and det J. All checks pass:
+
+| cusp | position (alpha1, alpha2) | b sign a, reduced from -> to | c | c plateau spread | det J | condition | critical multiplier | second modulus |
+|---|---|---|---|---|---|---|---|---|
+| upper | (-0.1192221373, 0.1040535583) | 25.3 -> -9.4e-5 and 26.1 -> -5.8e-5 | +26004 | 0.12 % | 176.6 | 618 | 1 + 1e-11 | 0.0018 |
+| lower | (-0.1191670167, 0.1028019412) | 41.6 -> -4.4e-4 and 31.3 -> -2.8e-4 | -20452 | 0.05 % | 88.6 | 60 | 1 + 1.2e-9 | 0.0012 |
+
+**The left fold curve.** This is the fold of the alpha1-down branch, at (-0.123323, 0.100693). Gates pass: residual < 1e-10, |g| < 3e-10, critical multiplier within 1.1e-7 of +1, no codimension-two approach.
+- Going up (51 points, to the alpha2 bound): no reversal. The other spectral radius rises to 0.395.
+- Going down (104 points, to the bounds): two reversals, both cusp candidates:
+  - (-0.123866, 0.096153), bracket [14, 15];
+  - (-0.121408, 0.102821), bracket [39, 40].
+
+**Run card FM5d.** These two candidates are located and checked with the same tool and criteria: one H100 NVL, two parallel locates, 40 minutes each, run limit 50 minutes. The cost ceiling is in the private ledger.

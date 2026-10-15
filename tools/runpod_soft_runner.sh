@@ -1550,6 +1550,17 @@ snapshot_download('$REPO', revision='$MREV', cache_dir='$NEURAL_SHRIMP_DATA/mode
     done
     wait
     ;;
+  fm5d)        # run FM5d: the two tangent reversals of the left fold curve of the period-5 window (FM5c,
+               # curve-a1-down-fold-minus, brackets 14-15 and 39-40) located and checked as cusps, in parallel (the fm5c
+               # curve, the fm5 branch and the vectors uploaded with --extra-data). JOBARGS: LOCATE-MINUTES
+    lmin=${JOBARGS[0]}
+    export OMP_NUM_THREADS=4 OPENBLAS_NUM_THREADS=4 MKL_NUM_THREADS=4
+    for left in 14 39; do
+      TOOL=cusp_locate.py run fm5d-locate-$left "$lmin" $D/fm5c/curve-a1-down-fold-minus $left --test cusp --device cuda \
+        --threads 4 --out $D/fm5d/locate-curve-a1-down-fold-minus-$left &
+    done
+    wait
+    ;;
   p4curves)    # fold and flip curves of the period-4 body orbit from the p4a branches (uploaded with
                # --extra-data): SET A = both folds of the S-shaped temperature branch (cusp candidate), C = the
                # alpha fold and the lower temperature fold, E = the first flip of the alpha branch toward the legs
