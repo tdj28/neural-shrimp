@@ -1,0 +1,8 @@
+--- task21i-card-compatibility-review.md
++++ task21i-card-compatibility-review-v2.md
+@@ -8,4 +8,4 @@
+ 
+ The card preserves those scopes. Its 55 CPU-second/60 wall-second, one-CPU, 1 GiB address-space and 128 MiB output ceilings remain a bounded attempt, not a worst-case prediction. Actual reply lengths, input hashing/decoding, additional metadata/report serialization and full-worker peak remain unmeasured. It correctly distinguishes the sampled scientific-output-plus-log budget from captured-source/receipt overhead and includes a separate storage reserve. The 145-pin/13,449,666-byte declaration is metadata, not a measured I/O cost.
+ 
+-Prepared status and null source commit remain unlaunchable. Root's exact supervisor review, private source/card checkpoint, admission-only promotion, fresh shared capacity and Inference-owned lifecycle remain required. This note adds no scientific gate and requests no repeated measurement.
++Prepared admission remains unlaunchable; exact actual source commit is bound by the reviewed launcher at admission/capture. Root's exact supervisor review, private source/card checkpoint, admission-only promotion, fresh shared capacity and Inference-owned lifecycle remain required. This note adds no scientific gate and requests no repeated measurement.

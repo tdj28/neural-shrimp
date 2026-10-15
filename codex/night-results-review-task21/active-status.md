@@ -1,3 +1,9 @@
+# Task21i computation closed; saved scientific review
+
+Updated 2026-10-15T15:06:42.524740+00:00. Sole actual sourcef5fa2fd1 completed/reaped0. Final operational authority authenticates3 outputs,10 supervision files,5 Git blobs and145 input pins. Root accepts operational closure; The single accepted literal presentation is closed/reaped and Root-accepted; Boundary owns its saved scientific review and Root owns final scientific acceptance. No numerical replay or additional target run. Inference owns Git/process coordination. Task21h and all preceding units fully delivered. Zero owned numerical jobs at this checkpoint. Final scoped Claude check at15:00:50UTC pins3f6ba81f at private main5d1dc3fa. Only14:56 acknowledgment/prose-update context, no new assignment. Root deleted watch-claude-overnight at about15:03UTC. No recurrent watch remains; this admitted review/delivery continues. No Tasks23/25 plan admitted.
+
+## Preserved status history
+
 # Task21i manufactured complete; sole actual admission
 
 2026-10-15T14:50:36.753193+00:00: All21 manufactured controls passed; source2ad1d5f6, report115a3083/receipt222ca14e/outerclosure84ec1e1f accepted. Actual card/source/supervisor now Root-admitted conditional on exact private checkpoint/fresh capacity. No actual run yet; zero jobs/reservations. Inference sole Git/process owner; Theory deferred metadata-authority preparation, Boundary later saved-scientific review. Same BZ/BP plus transcript-attested original adjustment only; no BPC/BPCS or paper expansion. Task21h fully delivered. Latest Claude f1229d8a; watch ends15:00UTC with no interruption of an admitted bounded job.
