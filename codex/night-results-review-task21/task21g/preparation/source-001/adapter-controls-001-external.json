@@ -1,0 +1,22 @@
+{
+  "command": [
+    "timeout",
+    "--signal=TERM",
+    "--kill-after=2s",
+    "30s",
+    "nice",
+    "-n",
+    "10",
+    "python",
+    "-I",
+    "-B",
+    "/tmp/task21g-preparation/adapter_controls.py",
+    "--out",
+    "/tmp/task21g-preparation/adapter-controls-001"
+  ],
+  "exit_code": 0,
+  "external_seconds": 0.20489115896634758,
+  "manufactured_only": true,
+  "target_data_read": false,
+  "profile_repeated": false
+}

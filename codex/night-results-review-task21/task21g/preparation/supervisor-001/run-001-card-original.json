@@ -1,0 +1,132 @@
+{
+  "schema": "codex-task21g-card-v1",
+  "admission": "prepared",
+  "source_expected_commit": null,
+  "objective": "Independent unblinded finite scalar-return-map geometry and literal source-count/spread comparison for all seven original RM1 cells and seven nominal phases; no native/PCA/producer execution.",
+  "output": "/data2/neural-shrimp-data/codex/night-results-review-task21/task21g/run-001",
+  "inputs": {
+    "path": "/data2/neural-shrimp-data/codex/night-results-review-task21/task21g/source-001/inputs.json",
+    "sha256": "6145d0edf686f3465f9aef396642c4007ea7a79290da22d646d8f8ddbd33962a",
+    "bytes": 21045
+  },
+  "sources": [
+    {
+      "name": "run.py",
+      "sha256": "30b94dcd9883d65963475abd42833679c34693835533ba5a1b3090330aac2931"
+    },
+    {
+      "name": "core.py",
+      "sha256": "01e4ba536a2aecfeebbf1398a0c8f16d4259b26bf6c7eb27bdd05ef11c1a98a0"
+    }
+  ],
+  "limits": {
+    "cpu_threads": 1,
+    "nice": 10,
+    "as_bytes": 1073741824,
+    "cpu_seconds": 55,
+    "wall_seconds": 60,
+    "max_output_bytes": 134217728,
+    "max_input_bytes": 8388608,
+    "startup_available_gib": 20,
+    "runtime_available_gib": 16
+  },
+  "resources": {
+    "cpu_reservation": "one worker plus external supervisor; admission requires coordinator capacity check",
+    "storage_headroom_bytes": 536870912,
+    "selected_pin_count": 15,
+    "selected_input_bytes": 573114,
+    "target_files_bytes": 390026,
+    "single_sequence_manufactured": {
+      "states": 1000,
+      "partitions": 10,
+      "seconds_through_serialization": 0.10716994712129235,
+      "serialized_bytes": 616900,
+      "peak_rss_kib_sampled": 41364,
+      "report": {
+        "path": "/tmp/task21g-preparation/controls-001/report.json",
+        "bytes": 1928,
+        "sha256": "81cf8b6659d1d90738cb9f8586cb37f359abe06d7ac69b0acb552792326d7eb9"
+      }
+    },
+    "simple49_scaling": {
+      "seconds_core_only": 5.251327408943325,
+      "serialized_core_bytes": 30228100
+    },
+    "forecast_scope": "Single manufactured sequence scaled linearly, not a worst-case bound or full-worker profile. Additional scalar sequence/compact summary/input hash/disk work included under fixed55CPU/60wall/1GiB/128MiB ceilings; failures preserved, no automatic retry.",
+    "adapter_controls": {
+      "path": "/tmp/task21g-preparation/adapter-controls-001/report.json",
+      "bytes": 865,
+      "sha256": "d2bd8f4b1b88d25e1b83ad12f610a1cbb6d222d9259401176b646b56e64a3067"
+    },
+    "adapter_external": {
+      "path": "/tmp/task21g-preparation/adapter-controls-001-external.json",
+      "bytes": 423,
+      "sha256": "1c2872f9cc345c00b7d75bf1136f9360cc0a649dbf1dc03076a70cdf8f5b01f8"
+    },
+    "no_profile_repeat": true,
+    "output_cap_scope": "All three scientific files including manifest; supervisor may sample combined source/log overhead. Small forensic failure JSON explicitly outside worker Sink count."
+  },
+  "coverage": {
+    "original_attempt": "RM1",
+    "original_source_commit": "0a15d1a66a4e9d34ff43d1d56e8cb42c5126fc9e",
+    "cells": 7,
+    "phases_per_cell": 7,
+    "sequences": 49,
+    "states_per_sequence": 1000,
+    "pairs_per_sequence": 999,
+    "partitions_per_sequence": 10,
+    "bin_family": [
+      16,
+      24,
+      32,
+      48,
+      64
+    ],
+    "partition_conventions": [
+      "width",
+      "count"
+    ],
+    "group_memberships": {
+      "body_edge": [
+        0,
+        1,
+        2
+      ],
+      "hostile_line": [
+        3,
+        4,
+        5,
+        6
+      ],
+      "original_figure_rows": [
+        0,
+        1,
+        2,
+        5
+      ]
+    },
+    "literal_comparisons": [
+      "all49 original turning counts",
+      "all49 scalar spreads"
+    ],
+    "pca": "all98 original explained shares inherited, not independently recomputed",
+    "preserved": "every finite/nonfinite/constant disposition; exact plateau/tie/occupancy/parity and complete simplification hierarchy; no selected prominence/shape gate"
+  },
+  "outputs": [
+    "phases.jsonl",
+    "report.json",
+    "manifest.json"
+  ],
+  "success_contract": {
+    "report_schema": "codex-task21g-saved-return-maps-v1",
+    "computational_completed": true,
+    "scientific_claims_accepted": false,
+    "sequences": 49,
+    "partition_count_per_sequence": 10,
+    "phase_stream_records": 49,
+    "manifest_schema": "codex-task21g-output-v1",
+    "manifest_files": 2
+  },
+  "authority_scope": "Original local archive/retrieval/recorded termination and source association inherited from accepted coordinator authority. Selected byte pins checked before/after. Nested paths unchanged; no historical birth, loaded-model byte or PCA/native proof manufactured.",
+  "interpretation": "Finite unblinded scalar geometry; no significance test, unimodality theorem, symbolic-clock verification, native dimension/conjugacy claim or fresh model run."
+}

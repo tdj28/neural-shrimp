@@ -1,0 +1,11 @@
+--- prepared-card-original
++++ prepared-card-scope-corrected
+@@ -64,7 +64,7 @@
+       "sha256": "1c2872f9cc345c00b7d75bf1136f9360cc0a649dbf1dc03076a70cdf8f5b01f8"
+     },
+     "no_profile_repeat": true,
+-    "output_cap_scope": "All three scientific files including manifest; supervisor may sample combined source/log overhead. Small forensic failure JSON explicitly outside worker Sink count."
++    "output_cap_scope": "Worker Sink counts all three scientific files including manifest. Supervisor samples the science output directory plus stdout/stderr, including any forensic failure JSON, but excludes captured source and admission receipts. Excluded overhead is covered by the separate512MiB storage-headroom reserve. Small forensic failure JSON is outside the worker Sink count."
+   },
+   "coverage": {
+     "original_attempt": "RM1",

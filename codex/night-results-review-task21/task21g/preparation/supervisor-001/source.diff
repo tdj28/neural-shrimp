@@ -1,0 +1,80 @@
+--- accepted-task21f
++++ prepared-task21g
+@@ -1,14 +1,14 @@
+-"""One Task21f independent saved-arithmetic run; minimal accepted supervisor adaptation."""
++"""One Task21g independent saved-arithmetic run; minimal accepted supervisor adaptation."""
+ from pathlib import Path
+ import argparse,hashlib,json,os,resource,shutil,signal,subprocess,sys,time,traceback
+ R=Path('/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp')
+-B=Path('/data2/neural-shrimp-data/codex/night-results-review-task21/task21f')
++B=Path('/data2/neural-shrimp-data/codex/night-results-review-task21/task21g')
+ OUT=B/'run-001';SUP=OUT.with_name(OUT.name+'-supervision')
+-WRAPPER='codex/night-results-review-task21/task21f/run.py';CARD='codex/night-results-review-task21/task21f/run-001-card.json'
+-WRAPPER_SHA='91ca864a64caf62b7b3cc8be77308869c1e96fa36df602e8329c068924297e5a'  # Final accepted independent driver pin.
+-CORE='codex/night-results-review-task21/task21f/core.py';CORE_SHA='b7b29685e9c1bf4a9211a9a76d9fa04e451de6a1a3de1ad63783965bbee9c60a'
+-ADMISSION='reviewed';CARD_SHA='efc7b21080cd4ab1506d9d05512115a491a3986b0c620684a2f5f20e03bee79f'  # Exact source and reviewed card pins.
+-GIB=1024**3;WALL=180;MAX_OUTPUT=256*1024**2
++WRAPPER='codex/night-results-review-task21/task21g/run.py';CARD='codex/night-results-review-task21/task21g/run-001-card.json'
++WRAPPER_SHA='30b94dcd9883d65963475abd42833679c34693835533ba5a1b3090330aac2931'  # Root accepted independent driver.
++CORE='codex/night-results-review-task21/task21g/core.py';CORE_SHA='01e4ba536a2aecfeebbf1398a0c8f16d4259b26bf6c7eb27bdd05ef11c1a98a0'
++ADMISSION='prepared';CARD_SHA=None  # Exact reviewed card pin required.
++GIB=1024**3;WALL=60;MAX_OUTPUT=128*1024**2
+ 
+ def sha(p):return hashlib.sha256(Path(p).read_bytes()).hexdigest()
+ def save(p,value):
+@@ -24,11 +24,11 @@
+   except(FileNotFoundError,ProcessLookupError):continue
+   assert int(f[2])!=row['pgid'] and int(f[3])!=row['sid'],('audit group remains',p.name)
+ def child_limits():
+- resource.setrlimit(resource.RLIMIT_AS,(GIB,)*2);resource.setrlimit(resource.RLIMIT_CPU,(120,120))
++ resource.setrlimit(resource.RLIMIT_AS,(GIB,)*2);resource.setrlimit(resource.RLIMIT_CPU,(55,55))
+ 
+ def main():
+  ap=argparse.ArgumentParser();ap.add_argument('--source',required=True);args=ap.parse_args()
+- assert ADMISSION=='reviewed' and isinstance(CARD_SHA,str) and len(CARD_SHA)==64 and all(c in '0123456789abcdef'for c in CARD_SHA),'prepared Task21f supervisor cannot run'
++ assert ADMISSION=='reviewed' and isinstance(CARD_SHA,str) and len(CARD_SHA)==64 and all(c in '0123456789abcdef'for c in CARD_SHA),'prepared Task21g supervisor cannot run'
+  assert len(args.source)==40 and all(c in '0123456789abcdef'for c in args.source)
+  os.nice(10-os.getpriority(os.PRIO_PROCESS,0));resource.setrlimit(resource.RLIMIT_AS,(GIB,)*2)
+  assert not OUT.exists() and not SUP.exists()
+@@ -39,12 +39,12 @@
+  sources={}
+  for name,pin in [(WRAPPER,WRAPPER_SHA),(CORE,CORE_SHA),(CARD,CARD_SHA)]:
+   data=git('show',args.source+':'+name);assert hashlib.sha256(data).hexdigest()==pin==sha(R/name),name;sources[name]=data
+- own=Path(__file__);launch_rel='codex/night-results-review-task21/task21f/run-001-launch.py';assert git('show',args.source+':'+launch_rel)==own.read_bytes();sources[launch_rel]=own.read_bytes()
++ own=Path(__file__);launch_rel='codex/night-results-review-task21/task21g/run-001-launch.py';assert git('show',args.source+':'+launch_rel)==own.read_bytes();sources[launch_rel]=own.read_bytes()
+  available=next(int(x.split()[1])*1024 for x in Path('/proc/meminfo').read_text().splitlines()if x.startswith('MemAvailable:'));assert available>=20*GIB and shutil.disk_usage('/data2').free>=16*GIB
+  SUP.mkdir();src=SUP/'source'
+  for name,data in sources.items():p=src/name;p.parent.mkdir(parents=True,exist_ok=True);p.write_bytes(data);p.chmod(0o444)
+  command=['/data2/neural-shrimp/.venv/bin/python','-I','-B','-u',str(src/WRAPPER),'--card',str(src/CARD),'--out',str(OUT)]
+- save(SUP/'admission.json',{'source_commit':args.source,'private_remote_ancestor':remote,'sources':{n:hashlib.sha256(d).hexdigest()for n,d in sources.items()},'available_bytes':available,'disk_free_bytes':shutil.disk_usage('/data2').free,'load_average':os.getloadavg(),'cpu_affinity_count':len(os.sched_getaffinity(0)),'scope':'One Task21f independent saved DSS scalar/mask/contour audit of six pinned original grids and separate progress records. Original timeout, BFS coverage, absent historical transport fields, overlap/gauge differences and all scientific discrepancies remain outcomes. No model, native derivatives, eigensolve or producer imports. Exact source and finite original-input authority bound by reviewed card. Proposed CPU1 plus supervisor,1GiB AS,120CPU/180s wall plus5s TERM/5s KILL cleanup,256MiB output,20/16GiB available RAM and16GiB disk; no concurrent numerical reservation. Exit success means computational completion, not favorable scientific gates','command':command,'seconds':WALL,'memory_gib':1,'cpu_worker':1,'supervisor_slots':1,'output_cap_bytes':MAX_OUTPUT,'supervisor':identity(os.getpid())})
++ save(SUP/'admission.json',{'source_commit':args.source,'private_remote_ancestor':remote,'sources':{n:hashlib.sha256(d).hexdigest()for n,d in sources.items()},'available_bytes':available,'disk_free_bytes':shutil.disk_usage('/data2').free,'load_average':os.getloadavg(),'cpu_affinity_count':len(os.sched_getaffinity(0)),'scope':'One Task21g independent saved scalar-return-map geometry audit of all49 original RM1 sequences and ten fixed partitions each. Nominal phase/PCA/native premises are inherited; all finite and unresolved shape outcomes remain. No model, PCA, native derivatives or producer imports. Exact source and finite original-input authority bound by reviewed card. CPU1 plus supervisor,1GiB AS,55CPU/60s wall plus5s TERM/5s KILL cleanup,128MiB sampled science output plus stdout/stderr,20/16GiB available RAM and16GiB disk; captured source/receipts are outside that sampled output cap and covered by separate storage headroom. No concurrent numerical reservation. Exit success means computational completion, not favorable scientific gates','command':command,'seconds':WALL,'memory_gib':1,'cpu_worker':1,'supervisor_slots':1,'output_cap_bytes':MAX_OUTPUT,'supervisor':identity(os.getpid())})
+  env=dict(os.environ,OMP_NUM_THREADS='1',OPENBLAS_NUM_THREADS='1',MKL_NUM_THREADS='1',NUMEXPR_NUM_THREADS='1',PYTHONDONTWRITEBYTECODE='1');env.pop('PYTHONPATH',None);env.pop('PYTHONHOME',None)
+  child=None;birth=None;failure=None;code=None;timed_out=False;closed=False;start=time.monotonic();max_bytes=0
+  def stopped(signum,frame):raise InterruptedError('owned audit supervisor interrupted')
+@@ -63,7 +63,7 @@
+    assert '1073741824' in birth['limits']
+    save(SUP/'worker.json',birth);print(json.dumps({'worker':birth,'output':str(OUT)}),flush=True)
+    while child.poll() is None:
+-    if time.monotonic()-start>=WALL:timed_out=True;raise TimeoutError('180s saved arithmetic deadline')
++    if time.monotonic()-start>=WALL:timed_out=True;raise TimeoutError('60s saved arithmetic deadline')
+     assert next(int(x.split()[1])*1024 for x in Path('/proc/meminfo').read_text().splitlines()if x.startswith('MemAvailable:'))>=16*GIB,'shared RAM floor'
+     count=size();max_bytes=max(max_bytes,count)
+     if count>MAX_OUTPUT:raise RuntimeError('saved audit output cap')
+@@ -72,12 +72,12 @@
+    count=size();max_bytes=max(max_bytes,count);assert count<=MAX_OUTPUT,'final audit output cap'
+    assert code==0,'saved audit nonzero exit'
+    assert OUT.exists() and (OUT/'report.json').is_file()
+-   result=json.loads((OUT/'report.json').read_text());assert result['schema']=='codex-task21f-saved-dss-v1' and result['computational_completed'] is True
+-   assert result['run_count']==6 and result['allocated_cells']==3174
+-   expected={'cells.jsonl','progress.jsonl','coverage.jsonl','masks.jsonl','geometry.jsonl','run-summaries.jsonl','overlaps.jsonl','zoom.json','coarse-ordinal.json','report.json'}
++   result=json.loads((OUT/'report.json').read_text());assert result['schema']=='codex-task21g-saved-return-maps-v1' and result['computational_completed'] is True
++   assert result['sequences']==49 and result['partition_count_per_sequence']==10
++   expected={'phases.jsonl','report.json'}
+    assert set(p.name for p in OUT.iterdir())==expected|{'manifest.json'}
+-   manifest=json.loads((OUT/'manifest.json').read_text());assert manifest['schema']=='codex-task21f-output-v1' and manifest['computational_completed'] is True
+-   rows=manifest['files'];assert [r['path']for r in rows]==sorted(expected)
++   manifest=json.loads((OUT/'manifest.json').read_text());assert manifest['schema']=='codex-task21g-output-v1' and manifest['computational_completed'] is True
++   rows=manifest['files'];assert [r['path']for r in rows]==sorted(expected);assert {r['path']:r['records']for r in rows}=={'phases.jsonl':49,'report.json':1}
+    for row in rows:
+     assert set(row)=={'path','bytes','sha256','records'} and isinstance(row['records'],int) and row['records']>0
+     p=OUT/row['path'];assert p.stat().st_size==row['bytes'] and sha(p)==row['sha256']
