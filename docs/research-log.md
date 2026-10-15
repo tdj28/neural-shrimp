@@ -23826,3 +23826,29 @@ All six cusp candidates of the paper are now numerically located cusps: b sign(a
 ## 2026-10-15 02:51 UTC: Amendment to FL15/FL7: the normal form needs the exact fold point
 
 FL15 branch: pod mj6u1p7bvigsnk (runner rc 0, hash verified, terminated; 1098 s). The period-4 branch at alpha 0.0585882 folds between log10 T -0.0912054 and -0.0912094: a real +1 crossing with next modulus 0.008, effectively one-dimensional. The normal-form step then refused, correctly. With --nearest-fold the branch point closest to the fold has multiplier 0.9617, not a fold point, and the tool refuses to compute fold coefficients there. New part nf in both job sets: the curve tool locates the exact fold point (Newton on the minimally augmented system at fixed alpha, two steps), then normal-form is computed at that point (index 0). FL15-nf runs now; FL7-nf runs after the FL7 branch.
+
+## 2026-10-15 03:03 UTC: FL15 normal form (1.5B fold point), the scoring rule for the FL lines (fixed before their results), FB stage 1c interim: the third flip ratio at log10 T -0.156 is 4.499
+
+**FL15 normal form.** Pod gzlvd9ydhgfd0o (SECURE H100 NVL; runner rc 0, hash verified, terminated and verified; 267 s; commit e7ea0b09). The clashing upload copies of branch-p4 are byte-identical to the local ones. Outputs fl15/curve-fold-p4 and fl15/normal-form-p4.
+- At alpha 0.05858823529411764 the fold point of the period-4 orbit lies at log10 T_c = -0.09120288061238553. Orbit residual 2.3e-14; crossing multiplier +1.0000000000000244 (real +1, a fold); next-largest modulus 0.0076. The gate is met: fold coefficients for a real +1.
+- Normal form in log10 T: a = -7.1590, b = -21.0947, so ab = 151.02 (pi / sqrt(ab) = 0.2556). b converges with the step: -21.279, -21.111, -21.0965, -21.0948, -21.0946 for relative steps 1e-2 to 1e-4.
+- For comparison, the 0.5B fold ('is it' at log10 T -0.115) has ab = 122.93 per unit alpha.
+
+**Scoring rule for the FL lines (tools/foldlaw_score.py, tests/test_foldlaw_score.py), fixed before the line results.** The card leaves several choices open; they are fixed now:
+- Windows are maximal runs (at least two cells) of one period beyond the fold. A run whose neighbouring run has half its period is a doubling and is not counted. The run nearest the fold counts per period.
+- The fan is the windows from the fold outward, as long as their periods step by q.
+- d is measured at the window edge nearest the fold, from the fold point above. Centres are reported as a check.
+- Spread is (max - min) / mean of d (x + delta)^2 with x = p / q, minimized over delta.
+- Refinement of the card: with a free offset, a different power also passes over a short range. d = 0.004 / x passes over x = 3-8 with delta = 4.9 (spread 6 %).
+  - Since N = x - k with k >= 0 and the law's lap offset is below one lap, x + delta can exceed the laps by at most one, so delta <= 1.
+  - Both the free fit (the card's criterion) and the bounded fit are reported, and a free fit needing delta > 1 is flagged.
+- The 0.5B reference values: f = sqrt(C ab) / pi = 0.576 from C = 0.0266, ab = 122.93.
+
+**FB stage 1c interim (local GPU, log10 T -0.156).** The flips, each with critical multiplier -1 to 3.5e-10 and next modulus 7e-5, 4e-7 and 2e-13:
+- 12->24 at alpha 0.0650877194157999 (the pod value was 0.06508771941580027);
+- 24->48 at 0.06509999933181365;
+- 48->96 at 0.06510272895244879.
+
+With the pod's 3->6 and 6->12 flips, the interval ratios are 14.928, 3.1241 and 4.4988. The deviations from 4.669 are +10.3, -1.55 and -0.17. These are flip ratios; P-F2 concerns superstable ratios and stays unscored. The run continues to the 96->192 and 192->384 flips (5 flips from period 12).
+
+**Amendment (human, about 03:00 UTC: "And double that maybe?").** After the 192->384 flip, a follow-on cascade run starts from the period-384 orbit inside its band and locates the 384->768 flip. The start and next points come from the measured ratio, the transient covers at least 50 periods, and the settings are otherwise those of stage 1c. It runs on the local GPU, before stage 1c's queued cut at -0.152.
