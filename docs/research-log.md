@@ -26278,3 +26278,41 @@ The Z70 result entry and the artifact check above count cells "above the ridge" 
 - A map label "chaotic" is confirmed when the exponents at all three offsets and the tangent exponent are above 1e-3.
 - A label "periodic" is confirmed when all four are negative.
 - Unresolved cells are reported as measured.
+
+## 2026-10-15 20:58 UTC: The paper's exponent maps get numeric colour bars and follow the chaos criterion they cite
+
+**Trigger.** The human asked what the black in the 70B zoom meant, since it was not on the Lyapunov scale. Figure 1 and the maps "rendered as Figure 1" had the same gap: a legend with "strongly / weakly contracting" and no numbers for either the colour or the grey.
+
+**Provenance recovered.** The commands behind eleven paper figures were recovered by rendering with the renderer as committed before this change until each old figure was reproduced byte for byte:
+- the five exponent maps: teaser, zooms Z2 and Z3, Qwen2.5-1.5B, and the stripes with three curve runs;
+- their four attractor-text companions (--families 12 for the teaser's, 10 for the others);
+- the stripes' period panel;
+- fig:z3curves (tools/plot_z3_curves.py, bands scan32/z3bg-b0..7).
+
+They are collected in tools/regen_paper_maps.sh.
+
+**Finding.** The renderer drew a cell as chaotic whenever its exponent exceeded 0.005, whether or not a period was found. The captions cite the criterion of the methods: exponent above 1e-3 and no period. The symmetric difference between the two, per map:
+
+| map | differing cells | share |
+|---|---|---|
+| teaser | 1098 of 262144 | 0.42 % |
+| Z2 | 202 of 65536 | 0.31 % |
+| Z3 | 367 | 0.56 % |
+| 1.5B | 119 | 0.18 % |
+| stripes | 217 | 0.33 % |
+
+The methods text had documented the 0.005 convention for period and attractor panels only.
+
+**Changes.**
+- **tools/explore_llm_soft_loop.py render.**
+  - Chaos is drawn by the criterion in both styles (--chaos-level now defaults to 1e-3, with the period condition). The printed count uses it too.
+  - The Lyapunov style has two numeric colour bars: the chaotic cells' exponent (plasma, 0 to the map's largest); the other cells' exponent on the image's own grey law, 1 - 0.9 sqrt(-x/cap), with ticks spaced along the bar.
+  - Curve legends list only the kinds drawn.
+  - Attractor labels escape newlines once.
+- **tools/plot_z3_curves.py.** One colour bar, as tools/plot_zoom70.py.
+- **Figures.** All eleven redrawn. The chaotic counts now equal the criterion counts (78868, 37995, 49589, 14349, 35650).
+- **Captions.**
+  - Teaser: colour bars named. 4.4 % of its cells are grey without a detected period (11661 of 262144), which the caption had called repeating loops.
+  - fig:cross512: black is now the criterion.
+  - fig:stripes and fig:z3curves: colour bars named.
+- **Methods.** Maps draw chaos by the criterion. Panels whose legend reads "Lyapunov > 0.005" follow the older convention, which differs from the criterion in at most 0.56 % of a map's cells on the five redrawn maps.

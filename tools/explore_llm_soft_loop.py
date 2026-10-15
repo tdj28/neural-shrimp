@@ -1234,14 +1234,15 @@ def render(args):
     img = np.full(per.shape + (4,), 0.0)
     family_handles, period_handles = [], []
     none_colour = (0.8, 0.8, 0.8, 1.0) if args.families else (0.75, 0.75, 0.75, 1.0)   # 'no period, not chaotic'
+    chaos = (ly > args.chaos_level) & (per <= 0)            # the scans' criterion: positive exponent and no period
     if args.style == "lyapunov":                          # as in the shrimp literature: chaos in colour by the
         # largest exponent, periodic regions in grey by how contracting they are (superstable curves dark)
         from matplotlib.colors import Normalize
-        chaos = ly > args.chaos_level
-        hot = plt.get_cmap("plasma")(Normalize(0.0, max(float(ly.max()), 1e-9))(np.clip(ly, 0, None)))
+        hot_norm = Normalize(0.0, max(float(ly.max()), 1e-9))
+        hot = plt.get_cmap("plasma")(hot_norm(np.clip(ly, 0, None)))
         neg = np.clip(-ly, 0, None)
-        cap = float(np.percentile(neg[~chaos], 99)) if (~chaos).any() else 1.0
-        grey = 1.0 - 0.9 * np.clip(neg / max(cap, 1e-12), 0, 1) ** 0.5
+        cap = max(float(np.percentile(neg[~chaos], 99)) if (~chaos).any() else 1.0, 1e-12)
+        grey = 1.0 - 0.9 * np.clip(neg / cap, 0, 1) ** 0.5
         img[...] = np.stack([grey, grey, grey, np.ones_like(grey)], axis=-1)
         img[chaos] = hot[chaos]
     elif args.families:                                     # colour by attractor identity (token loop), not period
@@ -1260,14 +1261,14 @@ def render(args):
         for k, f in enumerate(chosen):
             colour = palette[k]
             img[fam == f] = colour
-            text = "".join(info[int(f)]["tokens"]).replace("\n", "\\n")[:28] if int(f) in info else "?"
+            text = "".join(info[int(f)]["tokens"])[:28] if int(f) in info else "?"   # repr below escapes newlines once
             family_handles.append(matplotlib.patches.Patch(color=colour,
                                   label=f"P{info[int(f)]['period'] if int(f) in info else '?'} {text!r}"))
-        if ((per > 0) & ~np.isin(fam, chosen) & ~(ly > args.chaos_level)).any():
+        if ((per > 0) & ~np.isin(fam, chosen) & ~chaos).any():
             family_handles.append(matplotlib.patches.Patch(color=pc.OTHER_COLOUR, label="other periodic attractors"))
         img[per == 0] = none_colour
     else:
-        drawn = (per > 0) & ~(ly > args.chaos_level)       # chaotic cells are drawn black below
+        drawn = (per > 0) & ~chaos                          # chaotic cells are drawn black below
         own = drawn & (per <= args.max_period) if args.max_period else drawn
         if own.any():
             cats = pc.categorize(np.where(own, per, 0))
@@ -1282,45 +1283,76 @@ def render(args):
                 color=pc.OTHER_COLOUR, label="other" if merged else f"other (> {args.max_period})"))
         img[per <= 0] = none_colour
     if args.style != "lyapunov":
-        img[ly > args.chaos_level] = (0.0, 0.0, 0.0, 1.0)
+        img[chaos] = (0.0, 0.0, 0.0, 1.0)
     fig, ax = plt.subplots(figsize=(7.5, 8))
     ax.imshow(img, origin="lower", aspect="auto", interpolation="nearest",
               extent=(al[0], al[-1], lt[0], lt[-1]))
     handles = family_handles or period_handles
     if args.style == "lyapunov":
-        handles = [matplotlib.patches.Patch(color=plt.get_cmap("plasma")(0.8), label="chaotic (largest exponent)"),
-                   matplotlib.patches.Patch(color=(0.2, 0.2, 0.2), label="periodic, strongly contracting"),
-                   matplotlib.patches.Patch(color=(0.9, 0.9, 0.9), label="periodic, weakly contracting")]
+        # two numeric colour bars instead of a legend: the chaotic cells' exponent (plasma, 0 to the map's largest)
+        # and the other cells' exponent on the grey scale of the image (1 - 0.9 sqrt(-exponent / cap), cap the 99th
+        # percentile of their contraction), so every shade can be read off
+        from matplotlib.colors import FuncNorm, LinearSegmentedColormap
+        from matplotlib.cm import ScalarMappable
+        handles = []
+        bars = [(ScalarMappable(norm=hot_norm, cmap="plasma"), "chaotic cells: largest Lyapunov exponent per step"),
+                (ScalarMappable(norm=FuncNorm((lambda x: -np.sqrt(np.clip(-x, 0, None)), lambda y: -np.square(y)),
+                                              vmin=-cap, vmax=0.0),
+                                cmap=LinearSegmentedColormap.from_list("contraction", [(0.1, 0.1, 0.1), (1, 1, 1)])),
+                 "other cells: largest exponent (dark: strongly contracting)")]
+        # grey ticks: round values at least an eighth of the bar apart on its square-root scale
+        grey_ticks = []
+        for x in [-5, -3, -2, -1.5, -1, -0.75, -0.5, -0.3, -0.2, -0.1, -0.05, -0.02, 0.0]:
+            pos = 1.0 - np.sqrt(-x / cap) if x >= -cap else None
+            if pos is None:
+                continue
+            if grey_ticks and pos - (1.0 - np.sqrt(-grey_ticks[-1] / cap)) < 0.125:
+                if x != 0.0:
+                    continue
+                grey_ticks.pop()
+            grey_ticks.append(x)
+        for k, (sm, label) in enumerate(bars):
+            cax = ax.inset_axes([0.53 * k, -0.155, 0.47, 0.028])
+            cb = fig.colorbar(sm, cax=cax, orientation="horizontal", ticks=grey_ticks if k else None)
+            cb.ax.tick_params(labelsize=7)
+            cb.set_label(label, fontsize=8)
     if args.style != "lyapunov":
-        handles += [matplotlib.patches.Patch(color="black", label=f"Lyapunov > {args.chaos_level}"),
+        handles += [matplotlib.patches.Patch(color="black", label=f"chaotic (exponent > {args.chaos_level:g}, "
+                                                                  "no period)"),
                     matplotlib.patches.Patch(color=none_colour, label="no period, not chaotic")]
     # fold: cyan, long dashes; flip: magenta, short dashes (white would read as a weakly contracting periodic cell)
     styles = {"fold": dict(color="#00e5ff", lw=1.8, ls=(0, (7, 3))), "flip": dict(color="magenta", lw=1.6, ls=(0, (2, 2)))}
+    drawn_kinds = []
     for path in args.curves or []:                         # traced bifurcation curves over the brute-force map
         kind, pts = curve_points(DATA / "explore" / path)
+        drawn_kinds += [kind] if kind not in drawn_kinds else []
         ax.plot([r["alpha"] for r in pts], [r["log10_temperature"] for r in pts], **styles[kind])
         cusps = [r for r in pts if r["cusp_candidate"]]
         ax.plot([r["alpha"] for r in cusps], [r["log10_temperature"] for r in cusps], "o", ms=6, mfc="none",
                 mec="yellow")
     if args.curves:
-        handles += [matplotlib.lines.Line2D([], [], label=f"{k} curve", **st) for k, st in styles.items()]
+        handles += [matplotlib.lines.Line2D([], [], label=f"{k} curve", **st) for k, st in styles.items()
+                    if k in drawn_kinds]                    # only the kinds drawn on this map
         ax.set_xlim(al[0], al[-1])
         ax.set_ylim(lt[0], lt[-1])
     if args.window:
         ax.set_xlim(*args.window[:2])
         ax.set_ylim(*args.window[2:])
-    # legend below the map, in rows, so that the map keeps the full width of the figure
-    ncol = 2 if family_handles else (3 if args.style == "lyapunov" else 9)
-    ax.legend(handles=handles, fontsize=7, ncol=ncol, loc="upper center", bbox_to_anchor=(0.5, -0.09),
-              frameon=False, title=("attractor (leading-token loop)" if family_handles else
-                                    "largest Lyapunov exponent" if args.style == "lyapunov" else "period"))
+    if args.style == "lyapunov":                            # only the curves need a legend, below the colour bars
+        if handles:
+            ax.legend(handles=handles, fontsize=7, ncol=3, loc="upper center", bbox_to_anchor=(0.5, -0.235),
+                      frameon=False)
+    else:                     # legend below the map, in rows, so that the map keeps the full width of the figure
+        ax.legend(handles=handles, fontsize=7, ncol=2 if family_handles else 9, loc="upper center",
+                  bbox_to_anchor=(0.5, -0.09), frameon=False,
+                  title="attractor (leading-token loop)" if family_handles else "period")
     ax.set_xlabel("steering alpha")
     ax.set_ylabel("log10 temperature")
     ax.set_title(args.title if args.title is not None else f"soft-token decoding: {args.scan}")
     fig.tight_layout()
     fig.savefig(src / (args.name or "render.png"), dpi=170, bbox_inches="tight")
     counts = {int(q): int((per == q).sum()) for q in np.unique(per)}
-    print(json.dumps({"cells": int(per.size), "chaotic": int((ly > args.chaos_level).sum()), "period_counts": counts}))
+    print(json.dumps({"cells": int(per.size), "chaotic": int(chaos.sum()), "period_counts": counts}))
 
 
 def stitch(args):
@@ -1794,7 +1826,9 @@ def main():
     rd.add_argument("--scan", required=True, help="explore-relative directory of a finished scan")
     rd.add_argument("--max-period", type=int, default=None,
                     help="periods above this share one 'other' legend entry (default: every period its own colour)")
-    rd.add_argument("--chaos-level", type=float, default=0.005)
+    rd.add_argument("--chaos-level", type=float, default=1e-3,
+                    help="a cell is drawn chaotic when its exponent exceeds this and no period was found (the "
+                         "paper's criterion; renders before 15 Oct used 0.005 without the period condition)")
     rd.add_argument("--curves", nargs="*", help="explore-relative directories of curve runs to draw on the map")
     rd.add_argument("--name", default="", help="output file name inside the scan directory (default render.png)")
     rd.add_argument("--title", default=None, help="figure title (default: the scan directory)")

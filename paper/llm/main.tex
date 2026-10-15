@@ -57,9 +57,10 @@ and interval arithmetic proves an attracting period-8 orbit. In the recurrent-de
 \caption{Chaos and repeating text in a language model fed its own output: the soft-token map of
 Qwen2.5-0.5B-Instruct, steered along the philosophy direction at layer 12, on $512\times512$ float64 cells over the
 steering strength $\alpha\in[0.0625,0.0775]$ and the temperature, $\log_{10}T\in[-0.17,-0.125]$. Coloured cells are
-chaotic by the finite-horizon criterion of Appendix~\ref{sec:methods}; the colour gives the largest Lyapunov exponent.
-In grey cells the model settles into a repeating loop of text, shaded by how strongly the loop contracts (light grey:
-close to losing stability). Figure~\ref{fig:cross512} names the loops.}
+chaotic by the finite-horizon criterion of Appendix~\ref{sec:methods}, and the colour gives their largest Lyapunov
+exponent (left colour bar). In grey cells the model settles into a repeating loop of text, shaded by its largest
+exponent, which measures how strongly the loop contracts (right colour bar; light grey: close to losing stability);
+4.4\,\% of the cells, also grey, have neither a detected period nor a positive exponent. Figure~\ref{fig:cross512} names the loops.}
 \label{fig:teaser}
 \end{figure}
 Inference increasingly feeds a language model its own continuous output. Soft Thinking replaces each sampled token by
@@ -437,8 +438,8 @@ windows show dark curves of maximal contraction.
 \includegraphics[width=0.49\linewidth]{fig-stripes-lyapunov-curves.png}\hfill
 \includegraphics[width=0.49\linewidth]{fig-stripes-period-fold.png}
 \caption{Soft-token map of Qwen2.5-0.5B-Instruct steered along the philosophy direction at layer 12, $256^2$ float64
-cells. Left: chaotic cells coloured by the largest Lyapunov exponent, periodic cells in grey by how strongly they
-contract (light grey: close to losing stability). Cyan dashed curves are float64 fold curves of the 2-cycle ``is it''
+cells. Left: chaotic cells coloured by the largest Lyapunov exponent, the other cells in grey by how strongly they
+contract (light grey: close to losing stability; colour bars as in Figure~\ref{fig:teaser}). Cyan dashed curves are float64 fold curves of the 2-cycle ``is it''
 (lower left, the boundary on which the stripes accumulate) and of the period-8 orbit (top). Right: periods, with the
 period-8 fold curve (Appendix~\ref{sec:curves}).}
 \label{fig:stripes}
@@ -458,7 +459,8 @@ n\textbackslash nThe existence'' loops.
 \includegraphics[width=0.62\linewidth]{fig-cross512-families.png}
 \caption{The cells of Figure~\ref{fig:teaser} (Qwen2.5-0.5B-Instruct, philosophy direction at layer 12; $512^2$
 float64 cells over $\alpha\in[0.0625,0.0775]$, $\log_{10}T\in[-0.17,-0.125]$), coloured by the attractor's
-leading-token loop (black: exponent above $0.005$, the drawing convention of Appendix~\ref{sec:methods}; grey: no period up to 32; bluish grey: other periodic attractors).
+leading-token loop (black: chaotic by the criterion of Appendix~\ref{sec:methods}; grey: no period up to 32 and not chaotic; bluish
+grey: other periodic attractors).
 Figure~\ref{fig:teaser} shows the largest Lyapunov
 exponent of the same cells.}
 \label{fig:cross512}
@@ -2019,9 +2021,10 @@ chaotic labels, and at six chaotic cells the four leading exponents from QR iter
 (0.06 to 0.42; the next is $-0.64$ to $-1.10$). The period is the smallest $q\le32$ (48 in the later zooms) with return distance below
 $10^{-8}$, and the attractor is identified by its leading-token loop, up to rotation. We call a cell chaotic when this
 finite-horizon exponent exceeds $10^{-3}$ and no period is found; the label is a finite-horizon diagnostic, not a
-proof of chaos. Panels coloured by period or attractor text follow an older drawing convention: black marks every
-cell whose exponent exceeds $0.005$, and light grey the other cells without a period. The drawn black area differs
-from the chaotic count in at most $0.42\,\%$ of a map's cells. A $256^2$ map takes about 100 minutes on one H100 GPU in float64. Every cell starts from the same
+proof of chaos. Maps draw the chaotic cells by this criterion: in colour by their exponent where a map shows the exponent, in
+black where it shows periods or attractor text. Panels whose legend reads `Lyapunov $>$ 0.005' follow an older
+convention that marks every cell whose exponent exceeds $0.005$, whether or not a period was found; on the five maps
+we redrew with the criterion, the two differ in at most $0.56\,\%$ of a map's cells. A $256^2$ map takes about 100 minutes on one H100 GPU in float64. Every cell starts from the same
 state, so where attractors coexist, a map shows the one whose basin contains that state. Labels are text, not
 dynamical identities: one continuous orbit changes its label where two tokens tie for the maximum. We therefore call
 two labelled regions different attractors only when the contraction rate jumps between them or when float64 orbits of
@@ -2306,8 +2309,7 @@ cusps (text); they are numerical, not certified.}
 \includegraphics[width=0.8\linewidth]{fig-zoom-z3-curves.png}
 \caption{The period-6 window of the Qwen2.5-0.5B-Instruct map (philosophy direction, layer 12) with its float64
 fold curves (cyan), flip curve (magenta, dotted) and the two located cusps (yellow circles). The background
-is a float32 phase map of $480\times400$ cells (largest exponent from 300 steps after 300 transient steps; chaotic
-cells coloured by the exponent, periodic cells in grey by how strongly they contract). Where it overlaps the float64
+is a float32 phase map of $480\times400$ cells (largest exponent from 300 steps after 300 transient steps; chaotic cells coloured by the exponent and the other cells in grey by theirs, on one colour bar). Where it overlaps the float64
 map of Figure~\ref{fig:stripes}, 95\,\% of cells carry the same chaotic or periodic label at the nearest grid point. Some fold branches were continued from two starting points
 and overlap. Continuation of the lower branches stopped after 60 points near $(0.0753,-0.089)$, where they approach
 each other; how they join there is not resolved.}

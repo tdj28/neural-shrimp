@@ -1,7 +1,8 @@
 """Figure: the period-6 window of the Qwen2.5-0.5B-Instruct soft-token map (philosophy direction, layer 12) with its
 float64 fold curves, flip curve and the two normal-form-tested cusps (runs in p6z3), over a background map merged
 from horizontal bands of one grid (run F6; float32 scans, labelled as such). Chaotic cells are coloured by the
-largest exponent, periodic cells in grey by how strongly they contract.
+largest exponent (0 to 0.5), the other cells in grey by their exponent (-1 or below: black; 0: white), on one
+colour bar.
 
 Usage: python tools/plot_z3_curves.py OUT.png BAND_PREFIX NBANDS
        (bands BAND_PREFIX0 .. BAND_PREFIX{NBANDS-1}, explore-relative, each a scan.npz of consecutive rows)
@@ -39,9 +40,8 @@ def main():
     import matplotlib
     matplotlib.use("Agg")
     import matplotlib.pyplot as plt
-    from matplotlib.colors import ListedColormap
+    from matplotlib.colors import ListedColormap, TwoSlopeNorm
     from matplotlib.lines import Line2D
-    from matplotlib.patches import Patch
 
     import explore_llm_attractors as ela
 
@@ -51,14 +51,19 @@ def main():
     print("cells", L.size, "chaotic share", round(float(chaotic.mean()), 4))
     ext = [al[0], al[-1], lt[0], lt[-1]]
     fig, ax = plt.subplots(figsize=(8.8, 7.6))
-    grey = np.where(~chaotic, np.clip(L, -1.0, 0.0), np.nan)
-    ax.imshow(grey, origin="lower", extent=ext, aspect="auto", cmap="Greys_r", vmin=-1.0, vmax=0.0,
-              interpolation="nearest")
-    hot = np.where(chaotic, np.clip(L, 0.0, 0.5), np.nan)
-    im = ax.imshow(hot, origin="lower", extent=ext, aspect="auto", cmap=ListedColormap(plt.get_cmap("plasma")(
-        np.linspace(0.15, 0.85, 256))), vmin=0.0, vmax=0.5, interpolation="nearest")
-    cb = fig.colorbar(im, ax=ax, fraction=0.035, pad=0.02)
-    cb.set_label("largest Lyapunov exponent (chaotic cells)", fontsize=9)
+    # one colour bar for both kinds of cell: grey from -1 (black) to 0 (white) where the cell is not chaotic, plasma
+    # from 0 to 0.5 where it is (as tools/plot_zoom70.py)
+    lo, hi = -1.0, 0.5
+    cmap = ListedColormap(np.vstack([plt.get_cmap("Greys_r")(np.linspace(0.0, 1.0, 256)),
+                                     plt.get_cmap("plasma")(np.linspace(0.15, 0.85, 256))]))
+    val = np.where(chaotic, np.clip(L, 1e-9, hi), np.clip(L, lo, 0.0))
+    im = ax.imshow(val, origin="lower", extent=ext, aspect="auto", interpolation="nearest", cmap=cmap,
+                   norm=TwoSlopeNorm(vmin=lo, vcenter=0.0, vmax=hi))
+    cb = fig.colorbar(im, ax=ax, fraction=0.035, pad=0.02,
+                      ticks=[-1.0, -0.75, -0.5, -0.25, 0.0, 0.1, 0.2, 0.3, 0.4, 0.5])
+    cb.ax.set_yticklabels(["$\\leq -1$", "$-0.75$", "$-0.5$", "$-0.25$", "0", "0.1", "0.2", "0.3", "0.4", "$\\geq 0.5$"],
+                          fontsize=8)
+    cb.set_label("largest Lyapunov exponent per step (grey: not chaotic; colour: chaotic)", fontsize=9)
     base = ela.DATA / "explore" / CURVES
     for d in sorted(base.glob("curve-*")):
         c = json.loads((d / "curve.json").read_text())
@@ -82,10 +87,7 @@ def main():
     ax.set_xlabel("steering strength alpha (philosophy, layer 12)")
     ax.set_ylabel("log10 temperature")
     ax.set_title("Qwen2.5-0.5B-Instruct: the period-6 window, its fold and flip curves and two cusps", fontsize=10)
-    handles = [Patch(color=plt.get_cmap("plasma")(0.6), label="chaotic (colour: largest exponent)"),
-               Patch(color="0.2", label="periodic, strongly contracting"),
-               Patch(color="0.85", label="periodic, weakly contracting"),
-               Line2D([], [], color="cyan", lw=1.6, label="fold curve (float64)"),
+    handles = [Line2D([], [], color="cyan", lw=1.6, label="fold curve (float64)"),
                Line2D([], [], color="magenta", ls=(0, (1.5, 1.5)), lw=1.8, label="flip curve (float64)"),
                Line2D([], [], marker="o", ls="", mfc="none", mec="yellow", mew=2, ms=9, label="cusp (normal form)")]
     ax.legend(handles=handles, loc="upper center", bbox_to_anchor=(0.5, -0.09), ncol=3, fontsize=8, frameon=False)
