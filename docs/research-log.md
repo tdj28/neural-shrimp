@@ -24541,3 +24541,22 @@ Codex recomputed the flip and superstable ratios at -0.156 from the saved files 
 - **Band of the floor root.** "+-2.3e-13 (scatter divided by slope)" is not a bound. The outward bound from the largest residual over the slope, across Codex's three fit variants, is below 3.24e-13. The paper now says +-3.3e-13. The clean local location lies 9.3e-14 away.
 - **P-F2.** As scored at 06:05 the first of the two ratios had a bracket envelope [1.018, 4.642], not wholly inside the frozen range. The current scoring (FBS384 entry) uses 4.643 [4.639, 4.647] and 4.6646, both resolved.
 - **--g-accept.** It is a fixed threshold on the best single residual, not a scatter-based gate. FBD's root came from the stated line fit, not from the gate.
+
+## 2026-10-15 07:40 UTC: MECH1 results: the block-12 and block-4 lines confirm the readout mechanism; R5: the readout's stable rank does not set the Kaplan-Yorke dimension across groups
+
+Pod xg535b59iooop9 (COMMUNITY H100 NVL; runner rc 0, hash verified, terminated; 3089 s; commit b203fb56). Outputs mech/b12, b4, host, ky-host, ky-phil. Inline analysis in this session.
+- **Alpha lines** (1205 cells per block; |alpha| <= 0.01 against chaotic cells, mean factors in nats per step):
+  - block 12: chaotic cells 0 / 2 / 19 / 87 / 0 at log10 T -0.6 / -0.3 / 0.0 / 0.15 / 0.25.
+    - Readout near zero steering: -7.16, -2.93, -0.91 at -0.3, 0.0, 0.15. In chaotic cells: +0.63, +0.46, +0.25.
+    - Network near zero: -0.32, -0.10, +0.31. In chaotic cells: -0.47, -0.16, +0.13.
+  - block 4: chaotic cells 2 / 17 / 35 / 25 / 0.
+    - Readout near zero: -6.71, -2.57, -0.94. In chaotic cells: +0.48 (at -0.6), +0.79, +0.63, -0.35.
+    - Network in chaotic cells: -0.27, -0.49, -0.44, +0.72.
+  - The exception is block 4 at log10 T 0.15: chaos there comes through the network factor (+0.72) with a contracting readout (-0.35).
+  - Elsewhere, at both blocks, chaos comes with an expanding readout and a network factor at or below its unsteered value. Block 4 reaches chaos at lower temperature (17 cells at -0.3 against 2).
+- **R5 (frozen: Spearman of D_KY against the mean stable rank of the readout at the KY cells).** 25 chaotic cells with spectra matched; KY spectra from hidden/spectrum-ky-{philosophy,hostility}.
+  - Overall: **-0.31** (p 0.13). Not positive.
+  - Within groups: philosophy (17 cells) +0.72 (p 0.001), but entropy +0.80 and log10 T +0.79 move with it; hostility (8 cells) +0.69 (p 0.057).
+  - D_KY never exceeds the stable rank: 1.0-2.0 against 2.7-19.3.
+  - The hostile cells have stable rank 16-19 and entropy 7-9 nats, yet D_KY 1.01-1.16.
+  - **Reading:** the number of competing readout directions is at most a loose ceiling on the dimension. Which of them expand is decided by the network. This withdraws the speculation (in conversation, 15 Oct) that the dimension grows with temperature because more tokens compete.
