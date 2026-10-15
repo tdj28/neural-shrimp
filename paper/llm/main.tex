@@ -334,10 +334,25 @@ contract, and more strongly than the actual cycle (\texttt{tools/alignment\_inte
 spectral summaries can be inconclusive; the ordered product of the step Jacobians captures the cycle's linear
 stability.
 
+\begin{figure}[tbp]
+\centering
+\includegraphics[width=\linewidth]{fig-mechanism-summary.png}
+\caption{Why steering makes the loop chaotic: the three measurements of this section (Qwen2.5-0.5B-Instruct unless
+marked 7B, float64). (a) Gain split along the attractors of the block-12 map: mean log readout factor (solid) and
+network factor (dashed) per step, for chaotic cells (red) and nearly unsteered cells, $|\alpha|\le0.01$ (gray), in
+the 18 temperature rows with at least three cells of each kind. Without steering the readout contracts by 0.87 to
+5.49 nats per step; in the chaotic cells it expands, except in the three highest rows, while the network factor
+changes little. (b) Share of chaotic cells per temperature row under residual steering at block 12 (331 of 5353
+cells) and under a logit bias along the direct logit effect of the steering vector, with no residual steering (241
+of 6837 cells). (c) Orbit-preserving crossover: change in the finite-time growth along recorded steered orbits when
+only the readout (orange) or only the network Jacobian (gray) is taken from the steered model; mean over held-out
+chaotic cells with 95\,\% bootstrap intervals. \texttt{tools/plot\_mechanism\_summary.py}.}
+\label{fig:mechsummary}
+\end{figure}
 \paragraph{Steering makes tokens compete.} Steering enters both factors of \eqref{eq:gain}: it moves the logits, and
 with them $\Sigma_p$, and it moves the hidden states, and with them $J_{\tilde h}$. Which change makes the loop
 chaotic? Three measurements on Qwen2.5-0.5B, steered along the philosophy direction, give one answer
-(Figure~\ref{fig:mechanism}, Table~\ref{tab:mechanism}). First, each step's growth splits exactly into a network
+(Figure~\ref{fig:mechsummary}; details in Figure~\ref{fig:mechanism} and Table~\ref{tab:mechanism}). First, each step's growth splits exactly into a network
 factor $g_{\mathrm{net}}=(|\delta\tilde h|/|\tilde h|)/(|\delta x|/|x|)$ and a readout factor
 $g_{\mathrm{read}}=(|\delta F|/|F|)/(|\delta\tilde h|/|\tilde h|)$. Averaged along an orbit, their logarithms add up
 to the largest Lyapunov exponent, up to a boundary term. Over a $101\times53$ map in steering strength and temperature
