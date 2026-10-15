@@ -25127,3 +25127,26 @@ Those were fixed values, not each problem's own edge. **Step 1** measures every 
 **Fix.** classify returns a Python bool; both tests now json.dumps every record (2 pass).
 
 **Relaunch.** Two pods, the same settings: train 0-59 and 60-119. The failed job's run time (two minutes including model loading) suggests about a minute per problem.
+
+## 2026-10-15 10:16 UTC: TBZg result (zoom around the three-hump cell) and run cards DSS5 and TBZg2
+
+**TBZg.** Pod (H100 class), commit 22bc4cf3 (orchestrator log); runner rc 0, job status 0; terminated; 2538 s. Map: tb/zg-grat4-host16-t-0.1, gratitude@4 + hostility@16, log10 T -0.1, 128 x 128 over alpha1 [-0.1225, -0.0973] and alpha2 [0.0872, 0.1124]. Chaotic share 39.0 %.
+
+**What the zoom shows.**
+- A doubling cascade crosses the plane: period 2 (right), bands of period 4 and 8, then 16, then chaos.
+- **A period-5 window** at about alpha1 -0.1185, alpha2 0.101 (316 period-5 cells in the zoom):
+  - **Legs:** thin diagonal period-5 legs crossing the chaotic region (up-right toward (-0.110, 0.112), down-right toward (-0.107, 0.094)).
+  - **Internal cascade:** a period-10 border, then period 20, on its left.
+  - **Coexistence:** where it meets the period-4 band (alpha1 -0.122 to -0.119, alpha2 0.100 to 0.1035), cells alternate patchily between periods 4, 5, 10 and 20, i.e. coexisting attractors reached from the fixed start.
+  - **Darkest cells:** the most strongly contracting period-5 cells lie inside the body, lambda -0.695 at (-0.11853, 0.10188).
+- **Why the coexistence matters.** A single unimodal map with negative Schwarzian derivative cannot have it (Singer). This is consistent with the multi-humped band maps of this plane.
+
+**Run card DSS5 (exploratory).** tools/doubly_superstable.py grid in the two-block plane (new path, two-block exact tangents fixed and checked earlier today):
+- period 5, gratitude@4 + hostility@16 at log10 T -0.1;
+- seed (-0.118730, 0.100693), lambda -0.268, all 8 neighbours period 5;
+- grid 31 x 31 over alpha1 [-0.1200, -0.1175] and alpha2 [0.0990, 0.1035];
+- k 6, tol 1e-12.
+
+Measure: the zero curves of the per-step factors of the leading multiplier. **A crossing of two different factors' zero curves is a doubly superstable point, the centre of a shrimp in Gallas' sense.** Where the leading multiplier is complex or not clean, the factors are undefined; such cells are flagged, as for the hostile body.
+
+**Run card TBZg2 (exploratory).** A finer map of the period-5 window: 128 x 128 over alpha1 [-0.1215, -0.1165] and alpha2 [0.0970, 0.1050], same settings as TBZg.
