@@ -70,8 +70,9 @@ hidden states back \cite{hao2024coconut}, and recurrent-depth models iterate a b
 \cite{geiping2025recurrent}. Each turns inference into an iterated map, and an iterated map can be chaotic. We show
 that the expected-embedding loop of released language models is chaotic over wide ranges of temperature and steering
 strength, explain why steering makes it so, and measure what the chaos does: in a chaotic regime an irrelevant
-change of batch layout decides what the loop writes, and in bfloat16 it changed the answers of a short
-soft-thinking pipeline on 56\,\% and 55\,\% of 96 arithmetic problems in two models. The same loops obey the quantitative
+change of batch layout decides what the loop writes. In bfloat16, where nearly every loop diverges, the batch layout
+changed the answers of a short soft-thinking pipeline on 56\,\% and 55\,\% of 96 arithmetic problems in two
+models. The same loops obey the quantitative
 laws of low-dimensional dynamics, down to Feigenbaum's constant.
 
 Figure~\ref{fig:teaser} shows a small piece of the parameter plane of one
@@ -98,83 +99,61 @@ motivate looking for such structure here, but they do not imply that a trained m
 language model does, where in its parameter space, with which texts, and whether the quantitative predictions of
 bifurcation theory hold for it, so that derivatives computed from the model predict its behaviour before that
 behaviour is measured, has to be tested. The models we studied do realize it, and in the cases we tested the
-predictions hold. We also show where the chaos comes from (Section~\ref{sec:theory}). The loop's
-derivative factorizes into the inverse temperature, the covariance of token embeddings under the model's own
-next-token distribution (a cross-covariance when input and output embeddings are untied), and the network's Jacobian.
-With tied embeddings, the network turns a Hopfield retrieval, which cannot cycle, into a map that can. The
-factorization proves contraction at sufficiently high temperature for this smooth fixed-prefix map, and at zero
-temperature the finite-memory greedy map is eventually periodic; in our sweeps chaos occupies intermediate
-temperatures. The answer to whether larger models leave this chaos behind is no: a larger model's chaos can move to
-higher temperature instead of vanishing, and size does not order the chaos across families (Section~\ref{sec:beyond}). Fold normal forms predict how long trajectories linger in the ghost of a vanished
-orbit, local unfoldings near cusps predict which periodic orbits coexist and which of them are stable, and
-spectral estimates of a recurrent-depth model predict how its questions respond to relaxation, with a predicted
-accuracy loss confirmed on held-out data. Ordinary sampled generation
-with a growing context is a different system. Section~\ref{sec:beyond} measures how much of the mechanism survives
-sampling.
+predictions hold. We also show where the chaos comes from (Section~\ref{sec:theory}), and that larger models do not
+simply leave it behind (Section~\ref{sec:beyond}). Ordinary sampled generation with a growing context is a different
+system; Section~\ref{sec:beyond} also measures how much of the mechanism survives sampling.
 
 \paragraph{Contributions.} The results fall into four groups.
 \begin{enumerate}
 \item \emph{Chaos in released models, and what it does to inference} (Sections~\ref{sec:maps}
-  and~\ref{sec:consequences}). Temperature and steering move the loop of Qwen2.5, OLMo-2 and Llama-3 models between
-  repeating text and chaos with embedded windows. The regime decides whether a run can be reproduced. Run twice with
-  only the batch layout changed, 190 of 192 chaotic float64 loops of Qwen2.5-0.5B grow from rounding-level differences
-  past a relative distance of $10^{-2}$, after a median of 102 steps and in line with the Lyapunov exponent (median
-  ratio 0.91), and at 173 of them the most probable readout token comes to differ; 182 of 192 periodic loops stay
-  within $10^{-2}$, and 182 end within $3\times10^{-12}$. The same holds without steering in Qwen2.5-7B (24 of 24
-  chaotic loops diverge, none of 24 periodic ones) and Llama-3.1-8B (20 of 20, and 1 of 20), and with steering in
-  Llama-3.3-70B (24 of 24, and none of 24). In bfloat16 nearly every loop diverges within a few steps. In a frozen test
-  on 96 additions, the batch layout changed the answer of a bfloat16 soft-thinking pipeline in 56\,\% of problems at
-  $T=1$ in Qwen2.5-0.5B and in 55\,\% at $T=10^{0.2}$ in Qwen2.5-7B, far more often than it changed a forced greedy
-  baseline's output (never and 10\,\%). Exactly repeating text can hide a chaotic state
-  (Appendix~\ref{sec:hostility}). The loop's regime does not mark the accuracy of ordinary sampled answers, and we find
-  no advantage at the edge of chaos.
-\item \emph{Why the loop is chaotic, and how steering makes it so} (Section~\ref{sec:theory}). The derivative of the
-  soft-token map factorizes into the inverse temperature, the covariance of token embeddings under the model's own
-  next-token distribution (a cross-covariance for untied embeddings), and the network's Jacobian. With tied embeddings
-  and without the network, the map would be a modern Hopfield update, which cannot cycle. The factorization proves
-  contraction at sufficiently high temperature, as a high-temperature sweep confirms; the zero-temperature limit is a
-  greedy map that is eventually periodic, and chaos in our sweeps occupies intermediate temperatures. Along a period-8
-  orbit every step expands some direction while the cycle contracts: the loop's stability is a property of the ordered
-  product of its steps, not of any one step. Steering makes next tokens compete. An exact split of each step's growth
-  shows that steering into chaos raises the readout factor by 2.58 nats per step relative to nearly unsteered cells,
-  while the network factor changes by only $-0.07$ (interval $[-0.23,0.12]$). A logit bias alone, with the network
-  untouched, makes 3.5\,\% of the plane chaotic. An orbit-preserving crossover attributes the expansion at fixed states
-  to steering's change of the readout ($+0.81$ nats per step in the 0.5B model, and $+0.33$ and $+0.77$ along gratitude
-  and a random direction), not of the network, whose change damps the growth ($-0.49$; $-1.14$ in Qwen2.5-7B, where
-  the unsteered derivative already expands at the steered states). The gain mechanism is not specific to
-  concept-labelled directions: random directions also steer into chaos. Earlier steering carries chaos to lower
-  temperature, in Qwen2.5-0.5B (5 blocks) and in Llama-3.3-70B (blocks 20, 35, 50 and 65), and two steering vectors at
-  two blocks create chaos where neither alone does (Section~\ref{sec:consequences}).
+  and~\ref{sec:consequences}; Appendix~\ref{sec:scale}). Temperature and steering move the loop of Qwen2.5, OLMo-2 and
+  Llama-3 models between repeating text and chaos with embedded windows. The regime decides whether a run can be
+  reproduced. Run twice with only the batch layout changed, 190 of 192 chaotic float64 loops of Qwen2.5-0.5B grow past
+  a relative distance of $10^{-2}$ after a median of 102 steps, in line with the Lyapunov exponent (median ratio
+  0.91), and at 173 of them the most probable readout token comes to differ; 182 of 192 periodic loops stay within
+  $10^{-2}$. Qwen2.5-7B and Llama-3.1-8B without steering (24 of 24 and 20 of 20 chaotic loops diverge, 0 of 24 and 1
+  of 20 periodic ones) and Llama-3.3-70B with steering (24 of 24, none of 24) behave alike. In bfloat16 nearly every
+  loop diverges, and in a frozen test on 96 additions the batch layout changed the answer of a soft-thinking pipeline
+  in 56\,\% of problems in Qwen2.5-0.5B and 55\,\% in Qwen2.5-7B, against never and 10\,\% for a forced greedy
+  baseline. Exactly repeating text can hide a chaotic state (Section~\ref{sec:organization}). Beyond the model's
+  first-token uncertainty, the loop's regime carries no detectable information about the accuracy of ordinary sampled
+  answers, and we find no advantage at the edge of chaos.
+\item \emph{Why the loop is chaotic, and how steering makes it so} (Section~\ref{sec:theory}). The loop's derivative
+  factorizes into the inverse temperature, the covariance of token embeddings under the model's own next-token
+  distribution, and the network's Jacobian; without the network the map would be a modern Hopfield update, which
+  cannot cycle. The factorization proves contraction at sufficiently high temperature, the zero-temperature limit is
+  eventually periodic, and chaos in our sweeps occupies intermediate temperatures. Stability belongs to the loop, not
+  to its steps: along a period-8 orbit every step expands some direction while the cycle contracts. Along the sampled
+  orbits, steering makes next tokens compete. Steering into chaos raises the readout factor of each step's growth by
+  2.58 nats per step relative to nearly unsteered cells, while the network factor changes by only $-0.07$ (interval
+  $[-0.23,0.12]$); a logit bias alone, with the network untouched, makes 3.5\,\% of the plane chaotic; and an
+  orbit-preserving crossover attributes the expansion at fixed states to steering's change of the readout ($+0.81$
+  nats per step in the 0.5B model), not of the network, whose change damps it ($-0.49$). Random directions also steer
+  into chaos. Earlier steering carries chaos to lower temperature, in Qwen2.5-0.5B and Llama-3.3-70B, and two vectors
+  at two depths create chaos where neither alone does (Section~\ref{sec:consequences}).
 \item \emph{Low-dimensional organization, predicted from derivatives} (Sections~\ref{sec:adding}
   to~\ref{sec:organization}). The windows carry concrete texts: a period-adding family gains one ``is X'' pair per
-  period step. The 2-cycle ``is it'' dies in a fold, and the fold's normal form, computed from derivatives, predicts
-  bottleneck passage times without fitting. We tested it prospectively at two new folds: 23 of 24 forecasts fell
-  within one iterate, and the all-row criterion failed by one row. Fold and flip curves continued with float64 test
-  functions show that the fold curves of a period-6 window and of a hostile period-7 window contain cusps, located where
-  the quadratic normal-form coefficient vanishes, with the cubic coefficient nonzero and the two-parameter unfolding
-  regular at the same points; one fold curve of a period-4 window carries five. At nearby fold points the estimated
-  unfolding is nonsingular, and its local cubic model, frozen before solving, matched the number of distinct orbits
-  that Newton solves seeded at its predicted roots recovered at all twelve parameter offsets, and their stability at
-  eleven; the search was not exhaustive. A doubling cascade has superstable points through period 384 and finite-order
-  Feigenbaum ratios that approach $\delta$. The shrimp-like windows are built from bent fold curves with cusps and
-  flip curves; where a one-dimensional map would have a shrimp's centre, their orbits' leading multiplier meets the
-  second instead, even where steering at two depths gives the band maps two turning points. An interval-arithmetic
-  proof shows that a primitive period-8 orbit exists and is locally attracting, to our knowledge the first proof of a
-  periodic orbit of a full transformer language-model map, and independent reimplementations reproduce the fold, its
-  normal form and two orbits (Appendix~\ref{sec:evidence}).
+  period step. A fold's normal form, computed from derivatives, predicts without fitting how long trajectories linger
+  near the vanished orbit: at two new folds, 23 of 24 frozen forecasts fell within one iterate (the all-row criterion
+  failed by one row), and windows accumulate on the fold with a $1/N^2$ law. On the seven fold curves we continued,
+  all nine tangent reversals are located cusps, and near them local unfoldings, frozen before solving, matched the
+  orbits that Newton solves recovered at twelve parameter offsets in number and at eleven in stability. A doubling
+  cascade has superstable points through period 768 and finite-order Feigenbaum ratios that approach $\delta$ (the
+  last, $4.6688$, against $4.6692$). The shrimp-like windows are built from bent fold curves with cusps and flip
+  curves; where a one-dimensional map would have a shrimp's centre, their orbits' leading multiplier meets the second
+  instead. An interval-arithmetic proof shows that a primitive period-8 orbit exists and is locally attracting, to our
+  knowledge the first proof of a periodic orbit of a full transformer language-model map
+  (Appendix~\ref{sec:evidence}).
 \item \emph{Beyond the one-token loop} (Sections~\ref{sec:beyond} and~\ref{sec:dialogue}). The chaos is not an
-  artifact of the one-token window: fed back the last 8 or 16 soft tokens instead of one, Qwen2.5-7B is chaotic at 21
-  and 20 of 24 temperatures, against 8 with one; and in Soft Thinking's growing context an early perturbation of
-  $10^{-10}$ grows exponentially in the same model inside its one-token chaotic band. The organization recurs in
-  Qwen2.5-1.5B and 7B, OLMo-2 7B, Llama-3.1 8B and a second checkpoint of the 0.5B architecture. Size does not set the
-  chaos: across fifteen models from 0.5B to 72B parameters, the unsteered chaos in a fixed temperature window nearly
-  vanishes in the largest Qwen2.5 and Llama models but not in OLMo-2-32B; a frozen prompt-blocked test shows that the
-  Qwen decline from 7B to 14B is largely a shift to higher temperature, and Qwen2.5-72B, nearly free of unsteered
-  chaos, is driven into chaos by steering. Two loops writing one text lock each other into periodic orbits: of the
-  pairs of differently steered 0.5B agents that are each chaotic alone, 60\,\% are periodic together, on orbits
-  verified by Newton's method. In a second system, the recurrent-depth model Huginn, an estimated spectral feature
-  predicts each held-out question's response to relaxation, and a frozen generation test confirms the predicted
-  accuracy loss at relaxation 1.20 and noninferiority at 1.05.
+  artifact of the one-token window: with a memory of 8 or 16 soft tokens Qwen2.5-7B is chaotic at more temperatures
+  than with one, and in Soft Thinking's growing context a tiny early perturbation grows exponentially inside its
+  one-token chaotic band, though not in every model. The organization recurs across families, and size does not set
+  the chaos: across fifteen models from 0.5B to 72B, a larger model's chaos can move to higher temperature instead of
+  vanishing. Two loops writing one text lock each other into periodic orbits: 60\,\% of pairs of differently steered
+  0.5B agents that are each chaotic alone are periodic together (twelve such orbits verified by Newton's method). In a
+  second system, the recurrent-depth model Huginn, a spectral estimate ranks held-out questions by the size of their
+  residual under relaxation, and a frozen generation test confirms the predicted accuracy loss at relaxation 1.20 and
+  noninferiority at 1.05.
 \end{enumerate}
 
 \paragraph{Related work.} Language-model generation has been studied as a dynamical system at several levels, and
@@ -317,7 +296,7 @@ prefix, fixed steering and a network whose derivative is bounded on that compact
 for large enough $T$, with a single attracting fixed point that tends to the mean embedding: here the exclusion is a
 bound. It does not cover hard routing or a growing context. Away from near-ties, chaos thus needs temperatures at
 which the next-token distribution is spread enough to make $\Sigma_p$ large while $1/T$ still amplifies it. The
-unsteered sweeps agree (Figure~\ref{fig:alpha0}). In the four long sweeps the chaotic temperatures lie in one band,
+unsteered sweeps agree (Figure~\ref{fig:alpha0}). In the four long sweeps (Appendix~\ref{sec:origin}) the chaotic temperatures lie in one band,
 interleaved with periodic windows, and every band lies between $\log_{10}T=-0.20$ and $0.28$. Below the bands, all
 1547 temperatures swept have negative exponents, and all but five have a detected period; above them, up to the end
 of the sweeps at $\log_{10}T=0.3$, 127 of 128 temperatures have a detected period (fixed points at 101) and one has a
@@ -400,7 +379,7 @@ can expand. Steered at block 4, the chaotic
 cells at $\log_{10}T=0.15$ have a network factor of $+0.72$ and a contracting readout ($-0.35$). Along the hostile line
 at $\log_{10}T=0.12$--$0.13$ the network factor of the chaotic cells is $+0.60$ against $+0.24$ to $+0.38$ at the
 neighbouring periodic cells. The mechanism is not specific to
-concept-labelled directions. This is consistent with the controls of Section~\ref{sec:discussion}, in which
+concept-labelled directions. This is consistent with the controls of Appendix~\ref{sec:origin}, in which
 norm-matched random directions also produce chaos in the 0.5B and 8B models; at 70B the directions differ
 (Appendix~\ref{sec:size}). What a direction does select is which tokens compete, and therefore what the attractors
 write.
@@ -416,7 +395,7 @@ readout and the network Jacobian are taken from the unsteered (0) or steered (1)
 periodic cells; dark red, the mean over held-out chaotic cells; navy, the same mean in Qwen2.5-7B. (d) Share of chaotic cells per temperature under
 residual steering at block 12 and under a pure logit bias along $Wv$. (e) The two factors of the chaotic cells by
 steering block, at $\log_{10}T\le0$. (f) Kaplan--Yorke dimension against the readout's trace-to-leading-eigenvalue ratio at the chaotic cells of the dimension
-measurement (Section~\ref{sec:theory}); dotted, equality.}
+measurement (Appendix~\ref{sec:theorymore}); dotted, equality.}
 \label{fig:mechanism}
 \end{figure}
 \begin{table}[!htb]
@@ -622,7 +601,8 @@ The loop studied here is the expected-embedding feedback that continuous reasoni
 \cite{zhang2025softthinking}, and its chaos has consequences that can be measured without any reference to dynamical
 systems. We report three: whether a run can be reproduced, how the depth at which a steering vector enters sets the
 chaos it causes, and what happens when two steering vectors are combined. A fourth, that a repeating text can hide a
-chaotic state from anyone who reads only the output, is shown in Appendix~\ref{sec:hostility}.
+chaotic state from anyone who reads only the output, is shown in Section~\ref{sec:organization} and
+Appendix~\ref{sec:hostility}.
 
 \paragraph{The regime decides whether a run can be reproduced.} Language-model inference is not bitwise
 reproducible: GPU kernels choose different reduction orders for different matrix shapes, so a request's result depends
@@ -1057,7 +1037,8 @@ shrimps of two-parameter maps \cite{gallas1993structure}. They are made of the b
 (Figure~\ref{fig:shrimpschematic}). A periodic window is the region where one periodic orbit attracts. The windows we
 continued are bounded by fold curves, where the orbit is born or dies together with a saddle (multiplier $+1$), and
 flip curves, where it doubles (multiplier $-1$). Steering strength and temperature move the orbit in different
-directions, so the fold curves bend; where a fold curve turns back it can form a cusp, and between the two branches
+directions, so the fold curves bend; where a fold curve turns back it can form a cusp (a visual turn alone is not our criterion: the
+located cusps pass the degeneracy and unfolding checks of Appendix~\ref{sec:curves}), and between the two branches
 leaving the cusp the window continues as a thin leg. Flip curves inside the window start its doubling sequences. In a
 one-dimensional map the leading multiplier runs from $+1$ through $0$ to $-1$ across a window, so every window holds
 a superstable curve: the dark ``endoskeleton'' lines of the maps \cite{facanha2013endoskeletons}. Bent fold curves
@@ -1068,13 +1049,15 @@ A shrimp in the sense of Gallas has one more element: a centre where two superst
 so that the orbit passes two critical points at once. That needs two turning points in a one-dimensional reduction.
 We continued the orbit of the hostile period-7 body over a grid of its upper part, and the orbit of a period-5 window
 in a plane steered at two depths, near which the band return maps do have two or more turning points
-(Appendix~\ref{sec:hostility}). In neither does the leading multiplier reach zero where a one-dimensional map would
-be superstable. It meets the second multiplier instead, and the two form a complex pair or pass each other as real
-numbers of opposite sign; in the period-5 window its modulus stays at least $0.0139$. The curves on which the trace of
-the leading pair changes sign take the place of superstable curves, and they do not cross. On the tracked branches the
-windows are therefore shrimp-like in body, legs, cusps and internal cascade, but have no one-dimensional shrimp
-centre: near their superstable strips the orbit's linearization has two comparable leading directions. Whether they
-are the shrimps of an effectively two-dimensional map, as in the H\'enon family, is open.
+(Appendix~\ref{sec:hostility}). In the hostile body the leading multiplier crosses zero along two superstable arcs,
+but where the arcs approach each other it meets the second multiplier, and the arcs turn away without crossing. In
+the period-5 window it never reaches zero (its modulus stays at least $0.0139$): where a one-dimensional map would be
+superstable, the two leading multipliers form a complex pair or pass each other as real numbers of opposite sign,
+and the curves on which their trace changes sign do not cross. On the tracked branches the windows therefore have no
+one-dimensional shrimp centre: near their superstable strips the orbit's linearization has two comparable leading
+directions. They are shrimp-like in body, legs and internal cascade, with located cusps on the fold curves of the
+period-6 and period-7 windows. Whether they are the shrimps of an effectively two-dimensional map, as in the H\'enon
+family, is open.
 %%FM5%%
 \input{figures/tikz-shrimp}
 
@@ -1084,7 +1067,7 @@ repeat exactly while the state moves chaotically (Appendix~\ref{sec:hostility}).
 2000 measured steps, most often with period 7 or 28. In the strongest case the sampled states fall into seven
 separated groups, one per phase of the text. A return relation read once per repetition is well approximated by a
 smooth map with a single quadratic maximum, whose Lyapunov exponent, 0.647 per repetition, is within 2\,\% of the full
-map's 0.636 per seven steps. A monitor that reads only the emitted text would call this regime periodic.
+map's 0.636 per seven steps.
 
 \section{Beyond the one-token loop}
 \label{sec:beyond}
@@ -1096,7 +1079,8 @@ Appendices~\ref{sec:bridge} to~\ref{sec:huginn} give the details.
 whose attractors are cycles (Appendix~\ref{sec:bridge}). Fed back the last 8 or 16 soft tokens instead of one,
 Qwen2.5-7B is chaotic at 21 and 20 of 24 temperatures, against 8 with one. In Soft Thinking's growing context, where
 every soft token stays visible, an early perturbation of $10^{-10}$ grows exponentially in the same model inside its
-one-token chaotic band. Sampling is different. When the expected embedding is replaced by the mean of $m$ sampled
+one-token chaotic band. This does not hold in every model: in Qwen2.5-0.5B the growth moves to sharper distributions,
+outside its narrow one-token chaotic band, and Qwen2.5-72B stays nearly insensitive. Sampling is different. When the expected embedding is replaced by the mean of $m$ sampled
 token embeddings, the laminar phases of the bottleneck, 120 steps long in the exact map at the closest offset, last
 about 10.6 steps with $m=64$ and 7.7 with $m=8$, and with single samples essentially none remain. The deterministic
 intermittency belongs to the expected-embedding map; sampling noise turns the bottleneck into a noise-limited trap
@@ -1107,8 +1091,9 @@ attractors we also read with sparse-autoencoder features, and in a second checkp
 shares the organization but not the attractors (Appendix~\ref{sec:scale}). The fold law of
 Section~\ref{sec:mechanism} recurs at 1.5B and 7B: windows accumulate on the fold of a short cycle, and the nearest
 four resolved windows meet a criterion fixed before the lines were computed, within $0.12\,\%$ at 1.5B and $4.5\,\%$
-at 7B. Our one mixture-of-experts model, Qwen3.5-35B-A3B, is the exception: no unsteered temperature we tested gave a
-positive exponent.
+at 7B (a correction of the period selector after the first scoring is disclosed); farther out, the 1.5B windows
+spread by $10.3$ to $14.0\,\%$. Our one mixture-of-experts model, Qwen3.5-35B-A3B, gave no positive exponent at any
+unsteered temperature we tested.
 
 \paragraph{Model size.} Across fifteen models from 0.5B to 72B parameters, the unsteered chaos in a fixed temperature
 window nearly vanishes in the largest Qwen2.5 and Llama models but not in OLMo-2-32B, the most chaotic OLMo model
@@ -1119,11 +1104,13 @@ held-out prompts, yet steering drives it, like Llama-3.3-70B, into chaos that an
 Neither post-training nor a sharp readout explains its stability; the gain split of Section~\ref{sec:theory} points
 to the network's damping of the fed-back token. Size does not set the chaos in a simple way.
 
-\paragraph{A second system.} Huginn-0125 iterates a recurrent block at fixed input tokens
-\cite{geiping2025recurrent}. From the spectrum of its native fixed point we predicted that the relaxed loop has a
-Neimark--Sacker bifurcation at $\lambda_c=1.0777$, and then observed it (fitted $1.0778$; Appendix~\ref{sec:huginn}).
-On held-out questions an estimated spectral feature predicts the size of each question's residual under relaxation,
-and a frozen generation test confirms the predicted accuracy loss at relaxation 1.20 and noninferiority at 1.05.
+\paragraph{A second system.} The recurrent-depth model Huginn-0125 \cite{geiping2025recurrent} is a different kind
+of loop: it iterates a block at fixed input tokens. The spectrum of its native fixed point predicts that relaxing the
+loop makes a complex pair cross the unit circle at $\lambda_c=1.0777$. Above that point the latent state settles on a
+closed curve whose amplitude grows like the square root of the distance (fitted onset $1.0778$), consistent with a
+supercritical Neimark--Sacker bifurcation (Appendix~\ref{sec:huginn}). On held-out questions, an estimated spectral
+feature ranks each question by the size of its residual under relaxation (mean Spearman correlation $0.701$), and a
+frozen generation test confirms the predicted accuracy loss at relaxation 1.20 and noninferiority at 1.05.
 
 \section{Two loops in conversation}
 \label{sec:dialogue}
@@ -1131,7 +1118,8 @@ Two instances of a language model left to talk with each other drift into recurr
 \cite{ko2026attractor}. The best-known case is the ``spiritual bliss'' attractor of two Claude Opus 4 instances, whose
 open-ended conversations end in repeated exchanges of gratitude and silence \cite{anthropic2025claude4}. The soft-token map poses the deterministic version of the
 question: can two loops that are each chaotic on their own lock each other into a periodic orbit? Agents A and B are
-Qwen2.5-0.5B-Instruct with the prompt of the self-dialogue pilots, each with its own steering strength along the
+Qwen2.5-0.5B-Instruct with the conversation prompt of a sampled self-dialogue study that we report separately,
+each with its own steering strength along the
 philosophy direction at layer 12. They write one reply together, alternating soft tokens, $x_{n+1}=F_A(x_n)$ and
 $x_{n+2}=F_B(x_{n+1})$, so one exchange is the map $G=F_B\circ F_A$. Equal agents reproduce the single loop bitwise in
 float64, so on a map over $(\alpha_A,\alpha_B)$ the diagonal holds each agent writing alone
@@ -1174,24 +1162,22 @@ together; dots mark periodic cells.}
 
 \section{Discussion}
 \label{sec:discussion}
-\paragraph{What theory allows, and what is new.} Chaos, periodic windows, shrimp-shaped domains and doubling cascades
-occur in many nonlinear feedback systems, from random recurrent networks, where chaos sets in above a critical gain
-\cite{sompolinsky1988chaos,doyon1994bifurcations}, to low-dimensional maps and experiments
-\cite{feigenbaum1978quantitative,gallas1993structure,stoop2010real}. In our map temperature plays the role of an
-inverse gain and the steering vector that of an input, and the factorization of Section~\ref{sec:theory} makes the
-correspondence concrete (Appendix~\ref{sec:theorymore} compares the transitions). These results motivate looking for
-such structure in a language model's feedback map, but they do not imply it. This paper shows that the models we
-studied realize it, with concrete texts as attractors, so that a bifurcation changes what the model writes, and that
-several prospective quantitative predictions succeeded; the failed all-row criteria and the unresolved cases are
-reported with them.
-\paragraph{Is steering the origin of the chaos?} No. At $\alpha=0$ the map is the unsteered model's own
-feedback map, and temperature alone produces chaos with embedded windows, broadly in the 7B and 8B models and in a
-narrow band in the 0.5B model; across the fifteen models of Appendix~\ref{sec:size}, the regular-grid sweeps find
-unsteered chaos in eleven of the fourteen dense models. Steering widens the chaotic regions, but not as a property of
-the concept. Along norm-matched random directions the 0.5B maps are as chaotic as along the concept directions, and
-in Llama-3.1 8B chaos occurs along sparse-autoencoder-feature, contrastive and random directions alike, with
-direction-dependent prevalence. The direction does select the texts. Appendix~\ref{sec:origin} gives the sweeps and
-the controls.
+\paragraph{What theory allows, and what is new.} Chaos and periodic windows occur in many nonlinear feedback systems:
+random recurrent networks become chaotic above a critical gain \cite{sompolinsky1988chaos,doyon1994bifurcations},
+and periodic windows, shrimp-shaped domains and doubling cascades are found in low-dimensional maps and in
+experiments \cite{feigenbaum1978quantitative,gallas1993structure,stoop2010real}. In our map temperature plays the role
+of an inverse gain and the steering vector that of an input. The factorization of Section~\ref{sec:theory} makes this
+correspondence concrete, but it remains an analogy, not a transfer of the random-network theorems
+(Appendix~\ref{sec:theorymore}). These results motivate looking for such structure in a language model's feedback
+map; they do not imply it. This paper shows that the models we studied realize it, with concrete texts as
+attractors, so that a bifurcation changes what the model writes, and that several prospective quantitative
+predictions succeeded; the failed all-row criteria and the unresolved cases are reported with them.
+\paragraph{Is steering the origin of the chaos?} No. Without steering ($\alpha=0$) the map is the model's own feedback
+map, and temperature alone gives chaos with embedded windows in most dense models we swept (in eleven of fourteen on
+regular grids). Steering widens the chaotic regions, but not through the concept it names: in the 0.5B model
+norm-matched random directions are as chaotic as the concept directions, and in Llama-3.1 8B sparse-autoencoder
+feature, contrastive and random directions all are, with direction-dependent prevalence. What the direction selects is
+the text of the attractors (Appendix~\ref{sec:origin}).
 
 \paragraph{What is and is not claimed.} The objects studied here are invariant sets and bifurcations of an exactly
 defined smooth map built from a frozen model's own computation. The answer-level reproducibility tests use two Qwen2.5
@@ -1201,8 +1187,8 @@ Section~\ref{sec:theory} is measured along three directions in a 0.5B model and 
 temperature the network factor can carry the instability. The loop's regime does not mark the accuracy of ordinary
 sampled answers beyond the model's first-token uncertainty, and moving a prompt's loop into chaos does not change that
 accuracy (Section~\ref{sec:consequences}). We do not claim that ordinary sampled generation is
-chaotic in this sense (Appendix~\ref{sec:bridge}), nor that any window is a certified shrimp. The windows have numerically shrimp-like organization, fold curves
-with located cusps and flip curves inside, with superstable curves through their bodies; on the tracked branches they
+chaotic in this sense (Appendix~\ref{sec:bridge}), nor that any window is a certified shrimp. The period-6 and period-7 windows have numerically shrimp-like
+organization, fold curves with located cusps and flip curves inside, and in the hostile period-7 body superstable curves through the body; on the tracked branches they
 have no one-dimensional shrimp centre (Section~\ref{sec:organization}), and we have not determined their symbolic
 sequences or tested for a periodicity hub \cite{gallas1993structure,jones2012rossler}. The cusps are float64
 computations validated by step-size checks, not proofs (Appendix~\ref{sec:curves}).
@@ -1291,9 +1277,7 @@ comes from sampling and a growing context, which wash out much of this structure
 the chaos does matter for is predictability and control. Positive finite-horizon exponents limit open-loop
 prediction of a trajectory at fixed state precision (our experiments do not establish mixing or limits on feedback
 stabilization); a stable attractor is predictable, but it can also hold a model in a state it should leave, such as the
-hostile loops of Appendix~\ref{sec:hostility}. On the paper's prompt, the largest Qwen2.5 and Llama
-models sit near the stable end, but across prompts a 14B Qwen model is more chaotic than the 7B, at higher
-temperatures, and OLMo-2-32B is among the most chaotic models we tested (Appendix~\ref{sec:size}). Whether regimes
+hostile loops of Appendix~\ref{sec:hostility}. Whether regimes
 near the boundary between order and chaos are especially useful, as has been argued for computation in dynamical
 systems and recurrent networks \cite{langton1990computation,bertschinger2004realtime} and shown for signal propagation
 in deep networks at initialization \cite{poole2016exponential,schoenholz2017deep}, is open for language models. We
@@ -1303,10 +1287,10 @@ chaotic (Section~\ref{sec:consequences}). Used as a reservoir, the loop remember
 stable cycles. Its linear memory capacity falls at every period doubling toward the onset of chaos, does not rise as
 the exponent approaches zero within a period, and is nearly erased by chaos (Figure~\ref{fig:reservoir}). In Huginn,
 whose reasoning is itself a latent loop, a pilot on 40 development problems recorded the decay rate of every generated
-token's recurrence. Accuracy holds while that recurrence is comfortably stable and falls as it approaches its edge. The
-gain at $\lambda=1.05$ (Appendix~\ref{sec:huginn}) comes where the token recurrence is nearly as stable as natively
-(median decay rate $0.921$ against $0.912$), and the collapse at $1.15$ where it is near critical ($0.981$, with half
-of the tokens no longer converging).
+token's recurrence. Accuracy holds while that recurrence is comfortably stable and falls as it approaches its edge:
+it rose from $0.375$ natively to $0.425$ at relaxation $1.05$, where the token recurrence is nearly as stable as
+natively (median decay rate $0.921$ against $0.912$), and fell to $0.29$ at $1.15$, where the recurrence is near
+critical ($0.981$, with half of the tokens no longer converging; Appendix~\ref{sec:huginn}).
 \begin{figure}[tbp]
 \centering
 \includegraphics[width=\linewidth]{fig-reservoir.png}
@@ -1327,10 +1311,8 @@ otherwise), contraction at sufficiently high temperature, the reduction of zero-
 cycles of whatever memory the loop keeps, and the role of a steering coefficient as a bifurcation parameter. Others
 belong to particular weights and will not carry over as such: the attractor texts, the positions of windows, folds and
 cusps, and every number we report; a second checkpoint of the same architecture already has different
-attractors (Appendix~\ref{sec:scale}). Size gives no guarantee of stability. In a fixed temperature window the unsteered
-chaos nearly vanished in the largest Qwen2.5 and Llama models, but across prompts a 14B Qwen model was more chaotic
-than the 7B, at higher temperatures, OLMo-2-32B was the most chaotic OLMo model, and post-training changed the chaos
-of two Llama checkpoints of the same size (Appendix~\ref{sec:size}). For an open frontier model we would search for
+attractors (Appendix~\ref{sec:scale}). Size gives no guarantee of stability (Section~\ref{sec:beyond}), and post-training changed the chaos of
+two Llama checkpoints of the same size (Appendix~\ref{sec:size}). For an open frontier model we would search for
 chaos where its own next-token distribution spreads, across prompts. Our one mixture-of-experts model,
 Qwen3.5-35B-A3B, gave no positive exponent without steering and irregular cells only under hostility steering, and
 hard routing falls outside the smooth theory of Section~\ref{sec:theory} (Appendix~\ref{sec:scale}). Reasoning models
@@ -1376,12 +1358,7 @@ of that ensemble's theorem. Feigenbaum scaling holds for a class of one-dimensio
 \cite{feigenbaum1978quantitative}, and periodic windows, shrimp-shaped domains with their cusps and spirals, and
 doubling cascades are found in many dissipative two-parameter systems
 \cite{gallas1993structure,bonatto2008periodicity,vitolo2011hubs,facanha2013endoskeletons} and in experiments
-\cite{stoop2010real}; intermittency near folds is classical \cite{pomeau1980intermittent}. These results motivate
-looking for chaos, windows and shrimp-like structure in a language model's feedback map, but they do not imply it. They do not say whether a trained language model
-realizes it, where in its parameter plane, with which texts, or whether the theory's quantitative predictions hold for
-that model. This paper shows that the models we studied do realize it, with concrete texts as attractors, so that a
-bifurcation changes what the model writes, and that several prospective quantitative predictions succeeded; the
-failed all-row criteria and the unresolved cases are reported with them.
+\cite{stoop2010real}; intermittency near folds is classical \cite{pomeau1980intermittent}.
 
 \paragraph{Contraction and expansion in the network.} Analyses of deep attention identify contracting tendencies:
 pure self-attention collapses token representations toward a common vector with depth \cite{dong2021attention}, and
@@ -1390,7 +1367,8 @@ the collapse \cite{dong2021attention}. Which tendency wins along an orbit is a p
 only computation settles. In every dense model we mapped, both outcomes occur: the same map has negative largest
 exponents in some regions of its parameter plane and positive ones in others.
 
-\paragraph{How many dimensions does the chaos have?} For chaotic attractors the corresponding measure is the
+\paragraph{How many dimensions does the chaos have?} Near a periodic orbit, the multipliers measure how many
+directions the dynamics keeps (Section~\ref{sec:theory}). For chaotic attractors the corresponding measure is the
 Kaplan--Yorke dimension \cite{kaplan1979chaotic}, $D_{\mathrm{KY}}=j+\sum_{i\le j}\lambda_i/|\lambda_{j+1}|$ with $j$ the
 largest index at which the partial sum of the ordered Lyapunov exponents is still nonnegative; with one positive
 exponent and $\lambda_1+\lambda_2<0$, $D_{\mathrm{KY}}=1+\lambda_1/|\lambda_2|$. We estimated the four leading
@@ -1406,7 +1384,8 @@ high-temperature region ($\log_{10}T$ from $-0.02$ to $0.13$), nine chaotic cell
 $2.02$; at two of them the sum of the first two estimates is nonnegative, which suggests a second expanding direction
 at this horizon. A scalar return
 map describes the low-temperature chaos well and the high-temperature chaos poorly, consistent with the large second
-multipliers of the high-temperature bubble. The number of competing tokens does not set the dimension. The readout's
+multipliers of the high-temperature bubble of Appendix~\ref{sec:cascade}. The number of competing tokens does not
+set the dimension. The readout's
 trace-to-leading-eigenvalue ratio, $\operatorname{tr}\Sigma_p/\lambda_{\max}(\Sigma_p)$ averaged along the orbit (with
 $\lambda_{\max}$ estimated by eight power iterations), counts the directions in which the readout amplifies comparably.
 $D_{\mathrm{KY}}$ never exceeds it and rises with it within each group of cells (Spearman $0.72$ over 17 philosophy
@@ -1575,8 +1554,7 @@ and at $\alpha=0.062499$, $\log_{10}T=-0.001780$. Both points are 1:1 resonances
 to $3\times10^{-4}$ degrees. Close by, at $\alpha=0.062522$, $\log_{10}T=-0.002667$, a multiplier reaches $-1$: a fold-flip point. We
 did not continue the curves that emanate from these points.
 
-\paragraph{Evidence level of the cusps.} A generic codimension-two
-cusp also requires the two unfolding coefficients to depend on the two parameters with rank two. We estimated this at
+\paragraph{Evidence level of the cusps.} We estimated the rank condition of the unfolding at
 a fold point near one cusp of the period-6 window and one of the hostile period-7 body
 (Appendix~\ref{sec:hostility}; determinants $2737$ and $53.5$), and there the local model's
 predictions at twelve frozen offsets matched the orbits recovered by Newton solves seeded at the predicted roots and
@@ -1872,36 +1850,16 @@ one-humped interval map (Figure~\ref{fig:cobwebs}). On the tracked branch and in
 therefore not the shrimp of a one-dimensional map. Whether it is the shrimp of an effectively
 two-dimensional map, as in the H\'enon family, is open.
 
-\paragraph{What the shrimp-like shapes are.} The shapes are made of the bifurcation curves of single windows
-(Figure~\ref{fig:shrimpschematic}). A periodic window is the region where one periodic orbit attracts. The windows
-we continued are bounded by fold curves, where the orbit is born or dies together with a saddle (multiplier $+1$), and
-flip curves, where it doubles (multiplier $-1$); in higher dimensions other boundaries, such as a complex pair crossing
-the unit circle, are also possible. In a one-dimensional map the multiplier runs from $+1$ through $0$ to $-1$ across the
-window, so every window holds a superstable curve: the dark ``endoskeleton'' lines of our maps. In a higher-dimensional
-map the leading multiplier can instead change sign through a complex pair, as it does in parts of our windows. Beyond
-some of the flip curves we followed lie the doubling sequences of Appendix~\ref{sec:cascade}; a flip need not start a
-complete cascade.
-
-Steering strength and temperature move the orbit in different directions, so the fold curves bend. Where a fold curve
-turns back, a cusp can form (a visual turn alone is not our criterion: the located cusps satisfy the degeneracy and
-unfolding checks of Appendix~\ref{sec:curves}), and between the two branches leaving the cusp the window continues as a
-thin leg.
-Bent fold curves with cusps, flip curves inside them and a superstable line through the body produce the bodies, legs,
-hooks and crescents of the maps. On the seven fold curves we continued, all nine tangent reversals are located cusps (Appendix~\ref{sec:curves});
-this is not a global count of cusps.
-
-A shrimp in the sense of Gallas has one more element: a centre, where two superstable curves of the same orbit cross.
-There the orbit passes two critical points at once, which needs two turning points in a one-dimensional reduction.
-The return maps of the hostile body have a coarse one-extremum shape in every phase
-(Figure~\ref{fig:returnmapsbody}). Where the hostile body's superstable curves approach each other, the orbit's
-linearization acquires two comparable directions instead of becoming doubly superstable
-(Figure~\ref{fig:superstable}). The period-6 hook's orbit never comes
-close to superstable: its leading multiplier stays above $0.028$ in modulus.
-
-The X-shaped crossing of a period-5 and a period-6 strip (Figure~\ref{fig:zooms}, bottom) is not one window's anatomy
-but two windows overlapping, and at the crossing both of their orbits are unstable (Appendix~\ref{sec:curves}). The shapes in these one-block planes are therefore the
-two-parameter unfolding of windows whose return maps have one coarse extremum. They are shrimp-like in body, legs and internal cascade, but have no
-shrimp centre.
+\paragraph{Details of the shrimp-like shapes.} Section~\ref{sec:organization} summarizes the anatomy
+(Figure~\ref{fig:shrimpschematic}); three details belong here. In higher dimensions a window can also end where a
+complex pair crosses the unit circle, and the leading multiplier can change sign through a complex pair, as it does in
+parts of our windows; beyond some of the flip curves we followed lie the doubling sequences of
+Appendix~\ref{sec:cascade}, but a flip need not start a complete cascade. The period-6 hook's orbit never comes close
+to superstable: its leading multiplier stays above $0.028$ in modulus. And the X-shaped crossing of a period-5 and a
+period-6 strip (Figure~\ref{fig:zooms}, bottom) is not one window's anatomy but two windows overlapping, and at the
+crossing both of their orbits are unstable (Appendix~\ref{sec:curves}). The shapes in these one-block planes are
+therefore the two-parameter unfolding of windows whose return maps have one coarse extremum: shrimp-like in body,
+legs and internal cascade, but without a one-dimensional shrimp centre on the tracked branches.
 
 \paragraph{Two turning points from two steering depths.} Steering at two depths gives the band dynamics a second
 turning point. We drew 1584 chaotic cells (200 from each of the four two-block planes of Figure~\ref{fig:twoblock},
@@ -2034,7 +1992,7 @@ are the chaotic bands that follow a period-doubling cascade, and a smooth unimod
 universality \cite{feigenbaum1978quantitative}; a fitted maximum on the sampled range does not by itself establish
 that theorem's hypotheses, and we have shown the scalar approximation for this cascade only. A reader of the text sees a loop. Only the probabilities, or the state, reveal the
 chaos.
-\begin{figure}[H]
+\begin{figure}[tbp]
 \centering
 \includegraphics[width=\linewidth]{fig-hidden-bands.png}
 \caption{Chaos behind a repeating text: the soft-token map of Qwen2.5-0.5B-Instruct steered along hostility at
@@ -2058,7 +2016,7 @@ seven-token texts the 2000 steps give 285 repetitions; with 28-token texts only 
 or 71 return pairs), and the fitted maps then overestimate small exponents.}
 \label{fig:reduction}
 \end{figure}
-\begin{figure}[H]
+\begin{figure}[tbp]
 \centering
 \includegraphics[width=\linewidth]{fig-hub-zoom.png}
 \caption{The lower part of the period-7 body of the hostility-steered Qwen2.5-0.5B-Instruct map (layer 12) at
@@ -2103,8 +2061,9 @@ at the last window.}
 
 \section{Bridge to sampled decoding}
 \label{sec:bridge}
-How much of this survives sampling? To find out, we replace the expected embedding by the mean of $m$ sampled token
-embeddings (Figure~\ref{fig:bridge}). With the exact map, laminar phases near the fold last 120 and 63 steps at
+How much of the fold mechanism of Section~\ref{sec:mechanism} survives sampling? To find out, we replace the expected
+embedding by the mean of $m$ sampled token
+embeddings (Figure~\ref{fig:bridge}). With the exact map, laminar phases near the fold of the 2-cycle ``is it'' last 120 and 63 steps at
 $\eps=10^{-5}$ and $3\times10^{-5}$. With $m=64$ they last about 10.6 steps, independently of $\eps$ (57\% of steps in
 the channel), and with $m=8$ about 7.7 steps (38\%). With single samples ($m=1$, sampled decoding of the same
 truncated system), essentially no laminar phases remain (11\% of steps in the channel). The deterministic
@@ -2214,7 +2173,7 @@ the fixed-window loop, while the one transient burst shows that the method regis
 
 \section{Replication and scale}
 \label{sec:scale}
-In Qwen2.5-1.5B (steering at layer 14 of 28), a coarse $64^2$ float64 map over the same range again shows chaotic
+In Qwen2.5-1.5B (steering at layer 14 of 28), a coarse $64^2$ float64 map over the range of the 0.5B maps again shows chaotic
 regions with embedded windows. A $256^2$ zoom (Figure~\ref{fig:qwen15}) resolves a chaotic band near
 $\log_{10}T=0$--$0.13$ (14{,}422 of 65{,}536 cells), with a branch descending along $\alpha\approx0.06$ and periodic
 windows inside it. The large periodic regions are question loops: ``What?\textbackslash n'' (period 2),
@@ -2879,7 +2838,7 @@ computer-assisted proof.
 data at 00:19 UTC on 14 October 2026 counted 34 distinct maps (987\,308 cells, 27 maps in float64) in six models,
 each with one prompt and one of three steering directions or none, plus one partial map. Of these, 29 maps and the
 partial one appear here; the five omitted are early discovery or side maps. Later additions are not in that count:
-the steering-control maps of Section~\ref{sec:discussion}, the mixture-of-experts maps, and the sweeps, lines and maps
+the steering-control maps of Appendix~\ref{sec:origin}, the mixture-of-experts maps, and the sweeps, lines and maps
 of the models of Appendix~\ref{sec:size}.
 The labelled maps contain about 2600 periodic families of at least six cells, counted per map. We singled out about
 26 windows or families for float64 work: 20 are reported in detail, 2 only as map features and 4 not at all (an
