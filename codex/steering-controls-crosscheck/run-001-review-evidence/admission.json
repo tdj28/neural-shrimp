@@ -1,0 +1,56 @@
+{
+  "source_commit": "7a607602e98de099c9c610171035b2e34f7f8fcf",
+  "private_remote_ancestor": "7a607602e98de099c9c610171035b2e34f7f8fcf",
+  "sources": {
+    "codex/steering-controls-crosscheck/saved-audit.py": "3d4436cf44fdf473c867846d5431161dc1583ac19f11eaca2b49c6f7d9b69ad3",
+    "codex/steering-controls-crosscheck/run-001-review-card.json": "e835ab44ce3ceef3511dc16b15e8a534284edd3d274fe3b182d8a4f736832499",
+    "codex/steering-controls-crosscheck/run-001-review-launch.py": "a12c6be4831091631f738f0d16a19a1036ebedcb014d8efe468ee8f9305465e9"
+  },
+  "available_bytes": 51634876416,
+  "disk_free_bytes": 2753322369024,
+  "load_average": [
+    9.9013671875,
+    14.90234375,
+    20.978515625
+  ],
+  "cpu_affinity_count": 32,
+  "gpu_read_only_inventory": {
+    "exit_code": 0,
+    "stdout": "Wed Oct 14 23:43:32 2026       \n+-----------------------------------------------------------------------------------------+\n| NVIDIA-SMI 580.178.04             Driver Version: 580.178.04     CUDA Version: 13.0     |\n+-----------------------------------------+------------------------+----------------------+\n| GPU  Name                 Persistence-M | Bus-Id          Disp.A | Volatile Uncorr. ECC |\n| Fan  Temp   Perf          Pwr:Usage/Cap |           Memory-Usage | GPU-Util  Compute M. |\n|                                         |                        |               MIG M. |\n|=========================================+========================+======================|\n|   0  NVIDIA RTX 2000 Ada Gene...    Off |   00000000:01:00.0 Off |                  Off |\n| 47%   71C    P2             38W /   70W |    5508MiB /  16380MiB |    100%      Default |\n|                                         |                        |                  N/A |\n+-----------------------------------------+------------------------+----------------------+\n\n+-----------------------------------------------------------------------------------------+\n| Processes:                                                                              |\n|  GPU   GI   CI              PID   Type   Process name                        GPU Memory |\n|        ID   ID                                                               Usage      |\n|=========================================================================================|\n|    0   N/A  N/A         2697451      C   ...eural-shrimp/.venv/bin/python       5498MiB |\n+-----------------------------------------------------------------------------------------+\n",
+    "stderr": ""
+  },
+  "scope": "One Task16 independent saved-field check of19 raw NPZ files and51 saved outputs plus original manifest. No model, fit, eigenanalysis or producer imports. Original closure and source/output authority are bound by exact card. CPU1 plus supervisor,4GiB AS,115CPU/120s wall,16MiB output,20/16GiB available RAM and16GiB disk; no active concurrent reservation.",
+  "command": [
+    "/data2/neural-shrimp/.venv/bin/python",
+    "-I",
+    "-B",
+    "-u",
+    "/data2/neural-shrimp-data/codex/steering-controls-crosscheck/run-001-review-001-supervision/source/codex/steering-controls-crosscheck/saved-audit.py",
+    "--card",
+    "/data2/neural-shrimp-data/codex/steering-controls-crosscheck/run-001-review-001-supervision/source/codex/steering-controls-crosscheck/run-001-review-card.json"
+  ],
+  "seconds": 120,
+  "memory_gib": 4,
+  "cpu_worker": 1,
+  "supervisor_slots": 1,
+  "output_cap_bytes": 16777216,
+  "supervisor": {
+    "pid": 2768013,
+    "start": 199317540,
+    "pgid": 2768013,
+    "sid": 2768013,
+    "uid": 1000,
+    "nice": 10,
+    "threads": 1,
+    "limits": "Limit                     Soft Limit           Hard Limit           Units     \nMax cpu time              unlimited            unlimited            seconds   \nMax file size             unlimited            unlimited            bytes     \nMax data size             unlimited            unlimited            bytes     \nMax stack size            8388608              unlimited            bytes     \nMax core file size        0                    unlimited            bytes     \nMax resident set          unlimited            unlimited            bytes     \nMax processes             375398               375398               processes \nMax open files            65535                65535                files     \nMax locked memory         8388608              8388608              bytes     \nMax address space         4294967296           4294967296           bytes     \nMax file locks            unlimited            unlimited            locks     \nMax pending signals       375398               375398               signals   \nMax msgqueue size         819200               819200               bytes     \nMax nice priority         0                    0                    \nMax realtime priority     0                    0                    \nMax realtime timeout      200000               200000               us        \n",
+    "command": [
+      "/data2/neural-shrimp/.venv/bin/python",
+      "-I",
+      "-B",
+      "-u",
+      "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/steering-controls-crosscheck/run-001-review-launch.py",
+      "--source",
+      "7a607602e98de099c9c610171035b2e34f7f8fcf"
+    ]
+  }
+}

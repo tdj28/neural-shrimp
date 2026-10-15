@@ -1,3 +1,15 @@
+# Task 16 complete — final evidence accepted; standalone delivery follows
+
+Root accepted Task 16's final scientific report2586b7b8, exact fields72e3a977, independent acceptance3fef0bc2 and original/audit owner authoritiesbb921c5f/acbe5368. All4,446,143 independent checks passed exactly with zero differences. All16 datasets/19NPZ inputs/112,640 selected cells and every incomplete/nonselected observation remain covered. Both owned sessions25265 and50359 are reaped0, original groups closed, zero live jobs or reservations. Computational and scientific finite-scope acceptance are complete; the standalone Claude delivery follows this private evidence checkpoint. Original preparation and correction history is preserved. No further Task16 computation is needed.
+
+Current human-directed queue: 21a–i in listed order, then22,23 only after its concrete MECH card,24,25(former20+L70D),then15. Task21a source/metadata exports are prepared at /tmp/task21a-source-initial-20261015 and /tmp/task21a-source-supplement-001, snapshot9db1cb41; no21arithmetic has run. Reports/code remain in owned codex paths and standalone comms; no producer paper/tools/research-log edits, .env/lexical-repository access, GPUs/pods or paid work. Tasks18/19/17 remain complete/delivered.
+
+Inference retains sole Git/process coordination. Overnight watch-claude-overnight remains active every30minutes until approximately08:00PDT15October, quiet for unchanged/nonactionable state. Recorded 2026-10-15T06:54:45.365774+00:00.
+
+---
+
+## Preserved earlier status
+
 # Task 16 original tabulation complete; independent saved check admitted
 
 Updated 2026-10-15T06:42:55.569060+00:00. Task 16 run-001 completed and original session 25265 was reaped with exit 0. Original source 9b97f9f6e0d55bc5f02e3dc8676b398ab5812541, scientific source dc6cd5c6, plan aa49c0c6 and card 67cbbc0b remain unchanged. The worker measured 10.691474 seconds and 161,504 KiB peak RSS; supervisor elapsed 11.600534 seconds. Owner authority bb921c5f authenticated all 51 output files (91,126,083 bytes), 16 supervision entries, 11 captured Git blobs and both original process/group/session absences. These establish computational completion; scientific acceptance remains pending the independent saved-field check.

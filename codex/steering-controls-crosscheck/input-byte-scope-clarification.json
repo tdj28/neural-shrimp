@@ -1,0 +1,12 @@
+{
+  "schema": "task16-input-byte-scope-clarification",
+  "input_metadata_sha256": "fdd511be93d478850fda51706fdbaa019e9b6292eb9b9accf1bb2eb619d34f19",
+  "npz_files": 19,
+  "npz_bytes": 1956924,
+  "scan_json_files": 16,
+  "scan_json_bytes": 1291121,
+  "original_header_hash_io_bytes": 3248045,
+  "sum_matches": true,
+  "source_explanation": "header inventory pin() accounts for each segment NPZ and each existing scan.json. The prepared audit label raw_compressed_bytes incorrectly used the combined header-hash IO value; actual nineteen NPZ bytes are distinct. All original cards and evidence remain unchanged; no new target data reads or recomputation.",
+  "metadata_source_script_sha256": "74c6f3d566b90df0b8ed7198423dd34587a0f3036edb9b3322d846b7de3b94f6"
+}

@@ -1,0 +1,69 @@
+--- /tmp/task16-scientific-report.md
++++ /tmp/task16-scientific-report-final.md
+@@ -1,6 +1,6 @@
+ # Task16 — independent saved steering-control tabulation
+ 
+-The 16 requested datasets are complete under the frozen selection: all **112,640 selected cells** have finite exponents and valid integer period fields. The separately authored saved-field check passed **4,446,143 exact checks with zero failures and zero nonzero differences**, including all selected cells, all 124,928 allocated source rows and all 4,096 nonselected completed overlap observations. Root has read and accepted the arithmetic result; the checker’s final outer/source closure authority is pending at this release. Original tabulation closure is already authenticated.
++The 16 requested datasets are complete under the frozen selection: all **112,640 selected cells** have finite exponents and valid integer period fields. The separately authored saved-field check passed **4,446,143 exact checks with zero failures and zero nonzero differences**, including all selected cells, all 124,928 allocated source rows and all 4,096 nonselected completed overlap observations. Root has read and accepted both the arithmetic result and the final checker source/output/outer-closure authority. Both the original tabulation and the independent saved check are closed and authenticated.
+ 
+ This is **independent, unblinded arithmetic reproduction of saved scans**. The provisional and final producer C1 summaries were seen during Task17 review before this work. This report reads completed JSON and the saved checker result; it does not rerun a model, decode target NPZ arrays, refit, retune a threshold, or repeat the checker. The scientific facts below are finite-grid findings, not a new confirmation on unseen data.
+ 
+@@ -144,7 +144,7 @@
+ 
+ **Llama L19 Gaussian** — 0:1741, 1:421, 2:338, 3:455, 4:189, 5:66, 6:210, 7:34, 8:110, 9:50, 10:130, 11:52, 12:36, 13:18, 14:54, 15:15, 16:22, 17:18, 18:22, 19:19, 20:16, 21:11, 22:6, 23:8, 24:13, 25:6, 26:6, 27:1, 28:7, 29:2, 30:8, 31:2, 32:10.
+ 
+-**Evidence and lifecycle.** Original worker runtime 10.691473881946877 s, peak 161,504 KiB; external supervisor 11.600534365978092 s. Original session 25265 returned/reaped 0 and the original supervisor/worker/groups/sessions are absent according to Inference’s authenticated closure. This report inherits that original execution observation; it does not claim a new process-closure audit. The saved checker took 6.584500964963809 s and peak 153,796 KiB and reported exact equality across 4,446,143 checks. Its final external authority is pending at this note’s release.
++**Evidence and lifecycle.** Original worker runtime 10.691473881946877 s, peak 161,504 KiB; external supervisor 11.600534365978092 s. Original session 25265 returned/reaped 0 and the original supervisor/worker/groups/sessions are absent according to Inference’s authenticated closure. This report inherits that original execution observation; it does not claim a new process-closure audit. The saved checker took 6.584500964963809 s and peak 153,796 KiB and reported exact equality across 4,446,143 checks. Its final external authority is accepted: the two audit outputs, eight supervision entries, three captured Git blobs, persistent outer logs and original supervisor/worker/group/session absence were authenticated. Original audit session 50359 returned/reaped 0; this is Inference’s execution and closure observation, inherited here without a second lifecycle check.
+ 
+ The actual 19 NPZ input files total **1,956,924 bytes**. The earlier 3,248,045-byte planning inventory comprised these NPZ bytes plus 1,291,121 bytes from 16 scan.json files; it is not the scientific NPZ total. Inference’s separate metadata clarification preserves that distinction and the original cards. The original final manifest authenticates 51 outputs totaling 91,126,083 bytes; the closure also authenticates 16 supervision entries and 11 captured Git blobs. All output, input, per-dataset summary and authority hashes are retained in the companion JSON.
+ 
+@@ -158,4 +158,10 @@
+ - Independent checker: source `3d4436cf44fdf473c867846d5431161dc1583ac19f11eaca2b49c6f7d9b69ad3`, card `e835ab44ce3ceef3511dc16b15e8a534284edd3d274fe3b182d8a4f736832499`.
+ - Independent checker result: `/data2/neural-shrimp-data/codex/steering-controls-crosscheck/run-001-review-001/report.json`, SHA256 `f0544574ddd02f4f3329d52cc528559bc6b1a5c6aa69e75df6f1a6530de5e297`.
+ 
++- Final checker metadata authority: `/data2/neural-shrimp-data/codex/steering-controls-crosscheck/run-001-review-001-authority/report.json`, SHA256 `acbe5368eaadc908e352a392931e2f33349b5d4f4e5ce88d84597e35d5154440`; authority manifest `da37f15353acbce478670aa0f6348b2794ee72d189ac620432cf4fb403b381d3`. It binds audit source commit `7a607602e98de099c9c610171035b2e34f7f8fcf`, result `f0544574…`, and original audit closure `92027136add3be8e065575f1ffab07c89ca1ff38a35e655fe206dd0a7c430de8`.
++
+ The companion JSON is a selected-field transcription of these saved results, not a second tabulation. It preserves exact floats, all 80 bins with signed splits and histograms, all zero/nearest summaries, all 16 overall histograms, all common-coordinate summaries, all 19 source-prefix summaries and source/input hashes. It points to the unchanged complete overlap and per-row/per-column evidence in the authenticated original report.
++
++**Final verdict.** Task16’s independent saved arithmetic and its separately authored exact checker pass for the entire frozen selection and retained source history. No scientific or lifecycle acceptance remains pending for this report. The earlier draft is preserved as `/tmp/task16-scientific-report.md` (SHA256 `8258c9153b7b3520ed3632757fa2afc4d5bda1ba3044c8bf9823723cf9d84954`). This final revision changes provenance/acceptance wording and adds this verdict; it does not change a count, threshold, selection or scientific conclusion.
++
++Suggested paper wording: “An independent unblinded tabulation of the saved scans reproduced all requested counts. The finite-horizon criterion (exponent greater than 0.001 and no detected return) occurred in unsteered sweeps and in named Gaussian and SAE controls as well as semantic directions. Its frequency varied with direction, steering magnitude and the sampled grid; these controls do not establish semantic necessity or equivalence of directions. Exact-zero, near-zero and common-coordinate results are reported separately, with original partial-run history and finite-precision limitations retained.”
+--- /tmp/task16-scientific-report.json
++++ /tmp/task16-scientific-report-final.json
+@@ -1,6 +1,6 @@
+ {
+   "schema": "task16-scientific-report-transcription-v1",
+-  "status": "scientific_arithmetic_checked_final_checker_lifecycle_authority_pending",
++  "status": "scientific_arithmetic_and_final_source_output_lifecycle_authority_accepted",
+   "scope": "independent unblinded arithmetic reproduction, not fresh confirmation",
+   "prior_producer_summary_exposure": true,
+   "report_path": "/data2/neural-shrimp-data/codex/steering-controls-crosscheck/run-001/run/report.json",
+@@ -24054,5 +24054,27 @@
+     "All4,096 repeated observations are retained; exact audit agreement does not mean repeated runs agree.",
+     "Recorded period0 is no finite detected return; positive periods are not rigorous primitive-cycle proofs.",
+     "Current report is unblinded reproduction; historical effective precision/model bytes are not re-established."
+-  ]
++  ],
++  "final_checker_authority": {
++    "path": "/data2/neural-shrimp-data/codex/steering-controls-crosscheck/run-001-review-001-authority/report.json",
++    "sha256": "acbe5368eaadc908e352a392931e2f33349b5d4f4e5ce88d84597e35d5154440",
++    "manifest_sha256": "da37f15353acbce478670aa0f6348b2794ee72d189ac620432cf4fb403b381d3",
++    "source_commit": "7a607602e98de099c9c610171035b2e34f7f8fcf",
++    "passed": true,
++    "outputs": 2,
++    "supervision_entries": 8,
++    "git_blobs": 3,
++    "original_groups_sessions_absent": true,
++    "tool_session": 50359,
++    "tool_session_reaped_exit_code": 0,
++    "direct_execution_observer": "Inference; inherited here without a second process audit",
++    "closure_sha256": "92027136add3be8e065575f1ffab07c89ca1ff38a35e655fe206dd0a7c430de8"
++  },
++  "provenance_revision": {
++    "prior_report_path": "/tmp/task16-scientific-report.md",
++    "prior_report_sha256": "8258c9153b7b3520ed3632757fa2afc4d5bda1ba3044c8bf9823723cf9d84954",
++    "prior_json_path": "/tmp/task16-scientific-report.json",
++    "prior_json_sha256": "23ce5360929e974352a4387341df2a025b603b70d250f23aa786baa9444ac19b",
++    "scope": "Final authority and acceptance only; all copied scientific fields unchanged."
++  }
+ }
