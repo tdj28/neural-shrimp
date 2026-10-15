@@ -57,7 +57,7 @@ and interval arithmetic proves an attracting period-8 orbit. In the recurrent-de
 \caption{Chaos and repeating text in a language model fed its own output: the soft-token map of
 Qwen2.5-0.5B-Instruct, steered along the philosophy direction at layer 12, on $512\times512$ float64 cells over the
 steering strength $\alpha\in[0.0625,0.0775]$ and the temperature, $\log_{10}T\in[-0.17,-0.125]$. Coloured cells are
-chaotic by the finite-horizon criterion of Section~\ref{sec:methods}; the colour gives the largest Lyapunov exponent.
+chaotic by the finite-horizon criterion of Appendix~\ref{sec:methods}; the colour gives the largest Lyapunov exponent.
 In grey cells the model settles into a repeating loop of text, shaded by how strongly the loop contracts (light grey:
 close to losing stability). Figure~\ref{fig:cross512} names the loops.}
 \label{fig:teaser}
@@ -155,56 +155,16 @@ system; Section~\ref{sec:beyond} also measures how much of the mechanism survive
   noninferiority at 1.05.
 \end{enumerate}
 
-\paragraph{Related work.} Language-model generation has been studied as a dynamical system at several levels, and
-the closest studies differ from ours in what they compute. Lyapunov-like quantities have been used to measure
-sensitivity to small perturbations in reasoning traces \cite{li2025quasilyapunov,jaca2026chaos} and in token rings
-resampled by a model's own conditionals, with a test that separates the construction from the model
-\cite{verazuniga2026selffeeding}, but these studies
-measure chaos-like sensitivity in generation without computing orbits or bifurcations. Output statistics change
-abruptly with sampling temperature, and several studies analyse the changes as phase transitions or criticality
-\cite{arnold2024phase,nakaishi2024phase,sun2025phase,ruan2026criticality}. These analyses concern output statistics;
-they are not bifurcation analyses of a defined map. Closest to ours, a study of eleven models sorts sampled
-continuations into classes from frozen and periodic to intermittent and noisy across temperature, fits a noisy effective map to one
-hidden-state coordinate that predicts repetition, and steers along it \cite{johnson2026temperature}; that map is
-fitted to sampled trajectories, and no orbits, multipliers or bifurcation curves of the model's own map are computed. Repetition loops are a known failure of
-decoding \cite{holtzman2019degeneration,xu2022loop}, successive paraphrasing converges to attractor cycles
-\cite{wang2025attractor}, and multi-turn conversations between models settle into attractor states
-\cite{ko2026attractor}. These attractors are behavioural: they are observed in generated text rather than computed as
-invariant sets of a defined map. Feeding a model its own output during training degrades it over generations
-\cite{shumailov2024collapse}; we study the inference-time loop of a model with fixed weights. The attractors of
-recurrent networks have been related to the difficulty of training them \cite{ribeiro2020attractors}, and fixed points
-with their linearizations have long been used to reverse-engineer trained recurrent networks
-\cite{sussillo2013opening,maheswaranathan2019reverse}. Equilibrium, looped and recurrent-depth models iterate a block to a fixed point or for
-many steps, and their stability has been analysed through Jacobians and fixed points
-\cite{bai2019deq,bai2021stabilizing,geiping2025recurrent,zhu2025ouro,tomihari2025recurrent,yang2026stars,prairie2026parcae,buehlmaier2026layernorm,labovich2026stability,movahedi2026fixedpoint},
-and recent analyses of looped reasoners follow their internal dynamics, their settling, marginal or drifting regimes
-and slowly decaying oscillatory modes \cite{blayney2026mechanistic,viakhirev2026thinkshallow,park2026loopedearlier};
-these studies examine fixed-point stability, finite-depth dynamics and nonstationary regimes. Here we continue
-full-state periodic branches and classify their bifurcations in specified frozen-model feedback maps. A minimal recurrent self-attention with a repulsive value map
-becomes chaotic \cite{gao2026repulsive}, but it is a constructed model, not a trained one. A separate line predicts the answers of looped models from the geometry of
-score margins along completed finite-depth trajectories \cite{luo2026prediction}, without fixed points or Jacobians. The closest precedent is a derivative-based fold analysis of a small task-trained
-looped transformer, whose passage and spectral-gap predictions are unfitted \cite{kim2026phase}. That model was
-trained for a task, whereas ours is a released pretrained language model, and our analysis also differs in its
-objects: the fold of a primitive periodic orbit, the full-channel passage of a two-step map, and the accumulation law
-of the windows, whose prefactor is set by the global reinjection. Expected-embedding
-feedback itself is used in training \cite{zeng2025ponderlm} and, training-free, in pretrained models
-\cite{zhang2025softthinking,wu2025singlethreaded}, next to continuous latent reasoning \cite{hao2024coconut}; a reduced
-dynamical model explains why pretrained models fail to preserve such mixtures \cite{backour2026mixture}, and whether
-they exploit the superposition the mixtures could carry has been questioned \cite{rizvimartel2026illusion}. Fixing
-the prefix and the position turns that feedback into the autonomous map we analyse.
-
-In neural systems more broadly, saddle-node ghosts produce quantitative delays in task-trained recurrent networks
-\cite{dinc2026ghost}. Finite-order Feigenbaum ratios have been measured in neural rate and mass models
-\cite{battaglia2007temporal,papasavvas2015gain} and, through period 128, in a transformer trained on logistic-map
-trajectories \cite{liu2026learningchaos}. Learned networks reproduce period-doubling routes \cite{kim2021teaching},
-and so does gradient descent itself \cite{kalra2025universal}. Normal forms and continuation have been applied to
-recurrent neural maps, including their quasi-periodic orbits \cite{marichal2015multiple}, and shrimp-shaped windows and periodicity staircases appear in
-neuron models \cite{gomez2014universal,stenzinger2025shrimp,caixeta2025staircase}. Our second control parameter comes
-from activation steering along contrastive directions \cite{zou2023representation,zhang2025steering}. The
-dynamical-systems tools are standard: numerical continuation and normal forms
-\cite{kuznetsov2023elements,govaerts2000numerical}, for maps in particular \cite{kuznetsov2019maps}, type-I intermittency \cite{pomeau1980intermittent}, shrimps and
-hubs \cite{gallas1993structure,facanha2013endoskeletons,vitolo2011hubs,jones2012rossler}, and period-doubling universality
-\cite{feigenbaum1978quantitative}.
+\paragraph{Related work.} Chaos-like sensitivity of generation \cite{li2025quasilyapunov,jaca2026chaos,verazuniga2026selffeeding},
+temperature-driven changes of output statistics
+\cite{arnold2024phase,nakaishi2024phase,sun2025phase,ruan2026criticality,johnson2026temperature}, repetition loops
+\cite{holtzman2019degeneration,xu2022loop} and behavioural attractors of paraphrasing and conversation
+\cite{wang2025attractor,ko2026attractor} have been measured in generated text, without computing orbits, multipliers
+or bifurcations of a defined map. Equilibrium, looped and recurrent-depth models have been analysed through fixed
+points and Jacobians \cite{bai2019deq,bai2021stabilizing,geiping2025recurrent,tomihari2025recurrent,yang2026stars},
+and the closest precedent, a derivative-based fold analysis of a small task-trained looped transformer, predicts
+passage times without fitting \cite{kim2026phase}. Appendix~\ref{sec:related} discusses this work, expected-embedding
+feedback, and bifurcations, Feigenbaum ratios and shrimps in neural models in detail.
 
 To our knowledge, this is the first work to compute periodic orbits with their multipliers, continue fold and flip
 bifurcation curves and locate cusps in the feedback map of a released pretrained language model. It is
@@ -397,145 +357,28 @@ steering block, at $\log_{10}T\le0$. (f) Kaplan--Yorke dimension against the rea
 measurement (Appendix~\ref{sec:theorymore}); dotted, equality.}
 \label{fig:mechanism}
 \end{figure}
-\begin{table}[!htb]
-\centering\small
-\begin{tabular}{lll}
-\toprule
-measurement & contrast & estimate (95\,\% interval) \\
-\midrule
-gain split, $101\times53$ map & readout factor, chaotic $-$ $|\alpha|\le0.01$ & $+2.58$ $[1.78,3.59]$ nats/step \\
- & network factor, chaotic $-$ $|\alpha|\le0.01$ & $-0.07$ $[-0.23,0.12]$ nats/step \\
- & entropy, chaotic $-$ periodic & $+1.62$ $[1.26,1.91]$ nats \\
- & top-2 logit gap$/T$, chaotic $-$ periodic & $-1.37$ $[-1.98,-0.87]$ \\
-logit bias only, $\alpha=0$ & chaotic share & 3.5\,\% (241 of 6837 cells) \\
-residual steering, block 12 & chaotic share & 6.2\,\% (331 of 5353 cells) \\
-crossover, 0.5B, 14 cells & readout effect, arm 10 $-$ arm 00 & $+0.81$ $[0.29,1.35]$ nats/step \\
- & network effect, arm 01 $-$ arm 00 & $-0.49$ $[-0.63,-0.35]$ nats/step \\
- & interaction & $+0.26$ $[0.09,0.45]$ nats/step \\
-crossover, gratitude & readout effect & $+0.33$ $[0.07,0.59]$ nats/step \\
- & network effect & $-0.14$ $[-0.29,0.01]$ nats/step \\
-crossover, random dir. & readout effect & $+0.77$ $[0.47,1.12]$ nats/step \\
- & network effect & $-0.09$ $[-0.22,0.06]$ nats/step \\
-crossover, 7B, 10 cells & readout effect & $+0.23$ $[-0.11,0.63]$ nats/step \\
- & network effect & $-1.14$ $[-1.61,-0.64]$ nats/step \\
-\bottomrule
-\end{tabular}
-\caption{Where steering's instability comes from (Qwen2.5-0.5B unless marked 7B, Qwen2.5-7B). Intervals: bootstrap over
-temperature rows (gain split) or over held-out cells (crossover). Runs MECH and XO; \texttt{tools/steer\_gain.py}, \texttt{tools/crossover.py},
-\texttt{tools/plot\_mechanism.py}.}
-\label{tab:mechanism}
-\end{table}
 
-\input{figures/tikz-reduction}
-\paragraph{Why the structures of low-dimensional maps appear.} The map acts on a space of hundreds to thousands of
-dimensions, yet two reductions make low-dimensional theory apply (Figure~\ref{fig:tworeductions}). Near a bifurcation of a periodic orbit the centre
-manifold theorem reduces the dynamics exactly to the critical directions, whatever the size of the other multipliers,
-as long as they stay off the unit circle. Our normal forms of folds, flips, cusps and 1:1 resonances rest on this
-reduction alone. A scalar description of a whole attractor needs additional, global evidence. The small non-critical
-multipliers of the periodic orbits we computed show strong transverse contraction near those orbits and motivate that
-description: they range from a few times $10^{-2}$ at short periods to below $10^{-13}$ along the cascade
-(Section~\ref{sec:mechanism} and Appendices~\ref{sec:curves} and~\ref{sec:cascade}), and along the cascade at $\log_{10}T=-0.156$ the next modulus
-falls from $0.12$ at the first flip to $0.045$, $7\times10^{-5}$, $4\times10^{-7}$ and $2\times10^{-13}$ at the next
-four. Temperature, through the gain of \eqref{eq:gain}, and steering act as two parameters. One-dimensional families of
-maps with a quadratic extremum can exhibit fold and flip curves, nondegenerate cusps, period-doubling cascades whose
-interval ratios tend to Feigenbaum's $\delta$, and saddle-node windows that accumulate on a fold with
-$d_N\propto N^{-2}$ (Figure~\ref{fig:atlas} sketches the objects we locate); we test these predictions on specific
-branches and parameter sequences below. The organization of shrimps needs
-more, either a second turning point of the reduced map or a second dimension
-\cite{gallas1993structure,jones2012rossler}. We test the consequences where we state them: the multipliers of each
-orbit, the interval ratios, and the normal-form predictions of passage times and coexisting orbits. Where the second
-multiplier is not small, as in the high-temperature bubble of Appendix~\ref{sec:cascade} (next moduli $0.28$ and
-$0.38$), the global reduction is only a rough guide, while the local normal forms still apply.
+\paragraph{Why low-dimensional structure can appear.} Near a bifurcation of a periodic orbit the centre manifold
+theorem reduces the dynamics exactly to the critical directions, so the normal forms of folds, flips and cusps apply
+in any dimension. The small non-critical multipliers of the orbits we computed, from a few times $10^{-2}$ at short
+periods to below $10^{-13}$ along the cascade, show strong transverse contraction and motivate scalar descriptions of
+whole attractors, which need additional, global evidence. Coexisting attracting orbits constrain such descriptions: a
+smooth unimodal interval map with negative Schwarzian derivative has at most one attracting periodic orbit unless a
+basin reaches an endpoint \cite{singer1978stable}, so coexistence calls for a second turning point, a stretch of
+positive Schwarzian derivative or a second dimension (Appendix~\ref{sec:theorymore}).
 
-\paragraph{Coexisting attractors constrain one-dimensional descriptions.} A classical theorem says what a
-one-dimensional reduction cannot do. If an interval map is three times differentiable, unimodal and has negative
-Schwarzian derivative, $Sf=f'''/f'-\tfrac32(f''/f')^2<0$, the immediate basin of every attracting periodic orbit
-contains the turning point or an endpoint of the interval \cite{singer1978stable}; if basins reaching an endpoint are
-excluded, at most one attracting periodic orbit remains. The soft-token map has coexisting attracting orbits in several
-places. Near each located cusp with
-$c<0$, two attracting orbits of the same period coexist with a saddle between them (periods 4 and 6,
-Appendix~\ref{sec:curves}; period 7, Appendix~\ref{sec:hostility}). Inside the hostile period-7 body, the period-7 loop
-coexists with a fixed point, which the fixed start reaches at isolated cells. Such coexistence constrains a scalar
-interpretation: unless one attractor's basin reaches an end of the scalar interval, the effective one-dimensional
-dynamics cannot be a single unimodal map with negative Schwarzian derivative, and needs a second turning point, a
-stretch of positive Schwarzian derivative, or a second dimension. A second turning point is also what a doubly
-superstable shrimp centre requires.
-
-\input{figures/tikz-atlas}
-
-\section{Methods}
-\label{sec:methods}
-\paragraph{Precision.} Every result on the soft-token map labelled float64 is computed in float64 arithmetic
-throughout: embeddings, activations, attention keys and values (the prefix cache), normalizations (patched, since the
-library computes RMS normalization in float32 by default), rotary tables, logits, the softmax and the fed-back token.
-The released checkpoints store their weights in bfloat16, and a bfloat16 number is exactly a float64 number, so
-converting the weights is exact. For large models the decoder's linear weights stay in their stored bfloat16 and are
-converted to float64 at each use, which gives the same map as converting them once (bitwise on Qwen2.5-0.5B). The
-designated float64 computations use the patched normalization and rotary paths; some diagnostic traces, such as the
-step records of the gain split, are serialized in float32, as recorded in their artifacts. The historical two-GPU runs,
-whose final normalization was computed in float32, are identified separately in Appendix~\ref{sec:size}.
-
-\paragraph{Phase maps.} Each cell of a phase map is one parameter pair. Unless stated otherwise, we discard 300
-transient steps and measure over the next 300. The largest Lyapunov exponent comes from a twin trajectory at
-offset $10^{-6}$ that is renormalized to that offset after every step, Benettin's method with a finite-difference
-tangent \cite{benettin1980lyapunovI,benettin1980lyapunovII}; it estimates over a finite horizon the exponent that the
-multiplicative ergodic theorem defines as a limit \cite{oseledets1968multiplicative}. At the 448 random cells of the
-horizon check (Section~\ref{sec:discussion}), an exact tangent vector carried by forward-mode differentiation
-reproduces the twin exponents at offsets $10^{-6}$ and $10^{-9}$ within 0.0041 (median 0.0004), with the same 178
-chaotic labels, and at six chaotic cells the four leading exponents from QR iteration include exactly one positive one
-(0.06 to 0.42; the next is $-0.64$ to $-1.10$). The period is the smallest $q\le32$ (48 in the later zooms) with return distance below
-$10^{-8}$, and the attractor is identified by its leading-token loop, up to rotation. We call a cell chaotic when this
-finite-horizon exponent exceeds $10^{-3}$ and no period is found; the label is a finite-horizon diagnostic, not a
-proof of chaos. Panels coloured by period or attractor text follow an older drawing convention: black marks every
-cell whose exponent exceeds $0.005$, and light grey the other cells without a period. The drawn black area differs
-from the chaotic count in at most $0.42\,\%$ of a map's cells. A $256^2$ map takes about 100 minutes on one H100 GPU in float64. Every cell starts from the same
-state, so where attractors coexist, a map shows the one whose basin contains that state. Labels are text, not
-dynamical identities: one continuous orbit changes its label where two tokens tie for the maximum. We therefore call
-two labelled regions different attractors only when the contraction rate jumps between them or when float64 orbits of
-both exist at one parameter value.
-
-\paragraph{Periodic orbits.} We solve $F^p(x)=x$ by Newton's method with forward-mode Jacobians. The multipliers are
-the eigenvalues of the monodromy matrix; where the dense matrix is not float64, we refine them by a short Arnoldi
-factorization with float64 Jacobian-vector products.
-
-\paragraph{Continuation.} Periodic branches are continued in one parameter by pseudo-arclength continuation, and fold
-and flip curves in two parameters with minimally augmented systems \cite{govaerts2000numerical,kuznetsov2023elements}.
-The test function $g$ of the bordered system $[[M\mp I,v],[w^\top,0]]$ is obtained by GMRES (generalized minimal
-residual iterations) with Jacobian-vector products, and its gradient by reverse-mode differentiation through a
-Jacobian-vector product. When the parameter tangent reverses, we flag a cusp candidate and test it with the normal
-form. To locate a codimension-two point on a continued curve (\texttt{tools/cusp\_locate.py}), we bracket a sign
-change between two curve points, then retrace the curve from the left end with steps of a quarter of the bracket.
-We do this for three rounds and finish with a secant step. The function whose sign changes is the oriented quadratic
-coefficient $b\operatorname{sign}a$ for a cusp, $|\mu_2|-1$ for a second multiplier $\mu_2$ leaving the unit
-circle, and the projected parameter tangent for a turn of the curve. At a cusp we then evaluate $c$ and the unfolding
-matrix at the located point. Elsewhere, the multipliers and the angle between their eigenvectors type the point: a
-double multiplier whose eigenvectors coincide is a Jordan block. On maps with known answers the tool recovers a
-cusp to $10^{-6}$ (with $c=-1$ and $\det J=1$) and a fold-flip point.
-
-\paragraph{Normal form and passages.} Consider a fold of the two-step map $G=F^2$, with right and left eigenvectors
-$r$ and $\ell$ normalized by $\|r\|=1$ and $\ell^\top r=1$. Along the critical direction the reduced map is
-$u'=u+a\eps+bu^2$, with $a=\ell^\top\partial_\alpha G$ and $b=\tfrac12\ell^\top D^2G[r,r]$. We compute $b$ by
-central differences of float64 Jacobian-vector products over a step-size plateau (later cross-checks use nested
-automatic differentiation), and $a$ includes the steering's effect on the prefix. The signed coefficients are kept in
-the original eigenvector gauge, with $\eps$ measured in the free parameter ($\alpha$ or $\log_{10}T$, whose units
-apply to $a$). On maps with known normal forms the code recovers $ab$, the cubic coefficient $c$ with its
-centre-manifold term and the two-parameter unfolding matrix, and it traces the analytic fold and flip curves of the
-H\'enon map (\texttt{tests/test\_bifurcation\_curves.py}). For passages we set $v=\operatorname{sign}(b)\,u$ and take the ghost side
-$p-p_c=\operatorname{sign}(ab)\,\epsilon$ with $\epsilon>0$, so that $v'=v+|a|\epsilon+|b|v^2$ to quadratic order. A
-full passage starts at $v=-U$ and a midpoint passage at $v=0$; both end at the first strict crossing $v>U$, with
-$U=0.1/|b|$. We compare passage counts with the iterated quadratic map and with the arctangent formula
-\cite{pomeau1980intermittent}.
-
-\paragraph{Period-doubling cascade.} Along a cut in one parameter, we locate the flip of each period-$p$ orbit as the
-root of $\operatorname{Re}\mu_c+1$, where $\mu_c$ is the multiplier with the smallest real part, using the Illinois
-variant of regula falsi with warm-started orbits. All but one or two multipliers are small, so Newton's method on
-$F^p(x)-x$ needs the monodromy only on a six-dimensional dominant subspace. We obtain that subspace by subspace
-iteration with exact forward-mode Jacobian-vector products chained along the orbit, so no dense Jacobian is formed,
-and the residual is always the exact float64 $F^p(x)-x$. Each root is classified before it is accepted. The critical
-multiplier must be real and equal to $-1$, with a Ritz residual below $10^{-6}$, and the other computed Ritz values
-(six in all, estimates of the dominant spectrum) must lie inside the unit circle. We then reach the period-$2p$ orbit
-by forward iteration inside the next band. On the logistic map embedded in six dimensions, the procedure reproduces
-the first four flip parameters to $10^{-9}$.
+\section{Methods in brief}
+\label{sec:methodsbrief}
+Every result on the soft-token map labelled float64 is computed in float64 throughout, including the normalizations
+and rotary tables that the library would otherwise compute in float32. A cell of a phase map is chaotic when the
+largest finite-horizon Lyapunov exponent of a twin trajectory (offset $10^{-6}$, renormalized every step; 300
+measured steps after 300 transient ones unless stated) exceeds $10^{-3}$ and no period up to 32 (48 in later zooms) is
+found; exact tangents reproduce the twin exponents, and the label is a finite-horizon diagnostic, not a proof.
+Periodic orbits are solved by Newton's method with forward-mode derivatives; branches are continued by pseudo-arclength
+continuation and fold and flip curves by minimally augmented systems \cite{govaerts2000numerical,kuznetsov2023elements};
+cusps and other codimension-two points are located by bracketing sign changes along the curves; and the normal forms
+of folds are computed from the network's derivatives without fitting. Appendix~\ref{sec:methods} gives the details
+and the checks on maps with known answers.
 
 \section{Chaos with periodic windows}
 \label{sec:maps}
@@ -580,19 +423,6 @@ repeating piece of text. The period-8 band repeats ``. This is there is a is a''
 ``is it'' (periods 10 and 12), and along the band's flip edge the period-16 loop repeats the sentence twice. The
 small windows inside the chaos break the ``is X'' chain with a paragraph break and ``The'' (periods 11, 12, 13, 14).
 Inside the period-8 and period-6 bands, two curves of maximal contraction meet in a sharp junction.
-\begin{figure}[H]
-\centering
-\includegraphics[width=0.49\linewidth]{fig-zoom-z2-lyapunov.png}\hfill
-\includegraphics[width=0.49\linewidth]{fig-zoom-z2-families.png}\\[2pt]
-\includegraphics[width=0.49\linewidth]{fig-zoom-z3-lyapunov.png}\hfill
-\includegraphics[width=0.49\linewidth]{fig-zoom-z3-families.png}
-\caption{Zooms of $256^2$ float64 cells of the Qwen2.5-0.5B-Instruct map (philosophy direction, layer 12), with
-the largest Lyapunov exponent on the left, rendered as in Figure~\ref{fig:teaser}, and attractor texts on the right.
-Top: the period-8 window ($\alpha\in[0.068,0.076]$, $\log_{10}T\in[-0.135,-0.085]$). Bottom: the period-6 hooks
-($\alpha\in[0.072,0.082]$, $\log_{10}T\in[-0.085,-0.04]$), whose curved period-6 body, period-12 foot and thin leg
-are analysed in Appendix~\ref{sec:curves}.}
-\label{fig:zooms}
-\end{figure}
 
 \section{What the chaos does to inference and steering}
 \label{sec:consequences}
@@ -606,7 +436,7 @@ Appendix~\ref{sec:hostility}.
 \paragraph{The regime decides whether a run can be reproduced.} Language-model inference is not bitwise
 reproducible: GPU kernels choose different reduction orders for different matrix shapes, so a request's result depends
 on the batch it shares and on the hardware \cite{he2025nondeterminism,yuan2025nondeterminism}. We ran the 448 labelled
-cells of the horizon check (192 chaotic, 192 periodic and 64 other cells of two float64 maps; Section~\ref{sec:methods})
+cells of the horizon check (192 chaotic, 192 periodic and 64 other cells of two float64 maps; Appendix~\ref{sec:methods})
 twice in lockstep from the same start. The two runs differ only in the batch: all cells in one batch of $n$ rows, or
 the same rows followed by $n$ further rows whose steering vectors are those of the first $n$ in reverse order, at the
 original temperatures ($2n$ rows). This changes the matrix shapes the kernels see; the first $n$ rows compute the same
@@ -688,47 +518,6 @@ float32 and bfloat16 batch layouts. (c) float64 chaotic cells: the step at which
 $\ln(10^{-2}/d_1)/\lambda$, with $d_1$ the first nonzero distance and $\lambda$ the map exponent; dotted, equality.}
 \label{fig:repro}
 \end{figure}
-\begin{table}[tbp]
-\centering\small
-\begin{tabular}{llrrr}
-\toprule
-comparison & cells & reach $10^{-2}$ & median step & end with different tokens \\
-\midrule
-batch layout, float64 & chaotic & 190 / 192 & 102 & 90.1\,\% \\
- & periodic & 10 / 192 & & 3.6\,\% \\
-batch layout, float32 & chaotic & 192 / 192 & 20.5 & 92.2\,\% \\
- & periodic & 72 / 192 & & 22.9\,\% \\
-float32 against float64 & chaotic & 192 / 192 & 20 & 92.7\,\% \\
- & periodic & 75 / 192 & & 19.3\,\% \\
-batch layout, bfloat16 & chaotic & 192 / 192 & 2 & 99.5\,\% \\
- & periodic & 192 / 192 & 2 & 95.3\,\% \\
-\midrule
-7B unsteered, float64 & chaotic & 24 / 24 & 56 & 95.8\,\% \\
- & periodic & 0 / 24 & & 0\,\% \\
-7B unsteered, float32 & chaotic & 24 / 24 & 16 & 95.8\,\% \\
- & periodic & 4 / 24 & & 8.3\,\% \\
-7B unsteered, bfloat16 & chaotic & 24 / 24 & 2 & 75.0\,\% \\
- & periodic & 24 / 24 & 2 & 50.0\,\% \\
-\midrule
-Llama 8B unsteered, float64 & chaotic & 20 / 20 & 68 & 100\,\% \\
- & periodic & 1 / 20 & & 5\,\% \\
-Llama 8B unsteered, float32 & chaotic & 20 / 20 & 10.5 & 100\,\% \\
- & periodic & 1 / 20 & & 0\,\% \\
-Llama 8B unsteered, bfloat16 & chaotic & 20 / 20 & 1 & 100\,\% \\
- & periodic & 18 / 20 & 2 & 45\,\% \\
-\midrule
-Llama 70B steered, float64 & chaotic & 24 / 24 & 114.5 & 87.5\,\% \\
- & periodic & 0 / 24 & & 0\,\% \\
-\bottomrule
-\end{tabular}
-\caption{Divergence of two otherwise identical runs, by the cells' float64 labels (1500 steps; ``end with different
-tokens'': the most probable tokens differ at some step of the last 500). Top: Qwen2.5-0.5B, philosophy direction at
-layer 12. Middle: Qwen2.5-7B unsteered, 24 chaotic and 24 periodic temperatures of its long sweep. Bottom:
-Llama-3.1-8B-Instruct unsteered, 20 and 20. Last block: Llama-3.3-70B-Instruct, hostility-vs-kindness at block 20, 24
-and 24 (1000 steps; tokens compared over the last 300). In float32 the periodic cells that diverge may
-change phase on the same cycle or switch between coexisting attractors; the run does not distinguish the two.}
-\label{tab:repro}
-\end{table}
 
 \paragraph{Where a steering vector enters decides how much chaos it causes.} Steering vectors are a common tool for
 controlling and probing models \cite{zou2023representation,rimsky2024steering}, usually added at one layer chosen by
@@ -748,14 +537,6 @@ $+0.46$ nats per step over 54, 56 and 21 cells) and contracting network factors 
 the readout factor of such cells is only $+0.15$, and block 20 gives just 6 of them. Early injection creates token
 competition at low temperature more readily; late injection mostly does not. Its chaos lives at higher temperature,
 where the network factor carries it (block 20: network $+1.09$, readout $-0.78$; Figure~\ref{fig:mechanism}e).
-\begin{figure}[tbp]
-\centering
-\includegraphics[width=\linewidth]{fig-layer-sweep.png}
-\caption{The philosophy direction of Qwen2.5-0.5B-Instruct, built with the same recipe at each of five blocks of 24: largest
-Lyapunov exponent on $128\times128$ float64 cells over the steering strength and $\log_{10}T\in[-1,0.3]$. The share of
-chaotic cells is given above each panel.}
-\label{fig:layersweep}
-\end{figure}
 
 \paragraph{Two steering vectors interact.} Steering at two blocks at once, gratitude at block 4 and hostility at block
 16 of Qwen2.5-0.5B, makes 21.7\,\% of a $96\times96$ plane chaotic at $\log_{10}T=-0.1$. The grid has no row or column at
@@ -779,50 +560,16 @@ and the single-push controls quoted in the text were computed separately on exac
 \end{figure}
 
 \paragraph{Does a chaotic loop predict worse answers in ordinary decoding? Not beyond the model's own uncertainty.}
-We looked for a behavioural signature of the regimes outside the loop. Two exploratory designs found no accuracy
-signature that survives controls. First, ordinary sampled answers of Qwen2.5-0.5B under steering at the strengths of chaotic and periodic map
-cells (30 matched pairs; arithmetic, open questions, short programs) showed no measurable accuracy contrast: at those
-strengths, steering every position turns every reply into philosophy-flavoured text, so accuracy sits at the floor in
-both zones (3 against 4 correct of 4500 arithmetic answers). Of nine secondary contrasts of entropy and reply length,
-one (open questions, next-token entropy, $p=0.016$) passes $0.05$ uncorrected, not after a correction for nine tests,
-and the entropy contrasts change sign across tasks. Second, labelling each of 200 prompts by the regime of its own unsteered loop in Qwen2.5-7B, prompts with
-a chaotic loop were answered far less accurately (by 26 to 37 points at three temperatures). The chaotic labels fell
-mostly on the harder task, and in a linear model with task, greedy correctness and the sampled answers' entropy, the
-label's coefficient is $-3.7$ to $-4.6$ points (permutation $p$ from $0.07$ to $0.20$). These are associations: the
-entropy is measured during sampling, so the adjustment does not identify a causal effect of the regime.
-
-A frozen test addresses the second design. Its design, covariates and analysis were pushed before any data. It uses
-4000 fresh products of two two-digit numbers and the unsteered Qwen2.5-7B-Instruct at $\log_{10}T=0.40$: 1484 prompts
-have a chaotic loop and 2509 a periodic one (seven with other labels are excluded). Chaotic-loop prompts are again answered less accurately by ordinary
-sampling, by 7.1 points (95\,\% interval $[4.8,9.3]$; 10 samples per prompt). The gap vanishes once seven difficulty
-covariates, all fixed before sampling, enter the fit. Beyond them the label's coefficient is $+0.15$ points
-($[-1.4,1.7]$, permutation $p=0.84$), and the label adds no held-out predictive value. The first-token entropy alone
-absorbs nearly all of the gap (post hoc: $-0.8$ points remain). This is what the mechanism of
-Section~\ref{sec:theory} predicts. The loop turns chaotic where next tokens compete, and a model unsure of its first
-token also answers worse. Beyond that uncertainty, no association of the loop's regime with accuracy is detected at
-this precision; this does not show that the regime has no effect.
-
-Within a prompt no association is detected either. We steered the first 1000 of these prompts slightly, at block 14
-along philosophy, hostility-vs-kindness and a random direction. The strength, 1\,\% of the residual norm, is the largest
-at which greedy accuracy stayed within 5 points of the unsteered model on the first 200 of these prompts (so the
-calibration overlaps the test prompts); on the 1000 prompts it is 0.87 to 0.89, against 0.89 unsteered. Under these
-pushes the loop's label differs between conditions for 508 of the 1000 prompts. With prompt and condition fixed
-effects (3992 prompt-condition rows), in an analysis fixed before the data, a chaotic label is associated with a change
-of $+0.36$ points in the accuracy of the prompt's ordinary sampled answers (95\,\% interval $[-0.36,1.08]$;
-permutation within prompts, $p=0.34$). This does not identify a causal effect of entering chaos: the pushes can act on
-the answers through other paths as well.
-
-Nor does accuracy peak at the edge of chaos. Adjusted for the covariates, three groups of prompts (3603 of the 4000;
-the rest have intermediate exponents) are answered alike:
-\begin{itemize}
-  \item deep periodic ($\lambda\le-0.3$, 1961 prompts): $+0.3$ points;
-  \item edge ($|\lambda|\le0.1$, 242 prompts): $-0.1$ points;
-  \item deep chaotic ($\lambda\ge0.3$, 1400 prompts): $+0.3$ points.
-\end{itemize}
-All three intervals lie within $[-3.1,3.0]$. The edge contrast is $-0.4$ points ($[-3.5,2.6]$), and the curvature in
-$\lambda$ is positive, the opposite of an edge optimum. Post hoc, the curvature comes from the most strongly
-contracting tenth of prompts ($\lambda\le-3.42$), answered 5.3 points ($[3.0,7.6]$) better than the covariates
-predict. That is a lead for a future test, not a finding.
+Two exploratory designs found no accuracy signature of the regimes that survives controls
+(Appendix~\ref{sec:behaviour}). A frozen test then labelled 4000 fresh products of two two-digit numbers by the regime
+of the unsteered Qwen2.5-7B-Instruct's own loop at $\log_{10}T=0.40$. Chaotic-loop prompts are answered less
+accurately by ordinary sampling, by 7.1 points (95\,\% interval $[4.8,9.3]$), but the gap vanishes once seven
+difficulty covariates, fixed before sampling, enter the fit (label coefficient $+0.15$ points, $[-1.4,1.7]$,
+permutation $p=0.84$), and the first-token entropy alone absorbs nearly all of it. This is what the mechanism of
+Section~\ref{sec:theory} predicts: the loop turns chaotic where next tokens compete, and a model unsure of its first
+token also answers worse. Within a prompt no association is detected either, and accuracy does not peak at the edge of
+chaos: deep periodic, edge and deep chaotic prompts are answered alike, with all three adjusted contrasts within
+$[-3.1,3.0]$ points. These are nulls at this precision; they do not show that the regime has no effect.
 
 \section{Period adding written in text}
 \label{sec:adding}
@@ -894,88 +641,13 @@ $3\times10^{-12}$. Its $b$, from nested automatic differentiation, is $-25.42846
 differs from it by $2.2\times10^{-6}$ relatively, which is the finite-step bias of the difference table. The
 resulting $ab=122.927$ leaves every passage prediction of Table~\ref{tab:passages} unchanged.
 
-\paragraph{Controlled passages.} In the oriented coordinate $v=\operatorname{sign}(b)\,u$ of
-Section~\ref{sec:methods}, we start trajectories at $v=-U$ or $0$ ($U=0.1/|b|$) and count $G$-iterates until
-$v>U$. At four distances from the fold, the measured counts match the iterated normal form within
-one iterate (Table~\ref{tab:passages}, Figure~\ref{fig:passages}), and a transverse displacement of the same norm
-changes the count by at most one.
-\begin{table}[H]
-\centering\small
-\begin{tabular}{rccc}
-\toprule
-$\eps=\alpha-\alpha_c$ & full: measured / predicted & midpoint & full + transverse kick \\
-\midrule
-$3\times10^{-6}$ & 144 / 144 & 73 / 74 & 143 / 144 \\
-$1\times10^{-5}$ & 71 / 71 & 36 / 37 & 70 / 71 \\
-$3\times10^{-5}$ & 34 / 34 & 17 / 18 & 33 / 34 \\
-$1\times10^{-4}$ & 14 / 14 & 7 / 7 & 13 / 14 \\
-\bottomrule
-\end{tabular}
-\caption{Bottleneck passages ($G$-iterates). Predictions iterate $u'=u+a\eps+bu^2$ with $a,b$ computed from the
-network's derivatives; no parameter is fitted.}
-\label{tab:passages}
-\end{table}
-\begin{figure}[H]
-\centering
-\includegraphics[width=0.49\linewidth]{fig-passages.png}\hfill
-\includegraphics[width=0.49\linewidth]{fig-window-law.png}
-\caption{Bottleneck passages and the window law at the fold of the 2-cycle ``is it'' (Qwen2.5-0.5B-Instruct,
-philosophy direction at layer 12, $\log_{10}T=-0.115$). Left: measured passage times against the normal-form
-predictions. Right: the window law, with stripe centres plotted as $1/\sqrt{\alpha_N-\alpha_c}$ against the lap
-count $N$, together with the full- and half-passage predictions.}
-\label{fig:passages}
-\end{figure}
-
-\paragraph{Natural reinjection and the window law.} Free trajectories re-enter the channel slightly upstream of
-the bottleneck's middle ($v\approx-3\times10^{-4}$ to $-7\times10^{-4}$, in the same oriented coordinate). From each measured entry point, the
-normal form predicts the natural laminar durations within 4--8\% for $\eps\le10^{-4}$, and a natural passage lasts
-about 0.6 of a full one. The stripes therefore follow the $N^{-2}$ law of a saddle-node ghost, with about a third of
-the full-passage prefactor. Stripe centres located on a float32 cut along $\log_{10}T=-0.115$ give
-$d_N N^2=0.0263$--$0.0265$ for $N=4$--$7$ (log-log slope $-2.00$), compared with $\pi^2/(4ab)=0.0201$ for a half
-passage. Two-step return maps of $p(\text{``it''})$ (Figure~\ref{fig:returnmaps}) show the near-tangency.
-
-Numerically estimated stripe edges along $\log_{10}T=-0.115$ (Table~\ref{tab:edges}) sharpen this picture. Each
-window is bounded by a fold, where its orbit is born, and by a flip. For periods 6--12 the fold faces away from the
-accumulation point. For periods 16--20 the sides are exchanged, and the period-14 window is bounded by flips on both
-sides. The fold edges of periods 16--20 follow $\alpha_N-\alpha_c=C/(N+\delta)^2$ with $C=0.0266$ and $\delta=0.15$.
-Their slope, a rise of $6.13$ per lap in $1/\sqrt{\alpha_N-\alpha_c}$, is $1.74$ times the full-passage slope
-$\sqrt{ab}/\pi=3.53$ of the normal form. That corresponds to an effective passage of $0.58$ of a full one, which the
-measured natural reinjection gives independently.
-\begin{table}[H]
-\centering\small
-\begin{tabular}{rll}
-\toprule
-period & edge toward larger $\alpha$ & edge toward smaller $\alpha$ \\
-\midrule
-6 & fold $0.0790337$ & flip $0.0766947$ \\
-8 & fold $0.0726585$ & flip $0.0706525$ \\
-10 & fold $0.0684572$ & flip $0.0670594$ \\
-12 & fold $0.0658982$ & flip $0.0651944$ \\
-14 & flip $0.0645850$ & flip $0.0642958$ \\
-16 & flip $0.0639284$ & fold $0.0638001$ \\
-18 & flip $0.0635683$ & fold $0.0635034$ \\
-20 & flip $0.0633535$ & fold $0.0633183$ \\
-\bottomrule
-\end{tabular}
-\caption{Edges of the stripe windows along $\log_{10}T=-0.115$ ($\alpha_c=0.0627983$), from the window centres of
-Table~\ref{tab:orbits}. Flips: critical multiplier a real $-1$ to $3\times10^{-10}$. Folds: the multiplier nearest $+1$
-extrapolated to 1 through $(1-\mu)^2$, which is linear near a fold; last converged multiplier $0.991$--$0.998$.}
-\label{tab:edges}
-\end{table}
-We tested whether the measured reinjection predicts windows beyond the fitted range. A model with one fixed entry
-point (the median measured one) and one lap offset fitted to the fold edges of periods 16--20 places the fold edges
-of periods 22--30 3 to 9\,\% closer to the fold than the constant-prefactor law. Both predictions were frozen
-before a float64 line of 3200 cells (spacing $10^{-7}$) located the windows. The measured edges follow the law
-within 3\,\% through period 30 (within 1\,\% at periods 22, 24 and 28) and fall outside the model's range except
-at period 30. So the law extrapolates, but one fixed reinjection point does not predict it. The measured entry
-points move with $\eps$ ($-3\times10^{-4}$ to $-7\times10^{-4}$).
-\begin{figure}[H]
-\centering
-\includegraphics[width=0.85\linewidth]{fig-return-maps.png}
-\caption{Two-step return maps of the probability of ``it'' near the fold of the 2-cycle ``is it''
-(Qwen2.5-0.5B-Instruct, philosophy direction at layer 12), at increasing distance from the fold.}
-\label{fig:returnmaps}
-\end{figure}
+\paragraph{Passages and the window law.} Trajectories started at the entrance of the bottleneck pass through it in
+the number of $G$-iterates that the iterated normal form $u'=u+a\eps+bu^2$ predicts from the network's derivatives,
+within one iterate at four distances from the fold and with no fitted parameter (Table~\ref{tab:passages}). Free
+trajectories re-enter the channel slightly upstream of its middle, so a natural passage lasts about 0.6 of a full one,
+and the stripes follow the $N^{-2}$ law of a saddle-node ghost with about a third of the full-passage prefactor
+($d_NN^2=0.0263$--$0.0265$ for $N=4$--$7$, log-log slope $-2.00$); predictions frozen before a finer float64 line
+located the windows held within 3\,\% through period 30 (Appendix~\ref{sec:mechdetail}).
 
 \paragraph{A prospective test.} To test the normal form at folds that played no part in shaping the mechanism, an
 independent implementation located two new folds and computed their normal-form coefficients by nested automatic
@@ -1014,7 +686,7 @@ parts of that organization are low-dimensional. Appendices~\ref{sec:curves} to~\
 continuations in full; this section collects what they establish.
 
 \paragraph{Fold curves with cusps.} Fold and flip curves continued in float64 with the minimally augmented systems of
-Section~\ref{sec:methods} keep their critical multipliers at $+1$ and $-1$ (Appendix~\ref{sec:curves}). The fold
+Appendix~\ref{sec:methods} keep their critical multipliers at $+1$ and $-1$ (Appendix~\ref{sec:curves}). The fold
 curve of the 2-cycle ``is it'' traces the boundary of the period-2 region on which the stripes accumulate, as the
 mechanism of Section~\ref{sec:mechanism} requires. The fold curves of a period-6
 window, of a hostile period-7 window, of a period-4 window and of a period-5 window steered at two depths bend back
@@ -1339,17 +1011,6 @@ token's recurrence. Accuracy holds while that recurrence is comfortably stable a
 it rose from $0.375$ natively to $0.425$ at relaxation $1.05$, where the token recurrence is nearly as stable as
 natively (median decay rate $0.921$ against $0.912$), and fell to $0.29$ at $1.15$, where the recurrence is near
 critical ($0.981$, with half of the tokens no longer converging; Appendix~\ref{sec:huginn}).
-\begin{figure}[tbp]
-\centering
-\includegraphics[width=\linewidth]{fig-reservoir.png}
-\caption{Memory capacity of the soft-token loop used as a reservoir (Qwen2.5-0.5B-Instruct, philosophy direction at
-layer 12, float64). A weak random input enters the map, $x_{n+1}=F(x_n+\epsilon|x|u_nr)$, and linear readouts of the
-state reconstruct the past inputs; the capacity is the sum of their held-out $R^2$ over 41 delays. (a) Along the
-doubling cascade at $\log_{10}T=-0.148$: capacity for two input sizes, the input-free twin exponent (grey), the flips
-(red) and the onset of chaos (dotted). (b) The 448 labelled cells of the horizon check against the map exponent, with
-bin means and bootstrap 95\,\% intervals.}
-\label{fig:reservoir}
-\end{figure}
 
 \paragraph{Which findings might reach frontier models.} Today's frontier systems include closed models and
 open-weight mixture-of-experts models. Some of our
@@ -1384,8 +1045,173 @@ content.
 \bibliography{references}
 \clearpage
 \appendix
+\section{Related work in detail}
+\label{sec:related}
+Language-model generation has been studied as a dynamical system at several levels, and
+the closest studies differ from ours in what they compute. Lyapunov-like quantities have been used to measure
+sensitivity to small perturbations in reasoning traces \cite{li2025quasilyapunov,jaca2026chaos} and in token rings
+resampled by a model's own conditionals, with a test that separates the construction from the model
+\cite{verazuniga2026selffeeding}, but these studies
+measure chaos-like sensitivity in generation without computing orbits or bifurcations. Output statistics change
+abruptly with sampling temperature, and several studies analyse the changes as phase transitions or criticality
+\cite{arnold2024phase,nakaishi2024phase,sun2025phase,ruan2026criticality}. These analyses concern output statistics;
+they are not bifurcation analyses of a defined map. Closest to ours, a study of eleven models sorts sampled
+continuations into classes from frozen and periodic to intermittent and noisy across temperature, fits a noisy effective map to one
+hidden-state coordinate that predicts repetition, and steers along it \cite{johnson2026temperature}; that map is
+fitted to sampled trajectories, and no orbits, multipliers or bifurcation curves of the model's own map are computed. Repetition loops are a known failure of
+decoding \cite{holtzman2019degeneration,xu2022loop}, successive paraphrasing converges to attractor cycles
+\cite{wang2025attractor}, and multi-turn conversations between models settle into attractor states
+\cite{ko2026attractor}. These attractors are behavioural: they are observed in generated text rather than computed as
+invariant sets of a defined map. Feeding a model its own output during training degrades it over generations
+\cite{shumailov2024collapse}; we study the inference-time loop of a model with fixed weights. The attractors of
+recurrent networks have been related to the difficulty of training them \cite{ribeiro2020attractors}, and fixed points
+with their linearizations have long been used to reverse-engineer trained recurrent networks
+\cite{sussillo2013opening,maheswaranathan2019reverse}. Equilibrium, looped and recurrent-depth models iterate a block to a fixed point or for
+many steps, and their stability has been analysed through Jacobians and fixed points
+\cite{bai2019deq,bai2021stabilizing,geiping2025recurrent,zhu2025ouro,tomihari2025recurrent,yang2026stars,prairie2026parcae,buehlmaier2026layernorm,labovich2026stability,movahedi2026fixedpoint},
+and recent analyses of looped reasoners follow their internal dynamics, their settling, marginal or drifting regimes
+and slowly decaying oscillatory modes \cite{blayney2026mechanistic,viakhirev2026thinkshallow,park2026loopedearlier};
+these studies examine fixed-point stability, finite-depth dynamics and nonstationary regimes. Here we continue
+full-state periodic branches and classify their bifurcations in specified frozen-model feedback maps. A minimal recurrent self-attention with a repulsive value map
+becomes chaotic \cite{gao2026repulsive}, but it is a constructed model, not a trained one. A separate line predicts the answers of looped models from the geometry of
+score margins along completed finite-depth trajectories \cite{luo2026prediction}, without fixed points or Jacobians. The closest precedent is a derivative-based fold analysis of a small task-trained
+looped transformer, whose passage and spectral-gap predictions are unfitted \cite{kim2026phase}. That model was
+trained for a task, whereas ours is a released pretrained language model, and our analysis also differs in its
+objects: the fold of a primitive periodic orbit, the full-channel passage of a two-step map, and the accumulation law
+of the windows, whose prefactor is set by the global reinjection. Expected-embedding
+feedback itself is used in training \cite{zeng2025ponderlm} and, training-free, in pretrained models
+\cite{zhang2025softthinking,wu2025singlethreaded}, next to continuous latent reasoning \cite{hao2024coconut}; a reduced
+dynamical model explains why pretrained models fail to preserve such mixtures \cite{backour2026mixture}, and whether
+they exploit the superposition the mixtures could carry has been questioned \cite{rizvimartel2026illusion}. Fixing
+the prefix and the position turns that feedback into the autonomous map we analyse.
+
+In neural systems more broadly, saddle-node ghosts produce quantitative delays in task-trained recurrent networks
+\cite{dinc2026ghost}. Finite-order Feigenbaum ratios have been measured in neural rate and mass models
+\cite{battaglia2007temporal,papasavvas2015gain} and, through period 128, in a transformer trained on logistic-map
+trajectories \cite{liu2026learningchaos}. Learned networks reproduce period-doubling routes \cite{kim2021teaching},
+and so does gradient descent itself \cite{kalra2025universal}. Normal forms and continuation have been applied to
+recurrent neural maps, including their quasi-periodic orbits \cite{marichal2015multiple}, and shrimp-shaped windows and periodicity staircases appear in
+neuron models \cite{gomez2014universal,stenzinger2025shrimp,caixeta2025staircase}. Our second control parameter comes
+from activation steering along contrastive directions \cite{zou2023representation,zhang2025steering}. The
+dynamical-systems tools are standard: numerical continuation and normal forms
+\cite{kuznetsov2023elements,govaerts2000numerical}, for maps in particular \cite{kuznetsov2019maps}, type-I intermittency \cite{pomeau1980intermittent}, shrimps and
+hubs \cite{gallas1993structure,facanha2013endoskeletons,vitolo2011hubs,jones2012rossler}, and period-doubling universality
+\cite{feigenbaum1978quantitative}.
+
+\section{Methods}
+\label{sec:methods}
+\paragraph{Precision.} Every result on the soft-token map labelled float64 is computed in float64 arithmetic
+throughout: embeddings, activations, attention keys and values (the prefix cache), normalizations (patched, since the
+library computes RMS normalization in float32 by default), rotary tables, logits, the softmax and the fed-back token.
+The released checkpoints store their weights in bfloat16, and a bfloat16 number is exactly a float64 number, so
+converting the weights is exact. For large models the decoder's linear weights stay in their stored bfloat16 and are
+converted to float64 at each use, which gives the same map as converting them once (bitwise on Qwen2.5-0.5B). The
+designated float64 computations use the patched normalization and rotary paths; some diagnostic traces, such as the
+step records of the gain split, are serialized in float32, as recorded in their artifacts. The historical two-GPU runs,
+whose final normalization was computed in float32, are identified separately in Appendix~\ref{sec:size}.
+
+\paragraph{Phase maps.} Each cell of a phase map is one parameter pair. Unless stated otherwise, we discard 300
+transient steps and measure over the next 300. The largest Lyapunov exponent comes from a twin trajectory at
+offset $10^{-6}$ that is renormalized to that offset after every step, Benettin's method with a finite-difference
+tangent \cite{benettin1980lyapunovI,benettin1980lyapunovII}; it estimates over a finite horizon the exponent that the
+multiplicative ergodic theorem defines as a limit \cite{oseledets1968multiplicative}. At the 448 random cells of the
+horizon check (Section~\ref{sec:discussion}), an exact tangent vector carried by forward-mode differentiation
+reproduces the twin exponents at offsets $10^{-6}$ and $10^{-9}$ within 0.0041 (median 0.0004), with the same 178
+chaotic labels, and at six chaotic cells the four leading exponents from QR iteration include exactly one positive one
+(0.06 to 0.42; the next is $-0.64$ to $-1.10$). The period is the smallest $q\le32$ (48 in the later zooms) with return distance below
+$10^{-8}$, and the attractor is identified by its leading-token loop, up to rotation. We call a cell chaotic when this
+finite-horizon exponent exceeds $10^{-3}$ and no period is found; the label is a finite-horizon diagnostic, not a
+proof of chaos. Panels coloured by period or attractor text follow an older drawing convention: black marks every
+cell whose exponent exceeds $0.005$, and light grey the other cells without a period. The drawn black area differs
+from the chaotic count in at most $0.42\,\%$ of a map's cells. A $256^2$ map takes about 100 minutes on one H100 GPU in float64. Every cell starts from the same
+state, so where attractors coexist, a map shows the one whose basin contains that state. Labels are text, not
+dynamical identities: one continuous orbit changes its label where two tokens tie for the maximum. We therefore call
+two labelled regions different attractors only when the contraction rate jumps between them or when float64 orbits of
+both exist at one parameter value.
+
+\paragraph{Periodic orbits.} We solve $F^p(x)=x$ by Newton's method with forward-mode Jacobians. The multipliers are
+the eigenvalues of the monodromy matrix; where the dense matrix is not float64, we refine them by a short Arnoldi
+factorization with float64 Jacobian-vector products.
+
+\paragraph{Continuation.} Periodic branches are continued in one parameter by pseudo-arclength continuation, and fold
+and flip curves in two parameters with minimally augmented systems \cite{govaerts2000numerical,kuznetsov2023elements}.
+The test function $g$ of the bordered system $[[M\mp I,v],[w^\top,0]]$ is obtained by GMRES (generalized minimal
+residual iterations) with Jacobian-vector products, and its gradient by reverse-mode differentiation through a
+Jacobian-vector product. When the parameter tangent reverses, we flag a cusp candidate and test it with the normal
+form. To locate a codimension-two point on a continued curve (\texttt{tools/cusp\_locate.py}), we bracket a sign
+change between two curve points, then retrace the curve from the left end with steps of a quarter of the bracket.
+We do this for three rounds and finish with a secant step. The function whose sign changes is the oriented quadratic
+coefficient $b\operatorname{sign}a$ for a cusp, $|\mu_2|-1$ for a second multiplier $\mu_2$ leaving the unit
+circle, and the projected parameter tangent for a turn of the curve. At a cusp we then evaluate $c$ and the unfolding
+matrix at the located point. Elsewhere, the multipliers and the angle between their eigenvectors type the point: a
+double multiplier whose eigenvectors coincide is a Jordan block. On maps with known answers the tool recovers a
+cusp to $10^{-6}$ (with $c=-1$ and $\det J=1$) and a fold-flip point.
+
+\paragraph{Normal form and passages.} Consider a fold of the two-step map $G=F^2$, with right and left eigenvectors
+$r$ and $\ell$ normalized by $\|r\|=1$ and $\ell^\top r=1$. Along the critical direction the reduced map is
+$u'=u+a\eps+bu^2$, with $a=\ell^\top\partial_\alpha G$ and $b=\tfrac12\ell^\top D^2G[r,r]$. We compute $b$ by
+central differences of float64 Jacobian-vector products over a step-size plateau (later cross-checks use nested
+automatic differentiation), and $a$ includes the steering's effect on the prefix. The signed coefficients are kept in
+the original eigenvector gauge, with $\eps$ measured in the free parameter ($\alpha$ or $\log_{10}T$, whose units
+apply to $a$). On maps with known normal forms the code recovers $ab$, the cubic coefficient $c$ with its
+centre-manifold term and the two-parameter unfolding matrix, and it traces the analytic fold and flip curves of the
+H\'enon map (\texttt{tests/test\_bifurcation\_curves.py}). For passages we set $v=\operatorname{sign}(b)\,u$ and take the ghost side
+$p-p_c=\operatorname{sign}(ab)\,\epsilon$ with $\epsilon>0$, so that $v'=v+|a|\epsilon+|b|v^2$ to quadratic order. A
+full passage starts at $v=-U$ and a midpoint passage at $v=0$; both end at the first strict crossing $v>U$, with
+$U=0.1/|b|$. We compare passage counts with the iterated quadratic map and with the arctangent formula
+\cite{pomeau1980intermittent}.
+
+\paragraph{Period-doubling cascade.} Along a cut in one parameter, we locate the flip of each period-$p$ orbit as the
+root of $\operatorname{Re}\mu_c+1$, where $\mu_c$ is the multiplier with the smallest real part, using the Illinois
+variant of regula falsi with warm-started orbits. All but one or two multipliers are small, so Newton's method on
+$F^p(x)-x$ needs the monodromy only on a six-dimensional dominant subspace. We obtain that subspace by subspace
+iteration with exact forward-mode Jacobian-vector products chained along the orbit, so no dense Jacobian is formed,
+and the residual is always the exact float64 $F^p(x)-x$. Each root is classified before it is accepted. The critical
+multiplier must be real and equal to $-1$, with a Ritz residual below $10^{-6}$, and the other computed Ritz values
+(six in all, estimates of the dominant spectrum) must lie inside the unit circle. We then reach the period-$2p$ orbit
+by forward iteration inside the next band. On the logistic map embedded in six dimensions, the procedure reproduces
+the first four flip parameters to $10^{-9}$.
+
+\FloatBarrier
 \section{Theory background, network contraction and the dimension of the chaos}
 \label{sec:theorymore}
+\input{figures/tikz-reduction}
+\paragraph{Why the structures of low-dimensional maps appear.} The map acts on a space of hundreds to thousands of
+dimensions, yet two reductions make low-dimensional theory apply (Figure~\ref{fig:tworeductions}). Near a bifurcation of a periodic orbit the centre
+manifold theorem reduces the dynamics exactly to the critical directions, whatever the size of the other multipliers,
+as long as they stay off the unit circle. Our normal forms of folds, flips, cusps and 1:1 resonances rest on this
+reduction alone. A scalar description of a whole attractor needs additional, global evidence. The small non-critical
+multipliers of the periodic orbits we computed show strong transverse contraction near those orbits and motivate that
+description: they range from a few times $10^{-2}$ at short periods to below $10^{-13}$ along the cascade
+(Section~\ref{sec:mechanism} and Appendices~\ref{sec:curves} and~\ref{sec:cascade}), and along the cascade at $\log_{10}T=-0.156$ the next modulus
+falls from $0.12$ at the first flip to $0.045$, $7\times10^{-5}$, $4\times10^{-7}$ and $2\times10^{-13}$ at the next
+four. Temperature, through the gain of \eqref{eq:gain}, and steering act as two parameters. One-dimensional families of
+maps with a quadratic extremum can exhibit fold and flip curves, nondegenerate cusps, period-doubling cascades whose
+interval ratios tend to Feigenbaum's $\delta$, and saddle-node windows that accumulate on a fold with
+$d_N\propto N^{-2}$ (Figure~\ref{fig:atlas} sketches the objects we locate); we test these predictions on specific
+branches and parameter sequences below. The organization of shrimps needs
+more, either a second turning point of the reduced map or a second dimension
+\cite{gallas1993structure,jones2012rossler}. We test the consequences where we state them: the multipliers of each
+orbit, the interval ratios, and the normal-form predictions of passage times and coexisting orbits. Where the second
+multiplier is not small, as in the high-temperature bubble of Appendix~\ref{sec:cascade} (next moduli $0.28$ and
+$0.38$), the global reduction is only a rough guide, while the local normal forms still apply.
+
+\paragraph{Coexisting attractors constrain one-dimensional descriptions.} A classical theorem says what a
+one-dimensional reduction cannot do. If an interval map is three times differentiable, unimodal and has negative
+Schwarzian derivative, $Sf=f'''/f'-\tfrac32(f''/f')^2<0$, the immediate basin of every attracting periodic orbit
+contains the turning point or an endpoint of the interval \cite{singer1978stable}; if basins reaching an endpoint are
+excluded, at most one attracting periodic orbit remains. The soft-token map has coexisting attracting orbits in several
+places. Near each located cusp with
+$c<0$, two attracting orbits of the same period coexist with a saddle between them (periods 4 and 6,
+Appendix~\ref{sec:curves}; period 7, Appendix~\ref{sec:hostility}). Inside the hostile period-7 body, the period-7 loop
+coexists with a fixed point, which the fixed start reaches at isolated cells. Such coexistence constrains a scalar
+interpretation: unless one attractor's basin reaches an end of the scalar interval, the effective one-dimensional
+dynamics cannot be a single unimodal map with negative Schwarzian derivative, and needs a second turning point, a
+stretch of positive Schwarzian derivative, or a second dimension. A second turning point is also what a doubly
+superstable shrimp centre requires.
+
+\input{figures/tikz-atlas}
+
 \paragraph{What theory allows.} Chaos and periodic windows occur in many nonlinear feedback
 systems. In a specified ensemble of random recurrent networks with asymmetric couplings, chaos sets in above a
 critical gain, sharply in the large-network limit, and finite networks pass through limit cycles of increasing
@@ -1420,7 +1246,7 @@ directions the dynamics keeps (Section~\ref{sec:theory}). For chaotic attractors
 Kaplan--Yorke dimension \cite{kaplan1979chaotic}, $D_{\mathrm{KY}}=j+\sum_{i\le j}\lambda_i/|\lambda_{j+1}|$ with $j$ the
 largest index at which the partial sum of the ordered Lyapunov exponents is still nonnegative; with one positive
 exponent and $\lambda_1+\lambda_2<0$, $D_{\mathrm{KY}}=1+\lambda_1/|\lambda_2|$. We estimated the four leading
-exponents by QR iteration (Section~\ref{sec:methods}; 1000 transient and 2000 measured steps, float64) at 35 completed
+exponents by QR iteration (Appendix~\ref{sec:methods}; 1000 transient and 2000 measured steps, float64) at 35 completed
 cells: 28 chosen by percentile of their largest exponent before any of their spectra were seen (of 30 requested), and
 seven from the earlier horizon check, six chaotic and one periodic control. At this horizon 31 have a positive leading
 estimate and none has two positive estimates. These are finite-time estimates, not asymptotic dimensions. They grow
@@ -1441,6 +1267,243 @@ cells and $0.69$ over 8 hostile cells, computed when the data came in and not in
 confounded with temperature). Across groups it does not predict the dimension: the hostile cells have ratios of about
 16 to 19 and next-token entropies of about 7 to 9 nats, yet $D_{\mathrm{KY}}\le1.16$. The readout supplies many competing directions; the network decides how many
 of them expand.
+\section{Supporting figures and tables for the main text}
+\label{sec:supp}
+This appendix holds figures and tables cited in Sections~\ref{sec:theory} to~\ref{sec:discussion}.
+\begin{table}[!htb]
+\centering\small
+\begin{tabular}{lll}
+\toprule
+measurement & contrast & estimate (95\,\% interval) \\
+\midrule
+gain split, $101\times53$ map & readout factor, chaotic $-$ $|\alpha|\le0.01$ & $+2.58$ $[1.78,3.59]$ nats/step \\
+ & network factor, chaotic $-$ $|\alpha|\le0.01$ & $-0.07$ $[-0.23,0.12]$ nats/step \\
+ & entropy, chaotic $-$ periodic & $+1.62$ $[1.26,1.91]$ nats \\
+ & top-2 logit gap$/T$, chaotic $-$ periodic & $-1.37$ $[-1.98,-0.87]$ \\
+logit bias only, $\alpha=0$ & chaotic share & 3.5\,\% (241 of 6837 cells) \\
+residual steering, block 12 & chaotic share & 6.2\,\% (331 of 5353 cells) \\
+crossover, 0.5B, 14 cells & readout effect, arm 10 $-$ arm 00 & $+0.81$ $[0.29,1.35]$ nats/step \\
+ & network effect, arm 01 $-$ arm 00 & $-0.49$ $[-0.63,-0.35]$ nats/step \\
+ & interaction & $+0.26$ $[0.09,0.45]$ nats/step \\
+crossover, gratitude & readout effect & $+0.33$ $[0.07,0.59]$ nats/step \\
+ & network effect & $-0.14$ $[-0.29,0.01]$ nats/step \\
+crossover, random dir. & readout effect & $+0.77$ $[0.47,1.12]$ nats/step \\
+ & network effect & $-0.09$ $[-0.22,0.06]$ nats/step \\
+crossover, 7B, 10 cells & readout effect & $+0.23$ $[-0.11,0.63]$ nats/step \\
+ & network effect & $-1.14$ $[-1.61,-0.64]$ nats/step \\
+\bottomrule
+\end{tabular}
+\caption{Where steering's instability comes from (Qwen2.5-0.5B unless marked 7B, Qwen2.5-7B). Intervals: bootstrap over
+temperature rows (gain split) or over held-out cells (crossover). Runs MECH and XO; \texttt{tools/steer\_gain.py}, \texttt{tools/crossover.py},
+\texttt{tools/plot\_mechanism.py}.}
+\label{tab:mechanism}
+\end{table}
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.49\linewidth]{fig-zoom-z2-lyapunov.png}\hfill
+\includegraphics[width=0.49\linewidth]{fig-zoom-z2-families.png}\\[2pt]
+\includegraphics[width=0.49\linewidth]{fig-zoom-z3-lyapunov.png}\hfill
+\includegraphics[width=0.49\linewidth]{fig-zoom-z3-families.png}
+\caption{Zooms of $256^2$ float64 cells of the Qwen2.5-0.5B-Instruct map (philosophy direction, layer 12), with
+the largest Lyapunov exponent on the left, rendered as in Figure~\ref{fig:teaser}, and attractor texts on the right.
+Top: the period-8 window ($\alpha\in[0.068,0.076]$, $\log_{10}T\in[-0.135,-0.085]$). Bottom: the period-6 hooks
+($\alpha\in[0.072,0.082]$, $\log_{10}T\in[-0.085,-0.04]$), whose curved period-6 body, period-12 foot and thin leg
+are analysed in Appendix~\ref{sec:curves}.}
+\label{fig:zooms}
+\end{figure}
+\begin{table}[tbp]
+\centering\small
+\begin{tabular}{llrrr}
+\toprule
+comparison & cells & reach $10^{-2}$ & median step & end with different tokens \\
+\midrule
+batch layout, float64 & chaotic & 190 / 192 & 102 & 90.1\,\% \\
+ & periodic & 10 / 192 & & 3.6\,\% \\
+batch layout, float32 & chaotic & 192 / 192 & 20.5 & 92.2\,\% \\
+ & periodic & 72 / 192 & & 22.9\,\% \\
+float32 against float64 & chaotic & 192 / 192 & 20 & 92.7\,\% \\
+ & periodic & 75 / 192 & & 19.3\,\% \\
+batch layout, bfloat16 & chaotic & 192 / 192 & 2 & 99.5\,\% \\
+ & periodic & 192 / 192 & 2 & 95.3\,\% \\
+\midrule
+7B unsteered, float64 & chaotic & 24 / 24 & 56 & 95.8\,\% \\
+ & periodic & 0 / 24 & & 0\,\% \\
+7B unsteered, float32 & chaotic & 24 / 24 & 16 & 95.8\,\% \\
+ & periodic & 4 / 24 & & 8.3\,\% \\
+7B unsteered, bfloat16 & chaotic & 24 / 24 & 2 & 75.0\,\% \\
+ & periodic & 24 / 24 & 2 & 50.0\,\% \\
+\midrule
+Llama 8B unsteered, float64 & chaotic & 20 / 20 & 68 & 100\,\% \\
+ & periodic & 1 / 20 & & 5\,\% \\
+Llama 8B unsteered, float32 & chaotic & 20 / 20 & 10.5 & 100\,\% \\
+ & periodic & 1 / 20 & & 0\,\% \\
+Llama 8B unsteered, bfloat16 & chaotic & 20 / 20 & 1 & 100\,\% \\
+ & periodic & 18 / 20 & 2 & 45\,\% \\
+\midrule
+Llama 70B steered, float64 & chaotic & 24 / 24 & 114.5 & 87.5\,\% \\
+ & periodic & 0 / 24 & & 0\,\% \\
+\bottomrule
+\end{tabular}
+\caption{Divergence of two otherwise identical runs, by the cells' float64 labels (1500 steps; ``end with different
+tokens'': the most probable tokens differ at some step of the last 500). Top: Qwen2.5-0.5B, philosophy direction at
+layer 12. Middle: Qwen2.5-7B unsteered, 24 chaotic and 24 periodic temperatures of its long sweep. Bottom:
+Llama-3.1-8B-Instruct unsteered, 20 and 20. Last block: Llama-3.3-70B-Instruct, hostility-vs-kindness at block 20, 24
+and 24 (1000 steps; tokens compared over the last 300). In float32 the periodic cells that diverge may
+change phase on the same cycle or switch between coexisting attractors; the run does not distinguish the two.}
+\label{tab:repro}
+\end{table}
+\begin{figure}[tbp]
+\centering
+\includegraphics[width=\linewidth]{fig-layer-sweep.png}
+\caption{The philosophy direction of Qwen2.5-0.5B-Instruct, built with the same recipe at each of five blocks of 24: largest
+Lyapunov exponent on $128\times128$ float64 cells over the steering strength and $\log_{10}T\in[-1,0.3]$. The share of
+chaotic cells is given above each panel.}
+\label{fig:layersweep}
+\end{figure}
+\begin{figure}[tbp]
+\centering
+\includegraphics[width=\linewidth]{fig-reservoir.png}
+\caption{Memory capacity of the soft-token loop used as a reservoir (Qwen2.5-0.5B-Instruct, philosophy direction at
+layer 12, float64). A weak random input enters the map, $x_{n+1}=F(x_n+\epsilon|x|u_nr)$, and linear readouts of the
+state reconstruct the past inputs; the capacity is the sum of their held-out $R^2$ over 41 delays. (a) Along the
+doubling cascade at $\log_{10}T=-0.148$: capacity for two input sizes, the input-free twin exponent (grey), the flips
+(red) and the onset of chaos (dotted). (b) The 448 labelled cells of the horizon check against the map exponent, with
+bin means and bootstrap 95\,\% intervals.}
+\label{fig:reservoir}
+\end{figure}
+\FloatBarrier
+\section{Behavioural tests in detail}
+\label{sec:behaviour}
+We looked for a behavioural signature of the regimes outside the loop. Two exploratory designs found no accuracy
+signature that survives controls. First, ordinary sampled answers of Qwen2.5-0.5B under steering at the strengths of chaotic and periodic map
+cells (30 matched pairs; arithmetic, open questions, short programs) showed no measurable accuracy contrast: at those
+strengths, steering every position turns every reply into philosophy-flavoured text, so accuracy sits at the floor in
+both zones (3 against 4 correct of 4500 arithmetic answers). Of nine secondary contrasts of entropy and reply length,
+one (open questions, next-token entropy, $p=0.016$) passes $0.05$ uncorrected, not after a correction for nine tests,
+and the entropy contrasts change sign across tasks. Second, labelling each of 200 prompts by the regime of its own unsteered loop in Qwen2.5-7B, prompts with
+a chaotic loop were answered far less accurately (by 26 to 37 points at three temperatures). The chaotic labels fell
+mostly on the harder task, and in a linear model with task, greedy correctness and the sampled answers' entropy, the
+label's coefficient is $-3.7$ to $-4.6$ points (permutation $p$ from $0.07$ to $0.20$). These are associations: the
+entropy is measured during sampling, so the adjustment does not identify a causal effect of the regime.
+
+A frozen test addresses the second design. Its design, covariates and analysis were pushed before any data. It uses
+4000 fresh products of two two-digit numbers and the unsteered Qwen2.5-7B-Instruct at $\log_{10}T=0.40$: 1484 prompts
+have a chaotic loop and 2509 a periodic one (seven with other labels are excluded). Chaotic-loop prompts are again answered less accurately by ordinary
+sampling, by 7.1 points (95\,\% interval $[4.8,9.3]$; 10 samples per prompt). The gap vanishes once seven difficulty
+covariates, all fixed before sampling, enter the fit. Beyond them the label's coefficient is $+0.15$ points
+($[-1.4,1.7]$, permutation $p=0.84$), and the label adds no held-out predictive value. The first-token entropy alone
+absorbs nearly all of the gap (post hoc: $-0.8$ points remain). This is what the mechanism of
+Section~\ref{sec:theory} predicts. The loop turns chaotic where next tokens compete, and a model unsure of its first
+token also answers worse. Beyond that uncertainty, no association of the loop's regime with accuracy is detected at
+this precision; this does not show that the regime has no effect.
+
+Within a prompt no association is detected either. We steered the first 1000 of these prompts slightly, at block 14
+along philosophy, hostility-vs-kindness and a random direction. The strength, 1\,\% of the residual norm, is the largest
+at which greedy accuracy stayed within 5 points of the unsteered model on the first 200 of these prompts (so the
+calibration overlaps the test prompts); on the 1000 prompts it is 0.87 to 0.89, against 0.89 unsteered. Under these
+pushes the loop's label differs between conditions for 508 of the 1000 prompts. With prompt and condition fixed
+effects (3992 prompt-condition rows), in an analysis fixed before the data, a chaotic label is associated with a change
+of $+0.36$ points in the accuracy of the prompt's ordinary sampled answers (95\,\% interval $[-0.36,1.08]$;
+permutation within prompts, $p=0.34$). This does not identify a causal effect of entering chaos: the pushes can act on
+the answers through other paths as well.
+
+Nor does accuracy peak at the edge of chaos. Adjusted for the covariates, three groups of prompts (3603 of the 4000;
+the rest have intermediate exponents) are answered alike:
+\begin{itemize}
+  \item deep periodic ($\lambda\le-0.3$, 1961 prompts): $+0.3$ points;
+  \item edge ($|\lambda|\le0.1$, 242 prompts): $-0.1$ points;
+  \item deep chaotic ($\lambda\ge0.3$, 1400 prompts): $+0.3$ points.
+\end{itemize}
+All three intervals lie within $[-3.1,3.0]$. The edge contrast is $-0.4$ points ($[-3.5,2.6]$), and the curvature in
+$\lambda$ is positive, the opposite of an edge optimum. Post hoc, the curvature comes from the most strongly
+contracting tenth of prompts ($\lambda\le-3.42$), answered 5.3 points ($[3.0,7.6]$) better than the covariates
+predict. That is a lead for a future test, not a finding.
+
+\section{The fold mechanism in detail}
+\label{sec:mechdetail}
+\paragraph{Controlled passages.} In the oriented coordinate $v=\operatorname{sign}(b)\,u$ of
+Appendix~\ref{sec:methods}, we start trajectories at $v=-U$ or $0$ ($U=0.1/|b|$) and count $G$-iterates until
+$v>U$. At four distances from the fold, the measured counts match the iterated normal form within
+one iterate (Table~\ref{tab:passages}, Figure~\ref{fig:passages}), and a transverse displacement of the same norm
+changes the count by at most one.
+\begin{table}[H]
+\centering\small
+\begin{tabular}{rccc}
+\toprule
+$\eps=\alpha-\alpha_c$ & full: measured / predicted & midpoint & full + transverse kick \\
+\midrule
+$3\times10^{-6}$ & 144 / 144 & 73 / 74 & 143 / 144 \\
+$1\times10^{-5}$ & 71 / 71 & 36 / 37 & 70 / 71 \\
+$3\times10^{-5}$ & 34 / 34 & 17 / 18 & 33 / 34 \\
+$1\times10^{-4}$ & 14 / 14 & 7 / 7 & 13 / 14 \\
+\bottomrule
+\end{tabular}
+\caption{Bottleneck passages ($G$-iterates). Predictions iterate $u'=u+a\eps+bu^2$ with $a,b$ computed from the
+network's derivatives; no parameter is fitted.}
+\label{tab:passages}
+\end{table}
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.49\linewidth]{fig-passages.png}\hfill
+\includegraphics[width=0.49\linewidth]{fig-window-law.png}
+\caption{Bottleneck passages and the window law at the fold of the 2-cycle ``is it'' (Qwen2.5-0.5B-Instruct,
+philosophy direction at layer 12, $\log_{10}T=-0.115$). Left: measured passage times against the normal-form
+predictions. Right: the window law, with stripe centres plotted as $1/\sqrt{\alpha_N-\alpha_c}$ against the lap
+count $N$, together with the full- and half-passage predictions.}
+\label{fig:passages}
+\end{figure}
+
+\paragraph{Natural reinjection and the window law.} Free trajectories re-enter the channel slightly upstream of
+the bottleneck's middle ($v\approx-3\times10^{-4}$ to $-7\times10^{-4}$, in the same oriented coordinate). From each measured entry point, the
+normal form predicts the natural laminar durations within 4--8\% for $\eps\le10^{-4}$, and a natural passage lasts
+about 0.6 of a full one. The stripes therefore follow the $N^{-2}$ law of a saddle-node ghost, with about a third of
+the full-passage prefactor. Stripe centres located on a float32 cut along $\log_{10}T=-0.115$ give
+$d_N N^2=0.0263$--$0.0265$ for $N=4$--$7$ (log-log slope $-2.00$), compared with $\pi^2/(4ab)=0.0201$ for a half
+passage. Two-step return maps of $p(\text{``it''})$ (Figure~\ref{fig:returnmaps}) show the near-tangency.
+
+Numerically estimated stripe edges along $\log_{10}T=-0.115$ (Table~\ref{tab:edges}) sharpen this picture. Each
+window is bounded by a fold, where its orbit is born, and by a flip. For periods 6--12 the fold faces away from the
+accumulation point. For periods 16--20 the sides are exchanged, and the period-14 window is bounded by flips on both
+sides. The fold edges of periods 16--20 follow $\alpha_N-\alpha_c=C/(N+\delta)^2$ with $C=0.0266$ and $\delta=0.15$.
+Their slope, a rise of $6.13$ per lap in $1/\sqrt{\alpha_N-\alpha_c}$, is $1.74$ times the full-passage slope
+$\sqrt{ab}/\pi=3.53$ of the normal form. That corresponds to an effective passage of $0.58$ of a full one, which the
+measured natural reinjection gives independently.
+\begin{table}[H]
+\centering\small
+\begin{tabular}{rll}
+\toprule
+period & edge toward larger $\alpha$ & edge toward smaller $\alpha$ \\
+\midrule
+6 & fold $0.0790337$ & flip $0.0766947$ \\
+8 & fold $0.0726585$ & flip $0.0706525$ \\
+10 & fold $0.0684572$ & flip $0.0670594$ \\
+12 & fold $0.0658982$ & flip $0.0651944$ \\
+14 & flip $0.0645850$ & flip $0.0642958$ \\
+16 & flip $0.0639284$ & fold $0.0638001$ \\
+18 & flip $0.0635683$ & fold $0.0635034$ \\
+20 & flip $0.0633535$ & fold $0.0633183$ \\
+\bottomrule
+\end{tabular}
+\caption{Edges of the stripe windows along $\log_{10}T=-0.115$ ($\alpha_c=0.0627983$), from the window centres of
+Table~\ref{tab:orbits}. Flips: critical multiplier a real $-1$ to $3\times10^{-10}$. Folds: the multiplier nearest $+1$
+extrapolated to 1 through $(1-\mu)^2$, which is linear near a fold; last converged multiplier $0.991$--$0.998$.}
+\label{tab:edges}
+\end{table}
+We tested whether the measured reinjection predicts windows beyond the fitted range. A model with one fixed entry
+point (the median measured one) and one lap offset fitted to the fold edges of periods 16--20 places the fold edges
+of periods 22--30 3 to 9\,\% closer to the fold than the constant-prefactor law. Both predictions were frozen
+before a float64 line of 3200 cells (spacing $10^{-7}$) located the windows. The measured edges follow the law
+within 3\,\% through period 30 (within 1\,\% at periods 22, 24 and 28) and fall outside the model's range except
+at period 30. So the law extrapolates, but one fixed reinjection point does not predict it. The measured entry
+points move with $\eps$ ($-3\times10^{-4}$ to $-7\times10^{-4}$).
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.85\linewidth]{fig-return-maps.png}
+\caption{Two-step return maps of the probability of ``it'' near the fold of the 2-cycle ``is it''
+(Qwen2.5-0.5B-Instruct, philosophy direction at layer 12), at increasing distance from the fold.}
+\label{fig:returnmaps}
+\end{figure}
+
 \section{Bifurcation curves and cusps}
 \label{sec:curves}
 \paragraph{Period-8 stripe.} Continued for 80 points with a float64 test function, the fold curve of the period-8
@@ -1449,7 +1512,7 @@ $\log_{10}T=-0.065$ (Figure~\ref{fig:stripes}). At $\alpha=0.0717$ the stripe li
 $\log_{10}T=-0.128955$ and the fold at $-0.1033462$. Continued downward, the flip curve keeps its multiplier at $-1$
 for 115 points to $(\alpha,\log_{10}T)=(0.0776,-0.402)$, with two reversals of its parameter tangent near
 $(0.0750,-0.219)$ and $(0.0746,-0.206)$, and the fold curve keeps its multiplier at $+1$ for 120 points to
-$(0.0758,-0.200)$. Located by bisection along the curve (Section~\ref{sec:methods}), the two reversals of the flip
+$(0.0758,-0.200)$. Located by bisection along the curve (Appendix~\ref{sec:methods}), the two reversals of the flip
 curve, at $(0.074955,-0.219336)$ and $(0.074608,-0.206007)$, carry no second multiplier near the unit circle (the
 next ones are $3\times10^{-7}$ and $1\times10^{-5}$). On a flip curve the parameter tangent can vanish only where a
 second multiplier reaches $+1$, so both are tight but smooth turns of the curve in the parameter plane, not
@@ -1496,7 +1559,7 @@ term, $c=\ell^\top C(r,r,r)/6+\ell^\top B(r,h_2)/2$ with $(I-M)h_2=B(r,r)-2br$ a
 the monodromy matrix and $B$ and $C$ are the second and third derivatives of its map, obtained by central differences
 of float64 Jacobian-vector products. (The code reproduces $c$ to $10^{-6}$ on a map with a known reduction.) At the two
 curve points that bracket each sign change, $c$ is nonzero far beyond its step-size uncertainty and has the same sign,
-and $b$ changes sign with nonzero slope between them. This supports a nondegenerate cusp inside each bracket. Located along each fold curve (Section~\ref{sec:methods}),
+and $b$ changes sign with nonzero slope between them. This supports a nondegenerate cusp inside each bracket. Located along each fold curve (Appendix~\ref{sec:methods}),
 $b\operatorname{sign}a$ falls to below $5\times10^{-6}$ of its bracket values at $(\alpha,\log_{10}T)=(0.069106,-0.039750)$
 on the outer arc and at $(0.080097,-0.058344)$ inside the body. At these same points $c=-1.51\times10^{4}$ and
 $-2.38\times10^{5}$, and the unfolding matrix $J$ defined below is regular ($\det J=2416$ and $14.0$): two
@@ -1620,7 +1683,7 @@ The crescent of Figure~\ref{fig:cross512} is a closed region in which the period
 n\textbackslash nThe existence'' doubles inward. Along the cut $\log_{10}T=-0.14798$, the map's cells show period 3
 over 25 columns, period 6 over about 14, period 12 over 4 and period 24 in one column, followed by a chaotic core. The
 doubled loops repeat the same leading tokens twice and four times, with alternating probabilities. Locating the flips
-along this cut in float64 (Section~\ref{sec:methods}), in the steering coordinate $\alpha$, gives
+along this cut in float64 (Appendix~\ref{sec:methods}), in the steering coordinate $\alpha$, gives
 Table~\ref{tab:cascade}. The first two ratios, $\delta_2=2.844$ and $\delta_3=2.859$ (indexed as in
 Table~\ref{tab:cascade}), are far from Feigenbaum's $4.6692$, even though from the second flip on the orbits are
 effectively one-dimensional (next modulus $0.0023$, $2\times10^{-6}$, $2\times10^{-12}$). The next ratio,
@@ -2411,7 +2474,7 @@ with size can be read.
 \caption{Qwen2.5-1.5B soft-token map steered along the philosophy direction at layer 14, $256^2$ float64 cells over
 $\alpha\in[0.03,0.12]$, $\log_{10}T\in[-0.2,0.2]$: largest Lyapunov exponent (left, rendered as
 Figure~\ref{fig:teaser}) and attractor texts (right, as Figure~\ref{fig:cross512}). Several period-2 label regions
-touch without a gap; as explained in Section~\ref{sec:methods}, such boundaries may be label switches of one orbit.}
+touch without a gap; as explained in Appendix~\ref{sec:methods}, such boundaries may be label switches of one orbit.}
 \label{fig:qwen15}
 \end{figure}
 
@@ -2436,7 +2499,7 @@ dense Qwen3.5-9B as a control, which we have not run.
 Is the chaos of the loop a small-model effect that larger models leave behind? We measured the unsteered map of
 fifteen models: Qwen2.5 at seven sizes from 0.5B to 72B parameters, OLMo-2 at 1B, 7B, 13B and 32B, Llama-3.1 at 8B
 and 70B, Llama-3.3-70B, and the mixture of experts Qwen3.5-35B-A3B, all with the paper's prefix and the settings of
-Section~\ref{sec:methods} (1000 transient and 2000 measured steps in float64; chaotic: an exponent above $10^{-3}$ and
+Appendix~\ref{sec:methods} (1000 transient and 2000 measured steps in float64; chaotic: an exponent above $10^{-3}$ and
 no detected period, which is what ``positive'' abbreviates below). We evaluate the stored checkpoint values in
 float64: the dense checkpoints store bfloat16 weights (checked against their safetensors metadata), and the mixture of
 experts stores some tensors in float32, which we restore exactly; float64 does not make the weights more precise than
