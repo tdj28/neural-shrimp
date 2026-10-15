@@ -1,0 +1,34 @@
+{
+  "exit_code": 0,
+  "timed_out": false,
+  "seconds": 0.5460155189502984,
+  "worker": {
+    "pid": 3019874,
+    "start": 201073097,
+    "pgid": 3019874,
+    "sid": 3019874,
+    "uid": 1000,
+    "nice": 10,
+    "threads": 1,
+    "limits": "Limit                     Soft Limit           Hard Limit           Units     \nMax cpu time              30                   30                   seconds   \nMax file size             unlimited            unlimited            bytes     \nMax data size             unlimited            unlimited            bytes     \nMax stack size            8388608              unlimited            bytes     \nMax core file size        0                    unlimited            bytes     \nMax resident set          unlimited            unlimited            bytes     \nMax processes             375398               375398               processes \nMax open files            65535                65535                files     \nMax locked memory         8388608              8388608              bytes     \nMax address space         1073741824           1073741824           bytes     \nMax file locks            unlimited            unlimited            locks     \nMax pending signals       375398               375398               signals   \nMax msgqueue size         819200               819200               bytes     \nMax nice priority         0                    0                    \nMax realtime priority     0                    0                    \nMax realtime timeout      200000               200000               us        \n",
+    "command": [
+      "/data2/neural-shrimp/.venv/bin/python",
+      "-I",
+      "-B",
+      "-u",
+      "/data2/neural-shrimp-data/codex/night-results-review-task21/task21d/run-001-supervision/source/codex/night-results-review-task21/task21d/run.py",
+      "--card",
+      "/data2/neural-shrimp-data/codex/night-results-review-task21/task21d/run-001-supervision/source/codex/night-results-review-task21/task21d/run-001-card.json",
+      "--out",
+      "/data2/neural-shrimp-data/codex/night-results-review-task21/task21d/run-001"
+    ]
+  },
+  "owned_worker_and_groups_closed": true,
+  "failure": null,
+  "maximum_output_bytes_sampled": 2604372,
+  "source_commit": "ff5a792e19149d4134a36dc1ce00dbf2a648f94c",
+  "wrapper_sha256": "cb13cba23d088aa01d5ea7d8eb4011234fc2ddff83b93de109fc47f44f61fa17",
+  "card_sha256": "1a850637ad2915ab004e15f84396318e1435e3835662b56c6826d1363af89bc3",
+  "certificate_passed": false,
+  "experimental_claims": false
+}
