@@ -1,0 +1,145 @@
+{
+  "schema": "codex-task21h-card-v1",
+  "admission": "reviewed",
+  "source_expected_commit": null,
+  "objective": "Independent unblinded saved LE/period/mask arithmetic for the assigned steering-layer LS grids and two-block TB/TBC exact-control comparisons. No producer import, model, derivative or new experiment.",
+  "output": "/data2/neural-shrimp-data/codex/night-results-review-task21/task21h/run-001",
+  "inputs": {
+    "path": "/data2/neural-shrimp-data/codex/night-results-review-task21/task21h/source-002/inputs.json",
+    "bytes": 259114,
+    "sha256": "95f030e7d183d76e203ca8b9f022f2d5696ec995c2d951a92dc7435067d7ccbe"
+  },
+  "source_sha256": {
+    "run.py": "4935bca02150ac2428c86a669ec86745804fca8a51f57b19659b0507666c09aa",
+    "reduce.py": "150e3777a52b5e0133ce3f95bb5475d166bbc1516a4f748b5dc44085b9c43503"
+  },
+  "limits": {
+    "cpu_threads": 1,
+    "nice": 10,
+    "as_bytes": 1073741824,
+    "cpu_seconds": 55,
+    "wall_seconds": 60,
+    "max_output_bytes": 134217728,
+    "max_input_bytes": 8388608,
+    "startup_available_gib": 20,
+    "runtime_available_gib": 16
+  },
+  "resources": {
+    "cpu_reservation": "one worker plus external supervisor; coordinator checks fresh shared capacity before admission",
+    "storage_headroom_bytes": 536870912,
+    "selected_pin_count": 82,
+    "selected_input_bytes": 3585512,
+    "selected_nested_pin_count": 81,
+    "selected_nested_bytes": 3326398,
+    "target_file_count": 42,
+    "target_files_bytes": 2543411,
+    "manufactured_full_shape": {
+      "report": {
+        "path": "/tmp/task21h-manufactured-001/report.json",
+        "bytes": 2044,
+        "sha256": "bad8fcbb5f362d7f94ba36930811dc7417dd9c8eefaa8ca7d14fd9c6ce7de2b6"
+      },
+      "external_receipt": {
+        "path": "/tmp/task21h-manufactured-001-supervision/receipt.json",
+        "bytes": 1640,
+        "sha256": "84e6b1b1135549cd36c1efe328307bfe2da63ca95efbbedb07b15b79acbbccf2"
+      },
+      "captured_source_commit": "8ec7271273a595c2799e63ebe0e2e8d53f1a632b",
+      "controls_passed": 10,
+      "controls_failed": 0,
+      "source_grids": 21,
+      "source_cells": 119552,
+      "control_join_cells": 36864,
+      "seconds_through_scientific_serialization": 1.9460875210352242,
+      "external_seconds": 2.117553821997717,
+      "observed_peak_kib_before_final_report": 66056,
+      "scientific_serialized_bytes": 50754773,
+      "external_returncode": 0,
+      "owned_group_absent": true,
+      "execution_observer": "Inference; theory reviewer read the sealed report and receipt. PID90 is the recorded sandbox namespace identity, not a host-PID assertion."
+    },
+    "fixed_shape_serialization_forecast_bytes": 50754773,
+    "forecast_scope": "Reference forecast copies the sole manufactured full-shape serialization measurement, not an exact target-size prediction or worst-case bound. Actual numeric string lengths and the full metadata/comparison report may differ. Real input hashing, I/O, NPZ decompression, final report/manifest writing and complete worker peak are not measured by this fixture. The fixed 55CPU/60wall/1GiB/128MiB ceilings bound the sole actual attempt; no target-prefix profile, extension or automatic retry.",
+    "output_cap_scope": "Existing external supervisor samples the fresh four-file scientific output directory and its worker stdout/stderr. Captured source and compact supervision/forensic receipts are outside that sampled output budget; reserved disk headroom includes overhead. This card does not claim a worker-enforced streaming byte bound.",
+    "no_profile_repeat": true,
+    "no_automatic_retry_or_extension": true
+  },
+  "coverage": {
+    "original_runs": 15,
+    "source_grids": 21,
+    "source_cells": 119552,
+    "control_join_cells": 36864,
+    "source_grid_counts": {
+      "LS_and_reference": 9,
+      "TB_planes": 4,
+      "TBC_lines": 8
+    },
+    "source_cell_counts": {
+      "LS_and_reference": 81920,
+      "TB_planes": 36864,
+      "TBC_lines": 768
+    },
+    "joined_LS_blocks": [
+      4,
+      8,
+      12,
+      16,
+      20
+    ],
+    "TB_orders": [
+      "grat4-host16",
+      "host4-grat16"
+    ],
+    "TB_log10_temperatures": [
+      -0.1,
+      0.1
+    ],
+    "preserved": "Every source cell and exact-control triplet; literal and reconstructed masks, finite/period validity, every original JSON comparison leaf and signed difference, all denominators, exact-zero versus original nearest-axis comparisons, actual coordinates, all original statuses and undefined cases."
+  },
+  "outputs": [
+    "cells.jsonl",
+    "control-joins.jsonl",
+    "report.json",
+    "manifest.json"
+  ],
+  "success_contract": {
+    "report_schema": "task21h-independent-saved-grid-v1",
+    "computational_status": "complete",
+    "coverage": {
+      "original_runs": 15,
+      "source_grids": 21,
+      "source_cells": 119552,
+      "control_join_cells": 36864
+    },
+    "cell_stream_records": 119552,
+    "control_join_stream_records": 36864,
+    "manifest_files": 3,
+    "manifest_computational_status": "complete",
+    "scientific_acceptance_required_for_computational_completion": false,
+    "no_manifest_schema_field": "The actual writer stores files and computational_status only; do not require an invented schema key."
+  },
+  "source_review": {
+    "path": "/tmp/task21h-independent-source-review.md",
+    "bytes": 5738,
+    "sha256": "825af9bfe65bd1c55bb05ca4bc9f2d550e3c9c9e9389045d44943515f1f45200"
+  },
+  "source_association": {
+    "path": "/tmp/task21h-preparation/source-association.md",
+    "bytes": 7972,
+    "sha256": "27b77dc9224951798fc77e3e04216d2b432c02e416a87dbb1f801b2c7876ca73"
+  },
+  "design": {
+    "path": "/tmp/task21h-preparation/design.md",
+    "bytes": 5322,
+    "sha256": "4e6b8f9f177fcb6bae47a99ee4bfdeff0a835d07c138d670b46fae6a44bdb289"
+  },
+  "original_failure_supplement": {
+    "path": "/tmp/task21h-ls-errors-001/manifest.json",
+    "bytes": 18644,
+    "sha256": "84c3cf990a4bf1d4a21b62c04e6cc6876a6c82118a385a1827e186a7ab5202c6"
+  },
+  "original_failure_supplement_scope": "Source/history reference, separately preserved; not an additional runtime numeric pin or part of the 82-pin count. All eight LS tool-status1 / runner0 failures after final NPZ/JSON writes remain failures. Numerical-invalid final cells are not assumed to be unfinished prefixes.",
+  "authority_scope": "Accepted original local archive/retrieval/recorded termination and source association are inherited from the exact coordinator authority. The 82 selected pins are checked before and after arithmetic. No historical birth, model-byte, precision, vector-norm or native-attractor proof is manufactured.",
+  "interpretation": "Finite unblinded label/count comparisons. Nonchaotic is distinct from detected-periodic; exact-control, nearest-axis, exclusion and finite-qualified variants remain separate. No fully unsteered (0,0) control, causal sufficiency, global chaos or stability conclusion. LS refers only to the assigned steering-layer scan, never lexical-study data.",
+  "launch_requirements": "Root review of this concrete card and exact supervisor, private source/card checkpoint, coordinator-owned fresh-capacity check, reviewed admission and unchanged scientific pins. Prepared status is unlaunchable."
+}
