@@ -33,22 +33,20 @@ computer-assisted proof is that of the period-8 orbit of Table~\ref{tab:orbits} 
 
 \begin{abstract}
 Feeding a language model the expected embedding of its own next token, as Soft Thinking does, turns inference into a
-nonlinear dynamical system. In Qwen2.5, OLMo-2 and Llama-3 models of 0.5B to 72B
+dynamical system. In Qwen2.5, OLMo-2 and Llama-3 models of 0.5B to 72B
 parameters, temperature and steering move this loop between repeating text and chaos, with positive Lyapunov
 exponents that exact tangents reproduce. The chaos has practical consequences. Rerun with only the batch size
-changed, chaotic float64 loops separate until their most probable tokens differ, after about the number of steps the
-Lyapunov exponent sets, while periodic loops mostly stay together, in four models of two families up to 70B. In frozen
+changed, chaotic float64 loops separate until their most probable tokens differ, on the schedule the Lyapunov exponent sets, while periodic loops mostly stay together, in four models up to 70B. In frozen
 tests on arithmetic, the batch layout changed 56\,\% of the answers of bfloat16 soft-thinking inference in a 0.5B
-model and 55\,\% in a 7B model, far more often than those of a forced greedy baseline. Exactly repeating text can hide
+model and 55\,\% in a 7B model, far more often than those of a forced greedy baseline; resetting the fed-back state at every step removes most such changes. Exactly repeating text can hide
 a chaotic state. Along the sampled orbits, steering creates the chaos mainly by making next tokens compete,
 which turns the softmax readout from a contraction into an expansion; a logit bias alone suffices. Earlier injection
-carries chaos to lower temperature, two steering vectors at different depths create chaos neither causes alone, and two
-loops writing one text lock each other into periodic orbits that neither has alone. Beyond first-token uncertainty, the loop's regime does not mark
+carries chaos to lower temperature, two steering vectors at different depths create chaos neither causes alone, and two chaotic
+loops writing one text lock each other into periodic orbits. Beyond first-token uncertainty, the loop's regime does not mark
 the accuracy of ordinary answers, and we find no edge-of-chaos advantage. The loop obeys quantitative laws of
 low-dimensional maps: doubling ratios approach Feigenbaum's constant (4.6688 against 4.6692), periodic windows
 accumulate on folds with a $1/N^2$ law, fold normal forms predicted 23 of 24 frozen passage times within one iterate,
-and interval arithmetic proves an attracting period-8 orbit. In the recurrent-depth model Huginn, a frozen test
-confirmed a spectrally predicted accuracy loss. The loop is not ordinary sampled generation.
+and interval arithmetic proves an attracting period-8 orbit. In the recurrent-depth model Huginn, a frozen test confirmed a predicted accuracy loss. The loop is not ordinary sampled generation.
 \end{abstract}
 
 \section{Introduction}
@@ -115,7 +113,8 @@ system; Section~\ref{sec:beyond} also measures how much of the mechanism survive
   of 20 periodic ones) and Llama-3.3-70B with steering (24 of 24, none of 24) behave alike. In bfloat16 nearly every
   loop diverges, and in a frozen test on 96 additions the batch layout changed the answer of a soft-thinking pipeline
   in 56\,\% of problems in Qwen2.5-0.5B and 55\,\% in Qwen2.5-7B, against never and 10\,\% for a forced greedy
-  baseline. Exactly repeating text can hide a chaotic state (Section~\ref{sec:organization}). Beyond the model's
+  baseline. A causal test shows that the loop carries this: resetting the fed-back state before every soft step
+  removes most of it (80 against 11\,\% of answers changed, on a workstation GPU), and accuracy is unchanged. Exactly repeating text can hide a chaotic state (Section~\ref{sec:organization}). Beyond the model's
   first-token uncertainty, the loop's regime carries no detectable information about the accuracy of ordinary sampled
   answers, and we find no advantage at the edge of chaos.
 \item \emph{Why the loop is chaotic, and how steering makes it so} (Section~\ref{sec:theory}). The loop's derivative
@@ -663,6 +662,21 @@ the rounding-level difference between the layouts changed 5\,\% of the answers w
 Two horizons thus matter. Within a short budget, continuous feedback in low precision makes answers depend on the
 batch, and where the loop expands, even float64 rounding does. Over longer runs, a chaotic regime amplifies float64
 rounding into different readout tokens, on the schedule its Lyapunov exponent sets.
+
+A causal test locates the low-precision effect in the loop. Following a suggestion of an external review, we reran
+the 0.5B pipeline at $T=1$ on 128 fresh additions, after a batch-1 reference run of each (exploratory; on a
+workstation GPU, where the native pipeline's answers changed with the layout in 85\,\% of the problems, against
+56\,\% on the H100 of the frozen test). In the batch of four, two arms start from the reference's prompt state and
+are answered by the same batch-1 decoder. In the free arm the soft phase runs on its own; in the reset arm the
+target's cache and logits are replaced by the reference's before every soft step, so that each step runs in the batch
+but only one at a time. In bfloat16 the answer changed in 102 of the 128 problems (80\,\%) in the free arm and in 14
+(11\,\%) in the reset arm, a difference of 69 points (95\,\% interval $[60,77]$; 90 discordant pairs against 2, exact
+McNemar $p=2\times10^{-24}$), while accuracy stayed between 23 and 25\,\% in every arm. One batched step moves the
+target's logits by about $1.5\,\%$ of their norm; in the free arm the difference grows to $0.79$ of it by step 32,
+while each reset step stays between $1.3$ and $3.1\,\%$. In float32 the free arm's drift grows about 140-fold over the
+32 steps but stays near $10^{-4}$, and 4 of the 128 answers changed (none with reset). Within this budget, the batch
+decides low-precision answers because the loop carries each step's rounding forward and amplifies it, not because the
+last steps alone are fragile, and the answers change without becoming worse.
 \begin{figure}[tbp]
 \centering
 \includegraphics[width=\linewidth]{fig-repro.png}
