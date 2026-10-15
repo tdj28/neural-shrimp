@@ -24089,7 +24089,7 @@ Pod cjlui0q6npnllj (SECURE H100 NVL; runner rc 0, hash verified, terminated; 201
 
 ## 2026-10-15 05:10 UTC: LS result: the chaos map depends strongly on the steering block; deeper steering confines chaos to high temperature
 
-Pods jwiltzwchvpzqc, c2adoqzqddg41k, rsyvjrqt68l9h4, ajxk55udp6qsbc, e3kkmdk5sldh3n, znc21w5qzzpq15, 8qn0fkd9rtkvun, 3r71re3uebgwhd (SECURE, 3.99/h; runner rc 0, hashes verified, terminated; 734-869 s each; commit 5d6f0f4c?). Output: scan64/ls-l{4,8,16,20}-{lo,hi}. Block 12 is pairmap-qwen0.5b/map128-philosophy: same grid and scan settings, vectors with the same recipe. Figure: paper/llm/figures/fig-layer-sweep.png (tools/plot_layer_sweep.py).
+Pods jwiltzwchvpzqc, c2adoqzqddg41k, rsyvjrqt68l9h4, ajxk55udp6qsbc, e3kkmdk5sldh3n, znc21w5qzzpq15, 8qn0fkd9rtkvun, 3r71re3uebgwhd (SECURE, 3.99/h; runner rc 0, hashes verified, terminated; 734-869 s each; commit e3c13292). Output: scan64/ls-l{4,8,16,20}-{lo,hi}. Block 12 is pairmap-qwen0.5b/map128-philosophy: same grid and scan settings, vectors with the same recipe. Figure: paper/llm/figures/fig-layer-sweep.png (tools/plot_layer_sweep.py).
 
 Chaotic share of the 128 x 128 cells (exponent above 1e-3, no period), alpha -0.12 to 0.12 and log10 T -1.0 to 0.3:
 
