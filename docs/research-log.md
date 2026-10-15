@@ -24643,3 +24643,18 @@ Pods lzd2y8s940fuog (REPRO7a, float64) and sj3h0wu7ffntlw (REPRO7b, float32 and 
 
 - **float64.** The divergence step of the chaotic cells against ln(1e-2/d_1)/lambda: median ratio 0.95, log-log correlation 0.63 (24 cells). The periodic cells' final distances: 95th percentile 1.3e-13; median largest distance 3.6e-13.
 - **Reading.** The 0.5B result replicates without steering, in a model with untied embeddings: in float64 the dynamical regime decides whether the batch layout changes the text, and the exponent predicts when. In bfloat16 the layout changes the trajectory everywhere.
+
+## 2026-10-15 08:04 UTC: XO7 result: in Qwen2.5-7B the crossover replicates the damping by the network change; the expansion is already present in the unsteered derivative at the steered states
+
+Pod v25l1gmcwmk72c (SECURE H100 NVL; runner rc 0, hash verified, terminated; 529 s; commit 0f91c457). Output xo/cells7: 18 cells of docs/xo7-cells.json (philosophy at block 14, untied embeddings). Inline analysis in this session.
+- **Validation.** Arm 11 equals the twin exponent within 1e-4 at all 18 cells.
+- **Contrasts.** 10 held-out chaotic cells, nats per step, bootstrap 95 % intervals:
+  - readout effect (10 - 00): +0.23 [-0.11, 0.64];
+  - network effect (01 - 00): **-1.14 [-1.61, -0.65]**;
+  - interaction: +0.20 [-0.03, 0.40];
+  - 11 - 10: -0.94 [-1.37, -0.53].
+- **By temperature.** 8 of the 10 cells lie at log10 T >= 0; there the arm means are 00 +1.33, 10 +1.42, 01 +0.19, 11 +0.52. The two cells at log10 T < 0 have 00 +0.63, 10 +1.42, 01 -0.53, 11 +0.31 (readout effect +0.79, as in the 0.5B; too few cells to rely on).
+- **Reading.**
+  - Replicated in a second, larger model with untied embeddings: steering's change of the network response damps the instability.
+  - Not replicated as a general rule: steering's change of the readout at fixed states adds only a little in the 7B. Its unsteered derivative already expands strongly at the steered states (arm 00 +1.33). Steering therefore acts mainly by carrying the orbit into states where the derivative expands, as in the 0.5B at high temperature.
+  - The paper's mechanism text is narrowed accordingly. Readout creation at fixed states is a low-temperature 0.5B finding; network damping holds in both models.
