@@ -24,5 +24,11 @@
  ],
  "renderer": "tools/render_morph.py --step 2 (constant rotation speed, crossfades at 24 fps)",
  "source_frames": "../neural-shrimp-data/explore/llm-soft-loop/pod64/morph/frame-NNN (run V1b; see the research log)",
- "samples_figure_sha256": "5ae87e5b1bebd6c1e21d514bf9658ef9dcb72a5d871c72772ff423d384d6fa61"
+ "samples_figure_sha256": "5ae87e5b1bebd6c1e21d514bf9658ef9dcb72a5d871c72772ff423d384d6fa61",
+ "samples_figure_redrawn_2026_10_15": {
+  "sha256": "9d3072635d2a8dfb8e312e196bf15022362effbac95074a44f8fa36d139b0dfc",
+  "change": "numeric colour bar added (largest Lyapunov exponent per step, clipped at +-0.5); maps unchanged",
+  "command": "python tools/render_morph.py llm-soft-loop/pod64/morph llm-soft-loop/controls/vectors-morph-r1-r3-240 OUT --step 2 --samples-only",
+  "check": "the same command before the colour bar reproduced samples_figure_sha256 byte for byte"
+ }
 }

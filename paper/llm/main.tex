@@ -392,8 +392,7 @@ temperature rows (gain split) or over held-out cells (crossover). Runs MECH and 
 \centering
 \includegraphics[width=\linewidth]{fig-morph-samples.png}
 \caption{The soft-token map of Qwen2.5-0.5B-Instruct (steering at layer 12) while the steering direction rotates at
-constant norm from one Gaussian direction ($0^{\circ}$) to another ($90^{\circ}$): largest Lyapunov exponent (red:
-positive) at six of 103 angles, with the chaotic share. Float32 maps of $296\times512$ cells over
+constant norm from one Gaussian direction ($0^{\circ}$) to another ($90^{\circ}$): largest Lyapunov exponent (colour bar; clipped at $\pm0.5$, red positive) at six of 103 angles, with the chaotic share. Float32 maps of $296\times512$ cells over
 $\alpha\in[-0.12,0.12]$, $\log_{10}T\in[-0.45,0.3]$; exponents from 80 measured steps at twin offset $10^{-4}$; each map
 continues from the final states of the previous angle after 40 steps, and every tenth starts from the fixed start
 after 300 steps. Where attractors coexist, continued and fresh starts can reach different ones, so the maps, and the
