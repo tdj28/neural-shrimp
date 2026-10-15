@@ -25055,3 +25055,20 @@ The first figure (docs/tp/tpf-returnmaps.png) stopped at 24 panels. The remainin
 ## 2026-10-15 09:49 UTC: Run card TBZh2 (exploratory)
 
 The same as TBZh, around the second bimodal cell of the hostility@4 + gratitude@16 plane: alpha1 in [-0.0492, -0.0240], alpha2 in [-0.0593, -0.0341], 128 x 128, log10 T -0.1, transient 1000, record 600, twin 1e-6, tol 1e-8. One H100-class pod; ceiling in the private ledger.
+
+## 2026-10-15 09:52 UTC: Run card DLGx (exploratory): two different models in one soft-token conversation
+
+**Question.** Do two different LLMs, Qwen2.5-0.5B-Instruct (A) and Qwen2.5-1.5B-Instruct (B), induce each other into periodic orbits that neither has when talking with itself?
+
+**Coupling.** The models share one tokenizer and a vocabulary of 151,936 rows. A message is a next-token distribution p, which each model embeds with its own matrix (soft_dialogue.py CrossPairLoop: x = E_A^T p_B, y = E_B^T p_A). Tests: tests/test_soft_dialogue.py, 5 pass.
+
+**Lines (unsteered, alpha 0).** Along log10 T in [-0.5, 0.8] (131 temperatures), in both frames (dialogue and cowrite):
+- 0.5B alone (talking with itself);
+- 1.5B alone;
+- the 0.5B <-> 1.5B pair.
+
+Transient 500, record 800 exchanges; twins 1e-6 and 1e-9; tol 1e-8.
+
+**Would surprise us.** The pair always inheriting one model's regime. **Interesting either way:** temperatures where the pair is periodic and both models alone are chaotic, or the converse.
+
+**Compute.** One H100-class pod, about 100 min; ceiling in the private ledger.
