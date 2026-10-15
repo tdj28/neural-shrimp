@@ -25846,3 +25846,47 @@ Secondary:
 - the logit-drift profiles.
 
 The cost ceiling is in the private ledger.
+
+## 2026-10-15 17:36 UTC: run cards OC (orbit census around the swallowtail-shaped junction) and CL2 (two-coordinate closure); consult 10, directions 3 and 2
+
+**OC.** tools/window_census.py (new); points and predictions in docs/oc/oc-points.json, fixed before any solve.
+- 13 parameter points built from the FM5 fold curve. Arms: A (indices 0-20), B (20-31), C (31 on). Cusps U and L were located by FM5c; X is the self-crossing.
+- Prediction, from the generic swallowtail section, counting the local family's period-5 orbits:
+  - E (beyond arms A and C): 0;
+  - the pocket T (bounded by B, C and A between the cusps and the crossing): 4;
+  - the surrounding region (W left of B, S below X, N above X, and beyond each cusp): 2.
+- Method: at each point, low-rank Newton (k 6, at most 20 steps) from the states of the nearest curve point on each arm. The seeds are shifted along that point's critical eigenvector by s |x|, for s in {0, +-1e-3, +-3e-3, +-1e-2, +-3e-2}: 27 seeds per point.
+  - Distinct orbits are counted modulo phase (relative distance 1e-7), with token loops and Ritz multipliers.
+  - Counts are lower bounds.
+- CPU check (S-low, reduced seeds: arms A and C, s in {0, 3e-3}):
+  - The arm-A seeds converge in 5 Newton steps to the attracting orbit (leading multiplier 0.247).
+  - The arm-C seeds do not converge in 15, as the prediction implies: the arm-C orbits exist only on the pocket side.
+  - The saddle partner needs the negative shifts, which the check left out.
+
+**CL2.** tools/window_closure.py (new; tests/test_window_closure.py, 3 pass, with the two synthetic controls):
+- the Henon map embedded in R^10 passes two-coordinate closure (median errors: 1 coordinate 5.8e-3, 2 coordinates 3.1e-6, 4 coordinates 4.2e-6);
+- a map with a slow third coordinate fails it (6.6e-2, 6.6e-3, 4.8e-6).
+
+Locations and predictions in docs/cl/cl-locations.json, fixed before the pod run:
+- development: a body point and a complex-pair point;
+- evaluation:
+  - the body seed cell (1D);
+  - two complex-pair points (2D);
+  - near the right fold (1D);
+  - near the left flip (1D);
+  - the pocket orbits found by OC (no prediction).
+
+Method:
+- Perturbations at relative 1e-3 and 1e-2, 64 seeds each (32 to fit, 32 to test), 8 returns.
+- Modal coordinates (the spectral projection of the leading Ritz modes) for k = 1, 2, 4.
+- Quadratic return models with a fitted lift back to the state, and the linearized map as a baseline.
+
+**Amendment, before the pod run.** On the body location, run on the CPU while developing the tool:
+- The first version projected orthogonally onto the leading eigenvectors. That mixes faster modes into the leading coordinate (the return map is non-normal). The one-coordinate forecast error was then about 1, although the deviations decay by exactly 0.267 per return.
+- The coordinates are now modal; the unit test checks this.
+- With them, the body's median errors are 2.6e-2 and 3.6e-2 (1 coordinate), 2.9e-4 and 2.2e-4 (2), and 2.1e-6 and 3.1e-6 (4).
+- The consult's relative gate ("4 coordinates add less than 20 %") fails at such tiny errors. It stays the primary criterion, unchanged.
+- Added as a secondary readout, after this check: the smallest number of coordinates whose median error is below 0.05 and below 0.005.
+- The body location is therefore not blind.
+
+**Run.** One H100-class pod, job set shrimp: the census in three parallel parts (75 minutes each), then the closure test (30 minutes). Run limit 110 minutes. The cost ceiling is in the private ledger.

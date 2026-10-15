@@ -1,0 +1,83 @@
+{
+ "note": "Run CL2 (consult 10, direction 2): two-coordinate closure near the period-5 window. Locations are branch points of run FM5 (stored states, so Newton starts on the orbit). Prediction, fixed before any run, from the leading multipliers: one coordinate suffices where the leading multiplier is real and dominant (1D: median E1 < 0.05 and E2 not below 0.8 E1), and two are needed and suffice where the leading pair is complex (2D gates of consult 10). Pocket orbits found by run OC are added as further evaluation locations, without a prediction.",
+ "locations": [
+  {
+   "name": "dev-body",
+   "role": "dev",
+   "seed_run": "llm-soft-loop/pod64/fm5/branch-a2-down",
+   "seed_index": 6,
+   "alpha": -0.11873,
+   "alpha2": 0.10036630558233095,
+   "region": "body, real leading multiplier",
+   "predicted": "1D"
+  },
+  {
+   "name": "dev-complex",
+   "role": "dev",
+   "seed_run": "llm-soft-loop/pod64/fm5/branch-a1-down",
+   "seed_index": 11,
+   "alpha": -0.12049703763885071,
+   "alpha2": 0.100693,
+   "region": "complex leading pair",
+   "predicted": "2D"
+  },
+  {
+   "name": "body",
+   "role": "eval",
+   "seed_run": "llm-soft-loop/pod64/fm5/branch-a1-up",
+   "seed_index": 0,
+   "alpha": -0.11873,
+   "alpha2": 0.100693,
+   "region": "body (seed cell), |mu1| 0.27 >> |mu2| 0.015",
+   "predicted": "1D"
+  },
+  {
+   "name": "complex-1",
+   "role": "eval",
+   "seed_run": "llm-soft-loop/pod64/fm5/branch-a2-down",
+   "seed_index": 13,
+   "alpha": -0.11873,
+   "alpha2": 0.10003768817162453,
+   "region": "complex leading pair, |mu| 0.070",
+   "predicted": "2D"
+  },
+  {
+   "name": "complex-2",
+   "role": "eval",
+   "seed_run": "llm-soft-loop/pod64/fm5/branch-a2-up",
+   "seed_index": 3,
+   "alpha": -0.11873,
+   "alpha2": 0.10104157256658215,
+   "region": "complex leading pair, |mu| 0.051",
+   "predicted": "2D"
+  },
+  {
+   "name": "near-fold",
+   "role": "eval",
+   "seed_run": "llm-soft-loop/pod64/fm5/branch-a1-up",
+   "seed_index": 9,
+   "alpha": -0.11817490895152279,
+   "alpha2": 0.100693,
+   "region": "near the right fold, mu1 +0.66",
+   "predicted": "1D"
+  },
+  {
+   "name": "near-flip",
+   "role": "eval",
+   "seed_run": "llm-soft-loop/pod64/fm5/branch-a1-down",
+   "seed_index": 17,
+   "alpha": -0.1213020997942272,
+   "alpha2": 0.100693,
+   "region": "near the left flip, mu1 -0.81",
+   "predicted": "1D"
+  },
+  {
+   "name": "pocket",
+   "role": "eval",
+   "seed_run": "llm-soft-loop/pod64/oc/census",
+   "census_point": "T-centroid",
+   "region": "pocket T (attracting orbits found by run OC)",
+   "predicted": null
+  }
+ ]
+}
