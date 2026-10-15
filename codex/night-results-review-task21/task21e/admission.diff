@@ -1,0 +1,23 @@
+--- prepared-card.json
++++ reviewed-card.json
+@@ -1,6 +1,6 @@
+ {
+   "schema": "codex-task21e-saved-cusps-v1",
+-  "admission": "prepared",
++  "admission": "reviewed",
+   "output": "/data2/neural-shrimp-data/codex/night-results-review-task21/task21e/run-001",
+   "source_sha256": {
+     "analyze.py": "71249d233412d88fae8705c317867cdb5d34fa3b7309321dc8a826e8f231ca8a"
+--- prepared-launch.py
++++ reviewed-launch.py
+@@ -5,8 +5,8 @@
+ B=Path('/data2/neural-shrimp-data/codex/night-results-review-task21/task21e')
+ OUT=B/'run-001';SUP=OUT.with_name(OUT.name+'-supervision')
+ WRAPPER='codex/night-results-review-task21/task21e/analyze.py';CARD='codex/night-results-review-task21/task21e/run-001-card.json'
+-WRAPPER_SHA=None  # Final accepted independent scalar analyzer pin required.
+-ADMISSION='prepared';CARD_SHA=None  # Exact source and reviewed card pins required before launch.
++WRAPPER_SHA='71249d233412d88fae8705c317867cdb5d34fa3b7309321dc8a826e8f231ca8a'  # Final accepted independent scalar analyzer pin required.
++ADMISSION='reviewed';CARD_SHA='e6e2e8bafefeae7e45d83f1e9b96a2472ffe9a5d5b7c47291f0b1316a4326c9d'  # Exact source and reviewed card pins required before launch.
+ GIB=1024**3;WALL=30;MAX_OUTPUT=16*1024**2
+ 
+ def sha(p):return hashlib.sha256(Path(p).read_bytes()).hexdigest()
