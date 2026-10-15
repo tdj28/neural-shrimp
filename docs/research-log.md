@@ -25781,7 +25781,7 @@ Local RTX 2000 Ada, commit 292493ab, held-out set (128 fresh additions), run onc
 
 The consult's mechanism probe (controlled float32 kicks at three amplitudes) is not run; the free arm's float32 drift already shows growth of about 140-fold over 32 steps.
 
-## 2026-10-15 16:47 UTC: FM5c result (four cusp locations pass; the left fold curve has two more reversals) and run card FM5d
+## 2026-10-15 16:41 UTC: FM5c result (four cusp locations pass; the left fold curve has two more reversals) and run card FM5d
 
 **FM5c.** Pod d7e8gtdvaiq6x4 (COMMUNITY H100 NVL); commit aae497ca from the orchestrator log; runner rc 0; hash verified; terminated and verified 16:40 UTC; 3277 s.
 - The archive was extracted into the run folder: it contained the uploaded FM5 inputs. Three of them were compared and are bitwise identical to the local copies. The fm5c outputs are copied to explore/llm-soft-loop/pod64/fm5c.
