@@ -1,0 +1,2668 @@
+{
+  "schema": "task21e-saved-inputs-v1",
+  "prepared_unlaunchable": true,
+  "source_commit": "88e5eb5ce21b39ae4d390f5729dbacdde7088374",
+  "authority": {
+    "path": "/tmp/task21e-source-001/original-authority.json",
+    "bytes": 34055,
+    "sha256": "f2e1ad93b7e864a6a33f0c11d1fa4d77d4ae3eb18a09fdd405af5d4d8e9f832d"
+  },
+  "source_map": {
+    "path": "/tmp/task21e-source-001/source-map.json",
+    "bytes": 17385,
+    "sha256": "3c45418b2c48062e6ef7638d8d15fbad89455b477d918e1ce9d1b3ba04d4fda6"
+  },
+  "records": [
+    {
+      "id": "curve-foldA-plus-cusp-51",
+      "test": "cusp",
+      "curve_id": "llm-soft-loop/pod64/p6z3/curve-foldA-plus",
+      "left": 51,
+      "right": 52,
+      "attempt": "CL1b",
+      "source_commit": "5ad048f255732a210098fd7c7af724ccde3cdf0b",
+      "file": {
+        "path": "/tmp/task21e-source-001/inputs/curve-foldA-plus-cusp-51/locate.json",
+        "bytes": 4952,
+        "sha256": "c70ee30a4353b612aa71f9eb6e20e1021647b620556a4d2eb159c22c4742577d"
+      },
+      "original_path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/codim2/curve-foldA-plus-cusp-51/locate.json",
+      "archive_member": "explore/llm-soft-loop/pod64/codim2/curve-foldA-plus-cusp-51/locate.json",
+      "archive_sha256": "ece0f8e4d86a23e66d5bcb2c4a6a53c6ae439516465b10a1375de599f51f1cff",
+      "task27_snapshot": {
+        "path": "/data2/neural-shrimp-data/codex/paper-review-task27/source-001/saved-evidence-001/pod64/codim2/curve-foldA-plus-cusp-51/locate.json",
+        "sha256": "c70ee30a4353b612aa71f9eb6e20e1021647b620556a4d2eb159c22c4742577d",
+        "bytes": 4952
+      },
+      "declared_args": {
+        "curve": "llm-soft-loop/pod64/p6z3/curve-foldA-plus",
+        "left": 51,
+        "test": "cusp",
+        "out": "llm-soft-loop/pod64/codim2/curve-foldA-plus-cusp-51",
+        "rounds": 3,
+        "per_round": 5,
+        "btol": 0.01,
+        "device": "cuda",
+        "threads": 12
+      },
+      "declared_period": 6,
+      "declared_kind": "fold",
+      "schema": {
+        "test": "str",
+        "kind": "str",
+        "points": {
+          "type": "list",
+          "length": 11,
+          "element_schema": {
+            "theta": {
+              "type": "list",
+              "length": 2,
+              "element_schema": "float"
+            },
+            "f": "float",
+            "round": "int"
+          }
+        },
+        "brackets": {
+          "type": "list",
+          "length": 4,
+          "element_schema": {
+            "round": "int",
+            "gap": "float",
+            "f": {
+              "type": "list",
+              "length": 2,
+              "element_schema": "float"
+            }
+          }
+        },
+        "final": {
+          "theta": {
+            "type": "list",
+            "length": 2,
+            "element_schema": "float"
+          },
+          "secant_step": "float",
+          "f": "float",
+          "critical_multiplier": {
+            "type": "list",
+            "length": 2,
+            "element_schema": "float"
+          },
+          "b": "float",
+          "c": "float",
+          "c_plateau_relative_spread": "float",
+          "J": {
+            "type": "list",
+            "length": 2,
+            "element_schema": {
+              "type": "list",
+              "length": 2,
+              "element_schema": "float"
+            }
+          },
+          "det_J": "float",
+          "singular_values": {
+            "type": "list",
+            "length": 2,
+            "element_schema": "float"
+          },
+          "condition": "float",
+          "multiplier": {
+            "type": "list",
+            "length": 2,
+            "element_schema": "float"
+          },
+          "second_modulus": "float",
+          "log10_temperature": "float",
+          "alpha": "float"
+        },
+        "initial_f_max": "float",
+        "btol": "float",
+        "checks": {
+          "b_small": "bool",
+          "c_nonzero": "bool",
+          "unfolding_regular": "bool"
+        },
+        "located": "bool",
+        "curve": "str",
+        "left": "int",
+        "period": "int",
+        "args": {
+          "curve": "str",
+          "left": "int",
+          "test": "str",
+          "out": "str",
+          "rounds": "int",
+          "per_round": "int",
+          "btol": "float",
+          "device": "str",
+          "threads": "int"
+        },
+        "seconds": "float"
+      },
+      "selection": "producer-declared cusp reversal",
+      "curve_metadata_scale": 10.0,
+      "curve_file": {
+        "path": "/tmp/task21e-source-001/curves/llm-soft-loop__pod64__p6z3__curve-foldA-plus.json",
+        "bytes": 86568,
+        "sha256": "f9725eddcf0b6bc1906a629f6b9ccf195d51a6040ed08e96ab19af833d09389b"
+      }
+    },
+    {
+      "id": "curve-foldD-minus-cusp-10",
+      "test": "cusp",
+      "curve_id": "llm-soft-loop/pod64/p6z3/curve-foldD-minus",
+      "left": 10,
+      "right": 11,
+      "attempt": "CL1b",
+      "source_commit": "5ad048f255732a210098fd7c7af724ccde3cdf0b",
+      "file": {
+        "path": "/tmp/task21e-source-001/inputs/curve-foldD-minus-cusp-10/locate.json",
+        "bytes": 4156,
+        "sha256": "ba3f23af613240181a1f58bcda260e5074f2248a82c95fcc8aaa27929b68890d"
+      },
+      "original_path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/codim2/curve-foldD-minus-cusp-10/locate.json",
+      "archive_member": "explore/llm-soft-loop/pod64/codim2/curve-foldD-minus-cusp-10/locate.json",
+      "archive_sha256": "ece0f8e4d86a23e66d5bcb2c4a6a53c6ae439516465b10a1375de599f51f1cff",
+      "task27_snapshot": {
+        "path": "/data2/neural-shrimp-data/codex/paper-review-task27/source-001/saved-evidence-001/pod64/codim2/curve-foldD-minus-cusp-10/locate.json",
+        "sha256": "ba3f23af613240181a1f58bcda260e5074f2248a82c95fcc8aaa27929b68890d",
+        "bytes": 4156
+      },
+      "declared_args": {
+        "curve": "llm-soft-loop/pod64/p6z3/curve-foldD-minus",
+        "left": 10,
+        "test": "cusp",
+        "out": "llm-soft-loop/pod64/codim2/curve-foldD-minus-cusp-10",
+        "rounds": 3,
+        "per_round": 5,
+        "btol": 0.01,
+        "device": "cuda",
+        "threads": 12
+      },
+      "declared_period": 6,
+      "declared_kind": "fold",
+      "schema": {
+        "test": "str",
+        "kind": "str",
+        "points": {
+          "type": "list",
+          "length": 8,
+          "element_schema": {
+            "theta": {
+              "type": "list",
+              "length": 2,
+              "element_schema": "float"
+            },
+            "f": "float",
+            "round": "int"
+          }
+        },
+        "brackets": {
+          "type": "list",
+          "length": 4,
+          "element_schema": {
+            "round": "int",
+            "gap": "float",
+            "f": {
+              "type": "list",
+              "length": 2,
+              "element_schema": "float"
+            }
+          }
+        },
+        "final": {
+          "theta": {
+            "type": "list",
+            "length": 2,
+            "element_schema": "float"
+          },
+          "secant_step": "float",
+          "f": "float",
+          "critical_multiplier": {
+            "type": "list",
+            "length": 2,
+            "element_schema": "float"
+          },
+          "b": "float",
+          "c": "float",
+          "c_plateau_relative_spread": "float",
+          "J": {
+            "type": "list",
+            "length": 2,
+            "element_schema": {
+              "type": "list",
+              "length": 2,
+              "element_schema": "float"
+            }
+          },
+          "det_J": "float",
+          "singular_values": {
+            "type": "list",
+            "length": 2,
+            "element_schema": "float"
+          },
+          "condition": "float",
+          "multiplier": {
+            "type": "list",
+            "length": 2,
+            "element_schema": "float"
+          },
+          "second_modulus": "float",
+          "log10_temperature": "float",
+          "alpha": "float"
+        },
+        "initial_f_max": "float",
+        "btol": "float",
+        "checks": {
+          "b_small": "bool",
+          "c_nonzero": "bool",
+          "unfolding_regular": "bool"
+        },
+        "located": "bool",
+        "curve": "str",
+        "left": "int",
+        "period": "int",
+        "args": {
+          "curve": "str",
+          "left": "int",
+          "test": "str",
+          "out": "str",
+          "rounds": "int",
+          "per_round": "int",
+          "btol": "float",
+          "device": "str",
+          "threads": "int"
+        },
+        "seconds": "float"
+      },
+      "selection": "producer-declared cusp reversal",
+      "curve_metadata_scale": 10.0,
+      "curve_file": {
+        "path": "/tmp/task21e-source-001/curves/llm-soft-loop__pod64__p6z3__curve-foldD-minus.json",
+        "bytes": 87254,
+        "sha256": "fb729d159c92324a31f763ba361832ebf8e3c5005c1024f01d062504424bd399"
+      }
+    },
+    {
+      "id": "hub7-foldU-plus-cusp-21",
+      "test": "cusp",
+      "curve_id": "llm-soft-loop/pod64/hcurves/hub7-foldU-plus",
+      "left": 21,
+      "right": 22,
+      "attempt": "CL2b",
+      "source_commit": "5ad048f255732a210098fd7c7af724ccde3cdf0b",
+      "file": {
+        "path": "/tmp/task21e-source-001/inputs/hub7-foldU-plus-cusp-21/locate.json",
+        "bytes": 4137,
+        "sha256": "f325ae2d4926b7d18d2b340e2170261c449a1cab6a7a0b6f88e6ebc2dbcc9eb7"
+      },
+      "original_path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/codim2/hub7-foldU-plus-cusp-21/locate.json",
+      "archive_member": "explore/llm-soft-loop/pod64/codim2/hub7-foldU-plus-cusp-21/locate.json",
+      "archive_sha256": "464a2a55d86b291527cf27750aae7a15dbea8d3cc3bf6d2fe55a4e42e78df96c",
+      "task27_snapshot": {
+        "path": "/data2/neural-shrimp-data/codex/paper-review-task27/source-001/saved-evidence-001/pod64/codim2/hub7-foldU-plus-cusp-21/locate.json",
+        "sha256": "f325ae2d4926b7d18d2b340e2170261c449a1cab6a7a0b6f88e6ebc2dbcc9eb7",
+        "bytes": 4137
+      },
+      "declared_args": {
+        "curve": "llm-soft-loop/pod64/hcurves/hub7-foldU-plus",
+        "left": 21,
+        "test": "cusp",
+        "out": "llm-soft-loop/pod64/codim2/hub7-foldU-plus-cusp-21",
+        "rounds": 3,
+        "per_round": 5,
+        "btol": 0.01,
+        "device": "cuda",
+        "threads": 12
+      },
+      "declared_period": 7,
+      "declared_kind": "fold",
+      "schema": {
+        "test": "str",
+        "kind": "str",
+        "points": {
+          "type": "list",
+          "length": 8,
+          "element_schema": {
+            "theta": {
+              "type": "list",
+              "length": 2,
+              "element_schema": "float"
+            },
+            "f": "float",
+            "round": "int"
+          }
+        },
+        "brackets": {
+          "type": "list",
+          "length": 4,
+          "element_schema": {
+            "round": "int",
+            "gap": "float",
+            "f": {
+              "type": "list",
+              "length": 2,
+              "element_schema": "float"
+            }
+          }
+        },
+        "final": {
+          "theta": {
+            "type": "list",
+            "length": 2,
+            "element_schema": "float"
+          },
+          "secant_step": "float",
+          "f": "float",
+          "critical_multiplier": {
+            "type": "list",
+            "length": 2,
+            "element_schema": "float"
+          },
+          "b": "float",
+          "c": "float",
+          "c_plateau_relative_spread": "float",
+          "J": {
+            "type": "list",
+            "length": 2,
+            "element_schema": {
+              "type": "list",
+              "length": 2,
+              "element_schema": "float"
+            }
+          },
+          "det_J": "float",
+          "singular_values": {
+            "type": "list",
+            "length": 2,
+            "element_schema": "float"
+          },
+          "condition": "float",
+          "multiplier": {
+            "type": "list",
+            "length": 2,
+            "element_schema": "float"
+          },
+          "second_modulus": "float",
+          "log10_temperature": "float",
+          "alpha": "float"
+        },
+        "initial_f_max": "float",
+        "btol": "float",
+        "checks": {
+          "b_small": "bool",
+          "c_nonzero": "bool",
+          "unfolding_regular": "bool"
+        },
+        "located": "bool",
+        "curve": "str",
+        "left": "int",
+        "period": "int",
+        "args": {
+          "curve": "str",
+          "left": "int",
+          "test": "str",
+          "out": "str",
+          "rounds": "int",
+          "per_round": "int",
+          "btol": "float",
+          "device": "str",
+          "threads": "int"
+        },
+        "seconds": "float"
+      },
+      "selection": "producer-declared cusp reversal",
+      "curve_metadata_scale": 10.0,
+      "curve_file": {
+        "path": "/tmp/task21e-source-001/curves/llm-soft-loop__pod64__hcurves__hub7-foldU-plus.json",
+        "bytes": 58630,
+        "sha256": "e5c7999d90cc162e4801fb3ca7e9c3d67eeec86341df4907e0c3deb980a732f7"
+      }
+    },
+    {
+      "id": "hub7-foldS-plus-cusp-13",
+      "test": "cusp",
+      "curve_id": "llm-soft-loop/pod64/hcurves/hub7-foldS-plus",
+      "left": 13,
+      "right": 14,
+      "attempt": "CL2b",
+      "source_commit": "5ad048f255732a210098fd7c7af724ccde3cdf0b",
+      "file": {
+        "path": "/tmp/task21e-source-001/inputs/hub7-foldS-plus-cusp-13/locate.json",
+        "bytes": 3870,
+        "sha256": "3d83d991c02be495098d278c22a92a550f56e6295e299900a70d6bd4b96065fc"
+      },
+      "original_path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/codim2/hub7-foldS-plus-cusp-13/locate.json",
+      "archive_member": "explore/llm-soft-loop/pod64/codim2/hub7-foldS-plus-cusp-13/locate.json",
+      "archive_sha256": "464a2a55d86b291527cf27750aae7a15dbea8d3cc3bf6d2fe55a4e42e78df96c",
+      "task27_snapshot": {
+        "path": "/data2/neural-shrimp-data/codex/paper-review-task27/source-001/saved-evidence-001/pod64/codim2/hub7-foldS-plus-cusp-13/locate.json",
+        "sha256": "3d83d991c02be495098d278c22a92a550f56e6295e299900a70d6bd4b96065fc",
+        "bytes": 3870
+      },
+      "declared_args": {
+        "curve": "llm-soft-loop/pod64/hcurves/hub7-foldS-plus",
+        "left": 13,
+        "test": "cusp",
+        "out": "llm-soft-loop/pod64/codim2/hub7-foldS-plus-cusp-13",
+        "rounds": 3,
+        "per_round": 5,
+        "btol": 0.01,
+        "device": "cuda",
+        "threads": 12
+      },
+      "declared_period": 7,
+      "declared_kind": "fold",
+      "schema": {
+        "test": "str",
+        "kind": "str",
+        "points": {
+          "type": "list",
+          "length": 7,
+          "element_schema": {
+            "theta": {
+              "type": "list",
+              "length": 2,
+              "element_schema": "float"
+            },
+            "f": "float",
+            "round": "int"
+          }
+        },
+        "brackets": {
+          "type": "list",
+          "length": 4,
+          "element_schema": {
+            "round": "int",
+            "gap": "float",
+            "f": {
+              "type": "list",
+              "length": 2,
+              "element_schema": "float"
+            }
+          }
+        },
+        "final": {
+          "theta": {
+            "type": "list",
+            "length": 2,
+            "element_schema": "float"
+          },
+          "secant_step": "float",
+          "f": "float",
+          "critical_multiplier": {
+            "type": "list",
+            "length": 2,
+            "element_schema": "float"
+          },
+          "b": "float",
+          "c": "float",
+          "c_plateau_relative_spread": "float",
+          "J": {
+            "type": "list",
+            "length": 2,
+            "element_schema": {
+              "type": "list",
+              "length": 2,
+              "element_schema": "float"
+            }
+          },
+          "det_J": "float",
+          "singular_values": {
+            "type": "list",
+            "length": 2,
+            "element_schema": "float"
+          },
+          "condition": "float",
+          "multiplier": {
+            "type": "list",
+            "length": 2,
+            "element_schema": "float"
+          },
+          "second_modulus": "float",
+          "log10_temperature": "float",
+          "alpha": "float"
+        },
+        "initial_f_max": "float",
+        "btol": "float",
+        "checks": {
+          "b_small": "bool",
+          "c_nonzero": "bool",
+          "unfolding_regular": "bool"
+        },
+        "located": "bool",
+        "curve": "str",
+        "left": "int",
+        "period": "int",
+        "args": {
+          "curve": "str",
+          "left": "int",
+          "test": "str",
+          "out": "str",
+          "rounds": "int",
+          "per_round": "int",
+          "btol": "float",
+          "device": "str",
+          "threads": "int"
+        },
+        "seconds": "float"
+      },
+      "selection": "producer-declared cusp reversal",
+      "curve_metadata_scale": 10.0,
+      "curve_file": {
+        "path": "/tmp/task21e-source-001/curves/llm-soft-loop__pod64__hcurves__hub7-foldS-plus.json",
+        "bytes": 58212,
+        "sha256": "0bf6f562b6343e21e7fe35a55c109407d92e0a1cc02983607f8ea28ce408e321"
+      }
+    },
+    {
+      "id": "curve-p2-fold-minus-crossing-60",
+      "test": "crossing",
+      "curve_id": "llm-soft-loop/pod64/curve-p2-fold-minus",
+      "left": 60,
+      "right": 61,
+      "attempt": "CL3b",
+      "source_commit": "5ad048f255732a210098fd7c7af724ccde3cdf0b",
+      "file": {
+        "path": "/tmp/task21e-source-001/inputs/curve-p2-fold-minus-crossing-60/locate.json",
+        "bytes": 5474,
+        "sha256": "400f59c83d04edb020217e99994be8cdc8453e1cf53e53253e4050980b92d933"
+      },
+      "original_path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/codim2/curve-p2-fold-minus-crossing-60/locate.json",
+      "archive_member": "explore/llm-soft-loop/pod64/codim2/curve-p2-fold-minus-crossing-60/locate.json",
+      "archive_sha256": "8eb087bb6b3fefa8df082255a12383d2dcfa6e3100d1696c21d9bd3806477bd7",
+      "task27_snapshot": {
+        "path": "/data2/neural-shrimp-data/codex/paper-review-task27/source-001/saved-evidence-001/pod64/codim2/curve-p2-fold-minus-crossing-60/locate.json",
+        "sha256": "400f59c83d04edb020217e99994be8cdc8453e1cf53e53253e4050980b92d933",
+        "bytes": 5474
+      },
+      "declared_args": {
+        "curve": "llm-soft-loop/pod64/curve-p2-fold-minus",
+        "left": 60,
+        "test": "crossing",
+        "out": "llm-soft-loop/pod64/codim2/curve-p2-fold-minus-crossing-60",
+        "rounds": 3,
+        "per_round": 5,
+        "btol": 0.01,
+        "device": "cuda",
+        "threads": 12
+      },
+      "declared_period": 2,
+      "declared_kind": "fold",
+      "schema": {
+        "test": "str",
+        "kind": "str",
+        "points": {
+          "type": "list",
+          "length": 12,
+          "element_schema": {
+            "theta": {
+              "type": "list",
+              "length": 2,
+              "element_schema": "float"
+            },
+            "f": "float",
+            "round": "int"
+          }
+        },
+        "brackets": {
+          "type": "list",
+          "length": 4,
+          "element_schema": {
+            "round": "int",
+            "gap": "float",
+            "f": {
+              "type": "list",
+              "length": 2,
+              "element_schema": "float"
+            }
+          }
+        },
+        "final": {
+          "theta": {
+            "type": "list",
+            "length": 2,
+            "element_schema": "float"
+          },
+          "secant_step": "float",
+          "f": "float",
+          "critical_multiplier": {
+            "type": "list",
+            "length": 2,
+            "element_schema": "float"
+          },
+          "type": "str",
+          "second_multiplier": {
+            "type": "list",
+            "length": 2,
+            "element_schema": "float"
+          },
+          "second_distance_to_circle": "float",
+          "eigenvector_angle_degrees": "float",
+          "multipliers": {
+            "type": "list",
+            "length": 8,
+            "element_schema": {
+              "type": "list",
+              "length": 2,
+              "element_schema": "float"
+            }
+          },
+          "log10_temperature": "float",
+          "alpha": "float"
+        },
+        "initial_f_max": "float",
+        "btol": "float",
+        "checks": {
+          "f_small": "bool",
+          "second_on_circle": "bool"
+        },
+        "located": "bool",
+        "curve": "str",
+        "left": "int",
+        "period": "int",
+        "args": {
+          "curve": "str",
+          "left": "int",
+          "test": "str",
+          "out": "str",
+          "rounds": "int",
+          "per_round": "int",
+          "btol": "float",
+          "device": "str",
+          "threads": "int"
+        },
+        "seconds": "float"
+      },
+      "selection": "separately retained non-cusp candidate disposition"
+    },
+    {
+      "id": "curve-p8-down-minus-reversal-34",
+      "test": "reversal",
+      "curve_id": "llm-soft-loop/pod64/curve-p8-down-minus",
+      "left": 34,
+      "right": 35,
+      "attempt": "CL3b",
+      "source_commit": "5ad048f255732a210098fd7c7af724ccde3cdf0b",
+      "file": {
+        "path": "/tmp/task21e-source-001/inputs/curve-p8-down-minus-reversal-34/locate.json",
+        "bytes": 4334,
+        "sha256": "cc97bbc678266e09d6afd92c421ce272bfa27972b150c3cd687e5820270ad39a"
+      },
+      "original_path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/codim2/curve-p8-down-minus-reversal-34/locate.json",
+      "archive_member": "explore/llm-soft-loop/pod64/codim2/curve-p8-down-minus-reversal-34/locate.json",
+      "archive_sha256": "8eb087bb6b3fefa8df082255a12383d2dcfa6e3100d1696c21d9bd3806477bd7",
+      "task27_snapshot": {
+        "path": "/data2/neural-shrimp-data/codex/paper-review-task27/source-001/saved-evidence-001/pod64/codim2/curve-p8-down-minus-reversal-34/locate.json",
+        "sha256": "cc97bbc678266e09d6afd92c421ce272bfa27972b150c3cd687e5820270ad39a",
+        "bytes": 4334
+      },
+      "declared_args": {
+        "curve": "llm-soft-loop/pod64/curve-p8-down-minus",
+        "left": 34,
+        "test": "reversal",
+        "out": "llm-soft-loop/pod64/codim2/curve-p8-down-minus-reversal-34",
+        "rounds": 3,
+        "per_round": 5,
+        "btol": 0.01,
+        "device": "cuda",
+        "threads": 12
+      },
+      "declared_period": 8,
+      "declared_kind": "flip",
+      "schema": {
+        "test": "str",
+        "kind": "str",
+        "points": {
+          "type": "list",
+          "length": 8,
+          "element_schema": {
+            "theta": {
+              "type": "list",
+              "length": 2,
+              "element_schema": "float"
+            },
+            "f": "float",
+            "round": "int"
+          }
+        },
+        "brackets": {
+          "type": "list",
+          "length": 4,
+          "element_schema": {
+            "round": "int",
+            "gap": "float",
+            "f": {
+              "type": "list",
+              "length": 2,
+              "element_schema": "float"
+            }
+          }
+        },
+        "final": {
+          "theta": {
+            "type": "list",
+            "length": 2,
+            "element_schema": "float"
+          },
+          "secant_step": "float",
+          "f": "float",
+          "critical_multiplier": {
+            "type": "list",
+            "length": 2,
+            "element_schema": "float"
+          },
+          "type": "str",
+          "second_multiplier": {
+            "type": "list",
+            "length": 2,
+            "element_schema": "float"
+          },
+          "second_distance_to_circle": "float",
+          "eigenvector_angle_degrees": "float",
+          "multipliers": {
+            "type": "list",
+            "length": 8,
+            "element_schema": {
+              "type": "list",
+              "length": 2,
+              "element_schema": "float"
+            }
+          },
+          "log10_temperature": "float",
+          "alpha": "float"
+        },
+        "initial_f_max": "float",
+        "btol": "float",
+        "checks": {
+          "f_small": "bool"
+        },
+        "located": "bool",
+        "curve": "str",
+        "left": "int",
+        "period": "int",
+        "args": {
+          "curve": "str",
+          "left": "int",
+          "test": "str",
+          "out": "str",
+          "rounds": "int",
+          "per_round": "int",
+          "btol": "float",
+          "device": "str",
+          "threads": "int"
+        },
+        "seconds": "float"
+      },
+      "selection": "separately retained non-cusp candidate disposition"
+    },
+    {
+      "id": "curve-p8-down-minus-reversal-47",
+      "test": "reversal",
+      "curve_id": "llm-soft-loop/pod64/curve-p8-down-minus",
+      "left": 47,
+      "right": 48,
+      "attempt": "CL3b",
+      "source_commit": "5ad048f255732a210098fd7c7af724ccde3cdf0b",
+      "file": {
+        "path": "/tmp/task21e-source-001/inputs/curve-p8-down-minus-reversal-47/locate.json",
+        "bytes": 3805,
+        "sha256": "af713dda0415b3951ccc64802cc7e900b67631b3baadb88df00399a3e68ff582"
+      },
+      "original_path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/codim2/curve-p8-down-minus-reversal-47/locate.json",
+      "archive_member": "explore/llm-soft-loop/pod64/codim2/curve-p8-down-minus-reversal-47/locate.json",
+      "archive_sha256": "8eb087bb6b3fefa8df082255a12383d2dcfa6e3100d1696c21d9bd3806477bd7",
+      "task27_snapshot": {
+        "path": "/data2/neural-shrimp-data/codex/paper-review-task27/source-001/saved-evidence-001/pod64/codim2/curve-p8-down-minus-reversal-47/locate.json",
+        "sha256": "af713dda0415b3951ccc64802cc7e900b67631b3baadb88df00399a3e68ff582",
+        "bytes": 3805
+      },
+      "declared_args": {
+        "curve": "llm-soft-loop/pod64/curve-p8-down-minus",
+        "left": 47,
+        "test": "reversal",
+        "out": "llm-soft-loop/pod64/codim2/curve-p8-down-minus-reversal-47",
+        "rounds": 3,
+        "per_round": 5,
+        "btol": 0.01,
+        "device": "cuda",
+        "threads": 12
+      },
+      "declared_period": 8,
+      "declared_kind": "flip",
+      "schema": {
+        "test": "str",
+        "kind": "str",
+        "points": {
+          "type": "list",
+          "length": 6,
+          "element_schema": {
+            "theta": {
+              "type": "list",
+              "length": 2,
+              "element_schema": "float"
+            },
+            "f": "float",
+            "round": "int"
+          }
+        },
+        "brackets": {
+          "type": "list",
+          "length": 4,
+          "element_schema": {
+            "round": "int",
+            "gap": "float",
+            "f": {
+              "type": "list",
+              "length": 2,
+              "element_schema": "float"
+            }
+          }
+        },
+        "final": {
+          "theta": {
+            "type": "list",
+            "length": 2,
+            "element_schema": "float"
+          },
+          "secant_step": "float",
+          "f": "float",
+          "critical_multiplier": {
+            "type": "list",
+            "length": 2,
+            "element_schema": "float"
+          },
+          "type": "str",
+          "second_multiplier": {
+            "type": "list",
+            "length": 2,
+            "element_schema": "float"
+          },
+          "second_distance_to_circle": "float",
+          "eigenvector_angle_degrees": "float",
+          "multipliers": {
+            "type": "list",
+            "length": 8,
+            "element_schema": {
+              "type": "list",
+              "length": 2,
+              "element_schema": "float"
+            }
+          },
+          "log10_temperature": "float",
+          "alpha": "float"
+        },
+        "initial_f_max": "float",
+        "btol": "float",
+        "checks": {
+          "f_small": "bool"
+        },
+        "located": "bool",
+        "curve": "str",
+        "left": "int",
+        "period": "int",
+        "args": {
+          "curve": "str",
+          "left": "int",
+          "test": "str",
+          "out": "str",
+          "rounds": "int",
+          "per_round": "int",
+          "btol": "float",
+          "device": "str",
+          "threads": "int"
+        },
+        "seconds": "float"
+      },
+      "selection": "separately retained non-cusp candidate disposition"
+    },
+    {
+      "id": "curve-foldD-minus-crossing-14",
+      "test": "crossing",
+      "curve_id": "llm-soft-loop/pod64/p4/curve-foldD-minus",
+      "left": 14,
+      "right": 15,
+      "attempt": "CL4b",
+      "source_commit": "5ad048f255732a210098fd7c7af724ccde3cdf0b",
+      "file": {
+        "path": "/tmp/task21e-source-001/inputs/curve-foldD-minus-crossing-14/locate.json",
+        "bytes": 5455,
+        "sha256": "87ccf8c3f569daef05a04e91719dfd09da57b986afa5a838ff066b5cc563d73a"
+      },
+      "original_path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/codim2/curve-foldD-minus-crossing-14/locate.json",
+      "archive_member": "explore/llm-soft-loop/pod64/codim2/curve-foldD-minus-crossing-14/locate.json",
+      "archive_sha256": "7c64287dcf9a42ddcdbe30ddd571489726d086d7e2cd94542bbb70fbb2a6a025",
+      "task27_snapshot": {
+        "path": "/data2/neural-shrimp-data/codex/paper-review-task27/source-001/saved-evidence-001/pod64/codim2/curve-foldD-minus-crossing-14/locate.json",
+        "sha256": "87ccf8c3f569daef05a04e91719dfd09da57b986afa5a838ff066b5cc563d73a",
+        "bytes": 5455
+      },
+      "declared_args": {
+        "curve": "llm-soft-loop/pod64/p4/curve-foldD-minus",
+        "left": 14,
+        "test": "crossing",
+        "out": "llm-soft-loop/pod64/codim2/curve-foldD-minus-crossing-14",
+        "rounds": 3,
+        "per_round": 5,
+        "btol": 0.01,
+        "device": "cuda",
+        "threads": 12
+      },
+      "declared_period": 4,
+      "declared_kind": "fold",
+      "schema": {
+        "test": "str",
+        "kind": "str",
+        "points": {
+          "type": "list",
+          "length": 12,
+          "element_schema": {
+            "theta": {
+              "type": "list",
+              "length": 2,
+              "element_schema": "float"
+            },
+            "f": "float",
+            "round": "int"
+          }
+        },
+        "brackets": {
+          "type": "list",
+          "length": 4,
+          "element_schema": {
+            "round": "int",
+            "gap": "float",
+            "f": {
+              "type": "list",
+              "length": 2,
+              "element_schema": "float"
+            }
+          }
+        },
+        "final": {
+          "theta": {
+            "type": "list",
+            "length": 2,
+            "element_schema": "float"
+          },
+          "secant_step": "float",
+          "f": "float",
+          "critical_multiplier": {
+            "type": "list",
+            "length": 2,
+            "element_schema": "float"
+          },
+          "type": "str",
+          "second_multiplier": {
+            "type": "list",
+            "length": 2,
+            "element_schema": "float"
+          },
+          "second_distance_to_circle": "float",
+          "eigenvector_angle_degrees": "float",
+          "multipliers": {
+            "type": "list",
+            "length": 8,
+            "element_schema": {
+              "type": "list",
+              "length": 2,
+              "element_schema": "float"
+            }
+          },
+          "log10_temperature": "float",
+          "alpha": "float"
+        },
+        "initial_f_max": "float",
+        "btol": "float",
+        "checks": {
+          "f_small": "bool",
+          "second_on_circle": "bool"
+        },
+        "located": "bool",
+        "curve": "str",
+        "left": "int",
+        "period": "int",
+        "args": {
+          "curve": "str",
+          "left": "int",
+          "test": "str",
+          "out": "str",
+          "rounds": "int",
+          "per_round": "int",
+          "btol": "float",
+          "device": "str",
+          "threads": "int"
+        },
+        "seconds": "float"
+      },
+      "selection": "separately retained non-cusp candidate disposition"
+    },
+    {
+      "id": "curve-foldD-minus-crossing-20",
+      "test": "crossing",
+      "curve_id": "llm-soft-loop/pod64/p4/curve-foldD-minus",
+      "left": 20,
+      "right": 21,
+      "attempt": "CL4b",
+      "source_commit": "5ad048f255732a210098fd7c7af724ccde3cdf0b",
+      "file": {
+        "path": "/tmp/task21e-source-001/inputs/curve-foldD-minus-crossing-20/locate.json",
+        "bytes": 4848,
+        "sha256": "27ae44f1bfb40b956d4f08490b867ff0b7c3be87682324978919caf212cdeb7a"
+      },
+      "original_path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/codim2/curve-foldD-minus-crossing-20/locate.json",
+      "archive_member": "explore/llm-soft-loop/pod64/codim2/curve-foldD-minus-crossing-20/locate.json",
+      "archive_sha256": "7c64287dcf9a42ddcdbe30ddd571489726d086d7e2cd94542bbb70fbb2a6a025",
+      "task27_snapshot": {
+        "path": "/data2/neural-shrimp-data/codex/paper-review-task27/source-001/saved-evidence-001/pod64/codim2/curve-foldD-minus-crossing-20/locate.json",
+        "sha256": "27ae44f1bfb40b956d4f08490b867ff0b7c3be87682324978919caf212cdeb7a",
+        "bytes": 4848
+      },
+      "declared_args": {
+        "curve": "llm-soft-loop/pod64/p4/curve-foldD-minus",
+        "left": 20,
+        "test": "crossing",
+        "out": "llm-soft-loop/pod64/codim2/curve-foldD-minus-crossing-20",
+        "rounds": 3,
+        "per_round": 5,
+        "btol": 0.01,
+        "device": "cuda",
+        "threads": 12
+      },
+      "declared_period": 4,
+      "declared_kind": "fold",
+      "schema": {
+        "test": "str",
+        "kind": "str",
+        "points": {
+          "type": "list",
+          "length": 10,
+          "element_schema": {
+            "theta": {
+              "type": "list",
+              "length": 2,
+              "element_schema": "float"
+            },
+            "f": "float",
+            "round": "int"
+          }
+        },
+        "brackets": {
+          "type": "list",
+          "length": 4,
+          "element_schema": {
+            "round": "int",
+            "gap": "float",
+            "f": {
+              "type": "list",
+              "length": 2,
+              "element_schema": "float"
+            }
+          }
+        },
+        "final": {
+          "theta": {
+            "type": "list",
+            "length": 2,
+            "element_schema": "float"
+          },
+          "secant_step": "float",
+          "f": "float",
+          "critical_multiplier": {
+            "type": "list",
+            "length": 2,
+            "element_schema": "float"
+          },
+          "type": "str",
+          "second_multiplier": {
+            "type": "list",
+            "length": 2,
+            "element_schema": "float"
+          },
+          "second_distance_to_circle": "float",
+          "eigenvector_angle_degrees": "float",
+          "multipliers": {
+            "type": "list",
+            "length": 8,
+            "element_schema": {
+              "type": "list",
+              "length": 2,
+              "element_schema": "float"
+            }
+          },
+          "log10_temperature": "float",
+          "alpha": "float"
+        },
+        "initial_f_max": "float",
+        "btol": "float",
+        "checks": {
+          "f_small": "bool",
+          "second_on_circle": "bool"
+        },
+        "located": "bool",
+        "curve": "str",
+        "left": "int",
+        "period": "int",
+        "args": {
+          "curve": "str",
+          "left": "int",
+          "test": "str",
+          "out": "str",
+          "rounds": "int",
+          "per_round": "int",
+          "btol": "float",
+          "device": "str",
+          "threads": "int"
+        },
+        "seconds": "float"
+      },
+      "selection": "separately retained non-cusp candidate disposition"
+    },
+    {
+      "id": "curve-foldD-minus-crossing-21",
+      "test": "crossing",
+      "curve_id": "llm-soft-loop/pod64/p4/curve-foldD-minus",
+      "left": 21,
+      "right": 22,
+      "attempt": "CL4b",
+      "source_commit": "5ad048f255732a210098fd7c7af724ccde3cdf0b",
+      "file": {
+        "path": "/tmp/task21e-source-001/inputs/curve-foldD-minus-crossing-21/locate.json",
+        "bytes": 4030,
+        "sha256": "958b006d467085c64b388011960b2a38bf74bf82d9207ae6132092cc2f90cb01"
+      },
+      "original_path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/codim2/curve-foldD-minus-crossing-21/locate.json",
+      "archive_member": "explore/llm-soft-loop/pod64/codim2/curve-foldD-minus-crossing-21/locate.json",
+      "archive_sha256": "7c64287dcf9a42ddcdbe30ddd571489726d086d7e2cd94542bbb70fbb2a6a025",
+      "task27_snapshot": {
+        "path": "/data2/neural-shrimp-data/codex/paper-review-task27/source-001/saved-evidence-001/pod64/codim2/curve-foldD-minus-crossing-21/locate.json",
+        "sha256": "958b006d467085c64b388011960b2a38bf74bf82d9207ae6132092cc2f90cb01",
+        "bytes": 4030
+      },
+      "declared_args": {
+        "curve": "llm-soft-loop/pod64/p4/curve-foldD-minus",
+        "left": 21,
+        "test": "crossing",
+        "out": "llm-soft-loop/pod64/codim2/curve-foldD-minus-crossing-21",
+        "rounds": 3,
+        "per_round": 5,
+        "btol": 0.01,
+        "device": "cuda",
+        "threads": 12
+      },
+      "declared_period": 4,
+      "declared_kind": "fold",
+      "schema": {
+        "test": "str",
+        "kind": "str",
+        "points": {
+          "type": "list",
+          "length": 7,
+          "element_schema": {
+            "theta": {
+              "type": "list",
+              "length": 2,
+              "element_schema": "float"
+            },
+            "f": "float",
+            "round": "int"
+          }
+        },
+        "brackets": {
+          "type": "list",
+          "length": 4,
+          "element_schema": {
+            "round": "int",
+            "gap": "float",
+            "f": {
+              "type": "list",
+              "length": 2,
+              "element_schema": "float"
+            }
+          }
+        },
+        "final": {
+          "theta": {
+            "type": "list",
+            "length": 2,
+            "element_schema": "float"
+          },
+          "secant_step": "float",
+          "f": "float",
+          "critical_multiplier": {
+            "type": "list",
+            "length": 2,
+            "element_schema": "float"
+          },
+          "type": "str",
+          "second_multiplier": {
+            "type": "list",
+            "length": 2,
+            "element_schema": "float"
+          },
+          "second_distance_to_circle": "float",
+          "eigenvector_angle_degrees": "float",
+          "multipliers": {
+            "type": "list",
+            "length": 8,
+            "element_schema": {
+              "type": "list",
+              "length": 2,
+              "element_schema": "float"
+            }
+          },
+          "log10_temperature": "float",
+          "alpha": "float"
+        },
+        "initial_f_max": "float",
+        "btol": "float",
+        "checks": {
+          "f_small": "bool",
+          "second_on_circle": "bool"
+        },
+        "located": "bool",
+        "curve": "str",
+        "left": "int",
+        "period": "int",
+        "args": {
+          "curve": "str",
+          "left": "int",
+          "test": "str",
+          "out": "str",
+          "rounds": "int",
+          "per_round": "int",
+          "btol": "float",
+          "device": "str",
+          "threads": "int"
+        },
+        "seconds": "float"
+      },
+      "selection": "separately retained non-cusp candidate disposition"
+    },
+    {
+      "id": "curve-foldB-minus-cusp-13",
+      "test": "cusp",
+      "curve_id": "llm-soft-loop/pod64/p4/curve-foldB-minus",
+      "left": 13,
+      "right": 14,
+      "attempt": "CL5",
+      "source_commit": "feb6d5873e88a1060ef22fe105f7eb353d3928ef",
+      "file": {
+        "path": "/tmp/task21e-source-001/inputs/curve-foldB-minus-cusp-13/locate.json",
+        "bytes": 4688,
+        "sha256": "c067deb261e05b1e3bc4cc088b3db8830d190ef63071fcb752ed209c97ce2ccc"
+      },
+      "original_path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/codim2/curve-foldB-minus-cusp-13/locate.json",
+      "archive_member": "explore/llm-soft-loop/pod64/codim2/curve-foldB-minus-cusp-13/locate.json",
+      "archive_sha256": "a15a08859d5403232b742162e7de5c2e60ad9377b188e18a62233ef17a4505de",
+      "task27_snapshot": {
+        "path": "/data2/neural-shrimp-data/codex/paper-review-task27/source-001/saved-evidence-001/pod64/codim2/curve-foldB-minus-cusp-13/locate.json",
+        "sha256": "c067deb261e05b1e3bc4cc088b3db8830d190ef63071fcb752ed209c97ce2ccc",
+        "bytes": 4688
+      },
+      "declared_args": {
+        "curve": "llm-soft-loop/pod64/p4/curve-foldB-minus",
+        "left": 13,
+        "test": "cusp",
+        "out": "llm-soft-loop/pod64/codim2/curve-foldB-minus-cusp-13",
+        "rounds": 3,
+        "per_round": 5,
+        "btol": 0.01,
+        "device": "cuda",
+        "threads": 12
+      },
+      "declared_period": 4,
+      "declared_kind": "fold",
+      "schema": {
+        "test": "str",
+        "kind": "str",
+        "points": {
+          "type": "list",
+          "length": 10,
+          "element_schema": {
+            "theta": {
+              "type": "list",
+              "length": 2,
+              "element_schema": "float"
+            },
+            "f": "float",
+            "round": "int"
+          }
+        },
+        "brackets": {
+          "type": "list",
+          "length": 4,
+          "element_schema": {
+            "round": "int",
+            "gap": "float",
+            "f": {
+              "type": "list",
+              "length": 2,
+              "element_schema": "float"
+            }
+          }
+        },
+        "final": {
+          "theta": {
+            "type": "list",
+            "length": 2,
+            "element_schema": "float"
+          },
+          "secant_step": "float",
+          "f": "float",
+          "critical_multiplier": {
+            "type": "list",
+            "length": 2,
+            "element_schema": "float"
+          },
+          "b": "float",
+          "c": "float",
+          "c_plateau_relative_spread": "float",
+          "J": {
+            "type": "list",
+            "length": 2,
+            "element_schema": {
+              "type": "list",
+              "length": 2,
+              "element_schema": "float"
+            }
+          },
+          "det_J": "float",
+          "singular_values": {
+            "type": "list",
+            "length": 2,
+            "element_schema": "float"
+          },
+          "condition": "float",
+          "multiplier": {
+            "type": "list",
+            "length": 2,
+            "element_schema": "float"
+          },
+          "second_modulus": "float",
+          "log10_temperature": "float",
+          "alpha": "float"
+        },
+        "initial_f_max": "float",
+        "btol": "float",
+        "checks": {
+          "b_small": "bool",
+          "c_nonzero": "bool",
+          "unfolding_regular": "bool"
+        },
+        "located": "bool",
+        "curve": "str",
+        "left": "int",
+        "period": "int",
+        "args": {
+          "curve": "str",
+          "left": "int",
+          "test": "str",
+          "out": "str",
+          "rounds": "int",
+          "per_round": "int",
+          "btol": "float",
+          "device": "str",
+          "threads": "int"
+        },
+        "seconds": "float"
+      },
+      "selection": "producer-declared cusp reversal",
+      "curve_metadata_scale": 10.0,
+      "curve_file": {
+        "path": "/tmp/task21e-source-001/curves/llm-soft-loop__pod64__p4__curve-foldB-minus.json",
+        "bytes": 103551,
+        "sha256": "ab67275703d16d09da99fbc37e11f13eef4aaeb737a00055ab427c587a251c7c"
+      }
+    },
+    {
+      "id": "curve-foldB-minus-cusp-54",
+      "test": "cusp",
+      "curve_id": "llm-soft-loop/pod64/p4/curve-foldB-minus",
+      "left": 54,
+      "right": 55,
+      "attempt": "CL5",
+      "source_commit": "feb6d5873e88a1060ef22fe105f7eb353d3928ef",
+      "file": {
+        "path": "/tmp/task21e-source-001/inputs/curve-foldB-minus-cusp-54/locate.json",
+        "bytes": 4403,
+        "sha256": "ce606c94e9b5bc3f7a8d911aad36150e9d0aac0e4ae7398623a7055b51e79bfd"
+      },
+      "original_path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/codim2/curve-foldB-minus-cusp-54/locate.json",
+      "archive_member": "explore/llm-soft-loop/pod64/codim2/curve-foldB-minus-cusp-54/locate.json",
+      "archive_sha256": "a15a08859d5403232b742162e7de5c2e60ad9377b188e18a62233ef17a4505de",
+      "task27_snapshot": {
+        "path": "/data2/neural-shrimp-data/codex/paper-review-task27/source-001/saved-evidence-001/pod64/codim2/curve-foldB-minus-cusp-54/locate.json",
+        "sha256": "ce606c94e9b5bc3f7a8d911aad36150e9d0aac0e4ae7398623a7055b51e79bfd",
+        "bytes": 4403
+      },
+      "declared_args": {
+        "curve": "llm-soft-loop/pod64/p4/curve-foldB-minus",
+        "left": 54,
+        "test": "cusp",
+        "out": "llm-soft-loop/pod64/codim2/curve-foldB-minus-cusp-54",
+        "rounds": 3,
+        "per_round": 5,
+        "btol": 0.01,
+        "device": "cuda",
+        "threads": 12
+      },
+      "declared_period": 4,
+      "declared_kind": "fold",
+      "schema": {
+        "test": "str",
+        "kind": "str",
+        "points": {
+          "type": "list",
+          "length": 9,
+          "element_schema": {
+            "theta": {
+              "type": "list",
+              "length": 2,
+              "element_schema": "float"
+            },
+            "f": "float",
+            "round": "int"
+          }
+        },
+        "brackets": {
+          "type": "list",
+          "length": 4,
+          "element_schema": {
+            "round": "int",
+            "gap": "float",
+            "f": {
+              "type": "list",
+              "length": 2,
+              "element_schema": "float"
+            }
+          }
+        },
+        "final": {
+          "theta": {
+            "type": "list",
+            "length": 2,
+            "element_schema": "float"
+          },
+          "secant_step": "float",
+          "f": "float",
+          "critical_multiplier": {
+            "type": "list",
+            "length": 2,
+            "element_schema": "float"
+          },
+          "b": "float",
+          "c": "float",
+          "c_plateau_relative_spread": "float",
+          "J": {
+            "type": "list",
+            "length": 2,
+            "element_schema": {
+              "type": "list",
+              "length": 2,
+              "element_schema": "float"
+            }
+          },
+          "det_J": "float",
+          "singular_values": {
+            "type": "list",
+            "length": 2,
+            "element_schema": "float"
+          },
+          "condition": "float",
+          "multiplier": {
+            "type": "list",
+            "length": 2,
+            "element_schema": "float"
+          },
+          "second_modulus": "float",
+          "log10_temperature": "float",
+          "alpha": "float"
+        },
+        "initial_f_max": "float",
+        "btol": "float",
+        "checks": {
+          "b_small": "bool",
+          "c_nonzero": "bool",
+          "unfolding_regular": "bool"
+        },
+        "located": "bool",
+        "curve": "str",
+        "left": "int",
+        "period": "int",
+        "args": {
+          "curve": "str",
+          "left": "int",
+          "test": "str",
+          "out": "str",
+          "rounds": "int",
+          "per_round": "int",
+          "btol": "float",
+          "device": "str",
+          "threads": "int"
+        },
+        "seconds": "float"
+      },
+      "selection": "producer-declared cusp reversal",
+      "curve_metadata_scale": 10.0,
+      "curve_file": {
+        "path": "/tmp/task21e-source-001/curves/llm-soft-loop__pod64__p4__curve-foldB-minus.json",
+        "bytes": 103551,
+        "sha256": "ab67275703d16d09da99fbc37e11f13eef4aaeb737a00055ab427c587a251c7c"
+      }
+    },
+    {
+      "id": "curve-foldB-plus-cusp-45",
+      "test": "cusp",
+      "curve_id": "llm-soft-loop/pod64/p4/curve-foldB-plus",
+      "left": 45,
+      "right": 46,
+      "attempt": "CL6b",
+      "source_commit": "7def712e8e81bdeb63540a8c744b7d362723b342",
+      "file": {
+        "path": "/tmp/task21e-source-001/inputs/curve-foldB-plus-cusp-45/locate.json",
+        "bytes": 4396,
+        "sha256": "7adb5a4eb679d7faf7c3297336b8bf02118f7186fb809f3f7f2adb14d423fb66"
+      },
+      "original_path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/codim2/curve-foldB-plus-cusp-45/locate.json",
+      "archive_member": "explore/llm-soft-loop/pod64/codim2/curve-foldB-plus-cusp-45/locate.json",
+      "archive_sha256": "c485fa3270d0e969828e88df181061bb81a24bbfad03aed78c559fa60451bf8b",
+      "task27_snapshot": {
+        "path": "/data2/neural-shrimp-data/codex/paper-review-task27/source-001/saved-evidence-001/pod64/codim2/curve-foldB-plus-cusp-45/locate.json",
+        "sha256": "7adb5a4eb679d7faf7c3297336b8bf02118f7186fb809f3f7f2adb14d423fb66",
+        "bytes": 4396
+      },
+      "declared_args": {
+        "curve": "llm-soft-loop/pod64/p4/curve-foldB-plus",
+        "left": 45,
+        "test": "cusp",
+        "out": "llm-soft-loop/pod64/codim2/curve-foldB-plus-cusp-45",
+        "rounds": 3,
+        "per_round": 5,
+        "btol": 0.01,
+        "device": "cuda",
+        "threads": 12
+      },
+      "declared_period": 4,
+      "declared_kind": "fold",
+      "schema": {
+        "test": "str",
+        "kind": "str",
+        "points": {
+          "type": "list",
+          "length": 9,
+          "element_schema": {
+            "theta": {
+              "type": "list",
+              "length": 2,
+              "element_schema": "float"
+            },
+            "f": "float",
+            "round": "int"
+          }
+        },
+        "brackets": {
+          "type": "list",
+          "length": 4,
+          "element_schema": {
+            "round": "int",
+            "gap": "float",
+            "f": {
+              "type": "list",
+              "length": 2,
+              "element_schema": "float"
+            }
+          }
+        },
+        "final": {
+          "theta": {
+            "type": "list",
+            "length": 2,
+            "element_schema": "float"
+          },
+          "secant_step": "float",
+          "f": "float",
+          "critical_multiplier": {
+            "type": "list",
+            "length": 2,
+            "element_schema": "float"
+          },
+          "b": "float",
+          "c": "float",
+          "c_plateau_relative_spread": "float",
+          "J": {
+            "type": "list",
+            "length": 2,
+            "element_schema": {
+              "type": "list",
+              "length": 2,
+              "element_schema": "float"
+            }
+          },
+          "det_J": "float",
+          "singular_values": {
+            "type": "list",
+            "length": 2,
+            "element_schema": "float"
+          },
+          "condition": "float",
+          "multiplier": {
+            "type": "list",
+            "length": 2,
+            "element_schema": "float"
+          },
+          "second_modulus": "float",
+          "log10_temperature": "float",
+          "alpha": "float"
+        },
+        "initial_f_max": "float",
+        "btol": "float",
+        "checks": {
+          "b_small": "bool",
+          "c_nonzero": "bool",
+          "unfolding_regular": "bool"
+        },
+        "located": "bool",
+        "curve": "str",
+        "left": "int",
+        "period": "int",
+        "args": {
+          "curve": "str",
+          "left": "int",
+          "test": "str",
+          "out": "str",
+          "rounds": "int",
+          "per_round": "int",
+          "btol": "float",
+          "device": "str",
+          "threads": "int"
+        },
+        "seconds": "float"
+      },
+      "selection": "producer-declared cusp reversal",
+      "curve_metadata_scale": 10.0,
+      "curve_file": {
+        "path": "/tmp/task21e-source-001/curves/llm-soft-loop__pod64__p4__curve-foldB-plus.json",
+        "bytes": 101160,
+        "sha256": "355910b19d9d7145d553cde01ff5f0db89249968ab1893226dbabfec7ea0312d"
+      }
+    },
+    {
+      "id": "curve-foldC-plus-2-cusp-32",
+      "test": "cusp",
+      "curve_id": "llm-soft-loop/pod64/p4/curve-foldC-plus-2",
+      "left": 32,
+      "right": 33,
+      "attempt": "CL6b",
+      "source_commit": "7def712e8e81bdeb63540a8c744b7d362723b342",
+      "file": {
+        "path": "/tmp/task21e-source-001/inputs/curve-foldC-plus-2-cusp-32/locate.json",
+        "bytes": 4961,
+        "sha256": "8132a5bb5e8c829dfe9b9a11701fd68942e98b7fe4aae93d14feff1daf9b344a"
+      },
+      "original_path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/codim2/curve-foldC-plus-2-cusp-32/locate.json",
+      "archive_member": "explore/llm-soft-loop/pod64/codim2/curve-foldC-plus-2-cusp-32/locate.json",
+      "archive_sha256": "c485fa3270d0e969828e88df181061bb81a24bbfad03aed78c559fa60451bf8b",
+      "task27_snapshot": {
+        "path": "/data2/neural-shrimp-data/codex/paper-review-task27/source-001/saved-evidence-001/pod64/codim2/curve-foldC-plus-2-cusp-32/locate.json",
+        "sha256": "8132a5bb5e8c829dfe9b9a11701fd68942e98b7fe4aae93d14feff1daf9b344a",
+        "bytes": 4961
+      },
+      "declared_args": {
+        "curve": "llm-soft-loop/pod64/p4/curve-foldC-plus-2",
+        "left": 32,
+        "test": "cusp",
+        "out": "llm-soft-loop/pod64/codim2/curve-foldC-plus-2-cusp-32",
+        "rounds": 3,
+        "per_round": 5,
+        "btol": 0.01,
+        "device": "cuda",
+        "threads": 12
+      },
+      "declared_period": 4,
+      "declared_kind": "fold",
+      "schema": {
+        "test": "str",
+        "kind": "str",
+        "points": {
+          "type": "list",
+          "length": 11,
+          "element_schema": {
+            "theta": {
+              "type": "list",
+              "length": 2,
+              "element_schema": "float"
+            },
+            "f": "float",
+            "round": "int"
+          }
+        },
+        "brackets": {
+          "type": "list",
+          "length": 4,
+          "element_schema": {
+            "round": "int",
+            "gap": "float",
+            "f": {
+              "type": "list",
+              "length": 2,
+              "element_schema": "float"
+            }
+          }
+        },
+        "final": {
+          "theta": {
+            "type": "list",
+            "length": 2,
+            "element_schema": "float"
+          },
+          "secant_step": "float",
+          "f": "float",
+          "critical_multiplier": {
+            "type": "list",
+            "length": 2,
+            "element_schema": "float"
+          },
+          "b": "float",
+          "c": "float",
+          "c_plateau_relative_spread": "float",
+          "J": {
+            "type": "list",
+            "length": 2,
+            "element_schema": {
+              "type": "list",
+              "length": 2,
+              "element_schema": "float"
+            }
+          },
+          "det_J": "float",
+          "singular_values": {
+            "type": "list",
+            "length": 2,
+            "element_schema": "float"
+          },
+          "condition": "float",
+          "multiplier": {
+            "type": "list",
+            "length": 2,
+            "element_schema": "float"
+          },
+          "second_modulus": "float",
+          "log10_temperature": "float",
+          "alpha": "float"
+        },
+        "initial_f_max": "float",
+        "btol": "float",
+        "checks": {
+          "b_small": "bool",
+          "c_nonzero": "bool",
+          "unfolding_regular": "bool"
+        },
+        "located": "bool",
+        "curve": "str",
+        "left": "int",
+        "period": "int",
+        "args": {
+          "curve": "str",
+          "left": "int",
+          "test": "str",
+          "out": "str",
+          "rounds": "int",
+          "per_round": "int",
+          "btol": "float",
+          "device": "str",
+          "threads": "int"
+        },
+        "seconds": "float"
+      },
+      "selection": "producer-declared cusp reversal",
+      "curve_metadata_scale": 10.0,
+      "curve_file": {
+        "path": "/tmp/task21e-source-001/curves/llm-soft-loop__pod64__p4__curve-foldC-plus-2.json",
+        "bytes": 101717,
+        "sha256": "1b9b076e52f00f006ce9757b01987c0ea299279a6ae3d1b1689f3af5523823c4"
+      }
+    },
+    {
+      "id": "curve-foldC-plus-2-cusp-42",
+      "test": "cusp",
+      "curve_id": "llm-soft-loop/pod64/p4/curve-foldC-plus-2",
+      "left": 42,
+      "right": 43,
+      "attempt": "CL6b",
+      "source_commit": "7def712e8e81bdeb63540a8c744b7d362723b342",
+      "file": {
+        "path": "/tmp/task21e-source-001/inputs/curve-foldC-plus-2-cusp-42/locate.json",
+        "bytes": 4692,
+        "sha256": "476beecc7f8b2bf6a70cb580193654f9d6349d3eeb6aa2634853ff6de3bf9fd0"
+      },
+      "original_path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/codim2/curve-foldC-plus-2-cusp-42/locate.json",
+      "archive_member": "explore/llm-soft-loop/pod64/codim2/curve-foldC-plus-2-cusp-42/locate.json",
+      "archive_sha256": "c485fa3270d0e969828e88df181061bb81a24bbfad03aed78c559fa60451bf8b",
+      "task27_snapshot": {
+        "path": "/data2/neural-shrimp-data/codex/paper-review-task27/source-001/saved-evidence-001/pod64/codim2/curve-foldC-plus-2-cusp-42/locate.json",
+        "sha256": "476beecc7f8b2bf6a70cb580193654f9d6349d3eeb6aa2634853ff6de3bf9fd0",
+        "bytes": 4692
+      },
+      "declared_args": {
+        "curve": "llm-soft-loop/pod64/p4/curve-foldC-plus-2",
+        "left": 42,
+        "test": "cusp",
+        "out": "llm-soft-loop/pod64/codim2/curve-foldC-plus-2-cusp-42",
+        "rounds": 3,
+        "per_round": 5,
+        "btol": 0.01,
+        "device": "cuda",
+        "threads": 12
+      },
+      "declared_period": 4,
+      "declared_kind": "fold",
+      "schema": {
+        "test": "str",
+        "kind": "str",
+        "points": {
+          "type": "list",
+          "length": 10,
+          "element_schema": {
+            "theta": {
+              "type": "list",
+              "length": 2,
+              "element_schema": "float"
+            },
+            "f": "float",
+            "round": "int"
+          }
+        },
+        "brackets": {
+          "type": "list",
+          "length": 4,
+          "element_schema": {
+            "round": "int",
+            "gap": "float",
+            "f": {
+              "type": "list",
+              "length": 2,
+              "element_schema": "float"
+            }
+          }
+        },
+        "final": {
+          "theta": {
+            "type": "list",
+            "length": 2,
+            "element_schema": "float"
+          },
+          "secant_step": "float",
+          "f": "float",
+          "critical_multiplier": {
+            "type": "list",
+            "length": 2,
+            "element_schema": "float"
+          },
+          "b": "float",
+          "c": "float",
+          "c_plateau_relative_spread": "float",
+          "J": {
+            "type": "list",
+            "length": 2,
+            "element_schema": {
+              "type": "list",
+              "length": 2,
+              "element_schema": "float"
+            }
+          },
+          "det_J": "float",
+          "singular_values": {
+            "type": "list",
+            "length": 2,
+            "element_schema": "float"
+          },
+          "condition": "float",
+          "multiplier": {
+            "type": "list",
+            "length": 2,
+            "element_schema": "float"
+          },
+          "second_modulus": "float",
+          "log10_temperature": "float",
+          "alpha": "float"
+        },
+        "initial_f_max": "float",
+        "btol": "float",
+        "checks": {
+          "b_small": "bool",
+          "c_nonzero": "bool",
+          "unfolding_regular": "bool"
+        },
+        "located": "bool",
+        "curve": "str",
+        "left": "int",
+        "period": "int",
+        "args": {
+          "curve": "str",
+          "left": "int",
+          "test": "str",
+          "out": "str",
+          "rounds": "int",
+          "per_round": "int",
+          "btol": "float",
+          "device": "str",
+          "threads": "int"
+        },
+        "seconds": "float"
+      },
+      "selection": "producer-declared cusp reversal",
+      "curve_metadata_scale": 10.0,
+      "curve_file": {
+        "path": "/tmp/task21e-source-001/curves/llm-soft-loop__pod64__p4__curve-foldC-plus-2.json",
+        "bytes": 101717,
+        "sha256": "1b9b076e52f00f006ce9757b01987c0ea299279a6ae3d1b1689f3af5523823c4"
+      }
+    }
+  ],
+  "curves": [
+    {
+      "id": "llm-soft-loop/pod64/p6z3/curve-foldA-plus",
+      "file": {
+        "path": "/tmp/task21e-source-001/curves/llm-soft-loop__pod64__p6z3__curve-foldA-plus.json",
+        "bytes": 86568,
+        "sha256": "f9725eddcf0b6bc1906a629f6b9ccf195d51a6040ed08e96ab19af833d09389b"
+      },
+      "original_path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/p6z3/curve-foldA-plus/curve.json",
+      "declared_args": {
+        "command": "curve",
+        "start": "llm-soft-loop/pod64/p6z3/branch-T-up",
+        "reference_dtype": "none",
+        "kind": "fold",
+        "start_index": -1,
+        "threads": 8,
+        "dtype": "float64",
+        "device": "cuda",
+        "alpha_scale": 10.0,
+        "direction": 1,
+        "steps": 60,
+        "ds": 0.005,
+        "ds_min": 1e-06,
+        "ds_max": 0.05,
+        "tol": 1e-10,
+        "gtol": 1e-09,
+        "max_newton": 10,
+        "exact_jvp": false,
+        "refine_k": 4,
+        "gmres_tol": 1e-10,
+        "gmres_maxiter": 1,
+        "log_temperature_bounds": [
+          -0.12,
+          0.0
+        ],
+        "alpha_bounds": [
+          0.068,
+          0.09
+        ],
+        "chunk": 896,
+        "out": "llm-soft-loop/pod64/p6z3/curve-foldA-plus"
+      },
+      "declared_kind": "fold",
+      "declared_period": 6,
+      "point_count": 60,
+      "point_schema": {
+        "index": "int",
+        "theta": {
+          "type": "list",
+          "length": 2,
+          "element_schema": "float"
+        },
+        "residual": "float",
+        "g": "float",
+        "g_dense": "float",
+        "newton": "int",
+        "ds": "float",
+        "arclength": "float",
+        "parameter_tangent": {
+          "type": "list",
+          "length": 2,
+          "element_schema": "float"
+        },
+        "parameter_speed": "float",
+        "cusp_candidate": "bool",
+        "jvps": "int",
+        "gmres_unconverged": "int",
+        "rejected": "int",
+        "multipliers": {
+          "type": "list",
+          "length": 8,
+          "element_schema": {
+            "type": "list",
+            "length": 2,
+            "element_schema": "float"
+          }
+        },
+        "critical_multiplier": {
+          "type": "list",
+          "length": 2,
+          "element_schema": "float"
+        },
+        "other_nearest_plus_one": "float",
+        "other_nearest_minus_one": "float",
+        "largest_complex_modulus": "float",
+        "other_spectral_radius": "float",
+        "critical_multiplier_refined": {
+          "type": "list",
+          "length": 2,
+          "element_schema": "float"
+        },
+        "refine_residual": "float",
+        "log10_temperature": "float",
+        "alpha": "float"
+      },
+      "selected_left_indices": [
+        51
+      ],
+      "association_limit": "Current local original curve JSON is pinned and its path is named in the original uploaded extra_data/command. Native upload archive contents and historical remote loaded bytes are not reconstructed."
+    },
+    {
+      "id": "llm-soft-loop/pod64/p6z3/curve-foldD-minus",
+      "file": {
+        "path": "/tmp/task21e-source-001/curves/llm-soft-loop__pod64__p6z3__curve-foldD-minus.json",
+        "bytes": 87254,
+        "sha256": "fb729d159c92324a31f763ba361832ebf8e3c5005c1024f01d062504424bd399"
+      },
+      "original_path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/p6z3/curve-foldD-minus/curve.json",
+      "declared_args": {
+        "command": "curve",
+        "start": "llm-soft-loop/pod64/p6z3/branch-a-down",
+        "reference_dtype": "none",
+        "kind": "fold",
+        "start_index": -1,
+        "threads": 8,
+        "dtype": "float64",
+        "device": "cuda",
+        "alpha_scale": 10.0,
+        "direction": -1,
+        "steps": 60,
+        "ds": 0.005,
+        "ds_min": 1e-06,
+        "ds_max": 0.05,
+        "tol": 1e-10,
+        "gtol": 1e-09,
+        "max_newton": 10,
+        "exact_jvp": false,
+        "refine_k": 4,
+        "gmres_tol": 1e-10,
+        "gmres_maxiter": 1,
+        "log_temperature_bounds": [
+          -0.12,
+          0.0
+        ],
+        "alpha_bounds": [
+          0.068,
+          0.09
+        ],
+        "chunk": 896,
+        "out": "llm-soft-loop/pod64/p6z3/curve-foldD-minus"
+      },
+      "declared_kind": "fold",
+      "declared_period": 6,
+      "point_count": 60,
+      "point_schema": {
+        "index": "int",
+        "theta": {
+          "type": "list",
+          "length": 2,
+          "element_schema": "float"
+        },
+        "residual": "float",
+        "g": "float",
+        "g_dense": "float",
+        "newton": "int",
+        "ds": "float",
+        "arclength": "float",
+        "parameter_tangent": {
+          "type": "list",
+          "length": 2,
+          "element_schema": "float"
+        },
+        "parameter_speed": "float",
+        "cusp_candidate": "bool",
+        "jvps": "int",
+        "gmres_unconverged": "int",
+        "rejected": "int",
+        "multipliers": {
+          "type": "list",
+          "length": 8,
+          "element_schema": {
+            "type": "list",
+            "length": 2,
+            "element_schema": "float"
+          }
+        },
+        "critical_multiplier": {
+          "type": "list",
+          "length": 2,
+          "element_schema": "float"
+        },
+        "other_nearest_plus_one": "float",
+        "other_nearest_minus_one": "float",
+        "largest_complex_modulus": "float",
+        "other_spectral_radius": "float",
+        "critical_multiplier_refined": {
+          "type": "list",
+          "length": 2,
+          "element_schema": "float"
+        },
+        "refine_residual": "float",
+        "log10_temperature": "float",
+        "alpha": "float"
+      },
+      "selected_left_indices": [
+        10
+      ],
+      "association_limit": "Current local original curve JSON is pinned and its path is named in the original uploaded extra_data/command. Native upload archive contents and historical remote loaded bytes are not reconstructed."
+    },
+    {
+      "id": "llm-soft-loop/pod64/hcurves/hub7-foldU-plus",
+      "file": {
+        "path": "/tmp/task21e-source-001/curves/llm-soft-loop__pod64__hcurves__hub7-foldU-plus.json",
+        "bytes": 58630,
+        "sha256": "e5c7999d90cc162e4801fb3ca7e9c3d67eeec86341df4907e0c3deb980a732f7"
+      },
+      "original_path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/hcurves/hub7-foldU-plus/curve.json",
+      "declared_args": {
+        "command": "curve",
+        "start": "llm-soft-loop/pod64/hverify/branch-hub7-Tup",
+        "reference_dtype": "none",
+        "kind": "fold",
+        "start_index": -1,
+        "threads": 8,
+        "dtype": "float64",
+        "device": "cuda",
+        "alpha_scale": 10.0,
+        "direction": 1,
+        "steps": 40,
+        "ds": 0.001,
+        "ds_min": 1e-06,
+        "ds_max": 0.005,
+        "tol": 1e-10,
+        "gtol": 1e-09,
+        "max_newton": 10,
+        "exact_jvp": false,
+        "refine_k": 4,
+        "gmres_tol": 1e-10,
+        "gmres_maxiter": 1,
+        "log_temperature_bounds": [
+          0.16,
+          0.23
+        ],
+        "alpha_bounds": [
+          0.058,
+          0.078
+        ],
+        "chunk": 896,
+        "out": "llm-soft-loop/pod64/hcurves/hub7-foldU-plus"
+      },
+      "declared_kind": "fold",
+      "declared_period": 7,
+      "point_count": 40,
+      "point_schema": {
+        "index": "int",
+        "theta": {
+          "type": "list",
+          "length": 2,
+          "element_schema": "float"
+        },
+        "residual": "float",
+        "g": "float",
+        "g_dense": "float",
+        "newton": "int",
+        "ds": "float",
+        "arclength": "float",
+        "parameter_tangent": {
+          "type": "list",
+          "length": 2,
+          "element_schema": "float"
+        },
+        "parameter_speed": "float",
+        "cusp_candidate": "bool",
+        "jvps": "int",
+        "gmres_unconverged": "int",
+        "rejected": "int",
+        "multipliers": {
+          "type": "list",
+          "length": 8,
+          "element_schema": {
+            "type": "list",
+            "length": 2,
+            "element_schema": "float"
+          }
+        },
+        "critical_multiplier": {
+          "type": "list",
+          "length": 2,
+          "element_schema": "float"
+        },
+        "other_nearest_plus_one": "float",
+        "other_nearest_minus_one": "float",
+        "largest_complex_modulus": "float",
+        "other_spectral_radius": "float",
+        "critical_multiplier_refined": {
+          "type": "list",
+          "length": 2,
+          "element_schema": "float"
+        },
+        "refine_residual": "float",
+        "log10_temperature": "float",
+        "alpha": "float"
+      },
+      "selected_left_indices": [
+        21
+      ],
+      "association_limit": "Current local original curve JSON is pinned and its path is named in the original uploaded extra_data/command. Native upload archive contents and historical remote loaded bytes are not reconstructed."
+    },
+    {
+      "id": "llm-soft-loop/pod64/hcurves/hub7-foldS-plus",
+      "file": {
+        "path": "/tmp/task21e-source-001/curves/llm-soft-loop__pod64__hcurves__hub7-foldS-plus.json",
+        "bytes": 58212,
+        "sha256": "0bf6f562b6343e21e7fe35a55c109407d92e0a1cc02983607f8ea28ce408e321"
+      },
+      "original_path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/hcurves/hub7-foldS-plus/curve.json",
+      "declared_args": {
+        "command": "curve",
+        "start": "llm-soft-loop/pod64/hverify/branch-hub7-Tdown",
+        "reference_dtype": "none",
+        "kind": "fold",
+        "start_index": -1,
+        "threads": 8,
+        "dtype": "float64",
+        "device": "cuda",
+        "alpha_scale": 10.0,
+        "direction": 1,
+        "steps": 40,
+        "ds": 0.001,
+        "ds_min": 1e-06,
+        "ds_max": 0.005,
+        "tol": 1e-10,
+        "gtol": 1e-09,
+        "max_newton": 10,
+        "exact_jvp": false,
+        "refine_k": 4,
+        "gmres_tol": 1e-10,
+        "gmres_maxiter": 1,
+        "log_temperature_bounds": [
+          0.16,
+          0.23
+        ],
+        "alpha_bounds": [
+          0.058,
+          0.078
+        ],
+        "chunk": 896,
+        "out": "llm-soft-loop/pod64/hcurves/hub7-foldS-plus"
+      },
+      "declared_kind": "fold",
+      "declared_period": 7,
+      "point_count": 40,
+      "point_schema": {
+        "index": "int",
+        "theta": {
+          "type": "list",
+          "length": 2,
+          "element_schema": "float"
+        },
+        "residual": "float",
+        "g": "float",
+        "g_dense": "float",
+        "newton": "int",
+        "ds": "float",
+        "arclength": "float",
+        "parameter_tangent": {
+          "type": "list",
+          "length": 2,
+          "element_schema": "float"
+        },
+        "parameter_speed": "float",
+        "cusp_candidate": "bool",
+        "jvps": "int",
+        "gmres_unconverged": "int",
+        "rejected": "int",
+        "multipliers": {
+          "type": "list",
+          "length": 8,
+          "element_schema": {
+            "type": "list",
+            "length": 2,
+            "element_schema": "float"
+          }
+        },
+        "critical_multiplier": {
+          "type": "list",
+          "length": 2,
+          "element_schema": "float"
+        },
+        "other_nearest_plus_one": "float",
+        "other_nearest_minus_one": "float",
+        "largest_complex_modulus": "float",
+        "other_spectral_radius": "float",
+        "critical_multiplier_refined": {
+          "type": "list",
+          "length": 2,
+          "element_schema": "float"
+        },
+        "refine_residual": "float",
+        "log10_temperature": "float",
+        "alpha": "float"
+      },
+      "selected_left_indices": [
+        13
+      ],
+      "association_limit": "Current local original curve JSON is pinned and its path is named in the original uploaded extra_data/command. Native upload archive contents and historical remote loaded bytes are not reconstructed."
+    },
+    {
+      "id": "llm-soft-loop/pod64/p4/curve-foldB-minus",
+      "file": {
+        "path": "/tmp/task21e-source-001/curves/llm-soft-loop__pod64__p4__curve-foldB-minus.json",
+        "bytes": 103551,
+        "sha256": "ab67275703d16d09da99fbc37e11f13eef4aaeb737a00055ab427c587a251c7c"
+      },
+      "original_path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/p4/curve-foldB-minus/curve.json",
+      "declared_args": {
+        "command": "curve",
+        "start": "llm-soft-loop/pod64/p4/branch-T-up",
+        "reference_dtype": "none",
+        "kind": "fold",
+        "start_index": 53,
+        "threads": 8,
+        "dtype": "float64",
+        "device": "cuda",
+        "alpha_scale": 10.0,
+        "direction": -1,
+        "steps": 70,
+        "ds": 0.005,
+        "ds_min": 1e-06,
+        "ds_max": 0.05,
+        "tol": 1e-10,
+        "gtol": 1e-09,
+        "max_newton": 10,
+        "exact_jvp": false,
+        "refine_k": 4,
+        "gmres_tol": 1e-10,
+        "gmres_maxiter": 1,
+        "log_temperature_bounds": [
+          -0.1,
+          0.2
+        ],
+        "alpha_bounds": [
+          0.03,
+          0.1
+        ],
+        "chunk": 896,
+        "out": "llm-soft-loop/pod64/p4/curve-foldB-minus"
+      },
+      "declared_kind": "fold",
+      "declared_period": 4,
+      "point_count": 70,
+      "point_schema": {
+        "index": "int",
+        "theta": {
+          "type": "list",
+          "length": 2,
+          "element_schema": "float"
+        },
+        "residual": "float",
+        "g": "float",
+        "g_dense": "float",
+        "newton": "int",
+        "ds": "float",
+        "arclength": "float",
+        "parameter_tangent": {
+          "type": "list",
+          "length": 2,
+          "element_schema": "float"
+        },
+        "parameter_speed": "float",
+        "cusp_candidate": "bool",
+        "jvps": "int",
+        "gmres_unconverged": "int",
+        "rejected": "int",
+        "multipliers": {
+          "type": "list",
+          "length": 8,
+          "element_schema": {
+            "type": "list",
+            "length": 2,
+            "element_schema": "float"
+          }
+        },
+        "critical_multiplier": {
+          "type": "list",
+          "length": 2,
+          "element_schema": "float"
+        },
+        "other_nearest_plus_one": "float",
+        "other_nearest_minus_one": "float",
+        "largest_complex_modulus": "float",
+        "other_spectral_radius": "float",
+        "critical_multiplier_refined": {
+          "type": "list",
+          "length": 2,
+          "element_schema": "float"
+        },
+        "refine_residual": "float",
+        "log10_temperature": "float",
+        "alpha": "float"
+      },
+      "selected_left_indices": [
+        13,
+        54
+      ],
+      "association_limit": "Current local original curve JSON is pinned and its path is named in the original uploaded extra_data/command. Native upload archive contents and historical remote loaded bytes are not reconstructed."
+    },
+    {
+      "id": "llm-soft-loop/pod64/p4/curve-foldB-plus",
+      "file": {
+        "path": "/tmp/task21e-source-001/curves/llm-soft-loop__pod64__p4__curve-foldB-plus.json",
+        "bytes": 101160,
+        "sha256": "355910b19d9d7145d553cde01ff5f0db89249968ab1893226dbabfec7ea0312d"
+      },
+      "original_path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/p4/curve-foldB-plus/curve.json",
+      "declared_args": {
+        "command": "curve",
+        "start": "llm-soft-loop/pod64/p4/branch-T-up",
+        "reference_dtype": "none",
+        "kind": "fold",
+        "start_index": 53,
+        "threads": 8,
+        "dtype": "float64",
+        "device": "cuda",
+        "alpha_scale": 10.0,
+        "direction": 1,
+        "steps": 70,
+        "ds": 0.005,
+        "ds_min": 1e-06,
+        "ds_max": 0.05,
+        "tol": 1e-10,
+        "gtol": 1e-09,
+        "max_newton": 10,
+        "exact_jvp": false,
+        "refine_k": 4,
+        "gmres_tol": 1e-10,
+        "gmres_maxiter": 1,
+        "log_temperature_bounds": [
+          -0.1,
+          0.2
+        ],
+        "alpha_bounds": [
+          0.03,
+          0.1
+        ],
+        "chunk": 896,
+        "out": "llm-soft-loop/pod64/p4/curve-foldB-plus"
+      },
+      "declared_kind": "fold",
+      "declared_period": 4,
+      "point_count": 70,
+      "point_schema": {
+        "index": "int",
+        "theta": {
+          "type": "list",
+          "length": 2,
+          "element_schema": "float"
+        },
+        "residual": "float",
+        "g": "float",
+        "g_dense": "float",
+        "newton": "int",
+        "ds": "float",
+        "arclength": "float",
+        "parameter_tangent": {
+          "type": "list",
+          "length": 2,
+          "element_schema": "float"
+        },
+        "parameter_speed": "float",
+        "cusp_candidate": "bool",
+        "jvps": "int",
+        "gmres_unconverged": "int",
+        "rejected": "int",
+        "multipliers": {
+          "type": "list",
+          "length": 8,
+          "element_schema": {
+            "type": "list",
+            "length": 2,
+            "element_schema": "float"
+          }
+        },
+        "critical_multiplier": {
+          "type": "list",
+          "length": 2,
+          "element_schema": "float"
+        },
+        "other_nearest_plus_one": "float",
+        "other_nearest_minus_one": "float",
+        "largest_complex_modulus": "float",
+        "other_spectral_radius": "float",
+        "critical_multiplier_refined": {
+          "type": "list",
+          "length": 2,
+          "element_schema": "float"
+        },
+        "refine_residual": "float",
+        "log10_temperature": "float",
+        "alpha": "float"
+      },
+      "selected_left_indices": [
+        45
+      ],
+      "association_limit": "Current local original curve JSON is pinned and its path is named in the original uploaded extra_data/command. Native upload archive contents and historical remote loaded bytes are not reconstructed."
+    },
+    {
+      "id": "llm-soft-loop/pod64/p4/curve-foldC-plus-2",
+      "file": {
+        "path": "/tmp/task21e-source-001/curves/llm-soft-loop__pod64__p4__curve-foldC-plus-2.json",
+        "bytes": 101717,
+        "sha256": "1b9b076e52f00f006ce9757b01987c0ea299279a6ae3d1b1689f3af5523823c4"
+      },
+      "original_path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/p4/curve-foldC-plus-2/curve.json",
+      "declared_args": {
+        "command": "curve",
+        "start": "llm-soft-loop/pod64/p4/branch-a-up",
+        "reference_dtype": "none",
+        "kind": "fold",
+        "start_index": -1,
+        "threads": 8,
+        "dtype": "float64",
+        "device": "cuda",
+        "alpha_scale": 10.0,
+        "direction": 1,
+        "steps": 70,
+        "ds": 0.005,
+        "ds_min": 1e-06,
+        "ds_max": 0.05,
+        "tol": 1e-10,
+        "gtol": 1e-09,
+        "max_newton": 10,
+        "exact_jvp": false,
+        "refine_k": 4,
+        "gmres_tol": 1e-10,
+        "gmres_maxiter": 1,
+        "log_temperature_bounds": [
+          -0.1,
+          0.2
+        ],
+        "alpha_bounds": [
+          0.03,
+          0.1
+        ],
+        "chunk": 896,
+        "out": "llm-soft-loop/pod64/p4/curve-foldC-plus-2"
+      },
+      "declared_kind": "fold",
+      "declared_period": 4,
+      "point_count": 70,
+      "point_schema": {
+        "index": "int",
+        "theta": {
+          "type": "list",
+          "length": 2,
+          "element_schema": "float"
+        },
+        "residual": "float",
+        "g": "float",
+        "g_dense": "float",
+        "newton": "int",
+        "ds": "float",
+        "arclength": "float",
+        "parameter_tangent": {
+          "type": "list",
+          "length": 2,
+          "element_schema": "float"
+        },
+        "parameter_speed": "float",
+        "cusp_candidate": "bool",
+        "jvps": "int",
+        "gmres_unconverged": "int",
+        "rejected": "int",
+        "multipliers": {
+          "type": "list",
+          "length": 8,
+          "element_schema": {
+            "type": "list",
+            "length": 2,
+            "element_schema": "float"
+          }
+        },
+        "critical_multiplier": {
+          "type": "list",
+          "length": 2,
+          "element_schema": "float"
+        },
+        "other_nearest_plus_one": "float",
+        "other_nearest_minus_one": "float",
+        "largest_complex_modulus": "float",
+        "other_spectral_radius": "float",
+        "critical_multiplier_refined": {
+          "type": "list",
+          "length": 2,
+          "element_schema": "float"
+        },
+        "refine_residual": "float",
+        "log10_temperature": "float",
+        "alpha": "float"
+      },
+      "selected_left_indices": [
+        32,
+        42
+      ],
+      "association_limit": "Current local original curve JSON is pinned and its path is named in the original uploaded extra_data/command. Native upload archive contents and historical remote loaded bytes are not reconstructed."
+    }
+  ],
+  "selected_cusp_count": 9,
+  "separate_other_count": 6,
+  "curve_count": 7,
+  "locate_bytes": 68201,
+  "curve_bytes": 597092,
+  "numerical_scope": "Own finite saved-scalar consistency/gate reconstruction and within-seven-curve candidate association only. Native derivative/state/multiplier calculations are inherited or explicitly cannot-check; no model rerun."
+}
