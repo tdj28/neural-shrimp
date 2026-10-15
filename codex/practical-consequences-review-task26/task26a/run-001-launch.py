@@ -6,7 +6,7 @@ B=Path('/data2/neural-shrimp-data/codex/practical-consequences-review-task26/tas
 OUT=B/'run-001';SUP=OUT.with_name(OUT.name+'-supervision')
 WRAPPER='codex/practical-consequences-review-task26/task26a/run.py';CORE='codex/practical-consequences-review-task26/task26a/reduce.py';CARD='codex/practical-consequences-review-task26/task26a/run-001-card.json'
 WRAPPER_SHA='03f7a7eddfcc9faa94720e748a5d05c195ef4d16e815669273b9d10d700b57a7';CORE_SHA='f43f98e9f48cb4d3f2419c424417d775f7a4165078bc11b0b652e72dba3fb8d9'
-ADMISSION='prepared';CARD_SHA=None  # Exact source and reviewed card pins required before launch.
+ADMISSION='reviewed';CARD_SHA='d070b7d5396e7a3ea7f6e4f875fd735bc7ca90b76263ea7ef208d9f89d0f0266'  # Exact source and reviewed card pins required before launch.
 GIB=1024**3;WALL=60;MAX_OUTPUT=16*1024**2
 
 def sha(p):return hashlib.sha256(Path(p).read_bytes()).hexdigest()
