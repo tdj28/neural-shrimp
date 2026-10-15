@@ -25663,3 +25663,16 @@ Follow-up of FM5, under its run card ("tangent reversals are cusp candidates, to
   - the unfolding is regular (det J nonzero, finite condition).
 - **Curve.** The fold of the alpha1-down branch at (-0.123323, 0.100693), continued both ways: up to 120 points, bounds alpha1 [-0.130, -0.100] and alpha2 [0.085, 0.120], settings as FM5.
 - **Run.** One H100 NVL, six processes. Locates have 100 minutes each, curves 110; the run limit is 125 minutes. The cost ceiling is in the private ledger.
+
+## 2026-10-15 16:08 UTC: Consult 10 completed and adjudicated (final check of the restructured paper; shrimp anatomy)
+
+One research-strategy request (gpt-6-astra, Pro, xhigh) with docs/consults/2026-10-15-restructure-final-check/brief.md and its context file at 00ba9b95. It completed with 71,366 tokens; the cost is recorded privately. The review is copied unchanged, with adjudication.md.
+- **Applied:**
+  - "so no codimension-two point lies on them" corrected: cusps need only a nonlinear degeneracy;
+  - the "swallowtail" wording narrowed (no swallowtail point claimed);
+  - "41 other cells" (negative products are disjoint from complex pairs);
+  - the hostile body's "tracked real leading multiplier";
+  - "endoskeleton" removed (definitions not verifiable at the source);
+  - Hénon (1976) added after Crossref verification.
+- **New check (consult direction 3, cheapest pilot), CPU, float64, from saved states.** At the self-crossing of the FM5 fold curve the two arms are folds of different period-5 orbits. Both have the token loop ". I . . 你", and their states differ by 3.9 % (RMS over the five points, best phase), 8 to 26 times the state change per curve step. The crossing therefore joins two separate saddle-node events.
+- **Recommended experiment (not started).** A causal reset test of layout-dependent answers in bfloat16 soft thinking: free feedback against a reference-state reset before every soft step. It goes to the human as a proposal.
