@@ -1,0 +1,11 @@
+--- prepared-incremental-child-nice
++++ prepared-absolute-child-nice
+@@ -32,7 +32,7 @@
+  save(sup/'admission.json',{'source_commit':args.source,'source_blobs':blobs,'available_bytes':available,'supervisor':supervisor,'plan':plan})
+  env=dict(os.environ,OMP_NUM_THREADS='1',OPENBLAS_NUM_THREADS='1',MKL_NUM_THREADS='1',NUMEXPR_NUM_THREADS='1',VECLIB_MAXIMUM_THREADS='1',MPLBACKEND='Agg')
+  def limits():
+-  os.nice(10);resource.setrlimit(resource.RLIMIT_AS,(1024**3,1024**3));resource.setrlimit(resource.RLIMIT_CPU,(55,55));resource.setrlimit(resource.RLIMIT_FSIZE,(16*1024**2,16*1024**2));resource.setrlimit(resource.RLIMIT_CORE,(0,0))
++  os.setpriority(os.PRIO_PROCESS,0,10);resource.setrlimit(resource.RLIMIT_AS,(1024**3,1024**3));resource.setrlimit(resource.RLIMIT_CPU,(55,55));resource.setrlimit(resource.RLIMIT_FSIZE,(16*1024**2,16*1024**2));resource.setrlimit(resource.RLIMIT_CORE,(0,0))
+  cmd=['/data2/neural-shrimp/.venv/bin/python','-I','-B',str(cap/'controls.py'),'--out',str(out)];started=time.monotonic();failure=None;maximum=0
+  with (sup/'stdout.txt').open('xb')as so,(sup/'stderr.txt').open('xb')as se:
+   worker=subprocess.Popen(cmd,stdout=so,stderr=se,env=env,start_new_session=True,preexec_fn=limits);identity=ident(worker.pid);assert identity and identity['pgrp']==worker.pid and identity['session']==worker.pid

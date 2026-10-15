@@ -1,0 +1,48 @@
+--- accepted-model-manufactured-controls-supervisor
++++ saved-comparison-manufactured-controls-supervisor
+@@ -1,4 +1,4 @@
+-"""Sole authorized manufactured-only Task23 controls; bounded local supervision."""
++"""Sole authorized manufactured-only Task23 saved-comparison controls; bounded local supervision."""
+ from pathlib import Path
+ import argparse,hashlib,json,os,resource,signal,subprocess,time,shutil
+ 
+@@ -20,9 +20,9 @@
+  assert subprocess.check_output(['git','rev-parse','HEAD'],cwd=repo).decode().strip()==args.source
+  subprocess.run(['git','merge-base','--is-ancestor',args.source,'origin/main'],cwd=repo,check=True)
+  available=int(next(x.split()[1]for x in Path('/proc/meminfo').read_text().splitlines()if x.startswith('MemAvailable:')))*1024
+- assert available>=28*1024**3 and shutil.disk_usage('/data2').free>=16*1024**3
++ assert available>=20*1024**3 and shutil.disk_usage('/data2').free>=16*1024**3
+  relbase=here.relative_to(repo);blobs={}
+- for n in ['gain.py','run.py','controls.py','qwen_map.py','controls-001-plan.json',Path(__file__).name]:
++ for n in ['compare.py','controls.py','controls-001-plan.json',Path(__file__).name]:
+   b=(here/n).read_bytes();assert subprocess.check_output(['git','show',args.source+':'+str(relbase/n)],cwd=repo)==b
+   blobs[n]=pin(here/n)
+  for n,sha in plan['source_hashes'].items():assert blobs[n]['sha256']==sha
+@@ -31,8 +31,8 @@
+  save(sup/'admission.json',{'source_commit':args.source,'source_blobs':blobs,'available_bytes':available,'supervisor':ident(os.getpid()),'plan':plan})
+  env=dict(os.environ,OMP_NUM_THREADS='1',OPENBLAS_NUM_THREADS='1',MKL_NUM_THREADS='1',NUMEXPR_NUM_THREADS='1',VECLIB_MAXIMUM_THREADS='1',MPLBACKEND='Agg')
+  def limits():
+-  os.nice(10);resource.setrlimit(resource.RLIMIT_AS,(12*1024**3,12*1024**3));resource.setrlimit(resource.RLIMIT_CPU,(55,55));resource.setrlimit(resource.RLIMIT_FSIZE,(128*1024**2,128*1024**2));resource.setrlimit(resource.RLIMIT_CORE,(0,0))
+- cmd=['/data2/neural-shrimp/.venv/bin/python','-I',str(cap/'controls.py'),'--out',str(out)];started=time.monotonic();failure=None;maximum=0
++  os.nice(10);resource.setrlimit(resource.RLIMIT_AS,(1024**3,1024**3));resource.setrlimit(resource.RLIMIT_CPU,(55,55));resource.setrlimit(resource.RLIMIT_FSIZE,(16*1024**2,16*1024**2));resource.setrlimit(resource.RLIMIT_CORE,(0,0))
++ cmd=['/data2/neural-shrimp/.venv/bin/python','-I','-B',str(cap/'controls.py'),'--out',str(out)];started=time.monotonic();failure=None;maximum=0
+  with (sup/'stdout.txt').open('xb')as so,(sup/'stderr.txt').open('xb')as se:
+   worker=subprocess.Popen(cmd,stdout=so,stderr=se,env=env,start_new_session=True,preexec_fn=limits);identity=ident(worker.pid);assert identity and identity['pgrp']==worker.pid and identity['session']==worker.pid
+   save(sup/'worker.json',identity)
+@@ -40,8 +40,8 @@
+    elapsed=time.monotonic()-started;size=sum(p.stat().st_size for p in out.rglob('*')if p.is_file())if out.exists()else 0
+    size+=(sup/'stdout.txt').stat().st_size+(sup/'stderr.txt').stat().st_size;maximum=max(maximum,size)
+    avail=int(next(x.split()[1]for x in Path('/proc/meminfo').read_text().splitlines()if x.startswith('MemAvailable:')))*1024
+-   if elapsed>60 or size>128*1024**2 or avail<16*1024**3:
+-    failure='deadline'if elapsed>60 else'output_cap'if size>128*1024**2 else'available_memory_floor'
++   if elapsed>60 or size>16*1024**2 or avail<16*1024**3:
++    failure='deadline'if elapsed>60 else'output_cap'if size>16*1024**2 else'available_memory_floor'
+     assert ident(worker.pid)['starttime']==identity['starttime'];os.killpg(worker.pid,signal.SIGTERM)
+     try:worker.wait(timeout=5)
+     except subprocess.TimeoutExpired:os.killpg(worker.pid,signal.SIGKILL);worker.wait(timeout=5)
+@@ -57,4 +57,5 @@
+  receipt={'returncode':code,'failure':failure,'external_seconds':elapsed,'maximum_sampled_output_bytes':maximum,'worker':identity,'worker_after_reap':ident(worker.pid),'owned_group_absent':group_absent,'outputs':outputs,'source_commit':args.source,'manufactured_only':True,'scientific_claims_accepted':False,'command':cmd,'output_cap_scope':'Only manufactured output directory plus stdout/stderr; source and receipts excluded.'}
+  save(sup/'receipt.json',receipt);print(json.dumps(receipt))
+  assert code==0 and failure is None and group_absent
++ report=json.loads((out/'report.json').read_text());assert all(report[k]==v for k,v in plan['expected_report'].items())
+ if __name__=='__main__':main()
