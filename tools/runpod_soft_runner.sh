@@ -181,6 +181,7 @@ case "$JOBSET" in
                # frozen design docs/repro-task-test.md): JOBARGS = NAME MINUTES then tool arguments
     name=${JOBARGS[0]}
     minutes=${JOBARGS[1]}
+    case " ${JOBARGS[*]} " in *" qwen7b "*) get7b ;; esac
     TOOL=repro_task.py run reprotask-$name "$minutes" --device cuda "${JOBARGS[@]:2}" --out $D/repro/$name
     ;;
   repro)       # incidental numerical differences against the dynamical regime (run REPRO; tools/repro_noise.py, on the

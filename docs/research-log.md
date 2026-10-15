@@ -24660,3 +24660,7 @@ Pod v25l1gmcwmk72c (SECURE H100 NVL; runner rc 0, hash verified, terminated; 529
   - The paper's mechanism text is narrowed accordingly. Readout creation at fixed states is a low-temperature 0.5B finding; network damping holds in both models.
 
 ## 2026-10-15 08:06 UTC: Note: the XO7 intervals in the paper come from tools/plot_mechanism.py (seeded bootstrap; fig-mechanism.json): readout effect +0.23 [-0.11, 0.63], network effect -1.14 [-1.61, -0.64]. The inline values in the XO7 entry used another random stream.
+
+## 2026-10-15 08:07 UTC: run (frozen extension): REPRO-T7, the answer-level reproducibility test in Qwen2.5-7B
+
+Frozen in docs/repro-task-test.md ("Extension ... Qwen2.5-7B-Instruct"), pushed with this entry before the run. It uses the same 96 held-out problems, distractors, temperatures, 32-step budget and endpoints. Job set reprotask now downloads the pinned 7B. One H100 NVL pod (the float64 7B needs about 61 GB).
