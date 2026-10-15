@@ -24225,3 +24225,13 @@ Pods kogqdn883e4mgu (TB1, 1624 s) and 121kd13z9rze70 (TB2, 1654 s): SECURE H100 
   - seed (0.080471, -0.071235): leading multiplier complex, -0.0195 + 0.264i (next modulus 0.264);
   - seed (0.080471, -0.068588): mu = -0.261 with next modulus 0.099, below the cleanliness factor 10.
   - So the hook's period-6 orbits are not effectively one-dimensional: two multipliers of similar size, sometimes a complex pair. Superstable curves (leading multiplier 0) are not defined there, and Singer's theorem does not apply. This is the regime where two-dimensional shrimp organization (as in Figure fig:zooms, the period-5 x period-6 crossing) can occur. A two-dimensional test is needed instead.
+
+## 2026-10-15 06:06 UTC: run (exploratory): DSS4, the period-6 hook as a two-dimensional map: valleys of the leading multiplier modulus
+
+- **Why:** DSS3 showed that the hook's period-6 orbits have two multipliers of similar size, at times a complex pair, so superstable curves are not defined. In two-dimensional dissipative maps the skeleton of a shrimp is the set of curves of strongest contraction (valleys of the leading multiplier modulus). A shrimp centre is where two such valleys cross.
+- **Tool:** tools/doubly_superstable.py grid --multipliers-only (new). It accepts a complex or unclean leading multiplier at the seed and records the three leading multipliers (real, imag) per cell of the continued orbit.
+- **Grid:** period 6, philosophy, layer 12. alpha 0.0782-0.0812 in 31 columns, log10 T -0.076 to -0.046 in 31 rows, split by rows on two pods:
+  - DSS4a: rows 0-15, log10 T -0.076 to -0.061, seed (0.080667, -0.065059);
+  - DSS4b: rows 15-30, log10 T -0.061 to -0.046, seed (0.080196, -0.054118).
+  - Both seeds are period-6 cells of zoom Z3 with exponent -0.35 and -0.45.
+- **Reading:** descriptive. The map of the leading modulus, the region of complex pairs, and whether two valleys of the modulus cross inside the body. Any crossing is a candidate centre for a finer, locating follow-up, not a claim.

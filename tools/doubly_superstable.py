@@ -142,10 +142,12 @@ def grid(args):
         raise SystemExit(f"Newton did not converge at the seed: {hist}")
     vals, vecs, res, rh, Q = lfb.ritz(cell, X, p, Q)
     mu, vlead, clean = leading(vals, vecs)
-    if not clean or abs(mu.imag) > 1e-8:
+    if not args.multipliers_only and (not clean or abs(mu.imag) > 1e-8):
         raise SystemExit(f"leading multiplier at the seed is {mu!r} (next {abs(vals[1]):.3g}): choose a seed away from "
                          "the superstable curves")
     refs = [np.ones(1)] * p
+    if args.multipliers_only:                      # two-dimensional regime: no step factors, only the multipliers
+        vlead = np.real(vecs[:, 0])
     _, dirs, seed_toks = factors(cell, X, p, vlead, [np.ones(X.numel())] * p)
     refs = [d / np.linalg.norm(d) for d in dirs]
     c_seed, _, _ = factors(cell, X, p, vlead, refs)
@@ -169,6 +171,7 @@ def grid(args):
     CT = np.full((nt, na, p), np.nan)               # signed factors with transported orientation
     SM = np.full((nt, na, p), np.nan)               # stretchings s_i
     TCOS = np.full((nt, na), np.nan)                # smallest |cos| to the parent's oriented directions
+    M2 = np.full((nt, na, 3, 2), np.nan)            # three leading multipliers (real, imag) by modulus
     states = {}
     queue = collections.deque([((i0, j0), None)])
     seen = {(i0, j0)}
@@ -189,6 +192,9 @@ def grid(args):
             split = min((lfb.return_distance(cell, Xn, q) for q in range(1, p) if p % q == 0), default=1.0)
             vals, vecs, res, rh, Qn = lfb.ritz(cell, Xn, p, Qn)
             mu, vlead, clean = leading(vals, vecs)
+            M2[i, j, :len(vals[:3])] = np.array([[z.real, z.imag] for z in vals[:3]])
+            if args.multipliers_only:
+                vlead = np.real(vecs[:, 0])
             c, dirs, toks = factors(cell, Xn, p, vlead, refs)
             cd, cs_, ce = chain_dirs(cell, Xn, p, vlead)
             ct, orient, tcos = transported(cd, cs_, ce, Os)
@@ -215,6 +221,7 @@ def grid(args):
             np.savez_compressed(out / "grid.npz", alpha=als, log10_temperature=lts, mu=MU, mu_imag=MU_IM, next_modulus=NEXT,
                                 clean=CLEAN, ok=OK, same_tokens=SAME, factors=C, product=PROD, newton=RES,
                                 min_reference_cosine=COS, factors_transported=CT, stretchings=SM, transport_cosine=TCOS,
+                                multipliers=M2,
                                 seed=np.array(args.seed), seed_tokens=np.array(seed_toks))
         # free states that no queued cell still needs
         live = {par for _, par in queue}
@@ -250,6 +257,9 @@ def main():
     g.add_argument("--k", type=int, default=6)
     g.add_argument("--tol", type=float, default=1e-12)
     g.add_argument("--chunk", type=int, default=512)
+    g.add_argument("--multipliers-only", action="store_true",
+                   help="two-dimensional regime: accept a complex or unclean leading multiplier at the seed and record "
+                        "the three leading multipliers per cell (factors are still written but are not meaningful)")
     g.add_argument("--out", required=True)
     args = ap.parse_args()
     if args.command == "grid":
