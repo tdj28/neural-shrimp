@@ -1,0 +1,62 @@
+{
+  "schema": "task16-saved-scans-v1",
+  "status": "prepared",
+  "source_commit": null,
+  "sources": {
+    "run.py": "3baeb6974044f093f9cd866fedc2a23ce507539221e63ae4030f6fd1bd7e9e2e",
+    "tabulate.py": "3d8021966621f80dbb8e3aecc7088df518cef9231e58820c76fd5bb5f139cef2"
+  },
+  "authorities": {
+    "inventory": {
+      "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/steering-controls-crosscheck/input-metadata-001.json",
+      "sha256": "fdd511be93d478850fda51706fdbaa019e9b6292eb9b9accf1bb2eb619d34f19",
+      "bytes": 426132
+    },
+    "runs": {
+      "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/steering-controls-crosscheck/original-authority-001/authority.json",
+      "sha256": "0cfd23d7cb4e34787fbbdcebf08455d87ae6b35ccdcf1cc94ab86a40d14f9357",
+      "bytes": 109143
+    },
+    "commands": {
+      "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/steering-controls-crosscheck/original-authority-001/random-partition-command-authority.json",
+      "sha256": "44c5191c45d43537e7a3f3a946512e855ee309be460b11125fde524e30d9f761",
+      "bytes": 40201
+    },
+    "join_policy": {
+      "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/steering-controls-crosscheck/prospective-join-review.md",
+      "sha256": "fc031137e7430a2d227aadc1fd1df8765cb6a3e3ef82435f1492ec10a7cc2ccb",
+      "bytes": 3181
+    },
+    "vector_metadata": {
+      "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/steering-controls-crosscheck/vector-metadata-001.json",
+      "sha256": "7389e5a5bc44df50dea9fffbacba67af95bfd6f44e072b453836c518394b7d25",
+      "bytes": 22883
+    },
+    "producer_source_manifest": {
+      "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/steering-controls-crosscheck/producer-source-manifest.json",
+      "sha256": "27a27b2dc6c9b9f3827cecff21424902faca7efbc584549bd9a4781966d7c57e",
+      "bytes": 752
+    }
+  },
+  "output": "/data2/neural-shrimp-data/codex/steering-controls-crosscheck/run-001/run",
+  "resources": {
+    "cpu_threads": 1,
+    "nice": 10,
+    "external_seconds": 120,
+    "hard_as_bytes": 4294967296,
+    "output_bytes": 134217728,
+    "startup_memavailable_gib": 20,
+    "runtime_memavailable_gib": 16
+  },
+  "basis": "Independent unblinded arithmetic reproduction; prior provisional and final summaries exposed; no threshold tuning.",
+  "requested_attempts": 1,
+  "retry_policy": "No automatic retry; preserve any failure and request reviewed amendment.",
+  "output_forecast": "112640 selected and124928 source records,4096 completed overlaps;128MiB external ceiling with64KiB closing reserve.",
+  "resource_evidence": {
+    "compressed_input_bytes": 3248045,
+    "observed_hash_only_seconds": 0.026935,
+    "full_analysis_time_measured": false,
+    "tiny_controls_seconds": 0.08,
+    "method": "Finite small-array counting/JSON; external deadline, no new model/dense algebra/profile."
+  }
+}

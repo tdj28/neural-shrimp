@@ -1,0 +1,11 @@
+--- /tmp/task16-preparation/run-before-durable-pins.py	2026-10-14 03:16:01.439525698 -0700
++++ /tmp/task16-preparation/run.py	2026-10-14 03:16:01.457572617 -0700
+@@ -125,6 +125,8 @@
+               'source_commit': plan['source_commit'], 'plan_sha256': sha(args.plan), 'sources': plan['sources']}
+     try:
+         refs = plan['authorities']
++        for ref in refs.values():
++            need(Path(ref['path']).stat().st_size == ref['bytes'] and sha(ref['path']) == ref['sha256'], 'pre authority hash/size')
+         meta, authority, commands = [pinned(refs[k]) for k in ('inventory', 'runs', 'commands')]
+         norms = pinned(refs['vector_metadata'])
+         policy = refs['join_policy']; need(sha(policy['path']) == policy['sha256'] and Path(policy['path']).stat().st_size == policy['bytes'], 'join note pin')

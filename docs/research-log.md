@@ -23300,3 +23300,10 @@ _commit `9ebbaa008cb3` (dirty worktree)_
 - **Output:** `../neural-shrimp-data/explore/llm-soft-loop/hidden-chaos/qwen1.5b-highT-check`
 
 _commit `f3b62e09dbad` (dirty worktree)_
+
+
+## 2026-10-14T10:18:11.007060+00:00 — Codex Task 16 saved-control tabulation preparation
+
+Source and metadata review accepted for one independent unblinded saved-scan arithmetic reproduction: 16 datasets, 19 original NPZ segments; no model or producer analysis execution. Exact source/card is `codex/steering-controls-crosscheck/run-001-plan.json` and `run-001-card.md`; currently prepared and unlaunchable. Original authority0cfd23d7 binds archives/statuses/recorded termination. All random lower timeouts and unfinished suffixes stay explicit. The prospective fixed lower0–95/top96–127 mapping preserves nonselected overlaps and exact top coordinate roundoff; no outcome-dependent join. Gaussian philosophy norm and separate gratitude norm remain explicit.
+
+Root reviewed source/tabulation and fixed budget CPU1 plus supervisor, nice10, hard AS4GiB, 115 CPU seconds subordinate to120s external wall,128MiB retained output,20/16GiB available-memory floors and16GiB free disk. Full target runtime is unmeasured; existing3.25MB input hash IO/tiny synthetic controls ground the finite counting estimate, and any failure is retained. Exact private prepared checkpoint and admission-only final plan/card precede launch. One independently reviewed saved-field check is required after completion. Task15 remains held; no reservations yet.

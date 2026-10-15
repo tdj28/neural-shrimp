@@ -1,0 +1,23 @@
+--- initial-prepared
++++ final-prepared
+@@ -5,7 +5,7 @@
+ B=Path('/data2/neural-shrimp-data/codex/steering-controls-crosscheck')
+ OUT=B/'run-001'/'run';SUP=B/'run-001-supervision'
+ WRAPPER='codex/steering-controls-crosscheck/run.py';PLAN='codex/steering-controls-crosscheck/run-001-plan.json';CARD='codex/steering-controls-crosscheck/run-001-card.md'
+-WRAPPER_SHA='723bd2bd0f03f01262a8d00a9d8bb1a68c2fd57c9323d5c140b0d7f3f76285c6'
++WRAPPER_SHA='3baeb6974044f093f9cd866fedc2a23ce507539221e63ae4030f6fd1bd7e9e2e'
+ TABULATE='codex/steering-controls-crosscheck/tabulate.py';TABULATE_SHA='3d8021966621f80dbb8e3aecc7088df518cef9231e58820c76fd5bb5f139cef2'
+ ADMISSION='prepared';PLAN_SHA=None;CARD_SHA=None  # Refuse until exact concrete admission.
+ 
+@@ -42,9 +42,10 @@
+  pins=[(WRAPPER,WRAPPER_SHA),(TABULATE,TABULATE_SHA),(PLAN,PLAN_SHA),(CARD,CARD_SHA)]
+  for ref in plan['authorities'].values():
+   rel=str(Path(ref['path']).relative_to(R));assert rel.startswith('codex/steering-controls-crosscheck/');pins.append((rel,ref['sha256']))
+- assert len(pins)==9 and len({n for n,p in pins})==9
++ assert len(pins)==10 and len({n for n,p in pins})==10
+  for name,pin in pins:
+   data=git('show',args.source+':'+name);assert hashlib.sha256(data).hexdigest()==pin==sha(R/name),name;sources[name]=data
++ for name,pin in [(WRAPPER,WRAPPER_SHA),(TABULATE,TABULATE_SHA)]:assert hashlib.sha256(git('show',plan['source_commit']+':'+name)).hexdigest()==pin
+  own=Path(__file__);launch_rel='codex/steering-controls-crosscheck/launch.py';assert git('show',args.source+':'+launch_rel)==own.read_bytes();sources[launch_rel]=own.read_bytes()
+  available=next(int(x.split()[1])*1024 for x in Path('/proc/meminfo').read_text().splitlines()if x.startswith('MemAvailable:'));assert available>=20*GIB and shutil.disk_usage('/data2').free>=16*GIB
+  gpu=subprocess.run(['nvidia-smi'],capture_output=True,text=True,timeout=20)
