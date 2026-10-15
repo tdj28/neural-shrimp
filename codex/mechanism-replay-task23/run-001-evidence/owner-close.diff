@@ -1,0 +1,22 @@
+--- accepted-profile-close.py
++++ actual-close.py
+@@ -1,6 +1,6 @@
+ from pathlib import Path
+ import json,hashlib,subprocess,datetime
+-R=Path('/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp');B=Path('/data2/neural-shrimp-data/codex/mechanism-replay-task23');O=B/'profile-001';S=B/'profile-001-supervision';D=B/'profile-001-dispatch'
++R=Path('/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp');B=Path('/data2/neural-shrimp-data/codex/mechanism-replay-task23');O=B/'run-001';S=B/'run-001-supervision';D=B/'run-001-dispatch'
+ def desc(p):return {'path':str(p),'bytes':p.stat().st_size,'sha256':hashlib.sha256(p.read_bytes()).hexdigest()}
+ a=json.loads((S/'admission.json').read_text());c=json.loads((S/'closure.json').read_text());r=json.loads((O/'report.json').read_text());assert c['exit_code']==0 and c['failure'] is None and c['owned_worker_and_groups_closed']
+ identities=[a['supervisor'],c['worker']]
+@@ -17,9 +17,9 @@
+  for v in m['files']:
+   d=desc(base/v['path']);assert d['bytes']==v['bytes'] and d['sha256']==v['sha256']
+ assert not (D/'outer.stderr').read_bytes()
+-out={'schema':'task23-profile-owner-closure-v1','closed_utc':datetime.datetime.now(datetime.timezone.utc).isoformat(),'source_commit':a['source_commit'],'tool_session':71776,'tool_session_reaped_exit_code':0,'identities':identities,'both_original_pids_absent':True,'both_original_groups_and_sessions_absent':True,'source_blobs_verified':len(a['sources']),'worker_and_supervision_manifests_verified':True,'report':desc(O/'report.json'),'worker_closure':desc(S/'closure.json'),'worker_manifest':desc(O/'final-manifest.json'),'supervision_manifest':desc(S/'final-manifest.json'),'preflight':desc(D/'preflight.json'),'outer_stdout':desc(D/'outer.stdout'),'outer_stderr':desc(D/'outer.stderr'),'runtime':r['runtime'],'supervisor_window_seconds':c['seconds'],'output_bytes_sampled':c['maximum_output_bytes_sampled'],'scope':'Original owner metadata/source/outer closure. No scientific recomputation or asset rehash. Worker timer/RSS before final rehash/report; external supervisor window separately measured. Profile32/16 only; no full1000/2000 evidence.'}
++out={'schema':'task23-actual-owner-closure-v1','closed_utc':datetime.datetime.now(datetime.timezone.utc).isoformat(),'source_commit':a['source_commit'],'tool_session':74234,'tool_session_reaped_exit_code':0,'identities':identities,'both_original_pids_absent':True,'both_original_groups_and_sessions_absent':True,'source_blobs_verified':len(a['sources']),'worker_and_supervision_manifests_verified':True,'report':desc(O/'report.json'),'worker_closure':desc(S/'closure.json'),'worker_manifest':desc(O/'final-manifest.json'),'supervision_manifest':desc(S/'final-manifest.json'),'preflight':desc(D/'preflight.json'),'outer_stdout':desc(D/'outer.stdout'),'outer_stderr':desc(D/'outer.stderr'),'runtime':r['runtime'],'supervisor_window_seconds':c['seconds'],'output_bytes_sampled':c['maximum_output_bytes_sampled'],'scope':'Original owner metadata/source/outer closure. No scientific recomputation or asset rehash. Worker timer/RSS before final rehash/report; external supervisor window separately measured. Fixed actual1000/2000 output authenticated; computational completion is separate from scientific acceptance.'}
+ with (D/'outer-closure.json').open('x')as f:json.dump(out,f,indent=2);f.write('\n')
+-files=[desc(p)for base in [O,S,D]for p in sorted(base.rglob('*'))if p.is_file()];(D/'sealed-manifest.json').write_text(json.dumps({'schema':'task23-profile-seal-v1','files':files},indent=2)+'\n')
++files=[desc(p)for base in [O,S,D]for p in sorted(base.rglob('*'))if p.is_file()];(D/'sealed-manifest.json').write_text(json.dumps({'schema':'task23-actual-seal-v1','files':files},indent=2)+'\n')
+ for p in D.iterdir():
+  if p.is_file():p.chmod(0o444)
+ print(json.dumps({'outer_closure':desc(D/'outer-closure.json'),'seal':desc(D/'sealed-manifest.json'),'report':desc(O/'report.json'),'owned_jobs':0}))

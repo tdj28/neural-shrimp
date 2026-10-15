@@ -1,0 +1,36 @@
+{
+  "schema": "task23-comparison-controls-plan-v1",
+  "status": "reviewed_manufactured_only",
+  "authorization": "Root fully reviewed exact comparison core64fcb1d5, controls621e4944, plan121fd65a and final supervisor3e358312 with actual nice/AS/CPU/identity checks. Sole seven-group manufactured run authorized after private exact checkpoint and fresh capacity/ownership; no target comparison or model execution.",
+  "repo": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp",
+  "output": "/data2/neural-shrimp-data/codex/mechanism-replay-task23/comparison-controls-001",
+  "supervision": "/data2/neural-shrimp-data/codex/mechanism-replay-task23/comparison-controls-001-supervision",
+  "source_hashes": {
+    "compare.py": "64fcb1d50ccaf0b8db22867b4d08be9ff75dd0f2426a969502faf4feb2db9a95",
+    "controls.py": "621e494494fe40d0ecc07fc8868713809d0e19aace13d97ab9336d4431748283"
+  },
+  "resources": {
+    "worker_cpu_threads": 1,
+    "supervisor_slots": 1,
+    "nice": 10,
+    "address_space_bytes": 1073741824,
+    "cpu_seconds": 55,
+    "wall_seconds": 60,
+    "terminate_grace_seconds": 5,
+    "kill_grace_seconds": 5,
+    "output_cap_bytes": 16777216,
+    "startup_available_bytes": 21474836480,
+    "runtime_available_bytes": 17179869184,
+    "free_disk_floor_bytes": 17179869184
+  },
+  "scope": "Seven manufactured standard-library scalar/JSON groups only, no actual model or producer target access. Same fixed 60-second ceiling as prior small controls. Not a new full-shape numerical workload.",
+  "expected_report": {
+    "schema": "task23-comparison-controls-v1",
+    "computational_status": "complete",
+    "all_passed": true,
+    "passed": 7,
+    "failed": 0
+  },
+  "output_cap_scope": "Manufactured output directory plus stdout/stderr; captured source and receipts excluded.",
+  "source_expected_commit": null
+}

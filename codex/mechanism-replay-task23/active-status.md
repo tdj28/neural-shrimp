@@ -1,3 +1,11 @@
+# Task23 actual replay closed; saved checks pending
+
+2026-10-15T16:43:07.201677+00:00: Sole actual1000/2000 run completed, tool74234 reaped0, original worker3189258 and supervisor3189186/groups/sessions absent. Exact source3e103261; report0039ef4c, authoritye6072e7f. External window1017.971175884s,64,523,905B sampled. Scientific interpretation remains pending independent saved consistency and28-field producer comparison. No model rerun. Zero owned numerical jobs/reservations.
+
+Comparator source and7-group controls are prepared/unexecuted; ownership-only supervisor correction pending Root final read. Task25 six-component metadata/source preparation is archived; no target scoring. Persistent15minute watcher remains ACTIVE without cutoff until human stop. Latest known Claude16:11 acknowledgment, queueTask23→25 unchanged.
+
+## Preserved status history
+
 # Task23 sole full replay running
 
 2026-10-15T16:19:49.021683+00:00: Original worker3189258/start202765716 and supervisor3189186/start202765444 are owned by Inference; tool session74234. Execution source3e103261, card93f519a6/launcherf852d844, immutable captured five-source snapshot. Started16:18:11UTC; fixed2400wall/4600CPU/12GiBAS/CPU2 plus supervisor/128MiB output, no retry. Startup/preflight accepted,54.84GB available. Root will rejoin around16:35UTC; only Inference polls/reaps. No partial result interpretation.

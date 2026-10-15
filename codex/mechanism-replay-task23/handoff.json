@@ -1,6 +1,6 @@
 {
-  "updated_utc": "2026-10-15T16:19:49.021683+00:00",
-  "phase": "Task23 sole full1000/2000 replay running under admitted fixed limits",
+  "updated_utc": "2026-10-15T16:43:07.201677+00:00",
+  "phase": "Task23 actual replay computationally complete/closed; saved checks source preparation; Task25 metadata/source preparation",
   "human_extension": "Continue watching indefinitely until explicit human stop; continue authorized Claude queue. Prior cutoff superseded.",
   "automation": {
     "id": "watch-claude-and-work-queue",
@@ -27,21 +27,8 @@
     "new_source": "Theory",
     "independent_source_review": "Boundary"
   },
-  "owned_numerical_jobs": [
-    {
-      "worker": 3189258,
-      "start": 202765716,
-      "supervisor": 3189186,
-      "supervisor_start": 202765444,
-      "raw_output": "/data2/neural-shrimp-data/codex/mechanism-replay-task23/run-001",
-      "supervision": "/data2/neural-shrimp-data/codex/mechanism-replay-task23/run-001-supervision",
-      "started_utc": "2026-10-15T16:18:11.791062+00:00",
-      "deadline_note": "2400s from supervisor monotonic start plus fixed cleanup; no retry/extension"
-    }
-  ],
-  "reservations": [
-    "CPU2 worker plus lightweight supervisor;12GiBAS;no other numerical worker"
-  ],
+  "owned_numerical_jobs": [],
+  "reservations": [],
   "actual_profile_admitted": true,
   "actual_scientific_run_admitted": true,
   "latest_claude_comms_sha256": "ad8ddcb67aff9e1f17a619de0c2a100daab2f5c387007707830cbceede1aa1a2",
@@ -49,7 +36,7 @@
   "source_packet_manifest_sha256": "957f293f43a34aa62f99d2ef4c60a0531904b6b132427507e003ad5fa23b6d40",
   "preserved_previous_handoff": "codex/night-results-review-task21/task21i/final-handoff.json",
   "latest_observed_private_main": "a540c33b7ca34a5d61d029d7ac530f7359c95181",
-  "preparation": "Current actual startup accepted. No partial numerical reading or labels; all outcomes retained. Root owns persistent watcher, Inference sole process polling/reaping. Task25 metadata/source-only while run is active; latest Claude16:11 dispositions acknowledge21i and mentionFM5/RR for possible later delta, no assignment.",
+  "preparation": "Root accepted operational full-run closure; science pending independent consistency and28-field producer comparison. Comparator sources/controls prepared, no execution. Task25 metadata archived and pure reducers in independent source review. Persistent watch unchanged/no cutoff. No model replay.",
   "prepared_supervision_manifest_sha256": "903472384139d6a9c644d3bfbeb75ba4945da9bd4cdd507cc34be9023f1fbb50",
   "controls_plan_sha256": "11b728a692c075a4bc633a4ce7d766880b6aa0a527ce6b27d57d8a26678c0d85",
   "controls_source_manifest_sha256": "6ff856fa5ae7a77a8e22b76839d8843816e8c94ec1737ff413735bd804101c27",
@@ -62,5 +49,15 @@
   "actual_card_sha256": "93f519a6ac731486f761921efbc1a9e909be44d16a0ea16f2c75cb8d9d2cdd78",
   "actual_launcher_sha256": "f852d844f6fabbab0da2bd865b38bdcfadd63a30548cebea95b11f57958d81ac",
   "execution_source_commit": "3e103261c546d128c9b6212cdaeda78d677148ad",
-  "tool_session": 74234
+  "tool_session": 74234,
+  "actual_report": {
+    "path": "/data2/neural-shrimp-data/codex/mechanism-replay-task23/run-001/report.json",
+    "bytes": 21467,
+    "sha256": "0039ef4c2732bbf4641010543a33b761cd85821167a5ba20ebb7d9f2c391dfd7"
+  },
+  "actual_authority": {
+    "path": "/data2/neural-shrimp-data/codex/mechanism-replay-task23/run-001-dispatch/outer-closure.json",
+    "bytes": 6781,
+    "sha256": "e6072e7fd0aa87a86b9c7f912630ae9cdebffbb2bb7a8773cb9d6f81ccc91b54"
+  }
 }

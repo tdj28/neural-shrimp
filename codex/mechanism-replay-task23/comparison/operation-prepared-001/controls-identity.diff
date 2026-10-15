@@ -1,0 +1,32 @@
+--- prepared-controls-before-identity
++++ prepared-controls-with-identity
+@@ -10,7 +10,7 @@
+  p=Path('/proc')/str(pid)
+  try:
+   st=(p/'stat').read_text();q=st.rsplit(')',1)[1].split()
+-  return {'pid':pid,'starttime':int(q[19]),'pgrp':int(q[2]),'session':int(q[3]),'uid':p.stat().st_uid,'command':(p/'cmdline').read_bytes().replace(b'\0',b' ').decode()}
++  return {'pid':pid,'starttime':int(q[19]),'pgrp':int(q[2]),'session':int(q[3]),'uid':p.stat().st_uid,'nice':int(q[16]),'threads':int(q[17]),'limits':(p/'limits').read_text(),'command':(p/'cmdline').read_bytes().replace(b'\0',b' ').decode()}
+  except FileNotFoundError:return None
+ 
+ def main():
+@@ -26,15 +26,19 @@
+   b=(here/n).read_bytes();assert subprocess.check_output(['git','show',args.source+':'+str(relbase/n)],cwd=repo)==b
+   blobs[n]=pin(here/n)
+  for n,sha in plan['source_hashes'].items():assert blobs[n]['sha256']==sha
++ supervisor=ident(os.getpid());assert supervisor['nice']==10
+  sup.mkdir();cap=sup/'source';cap.mkdir()
+  for n in blobs:shutil.copyfile(here/n,cap/n)
+- save(sup/'admission.json',{'source_commit':args.source,'source_blobs':blobs,'available_bytes':available,'supervisor':ident(os.getpid()),'plan':plan})
++ save(sup/'admission.json',{'source_commit':args.source,'source_blobs':blobs,'available_bytes':available,'supervisor':supervisor,'plan':plan})
+  env=dict(os.environ,OMP_NUM_THREADS='1',OPENBLAS_NUM_THREADS='1',MKL_NUM_THREADS='1',NUMEXPR_NUM_THREADS='1',VECLIB_MAXIMUM_THREADS='1',MPLBACKEND='Agg')
+  def limits():
+   os.nice(10);resource.setrlimit(resource.RLIMIT_AS,(1024**3,1024**3));resource.setrlimit(resource.RLIMIT_CPU,(55,55));resource.setrlimit(resource.RLIMIT_FSIZE,(16*1024**2,16*1024**2));resource.setrlimit(resource.RLIMIT_CORE,(0,0))
+  cmd=['/data2/neural-shrimp/.venv/bin/python','-I','-B',str(cap/'controls.py'),'--out',str(out)];started=time.monotonic();failure=None;maximum=0
+  with (sup/'stdout.txt').open('xb')as so,(sup/'stderr.txt').open('xb')as se:
+   worker=subprocess.Popen(cmd,stdout=so,stderr=se,env=env,start_new_session=True,preexec_fn=limits);identity=ident(worker.pid);assert identity and identity['pgrp']==worker.pid and identity['session']==worker.pid
++  assert identity['nice']==10 and identity['threads']==1
++  assert resource.prlimit(worker.pid,resource.RLIMIT_AS)==(1024**3,1024**3)
++  assert resource.prlimit(worker.pid,resource.RLIMIT_CPU)==(55,55)
+   save(sup/'worker.json',identity)
+   while worker.poll()is None:
+    elapsed=time.monotonic()-started;size=sum(p.stat().st_size for p in out.rglob('*')if p.is_file())if out.exists()else 0
