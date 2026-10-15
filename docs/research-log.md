@@ -25150,3 +25150,27 @@ Those were fixed values, not each problem's own edge. **Step 1** measures every 
 Measure: the zero curves of the per-step factors of the leading multiplier. **A crossing of two different factors' zero curves is a doubly superstable point, the centre of a shrimp in Gallas' sense.** Where the leading multiplier is complex or not clean, the factors are undefined; such cells are flagged, as for the hostile body.
 
 **Run card TBZg2 (exploratory).** A finer map of the period-5 window: 128 x 128 over alpha1 [-0.1215, -0.1165] and alpha2 [0.0970, 0.1050], same settings as TBZg.
+
+## 2026-10-15 10:22 UTC: DLGa result: two chaotic co-writing agents usually lock each other into a periodic orbit
+
+**Run.** Pod (H100 class); commit 01a335d6 from the orchestrator log; runner rc 0; both jobs status 0; terminated. Maps: dialogue/cw-t-0.10 and cw-t-0.14, cowrite frame, philosophy at block 12 for both agents, 48 x 48 over alpha_A, alpha_B in [0.060, 0.082], 2304 cells each. Analysis: tools/plot_dialogue.py, written before the data. Outputs: docs/dlg/dlga-stats.json and the figure docs/dlg/dlga-cowrite-maps.png. The diagonal is the single loop (bitwise identity, smoke test).
+
+**log10 T -0.10:**
+- Single agents (diagonal): 27 chaotic, 21 periodic. Off-diagonal pairs: 1582 periodic, 667 chaotic, 7 other.
+- **Entrained** (pair periodic, both agents chaotic alone): **422 of 702** pairs (60 %). The null, drawing pair classes at the off-diagonal frequency, expects 492.
+- **Made chaotic** (pair chaotic, both agents periodic alone): 91 of 420 (22 %); null 124.
+- Inherited (pair class equals both agents'): 606 of 2256.
+
+**log10 T -0.14:**
+- Single agents: 9 chaotic, 39 periodic. Pairs: 2085 periodic, 162 chaotic.
+- Entrained: 34 of 72 (47 %; null 66.5). Made chaotic: 44 of 1482 (3 %; null 106).
+
+**Reading.**
+- **Alternating two personas favours order.** 70 % (log10 T -0.10) and 92 % (-0.14) of pairs are periodic, against 44 % and 81 % of single agents.
+- **Some chaos is inherited.** Pairs of chaotic agents are periodic less often than the pair base rate, and pairs of periodic agents are chaotic less often.
+- **The most frequent locked state** is period 1 of the exchange map: a two-message cycle (731 and 1161 cells). It fills the strips where either agent's alpha is below about 0.064: **the weakly steered agent dictates the exchange**.
+- **The exponent map is plaid** (stripes in alpha_A and in alpha_B), as if each agent contributed its own stability. It is not purely additive, since entrainment occurs.
+
+**Precedent to check before citing:** alternating two chaotic maps can produce order (the dynamical form of Parrondo's paradox).
+
+**Next.** soft_dialogue verify on the 12 entrained cells picked by plot_dialogue (docs/dlg/dlga-entrained-cells.json): Newton on G^P in float64, multipliers, primitive period, transcript. The dialogue-frame cells will be added when DLGb lands.
