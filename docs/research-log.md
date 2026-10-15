@@ -24235,3 +24235,14 @@ Pods kogqdn883e4mgu (TB1, 1624 s) and 121kd13z9rze70 (TB2, 1654 s): SECURE H100 
   - DSS4b: rows 15-30, log10 T -0.061 to -0.046, seed (0.080196, -0.054118).
   - Both seeds are period-6 cells of zoom Z3 with exponent -0.35 and -0.45.
 - **Reading:** descriptive. The map of the leading modulus, the region of complex pairs, and whether two valleys of the modulus cross inside the body. Any crossing is a candidate centre for a finer, locating follow-up, not a claim.
+
+## 2026-10-15 06:08 UTC: RM result: next to the avoided crossing the 7-step return maps are unimodal in every phase, with doubled strands in two phases (a thin two-dimensional fold)
+
+Pod rmsqwwrwm3af25 (COMMUNITY H100 NVL; runner rc 0, hash verified, terminated; 359 s; commit 0a15d1a6). Output retmap/body-edge. Figure paper/llm/figures/fig-return-maps-body.png (made from return-map.npz, script inline in this session; to be folded into a committed plot script).
+- **The three chaotic cells at the body's right edge (alpha 0.07136-0.07142, log10 T 0.2057-0.2062):**
+  - Every phase's 7-step return map is single-valued with one extremum: a minimum in phases 0-3, a maximum in phases 4-6. The leading component carries 0.89-1.00 of each phase's variance.
+  - In phases 4 and 5 the curve splits into two thin parallel strands. The attractor is a slightly two-dimensional folded band there, consistent with Kaplan-Yorke dimensions just above 1.
+  - At alpha 0.07142 the map is strongly asymmetric: a steep left branch, a long flattening right branch.
+  - The automatic turning-point counts (3-13 in phases 4-5) are noise from the binned medians on arcs of size 1e-3; by eye each phase has one extremum.
+- **Hostile line (alpha 0.0655):** at log10 T 0.18480 the phases contain several arcs (more than 7 bands), all on one U-shaped curve. At 0.18073 (lambda_1 0.141) the attractor is not 7-banded and the phase maps mix (leading component 0.66-0.82).
+- **Reading:** no second turning point at these parameters, matching the avoided (not real) crossing of the superstable curves. The human's mechanism (a shrimp when the unimodal map grows a second turning point) is not active here. The doubled strands show a second dimension beginning, the other route to shrimp organization in Henon-like maps.
