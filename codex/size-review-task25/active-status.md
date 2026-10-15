@@ -1,5 +1,5 @@
-# Task25 sole manufactured preparation admitted; zero numerical jobs
+# Task25 actual saved-data run admitted; zero numerical jobs
 
-2026-10-15T17:48:14.852416+00:00: Task23 is complete and privately delivered. Root and Boundary accepted Task25's six-component source, explicit wide/narrow P3 views and bounded operation. ONE38-group manufactured/full synthetic-shape run is authorized after this exact private source checkpoint and fresh capacity/owned-closure preflight. No target scoring is admitted; no controls have executed yet. Original37-group preparation and all prior failures/metadata remain intact.
+2026-10-15T17:59:00.663422+00:00: Task23 complete/private-delivered. Sole Task25 manufacture complete38/0 and owner-closed; original report/receipt/source preserved. Root/Boundary accepted six-component source/input/P3 views and exact actual card/supervisor. One actual run-001 is admitted after final private checkpoint and fresh preflight; it has not started. No retry/model run or extra controls. Inference owns lifecycle/Git; later Boundary reads scale/gain/depth, Theory PS/CP/plateau; Root final science.
 
-Inference owns Git/processes; Theory source; Boundary independent review; Root final admission. Persistent watch ACTIVE15min/no cutoff until explicit human stop. Latest Claude comms unchanged4783e5f9; next measured actual card follows the sole manufactured receipt.
+Watch ACTIVE15min indefinitely until explicit human stop; latest Claude4783e5f9 unchanged. Owned code/log only; prior shared-log scope mistake and exact restoration are recorded.

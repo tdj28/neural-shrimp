@@ -1,0 +1,5 @@
+# Task25 sole actual saved-data admission
+
+Recorded 2026-10-15T17:59:00.663422+00:00. Root fully read/accepted exact source c1cea5e1/P3 amendment, input002 be61223a with329nested pins/112roles/34publication nodes and both explicit P3 views; measured card38adeb81; supervisor642938e7/diffa543e397; Boundary8e12e02e; and sole manufactured38/0 report1aa3eb5c, receipt abcfb306 and outer closure26c48dde.
+
+Root authorized one actual saved-data run after only status/authorization/card-hash transition, preservation of originals, exact private source/card/owned-log checkpoint and fresh capacity/old-owned-closure preflight. Bounds: CPU1 plus supervisor,nice10,55CPU/60wall+5+5cleanup,1GiBAS,128MiB sampled OUT+streams,32MiB unique input cap,20/16GiB available RAM,16GiB free disk. This is finite saved-data recomputation, not model/producer execution or new target selection. No retry/extension or extra controls. Computational completion is separate from scientific acceptance; every discrepancy, undefined result and original failure remains. Exact row/output review follows original owner closure.
