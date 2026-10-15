@@ -826,20 +826,23 @@ chaotic cells is given above each panel.}
 \end{figure}
 
 \paragraph{Two steering vectors interact.} Steering at two blocks at once, gratitude at block 4 and hostility at block
-16 of Qwen2.5-0.5B, makes 21.7\,\% of a $96\times96$ plane chaotic at $\log_{10}T=-0.1$. Along the two axes, where only one
-push acts, the shares are 7.3 and 8.3\,\%. Large chaotic regions lie off the axes, where neither push alone is chaotic
-(Figure~\ref{fig:twoblock}): in 17.1\,\% of that plane (1574 cells, 79\,\% of its chaotic off-axis cells) the combined
-push is chaotic although each push alone, at the same strength, is not. Over the four planes this share is 9.5 to
-17.1\,\%. With the blocks exchanged (hostility at 4, gratitude at 16) the plane is 23.4\,\% chaotic,
-and at $\log_{10}T=0.1$ both pairs give 33 and 42\,\%. Each plane keeps a periodic hole around zero steering. Combining
-steering vectors is therefore not additive in its effect on the loop's stability: a composition of two pushes can be
-chaotic where each push alone is periodic.
+16 of Qwen2.5-0.5B, makes 21.7\,\% of a $96\times96$ plane chaotic at $\log_{10}T=-0.1$. The grid has no row or column at
+exactly zero, so we computed the single pushes separately, each with the other exactly absent and on the same grid: they
+make 12.5\,\% (gratitude at block 4 alone) and 5.2\,\% (hostility at block 16 alone) of their lines chaotic. Large
+chaotic regions lie where neither push alone is chaotic (Figure~\ref{fig:twoblock}): 1561 cells, 16.9\,\% of the plane
+and 78\,\% of its chaotic cells, are chaotic although each push alone, at the same strength, is not, and in 1525 of them
+each push alone is periodic. Over the four planes (two block orders, $\log_{10}T=\pm0.1$) this share is 8.3 to
+16.9\,\% of the plane, and 7.8 to 16.5\,\% with both single pushes periodic. With the blocks exchanged (hostility at 4,
+gratitude at 16) the plane is 23.4\,\% chaotic, and at $\log_{10}T=0.1$ both pairs give 33 and 42\,\%. Each plane keeps
+a periodic hole around zero steering. Combining steering vectors is therefore not additive in its effect on the loop's
+stability: a composition of two pushes can be chaotic where each push alone is periodic.
 \begin{figure}[tbp]
 \centering
 \includegraphics[width=0.85\linewidth]{fig-two-block.png}
 \caption{Two steering directions at two blocks of Qwen2.5-0.5B-Instruct: largest Lyapunov exponent on $96\times96$
 float64 cells over the two strengths, at $\log_{10}T=-0.1$ (left) and $0.1$ (right). Top: gratitude at block 4,
-hostility at block 16; bottom: the blocks exchanged. Dotted lines mark the axes, where only one push acts.}
+hostility at block 16; bottom: the blocks exchanged. Dotted lines mark the zero axes; the grid does not sample them,
+and the single-push controls quoted in the text were computed separately on exact zero lines.}
 \label{fig:twoblock}
 \end{figure}
 

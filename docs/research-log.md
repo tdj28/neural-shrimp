@@ -25437,3 +25437,18 @@ They are being processed against the current paper. Each finding is rechecked an
 tools/two_block_map.py gains --resolution1 and --resolution2 for single lines.
 
 **Analysis.** A plane cell is "chaotic where neither push alone is" when it is chaotic and both exact controls at its alpha1 and alpha2 are not chaotic. Count these; also count against periodic controls only.
+
+## 2026-10-15 11:53 UTC: TBC result: with exact single-push controls, two-block chaos where neither push alone is chaotic is confirmed (8.3 to 16.9 % of each plane)
+
+**Run.** Pod (H100 class); commit 88e5eb5c from the orchestrator log; runner rc 0; all four jobs status 0; terminated. Exact control lines, same grid and settings as TB: block-1 vector alone (alpha2 = 0) and block-2 vector alone (alpha1 = 0), each at log10 T -0.1 and +0.1. Comparison script inline; output docs/tbc-controls.json.
+
+| plane | log10 T | plane chaotic | block-1 alone | block-2 alone | chaotic, neither alone chaotic | chaotic, both alone periodic |
+|---|---|---|---|---|---|---|
+| grat4-host16 | -0.1 | 21.7 % | 12.5 % | 5.2 % | 1561 (16.9 %; 78 % of chaotic) | 1525 (16.5 %) |
+| grat4-host16 | +0.1 | 33.0 % | 31.2 % | 46.9 % | 761 (8.3 %) | 720 (7.8 %) |
+| host4-grat16 | -0.1 | 23.4 % | 26.0 % | 19.8 % | 1194 (13.0 %) | 1154 (12.5 %) |
+| host4-grat16 | +0.1 | 42.0 % | 34.4 % | 40.6 % | 1354 (14.7 %) | 1173 (12.7 %) |
+
+- The near-axis comparison in the paper (1574 cells, 17.1 %; axes 7.3 and 8.3 %) used the rows and columns nearest zero (alpha about +-0.00126), as Codex's review (Task 27 M02/P01) noted. It is replaced by these exact controls.
+- **The conclusion holds:** 8.3 to 16.9 % of each plane is chaotic where neither push alone is.
+- Paper: paragraph and caption rewritten.
