@@ -1550,6 +1550,21 @@ snapshot_download('$REPO', revision='$MREV', cache_dir='$NEURAL_SHRIMP_DATA/mode
     done
     wait
     ;;
+  shrimp)      # runs OC and CL2 (consult 10, directions 3 and 2; fm5 branches and curve, vectors uploaded with --extra-data):
+               # the orbit census around the swallowtail-shaped junction (tools/window_census.py, docs/oc/oc-points.json)
+               # in three parallel parts, then the two-coordinate closure test (tools/window_closure.py,
+               # docs/cl/cl-locations.json; the pocket orbits come from the census part holding T-centroid).
+               # JOBARGS: CENSUS-MINUTES CLOSURE-MINUTES
+    export OMP_NUM_THREADS=4 OPENBLAS_NUM_THREADS=4 MKL_NUM_THREADS=4
+    CEN="census --points docs/oc/oc-points.json --device cuda --threads 4 --max-newton 20"
+    TOOL=window_census.py run oc-census-1 "${JOBARGS[0]}" $CEN --only T-centroid T-low T-high T-near-L T-near-U \
+      --out $D/oc/census &
+    TOOL=window_census.py run oc-census-2 "${JOBARGS[0]}" $CEN --only W-low S-low E-low W-high --out $D/oc/census-2 &
+    TOOL=window_census.py run oc-census-3 "${JOBARGS[0]}" $CEN --only N-high E-high below-L above-U --out $D/oc/census-3 &
+    wait
+    TOOL=window_closure.py run cl2 "${JOBARGS[1]}" run --locations docs/cl/cl-locations.json --device cuda --threads 8 \
+      --out $D/cl/run
+    ;;
   rr)          # reset test (run RR2; tools/repro_reset.py; consult 10): JOBARGS = specs NAME:MODEL:LAYER:LOG10T:DTYPE:SET:MINUTES,
                # run in order on one GPU; Qwen2.5-7B is downloaded once at its pinned revision when a spec needs it
     have7b=0

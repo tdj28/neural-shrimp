@@ -25854,3 +25854,89 @@ Question: do the independently reviewed six-component saved-data reducers and ad
 One fresh attempt at `/data2/neural-shrimp-data/codex/size-review-task25/manufactured-001`:38 controls (31 component,7 adapter) plus fixed full synthetic shapes, including all15 gain identities and explicit wide/narrow P3 source views. CPU1 plus supervisor, nice10,1GiB AS,55CPU/60wall seconds plus fixed5+5 cleanup,128MiB sampled whole-directory+streams cap,20/16GiB RAM floors,16GiB free disk. Source-only P3 amendment is disclosed after manuscript/log/producer-summary exposure; original37-group source and all default ambiguity remain preserved.
 
 Unexpected outcomes include a failed control, incomplete component/row coverage, pin/identity refusal, or resource exhaustion; any such outcome is preserved without retry. No original outcome payload, producer/model, GPU/pod or paid call is part of this run. A later actual saved-data card requires the measured receipt and separate exact review.
+## 2026-10-15 17:36 UTC: run cards OC (orbit census around the swallowtail-shaped junction) and CL2 (two-coordinate closure); consult 10, directions 3 and 2
+
+**OC.** tools/window_census.py (new); points and predictions in docs/oc/oc-points.json, fixed before any solve.
+- 13 parameter points built from the FM5 fold curve. Arms: A (indices 0-20), B (20-31), C (31 on). Cusps U and L were located by FM5c; X is the self-crossing.
+- Prediction, from the generic swallowtail section, counting the local family's period-5 orbits:
+  - E (beyond arms A and C): 0;
+  - the pocket T (bounded by B, C and A between the cusps and the crossing): 4;
+  - the surrounding region (W left of B, S below X, N above X, and beyond each cusp): 2.
+- Method: at each point, low-rank Newton (k 6, at most 20 steps) from the states of the nearest curve point on each arm. The seeds are shifted along that point's critical eigenvector by s |x|, for s in {0, +-1e-3, +-3e-3, +-1e-2, +-3e-2}: 27 seeds per point.
+  - Distinct orbits are counted modulo phase (relative distance 1e-7), with token loops and Ritz multipliers.
+  - Counts are lower bounds.
+- CPU check (S-low, reduced seeds: arms A and C, s in {0, 3e-3}):
+  - The arm-A seeds converge in 5 Newton steps to the attracting orbit (leading multiplier 0.247).
+  - The arm-C seeds do not converge in 15, as the prediction implies: the arm-C orbits exist only on the pocket side.
+  - The saddle partner needs the negative shifts, which the check left out.
+
+**CL2.** tools/window_closure.py (new; tests/test_window_closure.py, 3 pass, with the two synthetic controls):
+- the Henon map embedded in R^10 passes two-coordinate closure (median errors: 1 coordinate 5.8e-3, 2 coordinates 3.1e-6, 4 coordinates 4.2e-6);
+- a map with a slow third coordinate fails it (6.6e-2, 6.6e-3, 4.8e-6).
+
+Locations and predictions in docs/cl/cl-locations.json, fixed before the pod run:
+- development: a body point and a complex-pair point;
+- evaluation:
+  - the body seed cell (1D);
+  - two complex-pair points (2D);
+  - near the right fold (1D);
+  - near the left flip (1D);
+  - the pocket orbits found by OC (no prediction).
+
+Method:
+- Perturbations at relative 1e-3 and 1e-2, 64 seeds each (32 to fit, 32 to test), 8 returns.
+- Modal coordinates (the spectral projection of the leading Ritz modes) for k = 1, 2, 4.
+- Quadratic return models with a fitted lift back to the state, and the linearized map as a baseline.
+
+**Amendment, before the pod run.** On the body location, run on the CPU while developing the tool:
+- The first version projected orthogonally onto the leading eigenvectors. That mixes faster modes into the leading coordinate (the return map is non-normal). The one-coordinate forecast error was then about 1, although the deviations decay by exactly 0.267 per return.
+- The coordinates are now modal; the unit test checks this.
+- With them, the body's median errors are 2.6e-2 and 3.6e-2 (1 coordinate), 2.9e-4 and 2.2e-4 (2), and 2.1e-6 and 3.1e-6 (4).
+- The consult's relative gate ("4 coordinates add less than 20 %") fails at such tiny errors. It stays the primary criterion, unchanged.
+- Added as a secondary readout, after this check: the smallest number of coordinates whose median error is below 0.05 and below 0.005.
+- The body location is therefore not blind.
+
+**Run.** One H100-class pod, job set shrimp: the census in three parallel parts (75 minutes each), then the closure test (30 minutes). Run limit 110 minutes. The cost ceiling is in the private ledger.
+
+## 2026-10-15 17:41 UTC: Façanha, Oldeman and Glass (2013) read (PDF supplied by the human; stored outside git)
+
+Façanha, Oldeman and Glass, "Bifurcation structures in two-dimensional maps: The endoskeletons of shrimps", Phys. Lett. A 377(18):1264-1268. The copy is at /data2/neural-shrimp-data/references/facanha-oldeman-glass-shrimp.pdf; it is paywalled, so never commit it. Statements relevant to our windows:
+
+1. **The skeleton in one-dimensional maps.** It is the locus of superstable cycles, M = 0 (p. 1264). Shrimps, in Vitolo, Glendinning and Gallas's definition (their [16], our vitolo2011hubs), "are formed by a regular set of adjacent windows centered around the main pair of intersecting superstable parabolic arcs", together with the adjacent domains of two period-doubling cascades (p. 1265).
+2. **The two-dimensional replacement** (p. 1265). The cycle's trace T = mu1 + mu2 and determinant D = mu1 mu2 place it in the stability triangle. "Provided |D| < 1, the locus of points in parameter space for which T = 0 defines a structure that plays the same role as the skeleton in one-dimensional maps since it lies between the boundaries at which there is a saddle-node bifurcation ... and a period-doubling boundary."
+   - If -1 < D < 0 there is necessarily a point where T = 0.
+   - If 0 < D < 1 there is typically a region where the eigenvalues are complex, with two values where they are real and equal.
+   - Both loci (T = 0 and T^2 - 4D = 0) are traced by continuation (their Eqs. 3-4).
+   - This is the construction of our DSS5 reading (trace of the leading pair; complex strips where the product is positive, real exchange where it is negative).
+3. **The doubly superstable centre is non-generic in two dimensions** (pp. 1266-1267, Fig. 4).
+   - In the classic bimodal one-dimensional structure, the upper crossing of the superstable curves lies in the bistable diamond bounded by the cusped saddle-node curve and two period-doubling curves. The lower crossing is a cycle with two critical iterates: our "doubly superstable centre".
+   - "In two-dimensional maps, the lower crossing represents a non-generic situation, so generically it will not exist" (a branch point of codimension three).
+   - "Rather the skeletal structure unfolds in two different ways": Type A, a loop; Type B, a crossing without a loop.
+   - In the Hénon map at b near 0.18, the period-5 shrimp is Type A and the period-10 shrimp Type B (their Fig. 3c,e). Its period-5 stable region is bounded by a saddle-node curve and a period-doubling curve, and "a second saddle-node bifurcation generates a cusp configuration".
+4. **Higher dimensions.** For n-dimensional maps, the further coefficients of the characteristic polynomial also matter (p. 1267). For our windows the third multiplier is below 0.008, so the leading pair carries the reduction.
+
+**Consequence for our reading.**
+- The absence of a one-dimensional centre is what the two-dimensional theory predicts; it is not evidence against shrimps.
+- The hostile period-7 body (arcs that approach and turn away; DSS1/DSS2) matches Type B.
+- The period-5 window (DSS5: a trace-zero arc closing around an island of negative trace, with separate arcs) matches Type A, at grid resolution.
+- With the fold curves with cusps, the flip curves and the bistability, these are the shrimps of two-dimensional maps in the sense of this paper, approximately two-dimensional in the leading pair.
+
+The paper's wording will be revised after runs OC and CL2, and the "endoskeleton" term can return with its definition. Consult 10's caution (not to attach the terminology unread) is resolved.
+
+## 2026-10-15 17:42 UTC: RR2 result: the reset test replicates on the H100 and in Qwen2.5-7B
+
+Pod 0yxvaphaxhovgb (SECURE H100 NVL); commit a5606676 from the orchestrator log; runner rc 0; hash verified; terminated and verified 17:41 UTC; 2249 s. Analyses: docs/rr/rr2-h05-heldout-analysis.json (0.5B, both precisions), rr2-q7-heldout-analysis.json (7B, both precisions), rr2-q7-dev-analysis.json. All 640 problem runs pass the exactness checks.
+
+| run (128 held-out problems) | free | reset | native | Delta [bootstrap 95 %] | McNemar (free-only / reset-only, p) |
+|---|---|---|---|---|---|
+| 0.5B, T = 1, bf16 | 85 (66.4 %) | 2 (1.6 %) | 85 (66.4 %) | 64.8 [56.3, 72.7] | 83 / 0, 2.1e-25 |
+| 0.5B, T = 1, float32 | 5 (3.9 %) | 0 | 6 (4.7 %) | 3.9 [0.8, 7.8] | 5 / 0, 0.062 |
+| 7B, log10 T 0.2, bf16 | 82 (64.1 %) | 2 (1.6 %) | 99 (77.3 %) | 62.5 [53.9, 71.1] | 80 / 0, 1.7e-24 |
+| 7B, log10 T 0.2, float32 | 47 (36.7 %) | 0 | 53 (41.4 %) | 36.7 [28.1, 45.3] | 47 / 0, 1.4e-14 |
+
+- **Accuracy.** No arm differs from the reference by more than 4.7 points (0.5B bf16: reference 21.1 %, free 24.2 %; 7B bf16: 60.2 % and 57.8 %; 7B float32: 62.5 % and 67.2 %). Invalid answers are 8 to 24 per arm in 7B, counted as outcomes.
+- **Drift.** On the H100 in bf16, the median one-step logit distance under reset is exactly 0 at every step: most batched steps are bitwise identical to the reference. In the free arm the median distance is 0 at step 1, 2.1e-2 at step 8 and 0.21 at step 32 (0.5B); in 7B, 4.1e-2 at step 8 and 0.97 at step 32. In 7B float32 the free drift grows from 5.9e-7 to 1.4e-2 over the 32 steps.
+- **7B dev (24).** Free 11, reset 0, native 21.
+- **Native disagreement on this H100.** 66 % (0.5B; REPRO-T's frozen test on 96 other problems gave 56 %) and 77 % (7B; 55 %).
+
+**Reading (pre-stated rule).** Delta exceeds 15 points with an interval excluding zero in every bf16 run and in 7B float32. On a second GPU type and in a 7B model, resetting the fed-back state before every soft step removes nearly all layout-dependent answer changes. On the H100 the layout changes few single steps; the loop amplifies the rare step that differs. In 7B the amplification reaches answer changes even in float32.
