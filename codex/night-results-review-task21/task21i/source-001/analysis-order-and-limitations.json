@@ -1,0 +1,56 @@
+{
+  "bz": {
+    "runs": [
+      "llm-soft-loop/pod64/bz/pilot-0",
+      "llm-soft-loop/pod64/bz/pilot-1",
+      "llm-soft-loop/pod64/bz/pilot-2"
+    ],
+    "within_run": "filename-sorted",
+    "duplicate_policy": "Original analyzer last assignment by cell ID; future own adapter must retain duplicates and refuse silent overwrite. Current original archive scopes are disjoint by declared shard.",
+    "tasks": [
+      "arithmetic",
+      "nq",
+      "mbpp"
+    ],
+    "metrics": [
+      "d_acc",
+      "d_entropy",
+      "d_length"
+    ],
+    "rng": "one default_rng(20261015) for all tasks/metrics; pairs sorted by pair ID",
+    "historical_cli_order_recorded": false
+  },
+  "bp": {
+    "model_order": [
+      "q05",
+      "q7"
+    ],
+    "label_runs": {
+      "q05": [
+        "q05-label-0",
+        "q05-label-1"
+      ],
+      "q7": [
+        "q7-label-0",
+        "q7-label-1",
+        "q7-label-2",
+        "q7-label-3",
+        "q7-label-4",
+        "q7-label-5"
+      ]
+    },
+    "temperature_order": [
+      0.25,
+      0.32,
+      0.4
+    ],
+    "subset_order": [
+      "all",
+      "greedy_correct"
+    ],
+    "rng": "analyze initializes one default_rng(20261015) per invocation/model; no reset across temperatures/subsets. Labels insertion follows supplied runs then file lines.",
+    "historical_cli_order_recorded": false
+  },
+  "scope": "Explicit canonical reproduction ordering from source and original command shards, not a fabricated original analyze invocation. Original permutation p-values may depend on missing invocation order; retain exact differences.",
+  "ad_hoc_adjustment": "Exact inline code/invocation not found in scoped original source/current tools/top-level scratch metadata; source log gives only acc~chaotic+generation entropy+task+greedy and rounded results. Cannot claim exact historical adjusted-estimator replay."
+}

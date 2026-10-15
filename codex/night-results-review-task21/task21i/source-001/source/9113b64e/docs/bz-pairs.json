@@ -1,0 +1,1057 @@
+{
+ "note": "pairs from three float64 maps of Qwen2.5-0.5B-Instruct (philosophy direction, layer 12): map-stripes-256 for\n  log10 T <= -0.04, map-highT-256-families for log10 T >= -0.02, at 30 target temperatures evenly spaced over\n  [-0.17, 0.14] (nearest row). In the row, chaotic means exponent > 0.05 and no period, periodic means a period and\n  exponent < -0.05; the pair with the smallest |delta alpha| (<= 1e-3; ties by index) is taken, and the row is skipped\n  if there is none. An unsteered cell (alpha 0) at each pair's temperature is added. Writes docs/bz-pairs.json and the\n  task set docs/bz-tasks.json (seed 20261015: 50 arithmetic problems, 50 NQ-open validation questions, 30\n  MBPP-sanitized test problems).",
+ "pairs": [
+  {
+   "pair": 0,
+   "map": "stripes",
+   "log10_temperature": -0.17,
+   "chaotic": {
+    "alpha": 0.06345098039215687,
+    "exponent": 0.11401274932583057
+   },
+   "periodic": {
+    "alpha": 0.06353725490196079,
+    "exponent": -0.7643361164111986,
+    "period": 2
+   }
+  },
+  {
+   "pair": 1,
+   "map": "stripes",
+   "log10_temperature": -0.15929411764705884,
+   "chaotic": {
+    "alpha": 0.06992156862745098,
+    "exponent": 0.36510135060248194
+   },
+   "periodic": {
+    "alpha": 0.06983529411764706,
+    "exponent": -0.3872809181832962,
+    "period": 16
+   }
+  },
+  {
+   "pair": 2,
+   "map": "stripes",
+   "log10_temperature": -0.14858823529411766,
+   "chaotic": {
+    "alpha": 0.06828235294117647,
+    "exponent": 0.08092648841400675
+   },
+   "periodic": {
+    "alpha": 0.0683686274509804,
+    "exponent": -0.3813707302714708,
+    "period": 24
+   }
+  },
+  {
+   "pair": 3,
+   "map": "stripes",
+   "log10_temperature": -0.13788235294117648,
+   "chaotic": {
+    "alpha": 0.0668156862745098,
+    "exponent": 0.05630658265962366
+   },
+   "periodic": {
+    "alpha": 0.06672941176470588,
+    "exponent": -0.10813613080779728,
+    "period": 2
+   }
+  },
+  {
+   "pair": 4,
+   "map": "stripes",
+   "log10_temperature": -0.1271764705882353,
+   "chaotic": {
+    "alpha": 0.06552156862745098,
+    "exponent": 0.21945918325916092
+   },
+   "periodic": {
+    "alpha": 0.0656078431372549,
+    "exponent": -0.12229217152974577,
+    "period": 24
+   }
+  },
+  {
+   "pair": 5,
+   "map": "stripes",
+   "log10_temperature": -0.11647058823529413,
+   "chaotic": {
+    "alpha": 0.0631921568627451,
+    "exponent": 0.12359917979471133
+   },
+   "periodic": {
+    "alpha": 0.06310588235294118,
+    "exponent": -0.06809606435502748,
+    "period": 2
+   }
+  },
+  {
+   "pair": 6,
+   "map": "stripes",
+   "log10_temperature": -0.10576470588235296,
+   "chaotic": {
+    "alpha": 0.061380392156862744,
+    "exponent": 0.11868215989173068
+   },
+   "periodic": {
+    "alpha": 0.06146666666666666,
+    "exponent": -0.16964414377874956,
+    "period": 16
+   }
+  },
+  {
+   "pair": 7,
+   "map": "stripes",
+   "log10_temperature": -0.09505882352941178,
+   "chaotic": {
+    "alpha": 0.061035294117647056,
+    "exponent": 0.39232069164840017
+   },
+   "periodic": {
+    "alpha": 0.06094901960784314,
+    "exponent": -0.14566534455238048,
+    "period": 27
+   }
+  },
+  {
+   "pair": 8,
+   "map": "stripes",
+   "log10_temperature": -0.0843529411764706,
+   "chaotic": {
+    "alpha": 0.061898039215686276,
+    "exponent": 0.2726059754046012
+   },
+   "periodic": {
+    "alpha": 0.061984313725490195,
+    "exponent": -0.06276015072000722,
+    "period": 9
+   }
+  },
+  {
+   "pair": 9,
+   "map": "stripes",
+   "log10_temperature": -0.07364705882352941,
+   "chaotic": {
+    "alpha": 0.061380392156862744,
+    "exponent": 0.3156511074341112
+   },
+   "periodic": {
+    "alpha": 0.06146666666666666,
+    "exponent": -0.0747414013749078,
+    "period": 18
+   }
+  },
+  {
+   "pair": 10,
+   "map": "stripes",
+   "log10_temperature": -0.06294117647058824,
+   "chaotic": {
+    "alpha": 0.07268235294117648,
+    "exponent": 0.40037201771732356
+   },
+   "periodic": {
+    "alpha": 0.07259607843137256,
+    "exponent": -0.24698906971308318,
+    "period": 6
+   }
+  },
+  {
+   "pair": 11,
+   "map": "stripes",
+   "log10_temperature": -0.05223529411764706,
+   "chaotic": {
+    "alpha": 0.0724235294117647,
+    "exponent": 0.4095918623937958
+   },
+   "periodic": {
+    "alpha": 0.07233725490196079,
+    "exponent": -0.08591418205346668,
+    "period": 9
+   }
+  },
+  {
+   "pair": 12,
+   "map": "stripes",
+   "log10_temperature": -0.0415294117647059,
+   "chaotic": {
+    "alpha": 0.06448627450980392,
+    "exponent": 0.35488308405331964
+   },
+   "periodic": {
+    "alpha": 0.06457254901960784,
+    "exponent": -0.2142750058094433,
+    "period": 6
+   }
+  },
+  {
+   "pair": 13,
+   "map": "stripes",
+   "log10_temperature": -0.04,
+   "chaotic": {
+    "alpha": 0.06396862745098039,
+    "exponent": 0.5745511196543501
+   },
+   "periodic": {
+    "alpha": 0.06405490196078431,
+    "exponent": -0.10065420240153422,
+    "period": 6
+   }
+  },
+  {
+   "pair": 14,
+   "map": "highT",
+   "log10_temperature": -0.02,
+   "chaotic": {
+    "alpha": 0.06037254901960784,
+    "exponent": 0.2788758672471833
+   },
+   "periodic": {
+    "alpha": 0.06021568627450981,
+    "exponent": -0.09221784284448319,
+    "period": 7
+   }
+  },
+  {
+   "pair": 15,
+   "map": "highT",
+   "log10_temperature": -0.00996078431372549,
+   "chaotic": {
+    "alpha": 0.05174509803921569,
+    "exponent": 0.21424170897662512
+   },
+   "periodic": {
+    "alpha": 0.05190196078431372,
+    "exponent": -0.21089311269975278,
+    "period": 20
+   }
+  },
+  {
+   "pair": 16,
+   "map": "highT",
+   "log10_temperature": 0.0013333333333333322,
+   "chaotic": {
+    "alpha": 0.04656862745098039,
+    "exponent": 0.10868381450597196
+   },
+   "periodic": {
+    "alpha": 0.046411764705882354,
+    "exponent": -0.47683428287377777,
+    "period": 12
+   }
+  },
+  {
+   "pair": 17,
+   "map": "highT",
+   "log10_temperature": 0.012,
+   "chaotic": {
+    "alpha": 0.05190196078431372,
+    "exponent": 0.3911090702337617
+   },
+   "periodic": {
+    "alpha": 0.05174509803921569,
+    "exponent": -1.090485354068661,
+    "period": 7
+   }
+  },
+  {
+   "pair": 18,
+   "map": "highT",
+   "log10_temperature": 0.022666666666666665,
+   "chaotic": {
+    "alpha": 0.05174509803921569,
+    "exponent": 0.42494757491523927
+   },
+   "periodic": {
+    "alpha": 0.05190196078431372,
+    "exponent": -0.6163980621256868,
+    "period": 13
+   }
+  },
+  {
+   "pair": 19,
+   "map": "highT",
+   "log10_temperature": 0.03333333333333334,
+   "chaotic": {
+    "alpha": 0.04531372549019608,
+    "exponent": 0.06914179341211818
+   },
+   "periodic": {
+    "alpha": 0.04515686274509804,
+    "exponent": -0.911926017469805,
+    "period": 13
+   }
+  },
+  {
+   "pair": 20,
+   "map": "highT",
+   "log10_temperature": 0.044,
+   "chaotic": {
+    "alpha": 0.0478235294117647,
+    "exponent": 0.11699554289670717
+   },
+   "periodic": {
+    "alpha": 0.04766666666666666,
+    "exponent": -0.3220495092804263,
+    "period": 11
+   }
+  },
+  {
+   "pair": 21,
+   "map": "highT",
+   "log10_temperature": 0.05466666666666667,
+   "chaotic": {
+    "alpha": 0.069,
+    "exponent": 0.14030380764232472
+   },
+   "periodic": {
+    "alpha": 0.06915686274509804,
+    "exponent": -0.12096794605981427,
+    "period": 20
+   }
+  },
+  {
+   "pair": 22,
+   "map": "highT",
+   "log10_temperature": 0.06533333333333333,
+   "chaotic": {
+    "alpha": 0.05613725490196078,
+    "exponent": 0.35342928205714247
+   },
+   "periodic": {
+    "alpha": 0.05598039215686275,
+    "exponent": -0.07926621064436155,
+    "period": 10
+   }
+  },
+  {
+   "pair": 23,
+   "map": "highT",
+   "log10_temperature": 0.076,
+   "chaotic": {
+    "alpha": 0.047352941176470584,
+    "exponent": 0.23009502525900616
+   },
+   "periodic": {
+    "alpha": 0.04719607843137255,
+    "exponent": -0.18005345221053573,
+    "period": 9
+   }
+  },
+  {
+   "pair": 24,
+   "map": "highT",
+   "log10_temperature": 0.08666666666666667,
+   "chaotic": {
+    "alpha": 0.06743137254901961,
+    "exponent": 0.35369889711198754
+   },
+   "periodic": {
+    "alpha": 0.06727450980392158,
+    "exponent": -0.1647812526454669,
+    "period": 8
+   }
+  },
+  {
+   "pair": 25,
+   "map": "highT",
+   "log10_temperature": 0.09733333333333333,
+   "chaotic": {
+    "alpha": 0.06633333333333333,
+    "exponent": 0.2983028834581252
+   },
+   "periodic": {
+    "alpha": 0.0661764705882353,
+    "exponent": -0.26056461794570424,
+    "period": 3
+   }
+  },
+  {
+   "pair": 26,
+   "map": "highT",
+   "log10_temperature": 0.108,
+   "chaotic": {
+    "alpha": 0.06319607843137255,
+    "exponent": 0.20679081253570142
+   },
+   "periodic": {
+    "alpha": 0.06303921568627452,
+    "exponent": -0.16856271348208315,
+    "period": 6
+   }
+  },
+  {
+   "pair": 27,
+   "map": "highT",
+   "log10_temperature": 0.11866666666666666,
+   "chaotic": {
+    "alpha": 0.05174509803921569,
+    "exponent": 0.3321810496989462
+   },
+   "periodic": {
+    "alpha": 0.05190196078431372,
+    "exponent": -0.08351900248762027,
+    "period": 2
+   }
+  },
+  {
+   "pair": 28,
+   "map": "highT",
+   "log10_temperature": 0.12933333333333336,
+   "chaotic": {
+    "alpha": 0.04719607843137255,
+    "exponent": 0.2788109655298091
+   },
+   "periodic": {
+    "alpha": 0.047352941176470584,
+    "exponent": -0.06537665778096889,
+    "period": 3
+   }
+  },
+  {
+   "pair": 29,
+   "map": "highT",
+   "log10_temperature": 0.14,
+   "chaotic": {
+    "alpha": 0.07762745098039217,
+    "exponent": 0.4905505293405282
+   },
+   "periodic": {
+    "alpha": 0.0777843137254902,
+    "exponent": -0.18097308427529463,
+    "period": 5
+   }
+  }
+ ],
+ "cells": [
+  {
+   "cell": 0,
+   "pair": 0,
+   "label": "chaotic",
+   "log10_temperature": -0.17,
+   "alpha": 0.06345098039215687
+  },
+  {
+   "cell": 1,
+   "pair": 0,
+   "label": "periodic",
+   "log10_temperature": -0.17,
+   "alpha": 0.06353725490196079
+  },
+  {
+   "cell": 2,
+   "pair": 0,
+   "label": "unsteered",
+   "log10_temperature": -0.17,
+   "alpha": 0.0
+  },
+  {
+   "cell": 3,
+   "pair": 1,
+   "label": "chaotic",
+   "log10_temperature": -0.15929411764705884,
+   "alpha": 0.06992156862745098
+  },
+  {
+   "cell": 4,
+   "pair": 1,
+   "label": "periodic",
+   "log10_temperature": -0.15929411764705884,
+   "alpha": 0.06983529411764706
+  },
+  {
+   "cell": 5,
+   "pair": 1,
+   "label": "unsteered",
+   "log10_temperature": -0.15929411764705884,
+   "alpha": 0.0
+  },
+  {
+   "cell": 6,
+   "pair": 2,
+   "label": "chaotic",
+   "log10_temperature": -0.14858823529411766,
+   "alpha": 0.06828235294117647
+  },
+  {
+   "cell": 7,
+   "pair": 2,
+   "label": "periodic",
+   "log10_temperature": -0.14858823529411766,
+   "alpha": 0.0683686274509804
+  },
+  {
+   "cell": 8,
+   "pair": 2,
+   "label": "unsteered",
+   "log10_temperature": -0.14858823529411766,
+   "alpha": 0.0
+  },
+  {
+   "cell": 9,
+   "pair": 3,
+   "label": "chaotic",
+   "log10_temperature": -0.13788235294117648,
+   "alpha": 0.0668156862745098
+  },
+  {
+   "cell": 10,
+   "pair": 3,
+   "label": "periodic",
+   "log10_temperature": -0.13788235294117648,
+   "alpha": 0.06672941176470588
+  },
+  {
+   "cell": 11,
+   "pair": 3,
+   "label": "unsteered",
+   "log10_temperature": -0.13788235294117648,
+   "alpha": 0.0
+  },
+  {
+   "cell": 12,
+   "pair": 4,
+   "label": "chaotic",
+   "log10_temperature": -0.1271764705882353,
+   "alpha": 0.06552156862745098
+  },
+  {
+   "cell": 13,
+   "pair": 4,
+   "label": "periodic",
+   "log10_temperature": -0.1271764705882353,
+   "alpha": 0.0656078431372549
+  },
+  {
+   "cell": 14,
+   "pair": 4,
+   "label": "unsteered",
+   "log10_temperature": -0.1271764705882353,
+   "alpha": 0.0
+  },
+  {
+   "cell": 15,
+   "pair": 5,
+   "label": "chaotic",
+   "log10_temperature": -0.11647058823529413,
+   "alpha": 0.0631921568627451
+  },
+  {
+   "cell": 16,
+   "pair": 5,
+   "label": "periodic",
+   "log10_temperature": -0.11647058823529413,
+   "alpha": 0.06310588235294118
+  },
+  {
+   "cell": 17,
+   "pair": 5,
+   "label": "unsteered",
+   "log10_temperature": -0.11647058823529413,
+   "alpha": 0.0
+  },
+  {
+   "cell": 18,
+   "pair": 6,
+   "label": "chaotic",
+   "log10_temperature": -0.10576470588235296,
+   "alpha": 0.061380392156862744
+  },
+  {
+   "cell": 19,
+   "pair": 6,
+   "label": "periodic",
+   "log10_temperature": -0.10576470588235296,
+   "alpha": 0.06146666666666666
+  },
+  {
+   "cell": 20,
+   "pair": 6,
+   "label": "unsteered",
+   "log10_temperature": -0.10576470588235296,
+   "alpha": 0.0
+  },
+  {
+   "cell": 21,
+   "pair": 7,
+   "label": "chaotic",
+   "log10_temperature": -0.09505882352941178,
+   "alpha": 0.061035294117647056
+  },
+  {
+   "cell": 22,
+   "pair": 7,
+   "label": "periodic",
+   "log10_temperature": -0.09505882352941178,
+   "alpha": 0.06094901960784314
+  },
+  {
+   "cell": 23,
+   "pair": 7,
+   "label": "unsteered",
+   "log10_temperature": -0.09505882352941178,
+   "alpha": 0.0
+  },
+  {
+   "cell": 24,
+   "pair": 8,
+   "label": "chaotic",
+   "log10_temperature": -0.0843529411764706,
+   "alpha": 0.061898039215686276
+  },
+  {
+   "cell": 25,
+   "pair": 8,
+   "label": "periodic",
+   "log10_temperature": -0.0843529411764706,
+   "alpha": 0.061984313725490195
+  },
+  {
+   "cell": 26,
+   "pair": 8,
+   "label": "unsteered",
+   "log10_temperature": -0.0843529411764706,
+   "alpha": 0.0
+  },
+  {
+   "cell": 27,
+   "pair": 9,
+   "label": "chaotic",
+   "log10_temperature": -0.07364705882352941,
+   "alpha": 0.061380392156862744
+  },
+  {
+   "cell": 28,
+   "pair": 9,
+   "label": "periodic",
+   "log10_temperature": -0.07364705882352941,
+   "alpha": 0.06146666666666666
+  },
+  {
+   "cell": 29,
+   "pair": 9,
+   "label": "unsteered",
+   "log10_temperature": -0.07364705882352941,
+   "alpha": 0.0
+  },
+  {
+   "cell": 30,
+   "pair": 10,
+   "label": "chaotic",
+   "log10_temperature": -0.06294117647058824,
+   "alpha": 0.07268235294117648
+  },
+  {
+   "cell": 31,
+   "pair": 10,
+   "label": "periodic",
+   "log10_temperature": -0.06294117647058824,
+   "alpha": 0.07259607843137256
+  },
+  {
+   "cell": 32,
+   "pair": 10,
+   "label": "unsteered",
+   "log10_temperature": -0.06294117647058824,
+   "alpha": 0.0
+  },
+  {
+   "cell": 33,
+   "pair": 11,
+   "label": "chaotic",
+   "log10_temperature": -0.05223529411764706,
+   "alpha": 0.0724235294117647
+  },
+  {
+   "cell": 34,
+   "pair": 11,
+   "label": "periodic",
+   "log10_temperature": -0.05223529411764706,
+   "alpha": 0.07233725490196079
+  },
+  {
+   "cell": 35,
+   "pair": 11,
+   "label": "unsteered",
+   "log10_temperature": -0.05223529411764706,
+   "alpha": 0.0
+  },
+  {
+   "cell": 36,
+   "pair": 12,
+   "label": "chaotic",
+   "log10_temperature": -0.0415294117647059,
+   "alpha": 0.06448627450980392
+  },
+  {
+   "cell": 37,
+   "pair": 12,
+   "label": "periodic",
+   "log10_temperature": -0.0415294117647059,
+   "alpha": 0.06457254901960784
+  },
+  {
+   "cell": 38,
+   "pair": 12,
+   "label": "unsteered",
+   "log10_temperature": -0.0415294117647059,
+   "alpha": 0.0
+  },
+  {
+   "cell": 39,
+   "pair": 13,
+   "label": "chaotic",
+   "log10_temperature": -0.04,
+   "alpha": 0.06396862745098039
+  },
+  {
+   "cell": 40,
+   "pair": 13,
+   "label": "periodic",
+   "log10_temperature": -0.04,
+   "alpha": 0.06405490196078431
+  },
+  {
+   "cell": 41,
+   "pair": 13,
+   "label": "unsteered",
+   "log10_temperature": -0.04,
+   "alpha": 0.0
+  },
+  {
+   "cell": 42,
+   "pair": 14,
+   "label": "chaotic",
+   "log10_temperature": -0.02,
+   "alpha": 0.06037254901960784
+  },
+  {
+   "cell": 43,
+   "pair": 14,
+   "label": "periodic",
+   "log10_temperature": -0.02,
+   "alpha": 0.06021568627450981
+  },
+  {
+   "cell": 44,
+   "pair": 14,
+   "label": "unsteered",
+   "log10_temperature": -0.02,
+   "alpha": 0.0
+  },
+  {
+   "cell": 45,
+   "pair": 15,
+   "label": "chaotic",
+   "log10_temperature": -0.00996078431372549,
+   "alpha": 0.05174509803921569
+  },
+  {
+   "cell": 46,
+   "pair": 15,
+   "label": "periodic",
+   "log10_temperature": -0.00996078431372549,
+   "alpha": 0.05190196078431372
+  },
+  {
+   "cell": 47,
+   "pair": 15,
+   "label": "unsteered",
+   "log10_temperature": -0.00996078431372549,
+   "alpha": 0.0
+  },
+  {
+   "cell": 48,
+   "pair": 16,
+   "label": "chaotic",
+   "log10_temperature": 0.0013333333333333322,
+   "alpha": 0.04656862745098039
+  },
+  {
+   "cell": 49,
+   "pair": 16,
+   "label": "periodic",
+   "log10_temperature": 0.0013333333333333322,
+   "alpha": 0.046411764705882354
+  },
+  {
+   "cell": 50,
+   "pair": 16,
+   "label": "unsteered",
+   "log10_temperature": 0.0013333333333333322,
+   "alpha": 0.0
+  },
+  {
+   "cell": 51,
+   "pair": 17,
+   "label": "chaotic",
+   "log10_temperature": 0.012,
+   "alpha": 0.05190196078431372
+  },
+  {
+   "cell": 52,
+   "pair": 17,
+   "label": "periodic",
+   "log10_temperature": 0.012,
+   "alpha": 0.05174509803921569
+  },
+  {
+   "cell": 53,
+   "pair": 17,
+   "label": "unsteered",
+   "log10_temperature": 0.012,
+   "alpha": 0.0
+  },
+  {
+   "cell": 54,
+   "pair": 18,
+   "label": "chaotic",
+   "log10_temperature": 0.022666666666666665,
+   "alpha": 0.05174509803921569
+  },
+  {
+   "cell": 55,
+   "pair": 18,
+   "label": "periodic",
+   "log10_temperature": 0.022666666666666665,
+   "alpha": 0.05190196078431372
+  },
+  {
+   "cell": 56,
+   "pair": 18,
+   "label": "unsteered",
+   "log10_temperature": 0.022666666666666665,
+   "alpha": 0.0
+  },
+  {
+   "cell": 57,
+   "pair": 19,
+   "label": "chaotic",
+   "log10_temperature": 0.03333333333333334,
+   "alpha": 0.04531372549019608
+  },
+  {
+   "cell": 58,
+   "pair": 19,
+   "label": "periodic",
+   "log10_temperature": 0.03333333333333334,
+   "alpha": 0.04515686274509804
+  },
+  {
+   "cell": 59,
+   "pair": 19,
+   "label": "unsteered",
+   "log10_temperature": 0.03333333333333334,
+   "alpha": 0.0
+  },
+  {
+   "cell": 60,
+   "pair": 20,
+   "label": "chaotic",
+   "log10_temperature": 0.044,
+   "alpha": 0.0478235294117647
+  },
+  {
+   "cell": 61,
+   "pair": 20,
+   "label": "periodic",
+   "log10_temperature": 0.044,
+   "alpha": 0.04766666666666666
+  },
+  {
+   "cell": 62,
+   "pair": 20,
+   "label": "unsteered",
+   "log10_temperature": 0.044,
+   "alpha": 0.0
+  },
+  {
+   "cell": 63,
+   "pair": 21,
+   "label": "chaotic",
+   "log10_temperature": 0.05466666666666667,
+   "alpha": 0.069
+  },
+  {
+   "cell": 64,
+   "pair": 21,
+   "label": "periodic",
+   "log10_temperature": 0.05466666666666667,
+   "alpha": 0.06915686274509804
+  },
+  {
+   "cell": 65,
+   "pair": 21,
+   "label": "unsteered",
+   "log10_temperature": 0.05466666666666667,
+   "alpha": 0.0
+  },
+  {
+   "cell": 66,
+   "pair": 22,
+   "label": "chaotic",
+   "log10_temperature": 0.06533333333333333,
+   "alpha": 0.05613725490196078
+  },
+  {
+   "cell": 67,
+   "pair": 22,
+   "label": "periodic",
+   "log10_temperature": 0.06533333333333333,
+   "alpha": 0.05598039215686275
+  },
+  {
+   "cell": 68,
+   "pair": 22,
+   "label": "unsteered",
+   "log10_temperature": 0.06533333333333333,
+   "alpha": 0.0
+  },
+  {
+   "cell": 69,
+   "pair": 23,
+   "label": "chaotic",
+   "log10_temperature": 0.076,
+   "alpha": 0.047352941176470584
+  },
+  {
+   "cell": 70,
+   "pair": 23,
+   "label": "periodic",
+   "log10_temperature": 0.076,
+   "alpha": 0.04719607843137255
+  },
+  {
+   "cell": 71,
+   "pair": 23,
+   "label": "unsteered",
+   "log10_temperature": 0.076,
+   "alpha": 0.0
+  },
+  {
+   "cell": 72,
+   "pair": 24,
+   "label": "chaotic",
+   "log10_temperature": 0.08666666666666667,
+   "alpha": 0.06743137254901961
+  },
+  {
+   "cell": 73,
+   "pair": 24,
+   "label": "periodic",
+   "log10_temperature": 0.08666666666666667,
+   "alpha": 0.06727450980392158
+  },
+  {
+   "cell": 74,
+   "pair": 24,
+   "label": "unsteered",
+   "log10_temperature": 0.08666666666666667,
+   "alpha": 0.0
+  },
+  {
+   "cell": 75,
+   "pair": 25,
+   "label": "chaotic",
+   "log10_temperature": 0.09733333333333333,
+   "alpha": 0.06633333333333333
+  },
+  {
+   "cell": 76,
+   "pair": 25,
+   "label": "periodic",
+   "log10_temperature": 0.09733333333333333,
+   "alpha": 0.0661764705882353
+  },
+  {
+   "cell": 77,
+   "pair": 25,
+   "label": "unsteered",
+   "log10_temperature": 0.09733333333333333,
+   "alpha": 0.0
+  },
+  {
+   "cell": 78,
+   "pair": 26,
+   "label": "chaotic",
+   "log10_temperature": 0.108,
+   "alpha": 0.06319607843137255
+  },
+  {
+   "cell": 79,
+   "pair": 26,
+   "label": "periodic",
+   "log10_temperature": 0.108,
+   "alpha": 0.06303921568627452
+  },
+  {
+   "cell": 80,
+   "pair": 26,
+   "label": "unsteered",
+   "log10_temperature": 0.108,
+   "alpha": 0.0
+  },
+  {
+   "cell": 81,
+   "pair": 27,
+   "label": "chaotic",
+   "log10_temperature": 0.11866666666666666,
+   "alpha": 0.05174509803921569
+  },
+  {
+   "cell": 82,
+   "pair": 27,
+   "label": "periodic",
+   "log10_temperature": 0.11866666666666666,
+   "alpha": 0.05190196078431372
+  },
+  {
+   "cell": 83,
+   "pair": 27,
+   "label": "unsteered",
+   "log10_temperature": 0.11866666666666666,
+   "alpha": 0.0
+  },
+  {
+   "cell": 84,
+   "pair": 28,
+   "label": "chaotic",
+   "log10_temperature": 0.12933333333333336,
+   "alpha": 0.04719607843137255
+  },
+  {
+   "cell": 85,
+   "pair": 28,
+   "label": "periodic",
+   "log10_temperature": 0.12933333333333336,
+   "alpha": 0.047352941176470584
+  },
+  {
+   "cell": 86,
+   "pair": 28,
+   "label": "unsteered",
+   "log10_temperature": 0.12933333333333336,
+   "alpha": 0.0
+  },
+  {
+   "cell": 87,
+   "pair": 29,
+   "label": "chaotic",
+   "log10_temperature": 0.14,
+   "alpha": 0.07762745098039217
+  },
+  {
+   "cell": 88,
+   "pair": 29,
+   "label": "periodic",
+   "log10_temperature": 0.14,
+   "alpha": 0.0777843137254902
+  },
+  {
+   "cell": 89,
+   "pair": 29,
+   "label": "unsteered",
+   "log10_temperature": 0.14,
+   "alpha": 0.0
+  }
+ ]
+}

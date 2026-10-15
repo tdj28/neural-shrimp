@@ -1,0 +1,66 @@
+--- original-BZ-generator
++++ later-BZ-analyzer
+@@ -175,6 +175,50 @@
+         f.write_text(json.dumps(rec))
+ 
+ 
++def analyze(args):
++    """Per pair and task: chaotic - periodic differences in accuracy, mean entropy and mean length; sign tests
++    across pairs (two-sided binomial on the nonzero differences) and paired bootstrap intervals (10 000 resamples of
++    pairs, seed fixed); the unsteered accuracy against log10 T."""
++    from math import comb
++
++    cells = {}
++    for d in args.runs:
++        for f in sorted((DATA / "explore" / d).glob("cell-*.json")):
++            rec = json.loads(f.read_text())
++            cells[rec["cell"]["cell"]] = rec
++    rng = np.random.default_rng(SEED)
++    out = {"cells": len(cells), "tasks": {}}
++    by_pair = {}
++    for rec in cells.values():
++        by_pair.setdefault(rec["cell"]["pair"], {})[rec["cell"]["label"]] = rec
++    for task in ("arithmetic", "nq", "mbpp"):
++        rows = []
++        for pair, d in sorted(by_pair.items()):
++            if "chaotic" in d and "periodic" in d and task in d["chaotic"]["groups"] and task in d["periodic"]["groups"]:
++                c, q = d["chaotic"]["groups"][task], d["periodic"]["groups"][task]
++                u = d.get("unsteered", {}).get("groups", {}).get(task)
++                rows.append({"pair": pair, "log10_T": d["chaotic"]["cell"]["log10_temperature"],
++                             "acc_chaotic": c["accuracy"], "acc_periodic": q["accuracy"],
++                             "acc_unsteered": u["accuracy"] if u else None,
++                             "d_acc": c["accuracy"] - q["accuracy"], "d_entropy": c["mean_entropy"] - q["mean_entropy"],
++                             "d_length": c["mean_length"] - q["mean_length"]})
++        res = {"pairs": len(rows), "rows": rows}
++        for key in ("d_acc", "d_entropy", "d_length"):
++            x = np.array([r[key] for r in rows])
++            if not len(x):
++                continue
++            nz = x[x != 0]
++            k, n = int((nz > 0).sum()), len(nz)
++            p = min(1.0, 2 * sum(comb(n, i) for i in range(0, min(k, n - k) + 1)) / 2 ** n) if n else 1.0
++            boots = [float(np.mean(rng.choice(x, len(x)))) for _ in range(10000)]
++            res[key] = {"mean": float(np.mean(x)), "positive": k, "nonzero": n, "sign_test_p": p,
++                        "bootstrap_95": [float(np.percentile(boots, 2.5)), float(np.percentile(boots, 97.5))]}
++        out["tasks"][task] = res
++        print(task, json.dumps({k: v for k, v in res.items() if k != "rows"}))
++    if args.out_json:
++        Path(args.out_json).write_text(json.dumps(out, indent=1))
++
++
+ def main():
+     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
+     sub = ap.add_subparsers(dest="command", required=True)
+@@ -193,8 +237,11 @@
+     r.add_argument("--threads", type=int, default=8)
+     r.add_argument("--device", default="cuda")
+     r.add_argument("--out", required=True)
++    an = sub.add_parser("analyze")
++    an.add_argument("--runs", nargs="+", required=True, help="explore-relative run folders with cell-*.json")
++    an.add_argument("--out-json")
+     args = ap.parse_args()
+-    {"select": select, "run": run}[args.command](args)
++    {"select": select, "run": run, "analyze": analyze}[args.command](args)
+ 
+ 
+ if __name__ == "__main__":
