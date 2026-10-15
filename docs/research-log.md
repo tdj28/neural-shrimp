@@ -25174,3 +25174,15 @@ Measure: the zero curves of the per-step factors of the leading multiplier. **A 
 **Precedent to check before citing:** alternating two chaotic maps can produce order (the dynamical form of Parrondo's paradox).
 
 **Next.** soft_dialogue verify on the 12 entrained cells picked by plot_dialogue (docs/dlg/dlga-entrained-cells.json): Newton on G^P in float64, multipliers, primitive period, transcript. The dialogue-frame cells will be added when DLGb lands.
+
+## 2026-10-15 10:23 UTC: Run card DLGv1 (verification of entrained co-writing pairs)
+
+soft_dialogue verify on the 12 cells of docs/dlg/dlga-entrained-cells.json (cowrite, philosophy at block 12, log10 T -0.1):
+- settle 3000 exchanges from the fixed start;
+- period of G up to 64 at a relative return distance of 1e-7;
+- Newton on G^P (float64, exact forward-mode Jacobians composed over the two agents), tolerance 1e-11;
+- multipliers of the monodromy; primitive period (no return at a proper divisor); the transcript of one period (both agents' leading tokens).
+
+The agents alone are chaotic at these strengths by the map's twin exponents at both offsets. One H100-class pod; ceiling in the private ledger.
+
+Reference for the discussion: Almeida, Peralta-Salas and Romera, Physica D 200, 124-132 (2005), checked against Crossref and added to references.bib. Alternating two chaotic quadratic maps can give order.
