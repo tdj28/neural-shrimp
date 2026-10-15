@@ -7,7 +7,7 @@ OUT=B/'run-001';SUP=OUT.with_name(OUT.name+'-supervision')
 PREFIX='codex/practical-consequences-review-task26/task26cd/'
 WRAPPER=PREFIX+'run.py';STATS=PREFIX+'statistics.py';MAP=PREFIX+'map_evidence.py';CARD=PREFIX+'run-001-card.json'
 WRAPPER_SHA='ae8984f0ede44a33a47b8e805139dfaa4de90989fb4806b965f0a36b2fdcd826';STATS_SHA='ba48cbca6df70be8581a161a1fa6fc57a884dc92bad126cf24ddb2bd0e7ba904';MAP_SHA='7c288d51d8b6b28156a119d7618e37e9b6d6c16af0fcf0d3c2f164e5d4f68a1b'
-ADMISSION='prepared';CARD_SHA=None  # Coordinator binds only the exact reviewed card after private preparation.
+ADMISSION='reviewed';CARD_SHA='78b32dacebc9d5ecbc7038c0eb753d14dae79bf51f7e14a12f11922401dd5112'  # Coordinator binds only the exact reviewed card after private preparation.
 GIB=1024**3;WALL=600;MAX_OUTPUT=128*1024**2
 
 def sha(p):return hashlib.sha256(Path(p).read_bytes()).hexdigest()
