@@ -40,7 +40,7 @@ intermediate temperatures and needs no steering in most dense models. In Qwen2.5
 perturbations grow under Soft Thinking's growing context. Across fifteen models of 0.5B to 72B,
 size does not set the chaos: on ten prompts a 14B model is more chaotic than a 7B, at higher temperatures;
 OLMo-2-32B is the most chaotic OLMo model; and Qwen2.5-72B, nearly free of it on five prompts, is chaotic when steered. Bifurcation theory applied to the model's own derivatives predicts its behaviour where tested: frozen local
-unfoldings near cusp candidates matched the recovered orbits at all twelve tested offsets, and fold normal forms predicted bottleneck passage times without fitting, with 23 of 24 frozen forecasts within one
+unfoldings near cusps matched the recovered orbits at all twelve tested offsets, and fold normal forms predicted bottleneck passage times without fitting, with 23 of 24 frozen forecasts within one
 iterate. In the recurrent-depth model Huginn, a frozen test confirmed a spectrally predicted accuracy loss under relaxation.
 Interval arithmetic proves one period-8 orbit exists and is locally attracting, to our knowledge a first for a transformer
 language model. The map is not ordinary
@@ -95,7 +95,7 @@ factorization proves contraction at sufficiently high temperature for this smoot
 temperature the finite-memory greedy map is eventually periodic; in our sweeps chaos occupies intermediate
 temperatures. The answer to whether larger models leave this chaos behind is no: a larger model's chaos can move to
 higher temperature instead of vanishing, and size does not order the chaos across families (Section~\ref{sec:size}). Fold normal forms predict how long trajectories linger in the ghost of a vanished
-orbit, local unfoldings near cusp candidates predict which periodic orbits coexist and which of them are stable, and
+orbit, local unfoldings near cusps predict which periodic orbits coexist and which of them are stable, and
 spectral estimates of a recurrent-depth model predict how its questions respond to relaxation, with a predicted
 accuracy loss confirmed on held-out data. Ordinary sampled generation
 with a growing context is a different system. Section~\ref{sec:bridge} measures how much of the mechanism survives
@@ -133,10 +133,10 @@ sampling.
   fitting. We tested it prospectively at two new folds: 23 of 24 forecasts fell within one iterate, and the all-row
   criterion failed by one row. The global reinjection sets the prefactor of the window law
   (Section~\ref{sec:mechanism}).
-\item \emph{Local unfoldings near cusp candidates predict which periodic orbits coexist and which are stable.} Fold
+\item \emph{Local unfoldings near cusps predict which periodic orbits coexist and which are stable.} Fold
   and flip curves continued with float64 test functions show that the fold curves of a period-6 window and of a
-  hostile period-7 window contain cusp candidates: segments where the quadratic normal-form coefficient changes sign,
-  with nonzero cubic coefficients at the bracketing points. At nearby fold points the estimated two-parameter
+  hostile period-7 window contain cusps, located where the quadratic normal-form coefficient vanishes, with the cubic
+  coefficient nonzero and the two-parameter unfolding regular at the same points. At nearby fold points the estimated two-parameter
   unfolding is nonsingular, and its local cubic model, frozen before solving, matched the number of distinct orbits
   that Newton solves seeded at its predicted roots recovered at all twelve parameter offsets, and their stability at
   eleven; the search was not exhaustive (Sections~\ref{sec:curves} and~\ref{sec:hostility}).
@@ -218,11 +218,11 @@ hubs \cite{gallas1993structure,facanha2013endoskeletons,vitolo2011hubs,jones2012
 \cite{feigenbaum1978quantitative}.
 
 To our knowledge, this is the first work to compute periodic orbits with their multipliers, continue fold and flip
-bifurcation curves and bracket cusp candidates in the feedback map of a released pretrained language model. It is
+bifurcation curves and locate cusps in the feedback map of a released pretrained language model. It is
 also, to our knowledge, the first to make quantitative predictions from such a model's derivatives, for the objects
 named here, and confirm them prospectively: passage times at new folds, where 23 of 24 forecasts fell within one
 iterate and the all-row criterion failed by one row, and the orbits recovered and their stabilities at frozen offsets
-near cusp candidates. Derivative-based normal-form predictions in a task-trained looped transformer precede ours
+near cusps. Derivative-based normal-form predictions in a task-trained looped transformer precede ours
 \cite{kim2026phase}. We know of no earlier frozen held-out test of a spectral prediction of a pretrained language
 model's response to relaxation, which we give for Huginn, and of no earlier computer-assisted proof of a periodic
 orbit of a full transformer language-model map. These priority statements rest on targeted searches (12 and 15 October 2026) that found no prior work combining these
@@ -685,8 +685,8 @@ Fold curves that bound a window and meet in cusps, with flip curves inside, form
 a shrimp \cite{facanha2013endoskeletons} (complex dynamics of small recurrent networks has been studied in the same
 spirit \cite{pasemann2002complex}). In the continued curves (Figure~\ref{fig:z3curves}), a single fold arc bounds the
 body on its outer side and a flip arc on its inner side, and the leg lies between them where they converge. The outer
-fold arc extends far to the left as a thin arm and ends in a cusp candidate near $(\alpha,\log_{10}T)=(0.06911,-0.03975)$.
-The fold curve through the close fold pair has a second cusp candidate inside the body, near $(0.08010,-0.05835)$, from
+fold arc extends far to the left as a thin arm and ends in a cusp at $(\alpha,\log_{10}T)=(0.069106,-0.039750)$.
+The fold curve through the close fold pair has a second cusp inside the body, at $(0.080097,-0.058344)$, from
 which two fold branches descend.
 
 At both candidates the quadratic coefficient $b$ changes sign between consecutive curve points while $a$ stays away
@@ -737,7 +737,7 @@ cusps (text); they are numerical, not certified.}
 \centering
 \includegraphics[width=0.8\linewidth]{fig-zoom-z3-curves.png}
 \caption{The period-6 window of the Qwen2.5-0.5B-Instruct map (philosophy direction, layer 12) with its float64
-fold curves (cyan), flip curve (magenta, dotted) and the two normal-form-tested cusp candidates (yellow circles). The background
+fold curves (cyan), flip curve (magenta, dotted) and the two located cusps (yellow circles). The background
 is a float32 phase map of $480\times400$ cells (largest exponent from 300 steps after 300 transient steps; chaotic
 cells coloured by the exponent, periodic cells in grey by how strongly they contract). Where it overlaps the float64
 map of Figure~\ref{fig:stripes}, 95\,\% of cells carry the same chaotic or periodic label at the nearest grid point. Some fold branches were continued from two starting points
@@ -746,14 +746,15 @@ each other; how they join there is not resolved.}
 \label{fig:z3curves}
 \end{figure}
 
-\paragraph{A period-4 window with two cusp candidates.} At higher temperature, $\log_{10}T\approx0$--$0.1$, periodic orbits
+\paragraph{A period-4 window with two cusps.} At higher temperature, $\log_{10}T\approx0$--$0.1$, periodic orbits
 are no longer effectively one-dimensional (second multipliers $0.06$--$0.09$). At $\alpha=0.06484$ the temperature
 branch of the period-4 orbit ``$\backslash$n$\backslash$n - $\backslash$n$\backslash$n The'' is S-shaped, with folds
 at $\log_{10}T=0.0640$ and $0.0664$. When that fold is continued in the plane, its parameter tangent reverses at three
 points, two of which we tested. At both, the quadratic coefficient $b$ changes sign while $a$ stays away from zero,
-and the cubic coefficient $c$ (defined above) is nonzero (Table~\ref{tab:cusps}). The two tested points are therefore
-cusp candidates of the fold curve, near $(\alpha,\log_{10}T)=(0.06296,0.05996)$ and $(0.06557,0.07445)$. The third, at $(\alpha,\log_{10}T)=(0.08308,0.10863)$, was not tested. Three period-4 orbits
-coexist between the two fold branches, and near the first candidate ($c<0$) two of them are stable
+and the cubic coefficient $c$ (defined above) is nonzero (Table~\ref{tab:cusps}). Located along the curve, the two cusps lie at
+$(\alpha,\log_{10}T)=(0.062959,0.059958)$ and $(0.065574,0.074447)$. There $b\operatorname{sign}a$ is below
+$1.1\times10^{-5}$ of its bracket values, $c=-1.02\times10^{4}$ and $+1.37\times10^{5}$, and $\det J=-42.0$ and $35.5$. The third, at $(\alpha,\log_{10}T)=(0.08308,0.10863)$, was not tested. Three period-4 orbits
+coexist between the two fold branches, and near the first cusp ($c<0$) two of them are stable
 (Figure~\ref{fig:p4}).
 \begin{table}[H]
 \centering\small
@@ -769,8 +770,8 @@ $c$ around $b=0$ & $-1.06$, $-1.01\ (\times10^{4})$ & $+1.39$, $+1.36\ (\times10
 \bottomrule
 \end{tabular}
 \caption{Normal-form test of the two parameter-tangent reversals (bold: the flagged points). $c$: cubic
-coefficient at the points around the sign change, nonzero at both candidates (steps agree to $10^{-4}$), which supports
-a nondegenerate cusp inside each bracket; at the second, $c>0$: the orbit between the two others is the stable one.}
+coefficient at the points around the sign change, nonzero at both reversals (steps agree to $10^{-4}$), which supports
+a nondegenerate cusp inside each bracket; bisection then located both (text); at the second, $c>0$: the orbit between the two others is the stable one.}
 \label{tab:cusps}
 \end{table}
 \begin{figure}[H]
@@ -778,7 +779,7 @@ a nondegenerate cusp inside each bracket; at the second, $c>0$: the orbit betwee
 \includegraphics[width=0.6\linewidth]{fig-p4-curves.png}
 \caption{Period map of the high-temperature region of the Qwen2.5-0.5B-Instruct map (philosophy direction, layer
 12; $192^2$ float64 cells) with float64 fold curves (cyan, long dashes) and flip curves (magenta, short dashes) of the
-period-4 orbit. The yellow circle is the first cusp candidate; the second lies just above the window. The flip curves run along
+period-4 orbit. The yellow circle is the first cusp; the second lies just above the window. The flip curves run along
 the boundary between period 4 and period 8. The fold curves run inside the period-4 region, where three period-4
 orbits coexist (near the first candidate, two of them stable). In this map a C-shaped band of the doubled loop
 ``\textbackslash n\textbackslash nThe\textbackslash n\textbackslash nThe'' (period 4) inside the period-2 region
@@ -1718,7 +1719,7 @@ periodic (Section~\ref{sec:discussion}, Limitations).}
 \includegraphics[width=0.75\linewidth]{fig-hub-shrimp.png}
 \caption{The period-7 body of the spiral region (Qwen2.5-0.5B-Instruct, hostility direction at layer 12):
 attractor periods of a float64 zoom (white at $\alpha<0.062$: outside the zoom), the float64 fold curves of the
-period-7 orbit (black) and the flip curves into period 14 (red, dashed), with the two cusp candidates (gold).}
+period-7 orbit (black) and the flip curves into period 14 (red, dashed), with the two located cusps (gold).}
 \label{fig:hubshrimp}
 \end{figure}
 \begin{figure}[H]
@@ -1761,7 +1762,7 @@ that model. This paper shows that the models we studied do realize it, with conc
 bifurcation changes what the model writes, and that the quantitative predictions hold in the cases we tested.
 
 As far as we know, no earlier work has computed periodic orbits and their multipliers, continued fold and flip
-bifurcation curves and bracketed cusp candidates in the feedback map of a released pretrained language model. Nor do
+bifurcation curves and located cusps in the feedback map of a released pretrained language model. Nor do
 we know of earlier quantitative predictions from such a model's derivatives, for these objects, that were confirmed
 prospectively, as ours were for passage times at new folds (23 of 24 forecasts within one iterate, with the all-row
 criterion failing by one row) and for the orbits recovered and their stabilities at frozen offsets near cusp
@@ -1951,7 +1952,7 @@ carry over: the factorization of the loop's derivative (a covariance for tied em
 otherwise), contraction at sufficiently high temperature, the reduction of zero-temperature attractors to greedy
 cycles of whatever memory the loop keeps, and the role of a steering coefficient as a bifurcation parameter. Others
 belong to particular weights and will not carry over as such: the attractor texts, the positions of windows, folds and
-cusp candidates, and every number we report; a second checkpoint of the same architecture already has different
+cusps, and every number we report; a second checkpoint of the same architecture already has different
 attractors (Section~\ref{sec:scale}). Size gives no guarantee of stability. In a fixed temperature window the unsteered
 chaos nearly vanished in the largest Qwen2.5 and Llama models, but across prompts a 14B Qwen model was more chaotic
 than the 7B, at higher temperatures, OLMo-2-32B was the most chaotic OLMo model, and post-training changed the chaos
@@ -2044,7 +2045,7 @@ second checkpoint, is the unreported bounded search).}
 \item Rung 2 as well: the hostile 2-cycle fold and its normal form, reproduced by an independent float64 forward map
   with nested automatic differentiation (location to $6\times10^{-10}$, $ab$ to 8 parts per million); its controlled
   passages were also checked independently, with the frozen all-six criterion failing by one row.
-\item Rung 1: the other orbits, the curves, the six cusp candidates, the superstable parameters,
+\item Rung 1: the other orbits, the curves, the six located cusps, the superstable parameters,
   the 1.5B flips, the hostile windows' edges, the spiral region's period-7 body and the cascade inside it, the three 7B
   orbits, and Huginn's float32 spectral estimates.
 \item Prospectively frozen, not independently reproduced: the scaling predictions P1--P3, the prompt-blocked size

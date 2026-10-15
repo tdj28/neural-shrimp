@@ -23814,3 +23814,11 @@ The c values agree with the bracketing values reported before (-1.37e4/-1.65e4, 
 **Period-8 flip curve reversals** (curve-p8-down-minus 34/35 and 47/48):
 - Located at (-0.219336, 0.074955) and (-0.206007, 0.074608). The second multiplier there is 3.4e-7 and 1.1e-5, nowhere near the unit circle.
 - On a flip curve the parameter tangent can vanish only if (M - I) dx = 0 has a solution, which needs a multiplier at +1. Both points are therefore smooth turns of an immersed curve in the parameter plane, not cusps of its projection and not codimension-two points.
+
+## 2026-10-15 02:50 UTC: CL5 result: the two period-4 cusp candidates are located cusps (all six of the paper's candidates now located)
+
+Pod 9rl96brguxe67a (SECURE H100 NVL, runner rc 0, hash verified, terminated; 1161 s). Outputs copied to codim2/curve-foldB-minus-cusp-{13,54}.
+- Candidate 1 is located at (log10 T 0.059958, alpha 0.062959). There b sign(a) is -3.5e-5 (from 8.38), c = -1.017e4 (plateau spread 1e-4; before -1.06e4 and -1.01e4) and det J = -42.0 (condition 727).
+- Candidate 2 is located at (0.074447, 0.065574), with b sign(a) -9.6e-5 (from 9.35), c = +1.372e5 (before +1.39e5 and +1.36e5) and det J = 35.5 (condition 544).
+
+All six cusp candidates of the paper are now numerically located cusps: b sign(a) below 1.3e-5 of its bracket values, with c and det J nonzero at the same point. The paper's wording changes from "cusp candidates" to "located cusps" throughout. CL6, the three untested reversals, was relaunched as CL6b after its first pod never became SSH-ready (terminated, no results).
