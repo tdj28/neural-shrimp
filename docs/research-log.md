@@ -25677,7 +25677,7 @@ One research-strategy request (gpt-6-astra, Pro, xhigh) with docs/consults/2026-
 - **New check (consult direction 3, cheapest pilot), CPU, float64, from saved states.** At the self-crossing of the FM5 fold curve the two arms are folds of different period-5 orbits. Both have the token loop ". I . . 你", and their states differ by 3.9 % (RMS over the five points, best phase), 8 to 26 times the state change per curve step. The crossing therefore joins two separate saddle-node events.
 - **Recommended experiment (not started).** A causal reset test of layout-dependent answers in bfloat16 soft thinking: free feedback against a reference-state reset before every soft step. It goes to the human as a proposal.
 
-## 2026-10-15 16:14 UTC: run card RR (exploratory; consult 10, direction 1): does accumulated feedback state make soft-thinking answers depend on the batch layout?
+## 2026-10-15 16:06 UTC: run card RR (exploratory; consult 10, direction 1): does accumulated feedback state make soft-thinking answers depend on the batch layout?
 
 **Question.** REPRO-T found that the batch layout changed 56 % of bf16 soft-thinking answers (Qwen2.5-0.5B, T = 1, H100). Two explanations compete:
 - the soft phase carries each step's layout-dependent rounding forward, so it accumulates or is amplified;
