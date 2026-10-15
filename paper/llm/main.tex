@@ -816,19 +816,36 @@ hostility at block 16; bottom: the blocks exchanged. Dotted lines mark the axes,
 \label{fig:twoblock}
 \end{figure}
 
-\paragraph{Does a chaotic loop predict worse answers in ordinary decoding? Not demonstrably.} We looked for a
-behavioural signature of the regimes outside the loop, in two exploratory designs, and found none that survives
+\paragraph{Does a chaotic loop predict worse answers in ordinary decoding? Not beyond the model's own uncertainty.}
+We looked for a behavioural signature of the regimes outside the loop. Two exploratory designs found none that survives
 controls. First, ordinary sampled answers of Qwen2.5-0.5B under steering at the strengths of chaotic and periodic map
-cells (30 matched pairs; arithmetic, open questions, short programs) showed no measurable accuracy contrast. At those
+cells (30 matched pairs; arithmetic, open questions, short programs) showed no measurable accuracy contrast: at those
 strengths, steering every position turns every reply into philosophy-flavoured text, so accuracy sits at the floor in
-both zones. Second, we labelled each of 200 prompts by the regime of its own unsteered loop in Qwen2.5-7B at three
-temperatures and compared the prompts' ordinary sampled accuracy. Prompts whose loop is chaotic were answered far less
-accurately (by 23 to 36 points among prompts the model answers correctly when greedy), but mostly because chaotic
-labels fall on the harder task and on flatter answer distributions. With task and answer entropy as covariates, a
-residual of $-4$ to $-5$ points remains, with the same sign at each temperature and no significance alone. Answer
-entropy is measured during sampling, so this adjustment may over-correct. A regime label measured on the loop may yet
-add predictive value beyond simpler difficulty measures, but establishing it needs a frozen test on fresh, single-task
-prompts with covariates fixed before sampling; we have not run one.
+both zones. Second, labelling each of 200 prompts by the regime of its own unsteered loop in Qwen2.5-7B, prompts with
+a chaotic loop were answered far less accurately, but mostly because chaotic labels fell on the harder task and on
+flatter answer distributions.
+
+A frozen test settles the second design. Its design, covariates and analysis were pushed before any data. It uses
+4000 fresh products of two two-digit numbers and the unsteered Qwen2.5-7B-Instruct at $\log_{10}T=0.40$: 1484 prompts
+have a chaotic loop and 2509 a periodic one. Chaotic-loop prompts are again answered less accurately by ordinary
+sampling, by 7.1 points (95\,\% interval $[4.8,9.3]$; 10 samples per prompt). The gap vanishes once seven difficulty
+covariates, all fixed before sampling, enter the fit. Beyond them the label's coefficient is $+0.15$ points
+($[-1.4,1.7]$, permutation $p=0.84$), and the label adds no held-out predictive value. The first-token entropy alone
+absorbs nearly all of the gap (post hoc: $-0.8$ points remain). This is what the mechanism of
+Section~\ref{sec:theory} predicts. The loop turns chaotic where next tokens compete, and a model unsure of its first
+token also answers worse. The loop's regime adds nothing beyond that uncertainty.
+
+Nor does accuracy peak at the edge of chaos. Adjusted for the covariates, three groups of prompts are answered
+alike:
+\begin{itemize}
+  \item deep periodic ($\lambda\le-0.3$, 1961 prompts): $+0.3$ points;
+  \item edge ($|\lambda|\le0.1$, 242 prompts): $-0.1$ points;
+  \item deep chaotic ($\lambda\ge0.3$, 1400 prompts): $+0.3$ points.
+\end{itemize}
+All three intervals lie within $[-3.1,3.0]$. The edge contrast is $-0.4$ points ($[-3.5,2.6]$), and the curvature in
+$\lambda$ is positive, the opposite of an edge optimum. Post hoc, the curvature comes from the most strongly
+contracting tenth of prompts ($\lambda\le-3.4$), answered 5.3 points ($[3.0,7.6]$) better than the covariates
+predict. That is a lead for a future test, not a finding.
 
 \section{Period adding written in text}
 \label{sec:adding}
@@ -2617,6 +2634,10 @@ second checkpoint, is the unreported bounded search).}
   by code pushed before the data, together with the three-offset plateau tests of the 70B-class maps and the float64
   recheck of the Qwen2.5-72B cells with exact tangent exponents. These are
   float64 computations at rung 1; no independent implementation has rechecked them.
+\item Prospectively frozen on 15 October, not independently reproduced: the answer-level reproducibility tests in
+  Qwen2.5-0.5B and its 7B extension (positive), and the behaviour test (null on its primary question; no edge
+  optimum), all in Section~\ref{sec:consequences} and each scored by code pushed before the data
+  (\path{docs/repro-task-test.md}, \path{docs/bpc-test.md}).
 \item Prospectively frozen and independently replayed: Huginn's relaxation test on held-out data, confirmed in both
   parts; an independent implementation reproduced both from the saved rows and spectra (GSM8K part exactly,
   item-level part to $10^{-12}$) (Section~\ref{sec:huginn}).
@@ -2634,7 +2655,9 @@ were checked across hardware where it mattered (for example, flip parameters agr
 $4\times10^{-15}$).
 {\sloppy Code: \path{tools/explore_llm_soft_loop.py}, \path{tools/bifurcation_curves.py}, \path{tools/llm_feigenbaum.py},
 \path{tools/explore_latent_loop.py},
-\path{tools/cusp_check.py}, \path{tools/huginn_relax_eval.py}, \path{tools/huginn_arc_analysis.py}. Raw-data hash
+\path{tools/cusp_check.py}, \path{tools/huginn_relax_eval.py}, \path{tools/huginn_arc_analysis.py},
+\path{tools/steer_gain.py}, \path{tools/crossover.py}, \path{tools/repro_noise.py}, \path{tools/repro_task.py},
+\path{tools/repro_summary.py}, \path{tools/bpc_analyze.py}, \path{tools/turning_scan.py}. Raw-data hash
 receipts: \path{evidence/llm-dynamics-data-receipts.json} (to 12 October), the per-run receipts in the research log,
 and the verified snapshot manifests in \path{docs/backups/}; independent cross-check and audit receipts are under
 \path{codex/} (\path{crosscheck}, \path{confirm-fold}, \path{hostile-fold-crosscheck},
