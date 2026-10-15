@@ -74,8 +74,9 @@ strength, explain why steering makes it so, and measure what the chaos does.
 \begin{itemize}
 \item In a chaotic regime, an irrelevant change of batch size makes two otherwise identical float64 runs write
   different text, after a number of steps that the Lyapunov exponent predicts, in Qwen2.5-0.5B and, without steering,
-  in Qwen2.5-7B and Llama-3.1-8B. In a periodic regime 95\,\% of the run pairs end within $3\times10^{-12}$ of each other. In bfloat16, the batch layout changed the answers of a short
-  soft-thinking pipeline on 56\,\% of arithmetic problems and never changed greedy decoding's.
+  in Qwen2.5-7B and Llama-3.1-8B; in a periodic regime the two runs stay together. In bfloat16, the batch layout
+  changed the answers of a short soft-thinking pipeline on 56\,\% of arithmetic problems in a 0.5B model and 55\,\% in
+  a 7B model, far more often than it changed greedy decoding's (never and 10\,\%).
 \item Steering creates the chaos by making next tokens compete, which turns the softmax readout from a contraction
   into an expansion; a logit bias alone suffices. At fixed states, steering's change of the network's response damps
   the instability, in a 0.5B and a 7B model, and along concept and random directions alike.
@@ -127,14 +128,16 @@ sampling.
 \item \emph{The dynamical regime decides whether a run can be reproduced.} Run twice with only the batch layout changed,
   190 of 192 chaotic float64 loops of Qwen2.5-0.5B diverge from rounding-level differences to different text, after
   a median of 102 steps and as the Lyapunov exponent predicts (median ratio 0.91), while 182 of 192 periodic loops
-  stay within $10^{-2}$ and 95\,\% end within $3\times10^{-12}$. In bfloat16 every loop tested diverges within a few steps
-  (Section~\ref{sec:consequences}). At the level of answers, in a frozen test on 96 additions, the batch layout
+  stay within $10^{-2}$ and 95\,\% end within $3\times10^{-12}$. The same holds without steering in Qwen2.5-7B (24 of 24
+  chaotic loops diverge, none of 24 periodic ones) and Llama-3.1-8B (20 of 20, and 1 of 20). In bfloat16 nearly every
+  loop diverges within a few steps (Section~\ref{sec:consequences}). At the level of answers, in a frozen test on 96 additions, the batch layout
   changed the answer of a bfloat16 soft-thinking pipeline in 56\,\% of problems at $T=1$ in Qwen2.5-0.5B and in
   55\,\% at $T=10^{0.2}$ in Qwen2.5-7B, far more often than it changed greedy decoding's output (never and 10\,\%).
 \item \emph{Steering makes next tokens compete.} An exact split of each step's growth shows that steering into chaos
   raises the readout factor by 2.58 nats per step and leaves the network factor flat. A logit bias alone, with the
   network untouched, makes 3.5\,\% of the plane chaotic. An orbit-preserving crossover attributes the expansion at
-  fixed states to steering's change of the readout ($+0.81$ nats per step in the 0.5B model), not of the network,
+  fixed states to steering's change of the readout ($+0.81$ nats per step in the 0.5B model, and $+0.33$ and $+0.77$
+  along gratitude and a random direction), not of the network,
   whose change damps the growth ($-0.49$; $-1.14$ in Qwen2.5-7B, where the unsteered derivative already expands at the
   steered states) (Section~\ref{sec:theory}).
 \item \emph{Where and how steering is applied changes the chaos.} Earlier steering carries chaos to lower
