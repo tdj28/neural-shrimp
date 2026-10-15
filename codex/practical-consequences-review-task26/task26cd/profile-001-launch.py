@@ -7,7 +7,7 @@ OUT=B/'profile-001';SUP=OUT.with_name(OUT.name+'-supervision')
 PREFIX='codex/practical-consequences-review-task26/task26cd/'
 WRAPPER=PREFIX+'synthetic_profile.py';STATS=PREFIX+'statistics.py';MAP=PREFIX+'map_evidence.py';FIXTURE=PREFIX+'test_statistics.py';CARD=PREFIX+'synthetic-profile-card.json'
 WRAPPER_SHA='a31e5cffbd090916c7ad2db0e19364f5ae733b84418799d1e454d4db606cea55';STATS_SHA='ba48cbca6df70be8581a161a1fa6fc57a884dc92bad126cf24ddb2bd0e7ba904';MAP_SHA='7c288d51d8b6b28156a119d7618e37e9b6d6c16af0fcf0d3c2f164e5d4f68a1b';FIXTURE_SHA='4b029511ab5e8d099f94b037beab81dc7c06d11bf23ced75d1dce85c274da063'
-ADMISSION='prepared';CARD_SHA=None  # Coordinator binds only the exact reviewed card after private preparation.
+ADMISSION='reviewed';CARD_SHA='854342ed382d7ba1abc948e4a446abeacfd4a9b256e08068679b47c9b9d5d81d'  # Coordinator binds only the exact reviewed card after private preparation.
 GIB=1024**3;WALL=600;MAX_OUTPUT=128*1024**2
 
 def sha(p):return hashlib.sha256(Path(p).read_bytes()).hexdigest()
