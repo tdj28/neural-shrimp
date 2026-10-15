@@ -26504,3 +26504,17 @@ The referee subagent's report is saved at ../neural-shrimp-data/scratch/physics-
 - B4, signed passage residuals.
 - C1-C15.
 - The missing references (D).
+
+## 2026-10-15 22:51 UTC: Amendment to SHC-L before any data (referee finding B1): the decision rule also uses the determinant D
+
+Neither SHC-L grid has started; both are waiting for GPU capacity, and no data exist. The referee pointed out two facts:
+- The determinant of the leading pair, D = mu1 mu2, changes sign in these cascade cells (attracting cells with D < 0: P2 418 of 681; P4 62 of 342; P8 2 of 161; P5 41 of 447).
+- A head can occur where T = D = 0, both leading multipliers vanishing. A trace checkerboard alone cannot detect that.
+
+In the period-5 window, a two-parameter Newton search on the invariants of the leading spectrum found such a near-nilpotent point between grid cells: (alpha1, alpha2) = (-0.1184836, 0.1017217). There the three leading multipliers have moduli 3.4-3.6e-3.
+
+**Amended rule.**
+- (i) The D = 0 curves are drawn with the T = 0 curves.
+- (ii) "Head" also when T and D change sign together within one 2 x 2 block of attracting cells (all four sign combinations of (T, D) present). The leading moduli there are reported.
+- (iii) The third multiplier is reported per cell. Where it is comparable to the leading pair, the two-dimensional verdict is "unresolved".
+- The original checkerboard, loop and turn-away criteria are unchanged.
