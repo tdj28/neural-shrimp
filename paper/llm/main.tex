@@ -2081,7 +2081,8 @@ eigenvalue, so the leading multiplier can change sign only by exchanging places 
 it into a complex pair. Where a one-dimensional map would place its doubly superstable centre, the orbit is
 two-dimensional, and a scalar superstable curve is not defined. Next to the body, the 7-step return maps of chaotic
 cells are single-humped in every phase, with doubled strands in two phases, the trace of a thin second dimension
-(Figure~\ref{fig:returnmapsbody}). The body is therefore not the shrimp of a one-dimensional map. Whether it is the shrimp of an effectively
+(Figure~\ref{fig:returnmapsbody}); cobwebs on these maps show the doubling cascade and the chaos as on a
+one-humped interval map (Figure~\ref{fig:cobwebs}). The body is therefore not the shrimp of a one-dimensional map. Whether it is the shrimp of an effectively
 two-dimensional map, as in the H\'enon family, is open.
 
 \paragraph{What the shrimp-like shapes are.} The shapes are made of the bifurcation curves of single windows
@@ -2132,6 +2133,18 @@ hostile line of Figure~\ref{fig:hubcascade} (bottom row: $\alpha=0.0655$, $\log_
 the leading principal component of that phase's states, which carries 89--100\,\% of their variance. Every phase
 shows a single hump. In phases 4 and 5 the curve splits into two thin strands.}
 \label{fig:returnmapsbody}
+\end{figure}
+\begin{figure}[tbp]
+\centering
+\includegraphics[width=\linewidth]{fig-cobwebs.png}
+\caption{Cobweb diagrams of the 7-step return map of the hostility-steered loop (Qwen2.5-0.5B-Instruct, layer 12,
+float64). $s$ is the projection of one phase's states on their leading principal component. Left four panels: the
+doubling cascade at the right edge of the hidden-chaos window along $\alpha=0.0655$. As $\log_{10}T$ falls from
+$0.19082$ to $0.19029$, the attracting set of the 7-step map (blue) is a fixed point (period 7 of the full loop), then a
+2-, 4- and 8-cycle (periods 14, 28 and 56); the red cobweb shows the approach from the fixed start (for period 7, its
+first visits). Right two panels: chaotic cells of Figure~\ref{fig:returnmapsbody}, where the visits trace a one-humped
+map (grey) and the cobweb wanders over it.}
+\label{fig:cobwebs}
 \end{figure}
 
 \paragraph{Chaos behind a repeating text.} Along the temperature line of Figure~\ref{fig:hubcascade} (left), a longer
