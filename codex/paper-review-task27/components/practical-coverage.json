@@ -1,0 +1,929 @@
+{
+  "schema": "task27-practical-claim-coverage-v1",
+  "frozen_commit": "66ffa102c56f6d5b22f116a1bb194f503c75562e",
+  "paper_sha256": "d78a22090469e1dc32e67e715c0a2f51cc538b6728496c04974d9fc16a99b05f",
+  "assigned_ranges": [
+    [
+      379,
+      475
+    ],
+    [
+      669,
+      866
+    ]
+  ],
+  "review_note": {
+    "path": "/tmp/task27-practical-review.md",
+    "sha256": "8935e3dfecef43aa6d9ac64fcbc1f2ec681b205035642f8176d72abca9440fb6"
+  },
+  "method": "Source and literal frozen saved-summary review, with accepted independent Task26 reuse. No model, statistics, bootstrap, NPZ or producer execution. Parsing only transcribed admitted JSON/source metadata. Direct means source/literal-summary read; it does not imply new independent arithmetic or historical process authentication. Unverified denotes an unsupported stronger inference or absent new compact raw summary.",
+  "coverage": [
+    {
+      "lines": [
+        379,
+        385
+      ],
+      "claim": "Network/readout factorization and finite tangent-growth sum",
+      "status": "accepted-reuse",
+      "evidence": [
+        "Task26cd/source-contract",
+        "tools/softmax_gain.py"
+      ],
+      "disposition": "Accepted finite decomposition; no fresh model or derivative evaluation.",
+      "findings": []
+    },
+    {
+      "lines": [
+        386,
+        387
+      ],
+      "claim": "5353 cells,331 chaotic,R1 readout2.58 CI[1.78,3.59],18rows",
+      "status": "accepted-reuse",
+      "evidence": [
+        "Task26cd/report.json",
+        "paper/llm/figures/fig-mechanism.json"
+      ],
+      "disposition": "Counts and central contrast correct; contrast itself uses321 chaotic cells across18 admittedrows. Corrected CI landed.",
+      "findings": []
+    },
+    {
+      "lines": [
+        388,
+        391
+      ],
+      "claim": "R1 network,absolute readout expansion,entropy/gap,R2readout",
+      "status": "accepted-reuse",
+      "evidence": [
+        "Task26cd/report.json",
+        "paper/llm/figures/fig-mechanism.json"
+      ],
+      "disposition": "Numerical contrasts/CIs agree; nearzero comparison is not exactunsteered; three chaotic rowmeans still contract.",
+      "findings": [
+        "P03"
+      ]
+    },
+    {
+      "lines": [
+        392,
+        398
+      ],
+      "claim": "Output bias Wv;241/6837 versus331/5353 and sufficiency",
+      "status": "accepted-reuse",
+      "evidence": [
+        "Task26cd/report.json",
+        "tools/steer_gain.py"
+      ],
+      "disposition": "Counts supported. Direct output-bias family is distinct from interior steering; globalmechanistic sufficiency overstates.",
+      "findings": [
+        "P02"
+      ]
+    },
+    {
+      "lines": [
+        399,
+        408
+      ],
+      "claim": "XO24 validation,14heldout effects,low/highT means,relocation excluded",
+      "status": "accepted-reuse",
+      "evidence": [
+        "Task26cd/report.json",
+        "paper/llm/figures/fig-mechanism.json"
+      ],
+      "disposition": "23/24within.012 correct; all24gate and closeness fail; fixedtrajectory evidence doesnot ruleoutrelocation.",
+      "findings": [
+        "P02"
+      ]
+    },
+    {
+      "lines": [
+        409,
+        413
+      ],
+      "claim": "XO7 18cells/10heldout validation and8highTsubgroup",
+      "status": "direct",
+      "evidence": [
+        "saved-evidence-001/pod64/xo/cells7/crossover.json",
+        "tools/plot_mechanism.py:181-196",
+        "paper/llm/figures/fig-mechanism.json"
+      ],
+      "disposition": "All18 literalpairs read; source/summary assign+.23CI to10,not8. Hybridtrajectory scope persists. No bootstrapreplay.",
+      "findings": [
+        "P02",
+        "P08"
+      ]
+    },
+    {
+      "lines": [
+        414,
+        418
+      ],
+      "claim": "Gratitude/random14cell contrasts and directionmeaning",
+      "status": "direct",
+      "evidence": [
+        "paper/llm/figures/fig-mechanism.json",
+        "tools/plot_mechanism.py:197-212",
+        "practical-log-excerpts.md/XOG-XOR"
+      ],
+      "disposition": "DisplayedCIs enclose savedendpoint summaries; two selecteddirections do not establish meaninginvariance.",
+      "findings": []
+    },
+    {
+      "lines": [
+        419,
+        423
+      ],
+      "claim": "General lowTreadout/highTrelocation/networkdamping explanation",
+      "status": "unverified",
+      "evidence": [
+        "Task26cd accepted limitations",
+        "XO7 source/summary"
+      ],
+      "disposition": "Conditionalfactor evidence supports narrower explanation,not universalcausalmechanism or actualrelocation.",
+      "findings": [
+        "P02",
+        "P03"
+      ]
+    },
+    {
+      "lines": [
+        424,
+        427
+      ],
+      "claim": "Block4singleT .72/-.35 andhostileline.12-.13 net .60 vs .24-.38",
+      "status": "unverified",
+      "evidence": [
+        "tools/plot_mechanism.py",
+        "frozen research-log"
+      ],
+      "disposition": "Source/logsupport only; exact new percell summary for these particular slices not independently read/reduced. Retain asproducerreported,notrawverified.",
+      "findings": []
+    },
+    {
+      "lines": [
+        428,
+        431
+      ],
+      "claim": "Randomdirections,modelvariation,semanticsselectsreadout",
+      "status": "accepted-reuse",
+      "evidence": [
+        "Task16 steering-controls report",
+        "frozen paper/source"
+      ],
+      "disposition": "Generic direction comparisons previouslyaudited; empiricalsemantic interpretation remains descriptive. Inference coverslargemodelscale.",
+      "findings": []
+    },
+    {
+      "lines": [
+        432,
+        444
+      ],
+      "claim": "Mechanismfigure panels/nearzero/stablerank",
+      "status": "direct",
+      "evidence": [
+        "tools/plot_mechanism.py",
+        "Task26cd accepted source review"
+      ],
+      "disposition": "Panelcomparisons supported; labelnearzero accurately and replace stable-rankname withdefinedestimatedratio.",
+      "findings": [
+        "P03",
+        "P12"
+      ]
+    },
+    {
+      "lines": [
+        445,
+        475
+      ],
+      "claim": "Mechanismtable duplicated R1,R2,XO,XO7 numbers",
+      "status": "accepted-reuse",
+      "evidence": [
+        "Task26cd/report.json",
+        "paper/llm/figures/fig-mechanism.json"
+      ],
+      "disposition": "Oldtable correctedCIscorrect; XO7literal10cellsummary correct; no scientificgatereversal.",
+      "findings": []
+    },
+    {
+      "lines": [
+        669,
+        676
+      ],
+      "claim": "Opening practical implications framing",
+      "status": "direct",
+      "evidence": [
+        "assigned paper context",
+        "Task26 finite scope"
+      ],
+      "disposition": "General framing must inherit finitehorizon/selectedmodel scope; no extra numericalclaim.",
+      "findings": []
+    },
+    {
+      "lines": [
+        677,
+        687
+      ],
+      "claim": "448cells,layout design,190crossers,102steps,90%tail,periodic bounds",
+      "status": "accepted-reuse",
+      "evidence": [
+        "Task26b/report.json",
+        "tools/repro_noise.py",
+        "docs/repro-summary.json"
+      ],
+      "disposition": "Counts/median crossing supported; complete-reversedcells,orderone,generatedtext and95%bound claims needcorrection.",
+      "findings": [
+        "P05",
+        "P06",
+        "P13"
+      ]
+    },
+    {
+      "lines": [
+        688,
+        691
+      ],
+      "claim": "Firstnonzeroforecast,.91,.73,censoredweakcells",
+      "status": "accepted-reuse",
+      "evidence": [
+        "Task26b accepted historical/corrected ledgers",
+        "tools/plot_repro.py:69-75",
+        "tools/repro_summary.py:54-64"
+      ],
+      "disposition": "Historicalcode usesfutureminimum; corrected0.5B rounds same; finitecensoringretained.",
+      "findings": [
+        "P04"
+      ]
+    },
+    {
+      "lines": [
+        692,
+        698
+      ],
+      "claim": "REPRO7/L8 counts,crossingmedians,ratios,periodicquantile",
+      "status": "direct",
+      "evidence": [
+        "docs/repro-summary.json",
+        "saved-evidence-001/pod64/repro/q7-f64/repro.json",
+        "practical-log-excerpts.md/REPRO7-REPRO-L8"
+      ],
+      "disposition": "Literal summaries support counts/medians;7B22/24belowbound,not95%; newratioshistoricalminimum.",
+      "findings": [
+        "P04",
+        "P06"
+      ]
+    },
+    {
+      "lines": [
+        698,
+        702
+      ],
+      "claim": "REPRO70 24/24,114.5,.83/.74,21tail,allperiodicfinalbound",
+      "status": "direct",
+      "evidence": [
+        "docs/repro-summary.json",
+        "saved-evidence-001/pod64/repro/r70/repro.json",
+        "practical-log-excerpts.md/REPRO70"
+      ],
+      "disposition": "Summaryand24literalperiodicrows support values; largestfinal1.2255150236631374e-12. Storedweights/arithmeticqualification preserved;historicalprocessbasis producerrecorded.",
+      "findings": [
+        "P04",
+        "P14"
+      ]
+    },
+    {
+      "lines": [
+        703,
+        706
+      ],
+      "claim": "float32/bf16 medians/counts anduniversalservingprecision conclusion",
+      "status": "direct",
+      "evidence": [
+        "docs/repro-summary.json",
+        "Task26b source/load-order analysis"
+      ],
+      "disposition": "Numericalsummaries supported;float32layout0.5Bmedian20.5 differsprecisioncomparison20;universalservingconclusionunsupported.",
+      "findings": [
+        "P14"
+      ]
+    },
+    {
+      "lines": [
+        707,
+        720
+      ],
+      "claim": "REPRO-T0.5B primary,answercounts,kickgrowth,greedy/causalexplanation",
+      "status": "accepted-reuse",
+      "evidence": [
+        "Task26a/report.json",
+        "docs/repro-summary.json",
+        "tools/repro_task.py"
+      ],
+      "disposition": "Canonicalcounts andprimary accepted;median notbound,forcedbaseline,causalscope andoutwardCIremain.",
+      "findings": [
+        "P07",
+        "P11"
+      ]
+    },
+    {
+      "lines": [
+        721,
+        727
+      ],
+      "claim": "REPRO-T7 primary/accuracies/growth/kickcounts",
+      "status": "direct",
+      "evidence": [
+        "docs/repro-summary.json",
+        "practical-log-excerpts.md/REPRO-T7"
+      ],
+      "disposition": "Literalsummarysupports53/96,10/96,17.7083pp andCI; growth/kicks logonly,notrawreplayed. OutwardCI[9.3,25.6].",
+      "findings": [
+        "P11",
+        "P17"
+      ]
+    },
+    {
+      "lines": [
+        728,
+        730
+      ],
+      "claim": "Twohorizonsgeneralization anddifferenttext",
+      "status": "unverified",
+      "evidence": [
+        "Task26a,b scope",
+        "newextension summaries"
+      ],
+      "disposition": "Selected finiteobservations do not establish emittedtext or autonomousasymptoticcausalclaim.",
+      "findings": [
+        "P05",
+        "P07",
+        "P14"
+      ]
+    },
+    {
+      "lines": [
+        731,
+        740
+      ],
+      "claim": "REPROfigure caption andfirstnonzeroformula",
+      "status": "direct",
+      "evidence": [
+        "tools/plot_repro.py",
+        "Task26b audit"
+      ],
+      "disposition": "Captionmust distinguish firstpositive fromimplementedminimum andactualpadding.",
+      "findings": [
+        "P04",
+        "P13"
+      ]
+    },
+    {
+      "lines": [
+        741,
+        779
+      ],
+      "claim": "Full REPROtable andtailcaption",
+      "status": "direct",
+      "evidence": [
+        "docs/repro-summary.json",
+        "Task26b accepted table"
+      ],
+      "disposition": "Allprintedcounts/medians/fractions matchfrozen summary; tail-any captioncorrect,header/bodyshouldalign. Newcounts literalnotindependentlyrecounted.",
+      "findings": [
+        "P05"
+      ]
+    },
+    {
+      "lines": [
+        780,
+        793
+      ],
+      "claim": "Layer-sweep shares/ranges/nearzero and70Bseries",
+      "status": "direct",
+      "evidence": [
+        "practical-log-excerpts.md/LS-L70D",
+        "tools/plot_layer_sweep.py"
+      ],
+      "disposition": "Sharesconsistentlog;block20-.089exception contradicts.1-.25;strip.8-2.1%; unequalgrid/candidatecaveat alreadylanded. Rawarraysnotread.",
+      "findings": [
+        "P10",
+        "P15"
+      ]
+    },
+    {
+      "lines": [
+        794,
+        800
+      ],
+      "claim": "Depthgainmedians/counts andexplanation",
+      "status": "direct",
+      "evidence": [
+        "paper/llm/figures/fig-mechanism.json",
+        "practical-log-excerpts.md/MECH2"
+      ],
+      "disposition": "54/56/21,block16and20numbers matchliteral summaries;finiteconditional evidence notuniversalmechanisticproof.",
+      "findings": [
+        "P15"
+      ]
+    },
+    {
+      "lines": [
+        801,
+        808
+      ],
+      "claim": "Layerfigure same-direction andlargestLEcaption",
+      "status": "direct",
+      "evidence": [
+        "tools/plot_layer_sweep.py",
+        "practical-log-excerpts.md/LS"
+      ],
+      "disposition": "Sameconceptconstructionatdifferentblocks,notidenticalvector;finite-twinmaplabels.",
+      "findings": [
+        "P15"
+      ]
+    },
+    {
+      "lines": [
+        809,
+        818
+      ],
+      "claim": "Two-block plane/axis/1574/off-axiscounts/periodicityclaim",
+      "status": "direct",
+      "evidence": [
+        "tools/two_block_map.py",
+        "tools/plot_two_block.py",
+        "practical-log-excerpts.md/TB"
+      ],
+      "disposition": "Literalcountsproducerreported;frozenevenlinspace hasnozero;sourceusesnearestaxis. NoNPZrecount;notchaotic notperiodic.",
+      "findings": [
+        "P01"
+      ]
+    },
+    {
+      "lines": [
+        819,
+        827
+      ],
+      "claim": "Two-block figure caption sampledaxes",
+      "status": "direct",
+      "evidence": [
+        "tools/two_block_map.py:58-59",
+        "tools/plot_two_block.py:36-41"
+      ],
+      "disposition": "Dottedzeroaxis mathematical only; samplednearestrow retains bothpushes.",
+      "findings": [
+        "P01"
+      ]
+    },
+    {
+      "lines": [
+        828,
+        836
+      ],
+      "claim": "30pairpilot and200promptpilot",
+      "status": "direct",
+      "evidence": [
+        "practical-log-excerpts.md/BZ-BP",
+        "tools/behavior_zones.py",
+        "tools/behavior_prompts.py"
+      ],
+      "disposition": "Finiteproducerlogs support floor/confounding summary; no independent response/scoringreplay. Accuracyfloor isuninformative,not evidenceequal performance.",
+      "findings": []
+    },
+    {
+      "lines": [
+        837,
+        845
+      ],
+      "claim": "BPC primary/covariates/counts/heldout/posthocentropy and noeffect wording",
+      "status": "direct",
+      "evidence": [
+        "docs/bpc-test.md",
+        "tools/bpc_analyze.py",
+        "docs/bpc-result.json",
+        "docs/bpc-posthoc.json"
+      ],
+      "disposition": "Valuesmatchsavedsummary;3993/4000included; boundednullassociation notsettledabsence; oraclecovariates notdeployablelabelblinddiagnostic.",
+      "findings": [
+        "P09",
+        "P16"
+      ]
+    },
+    {
+      "lines": [
+        846,
+        853
+      ],
+      "claim": "BPCS calibration/1000prompts/508changes/FEcoefficient",
+      "status": "direct",
+      "evidence": [
+        "tools/bpcs_analyze.py",
+        "docs/bpcs-result.json",
+        "practical-log-excerpts.md/BPCS"
+      ],
+      "disposition": "3992/4000rows and508varyinglabels;centralnumbers/CIs match;regimenotrandomized;calibration200overlaps1000.",
+      "findings": [
+        "P09",
+        "P16"
+      ]
+    },
+    {
+      "lines": [
+        854,
+        866
+      ],
+      "claim": "Edge bins,contrast,curvature,posthoctail",
+      "status": "direct",
+      "evidence": [
+        "docs/bpc-result.json",
+        "docs/bpc-posthoc.json",
+        "tools/bpc_analyze.py"
+      ],
+      "disposition": "1961/242/1400bins,397outside;exactintervalscoveredbyprintedbounds;positivecurvaturetailnotcausaloruniversalnooptimum. Posthoclabelalreadyappropriate.",
+      "findings": [
+        "P09",
+        "P16"
+      ]
+    }
+  ],
+  "findings": [
+    {
+      "id": "P01",
+      "priority": "must",
+      "lines": [
+        811,
+        818,
+        824
+      ],
+      "title": "Near-axis cells are not exact single-push controls"
+    },
+    {
+      "id": "P02",
+      "priority": "must",
+      "lines": [
+        394,
+        398,
+        400,
+        408,
+        420,
+        423
+      ],
+      "title": "Fixed-trajectory crossover neither rules out relocation nor passes original sufficiency gates"
+    },
+    {
+      "id": "P03",
+      "priority": "must",
+      "lines": [
+        388,
+        389,
+        439
+      ],
+      "title": "Near-zero comparison and absolute expansion conflated"
+    },
+    {
+      "id": "P04",
+      "priority": "must",
+      "lines": [
+        689,
+        691,
+        738
+      ],
+      "title": "Implemented forecast uses future minimum positive distance"
+    },
+    {
+      "id": "P05",
+      "priority": "must",
+      "lines": [
+        685,
+        728,
+        730,
+        745
+      ],
+      "title": "Crossing .01 and tail argmax disagreement overstated as orderone/text"
+    },
+    {
+      "id": "P06",
+      "priority": "must",
+      "lines": [
+        687,
+        694,
+        695
+      ],
+      "title": "Percentile incorrectly turned into fraction under bound"
+    },
+    {
+      "id": "P07",
+      "priority": "must",
+      "lines": [
+        713,
+        716,
+        720
+      ],
+      "title": "Median finite kick growth and forced baseline overinterpreted"
+    },
+    {
+      "id": "P08",
+      "priority": "must",
+      "lines": [
+        411,
+        413
+      ],
+      "title": "XO7 all-ten readout effect attached to eight-cell subgroup"
+    },
+    {
+      "id": "P09",
+      "priority": "must",
+      "lines": [
+        828,
+        837,
+        842,
+        845,
+        847,
+        852,
+        855
+      ],
+      "title": "Behavior null associations overstated as no effect/causal change"
+    },
+    {
+      "id": "P10",
+      "priority": "must",
+      "lines": [
+        787,
+        789
+      ],
+      "title": "Block20 range conflicts with completed log table"
+    },
+    {
+      "id": "P11",
+      "priority": "must",
+      "lines": [
+        715,
+        724
+      ],
+      "title": "Outward primary confidence interval displays"
+    },
+    {
+      "id": "P12",
+      "priority": "must",
+      "lines": [
+        443,
+        444
+      ],
+      "title": "Trace-to-leading-eigenvalue estimate mislabeled stable rank"
+    },
+    {
+      "id": "P13",
+      "priority": "should",
+      "lines": [
+        681,
+        683,
+        736
+      ],
+      "title": "Padding steering reversed but temperature ordering retained"
+    },
+    {
+      "id": "P14",
+      "priority": "should",
+      "lines": [
+        704,
+        706
+      ],
+      "title": "Precision results limited to tested loaders and finite trajectories"
+    },
+    {
+      "id": "P15",
+      "priority": "should",
+      "lines": [
+        795,
+        804
+      ],
+      "title": "Block-specific vectors and finite directional estimates"
+    },
+    {
+      "id": "P16",
+      "priority": "should",
+      "lines": [
+        838,
+        865
+      ],
+      "title": "Included denominators/intermediate bins/calibration overlap"
+    },
+    {
+      "id": "P17",
+      "priority": "should",
+      "lines": [
+        721,
+        727
+      ],
+      "title": "T7 baseline capability and six-problem kick-subset scope"
+    }
+  ],
+  "evidence_files": [
+    {
+      "path": "/tmp/task27-source-001/core-manifest.json",
+      "bytes": 16942,
+      "sha256": "35506b8c1bc4589bbdca3093d2a5a572756a1273b7584ac5e2d14b710c12d74e"
+    },
+    {
+      "path": "/tmp/task27-source-001/supplement-manifest.json",
+      "bytes": 21582,
+      "sha256": "e92df5dfaafa4608d78949c264e67f993b55c17176bc413e1a21f7c60724e471"
+    },
+    {
+      "path": "/tmp/task27-source-001/compact-evidence-manifest.json",
+      "bytes": 42787,
+      "sha256": "96c710c02a86c41427e9b1c31903ef19f6ed6e67147125cc1fa6ffe780c186cb"
+    },
+    {
+      "path": "/tmp/task27-source-001/practical-log-index.json",
+      "bytes": 14784,
+      "sha256": "76ee2323b506c949dc69048129aa75ee61f91fff113500aaee8dd507fb20ad3f"
+    },
+    {
+      "path": "/tmp/task27-source-001/practical-log-excerpts.md",
+      "bytes": 49159,
+      "sha256": "c23585175e7e554a7d269f1a0feb26d80a6ea11479642f6c6a87d6c26eda34bc"
+    },
+    {
+      "path": "/tmp/task27-source-001/paper/llm/main.tex",
+      "bytes": 237029,
+      "sha256": "d78a22090469e1dc32e67e715c0a2f51cc538b6728496c04974d9fc16a99b05f"
+    },
+    {
+      "path": "/tmp/task27-source-001/docs/repro-summary.json",
+      "bytes": 10268,
+      "sha256": "6ab6ec4f46f19dcc5e9d57c5010efcb1ce500b942ddaee29b3bf80cc30e5be23"
+    },
+    {
+      "path": "/tmp/task27-source-001/paper/llm/figures/fig-mechanism.json",
+      "bytes": 6513,
+      "sha256": "bd77b689caa2008e8a4baecb1835a72d11c0d65d91972141e630bf6451a35c6f"
+    },
+    {
+      "path": "/tmp/task27-source-001/docs/bpc-result.json",
+      "bytes": 1642,
+      "sha256": "4afd15ee3b02c8e479694990ac022702d8ad42a2586f7f8a98f6e28d7edb89a9"
+    },
+    {
+      "path": "/tmp/task27-source-001/docs/bpcs-result.json",
+      "bytes": 846,
+      "sha256": "902c4830bede7a4cc27afa2a1763784056aa75c47b8e4e7f54e2c4b2219ea5fe"
+    },
+    {
+      "path": "/tmp/task27-source-001/docs/bpc-posthoc.json",
+      "bytes": 2994,
+      "sha256": "aaf20054e4a861cab12290eb07b631dd5d902bede3fcfea23e73177d9f2e7d5e"
+    }
+  ],
+  "new_practical_saved_file_inventory": [
+    {
+      "lane": "practical",
+      "original_path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/repro/q7-f64/repro.json",
+      "snapshot_path": "saved-evidence-001/pod64/repro/q7-f64/repro.json",
+      "bytes": 16511,
+      "sha256": "6e7b968186f23b572908cb10d04505ff5b8e274616c1475b7d3d5ab1cc8a620f",
+      "original_mtime_ns_at_capture": 1792051165000000000,
+      "before_after_bytes_match": true
+    },
+    {
+      "lane": "practical",
+      "original_path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/repro/q7-f64/progress.jsonl",
+      "snapshot_path": "saved-evidence-001/pod64/repro/q7-f64/progress.jsonl",
+      "bytes": 689,
+      "sha256": "7ad0e59a8a5e87374fd0b969cc407cadcf2255cb3f9d24e4ea7f9e35bb944f0b",
+      "original_mtime_ns_at_capture": 1792051165000000000,
+      "before_after_bytes_match": true
+    },
+    {
+      "lane": "practical",
+      "original_path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/repro/q7-lowp/repro.json",
+      "snapshot_path": "saved-evidence-001/pod64/repro/q7-lowp/repro.json",
+      "bytes": 29816,
+      "sha256": "914f425e374ebec6edadceca5832ba43ca4aafc2dae5670b3402e89292b57609",
+      "original_mtime_ns_at_capture": 1792051259000000000,
+      "before_after_bytes_match": true
+    },
+    {
+      "lane": "practical",
+      "original_path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/repro/q7-lowp/progress.jsonl",
+      "snapshot_path": "saved-evidence-001/pod64/repro/q7-lowp/progress.jsonl",
+      "bytes": 1323,
+      "sha256": "9eee19979b5b4eb61a1bda2d5b774fbe49fbcf16695093187340edc608153c9f",
+      "original_mtime_ns_at_capture": 1792051259000000000,
+      "before_after_bytes_match": true
+    },
+    {
+      "lane": "practical",
+      "original_path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/repro/l8-f64/repro.json",
+      "snapshot_path": "saved-evidence-001/pod64/repro/l8-f64/repro.json",
+      "bytes": 13826,
+      "sha256": "bf7dccabab77ca1108dedf171a6703a4843de05ddd361064efb7aed946e34b13",
+      "original_mtime_ns_at_capture": 1792052709000000000,
+      "before_after_bytes_match": true
+    },
+    {
+      "lane": "practical",
+      "original_path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/repro/l8-f64/progress.jsonl",
+      "snapshot_path": "saved-evidence-001/pod64/repro/l8-f64/progress.jsonl",
+      "bytes": 676,
+      "sha256": "048d3dc1bef8030a0b08b7d424474eb1102b93c254713833a427a30187a97565",
+      "original_mtime_ns_at_capture": 1792052709000000000,
+      "before_after_bytes_match": true
+    },
+    {
+      "lane": "practical",
+      "original_path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/repro/l8-lowp/repro.json",
+      "snapshot_path": "saved-evidence-001/pod64/repro/l8-lowp/repro.json",
+      "bytes": 24869,
+      "sha256": "93011dba4f9959c4778499c419d3c59921bce0cab21319a43068790d7569c435",
+      "original_mtime_ns_at_capture": 1792052797000000000,
+      "before_after_bytes_match": true
+    },
+    {
+      "lane": "practical",
+      "original_path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/repro/l8-lowp/progress.jsonl",
+      "snapshot_path": "saved-evidence-001/pod64/repro/l8-lowp/progress.jsonl",
+      "bytes": 1323,
+      "sha256": "7c1f689bcf71be150b0aece61054438251db64d06fb9fae41b878d55c3a21d86",
+      "original_mtime_ns_at_capture": 1792052797000000000,
+      "before_after_bytes_match": true
+    },
+    {
+      "lane": "practical",
+      "original_path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/repro/r70/repro.json",
+      "snapshot_path": "saved-evidence-001/pod64/repro/r70/repro.json",
+      "bytes": 17514,
+      "sha256": "18e8055a5e9d262f9336bf4d645569785ae8a8f74f817909d7698b4b66cefd2d",
+      "original_mtime_ns_at_capture": 1792056151000000000,
+      "before_after_bytes_match": true
+    },
+    {
+      "lane": "practical",
+      "original_path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/repro/r70/progress.jsonl",
+      "snapshot_path": "saved-evidence-001/pod64/repro/r70/progress.jsonl",
+      "bytes": 485,
+      "sha256": "93cfcbc9420f9743dac7e570ec49f0af264657e816efc79718a362a3c570c5f6",
+      "original_mtime_ns_at_capture": 1792056151000000000,
+      "before_after_bytes_match": true
+    },
+    {
+      "lane": "practical",
+      "original_path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/xo/cells7/crossover.json",
+      "snapshot_path": "saved-evidence-001/pod64/xo/cells7/crossover.json",
+      "bytes": 14135,
+      "sha256": "fb4a58c9afa88e37496b0d65c1eac4aa9a4f932f69a52ecc3f75b4e655e9b570",
+      "original_mtime_ns_at_capture": 1792051344000000000,
+      "before_after_bytes_match": true
+    },
+    {
+      "lane": "practical",
+      "original_path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/xo/cells7/progress.jsonl",
+      "snapshot_path": "saved-evidence-001/pod64/xo/cells7/progress.jsonl",
+      "bytes": 216,
+      "sha256": "28e2e29be40eaef532c5351b8f9c0b3b9c7716462d90c61749d9049ff6c99c6b",
+      "original_mtime_ns_at_capture": 1792051344000000000,
+      "before_after_bytes_match": true
+    },
+    {
+      "lane": "practical",
+      "original_path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/xo/grat/crossover.json",
+      "snapshot_path": "saved-evidence-001/pod64/xo/grat/crossover.json",
+      "bytes": 18933,
+      "sha256": "be9f1ebb545e05407488213ef5fc33ed3a95f158eeb9760f5e9adec7fecf55ae",
+      "original_mtime_ns_at_capture": 1792053957381761671,
+      "before_after_bytes_match": true
+    },
+    {
+      "lane": "practical",
+      "original_path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/xo/grat/progress.jsonl",
+      "snapshot_path": "saved-evidence-001/pod64/xo/grat/progress.jsonl",
+      "bytes": 213,
+      "sha256": "42d1defe74888545c712a0faeebae87a025e6c963e54c1a7e5e2ee75c611ccac",
+      "original_mtime_ns_at_capture": 1792053957381475050,
+      "before_after_bytes_match": true
+    },
+    {
+      "lane": "practical",
+      "original_path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/xo/rand1/crossover.json",
+      "snapshot_path": "saved-evidence-001/pod64/xo/rand1/crossover.json",
+      "bytes": 18853,
+      "sha256": "317fd014ebb4b4f40a62b5cdf934bebfa489548cc81ba289b2d534b23f8a0106",
+      "original_mtime_ns_at_capture": 1792052444000000000,
+      "before_after_bytes_match": true
+    },
+    {
+      "lane": "practical",
+      "original_path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/xo/rand1/progress.jsonl",
+      "snapshot_path": "saved-evidence-001/pod64/xo/rand1/progress.jsonl",
+      "bytes": 213,
+      "sha256": "f02b33e59b909a1e01cb76fcf54ac2daba058593a5c6d1088a8cc3125f3f6609",
+      "original_mtime_ns_at_capture": 1792052444000000000,
+      "before_after_bytes_match": true
+    }
+  ],
+  "limits": [
+    "Prior outcomes exposed.",
+    "New model extensions not independently re-executed or statistically reduced.",
+    "New historical process/source provenance remains the exact exported producer-recorded basis.",
+    "Task26 independent results accepted and reused, not repeated.",
+    "No modifications to paper, producer files or Git."
+  ]
+}
