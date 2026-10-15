@@ -7,7 +7,7 @@ OUT=B/'run-001';SUP=OUT.with_name(OUT.name+'-supervision')
 WRAPPER='codex/night-results-review-task21/task21g/run.py';CARD='codex/night-results-review-task21/task21g/run-001-card.json'
 WRAPPER_SHA='30b94dcd9883d65963475abd42833679c34693835533ba5a1b3090330aac2931'  # Root accepted independent driver.
 CORE='codex/night-results-review-task21/task21g/core.py';CORE_SHA='01e4ba536a2aecfeebbf1398a0c8f16d4259b26bf6c7eb27bdd05ef11c1a98a0'
-ADMISSION='prepared';CARD_SHA=None  # Exact reviewed card pin required.
+ADMISSION='reviewed';CARD_SHA='c787d1e421438918514e1c5ebbe890dfc2c817b4d348ea2f96112bd5c06c88a6'  # Exact reviewed card pin.
 GIB=1024**3;WALL=60;MAX_OUTPUT=128*1024**2
 
 def sha(p):return hashlib.sha256(Path(p).read_bytes()).hexdigest()
