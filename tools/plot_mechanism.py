@@ -166,6 +166,16 @@ def main():
                 stats["XO"][name] = {"mean": float(v.mean()), "ci95": [float(np.quantile(b, .025)), float(np.quantile(b, .975))],
                                      "cells": int(len(v))}
             stats["XO"]["validation_max_abs(arm11 - twin)"] = float(max(abs(c["arm11"] - c["twin_exponent"]) for c in xo["cells"]))
+            dev = np.array([abs(c["arm11"] - c["twin_exponent"]) for c in xo["cells"]])
+            stats["XO"]["validation_cells_within_0.02"] = int((dev <= 0.02).sum())
+            stats["XO"]["arm10_minus_arm11_mean"] = float((X[sel, 1] - X[sel, 3]).mean())
+            lt = np.array([c["log10_temperature"] for c in xo["cells"]])
+            for tag, part in (("log10T<0", sel & (lt < 0)), ("log10T>=0", sel & (lt >= 0))):
+                if part.sum():
+                    stats["XO"][tag] = {"cells": int(part.sum()), "arm_means": dict(zip(arms, X[part].mean(0).round(4).tolist())),
+                                        "readout_effect": float((X[part, 1] - X[part, 0]).mean()),
+                                        "network_effect": float((X[part, 2] - X[part, 0]).mean()),
+                                        "interaction": float((X[part, 3] - X[part, 1] - X[part, 2] + X[part, 0]).mean())}
         ax.set_xticks(range(4))
         ax.set_xticklabels(["00\nunsteered\nboth", "10\nsteered\nreadout", "01\nsteered\nnetwork", "11\nsteered\nboth"], fontsize=7)
         ax.axhline(0, color="0.5", lw=0.6)

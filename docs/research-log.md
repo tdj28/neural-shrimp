@@ -24458,3 +24458,23 @@ Pods v6zndolr40ecev, 026rfinp1b3h8d (runner rc 0, hashes verified, terminated; c
     - entropy +1.62 [1.26, 1.91] nats, p = 1e-4;
     - top-2 gap / T -1.37 [-1.98, -0.87], p = 1e-4;
   - chaotic minus |alpha| <= 0.01 cells: readout +2.58 [1.79, 3.58], network -0.07 [-0.21, 0.11].
+
+## 2026-10-15 07:21 UTC: XO result: along the same steered orbits, steering's change of the readout creates the expansion; its change of the network response damps it
+
+Pod slk055l1wkl6hq (COMMUNITY H100 NVL; runner rc 0, hash verified, terminated; 270 s; commit 92f1a20e). Output xo/cells: 24 cells of docs/xo-cells.json, transient 1000, record 1000. Statistics from tools/plot_mechanism.py (paper/llm/figures/fig-mechanism.json; bootstrap over held-out cells, 10,000).
+- **Validation (frozen: arm 11 within 0.02 of the twin exponent at every cell).** Met at 23 of 24 cells, all within 0.012. Missed at one periodic cell contracting at about -12 per step (tangent -12.12, twin -11.21): there the twin at relative offset 1e-9 shrinks to the float64 rounding floor each step, so the twin, not the tangent, is limited.
+- **Labels.** One development cell labelled chaotic by the alpha map (log10 T -0.400, alpha -0.0624) is strongly contracting in this run (exponent -4.0). The batch differs from the map's, so this is a transient or a coexisting attractor. It is a development cell and enters no estimate.
+- **Contrasts.** 14 held-out chaotic cells, nats per step:
+
+| contrast | mean | 95 % interval |
+|---|---|---|
+| readout effect, arm 10 - arm 00 | +0.81 | [0.29, 1.35] |
+| network effect, arm 01 - arm 00 | -0.49 | [-0.63, -0.35] |
+| interaction, 11 - 10 - 01 + 00 | +0.26 | [0.10, 0.45] |
+| arm 11 - arm 10 | -0.23 | [-0.41, -0.03] |
+
+- **Split by temperature (descriptive):**
+  - log10 T < 0 (6 cells): arm means 00 -1.03, 10 +0.72, 01 -1.62, 11 +0.34. Readout effect +1.75, network effect -0.58. The steered readout alone turns a contracting derivative into an expanding one, and does so more strongly than the full steered map.
+  - log10 T >= 0 (8 cells): arm means 00 +0.41, 10 +0.51, 01 -0.01, 11 +0.40. At these states the unsteered derivative already expands, so steering acts by moving the orbit into competitive states, not by changing the derivative there.
+- **Frozen sufficiency criterion** (arm 10 within 0.1 of arm 11 on average, interval excluding arm 00). The second part holds. The first fails by overshoot: arm 10 exceeds arm 11 by 0.23, because the steered network response partly damps the growth.
+- **Reading.** At low temperature, steering destabilises the loop through the readout: the token competition it creates at fixed states. Its effect on the network response works against the instability. Together with MECH3 (the readout factor carries the difference; network flat) and MECH4 (a logit bias alone gives chaos), the answer to "why does steering induce chaos" is: it creates competition between next tokens, which turns the softmax readout from a contraction into an expansion.
