@@ -1,0 +1,7 @@
+# Task 21c — saved flip-normal-form scalar recomputation preparation
+
+The independent scalar computation is not yet launched. Root has accepted the finite source and original input authority; Boundary is preparing own scalar code and tiny synthetic controls, and Theory is reviewing the mathematical/source contract. Exact own source/card/supervisor review, private checkpoint and fresh resource admission remain prerequisites.
+
+The complete immutable source packet is `/data2/neural-shrimp-data/codex/night-results-review-task21/task21c/source-001`. `source-adoption.json` maps its byte-identical copies to the original /tmp preparation paths retained by the hash-bound manifests. The two selected raw JSONs remain in that external packet; no raw target files are placed in Git. Source excerpts, original recorded source commits, scoped archive/retrieval/termination records, failed FNF2 history and current table/card claims are bound separately. Historical loaded bytes/process births are not reconstructed.
+
+Exactly FNF2b period 2 and FNF4 period 4 are selected: 8,701 target bytes, four coefficient-step rows and five offsets each. Files match original retrieved archive members and earlier Task27 copies. The intended check reconstructs saved scalar identities; missing states/eigenvectors/tensors prevent an independent native derivative or amplitude-projection replay. All failed/unqualified/complex rows and finite approximation differences will be retained. No model, AD, producer analysis, GPU, pods, paid action or new target run has occurred.
