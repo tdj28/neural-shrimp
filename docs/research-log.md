@@ -26361,3 +26361,12 @@ The methods text had documented the 0.005 convention for period and attractor pa
 - In P4 the corresponding meeting point lay below the grid (extrapolated near (-0.103, 0.097)). In P8 it lies inside, unresolved.
 
 **Follow-up worth doing** (not launched). Fine local grids at the two meeting points, P8 near (-0.1056, 0.1052) and P4 near (-0.103, 0.097), would decide head against neck for the cascade cells, about $10-20 in all.
+
+## 2026-10-15 21:47 UTC: The cascade cells in the paper (P2, P4, P8), with the heuristic tested
+
+The paragraph "Shrimps of a two-dimensional kind" now reports the doubling cascade at alpha1 ~ -0.105, alpha2 ~ 0.105 (the feature the human flagged). It does so in both the main paper and the Chaos version.
+- **Superstability.** No cell reaches it. The smallest leading moduli are 0.222, 0.041 and 0.034 for P2, P4 and P8.
+- **Superstable curves replaced.** Complex pairs and trace-zero curves take their place.
+- **Trend.** The median |mu2|/|mu1| falls 0.59, 0.125, 0.027 down the cascade.
+- **Heuristic, tested before use** (AGENTS.md gate). Per step, the second multiplier contracts by a nearly constant factor: medians 0.566, 0.502, 0.567. The per-step medians predict (mu2/mu1)^p of 0.524, 0.146 and 0.029, against the measured medians 0.593, 0.125 and 0.027: discrepancies -11.6, +16.8 and +7.8 %. The text says "within 17 %".
+- **Caveat stated in the text.** Whether the trace-zero arms cross at the bottom of each V is not resolved, and the P8 grid is partial.
