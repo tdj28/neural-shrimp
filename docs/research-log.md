@@ -24256,3 +24256,17 @@ Pod rmsqwwrwm3af25 (COMMUNITY H100 NVL; runner rc 0, hash verified, terminated; 
 ## 2026-10-15 06:10 UTC: Amendment to L70D: all three first pods failed on a full disk; relaunched with 320 GB
 
 Pods et2o3xeke86icn (block 20), bpe9rgounm31kb (block 35) and zep5qsklokz0zr (block 65): 2 x H200 SECURE. Each hit "No space left on device" while downloading the 70B checkpoint into the default 60 GB container disk. The vector step then could not load the tokenizer ("sentencepiece or tiktoken ... to convert a slow tokenizer"), and the scan found no vectors. All retrieved, terminated and verified. Relaunched with --disk-gb 320 and a 150-minute run limit (download, vectors, a 24 x 24 scan); otherwise unchanged.
+
+## 2026-10-15 06:26 UTC: FBD result: the 384->768 flip at log10 T -0.156, ratio 4.6673; the locator's acceptance threshold made explicit
+
+- **FBD** (pod 5kcjngot3vja4p, H100; runner rc 0, hash verified, terminated; 3329 s; commit b5af43a7; output cascade/crescent-t-0.156-e/progress.jsonl). The locator bracketed the flip of the period-384 orbit in 12 evaluations and then refused, as designed: the best evaluation had |mu + 1| = 7.9e-6, above its hard-coded acceptance 1e-6. The crossing itself is clean at every evaluation: a real critical multiplier, Ritz residual below 1e-14, next modulus about 1e-13.
+- **Precision floor.** The 11 evaluations within 1e-12 of the root scatter by 1.8e-5 in mu + 1 about a straight line. This is the measured precision floor of the period-384 multiplier: a product of 384 step Jacobians, with Newton residuals 1e-14 to 4e-11. The second planned flip (768->1536) was not attempted.
+- **Root from the logged evaluations** (stated method, CPU, inline script; output kept in the session scratchpad and reproduced here):
+  - least-squares line through all 12 evaluations, slope -7.956e7 per unit lambda;
+  - root lambda = 0.06510347354857382, standard error 7e-14, band +-2.3e-13 (scatter divided by slope);
+  - all near-root evaluations lie in [0.065103473548189, 0.065103473549129].
+- **Fifth flip ratio** (f192 - f96)/(f384 - f192) = **4.6673**: 4.6672-4.6675 over that whole span, and 4.66716-4.66750 for a root moved by +-1e-12.
+  - The flip ratios at -0.156 are now 14.93, 3.124, 4.4988, 4.6208, 4.6618, 4.6673 (Feigenbaum's delta = 4.6692).
+  - Distance from delta: -0.170, -0.048, -0.0074, -0.0019.
+- **Tool change** (tools/llm_feigenbaum.py, tests 8/8 pass): the acceptance |mu + 1| <= g_accept is now an argument (--g-accept, default 1e-6 as before) and --lam-rel-tol is exposed. A deeper run must set g_accept above the measured floor of its period, stated in its run card, never below it.
+- The local cross-check of the same flip (RTX 2000 Ada, started 05:14, older code) is still running and will hit the same refusal. Its evaluations are an independent location on other hardware.
