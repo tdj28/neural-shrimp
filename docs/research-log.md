@@ -25362,3 +25362,43 @@ This is the anatomy of a shrimp at map resolution. Whether two superstable curve
 - **The hostile agent's token depends only on its own strength:** "Hello" (alpha_B 0) -> "I" (0.06) -> "You" (0.09) -> "我" (0.12), across all alpha_A.
 - **Reading.** With one-token messages, the assistant's first reply token is decided by its own system prompt and steering, and the partner's message barely moves it. Every pair falls into a fixed exchange, and no entrainment or chaos test is possible in this frame. This agrees with DLGx's unsteered dialogue frame.
 - Mutual influence would need longer messages, i.e. a context that holds the partner's whole message; not built here.
+
+## 2026-10-15 11:27 UTC: HT1 result (pilot): Huginn's accuracy falls as the generated tokens' recurrence nears its edge; no edge optimum
+
+**Runs.** Pods HT1a and HT1b (commit 52da2d31 from the orchestrator logs; runner rc 0; jobs status 0; terminated; 21 min each). Outputs huginn/ht1-0 and ht1-20: 40 development problems x 4 arms, float32, cot8, 32 steps, interleaved, with per-generation recurrence statistics.
+
+**The measure works.** By arm:
+
+| lam | accuracy | token late rate, median [10 %, 90 %] | share not converging | median final residual | prefill rate |
+|---|---|---|---|---|---|
+| 1.00 | 0.475 | 0.912 [0.889, 0.938] | 2.6 % | 2.3e-2 | 0.921 |
+| 1.05 | 0.525 | 0.921 [0.897, 0.938] | 2.9 % | 3.8e-2 | 0.945 |
+| 1.10 | 0.475 | 0.939 [0.931, 0.953] | 5.2 % | 9.2e-2 | 0.970 |
+| 1.15 | 0.375 | 0.981 [0.974, 0.989] | 51.5 % | 3.2e-1 | 0.992 |
+
+The generated tokens' recurrence approaches its edge (rate -> 1) near lam 1.15, a little above the prefill spectral thresholds 1.07 to 1.13.
+
+**Accuracy against criticality.**
+- **At the population level:** the best arm (1.05) has a token recurrence barely less stable than native (median rate 0.921 against 0.912). Accuracy collapses where the rate approaches 1.
+- **Within problems** (each problem-arm's median token rate):
+
+  | rate | n | within-problem accuracy |
+  |---|---|---|
+  | < 0.90 | 17 | +0.044 |
+  | 0.90 to 0.92 | 25 | +0.020 |
+  | 0.92 to 0.94 | 52 | +0.019 |
+  | 0.94 to 0.96 | 22 | +0.080 |
+  | 0.96 to 0.98 | 23 | -0.098 |
+  | >= 0.98 | 21 | -0.083 |
+
+  - Flat while the rate stays below about 0.96, falling beyond it.
+  - The +0.08 bin is within noise (SE about 0.11).
+- 27 of 40 problems have rates rising monotonically with lam.
+
+**Verdict (pilot).** No edge optimum in Huginn's latent reasoning. Accuracy is held in the comfortably stable regime and lost as the recurrence of the generated tokens approaches its edge. The frozen test's +6.5 points at lam 1.05 is not an edge effect: the token recurrence there is nearly as stable as native.
+- A confirmatory per-problem test is not launched. The pilot gives no edge optimum to confirm, and the population-level pattern is already covered by the frozen test (gain at 1.05, losses at 1.15 and 1.20).
+
+**The three edge tests agree.**
+- Ordinary answers against the loop's regime (frozen): no edge optimum.
+- The soft-token loop's memory capacity: no edge peak; it is set by the period and erased by chaos.
+- Huginn's latent reasoning: best well inside stability, falling near the edge.
