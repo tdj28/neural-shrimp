@@ -24986,3 +24986,23 @@ Script: scratchpad smoke test of tools/soft_dialogue.py at commit 01a335d6, Qwen
 
   - The first cell is the synchronized greeting fixed point of the 12 Oct text pilots, now as a soft-token fixed point.
   - The two unequal pairs had not settled within 60 exchanges; the maps use 1300.
+
+## 2026-10-15 09:41 UTC: Latent bug fixed: exact tangents dropped the second steering block
+
+SoftLoop.step_jvp, MultiPrefixSoftLoop.step_jvp and SoftOrbit.jvp_rows set only the first steering block (sm.steer) before their forward-mode pass. The second block of run TB (sm.steer_extra) was absent there, although logits() applies it. SoftOrbit also did not keep its own second-block rows for repeated batches.
+
+**Fix** (tools/explore_llm_soft_loop.py):
+- the three derivative paths set and clear steer_extra as logits() does;
+- SoftOrbit stores extra1 at construction and repeats it in _use.
+
+**Check** (tools/check_two_block_jvp.py, CPU float64): at the bimodal cell (hostility@4 + gratitude@16, alpha1 0.0568, alpha2 -0.0189, log10 T -0.1), after 60 steps, one random tangent compared with central differences (h = 1e-6 |X|):
+
+| path | relative error |
+|---|---|
+| step_jvp (fixed) | 2.53e-8 |
+| SoftOrbit.jvp_rows (fixed) | 2.53e-8 |
+| old behaviour (second block dropped) | 2.56e-1 |
+
+SoftOrbit's start trajectory equals the loop's (maximum difference 0).
+
+**Impact: none on reported results.** No two-block result used these paths. Two-block maps (two_block_map.py), the TP scans (turning_scan.py) and the TBZ zooms use hidden_chaos.run_batch without tangents, and no Newton or tangent run was made in a two-block plane. The fix precedes the planned two-block doubly superstable search.

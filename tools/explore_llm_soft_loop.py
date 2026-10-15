@@ -174,11 +174,14 @@ class SoftLoop:
 
         def new_embedding(inp):
             self.sm.steer = self.steer_rows
+            if self.extra_rows is not None:          # the second steering block (run TB), as in logits
+                self.sm.steer_extra = {self.extra[0]: self.extra_rows}
             try:
                 z = self.model(inputs_embeds=inp.to(self.dtype), past_key_values=cache, use_cache=True,
                                logits_to_keep=1).logits[:, -1, :].to(self.device, self.state_dtype)
             finally:
                 self.sm.steer = None
+                self.sm.steer_extra = {}
             p = torch.softmax(z / T, dim=-1)
             return p @ self.E, p
 
@@ -344,11 +347,14 @@ class MultiPrefixSoftLoop(SoftLoop):
 
         def new_embedding(inp):
             self.sm.steer = self.steer_rows
+            if self.extra_rows is not None:          # the second steering block (run TB), as in logits
+                self.sm.steer_extra = {self.extra[0]: self.extra_rows}
             try:
                 z = self.model(inputs_embeds=inp.to(self.dtype), past_key_values=cache, use_cache=True,
                                logits_to_keep=1, **inputs).logits[:, -1, :].to(self.device, self.state_dtype)
             finally:
                 self.sm.steer = None
+                self.sm.steer_extra = {}
             p = torch.softmax(z / T, dim=-1)
             return p @ self.E, p
 
@@ -398,6 +404,7 @@ class SoftOrbit:
         self.T = float(temperature)
         self.start = loop.prepare(np.asarray(steer)[None])        # one-row prefix cache and initial window
         self.cache1, self.steer1 = loop.cache, loop.steer_rows
+        self.extra1 = getattr(loop, "extra_rows", None)            # second steering block of this cell (run TB) or None
         self.shape = tuple(self.start.shape[1:])
         self.n = int(np.prod(self.shape))
         self.h_rel, self.chunk = h_rel, int(chunk)
@@ -412,6 +419,7 @@ class SoftOrbit:
             c.batch_repeat_interleave(rows)
             self.caches[rows] = c
         self.loop.cache, self.loop.steer_rows = self.caches[rows], self.steer1.repeat(rows, 1, 1)
+        self.loop.extra_rows = None if self.extra1 is None else self.extra1.repeat(rows, 1, 1)
 
     def f(self, X):
         """One soft-decoding step for a batch of windows X (B, K, d) at this cell."""
@@ -442,11 +450,14 @@ class SoftOrbit:
 
         def new_embedding(inp):
             loop.sm.steer = steer
+            if self.extra1 is not None:              # the second steering block (run TB), as in the steps
+                loop.sm.steer_extra = {loop.extra[0]: self.extra1.repeat(m, 1, 1)}
             try:
                 z = loop.model(inputs_embeds=inp.to(loop.dtype), past_key_values=cache, use_cache=True,
                                logits_to_keep=1).logits[:, -1, :].to(loop.state_dtype)
             finally:
                 loop.sm.steer = None
+                loop.sm.steer_extra = {}
             return torch.softmax(z / self.T, dim=-1) @ loop.E
 
         with sdpa_kernel(SDPBackend.MATH):
