@@ -497,7 +497,13 @@ headline maps ($\log_{10}T$ from $-0.17$ to $-0.04$) it is $1.04$ to $1.65$, ris
 high-temperature region ($\log_{10}T$ from $-0.02$ to $0.13$), nine chaotic cells have $D_{\mathrm{KY}}=1.37$ to
 $2.02$; at three of them $\lambda_1+\lambda_2\ge0$, and the attractor is effectively two-dimensional. A scalar return
 map describes the low-temperature chaos well and the high-temperature chaos poorly, consistent with the large second
-multipliers of the high-temperature bubble.
+multipliers of the high-temperature bubble. The number of competing tokens does not set the dimension. The readout's
+stable rank, $\operatorname{tr}\Sigma_p/\lambda_{\max}(\Sigma_p)$ averaged along the orbit, counts the directions in which
+the readout amplifies comparably. $D_{\mathrm{KY}}$ never exceeds it and rises with it within each group of cells
+(Spearman $0.72$ over 17 philosophy cells, $0.69$ over 8 hostile cells, both confounded with temperature). Across
+groups it does not predict the dimension: the hostile cells have stable ranks of 16 to 19 and next-token entropies of 7
+to 9 nats, yet $D_{\mathrm{KY}}\le1.16$. The readout supplies many competing directions; the network decides how many
+of them expand.
 \input{figures/tikz-atlas}
 
 \section{Methods}
