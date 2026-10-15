@@ -25780,3 +25780,23 @@ Local RTX 2000 Ada, commit 292493ab, held-out set (128 fresh additions), run onc
 - This is on a workstation GPU, whose native rate (85 %) differs from REPRO-T's on the H100 (56 %).
 
 The consult's mechanism probe (controlled float32 kicks at three amplitudes) is not run; the free arm's float32 drift already shows growth of about 140-fold over 32 steps.
+
+## 2026-10-15 16:47 UTC: FM5c result (four cusp locations pass; the left fold curve has two more reversals) and run card FM5d
+
+**FM5c.** Pod d7e8gtdvaiq6x4 (COMMUNITY H100 NVL); commit aae497ca from the orchestrator log; runner rc 0; hash verified; terminated and verified 16:40 UTC; 3277 s.
+- The archive was extracted into the run folder: it contained the uploaded FM5 inputs. Three of them were compared and are bitwise identical to the local copies. The fm5c outputs are copied to explore/llm-soft-loop/pod64/fm5c.
+
+**Cusps of the right fold curve** (tools/cusp_locate.py, cusp test). Each reversal was located on both traces, and the two locations agree to about 1e-12 in parameters and to six figures in c and det J. All checks pass:
+
+| cusp | position (alpha1, alpha2) | b sign a, reduced from -> to | c | c plateau spread | det J | condition | critical multiplier | second modulus |
+|---|---|---|---|---|---|---|---|---|
+| upper | (-0.1192221373, 0.1040535583) | 25.3 -> -9.4e-5 and 26.1 -> -5.8e-5 | +26004 | 0.12 % | 176.6 | 618 | 1 + 1e-11 | 0.0018 |
+| lower | (-0.1191670167, 0.1028019412) | 41.6 -> -4.4e-4 and 31.3 -> -2.8e-4 | -20452 | 0.05 % | 88.6 | 60 | 1 + 1.2e-9 | 0.0012 |
+
+**The left fold curve.** This is the fold of the alpha1-down branch, at (-0.123323, 0.100693). Gates pass: residual < 1e-10, |g| < 3e-10, critical multiplier within 1.1e-7 of +1, no codimension-two approach.
+- Going up (51 points, to the alpha2 bound): no reversal. The other spectral radius rises to 0.395.
+- Going down (104 points, to the bounds): two reversals, both cusp candidates:
+  - (-0.123866, 0.096153), bracket [14, 15];
+  - (-0.121408, 0.102821), bracket [39, 40].
+
+**Run card FM5d.** These two candidates are located and checked with the same tool and criteria: one H100 NVL, two parallel locates, 40 minutes each, run limit 50 minutes. The cost ceiling is in the private ledger.

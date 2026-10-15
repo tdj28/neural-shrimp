@@ -1,6 +1,8 @@
 {
  "run": "llm-soft-loop/pod64/fm5",
- "extra_runs": [],
+ "extra_runs": [
+  "llm-soft-loop/pod64/fm5c"
+ ],
  "branches": {
   "branch-a1-down": {
    "free": "alpha",
@@ -395,9 +397,191 @@
     }
    ],
    "codim2_approaches": []
+  },
+  "fm5c/curve-a1-down-fold-minus": {
+   "kind": "fold",
+   "period": 5,
+   "points": 104,
+   "stop": "parameters out of bounds",
+   "seconds": 3165.5,
+   "start": {
+    "tline_index": 47,
+    "alpha": -0.12332309104527972,
+    "alpha2": 0.100693,
+    "fixed_log10_temperature": -0.1
+   },
+   "direction": -1,
+   "max_residual": 9.779973532652285e-11,
+   "max_abs_g": 2.760732402991421e-10,
+   "max_critical_deviation": 1.1197969085330328e-07,
+   "max_critical_imag": 0.0,
+   "gate_failed": false,
+   "max_other_spectral_radius": 0.04185849622191617,
+   "alpha_range": [
+    -0.130075731697118,
+    -0.12140836413089688
+   ],
+   "alpha2_range": [
+    0.08749173950793566,
+    0.10282143830620027
+   ],
+   "cusp_candidates": [
+    {
+     "index": 15,
+     "alpha": -0.12386566245643768,
+     "alpha2": 0.09615335754196243,
+     "critical_multiplier": [
+      1.0000000005018896,
+      0.0
+     ],
+     "other_spectral_radius": 0.008197588471545524
+    },
+    {
+     "index": 40,
+     "alpha": -0.12140836413089688,
+     "alpha2": 0.10282143830620027,
+     "critical_multiplier": [
+      1.0000000006620635,
+      0.0
+     ],
+     "other_spectral_radius": 0.004839312355077138
+    }
+   ],
+   "codim2_approaches": []
+  },
+  "fm5c/curve-a1-down-fold-plus": {
+   "kind": "fold",
+   "period": 5,
+   "points": 51,
+   "stop": "parameters out of bounds",
+   "seconds": 1735.0,
+   "start": {
+    "tline_index": 47,
+    "alpha": -0.12332309104527972,
+    "alpha2": 0.100693,
+    "fixed_log10_temperature": -0.1
+   },
+   "direction": 1,
+   "max_residual": 9.822315017911487e-11,
+   "max_abs_g": 1.4929078180206674e-11,
+   "max_critical_deviation": 1.4264857073342796e-08,
+   "max_critical_imag": 0.0,
+   "gate_failed": false,
+   "max_other_spectral_radius": 0.39451483474863747,
+   "alpha_range": [
+    -0.1243679865464424,
+    -0.12331415566500618
+   ],
+   "alpha2_range": [
+    0.100693,
+    0.12004059888229959
+   ],
+   "cusp_candidates": [],
+   "codim2_approaches": []
   }
  },
- "located": {},
+ "located": {
+  "fm5c/locate-curve-a1-up-fold-minus-19": {
+   "curve": "llm-soft-loop/pod64/fm5/curve-a1-up-fold-minus",
+   "left": 19,
+   "located": true,
+   "checks": {
+    "b_small": true,
+    "c_nonzero": true,
+    "unfolding_regular": true
+   },
+   "alpha": -0.11922213727609073,
+   "alpha2": 0.10405355832843703,
+   "f": -9.405357211278442e-05,
+   "initial_f_max": 25.287073939700655,
+   "b": -0.00808864011685273,
+   "c": 26004.10878991422,
+   "c_plateau_relative_spread": 0.0012057351376892336,
+   "det_J": 176.61696691272832,
+   "condition": 618.3238608656379,
+   "multiplier": [
+    1.0000000000096583,
+    0.0
+   ],
+   "second_modulus": 0.0017703593508768146,
+   "normal_form_parameter": 0
+  },
+  "fm5c/locate-curve-a1-up-fold-minus-30": {
+   "curve": "llm-soft-loop/pod64/fm5/curve-a1-up-fold-minus",
+   "left": 30,
+   "located": true,
+   "checks": {
+    "b_small": true,
+    "c_nonzero": true,
+    "unfolding_regular": true
+   },
+   "alpha": -0.11916701674026631,
+   "alpha2": 0.10280194123758302,
+   "f": -0.0004374357814374008,
+   "initial_f_max": 41.627185338632685,
+   "b": 0.0007477346446762567,
+   "c": -20452.464962900944,
+   "c_plateau_relative_spread": 0.0005260384472310851,
+   "det_J": 88.62608103319272,
+   "condition": 60.12444328446503,
+   "multiplier": [
+    1.0000000012005652,
+    0.0
+   ],
+   "second_modulus": 0.0011845335648165284,
+   "normal_form_parameter": 0
+  },
+  "fm5c/locate-curve-a2-up-fold-plus-12": {
+   "curve": "llm-soft-loop/pod64/fm5/curve-a2-up-fold-plus",
+   "left": 12,
+   "located": true,
+   "checks": {
+    "b_small": true,
+    "c_nonzero": true,
+    "unfolding_regular": true
+   },
+   "alpha": -0.11922213727610446,
+   "alpha2": 0.10405355832844128,
+   "f": -5.755738337143157e-05,
+   "initial_f_max": 26.087982453809246,
+   "b": -0.008052156754217776,
+   "c": 26004.113330402473,
+   "c_plateau_relative_spread": 0.0012057623633950929,
+   "det_J": 176.61684217370419,
+   "condition": 618.3247376622875,
+   "multiplier": [
+    1.0000000000014648,
+    0.0
+   ],
+   "second_modulus": 0.0017703593649778147,
+   "normal_form_parameter": 0
+  },
+  "fm5c/locate-curve-a2-up-fold-plus-23": {
+   "curve": "llm-soft-loop/pod64/fm5/curve-a2-up-fold-plus",
+   "left": 23,
+   "located": true,
+   "checks": {
+    "b_small": true,
+    "c_nonzero": true,
+    "unfolding_regular": true
+   },
+   "alpha": -0.1191670167400342,
+   "alpha2": 0.10280194123637139,
+   "f": -0.00027509480212373205,
+   "initial_f_max": 31.27961224546329,
+   "b": 0.0009100726754631694,
+   "c": -20452.475240193293,
+   "c_plateau_relative_spread": 0.0005260410854381787,
+   "det_J": 88.62598931977249,
+   "condition": 60.12438860714696,
+   "multiplier": [
+    1.0000000003845944,
+    0.0
+   ],
+   "second_modulus": 0.0011845341925384714,
+   "normal_form_parameter": 0
+  }
+ },
  "fold_self_crossings": [
   {
    "segments": [
