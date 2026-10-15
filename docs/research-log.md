@@ -24699,3 +24699,13 @@ The REPRO1 and REPRO7 settings applied to Llama-3.1-8B-Instruct (official gated 
 Design frozen in docs/bpc-test.md, with the analysis tools/bpc_analyze.py (tests/test_bpc_analyze.py passes 3 tests: a planted direct effect is detected, a purely confounded label is not, and a planted inverted U is found). Both are pushed with this entry before any data. 4000 fresh two-digit products (docs/bpc-tasks.json), Qwen2.5-7B, log10 T 0.40.
 - Pods: 12 labelling shards (batched, 16 prompts per batch); one covariates pod; one generation pod (10 samples per prompt, chunked).
 - Tool changes: behavior_prompts.py gains tasks-c, covariates and generate --chunk-prompts (chunk 0 draws as the unchunked run did).
+
+## 2026-10-15 08:45 UTC: run (exploratory): BPCS, a steered arm of the behaviour test (human: "And different steerings too")
+
+- **Design.** Weak steering moves some prompts' loops between periodic, edge and chaotic regimes. Comparing the same prompt across steering conditions then controls its difficulty exactly.
+  - Directions at block 14 of Qwen2.5-7B: philosophy, hostility-vs-kindness, and a random direction scaled to the philosophy norm (random:1, seeded).
+  - tools/behavior_prompts.py gains --vectors/--concept/--alpha in label, generate and covariates, plus a calibrate step. Unsteered by default, so the frozen BPC runs are unchanged.
+- **Stage 1, calibration** (this entry). Greedy and 10 sampled answers at log10 T 0.40 for the first 200 BPC prompts, at alpha 0.005, 0.01, 0.02 and 0.04, against alpha 0.
+  - Rule fixed now: the arm uses the largest alpha at which all three directions keep greedy accuracy within 5 points of the unsteered value. If none does, the arm stops (steering would swamp the task, as in BZ).
+- **Stage 2** (after calibration). Label and generate the first 1000 BPC prompts under each direction at that alpha.
+  - Analysis fixed now: accuracy ~ chaotic + prompt fixed effects + direction fixed effects (least squares). The regime effect is identified within prompts across the unsteered and three steered conditions. The test permutes labels within prompts (10,000). The edge bins are as in BPC.
