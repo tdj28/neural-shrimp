@@ -23788,3 +23788,29 @@ Reading:
 - The fixed-reinjection model predicts 3-9 % closer to the fold and fails at periods 22-28.
 - The measured reinjection point is not fixed: its medians moved from -3.1e-4 to -7.4e-4 with eps. With one fixed point the model overstates the drift.
 - Paper: this replaces the Planned marker of the mechanism section.
+
+## 2026-10-15 02:32 UTC: CL result: the four cusp candidates are located cusps; the accumulation boundary carries a 1:1 resonance; the period-4 lower fold curve has two 1:1 resonances and a fold-flip point; the period-8 flip curve's reversals are smooth turns
+
+Pods zykuze0wvthc67, nke0vctpn2efor, zgiqnia53qtj3e and x35431av2vc7s7: runner rc 0, hashes verified, terminated; 1230-1900 s each; commit 5ad048f2. Outputs codim2/* were copied from the run folders without overwriting. All ten tool checks passed (three rounds and a secant step each).
+
+**Cusps.** b sign(a) at the located point, from the bracket's largest value, then c and det J at the same point:
+
+| cusp | (log10 T, alpha) | b sign(a) | c | det J (condition) |
+|---|---|---|---|---|
+| period-6 outer arc | (-0.039750, 0.069106) | 7e-5 (from 16.9) | -1.51e4 | 2416 (1090) |
+| period-6 body | (-0.058344, 0.080097) | -4e-5 (from 12.8) | -2.38e5 | 14.0 (476) |
+| hostile lower fold | (0.189382, 0.066611) | -7e-4 (from 58.7) | -5.61e5 | 55.2 (1292) |
+| hostile upper fold | (0.198983, 0.067213) | -1.1e-3 (from 244.6) | -1.41e6 | 58.2 (860) |
+
+The c values agree with the bracketing values reported before (-1.37e4/-1.65e4, -2.38e5/-2.34e5, -5.8e5 to -5.3e5, -1.4e6 to -2.0e6), as do the det J values (2737 and 53.5 at nearby fold points). The cubic routine's own b at the located point (larger finite-difference steps) is 0.003, -0.05, 0.28 and 2.9: below 1.2 % of the bracket scale.
+
+**Accumulation boundary** (fold of the 2-cycle 'is it', curve-p2-fold-minus 60/61): a second real multiplier crosses +1 at (log10 T -0.341724, alpha 0.035628). The second multiplier is 0.99997, and the two eigenvectors coincide to 2.7e-4 degrees: a Jordan block, i.e. a 1:1 resonance (the map analogue of a Bogdanov-Takens point).
+
+**Period-4 lower fold curve** (curve-foldD-minus):
+- 14/15 at (0.004955, 0.062483) and 20/21 at (-0.001780, 0.062499): a second multiplier at +1 with eigenvectors parallel to 3e-4 and 1e-4 degrees, two 1:1 resonances.
+- 21/22 at (-0.002667, 0.062522): a second multiplier at -0.99996, a fold-flip point.
+- Continuing the curves that emanate from these points was not done.
+
+**Period-8 flip curve reversals** (curve-p8-down-minus 34/35 and 47/48):
+- Located at (-0.219336, 0.074955) and (-0.206007, 0.074608). The second multiplier there is 3.4e-7 and 1.1e-5, nowhere near the unit circle.
+- On a flip curve the parameter tangent can vanish only if (M - I) dx = 0 has a solution, which needs a multiplier at +1. Both points are therefore smooth turns of an immersed curve in the parameter plane, not cusps of its projection and not codimension-two points.
