@@ -25051,3 +25051,7 @@ The first figure (docs/tp/tpf-returnmaps.png) stopped at 24 panels. The remainin
 - **Consequence for the paper.** "Our reductions have one turning point per phase" holds for the one-block maps (blocks 4 to 20 and the hostile body). It does not hold in the two-block planes.
 
 **Figure.** tools/plot_bimodal.py writes paper/llm/figures/fig-bimodal.png: (a) the q 20 cell's phase 0 with a cobweb; (b, c) q 12 phases 2 and 9; (d) the three-maximum phase. The paper text waits for the TBZ zooms.
+
+## 2026-10-15 09:49 UTC: Run card TBZh2 (exploratory)
+
+The same as TBZh, around the second bimodal cell of the hostility@4 + gratitude@16 plane: alpha1 in [-0.0492, -0.0240], alpha2 in [-0.0593, -0.0341], 128 x 128, log10 T -0.1, transient 1000, record 600, twin 1e-6, tol 1e-8. One H100-class pod; ceiling in the private ledger.
