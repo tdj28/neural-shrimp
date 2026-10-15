@@ -25933,3 +25933,39 @@ Pod 0yxvaphaxhovgb (SECURE H100 NVL); commit a5606676 from the orchestrator log;
 - **Native disagreement on this H100.** 66 % (0.5B; REPRO-T's frozen test on 96 other problems gave 56 %) and 77 % (7B; 55 %).
 
 **Reading (pre-stated rule).** Delta exceeds 15 points with an interval excluding zero in every bf16 run and in 7B float32. On a second GPU type and in a 7B model, resetting the fed-back state before every soft step removes nearly all layout-dependent answer changes. On the H100 the layout changes few single steps; the loop amplifies the rare step that differs. In 7B the amplification reaches answer changes even in float32.
+
+## 2026-10-15 18:04 UTC: Run card SHC (exploratory): dissecting the doubling-cascade cells of the two-depth plane
+
+**Why.** The human pointed at the feature near (alpha1, alpha2) = (-0.105, 0.105) of the TBZg map (gratitude@4 + hostility@16, log10 T -0.1) as looking more shrimp-like than the period-5 body. TBZg recorded it as the doubling cascade crossing the plane:
+- period 2 on the right, then a period-4 region;
+- inside it a V-shaped period-8 tongue (tip near (-0.1045, 0.1037)) edged with period 16, then chaos at the top.
+
+The exponent map also shows a V-shaped near-superstable line inside the tongue, and a closed oval of strongly negative exponent in the period-2 region near (-0.1005, 0.1075). Whether these cells carry the anatomy of a shrimp has not been tested.
+
+Gallas (1994, Physica A 202:196) gives that anatomy:
+- a head, where the superstable curves of the two critical points cross; it divides the cell into four quadrants by the sign of the multiplier;
+- a tail, where superstable curves of two coexisting orbits cross in projection;
+- a kite with a cusp, where two legs cross.
+
+Facanha, Oldeman and Glass (2013) give its two-dimensional form: trace-zero curves of the two leading multipliers, which unfold the head into a loop (Type A) or an avoided crossing (Type B).
+
+**Runs.** tools/doubly_superstable.py grid (float64, two-block plane, k 6, tol 1e-12), one pod each, at commit 5361c972:
+- **SHC-P2:** period 2, seed (-0.098094, 0.106646) (exponent -0.85, all 8 neighbours period 2); alpha1 [-0.1025, -0.0975], alpha2 [0.0995, 0.1124], 52 rows x 20 columns.
+- **SHC-P4:** period 4, seed (-0.106229, 0.101685) (-0.69); alpha1 [-0.1090, -0.1015], alpha2 [0.0995, 0.1124], 43 x 25.
+- **SHC-P8:** period 8, seed (-0.106229, 0.108630) (-0.44); alpha1 [-0.1080, -0.1025], alpha2 [0.1030, 0.1124], 32 x 19.
+- **SHC-TB:** a finer classifier map, tools/two_block_map.py, 128 x 128 over alpha1 [-0.1100, -0.0990] and alpha2 [0.0990, 0.1124], same settings as TBZg2.
+
+**Readout.** Per cell the readout is the orbit's leading multipliers, from which tools/dss_window.py derives:
+- the sign of a real leading multiplier (Gallas's parity view);
+- the trace and product of the leading pair;
+- the zero curves of the per-step factors;
+- checkerboard crossings.
+
+Labels:
+- **Head:** two factor zero curves of one continued orbit cross. This would be the first doubly superstable point in this project.
+- **Type A or B:** the trace-zero curves close into a loop or turn away.
+- **Neither:** neither is seen at this resolution.
+
+This is a first look. Folds, cusps and legs need the curve continuation of FM5 and come only if the grids show a candidate. A cell can hold several attractors, so a crossing seen on the classifier map alone is not evidence.
+
+**Cost.** Expected about 1, 1.8, 2 and 0.75 hours on H100 NVL class at about $3.2/h. Hard ceilings, in the private ledger, are set from the run limits at a $3.50/h maximum rate.
