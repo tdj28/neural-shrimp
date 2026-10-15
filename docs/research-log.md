@@ -24780,3 +24780,10 @@ FBS768m (pod a1i1o7txau28j2; runner rc 0, job status 124, terminated; 5549 s) fo
 ## 2026-10-15 08:54 UTC: Amendment to BPC (operational, before any outcome): the generation pod ran out of memory; relaunched with 50 prompts per chunk
 
 BPCgen (runner rc 0, job status 1, 159 s) failed with CUDA out of memory: 400 prompts x 10 samples per sampled batch is too large for the float32 7B. No outcome was produced or seen. It is relaunched as BPCgen2 with --chunk-prompts 50; everything else is as frozen. The chunk size changes the random streams of chunks after the first, which the design does not fix.
+
+## 2026-10-15 08:55 UTC: Corrections from Codex Task 21b (Kaplan-Yorke audit, comms 08:16 UTC) adopted
+
+- **One positive exponent.** "Every attractor we measured has exactly one positive exponent" is now restricted: 31 of the 35 measured cells have a positive leading exponent, each with exactly one; the other four have none at the horizon.
+- **Headline range.** The lower end is 1.038, so the range is quoted as 1.03 to 1.65 (range ends at the true extremes).
+- **lambda_1 + lambda_2 >= 0** at two high-temperature cells, not three.
+- **KY1 entry.** The 1000-to-2000-step dimension changes are at most 0.021, not 0.02 (maximum 0.020298).
