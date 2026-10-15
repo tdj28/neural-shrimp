@@ -24019,3 +24019,18 @@ Pod tsmw6yiwpd42pe (COMMUNITY H100 NVL; runner rc 0, hash verified, terminated; 
 - By the card: confirmed.
 
 Paper: Table tab:flipnf and a paragraph after the high-temperature bubble give both flips (three offsets each); the theory paragraph points there.
+
+## 2026-10-15 04:49 UTC: run (exploratory pilot): BZ, ordinary steered inference in the chaotic and periodic zones (human: "Do it and do it fast")
+
+- **Question:** Does ordinary generation, steered and sampled at the map's (alpha, T), behave differently where the soft-token map is chaotic than where it is periodic, for example less accurately? The human's hunch: chaotic zones are less accurate.
+- **Design:** Temperature and steering change accuracy by themselves, so the comparison is within matched pairs. tools/behavior_zones.py documents the full rules; pairs and tasks are fixed before any generation.
+  - 30 pairs from the float64 maps map-stripes-256 and map-highT-256-families (0.5B, philosophy, layer 12), at 30 temperatures from log10 T -0.17 to 0.14. Each pair is one chaotic cell (exponent > 0.05, no period) and one periodic cell (exponent < -0.05) in the same map row, with |delta alpha| <= 1e-3 (here adjacent cells, 8.6e-5 or 1.6e-4 apart).
+  - Plus an unsteered cell at each temperature: 90 cells in docs/bz-pairs.json.
+  - Tasks (docs/bz-tasks.json, seed 20261015): 50 arithmetic problems (2-digit sums, 2-digit x 1-digit products), 50 NQ-open validation questions, 30 MBPP-sanitized test problems.
+  - Ordinary generation adds the steering alpha v at block 12 on every position and samples at T (top_p 1, top_k 0). It takes 3 samples per item (2 for MBPP), so 360 generations per cell, scored automatically. Code runs only inside the pods.
+- **Reading, fixed now:** per pair and task, the accuracy difference chaotic - periodic.
+  - A sign test across pairs per task, plus the pooled difference with a paired bootstrap interval.
+  - Secondary: mean next-token entropy and reply length per zone, and the unsteered accuracy against T as the temperature baseline.
+  - Exploratory: any difference found here needs a frozen confirmatory test on fresh pairs before any claim.
+- **Setup:** three pods (H100-class, new job set bz), shards 0-2 of the 90 cells.
+- **Output:** `../neural-shrimp-data/explore/bz/pilot-{0,1,2}`

@@ -153,6 +153,12 @@ case "$JOBSET" in
     TOOL=llm_feigenbaum.py run edges-$name "$minutes" edges --device cuda --threads 8 "${JOBARGS[@]:2}" \
       --out $D/edges/$name
     ;;
+  bz)          # ordinary steered inference in chaotic and periodic zones (run BZ; tools/behavior_zones.py run, float32 on
+               # the GPU; model-written code is executed here, inside the pod): JOBARGS = NAME MINUTES then run arguments
+    name=${JOBARGS[0]}
+    minutes=${JOBARGS[1]}
+    TOOL=behavior_zones.py run bz-$name "$minutes" run --device cuda "${JOBARGS[@]:2}" --out $D/bz/$name
+    ;;
   flipnf)      # flip normal form and its doubled-orbit tests (tools/flip_normal_form.py, float64 on the GPU): JOBARGS = NAME
                # MINUTES then tool arguments
     name=${JOBARGS[0]}
