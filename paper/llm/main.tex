@@ -349,6 +349,20 @@ the collapse \cite{dong2021attention}. Which tendency wins along an orbit is a p
 only computation settles. In every dense model we mapped, both outcomes occur: the same map has negative largest
 exponents in some regions of its parameter plane and positive ones in others.
 
+\paragraph{Why the structures of low-dimensional maps appear.} The map acts on a space of hundreds to thousands of
+dimensions, yet near the periodic orbits we compute it is effectively one-dimensional. All multipliers but one are
+small, from a few times $10^{-2}$ at short periods to below $10^{-13}$ along the cascade (Sections~\ref{sec:mechanism}
+to~\ref{sec:cascade}). Near such an orbit the dynamics reduce to a smooth scalar return map. Temperature, through the
+gain of \eqref{eq:gain}, and steering unfold this return map as a two-parameter family. Generic two-parameter families
+of smooth one-dimensional maps with a quadratic extremum have universal features: fold and flip curves with cusps
+where fold curves turn, period-doubling cascades whose interval ratios tend to Feigenbaum's $\delta$, and saddle-node
+windows that accumulate on a fold with $d_N\propto N^{-2}$. The organization of shrimps needs more, either a second
+turning point of the reduced map or a second dimension \cite{gallas1993structure,jones2012rossler}. We use this
+reduction as a guide, and test its consequences where we state them: the multipliers of each orbit, the interval
+ratios, and the normal-form predictions of passage times and coexisting orbits. Where the second multiplier is not
+small, as in the high-temperature bubble of Section~\ref{sec:cascade} (next moduli $0.28$ and $0.38$), the reduction
+is only a rough guide.
+
 \section{Methods}
 \label{sec:methods}
 \paragraph{Phase maps.} Each cell of a phase map is one parameter pair. Unless stated otherwise, we discard 300
