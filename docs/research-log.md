@@ -24006,3 +24006,16 @@ DSS1 (pod 8gzwfgzsfwcgfz) runs at about 7 s per cell, so its 90-minute tool limi
 - DSS1c: rows 15-30, log10 T 0.2050-0.2115.
 
 DSS1 continues and is reported as well.
+
+## 2026-10-15 04:41 UTC: FNF2b result: the flip normal form also predicts the doubled orbit at next modulus 0.38
+
+Pod tsmw6yiwpd42pe (COMMUNITY H100 NVL; runner rc 0, hash verified, terminated; 206 s; commit 82ba6c82).
+- Flip of the period-2 orbit at alpha 0.07535341734032334, log10 T 0.0319: multiplier -1 to 5.1e-12, real; next modulus 0.383, so the crossing is classified as a flip.
+- c = 6492.4 (plateau spread 4.6e-5): supercritical.
+- Offsets 2.5e-5 to 4e-4:
+  - beta = 0.0092, 0.0183, 0.0364, 0.0717, 0.1400.
+  - Amplitude ratio: 1.0050, 1.0100, 1.0199, 1.0396, 1.0784 (linear in the offset).
+  - Doubled multiplier against 1 - 4 beta: 0.963345 vs 0.963199 (1.5e-4), 0.92730 vs 0.92669, 0.85718 vs 0.85449, 0.72594 vs 0.71302, 0.51292 vs 0.43994. The difference is about 1.7-2.0 beta^2 at the small offsets.
+- By the card: confirmed.
+
+Paper: Table tab:flipnf and a paragraph after the high-temperature bubble give both flips (three offsets each); the theory paragraph points there.

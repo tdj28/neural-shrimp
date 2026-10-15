@@ -941,6 +941,36 @@ doubled loop at $0.0736921$. These orbits are far from one-dimensional (next mod
 smaller $\alpha$ the period-8 orbit does not double again: near $\alpha\approx0.0705$ it merges back into the period-4
 orbit. Along this cut it is therefore a period-doubling bubble, bounded by two flips of the period-4 orbit, not the
 start of a cascade to chaos.
+\begin{table}[H]
+\centering\small
+\begin{tabular}{rrrrrr}
+\toprule
+ & offset & $\beta$ & amplitude ratio & doubled multiplier & $1-4\beta$ \\
+\midrule
+period $2\to4$ & $2.5\times10^{-5}$ & $0.0092$ & $1.005$ & $0.96335$ & $0.96320$ \\
+($c=6.49\times10^{3}$) & $1\times10^{-4}$ & $0.0364$ & $1.020$ & $0.8572$ & $0.8545$ \\
+ & $4\times10^{-4}$ & $0.1400$ & $1.078$ & $0.513$ & $0.440$ \\
+\midrule
+period $4\to8$ & $2.5\times10^{-5}$ & $0.0175$ & $1.003$ & $0.92987$ & $0.92983$ \\
+($c=1.24\times10^{4}$) & $1\times10^{-4}$ & $0.0685$ & $1.012$ & $0.7257$ & $0.7260$ \\
+ & $4\times10^{-4}$ & $0.2470$ & $1.056$ & complex & $0.012$ \\
+\bottomrule
+\end{tabular}
+\caption{The flip normal form where the map is far from one-dimensional: the two flips of the high-temperature bubble
+(next moduli $0.38$ and $0.28$). At offsets below each flip in $\alpha$, $\beta=-\mu_p-1$ from the period-$p$ orbit's
+multiplier; amplitude ratio: the doubled orbit's half-amplitude along the critical direction divided by the
+prediction $\sqrt{\beta/c}$; doubled multiplier: computed against the prediction $1-4\beta$. Both coefficients are
+positive (supercritical), as the stable doubled orbits require. Three of five offsets per flip are shown.}
+\label{tab:flipnf}
+\end{table}
+The local theory still applies here (Section~\ref{sec:theory}). At each flip we computed the cubic coefficient of the
+flip normal form, $\eta\mapsto-(1+\beta)\eta+c\,\eta^3$ on the critical direction, from the dense monodromy and
+float64 directional derivatives, $c=\ell^\top C(r,r,r)/6+\ell^\top B(r,h_2)/2$ with $(I-M)h_2=B(r,r)$
+\cite{kuznetsov2023elements}. It predicts the doubled orbit without fitting: half-amplitude $\sqrt{\beta/c}$ along $r$
+and multiplier $1-4\beta$. At the smallest offset the amplitude ratios are $1.005$ and $1.003$, and the multipliers agree
+within $1.5\times10^{-4}$ and $5\times10^{-5}$, and both discrepancies grow as the next order of the normal form
+requires (Table~\ref{tab:flipnf}).
+
 
 \section{Bridge to sampled decoding}
 \label{sec:bridge}
