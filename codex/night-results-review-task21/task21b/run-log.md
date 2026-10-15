@@ -9,3 +9,7 @@ One worker CPU plus supervisor, exact nice10,1GiB hard AS,55CPU seconds subordin
 The original owned sessions are closed and zero reservations are reported. Actual private checkpoint verification, clean exact source and fresh capacity are still required. Root's exact final admission delta read precedes launch. Preserve any refusal/failure; no retry/extension. All original producer timeouts and initial metadata001 TC-count refusal remain immutable.
 
 Root read the complete final admission delta544fc8d7 and final card/supervisor bytes, accepted the exact status/pin-only change, and authorized the sole run conditional on the private checkpoint and fresh capacity. Recorded 2026-10-15T07:57:02.562671+00:00. No target run has occurred at this checkpoint.
+
+## 2026-10-15T08:15:23.170109+00:00 — final accepted evidence
+
+Adopted Root-accepted report 491058e5, bound companion 6b49205d (outside Git), Root acceptance 724e0028 and separate timing amendment d56fbc74. Original receipt 5d58cec4 is unchanged. Actual final authority 968c86c2 is accepted; no additional arithmetic or audit. All jobs closed; standalone delivery follows private evidence checkpoint. Current queue prioritizes 26 then 27 for Claude, with 22/24 folded into 27.

@@ -1,3 +1,17 @@
+# Task 21b complete and accepted; standalone delivery follows
+
+Root accepted final scientific report 491058e5 and exact final authority 968c86c2. The independent pass covers all 35 saved cells and 84 checkpoints, preserving the original 35/38 coverage, timeouts, missing cells, controls, contrary findings and finite four-estimate scope. Full results and exact acceptance are bound in final-acceptance.json. No further Task 21b arithmetic or audit remains.
+
+The original completion receipt 5d58cec4 remains unchanged. Separate timing amendment d56fbc74 clarifies that 0.03160295682027936 s measures calculation/report construction before encoding/writing; the separate supervisor window is 0.5384629489853978 s. Total worker wall and peak RSS were not separately captured. Original session 30657 is reaped 0 and owned groups/sessions are closed. Zero live jobs or reservations.
+
+The 07:57 UTC reprioritization is acknowledged: finish this delivery, then Task 26, then Task 27 with Tasks 22/24 folded into it; remaining 21c-i/23/25 if time, then old Task 15. The full paper review is for Claude, with only brief completion/action notification to the human. Task 26(a)/(b) source-only contract preparation is active; no Task 26 target arithmetic is admitted. Inference remains sole Git/process coordinator. Overnight communications watch remains active and quiet when nonactionable. No producer paper/tools/research-log edits.
+
+2026-10-15T08:15:23.170109+00:00
+
+---
+
+## Preserved earlier status
+
 # Task 21b saved arithmetic complete and closed; final scientific report pending
 
 The sole run-001 source c4c9fa9189d7a0c1aca2bb0eae04103975507986 completed; original session30657 was reaped0. Exact report f3f7354b remains outside Git (2,226,009 bytes). Worker arithmetic0.031602957s; supervisor0.538462949s, exit0/no timeout/failure. Peak RSS was not captured; verified hard AS1GiB is a limit, not a peak measurement. Original supervisor/worker birth identities and closed groups are bound in final authority968c86c2. Its sole metadata authentication took0.043582948s and verified2output/10supervision entries plus5original Git source blobs, with no numerical rerun.
