@@ -1495,6 +1495,40 @@ snapshot_download('$REPO', revision='$MREV', cache_dir='$NEURAL_SHRIMP_DATA/mode
       done
     done
     ;;
+  fm5)         # fold map of the period-5 window of the two-block plane (run FM5): gratitude@4 + hostility@16 at log10 T
+               # -0.1 (vectors uploaded with --extra-data). (1) Four float64 branches of the period-5 orbit from the
+               # DSS5 seed cell, alpha1 and alpha2 each way, in parallel. (2) Curves from the boundaries they found,
+               # both directions, in parallel: folds of the alpha1-up and alpha2-up branches, the flip of the
+               # alpha2-down branch, the first boundary of the alpha1-down branch. JOBARGS: BRANCH-MINUTES
+               # CURVE-MINUTES CURVE-STEPS DS DS-MAX
+    bmin=${JOBARGS[0]}; cmin=${JOBARGS[1]}; csteps=${JOBARGS[2]}; cds=${JOBARGS[3]}; cdsmax=${JOBARGS[4]}
+    export OMP_NUM_THREADS=2 OPENBLAS_NUM_THREADS=2 MKL_NUM_THREADS=2      # eight processes share the pod's CPUs
+    TBA="--layer 4 --vectors llm-phase-map/vectors-l4 --concept gratitude --block2 16 --vectors2 llm-phase-map/vectors-l16
+         --concept2 hostility --log-temperature -0.1"
+    BR5="branch --device cuda --threads 2 --dtype float64 --reference-dtype none --no-exact-jvp --chunk 896 --period 0
+         --transient 900 --steps 150 --ds 0.002 --ds-max 0.01 --beyond 0.0005"
+    SEED="--alpha -0.118730 --alpha2 0.100693"
+    run fm5-branch-a1-up "$bmin" $BR5 $TBA $SEED --free alpha --direction 1 --bounds -0.125 -0.100 \
+      --out $D/fm5/branch-a1-up &
+    run fm5-branch-a1-down "$bmin" $BR5 $TBA $SEED --free alpha --direction -1 --bounds -0.125 -0.100 \
+      --out $D/fm5/branch-a1-down &
+    run fm5-branch-a2-up "$bmin" $BR5 $TBA $SEED --free alpha2 --direction 1 --bounds 0.088 0.118 \
+      --out $D/fm5/branch-a2-up &
+    run fm5-branch-a2-down "$bmin" $BR5 $TBA $SEED --free alpha2 --direction -1 --bounds 0.088 0.118 \
+      --out $D/fm5/branch-a2-down &
+    wait
+    C5="curve --device cuda --threads 2 --dtype float64 --reference-dtype none --no-exact-jvp --gmres-tol 1e-10
+        --tol 1e-10 --gtol 1e-9 --max-newton 10 --chunk 448 --steps $csteps --ds $cds --ds-max $cdsmax
+        --alpha-bounds -0.125 -0.100 --alpha2-bounds 0.088 0.118"
+    for spec in a1-up:fold a2-up:fold a2-down:flip a1-down:auto; do
+      IFS=: read -r b kind <<< "$spec"
+      for dir in 1 -1; do n=$([ $dir = 1 ] && echo plus || echo minus)
+        run fm5-curve-$b-$kind-$n "$cmin" $C5 --start $D/fm5/branch-$b --kind $kind --direction $dir \
+          --out $D/fm5/curve-$b-$kind-$n &
+      done
+    done
+    wait
+    ;;
   p4curves)    # fold and flip curves of the period-4 body orbit from the p4a branches (uploaded with
                # --extra-data): SET A = both folds of the S-shaped temperature branch (cusp candidate), C = the
                # alpha fold and the lower temperature fold, E = the first flip of the alpha branch toward the legs

@@ -718,7 +718,8 @@ def precision(args):
     (out / "precision.json").write_text(json.dumps({"args": vars(args), "cells": rows}, indent=1))
 
 
-def soft_family(loop, v, period, alpha_scale=10.0, chunk=512, reference=None, exact_jvp=False):
+def soft_family(loop, v, period, alpha_scale=10.0, chunk=512, reference=None, exact_jvp=False, second=None,
+                log_temperature=None):
     """The p-fold soft map as a two-parameter family for bifurcation_curves, theta = (log10 T, alpha * alpha_scale).
     The steering acts on the prefix too, so phi recomputes the prefix cache inside the differentiable function
     (derivatives in alpha include the prefix); the dense monodromy reuses SoftOrbit's batched forward-mode
@@ -727,7 +728,11 @@ def soft_family(loop, v, period, alpha_scale=10.0, chunk=512, reference=None, ex
     precision. float32 derivatives of one step are accurate to about 5e-5, but those of the P8 orbit's 8-step map
     only to about 3 % (dense monodromy and JVPs alike), enough for a Newton matrix but not for multipliers or the
     test function g. exact_jvp=True takes the Jacobian-vector products (jvp_x: g by GMRES, refined multipliers)
-    from the reference as well."""
+    from the reference as well.
+
+    Two-block plane (run TB): with second = (layer2, w) and a fixed log_temperature, theta = (alpha1, alpha2) *
+    alpha_scale, alpha1 steering along v at loop's layer and alpha2 along w at layer2 (registered on every loop with
+    sm.add_steer_layer before this call). Both blocks act on the prefix too."""
     import copy
 
     import bifurcation_curves as bc
@@ -738,14 +743,34 @@ def soft_family(loop, v, period, alpha_scale=10.0, chunk=512, reference=None, ex
     v = np.asarray(v)
     if getattr(loop, "hybrid", False):
         raise SystemExit("hybrid (linear-attention) models: continuation is not supported (prefix states are not copied)")
+    if second is not None:
+        if log_temperature is None:
+            raise ValueError("a two-block family needs the fixed log_temperature")
+        for lp in (loop, reference):
+            if lp is not None and int(second[0]) not in lp.sm._extra_hooks:
+                raise ValueError(f"layer {second[0]} has no second steering hook (call sm.add_steer_layer first)")
+        w = np.asarray(second[1])
+
+    def make_orbit(lp, key):
+        """SoftOrbit of the cell theta = key (a tuple of floats) on SoftLoop lp."""
+        if second is None:
+            return SoftOrbit(lp, key[1] / alpha_scale * v, 10.0 ** key[0], chunk=chunk)
+        lp.extra = (int(second[0]), np.array([key[1] / alpha_scale * w]))
+        return SoftOrbit(lp, key[0] / alpha_scale * v, 10.0 ** log_temperature, chunk=chunk)
 
     def make_phi(lp):
         v_t = torch.as_tensor(v, dtype=lp.dtype, device=lp.device)[None, None, :]
+        w_t = None if second is None else torch.as_tensor(w, dtype=lp.dtype, device=lp.device)[None, None, :]
 
         def phi(X, theta):
-            temperature = 10.0 ** theta[0]
+            if second is None:
+                temperature, a1 = 10.0 ** theta[0], theta[1]
+            else:                                           # two-block plane at a fixed temperature
+                temperature, a1 = 10.0 ** log_temperature, theta[0]
             cache = DynamicCache()
-            lp.sm.steer = (theta[1] / alpha_scale).to(lp.dtype) * v_t
+            lp.sm.steer = (a1 / alpha_scale).to(lp.dtype) * v_t
+            if second is not None:
+                lp.sm.steer_extra = {int(second[0]): (theta[1] / alpha_scale).to(lp.dtype) * w_t}
             try:
                 lp.model(input_ids=lp.prefix_ids, past_key_values=cache, use_cache=True, logits_to_keep=1)
                 for _ in range(period):
@@ -757,6 +782,7 @@ def soft_family(loop, v, period, alpha_scale=10.0, chunk=512, reference=None, ex
                     X = torch.cat([X[:, 1:, :], (p @ lp.E)[:, None, :]], dim=1)
             finally:
                 lp.sm.steer = None
+                lp.sm.steer_extra = {}
             return X
 
         return phi
@@ -777,7 +803,7 @@ def soft_family(loop, v, period, alpha_scale=10.0, chunk=512, reference=None, ex
             key = tuple(float(t) for t in theta)
             if self.orbit is None or self.orbit[0] != key:
                 self.orbit = None                           # release the old repeated caches first
-                self.orbit = (key, SoftOrbit(loop, key[1] / alpha_scale * v, 10.0 ** key[0], chunk=chunk))
+                self.orbit = (key, make_orbit(loop, key))
             return self.orbit[1]
 
         def residual(self, x, theta):
@@ -786,7 +812,7 @@ def soft_family(loop, v, period, alpha_scale=10.0, chunk=512, reference=None, ex
                 return self.to_np(X) - np.asarray(x).ravel()
             key = tuple(float(t) for t in theta)
             if self.ref_orbit is None or self.ref_orbit[0] != key:
-                self.ref_orbit = (key, SoftOrbit(reference, key[1] / alpha_scale * v, 10.0 ** key[0], chunk=chunk))
+                self.ref_orbit = (key, make_orbit(reference, key))
             ref = self.ref_orbit[1]
             X = torch.as_tensor(np.asarray(x, dtype=np.float64).reshape(self.shape), dtype=reference.state_dtype,
                                 device=reference.device)
@@ -848,7 +874,9 @@ def branch(args):
     """Dense continuation in log10 T, at fixed steering, of the periodic orbit reached at (log10 T, alpha):
     bifurcation_curves.trace_branch with all multipliers at every point (eigenvalues of the dense monodromy),
     residuals in the reference precision (float64 by default) and derivatives in --dtype. Writes branch.json in
-    the format of tline.json (points, classified crossings), which curve can start from."""
+    the format of tline.json (points, classified crossings), which curve can start from. With --block2 (two-block
+    plane, run TB) the temperature stays at --log-temperature and the free parameter is alpha (block --layer) or
+    alpha2 (block --block2)."""
     import bifurcation_curves as bc
 
     loop = SoftLoop(args.model, args.layer, args.threads, args.prompt, args.opener, args.window, args.dtype,
@@ -856,7 +884,21 @@ def branch(args):
     ref = (SoftLoop(args.model, args.layer, args.threads, args.prompt, args.opener, args.window,
                     args.reference_dtype, args.device) if args.reference_dtype != "none" else None)
     v = elpm.load_vectors(args.vectors)[args.concept]
+    second = None
+    if args.block2 is not None:                                 # two-block plane at a fixed temperature
+        if None in (args.vectors2, args.concept2, args.alpha2):
+            raise SystemExit("branch: a two-block plane needs --vectors2, --concept2 and --alpha2")
+        if args.free == "temperature":
+            raise SystemExit("branch: in a two-block plane the free parameter is alpha or alpha2 (log10 T is fixed)")
+        for lp in (loop, ref):
+            if lp is not None:
+                lp.sm.add_steer_layer(args.block2)
+        second = (args.block2, elpm.load_vectors(args.vectors2)[args.concept2])
+    elif args.free == "alpha2":
+        raise SystemExit("branch: --free alpha2 needs a second block (--block2)")
     top = ref or loop
+    if second is not None:
+        top.extra = (args.block2, np.array([args.alpha2 * second[1]]))
     orb = SoftOrbit(top, args.alpha * v, 10.0 ** args.log_temperature)
     X = orb.iterate(orb.start, args.transient)
     returns = orb.return_distances(X, args.max_period)
@@ -864,7 +906,8 @@ def branch(args):
     if period == 0:
         raise SystemExit(f"no period up to {args.max_period} at tolerance {args.detect_tol} (smallest return "
                          f"distance {min(returns):.3g} at q = {int(np.argmin(returns)) + 1}); nothing to continue")
-    fam = soft_family(loop, v, period, args.alpha_scale, args.chunk, reference=ref, exact_jvp=args.exact_jvp)
+    fam = soft_family(loop, v, period, args.alpha_scale, args.chunk, reference=ref, exact_jvp=args.exact_jvp,
+                      second=second, log_temperature=args.log_temperature)
     out = DATA / "explore" / args.out
     out.mkdir(parents=True, exist_ok=True)
 
@@ -878,11 +921,18 @@ def branch(args):
             fh.write(f"{time.strftime('%H:%M:%S', time.gmtime())} {line}\n")
 
     tic = time.perf_counter()
-    free = 0 if args.free == "temperature" else 1
-    sc = 1.0 if free == 0 else args.alpha_scale                # the free parameter as continued
-    bounds = args.bounds or ([-1.5, 0.5] if free == 0 else [-0.2, 0.2])
+    if second is None:
+        free = 0 if args.free == "temperature" else 1
+        sc = 1.0 if free == 0 else args.alpha_scale            # the free parameter as continued
+        theta0 = [args.log_temperature, args.alpha * args.alpha_scale]
+        bounds = args.bounds or ([-1.5, 0.5] if free == 0 else [-0.2, 0.2])
+    else:                                                      # theta = (alpha, alpha2) * scale
+        free = 0 if args.free == "alpha" else 1
+        sc = args.alpha_scale
+        theta0 = [args.alpha * sc, args.alpha2 * sc]
+        bounds = args.bounds or [-0.2, 0.2]
     records, reason, states = bc.trace_branch(
-        fam, fam.to_np(X), [args.log_temperature, args.alpha * args.alpha_scale], free=free,
+        fam, fam.to_np(X), theta0, free=free,
         direction=args.direction, steps=args.steps, ds=args.ds, ds_min=args.ds_min, ds_max=args.ds_max, tol=args.tol,
         max_newton=args.max_newton, beyond=args.beyond * sc, bounds=(bounds[0] * sc, bounds[1] * sc),
         on_point=on_point, k=args.k, refine_k=args.refine_k)
@@ -911,25 +961,48 @@ def curve(args):
     kind, index, x0, lam0 = curve_start(tl, states, args.kind, args.start_index)
     ta = tl["args"]
     period = int(tl["period"])
-    if tl.get("free", "temperature") == "temperature":          # located at fixed alpha
+    sc = args.alpha_scale
+    two = ta.get("block2") is not None                         # a branch of a two-block plane (run TB)
+    if two:                                                    # theta = (alpha, alpha2) * scale at fixed log10 T
+        a1, a2 = float(ta["alpha"]), float(ta["alpha2"])
+        if tl["free"] == "alpha2":                             # located at fixed alpha
+            a2, fix = lam0, 0
+        else:                                                  # located at fixed alpha2
+            a1, fix = lam0, 1
+        theta0 = [a1 * sc, a2 * sc]
+        start = {"tline_index": index, "alpha": a1, "alpha2": a2, "fixed_log10_temperature": ta["log_temperature"]}
+    elif tl.get("free", "temperature") == "temperature":        # located at fixed alpha
         log_t0, alpha0, fix = lam0, float(ta["alpha"]), 1
     else:                                                      # located at fixed log10 T
         log_t0, alpha0, fix = float(ta["log_temperature"]), lam0, 0
+    if not two:
+        theta0 = [log_t0, alpha0 * sc]
+        start = {"tline_index": index, "log10_temperature": log_t0, "alpha": alpha0}
     loop = SoftLoop(ta["model"], ta["layer"], args.threads, ta["prompt"], ta["opener"], ta["window"], args.dtype,
                     args.device)
     ref = (SoftLoop(ta["model"], ta["layer"], args.threads, ta["prompt"], ta["opener"], ta["window"],
                     args.reference_dtype, args.device) if args.reference_dtype != "none" else None)
     v = elpm.load_vectors(ta["vectors"])[ta["concept"]]
-    fam = soft_family(loop, v, period, args.alpha_scale, args.chunk, reference=ref, exact_jvp=args.exact_jvp)
+    second = None
+    if two:
+        for lp in (loop, ref):
+            if lp is not None:
+                lp.sm.add_steer_layer(ta["block2"])
+        second = (ta["block2"], elpm.load_vectors(ta["vectors2"])[ta["concept2"]])
+    fam = soft_family(loop, v, period, args.alpha_scale, args.chunk, reference=ref, exact_jvp=args.exact_jvp,
+                      second=second, log_temperature=ta["log_temperature"] if two else None)
     if args.gmres_tol is None:                                  # above the JVPs' floor (float32: 4.3e-6 at P8)
         args.gmres_tol = 1e-9 if args.exact_jvp else 1e-5
-    sc = args.alpha_scale
     out = DATA / "explore" / args.out
     out.mkdir(parents=True, exist_ok=True)
+    names = ("alpha", "alpha2") if two else ("log10_temperature", "alpha")
 
     def readable(rec):
         rec = dict(rec)
-        rec["log10_temperature"], rec["alpha"] = rec["theta"][0], rec["theta"][1] / sc
+        if two:
+            rec["alpha"], rec["alpha2"] = rec["theta"][0] / sc, rec["theta"][1] / sc
+        else:
+            rec["log10_temperature"], rec["alpha"] = rec["theta"][0], rec["theta"][1] / sc
         return rec
 
     progress = out / "progress.jsonl"                           # readable while the run is going
@@ -937,7 +1010,7 @@ def curve(args):
 
     def on_point(rec):
         r = readable(rec)
-        keys = ("index", "log10_temperature", "alpha", "residual", "g", "g_dense", "newton", "jvps",
+        keys = ("index", "log10_temperature", "alpha", "alpha2", "residual", "g", "g_dense", "newton", "jvps",
                 "gmres_unconverged", "rejected", "critical_multiplier", "critical_multiplier_refined",
                 "refine_residual", "other_spectral_radius", "parameter_speed", "cusp_candidate")
         line = json.dumps({k: r[k] for k in keys if k in r})
@@ -946,19 +1019,22 @@ def curve(args):
             fh.write(f"{time.strftime('%H:%M:%S', time.gmtime())} {line}\n")
 
     tic = time.perf_counter()
-    bounds = ((args.log_temperature_bounds[0], args.log_temperature_bounds[1]),
-              (args.alpha_bounds[0] * sc, args.alpha_bounds[1] * sc))
+    if two:
+        bounds = ((args.alpha_bounds[0] * sc, args.alpha_bounds[1] * sc),
+                  (args.alpha2_bounds[0] * sc, args.alpha2_bounds[1] * sc))
+    else:
+        bounds = ((args.log_temperature_bounds[0], args.log_temperature_bounds[1]),
+                  (args.alpha_bounds[0] * sc, args.alpha_bounds[1] * sc))
     records, reason, curve_states = bc.trace_curve(
-        fam, x0, [log_t0, alpha0 * sc], kind, fix=fix, direction=args.direction, steps=args.steps, ds=args.ds,
+        fam, x0, theta0, kind, fix=fix, direction=args.direction, steps=args.steps, ds=args.ds,
         ds_min=args.ds_min, ds_max=args.ds_max, tol=args.tol, gtol=args.gtol, max_newton=args.max_newton,
         bounds=bounds, on_point=on_point, gmres_tol=args.gmres_tol, gmres_maxiter=args.gmres_maxiter,
         refine_k=args.refine_k)
-    rec = {"args": vars(args), "kind": kind, "period": period, "start": {"tline_index": index,
-           "log10_temperature": log_t0, "alpha": alpha0}, "stop": reason,
-           "seconds": round(time.perf_counter() - tic, 1), "points": [readable(r) for r in records]}
+    rec = {"args": vars(args), "kind": kind, "period": period, "start": start, "parameters": list(names),
+           "stop": reason, "seconds": round(time.perf_counter() - tic, 1), "points": [readable(r) for r in records]}
     (out / "curve.json").write_text(json.dumps(rec, indent=1))
     np.save(out / "states.npy", np.array(curve_states))
-    cusps = [(r["log10_temperature"], r["alpha"]) for r in rec["points"] if r["cusp_candidate"]]
+    cusps = [(r[names[0]], r[names[1]]) for r in rec["points"] if r["cusp_candidate"]]
     print(json.dumps({"kind": kind, "period": period, "points": len(records), "stop": reason,
                       "cusp_candidates": cusps, "seconds": rec["seconds"]}))
 
@@ -1798,8 +1874,13 @@ def main():
     bb.add_argument("--ds-min", type=float, default=1e-7)
     bb.add_argument("--ds-max", type=float, default=0.01)
     bb.add_argument("--beyond", type=float, default=0.01, help="stop this far past the first turn (free parameter)")
-    bb.add_argument("--free", default="temperature", choices=("temperature", "alpha"),
-                    help="the continued parameter (the other stays fixed)")
+    bb.add_argument("--free", default="temperature", choices=("temperature", "alpha", "alpha2"),
+                    help="the continued parameter (the other stays fixed; alpha2 with --block2)")
+    bb.add_argument("--block2", type=int, default=None,
+                    help="second steering block (two-block plane, run TB; log10 T stays at --log-temperature)")
+    bb.add_argument("--vectors2", default=None)
+    bb.add_argument("--concept2", default=None)
+    bb.add_argument("--alpha2", type=float, default=None, help="steering strength of the second block")
     bb.add_argument("--bounds", type=float, nargs=2, default=None,
                     help="range of the free parameter (default log10 T -1.5..0.5, alpha -0.2..0.2)")
     bb.add_argument("--tol", type=float, default=1e-10)
@@ -1893,6 +1974,8 @@ def main():
     cv.add_argument("--gmres-maxiter", type=int, default=1, help="GMRES restart cycles (30 products each) per g")
     cv.add_argument("--log-temperature-bounds", type=float, nargs=2, default=[-1.5, 0.5])
     cv.add_argument("--alpha-bounds", type=float, nargs=2, default=[-0.2, 0.2])
+    cv.add_argument("--alpha2-bounds", type=float, nargs=2, default=[-0.2, 0.2],
+                    help="second-block range (start runs of a two-block plane)")
     cv.add_argument("--chunk", type=int, default=512)
     cv.add_argument("--out", required=True)
     args = parser.parse_args()

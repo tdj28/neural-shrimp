@@ -25514,3 +25514,43 @@ Dispositions: comms/claude-to-codex.md. Paper builds clean (0 overfull, 0 undefi
 - The Evidence ladder lists the three saved-data reproductions.
 
 Dispositions: comms/claude-to-codex.md. Paper builds clean (91 pages).
+
+## 2026-10-15 14:16 UTC: run card FM5 (exploratory): the fold and flip curves of the period-5 window of the two-block plane
+
+Human, 15 Oct about 13:55 UTC: "Do both and get a gpt pro consult". This answers the offer to map the folds inside the period-5 window (and the editorial restructure; the consult is recorded separately).
+
+**Question.** DSS5 found no one-dimensional centre: where the leading multiplier would vanish, it meets the second one. Folds and flips exist in any dimension. So the window's organization can be read from its fold (+1) and flip (-1) curves:
+- where the window opens (the right edge, toward chaos);
+- whether the fold curves carry cusps where the legs leave the body;
+- where the period-5 orbit ends inside the period-4 region (the end of the 4/5 coexistence);
+- the flips that start the period-10 border.
+DSS5's anomalies are tested at the same time: the repelling cell with mu1 = +1.65 at (-0.1185, 0.1020), and the failed column at alpha1 -0.119167 above alpha2 0.1029.
+
+**Code (new).** tools/explore_llm_soft_loop.py branch and curve take a second steering block (--block2, --vectors2, --concept2, --alpha2; curve: --alpha2-bounds). soft_family(second=(layer2, w), log_temperature=...) gives theta = (alpha1, alpha2) x scale at fixed T, with both blocks acting on the prefix.
+- Tests: tests/test_llm_soft_curve_two_block.py, 4 pass (CPU, float64). They check that the differentiable map equals SoftOrbit's cached steps (1e-12), that the second block changes the map, that the parameter derivatives in alpha1 and alpha2 match central differences (h^2 convergence, error < 1e-6), and that the dense monodromy matches a JVP. The one-block tests (tests/test_llm_soft_curve.py) and tests/test_dss_window.py still pass (10).
+- CPU smoke run (branch, alpha1 up from the DSS5 seed). The first point converged (residual 2.0e-14, period 5 detected) with leading multiplier +0.2665 and next 0.0151. DSS5's neighbouring cells interpolate to +0.267 and 0.016, so the two implementations describe the same orbit. The parameter share of the unit tangent is 0.16.
+
+**Run (one H100-class pod, job set fm5; vectors uploaded with --extra-data).** gratitude@4 + hostility@16, log10 T -0.1, float64 throughout.
+- Phase 1, four branches of the period-5 orbit from the DSS5 seed (-0.118730, 0.100693), in parallel:
+  - alpha1 up and alpha1 down at fixed alpha2;
+  - alpha2 up and alpha2 down at fixed alpha1;
+  - each up to 150 points (ds 0.002, ds-max 0.01, scale 10), stopping 5e-4 past the first fold turn;
+  - bounds alpha1 [-0.125, -0.100], alpha2 [0.088, 0.118].
+- Phase 2, curves in both directions, eight processes in parallel:
+  - the folds of the alpha1-up and alpha2-up branches;
+  - the flip of the alpha2-down branch;
+  - the first boundary of the alpha1-down branch;
+  - each up to 120 points (ds 0.002, ds-max 0.02, tol 1e-10, gtol 1e-9, chunk 448), same bounds.
+- Limits: 40 minutes for the branches, 110 for the curves; run limit 170 minutes. The cost ceiling is in the private ledger.
+
+**Readings, fixed now:**
+- every curve point's residual, test function and critical multiplier are read from the raw output before any summary (verification gates);
+- a fold curve keeps a real +1, a flip curve a real -1; anything else is reported as a failure of that curve;
+- tangent reversals are cusp candidates, to be located and checked (b sign a = 0, c != 0, det J != 0) before they are called cusps;
+- codimension-two points along the curves (another multiplier on the unit circle) are recorded with their multipliers;
+- the curves are drawn over TBZg2's map and DSS5's grid.
+
+**What would change the reading of the window:**
+- a fold curve with two cusps where the legs join the body would give the window the fold-and-flip skeleton of the period-6 window and the hostile body;
+- a fold curve without cusps would make it a plain window, bent;
+- a fold of the period-5 orbit inside the period-4 region would bound the 4/5 coexistence.
