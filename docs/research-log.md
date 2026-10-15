@@ -23638,3 +23638,29 @@ Edits elsewhere:
 The paper builds: 63 pages, no undefined references. The study's raw data, frozen designs and log entries are unchanged.
 
 Also new: tools/cusp_locate.py (run CL, below) with tests/test_cusp_locate.py. On the analytic cusp of x -> x + t1 + t2 (x-1) - (x-1)^3 it locates theta within 1e-6, with c = -1 and det J = 1.
+
+## 2026-10-15 01:19 UTC: run (exploratory): CL codimension-two localizations, P4R the remaining period-4 fold curves, V2 morph-video gap fill and seam test
+
+- **Question:** The human approved the review follow-ups ("let's just do it", funds added) and the video fix ("Do it").
+  - CL: locate and type the codimension-two points behind the paper's candidates and Planned markers. These are the four cusp candidates (period-6 window: outer arc and inside the body; hostile period-7 body: upper and lower fold), the point where a second multiplier crosses +1 on the 2-cycle fold curve (accumulation boundary), the two parameter-tangent reversals of the period-8 stripe's flip curve, and the three second-multiplier crossings on the period-4 lower fold curve.
+  - P4R: complete the three period-4 fold curves that set C left unfinished.
+  - V2: fill the 15 missing morph-video directions and test whether the seams are a start-state effect.
+- **Setup:**
+  - CL: tools/cusp_locate.py (commit b3908066; analytic tests: cusp to 1e-6 with c = -1 and det J = 1, reversal = cusp, crossing at a fold-flip with orthogonal eigenvectors), float64 on H100-class GPUs, job set codim2, curve and start-branch folders uploaded. Each test runs 3 rounds of at most 5 trace steps of a quarter of the bracket, then a secant step. Pods:
+    - CL1: cusp p6z3 foldA-plus 51, p6z3 foldD-minus 10;
+    - CL2: cusp hub7 foldU-plus 21, hub7 foldS-plus 13;
+    - CL3: crossing curve-p2-fold-minus 60, reversal curve-p8-down-minus 34 and 47;
+    - CL4: crossing p4 curve-foldD-minus 14, 20, 21.
+  - P4R: job set p4curves sets Cplus2, Cminus2 and Dplus2 (one pod each). These are the CURVE settings of set C with 70 points and new output names (curve-foldC-plus-2, curve-foldC-minus-2, curve-foldD-plus-2).
+  - V2: job set morph as V1b (float32, 296 x 512 cells, cold transient 300, warm 40, 80 samples, 60 recorded, maximum period 24) on community RTX 4090s, one chain per gap starting cold one direction early: 14-18, 76-80, 94-98, 190-198, 210-220 and 234-238. Seam test: frame 138 cold on its own pod (the existing 138 is warm, continued from 136).
+  - Costs and ceilings are in the private ledger.
+- **Reading, fixed now:**
+  - CL: a point counts as located when the tool's checks pass.
+    - Cusp: |b sign(a)| at most 1% of the bracket's largest value, c nonzero with a plateau spread below 10%, det J nonzero.
+    - Crossing: |f| at most 1% and the second multiplier within 5e-3 of the unit circle.
+    - Reversal: |f| at most 1%.
+    - Typing: a double +1 or -1 counts as a Jordan block (strong resonance) when the angle between the two eigenvectors is below 5 degrees, as semisimple otherwise.
+    - A failed check is reported as it stands.
+  - P4R: the period-4 region counts as one shrimp-organized component if the union of the fold curves A-D bounds it as one connected set joined at cusp points; otherwise it is reported as separate pieces.
+  - V2: the seams count as a start-state effect if the cold frame 138 differs from the warm 138 by at least 1 point of chaotic share, with the differing cells concentrated where the existing frames show coexisting attractors. The gap frames enter the video as continued chains, and the caption reports the seams.
+- **Output:** `../neural-shrimp-data/explore/llm-soft-loop/pod64/{codim2/*, p4/curve-*-2, morph/frame-NNN}` (clashing archives extract into their run folders)
