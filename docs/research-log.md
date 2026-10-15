@@ -24316,3 +24316,18 @@ Local CPU, float64 (scratchpad coexist.py, inline in this session; Qwen2.5-0.5B,
     - Also compare its chaotic cells' factors with those of the alpha map.
   - (R5) Dimension. At the KY cells, Spearman correlation of D_KY with the mean stable rank of the readout.
   - Would surprise us: chaotic cells with g_read below its alpha = 0 value at the same temperature.
+
+## 2026-10-15 06:51 UTC: run (exploratory): REPRO, do the incidental numerical differences of ordinary inference change what the loop does?
+
+- **Question.** Production inference is not bitwise reproducible: batch composition, the kernel chosen for a matrix shape, and the precision all change the rounding. Is that harmless in periodic regimes and decisive in chaotic ones? The twin method sets offsets by hand. This test uses only the differences that real inference makes.
+- **Prompt for the test.** The batched labeller's control, done by the subagent on local CPU in float64 (scratchpad control.json): duplicating the cells in a larger batch changed chaotic exponents by up to 1.6e-5 and decorrelated the chaotic trajectories by step 1500, while non-chaotic cells agreed to rounding.
+- **Tool.** tools/repro_noise.py (new; CPU smoke test passed). It runs the same cells twice in lockstep from the same start, differing in one detail:
+  - batch64 / batch32: the cells in a batch of n rows, against the same cells followed by the n cells reversed (batch 2n), in float64 or float32;
+  - precision: float64 against float32;
+  - bf16: the model cast to bfloat16 (state in float32), batch n against batch 2n.
+  - Per cell and step: the relative state distance, and whether the two most probable next tokens agree.
+- **Cells.** All 448 cells of docs/h2-horizon-cells.json (Qwen2.5-0.5B, philosophy at block 12): 192 chaotic, 192 periodic and 64 other cells of two float64 maps, as labelled by the long H2 test. 1500 steps from the fixed start. One H100 pod, job set repro.
+- **Readings, fixed now:**
+  - (R1) For each comparison and label: the share of cells whose two runs end with disagreeing most probable tokens (tail of 500 steps), and the median first step at which the distance exceeds 1e-2.
+  - (R2) For chaotic cells: compare that step with ln(1e-2 / d_1) / lambda, where d_1 is the first nonzero distance and lambda the H2 exponent.
+  - Expected: periodic cells stay at the rounding level and agree throughout; chaotic cells diverge. A periodic cell that ends disagreeing would be reported (for example, a cell near a boundary).
