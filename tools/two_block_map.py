@@ -36,6 +36,9 @@ def main():
     ap.add_argument("--alpha1", type=float, nargs=2, default=[-0.12, 0.12])
     ap.add_argument("--alpha2", type=float, nargs=2, default=[-0.12, 0.12])
     ap.add_argument("--resolution", type=int, default=96)
+    ap.add_argument("--resolution1", type=int, default=None, help="points along alpha1 (default --resolution)")
+    ap.add_argument("--resolution2", type=int, default=None,
+                    help="points along alpha2 (default --resolution); with --alpha2 0 0 and 1, an exact single-push line")
     ap.add_argument("--transient", type=int, default=500)
     ap.add_argument("--record", type=int, default=300)
     ap.add_argument("--eps", type=float, default=1e-6)
@@ -55,8 +58,8 @@ def main():
     loop.sm.add_steer_layer(args.block2)
     u = np.asarray(elpm.load_vectors(args.vectors1)[args.concept1], dtype=np.float64)
     w = np.asarray(elpm.load_vectors(args.vectors2)[args.concept2], dtype=np.float64)
-    a1 = np.linspace(*args.alpha1, args.resolution)
-    a2 = np.linspace(*args.alpha2, args.resolution)
+    a1 = np.linspace(*args.alpha1, args.resolution1 or args.resolution)
+    a2 = np.linspace(*args.alpha2, args.resolution2 or args.resolution)
     out = esl.DATA / "explore" / args.out
     out.mkdir(parents=True, exist_ok=True)
     tic = time.perf_counter()
@@ -77,10 +80,10 @@ def main():
                 C[s0 + k] = hc.classify(r)
             print(json.dumps({"log10_T": lt, "done": s0 + len(part), "of": len(cells),
                               "seconds": round(time.perf_counter() - tic, 1)}), flush=True)
-        n = args.resolution
-        chaotic = np.array([("chaos" in c) and ("irregular" not in c) for c in C]).reshape(n, n)
+        shape = (len(a2), len(a1))
+        chaotic = np.array([("chaos" in c) and ("irregular" not in c) for c in C]).reshape(shape)
         np.savez_compressed(out / f"tb-t{lt:+.3f}.npz", alpha1=a1, alpha2=a2, log10_temperature=lt,
-                            lyapunov=L.reshape(n, n), period=P.reshape(n, n), chaotic=chaotic)
+                            lyapunov=L.reshape(shape), period=P.reshape(shape), chaotic=chaotic)
         (out / f"tb-t{lt:+.3f}.json").write_text(json.dumps({"args": vars(args), "log10_temperature": lt,
                                                              "chaotic_share": float(chaotic.mean()),
                                                              "seconds": round(time.perf_counter() - tic, 1)}, indent=1))

@@ -25419,3 +25419,21 @@ The generated tokens' recurrence approaches its edge (rate -> 1) near lam 1.15, 
 The extrapolated accumulation point (0.0661249983) agrees with alpha_inf about 0.0661250, and the superstable point s_768 = 0.0661249745 lies below it.
 
 **Paper.** Text, Table tab:cascade (rows 6 to 8, the precision statements in the caption), the figure (flips through period 384) and the figure caption.
+
+## 2026-10-15 11:45 UTC: Codex Tasks 26 and 27 (and 21c/21d) received; run card TBC (exact single-push controls for the two-block planes)
+
+**Received.**
+- Codex Task 27, the full paper review frozen at 66ffa102: codex/paper-review-task27/final-report.md, 15 must-fix items M01 to M15 plus editorial items.
+- Task 26 notes, and the Task 21c and 21d cross-checks.
+
+They are being processed against the current paper. Each finding is rechecked and its disposition recorded in comms/claude-to-codex.md and in this log.
+
+**M02 (two-block "neither alone").** The 96-point grids over [-0.12, 0.12] contain no exact zero; the nearest axis coordinates are +-0.00126. The plane comparison therefore never used exact single-push controls.
+
+**Run card TBC.** Exact controls with the TB settings (transient 500, record 300, twin 1e-6, tol 1e-8, float64), for both planes (grat4-host16, host4-grat16) at log10 T -0.1 and +0.1:
+- the block-1 vector alone (alpha2 = 0 exactly; alpha1 on the 96-point grid);
+- the block-2 vector alone (alpha1 = 0 exactly; alpha2 on the same grid).
+
+tools/two_block_map.py gains --resolution1 and --resolution2 for single lines.
+
+**Analysis.** A plane cell is "chaotic where neither push alone is" when it is chaotic and both exact controls at its alpha1 and alpha2 are not chaotic. Count these; also count against periodic controls only.
