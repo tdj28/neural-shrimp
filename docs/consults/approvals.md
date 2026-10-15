@@ -177,3 +177,19 @@ skill, section 7A). Spend is recorded only in the gitignored `cost-ledger.md`
 - **Model:** `gpt-6-astra`, Responses Pro mode, xhigh effort, at most 40,000 output tokens; the canonical client's
   reserves and authorization guard apply (amount in the private cost ledger). Advice is advisory: references are
   checked at their primary source before use, and material advice is adjudicated locally in `adjudication.md`.
+
+## Consult 9 (approved): are we missing anything huge?
+
+- **Approval (human, in session, 15 October 2026, about 06:50 UTC):** "Please do a Astra pro consult budget [amount in
+  the private cost ledger] to see if we are missing anything huge". This is an explicit request for one paid consult,
+  given before the human went to sleep. It follows the directive to make the findings rock solid and to show their
+  practical significance in the abstract and perhaps the title.
+- **Milestone:** a publication-ready synthesis with a framing pivot (section 7A). The decisions it can improve: the
+  overnight experiment priorities (mechanism, reproducibility, confirmatory behaviour test), and the paper's title,
+  abstract and emphasis.
+- **Scope:** one `research-strategy` request with the compact brief `2026-10-15-missing-anything-huge/brief.md`. No
+  retry or second pass without a new recorded decision.
+- **Model:** `gpt-6-astra`, Responses Pro mode, xhigh effort, at most 40,000 output tokens. The canonical client's
+  reserves and its authorization guard apply. The human's stated budget is far above the expected cost (consults 5-8
+  cost about 2 each; amounts in the private cost ledger). Advice is advisory: references are checked at their primary
+  source before use, and material advice is adjudicated locally in `adjudication.md`.
