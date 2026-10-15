@@ -111,11 +111,26 @@ def grid(args):
     loop = esl.SoftLoop(args.model, args.layer, args.threads, args.prompt, opener, args.window, "float64", args.device)
     v = elpm.load_vectors(args.vectors)[args.concept]
     p = args.period
+    if args.block2 is None and args.log_temperature is None:
+        raise SystemExit("grid: --log-temperature is required (or --block2 with --alpha2 for a two-block plane)")
+    if args.block2 is not None and None in (args.vectors2, args.concept2, args.alpha2, args.fixed_log_temperature):
+        raise SystemExit("grid: a two-block plane needs --vectors2, --concept2, --alpha2 and --fixed-log-temperature")
+    row_key = "alpha2" if args.block2 is not None else "log10_temperature"
 
-    def make_cell(a, lt):
-        return esl.SoftOrbit(loop, a * v, 10.0 ** lt, chunk=args.chunk)
+    if args.block2 is not None:          # two-block plane (run TB): rows are alpha2 at a fixed temperature
+        loop.sm.add_steer_layer(args.block2)
+        w = elpm.load_vectors(args.vectors2)[args.concept2]
 
-    lts = np.linspace(*args.log_temperature, args.resolution[0])
+        def make_cell(a, a2):
+            loop.extra = (args.block2, np.array([a2 * w]))
+            return esl.SoftOrbit(loop, a * v, 10.0 ** args.fixed_log_temperature, chunk=args.chunk)
+
+        lts = np.linspace(*args.alpha2, args.resolution[0])
+    else:
+        def make_cell(a, lt):
+            return esl.SoftOrbit(loop, a * v, 10.0 ** lt, chunk=args.chunk)
+
+        lts = np.linspace(*args.log_temperature, args.resolution[0])
     als = np.linspace(*args.alpha, args.resolution[1])
     nt, na = len(lts), len(als)
     out = esl.DATA / "explore" / args.out
@@ -187,7 +202,7 @@ def grid(args):
             ok = bool(hist[-1] < lfb.tol_for(p, args.tol))
         except Exception as err:                       # noqa: BLE001 - recorded, the cell stays unsolved
             ok, hist = False, [str(err)]
-        rec = {"i": i, "j": j, "alpha": float(als[j]), "log10_temperature": float(lts[i]), "converged": ok}
+        rec = {"i": i, "j": j, "alpha": float(als[j]), row_key: float(lts[i]), "converged": ok}
         if ok:
             split = min((lfb.return_distance(cell, Xn, q) for q in range(1, p) if p % q == 0), default=1.0)
             vals, vecs, res, rh, Qn = lfb.ritz(cell, Xn, p, Qn)
@@ -221,7 +236,7 @@ def grid(args):
             np.savez_compressed(out / "grid.npz", alpha=als, log10_temperature=lts, mu=MU, mu_imag=MU_IM, next_modulus=NEXT,
                                 clean=CLEAN, ok=OK, same_tokens=SAME, factors=C, product=PROD, newton=RES,
                                 min_reference_cosine=COS, factors_transported=CT, stretchings=SM, transport_cosine=TCOS,
-                                multipliers=M2,
+                                multipliers=M2, row_axis=np.array("alpha2" if args.block2 is not None else "log10_temperature"),
                                 seed=np.array(args.seed), seed_tokens=np.array(seed_toks))
         # free states that no queued cell still needs
         live = {par for _, par in queue}
@@ -240,9 +255,16 @@ def main():
     sub = ap.add_subparsers(dest="command", required=True)
     g = sub.add_parser("grid")
     g.add_argument("--period", type=int, required=True)
-    g.add_argument("--seed", type=float, nargs=2, required=True, metavar=("ALPHA", "LOG10T"))
+    g.add_argument("--seed", type=float, nargs=2, required=True, metavar=("ALPHA", "LOG10T"),
+                   help="seed cell (alpha, log10 T); with --block2: (alpha1, alpha2)")
     g.add_argument("--alpha", type=float, nargs=2, required=True)
-    g.add_argument("--log-temperature", type=float, nargs=2, required=True)
+    g.add_argument("--log-temperature", type=float, nargs=2, default=None,
+                   help="row axis (one-block plane); with --block2 the rows are alpha2 instead")
+    g.add_argument("--block2", type=int, default=None, help="second steering block (two-block plane, run TB)")
+    g.add_argument("--vectors2", default=None)
+    g.add_argument("--concept2", default=None)
+    g.add_argument("--alpha2", type=float, nargs=2, default=None, help="row axis of a two-block plane")
+    g.add_argument("--fixed-log-temperature", type=float, default=None, help="temperature of a two-block plane")
     g.add_argument("--resolution", type=int, nargs=2, required=True, help="rows (temperature) and columns (alpha)")
     g.add_argument("--model", default="qwen0.5b")
     g.add_argument("--layer", type=int, default=12)
