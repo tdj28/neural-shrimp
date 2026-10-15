@@ -25119,3 +25119,11 @@ Those were fixed values, not each problem's own edge. **Step 1** measures every 
 - **Alternative to watch:** MC peaks at every bifurcation (critical slowing down at each flip), not specifically at the onset of chaos. This would mean criticality, not chaos, is what matters.
 
 **Compute.** One H100-class pod, run limit 150 min; ceiling in the private ledger.
+
+## 2026-10-15 10:05 UTC: HEdev failed on its first record (code error); fixed; relaunched as HEdev2a and HEdev2b
+
+**Failure.** Pod (H100 80GB HBM3; commit from the orchestrator log; runner rc 0, job status 1; terminated; archive in runpod/soft64/20261015T095923Z). The job loaded Huginn and measured problem 0, then failed writing it: "TypeError: Object of type bool is not JSON serializable". classify() returned a numpy bool, and the unit tests did not serialize records.
+
+**Fix.** classify returns a Python bool; both tests now json.dumps every record (2 pass).
+
+**Relaunch.** Two pods, the same settings: train 0-59 and 60-119. The failed job's run time (two minutes including model loading) suggests about a minute per problem.

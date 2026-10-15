@@ -58,7 +58,7 @@ def run_grid(loop, h0, lams, steps):
 
 def classify(r, rate, margin):
     """Converging: fitted late rate below 1 - margin and the residual at the end below its value at mid-run."""
-    return rate is not None and rate < 1.0 - margin and r[-1] < r[len(r) // 2]
+    return bool(rate is not None and rate < 1.0 - margin and r[-1] < r[len(r) // 2])
 
 
 def edge_of(loop, h0, args):

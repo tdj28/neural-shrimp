@@ -35,6 +35,8 @@ def test_recovers_the_analytic_edge():
     lam_c = 2 * (1 - mu.real) / abs(1 - mu) ** 2
     h0 = (loop.star + torch.tensor([1.0, 0.0], dtype=torch.float64))[None, None, :]
     rec = he.edge_of(loop, h0, args())
+    import json
+    json.dumps(rec)                      # every record must serialize (run HEdev failed on a numpy bool)
     assert rec["outcome"] == "edge located", rec["outcome"]
     assert rec["bracket"][0] <= lam_c <= rec["bracket"][1]
     assert abs(rec["lam_edge"] - lam_c) < 3e-3
@@ -44,4 +46,6 @@ def test_unstable_native_point_is_reported_not_hidden():
     loop = AffineLoop(1.01, 0.156)
     h0 = (loop.star + torch.tensor([1.0, 0.0], dtype=torch.float64))[None, None, :]
     rec = he.edge_of(loop, h0, args())
+    import json
+    json.dumps(rec)
     assert rec["outcome"].startswith("native unstable") and "lam_edge" not in rec
