@@ -694,9 +694,9 @@ Llama-3.1-8B, gives the same picture: all 20 chaotic temperatures diverge after 
 the exponent's prediction $1.05$), all 20 end up writing different tokens, and 19 of the 20 periodic ones stay within
 $10^{-2}$. In lower precision the rounding is
 larger. In float32 every chaotic cell of both models diverges, after a median of 20 steps (0.5B) or 16 (7B). In
-bfloat16, a common serving precision, the two layouts pass a distance of $10^{-2}$ after a median of two steps, at every
-cell, periodic ones included. At that precision the loop is not reproducible across batch layouts in any regime we
-tested.
+bfloat16, a common serving precision, the two layouts pass a distance of $10^{-2}$ after a median of one or two steps
+at every cell of the two Qwen models and at 38 of the 40 Llama cells, periodic ones included. At that precision the
+loop is not reproducible across batch layouts in any regime we tested.
 
 The same test at the level of answers, with a design frozen before the run, shows what this means for a task. We
 asked Qwen2.5-0.5B 96 held-out two-digit additions through a short soft-thinking pipeline: 32 expected-embedding steps
