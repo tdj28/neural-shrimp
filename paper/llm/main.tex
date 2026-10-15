@@ -207,7 +207,7 @@ neuron models \cite{gomez2014universal,stenzinger2025shrimp,caixeta2025staircase
 from activation steering along contrastive directions \cite{zou2023representation,zhang2025steering}. The
 dynamical-systems tools are standard: numerical continuation and normal forms
 \cite{kuznetsov2023elements,govaerts2000numerical}, for maps in particular \cite{kuznetsov2019maps}, type-I intermittency \cite{pomeau1980intermittent}, shrimps and
-hubs \cite{gallas1993structure,facanha2013endoskeletons,vitolo2011hubs}, and period-doubling universality
+hubs \cite{gallas1993structure,facanha2013endoskeletons,vitolo2011hubs,jones2012rossler}, and period-doubling universality
 \cite{feigenbaum1978quantitative}.
 
 To our knowledge, this is the first work to compute periodic orbits with their multipliers, continue fold and flip
@@ -1544,7 +1544,10 @@ that 2-cycle has a Neimark--Sacker bifurcation in the spiral region: at $\alpha=
 unit circle near $\log_{10}T=0.1656$, turning $0.12$ of a revolution per step of the 2-cycle. This does not explain
 the arms. The two invariant circles born at a 2-cycle's Neimark--Sacker point are exchanged by the map, so orbits
 locked on them have even periods, near 16 for this rotation, whereas the arms include period 7; and of four float32
-arm cells, only one kept its period in float64. Float64 zooms show more structure. In one arm a period-7 domain
+arm cells, only one kept its period in float64. In dissipative flows, windows wind in nested spirals around
+periodicity hubs \cite{vitolo2011hubs}, and in the R\"ossler system the hub's shape follows from a conjugacy to
+unimodal maps \cite{jones2012rossler}; we have not tested whether the arms here wind around such a hub. Float64 zooms
+show more structure. In one arm a period-7 domain
 carries period-14 crescents with period-28 cores along its lower edge, between period-1 and period-2 regions and a
 chaotic band. In the cascade the windows are nested crescent arcs inside a dome bounded by the ``!Yes'' 2-cycle
 region, and near $(\alpha,\log_{10}T)=(0.087,-0.069)$ the period-12 and period-14 windows bend into hooked, nested
