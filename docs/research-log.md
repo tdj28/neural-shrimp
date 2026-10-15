@@ -26235,3 +26235,31 @@ The human asked what the black in the left panel of fig:zoom70 means, since it i
 ## 2026-10-15 20:17 UTC: Note: the definition of "above the ridge" in the Z70 counts
 
 The Z70 result entry and the artifact check above count cells "above the ridge" the same way, though the Z70 entry did not state the definition: in each steering column, the cells above the highest chaotic cell (exponent above 1e-3, no period) with log10 T above 0.165. Recomputing with it gives the entry's 1105 cells, 994 of them periodic and 479 of period 1 or 2.
+
+## 2026-10-15 20:43 UTC: NC result: single neurons' output directions drive the map into chaos as the concept and random directions do (9.9, 5.1, 12.9 %)
+
+**Run.** Three pods, each runner rc 0, archive hash verified, terminated and verified gone; commit 5f2502fd (from the orchestrator receipts). Job set scan64 at C1's exact settings.
+- 2k2mojlmjn54u5 (COMMUNITY H100 NVL, neuron 832): 2203 s.
+- rz5xb1qpcwg7yb (SECURE H100 NVL, neuron 833): 2487 s.
+- 4rsbq9yoc1fhvr (SECURE H100 NVL, neuron 4137): 2262 s.
+
+**Gate.** All 16384 cells of each map finished (no unfinished cells).
+
+**Result.** tools/analyze_controls.py, written to docs/nc/nc-controls-q05.json. Chaotic share (exponent > 1e-3, no period up to 48) overall, then by |alpha| bins [0,.01), [.01,.03), [.03,.06), [.06,.09), [.09,.12]:
+
+| direction | overall | by \|alpha\| bin |
+|---|---|---|
+| neuron 832 (most philosophy-specific) | 0.0994 | 0.012 / 0.030 / 0.095 / 0.064 / 0.215 |
+| neuron 833 (index neighbour) | 0.0507 | 0.004 / 0.002 / 0.072 / 0.085 / 0.042 |
+| neuron 4137 (random) | 0.1287 | 0.009 / 0.027 / 0.072 / 0.178 / 0.244 |
+
+- **Against C1.** Same grid: philosophy 0.068, gratitude 0.075, Gaussian 0.076, 0.083 and 0.125.
+- **The expectation of the run card is met.** All three neuron directions produce chaos at shares within or near C1's range. The neuron chosen for its meaning is no different from the random neuron or from the Gaussian directions.
+- **Caveat.** One map per direction, and C1's spread over three Gaussian directions (7.6 to 12.5 %) is as wide as the differences here.
+
+**Figures.**
+- New: paper/llm/figures/fig-controls-neurons-q05.png (fig:neurons, appendix sec:origin), with a numeric colour bar.
+- fig-controls-q05.png regenerated with the same colour bar. Its numbers are identical to docs/c1-controls-q05.json, checked field by field.
+- tools/analyze_controls.py now draws a colour bar and saves with a tight bounding box; the first rendering clipped the bar's labels.
+
+**Paper.** The neurons are reported in sec:origin and in the Discussion sentence on Cammarata's essay.

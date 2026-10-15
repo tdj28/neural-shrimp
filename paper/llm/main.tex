@@ -1864,7 +1864,10 @@ fixed points \cite{sussillo2013opening,maheswaranathan2019reverse} to the period
 pretrained transformer. Second, feature dictionaries say which features an attractor occupies, but the boundaries
 between attractors, which decide what a small change does, are properties of the map's derivatives. That would hold even if most units have one interpretable job, as a recent
 essay argues for Qwen3-32B \cite{cammarata_clean}; in its pruning tests, too, the answers that change are mostly
-those the network was already unsure of, as the loop turns chaotic where next tokens compete. In our 8B controls,
+those the network was already unsure of, as the loop turns chaotic where next tokens compete. Single neurons are no exception: in the 0.5B model, steering
+along the output direction of the neuron most specific to philosophy makes 9.9\,\% of the map chaotic, its index
+neighbour 5.1\,\% and a random neuron 12.9\,\%, against 6.8 to 12.5\,\% along the concept and Gaussian directions
+(Appendix~\ref{sec:origin}). In our 8B controls,
 a sparse-autoencoder feature direction, contrastive and random directions all drove the map into chaos (27 to 39\,\%
 of cells); at 70B the hostility-related directions gave more chaotic cells than the random ones (4.3 and 3.5\,\%
 against 1.1 and 0.2\,\%, two-GPU maps from before the precision fix; Appendix~\ref{sec:size}). Steering acts by making next tokens compete (Section~\ref{sec:theory}), which is not specific
@@ -3006,7 +3009,11 @@ reaching down, recurs. In this model, chaos under steering is therefore a generi
 stream at this norm. Rotating the steering direction makes the same point continuously: along the great circle from
 one Gaussian direction to another, $90^{\circ}$ away, at constant norm, the chaotic regions move and change shape, but
 the chaotic share stays between 13 and 24\,\% at every one of 103 angles (Figure~\ref{fig:morph}; a video of the
-rotation is in the supplementary material). The direction does select the texts. The largest attractor family in all five maps is the
+rotation is in the supplementary material). Single neurons behave the same way. Steering along the output direction
+of one MLP neuron of the steered layer (its column of the down-projection, rescaled to the same norm) gives 9.9\,\%
+chaotic cells for the neuron most specific to philosophy on held-out texts, chosen like the autoencoder feature below
+by a rule fixed before any map, 5.1\,\% for its index neighbour and 12.9\,\% for a random neuron
+(Figure~\ref{fig:neurons}); near $\alpha=0$ the share is 0.4 to 1.2\,\%. The direction does select the texts. The largest attractor family in all five maps is the
 unsteered period-5 loop, but beyond it only 26 to 56\,\% of one map's cells carry an attractor text that appears
 anywhere in another map. Llama-3.1 8B agrees. On its hostility plane, two norm-matched random directions at the same
 layer give 26 and 17\,\% chaotic cells against 28\,\% along the concept direction; all three carry 34 to 44\,\% near
@@ -3035,8 +3042,17 @@ summarizes these and the wider sweeps of the other models.}
 \caption{Steering controls in Qwen2.5-0.5B-Instruct ($128^2$ float64 cells, steering at layer 12, one grid and one
 set of settings): largest Lyapunov exponent along the philosophy and gratitude directions and along three Gaussian
 directions rescaled to the philosophy vector's norm. Titles give the chaotic share (finite-horizon exponent above $10^{-3}$, no period up
-to 48).}
+to 48); colour gives the exponent, clipped at $\pm0.5$.}
 \label{fig:controls}
+\end{figure}
+\begin{figure}[H]
+\centering
+\includegraphics[width=\linewidth]{fig-controls-neurons-q05.png}
+\caption{Steering along single MLP neurons in Qwen2.5-0.5B-Instruct (same grid, settings and colour scale as
+Figure~\ref{fig:controls}): the output directions of the layer-12 neuron most specific to philosophy on held-out texts
+(832), of its index neighbour (833) and of a random neuron (4137), each rescaled to the philosophy vector's norm (cosines
+with it 0.013, $-0.028$ and 0.022). Titles give the chaotic share.}
+\label{fig:neurons}
 \end{figure}
 \section{Limitations in detail}
 \label{sec:limits}

@@ -72,13 +72,18 @@ def main():
     for ax, (label, spec) in zip(axes[0], specs):
         L, P, al, lt = load(spec)
         res[label] = dict(summarize(L, P, al), source=spec)
-        ax.imshow(np.clip(L, -0.5, 0.5), origin="lower", extent=[al[0], al[-1], lt[0], lt[-1]], aspect="auto",
-                  cmap="RdBu_r", vmin=-0.5, vmax=0.5, interpolation="nearest")
+        da, dt = al[1] - al[0], lt[1] - lt[0]
+        im = ax.imshow(np.clip(L, -0.5, 0.5), origin="lower", aspect="auto", cmap="RdBu_r", vmin=-0.5, vmax=0.5,
+                       extent=[al[0] - da / 2, al[-1] + da / 2, lt[0] - dt / 2, lt[-1] + dt / 2],
+                       interpolation="nearest")
         ax.set_title(f"{label}\nchaotic {res[label]['chaotic_share']:.3f}", fontsize=9)
         ax.set_xlabel("alpha")
     axes[0, 0].set_ylabel("log10 temperature")
     fig.tight_layout()
-    fig.savefig(out + ".png", dpi=250)
+    cb = fig.colorbar(im, ax=list(axes[0]), fraction=0.02, pad=0.01, ticks=[-0.5, -0.25, 0, 0.25, 0.5])
+    cb.ax.set_yticklabels([r"$\leq -0.5$", "$-0.25$", "0", "0.25", r"$\geq 0.5$"], fontsize=7)
+    cb.set_label("largest Lyapunov exponent per step", fontsize=8)
+    fig.savefig(out + ".png", dpi=250, bbox_inches="tight", pad_inches=0.05)    # keeps the colour bar's labels
     Path(out + ".json").write_text(json.dumps(res, indent=1))
     for k, v in res.items():
         print(f"{k:<14} chaotic {v['chaotic_share']:.3f} unfinished {v['unfinished']} by|a| "
