@@ -24316,3 +24316,32 @@ Local CPU, float64 (scratchpad coexist.py, inline in this session; Qwen2.5-0.5B,
     - Also compare its chaotic cells' factors with those of the alpha map.
   - (R5) Dimension. At the KY cells, Spearman correlation of D_KY with the mean stable rank of the readout.
   - Would surprise us: chaotic cells with g_read below its alpha = 0 value at the same temperature.
+
+## 2026-10-15 06:51 UTC: run (exploratory): REPRO, do the incidental numerical differences of ordinary inference change what the loop does?
+
+- **Question.** Production inference is not bitwise reproducible: batch composition, the kernel chosen for a matrix shape, and the precision all change the rounding. Is that harmless in periodic regimes and decisive in chaotic ones? The twin method sets offsets by hand. This test uses only the differences that real inference makes.
+- **Prompt for the test.** The batched labeller's control, done by the subagent on local CPU in float64 (scratchpad control.json): duplicating the cells in a larger batch changed chaotic exponents by up to 1.6e-5 and decorrelated the chaotic trajectories by step 1500, while non-chaotic cells agreed to rounding.
+- **Tool.** tools/repro_noise.py (new; CPU smoke test passed). It runs the same cells twice in lockstep from the same start, differing in one detail:
+  - batch64 / batch32: the cells in a batch of n rows, against the same cells followed by the n cells reversed (batch 2n), in float64 or float32;
+  - precision: float64 against float32;
+  - bf16: the model cast to bfloat16 (state in float32), batch n against batch 2n.
+  - Per cell and step: the relative state distance, and whether the two most probable next tokens agree.
+- **Cells.** All 448 cells of docs/h2-horizon-cells.json (Qwen2.5-0.5B, philosophy at block 12): 192 chaotic, 192 periodic and 64 other cells of two float64 maps, as labelled by the long H2 test. 1500 steps from the fixed start. One H100 pod, job set repro.
+- **Readings, fixed now:**
+  - (R1) For each comparison and label: the share of cells whose two runs end with disagreeing most probable tokens (tail of 500 steps), and the median first step at which the distance exceeds 1e-2.
+  - (R2) For chaotic cells: compare that step with ln(1e-2 / d_1) / lambda, where d_1 is the first nonzero distance and lambda the H2 exponent.
+  - Expected: periodic cells stay at the rounding level and agree throughout; chaotic cells diverge. A periodic cell that ends disagreeing would be reported (for example, a cell near a boundary).
+
+## 2026-10-15 06:54 UTC: DSS2 result: at the avoided crossing the period-7 orbit is two-dimensional; its leading multipliers merge into a complex pair of modulus below 2e-3, so no superstable curve, and no one-dimensional shrimp centre, exists there
+
+Pods ne3g7xyh71mqf1, zz5die5hoxmnog, vntgz6n0hu6p8x (runner rc 0, hashes verified, terminated; 2773-3559 s; commit d89d5bc9). Output dss/p7-zoom-{a,b,c}.
+- **Grid.** A 5x zoom of the avoided crossing: alpha 0.0692-0.0708 (33 columns), log10 T 0.2048-0.2072 (35 rows after joining the three pods' shared edge rows), 1155 cells. Every cell lies on the continued period-7 orbit (1051 of them with the seed's token loop).
+- **Multipliers** (inline analysis in this session, CPU):
+  - The leading modulus is tiny throughout: |mu_1| quantiles 0.0002 / 0.0005 / 0.0009 / 0.026 / 0.082 (min, 10 %, median, 90 %, max).
+  - The next modulus is comparable: up to 0.0016, median 0.0004. Only 335 of 1155 cells are clean (|mu_1| > 10 |mu_2|).
+  - **221 cells have a complex leading pair.** They form two wedges. One reaches up from the bottom of the zoom to a tip at about (0.0700, 0.2062), exactly where the avoided crossing was seen at 5x coarser spacing.
+  - The smallest leading modulus, 1.7e-4, is at (0.06935, 0.20582), with the next modulus equal (a complex pair).
+- **Reading.** The soft-token map's derivative has no zero eigenvalue (its determinant does not vanish). So the leading multiplier can change sign only by merging with the next one into a complex pair and separating again. The one-dimensional superstable curve thickens into a strip of complex multipliers, as in a two-dimensional dissipative map (the Henon family).
+  - Where a one-dimensional map would place its doubly superstable centre, the orbit is two-dimensional. A scalar superstable curve is not defined there, so the question "do two superstable curves cross?" has no answer.
+  - The per-step factor curves cross many times in the zoom. Those factors rest on a leading direction that is ill-defined where the multipliers are comparable, so the crossings are not evidence.
+- **Conclusion.** The hostile period-7 body is not a one-dimensional shrimp. Whether it is the shrimp of an effectively two-dimensional map stays open. A two-dimensional test would locate the curves where the complex pair is born (the discriminant curves) and ask whether two such strips cross (compare DSS4 on the period-6 hook). The paper keeps the body unlabelled.

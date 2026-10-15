@@ -192,6 +192,176 @@ class SoftLoop:
                 torch.cat([V[:, 1:, :], jy[:, None, :]], dim=1))
 
 
+class MultiPrefixSoftLoop(SoftLoop):
+    """SoftLoop with its own fixed prefix for every cell of a batch, so that cells of different prompts (of different
+    prefix lengths) are iterated together and a large model's weights are read once per step for all of them.
+
+    set_prefixes gives one token-id list per cell; prepare(steer_rows) then takes B rows, a multiple of the number n of
+    cells, and row r uses the prefix of cell r % n (hidden_chaos.run_batch stacks the base trajectories and their twins
+    in blocks of n cells, like the rows of the second steering block). The prefixes are left-padded to a common length
+    Lp, and L0 = Lp is the length the cache is cropped back to after every step (reset_cache). An attention mask hides
+    the padding in the prefix pass and in every step, and position ids give every row its own true positions: its
+    prefix at 0 .. L_r - 1 and the fed-back window at L_r .. L_r + K - 1 at every step, the fixed positions of SoftLoop
+    with that prefix alone (the rotary tables, float64 in float64 runs, are built from these positions). Each row is
+    therefore the map of SoftLoop with its own prefix, up to rounding: the padded attention sums in another order.
+    Hybrid (linear-attention) models are refused: their recurrent prefix states would take in the padding."""
+
+    def __init__(self, model, layer, threads, window, dtype="float64", device="cpu", weights="native"):
+        super().__init__(model, layer, threads, "open", ela.OPENER, window, dtype, device, weights)
+        self._init_prefixes()
+
+    @classmethod
+    def from_loop(cls, loop):
+        """A multi-prefix loop on the model of an existing SoftLoop: the same weights, tokenizer and steering hooks (no
+        second copy of the model). The two share the hooks' steering state, so they must not be stepped concurrently."""
+        new = cls.__new__(cls)
+        new.__dict__.update(loop.__dict__)
+        new.cache, new.steer_rows, new.extra_rows, new._saved = None, None, None, None
+        new._init_prefixes()
+        return new
+
+    def _init_prefixes(self):
+        if self.hybrid:
+            raise SystemExit("hybrid (linear-attention) models: padded per-row prefixes are not supported")
+        self.prefix_ids, self.L0 = None, None     # the default prefix of SoftLoop is not used
+        self.prefixes = None                      # one token-id list per cell (set_prefixes)
+        self.prefix_mask = None                   # (B, Lp) after prepare: 1 at prefix tokens, 0 at the padding
+        self.row_lengths = None                   # (B,) true prefix length of every row
+        self._step_inputs = None                  # attention mask and position ids of the fed-back window
+
+    def set_prefixes(self, prefixes):
+        """One prefix per cell (token ids, any lengths); the next prepare builds the cache for them."""
+        ids = [[int(t) for t in p] for p in prefixes]
+        if not ids or min(len(p) for p in ids) == 0:
+            raise ValueError("every cell needs a prefix of at least one token")
+        self.prefixes = ids
+        self.cache, self.prefix_mask, self.row_lengths, self._step_inputs = None, None, None, None
+
+    def prepare(self, steer_rows):
+        """Prefix key-value cache for every row, computed with that row's steering and its own left-padded prefix."""
+        from transformers import DynamicCache
+
+        torch = self.torch
+        if self.prefixes is None:
+            raise ValueError("no prefixes: call set_prefixes first")
+        B, n = len(steer_rows), len(self.prefixes)
+        if B % n:
+            raise ValueError(f"{B} rows are not a multiple of {n} prefix cells")
+        rows = [self.prefixes[r % n] for r in range(B)]
+        lengths = torch.tensor([len(p) for p in rows])
+        Lp = int(lengths.max())
+        pad = self.sm.tok.pad_token_id or 0                   # any valid id: the padding is masked
+        ids = torch.full((B, Lp), pad, dtype=torch.long)
+        mask = torch.zeros((B, Lp), dtype=torch.long)
+        for r, p in enumerate(rows):
+            ids[r, Lp - len(p):] = torch.tensor(p)
+            mask[r, Lp - len(p):] = 1
+        # true positions: 0 .. L_r - 1 on the prefix tokens (the padding's positions are masked; 0 there)
+        positions = (torch.arange(Lp)[None, :] - (Lp - lengths)[:, None]).clamp(min=0)
+        ids, mask, positions = ids.to(self.device), mask.to(self.device), positions.to(self.device)
+        self.L0, self.prefix_mask, self.row_lengths = Lp, mask, lengths.to(self.device)
+        self._step_inputs = {"attention_mask": torch.cat([mask, torch.ones((B, self.K), dtype=mask.dtype,
+                                                                           device=self.device)], dim=1),
+                             "position_ids": self.row_lengths[:, None] + torch.arange(self.K, device=self.device)[None]}
+        self.steer_rows = torch.as_tensor(np.asarray(steer_rows), dtype=self.dtype, device=self.device)[:, None, :]
+        self.extra_rows = None
+        if self.extra is not None:     # per-cell rows of the second block, repeated like the batch's cells
+            rows2 = np.asarray(self.extra[1])
+            if B % len(rows2):
+                raise ValueError(f"{B} rows are not a multiple of {len(rows2)} second-block cells")
+            self.extra_rows = torch.as_tensor(np.concatenate([rows2] * (B // len(rows2))), dtype=self.dtype,
+                                              device=self.device)[:, None, :]
+        self.cache = DynamicCache()
+        sub = self.prefix_batch if (self.prefix_batch and B > self.prefix_batch) else B
+        parts = []
+        try:
+            for s0 in range(0, B, sub):
+                m = min(sub, B - s0)
+                cache = self.cache if sub == B else DynamicCache()
+                self.sm.steer = self.steer_rows[s0:s0 + m]
+                if self.extra_rows is not None:
+                    self.sm.steer_extra = {self.extra[0]: self.extra_rows[s0:s0 + m]}
+                with torch.no_grad():
+                    self.model(input_ids=ids[s0:s0 + m], attention_mask=mask[s0:s0 + m],
+                               position_ids=positions[s0:s0 + m], past_key_values=cache, use_cache=True,
+                               logits_to_keep=1)
+                parts.append(cache)
+        finally:
+            self.sm.steer = None
+            self.sm.steer_extra = {}
+        if sub < B:                       # join the parts layer by layer, freeing each part's tensors as it goes
+            for li in range(len(parts[0].layers)):
+                k = torch.cat([c.layers[li].keys for c in parts])
+                v = torch.cat([c.layers[li].values for c in parts])
+                for c in parts:
+                    c.layers[li].keys = c.layers[li].values = None
+                self.cache.update(k, v, li)
+            del parts
+        # a masked key still enters the attention products (a zero weight times a NaN value is NaN): an attention kernel
+        # that left NaN at the fully masked padding queries would poison every later step, so refuse such a cache
+        for li, layer in enumerate(self.cache.layers):
+            if not bool(torch.isfinite(layer.keys).all() and torch.isfinite(layer.values).all()):
+                raise SystemExit(f"non-finite keys or values in the padded prefix cache (layer {li})")
+        with torch.no_grad():
+            last = torch.tensor([p[-1] for p in self.prefixes], device=self.device)
+            start = self.model.get_input_embeddings()(last).to(self.state_dtype)          # (n, d)
+        return start[torch.arange(B, device=self.device) % n][:, None, :].repeat(1, self.K, 1).clone()
+
+    def _window_inputs(self, X):
+        """Attention mask (padding hidden) and position ids (true positions) for the window X (B, K, d)."""
+        if self._step_inputs is None or tuple(X.shape[:2]) != tuple(self._step_inputs["position_ids"].shape):
+            raise ValueError(f"window of shape {tuple(X.shape)} does not match the prepared prefix rows")
+        return self._step_inputs
+
+    def logits(self, X):
+        torch = self.torch
+        inputs = self._window_inputs(X)
+        self.sm.steer = self.steer_rows
+        if self.extra_rows is not None:
+            self.sm.steer_extra = {self.extra[0]: self.extra_rows}
+        try:
+            with torch.no_grad():
+                z = self.model(inputs_embeds=X.to(self.dtype), past_key_values=self.cache, use_cache=True,
+                               logits_to_keep=1, **inputs).logits[:, -1, :].to(self.device, self.state_dtype)
+        finally:
+            self.sm.steer = None
+            self.sm.steer_extra = {}
+            self.reset_cache()
+        return z
+
+    def step_jvp(self, X, temps, V):
+        """SoftLoop.step_jvp with the padded prefixes: the window's attention mask and true positions."""
+        import copy
+
+        import torch.autograd.forward_ad as fwAD
+        from torch.nn.attention import SDPBackend, sdpa_kernel
+
+        torch = self.torch
+        inputs = self._window_inputs(X)
+        T = torch.as_tensor(temps, dtype=self.state_dtype, device=self.device)[:, None]
+        cache = copy.copy(self.cache)
+        cache.layers = [copy.copy(layer) for layer in self.cache.layers]
+
+        def new_embedding(inp):
+            self.sm.steer = self.steer_rows
+            try:
+                z = self.model(inputs_embeds=inp.to(self.dtype), past_key_values=cache, use_cache=True,
+                               logits_to_keep=1, **inputs).logits[:, -1, :].to(self.device, self.state_dtype)
+            finally:
+                self.sm.steer = None
+            p = torch.softmax(z / T, dim=-1)
+            return p @ self.E, p
+
+        with torch.no_grad(), sdpa_kernel(SDPBackend.MATH), fwAD.dual_level():
+            y, p = new_embedding(fwAD.make_dual(X, V))
+            y, jy = fwAD.unpack_dual(y)
+            p = fwAD.unpack_dual(p).primal
+        if jy is None:
+            raise SystemExit("step_jvp: the tangent was lost in the forward pass")
+        return (torch.cat([X[:, 1:, :], y[:, None, :]], dim=1), p,
+                torch.cat([V[:, 1:, :], jy[:, None, :]], dim=1))
+
+
 def solve_beta(z, targets, iters=60):
     """Inverse temperatures beta (B,) with entropy H(softmax(beta z)) = targets (B,) nats, for logits z (B, V): Newton
     in u = log beta, safeguarded by bisection (H decreases strictly in beta when the logits are not all equal;

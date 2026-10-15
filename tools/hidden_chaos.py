@@ -97,31 +97,43 @@ def fd_probe(loop, v, log_ts, alphas, base, hs=FD_STEPS, seed=1):
 
 
 def run_batch(loop, v, log_ts, alphas, transient, record, eps_list, tol, seed=0, trace=False, sequences=None,
-              tangent=False, probe=False, checkpoints=()):
+              tangent=False, probe=False, checkpoints=(), twin_groups=None):
     """Trajectories for a batch of cells with one twin per offset; returns per-cell statistics (and, with trace,
     the per-step arrays of the first cell). tangent: also the exact exponent of a renormalised tangent vector carried
     along each base orbit by forward-mode AD (no offset). probe: fd_probe at the final base states. checkpoints:
-    measured-step counts at which the running exponents are also reported (convergence with the horizon)."""
+    measured-step counts at which the running exponents are also reported (convergence with the horizon).
+    twin_groups: sizes of consecutive groups of cells whose twin (and tangent) directions are drawn as separate calls
+    on those groups would draw them, each group from a fresh generator seeded with seed (several prompts batched in
+    one MultiPrefixSoftLoop then get the twins of their per-prompt calls); default one group of all cells."""
     torch = loop.torch
     n = len(log_ts)
     m = len(eps_list)
+    groups = [n] if twin_groups is None else [int(k) for k in twin_groups]
+    if sum(groups) != n or min(groups) < 1:
+        raise ValueError(f"twin groups {groups} do not partition {n} cells")
     steer = np.array([a * v for a in alphas])
     rows = np.concatenate([steer] * (m + 1))
     temps = np.tile(10.0 ** np.asarray(log_ts), m + 1)
     X = loop.prepare(rows)
     for _ in range(transient):
         X, _ = loop.step(X, temps)
-    rng = np.random.default_rng(seed)
+    gens = [np.random.default_rng(seed) for _ in groups]
     base = X[:n]
+    shape = tuple(base.shape[1:])
+
+    def directions():           # one draw per group, in the group's order of cells
+        d = np.concatenate([g.normal(size=(k,) + shape) for g, k in zip(gens, groups)])
+        return torch.as_tensor(d, dtype=loop.state_dtype, device=loop.device)
+
     twins = []
     for e in eps_list:
-        d = torch.as_tensor(rng.normal(size=tuple(base.shape)), dtype=loop.state_dtype, device=loop.device)
+        d = directions()
         twins.append(base + d / d.flatten(1).norm(dim=1)[:, None, None] * e)
     X = torch.cat([base] + twins)
     growth = np.zeros((m, n))
     tgrowth = np.zeros(n)
     if tangent:                 # drawn after the twins, so the twins equal those of a run without tangents
-        Vt = torch.as_tensor(rng.normal(size=tuple(base.shape)), dtype=loop.state_dtype, device=loop.device)
+        Vt = directions()
         Vt = Vt / Vt.flatten(1).norm(dim=1)[:, None, None]
     lead, pmax, ent, states, first = [], [], [], [], []
     marks, snaps = set(checkpoints), []
