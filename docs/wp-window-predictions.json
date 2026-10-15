@@ -1,0 +1,77 @@
+{
+ "note": "Run WP frozen predictions (15 Oct 2026, before any WP data): fold edges alpha_N of the stripe windows of period P = 2 (N + 3) along log10 T = -0.115 at the fold of the 2-cycle 'is it' (alpha_c = 0.06279827, a = -4.834227, b = -25.428512 from the paper). Law L: the paper's fit to the fold edges of periods 16-20, alpha_N - alpha_c = 0.0266 / (N + 0.15)^2. Model R: passage from the measured natural reinjection point v_r (oriented coordinate; median -4.9e-4, measured -3.0e-4 to -7.4e-4) through the normal-form channel, n(eps) = (pi/2 - arctan(v_r / sqrt(|a| eps / |b|))) / sqrt(ab eps), windows where n(eps_N) = N + c, with the one offset c fitted to the fold edges of periods 16-20. Test: the measured fold edges of periods 22-30 against L and R; R predicts eps_N 3-9 % below L for these periods, L none.",
+ "alpha_c": 0.06279827,
+ "a": -4.834227003692353,
+ "b": -25.42851228205931,
+ "law": {
+  "C": 0.0266,
+  "delta": 0.15
+ },
+ "predictions": [
+  {
+   "N": 8,
+   "period": 22,
+   "eps_law": 0.0004004667093228951,
+   "alpha_law": 0.0631987367093229,
+   "eps_model": {
+    "-0.0003": 0.0003799939819508417,
+    "-0.00049": 0.0003845591506140273,
+    "-0.00074": 0.0003903049942946228
+   },
+   "alpha_model_median": 0.06318282915061403
+  },
+  {
+   "N": 9,
+   "period": 24,
+   "eps_law": 0.00031771626504225264,
+   "alpha_law": 0.06311598626504225,
+   "eps_model": {
+    "-0.0003": 0.0002969026755674178,
+    "-0.00049": 0.00030198617405362033,
+    "-0.00074": 0.0003083894234685626
+   },
+   "alpha_model_median": 0.06310025617405363
+  },
+  {
+   "N": 10,
+   "period": 26,
+   "eps_law": 0.00025819602514013924,
+   "alpha_law": 0.06305646602514015,
+   "eps_model": {
+    "-0.0003": 0.00023863577956416166,
+    "-0.00049": 0.0002438358711403951,
+    "-0.00074": 0.0002503870619920323
+   },
+   "alpha_model_median": 0.0630421058711404
+  },
+  {
+   "N": 11,
+   "period": 28,
+   "eps_law": 0.0002139596613645961,
+   "alpha_law": 0.0630122296613646,
+   "eps_model": {
+    "-0.0003": 0.00019618059426350978,
+    "-0.00049": 0.00020130661374596532,
+    "-0.00074": 0.00020776263579723182
+   },
+   "alpha_model_median": 0.06299957661374597
+  },
+  {
+   "N": 12,
+   "period": 30,
+   "eps_law": 0.00018018933428169825,
+   "alpha_law": 0.0629784593342817,
+   "eps_model": {
+    "-0.0003": 0.00016427628760460605,
+    "-0.00049": 0.0001692386050516969,
+    "-0.00074": 0.00017548456269155955
+   },
+   "alpha_model_median": 0.0629675086050517
+  }
+ ],
+ "offsets": {
+  "-0.0003": -0.5688797838657003,
+  "-0.00049": -0.5121036515806013,
+  "-0.00074": -0.43753398642055696
+ }
+}
