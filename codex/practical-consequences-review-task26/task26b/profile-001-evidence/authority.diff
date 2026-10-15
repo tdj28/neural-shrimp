@@ -1,0 +1,46 @@
+--- accepted-task26a-authority.py
++++ task26b-profile-authority.py
+@@ -1,25 +1,26 @@
+ from pathlib import Path
+ import json,hashlib,resource,os,subprocess,shutil,time,traceback
+ resource.setrlimit(resource.RLIMIT_AS,(4*1024**3,)*2);os.nice(max(0,10-os.getpriority(os.PRIO_PROCESS,0)))
+-R=Path('/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp');B=Path('/data2/neural-shrimp-data/codex/practical-consequences-review-task26/task26a');O=B/'run-001';S=O.with_name(O.name+'-supervision');D=O.with_name(O.name+'-authority');D.mkdir(exist_ok=False);shutil.copyfile(__file__,D/'executed-check.py')
++R=Path('/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp');B=Path('/data2/neural-shrimp-data/codex/practical-consequences-review-task26/task26b');O=B/'profile-001';S=O.with_name(O.name+'-supervision');D=O.with_name(O.name+'-authority');D.mkdir(exist_ok=False);shutil.copyfile(__file__,D/'executed-check.py')
+ sha=lambda p:hashlib.sha256(p.read_bytes()).hexdigest()
+ def read(p):return json.loads(p.read_text())
+ def pinned(p,pin):assert sha(p)==pin;return read(p)
+-start=time.monotonic();report=dict(passed=False,tool_session_id=99356,tool_session_reaped_exit_code=0,numerical_replay=False)
++start=time.monotonic();report=dict(passed=False,tool_session_id=26697,tool_session_reaped_exit_code=0,numerical_replay=False)
+ try:
+  rows=[]
+- for base,pin in [(O,'701c37889db7578822a5b1378375161f8aea8602f4ba8e77cafbe298ceab26f1'),(S,'8f7f38b10efe90c3c7a6835940ac6280d770b89cab69debeec3a535a53d5550d')]:
++ for base,pin in [(O,'cbcb14ba9a7c016f75cefa8fe5dc927fee5de31fe7a86043161db29750e89b2c'),(S,'c01510cb1d8282cce5e40ec136498db6a2bf051000cbb6a0a0b3db4e7edb203a')]:
+   m=pinned(base/'final-manifest.json',pin);expected={x['path']:x for x in m['files']};actual={p.relative_to(base).as_posix():p for p in base.rglob('*')if p.is_file()and p!=base/'final-manifest.json'};assert len(expected)==len(m['files'])and actual.keys()==expected.keys()
+   for name,p in actual.items():assert not p.is_symlink()and not p.stat().st_mode&0o222 and p.stat().st_size==expected[name]['bytes']and sha(p)==expected[name]['sha256']
+   assert not(base/'final-manifest.json').stat().st_mode&0o222;rows.append(dict(root=str(base),manifest_sha256=pin,files=len(actual)))
+- a=pinned(S/'admission.json','4b064f2385bee499f3f295ea324fc8314a1c724921b8f8fd9f151f51ae0350ac');c=pinned(S/'closure.json','9fd9966cb949ddb571893df46e543def2f8602a8dcaeee89af49fd4b2fd59385');w=read(S/'worker.json');q=pinned(O/'report.json','7dbdaad85343eece750927ec59cf699f8b95a38b7785690a31bc762862e50726')
++ a=pinned(S/'admission.json','8772808a779063b6289d4406b87319112054180c83d5ad8b817b0d6c45a6b9a0');c=pinned(S/'closure.json','e66144cbead1b8946f82cbf1f6a6953447dd261e07d9324a517b59833fc47174');w=read(S/'worker.json');q=pinned(O/'status.json','3c00cdbbd9ec77b141c222fd8a7598b061e78a312e12d87f861d399cd9e345a8')
+  assert c['exit_code']==0 and c['timed_out']is False and c['failure']is None and c['owned_worker_and_groups_closed']is True and c['worker']==w
+- assert a['source_commit']==c['source_commit']=='883ee479329618992775a0ea30fe498fda87b5c3';assert q['computational_status']=='complete'
+- assert c['wrapper_sha256']==a['sources']['codex/practical-consequences-review-task26/task26a/run.py'];assert c['card_sha256']==a['sources']['codex/practical-consequences-review-task26/task26a/run-001-card.json']
+- assert len(a['sources'])==4
++ assert a['source_commit']==c['source_commit']=='61573e54c38e2e790b71bc49344fb7d7df5b103e';assert q['status']=='resource_profile_completed' and q['computational_completed'] is True and q['resource_profile_only'] is True and q['scientific_claims_accepted'] is False
++ assert c['wrapper_sha256']==a['sources']['codex/practical-consequences-review-task26/task26b/profile.py'];assert c['card_sha256']==a['sources']['codex/practical-consequences-review-task26/task26b/profile-001-card.md']
++ assert c['plan_sha256']==a['sources']['codex/practical-consequences-review-task26/task26b/profile-001-plan.json']
++ assert len(a['sources'])==6
+  for name,pin in a['sources'].items():
+   p=S/'source'/name;blob=subprocess.check_output(['git','-C',str(R),'-c','core.preloadIndex=false','-c','core.packedGitWindowSize=32m','-c','core.packedGitLimit=64m','show',a['source_commit']+':'+name],timeout=10);assert blob==p.read_bytes()and sha(p)==pin
+- ids=[a['supervisor'],w];assert [(x['pid'],x['start'])for x in ids]==[(2887643,200065998),(2887655,200066110)]
++ ids=[a['supervisor'],w];assert [(x['pid'],x['start'])for x in ids]==[(2906618,200141514),(2906635,200141631)]
+  for x in ids:assert not Path('/proc',str(x['pid'])).exists()
+  for p in Path('/proc').iterdir():
+   if not p.name.isdigit():continue
+@@ -29,7 +30,7 @@
+  outer=O.with_name(O.name+'-dispatch');assert {p.name for p in outer.iterdir()}=={'stdout.log','stderr.log'};outer_rows=[]
+  for p in sorted(outer.iterdir()):
+   assert p.is_file()and not p.is_symlink();p.chmod(0o444);outer_rows.append(dict(path=str(p),bytes=p.stat().st_size,sha256=sha(p)))
+- report.update(passed=True,outer_logs=outer_rows,source_commit=a['source_commit'],report_sha256=sha(O/'report.json'),closure_sha256=sha(S/'closure.json'),manifests=rows,captured_git_source_blobs_verified=4,original_supervisor_worker_groups_sessions_absent=True,identities=ids,scope='Saved source/output/closure authentication only; no numerical checks repeated')
++ report.update(passed=True,outer_logs=outer_rows,source_commit=a['source_commit'],report_sha256=sha(O/'status.json'),closure_sha256=sha(S/'closure.json'),manifests=rows,captured_git_source_blobs_verified=6,original_supervisor_worker_groups_sessions_absent=True,identities=ids,scope='Saved source/output/closure authentication only; no numerical checks repeated')
+ except BaseException as e:report.update(error=repr(e),traceback=traceback.format_exc())
+ report['seconds']=time.monotonic()-start;(D/'report.json').write_text(json.dumps(report,indent=2)+'\n');(D/'manifest.json').write_text(json.dumps(dict(files=[dict(path=p.name,bytes=p.stat().st_size,sha256=sha(p))for p in sorted(D.iterdir())]),indent=2)+'\n')
+ for p in D.iterdir():p.chmod(0o444)
