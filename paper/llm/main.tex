@@ -72,16 +72,16 @@ strength, explain why steering makes it so, and measure what the chaos does.
 \begin{itemize}
 \item In a chaotic regime, an irrelevant change of batch size makes two otherwise identical float64 runs write
   different text, after a number of steps that the Lyapunov exponent predicts. In a periodic regime 95\,\% of the
-  run pairs end within $3\times10^{-12}$ of each other.
+  run pairs end within $3\times10^{-12}$ of each other. In bfloat16, the batch layout changed the answers of a short
+  soft-thinking pipeline on 56\,\% of arithmetic problems and never changed greedy decoding's.
 \item Steering creates the chaos by making next tokens compete. Its change of the softmax readout produces the
-  expansion, while its change of the network's response damps it.
+  expansion, while its change of the network's response damps it; a logit bias alone suffices.
 \item The depth at which a steering vector enters sets how much chaos it causes, in a 0.5B model and in a 70B
   model, and two steering vectors at different depths create chaos that neither causes alone.
 \end{itemize}
 The same loops obey the quantitative laws of low-dimensional dynamics, down to Feigenbaum's constant.
 
-Repeated inference with a fixed language model is an iterated map: the model's output becomes its next input. Like
-other iterated maps, it can be chaotic. Figure~\ref{fig:teaser} shows a small piece of the parameter plane of one
+Figure~\ref{fig:teaser} shows a small piece of the parameter plane of one
 such map, built from Qwen2.5-0.5B-Instruct. Cells with a positive finite-horizon Lyapunov exponent lie side by side
 with windows in which the model repeats a fixed loop of text. Parts of this picture have been seen
 before. Recent work has measured chaos-like sensitivity in language-model generation
@@ -90,10 +90,8 @@ before. Recent work has measured chaos-like sensitivity in language-model genera
 attractors of paraphrasing loops \cite{wang2025attractor}, attractor states of model-to-model conversations
 \cite{ko2026attractor}, and, through their Jacobians, the stability of looped and recurrent-depth models
 \cite{bai2019deq,bai2021stabilizing,tomihari2025recurrent,yang2026stars}, and finite-depth readout dynamics have
-been used to predict the answers of looped models \cite{luo2026prediction}. Feeding a
-probability-weighted vocabulary embedding back into a model is not new either. It is used in training
-\cite{zeng2025ponderlm} and, without retraining, in pretrained models \cite{zhang2025softthinking}, alongside
-continuous latent feedback \cite{hao2024coconut}. In a small task-trained looped transformer, fold coefficients
+been used to predict the answers of looped models \cite{luo2026prediction}. Besides Soft
+Thinking, probability-weighted vocabulary embeddings are fed back in training \cite{zeng2025ponderlm}. In a small task-trained looped transformer, fold coefficients
 computed from derivatives predict passage times and spectral gaps without fitting \cite{kim2026phase}.
 
 We study one constructed but exactly defined system: the expected-embedding (``soft-token'') map of a frozen,
