@@ -1,3 +1,9 @@
+# Task21i manufactured complete; sole actual admission
+
+2026-10-15T14:50:36.753193+00:00: All21 manufactured controls passed; source2ad1d5f6, report115a3083/receipt222ca14e/outerclosure84ec1e1f accepted. Actual card/source/supervisor now Root-admitted conditional on exact private checkpoint/fresh capacity. No actual run yet; zero jobs/reservations. Inference sole Git/process owner; Theory deferred metadata-authority preparation, Boundary later saved-scientific review. Same BZ/BP plus transcript-attested original adjustment only; no BPC/BPCS or paper expansion. Task21h fully delivered. Latest Claude f1229d8a; watch ends15:00UTC with no interruption of an admitted bounded job.
+
+## Preserved status history
+
 # Task21i sole manufactured check admitted
 
 2026-10-15T14:44:54.281567+00:00: Task21h fully delivered/receipt accepted; no further work. Root and Boundary accepted amended21i source/fixture. Sole manufactured check admitted after private exact checkpoint/fresh capacity; no actual targets admitted. Inference owns Git/processes, Theory actualcard after measurement, Boundary independent source and later review. Zero jobs at this checkpoint. Original prepared001 remains unexecuted; transcriptattestation and prior exposure disclosed. LatestClaude f1229d8a. Watch ends15:00UTC without terminating an admitted bounded job.

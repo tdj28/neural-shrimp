@@ -1,0 +1,21 @@
+--- prepared-card8462220f
++++ reviewed-card
+@@ -1,6 +1,6 @@
+ {
+   "schema": "codex-task21i-card-v1",
+-  "admission": "prepared",
++  "admission": "reviewed",
+   "source_expected_commit": null,
+   "objective": "Independent unblinded saved-response BZ/BP arithmetic and disclosed original q7 post-outcome OLS/quartile adjustment. No producer import, model, generated-code execution or new experiment.",
+   "output": "/data2/neural-shrimp-data/codex/night-results-review-task21/task21i/run-001",
+--- prepared-supervisorbcdd7530
++++ reviewed-supervisor
+@@ -8,7 +8,7 @@
+ WRAPPER_SHA='f1e6f0679f877913ad1571c8d70dc36f5d0403469a82ac6d754a9bfbdd6b3ced'  # Root accepted independent driver.
+ CORE='codex/night-results-review-task21/task21i/statistics.py';CORE_SHA='4985313cb433a69fc51bbfbdfe06f665fa82f372487e371897038d30271363ca'
+ ADJUSTMENT='codex/night-results-review-task21/task21i/adjustment.py';ADJUSTMENT_SHA='5557b4e6c6169c071548664f8e7fc0502d7a2da724e0fb5c5fe5469423709f78'
+-ADMISSION='prepared';CARD_SHA=None  # Exact reviewed card pin required before launch.
++ADMISSION='reviewed';CARD_SHA='743dda8dda0534d375ec0805c850683b24d5d7c6125dcaf4d4d33b7cc44c53ae'  # Exact reviewed card pin.
+ GIB=1024**3;WALL=60;MAX_OUTPUT=128*1024**2
+ 
+ def sha(p):return hashlib.sha256(Path(p).read_bytes()).hexdigest()
