@@ -844,6 +844,13 @@ absorbs nearly all of the gap (post hoc: $-0.8$ points remain). This is what the
 Section~\ref{sec:theory} predicts. The loop turns chaotic where next tokens compete, and a model unsure of its first
 token also answers worse. The loop's regime adds nothing beyond that uncertainty.
 
+Within a prompt the regime does not matter either. We steered the first 1000 of these prompts slightly, at block 14
+along philosophy, hostility-vs-kindness and a random direction. The strength, 1\,\% of the residual norm, is the largest
+at which greedy accuracy stays within 5 points of the unsteered model (0.87 to 0.89, against 0.89). This push changes
+the loop's label in 508 of the 1000 prompts. With prompt and condition fixed effects, in an analysis fixed before the
+data, a chaotic loop changes the accuracy of the prompt's ordinary sampled answers by $+0.36$ points (95\,\% interval
+$[-0.36,1.08]$; permutation within prompts, $p=0.34$).
+
 Nor does accuracy peak at the edge of chaos. Adjusted for the covariates, three groups of prompts are answered
 alike:
 \begin{itemize}
