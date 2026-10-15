@@ -25280,3 +25280,41 @@ No shrimp body with a centre is visible at this resolution. The decisive test is
 - Distances to delta shrink by 3.40, 4.33 and 4.56 per level.
 
 **Paper.** Text, Table tab:superstable (new row 768; ratio 4.6595 on row 384), the table caption (768 residual and moduli stated separately), the figure (legend period from the data) and the figure caption (within 0.21 %; superstable points to period 768).
+
+## 2026-10-15 10:54 UTC: HEdev2 result: the prefill recurrence of 8-shot prompts has no per-problem edge (measurement design fails its gates)
+
+**Runs.** Pods HEdev2a and HEdev2b (commit 952d6832 from the orchestrator logs; runner rc 0; jobs status 0; terminated; about 40 min each, 37 s per problem). Outputs huginn/edge-dev-0 and huginn/edge-dev-60, 120 problems.
+
+**Gates.** 113 of 120: "native unstable or no convergence at lam 1.0". 7 of 120: "fine grid does not bracket the edge". No edge was located; reported, not replaced.
+
+**What the records show.** For every inspected problem, after 96 steps from the seeded initial state:
+
+| lam | 1.00 | 1.04 | 1.08 | 1.12 | 1.16 | >= 1.20 |
+|---|---|---|---|---|---|---|
+| aggregate residual | about 2e-2 | about 5e-2 | 1.3e-1 | 2.8e-1 | 4.5e-1 | 1.3 |
+
+- At lam 1.00 the late decay rate is 1.00: the recurrence does not settle.
+- The residual grows smoothly with lam, with no sharp threshold.
+
+**Interpretation.**
+- The prefill recurrence over about 1000 positions has the union of the per-position spectra. Some positions are not converging at native settings, as for 6 of 30 ARC questions in the earlier analysis. The aggregate residual therefore plateaus.
+- About 90 % of each prompt is the eight shared exemplars, so a prompt-level edge would barely differ between problems.
+- **The edge that matters for answers is in the recurrence of the generated tokens** (one position per token, with the prompt in the cache). The design is revised; no generation was run and the development analysis is not applicable.
+
+**Revised plan (exploratory).** Trace the native residual of the generated tokens' recurrence (Relaxed.trace in tools/huginn_relax_eval.py), per problem and arm.
+- First a pilot: development problems, a few arms, more recurrence steps.
+- Use as the per-problem marker of criticality the late decay rate of the generated tokens' residual (its approach to 1). Then test accuracy against it.
+
+## 2026-10-15 10:56 UTC: Run card HT1 (exploratory pilot): criticality of the generated tokens' recurrence against accuracy in Huginn
+
+**Tool.** tools/huginn_relax_eval.py accuracy --trace-stats (new; token_stats, tests/test_huginn_token_stats.py, 1 pass). Per generation, Relaxed.trace gives the native residual of every recurrence step.
+- Per generated token, the late decay rate over the second half of its 32 steps.
+- Per problem and arm: median final residual, median late rate, and the share of tokens whose rate is at least 0.98 (not converging); the prefill block is reported separately.
+
+**Pilot.** GSM8K train 0-39 (development problems), cot8, 32 recurrence steps, lam 1.00, 1.05, 1.10, 1.15, interleaved (paired arms), **float32**, so that residuals are not floored by bfloat16 rounding. Two pods (0-19, 20-39).
+
+**Questions.**
+- (i) Are the token-level rates measurable, approaching 1 near the break and above it beyond?
+- (ii) Within problems, does accuracy relate to criticality? The edge hypothesis predicts the best answers where the tokens' recurrence is marginally stable.
+
+The float32 accuracies may differ from H1b's bfloat16 ones. Ceilings in the private ledger.
