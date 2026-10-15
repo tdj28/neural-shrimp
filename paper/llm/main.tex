@@ -37,7 +37,7 @@ Thinking do, turns inference into a nonlinear dynamical system. In Qwen2.5, OLMo
 parameters, temperature and steering move this loop between repeating text and chaos, with positive Lyapunov
 exponents that exact tangents reproduce. The chaos has practical consequences. Rerun with only the batch size
 changed, chaotic float64 loops diverge into different text after the number of steps the Lyapunov exponent predicts,
-while periodic loops stay identical to $10^{-12}$. In a frozen test on arithmetic, the batch layout changed 56\,\% of
+while periodic loops stay together: 95\,\% end within $3\times10^{-12}$. In a frozen test on arithmetic, the batch layout changed 56\,\% of
 the answers of bfloat16 soft-thinking inference and none of greedy decoding's. Exactly repeating text can hide a
 chaotic internal state. Steering causes the chaos by making
 next tokens compete: in an orbit-preserving crossover its change of the softmax readout creates the instability and
@@ -71,8 +71,8 @@ that the expected-embedding loop of released language models is chaotic over wid
 strength, explain why steering makes it so, and measure what the chaos does.
 \begin{itemize}
 \item In a chaotic regime, an irrelevant change of batch size makes two otherwise identical float64 runs write
-  different text, after a number of steps that the Lyapunov exponent predicts. In a periodic regime the runs stay
-  identical to $10^{-12}$.
+  different text, after a number of steps that the Lyapunov exponent predicts. In a periodic regime 95\,\% of the
+  run pairs end within $3\times10^{-12}$ of each other.
 \item Steering creates the chaos by making next tokens compete. Its change of the softmax readout produces the
   expansion, while its change of the network's response damps it.
 \item The depth at which a steering vector enters sets how much chaos it causes, in a 0.5B model and in a 70B
@@ -126,7 +126,7 @@ sampling.
 \item \emph{The dynamical regime decides whether a run can be reproduced.} Run twice with only the batch layout changed,
   190 of 192 chaotic float64 loops of Qwen2.5-0.5B diverge from rounding-level differences to different text, after
   a median of 102 steps and as the Lyapunov exponent predicts (median ratio 0.91), while 182 of 192 periodic loops
-  stay within $10^{-2}$, mostly within $10^{-12}$. In bfloat16 every loop tested diverges within a few steps
+  stay within $10^{-2}$ and 95\,\% end within $3\times10^{-12}$. In bfloat16 every loop tested diverges within a few steps
   (Section~\ref{sec:consequences}). At the level of answers, in a frozen test on 96 additions, the batch layout
   changed the answer of a bfloat16 soft-thinking pipeline in 56\,\% of problems at $T=1$ and never changed greedy
   decoding's output; in float64 no answer changed within its 32 steps.
@@ -647,7 +647,8 @@ cells in reverse order, which changes the matrix shapes the kernels see and noth
 Table~\ref{tab:repro}). In float64 the two runs first differ by about $6\times10^{-15}$, the rounding level. At 190 of
 the 192 chaotic cells this difference grows to order one, after a median of 102 steps, and 90\,\% of the chaotic cells
 end up writing different tokens. At 182 of the 192 periodic cells the two runs stay within $10^{-2}$ for all 1500
-steps; their median largest distance is $2\times10^{-12}$. The Lyapunov exponent predicts when a chaotic run
+steps; their median largest distance is $2\times10^{-12}$, and 95\,\% of all periodic cells end the run within
+$3\times10^{-12}$. The Lyapunov exponent predicts when a chaotic run
 diverges: the step at which the distance passes $10^{-2}$ follows $\ln(10^{-2}/d_1)/\lambda$, where $d_1$ is the first
 nonzero distance, with a median ratio of $0.91$ and a log-log correlation of $0.73$ over 190 cells. The two chaotic
 cells that never diverge have exponents of $0.013$ and $0.0013$, for which the predicted step lies beyond the run. In
