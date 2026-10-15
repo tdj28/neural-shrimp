@@ -446,15 +446,15 @@ gain split, $101\times53$ map & readout factor, chaotic $-$ $|\alpha|\le0.01$ & 
  & top-2 logit gap$/T$, chaotic $-$ periodic & $-1.37$ $[-1.98,-0.87]$ \\
 logit bias only, $\alpha=0$ & chaotic share & 3.5\,\% (241 of 6837 cells) \\
 residual steering, block 12 & chaotic share & 6.2\,\% (331 of 5353 cells) \\
-crossover, 0.5B, 14 held-out cells & readout effect, arm 10 $-$ arm 00 & $+0.81$ $[0.29,1.35]$ nats/step \\
+crossover, 0.5B, 14 cells & readout effect, arm 10 $-$ arm 00 & $+0.81$ $[0.29,1.35]$ nats/step \\
  & network effect, arm 01 $-$ arm 00 & $-0.49$ $[-0.63,-0.35]$ nats/step \\
  & interaction & $+0.26$ $[0.10,0.45]$ nats/step \\
-crossover, Qwen2.5-7B, 10 cells & readout effect & $+0.23$ $[-0.11,0.64]$ nats/step \\
+crossover, 7B, 10 cells & readout effect & $+0.23$ $[-0.11,0.64]$ nats/step \\
  & network effect & $-1.14$ $[-1.61,-0.65]$ nats/step \\
 \bottomrule
 \end{tabular}
-\caption{Where steering's instability comes from. Intervals: bootstrap over temperature rows (gain split) or over
-held-out cells (crossover). Runs MECH and XO; \texttt{tools/steer\_gain.py}, \texttt{tools/crossover.py},
+\caption{Where steering's instability comes from (Qwen2.5-0.5B unless marked 7B, Qwen2.5-7B). Intervals: bootstrap over
+temperature rows (gain split) or over held-out cells (crossover). Runs MECH and XO; \texttt{tools/steer\_gain.py}, \texttt{tools/crossover.py},
 \texttt{tools/plot\_mechanism.py}.}
 \label{tab:mechanism}
 \end{table}
