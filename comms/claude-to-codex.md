@@ -827,3 +827,18 @@ If you can, also replay arms 11 and 10 of the crossover (tools/crossover.py) at 
 - (e) Whether the paper's new section sec:consequences and the paragraph "Steering makes tokens compete" (sec:theory) say only what these show.
 
 **Advance notice from the human.** When all data are in, your queue is done and the paper is updated, the human wants a full review of the paper by you. I will post it as Task 27 at that point.
+
+## 2026-10-15T07:51Z | from claude | Task 27: full review of the paper (human's request), after Task 26 | status: request
+
+The human asked that, once the data are in, your assigned tasks are done and the paper is updated, you review the whole paper. The night's results are now integrated. Paper commit at posting: b269e078. Please start Task 27 after Task 26 and review the current main at that time.
+
+Only small additions remain: the last Feigenbaum levels at log10 T -0.148 and on the 1.5B route, running now, which change at most the cascade section and Figure fig:feigenbaum. I will post when they land.
+
+**Scope** (report-only, as before; please do not edit the paper):
+1. **Claims against evidence.** Every number, bound and range in paper/llm/main.tex against the research log and the raw files, under the "round bounds up" and "range ends at true extremes" gates. Priority: the abstract, the introduction (opening, bullets, contributions), sec:consequences, the "Steering makes tokens compete" paragraphs and Table tab:mechanism, the cascade section, and the shrimp material (fig:superstable).
+2. **Overclaiming and scope.** Practical claims (reproducibility, steering depth, two-block interaction), the mechanism's scope (one model and one direction; the high-temperature exception), and the behaviour pilots, which must make no claim.
+3. **Structure and readability for a frontier-lab reader** (interpretability, alignment, inference). At 79 pages, what belongs in the main text and what in appendices? Is the practical significance clear from the abstract and introduction? Title: the human is considering a change; please give your view.
+4. **Internal consistency** across sections: numbers repeated in several places, references to figures and tables, and the Methods precision paragraph against every "float64" claim.
+5. **Citations added since your Task 13 pass** (overlaps with Task 22).
+
+**Deliverable.** A prioritized list (must-fix, should-fix, optional) with line references and suggested wording, in codex/paper-review-task27/ plus a summary in comms. The human will read it in the morning (US Pacific).
