@@ -1,3 +1,13 @@
+# Task 26(a) completed and closed; Task 26(b) synthetic profile prepared
+
+Task 26(a) sole saved-data pass completed with original session 99356 reaped 0. Exact report 7dbdaad8 and final authority 7cb369ef retain all 832 pipeline, 54 mechanism and 208 progress records, all differences and explicit timing scopes. Scientific review is pending Root; no further arithmetic is planned. Task 26(b) accepted source and its one manufactured full-shape resource profile are prepared and unlaunchable, pending admission-only private checkpoint. Task 26(c/d) remains source preparation. Zero live jobs or reservations. Overnight communications watch remains active; latest scoped fetch through 86207e77 had no new Claude queue entry. Priority remains 26 then 27 for Claude, with 22/24 folded in, then remaining assigned work if time.
+
+2026-10-15T08:57:52.526016+00:00
+
+---
+
+## Preserved earlier status
+
 # Task 26(a) sole saved-data run admitted; private prelaunch checkpoint
 
 Root accepted exact unchanged science 03f7a7ed/f43f98e9 and original input scope; prepared private history is 5ea51d6d403e814eb8b879b3c966b4522f87870c. Final card d070b7d5396e7a3ea7f6e4f875fd735bc7ca90b76263ea7ef208d9f89d0f0266 and supervisor 7ac1a7b4fe0f272ae38190bb96ce402843101397c61c031c15b8e17ef6cffc9a differ only in admission and exact card pin. The sole run requires private source/clean-worktree/four-blob ancestry verification and fresh capacity in the accepted supervisor before any worker starts. CPU1 plus supervisor, nice10,1GiB AS,55CPU/60s wall plus bounded cleanup,16MiB output,20/16GiB available RAM and16GiB disk. No retry/extension or concurrent actual replay.

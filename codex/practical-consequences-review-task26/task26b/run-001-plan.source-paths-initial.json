@@ -1,0 +1,70 @@
+{
+  "schema": "task26b-saved-audit-plan-v1",
+  "admission": "prepared",
+  "output": "/data2/neural-shrimp-data/codex/practical-consequences-review-task26/task26b/run-001",
+  "resources": {
+    "cpu_threads": 1,
+    "nice": 10,
+    "address_space_bytes": 1073741824,
+    "external_deadline_seconds": 120,
+    "output_bytes": 16777216,
+    "startup_available_bytes": 21474836480,
+    "runtime_available_bytes": 17179869184
+  },
+  "inputs": {
+    "arrays": {
+      "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/repro/h2cells/repro.npz",
+      "sha256": "8f405d85e864a3109c6432c7fff729c68ba4097ed916429c3c5fec3367e8c8d2",
+      "bytes": 10224716
+    },
+    "original_summary": {
+      "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/repro/h2cells/repro.json",
+      "sha256": "ea92d75f137159a0b1ce814a593cbeaa0593f1fb27353398538fe41e13f2590d",
+      "bytes": 535407
+    },
+    "progress": {
+      "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/repro/h2cells/progress.jsonl",
+      "sha256": "dd4044bf0c702447a5246472cdecac6be0ec7b2baf0e14ba77499612ac55bd6b",
+      "bytes": 2707
+    },
+    "specification": {
+      "path": "/home/d7082791602/.codex/worktrees/llm-p8-certificate/neural-shrimp/codex/practical-consequences-review-task26/task26b/source-metadata-001/original/docs/h2-horizon-cells.json",
+      "sha256": "2eaee5280d01ca2a4d37497880efa5b414c0b9d9f7b28da668d5f004b6ba7e53",
+      "bytes": 44243
+    },
+    "original_authority": {
+      "path": "/home/d7082791602/.codex/worktrees/llm-p8-certificate/neural-shrimp/codex/practical-consequences-review-task26/task26b/source-metadata-001/repro1-original-authority.json",
+      "sha256": "d5c2172063fcf79846591ba4104303a4d9a287903ed71558228853e52721a813",
+      "bytes": 7177
+    },
+    "source_manifest": {
+      "path": "/home/d7082791602/.codex/worktrees/llm-p8-certificate/neural-shrimp/codex/practical-consequences-review-task26/task26b/source-metadata-001/manifest.json",
+      "sha256": "ed14d9dd289f7973a4d8aa65e5316df9361295098920a595264a89279b6fddf9",
+      "bytes": 3987
+    },
+    "dependency_manifest": {
+      "path": "/home/d7082791602/.codex/worktrees/llm-p8-certificate/neural-shrimp/codex/practical-consequences-review-task26/task26b/loop-supplement-001/manifest.json",
+      "sha256": "84d91b0a9ddd7393902be55170db21a87d60a5d0e63ba479b3a3f21e1e3b23f3",
+      "bytes": 2237
+    },
+    "evaluator_source": {
+      "path": "/home/d7082791602/.codex/worktrees/llm-p8-certificate/neural-shrimp/codex/practical-consequences-review-task26/task26b/source-metadata-001/original/tools/repro_noise.py",
+      "sha256": "6ac412b31ffb2e26c3835e8276098976020be5dbfb903b975d892d3f4830c74d",
+      "bytes": 7757
+    },
+    "plot_source": {
+      "path": "/home/d7082791602/.codex/worktrees/llm-p8-certificate/neural-shrimp/codex/practical-consequences-review-task26/task26b/source-metadata-001/current/tools/plot_repro.py",
+      "sha256": "7259dadd0fb52c42fb947d2575731a10f6419b1994e0e599bd8fd9c56399dcd2",
+      "bytes": 4143
+    }
+  },
+  "sources": {
+    "core.py": "2b84f28dbee0af9b04b0af724de45e096b8fce222ce995ee744fa4c66fb6614a",
+    "run.py": "6c9e467111765817d8f925dc6f8ea5045740a56cf9094672a39f60a83238aeaa"
+  },
+  "numpy_version": "2.5.3",
+  "scope": "Unblinded independent saved REPRO1 arithmetic; no model/producer imports or new estimates.",
+  "original_source_commit": "dbd125a70dd1b1a1f54a12c1ff2fde275b4c7a49",
+  "source_snapshot": "666e9b72e9b384755bf52469dbf1ed6c1d4f89f3",
+  "sequencing": "After Task26(a) completed and reaped; coordinator alone owns external watchdog/private source freeze."
+}

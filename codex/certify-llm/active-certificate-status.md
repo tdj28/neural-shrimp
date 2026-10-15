@@ -1,3 +1,13 @@
+# Current Task 26 phase: (a) closed; (b) profile prepared
+
+Task 26(a) sole arithmetic run is computationally complete, immutable and operationally authenticated (report 7dbdaad8, authority 7cb369ef; original session 99356 reaped 0). Scientific acceptance is pending. Task 26(b) synthetic resource profile is prepared only; no target run. Zero live jobs/reservations. Tasks 18/19/17/16/21a/21b remain complete/delivered. Overnight watch active; paper review is for Claude, current priority 26 then 27 with 22/24 folded in.
+
+2026-10-15T08:57:52.526016+00:00
+
+---
+
+## Preserved earlier status
+
 # Task 26(a) sole saved-data run admitted; private prelaunch checkpoint
 
 Root accepted exact unchanged science 03f7a7ed/f43f98e9 and original input scope; prepared private history is 5ea51d6d403e814eb8b879b3c966b4522f87870c. Final card d070b7d5396e7a3ea7f6e4f875fd735bc7ca90b76263ea7ef208d9f89d0f0266 and supervisor 7ac1a7b4fe0f272ae38190bb96ce402843101397c61c031c15b8e17ef6cffc9a differ only in admission and exact card pin. The sole run requires private source/clean-worktree/four-blob ancestry verification and fresh capacity in the accepted supervisor before any worker starts. CPU1 plus supervisor, nice10,1GiB AS,55CPU/60s wall plus bounded cleanup,16MiB output,20/16GiB available RAM and16GiB disk. No retry/extension or concurrent actual replay.

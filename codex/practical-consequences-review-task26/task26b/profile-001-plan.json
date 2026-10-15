@@ -1,0 +1,41 @@
+{
+  "schema": "task26b-synthetic-profile-v1",
+  "admission": "prepared",
+  "output": "/data2/neural-shrimp-data/codex/practical-consequences-review-task26/task26b/profile-001",
+  "resources": {
+    "cpu_threads": 1,
+    "nice": 10,
+    "address_space_bytes": 1073741824,
+    "external_deadline_seconds": 120,
+    "output_bytes": 16777216,
+    "startup_available_bytes": 21474836480,
+    "runtime_available_bytes": 17179869184
+  },
+  "numpy_version": "2.5.3",
+  "sources": {
+    "core.py": "2b84f28dbee0af9b04b0af724de45e096b8fce222ce995ee744fa4c66fb6614a",
+    "run.py": "6c9e467111765817d8f925dc6f8ea5045740a56cf9094672a39f60a83238aeaa",
+    "profile.py": "4ae71f4a310ba68e32deafdee93ea634ee18b7c0b31b6b95191fab150be30742"
+  },
+  "fixture": {
+    "comparisons": 4,
+    "steps": 1500,
+    "cells": 448,
+    "tail": 500,
+    "shape": [
+      1500,
+      448
+    ],
+    "labels": {
+      "chaotic": 192,
+      "periodic": 192,
+      "other": 64
+    },
+    "source_maps": 2,
+    "constant_zero_series_per_comparison": 16,
+    "constant_positive_series_per_comparison": 80,
+    "other_series": "192 exponential-to-plateau and 160 bounded sinusoidal, fixed formula in profile.py",
+    "qualifier": "Synthetic cost observation, not numerical target validation or a worst-case output proof"
+  },
+  "sequencing": "One attempt only after Task26(a) closes/reaps, after private source/card freeze and Root source/card acceptance; Inference owns execution."
+}
