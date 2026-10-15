@@ -1170,7 +1170,7 @@ last superstable ratio is within 1\,\% of it. At $\log_{10}T=-0.156$ the first r
 (arrow), and the later ratios approach $\delta$ from below, the last ($4.6688$) within $0.01\,\%$ of it. Its first two
 superstable ratios carry no bars: the brackets of $s_{12}$ and $s_{24}$ allow $[3.40,29.3]$ and $[1.01,4.65]$. Each
 sequence ends at the deepest level computed: the flips at $-0.148$ where Newton's method began to slide onto the
-half-period orbit (period 96), the superstable points at period 384, the 1.5B route at period 64, and the cut at
+half-period orbit (period 96), the superstable points at period 384, the 1.5B route at period 128, and the cut at
 $-0.156$, which we followed furthest, at period 1536.
 }
 \label{fig:feigenbaum}
@@ -1382,8 +1382,8 @@ A cut of 2048 cells at $\alpha=0.100$ (Figure~\ref{fig:qwen15route}) shows how t
 are two distinct attractors, not a flip. The period-4 loop then doubles, with float64 flips at
 $\log_{10}T=-0.0031269$ (period $4\to8$, next modulus $0.014$), $-0.0021666$ (period $8\to16$, next modulus
 $8\times10^{-5}$), $-0.0019002$ (period $16\to32$, next modulus $5\times10^{-9}$) and $-0.0018380$ (period
-$32\to64$). Along the way the exponent rises continuously to zero, and chaos follows. The interval ratios are $3.60$
-and $4.28$. Like those of the 0.5B crescent at $\log_{10}T=-0.148$, they rise toward $4.669$. Their higher start does not
+$32\to64$). Along the way the exponent rises continuously to zero, and chaos follows. The interval ratios are $3.60$,
+$4.28$ and, from the flip of the period-64 orbit at $\log_{10}T=-0.0018244$, $4.58$. Like those of the 0.5B crescent at $\log_{10}T=-0.148$, they rise toward $4.669$. Their higher start does not
 indicate a temperature trend, since along nearby cuts of the 0.5B crescent the early ratios range from $2.84$ to
 $14.9$ (Section~\ref{sec:cascade}).
 \begin{figure}[H]
