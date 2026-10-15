@@ -1,0 +1,158 @@
+{
+  "schema": "task21e-original-completion-receipt-v1",
+  "created_utc": "2026-10-15T12:16:28.722125+00:00",
+  "source_commit": "c97eede67888918539049989cc68dd4f9614ae9f",
+  "tool_session_id": 3375,
+  "tool_session_reaped_exit_code": 0,
+  "one_actual_run": true,
+  "automatic_retries": 0,
+  "computational_completed": true,
+  "scientific_acceptance_pending": true,
+  "scientific_claims_accepted": false,
+  "report": {
+    "path": "/data2/neural-shrimp-data/codex/night-results-review-task21/task21e/run-001/report.json",
+    "bytes": 1364369,
+    "sha256": "b1b0a925eb3fd92bc9820245e3f7807b39c098fc9fe6aa0d0391cd9102403a6f"
+  },
+  "worker_manifest": {
+    "path": "/data2/neural-shrimp-data/codex/night-results-review-task21/task21e/run-001/manifest.json",
+    "bytes": 169,
+    "sha256": "7f08b83af0c570bfcedb5ec62e0818bfa731b7f6e0d4637cd799a9829cbdb2e5"
+  },
+  "source_output_authority": {
+    "path": "/data2/neural-shrimp-data/codex/night-results-review-task21/task21e/run-001-authority/report.json",
+    "bytes": 5693,
+    "sha256": "a1f95c473b2b398f13650352e3adc1d5599f2097fc66f8ec7e00b48cd280c306"
+  },
+  "authority_manifest": {
+    "path": "/data2/neural-shrimp-data/codex/night-results-review-task21/task21e/run-001-authority/manifest.json",
+    "bytes": 318,
+    "sha256": "fa7ca4a652834c0090d38c799767dbfefbfc21394577d4d27683b82468862b1a"
+  },
+  "metadata_authentication_exit_code": 0,
+  "outer_logs": [
+    {
+      "path": "/data2/neural-shrimp-data/codex/night-results-review-task21/task21e/run-001-dispatch/stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/codex/night-results-review-task21/task21e/run-001-dispatch/stdout.log",
+      "bytes": 4451,
+      "sha256": "847c13c287ac5f7197ebbe09162f7c93ae3e34bd7ef6f64e293c74767be4baaf"
+    }
+  ],
+  "input_pin_rows": 51,
+  "captured_git_blobs": 3,
+  "original_identities": [
+    {
+      "pid": 3049480,
+      "start": 201295950,
+      "pgid": 3049480,
+      "sid": 3049480,
+      "uid": 1000,
+      "nice": 10,
+      "threads": 1,
+      "limits": "Limit                     Soft Limit           Hard Limit           Units     \nMax cpu time              unlimited            unlimited            seconds   \nMax file size             unlimited            unlimited            bytes     \nMax data size             unlimited            unlimited            bytes     \nMax stack size            8388608              unlimited            bytes     \nMax core file size        0                    unlimited            bytes     \nMax resident set          unlimited            unlimited            bytes     \nMax processes             375398               375398               processes \nMax open files            65535                65535                files     \nMax locked memory         8388608              8388608              bytes     \nMax address space         1073741824           1073741824           bytes     \nMax file locks            unlimited            unlimited            locks     \nMax pending signals       375398               375398               signals   \nMax msgqueue size         819200               819200               bytes     \nMax nice priority         0                    0                    \nMax realtime priority     0                    0                    \nMax realtime timeout      200000               200000               us        \n",
+      "command": [
+        "/data2/neural-shrimp/.venv/bin/python",
+        "-I",
+        "-B",
+        "-u",
+        "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/night-results-review-task21/task21e/run-001-launch.py",
+        "--source",
+        "c97eede67888918539049989cc68dd4f9614ae9f"
+      ]
+    },
+    {
+      "pid": 3049494,
+      "start": 201296063,
+      "pgid": 3049494,
+      "sid": 3049494,
+      "uid": 1000,
+      "nice": 10,
+      "threads": 1,
+      "limits": "Limit                     Soft Limit           Hard Limit           Units     \nMax cpu time              20                   20                   seconds   \nMax file size             unlimited            unlimited            bytes     \nMax data size             unlimited            unlimited            bytes     \nMax stack size            8388608              unlimited            bytes     \nMax core file size        0                    unlimited            bytes     \nMax resident set          unlimited            unlimited            bytes     \nMax processes             375398               375398               processes \nMax open files            65535                65535                files     \nMax locked memory         8388608              8388608              bytes     \nMax address space         1073741824           1073741824           bytes     \nMax file locks            unlimited            unlimited            locks     \nMax pending signals       375398               375398               signals   \nMax msgqueue size         819200               819200               bytes     \nMax nice priority         0                    0                    \nMax realtime priority     0                    0                    \nMax realtime timeout      200000               200000               us        \n",
+      "command": [
+        "/data2/neural-shrimp/.venv/bin/python",
+        "-I",
+        "-B",
+        "-u",
+        "/data2/neural-shrimp-data/codex/night-results-review-task21/task21e/run-001-supervision/source/codex/night-results-review-task21/task21e/analyze.py",
+        "--card",
+        "/data2/neural-shrimp-data/codex/night-results-review-task21/task21e/run-001-supervision/source/codex/night-results-review-task21/task21e/run-001-card.json",
+        "--out",
+        "/data2/neural-shrimp-data/codex/night-results-review-task21/task21e/run-001"
+      ]
+    }
+  ],
+  "all_original_supervisor_worker_groups_sessions_absent": true,
+  "supervisor_window_seconds": 0.5457958769984543,
+  "calculation_input_io_and_posthash_seconds_before_serialization": 0.023028146009892225,
+  "observed_peak_rss_kib_before_serialization": 21288,
+  "timing_scope": "Calculation timer begins after card/source/output-ownership admission, includes input loading and posthash, and excludes serialization and full worker lifetime. RSS is sampled before serialization, not a full-lifetime peak. Supervisor window is separately observed.",
+  "new_artifact_pins": [
+    {
+      "original_path": "/tmp/task21e-preflight-001.json",
+      "owned_path": "codex/night-results-review-task21/task21e/evidence/run-001-preflight.json",
+      "bytes": 15609,
+      "sha256": "f6045f93bf21f16cf8ba5d87db68294d47c84dc5e783e9a2599fde5dbbc531fb"
+    },
+    {
+      "original_path": "/data2/neural-shrimp-data/codex/night-results-review-task21/task21e/run-001-supervision/admission.json",
+      "owned_path": "codex/night-results-review-task21/task21e/evidence/run-001-admission.json",
+      "bytes": 4016,
+      "sha256": "4dfd9e475134da2d14278af402cacafb7ae0b362b065de1f484feb0d42c470f0"
+    },
+    {
+      "original_path": "/data2/neural-shrimp-data/codex/night-results-review-task21/task21e/run-001-supervision/worker.json",
+      "owned_path": "codex/night-results-review-task21/task21e/evidence/run-001-worker.json",
+      "bytes": 2002,
+      "sha256": "c3f16f59b705f7df294d15e10ceb8dac4735767483e432422a36f60aa6a3ecae"
+    },
+    {
+      "original_path": "/data2/neural-shrimp-data/codex/night-results-review-task21/task21e/run-001-supervision/closure.json",
+      "owned_path": "codex/night-results-review-task21/task21e/evidence/run-001-closure.json",
+      "bytes": 2534,
+      "sha256": "1dacc972324b3f14f78436f40b89cd02fb71453cb735ad70325a1c2a66a83155"
+    },
+    {
+      "original_path": "/data2/neural-shrimp-data/codex/night-results-review-task21/task21e/run-001-supervision/final-manifest.json",
+      "owned_path": "codex/night-results-review-task21/task21e/evidence/run-001-supervision-manifest.json",
+      "bytes": 1343,
+      "sha256": "ed3503ced7feb1a5b50f7f565e45734f3f2e5c19fcfa4bc58588281acb07d26c"
+    },
+    {
+      "original_path": "/data2/neural-shrimp-data/codex/night-results-review-task21/task21e/run-001/final-manifest.json",
+      "owned_path": "codex/night-results-review-task21/task21e/evidence/run-001-output-manifest.json",
+      "bytes": 316,
+      "sha256": "c67bde52bab6eef13b099da70f4ce6cfcddd8efd94742e964d4a846f3ffb94f6"
+    },
+    {
+      "original_path": "/data2/neural-shrimp-data/codex/night-results-review-task21/task21e/run-001-authority/report.json",
+      "owned_path": "codex/night-results-review-task21/task21e/evidence/run-001-authority.json",
+      "bytes": 5693,
+      "sha256": "a1f95c473b2b398f13650352e3adc1d5599f2097fc66f8ec7e00b48cd280c306"
+    },
+    {
+      "original_path": "/data2/neural-shrimp-data/codex/night-results-review-task21/task21e/run-001-authority/manifest.json",
+      "owned_path": "codex/night-results-review-task21/task21e/evidence/run-001-authority-manifest.json",
+      "bytes": 318,
+      "sha256": "fa7ca4a652834c0090d38c799767dbfefbfc21394577d4d27683b82468862b1a"
+    },
+    {
+      "original_path": "/tmp/task21e-run001-authority.py",
+      "owned_path": "codex/night-results-review-task21/task21e/evidence/run-001-authority.py",
+      "bytes": 4961,
+      "sha256": "02dc45c6a19434a43f4d028d23bc861af7e1538a2b1abba15a7d5be9478ff37d"
+    },
+    {
+      "original_path": "/tmp/task21e-run001-authority.diff",
+      "owned_path": "codex/night-results-review-task21/task21e/evidence/run-001-authority.diff",
+      "bytes": 6910,
+      "sha256": "a6f4af8916dd86ae85e8b2a6b4920957598206ddda17f42e993756b32a3036ac"
+    }
+  ],
+  "remaining": "Root and Theory complete finite saved scientific reading, then separate final acceptance and standalone Claude delivery. No further arithmetic requested.",
+  "live_reservations": 0
+}
