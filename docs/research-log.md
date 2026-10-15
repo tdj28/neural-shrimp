@@ -24821,3 +24821,15 @@ TP1 and TP2 pods (runner rc 0, hashes verified, terminated). Output tp/*: 1584 c
   - The others: a period-5-band cell at block 20 (4 turning points), and cells at blocks 4, 8, 12 and 16 and in the other planes.
 - **Caution.** A projection can fold a single-humped curve, so a count is not yet a second turning point.
 - **TPF.** Rerun the 12 strong candidates with --save (projections of every phase) and inspect the return maps by eye. Cells: docs/tp/flagged-*.json. Settings as TP. One H100 pod.
+
+## 2026-10-15 09:05 UTC: Mechanism intervals re-synced to the committed script
+
+tools/plot_mechanism.py now also computes the XOG and XOR contrasts (seeded bootstrap; paper/llm/figures/fig-mechanism.json). The paper quotes its intervals rounded outward (lower ends down, upper ends up).
+- **Earlier values in the paper**, from earlier runs of the script or from inline bootstraps, were slightly narrower:
+  - R1 readout [1.78, 3.59];
+  - R1 network [-0.23, 0.12];
+  - R2 readout [0.91, 1.93];
+  - XO interaction [0.09, 0.45];
+  - XOG readout [0.07, 0.59] and network [-0.29, 0.01];
+  - XOR readout [0.47, 1.12] and network [-0.22, 0.06].
+- **Consequence.** Gratitude's network effect is now compatible with zero. The network damping is significant for philosophy (0.5B) and in the 7B only; elsewhere it is negative but compatible with zero. The introduction's bullet is narrowed accordingly.
