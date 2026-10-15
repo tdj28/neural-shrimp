@@ -23942,3 +23942,16 @@ Pod gqn3rlkugdknn2 (COMMUNITY H100 NVL; runner rc 0, tool exit 1, hash verified,
   - the crossing is approached from all four sectors, with the sign pattern of mu alternating around it.
   - Otherwise the result is reported as found: zero curves that do not cross, a single curve, or an unclean region that hides the crossing.
 - **Output:** `../neural-shrimp-data/explore/llm-soft-loop/pod64/dss/p7-blob`
+
+## 2026-10-15 04:21 UTC: run (exploratory): KY, Kaplan-Yorke dimensions of the chaotic attractors (human: "Full go")
+
+- **Question:** How far is a chaotic attractor of the soft-token map from one-dimensional? The Kaplan-Yorke dimension D = j + (lambda_1 + ... + lambda_j) / |lambda_{j+1}| (j the largest index with a nonnegative partial sum; D = 1 + lambda_1 / |lambda_2| for one positive exponent) measures it. The paper's theory paragraph separates the exact local reduction from a global scalar return map; D says where the global one holds.
+- **Already measured, no new run:** the six chaotic TC cells (run TC, hidden/tc-spectrum, four exponents by QR, 1000 + 2000 steps) give D = 1.063, 1.196, 1.239, 1.322, 1.325 and 1.645. The values rise with lambda_1 (0.063 to 0.415), while lambda_2 is -0.64 to -1.10.
+- **Cells, chosen by a rule fixed before any spectrum of them:** in each of three groups, the chaotic cells at the 5th, 15th, ..., 95th percentile of the exponent (nearest rank, ties by index), 10 per group.
+  - high: the high-temperature map map-highT-256-families (log10 T -0.02 to 0.14). Chaotic means the map label: exponent above 1e-3 and no period.
+  - head: the H2 long-test chaotic cells of the headline maps (hidden/h2-cells).
+  - host: the hostile temperature line hidden/tline-a0.0655, where the paper fits a scalar return relation (visible or hidden chaos).
+  - Files: docs/ky-cells-philosophy.json (high, head) and docs/ky-cells-hostility.json (host).
+- **Setup:** two pods (H100-class, new job set spectrum). tools/lyapunov_spectrum.py, float64, k 4, transient 1000, record 2000, checkpoints 1000 and 2000. KY1 runs the philosophy cells, KY2 the hostility cells (vectors-l12-p1b).
+- **Reading:** D per cell, with its two checkpoints, reported by group. A cell that is not chaotic at this horizon (lambda_1 <= 0) is reported as such. No threshold is set: the result is the distribution of D, which goes into the paper's theory paragraph.
+- **Output:** `../neural-shrimp-data/explore/llm-soft-loop/pod64/hidden/spectrum-ky-philosophy`, `spectrum-ky-hostility`
