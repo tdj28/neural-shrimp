@@ -23684,3 +23684,15 @@ Reading: on these maps the twin method is a finite-difference Benettin estimate 
   - P-F2: the last two superstable ratios computed at each new temperature lie within 5 % of 4.669 (at least 4.436).
   - Each is reported as it comes out, including partial or failed cascades.
 - **Output:** `../neural-shrimp-data/explore/llm-soft-loop/pod64/cascade/crescent-t-0.152`, `crescent-t-0.156` (stage 1); `superstable/crescent-t-0.152`, `-0.156` (stage 2)
+
+## 2026-10-15 01:35 UTC: run (exploratory): WP, window positions predicted from the measured reinjection (Planned marker of the mechanism section), stage 1: the line
+
+- **Question:** Do the fold edges of the stripe windows beyond period 20 follow the constant-prefactor law the paper fitted to periods 16-20, or the normal-form passage from the measured natural reinjection point? The human approved this review follow-up at about 00:58 UTC.
+- **Predictions, frozen before this line:** docs/wp-window-predictions.json (commit dae4cbf7), for periods 22-30.
+  - Law L: alpha_N - alpha_c = 0.0266 / (N + 0.15)^2.
+  - Model R: n(eps_N) = N + c, with the passage time n from v_r = -4.9e-4 (measured range -3.0e-4 to -7.4e-4) and the one offset c fitted to the fold edges of periods 16-20. R places eps_N 3-9 % below L.
+  - Outcome: for each window, the measured eps_N against both predictions. R is supported if the measured eps_N lie within R's band from the v_r range and below L by more than the measurement error. L is supported if they agree with L within 1 % and sit outside R's band. Anything else is reported as it stands.
+- **Setup:**
+  - Stage 1: one pod (H100-class), job set hiddencells: tools/hidden_chaos.py cells on docs/wp-line-cells.json (3200 cells along alpha at log10 T -0.115, alpha_c + 1.4e-4 to alpha_c + 4.6e-4, spacing 1e-7), float64, transient 3000, record 600, twins 1e-6 and 1e-9, tolerance 1e-8, chunk 1600.
+  - Stage 2, after stage 1: tools/llm_feigenbaum.py edges from the centres of the period 22-30 windows found on the line (as run E1 for periods 6-20).
+- **Output:** `../neural-shrimp-data/explore/llm-soft-loop/pod64/hidden/wp-line`

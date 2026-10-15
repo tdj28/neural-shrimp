@@ -703,6 +703,11 @@ snapshot_download('$repo', revision='$rev', cache_dir='$NEURAL_SHRIMP_DATA/model
     TOOL=hidden_chaos.py run hidden-${JOBARGS[0]} "${JOBARGS[1]}" line --device cuda --dtype float64 \
       "${JOBARGS[@]:2}" --out $D/hidden/${JOBARGS[0]}
     ;;
+  hiddencells) # tools/hidden_chaos.py on an uploaded cells file (float64 on the GPU): JOBARGS NAME MINUTES CELLS_FILE ARGS...,
+               # output hidden/NAME
+    TOOL=hidden_chaos.py run hidden-${JOBARGS[0]} "${JOBARGS[1]}" cells --device cuda --dtype float64 \
+      --cells-file "${JOBARGS[2]}" "${JOBARGS[@]:3}" --out $D/hidden/${JOBARGS[0]}
+    ;;
   horizon)     # horizon check H2 (tools/hidden_chaos.py, float64, twins at 1e-6 and 1e-9, 1000 transient + 2000 steps):
                # JOBARGS LINE_MINUTES CELLS_MINUTES. (1) the exact grid of the hostile cascade line of Figure hubcascade
                # (hcascade/tline-a0.0655: alpha 0.0655, log10 T 0.176..0.1935, 1400 cells); (2) the stratified random
