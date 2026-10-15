@@ -26409,3 +26409,26 @@ The report is at /data2/CHECK_THESE_FINDINGS.md, archived as CHECK_THESE_FINDING
 **No findings.** The other 13 checks confirmed the census, the self-crossings and cusp values, the cusp kinds, Gallas's corners, the source statements, the trace-zero bounds, the closure test, the reset test, the restored main text, the Huginn pilot, the essay citation, the 70B zoom caveat, the neuron controls, the redrawn maps and the Feigenbaum bounds.
 
 Neither finding's sentence is in the Chaos version.
+
+## 2026-10-15 22:09 UTC: Two framing paragraphs (human): why we steer, and why the chaos matters
+
+Added to both the main paper and the Chaos version.
+
+**"Steering as a probe."** After the map's definition.
+- Steering is an established control method:
+  - sycophancy and refusal (CAA, Rimsky et al.);
+  - sentiment and topic (ActAdd, Turner et al., arXiv:2308.10248 v5, verified on arXiv: title and seven authors);
+  - personal style (Zhang et al.);
+  - representation engineering (Zou et al.).
+- Our recipe is CAA's contrastive one, added at every position.
+- **Strengths.** The pushes are at most 12 % of the mean residual norm per vector in every map. The continued curves reach 13.1 %: the largest |alpha| on any curve.json is 0.13008 (fm5c/curve-a1-down-fold-minus). Figure 1 lies at 6.25-7.75 %.
+- **Calibration.** In Qwen2.5-7B, 1 % is the largest push that kept greedy accuracy on a multiplication task within 5 points (Appendix sec:behaviour).
+- **Comparison.** ActAdd's appendix F states that an effective Anger-Calm addition (c = +10, GPT-2-XL) is "nearly ten times the norm of the underlying forward pass". CAA uses multipliers of +-1 and +-2 and caps them because larger ones degrade text; it does not state its vectors' norm relative to the residual stream, so no number is quoted for it.
+- **Steering as a probe.** We use steering as a control parameter for tracing bifurcations, not to produce behaviour.
+- **The chaos does not depend on it.** It exists at alpha = 0 in four models. In the 0.5B and 8B models, direction meaning hardly matters (random, SAE and neuron directions); at 70B the directions differ.
+
+**"Why should anyone ... care?"** In the Introduction.
+- Reproducibility: the batch layout and precision decide the output; the exploratory reset test.
+- Steering strength is a bifurcation parameter.
+- Prediction: 23 of 24 frozen passage times; larger models do not leave the chaos behind.
+- The null result on ordinary sampled accuracy, stated.

@@ -74,6 +74,18 @@ changed the answers of a short soft-thinking pipeline on 56\,\% and 55\,\% of 96
 models. The same loops obey the quantitative
 laws of low-dimensional dynamics, down to Feigenbaum's constant.
 
+Why should anyone who does not study dynamics care? First, reproducibility: in a chaotic loop, differences far
+below anything a user controls, such as the batch layout or the numerical precision, decide the output, and in an
+exploratory test resetting the fed-back state before every soft step removed nearly all such changes (Section~\ref{sec:consequences}).
+Continuous-feedback inference can thus be irreproducible because of its dynamics rather than a bug. Second, steering:
+practitioners choose steering strengths, and here the strength is a bifurcation parameter, so near a boundary a small
+change switches the attractor or brings chaos, and a smooth dose-response cannot be assumed (Section~\ref{sec:discussion}).
+Third, prediction: where the loop is periodic, normal forms computed from the model's derivatives predicted 23 of 24
+passage times fixed before they were measured (Section~\ref{sec:mechanism}), so the quantitative tools of dynamical systems apply to the
+inference loops of released models, and larger models do not simply leave the chaos behind (Section~\ref{sec:sizemain}). What we did
+not find matters too: beyond the model's first-token uncertainty, the loop's regime carries no detectable information
+about the accuracy of ordinary sampled answers.
+
 Figure~\ref{fig:teaser} shows a small piece of the parameter plane of one
 such map, built from Qwen2.5-0.5B-Instruct. Cells with a positive finite-horizon Lyapunov exponent lie side by side
 with windows in which the model repeats a fixed loop of text. Parts of this picture have been seen
@@ -198,6 +210,24 @@ direction $v$ is contrastive: it compares last-token states of ``philosophy'' pr
 and is normalized to the mean residual norm. Positions are fixed and the window does not grow, so $F$ is an
 autonomous map of $\mathbb{R}^{896}$. As $T\to0$ it reduces, where the argmax is unique, to greedy decoding of the
 same fixed-prefix, one-token-window system. It is not ordinary generation with a growing context.
+
+\paragraph{Steering as a probe.} Steering is an established way to control a language model without retraining: a
+vector added to the residual stream, typically the mean difference between activations on contrasting prompts,
+strengthens or weakens a behaviour, such as sycophancy or refusal \cite{rimsky2024steering}, sentiment or topic
+\cite{turner2023activation}, or a personal style of writing \cite{zhang2025steering}, and representation engineering
+uses such directions to read and control concepts \cite{zou2023representation}. Our recipe is the standard contrastive
+one \cite{rimsky2024steering}, added at every position, and our pushes are moderate: at most 12\,\% of the mean residual
+norm per vector in every map (the continued curves reach 13.1\,\%), and 6.25 to 7.75\,\% in Figure~\ref{fig:teaser}.
+Pushes of this size do change what a model writes, which is what steering is for: in Qwen2.5-7B, 1\,\% of the residual
+norm is the largest push that kept greedy accuracy on a multiplication task within 5 points (Appendix~\ref{sec:behaviour}). They are
+far smaller than activation additions reported as effective in steering work, one of which has nearly ten times the
+norm of the residual stream it is added to \cite{turner2023activation}. We do not steer to make the model behave in a
+particular way. We use steering as a probe: $\alpha$ is a control parameter, like the amplitude of a periodic forcing,
+that moves the model through a one-parameter family of nearby maps without retraining it, so that bifurcation curves
+can be traced. The chaos does not depend on it: at $\alpha=0$, temperature alone gives chaos with periodic windows in
+Llama-3.1-8B, Qwen2.5-7B and OLMo-2-7B, and in a narrow band in Qwen2.5-0.5B (Appendix~\ref{sec:origin}). Nor, in the 0.5B and 8B
+models, does the direction's meaning: random, sparse-autoencoder and single-neuron directions of the same norm make the
+map chaotic about as often as the concept directions (at 70B the directions differ; Appendix~\ref{sec:size}).
 
 \paragraph{Precision.} Hugging Face RMSNorm layers and rotary-embedding tables compute in float32 even when the
 model is cast to float64, so we patch both. A float32 map is accurate to $3\times10^{-6}$--$2\times10^{-5}$ per
