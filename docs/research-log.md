@@ -26370,3 +26370,25 @@ The paragraph "Shrimps of a two-dimensional kind" now reports the doubling casca
 - **Trend.** The median |mu2|/|mu1| falls 0.59, 0.125, 0.027 down the cascade.
 - **Heuristic, tested before use** (AGENTS.md gate). Per step, the second multiplier contracts by a nearly constant factor: medians 0.566, 0.502, 0.567. The per-step medians predict (mu2/mu1)^p of 0.524, 0.146 and 0.029, against the measured medians 0.593, 0.125 and 0.027: discrepancies -11.6, +16.8 and +7.8 %. The text says "within 17 %".
 - **Caveat stated in the text.** Whether the trace-zero arms cross at the bottom of each V is not resolved, and the P8 grid is partial.
+
+## 2026-10-15 21:57 UTC: Run card SHC-L (exploratory; human: "do it"): local grids at the trace-zero meeting points of the cascade cells
+
+**Question.** In the period-4 and period-8 cells of the two-depth cascade, do the trace-zero curves of the two arms cross (a head), close into a loop (Type A) or turn away (Type B) at the bottom of the V? The SHC-P4 and SHC-P8 grids left this unresolved.
+
+**Setup.** Job set dss (tools/doubly_superstable.py grid) at HEAD, --multipliers-only, which records the three leading multipliers.
+- Same plane and settings as SHC: gratitude at block 4 (alpha1), hostility at block 16 (alpha2), log10 T = -0.1, float64, k 6, tol 1e-12.
+- **P8L:** period 8, seed (-0.106472, 0.106335). alpha1 [-0.1068, -0.1044] x alpha2 [0.1040, 0.1064], 20 x 20 cells, spacing 1.26e-4; the P8 grid's spacing was 3.0e-4. Centred on the P8 meeting point (-0.1056, 0.1052).
+- **P4L:** period 4, seed (-0.103375, 0.100114). alpha1 [-0.1050, -0.1010] x alpha2 [0.0950, 0.1002], 35 x 27 cells, spacing about 1.5e-4. Covers the extrapolated P4 meeting point (-0.103, 0.097), below the SHC-P4 grid and below the classifier map.
+- **Seeds checked locally on CPU,** one-cell grids with the pods' settings:
+  - P8L: period 8, mu -0.6211, next 0.0044, Newton converged.
+  - P4L: period 4, mu -0.4191, next 0.0068, the cell converged, clean.
+
+**Readout.** tools/dss_window.py: trace sign, checkerboards (crossings of trace-zero curves at cell resolution), complex pairs, the leading modulus.
+
+**Decision rule, fixed now.**
+- **Head:** at least one checkerboard (sign alternation in a 2 x 2 block of attracting cells) where the two arms meet.
+- **Loop (Type A):** a closed trace-zero contour enclosing cells of one trace sign, closed on the grid.
+- **Turn-away (Type B):** the arms' trace-zero curves approach to a minimum gap of at least one cell and separate without a checkerboard.
+- **Unresolved:** anything else, including unsolved cells at the meeting point.
+
+**Cost.** In the private ledger.
