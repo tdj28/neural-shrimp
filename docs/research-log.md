@@ -24658,3 +24658,5 @@ Pod v25l1gmcwmk72c (SECURE H100 NVL; runner rc 0, hash verified, terminated; 529
   - Replicated in a second, larger model with untied embeddings: steering's change of the network response damps the instability.
   - Not replicated as a general rule: steering's change of the readout at fixed states adds only a little in the 7B. Its unsteered derivative already expands strongly at the steered states (arm 00 +1.33). Steering therefore acts mainly by carrying the orbit into states where the derivative expands, as in the 0.5B at high temperature.
   - The paper's mechanism text is narrowed accordingly. Readout creation at fixed states is a low-temperature 0.5B finding; network damping holds in both models.
+
+## 2026-10-15 08:06 UTC: Note: the XO7 intervals in the paper come from tools/plot_mechanism.py (seeded bootstrap; fig-mechanism.json): readout effect +0.23 [-0.11, 0.63], network effect -1.14 [-1.61, -0.64]. The inline values in the XO7 entry used another random stream.
