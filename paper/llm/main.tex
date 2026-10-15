@@ -136,7 +136,7 @@ sampling.
   fixed states to steering's change of the readout ($+0.81$ nats per step), not of the network ($-0.49$)
   (Section~\ref{sec:theory}).
 \item \emph{Where and how steering is applied changes the chaos.} Earlier steering carries chaos to lower
-  temperature, in Qwen2.5-0.5B (5 blocks) and in Llama-3.3-70B (blocks 20, 35 and 50), and two steering vectors at two
+  temperature, in Qwen2.5-0.5B (5 blocks) and in Llama-3.3-70B (blocks 20, 35, 50 and 65), and two steering vectors at two
   blocks create chaos where neither alone does (Section~\ref{sec:consequences}).
 \item \emph{The loop's derivative shows where chaos can occur.} The derivative of the soft-token map factorizes into
   the inverse temperature, the covariance of token embeddings under the model's own next-token distribution (a
@@ -723,7 +723,8 @@ each block's residual norm, makes 5.9, 8.1, 6.8, 5.0 and 2.3\,\% of the same $12
 decoding, while steering at block 20 confines it to a thin band at $\log_{10}T=0.1$--$0.25$. Near zero steering every
 block gives 1--2\,\%. Llama-3.3-70B behaves the same way. Steered along its hostility direction, it is chaotic in 8.0\,\%
 of a $24\times24$ map at block 20 of 80, down to $\log_{10}T=-0.14$, against 4.3\,\% at block 35, where the chaos starts
-at $\log_{10}T=0.01$, and 4.3\,\% at block 50 (32 by 32 cells). %%L70D65%% These 70B labels are those of the map
+at $\log_{10}T=0.01$, 4.3\,\% at block 50 (32 by 32 cells), and 0.7\,\% at block 65, all above
+$\log_{10}T=0.19$. These 70B labels are those of the map
 protocol, one twin offset, and so are candidates. A logit bias, the latest possible point of entry, gives chaos mostly
 above $\log_{10}T=0.1$ (Section~\ref{sec:theory}). %%BLOCKMECH%%
 \begin{figure}[tbp]

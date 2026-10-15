@@ -24570,3 +24570,17 @@ Pod t2ko02yns76zzu (COMMUNITY H100 NVL; runner rc 0, hash verified, terminated; 
 - **Flip ratios at -0.156:** 14.93, 3.124, 4.4988, 4.6208, 4.6618, 4.6673, 4.6688.
   - Deviations from delta: -1.55, -0.17, -0.048, -0.0074, -0.0019, -0.00036.
   - From the third on, each level closes the gap by a factor of 3.5 to 6.5.
+
+## 2026-10-15 07:48 UTC: L70D result (block 65) completes the 70B depth series: 8.0, 4.3, 4.3 and 0.7 % at blocks 20, 35, 50 and 65
+
+Pod bg8uyc2xyzjtiu (2 x H200 SECURE; runner rc 0, hash verified, terminated; 5755 s; commit 183dead4). Block 65: 4 of 576 cells chaotic (0.7 %), at log10 T 0.196-0.300 only, max exponent 0.180 (map protocol, one offset: candidates).
+- **Series** (Llama-3.3-70B, hostility, alpha 0-0.12, log10 T -0.3 to 0.3), chaotic share and lowest chaotic temperature:
+
+| block (of 80) | chaotic share | lowest chaotic log10 T |
+|---|---|---|
+| 20 | 8.0 % | -0.143 |
+| 35 | 4.3 % | 0.013 |
+| 50 | 4.3 % (32 x 32 grid) | |
+| 65 | 0.7 % | 0.196 |
+
+- **Reading.** As in Qwen2.5-0.5B (blocks 4-20: 5.9, 8.1, 6.8, 5.0, 2.3 %), deeper injection gives less chaos and pushes it to higher temperature.
