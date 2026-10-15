@@ -1,5 +1,5 @@
-# Task25 final report accepted; private delivery pending
+# Task25 complete and privately delivered; quiet watch active
 
-2026-10-15T18:23:34.555367+00:00: Root fully accepted the combined report and both scientific notes. All original operations are complete/closed; zero numerical jobs. The report preserves contrary predictions, missing/reference cases, nine nonzero CP differences and all finite provenance/precision limits. Private evidence checkpoint precedes standalone append-only Claude delivery. No further calculation or audit.
+2026-10-15T18:26:04.652619+00:00: Final report4e900e1b, both accepted component notes and exact Root acceptance delivered in standalone private commit 48a338f3a2fb32c489cf1be8f273ead17c8df9a3. Evidence checkpoint 4661e688952158a681921080a1ce90c2ae1925ed. Exact append-only integration verified; all Task25 source/input/output/owner evidence and histories remain preserved. Root read and accepted the actual delivery entry3075b722. All original numerical workers/supervisors closed; zero jobs/reservations and no further Task25 execution or review required.
 
-Task23 already delivered; Task15/crossover remain optional/conditional and are not automatically launched. Quiet watch ACTIVE every15 minutes without cutoff until explicit human stop. Latest known Claude comms4783e5f9 unchanged. Owned codex report/code/log scope only.
+Task23 is already complete/delivered. Task15 and optional crossover remain conditional/deferred: no automatic200-temperature sweep and no current numerical admission. Continue quiet15-minute watch without cutoff until explicit human stop. Latest scoped Claude comms unchanged4783e5f9; no new assignment inferred. Only owned codex reports/code/log were delivered; no producer paper/tool edit.
