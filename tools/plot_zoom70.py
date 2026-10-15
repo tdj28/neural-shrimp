@@ -2,8 +2,8 @@
 stitched from four bands of 16 temperature rows. The bands must join into one temperature grid, share the steering
 grid, and carry concept vectors of identical norm (built on each pod); otherwise the script stops.
 
-Left: largest Lyapunov exponent (chaotic cells coloured by the exponent, other cells in grey by how strongly they
-contract). Right: the period of the attractor reached from the fixed start; chaotic cells black, cells with neither a
+Left: largest Lyapunov exponent on one colour bar: grey from -1 (black: strongly contracting, or below) to 0 (white)
+for the cells that are not chaotic, colour from 0 to 0.5 for the chaotic cells. Right: the period of the attractor reached from the fixed start; chaotic cells black, cells with neither a
 detected period nor a positive exponent light grey.
 
 Usage: python tools/plot_zoom70.py OUT.png [BAND_PREFIX]   (default llm-soft-loop/pod64/controls70/hostility-vs-kindness-zoom-b)
@@ -43,7 +43,7 @@ def main():
     import matplotlib
     matplotlib.use("Agg")
     import matplotlib.pyplot as plt
-    from matplotlib.colors import ListedColormap
+    from matplotlib.colors import ListedColormap, TwoSlopeNorm
 
     import explore_llm_attractors as ela
     import period_colors as pc
@@ -57,16 +57,21 @@ def main():
                       "periodic": int((P > 0).sum()), "unresolved": int(((P <= 0) & ~chaotic).sum()),
                       "max_exponent": round(float(L.max()), 4), "norms": norms,
                       "log10T": [float(lt[0]), float(lt[-1])], "alpha": [float(al[0]), float(al[-1])]}))
-    ext = [al[0], al[-1], lt[0], lt[-1]]
+    da, dt = al[1] - al[0], lt[1] - lt[0]
+    ext = [al[0] - da / 2, al[-1] + da / 2, lt[0] - dt / 2, lt[-1] + dt / 2]     # cell edges
     fig, (ax, bx) = plt.subplots(1, 2, figsize=(13, 5.6))
-    grey = np.where(~chaotic, np.clip(L, -1.0, 0.0), np.nan)
-    ax.imshow(grey, origin="lower", extent=ext, aspect="auto", cmap="Greys_r", vmin=-1.0, vmax=0.0,
-              interpolation="nearest")
-    hot = np.where(chaotic, np.clip(L, 0.0, 0.5), np.nan)
-    im = ax.imshow(hot, origin="lower", extent=ext, aspect="auto", interpolation="nearest", vmin=0.0, vmax=0.5,
-                   cmap=ListedColormap(plt.get_cmap("plasma")(np.linspace(0.15, 0.85, 256))))
-    cb = fig.colorbar(im, ax=ax, fraction=0.04, pad=0.02)
-    cb.set_label("largest Lyapunov exponent (chaotic cells)", fontsize=8)
+    # one colour bar for both kinds of cell: grey from -1 (black) to 0 (white) where the cell is not chaotic, plasma
+    # from 0 to 0.5 where it is; TwoSlopeNorm puts each range on its own half of the bar
+    lo, hi = -1.0, 0.5
+    cmap = ListedColormap(np.vstack([plt.get_cmap("Greys_r")(np.linspace(0.0, 1.0, 256)),
+                                     plt.get_cmap("plasma")(np.linspace(0.15, 0.85, 256))]))
+    val = np.where(chaotic, np.clip(L, 1e-9, hi), np.clip(L, lo, 0.0))
+    im = ax.imshow(val, origin="lower", extent=ext, aspect="auto", interpolation="nearest", cmap=cmap,
+                   norm=TwoSlopeNorm(vmin=lo, vcenter=0.0, vmax=hi))
+    cb = fig.colorbar(im, ax=ax, fraction=0.04, pad=0.02, ticks=[-1.0, -0.75, -0.5, -0.25, 0.0, 0.1, 0.2, 0.3, 0.4, 0.5])
+    cb.ax.set_yticklabels(["$\\leq -1$", "$-0.75$", "$-0.5$", "$-0.25$", "0", "0.1", "0.2", "0.3", "0.4", "$\\geq 0.5$"],
+                          fontsize=7)
+    cb.set_label("largest Lyapunov exponent per step\n(grey: not chaotic; colour: chaotic)", fontsize=8)
     ax.set_title(f"largest exponent; chaotic {100 * chaotic.mean():.0f} % of {L.size} cells", fontsize=9)
     periodic = P > 0
     unresolved = ~periodic & ~chaotic

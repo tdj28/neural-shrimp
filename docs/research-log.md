@@ -26168,3 +26168,13 @@ The human saved pp. 358-373 of Mira (1987) as screenshots in /data2/neural-shrim
 **Expectation, stated before the data.** All three neuron directions produce chaos, with shares in the range of C1's directions (roughly 5-15 %). A neuron direction without chaos would contradict the claim that the regime is set by next-token competition rather than by the direction.
 
 **Cost.** About 50 min per map at H100 rates. The ceilings, in the private ledger, follow from the run limits at $4.00/h.
+
+## 2026-10-15 20:04 UTC: Z70 figure: one numeric colour scale; the long periods above the ridge are artifacts of the pre-fix noise floor
+
+The human asked what the black in the left panel of fig:zoom70 means, since it is not on the exponent's colour bar. Non-chaotic cells were drawn on a separate grey scale (Greys_r from -1 to 0), which had no colour bar.
+- **Figure.** tools/plot_zoom70.py now draws one colour bar: grey from -1 or below (black) to 0 (white) where the cell is not chaotic, plasma from 0 to 0.5 where it is (TwoSlopeNorm). The axes now run to the cell edges. The data and the cell counts are unchanged: 898 chaotic, 1411 periodic, 1787 unresolved.
+- **Artifact.** The rendering showed long periods scattered above the ridge, in cells that contract strongly. Checked against the token loops in scan.json, using the definition of "above the ridge" of the Z70 entry (reproduced: 1105 cells, 994 periodic, 479 of period 1-2):
+  - all 515 other periodic cells (periods 3 to 32) have a constant leading token;
+  - all of them contract (median exponent -0.88; largest -0.090).
+  Their long periods are probably the period test (tolerance 1e-8) meeting the noise floor of this pre-fix two-GPU computation (about 2e-8), not orbits. The paper's sentence "half of them fixed points or 2-cycles" now says this, and the caption marks the zoom as pre-fix.
+- **Consequence.** The zoom's period panel, and probably its 44 % unresolved cells, need the post-fix computation before the figure can carry a main-text claim. Its exponent panel rests on the plateau test PTa (12 of 12 sampled chaotic cells chaotic at offsets 1e-4 to 1e-6).

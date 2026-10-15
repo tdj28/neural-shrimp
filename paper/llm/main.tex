@@ -2945,8 +2945,10 @@ plane at the same offset (Figure~\ref{fig:zoom70}; $\alpha\in[0.06,0.12]$, $\log
 identical vectors and joined) resolves it: a chaotic band, with periodic cells interspersed, whose centre steering
 moves from $\log_{10}T=0.25$ at $\alpha=0.06$ to $0.19$ at $\alpha=0.12$ while its extent grows from about 0.02 to 0.05
 decades, and a thinner chaotic layer near $\log_{10}T=0.15$--$0.16$ at strong steering; 22\,\% of the 4096 cells are
-chaotic (largest exponent 0.59). Above the band, 90\,\% of the cells are periodic, half of them fixed points or
-2-cycles, and below it bands of period-6 windows cross the plane. A further 44\,\% of all cells, mostly below the
+chaotic (largest exponent 0.59). Above the band, 90\,\% of the cells are periodic. About half of these are fixed points or
+2-cycles; the other 515, with periods from 3 to 32, all have a constant leading token and contract (exponents $-0.09$
+or below), so their long periods are probably an artifact of the period test at the noise floor of this computation
+(see below). Below the band, period-6 windows cross the plane in bands. A further 44\,\% of all cells, mostly below the
 band, have neither a detected period up to 32 nor a positive exponent. At 70B the state tolerance of the period test
 ($10^{-8}$) lies near the noise floor of the computation, and in a finer unsteered line such cells had repeating
 leading tokens, so many of them are probably periodic, but we leave them unresolved.
@@ -2965,11 +2967,11 @@ Gaussian); cells with neither a period nor a positive exponent: 468, 358, 223 an
 \centering
 \includegraphics[width=\linewidth]{fig-zoom-llama70b.png}
 \caption{Zoom on the chaotic ridge of Llama-3.3-70B-Instruct steered along the hostility concept vector (after
-zero-based block 50): $64\times64$ float64 cells (300 transient and 300 measured steps, maximum period 32), joined
-from four bands of 16 temperatures computed on separate pods with identical vectors. Left: largest Lyapunov exponent
-(chaotic cells coloured by the exponent; other cells in grey by how strongly they contract). Right: period of the
-attractor reached from the fixed start (black: chaotic; light grey: neither a detected period nor a positive
-exponent).}
+zero-based block 50): $64\times64$ float64 cells (300 transient and 300 measured steps, maximum period 32), joined from four bands of 16 temperatures computed on separate pods with identical vectors, before the precision fix
+of Section~\ref{sec:sizemain}. Left: largest Lyapunov exponent on one scale, grey from $-1$ or below (black) to 0
+(white) where the cell is not chaotic, colour from 0 to 0.5 where it is. Right: period of the
+attractor reached from the fixed start (black: chaotic; light grey: neither a detected period nor a positive exponent). The long periods scattered above the
+band are probably artifacts of that computation (see the text).}
 \label{fig:zoom70}
 \end{figure}
 
