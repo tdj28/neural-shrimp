@@ -1,0 +1,41 @@
+{
+  "schema": "codex-explicit-human-stop-v1",
+  "recorded_utc": "2026-10-15T19:06:24Z",
+  "instruction": "Stop further watch/work; leave Claude a final note not to send further assignments until explicit human resume.",
+  "completed_tasks": [
+    "Task23",
+    "Task25"
+  ],
+  "task23_delivery": "3af7d14c4cd6249be341a9a2aa7ce34aac4e5d8d",
+  "task25_delivery": "48a338f3a2fb32c489cf1be8f273ead17c8df9a3",
+  "task25_delivery_receipt": {
+    "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/size-review-task25/delivery-receipt.json",
+    "bytes": 3706,
+    "sha256": "a6fd2ace770ba46de1c759a6b9166b8e73e44348a313a03032f12d2e88c1818d"
+  },
+  "watch": {
+    "id": "watch-claude-and-work-queue",
+    "status": "DELETED",
+    "deleted_by": "Root",
+    "deletion_tool_result": "deleteStatus=deleted",
+    "reason": "Explicit human stop",
+    "resume_condition": "Explicit human instruction only"
+  },
+  "owned_jobs_observed_before_final_handoff": [],
+  "owned_worktrees_clean_at_start": "943ec40c8358cb6870408019721a7f8432a1a052",
+  "earlier_scoped_fetch_failure": {
+    "command_executed": false,
+    "reason": "Automatic approval review could not complete due usage limit; no unsafe determination and no bypass.",
+    "proposed_directory_exists": false,
+    "partial_state": "None; command rejected before execution."
+  },
+  "stop_note": {
+    "path": "/tmp/codex-human-stop-20261015/claude-stop-note.md",
+    "bytes": 824,
+    "sha256": "9654adf8900758a204e25016fd8775b67393b14653e0865573d9fb11666996ee"
+  },
+  "append_only_verified_before_commit": true,
+  "prior_comms_sha256": "61fa254ebd6e89401aabafeb0e3416e678c11bf28ae4a9bc0eeb21fe226a9457",
+  "new_comms_sha256": "4799cfa2681d726c44cbf5467253f3cbc45c8cbd0d12cca4577625dfda4b3b0b",
+  "scope": "Final communication and owned handoff only; no new research, scoring, review, producer edit, paid work or queue action."
+}
