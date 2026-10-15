@@ -24611,3 +24611,13 @@ Why: both night results so far rest on Qwen2.5-0.5B. Qwen2.5-7B has untied input
   - REPRO7a: batch layout in float64 (n against 2n rows).
   - REPRO7b: batch layouts in float32 and bfloat16.
   - Readings as fixed for REPRO1.
+
+## 2026-10-15 07:57 UTC: TB, quantified: chaos that neither single push gives
+
+From tb/*/tb-t*.npz (inline analysis), we counted off-axis cells that are chaotic while both single-push cells at the same strengths are not: (alpha1, 0) and (0, alpha2) on the plane's own axes.
+- gratitude@4 + hostility@16, log10 T -0.1: 1574 cells, 17.1 % of the plane (79 % of chaotic off-axis cells).
+- gratitude@4 + hostility@16, +0.1: 880 cells, 9.5 % (30 %).
+- hostility@4 + gratitude@16, -0.1: 1084 cells, 11.8 % (51 %).
+- hostility@4 + gratitude@16, +0.1: 1273 cells, 13.8 % (34 %).
+
+The two-block figure was also regenerated with shared y axes (tools/plot_two_block.py), so the labels no longer overlap.

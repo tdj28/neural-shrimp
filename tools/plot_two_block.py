@@ -41,7 +41,11 @@ def main():
                                       "axis_alpha1_0": float(chaotic[:, j0].mean())}
             ax.set_title(f"log10 T = {lt}: {100 * share:.0f} % chaotic", fontsize=9)
             ax.set_xlabel(r"$\alpha_1$, " + lab1, fontsize=8)
-            ax.set_ylabel(r"$\alpha_2$, " + lab2, fontsize=8)
+            if c == 0:                                     # the right column shares the left column's y axis
+                ax.set_ylabel(r"$\alpha_2$, " + lab2, fontsize=8)
+            else:
+                ax.set_yticklabels([])
+    fig.subplots_adjust(wspace=0.08, hspace=0.28)
     fig.colorbar(im, ax=axes, label="largest Lyapunov exponent (clipped)", fraction=0.025, pad=0.02)
     fig.savefig(out, bbox_inches="tight")
     print(json.dumps(summary, indent=1))
