@@ -25237,3 +25237,16 @@ Reference for the discussion: Almeida, Peralta-Salas and Romera, Physica D 200, 
 
 **Verdict for the reservoir version of the edge hypothesis: not supported.** With fixed linear readouts (Jaeger's definition), the loop remembers best in short stable cycles; memory falls with every period doubling toward the onset of chaos and is erased by chaos.
 - Caveats: one model and one direction; linear readouts only (nonlinear information-processing capacity not measured); finite records.
+
+## 2026-10-15 10:39 UTC: TBZh result (zoom around the N-shaped cell)
+
+**Run.** Pod (H100 class); commit 22bc4cf3 from the orchestrator log; runner rc 0; terminated. Map: tb/zh-host4-grat16-t-0.1, hostility@4 + gratitude@16, log10 T -0.1, 128 x 128 over alpha1 [0.0442, 0.0695] and alpha2 [-0.0316, -0.0063]. Chaotic share 24.8 %.
+- Periods: 2 (4578 cells), 3 (2515), 1 (1193), 6 (707), 4 (586), 7, 8, 9, 12 and others.
+
+**Structure** (docs/tp/tbzh-zoom.png; the TBZg render is docs/tp/tbzg-zoom.png):
+- A large smooth period-2 region with a period-4 doubling border on its left side.
+- A long diagonal period-3 band with period-6 borders on both sides and a dark superstable curve along its middle, like a shrimp leg.
+- The strongly chaotic band between them, which contains the N-shaped cell.
+- Speckled periods 1, 5 and 7 at the right edge, where attractors coexist.
+
+No shrimp body with a centre is visible at this resolution. The decisive test is DSS5 (period-5 window of the mirrored plane), still running.
