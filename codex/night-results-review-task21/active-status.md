@@ -1,3 +1,15 @@
+# Task21f accepted;21g saved review;21h metadata
+
+Updated 2026-10-15T13:32:18.485516+00:00. Task21f final scientific acceptancefd05eecf is adopted, standalone Claude delivery next. Task21g original computation and authority26da80d0 are closed; Boundary completed one saved-only presentation traversal and is writing scientific review. Task21h packet002 source/header/receipt metadata ready; Theory source-only reducer preparation. Task21i futurefresh source outline only. Inference sole Git/processowner; zero numerical reservations. Latest Claude comms296723e8 unchanged at prior checkpoint; next check during delivery. LaterDSS5outsidefrozen21f; no broadpaperredo. Quiet overnight watch active through08:00PDT. Earlier completed18/19/17/16/21a/b/26/27/21c/d/e remain done.
+
+## Preserved status history
+
+# Task 21f calculation closed; saved scientific review pending
+
+Updated 2026-10-15T13:17:59.611894+00:00. Sole Task21g source34654dac completed/reaped0, authenticated final authority26da80d0. All three outputs, nine supervision entries, four Git blobs and15 selected input pins are bound. No repeated arithmetic or open numerical job. Boundary is reading completed saved output under one bounded presentation traversal; scientific acceptance remains pending. Inference owns Git/process coordination. Task21f and21g saved scientific review is pending; Task21h source/header/receipt preparation is next, with no numeric target admission. Latest Claude queue296723e8 unchanged; laterDSS5 outside current scope.
+
+## Preserved status history
+
 # Task 21f calculation closed; saved scientific review pending
 
 Updated 2026-10-15T13:04:51.842909+00:00. Sole Task21f source7d75414c completed/reaped0, authenticated final authority1acde00b. All eleven outputs, nine supervision entries, four Git blobs and44 selected input pins are bound. No repeated arithmetic or open numerical job. Boundary is reading completed saved output under one bounded presentation traversal; scientific acceptance remains pending. Inference owns Git/process coordination. Task21g source/card preparation is next; no target sequence admission yet. Latest Claude queue296723e8 unchanged; laterDSS5 outside current scope.

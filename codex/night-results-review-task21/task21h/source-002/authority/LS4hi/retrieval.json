@@ -1,0 +1,29 @@
+{
+  "pod_id": "c2adoqzqddg41k",
+  "gpu_type": "SECURE:NVIDIA H100 80GB HBM3",
+  "commit": "e3c13292f5f093572ace114226c9fa273ab2afa8",
+  "jobset": "scan64",
+  "started": 1792040034.0637512,
+  "out": "/data2/neural-shrimp-data/runpod/soft64/20261015T045351Z",
+  "upload": {
+    "code_bytes": 1085440,
+    "data_bytes": 1218560,
+    "code_sha256": "ec5e665520cb5e5fa0e83d90d71be23ed5253885096c7718b2ad7526171b7580",
+    "data_sha256": "b04647295b3d078cfd1cfafbd1e11a9c8a1480aad21d0f3c71902d1b2ddd637c",
+    "extra_data": [
+      "explore/llm-phase-map/vectors-l4"
+    ],
+    "jobset_args": "ls-l4-hi 75 --transient 500 --samples 300 --record 80 --max-period 48 --concept philosophy --alpha -0.12 0.12 --layer 4 --vectors llm-phase-map/vectors-l4 --log-temperature -0.344881889763780 0.3 --resolution 64 128"
+  },
+  "runner_returncode": 0,
+  "remote_sha256": "507653d1d1508255f4b5f61bc6156519ac94e41a517c488665d3cc862e2df818",
+  "local_sha256": "507653d1d1508255f4b5f61bc6156519ac94e41a517c488665d3cc862e2df818",
+  "hash_verified": true,
+  "wall_seconds": 869,
+  "original_record": {
+    "path": "/data2/neural-shrimp-data/runpod/soft64/20261015T045351Z/result.json",
+    "sha256": "5114ebb8ff5e676279f83c8426c9df73ccf7ba2af4e40a4fcf2d936504ad6522",
+    "bytes": 1042,
+    "financial_fields_omitted": true
+  }
+}

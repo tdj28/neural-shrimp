@@ -1,3 +1,9 @@
+# Task21f scientifically complete; standalone delivery being checkpointed
+
+Updated 2026-10-15T13:32:18.485516+00:00. Root accepted final scientific review7a59f2fa and exact acceptancefd05eecf. The correction is317/1155clean,335/1221untrimmed; finite masked negative-search scope and all failures remain. Zero owned numerical jobs. No additional run or audit required.
+
+## Preserved status history
+
 # Task 21f calculation closed; saved scientific review pending
 
 Updated 2026-10-15T13:04:51.842909+00:00. Sole Task21f source7d75414c completed/reaped0, authenticated final authority1acde00b. All eleven outputs, nine supervision entries, four Git blobs and44 selected input pins are bound. No repeated arithmetic or open numerical job. Boundary is reading completed saved output under one bounded presentation traversal; scientific acceptance remains pending. Inference owns Git/process coordination. Task21g source/card preparation is next; no target sequence admission yet. Latest Claude queue296723e8 unchanged; laterDSS5 outside current scope.

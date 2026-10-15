@@ -1,0 +1,13 @@
+{
+  "commit": "88e5eb5ce21b39ae4d390f5729dbacdde7088374",
+  "jobset": "tbmulti",
+  "code_bytes": 3481600,
+  "data_bytes": 1269760,
+  "code_sha256": "e2ca4b2bbe8222fc87207af4abb8526e382af6d173f4950a6c5d9e0162cb5f4f",
+  "data_sha256": "2fd37693890d6823bf25d55be167e917d3bda91daf68dc79d9815c77cc426b67",
+  "extra_data": [
+    "explore/llm-phase-map/vectors-l4",
+    "explore/llm-phase-map/vectors-l16"
+  ],
+  "jobset_args": "c-grat4-host16-a1 20 --vectors1 llm-phase-map/vectors-l4 --vectors2 llm-phase-map/vectors-l16 --block1 4 --block2 16 --log-temperature -0.1 0.1 --transient 500 --record 300 --chunk 2048 --concept1 gratitude --concept2 hostility --alpha1 -0.12 0.12 --alpha2 0 0 --resolution 96 --resolution2 1 :: c-grat4-host16-a2 20 --vectors1 llm-phase-map/vectors-l4 --vectors2 llm-phase-map/vectors-l16 --block1 4 --block2 16 --log-temperature -0.1 0.1 --transient 500 --record 300 --chunk 2048 --concept1 gratitude --concept2 hostility --alpha1 0 0 --alpha2 -0.12 0.12 --resolution 96 --resolution1 1 :: c-host4-grat16-a1 20 --vectors1 llm-phase-map/vectors-l4 --vectors2 llm-phase-map/vectors-l16 --block1 4 --block2 16 --log-temperature -0.1 0.1 --transient 500 --record 300 --chunk 2048 --concept1 hostility --concept2 gratitude --alpha1 -0.12 0.12 --alpha2 0 0 --resolution 96 --resolution2 1 :: c-host4-grat16-a2 20 --vectors1 llm-phase-map/vectors-l4 --vectors2 llm-phase-map/vectors-l16 --block1 4 --block2 16 --log-temperature -0.1 0.1 --transient 500 --record 300 --chunk 2048 --concept1 hostility --concept2 gratitude --alpha1 0 0 --alpha2 -0.12 0.12 --resolution 96 --resolution1 1"
+}

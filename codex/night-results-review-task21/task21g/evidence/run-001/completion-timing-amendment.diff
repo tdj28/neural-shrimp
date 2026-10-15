@@ -1,0 +1,11 @@
+--- original-timing-prose
++++ corrected-named-point-prose
+@@ -27,7 +27,7 @@
+     "peak_rss_kib_before_final_report_serialization": 55200,
+     "scope": "includes input IO, calculations and streamed phase writes; excludes final report/manifest serialization/write; external supervisor observes full worker wall, no separate full-peak claim"
+   },
+-  "timing_scope": "Worker timers and ru_maxrss are observed before final rehash/report/manifest/exit as named, not independent full worker wall or final peak. Supervisor window is separately measured.",
++  "timing_scope": "Worker timers and ru_maxrss are observed at the named point before final report/manifest/exit; not an independent full-worker wall or final peak. Supervisor window is separately measured.",
+   "failure": null,
+   "timeout": false,
+   "no_numerical_replay": true,

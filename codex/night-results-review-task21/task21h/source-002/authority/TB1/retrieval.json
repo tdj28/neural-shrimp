@@ -1,0 +1,30 @@
+{
+  "pod_id": "kogqdn883e4mgu",
+  "gpu_type": "SECURE:NVIDIA H100 80GB HBM3",
+  "commit": "9b2f70e72ab935a9832a2c9b6050496fd291a71e",
+  "jobset": "tb",
+  "started": 1792041714.0591297,
+  "out": "/data2/neural-shrimp-data/runpod/soft64/20261015T052150Z",
+  "upload": {
+    "code_bytes": 1136640,
+    "data_bytes": 1269760,
+    "code_sha256": "f149277b68cdd7ec0bb69df7419441994b7cc1a4ec272dc48bc816a70a685850",
+    "data_sha256": "2fd37693890d6823bf25d55be167e917d3bda91daf68dc79d9815c77cc426b67",
+    "extra_data": [
+      "explore/llm-phase-map/vectors-l4",
+      "explore/llm-phase-map/vectors-l16"
+    ],
+    "jobset_args": "grat4-host16 50 --block1 4 --vectors1 llm-phase-map/vectors-l4 --concept1 gratitude --block2 16 --vectors2 llm-phase-map/vectors-l16 --concept2 hostility --log-temperature -0.1 0.1 --resolution 96"
+  },
+  "runner_returncode": 0,
+  "remote_sha256": "30035843112718ec76a766585da43fd41fec4c06d019b6946e48b05c212c8f15",
+  "local_sha256": "30035843112718ec76a766585da43fd41fec4c06d019b6946e48b05c212c8f15",
+  "hash_verified": true,
+  "wall_seconds": 1624,
+  "original_record": {
+    "path": "/data2/neural-shrimp-data/runpod/soft64/20261015T052150Z/result.json",
+    "sha256": "c03f453e8dacc737814075c9c368a29f78c79cc76927c32b8b1280b7e48cb18f",
+    "bytes": 1060,
+    "financial_fields_omitted": true
+  }
+}

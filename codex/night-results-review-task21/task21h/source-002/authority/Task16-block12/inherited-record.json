@@ -1,0 +1,176 @@
+{
+  "id": "Task16-block12",
+  "source_commit": "f18c257849bbda77e0a19f1ac615706330512585",
+  "inherited_accepted_task16": {
+    "task16_header_inventory": {
+      "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/steering-controls-crosscheck/input-metadata-001.json",
+      "sha256": "fdd511be93d478850fda51706fdbaa019e9b6292eb9b9accf1bb2eb619d34f19",
+      "bytes": 426132
+    },
+    "task16_authority": {
+      "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/steering-controls-crosscheck/original-authority-001/authority.json",
+      "sha256": "0cfd23d7cb4e34787fbbdcebf08455d87ae6b35ccdcf1cc94ab86a40d14f9357",
+      "bytes": 109143
+    }
+  },
+  "selected_original_record": {
+    "pod_id": "r5dofbruw2wnlc",
+    "gpu_type": "COMMUNITY:NVIDIA A100-SXM4-80GB",
+    "commit": "f18c257849bbda77e0a19f1ac615706330512585",
+    "jobset": "pairmap",
+    "started": 1791921018.759865,
+    "runner_returncode": 0,
+    "hash_verified": true,
+    "local_sha256": "1083a94228722cedcc92071e177f8443cb3f53686b4c5f8109360a116cc73b1c",
+    "remote_sha256": "1083a94228722cedcc92071e177f8443cb3f53686b4c5f8109360a116cc73b1c",
+    "wall_seconds": 7242,
+    "upload": {
+      "code_bytes": 481280,
+      "data_bytes": 1177600,
+      "code_sha256": "7fa924b4b90154daef2583280d9c0e9761cd7a45641ec77a8a32a6a01aa5631c",
+      "data_sha256": "f425388da2f9fe2392ca7e1dea3826d44b492fd4b1c6106e5f0874784f29d778",
+      "extra_data": [],
+      "jobset_args": "qwen0.5b - - 12 75"
+    },
+    "run_id": "20261013T195015Z",
+    "original_receipt": {
+      "path": "/data2/neural-shrimp-data/runpod/soft64/20261013T195015Z/result.json",
+      "sha256": "4675668a71a9cb520217aa0bbb5531f6a9b990a305565aa4e6fd3240659ea436",
+      "bytes": 807
+    },
+    "stdout": {
+      "path": "/data2/neural-shrimp-data/runpod/soft64/20261013T195015Z/runner-stdout.txt",
+      "sha256": "e439d1e8d051799d3174e5e4e91126201eb8642ef1bb43364056fbe71815840e",
+      "bytes": 2994
+    },
+    "status_lines": [
+      "2026-10-13T19:51:43Z start pair-vectors",
+      "2026-10-13T19:52:43Z end pair-vectors status 0",
+      "2026-10-13T19:52:43Z start pair-gratitude",
+      "2026-10-13T20:43:43Z end pair-gratitude status 0",
+      "2026-10-13T20:43:43Z start pair-philosophy",
+      "2026-10-13T21:34:43Z end pair-philosophy status 0",
+      "2026-10-13T21:34:43Z start pair-grat000",
+      "2026-10-13T21:38:43Z end pair-grat000 status 0",
+      "2026-10-13T21:38:43Z start pair-grat010",
+      "2026-10-13T21:42:43Z end pair-grat010 status 0",
+      "2026-10-13T21:42:43Z start pair-grat020",
+      "2026-10-13T21:46:43Z end pair-grat020 status 0",
+      "2026-10-13T21:46:43Z start pair-grat040",
+      "2026-10-13T21:50:43Z end pair-grat040 status 0"
+    ],
+    "ledger_records": [
+      {
+        "line_number": 1448,
+        "original_line_sha256": "d96b40dff48bd4168b11c3bd2acf41bf6ed4f0df2b458746a9a1949ee0fc5c42",
+        "fields": {
+          "event": "created",
+          "time": "2026-10-13T19:50:18+00:00",
+          "pod_id": "r5dofbruw2wnlc",
+          "commit": "f18c257849bbda77e0a19f1ac615706330512585",
+          "gpu_type": "NVIDIA A100-SXM4-80GB"
+        }
+      },
+      {
+        "line_number": 1461,
+        "original_line_sha256": "405a88d9f53ba74c7e49444781099cccdaaf2e29f5960c00f25a00c83c6e445e",
+        "fields": {
+          "event": "ssh_ready",
+          "time": "2026-10-13T19:50:51+00:00",
+          "pod_id": "r5dofbruw2wnlc",
+          "seconds_after_create": 32
+        }
+      },
+      {
+        "line_number": 1462,
+        "original_line_sha256": "3147ff2f0e01da1bed5c3308f2668a33e30f158255255040b42151471bdbd15a",
+        "fields": {
+          "event": "uploaded",
+          "time": "2026-10-13T19:50:54+00:00",
+          "pod_id": "r5dofbruw2wnlc",
+          "archive_bytes": 481280,
+          "data_bytes": 1177600
+        }
+      },
+      {
+        "line_number": 1532,
+        "original_line_sha256": "14d4e48365221121a77adca018e994b7ff77a477177e31eb549764177ce90070",
+        "fields": {
+          "event": "retrieved",
+          "time": "2026-10-13T21:50:53+00:00",
+          "pod_id": "r5dofbruw2wnlc",
+          "hash_verified": true,
+          "sha256": "1083a94228722cedcc92071e177f8443cb3f53686b4c5f8109360a116cc73b1c"
+        }
+      },
+      {
+        "line_number": 1533,
+        "original_line_sha256": "da3ca853fb707d03e474a1f9e73ed41e7eedd18b2264beeb14b629a162800e40",
+        "fields": {
+          "event": "terminate_requested",
+          "time": "2026-10-13T21:50:55+00:00",
+          "pod_id": "r5dofbruw2wnlc"
+        }
+      },
+      {
+        "line_number": 1534,
+        "original_line_sha256": "1f1ff9baae54af4a3b2cf4de8db5b83f4fae171cfa8adb3bbd3470f126eb7bdd",
+        "fields": {
+          "event": "terminated_verified",
+          "time": "2026-10-13T21:51:00+00:00",
+          "pod_id": "r5dofbruw2wnlc"
+        }
+      }
+    ],
+    "recorded_termination_verified": true,
+    "archive": {
+      "path": "/data2/neural-shrimp-data/runpod/soft64/20261013T195015Z/results.tgz",
+      "sha256": "1083a94228722cedcc92071e177f8443cb3f53686b4c5f8109360a116cc73b1c",
+      "bytes": 64628798
+    },
+    "selected_member_bindings": [
+      {
+        "archive_member": "explore/llm-soft-loop/pod64/pairmap-qwen0.5b/map128-gratitude/scan.npz",
+        "bytes": 260281,
+        "sha256": "837e843a8691000b839359b6e9bcf15ed6f5c78a1688fdecc8f28f53cb2a399a",
+        "current_path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/pairmap-qwen0.5b/map128-gratitude/scan.npz",
+        "segment_id": "segment-11",
+        "matches_header_inventory": true
+      },
+      {
+        "archive_member": "explore/llm-soft-loop/pod64/pairmap-qwen0.5b/map128-gratitude/scan.json",
+        "bytes": 129581,
+        "sha256": "b9015bb1197850c1e6c4b70527f2513d4be23f01bce41f313b44b0a1e56bbc8f",
+        "current_path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/pairmap-qwen0.5b/map128-gratitude/scan.json",
+        "segment_id": null,
+        "matches_header_inventory": true
+      },
+      {
+        "archive_member": "explore/llm-soft-loop/pod64/pairmap-qwen0.5b/map128-philosophy/scan.npz",
+        "bytes": 261595,
+        "sha256": "5b740c2bb5704c0056ffe18953b1a56129c5532082045b4dfb32a78c0d98ed9e",
+        "current_path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/pairmap-qwen0.5b/map128-philosophy/scan.npz",
+        "segment_id": "segment-10",
+        "matches_header_inventory": true
+      },
+      {
+        "archive_member": "explore/llm-soft-loop/pod64/pairmap-qwen0.5b/map128-philosophy/scan.json",
+        "bytes": 183703,
+        "sha256": "f9dd6fa0088624817d2ad7cb29f1717312a9246f4874ae355e5c93ab9220c0e4",
+        "current_path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/pairmap-qwen0.5b/map128-philosophy/scan.json",
+        "segment_id": null,
+        "matches_header_inventory": true
+      }
+    ],
+    "segment_ids": [
+      "segment-10",
+      "segment-11"
+    ],
+    "safe_receipt": {
+      "path": "/tmp/task16-original-authority-001/receipts/20261013T195015Z.json",
+      "sha256": "9c1315a3600c68dfca669b2652e477b5c16e50da2e6c316fc6020eed86b39027",
+      "bytes": 5942
+    }
+  },
+  "scope": "Task16 already accepted complete source/retrieval/member/termination basis; this reuse authenticates only current selected files and saved metadata, no archive or numerical re-audit."
+}

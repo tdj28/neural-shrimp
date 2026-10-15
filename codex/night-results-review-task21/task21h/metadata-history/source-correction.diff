@@ -1,0 +1,20 @@
+--- metadata-initial
++++ metadata-corrected
+@@ -2,7 +2,7 @@
+ import datetime,hashlib,io,json,re,subprocess,tarfile,time,zipfile,resource,os
+ os.environ.update(OMP_NUM_THREADS='1',OPENBLAS_NUM_THREADS='1',MKL_NUM_THREADS='1',NUMEXPR_NUM_THREADS='1');os.nice(10-os.getpriority(os.PRIO_PROCESS,0));resource.setrlimit(resource.RLIMIT_AS,(1024**3,)*2)
+ import numpy as np
+-R=Path('/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp');DATA=Path('/data2/neural-shrimp-data');D=Path('/tmp/task21h-source-001');D.mkdir(exist_ok=False);start=time.perf_counter();count=0;H=lambda b:hashlib.sha256(b).hexdigest()
++R=Path('/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp');DATA=Path('/data2/neural-shrimp-data');D=Path('/tmp/task21h-source-002');D.mkdir(exist_ok=False);start=time.perf_counter();count=0;H=lambda b:hashlib.sha256(b).hexdigest()
+ def read(p):
+  global count
+  b=Path(p).read_bytes();count+=len(b);return b
+@@ -61,7 +61,7 @@
+ runs.append(r)
+ source=[];seen={}
+ for c in dict.fromkeys(commits):
+- for p in ['tools/explore_llm_soft_loop.py','tools/hidden_chaos.py','tools/explore_llm_phase_map.py','tools/explore_llm_attractors.py']+(['tools/two_block_map.py']if c in [x['source_commit']for x in runs if x['kind']in ['TB','TBC']]else[]):
++ for p in ['tools/explore_llm_soft_loop.py','tools/explore_llm_phase_map.py','tools/explore_llm_attractors.py']+(['tools/hidden_chaos.py'] if c!='f18c257849bbda77e0a19f1ac615706330512585' else [])+(['tools/two_block_map.py']if c in [x['source_commit']for x in runs if x['kind']in ['TB','TBC']]else[]):
+   b=git(c,p);h=H(b)
+   if (p,h)not in seen:seen[p,h]=put('source/'+c[:8]+'/'+p,b)
+   source.append({'source_commit':c,'repository_path':p,**seen[p,h]})
