@@ -1,0 +1,152 @@
+{
+  "schema": "task21i-final-scientific-findings-v1",
+  "status": "completed_saved_data_review_accepted_by_root",
+  "scope": "Compact literal transcription of accepted saved results and scientific review; no additional calculation, model execution, resampling, or input audit.",
+  "scientific_note": {
+    "path": "/tmp/task21i-scientific-review.md",
+    "sha256": "092fee4f81349ae3b713fabc0b9b8cc71b7477e43cb8957fcbee78d6c0b18083"
+  },
+  "complete_compact_dispositions": {
+    "path": "/tmp/task21i-compact-saved-dispositions.json",
+    "sha256": "94af8a6f69287efc70559d710386661a499e8dc28f3f769dbcf4a17b0d56400d",
+    "storage": "Archive outside Git with the complete literal presentation."
+  },
+  "evidence": {
+    "source_commit": "f5fa2fd151de4f500d74b83c7176ccc9525360fb",
+    "run_root": "/data2/neural-shrimp-data/codex/night-results-review-task21/task21i/run-001",
+    "report_sha256": "3fb8d17b3976e8b7feaa4b2e520ce4b54928de279f7d98097a31cc28daad1d48",
+    "responses_sha256": "3d93150198e8b7fd5fb190fded33d033ae95a5aca5d84d64080182053bb0ee6d",
+    "worker_manifest_sha256": "ae31b30865bad7223e674b2992f5ae165edd5734432cbf5dddceafd272b4589d",
+    "authority_path": "/data2/neural-shrimp-data/codex/night-results-review-task21/task21i/run-001-authority/report.json",
+    "authority_sha256": "2a19d9b824c91930ccebbae16ca8d74e24f3c347de28f8e0dbc46d085b3eb5b4",
+    "completion_receipt_sha256": "6b6bb40b143764dc8b0e6551774186dbdb54f93f80359ad7694f9e8e797e745d",
+    "presentation_root": "/tmp/task21i-saved-read-001",
+    "presentation_summary_sha256": "d18636c274871b1dd4ee2a47601e9348794359e76a65d5e5e427d2878af19405",
+    "presentation_manifest_sha256": "f3f7253034dfef8a22735bb4d9a9b77cae688a081412cba3a58c2a72a0be3bd5",
+    "presentation_receipt_path": "/tmp/task21i-saved-read-001-supervision/receipt.json",
+    "presentation_receipt_sha256": "5a584f87085e85e905c4878eb8eba37351b7206455f0c63489d8bdae7d732e76",
+    "execution_attribution": "Inference directly observed original execution and closure. This agent reviewed the completed saved scientific presentation separately."
+  },
+  "coverage": {
+    "target_files": 100,
+    "target_bytes": 10231893,
+    "all_input_pin_rows": 145,
+    "all_input_pin_bytes": 13449666,
+    "bz_cells": 90,
+    "bz_pairs": 30,
+    "bz_task_pair_rows": 90,
+    "bz_metric_summaries": 9,
+    "bz_response_rows": 32400,
+    "bp_models": 2,
+    "bp_label_prompts": 400,
+    "bp_prompt_temperature_rows": 1200,
+    "bp_response_rows": 12400,
+    "all_response_rows": 44800,
+    "ols_permutation_fit_rows": 15000,
+    "quartile_bins": 12,
+    "published_json_comparison_leaves": 856,
+    "published_json_exact_leaves": 856,
+    "published_json_exceptions": 0,
+    "printed_precision_comparison_fields": 120,
+    "printed_precision_matches": 120,
+    "printed_precision_caveat": "Printed-format agreement is distinct from full-precision equality to an unavailable historical numeric object.",
+    "bz_raw_stored_summary_exceptions": 0,
+    "response_flag_exception_records": 5581,
+    "response_flag_exception_meaning": "5400 inherited MBPP scores and 181 possibly truncated saved prefixes; these are retained evidence limitations, not 5581 scoring failures."
+  },
+  "verdicts": [
+    {
+      "claim": "Saved BZ/BP arithmetic and reported summaries",
+      "disposition": "confirmed_with_finite_scope",
+      "finding": "All 856 published JSON leaves match; every saved raw/stored BZ mean comparison matches. All 120 historical inline printed fields match at their recorded precision."
+    },
+    {
+      "claim": "BZ task accuracy advantage of the selected chaotic-labelled arm",
+      "disposition": "not_supported_by_this_pilot",
+      "finding": "Arithmetic and MBPP steered arms are floor-limited; NQ accuracy difference includes zero. This is neither equivalence nor evidence of no behavioral differences: the NQ and MBPP entropy contrasts are retained."
+    },
+    {
+      "claim": "BP q7 marginal chaos-labelled accuracy association",
+      "disposition": "confirmed_as_descriptive_association",
+      "finding": "The six q7 all/greedy-subset contrasts are negative. Task composition and measured covariates materially change the comparison; no causal entropy-adjustment direction or calibrated native-chaos effect follows."
+    },
+    {
+      "claim": "BP q05 support at log-temperature 0.4",
+      "disposition": "undefined",
+      "finding": "No chaotic-labelled prompts occur in either requested subset; both contrasts remain undefined and consume no permutation draws. At 0.32, missing chaotic NQ support also leaves the full task-composition decomposition undefined."
+    },
+    {
+      "claim": "Adjusted q7 OLS and entropy-quartile findings",
+      "disposition": "confirmed_as_posthoc_descriptive_summaries",
+      "finding": "All three observed fits and all 15000 permutation fits are finite and rank 5. Empty quartile contrasts and all minimum-count weights remain explicit. Adjustment and transcript order are disclosed retrospective evidence, not a fresh preregistration."
+    },
+    {
+      "claim": "Independent response scoring",
+      "disposition": "partially_checkable",
+      "finding": "All 39400 saved arithmetic/NQ text comparisons match. The 5400 MBPP correctness flags remain inherited because code was not executed; 181 saved BP NQ prefixes may be truncated."
+    }
+  ],
+  "selected_literal_results": {
+    "bz_correct_counts": {
+      "arm_order": ["chaotic_label", "periodic_label", "unsteered"],
+      "arithmetic_per_arm_n": 4500,
+      "arithmetic": [3, 4, 3499],
+      "nq_per_arm_n": 4500,
+      "nq": [20, 16, 190],
+      "mbpp_per_arm_n": 1800,
+      "mbpp_inherited": [0, 0, 501]
+    },
+    "bp_q7_accuracy_differences": {
+      "units": "accuracy fraction; chaotic-labelled minus periodic-labelled",
+      "logT_0.25_all": -0.37371690094802235,
+      "logT_0.25_greedy": -0.26857142857142857,
+      "logT_0.32_all": -0.25706794345645234,
+      "logT_0.32_greedy": -0.2378787878787878,
+      "logT_0.4_all": -0.3576146788990825,
+      "logT_0.4_greedy": -0.3604746835443039
+    },
+    "q7_adjusted_chaos_coefficients_and_raw_p": [
+      {"log_temperature": 0.25, "coefficient": -0.036821230845983655, "p": 0.2038},
+      {"log_temperature": 0.32, "coefficient": -0.04627860047036536, "p": 0.069},
+      {"log_temperature": 0.4, "coefficient": -0.04485049743706537, "p": 0.0862}
+    ],
+    "q7_greedy_entropy_quartile_weighted_differences": [
+      {"log_temperature": 0.25, "difference": -0.16894409937888194, "eligible_bins": 3, "weight_sum": 14},
+      {"log_temperature": 0.32, "difference": -0.07700204660988974, "eligible_bins": 4, "weight_sum": 33},
+      {"log_temperature": 0.4, "difference": -0.10313306739699932, "eligible_bins": 4, "weight_sum": 32}
+    ],
+    "resampling_inventory": {
+      "actual_bz_bootstrap_draws": 90000,
+      "actual_bp_defined_permutation_comparisons": 10,
+      "actual_bp_permutation_draws": 100000,
+      "actual_bp_undefined_comparisons": 2,
+      "undefined_comparisons_draws": 0,
+      "actual_adjusted_ols_draws": 15000,
+      "manufactured_bp_draws": 120000,
+      "caveat": "Manufactured full-shape workload and actual missing-group workload are distinct. Raw zero Monte Carlo exceedance fractions are not exact zero probabilities."
+    }
+  },
+  "limits": [
+    "Team-level prior outcome exposure is disclosed; this is independent unblinded saved-data arithmetic, not a fresh confirmatory experiment.",
+    "Finite SoftLoop labels are inherited. Ordinary BP generation used float32; float64 label evaluation does not establish float64 native decoding or calibrated native chaotic dynamics.",
+    "Original selected-cell construction and hidden/visible subtype classification are inherited where native evidence is unavailable; matching retained selection fields is not a replay of original map selection.",
+    "The later producer transcript supplies historical inline code and invocation order as producer attestation, not independent observation of the historical process.",
+    "All exact endpoint tables, nonzero composition closure discrepancies, undefined groups, quartet weights, response flags and alternative findings remain in the accepted note and complete presentation.",
+    "No causal effect, entropy mediation direction, equivalence, or general behavioral benefit follows from these observational pilot comparisons."
+  ],
+  "future_fresh_design": {
+    "status": "planning_only_not_an_executable_or_confirmatory_card",
+    "source_outline": "/tmp/task21i-source-scope-and-fresh-plan.md",
+    "source_outline_sha256": "17488d5d9f0aef18d139cba55eeb7ae361fdfe08a103ef9b4bdcf322737be63c",
+    "requirements": "A genuinely fresh cohort with equivalence-aware exclusions; frozen model/revision, population, sampling, scoring, exclusions, support/rank/undefined policy, estimand, uncertainty and resource card before new outcomes. BP/BPC/BPCS results already seen cannot be newly preregistered.",
+    "execution_authorized": false
+  },
+  "timing_scope": {
+    "original_worker_observation_seconds": 2.4191807608585805,
+    "original_worker_observed_peak_rss_kib": 65220,
+    "original_worker_observation_boundary": "Before final posthash and report write; not separately measured full worker lifetime or final peak.",
+    "original_supervisor_window_seconds": 3.117328632,
+    "saved_reader_supervisor_window_seconds": 1.2665457599796355,
+    "operational_status": "Both sole runs are reaped and accepted; no live reservation or additional computation requested."
+  }
+}

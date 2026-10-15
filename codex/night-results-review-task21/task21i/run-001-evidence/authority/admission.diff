@@ -1,0 +1,12 @@
+--- prepared-c659cf44
++++ actual-bound-task21i
+@@ -1,7 +1,7 @@
+ from pathlib import Path
+ import json,hashlib,resource,os,subprocess,shutil,time,traceback
+-PINS={k:None for k in ('output_manifest','supervision_manifest','admission','closure','report','source_commit','preflight')}
+-SESSION_ID=None; SESSION_REAPED_EXIT=None; EXPECTED_IDENTITIES=None
++PINS={'output_manifest': 'd778763f7f3fba93dd4a9a5207b163fce9da01c08cd91d01df2a51dc03e41d45', 'supervision_manifest': 'ee8d2783d6aa016febe9a5a1e2f301ccc77f55371cdce9e89e10ad8c2659589d', 'admission': 'd5f4a1d6f75e4992934fa0e588d7e018d90deab9ede50a4fbbe8262325c5b69e', 'closure': 'f9b913d2a3927c15d5a8eaca0bc12e1bef23d8d477e6b65bbb865e86dd083c51', 'report': '3fb8d17b3976e8b7feaa4b2e520ce4b54928de279f7d98097a31cc28daad1d48', 'source_commit': 'f5fa2fd151de4f500d74b83c7176ccc9525360fb', 'preflight': 'a80416dda44d2978034b49ef07de124b99bc75d015907e8e5e778484c3ddbb22'}
++SESSION_ID=26780; SESSION_REAPED_EXIT=0; EXPECTED_IDENTITIES=[(3139358, 202258763), (3139370, 202258878)]
+ assert all(isinstance(v,str) and len(v)==(40 if k=='source_commit' else 64) for k,v in PINS.items()) and type(SESSION_ID)is int and SESSION_REAPED_EXIT==0 and EXPECTED_IDENTITIES is not None, 'prepared authority: actual pins/session/identities not supplied'
+ resource.setrlimit(resource.RLIMIT_AS,(4*1024**3,)*2);os.nice(max(0,10-os.getpriority(os.PRIO_PROCESS,0)))
+ R=Path('/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp');B=Path('/data2/neural-shrimp-data/codex/night-results-review-task21/task21i');O=B/'run-001';S=O.with_name(O.name+'-supervision');D=O.with_name(O.name+'-authority');D.mkdir(exist_ok=False);shutil.copyfile(__file__,D/'executed-check.py')

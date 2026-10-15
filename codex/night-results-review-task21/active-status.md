@@ -1,3 +1,39 @@
+# Task23 source preparation; persistent watch active
+
+Updated 2026-10-15T15:39:45.960540+00:00. The human explicitly extended watching indefinitely until they say stop and authorized continued work through Claude's queue. Root created `watch-claude-and-work-queue`, ACTIVE every 15 minutes, with no cutoff. This supersedes the prior ended overnight-watch phase; the old watch and its completed final check remain preserved history.
+
+Task23 is the four-cell independent CPU float64 mechanism replay, followed by Task25. Optional Task23 crossover is deferred; old Task15 remains optional and conditional. All completed Task21a–i, Task26 and Task27 work remains complete and privately delivered, with no repeat.
+
+Inference remains sole Git/process coordinator. Theory prepares new Task23 adapter/reducer, manufactured controls and a representative profile design; Boundary independently reviews source/profile scope. There are zero owned numerical jobs or reservations. No Task23 model, forward, JVP, profile or controls have run. Actual model/profile launch requires exact source/card review, private checkpoint and fresh capacity admission. No GPU, pod or paid action is admitted.
+
+The latest scoped fetch was 2026-10-15T15:26:41UTC at private main ba0b408d69c5f36bfc767617db5df86a8c8058e2; Claude comms 3f6ba81f9bead28d2c988284c0c569e6eb805d2493702c9fb4d9c1a6b2fd8470 was unchanged. Source packet /tmp/task23-source-002/manifest.json, SHA256 957f293f43a34aa62f99d2ef4c60a0531904b6b132427507e003ad5fa23b6d40, is Root-accepted for preparation. Its preserved metadata-only attempt001 refused an absent guessed dependency; no scientific attempt occurred. Original stored coordinate .11900000000000001 is explicitly distinguished from requested decimal .119.
+
+## Preserved status history
+
+# Task21i complete and privately delivered; overnight watch ended
+
+Updated 2026-10-15T15:17:47.566106+00:00. Task21i report092fee4f, Root acceptance3d6a0fb4 and final acceptancec3815628 are complete; standalone Claude entry98d935ed published and privately verified at d1ba3bfe. Evidenceff5d4ac6 preserves exact note/findings, all compact dispositions and bulky literal records outside Git. No live jobs, numerical reservations, further21i calculations or audits. All21a–i and26/27 finite review units are complete/delivered. Root deleted watch-claude-overnight after the final15:00:50UTC check (latest Claude3f6ba81f acknowledgment only). No recurrent watch or next23/25 launch is admitted; old15 also remains unexecuted. Future-fresh BP remains planning only. Inference retains sole Git/process ownership for any explicitly authorized follow-up.
+
+## Preserved status history
+
+# Task21i complete; standalone private delivery
+
+2026-10-15T15:16:23Z: Accepted final report092fee4f, Root3d6a0fb4 and final acceptancec3815628 are being delivered in the standalone Claude entry at this checkpoint; evidenceff5d4ac6 is privately verified. Exact publication/receipt verification follows. Zero live jobs/reservations; all original computation, authority and saved presentation closed. All21a–i scientific units and26/27 complete within their finite scopes; no more numerical replay. Overnight watch deleted after final15:00:50UTC check. Tasks23/25 and old15 remain unexecuted; no next launch or recurring monitoring admitted.
+
+## Preserved status history
+
+# Task21i scientifically accepted; final private delivery
+
+Updated 2026-10-15T15:14:42.217971+00:00. Final scientific note092fee4f and Root acceptance3d6a0fb4 adopted. All856 published JSON leaves exact;120 transcript fields agree at printed precision. Original calculation, finite metadata authority and sole literal presentation are closed/reaped; zero jobs/reservations. Final private evidence checkpoint and standalone Claude delivery are underway. All preceding21a–h and26/27 units remain delivered. Inference owns Git/process coordination; no more arithmetic or audit. Latest scoped Claude3f6ba81f was checked at15:00:50UTC, acknowledgment only. Root deleted overnight watch at approximately15:03UTC. No new23/25 or other launch is admitted. Future-fresh BP outline remains planning only.
+
+## Preserved status history
+
+# Task21i computation closed; saved scientific review
+
+Updated 2026-10-15T15:06:42.524740+00:00. Sole actual sourcef5fa2fd1 completed/reaped0. Final operational authority authenticates3 outputs,10 supervision files,5 Git blobs and145 input pins. Root accepts operational closure; The single accepted literal presentation is closed/reaped and Root-accepted; Boundary owns its saved scientific review and Root owns final scientific acceptance. No numerical replay or additional target run. Inference owns Git/process coordination. Task21h and all preceding units fully delivered. Zero owned numerical jobs at this checkpoint. Final scoped Claude check at15:00:50UTC pins3f6ba81f at private main5d1dc3fa. Only14:56 acknowledgment/prose-update context, no new assignment. Root deleted watch-claude-overnight at about15:03UTC. No recurrent watch remains; this admitted review/delivery continues. No Tasks23/25 plan admitted.
+
+## Preserved status history
+
 # Task21i manufactured complete; sole actual admission
 
 2026-10-15T14:50:36.753193+00:00: All21 manufactured controls passed; source2ad1d5f6, report115a3083/receipt222ca14e/outerclosure84ec1e1f accepted. Actual card/source/supervisor now Root-admitted conditional on exact private checkpoint/fresh capacity. No actual run yet; zero jobs/reservations. Inference sole Git/process owner; Theory deferred metadata-authority preparation, Boundary later saved-scientific review. Same BZ/BP plus transcript-attested original adjustment only; no BPC/BPCS or paper expansion. Task21h fully delivered. Latest Claude f1229d8a; watch ends15:00UTC with no interruption of an admitted bounded job.

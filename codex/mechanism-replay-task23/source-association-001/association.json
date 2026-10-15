@@ -1,0 +1,110 @@
+{
+  "schema": "task23-original-to-independent-source-association-v1",
+  "packet": {
+    "path": "/tmp/task23-source-002/manifest.json",
+    "bytes": 9559,
+    "sha256": "957f293f43a34aa62f99d2ef4c60a0531904b6b132427507e003ad5fa23b6d40"
+  },
+  "original_source": "b203fb56d0daa41441a926097baa7c6743d42b8a",
+  "own_source": "ba0b408d69c5f36bfc767617db5df86a8c8058e2",
+  "cell_order": "temperature outer, beta middle, alpha inner",
+  "original_cell_count": 201,
+  "original_chunk_size": 1300,
+  "original_chunk_count": 1,
+  "original_seed": 0,
+  "rng_source": "numpy.random.default_rng(seed), then normal(size=(201,896)) separately for each eps in order",
+  "eps": [
+    1e-06,
+    1e-09
+  ],
+  "selected_source_indices_requested_order": [
+    25,
+    29,
+    19,
+    35
+  ],
+  "selected_stored_log10_temperatures": [
+    0.125,
+    0.129,
+    0.11900000000000001,
+    0.135
+  ],
+  "coordinate_amendment": "Root accepted original stored .11900000000000001 with explicit one-ULP difference from requested .119; do not silently replace it.",
+  "initial_state": "Embedding of last prefix token for every base/twin row before1000 transient; same as own initial_state().",
+  "prefix": {
+    "prompt_key": "open",
+    "system_text": "You are an AI talking with another AI. You have complete freedom. Feel free to pursue whatever you want.",
+    "opener": "Hello!",
+    "window": 1,
+    "generation_prompt": true,
+    "own_prefix_ids": [
+      151644,
+      8948,
+      198,
+      2610,
+      525,
+      458,
+      15235,
+      7404,
+      448,
+      2441,
+      15235,
+      13,
+      1446,
+      614,
+      4583,
+      11290,
+      13,
+      31733,
+      1910,
+      311,
+      22729,
+      8820,
+      498,
+      1366,
+      13,
+      151645,
+      198,
+      151644,
+      872,
+      198,
+      9707,
+      0,
+      151645,
+      198,
+      151644,
+      77091,
+      198
+    ],
+    "scope": "Original text/chat-template source plus previously accepted own fixed prefix. No separately saved original runtime prefix IDs or new tokenizer/model replay asserted."
+  },
+  "steering": {
+    "zero_based_layer": 12,
+    "alpha": 0.0655,
+    "concept": "hostility-vs-kindness",
+    "vector_key": "hostility-vs-kindness",
+    "all_prefix_and_current_positions": true,
+    "extra_steering": null,
+    "beta": 0.0
+  },
+  "retained_contract": {
+    "transient_steps": 1000,
+    "record_steps": 2000,
+    "required": [
+      "both finite-twin absolute exponents",
+      "first twin relative network/readout mean log gains",
+      "signed log(norm(xN)/norm(x0))/N boundary correction",
+      "mean entropy",
+      "mean top-two logit gap divided by T"
+    ],
+    "identity": "lambda_eps1 = mean_log_g_net + mean_log_g_read + boundary_term",
+    "out_of_scope": [
+      "readout power iteration and trace/rank replay",
+      "optional crossover",
+      "infinitesimal AD proof"
+    ]
+  },
+  "initialization_proposal": "Generate both complete original201x896 RNG blocks then take the four source-index rows; no other cells evaluated. GPU versus CPU/batch arithmetic can still alter finite trajectories; original NumPy version is not inferred.",
+  "invalid_growth": "Record zero/nonfinite state/difference norms explicitly and stop/preserve according to reviewed source; do not hide invalid growth with floors.",
+  "no_execution": "Source and small metadata only. No model, forward, JVP, profile, control or target gain outcome computation."
+}

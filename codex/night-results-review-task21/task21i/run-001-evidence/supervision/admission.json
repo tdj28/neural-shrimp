@@ -1,0 +1,53 @@
+{
+  "source_commit": "f5fa2fd151de4f500d74b83c7176ccc9525360fb",
+  "private_remote_ancestor": "f5fa2fd151de4f500d74b83c7176ccc9525360fb",
+  "sources": {
+    "codex/night-results-review-task21/task21i/run.py": "f1e6f0679f877913ad1571c8d70dc36f5d0403469a82ac6d754a9bfbdd6b3ced",
+    "codex/night-results-review-task21/task21i/statistics.py": "4985313cb433a69fc51bbfbdfe06f665fa82f372487e371897038d30271363ca",
+    "codex/night-results-review-task21/task21i/adjustment.py": "5557b4e6c6169c071548664f8e7fc0502d7a2da724e0fb5c5fe5469423709f78",
+    "codex/night-results-review-task21/task21i/run-001-card.json": "743dda8dda0534d375ec0805c850683b24d5d7c6125dcaf4d4d33b7cc44c53ae",
+    "codex/night-results-review-task21/task21i/run-001-launch.py": "55752a4cbc23a79433300ab7e1c7ec16c81e1fdee218ad342cc68f7deba92da4"
+  },
+  "available_bytes": 56467476480,
+  "disk_free_bytes": 2751470100480,
+  "load_average": [
+    1.40087890625,
+    1.5234375,
+    2.63525390625
+  ],
+  "cpu_affinity_count": 32,
+  "scope": "One Task21i independent saved BZ/BP response and prompt arithmetic audit:90 BZ cells/30 pairs plus2 BP models/400 label prompts/1200 prompt-temperature rows/44800 response rows. Original attempt failures, source-precision/label/text-truncation limits and transcript-attested posthoc q7 adjustment remain. No model, generated-code execution, native label recomputation or producer imports. Exact source and finite original-input authority bound by reviewed card. CPU1 plus supervisor,1GiB AS,55CPU/60s wall plus5s TERM/5s KILL cleanup,128MiB sampled science output plus stdout/stderr,20/16GiB available RAM and16GiB disk; captured source/receipts are outside that sampled output cap and covered by separate storage headroom. No concurrent numerical reservation. Exit success means computational completion, not favorable scientific gates",
+  "command": [
+    "/data2/neural-shrimp/.venv/bin/python",
+    "-I",
+    "-B",
+    "-u",
+    "/data2/neural-shrimp-data/codex/night-results-review-task21/task21i/run-001-supervision/source/codex/night-results-review-task21/task21i/run.py",
+    "--card",
+    "/data2/neural-shrimp-data/codex/night-results-review-task21/task21i/run-001-supervision/source/codex/night-results-review-task21/task21i/run-001-card.json",
+    "--out",
+    "/data2/neural-shrimp-data/codex/night-results-review-task21/task21i/run-001"
+  ],
+  "seconds": 60,
+  "memory_gib": 1,
+  "cpu_worker": 1,
+  "supervisor_slots": 1,
+  "output_cap_bytes": 134217728,
+  "supervisor": {
+    "pid": 3139358,
+    "start": 202258763,
+    "pgid": 3139357,
+    "sid": 3139357,
+    "uid": 1000,
+    "nice": 10,
+    "threads": 1,
+    "limits": "Limit                     Soft Limit           Hard Limit           Units     \nMax cpu time              unlimited            unlimited            seconds   \nMax file size             unlimited            unlimited            bytes     \nMax data size             unlimited            unlimited            bytes     \nMax stack size            8388608              unlimited            bytes     \nMax core file size        0                    unlimited            bytes     \nMax resident set          unlimited            unlimited            bytes     \nMax processes             375398               375398               processes \nMax open files            65535                65535                files     \nMax locked memory         8388608              8388608              bytes     \nMax address space         1073741824           1073741824           bytes     \nMax file locks            unlimited            unlimited            locks     \nMax pending signals       375398               375398               signals   \nMax msgqueue size         819200               819200               bytes     \nMax nice priority         0                    0                    \nMax realtime priority     0                    0                    \nMax realtime timeout      200000               200000               us        \n",
+    "command": [
+      "/data2/neural-shrimp/.venv/bin/python",
+      "-I",
+      "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/night-results-review-task21/task21i/run-001-launch.py",
+      "--source",
+      "f5fa2fd151de4f500d74b83c7176ccc9525360fb"
+    ]
+  }
+}
