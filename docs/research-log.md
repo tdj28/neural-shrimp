@@ -24685,3 +24685,11 @@ The mechanism's crossover so far covers one concept direction (philosophy) in tw
 - **XOG.** Gratitude, with the vectors of its own map (pairmap-qwen0.5b/vectors). Cells docs/xo-cells-gratitude.json: 16 chaotic cells (log10 T -0.66 to 0.27) and 8 periodic cells of pairmap-qwen0.5b/map128-gratitude.
 - **XOR.** A random direction norm-matched to philosophy (controls/vectors-qwen0.5b-l12-philnorm, random1). Cells docs/xo-cells-random1.json: 16 chaotic (log10 T -0.68 to 0.30) and 8 periodic, from scan64/q05-rand1 (completed rows) and q05-rand1-top.
 - Both draws are seeded (20261015) and were fixed before any data. Readings as for XO, reported per direction and split at log10 T = 0.
+
+## 2026-10-15 08:19 UTC: run (exploratory): REPRO-L8, the reproducibility test in a second family (Llama-3.1-8B-Instruct, unsteered)
+
+The REPRO1 and REPRO7 settings applied to Llama-3.1-8B-Instruct (official gated weights, revision 0e9e39f2; the token reaches the pod on stdin and is unset after the download; new job set reprollama).
+- Cells: docs/repro-l8-cells.json. All 20 chaotic temperatures of big/llama3.1-8b-alpha0-wide and 20 periodic ones (seeded draw, 20261015), alpha 0.
+- tools/repro_noise.py --vectors none (new: unsteered runs need no vector; CPU smoke test passed).
+- REPRO-L8a: float64 batch layout. REPRO-L8b: float32 and bfloat16 batch layouts. 1500 steps.
+- Readings as for REPRO1.
