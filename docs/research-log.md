@@ -26206,3 +26206,28 @@ The human asked what the black in the left panel of fig:zoom70 means, since it i
 **Follow-up.** A post-fix plateau test of sampled chaotic cells at three offsets, as a separate small run.
 
 **Cost.** In the private ledger. Measured scan time per cell: 7.5 s on 2 x H100 NVL, 5.1 s on 2 x H200.
+
+## 2026-10-15 20:16 UTC: SHC-P4 result: the period-4 cell reads two-dimensional along two trace-zero curves, which do not cross inside the grid
+
+**Run.** Pod 26gjt14al9nnbo (SECURE H100 NVL): runner rc 0, archive hash verified (0987720a...), terminated and verified gone; wall 6181 s; commit 1b1ef257 (from the orchestrator receipt). Job set dss.
+- **Orbit.** Period 4, seed (-0.104443, 0.101883), tokens 你 . 你 .
+- **Grid.** 43 x 25 cells over alpha1 [-0.109, -0.1015] and alpha2 [0.0995, 0.1124]; log10 T -0.1; transient 900; Newton tol 1e-12.
+
+**Gates.**
+- 916 of 1075 cells solved. The 159 unsolved cells are blank in the figure and are not counted below.
+- Of the solved cells, 428 attract and 488 repel; the repelling ones lie past the 4 -> 8 flip, inside the period-8 tongue of the classifier map.
+- The third multiplier is at most 0.066 over all solved cells, so the leading pair carries the reading.
+
+**Statistics.** docs/dss/shc-p4-window.json (tools/dss_window.py, with zg3 as panel (a)). Figure ../neural-shrimp-data/figures/dss/shc-p4-window.png, sha256 46f4578a3977cedb...
+- **More one-dimensional than the period-2 cell.** Over attracting cells the median |mu2|/|mu1| is 0.125, against 0.59 for P2. Per step, |mu1| has median 0.81 and |mu2| median 0.50.
+- **Complex leading pairs** in 103 attracting cells, on two curves:
+  - a near-vertical column at alpha1 -0.1031 to -0.1024, with 48 cells, from alpha2 0.1035 upward;
+  - a diagonal stripe along the left arm of the period-4 V, from (-0.109, 0.108) to (-0.104, 0.0995), with 2 to 5 cells per column.
+- **Trace sign.** The trace changes sign across both curves (114 sign changes between neighbouring attracting cells). Below the column's complex part the vertical zero curve continues as a real exchange: 86 attracting cells have a negative product.
+- **Strongest contraction.** |mu1| = 0.041 (real) at (-0.10275, 0.10503), in the column. The period-2 cell never came below 0.222.
+- **No crossing.** No checkerboard, so the two trace-zero curves do not cross inside the grid. Extrapolated, they meet below its lower edge, near alpha1 -0.103 and alpha2 0.097. That is where a head (Type A) or neck (Type B) of the period-4 cell would sit; the grid does not reach it.
+
+**Reading.** Both cells of the cascade so far replace the one-dimensional superstable curve with trace-zero curves and complex pairs. P4 comes closer to superstability than P2 (0.041 against 0.222) and is more one-dimensional in the median.
+- Whether its two curves cross (Type A head) or turn away (Type B) is not decided by this grid.
+- A grid extended to alpha2 0.095 would settle it (exploratory; not launched).
+- P8 is still running.
