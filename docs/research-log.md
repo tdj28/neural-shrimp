@@ -24261,3 +24261,27 @@ Pods et2o3xeke86icn (block 20), bpe9rgounm31kb (block 35) and zep5qsklokz0zr (bl
 ## 2026-10-15T06:29:19.295880+00:00 — Codex Task 16 resumed and final admission accepted
 
 Direct human return renewed Task16→20→15 and overnight comms monitoring. Root accepted exact plan aa49c0c6/card67cbbc0b/supervisor45df9367 with scientific source dc6cd5c6 and unchanged run3baeb697/tabulate3d802196. Full operational review and source/metadata pins are in codex/steering-controls-crosscheck/final-operational-review.md. One120s local saved-scan tabulation is authorized only after this verified private checkpoint and fresh resource admission; no analysis has run at this entry. No retry, extension, model execution or pod action. Original evidence, failed checkpoint history and prepared bytes remain preserved.
+## 2026-10-15 06:26 UTC: FBD result: the 384->768 flip at log10 T -0.156, ratio 4.6673; the locator's acceptance threshold made explicit
+
+- **FBD** (pod 5kcjngot3vja4p, H100; runner rc 0, hash verified, terminated; 3329 s; commit b5af43a7; output cascade/crescent-t-0.156-e/progress.jsonl). The locator bracketed the flip of the period-384 orbit in 12 evaluations and then refused, as designed: the best evaluation had |mu + 1| = 7.9e-6, above its hard-coded acceptance 1e-6. The crossing itself is clean at every evaluation: a real critical multiplier, Ritz residual below 1e-14, next modulus about 1e-13.
+- **Precision floor.** The 11 evaluations within 1e-12 of the root scatter by 1.8e-5 in mu + 1 about a straight line. This is the measured precision floor of the period-384 multiplier: a product of 384 step Jacobians, with Newton residuals 1e-14 to 4e-11. The second planned flip (768->1536) was not attempted.
+- **Root from the logged evaluations** (stated method, CPU, inline script; output kept in the session scratchpad and reproduced here):
+  - least-squares line through all 12 evaluations, slope -7.956e7 per unit lambda;
+  - root lambda = 0.06510347354857382, standard error 7e-14, band +-2.3e-13 (scatter divided by slope);
+  - all near-root evaluations lie in [0.065103473548189, 0.065103473549129].
+- **Fifth flip ratio** (f192 - f96)/(f384 - f192) = **4.6673**: 4.6672-4.6675 over that whole span, and 4.66716-4.66750 for a root moved by +-1e-12.
+  - The flip ratios at -0.156 are now 14.93, 3.124, 4.4988, 4.6208, 4.6618, 4.6673 (Feigenbaum's delta = 4.6692).
+  - Distance from delta: -0.170, -0.048, -0.0074, -0.0019.
+- **Tool change** (tools/llm_feigenbaum.py, tests 8/8 pass): the acceptance |mu + 1| <= g_accept is now an argument (--g-accept, default 1e-6 as before) and --lam-rel-tol is exposed. A deeper run must set g_accept above the measured floor of its period, stated in its run card, never below it.
+- The local cross-check of the same flip (RTX 2000 Ada, started 05:14, older code) is still running and will hit the same refusal. Its evaluations are an independent location on other hardware.
+
+## 2026-10-15 06:27 UTC: run (exploratory): FBD2 (the 768->1536 flip) and FBS384 (the band-384 superstable point) at log10 T -0.156
+
+Human (14-15 Oct): "And double that maybe?", "What about 768?". Both runs are on H100 pods (cap 5.5/h) and use commit HEAD (with --g-accept).
+- **FBD2**: cascade crescent-t-0.156-f, period 768, --flips 1. The start (mid band) and next points follow the rule of fb768b.sh:
+  - start = f384 + 0.5 w = 0.0651034764570688; next = f384 + w (1 + 0.25/d) = 0.0651034796771438, with w = (f384 - f192)/d and d = 4.66733.
+  - transient 80000. --g-accept 3e-4: the floor measured at period 384 was 1.8e-5, and I expect at most about 1e-4 at period 768. If the scatter of mu + 1 exceeds 3e-4, the locator refuses and the root is read from the logged evaluations as in FBD.
+  - --lam-rel-tol 2e-12, so the bracket stops near the expected noise band instead of spending evaluations below it.
+  - Gives the sixth flip ratio (f384 - f192)/(f768 - f384).
+- **FBS384**: superstable crescent-t-0.156-384, bracket [0.0651034470, 0.0651034730]. This is inside (f192, f384) with insets of about 2 % of the band. Transient 60000.
+  - Gives the superstable ratio (s192 - s96)/(s384 - s192). With s384, the last two superstable ratios both come from precisely located points.
