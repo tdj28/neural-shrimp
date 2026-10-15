@@ -24611,3 +24611,19 @@ Why: both night results so far rest on Qwen2.5-0.5B. Qwen2.5-7B has untied input
   - REPRO7a: batch layout in float64 (n against 2n rows).
   - REPRO7b: batch layouts in float32 and bfloat16.
   - Readings as fixed for REPRO1.
+
+## 2026-10-15 07:57 UTC: TB, quantified: chaos that neither single push gives
+
+From tb/*/tb-t*.npz (inline analysis), we counted off-axis cells that are chaotic while both single-push cells at the same strengths are not: (alpha1, 0) and (0, alpha2) on the plane's own axes.
+- gratitude@4 + hostility@16, log10 T -0.1: 1574 cells, 17.1 % of the plane (79 % of chaotic off-axis cells).
+- gratitude@4 + hostility@16, +0.1: 880 cells, 9.5 % (30 %).
+- hostility@4 + gratitude@16, -0.1: 1084 cells, 11.8 % (51 %).
+- hostility@4 + gratitude@16, +0.1: 1273 cells, 13.8 % (34 %).
+
+The two-block figure was also regenerated with shared y axes (tools/plot_two_block.py), so the labels no longer overlap.
+
+## 2026-10-15 07:58 UTC: Amendment: FBC148b also stopped (Newton across the bracket); FBC148c relaunched with a nearer start
+
+FBC148b (pod b15nhi8uic06dg, runner done 07:50) started at s96 (mu = -4e-9), then refused: "period-96 Newton did not converge at lambda = 0.0661242927". The residuals wandered between 2e-5 and 3e-3: the step from s96 to the far end spans about 0.54 of the period-96 band.
+- **FBC148c.** Start 0.06612361 (about s96 + 0.32 w96, still inside the attracting range) and next 0.06612418868 (f96 + 0.1 w192). The Newton step is now about 0.18 w96. Otherwise as FBC148b.
+- If this also fails, the -0.148 flips stay at period 96 in the paper, as the caption already says, and no further attempt is made tonight.
