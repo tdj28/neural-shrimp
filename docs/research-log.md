@@ -24198,3 +24198,18 @@ Pods: 7B labels (shards 0-5: lwevy9huignhj3, ake729hlyutvbn, x2wlyik6vf3e67, 9g7
   - four chaotic cells of the hostile line alpha 0.0655 (log10 T 0.17692, 0.18073, 0.18480, 0.19026; KY dimensions 1.045, 1.156, 1.008, 1.013).
 - **Reading:** descriptive. Number of turning points per phase and the shape of the maps. The leading component's explained share says how one-dimensional each phase is.
 - **Output:** `../neural-shrimp-data/explore/llm-soft-loop/pod64/retmap/body-edge`
+
+## 2026-10-15 06:03 UTC: TB result: two steering directions at two blocks interact; off the axes the plane is chaotic where neither push alone is
+
+Pods kogqdn883e4mgu (TB1, 1624 s) and 121kd13z9rze70 (TB2, 1654 s): SECURE H100 80GB HBM3, runner rc 0, hashes verified, terminated; commit 9b2f70e7. 96 x 96 float64 cells per map. Figure: paper/llm/figures/fig-two-block.png (tools/plot_two_block.py).
+
+| map | log10 T | chaotic share | axis alpha2 = 0 (block 4 only) | axis alpha1 = 0 (block 16 only) |
+|---|---|---|---|---|
+| gratitude @ 4 x hostility @ 16 | -0.1 | 21.7 % | 7.3 % | 8.3 % |
+| gratitude @ 4 x hostility @ 16 | +0.1 | 33.0 % | 28.1 % | 45.8 % |
+| hostility @ 4 x gratitude @ 16 | -0.1 | 23.4 % | 31.3 % | 17.7 % |
+| hostility @ 4 x gratitude @ 16 | +0.1 | 42.0 % | 38.5 % | 36.5 % |
+
+- Each panel has a periodic hole around zero steering, consistent with weak steering rarely giving chaos.
+- At log10 T -0.1 with gratitude at block 4, large chaotic regions lie off the axes, where neither push alone is chaotic. The combined push creates chaos that neither single direction gives.
+- Exploratory: one model, one prompt, two direction pairs, two temperatures.
