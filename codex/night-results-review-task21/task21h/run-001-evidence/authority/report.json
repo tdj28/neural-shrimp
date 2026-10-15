@@ -1,0 +1,95 @@
+{
+  "passed": true,
+  "tool_session_id": 15574,
+  "tool_session_reaped_exit_code": 0,
+  "numerical_replay": false,
+  "outer_logs": [
+    {
+      "path": "/data2/neural-shrimp-data/codex/night-results-review-task21/task21h/run-001-dispatch/dispatch.json",
+      "bytes": 549,
+      "sha256": "0901c1a44743c0dee60c1e6649a1742dace43e7d0de09e55bd45a69ad5b0f3f0"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/codex/night-results-review-task21/task21h/run-001-dispatch/preflight.json",
+      "bytes": 22590,
+      "sha256": "176c2447e706deb3549436dfd24b5d5efc4d8a195018fdd2cbbd3eb5483198b3"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/codex/night-results-review-task21/task21h/run-001-dispatch/preflight.py",
+      "bytes": 4827,
+      "sha256": "03976517f66d3ecd906639d1160a2bdd2506656c8bfb26a3dd530c2d6f7d5cb1"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/codex/night-results-review-task21/task21h/run-001-dispatch/stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/codex/night-results-review-task21/task21h/run-001-dispatch/stdout.log",
+      "bytes": 4444,
+      "sha256": "9d2a8ddf75a3e4503dc02c8690ec8bc52b34f959cbf579f8f486c9f281af0e59"
+    }
+  ],
+  "source_commit": "1fe08093028db99808599ce72c5dbb79bb8e9d96",
+  "report_sha256": "eddcc97a5e73c11480f3fc74ef44429b7e24fedb3b16db5dc5d1ae5670721fc1",
+  "closure_sha256": "df2885815b61da6233c7dda277025999854ee316c8138618397c5f26daf6bf4c",
+  "manifests": [
+    {
+      "root": "/data2/neural-shrimp-data/codex/night-results-review-task21/task21h/run-001",
+      "manifest_sha256": "95343358d55998bcef99be2d6ec873666c7db7671e65a55d062acd3008b6fee5",
+      "files": 4
+    },
+    {
+      "root": "/data2/neural-shrimp-data/codex/night-results-review-task21/task21h/run-001-supervision",
+      "manifest_sha256": "5a40aa2558a3939acebd99d71d22facd9f719517f342ff3721787d67b746754f",
+      "files": 9
+    }
+  ],
+  "captured_git_source_blobs_verified": 4,
+  "original_input_pin_rows_verified": 82,
+  "original_supervisor_worker_groups_sessions_absent": true,
+  "identities": [
+    {
+      "pid": 3101600,
+      "start": 201959829,
+      "pgid": 3101600,
+      "sid": 3101600,
+      "uid": 1000,
+      "nice": 10,
+      "threads": 1,
+      "limits": "Limit                     Soft Limit           Hard Limit           Units     \nMax cpu time              unlimited            unlimited            seconds   \nMax file size             unlimited            unlimited            bytes     \nMax data size             unlimited            unlimited            bytes     \nMax stack size            8388608              unlimited            bytes     \nMax core file size        0                    unlimited            bytes     \nMax resident set          unlimited            unlimited            bytes     \nMax processes             375398               375398               processes \nMax open files            65535                65535                files     \nMax locked memory         8388608              8388608              bytes     \nMax address space         1073741824           1073741824           bytes     \nMax file locks            unlimited            unlimited            locks     \nMax pending signals       375398               375398               signals   \nMax msgqueue size         819200               819200               bytes     \nMax nice priority         0                    0                    \nMax realtime priority     0                    0                    \nMax realtime timeout      200000               200000               us        \n",
+      "command": [
+        "/data2/neural-shrimp/.venv/bin/python",
+        "-I",
+        "-B",
+        "-u",
+        "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/night-results-review-task21/task21h/run-001-launch.py",
+        "--source",
+        "1fe08093028db99808599ce72c5dbb79bb8e9d96"
+      ]
+    },
+    {
+      "pid": 3101635,
+      "start": 201959969,
+      "pgid": 3101635,
+      "sid": 3101635,
+      "uid": 1000,
+      "nice": 10,
+      "threads": 1,
+      "limits": "Limit                     Soft Limit           Hard Limit           Units     \nMax cpu time              55                   55                   seconds   \nMax file size             unlimited            unlimited            bytes     \nMax data size             unlimited            unlimited            bytes     \nMax stack size            8388608              unlimited            bytes     \nMax core file size        0                    unlimited            bytes     \nMax resident set          unlimited            unlimited            bytes     \nMax processes             375398               375398               processes \nMax open files            65535                65535                files     \nMax locked memory         8388608              8388608              bytes     \nMax address space         1073741824           1073741824           bytes     \nMax file locks            unlimited            unlimited            locks     \nMax pending signals       375398               375398               signals   \nMax msgqueue size         819200               819200               bytes     \nMax nice priority         0                    0                    \nMax realtime priority     0                    0                    \nMax realtime timeout      200000               200000               us        \n",
+      "command": [
+        "/data2/neural-shrimp/.venv/bin/python",
+        "-I",
+        "-B",
+        "-u",
+        "/data2/neural-shrimp-data/codex/night-results-review-task21/task21h/run-001-supervision/source/codex/night-results-review-task21/task21h/run.py",
+        "--card",
+        "/data2/neural-shrimp-data/codex/night-results-review-task21/task21h/run-001-supervision/source/codex/night-results-review-task21/task21h/run-001-card.json",
+        "--out",
+        "/data2/neural-shrimp-data/codex/night-results-review-task21/task21h/run-001"
+      ]
+    }
+  ],
+  "scope": "Saved source/input/output/closure authentication only; no numerical checks repeated. Original session15574 reaped0; exact captured supervisor/worker births checked absent. No separate historical dispatch-waiter identity is inferred.",
+  "seconds": 0.12148457998409867
+}
