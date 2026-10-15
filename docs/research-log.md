@@ -23747,3 +23747,7 @@ The human asked how to reach proven chaos. The standard route is a horseshoe ver
   - The effective passage fraction f = sqrt(C ab) / pi is compared with the 0.5B value. The lap number N is read from the period, period = q (N + k) for the base cycle's period q and a fixed k.
   - Failures and non-fans are reported as they stand.
 - **Output:** `../neural-shrimp-data/explore/llm-soft-loop/pod64/{fl15,fl7}/{branch-*,normal-form-*,line}`
+
+## 2026-10-15 02:28 UTC: Amendment to CL: the period-4 cusp candidates (CL5)
+
+The CL list left out the paper's two period-4 cusp candidates: curve-foldB-minus, brackets at curve points 13/14 (b +8.38 to -1.09) and 54/55 (+9.35 to -9.04). With them the set is the paper's six. CL5 locates them with the same tool, settings and reading: one pod, job set codim2, commit of this entry.
