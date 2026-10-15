@@ -169,7 +169,9 @@ sampling.
 
 \paragraph{Related work.} Language-model generation has been studied as a dynamical system at several levels, and
 the closest studies differ from ours in what they compute. Lyapunov-like quantities have been used to measure
-sensitivity to small perturbations in reasoning traces \cite{li2025quasilyapunov,jaca2026chaos}, but these studies
+sensitivity to small perturbations in reasoning traces \cite{li2025quasilyapunov,jaca2026chaos} and in token rings
+resampled by a model's own conditionals, with a test that separates the construction from the model
+\cite{verazuniga2026selffeeding}, but these studies
 measure chaos-like sensitivity in generation without computing orbits or bifurcations. Output statistics change
 abruptly with sampling temperature, and several studies analyse the changes as phase transitions or criticality
 \cite{arnold2024phase,nakaishi2024phase,sun2025phase,ruan2026criticality}. These analyses concern output statistics;
@@ -186,15 +188,20 @@ recurrent networks have been related to the difficulty of training them \cite{ri
 with their linearizations have long been used to reverse-engineer trained recurrent networks
 \cite{sussillo2013opening,maheswaranathan2019reverse}. Equilibrium, looped and recurrent-depth models iterate a block to a fixed point or for
 many steps, and their stability has been analysed through Jacobians and fixed points
-\cite{bai2019deq,bai2021stabilizing,geiping2025recurrent,zhu2025ouro,tomihari2025recurrent,yang2026stars,prairie2026parcae,buehlmaier2026layernorm,labovich2026stability,movahedi2026fixedpoint};
-that analysis concerns fixed points. A separate line predicts the answers of looped models from the geometry of
+\cite{bai2019deq,bai2021stabilizing,geiping2025recurrent,zhu2025ouro,tomihari2025recurrent,yang2026stars,prairie2026parcae,buehlmaier2026layernorm,labovich2026stability,movahedi2026fixedpoint},
+and recent analyses of looped reasoners follow their internal dynamics, their settling, marginal or drifting regimes
+and slowly decaying oscillatory modes \cite{blayney2026mechanistic,viakhirev2026thinkshallow,park2026loopedearlier};
+that analysis concerns fixed points and their spectra. A minimal recurrent self-attention with a repulsive value map
+becomes chaotic \cite{gao2026repulsive}, but it is a constructed model, not a trained one. A separate line predicts the answers of looped models from the geometry of
 score margins along completed finite-depth trajectories \cite{luo2026prediction}, without fixed points or Jacobians. The closest precedent is a derivative-based fold analysis of a small task-trained
 looped transformer, whose passage and spectral-gap predictions are unfitted \cite{kim2026phase}. That model was
 trained for a task, whereas ours is a released pretrained language model, and our analysis also differs in its
 objects: the fold of a primitive periodic orbit, the full-channel passage of a two-step map, and the accumulation law
 of the windows, whose prefactor is set by the global reinjection. Expected-embedding
 feedback itself is used in training \cite{zeng2025ponderlm} and, training-free, in pretrained models
-\cite{zhang2025softthinking,wu2025singlethreaded}, next to continuous latent reasoning \cite{hao2024coconut}. Fixing
+\cite{zhang2025softthinking,wu2025singlethreaded}, next to continuous latent reasoning \cite{hao2024coconut}; a reduced
+dynamical model explains why pretrained models fail to preserve such mixtures \cite{backour2026mixture}, and whether
+they exploit the superposition the mixtures could carry has been questioned \cite{rizvimartel2026illusion}. Fixing
 the prefix and the position turns that feedback into the autonomous map we analyse.
 
 In neural systems more broadly, saddle-node ghosts produce quantitative delays in task-trained recurrent networks
@@ -218,7 +225,7 @@ iterate and the all-row criterion failed by one row, and the orbits recovered an
 near cusp candidates. Derivative-based normal-form predictions in a task-trained looped transformer precede ours
 \cite{kim2026phase}. We know of no earlier frozen held-out test of a spectral prediction of a pretrained language
 model's response to relaxation, which we give for Huginn, and of no earlier computer-assisted proof of a periodic
-orbit of a full transformer language-model map. These priority statements rest on a targeted search (12 October 2026) that found no prior work combining these
+orbit of a full transformer language-model map. These priority statements rest on targeted searches (12 and 15 October 2026) that found no prior work combining these
 elements for the feedback map of a pretrained language model. That is an absence of evidence within the search, not
 a proof of priority.
 
