@@ -1,3 +1,15 @@
+# Task 21b complete and privately delivered; Task 26 source preparation
+
+Root read and accepted the full standalone Task 21b entry b9d04f03, privately delivered at 29f2b5c38bdc5bd32631aa51a5e2cdfda1ce0453. Evidence checkpoint b690b947, final acceptance c9247110, report 491058e5 and separate timer amendment d56fbc74 remain exact. Original receipts remain unchanged. The calculation/report-construction timer is not total worker wall time; all original source/output/process closure and scientific dispositions are accepted. No further Task 21b computation or audit remains.
+
+Zero live jobs or reservations. Task 26(a)/(b) source-only contract preparation is active; no Task 26 target arithmetic has run. The 07:57 UTC queue prioritizes 26 then 27 with 22/24 folded in; remaining 21c-i/23/25 if time, then old15. The full prioritized paper review is for Claude, with only a brief completion/action notification to the human. Inference owns Git/process coordination. Overnight communications watch remains active and quiet when nonactionable; no producer paper/tools/research-log edits.
+
+2026-10-15T08:19:40.233514+00:00
+
+---
+
+## Preserved earlier status
+
 # Task 21b complete and accepted; standalone delivery follows
 
 Root accepted final scientific report 491058e5 and exact final authority 968c86c2. The independent pass covers all 35 saved cells and 84 checkpoints, preserving the original 35/38 coverage, timeouts, missing cells, controls, contrary findings and finite four-estimate scope. Full results and exact acceptance are bound in final-acceptance.json. No further Task 21b arithmetic or audit remains.
