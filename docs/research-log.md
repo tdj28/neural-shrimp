@@ -26518,3 +26518,23 @@ In the period-5 window, a two-parameter Newton search on the invariants of the l
 - (ii) "Head" also when T and D change sign together within one 2 x 2 block of attracting cells (all four sign combinations of (T, D) present). The leading moduli there are reported.
 - (iii) The third multiplier is reported per cell. Where it is comparable to the leading pair, the two-dimensional verdict is "unresolved".
 - The original checkerboard, loop and turn-away criteria are unchanged.
+
+## 2026-10-15 23:08 UTC: FT result: the Feigenbaum tree of the crescent cascade, in three nested zooms
+
+**Runs.** Three pods, each runner rc 0, archive hash verified, terminated and verified gone; commit a76d5991.
+- (a) jlr6yc35kz6xdu, H100 SXM, 650 s.
+- (b) H100 NVL, 892 s.
+- (c) 656 s.
+- Job set scan64 --projections, float64, transient 3000, record 256.
+
+**Figure.** tools/plot_feigenbaum_tree.py writes paper/llm/figures/fig-feigenbaum-tree.png and docs/ft/ft-summary.json.
+- Each zoom is taken in both coordinates, on the branch boxed in the panel above: panel b at y 0.0012-0.0017, panel c at 0.001243-0.001258.
+- The forks sit at the Newton-located flips of tab:cascade156, the exponent touches zero at every flip, and chaos follows the accumulation point (estimated at 0.0651034809).
+- In (a), the chaotic band ends at alpha = 0.065278. There the attractor jumps to a strongly contracting period-2 orbit (exponent -1.27; 320 of the 322 later cells).
+
+**Check fixed in the run card.** Do the branchings sit at the Newton flips? Every fork opens slightly before its flip: by 8.4e-6 in alpha at 3 -> 6, and by at most 1.1e-6 at the later flips.
+- line a: 6 -> 12 7.0e-7; 12 -> 24 within one cell; 48 -> 96 4e-8.
+- line b: 6 -> 12 1.1e-6; 12 -> 24 8.3e-7; 24 -> 48 2.1e-7; 48 -> 96 8.3e-8.
+- line c: 24 -> 48 2.4e-7; 48 -> 96 7.5e-8.
+
+This is critical slowing down. Near a flip the multiplier is close to -1, and 3000 transient steps leave a decaying oscillation that the period test reads as the doubled period. It is reported, not smoothed; the caption states it.

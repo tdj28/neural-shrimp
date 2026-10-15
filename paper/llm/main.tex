@@ -946,6 +946,21 @@ $-0.156$, which we followed furthest, at the $768\to1536$ flip.
 }
 \label{fig:feigenbaum}
 \end{figure}
+\begin{figure}[tbp]
+\centering
+\includegraphics[width=0.86\linewidth]{fig-feigenbaum-tree.png}
+\caption{The Feigenbaum tree of the crescent cascade (Qwen2.5-0.5B-Instruct, philosophy direction at layer 12,
+$\log_{10}T=-0.156$): float64 line scans of 1600, 1360 and 1000 cells, each with 3000 transient steps and 256 recorded
+states projected on the unit steering direction (red: chaotic cells). (a) The whole cut: period 3 doubles into chaos,
+which ends at $\alpha=0.065278$, where the attractor jumps to a strongly contracting period-2 orbit. (b, c) Zooms in
+both coordinates on the branch boxed in the panel above, showing the doublings $6\to12\to24\to48$ and
+$24\to48\to96\to192$. Dashed lines: flips located by Newton's method (Table~\ref{tab:cascade156}); dotted line: the
+accumulation point estimated from the last two flips with $\delta$. Under each panel, the largest Lyapunov exponent
+touches zero at every flip and turns positive beyond the accumulation point. Near a flip the orbit converges slowly,
+so with 3000 transient steps each fork opens slightly before its Newton flip, by $8.4\times10^{-6}$ in $\alpha$ at the
+first and by at most $1.1\times10^{-6}$ at the later ones.}
+\label{fig:feigtree}
+\end{figure}
 \begin{table}[H]
 \centering\small
 \begin{tabular}{rlll}
@@ -1089,7 +1104,7 @@ float64 directional derivatives (notation of Appendix~\ref{sec:methods}), $c=\el
 and multiplier $1-4\beta$. At the smallest offset the amplitude ratios are $1.005$ and $1.003$, and the multipliers agree
 within $1.5\times10^{-4}$ and $5\times10^{-5}$; the larger discrepancies at larger offsets are consistent with
 higher-order corrections (Table~\ref{tab:flipnf}). These finite comparisons support the leading-order prediction; they
-do not establish the order of the remainder. The route to chaos of Qwen2.5-1.5B (Figure~\ref{fig:qwen15route}) behaves the same way: its last ratio, $4.665$, is within $0.1\,\%$ of $\delta$ (Figure~\ref{fig:feigenbaum}).
+do not establish the order of the remainder. Figure~\ref{fig:feigtree} shows the cascade itself as a bifurcation diagram: in three nested zooms each fork sits at a flip located independently by Newton's method, and the largest exponent touches zero at every flip and turns positive beyond the accumulation point. The route to chaos of Qwen2.5-1.5B (Figure~\ref{fig:qwen15route}) behaves the same way: its last ratio, $4.665$, is within $0.1\,\%$ of $\delta$ (Figure~\ref{fig:feigenbaum}).
 
 
 \section{Steering toward hostility}
