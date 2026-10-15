@@ -24270,3 +24270,14 @@ Pods et2o3xeke86icn (block 20), bpe9rgounm31kb (block 35) and zep5qsklokz0zr (bl
   - Distance from delta: -0.170, -0.048, -0.0074, -0.0019.
 - **Tool change** (tools/llm_feigenbaum.py, tests 8/8 pass): the acceptance |mu + 1| <= g_accept is now an argument (--g-accept, default 1e-6 as before) and --lam-rel-tol is exposed. A deeper run must set g_accept above the measured floor of its period, stated in its run card, never below it.
 - The local cross-check of the same flip (RTX 2000 Ada, started 05:14, older code) is still running and will hit the same refusal. Its evaluations are an independent location on other hardware.
+
+## 2026-10-15 06:27 UTC: run (exploratory): FBD2 (the 768->1536 flip) and FBS384 (the band-384 superstable point) at log10 T -0.156
+
+Human (14-15 Oct): "And double that maybe?", "What about 768?". Both runs are on H100 pods (cap 5.5/h) and use commit HEAD (with --g-accept).
+- **FBD2**: cascade crescent-t-0.156-f, period 768, --flips 1. The start (mid band) and next points follow the rule of fb768b.sh:
+  - start = f384 + 0.5 w = 0.0651034764570688; next = f384 + w (1 + 0.25/d) = 0.0651034796771438, with w = (f384 - f192)/d and d = 4.66733.
+  - transient 80000. --g-accept 3e-4: the floor measured at period 384 was 1.8e-5, and I expect at most about 1e-4 at period 768. If the scatter of mu + 1 exceeds 3e-4, the locator refuses and the root is read from the logged evaluations as in FBD.
+  - --lam-rel-tol 2e-12, so the bracket stops near the expected noise band instead of spending evaluations below it.
+  - Gives the sixth flip ratio (f384 - f192)/(f768 - f384).
+- **FBS384**: superstable crescent-t-0.156-384, bracket [0.0651034470, 0.0651034730]. This is inside (f192, f384) with insets of about 2 % of the band. Transient 60000.
+  - Gives the superstable ratio (s192 - s96)/(s384 - s192). With s384, the last two superstable ratios both come from precisely located points.
