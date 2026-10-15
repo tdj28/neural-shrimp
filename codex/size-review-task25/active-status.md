@@ -1,5 +1,5 @@
-# Task25 source and exact input preparation; zero numerical jobs
+# Task25 actual saved-data run admitted; zero numerical jobs
 
-2026-10-15T17:33:53.489944+00:00: Task23 complete and privately delivered (3af7d14c; receipt6c2835c6). Task25 six-component source preparation accepted. Narrow disclosed P3 source-selector amendment is being prepared before the sole manufactured run; original all15-source ambiguity/history preserved. No manufacturing or target-scoring launch admitted. Exact role manifest draft has112role files and329 declared pins plus outer; current sec:size/source/summary and baseline50 metadata are bound. Next: exact amended source/control release and concrete37-plus-focused-groups plan/supervisor for Root/Boundary review, private checkpoint and fresh capacity before any launch.
+2026-10-15T17:59:00.663422+00:00: Task23 complete/private-delivered. Sole Task25 manufacture complete38/0 and owner-closed; original report/receipt/source preserved. Root/Boundary accepted six-component source/input/P3 views and exact actual card/supervisor. One actual run-001 is admitted after final private checkpoint and fresh preflight; it has not started. No retry/model run or extra controls. Inference owns lifecycle/Git; later Boundary reads scale/gain/depth, Theory PS/CP/plateau; Root final science.
 
-Inference owns Git/processes; Theory own/tmp adapter/fixture/operational source preparation; Boundary independent source review; Root final admission. Persistent watch ACTIVE15minutes/no cutoff until explicit human stop. Latest Claude16:55 context only, SHA4783e5f9.
+Watch ACTIVE15min indefinitely until explicit human stop; latest Claude4783e5f9 unchanged. Owned code/log only; prior shared-log scope mistake and exact restoration are recorded.

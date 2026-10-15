@@ -1,6 +1,6 @@
 {
-  "updated_utc": "2026-10-15T17:33:53.489944+00:00",
-  "phase": "Task25 source/metadata and P3 amendment preparation",
+  "updated_utc": "2026-10-15T17:59:00.663422+00:00",
+  "phase": "Task25 actual saved-data run admitted; private checkpoint and fresh preflight pending",
   "ownership": {
     "git_and_processes": "Inference",
     "new_source": "Theory",
@@ -9,17 +9,17 @@
   },
   "owned_numerical_jobs": [],
   "reservations": [],
-  "controls_executed": false,
-  "target_execution_admitted": false,
+  "controls_executed": true,
+  "target_execution_admitted": true,
   "accepted_source_release": {
     "path": "/tmp/task25-adapter-prep/release.json",
     "bytes": 4974,
     "sha256": "79248b21fce4235664ac872b1ca757386f76306bbaf7b0f1695212a201aa3cf2"
   },
   "input_draft": {
-    "path": "/data2/neural-shrimp-data/codex/size-review-task25/metadata-002/task25-input-preparation-001/inputs.prepared.json",
-    "bytes": 897181,
-    "sha256": "4a881706db8d0c3dc6db4f273ca1006b933931bf3ba93f3af7b6d27d25f8a3b1"
+    "path": "/data2/neural-shrimp-data/codex/size-review-task25/combined-preparation-002/inputs/inputs.prepared.json",
+    "bytes": 901363,
+    "sha256": "be61223ae317ce665bb3a5b4ef2cfa99d360a2e8d66fd11451320b1ef032ec39"
   },
   "metadata_manifest": {
     "path": "/data2/neural-shrimp-data/codex/size-review-task25/metadata-002/manifest.json",
@@ -40,5 +40,26 @@
     "cutoff": null,
     "stop_condition": "explicit human stop"
   },
-  "latest_claude_comms_sha256": "4783e5f9525e0ec52805d7d1524e59e850443384b40de54ed37dbb36e1569024"
+  "latest_claude_comms_sha256": "4783e5f9525e0ec52805d7d1524e59e850443384b40de54ed37dbb36e1569024",
+  "source_release": {
+    "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/size-review-task25/adapter/source-release.json",
+    "bytes": 9925,
+    "sha256": "c1cea5e180ab763f9ae8db53943f524bf509e54f07bcf2cae7bb3c3516c0047a"
+  },
+  "manufactured_admission": {
+    "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/size-review-task25/manufactured-admission-001.json",
+    "bytes": 1802,
+    "sha256": "5c8fddf491e7d3a17a61b301f7107dd9943f342af2a3c4f90e60c68cfd73c909"
+  },
+  "manufactured_completion": {
+    "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/size-review-task25/manufactured-completion-001.json",
+    "bytes": 2062,
+    "sha256": "d8941aa4cfa1281730f54eb76361e1b32bcefeaa5b6d8feda49912bb2cb393ac"
+  },
+  "target_execution_started": false,
+  "actual_admission": {
+    "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/size-review-task25/actual-admission-001.json",
+    "bytes": 1976,
+    "sha256": "b4cb0c9cced68f25795287f5b8ca7a5c510462b83d1be80d908562733b16d628"
+  }
 }
