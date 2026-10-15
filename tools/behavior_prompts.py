@@ -161,6 +161,63 @@ def label_batched(args, items):
         f.flush()
 
 
+def tasks_c(args):
+    """Confirmatory set (run BPC, docs/bpc-test.md): 4000 products of two 2-digit numbers, distinct pairs, none of
+    them among run BP's products, in a seeded order (seed SEED + 101); one task family only."""
+    used = {(it["q"]) for it in json.loads((ROOT / "docs/bp-tasks.json").read_text())["items"]}
+    rng = np.random.default_rng(SEED + 101)
+    pairs = [(a, b) for a in range(10, 100) for b in range(10, 100)]
+    order = rng.permutation(len(pairs))
+    items = []
+    for k in order:
+        a, b = pairs[k]
+        q = f"Compute {a} * {b}. Reply with only the number."
+        if q in used:
+            continue
+        items.append({"task": "arithmetic", "q": q, "a": a, "b": b, "answer": a * b, "prompt": len(items)})
+        if len(items) == 4000:
+            break
+    (ROOT / "docs/bpc-tasks.json").write_text(json.dumps({"seed": SEED + 101, "log10_temperatures": [0.40],
+                                                          "items": items}, indent=1))
+    print(len(items), "prompts")
+
+
+def covariates(args):
+    """Pre-sampling covariates (run BPC): for each prompt, the next-token distribution at the reply's first position
+    at each temperature: entropy, largest probability, and the log-probability of the correct answer's first token.
+    Deterministic; computed from the prompt alone, before any sampled outcome."""
+    import explore_llm_phase_map as elpm
+
+    items = json.loads((ROOT / args.tasks).read_text())["items"]
+    sm = elpm.SteeredModel(args.model, args.layer, args.threads, args.dtype, args.device)
+    torch, tok = sm.torch, sm.tok
+    out = DATA / "explore" / args.out
+    out.mkdir(parents=True, exist_ok=True)
+    tok.padding_side = "left"
+    if tok.pad_token is None:
+        tok.pad_token = tok.eos_token
+    rec = {}
+    for s0 in range(0, len(items), args.batch):
+        part = items[s0:s0 + args.batch]
+        texts = [tok.apply_chat_template([{"role": "user", "content": prompt_text(it)}], add_generation_prompt=True,
+                                         tokenize=False) for it in part]
+        enc = tok(texts, return_tensors="pt", padding=True, add_special_tokens=False).to(sm.model.device)
+        with torch.no_grad():
+            z = sm.model(**enc).logits[:, -1, :].double()
+        first = [tok(str(it["answer"]), add_special_tokens=False)["input_ids"][0] for it in part]
+        for lt in args.log_temperatures:
+            lp = torch.log_softmax(z / 10.0 ** lt, dim=-1)
+            p = lp.exp()
+            ent = (-(p * lp).sum(-1)).cpu().numpy()
+            ptop = p.max(-1).values.cpu().numpy()
+            lpc = lp[torch.arange(len(part)), torch.tensor(first, device=lp.device)].cpu().numpy()
+            for k, it in enumerate(part):
+                rec.setdefault(str(lt), {})[str(it["prompt"])] = {"entropy": float(ent[k]), "p_top": float(ptop[k]),
+                                                                  "logp_correct_first": float(lpc[k])}
+        print(json.dumps({"done": s0 + len(part), "of": len(items)}), flush=True)
+    (out / "covariates.json").write_text(json.dumps(rec))
+
+
 def generate(args):
     import explore_llm_phase_map as elpm
     import behavior_zones as bz
@@ -174,22 +231,30 @@ def generate(args):
     scorer = {"arithmetic": bz.score_arith, "nq": bz.score_nq}
     rec = {"greedy": {}, "sampled": {}}
     for task, max_new in (("arithmetic", 12), ("nq", 32)):
-        idx = [i for i, it in enumerate(items) if it["task"] == task]
-        msgs = [msgs_all[i] for i in idx]
-        texts, _, _, _ = sm.generate_batch(msgs, np.zeros((len(msgs), d)), max_new, temperature=0.0)
-        for i, t in zip(idx, texts):
-            rec["greedy"][str(items[i]["prompt"])] = {"correct": bool(scorer[task](t, items[i])), "reply": t[:200]}
+        idx_all = [i for i, it in enumerate(items) if it["task"] == task]
+        # chunks of prompts keep the sampled batch's cache bounded; chunk 0 draws exactly as the unchunked run did
+        for c, c0 in enumerate(range(0, len(idx_all), args.chunk_prompts)):
+            idx = idx_all[c0:c0 + args.chunk_prompts]
+            msgs = [msgs_all[i] for i in idx]
+            texts, _, _, _ = sm.generate_batch(msgs, np.zeros((len(msgs), d)), max_new, temperature=0.0)
+            for i, t in zip(idx, texts):
+                rec["greedy"][str(items[i]["prompt"])] = {"correct": bool(scorer[task](t, items[i])), "reply": t[:200]}
+            for lt in args.log_temperatures:
+                T = 10.0 ** lt
+                m = [msgs_all[i] for i in idx for _ in range(args.k)]
+                texts, ent, lens, _ = sm.generate_batch(m, np.zeros((len(m), d)), max_new, temperature=T,
+                                                        seed=SEED + int(1000 * lt) + (0 if task == "arithmetic" else 7)
+                                                        + 100003 * c)
+                for j, t in enumerate(texts):
+                    it = items[idx[j // args.k]]
+                    rec["sampled"].setdefault(f"{lt}", {}).setdefault(str(it["prompt"]), []).append(
+                        {"correct": bool(scorer[task](t, it)), "entropy": ent[j], "length": lens[j], "reply": t[:200]})
+            print(json.dumps({"task": task, "chunk": c, "prompts": len(idx)}), flush=True)
         for lt in args.log_temperatures:
-            T = 10.0 ** lt
-            m = [msgs_all[i] for i in idx for _ in range(args.k)]
-            texts, ent, lens, _ = sm.generate_batch(m, np.zeros((len(m), d)), max_new, temperature=T,
-                                                    seed=SEED + int(1000 * lt) + (0 if task == "arithmetic" else 7))
-            for j, t in enumerate(texts):
-                it = items[idx[j // args.k]]
-                rec["sampled"].setdefault(f"{lt}", {}).setdefault(str(it["prompt"]), []).append(
-                    {"correct": bool(scorer[task](t, it)), "entropy": ent[j], "length": lens[j], "reply": t[:200]})
-            print(json.dumps({"task": task, "log10_T": lt, "accuracy": float(np.mean(
-                [x["correct"] for p in idx for x in rec["sampled"][f"{lt}"][str(items[p]["prompt"])]]))}), flush=True)
+            if idx_all:
+                print(json.dumps({"task": task, "log10_T": lt, "accuracy": float(np.mean(
+                    [x["correct"] for p in idx_all for x in rec["sampled"][f"{lt}"][str(items[p]["prompt"])]]))}),
+                    flush=True)
     (out / "generations.json").write_text(json.dumps(rec))
 
 
@@ -238,7 +303,8 @@ def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     sub = ap.add_subparsers(dest="command", required=True)
     sub.add_parser("tasks")
-    for name in ("label", "generate", "analyze"):
+    sub.add_parser("tasks-c")
+    for name in ("label", "generate", "analyze", "covariates"):
         p = sub.add_parser(name)
         p.add_argument("--tasks", default="docs/bp-tasks.json")
         p.add_argument("--log-temperatures", type=float, nargs="+", default=list(LOG_TS))
@@ -254,7 +320,11 @@ def main():
     gen = sub.choices["generate"]
     gen.add_argument("--k", type=int, default=10)
     gen.add_argument("--dtype", default="float32")
-    for p in (lab, gen):
+    gen.add_argument("--chunk-prompts", type=int, default=400, help="prompts per sampled batch")
+    cov = sub.choices["covariates"]
+    cov.add_argument("--dtype", default="float32")
+    cov.add_argument("--batch", type=int, default=64)
+    for p in (lab, gen, cov):
         p.add_argument("--model", default="qwen7b")
         p.add_argument("--layer", type=int, default=14)
         p.add_argument("--threads", type=int, default=8)
@@ -265,7 +335,8 @@ def main():
     an.add_argument("--gen-run", required=True)
     an.add_argument("--out-json")
     args = ap.parse_args()
-    {"tasks": tasks, "label": label, "generate": generate, "analyze": analyze}[args.command](args)
+    {"tasks": tasks, "tasks-c": tasks_c, "label": label, "generate": generate, "analyze": analyze,
+     "covariates": covariates}[args.command](args)
 
 
 if __name__ == "__main__":

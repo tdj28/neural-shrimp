@@ -184,6 +184,20 @@ case "$JOBSET" in
     case " ${JOBARGS[*]} " in *" qwen7b "*) get7b ;; esac
     TOOL=repro_task.py run reprotask-$name "$minutes" --device cuda "${JOBARGS[@]:2}" --out $D/repro/$name
     ;;
+  reprollama)  # run REPRO on Llama-3.1-8B-Instruct (gated: token on stdin, unset after the download; revision as llama8b):
+               # JOBARGS = NAME MINUTES then tool arguments (use --model llama3.1-8b --vectors none)
+    LREV=0e9e39f249a16976918f6564b8830bc894c89659
+    HF_HUB_OFFLINE=0 $PY -c "
+from huggingface_hub import snapshot_download
+snapshot_download('meta-llama/Llama-3.1-8B-Instruct', revision='$LREV', cache_dir='$NEURAL_SHRIMP_DATA/models/hf/hub',
+                  allow_patterns=['*.json', 'model-*.safetensors'])" > "$LOGS/setup-llama.log" 2>&1
+    unset HF_TOKEN
+    lrefs=$NEURAL_SHRIMP_DATA/models/hf/hub/models--meta-llama--Llama-3.1-8B-Instruct/refs
+    mkdir -p "$lrefs" && printf %s "$LREV" > "$lrefs/main"
+    name=${JOBARGS[0]}
+    minutes=${JOBARGS[1]}
+    TOOL=repro_noise.py run repro-$name "$minutes" --device cuda "${JOBARGS[@]:2}" --out $D/repro/$name
+    ;;
   repro)       # incidental numerical differences against the dynamical regime (run REPRO; tools/repro_noise.py, on the
                # GPU): JOBARGS = NAME MINUTES then tool arguments
     name=${JOBARGS[0]}

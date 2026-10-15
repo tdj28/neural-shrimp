@@ -88,7 +88,7 @@ def main():
     ap = argparse.ArgumentParser(description=__doc__.split("\n\n")[0])
     ap.add_argument("--model", default="qwen0.5b")
     ap.add_argument("--layer", type=int, default=12)
-    ap.add_argument("--vectors", default="llm-phase-map/vectors-l12")
+    ap.add_argument("--vectors", default="llm-phase-map/vectors-l12", help="'none': unsteered, alpha 0 everywhere")
     ap.add_argument("--concept", default="philosophy")
     ap.add_argument("--cells-file", required=True, help="JSON with 'cells' ([log10T, alpha] pairs) and 'label'")
     ap.add_argument("--steps", type=int, default=1500)
@@ -107,10 +107,12 @@ def main():
     spec = json.loads(Path(args.cells_file).read_text())
     cells = spec["cells"]
     labels = spec.get("label", [None] * len(cells))
-    v = np.asarray(elpm.load_vectors(args.vectors)[args.concept], dtype=np.float64)
-    steer = np.array([a * v for _, a in cells])
     temps = 10.0 ** np.array([t for t, _ in cells])
-    pad = steer[::-1].copy()                     # the other rows of the larger batch: the same cells, reversed
+    steer = pad = None
+    if args.vectors not in (None, "none"):
+        v = np.asarray(elpm.load_vectors(args.vectors)[args.concept], dtype=np.float64)
+        steer = np.array([a * v for _, a in cells])
+        pad = steer[::-1].copy()                 # the other rows of the larger batch: the same cells, reversed
     out = esl.DATA / "explore" / args.out
     out.mkdir(parents=True, exist_ok=True)
     progress = out / "progress.jsonl"
@@ -123,6 +125,15 @@ def main():
     results = {"args": vars(args), "labels": labels, "cells": cells, "comparisons": {}}
     arrays = {}
     loops = {}
+    def rows_for(loop):
+        nonlocal steer, pad
+        if steer is None:                        # unsteered (--vectors none): zero rows of the model's width
+            if any(a != 0 for _, a in cells):
+                raise SystemExit("--vectors none needs alpha = 0 in every cell")
+            steer = np.zeros((len(cells), loop.E.shape[1]))
+            pad = steer.copy()
+        return steer, pad
+
     for comp in args.compare:
         if comp in ("batch64", "batch32"):
             dt = "float64" if comp == "batch64" else "float32"
@@ -130,16 +141,19 @@ def main():
                 loops[dt] = make_loop(esl, ela, args, dt)
             A = loops[dt]
             B = copy.copy(A)                     # shares the model; prepare gives B its own cache and rows
-            dist, agree = twin_runs(A, B, steer, pad, temps, args.steps, log, comp)
+            st, pd = rows_for(A)
+            dist, agree = twin_runs(A, B, st, pd, temps, args.steps, log, comp)
         elif comp == "precision":
             for dt in ("float64", "float32"):
                 if dt not in loops:
                     loops[dt] = make_loop(esl, ela, args, dt)
-            dist, agree = twin_runs(loops["float64"], loops["float32"], steer, None, temps, args.steps, log, comp)
+            st, _ = rows_for(loops["float64"])
+            dist, agree = twin_runs(loops["float64"], loops["float32"], st, None, temps, args.steps, log, comp)
         else:                                    # bf16: batch n against batch 2n with a bfloat16 model
             A = make_loop(esl, ela, args, "float32", bf16=True)
             B = copy.copy(A)
-            dist, agree = twin_runs(A, B, steer, pad, temps, args.steps, log, comp)
+            st, pd = rows_for(A)
+            dist, agree = twin_runs(A, B, st, pd, temps, args.steps, log, comp)
             del A, B
         arrays[f"{comp}_dist"] = dist
         arrays[f"{comp}_agree"] = agree
