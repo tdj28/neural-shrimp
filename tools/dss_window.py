@@ -120,8 +120,14 @@ def figure(z, tb, out, title):
         im = ax.imshow(cats.index(P), origin="lower", extent=e2, aspect="auto", cmap=cmap, norm=cats.norm,
                        interpolation="nearest")
         cats.colorbar(im, ax=ax, label="period (black: chaotic)")
+        # the map must cover the grid (up to its half-cell padding): the axes stop at the map, never in blank space
+        tx, ty = 0.05 * (ext[1] - ext[0]), 0.05 * (ext[3] - ext[2])
+        if not (e2[0] <= ext[0] + tx and ext[1] <= e2[1] + tx and e2[2] <= ext[2] + ty and ext[3] <= e2[3] + ty):
+            raise SystemExit(f"the map {e2} does not cover the grid {ext}; pass a wider --tb")
         ax.plot([ext[0], ext[1], ext[1], ext[0], ext[0]], [ext[2], ext[2], ext[3], ext[3], ext[2]], "-", color="w",
                 lw=1.0)
+        ax.set_xlim(e2[0], e2[1])
+        ax.set_ylim(e2[2], e2[3])
         ax.set_title("(a) attractor from a fixed start, " + title, fontsize=7.5)
         k = 1
     ax = axes[k]
