@@ -402,7 +402,11 @@ step) into an expanding one ($+0.72$), more strongly than the full steered map (
 derivative already expands at the steered states ($+0.41$), and steering acts by bringing the orbit there.
 
 Steering thus makes the loop chaotic by making next tokens compete. This turns the softmax readout from a contraction
-into an expansion, while the network's own response, if anything, damps the growth. The mechanism is not specific to
+into an expansion, while the network's own response, if anything, damps the growth. That is the rule below
+$\log_{10}T\approx0.1$; at higher temperature the network factor itself can expand. Steered at block 4, the chaotic
+cells at $\log_{10}T=0.15$ have a network factor of $+0.72$ and a contracting readout ($-0.35$). Along the hostile line
+at $\log_{10}T=0.12$--$0.13$ the network factor of the chaotic cells is $+0.60$ against $+0.24$ to $+0.38$ at the
+neighbouring periodic cells. The mechanism is not specific to
 concept-labelled directions. This is consistent with the controls of Section~\ref{sec:discussion}, in which
 norm-matched random directions also produce chaos in the 0.5B and 8B models; at 70B the directions differ
 (Section~\ref{sec:size}). What a direction does select is which tokens compete, and therefore what the attractors
