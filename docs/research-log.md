@@ -25590,7 +25590,7 @@ DSS5's anomalies are tested at the same time: the repelling cell with mu1 = +1.6
 - **Numbers.** Every number in the summaries is copied from the moved sections.
 - **Pages.** The main text is now 37 pages (it was about 80 of 91); the paper has 92 pages in all. Clean build: 0 overfull, 0 undefined references, 0 multiply defined labels.
 
-## 2026-10-15 14:58 UTC: Codex Task 21h processed (steering depth and exact two-block controls)
+## 2026-10-15 14:56 UTC: Codex Task 21h processed (steering depth and exact two-block controls)
 
 Every number in the paper's depth and two-block paragraphs agrees with Codex's independent recount from the saved grids:
 - the block shares 5.9/8.1/6.8/5.0/2.3 % (961, 1321, 1119, 821 and 378 of 16,384 cells);
