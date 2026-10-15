@@ -25033,3 +25033,21 @@ SoftOrbit's start trajectory equals the loop's (maximum difference 0).
 | deep chaotic | 1417 | +0.13 |
 
 **Together with BPC.** The loop's regime is not an accuracy diagnostic across prompts beyond first-token uncertainty, and it does not move accuracy within a prompt. The behavioural consequences of the regime are confined to the loop itself (reproducibility, soft-thinking answers), not to ordinary sampled decoding.
+
+## 2026-10-15 09:49 UTC: TPF inspection completed (all strong candidates); figure fig-bimodal
+
+The first figure (docs/tp/tpf-returnmaps.png) stopped at 24 panels. The remaining flagged phases (two or more turning points, explained >= 0.99) are in docs/tp/tpf-returnmaps-rest.png, together with the q 12 cell's twelve phases.
+
+**Complete verdict on the 12 strong candidates:**
+- **Genuine, single-valued maps with two or more turning points: three cells, all in two-block planes at log10 T -0.1.**
+  - hostility@4 + gratitude@16, alpha1 0.0568, alpha2 -0.0189: q 20, N-shaped in every clean phase.
+  - **New:** the same plane at alpha1 -0.0366, alpha2 -0.0467: q 12; 11 of 12 phases are N-shaped maps on two intervals (explained 0.995 to 1.000); phase 6 is folded.
+  - gratitude@4 + hostility@16, alpha1 -0.1099, alpha2 0.0998: q 9, phase 4 with three maxima (explained 0.998).
+- **False positives:**
+  - Point sets: block 12 (-0.0173, 0.0501); block 20 (0.1055, -0.0501).
+  - Band split: block 4 (-0.6622, 0.0784).
+  - Folded (multi-valued) projections: block 16 (0.0236, 0.1087); block 20 (0.0953, -0.0633); hostility@4 + gratitude@16 at log10 T +0.1 (0.0644, -0.0417), phases 3 and 4; the mirrored plane's phase 8.
+  - Not reproduced as strong in the --save rerun: the two block-8 cells.
+- **Consequence for the paper.** "Our reductions have one turning point per phase" holds for the one-block maps (blocks 4 to 20 and the hostile body). It does not hold in the two-block planes.
+
+**Figure.** tools/plot_bimodal.py writes paper/llm/figures/fig-bimodal.png: (a) the q 20 cell's phase 0 with a cobweb; (b, c) q 12 phases 2 and 9; (d) the three-maximum phase. The paper text waits for the TBZ zooms.
