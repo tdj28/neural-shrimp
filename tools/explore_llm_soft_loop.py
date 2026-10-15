@@ -57,6 +57,8 @@ class SoftLoop:
         self.K = int(window)
         self.cache = None
         self.steer_rows = None
+        self.extra = None              # (layer, per-cell rows (n, d)): a second steering block (run TB), or None
+        self.extra_rows = None
         # hybrid models (linear-attention layers with recurrent states, e.g. Qwen3.5): the prefix state cannot be
         # cropped back after a step, so it is saved after the prefix pass and restored after every step
         layer_types = getattr(self.model.config.get_text_config(decoder=True), "layer_types", None) or []
@@ -70,6 +72,13 @@ class SoftLoop:
         torch = self.torch
         B = len(steer_rows)
         self.steer_rows = torch.as_tensor(np.asarray(steer_rows), dtype=self.dtype, device=self.device)[:, None, :]
+        self.extra_rows = None
+        if self.extra is not None:     # per-cell rows of the second block, repeated like the batch's cells
+            rows2 = np.asarray(self.extra[1])
+            if B % len(rows2):
+                raise ValueError(f"{B} rows are not a multiple of {len(rows2)} second-block cells")
+            self.extra_rows = torch.as_tensor(np.concatenate([rows2] * (B // len(rows2))), dtype=self.dtype,
+                                              device=self.device)[:, None, :]
         self.cache = DynamicCache(config=self.model.config) if self.hybrid else DynamicCache()
         sub = self.prefix_batch if (self.prefix_batch and not self.hybrid and B > self.prefix_batch) else B
         parts = []
@@ -78,6 +87,8 @@ class SoftLoop:
                 n = min(sub, B - s0)
                 cache = self.cache if sub == B else DynamicCache()
                 self.sm.steer = self.steer_rows[s0:s0 + n]
+                if self.extra_rows is not None:
+                    self.sm.steer_extra = {self.extra[0]: self.extra_rows[s0:s0 + n]}
                 with torch.no_grad():
                     # logits_to_keep=1: the prefix logits are not needed (all of them cost B x L0 x vocab floats)
                     self.model(input_ids=self.prefix_ids.repeat(n, 1), past_key_values=cache, use_cache=True,
@@ -85,6 +96,7 @@ class SoftLoop:
                 parts.append(cache)
         finally:
             self.sm.steer = None
+            self.sm.steer_extra = {}
         if sub < B:                       # join the parts layer by layer, freeing each part's tensors as it goes
             for li in range(len(parts[0].layers)):
                 k = torch.cat([c.layers[li].keys for c in parts])
@@ -107,12 +119,15 @@ class SoftLoop:
     def logits(self, X):
         torch = self.torch
         self.sm.steer = self.steer_rows
+        if self.extra_rows is not None:
+            self.sm.steer_extra = {self.extra[0]: self.extra_rows}
         try:
             with torch.no_grad():
                 z = self.model(inputs_embeds=X.to(self.dtype), past_key_values=self.cache, use_cache=True,
                                logits_to_keep=1).logits[:, -1, :].to(self.device, self.state_dtype)
         finally:
             self.sm.steer = None
+            self.sm.steer_extra = {}
             self.reset_cache()
         return z
 

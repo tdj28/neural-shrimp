@@ -24112,3 +24112,17 @@ Chaotic share of the 128 x 128 cells (exponent above 1e-3, no period), alpha -0.
   - The local run is still refining the last digits; that cannot change the ratio at the quoted precision. The local follow-on (384->768) starts when it ends.
 - **FBD (pod, job set cascade):** the same cut, starting from the period-384 orbit at alpha 0.06510345998979336 (middle of the estimated 384 band), next 0.06510347503852487, ratio guess 4.661793821985329, 2 flips (384->768, 768->1536), transient 40000, 96 steps per period, run limit 150 min. The local follow-on computes 384->768 independently, as a cross-check across devices.
 - **FBS156-192 (pod, job set superstable):** the period-192 band at -0.156, bracket 0.0651033260174831 to 0.0651034438644227 (5-98 % of the band), transient 40000, settle factor 20.
+
+## 2026-10-15 05:21 UTC: run (exploratory): TB, two steering directions at two blocks (human: "steer one block with bliss and the other with hostile")
+
+- **Question:** How do two pushes at different depths combine in the soft-token map of Qwen2.5-0.5B-Instruct: a gratitude direction (the closest of our concepts to "bliss") at one block and hostility at another?
+- **Tooling:**
+  - tools/explore_llm_phase_map.SteeredModel.add_steer_layer registers a second additive hook. tools/explore_llm_soft_loop.SoftLoop.extra repeats per-cell rows for it in the prefix pass and every step.
+  - Locally: with the second block at strength 0 the result is bit-identical to no hook. With hostility at 0.06 after block 16, a gratitude-steered cell (block 4, alpha 0.05, log10 T -0.1) goes from period 2 (exponent -3.21) to chaotic (+0.436).
+  - tests/test_llm_soft_loop.py: 7 passed.
+- **Maps:** tools/two_block_map.py, 96 x 96 cells, alpha1 and alpha2 from -0.12 to 0.12. Window 1, float64, transient 500, record 300, one twin at 1e-6, classified by hidden_chaos.classify. Vectors built at their blocks tonight (vectors-l4, vectors-l16), so alpha is a fraction of the residual norm.
+  - TB1: gratitude at block 4 x hostility at block 16, log10 T -0.1 and 0.1.
+  - TB2: hostility at block 4 x gratitude at block 16, the same two temperatures.
+  - On two pods (new job set tb).
+- **Reading:** descriptive. Chaotic share per map, and whether the chaotic region of the plane is roughly the union of the single-direction regions (the axes alpha2 = 0 and alpha1 = 0) or new regions appear where both act.
+- **Output:** `../neural-shrimp-data/explore/llm-soft-loop/pod64/tb/{grat4-host16, host4-grat16}`
