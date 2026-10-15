@@ -24425,3 +24425,56 @@ Pods p2dnawuk7ajzfp, 6xc4ok0nj21d0o (runner rc 0, hashes verified, terminated; 1
   - **FBS768m:** the superstable point s768 at log10 T -0.14798. Bracket [0.0661249646696678, 0.0661249836696678] around the estimate s384 + (s384 - s192)/4.65. Band positions are scaled from -0.156, where s sits at 0.519 of its band.
   - **FBC148:** flips at -0.14798 from period 96: start s96, next s192, ratio guess 4.62, 3 flips.
   - **FB15D:** the 1.5B route (alpha 0.1, philosophy at block 14, free log10 T) from period 64: start -0.0018311, next -0.0018207, ratio guess 4.3, 3 flips.
+
+## 2026-10-15 07:17 UTC: L70D result (blocks 20 and 35): in Llama-3.3-70B, earlier steering also gives more chaos, down to lower temperature
+
+Pods 3nm9b8atx4ucdm (block 20) and zm38p578aca433 (block 35): 2 x H200 SECURE, 320 GB disk; runner rc 0, hashes verified, terminated; 3351 and 3730 s; commit 183dead4.
+- **Packaging.** Each scan finished and saved scan.npz. The job then failed at its figure step: tools/period_colors.py was missing from the pod upload list. It is now added (tools/runpod_soft_float64.py). The data are complete.
+- **Settings.** Vectors built on the pod at each block (hostility-vs-kindness, the paper's recipe). Map 24 x 24 over log10 T -0.3 to 0.3 and alpha 0 to 0.12, 300 transient and 300 sample steps; labels from the map protocol (single twin offset), so the chaotic cells are candidates until plateau-tested.
+
+| block (of 80) | chaotic share | chaotic log10 T | max exponent |
+|---|---|---|---|
+| 20 | 8.0 % (46 / 576) | -0.143 to 0.300 | 0.615 |
+| 35 | 4.3 % (25 / 576) | 0.013 to 0.300 | 0.418 |
+| 50 (earlier map, 32 x 32) | 4.3 % | | |
+| 65 | pending | | |
+
+- **Reading.** As in the 0.5B block sweep (LS), steering at an earlier block gives more chaos and carries it to lower temperature. The block dependence is not specific to the small model.
+  - The block-50 map was the paper's only steered 70B map, and its depth limited how much chaos it showed.
+  - The grids differ in resolution (24 against 32 per axis), so the shares compare coarsely.
+
+## 2026-10-15 07:19 UTC: MECH4 result: a pure logit bias, with the network untouched, makes 3.5 % of the plane chaotic (R4 met); its chaos lies at higher temperature than that of residual steering
+
+Pods v6zndolr40ecev, 026rfinp1b3h8d (runner rc 0, hashes verified, terminated; commit b203fb56). Output mech/bmap-{a,b}: alpha = 0, logit bias beta * b with b = W v (philosophy at block 12, centred and scaled to unit standard deviation over the vocabulary), beta -8 to 8 in 129 steps, log10 T -1 to 0.3 in 53 rows, 6837 cells.
+- **R4 (frozen).** 241 chaotic cells, 3.5 % of the plane. The threshold (at least 0.5 % and 20 cells) is met. Creating token competition at the readout suffices for chaos, given the unmodified network.
+- **Comparison.** Residual steering at block 12 on the same temperatures (alpha map, same protocol): 331 of 5353 cells, 6.2 %.
+  - The logit bias's chaos lies mostly at log10 T 0.1-0.3, with only a few cells near and below log10 T 0.
+  - Residual steering's chaos reaches log10 T -0.2 (fig-mechanism panel d).
+  - This continues the block trend of LS and L70D. The later the push enters, the higher the temperature its chaos needs; a logit bias is the latest possible entry point.
+- **Statistics** (tools/plot_mechanism.py, committed with this entry; output paper/llm/figures/fig-mechanism.json), alpha map, row-matched over 18 temperature rows:
+  - chaotic minus periodic, with bootstrap 95 % intervals over rows and row-stratified permutation tests (10,000):
+    - log readout factor +1.36 [0.92, 1.92], p = 1e-4;
+    - log network factor +0.23 (p = 1e-4), a smaller shift;
+    - entropy +1.62 [1.26, 1.91] nats, p = 1e-4;
+    - top-2 gap / T -1.37 [-1.98, -0.87], p = 1e-4;
+  - chaotic minus |alpha| <= 0.01 cells: readout +2.58 [1.79, 3.58], network -0.07 [-0.21, 0.11].
+
+## 2026-10-15 07:21 UTC: XO result: along the same steered orbits, steering's change of the readout creates the expansion; its change of the network response damps it
+
+Pod slk055l1wkl6hq (COMMUNITY H100 NVL; runner rc 0, hash verified, terminated; 270 s; commit 92f1a20e). Output xo/cells: 24 cells of docs/xo-cells.json, transient 1000, record 1000. Statistics from tools/plot_mechanism.py (paper/llm/figures/fig-mechanism.json; bootstrap over held-out cells, 10,000).
+- **Validation (frozen: arm 11 within 0.02 of the twin exponent at every cell).** Met at 23 of 24 cells, all within 0.012. Missed at one periodic cell contracting at about -12 per step (tangent -12.12, twin -11.21): there the twin at relative offset 1e-9 shrinks to the float64 rounding floor each step, so the twin, not the tangent, is limited.
+- **Labels.** One development cell labelled chaotic by the alpha map (log10 T -0.400, alpha -0.0624) is strongly contracting in this run (exponent -4.0). The batch differs from the map's, so this is a transient or a coexisting attractor. It is a development cell and enters no estimate.
+- **Contrasts.** 14 held-out chaotic cells, nats per step:
+
+| contrast | mean | 95 % interval |
+|---|---|---|
+| readout effect, arm 10 - arm 00 | +0.81 | [0.29, 1.35] |
+| network effect, arm 01 - arm 00 | -0.49 | [-0.63, -0.35] |
+| interaction, 11 - 10 - 01 + 00 | +0.26 | [0.10, 0.45] |
+| arm 11 - arm 10 | -0.23 | [-0.41, -0.03] |
+
+- **Split by temperature (descriptive):**
+  - log10 T < 0 (6 cells): arm means 00 -1.03, 10 +0.72, 01 -1.62, 11 +0.34. Readout effect +1.75, network effect -0.58. The steered readout alone turns a contracting derivative into an expanding one, and does so more strongly than the full steered map.
+  - log10 T >= 0 (8 cells): arm means 00 +0.41, 10 +0.51, 01 -0.01, 11 +0.40. At these states the unsteered derivative already expands, so steering acts by moving the orbit into competitive states, not by changing the derivative there.
+- **Frozen sufficiency criterion** (arm 10 within 0.1 of arm 11 on average, interval excluding arm 00). The second part holds. The first fails by overshoot: arm 10 exceeds arm 11 by 0.23, because the steered network response partly damps the growth.
+- **Reading.** At low temperature, steering destabilises the loop through the readout: the token competition it creates at fixed states. Its effect on the network response works against the instability. Together with MECH3 (the readout factor carries the difference; network flat) and MECH4 (a logit bias alone gives chaos), the answer to "why does steering induce chaos" is: it creates competition between next tokens, which turns the softmax readout from a contraction into an expansion.
