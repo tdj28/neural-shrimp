@@ -7,7 +7,7 @@ OUT=B/'profile-001';SUP=OUT.with_name(OUT.name+'-supervision')
 PREFIX='codex/practical-consequences-review-task26/task26b/'
 WRAPPER=PREFIX+'profile.py';DRIVER=PREFIX+'run.py';CORE=PREFIX+'core.py';PLAN=PREFIX+'profile-001-plan.json';CARD=PREFIX+'profile-001-card.md'
 WRAPPER_SHA='4ae71f4a310ba68e32deafdee93ea634ee18b7c0b31b6b95191fab150be30742';DRIVER_SHA='6c9e467111765817d8f925dc6f8ea5045740a56cf9094672a39f60a83238aeaa';CORE_SHA='2b84f28dbee0af9b04b0af724de45e096b8fce222ce995ee744fa4c66fb6614a'
-ADMISSION='prepared';PLAN_SHA=None;CARD_SHA=None  # Coordinator binds exact reviewed plan/card after acceptance.
+ADMISSION='reviewed';PLAN_SHA='6522e61d2b0f5e92903c4d08c90db8f44077725c5c85463700481662281b3a3a';CARD_SHA='c6c2838e53e817264e154dffbfde7e6e1cc86bb4f10a3ab40941b60391a466ff'  # Coordinator binds exact reviewed plan/card after acceptance.
 GIB=1024**3;WALL=120;MAX_OUTPUT=16*1024**2
 
 def sha(p):return hashlib.sha256(Path(p).read_bytes()).hexdigest()
