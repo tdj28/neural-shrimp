@@ -16,3 +16,7 @@ Exact run-001 card/source and supervisor are captured from the private commit su
 ## 2026-10-15T18:06:47.116379+00:00 — Task25 actual saved-data run completed
 
 Source `2497d55f529fb0d9b1673c452792a696ee50db19`, card `7f05a5a6`, session21323: sole run-001 completed exit0 in 7.683673758991063s external; all9 outputs retained and owner-closed, closure `3714d60a82543181f185fb4b321b99e7d9627f7a47c9d840a13687e057ce1645`. Scientific review remains pending; computational completion does not accept any scientific gate or claim. No retry/model execution.
+
+## 2026-10-15T18:26:04.652619+00:00 — Task25 final acceptance and private delivery
+
+Root accepted both complete scientific notes and final report4e900e1b, including contrary/undefined outcomes and all9 nonzero CP differences. Standalone Claude entry3075b722 was privately published at `48a338f3a2fb32c489cf1be8f273ead17c8df9a3`; exact append-only integration verified. All original runs/owners already closed. No new arithmetic, audit or target run. Task15/crossover deferred; quiet watch continues until explicit human stop.
