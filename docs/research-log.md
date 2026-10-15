@@ -24912,3 +24912,26 @@ With the 64 -> 128 flip of FB15D (-0.001824434015999929), **the next ratio is 2.
   - These are rounding-level final distances in a split model, consistent with the float64 norms being in force (the two-GPU defect was fixed at 6a4775ae, before this commit).
 
 **Paper.** Added to the text, Table tab:repro, the introduction and the abstract ("four models of two families up to 70B").
+
+## 2026-10-15 09:28 UTC: TPF result: genuine bimodal return maps in the two-block planes; run card TBZ (zooms)
+
+**Run.** Pod ym2w85cx61yyhw (H100 80GB HBM3); commit 4abe110f from the orchestrator log; runner rc 0; terminated. The 12 strong candidates were rerun with --save. Return maps of every flagged phase (2 or more turning points, explained >= 0.99; the first 24 panels): docs/tp/tpf-returnmaps.png, made by tools/plot_turning_candidates.py --plot.
+
+**Inspected by eye, candidate by candidate:**
+- **Genuine, single-valued multi-turning-point maps:**
+  - **Hostility@4 + gratitude@16, log10 T -0.1, alpha1 0.0568, alpha2 -0.0189** (20-band chaotic attractor). Every phase shown (0 to 6) is a smooth N-shaped map: a shallow minimum at the left end, a maximum near the middle, a deep minimum at the right. Explained variance 0.999 to 1.000.
+    - The counter reports 2 turning points (the shallow left minimum falls below its prominence threshold). The scan reported 2 in 13 of the 15 one-dimensional phases and 4 in 2.
+    - The 20-step return map of each band therefore has two critical points: **a bimodal map**.
+  - **Gratitude@4 + hostility@16, log10 T -0.1, alpha1 -0.1099, alpha2 0.0998** (q 9). Phase 4 is a single-valued map with three maxima and three minima (6 turning points, explained 0.998). Phase 8 of the same cell is a doubled, multi-valued curve.
+- **False positives:**
+  - Few-point sets: the block-12 cell (-0.0173, 0.0501), q 23, and the block-20 cell (0.1055, -0.0501). These are periodic or nearly periodic point sets, not curves.
+  - Band-split phases: the block-4 cell (-0.6622, 0.0784), q 12. Each phase holds two separate pieces, each monotone or one-humped, so the junction is counted as a turning point.
+  - Folded projections (multi-valued): the block-16 cell (0.0236, 0.1087); the block-20 cell (0.0953, -0.0633), a hook at the right end.
+- **Interpretation.** In a strongly contracting map whose band attractor is effectively a curve, a bimodal band return map makes the (alpha1, alpha2) family locally a two-parameter family of bimodal maps. In such a family, doubly superstable orbits are generic isolated points, the centres of shrimps.
+  - This does not show a shrimp. It removes the obstruction recorded earlier ("no one-dimensional shrimp centre": every return map seen was one-humped).
+
+**Run card TBZ (exploratory).** Two float64 two-block maps, 128 x 128, at log10 T -0.1, with transient 1000, record 600, twin 1e-6 and tol 1e-8, one H100-class pod each:
+- **TBZh:** hostility@4 + gratitude@16 over alpha1 in [0.0442, 0.0695] and alpha2 in [-0.0316, -0.0063], i.e. +-5 coarse cells around the bimodal cell.
+- **TBZg:** gratitude@4 + hostility@16 over alpha1 in [-0.1225, -0.0973] and alpha2 in [0.0872, 0.1124].
+
+The question is whether the periodic windows near these cells show shrimp anatomy: a body with four legs, period-doubling on its boundary, and the darkest-contraction curves crossing inside. A doubly superstable search follows if they do.
