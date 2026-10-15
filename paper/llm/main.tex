@@ -1216,7 +1216,8 @@ critical multiplier vanishes in the middle of each band (Table~\ref{tab:supersta
 can be reached by forward iteration and cannot slide onto its half-period parent. Through period 384 the superstable
 ratios are $3.19$, $4.02$, $4.478$ and $4.625$. The last two come from parameters resolved to $10^{-14}$ and differ
 from Feigenbaum's value by $0.19$ and $0.044$; from $4.02$ on, the distance shrinks by factors of $3.4$ and $4.3$.
-The flip ratios $2.84$, $2.86$ and $3.78$ rise in step (Figure~\ref{fig:feigenbaum}), and the accumulation point lies
+The flip ratios $2.84$, $2.86$, $3.78$ and $4.36$ rise in step (Figure~\ref{fig:feigenbaum}); the last comes from a
+run started inside the period-96 band, which located the $96\to192$ flip directly. The accumulation point lies
 near $\alpha_\infty\approx0.0661250$. The early superstable values are less precise. The other computed Ritz values of
 the period-12 and period-24 orbits blur the root, so $s_{12}$ and $s_{24}$ are known only within brackets of
 $1.2\times10^{-5}$ and $7\times10^{-7}$, and the ratios $3.19$ and $4.02$ have worst-case ranges $[2.90,3.34]$ and
@@ -1270,12 +1271,12 @@ within a bracket of $5.9\times10^{-6}$ (worst-case range $[1.01,4.65]$).
 direction, layer 12), from flips and from superstable points (which reach period 384), and the route of Qwen2.5-1.5B
 (philosophy direction, layer 14; Figure~\ref{fig:qwen15route}), from flips. A superstable ratio spans half-bands, so
 it is plotted half a level after the flip ratio of its first band. Bars: worst-case ranges from the brackets of
-$s_{12}$ and $s_{24}$. At $\log_{10}T=-0.148$, and in the 1.5B model, the ratios rise toward Feigenbaum's $\delta$ from below, and the
-last superstable ratio is within 1\,\% of it. At $\log_{10}T=-0.156$ the first ratio, $14.9$, lies off the scale
+$s_{12}$ and $s_{24}$. At $\log_{10}T=-0.148$, and in the 1.5B model, the ratios rise toward Feigenbaum's $\delta$ from below; the
+last superstable ratio at $-0.148$ is within 1\,\% of it, and the last 1.5B ratio ($4.665$) within 0.1\,\%. At $\log_{10}T=-0.156$ the first ratio, $14.9$, lies off the scale
 (arrow), and the later ratios approach $\delta$ from below, the last ($4.6688$) within $0.01\,\%$ of it. Its first two
 superstable ratios carry no bars: the brackets of $s_{12}$ and $s_{24}$ allow $[3.40,29.3]$ and $[1.01,4.65]$. Each
-sequence ends at the deepest level computed: the flips at $-0.148$ where Newton's method began to slide onto the
-half-period orbit (period 96), the superstable points at period 384, the 1.5B route at period 128, and the cut at
+sequence ends at the deepest level computed: the flips at $-0.148$ at period 96 (a search for the next flip ended short of it), the superstable points at period
+384, the 1.5B route at period 256, and the cut at
 $-0.156$, which we followed furthest, at period 1536.
 }
 \label{fig:feigenbaum}
@@ -1292,12 +1293,16 @@ $n$ & orbit & flip parameter $\alpha_n$ & next modulus & ratio $\delta_n=\frac{\
 2 & $6\to12$ & $0.0659055406325$ & $0.0023$ & $2.844$ \\
 3 & $12\to24$ & $0.0660549041785$ & $2.4\times10^{-6}$ & $2.859$ \\
 4 & $24\to48$ & $0.0661071412523$ & $2.3\times10^{-12}$ & $3.781$ \\
-5 & $48\to96$ & $0.0661209563174$ & $<10^{-13}$ & \\
+5 & $48\to96$ & $0.0661209563174$ & $<10^{-13}$ & $4.365$ \\
+6 & $96\to192$ & $0.0661241213732$ & $<10^{-13}$ & \\
 \bottomrule
 \end{tabular}
 \caption{Flips of the crescent's period-doubling sequence along $\log_{10}T=-0.14798$. For the five displayed H100 flips the
 critical Ritz value is real and differs from $-1$ by at most $4\times10^{-10}$, the Newton residuals are below
-$4\times10^{-13}$, and the other computed Ritz values lie inside the unit circle. Feigenbaum's constant is
+$4\times10^{-13}$, and the other computed Ritz values lie inside the unit circle. The sixth flip was located at the
+precision floor of the period-96 multiplier: the critical value differs from $-1$ by $5.7\times10^{-7}$, its scatter
+between bracket points $10^{-13}$ apart is about $10^{-6}$, and the Newton residual is $5.5\times10^{-12}$; the
+location is uncertain by about $2\times10^{-12}$, which changes $\delta_5$ by less than $10^{-5}$. Feigenbaum's constant is
 $\delta=4.6692\ldots$ \cite{feigenbaum1978quantitative}; for the logistic map the first ratios are $4.751$, $4.656$,
 $4.668$.
 The first four parameters agree between the completed CPU and H100 computations to $4\times10^{-15}$. Superstable parameters (Table~\ref{tab:superstable}) extend the ratio
@@ -1488,7 +1493,11 @@ are two distinct attractors, not a flip. The period-4 loop then doubles, with fl
 $\log_{10}T=-0.0031269$ (period $4\to8$, next modulus $0.014$), $-0.0021666$ (period $8\to16$, next modulus
 $8\times10^{-5}$), $-0.0019002$ (period $16\to32$, next modulus $5\times10^{-9}$) and $-0.0018380$ (period
 $32\to64$). Along the way the exponent rises continuously to zero, and chaos follows. The interval ratios are $3.60$,
-$4.28$ and, from the flip of the period-64 orbit at $\log_{10}T=-0.0018244$, $4.58$. Like those of the 0.5B crescent at $\log_{10}T=-0.148$, they rise toward $4.669$. Their higher start does not
+$4.28$, $4.58$, $4.648$ and $4.665$; the last three use the flips of the period-64, period-128 and period-256 orbits
+at $\log_{10}T=-0.0018244$, $-0.00182151$ and $-0.00182088$ (next moduli below $3\times10^{-14}$). The last ratio
+differs from Feigenbaum's $4.6692$ by $0.0044$ (0.1\,\%); the period-256 flip is located to about $3\times10^{-14}$
+in $\log_{10}T$, the floor set by float64 parameters. Like those of the 0.5B crescent at $\log_{10}T=-0.148$, the
+ratios rise toward $4.669$. Their higher start does not
 indicate a temperature trend, since along nearby cuts of the 0.5B crescent the early ratios range from $2.84$ to
 $14.9$ (Section~\ref{sec:cascade}).
 \begin{figure}[H]

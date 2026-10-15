@@ -242,6 +242,17 @@ snapshot_download('meta-llama/Llama-3.1-8B-Instruct', revision='$LREV', cache_di
       TOOL=steer_gain.py run mech-$name "$minutes" --device cuda "${margs[@]}" --out $D/mech/$name
     done
     ;;
+  dialogue)    # two agents in one soft-token conversation (run DLG; tools/soft_dialogue.py, float64 on the GPU): JOBARGS =
+               # NAME MINUTES MODE ARGS [:: NAME MINUTES MODE ARGS ...], one tool call per group, in order (vectors
+               # uploaded with --extra-data)
+    i=0; n=${#JOBARGS[@]}
+    while [ $i -lt $n ]; do
+      name=${JOBARGS[$i]}; minutes=${JOBARGS[$((i+1))]}; i=$((i+2)); margs=()
+      while [ $i -lt $n ] && [ "${JOBARGS[$i]}" != "::" ]; do margs+=("${JOBARGS[$i]}"); i=$((i+1)); done
+      i=$((i+1))
+      TOOL=soft_dialogue.py run dlg-$name "$minutes" "${margs[@]}" --device cuda --out $D/dialogue/$name
+    done
+    ;;
   tb)          # two steering directions at two blocks (run TB; tools/two_block_map.py, float64 on the GPU): JOBARGS = NAME
                # MINUTES then tool arguments (vectors uploaded with --extra-data)
     name=${JOBARGS[0]}
