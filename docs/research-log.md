@@ -24709,3 +24709,18 @@ Design frozen in docs/bpc-test.md, with the analysis tools/bpc_analyze.py (tests
   - Rule fixed now: the arm uses the largest alpha at which all three directions keep greedy accuracy within 5 points of the unsteered value. If none does, the arm stops (steering would swamp the task, as in BZ).
 - **Stage 2** (after calibration). Label and generate the first 1000 BPC prompts under each direction at that alpha.
   - Analysis fixed now: accuracy ~ chaotic + prompt fixed effects + direction fixed effects (least squares). The regime effect is identified within prompts across the unsteered and three steered conditions. The test permutes labels within prompts (10,000). The edge bins are as in BPC.
+
+## 2026-10-15 08:46 UTC: XOG and XOR results: the crossover along gratitude and a random direction confirms the readout mechanism
+
+Pods dl6ms3w3qjdkrt (XOG) and duykxff8ocb26y (XOR): runner rc 0, hashes verified, terminated; 268 and 264 s; commit f0a48342.
+- **XOG extraction.** The orchestrator refused to extract, because the uploaded vectors (pairmap-qwen0.5b/vectors) collide with the local originals. The archived vectors are byte-identical to the local ones (cmp), and xo/grat was extracted by hand from results.tgz.
+- **Results** (inline analysis; 14 held-out chaotic cells per direction; bootstrap 95 % intervals), nats per step:
+
+| direction | readout effect (10 - 00) | network effect (01 - 00) | interaction | readout effect at log10 T < 0 (n) |
+|---|---|---|---|---|
+| gratitude | +0.33 [0.08, 0.58] | -0.14 [-0.29, -0.00] | +0.17 [0.01, 0.33] | +0.63 (5) |
+| random1, norm-matched | +0.77 [0.48, 1.12] | -0.09 [-0.22, 0.05] | -0.09 [-0.22, 0.01] | +0.94 (8) |
+
+- **Validation.** Arm 11 equals the twin exponent within 0.02 at 23 and 22 of 24 cells. The twin is undefined (NaN) at the remaining cells, which contract to the rounding floor.
+- **Labels.** Two random1 cells labelled chaotic by their map are contracting in this run (twin -2.58 and -0.16); they stay in the held-out set as labelled.
+- **Reading.** Steering's change of the readout adds expansion at fixed states for all three directions of the 0.5B: philosophy +0.81, gratitude +0.33, random +0.77. Its change of the network does not: -0.49, -0.14 and -0.09, and -1.14 in the 7B. The mechanism does not depend on the direction's meaning.
