@@ -24560,3 +24560,13 @@ Pod xg535b59iooop9 (COMMUNITY H100 NVL; runner rc 0, hash verified, terminated; 
   - D_KY never exceeds the stable rank: 1.0-2.0 against 2.7-19.3.
   - The hostile cells have stable rank 16-19 and entropy 7-9 nats, yet D_KY 1.01-1.16.
   - **Reading:** the number of competing readout directions is at most a loose ceiling on the dimension. Which of them expand is decided by the network. This withdraws the speculation (in conversation, 15 Oct) that the dimension grows with temperature because more tokens compete.
+
+## 2026-10-15 07:46 UTC: FBD2 result: the 768->1536 flip at log10 T -0.156; sixth flip ratio 4.6688 (delta = 4.6692)
+
+Pod t2ko02yns76zzu (COMMUNITY H100 NVL; runner rc 0, hash verified, terminated; 4151 s; commit c07513aa). Output cascade/crescent-t-0.156-f.
+- **Flip.** Located at alpha = 0.06510347936379086 in 4 evaluations, mu = -0.99999959 (|mu + 1| = 4.1e-7, below even the original 1e-6 acceptance), next modulus 2.9e-14, Newton residual 9e-12.
+  - The two bracketing evaluations (g = +4.10e-5 and -4.09e-5) lie on a line through the accepted point within 4e-7 in g, which places the root within about 1e-15.
+- **Sixth flip ratio** (f384 - f192) / (f768 - f384) = **4.66884**, with the clean local f384. The +-9e-14 spread between the two f384 locations moves it by about 1e-4.
+- **Flip ratios at -0.156:** 14.93, 3.124, 4.4988, 4.6208, 4.6618, 4.6673, 4.6688.
+  - Deviations from delta: -1.55, -0.17, -0.048, -0.0074, -0.0019, -0.00036.
+  - From the third on, each level closes the gap by a factor of 3.5 to 6.5.

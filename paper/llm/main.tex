@@ -44,7 +44,7 @@ next tokens compete: in an orbit-preserving crossover its change of the softmax 
 its change of the network damps it, and a logit bias alone suffices. Earlier injection carries chaos to lower
 temperature, in Qwen2.5-0.5B and Llama-3.3-70B, and two steering vectors at different depths create chaos neither
 causes alone. Size does not remove the chaos: on ten prompts a 14B model is more chaotic than a 7B. The loop obeys the
-quantitative laws of low-dimensional maps: doubling ratios approach Feigenbaum's constant (4.6673 against 4.6692),
+quantitative laws of low-dimensional maps: doubling ratios approach Feigenbaum's constant (4.6688 against 4.6692),
 periodic windows accumulate on folds with a $1/N^2$ law, fold normal forms predicted passage times without fitting,
 and interval arithmetic proves an attracting period-8 orbit. In the recurrent-depth model Huginn, a frozen test
 confirmed a spectrally predicted accuracy loss. The loop is not ordinary sampled generation.
@@ -1144,9 +1144,10 @@ lower cuts, and it fails. At $\log_{10}T=-0.156$ the first ratio is $14.93$, fiv
 (Table~\ref{tab:cascade156}). The cut at $-0.152$ crosses a doubling bubble: its period-12 orbit merges back into the
 period-6 orbit near $\alpha\approx0.0657$, so that cut has no complete cascade. The early ratios thus depend strongly
 on where a cut crosses the crescent, and we withdraw the crossover explanation. The later ratios at $-0.156$ behave as
-universality requires. The next ratios are $3.124$, $4.4988$, $4.6208$, $4.6618$ and $4.6673$. Their deviations from
-$\delta=4.6692$ are $-1.55$, $-0.17$, $-0.048$, $-0.0074$ and $-0.0019$, and from the third on each step closes the gap
-by a factor of 3.5 to 6.5. The last flip, of the period-384 orbit, approaches the precision floor of its multiplier,
+universality requires. The next ratios are $3.124$, $4.4988$, $4.6208$, $4.6618$, $4.6673$ and $4.6688$. Their
+deviations from $\delta=4.6692$ are $-1.55$, $-0.17$, $-0.048$, $-0.0074$, $-0.0019$ and $-0.00036$, and from the third
+on each step closes the gap by a factor of 3.5 to 6.5. The last ratio uses the flip of the period-768 orbit, located
+with $|\mu+1|=4\times10^{-7}$. The last flip, of the period-384 orbit, approaches the precision floor of its multiplier,
 a product of 384 step Jacobians. On an H100 the computed $\mu+1$ scatters by $1.8\times10^{-5}$ about a straight line
 near the root; the largest residual divided by the slope places the flip within $\pm3.3\times10^{-13}$. The workstation GPU located it at
 $\alpha=0.06510347354866666$ with $|\mu+1|=4\times10^{-9}$, $9\times10^{-14}$ from the H100 estimate. Over that range the
@@ -1166,11 +1167,11 @@ direction, layer 12), from flips and from superstable points (which reach period
 it is plotted half a level after the flip ratio of its first band. Bars: worst-case ranges from the brackets of
 $s_{12}$ and $s_{24}$. At $\log_{10}T=-0.148$, and in the 1.5B model, the ratios rise toward Feigenbaum's $\delta$ from below, and the
 last superstable ratio is within 1\,\% of it. At $\log_{10}T=-0.156$ the first ratio, $14.9$, lies off the scale
-(arrow), and the later ratios approach $\delta$ from below, the last ($4.6673$) within $0.05\,\%$ of it. Its first two
+(arrow), and the later ratios approach $\delta$ from below, the last ($4.6688$) within $0.01\,\%$ of it. Its first two
 superstable ratios carry no bars: the brackets of $s_{12}$ and $s_{24}$ allow $[3.40,29.3]$ and $[1.01,4.65]$. Each
 sequence ends at the deepest level computed: the flips at $-0.148$ where Newton's method began to slide onto the
 half-period orbit (period 96), the superstable points at period 384, the 1.5B route at period 64, and the cut at
-$-0.156$, which we followed furthest, at period 768.
+$-0.156$, which we followed furthest, at period 1536.
 }
 \label{fig:feigenbaum}
 \end{figure}
@@ -1211,13 +1212,14 @@ $n$ & orbit & flip parameter $\alpha_n$ & next modulus & ratio $\delta_n$ \\
 5 & $48\to96$ & $0.0651027289524$ & $1.8\times10^{-13}$ & $4.6208$ \\
 6 & $96\to192$ & $0.0651033196816$ & $2.9\times10^{-14}$ & $4.6618$ \\
 7 & $192\to384$ & $0.0651034463988$ & $1.5\times10^{-14}$ & $4.6673$ \\
-8 & $384\to768$ & $0.0651034735487$ & $3.2\times10^{-13}$ & \\
+8 & $384\to768$ & $0.0651034735487$ & $3.2\times10^{-13}$ & $4.6688$ \\
+9 & $768\to1536$ & $0.0651034793638$ & $2.9\times10^{-14}$ & \\
 \bottomrule
 \end{tabular}
 \caption{Flips of the crescent's doubling sequence along $\log_{10}T=-0.156$, in float64. Flips 1--3 were computed on
 an H100 and flips 3--8 on a workstation GPU (NVIDIA RTX 2000 Ada); the two computations of flip 3 agree to
 $4\times10^{-16}$, and an H100 computation of flip 8 from its evaluations at the multiplier's precision floor lies
-$9\times10^{-14}$ away. Every critical multiplier is real and differs from $-1$ by at most $5\times10^{-8}$.}
+$9\times10^{-14}$ away. Flip 9 was computed on an H100. Every critical multiplier is real and differs from $-1$ by at most $5\times10^{-8}$.}
 \label{tab:cascade156}
 \end{table}
 Not every doubling leads to chaos. In the high-temperature region (Figure~\ref{fig:p4}), along

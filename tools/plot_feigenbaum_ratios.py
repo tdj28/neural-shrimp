@@ -7,7 +7,8 @@
   local continuations (cascade/crescent-t-0.156-c from 12->24 on, cascade/crescent-t-0.156-d if present), and the
   384->768 flip of run FBD (cascade/crescent-t-0.156-e), whose locator refused at the precision floor of the period-384
   multiplier: its root is the zero of the least-squares line through the logged evaluations (research log, FBD
-  result); superstable points (superstable/crescent-t-0.156, crescent-t-0.156-192, crescent-t-0.156-384 if present).
+  result), and the 768->1536 flip of run FBD2 (cascade/crescent-t-0.156-f); superstable points
+  (superstable/crescent-t-0.156, crescent-t-0.156-192, crescent-t-0.156-384 if present).
 - Qwen2.5-1.5B (philosophy, layer 14) along log10 T at alpha 0.100: flips (cascade/q15-a0.100-p4, edges/q15-a0.100-p16,
   edges/q15-a0.100-p32).
 
@@ -79,6 +80,9 @@ def sequence_156():
         lams += json.loads(d.read_text())["flip_parameters"]
     elif (DATA / "cascade/crescent-t-0.156-e/progress.jsonl").exists():
         lams.append(floor_root("crescent-t-0.156-e"))
+    f = DATA / "cascade/crescent-t-0.156-f/progress.jsonl"       # FBD2: the 768->1536 flip
+    if f.exists():
+        lams += [json.loads(line)["lambda"] for line in f.read_text().splitlines() if line.startswith('{"flip"')]
     return lams
 
 
