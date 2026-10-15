@@ -63,7 +63,7 @@ exponent, which measures how strongly the loop contracts (right colour bar; ligh
 4.4\,\% of the cells, also grey, have neither a detected period nor a positive exponent. Figure~\ref{fig:cross512} names the loops.}
 \label{fig:teaser}
 \end{figure}
-Inference increasingly feeds a language model its own continuous output. Soft Thinking replaces each sampled token by
+Several recent inference methods feed a language model its own continuous output. Soft Thinking replaces each sampled token by
 the expected embedding under the next-token distribution \cite{zhang2025softthinking}, latent-reasoning methods feed
 hidden states back \cite{hao2024coconut}, and recurrent-depth models iterate a block toward a fixed point
 \cite{geiping2025recurrent}. Each turns inference into an iterated map, and an iterated map can be chaotic. We show
@@ -74,16 +74,15 @@ changed the answers of a short soft-thinking pipeline on 56\,\% and 55\,\% of 96
 models. The same loops obey the quantitative
 laws of low-dimensional dynamics, down to Feigenbaum's constant.
 
-Why should anyone who does not study dynamics care? First, reproducibility: in a chaotic loop, differences far
+Three consequences follow for the use of such loops. The first concerns reproducibility: in a chaotic loop, differences far
 below anything a user controls, such as the batch layout or the numerical precision, decide the output, and in an
 exploratory test resetting the fed-back state before every soft step removed nearly all such changes (Section~\ref{sec:consequences}).
-Continuous-feedback inference can thus be irreproducible because of its dynamics rather than a bug. Second, steering:
+Continuous-feedback inference can therefore be irreproducible because of its dynamics, not because of an implementation error. The second concerns steering:
 practitioners choose steering strengths, and here the strength is a bifurcation parameter, so near a boundary a small
 change switches the attractor or brings chaos, and a smooth dose-response cannot be assumed (Section~\ref{sec:discussion}).
-Third, prediction: where the loop is periodic, normal forms computed from the model's derivatives predicted 23 of 24
+The third concerns prediction: where the loop is periodic, normal forms computed from the model's derivatives predicted 23 of 24
 passage times fixed before they were measured (Section~\ref{sec:mechanism}), so the quantitative tools of dynamical systems apply to the
-inference loops of released models, and larger models do not simply leave the chaos behind (Section~\ref{sec:sizemain}). What we did
-not find matters too: beyond the model's first-token uncertainty, the loop's regime carries no detectable information
+inference loops of released models, and larger models do not simply leave the chaos behind (Section~\ref{sec:sizemain}). We also report a negative result: beyond the model's first-token uncertainty, the loop's regime carries no detectable information
 about the accuracy of ordinary sampled answers.
 
 Figure~\ref{fig:teaser} shows a small piece of the parameter plane of one
@@ -99,8 +98,11 @@ been used to predict the answers of looped models \cite{luo2026prediction}. Besi
 Thinking, probability-weighted vocabulary embeddings are fed back in training \cite{zeng2025ponderlm}. In a small task-trained looped transformer, fold coefficients
 computed from derivatives predict passage times and spectral gaps without fitting \cite{kim2026phase}.
 
-We study one constructed but exactly defined system: the expected-embedding (``soft-token'') map of a frozen,
-released pretrained language model, run with a fixed chat prefix at a fixed position. The map is smooth. Its
+We study one constructed but exactly defined class of systems: the expected-embedding (``soft-token'') map of
+frozen, released pretrained language models, run with a fixed chat prefix at a fixed position. We follow it in fifteen
+models from 0.5 to 72 billion parameters (three dense families and a mixture of experts), most closely in
+Qwen2.5-0.5B-Instruct, and in two variations: two models writing one text, and a recurrent-depth model that iterates
+its own block. The map is smooth. Its
 Jacobians come from automatic differentiation, and its periodic orbits can be computed and continued like those of
 any smooth map. Chaos and periodic windows occur in many nonlinear feedback systems. Random-network theory, in which
 a specified ensemble of recurrent networks becomes chaotic above a critical gain, in continuous time
@@ -873,7 +875,14 @@ $b=-24.927$. Target B is the fold of the period-8 orbit of Table~\ref{tab:orbits
 $\alpha=0.0717$: $\log_{10}T_c=-0.1033462$, $G=F^8$, $a=-11.900$, $b=-152.05$ per unit $\log_{10}T$. Of the 24 forecasts (four distances and three entrances per target: the channel's start, its midpoint, and its start after a transverse kick), 23 fell within one iterate of the measured passages
 (Table~\ref{tab:prospective}). The pre-specified criterion, that every row pass, failed by one row: for target A,
 midpoint entrance, $\eps=3\times10^{-6}$, the forecast was 61 and the measurement 59. All full-channel passages and
-all passages after a transverse kick were within one iterate.
+all passages after a transverse kick were within one iterate. The design also froze a secondary comparison, the continuous passage integral
+$\int du/(a\eps+bu^2)$ of the same normal form, whose closed form is the arctangent usually quoted for saddle-node
+bottlenecks. It came within one iterate of all 24 measurements (errors from $-0.41$ to $+0.92$) and gives 58.56 for
+the failing row. At that entrance the two forms already differed by 2.4 iterates before any measurement: iterating the
+quadratic map from the entrance $u_{\mathrm{in}}$ to the exit $U$ adds about $\tfrac12\ln[f(U)/f(u_{\mathrm{in}})]$
+steps to the integral, $f(u)=a\eps+bu^2$, most at small $\eps$ and at the midpoint entrance. Which of the two forms
+the full map follows is not settled by this test, and it does not let us promote the secondary comparison after the
+fact.
 \begin{table}[H]
 \centering\small
 \begin{tabular}{rcc}
