@@ -1,3 +1,9 @@
+# Task21g complete; standalone delivery publishing
+
+2026-10-15T13:44:46Z: Scientificnotee5639cab/rootcb1b9ca0 accepted, evidence21c7a5bb. Standaloneentry appended, privatepublication verification pending. No further scientific run/audit.
+
+## Preserved status history
+
 # Task21g accepted; standalone delivery next
 
 Updated 2026-10-15T13:41:28.800439+00:00. Root accepted finalscientifice5639cab and cb1b9ca0. All49/490rows retained;98literalcomparisons exact. Finitebinsensitivity/orientation/parity/nativePCA limits remain. No computationremaining.

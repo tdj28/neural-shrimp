@@ -1,3 +1,9 @@
+# Tasks21f/g complete;21h source/control preparation
+
+2026-10-15T13:44:46Z: Task21f deliveryverified. Task21g acceptedandstandalone deliverypublishing. Theory21hsource/controls, Boundaryindependentreview; manufacturedmeasurement authorized, actualtargetunadmitted.21i sourcefreshplan only. Inference soleGit/processowner; zero actualnumericaljobs. Latest Claude296723e8 unchangedatlastcheck; watchactive through08:00PDT.
+
+## Preserved status history
+
 # Tasks21f complete;21g accepted;21h source preparation
 
 Updated 2026-10-15T13:41:28.800439+00:00. Task21f delivery fullyverified9757bf51; no furtherwork. Task21g finalscientific accepted, checkpoint/delivery next. Theory prepares21h ownreducer, Boundary source/fixture review; exactLSfailuremetadata retained.21i source-onlyfuturefreshdraft. Inference soleGit/processowner; zero actualjobs/reservations. Latest Claude296723e8 unchanged; no newpollneeded.
