@@ -8,6 +8,8 @@
 \usepackage[font=small,labelfont=bf]{caption}
 \usepackage[numbers,sort&compress]{natbib}
 \usepackage[dvipsnames]{xcolor}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta,positioning,calc,decorations.pathreplacing}
 \usepackage[colorlinks=true,allcolors=blue]{hyperref}
 \usepackage{microtype}
 \hypersetup{pdftitle={Bifurcations and chaos in language models fed their own output},
@@ -268,7 +270,8 @@ DF(x)=\frac{1}{T}\,\Sigma_p\,J_{\tilde h}(x),\qquad
 \Sigma_p=E^{\top}\bigl(\operatorname{diag}p-pp^{\top}\bigr)E=\operatorname{Cov}_{t\sim p}(e_t).
 \label{eq:gain}
 \end{equation}
-The derivative of the loop is the covariance of the token embeddings under the model's own next-token distribution,
+\input{figures/tikz-loop}
+The derivative of the loop (Figure~\ref{fig:loop}) is the covariance of the token embeddings under the model's own next-token distribution,
 amplified by the inverse temperature and composed with the derivative of the network. At a state of the period-8
 orbit of Table~\ref{tab:orbits}, \eqref{eq:gain} agrees with forward-mode derivatives of the full map to a relative
 error of at most $1.35\times10^{-13}$ over eight random directions (\texttt{tools/softmax\_gain.py}). Without tied embeddings, as in the 7B and 8B models, the logits are $z=W\tilde h(x)$ with an
@@ -293,9 +296,10 @@ points are fixed points: such a map has neither cycles nor chaos. Every cycle an
 therefore depends on the network factor $J_{\tilde h}$ breaking that structure. Attention has itself been read as a Hopfield retrieval \cite{ramsauer2020hopfield}; in the soft-token
 map the retrieval closes a loop around the whole network.
 
+\input{figures/fig-readout-gain}
 \paragraph{High-temperature contraction and the greedy limit.} The largest Lyapunov exponent of an orbit cannot exceed the orbit
 average of $\log\|DF\|$, so chaos needs $\|DF\|>1$ on a substantial part of the attractor. Both ends of the
-temperature axis work against this, in different ways. As $T\to0$, $p$ becomes one-hot except near ties between the
+temperature axis work against this, in different ways (Figure~\ref{fig:readoutgain}). As $T\to0$, $p$ becomes one-hot except near ties between the
 two leading tokens; away from ties the gain $\|\Sigma_p\|/T$ decays like $e^{-\Delta/T}/T$, where $\Delta$ is the gap
 between the two largest logits, and $F$ tends to the piecewise-constant greedy map, every orbit of which is eventually
 periodic (Section~\ref{sec:bridge}). This limit is pointwise, not uniform: near a tie the gain is of order $1/T$, so at
@@ -349,8 +353,9 @@ the collapse \cite{dong2021attention}. Which tendency wins along an orbit is a p
 only computation settles. In every dense model we mapped, both outcomes occur: the same map has negative largest
 exponents in some regions of its parameter plane and positive ones in others.
 
+\input{figures/tikz-reduction}
 \paragraph{Why the structures of low-dimensional maps appear.} The map acts on a space of hundreds to thousands of
-dimensions, yet two reductions make low-dimensional theory apply. Near a bifurcation of a periodic orbit the centre
+dimensions, yet two reductions make low-dimensional theory apply (Figure~\ref{fig:tworeductions}). Near a bifurcation of a periodic orbit the centre
 manifold theorem reduces the dynamics exactly to the critical directions, whatever the size of the other multipliers,
 as long as they stay off the unit circle. Our normal forms of folds, flips, cusps and 1:1 resonances rest on this
 reduction alone. Global statements, that a whole attractor follows a scalar return map, need more: the other
@@ -361,7 +366,8 @@ $0.045$, $7\times10^{-5}$, $4\times10^{-7}$ and $2\times10^{-13}$ at the next fo
 through the gain of \eqref{eq:gain}, and steering unfold the reduced map as a two-parameter family. Generic
 two-parameter families of smooth one-dimensional maps with a quadratic extremum have universal features: fold and flip
 curves with cusps where fold curves turn, period-doubling cascades whose interval ratios tend to Feigenbaum's
-$\delta$, and saddle-node windows that accumulate on a fold with $d_N\propto N^{-2}$. The organization of shrimps needs
+$\delta$, and saddle-node windows that accumulate on a fold with $d_N\propto N^{-2}$ (Figure~\ref{fig:atlas} sketches the
+objects we locate). The organization of shrimps needs
 more, either a second turning point of the reduced map or a second dimension
 \cite{gallas1993structure,jones2012rossler}. We test the consequences where we state them: the multipliers of each
 orbit, the interval ratios, and the normal-form predictions of passage times and coexisting orbits. Where the second
@@ -379,6 +385,7 @@ scalar return relation (Section~\ref{sec:hostility}), the eight chaotic cells ha
 $1.16$, so the chaos there is one-dimensional to within a sixth of a dimension. At six chaotic cells of the headline
 maps $D_{\mathrm{KY}}$ is $1.06$ to $1.65$, rising with $\lambda_1$. Where the largest exponent is large, the
 attractor is visibly thicker than a curve, and a scalar return map describes it only approximately.
+\input{figures/tikz-atlas}
 
 \section{Methods}
 \label{sec:methods}

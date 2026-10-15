@@ -1,0 +1,86 @@
+% Two reductions to one dimension (Section "Why the loop can be chaotic", paragraph "Why the structures of
+% low-dimensional maps appear"). Schematic, no data.
+% Preamble: \usepackage{tikz} and \usetikzlibrary{arrows.meta,calc}.
+% The label fig:reduction is taken (scalar return-map figure of the hostility section), hence fig:tworeductions.
+\begin{figure}[H]
+\centering
+\definecolor{redaccent}{RGB}{204,85,0}
+\begin{tikzpicture}[
+    font=\footnotesize,
+    >={Stealth[length=1.7mm,width=1.3mm]},
+    pt/.style={circle, fill=black, inner sep=0pt, minimum size=3.2pt},
+    squeeze/.style={->, black!55, semithick},
+  ]
+  % ---------------- (a) local reduction at a bifurcation ----------------
+  \node[anchor=west, font=\small] at (-0.1,5.15) {(a) Local: centre manifold at a bifurcation};
+  % a period-q orbit of the map (q = 6), arcs: the map F
+  \coordinate (oc) at (1.55,3.05);
+  \foreach \ptk/\pta in {1/0,2/60,3/120,4/180,5/240,6/300} {
+    \coordinate (o\ptk) at ($(oc)+(\pta:1.2 and 0.72)$);
+  }
+  \foreach \ptk/\ptn in {1/2,2/3,3/4,4/5,5/6,6/1} {
+    \draw[->, black!45, shorten <=2.5pt, shorten >=2.5pt] (o\ptk) to[bend right=22] (o\ptn);
+  }
+  \foreach \ptk in {2,...,6} { \node[pt] at (o\ptk) {}; }
+  \node[pt, fill=redaccent] at (o1) {};
+  \node[anchor=south] at ($(oc)+(0,0.8)$) {period-$q$ orbit of $F$ in $\mathbb{R}^{d}$};
+  \node[anchor=east, inner sep=1pt] at ($(o1)+(-0.2,0)$) {$x_1$};
+  % zoom into x_1
+  \coordinate (zc) at (5.05,2.35);
+  \def\zr{1.72}
+  \draw[black!30] (o1) circle (0.17);
+  \draw[black!30] ($(o1)+(0,0.17)$) -- ($(zc)+(125:\zr)$);
+  \draw[black!30] ($(o1)+(0,-0.17)$) -- ($(zc)+(215:\zr)$);
+  \draw[black!40, fill=white] (zc) circle (\zr);
+  \begin{scope}
+    \clip (zc) circle (\zr-0.02);
+    % transverse directions contract onto the centre manifold (dashed: further directions of R^d)
+    \foreach \uu in {-1.05,0,1.05} {
+      \pgfmathsetmacro{\ww}{0.24*\uu - 0.035*\uu*\uu*\uu}
+      \draw[squeeze] ($(zc)+(\uu,\ww+1.15)$) -- ($(zc)+(\uu,\ww+0.17)$);
+      \draw[squeeze] ($(zc)+(\uu,\ww-1.15)$) -- ($(zc)+(\uu,\ww-0.17)$);
+      \draw[squeeze, densely dashed] ($(zc)+(\uu+0.55,\ww+1.0)$) -- ($(zc)+(\uu+0.1,\ww+0.17)$);
+      \draw[squeeze, densely dashed] ($(zc)+(\uu-0.55,\ww-1.0)$) -- ($(zc)+(\uu-0.1,\ww-0.17)$);
+    }
+    % centre manifold, tangent to the critical eigenvector
+    \draw[redaccent, very thick, domain=-1.75:1.75, samples=40, smooth]
+      plot ({5.05+\x}, {2.35+0.24*\x-0.035*\x*\x*\x});
+  \end{scope}
+  \node[pt, fill=redaccent] at (zc) {};
+  \node[text=redaccent, anchor=north, inner sep=1pt] at ($(zc)+(1.42,0.13)$) {$W^{c}$};
+  \node[anchor=west, align=left] at ($(zc)+(\zr+0.1,0.75)$) {critical:\\ $\mu_1=\pm1$};
+  \node[anchor=west, align=left] at ($(zc)+(\zr+0.1,-0.75)$) {transverse:\\ $|\mu_j|<1$};
+  \node[anchor=north] at ($(zc)+(0,-\zr-0.12)$) {on $W^{c}$: $u\mapsto u+a\varepsilon+bu^{2}$ (fold)};
+  \node[anchor=north, text=black!70] at ($(zc)+(-0.6,-\zr-0.62)$)
+    {exact near the bifurcation; needs only $|\mu_j|\neq1$ for $j\geq2$};
+
+  % ---------------- (b) global reduction: a scalar return map ----------------
+  \begin{scope}[shift={(9.75,0.55)}]
+    \node[anchor=west, font=\small] at (-0.85,4.6) {(b) Global: scalar return map};
+    \def\sz{3.7}
+    \draw[->, black!70] (0,0) -- (\sz+0.25,0) node[below left, inner sep=1pt, text=black] {$u_n$};
+    \draw[->, black!70] (0,0) -- (0,\sz+0.25) node[left, inner sep=2pt, text=black] {$u_{n+1}$};
+    \draw[black!45, dashed] (0,0) -- (\sz,\sz);
+    % a few iterates of f(u) = 3.8 u (1 - u)
+    \draw[black!40] (0.2*\sz,0) -- (0.2*\sz,0.608*\sz) -- (0.608*\sz,0.608*\sz) -- (0.608*\sz,0.9057*\sz)
+      -- (0.9057*\sz,0.9057*\sz) -- (0.9057*\sz,0.3246*\sz) -- (0.3246*\sz,0.3246*\sz) -- (0.3246*\sz,0.8331*\sz)
+      -- (0.8331*\sz,0.8331*\sz);
+    \draw[redaccent, very thick, domain=0:1, samples=60, smooth] plot ({\sz*\x}, {\sz*3.8*\x*(1-\x)});
+    \node[pt] at (0.5*\sz,0.95*\sz) {};
+    \draw[black!50] (0.5*\sz,0.95*\sz) -- (0.5*\sz+0.55,0.95*\sz+0.42)
+      node[anchor=south west, inner sep=1pt, text=black] {quadratic extremum};
+    \node[text=redaccent, anchor=west] at (0.97*\sz,0.2*\sz) {$f$};
+    \node[anchor=north, text=black!70, align=center] at (0.5*\sz,-0.22) {describes a whole attractor;\\
+      needs $|\mu_j|\ll1$ for $j\geq2$};
+  \end{scope}
+\end{tikzpicture}
+\caption{Two reductions to one dimension (Section~\ref{sec:theory}). (a) Near a bifurcation of a period-$q$ orbit of
+the soft-token map (dots; arcs: the map), the dynamics of $F^{q}$ near a point $x_1$ of the orbit reduce to its
+centre manifold $W^{c}$, tangent to the critical eigenvector of the monodromy matrix (multiplier $\mu_1=\pm1$; drawn
+with one critical direction, as at a fold, a flip or a cusp; a 1:1 resonance or a fold-flip point has two). The
+other multipliers lie off the unit circle; drawn here inside it, the transverse directions contract onto $W^{c}$
+(dashed arrows stand for the remaining dimensions). The reduction is exact near the bifurcation whatever the size of
+the other multipliers; the normal forms of folds, flips, cusps and 1:1 resonances rest on it. (b) A global scalar return map $u\mapsto f(u)$ with a quadratic extremum, the diagonal
+(dashed) and a few iterates (grey). It describes a whole attractor only when the other multipliers are small.}
+\label{fig:tworeductions}
+\end{figure}

@@ -1,0 +1,76 @@
+% The soft-token loop and the factors of its derivative (Section "Why the loop can be chaotic").
+% Preamble: \usepackage{tikz} and \usetikzlibrary{arrows.meta,positioning,calc,decorations.pathreplacing}.
+\begin{figure}[H]
+\centering
+\definecolor{loopaccent}{RGB}{204,85,0}
+\begin{tikzpicture}[
+    font=\small,
+    >={Stealth[length=2mm,width=1.6mm]},
+    box/.style={draw=black!70, rounded corners=2pt, fill=black!4, minimum height=9mm, inner sep=3pt, align=center},
+    flow/.style={->, semithick, black!80},
+    qty/.style={font=\footnotesize, above, midway, inner sep=2pt},
+    under/.style={decorate, decoration={brace, mirror, amplitude=4pt, raise=1pt}, draw=black!55},
+  ]
+  % input sequence: a fixed prompt, then the soft token x at a fixed position
+  \node[draw=black!55, fill=black!10, minimum width=18mm, minimum height=7mm, inner sep=0pt] (prompt) {};
+  \foreach \nn in {1,...,4} {
+    \draw[black!35] ($(prompt.south west)!\nn/5!(prompt.south east)$) -- ($(prompt.north west)!\nn/5!(prompt.north east)$);
+  }
+  \node[draw=loopaccent, fill=loopaccent!15, minimum width=7mm, minimum height=7mm, inner sep=0pt,
+        right=0pt of prompt] (x) {$x$};
+  \node[font=\footnotesize, below=1.5mm of prompt, align=center, inner sep=0pt] {fixed prompt};
+
+  % transformer: residual stream through the layers, steering added at a middle layer
+  \node[box, minimum width=37mm, minimum height=14mm, right=8mm of x] (net) {};
+  \coordinate (r0) at ($(net.west)+(2.5mm,1.6mm)$);
+  \coordinate (r1) at ($(net.east)+(-2.5mm,1.6mm)$);
+  \draw[black!45] (r0) -- (r1);
+  \foreach \nn in {1,2,3,5,6,7} {
+    \node[draw=black!60, fill=white, minimum width=2.2mm, minimum height=5.6mm, inner sep=0pt]
+      at ($(r0)!\nn/8!(r1)$) {};
+  }
+  \node[draw=black!80, fill=white, circle, minimum size=3.2mm, inner sep=0pt] (plus) at ($(r0)!4/8!(r1)$) {};
+  \draw[black!80] (plus.north) -- (plus.south) (plus.west) -- (plus.east);
+  \node[font=\footnotesize, anchor=south, inner sep=1.5pt] at ($(net.south)+(0,0.4mm)$) {transformer};
+  \node[font=\footnotesize, inner sep=1pt] (steer) at ($(plus)+(0,11.5mm)$) {$\alpha v$};
+  \draw[flow] (steer.south) -- (plus.north);
+
+  % readout: logits, softmax at temperature T, expected embedding
+  \node[box, right=11mm of net] (zb) {$z=E\tilde h$};
+  \node[box, right=7mm of zb] (pb) {$p=\operatorname{softmax}(z/T)$};
+  \node[box, right=7mm of pb] (mb) {$E^{\top}p$};
+  \draw[flow] (x.east) -- (net.west);
+  \draw[flow] (net.east) -- node[qty] {$\tilde h(x)$} (zb.west);
+  \draw[flow] (zb.east) -- node[qty] {$z$} (pb.west);
+  \draw[flow] (pb.east) -- node[qty] {$p$} (mb.west);
+
+  % feedback: F(x) is the next input, at the same position after the same prompt
+  \coordinate (out) at ($(mb.east)+(12mm,0)$);
+  \coordinate (top) at ($(net.north)+(0,14.5mm)$);
+  \draw[loopaccent, semithick] (mb.east) -- node[qty, text=loopaccent] {$F(x)$} (out);
+  \draw[->, loopaccent, thick, rounded corners=3pt] (out) |- (x.north |- top) -- (x.north);
+  \node[font=\footnotesize, fill=white, inner sep=2pt] at ($(top)!0.5!(top -| out)$)
+    {$F(x)$ replaces $x$ as the next input};
+
+  % factors of the derivative
+  \coordinate (base) at ($(net.south)+(0,-1mm)$);
+  \draw[under] (net.south west |- base) -- node[below=5pt, font=\footnotesize, align=center]
+    {network: $J_{\tilde h}(x)$} (net.south east |- base);
+  \draw[under] (zb.south west |- base) -- node[below=5pt, font=\footnotesize, align=center]
+    {readout gain: $\Sigma_p/T$, \ $\Sigma_p=\operatorname{Cov}_{t\sim p}(e_t)$} (mb.south east |- base);
+  \node[font=\footnotesize, align=center, anchor=north] (eq) at ($(net.south east |- base)!0.5!(zb.south west |- base)+(0,-9mm)$)
+    {$DF(x)=\dfrac{1}{T}\,\Sigma_p\,J_{\tilde h}(x)$};
+  \node[font=\footnotesize, align=left, anchor=north, draw=black!35, rounded corners=2pt, inner sep=3pt,
+        text width=128mm] at ($(eq.south)+(0,-1.5mm)$)
+    {No network, $\tilde h(x)=x$ and $J_{\tilde h}=I$: then $F(x)=E^{\top}\operatorname{softmax}(Ex/T)$ is the update of a
+     modern Hopfield network, which lowers an energy at every step and cannot cycle.};
+\end{tikzpicture}
+\caption{The soft-token loop. A fixed prompt is followed by one input embedding $x$. The transformer, with $\alpha v$
+added to the residual stream at a middle layer (at every position), gives the final normalized hidden state
+$\tilde h(x)$ at the position of $x$; with tied embeddings the logits are $z=E\tilde h$ (untied: $z=W\tilde h$), and
+$p=\operatorname{softmax}(z/T)$ is the next-token distribution. The expected embedding $E^{\top}p=F(x)$ is fed back
+as the next input, at the same position after the same prompt. Below: the two factors of the derivative
+\eqref{eq:gain}, the network's Jacobian $J_{\tilde h}$ and the readout gain $\Sigma_p/T$. With $J_{\tilde h}=I$ the loop
+is a modern Hopfield update \cite{ramsauer2020hopfield}, which cannot cycle (Section~\ref{sec:theory}).}
+\label{fig:loop}
+\end{figure}
