@@ -23664,3 +23664,13 @@ Also new: tools/cusp_locate.py (run CL, below) with tests/test_cusp_locate.py. O
   - P4R: the period-4 region counts as one shrimp-organized component if the union of the fold curves A-D bounds it as one connected set joined at cusp points; otherwise it is reported as separate pieces.
   - V2: the seams count as a start-state effect if the cold frame 138 differs from the warm 138 by at least 1 point of chaotic share, with the differing cells concentrated where the existing frames show coexisting attractors. The gap frames enter the video as continued chains, and the caption reports the seams.
 - **Output:** `../neural-shrimp-data/explore/llm-soft-loop/pod64/{codim2/*, p4/curve-*-2, morph/frame-NNN}` (clashing archives extract into their run folders)
+
+## 2026-10-15 01:27 UTC: TC result: exact tangent exponents reproduce the twin exponents of the headline 0.5B maps, every label agrees, one positive Lyapunov exponent
+
+Pod wgzy8bc7psxcb3 (COMMUNITY H100 NVL, runner rc 0, hash verified, terminated and verified; 2298 s wall; commit 2ae8f53a). Output hidden/tc-h2-cells-tangent and hidden/tc-spectrum. Scored by the run card's rule (scratchpad tc_score.py):
+- (a) Over the 448 H2 cells, |tangent - twin| is at most 0.0041 at offset 1e-6 and 0.0037 at 1e-9. At the 178 H2-chaotic cells it is at most 0.0041 and 0.0027 (median 0.0004).
+- (b) 178 tangent-chaotic and 178 twin-chaotic cells; no label differs. The twins and periods reproduce H2 exactly on another pod of the same GPU type (max difference 0 at the chaotic cells, same period at all 448).
+- (c) Between 1000 and 2000 measured steps the running tangent estimate at chaotic cells changes by a median of 0.009 (at most 0.081). Between 250 and 2000 steps the change is a median of 0.024 (at most 0.35).
+- (d) QR spectra, 7 of 8 cells (the second periodic control, cell 406, hit the 25-minute limit). Each of the six chaotic cells has exactly one positive exponent among the top four (0.063 to 0.415), and the next exponent lies between -0.64 and -1.10. The periodic control (cell 143, period 6) has all four negative (-0.32 to -2.72). The spectrum's leading exponent differs from the single-tangent exponent of the same cell by up to 0.027. The spectrum tool runs the cell in a different batch, so its orbit is another realization on the same attractor, and 0.027 measures the finite-horizon spread at 2000 steps.
+
+Reading: on these maps the twin method is a finite-difference Benettin estimate that agrees with exact tangents to a few thousandths. The labels do not depend on the method. The chaos has one unstable direction. Paper: one sentence in the methods.

@@ -345,7 +345,11 @@ exponents in some regions of its parameter plane and positive ones in others.
 transient steps and measure over the next 300. The largest Lyapunov exponent comes from a twin trajectory at
 offset $10^{-6}$ that is renormalized to that offset after every step, Benettin's method with a finite-difference
 tangent \cite{benettin1980lyapunovI,benettin1980lyapunovII}; it estimates over a finite horizon the exponent that the
-multiplicative ergodic theorem defines as a limit \cite{oseledets1968multiplicative}. The period is the smallest $q\le32$ (48 in the later zooms) with return distance below
+multiplicative ergodic theorem defines as a limit \cite{oseledets1968multiplicative}. At the 448 random cells of the
+horizon check (Section~\ref{sec:discussion}), an exact tangent vector carried by forward-mode differentiation
+reproduces the twin exponents at offsets $10^{-6}$ and $10^{-9}$ within 0.0041 (median 0.0004), with the same 178
+chaotic labels, and at six chaotic cells the four leading exponents from QR iteration include exactly one positive one
+(0.06 to 0.42; the next is $-0.64$ to $-1.10$). The period is the smallest $q\le32$ (48 in the later zooms) with return distance below
 $10^{-8}$, and the attractor is identified by its leading-token loop, up to rotation. We call a cell chaotic when this
 finite-horizon exponent exceeds $10^{-3}$ and no period is found; the label is a finite-horizon diagnostic, not a
 proof of chaos. Panels coloured by period or attractor text follow an older drawing convention: black marks every
