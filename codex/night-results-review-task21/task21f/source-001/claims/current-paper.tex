@@ -1,0 +1,73 @@
+encloses a period-28 ring around a chaotic core. Period-21 windows sit in the chaotic region as thin crescents with
+legs, and curves of very negative exponent, where the orbits are superstable (the leading multiplier crosses zero),
+run through the windows as the ``endoskeleton'' of shrimps does \cite{facanha2013endoskeletons}. In this zoom
+18\,\% of cells are chaotic.
+
+\paragraph{No one-dimensional shrimp centre.} In a shrimp of a one-dimensional map, two superstable curves of the
+window's orbit cross at a doubly superstable centre \cite{gallas1993structure,facanha2013endoskeletons}. We continued
+one period-7 orbit over a $31\times31$ grid of the body's upper part and followed the sign of its leading multiplier
+(Figure~\ref{fig:superstable}). Its superstable curves form two arcs that approach within $1.3\times10^{-3}$ in
+$\log_{10}T$ near $(\alpha,\log_{10}T)=(0.0700,0.206)$ and do not cross at this resolution. A five times finer grid of that approach
+(1155 cells) shows why. There the leading multiplier is tiny (median modulus $9\times10^{-4}$) and as small as the next
+one, and in 221 cells the two form a complex pair, in two wedges that flank the gap. On this sampled approach the two
+computed leading multipliers exchange dominance and form a complex pair, so the sign of a leading real multiplier no
+longer defines a scalar superstable curve there. Where a one-dimensional map would place its doubly superstable centre,
+the orbit's local linearization has two comparable directions. Next to the body, the 7-step return maps of chaotic
+cells are single-humped in every phase, with doubled strands in two phases, the trace of a thin second dimension
+(Figure~\ref{fig:returnmapsbody}); cobwebs on these maps show the doubling cascade and the chaos as on a
+one-humped interval map (Figure~\ref{fig:cobwebs}). On the tracked branch and in the sampled region, the body is
+therefore not the shrimp of a one-dimensional map. Whether it is the shrimp of an effectively
+two-dimensional map, as in the H\'enon family, is open.
+
+\paragraph{What the shrimp-like shapes are.} The shapes are made of the bifurcation curves of single windows
+(Figure~\ref{fig:shrimpschematic}). A periodic window is the region where one periodic orbit attracts. The windows
+we continued are bounded by fold curves, where the orbit is born or dies together with a saddle (multiplier $+1$), and
+flip curves, where it doubles (multiplier $-1$); in higher dimensions other boundaries, such as a complex pair crossing
+the unit circle, are also possible. In a one-dimensional map the multiplier runs from $+1$ through $0$ to $-1$ across the
+window, so every window holds a superstable curve: the dark ``endoskeleton'' lines of our maps. In a higher-dimensional
+map the leading multiplier can instead change sign through a complex pair, as it does in parts of our windows. Beyond
+some of the flip curves we followed lie the doubling sequences of Section~\ref{sec:cascade}; a flip need not start a
+complete cascade.
+
+Steering strength and temperature move the orbit in different directions, so the fold curves bend. Where a fold curve
+turns back, a cusp can form (a visual turn alone is not our criterion: the located cusps satisfy the degeneracy and
+unfolding checks of Section~\ref{sec:curves}), and between the two branches leaving the cusp the window continues as a
+thin leg.
+Bent fold curves with cusps, flip curves inside them and a superstable line through the body produce the bodies, legs,
+hooks and crescents of the maps. All nine reversals of the fold curves we continued are located cusps
+(Section~\ref{sec:curves}).
+
+A shrimp in the sense of Gallas has one more element: a centre, where two superstable curves of the same orbit cross.
+There the orbit passes two critical points at once, which needs two turning points in a one-dimensional reduction.
+The return maps of the hostile body have one turning point per phase (Figure~\ref{fig:returnmapsbody}). Where the hostile body's superstable curves approach each other, the orbit becomes
+two-dimensional instead of doubly superstable (Figure~\ref{fig:superstable}). The period-6 hook's orbit never comes
+close to superstable: its leading multiplier stays above $0.028$ in modulus.
+
+The X-shaped crossing of a period-5 and a period-6 strip (Figure~\ref{fig:zooms}, bottom) is not one window's anatomy
+but two windows overlapping, and at the crossing both of their orbits are unstable (Section~\ref{sec:curves}). The
+shapes are therefore the two-parameter unfolding of single-humped windows. They are shrimp-like in body, legs and
+internal cascade, but have no shrimp centre.
+\input{figures/tikz-shrimp}
+\begin{figure}[t]
+\centering
+\includegraphics[width=\linewidth]{fig-superstable-lines.png}
+\caption{Superstable structure of the hostile period-7 body (Qwen2.5-0.5B-Instruct, hostility direction at layer 12,
+float64). (a) Largest Lyapunov exponent of the period-7 cells, with fold (black) and flip (red, dashed) curves and the
+two located cusps (gold); dark curves are superstable lines. (b) One period-7 orbit continued over the red box of (a):
+sign of its leading multiplier (red positive, blue negative), dark where it is small, and its zero curves (black).
+The two arcs approach near $(0.0700,0.206)$ without crossing. (c) Five times finer zoom of the cyan box of (b):
+logarithm of the leading multiplier's modulus. Crosses mark cells where the two leading multipliers form a complex
+pair; white segments mark sign changes between cells with a real leading multiplier. Where a one-dimensional map would
+have its centre, the orbit is two-dimensional.}
+\label{fig:superstable}
+\end{figure}
+\begin{figure}[t]
+\centering
+\includegraphics[width=\linewidth]{fig-return-maps-body.png}
+\caption{Seven-step return maps $s_{n+7}$ against $s_n$, for each phase of the 7-periodic text, of chaotic cells next to
+the hostile period-7 body (top three rows: $\alpha=0.07136$--$0.07142$, $\log_{10}T=0.2057$--$0.2062$) and on the
+hostile line of Figure~\ref{fig:hubcascade} (bottom row: $\alpha=0.0655$, $\log_{10}T=0.1848$); $s$ is the projection on
+the leading principal component of that phase's states, which carries 89--100\,\% of their variance. Every phase
+shows a single hump. In phases 4 and 5 the curve splits into two thin strands.}
+\label{fig:returnmapsbody}
+\end{figure}

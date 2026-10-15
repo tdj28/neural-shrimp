@@ -1,0 +1,25 @@
+--- core-v1-7c19171b
++++ core-label-amendment
+@@ -193,16 +193,19 @@
+ 
+ 
+ def intersections(first, second):
+-    """Source 1e-30 rule with inclusive endpoints. No forced phase alignment.
++    """Source-formula 1e-30 rule after geometric pruning; inclusive endpoints.
+ 
+     Distinct geometrically disjoint bounding boxes cannot intersect. Parallel
+     pairs are counted separately from descriptive EXACT collinear overlaps;
+-    those overlaps do not add to the literal source's intersection count.
++    those overlaps do not add to the own-method intersection count. The
++    geometric pruning need not be bit-exact to an unfiltered floating-point
++    producer loop. This is a finite interpolation diagnostic, not a zero proof.
+     """
+     a = np.asarray([x["points"] for x in first], dtype=float).reshape(-1,2,2)
+     b = np.asarray([x["points"] for x in second], dtype=float).reshape(-1,2,2)
+     af, bf = np.isfinite(a).all(axis=(1,2)), np.isfinite(b).all(axis=(1,2))
+-    out = {"pairs":len(a)*len(b), "nonfinite_segment_ids_a":np.flatnonzero(~af),
++    out = {"method":"source-formula arithmetic with geometric bbox pruning; not a bit-exact replay of the unfiltered producer helper",
++           "pairs":len(a)*len(b), "nonfinite_segment_ids_a":np.flatnonzero(~af),
+            "nonfinite_segment_ids_b":np.flatnonzero(~bf), "parallel_cutoff_pairs":0,
+            "bbox_disjoint_finite_pairs":0, "intersections":[], "collinear_overlaps":[],
+            "near_parallel_candidate_pairs":[], "nonfinite_arithmetic_candidates":[]}
