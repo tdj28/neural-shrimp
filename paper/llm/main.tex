@@ -758,6 +758,20 @@ hostility at block 16; bottom: the blocks exchanged. Dotted lines mark the axes,
 \label{fig:twoblock}
 \end{figure}
 
+\paragraph{Does a chaotic loop predict worse answers in ordinary decoding? Not demonstrably.} We looked for a
+behavioural signature of the regimes outside the loop, in two exploratory designs, and found none that survives
+controls. First, ordinary sampled answers of Qwen2.5-0.5B under steering at the strengths of chaotic and periodic map
+cells (30 matched pairs; arithmetic, open questions, short programs) showed no measurable accuracy contrast. At those
+strengths, steering every position turns every reply into philosophy-flavoured text, so accuracy sits at the floor in
+both zones. Second, we labelled each of 200 prompts by the regime of its own unsteered loop in Qwen2.5-7B at three
+temperatures and compared the prompts' ordinary sampled accuracy. Prompts whose loop is chaotic were answered far less
+accurately (by 27 to 36 points among prompts the model answers correctly when greedy), but mostly because chaotic
+labels fall on the harder task and on flatter answer distributions. With task and answer entropy as covariates, a
+residual of $-4$ to $-5$ points remains, with the same sign at each temperature and no significance alone. Answer
+entropy is measured during sampling, so this adjustment may over-correct. A regime label measured on the loop may yet
+add predictive value beyond simpler difficulty measures, but establishing it needs a frozen test on fresh, single-task
+prompts with covariates fixed before sampling; we have not run one.
+
 \section{Period adding written in text}
 \label{sec:adding}
 Between a period-2 region and the chaos lies a fan of stripes of periods $6, 8, 10, \dots$ Their orbits, numerically
