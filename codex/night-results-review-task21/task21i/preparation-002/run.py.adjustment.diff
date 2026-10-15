@@ -1,0 +1,72 @@
+--- before/run.py
++++ after/run.py
+@@ -12,6 +12,8 @@
+ HERE = Path(__file__).resolve().parent
+ spec = importlib.util.spec_from_file_location('task21i_statistics', HERE/'statistics.py')
+ s = importlib.util.module_from_spec(spec); spec.loader.exec_module(s)
++spec_adjust = importlib.util.spec_from_file_location('task21i_adjustment', HERE/'adjustment.py')
++adjustment = importlib.util.module_from_spec(spec_adjust); spec_adjust.loader.exec_module(adjustment)
+ TASKS = ('arithmetic', 'nq', 'mbpp')
+ TEMPERATURES = (.25, .32, .4)
+ SEED = 20261015
+@@ -148,7 +150,7 @@
+                           'scope':'Only saved pair-definition predicates checked; source maps/nearest-row/minimum-gap selection not replayed.'})
+     return {'literal_comparable':literal,'diagnostics':diagnostics,'cells':list(cells.values()),'selection':selection,
+             'cell_summary_comparisons':comparisons,'response_rows':count,
+-            'scope':'Pair statistics use own raw response means; source uses stored cell means. Every such difference is retained. Sorted pair order fixes BZ resampling despite unavailable historical run CLI.'}
++            'scope':'Pair statistics use own raw response means; source uses stored cell means. Every such difference is retained. Sorted pair order fixes BZ resampling; later producer transcript attests the same canonical run CLI order, without independent historical execution observation.'}
+ 
+ 
+ def label_diagnostic(cell):
+@@ -216,11 +218,11 @@
+     s.require(responses==6200 and len(canonical_rows)==600,'BP complete row count differs')
+     return {'literal_comparable':literal,'prompt_rows':canonical_rows,'permutation_details':permutation_details,
+             'task_composition':task_tables,'response_rows':responses,'canonical_prompt_order':list(labels),
+-            'scope':'Canonical supplied-shard then file-line order, not historically attested CLI order. Prompt-unit permutation fractions may differ because original label insertion order is unavailable. No adjusted-regression replay.'}
+-
+-
+-def runtime_pins(card, inputs, source_map):
+-    rows=[card['inputs']]+[inputs[k] for k in ('authority','source_map','analysis_order')]+inputs['files']+inputs['published']+source_map['source_files']+source_map['claims']
++            'scope':'Canonical supplied-shard then file-line order agrees with later producer-transcript attestation. Historical execution/order is not independently observed; all saved-summary differences remain. Separate q7 post-outcome adjustment uses these same prompt rows.'}
++
++
++def runtime_pins(card, inputs, source_map, supplement):
++    rows=[card['inputs'],card['transcript_supplement']]+supplement['files']+[inputs[k] for k in ('authority','source_map','analysis_order')]+inputs['files']+inputs['published']+source_map['source_files']+source_map['claims']
+     unique={}
+     for r in rows:
+         p=small_pin(r);s.require(p['path'] not in unique or unique[p['path']]==p,'conflicting duplicate pin')
+@@ -234,7 +236,9 @@
+     for name,digest in card['source_sha256'].items():s.require(sha(HERE/name)==digest,'captured own source mismatch')
+     verify(card['inputs']);inputs=decode(Path(card['inputs']['path']).read_text())
+     verify(inputs['source_map']);source_map=decode(Path(inputs['source_map']['path']).read_text())
+-    pins=runtime_pins(card,inputs,source_map)
++    verify(card['transcript_supplement']);supplement=decode(Path(card['transcript_supplement']['path']).read_text())
++    s.require(supplement['schema']=='task21i-historical-transcript-supplement-v1' and supplement['transcript']['sha256']==adjustment.TRANSCRIPT_SHA,'transcript authority differs')
++    pins=runtime_pins(card,inputs,source_map,supplement)
+     s.require(inputs['target_files']==len(inputs['files'])==100 and inputs['target_bytes']==10231893,'fixed target inventory differs')
+     for p in pins:verify(p)
+     order=decode(Path(inputs['analysis_order']['path']).read_text())
+@@ -254,17 +258,20 @@
+                 lab=[(r,[decode(line) for line in Path(r['path']).read_text().splitlines()]) for r in labels if Path(r['path']).parent.name.startswith(model+'-')]
+                 g=[r for r in gens if Path(r['path']).parent.name==model+'-gen'];s.require(len(g)==1,'BP generation identity differs')
+                 bp[model]=bp_reduce(lab,g[0],decode(Path(g[0]['path']).read_text()),bp_tasks,model,order['bp'],emit)
++        adjusted=adjustment.calculate(bp['q7']['prompt_rows'])
++        adjusted['printed_comparisons']=adjustment.printed_comparisons(adjusted)
++        adjusted['transcript_authority']=supplement
+         comparisons=[]
+         for row in inputs['published']:
+             name=Path(row['path']).name
+             own=bz['literal_comparable'] if name=='bz-analysis.json' else bp[{'bp-q05.json':'q05','bp-q7.json':'q7'}[name]]['literal_comparable']
+-            comparisons+=compare(name,own,decode(Path(row['path']).read_text()),'Saved-field arithmetic with declared canonical source RNG order; missing historical analyze invocation not invented.')
++            comparisons+=compare(name,own,decode(Path(row['path']).read_text()),'Saved-field arithmetic with canonical source RNG order now producer-transcript attested; no independent historical invocation observation claimed.')
+         report={'schema':'task21i-independent-saved-behavior-v1','computational_status':'complete','source_sha256':card['source_sha256'],'input_pins':pins,
+                 'authority':inputs['authority'],'analysis_order':order,'bz':bz,'bp':bp,'published_comparisons':comparisons,
+                 'published_comparison_count':len(comparisons),'published_nonexact_count':sum(not r['equal'] for r in comparisons),
+                 'coverage':{'target_files':100,'BZ_cells':90,'BZ_pairs':30,'BZ_responses':bz['response_rows'],'BP_models':2,'BP_label_prompts':400,'BP_prompt_temperature_rows':1200,'BP_responses':sum(r['response_rows'] for r in bp.values()),'all_response_rows':44800},
+-                'historical_adjustment':{'disposition':'cannot check exact estimator','basis':order['ad_hoc_adjustment'],'no_inferred_historical_formula':True},
+-                'scope':'Original BZ/BP only; BPC/BPCS exposed context, not analyzed. No model, native label recomputation, generated-code execution or causal adjustment. Prior summaries disclosed.',
++                'historical_adjustment':adjusted,'historical_order_amendment':{'original_record_preserved':order['ad_hoc_adjustment'],'superseding_evidence':supplement['transcript'],'scope':'Previously unavailable inline source and order are supplied by later producer transcript attestation; original input authority is unchanged.'},
++                'scope':'Original BZ/BP only; BPC/BPCS exposed context, not analyzed. No model, native label recomputation, generated-code execution or causal-effect estimation. Post-outcome q7 OLS/quartiles are descriptive. Prior summaries disclosed.',
+                 'runtime':{'seconds_before_posthash_report_write':time.monotonic()-started,'observed_peak_kib_before_posthash_report_write':resource.getrusage(resource.RUSAGE_SELF).ru_maxrss,
+                            'scope':'Includes response serialization; excludes final pin rehash/report/manifest serialization; supervisor observes full worker wall, not full peak RSS.'}}
+         for p in pins:verify(p)

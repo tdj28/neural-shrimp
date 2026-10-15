@@ -1,0 +1,11 @@
+--- prepared001-de6e568b
++++ prepared002-five-source-capture
+@@ -22,7 +22,7 @@
+  available=int(next(x.split()[1]for x in Path('/proc/meminfo').read_text().splitlines()if x.startswith('MemAvailable:')))*1024
+  assert available>=20*1024**3 and shutil.disk_usage('/tmp').free>=16*1024**3
+  relbase=here.relative_to(repo);blobs={}
+- for n in ['statistics.py','run.py','controls.py','manufactured.py','manufactured-001-plan.json',Path(__file__).name]:
++ for n in ['statistics.py','adjustment.py','run.py','controls.py','manufactured.py','manufactured-001-plan.json',Path(__file__).name]:
+   b=(here/n).read_bytes();assert subprocess.check_output(['git','show',args.source+':'+str(relbase/n)],cwd=repo)==b
+   blobs[n]=pin(here/n)
+  for n,sha in plan['source_hashes'].items():assert blobs[n]['sha256']==sha

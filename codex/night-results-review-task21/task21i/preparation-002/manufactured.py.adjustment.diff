@@ -1,0 +1,78 @@
+--- before/manufactured.py
++++ after/manufactured.py
+@@ -73,11 +73,51 @@
+     raise AssertionError('expected refusal absent')
+ 
+ 
++def adjustment_controls():
++    d=a.adjustment;np=a.np;passed=[]
++    base=[]
++    for i in range(16):
++        base.append({'prompt':i,'label':'chaotic' if i%2 else 'periodic','generation_entropy':(i*i%17)/10,
++                     'task':'nq' if i%3==0 else 'arithmetic','greedy':i%4<2,'sample_count':10})
++    X=np.asarray([[1,r['label']=='chaotic',r['generation_entropy'],r['task']=='nq',r['greedy']] for r in base],float)
++    beta=np.array([.1,.2,-.05,.04,.1]);y=X@beta
++    fit=d.fit(X,y);assert fit['rank']==5 and np.allclose(fit['coefficients'],beta,rtol=0,atol=2e-15)
++    passed.append('adjustment_known_full_rank_coefficients')
++    deficient=d.fit(np.ones((8,5)),np.ones(8));invalid=d.fit(X*np.nan,y)
++    assert deficient['defined'] and not deficient['full_column_rank'] and deficient['rank']==1
++    assert not invalid['defined'] and invalid['rank'] is None and invalid['reason']=='nonfinite input'
++    passed.append('adjustment_rank_deficiency_and_nonfinite_retained')
++    rows=[dict(r,log10_temperature=t,acc=float(y[i])) for t in d.TEMPERATURES for i,r in enumerate(base)]
++    got=d.calculate(rows,draws=2);rng=np.random.default_rng(1)
++    for t in d.TEMPERATURES:
++        actual=got['temperatures'][str(t)]
++        assert len(actual['permutations'])==2
++        for row in actual['permutations']:
++            oracle=X.copy();oracle[:,1]=rng.permutation(X[:,1]);b,_,rank,_=np.linalg.lstsq(oracle,y,rcond=None)
++            assert row['coefficients']==b.tolist() and row['rank']==rank
++    passed.append('adjustment_sequential_seed1_consumption_three_temperatures')
++    tied=[dict(base[i],greedy=True,generation_entropy=0.,acc=float(i%2)) for i in range(8)]
++    q=d.quartiles(tied)
++    assert len(q['bins'])==4 and all(not r['eligible_contrast'] for r in q['bins'][:3])
++    assert q['bins'][3]['eligible_contrast'] and q['bins'][3]['weight']==4 and q['weighted_difference']==1
++    only=[dict(r,label='chaotic') for r in tied];missing=d.quartiles(only)
++    assert missing['eligible_bins']==0 and missing['weighted_difference'] is None
++    passed.append('adjustment_quartile_ties_empty_contrasts_and_mincount_weights')
++    badrows=[dict(r,generation_entropy=float('nan')) for r in rows]
++    bad=d.calculate(badrows,draws=1)
++    assert bad['total_draws']==3 and all(v['undefined_draws']==1 and v['raw_permutation_p'] is None for v in bad['temperatures'].values())
++    comparisons=d.printed_comparisons(got)
++    assert comparisons['count']==120 and comparisons['mismatches']>0
++    assert any(r['format']=='+.3f' and r['own_full_precision'] is not None for r in comparisons['fields'])
++    passed.append('adjustment_undefined_draws_and_printed_precision_retained')
++    return passed
++
++
+ def main():
+     p=argparse.ArgumentParser();p.add_argument('--out',type=Path,required=True);args=p.parse_args()
+     args.out.mkdir(exist_ok=False,parents=False)
+     try:
+-        passed=c.controls()
++        passed=c.controls()+adjustment_controls()
+         refusal(lambda:a.decode('{"prompt":1,"prompt":2}'))
+         passed.append('duplicate_json_key_refused')
+         for cell,mapped,valid in [({'period':7,'lyapunov':[.3,.4],'class':'periodic'},'periodic',True),
+@@ -104,6 +144,10 @@
+                 stream.write(json.dumps(a.clean(row),allow_nan=False)+'\n');count+=1
+             out={'bz':a.bz_reduce(bz,pairs,tasks,order['bz'],emit)}
+             out['bp']={model:a.bp_reduce(*bp[model],bptasks,model,order['bp'],emit) for model in ('q05','q7')}
++        out['historical_adjustment']=a.adjustment.calculate(out['bp']['q7']['prompt_rows'])
++        out['historical_adjustment']['printed_comparisons']=a.adjustment.printed_comparisons(out['historical_adjustment'])
++        assert out['historical_adjustment']['total_draws']==15000
++        assert all(len(v['permutations'])==5000 for v in out['historical_adjustment']['temperatures'].values())
+         assert count==44800 and out['bz']['response_rows']==32400 and all(r['response_rows']==6200 for r in out['bp'].values())
+         a.write_json(args.out/'scientific-shape.json',out)
+         elapsed=time.monotonic()-started
+@@ -112,9 +156,9 @@
+         report={'passed':passed,'failed':0,'measurement':{'seconds_through_scientific_serialization':elapsed,
+             'observed_peak_kib_before_final_report':resource.getrusage(resource.RUSAGE_SELF).ru_maxrss,'response_rows':count,
+             'BZ_pairs':30,'BZ_cells':90,'BP_models':2,'BP_prompt_temperature_rows':1200,
+-            'BZ_bootstrap_draws':90000,'BP_permutation_draws':120000,'files':files,'scientific_bytes':sum(r['bytes'] for r in files),
++            'BZ_bootstrap_draws':90000,'BP_permutation_draws':120000,'adjustment_OLS_permutation_draws':15000,'files':files,'scientific_bytes':sum(r['bytes'] for r in files),
+             'scope':'One manufactured full allocation and full declared RNG workload; original hash/I/O/decode and actual-value string lengths unmeasured; no worst-case claim.'},
+-            'sources':[a.pin(HERE/n) for n in ('statistics.py','run.py','controls.py','manufactured.py')]}
++            'sources':[a.pin(HERE/n) for n in ('statistics.py','run.py','controls.py','manufactured.py','adjustment.py')]}
+         a.write_json(args.out/'report.json',report)
+         print(json.dumps({'passed':len(passed),'failed':0,'report':a.pin(args.out/'report.json')},indent=2))
+     except BaseException as e:
