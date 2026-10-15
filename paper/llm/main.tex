@@ -911,9 +911,13 @@ differentiation. All 24 passage predictions were pushed in a frozen design befor
 Target A is the 2-cycle's fold at a new temperature: $\log_{10}T=-0.140$, $\alpha_c=0.0670549$, $a=-7.055$,
 $b=-24.927$. Target B is the fold of the period-8 orbit of Table~\ref{tab:orbits}, continued in temperature at
 $\alpha=0.0717$: $\log_{10}T_c=-0.1033462$, $G=F^8$, $a=-11.900$, $b=-152.05$ per unit $\log_{10}T$. Of the 24 forecasts (four distances and three entrances per target: the channel's start, its midpoint, and its start after a transverse kick), 23 fell within one iterate of the measured passages
-(Table~\ref{tab:prospective}). The pre-specified criterion, that every row pass, failed by one row: for target A,
+(Table~\ref{tab:prospective}). Seven of the 24 forecasts are five iterates or shorter, where a single iterate is
+20\,\% or more of the passage; of the 17 longer forecasts, 16 fell within one iterate. The pre-specified criterion, that every row pass, failed by one row: for target A,
 midpoint entrance, $\eps=3\times10^{-6}$, the forecast was 61 and the measurement 59. All full-channel passages and
-all passages after a transverse kick were within one iterate. The design also froze a secondary comparison, the continuous passage integral
+all passages after a transverse kick were within one iterate. The misses are not symmetric: every nonzero residual of
+a midpoint or kicked start, here and at the two folds tested before (Table~\ref{tab:passages} and
+Section~\ref{sec:hostile}), is negative, 17 of 17 (two-sided sign test, $p=2^{-16}\approx1.5\times10^{-5}$). The
+measured passages are systematically shorter than the iterated quadratic map, by one or two iterates. The design also froze a secondary comparison, the continuous passage integral
 $\int du/(a\eps+bu^2)$ of the same normal form, whose closed form is the arctangent usually quoted for saddle-node
 bottlenecks. It came within one iterate of all 24 measurements (errors from $-0.41$ to $+0.92$) and gives 58.56 for
 the failing row. At that entrance the two forms already differed by 2.4 iterates before any measurement: iterating the
@@ -1165,7 +1169,7 @@ period-8 and period-10 windows failed to converge.
 
 The windows accumulate on the fold of the 2-cycle ``!Yes'' at $\log_{10}T_c=-0.0462465357$ ($\alpha=0.083$; critical
 multiplier $0.9999999954$, next modulus $0.050$). From period 16 on, $1/\sqrt{\log_{10}T_c-\log_{10}T_{\rm fold}}$
-rises by $2.235$ per lap. The fold's normal form ($a=-1.168$, $b=44.53$ with $\varepsilon$ in $\log_{10}T$) predicts
+rises by $2.235$ per lap. The fold's normal form ($a=-1.1683$, $b=44.525$ with $\varepsilon$ in $\log_{10}T$) predicts
 $\sqrt{|ab|}/\pi=2.296$ per lap for full passages through the bottleneck, within 3\,\% and without a fitted
 parameter. An independent float64 forward and automatic-differentiation implementation reproduces this fold
 (location to $6\times10^{-10}$ relative, a simple real $+1$ multiplier with next modulus $0.050$) and its coefficients

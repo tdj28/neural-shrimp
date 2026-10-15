@@ -26648,3 +26648,19 @@ The paper now says the windows lie outside the normal form's asymptotic regime a
 - that the greedy baseline feeds back a discrete token.
 
 The Chaos article's version was rewritten the same way and sent to its editing agent.
+
+## 2026-10-15 23:43 UTC: Referee B4 in the main paper: forecast lengths, signed residuals, reproducible hostile coefficients
+
+**Counts,** from tab:passages, tab:prospective and the hostile passages (codex/hostile-fold-crosscheck/passage-001-plan.json):
+- 7 of the 24 prospective forecasts are 5 iterates or shorter. Of the 17 longer ones, 16 were within one iterate.
+- Every nonzero residual of a midpoint or kicked start is negative, 17 of 17, across the philosophy fold, targets A and B, and the hostile fold. The two-sided sign test gives p = 2^-16 = 1.53e-5.
+- Full-channel starts have one nonzero residual, +1 (hostile, eps 1e-5).
+
+**Hostile coefficients.**
+- The rounded a = -1.168, b = 44.53 iterate to 119 at eps = 1e-5, against the frozen 118 (from the unrounded a = -1.1683279, b = 44.5254097).
+- The paper now quotes a = -1.1683 and b = 44.525, which reproduce all six frozen forecasts.
+- Targets A and B and the philosophy fold reproduce from their quoted coefficients.
+
+**Paper.** The prospective paragraph gives the long-forecast count and the one-sided residual pattern: measured passages are systematically shorter than the iterated map. The continuous form's status is still left to PT2.
+
+**Local run note.** SHC-L2 runs at about 181 s per cell under CPU contention (i9-14900K, load 33). The breadth-first order from the band centre reaches the meeting region first.
