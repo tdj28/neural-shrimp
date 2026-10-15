@@ -184,6 +184,22 @@ case "$JOBSET" in
     case " ${JOBARGS[*]} " in *" qwen7b "*) get7b ;; esac
     TOOL=repro_task.py run reprotask-$name "$minutes" --device cuda "${JOBARGS[@]:2}" --out $D/repro/$name
     ;;
+  repro70)     # run REPRO on Llama-3.3-70B-Instruct (gated; float64 with bf16 storage over all GPUs): JOBARGS = NAME
+               # MINUTES then tool arguments (use --model llama3.3-70b --device auto --weights bf16; vectors uploaded)
+    REPO=meta-llama/Llama-3.3-70B-Instruct; MREV=6f6073b423013f6a7d4d9f39144961bfbfbc386b
+    log "download $REPO"
+    HF_HUB_DISABLE_XET=1 HF_HUB_OFFLINE=0 $PY -c "
+from huggingface_hub import snapshot_download
+snapshot_download('$REPO', revision='$MREV', cache_dir='$NEURAL_SHRIMP_DATA/models/hf/hub',
+                  allow_patterns=['*.json', 'model-*.safetensors'], max_workers=16)" > "$LOGS/setup-big.log" 2>&1
+    unset HF_TOKEN
+    mdir="$NEURAL_SHRIMP_DATA/models/hf/hub/models--${REPO/\//--}"
+    mkdir -p "$mdir/refs" && printf %s "$MREV" > "$mdir/refs/main"
+    log "download done $(du -sh $NEURAL_SHRIMP_DATA/models/hf/hub | cut -f1), free $(df -h --output=avail / | tail -1)"
+    name=${JOBARGS[0]}
+    minutes=${JOBARGS[1]}
+    TOOL=repro_noise.py run repro-$name "$minutes" "${JOBARGS[@]:2}" --out $D/repro/$name
+    ;;
   reprollama)  # run REPRO on Llama-3.1-8B-Instruct (gated: token on stdin, unset after the download; revision as llama8b):
                # JOBARGS = NAME MINUTES then tool arguments (use --model llama3.1-8b --vectors none)
     LREV=0e9e39f249a16976918f6564b8830bc894c89659

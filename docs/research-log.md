@@ -24699,3 +24699,91 @@ The REPRO1 and REPRO7 settings applied to Llama-3.1-8B-Instruct (official gated 
 Design frozen in docs/bpc-test.md, with the analysis tools/bpc_analyze.py (tests/test_bpc_analyze.py passes 3 tests: a planted direct effect is detected, a purely confounded label is not, and a planted inverted U is found). Both are pushed with this entry before any data. 4000 fresh two-digit products (docs/bpc-tasks.json), Qwen2.5-7B, log10 T 0.40.
 - Pods: 12 labelling shards (batched, 16 prompts per batch); one covariates pod; one generation pod (10 samples per prompt, chunked).
 - Tool changes: behavior_prompts.py gains tasks-c, covariates and generate --chunk-prompts (chunk 0 draws as the unchunked run did).
+
+## 2026-10-15 08:45 UTC: run (exploratory): BPCS, a steered arm of the behaviour test (human: "And different steerings too")
+
+- **Design.** Weak steering moves some prompts' loops between periodic, edge and chaotic regimes. Comparing the same prompt across steering conditions then controls its difficulty exactly.
+  - Directions at block 14 of Qwen2.5-7B: philosophy, hostility-vs-kindness, and a random direction scaled to the philosophy norm (random:1, seeded).
+  - tools/behavior_prompts.py gains --vectors/--concept/--alpha in label, generate and covariates, plus a calibrate step. Unsteered by default, so the frozen BPC runs are unchanged.
+- **Stage 1, calibration** (this entry). Greedy and 10 sampled answers at log10 T 0.40 for the first 200 BPC prompts, at alpha 0.005, 0.01, 0.02 and 0.04, against alpha 0.
+  - Rule fixed now: the arm uses the largest alpha at which all three directions keep greedy accuracy within 5 points of the unsteered value. If none does, the arm stops (steering would swamp the task, as in BZ).
+- **Stage 2** (after calibration). Label and generate the first 1000 BPC prompts under each direction at that alpha.
+  - Analysis fixed now: accuracy ~ chaotic + prompt fixed effects + direction fixed effects (least squares). The regime effect is identified within prompts across the unsteered and three steered conditions. The test permutes labels within prompts (10,000). The edge bins are as in BPC.
+
+## 2026-10-15 08:46 UTC: XOG and XOR results: the crossover along gratitude and a random direction confirms the readout mechanism
+
+Pods dl6ms3w3qjdkrt (XOG) and duykxff8ocb26y (XOR): runner rc 0, hashes verified, terminated; 268 and 264 s; commit f0a48342.
+- **XOG extraction.** The orchestrator refused to extract, because the uploaded vectors (pairmap-qwen0.5b/vectors) collide with the local originals. The archived vectors are byte-identical to the local ones (cmp), and xo/grat was extracted by hand from results.tgz.
+- **Results** (inline analysis; 14 held-out chaotic cells per direction; bootstrap 95 % intervals), nats per step:
+
+| direction | readout effect (10 - 00) | network effect (01 - 00) | interaction | readout effect at log10 T < 0 (n) |
+|---|---|---|---|---|
+| gratitude | +0.33 [0.08, 0.58] | -0.14 [-0.29, -0.00] | +0.17 [0.01, 0.33] | +0.63 (5) |
+| random1, norm-matched | +0.77 [0.48, 1.12] | -0.09 [-0.22, 0.05] | -0.09 [-0.22, 0.01] | +0.94 (8) |
+
+- **Validation.** Arm 11 equals the twin exponent within 0.02 at 23 and 22 of 24 cells. The twin is undefined (NaN) at the remaining cells, which contract to the rounding floor.
+- **Labels.** Two random1 cells labelled chaotic by their map are contracting in this run (twin -2.58 and -0.16); they stay in the held-out set as labelled.
+- **Reading.** Steering's change of the readout adds expansion at fixed states for all three directions of the 0.5B: philosophy +0.81, gratitude +0.33, random +0.77. Its change of the network does not: -0.49, -0.14 and -0.09, and -1.14 in the 7B. The mechanism does not depend on the direction's meaning.
+
+## 2026-10-15 08:49 UTC: REPRO-T7 result (frozen extension): in Qwen2.5-7B the batch layout changes 55 % of bfloat16 soft-thinking answers at T = 10^0.2 (Delta 17.7 points); in float64 it changes 5 % there
+
+Pod 1t5pj3ccx9legg (SECURE H100 NVL; runner rc 0, hash verified, terminated; 2321 s; commit 187e891b). Output repro/t7. 96 held-out problems; inline analysis following the frozen endpoints.
+- **Primary, bfloat16.** Delta = **17.7 points**, 95 % interval [9.4, 25.5], sign-flip p = 2e-4. **Positive.**
+- **float64.** Delta = 2.6 points [0.5, 5.2], p = 0.06.
+- **Per condition** (answers differing between layouts; accuracy single / batch; median soft-token distance at step 1 and step 32):
+
+| precision | mode | log10 T | answers differ | accuracy | distance step 1 / 32 |
+|---|---|---|---|---|---|
+| bfloat16 | soft | 0.0 | 1.0 % | 0.00 / 0.00 | 1.1e-11 / 0.40 |
+| bfloat16 | soft | 0.2 | 55.2 % | 0.51 / 0.64 | 3.3e-7 / 1.2 |
+| bfloat16 | soft | 0.4 | 0 % | 1.00 / 1.00 | 2.5e-4 / 0.17 |
+| bfloat16 | greedy | | 10.4 % (token sequences differ in 24 / 96) | 0.01 / 0.01 | |
+| float64 | soft | 0.0 | 0 % | 0.00 / 0.00 | 1.5e-15 / 2.7e-14 |
+| float64 | soft | 0.2 | 5.2 % | 0.53 / 0.54 | 3.4e-15 / 1.9e-11 |
+| float64 | soft | 0.4 | 0 % | 1.00 / 1.00 | 3.4e-15 / 2.6e-12 |
+| float64 | greedy | | 0 % | 0.00 / 0.00 | |
+
+- **Mechanism subset** (float64, injected kicks of 1e-12, 1e-8, 1e-4; 6 problems): median growth -0.125, +0.034 and +0.104 nats per step at log10 T 0.0, 0.2 and 0.4. Answers changed in 0/18, 2/18 and 0/18 runs.
+- **Reading.**
+  - The 0.5B result replicates in a capable model.
+  - In bfloat16 the layout decides more than half of the soft-thinking answers at the temperature where the soft trace still matters (accuracy 51-64 %). Even greedy decoding is layout-dependent in 10 % of problems at this precision, the known batch-variance effect (Delta subtracts it).
+  - In float64, at T = 10^0.2, the 7B's loop amplifies perturbations, injected kicks change answers, and rounding-level layout differences change 5 % of answers. Within the budget, the chaos attribution holds at this temperature, unlike in the 0.5B model.
+  - Greedy accuracy is again uninformative (forced 32 tokens).
+
+## 2026-10-15 08:50 UTC: REPRO-L8 result: the reproducibility result replicates in a second family (Llama-3.1-8B-Instruct, unsteered)
+
+Pods qj1mu8edfno9ui and g1z1317zrhlqpz (2 x H200 placement; runner rc 0, hashes verified, terminated; 337 and 395 s; commit c0e05e92). Cells docs/repro-l8-cells.json (alpha 0), 1500 steps. Inline analysis.
+
+| comparison | label | reach 1e-2 | median step | median final distance | end with different tokens |
+|---|---|---|---|---|---|
+| batch, float64 | chaotic | 20 / 20 | 68 | 0.95 | 100 % |
+| | periodic | 1 / 20 | | 2.8e-14 | 5 % |
+| batch, float32 | chaotic | 20 / 20 | 10.5 | 0.99 | 100 % |
+| | periodic | 1 / 20 | | 7.4e-6 | 0 % |
+| batch, bfloat16 | chaotic | 20 / 20 | 1 | 1.14 | 100 % |
+| | periodic | 18 / 20 | 2 | 0.33 | 45 % |
+
+- **float64.** The divergence step of the chaotic cells follows ln(1e-2/d_1)/lambda: median ratio 1.05, log-log correlation 0.71 (20 cells).
+- **Reading.** Three models and two families now show the same picture. In float64 a batch-size change alone diverges chaotic loops on the exponent's schedule and leaves periodic loops together; in bfloat16 nearly every loop diverges.
+
+## 2026-10-15 08:52 UTC: run (exploratory): REPRO70, the reproducibility test at 70B (human: "70b?")
+
+- **Model.** Llama-3.3-70B-Instruct steered along hostility-vs-kindness at block 20, with the vectors built on the L70D20b pod. Float64 arithmetic with bf16 weight storage over two H200s (repro_noise.py --weights bf16 --device auto, new).
+- **Cells.** docs/repro70-cells.json: 24 chaotic (map label, so candidates) and 24 periodic cells of that map, seeded draw (20261015) fixed before data.
+- **Comparison.** Batch layout only (n against 2n rows), 1000 steps: a float32 or bfloat16 copy of the 70B does not fit next to it.
+- **Pod.** One pod, 2 x H200, gated job set repro70; the token goes on stdin and is unset after the download. Readings as for REPRO1.
+
+## 2026-10-15 08:53 UTC: Amendment: FBS768m timed out (90-minute tool limit, no progress record); relaunched as FBS768n with 190 minutes
+
+FBS768m (pod a1i1o7txau28j2; runner rc 0, job status 124, terminated; 5549 s) found no s768 within its 90-minute job limit: the transient of 80000 steps plus the period-768 Ritz evaluations take longer. FBS768n repeats it unchanged with a 190-minute job limit.
+
+## 2026-10-15 08:54 UTC: Amendment to BPC (operational, before any outcome): the generation pod ran out of memory; relaunched with 50 prompts per chunk
+
+BPCgen (runner rc 0, job status 1, 159 s) failed with CUDA out of memory: 400 prompts x 10 samples per sampled batch is too large for the float32 7B. No outcome was produced or seen. It is relaunched as BPCgen2 with --chunk-prompts 50; everything else is as frozen. The chunk size changes the random streams of chunks after the first, which the design does not fix.
+
+## 2026-10-15 08:55 UTC: Corrections from Codex Task 21b (Kaplan-Yorke audit, comms 08:16 UTC) adopted
+
+- **One positive exponent.** "Every attractor we measured has exactly one positive exponent" is now restricted: 31 of the 35 measured cells have a positive leading exponent, each with exactly one; the other four have none at the horizon.
+- **Headline range.** The lower end is 1.038, so the range is quoted as 1.03 to 1.65 (range ends at the true extremes).
+- **lambda_1 + lambda_2 >= 0** at two high-temperature cells, not three.
+- **KY1 entry.** The 1000-to-2000-step dimension changes are at most 0.021, not 0.02 (maximum 0.020298).

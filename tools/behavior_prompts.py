@@ -77,6 +77,19 @@ def prefix_ids(tok, item):
     return tok(text, add_special_tokens=False)["input_ids"]
 
 
+def steer_vector(args, d):
+    """The steering vector of a run: zeros without --vectors; 'random:N' a seeded Gaussian direction scaled to the
+    norm of the philosophy vector of --vectors; otherwise the named concept (the residual-norm-scaled vector)."""
+    if not getattr(args, "vectors", None) or getattr(args, "alpha", 0.0) == 0.0:
+        return np.zeros(d)
+    import explore_llm_phase_map as elpm
+    vecs = elpm.load_vectors(args.vectors)
+    if args.concept.startswith("random:"):
+        g = np.random.default_rng(int(args.concept.split(":")[1])).normal(size=d)
+        return g / np.linalg.norm(g) * np.linalg.norm(np.asarray(vecs["philosophy"], dtype=np.float64))
+    return np.asarray(vecs[args.concept], dtype=np.float64)
+
+
 def label_cells(log_ts, res):
     """The labels.jsonl cells of one prompt from its run_batch results (one per temperature)."""
     import hidden_chaos as hc
@@ -103,7 +116,7 @@ def label(args):
         return label_batched(args, items)
     loop = esl.SoftLoop(args.model, args.layer, args.threads, "open", ela.OPENER, 1, "float64", args.device)
     torch = loop.torch
-    v0 = np.zeros(loop.E.shape[1])
+    v0 = steer_vector(args, loop.E.shape[1])
     out = DATA / "explore" / args.out
     out.mkdir(parents=True, exist_ok=True)
     f = open(out / "labels.jsonl", "a")
@@ -114,7 +127,7 @@ def label(args):
         tic = time.perf_counter()
         loop.prefix_ids = torch.tensor([prefix_ids(loop.sm.tok, it)], device=loop.device)
         loop.L0 = loop.prefix_ids.shape[1]
-        res = hc.run_batch(loop, v0, list(args.log_temperatures), [0.0] * len(args.log_temperatures), args.transient,
+        res = hc.run_batch(loop, v0, list(args.log_temperatures), [args.alpha] * len(args.log_temperatures), args.transient,
                            args.record, args.eps, args.tol)
         cells = label_cells(args.log_temperatures, res)
         rec = {"prompt": it["prompt"], "task": it["task"], "prefix_tokens": int(loop.L0), "cells": cells,
@@ -136,7 +149,7 @@ def label_batched(args, items):
     if args.batch_prompts < 1:
         raise SystemExit("--batch-prompts must be at least 1")
     loop = esl.MultiPrefixSoftLoop(args.model, args.layer, args.threads, 1, "float64", args.device)
-    v0 = np.zeros(loop.E.shape[1])
+    v0 = steer_vector(args, loop.E.shape[1])
     lts = list(args.log_temperatures)
     out = DATA / "explore" / args.out
     out.mkdir(parents=True, exist_ok=True)
@@ -148,7 +161,7 @@ def label_batched(args, items):
         tic = time.perf_counter()
         ids = [prefix_ids(loop.sm.tok, it) for it in group]
         loop.set_prefixes([p for p in ids for _ in lts])           # cell g * len(lts) + j: prompt g, temperature j
-        res = hc.run_batch(loop, v0, lts * len(group), [0.0] * (len(lts) * len(group)), args.transient, args.record,
+        res = hc.run_batch(loop, v0, lts * len(group), [args.alpha] * (len(lts) * len(group)), args.transient, args.record,
                            args.eps, args.tol, twin_groups=[len(lts)] * len(group))
         seconds = round((time.perf_counter() - tic) / len(group), 1)
         for g, it in enumerate(group):
@@ -202,8 +215,13 @@ def covariates(args):
         texts = [tok.apply_chat_template([{"role": "user", "content": prompt_text(it)}], add_generation_prompt=True,
                                          tokenize=False) for it in part]
         enc = tok(texts, return_tensors="pt", padding=True, add_special_tokens=False).to(sm.model.device)
-        with torch.no_grad():
-            z = sm.model(**enc).logits[:, -1, :].double()
+        sv = steer_vector(args, sm.model.get_input_embeddings().weight.shape[1])
+        sm.steer = torch.as_tensor(np.tile(args.alpha * sv, (len(part), 1)))[:, None, :] if args.alpha else None
+        try:
+            with torch.no_grad():
+                z = sm.model(**enc).logits[:, -1, :].double()
+        finally:
+            sm.steer = None
         first = [tok(str(it["answer"]), add_special_tokens=False)["input_ids"][0] for it in part]
         for lt in args.log_temperatures:
             lp = torch.log_softmax(z / 10.0 ** lt, dim=-1)
@@ -236,13 +254,14 @@ def generate(args):
         for c, c0 in enumerate(range(0, len(idx_all), args.chunk_prompts)):
             idx = idx_all[c0:c0 + args.chunk_prompts]
             msgs = [msgs_all[i] for i in idx]
-            texts, _, _, _ = sm.generate_batch(msgs, np.zeros((len(msgs), d)), max_new, temperature=0.0)
+            sv = args.alpha * steer_vector(args, d)
+            texts, _, _, _ = sm.generate_batch(msgs, np.tile(sv, (len(msgs), 1)), max_new, temperature=0.0)
             for i, t in zip(idx, texts):
                 rec["greedy"][str(items[i]["prompt"])] = {"correct": bool(scorer[task](t, items[i])), "reply": t[:200]}
             for lt in args.log_temperatures:
                 T = 10.0 ** lt
                 m = [msgs_all[i] for i in idx for _ in range(args.k)]
-                texts, ent, lens, _ = sm.generate_batch(m, np.zeros((len(m), d)), max_new, temperature=T,
+                texts, ent, lens, _ = sm.generate_batch(m, np.tile(sv, (len(m), 1)), max_new, temperature=T,
                                                         seed=SEED + int(1000 * lt) + (0 if task == "arithmetic" else 7)
                                                         + 100003 * c)
                 for j, t in enumerate(texts):
@@ -256,6 +275,36 @@ def generate(args):
                     [x["correct"] for p in idx_all for x in rec["sampled"][f"{lt}"][str(items[p]["prompt"])]]))}),
                     flush=True)
     (out / "generations.json").write_text(json.dumps(rec))
+
+
+def calibrate(args):
+    """Steering strengths that leave the task intact (run BPCS calibration): for the first n prompts, greedy and k
+    sampled answers at T under each (concept, alpha), against alpha 0. Writes calibration.json."""
+    import explore_llm_phase_map as elpm
+    import behavior_zones as bz
+
+    items = json.loads((ROOT / args.tasks).read_text())["items"][:args.n]
+    sm = elpm.SteeredModel(args.model, args.layer, args.threads, args.dtype, args.device)
+    d = sm.model.get_input_embeddings().weight.shape[1]
+    out = DATA / "explore" / args.out
+    out.mkdir(parents=True, exist_ok=True)
+    msgs = [[{"role": "user", "content": prompt_text(it)}] for it in items]
+    res = []
+    for concept in ["none"] + list(args.concepts):
+        for alpha in ([0.0] if concept == "none" else args.alphas):
+            ns = argparse.Namespace(vectors=args.vectors, concept=concept, alpha=alpha)
+            sv = alpha * steer_vector(ns, d) if concept != "none" else np.zeros(d)
+            g, _, _, _ = sm.generate_batch(msgs, np.tile(sv, (len(msgs), 1)), 12, temperature=0.0)
+            m = [x for x in msgs for _ in range(args.k)]
+            t, _, _, _ = sm.generate_batch(m, np.tile(sv, (len(m), 1)), 12, temperature=10.0 ** args.log_temperatures[0],
+                                           seed=SEED + 77)
+            rec = {"concept": concept, "alpha": alpha,
+                   "greedy_accuracy": float(np.mean([bz.score_arith(x, it) for x, it in zip(g, items)])),
+                   "sampled_accuracy": float(np.mean([bz.score_arith(x, items[j // args.k]) for j, x in enumerate(t)])),
+                   "greedy_examples": [x[:60] for x in g[:3]]}
+            res.append(rec)
+            print(json.dumps(rec), flush=True)
+            (out / "calibration.json").write_text(json.dumps({"args": vars(args), "results": res}, indent=1))
 
 
 def analyze(args):
@@ -304,7 +353,7 @@ def main():
     sub = ap.add_subparsers(dest="command", required=True)
     sub.add_parser("tasks")
     sub.add_parser("tasks-c")
-    for name in ("label", "generate", "analyze", "covariates"):
+    for name in ("label", "generate", "analyze", "covariates", "calibrate"):
         p = sub.add_parser(name)
         p.add_argument("--tasks", default="docs/bp-tasks.json")
         p.add_argument("--log-temperatures", type=float, nargs="+", default=list(LOG_TS))
@@ -321,10 +370,21 @@ def main():
     gen.add_argument("--k", type=int, default=10)
     gen.add_argument("--dtype", default="float32")
     gen.add_argument("--chunk-prompts", type=int, default=400, help="prompts per sampled batch")
+    calp = sub.choices["calibrate"]
+    calp.add_argument("--n", type=int, default=200)
+    calp.add_argument("--k", type=int, default=10)
+    calp.add_argument("--dtype", default="float32")
+    calp.add_argument("--concepts", nargs="+", default=["philosophy", "hostility-vs-kindness", "random:1"])
+    calp.add_argument("--alphas", type=float, nargs="+", default=[0.005, 0.01, 0.02, 0.04])
     cov = sub.choices["covariates"]
     cov.add_argument("--dtype", default="float32")
     cov.add_argument("--batch", type=int, default=64)
     for p in (lab, gen, cov):
+        p.add_argument("--concept", default="philosophy", help="steering concept, or random:N (with --vectors)")
+        p.add_argument("--alpha", type=float, default=0.0, help="steering strength (0: unsteered)")
+    for p in (lab, gen, cov, calp):
+        p.add_argument("--vectors", default=None, help="steering vectors (DATA/explore-relative); none: unsteered")
+    for p in (lab, gen, cov, calp):
         p.add_argument("--model", default="qwen7b")
         p.add_argument("--layer", type=int, default=14)
         p.add_argument("--threads", type=int, default=8)
@@ -336,7 +396,7 @@ def main():
     an.add_argument("--out-json")
     args = ap.parse_args()
     {"tasks": tasks, "tasks-c": tasks_c, "label": label, "generate": generate, "analyze": analyze,
-     "covariates": covariates}[args.command](args)
+     "covariates": covariates, "calibrate": calibrate}[args.command](args)
 
 
 if __name__ == "__main__":

@@ -30,7 +30,8 @@ sys.path.insert(0, str(ROOT / "tools"))
 
 
 def make_loop(esl, ela, args, dtype, bf16=False):
-    loop = esl.SoftLoop(args.model, args.layer, args.threads, "open", ela.OPENER, 1, dtype, args.device)
+    loop = esl.SoftLoop(args.model, args.layer, args.threads, "open", ela.OPENER, 1, dtype, args.device,
+                        args.weights if dtype == "float64" else "native")
     if bf16:
         torch = loop.torch
         loop.model = loop.model.to(torch.bfloat16)
@@ -95,6 +96,8 @@ def main():
     ap.add_argument("--tail", type=int, default=500)
     ap.add_argument("--compare", nargs="+", default=["batch64", "batch32", "precision", "bf16"],
                     choices=("batch64", "batch32", "precision", "bf16"))
+    ap.add_argument("--weights", default="native", choices=("native", "bf16"),
+                    help="float64 runs of large models: bf16 storage of the decoder weights (exact), with --device auto")
     ap.add_argument("--threads", type=int, default=8)
     ap.add_argument("--device", default="cpu")
     ap.add_argument("--out", required=True)
