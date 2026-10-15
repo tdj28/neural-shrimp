@@ -134,8 +134,8 @@ system; Section~\ref{sec:beyond} also measures how much of the mechanism survive
   to~\ref{sec:organization}). The windows carry concrete texts: a period-adding family gains one ``is X'' pair per
   period step. A fold's normal form, computed from derivatives, predicts without fitting how long trajectories linger
   near the vanished orbit: at two new folds, 23 of 24 frozen forecasts fell within one iterate (the all-row criterion
-  failed by one row), and windows accumulate on the fold with a $1/N^2$ law. On the seven fold curves we continued,
-  all nine tangent reversals are located cusps, and near them local unfoldings, frozen before solving, matched the
+  failed by one row), and windows accumulate on the fold with a $1/N^2$ law. On the nine fold curves we continued,
+  all thirteen tangent reversals are located cusps, and near them local unfoldings, frozen before solving, matched the
   orbits that Newton solves recovered at twelve parameter offsets in number and at eleven in stability. A doubling
   cascade has superstable points through period 768 and finite-order Feigenbaum ratios that approach $\delta$ (the
   last, $4.6688$, against $4.6692$). The shrimp-like windows are built from bent fold curves with cusps and flip
@@ -1016,9 +1016,10 @@ continuations in full; this section collects what they establish.
 \paragraph{Fold curves with cusps.} Fold and flip curves continued in float64 with the minimally augmented systems of
 Section~\ref{sec:methods} keep their critical multipliers at $+1$ and $-1$ (Appendix~\ref{sec:curves}). The fold
 curve of the 2-cycle ``is it'' traces the boundary of the period-2 region on which the stripes accumulate, as the
-mechanism of Section~\ref{sec:mechanism} requires. The fold curves of a period-6 window, of a hostile period-7 window
-and of a period-4 window bend back on themselves. On the seven fold curves we continued, all nine reversals of the
-parameter tangent are located cusps: the oriented quadratic coefficient of the fold's normal form changes sign there,
+mechanism of Section~\ref{sec:mechanism} requires. The fold curves of a period-6
+window, of a hostile period-7 window, of a period-4 window and of a period-5 window steered at two depths bend back
+on themselves. On the nine fold curves we continued, all thirteen reversals of the parameter tangent are located
+cusps: the oriented quadratic coefficient of the fold's normal form changes sign there,
 while the cubic coefficient stays nonzero and the two-parameter unfolding is regular. This is not a global count of
 cusps. Near a cusp with negative cubic coefficient, three orbits of the same period coexist between the two fold
 branches, two of them stable. At a fold point near one cusp in each of two windows, the local cubic model, frozen
@@ -1081,25 +1082,27 @@ family \cite{henon1976two,gallas1993structure}, is open.
 of folds it could not resolve, so we continued the window's fold and flip curves in float64 (Figure~\ref{fig:period5folds};
 Appendix~\ref{sec:hostility}). One fold curve bounds the body on its right, runs over its top and along one side of
 each leg. Flip curves bound the body's upper-left and lower sides and the other side of each leg, so each leg lies
-between a fold curve and a flip curve. Where the upper leg leaves the body, the fold curve reverses its direction
-twice and crosses itself, the shape of a section through a swallowtail. At the crossing the two arms are folds of two
+between a fold curve and a flip curve. Where the upper leg leaves the body, the fold curve has two located cusps and
+crosses itself, the shape of a section through a swallowtail. At the crossing the two arms are folds of two
 different period-5 orbits with the same token loop (their states differ by about 4\,\%), so the crossing joins two
 separate saddle-node events rather than marking a degeneracy of one orbit; we do not claim a swallowtail point
-itself, which would need a third parameter. Along every continued curve the critical multiplier
-stays at $+1$ or $-1$ to within $6\times10^{-8}$, and no other multiplier exceeds $0.13$ in modulus, so no second multiplier reaches the unit circle
-along them; this does not exclude cusps, which need only a nonlinear degeneracy. The window therefore has the fold-and-flip skeleton of the period-6 and period-7
-windows, a body with legs and a twice-folded fold curve at the junction, and, like them, no one-dimensional centre.
+itself, which would need a third parameter. A second fold curve, on the far left, where the orbit dies after regaining stability beyond a doubling
+bubble, has two more located cusps. Along every continued curve the critical multiplier stays at $+1$ or $-1$ to
+within $1.2\times10^{-7}$, and no other multiplier exceeds $0.4$ in modulus, so no second multiplier reaches the unit
+circle along them; this does not exclude cusps, which need only a nonlinear degeneracy. The window therefore has the fold-and-flip skeleton of the period-6 and period-7
+windows, a body with legs and fold curves with cusps, and, like them, no one-dimensional centre.
 \begin{figure}[tbp]
 \centering
 \includegraphics[width=\linewidth]{fig-period5-folds.png}
 \caption{The skeleton of the period-5 window in the plane steered at two depths (Qwen2.5-0.5B-Instruct, gratitude at
-block~4 and hostility at block~16, $\log_{10}T=-0.1$, float64). (a) Fold curve (black; multiplier $+1$) and flip
-curves (red, dashed; multiplier $-1$) of the window's period-5 orbit over the attractor reached from the fixed start
-(as in Figure~\ref{fig:period5}a); dotted: the four branches that found the first boundary points from a common start
-(circle); white: the box of the continuation grid; stars: the two reversals of the fold curve. (b) The same curves
-over the trace of the continued orbit's two leading multipliers (Figure~\ref{fig:period5}b). (c) The junction of the
-upper leg with the body: the fold curve reverses twice and crosses itself (x). Its two traces, continued from two
-different boundary points (black, and orange dashed), coincide.}
+block~4 and hostility at block~16, $\log_{10}T=-0.1$, float64). (a) The two fold curves (black; multiplier $+1$) and
+the flip curves (red, dashed; multiplier $-1$) of the window's period-5 orbit, over the attractor reached from the
+fixed start on a wider grid (grey: outside it); gold stars: the four located cusps; cyan: the zoom of (b). (b) The body
+over a finer grid (as Figure~\ref{fig:period5}a), with the four branches (dotted) that found the first boundary points
+from a common start (circle); white: the continuation grid of (c). (c) The same curves over the trace of the continued
+orbit's two leading multipliers (Figure~\ref{fig:period5}b; grey: repelling). (d) The junction of the upper leg with
+the body: the fold curve has two cusps and crosses itself (x), where its arms are folds of two different period-5
+orbits. Its two traces, continued from two different boundary points (black, and orange dashed), coincide.}
 \label{fig:period5folds}
 \end{figure}
 \input{figures/tikz-shrimp}
@@ -1232,7 +1235,8 @@ sampled answers beyond the model's first-token uncertainty, and moving a prompt'
 accuracy (Section~\ref{sec:consequences}). We do not claim that ordinary sampled generation is
 chaotic in this sense (Appendix~\ref{sec:bridge}), nor that any window is a certified shrimp. The period-6 and period-7 windows have numerically shrimp-like
 organization, fold curves with located cusps and flip curves inside, with superstable curves through the hostile
-period-7 body, and the period-5 window of a two-block plane has the same fold-and-flip skeleton. On the tracked
+period-7 body, and the period-5 window of a two-block plane has the same fold-and-flip skeleton, with four located cusps
+on its two fold curves. On the tracked
 branches none of them has a one-dimensional shrimp centre (Section~\ref{sec:organization}), and we have not determined
 their symbolic sequences or tested for a periodicity hub \cite{gallas1993structure,jones2012rossler}. The cusps are float64
 computations validated by step-size checks, not proofs (Appendix~\ref{sec:curves}).
@@ -1602,8 +1606,9 @@ did not continue the curves that emanate from these points.
 a fold point near one cusp of the period-6 window and one of the hostile period-7 body
 (Appendix~\ref{sec:hostility}; determinants $2737$ and $53.5$), and there the local model's
 predictions at twelve frozen offsets matched the orbits recovered by Newton solves seeded at the predicted roots and
-the base state, in number at all twelve and in stability at eleven; the search was not exhaustive. At the nine
-located cusps themselves, $|\det J|$ lies between $14$ and $2416$. These are float64
+the base state, in number at all twelve and in stability at eleven; the search was not exhaustive. At the thirteen
+located cusps themselves (including the four of the period-5 window of Appendix~\ref{sec:hostility}), $|\det J|$ lies
+between $14$ and $2416$. These are float64
 computations validated by step-size checks (rung 1), not computer-assisted proofs. At the two continuation points
 that bracket the lower cusp of the hostile body, an independent implementation of the model reproduced the
 normal-form coefficients, including the sign change of $b$: $|b|$ within $1.2\,\%$ and $c$ to two figures, with the
@@ -1944,15 +1949,24 @@ and the largest other multiplier modulus on any curve is $0.122$. Going right an
 in folds at $\alpha_1=-0.118166$ and $\alpha_2=0.102715$ (next moduli $0.0012$ and $0.0008$). Going left and down, it
 first loses stability in flips (at $\alpha_1=-0.12147$ and $\alpha_2=0.09954$), regains it where the same multiplier
 crosses $-1$ again (at $-0.12305$ and $0.09586$; a doubling bubble), and dies in a fold (at $-0.123323$ and
-$0.095720$). Three of these four folds lie on one continued fold curve (within $3.1\times10^{-7}$); the left one does
-not. The fold curve bounds the lower leg on its right, runs up the body's right edge and over its top, and leaves
-along the upper leg. Near $\alpha_1=-0.1192$ its parameter tangent reverses twice, at $(-0.119221,0.104049)$ and
-$(-0.119166,0.102811)$, identically on two traces continued from different boundary points, and its outer arms cross
+$0.095720$). Three of these four folds lie on one continued fold curve (within $3.1\times10^{-7}$); the left one lies on a
+second. The first fold curve bounds the lower leg on its right, runs up the body's right edge and over its top, and
+leaves along the upper leg. Near $\alpha_1=-0.1192$ its parameter tangent reverses twice, identically on two traces
+continued from different boundary points, and both reversals are located cusps (the test and criteria of
+Appendix~\ref{sec:curves}, applied on each trace): at $(\alpha_1,\alpha_2)=(-0.1192221,0.1040536)$, with
+$c=+2.60\times10^{4}$ and $\det J=176.6$, and at $(-0.1191670,0.1028019)$, with $c=-2.05\times10^{4}$ and
+$\det J=88.6$. The two traces agree to $2\times10^{-12}$ in these positions and to five figures in $c$ and $\det J$.
+Its outer arms cross
 at $(-0.11901,0.10346)$ (Figure~\ref{fig:period5folds}c). There they are folds of two different period-5 orbits with
 the same token loop: at the nearest continuation points on the two arms, the orbits differ by $3.9\,\%$ of the state
 norm (root-mean-square over the five points, at the best phase alignment), 8 to 26 times the state change
-between neighbouring curve points. The flip curves bound the body's upper-left and lower sides
-and run along the legs. The fold curve resolves both anomalies of the grid. The isolated repelling cell ($\mu_1=+1.65$)
+between neighbouring curve points. The second fold curve, continued both ways from the left fold, runs from below the lower leg
+far up the left of the plane, where the orbit has regained stability beyond its doubling bubble (critical
+multiplier within $1.2\times10^{-7}$ of $+1$; other multipliers below $0.4$). It has two more reversals, both located
+cusps: $(-0.1238662,0.0961512)$, with $c=-9.65\times10^{3}$ and $\det J=405.9$, and $(-0.1214073,0.1028234)$, with
+$c=+4.75\times10^{4}$ and $\det J=-535.4$ (condition $1.2\times10^{4}$). At all four cusps the critical multiplier is
+within $1.3\times10^{-9}$ of $1$ and the second modulus below $0.008$. The flip curves bound the body's upper-left and
+lower sides and run along the legs. The fold curve resolves both anomalies of the grid. The isolated repelling cell ($\mu_1=+1.65$)
 lies $1.2\times10^{-5}$ from it, on the saddle branch, and the column of failed Newton solves at $\alpha_1=-0.119167$
 runs into the lower reversal, at $\alpha_1=-0.119166$, where the followed orbit ceases to exist between the folded
 branches.
@@ -2092,7 +2106,7 @@ period-7 orbit, the two lines of Figure~\ref{fig:hubcascade} (grey) and the Newt
 and 21 (stars).}
 \label{fig:hubzoom}
 \end{figure}
-\begin{figure}[H]
+\begin{figure}[tbp]
 \centering
 \includegraphics[width=\linewidth]{fig-hub-cascade.png}
 \caption{Inside the hostile period-7 body (Qwen2.5-0.5B-Instruct, hostility direction at layer 12): float64
@@ -2106,7 +2120,7 @@ steps; with 2000 measured steps at two twin offsets, 135 of the 235 red cells on
 periodic (Section~\ref{sec:discussion}, Limitations).}
 \label{fig:hubcascade}
 \end{figure}
-\begin{figure}[H]
+\begin{figure}[tbp]
 \centering
 \includegraphics[width=0.65\linewidth]{fig-hub-shrimp.png}
 \caption{The period-7 body of the spiral region (Qwen2.5-0.5B-Instruct, hostility direction at layer 12):
@@ -2911,7 +2925,8 @@ The labelled maps contain about 2600 periodic families of at least six cells, co
 orbit whose continuation was abandoned, a cell that proved aperiodic, a band whose float32 orbit did not converge and
 a pilot that found no cusp within a bounded search). Of 54 Newton orbit attempts, 7 failed. All nine tangent
 reversals on continued fold curves (seven found by 14 October, and two on traces of a period-4 fold curve continued on
-15 October) are numerically located cusps; the two reversals of a continued flip curve are smooth turns. Two of the five
+15 October) are numerically located cusps; the two reversals of a continued flip curve are smooth turns. The four
+reversals on the two fold curves of the period-5 window found on 15 October (below) are located cusps as well. Two of the five
 regions we flagged as shrimp candidates are reported as shrimp-like. On 15 October, the turning-point search of the
 two-block planes (not counted in Table~\ref{tab:search}) led to two more windows: a period-5 window, reported with its continued orbit and its continued fold and flip curves in
 Appendix~\ref{sec:hostility}, and a period-6 window that was mapped but not continued. One further
@@ -2975,7 +2990,7 @@ second checkpoint, is the unreported bounded search).}
 \item Rung 2 as well: the hostile 2-cycle fold and its normal form, reproduced by an independent float64 forward map
   with nested automatic differentiation (location to $6\times10^{-10}$, $ab$ to 8 parts per million); its controlled
   passages were also checked independently, with the frozen all-six criterion failing by one row.
-\item Rung 1: the other orbits, the curves, the nine located cusps, the superstable parameters,
+\item Rung 1: the other orbits, the curves, the thirteen located cusps, the superstable parameters,
   the 1.5B flips, the hostile windows' edges, the spiral region's period-7 body and the cascade inside it, the three 7B
   orbits, and Huginn's float32 spectral estimates.
 \item Prospectively frozen, not independently reproduced: the scaling predictions P1--P3, the prompt-blocked size
@@ -3001,13 +3016,14 @@ second checkpoint, is the unreported bounded search).}
 \end{itemize}
 \paragraph{Hardware.} Float64 GPU computations ran on rented NVIDIA H100 (NVL, PCIe and 80\,GB HBM3), H200,
 H200 NVL and A100 80\,GB (SXM4 and PCIe) GPUs, one GPU per run except for the 70B-class models, whose layers were
-spread over two; the float32 frames of the rotation video ran on RTX 4090 GPUs; cross-checks and the interval proof ran
-on CPUs. The manifest
+spread over two; the float32 frames of the rotation video ran on RTX 4090 GPUs; the reset test of
+Section~\ref{sec:consequences} ran on a local NVIDIA RTX 2000 Ada workstation GPU; cross-checks and the interval
+proof ran on CPUs. The manifest
 \path{docs/manifests/runpod-runs.json} records for each run the GPU type, the code commit, the job and its
 arguments, the wall time and the exit status, and the available hashes of the uploaded code and input archives and of
 the retrieved results, with absent fields left explicit; per-run receipts and accepted provenance limitations are
-kept with it. Regenerated at 12:33 UTC on 15 October 2026, after the last run, it lists 398 runs with retrieved results (code and
-input-archive hashes for 290, result-archive hashes for 373) and 20 pods that ended without results. GPU types round float64 reductions differently, so quantities used across runs
+kept with it. Regenerated at 16:53 UTC on 15 October 2026, after the last run, it lists 401 runs with retrieved results (code and
+input-archive hashes for 293, result-archive hashes for 376) and 20 pods that ended without results. GPU types round float64 reductions differently, so quantities used across runs
 were checked across hardware where it mattered (for example, flip parameters agree between CPU and H100 to
 $4\times10^{-15}$).
 {\sloppy Code: \path{tools/explore_llm_soft_loop.py}, \path{tools/bifurcation_curves.py}, \path{tools/llm_feigenbaum.py},

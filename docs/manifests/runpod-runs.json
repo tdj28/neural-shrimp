@@ -1,5 +1,5 @@
 {
- "generated_utc": "2026-10-15T12:33:13Z",
+ "generated_utc": "2026-10-15T16:53:32Z",
  "note": "GPU type, cloud and provenance of every pod; costs are kept out of this file by policy",
  "runs_with_results": [
   {
@@ -9030,6 +9030,102 @@
     "explore/llm-soft-loop/pod64/tb/c-host4-grat16-a1",
     "explore/llm-soft-loop/pod64/tb/c-host4-grat16-a2"
    ]
+  },
+  {
+   "run": "20261015T141906Z",
+   "pod_id": "38erj188eo9ued",
+   "name": "neural-shrimp-fm5",
+   "gpu_type": "COMMUNITY:NVIDIA H100 NVL",
+   "commit": "8de79a56c60308391cf856e02de89089238fba23",
+   "jobset": "fm5",
+   "jobset_args": "40 110 120 0.002 0.02",
+   "extra_data": [
+    "explore/llm-phase-map/vectors-l4",
+    "explore/llm-phase-map/vectors-l16"
+   ],
+   "started_utc": "2026-10-15T14:19:07Z",
+   "wall_seconds": 4981,
+   "runner_returncode": 0,
+   "hash_verified": true,
+   "results_sha256": "feaf3ba545976346a98b4fef41c0f346dfdcfd4e93a7ba7f2c7f8618f010bbd1",
+   "code_sha256": "56780752121f0fc1f08be8fd5c74001f78a821a77ea811ee4a9decb08b00797a",
+   "data_sha256": "2fd37693890d6823bf25d55be167e917d3bda91daf68dc79d9815c77cc426b67",
+   "extract_clash": false,
+   "outputs": [
+    "explore/llm-soft-loop/pod64/fm5/branch-a1-down",
+    "explore/llm-soft-loop/pod64/fm5/branch-a1-up",
+    "explore/llm-soft-loop/pod64/fm5/branch-a2-down",
+    "explore/llm-soft-loop/pod64/fm5/branch-a2-up",
+    "explore/llm-soft-loop/pod64/fm5/curve-a1-down-auto-minus",
+    "explore/llm-soft-loop/pod64/fm5/curve-a1-down-auto-plus",
+    "explore/llm-soft-loop/pod64/fm5/curve-a1-up-fold-minus",
+    "explore/llm-soft-loop/pod64/fm5/curve-a1-up-fold-plus",
+    "explore/llm-soft-loop/pod64/fm5/curve-a2-down-flip-minus",
+    "explore/llm-soft-loop/pod64/fm5/curve-a2-down-flip-plus",
+    "explore/llm-soft-loop/pod64/fm5/curve-a2-up-fold-minus",
+    "explore/llm-soft-loop/pod64/fm5/curve-a2-up-fold-plus"
+   ]
+  },
+  {
+   "run": "20261015T154543Z",
+   "pod_id": "d7e8gtdvaiq6x4",
+   "name": "neural-shrimp-fm5c",
+   "gpu_type": "COMMUNITY:NVIDIA H100 NVL",
+   "commit": "aae497caf52b0e61046222f5ca8000098c30d673",
+   "jobset": "fm5c",
+   "jobset_args": "100 110 120",
+   "extra_data": [
+    "explore/llm-phase-map/vectors-l4",
+    "explore/llm-phase-map/vectors-l16",
+    "explore/llm-soft-loop/pod64/fm5/branch-a1-up",
+    "explore/llm-soft-loop/pod64/fm5/branch-a2-up",
+    "explore/llm-soft-loop/pod64/fm5/branch-a1-down",
+    "explore/llm-soft-loop/pod64/fm5/curve-a1-up-fold-minus",
+    "explore/llm-soft-loop/pod64/fm5/curve-a2-up-fold-plus"
+   ],
+   "started_utc": "2026-10-15T15:45:44Z",
+   "wall_seconds": 3277,
+   "runner_returncode": 0,
+   "hash_verified": true,
+   "results_sha256": "0e4a367c20f052f05f2c2324eab29a5bf9f4d3138d38b4ca9674dec91b1325ab",
+   "code_sha256": "fea609f60516272e25b2fa831cf0fe49c410787a78af5e0f9c6a0676c5ffd5bd",
+   "data_sha256": "8c75e7d5f046cb0aefedd7d1b7c3bce4683edc9752dad9ea32e720f179cdb03a",
+   "extract_clash": true,
+   "outputs": [
+    "explore/llm-soft-loop/pod64/fm5c/curve-a1-down-fold-minus",
+    "explore/llm-soft-loop/pod64/fm5c/curve-a1-down-fold-plus",
+    "explore/llm-soft-loop/pod64/fm5c/locate-curve-a1-up-fold-minus-19",
+    "explore/llm-soft-loop/pod64/fm5c/locate-curve-a1-up-fold-minus-30",
+    "explore/llm-soft-loop/pod64/fm5c/locate-curve-a2-up-fold-plus-12",
+    "explore/llm-soft-loop/pod64/fm5c/locate-curve-a2-up-fold-plus-23"
+   ]
+  },
+  {
+   "run": "20261015T164142Z",
+   "pod_id": "rrt7x0kdp2p6rp",
+   "name": "neural-shrimp-fm5d",
+   "gpu_type": "COMMUNITY:NVIDIA H100 NVL",
+   "commit": "ed0835422fcd9a5b357ca7652221f48a9037a02a",
+   "jobset": "fm5d",
+   "jobset_args": "40",
+   "extra_data": [
+    "explore/llm-phase-map/vectors-l4",
+    "explore/llm-phase-map/vectors-l16",
+    "explore/llm-soft-loop/pod64/fm5/branch-a1-down",
+    "explore/llm-soft-loop/pod64/fm5c/curve-a1-down-fold-minus"
+   ],
+   "started_utc": "2026-10-15T16:41:43Z",
+   "wall_seconds": 517,
+   "runner_returncode": 0,
+   "hash_verified": true,
+   "results_sha256": "6603426e01287971c273ca1567728a697bd73de10759502cb1c6e7806e0a79c8",
+   "code_sha256": "5557fcc7103695524f4d003c0d031a5378c818ee4194bf5daff990d02c291b68",
+   "data_sha256": "ea13e6b1c25b06514895e9821c0427ecbd191b4164dc88b2ba171c5108216c6f",
+   "extract_clash": true,
+   "outputs": [
+    "explore/llm-soft-loop/pod64/fm5d/locate-curve-a1-down-fold-minus-14",
+    "explore/llm-soft-loop/pod64/fm5d/locate-curve-a1-down-fold-minus-39"
+   ]
   }
  ],
  "pods_without_results": [
@@ -9336,10 +9432,10 @@
   }
  ],
  "summary": {
-  "pods_created": 418,
-  "runs_with_results": 398,
+  "pods_created": 421,
+  "runs_with_results": 401,
   "runs_by_gpu": {
-   "NVIDIA H100 NVL": 172,
+   "NVIDIA H100 NVL": 175,
    "NVIDIA H200": 78,
    "NVIDIA H100 80GB HBM3": 72,
    "NVIDIA GeForce RTX 4090": 29,
@@ -9433,7 +9529,10 @@
    "retmap": 1,
    "repro70": 1,
    "rc": 1,
-   "tbmulti": 1
+   "tbmulti": 1,
+   "fm5": 1,
+   "fm5c": 1,
+   "fm5d": 1
   },
   "pods_without_results": 20
  }

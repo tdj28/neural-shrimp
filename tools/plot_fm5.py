@@ -24,6 +24,7 @@ import numpy as np
 ROOT = Path(__file__).resolve().parents[1]
 DATA = Path(os.environ.get("NEURAL_SHRIMP_DATA", ROOT.parent / "neural-shrimp-data"))
 TB = "llm-soft-loop/pod64/tb/zg2-grat4-host16-t-0.1/tb-t-0.100.npz"
+TB_WIDE = "llm-soft-loop/pod64/tb/zg-grat4-host16-t-0.1/tb-t-0.100.npz"
 DSS = "llm-soft-loop/pod64/dss/p5-grat4-host16"
 TOL_TARGET = 1e-4
 
@@ -127,58 +128,89 @@ def figure(branches, curves, located, out):
     import period_colors as pc
 
     tb = np.load(DATA / "explore" / TB, allow_pickle=True)
+    wide = np.load(DATA / "explore" / TB_WIDE, allow_pickle=True)
     z = np.load(DATA / "explore" / DSS / "grid.npz", allow_pickle=True)
-    fig, axes = plt.subplots(1, 3, figsize=(15.5, 4.6), dpi=170, gridspec_kw={"width_ratios": [1.15, 1.15, 0.9]})
+    fig, axes = plt.subplots(2, 2, figsize=(11.5, 9.0), dpi=170)
+    axes = axes.ravel()
+    loc = [(r["final"]["alpha"], r["final"]["alpha2"], r["located"]) for r in located.values()]
 
-    def overlay(ax, label=True):
+    def is_located(a1, a2):
+        return any(abs(a1 - x) < 1e-4 and abs(a2 - y) < 1e-4 and ok for x, y, ok in loc)   # within a curve step
+
+    def stars(ax, ms):
+        for x, y, ok in loc:
+            ax.plot(x, y, "*", color="gold" if ok else "w", ms=ms, mec="k", mew=0.6, zorder=6)
+        for rec in curves.values():                # reversals not (yet) located: white stars
+            for q in rec["points"]:
+                if q["cusp_candidate"] and not is_located(q["alpha"], q["alpha2"]):
+                    ax.plot(q["alpha"], q["alpha2"], "*", color="w", ms=ms, mec="k", mew=0.6, zorder=6)
+
+    def overlay(ax, ms=9, branches_too=True):
         for name, rec in sorted(curves.items()):
             pts = rec["points"]
             if not pts:
                 continue
-            a1 = [p["alpha"] for p in pts]
-            a2 = [p["alpha2"] for p in pts]
             fold = rec["kind"] == "fold"
-            ax.plot(a1, a2, "-" if fold else "--", color="k" if fold else "r", lw=1.3 if fold else 1.1,
-                    label=None)
-            cz = [(p["alpha"], p["alpha2"]) for p in pts if p["cusp_candidate"]]
-            if cz and not located:
-                ax.plot(*zip(*cz), "*", color="gold", ms=9, mec="k", mew=0.5, zorder=5)
-        for rec in located.values():
-            fin = rec["final"]
-            ax.plot(fin["alpha"], fin["alpha2"], "*", color="gold" if rec["located"] else "w", ms=10, mec="k", mew=0.6,
-                    zorder=6)
-        for name, rec in sorted(branches.items()):
-            ta = rec["args"]
-            lam = [p["lambda"] for p in rec["points"]]
-            if rec["free"] == "alpha":
-                ax.plot(lam, [ta["alpha2"]] * len(lam), ":", color="w", lw=0.8)
-            else:
-                ax.plot([ta["alpha"]] * len(lam), lam, ":", color="w", lw=0.8)
-        if branches:
-            rec = next(iter(branches.values()))
-            ax.plot(rec["args"]["alpha"], rec["args"]["alpha2"], "o", color="w", mec="k", ms=5, zorder=6)
+            ax.plot([q["alpha"] for q in pts], [q["alpha2"] for q in pts], "-" if fold else "--",
+                    color="k" if fold else "r", lw=1.3 if fold else 1.1)
+        stars(ax, ms)
+        if branches_too:
+            for name, rec in sorted(branches.items()):
+                ta = rec["args"]
+                lam = [q["lambda"] for q in rec["points"]]
+                if rec["free"] == "alpha":
+                    ax.plot(lam, [ta["alpha2"]] * len(lam), ":", color="w", lw=0.8)
+                else:
+                    ax.plot([ta["alpha"]] * len(lam), lam, ":", color="w", lw=0.8)
+            if branches:
+                rec = next(iter(branches.values()))
+                ax.plot(rec["args"]["alpha"], rec["args"]["alpha2"], "o", color="w", mec="k", ms=5, zorder=6)
 
-    ax = axes[0]
-    P = np.where(tb["chaotic"], np.nan, tb["period"].astype(float))
-    P[P <= 0] = np.nan
-    b1, b2 = tb["alpha1"], tb["alpha2"]
-    e2 = [b1[0], b1[-1], b2[0], b2[-1]]
-    ax.imshow(np.where(tb["chaotic"], 1.0, np.nan), origin="lower", extent=e2, aspect="auto",
-              cmap=ListedColormap(["0.15"]), interpolation="nearest")
-    cats = pc.categorize([P], max_blocks=9)
-    cmap = cats.cmap.copy()
-    cmap.set_bad((0, 0, 0, 0))
-    im = ax.imshow(cats.index(P), origin="lower", extent=e2, aspect="auto", cmap=cmap, norm=cats.norm,
-                   interpolation="nearest")
-    cats.colorbar(im, ax=ax, label="period (black: chaotic)")
-    overlay(ax)
+    def periods(m):
+        P = np.where(m["chaotic"], np.nan, m["period"].astype(float))
+        P[P <= 0] = np.nan
+        return P
+
+    cats = pc.categorize([periods(tb), periods(wide)], max_blocks=9)      # one colour scheme for both maps
+
+    def attractor_map(ax, m, label):
+        P = periods(m)
+        b1, b2 = m["alpha1"], m["alpha2"]
+        e = [b1[0], b1[-1], b2[0], b2[-1]]
+        ax.imshow(np.where(m["chaotic"], 1.0, np.nan), origin="lower", extent=e, aspect="auto",
+                  cmap=ListedColormap(["0.15"]), interpolation="nearest")
+        cmap = cats.cmap.copy()
+        cmap.set_bad((0, 0, 0, 0))
+        im = ax.imshow(cats.index(P), origin="lower", extent=e, aspect="auto", cmap=cmap, norm=cats.norm,
+                       interpolation="nearest")
+        if label:
+            cats.colorbar(im, ax=ax, label="period (black: chaotic)")
+        return e
+
+    def box(ax, xs, ys, **kw):
+        ax.plot([xs[0], xs[1], xs[1], xs[0], xs[0]], [ys[0], ys[0], ys[1], ys[1], ys[0]], "-", **kw)
+
     a1, a2 = z["alpha"], z["log10_temperature"]
-    ax.plot([a1[0], a1[-1], a1[-1], a1[0], a1[0]], [a2[0], a2[0], a2[-1], a2[-1], a2[0]], "-", color="w", lw=0.8)
+    ax = axes[0]                                   # (a) all curves over the wide zoom
+    ax.set_facecolor("0.93")
+    attractor_map(ax, wide, True)
+    overlay(ax, ms=8, branches_too=False)
+    box(ax, (tb["alpha1"][0], tb["alpha1"][-1]), (tb["alpha2"][0], tb["alpha2"][-1]), color="c", lw=0.9)
+    allx = [q["alpha"] for r in curves.values() for q in r["points"]]
+    ally = [q["alpha2"] for r in curves.values() for q in r["points"]]
+    ax.set_xlim(min(allx) - 0.001, max(max(allx), wide["alpha1"][-1]) + 0.0005)
+    ax.set_ylim(min(min(ally), wide["alpha2"][0]) - 0.0005, max(ally) + 0.001)
+    ax.set_title("(a) fold (black) and flip (red) curves of the period-5 orbit; cyan: zoom of (b)", fontsize=7.5)
+
+    ax = axes[1]                                   # (b) the body over the fine zoom
+    e2 = attractor_map(ax, tb, True)
+    overlay(ax)
+    box(ax, (a1[0], a1[-1]), (a2[0], a2[-1]), color="w", lw=0.8)
     ax.set_xlim(e2[0], e2[1])
     ax.set_ylim(e2[2], e2[3])
-    ax.set_title("(a) fold (black) and flip (red) curves of the period-5 orbit over the attractor map", fontsize=7.5)
+    ax.set_title("(b) the body; dotted: branches from a common start; white box: grid of (c)", fontsize=7.5)
 
-    ax = axes[1]
+    ax = axes[2]                                   # (c) over the continued orbit's trace
     mu1, mu2 = dw.leading_pair(z)
     ok = z["ok"]
     stable = ok & (np.abs(mu1) < 1)
@@ -189,41 +221,31 @@ def figure(branches, curves, located, out):
                    vmax=0.6, interpolation="nearest")
     ax.imshow(np.where(ok & ~stable, 1.0, np.nan), origin="lower", extent=ext, aspect="auto",
               cmap=ListedColormap(["0.75"]), interpolation="nearest")
-    fig.colorbar(im, ax=ax, fraction=0.046, label=r"trace $\mu_1+\mu_2$ (continued orbit, DSS5)")
+    fig.colorbar(im, ax=ax, fraction=0.046, label=r"trace $\mu_1+\mu_2$ of the continued orbit")
     ax.contour(a1, a2, np.where(ok, t, np.nan), levels=[0], colors="0.3", linewidths=0.6)
     overlay(ax)
     pad1, pad2 = 4 * da1, 4 * da2
     ax.set_xlim(ext[0] - pad1, ext[1] + pad1)
     ax.set_ylim(ext[2] - pad2, ext[3] + pad2)
-    ax.set_title("(b) the same curves over the continued orbit's trace (grey: repelling)", fontsize=7.5)
+    ax.set_title("(c) the curves over the continued orbit's trace (grey: repelling)", fontsize=7.5)
 
-    ax = axes[2]                                   # (c) the junction of the upper leg with the body
+    ax = axes[3]                                   # (d) the junction of the upper leg with the body
     styles = {"curve-a1-up-fold-minus": ("k", "-", 1.6), "curve-a2-up-fold-plus": ("tab:orange", "--", 1.0)}
     for name, rec in sorted(curves.items()):
         pts = rec["points"]
         if not pts:
             continue
-        a1 = np.array([p["alpha"] for p in pts])
-        a2 = np.array([p["alpha2"] for p in pts])
         col, ls, lw = styles.get(name, ("k" if rec["kind"] == "fold" else "r", "-" if rec["kind"] == "fold" else "--", 0.9))
-        ax.plot(a1, a2, ls, color=col, lw=lw, marker=".", ms=2.5)
+        ax.plot([q["alpha"] for q in pts], [q["alpha2"] for q in pts], ls, color=col, lw=lw, marker=".", ms=2.5)
     fold = [r for n, r in curves.items() if n == "curve-a1-up-fold-minus"]
     if fold:
-        P = np.array([[p["alpha"], p["alpha2"]] for p in fold[0]["points"]])
+        P = np.array([[q["alpha"], q["alpha2"]] for q in fold[0]["points"]])
         for i, j, x in self_crossings(P):
             ax.plot(*x, "x", color="m", ms=8, mew=1.6, zorder=7)
-    for rec in located.values():
-        fin = rec["final"]
-        ax.plot(fin["alpha"], fin["alpha2"], "*", color="gold" if rec["located"] else "w", ms=12, mec="k", mew=0.6,
-                zorder=6)
-    if not located:
-        for rec in curves.values():
-            cz = [(p["alpha"], p["alpha2"]) for p in rec["points"] if p["cusp_candidate"]]
-            if cz:
-                ax.plot(*zip(*cz), "*", color="gold", ms=12, mec="k", mew=0.6, zorder=6)
+    stars(ax, 12)
     ax.set_xlim(-0.11935, -0.11885)
     ax.set_ylim(0.10255, 0.10425)
-    ax.set_title("(c) junction of the upper leg: two reversals (stars), crossing (x)", fontsize=7.5)
+    ax.set_title("(d) junction of the upper leg: two cusps (stars), crossing (x)", fontsize=7.5)
     ax.ticklabel_format(useOffset=False)
     for ax in axes:
         ax.set_xlabel(r"$\alpha_1$ (gratitude, block 4)", fontsize=8)

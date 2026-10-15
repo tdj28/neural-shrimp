@@ -25800,3 +25800,29 @@ The consult's mechanism probe (controlled float32 kicks at three amplitudes) is 
   - (-0.121408, 0.102821), bracket [39, 40].
 
 **Run card FM5d.** These two candidates are located and checked with the same tool and criteria: one H100 NVL, two parallel locates, 40 minutes each, run limit 50 minutes. The cost ceiling is in the private ledger.
+
+## 2026-10-15 16:53 UTC: FM5d result: the left fold curve's two reversals are located cusps
+
+Pod rrt7x0kdp2p6rp (COMMUNITY H100 NVL); commit ed083542 from the orchestrator log; runner rc 0; hash verified; terminated and verified 16:50 UTC; 517 s.
+- The archive contained uploaded inputs; three were checked bitwise against the local copies and are identical. The fm5d outputs are copied to explore/llm-soft-loop/pod64/fm5d.
+
+Both locations pass every check (tools/cusp_locate.py, cusp test):
+- **Lower left:** (-0.1238662174, 0.0961512048).
+  - b sign a reduced from 16.3 to -3.9e-5.
+  - c = -9651 (plateau spread 0.04 %).
+  - det J = 405.9, condition 419.
+  - Critical multiplier 1 + 3e-10, second modulus 0.0079.
+- **Upper left:** (-0.1214073487, 0.1028234301).
+  - b sign a reduced from 25.1 to 1.6e-4.
+  - c = +47463 (spread 0.26 %).
+  - det J = -535.4, condition 1.2e4.
+  - Critical multiplier 1 + 1e-10, second modulus 0.0049.
+
+**The period-5 window in all.**
+- Two fold curves with four located cusps (|det J| 88.6 to 535.4), flip curves along the body's other sides and the legs, and a self-crossing of the right fold curve between folds of two different orbits.
+- The paper's count becomes thirteen tangent reversals, all located cusps, on nine continued fold curves. The nine of Table tab:search stay as counted there.
+
+**Paper.**
+- fig:period5folds redrawn as 2 x 2: overview on the wider TBZg map with one colour scheme for both maps, body, trace and junction.
+- Text: sec:organization, Appendix D, Appendix B (|det J| range over thirteen cusps unchanged, 14 to 2416), Appendix J (rung 1 and search scale), Discussion and contribution 3.
+- Two appendix D floats moved from [H] to [tbp] (float-page overflow).
