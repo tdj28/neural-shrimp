@@ -1,3 +1,17 @@
+# Task 21a complete and accepted; standalone delivery follows
+
+Root accepted the full final scientific Markdown32d0ece0 and the companion738202ae as precisely scoped bound transcription; exact Root acceptance d573c1dd is preserved. All confirmed results, discrepancies, excluded prefixes and cannot-check items are final finite findings. No further Task21a arithmetic or audit remains. The complete original scalar report and companion transcription remain outside Git at their hash-pinned owned paths. The compact final-acceptance.json records all authority.
+
+P-F1 fails; P-F2 passes its frozen point-estimate rule at the declared06:05 cutoff, while one of its last two conditional bracket envelopes is not contained in the frozen interval. The failed384 locator remains failed; its fitted root/ratio is explicitly separate. The missing scatter gate, corrected Ritz bound, uncertainty conventions and historical local156c source/exit gaps remain disclosed.
+
+Original session50455 is reaped0; exact supervisor/worker/groups/sessions absent. Zero jobs or reservations. Standalone delivery follows this private final evidence checkpoint. Task21b KY1/KY2/TC source and metadata preparation is next; no spectrum values have been decoded. Queue then continues21c–i,22,23 only with its concrete MECH card,24,25,15. Inference owns Git/process coordination. Overnightwatch remains active and quiet when nonactionable.
+
+Recorded 2026-10-15T07:34:45.113843+00:00.
+
+---
+
+## Preserved earlier status
+
 # Task 21a saved arithmetic complete; final scientific review pending
 
 Sole run-001, source4babfa7895bc4a519f41220fead1c2d43b1ed9c4, completed and original session50455 was reaped with exit0. Worker report1e6bf47f records0.010659614 seconds; supervisorclosure28c15cdf records0.528824287 seconds, no timeout/failure and verified1GiB hard AS. Peak RSS was not captured. Full scalar report remains outside Git at its pinned owned raw path.
