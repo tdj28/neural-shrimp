@@ -64,6 +64,23 @@ In grey cells the model settles into a repeating loop of text, shaded by how str
 close to losing stability). Figure~\ref{fig:cross512} names the loops.}
 \label{fig:teaser}
 \end{figure}
+Inference increasingly feeds a language model its own continuous output. Soft Thinking replaces each sampled token by
+the expected embedding under the next-token distribution \cite{zhang2025softthinking}, latent-reasoning methods feed
+hidden states back \cite{hao2024coconut}, and recurrent-depth models iterate a block toward a fixed point
+\cite{geiping2025recurrent}. Each turns inference into an iterated map, and an iterated map can be chaotic. We show
+that the expected-embedding loop of released language models is chaotic over wide ranges of temperature and steering
+strength, explain why steering makes it so, and measure what the chaos does.
+\begin{itemize}
+\item In a chaotic regime, an irrelevant change of batch size makes two otherwise identical float64 runs write
+  different text, after a number of steps that the Lyapunov exponent predicts. In a periodic regime the runs stay
+  identical to $10^{-12}$.
+\item Steering creates the chaos by making next tokens compete. Its change of the softmax readout produces the
+  expansion, while its change of the network's response damps it.
+\item The depth at which a steering vector enters sets how much chaos it causes, in a 0.5B model and in a 70B
+  model, and two steering vectors at different depths create chaos that neither causes alone.
+\end{itemize}
+The same loops obey the quantitative laws of low-dimensional dynamics, down to Feigenbaum's constant.
+
 Repeated inference with a fixed language model is an iterated map: the model's output becomes its next input. Like
 other iterated maps, it can be chaotic. Figure~\ref{fig:teaser} shows a small piece of the parameter plane of one
 such map, built from Qwen2.5-0.5B-Instruct. Cells with a positive finite-horizon Lyapunov exponent lie side by side
@@ -107,6 +124,19 @@ sampling.
 
 \paragraph{Contributions.}
 \begin{enumerate}
+\item \emph{The dynamical regime decides whether a run can be reproduced.} Run twice with only the batch layout changed,
+  190 of 192 chaotic float64 loops of Qwen2.5-0.5B diverge from rounding-level differences to different text, after
+  a median of 102 steps and as the Lyapunov exponent predicts (median ratio 0.91), while 182 of 192 periodic loops
+  stay within $10^{-2}$, mostly within $10^{-12}$. In bfloat16 every loop tested diverges within a few steps
+  (Section~\ref{sec:consequences}). %%REPROTCONTRIB%%
+\item \emph{Steering makes next tokens compete.} An exact split of each step's growth shows that steering into chaos
+  raises the readout factor by 2.58 nats per step and leaves the network factor flat. A logit bias alone, with the
+  network untouched, makes 3.5\,\% of the plane chaotic. An orbit-preserving crossover attributes the expansion at
+  fixed states to steering's change of the readout ($+0.81$ nats per step), not of the network ($-0.49$)
+  (Section~\ref{sec:theory}).
+\item \emph{Where and how steering is applied changes the chaos.} Earlier steering carries chaos to lower
+  temperature, in Qwen2.5-0.5B (5 blocks) and in Llama-3.3-70B (blocks 20, 35 and 50), and two steering vectors at two
+  blocks create chaos where neither alone does (Section~\ref{sec:consequences}).
 \item \emph{The loop's derivative shows where chaos can occur.} The derivative of the soft-token map factorizes into
   the inverse temperature, the covariance of token embeddings under the model's own next-token distribution (a
   cross-covariance for untied embeddings), and the network's Jacobian. With tied embeddings and without the network,
