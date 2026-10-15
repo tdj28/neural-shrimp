@@ -846,7 +846,8 @@ token also answers worse. The loop's regime adds nothing beyond that uncertainty
 
 Within a prompt the regime does not matter either. We steered the first 1000 of these prompts slightly, at block 14
 along philosophy, hostility-vs-kindness and a random direction. The strength, 1\,\% of the residual norm, is the largest
-at which greedy accuracy stays within 5 points of the unsteered model (0.87 to 0.89, against 0.89). This push changes
+at which greedy accuracy stayed within 5 points of the unsteered model on 200 calibration prompts; on the 1000 prompts it
+is 0.87 to 0.89, against 0.89 unsteered. This push changes
 the loop's label in 508 of the 1000 prompts. With prompt and condition fixed effects, in an analysis fixed before the
 data, a chaotic loop changes the accuracy of the prompt's ordinary sampled answers by $+0.36$ points (95\,\% interval
 $[-0.36,1.08]$; permutation within prompts, $p=0.34$).
@@ -2662,7 +2663,8 @@ second checkpoint, is the unreported bounded search).}
 \item Prospectively frozen on 15 October, not independently reproduced: the answer-level reproducibility tests in
   Qwen2.5-0.5B and its 7B extension (positive), and the behaviour test (null on its primary question; no edge
   optimum), all in Section~\ref{sec:consequences} and each scored by code pushed before the data
-  (\path{docs/repro-task-test.md}, \path{docs/bpc-test.md}).
+  (\path{docs/repro-task-test.md}, \path{docs/bpc-test.md}). The within-prompt steered test (null) used an analysis
+  fixed and pushed before its data, without a separate frozen design document.
 \item Prospectively frozen and independently replayed: Huginn's relaxation test on held-out data, confirmed in both
   parts; an independent implementation reproduced both from the saved rows and spectra (GSM8K part exactly,
   item-level part to $10^{-12}$) (Section~\ref{sec:huginn}).
