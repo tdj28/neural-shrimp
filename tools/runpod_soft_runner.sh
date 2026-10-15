@@ -59,6 +59,17 @@ AutoTokenizer.from_pretrained(ela.MODELS['qwen0.5b'], cache_dir=ela.CACHE); prin
 nvidia-smi --query-gpu=name,driver_version,memory.total --format=csv | tee "$LOGS/hardware.txt"
 log "setup done"
 
+get7b() {  # pinned Qwen2.5-7B-Instruct into the pod's HF cache (as in job set bp)
+  local REV7=a09a35458c702b33eeacc393d103063234e8bc28
+  log "download Qwen2.5-7B-Instruct $REV7"
+  HF_HUB_OFFLINE=0 $PY -c "
+from huggingface_hub import snapshot_download
+snapshot_download('Qwen/Qwen2.5-7B-Instruct', revision='$REV7', cache_dir='$NEURAL_SHRIMP_DATA/models/hf/hub')" \
+    > "$LOGS/setup-model7.log" 2>&1
+  local REFS7=$NEURAL_SHRIMP_DATA/models/hf/hub/models--Qwen--Qwen2.5-7B-Instruct/refs
+  mkdir -p "$REFS7" && printf %s "$REV7" > "$REFS7/main"
+}
+
 run() {   # run NAME MINUTES ARGS...: one explore_llm_soft_loop call (or tools/$TOOL) under a wall-time limit,
           # echoing its progress file once a minute so that the streamed log shows the time per point
   local name=$1 minutes=$2
@@ -163,6 +174,7 @@ case "$JOBSET" in
                # NAME MINUTES then tool arguments
     name=${JOBARGS[0]}
     minutes=${JOBARGS[1]}
+    case " ${JOBARGS[*]} " in *" qwen7b "*) get7b ;; esac
     TOOL=crossover.py run xo-$name "$minutes" --device cuda "${JOBARGS[@]:2}" --out $D/xo/$name
     ;;
   reprotask)   # answers of continuous-feedback inference under batch-layout changes (run REPRO-T; tools/repro_task.py;
@@ -175,6 +187,7 @@ case "$JOBSET" in
                # GPU): JOBARGS = NAME MINUTES then tool arguments
     name=${JOBARGS[0]}
     minutes=${JOBARGS[1]}
+    case " ${JOBARGS[*]} " in *" qwen7b "*) get7b ;; esac
     TOOL=repro_noise.py run repro-$name "$minutes" --device cuda "${JOBARGS[@]:2}" --out $D/repro/$name
     ;;
   mech)        # gain split along steering, steering block and a logit bias (run MECH; tools/steer_gain.py, float64 on

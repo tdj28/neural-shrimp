@@ -24599,3 +24599,15 @@ Pod 7qoonky4dot3yk (SECURE H100 NVL; runner rc 0, hash verified, terminated; 388
 
 - **Near zero steering** the readout contracts at every block: -6.7 to -7.2 at log10 T -0.3, and -2.6 to -2.9 at 0.0.
 - **Reading.** Low-temperature chaos needs an expanding readout. Early and middle blocks produce it, while late blocks rarely do. Their chaos sits at high temperature and is carried by the network factor. This explains the block trend of LS and of the 70B depth series at the level of the derivative.
+
+## 2026-10-15 07:54 UTC: run (exploratory): XO7 and REPRO7, the crossover and the reproducibility test in Qwen2.5-7B (untied embeddings)
+
+Why: both night results so far rest on Qwen2.5-0.5B. Qwen2.5-7B has untied input and output embeddings and is chaotic without steering, so it is the obvious first replication. Job sets xo and repro now download the pinned 7B (a09a3545, as in bp) when the arguments name qwen7b.
+- **XO7.** tools/crossover.py at docs/xo7-cells.json, a seeded draw (seed 20261015) fixed before any data.
+  - Cells: 12 chaotic cells of the 7B philosophy map at block 14 (scale7/coarse-64-philosophy, two per temperature band of six), and 6 attracting periodic cells of the same rows. The first two chaotic cells are development cells.
+  - float64; transient 1000, record 1000.
+  - Readings as fixed for XO: validation of arm 11 against the twin exponent; readout effect, network effect and interaction over the held-out chaotic cells, with bootstrap intervals.
+- **REPRO7.** tools/repro_noise.py at docs/repro7-cells.json: all 24 chaotic and 24 periodic temperatures (seeded draw) of the unsteered 7B wide sweep (big/qwen7b-alpha0-wide), alpha 0, 1500 steps.
+  - REPRO7a: batch layout in float64 (n against 2n rows).
+  - REPRO7b: batch layouts in float32 and bfloat16.
+  - Readings as fixed for REPRO1.
