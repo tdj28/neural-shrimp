@@ -1522,11 +1522,12 @@ $\log_{10}T=-0.30$ to $-0.07$ (up to 0.33 per step) and at $0.09$, with a late t
 from $0.13$ up, which includes its narrow one-token chaotic band. Sensitive
 dependence therefore survives when the whole context is kept, and in the 7B model the one-token map locates it.
 Qwen2.5-72B, run the same way on two GPUs, stays nearly insensitive. We count a temperature as growing when two of its three
-twins reach $10^{-3}$ within 400 steps, a rule fixed before the 72B run that gives 11 of 24 temperatures for the 7B
-model and 8 for the 0.5B model. The 72B model grows at one of 24 temperatures on the paper's prompt, and only
+twins reach $10^{-3}$ within 400 steps, a rule fixed before the 72B run and applied afterwards to the earlier 0.5B
+and 7B records, where it gives 11 of 24 temperatures for the 7B model and 8 for the 0.5B model. The 72B model grows at one of 24 temperatures on the paper's prompt, and only
 transiently: at $\log_{10}T=0.09$ the twins pass $10^{-3}$ at step 123 and fall back to $5\times10^{-6}$ (at $0.13$ one twin of three passes
 $10^{-3}$ at step 381). It grows at
-none of 24 on the held-out prompt with its narrow unsteered band, including $\log_{10}T=0.326$, between two temperatures
+none of the 24 completed temperatures on the held-out prompt with its narrow unsteered band (a planned finer line there
+was not completed), including $\log_{10}T=0.326$, between two temperatures
 where its one-token map is chaotic; there the distance never exceeds $1.1\times10^{-9}$. It also grows at none of the
 eleven steered cells of Section~\ref{sec:size}, including the six where its one-token map is chaotic: there the
 distance never exceeds $3\times10^{-7}$ and ends between $1\times10^{-13}$ and $6\times10^{-10}$, and the growing
