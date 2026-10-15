@@ -24345,3 +24345,29 @@ Pods ne3g7xyh71mqf1, zz5die5hoxmnog, vntgz6n0hu6p8x (runner rc 0, hashes verifie
   - Where a one-dimensional map would place its doubly superstable centre, the orbit is two-dimensional. A scalar superstable curve is not defined there, so the question "do two superstable curves cross?" has no answer.
   - The per-step factor curves cross many times in the zoom. Those factors rest on a leading direction that is ill-defined where the multipliers are comparable, so the crossings are not evidence.
 - **Conclusion.** The hostile period-7 body is not a one-dimensional shrimp. Whether it is the shrimp of an effectively two-dimensional map stays open. A two-dimensional test would locate the curves where the complex pair is born (the discriminant curves) and ask whether two such strips cross (compare DSS4 on the period-6 hook). The paper keeps the body unlabelled.
+
+## 2026-10-15 07:00 UTC: Consult 9 completed and adjudicated (are we missing anything huge?)
+
+One research-strategy request (gpt-6-astra, Pro, xhigh) with the brief docs/consults/2026-10-15-missing-anything-huge/brief.md at af9489ff: completed, 60,143 tokens. The conservative cost is recorded privately. A first attempt failed locally before any request (no --env-file), so nothing was sent or billed. The review is copied unchanged, with docs/consults/2026-10-15-missing-anything-huge/adjudication.md.
+- **Main advice.** The missing bridge is operational relevance at a finite inference budget, not more evidence of chaos. Adopted: REPRO-T, a task-level reproducibility test of Soft Thinking under batch-layout changes against greedy decoding.
+- **Mechanism.** The decisive test is an orbit-preserving readout/network crossover. Adopted: XO.
+- **Deferred:** BP confirmatory (not decisive at feasible sizes) and the stabilization envelope.
+- **Title.** Keep it (the human decides). Open the abstract with continuous-feedback inference, and claim consequences only at demonstrated horizons.
+
+## 2026-10-15 07:05 UTC: run (frozen design): REPRO-T, answers of continuous-feedback inference under batch-layout changes (consult 9, direction 1)
+
+Design frozen in docs/repro-task-test.md (pushed with this entry, before any held-out run); problems in docs/repro-task-problems.json; tool tools/repro_task.py.
+- **Local CPU smoke test** (2 development problems and 1 held-out problem, 4 soft steps): the pipeline and scoring work, and every answer is correct.
+  - Batch-layout distances after 4 steps: up to 5e-3 in bf16 and 6e-15 in float64; no answer changed.
+  - Reruns are identical.
+- **Pod.** One H100 class, job set reprotask: all 8 development and 96 held-out problems, both precisions, log10 T 0.0, 0.2 (primary) and 0.4 (secondary), greedy baseline, mechanism subset.
+
+## 2026-10-15 07:08 UTC: DSS4 result: the period-6 hook has no superstable curve at all; its leading multiplier never falls below 0.028 in modulus
+
+Pods 6lini88kmg7dxs, adx6wj2vsij4gd (runner rc 0, hashes verified, terminated; 3628 and 3199 s; commit ec5c0e30). Output dss/p6-hook2-{a,b}: --multipliers-only, period 6, philosophy at block 12, alpha 0.0782-0.0812, log10 T -0.076 to -0.046, 31 x 31.
+- **Coverage.** The orbit continued to 675 of 961 cells (372 with the seed's token loop) and is attracting (|mu_1| < 1) in 303.
+- **Multipliers.** The leading modulus over the continued cells has quantiles 0.028 / 0.14 / 1.28 / 4.19 / 5.82. Its minimum, 0.028, sits in the valley of strongest contraction, which runs diagonally through the attracting region.
+  - 55 cells have a complex leading pair, mostly along the edge where the orbit loses stability.
+  - Elsewhere the second modulus is small (median ratio |mu_2|/|mu_1| = 0.021).
+- **Reading.** No cell of the continued orbit comes near mu = 0, so the hook carries no superstable curve and no shrimp centre of any kind for this orbit. Its attracting region is bounded by multiplier crossings, partly through complex pairs. Together with DSS3 (seeds with complex or comparable multipliers) and the coexistence result at the strip crossing, the period-6 hook is not a shrimp.
+- Inline analysis in this session.
