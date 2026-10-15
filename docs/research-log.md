@@ -23715,3 +23715,12 @@ Reading: on these maps the twin method is a finite-difference Benettin estimate 
   - (B) T -0.152: period 6 at alpha 0.06505, next 0.06535 (start of the period-12 band on the cross-512 map), 5 flips, ratio guess 4.0, 96 steps per period.
 - **Reading:** The ratios are scored against P-F2 (later ratios within 5 % of 4.669) and reported as they come out. A failed switch is reported with its message.
 - **Output:** `../neural-shrimp-data/explore/llm-soft-loop/pod64/cascade/crescent-t-0.156-c`, `crescent-t-0.152-c`
+
+## 2026-10-15 02:03 UTC: FB stage 1 result: frozen prediction P-F1 fails; the first ratio at log10 T -0.156 is 14.9, and the cut at -0.152 crosses a doubling bubble
+
+Pods mpjn8uzrkptamm and h7yv0po5o7lc1n (first attempt), x03brom1shhb3t and pt50aoqu7xj1bo (map-based switching). All runner rc 0, hashes verified, terminated and verified; commits bb5bd418 and 5ad048f2. Outputs cascade/crescent-t-0.152(-b) and crescent-t-0.156(-b).
+
+- **log10 T -0.156:** flips 3->6 at alpha 0.06447665673849548, 6->12 at 0.06504935553077586 and 12->24 at 0.06508771941580027, all with critical multiplier -1 to 6e-11. The first ratio is 14.93. The search for the 24->48 flip then walked to 0.0650993 without finding it (band estimate from the measured ratio, 16 substeps). So the period-24 band is wider than 1.2e-5, and the second ratio is below about 3.2.
+- **log10 T -0.152:** flips 3->6 at 0.06487375301996827 and 6->12 at 0.06525318227183999. Continued forward from the switch, the period-12 solution collapses onto the period-6 orbit near alpha 0.06568-0.06573. The doubled orbit merges back into period 6, a doubling bubble. On the map this cut shows period 12, a sliver of chaos, then period 6 again. This cut has no complete cascade from period 3.
+- **P-F1 (first ratio below 2.844 at both temperatures, lower at -0.156):** fails. The ratio is 14.9 at -0.156, and there is none at -0.152.
+- **Reading:** Along nearby cuts the early ratios depend strongly on where the cut crosses the crescent: 2.84 at -0.148 and 14.9 at -0.156, with a bubble at -0.152 in between. The simple crossover hypothesis (a smoothed-argmax corner, ratios toward 2 that fall at lower temperature) is contradicted. Universality concerns the limit and is tested by the later ratios (P-F2): stage 1c on the local GPU, from period 12 at -0.156.
