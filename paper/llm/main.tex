@@ -31,20 +31,22 @@ computer-assisted proof is that of the period-8 orbit of Table~\ref{tab:orbits} 
 
 \begin{abstract}
 Feed a frozen language model its own expected next-token embedding, at a fixed position after a fixed prompt, and it
-can lock into a loop of text such as ``. This is there is a is a'' or wander with positive finite-horizon Lyapunov
-exponents. This smooth map, with temperature and steering strength as parameters, shows both regimes in Qwen2.5,
-OLMo-2 and Llama-3. Its derivative factorizes into the inverse temperature, an embedding covariance under the
-model's next-token distribution, and the network's Jacobian; with tied embeddings and no network it would be a
-modern Hopfield update, which cannot cycle. It contracts at high temperature; chaos occupies
-intermediate temperatures and needs no steering in most dense models. In Qwen2.5-7B it persists, and spreads, with a 16-token feedback window, and early
-perturbations grow under Soft Thinking's growing context. Across fifteen models of 0.5B to 72B,
-size does not set the chaos: on ten prompts a 14B model is more chaotic than a 7B, at higher temperatures;
-OLMo-2-32B is the most chaotic OLMo model; and Qwen2.5-72B, nearly free of it on five prompts, is chaotic when steered. Bifurcation theory applied to the model's own derivatives predicts its behaviour where tested: frozen local
-unfoldings near cusps matched the recovered orbits at all twelve tested offsets, and fold normal forms predicted bottleneck passage times without fitting, with 23 of 24 frozen forecasts within one
-iterate. In the recurrent-depth model Huginn, a frozen test confirmed a spectrally predicted accuracy loss under relaxation.
-Interval arithmetic proves one period-8 orbit exists and is locally attracting, to our knowledge a first for a transformer
-language model. The map is not ordinary
-autoregressive generation.
+can lock into a loop of text such as ``. This is there is a is a'' or wander with a positive finite-horizon Lyapunov
+exponent that exact tangent dynamics reproduce. This smooth map, parametrized by temperature and steering strength,
+shows both regimes in Qwen2.5, OLMo-2 and Llama-3. Its derivative factorizes into inverse temperature, the embedding
+covariance under the next-token distribution and the network's Jacobian; with tied embeddings and no network it would
+be a modern Hopfield update, which cannot cycle. It contracts at high temperature; chaos occupies intermediate
+temperatures and needs no steering in most dense models. In Qwen2.5-7B it survives a 16-token feedback window and Soft
+Thinking's growing context. Across fifteen models of 0.5B to 72B, size does not set the chaos: on ten prompts a 14B
+model is more chaotic than a 7B, OLMo-2-32B is the most chaotic OLMo model, and Qwen2.5-72B, nearly free of it on five
+prompts, is chaotic when steered. Bifurcation theory applied to the model's derivatives predicts its behaviour where
+tested. Fold normal forms predicted bottleneck passage times without fitting (23 of 24 frozen forecasts within one
+iterate), and windows accumulating on the fold follow a $1/N^2$ law, extrapolating to period 30 within 3\,\%. Local
+unfoldings near numerically located cusps matched the recovered orbits at all twelve tested offsets, and a doubling
+cascade's interval ratios approach Feigenbaum's constant, the last within 1\,\%. In the recurrent-depth model Huginn,
+a frozen test confirmed a spectrally predicted accuracy loss. Interval arithmetic proves one period-8 orbit exists and
+is locally attracting, to our knowledge a first for a transformer language model; the chaos remains numerical. The map
+is not ordinary autoregressive generation.
 \end{abstract}
 
 \section{Introduction}
