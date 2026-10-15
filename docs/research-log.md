@@ -25664,7 +25664,7 @@ Follow-up of FM5, under its run card ("tangent reversals are cusp candidates, to
 - **Curve.** The fold of the alpha1-down branch at (-0.123323, 0.100693), continued both ways: up to 120 points, bounds alpha1 [-0.130, -0.100] and alpha2 [0.085, 0.120], settings as FM5.
 - **Run.** One H100 NVL, six processes. Locates have 100 minutes each, curves 110; the run limit is 125 minutes. The cost ceiling is in the private ledger.
 
-## 2026-10-15 16:08 UTC: Consult 10 completed and adjudicated (final check of the restructured paper; shrimp anatomy)
+## 2026-10-15 16:02 UTC: Consult 10 completed and adjudicated (final check of the restructured paper; shrimp anatomy)
 
 One research-strategy request (gpt-6-astra, Pro, xhigh) with docs/consults/2026-10-15-restructure-final-check/brief.md and its context file at 00ba9b95. It completed with 71,366 tokens; the cost is recorded privately. The review is copied unchanged, with adjudication.md.
 - **Applied:**
