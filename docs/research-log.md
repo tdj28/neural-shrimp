@@ -25099,3 +25099,23 @@ Those were fixed values, not each problem's own edge. **Step 1** measures every 
 **Next.** Step 2 measures the edges of fresh test problems 200-599, so that a frozen test can place arms relative to each problem's own edge. The design will be pushed before any of those problems is generated.
 
 **Compute.** One H100-class pod for HEdev, about 150 min limit (timing unknown, resumable); ceiling in the private ledger.
+
+## 2026-10-15 10:01 UTC: Run card RC1 (exploratory): memory capacity of the soft-token loop across its regimes
+
+**Question** (the same human question). Is the loop, used as a reservoir, most capable at the edge? This is the classical test (Bertschinger and Natschlaeger 2004; Jaeger 2001) on the language model's own map.
+
+**Setup.** tools/reservoir_capacity.py; tests/test_reservoir_capacity.py, 2 pass: linear reservoirs give MC about 4 for 4 distinct modes and 1 for one mode.
+- Model: Qwen2.5-0.5B, philosophy at block 12, float64.
+- Input: a weak input enters before the network, x_(n+1) = F(x_n + eps |x| u_n r), with u_n ~ U(-1, 1) per cell and step, r a seeded unit direction, eps 1e-4 and 1e-3.
+- Run: settle 1000 steps, record 3000.
+- Readout: linear ridge readouts of u_(n-k), k = 0..40, with contiguous train, validation and test blocks. MC = sum of held-out R^2.
+
+**Cells.**
+- (a) "feig": the cascade line log10 T -0.14798, alpha 0.0640 to 0.0670, 151 cells. It crosses the flips of the crescent's doubling sequence and its accumulation point alpha_inf about 0.066125, the LLM's own onset of chaos. Exponents and labels are computed in the run.
+- (b) "h2": the 448 labelled cells of docs/h2-horizon-cells.json (192 chaotic, 192 periodic, 64 other; map exponents -1.49 to +0.53, 79 within 0.05 of zero).
+
+**Predictions.**
+- Edge hypothesis: MC peaks as lambda -> 0. Along the cascade line it peaks at the accumulation point.
+- **Alternative to watch:** MC peaks at every bifurcation (critical slowing down at each flip), not specifically at the onset of chaos. This would mean criticality, not chaos, is what matters.
+
+**Compute.** One H100-class pod, run limit 150 min; ceiling in the private ledger.
