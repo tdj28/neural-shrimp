@@ -239,7 +239,8 @@ many steps, and their stability has been analysed through Jacobians and fixed po
 \cite{bai2019deq,bai2021stabilizing,geiping2025recurrent,zhu2025ouro,tomihari2025recurrent,yang2026stars,prairie2026parcae,buehlmaier2026layernorm,labovich2026stability,movahedi2026fixedpoint},
 and recent analyses of looped reasoners follow their internal dynamics, their settling, marginal or drifting regimes
 and slowly decaying oscillatory modes \cite{blayney2026mechanistic,viakhirev2026thinkshallow,park2026loopedearlier};
-that analysis concerns fixed points and their spectra. A minimal recurrent self-attention with a repulsive value map
+these studies examine fixed-point stability, finite-depth dynamics and nonstationary regimes. Here we continue
+full-state periodic branches and classify their bifurcations in specified frozen-model feedback maps. A minimal recurrent self-attention with a repulsive value map
 becomes chaotic \cite{gao2026repulsive}, but it is a constructed model, not a trained one. A separate line predicts the answers of looped models from the geometry of
 score margins along completed finite-depth trajectories \cite{luo2026prediction}, without fixed points or Jacobians. The closest precedent is a derivative-based fold analysis of a small task-trained
 looped transformer, whose passage and spectral-gap predictions are unfitted \cite{kim2026phase}. That model was
@@ -376,8 +377,8 @@ lists moduli), and its second singular value is $1.7\times10^{-6}$ to $2\times10
 implementation of the model reproduced the factorization (to $8.3\times10^{-14}$), the step singular values, the
 signed multipliers and the cycle norms at all eight starting phases. The expansion of each step is undone by the
 steps that follow, and the strongly anisotropic linear return of the stripe orbits is a property of the composed
-cycle, not of any single step or of the rank of $\Sigma_p$. Nor does the contraction depend on a special alignment of
-the steps: with independent random (Haar) rotations inserted between the eight step Jacobians, all 16 products
+cycle, not of any single step or of the rank of $\Sigma_p$. Nor does the contraction need the actual alignment of
+the steps: with independent random (Haar) rotations inserted between the eight step Jacobians, all 16 tested products
 contract, and more strongly than the actual cycle (\texttt{tools/alignment\_intervention.py}). Stepwise norm or
 spectral summaries can be inconclusive; the ordered product of the step Jacobians captures the cycle's linear
 stability.
@@ -497,54 +498,59 @@ exponents in some regions of its parameter plane and positive ones in others.
 dimensions, yet two reductions make low-dimensional theory apply (Figure~\ref{fig:tworeductions}). Near a bifurcation of a periodic orbit the centre
 manifold theorem reduces the dynamics exactly to the critical directions, whatever the size of the other multipliers,
 as long as they stay off the unit circle. Our normal forms of folds, flips, cusps and 1:1 resonances rest on this
-reduction alone. Global statements, that a whole attractor follows a scalar return map, need more: the other
-multipliers must be small. Near the periodic orbits we compute they are, from a few times $10^{-2}$ at short periods
-to below $10^{-13}$ along the cascade (Sections~\ref{sec:mechanism} to~\ref{sec:cascade}), and the reduction improves
-with period: along the cascade at $\log_{10}T=-0.156$ the next modulus falls from $0.12$ at the first flip to
-$0.045$, $7\times10^{-5}$, $4\times10^{-7}$ and $2\times10^{-13}$ at the next four. Temperature,
-through the gain of \eqref{eq:gain}, and steering unfold the reduced map as a two-parameter family. Generic
-two-parameter families of smooth one-dimensional maps with a quadratic extremum have universal features: fold and flip
-curves with cusps where fold curves turn, period-doubling cascades whose interval ratios tend to Feigenbaum's
-$\delta$, and saddle-node windows that accumulate on a fold with $d_N\propto N^{-2}$ (Figure~\ref{fig:atlas} sketches the
-objects we locate). The organization of shrimps needs
+reduction alone. A scalar description of a whole attractor needs additional, global evidence. The small non-critical
+multipliers of the periodic orbits we computed show strong transverse contraction near those orbits and motivate that
+description: they range from a few times $10^{-2}$ at short periods to below $10^{-13}$ along the cascade
+(Sections~\ref{sec:mechanism} to~\ref{sec:cascade}), and along the cascade at $\log_{10}T=-0.156$ the next modulus
+falls from $0.12$ at the first flip to $0.045$, $7\times10^{-5}$, $4\times10^{-7}$ and $2\times10^{-13}$ at the next
+four. Temperature, through the gain of \eqref{eq:gain}, and steering act as two parameters. One-dimensional families of
+maps with a quadratic extremum can exhibit fold and flip curves, nondegenerate cusps, period-doubling cascades whose
+interval ratios tend to Feigenbaum's $\delta$, and saddle-node windows that accumulate on a fold with
+$d_N\propto N^{-2}$ (Figure~\ref{fig:atlas} sketches the objects we locate); we test these predictions on specific
+branches and parameter sequences below. The organization of shrimps needs
 more, either a second turning point of the reduced map or a second dimension
 \cite{gallas1993structure,jones2012rossler}. We test the consequences where we state them: the multipliers of each
 orbit, the interval ratios, and the normal-form predictions of passage times and coexisting orbits. Where the second
 multiplier is not small, as in the high-temperature bubble of Section~\ref{sec:cascade} (next moduli $0.28$ and
 $0.38$), the global reduction is only a rough guide, while the local normal forms still apply.
 
-\paragraph{Coexisting attractors mark the limits of one dimension.} A classical theorem says what a one-dimensional
-reduction cannot do. If an interval map is three times differentiable, unimodal and has negative Schwarzian derivative,
-$Sf=f'''/f'-\tfrac32(f''/f')^2<0$, the immediate basin of every attracting periodic orbit contains the turning point or
-an endpoint of the interval, so the map has at most one attracting periodic orbit in the interior
-\cite{singer1978stable}. The soft-token map violates this conclusion in several places. Near each located cusp with
+\paragraph{Coexisting attractors constrain one-dimensional descriptions.} A classical theorem says what a
+one-dimensional reduction cannot do. If an interval map is three times differentiable, unimodal and has negative
+Schwarzian derivative, $Sf=f'''/f'-\tfrac32(f''/f')^2<0$, the immediate basin of every attracting periodic orbit
+contains the turning point or an endpoint of the interval \cite{singer1978stable}; if basins reaching an endpoint are
+excluded, at most one attracting periodic orbit remains. The soft-token map has coexisting attracting orbits in several
+places. Near each located cusp with
 $c<0$, two attracting orbits of the same period coexist with a saddle between them (periods 4 and 6,
 Section~\ref{sec:curves}; period 7, Section~\ref{sec:hostility}). Inside the hostile period-7 body, the period-7 loop
-coexists with a fixed point, which the fixed start reaches at isolated cells. Wherever two attractors coexist, the
-effective one-dimensional dynamics cannot be a single unimodal map with negative Schwarzian derivative: it needs a
-second turning point, a stretch of positive Schwarzian derivative, or a second dimension. A second turning point is
-also what a doubly superstable shrimp centre requires.
+coexists with a fixed point, which the fixed start reaches at isolated cells. Such coexistence constrains a scalar
+interpretation: unless one attractor's basin reaches an end of the scalar interval, the effective one-dimensional
+dynamics cannot be a single unimodal map with negative Schwarzian derivative, and needs a second turning point, a
+stretch of positive Schwarzian derivative, or a second dimension. A second turning point is also what a doubly
+superstable shrimp centre requires.
 
 \paragraph{How many dimensions does the chaos have?} For chaotic attractors the corresponding measure is the
 Kaplan--Yorke dimension \cite{kaplan1979chaotic}, $D_{\mathrm{KY}}=j+\sum_{i\le j}\lambda_i/|\lambda_{j+1}|$ with $j$ the
 largest index at which the partial sum of the ordered Lyapunov exponents is still nonnegative; with one positive
-exponent and $\lambda_1+\lambda_2<0$, $D_{\mathrm{KY}}=1+\lambda_1/|\lambda_2|$. We computed the four leading exponents
-by QR iteration (Section~\ref{sec:methods}; 1000 transient and 2000 measured steps, float64) at chaotic cells chosen
-by percentile of their largest exponent, before any of their spectra were seen. Of the 35 cells measured, 31 have a
-positive leading exponent, and each of these has exactly one, so none of them is hyperchaotic (the other four have
-none at this horizon). The dimension grows with temperature. Along the hostile
-temperature line, where we fit a scalar return relation (Section~\ref{sec:hostility}), eight chaotic cells have
-$D_{\mathrm{KY}}=1.008$ to $1.16$: one-dimensional to within a sixth of a dimension. At fourteen chaotic cells of the
+exponent and $\lambda_1+\lambda_2<0$, $D_{\mathrm{KY}}=1+\lambda_1/|\lambda_2|$. We estimated the four leading
+exponents by QR iteration (Section~\ref{sec:methods}; 1000 transient and 2000 measured steps, float64) at 35 completed
+cells: 28 chosen by percentile of their largest exponent before any of their spectra were seen (of 30 requested), and
+seven from the earlier horizon check, six chaotic and one periodic control. At this horizon 31 have a positive leading
+estimate and none has two positive estimates. These are finite-time estimates, not asymptotic dimensions. They grow
+with temperature. Along the hostile temperature line, where we fit a scalar return relation
+(Section~\ref{sec:hostility}), eight chaotic cells have $D_{\mathrm{KY}}=1.008$ to $1.16$, consistent with nearly
+one-dimensional chaos. At fourteen chaotic cells of the
 headline maps ($\log_{10}T$ from $-0.17$ to $-0.04$) it is $1.03$ to $1.65$, rising with $\lambda_1$. In the
 high-temperature region ($\log_{10}T$ from $-0.02$ to $0.13$), nine chaotic cells have $D_{\mathrm{KY}}=1.37$ to
-$2.02$; at two of them $\lambda_1+\lambda_2\ge0$, and the attractor is effectively two-dimensional. A scalar return
+$2.02$; at two of them the sum of the first two estimates is nonnegative, which suggests a second expanding direction
+at this horizon. A scalar return
 map describes the low-temperature chaos well and the high-temperature chaos poorly, consistent with the large second
 multipliers of the high-temperature bubble. The number of competing tokens does not set the dimension. The readout's
-stable rank, $\operatorname{tr}\Sigma_p/\lambda_{\max}(\Sigma_p)$ averaged along the orbit, counts the directions in which
-the readout amplifies comparably. $D_{\mathrm{KY}}$ never exceeds it and rises with it within each group of cells
-(Spearman $0.72$ over 17 philosophy cells, $0.69$ over 8 hostile cells, both confounded with temperature). Across
-groups it does not predict the dimension: the hostile cells have stable ranks of 16 to 19 and next-token entropies of 7
-to 9 nats, yet $D_{\mathrm{KY}}\le1.16$. The readout supplies many competing directions; the network decides how many
+trace-to-leading-eigenvalue ratio, $\operatorname{tr}\Sigma_p/\lambda_{\max}(\Sigma_p)$ averaged along the orbit (with
+$\lambda_{\max}$ estimated by eight power iterations), counts the directions in which the readout amplifies comparably.
+$D_{\mathrm{KY}}$ never exceeds it and rises with it within each group of cells (Spearman $0.72$ over 17 philosophy
+cells and $0.69$ over 8 hostile cells, computed when the data came in and not independently reproduced; both are
+confounded with temperature). Across groups it does not predict the dimension: the hostile cells have ratios of about
+16 to 19 and next-token entropies of about 7 to 9 nats, yet $D_{\mathrm{KY}}\le1.16$. The readout supplies many competing directions; the network decides how many
 of them expand.
 \input{figures/tikz-atlas}
 
@@ -1254,21 +1260,21 @@ last three come from runs started inside the period-96 band, which located the f
 directly. The accumulation point lies
 near $\alpha_\infty\approx0.0661250$. The early superstable values are less precise. The other computed Ritz values of
 the period-12 and period-24 orbits blur the root, so $s_{12}$ and $s_{24}$ are known only within brackets of
-$1.2\times10^{-5}$ and $7\times10^{-7}$, and the ratios $3.19$ and $4.02$ have worst-case ranges $[2.90,3.34]$ and
-$[4.02,4.10]$. $s_6$ is less precise still, and $s_3$ was not bracketed.
+$1.24\times10^{-5}$ and $6.9\times10^{-7}$, and the ratios $3.19$ and $4.019$ have worst-case ranges $[2.895,3.338]$
+and $[4.019,4.101]$. $s_6$ is less precise still, and $s_3$ was not bracketed.
 \begin{table}[H]
 \centering\small
 \begin{tabular}{rlll}
 \toprule
 period $p$ & superstable parameter $s_p$ & bracket width & ratio $\frac{s_p-s_{p/2}}{s_{2p}-s_p}$ \\
 \midrule
-12 & $0.0659717$ & $1.2\times10^{-5}$ & \\
+12 & $0.0659717$ & $1.24\times10^{-5}$ & \\
 24 & $0.06608014$ & $6.9\times10^{-7}$ & $3.19$ \\
-48 & $0.066114132784466$ & $3\times10^{-15}$ & $4.02$ \\
+48 & $0.066114132784466$ & $3.3\times10^{-15}$ & $4.019$ \\
 96 & $0.066122589892689$ & $7\times10^{-15}$ & $4.4779$ \\
-192 & $0.066124478510077$ & $6\times10^{-15}$ & $4.6251$ \\
+192 & $0.066124478510077$ & $6.4\times10^{-15}$ & $4.6251$ \\
 384 & $0.066124886853811$ & $5\times10^{-15}$ & $4.6595$ \\
-768 & $0.066124974490236$ & $4\times10^{-15}$ & \\
+768 & $0.066124974490236$ & $4.1\times10^{-15}$ & \\
 \bottomrule
 \end{tabular}
 \caption{Superstable parameters of the crescent's doubling sequence along $\log_{10}T=-0.14798$: the critical
@@ -1283,20 +1289,25 @@ so the reduced one-dimensional map might have a nearly corner-like extremum, rou
 doublings would then see the corner, where ratios tend toward 2, and later ones the smooth quadratic core. This
 predicts smaller early ratios at lower temperature. We fixed that prediction before locating the flips along two
 lower cuts, and it fails. At $\log_{10}T=-0.156$ the first ratio is $14.93$, five times its value at $-0.148$
-(Table~\ref{tab:cascade156}). The cut at $-0.152$ crosses a doubling bubble: its period-12 orbit merges back into the
-period-6 orbit near $\alpha\approx0.0657$, so that cut has no complete cascade. The early ratios thus depend strongly
+(Table~\ref{tab:cascade156}). At $-0.152$ the continued period-12 solution collapsed onto its period-6 parent near
+$\alpha\approx0.0657$, and the forward search found no next flip. This is compatible with a doubling bubble, but we
+did not locate its reverse boundary or exclude a narrower cascade on that cut. The early ratios thus depend strongly
 on where a cut crosses the crescent, and we withdraw the crossover explanation. The later ratios at $-0.156$ behave as
 universality requires. The next ratios are $3.124$, $4.4988$, $4.6208$, $4.6618$, $4.6673$ and $4.6688$. Their
 deviations from $\delta=4.6692$ are $-1.55$, $-0.17$, $-0.048$, $-0.0074$, $-0.0019$ and $-0.00036$, and from the third
-on each step closes the gap by a factor of 3.5 to 6.5. The last ratio uses the flip of the period-768 orbit, located
-with $|\mu+1|=4\times10^{-7}$. The last flip, of the period-384 orbit, approaches the precision floor of its multiplier,
-a product of 384 step Jacobians. On an H100 the computed $\mu+1$ scatters by $1.8\times10^{-5}$ about a straight line
-near the root; the largest residual divided by the slope places the flip within $\pm3.3\times10^{-13}$. The workstation GPU located it at
+on each step closes the gap by a factor of 3.5 to 6.5. The last ratio uses the flip of the period-768 orbit (the
+$768\to1536$ flip), located with $|\mu+1|=4.1\times10^{-7}$. The penultimate flip, of the period-384 orbit,
+approaches the precision floor of its multiplier, a product of 384 step Jacobians. On an H100 the computed $\mu+1$
+scatters by $1.8\times10^{-5}$ about a straight line near the root; under that local linear fit, the largest residual
+divided by the slope gives a location uncertainty of about $\pm3.3\times10^{-13}$, an estimate rather than a
+certified bound. The workstation GPU located it at
 $\alpha=0.06510347354866666$ with $|\mu+1|=4\times10^{-9}$, $9\times10^{-14}$ from the H100 estimate. Over that range the
 ratio lies between $4.6672$ and $4.6675$. The
 superstable points along the same cut, through period 384, give the ratios $10.21$, $3.713$, $4.572$, $4.643$ and
 $4.6646$. Before computing them we fixed the prediction that the last two superstable ratios at a new temperature
-would lie within 5\,\% of $\delta$. Both do. The last, $4.6646$, rests on parameters resolved to $5\times10^{-15}$ and
+would lie within 5\,\% of $\delta$, in $[4.436,4.902]$. At the original readout, through period 192, the point
+estimates $4.572$ and $4.643$ met it, but the bracket envelope of $4.572$ did not; extending the computation to period
+384 later gave the pair $4.643$ and $4.6646$, both inside the interval. The last, $4.6646$, rests on parameters resolved to $5\times10^{-15}$ and
 differs from $\delta$ by $0.1\,\%$. Over the corners of the brackets the one before lies in $[4.639,4.647]$,
 limited by $s_{48}$, whose bracket is $2.4\times10^{-9}$ wide. The earlier ratio $4.572$ depends on $s_{24}$, known only
 within a bracket of $5.9\times10^{-6}$ (worst-case range $[1.01,4.65]$).
@@ -1312,7 +1323,7 @@ last superstable ratio at $-0.148$ is within 0.21\,\% of it, and the last 1.5B r
 (arrow), and the later ratios approach $\delta$ from below, the last ($4.6688$) within $0.01\,\%$ of it. Its first two
 superstable ratios carry no bars: the brackets of $s_{12}$ and $s_{24}$ allow $[3.40,29.3]$ and $[1.01,4.65]$. Each
 sequence ends at the deepest level computed: the flips at $-0.148$ at period 384, the superstable points at period 768, the 1.5B route at period 256, and the cut at
-$-0.156$, which we followed furthest, at period 1536.
+$-0.156$, which we followed furthest, at the $768\to1536$ flip.
 }
 \label{fig:feigenbaum}
 \end{figure}
@@ -1371,7 +1382,8 @@ $n$ & orbit & flip parameter $\alpha_n$ & next modulus & ratio $\delta_n$ \\
 \caption{Flips of the crescent's doubling sequence along $\log_{10}T=-0.156$, in float64. Flips 1--3 were computed on
 an H100 and flips 3--8 on a workstation GPU (NVIDIA RTX 2000 Ada); the two computations of flip 3 agree to
 $4\times10^{-16}$, and an H100 computation of flip 8 from its evaluations at the multiplier's precision floor lies
-$9\times10^{-14}$ away. Flip 9 was computed on an H100. Every critical multiplier is real and differs from $-1$ by at most $5\times10^{-8}$.}
+$9\times10^{-14}$ away. Flip 9 was computed on an H100. Every critical multiplier is real; for flips 1--8 it differs from $-1$ by at most
+$5\times10^{-8}$, and for flip 9 by $4.1\times10^{-7}$.}
 \label{tab:cascade156}
 \end{table}
 Not every doubling leads to chaos. In the high-temperature region (Figure~\ref{fig:p4}), along
@@ -1407,8 +1419,9 @@ flip normal form, $\eta\mapsto-(1+\beta)\eta+c\,\eta^3$ on the critical directio
 float64 directional derivatives, $c=\ell^\top C(r,r,r)/6+\ell^\top B(r,h_2)/2$ with $(I-M)h_2=B(r,r)$
 \cite{kuznetsov2023elements}. It predicts the doubled orbit without fitting: half-amplitude $\sqrt{\beta/c}$ along $r$
 and multiplier $1-4\beta$. At the smallest offset the amplitude ratios are $1.005$ and $1.003$, and the multipliers agree
-within $1.5\times10^{-4}$ and $5\times10^{-5}$, and both discrepancies grow as the next order of the normal form
-requires (Table~\ref{tab:flipnf}).
+within $1.5\times10^{-4}$ and $5\times10^{-5}$; the larger discrepancies at larger offsets are consistent with
+higher-order corrections (Table~\ref{tab:flipnf}). These finite comparisons support the leading-order prediction; they
+do not establish the order of the remainder.
 
 
 \section{Bridge to sampled decoding}
@@ -1430,7 +1443,8 @@ inherit these cycles (Table~\ref{tab:memory}). From 220 starts (the first tokens
 random tokens), 19 runs end in a short loop within 256 tokens, and the dominant 5-cycle never appears. Steering
 along philosophy makes ordinary decoding loop almost always (218 of 220 runs at $\alpha=0.1$), but in other loops,
 mostly punctuation such as `` --'', none of them one-token cycles. Greedy decoding that keeps only the last $K$
-tokens interpolates between the two. For every $K\ge2$ the loops leave the one-token cycles. Unsteered, looping
+tokens interpolates between the two. For the tested $K\ge2$ most final loops differ from the one-token cycles: at
+$K=2$ only 7 of 220 unsteered runs and 1 of 220 steered runs keep one of them. Unsteered, looping
 collapses to the level of the growing context between $K=16$ and $32$; steered, the share of runs whose loop equals
 the growing-context loop rises from 0 at $K=1$ to 58\,\% at $K=64$. The soft-token map's low-temperature attractors
 are therefore those of decoding with a one-token memory. Which loop ordinary decoding enters depends on the context
@@ -1516,9 +1530,9 @@ none of 24 on the held-out prompt with its narrow unsteered band, including $\lo
 where its one-token map is chaotic; there the distance never exceeds $1.1\times10^{-9}$. It also grows at none of the
 eleven steered cells of Section~\ref{sec:size}, including the six where its one-token map is chaotic: there the
 distance never exceeds $3\times10^{-7}$ and ends between $1\times10^{-13}$ and $6\times10^{-10}$, and the growing
-context holds the next-token entropy at 2.3 to 3.6 nats instead of the one-token map's 7.3 to 11.1. At 72B the growing context therefore damps even
-the chaos that steering produces, while the one transient burst shows that the method registers growth at this
-scale.
+context holds the next-token entropy at 2.3 to 3.6 nats instead of the one-token map's 7.3 to 11.1. At these 72B
+prompts and cells, over 400 steps, the growing-context decoder therefore did not reproduce the sustained sensitivity of
+the fixed-window loop, while the one transient burst shows that the method registers growth at this scale.
 
 \section{Replication and scale}
 \label{sec:scale}
@@ -2176,35 +2190,39 @@ run through the windows as the ``endoskeleton'' of shrimps does \cite{facanha201
 window's orbit cross at a doubly superstable centre \cite{gallas1993structure,facanha2013endoskeletons}. We continued
 one period-7 orbit over a $31\times31$ grid of the body's upper part and followed the sign of its leading multiplier
 (Figure~\ref{fig:superstable}). Its superstable curves form two arcs that approach within $1.3\times10^{-3}$ in
-$\log_{10}T$ near $(\alpha,\log_{10}T)=(0.0700,0.206)$ and do not cross. A five times finer grid of that approach
+$\log_{10}T$ near $(\alpha,\log_{10}T)=(0.0700,0.206)$ and do not cross at this resolution. A five times finer grid of that approach
 (1155 cells) shows why. There the leading multiplier is tiny (median modulus $9\times10^{-4}$) and as small as the next
-one, and in 221 cells the two form a complex pair, in two wedges that flank the gap. The map's derivative has no zero
-eigenvalue, so the leading multiplier can change sign only by exchanging places with the next one or by merging with
-it into a complex pair. Where a one-dimensional map would place its doubly superstable centre, the orbit is
-two-dimensional, and a scalar superstable curve is not defined. Next to the body, the 7-step return maps of chaotic
+one, and in 221 cells the two form a complex pair, in two wedges that flank the gap. On this sampled approach the two
+computed leading multipliers exchange dominance and form a complex pair, so the sign of a leading real multiplier no
+longer defines a scalar superstable curve there. Where a one-dimensional map would place its doubly superstable centre,
+the orbit's local linearization has two comparable directions. Next to the body, the 7-step return maps of chaotic
 cells are single-humped in every phase, with doubled strands in two phases, the trace of a thin second dimension
 (Figure~\ref{fig:returnmapsbody}); cobwebs on these maps show the doubling cascade and the chaos as on a
-one-humped interval map (Figure~\ref{fig:cobwebs}). The body is therefore not the shrimp of a one-dimensional map. Whether it is the shrimp of an effectively
+one-humped interval map (Figure~\ref{fig:cobwebs}). On the tracked branch and in the sampled region, the body is
+therefore not the shrimp of a one-dimensional map. Whether it is the shrimp of an effectively
 two-dimensional map, as in the H\'enon family, is open.
 
 \paragraph{What the shrimp-like shapes are.} The shapes are made of the bifurcation curves of single windows
-(Figure~\ref{fig:shrimpschematic}). A periodic window is the region where one periodic orbit attracts. Its boundary
-consists of fold curves, where the orbit is born or dies together with a saddle (multiplier $+1$), and flip curves,
-where it doubles (multiplier $-1$). In a one-dimensional map the multiplier runs from $+1$ through $0$ to $-1$ across the
+(Figure~\ref{fig:shrimpschematic}). A periodic window is the region where one periodic orbit attracts. The windows
+we continued are bounded by fold curves, where the orbit is born or dies together with a saddle (multiplier $+1$), and
+flip curves, where it doubles (multiplier $-1$); in higher dimensions other boundaries, such as a complex pair crossing
+the unit circle, are also possible. In a one-dimensional map the multiplier runs from $+1$ through $0$ to $-1$ across the
 window, so every window holds a superstable curve: the dark ``endoskeleton'' lines of our maps. In a higher-dimensional
-map the leading multiplier can instead change sign through a complex pair, as it does in parts of our windows. Beyond the flip curve lies a doubling cascade
-into chaos (Section~\ref{sec:cascade}).
+map the leading multiplier can instead change sign through a complex pair, as it does in parts of our windows. Beyond
+some of the flip curves we followed lie the doubling sequences of Section~\ref{sec:cascade}; a flip need not start a
+complete cascade.
 
 Steering strength and temperature move the orbit in different directions, so the fold curves bend. Where a fold curve
-turns back on itself it forms a cusp, and between the two branches leaving the cusp the window continues as a thin leg.
+turns back, a cusp can form (a visual turn alone is not our criterion: the located cusps satisfy the degeneracy and
+unfolding checks of Section~\ref{sec:curves}), and between the two branches leaving the cusp the window continues as a
+thin leg.
 Bent fold curves with cusps, flip curves inside them and a superstable line through the body produce the bodies, legs,
 hooks and crescents of the maps. All nine reversals of the fold curves we continued are located cusps
 (Section~\ref{sec:curves}).
 
 A shrimp in the sense of Gallas has one more element: a centre, where two superstable curves of the same orbit cross.
-There the orbit passes two critical points at once, which needs two turning points in a one-dimensional reduction, or
-two independent folds in a two-dimensional one. Our reductions have one turning point per phase
-(Figure~\ref{fig:returnmapsbody}). Where the hostile body's superstable curves approach each other, the orbit becomes
+There the orbit passes two critical points at once, which needs two turning points in a one-dimensional reduction.
+The return maps of the hostile body have one turning point per phase (Figure~\ref{fig:returnmapsbody}). Where the hostile body's superstable curves approach each other, the orbit becomes
 two-dimensional instead of doubly superstable (Figure~\ref{fig:superstable}). The period-6 hook's orbit never comes
 close to superstable: its leading multiplier stays above $0.028$ in modulus.
 
@@ -2302,7 +2320,7 @@ the text, with a fitted return curve with one quadratic maximum (black: polynomi
 exponent is within 2\,\% of the full map's.}
 \label{fig:hiddenbands}
 \end{figure}
-\begin{figure}[H]
+\begin{figure}[tbp]
 \centering
 \includegraphics[width=0.52\linewidth]{fig-repeating-text-reduction.png}
 \caption{Scalar return-map approximation across the hostile cascade (Qwen2.5-0.5B-Instruct, hostility at layer 12,
