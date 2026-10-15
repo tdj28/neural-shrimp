@@ -24442,3 +24442,19 @@ Pods 3nm9b8atx4ucdm (block 20) and zm38p578aca433 (block 35): 2 x H200 SECURE, 3
 - **Reading.** As in the 0.5B block sweep (LS), steering at an earlier block gives more chaos and carries it to lower temperature. The block dependence is not specific to the small model.
   - The block-50 map was the paper's only steered 70B map, and its depth limited how much chaos it showed.
   - The grids differ in resolution (24 against 32 per axis), so the shares compare coarsely.
+
+## 2026-10-15 07:19 UTC: MECH4 result: a pure logit bias, with the network untouched, makes 3.5 % of the plane chaotic (R4 met); its chaos lies at higher temperature than that of residual steering
+
+Pods v6zndolr40ecev, 026rfinp1b3h8d (runner rc 0, hashes verified, terminated; commit b203fb56). Output mech/bmap-{a,b}: alpha = 0, logit bias beta * b with b = W v (philosophy at block 12, centred and scaled to unit standard deviation over the vocabulary), beta -8 to 8 in 129 steps, log10 T -1 to 0.3 in 53 rows, 6837 cells.
+- **R4 (frozen).** 241 chaotic cells, 3.5 % of the plane. The threshold (at least 0.5 % and 20 cells) is met. Creating token competition at the readout suffices for chaos, given the unmodified network.
+- **Comparison.** Residual steering at block 12 on the same temperatures (alpha map, same protocol): 331 of 5353 cells, 6.2 %.
+  - The logit bias's chaos lies mostly at log10 T 0.1-0.3, with only a few cells near and below log10 T 0.
+  - Residual steering's chaos reaches log10 T -0.2 (fig-mechanism panel d).
+  - This continues the block trend of LS and L70D. The later the push enters, the higher the temperature its chaos needs; a logit bias is the latest possible entry point.
+- **Statistics** (tools/plot_mechanism.py, committed with this entry; output paper/llm/figures/fig-mechanism.json), alpha map, row-matched over 18 temperature rows:
+  - chaotic minus periodic, with bootstrap 95 % intervals over rows and row-stratified permutation tests (10,000):
+    - log readout factor +1.36 [0.92, 1.92], p = 1e-4;
+    - log network factor +0.23 (p = 1e-4), a smaller shift;
+    - entropy +1.62 [1.26, 1.91] nats, p = 1e-4;
+    - top-2 gap / T -1.37 [-1.98, -0.87], p = 1e-4;
+  - chaotic minus |alpha| <= 0.01 cells: readout +2.58 [1.79, 3.58], network -0.07 [-0.21, 0.11].
