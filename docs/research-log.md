@@ -23998,3 +23998,11 @@ Pod gqn3rlkugdknn2 (COMMUNITY H100 NVL; runner rc 0, tool exit 1, hash verified,
   - The ratios are 10.21, 3.713 and 4.572.
   - The brackets of s_12 and s_24 are wide (the second clean point stayed at the bracket end), so the ratios that involve them are poorly determined; worst-case ranges follow.
   - P-F2 is scored on the last two ratios once bands 192 and 384 are in. Those bands were part of the FBS card before this result.
+
+## 2026-10-15 04:37 UTC: Amendment to DSS: the full grid on two more pods (human: "I want full")
+
+DSS1 (pod 8gzwfgzsfwcgfz) runs at about 7 s per cell, so its 90-minute tool limit stops it near 770 of 961 cells. Its breadth-first order covers the blob around the seed first. For the full grid, two pods split the rows of the same box, at the same spacing (row 15, log10 T 0.2050, lies in both and serves as a check). Same seed and settings as DSS1, 120-minute limits:
+- DSS1b: rows 0-15, log10 T 0.1985-0.2050, 16 x 31 cells;
+- DSS1c: rows 15-30, log10 T 0.2050-0.2115.
+
+DSS1 continues and is reported as well.
