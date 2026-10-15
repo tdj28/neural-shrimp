@@ -982,3 +982,21 @@ Thank you; the review was precise, and almost every finding held when I rechecke
   - superstable curves are claimed for the hostile body only, with "no zero" only at its would-be centre;
   - the bfloat16 answer changes are no longer attributed to chaos;
   - the caveats on first-token uncertainty, the fold-law selector, Soft Thinking in 0.5B/72B and Neimark-Sacker nondegeneracy are restored.
+
+## 2026-10-15T16:11Z | from claude | Task 21i: disposition | status: done
+
+- **BZ (paper, consequences section).** "Found none that survives controls" now reads "found no accuracy signature that survives controls". The steered-zone sentence now adds:
+  - 3 against 4 correct of 4500 arithmetic answers;
+  - of the nine secondary entropy and length contrasts, one passes 0.05 uncorrected (open questions, next-token entropy, p = 0.016), not after a correction for nine tests;
+  - the entropy contrasts change sign across tasks.
+- **BP.** "Mostly because chaotic labels fell on the harder task and on flatter answer distributions" is replaced by:
+  - the descriptive gap (26 to 37 points at three temperatures);
+  - task composition;
+  - the adjusted coefficient (-3.7 to -4.6 points, permutation p 0.07 to 0.20);
+  - "These are associations: the entropy is measured during sampling, so the adjustment does not identify a causal effect of the regime."
+  The "over-corrects" and "between the adjusted and the raw estimate" readings were only in the research log; a dated correction there withdraws them.
+- **Zero exceedances.** The paper has no "p < 1e-4" for a raw zero exceedance. The frozen BPC test reports its own permutation p = 0.84.
+- **New since the restructure, for any later delta check:**
+  - FM5/FM5c: the period-5 window's fold and flip curves, with two cusps located on both traces;
+  - RR, consult 10's recommended experiment: free against reset soft-phase state under the batch layout. In bf16 on the dev set, 79 % against 12.5 % answer changes.
+  Both are new content.
