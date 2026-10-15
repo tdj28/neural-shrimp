@@ -1799,7 +1799,7 @@ Llama-3.1-70B & 70.6 & 3/128 (2.3) & 28 & $-1.0$ to $0.3$ & 0.031 & 0.307 & $+0.
 Llama-3.3-70B & 70.6 & 0/128 (0.0) & 19 & $-1.0$ to $0.3$ & 0.000 & 0.225 & $-0.27$ \\
 OLMo-2-1B & 1.5 & 5/130 (3.8) & 0 & $-1.0$ to $1.2$ & 0.050 & 0.322 & $+0.23$ \\
 OLMo-2-7B & 7.3 & 32/512 (6.2) & 3 & $-1.0$ to $1.2$ & 0.083 & 0.197 & $+0.30$ \\
-OLMo-2-13B & 13.7 & 0/130 (0.0) & 0 & $-1.0$ to $1.2$ & 0.000 & 0.131 & $-6.7\times10^{-4}$ \\
+OLMo-2-13B & 13.7 & 0/130 (0.0) & 0 & $-1.0$ to $1.2$ & 0.000 & 0.131 & $-0.0007$ \\
 OLMo-2-32B & 32.2 & 21/130 (16.2) & 0 & $-1.0$ to $1.2$ & 0.252 & 0.694 & $+0.62$ \\
 Qwen3.5-35B-A3B & 35.0 & 0/128 (0.0) & 15 & $-1.0$ to $0.3$ & 0.000 & 0.143 & $-0.27$ \\
 \bottomrule
@@ -1809,7 +1809,7 @@ offset). Chaotic: exponent above $10^{-3}$ and no period up to 64; unres.: tempe
 detected period nor a positive exponent. Chaotic decades: the grid-weighted extent of the temperature axis labelled
 chaotic over the whole sweep, each temperature weighted by its grid spacing (an estimate of the sampled extent; models
 whose sweep stops at $0.3$ have incomplete coverage); max $\lambda$: the largest exponent on the sweep, rounded to two
-decimals; breadth: decades in which the mean next-token entropy on
+decimals (OLMo-2-13B: $-6.7\times10^{-4}$); breadth: decades in which the mean next-token entropy on
 the orbit lies between 1 and 10 nats. The Qwen2.5-72B sweep joins two grids that share $\log_{10}T=0.3$, counted
 once; for the 7--8B models the share in $[-1,0.3]$ comes from their 512-temperature sweeps, on which the frozen
 predictions are scored, and the whole-axis columns also include sweeps over $[-1,0.6]$ and $[0.61,1.2]$ (64
