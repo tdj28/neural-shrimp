@@ -24749,3 +24749,19 @@ Pod 1t5pj3ccx9legg (SECURE H100 NVL; runner rc 0, hash verified, terminated; 232
   - In bfloat16 the layout decides more than half of the soft-thinking answers at the temperature where the soft trace still matters (accuracy 51-64 %). Even greedy decoding is layout-dependent in 10 % of problems at this precision, the known batch-variance effect (Delta subtracts it).
   - In float64, at T = 10^0.2, the 7B's loop amplifies perturbations, injected kicks change answers, and rounding-level layout differences change 5 % of answers. Within the budget, the chaos attribution holds at this temperature, unlike in the 0.5B model.
   - Greedy accuracy is again uninformative (forced 32 tokens).
+
+## 2026-10-15 08:50 UTC: REPRO-L8 result: the reproducibility result replicates in a second family (Llama-3.1-8B-Instruct, unsteered)
+
+Pods qj1mu8edfno9ui and g1z1317zrhlqpz (2 x H200 placement; runner rc 0, hashes verified, terminated; 337 and 395 s; commit c0e05e92). Cells docs/repro-l8-cells.json (alpha 0), 1500 steps. Inline analysis.
+
+| comparison | label | reach 1e-2 | median step | median final distance | end with different tokens |
+|---|---|---|---|---|---|
+| batch, float64 | chaotic | 20 / 20 | 68 | 0.95 | 100 % |
+| | periodic | 1 / 20 | | 2.8e-14 | 5 % |
+| batch, float32 | chaotic | 20 / 20 | 10.5 | 0.99 | 100 % |
+| | periodic | 1 / 20 | | 7.4e-6 | 0 % |
+| batch, bfloat16 | chaotic | 20 / 20 | 1 | 1.14 | 100 % |
+| | periodic | 18 / 20 | 2 | 0.33 | 45 % |
+
+- **float64.** The divergence step of the chaotic cells follows ln(1e-2/d_1)/lambda: median ratio 1.05, log-log correlation 0.71 (20 cells).
+- **Reading.** Three models and two families now show the same picture. In float64 a batch-size change alone diverges chaotic loops on the exponent's schedule and leaves periodic loops together; in bfloat16 nearly every loop diverges.
