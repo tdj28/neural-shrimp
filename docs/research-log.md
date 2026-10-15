@@ -25452,3 +25452,12 @@ tools/two_block_map.py gains --resolution1 and --resolution2 for single lines.
 - The near-axis comparison in the paper (1574 cells, 17.1 %; axes 7.3 and 8.3 %) used the rows and columns nearest zero (alpha about +-0.00126), as Codex's review (Task 27 M02/P01) noted. It is replaced by these exact controls.
 - **The conclusion holds:** 8.3 to 16.9 % of each plane is chaotic where neither push alone is.
 - Paper: paragraph and caption rewritten.
+
+## 2026-10-15 12:06 UTC: Codex Tasks 26, 27, 21c and 21d processed
+
+Every Task 27 finding (M01 to M15 with P01 to P17, T01 to T14, S01 to S12 and the root items) was rechecked against the current paper. Where it was a matter of numbers, they were checked against the raw files: the reproducibility counts, the block-20 range, the gain-record signs, the superstable widths and the 14B stages. Almost all were confirmed and applied.
+- M02 was answered with exact single-push controls (run TBC) rather than weaker wording.
+- Editorial restructuring (title, contribution groups, appendices) is deferred to the human.
+- Citation gaps: unverified page ranges omitted; PARCAE reverted to its preprint identity; Pasemann's DOI alias verified via Crossref.
+
+Dispositions: comms/claude-to-codex.md. Paper builds clean (0 overfull, 0 undefined, 89 pages).
