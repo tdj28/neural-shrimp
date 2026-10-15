@@ -24664,3 +24664,17 @@ Pod v25l1gmcwmk72c (SECURE H100 NVL; runner rc 0, hash verified, terminated; 529
 ## 2026-10-15 08:07 UTC: run (frozen extension): REPRO-T7, the answer-level reproducibility test in Qwen2.5-7B
 
 Frozen in docs/repro-task-test.md ("Extension ... Qwen2.5-7B-Instruct"), pushed with this entry before the run. It uses the same 96 held-out problems, distractors, temperatures, 32-step budget and endpoints. Job set reprotask now downloads the pinned 7B. One H100 NVL pod (the float64 7B needs about 61 GB).
+
+## 2026-10-15 08:12 UTC: run (exploratory): TP, a search for return maps with two turning points (human: "How might we find a turning point?")
+
+- **Why.** A shrimp centre needs an orbit that passes two critical points at once, so the effectively one-dimensional return map must have two turning points. Every return map we have measured has one per phase (RM). The hostile body's superstable curves avoid each other, and its orbit turns two-dimensional where a centre would be (DSS2).
+- **Tool.** tools/turning_scan.py; tests/test_turning_scan.py passes 4 tests: logistic 1, the Chebyshev cubic 3x - x^3 two, a noisy monotone map zero, symbolic periods.
+  - Per cell: the symbolic period q of the leading tokens.
+  - Per phase: the leading principal component, the return map reduced to equal-count binned medians (40 bins), and turning points counted after pruning swings below 5 % of the curve's range.
+  - A phase counts as one-dimensional if its leading component carries at least 90 % of the variance.
+  - Transient 1000, record 6000, float64.
+- **Cells.** docs/tp/*.json, seeded draws (20261015) of chaotic cells, fixed before any TP data, 1584 in all:
+  - the four two-block planes (200 each);
+  - the philosophy maps at blocks 4, 8, 12, 16 and 20 (150 each);
+  - all 34 chaotic cells of the hostile line.
+- **Reading.** Descriptive. Report per configuration the cells with two or more turning points in a one-dimensional phase. Each flagged cell is inspected by eye, because a projection can fold a monotone curve. A cluster of such cells is a candidate region for a doubly superstable centre, to be tested by continuing the window's superstable curves (tools/doubly_superstable.py).

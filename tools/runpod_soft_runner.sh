@@ -191,6 +191,16 @@ case "$JOBSET" in
     case " ${JOBARGS[*]} " in *" qwen7b "*) get7b ;; esac
     TOOL=repro_noise.py run repro-$name "$minutes" --device cuda "${JOBARGS[@]:2}" --out $D/repro/$name
     ;;
+  tp)          # turning points of return maps over chaotic cells (run TP; tools/turning_scan.py, float64 on the GPU):
+               # JOBARGS = NAME MINUTES ARGS [:: NAME MINUTES ARGS ...] (vectors uploaded with --extra-data)
+    i=0; n=${#JOBARGS[@]}
+    while [ $i -lt $n ]; do
+      name=${JOBARGS[$i]}; minutes=${JOBARGS[$((i+1))]}; i=$((i+2)); margs=()
+      while [ $i -lt $n ] && [ "${JOBARGS[$i]}" != "::" ]; do margs+=("${JOBARGS[$i]}"); i=$((i+1)); done
+      i=$((i+1))
+      TOOL=turning_scan.py run tp-$name "$minutes" --device cuda "${margs[@]}" --out $D/tp/$name
+    done
+    ;;
   mech)        # gain split along steering, steering block and a logit bias (run MECH; tools/steer_gain.py, float64 on
                # the GPU): JOBARGS = NAME MINUTES ARGS [:: NAME MINUTES ARGS ...], one tool call per group, in order
                # (vectors uploaded with --extra-data)
