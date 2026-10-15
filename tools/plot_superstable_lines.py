@@ -5,11 +5,13 @@ hostility-vs-kindness at layer 12, float64).
     scan64/hub-arm (run M3b, partial) and scan64/hub-arm-rest, -top1, -top2 (run MB, same grid spacing): dark curves are
     superstable lines. Overlaid: float64 fold (black) and flip (red, dashed) curves of the period-7 orbit (hcurves/hub7-*),
     the two located cusps (codim2/hub7-*-cusp-*), and the box of the continuation grid of panel (b).
-(b) The continuation grid of one period-7 orbit (dss/p7-blob, tools/doubly_superstable.py): log10 |mu| of its leading
-    multiplier, and the zero curves of the per-step factors c_i (superstable curves of single steps), read from clean
-    cells with the seed's token loop; crossings of two different steps' curves are doubly superstable points.
+(b) The continuation grid of one period-7 orbit (dss/p7-blob, tools/doubly_superstable.py): the sign of its leading
+    multiplier mu, dark where |mu| is small, and the zero curves of mu (superstable curves).
+(c) With --zoom: the 5x zoom of the curves' closest approach (dss/p7-zoom-a,b,c, run DSS2): log10 of the leading
+    multiplier's modulus, with the cells where the two leading multipliers form a complex pair marked: there the orbit
+    is two-dimensional and no superstable curve is defined.
 
-Usage: python tools/plot_superstable_lines.py [--out PNG] [--dss RUN]
+Usage: python tools/plot_superstable_lines.py [--out PNG] [--dss RUN] [--zoom RUN [RUN ...]]
 """
 import argparse
 import json
@@ -122,6 +124,7 @@ def main():
     ap = argparse.ArgumentParser(description=__doc__.split("\n\n")[0])
     ap.add_argument("--out", default=str(ROOT / "paper/llm/figures/fig-superstable-lines.png"))
     ap.add_argument("--dss", default="p7-blob")
+    ap.add_argument("--zoom", nargs="*", default=[], help="zoom grids joined by rows (shared edge rows dropped)")
     args = ap.parse_args()
     import matplotlib
     matplotlib.use("Agg")
@@ -130,8 +133,8 @@ def main():
     T, al, P, L, F = stitched()
     cv, cusps = curves()
     dss = DATA / "dss" / args.dss / "grid.npz"
-    fig, axes = plt.subplots(1, 2 if dss.exists() else 1, figsize=(12.5 if dss.exists() else 6.4, 5.4), dpi=200,
-                             squeeze=False)
+    ncol = (2 if dss.exists() else 1) + (1 if args.zoom else 0)
+    fig, axes = plt.subplots(1, ncol, figsize=(6.3 * ncol, 5.4), dpi=200, squeeze=False)
     ax = axes[0, 0]
     M = np.where(P == 7, L, np.nan)                     # every period-7 cell: the loop's token variants ('defiance',
     other = np.where(np.isfinite(P) & (P != 7), 1.0, np.nan)   # 'pee', 'No') are one continued orbit family
@@ -182,6 +185,31 @@ def main():
                      "dark where |mu| is small; black: the superstable curves (mu = 0)", fontsize=8)
         report.update({"dss_cells": int(mu.size), "ok": int(ok.sum()), "zero_segments": len(segs),
                        "checkerboard_cells": n_check})
+    if args.zoom:
+        G = [np.load(DATA / "dss" / z / "grid.npz") for z in args.zoom]
+        za = G[0]["alpha"]
+        zt = np.concatenate([G[0]["log10_temperature"]] + [g["log10_temperature"][1:] for g in G[1:]])
+        cat = lambda k: np.concatenate([G[0][k]] + [g[k][1:] for g in G[1:]])          # noqa: E731
+        mod = np.hypot(cat("mu"), cat("mu_imag"))
+        cplx = np.abs(cat("mu_imag")) > 1e-10
+        cx = axes[0, -1]
+        im3 = cx.imshow(np.log10(mod), origin="lower", aspect="auto", extent=[za[0], za[-1], zt[0], zt[-1]],
+                        cmap="magma", interpolation="nearest")
+        fig.colorbar(im3, ax=cx, label="log10 |leading multiplier|")
+        jj, ii = np.meshgrid(za, zt)
+        cx.plot(jj[cplx], ii[cplx], "x", color="cyan", ms=3, mew=0.7, label="complex leading pair")
+        real = ~cplx
+        for sg in zero_segments(np.where(real, cat("mu"), np.nan), real, za, zt):
+            cx.plot([sg[0][0], sg[1][0]], [sg[0][1], sg[1][1]], color="w", lw=1.0)
+        cx.legend(loc="upper right", fontsize=7)
+        cx.set_xlabel("steering along 'hostility-vs-kindness'")
+        cx.set_ylabel("log10 temperature")
+        cx.set_title("(c) zoom of the closest approach: where a 1D map would have its centre,\n"
+                     "the leading multipliers form a complex pair (x); white: mu = 0 between real cells", fontsize=8)
+        if dss.exists():
+            axes[0, 1].add_patch(plt.Rectangle((za[0], zt[0]), za[-1] - za[0], zt[-1] - zt[0], fill=False, ec="cyan",
+                                               lw=1.0))
+        report.update({"zoom_cells": int(mod.size), "zoom_complex": int(cplx.sum()), "zoom_min_modulus": float(mod.min())})
     fig.tight_layout()
     fig.savefig(args.out)
     print(json.dumps(report))

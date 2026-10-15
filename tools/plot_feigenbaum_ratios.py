@@ -3,8 +3,11 @@
 - Qwen2.5-0.5B crescent (philosophy, layer 12), cut log10 T = -0.14798: flips (cascade/crescent-t-0.14798-v2) and
   superstable points (superstable/crescent-t-0.14798, superstable/crescent-deep2), with worst-case ranges from the
   clean brackets of the imprecise superstable points.
-- The same crescent at log10 T = -0.156: flips from the pod run (cascade/crescent-t-0.156-b: 3->6, 6->12, 12->24) and
-  the local continuations (cascade/crescent-t-0.156-c from 12->24 on, cascade/crescent-t-0.156-d if present).
+- The same crescent at log10 T = -0.156: flips from the pod run (cascade/crescent-t-0.156-b: 3->6, 6->12, 12->24), the
+  local continuations (cascade/crescent-t-0.156-c from 12->24 on, cascade/crescent-t-0.156-d if present), and the
+  384->768 flip of run FBD (cascade/crescent-t-0.156-e), whose locator refused at the precision floor of the period-384
+  multiplier: its root is the zero of the least-squares line through the logged evaluations (research log, FBD
+  result); superstable points (superstable/crescent-t-0.156, crescent-t-0.156-192, crescent-t-0.156-384 if present).
 - Qwen2.5-1.5B (philosophy, layer 14) along log10 T at alpha 0.100: flips (cascade/q15-a0.100-p4, edges/q15-a0.100-p16,
   edges/q15-a0.100-p32).
 
@@ -14,6 +17,8 @@ interval), a superstable ratio half a level later. Usage: python tools/plot_feig
 import argparse
 import itertools
 import json
+
+import numpy as np
 import os
 from pathlib import Path
 
@@ -56,12 +61,37 @@ def worst_case(rows, i):
     return min(vals), max(vals)
 
 
+def floor_root(run):
+    """Zero of the least-squares line g(lambda) through a refused flip search's logged evaluations."""
+    ev = [json.loads(line) for line in (DATA / "cascade" / run / "progress.jsonl").read_text().splitlines()
+          if line.startswith("{") and '"g"' in line]
+    lam = np.array([e["lambda"] for e in ev])
+    g = np.array([e["g"] for e in ev])
+    c = lam.mean()
+    b, a = np.polyfit(lam - c, g, 1)
+    return float(c - a / b)
+
+
 def sequence_156():
     lams = flips("crescent-t-0.156-b")[:2] + flips("crescent-t-0.156-c")
     d = DATA / "cascade/crescent-t-0.156-d/cascade.json"
     if d.exists():
         lams += json.loads(d.read_text())["flip_parameters"]
+    elif (DATA / "cascade/crescent-t-0.156-e/progress.jsonl").exists():
+        lams.append(floor_root("crescent-t-0.156-e"))
     return lams
+
+
+def superstable_156():
+    """Superstable points (period, value, clean bracket) at log10 T = -0.156, period 12 on."""
+    rows = []
+    for run in ("crescent-t-0.156", "crescent-t-0.156-192", "crescent-t-0.156-384"):
+        f = DATA / "superstable" / run / "superstable.json"
+        if f.exists():
+            for b in json.loads(f.read_text())["bands"]:
+                if b.get("superstable") is not None and b["period"] >= 12:
+                    rows.append((b["period"], b["superstable"], b["clean_bracket"]))
+    return sorted(rows)
 
 
 def main():
@@ -95,6 +125,15 @@ def main():
             ax.text(n + 0.08, top - 0.1, "%.1f" % v, color=green, fontsize=8, va="top")
             if n < len(f156):
                 ax.plot([n, n + 1], [top - 0.06, f156[n]], ":", color=green, lw=1.2)
+    ss6 = superstable_156()
+    s156 = ratios([r[1] for r in ss6])
+    if s156:
+        lo6, hi6 = zip(*(worst_case(ss6, i) for i in range(1, len(ss6) - 1)))
+        wide = [b - a > 1.0 for a, b in zip(lo6, hi6)]    # ranges set by the wide s12, s24 brackets: in the caption
+        err6 = [[0 if w else max(v - a, 0) for v, a, w in zip(s156, lo6, wide)],
+                [0 if w else max(b - v, 0) for v, b, w in zip(s156, hi6, wide)]]
+        ax.errorbar([n + 1.5 for n in range(1, len(s156) + 1)], s156, yerr=err6, fmt="D--", color=green, mfc="white",
+                    ms=5, capsize=3, label=r"0.5B, $\log_{10}T=-0.156$, superstable points (to period %d)" % ss6[-1][0])
     ax.plot(range(1, len(q15) + 1), q15, "^-", color=red, label="1.5B, flips (to period 64)")
     ax.set_xlim(0.6, 6.0 if len(f156) < 6 else len(f156) + 0.4)
     ax.set_ylim(2.6, top)
@@ -104,7 +143,9 @@ def main():
     fig.tight_layout()
     fig.savefig(args.out)
     print(json.dumps({"flips_-0.148": f148, "superstable_-0.148": s148, "superstable_ranges": list(zip(lo, hi)),
-                      "flips_-0.156": f156, "flips_1.5B": q15, "out": args.out}))
+                      "flips_-0.156": f156, "superstable_-0.156": s156,
+                      "superstable_-0.156_ranges": list(zip(lo6, hi6)) if s156 else [], "flips_1.5B": q15,
+                      "out": args.out}))
 
 
 if __name__ == "__main__":
