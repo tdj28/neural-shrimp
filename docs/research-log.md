@@ -24126,3 +24126,16 @@ Chaotic share of the 128 x 128 cells (exponent above 1e-3, no period), alpha -0.
   - On two pods (new job set tb).
 - **Reading:** descriptive. Chaotic share per map, and whether the chaotic region of the plane is roughly the union of the single-direction regions (the axes alpha2 = 0 and alpha1 = 0) or new regions appear where both act.
 - **Output:** `../neural-shrimp-data/explore/llm-soft-loop/pod64/tb/{grat4-host16, host4-grat16}`
+
+## 2026-10-15 05:25 UTC: KY1 result: the dimension of the chaos grows with temperature, from about 1 to about 2; never more than one positive exponent
+
+Pod 3en7yg96v92ysm (COMMUNITY H100 NVL; runner rc 0, hash verified, terminated; 3751 s; commit f8219106). The 60-minute tool limit stopped it after 18 of 20 cells: the last two head cells are missing, reported as such. Output hidden/spectrum-ky-philosophy.
+- **High-temperature group** (map-highT-256, log10 T -0.02 to 0.13):
+  - 9 of 10 cells are chaotic, with D = 1.373, 1.413, 1.605, 1.683, 1.812, 1.858, 1.973, 2.009 and 2.015 (lambda_1 0.21-0.52, lambda_2 -0.32 to -0.60).
+  - At three cells lambda_1 + lambda_2 >= 0 (D >= 2). 1000-step values differ by at most 0.06.
+  - One cell (log10 T 0.0101) is not chaotic at the horizon (lambda_1 -0.038).
+- **Headline group** (H2 chaotic cells): 8 of 8 measured cells are chaotic, D = 1.038-1.368. With the six TC cells, the headline maps give 1.04-1.65.
+- **Reading:**
+  - Every measured attractor has exactly one positive exponent (no hyperchaos).
+  - D grows with temperature: hostile band 1.01-1.16, headline maps 1.04-1.65, high-temperature region 1.37-2.02. The global scalar reduction holds for the low-temperature chaos and fails in the high-temperature region, consistent with the high-temperature bubble's second multipliers (0.28-0.38).
+  - Paper: the dimension paragraph of the theory section.
