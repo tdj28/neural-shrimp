@@ -1566,8 +1566,14 @@ leading multiplier is 0.59, 0.125 and 0.027. Per step, the second multiplier con
 0.029, within 17\,\% of the measured ratios. In the terms of the H\'enon map, whose Jacobian determinant $-b$ is
 constant, so that $\mu_1\mu_2=(-b)^p$, the per-step area contraction $|\mu_1\mu_2|^{1/p}$ plays the role of $|b|$;
 its medians are 0.41, 0.41 and 0.50. In the period-4 and period-8 cells the trace-zero curves run along both
-arms of the V and approach each other at its bottom; our grids do not resolve whether they cross there (the period-8
-grid was cut at its time limit after 566 of 608 cells).
+arms of the V. Finer grids at its bottom resolve them: in both cells the two arms are one U-shaped trace-zero curve,
+and they do not cross. In the period-8 cell the determinant of the leading pair is positive throughout and the third
+multiplier is at most $6\times10^{-5}$ of the second, so the reading is two-dimensional to that accuracy. In the
+period-4 cell the determinant changes sign, and near the bottom of the U the second and third multipliers form a
+complex pair, so the leading pair is not isolated there. Neither cell has a crossing of trace-zero curves, the
+analog of a one-dimensional shrimp's head; under the decision rule fixed before these grids, both remain unresolved
+between the loop and turn-away types (the first period-8 grid left the bottom of the V unsolved because of a defect in
+the continuation, fixed for the second; \texttt{docs/dss}).
 
 The junction where the upper leg leaves the body, two cusps that share a segment of the fold curve and a crossing
 of its other two branches, is the configuration that Mira et al.\ call a dovetail for critical curves with two such
