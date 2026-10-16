@@ -137,7 +137,8 @@ def continue_branch(model, fixed, free, lam0, x0, p, to, step, step_min, step_ma
         # from the last two points and the step kept to half of it; elsewhere the step grows
         h = min(step_max, h * 1.5)
         if through and len(records) >= 2:      # through instabilities: keep the step where |mu| changes fast
-            dm = abs(mod - abs(complex(*records[-2]["leading"])))
+            prev_mod = abs(complex(*records[-2]["leading"]))
+            dm = abs(np.log(max(mod, 1e-300)) - np.log(max(prev_mod, 1e-300)))      # relative change of |mu|
             if dm > 0.3:
                 h = max(step_min, h / 2)
         elif len(records) >= 2 and mod > 0.6:
