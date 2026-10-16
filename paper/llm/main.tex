@@ -1851,7 +1851,8 @@ things: their unsteered chaos may be rare, if, like the largest models here, the
 range of temperature; and steering still drives both 70B-class models that we steered, Llama-3.3-70B and Qwen2.5-72B, into chaos (Appendix~\ref{sec:size}).
 Figure~\ref{fig:z128} shows it at 70B parameters: in a $128\times128$ float64 scan of Llama-3.3-70B-Instruct steered
 along its hostility direction, computed after the precision fix, 20.8\,\% of the 16{,}384 cells are chaotic, in a band
-threaded by periodic windows, as in the 0.5B model's maps.
+threaded by periodic windows, as in the 0.5B model's maps; a test of 24 sampled cells at three twin offsets and an
+exact tangent confirms 11 of the 12 chaotic and 5 of the 6 periodic labels (Appendix~\ref{sec:size}).
 \begin{figure}[tbp]
 \centering
 \includegraphics[width=\linewidth]{fig-zoom-llama70b-z128.png}
@@ -3192,7 +3193,13 @@ concept plane at the same offset, computed after the precision fix in sixteen ba
 16{,}384 cells, 20.8\,\%; largest exponent 0.64), threaded by periodic windows, whose center steering moves from
 $\log_{10}T\approx0.23$ at $\alpha=0.06$ to $\approx0.19$ at $\alpha=0.12$; fixed points lie above it, and windows of
 periods 3, 5, 6 and 7, up to 13, fill the plane below. Only 1.7\,\% of the cells have neither a detected period nor a
-positive exponent. An earlier $64\times64$ zoom of the same window, computed before the fix, had 44\,\% such cells and,
+positive exponent. A plateau test of 24 cells drawn by a rule fixed in advance (12 chaotic, 6 periodic, 6 unresolved;
+300 transient and 300 measured steps, absolute twin offsets $10^{-4}$, $10^{-5}$ and $10^{-6}$ and an exact tangent)
+confirms 11 of the 12 chaotic labels, whose four exponents agree within 0.012, and 5 of the 6 periodic ones. The two
+exceptions are neighboring cells near $\log_{10}T=0.20$ where a long, weakly attracting loop (periods 15 and 16) and
+chaos are reached from the same start depending on rounding: one cell labeled chaotic reached the loop, and one
+labeled periodic reached chaos. The six unresolved cells have small negative exponents ($-0.005$ to $-0.03$) and no
+period up to 32. An earlier $64\times64$ zoom of the same window, computed before the fix, had 44\,\% such cells and,
 above the band, 515 cells with periods from 3 to 32 but a constant leading token, an artifact of the period test at
 that computation's noise floor; Figure~\ref{fig:z128} supersedes it.
 \begin{figure}[H]
