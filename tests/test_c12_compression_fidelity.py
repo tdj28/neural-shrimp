@@ -329,11 +329,11 @@ def test_prompt_splits_and_balanced_order():
     assert sorted(dev + held) == list(range(64))
     assert {p // 8 for p in dev} == set(cf.DEV_SYSTEMS)
     batches = cf.batches_of("heldout")
-    assert len(batches) == 12 and all(len(b) == cf.PROMPTS_PER_BATCH for b in batches)
-    for r in range(0, 12, cf.ROUND_BATCHES):                       # every round: 2 openers x 6 system prompts
-        prompts = [p for b in batches[r:r + cf.ROUND_BATCHES] for p in b]
-        systems = [p // 8 for p in prompts]
-        assert sorted(systems) == sorted(list(cf.HELDOUT_SYSTEMS) * 2)
+    assert len(batches) == 8 and all(len(b) == 6 for b in batches)
+    for b in batches:                                              # every batch: one opener x the 6 system prompts
+        assert sorted(p // 8 for p in b) == list(cf.HELDOUT_SYSTEMS) and len({p % 8 for p in b}) == 1
+    dev_batches = cf.batches_of("dev")                             # as run on 16 Oct (batches of 4)
+    assert dev_batches == [[0, 8, 1, 9], [2, 10, 3, 11], [4, 12, 5, 13], [6, 14, 7, 15]]
     assert cf.prompt_messages(8 * 3 + 5) == [{"role": "system", "content": cf.SYSTEM_PROMPTS[3]},
                                              {"role": "user", "content": cf.OPENERS[5]}]
 

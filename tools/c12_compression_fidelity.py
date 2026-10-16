@@ -13,9 +13,9 @@ masked, true positions); the prefix cache is computed once per prompt and shared
 
 Prompts. 8 system prompts x 8 openers (SYSTEM_PROMPTS, OPENERS); the prefix is the chat template (system, user opener,
 generation prompt). Prompt id = 8 s + o. Development: system prompts 0 and 1 (ids 0-15); held out: system prompts 2-7
-(ids 16-63). Prompts run in the balanced order of prompt_order (opener-major), 4 prompts per batch; held-out batches
-form rounds of 3 batches (12 prompts: 2 openers x the 6 held-out system prompts), and a time budget (--budget-hours)
-only ever stops the run between rounds, never on outcomes.
+(ids 16-63). Prompts run in the balanced order of prompt_order (opener-major): development batches of 4 prompts,
+held-out batches of 6 (one opener x the 6 held-out system prompts), so a time budget (--budget-hours), which only ever
+stops a run between batches and never on outcomes, keeps the held-out system prompts balanced.
 
 Grid. 8 temperatures at log10 T = linspace(-0.5, 0.5, 8); starts x_0 = E[t] for the first --starts tokens of
 START_TOKENS (8 fixed common tokens).
@@ -122,8 +122,8 @@ N_ATTRACTOR = 8
 QMAX = {"q8": 127, "q4": 7}
 BLOCK = 32
 SEED_TWINS, SEED_NOISE, SEED_BOOT = 20261016, 20261017, 20261018
-PROMPTS_PER_BATCH = 4
-ROUND_BATCHES = 3
+PROMPTS_PER_BATCH = {"dev": 4, "heldout": 6}    # held out: one opener x the 6 held-out system prompts per batch
+ROUND_BATCHES = {"dev": 1, "heldout": 1}        # the budget may stop a held-out run at any batch boundary
 TWIN_CHUNK = 64            # starts per twin-phase batch (3 rows each)
 KL_CHUNK = 128             # states per KL-pass forward
 VARIANTS = ("ref", "q4", "q8", "noise")
@@ -151,8 +151,8 @@ def prompt_order(split):
 
 
 def batches_of(split):
-    order = prompt_order(split)
-    return [order[k:k + PROMPTS_PER_BATCH] for k in range(0, len(order), PROMPTS_PER_BATCH)]
+    order, n = prompt_order(split), PROMPTS_PER_BATCH[split]
+    return [order[k:k + n] for k in range(0, len(order), n)]
 
 
 def prompt_lists():
@@ -829,7 +829,7 @@ def settings_of(args):
             "twin_steps": int(args.twin_steps), "tol": TOL, "eps": list(EPS), "lambda_min": LAMBDA_MIN,
             "short": SHORT, "long": LONG, "keep_transient": list(KEEP_TRANSIENT), "n_attractor": N_ATTRACTOR,
             "qmax": QMAX, "block": BLOCK, "seeds": {"twins": SEED_TWINS, "noise": SEED_NOISE, "boot": SEED_BOOT},
-            "prompts_per_batch": PROMPTS_PER_BATCH, "prompt_lists_sha256": prompt_lists_hash()}
+            "prompts_per_batch": PROMPTS_PER_BATCH[args.set], "prompt_lists_sha256": prompt_lists_hash()}
 
 
 def open_out(args, settings):
@@ -894,9 +894,9 @@ def cmd_run(args):
     tic0 = time.perf_counter()
     done_seconds = []
     for n_done, k in enumerate(order):
-        if args.budget_hours and n_done % ROUND_BATCHES == 0 and done_seconds:
+        if args.budget_hours and n_done % ROUND_BATCHES[args.set] == 0 and done_seconds:
             elapsed = time.perf_counter() - tic0
-            need = ROUND_BATCHES * float(np.mean(done_seconds))
+            need = ROUND_BATCHES[args.set] * float(np.mean(done_seconds))
             if elapsed + need > args.budget_hours * 3600:
                 log(event="budget_stop", before_batch=k, elapsed_s=round(elapsed), projected_round_s=round(need))
                 break
@@ -1305,7 +1305,9 @@ def summarize(args):
                                                                      if k.startswith(v + "__")},
                                                                     dk["attractor"] & (dk["t_index"] == jt)))
                         for jt in range(len(dcfg["log_t"]))] for v in ("q8", "q4")}
-        dev = {"settings_equal_heldout": dcfg == cfg, "gates": dgates,
+        same = {k: v for k, v in dcfg.items() if k != "prompts_per_batch"} == \
+            {k: v for k, v in cfg.items() if k != "prompts_per_batch"}
+        dev = {"settings_equal_heldout_except_batch_size": same, "gates": dgates,
                "reference_by_T": [{"log10_T": dcfg["log_t"][jt], "n": int((dj == jt).sum()),
                                    "counts": {CLASS_NAMES[i]: int(((dc == i) & (dj == jt)).sum()) for i in range(3)}}
                                   for jt in range(len(dcfg["log_t"]))],
