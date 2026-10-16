@@ -1082,6 +1082,13 @@ def analyze_split(loops, samples, prompts, log_t, window, qmax, h_target, n_boot
         "T_nonperiodic_instead_of_T_chaos": {"spearman": spearman(
             np.array([r["T_nonperiodic"]["analysis_value"] for r in rows]), y)},
         "grid_step": step}
+    gap = y[keep] - x[keep]
+    res["descriptive"] = {"uncensored_pairs": int(keep.sum()),
+                          "median_log10_T_rep_minus_log10_T_chaos": float(np.median(gap)) if keep.any() else None,
+                          "quartiles_gap": [float(np.quantile(gap, 0.25)), float(np.quantile(gap, 0.75))]
+                          if keep.any() else None,
+                          "prompts_T_rep_below_T_chaos": int((gap < 0).sum()),
+                          "pearson_uncensored": pearson(x[keep], y[keep]) if keep.sum() >= 3 else None}
     pc_stat = lambda idx: partial_spearman(x[idx], y[idx], z[idx])  # noqa: E731
     res["secondary_partial"] = {"definition": "partial Spearman correlation of log10 T_chaos and log10 T_rep given "
                                               "log10 T_H (Pearson partial correlation of the ranks)",
