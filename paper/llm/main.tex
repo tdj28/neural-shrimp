@@ -44,7 +44,9 @@ often than with greedy decoding. An exploratory reset of the fed-back state at e
 In tests fixed before their data, Soft Thinking with its published settings changed 21\,\% of the answers to fresh
 GSM8K problems with the batch layout alone, and reasoning models that answer 86 to 90\,\% of them correctly
 (DeepSeek-R1-Distill-Qwen-7B, QwQ-32B) changed 15 to 20\,\%, deciding correctness for 12 to 15\,\% of the problems;
-ordinary sampled reasoning with the same random numbers changed about as many. Exactly repeating text can hide
+ordinary sampled reasoning with the same random numbers changed about as many. These answer changes do not require
+chaos: where we checked in float64, the pipeline contracts, and the feedback carries bfloat16 rounding into answers
+that sit near ties between candidate tokens. Exactly repeating text can hide
 a chaotic state. In Qwen2.5-0.5B, along recorded orbits, steering creates the chaos mainly by making next tokens compete,
 which turns the softmax readout from a contraction into an expansion; a logit bias alone suffices. Earlier injection
 carries chaos to lower temperature, steering at two depths creates chaos neither depth causes alone, and two chaotic
