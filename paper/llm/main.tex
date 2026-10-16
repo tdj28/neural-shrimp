@@ -8,6 +8,7 @@
 \usepackage[font=small,labelfont=bf]{caption}
 \usepackage[numbers,sort&compress]{natbib}
 \usepackage[dvipsnames]{xcolor}
+\usepackage{CJKutf8}
 \usepackage{tikz}
 \usetikzlibrary{arrows.meta,positioning,calc,decorations.pathreplacing,fit}
 \usepackage[colorlinks=true,allcolors=blue]{hyperref}
@@ -132,8 +133,8 @@ system; Section~\ref{sec:beyond} also measures how much of the mechanism survive
   baseline. An exploratory causal test shows that the loop carries this: resetting the fed-back state before every soft step
   removes nearly all of it (on an H100, 66 against 1.6\,\% of answers changed in Qwen2.5-0.5B, and 64 against
   1.6\,\% in Qwen2.5-7B), and accuracy changes by at most 5 points. A chaotic loop's text reuses the phrases of
-  neighboring loops in no fixed order, and a copy started $10^{-10}$ away writes the same text for tens to a hundred
-  and fifty steps, then a different one (Table~\ref{tab:chaostexts}). Exactly repeating text can hide a chaotic state (Section~\ref{sec:hostile}). Beyond the model's
+  neighboring loops in no fixed order, and a copy started $10^{-10}$ away writes the same text for 10 to 151 steps,
+  then a different one (Table~\ref{tab:chaostexts}). Exactly repeating text can hide a chaotic state (Section~\ref{sec:hostile}). Beyond the model's
   first-token uncertainty, the loop's regime carries no detectable information about the accuracy of ordinary sampled
   answers, and we find no advantage at the edge of chaos.
 \item \emph{Why the loop is chaotic, and how steering makes it so} (Section~\ref{sec:theory}). The loop's derivative
@@ -608,8 +609,8 @@ are analyzed in Appendix~\ref{sec:curves}.}
 reuses the words and phrases of the neighboring loops without settling into an order, and it depends on the state to
 arbitrary precision. To show the second property in words, we ran the loop at cells labeled chaotic for 1000 steps in
 float64. We then recorded it together with a copy started at a relative distance of $10^{-10}$, about 600 times smaller
-than the relative rounding error of float32. The copy is never reset. Its distance from the loop grows at roughly the
-rate the cell's Lyapunov exponent sets (Figure~\ref{fig:chaostwins}). The two write the same text until the distance
+than the relative rounding error of float32. The copy is never reset. Its distance from the loop grows at about the
+rate the cell's Lyapunov exponent sets, faster or slower over finite stretches (Figure~\ref{fig:chaostwins}). The two write the same text until the distance
 is a sizable fraction of the soft token, and different texts afterwards. In Qwen2.5-0.5B, two cells steered along
 philosophy, with exponents 0.44 and 0.36, split at steps 44 and 51, and a cell steered along hostility, with exponent
 0.35, at step 45. By then the distance had grown by 8.5 to 10.2 decades, to between 3\,\% and 170\,\% of the soft
@@ -622,7 +623,13 @@ and `` question'', whose probabilities come within 0.0025 of each other; there t
 hostility plane (Section~\ref{sec:hostile}), the chaotic cell lies between windows whose loops write ``!Yes!Yes, that's
 crap!Yeah'' and ``!No, that's crap!Yeah!Yes!Yes''. It repeats ``!Yes'' and inserts ``, nonsense'', ``, that'' and
 ``!No, that'' at irregular intervals.
-%QWEN15%
+In Qwen2.5-1.5B steered along philosophy, two chaotic cells (exponents 0.83 and 0.80) write short questions
+separated by line breaks, ``What?'', ``What? Or'' and ``In''. Their copies split at steps 22 and 10; at step 10,
+``What'' and ``In'' have probabilities 0.091 and 0.090. Finite stretches can expand much faster than the average: that
+copy's distance grew a hundredfold in its first step. Without steering, at $\log_{10}T=0.657$, the next-token
+distribution is nearly uniform, and in the recorded steps the most probable token never exceeds a probability of 0.001.
+There the chaotic loop (exponent 0.59) writes runs of exclamation marks, in ASCII and in full width, commas, the
+end-of-turn marker and the Chinese \begin{CJK}{UTF8}{gbsn}一下\end{CJK} (``a bit''), and its copy splits at step 43.
 
 The text is fragile to the computation itself. We recorded the cell next to the crescent twice in float64 on the same
 processor, once with six threads and once with four, which changes the order of floating-point sums. During the
@@ -650,12 +657,20 @@ copy & \texttt{$\hookleftarrow$$\hookleftarrow$The\ is$\hookleftarrow$$\hookleft
 \multicolumn{2}{@{}l}{Qwen2.5-0.5B, hostility, $\alpha=0.08946$, $\log_{10}T=-0.05566$: $\lambda=0.35$, texts split at step 45} \\
 loop & \texttt{Yes!Yes!Yes!Yes!Yes!Yes!Yes!\textcolor{BrickRed}{Yes,\ that!Yes!Yes!No,}} \\
 copy & \texttt{Yes!Yes!Yes!Yes!Yes!Yes!Yes!\textcolor{BrickRed}{No,\ that!Yes!Yes!Yes!}} \\
-%TABLEROWS%
+\midrule
+\multicolumn{2}{@{}l}{Qwen2.5-1.5B, philosophy, $\alpha=0.10553$, $\log_{10}T=0.0322$: $\lambda=0.80$, texts split at step 10} \\
+loop & \texttt{$\hookleftarrow$$\hookleftarrow$$\hookleftarrow$What$\hookleftarrow$$\hookleftarrow$In$\hookleftarrow$$\hookleftarrow$$\hookleftarrow$What$\hookleftarrow$\textcolor{BrickRed}{What??$\hookleftarrow$$\hookleftarrow$$\hookleftarrow$$\hookleftarrow$What?$\hookleftarrow$What$\hookleftarrow$$\hookleftarrow$In$\hookleftarrow$$\hookleftarrow$}} \\
+copy & \texttt{$\hookleftarrow$$\hookleftarrow$$\hookleftarrow$What$\hookleftarrow$$\hookleftarrow$In$\hookleftarrow$$\hookleftarrow$$\hookleftarrow$What$\hookleftarrow$\textcolor{BrickRed}{In??$\hookleftarrow$$\hookleftarrow$$\hookleftarrow$What??$\hookleftarrow$$\hookleftarrow$$\hookleftarrow$$\hookleftarrow$What$\hookleftarrow$}} \\
+\midrule
+\multicolumn{2}{@{}l}{Qwen2.5-1.5B, unsteered, $\log_{10}T=0.657$: $\lambda=0.59$, texts split at step 43} \\
+loop & \texttt{[end]!\begin{CJK}{UTF8}{gbsn}！\end{CJK}[end]!!\begin{CJK}{UTF8}{gbsn}，\end{CJK}$\hookleftarrow$!\begin{CJK}{UTF8}{gbsn}，\end{CJK}!![end]!\textcolor{BrickRed}{\begin{CJK}{UTF8}{gbsn}，\end{CJK}!!!\begin{CJK}{UTF8}{gbsn}，\end{CJK}$\hookleftarrow$!\begin{CJK}{UTF8}{gbsn}，\end{CJK}[end]!}} \\
+copy & \texttt{[end]!\begin{CJK}{UTF8}{gbsn}！\end{CJK}[end]!!\begin{CJK}{UTF8}{gbsn}，\end{CJK}$\hookleftarrow$!\begin{CJK}{UTF8}{gbsn}，\end{CJK}!![end]!\textcolor{BrickRed}{\begin{CJK}{UTF8}{gbsn}！\end{CJK}!!!\begin{CJK}{UTF8}{gbsn}，\end{CJK}[end]!!\begin{CJK}{UTF8}{gbsn}，\end{CJK}!}} \\
 \bottomrule
 \end{tabular}
 \caption{What chaotic loops write. Each pair of lines shows the most probable token at consecutive steps of a chaotic
 loop and of a copy started at a relative distance of $10^{-10}$ from it, from 14 steps before the first step at which
-they differ to 9 steps after it (or the end of the recording); from that step on the text is red. $\hookleftarrow$: line break. $\lambda$: largest Lyapunov exponent, from twins at relative offsets
+they differ to 9 steps after it (or the end of the recording); from that step on the text is red. $\hookleftarrow$: line break; [end]: the end-of-turn token; ``\begin{CJK}{UTF8}{gbsn}！\end{CJK}'' and ``\begin{CJK}{UTF8}{gbsn}，\end{CJK}'' in the last example
+are the full-width exclamation mark and comma. $\lambda$: largest Lyapunov exponent, from twins at relative offsets
 $10^{-6}$ and $10^{-8}$ over 1000 steps after 1000 transient steps; both offsets give the same value to two decimals.
 Split: the step of the recording at which the texts first differ. Float64; \texttt{tools/chaos\_texts.py}, receipts in
 \texttt{docs/chaos-texts}.}
@@ -666,11 +681,13 @@ Split: the step of the recording at which the texts first differ. Float64; \text
 \includegraphics[width=0.62\linewidth]{fig-chaos-twins.png}
 \caption{How a difference of $10^{-10}$ becomes a different text. The relative distance between a chaotic loop and its
 copy (Table~\ref{tab:chaostexts}), never reset, against the step in units of the cell's Lyapunov time $1/\lambda$.
-Labels give the model (0.5B: Qwen2.5-0.5B-Instruct), the steering direction and strength, the exponent and the step of
-the split.
+Labels give the model (0.5B and 1.5B: Qwen2.5-0.5B- and -1.5B-Instruct), the steering direction and strength, the
+exponent and the step of the split.
 Dotted: $10^{-10}e^{\lambda t}$, the growth the exponent sets on average. Dots: the first step at which the two write
-different most probable tokens. Over these finite stretches the copies grow somewhat faster than the 1000-step
-exponents, as in the batch-layout runs of Section~\ref{sec:consequences}.}
+different most probable tokens. Finite stretches deviate from the 1000-step exponents. Up to a distance of $10^{-2}$,
+five of the steered copies grew 15 to 47\,\% faster than $\lambda$, the sixth ($\alpha=0.10553$) 2.4 times as fast
+after a hundredfold expansion in its first step, and the unsteered copy 11\,\% more slowly. In the batch-layout runs
+of Section~\ref{sec:consequences}, too, divergence came earlier than the exponent predicts.}
 \label{fig:chaostwins}
 \end{figure}
 

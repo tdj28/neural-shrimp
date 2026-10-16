@@ -63,7 +63,7 @@ def main():
         for c in cells:
             picks.append((rec["args"], c, path))
     fig, bx = plt.subplots(figsize=(4.8, 3.0))
-    cmap = plt.get_cmap("viridis")
+    cmap = plt.get_cmap("tab10")
     summary = []
     for i, (args, c, path) in enumerate(picks):
         if not c["chaotic"]:
@@ -71,7 +71,7 @@ def main():
         lam = float(np.mean(c["lyapunov"]))
         d = np.array([s["log10_distance"] for s in c["steps"]])
         t = np.arange(1, len(d) + 1)
-        col = cmap(i / max(1, len(picks) - 1) * 0.9)
+        col = cmap(i % 10)
         concept = {"hostility-vs-kindness": "hostility"}.get(args["concept"], args["concept"])
         steered = f"{concept}, $\\alpha={c['alpha']:g}$, " if c["alpha"] else "unsteered, "
         label = f"{MODEL_LABELS.get(args['model'], args['model'])}, {steered}$\\lambda={lam:.2f}$"
