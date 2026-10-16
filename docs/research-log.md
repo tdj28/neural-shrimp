@@ -27404,3 +27404,27 @@ Above 10 nats, at nearly uniform distributions, the larger models have the large
 - *Through depth:* the residual stream outgrows the change, a deficit of 0.66-1.47 nats in Qwen models from 1.5B up, against -0.23 to 0.06 in 0.5B; 0.35-0.77 in Llama-8B; -0.57 to 0.88 in OLMo-2.
 
 **Pending.** Qwen2.5-72B, Llama-3.1-70B and Llama-3.3-70B (pod DA2).
+
+## 2026-10-16 06:29 UTC: PIF64-H2 results (weaker steering and the kindness direction)
+
+**Pods.** 43gfgmefgiz1y1 (T 0.6) and 8l93jxx3n9f4n0 (T 1.2), commit 651ae79f (from the orchestrator logs). Each ran 1000 units, 5 configurations x 200 problems; both were verified terminated, and the hashes match the runner's (9b4064d3..., 5ccff75f...). The receipt docs/pi/pif64h-grid.json now covers all 22 configurations of PIF64-H and PIF64-H2.
+
+**Results.** Accuracy at T 0.6 / 1.2; 1e-10 twins past 1e-3; median net rate; text flips of 1e-3 twins.
+
+| alpha | accuracy | 1e-10 past 1e-3 | net rate | 1e-3 text flips |
+|---|---|---|---|---|
+| 0 | 47.5 / 47.0 % | 0 / 0 % | -0.16 / -0.10 | 1.5 / 3.0 % |
+| +0.01 | 43.0 / 42.5 % | 0 / 0 % | -0.13 / -0.09 | 3.5 / 4.5 % |
+| +0.02 | 19.5 / 23.5 % | 0 / 0.5 % | -0.13 / -0.06 | 3.5 / 14.0 % |
+| +0.03 | 5.5 / 8.0 % | 0 / 8.5 % | -0.10 / -0.00 | 16.5 / 44.5 % |
+| +0.05 | 1.0 / 1.5 % | 31.5 / 53.5 % | +0.03 / +0.08 | 82.5 / 89.0 % |
+| -0.02 (toward kindness) | 20.0 / 21.5 % | 0 / 1.5 % | -0.11 / -0.04 | 6.0 / 19.0 % |
+| -0.05 (toward kindness) | 1.0 / 0.5 % | 31.5 / 98.5 % | +0.03 / +0.18 | 62.5 / 99.0 % |
+
+At T 1.2 and alpha -0.05, 1e-10 twins change 97.5 % of answer texts.
+
+**Reading (exploratory).** In this pipeline, steering degrades the task before it makes the loop chaotic.
+- Task-preserving steering (|alpha| <= 0.01, accuracy 42.5-43 % against 47-47.5 %) leaves the loop contracting.
+- Exponential sensitivity appears at |alpha| >= 0.03-0.05, where accuracy is already 0.5-8 %.
+- In between, the loop contracts tiny perturbations but becomes increasingly sensitive to finite (1e-3, bf16-sized) ones.
+- The bf16 horizon run H (same configurations at T 0.6 and 1.2) tests how this shows in batch-layout flips.
