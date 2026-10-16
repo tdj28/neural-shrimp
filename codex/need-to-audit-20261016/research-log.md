@@ -13,3 +13,7 @@ Operation remains prepared and cannot launch. Exact final status/commit bindings
 ## Admitted serial run — 2026-10-16T22:02:13.498559+00:00
 
 Root accepted exact PM12/damping9/Root6 integrated controls once and saved arithmetic under the reviewed operation-plan. Prepared source checkpoint c46438f082e07b77107382e4f582bbb054c7e617 was privately pushed and verified; only admission/source-commit/card hashes changed afterward. One CPU plus supervisor per lane, serial PM→damping→Root, fixed60/60/120seconds and1/1/4GiB AS; all prior producer attempts and this source preparation refusal remain. Sources and HEAD will remain fixed during all lanes. Fresh capacity and original owned closure are required by the supervisor. No model work, partial item14 interpretation, recurring watch or producer edits.
+
+## Selective-only recovery — 2026-10-16T22:10:08.470640+00:00
+
+Original PM and damping lanes completed and closed. Original Root lane completed seven components and preserved C12-1 KeyError(S) when compact published rate fields were encoded in keys. Exact source amendment parses and validates the source key; formulas/seeds/groups unchanged. Root and Boundary reviewed it. One selective-only recovery with six tiny controls is admitted; all original output/failure bytes remain. No completed component or other lane is repeated. Exact card/source/input limits and closure prerequisites are in operation-recovery-002.json.

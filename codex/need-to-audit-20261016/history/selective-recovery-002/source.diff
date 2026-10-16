@@ -1,0 +1,15 @@
+--- root_audit.py original executed
++++ root_audit_selective_002.py prepared
+@@ -245,7 +245,11 @@
+                 'boot95_problems':boot(list(um.values()),12004),'answer_changed':sum(r['changed'] for r in rs),'invalid':sum(r['invalid'] for r in rs),'correct_kept':sum(r['correct'] for r in rs)}
+         rebuilt={}
+         for key,p in pub['rates'].items():
+-            rs=groups[(p['S'],p['inj'],p['rho'],p['arm'])];eligible=[r for r in rs if base[(r['uid'],r['T'],r['S'])]['correct']]
++            m=re.fullmatch(r'S(\d+)_(early|late)_rho([\d.]+)_(.+)',key)
++            if m is None:raise ValueError('unexpected selective rate key: '+key)
++            S,inj,rho,arm=m.groups();group=(int(S),inj,float(rho),arm)
++            if group not in groups:raise ValueError('missing selective source group: '+key)
++            rs=groups[group];eligible=[r for r in rs if base[(r['uid'],r['T'],r['S'])]['correct']]
+             q={'eligible':stats(eligible),'unconditional':stats(rs)}
+             # Compact receipt intentionally omits some original-analysis fields.
+             q={k:{kk:vv for kk,vv in v.items() if kk in p[k]} for k,v in q.items()}

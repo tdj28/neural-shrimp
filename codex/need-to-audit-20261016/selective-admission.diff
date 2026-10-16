@@ -1,0 +1,49 @@
+--- /tmp/need-to-audit-20261016-recovery-002/card.json
++++ /home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/need-to-audit-20261016/root/selective-002-card.json
+@@ -1,5 +1,5 @@
+ {
+-  "status": "prepared",
++  "status": "reviewed_for_execution",
+   "source_expected_commit": null,
+   "source_identity": "Exact current committed source bound by supervisor --source and Git blob capture, avoiding a self-referential card hash.",
+   "source": {
+--- /tmp/need-to-audit-20261016-recovery-002/operation-plan.json
++++ /home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/need-to-audit-20261016/operation-recovery-002.json
+@@ -1,5 +1,5 @@
+ {
+-  "status": "prepared",
++  "status": "reviewed_for_execution",
+   "repository": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp",
+   "raw_root": "/data2/neural-shrimp-data/codex/need-to-audit-20261016",
+   "python": "/data2/neural-shrimp/.venv/bin/python",
+@@ -66,8 +66,8 @@
+     },
+     {
+       "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/need-to-audit-20261016/root/selective-002-card.json",
+-      "bytes": 1694,
+-      "sha256": "e72bdd638e6044031a160244b070d27c189e03f17688436b82189014034a8f71"
++      "bytes": 1708,
++      "sha256": "515eae149de3cfdea8c29455cfb09638adaa55120a2b962033aaa4421f7fd826"
+     }
+   ],
+   "lanes": {
+@@ -86,8 +86,8 @@
+       "preflight_pins": [
+         {
+           "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/need-to-audit-20261016/root/selective-002-card.json",
+-          "bytes": 1694,
+-          "sha256": "e72bdd638e6044031a160244b070d27c189e03f17688436b82189014034a8f71"
++          "bytes": 1708,
++          "sha256": "515eae149de3cfdea8c29455cfb09638adaa55120a2b962033aaa4421f7fd826"
+         },
+         {
+           "path": "/tmp/need-to-audit-20261016-recovery-002/inputs.json",
+@@ -117,7 +117,7 @@
+   "serial_order": [
+     "selective"
+   ],
+-  "admission": "Selective-only recovery prepared for exact source/card review; no automatic retry.",
++  "admission": "Root reviewed exact selective-only source/key-schema repair and fixed resource/input card; sole recovery authorized after this private checkpoint/fresh capacity. No repeated PM, damping or seven completed Root components.",
+   "resource_scope": "One worker CPU plus one supervisor, nice10/thread1,20GiB startup and16GiB runtime RAM floors,16GiB disk floor. Per-lane OUT plus stdout/stderr sampled cap; source/admission/receipt small metadata outside that cap. Fixed cleanup5+5 seconds; no automatic retry or parallel lane.",
+   "scientific_scope": "Unblinded saved-data arithmetic, all failures and exact differences retained; computational completion is not scientific acceptance. Item14 incomplete E5/E2E is excluded; items15\u201316 are separate editorial checks."
+ }
