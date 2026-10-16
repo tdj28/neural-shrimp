@@ -367,3 +367,18 @@ def test_gate_rows_accepts_consistent_and_rejects_inconsistent_rows():
     assert "periodic row with closure residual >= tol" in cf.gate_rows(bad, cfg, 1)[0]
     bad2 = dict(res, lam=np.array([[np.nan, 0.2], [np.nan, -0.3]]))
     assert "chaotic row violating the chaos rule" in cf.gate_rows(bad2, cfg, 1)[0]
+
+
+def test_merge_rows_concatenates_along_the_row_axes():
+    def res(n, base):
+        return {"batch": 0, "batch_prompts": np.array([16]), "kept_steps": np.array([0, 1]), "seconds": np.zeros(2),
+                "cls": np.full(n, base), "lead": np.full((3, n), base), "kept": np.full((2, n, 4), base),
+                "lam": np.full((2, n), base), "collapses": np.full((2, n), base), "x_end": np.full((n, 4), base),
+                "cycle": np.full((n, 8), base)}
+    m = cf.merge_rows(res(2, 0), res(3, 1))
+    assert m["cls"].tolist() == [0, 0, 1, 1, 1]
+    assert m["lead"].shape == (3, 5) and m["kept"].shape == (2, 5, 4) and m["lam"].shape == (2, 5)
+    assert m["collapses"].shape == (2, 5) and m["x_end"].shape == (5, 4) and m["cycle"].shape == (5, 8)
+    assert m["kept_steps"].tolist() == [0, 1] and m["batch_prompts"].tolist() == [16]
+    empty = dict(res(2, 0), kept=np.zeros(0))
+    assert cf.merge_rows(empty, dict(res(3, 1), kept=np.zeros(0)))["kept"].size == 0

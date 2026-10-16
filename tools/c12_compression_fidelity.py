@@ -574,9 +574,11 @@ def make_loop(threads):
     return loop
 
 
-def start_ids(tok, n):
+def start_ids(tok, n, offset=0):
+    if offset < 0 or offset + n > len(START_TOKENS):
+        raise SystemExit(f"start tokens {offset}..{offset + n - 1} are outside the list of {len(START_TOKENS)}")
     ids = []
-    for s in START_TOKENS[:n]:
+    for s in START_TOKENS[offset:offset + n]:
         t = tok(s, add_special_tokens=False)["input_ids"]
         if len(t) != 1:
             raise SystemExit(f"start token {s!r} is not one token: {t}")
@@ -643,7 +645,9 @@ def run_variant(loop, W, variant, prompts, pcs, cfg, sigma=None, log=print):
     torch = loop.torch
     d = loop.E.shape[1]
     nT, nS = len(cfg["log_t"]), cfg["starts"]
-    g, j, s = batch_rows(prompts, nT, nS)
+    off = int(cfg.get("start_offset", 0))               # start tokens off .. off + nS - 1 (extension runs)
+    g, j, s_local = batch_rows(prompts, nT, nS)
+    s = s_local + off                                   # global start index (twin seeds, records)
     B = len(g)
     pids = np.asarray(prompts)[g]
     temps = torch.as_tensor(10.0 ** np.asarray(cfg["log_t"])[j], dtype=torch.float64)
@@ -657,8 +661,8 @@ def run_variant(loop, W, variant, prompts, pcs, cfg, sigma=None, log=print):
         V = loop.model.lm_head.weight.shape[0]
         bvec = torch.as_tensor(np.stack([noise_vector(p, V) for p in prompts]), dtype=torch.float64)
         bias = torch.as_tensor(np.asarray(sigma, dtype=float)[j], dtype=torch.float64)[:, None] * bvec[g]
-    sid = start_ids(loop.sm.tok, nS)
-    X = loop.E[torch.as_tensor(np.asarray(sid)[s], dtype=torch.long)][:, None, :].clone()
+    sid = start_ids(loop.sm.tok, nS, off)
+    X = loop.E[torch.as_tensor(np.asarray(sid)[s_local], dtype=torch.long)][:, None, :].clone()
     steps, confirm = cfg["steps"], cfg["confirm"]
     total = steps + confirm
     tracker = Tracker(X[:, 0], steps, confirm, cfg["tol"])
@@ -826,7 +830,8 @@ def kl_pass(loop, W, prompts, ref, cfg, sigma=None, variants=("q8", "q4"), store
 # --------------------------------------------------------------------------------------------- subcommands
 
 def settings_of(args):
-    return {"model": MODEL, "log_t": [float(x) for x in (args.log_t if args.log_t else LOG_T)],
+    extra = {"start_offset": int(args.start_offset)} if getattr(args, "start_offset", 0) else {}
+    return {**extra, "model": MODEL, "log_t": [float(x) for x in (args.log_t if args.log_t else LOG_T)],
             "starts": int(args.starts), "steps": int(args.steps), "confirm": int(args.confirm),
             "twin_steps": int(args.twin_steps), "tol": TOL, "eps": list(EPS), "lambda_min": LAMBDA_MIN,
             "short": SHORT, "long": LONG, "keep_transient": list(KEEP_TRANSIENT), "n_attractor": N_ATTRACTOR,
@@ -1155,10 +1160,12 @@ def interval_block(diff, clusters):
     return r
 
 
-def summarize(args):
-    held = OUT_ROOT / args.heldout
-    cfg = json.loads((held / "settings.json").read_text())
-    nT = len(cfg["log_t"])
+ROW_AXIS1 = ("lead", "kept", "lam", "collapses")        # result arrays whose row axis is 1
+
+
+def load_complete(held, cfg):
+    """Gate every batch-variant output of a held-out run directory (every row read). Returns the gate records and, for
+    the batches complete in all variants and with a KL pass, the per-variant results and the KL arrays."""
     gates, data, kls = [], {v: [] for v in VARIANTS}, []
     for k in batch_indices(held):
         res = {v: load_variant(held, k, v) for v in VARIANTS}
@@ -1185,11 +1192,26 @@ def summarize(args):
         gates.append(row)
         if ok:
             for v in VARIANTS:
-                data[v].append(res[v])
+                data[v].append(dict(res[v], batch=k))
             z = np.load(klp, allow_pickle=False)
-            kls.append({name: z[name] for name in z.files})
-    if not data["ref"]:
-        raise SystemExit("summarize: no complete held-out batch")
+            kls.append(dict({name: z[name] for name in z.files}, batch=k))
+    return gates, data, kls
+
+
+def merge_rows(a, b):
+    """The rows of two results of one batch and variant (disjoint starts), concatenated."""
+    out = {}
+    for key, x in a.items():
+        if key in ("batch", "batch_prompts", "kept_steps", "seconds") or (key == "kept" and x.size == 0):
+            out[key] = x
+        else:
+            out[key] = np.concatenate([x, b[key]], axis=1 if key in ROW_AXIS1 else 0)
+    return out
+
+
+def analyze(cfg, data):
+    """Endpoints, per-temperature shares, class/period changes and sensitivity analyses of complete batches."""
+    nT = len(cfg["log_t"])
     cat = {v: {key: np.concatenate([r[key] for r in data[v]]) for key in
                ("prompt", "t_index", "start", "cls", "sub", "period", "cycle", "lead")}
            for v in VARIANTS}
@@ -1304,8 +1326,18 @@ def summarize(args):
                                  "rows_identical_lead_sequence": int(np.sum(first == 0)),
                                  "median_first_divergence_step": float(np.median(first[first > 0])) if np.any(first > 0)
                                  else None}}
+    # sensitivity of the endpoint to a real change: the reference's shift between adjacent temperatures
+    adjacent_T = [dict(from_log10_T=cfg["log_t"][jt], to_log10_T=cfg["log_t"][jt + 1],
+                       **paired_interval(share_T["ref"][:, jt + 1] - share_T["ref"][:, jt])) for jt in range(nT - 1)]
+    return {"pids": pids, "endpoints": endpoints, "sensitivity": sensitivity, "per_T": per_T, "per_T_diff": per_T_diff,
+            "changes": changes, "adjacent_T": adjacent_T}
+
+
+def kl_block(cfg, kls, pids):
+    """One-step metric statistics (attractor and transient states, per temperature) and the noise/q8 KL ratio."""
+    nT = len(cfg["log_t"])
     # one-step metrics
-    kcat = {key: np.concatenate([a[key] for a in kls]) for key in kls[0]}
+    kcat = {key: np.concatenate([a[key] for a in kls]) for key in kls[0] if key != "batch"}
     att = kcat["attractor"]
     kl_summary = {}
     for v in ("q8", "q4", "noise"):
@@ -1316,15 +1348,59 @@ def summarize(args):
                          "attractor_by_T": [dict(log10_T=cfg["log_t"][jt], **kl_stats(a, att & (kcat["t_index"] == jt)))
                                             for jt in range(nT)],
                          "attractor_prompt_mean_kl_T": float(np.mean([a["kl_T"][att & (kcat["prompt"] == p)].mean()
-                                                                      for p in pids]))}
+                                                                      for p in pids
+                                                                      if np.any(att & (kcat["prompt"] == p))]))}
     noise_match = None
     if "noise" in kl_summary and "q8" in kl_summary:
         noise_match = [{"log10_T": cfg["log_t"][jt],
                         "mean_kl_noise_over_q8": kl_summary["noise"]["attractor_by_T"][jt]["kl_T_mean"] /
                         kl_summary["q8"]["attractor_by_T"][jt]["kl_T_mean"]} for jt in range(nT)]
-    # sensitivity of the endpoint to a real change: the reference's shift between adjacent temperatures
-    adjacent_T = [dict(from_log10_T=cfg["log_t"][jt], to_log10_T=cfg["log_t"][jt + 1],
-                       **paired_interval(share_T["ref"][:, jt + 1] - share_T["ref"][:, jt])) for jt in range(nT - 1)]
+    return kl_summary, noise_match
+
+
+def summarize(args):
+    held = OUT_ROOT / args.heldout
+    cfg = json.loads((held / "settings.json").read_text())
+    gates, data, kls = load_complete(held, cfg)
+    if not data["ref"]:
+        raise SystemExit("summarize: no complete held-out batch")
+    res = analyze(cfg, data)
+    pids, endpoints = res["pids"], res["endpoints"]
+    kl_summary, noise_match = kl_block(cfg, kls, pids)
+    extension = None
+    if args.extension:
+        ext = OUT_ROOT / args.extension
+        ecfg = json.loads((ext / "settings.json").read_text())
+        core = lambda c: {k: v for k, v in c.items() if k not in ("starts", "start_offset", "prompts_per_batch")}  # noqa
+        if core(ecfg) != core(cfg):
+            raise SystemExit("summarize: the extension's settings differ from the primary run's beyond the starts")
+        egates, edata, ekls = load_complete(ext, ecfg)
+        at = {r["batch"]: i for i, r in enumerate(data["ref"])}
+        merged, used = {v: [] for v in VARIANTS}, []
+        for i, r in enumerate(edata["ref"]):
+            k = r["batch"]
+            if k not in at:
+                continue
+            base = data["ref"][at[k]]
+            if not np.array_equal(base["batch_prompts"], r["batch_prompts"]):
+                raise SystemExit(f"summarize: batch {k} has other prompts in the extension")
+            if set(base["start"].tolist()) & set(r["start"].tolist()):
+                raise SystemExit(f"summarize: batch {k} has overlapping starts in the extension")
+            for v in VARIANTS:
+                merged[v].append(merge_rows(data[v][at[k]], edata[v][i]))
+            used.append(k)
+        extension = {"dir": args.extension, "settings": ecfg, "gates": egates, "batches_merged": used,
+                     "manifests": manifests(ext)}
+        if used:
+            mcfg = dict(cfg, starts=cfg["starts"] + ecfg["starts"])
+            m = analyze(mcfg, merged)
+            ekl, enm = kl_block(ecfg, ekls, m["pids"]) if ekls else (None, None)
+            extension.update({"label": "secondary (decided before held-out data): primary-style analyses on the merged "
+                                       "starts of the primary run and the extension",
+                              "prompts": [int(x) for x in m["pids"]], "starts_per_prompt_and_T": mcfg["starts"],
+                              "endpoints": m["endpoints"], "sensitivity_endpoints": m["sensitivity"],
+                              "class_shares_by_T": m["per_T"], "share_difference_by_T": m["per_T_diff"],
+                              "changes": m["changes"], "one_step_extension_states": ekl, "noise_kl_match": enm})
     # development: reference shares and calibration
     dev = None
     dpath = OUT_ROOT / args.dev
@@ -1369,19 +1445,20 @@ def summarize(args):
         "storage_root": str(OUT_ROOT), "heldout_dir": args.heldout, "dev_dir": args.dev,
         "heldout_prompts_run": [int(p) for p in pids], "heldout_prompts_planned": len(prompt_order("heldout")),
         "units": "prompts (paired over variants); clusters = system prompts",
-        "gates": gates, "class_shares_by_T": per_T, "share_difference_by_T": per_T_diff,
+        "gates": gates, "class_shares_by_T": res["per_T"], "share_difference_by_T": res["per_T_diff"],
         "primary_endpoint": {"definition": "mean over held-out prompts of share_q4 - share_ref; share = fraction of the "
                                            "prompt's starts (all temperatures) in verified period-<=8 orbits",
                              **endpoints["q4_minus_ref"]},
         "secondary_endpoints": {k: e for k, e in endpoints.items() if k != "q4_minus_ref"},
-        "sensitivity_endpoints": sensitivity,
-        "changes": changes, "one_step": kl_summary, "noise_kl_match_heldout": noise_match,
-        "endpoint_sensitivity_adjacent_T_reference": adjacent_T,
+        "sensitivity_endpoints": res["sensitivity"],
+        "changes": res["changes"], "one_step": kl_summary, "noise_kl_match_heldout": noise_match,
+        "endpoint_sensitivity_adjacent_T_reference": res["adjacent_T"], "extension": extension,
         "negative_control": negative, "development": dev, "manifests": manifests(held),
         "weights": json.loads(sorted(held.glob("manifest-*.json"))[0].read_text()).get("weights"),
         "git_summarize": git_state(), "created_utc": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())}
     summary["raw_files"] = file_list(held) + (file_list(dpath) if dev else []) + \
-        [x for rep in args.repeat for x in file_list(OUT_ROOT / rep)]
+        [x for rep in args.repeat for x in file_list(OUT_ROOT / rep)] + \
+        (file_list(OUT_ROOT / args.extension) if args.extension else [])
     write_json(held / "summary.json", summary)
     if args.receipt:
         Path(args.receipt).parent.mkdir(parents=True, exist_ok=True)
@@ -1389,6 +1466,8 @@ def summarize(args):
     e = endpoints["q4_minus_ref"]
     print(json.dumps({"prompts": int(len(pids)), "primary_q4_minus_ref": e["mean"], "ci": e["ci"],
                       "q8": endpoints["q8_minus_ref"]["mean"], "noise": endpoints["noise_minus_ref"]["mean"]}))
+
+
 
 
 def cmd_summarize(args):
@@ -1408,6 +1487,8 @@ def main():
     r.add_argument("--noise-sigma", type=float, help="constant noise sigma (smoke tests only)")
     r.add_argument("--log-t", type=float, nargs="+", help="temperatures (log10 T) instead of the default grid")
     r.add_argument("--starts", type=int, default=8)
+    r.add_argument("--start-offset", type=int, default=0,
+                   help="use start tokens OFFSET .. OFFSET + starts - 1 (extension runs with further starts)")
     r.add_argument("--steps", type=int, default=STEPS)
     r.add_argument("--confirm", type=int, default=CONFIRM)
     r.add_argument("--twin-steps", type=int, default=TWIN_STEPS)
@@ -1428,10 +1509,12 @@ def main():
     s.add_argument("--dev", default="dev")
     s.add_argument("--heldout", default="heldout")
     s.add_argument("--repeat", nargs="*", default=[])
+    s.add_argument("--extension", default=None, help="run directory with further starts of the same held-out batches")
     s.add_argument("--receipt", default=str(ROOT / "docs" / "pi" / "c12-2-summary.json"))
     args = ap.parse_args()
-    if args.cmd == "run" and not (1 <= args.starts <= len(START_TOKENS)):
-        raise SystemExit(f"--starts must lie in 1..{len(START_TOKENS)}")
+    if args.cmd == "run" and not (1 <= args.starts and 0 <= args.start_offset
+                                  and args.start_offset + args.starts <= len(START_TOKENS)):
+        raise SystemExit(f"--start-offset + --starts must lie within the {len(START_TOKENS)} start tokens")
     {"run": cmd_run, "calibrate": cmd_calibrate, "precision": cmd_precision, "compare": cmd_compare,
      "summarize": cmd_summarize}[args.cmd](args)
 
