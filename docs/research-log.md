@@ -26801,3 +26801,19 @@ Over both frozen tests, the continuous integral (the secondary in Task 5, the pr
 - Expected about 45 min (P8L ran at 10 s per cell). Ceiling in the private ledger.
 - Output: llm-soft-loop/pod64/dss/p8l2-band.
 - Approval: the human's 100 top-up, requested for Z128 completion, PT128 and this rerun.
+
+## 2026-10-16 00:14 UTC: Audit of the earlier dss grids for the continuation defect
+
+tools/audit/dss_bfs_audit.py rebuilds the old breadth-first order from each progress.jsonl, in which every converged cell seeded its neighbours. It then flags primitive cells whose chain of parents passes through a cell that slipped onto a divisor-period orbit. Such cells may carry a different orbit.
+
+| grid | cells | primitive | divisor-period | failed | primitive with a slipped ancestor |
+|---|---|---|---|---|---|
+| P2 cascade | 1040 | 1040 | 0 | 0 | 0 |
+| P4 cascade | 1075 | 916 | 124 | 35 | 0 |
+| P8 cascade | 565 | 329 | 202 | 34 | 8 (7 attracting; 7 of the 8 with the seed's token loop) |
+| P8L | 400 | 211 | 185 | 4 | 113 (all with the seed's token loop) |
+
+**Effect on the paper's numbers.**
+- P2 and P4 are unaffected.
+- P8 without its 7 attracting suspect cells: median |mu2|/|mu1| 0.0266 (was 0.0271), median area contraction 0.5040 (0.5034), smallest leading modulus 0.0340 unchanged. Every quoted value (0.027, 0.50, 0.034) stands.
+- P8L: more than half of its solved cells, the rows below the band, were reached through the band of slipped cells. SHC-L2 row 8 overlaps them. If its multipliers agree with P8L's row 8, the lower rows are the same orbit by continuity; if not, they are reported as unverified.
