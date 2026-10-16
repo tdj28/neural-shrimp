@@ -14,6 +14,11 @@ the train split when the test split has too few, and those fillers are not score
           until the readout-gain proxy is at most g (E2); --perturb s displaces the first soft token by a relative s
           along a direction from default_rng(perturb_seed + problem index) (E3).
 
+--save-embeddings stores every soft row's concept tokens (OUT/emb/LAYOUT-BATCH.pt, with the problem indices);
+--replay-from RUN feeds a reference run's saved concept tokens instead of computing them (the mechanism probe of
+consult 11: the fed-back pathway is clamped, while the transformer's batch-dependent arithmetic, the growing cache
+and the answer decoding still run in each layout).
+
 Per row and step it records the top-1 token, its probability, the entropy, the top-2 logit gap / T and, in soft mode,
 the readout-gain proxy: the largest eigenvalue of the covariance of the top-64 token embeddings under the (renormalized)
 distribution, divided by T (power iteration). Writes OUT/records.jsonl (one line per problem and layout) and
@@ -159,8 +164,19 @@ def run(args):
             r = json.loads(line)
             done.add((r["index"], r["layout"]))
     T = max(args.temperature, 1e-6)
+    replay = {}
+    if args.replay_from:
+        for f in sorted((Path(args.replay_from) / "emb").glob("*.pt")):
+            blob = torch.load(f)
+            for r, idx in enumerate(blob["index"]):
+                if idx >= 0 and idx not in replay:
+                    replay[idx] = blob["emb"][r]           # (S, d) bf16
+        if not replay:
+            raise SystemExit(f"no saved concept tokens under {args.replay_from}/emb")
+    if args.save_embeddings:
+        (out / "emb").mkdir(exist_ok=True)
     for layout in args.layouts:
-        batches = make_batches(test, train, tok, layout, args.limit)
+        batches = make_batches(test[args.offset:], train, tok, layout, args.limit)
         t0 = time.time()
         for bi, batch in enumerate(batches):
             if all((r["index"], layout) in done for r in batch if r["scored"]):
@@ -174,6 +190,7 @@ def run(args):
                 del o
                 steps = {"top1": [], "pmax": [], "entropy": [], "gap": [], "gain": [], "temp": []}
                 gen = []
+                embs = []
                 n_steps = args.soft_steps if args.mode == "soft" else args.max_new
                 for t in range(n_steps):
                     Tt = torch.full((B,), T, device="cuda")
@@ -216,11 +233,21 @@ def run(args):
                         steps["gain"].append(g.tolist())
                         steps["temp"].append(Tt.tolist())
                         e = concept_token(torch, q, E, args.top_n).to(torch.bfloat16)  # computed in float32
+                        if replay:                                  # clamp the fed-back pathway to the reference
+                            for r, row in enumerate(batch):
+                                key = row["index"] if row["index"] >= 0 else None
+                                if key is None or key not in replay:
+                                    if row["scored"]:
+                                        raise SystemExit(f"no reference concept tokens for problem {row['index']}")
+                                    continue
+                                e[r] = replay[key][t].to(e.device)
                         if t == 0 and args.perturb:
                             for r, row in enumerate(batch):
                                 rv = np.random.default_rng(args.perturb_seed + max(row["index"], 0)).normal(size=e.shape[1])
                                 d = torch.tensor(rv / np.linalg.norm(rv), device="cuda", dtype=torch.float32)
                                 e[r] = (e[r].float() + args.perturb * e[r].float().norm() * d).to(torch.bfloat16)
+                        if args.save_embeddings:
+                            embs.append(e.detach().cpu())
                         o = model(inputs_embeds=e[:, None, :], past_key_values=past, use_cache=True)
                     else:
                         if args.temperature == 0:
@@ -248,6 +275,9 @@ def run(args):
                         ans_tok.append(nxt.tolist())
                         o = model(input_ids=nxt[:, None], past_key_values=past, use_cache=True)
                         past, z = o.past_key_values, o.logits[:, -1, :].float()
+            if args.save_embeddings and embs:
+                torch.save({"index": [row["index"] for row in batch], "emb": torch.stack(embs, dim=1)},
+                           out / "emb" / f"{layout}-{bi}.pt")
             for r, row in enumerate(batch):
                 if not row["scored"]:
                     continue
@@ -345,6 +375,9 @@ def main():
     r.add_argument("--perturb", type=float, default=0.0)
     r.add_argument("--perturb-seed", type=int, default=1000)
     r.add_argument("--seed", type=int, default=20261016)
+    r.add_argument("--save-embeddings", action="store_true")
+    r.add_argument("--replay-from", default=None, help="feed this run's saved concept tokens (mechanism probe)")
+    r.add_argument("--offset", type=int, default=0, help="skip the first N test problems (fresh problems)")
     r.add_argument("--out", required=True)
     a = sub.add_parser("analyze")
     a.add_argument("runs", nargs="+")
