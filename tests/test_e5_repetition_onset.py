@@ -467,3 +467,21 @@ def test_choices_apply_the_rubric(tmp_path, monkeypatch):
     assert ch["samples"] == (16 if hs["projected_total_hours"] <= 7.0 else 12 if hs["projected_total_hours"] <= 9.5
                              else 8)
     assert hs["projected_loop_hours"] < 3 * 1.0                     # retirement shortens the 3 x 1 h of the full runs
+
+
+def test_buffered_sampler_draws_the_same_tokens():
+    g = torch.Generator().manual_seed(11)
+    z = (torch.randn(64, 3000, generator=g) * 4).to(torch.float32)
+    rng = np.random.default_rng(12)
+    temps = 10.0 ** rng.uniform(-1, 0.5, size=64)
+    s = e5.InverseCDFSampler()
+    for k in range(3):                                  # buffers reused across calls
+        u = rng.random(64)
+        t0, e0 = e5.draw_tokens(z, temps, u, masked=(7, 2999))
+        t1, e1 = s(z, temps, u, masked=(7, 2999))
+        assert torch.equal(t0, t1)
+        assert torch.allclose(e0, e1, rtol=1e-12, atol=1e-12)
+    zz = z.clone()
+    zz[:, :10] = -1e4                                    # underflowing weights at low temperature
+    u = rng.random(64)
+    assert torch.equal(e5.draw_tokens(zz, temps * 0 + 0.1, u, masked=(7,))[0], s(zz, temps * 0 + 0.1, u, masked=(7,))[0])

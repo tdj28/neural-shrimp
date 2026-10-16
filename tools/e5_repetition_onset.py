@@ -355,6 +355,37 @@ def draw_tokens(z, temps, u, masked=MASKED_TOKENS):
     return tok, ent
 
 
+class InverseCDFSampler:
+    """draw_tokens with preallocated float64 buffers and in-place arithmetic: the same operations in the same order
+    (cast, mask, subtract the row maximum, divide by T, exp, cumulative sum, search), hence the same tokens, without
+    allocating fresh (R, V) float64 tensors at every step. The entropy diagnostic is a batched dot product (equal to
+    draw_tokens' to rounding)."""
+
+    def __init__(self):
+        self.buf = None
+
+    def __call__(self, z, temps, u, masked=MASKED_TOKENS):
+        import torch
+        R, V = z.shape
+        if self.buf is None or tuple(self.buf[0].shape) != (R, V):
+            self.buf = tuple(torch.empty((R, V), dtype=torch.float64) for _ in range(3))
+        a, w, c = self.buf
+        a.copy_(z)
+        if masked:
+            a[:, list(masked)] = -math.inf
+        T = torch.as_tensor(np.asarray(temps), dtype=torch.float64)[:, None]
+        a.sub_(a.max(dim=-1, keepdim=True).values).div_(T)
+        torch.exp(a, out=w)
+        torch.cumsum(w, dim=-1, out=c)
+        total = c[:, -1:].clone()
+        v = torch.as_tensor(np.asarray(u), dtype=torch.float64)[:, None] * total
+        tok = torch.searchsorted(c, v, right=True)[:, 0].clamp_(max=V - 1)
+        a.masked_fill_(w == 0, 0.0)
+        wa = torch.bmm(w[:, None, :], a[:, :, None])[:, 0, 0]
+        ent = torch.log(total[:, 0]) - wa / total[:, 0]
+        return tok, ent
+
+
 def sample_uniforms(pid, n_temps, n_samples, n_tokens, seed=SEED_SAMPLES):
     """(n_temps * n_samples, n_tokens) uniforms; row j * n_samples + i is sample i at temperature index j, drawn from
     numpy default_rng((seed, prompt id, j)) as one (n_tokens, n_samples) array."""
@@ -362,7 +393,8 @@ def sample_uniforms(pid, n_temps, n_samples, n_tokens, seed=SEED_SAMPLES):
                            for j in range(n_temps)])
 
 
-def sample_prompt(model, tok, pid, log_t, n_samples, n_tokens, masked=MASKED_TOKENS, seed=SEED_SAMPLES):
+def sample_prompt(model, tok, pid, log_t, n_samples, n_tokens, masked=MASKED_TOKENS, seed=SEED_SAMPLES,
+                  sampler=draw_tokens):
     """Ancestral sampling of n_samples continuations of n_tokens tokens at every temperature for one prompt, in the
     model's dtype, from one shared prefix cache. Returns tokens (n_temps, n_samples, n_tokens) int32, the mean entropy
     of the sampling distributions per sample, the prefix and the first-step logits (float64)."""
@@ -382,7 +414,7 @@ def sample_prompt(model, tok, pid, log_t, n_samples, n_tokens, masked=MASKED_TOK
         cache.batch_repeat_interleave(R)
         z = z0[None].expand(R, -1)
         for k in range(n_tokens):
-            nxt, e = draw_tokens(z, temps, U[:, k], masked)
+            nxt, e = sampler(z, temps, U[:, k], masked)
             toks[:, k] = nxt.numpy()
             ent += e.numpy()
             if k + 1 < n_tokens:
@@ -741,6 +773,7 @@ def settings_of(args, kind):
                     dtype="float64")
     elif kind == "sample":
         base.update(samples=int(args.samples), tokens=int(args.tokens), masked_tokens=list(MASKED_TOKENS),
+                    sampler_impl=args.sampler_impl,
                     seeds={"samples": SEED_SAMPLES}, dtype="float32", sampler="inverse CDF in float64 from float32 "
                     "logits, one uniform per sample and step, no top-k/top-p/repetition penalty")
     return base
@@ -907,7 +940,8 @@ def cmd_sample(args):
             log(event="prompt_exists", prompt=pid)
             continue
         tic = time.perf_counter()
-        res = sample_prompt(model, tok, pid, settings["log_t"], settings["samples"], settings["tokens"])
+        res = sample_prompt(model, tok, pid, settings["log_t"], settings["samples"], settings["tokens"],
+                            sampler=InverseCDFSampler() if settings["sampler_impl"] == "buffered" else draw_tokens)
         z0 = res.pop("z0")
         ent = entropy_record(z0, settings["log_t"])
         fails = gate_samples(res, len(settings["log_t"]), settings["samples"], settings["tokens"], V)
@@ -1314,6 +1348,8 @@ def main():
     sp = sub.add_parser("sample")
     sp.add_argument("--samples", type=int, default=N_SAMPLES)
     sp.add_argument("--tokens", type=int, default=N_TOKENS)
+    sp.add_argument("--sampler-impl", choices=("plain", "buffered"), default="plain",
+                    help="buffered: InverseCDFSampler (same tokens as plain, preallocated buffers)")
     pr = sub.add_parser("precision")
     pr.add_argument("--t-index", type=int, nargs="+", default=[6, 17, 21])
     for p in (lp, sp, pr):
