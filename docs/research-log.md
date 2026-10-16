@@ -26861,3 +26861,31 @@ tools/audit/dss_bfs_audit.py rebuilds the old breadth-first order from each prog
 - If the iteration stalls with the leading modulus near the grid minimum, report that.
 
 **Not a test of the SHC-L rule.** P4L's frozen verdict stays "unresolved".
+
+## 2026-10-16 00:50 UTC: SHC-L2 result: with the fixed continuation the period-8 band is fully solved. The trace-zero curve is one U, the arms do not cross, and the verdict stays unresolved under the frozen rule
+
+**Run.** Pod c2umlo2xcovwgw on COMMUNITY H100 NVL: runner rc 0, job status 0, archive hash verified, terminated and verified gone; wall 2239 s; commit 5b2832d4.
+
+**Grid.** P8L rows 8-16 x 20 columns, 180 cells.
+- 177 records; 173 cells attempted, 4 of them retried from another neighbour.
+- 168 solved, all with the seed's token loop.
+- The only cells not solved lie at or beyond the flip curve at the lower left: 4 on a divisor-period orbit, the rest never reached. That region is genuinely without a period-8 orbit.
+
+**Overlap check.** 57 cells were solved in both P8L and SHC-L2. Their leading multipliers agree to at most 9.0e-11. This includes P8L's row 8, which P8L had reached through slipped cells, so P8L's lower rows are the same continued orbit.
+
+**Combined reading.** The P8L grid, with rows 8-16 taken from SHC-L2, is in pod64/dss/p8l-combined; reading in docs/dss/shc-p8l-combined-window.json, figure docs/dss/shc-p8l-combined.png.
+- 322 of 400 cells solved, all attracting.
+- **Trace checkerboards:** none.
+- **T-D quads:** none.
+- **D:** positive in every cell.
+- **Third multiplier:** at most 5.7e-5 of the second, so the two-dimensional reading holds throughout.
+- **Leading pair:** complex in 95 cells.
+- **Smallest leading modulus:** 0.0456.
+- **Trace-zero curve:** a single U. It runs from the flip boundary at the upper left (-0.1068, 0.1061), down to a lowest point near (-0.1052, 0.1049), and up to the right edge. The pieces seen as two arms on the coarser SHC-P8 grid are its two halves.
+
+**Verdict, by the frozen rule:** unresolved. There is no head, the curve is not a contour closed on the grid, and the arms join instead of separating.
+
+**Plain reading** (with P4L):
+- In both the period-4 and the period-8 cells, the two trace-zero arms are one U-shaped curve at the bottom of the V. They do not cross.
+- In the period-8 cell D > 0 throughout and the reading is two-dimensional to 6e-5.
+- In the period-4 cell D changes sign, and near the bottom of the U the leading pair is not isolated. NIL4 is running for that cell.
