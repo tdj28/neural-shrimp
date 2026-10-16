@@ -1,0 +1,215 @@
+{
+  "scope": "Items 1–2 only: final read of sole completed PM/PM2 independent saved-row audit. No new scoring, bootstrap, model or process audit.",
+  "verdict": "Both original primary criteria confirmed; all 500 published comparison leaves exact. Publication scope/display and extraction limitations require disclosure.",
+  "coverage": {
+    "arms": 19,
+    "original_records": 8192,
+    "within_arm_pairs": 4096,
+    "PM_published_leaves": 187,
+    "PM2_published_leaves": 313,
+    "nonexact_published_leaves": 0,
+    "manufactured_control_groups_passed": 12,
+    "all_pairing_cluster_and_row_dispositions_preserved": true
+  },
+  "actual_binding": {
+    "receipt_sha256": "c44e01a98abdf715d5f0c70301b65375270fc1e164dd36c4a03679f7624e1858",
+    "source_commit": "5be03229167e9c1a27009b6e1b588c297df027cb",
+    "manifest_sha256": "a9dbd667025c9c494b2b935327262635c11e1ec5791f366fa3e8b836eb8b93b4",
+    "outputs_authenticated": [
+      {
+        "path": "/data2/neural-shrimp-data/codex/need-to-audit-20261016/run-001/pm/chronology.json",
+        "bytes": 208151,
+        "sha256": "f1f67e3aca5488971fa5cecf71bc76423610fd2d1a6af912bed800f6c8479637"
+      },
+      {
+        "path": "/data2/neural-shrimp-data/codex/need-to-audit-20261016/run-001/pm/comparisons.json",
+        "bytes": 61792,
+        "sha256": "7c80216d7953abec4901b2ee5d8b2d1af5c93a7c0fb0e498d07e03a3bd965d53"
+      },
+      {
+        "path": "/data2/neural-shrimp-data/codex/need-to-audit-20261016/run-001/pm/controls/manufactured.json",
+        "bytes": 5370379,
+        "sha256": "d93ba0aee530514dc634a4ffbe6f3f870671e6282a7743b65e9db7e554221e37"
+      },
+      {
+        "path": "/data2/neural-shrimp-data/codex/need-to-audit-20261016/run-001/pm/controls/report.json",
+        "bytes": 1368,
+        "sha256": "e8f0367e04a2f4e5f5b4b9d598f318ede692ee82d8504e7f3e95016a393d865e"
+      },
+      {
+        "path": "/data2/neural-shrimp-data/codex/need-to-audit-20261016/run-001/pm/manifest.json",
+        "bytes": 815,
+        "sha256": "a9dbd667025c9c494b2b935327262635c11e1ec5791f366fa3e8b836eb8b93b4"
+      },
+      {
+        "path": "/data2/neural-shrimp-data/codex/need-to-audit-20261016/run-001/pm/report.json",
+        "bytes": 81077,
+        "sha256": "6cf7e88ee641bf6240e738745ccfba2bb67fdec4562b5143413df49a4877bff2"
+      },
+      {
+        "path": "/data2/neural-shrimp-data/codex/need-to-audit-20261016/run-001/pm/row-diagnostics.json",
+        "bytes": 5516417,
+        "sha256": "ebc302359af888bb9a6585f781b1a59ea136df3c91146bf042e03ce420d7d1d3"
+      }
+    ],
+    "lifecycle_attribution": "Inference observed original supervisor/worker closure and tool session1295 reaped0. This presentation only authenticates stored receipt/output hashes."
+  },
+  "saved_literal_evidence": {
+    "path": "/tmp/need-to-audit-20261016-pm-final/saved-review.json",
+    "bytes": 457682,
+    "sha256": "faa662214aa462f8ab25876fbdf5d59cbc0c5709963ef5f5a53f466ee7704fe4"
+  },
+  "scientific_note": {
+    "path": "/tmp/need-to-audit-20261016-pm-final/scientific-review.md",
+    "bytes": 20409,
+    "sha256": "8a026ee38642c94b85446ebad127e673b3410808e29bc10c126ae32b0d2f4add"
+  },
+  "findings": [
+    {
+      "id": "PM2-headline",
+      "priority": "must",
+      "paper_lines": [
+        44,
+        47,
+        141,
+        143
+      ],
+      "chaos_lines": [
+        49,
+        51
+      ],
+      "blog_lines": [
+        10,
+        23,
+        81,
+        82,
+        220,
+        223,
+        1430,
+        1433
+      ],
+      "finding": "A soft flip rate is 37/256=.14453125; C is50/256=.1953125. Lower15% is not the true endpoint or ordinary integer rounding. State14.5% and19.5% as approximate points."
+    },
+    {
+      "id": "accuracy-scope",
+      "priority": "must",
+      "actual_soft_AC_range": [
+        0.85546875,
+        0.8984375
+      ],
+      "actual_both_modes_AC_range": [
+        0.828125,
+        0.91796875
+      ],
+      "actual_soft_including_D_range": [
+        0.85546875,
+        0.91015625
+      ],
+      "finding": "Do not mix soft-only, both-mode or A100 replication extrema."
+    },
+    {
+      "id": "nonsignificance",
+      "priority": "must",
+      "paper_lines": [
+        874,
+        878,
+        915,
+        917
+      ],
+      "finding": "Clear null/equivalence or exclusive causal claims exceed nonsignificant flip contrasts. Accuracy CI and McNemar diagnostics are separate."
+    },
+    {
+      "id": "CI-display",
+      "priority": "must_under_outward_bound_policy",
+      "enclosing_one_decimal_percent_or_pp": {
+        "PM_primary": [
+          16.2,
+          26.1
+        ],
+        "PM_top15_s16_difference": [
+          10.0,
+          19.1
+        ],
+        "PM_greedy_difference": [
+          13.7,
+          23.7
+        ],
+        "PM_top1_difference": [
+          -3.0,
+          10.4
+        ],
+        "PM2_pooled": [
+          27.3,
+          31.9
+        ],
+        "PM2_A_minus_D_soft": [
+          -1.6,
+          6.7
+        ]
+      },
+      "finding": "Exact stored intervals reproduce; preserve them and distinguish approximate rounding from enclosing bounds."
+    },
+    {
+      "id": "marker-sensitivity",
+      "priority": "disclose",
+      "cell": "B-gsm8k/plain",
+      "stored_flips": 103,
+      "marker_diagnostic_flips": 101,
+      "stored_correct_counts": [
+        129,
+        126
+      ],
+      "marker_diagnostic_correct_counts": [
+        130,
+        128
+      ],
+      "affected_correctness_ids": [
+        377,
+        422,
+        957
+      ],
+      "finding": "Separate diagnostic; original frozen endpoint remains unchanged. One affected saved text has566 chars, not ceiling600."
+    },
+    {
+      "id": "suffix-reconstruction",
+      "priority": "limitation",
+      "discrepancies": 9,
+      "all_at_saved_600_character_ceiling": true,
+      "finding": "Cannot recover discarded full text; no automatic overwrite of original stored endpoint."
+    },
+    {
+      "id": "cap-scope",
+      "priority": "must",
+      "paper_lines": [
+        920,
+        922
+      ],
+      "larger_layout_soft_MATH_caps": {
+        "A": [
+          32,
+          64
+        ],
+        "B": [
+          45,
+          64
+        ]
+      },
+      "finding": "Half of all rows is not supported; literal cap summaries concern larger layout."
+    },
+    {
+      "id": "chronology-order",
+      "priority": "finite_basis",
+      "finding": "Design/amendment commits precede recorded starts; failed capacity/cost attempts retained. Original analyzer CLI not attested; saved summary insertion order is disclosed RNG proxy, without order search."
+    }
+  ],
+  "limitations": [
+    "Unblinded arithmetic reproduction, not a new experiment",
+    "No proof of global absence of earlier scoring",
+    "Historical recorded source/archive/termination does not attest all loaded weights",
+    "Suffix and minimal marker handling do not constitute full tokenizer decoding",
+    "No equivalence, unique-cause or native-chaos conclusion",
+    "No producer file edits or raw evidence changes"
+  ],
+  "lifecycle_attribution": "Inference owns direct execution/closure observations. This lane authenticated saved output hashes against receipt/manifest only.",
+  "parent_review_status": "Root fully read and accepted scientific-review.md SHA8a026ee3, including frozen criteria, contrary results, suffix limitations and RNG/authority distinctions. This does not assert manual reading of the full detailed coverage JSON."
+}

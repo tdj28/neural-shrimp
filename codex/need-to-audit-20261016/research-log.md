@@ -17,3 +17,7 @@ Root accepted exact PM12/damping9/Root6 integrated controls once and saved arith
 ## Selective-only recovery — 2026-10-16T22:10:08.470640+00:00
 
 Original PM and damping lanes completed and closed. Original Root lane completed seven components and preserved C12-1 KeyError(S) when compact published rate fields were encoded in keys. Exact source amendment parses and validates the source key; formulas/seeds/groups unchanged. Root and Boundary reviewed it. One selective-only recovery with six tiny controls is admitted; all original output/failure bytes remain. No completed component or other lane is repeated. Exact card/source/input limits and closure prerequisites are in operation-recovery-002.json.
+
+## 2026-10-16T22:22:30.710879Z — bounded audit final acceptance
+
+All admitted saved-data lanes and the selective-only schema recovery are closed. Root accepted final-report.md and the three lane notes; item14 remains unfinished/unaudited. Final evidence/acceptance are recorded locally. No more computation or ongoing watch; one authorized standalone private Claude note remains for closeout.
