@@ -168,7 +168,9 @@ system; Section~\ref{sec:beyond} also measures how much of the mechanism survive
   than with one, and in Soft Thinking's growing context a tiny early perturbation grows exponentially inside its
   one-token chaotic band, though not in every model. The organization recurs across families, and size does not set
   the chaos: across fifteen models from 0.5B to 72B, a larger model's chaos can move to higher temperature instead of
-  vanishing. Two loops writing one text lock each other into periodic orbits: 60\,\% of pairs of differently steered
+  vanishing. Resolved through the stack, the network damps a change of the fed-back token more strongly in the larger
+  Qwen2.5 and Llama-3 models, because the change falls behind the growing residual stream; a mixture of experts with
+  3B of its 35B parameters active per token damps more than a dense 9B model of its family. Two loops writing one text lock each other into periodic orbits: 60\,\% of pairs of differently steered
   0.5B agents that are each chaotic alone are periodic together (twelve such orbits verified by Newton's method). In a
   second system, the recurrent-depth model Huginn, a spectral estimate ranks held-out questions by the size of their
   residual under relaxation, and a frozen generation test confirms the predicted accuracy loss at relaxation 1.20 and
