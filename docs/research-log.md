@@ -27503,3 +27503,16 @@ At T 1.2 and alpha -0.05, 1e-10 twins change 97.5 % of answer texts.
 - Qwen2.5-1.5B unsteered: log10 T = 0.657, the upper sweep's chaotic range at nearly uniform distributions, exponent 0.576.
 
 **Receipts.** docs/chaos-texts/qwen0.5b-philosophy.json and qwen1.5b-philosophy.json. Only cells that pass the chaotic label are used as chaos examples.
+
+## 2026-10-16 08:27 UTC: E4 pilot results (ordinary chain-of-thought decoding, Qwen2.5-7B-Instruct bf16, first 400 GSM8K test problems, layouts 8 vs 16, at most 320 new tokens)
+
+Both arms completed: 400 problem pairs each, every problem in both layouts. Receipt: docs/pi/e4-pilot-summary.json.
+
+| arm | answer flips | 95 % interval | texts diverged | median divergence | accuracy (8 / 16) |
+|---|---|---|---|---|---|
+| greedy | 24/400 (6.0 %) | [4.1, 8.8] | 284/400 | token 112.5 | 86.5 / 86.25 % |
+| sampled, T 0.7, top-p 0.95, common random numbers | 40/400 (10.0 %) | [7.4, 13.3] | 379/400 | token 64 | 85.75 / 85.5 % |
+
+**Against E1 (soft thinking, same model and problems).** Soft thinking flips 16.3 % (greedy top-1) to 26.0 % of answers at about 21 % accuracy, against 6.0 % at 86.5 % for greedy CoT.
+
+**Reading.** Ordinary decoding diverges in text under a batch change about as often as soft thinking, or more, but the answer survives most divergences. Soft thinking with this non-reasoning model changes answers 3-4 times as often.
