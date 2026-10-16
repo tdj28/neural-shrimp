@@ -1195,6 +1195,16 @@ def summarize(args):
            for v in VARIANTS}
     for v in VARIANTS:
         cat[v]["lead"] = np.concatenate([r["lead"] for r in data[v]], axis=1)
+
+    def orbit_distance(rv, rr):
+        """min over the reference's last N_ATTRACTOR states x_k of |x_end(variant) - x_k| / |x_k| (phase-free)."""
+        att = rr["kept_steps"] > cfg["steps"] + cfg["confirm"] - N_ATTRACTOR
+        K = rr["kept"][att]                                                  # (N_ATTRACTOR, B, d)
+        dist = np.linalg.norm(rv["x_end"][None] - K, axis=-1) / np.linalg.norm(K, axis=-1)
+        return dist.min(axis=0)
+
+    for v in VARIANTS:
+        cat[v]["orbit_dist"] = np.concatenate([orbit_distance(rv, rr) for rv, rr in zip(data[v], data["ref"])])
     ref = cat["ref"]
     pids = np.array(sorted(set(ref["prompt"].tolist())))
     clusters = pids // 8
@@ -1263,6 +1273,8 @@ def summarize(args):
         per_change = (vc == 0) & (rc == 0) & (vp != rp)
         changed = cls_change | per_change
         orbit = (vc == 0) & (rc == 0) & (vp == rp) & np.any(vy != ry, axis=1)
+        same = (vc == 0) & (rc == 0) & (vp == rp)
+        od = cat[v]["orbit_dist"][same]
         agree = (cat[v]["lead"] == ref["lead"]).mean(axis=0)
         first = np.where((cat[v]["lead"] != ref["lead"]).any(axis=0), (cat[v]["lead"] != ref["lead"]).argmax(axis=0) + 1,
                          0)
@@ -1273,6 +1285,10 @@ def summarize(args):
                                         "prompt_mean": interval_block(per_prompt, clusters)},
             "class_changed": int(cls_change.sum()), "period_changed_both_periodic": int(per_change.sum()),
             "same_period_other_orbit": int(orbit.sum()),
+            "same_period_orbit_distance": None if not same.any() else {
+                "rows": int(same.sum()), "median": float(np.median(od)), "p90": float(np.quantile(od, 0.9)),
+                "max": float(od.max()), "above_0.1": int((od > 0.1).sum()), "above_0.5": int((od > 0.5).sum()),
+                "definition": "min over the reference's last 8 orbit states x_k of |x_end(variant) - x_k| / |x_k|"},
             "both_periodic": int(((vc == 0) & (rc == 0)).sum()),
             "transitions": {f"{CLASS_NAMES[a]}->{CLASS_NAMES[b]}": int(((rc == a) & (vc == b)).sum())
                             for a in range(3) for b in range(3) if a != b},
