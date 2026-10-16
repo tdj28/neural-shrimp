@@ -27257,3 +27257,34 @@ The clean condition completed: 800 s, periods 0, 3 and 5. The run then stopped a
 - **Clean exponents over the offsets 1e-12 to 1e-4:** chaotic +0.092 to +0.099; period 3 -0.123 to -0.128; strongly contracting -0.843 to -0.862. No merges.
 - **Fix:** split at the first "-" only. A --resume option keeps the finished conditions, after checking that the settings, cells and offsets match.
 - The four remaining conditions are rerun into the same file.
+
+## 2026-10-16 05:25 UTC: PIF64-H results (float64 horizon over temperature and steering, Qwen2.5-7B, first 200 GSM8K problems)
+
+**Runs.** Pods ipcxasbk3x2jjt (T 0.6 and 0.85) and 2x0iz3gqknl9ys (T 1.2 and 1.7), H100 NVL community, commit ae71c377 (from the orchestrator logs).
+- Each pod ran 1200 units (6 configurations x 200 problems) in about 2630 s.
+- Both were verified terminated, and the results.tgz hashes match the runner's (07a3bf85..., 77026bc7...).
+- Every configuration has 200 records without duplicates (gate checked).
+- Receipt: docs/pi/pif64h-grid.json (tools/pi_f64_analyze.py --grid).
+
+**Unsteered (alpha = 0).** The pipeline contracts at every temperature up to T = 1.7.
+- Twins at 1e-10 pass 1e-3 on 0, 0.5, 0 and 4.5 % of problems (T 0.6, 0.85, 1.2, 1.7); median net rate -0.16, -0.12, -0.10, -0.06 per step.
+- Answer texts change on 0, 0, 0 and 4.0 %.
+- Twins at 1e-3: answer texts change on 1.5, 2.0, 3.0 and 8.5 %.
+- Accuracy after 128 soft steps: 47.5, 44.5, 47.0 and 44.0 %, against 18 % after 64 steps in PIF64 on all 1319 problems.
+
+**Steered along hostility-vs-kindness at block 14 (alpha = 0.05 and 0.1).** The pipeline expands.
+- Twins at 1e-10 pass 1e-3 on 20.5-53.5 % of problems, at median crossing steps of 33-79; median net rate +0.02 to +0.08 per step.
+- Answer texts change on 3.0-27.5 % (the most at T 1.2, alpha 0.05); twins at 1e-3 change them on 36.5-89 %.
+- The task breaks at these strengths. Accuracy is 0-2 %; the outputs are degenerate (for example "The answer is N." followed by unrelated text, or rows of dots); numeric answers number 7-87 %.
+- Among numeric base answers, 1e-10 twins change the text on 0-50 % (for example 37/152 at T 1.2, alpha 0.05).
+
+**Interpretation (exploratory).** In the practical pipeline, steering rather than temperature moves the loop into the regime where a 1e-10 perturbation decides the output. The steering strengths tested are strong enough to break the task, so the practically relevant question is weaker steering.
+
+## 2026-10-16 05:25 UTC: Amendments, decided before any data at weaker steering
+
+**PIF64-H2 (two pods).**
+- T in {0.6, 1.2} x alpha in {-0.05, -0.02, 0.01, 0.02, 0.03}; negative alpha points toward kindness.
+- Otherwise as PIF64-H: 200 problems, top-n 15, 128 soft steps, twins at 1e-10, 1e-6 and 1e-3.
+- Question: does steering that keeps the task working already expand the loop?
+
+**Run H (bf16, local GPU; not started).** The grid changes to T in {0.6, 1.2} x alpha in {-0.02, 0, 0.01, 0.02, 0.03, 0.05}, so every bf16 configuration has a float64 counterpart.
