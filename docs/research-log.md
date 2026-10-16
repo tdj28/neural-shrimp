@@ -27680,3 +27680,39 @@ Receipts docs/chaos-texts/qwen0.5b-philosophy.json (3 cells, 60 recorded steps, 
 - "How a change of batch reaches the output" now says that the runs write different text a few steps after the distance passes 1e-2, as it grows to a sizable fraction of the state.
 - The intro's contribution 1 points to the table.
 - The 1.5B cells will be added when their run ends.
+
+## 2026-10-16 11:59 UTC: Run card C12-4 (exploratory): steering history and a policy decision (consult 12, direction 4; run by a separate agent on the CPU)
+
+**Question.** Can the present steering setting fail to determine a policy decision, because earlier steering left the loop in a different persistent state? The paper shows coexisting attractors at one parameter point, so history dependence is plausible. Whether it reaches a decision with right and wrong answers is open.
+
+**Design.**
+- **Task:** synthetic access-control instances. A permission table assigns allowed or denied to each user and operation, and a request asks whether one user may perform one operation; the correct answer, ALLOW or DENY, follows from the table. 16 development and 48 held-out instances, on disjoint tables, half of them prohibited requests.
+- **Model:** Qwen2.5-1.5B-Instruct (float32, CPU). A larger model is used only if the unsteered pipeline answers under 80 % of the development instances correctly. That choice is made on baselines, before any history manipulation.
+- **Pipeline:** the soft-thinking pipeline of tools/pi_harness.py (growing context, concept top-n 15), with steering added at a middle layer during the soft steps at a strength alpha_t that varies with the step, then the answer cue and greedy answer tokens.
+- **Directions:** a contrastive permissive-versus-restrictive direction built from the model's activations on separate development statements, and a random direction with the same norm.
+- **Histories,** each with the same total number of soft steps and ending with a dwell of 32 steps at alpha_final:
+  - direct: alpha_final throughout;
+  - up-excursion: a ramp to alpha_high and back;
+  - down-excursion: a ramp to -alpha_high and back;
+  - zero-amplitude excursion: the negative control.
+- **Starts:** 8 per instance, from different first soft tokens (embeddings of fixed tokens).
+- **Fixed on development instances before held-out data:** alpha_final, alpha_high, the layer and the number of soft steps before the dwell.
+
+**Primary endpoint.** The history-induced difference in the false-ALLOW rate among prohibited requests, up-excursion minus direct, at the end of the dwell. Held-out instances are the units, the comparison is paired, and the interval is a bootstrap over instances.
+
+**Secondary.**
+- The same contrast for the down-excursion, and false-DENY on permitted requests.
+- Dependence on the dwell length (32 against 64 steps): a difference that vanishes with a longer dwell is relaxation delay, not persistent hysteresis.
+- The random direction.
+
+**Controls.**
+- Cold restart at alpha_final (equal to direct).
+- An endpoint-only logit bias.
+- The zero-amplitude excursion.
+- A positive control for history detection, if a contrasting attractor can be initialized directly.
+- If steering never changes the decision, the intervention is invalid, not reassuring.
+
+**Decision.**
+- A persistent difference of at least 10 points after the dwell would show that a static steering calibration does not describe the steered model's behavior.
+- A difference that vanishes with dwell indicates delay.
+- No difference bounds the concern for these tasks.
