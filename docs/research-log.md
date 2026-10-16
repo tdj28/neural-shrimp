@@ -27957,3 +27957,19 @@ Run by a separate agent, CPU float64. Tool tools/c12_hidden_readouts.py (14 test
 - 6 cells reached a coexisting attractor on the CPU and were excluded.
 
 **Reading.** The visible text does not record the state, but in these readouts the hidden differences only shift probabilities, within the margins of the greedy answers. That is an observability limit, not a behavioral failure, for these queries. One model, one line, three steering-dominated queries.
+
+## 2026-10-16 19:05 UTC: Run H results (stability horizon of soft thinking, bf16, local GPU), joined with the float64 twins (PIF64-H/H2)
+
+**Setup.** Qwen2.5-7B-Instruct, soft thinking with top-15, 200 GSM8K test problems, layouts 8 and 16, answer readouts after S = 2..128 soft steps. The 12 configurations are T in {0.6, 1.2} x alpha in {-0.02, 0, 0.01, 0.02, 0.03, 0.05} along hostility-vs-kindness at block 14. All 12 exited 0. Receipt docs/pi/h-horizon-summary.json (tools/pi_horizon_analyze.py, joined with explore/pi/pif64h).
+
+**Results.**
+- **Agreement decays with soft steps.** Answer agreement between the two layouts falls from 0.90-0.96 at S = 2 to 0.51-0.70 at S = 128 in every configuration. Unsteered: 0.93 to 0.685 (T 0.6) and 0.945 to 0.67 (T 1.2).
+- **Horizon.** Among problems whose layouts split, the median first readout with different answer text is step 8 (4-16). 5 to 41 problems never split.
+- **Steering lowers both agreement and accuracy.** At alpha 0.03-0.05, agreement at S = 128 is 0.53-0.64 and accuracy 0.005-0.06, against 0.47-0.49 unsteered.
+- **The float64 twins separate the two regimes.**
+  - Unsteered and weakly steered (|alpha| <= 0.02): 1e-10 twins change 0 to 1.5 % of answers and 1e-6 twins at most 3.5 %. The float64 loop contracts, so the bf16 layout flips there are rounding at weakly held answers carried forward by the feedback.
+  - At alpha 0.05: 1e-10 twins change 13.5 % (T 0.6) and 27.5 % (T 1.2) of answers, and 1e-3 twins 82.5 % and 89 %. At alpha 0.03, T 1.2, the 1e-10 twins change 2 %. Strong steering makes the float64 loop itself sensitive, where accuracy is already near zero.
+
+**Reading.**
+- In the useful regime (accuracy 20-49 %), layout dependence accumulates over the first tens of soft steps, without float64 chaos.
+- Steering strong enough to make the float64 loop sensitive also destroys accuracy.
