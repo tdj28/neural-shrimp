@@ -1034,6 +1034,8 @@ def analyze_split(loops, samples, prompts, log_t, window, qmax, h_target, n_boot
                      "median_tail_length_by_T": [float(np.median(tail[j])) for j in range(len(log_t))],
                      "fraction_period_up_to_48_by_T": [float(f) for f in (qd > 0).mean(axis=1)],
                      "fraction_tail_at_least_64_by_T": [float(f) for f in (tail >= 64).mean(axis=1)],
+                     "fraction_window64_by_T": [float(f) for f in (smallest_period(toks, 64, min(qmax, 63)) > 0)
+                                                .mean(axis=1)],
                      "first_irregular_index": next((j for j, lab in enumerate(lp["labels"]) if lab == "irregular"),
                                                    None),
                      "virtual_retirement_mismatches": lp["virtual_retirement_mismatches"],
