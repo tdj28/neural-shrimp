@@ -2388,7 +2388,8 @@ every number we report belong to particular weights; a second checkpoint of the 
 different attractors (Appendix~\ref{sec:scale}). Size gives no guarantee of stability (Section~\ref{sec:sizemain}), hard
 routing in mixture-of-experts models falls outside the smooth theory of Section~\ref{sec:theory} (no expert switched
 along our float64 orbits, but in low precision routing can), and deployed
-inference samples tokens, in low precision, over long contexts. Closed models permit none of these computations, which
+inference samples tokens, in low precision, over long contexts; an 8-bit weight quantization that changes next-token
+distributions by only 0.003 nats sends one start in seven to a different attractor (Appendix~\ref{sec:behaviour}). Closed models permit none of these computations, which
 need the input embeddings, full next-token distributions and derivatives; for them the method and the questions
 transfer, not the numbers.
 
@@ -2807,6 +2808,27 @@ the target. Here the loop's sensitivity comes without selective control. The tes
 contracts for most problems (on the development problems 10 and 38\,\% of twins expanded, with median rates of
 $-0.131$ and $-0.058$ per step), where the pipeline still answers correctly, and the doses and the optimizer were
 chosen on the development problems (\texttt{docs/pi/c12-1-summary.json}).
+
+\paragraph{Weight quantization and the attractors.} Deployed models are often quantized, and quantization is usually
+checked one step at a time, by how close the quantized model's next-token distributions stay to the original's. An
+exploratory test asked whether that check certifies the closed loop. We quantized every linear weight of the decoder
+blocks of Qwen2.5-0.5B-Instruct, either in 8-bit blocks (as the Q8\_0 format of llama.cpp) or in symmetric 4-bit
+blocks, and kept the arithmetic in float64. The unsteered loop then ran on 48 held-out prompts, at 8 temperatures over
+$\log_{10}T\in[-0.5,0.5]$, from 2 starts each. A frozen random logit bias, scaled so that its one-step divergence
+matches the 8-bit variant's, served as an unstructured control.
+\begin{itemize}
+  \item \emph{8-bit.} The one-step distributions stay close: on the reference's attractor states the mean
+  Kullback--Leibler divergence is 0.0028 nats, and the most probable token agrees in 94.5\,\% of states. The share
+  of starts that end on a periodic orbit of period at most 8 is unchanged ($+1.2$ points, 95\,\% interval
+  $[-1.9,4.2]$). Yet 14.1\,\% of the starts end in a different class or period, as do 15.0\,\% under the random
+  bias of the same one-step size. These changes concentrate at the temperatures where the attractors change.
+  \item \emph{4-bit.} The share rises by 6.8 points ($[2.6,11.0]$), mostly because the edge of a chaotic band
+  turns periodic. Its one-step distributions, however, are far from the original's: the mean divergence is 0.83 nats,
+  and the most probable token agrees in only 52\,\% of states.
+\end{itemize}
+In this model, then, a one-step check certifies the statistics of the closed loop but not the attractor that an
+individual run reaches. We found no effect of quantization beyond that of unstructured noise of the same one-step size
+(\texttt{docs/pi/c12-2-summary.json}).
 
 \section{Bifurcation curves and cusps}
 \label{sec:curves}
