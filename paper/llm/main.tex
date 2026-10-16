@@ -911,9 +911,9 @@ prediction of more than 5\,\%.
   feedback in bfloat16, not to continuous thinking.
   \item On an A100 instead of an H100, the first model's soft rate was 11.7\,\% (difference 2.7 points,
   $[-1.6,6.6]$).
-  \item Accuracy was lower, and flips more frequent, where the budgets cut the reasoning short: 61 and 67\,\% on
-  MATH-500, where half of the rows reached the thinking cap, and 37.5\,\% for DeepSeek-R1-Distill-Llama-8B on GSM8K,
-  which answered 49 to 54\,\% of the problems.
+  \item Where the budgets cut the reasoning short, accuracy was lower and the layout changed more answers: 61 and
+  67\,\% of the answers on MATH-500, where half of the rows reached the thinking cap, and 37.5\,\% for
+  DeepSeek-R1-Distill-Llama-8B on GSM8K, which answered 49 to 54\,\% of the problems correctly.
 \end{itemize}
 The Cold Stop rule of the Soft Thinking paper, which ends thinking when its entropy stays low, was not used
 (\texttt{docs/pi/pm2-summary.json}).
