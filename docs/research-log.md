@@ -27924,3 +27924,36 @@ Problems, arms, endpoints, predictions and analysis are unchanged. Cost plan and
   - a reduced scalar map built from the model, compared with the full map in periods, multipliers, fold locations, the cascade's ratios and the Lyapunov exponent, with the discrepancies stated.
 
 **Output.** Receipts in docs/e2e/; figures; draft paper text for the main session to integrate. Exploratory; every claim is tested quantitatively against the full map (AGENTS.md: "Test heuristic models quantitatively").
+
+## 2026-10-16 18:40 UTC: C12-5 results (hidden chaos and downstream readouts): no label disagreement; the hidden differences move answer probabilities but stay inside the greedy margins
+
+Run by a separate agent, CPU float64. Tool tools/c12_hidden_readouts.py (14 tests) at d801104b; choices at 8d62fbb2, committed before held-out data. Receipt docs/pi/c12-5-summary.json (95b053f0).
+
+**Setup.**
+- 92 of 98 held-out band-chaos cells qualify: all 16 states of a cell share an identical 70-step visible history, CPU exponents are 0.0030 to 0.093, and no state period.
+- The states are read through the steered prefix, then a follow-up user turn and 8 greedy tokens.
+- Three queries were chosen on development cells by in-format share:
+  - yes/no, few-shot "Was your last message hostile?";
+  - a one-word mood answer, with an open quote;
+  - a 1-10 hostility rating.
+
+**Primary.** The label disagreement share is 0 for all three queries in all 92 cells (bootstrap [0, 0]). A post-run one-sided Clopper-Pearson bound puts at most 3.2 % of cells with any disagreement.
+
+**Secondary.**
+- **Wording:** the yes/no wording changed (" No, that's a lie." against " no") in 9 cells, a mean share of 0.042.
+- **Visible-token reference:** reading the common visible token as a hard token instead of the soft state changed the mood label in 12 of 92 cells ("fuck"/"stupid" against "control").
+
+**Controls.**
+- Negative: a readout recomputed in another layout gives 0 differences.
+- Periodic: period-7 cells give 0 differences.
+- Positive: the probability of a fixed token differs at 6 digits in 98-99 % of pairs and in all 92 cells, so the readout sees the latent differences.
+
+**Distance.** The probability differences rise with state distance (median within-cell Spearman >= 0.9989). Smallest top-2 gaps between different labels: 0.14 nats (mood), 0.79 (rating). Within-cell ranges are 0.040 and 0.24.
+
+**Deviations.**
+- One amendment of the query list after dev-1: the steered model answered off format.
+- Steering stays on during readouts.
+- Post-hoc descriptive bounds and margins.
+- 6 cells reached a coexisting attractor on the CPU and were excluded.
+
+**Reading.** The visible text does not record the state, but in these readouts the hidden differences only shift probabilities, within the margins of the greedy answers. That is an observability limit, not a behavioral failure, for these queries. One model, one line, three steering-dominated queries.
