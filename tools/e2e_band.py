@@ -194,10 +194,23 @@ def census(args):
         starts[name] = np.load(path).reshape(-1)
     rng = np.random.default_rng(args.seed)
     rows = []
+    pre_info = {}
     for alpha, log_t in cells:
         cell = model.cell(alpha, log_t)
-        names = list(starts)
-        X0 = np.array([cell.start if starts[n] is None else starts[n] for n in names])
+        local = dict(starts)
+        for spec in args.prestart:            # NAME=dlogT: the attractor reached from the fixed start at the same
+            name, dlt = spec.split("=")       # alpha and log10 T + dlogT (e.g. inside a stripe above the band)
+            other = model.cell(alpha, log_t + float(dlt))
+            xs = other.Fp(other.start, args.prestart_steps)
+            pts = other.orbit_points(xs, 49)
+            d = [float(np.linalg.norm(pts[q] - xs) / np.linalg.norm(xs)) for q in range(1, 49)]
+            pre_info[f"{name}@{alpha},{log_t}"] = {"at": [alpha, log_t + float(dlt)],
+                                                   "period": next((q for q, dq in enumerate(d, 1) if dq < 1e-8), 0),
+                                                   "loop": loop_label(model, other.probs(np.array(pts[:48])))}
+            print(json.dumps({"prestart": name, **pre_info[f"{name}@{alpha},{log_t}"]}, ensure_ascii=False), flush=True)
+            local[name] = xs
+        names = list(local)
+        X0 = np.array([cell.start if local[n] is None else local[n] for n in names])
         B = len(names)
         tic = time.perf_counter()
         X = X0.copy()
@@ -229,7 +242,8 @@ def census(args):
             print(json.dumps(rec, ensure_ascii=False), flush=True)
         np.save(out / f"final-a{alpha:.6f}-t{log_t:.6f}.npy", hist[-48:])
         print(json.dumps({"cell": [alpha, log_t], "seconds": round(time.perf_counter() - tic, 1)}), flush=True)
-        (out / "census.json").write_text(json.dumps({"args": vars(args), "rows": rows}, indent=1, ensure_ascii=False))
+        (out / "census.json").write_text(json.dumps({"args": vars(args), "prestarts": pre_info, "rows": rows}, indent=1,
+                                                    ensure_ascii=False))
 
 
 def main():
@@ -254,6 +268,8 @@ def main():
     s = sub.add_parser("census")
     s.add_argument("--cells", type=float, nargs="+", required=True, help="alpha log10T pairs")
     s.add_argument("--starts", nargs="*", default=[], help="NAME=path.npy (one state each)")
+    s.add_argument("--prestart", nargs="*", default=[], help="NAME=dlogT: start on the attractor of a nearby cell")
+    s.add_argument("--prestart-steps", type=int, default=1500)
     s.add_argument("--transient", type=int, default=2000)
     s.add_argument("--steps", type=int, default=1000)
     s.add_argument("--record", type=int, default=96)
