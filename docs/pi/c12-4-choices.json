@@ -91,9 +91,32 @@
       "88": 0.7578125,
       "96": 0.7734375
      }
+    },
+    {
+     "model": "qwen3b",
+     "T": 0.6,
+     "accuracy_by_S": {
+      "0": 0.75,
+      "8": 0.796875,
+      "16": 0.828125,
+      "24": 0.875,
+      "32": 0.8515625,
+      "44": 0.8828125,
+      "56": 0.84375,
+      "64": 0.8359375,
+      "76": 0.828125,
+      "88": 0.8125,
+      "96": 0.8359375
+     }
     }
    ],
-   "model": null,
+   "model": "qwen3b",
+   "temperature": 0.6,
+   "ramp": 8,
+   "hold": 8,
+   "P": 24,
+   "S_primary": 56,
+   "accuracy": 0.84375,
    "table": [
     {
      "model": "qwen1.5b",
@@ -134,8 +157,27 @@
      "P": null,
      "S_primary": null,
      "accuracy": null
+    },
+    {
+     "model": "qwen3b",
+     "T": 0.6,
+     "model_ok": true,
+     "ramp": 8,
+     "hold": 8,
+     "P": 24,
+     "S_primary": 56,
+     "accuracy": 0.84375
     }
    ]
   }
- }
+ },
+ "model": "qwen3b",
+ "temperature": 0.6,
+ "rendering": "rows",
+ "mask_special": true,
+ "ramp": 8,
+ "hold": 8,
+ "P": 24,
+ "dwell": 32,
+ "dwell_secondary": 64
 }
