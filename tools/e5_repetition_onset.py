@@ -1245,6 +1245,31 @@ def cmd_summarize(args):
     print(json.dumps({"receipt": args.receipt, "raw_files": len(files)}))
 
 
+def cmd_compare(args):
+    """Bitwise comparison of the sampled token arrays of two sampling runs, for the prompts they share (a repeat run
+    with the same seeds must give identical tokens; so must the buffered sampler). Writes compare-<a>.json into b."""
+    a, b = OUT_ROOT / args.a, OUT_ROOT / args.b
+    rows = []
+    for fb in sorted(b.glob("samples-p[0-9][0-9].npz")):
+        fa = a / fb.name
+        if not fa.exists():
+            continue
+        za, zb = np.load(fa, allow_pickle=False), np.load(fb, allow_pickle=False)
+        same_shape = za["tokens"].shape == zb["tokens"].shape
+        rows.append({"file": fb.name, "tokens_bitwise_identical": bool(same_shape and
+                                                                       np.array_equal(za["tokens"], zb["tokens"])),
+                     "differing_samples": int((za["tokens"] != zb["tokens"]).any(-1).sum()) if same_shape else None,
+                     "entropy_max_abs_diff": float(np.abs(za["mean_entropy"] - zb["mean_entropy"]).max())
+                     if same_shape else None,
+                     "seconds": [float(za["seconds"][0]), float(zb["seconds"][0])]})
+    if not rows:
+        raise SystemExit("compare: no common sample files")
+    res = {"a": args.a, "b": args.b, "files": rows,
+           "all_identical": all(r["tokens_bitwise_identical"] for r in rows), "git": git_state()}
+    write_json(b / f"compare-{Path(args.a).name}.json", res)
+    print(json.dumps(res, indent=1))
+
+
 def projected_loop_row_steps(retire_step, twins, transient, measured, m=len(EPS)):
     """Row-steps of a loop batch with real retirement, projected from a run's (virtual) retirement steps: a cell is
     iterated until its retirement step (or to the end), with m extra twin rows over the measured steps if it has
@@ -1376,9 +1401,12 @@ def main():
     ch.add_argument("--loop-runs", nargs="+", required=True)
     ch.add_argument("--sample-runs", nargs="+", required=True)
     ch.add_argument("--out", default=str(CHOICES))
+    cp = sub.add_parser("compare", help="bitwise comparison of two sampling runs")
+    cp.add_argument("--a", required=True)
+    cp.add_argument("--b", required=True)
     args = ap.parse_args()
     {"loop": cmd_loop, "sample": cmd_sample, "precision": cmd_precision, "analyze": cmd_analyze,
-     "summarize": cmd_summarize, "choices": cmd_choices}[args.command](args)
+     "summarize": cmd_summarize, "choices": cmd_choices, "compare": cmd_compare}[args.command](args)
 
 
 if __name__ == "__main__":
