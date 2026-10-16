@@ -1680,18 +1680,9 @@ Is the chaos of the loop a small-model effect that larger models leave behind? W
 fifteen models: Qwen2.5 at seven sizes from 0.5B to 72B parameters, OLMo-2 at 1B, 7B, 13B and 32B, Llama-3.1 at 8B
 and 70B, Llama-3.3-70B, and the mixture of experts Qwen3.5-35B-A3B, all with the paper's prefix and the settings of
 Appendix~\ref{sec:methods} (1000 transient and 2000 measured steps in float64; chaotic: an exponent above $10^{-3}$ and
-no detected period, which is what ``positive'' abbreviates below). We evaluate the stored checkpoint values in
-float64: the dense checkpoints store bfloat16 weights (checked against their safetensors metadata), and the mixture of
-experts stores some tensors in float32, which we restore exactly; float64 does not make the weights more precise than
-stored. The newer sweeps keep the decoder weights in bfloat16 and convert them on use, which gives the same map as
-converting them once (bitwise on Qwen2.5-0.5B); the 70B-class models are spread over two GPUs. In those two-GPU runs the final
-RMS normalization was computed in float32: the hooks that move tensors between the GPUs keep a layer's original code,
-so our float64 version of that layer was bypassed. This makes the computed map rough at about $10^{-8}$ of the
-state (its fixed points wander by $10^{-8}$, against $10^{-15}$ on one GPU) and can matter for exponents measured
-with perturbations of $10^{-6}$ and below. We found and fixed it at the end of the study. The affected runs are those on
-two GPUs before the fix: the 70B-class sweeps and their plateau tests (Appendix~\ref{sec:size}), the first Qwen2.5-72B prompt test, the 70B
-steering maps and zoom, the gain splits of the 70B-class models, and the start-state test, which spread all fourteen
-models over two GPUs. Appendix~\ref{sec:size} says which results we recomputed. The 7--8B
+no detected period, which is what ``positive'' abbreviates below). The stored checkpoint values are evaluated in
+float64 (Appendix~\ref{sec:methods}, ``Precision''), and the 70B-class models, spread over two GPUs, were recomputed
+where an earlier two-GPU computation was less precise (Appendix~\ref{sec:size}). The 7--8B
 and 70B-class models had shown a steep decline of chaos with size. Before measuring the others we fixed three
 predictions that extrapolate it (\texttt{docs/scaling-predictions.md}): within each family, every model above 8B is
 less chaotic than the family's 7--8B model (P1); the chaotic share does not increase with size above 7B (P2); and at
@@ -2215,8 +2206,16 @@ The released checkpoints store their weights in bfloat16, and a bfloat16 number 
 converting the weights is exact. For large models the decoder's linear weights stay in their stored bfloat16 and are
 converted to float64 at each use, which gives the same map as converting them once (bitwise on Qwen2.5-0.5B). The
 designated float64 computations use the patched normalization and rotary paths; some diagnostic traces, such as the
-step records of the gain split, are serialized in float32, as recorded in their artifacts. The historical two-GPU runs,
-whose final normalization was computed in float32, are identified separately in Section~\ref{sec:sizemain}.
+step records of the gain split, are serialized in float32, as recorded in their artifacts. The dense checkpoints store bfloat16 weights (checked against their safetensors
+metadata), and the mixture of experts stores some tensors in float32, which we restore exactly; float64 does not make
+the weights more precise than stored. One exception concerns the 70B-class models, which are spread over two GPUs. In
+the two-GPU runs made before the fix described here, the final RMS normalization was computed in float32: the hooks
+that move tensors between the GPUs keep a layer's original code, so our float64 version of that layer was bypassed.
+This makes the computed map rough at about $10^{-8}$ of the state (its fixed points wander by $10^{-8}$, against
+$10^{-15}$ on one GPU) and can matter for exponents measured with perturbations of $10^{-6}$ and below. The affected
+runs are the 70B-class sweeps and their plateau tests, the first Qwen2.5-72B prompt test, the 70B steering maps and
+the first zoom, the gain splits of the 70B-class models, and the start-state test, which spread all fourteen models
+over two GPUs; Appendix~\ref{sec:size} says which results we recomputed.
 
 \paragraph{Phase maps.} Each cell of a phase map is one parameter pair. Unless stated otherwise, we discard 300
 transient steps and measure over the next 300. The largest Lyapunov exponent comes from a twin trajectory at
