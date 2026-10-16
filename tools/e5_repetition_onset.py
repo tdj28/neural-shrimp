@@ -1211,6 +1211,98 @@ def cmd_summarize(args):
     print(json.dumps({"receipt": args.receipt, "raw_files": len(files)}))
 
 
+def projected_loop_row_steps(retire_step, twins, transient, measured, m=len(EPS)):
+    """Row-steps of a loop batch with real retirement, projected from a run's (virtual) retirement steps: a cell is
+    iterated until its retirement step (or to the end), with m extra twin rows over the measured steps if it has
+    twins."""
+    retire_step, twins = np.asarray(retire_step), np.asarray(twins, dtype=bool)
+    end = transient + measured
+    steps = np.where(retire_step >= 0, np.minimum(retire_step, end), end)
+    return int(steps.sum() + m * measured * twins.sum())
+
+
+def cmd_choices(args):
+    """Apply the committed decision rubric (docs/pi/e5-decision-rubric.md) to the development outputs and write
+    the choices file."""
+    prompts = e5_prompt_ids("dev")
+    loops, miss_l = load_loop_runs(args.loop_runs, prompts, LOG_T)
+    samples, miss_s = load_samples(args.sample_runs, prompts)
+    if miss_l or miss_s:
+        raise SystemExit(f"development outputs incomplete: loop {miss_l}, samples {miss_s}")
+    recs = [run_record(d) for d in args.loop_runs + args.sample_runs]
+    loop_gates = [g for r in recs for g in r["gates"] if g["file"].startswith("loop-")]
+    sample_gates = [g for r in recs for g in r["gates"] if g["file"].startswith("samples-")]
+    mismatches = sum(g["virtual_retirement_mismatches"] for g in loop_gates)
+    gates_ok = all(g["status"] == "pass" for g in loop_gates + sample_gates)
+    out = {"rubric": "docs/pi/e5-decision-rubric.md", "development_runs": {"loop": args.loop_runs,
+                                                                            "samples": args.sample_runs},
+           "gates_all_pass": gates_ok}
+    out["retire"] = {"virtual_retirement_mismatches": mismatches, "gate_failures": not gates_ok,
+                     "use_retire_in_heldout_loop": bool(mismatches == 0 and gates_ok),
+                     "cells": int(sum(sum(g["labels"].values()) for g in loop_gates)),
+                     "retirement_recorded": int(sum(g["retirement_recorded"] for g in loop_gates))}
+    # 2. repetition rule
+    variants = [("card", REP_WINDOW, REP_QMAX), ("period_48", 96, 48), ("window_64", 64, 32)]
+    rule = {}
+    for name, w, q in variants:
+        a = analyze_split(loops, samples, prompts, LOG_T, w, q, H_TARGET, n_boot=200)
+        rule[name] = {"window": w, "qmax": q, "censored": sum(r["T_rep"]["censored"] is not None for r in a["prompts"]),
+                      "censored_below": len(a["censoring"]["T_rep_below_grid"]),
+                      "censored_above": len(a["censoring"]["T_rep_above_grid"]),
+                      "T_rep_log10": [r["T_rep"]["value"] for r in a["prompts"]]}
+    degenerate = rule["card"]["censored"] >= 4
+    chosen = "card"
+    if degenerate:
+        long_loops = any(any(f48 > f32 for f48, f32 in zip(r["fraction_period_up_to_48_by_T"], r["repeat_fraction"]))
+                         for r in analyze_split(loops, samples, prompts, LOG_T, REP_WINDOW, REP_QMAX, H_TARGET,
+                                                n_boot=50)["prompts"])
+        order = ["period_48", "window_64"] if long_loops else ["window_64", "period_48"]
+        chosen = next((v for v in order if rule[v]["censored"] <= 3), "card")
+    out["repetition_rule"] = {"variants": rule, "card_rule_degenerate": degenerate, "chosen": chosen,
+                              "rep_window": rule[chosen]["window"], "rep_qmax": rule[chosen]["qmax"]}
+    # 3. entropy level
+    lth = [float(np.log10(loops[p]["entropy"]["T_H"])) for p in prompts]
+    outside = sum(not (LOG_T[0] <= v <= LOG_T[-1]) for v in lth)
+    level = H_TARGET
+    if outside >= 4:
+        mids = []
+        for p in prompts:
+            z = np.load(OUT_ROOT / loops[p]["file"].replace(".json", ".npz"), allow_pickle=False)
+            pos = [int(x) for x in z["batch_prompts"]].index(p)
+            mids.append(entropy_of(z["first_step_logits"][pos], 10.0 ** -0.25))
+        level = round(float(np.median(mids)) * 4) / 4
+    out["entropy_level"] = {"log10_T_H_at_2_nats": lth, "outside_grid": outside, "h_target": level,
+                            "changed": level != H_TARGET}
+    # 4. held-out samples, from the projected duration
+    loop_steps, loop_sec, dev_steps = 0, 0.0, 0
+    for d in args.loop_runs:
+        for f in sorted((OUT_ROOT / d).glob("loop-b[0-9][0-9].npz")):
+            z = np.load(f, allow_pickle=False)
+            st = json.loads((OUT_ROOT / d / "settings.json").read_text())
+            loop_steps += projected_loop_row_steps(z["retire_step"], z["twins"], st["transient"], st["measured"])
+            dev_steps += int((st["transient"] + st["measured"]) * len(z["label"])
+                             + len(EPS) * st["measured"] * z["twins"].sum())
+            loop_sec += float(z["seconds"][0])
+    rate = dev_steps / loop_sec
+    n_held = len(e5_prompt_ids("heldout"))
+    loop_h = (loop_steps if out["retire"]["use_retire_in_heldout_loop"] else dev_steps) / rate * n_held / len(prompts)
+    samp = [g["seconds"] for g in sample_gates]
+    samp_h = float(np.mean(samp)) * n_held / 3600
+    total = loop_h / 3600 + samp_h
+    n_samples = N_SAMPLES if total <= 7.0 else (12 if total <= 9.5 else 8)
+    out["heldout_samples"] = {"dev_loop_row_steps": dev_steps, "dev_loop_seconds": loop_sec,
+                              "row_steps_per_second": rate, "projected_loop_hours": loop_h / 3600,
+                              "projected_sampling_hours_at_16": samp_h, "projected_total_hours": total,
+                              "samples_per_cell": n_samples}
+    out.update({"rep_window": rule[chosen]["window"], "rep_qmax": rule[chosen]["qmax"], "h_target": level,
+                "retire": out["retire"]["use_retire_in_heldout_loop"], "samples": n_samples,
+                "git": git_state(), "created_utc": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())})
+    write_json(Path(args.out), out)
+    print(json.dumps({k: out[k] for k in ("rep_window", "rep_qmax", "h_target", "retire", "samples")}))
+    print(json.dumps({"retire": out["retire"], "rule": {k: v["censored"] for k, v in rule.items()},
+                      "entropy_outside": outside, "projection_h": round(total, 2)}))
+
+
 def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     sub = ap.add_subparsers(dest="command", required=True)
@@ -1244,9 +1336,13 @@ def main():
     sm.add_argument("--heldout-analysis", default=None)
     sm.add_argument("--template", default=None, help="JSON with the receipt's text fields (choices, deviations)")
     sm.add_argument("--receipt", default=str(RECEIPT))
+    ch = sub.add_parser("choices", help="apply the decision rubric to the development outputs")
+    ch.add_argument("--loop-runs", nargs="+", required=True)
+    ch.add_argument("--sample-runs", nargs="+", required=True)
+    ch.add_argument("--out", default=str(CHOICES))
     args = ap.parse_args()
     {"loop": cmd_loop, "sample": cmd_sample, "precision": cmd_precision, "analyze": cmd_analyze,
-     "summarize": cmd_summarize}[args.command](args)
+     "summarize": cmd_summarize, "choices": cmd_choices}[args.command](args)
 
 
 if __name__ == "__main__":

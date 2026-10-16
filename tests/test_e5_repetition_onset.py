@@ -413,3 +413,57 @@ def test_analysis_on_synthetic_data():
     assert sm["temperatures_with_both"] > 0 and -1.0 <= sm["difference"] <= 1.0
     # T_H placed exactly at k: T_H and T_rep are perfectly rank-correlated
     assert abs(res["secondary_partial"]["spearman_T_H_T_rep"] - 1.0) < 1e-12
+
+
+# ------------------------------------------------------------------------------------------------ choices
+
+def test_projected_loop_row_steps():
+    steps = e5.projected_loop_row_steps(np.array([128, -1, 500, 1500]), np.array([False, True, False, False]), 1000,
+                                        1000)
+    assert steps == 128 + 2000 + 500 + 1500 + 2 * 1000
+
+
+def write_synthetic_runs(root, loops, samples, prompts, retire_steps):
+    import json
+    ld, sd = root / "dev-loop-x", root / "dev-sample-x"
+    ld.mkdir(parents=True)
+    sd.mkdir(parents=True)
+    (ld / "settings.json").write_text(json.dumps({"transient": 1000, "measured": 1000}))
+    n = 24 * len(prompts)
+    labels = np.array([lab for p in prompts for lab in loops[p]["labels"]])
+    rng = np.random.default_rng(0)
+    z0 = rng.normal(size=(len(prompts), 500)) * 3
+    np.savez(ld / "loop-b00.npz", label=labels, twins=labels == "chaotic", supplementary=np.zeros(n, bool),
+             retired=np.zeros(n, bool), retire_step=np.where(labels == "chaotic", -1, retire_steps),
+             collapses=np.zeros((2, n), int), residual=np.where(labels == "chaotic", np.nan, 1e-12),
+             seconds=np.array([3600.0]), batch_prompts=np.array(prompts), first_step_logits=z0)
+    ents = [{"prompt": p, "T_H": loops[p]["entropy"]["T_H"], "T_H_masked": loops[p]["entropy"]["T_H"],
+             "entropy_by_T": [1.0] * 24} for p in prompts]
+    cells = [{"prompt": p, "t_index": j, "label": loops[p]["labels"][j], "lyapunov": [0.1, 0.1], "period": 1}
+             for p in prompts for j in range(24)]
+    (ld / "loop-b00.json").write_text(json.dumps({"batch": 0, "prompts": prompts, "gate_failures": [],
+                                                  "virtual_retirement_mismatches": [], "first_step_entropy": ents,
+                                                  "seconds": 3600.0, "cells": cells}))
+    for p in prompts:
+        np.savez(sd / f"samples-p{p:02d}.npz", tokens=samples[p]["tokens"], mean_entropy=samples[p]["mean_entropy"],
+                 gate_failures=np.array("[]"), T_H_float32=np.array(1.0), seconds=np.array([500.0]))
+
+
+def test_choices_apply_the_rubric(tmp_path, monkeypatch):
+    import argparse
+    import json
+    loops, samples, prompts, k, c = synthetic_split(n=8)
+    monkeypatch.setattr(e5, "OUT_ROOT", tmp_path)
+    monkeypatch.setattr(e5, "e5_prompt_ids", lambda split: prompts if split == "dev" else list(range(24)))
+    write_synthetic_runs(tmp_path, loops, samples, prompts, retire_steps=150)
+    out = tmp_path / "choices.json"
+    e5.cmd_choices(argparse.Namespace(loop_runs=["dev-loop-x"], sample_runs=["dev-sample-x"], out=str(out)))
+    ch = json.loads(out.read_text())
+    assert ch["retire"] is True and ch["rep_window"] == 96 and ch["rep_qmax"] == 32 and ch["h_target"] == 2.0
+    assert ch["repetition_rule"]["card_rule_degenerate"] is False
+    hs = ch["heldout_samples"]
+    # dev: 8 prompts in 3600 s; held-out loop scaled by 24 / 8 prompts and by the retirement projection
+    assert hs["projected_sampling_hours_at_16"] == 500.0 * 24 / 3600
+    assert ch["samples"] == (16 if hs["projected_total_hours"] <= 7.0 else 12 if hs["projected_total_hours"] <= 9.5
+                             else 8)
+    assert hs["projected_loop_hours"] < 3 * 1.0                     # retirement shortens the 3 x 1 h of the full runs
