@@ -27428,3 +27428,33 @@ At T 1.2 and alpha -0.05, 1e-10 twins change 97.5 % of answer texts.
 - Exponential sensitivity appears at |alpha| >= 0.03-0.05, where accuracy is already 0.5-8 %.
 - In between, the loop contracts tiny perturbations but becomes increasingly sensitive to finite (1e-3, bf16-sized) ones.
 - The bf16 horizon run H (same configurations at T 0.6 and 1.2) tests how this shows in batch-layout flips.
+
+## 2026-10-16 06:52 UTC: Run D, pod DA2 results (Qwen2.5-72B, Llama-3.1-70B, Llama-3.3-70B) and the cross-size picture
+
+**Pod.** gst99uzuszv23h (2x H200), commit 874afbf4 (from the orchestrator log). Verified terminated; the results.tgz hash matches the runner's (ed012a12...). All three models ended with status 0, each with 24 temperatures and 500 recorded steps. Closure is at most 2.4e-7 and the knockout check at most 2.5e-7.
+
+**Network factor at 0-1 / 1-3 / 3-6 nats.**
+
+| model | 0-1 nats | 1-3 nats | 3-6 nats | above 10 nats |
+|---|---|---|---|---|
+| Qwen2.5-72B | -2.09 | -2.76 | -2.47 | -1.12 (only model negative there) |
+| Llama-3.1-70B | -2.19 | -0.78 | -0.23 | |
+| Llama-3.3-70B | -1.49 | -1.01 | -0.11 | |
+
+**Receipt.** paper/llm/figures/fig-damping.json (tools/plot_damping.py), covering 14 models.
+
+**Median network factor, 0.3-6 nats.**
+- Qwen2.5: 0.5B -0.12, 1.5B -0.57, 3B -1.80, 7B -0.85, 14B -1.46, 32B -1.73, 72B -1.99.
+- Llama-3: 8B -0.14, 3.1-70B -1.50, 3.3-70B -1.30.
+- OLMo-2: 1B +0.11, 7B -0.52, 13B -0.79, 32B -0.36.
+
+**Final relative change near 1 nat.** 0.5B -0.32, Llama-8B -0.51; 72B -2.51, Llama-3.1-70B -2.08.
+
+**Knockouts near 1 nat.**
+- The first attention layer amplifies in Qwen2.5 1.5B-32B (1.67-3.74), and the first MLP in 0.5B (2.40).
+- In 72B and both 70B Llama models, no sublayer contributes more than 0.46.
+- No single sublayer's removal raises the factor by more than 0.44 in any of the 14 models.
+
+**Reading.** In two families the larger checkpoints damp because the early amplification that lets the fed-back token's change keep pace with the residual stream weakens or disappears. No component does the damping. OLMo-2 does not follow.
+
+**Paper.** The paragraph "Where the network damps" with fig:damping, a methods note, and one sentence in "What this implies for larger models" (written as an extrapolation).
