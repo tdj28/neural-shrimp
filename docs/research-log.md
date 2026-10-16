@@ -27297,3 +27297,26 @@ The relaunch uses commit 48e30e68. Between the two commits:
 - tools/pi_f64_twins.py is unchanged;
 - tools/pi_harness.py gained one line (readout texts, unused here);
 - the runner gained the damping job set (the pif64 job set is unchanged).
+
+## 2026-10-16 05:35 UTC: E1 pilot results (bf16 soft thinking, Qwen2.5-7B-Instruct, T 0.6, 64 soft steps, first 400 GSM8K test problems, layouts 8 vs 16)
+
+All five arms completed: 400 problem pairs each, every problem in both layouts. Receipt: docs/pi/e1-pilot-summary.json (tools/pi_harness.py analyze).
+
+**Answer flips under the batch change.**
+
+| arm | flips | 95 % interval | trajectories diverged | median first divergence step |
+|---|---|---|---|---|
+| full vocabulary | 101/400 (25.3 %) | [21.2, 29.7] | 210 | 18 |
+| top-30 | 97 (24.2 %) | [20.3, 28.7] | 215 | 18 |
+| top-15 | 103 (25.8 %) | [21.7, 30.3] | 220 | 19 |
+| top-5 | 104 (26.0 %) | [21.9, 30.5] | 220 | 21.5 |
+| top-1 (greedy in embedding space) | 65 (16.3 %) | [13.0, 20.2] | 141 | 19 |
+
+**Accuracy** is 20.3-21.5 % in every arm and layout.
+
+**Readout-gain proxy.** It is higher on flipped than on kept problems in every soft arm: 0.088-0.092 against 0.071-0.072 (top-1: 0 by construction).
+
+**Reading.**
+- Top-n filtering from 30 down to 5 does not reduce the batch sensitivity relative to the full vocabulary, as consult 11 cautioned; only the greedy top-1 arm does.
+- PIF64 found this configuration contracting in float64 (no 1e-10 twin changes an answer). The bf16 flips therefore come from bfloat16 rounding differences acting at near-tied choices, not from chaotic amplification.
+- This pilot is the development data for the confirmatory matrix.
