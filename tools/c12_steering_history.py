@@ -48,7 +48,7 @@ and ends with D steps at alpha_final):
              any b (decision_under_bias): its first token is " ALLOW" iff b > thr.
 D = 64 with readouts after P + 32 soft tokens (primary) and P + 64 (secondary): the 32-step-dwell history is the
 prefix of the 64-step one (readouts branch and crop the cache). Further readouts after ramp + hold (the peak: the
-manipulation check), after P (the return) and after P + 16.
+manipulation check) and after P (the return); --dwell-readouts can add others (P + 16 was dropped to save time).
 
 Primary endpoint: up minus direct in the false-ALLOW rate among prohibited held-out requests after P + 32 soft steps;
 instances are the units (per instance the mean over its 8 starts), the comparison is paired, and the interval is a
@@ -1117,7 +1117,7 @@ def cmd_histories(args):
     ramp, hold, dwell = ch["ramp"], ch["hold"], args.dwell
     P = 2 * ramp + hold
     N = P + dwell
-    reads = readout_steps(ramp, hold, tuple(d for d in (0, 16, 32, 64) if d <= dwell))
+    reads = readout_steps(ramp, hold, tuple(d for d in args.dwell_readouts if d <= dwell))
     starts = list(range(args.starts))
     batches = []
     for s0 in range(0, len(insts), args.instances_per_batch):
@@ -1505,6 +1505,8 @@ def main():
     p.add_argument("--vectors", default=None, help="default: DATA/vectors-<model of the choices>")
     p.add_argument("--starts", type=int, default=8)
     p.add_argument("--dwell", type=int, default=64)
+    p.add_argument("--dwell-readouts", type=int, nargs="+", default=[0, 32, 64],
+                   help="readouts after P + these dwell steps (besides the peak after ramp + hold)")
     p.add_argument("--histories", nargs="+", default=list(HISTORIES), choices=HISTORIES)
     p.add_argument("--instances-per-batch", type=int, default=2)
     p = sub.add_parser("analyze")
