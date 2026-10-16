@@ -27974,7 +27974,7 @@ Run by a separate agent, CPU float64. Tool tools/c12_hidden_readouts.py (14 test
 - In the useful regime (accuracy 20-49 %), layout dependence accumulates over the first tens of soft steps, without float64 chaos.
 - Steering strong enough to make the float64 loop sensitive also destroys accuracy.
 
-## 2026-10-16 19:35 UTC: C12-4 results (steering history and a policy decision): a past excursion changes the decision at the same final strength (+21 points), carried by the context it wrote
+## 2026-10-16 19:23 UTC: C12-4 results (steering history and a policy decision): a past excursion changes the decision at the same final strength (+21 points), carried by the context it wrote
 
 Run by a separate agent on the CPU, float32. Tool tools/c12_steering_history.py (27 tests). Development choices were committed at 47511a0e before held-out data. Receipt docs/pi/c12-4-summary.json (2c69bb52), with SHA-256 of 85 raw files.
 
