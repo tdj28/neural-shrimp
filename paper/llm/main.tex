@@ -2861,6 +2861,19 @@ In this model, then, a one-step check certifies the statistics of the closed loo
 individual run reaches. We found no effect of quantization beyond that of unstructured noise of the same one-step size
 (\texttt{docs/pi/c12-2-summary.json}).
 
+\paragraph{Does the hidden state change answers?} In band chaos the loop writes an exactly repeating text while its
+state moves chaotically (Section~\ref{sec:hostile}). An exploratory test asked whether states with the same visible
+history answer a follow-up question differently. We took 16 states at one phase of the text from each of 92 held-out
+band-chaos cells; within a cell, all 16 had identical leading tokens over the preceding 70 steps. Each state was read
+through the steered prefix, followed by one of three queries chosen on development cells: a yes-or-no question about
+hostility, a one-word mood, and a hostility rating from 1 to 10. Each answer was decoded greedily. No pair of states
+gave different answers in any cell for any query (a one-sided 95\,\% bound of 3.2\,\% of cells), although the
+probability of a fixed answer token differed at six significant digits in 98 to 99\,\% of the pairs. The hidden
+differences therefore reach the readout, but here they stay within the margins of the greedy choices, and only the
+wording of the yes-or-no answer changed, in 9 of the 92 cells. The visible text is not a complete record of the state.
+For these readouts that is a limit on what can be observed, not a change in behavior
+(\texttt{docs/pi/c12-5-summary.json}).
+
 \section{Bifurcation curves and cusps}
 \label{sec:curves}
 \paragraph{Period-8 stripe.} Continued for 80 points with a float64 test function, the fold curve of the period-8
