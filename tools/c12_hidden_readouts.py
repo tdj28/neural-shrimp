@@ -1450,8 +1450,19 @@ def cmd_receipt(args):
     seen_cells = {}
     for a in args.analyses:
         d = json.loads(Path(a).read_text())
-        e = {k: d[k] for k in ("run", "commit", "tool_sha256", "gate", "groups", "negative_control",
-                               "analysis_commit", "extraction_version")}
+        e = {k: d[k] for k in ("run", "commit", "tool_sha256", "gate", "negative_control", "analysis_commit",
+                               "extraction_version")}
+        # full group summaries for the chosen queries; one compact row per group for the other candidates (the
+        # analysis files, hashed below, hold everything)
+        e["groups"] = {qid: gs if chosen is None or qid in chosen else
+                       {g: {"cells": v.get("cells"),
+                            "disagreement_mean": (v.get("disagreement") or {}).get("mean"),
+                            "cells_with_any": (v.get("disagreement") or {}).get("cells_with_any"),
+                            "text_disagreement_mean": (v.get("text_disagreement") or {}).get("mean"),
+                            "in_format_share_mean": (v.get("in_format_share") or {}).get("mean"),
+                            "positive_share_mean": (v.get("positive_share") or {}).get("mean")}
+                        for g, v in gs.items()}
+                       for qid, gs in d["groups"].items()}
         cl = [{k: s[k] for k in ("uid", "kind", "split", "log10T", "qualifies", "reasons", "exponent_cpu",
                                  "period_end", "text_period_cpu", "family_text", "history_identical",
                                  "future_identical", "pair_distance", "current_token_text")}
