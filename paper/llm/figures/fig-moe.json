@@ -1,0 +1,115 @@
+{
+ "damping": {
+  "qwen3.5-4b": {
+   "median_g_net_0.3_6": 0.053560758932960896,
+   "cells_0.3_6": 9,
+   "max_closure": 3.924117525171457e-08
+  },
+  "qwen3.5-9b": {
+   "median_g_net_0.3_6": -1.4138375949500133,
+   "cells_0.3_6": 8,
+   "max_closure": 7.082784878137427e-08
+  },
+  "qwen3.5-35b-a3b": {
+   "median_g_net_0.3_6": -1.9019830869305911,
+   "cells_0.3_6": 8,
+   "max_closure": 5.959556586098438e-08
+  },
+  "olmo2-1b": {
+   "median_g_net_0.3_6": 0.10807140126766843,
+   "cells_0.3_6": 9,
+   "max_closure": 0.8794994072496691
+  },
+  "olmo2-7b": {
+   "median_g_net_0.3_6": -0.5218893206237994,
+   "cells_0.3_6": 5,
+   "max_closure": 3.4142699442763904
+  },
+  "olmoe-1b-7b": {
+   "median_g_net_0.3_6": -0.36189684832670455,
+   "cells_0.3_6": 8,
+   "max_closure": 1.111942929269568e-08
+  }
+ },
+ "chaotic": {
+  "qwen3.5-4b": {
+   "unsteered": {
+    "chaotic": 19,
+    "cells": 128,
+    "largest_exponent": 0.7912604480347043
+   },
+   "philosophy": {
+    "chaotic": 153,
+    "cells": 1024,
+    "largest_exponent": 0.8405985026886598
+   },
+   "hostility": {
+    "chaotic": 323,
+    "cells": 1024,
+    "largest_exponent": 0.8907004608337153
+   }
+  },
+  "qwen3.5-9b": {
+   "unsteered": {
+    "chaotic": 10,
+    "cells": 128,
+    "largest_exponent": 0.4828402715208025
+   },
+   "philosophy": {
+    "chaotic": 73,
+    "cells": 1024,
+    "largest_exponent": 0.6769613033704459
+   },
+   "hostility": {
+    "chaotic": 161,
+    "cells": 1024,
+    "largest_exponent": 0.7457052464388662
+   }
+  },
+  "qwen3.5-35b-a3b": {
+   "unsteered": {
+    "chaotic": 0,
+    "cells": 128,
+    "largest_exponent": -0.26526369456376475
+   },
+   "philosophy": {
+    "chaotic": 0,
+    "cells": 1024,
+    "largest_exponent": -0.11187397345946398
+   },
+   "hostility": {
+    "chaotic": 52,
+    "cells": 1024,
+    "largest_exponent": 0.2160771932604054
+   }
+  }
+ },
+ "routing": {
+  "qwen3.5-35b-a3b": {
+   "routers": 40,
+   "median_gap_range": [
+    0.00012359231970027196,
+    0.004015889397064765
+   ],
+   "min_gap_range": [
+    3.596459743349101e-06,
+    0.001343675822581325
+   ],
+   "max_frozen_minus_free": 0.0,
+   "total_mean_switches": 0.0
+  },
+  "olmoe-1b-7b": {
+   "routers": 16,
+   "median_gap_range": [
+    0.00011200551800918945,
+    0.01747425359703489
+   ],
+   "min_gap_range": [
+    3.381035749150385e-07,
+    0.006172921499050549
+   ],
+   "max_frozen_minus_free": 0.0,
+   "total_mean_switches": 0.0
+  }
+ }
+}

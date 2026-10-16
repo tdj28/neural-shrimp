@@ -104,7 +104,7 @@ computed from derivatives predict passage times and spectral gaps without fittin
 
 We study the expected-embedding (``soft-token'') map of released pretrained language models, defined exactly by
 their stored weights and run with a fixed chat prefix at a fixed position. We follow it in fifteen models, from
-Qwen2.5-0.5B to Llama-3.3-70B and Qwen2.5-72B (three dense families and a mixture of experts), in most detail in
+Qwen2.5-0.5B to Llama-3.3-70B and Qwen2.5-72B (three dense families and a mixture of experts, with three further models as controls for the latter), in most detail in
 Qwen2.5-0.5B-Instruct, and in two variations: two models writing one text, and a recurrent-depth model that iterates
 its own block. We chose these families because each releases open weights at several sizes, so that size can be varied within a family, and because they come from three developers with different training data and recipes; OLMo-2 also releases its training data, and Llama-3 has public sparse autoencoders, which we use for feature controls. The map is smooth. Its
 Jacobians come from automatic differentiation, and its periodic orbits can be computed and continued like those of
@@ -1937,6 +1937,28 @@ through the remaining blocks, $(N_L-N_2)-(A_L-A_2)$, drawn with a minus sign (da
 \label{fig:damping}
 \end{figure}
 
+\paragraph{Mixtures of experts.} A mixture-of-experts layer sends each token to a few of many expert networks, those
+with the largest router scores, so its map is smooth only between routing boundaries. Two questions follow: whether
+routing switches drive the measured exponents, and whether a model that is large in total but small per token behaves
+like a small or a large dense model (Figure~\ref{fig:moe}, Appendix~\ref{sec:scale}). We followed the unsteered loops
+of Qwen3.5-35B-A3B (8 of 256 experts per layer; about 3B of its 35B parameters are active per token) and OLMoE-1B-7B
+(8 of 64; about 1B of 7B). Along them, a twin at relative offset $10^{-7}$ never chose different experts from the base
+orbit, at any step, layer or temperature. Freezing its routing to the base orbit's left the network factor unchanged,
+so the exponents measure the smooth map. The orbits do pass close to routing boundaries. At each step we recorded the
+smallest gap between the eighth and ninth largest router logits over all layers; its median along a loop lies between
+$1.1\times10^{-4}$ and $1.75\times10^{-2}$, and its minimum reaches $3.4\times10^{-7}$. Rounding errors of bfloat16
+inference (relative precision about $4\times10^{-3}$) can cross gaps this small, so in low precision routing can add
+jumps that the float64 exponents do not contain.
+
+On size, the mixture of experts behaves like a large dense model, not a small one. Two dense models of its family share
+its hybrid attention: Qwen3.5-4B, about its active size, and Qwen3.5-9B. Both are chaotic. Unsteered, they are chaotic
+at 19 and 10 of 128 temperatures; steered, at 15\,\% and 7\,\% of a philosophy map and at 32\,\% and 16\,\% of a
+hostility map. The mixture of experts is chaotic at none of the 128 temperatures and none of the philosophy cells, and
+irregular at 5\,\% of the hostility cells. Its median network factor between 0.3 and 6 nats is $-1.90$, against $+0.05$
+and $-1.41$ for the two dense models and $-1.73$ for the dense Qwen2.5-32B. Within this family, chaos falls and damping
+grows from 4B to 9B to the mixture of experts, which damps more than a dense model with three times its active
+parameters. Routing a token through about 3B parameters therefore does not make the loop behave like a 3B model.
+
 \paragraph{What this implies for larger models.} Size does not set this chaos in a simple way. In Qwen2.5, the 14B
 model's chaos did not vanish but moved to higher temperature, to where its next-token distribution spreads; in OLMo-2
 the largest model was the most chaotic; two 70B Llama checkpoints with different post-training gave different results
@@ -2268,7 +2290,8 @@ derivative, contraction at sufficiently high temperature, greedy cycles at zero 
 steering coefficient as a bifurcation parameter. The attractor texts, the positions of windows, folds and cusps, and
 every number we report belong to particular weights; a second checkpoint of the same architecture already has
 different attractors (Appendix~\ref{sec:scale}). Size gives no guarantee of stability (Section~\ref{sec:sizemain}), hard
-routing in mixture-of-experts models falls outside the smooth theory of Section~\ref{sec:theory}, and deployed
+routing in mixture-of-experts models falls outside the smooth theory of Section~\ref{sec:theory} (no expert switched
+along our float64 orbits, but in low precision routing can), and deployed
 inference samples tokens, in low precision, over long contexts. Closed models permit none of these computations, which
 need the input embeddings, full next-token distributions and derivatives; for them the method and the questions
 transfer, not the numbers.
@@ -2388,15 +2411,22 @@ stream entering each block, the outputs of its attention and MLP sublayers, and 
 after the final normalization. They do so for the base row and for a twin at relative offset $10^{-7}$ along the
 evolving tangent direction. The split of the network factor into $A_L-N_L$ and the final normalization is exact.
 
-In the pre-normalization architectures of Qwen2.5 and Llama-3, the residual stream adds the sublayer outputs,
-$\delta h_L=\delta x+\sum_s\delta o_s$, and this sum closes to within $4\times10^{-7}$ relative in every model and
-temperature. OLMo-2 normalizes each sublayer's output before adding it, so the sum does not close there (relative
+In the pre-normalization architectures of Qwen2.5, Qwen3.5, Llama-3 and OLMoE, the residual stream adds the sublayer
+outputs, $\delta h_L=\delta x+\sum_s\delta o_s$, and this sum closes to within $4\times10^{-7}$ relative in every
+model and temperature. OLMo-2 normalizes each sublayer's output before adding it, so the sum does not close there (relative
 errors of 0.9 to 150). For OLMo-2 we therefore use only quantities that do not depend on it: the factor itself, $A_l$,
 $N_l$ and the knockouts.
 
 A knockout holds one sublayer's output at the soft token at its value in the base row while the input carries the
 twin's change, which blocks the change's path through that sublayer. The knockout rows reproduce the plain twin's
 network factor within $5.1\times10^{-7}$.
+
+For the mixtures of experts, a third row receives the twin's input but uses the base row's experts in every layer,
+weighted by its own router probabilities, renormalized over them where the router renormalizes its top-8 weights
+(Qwen3.5) and not where it does not (OLMoE). Each
+step also records whether the twin's set of experts differs from the base row's in any layer, and the base row's
+smallest gap between the eighth and ninth largest router logits over all layers. Qwen3.5's linear-attention layers
+carry recurrent states, which are restored after every step, as in the soft-token loop.
 
 \paragraph{False chaos and real chaos.} A twin exponent measures how fast the difference between two trajectories
 grows, so anything that adds a difference of its own can imitate growth. Suppose that both rows receive independent
@@ -3311,8 +3341,44 @@ and the remaining 15, above $\log_{10}T\approx0.1$, contract without a detected 
 cells is chaotic (largest exponent $-0.112$). Along hostility, 52 of 1024 cells ($5.1\,\%$) have a positive exponent
 and no period, against $28\,\%$ for Llama-3.1 8B on the same plane. Routing is discontinuous: a twin trajectory that
 crosses a routing boundary jumps, which can inflate a finite-difference exponent, so we call these cells irregular
-rather than chaotic. Whether the contraction comes from the experts or from the Qwen3.5 architecture would take the
-dense Qwen3.5-9B as a control, which we have not run.
+rather than chaotic.
+
+Two dense models of the same family, Qwen3.5-4B and Qwen3.5-9B (32 layers each, 24 of them linear attention), test
+whether the architecture causes the contraction. With concept vectors at their middle layer (16 of 32) and the same
+ranges, transients and maximal periods, the 4B model is chaotic at 19 of 128 unsteered temperatures (largest exponent
+0.79), at 153 of the 1024 philosophy cells (0.84) and at 323 of the 1024 hostility cells (0.89). The 9B model is
+chaotic at 10, 73 and 161 (0.48, 0.68 and 0.75; Figure~\ref{fig:moe}). The hybrid attention therefore does not prevent
+chaos. The routing-aware version of the stack resolution (Appendix~\ref{sec:methods}) follows a third row whose
+routing is frozen to the base orbit's. At the twin offset $10^{-7}$, neither mixture of experts switched an expert in
+any layer at any step, and the frozen row's network factor equals the free twin's. At every knockout temperature, the
+first attention layer (a linear-attention layer) is the largest amplifier in all three Qwen3.5 models. At the knockout temperature where the entropy is 2 to
+4 nats, removing it lowers the network factor by 1.27 (4B), 1.33 (9B) and 0.76 nats (the mixture of experts). Removing
+the first MLP or expert layer lowers it by 0.92, 0.77 and 0.24.
+
+OLMoE-1B-7B stores its experts in bfloat16. We convert each expert's weights to float64 when it is used, which is
+exact, compute the router softmax in float64, and cast everything else to float64; central differences of the map then
+converge as $h^2$. Its unsteered sweep of 130 temperatures over $\log_{10}T\in[-1,1.2]$ has one temperature with a
+positive exponent and no period (0.023, irregular), and 7 with neither a detected period nor an exponent above
+$10^{-3}$.
+Its median network factor between 0.3 and 6 nats ($-0.36$) lies between those of the dense OLMo-2-1B ($+0.11$) and
+OLMo-2-7B ($-0.52$). OLMoE normalizes before each sublayer and OLMo-2 after it, so this pair differs in more than the
+experts, and we read no size effect from it.
+\begin{figure}[tbp]
+\centering
+\includegraphics[width=\linewidth]{fig-moe.png}
+\caption{Mixtures of experts against dense models of the same family. (a) Network factor against the mean
+next-token entropy on the orbit, unsteered loop, 24 temperatures per model, float64 (as in Figure~\ref{fig:damping}),
+for Qwen3.5-4B and -9B (dense) and Qwen3.5-35B-A3B (mixture of experts, about 3B of 35B parameters active per token).
+(b) Share of chaotic cells (by the criterion of Appendix~\ref{sec:methods}) in the unsteered sweep (128 temperatures,
+$\log_{10}T\in[-1,0.3]$) and in $32\times32$ maps steered along philosophy and hostility at the middle layer; the
+mixture of experts' hostility cells (hatched) are called irregular, since routing jumps were not excluded when that map
+was computed. (c) Routing margins along the unsteered orbits of both mixtures of experts, Qwen3.5-35B-A3B and
+OLMoE-1B-7B (24 temperatures each, as in (a)): per temperature, the median over steps
+(filled) and the minimum (open) of the per-step smallest gap between the eighth and ninth largest router logits over
+all layers. A perturbation must move the router logits by about this gap to switch an expert; a twin at relative
+offset $10^{-7}$ never did.}
+\label{fig:moe}
+\end{figure}
 
 \section{Chaos and model size: further results}
 \label{sec:size}
