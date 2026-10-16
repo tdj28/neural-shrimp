@@ -86,6 +86,14 @@ from the concept support, keeping the soft steps inside the assistant turn. Rule
 adopted if, on calib2 (qwen1.5b, T = 0.6, rows, unsteered), it beats the unmasked pipeline at both 44 and 56 soft
 steps; then the development baseline with masking is run at T = 0.6 and choose_pipeline decides (the other
 temperatures only if T = 0.6 fails); otherwise the pipeline stays unmasked.
+Amendment 3 (2026-10-16, after the pipeline choice qwen3b / T 0.6 / masked / P 24; before any steering run on
+development instances). The qwen3b vectors are about 2.6 times shorter in alpha units (mean residual norm 537 at layer
+18 against 1372 for qwen1.5b at 14), so the D1 grid is set from a steering-scale sweep on the calib split (layer 18,
+2 starts): false-ALLOW among prohibited runs after 56 soft steps 0.12 at alpha 0, <= 0.12 up to 0.02, 0.88 at 0.03,
+1.00 at 0.05, no unparseable answers; restrictive steering is weak (0.25 at -0.03). D1 grid at layer 18: 0, 0.02,
+0.0225, 0.025, 0.0275, 0.03, 0.035, 0.04, 0.05 and -0.03, -0.06; 4 starts; readouts after 16 and 56 soft steps (the
+readout after P = 24 was descriptive only). Scale-down for the larger model (about 2x the cost of qwen1.5b): D2 uses
+2 starts per development instance; the held-out run keeps 8 starts and every history.
 
 Subcommands (prefix CUDA_VISIBLE_DEVICES= ; nice -n 10 uv run --no-sync python; --threads 6):
   instances  write the instance list (docs/pi/c12-4-instances.json) and its SHA-256; checks prompt lengths;
