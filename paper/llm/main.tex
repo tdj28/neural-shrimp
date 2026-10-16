@@ -132,7 +132,9 @@ system; Section~\ref{sec:beyond} also measures how much of the mechanism survive
   in 56\,\% of problems in Qwen2.5-0.5B and 55\,\% in Qwen2.5-7B, against never and 10\,\% for a forced greedy
   baseline. An exploratory causal test shows that the loop carries this: resetting the fed-back state before every soft step
   removes nearly all of it (on an H100, 66 against 1.6\,\% of answers changed in Qwen2.5-0.5B, and 64 against
-  1.6\,\% in Qwen2.5-7B), and accuracy changes by at most 5 points. A chaotic loop's text reuses the phrases of
+  1.6\,\% in Qwen2.5-7B), and accuracy changes by at most 5 points. In a test frozen before its data, Soft Thinking with its published
+  settings changed the answers to 21\,\% of 256 fresh GSM8K problems in Qwen2.5-7B with the batch layout alone, on an
+  H100, mostly between wrong answers; replaying the fed-back tokens cut this to 6\,\%. A chaotic loop's text reuses the phrases of
   neighboring loops in no fixed order, and a copy started $10^{-10}$ away writes the same text for 9 to 150 steps,
   then a different one (Table~\ref{tab:chaostexts}). Exactly repeating text can hide a chaotic state (Section~\ref{sec:hostile}). Beyond the model's
   first-token uncertainty, the loop's regime carries no detectable information about the accuracy of ordinary sampled
@@ -847,6 +849,27 @@ in 2 (1.6\,\%) with reset in the 0.5B model, and in 82 (64\,\%) against 2 (1.6\,
 accuracy differs from the reference's by more than 5 points. Within this budget, the batch
 decides low-precision answers because the loop carries each step's rounding forward and amplifies it, not because the
 last steps alone are fragile; 128 problems per arm do not show that accuracy is unchanged.
+
+\paragraph{Soft Thinking as published.} A test frozen before its data (\texttt{docs/pi-matrix-confirmatory.md}) ran
+Soft Thinking with its published settings on Qwen2.5-7B-Instruct in bfloat16. The settings are concept tokens
+restricted to the 15 most probable, $T=0.6$ and 64 soft steps. The test used 256 GSM8K training problems that no
+earlier run had scored, on an H100 GPU. Only the batch layout changed, between batches of 8 and of 16 prompts of equal
+length without padding, and the answer changed for 21.1\,\% of the problems (54 of 256; 95\,\% interval clustered by
+batch $[16.3,26.1]$). This confirms the prediction of more than 10\,\%. Four of the five secondary predictions held:
+\begin{itemize}
+  \item replaying the reference run's fed-back tokens in both layouts cut the rate to 5.9\,\% (difference 15.2
+  points, $[10.4,20.2]$);
+  \item with 16 soft steps instead of 64, the rate was 6.6\,\%;
+  \item ordinary greedy chain-of-thought decoding changed 2.3\,\% of its answers, at 89\,\% accuracy;
+  \item feeding back only the most probable token changed 17.6\,\%, not significantly fewer than top-15 (difference
+  3.5 points, $[-2.9,10.3]$). This prediction failed.
+\end{itemize}
+The full vocabulary gave 22.3\,\% (no prediction). Most changes are between wrong answers: through the soft pipeline
+this model answers only 22 to 30\,\% of the problems correctly, and the layout changes whether the answer is correct
+for 6.2\,\% of the problems. In float64 the same pipeline contracts. On 1312 and 1314 of the 1319 GSM8K test problems
+(full vocabulary and top-15), a perturbation of $10^{-10}$ ended below its initial size, and none changed an answer.
+These flips are therefore not chaos of the float64 map: the feedback carries bfloat16 rounding differences forward
+until they decide answers that the model holds only weakly, and it does so for discrete feedback as well.
 \begin{figure}[tbp]
 \centering
 \includegraphics[width=\linewidth]{fig-repro.png}
