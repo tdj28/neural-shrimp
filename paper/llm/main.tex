@@ -228,6 +228,21 @@ theorem applies: for every invariant measure the Lyapunov exponents exist at alm
 \cite{oseledets1968multiplicative,eckmann1985ergodic}. The exponents we report estimate them over finite horizons
 (Appendix~\ref{sec:methods}).
 
+\paragraph{Why feed a model its own output?} Feedback is not an addition to language-model inference; it is how
+text is generated. Autoregressive decoding appends each chosen token to the input and conditions the next step on it,
+and as $T\to0$ the map studied here becomes greedy decoding, whose familiar repetition loops are its periodic
+attractors. What the loop changes is what is fed back: the expected embedding instead of one chosen token. That is the
+step of Soft Thinking \cite{zhang2025softthinking}, and related methods feed back hidden states
+\cite{hao2024coconut} or iterate a block to a fixed point \cite{geiping2025recurrent}; continuous feedback of this kind
+is studied because it can carry more than one token's worth of information. We also hold the prefix and the window
+fixed. That simplification is deliberate: it makes the loop an autonomous map whose orbits, exponents and bifurcations
+can be computed, and in one case proved, much as low-dimensional maps made the routes to turbulence tractable. We then
+test which effects survive in the fuller systems: Soft Thinking's growing context, sampled decoding, longer fed-back
+memories and two models writing to each other (Appendices~\ref{sec:bridge} and~\ref{sec:dialogue}). The practical
+consequences reported below were measured in a soft-thinking pipeline with a growing context, not in the reduced
+loop. Deployed systems feed outputs back as well, when agents read their own earlier steps and when pipelines chain
+model calls.
+
 \paragraph{Steering as a probe.} Steering is an established way to control a language model without retraining: a
 vector added to the residual stream, typically the mean difference between activations on contrasting prompts,
 strengthens or weakens a behavior, such as sycophancy or refusal \cite{rimsky2024steering}, sentiment or topic
