@@ -43,7 +43,7 @@ changed 56\,\% of the answers of bfloat16 soft-thinking inference in a 0.5B mode
 often than with greedy decoding. An exploratory reset of the fed-back state at every step removed most such changes.
 In tests fixed before their data, Soft Thinking with its published settings changed 21\,\% of the answers to fresh
 GSM8K problems with the batch layout alone, and reasoning models that answer 86 to 90\,\% of them correctly
-(DeepSeek-R1-Distill-Qwen-7B, QwQ-32B) changed 15 to 20\,\%, deciding correctness for 12 to 15\,\% of the problems;
+(DeepSeek-R1-Distill-Qwen-7B, QwQ-32B) changed 14.5 and 19.5\,\%, deciding correctness for 12 to 15\,\% of the problems;
 ordinary sampled reasoning with the same random numbers changed about as many. These answer changes do not require
 chaos: where we checked in float64, the pipeline contracts, and the feedback carries bfloat16 rounding into answers
 that sit near ties between candidate tokens. Exactly repeating text can hide
@@ -140,7 +140,7 @@ system; Section~\ref{sec:beyond} also measures how much of the mechanism survive
   removes nearly all of it (on an H100, 66 against 1.6\,\% of answers changed in Qwen2.5-0.5B, and 64 against
   1.6\,\% in Qwen2.5-7B), and accuracy changes by at most 5 points. In a test frozen before its data, Soft Thinking with its published
   settings changed the answers to 21\,\% of 256 fresh GSM8K problems in Qwen2.5-7B with the batch layout alone, on an
-  H100, mostly between wrong answers; replaying the fed-back tokens cut this to 6\,\%; with reasoning models that answer 83 to 92\,\% of the problems correctly (DeepSeek-R1-Distill-Qwen-7B and QwQ-32B), 15 to 20\,\% of the soft-thinking answers changed, and about as many with discrete sampled thinking. A chaotic loop's text reuses the phrases of
+  H100, mostly between wrong answers; replaying the fed-back tokens cut this to 6\,\%; with reasoning models that answer 86 to 90\,\% of the problems correctly through soft thinking (DeepSeek-R1-Distill-Qwen-7B and QwQ-32B), 14.5 and 19.5\,\% of the soft-thinking answers changed, and a similar share with discrete sampled thinking. A chaotic loop's text reuses the phrases of
   neighboring loops in no fixed order, and a copy started $10^{-10}$ away writes the same text for 9 to 150 steps,
   then a different one (Table~\ref{tab:chaostexts}). Exactly repeating text can hide a chaotic state (Section~\ref{sec:hostile}). Beyond the model's
   first-token uncertainty, the loop's regime carries no detectable information about the accuracy of ordinary sampled
@@ -615,11 +615,11 @@ are analyzed in Appendix~\ref{sec:curves}.}
 
 \paragraph{What a chaotic loop writes.} The chaotic cells write text too (Table~\ref{tab:chaostexts}). Their text
 reuses the words and phrases of the neighboring loops without settling into an order, and it depends on the state to
-arbitrary precision. To show the second property in words, we ran the loop at cells labeled chaotic for 1000 steps in
+precisions far below rounding. To show the second property in words, we ran the loop at cells labeled chaotic for 1000 steps in
 float64. We then recorded it together with a copy started at a relative distance of $10^{-10}$, about 600 times smaller
 than the relative rounding error of float32. The copy is never reset. Its distance from the loop grows at about the
 rate the cell's Lyapunov exponent sets, faster or slower over finite stretches (Figure~\ref{fig:chaostwins}). The two write the same text until the distance
-has grown to between 1.3\,\% and 170\,\% of the soft token's norm, and different texts afterwards. In Qwen2.5-0.5B, two cells steered along
+has grown to between 1.27\,\% and 176\,\% of the soft token's norm, and different texts afterwards. In Qwen2.5-0.5B, two cells steered along
 philosophy, with exponents 0.44 and 0.36, split at steps 44 and 51, and a cell steered along hostility, with exponent
 0.35, at step 45. By then the distance had grown by 8.5 to 10.2 decades. The splits come where no token dominates. At
 each of the seven splits we recorded, in this model and in Qwen2.5-1.5B below, the loop's most probable token has a
@@ -722,7 +722,7 @@ derivative at every step. On a periodic attractor the derivative contracts on av
 the difference decays until both runs follow the same orbit and write the same text. On a chaotic attractor the
 exponent $\lambda$ is positive and the difference grows like $d_1e^{\lambda t}$ from its first value $d_1$, so it
 reaches a relative size of $10^{-2}$ after about $\ln(10^{-2}/d_1)/\lambda$ steps (about 100 steps for $d_1\approx
-10^{-15}$ and $\lambda\approx0.3$). At most a few Lyapunov times later, at 1.3 to 170\,\% of the state's norm in the examples of
+10^{-15}$ and $\lambda\approx0.3$). At most a few Lyapunov times later, at 1.27 to 176\,\% of the state's norm in the examples of
 Table~\ref{tab:chaostexts} (0 to 16 steps after the distance passes $10^{-2}$), the runs write different text. This has a practical consequence.
 Batch-invariant kernels, which fix the order of every reduction independently of the batch size, remove this source
 of difference \cite{he2025nondeterminism}. In a periodic regime that is enough, and small differences would be forgiven
@@ -890,9 +890,10 @@ and six steering strengths along the hostility direction ($\alpha$ from $-0.02$ 
 whose layouts disagree, the median first disagreement comes after 8 steps. Float64 copies of the same configurations,
 started $10^{-10}$ apart, separate the two sources of disagreement.
 \begin{itemize}
-  \item Unsteered or weakly steered ($|\alpha|\le0.02$), the copies change at most 1.5\,\% of the answers. The loop
+  \item Unsteered or weakly steered ($|\alpha|\le0.02$), the copies change the answer text of at most 1.5\,\% of the problems. The loop
   contracts, so the bfloat16 disagreements are rounding carried forward by the feedback.
-  \item At $\alpha=0.05$ they change 13.5\,\% of the answers at $T=0.6$ and 27.5\,\% at $T=1.2$. The loop itself is
+  \item At $\alpha=0.05$ they change the answer text of 13.5\,\% of the problems at $T=0.6$ and 27.5\,\% at $T=1.2$, and
+  the extracted number of 4.5 and 9.0\,\%. The loop itself is
   then sensitive, but accuracy has fallen to between 0.5 and 2.5\,\% in either layout.
 \end{itemize}
 In this model, then, the regime in which Soft Thinking is useful is the regime of accumulated rounding, not of chaos
@@ -913,10 +914,11 @@ prediction of more than 5\,\%.
   for 14.5\,\% of the problems ($[10.9,18.0]$) at 88 to 90\,\% accuracy, and QwQ-32B for 19.5\,\% ($[16.4,22.3]$) at
   86 to 87\,\%. The layout decided whether the answer was correct for 11.7 and 14.5\,\% of the problems.
   \item Discrete sampled thinking changed about as many answers in every cell. On GSM8K the rates were 10.2\,\% and
-  19.9\,\% for the same two models, and no soft-minus-plain difference is significant. The effect belongs to long
-  feedback in bfloat16, not to continuous thinking.
+  19.9\,\% for the same two models, and no soft-minus-plain difference is significant. This does not show that the
+  two are equal, but the effect does not require continuous thinking: long feedback in bfloat16 suffices.
   \item On an A100 instead of an H100, the first model's soft rate was 11.7\,\% (difference 2.7 points,
-  $[-1.6,6.6]$).
+  $[-1.6,6.6]$), a separate replication on a second GPU type; the difference is not significant, which again does not
+  establish equality.
   \item Where the budgets cut the reasoning short, accuracy was lower and the layout changed more answers: 61 and
   67\,\% of the answers on MATH-500, where half of the rows reached the thinking cap, and 37.5\,\% for
   DeepSeek-R1-Distill-Llama-8B on GSM8K, which answered 49 to 54\,\% of the problems correctly.
@@ -2073,18 +2075,18 @@ median network factor falls with size in two of the three families.
   \item In OLMo-2 it does not fall: $+0.11$, $-0.52$, $-0.79$ and $-0.36$ from 1B to 32B. OLMo-2-32B, the family's most
   chaotic model, is the least damped of its three larger models.
 \end{itemize}
-Qwen2.5-72B is the only model whose network factor stays negative at nearly uniform distributions: $-1.12$ above
+Qwen2.5-72B is the only Qwen2.5 model whose network factor stays negative at nearly uniform distributions: $-1.12$ above
 10 nats, against $+0.22$ to $+2.97$ for the 1.5B to 32B models, as its stability under entropy clamping suggests.
 
 The profiles through depth show where the difference arises. Near 1 nat, the change of the fed-back token keeps pace
-with the growing residual stream in the small models: after the last block their relative change ends at $-0.32$
-(Qwen2.5-0.5B) and $-0.51$ (Llama-3.1-8B). It does not keep pace in the large ones, where it ends at $-2.51$
+with the growing residual stream in the small models: entering the last block their relative change is $-0.32$
+(Qwen2.5-0.5B) and $-0.51$ (Llama-3.1-8B). It does not keep pace in the large ones, where it is $-2.51$
 (Qwen2.5-72B) and $-2.08$ (Llama-3.1-70B): their blocks keep writing a growing state that depends little on the
 fed-back token.
 
 Sublayer knockouts hold one attention or MLP output at the soft token at its unperturbed value. They find no component
-that does the damping: near 1 nat, removing any single sublayer raises the network factor by at most 0.44 nats in any of
-the fourteen models. The amplification
+that does the damping: at each model's knockout temperature nearest 1 nat (entropies 0.12 to 1.61 nats), removing any
+single sublayer raises the network factor by at most 0.44 nats in any of the fourteen models. The amplification
 moves instead.
 \begin{itemize}
   \item In the Qwen2.5 models from 1.5B to 32B, the first attention layer amplifies the change: removing it lowers the
@@ -2105,7 +2107,9 @@ blue, Llama-3 red, OLMo-2 gray; darker for larger models). (b) Median network fa
 number of parameters; bars give the range of the medians in the bins 0--1, 1--3 and 3--6 nats. (c) The log relative
 change $A_l-N_l$ after $l$ blocks against relative depth, at each model's temperature nearest 1 nat. (d) The two parts
 of the final relative change at that temperature: the gap after the first block, $A_1-N_1$ (solid), and the deficit
-through the remaining blocks, $(N_L-N_2)-(A_L-A_2)$, drawn with a minus sign (dashed).}
+from the second block on, $(N_L-N_2)-(A_L-A_2)$, drawn with a minus sign (dashed); the increment through the second
+block itself is not shown. The profiles use block inputs, so the last value is the relative change entering the last
+block.}
 \label{fig:damping}
 \end{figure}
 
@@ -2118,7 +2122,7 @@ of Qwen3.5-35B-A3B (8 of 256 experts per layer; about 3B of its 35B parameters a
 orbit, at any step, layer or temperature. Freezing its routing to the base orbit's left the network factor unchanged,
 so the exponents measure the smooth map. The orbits do pass close to routing boundaries. At each step we recorded the
 smallest gap between the eighth and ninth largest router logits over all layers; its median along a loop lies between
-$1.1\times10^{-4}$ and $1.75\times10^{-2}$, and its minimum reaches $3.4\times10^{-7}$. Rounding errors of bfloat16
+$1.1\times10^{-4}$ and $1.75\times10^{-2}$, and its minimum is about $3.38\times10^{-7}$. Rounding errors of bfloat16
 inference (relative precision about $4\times10^{-3}$) can cross gaps this small, so in low precision routing can add
 jumps that the float64 exponents do not contain.
 
@@ -2630,12 +2634,12 @@ $10^{-12}$ to $10^{-4}$.
 We then add Gaussian noise with $\sigma=10^{-10}$, $10^{-8}$ or $10^{-6}$ to every row's next soft token.
 \begin{itemize}
   \item Where the noise dominates, all three cells give the same false exponent, which Eq.~\eqref{eq:falsechaos}
-  matches within 0.005: for example $4.951$ to $4.953$ against $\log(100\sqrt2)=4.952$ at $\sigma=10^{-10}$ and
+  matches within 0.006: for example $4.951$ to $4.953$ against $\log(100\sqrt2)=4.952$ at $\sigma=10^{-10}$ and
   $\varepsilon=10^{-12}$.
-  \item Where the offset lies well above the crossover, the prediction matches within 0.046.
+  \item Where the offset lies well above the crossover, the prediction matches within 0.047.
   \item In the crossover itself, two offsets per cell and noise level, the measured exponent lies above the prediction
-  by up to 0.42, because noise injected one step earlier has not yet contracted.
-  \item Noise lowered no chaotic estimate below 0.088 (clean 0.092 to 0.099). It lowered the contracting estimates by at
+  by up to 0.43, because noise injected one step earlier has not yet contracted.
+  \item Noise lowered no chaotic estimate below 0.087 (clean 0.092 to 0.099). It lowered the contracting estimates by at
   most 0.048, which makes them look more stable, not less.
 \end{itemize}
 A free twin that is never renormalized shows the difference directly (Figure~\ref{fig:falsechaos}d). Started at
@@ -2881,7 +2885,8 @@ comparison. On the held-out problems, the early perturbations reached the target
 that the unperturbed pipeline answered correctly, and random search in none: a difference of 4.2 points (95\,\%
 interval $[0.8,8.3]$), below the advantage of 10 points that the design required. The same optimization applied to the
 last soft token before the answer cue reached the target in 14 of the 101, so in this pipeline the loop gives less
-leverage early than late. Random early perturbations of that size changed about 28\,\% of the answers, almost never to
+leverage early than late. Random early perturbations of that size changed about a third of the answers (one random direction: 34 of the 101
+eligible pairs), almost never to
 the target. Here the loop's sensitivity comes without selective control. The test covers temperatures at which the loop
 contracts for most problems (on the development problems 10 and 38\,\% of twins expanded, with median rates of
 $-0.131$ and $-0.058$ per step), where the pipeline still answers correctly, and the doses and the optimizer were
@@ -2897,14 +2902,15 @@ matches the 8-bit variant's, served as an unstructured control.
 \begin{itemize}
   \item \emph{8-bit.} The one-step distributions stay close: on the reference's attractor states the mean
   Kullback--Leibler divergence is 0.0028 nats, and the most probable token agrees in 94.5\,\% of states. The share
-  of starts that end on a periodic orbit of period at most 8 is unchanged ($+1.2$ points, 95\,\% interval
+  of starts that end on a periodic orbit of period at most 8 shows no detectable change ($+1.2$ points, 95\,\% interval
   $[-1.9,4.2]$). Yet 14.1\,\% of the starts end in a different class or period, as do 15.0\,\% under the random
   bias of the same one-step size. These changes concentrate at the temperatures where the attractors change.
   \item \emph{4-bit.} The share rises by 6.8 points ($[2.6,11.0]$), mostly because the edge of a chaotic band
   turns periodic. Its one-step distributions, however, are far from the original's: the mean divergence is 0.83 nats,
   and the most probable token agrees in only 52\,\% of states.
 \end{itemize}
-In this model, then, a one-step check certifies the statistics of the closed loop but not the attractor that an
+In this model, then, a close one-step check was consistent with unchanged statistics of the closed loop but did not
+fix the attractor that an
 individual run reaches. We found no effect of quantization beyond that of unstructured noise of the same one-step size
 (\texttt{docs/pi/c12-2-summary.json}).
 
@@ -2915,9 +2921,9 @@ permission table, answering ALLOW or DENY, while a permissive-versus-restrictive
 Every run ended with 32 steps at the same steering strength ($\alpha=0.025$). Some runs got there directly; others
 first made a brief excursion to $\alpha=0.04$ and back. The excursion raised the share of prohibited requests wrongly
 allowed from 49.5 to 70.8\,\%, a difference of 21.4 points (95\,\% interval over 24 held-out instances
-$[15.6,26.6]$). The difference was 20.3 points after 64 steps, so it did not relax. A restrictive excursion likewise
+$[15.6,26.6]$). The difference was 20.3 points after 64 steps: it persisted through the 64 steps tested. A restrictive excursion likewise
 raised false denials of permitted requests by 31.2 points ($[22.4,41.1]$). An excursion of the same size along a random
-direction moved neither rate (1.0 points, $[-4.2,6.3]$), and an excursion of zero size changed no decision. The
+direction showed no detectable effect on either rate (1.0 points, $[-4.2,6.3]$), and an excursion of zero size changed no decision. The
 present steering strength therefore does not describe the steered model's behavior here. What the loop wrote during
 the excursion stays in its growing context and keeps biasing the decision: this is a memory of the context, not
 hysteresis of a fixed-size state. One model, one direction and one schedule were tested, in float32
@@ -2929,7 +2935,7 @@ history answer a follow-up question differently. We took 16 states at one phase 
 band-chaos cells; within a cell, all 16 had identical leading tokens over the preceding 70 steps. Each state was read
 through the steered prefix, followed by one of three queries chosen on development cells: a yes-or-no question about
 hostility, a one-word mood, and a hostility rating from 1 to 10. Each answer was decoded greedily. No pair of states
-gave different answers in any cell for any query (a one-sided 95\,\% bound of 3.2\,\% of cells), although the
+gave different answers in any cell for any query (a one-sided 95\,\% bound of 3.21\,\% of cells), although the
 probability of a fixed answer token differed at six significant digits in 98 to 99\,\% of the pairs. The hidden
 differences therefore reach the readout, but here they stay within the margins of the greedy choices, and only the
 wording of the yes-or-no answer changed, in 9 of the 92 cells. The visible text is not a complete record of the state.
