@@ -1433,6 +1433,16 @@ def summarize(args):
                                                             "achieved_mean_kl_noise_float32_logits", "mean_kl_q4",
                                                             "states", "definition", "batches")},
                "kl_attractor_by_T": dkls, "manifests": manifests(dpath)}
+    precision = None
+    if args.precision:
+        pf = OUT_ROOT / args.precision / "precision.json"
+        pr = json.loads(pf.read_text())
+        precision = {"file": str(pf.relative_to(OUT_ROOT)), "sha256": sha256_file(pf), "h": pr["h"], "git": pr.get("git"),
+                     "definition": "|F(x + h u) - F(x - h u)| / (2h) at states after 32 steps (prompt 0, start ' the'); "
+                                   "relative deviation from the h = 1e-5 value; repeat_diff = max |F(x) - F(x)| between "
+                                   "two batch positions",
+                     "cells": [{k: c[k] for k in ("variant", "log10_T", "rel_dev_from_h1e-5", "repeat_diff_max_abs")}
+                               for c in pr["cells"]]}
     negative = []
     for rep in args.repeat:
         for f in sorted((OUT_ROOT / rep).glob("compare-*.json")):
@@ -1453,7 +1463,7 @@ def summarize(args):
         "sensitivity_endpoints": res["sensitivity"],
         "changes": res["changes"], "one_step": kl_summary, "noise_kl_match_heldout": noise_match,
         "endpoint_sensitivity_adjacent_T_reference": res["adjacent_T"], "extension": extension,
-        "negative_control": negative, "development": dev, "manifests": manifests(held),
+        "negative_control": negative, "precision_probe": precision, "development": dev, "manifests": manifests(held),
         "weights": json.loads(sorted(held.glob("manifest-*.json"))[0].read_text()).get("weights"),
         "git_summarize": git_state(), "created_utc": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())}
     summary["raw_files"] = file_list(held) + (file_list(dpath) if dev else []) + \
@@ -1510,6 +1520,7 @@ def main():
     s.add_argument("--heldout", default="heldout")
     s.add_argument("--repeat", nargs="*", default=[])
     s.add_argument("--extension", default=None, help="run directory with further starts of the same held-out batches")
+    s.add_argument("--precision", default=None, help="directory of the precision probe (precision.json)")
     s.add_argument("--receipt", default=str(ROOT / "docs" / "pi" / "c12-2-summary.json"))
     args = ap.parse_args()
     if args.cmd == "run" and not (1 <= args.starts and 0 <= args.start_offset
