@@ -28003,3 +28003,37 @@ Run by a separate agent on the CPU, float32. Tool tools/c12_steering_history.py 
 - The present steering strength does not determine the decision: what the loop wrote under earlier steering stays in its growing context and keeps biasing it.
 - This is stored-context memory, not hysteresis of a fixed-size state.
 - One model, direction and schedule; CPU float32; exploratory.
+
+## 2026-10-16 21:10 UTC: Run PM2 results (confirmatory, frozen before data): the pooled prediction holds; reasoning models that answer well change 15-20 % of GSM8K answers with the batch layout, with soft and plain thinking alike
+
+**Pods and gates.** Commit 3639819a. Every runner rc 0, hashes verified, all terminated.
+- Pods: A H100 NVL (R1-Distill-Qwen-7B), B H100 NVL (R1-Distill-Llama-8B), C H200 (QwQ-32B), D A100-SXM4-80GB (R1-Distill-Qwen-7B, replication).
+- The orchestrator refused to extract A over D's identically named directories (extraction clash protection). A was extracted to explore/pi/pm2-A/.
+- All 12 arms are complete: GSM8K 256 problems x 2 layouts, MATH-500 64 x 2.
+- Receipt docs/pi/pm2-summary.json (tools/pi_matrix2_analyze.py as frozen).
+
+**Primary.** Soft flip rate pooled over the five primary cells: 29.6 % (265/896), 95 % [27.3, 31.8]. Confirmed (prediction > 5 %, lower bound > 2 %).
+
+| cell | soft flips [95 %] | plain flips | accuracy soft / plain (16 or 8) | exactly one layout correct (soft) |
+|---|---|---|---|---|
+| R1-Qwen-7B GSM8K, H100 | 14.5 % [10.9, 18.0] | 10.2 % | 88.3 / 91.8 % | 11.7 % |
+| QwQ-32B GSM8K, H200 | 19.5 % [16.4, 22.3] | 19.9 % | 86.7 / 82.8 % | 14.5 % |
+| R1-Llama-8B GSM8K, H100 | 37.5 % [32.8, 42.2] | 40.2 % | 54.3 / 49.2 % | 13.3 % |
+| R1-Qwen-7B MATH-500 int, H100 | 60.9 % [50.0, 71.9] | 53.1 % | 48.4 / 42.2 % | 26.6 % |
+| R1-Llama-8B MATH-500 int, H100 | 67.2 % [56.2, 78.1] | 62.5 % | 39.1 / 37.5 % | 25.0 % |
+| R1-Qwen-7B GSM8K, A100 (replication) | 11.7 % [7.8, 16.0] | 14.5 % | 89.5 / 89.1 % | 8.6 % |
+
+- **Soft minus plain flips:** no significant difference in any cell. R1-Qwen GSM8K +4.3 [0.0, 8.6], p 0.09; QwQ -0.4 [-4.3, 3.9]; the others' intervals include 0.
+- **Accuracy:** soft minus plain accuracy is small and not significant by McNemar in any cell.
+- **A100 against H100** (R1-Qwen GSM8K): soft +2.7 [-1.6, 6.6], plain -4.3 [-6.6, -2.0] (McNemar p 0.099).
+- **End of thinking:** the median soft step is 764 (R1-Qwen GSM8K), 873 (QwQ), 190 (R1-Llama GSM8K), and 1510 and 1536 (MATH). On MATH, half of the rows hit the 1536-step cap, so MATH accuracy is budget-limited.
+
+**Caveats.**
+- R1-Llama-8B answers poorly: budgets (answer budget 256, early unfinished thinking), plus a tokenizer decoding quirk (byte-level markers left in the text). Extracted numbers are unaffected, and both layouts share the procedure.
+- No Cold Stop.
+- The plain arm samples with common random numbers.
+
+**Reading.**
+- In reasoning models that answer GSM8K well (86-92 %), the batch layout alone changes 12-20 % of answers. It changes correctness for 8-15 % of problems, whether the model thinks in soft tokens or samples discrete tokens with identical random numbers.
+- The effect is a property of long feedback in bfloat16, not of continuous thinking.
+- The earlier non-reasoning result (21 %, PM) generalizes to models that answer well.
