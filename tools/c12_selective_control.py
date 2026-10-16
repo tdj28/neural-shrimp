@@ -811,7 +811,9 @@ def cmd_run(args):
     recf = open(recp, "a")
     targets = [eng.target_ids(p["target"]) for p in probs]
     horizons = sorted(args.horizons)
-    combos = [(S, inj) for S in horizons for inj in (("early",) if S == 1 else ("early", "late"))]
+    combos = [(S, inj) for S in horizons for inj in (("early",) if S == 1 else ("early", "late"))
+              if inj in args.injections]
+    long_horizons = args.long_horizons or [max(horizons)]
     K = args.K
     schedule = args.pga_schedule
     if len(schedule) != args.pga_steps:
@@ -854,7 +856,7 @@ def cmd_run(args):
             # ---- random search (candidate 0 is random1), with a zero row per problem
             per = 1 + len(radii) * K
             chunk = max(1, (args.rows_long if n > 1 else args.rows_short) // per)
-            for c0 in range(0, len(probs), chunk):
+            for c0 in (range(0, len(probs), chunk) if "search" in args.arms else []):
                 key = ("search", T, S, inj, c0)
                 if key in done:
                     continue
@@ -904,49 +906,58 @@ def cmd_run(args):
                        "problems": len(idx), "K": K, "radii": radii, "seconds": round(sec, 3)})
                 write({"kind": "done", "key": list(key)})
                 recf.flush()
-            # ---- projected gradient ascent, then evaluation with zero rows
-            pairs = [(i, rho) for i in range(len(probs)) for rho in radii]
-            bs = args.pga_rows_long if n > 1 else args.pga_rows_short
-            for c0 in range(0, len(pairs), bs):
-                key = ("pga", T, S, inj, c0)
-                if key in done:
-                    continue
-                pc = pairs[c0:c0 + bs]
-                rows = torch.tensor([i for i, _ in pc])
-                radius = torch.tensor([rho * float(enorm[i]) for i, rho in pc], dtype=eng.cdtype)
-                tg = [targets[i] for i, _ in pc]
-                t1 = time.time()
-                pg = eng.pga(eng.select(snap, rows), T, n, radius, tg, args.pga_steps, schedule)
-                sec_opt = time.time() - t1
-                zi = sorted({i for i, _ in pc})
-                erows = rows.tolist() + zi
-                ED = torch.cat([pg["delta"], torch.zeros(len(zi), eng.d, dtype=eng.cdtype)])
-                t1 = time.time()
-                res = eng.rollout(eng.select(snap, torch.tensor(erows)), T, n, delta=ED, readouts={n},
-                                  targets=[targets[i] for i in erows])
-                sec_eval = time.time() - t1
-                ro = res["readouts"][n]
-                for r, (i, rho) in enumerate(pc):
-                    p = probs[i]
-                    sc = score(ro["text"][r], p["gold"], p["target"])
-                    write({"kind": "arm", "arm": "pga", "uid": p["uid"], "id": p["id"], "T": T, "S": S, "inj": inj,
-                           "rho": rho, "baseline_answer": base_ans[(i, S)], "inj_norm": float(enorm[i]), **sc,
-                           "text": ro["text"][r], "J": ro["J"][r], "realized_rel": res["realized_rel"][r],
-                           "changed": sc["answer"] != base_ans[(i, S)], "J0": float(pg["J0"][r]),
-                           "J_iterates": [round(float(x), 5) for x in pg["J_iterates"][r]], "best_iter": int(pg["best"][r]) + 1,
-                           "grad_norms": [float(x) for x in pg["grad_norms"][r]]})
-                for r, i in enumerate(zi, start=len(pc)):
-                    p = probs[i]
-                    sc = score(ro["text"][r], p["gold"], p["target"])
-                    write({"kind": "arm", "arm": "zero", "batch": "pga", "uid": p["uid"], "id": p["id"], "T": T, "S": S,
-                           "inj": inj, "rho": 0.0, "baseline_answer": base_ans[(i, S)], **sc, "text": ro["text"][r],
-                           "J": ro["J"][r], "realized_rel": res["realized_rel"][r],
-                           "changed": sc["answer"] != base_ans[(i, S)]})
-                write({"kind": "timing", "what": "pga", "T": T, "S": S, "inj": inj, "n_steps": n, "rows": len(pc),
-                       "grad_passes": args.pga_steps, "forward_passes": 1, "seconds_opt": round(sec_opt, 3),
-                       "eval_rows": len(erows), "seconds_eval": round(sec_eval, 3)})
-                write({"kind": "done", "key": list(key)})
-                recf.flush()
+            # ---- projected gradient ascent (the compute-matched arm "pga" and, optionally, a long variant
+            # "pga<N>" with N steps of 2.5 r / N, as in Madry et al.'s L2 PGD), then evaluation with zero rows
+            variants = []
+            if "pga" in args.arms:
+                variants.append(("pga", args.pga_steps, schedule, radii, list(range(len(probs)))))
+            if "long" in args.arms and S in long_horizons and inj in args.long_injections:
+                nl = min(args.long_limit or len(probs), len(probs))
+                variants.append((f"pga{args.long_steps}", args.long_steps, [2.5 / args.long_steps] * args.long_steps,
+                                 list(args.long_radii), list(range(nl))))
+            for arm, steps, sched, vradii, vprobs in variants:
+                pairs = [(i, rho) for i in vprobs for rho in vradii]
+                bs = args.pga_rows_long if n > 1 else args.pga_rows_short
+                for c0 in range(0, len(pairs), bs):
+                    key = (arm, T, S, inj, c0)
+                    if key in done:
+                        continue
+                    pc = pairs[c0:c0 + bs]
+                    rows = torch.tensor([i for i, _ in pc])
+                    radius = torch.tensor([rho * float(enorm[i]) for i, rho in pc], dtype=eng.cdtype)
+                    tg = [targets[i] for i, _ in pc]
+                    t1 = time.time()
+                    pg = eng.pga(eng.select(snap, rows), T, n, radius, tg, steps, sched)
+                    sec_opt = time.time() - t1
+                    zi = sorted({i for i, _ in pc})
+                    erows = rows.tolist() + zi
+                    ED = torch.cat([pg["delta"], torch.zeros(len(zi), eng.d, dtype=eng.cdtype)])
+                    t1 = time.time()
+                    res = eng.rollout(eng.select(snap, torch.tensor(erows)), T, n, delta=ED, readouts={n},
+                                      targets=[targets[i] for i in erows])
+                    sec_eval = time.time() - t1
+                    ro = res["readouts"][n]
+                    for r, (i, rho) in enumerate(pc):
+                        p = probs[i]
+                        sc = score(ro["text"][r], p["gold"], p["target"])
+                        write({"kind": "arm", "arm": arm, "uid": p["uid"], "id": p["id"], "T": T, "S": S, "inj": inj,
+                               "rho": rho, "baseline_answer": base_ans[(i, S)], "inj_norm": float(enorm[i]), **sc,
+                               "text": ro["text"][r], "J": ro["J"][r], "realized_rel": res["realized_rel"][r],
+                               "changed": sc["answer"] != base_ans[(i, S)], "J0": float(pg["J0"][r]),
+                               "J_iterates": [round(float(x), 5) for x in pg["J_iterates"][r]], "best_iter": int(pg["best"][r]) + 1,
+                               "grad_norms": [float(x) for x in pg["grad_norms"][r]]})
+                    for r, i in enumerate(zi, start=len(pc)):
+                        p = probs[i]
+                        sc = score(ro["text"][r], p["gold"], p["target"])
+                        write({"kind": "arm", "arm": "zero", "batch": arm, "uid": p["uid"], "id": p["id"], "T": T, "S": S,
+                               "inj": inj, "rho": 0.0, "baseline_answer": base_ans[(i, S)], **sc, "text": ro["text"][r],
+                               "J": ro["J"][r], "realized_rel": res["realized_rel"][r],
+                               "changed": sc["answer"] != base_ans[(i, S)]})
+                    write({"kind": "timing", "what": arm, "T": T, "S": S, "inj": inj, "n_steps": n, "rows": len(pc),
+                           "grad_passes": steps, "forward_passes": 1, "seconds_opt": round(sec_opt, 3),
+                           "eval_rows": len(erows), "seconds_eval": round(sec_eval, 3)})
+                    write({"kind": "done", "key": list(key)})
+                    recf.flush()
             print(json.dumps({"T": T, "S": S, "inj": inj, "elapsed": round(time.time() - t0, 1)}), flush=True)
     hist[-1]["finished"] = time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())
     runf.write_text(json.dumps({"history": hist}, indent=1) + "\n")
@@ -975,7 +986,7 @@ def gate(recs):
         if r["kind"] != "arm":
             continue
         k = (r["arm"], r.get("batch"), r["uid"], r["T"], r["S"], r["inj"], r["rho"])
-        if k in seen:
+        if k in seen and r["arm"] != "zero":       # a zero row per problem and batch: repeats are expected
             issues.append(f"duplicate arm row {k}")
         seen.add(k)
         if (r["uid"], r["T"], r["S"]) not in base:
@@ -1065,19 +1076,19 @@ def cmd_analyze(args):
                 "candidates": nc, "changed": sum(r["cand_changed"] for r in el),
                 "target_hits": sum(r["cand_target_hits"] for r in el),
                 "any_of_K_target_pairs": sum(r["cand_target_hits"] > 0 for r in el), "pairs": len(el)}
-        if arm == "pga":
+        if arm.startswith("pga"):
             rates[f"S{S}_{inj}_rho{rho}_{arm}"]["J_gain_median"] = float(np.median(
                 [max(r["J_iterates"]) - r["J0"] for r in rows])) if rows else None
     summ["rates"] = rates
     # contrasts
     con = {}
     for (S, inj, rho, arm, batch) in arms:
-        if arm != "pga":
+        if not arm.startswith("pga"):
             continue
         for other in ("search", "random1"):
             if (S, inj, rho, other, None) in arms:
-                con[f"S{S}_{inj}_rho{rho}_pga-minus-{other}"] = paired_delta(arms[(S, inj, rho, "pga", None)],
-                                                                              arms[(S, inj, rho, other, None)], base)
+                con[f"S{S}_{inj}_rho{rho}_{arm}-minus-{other}"] = paired_delta(arms[(S, inj, rho, arm, None)],
+                                                                               arms[(S, inj, rho, other, None)], base)
     for (S, inj, rho, arm, batch) in arms:
         if inj != "early" or arm == "zero" or (S, "late", rho, arm, None) not in arms:
             continue
@@ -1094,12 +1105,18 @@ def cmd_analyze(args):
                                          f"S = {S}, rho = {args.primary_radius}, baseline-correct problem-temperature "
                                          "pairs, problems weighted equally, paired bootstrap over problems",
                            **pr, "decision": decision(pr["estimate"], pr["boot95_problems"])}
-        el = f"S{S}_rho{args.primary_radius}_pga_early-minus-late"
+        rho = args.primary_radius
+        summ["primary_unconditional"] = paired_delta(arms[(S, "early", rho, "pga", None)],
+                                                     arms[(S, "early", rho, "search", None)], base, eligible_only=False)
+        el = f"S{S}_rho{rho}_pga_early-minus-late"
         summ["early_vs_late_primary_dose"] = con.get(el)
+        if (S, "late", rho, "pga", None) in arms:
+            summ["early_vs_late_primary_dose_unconditional"] = paired_delta(
+                arms[(S, "early", rho, "pga", None)], arms[(S, "late", rho, "pga", None)], base, eligible_only=False)
     # compute
     tim = [r for r in recs if r["kind"] == "timing"]
     comp = {}
-    for what in ("search", "pga"):
+    for what in ["search"] + sorted({t["what"] for t in tim if t["what"].startswith("pga")}):
         for S in horizons:
             for inj in ("early", "late"):
                 ts = [t for t in tim if t["what"] == what and t["S"] == S and t["inj"] == inj]
@@ -1113,7 +1130,7 @@ def cmd_analyze(args):
                 else:
                     sec = sum(t["seconds_opt"] for t in ts)
                     rows = sum(t["rows"] for t in ts)
-                    comp[f"S{S}_{inj}_pga"] = {"seconds_opt": round(sec, 1), "rows": rows,
+                    comp[f"S{S}_{inj}_{what}"] = {"seconds_opt": round(sec, 1), "rows": rows,
                                                 "sec_per_row_opt": sec / max(1, rows),
                                                 "seconds_eval": round(sum(t["seconds_eval"] for t in ts), 1)}
     summ["compute"] = comp
@@ -1215,7 +1232,8 @@ def cmd_receipt(args):
         rec["runs"][name] = {"dir": rp["dir"], "runs": a["runs"], "gate": a["gate"], "baseline": a["baseline"],
                              "controls": a["controls"], "rates": compact_rates(a["rates"]), "contrasts": a["contrasts"],
                              "compute": a["compute"]}
-        for k in ("primary", "early_vs_late_primary_dose"):
+        for k in ("primary", "primary_unconditional", "early_vs_late_primary_dose",
+                  "early_vs_late_primary_dose_unconditional"):
             if k in a:
                 rec["runs"][name][k] = a[k]
     raw = []
@@ -1293,6 +1311,13 @@ def main():
     p.add_argument("--rows-short", type=int, default=200, help="search rows per batch, one-step segments")
     p.add_argument("--pga-rows-long", type=int, default=32)
     p.add_argument("--pga-rows-short", type=int, default=128)
+    p.add_argument("--injections", nargs="+", default=["early", "late"], choices=("early", "late"))
+    p.add_argument("--arms", nargs="+", default=["search", "pga"], choices=("search", "pga", "long"))
+    p.add_argument("--long-steps", type=int, default=30, help="long pga variant: steps (step 2.5 r / N)")
+    p.add_argument("--long-radii", type=float, nargs="*", default=[])
+    p.add_argument("--long-injections", nargs="+", default=["late"], choices=("early", "late"))
+    p.add_argument("--long-horizons", type=int, nargs="*", default=[], help="default: the longest horizon")
+    p.add_argument("--long-limit", type=int, default=0, help="long variant on the first N problems (0: all)")
     p.add_argument("--resume", action="store_true")
     p = sub.add_parser("analyze")
     p.add_argument("runs", nargs="+")
