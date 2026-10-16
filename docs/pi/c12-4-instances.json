@@ -1,0 +1,2699 @@
+{
+ "seed": 12401,
+ "n_dev": 16,
+ "n_test": 48,
+ "sha256": "4be27e06272c3d4a884ce0769ed7bdb6a07fc063a8a06d762245c073b435ae0b",
+ "prompt_tokens": 134,
+ "tokenizer": "/data2/neural-shrimp-data/models/hf/hub/models--Qwen--Qwen2.5-1.5B-Instruct/snapshots/989aa7980e4cf806f80c7fef2b1adb7bc71aa306",
+ "example_prompt": "You are checking requests against an access-control policy. The permission table states, for every user and operation, whether the operation is allowed or denied.\n\nPermission table:\n- Erin: comment allowed, approve allowed, download denied\n- Grace: comment allowed, approve denied, download allowed\n- Ivan: comment allowed, approve denied, download allowed\n- Judy: comment denied, approve allowed, download allowed\n\nRequest: Judy asks to download.\n\nIs the request allowed by the table? Answer with one word: ALLOW or DENY.",
+ "instances": [
+  {
+   "uid": 0,
+   "id": "dev-00",
+   "split": "dev",
+   "users": [
+    "Erin",
+    "Grace",
+    "Ivan",
+    "Judy"
+   ],
+   "ops": [
+    "comment",
+    "approve",
+    "download"
+   ],
+   "matrix": [
+    [
+     true,
+     true,
+     false
+    ],
+    [
+     true,
+     false,
+     true
+    ],
+    [
+     true,
+     false,
+     true
+    ],
+    [
+     false,
+     true,
+     true
+    ]
+   ],
+   "request_user": "Judy",
+   "request_op": "download",
+   "cls": "permitted",
+   "gold": "ALLOW"
+  },
+  {
+   "uid": 1,
+   "id": "dev-01",
+   "split": "dev",
+   "users": [
+    "Erin",
+    "Kevin",
+    "Ivan",
+    "Carol"
+   ],
+   "ops": [
+    "edit",
+    "publish",
+    "comment"
+   ],
+   "matrix": [
+    [
+     true,
+     false,
+     false
+    ],
+    [
+     false,
+     false,
+     true
+    ],
+    [
+     true,
+     false,
+     true
+    ],
+    [
+     false,
+     true,
+     false
+    ]
+   ],
+   "request_user": "Ivan",
+   "request_op": "comment",
+   "cls": "permitted",
+   "gold": "ALLOW"
+  },
+  {
+   "uid": 2,
+   "id": "dev-02",
+   "split": "dev",
+   "users": [
+    "Ivan",
+    "Frank",
+    "Heidi",
+    "Bob"
+   ],
+   "ops": [
+    "write",
+    "view",
+    "print"
+   ],
+   "matrix": [
+    [
+     true,
+     true,
+     false
+    ],
+    [
+     false,
+     true,
+     false
+    ],
+    [
+     false,
+     true,
+     true
+    ],
+    [
+     true,
+     false,
+     false
+    ]
+   ],
+   "request_user": "Bob",
+   "request_op": "print",
+   "cls": "prohibited",
+   "gold": "DENY"
+  },
+  {
+   "uid": 3,
+   "id": "dev-03",
+   "split": "dev",
+   "users": [
+    "Ivan",
+    "Frank",
+    "Dave",
+    "Laura"
+   ],
+   "ops": [
+    "export",
+    "move",
+    "rename"
+   ],
+   "matrix": [
+    [
+     true,
+     false,
+     true
+    ],
+    [
+     false,
+     true,
+     true
+    ],
+    [
+     false,
+     true,
+     true
+    ],
+    [
+     true,
+     true,
+     false
+    ]
+   ],
+   "request_user": "Laura",
+   "request_op": "export",
+   "cls": "permitted",
+   "gold": "ALLOW"
+  },
+  {
+   "uid": 4,
+   "id": "dev-04",
+   "split": "dev",
+   "users": [
+    "Heidi",
+    "Kevin",
+    "Carol",
+    "Frank"
+   ],
+   "ops": [
+    "view",
+    "write",
+    "share"
+   ],
+   "matrix": [
+    [
+     false,
+     true,
+     true
+    ],
+    [
+     false,
+     false,
+     true
+    ],
+    [
+     true,
+     true,
+     false
+    ],
+    [
+     true,
+     false,
+     true
+    ]
+   ],
+   "request_user": "Heidi",
+   "request_op": "view",
+   "cls": "prohibited",
+   "gold": "DENY"
+  },
+  {
+   "uid": 5,
+   "id": "dev-05",
+   "split": "dev",
+   "users": [
+    "Alice",
+    "Grace",
+    "Frank",
+    "Laura"
+   ],
+   "ops": [
+    "view",
+    "copy",
+    "delete"
+   ],
+   "matrix": [
+    [
+     true,
+     false,
+     false
+    ],
+    [
+     false,
+     false,
+     true
+    ],
+    [
+     false,
+     true,
+     true
+    ],
+    [
+     true,
+     true,
+     false
+    ]
+   ],
+   "request_user": "Alice",
+   "request_op": "view",
+   "cls": "permitted",
+   "gold": "ALLOW"
+  },
+  {
+   "uid": 6,
+   "id": "dev-06",
+   "split": "dev",
+   "users": [
+    "Heidi",
+    "Kevin",
+    "Erin",
+    "Laura"
+   ],
+   "ops": [
+    "share",
+    "approve",
+    "write"
+   ],
+   "matrix": [
+    [
+     false,
+     true,
+     true
+    ],
+    [
+     false,
+     true,
+     false
+    ],
+    [
+     false,
+     true,
+     true
+    ],
+    [
+     true,
+     false,
+     false
+    ]
+   ],
+   "request_user": "Erin",
+   "request_op": "approve",
+   "cls": "permitted",
+   "gold": "ALLOW"
+  },
+  {
+   "uid": 7,
+   "id": "dev-07",
+   "split": "dev",
+   "users": [
+    "Judy",
+    "Dave",
+    "Bob",
+    "Grace"
+   ],
+   "ops": [
+    "upload",
+    "import",
+    "delete"
+   ],
+   "matrix": [
+    [
+     true,
+     false,
+     true
+    ],
+    [
+     true,
+     false,
+     false
+    ],
+    [
+     true,
+     false,
+     false
+    ],
+    [
+     false,
+     true,
+     true
+    ]
+   ],
+   "request_user": "Bob",
+   "request_op": "import",
+   "cls": "prohibited",
+   "gold": "DENY"
+  },
+  {
+   "uid": 8,
+   "id": "dev-08",
+   "split": "dev",
+   "users": [
+    "Carol",
+    "Ivan",
+    "Judy",
+    "Dave"
+   ],
+   "ops": [
+    "publish",
+    "edit",
+    "comment"
+   ],
+   "matrix": [
+    [
+     true,
+     false,
+     true
+    ],
+    [
+     false,
+     true,
+     false
+    ],
+    [
+     false,
+     true,
+     true
+    ],
+    [
+     true,
+     true,
+     false
+    ]
+   ],
+   "request_user": "Carol",
+   "request_op": "publish",
+   "cls": "permitted",
+   "gold": "ALLOW"
+  },
+  {
+   "uid": 9,
+   "id": "dev-09",
+   "split": "dev",
+   "users": [
+    "Erin",
+    "Dave",
+    "Kevin",
+    "Carol"
+   ],
+   "ops": [
+    "move",
+    "copy",
+    "delete"
+   ],
+   "matrix": [
+    [
+     true,
+     false,
+     true
+    ],
+    [
+     true,
+     false,
+     false
+    ],
+    [
+     false,
+     true,
+     true
+    ],
+    [
+     true,
+     false,
+     true
+    ]
+   ],
+   "request_user": "Kevin",
+   "request_op": "move",
+   "cls": "prohibited",
+   "gold": "DENY"
+  },
+  {
+   "uid": 10,
+   "id": "dev-10",
+   "split": "dev",
+   "users": [
+    "Kevin",
+    "Grace",
+    "Judy",
+    "Heidi"
+   ],
+   "ops": [
+    "share",
+    "publish",
+    "rename"
+   ],
+   "matrix": [
+    [
+     false,
+     true,
+     true
+    ],
+    [
+     true,
+     true,
+     false
+    ],
+    [
+     true,
+     false,
+     true
+    ],
+    [
+     false,
+     true,
+     true
+    ]
+   ],
+   "request_user": "Heidi",
+   "request_op": "share",
+   "cls": "prohibited",
+   "gold": "DENY"
+  },
+  {
+   "uid": 11,
+   "id": "dev-11",
+   "split": "dev",
+   "users": [
+    "Frank",
+    "Heidi",
+    "Alice",
+    "Ivan"
+   ],
+   "ops": [
+    "share",
+    "export",
+    "edit"
+   ],
+   "matrix": [
+    [
+     true,
+     false,
+     true
+    ],
+    [
+     false,
+     true,
+     false
+    ],
+    [
+     false,
+     true,
+     true
+    ],
+    [
+     false,
+     true,
+     false
+    ]
+   ],
+   "request_user": "Alice",
+   "request_op": "edit",
+   "cls": "permitted",
+   "gold": "ALLOW"
+  },
+  {
+   "uid": 12,
+   "id": "dev-12",
+   "split": "dev",
+   "users": [
+    "Dave",
+    "Ivan",
+    "Frank",
+    "Judy"
+   ],
+   "ops": [
+    "share",
+    "read",
+    "publish"
+   ],
+   "matrix": [
+    [
+     false,
+     false,
+     true
+    ],
+    [
+     true,
+     false,
+     true
+    ],
+    [
+     false,
+     true,
+     false
+    ],
+    [
+     false,
+     true,
+     false
+    ]
+   ],
+   "request_user": "Frank",
+   "request_op": "publish",
+   "cls": "prohibited",
+   "gold": "DENY"
+  },
+  {
+   "uid": 13,
+   "id": "dev-13",
+   "split": "dev",
+   "users": [
+    "Kevin",
+    "Judy",
+    "Grace",
+    "Carol"
+   ],
+   "ops": [
+    "delete",
+    "rename",
+    "comment"
+   ],
+   "matrix": [
+    [
+     true,
+     true,
+     false
+    ],
+    [
+     false,
+     true,
+     false
+    ],
+    [
+     false,
+     false,
+     true
+    ],
+    [
+     false,
+     true,
+     false
+    ]
+   ],
+   "request_user": "Judy",
+   "request_op": "comment",
+   "cls": "prohibited",
+   "gold": "DENY"
+  },
+  {
+   "uid": 14,
+   "id": "dev-14",
+   "split": "dev",
+   "users": [
+    "Ivan",
+    "Bob",
+    "Carol",
+    "Erin"
+   ],
+   "ops": [
+    "upload",
+    "import",
+    "rename"
+   ],
+   "matrix": [
+    [
+     false,
+     true,
+     false
+    ],
+    [
+     false,
+     false,
+     true
+    ],
+    [
+     false,
+     false,
+     true
+    ],
+    [
+     true,
+     false,
+     false
+    ]
+   ],
+   "request_user": "Ivan",
+   "request_op": "upload",
+   "cls": "prohibited",
+   "gold": "DENY"
+  },
+  {
+   "uid": 15,
+   "id": "dev-15",
+   "split": "dev",
+   "users": [
+    "Kevin",
+    "Judy",
+    "Ivan",
+    "Carol"
+   ],
+   "ops": [
+    "print",
+    "upload",
+    "write"
+   ],
+   "matrix": [
+    [
+     false,
+     false,
+     true
+    ],
+    [
+     true,
+     false,
+     true
+    ],
+    [
+     true,
+     true,
+     false
+    ],
+    [
+     false,
+     true,
+     true
+    ]
+   ],
+   "request_user": "Kevin",
+   "request_op": "write",
+   "cls": "permitted",
+   "gold": "ALLOW"
+  },
+  {
+   "uid": 16,
+   "id": "test-00",
+   "split": "test",
+   "users": [
+    "Nina",
+    "Tina",
+    "Mike",
+    "Leo"
+   ],
+   "ops": [
+    "read",
+    "print",
+    "delete"
+   ],
+   "matrix": [
+    [
+     true,
+     true,
+     false
+    ],
+    [
+     true,
+     true,
+     false
+    ],
+    [
+     true,
+     false,
+     false
+    ],
+    [
+     false,
+     true,
+     true
+    ]
+   ],
+   "request_user": "Mike",
+   "request_op": "read",
+   "cls": "permitted",
+   "gold": "ALLOW"
+  },
+  {
+   "uid": 17,
+   "id": "test-01",
+   "split": "test",
+   "users": [
+    "Mary",
+    "Emma",
+    "Brian",
+    "George"
+   ],
+   "ops": [
+    "import",
+    "delete",
+    "copy"
+   ],
+   "matrix": [
+    [
+     false,
+     true,
+     false
+    ],
+    [
+     true,
+     false,
+     false
+    ],
+    [
+     true,
+     false,
+     true
+    ],
+    [
+     false,
+     true,
+     true
+    ]
+   ],
+   "request_user": "Emma",
+   "request_op": "import",
+   "cls": "permitted",
+   "gold": "ALLOW"
+  },
+  {
+   "uid": 18,
+   "id": "test-02",
+   "split": "test",
+   "users": [
+    "Oscar",
+    "Olivia",
+    "Nina",
+    "Kate"
+   ],
+   "ops": [
+    "view",
+    "rename",
+    "approve"
+   ],
+   "matrix": [
+    [
+     false,
+     true,
+     false
+    ],
+    [
+     true,
+     false,
+     true
+    ],
+    [
+     true,
+     false,
+     true
+    ],
+    [
+     true,
+     false,
+     false
+    ]
+   ],
+   "request_user": "Nina",
+   "request_op": "view",
+   "cls": "permitted",
+   "gold": "ALLOW"
+  },
+  {
+   "uid": 19,
+   "id": "test-03",
+   "split": "test",
+   "users": [
+    "Mary",
+    "Fiona",
+    "Chris",
+    "Emma"
+   ],
+   "ops": [
+    "publish",
+    "delete",
+    "edit"
+   ],
+   "matrix": [
+    [
+     true,
+     false,
+     false
+    ],
+    [
+     true,
+     true,
+     false
+    ],
+    [
+     false,
+     true,
+     true
+    ],
+    [
+     true,
+     true,
+     false
+    ]
+   ],
+   "request_user": "Mary",
+   "request_op": "delete",
+   "cls": "prohibited",
+   "gold": "DENY"
+  },
+  {
+   "uid": 20,
+   "id": "test-04",
+   "split": "test",
+   "users": [
+    "Brian",
+    "Emma",
+    "George",
+    "Mike"
+   ],
+   "ops": [
+    "comment",
+    "upload",
+    "print"
+   ],
+   "matrix": [
+    [
+     true,
+     true,
+     false
+    ],
+    [
+     true,
+     true,
+     false
+    ],
+    [
+     true,
+     true,
+     false
+    ],
+    [
+     false,
+     false,
+     true
+    ]
+   ],
+   "request_user": "Mike",
+   "request_op": "upload",
+   "cls": "prohibited",
+   "gold": "DENY"
+  },
+  {
+   "uid": 21,
+   "id": "test-05",
+   "split": "test",
+   "users": [
+    "Olivia",
+    "Diana",
+    "George",
+    "Brian"
+   ],
+   "ops": [
+    "copy",
+    "archive",
+    "print"
+   ],
+   "matrix": [
+    [
+     true,
+     false,
+     true
+    ],
+    [
+     false,
+     true,
+     false
+    ],
+    [
+     false,
+     true,
+     false
+    ],
+    [
+     false,
+     false,
+     true
+    ]
+   ],
+   "request_user": "Diana",
+   "request_op": "copy",
+   "cls": "prohibited",
+   "gold": "DENY"
+  },
+  {
+   "uid": 22,
+   "id": "test-06",
+   "split": "test",
+   "users": [
+    "Jack",
+    "Leo",
+    "Rita",
+    "Nina"
+   ],
+   "ops": [
+    "print",
+    "move",
+    "delete"
+   ],
+   "matrix": [
+    [
+     true,
+     true,
+     false
+    ],
+    [
+     false,
+     true,
+     true
+    ],
+    [
+     false,
+     false,
+     true
+    ],
+    [
+     false,
+     true,
+     true
+    ]
+   ],
+   "request_user": "Nina",
+   "request_op": "print",
+   "cls": "prohibited",
+   "gold": "DENY"
+  },
+  {
+   "uid": 23,
+   "id": "test-07",
+   "split": "test",
+   "users": [
+    "Leo",
+    "Mike",
+    "Paul",
+    "Emma"
+   ],
+   "ops": [
+    "upload",
+    "copy",
+    "publish"
+   ],
+   "matrix": [
+    [
+     false,
+     false,
+     true
+    ],
+    [
+     true,
+     false,
+     false
+    ],
+    [
+     false,
+     true,
+     false
+    ],
+    [
+     true,
+     true,
+     false
+    ]
+   ],
+   "request_user": "Emma",
+   "request_op": "publish",
+   "cls": "prohibited",
+   "gold": "DENY"
+  },
+  {
+   "uid": 24,
+   "id": "test-08",
+   "split": "test",
+   "users": [
+    "Nick",
+    "George",
+    "Brian",
+    "Jack"
+   ],
+   "ops": [
+    "publish",
+    "delete",
+    "approve"
+   ],
+   "matrix": [
+    [
+     false,
+     true,
+     false
+    ],
+    [
+     true,
+     false,
+     true
+    ],
+    [
+     true,
+     false,
+     false
+    ],
+    [
+     true,
+     false,
+     false
+    ]
+   ],
+   "request_user": "George",
+   "request_op": "publish",
+   "cls": "permitted",
+   "gold": "ALLOW"
+  },
+  {
+   "uid": 25,
+   "id": "test-09",
+   "split": "test",
+   "users": [
+    "Chris",
+    "Quinn",
+    "Nina",
+    "Olivia"
+   ],
+   "ops": [
+    "delete",
+    "archive",
+    "write"
+   ],
+   "matrix": [
+    [
+     true,
+     false,
+     false
+    ],
+    [
+     false,
+     false,
+     true
+    ],
+    [
+     true,
+     false,
+     true
+    ],
+    [
+     false,
+     true,
+     false
+    ]
+   ],
+   "request_user": "Quinn",
+   "request_op": "write",
+   "cls": "permitted",
+   "gold": "ALLOW"
+  },
+  {
+   "uid": 26,
+   "id": "test-10",
+   "split": "test",
+   "users": [
+    "Paul",
+    "Emma",
+    "Fiona",
+    "Olivia"
+   ],
+   "ops": [
+    "copy",
+    "print",
+    "download"
+   ],
+   "matrix": [
+    [
+     false,
+     true,
+     false
+    ],
+    [
+     true,
+     false,
+     false
+    ],
+    [
+     false,
+     true,
+     true
+    ],
+    [
+     false,
+     false,
+     true
+    ]
+   ],
+   "request_user": "Fiona",
+   "request_op": "print",
+   "cls": "permitted",
+   "gold": "ALLOW"
+  },
+  {
+   "uid": 27,
+   "id": "test-11",
+   "split": "test",
+   "users": [
+    "Kate",
+    "Brian",
+    "Sam",
+    "Emma"
+   ],
+   "ops": [
+    "approve",
+    "comment",
+    "edit"
+   ],
+   "matrix": [
+    [
+     false,
+     true,
+     true
+    ],
+    [
+     true,
+     false,
+     true
+    ],
+    [
+     true,
+     false,
+     false
+    ],
+    [
+     true,
+     true,
+     false
+    ]
+   ],
+   "request_user": "Brian",
+   "request_op": "edit",
+   "cls": "permitted",
+   "gold": "ALLOW"
+  },
+  {
+   "uid": 28,
+   "id": "test-12",
+   "split": "test",
+   "users": [
+    "Leo",
+    "Victor",
+    "Nick",
+    "Chris"
+   ],
+   "ops": [
+    "edit",
+    "copy",
+    "archive"
+   ],
+   "matrix": [
+    [
+     false,
+     false,
+     true
+    ],
+    [
+     false,
+     false,
+     true
+    ],
+    [
+     false,
+     false,
+     true
+    ],
+    [
+     true,
+     true,
+     false
+    ]
+   ],
+   "request_user": "Victor",
+   "request_op": "copy",
+   "cls": "prohibited",
+   "gold": "DENY"
+  },
+  {
+   "uid": 29,
+   "id": "test-13",
+   "split": "test",
+   "users": [
+    "George",
+    "Diana",
+    "Oscar",
+    "Chris"
+   ],
+   "ops": [
+    "export",
+    "view",
+    "share"
+   ],
+   "matrix": [
+    [
+     false,
+     false,
+     true
+    ],
+    [
+     true,
+     false,
+     false
+    ],
+    [
+     false,
+     false,
+     true
+    ],
+    [
+     false,
+     true,
+     true
+    ]
+   ],
+   "request_user": "Diana",
+   "request_op": "view",
+   "cls": "prohibited",
+   "gold": "DENY"
+  },
+  {
+   "uid": 30,
+   "id": "test-14",
+   "split": "test",
+   "users": [
+    "Quinn",
+    "Tina",
+    "Chris",
+    "Mary"
+   ],
+   "ops": [
+    "delete",
+    "copy",
+    "move"
+   ],
+   "matrix": [
+    [
+     false,
+     true,
+     true
+    ],
+    [
+     true,
+     false,
+     true
+    ],
+    [
+     true,
+     false,
+     false
+    ],
+    [
+     true,
+     false,
+     false
+    ]
+   ],
+   "request_user": "Chris",
+   "request_op": "copy",
+   "cls": "prohibited",
+   "gold": "DENY"
+  },
+  {
+   "uid": 31,
+   "id": "test-15",
+   "split": "test",
+   "users": [
+    "Hannah",
+    "Brian",
+    "Mary",
+    "Olivia"
+   ],
+   "ops": [
+    "rename",
+    "import",
+    "copy"
+   ],
+   "matrix": [
+    [
+     false,
+     false,
+     true
+    ],
+    [
+     false,
+     true,
+     false
+    ],
+    [
+     false,
+     true,
+     true
+    ],
+    [
+     true,
+     false,
+     true
+    ]
+   ],
+   "request_user": "Mary",
+   "request_op": "rename",
+   "cls": "prohibited",
+   "gold": "DENY"
+  },
+  {
+   "uid": 32,
+   "id": "test-16",
+   "split": "test",
+   "users": [
+    "Leo",
+    "Mary",
+    "Quinn",
+    "Chris"
+   ],
+   "ops": [
+    "upload",
+    "print",
+    "write"
+   ],
+   "matrix": [
+    [
+     false,
+     false,
+     true
+    ],
+    [
+     false,
+     true,
+     false
+    ],
+    [
+     false,
+     true,
+     false
+    ],
+    [
+     true,
+     false,
+     false
+    ]
+   ],
+   "request_user": "Mary",
+   "request_op": "print",
+   "cls": "permitted",
+   "gold": "ALLOW"
+  },
+  {
+   "uid": 33,
+   "id": "test-17",
+   "split": "test",
+   "users": [
+    "Paul",
+    "Emma",
+    "Adam",
+    "Fiona"
+   ],
+   "ops": [
+    "write",
+    "comment",
+    "upload"
+   ],
+   "matrix": [
+    [
+     false,
+     true,
+     true
+    ],
+    [
+     true,
+     false,
+     true
+    ],
+    [
+     false,
+     true,
+     false
+    ],
+    [
+     false,
+     true,
+     false
+    ]
+   ],
+   "request_user": "Adam",
+   "request_op": "write",
+   "cls": "prohibited",
+   "gold": "DENY"
+  },
+  {
+   "uid": 34,
+   "id": "test-18",
+   "split": "test",
+   "users": [
+    "Nick",
+    "Olivia",
+    "Hannah",
+    "Paul"
+   ],
+   "ops": [
+    "print",
+    "import",
+    "edit"
+   ],
+   "matrix": [
+    [
+     false,
+     true,
+     true
+    ],
+    [
+     false,
+     false,
+     true
+    ],
+    [
+     false,
+     true,
+     false
+    ],
+    [
+     true,
+     true,
+     false
+    ]
+   ],
+   "request_user": "Hannah",
+   "request_op": "edit",
+   "cls": "prohibited",
+   "gold": "DENY"
+  },
+  {
+   "uid": 35,
+   "id": "test-19",
+   "split": "test",
+   "users": [
+    "Nick",
+    "Victor",
+    "Mary",
+    "Paul"
+   ],
+   "ops": [
+    "delete",
+    "copy",
+    "move"
+   ],
+   "matrix": [
+    [
+     true,
+     false,
+     true
+    ],
+    [
+     true,
+     false,
+     false
+    ],
+    [
+     false,
+     true,
+     true
+    ],
+    [
+     true,
+     false,
+     false
+    ]
+   ],
+   "request_user": "Nick",
+   "request_op": "copy",
+   "cls": "prohibited",
+   "gold": "DENY"
+  },
+  {
+   "uid": 36,
+   "id": "test-20",
+   "split": "test",
+   "users": [
+    "Fiona",
+    "Paul",
+    "Nick",
+    "Sam"
+   ],
+   "ops": [
+    "approve",
+    "copy",
+    "publish"
+   ],
+   "matrix": [
+    [
+     false,
+     true,
+     false
+    ],
+    [
+     true,
+     false,
+     true
+    ],
+    [
+     false,
+     true,
+     false
+    ],
+    [
+     false,
+     false,
+     true
+    ]
+   ],
+   "request_user": "Fiona",
+   "request_op": "copy",
+   "cls": "permitted",
+   "gold": "ALLOW"
+  },
+  {
+   "uid": 37,
+   "id": "test-21",
+   "split": "test",
+   "users": [
+    "Victor",
+    "Fiona",
+    "Emma",
+    "Rita"
+   ],
+   "ops": [
+    "delete",
+    "edit",
+    "print"
+   ],
+   "matrix": [
+    [
+     false,
+     true,
+     true
+    ],
+    [
+     true,
+     false,
+     false
+    ],
+    [
+     true,
+     false,
+     true
+    ],
+    [
+     false,
+     false,
+     true
+    ]
+   ],
+   "request_user": "Fiona",
+   "request_op": "delete",
+   "cls": "permitted",
+   "gold": "ALLOW"
+  },
+  {
+   "uid": 38,
+   "id": "test-22",
+   "split": "test",
+   "users": [
+    "Wendy",
+    "Tina",
+    "Nick",
+    "Victor"
+   ],
+   "ops": [
+    "publish",
+    "comment",
+    "export"
+   ],
+   "matrix": [
+    [
+     false,
+     true,
+     false
+    ],
+    [
+     true,
+     false,
+     true
+    ],
+    [
+     true,
+     false,
+     true
+    ],
+    [
+     true,
+     false,
+     false
+    ]
+   ],
+   "request_user": "Tina",
+   "request_op": "publish",
+   "cls": "permitted",
+   "gold": "ALLOW"
+  },
+  {
+   "uid": 39,
+   "id": "test-23",
+   "split": "test",
+   "users": [
+    "Nina",
+    "Paul",
+    "Jack",
+    "Wendy"
+   ],
+   "ops": [
+    "export",
+    "comment",
+    "delete"
+   ],
+   "matrix": [
+    [
+     true,
+     false,
+     true
+    ],
+    [
+     false,
+     false,
+     true
+    ],
+    [
+     false,
+     false,
+     true
+    ],
+    [
+     false,
+     true,
+     false
+    ]
+   ],
+   "request_user": "Nina",
+   "request_op": "delete",
+   "cls": "permitted",
+   "gold": "ALLOW"
+  },
+  {
+   "uid": 40,
+   "id": "test-24",
+   "split": "test",
+   "users": [
+    "Tina",
+    "Rita",
+    "Paul",
+    "Kate"
+   ],
+   "ops": [
+    "delete",
+    "write",
+    "import"
+   ],
+   "matrix": [
+    [
+     true,
+     false,
+     false
+    ],
+    [
+     true,
+     true,
+     false
+    ],
+    [
+     false,
+     true,
+     true
+    ],
+    [
+     true,
+     false,
+     true
+    ]
+   ],
+   "request_user": "Tina",
+   "request_op": "import",
+   "cls": "prohibited",
+   "gold": "DENY"
+  },
+  {
+   "uid": 41,
+   "id": "test-25",
+   "split": "test",
+   "users": [
+    "Victor",
+    "Mary",
+    "Fiona",
+    "Mike"
+   ],
+   "ops": [
+    "approve",
+    "edit",
+    "publish"
+   ],
+   "matrix": [
+    [
+     false,
+     true,
+     true
+    ],
+    [
+     false,
+     false,
+     true
+    ],
+    [
+     true,
+     true,
+     false
+    ],
+    [
+     true,
+     false,
+     false
+    ]
+   ],
+   "request_user": "Fiona",
+   "request_op": "edit",
+   "cls": "permitted",
+   "gold": "ALLOW"
+  },
+  {
+   "uid": 42,
+   "id": "test-26",
+   "split": "test",
+   "users": [
+    "Mike",
+    "George",
+    "Fiona",
+    "Jack"
+   ],
+   "ops": [
+    "view",
+    "download",
+    "read"
+   ],
+   "matrix": [
+    [
+     false,
+     false,
+     true
+    ],
+    [
+     false,
+     true,
+     true
+    ],
+    [
+     false,
+     true,
+     false
+    ],
+    [
+     true,
+     false,
+     true
+    ]
+   ],
+   "request_user": "Fiona",
+   "request_op": "read",
+   "cls": "prohibited",
+   "gold": "DENY"
+  },
+  {
+   "uid": 43,
+   "id": "test-27",
+   "split": "test",
+   "users": [
+    "Kate",
+    "Olivia",
+    "Adam",
+    "Nick"
+   ],
+   "ops": [
+    "view",
+    "archive",
+    "edit"
+   ],
+   "matrix": [
+    [
+     true,
+     false,
+     true
+    ],
+    [
+     true,
+     false,
+     true
+    ],
+    [
+     true,
+     false,
+     true
+    ],
+    [
+     false,
+     true,
+     false
+    ]
+   ],
+   "request_user": "Adam",
+   "request_op": "archive",
+   "cls": "prohibited",
+   "gold": "DENY"
+  },
+  {
+   "uid": 44,
+   "id": "test-28",
+   "split": "test",
+   "users": [
+    "Fiona",
+    "Quinn",
+    "Chris",
+    "Mary"
+   ],
+   "ops": [
+    "move",
+    "print",
+    "import"
+   ],
+   "matrix": [
+    [
+     true,
+     false,
+     true
+    ],
+    [
+     false,
+     true,
+     false
+    ],
+    [
+     false,
+     false,
+     true
+    ],
+    [
+     true,
+     true,
+     false
+    ]
+   ],
+   "request_user": "Quinn",
+   "request_op": "move",
+   "cls": "prohibited",
+   "gold": "DENY"
+  },
+  {
+   "uid": 45,
+   "id": "test-29",
+   "split": "test",
+   "users": [
+    "Mary",
+    "Adam",
+    "Hannah",
+    "Leo"
+   ],
+   "ops": [
+    "delete",
+    "move",
+    "read"
+   ],
+   "matrix": [
+    [
+     false,
+     true,
+     false
+    ],
+    [
+     false,
+     false,
+     true
+    ],
+    [
+     true,
+     false,
+     false
+    ],
+    [
+     true,
+     true,
+     false
+    ]
+   ],
+   "request_user": "Adam",
+   "request_op": "move",
+   "cls": "prohibited",
+   "gold": "DENY"
+  },
+  {
+   "uid": 46,
+   "id": "test-30",
+   "split": "test",
+   "users": [
+    "Fiona",
+    "Nick",
+    "Diana",
+    "Victor"
+   ],
+   "ops": [
+    "print",
+    "download",
+    "import"
+   ],
+   "matrix": [
+    [
+     false,
+     false,
+     true
+    ],
+    [
+     false,
+     true,
+     true
+    ],
+    [
+     true,
+     true,
+     false
+    ],
+    [
+     true,
+     true,
+     false
+    ]
+   ],
+   "request_user": "Nick",
+   "request_op": "download",
+   "cls": "permitted",
+   "gold": "ALLOW"
+  },
+  {
+   "uid": 47,
+   "id": "test-31",
+   "split": "test",
+   "users": [
+    "Adam",
+    "Nina",
+    "Nick",
+    "Quinn"
+   ],
+   "ops": [
+    "view",
+    "import",
+    "export"
+   ],
+   "matrix": [
+    [
+     true,
+     false,
+     true
+    ],
+    [
+     false,
+     false,
+     true
+    ],
+    [
+     true,
+     true,
+     false
+    ],
+    [
+     true,
+     true,
+     false
+    ]
+   ],
+   "request_user": "Quinn",
+   "request_op": "import",
+   "cls": "permitted",
+   "gold": "ALLOW"
+  },
+  {
+   "uid": 48,
+   "id": "test-32",
+   "split": "test",
+   "users": [
+    "Hannah",
+    "Nick",
+    "Chris",
+    "George"
+   ],
+   "ops": [
+    "approve",
+    "upload",
+    "import"
+   ],
+   "matrix": [
+    [
+     true,
+     false,
+     false
+    ],
+    [
+     false,
+     false,
+     true
+    ],
+    [
+     true,
+     true,
+     false
+    ],
+    [
+     false,
+     true,
+     false
+    ]
+   ],
+   "request_user": "Hannah",
+   "request_op": "approve",
+   "cls": "permitted",
+   "gold": "ALLOW"
+  },
+  {
+   "uid": 49,
+   "id": "test-33",
+   "split": "test",
+   "users": [
+    "Mike",
+    "Nina",
+    "Mary",
+    "Chris"
+   ],
+   "ops": [
+    "copy",
+    "archive",
+    "upload"
+   ],
+   "matrix": [
+    [
+     true,
+     false,
+     false
+    ],
+    [
+     false,
+     true,
+     true
+    ],
+    [
+     false,
+     true,
+     true
+    ],
+    [
+     false,
+     false,
+     true
+    ]
+   ],
+   "request_user": "Mike",
+   "request_op": "upload",
+   "cls": "prohibited",
+   "gold": "DENY"
+  },
+  {
+   "uid": 50,
+   "id": "test-34",
+   "split": "test",
+   "users": [
+    "Fiona",
+    "Nina",
+    "Oscar",
+    "Nick"
+   ],
+   "ops": [
+    "approve",
+    "write",
+    "print"
+   ],
+   "matrix": [
+    [
+     true,
+     false,
+     true
+    ],
+    [
+     false,
+     false,
+     true
+    ],
+    [
+     false,
+     true,
+     false
+    ],
+    [
+     false,
+     true,
+     false
+    ]
+   ],
+   "request_user": "Nina",
+   "request_op": "print",
+   "cls": "permitted",
+   "gold": "ALLOW"
+  },
+  {
+   "uid": 51,
+   "id": "test-35",
+   "split": "test",
+   "users": [
+    "Sam",
+    "Quinn",
+    "Mary",
+    "Hannah"
+   ],
+   "ops": [
+    "move",
+    "delete",
+    "view"
+   ],
+   "matrix": [
+    [
+     true,
+     true,
+     false
+    ],
+    [
+     false,
+     false,
+     true
+    ],
+    [
+     true,
+     false,
+     true
+    ],
+    [
+     true,
+     false,
+     false
+    ]
+   ],
+   "request_user": "Hannah",
+   "request_op": "view",
+   "cls": "prohibited",
+   "gold": "DENY"
+  },
+  {
+   "uid": 52,
+   "id": "test-36",
+   "split": "test",
+   "users": [
+    "Paul",
+    "Jack",
+    "Leo",
+    "George"
+   ],
+   "ops": [
+    "write",
+    "download",
+    "delete"
+   ],
+   "matrix": [
+    [
+     false,
+     true,
+     true
+    ],
+    [
+     true,
+     false,
+     true
+    ],
+    [
+     false,
+     true,
+     true
+    ],
+    [
+     false,
+     true,
+     false
+    ]
+   ],
+   "request_user": "George",
+   "request_op": "download",
+   "cls": "permitted",
+   "gold": "ALLOW"
+  },
+  {
+   "uid": 53,
+   "id": "test-37",
+   "split": "test",
+   "users": [
+    "Mary",
+    "Nick",
+    "Olivia",
+    "Nina"
+   ],
+   "ops": [
+    "comment",
+    "copy",
+    "download"
+   ],
+   "matrix": [
+    [
+     true,
+     false,
+     false
+    ],
+    [
+     false,
+     true,
+     true
+    ],
+    [
+     false,
+     true,
+     true
+    ],
+    [
+     true,
+     true,
+     false
+    ]
+   ],
+   "request_user": "Nick",
+   "request_op": "copy",
+   "cls": "permitted",
+   "gold": "ALLOW"
+  },
+  {
+   "uid": 54,
+   "id": "test-38",
+   "split": "test",
+   "users": [
+    "Kate",
+    "Jack",
+    "Mary",
+    "Mike"
+   ],
+   "ops": [
+    "comment",
+    "upload",
+    "edit"
+   ],
+   "matrix": [
+    [
+     false,
+     true,
+     true
+    ],
+    [
+     false,
+     false,
+     true
+    ],
+    [
+     false,
+     false,
+     true
+    ],
+    [
+     true,
+     true,
+     false
+    ]
+   ],
+   "request_user": "Mike",
+   "request_op": "comment",
+   "cls": "permitted",
+   "gold": "ALLOW"
+  },
+  {
+   "uid": 55,
+   "id": "test-39",
+   "split": "test",
+   "users": [
+    "Paul",
+    "Rita",
+    "Mary",
+    "Emma"
+   ],
+   "ops": [
+    "approve",
+    "edit",
+    "write"
+   ],
+   "matrix": [
+    [
+     true,
+     false,
+     false
+    ],
+    [
+     true,
+     true,
+     false
+    ],
+    [
+     false,
+     false,
+     true
+    ],
+    [
+     true,
+     false,
+     false
+    ]
+   ],
+   "request_user": "Paul",
+   "request_op": "write",
+   "cls": "prohibited",
+   "gold": "DENY"
+  },
+  {
+   "uid": 56,
+   "id": "test-40",
+   "split": "test",
+   "users": [
+    "Oscar",
+    "Victor",
+    "Wendy",
+    "Diana"
+   ],
+   "ops": [
+    "import",
+    "edit",
+    "share"
+   ],
+   "matrix": [
+    [
+     false,
+     true,
+     true
+    ],
+    [
+     false,
+     true,
+     true
+    ],
+    [
+     false,
+     true,
+     false
+    ],
+    [
+     true,
+     false,
+     false
+    ]
+   ],
+   "request_user": "Wendy",
+   "request_op": "import",
+   "cls": "prohibited",
+   "gold": "DENY"
+  },
+  {
+   "uid": 57,
+   "id": "test-41",
+   "split": "test",
+   "users": [
+    "Mike",
+    "George",
+    "Kate",
+    "Brian"
+   ],
+   "ops": [
+    "copy",
+    "rename",
+    "archive"
+   ],
+   "matrix": [
+    [
+     true,
+     false,
+     false
+    ],
+    [
+     false,
+     false,
+     true
+    ],
+    [
+     true,
+     false,
+     true
+    ],
+    [
+     false,
+     true,
+     true
+    ]
+   ],
+   "request_user": "Brian",
+   "request_op": "copy",
+   "cls": "prohibited",
+   "gold": "DENY"
+  },
+  {
+   "uid": 58,
+   "id": "test-42",
+   "split": "test",
+   "users": [
+    "Paul",
+    "Olivia",
+    "Diana",
+    "Tina"
+   ],
+   "ops": [
+    "move",
+    "upload",
+    "archive"
+   ],
+   "matrix": [
+    [
+     true,
+     false,
+     false
+    ],
+    [
+     true,
+     true,
+     false
+    ],
+    [
+     true,
+     true,
+     false
+    ],
+    [
+     false,
+     true,
+     true
+    ]
+   ],
+   "request_user": "Diana",
+   "request_op": "upload",
+   "cls": "permitted",
+   "gold": "ALLOW"
+  },
+  {
+   "uid": 59,
+   "id": "test-43",
+   "split": "test",
+   "users": [
+    "Brian",
+    "Tina",
+    "Emma",
+    "Hannah"
+   ],
+   "ops": [
+    "comment",
+    "approve",
+    "publish"
+   ],
+   "matrix": [
+    [
+     true,
+     false,
+     false
+    ],
+    [
+     false,
+     true,
+     true
+    ],
+    [
+     false,
+     true,
+     false
+    ],
+    [
+     false,
+     false,
+     true
+    ]
+   ],
+   "request_user": "Tina",
+   "request_op": "approve",
+   "cls": "permitted",
+   "gold": "ALLOW"
+  },
+  {
+   "uid": 60,
+   "id": "test-44",
+   "split": "test",
+   "users": [
+    "Diana",
+    "Victor",
+    "Nick",
+    "Tina"
+   ],
+   "ops": [
+    "print",
+    "copy",
+    "upload"
+   ],
+   "matrix": [
+    [
+     false,
+     true,
+     false
+    ],
+    [
+     true,
+     false,
+     true
+    ],
+    [
+     false,
+     false,
+     true
+    ],
+    [
+     true,
+     true,
+     false
+    ]
+   ],
+   "request_user": "Diana",
+   "request_op": "copy",
+   "cls": "permitted",
+   "gold": "ALLOW"
+  },
+  {
+   "uid": 61,
+   "id": "test-45",
+   "split": "test",
+   "users": [
+    "Leo",
+    "Chris",
+    "Mike",
+    "Nina"
+   ],
+   "ops": [
+    "copy",
+    "export",
+    "download"
+   ],
+   "matrix": [
+    [
+     false,
+     false,
+     true
+    ],
+    [
+     true,
+     false,
+     true
+    ],
+    [
+     true,
+     true,
+     false
+    ],
+    [
+     true,
+     false,
+     false
+    ]
+   ],
+   "request_user": "Chris",
+   "request_op": "export",
+   "cls": "prohibited",
+   "gold": "DENY"
+  },
+  {
+   "uid": 62,
+   "id": "test-46",
+   "split": "test",
+   "users": [
+    "Quinn",
+    "Diana",
+    "Tina",
+    "Leo"
+   ],
+   "ops": [
+    "upload",
+    "publish",
+    "export"
+   ],
+   "matrix": [
+    [
+     true,
+     false,
+     true
+    ],
+    [
+     false,
+     true,
+     true
+    ],
+    [
+     false,
+     true,
+     true
+    ],
+    [
+     true,
+     true,
+     false
+    ]
+   ],
+   "request_user": "Leo",
+   "request_op": "export",
+   "cls": "prohibited",
+   "gold": "DENY"
+  },
+  {
+   "uid": 63,
+   "id": "test-47",
+   "split": "test",
+   "users": [
+    "Fiona",
+    "Quinn",
+    "George",
+    "Brian"
+   ],
+   "ops": [
+    "approve",
+    "write",
+    "upload"
+   ],
+   "matrix": [
+    [
+     false,
+     true,
+     true
+    ],
+    [
+     true,
+     true,
+     false
+    ],
+    [
+     false,
+     false,
+     true
+    ],
+    [
+     false,
+     true,
+     true
+    ]
+   ],
+   "request_user": "George",
+   "request_op": "upload",
+   "cls": "permitted",
+   "gold": "ALLOW"
+  }
+ ]
+}
