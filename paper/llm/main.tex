@@ -520,6 +520,9 @@ records and a float32 final normalization in the two-GPU runs of 70B-class model
 largest finite-horizon Lyapunov exponent of a twin trajectory (offset $10^{-6}$, renormalized every step; 300
 measured steps after 300 transient ones unless stated) exceeds $10^{-3}$ and no period up to 32 (48 in later zooms) is
 found; at 448 checked cells exact tangents reproduce the twin exponents within $0.0041$, and the label is a finite-horizon diagnostic, not a proof.
+Noise in a measured difference can fake chaos but does not hide it: below the noise level a twin exponent rises as
+the offset shrinks, while a real exponent does not depend on the offset (Appendix~\ref{sec:methods},
+Figure~\ref{fig:falsechaos}).
 Periodic orbits are solved by Newton's method with forward-mode derivatives; branches are continued by pseudo-arclength
 continuation and fold and flip curves by minimally augmented systems \cite{govaerts2000numerical,kuznetsov2023elements};
 cusps and other codimension-two points are located by bracketing sign changes along the curves; and the normal forms
@@ -2324,6 +2327,90 @@ dynamical identities: one continuous orbit changes its label where two tokens ti
 two labeled regions different attractors only when the contraction rate jumps between them or when float64 orbits of
 both exist at one parameter value.
 
+\paragraph{False chaos and real chaos.} A twin exponent measures how fast the difference between two trajectories
+grows, so anything that adds a difference of its own can imitate growth. Suppose that both rows receive independent
+noise of relative size $\sigma$ at every step, from rounding or from the float32 normalization described above. Suppose
+also that a difference survives along one leading direction, growing by $e^{\lambda}$ per step, while the other
+directions contract within a step. Let $c_t$ be the cosine of the angle between the renormalized twin offset and the
+leading direction, and $r=\sqrt2\,\sigma/\varepsilon$ the noise relative to the offset $\varepsilon$; one step gives
+$c_{t+1}^2=e^{2\lambda}c_t^2/(e^{2\lambda}c_t^2+r^2)$. While $r<e^{\lambda}$, the angle settles at
+$c^2=1-r^2e^{-2\lambda}$, and the twin grows by exactly $e^{\lambda}$ per step. Otherwise $c\to0$, and the twin grows by
+$r$ per step, whatever the dynamics. The twin therefore measures
+\begin{equation}
+  \lambda_{\mathrm{meas}}=\max\bigl\{\lambda,\ \log(\sqrt2\,\sigma/\varepsilon)\bigr\}.
+  \label{eq:falsechaos}
+\end{equation}
+Above the offset $\sqrt2\,\sigma e^{-\lambda}$ this is the true exponent. Below it, a noise term takes over, rising by
+one nat for every factor $e$ by which the offset shrinks. Noise can thus make a contracting orbit look chaotic when the
+offset lies below $\sqrt2\,\sigma$, but in this model it cannot make a chaotic orbit look stable.
+
+The model assumes a single leading direction and contraction within one step, so we test it in the network
+(Figure~\ref{fig:falsechaos}). The test uses Qwen2.5-0.5B in float64 at three cells of the philosophy-steered map: a
+chaotic cell, the weakly contracting period-3 loop of the coexistence example (Section~\ref{sec:maps}), and a strongly
+contracting orbit; each runs 400 transient and 800 measured steps. In clean float64 the exponents do not depend on the
+offset over eight decades: $+0.092$ to $+0.099$, $-0.123$ to $-0.128$, and $-0.843$ to $-0.862$ for offsets from
+$10^{-12}$ to $10^{-4}$.
+
+We then add Gaussian noise with $\sigma=10^{-10}$, $10^{-8}$ or $10^{-6}$ to every row's next soft token.
+\begin{itemize}
+  \item Where the noise dominates, all three cells give the same false exponent, which Eq.~\eqref{eq:falsechaos}
+  matches within 0.005: for example $4.951$ to $4.953$ against $\log(100\sqrt2)=4.952$ at $\sigma=10^{-10}$ and
+  $\varepsilon=10^{-12}$.
+  \item Where the offset lies well above the crossover, the prediction matches within 0.046.
+  \item In the crossover itself, two offsets per cell and noise level, the measured exponent lies above the prediction
+  by up to 0.42, because noise injected one step earlier has not yet contracted.
+  \item Noise lowered no chaotic estimate below 0.088 (clean 0.092 to 0.099). It lowered the contracting estimates by at
+  most 0.048, which makes them look more stable, not less.
+\end{itemize}
+A free twin that is never renormalized shows the difference directly (Figure~\ref{fig:falsechaos}d). Started at
+$10^{-12}$, the chaotic twin grows exponentially until its distance saturates near $10^{-1}$ after about 240 steps.
+Under $\sigma=10^{-8}$, the period-3 twin instead jumps to a plateau at about $2\times10^{-8}$ (the model predicts
+$3\times10^{-8}$) and stays there.
+
+The float32 final normalization, computed as in the early two-GPU runs and without added noise, reproduces the defect.
+\begin{itemize}
+  \item At offsets from $10^{-10}$ to $10^{-8}$, both contracting orbits show positive exponents, up to 2.03 for the
+  period-3 loop.
+  \item At $10^{-12}$ and $10^{-11}$, rounding makes the twin and base rows identical in 454 to 771 of the 800 steps,
+  leaving too few measurable steps to read.
+  \item From $10^{-6}$ up, the contracting orbits read $-0.177$ to $-0.123$ and $-0.853$ to $-0.783$ (clean $-0.124$ and
+  $-0.848$), and the chaotic one $0.059$ to $0.078$ (clean $0.094$).
+\end{itemize}
+The last shift is of another kind. The defect changes the map itself, by about $10^{-8}$ at every step, not only the
+measurement, and the chaotic exponent of the changed map is lower, though still positive. The spurious Qwen2.5-72B
+window of Appendix~\ref{sec:size} carries the signature of Eq.~\eqref{eq:falsechaos}. Its exponent was negative at
+$10^{-5}$, near zero at $10^{-6}$ and positive at $10^{-7}$, and its orbits are periodic when computed in float64
+throughout.
+
+Hence the rule we apply: a chaotic label needs an exponent that does not depend on the offset. We check this with
+three offsets, or with an exact tangent vector, which needs no offset. Two limits remain.
+\begin{itemize}
+  \item The argument concerns noise in a measured difference. Noise acting on the dynamics can change which attractor a
+  trajectory follows, and in some maps it lowers a positive exponent, the phenomenon of noise-induced order
+  \cite{matsumoto1983noise}; see also \cite{crutchfield1982fluctuations}. Noise of $10^{-8}$ moves a stable orbit by
+  about that much, so it can change the attractor only where the orbit lies that close to a basin boundary or a
+  bifurcation.
+  \item Far below the rounding resolution, two rows can become identical. A naive estimator would then report infinite
+  contraction, a false negative; ours reports the step as unmeasurable. The offsets of our maps lie far above the
+  resolution of their arithmetic.
+\end{itemize}
+\begin{figure}[tbp]
+\centering
+\includegraphics[width=\linewidth]{fig-false-chaos.png}
+\caption{False chaos and real chaos in a twin test (Qwen2.5-0.5B-Instruct, float64, philosophy direction at block 12;
+400 transient and 800 measured steps). The twin exponent is the mean logarithmic growth of a second row renormalized
+to the relative offset $\varepsilon$ after every step. (a) A chaotic cell ($\alpha=0.0652$, $\log_{10}T=-0.156$): clean
+float64 (black) and Gaussian noise of relative size $\sigma$ added to every row's next soft token (colors); dashed,
+Eq.~\eqref{eq:falsechaos} with the clean exponent. (b) The same for a weakly contracting period-3 loop ($\alpha=0.0642$,
+$\log_{10}T=-0.156$; circles) and a strongly contracting orbit ($\alpha=0$, $\log_{10}T=0.18$; squares): below the offset
+$\sqrt2\,\sigma$ both read as chaotic. (c) The float32 final normalization of the early two-GPU runs, without added
+noise: false positive exponents near float32 resolution. Open markers mark offsets at which the twin and base rows
+became identical in more than half of the steps; dotted lines mark the clean exponents. (d) A free twin, started at
+$10^{-12}$ and never renormalized: real chaos grows; under noise the contracting loop's twin jumps to the noise level
+and stays there; in clean float64 it stays near $10^{-14}$, the rounding floor of the map.}
+\label{fig:falsechaos}
+\end{figure}
+
 \paragraph{Periodic orbits.} We solve $F^p(x)=x$ by Newton's method with forward-mode Jacobians. The multipliers are
 the eigenvalues of the monodromy matrix, the ordered product of the step Jacobians along the orbit, which plays the
 role of the Floquet matrix of a flow \cite{kuznetsov2023elements}; where the dense matrix is not float64, we refine them by a short Arnoldi
@@ -3188,7 +3275,8 @@ twin offset $10^{-6}$. The window failed a three-offset test: the exponent is ne
 window at $10^{-5}$, near zero at $10^{-6}$, and positive at 60 of the 64 at $10^{-7}$, including four temperatures whose
 state repeats with a period, which no stable periodic orbit allows; in a repeat it is negative at all 16 temperatures
 at $10^{-4}$, $3\times10^{-5}$ and $10^{-5}$. The growth of small perturbations came from our computation, whose
-two-GPU runs computed the final normalization in float32 (see the start of Section~\ref{sec:sizemain}). Recomputed in float64
+two-GPU runs computed the final normalization in float32 (see the start of Section~\ref{sec:sizemain}); a controlled
+reproduction of this false chaos is in Appendix~\ref{sec:methods} (Figure~\ref{fig:falsechaos}). Recomputed in float64
 throughout, the window's orbits have periods 2 and 4, and their exponents are negative at all four offsets from
 $10^{-4}$ to $10^{-7}$ and for an exact tangent vector carried along the orbit by forward-mode differentiation, which
 needs no offset; the four twin exponents lie within 0.015 of the tangent exponent at every temperature, and the

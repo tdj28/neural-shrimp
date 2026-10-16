@@ -70,17 +70,17 @@ def main():
     ax.legend(fontsize=6.5, frameon=False, loc="upper right")
     # (b) contracting cells under noise
     ax = axes[0, 1]
-    for k in (1, 2):
-        ax.semilogx(eps, clean[k], "o-", color="black", ms=3.0, lw=1.0)
-        ax.text(eps[-1] * 1.4, clean[k][-1], labels[k].split(",")[0], fontsize=6.5, va="center")
+    for k, mk, name in ((1, "o", "period 3, weakly contracting"), (2, "s", "strongly contracting")):
+        ax.semilogx(eps, clean[k], mk + "-", color="black", ms=3.0, lw=1.0, mfc="white", label=f"{name}, clean")
         for cond in NOISE:
             s = C[cond]["sigma"]
-            ax.semilogx(eps, np.array(C[cond]["exponent"])[k], "o", color=NOISE_COLORS[cond], ms=3.0)
+            ax.semilogx(eps, np.array(C[cond]["exponent"])[k], mk, color=NOISE_COLORS[cond], ms=3.0, mfc="none")
             ax.semilogx(eps, prediction(lam[k], s, eps), "--", color=NOISE_COLORS[cond], lw=0.8)
     ax.axhline(0, color="gray", lw=0.6)
-    ax.set_xlim(eps[0] / 2, eps[-1] * 30)
+    ax.legend(fontsize=6.5, frameon=False, loc="upper right")
     ax.set_title("(b) contracting orbits, same noise", fontsize=9, loc="left")
     ax.set_xlabel(r"twin offset $\varepsilon$", fontsize=8)
+    ax.set_ylabel("measured exponent (per step)", fontsize=8)
     # (c) float32 final normalization
     ax = axes[1, 0]
     f32 = C["float32-final-norm"]
@@ -111,7 +111,7 @@ def main():
     ax.set_title(r"(d) free twin from $10^{-12}$", fontsize=9, loc="left")
     ax.set_xlabel("step", fontsize=8)
     ax.set_ylabel(r"$\log_{10}$ relative distance", fontsize=8)
-    ax.legend(fontsize=6.5, frameon=False, loc="lower right")
+    ax.legend(fontsize=6.5, frameon=False, loc="upper left")
     for a in axes.flat:
         a.tick_params(labelsize=7)
 
