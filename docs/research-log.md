@@ -27646,3 +27646,19 @@ Run by a separate agent on the CPU (Qwen2.5-0.5B-Instruct, float32). Code tools/
 - The analysis was also run on the development data (E1, E4), where it reproduces the logged flip rates.
 
 **Queue.** Runs after H on the local GPU (H ends about 20:00 UTC).
+
+## 2026-10-16 11:41 UTC: CT results for Qwen2.5-0.5B philosophy (gated): three chaotic cells; the 1e-10 copies split in words
+
+Receipts docs/chaos-texts/qwen0.5b-philosophy.json (3 cells, 60 recorded steps, 6 threads) and qwen0.5b-philosophy-long.json (the weak cell, 500 steps, 4 threads). Every cell passed the label: no period up to 64, and exponents above 1e-3 at both offsets.
+
+| alpha, log10 T | exponents (1e-6, 1e-8) | split step | log10 distance at the split | lambda * split |
+|---|---|---|---|---|
+| 0.0652, -0.156 (next to the period-3 crescent) | 0.0982, 0.0982 (6 threads); 0.0997, 0.0997 (4 threads) | 151 (long record) | -0.99 | 15.1 |
+| 0.07484, -0.1226 | 0.4437, 0.4437 | 44 | -0.04 | 19.5 |
+| 0.07277, -0.041 | 0.3553, 0.3553 | 51 | +0.24 | 18.1 |
+
+- **Text.** The weak cell keeps the period-3 skeleton (a blank line, "The", a noun), and the noun alternates irregularly between " existence" and " question", whose probabilities come within 0.0025 of each other (0.188 against 0.186 at one step). The other two cells reuse fragments of the stripe loops ("The is there is a.", "This is there is a.", "The is a is a.") in no fixed order.
+- **Splits.** Both splits come at a step where the loop's two most probable tokens are close:
+  - step 44 of the second cell: a blank line 0.139 against " is" 0.135;
+  - step 151 of the weak cell: " existence" 0.199 against " question" 0.167.
+- **Thread count decides the text too.** The weak cell was recorded twice in float64 on the same CPU, with 6 and 4 threads, which changes the order of floating-point sums. The two runs reach different points of the attractor during the 1000-step transient: the first recorded probabilities differ in the third decimal. Their texts agree for 27 steps and differ from step 28 on. The exponents differ by 1.5 % (0.0982 against 0.0997), a finite-time estimate from different starting points on one attractor.
