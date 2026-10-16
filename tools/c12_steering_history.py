@@ -443,6 +443,28 @@ def paired_contrast(rows_a, rows_b, S, metric, cls=None, bias_a=None, bias_b=Non
             "per_instance": {str(k): round(d, 6) for k, d in zip(keys, diffs)}}
 
 
+def disagreement(rows_a, rows_b, S, cls=None, bias_a=None):
+    """Descriptive (added after the development histories, before held-out data): the share of paired runs (same
+    instance and start) whose decisions differ between arm a and arm b after S soft steps, per instance averaged over
+    starts, with a bootstrap over instances, and the transition counts (b's decision -> a's decision)."""
+    bmap = {(r["uid"], r["start"]): r for r in rows_b}
+    per, trans = defaultdict(list), defaultdict(int)
+    for r in rows_a:
+        if cls is not None and r["cls"] != cls:
+            continue
+        q = bmap.get((r["uid"], r["start"]))
+        if q is None:
+            continue
+        da, db = decision_of(r, S, bias_a), decision_of(q, S)
+        per[r["uid"]].append(float(da != db))
+        if da != db:
+            trans[f"{db}->{da}"] += 1
+    vals = [float(np.mean(v)) for _, v in sorted(per.items())]
+    return {"mean": float(np.mean(vals)) if vals else None, "boot95_instances": bootstrap_mean_ci(vals),
+            "instances": len(vals), "pairs": int(sum(len(v) for v in per.values())),
+            "differing": int(sum(sum(v) for v in per.values())), "transitions": dict(sorted(trans.items()))}
+
+
 def classify_effect(est32, ci32, est64, ci64, threshold=0.10):
     """Run-card decision for a history contrast: persistent (>= 10 points after the 32-step dwell with an interval
     above zero, and still so after 64 steps), delay (>= 10 points after 32 steps, not after 64), bounded (the interval
@@ -1267,6 +1289,15 @@ def analyze_histories(rows, info, bias=None):
                 "false_allow_prohibited": paired_contrast(by["unsteered"], d, S, "allow", "prohibited", bias_a=bias),
                 "false_deny_permitted": paired_contrast(by["unsteered"], d, S, "deny", "permitted", bias_a=bias)}
     res["contrasts"] = con
+    dis = {}
+    for h in [x for x in by if x != "direct"]:
+        for S in info["readouts"]:
+            dis[f"{h}_S{S}"] = {c or "all": disagreement(by[h], d, S, c) for c in (None, "prohibited", "permitted")}
+    if bias is not None and "unsteered" in by:
+        for S in info["readouts"]:
+            dis[f"logit_bias_S{S}"] = {c or "all": disagreement(by["unsteered"], d, S, c, bias_a=bias)
+                                       for c in (None, "prohibited", "permitted")}
+    res["disagreement_with_direct"] = dis
     if "up" in by and "direct" in by:
         p32 = con[f"up-minus-direct_S{S32}"]["false_allow_prohibited"]
         p64 = con[f"up-minus-direct_S{S64}"]["false_allow_prohibited"] if S64 else {"estimate": None,

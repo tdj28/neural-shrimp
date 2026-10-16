@@ -206,6 +206,18 @@ def test_unit_means_and_paired_contrast_weight_instances_equally():
     assert s["mean"] == pytest.approx(0.5) and s["count"] == 2 and s["runs"] == 4
 
 
+def test_disagreement_counts_paired_runs():
+    a = [_row(1, "prohibited", 0, "up", "ALLOW"), _row(1, "prohibited", 1, "up", "DENY"),
+         _row(2, "permitted", 0, "up", "UNPARSEABLE"), _row(2, "permitted", 1, "up", "ALLOW")]
+    b = [_row(1, "prohibited", 0, "direct", "DENY"), _row(1, "prohibited", 1, "direct", "DENY"),
+         _row(2, "permitted", 0, "direct", "ALLOW"), _row(2, "permitted", 1, "direct", "ALLOW")]
+    out = c4.disagreement(a, b, 56)
+    assert out["mean"] == pytest.approx(0.5) and out["pairs"] == 4 and out["differing"] == 2
+    assert out["transitions"] == {"ALLOW->UNPARSEABLE": 1, "DENY->ALLOW": 1}
+    assert c4.disagreement(a, b, 56, "prohibited")["mean"] == pytest.approx(0.5)
+    assert c4.disagreement(b, b, 56)["mean"] == 0.0
+
+
 def test_margin_and_bias_metrics():
     r = _row(1, "prohibited", 0, "unsteered", "DENY", zA=1.0, zD=3.0, thr=2.5, forced="ALLOW")
     assert c4.metric_value(r, 56, "margin") == pytest.approx(-2.0)
