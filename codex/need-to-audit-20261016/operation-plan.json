@@ -1,5 +1,5 @@
 {
-  "status": "prepared",
+  "status": "reviewed_for_execution",
   "repository": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp",
   "raw_root": "/data2/neural-shrimp-data/codex/need-to-audit-20261016",
   "python": "/data2/neural-shrimp/.venv/bin/python",
@@ -16,8 +16,8 @@
     },
     {
       "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/need-to-audit-20261016/damping/run-001-card.json",
-      "bytes": 19792,
-      "sha256": "0055c5d0742888efca0ae7833fb91e8ae121a7b10ac18e0bd4578131a0552e0c"
+      "bytes": 19844,
+      "sha256": "f6e906c4c57331d9cf15bc8075104fb586ac3330c26ee36c313a966b7aec96e6"
     },
     {
       "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/need-to-audit-20261016/damping/run.py",
@@ -36,8 +36,8 @@
     },
     {
       "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/need-to-audit-20261016/pm/run-001-card.json",
-      "bytes": 3015,
-      "sha256": "c0b6d7c2e9cfd2409c5f9a8a28d12fe8b7e0b9eb407fd3d2c64668078094ec42"
+      "bytes": 3087,
+      "sha256": "2fe7ff718a21ed02bed3b55c5e5a9e7fca21f3ece1802efbc7e6f52716d74345"
     },
     {
       "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/need-to-audit-20261016/pm/run.py",
@@ -51,8 +51,8 @@
     },
     {
       "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/need-to-audit-20261016/root/run-001-card.json",
-      "bytes": 1464,
-      "sha256": "bc12863ae3063e750818e7302c3caa4cf27189d5ab8a75c67f47b8cb33f2ab57"
+      "bytes": 1516,
+      "sha256": "08787be4a6dc0136ba0c4d26c945540a98e2f39d0bf6a3f01806d2cf8737bf89"
     },
     {
       "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/need-to-audit-20261016/supervise.py",
@@ -74,8 +74,8 @@
       "preflight_pins": [
         {
           "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/need-to-audit-20261016/pm/run-001-card.json",
-          "bytes": 3015,
-          "sha256": "c0b6d7c2e9cfd2409c5f9a8a28d12fe8b7e0b9eb407fd3d2c64668078094ec42"
+          "bytes": 3087,
+          "sha256": "2fe7ff718a21ed02bed3b55c5e5a9e7fca21f3ece1802efbc7e6f52716d74345"
         }
       ],
       "limits": {
@@ -100,8 +100,8 @@
       "preflight_pins": [
         {
           "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/need-to-audit-20261016/damping/run-001-card.json",
-          "bytes": 19792,
-          "sha256": "0055c5d0742888efca0ae7833fb91e8ae121a7b10ac18e0bd4578131a0552e0c"
+          "bytes": 19844,
+          "sha256": "f6e906c4c57331d9cf15bc8075104fb586ac3330c26ee36c313a966b7aec96e6"
         }
       ],
       "limits": {
@@ -128,8 +128,8 @@
       "preflight_pins": [
         {
           "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/need-to-audit-20261016/root/run-001-card.json",
-          "bytes": 1464,
-          "sha256": "bc12863ae3063e750818e7302c3caa4cf27189d5ab8a75c67f47b8cb33f2ab57"
+          "bytes": 1516,
+          "sha256": "08787be4a6dc0136ba0c4d26c945540a98e2f39d0bf6a3f01806d2cf8737bf89"
         },
         {
           "path": "/tmp/need-to-audit-20261016-operation/root-inputs.json",
@@ -159,7 +159,7 @@
     "damping",
     "root"
   ],
-  "admission": "Prepared exact source/card supervisor for Root review; no target execution authorized by this status.",
+  "admission": "Root accepted the exact three serial saved-data lanes and status/source-commit/card-pin-only transition on 16 October 2026. One integrated-controls/actual attempt per lane, no automatic retry; computational completion is separate from final scientific acceptance.",
   "resource_scope": "One worker CPU plus one supervisor, nice10/thread1,20GiB startup and16GiB runtime RAM floors,16GiB disk floor. Per-lane OUT plus stdout/stderr sampled cap; source/admission/receipt small metadata outside that cap. Fixed cleanup5+5 seconds; no automatic retry or parallel lane.",
   "scientific_scope": "Unblinded saved-data arithmetic, all failures and exact differences retained; computational completion is not scientific acceptance. Item14 incomplete E5/E2E is excluded; items15\u201316 are separate editorial checks."
 }
