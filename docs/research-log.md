@@ -27631,3 +27631,18 @@ Run by a separate agent on the CPU (Qwen2.5-0.5B-Instruct, float32). Code tools/
 **Cell.** Qwen2.5-0.5B along hostility-vs-kindness at block 12 (vectors-l12-p1b): alpha 0.08946, log10 T -0.05566. It is chosen from the float64 zoom hwindows-fine (192x192; 500 transient and 300 measured steps) as a cell whose 5x5 neighborhood is chaotic throughout (exponent 0.411, neighborhood minimum 0.304). It lies between the "that's crap" period-adding windows.
 
 **Run.** Same tool and settings as CT (unchanged since fb14ed56): --record 120, so that the 1e-10 copy's split falls inside the record at this exponent (expected near step 55). Receipt docs/chaos-texts/qwen0.5b-hostility.json. Local CPU, 4 threads. Used as a chaos example only if it passes the label.
+
+## 2026-10-16 11:19 UTC: Run card PM (confirmatory): the soft-thinking matrix on fresh problems, design frozen before any data
+
+**Design.** docs/pi-matrix-confirmatory.md (consult 11's matrix, as adjudicated), committed with this entry before any run.
+- Qwen2.5-7B-Instruct, bfloat16, on the local RTX 2000 Ada.
+- The first 256 GSM8K train problems, never scored by any run.
+- Batch layouts 8 and 16. Seven arms: top-15 and full vocabulary at 64 and 16 soft steps, top-1, greedy chain of thought, and a replay arm that feeds both layouts the reference run's concept tokens.
+
+**Primary endpoint.** The top-15, 64-step answer flip rate between the layouts. The prediction is above 10 %, with the cluster-bootstrap lower bound above 5 %. The development value is 25.75 % (E1).
+
+**Code.** tools/pi_harness.py (65f2bfba), tools/pi_matrix_run.sh and tools/pi_matrix_analyze.py.
+- A CPU smoke test on Qwen2.5-0.5B (6 train problems, layouts 2 and 4, 8 steps) exercised saving, replay and the analysis. It produces no data on the test's problems with the test's model.
+- The analysis was also run on the development data (E1, E4), where it reproduces the logged flip rates.
+
+**Queue.** Runs after H on the local GPU (H ends about 20:00 UTC).
