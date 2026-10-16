@@ -1,0 +1,1009 @@
+{
+ "args": {
+  "mode": "cells",
+  "model": "llama3.3-70b",
+  "layer": 50,
+  "vectors": "llm-soft-loop/controls/vectors-llama70b-l50",
+  "concept": "hostility-vs-kindness",
+  "alpha": null,
+  "log_temperature": null,
+  "cells_file": "docs/plateau-cells-z128.json",
+  "trace": false,
+  "save_sequences": false,
+  "n": 1,
+  "transient": 300,
+  "record": 300,
+  "eps": [
+   0.0001,
+   1e-05,
+   1e-06
+  ],
+  "tol": 1e-08,
+  "chunk": 32,
+  "dtype": "float64",
+  "device": "auto",
+  "weights": "bf16",
+  "vectors_none": false,
+  "prefix_file": null,
+  "prefix_index": null,
+  "threads": 16,
+  "window": 1,
+  "tangent": true,
+  "checkpoints": null,
+  "fd_probe": false,
+  "clamp_entropy": null,
+  "out": "llm-soft-loop/pod64/controls70/hostility-vs-kindness-pt128/cells"
+ },
+ "cells": [
+  {
+   "log10_temperature": 0.14244094488188977,
+   "alpha": 0.11291338582677166,
+   "lyapunov": [
+    0.16733214345355776,
+    0.16785418247998177,
+    0.16462565000561433
+   ],
+   "eps": [
+    0.0001,
+    1e-05,
+    1e-06
+   ],
+   "period": 0,
+   "diameter_rel": 1.4957833332242483,
+   "lead_distinct": 17,
+   "lead_period": 0,
+   "lead_tokens": [
+    358,
+    791,
+    0,
+    1102,
+    24746,
+    24525,
+    527,
+    499
+   ],
+   "pmax_mean": 0.4089360659209096,
+   "pmax_sd": 0.28591592572180957,
+   "entropy_mean": 4.877370387129231,
+   "entropy_sd": 2.6445539756417613,
+   "lyapunov_tangent": 0.16249679587864607,
+   "class": "visible chaos",
+   "lead_text": [
+    " I",
+    "The",
+    "!",
+    " It",
+    " infinite",
+    " possibilities",
+    " are",
+    " you"
+   ]
+  },
+  {
+   "log10_temperature": 0.1837795275590551,
+   "alpha": 0.0878740157480315,
+   "lyapunov": [
+    0.2806477556734714,
+    0.29253261450174023,
+    0.2866573989262552
+   ],
+   "eps": [
+    0.0001,
+    1e-05,
+    1e-06
+   ],
+   "period": 0,
+   "diameter_rel": 1.340655381825522,
+   "lead_distinct": 17,
+   "lead_period": 0,
+   "lead_tokens": [
+    13,
+    9906,
+    0,
+    1102,
+    596,
+    455,
+    22691,
+    791
+   ],
+   "pmax_mean": 0.3128355390136283,
+   "pmax_sd": 0.2545858552701962,
+   "entropy_mean": 6.020058538879189,
+   "entropy_sd": 3.0303417554204706,
+   "lyapunov_tangent": 0.2829356440962209,
+   "class": "visible chaos",
+   "lead_text": [
+    ".",
+    "Hello",
+    "!",
+    " It",
+    "'s",
+    "up",
+    " Hello",
+    "The"
+   ]
+  },
+  {
+   "log10_temperature": 0.18850393700787405,
+   "alpha": 0.11433070866141731,
+   "lyapunov": [
+    0.2028125194140438,
+    0.20447800268600483,
+    0.19833562347965586
+   ],
+   "eps": [
+    0.0001,
+    1e-05,
+    1e-06
+   ],
+   "period": 0,
+   "diameter_rel": 0.8624715328326533,
+   "lead_distinct": 13,
+   "lead_period": 0,
+   "lead_tokens": [
+    791,
+    13,
+    358,
+    9906,
+    40,
+    0,
+    13596,
+    24746
+   ],
+   "pmax_mean": 0.16837570732515617,
+   "pmax_sd": 0.1775599503469548,
+   "entropy_mean": 7.436209582213854,
+   "entropy_sd": 2.5370350531799466,
+   "lyapunov_tangent": 0.20611368435749924,
+   "class": "visible chaos",
+   "lead_text": [
+    "The",
+    ".",
+    " I",
+    "Hello",
+    "I",
+    "!",
+    " Another",
+    " infinite"
+   ]
+  },
+  {
+   "log10_temperature": 0.1979527559055118,
+   "alpha": 0.08692913385826771,
+   "lyapunov": [
+    0.3662268631707744,
+    0.3724842826146805,
+    0.3654801099081164
+   ],
+   "eps": [
+    0.0001,
+    1e-05,
+    1e-06
+   ],
+   "period": 0,
+   "diameter_rel": 0.8007009041443076,
+   "lead_distinct": 12,
+   "lead_period": 0,
+   "lead_tokens": [
+    9906,
+    13,
+    358,
+    1102,
+    791,
+    0,
+    596,
+    22691
+   ],
+   "pmax_mean": 0.27307902544458185,
+   "pmax_sd": 0.26671858977574114,
+   "entropy_mean": 6.273803660758929,
+   "entropy_sd": 3.4996109025711086,
+   "lyapunov_tangent": 0.37344803405601007,
+   "class": "visible chaos",
+   "lead_text": [
+    "Hello",
+    ".",
+    " I",
+    " It",
+    "The",
+    "!",
+    "'s",
+    " Hello"
+   ]
+  },
+  {
+   "log10_temperature": 0.1979527559055118,
+   "alpha": 0.11669291338582677,
+   "lyapunov": [
+    0.4153774985449581,
+    0.41268951927870184,
+    0.4127157724570372
+   ],
+   "eps": [
+    0.0001,
+    1e-05,
+    1e-06
+   ],
+   "period": 0,
+   "diameter_rel": 0.5127503410752187,
+   "lead_distinct": 11,
+   "lead_period": 0,
+   "lead_tokens": [
+    9906,
+    791,
+    13,
+    24746,
+    358,
+    40,
+    264,
+    32
+   ],
+   "pmax_mean": 0.12473303236007074,
+   "pmax_sd": 0.07873567066962378,
+   "entropy_mean": 8.043853114103303,
+   "entropy_sd": 1.05680645536478,
+   "lyapunov_tangent": 0.41739550245857576,
+   "class": "visible chaos",
+   "lead_text": [
+    "Hello",
+    "The",
+    ".",
+    " infinite",
+    " I",
+    "I",
+    " a",
+    "A"
+   ]
+  },
+  {
+   "log10_temperature": 0.19913385826771654,
+   "alpha": 0.08220472440944881,
+   "lyapunov": [
+    0.3336316155144331,
+    0.33987708966698027,
+    0.3345275913473634
+   ],
+   "eps": [
+    0.0001,
+    1e-05,
+    1e-06
+   ],
+   "period": 0,
+   "diameter_rel": 0.8705930645349534,
+   "lead_distinct": 12,
+   "lead_period": 0,
+   "lead_tokens": [
+    596,
+    9906,
+    0,
+    1102,
+    791,
+    455,
+    22691,
+    13
+   ],
+   "pmax_mean": 0.34951046574026295,
+   "pmax_sd": 0.28607266018913763,
+   "entropy_mean": 5.892764280621839,
+   "entropy_sd": 3.4844227604284868,
+   "lyapunov_tangent": 0.33602806819183917,
+   "class": "visible chaos",
+   "lead_text": [
+    "'s",
+    "Hello",
+    "!",
+    " It",
+    "The",
+    "up",
+    " Hello",
+    "."
+   ]
+  },
+  {
+   "log10_temperature": 0.2026771653543307,
+   "alpha": 0.0925984251968504,
+   "lyapunov": [
+    -0.031953194212546186,
+    -0.026984025544471213,
+    -0.02809381671643017
+   ],
+   "eps": [
+    0.0001,
+    1e-05,
+    1e-06
+   ],
+   "period": 15,
+   "diameter_rel": 0.5672628842327047,
+   "lead_distinct": 7,
+   "lead_period": 15,
+   "lead_tokens": [
+    24746,
+    13,
+    791,
+    0,
+    1102,
+    9906,
+    22691
+   ],
+   "pmax_mean": 0.19442066724566223,
+   "pmax_sd": 0.18768566870771186,
+   "entropy_mean": 7.272755927180151,
+   "entropy_sd": 2.4521735505387916,
+   "lyapunov_tangent": -0.030452929087437096,
+   "class": "periodic",
+   "lead_text": [
+    " infinite",
+    ".",
+    "The",
+    "!",
+    " It",
+    "Hello",
+    " Hello"
+   ]
+  },
+  {
+   "log10_temperature": 0.20858267716535436,
+   "alpha": 0.10866141732283464,
+   "lyapunov": [
+    0.26196558375631523,
+    0.2552752641023438,
+    0.2627760363910653
+   ],
+   "eps": [
+    0.0001,
+    1e-05,
+    1e-06
+   ],
+   "period": 0,
+   "diameter_rel": 0.48713194890266504,
+   "lead_distinct": 7,
+   "lead_period": 0,
+   "lead_tokens": [
+    791,
+    13,
+    24746,
+    9906,
+    264,
+    362,
+    480
+   ],
+   "pmax_mean": 0.11259933050387588,
+   "pmax_sd": 0.05376399497681107,
+   "entropy_mean": 8.266299350499485,
+   "entropy_sd": 0.8511506202348256,
+   "lyapunov_tangent": 0.2649488394976896,
+   "class": "visible chaos",
+   "lead_text": [
+    "The",
+    ".",
+    " infinite",
+    "Hello",
+    " a",
+    " A",
+    " G"
+   ]
+  },
+  {
+   "log10_temperature": 0.21448818897637795,
+   "alpha": 0.08503937007874016,
+   "lyapunov": [
+    0.3268423473943909,
+    0.32896618914188686,
+    0.3294796242629347
+   ],
+   "eps": [
+    0.0001,
+    1e-05,
+    1e-06
+   ],
+   "period": 0,
+   "diameter_rel": 0.6301388305654841,
+   "lead_distinct": 13,
+   "lead_period": 0,
+   "lead_tokens": [
+    13,
+    791,
+    24746,
+    358,
+    9906,
+    264,
+    456,
+    38
+   ],
+   "pmax_mean": 0.17657187998432552,
+   "pmax_sd": 0.15839705390467523,
+   "entropy_mean": 7.67384807651027,
+   "entropy_sd": 2.124768015307949,
+   "lyapunov_tangent": 0.32490054174044064,
+   "class": "visible chaos",
+   "lead_text": [
+    ".",
+    "The",
+    " infinite",
+    " I",
+    "Hello",
+    " a",
+    "get",
+    "G"
+   ]
+  },
+  {
+   "log10_temperature": 0.21566929133858267,
+   "alpha": 0.10062992125984252,
+   "lyapunov": [
+    0.2349505404324594,
+    0.22995347132336277,
+    0.22474179198081937
+   ],
+   "eps": [
+    0.0001,
+    1e-05,
+    1e-06
+   ],
+   "period": 0,
+   "diameter_rel": 0.40227587951132354,
+   "lead_distinct": 8,
+   "lead_period": 0,
+   "lead_tokens": [
+    791,
+    13,
+    264,
+    24746,
+    480,
+    9906,
+    38,
+    22691
+   ],
+   "pmax_mean": 0.11778128789045415,
+   "pmax_sd": 0.06801622041882711,
+   "entropy_mean": 8.237364323621504,
+   "entropy_sd": 0.923624611450565,
+   "lyapunov_tangent": 0.22632709676830284,
+   "class": "visible chaos",
+   "lead_text": [
+    "The",
+    ".",
+    " a",
+    " infinite",
+    " G",
+    "Hello",
+    "G",
+    " Hello"
+   ]
+  },
+  {
+   "log10_temperature": 0.2203937007874016,
+   "alpha": 0.09826771653543306,
+   "lyapunov": [
+    0.29635204807256943,
+    0.2900300973198916,
+    0.2932944357207908
+   ],
+   "eps": [
+    0.0001,
+    1e-05,
+    1e-06
+   ],
+   "period": 0,
+   "diameter_rel": 0.4267963282580479,
+   "lead_distinct": 6,
+   "lead_period": 0,
+   "lead_tokens": [
+    791,
+    13,
+    24746,
+    38,
+    9906,
+    22691
+   ],
+   "pmax_mean": 0.12936361262341148,
+   "pmax_sd": 0.06070774274815068,
+   "entropy_mean": 8.162802229898006,
+   "entropy_sd": 0.7867488951384408,
+   "lyapunov_tangent": 0.2955428476799798,
+   "class": "visible chaos",
+   "lead_text": [
+    "The",
+    ".",
+    " infinite",
+    "G",
+    "Hello",
+    " Hello"
+   ]
+  },
+  {
+   "log10_temperature": 0.22393700787401577,
+   "alpha": 0.06803149606299212,
+   "lyapunov": [
+    0.19101357628720017,
+    0.18639137771660694,
+    0.1932243632000496
+   ],
+   "eps": [
+    0.0001,
+    1e-05,
+    1e-06
+   ],
+   "period": 0,
+   "diameter_rel": 0.8843144839360617,
+   "lead_distinct": 11,
+   "lead_period": 0,
+   "lead_tokens": [
+    791,
+    0,
+    1102,
+    596,
+    455,
+    32,
+    9906,
+    13
+   ],
+   "pmax_mean": 0.32265713798696205,
+   "pmax_sd": 0.27923630001055405,
+   "entropy_mean": 6.318422595287316,
+   "entropy_sd": 3.549188694395023,
+   "lyapunov_tangent": 0.19411895016173372,
+   "class": "visible chaos",
+   "lead_text": [
+    "The",
+    "!",
+    " It",
+    "'s",
+    "up",
+    "A",
+    "Hello",
+    "."
+   ]
+  },
+  {
+   "log10_temperature": 0.12708661417322833,
+   "alpha": 0.08598425196850393,
+   "lyapunov": [
+    -2.4588166042125734,
+    -2.454252526534674,
+    -2.4574031462731565
+   ],
+   "eps": [
+    0.0001,
+    1e-05,
+    1e-06
+   ],
+   "period": 6,
+   "diameter_rel": 0.8046490370673345,
+   "lead_distinct": 6,
+   "lead_period": 6,
+   "lead_tokens": [
+    596,
+    455,
+    311,
+    9906,
+    0,
+    1102
+   ],
+   "pmax_mean": 0.6277675148819253,
+   "pmax_sd": 0.3156766892774781,
+   "entropy_mean": 2.7255561110346904,
+   "entropy_sd": 2.136366907318005,
+   "lyapunov_tangent": -2.4548601225657527,
+   "class": "periodic",
+   "lead_text": [
+    "'s",
+    "up",
+    " to",
+    "Hello",
+    "!",
+    " It"
+   ]
+  },
+  {
+   "log10_temperature": 0.16251968503937006,
+   "alpha": 0.11338582677165354,
+   "lyapunov": [
+    -0.8395317061723421,
+    -0.8425890093868824,
+    -0.8387791689706033
+   ],
+   "eps": [
+    0.0001,
+    1e-05,
+    1e-06
+   ],
+   "period": 3,
+   "diameter_rel": 0.3647502711905241,
+   "lead_distinct": 3,
+   "lead_period": 3,
+   "lead_tokens": [
+    791,
+    13,
+    358
+   ],
+   "pmax_mean": 0.3482643163614276,
+   "pmax_sd": 0.37158250954549343,
+   "entropy_mean": 5.714623997852136,
+   "entropy_sd": 3.6035082575437696,
+   "lyapunov_tangent": -0.83621240320346,
+   "class": "periodic",
+   "lead_text": [
+    "The",
+    ".",
+    " I"
+   ]
+  },
+  {
+   "log10_temperature": 0.1778740157480315,
+   "alpha": 0.07181102362204725,
+   "lyapunov": [
+    -0.6012740569094455,
+    -0.6017574044575801,
+    -0.6004659217099166
+   ],
+   "eps": [
+    0.0001,
+    1e-05,
+    1e-06
+   ],
+   "period": 3,
+   "diameter_rel": 0.3802162325488543,
+   "lead_distinct": 3,
+   "lead_period": 3,
+   "lead_tokens": [
+    24746,
+    13,
+    791
+   ],
+   "pmax_mean": 0.19836157623876627,
+   "pmax_sd": 0.06164431478038351,
+   "entropy_mean": 6.435305753533521,
+   "entropy_sd": 1.9516854829436405,
+   "lyapunov_tangent": -0.6017978719706736,
+   "class": "periodic",
+   "lead_text": [
+    " infinite",
+    ".",
+    "The"
+   ]
+  },
+  {
+   "log10_temperature": 0.2062204724409449,
+   "alpha": 0.09070866141732284,
+   "lyapunov": [
+    0.33516306269791424,
+    0.3324762176021588,
+    0.3328261319981668
+   ],
+   "eps": [
+    0.0001,
+    1e-05,
+    1e-06
+   ],
+   "period": 0,
+   "diameter_rel": 0.7372832417833096,
+   "lead_distinct": 13,
+   "lead_period": 0,
+   "lead_tokens": [
+    24746,
+    13,
+    791,
+    22691,
+    9906,
+    0,
+    1102,
+    596
+   ],
+   "pmax_mean": 0.19685368318326868,
+   "pmax_sd": 0.18093812912903556,
+   "entropy_mean": 7.259329186331752,
+   "entropy_sd": 2.3379950553811693,
+   "lyapunov_tangent": 0.3321697738926042,
+   "class": "visible chaos",
+   "lead_text": [
+    " infinite",
+    ".",
+    "The",
+    " Hello",
+    "Hello",
+    "!",
+    " It",
+    "'s"
+   ]
+  },
+  {
+   "log10_temperature": 0.20858267716535436,
+   "alpha": 0.06519685039370078,
+   "lyapunov": [
+    -2.901190531743524,
+    -2.8917037630059266,
+    -2.8905449662922895
+   ],
+   "eps": [
+    0.0001,
+    1e-05,
+    1e-06
+   ],
+   "period": 6,
+   "diameter_rel": 0.7913156099281052,
+   "lead_distinct": 6,
+   "lead_period": 6,
+   "lead_tokens": [
+    0,
+    1102,
+    596,
+    455,
+    22691,
+    9906
+   ],
+   "pmax_mean": 0.5128044919762653,
+   "pmax_sd": 0.3689652137491098,
+   "entropy_mean": 4.867717824388273,
+   "entropy_sd": 3.843556957929728,
+   "lyapunov_tangent": -2.895000845515443,
+   "class": "periodic",
+   "lead_text": [
+    "!",
+    " It",
+    "'s",
+    "up",
+    " Hello",
+    "Hello"
+   ]
+  },
+  {
+   "log10_temperature": 0.2593700787401575,
+   "alpha": 0.09448818897637795,
+   "lyapunov": [
+    -1.0735913168844717,
+    -1.0760312546995239,
+    -1.0736651484670074
+   ],
+   "eps": [
+    0.0001,
+    1e-05,
+    1e-06
+   ],
+   "period": 1,
+   "diameter_rel": 2.3743522223190026e-15,
+   "lead_distinct": 1,
+   "lead_period": 1,
+   "lead_tokens": [
+    9906
+   ],
+   "pmax_mean": 0.03161801321917151,
+   "pmax_sd": 4.0440081631880773e-16,
+   "entropy_mean": 10.335212687920663,
+   "entropy_sd": 6.516268333309819e-15,
+   "lyapunov_tangent": -1.0736055086810532,
+   "class": "periodic",
+   "lead_text": [
+    "Hello"
+   ]
+  },
+  {
+   "log10_temperature": 0.14716535433070865,
+   "alpha": 0.11149606299212599,
+   "lyapunov": [
+    -0.01196008178209885,
+    -0.009304923637631673,
+    -0.005302365731475005
+   ],
+   "eps": [
+    0.0001,
+    1e-05,
+    1e-06
+   ],
+   "period": 0,
+   "diameter_rel": 1.393416154066244,
+   "lead_distinct": 10,
+   "lead_period": 15,
+   "lead_tokens": [
+    499,
+    791,
+    13,
+    358,
+    0,
+    1102,
+    13596,
+    24746
+   ],
+   "pmax_mean": 0.32687889003425136,
+   "pmax_sd": 0.26414490383540357,
+   "entropy_mean": 5.067203171806578,
+   "entropy_sd": 3.119703258929209,
+   "lyapunov_tangent": -0.005595507641554522,
+   "class": "irregular, exponent not positive at both offsets",
+   "lead_text": [
+    " you",
+    "The",
+    ".",
+    " I",
+    "!",
+    " It",
+    " Another",
+    " infinite"
+   ]
+  },
+  {
+   "log10_temperature": 0.1920472440944882,
+   "alpha": 0.08456692913385827,
+   "lyapunov": [
+    -0.016198217512070776,
+    -0.019456578338517293,
+    -0.023380936302964558
+   ],
+   "eps": [
+    0.0001,
+    1e-05,
+    1e-06
+   ],
+   "period": 0,
+   "diameter_rel": 0.8157647122078902,
+   "lead_distinct": 7,
+   "lead_period": 55,
+   "lead_tokens": [
+    0,
+    1102,
+    596,
+    791,
+    455,
+    22691,
+    9906
+   ],
+   "pmax_mean": 0.41638221275016796,
+   "pmax_sd": 0.30346629223558635,
+   "entropy_mean": 5.611073915300285,
+   "entropy_sd": 3.489519307716736,
+   "lyapunov_tangent": -0.022228384276623433,
+   "class": "irregular, exponent not positive at both offsets",
+   "lead_text": [
+    "!",
+    " It",
+    "'s",
+    "The",
+    "up",
+    " Hello",
+    "Hello"
+   ]
+  },
+  {
+   "log10_temperature": 0.1920472440944882,
+   "alpha": 0.09165354330708661,
+   "lyapunov": [
+    -0.017687634157995777,
+    -0.01599328709012158,
+    -0.017659502501619635
+   ],
+   "eps": [
+    0.0001,
+    1e-05,
+    1e-06
+   ],
+   "period": 0,
+   "diameter_rel": 0.37873557786882295,
+   "lead_distinct": 3,
+   "lead_period": 3,
+   "lead_tokens": [
+    13,
+    358,
+    9906
+   ],
+   "pmax_mean": 0.29754344435347563,
+   "pmax_sd": 0.3207040388514504,
+   "entropy_mean": 6.28348215644616,
+   "entropy_sd": 3.6769788862320105,
+   "lyapunov_tangent": -0.017157053504779512,
+   "class": "irregular, exponent not positive at both offsets",
+   "lead_text": [
+    ".",
+    " I",
+    "Hello"
+   ]
+  },
+  {
+   "log10_temperature": 0.2203937007874016,
+   "alpha": 0.06661417322834645,
+   "lyapunov": [
+    -0.018578145524491104,
+    -0.01928548244880606,
+    -0.018480745167220636
+   ],
+   "eps": [
+    0.0001,
+    1e-05,
+    1e-06
+   ],
+   "period": 0,
+   "diameter_rel": 0.7875849072703437,
+   "lead_distinct": 5,
+   "lead_period": 6,
+   "lead_tokens": [
+    455,
+    9906,
+    0,
+    1102,
+    596
+   ],
+   "pmax_mean": 0.42325940694633357,
+   "pmax_sd": 0.3243455245282865,
+   "entropy_mean": 5.609373974204483,
+   "entropy_sd": 3.718977722043456,
+   "lyapunov_tangent": -0.012567823905627998,
+   "class": "irregular, exponent not positive at both offsets",
+   "lead_text": [
+    "up",
+    "Hello",
+    "!",
+    " It",
+    "'s"
+   ]
+  },
+  {
+   "log10_temperature": 0.2203937007874016,
+   "alpha": 0.07464566929133858,
+   "lyapunov": [
+    -0.029882648151895848,
+    -0.027077762785885882,
+    -0.02221268328747822
+   ],
+   "eps": [
+    0.0001,
+    1e-05,
+    1e-06
+   ],
+   "period": 0,
+   "diameter_rel": 0.34832717777212696,
+   "lead_distinct": 3,
+   "lead_period": 3,
+   "lead_tokens": [
+    358,
+    9906,
+    13
+   ],
+   "pmax_mean": 0.28773862163174857,
+   "pmax_sd": 0.3071144030446378,
+   "entropy_mean": 6.484966367449847,
+   "entropy_sd": 3.7566115069483703,
+   "lyapunov_tangent": -0.025128728994311653,
+   "class": "irregular, exponent not positive at both offsets",
+   "lead_text": [
+    " I",
+    "Hello",
+    "."
+   ]
+  },
+  {
+   "log10_temperature": 0.2203937007874016,
+   "alpha": 0.0921259842519685,
+   "lyapunov": [
+    -0.01735543200074751,
+    -0.015042798437940217,
+    -0.014927934948202838
+   ],
+   "eps": [
+    0.0001,
+    1e-05,
+    1e-06
+   ],
+   "period": 0,
+   "diameter_rel": 0.46220554798132296,
+   "lead_distinct": 4,
+   "lead_period": 11,
+   "lead_tokens": [
+    791,
+    13,
+    358,
+    9906
+   ],
+   "pmax_mean": 0.15864041529169434,
+   "pmax_sd": 0.17867730731416467,
+   "entropy_mean": 7.756024210282899,
+   "entropy_sd": 2.161364170795825,
+   "lyapunov_tangent": -0.015039307784380833,
+   "class": "irregular, exponent not positive at both offsets",
+   "lead_text": [
+    "The",
+    ".",
+    " I",
+    "Hello"
+   ]
+  }
+ ]
+}

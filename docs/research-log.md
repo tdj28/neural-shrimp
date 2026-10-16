@@ -26975,3 +26975,21 @@ tools/audit/dss_bfs_audit.py rebuilds the old breadth-first order from each prog
 **Fix.** Added docs/plateau-cells-z128.json to the allow-list in tools/runpod_soft_float64.py.
 - Same draw, rule and settings; relaunched at the commit of this entry.
 - The failed attempt's outputs are kept in runpod/soft64/20261016T013053Z.
+
+## 2026-10-16 02:10 UTC: PT128 result: the Z128 labels pass the plateau test, 11 of 12 chaotic and 5 of 6 periodic labels confirmed
+
+**Run.** Pod gbik1t4891gbit (SECURE 2 x H100 NVL): runner rc 0, job status 0, archive hash verified, terminated and verified gone; wall 1740 s; commit 696ba003.
+- Job: tools/hidden_chaos.py cells on docs/plateau-cells-z128.json, 300 transient and 300 measured steps, absolute twin offsets 1e-4, 1e-5 and 1e-6, plus the exact tangent exponent; chunk 32, 2 GPUs, bf16 storage, float64.
+- The orchestrator's clash guard extracted into runpod/soft64/20261016T013907Z/extracted, because attempt 1 had already written the vectors folder. The vectors are identical (sha256 870bf05e...). The cells folder was copied to the canonical place.
+- Receipt: docs/z128/pt128-hidden-chaos.json.
+
+**Verdict, by the rule fixed before the draw (9be05853).**
+- **Chaotic labels:** 11 of 12 confirmed, all four exponents above 1e-3. Spread over the three offsets and the tangent: at most 0.0119. Map exponent against tangent exponent: median 0.057, max 0.115 (different finite samples of the same attractor).
+- **Periodic labels:** 5 of 6 confirmed, all four negative.
+- **The two exceptions** are neighbours near log10 T = 0.203-0.206, alpha 0.091-0.093:
+  - a map-chaotic cell (0.339) reached a period-15 loop (exponent -0.03 at every offset);
+  - a map-periodic cell (period 16, -0.068) reached chaos (0.333 at every offset, tangent 0.332);
+  - the loops' texts mix " infinite", ".", "The", "!", " It" and "Hello". This is where a long weakly attracting loop and chaos are reached from the same start, depending on rounding (the batch layout differs between the map and this test).
+- **Unresolved cells, as measured:** all 6 have negative exponents at every offset and the tangent (-0.005 to -0.03) and no period up to 32. These are slow or long-period cells, none chaotic.
+
+**Papers.** The 70B sentence in both papers now gives this result.
