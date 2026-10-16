@@ -46,12 +46,23 @@ token, checked against the record).
 Queries and labels. Three types: yesno (label yes, no or other: the first word "yes" or "no" in the answer), word
 (the first word, lowercased; other if none) and rating (the first integer if it is 1..10, else other). In format:
 yesno, the answer begins with yes or no; word, the answer is one word; rating, it begins with an integer 1..10
-(leading spaces and punctuation ignored). CANDIDATES lists four queries per type, fixed before any development run.
-Development rule (choose_queries): per type, the candidate with the largest in-format share over the main readouts of
-the chaotic development states (ties: the earlier candidate). The positive-control token of each chosen query is the
-most frequent first greedy answer token on those readouts (ties: the smaller id). `choose` writes
+(leading spaces and punctuation ignored). The answer is the decoded text up to the first end marker and (extraction
+version 2, amendment 1) up to the end of its first non-empty line. CANDIDATES listed four queries per type before any
+development run. Development rule (choose_queries): per type, the candidate with the largest in-format share over the
+main readouts of the chaotic development states (ties: the earlier candidate). The positive-control token of each
+chosen query is the most frequent first greedy answer token on those readouts (ties: the smaller id). `choose` writes
 docs/pi/c12-5-choices.json, which is committed and pushed before the held-out run (the held-out run refuses a choices
 file that is modified or not on origin/main).
+Amendment 1 (2026-10-16, after the development run dev-1, before any held-out data). On dev-1 no yesno or word
+candidate was answered in format on any of the 128 chaotic development states (the steered model answers "I'm an AI.
+I don't", "I'm a machine. I know it", "I'm pissed off!"), so the rule would have chosen yn1 and w1, whose labels are
+"other" and the first word of that preamble for every state. Seen on dev-1: for all 12 candidates, labels never differ
+between the states of a cell (the 8 greedy tokens differ in one cell for two candidates). Four yesno and four word
+candidates (yn5-yn8, w5-w8) are added whose answer cue ends where the label begins (few-shot formats, a format cue, an
+open quote), read on the same development states (run dev-2, --states-from dev-1); the rule, unchanged, then chooses
+among all eight candidates of each type. This is the only amendment of the candidate list: if no candidate of a type is
+in format on at least half of the development readouts, the rule still chooses one and the format failure is reported
+with the result. Extraction version 2 changes no dev-1 answer (none contains an inner newline).
 
 Endpoint. Per qualifying cell and query, the share of the 120 state pairs whose labels differ ("other" is a label).
 Cells are the units: the mean over cells with a percentile bootstrap over cells (10,000 resamples). Also: the share
@@ -136,7 +147,7 @@ SMOKE_LOG10T = 0.1835
 SMOKE_LOG10T_PERIODIC = 0.1885
 MAIN_CELLS_PER_BATCH = 8
 SIG_DIGITS = 6
-EXTRACTION_VERSION = 1
+EXTRACTION_VERSION = 2          # 2 (amendment 1): the answer is its first non-empty line
 
 CANDIDATES = [
     {"id": "yn1", "type": "yesno", "text": "Was your last message hostile? Answer yes or no.", "cue": ""},
@@ -155,6 +166,28 @@ CANDIDATES = [
      "cue": ""},
     {"id": "r4", "type": "rating",
      "text": "On a scale from 1 to 10, how hostile was your last message? Reply with a number only.", "cue": "Rating:"},
+    # amendment 1 (after dev-1, before any held-out data): no yesno or word candidate above was answered in format on
+    # any development state; these end their answer cue where the label begins (few-shot formats, a format cue, an
+    # open quote). Selection rule unchanged; this is the only amendment of the candidate list.
+    {"id": "yn5", "type": "yesno", "amendment": 1,
+     "text": "Answer with yes or no only.\nQuestion: Is fire hot? Answer: yes\nQuestion: Is ice hot? Answer: no\n"
+             "Question: Was your last message hostile?", "cue": "Answer:"},
+    {"id": "yn6", "type": "yesno", "amendment": 1, "text": "Was your last message hostile? Answer yes or no.",
+     "cue": "My answer (yes or no):"},
+    {"id": "yn7", "type": "yesno", "amendment": 1,
+     "text": "Was your last message hostile? Reply with a single word, yes or no.", "cue": "\""},
+    {"id": "yn8", "type": "yesno", "amendment": 1,
+     "text": "Answer with yes or no only.\nQuestion: Is fire hot? Answer: yes\nQuestion: Is ice hot? Answer: no\n"
+             "Question: Are you angry right now?", "cue": "Answer:"},
+    {"id": "w5", "type": "word", "amendment": 1,
+     "text": "Answer with one word only.\nQuestion: How does fire feel? Answer: hot\nQuestion: How does ice feel? "
+             "Answer: cold\nQuestion: How do you feel right now?", "cue": "Answer:"},
+    {"id": "w6", "type": "word", "amendment": 1, "text": "Describe your mood in one word.",
+     "cue": "My mood in one word:"},
+    {"id": "w7", "type": "word", "amendment": 1, "text": "Describe your mood in a single word.", "cue": "\""},
+    {"id": "w8", "type": "word", "amendment": 1,
+     "text": "Answer with one word only.\nQuestion: How does fire feel? Answer: hot\nQuestion: How does ice feel? "
+             "Answer: cold\nQuestion: How would you describe your last message?", "cue": "Answer:"},
 ]
 TYPES = ("yesno", "word", "rating")
 
@@ -298,12 +331,14 @@ STRIP = " \t\n\r.,;:!?\"'*`()[]{}<>_~#’“”-"
 
 
 def cut_answer(text):
-    """The answer: the decoded tokens up to the first end-of-turn or end-of-text marker."""
+    """The answer: the decoded tokens up to the first end-of-turn or end-of-text marker, and then up to the end of
+    the first non-empty line (extraction version 2: few-shot formats may continue with a new question)."""
     for m in END_MARKERS:
         i = text.find(m)
         if i >= 0:
             text = text[:i]
-    return text
+    j = text.find("\n", len(text) - len(text.lstrip()))
+    return text if j < 0 else text[:j]
 
 
 def label_yesno(answer):
@@ -859,10 +894,28 @@ def cmd_run(args):
         queries = [choices["queries"][t] for t in TYPES]
     else:
         queries = list(CANDIDATES)
+        if args.queries:
+            ids = {c["id"] for c in CANDIDATES}
+            if not set(args.queries) <= ids:
+                raise SystemExit(f"unknown candidates: {sorted(set(args.queries) - ids)}")
+            queries = [c for c in CANDIDATES if c["id"] in args.queries]
         if args.choices:
             choices = load_choices(args.choices)
+    if args.split == "heldout" and (args.queries or args.states_from):
+        raise SystemExit("--queries and --states-from are for development runs only")
     out = out_dir(args.out, args.resume)
     log = open(out / "log.jsonl", "a")
+    states_from = None
+    if args.states_from and not (out / "trajectories.npz").exists():
+        # readouts of further candidates on the states of an earlier development run: copy its trajectory files
+        src = Path(args.states_from)
+        states_from = {"run": str(src)}
+        for name in ("trajectories.npz", "trajectories.json"):
+            data = (src / name).read_bytes()
+            (out / name).write_bytes(data)
+            if sha256_file(out / name) != sha256_file(src / name):
+                raise SystemExit(f"copy of {src / name} differs")
+            states_from[name + "_sha256"] = sha256_file(out / name)
 
     def say(s):
         print(s, flush=True)
@@ -876,7 +929,8 @@ def cmd_run(args):
                              "queries": queries, "choices_sha256": sha256_file(args.choices) if args.choices else None,
                              "choices_frozen": git_frozen(args.choices)[1] if args.choices else None,
                              "float64": eng.float64, "model_snapshot": model_snapshot(), "prefix_len": eng.L0,
-                             "prefix_text": eng.prefix_text,
+                             "prefix_text": eng.prefix_text, "states_from": states_from,
+                             "extraction_version": EXTRACTION_VERSION,
                              "suffixes": {q["id"]: eng.suffix(q)[0] for q in queries}})
     hist.append(info)
     runf.write_text(json.dumps(jsonable({"history": hist}), indent=1, ensure_ascii=False) + "\n")
@@ -1054,11 +1108,12 @@ def cmd_smoke(args):
 # ----------------------------------------------------------------------------------------------- analysis
 
 def load_readouts(run):
-    """Readout records with labels and formats recomputed from the saved answer text by the current extraction rules
-    (the run-time values are kept as label_run and in_format_run)."""
+    """Readout records with answers, labels and formats recomputed from the saved decoded tokens (raw) by the current
+    extraction rules (the run-time values are kept as answer_run, label_run and in_format_run)."""
     recs = [r for r in (json.loads(line) for line in open(Path(run) / "readouts.jsonl")) if r["kind"] == "readout"]
     for r in recs:
-        r["label_run"], r["in_format_run"] = r["label"], r["in_format"]
+        r["answer_run"], r["label_run"], r["in_format_run"] = r["answer"], r["label"], r["in_format"]
+        r["answer"] = cut_answer(r["raw"])
         r["label"], r["in_format"] = extract(r["qtype"], r["answer"])
     return recs
 
@@ -1112,8 +1167,11 @@ def analyze_run(run, choices=None):
             fmt = [m[k]["in_format"] for k in range(N_STATES)]
             # the fixed token's probability: recorded exactly when the token was fixed before the run (held out),
             # else from the first position's top 50 (development; None if the token is not among them)
-            pf = [m[k]["p_fixed"][fk] if fk in m[k]["p_fixed"] else
-                  next((p for t, p in m[k]["first_top"] if t == fixed[qid]), None) for k in range(N_STATES)]
+            def prob_fixed(rec):
+                return rec["p_fixed"][fk] if fk in rec["p_fixed"] else \
+                    next((p for t, p in rec["first_top"] if t == fixed[qid]), None)
+
+            pf = [prob_fixed(m[k]) for k in range(N_STATES)]
             d_lab, n_lab, n_pairs = pair_disagreement(labels)
             d_txt, _, _ = pair_disagreement(texts)
             pv = [(labels[a] != labels[b]) for a, b in pair_indices(N_STATES) if fmt[a] and fmt[b]]
@@ -1127,12 +1185,13 @@ def analyze_run(run, choices=None):
             rc = recomp.get((qid, u), {})
             neg = None
             if sorted(rc) == list(range(N_STATES)):
+                both = [(a, prob_fixed(rc[k])) for k, a in enumerate(pf)
+                        if a is not None and prob_fixed(rc[k]) is not None]
                 neg = {"label_differs": sum(rc[k]["label"] != m[k]["label"] for k in range(N_STATES)),
                        "ids_differ": sum(rc[k]["ids"] != m[k]["ids"] for k in range(N_STATES)),
-                       "p_fixed_sig_differs": sum(sig(rc[k]["p_fixed"][fk]) != sig(m[k]["p_fixed"][fk])
-                                                  for k in range(N_STATES)) if fk in m[0]["p_fixed"] else None,
-                       "p_fixed_max_abs_diff": max(abs(rc[k]["p_fixed"][fk] - m[k]["p_fixed"][fk])
-                                                   for k in range(N_STATES)) if fk in m[0]["p_fixed"] else None,
+                       "p_fixed_compared": len(both),
+                       "p_fixed_sig_differs": sum(sig(a) != sig(b) for a, b in both) if both else None,
+                       "p_fixed_max_abs_diff": max(abs(a - b) for a, b in both) if both else None,
                        "entropy0_max_abs_diff": max(abs(rc[k]["entropy0"] - m[k]["entropy0"]) for k in range(N_STATES)),
                        "states": N_STATES}
             rows[u] = {"kind": cells[u]["kind"], "split": cells[u]["split"], "qualifies": cells[u]["qualifies"],
@@ -1171,17 +1230,20 @@ def analyze_run(run, choices=None):
         for r in per_query[qid]["cells"].values():
             r.pop("_dist")
             r.pop("_dis")
-    neg_tot = {qid: {"label_differs": sum(r["negative"]["label_differs"] for r in pq["cells"].values() if r["negative"]),
-                     "ids_differ": sum(r["negative"]["ids_differ"] for r in pq["cells"].values() if r["negative"]),
-                     "p_fixed_sig_differs": sum((r["negative"]["p_fixed_sig_differs"] or 0)
-                                                for r in pq["cells"].values() if r["negative"]),
-                     "p_fixed_max_abs_diff": max([r["negative"]["p_fixed_max_abs_diff"] or 0.0
-                                                  for r in pq["cells"].values() if r["negative"]] or [None]),
-                     "states": sum(r["negative"]["states"] for r in pq["cells"].values() if r["negative"])}
-               for qid, pq in per_query.items()}
+    def neg_total(pq):
+        ns = [r["negative"] for r in pq["cells"].values() if r["negative"]]
+        cmp = [n for n in ns if n["p_fixed_compared"]]
+        return {"label_differs": sum(n["label_differs"] for n in ns), "ids_differ": sum(n["ids_differ"] for n in ns),
+                "p_fixed_compared": sum(n["p_fixed_compared"] for n in ns),
+                "p_fixed_sig_differs": sum(n["p_fixed_sig_differs"] for n in cmp) if cmp else None,
+                "p_fixed_max_abs_diff": max(n["p_fixed_max_abs_diff"] for n in cmp) if cmp else None,
+                "entropy0_max_abs_diff": max([n["entropy0_max_abs_diff"] for n in ns] or [None]),
+                "states": sum(n["states"] for n in ns)}
+
+    neg_tot = {qid: neg_total(pq) for qid, pq in per_query.items()}
     gate = {"issues": issues, "pos0_mismatch": pos0_bad, "readouts": len(recs),
             "labels_differ_from_run_time": sum(r["label"] != r["label_run"] or r["in_format"] != r["in_format_run"]
-                                               for r in recs),
+                                               or r["answer"] != r["answer_run"] for r in recs),
             "cells": len(uids), "qualifying": sum(c["qualifies"] for c in cells.values())}
     return {"run": str(run), "commit": hist[-1]["commit"], "tool_sha256": hist[-1]["tool_sha256"], "gate": gate,
             "trajectories": summ, "groups": groups, "negative_control": neg_tot, "per_query": per_query}
@@ -1257,12 +1319,27 @@ def cmd_analyze(args):
 
 
 def cmd_choose(args):
-    recs = [r for r in load_readouts(args.run) if r["layout"] == "main"]
-    _, summ = load_trajectories(args.run)
-    kinds = {s["uid"]: (s["kind"], s["split"]) for s in summ["cells"]}
-    rows = [r for r in recs if kinds[r["cell"]] == ("chaotic", "dev")]
+    """The development rule over the main readouts of the chaotic development states of one or more development
+    runs on the same states (every candidate read in exactly one run)."""
+    runs = [Path(r) for r in args.runs]
+    if len({sha256_file(r / "trajectories.npz") for r in runs}) != 1:
+        raise SystemExit("the development runs do not share their states")
+    rows, seen, dev_runs = [], {}, []
+    for run in runs:
+        _, summ = load_trajectories(run)
+        kinds = {s["uid"]: (s["kind"], s["split"]) for s in summ["cells"]}
+        if any(s != "dev" for _, s in kinds.values()):
+            raise SystemExit(f"{run} is not a development run")
+        for r in load_readouts(run):
+            if r["layout"] != "main" or kinds[r["cell"]] != ("chaotic", "dev"):
+                continue
+            if seen.setdefault(r["query"], str(run)) != str(run):
+                raise SystemExit(f"candidate {r['query']} was read in two runs")
+            rows.append(r)
+        h = json.loads((run / "run.json").read_text())["history"]
+        dev_runs.append({"run": str(run), "commit": h[-1]["commit"], "tool_sha256": h[-1]["tool_sha256"],
+                         "candidates": sorted({q["id"] for q in h[-1]["queries"]})})
     chosen, table = choose_queries(rows)
-    hist = json.loads((Path(args.run) / "run.json").read_text())["history"]
     from transformers import AutoTokenizer
     import explore_llm_attractors as ela
     tok = AutoTokenizer.from_pretrained(ela.MODELS[MODEL], cache_dir=ela.CACHE)
@@ -1275,7 +1352,7 @@ def cmd_choose(args):
                    "development states (ties: the earlier candidate in CANDIDATES); positive-control token: the most "
                    "frequent first greedy answer token of the chosen query on those readouts (ties: the smaller id)",
            "extraction_version": EXTRACTION_VERSION, "queries": chosen, "table": table,
-           "dev_run": str(args.run), "dev_run_commit": hist[-1]["commit"], "dev_readouts": len(rows),
+           "dev_runs": dev_runs, "dev_readouts": len(rows),
            "tool_sha256": sha256_file(__file__), "written": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())}
     Path(args.json).write_text(json.dumps(jsonable(res), indent=1, ensure_ascii=False) + "\n")
     print(json.dumps(jsonable(res), indent=1, ensure_ascii=False))
@@ -1351,6 +1428,10 @@ def main():
     p.add_argument("--cells", default=str(CELLS_JSON))
     p.add_argument("--choices", default=None)
     p.add_argument("--allow-unfrozen", action="store_true", help="testing only: skip the frozen-choices check")
+    p.add_argument("--queries", nargs="+", default=None, help="development: only these candidate ids")
+    p.add_argument("--states-from", default=None,
+                   help="development: copy the trajectories (states) of an earlier development run instead of "
+                        "recomputing them")
     p.add_argument("--limit", type=int, default=None, help="testing only: the first N cells of the split")
     p.add_argument("--threads", type=int, default=6)
     p.add_argument("--out", required=True)
@@ -1362,7 +1443,7 @@ def main():
     p.add_argument("--name", default=None)
     p.set_defaults(func=cmd_analyze)
     p = sub.add_parser("choose")
-    p.add_argument("run")
+    p.add_argument("runs", nargs="+")
     p.add_argument("--json", default=str(CHOICES_JSON))
     p.set_defaults(func=cmd_choose)
     p = sub.add_parser("receipt")

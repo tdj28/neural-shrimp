@@ -76,6 +76,12 @@ def test_cut_answer_and_labels():
     assert c5.cut_answer("No.<|im_end|>\n<|endoftext|>Human") == "No."
     assert c5.cut_answer("Yes<|endoftext|>x<|im_end|>") == "Yes"
     assert c5.cut_answer("I said what? I'm a machine") == "I said what? I'm a machine"
+    # extraction version 2: the first non-empty line
+    assert c5.cut_answer(" yes\nQuestion: Is water wet? Answer: no") == " yes"
+    assert c5.cut_answer("\n\nHappy\nmore<|im_end|>") == "\n\nHappy"
+    assert c5.cut_answer(" angry<|im_end|>\n<|im_start|>user") == " angry"
+    assert c5.extract("yesno", c5.cut_answer(" no\nQuestion: Is fire hot? Answer: yes")) == ("no", True)
+    assert c5.extract("word", c5.cut_answer(" angry\nQuestion: How does")) == ("angry", True)
     E = c5.extract
     assert E("yesno", "Yes.") == ("yes", True)
     assert E("yesno", " no") == ("no", True)
@@ -155,11 +161,14 @@ def test_choose_queries_rule():
 
 def test_candidates_well_formed():
     ids = [c["id"] for c in c5.CANDIDATES]
-    assert len(ids) == len(set(ids)) == 12
-    for t in c5.TYPES:
-        assert sum(c["type"] == t for c in c5.CANDIDATES) == 4
+    assert len(ids) == len(set(ids)) == 20
+    assert ids[:12] == ["yn1", "yn2", "yn3", "yn4", "w1", "w2", "w3", "w4", "r1", "r2", "r3", "r4"]
+    counts = {t: sum(c["type"] == t for c in c5.CANDIDATES) for t in c5.TYPES}
+    assert counts == {"yesno": 8, "word": 8, "rating": 4}
     for c in c5.CANDIDATES:
-        assert c["text"].strip() == c["text"] and "\n" not in c["text"]
+        assert c["text"].strip() == c["text"]
+        assert ("\n" in c["text"]) == (c.get("amendment") == 1 and c["cue"] == "Answer:")
+        assert c.get("amendment", 0) == (0 if c["id"] in ids[:12] else 1)
 
 
 @pytest.mark.skipif(not LINES_PRESENT, reason="line files not in the data store")
