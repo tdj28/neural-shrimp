@@ -27039,3 +27039,14 @@ tools/audit/dss_bfs_audit.py rebuilds the old breadth-first order from each prog
 - Per problem: median growth rate, twin answer flips, float64 accuracy.
 - Joined to E1's bf16 records (same indices and settings): does the growth rate predict bf16 batch flips? Logistic regression with the entropy and gap features as covariates, AUC with a bootstrap interval.
 - Configuration A against B: growth-rate distributions.
+
+## 2026-10-16 03:47 UTC: Run cards E1 pilot and E4 pilot (exploratory, program PI)
+
+**E1 pilot** (running since about 03:15 UTC). tools/pi_harness.py soft mode, Qwen2.5-7B-Instruct bf16 on the local GPU, the first 400 GSM8K test problems.
+- 64 soft steps at T = 0.6, then the cue and 12 greedy answer tokens.
+- Concept-token top-n in {0 (full), 15, 1, 5, 30}, run in that order.
+- Layouts 8 and 16 (equal-length prompts, no padding).
+- Readout per arm: answer flip rate (Wilson interval), accuracy per layout, first-divergence step, and mean gain proxy of flipped against kept problems.
+
+**E4 pilot** (queued after E1). Ordinary chain-of-thought decoding on the same 400 problems, 320 new tokens: greedy, and seeded sampling (T = 0.7, top-p 0.95, one uniform per problem and step from default_rng(20261016 + index), the same in both layouts).
+- Readout: output and answer flips between layouts; accuracy of flipped against stable problems; first divergence step; margin and entropy at the divergence step.
