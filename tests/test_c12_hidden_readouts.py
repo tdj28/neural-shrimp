@@ -124,6 +124,13 @@ def test_pair_statistics():
     assert c5.spearman([1, 1, 1], [1, 2, 3]) is None
 
 
+def test_answer_length_counts_through_the_end_marker():
+    assert c5.answer_length([16, 15, 151645, 198, 151644, 872, 198, 40]) == 3
+    assert c5.answer_length([2308, 11, 429, 594, 264, 10247, 13, 151645]) == 8
+    assert c5.answer_length([3273, 1, 374]) == 3
+    assert c5.answer_length([151643, 5]) == 1
+
+
 def test_clopper_pearson_upper():
     pytest.importorskip("scipy")
     for n in (1, 7, 92, 105):
@@ -248,3 +255,4 @@ def test_suffix_follows_chat_template():
         assert tail == "<|im_end|>\n<|im_start|>user\n" + q["text"] + "<|im_end|>\n<|im_start|>assistant\n" + q["cue"]
         assert tok.decode(ids) == tail
         assert ids[0] == tok.convert_tokens_to_ids("<|im_end|>")
+    assert tuple(tok.convert_tokens_to_ids(["<|endoftext|>", "<|im_end|>"])) == c5.END_IDS

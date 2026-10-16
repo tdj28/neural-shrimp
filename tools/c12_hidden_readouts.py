@@ -1118,6 +1118,14 @@ def cmd_smoke(args):
 
 # ----------------------------------------------------------------------------------------------- analysis
 
+END_IDS = (151643, 151645)       # <|endoftext|>, <|im_end|> of the Qwen2.5 tokenizer
+
+
+def answer_length(ids):
+    """Number of decoded positions that make up the answer: up to and including the first end marker."""
+    return next((i + 1 for i, t in enumerate(ids) if t in END_IDS), len(ids))
+
+
 def load_readouts(run):
     """Readout records with answers, labels and formats recomputed from the saved decoded tokens (raw) by the current
     extraction rules (the run-time values are kept as answer_run, label_run and in_format_run)."""
@@ -1228,6 +1236,12 @@ def analyze_run(run, choices=None):
                        # 8-token greedy paths (how close a state came to a different greedy token)
                        "first_gap_min": float(min(g0)), "first_gap_range": float(max(g0) - min(g0)),
                        "path_gap_min": float(min(min(m[k]["gap"]) for k in range(N_STATES))),
+                       # post-run additions (after the held-out outcomes): the smallest gap over the answer's own
+                       # positions (up to and including the first end marker; later tokens do not change the answer),
+                       # and the token pairs (greedy, runner-up) at the first answer position
+                       "answer_gap_min": float(min(min(m[k]["gap"][:answer_length(m[k]["ids"])])
+                                                   for k in range(N_STATES))),
+                       "first_top2": dict(Counter(f"{m[k]['ids'][0]}-{m[k]['id2'][0]}" for k in range(N_STATES))),
                        "auc_distance_text": auc([x for x, y in zip(dist, dis_txt) if y],
                                                 [x for x, y in zip(dist, dis_txt) if not y]),
                        "negative": neg, "_dist": dist, "_dis": dis, "_dis_txt": dis_txt}
@@ -1330,7 +1344,10 @@ def summarize_group(rows):
                         "first_gap_range_median": float(np.median([rows[u]["first_gap_range"] for u in us])),
                         "first_gap_range_max": float(max(rows[u]["first_gap_range"] for u in us)),
                         "path_gap_min_min": float(min(rows[u]["path_gap_min"] for u in us)),
-                        "path_gap_min_median": float(np.median([rows[u]["path_gap_min"] for u in us]))},
+                        "path_gap_min_median": float(np.median([rows[u]["path_gap_min"] for u in us])),
+                        "answer_gap_min_min": float(min(rows[u]["answer_gap_min"] for u in us)),
+                        "answer_gap_min_median": float(np.median([rows[u]["answer_gap_min"] for u in us])),
+                        "first_top2": dict(sum((Counter(rows[u]["first_top2"]) for u in us), Counter()))},
             "disagreement_by_distance_quintile": quint,
             "spearman_distance_dp_median": float(np.median([rows[u]["spearman_distance_dp"] for u in us
                                                             if rows[u]["spearman_distance_dp"] is not None]))
