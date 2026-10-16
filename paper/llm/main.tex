@@ -40,15 +40,15 @@ changed, chaotic float64 loops separate until their most probable tokens differ,
 tests designed before the runs, merely running a problem in a batch with others, which changes only the rounding,
 changed 56\,\% of the answers of bfloat16 soft-thinking inference in a 0.5B model and 55\,\% in a 7B model, far more
 often than with greedy decoding. An exploratory reset of the fed-back state at every step removed most such changes. Exactly repeating text can hide
-a chaotic state. Along the sampled orbits, steering creates the chaos mainly by making next tokens compete,
+a chaotic state. In Qwen2.5-0.5B, along recorded orbits, steering creates the chaos mainly by making next tokens compete,
 which turns the softmax readout from a contraction into an expansion; a logit bias alone suffices. Earlier injection
 carries chaos to lower temperature, steering at two depths creates chaos neither depth causes alone, and two chaotic
 loops writing one text lock each other into periodic orbits. Whether a prompt's loop is chaotic does not predict
 the accuracy of ordinary sampled answers beyond what the model's uncertainty about its first answer token predicts,
 and we find no edge-of-chaos advantage. The loop obeys quantitative laws of
 low-dimensional maps: doubling ratios approach Feigenbaum's constant (4.6688 against 4.6692), periodic windows
-accumulate on folds with a $1/N^2$ law, fold normal forms predicted 42 of 48 frozen passage times at four new folds
-within one iterate (the six misses, at a period-6 fold, 3 to 5\,\% short), and interval arithmetic proves an attracting period-8 orbit. In the recurrent-depth model Huginn, a frozen test confirmed a predicted accuracy loss. The loop is not ordinary sampled generation.
+accumulate on folds with a $1/N^2$ law, passage times predicted in advance from fold normal forms came within one
+iterate in 42 of 48 cases at four new folds (the six misses, at a period-6 fold, 3 to 5\,\% short), and interval arithmetic proves an attracting period-8 orbit. In the recurrent-depth model Huginn, a frozen test confirmed a predicted accuracy loss. The loop is not ordinary sampled generation.
 \end{abstract}
 
 \section{Introduction}
@@ -83,8 +83,9 @@ Continuous-feedback inference can therefore be irreproducible because of its dyn
 practitioners choose steering strengths, and here the strength is a bifurcation parameter, so near a boundary a small
 change switches the attractor or brings chaos, and a smooth dose-response cannot be assumed (Section~\ref{sec:discussion}).
 The third concerns prediction: where the loop is periodic, normal forms computed from the model's derivatives predicted
-passage times fixed before they were measured, 42 of 48 within one iterate at four new folds and the rest within
-5\,\% (Section~\ref{sec:mechanism}), so the quantitative tools of dynamical systems apply to the
+passage times fixed before they were measured: at four new folds the normal form's passage integral (the secondary
+predictor of the first test, the primary of the second) came within one iterate of 42 of 48 passages, and the other
+six were 3.1 to 5.2\,\% short (Section~\ref{sec:mechanism}), so the quantitative tools of dynamical systems apply to the
 inference loops of released models, and larger models do not simply leave the chaos behind (Section~\ref{sec:sizemain}). We also report a negative result: beyond the model's first-token uncertainty, the loop's regime carries no detectable information
 about the accuracy of ordinary sampled answers.
 
@@ -415,7 +416,7 @@ a random direction matched in norm to the philosophy vector, they are $+0.77$ ($
 network effect is negative but compatible with zero along these two. In these three directions the readout effect
 does not depend on the direction's meaning.
 
-Along the sampled orbits, then, steering makes the loop chaotic mainly by making next tokens compete, which turns the
+Along the recorded orbits of Qwen2.5-0.5B, then, steering makes the loop chaotic mainly by making next tokens compete, which turns the
 softmax readout from a contraction into an expansion. At low temperature it creates that competition at fixed states.
 At higher temperature the orbit lies in states that are already competitive, consistent with steering having carried it
 there. Along the philosophy direction, in both models, its change of the network's response damps the growth. These are
@@ -548,7 +549,7 @@ the 2-cycle and writes `` is it is it\ldots'' (most probable tokens with probabi
 exponent $-1.19$), while from the fixed start it settles on the period-3 loop (exponent $-0.13$). At $\alpha=0.0652$
 the fixed start reaches the crescent's chaotic attractor, whose text alternates irregularly between ``The question''
 and ``The existence'' paragraphs (exponent $+0.095$), and the 2-cycle start again writes `` is it'' ($-1.29$): one
-model, one steering vector and one temperature, and the text written forever depends on where the loop starts
+model, one steering vector and one temperature, and the text written after the transient depends on where the loop starts
 (\texttt{tools/coexist\_texts.py}, float64).
 \begin{figure}[H]
 \centering
@@ -904,14 +905,16 @@ count $N$, together with the full- and half-passage predictions.}
 \paragraph{Natural reinjection and the window law.} Free trajectories re-enter the channel slightly upstream of
 the bottleneck's middle ($v\approx-3\times10^{-4}$ to $-7\times10^{-4}$, in the same oriented coordinate). From each measured entry point, the
 normal form predicts the natural laminar durations within 4--8\% for $\eps\le10^{-4}$, and a natural passage lasts
-about 0.6 of a full one. The stripes therefore follow the $N^{-2}$ law of a saddle-node ghost, with about a third of
-the full-passage prefactor. Stripe centers located on a float32 cut along $\log_{10}T=-0.115$ give
-$d_N N^2=0.0263$--$0.0265$ for $N=4$--$7$ (log-log slope $-2.00$), compared with $\pi^2/(4ab)=0.0201$ for a half passage. Two-step return maps of $p(\text{``it''})$ (Figure~\ref{fig:returnmaps}) show the near-tangency.
+about 0.6 of a full one. The stripes therefore follow the $N^{-2}$ law of a saddle-node ghost (a free fit of the exponent gives
+$2.18\pm0.06$, below), with about a third of
+the full-passage prefactor; the two fractions agree because the prefactor scales as the square of the passage
+fraction ($0.58^2\approx1/3$). The distances $d_N=\alpha_N-\alpha_c$ of stripe centers located on a float32 cut along
+$\log_{10}T=-0.115$ give $d_N N^2=0.0263$--$0.0265$ for $N=4$--$7$ (log-log slope $-2.00$), compared with $\pi^2/(4ab)=0.0201$ for a half passage. Two-step return maps of $p(\text{``it''})$ (Figure~\ref{fig:returnmaps}) show the near-tangency.
 
 Numerically estimated stripe edges along $\log_{10}T=-0.115$ (Table~\ref{tab:edges}) sharpen this picture. Each
 window is bounded by a fold, where its orbit is born, and by a flip. For periods 6--12 the fold faces away from the
 accumulation point. For periods 16--20 the sides are exchanged, and the period-14 window is bounded by flips on both
-sides. The fold edges of periods 16--20 follow $\alpha_N-\alpha_c=C/(N+\delta)^2$ with $C=0.0266$ and $\delta=0.15$.
+sides. The fold edges of periods 16--20 follow $\alpha_N-\alpha_c=C/(N+N_0)^2$ with $C=0.0266$ and $N_0=0.15$.
 Their slope, a rise of $6.13$ per lap in $1/\sqrt{\alpha_N-\alpha_c}$, is $1.74$ times the full-passage slope
 $\sqrt{ab}/\pi=3.53$ of the normal form. That corresponds to an effective passage of $0.58$ of a full one, which the
 measured natural reinjection gives independently.
@@ -943,9 +946,9 @@ before a float64 line of 3200 cells (spacing $10^{-7}$) located the windows. The
 within 3\,\% through period 30 (within 1\,\% at periods 22, 24 and 28) and fall outside the model's range except
 at period 30. So the law extrapolates, but one fixed reinjection point does not predict it. The measured entry
 points move with $\eps$ ($-3\times10^{-4}$ to $-7\times10^{-4}$).
-The exponent of the law is robust, its prefactor empirical. Over the fold edges of periods 16 to 32 ($N=5$ to 13),
-$\ln(\alpha_N-\alpha_c)$ against $\ln N$ has slope $-2.00$, and a free fit of $C/(N+\delta)^{\gamma}$ gives
-$\gamma=2.18\pm0.06$ (1\,\% errors assumed). At these distances, however, the bottleneck is not narrow compared with
+The exponent of the law is near 2, its prefactor empirical. Over the fold edges of periods 16 to 32 ($N=5$ to 13),
+$\ln(\alpha_N-\alpha_c)$ against $\ln N$ has slope $-2.00$, while a free fit of $C/(N+N_0)^{\gamma}$ with the offset
+$N_0$ also fitted gives $\gamma=2.18\pm0.06$ (1\,\% errors assumed), so the data do not pin the exponent to exactly 2. At these distances, however, the bottleneck is not narrow compared with
 the counting window: its scale $\sqrt{|a|\eps/|b|}$ is 1.35 to 3.51 times $U$, and a full passage lasts only 9 to
 23 iterates of $G$. The windows therefore lie outside the asymptotic regime in which the normal form fixes the
 prefactor \cite{pomeau1980intermittent,hirsch1982theory}, and the factor of about one third is a measured value, not a
@@ -3039,8 +3042,8 @@ identically. Color: period of the attractor reached from the fixed start; black:
 \label{fig:samearch}
 \end{figure}
 \paragraph{The fold law at 1.5B and 7B.} We tested whether the mechanism of Section~\ref{sec:mechanism}, windows
-accumulating on the fold of a short cycle with $d_N=C/(N+\delta)^2$, recurs in larger models. The criterion, a
-constant $d_N(N+\delta)^2$ within 10\,\% over at least four windows for one offset $\delta$, was fixed before the lines
+accumulating on the fold of a short cycle with $d_N=C/(N+N_0)^2$, recurs in larger models. The criterion, a
+constant $d_N(N+N_0)^2$ within 10\,\% over at least four windows for one offset $N_0$, was fixed before the lines
 were computed; a disclosed correction to the period-progression selector after the first scoring kept the conclusions
 for the nearest four windows and changed which farther windows were selected. In Qwen2.5-1.5B (philosophy direction,
 layer 14, $\alpha=0.058588$) the period-4 orbit folds at $\log_{10}T_c=-0.0912029$ (multiplier $1$ to
