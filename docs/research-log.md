@@ -26846,3 +26846,18 @@ tools/audit/dss_bfs_audit.py rebuilds the old breadth-first order from each prog
 - Whether T = D = 0 has a solution near (-0.10346, 0.09845), a near-nilpotent point like the period-5 one, is open. A two-parameter Newton search, as for period 5, could settle it.
 
 **Cost:** in the private ledger.
+
+## 2026-10-16 00:46 UTC: Run card NIL4 (exploratory): is there a near-nilpotent point of the period-4 orbit where T = 0 and D = 0 approach in P4L?
+
+**Question.** P4L's T = 0 and D = 0 curves come within one cell near (-0.10346, 0.09845), where the leading modulus is smallest (0.0375). Does a two-parameter Newton search on the spectral invariants find a point where the leading multipliers nearly vanish, as for period 5 (moduli 3.4-3.6e-3)?
+
+**Run.**
+- tools/nilpotent_search.py, which generalizes the referee's tools/p5_nilpotent.py and adds a divisor-period guard. Committed with this card.
+- Local CPU, 16 threads, float64.
+- Settings: period 4, seed (-0.103375, 0.100114) (the P4L seed), target (-0.10346, 0.09845), march steps at most 1.5e-4 in each coordinate, damped Newton on c1 = c2 = 0, at most 6 iterations, stopping when the three leading moduli fall below 3e-3.
+
+**Reading.** Report the end point, its three leading multipliers, the token loop and the residuals.
+- If the leading moduli fall below about 1e-2 with the third comparable, the point is near-nilpotent, like the period-5 one.
+- If the iteration stalls with the leading modulus near the grid minimum, report that.
+
+**Not a test of the SHC-L rule.** P4L's frozen verdict stays "unresolved".
