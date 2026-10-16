@@ -27883,7 +27883,7 @@ Problems, arms, endpoints, predictions and analysis are unchanged. Cost plan and
 - Discrete top-1 feedback through the same pipeline flips nearly as often, so in this pipeline the effect is not specific to continuous mixtures. Greedy chain of thought, with confident answers, flips 2.3 %.
 - With PIF64 (float64 soft thinking contracts on 1312-1314 of 1319 test problems, and no 1e-10 twin changed an answer), the flips are bfloat16 rounding carried forward by the feedback to answers the model holds weakly. They are not chaos of the float64 map.
 
-## 2026-10-16 17:58 UTC: Run card PM2 (confirmatory, frozen before data): Soft Thinking with reasoning models, two tasks, two GPU types
+## 2026-10-16 17:44 UTC: Run card PM2 (confirmatory, frozen before data): Soft Thinking with reasoning models, two tasks, two GPU types
 
 **Request.** The human answered "well, let's fix this!" to PM's weaknesses (one model, one GPU type, one task, a model that answers poorly), then chose "Full plan now".
 
