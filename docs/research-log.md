@@ -26772,3 +26772,21 @@ The smallest forecast is 11.201. At q = 0.018 the midpoint acceptance sets {77, 
 - At the period-6 fold the channel's second half (from the fold point to U) follows the normal form. The first half, from u = -U, is crossed faster than the quadratic form predicts, increasingly so at smaller eps.
 - Candidate causes, not tested: higher-order terms of the reduced map on the u < 0 side, or the curvature of the centre manifold at the linear entrance (U = 0.0014 with b = 72).
 - No uniform within-one-iterate claim across folds is supported by either predictor.
+
+## 2026-10-16 00:10 UTC: PT2 integrated into both papers; audit reproduced independently
+
+**Audit.** I re-ran codex/confirm-fold-2/audit.py on the frozen design and the two run directories. The verdicts are the same:
+- primary 18 of 24;
+- secondary 16 of 24;
+- sign hypothesis holds on all 16 rows;
+- every crossing reconstructed and every prediction reproduced.
+
+The freeze commit 6f1a53b6 is timestamped 23:48:29 UTC and the first evaluation came at 23:48:57.
+
+**Size of the misses.** The six misses are D's entrance passages, -2.29 to -5.74 iterates, which is -3.07 % to -5.16 % of the forecast.
+Over both frozen tests, the continuous integral (the secondary in Task 5, the primary in PT2) is within one iterate of 42 of 48 passages.
+
+**Text, both papers.**
+- The abstract, introduction, summary box and contribution sentence now report 42 of 48 at four new folds, the misses at a period-6 fold and their size (3 to 5 %), and that both all-row criteria failed.
+- A new paragraph "A second prospective test" and Table tab:prospective2 give C passing all 12, D's midpoints passing, and D's entrance passages short, more so closer to the fold. The candidate causes are named as untested.
+- The Chaos summary sentence is qualified, and the Chaos hostile coefficients are now a = -1.1683, b = 44.525, matching the main paper.

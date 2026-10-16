@@ -34,8 +34,8 @@ computer-assisted proof is that of the period-8 orbit of Table~\ref{tab:orbits} 
 \begin{abstract}
 Feeding a language model the expected embedding of its own next token, as Soft Thinking does, turns inference into a
 dynamical system. In Qwen2.5, OLMo-2 and Llama-3 models of 0.5B to 72B
-parameters, temperature and steering move this loop between repeating text and chaos, with positive Lyapunov
-exponents that exact tangents reproduce. The chaos has practical consequences. Rerun with only the batch size
+parameters, temperature and steering move this loop between repeating text and chaos, with positive finite-time
+Lyapunov exponents that exact tangents reproduce. The chaos has practical consequences. Rerun with only the batch size
 changed, chaotic float64 loops separate until their most probable tokens differ, on the schedule the Lyapunov exponent sets, while periodic loops mostly stay together, in four models up to 70B. In frozen
 tests on arithmetic, the batch layout changed 56\,\% of the answers of bfloat16 soft-thinking inference in a 0.5B
 model and 55\,\% in a 7B model, far more often than those of a forced greedy baseline. An exploratory reset of the fed-back state at every step removed most such changes. Exactly repeating text can hide
@@ -45,8 +45,8 @@ carries chaos to lower temperature, steering at two depths creates chaos neither
 loops writing one text lock each other into periodic orbits. Beyond first-token uncertainty, the loop's regime does not mark
 the accuracy of ordinary answers, and we find no edge-of-chaos advantage. The loop obeys quantitative laws of
 low-dimensional maps: doubling ratios approach Feigenbaum's constant (4.6688 against 4.6692), periodic windows
-accumulate on folds with a $1/N^2$ law, fold normal forms predicted 16 of the 17 frozen passage times longer than five
-iterates to within one iterate, and interval arithmetic proves an attracting period-8 orbit. In the recurrent-depth model Huginn, a frozen test confirmed a predicted accuracy loss. The loop is not ordinary sampled generation.
+accumulate on folds with a $1/N^2$ law, fold normal forms predicted 42 of 48 frozen passage times at four new folds
+within one iterate (the six misses, at a period-6 fold, 3 to 5\,\% short), and interval arithmetic proves an attracting period-8 orbit. In the recurrent-depth model Huginn, a frozen test confirmed a predicted accuracy loss. The loop is not ordinary sampled generation.
 \end{abstract}
 
 \section{Introduction}
@@ -81,8 +81,8 @@ Continuous-feedback inference can therefore be irreproducible because of its dyn
 practitioners choose steering strengths, and here the strength is a bifurcation parameter, so near a boundary a small
 change switches the attractor or brings chaos, and a smooth dose-response cannot be assumed (Section~\ref{sec:discussion}).
 The third concerns prediction: where the loop is periodic, normal forms computed from the model's derivatives predicted
-passage times fixed before they were measured, 16 of the 17 longer than five iterates to within one iterate
-(Section~\ref{sec:mechanism}), so the quantitative tools of dynamical systems apply to the
+passage times fixed before they were measured, 42 of 48 within one iterate at four new folds and the rest within
+5\,\% (Section~\ref{sec:mechanism}), so the quantitative tools of dynamical systems apply to the
 inference loops of released models, and larger models do not simply leave the chaos behind (Section~\ref{sec:sizemain}). We also report a negative result: beyond the model's first-token uncertainty, the loop's regime carries no detectable information
 about the accuracy of ordinary sampled answers.
 
@@ -147,8 +147,9 @@ system; Section~\ref{sec:beyond} also measures how much of the mechanism survive
 \item \emph{Low-dimensional organization, predicted from derivatives} (Sections~\ref{sec:adding}
   to~\ref{sec:organization}). The windows carry concrete texts: a period-adding family gains one ``is X'' pair per
   period step. A fold's normal form, computed from derivatives, predicts without fitting how long trajectories linger
-  near the vanished orbit: at two new folds, 16 of the 17 frozen forecasts longer than five iterates fell within one
-  iterate, as did the 7 shorter ones (the all-row criterion failed by one row), and windows accumulate on the fold with a $1/N^2$ law. On the nine fold curves we continued,
+  near the vanished orbit: in two frozen tests at four new folds, 42 of 48 forecasts fell within one iterate, and
+  both all-row criteria failed (the second because passages from the entrance of a period-6 fold's channel came in 3
+  to 5\,\% short), and windows accumulate on the fold with a $1/N^2$ law. On the nine fold curves we continued,
   all thirteen tangent reversals are located cusps, and near them local unfoldings, frozen before solving, matched the
   orbits that Newton solves recovered at twelve parameter offsets in number and at eleven in stability. A doubling
   cascade has superstable points through period 768 and finite-order Feigenbaum ratios that approach $\delta$ (the
@@ -186,8 +187,8 @@ feedback, and bifurcations, Feigenbaum ratios and shrimps in neural models in de
 To our knowledge, this is the first work to compute periodic orbits with their multipliers, continue fold and flip
 bifurcation curves and locate cusps in the feedback map of a released pretrained language model. It is
 also, to our knowledge, the first to make quantitative predictions from such a model's derivatives, for the objects
-named here, and confirm them prospectively: passage times at new folds, where 16 of the 17 forecasts longer than five iterates fell within one
-iterate and the all-row criterion failed by one row, and the orbits recovered and their stabilities at frozen offsets
+named here, and confirm them prospectively: passage times at four new folds, where 42 of 48 forecasts fell within one iterate and both all-row
+criteria failed (by one row, and at the entrance passages of a period-6 fold), and the orbits recovered and their stabilities at frozen offsets
 near cusps. Derivative-based normal-form predictions in a task-trained looped transformer precede ours
 \cite{kim2026phase}. We know of no earlier frozen held-out test of a spectral prediction of a pretrained language
 model's response to relaxation, which we give for Huginn, and of no earlier computer-assisted proof of a periodic
@@ -211,6 +212,18 @@ direction $v$ is contrastive: it compares last-token states of ``philosophy'' pr
 and is normalized to the mean residual norm. Positions are fixed and the window does not grow, so $F$ is an
 autonomous map of $\mathbb{R}^{896}$. As $T\to0$ it reduces, where the argmax is unique, to greedy decoding of the
 same fixed-prefix, one-token-window system. It is not ordinary generation with a growing context.
+
+\paragraph{State space and regularity.} Attention is causal, so the keys and values of the prefix do not depend on
+$x$, and $F$ is an autonomous map of $\mathbb{R}^{896}$. For the dense models studied here it is real-analytic, because
+RMS normalization (with its positive regularizing constant), the SiLU activation, attention, rotary embeddings at fixed
+positions and the softmax readout are analytic; the top-$k$ routing of a mixture of experts makes the map only
+piecewise smooth. Every soft token is a convex combination of embeddings, so $F$ maps $\mathbb{R}^{896}$ into the
+compact convex polytope $K=\operatorname{conv}\{e_t\}$, and $F(K)\subset K$. Every orbit therefore enters $K$ after one
+step, $F$ has a fixed point in $K$ by Brouwer's theorem, and, being continuous on a compact set, it has invariant
+probability measures there. Because $\log^+\lVert DF\rVert$ is bounded on $K$, Oseledets' multiplicative ergodic
+theorem applies: for every invariant measure the Lyapunov exponents exist at almost every point
+\cite{oseledets1968multiplicative,eckmann1985ergodic}. The exponents we report estimate them over finite horizons
+(Appendix~\ref{sec:methods}).
 
 \paragraph{Steering as a probe.} Steering is an established way to control a language model without retraining: a
 vector added to the residual stream, typically the mean difference between activations on contrasting prompts,
@@ -296,16 +309,20 @@ map the retrieval closes a loop around the whole network.
 \paragraph{High-temperature contraction and the greedy limit.} The largest Lyapunov exponent of an orbit cannot exceed the orbit
 average of $\log\|DF\|$, so chaos needs $\|DF\|>1$ on a substantial part of the attractor. Both ends of the
 temperature axis work against this, in different ways (Figure~\ref{fig:readoutgain}). As $T\to0$, $p$ becomes one-hot except near ties between the
-two leading tokens; away from ties the gain $\|\Sigma_p\|/T$ decays like $e^{-\Delta/T}/T$, where $\Delta$ is the gap
-between the two largest logits, and $F$ tends to the piecewise-constant greedy map, every orbit of which is eventually
+two leading tokens; away from ties the gain $\|\Sigma_p\|/T$ decays like $Ce^{-\Delta/T}/T$, where $\Delta$ is the gap
+between the two largest logits and the prefactor $C$ is set by the squared embedding distances between the leading
+token and its nearest competitors, and $F$ tends to the piecewise-constant greedy map, every orbit of which is eventually
 periodic (Appendix~\ref{sec:bridge}). This limit is pointwise, not uniform: near a tie the gain is of order $1/T$, so at
 small positive temperature chaos is excluded only on invariant sets that keep a uniform logit gap, and a chaotic set
 would have to return to near-ties again and again.
-As $T\to\infty$, $p$ tends to the uniform distribution and $\|\Sigma_p\|$ stays bounded, while $J_{\tilde h}$ is
-bounded on the convex hull of the embeddings, which contains every soft token. For this smooth map, with a fixed
-prefix, fixed steering and a network whose derivative is bounded on that compact hull, $F$ is therefore a contraction
-for large enough $T$, with a single attracting fixed point that tends to the mean embedding: here the exclusion is a
-bound. It does not cover hard routing or a growing context. Away from near-ties, chaos thus needs temperatures at
+At high temperature the bound is explicit. For every distribution $p$ and unit vector $u$, the projections
+$u^{\top}e_t$ range over an interval no longer than the diameter $\operatorname{diam}(E)$ of the set of embeddings, and
+Popoviciu's inequality bounds a variance by a quarter of the squared range, so
+$\|\Sigma_p\|\le\operatorname{diam}(E)^2/4$. With $L=\sup_K\|J_{\tilde h}\|$, finite because $K$ is compact,
+$\|DF\|\le\operatorname{diam}(E)^2L/(4T)$ on $K$, and $F$ is a contraction of $K$ for
+$T>T_*=\tfrac14\operatorname{diam}(E)^2L$, with a single attracting fixed point that tends to the mean embedding as
+$T\to\infty$; without tied embeddings, $\operatorname{diam}(E)^2$ becomes $\operatorname{diam}(E)\operatorname{diam}(W)$.
+Here the exclusion is a bound, sufficient but not sharp. It does not cover hard routing or a growing context. Away from near-ties, chaos thus needs temperatures at
 which the next-token distribution is spread enough to make $\Sigma_p$ large while $1/T$ still amplifies it. The
 unsteered sweeps agree (Figure~\ref{fig:alpha0}). In the four long sweeps (Appendix~\ref{sec:origin}) the chaotic temperatures lie in one band,
 interleaved with periodic windows, and every band lies between $\log_{10}T=-0.20$ and $0.28$. Below the bands, all
@@ -356,7 +373,8 @@ chaotic? Three measurements on Qwen2.5-0.5B, steered along the philosophy direct
 (Figure~\ref{fig:mechsummary}; details in Figure~\ref{fig:mechanism} and Table~\ref{tab:mechanism}). First, each step's growth splits exactly into a network
 factor $g_{\mathrm{net}}=(|\delta\tilde h|/|\tilde h|)/(|\delta x|/|x|)$ and a readout factor
 $g_{\mathrm{read}}=(|\delta F|/|F|)/(|\delta\tilde h|/|\tilde h|)$. Averaged along an orbit, their logarithms add up
-to the largest Lyapunov exponent, up to a boundary term. Over a $101\times53$ map in steering strength and temperature
+to the largest Lyapunov exponent, up to a boundary term. The split depends on how the intermediate state is measured,
+so only the sum is intrinsic; we compare each factor between cells within this one convention. Over a $101\times53$ map in steering strength and temperature
 (block 12; 5353 cells, 331 chaotic), the chaotic cells' readout factor exceeds that of nearly unsteered cells
 ($|\alpha|\le0.01$) at the same temperature by $2.58$ nats per step (95\,\% interval $[1.78,3.59]$ over 18 temperature
 rows; 321 chaotic and 162 nearly unsteered cells). Their network factor differs by only $-0.07$ $[-0.23,0.12]$. With
@@ -977,6 +995,42 @@ one row outside the one-iterate criterion. The shortest period-8 rows give only 
 \label{tab:prospective}
 \end{table}
 
+\paragraph{A second prospective test.} The first test left open which form of the normal form the full map follows,
+and its shortest forecasts carried little weight. A second test, frozen before any trajectory was run, made the
+continuous passage integral its primary predictor and the discrete count its secondary, and chose the distances so
+that every full-channel forecast is at least 16 iterates and every midpoint forecast at least 8. Its two folds are
+again fresh. Target C is the 2-cycle's fold at $\log_{10}T=-0.200$: $\alpha_c=0.0713690$, $a=-10.9505$, $b=-25.3300$.
+Target D is the fold of a period-6 orbit, a different family, at $\log_{10}T=-0.087439$: $\alpha_c=0.0756329$,
+$G=F^6$, $a=-72.695$, $b=72.237$. Distances $\eps=q^2/(ab)$ with $q=0.08$, $0.05$, $0.03$ and $0.018$ give both
+targets the same forecasts (Table~\ref{tab:prospective2}). At the 2-cycle's fold the integral held in all 12 rows,
+and every measured count was the forecast rounded up. At the period-6 fold the midpoint passages held as well, but
+passages from the channel's entrance came in short, by 0.4 to 5.7 iterates and more so closer to the fold, so the
+primary criterion failed, 18 of 24 rows (the discrete count passed 16 of 24). From the fold point to the exit the
+period-6 passages follow the normal form; it is the first half of the channel that is crossed faster. Terms beyond the
+quadratic normal form on that side, or the curvature of the center manifold at the entrance, are candidate causes
+that this test does not resolve. Over both frozen tests, the continuous integral came within one iterate of 42 of 48
+passages; all six misses are entrance passages at the period-6 fold, short by 3.1 to 5.2\,\%. The sign hypothesis
+frozen with the design, that midpoint and kicked passages do not exceed the discrete count, held in all 16 rows
+(\texttt{codex/confirm-fold-2}).
+\begin{table}[H]
+\centering\small
+\begin{tabular}{rcccc}
+\toprule
+$q$ & forecast (full / mid) & discrete (full / mid) & C, 2-cycle: measured & D, period 6: measured \\
+\midrule
+$0.08$ & $22.40$ / $11.20$ & $23$ / $12$ & $23$,\ $12$,\ $23$ & $22$,\ $11$,\ $22$ \\
+$0.05$ & $44.29$ / $22.14$ & $45$ / $23$ & $45$,\ $23$,\ $45$ & $\mathbf{42}$,\ $22$,\ $\mathbf{42}$ \\
+$0.03$ & $85.29$ / $42.64$ & $86$ / $44$ & $86$,\ $43$,\ $86$ & $\mathbf{81}$,\ $43$,\ $\mathbf{82}$ \\
+$0.018$ & $154.75$ / $77.37$ & $155$ / $80$ & $155$,\ $78$,\ $155$ & $\mathbf{149}$,\ $78$,\ $\mathbf{150}$ \\
+\bottomrule
+\end{tabular}
+\caption{Second prospective passage test, frozen before any passage was run. Forecast: the continuous passage
+integral $\int du/(a\eps+bu^2)$ from the entrance to $U$ (primary); discrete: the iterated quadratic map (secondary).
+Measured $G$-iterates for the full-channel, midpoint and full-plus-transverse entrances. Bold: outside one iterate of
+the primary forecast.}
+\label{tab:prospective2}
+\end{table}
+
 \section{A period-doubling cascade to chaos}
 \label{sec:cascade}
 The crescent of Figure~\ref{fig:cross512} is a closed region in which the period-3 loop ``\textbackslash
@@ -1067,15 +1121,18 @@ $\alpha\approx0.0657$, and the forward search found no next flip. This is compat
 did not locate its reverse boundary or exclude a narrower cascade on that cut. The early ratios thus depend strongly
 on where a cut crosses the crescent, and we withdraw the crossover explanation. The later ratios at $-0.156$ behave as
 universality requires. The next ratios are $3.124$, $4.4988$, $4.6208$, $4.6618$, $4.6673$ and $4.6688$. Their
-deviations from $\delta=4.6692$ are $-1.55$, $-0.17$, $-0.048$, $-0.0074$, $-0.0019$ and $-0.00036$, and from the third
-on each step closes the gap by a factor of 3.5 to 6.5. The last ratio uses the flip of the period-768 orbit (the
+deviations from $\delta=4.6692$ are $-1.55$, $-0.17$, $-0.048$, $-0.0074$, $-0.0019$ and $-0.00036$; they keep one
+sign, from the third on each step closes the gap by a factor of 3.5 to 6.5, and Aitken's $\Delta^2$ extrapolation of
+the last three ratios gives $4.6694$. Universality of this kind is expected for strongly dissipative maps of any
+dimension \cite{feigenbaum1979universal,collet1981period}. The last ratio uses the flip of the period-768 orbit (the
 $768\to1536$ flip), located with $|\mu+1|=4.1\times10^{-7}$. The penultimate flip, of the period-384 orbit,
 approaches the precision floor of its multiplier, a product of 384 step Jacobians. On an H100 the computed $\mu+1$
 scatters by $1.8\times10^{-5}$ about a straight line near the root; under that local linear fit, the largest residual
 divided by the slope gives a location uncertainty of about $\pm3.3\times10^{-13}$, an estimate rather than a
 certified bound. The workstation GPU located it at
 $\alpha=0.06510347354866666$ with $|\mu+1|=4\times10^{-9}$, $9\times10^{-14}$ from the H100 estimate. Over that range the
-ratio $\delta_7$ lies between $4.6672$ and $4.6674$, and $\delta_8$, the last ratio, between $4.6685$ and $4.6692$. The
+ratio $\delta_7$ lies between $4.6672$ and $4.6674$, $\delta_8$, the last ratio, between $4.6685$ and $4.6692$, and the
+extrapolated value between $4.6688$ and $4.6702$, an interval that contains $\delta$. The
 superstable points along the same cut, through period 384, give the ratios $10.21$, $3.713$, $4.572$, $4.643$ and
 $4.6646$. Before computing them we fixed the prediction that the last two superstable ratios at a new temperature
 would lie within 5\,\% of $\delta$, in $[4.436,4.902]$. At the original readout, through period 192, the point
@@ -1348,7 +1405,9 @@ period of the text is a multiple of 7, most often 7 or 28. Figure~\ref{fig:hidde
 groups, one per phase of the text, visited in a fixed order and at least 0.098 of the state norm apart (a property of
 the samples, not a proof of separated invariant sets), and each group lies inside one cell of the partition by leading
 token, so the text \texttt{I!Yes\ heels$\hookleftarrow\hookleftarrow$pee$\hookleftarrow\hookleftarrow$}
-repeats at every one of the 2000 steps we followed. Inside a group the sampled states lie close to a curve (a
+repeats at every one of the 2000 steps we followed. This is band chaos, the regime of a chaotic attractor that is a
+finite union of pieces visited cyclically \cite{grossmann1977invariant,lorenz1980noisy}; the partition by leading token
+is not generating, so the text cannot reveal the chaos. Inside a group the sampled states lie close to a curve (a
 strongly anisotropic cloud). Read once per repetition through the probability of the last token, the sampled return
 relation is well approximated by a smooth map with a single quadratic maximum, the shape of the logistic map: a
 polynomial of degree 8 fits it to $4\times10^{-4}$ of its range, and the fitted map's Lyapunov exponent, 0.647 per
@@ -2004,8 +2063,8 @@ shortens the laminar phases of the bottleneck, by an amount that depends on how 
 \paragraph{What this suggests for interpretability and alignment.} Our results come from open models of 0.5B to
 72B parameters and the soft-token loop, but they suggest three things about models whose outputs feed back into their inputs, as in
 self-dialogue, agent loops and pipelines of model calls. First, where the loop is chaotic, a perturbation of
-$10^{-6}$ grows to order one within roughly 15 to 50 steps (the largest unsteered exponents of the 7B and 8B
-models are 0.30 to 0.88 per step). Even a complete account of single forward passes then predicts a long trajectory
+$10^{-6}$ grows to order one within roughly 15 to 50 steps at the largest exponents we measured (those of the
+unsteered 7B and 8B models, 0.30 to 0.88 per step), and more slowly at smaller ones. Even a complete account of single forward passes then predicts a long trajectory
 only if the state is known far more precisely than any interpretation supplies. Stepwise summaries can be
 inconclusive: every step of the period-8 orbit expands some direction while the cycle contracts, so the ordered
 product of the step Jacobians, not a summary of each step, captures the loop's stability
@@ -2167,10 +2226,14 @@ multiplicative ergodic theorem defines as a limit \cite{oseledets1968multiplicat
 horizon check (Appendix~\ref{sec:limits}), an exact tangent vector carried by forward-mode differentiation
 reproduces the twin exponents at offsets $10^{-6}$ and $10^{-9}$ within 0.0041 (median 0.0004), with the same 178
 chaotic labels, and at six chaotic cells the four leading exponents from QR iteration include exactly one positive one
-(0.06 to 0.42; the next is $-0.64$ to $-1.10$). The period is the smallest $q\le32$ (48 in the later zooms) with return distance below
-$10^{-8}$, and the attractor is identified by its leading-token loop, up to rotation. We call a cell chaotic when this
+(0.06 to 0.42; the next is $-0.64$ to $-1.10$). The period is the smallest $q\le32$ (48 in the later zooms) for which the last state returns
+to within $10^{-8}\max(1,\lVert x\rVert)$ of the state $q$ steps earlier ($10^{-5}$ to $10^{-4}$ in float32 maps), and
+the attractor is identified by its leading-token loop, up to rotation. We call a cell chaotic when this
 finite-horizon exponent exceeds $10^{-3}$ and no period is found; the label is a finite-horizon diagnostic, not a
-proof of chaos. Maps draw the chaotic cells by this criterion: in color by their exponent where a map shows the exponent, in
+proof of chaos. We call what the trajectory from a cell's fixed start settles on the cell's attractor. The label is
+operational: it does not show that the set attracts initial conditions of positive measure, as Milnor's definition
+requires \cite{milnor1985concept}, and a long chaotic transient can carry a chaotic label \cite{grebogi1983crises}. A
+loop is at the edge of chaos when $|\lambda|\le0.1$. Maps draw the chaotic cells by this criterion: in color by their exponent where a map shows the exponent, in
 black where it shows periods or attractor text. Panels whose legend reads `Lyapunov $>$ 0.005' follow an older
 convention that marks every cell whose exponent exceeds $0.005$, whether or not a period was found; on the five maps
 we redrew with the criterion, the two differ in at most $0.56\,\%$ of a map's cells. A $256^2$ map takes about 100 minutes on one H100 GPU in float64. Every cell starts from the same
@@ -2180,7 +2243,8 @@ two labeled regions different attractors only when the contraction rate jumps be
 both exist at one parameter value.
 
 \paragraph{Periodic orbits.} We solve $F^p(x)=x$ by Newton's method with forward-mode Jacobians. The multipliers are
-the eigenvalues of the monodromy matrix; where the dense matrix is not float64, we refine them by a short Arnoldi
+the eigenvalues of the monodromy matrix, the ordered product of the step Jacobians along the orbit, which plays the
+role of the Floquet matrix of a flow \cite{kuznetsov2023elements}; where the dense matrix is not float64, we refine them by a short Arnoldi
 factorization with float64 Jacobian-vector products.
 
 \paragraph{Continuation.} Periodic branches are continued in one parameter by pseudo-arclength continuation, and fold
@@ -3337,7 +3401,9 @@ second checkpoint, is the unreported bounded search).}
   also follows from the stable-branch multipliers. The same reimplementation reproduces all 18 fixed-entrance counts
   of the controlled passage runs exactly (Table~\ref{tab:passages} lists 12 of them).
 \item Prospectively frozen: the passage forecasts at two new folds (Table~\ref{tab:prospective}); 23 of 24 within one
-  iterate (16 of the 17 longer than five iterates), and the all-row criterion failed by one row.
+  iterate (16 of the 17 longer than five iterates), and the all-row criterion failed by one row. A second frozen test
+  at two more folds (Table~\ref{tab:prospective2}): 18 of 24 within one iterate of the primary forecast; it failed at
+  the entrance passages of a period-6 fold, short by 3.1 to 5.2\,\%.
 \item Rung 2 as well: the period-2 and period-8 orbits of Table~\ref{tab:orbits} (independent implementation), and
   the cascade's first four flip parameters (CPU and H100, agreement $4\times10^{-15}$).
 \item Rung 2 as well: the hostile 2-cycle fold and its normal form, reproduced by an independent float64 forward map
