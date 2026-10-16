@@ -169,8 +169,9 @@ def run(args):
             B = ids.shape[0]
             rngs = [np.random.default_rng(args.seed + max(r["index"], 0)) for r in batch]
             with torch.no_grad():
-                o = model(input_ids=ids, use_cache=True)
+                o = model(input_ids=ids, use_cache=True, logits_to_keep=1)   # last position only: memory
                 past, z = o.past_key_values, o.logits[:, -1, :].float()
+                del o
                 steps = {"top1": [], "pmax": [], "entropy": [], "gap": [], "gain": [], "temp": []}
                 gen = []
                 n_steps = args.soft_steps if args.mode == "soft" else args.max_new
@@ -239,7 +240,8 @@ def run(args):
                     past, z = o.past_key_values, o.logits[:, -1, :].float()
                 ans_tok = []
                 if args.mode == "soft":                     # answer cue, then greedy answer tokens
-                    o = model(input_ids=torch.tensor([cue] * B, device="cuda"), past_key_values=past, use_cache=True)
+                    o = model(input_ids=torch.tensor([cue] * B, device="cuda"), past_key_values=past, use_cache=True,
+                              logits_to_keep=1)
                     past, z = o.past_key_values, o.logits[:, -1, :].float()
                     for _ in range(args.answer_tokens):
                         nxt = z.argmax(-1)
