@@ -45,8 +45,8 @@ carries chaos to lower temperature, steering at two depths creates chaos neither
 loops writing one text lock each other into periodic orbits. Beyond first-token uncertainty, the loop's regime does not mark
 the accuracy of ordinary answers, and we find no edge-of-chaos advantage. The loop obeys quantitative laws of
 low-dimensional maps: doubling ratios approach Feigenbaum's constant (4.6688 against 4.6692), periodic windows
-accumulate on folds with a $1/N^2$ law, fold normal forms predicted 23 of 24 frozen passage times within one iterate,
-and interval arithmetic proves an attracting period-8 orbit. In the recurrent-depth model Huginn, a frozen test confirmed a predicted accuracy loss. The loop is not ordinary sampled generation.
+accumulate on folds with a $1/N^2$ law, fold normal forms predicted 16 of the 17 frozen passage times longer than five
+iterates to within one iterate, and interval arithmetic proves an attracting period-8 orbit. In the recurrent-depth model Huginn, a frozen test confirmed a predicted accuracy loss. The loop is not ordinary sampled generation.
 \end{abstract}
 
 \section{Introduction}
@@ -80,8 +80,9 @@ exploratory test resetting the fed-back state before every soft step removed nea
 Continuous-feedback inference can therefore be irreproducible because of its dynamics, not because of an implementation error. The second concerns steering:
 practitioners choose steering strengths, and here the strength is a bifurcation parameter, so near a boundary a small
 change switches the attractor or brings chaos, and a smooth dose-response cannot be assumed (Section~\ref{sec:discussion}).
-The third concerns prediction: where the loop is periodic, normal forms computed from the model's derivatives predicted 23 of 24
-passage times fixed before they were measured (Section~\ref{sec:mechanism}), so the quantitative tools of dynamical systems apply to the
+The third concerns prediction: where the loop is periodic, normal forms computed from the model's derivatives predicted
+passage times fixed before they were measured, 16 of the 17 longer than five iterates to within one iterate
+(Section~\ref{sec:mechanism}), so the quantitative tools of dynamical systems apply to the
 inference loops of released models, and larger models do not simply leave the chaos behind (Section~\ref{sec:sizemain}). We also report a negative result: beyond the model's first-token uncertainty, the loop's regime carries no detectable information
 about the accuracy of ordinary sampled answers.
 
@@ -146,8 +147,8 @@ system; Section~\ref{sec:beyond} also measures how much of the mechanism survive
 \item \emph{Low-dimensional organization, predicted from derivatives} (Sections~\ref{sec:adding}
   to~\ref{sec:organization}). The windows carry concrete texts: a period-adding family gains one ``is X'' pair per
   period step. A fold's normal form, computed from derivatives, predicts without fitting how long trajectories linger
-  near the vanished orbit: at two new folds, 23 of 24 frozen forecasts fell within one iterate (the all-row criterion
-  failed by one row), and windows accumulate on the fold with a $1/N^2$ law. On the nine fold curves we continued,
+  near the vanished orbit: at two new folds, 16 of the 17 frozen forecasts longer than five iterates fell within one
+  iterate, as did the 7 shorter ones (the all-row criterion failed by one row), and windows accumulate on the fold with a $1/N^2$ law. On the nine fold curves we continued,
   all thirteen tangent reversals are located cusps, and near them local unfoldings, frozen before solving, matched the
   orbits that Newton solves recovered at twelve parameter offsets in number and at eleven in stability. A doubling
   cascade has superstable points through period 768 and finite-order Feigenbaum ratios that approach $\delta$ (the
@@ -185,7 +186,7 @@ feedback, and bifurcations, Feigenbaum ratios and shrimps in neural models in de
 To our knowledge, this is the first work to compute periodic orbits with their multipliers, continue fold and flip
 bifurcation curves and locate cusps in the feedback map of a released pretrained language model. It is
 also, to our knowledge, the first to make quantitative predictions from such a model's derivatives, for the objects
-named here, and confirm them prospectively: passage times at new folds, where 23 of 24 forecasts fell within one
+named here, and confirm them prospectively: passage times at new folds, where 16 of the 17 forecasts longer than five iterates fell within one
 iterate and the all-row criterion failed by one row, and the orbits recovered and their stabilities at frozen offsets
 near cusps. Derivative-based normal-form predictions in a task-trained looped transformer precede ours
 \cite{kim2026phase}. We know of no earlier frozen held-out test of a spectral prediction of a pretrained language
@@ -264,8 +265,8 @@ general. The temperature limits below do not change.
 Table~\ref{tab:orbits} (Qwen2.5-0.5B-Instruct, philosophy direction at layer 12, $\alpha=0.071674$,
 $\log_{10}T=-0.115$, float64). Gray: relative error of central differences $(F(x+hu)-F(x-hu))/(2h)$ against the
 forward-mode derivative $DF(x)\,u$ along eight random unit directions $u$. They converge like $h^2$ (fitted slopes
-1.97 to 2.00 for $10^{-4}\le h\le10^{-2}$) until rounding takes over near $h=3\times10^{-6}$, where they reach
-$1.6\times10^{-9}$ to $4.9\times10^{-9}$. Orange: relative error of $T^{-1}\Sigma_p J_{\tilde h}(x)\,u$ against the
+1.98 to 2.00 for $10^{-4}\le h\le10^{-2}$) until rounding takes over near $h=3\times10^{-6}$, where they reach
+$1.7\times10^{-9}$ to $4.8\times10^{-9}$. Orange: relative error of $T^{-1}\Sigma_p J_{\tilde h}(x)\,u$ against the
 same derivatives, $3.8\times10^{-14}$ to $1.35\times10^{-13}$, more than four orders of magnitude below the best
 finite difference.}
 \label{fig:derivcheck}
@@ -464,14 +465,15 @@ the run limit. These short-horizon labels are coarser than those of the float64 
 \end{figure}
 
 \paragraph{Why low-dimensional structure can appear.} Near a bifurcation of a periodic orbit the center manifold
-theorem reduces the dynamics exactly to the critical directions, so the normal forms of folds, flips and cusps apply
-in any dimension. Near most orbits we computed the non-critical multipliers are small, from about $0.1$ at short periods to
+theorem reduces the local dynamics to the critical directions, so the normal forms of folds, flips and cusps, the
+leading terms of that reduction, apply in any dimension. Near most orbits we computed the non-critical multipliers are small, from about $0.1$ at short periods to
 below $10^{-13}$ along the cascade. This transverse contraction motivates scalar descriptions of whole attractors,
 which need additional, global evidence; where the next multiplier is not small (up to $0.4$ along the period-5 curves
 of Section~\ref{sec:organization}, and $0.28$ and $0.38$ in a high-temperature bubble of Section~\ref{sec:cascade}), such a description is only a
-rough guide. Coexisting attracting orbits constrain such descriptions: a
-smooth unimodal interval map with negative Schwarzian derivative has at most one attracting periodic orbit unless a
-basin reaches an endpoint \cite{singer1978stable}, so coexistence calls for a second turning point, a stretch of
+rough guide. Coexisting attracting orbits constrain such descriptions: in a
+smooth unimodal interval map with negative Schwarzian derivative, the immediate basin of every attracting periodic
+orbit contains the turning point or an endpoint, so at most one attracting periodic orbit avoids the endpoints
+\cite{singer1978stable}, and coexistence calls for a second turning point, a stretch of
 positive Schwarzian derivative or a second dimension (Appendix~\ref{sec:theorymore}).
 
 \section{Methods in brief}
@@ -807,8 +809,26 @@ $10^{-6}$ and $10^{-9}$. $H$: mean entropy of the next-token distribution in nat
 
 \section{Mechanism: a saddle-node bottleneck}
 \label{sec:mechanism}
+\begin{figure}[tbp]
+\centering
+\includegraphics[width=\linewidth]{fig-fold.png}
+\caption{The fold behind the stripes: the 2-cycle ``is it'' at $\log_{10}T=-0.115$ (Qwen2.5-0.5B-Instruct, philosophy
+direction at layer 12). (a) Continued in $\alpha$, the attracting 2-cycle (filled) and its saddle partner (open) meet
+and vanish at $\alpha_c=0.06279827$. The vertical coordinate is the projection $u$ of one point of each orbit on the
+fold's critical direction; orange, the normal form's fixed points $u^*=\pm\sqrt{|a|(\alpha_c-\alpha)/|b|}$. (b) The
+largest multiplier of $G=F^2$ on the two orbits reaches $+1$ at the fold, following the normal form's
+$1\mp2\sqrt{ab(\alpha_c-\alpha)}$ (open circles: a complex leading pair). (c) Beyond the fold the 2-cycle is gone, but
+its ghost slows the dynamics: controlled passages from the channel's entrance $v=-U$ to its exit $v=U$ ($v$ the
+oriented critical coordinate, $U=0.1/|b|$), measured on the network (dots) and iterated from the normal form
+$v'=v+|a|\eps+|b|v^2$ (lines), take 144, 71, 34 and 14 iterates, as predicted. (d) A free trajectory at
+$\eps=10^{-5}$ alternates between laminar phases in the bottleneck ($|u|<U$, shaded; 40 to 70 iterates each) and bursts
+away from it, the signature of type-I intermittency. Branch residuals, fold, normal form and passages in float64; branch
+multipliers in float32. \texttt{tools/plot\_fold.py}.}
+\label{fig:fold}
+\end{figure}
 \paragraph{The fold.} At $\log_{10}T=-0.115$ the 2-cycle ``is it'' dies in a fold at $\alpha_c=0.06279827$ (float64
-multiplier $1$ to $3\times10^{-13}$, next modulus $0.037$). In the critical coordinate $u$ of the second iterate $G=F^2$, the fold's normal form is
+multiplier $1$ to $3\times10^{-13}$, next modulus $0.037$; Figure~\ref{fig:fold}): it meets an unstable 2-cycle, and
+both vanish. In the critical coordinate $u$ of the second iterate $G=F^2$, the fold's normal form is
 $u'=u+a\eps+bu^2$ with $\eps=\alpha-\alpha_c$; here $a=-4.834$ per unit $\alpha$ and $b=-25.4285$, so $ab=122.93$. The stable branch gives an independent estimate: extrapolating its multipliers
 through $(1-\mu)^2/(4(\alpha_c-\alpha))\to ab$ yields $123.1$ with a quadratic fit ($120.6$ with a linear one). An
 independent implementation of the forward map and solver recovers $\alpha_c$ to $6\times10^{-15}$ and $a$ to
@@ -893,8 +913,8 @@ points move with $\eps$ ($-3\times10^{-4}$ to $-7\times10^{-4}$).
 The exponent of the law is robust, its prefactor empirical. Over the fold edges of periods 16 to 32 ($N=5$ to 13),
 $\ln(\alpha_N-\alpha_c)$ against $\ln N$ has slope $-2.00$, and a free fit of $C/(N+\delta)^{\gamma}$ gives
 $\gamma=2.18\pm0.06$ (1\,\% errors assumed). At these distances, however, the bottleneck is not narrow compared with
-the counting window: its scale $\sqrt{|a|\eps/|b|}$ is 1.35 to 3.51 times $U$, and a full passage lasts only 8.9 to
-23.3 iterates of $G$. The windows therefore lie outside the asymptotic regime in which the normal form fixes the
+the counting window: its scale $\sqrt{|a|\eps/|b|}$ is 1.35 to 3.51 times $U$, and a full passage lasts only 9 to
+23 iterates of $G$. The windows therefore lie outside the asymptotic regime in which the normal form fixes the
 prefactor \cite{pomeau1980intermittent,hirsch1982theory}, and the factor of about one third is a measured value, not a
 prediction.
 \begin{figure}[H]
@@ -1141,8 +1161,8 @@ positive (supercritical), as the stable doubled orbits require. Three of five of
 The local theory still applies here (Section~\ref{sec:theory}). At each flip we computed the cubic coefficient of the
 flip normal form, $\eta\mapsto-(1+\beta)\eta+c\,\eta^3$ on the critical direction, from the dense monodromy and
 float64 directional derivatives (notation of Appendix~\ref{sec:methods}), $c=\ell^\top C(r,r,r)/6+\ell^\top B(r,h_2)/2$ with $(I-M)h_2=B(r,r)$
-\cite{kuznetsov2023elements}. It predicts the doubled orbit without fitting: half-amplitude $\sqrt{\beta/c}$ along $r$
-and multiplier $1-4\beta$. At the smallest offset the amplitude ratios are $1.005$ and $1.003$, and the multipliers agree
+\cite{kuznetsov2023elements}. To leading order it predicts the doubled orbit without fitting: half-amplitude
+$\sqrt{\beta/c}\,(1+O(\beta))$ along $r$ and multiplier $1-4\beta+O(\beta^2)$. At the smallest offset the amplitude ratios are $1.005$ and $1.003$, and the multipliers agree
 within $1.5\times10^{-4}$ and $5\times10^{-5}$; the larger discrepancies at larger offsets are consistent with
 higher-order corrections (Table~\ref{tab:flipnf}). These finite comparisons support the leading-order prediction; they
 do not establish the order of the remainder. Figure~\ref{fig:feigtree} shows the cascade itself as a bifurcation diagram: in three nested zooms each fork sits at a flip located independently by Newton's method, and the largest exponent touches zero at every flip and turns positive beyond the accumulation point. The route to chaos of Qwen2.5-1.5B (Figure~\ref{fig:qwen15route}) behaves the same way: its last ratio, $4.665$, is within $0.1\,\%$ of $\delta$ (Figure~\ref{fig:feigenbaum}).
@@ -1206,9 +1226,9 @@ through $-1$ twice (at $0.1919$ and $0.1899$), so the period-14 crescent is a do
 branch folds twice ($0.18797$ and $0.18921$, with three coexisting period-7 orbits in between) before a third flip.
 All crossings are simple (next modulus below $1.5\times10^{-3}$). An S-shaped pair of folds is what a cusp of the
 fold curves leaves on a nearby cut. When these boundaries are continued in the plane in float64
-(Figure~\ref{fig:hubshrimp}), each of the two fold curves reverses its parameter tangent once. There the oriented
-quadratic coefficient $b$ of the fold's normal form passes through zero (the cusp test, with the cubic coefficient $c$
-and the unfolding determinant $\det J$, is defined in Appendix~\ref{sec:curves}) (upper fold: $-23.9$ to $+244.6$ between
+(Figure~\ref{fig:hubshrimp}), each of the two fold curves reverses its parameter tangent once. There, as the fold condition requires, the oriented
+quadratic coefficient $b$ of the fold's normal form passes through zero; what makes such a point a cusp is that the
+cubic coefficient $c$ and the unfolding determinant $\det J$ are nonzero there (the cusp test, Appendix~\ref{sec:curves}) (upper fold: $-23.9$ to $+244.6$ between
 adjacent points, with $a\approx2.0$; lower fold: $+31.2$ to $-58.7$, with $a\approx0.55$) while $a$ stays away from
 zero. Located along the curves, the two cusps lie at $(\alpha,\log_{10}T)=(0.067213,0.198983)$ and
 $(0.066611,0.189382)$. There $b\operatorname{sign}a$ is below $1.3\times10^{-5}$ of its bracket values,
@@ -1388,8 +1408,9 @@ by domains of periods $k\cdot2^n$, with thin legs \cite{gallas1993structure}. Th
 of periodic windows; where two windows overlap, their strips can cross in an X (Appendix~\ref{sec:curves}). A periodic
 window is the region where one periodic orbit attracts. It is bounded by fold curves, where the orbit is born or dies
 together with a saddle (multiplier $+1$), and flip curves, where it doubles (multiplier $-1$); beyond the flips lie
-the period-doubled shells. In a one-dimensional map the leading multiplier runs from $+1$ through $0$ to $-1$ across
-a window, so every window holds a superstable curve: the dark lines of strongly negative exponent in the maps.
+the period-doubled shells. In a one-dimensional map the multiplier is $+1$ on a fold edge and $-1$ on a flip edge, so it vanishes
+in between: every path across a window from a fold edge to a flip edge crosses a superstable curve, and these are the
+dark lines of strongly negative exponent in the maps.
 Gallas's dissection of one-dimensional shrimps names the parts of a cell (Figure~\ref{fig:anatomy}a)
 \cite{gallas1994dissecting}. The superstable curves of the map's two critical points cross at the head, where the
 orbit passes both critical points at once. At the end of the cell two legs, each a thin strip between a fold and a
@@ -1465,7 +1486,9 @@ period-2, -4 and -8 orbits read the same way: no cell reaches superstability (th
 become more one-dimensional with each doubling: over their attracting cells, the median ratio of the second to the
 leading multiplier is 0.59, 0.125 and 0.027. Per step, the second multiplier contracts by a nearly constant factor
 (medians 0.50 to 0.57), so its share shrinks like a power of the period; the per-step medians predict 0.52, 0.146 and
-0.029, within 17\,\% of the measured ratios. In the period-4 and period-8 cells the trace-zero curves run along both
+0.029, within 17\,\% of the measured ratios. In the terms of the H\'enon map, whose Jacobian determinant $-b$ is
+constant, so that $\mu_1\mu_2=(-b)^p$, the per-step area contraction $|\mu_1\mu_2|^{1/p}$ plays the role of $|b|$;
+its medians are 0.41, 0.41 and 0.50. In the period-4 and period-8 cells the trace-zero curves run along both
 arms of the V and approach each other at its bottom; our grids do not resolve whether they cross there (the period-8
 grid was cut at its time limit after 566 of 608 cells).
 
@@ -2192,8 +2215,9 @@ the first four flip parameters to $10^{-9}$.
 \input{figures/tikz-reduction}
 \paragraph{Why the structures of low-dimensional maps appear.} The map acts on a space of hundreds to thousands of
 dimensions, yet two reductions make low-dimensional theory apply (Figure~\ref{fig:tworeductions}). Near a bifurcation of a periodic orbit the center
-manifold theorem reduces the dynamics exactly to the critical directions, whatever the size of the other multipliers,
-as long as they stay off the unit circle. Our normal forms of folds, flips, cusps and 1:1 resonances rest on this
+manifold theorem reduces the local dynamics to the critical directions, whatever the size of the other multipliers,
+as long as they stay off the unit circle; the normal forms are the leading terms of this local reduction
+\cite{kuznetsov2023elements}. Our normal forms of folds, flips, cusps and 1:1 resonances rest on this
 reduction alone. A scalar description of a whole attractor needs additional, global evidence. The small non-critical
 multipliers of the periodic orbits we computed show strong transverse contraction near those orbits and motivate that
 description: they range from about $0.1$ at short periods to below $10^{-13}$ along the cascade
@@ -2372,7 +2396,8 @@ The fold curve through the close fold pair has a second cusp inside the body, at
 which two fold branches descend.
 
 At both reversals the quadratic coefficient $b$ changes sign between consecutive curve points while $a$ stays away
-from zero (Table~\ref{tab:z3cusps}).
+from zero (Table~\ref{tab:z3cusps}). That alone is not evidence of a cusp: along any fold curve the parameter tangent
+reverses exactly where $b$ vanishes. The test's content is the nondegeneracy at that point.
 Because the signs of $a$ and $b$ both flip with the orientation of the critical eigenvector, the test uses
 $b\operatorname{sign}a$. A cusp is nondegenerate when the cubic coefficient $c$ of the normal form
 $u'=u+a\varepsilon+bu^2+cu^3$ is nonzero where $b$ vanishes. We compute $c$ with the second-order center-manifold
@@ -3299,7 +3324,7 @@ second checkpoint, is the unreported bounded search).}
   also follows from the stable-branch multipliers. The same reimplementation reproduces all 18 fixed-entrance counts
   of the controlled passage runs exactly (Table~\ref{tab:passages} lists 12 of them).
 \item Prospectively frozen: the passage forecasts at two new folds (Table~\ref{tab:prospective}); 23 of 24 within one
-  iterate, and the all-row criterion failed by one row.
+  iterate (16 of the 17 longer than five iterates), and the all-row criterion failed by one row.
 \item Rung 2 as well: the period-2 and period-8 orbits of Table~\ref{tab:orbits} (independent implementation), and
   the cascade's first four flip parameters (CPU and H100, agreement $4\times10^{-15}$).
 \item Rung 2 as well: the hostile 2-cycle fold and its normal form, reproduced by an independent float64 forward map

@@ -26708,3 +26708,23 @@ The smallest forecast is 11.201. At q = 0.018 the midpoint acceptance sets {77, 
 - **Primary:** |N - T_arc| <= 1 on all 24 rows.
 - **Secondary:** |N - discrete| <= 1.
 - **Sign hypothesis** (not a criterion): N - discrete <= 0 on the 16 midpoint and kick rows.
+
+## 2026-10-16 00:00 UTC: Fold figure (human: "show us the fold"); coexistence demonstrated at one crescent point; Chaos rewrite received and aligned
+
+**Fold figure.** tools/plot_fold.py writes paper/llm/figures/fig-fold.png and .json from existing data only: branch-p2-t-0.115-alpha-up, normal-form-p2-t-0.115, passage-p2-t-0.115 and passage-natural-p2-t-0.115.
+- (a) Branch states projected on the fold's critical direction (l.r = 1). u runs from +0.0125 down to +0.0016 at the last attracting point, then from -0.0012 out along the saddle branch. The normal-form fixed points are drawn near the fold.
+- (b) The leading multiplier reaches 0.917 on the attracting side and 1.06 just past the turn; normal form 1 -+ 2 sqrt(ab (alpha_c - alpha)).
+- (c) Controlled full passages: 144, 71, 34 and 14 G-iterates measured, equal to the iterated normal form.
+- (d) A free trajectory at eps = 1e-5 (natural-3): 14 laminar phases of 40 to 70 iterates in 1500.
+- Placed in both papers.
+
+**Coexistence** (tools/coexist_texts.py, local CPU, float64), at (alpha 0.0642, log10 T -0.156), donor (0.0655, -0.156):
+- From the fixed start: period 3, "The existence\n\n" repeated, exponent -0.13.
+- From the donor's attractor state: period 2, " is it" repeated, exponent -1.19.
+- Same model, steering and temperature: two attracting texts. A chaotic-band point (0.0652) is running.
+
+**Chaos rewrite** (Chaos repo 8b0466bc). Read in full; three numbers aligned:
+- Area-contraction medians 0.41, 0.41, 0.50, from the paper's selection (ok and attracting), not the referee's stricter same-token selection (0.40, 0.41, 0.52).
+- Aitken 4.6694 [4.6688, 4.6702] and the last gap factor 5.26, from the unrounded flips that the paper's delta values use, not the table's rounded ones.
+- The main paper adopts the rewrite's normal rounding of range ends: slopes 1.98-2.00, best differences 1.7-4.8e-9, passages 9-23 iterates.
+- The main paper's headline now gives 16 of the 17 forecasts longer than five iterates, like the rewrite.
