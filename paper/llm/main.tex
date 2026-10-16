@@ -1571,7 +1571,11 @@ and they do not cross. In the period-8 cell the determinant of the leading pair 
 multiplier is at most $6\times10^{-5}$ of the second, so the reading is two-dimensional to that accuracy. In the
 period-4 cell the determinant changes sign, and near the bottom of the U the second and third multipliers form a
 complex pair, so the leading pair is not isolated there. Neither cell has a crossing of trace-zero curves, the
-analog of a one-dimensional shrimp's head; under the decision rule fixed before these grids, both remain unresolved
+analog of a one-dimensional shrimp's head, and the period-4 cell has no near-nilpotent point at the bottom of its U
+either: a two-parameter Newton search on the invariants of the leading spectrum, as for the period-5 window, converges
+where its three leading multipliers have nearly equal modulus, 0.0325, and lie $120^{\circ}$ apart, ten times the
+period-5 point's $3.5\times10^{-3}$ (\texttt{tools/nilpotent\_search.py}). Under the decision rule fixed before these
+grids, both cells remain unresolved
 between the loop and turn-away types (the first period-8 grid left the bottom of the V unsolved because of a defect in
 the continuation, fixed for the second; \texttt{docs/dss}).
 
