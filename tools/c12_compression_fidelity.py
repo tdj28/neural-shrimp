@@ -59,7 +59,9 @@ T = 1, total variation at T, top-1 agreement of the logits, and the relative one
 Primary endpoint (subcommand summarize): mean over held-out prompts of share_q4 - share_ref, where share is the fraction
 of a prompt's starts (all temperatures and starts) in verified period-<=8 orbits; paired t interval over prompts (the
 units), with a prompt bootstrap and a system-prompt cluster bootstrap as sensitivity checks. The same for q8 and noise;
-class-or-period change shares; per-temperature shares; KL statistics.
+class-or-period change shares; per-temperature shares; KL statistics. Sensitivity endpoints (slow convergence): the same
+difference with the share of starts that reach a period <= 8 by the end of the twin phase (step 576), and with the share
+of starts showing any closing lag <= 64.
 
 Outputs under ../neural-shrimp-data/explore/pi/c12-2/<out>/: settings.json (the run's fixed settings; a resumed run
 must match them), manifest-<time>.json per invocation, progress.jsonl, batches/bNN-<variant>.npz and .json (per-row
@@ -859,6 +861,11 @@ def write_manifest(out, args, extra):
     return man
 
 
+def batch_indices(out):
+    """Indices k of the batch files bNN-*.npz present in a run directory."""
+    return sorted({int(f.name[1:3]) for f in (out / "batches").glob("b[0-9][0-9]-*.npz")})
+
+
 def load_variant(out, k, v):
     path = out / "batches" / f"b{k:02d}-{v}.npz"
     if not path.exists():
@@ -1153,11 +1160,14 @@ def summarize(args):
     cfg = json.loads((held / "settings.json").read_text())
     nT = len(cfg["log_t"])
     gates, data, kls = [], {v: [] for v in VARIANTS}, []
-    for k, prompts in enumerate(batches_of("heldout")):
+    for k in batch_indices(held):
         res = {v: load_variant(held, k, v) for v in VARIANTS}
         klp = held / "batches" / f"b{k:02d}-kl.npz"
-        if all(r is None for r in res.values()) and not klp.exists():
+        saved = {tuple(int(x) for x in r["batch_prompts"]) for r in res.values() if r is not None}
+        if len(saved) != 1:
+            gates.append({"batch": k, "complete": False, "pairing": f"variants disagree on the batch's prompts {saved}"})
             continue
+        prompts = list(saved.pop())
         row = {"batch": k, "prompts": prompts, "kl_pass": klp.exists()}
         ok = klp.exists()
         for v, r in res.items():
@@ -1190,6 +1200,23 @@ def summarize(args):
     clusters = pids // 8
     rows_of = {int(p): np.flatnonzero(ref["prompt"] == p) for p in pids}
     share = {v: np.array([np.mean(cat[v]["cls"][rows_of[int(p)]] == 0) for p in pids]) for v in VARIANTS}
+
+    def sens(v, kind):
+        """Sensitivity shares: le8_by_576 counts also the starts that reach a period <= 8 only after step 256
+        (late_convergence at step 320, late_period by the end of the twin phase); le64 counts every start with a
+        closing lag <= 64 at step 320 or at the end of the twin phase."""
+        c, sb, q = cat[v]["cls"], cat[v]["sub"], cat[v]["period"]
+        late = np.isin(sb, (SUB_LATE_CONV, SUB_LATE_PERIOD))
+        ok = (c == 0) | (late & (q <= SHORT)) if kind == "le8_by_576" else \
+            (c == 0) | np.isin(sb, (SUB_LONG, SUB_LATE_CONV, SUB_LATE_PERIOD))
+        return np.array([np.mean(ok[rows_of[int(p)]]) for p in pids])
+
+    sensitivity = {}
+    for kind in ("le8_by_576", "le64"):
+        sh = {v: sens(v, kind) for v in VARIANTS}
+        sensitivity[kind] = {f"{v}_minus_ref": dict(share_ref_mean=float(sh["ref"].mean()),
+                                                    share_variant_mean=float(sh[v].mean()),
+                                                    **paired_interval(sh[v] - sh["ref"])) for v in ("q4", "q8", "noise")}
     endpoints = {}
     for v in ("q4", "q8", "noise"):
         diff = share[v] - share["ref"]
@@ -1286,14 +1313,13 @@ def summarize(args):
     dev = None
     dpath = OUT_ROOT / args.dev
     if (dpath / "settings.json").exists():
-        dres = [r for r in (load_variant(dpath, k, "ref") for k in range(len(batches_of("dev")))) if r is not None]
+        dres = [r for r in (load_variant(dpath, k, "ref") for k in batch_indices(dpath)) if r is not None]
         dcfg = json.loads((dpath / "settings.json").read_text())
         dgates = []
-        for k in range(len(batches_of("dev"))):
-            r = load_variant(dpath, k, "ref")
-            if r is not None:
-                fails, info = gate_rows(r, dcfg, len(batches_of("dev")[k]))
-                dgates.append({"batch": k, "status": "pass" if not fails else "fail", "failed_checks": fails, **info})
+        for r in dres:
+            fails, info = gate_rows(r, dcfg, len(r["batch_prompts"]))
+            dgates.append({"prompts": [int(x) for x in r["batch_prompts"]], "status": "pass" if not fails else "fail",
+                           "failed_checks": fails, **info})
         dc = np.concatenate([r["cls"] for r in dres]) if dres else np.zeros(0)
         dj = np.concatenate([r["t_index"] for r in dres]) if dres else np.zeros(0)
         cal = json.loads((dpath / "calibration.json").read_text()) if (dpath / "calibration.json").exists() else None
@@ -1332,6 +1358,7 @@ def summarize(args):
                                            "prompt's starts (all temperatures) in verified period-<=8 orbits",
                              **endpoints["q4_minus_ref"]},
         "secondary_endpoints": {k: e for k, e in endpoints.items() if k != "q4_minus_ref"},
+        "sensitivity_endpoints": sensitivity,
         "changes": changes, "one_step": kl_summary, "noise_kl_match_heldout": noise_match,
         "endpoint_sensitivity_adjacent_T_reference": adjacent_T,
         "negative_control": negative, "development": dev, "manifests": manifests(held),
