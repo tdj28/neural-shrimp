@@ -26927,3 +26927,21 @@ tools/audit/dss_bfs_audit.py rebuilds the old breadth-first order from each prog
 - The period-4 cell has no near-nilpotent head at the bottom of its U.
 - Its leading spectrum there is three-dimensional, consistent with rule (iii).
 - The period-5 window remains the only cell with a near-nilpotent point.
+
+## 2026-10-16 01:30 UTC: Z128 result: the post-fix 128 x 128 zoom of Llama-3.3-70B's chaotic ridge; PT128 cells drawn
+
+**Runs.** All 16 bands: runner rc 0, archive hash verified, terminated and verified gone; commit 36828ca9.
+- Walls: 5723 to 8842 s (2 x H200 or 2 x H100 NVL).
+- No pods are running afterwards.
+
+**Stitch.** tools/plot_zoom70.py writes paper/llm/figures/fig-zoom-llama70b-z128.png; summary in docs/z128/z128-summary.json.
+- The 16 bands join into one 128 x 128 grid: alpha 0.06 to 0.12, log10 T 0.12 to 0.27.
+- The concept vectors built on each pod have identical norms (98.42890214320668).
+- **Cells:** 16384. Chaotic by the criterion: 3410 (20.81 %). Periodic: 12695. Unresolved: 279 (1.70 %). Largest exponent 0.6416.
+- **Against the pre-fix 64 x 64 zoom (Z70):** that map had 44 % unresolved cells, and 515 constant-token "long periods" above the band.
+  - The post-fix map has 1.7 % unresolved and no artifact periods.
+  - The ridge keeps its shape: a chaotic band whose center falls with steering, with periodic windows of periods 3, 5, 6, 7 and 8 embedded, and fixed points above.
+
+**PT128 draw** (rule 9be05853). tools/plateau_cells.py, seed 20261015: 12 chaotic, 6 periodic and 6 unresolved cells, no shortfall; docs/plateau-cells-z128.json. Tests: tests/test_plateau_cells.py, 2 pass.
+
+**Next.** PT128 runs on one pod at the commit of this entry.
