@@ -1180,6 +1180,8 @@ def analyze_run(run, choices=None):
             norms = np.linalg.norm(S[i], axis=1)
             dist = [float(np.linalg.norm(S[i][a] - S[i][b]) / norms.mean()) for a, b in pair_indices(N_STATES)]
             dis = [labels[a] != labels[b] for a, b in pair_indices(N_STATES)]
+            dis_txt = [texts[a] != texts[b] for a, b in pair_indices(N_STATES)]
+            g0 = [m[k]["gap"][0] for k in range(N_STATES)]
             dp = [abs(pf[a] - pf[b]) for a, b in pair_indices(N_STATES)] if None not in pf else None
             rf = ref.get((qid, u), {}).get(-1)
             rc = recomp.get((qid, u), {})
@@ -1209,8 +1211,15 @@ def analyze_run(run, choices=None):
                        "distance": {"min": min(dist), "median": float(np.median(dist)), "max": max(dist)},
                        "auc_distance": auc([x for x, y in zip(dist, dis) if y], [x for x, y in zip(dist, dis) if not y]),
                        "spearman_distance_dp": spearman(dist, dp) if dp else None,
-                       "first_gap_median": float(np.median([m[k]["gap"][0] for k in range(N_STATES)])),
-                       "negative": neg, "_dist": dist, "_dis": dis}
+                       "first_gap_median": float(np.median(g0)),
+                       # margins (descriptive, added after dev-2): the top-2 logit gap at the first answer position
+                       # (its smallest value and its range over the 16 states) and the smallest gap anywhere on the
+                       # 8-token greedy paths (how close a state came to a different greedy token)
+                       "first_gap_min": float(min(g0)), "first_gap_range": float(max(g0) - min(g0)),
+                       "path_gap_min": float(min(min(m[k]["gap"]) for k in range(N_STATES))),
+                       "auc_distance_text": auc([x for x, y in zip(dist, dis_txt) if y],
+                                                [x for x, y in zip(dist, dis_txt) if not y]),
+                       "negative": neg, "_dist": dist, "_dis": dis, "_dis_txt": dis_txt}
         per_query[qid] = {"query": qd, "fixed_token": fixed[qid], "cells": rows}
     groups = {}
     for qid, pq in per_query.items():
@@ -1230,6 +1239,7 @@ def analyze_run(run, choices=None):
         for r in per_query[qid]["cells"].values():
             r.pop("_dist")
             r.pop("_dis")
+            r.pop("_dis_txt")
     def neg_total(pq):
         ns = [r["negative"] for r in pq["cells"].values() if r["negative"]]
         cmp = [n for n in ns if n["p_fixed_compared"]]
@@ -1258,12 +1268,15 @@ def summarize_group(rows):
     fams = [rows[u]["family"] for u in us]
     dist = np.concatenate([rows[u]["_dist"] for u in us])
     dis = np.concatenate([rows[u]["_dis"] for u in us]).astype(bool)
+    dis_txt = np.concatenate([rows[u]["_dis_txt"] for u in us]).astype(bool)
     qs = np.quantile(dist, [0.2, 0.4, 0.6, 0.8])
     bins = np.digitize(dist, qs)
     quint = [{"bin": int(b), "pairs": int((bins == b).sum()),
               "distance_range": [float(dist[bins == b].min()), float(dist[bins == b].max())],
-              "disagreement": float(dis[bins == b].mean())} for b in range(5) if (bins == b).any()]
+              "disagreement": float(dis[bins == b].mean()), "text_disagreement": float(dis_txt[bins == b].mean())}
+             for b in range(5) if (bins == b).any()]
     aucs = [rows[u]["auc_distance"] for u in us]
+    aucs_txt = [rows[u]["auc_distance_text"] for u in us]
     fam_means, fam_text = defaultdict(list), {}
     for u in us:
         fam_means[rows[u]["family"]].append(rows[u]["disagreement"])
@@ -1292,6 +1305,16 @@ def summarize_group(rows):
                                float(max(rows[u]["distance"]["max"] for u in us))],
             "auc_distance": {"mean": float(np.mean([a for a in aucs if a is not None])) if any(a is not None for a in aucs)
                              else None, "boot95": bootstrap_mean_ci(aucs), "cells": sum(a is not None for a in aucs)},
+            "auc_distance_text": {"mean": float(np.mean([a for a in aucs_txt if a is not None]))
+                                  if any(a is not None for a in aucs_txt) else None,
+                                  "boot95": bootstrap_mean_ci(aucs_txt), "cells": sum(a is not None for a in aucs_txt)},
+            "agreeing_pair_distance_max": float(dist[~dis].max()) if (~dis).any() else None,
+            "margins": {"first_gap_min_min": float(min(rows[u]["first_gap_min"] for u in us)),
+                        "first_gap_min_median": float(np.median([rows[u]["first_gap_min"] for u in us])),
+                        "first_gap_range_median": float(np.median([rows[u]["first_gap_range"] for u in us])),
+                        "first_gap_range_max": float(max(rows[u]["first_gap_range"] for u in us)),
+                        "path_gap_min_min": float(min(rows[u]["path_gap_min"] for u in us)),
+                        "path_gap_min_median": float(np.median([rows[u]["path_gap_min"] for u in us]))},
             "disagreement_by_distance_quintile": quint,
             "spearman_distance_dp_median": float(np.median([rows[u]["spearman_distance_dp"] for u in us
                                                             if rows[u]["spearman_distance_dp"] is not None]))
@@ -1386,7 +1409,8 @@ def cmd_receipt(args):
                 files.append({"path": str(p.relative_to(DATA_ROOT)), "sha256": sha256_file(p), "bytes": p.stat().st_size})
     analyses = {}
     cols = ["uid", "disagreement", "text_disagreement", "in_format_share", "positive_share", "distance_median",
-            "differs_from_reference", "labels", "reference_label", "qualifies"]
+            "differs_from_reference", "labels", "reference_label", "qualifies", "first_gap_min", "first_gap_range",
+            "path_gap_min"]
     for a in args.analyses:
         d = json.loads(Path(a).read_text())
         e = {k: d[k] for k in ("run", "commit", "tool_sha256", "gate", "groups", "negative_control",
@@ -1398,7 +1422,8 @@ def cmd_receipt(args):
         e["per_cell"] = {qid: {"fixed_token": pq["fixed_token"], "columns": cols,
                                "rows": [[u, r["disagreement"], r["text_disagreement"], r["in_format_share"],
                                          r["positive_share"], r["distance"]["median"], r["differs_from_reference"],
-                                         r["labels"], r["reference_label"], r["qualifies"]]
+                                         r["labels"], r["reference_label"], r["qualifies"], r["first_gap_min"],
+                                         r["first_gap_range"], r["path_gap_min"]]
                                         for u, r in pq["cells"].items()]}
                          for qid, pq in d["per_query"].items()}
         analyses[str(Path(a).relative_to(DATA_ROOT))] = e
