@@ -517,6 +517,19 @@ question\textbackslash n\textbackslash nThe existence'', crosses the stripes nea
 crescent lies on the 2-cycle's side of that fold curve, the two attractors coexist. The lower right is a chaotic
 region filled with small hooked windows of ``\textbackslash n\textbackslash nThe question'' and ``\textbackslash
 n\textbackslash nThe existence'' loops.
+
+These names are what the loops write. A period-3 orbit returns to the same soft state every three steps, and at its
+three states the most probable next tokens are ``\textbackslash n\textbackslash n'' (a blank line, one token),
+``The'' and `` existence'', with probabilities $0.74$, $0.36$ and $0.21$ at $\alpha=0.0642$, $\log_{10}T=-0.156$. Read
+greedily, the loop writes ``The existence'' paragraph after paragraph; what it feeds back at each step, however, is the
+probability-weighted average of all token embeddings, not that token. Coexistence is just as concrete. At that same
+point the loop started from a state of the ``is it'' 2-cycle (taken from its attractor at $\alpha=0.0655$) stays on
+the 2-cycle and writes `` is it is it\ldots'' (most probable tokens with probabilities $0.66$ and $0.29$; 300-step
+exponent $-1.19$), while from the fixed start it settles on the period-3 loop (exponent $-0.13$). At $\alpha=0.0652$
+the fixed start reaches the crescent's chaotic attractor, whose text alternates irregularly between ``The question''
+and ``The existence'' paragraphs (exponent $+0.095$), and the 2-cycle start again writes `` is it'' ($-1.29$): one
+model, one steering vector and one temperature, and the text written forever depends on where the loop starts
+(\texttt{tools/coexist\_texts.py}, float64).
 \begin{figure}[H]
 \centering
 \includegraphics[width=0.62\linewidth]{fig-cross512-families.png}

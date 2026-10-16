@@ -26728,3 +26728,19 @@ The smallest forecast is 11.201. At q = 0.018 the midpoint acceptance sets {77, 
 - Aitken 4.6694 [4.6688, 4.6702] and the last gap factor 5.26, from the unrounded flips that the paper's delta values use, not the table's rounded ones.
 - The main paper adopts the rewrite's normal rounding of range ends: slopes 1.98-2.00, best differences 1.7-4.8e-9, passages 9-23 iterates.
 - The main paper's headline now gives 16 of the 17 forecasts longer than five iterates, like the rewrite.
+
+## 2026-10-16 00:02 UTC: Coexistence result, and what a loop's name means in text (human questions)
+
+**Run.** tools/coexist_texts.py, local CPU float64, 600 transient steps. Receipt: docs/coexist/coexist-t-0.156.json.
+
+**alpha 0.0642, log10 T -0.156.**
+- Fixed start: period 3. Most probable tokens "The" (p 0.356), " existence" (0.209), "\n\n" (0.743). Exponent -0.132.
+- Start from the 2-cycle's attractor at 0.0655: period 2. " is" (0.661), " it" (0.290). Exponent -1.192.
+- The final states are 0.51 apart.
+
+**alpha 0.0652.**
+- Fixed start: no period, exponent +0.0946 (300 steps). The text alternates irregularly between "The question\n\n" and "The existence\n\n".
+- 2-cycle start: period 2, " is it". Exponent -1.295.
+- A chaotic and a periodic attractor coexist at the same parameters.
+
+**Papers.** A paragraph after "Three structures stand out" in both papers says three things: what the period-3 name means (three tokens with their probabilities; the fed-back state is a mixture), the two texts at the same point, and the chaotic case.
