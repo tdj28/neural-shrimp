@@ -3,9 +3,11 @@
 Hugging Face's top-k routers (classes named ...TopKRouter) return (router_logits, top_k_weights, top_k_indices) for
 the flattened tokens of a batch. In the soft-token loop every forward pass has one token per row, so the router's
 rows are the batch rows. The probe wraps every router instance and can do three things.
-- **Margin:** with capture on, it records for every router and row the gap p_(k) - p_(k+1) between the k-th and
-  (k+1)-th largest routing probabilities (k = top_k), computed in float64 from the router's logits. A small gap means
-  the row is close to a routing boundary, where the expert set switches and the map is not smooth.
+- **Margin:** with capture on, it records for every router and row the gap l_(k) - l_(k+1) between the k-th and
+  (k+1)-th largest router logits (k = top_k), in float64. A perturbation must move the logits by about this gap to
+  switch the expert set, so a small gap means the row is close to a routing boundary, where the map is not smooth.
+  Logit gaps, not probability gaps, are the natural scale: with many experts the probabilities near the cut are all
+  small, whatever the distance to the boundary.
 - **Switches:** for given (row, reference row) pairs it records whether their natural top-k expert sets differ.
 - **Frozen routing:** for given (row, reference row) pairs it replaces the row's expert set by the reference row's.
   The weights are the row's own routing probabilities on that set, renormalized when the router renormalizes. The
@@ -40,7 +42,7 @@ class RoutingProbe:
             if probe.capture or probe.freeze is not None or probe.switch_pairs is not None:
                 probs = torch.softmax(logits.to(torch.float64), dim=-1)
             if probe.capture:
-                top = torch.topk(probs, k + 1, dim=-1).values
+                top = torch.topk(logits.to(torch.float64), k + 1, dim=-1).values
                 probe.margins.append((top[:, k - 1] - top[:, k]).detach())
                 if probe.switch_pairs is not None:
                     rows, refs = probe.switch_pairs

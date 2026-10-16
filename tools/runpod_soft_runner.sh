@@ -1331,6 +1331,60 @@ snapshot_download('$REPO', revision='$MREV', cache_dir='$NEURAL_SHRIMP_DATA/mode
     done
     unset HF_TOKEN
     ;;
+  moe)         # mixture-of-experts study (run MOE; float64, one GPU): JOBARGS PART [MODEL...]. PART moe: OLMoE-1B-7B
+               # (pinned; unsteered sweep of 130 temperatures over log10 T -1..1.2 and run D) and Qwen3.5-35B-A3B
+               # (pinned; run D), both with the routing analysis (tools/damping_locate.py, tools/moe_routing.py). PART dense
+               # MODEL...: dense Qwen3.5 controls (pinned), each with concept vectors at layer 16 of 32, an unsteered
+               # sweep (128 temperatures over log10 T -1..0.3, 1000 + 2000 steps), philosophy and hostility-vs-kindness
+               # maps at 32x32 with the MoE maps' ranges and steps, and run D; into moe/MODEL-* and damping/d1/MODEL
+    part=${JOBARGS[0]}
+    getq35() {   # $1 key, $2 repo, $3 revision: the whole pinned repository, as job set qwen35moe
+      log "download $2 $3"
+      HF_HUB_DISABLE_XET=1 HF_HUB_OFFLINE=0 $PY -c "
+from huggingface_hub import snapshot_download
+snapshot_download('$2', revision='$3', cache_dir='$NEURAL_SHRIMP_DATA/models/hf/hub', max_workers=16)" \
+        > "$LOGS/setup-$1.log" 2>&1
+      log "download done $(du -shL $NEURAL_SHRIMP_DATA/models/hf/hub | cut -f1), free $(df -h --output=avail / | tail -1)"
+      local refs="$NEURAL_SHRIMP_DATA/models/hf/hub/models--${2/\//--}/refs"
+      mkdir -p "$refs" && printf %s "$3" > "$refs/main"
+    }
+    damp() {     # $1 model key
+      TOOL=damping_locate.py run damping-$1 150 --model $1 --device cuda --weights native --log-temperature -0.3 0.9 \
+        --n 24 --transient 500 --record 500 --eps 1e-7 --knockout-every 25 --knockout-cells 2 7 12 17 22 --threads 16 \
+        --out $D/damping/d1/$1
+    }
+    if [ "$part" = moe ]; then
+      getq35 olmoe-1b-7b allenai/OLMoE-1B-7B-0125-Instruct b89a7c4bc24fb9e55ce2543c9458ce0ca5c4650e
+      run sweep-olmoe 120 scan --device cuda --dtype float64 --chunk 130 --tol 1e-8 --eps 1e-6 --model olmoe-1b-7b \
+        --vectors "" --alpha 0 0 --log-temperature -1 1.2 --resolution 130 1 --transient 1000 --samples 2000 \
+        --max-period 64 --out $D/moe/olmoe-1b-7b-alpha0-wide
+      damp olmoe-1b-7b
+      getq35 qwen3.5-35b-a3b Qwen/Qwen3.5-35B-A3B 59d61f3ce65a6d9863b86d2e96597125219dc754
+      damp qwen3.5-35b-a3b
+    else
+      for model in "${JOBARGS[@]:1}"; do
+        case $model in
+          qwen3.5-4b) REPO=Qwen/Qwen3.5-4B; MREV=851bf6e806efd8d0a36b00ddf55e13ccb7b8cd0a ;;
+          qwen3.5-9b) REPO=Qwen/Qwen3.5-9B; MREV=c202236235762e1c871ad0ccb60c8ee5ba337b9a ;;
+          *) log "unknown model $model"; continue ;;
+        esac
+        getq35 $model $REPO $MREV
+        vec=llm-phase-map/vectors-$model-l16
+        TOOL=explore_llm_phase_map.py run vectors-$model 40 vectors --model $model --layer 16 --device cuda \
+          --dtype float64 --contrasts hostility:kindness --random 3 --out $vec
+        run sweep-$model 60 scan --device cuda --dtype float64 --chunk 128 --tol 1e-8 --eps 1e-6 --model $model \
+          --layer 16 --vectors $vec --concept hostility-vs-kindness --alpha 0 0 --log-temperature -1 0.3 \
+          --resolution 128 1 --transient 1000 --samples 2000 --max-period 64 --out $D/moe/$model-alpha0
+        run phil-$model 90 scan --device cuda --dtype float64 --chunk 64 --tol 1e-8 --eps 1e-6 --model $model \
+          --layer 16 --vectors $vec --concept philosophy --alpha -0.12 0.12 --log-temperature -1 0.3 \
+          --resolution 32 32 --transient 300 --samples 300 --max-period 32 --out $D/moe/$model-phil
+        run host-$model 90 scan --device cuda --dtype float64 --chunk 64 --tol 1e-8 --eps 1e-6 --model $model \
+          --layer 16 --vectors $vec --concept hostility-vs-kindness --alpha 0 0.12 --log-temperature -0.3 0.3 \
+          --resolution 32 32 --transient 300 --samples 300 --max-period 32 --out $D/moe/$model-host
+        damp $model
+      done
+    fi
+    ;;
   upperset)    # upper-temperature extension of the scaling sweeps (exploratory; run SCU): JOBARGS MODEL [MODEL...]. For
                # each model: pinned checkpoint, an unsteered float64 sweep (bf16 storage, layers over all GPUs) of 64
                # temperatures over log10 T 0.61..1.2 (the wide sweeps end at 0.6), settings as in scaleset, into
