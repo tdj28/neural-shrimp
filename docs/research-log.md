@@ -27240,3 +27240,13 @@ Run card H's alpha in {0, 0.01, 0.02, 0.04} along philosophy is replaced by this
   - unresolved.
 
 *Primary endpoint.* The difference in the share of starts in verified period-<=8 orbits between Q4 and the reference, averaged over held-out prompts with prompts as units. Next to it: the one-step KL at common states (states of the reference orbits).
+
+## 2026-10-16 04:55 UTC: Run D on pods (cost plan)
+
+The pod job set "damping" runs tools/damping_locate.py with D1's local settings. The model runs in float64 arithmetic, with the decoder linears kept in their stored bfloat16 (exact).
+- **Pod DA** (2 GPUs): Qwen2.5-72B, Llama-3.1-70B and Llama-3.3-70B.
+- **Pod DB** (2 GPUs): Qwen2.5-7B, 14B and 32B; Llama-3.1-8B; OLMo-2 1B, 7B, 13B and 32B.
+- **Measured basis.** The 14 Oct gain splits took 2-3 min (7B), 5 (14B), 7 (32B), 13-17 (70B) and 18 min (72B) for 1500 steps of 48 rows on 2x H100 NVL. D adds knockout passes, about 1.2x.
+- **Expected.** About 1.5 h for DA and 1.3 h for DB, downloads included.
+- **Limits.** Run limits of 150 and 120 min, and the tool's cost guard per pod; private amounts in cost-ledger.md.
+- **Change since D1.** The tool now runs the knockout pass per temperature and moves recorded tensors to one device. On the 0.5B it reproduces D1's knockout values (MLP 0: 2.28 and 2.90 against 2.27-2.93) and the plain-twin check (below 1e-9).

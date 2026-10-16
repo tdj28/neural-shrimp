@@ -1292,6 +1292,45 @@ snapshot_download('$REPO', revision='$MREV', cache_dir='$NEURAL_SHRIMP_DATA/mode
       done
     done
     ;;
+  damping)     # where the loop damps a change of its fed-back token (run D; tools/damping_locate.py): JOBARGS MODE MODEL
+               # [MODEL...], MODE small (one GPU) or big (layers over all GPUs); float64 arithmetic with the decoder
+               # linears in their stored bfloat16 (exact). Per pinned checkpoint (gated Llama: token on stdin, unset after
+               # the downloads): unsteered, paper's prompt, 24 temperatures over log10 T -0.3..0.9, 500 transient + 500
+               # recorded steps, twin 1e-7, knockouts every 25 recorded steps at five temperatures, into
+               # damping/d1/MODEL; the checkpoint and the download cache are then deleted
+    mode=${JOBARGS[0]}
+    if [ "$mode" = big ]; then GDEV="--device auto --weights bf16"; else GDEV="--device cuda --weights bf16"; fi
+    for model in "${JOBARGS[@]:1}"; do
+      case $model in
+        qwen7b)       REPO=Qwen/Qwen2.5-7B-Instruct;          MREV=a09a35458c702b33eeacc393d103063234e8bc28 ;;
+        qwen14b)      REPO=Qwen/Qwen2.5-14B-Instruct;         MREV=cf98f3b3bbb457ad9e2bb7baf9a0125b6b88caa8 ;;
+        qwen32b)      REPO=Qwen/Qwen2.5-32B-Instruct;         MREV=5ede1c97bbab6ce5cda5812749b4c0bdf79b18dd ;;
+        qwen72b)      REPO=Qwen/Qwen2.5-72B-Instruct;         MREV=495f39366efef23836d0cfae4fbe635880d2be31 ;;
+        llama3.1-8b)  REPO=meta-llama/Llama-3.1-8B-Instruct;  MREV=0e9e39f249a16976918f6564b8830bc894c89659 ;;
+        llama3.1-70b) REPO=meta-llama/Llama-3.1-70B-Instruct; MREV=1605565b47bb9346c5515c34102e054115b4f98b ;;
+        llama3.3-70b) REPO=meta-llama/Llama-3.3-70B-Instruct; MREV=6f6073b423013f6a7d4d9f39144961bfbfbc386b ;;
+        olmo2-1b)     REPO=allenai/OLMo-2-0425-1B-Instruct;   MREV=48d788eca847d4d7548f375ad03d3c9312f6139e ;;
+        olmo2-7b)     REPO=allenai/OLMo-2-1124-7B-Instruct;   MREV=470b1fba1ae01581f270116362ee4aa1b97f4c84 ;;
+        olmo2-13b)    REPO=allenai/OLMo-2-1124-13B-Instruct;  MREV=3a5c85baefbb1896a54d56fe2e76c0395627ddf4 ;;
+        olmo2-32b)    REPO=allenai/OLMo-2-0325-32B-Instruct;  MREV=b96024342a77a69aa0dda815c3454a671f477463 ;;
+        *) log "unknown model $model"; continue ;;
+      esac
+      log "download $REPO"
+      HF_HUB_DISABLE_XET=1 HF_HUB_OFFLINE=0 $PY -c "
+from huggingface_hub import snapshot_download
+snapshot_download('$REPO', revision='$MREV', cache_dir='$NEURAL_SHRIMP_DATA/models/hf/hub',
+                  allow_patterns=['*.json', '*.safetensors', '*.txt', '*.model'], max_workers=16)" > "$LOGS/setup-$model.log" 2>&1
+      log "download done $(du -sh $NEURAL_SHRIMP_DATA/models/hf/hub | cut -f1), free $(df -h --output=avail / | tail -1)"
+      mdir="$NEURAL_SHRIMP_DATA/models/hf/hub/models--${REPO/\//--}"
+      mkdir -p "$mdir/refs" && printf %s "$MREV" > "$mdir/refs/main"
+      TOOL=damping_locate.py run damping-$model 120 --model $model $GDEV --log-temperature -0.3 0.9 --n 24 \
+        --transient 500 --record 500 --eps 1e-7 --knockout-every 25 --knockout-cells 2 7 12 17 22 --threads 16 \
+        --out $D/damping/d1/$model
+      case "$mdir" in "$NEURAL_SHRIMP_DATA"/models/hf/hub/models--?*) rm -rf -- "$mdir" ;; esac
+      rm -rf -- "$HOME/.cache/huggingface/xet"
+    done
+    unset HF_TOKEN
+    ;;
   upperset)    # upper-temperature extension of the scaling sweeps (exploratory; run SCU): JOBARGS MODEL [MODEL...]. For
                # each model: pinned checkpoint, an unsteered float64 sweep (bf16 storage, layers over all GPUs) of 64
                # temperatures over log10 T 0.61..1.2 (the wide sweeps end at 0.6), settings as in scaleset, into

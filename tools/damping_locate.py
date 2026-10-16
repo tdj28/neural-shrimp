@@ -176,7 +176,7 @@ def main():
         probe.capture, probe.rec = True, {}
         ht, p, F = forward(Xb, T2)
         probe.capture = False
-        rec = probe.rec
+        rec = {k: v.to(dev, sd) for k, v in probe.rec.items()}
         b, t = slice(0, n), slice(n, 2 * n)
         dx = Xb[t] - Xb[b]
         ndx, nx = nrm(dx), nrm(Xb[b])
@@ -221,29 +221,24 @@ def main():
         if args.knockout_every and args.knockout_cells and i % args.knockout_every == 0:
             cells = args.knockout_cells
             G = 2 + 2 * L
-            rows = []
-            for c in cells:
-                rows += [Xb[c], Xb[n + c]] + [Xb[n + c]] * (2 * L)
-            Xk = torch.stack(rows)
-            Tk = torch.as_tensor(np.repeat(10.0 ** log_ts[cells], G), dtype=sd, device=dev)
             probe.clamp = {}
             for l in range(L):
                 for j, kind in enumerate(("attn", "mlp")):
-                    r = torch.tensor([g * G + 2 + 2 * l + j for g in range(len(cells))], device=dev)
-                    ref = torch.tensor([g * G for g in range(len(cells))], device=dev)
-                    probe.clamp[(kind, l)] = (r, ref)
-            htk, _, _ = forward(Xk, Tk)
-            probe.clamp = {}
+                    probe.clamp[(kind, l)] = ([2 + 2 * l + j], [0])
             for gi, c in enumerate(cells):
-                base_r, twin_r = gi * G, gi * G + 1
+                Xk = torch.stack([Xb[c], Xb[n + c]] + [Xb[n + c]] * (2 * L))
+                Tk = torch.full((G,), 10.0 ** log_ts[c], dtype=sd, device=dev)
+                htk, _, _ = forward(Xk, Tk)
+                base_r, twin_r = 0, 1
                 rel_x = (nrm(Xk[twin_r] - Xk[base_r]) / nrm(Xk[base_r])).item()
                 lg = np.log((nrm(htk[twin_r] - htk[base_r]) / nrm(htk[base_r])).item() / rel_x)
                 ko["check"][gi] += lg - step["log_g_net"][c].item()
                 for l in range(L):
                     for j, kind in enumerate(("attn", "mlp")):
-                        r = gi * G + 2 + 2 * l + j
+                        r = 2 + 2 * l + j
                         lk = np.log((nrm(htk[r] - htk[base_r]) / nrm(htk[base_r])).item() / rel_x)
                         ko[f"delta_{kind}"][l, gi] += lg - lk
+            probe.clamp = {}
             ko["steps"] += 1
 
         scale = (args.eps * nrm(F[b]) / nrm(dF))[:, None]
