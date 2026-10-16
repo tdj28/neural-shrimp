@@ -26744,3 +26744,31 @@ The smallest forecast is 11.201. At q = 0.018 the midpoint acceptance sets {77, 
 - A chaotic and a periodic attractor coexist at the same parameters.
 
 **Papers.** A paragraph after "Three structures stand out" in both papers says three things: what the period-3 name means (three tokens with their probabilities; the fed-back state is a mixture), the two texts at the same point, and the chaotic case.
+
+## 2026-10-16 00:04 UTC: PT2 result: the continuous passage integral predicts all 12 passages at the fresh 2-cycle fold, but fails at the period-6 fold's full channel (18 of 24); the discrete count fails 8 rows; the sign hypothesis holds
+
+**Run.** Frozen design 6f1a53b6 (design sha256 5a8ac959...). The push was verified at 23:48:53 UTC, before the first evaluation (C 23:48:57, D 23:49:03).
+- passage-C-01 (331 s) and passage-D-01: both exit 0, from the pinned worktree.
+- Audit (codex/confirm-fold-2/audit.py, frozen): every first strict exit reconstructed from the traces; every frozen prediction reproduced.
+- Receipt: codex/confirm-fold-2/results-receipt.json. Full table: codex/confirm-fold-2/RESULTS.md.
+
+**Primary: fails, 18 of 24 within one iterate of the unrounded T_arc.**
+- **C, all 12 pass.** Errors +0.599, +0.799, +0.599, +0.714, +0.857, +0.714, +0.711, +0.355, +0.711, +0.255, +0.628, +0.255. N = ceil(T_arc) in every row.
+- **D, 6 pass.**
+  - Midpoint entrances: -0.201, -0.143, +0.355, +0.628.
+  - q = 0.08 full and kicked: -0.401, -0.401.
+- **D, 6 fail:**
+  - full channel, q = 0.05, 0.03, 0.018: N = 42, 81, 149 against 44.286, 85.289, 154.745, errors -2.29, -4.29, -5.74;
+  - kicked: N = 42, 82, 150, errors -2.29, -3.29, -4.75.
+
+**Secondary: fails, 16 of 24 within one iterate of the discrete count.**
+- C-3-midpoint: 78 against 80. That is Task 5's failing configuration (midpoint, smallest distance), reproduced at a fresh fold.
+- Seven D rows: full and kicked at q <= 0.05, and D-3-midpoint (78 against 80).
+
+**Sign hypothesis** (N - discrete <= 0 on midpoint and kicked rows): holds on all 16, with residuals from -6 to 0.
+
+**Reading (exploratory).**
+- At the 2-cycle fold the continuous integral is the better forecast, to within one iterate everywhere.
+- At the period-6 fold the channel's second half (from the fold point to U) follows the normal form. The first half, from u = -U, is crossed faster than the quadratic form predicts, increasingly so at smaller eps.
+- Candidate causes, not tested: higher-order terms of the reduced map on the u < 0 side, or the curvature of the centre manifold at the linear entrance (U = 0.0014 with b = 72).
+- No uniform within-one-iterate claim across folds is supported by either predictor.
