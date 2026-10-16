@@ -1849,6 +1849,22 @@ gain of its loop where its own next-token distribution is spread, no single forw
 to find it in a larger model one has to run the loop there, across prompts. For frontier models this means two
 things: their unsteered chaos may be rare, if, like the largest models here, their distributions spread over a narrow
 range of temperature; and steering still drives both 70B-class models that we steered, Llama-3.3-70B and Qwen2.5-72B, into chaos (Appendix~\ref{sec:size}).
+Figure~\ref{fig:z128} shows it at 70B parameters: in a $128\times128$ float64 scan of Llama-3.3-70B-Instruct steered
+along its hostility direction, computed after the precision fix, 20.8\,\% of the 16{,}384 cells are chaotic, in a band
+threaded by periodic windows, as in the 0.5B model's maps.
+\begin{figure}[tbp]
+\centering
+\includegraphics[width=\linewidth]{fig-zoom-llama70b-z128.png}
+\caption{Chaos at 70B parameters: the soft-token map of Llama-3.3-70B-Instruct steered along its hostility concept
+vector at layer 50, $128\times128$ float64 cells over $\alpha\in[0.06,0.12]$, $\log_{10}T\in[0.12,0.27]$ (300 transient
+and 300 measured steps; sixteen bands of eight temperatures computed separately with identical vectors and joined).
+Left: largest Lyapunov exponent, gray where the cell is not chaotic and in color where it is; 3410 of the 16{,}384
+cells (20.8\,\%) are chaotic (largest exponent 0.64). Right: period of the attractor reached from the fixed start
+(black: chaotic; light gray: neither a detected period up to 32 nor a positive exponent, 1.7\,\% of the cells). The
+chaotic band's center falls from $\log_{10}T\approx0.23$ at $\alpha=0.06$ to $\approx0.19$ at $\alpha=0.12$, and periodic
+windows thread it, most often of periods 3, 5, 6 and 7 and up to 13; fixed points lie above it.}
+\label{fig:z128}
+\end{figure}
 
 \section{A second system: recurrent depth}
 \label{sec:huginn}
@@ -3170,18 +3186,15 @@ offsets from $10^{-4}$ to $10^{-7}$ reproduce within 0.01; five have nearly unif
 11.1 nats) and one alternates between sharp and flat behind a period-2 leading token. The same temperatures without
 steering are period-2 orbits with exponents between $-3.8$ and $-3.6$, and the steered cells above $\log_{10}T=0.325$ are
 near-uniform fixed points, so steering drives Qwen2.5-72B into chaos too, in a narrow band. The chaotic cells of the hostility
-directions lie on a ridge that steering moves from $\log_{10}T\approx0.3$ to $0.1$. A $64\times64$ zoom of the concept
-plane at the same offset (Figure~\ref{fig:zoom70}; $\alpha\in[0.06,0.12]$, $\log_{10}T\in[0.12,0.27]$, four bands computed separately with
-identical vectors and joined) resolves it: a chaotic band, with periodic cells interspersed, whose center steering
-moves from $\log_{10}T=0.25$ at $\alpha=0.06$ to $0.19$ at $\alpha=0.12$ while its extent grows from about 0.02 to 0.05
-decades, and a thinner chaotic layer near $\log_{10}T=0.15$--$0.16$ at strong steering; 22\,\% of the 4096 cells are
-chaotic (largest exponent 0.59). Above the band, 90\,\% of the cells are periodic. About half of these are fixed points or
-2-cycles; the other 515, with periods from 3 to 32, all have a constant leading token and contract (exponents $-0.09$
-or below), so their long periods are probably an artifact of the period test at the noise floor of this computation
-(see below). Below the band, period-6 windows cross the plane in bands. A further 44\,\% of all cells, mostly below the
-band, have neither a detected period up to 32 nor a positive exponent. At 70B the state tolerance of the period test
-($10^{-8}$) lies near the noise floor of the computation, and in a finer unsteered line such cells had repeating
-leading tokens, so many of them are probably periodic, but we leave them unresolved.
+directions lie on a ridge that steering moves from $\log_{10}T\approx0.3$ to $0.1$. A $128\times128$ zoom of the
+concept plane at the same offset, computed after the precision fix in sixteen bands with identical vectors and joined
+(Figure~\ref{fig:z128}; $\alpha\in[0.06,0.12]$, $\log_{10}T\in[0.12,0.27]$), resolves it: a chaotic band (3410 of the
+16{,}384 cells, 20.8\,\%; largest exponent 0.64), threaded by periodic windows, whose center steering moves from
+$\log_{10}T\approx0.23$ at $\alpha=0.06$ to $\approx0.19$ at $\alpha=0.12$; fixed points lie above it, and windows of
+periods 3, 5, 6 and 7, up to 13, fill the plane below. Only 1.7\,\% of the cells have neither a detected period nor a
+positive exponent. An earlier $64\times64$ zoom of the same window, computed before the fix, had 44\,\% such cells and,
+above the band, 515 cells with periods from 3 to 32 but a constant leading token, an artifact of the period test at
+that computation's noise floor; Figure~\ref{fig:z128} supersedes it.
 \begin{figure}[H]
 \centering
 \includegraphics[width=\linewidth]{fig-controls-llama70b.png}
@@ -3193,18 +3206,6 @@ direction, all at the same norm. Chaotic cells: 44, 36, 2 and 11 of 1024 (concep
 Gaussian); cells with neither a period nor a positive exponent: 468, 358, 223 and 424.}
 \label{fig:controls70}
 \end{figure}
-\begin{figure}[H]
-\centering
-\includegraphics[width=\linewidth]{fig-zoom-llama70b.png}
-\caption{Zoom on the chaotic ridge of Llama-3.3-70B-Instruct steered along the hostility concept vector (after
-zero-based block 50): $64\times64$ float64 cells (300 transient and 300 measured steps, maximum period 32), joined from four bands of 16 temperatures computed on separate pods with identical vectors, before the precision fix
-of Section~\ref{sec:sizemain}. Left: largest Lyapunov exponent on one scale, gray from $-1$ or below (black) to 0
-(white) where the cell is not chaotic, color from 0 to 0.5 where it is. Right: period of the
-attractor reached from the fixed start (black: chaotic; light gray: neither a detected period nor a positive exponent). The long periods scattered above the
-band are probably artifacts of that computation (see the text).}
-\label{fig:zoom70}
-\end{figure}
-
 \section{Unsteered chaos and steering controls}
 \label{sec:origin}
 Steering adds a fixed vector to the residual stream, so chaos along
