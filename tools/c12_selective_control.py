@@ -914,7 +914,7 @@ def cmd_run(args):
             if "long" in args.arms and S in long_horizons and inj in args.long_injections:
                 nl = min(args.long_limit or len(probs), len(probs))
                 variants.append((f"pga{args.long_steps}", args.long_steps, [2.5 / args.long_steps] * args.long_steps,
-                                 list(args.long_radii), list(range(nl))))
+                                 list(args.long_radii) or radii, list(range(nl))))
             for arm, steps, sched, vradii, vprobs in variants:
                 pairs = [(i, rho) for i in vprobs for rho in vradii]
                 bs = args.pga_rows_long if n > 1 else args.pga_rows_short
@@ -1097,22 +1097,23 @@ def cmd_analyze(args):
     summ["contrasts"] = dict(sorted(con.items()))
     if args.primary_radius is not None:
         S = max(horizons)
-        key = f"S{S}_early_rho{args.primary_radius}_pga-minus-search"
+        pa = args.primary_arm
+        key = f"S{S}_early_rho{args.primary_radius}_{pa}-minus-search"
         if key not in con:
             raise SystemExit(f"primary contrast {key} missing")
         pr = con[key]
-        summ["primary"] = {"definition": "Delta = P(target | pga) - P(target | search), early injection, "
+        summ["primary"] = {"definition": f"Delta = P(target | {pa}) - P(target | search), early injection, "
                                          f"S = {S}, rho = {args.primary_radius}, baseline-correct problem-temperature "
                                          "pairs, problems weighted equally, paired bootstrap over problems",
                            **pr, "decision": decision(pr["estimate"], pr["boot95_problems"])}
         rho = args.primary_radius
-        summ["primary_unconditional"] = paired_delta(arms[(S, "early", rho, "pga", None)],
+        summ["primary_unconditional"] = paired_delta(arms[(S, "early", rho, pa, None)],
                                                      arms[(S, "early", rho, "search", None)], base, eligible_only=False)
-        el = f"S{S}_rho{rho}_pga_early-minus-late"
+        el = f"S{S}_rho{rho}_{pa}_early-minus-late"
         summ["early_vs_late_primary_dose"] = con.get(el)
-        if (S, "late", rho, "pga", None) in arms:
+        if (S, "late", rho, pa, None) in arms:
             summ["early_vs_late_primary_dose_unconditional"] = paired_delta(
-                arms[(S, "early", rho, "pga", None)], arms[(S, "late", rho, "pga", None)], base, eligible_only=False)
+                arms[(S, "early", rho, pa, None)], arms[(S, "late", rho, pa, None)], base, eligible_only=False)
     # compute
     tim = [r for r in recs if r["kind"] == "timing"]
     comp = {}
@@ -1314,7 +1315,8 @@ def main():
     p.add_argument("--injections", nargs="+", default=["early", "late"], choices=("early", "late"))
     p.add_argument("--arms", nargs="+", default=["search", "pga"], choices=("search", "pga", "long"))
     p.add_argument("--long-steps", type=int, default=30, help="long pga variant: steps (step 2.5 r / N)")
-    p.add_argument("--long-radii", type=float, nargs="*", default=[])
+    p.add_argument("--long-radii", type=float, nargs="*", default=[],
+                   help="default: the main radii (with --control-radii for late injection at the longest horizon)")
     p.add_argument("--long-injections", nargs="+", default=["late"], choices=("early", "late"))
     p.add_argument("--long-horizons", type=int, nargs="*", default=[], help="default: the longest horizon")
     p.add_argument("--long-limit", type=int, default=0, help="long variant on the first N problems (0: all)")
@@ -1322,6 +1324,7 @@ def main():
     p = sub.add_parser("analyze")
     p.add_argument("runs", nargs="+")
     p.add_argument("--primary-radius", type=float, default=None)
+    p.add_argument("--primary-arm", default="pga", help="optimizer arm of the primary contrast (e.g. pga20)")
     p.add_argument("--json", default=None)
     p = sub.add_parser("doses")
     p.add_argument("analysis", help="analysis JSON of the development staircase")
