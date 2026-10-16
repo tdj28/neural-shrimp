@@ -26889,3 +26889,24 @@ tools/audit/dss_bfs_audit.py rebuilds the old breadth-first order from each prog
 - In both the period-4 and the period-8 cells, the two trace-zero arms are one U-shaped curve at the bottom of the V. They do not cross.
 - In the period-8 cell D > 0 throughout and the reading is two-dimensional to 6e-5.
 - In the period-4 cell D changes sign, and near the bottom of the U the leading pair is not isolated. NIL4 is running for that cell.
+
+## 2026-10-16 01:05 UTC: Chaos article: reader review applied (Chaos repo 3e15a16)
+
+**Scope.** A fresh-eyes reader report gave 40 items, a list of contradictions and a list of terms used before definition. Each item was checked against the article, the full paper and the raw data before editing.
+
+**Facts recovered from the data or the full paper.**
+- **Fixed start:** x_0 is the input embedding of the prefix's last token, the newline after "<|im_start|>assistant". Checked from SoftLoop.prepare and the tokenizer (37-token prefix).
+- **The 61 cells of the delay test:** the 62nd repeating-text cell has a 56-token text, which repeats only 35 times in 2000 steps, below the tool's 40-repetition floor (return_map_delays.py; hidden-chaos/h3-cells).
+- **Orbit census, thirteenth point** (above-U): 3 orbits found, none attracting, one with another token loop.
+- **Calibration accuracy for the 1 % push:** 0.87 to 0.89 against 0.89 unsteered.
+- **P3:** holds for Qwen2.5 and fails for OLMo-2. P1 and P2 also hold for Llama-3 in the common window, on the table's numbers.
+- **Layer-20 factors:** the high-temperature chaotic cells have median network +1.09 and readout -0.78 (fig-mechanism.json). The reviewer's premise that the factor split was measured only at layer 12 is wrong, so the claim stays, stated descriptively.
+- **Table V:** the 72B finer lines are candidates; the float64 recomputation is periodic on the standard prompt.
+
+**Figures regenerated, wording only.** Each old image was reproduced byte for byte first.
+- fig-passages.png: "entrance" becomes "start of the channel".
+- fig-window-law.png: "laps" becomes "N, the number of 'is X' pairs".
+- fig-period5-folds.png: "block" becomes "layer".
+- Tools: tools/paper_llm_figures.py (passages and window-law labels; docstring wording) and tools/plot_fm5.py (axis labels).
+
+**Bibliography.** 25 entries printed their arXiv identifier twice, via note or howpublished next to eprint. The duplicate fields are removed; "English" is protected.

@@ -1,8 +1,8 @@
 """Quantitative figures for the LLM-dynamics paper draft (paper/llm/figures), from saved run outputs.
 
-fig-passages.png: bottleneck passage times through the 2-cycle's fold, measured (controlled entrances and
+fig-passages.png: bottleneck passage times through the 2-cycle's fold, measured (controlled starting points and
     natural laminar phases) against the float64 normal-form predictions, versus eps = alpha - alpha_c.
-fig-window-law.png: stripe-centre distances d_N from the fold against the lap count N, with the full- and
+fig-window-law.png: stripe-centre distances d_N from the fold against the pair count N, with the full- and
     half-passage predictions from the normal form.
 fig-bridge.png: mean laminar length against eps for the exact map and for m sampled embeddings.
 """
@@ -37,8 +37,8 @@ def passages(plt):
     for kind, (m, c) in marks.items():
         rows = [r for r in rec["rows"] if r["entrance"] == kind and r["measured_G"]]
         ax.plot([r["eps"] for r in rows], [r["measured_G"] for r in rows], m, color=c, ms=6, mfc="none",
-                label={"full": "measured, full entrance", "midpoint": "measured, midpoint entrance",
-                       "full+transverse": "measured, full + transverse kick"}[kind])
+                label={"full": "measured, start of the channel", "midpoint": "measured, start at the midpoint",
+                       "full+transverse": "measured, start of the channel + transverse kick"}[kind])
     ax.set_xscale("log")
     ax.set_yscale("log")
     ax.set_xlabel(r"distance beyond the fold $\varepsilon=\alpha-\alpha_c$")
@@ -64,7 +64,7 @@ def window_law(plt):
     fit = np.polyfit(N[N >= 4], 1 / np.sqrt(d[N >= 4]), 1)
     ax.plot(n, np.polyval(fit, n), ":", color="C3", lw=1,
             label=f"fit N>=4: slope {fit[0]:.2f}, intercept {fit[1]:.2f}")
-    ax.set_xlabel(r"laps $N$ of the 'is it' channel (period $2N+6$)")
+    ax.set_xlabel(r"$N$, the number of 'is X' pairs (period $2N+6$)")
     ax.set_ylabel(r"$1/\sqrt{\alpha_N-\alpha_c}$")
     ax.legend(fontsize=7, frameon=False)
     fig.tight_layout()

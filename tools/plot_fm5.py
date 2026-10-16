@@ -260,8 +260,8 @@ def figure(branches, curves, located, out):
     ax.set_title("(d) junction of the upper leg: cusps (stars), crossing (x), orbits found (attracting)", fontsize=7.5)
     ax.ticklabel_format(useOffset=False)
     for ax in axes:
-        ax.set_xlabel(r"$\alpha_1$ (gratitude, block 4)", fontsize=8)
-        ax.set_ylabel(r"$\alpha_2$ (hostility, block 16)", fontsize=8)
+        ax.set_xlabel(r"$\alpha_1$ (gratitude, layer 4)", fontsize=8)
+        ax.set_ylabel(r"$\alpha_2$ (hostility, layer 16)", fontsize=8)
         ax.tick_params(labelsize=7)
     fig.tight_layout()
     fig.savefig(out)
