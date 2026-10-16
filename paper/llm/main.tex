@@ -817,7 +817,8 @@ the smallest attainable). In float64 no answer changed within the 32 steps. Ther
 kick to the first soft token is $0.033$ nats per step at $T=1$ (range $-0.13$ to $0.24$ over six problems and three
 kick sizes), and even a relative kick of $10^{-4}$ changes no answer. The bfloat16 discrepancies therefore do not
 require the float64 map's chaos; they are consistent with bfloat16's rounding differences accumulating through
-continuous feedback, which a discrete argmax would absorb. (The forced greedy baseline's accuracy is zero and not
+continuous feedback. A discrete argmax absorbs differences smaller than its margin, but not over a long feedback run
+whose answers the model holds weakly (``Soft Thinking as published'', below). (The forced greedy baseline's accuracy is zero and not
 informative: forced through 32 tokens, the model writes past its answer, and the cue then extracts another number.)
 The same frozen test in Qwen2.5-7B, whose soft-thinking pipeline answers 51 to 64\,\% of these problems, replicates
 the result. In bfloat16 the batch layout changed the soft-thinking answer in 53 of the 96 problems (55\,\%) at
