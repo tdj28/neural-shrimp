@@ -1080,6 +1080,14 @@ def cmd_analyze(args):
             rates[f"S{S}_{inj}_rho{rho}_{arm}"]["J_gain_median"] = float(np.median(
                 [max(r["J_iterates"]) - r["J0"] for r in rows])) if rows else None
     summ["rates"] = rates
+    norms = defaultdict(dict)
+    for r in recs:
+        if r["kind"] == "arm" and r["arm"] in ("search", "random1") or (r["kind"] == "arm" and r["arm"].startswith("pga")):
+            norms[(r["T"], r["S"], r["inj"])][r["uid"]] = r["inj_norm"]
+    summ["injected_token_norm"] = {f"T{T}_S{S}_{inj}": {"median": float(np.median(list(v.values()))),
+                                                         "min": float(min(v.values())), "max": float(max(v.values())),
+                                                         "problems": len(v)}
+                                   for (T, S, inj), v in sorted(norms.items())}
     # contrasts
     con = {}
     for (S, inj, rho, arm, batch) in arms:
@@ -1194,12 +1202,19 @@ def cmd_receipt(args):
                        "sha256": problems_hash(make_problems()),
                        "target_rule": "correct + 10 if that keeps the digit count, else correct - 10"}
     paths = spec["paths"]
-    cal = json.loads((Path(paths["calibrate"]) / "calibrate.json").read_text())
-    rec["calibration"] = {"commit": cal["provenance"]["commit"], "temperatures": {
-        T: {"accuracy": {S: f"{a['correct']}/{a['n']}" for S, a in v["accuracy"].items()},
-            "twins": {e: {k: t[k] for k in ("n_twins", "net_rate_median", "net_rate_quartiles", "share_expanding",
-                                             "answer_flips", "log10_d_median_by_step")} for e, t in v["twin"].items()},
-            "zero_twin_max_rel": v["zero_twin_max_rel"]} for T, v in cal["summary"]["temperatures"].items()}}
+    rec["calibration"] = {}
+    cal_paths = paths["calibrate"] if isinstance(paths["calibrate"], dict) else {"calibrate": paths["calibrate"]}
+    for name, cp in cal_paths.items():
+        cal = json.loads((Path(cp) / "calibrate.json").read_text())
+        keys = ("n_twins", "net_rate_median", "net_rate_quartiles", "share_expanding", "net_rate_by_horizon",
+                "answer_flips", "log10_d_median_by_step")
+        rec["calibration"][name] = {
+            "dir": str(cp), "commit": cal["provenance"]["commit"],
+            "answer_tokens": cal["provenance"]["args"].get("answer_tokens", ANSWER_TOKENS),
+            "temperatures": {T: {"accuracy": {S: f"{a['correct']}/{a['n']}" for S, a in v["accuracy"].items()},
+                                 "twins": {e: {k: t[k] for k in keys if k in t} for e, t in v["twin"].items()},
+                                 "zero_twin_max_rel": v["zero_twin_max_rel"]}
+                             for T, v in cal["summary"]["temperatures"].items()}}
     if "layouts" in paths:
         lay = json.loads((Path(paths["layouts"]) / "layouts.json").read_text())
         rec["layouts"] = {"commit": lay["provenance"]["commit"], "dtypes": {
@@ -1232,7 +1247,7 @@ def cmd_receipt(args):
         a = json.loads(Path(rp["analysis"]).read_text())
         rec["runs"][name] = {"dir": rp["dir"], "runs": a["runs"], "gate": a["gate"], "baseline": a["baseline"],
                              "controls": a["controls"], "rates": compact_rates(a["rates"]), "contrasts": a["contrasts"],
-                             "compute": a["compute"]}
+                             "compute": a["compute"], "injected_token_norm": a.get("injected_token_norm")}
         for k in ("primary", "primary_unconditional", "early_vs_late_primary_dose",
                   "early_vs_late_primary_dose_unconditional"):
             if k in a:
