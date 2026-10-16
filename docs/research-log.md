@@ -27516,3 +27516,20 @@ Both arms completed: 400 problem pairs each, every problem in both layouts. Rece
 **Against E1 (soft thinking, same model and problems).** Soft thinking flips 16.3 % (greedy top-1) to 26.0 % of answers at about 21 % accuracy, against 6.0 % at 86.5 % for greedy CoT.
 
 **Reading.** Ordinary decoding diverges in text under a batch change about as often as soft thinking, or more, but the answer survives most divergences. Soft thinking with this non-reasoning model changes answers 3-4 times as often.
+
+## 2026-10-16 08:37 UTC: Run MOE, pod MA results (OLMoE-1B-7B sweep and run D; Qwen3.5-35B-A3B run D)
+
+**Pod.** vmkcq9xn98xwi6 (H200 community), commit 056d7483 (from the orchestrator log). Verified terminated; the results.tgz hash matches the runner's (9ff23552...). All three jobs ended with status 0. Closure is at most 1.1e-8 (OLMoE) and 6.0e-8 (Qwen3.5-MoE); the decomposition applies, since both are pre-normalization.
+
+**OLMoE unsteered sweep** (130 temperatures, log10 T -1..1.2). One temperature has a positive exponent without a period (log10 T 0.143, exponent 0.023, irregular), and 7 are unresolved. OLMo-2-1B's wide sweep: 5 of 160 chaotic, at most 0.233.
+
+**Median network factor, 0.3-6 nats.**
+- OLMoE -0.36; Qwen3.5-35B-A3B -1.90.
+- Dense references: OLMo-2-1B +0.11 and 7B -0.52; Qwen2.5-32B -1.73 and 72B -1.99.
+- OLMoE and OLMo-2 differ in architecture as well (pre- against post-sublayer normalization), so that pair is confounded.
+- The dense Qwen3.5 controls are pending (pod MB).
+
+**Routing.**
+- At the twin offset 1e-7, the free twin switched no expert at any step, model or temperature. The frozen-routing twin's network factor equals the free twin's exactly (largest difference 0.00), so along these orbits the exponents measure the smooth map.
+- The orbits still pass close to routing boundaries. The per-step smallest router-logit gap (8th against 9th expert, minimum over the routers) has medians of about 1e-3 per temperature, with minima down to 3.4e-7 (OLMoE) and 3.6e-6 (Qwen3.5-MoE).
+- Perturbations at bf16 size (about 1e-3 relative) would therefore switch experts often: an MoE-specific discontinuity in low-precision inference, absent from the float64 exponents.
