@@ -27543,3 +27543,9 @@ Both arms completed: 400 problem pairs each, every problem in both layouts. Rece
 - Qwen3.5-MoE: attention 0 at 0.42, MoE 0 at 0.38; strongest damper attention 39 at -0.22.
 - This is the pattern of the 70-72B dense models.
 - The knockout rows reproduce the plain twin within 8.5e-9.
+
+## 2026-10-16 08:55 UTC: Run MOE, pod MB attempt 1 failed at download (kept); downloads now retried and checked
+
+Pod rpjvsn9lryoyu5 (H200 community, commit 056d7483) ran about 17 minutes. The Qwen3.5-4B download stopped at 8.9 of 9.3 GB with an HTTP read timeout, and the 9B download failed outright. Every job then failed to load its model, and no result was produced. Logs are kept under runpod/soft64/20261016T083611Z.
+
+**Fix.** The job set's download step now resumes up to 5 times with a 120 s timeout and checks that every shard listed in the checkpoint index is present and nonempty. A model whose download stays incomplete is skipped and logged as such, instead of being run on a partial checkpoint.

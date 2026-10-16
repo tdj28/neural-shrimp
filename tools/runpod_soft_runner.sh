@@ -1338,15 +1338,27 @@ snapshot_download('$REPO', revision='$MREV', cache_dir='$NEURAL_SHRIMP_DATA/mode
                # sweep (128 temperatures over log10 T -1..0.3, 1000 + 2000 steps), philosophy and hostility-vs-kindness
                # maps at 32x32 with the MoE maps' ranges and steps, and run D; into moe/MODEL-* and damping/d1/MODEL
     part=${JOBARGS[0]}
-    getq35() {   # $1 key, $2 repo, $3 revision: the whole pinned repository, as job set qwen35moe
-      log "download $2 $3"
-      HF_HUB_DISABLE_XET=1 HF_HUB_OFFLINE=0 $PY -c "
+    getq35() {   # $1 key, $2 repo, $3 revision: the whole pinned repository (resumed up to 5 times; every shard of the
+                 # index checked before use: a run on a partial checkpoint would fail later or, worse, not at all)
+      local ok=0
+      for attempt in 1 2 3 4 5; do
+        log "download $2 $3 (attempt $attempt)"
+        HF_HUB_DISABLE_XET=1 HF_HUB_OFFLINE=0 HF_HUB_DOWNLOAD_TIMEOUT=120 $PY -c "
+import json, sys
+from pathlib import Path
 from huggingface_hub import snapshot_download
-snapshot_download('$2', revision='$3', cache_dir='$NEURAL_SHRIMP_DATA/models/hf/hub', max_workers=16)" \
-        > "$LOGS/setup-$1.log" 2>&1
-      log "download done $(du -shL $NEURAL_SHRIMP_DATA/models/hf/hub | cut -f1), free $(df -h --output=avail / | tail -1)"
+p = Path(snapshot_download('$2', revision='$3', cache_dir='$NEURAL_SHRIMP_DATA/models/hf/hub', max_workers=8))
+idx = p / 'model.safetensors.index.json'
+shards = sorted(set(json.loads(idx.read_text())['weight_map'].values())) if idx.exists() else ['model.safetensors']
+missing = [s for s in shards if not (p / s).exists() or (p / s).stat().st_size == 0]
+print('shards', len(shards), 'missing', missing)
+sys.exit(1 if missing else 0)" >> "$LOGS/setup-$1.log" 2>&1 && { ok=1; break; }
+        sleep 20
+      done
+      log "download $([ $ok = 1 ] && echo done || echo FAILED) $(du -shL $NEURAL_SHRIMP_DATA/models/hf/hub | cut -f1), free $(df -h --output=avail / | tail -1)"
       local refs="$NEURAL_SHRIMP_DATA/models/hf/hub/models--${2/\//--}/refs"
       mkdir -p "$refs" && printf %s "$3" > "$refs/main"
+      [ $ok = 1 ]
     }
     damp() {     # $1 model key
       TOOL=damping_locate.py run damping-$1 150 --model $1 --device cuda --weights native --log-temperature -0.3 0.9 \
@@ -1354,7 +1366,7 @@ snapshot_download('$2', revision='$3', cache_dir='$NEURAL_SHRIMP_DATA/models/hf/
         --out $D/damping/d1/$1
     }
     if [ "$part" = moe ]; then
-      getq35 olmoe-1b-7b allenai/OLMoE-1B-7B-0125-Instruct b89a7c4bc24fb9e55ce2543c9458ce0ca5c4650e
+      getq35 olmoe-1b-7b allenai/OLMoE-1B-7B-0125-Instruct b89a7c4bc24fb9e55ce2543c9458ce0ca5c4650e && \
       run sweep-olmoe 120 scan --device cuda --dtype float64 --chunk 130 --tol 1e-8 --eps 1e-6 --model olmoe-1b-7b \
         --vectors "" --alpha 0 0 --log-temperature -1 1.2 --resolution 130 1 --transient 1000 --samples 2000 \
         --max-period 64 --out $D/moe/olmoe-1b-7b-alpha0-wide
@@ -1368,7 +1380,7 @@ snapshot_download('$2', revision='$3', cache_dir='$NEURAL_SHRIMP_DATA/models/hf/
           qwen3.5-9b) REPO=Qwen/Qwen3.5-9B; MREV=c202236235762e1c871ad0ccb60c8ee5ba337b9a ;;
           *) log "unknown model $model"; continue ;;
         esac
-        getq35 $model $REPO $MREV
+        getq35 $model $REPO $MREV || { log "skip $model: incomplete download"; continue; }
         vec=llm-phase-map/vectors-$model-l16
         TOOL=explore_llm_phase_map.py run vectors-$model 40 vectors --model $model --layer 16 --device cuda \
           --dtype float64 --contrasts hostility:kindness --random 3 --out $vec
