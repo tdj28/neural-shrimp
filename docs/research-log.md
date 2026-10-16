@@ -28056,7 +28056,7 @@ Run by a separate agent on the CPU, float32. Tool tools/c12_steering_history.py 
 
 Costs and ceilings are in the private ledger. Pods are terminated by the orchestrator at their run limits.
 
-## 2026-10-16 23:00 UTC: Codex's audit of NEED_TO_AUDIT applied
+## 2026-10-16 22:47 UTC: Codex audit of NEED_TO_AUDIT applied
 
 The report is codex/need-to-audit-20261016/final-report.md (frozen at 2b217294).
 
