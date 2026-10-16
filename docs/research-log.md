@@ -27171,3 +27171,72 @@ Run card H's alpha in {0, 0.01, 0.02, 0.04} along philosophy is replaced by this
 **Readout.**
 - Per model, at matched entropy bins as in the gain-split comparison: which term of the split changes with size (stack growth, dilution, final normalization), which blocks and sublayers damp (negative parallel coefficients, negative knockout effects), and at what relative depth.
 - Then the scaling of each term with depth, width and parameter count within a family. A trend that holds within Qwen2.5 and Llama can be extrapolated to larger open models; it is tested on one before any frontier statement.
+
+## 2026-10-16 04:49 UTC: Run card FC (exploratory): false chaos and real chaos under noise (human request: show the difference in detail)
+
+**Disclosure.** The full run was launched at about 05:03 UTC, a few minutes before this card and its code were committed. The committed tools/false_chaos_demo.py is the file that ran: no edits after launch.
+
+**Question.**
+- When does noise in both twin rows (rounding, or the float32 final normalization of the two-GPU runs before 14 October) produce a positive twin exponent on a contracting orbit?
+- Can it make a chaotic orbit look contracting?
+
+**Prediction, from the one-leading-direction model in the tool's docstring:** lambda_measured = max(lambda, log(sqrt(2) sigma / eps)). Noise raises estimates below the offset sqrt(2) sigma e^(-lambda) and never lowers them. The run tests this quantitatively; the measured discrepancy will be stated.
+
+**Design.**
+- Qwen2.5-0.5B-Instruct in float64, the paper's prompt, philosophy steering at block 12.
+- Cells:
+  - (0.0652, -0.156), chaotic;
+  - (0.0642, -0.156), the period-3 loop of the coexistence example, weakly contracting;
+  - (0, 0.18), strongly contracting.
+- Twins at 1e-12 to 1e-4 (9 offsets), plus one free twin at 1e-12 that is never renormalized.
+- 400 transient and 800 measured steps.
+- Conditions: clean; Gaussian noise of relative size 1e-10, 1e-8 or 1e-6 on every row's next soft token; and the Hugging Face float32 final normalization.
+
+**Smoke test (30 steps).**
+- Clean exponents do not depend on the offset: about +0.09, -0.14 and -0.86.
+- Under the float32 final normalization:
+  - twins at 1e-12 and 1e-11 mostly merge with their base row exactly;
+  - offsets 1e-10 to 1e-8 give positive exponents of 0.2-2.4 on all three cells;
+  - offsets from 1e-7 up give the clean values.
+
+## Run cards C12-1 and C12-2 (exploratory; from consult 12, adapted; run by separate agents on the CPU, results logged here)
+
+**C12-1, selective control.** Can one small perturbation early in the soft-thinking loop steer a correct answer to a specified wrong one, more effectively than compute-matched random perturbations? Can it do so with greater leverage early than just before the answer?
+
+*Design.*
+- Model and task: Qwen2.5-0.5B-Instruct (float32, CPU) on two-digit additions with exact scoring. 16 development problems and 64 held-out problems, on disjoint operand pairs.
+- Pipeline: the soft-thinking pipeline of tools/pi_harness.py (concept top-n 15; S soft steps, then the cue and greedy answer tokens).
+- Target: correct + 10 if it keeps the digit count, else correct - 10.
+- Horizons: S in {8, 32}, plus an immediate-readout diagnostic.
+- Temperatures: two, chosen on development problems for contrasting finite-time expansion, measured by twins.
+- Doses: two radii relative to the token's norm, fixed on development problems and reported against the measured float32 and bf16 batch differences.
+- Arms: none, one random direction, random search with compute matched to the optimizer (backward passes counted), and projected gradient ascent on the teacher-forced log-probability of the target.
+- Injection: early (first concept token) or late (last concept token before the cue).
+
+*Primary endpoint.* At S = 32 and the smaller dose: Delta = P(target | optimized) - P(target | random search), over baseline-correct problem-temperature pairs, with problems weighted equally and paired intervals over problems. Unconditional results and the eligible counts are reported too.
+
+*Controls.*
+- A large late radius (optimizer validity).
+- A forced target-logit bias (scorer validity).
+- Zero perturbation.
+- Directional derivatives checked against central differences.
+
+*Decision.* An advantage of about 15 points or more merits an extension; an interval that excludes 10 points retires the method.
+
+**C12-2, compression fidelity.** Can weight quantization change the closed-loop behavior of the soft-token map (its attractors) while its one-step next-token distributions stay close?
+
+*Design.*
+- Map: the autonomous map (window 1, fixed prefix) of Qwen2.5-0.5B-Instruct, computed in float64.
+- Variants:
+  - the stored weights;
+  - Q8_0-like and Q4_0-like round-to-nearest block quantization (blocks of 32, symmetric), applied to every linear weight of the decoder blocks; embeddings and the tied head are kept;
+  - a repeat of the reference (negative control);
+  - random logit noise with the one-step KL of the Q8 variant (an unstructured control).
+- Prompts: 8 system prompts x 8 openers built from fixed lists. Two system prompts (16 prompts) are for development and six (48 prompts) are held out.
+- Temperatures and starts: 8 temperatures at log10 T in [-0.5, 0.5], and 8 fixed starts per prompt (embeddings of fixed tokens).
+- Classification of each start after 256 steps:
+  - a verified orbit of period <= 8 (tolerance 1e-8 relative, confirmed by 64 more steps);
+  - chaotic (twin exponents > 1e-3 at offsets 1e-6 and 1e-8);
+  - unresolved.
+
+*Primary endpoint.* The difference in the share of starts in verified period-<=8 orbits between Q4 and the reference, averaged over held-out prompts with prompts as units. Next to it: the one-step KL at common states (states of the reference orbits).
