@@ -317,6 +317,12 @@ snapshot_download('Qwen/Qwen2.5-7B-Instruct', revision='$REV7', cache_dir='$NEUR
     TOOL=lyapunov_spectrum.py run spectrum-$name "$minutes" --device cuda --dtype float64 "${JOBARGS[@]:2}" \
       --out $D/hidden/spectrum-$name
     ;;
+  pif64)       # program PI, float64: soft-thinking twins and float64 answers on GSM8K (tools/pi_f64_twins.py; model
+               # downloaded by name): JOBARGS = NAME MINUTES then tool arguments
+    name=${JOBARGS[0]}
+    minutes=${JOBARGS[1]}
+    TOOL=pi_f64_twins.py run pif64-$name "$minutes" --device cuda "${JOBARGS[@]:2}" --out $D/pi/$name
+    ;;
   dss)         # superstable curves and doubly superstable points of one orbit (tools/doubly_superstable.py grid, float64
                # on the GPU): JOBARGS = NAME MINUTES then grid arguments (vectors uploaded with --extra-data)
     name=${JOBARGS[0]}

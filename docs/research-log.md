@@ -27018,3 +27018,24 @@ tools/audit/dss_bfs_audit.py rebuilds the old breadth-first order from each prog
 - Paired designs: the same problems in both layouts.
 - Intervals by Wilson or bootstrap over problems; McNemar for paired accuracy.
 - Failures and nulls reported as such.
+
+## 2026-10-16 03:44 UTC: Run card PIF64 (exploratory, program PI): float64 sensitivity and answers of the soft-thinking pipeline on all 1319 GSM8K test problems, Qwen2.5-7B-Instruct
+
+**Question.** In the actual soft-thinking pipeline (growing context, published concept-token filtering), does a problem's float64 finite-time sensitivity predict whether its bfloat16 answer depends on the batch layout (E1)? Does the top-n filtering change that sensitivity, as the readout mechanism predicts? How often does a 1e-10 perturbation alone flip a float64 answer?
+
+**Tool.** tools/pi_f64_twins.py: the repository's float64 model, prompts built exactly as in tools/pi_harness.py, base and 3 twin rows per problem.
+- The twins' first concept token is displaced by a relative 1e-10.
+- 64 soft steps at T = 0.6, then the cue and 12 greedy answer tokens.
+- Problems of equal prompt length share batches of 32 rows (no padding).
+- Smoke test on Qwen2.5-0.5B on the CPU: runs, writes records with growth rates and the twins' answers.
+
+**Runs.** Two pods, one H100-class GPU each, job set pif64 at the commit of this card.
+- Configuration A: top-n 15, the published n for QwQ.
+- Configuration B: the full vocabulary.
+- The model is downloaded by name. Problems: docs/pi-gsm8k-test.json.
+- Run limit 90 min. Ceilings and expected costs in the private ledger.
+
+**Readout.**
+- Per problem: median growth rate, twin answer flips, float64 accuracy.
+- Joined to E1's bf16 records (same indices and settings): does the growth rate predict bf16 batch flips? Logistic regression with the entropy and gap features as covariates, AUC with a bootstrap interval.
+- Configuration A against B: growth-rate distributions.
