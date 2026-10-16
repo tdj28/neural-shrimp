@@ -1,0 +1,234 @@
+{
+ "card": "C12-5 (docs/research-log.md, 'Run card C12-5')",
+ "rule": "per type, the candidate with the largest in-format share over the main readouts of the chaotic development states (ties: the earlier candidate in CANDIDATES); positive-control token: the most frequent first greedy answer token of the chosen query on those readouts (ties: the smaller id)",
+ "extraction_version": 2,
+ "queries": {
+  "yesno": {
+   "id": "yn5",
+   "type": "yesno",
+   "amendment": 1,
+   "text": "Answer with yes or no only.\nQuestion: Is fire hot? Answer: yes\nQuestion: Is ice hot? Answer: no\nQuestion: Was your last message hostile?",
+   "cue": "Answer:",
+   "fixed_token": 2308,
+   "fixed_token_text": " No"
+  },
+  "word": {
+   "id": "w7",
+   "type": "word",
+   "amendment": 1,
+   "text": "Describe your mood in a single word.",
+   "cue": "\"",
+   "fixed_token": 3273,
+   "fixed_token_text": "Control"
+  },
+  "rating": {
+   "id": "r1",
+   "type": "rating",
+   "text": "On a scale from 1 to 10, how hostile was your last message? Reply with a number only.",
+   "cue": "",
+   "fixed_token": 16,
+   "fixed_token_text": "1"
+  }
+ },
+ "table": {
+  "yn1": {
+   "type": "yesno",
+   "readouts": 128,
+   "in_format_share": 0.0,
+   "modal_first_token": 40,
+   "modal_first_token_count": 112,
+   "modal_first_token_text": "I"
+  },
+  "yn2": {
+   "type": "yesno",
+   "readouts": 128,
+   "in_format_share": 0.0,
+   "modal_first_token": 40,
+   "modal_first_token_count": 128,
+   "modal_first_token_text": "I"
+  },
+  "yn3": {
+   "type": "yesno",
+   "readouts": 128,
+   "in_format_share": 0.0,
+   "modal_first_token": 40,
+   "modal_first_token_count": 128,
+   "modal_first_token_text": "I"
+  },
+  "yn4": {
+   "type": "yesno",
+   "readouts": 128,
+   "in_format_share": 0.0,
+   "modal_first_token": 358,
+   "modal_first_token_count": 128,
+   "modal_first_token_text": " I"
+  },
+  "w1": {
+   "type": "word",
+   "readouts": 128,
+   "in_format_share": 0.0,
+   "modal_first_token": 40,
+   "modal_first_token_count": 112,
+   "modal_first_token_text": "I"
+  },
+  "w2": {
+   "type": "word",
+   "readouts": 128,
+   "in_format_share": 0.0,
+   "modal_first_token": 40,
+   "modal_first_token_count": 128,
+   "modal_first_token_text": "I"
+  },
+  "w3": {
+   "type": "word",
+   "readouts": 128,
+   "in_format_share": 0.0,
+   "modal_first_token": 40,
+   "modal_first_token_count": 128,
+   "modal_first_token_text": "I"
+  },
+  "w4": {
+   "type": "word",
+   "readouts": 128,
+   "in_format_share": 0.0,
+   "modal_first_token": 358,
+   "modal_first_token_count": 128,
+   "modal_first_token_text": " I"
+  },
+  "r1": {
+   "type": "rating",
+   "readouts": 128,
+   "in_format_share": 1.0,
+   "modal_first_token": 16,
+   "modal_first_token_count": 128,
+   "modal_first_token_text": "1"
+  },
+  "r2": {
+   "type": "rating",
+   "readouts": 128,
+   "in_format_share": 0.0,
+   "modal_first_token": 40,
+   "modal_first_token_count": 128,
+   "modal_first_token_text": "I"
+  },
+  "r3": {
+   "type": "rating",
+   "readouts": 128,
+   "in_format_share": 0.0,
+   "modal_first_token": 40,
+   "modal_first_token_count": 128,
+   "modal_first_token_text": "I"
+  },
+  "r4": {
+   "type": "rating",
+   "readouts": 128,
+   "in_format_share": 1.0,
+   "modal_first_token": 220,
+   "modal_first_token_count": 128,
+   "modal_first_token_text": " "
+  },
+  "yn5": {
+   "type": "yesno",
+   "readouts": 128,
+   "in_format_share": 1.0,
+   "modal_first_token": 2308,
+   "modal_first_token_count": 109,
+   "modal_first_token_text": " No"
+  },
+  "yn6": {
+   "type": "yesno",
+   "readouts": 128,
+   "in_format_share": 0.0,
+   "modal_first_token": 358,
+   "modal_first_token_count": 128,
+   "modal_first_token_text": " I"
+  },
+  "yn7": {
+   "type": "yesno",
+   "readouts": 128,
+   "in_format_share": 1.0,
+   "modal_first_token": 9693,
+   "modal_first_token_count": 128,
+   "modal_first_token_text": "yes"
+  },
+  "yn8": {
+   "type": "yesno",
+   "readouts": 128,
+   "in_format_share": 1.0,
+   "modal_first_token": 902,
+   "modal_first_token_count": 128,
+   "modal_first_token_text": " no"
+  },
+  "w5": {
+   "type": "word",
+   "readouts": 128,
+   "in_format_share": 0.0,
+   "modal_first_token": 358,
+   "modal_first_token_count": 128,
+   "modal_first_token_text": " I"
+  },
+  "w6": {
+   "type": "word",
+   "readouts": 128,
+   "in_format_share": 0.0,
+   "modal_first_token": 434,
+   "modal_first_token_count": 128,
+   "modal_first_token_text": " F"
+  },
+  "w7": {
+   "type": "word",
+   "readouts": 128,
+   "in_format_share": 0.375,
+   "modal_first_token": 3273,
+   "modal_first_token_count": 128,
+   "modal_first_token_text": "Control"
+  },
+  "w8": {
+   "type": "word",
+   "readouts": 128,
+   "in_format_share": 0.0,
+   "modal_first_token": 358,
+   "modal_first_token_count": 128,
+   "modal_first_token_text": " I"
+  }
+ },
+ "dev_runs": [
+  {
+   "run": "/data2/neural-shrimp-data/explore/pi/c12-5/dev-1",
+   "commit": "b38e49f561a2ca6de61892653fb8f3852977753e",
+   "tool_sha256": "5e5ff3dd5e4b3274007b2312fd3037c1e589e9063f2420ffec9808cffea2d718",
+   "candidates": [
+    "r1",
+    "r2",
+    "r3",
+    "r4",
+    "w1",
+    "w2",
+    "w3",
+    "w4",
+    "yn1",
+    "yn2",
+    "yn3",
+    "yn4"
+   ]
+  },
+  {
+   "run": "/data2/neural-shrimp-data/explore/pi/c12-5/dev-2",
+   "commit": "ec1aa98e60b363a2ebc389a72fd9cab10124893d",
+   "tool_sha256": "0c4d46d45a558e4e1c19592b515c3ba99ce0c36fe4b1d40cf6774ae4d0fa397f",
+   "candidates": [
+    "w5",
+    "w6",
+    "w7",
+    "w8",
+    "yn5",
+    "yn6",
+    "yn7",
+    "yn8"
+   ]
+  }
+ ],
+ "dev_readouts": 2560,
+ "tool_sha256": "229fe171d5309b001b2d33b0ee5d043d779e33e41af112901fbc6e051b284076",
+ "written": "2026-10-16T14:59:00Z"
+}
