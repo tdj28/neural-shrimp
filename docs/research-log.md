@@ -27057,3 +27057,41 @@ tools/audit/dss_bfs_audit.py rebuilds the old breadth-first order from each prog
 - Both tools stopped at load: the pod runs Hugging Face offline, and the new pif64 job set did not call the runner's get7b, which downloads the pinned Qwen2.5-7B-Instruct revision a09a3545.
 
 **Fix.** pif64 now calls get7b. Same settings; relaunched at the commit of this entry. The failed run folders are kept.
+
+## 2026-10-16 04:13 UTC: Program PI phase 2 (human: "Do all those experiments in the order you see fit", and study the steering horizons in more detail)
+
+**Order.**
+
+*Local GPU, 7B bf16, sequential:*
+1. E1 pilot (running).
+2. E4 pilot (queued).
+3. **H, the stability-horizon study** (run card below).
+4. The consult-11 confirmatory matrix on fresh problems, design fixed in advance.
+5. E2 and E3.
+
+*CPU, 0.5B-1.5B, in parallel, one agent each* (CUDA hidden, so the GPU stays with the 7B queue):
+- C12-1, selective control;
+- C12-2, compression fidelity;
+- C12-4, steering hysteresis, then C12-5, hidden-chaos readouts.
+
+*Later:* C12-3 (coupled-agent consensus) and E5.
+
+*Float64 on pods:* PIF64 (running), later the float64 horizon per problem, with and without steering.
+
+## 2026-10-16 04:13 UTC: Run card H (exploratory): how long can continuous-feedback inference run before rounding decides the answer, and how does steering shorten that horizon?
+
+**Question.** For soft thinking on GSM8K (Qwen2.5-7B-Instruct, bf16), after how many soft steps do two batch layouts start to give different answers? How do the concept-token filtering and steering change that horizon?
+
+**Design.** tools/pi_harness.py soft mode, with readouts after S = 2, 4, 8, 16, 32, 64 soft steps and a final answer after 128. A readout branches the cache, decodes the cue and 12 greedy answer tokens, and crops the cache back.
+- top-n 15 and full, T = 0.6.
+- Steering along the 7B's philosophy vector at zero-based layer 14 (vectors-7b-l14, normalized to the mean residual norm), alpha in {0, 0.01, 0.02, 0.04}, at every position.
+- Layouts 8 and 16; 200 GSM8K test problems.
+- Answers are compared as decoded strings, so steered runs that stop giving numbers still count.
+
+**Readout.**
+- Per configuration, the survival curve of answer agreement over S.
+- The median answer horizon and the first trajectory divergence (top-1 concept token).
+- Accuracy over S, for unsteered runs.
+- Later joined to float64 growth rates (PIF64 and a steered float64 follow-up).
+
+**Practical meaning.** How many soft steps are safe in a given configuration, and whether steering makes continuous reasoning less reproducible, and by how much.

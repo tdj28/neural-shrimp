@@ -147,16 +147,26 @@ def run(args):
     from transformers import AutoModelForCausalLM, AutoTokenizer
     path = snapshot(MODELS[args.model])
     tok = AutoTokenizer.from_pretrained(path)
-    model = AutoModelForCausalLM.from_pretrained(path, torch_dtype=torch.bfloat16, device_map="cuda")
+    dev = args.device
+    model = AutoModelForCausalLM.from_pretrained(path, torch_dtype=getattr(torch, args.dtype), device_map=dev)
     model.eval()
     E = model.get_input_embeddings().weight                 # (V, d) bf16
+    if args.alpha:                                            # steering: alpha v added after decoder layer --layer
+        vec = np.load(Path(args.steer_vectors) / "vectors.npz")[args.concept]
+        sv = (args.alpha * torch.tensor(vec, dtype=torch.float32)).to(dev)
+
+        def steer_hook(module, inputs, output):
+            if isinstance(output, tuple):
+                return (output[0] + sv.to(output[0].dtype),) + tuple(output[1:])
+            return output + sv.to(output.dtype)
+        model.model.layers[args.layer].register_forward_hook(steer_hook)
     test, train = load_gsm8k(args.split), load_gsm8k("train" if args.split == "test" else "test")
     cue = tok(CUE, add_special_tokens=False)["input_ids"]
     out = Path(args.out)
     out.mkdir(parents=True, exist_ok=True)
     (out / "run.json").write_text(json.dumps({"args": vars(args), "model_path": str(path),
                                               "torch": torch.__version__, "cuda": torch.version.cuda,
-                                              "gpu": torch.cuda.get_device_name()}, indent=1))
+                                              "gpu": torch.cuda.get_device_name() if dev == "cuda" else "cpu"}, indent=1))
     rec_f = open(out / "records.jsonl", "a")
     done = set()
     if (out / "records.jsonl").exists():
@@ -181,7 +191,7 @@ def run(args):
         for bi, batch in enumerate(batches):
             if all((r["index"], layout) in done for r in batch if r["scored"]):
                 continue
-            ids = torch.tensor([r["ids"] for r in batch], device="cuda")
+            ids = torch.tensor([r["ids"] for r in batch], device=dev)
             B = ids.shape[0]
             rngs = [np.random.default_rng(args.seed + max(r["index"], 0)) for r in batch]
             with torch.no_grad():
@@ -191,9 +201,10 @@ def run(args):
                 steps = {"top1": [], "pmax": [], "entropy": [], "gap": [], "gain": [], "temp": []}
                 gen = []
                 embs = []
+                readouts = {}
                 n_steps = args.soft_steps if args.mode == "soft" else args.max_new
                 for t in range(n_steps):
-                    Tt = torch.full((B,), T, device="cuda")
+                    Tt = torch.full((B,), T, device=dev)
                     logp = torch.log_softmax(z / T, dim=-1)
                     p = logp.exp()
                     top2 = torch.topk(z, 2, dim=-1).values
@@ -232,7 +243,7 @@ def run(args):
                                     g[r] = gain_proxy(torch, q[r:r + 1], E, lo)[0]
                         steps["gain"].append(g.tolist())
                         steps["temp"].append(Tt.tolist())
-                        e = concept_token(torch, q, E, args.top_n).to(torch.bfloat16)  # computed in float32
+                        e = concept_token(torch, q, E, args.top_n).to(E.dtype)  # computed in float32
                         if replay:                                  # clamp the fed-back pathway to the reference
                             for r, row in enumerate(batch):
                                 key = row["index"] if row["index"] >= 0 else None
@@ -244,8 +255,8 @@ def run(args):
                         if t == 0 and args.perturb:
                             for r, row in enumerate(batch):
                                 rv = np.random.default_rng(args.perturb_seed + max(row["index"], 0)).normal(size=e.shape[1])
-                                d = torch.tensor(rv / np.linalg.norm(rv), device="cuda", dtype=torch.float32)
-                                e[r] = (e[r].float() + args.perturb * e[r].float().norm() * d).to(torch.bfloat16)
+                                d = torch.tensor(rv / np.linalg.norm(rv), device=dev, dtype=torch.float32)
+                                e[r] = (e[r].float() + args.perturb * e[r].float().norm() * d).to(E.dtype)
                         if args.save_embeddings:
                             embs.append(e.detach().cpu())
                         o = model(inputs_embeds=e[:, None, :], past_key_values=past, use_cache=True)
@@ -259,15 +270,29 @@ def run(args):
                             ps = ps * keep
                             ps = ps / ps.sum(-1, keepdim=True)
                             cs = ps.cumsum(-1)
-                            u = torch.tensor([rg.random() for rg in rngs], device="cuda", dtype=cs.dtype)[:, None]
+                            u = torch.tensor([rg.random() for rg in rngs], device=dev, dtype=cs.dtype)[:, None]
                             pos = torch.searchsorted(cs, u).clamp_max(cs.shape[-1] - 1)
                             nxt = order.gather(-1, pos)[:, 0]
                         gen.append(nxt.tolist())
                         o = model(input_ids=nxt[:, None], past_key_values=past, use_cache=True)
                     past, z = o.past_key_values, o.logits[:, -1, :].float()
+                    if args.mode == "soft" and (t + 1) in args.readout_steps and (t + 1) < n_steps:
+                        L_before = past.get_seq_length()          # branch: answer now, then crop the cache back
+                        ob = model(input_ids=torch.tensor([cue] * B, device=dev), past_key_values=past,
+                                   use_cache=True, logits_to_keep=1)
+                        zb = ob.logits[:, -1, :].float()
+                        toks_b = []
+                        for _ in range(args.answer_tokens):
+                            nb = zb.argmax(-1)
+                            toks_b.append(nb.tolist())
+                            ob = model(input_ids=nb[:, None], past_key_values=past, use_cache=True, logits_to_keep=1)
+                            zb = ob.logits[:, -1, :].float()
+                        past.crop(L_before)
+                        readouts[t + 1] = [CUE + tok.decode([a[r] for a in toks_b], skip_special_tokens=True)
+                                           for r in range(B)]
                 ans_tok = []
                 if args.mode == "soft":                     # answer cue, then greedy answer tokens
-                    o = model(input_ids=torch.tensor([cue] * B, device="cuda"), past_key_values=past, use_cache=True,
+                    o = model(input_ids=torch.tensor([cue] * B, device=dev), past_key_values=past, use_cache=True,
                               logits_to_keep=1)
                     past, z = o.past_key_values, o.logits[:, -1, :].float()
                     for _ in range(args.answer_tokens):
@@ -298,6 +323,8 @@ def run(args):
                        "gap": [round(s[r], 4) for s in steps["gap"]]}
                 if args.mode == "soft":
                     rec["gain"] = [round(s[r], 5) for s in steps["gain"]]
+                    if readouts:
+                        rec["readouts"] = {str(k): extract_answer(v[r]) for k, v in readouts.items()}
                     if args.gain_cap:
                         rec["temp"] = [round(s[r], 5) for s in steps["temp"]]
                 rec_f.write(json.dumps(rec) + "\n")
@@ -378,6 +405,13 @@ def main():
     r.add_argument("--save-embeddings", action="store_true")
     r.add_argument("--replay-from", default=None, help="feed this run's saved concept tokens (mechanism probe)")
     r.add_argument("--offset", type=int, default=0, help="skip the first N test problems (fresh problems)")
+    r.add_argument("--readout-steps", type=int, nargs="*", default=[], help="soft: also answer after these steps")
+    r.add_argument("--alpha", type=float, default=0.0, help="steering strength (0: unsteered)")
+    r.add_argument("--steer-vectors", default="/data2/neural-shrimp-data/explore/llm-phase-map/vectors-7b-l14")
+    r.add_argument("--concept", default="philosophy")
+    r.add_argument("--layer", type=int, default=14, help="steering after this zero-based decoder layer")
+    r.add_argument("--device", default="cuda")
+    r.add_argument("--dtype", default="bfloat16", choices=("bfloat16", "float32", "float64"))
     r.add_argument("--out", required=True)
     a = sub.add_parser("analyze")
     a.add_argument("runs", nargs="+")
