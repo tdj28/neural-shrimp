@@ -27483,3 +27483,23 @@ At T 1.2 and alpha -0.05, 1e-10 twins change 97.5 % of answer texts.
 - The routing contribution, the free minus the frozen network factor, and how close orbits come to routing boundaries.
 
 **Cost plan (private amounts in cost-ledger.md).** M2 and M3 run on one or two H200-class pods, about 45 min and 1.2 h. Ceilings are set in the ledger before launch.
+
+## 2026-10-16 08:12 UTC: Run card CT (exploratory): what a chaotic loop writes (human request: the papers show periodic outputs but no chaos-zone outputs)
+
+**Disclosure.** Launched a few minutes before this card. The code (tools/chaos_texts.py) was committed beforehand at fb14ed56 and has not changed since.
+
+**Design.**
+- Per cell: float64, the fixed start, 1000 transient steps.
+- Label: twin exponents at 1e-6 and 1e-8 over 1000 steps, and the period (tolerance 1e-8, up to 64); chaotic when both exponents exceed 1e-3 and no period is found.
+- Recording: 60 steps of the most probable token with the three most probable tokens and their probabilities.
+- A free twin at relative 1e-10, with its most probable tokens and its distance; the split is the first step at which the most probable tokens differ.
+
+**Cells.**
+- Qwen2.5-0.5B along philosophy at block 12, from the 256x256 stripes map:
+  - (0.0652, -0.156), next to the period-3 crescent of the coexistence example;
+  - (0.07484, -0.1226), the lower right, map exponent 0.524;
+  - (0.07277, -0.041), the upper middle, map exponent 0.571.
+- Qwen2.5-1.5B along philosophy at layer 14, from the s15zoom-b2 band: (0.07376, 0.0165), map exponent 1.075; and (0.10553, 0.0322), 0.937.
+- Qwen2.5-1.5B unsteered: log10 T = 0.657, the upper sweep's chaotic range at nearly uniform distributions, exponent 0.576.
+
+**Receipts.** docs/chaos-texts/qwen0.5b-philosophy.json and qwen1.5b-philosophy.json. Only cells that pass the chaotic label are used as chaos examples.
