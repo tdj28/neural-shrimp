@@ -28004,7 +28004,7 @@ Run by a separate agent on the CPU, float32. Tool tools/c12_steering_history.py 
 - This is stored-context memory, not hysteresis of a fixed-size state.
 - One model, direction and schedule; CPU float32; exploratory.
 
-## 2026-10-16 21:10 UTC: Run PM2 results (confirmatory, frozen before data): the pooled prediction holds; reasoning models that answer well change 15-20 % of GSM8K answers with the batch layout, with soft and plain thinking alike
+## 2026-10-16 21:02 UTC: Run PM2 results (confirmatory, frozen before data): the pooled prediction holds; reasoning models that answer well change 15-20 % of GSM8K answers with the batch layout, with soft and plain thinking alike
 
 **Pods and gates.** Commit 3639819a. Every runner rc 0, hashes verified, all terminated.
 - Pods: A H100 NVL (R1-Distill-Qwen-7B), B H100 NVL (R1-Distill-Llama-8B), C H200 (QwQ-32B), D A100-SXM4-80GB (R1-Distill-Qwen-7B, replication).

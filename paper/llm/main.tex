@@ -134,7 +134,7 @@ system; Section~\ref{sec:beyond} also measures how much of the mechanism survive
   removes nearly all of it (on an H100, 66 against 1.6\,\% of answers changed in Qwen2.5-0.5B, and 64 against
   1.6\,\% in Qwen2.5-7B), and accuracy changes by at most 5 points. In a test frozen before its data, Soft Thinking with its published
   settings changed the answers to 21\,\% of 256 fresh GSM8K problems in Qwen2.5-7B with the batch layout alone, on an
-  H100, mostly between wrong answers; replaying the fed-back tokens cut this to 6\,\%. A chaotic loop's text reuses the phrases of
+  H100, mostly between wrong answers; replaying the fed-back tokens cut this to 6\,\%; with reasoning models that answer 86 to 92\,\% of the problems correctly (DeepSeek-R1-Distill-Qwen-7B and QwQ-32B), 15 to 20\,\% of the answers changed, as often with discrete sampled thinking as with soft thinking. A chaotic loop's text reuses the phrases of
   neighboring loops in no fixed order, and a copy started $10^{-10}$ away writes the same text for 9 to 150 steps,
   then a different one (Table~\ref{tab:chaostexts}). Exactly repeating text can hide a chaotic state (Section~\ref{sec:hostile}). Beyond the model's
   first-token uncertainty, the loop's regime carries no detectable information about the accuracy of ordinary sampled
@@ -891,6 +891,32 @@ started $10^{-10}$ apart, separate the two sources of disagreement.
 \end{itemize}
 In this model, then, the regime in which Soft Thinking is useful is the regime of accumulated rounding, not of chaos
 (\texttt{docs/pi/h-horizon-summary.json}).
+
+\paragraph{Reasoning models that answer well.} Qwen2.5-7B-Instruct answers few of these problems through the soft
+pipeline, so most of its flips are between wrong answers. A second test, also frozen before its data
+(\texttt{docs/pi-matrix2-confirmatory.md}), used reasoning models, as the Soft Thinking paper did:
+DeepSeek-R1-Distill-Qwen-7B, DeepSeek-R1-Distill-Llama-8B and QwQ-32B. A row thinks in concept tokens (top 15,
+$T=0.6$) until its most probable next token ends the thinking block, or until 1536 steps. It then answers by sampling
+discrete tokens, with random numbers shared between the two layouts. The comparison arm thinks with discrete tokens
+sampled the same way. On fresh GSM8K problems the batches held 8 or 16 prompts of equal length. On the integer-answer
+problems of MATH-500, each problem ran alone or as eight copies of itself. Over the five primary cells, the batch
+layout changed 29.6\,\% of the soft-thinking answers (265 of 896; 95\,\% interval $[27.3,31.8]$), confirming the
+prediction of more than 5\,\%.
+\begin{itemize}
+  \item The two models that answer GSM8K well changed their answers with the layout alone: DeepSeek-R1-Distill-Qwen-7B
+  for 14.5\,\% of the problems ($[10.9,18.0]$) at 88 to 90\,\% accuracy, and QwQ-32B for 19.5\,\% ($[16.4,22.3]$) at
+  86 to 87\,\%. The layout decided whether the answer was correct for 11.7 and 14.5\,\% of the problems.
+  \item Discrete sampled thinking changed about as many answers in every cell. On GSM8K the rates were 10.2\,\% and
+  19.9\,\% for the same two models, and no soft-minus-plain difference is significant. The effect belongs to long
+  feedback in bfloat16, not to continuous thinking.
+  \item On an A100 instead of an H100, the first model's soft rate was 11.7\,\% (difference 2.7 points,
+  $[-1.6,6.6]$).
+  \item Accuracy was lower, and flips more frequent, where the budgets cut the reasoning short: 61 and 67\,\% on
+  MATH-500, where half of the rows reached the thinking cap, and 37.5\,\% for DeepSeek-R1-Distill-Llama-8B on GSM8K,
+  which answered 49 to 54\,\% of the problems.
+\end{itemize}
+The Cold Stop rule of the Soft Thinking paper, which ends thinking when its entropy stays low, was not used
+(\texttt{docs/pi/pm2-summary.json}).
 \begin{figure}[tbp]
 \centering
 \includegraphics[width=\linewidth]{fig-repro.png}
