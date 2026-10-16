@@ -2795,7 +2795,7 @@ predict. That is a lead for a future test, not a finding.
 \paragraph{Sensitivity without control.} A loop whose answers change with rounding differences raises a further
 question: can a deliberate perturbation of one fed-back token steer the answer to a chosen wrong value? An exploratory
 test asked this of the Qwen2.5-0.5B soft-thinking pipeline on two-digit additions, in float32, with 16 soft steps, at
-temperatures 0.3 and 1.0 (both contracting at the median), on 16 development and 64 held-out problems. The target was
+temperatures 0.3 and 1.0, on 16 development and 64 held-out problems. The target was
 the correct sum plus or minus 10. A 20-step projected gradient ascent on the target's log-probability perturbed the first
 soft token by one token norm, and random search over 45 directions with at least as much computation served as the
 comparison. On the held-out problems, the early perturbations reached the target in 5 of 101 problem-temperature pairs
@@ -2803,9 +2803,10 @@ that the unperturbed pipeline answered correctly, and random search in none: a d
 interval $[0.8,8.3]$), below the advantage of 10 points that the design required. The same optimization applied to the
 last soft token before the answer cue reached the target in 14 of the 101, so in this pipeline the loop gives less
 leverage early than late. Random early perturbations of that size changed about 28\,\% of the answers, almost never to
-the target. Here the loop's sensitivity comes without selective control. The test covers only the contracting regime,
-where the pipeline still answers correctly, and the doses and the optimizer were chosen on the development problems
-(\texttt{docs/pi/c12-1-summary.json}).
+the target. Here the loop's sensitivity comes without selective control. The test covers temperatures at which the loop
+contracts for most problems (on the development problems 10 and 38\,\% of twins expanded, with median rates of
+$-0.131$ and $-0.058$ per step), where the pipeline still answers correctly, and the doses and the optimizer were
+chosen on the development problems (\texttt{docs/pi/c12-1-summary.json}).
 
 \section{Bifurcation curves and cusps}
 \label{sec:curves}
