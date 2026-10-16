@@ -28,7 +28,7 @@ OUT = DATA / "explore" / "e2e"
 VECTORS = "llm-phase-map/vectors-l12"
 CONCEPT = "philosophy"
 TOKENS = {"is": 374, "it": 432, "nn": 271, "The": 785, "existence": 13885, "question": 3405, ".": 13,
-          "This": 1096, "there": 1052, "a": 264}
+          "This": 1096, "there": 1052, "a": 264, "s": 594, "indeed": 12824}
 
 
 class Model:
