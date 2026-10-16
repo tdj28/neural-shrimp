@@ -2389,7 +2389,8 @@ different attractors (Appendix~\ref{sec:scale}). Size gives no guarantee of stab
 routing in mixture-of-experts models falls outside the smooth theory of Section~\ref{sec:theory} (no expert switched
 along our float64 orbits, but in low precision routing can), and deployed
 inference samples tokens, in low precision, over long contexts; an 8-bit weight quantization that changes next-token
-distributions by only 0.003 nats sends one start in seven to a different attractor (Appendix~\ref{sec:behaviour}). Closed models permit none of these computations, which
+distributions by only 0.003 nats changes the attractor class or period of one start in seven
+(Appendix~\ref{sec:behaviour}). Closed models permit none of these computations, which
 need the input embeddings, full next-token distributions and derivatives; for them the method and the questions
 transfer, not the numbers.
 
