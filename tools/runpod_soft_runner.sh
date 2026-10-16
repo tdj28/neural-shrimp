@@ -324,6 +324,22 @@ snapshot_download('Qwen/Qwen2.5-7B-Instruct', revision='$REV7', cache_dir='$NEUR
     get7b                         # the pinned Qwen2.5-7B-Instruct (the pod runs offline otherwise)
     TOOL=pi_f64_twins.py run pif64-$name "$minutes" --device cuda "${JOBARGS[@]:2}" --out $D/pi/$name
     ;;
+  pm)          # program PI, run PM (docs/pi-matrix-confirmatory.md, amendment 1): the confirmatory soft-thinking matrix,
+               # bfloat16 on the GPU, via tools/pi_matrix_run.sh; JOBARGS = MINUTES
+    minutes=${JOBARGS[0]}
+    get7b
+    log "download GSM8K 740312ad"
+    HF_HUB_OFFLINE=0 $PY -c "
+from huggingface_hub import snapshot_download
+snapshot_download('openai/gsm8k', repo_type='dataset', revision='740312add88f781978c0658806c59bc2815b9866',
+                  cache_dir='$NEURAL_SHRIMP_DATA/models/hf/hub')" > "$LOGS/setup-gsm8k.log" 2>&1
+    uv pip install -q -p $PY "pandas==3.0.6" "pyarrow==26.0.0" > "$LOGS/setup-pandas.log" 2>&1
+    mkdir -p /data2 && ln -sfn "$NEURAL_SHRIMP_DATA" /data2/neural-shrimp-data   # pi_harness's fixed cache path
+    log "start pm"
+    PY=$PY timeout "${minutes}m" bash tools/pi_matrix_run.sh "$OUT/$D/pi/pm" > "$LOGS/pm.log" 2>&1
+    log "end pm status $?"
+    cat "$LOGS/pm.log"
+    ;;
   dss)         # superstable curves and doubly superstable points of one orbit (tools/doubly_superstable.py grid, float64
                # on the GPU): JOBARGS = NAME MINUTES then grid arguments (vectors uploaded with --extra-data)
     name=${JOBARGS[0]}

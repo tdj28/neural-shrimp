@@ -85,3 +85,20 @@ answers and the first step at which the trajectories diverge. E1's flips fell mo
 - A float64 check on these problems. PIF64 measured float64 sensitivity on the test split: top-15 and the full
   vocabulary at 64 steps, at T = 0.6.
 - Steering and other temperatures. Run H covers them on the test split.
+
+## Amendment 1 (16 October 2026, 16:33 UTC, before any data): hardware
+
+The human asked to run the test on RunPod, because the local GPU and CPU are busy with other runs. No run of this test
+had started: the local queue was waiting for run H and was stopped before PM began, and no PM output exists.
+
+- **Hardware:** one NVIDIA H100 (any form factor) or H200 on RunPod, recorded in the run's hardware log, instead of the
+  local RTX 2000 Ada.
+- **Software:** torch 2.14.1 built for CUDA 12.6 (the pods' build) instead of CUDA 13.0; transformers 5.19.0 as before;
+  pandas 3.0.6 and pyarrow 26.0.0 as locally.
+- **Code changes, which do not change what is computed:**
+  - tools/pi_matrix_run.sh takes the Python interpreter from $PY, with the old default.
+  - The runner job set `pm` downloads the pinned Qwen2.5-7B-Instruct and the pinned GSM8K snapshot (740312ad, as
+    used locally), and links the harness's fixed cache path to the pod's data directory.
+- **Consequence:** batch-layout differences depend on the kernels, so the development flip rate (25.75 %, E1, RTX 2000
+  Ada) is a reference, not a calibration, for this hardware. Problems, arms, order, endpoints, predictions and analysis
+  are unchanged.

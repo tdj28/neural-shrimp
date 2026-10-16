@@ -27844,3 +27844,11 @@ Run by a separate agent on the CPU. Receipt docs/pi/c12-2-summary.json (commit b
 - The repetition rate in chaotic against periodic cells at matched temperature.
 
 **Decision.** A clear positive correlation that survives the entropy baseline would make the loop's chaos onset a usable marker of where sampled text stops looping. A correlation that the entropy explains says the shared cause is token competition. That is the theory's prediction, and the result is still informative.
+
+## 2026-10-16 16:33 UTC: Run PM, amendment 1 (before any data): on a RunPod H100-class GPU instead of the local GPU
+
+The human asked to move the confirmatory matrix to RunPod, because the local GPU (run H) and CPU (C12-4, C12-5, E5) are busy. The local queue was stopped before PM began; no PM output exists. The amendment is in docs/pi-matrix-confirmatory.md:
+- hardware and CUDA build;
+- job set `pm`;
+- $PY in tools/pi_matrix_run.sh.
+Problems, arms, endpoints, predictions and analysis are unchanged. Cost plan and ceiling are in the private ledger.

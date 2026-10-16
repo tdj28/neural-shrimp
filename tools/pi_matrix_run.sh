@@ -8,9 +8,10 @@ cd "$(dirname "$0")/.."
 D=${1:-../neural-shrimp-data/explore/pi/pm}
 mkdir -p "$D"
 COMMON="--split train --limit 256 --layouts 8 16"
+PY=${PY:-"uv run --no-sync python"}    # the pod passes its venv's python
 run() {
   name=$1; shift
-  PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True uv run --no-sync python tools/pi_harness.py run "$@" $COMMON \
+  PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True $PY tools/pi_harness.py run "$@" $COMMON \
     --out "$D/$name" > "$D/$name.log" 2>&1
   echo "$name exit $? $(date -u +%H:%M:%S)"
 }
