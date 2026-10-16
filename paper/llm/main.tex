@@ -131,7 +131,9 @@ system; Section~\ref{sec:beyond} also measures how much of the mechanism survive
   in 56\,\% of problems in Qwen2.5-0.5B and 55\,\% in Qwen2.5-7B, against never and 10\,\% for a forced greedy
   baseline. An exploratory causal test shows that the loop carries this: resetting the fed-back state before every soft step
   removes nearly all of it (on an H100, 66 against 1.6\,\% of answers changed in Qwen2.5-0.5B, and 64 against
-  1.6\,\% in Qwen2.5-7B), and accuracy changes by at most 5 points. Exactly repeating text can hide a chaotic state (Section~\ref{sec:hostile}). Beyond the model's
+  1.6\,\% in Qwen2.5-7B), and accuracy changes by at most 5 points. A chaotic loop's text reuses the phrases of
+  neighboring loops in no fixed order, and a copy started $10^{-10}$ away writes the same text for tens to a hundred
+  and fifty steps, then a different one (Table~\ref{tab:chaostexts}). Exactly repeating text can hide a chaotic state (Section~\ref{sec:hostile}). Beyond the model's
   first-token uncertainty, the loop's regime carries no detectable information about the accuracy of ordinary sampled
   answers, and we find no advantage at the edge of chaos.
 \item \emph{Why the loop is chaotic, and how steering makes it so} (Section~\ref{sec:theory}). The loop's derivative
@@ -602,6 +604,76 @@ are analyzed in Appendix~\ref{sec:curves}.}
 \label{fig:zooms}
 \end{figure}
 
+\paragraph{What a chaotic loop writes.} The chaotic cells write text too (Table~\ref{tab:chaostexts}). Their text
+reuses the words and phrases of the neighboring loops without settling into an order, and it depends on the state to
+arbitrary precision. To show the second property in words, we ran the loop at cells labeled chaotic for 1000 steps in
+float64. We then recorded it together with a copy started at a relative distance of $10^{-10}$, about 600 times smaller
+than the relative rounding error of float32. The copy is never reset. Its distance from the loop grows at roughly the
+rate the cell's Lyapunov exponent sets (Figure~\ref{fig:chaostwins}). The two write the same text until the distance
+is a sizable fraction of the soft token, and different texts afterwards. In Qwen2.5-0.5B, two cells steered along
+philosophy, with exponents 0.44 and 0.36, split at steps 44 and 51, and a cell steered along hostility, with exponent
+0.35, at step 45. By then the distance had grown by 8.5 to 10.2 decades, to between 3\,\% and 170\,\% of the soft
+token's norm. The splits fall where two candidates nearly tie: at step 44 of the first cell, a blank line and `` is''
+have probabilities 0.139 and 0.135, and at step 45 of the hostility cell, ``Yes'' and ``No'' have 0.303 and 0.298.
+
+The texts show where the chaos lives. Next to the period-3 crescent, where the exponent is only 0.10, the loop keeps
+the skeleton of the period-3 text, a blank line, ``The'' and a noun, and only the noun varies, between `` existence''
+and `` question'', whose probabilities come within 0.0025 of each other; there the texts split at step 151. On the
+hostility plane (Section~\ref{sec:hostile}), the chaotic cell lies between windows whose loops write ``!Yes!Yes, that's
+crap!Yeah'' and ``!No, that's crap!Yeah!Yes!Yes''. It repeats ``!Yes'' and inserts ``, nonsense'', ``, that'' and
+``!No, that'' at irregular intervals.
+%QWEN15%
+
+The text is fragile to the computation itself. We recorded the cell next to the crescent twice in float64 on the same
+processor, once with six threads and once with four, which changes the order of floating-point sums. During the
+1000-step transient the chaos had already amplified that difference, so the two recordings started from slightly
+different states; they wrote the same text for 27 steps and different texts from step 28 on. At 70B the chaotic cells
+of Figure~\ref{fig:z128} draw on the words of the unsteered model's fifteen-token loop (Section~\ref{sec:sizemain}):
+the first eight distinct leading tokens of one chaotic cell confirmed at three twin offsets are `` I'', ``The'',
+``!'', `` It'', `` infinite'', `` possibilities'', `` are'' and `` you'' (17 distinct tokens in 300 steps).
+\begin{table}[tbp]
+\centering\small
+\begin{tabular}{@{}l p{0.88\linewidth}@{}}
+\toprule
+\multicolumn{2}{@{}l}{Qwen2.5-0.5B, philosophy, $\alpha=0.0652$, $\log_{10}T=-0.156$: $\lambda=0.10$, texts split at step 151} \\
+loop & \texttt{$\hookleftarrow$$\hookleftarrow$The\ question$\hookleftarrow$$\hookleftarrow$The\ existence$\hookleftarrow$$\hookleftarrow$The\ existence$\hookleftarrow$$\hookleftarrow$The\ existence$\hookleftarrow$$\hookleftarrow$The\textcolor{BrickRed}{\ existence$\hookleftarrow$$\hookleftarrow$The\ existence$\hookleftarrow$$\hookleftarrow$The\ existence$\hookleftarrow$$\hookleftarrow$The\ existence}} \\
+copy & \texttt{$\hookleftarrow$$\hookleftarrow$The\ question$\hookleftarrow$$\hookleftarrow$The\ existence$\hookleftarrow$$\hookleftarrow$The\ existence$\hookleftarrow$$\hookleftarrow$The\ existence$\hookleftarrow$$\hookleftarrow$The\textcolor{BrickRed}{\ question$\hookleftarrow$$\hookleftarrow$The\ existence$\hookleftarrow$$\hookleftarrow$The\ question$\hookleftarrow$$\hookleftarrow$The\ existence}} \\
+\midrule
+\multicolumn{2}{@{}l}{Qwen2.5-0.5B, philosophy, $\alpha=0.07484$, $\log_{10}T=-0.1226$: $\lambda=0.44$, texts split at step 44} \\
+loop & \texttt{\ is\ a.$\hookleftarrow$$\hookleftarrow$The\ question$\hookleftarrow$$\hookleftarrow$The\ is$\hookleftarrow$$\hookleftarrow$The\ is\ a.\textcolor{BrickRed}{$\hookleftarrow$$\hookleftarrow$\ is\ is$\hookleftarrow$$\hookleftarrow$The\ is$\hookleftarrow$$\hookleftarrow$The\ is$\hookleftarrow$$\hookleftarrow$}} \\
+copy & \texttt{\ is\ a.$\hookleftarrow$$\hookleftarrow$The\ question$\hookleftarrow$$\hookleftarrow$The\ is$\hookleftarrow$$\hookleftarrow$The\ is\ a.\textcolor{BrickRed}{Is$\hookleftarrow$$\hookleftarrow$The\ is\ there\ is\ a.Is$\hookleftarrow$$\hookleftarrow$}} \\
+\midrule
+\multicolumn{2}{@{}l}{Qwen2.5-0.5B, philosophy, $\alpha=0.07277$, $\log_{10}T=-0.041$: $\lambda=0.36$, texts split at step 51} \\
+loop & \texttt{$\hookleftarrow$$\hookleftarrow$The\ is$\hookleftarrow$$\hookleftarrow$The\ is\ a.\ -$\hookleftarrow$$\hookleftarrow$The\ is\ a.\textcolor{BrickRed}{Is$\hookleftarrow$$\hookleftarrow$The\ is\ a.\ Is$\hookleftarrow$$\hookleftarrow$The\ is}} \\
+copy & \texttt{$\hookleftarrow$$\hookleftarrow$The\ is$\hookleftarrow$$\hookleftarrow$The\ is\ a.\ -$\hookleftarrow$$\hookleftarrow$The\ is\ a.\textcolor{BrickRed}{$\hookleftarrow$$\hookleftarrow$The$\hookleftarrow$$\hookleftarrow$$\hookleftarrow$$\hookleftarrow$The\ is\ a\ is\ a.}} \\
+\midrule
+\multicolumn{2}{@{}l}{Qwen2.5-0.5B, hostility, $\alpha=0.08946$, $\log_{10}T=-0.05566$: $\lambda=0.35$, texts split at step 45} \\
+loop & \texttt{Yes!Yes!Yes!Yes!Yes!Yes!Yes!\textcolor{BrickRed}{Yes,\ that!Yes!Yes!No,}} \\
+copy & \texttt{Yes!Yes!Yes!Yes!Yes!Yes!Yes!\textcolor{BrickRed}{No,\ that!Yes!Yes!Yes!}} \\
+%TABLEROWS%
+\bottomrule
+\end{tabular}
+\caption{What chaotic loops write. Each pair of lines shows the most probable token at consecutive steps of a chaotic
+loop and of a copy started at a relative distance of $10^{-10}$ from it, from 14 steps before the first step at which
+they differ to 9 steps after it (or the end of the recording); from that step on the text is red. $\hookleftarrow$: line break. $\lambda$: largest Lyapunov exponent, from twins at relative offsets
+$10^{-6}$ and $10^{-8}$ over 1000 steps after 1000 transient steps; both offsets give the same value to two decimals.
+Split: the step of the recording at which the texts first differ. Float64; \texttt{tools/chaos\_texts.py}, receipts in
+\texttt{docs/chaos-texts}.}
+\label{tab:chaostexts}
+\end{table}
+\begin{figure}[tbp]
+\centering
+\includegraphics[width=0.62\linewidth]{fig-chaos-twins.png}
+\caption{How a difference of $10^{-10}$ becomes a different text. The relative distance between a chaotic loop and its
+copy (Table~\ref{tab:chaostexts}), never reset, against the step in units of the cell's Lyapunov time $1/\lambda$.
+Labels give the model (0.5B: Qwen2.5-0.5B-Instruct), the steering direction and strength, the exponent and the step of
+the split.
+Dotted: $10^{-10}e^{\lambda t}$, the growth the exponent sets on average. Dots: the first step at which the two write
+different most probable tokens. Over these finite stretches the copies grow somewhat faster than the 1000-step
+exponents, as in the batch-layout runs of Section~\ref{sec:consequences}.}
+\label{fig:chaostwins}
+\end{figure}
+
 \section{What the chaos does to inference and steering}
 \label{sec:consequences}
 The loop studied here is the expected-embedding feedback that continuous reasoning methods such as Soft Thinking use
@@ -621,7 +693,8 @@ derivative at every step. On a periodic attractor the derivative contracts on av
 the difference decays until both runs follow the same orbit and write the same text. On a chaotic attractor the
 exponent $\lambda$ is positive and the difference grows like $d_1e^{\lambda t}$ from its first value $d_1$, so it
 reaches a relative size of $10^{-2}$ after about $\ln(10^{-2}/d_1)/\lambda$ steps (about 100 steps for $d_1\approx
-10^{-15}$ and $\lambda\approx0.3$), after which the runs write different text. This has a practical consequence.
+10^{-15}$ and $\lambda\approx0.3$). Within a few more steps, as it grows to a sizable fraction of the state, the runs
+write different text (Table~\ref{tab:chaostexts} shows such splits). This has a practical consequence.
 Batch-invariant kernels, which fix the order of every reduction independently of the batch size, remove this source
 of difference \cite{he2025nondeterminism}. In a periodic regime that is enough, and small differences would be forgiven
 even without it. In a chaotic regime it is not: any remaining difference, from another GPU model, a library or compiler
