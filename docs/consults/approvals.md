@@ -214,3 +214,21 @@ skill, section 7A). Spend is recorded only in the gitignored `cost-ledger.md`
   locally in `adjudication.md`.
 - **Outcome:** sent at about 15:46 UTC, completed 15:58 UTC (71,366 tokens); adjudicated in
   `2026-10-15-restructure-final-check/adjudication.md`.
+
+## Consult 11 (approved): headline practical implication and the experiment program that would establish it
+
+- **Approval (human, in session, 16 October 2026, about 04:00 UTC):** "Regarding my concerns about a headliner
+  practical utility of this finding can you do a gpt pro consult? $15 budget". This explicitly requests one paid
+  consult, within a $15 budget.
+- **Milestone:** a mature design for a major new research question and campaign (section 7A): program PI, five
+  experiments on the practical implications of the loop's dynamics, with a float64 component on rented GPUs. The
+  decisions it can improve:
+  - which practical implication to pursue as the headline;
+  - which experiments to run first, and what is missing;
+  - the minimal convincing design, its controls and its sample sizes;
+  - what would be overclaiming.
+- **Scope:** one `research-strategy` request with a compact brief, `2026-10-16-practical-utility/brief.md`. No retry
+  or second pass without a new recorded decision.
+- **Model:** `gpt-6-astra`, Responses Pro mode, xhigh effort, at most 40,000 output tokens. The canonical client's
+  reserves apply, and so does its $5 per-call authorization ceiling, which lies inside the human's $15 budget. Advice
+  is advisory and is adjudicated locally in `adjudication.md`.
