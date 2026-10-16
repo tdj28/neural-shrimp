@@ -28037,3 +28037,21 @@ Run by a separate agent on the CPU, float32. Tool tools/c12_steering_history.py 
 - In reasoning models that answer GSM8K well (83-92 % across both arms), the batch layout alone changes 10-20 % of answers. It changes correctness for 8-15 % of problems, whether the model thinks in soft tokens or samples discrete tokens with identical random numbers.
 - The effect is a property of long feedback in bfloat16, not of continuous thinking.
 - The earlier non-reasoning result (21 %, PM) generalizes to models that answer well.
+
+## 2026-10-16 21:59 UTC: Run card PM2F (exploratory): do the reasoning models' soft-thinking loops expand or contract in float64?
+
+**Why.** PM2 found that answers of reasoning models change with the batch layout (15-20 % at 86-90 % accuracy), with soft and plain thinking alike. Whether chaos contributes needs the float64 loop (human: "proceed with these and RESUME_PLAN.md").
+
+**Design.** tools/pi_reason_f64.py, the PM2 soft pipeline in float64 (decoder weights in stored bf16 used exactly in float64; norm and rotary patches via Engine).
+- Each problem has a base row and 2 twins, whose first concept token is displaced by a relative 1e-10. The twins share the base row's random numbers.
+- Per twin: the distance of the fed-back input per step, the growth rate over 10 eps0 <= d <= 1e-3, the same switch step or not, and an answer flip.
+- Problems: the PM2 GSM8K problems (train after 256, groups of identical length).
+- R1-Distill-Qwen-7B and R1-Distill-Llama-8B: 128 problems each on H100s. QwQ-32B: 32 problems on an H200.
+
+**Readout.**
+- If the twins contract (negative growth, no flips), the PM2 flips are bf16 rounding carried to near-tie answers.
+- If they expand and flip answers, chaos contributes.
+
+**Smoke test.** CPU, R1-Distill-Qwen-1.5B, 10 thinking steps: the twins contracted from 1e-10 to 1e-16..1e-18.
+
+Costs and ceilings are in the private ledger. Pods are terminated by the orchestrator at their run limits.
