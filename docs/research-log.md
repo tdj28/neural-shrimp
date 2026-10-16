@@ -27662,3 +27662,21 @@ Receipts docs/chaos-texts/qwen0.5b-philosophy.json (3 cells, 60 recorded steps, 
   - step 44 of the second cell: a blank line 0.139 against " is" 0.135;
   - step 151 of the weak cell: " existence" 0.199 against " question" 0.167.
 - **Thread count decides the text too.** The weak cell was recorded twice in float64 on the same CPU, with 6 and 4 threads, which changes the order of floating-point sums. The two runs reach different points of the attractor during the 1000-step transient: the first recorded probabilities differ in the third decimal. Their texts agree for 27 steps and differ from step 28 on. The exponents differ by 1.5 % (0.0982 against 0.0997), a finite-time estimate from different starting points on one attractor.
+
+## 2026-10-16 11:58 UTC: CT result for the hostility cell (gated), and the paper passage
+
+**Hostility cell** (Qwen2.5-0.5B, hostility-vs-kindness at block 12, alpha 0.08946, log10 T -0.05566; receipt docs/chaos-texts/qwen0.5b-hostility.json).
+- Chaotic: exponents 0.3518 and 0.3518 at offsets 1e-6 and 1e-8, no period up to 64.
+- Text: "!Yes" repeated, with ", nonsense", ", that" and "!No, that" inserted at irregular intervals. Its neighbors are the period-adding windows "!Yes!Yes, that's crap!Yeah", "!No, that's crap!Yeah!Yes!Yes" and the others.
+- The 1e-10 copy splits at step 45, where "Yes" and "No" have probabilities 0.303 and 0.298 (distance 10^-1.47, 15.8 Lyapunov times).
+
+**Across the four 0.5B cells**, the texts split after the distance has grown by 8.5 to 10.2 decades, at 9.0 decades for the weak cell. That puts the split at 3 % to 170 % of the soft token's norm, at 15.1 to 19.5 Lyapunov times.
+- Before 1e-2, the copies grew somewhat faster than the 1000-step exponents: 0.136, 0.512 and 0.472 nats per step against 0.0997, 0.444 and 0.355.
+- This matches the batch-layout runs, where divergence came at a median 0.91 of the exponent's estimate.
+
+**Paper (8d7ec457).**
+- New passage "What a chaotic loop writes" at the end of sec:maps, with tab:chaostexts (each loop beside its copy, red after the split) and fig-chaos-twins (distance in Lyapunov times; tools/plot_chaos_texts.py).
+- It includes the thread-count example and the 70B chaotic vocabulary (pt128, cell alpha 0.1129, log10 T 0.142: confirmed at three twin offsets and an exact tangent; its first eight distinct leading tokens come from the words of the unsteered 15-token loop).
+- "How a change of batch reaches the output" now says that the runs write different text a few steps after the distance passes 1e-2, as it grows to a sizable fraction of the state.
+- The intro's contribution 1 points to the table.
+- The 1.5B cells will be added when their run ends.
