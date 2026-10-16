@@ -303,6 +303,23 @@ def test_layer_order_scales_with_depth():
     assert c4.layer_order(36) == (18, 13, 23)
 
 
+def test_concept_mask_excludes_special_tokens():
+    torch = pytest.importorskip("torch")
+    from types import SimpleNamespace
+    g = torch.Generator().manual_seed(0)
+    E = torch.randn(10, 4, generator=g)
+    z = torch.tensor([[0.0, 1.0, 2.0, 0.5, 0.1, 0.0, 0.0, 0.0, 5.0, 6.0]])
+    stub = SimpleNamespace(torch=torch, mask_special=True, special_from=8, T=1.0, top_n=3, E=E)
+    e, pmax, ent = c4.Engine.concept(stub, z)
+    w = torch.softmax(torch.tensor([2.0, 1.0, 0.5]), 0)            # ids 2, 1, 3: the top 3 below the special range
+    assert torch.allclose(e[0], (w[:, None] * E[[2, 1, 3]]).sum(0), atol=1e-6)
+    assert pmax[0] < 0.6                                             # the masked ids carry no probability
+    stub.mask_special = False
+    e2, _, _ = c4.Engine.concept(stub, z)
+    w2 = torch.softmax(torch.tensor([6.0, 5.0, 2.0]), 0)
+    assert torch.allclose(e2[0], (w2[:, None] * E[[9, 8, 2]]).sum(0), atol=1e-6)
+
+
 def test_choose_bias():
     rows = [_row(i, "prohibited", 0, "unsteered", "DENY", thr=float(i), forced="ALLOW") for i in range(1, 5)]
     r = c4.choose_bias(rows, 56, 0.5, grid=[0.0, 1.0, 2.0, 2.5, 3.0, 5.0])

@@ -76,6 +76,16 @@ task as soft steps accumulate (unparseable answers up to 14 % and 32 %). The run
 (choose_pipeline: qwen1.5b at any temperature before qwen3b before qwen7b; then the longer pre-dwell; then the higher
 accuracy; then T closest to 0.6). qwen7b in float32 (about 30 GB) is not run while it would leave the shared machine
 without memory headroom.
+Amendment 2 (2026-10-16, after the qwen1.5b temperature baselines and the calib2 rendering check; before any steering
+run on development instances). No temperature passes (qwen1.5b after 56 soft steps: 0.508, 0.547, 0.531, 0.594 at T
+0.3, 0.6, 1.0, 2.0), and the cells rendering does not beat rows on calib2. The top-1 trajectories show why accuracy
+falls with soft steps: the loop writes a correct chain of thought and conclusion within 20-40 steps, then emits
+<|im_end|> and continues into hallucinated new turns ("Human: ...", "<|im_start|>user ..."), so a cue after 44-56
+steps lands in an invented conversation. Option --mask-special excludes the special and added tokens (ids >= 151643)
+from the concept support, keeping the soft steps inside the assistant turn. Rule fixed before its outputs: masking is
+adopted if, on calib2 (qwen1.5b, T = 0.6, rows, unsteered), it beats the unmasked pipeline at both 44 and 56 soft
+steps; then the development baseline with masking is run at T = 0.6 and choose_pipeline decides (the other
+temperatures only if T = 0.6 fails); otherwise the pipeline stays unmasked.
 
 Subcommands (prefix CUDA_VISIBLE_DEVICES= ; nice -n 10 uv run --no-sync python; --threads 6):
   instances  write the instance list (docs/pi/c12-4-instances.json) and its SHA-256; checks prompt lengths;
@@ -599,9 +609,9 @@ class Engine:
     """Qwen2.5 soft-thinking rollouts on the CPU with per-row, per-step steering at one decoder layer."""
 
     def __init__(self, model_key="qwen1.5b", threads=6, layer=None, top_n=TOP_N, T=TEMPERATURE,
-                 answer_tokens=ANSWER_TOKENS, rendering="rows"):
+                 answer_tokens=ANSWER_TOKENS, rendering="rows", mask_special=False):
         T = TEMPERATURE if T is None else T
-        self.rendering = rendering
+        self.rendering, self.mask_special = rendering, bool(mask_special)
         import torch
         from transformers import AutoModelForCausalLM, AutoTokenizer
         from transformers.cache_utils import DynamicCache
@@ -631,6 +641,9 @@ class Engine:
                 raise SystemExit(f"start word {w!r} is not one token: {ids}")
             self.start_ids.append(ids[0])
         self.plant_ids = {k: self.tok(v, add_special_tokens=False)["input_ids"] for k, v in PLANT.items()}
+        # special and added tokens (<|endoftext|>, <|im_start|>, <|im_end|>, tool and vision tokens) start at this id;
+        # the logit columns from here to the padded vocabulary end are masked from the concept support when asked
+        self.special_from = min(self.tok.added_tokens_decoder)
         self.steer = None
         self.layer = layer
         if layer is not None:
@@ -686,8 +699,12 @@ class Engine:
         return {"kv": kv, "z": o.logits[:, -1, :].float(), "len": lens.pop()}
 
     def concept(self, z):
-        """pi_harness soft mode: softmax(z / T), top-n renormalized, concept token in float32."""
+        """pi_harness soft mode: softmax(z / T), top-n renormalized, concept token in float32. With mask_special, the
+        special and added tokens are excluded first (the soft steps then cannot end the assistant turn)."""
         torch = self.torch
+        if self.mask_special:
+            z = z.clone()
+            z[:, self.special_from:] = -float("inf")
         logp = torch.log_softmax(z / self.T, dim=-1)
         p = logp.exp()
         w, idx = torch.topk(p, self.top_n, dim=-1)
@@ -974,7 +991,8 @@ def cmd_smoke(args):
     """Engine checks on two smoke instances (seed SMOKE_SEED, neither development nor held-out)."""
     torch_threads(args)
     import torch
-    eng = Engine(args.model, args.threads, layer=args.layer, T=args.temperature, rendering=args.rendering)
+    eng = Engine(args.model, args.threads, layer=args.layer, T=args.temperature, rendering=args.rendering,
+                 mask_special=args.mask_special)
     v, u, vsha = load_vecs(args.vectors, args.layer, args.model)
     insts = smoke_instances()
     out = out_dir(args, "smoke")
@@ -1024,10 +1042,10 @@ def cmd_smoke(args):
 
 def cmd_baseline(args):
     torch_threads(args)
-    eng = Engine(args.model, args.threads, T=args.temperature, rendering=args.rendering)
+    eng = Engine(args.model, args.threads, T=args.temperature, rendering=args.rendering, mask_special=args.mask_special)
     insts = split_instances(args, args.split)
     tag = ("" if args.temperature == TEMPERATURE else f"-T{args.temperature:g}") + \
-        ("" if args.rendering == "rows" else f"-{args.rendering}")
+        ("" if args.rendering == "rows" else f"-{args.rendering}") + ("-mask" if args.mask_special else "")
     out = out_dir(args, f"baseline-{args.model}{tag}-{args.split}", resume=args.resume)
     N = max(args.readouts)
     starts = list(range(args.starts))
@@ -1042,17 +1060,19 @@ def cmd_baseline(args):
     info = provenance(args, {"kind": "baseline", "instances_sha256": instances_hash(load_instances(args.instances)),
                              "model_path": str(eng.path), "uids": [i["uid"] for i in insts], "starts": starts,
                              "start_ids": eng.start_ids, "n_steps": N, "readouts": sorted(args.readouts),
-                             "temperature": eng.T, "rendering": eng.rendering, "top_n": eng.top_n, "answer_tokens": eng.answer_tokens})
+                             "temperature": eng.T, "rendering": eng.rendering, "mask_special": eng.mask_special,
+                             "special_from": eng.special_from, "top_n": eng.top_n, "answer_tokens": eng.answer_tokens})
     run_batches(args, eng, out, batches, N, sorted(args.readouts), None, None, info)
 
 
 def cmd_sweep(args):
     torch_threads(args)
-    eng = Engine(args.model, args.threads, layer=args.layer, T=args.temperature, rendering=args.rendering)
+    eng = Engine(args.model, args.threads, layer=args.layer, T=args.temperature, rendering=args.rendering,
+                 mask_special=args.mask_special)
     v, u, vsha = load_vecs(args.vectors, args.layer, args.model)
     insts = split_instances(args, args.split)
     tag = ("" if args.temperature == TEMPERATURE else f"-T{args.temperature:g}") + \
-        ("" if args.rendering == "rows" else f"-{args.rendering}")
+        ("" if args.rendering == "rows" else f"-{args.rendering}") + ("-mask" if args.mask_special else "")
     out = out_dir(args, f"sweep-{args.model}{tag}-l{args.layer}-{args.split}", resume=args.resume)
     N = max(args.readouts)
     starts = list(range(args.starts))
@@ -1070,7 +1090,8 @@ def cmd_sweep(args):
                              "model_path": str(eng.path), "vectors_sha256": vsha, "uids": [i["uid"] for i in insts],
                              "starts": starts, "start_ids": eng.start_ids, "n_steps": N,
                              "readouts": sorted(args.readouts), "alphas": args.alphas, "layer": args.layer,
-                             "temperature": eng.T, "rendering": eng.rendering, "top_n": eng.top_n, "answer_tokens": eng.answer_tokens})
+                             "temperature": eng.T, "rendering": eng.rendering, "mask_special": eng.mask_special,
+                             "special_from": eng.special_from, "top_n": eng.top_n, "answer_tokens": eng.answer_tokens})
     run_batches(args, eng, out, batches, N, sorted(args.readouts), v, u, info)
 
 
@@ -1081,7 +1102,7 @@ def cmd_histories(args):
         if ch.get(k) is None:
             raise SystemExit(f"choices file lacks {k}")
     eng = Engine(ch["model"], args.threads, layer=ch["layer"], T=ch.get("temperature", TEMPERATURE),
-                 rendering=ch.get("rendering", "rows"))
+                 rendering=ch.get("rendering", "rows"), mask_special=ch.get("mask_special", False))
     v, u, vsha = load_vecs(args.vectors, ch["layer"], ch["model"])
     insts = split_instances(args, args.split)
     out = out_dir(args, f"histories-{args.split}", resume=args.resume)
@@ -1109,7 +1130,8 @@ def cmd_histories(args):
                              "choices_sha256": sha256_file(args.choices), "uids": [i["uid"] for i in insts],
                              "starts": starts, "start_ids": eng.start_ids, "n_steps": N, "P": P, "dwell": dwell,
                              "readouts": reads, "histories": args.histories, "plant_ids": eng.plant_ids,
-                             "temperature": eng.T, "rendering": eng.rendering, "top_n": eng.top_n, "answer_tokens": eng.answer_tokens})
+                             "temperature": eng.T, "rendering": eng.rendering, "mask_special": eng.mask_special,
+                             "special_from": eng.special_from, "top_n": eng.top_n, "answer_tokens": eng.answer_tokens})
     run_batches(args, eng, out, batches, N, reads, v, u, info, pair=True)
 
 
@@ -1350,16 +1372,16 @@ def cmd_choose(args):
             h = json.loads((Path(a["run"]) / "run.json").read_text())["history"][-1]
             if h["args"]["split"] != "dev":
                 raise SystemExit(f"{path}: the pipeline rule uses development baselines only")
-            renderings.add(h.get("rendering", "rows"))
+            renderings.add((h.get("rendering", "rows"), bool(h.get("mask_special", False))))
             results[(h["args"]["model"], float(h["temperature"]))] = {int(S): v for S, v in a["accuracy_by_S"].items()}
         if len(renderings) != 1:
             raise SystemExit(f"analyses mix renderings {sorted(renderings)}")
-        rendering = renderings.pop()
+        rendering, mask = renderings.pop()
         r = choose_pipeline(results)
-        ch.setdefault("pipeline_rule", {})[rendering] = {
+        ch.setdefault("pipeline_rule", {})[f"{rendering}{'-mask' if mask else ''}"] = {
             "results": [{"model": m, "T": T, "accuracy_by_S": acc} for (m, T), acc in sorted(results.items())], **r}
         if r["model"] is not None:
-            ch.update({"model": r["model"], "temperature": r["temperature"], "rendering": rendering,
+            ch.update({"model": r["model"], "temperature": r["temperature"], "rendering": rendering, "mask_special": mask,
                        "ramp": r["ramp"], "hold": r["hold"], "P": r["P"], "dwell": 32, "dwell_secondary": 64})
     elif args.stage == "alpha":
         tables = {}
@@ -1445,6 +1467,7 @@ def main():
     p.add_argument("--alpha", type=float, default=0.05)
     p.add_argument("--temperature", type=float, default=TEMPERATURE)
     p.add_argument("--rendering", default="rows", choices=RENDERINGS)
+    p.add_argument("--mask-special", action="store_true", help="exclude special tokens from the concept support")
     p.add_argument("--vectors", default=None, help="default: DATA/vectors-<model>")
     p = sub.add_parser("baseline")
     common(p)
@@ -1452,6 +1475,7 @@ def main():
     p.add_argument("--starts", type=int, default=8)
     p.add_argument("--temperature", type=float, default=TEMPERATURE)
     p.add_argument("--rendering", default="rows", choices=RENDERINGS)
+    p.add_argument("--mask-special", action="store_true", help="exclude special tokens from the concept support")
     p.add_argument("--readouts", type=int, nargs="+", default=[0, 8, 16, 24, 32, 44, 56, 64, 76, 88, 96])
     p.add_argument("--instances-per-batch", type=int, default=8)
     p = sub.add_parser("sweep")
@@ -1460,6 +1484,7 @@ def main():
     p.add_argument("--layer", type=int, required=True)
     p.add_argument("--temperature", type=float, default=TEMPERATURE)
     p.add_argument("--rendering", default="rows", choices=RENDERINGS)
+    p.add_argument("--mask-special", action="store_true", help="exclude special tokens from the concept support")
     p.add_argument("--vectors", default=None, help="default: DATA/vectors-<model>")
     p.add_argument("--alphas", type=float, nargs="+", required=True)
     p.add_argument("--starts", type=int, default=4)
