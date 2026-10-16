@@ -179,5 +179,32 @@
  "hold": 8,
  "P": 24,
  "dwell": 32,
- "dwell_secondary": 64
+ "dwell_secondary": 64,
+ "layer_rule": {
+  "status": "chosen",
+  "layer": 18,
+  "alpha_final": 0.025,
+  "alpha_high": 0.04,
+  "results": {
+   "18": {
+    "fa_proh_alpha0": 0.125,
+    "rules": {
+     "change_valid": 0.25,
+     "change_min": 0.1,
+     "unparse_max": 0.1,
+     "sat_max": 0.8,
+     "high_sat": 0.9,
+     "high_unparse_max": 0.25
+    },
+    "valid": true,
+    "alpha_final": 0.025,
+    "alpha_high": 0.04,
+    "alpha_final_rule": "fa_proh closest to 0.5 among changing, unsaturated, parseable alphas",
+    "alpha_high_rule": "smallest saturating alpha (fa_proh >= 0.90, unparseable <= 25 %)"
+   }
+  }
+ },
+ "layer": 18,
+ "alpha_final": 0.025,
+ "alpha_high": 0.04
 }
