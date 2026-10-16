@@ -2876,6 +2876,21 @@ In this model, then, a one-step check certifies the statistics of the closed loo
 individual run reaches. We found no effect of quantization beyond that of unstructured noise of the same one-step size
 (\texttt{docs/pi/c12-2-summary.json}).
 
+\paragraph{Steering history and a policy decision.} Coexisting attractors suggest that the history of a steering
+schedule can matter, not only its present value. An exploratory test asked this of a decision with right and wrong
+answers. Qwen2.5-3B-Instruct, thinking in soft tokens, judged synthetic access-control requests against a supplied
+permission table, answering ALLOW or DENY, while a permissive-versus-restrictive direction steered it at layer 18.
+Every run ended with 32 steps at the same steering strength ($\alpha=0.025$). Some runs got there directly; others
+first made a brief excursion to $\alpha=0.04$ and back. The excursion raised the share of prohibited requests wrongly
+allowed from 49.5 to 70.8\,\%, a difference of 21.4 points (95\,\% interval over 24 held-out instances
+$[15.6,26.6]$). The difference was 20.3 points after 64 steps, so it did not relax. A restrictive excursion likewise
+raised false denials of permitted requests by 31.2 points ($[22.4,41.1]$). An excursion of the same size along a random
+direction moved neither rate (1.0 points, $[-4.2,6.2]$), and an excursion of zero size changed no decision. The
+present steering strength therefore does not describe the steered model's behavior here. What the loop wrote during
+the excursion stays in its growing context and keeps biasing the decision: this is a memory of the context, not
+hysteresis of a fixed-size state. One model, one direction and one schedule were tested, in float32
+(\texttt{docs/pi/c12-4-summary.json}).
+
 \paragraph{Does the hidden state change answers?} In band chaos the loop writes an exactly repeating text while its
 state moves chaotically (Section~\ref{sec:hostile}). An exploratory test asked whether states with the same visible
 history answer a follow-up question differently. We took 16 states at one phase of the text from each of 92 held-out

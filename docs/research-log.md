@@ -27973,3 +27973,33 @@ Run by a separate agent, CPU float64. Tool tools/c12_hidden_readouts.py (14 test
 **Reading.**
 - In the useful regime (accuracy 20-49 %), layout dependence accumulates over the first tens of soft steps, without float64 chaos.
 - Steering strong enough to make the float64 loop sensitive also destroys accuracy.
+
+## 2026-10-16 19:35 UTC: C12-4 results (steering history and a policy decision): a past excursion changes the decision at the same final strength (+21 points), carried by the context it wrote
+
+Run by a separate agent on the CPU, float32. Tool tools/c12_steering_history.py (27 tests). Development choices were committed at 47511a0e before held-out data. Receipt docs/pi/c12-4-summary.json (2c69bb52), with SHA-256 of 85 raw files.
+
+**Setup.** Qwen2.5-3B-Instruct, soft thinking at T 0.6 with special tokens masked from the concept support, steering at layer 18 along a permissive-versus-restrictive direction. There are 48 held-out access-control instances x 8 starts x 7 histories. The final strength is alpha 0.025 and the excursion reaches alpha 0.04 (ramps of 8 steps, a hold of 8), followed by a 32- or 64-step dwell. Why 3B: 1.5B failed the 80 % baseline rule, even after amendments 1-2 (a temperature grid and special-token masking).
+
+**Primary.** Up-excursion minus direct, false-ALLOW among prohibited requests after the 32-step dwell: +0.214, bootstrap [0.156, 0.266] over 24 instances (20 positive, 1 negative). After 64 steps: +0.203 [0.151, 0.250]. This is persistent by the card's rule.
+
+**Secondary.**
+- The down-excursion raises false-DENY on permitted requests by +0.312 [0.224, 0.411], and by +0.245 after 64 steps.
+- The up effect grows rather than relaxes: +0.083 at the peak, +0.135 at the return.
+- The first-token margin shifts by +2.17 nats [1.44, 2.84].
+
+**Controls.**
+- Random direction: +0.010 [-0.042, 0.062].
+- Zero-amplitude excursion: 0 of 384 decisions differ.
+- Planted contrast: +0.505.
+- Unsteered: 0.151, against 0.495 at alpha_final, so the intervention is valid.
+- An endpoint logit bias matched on development did not transfer: 0.307 against 0.495 held out.
+
+**Deviations.**
+- Model 3B; special-token masking; steering on every forward pass.
+- 4 answer tokens; extra calibration splits; development scale-downs.
+- A disagreement measure added before held-out data.
+
+**Reading.**
+- The present steering strength does not determine the decision: what the loop wrote under earlier steering stays in its growing context and keeps biasing it.
+- This is stored-context memory, not hysteresis of a fixed-size state.
+- One model, direction and schedule; CPU float32; exploratory.
