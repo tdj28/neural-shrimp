@@ -1411,21 +1411,28 @@ def cmd_receipt(args):
     cols = ["uid", "disagreement", "text_disagreement", "in_format_share", "positive_share", "distance_median",
             "differs_from_reference", "labels", "reference_label", "qualifies", "first_gap_min", "first_gap_range",
             "path_gap_min"]
+    chosen = None
+    if CHOICES_JSON.exists():
+        chosen = {q["id"] for q in json.loads(CHOICES_JSON.read_text())["queries"].values()}
+    seen_cells = {}
     for a in args.analyses:
         d = json.loads(Path(a).read_text())
         e = {k: d[k] for k in ("run", "commit", "tool_sha256", "gate", "groups", "negative_control",
                                "analysis_commit", "extraction_version")}
-        e["cells"] = [{k: s[k] for k in ("uid", "kind", "split", "log10T", "qualifies", "reasons", "exponent_cpu",
-                                         "period_end", "text_period_cpu", "family_text", "history_identical",
-                                         "future_identical", "pair_distance", "current_token_text")}
-                      for s in d["trajectories"]["cells"]]
+        cl = [{k: s[k] for k in ("uid", "kind", "split", "log10T", "qualifies", "reasons", "exponent_cpu",
+                                 "period_end", "text_period_cpu", "family_text", "history_identical",
+                                 "future_identical", "pair_distance", "current_token_text")}
+              for s in d["trajectories"]["cells"]]
+        key = json.dumps(cl, sort_keys=True)
+        e["cells"] = cl if key not in seen_cells else f"as in {seen_cells[key]}"
+        seen_cells.setdefault(key, str(Path(a).relative_to(DATA_ROOT)))
         e["per_cell"] = {qid: {"fixed_token": pq["fixed_token"], "columns": cols,
                                "rows": [[u, r["disagreement"], r["text_disagreement"], r["in_format_share"],
                                          r["positive_share"], r["distance"]["median"], r["differs_from_reference"],
-                                         r["labels"], r["reference_label"], r["qualifies"], r["first_gap_min"],
-                                         r["first_gap_range"], r["path_gap_min"]]
+                                         r["labels"], r["reference_label"], r["qualifies"], r.get("first_gap_min"),
+                                         r.get("first_gap_range"), r.get("path_gap_min")]
                                         for u, r in pq["cells"].items()]}
-                         for qid, pq in d["per_query"].items()}
+                         for qid, pq in d["per_query"].items() if chosen is None or qid in chosen}
         analyses[str(Path(a).relative_to(DATA_ROOT))] = e
     res = dict(notes)
     res.update({"cells_file": {"path": "docs/pi/c12-5-cells.json", "sha256": sha256_file(CELLS_JSON)},
