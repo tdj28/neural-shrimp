@@ -297,6 +297,122 @@ def curve1d(args):
     print(json.dumps({k: rec[k] for k in rec if k not in ("args", "orbits_3")}))
 
 
+def smooth_curve(X, tau, m=10, n=2001):
+    """A smooth version of a sampled curve: PCA to m components, smoothing splines (GCV) of each component against
+    the geodesic coordinate tau, re-parametrized by the arclength of the smooth curve. Returns (mean, V (m, d),
+    dense smooth points in PC coordinates (n, m), their arclength parameter sigma in [0, 1])."""
+    from scipy.interpolate import make_smoothing_spline
+
+    mean = X.mean(0)
+    U, S, Vt = np.linalg.svd(X - mean, full_matrices=False)
+    V = Vt[:m]
+    P = (X - mean) @ V.T
+    o = np.argsort(tau)
+    t = tau[o]
+    keep = np.concatenate([[True], np.diff(t) > 0])
+    t, Po = t[keep], P[o][keep]
+    tg = np.linspace(0, 1, n)
+    Pg = np.stack([make_smoothing_spline(t, Po[:, j])(tg) for j in range(m)], axis=1)
+    L = np.concatenate([[0.0], np.cumsum(np.linalg.norm(np.diff(Pg, axis=0), axis=1))])
+    return mean, V, Pg, L / L[-1]
+
+
+def curve1d_smooth(args):
+    """R1 on a smoothed attractor curve (see smooth_curve): the model's return map sigma -> sigma' on a dense
+    grid, its fixed point and period-2 orbit with multipliers, and the full map's period-3 and period-6 orbits
+    solved from the curve points at those positions (Newton-Picard, AD multipliers) for comparison; the R1
+    Lyapunov exponent against the twin exponent of the section record."""
+    model = em.Model(args.threads)
+    S = np.load(em.OUT / args.ref / "section.npz")
+    sec = json.loads((em.OUT / args.ref / "section.json").read_text())
+    X, s = S["states"], S["s"]
+    tau = arclength(X, k=args.k, start=int(np.argmax(s)))
+    mean, V, Pg, sig = smooth_curve(X, tau, m=args.m)
+    sg = np.linspace(0, 1, args.n)
+    Pn = np.stack([np.interp(sg, sig, Pg[:, j]) for j in range(Pg.shape[1])], axis=1)
+    Xn = mean + Pn @ V
+    cell = model.cell(sec["args"]["alpha"], sec["args"]["log_t"])
+    Yn = cell.Fp(Xn, args.period)
+
+    def chart(Y):
+        Q = (Y - mean) @ V.T
+        off = np.linalg.norm((Y - mean) - Q @ V, axis=1)          # outside the m-dimensional subspace
+        t, d, _ = project_to_chain(Pg, Q)
+        return t, d, off
+
+    t_img, d_img, off_img = chart(Yn)
+    t_dat, d_dat, off_dat = chart(X)
+    Lc = float(np.sum(np.linalg.norm(np.diff(Pg, axis=0), axis=1)))
+    g = en.GridMap(sg, t_img)
+    rec = {"args": vars(args), "curve_length": Lc,
+           "model_transverse_median_relative": float(np.median(np.hypot(d_img, off_img)) / Lc),
+           "model_transverse_max_relative": float(np.max(np.hypot(d_img, off_img)) / Lc),
+           "data_offcurve_median_relative": float(np.median(np.hypot(d_dat, off_dat)) / Lc),
+           "data_vs_model_median_abs": float(np.median(np.abs(g(t_dat[:-1]) - t_dat[1:]))),
+           "data_vs_model_max_abs": float(np.max(np.abs(g(t_dat[:-1]) - t_dat[1:]))),
+           "extrema": g.extrema(), "lyapunov_twin_per_return": args.period * sec["lyapunov_twin"]}
+    xs, x = [], 0.3
+    for _ in range(200000):
+        x = float(np.clip(g(x), 0, 1))
+        xs.append(x)
+    xs = np.array(xs[1000:])
+    rec["lyapunov_R1_per_return"] = float(np.mean(np.log(np.abs(g.deriv(xs[:-1])))))
+    rec["orbits_1"] = g.periodic_orbits(1)
+    rec["orbits_2"] = g.periodic_orbits(2)
+    full = []
+    for per, key in ((1, "orbits_1"), (2, "orbits_2")):
+        for o in rec[key][:1]:
+            t0 = o["points"][0]
+            x0 = mean + np.array([np.interp(t0, sg, Pn[:, j]) for j in range(Pn.shape[1])]) @ V
+            xo, info, _ = cell.solve(x0, per * args.period, k=6, ad=True)
+            full.append({"reduced_period": per, "full_period": per * args.period, "R1_multiplier": o["multiplier"],
+                         "full_converged": info["converged"], "full_residual": info["residuals"][-1],
+                         "full_multipliers": info.get("multipliers", [])[:4],
+                         "full_classified": info.get("crossing_side")})
+            print(json.dumps(full[-1]), flush=True)
+    rec["full_orbits"] = full
+    out = em.OUT / args.out
+    out.mkdir(parents=True, exist_ok=True)
+    np.savez_compressed(out / "curve1d-smooth.npz", sigma=sg, sigma_image=t_img, data_sigma=t_dat, Yn=Yn, Xn=Xn,
+                        transverse=np.hypot(d_img, off_img))
+    (out / "curve1d-smooth.json").write_text(json.dumps(rec, indent=1))
+    print(json.dumps({k: rec[k] for k in rec if k not in ("args", "orbits_2", "extrema")}))
+
+
+def along(args):
+    """What varies along the attractor curve: at every section state (ordered by the geodesic coordinate tau),
+    the pair's log-odds s, the pair's total probability w, the leading tokens, and the same at the next two
+    phases; binned summaries in tau."""
+    model = em.Model(args.threads)
+    a, b = em.TOKENS[args.pair[0]], em.TOKENS[args.pair[1]]
+    S = np.load(em.OUT / args.ref / "section.npz")
+    sec = json.loads((em.OUT / args.ref / "section.json").read_text())
+    X, s = S["states"], S["s"]
+    tau = arclength(X, k=8, start=int(np.argmax(s)))
+    cell = model.cell(sec["args"]["alpha"], sec["args"]["log_t"])
+    phases = [X]
+    for _ in range(args.period - 1):
+        phases.append(cell.F(phases[-1]))
+    bins = np.linspace(0, 1, args.bins + 1)
+    rows = []
+    for k, Xk in enumerate(phases):
+        P = np.concatenate([cell.probs(Xk[i:i + 100]) for i in range(0, len(Xk), 100)])
+        for j in range(args.bins):
+            m = (tau >= bins[j]) & (tau <= bins[j + 1])
+            if not m.any():
+                continue
+            pm = P[m].mean(0)
+            top = np.argsort(-pm)[:5]
+            rows.append({"phase": k, "tau_bin": [float(bins[j]), float(bins[j + 1])], "n": int(m.sum()),
+                         "s_mean": float(s[m].mean()), "w_mean": float((P[m][:, a] + P[m][:, b]).mean()),
+                         "top": [[model.decode(t), float(pm[t])] for t in top]})
+    out = em.OUT / args.out
+    out.mkdir(parents=True, exist_ok=True)
+    (out / "along.json").write_text(json.dumps({"args": vars(args), "rows": rows}, indent=1, ensure_ascii=False))
+    for r in rows:
+        print(json.dumps(r, ensure_ascii=False))
+
+
 def r1_map(cell, a, b, period, ends, n, project):
     """R1: n states on the segment between the two section states `ends`, pushed `project` times through
     G = F^period, then the log-odds before and after one more G. Returns (s, s', spread) with s sorted; spread is
@@ -383,6 +499,21 @@ def main():
     c.add_argument("--n", type=int, default=801)
     c.add_argument("--threads", type=int, default=8)
     c.add_argument("--out", required=True)
+    c = sub.add_parser("curve1d-smooth")
+    c.add_argument("--ref", required=True)
+    c.add_argument("--period", type=int, required=True)
+    c.add_argument("--k", type=int, default=8)
+    c.add_argument("--m", type=int, default=10)
+    c.add_argument("--n", type=int, default=801)
+    c.add_argument("--threads", type=int, default=8)
+    c.add_argument("--out", required=True)
+    c = sub.add_parser("along")
+    c.add_argument("--ref", required=True)
+    c.add_argument("--pair", nargs=2, required=True, choices=sorted(em.TOKENS))
+    c.add_argument("--period", type=int, required=True)
+    c.add_argument("--bins", type=int, default=10)
+    c.add_argument("--threads", type=int, default=8)
+    c.add_argument("--out", required=True)
     r = sub.add_parser("r2scan")
     r.add_argument("--ref", required=True)
     r.add_argument("--ref-index", type=int, default=-1)
@@ -398,7 +529,8 @@ def main():
     r.add_argument("--threads", type=int, default=8)
     r.add_argument("--out", required=True)
     args = ap.parse_args()
-    {"section": section, "r1": r1, "r2": r2, "r2scan": r2scan, "curve1d": curve1d}[args.cmd](args)
+    {"section": section, "r1": r1, "r2": r2, "r2scan": r2scan, "curve1d": curve1d,
+     "curve1d-smooth": curve1d_smooth, "along": along}[args.cmd](args)
 
 
 if __name__ == "__main__":
