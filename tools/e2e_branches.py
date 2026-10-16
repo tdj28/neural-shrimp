@@ -128,7 +128,7 @@ def continue_branch(model, fixed, free, lam0, x0, p, to, step, step_min, step_ma
         if sign * (to - lam) <= 1e-15:
             break
         # step control: near a fold (1 - mu)^2 is linear in the parameter, so the remaining distance is estimated
-        # from the last two points and the step kept to a third of it; elsewhere the step grows
+        # from the last two points and the step kept to half of it; elsewhere the step grows
         h = min(step_max, h * 1.5)
         if through and len(records) >= 2:      # through instabilities: keep the step where |mu| changes fast
             dm = abs(mod - abs(complex(*records[-2]["leading"])))
@@ -141,7 +141,7 @@ def continue_branch(model, fixed, free, lam0, x0, p, to, step, step_min, step_ma
                 dl = records[-1]["lambda"] - records[-2]["lambda"]
                 if y2 < y1 and dl != 0:
                     remaining = y2 * abs(dl) / (y1 - y2)
-                    h = max(step_min, min(h, remaining / 3))
+                    h = max(step_min, min(h, remaining / 2))
             elif mod > 0.9:
                 h = max(step_min, min(h, (1 - mod) * step_max))
         lam = lam + sign * h
