@@ -26993,3 +26993,28 @@ tools/audit/dss_bfs_audit.py rebuilds the old breadth-first order from each prog
 - **Unresolved cells, as measured:** all 6 have negative exponents at every offset and the tangent (-0.005 to -0.03) and no period up to 32. These are slow or long-period cells, none chaotic.
 
 **Papers.** The 70B sentence in both papers now gives this result.
+
+## 2026-10-16 03:31 UTC: Program PI (exploratory, human-approved 16 Oct): practical implications of the loop's dynamics, with large samples on the local GPU
+
+**Trigger.** The human asked for practical implications under realistic inference and authorized five experiments: "do them all".
+- Full control of the local GPU (RTX 2000 Ada, 16 GiB).
+- The remaining RunPod credit for float64 work.
+- Large samples so that any finding is statistically valid.
+
+**Capacity, measured.** Qwen2.5-7B-Instruct in bf16 fits on the local GPU: 14.19 GiB of weights, peak 14.42 GiB at batch 16 with short contexts, 12-13 decoding steps/s at batch 1-16, so 193 tokens/s at batch 16.
+
+**Experiments.** Each gets its own run card before data. All are exploratory until a confirmatory test with a design fixed in advance, on fresh data, is pushed.
+
+| | question | design | measures |
+|---|---|---|---|
+| E1 | Soft Thinking as published | soft thinking on GSM8K (1319 test problems) with concept-token top-n in {1, 5, 15, 30, full} at the published T = 0.6 (and T = 1.0), two batch layouts (batch sizes 8 and 16, same-length problems, no padding) | answer flip rate between layouts; accuracy; per-step entropy, top-2 gap and a readout-gain proxy |
+| E2 | a stabilizer derived from the theory | cap each soft step's readout gain by lowering its temperature | flips and accuracy against E1's arms |
+| E3 | exploiting chaos | K = 8 runs per problem with tiny perturbations of the first soft token, majority vote | accuracy against single runs, by sensitivity; against sampled self-consistency |
+| E4 | ordinary decoding nondeterminism | greedy and seeded sampling (common random numbers) chain-of-thought on GSM8K, two batch layouts | output and answer flips; prediction of flips by margin, entropy, gain and float64 loop sensitivity (pods) |
+| E5 | repetition and temperature | sampled generation over a temperature grid on open prompts | repetition rate against the loop's chaos-onset temperature (0.5B float64 local; 7B on pods) |
+
+**Integrity.**
+- Every run is committed code with a receipt.
+- Paired designs: the same problems in both layouts.
+- Intervals by Wilson or bootstrap over problems; McNemar for paired accuracy.
+- Failures and nulls reported as such.
