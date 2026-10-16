@@ -72,7 +72,8 @@ def verify_period(cell, x, p, transient, tol=1e-7, max_period=48):
 
 
 def continue_branch(model, fixed, free, lam0, x0, p, to, step, step_min, step_max, out, k=6, mu_stop=0.995,
-                    log=print, max_points=400, ad=True, name="branch.json", through=False):
+                    log=print, max_points=400, ad=True, name="branch.json", through=False,
+                    merge_tol=0.02):
     """Natural continuation of a period-p orbit in `free` ('log_t' or 'alpha') from lam0 toward `to`."""
     def make(lam):
         return model.cell(lam, fixed) if free == "alpha" else model.cell(fixed, lam)
@@ -109,6 +110,8 @@ def continue_branch(model, fixed, free, lam0, x0, p, to, step, step_min, step_ma
                "phases": describe(cell, xs, p), "seconds": round(time.perf_counter() - tic, 1)}
         if records:                                    # the state must not jump to another orbit
             rec["state_change"] = float(np.linalg.norm(xs - states[-1]) / np.linalg.norm(xs))
+        if p % 2 == 0:                                 # distance from the half-period orbit (a flip of it ahead)
+            rec["half_period_distance"] = float(np.linalg.norm(cell.Fp(xs, p // 2) - xs) / np.linalg.norm(xs))
         records.append(rec)
         states.append(xs)
         Q = Qn
@@ -121,6 +124,9 @@ def continue_branch(model, fixed, free, lam0, x0, p, to, step, step_min, step_ma
         mod = abs(lead)
         if mod >= 1.0 and not through:
             stop = f"left the stable side (|mu| = {mod:.6f})"
+            break
+        if rec.get("half_period_distance", 1.0) < merge_tol:
+            stop = f"approaching the half-period orbit (distance {rec['half_period_distance']:.3g})"
             break
         if abs(lead.imag) < 1e-9 and lead.real > mu_stop:
             stop = f"leading multiplier {lead.real:.6f} above {mu_stop}"

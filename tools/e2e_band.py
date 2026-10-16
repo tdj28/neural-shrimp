@@ -80,6 +80,40 @@ def refine_flip(model, fixed, value, p, a, xa, b, xb, k=6, iters=5, tol=1e-6, lo
     return {"type": "flip", "lambda": flip, "bracket": [la, lb], "sides": sides, "secant": hist}
 
 
+def half_flip(model, fixed, value, q, records, states, log, tries=8):
+    """The period-2q orbit merges with a period-q orbit: locate the flip of the period-q orbit (multiplier -1)
+    near the last point, stepping beyond it until the period-q orbit is stable, then by refine_flip."""
+    last = records[-1]
+    sign = np.sign(last["lambda"] - records[-2]["lambda"]) if len(records) > 1 else 1.0
+    lam1, x1 = last["lambda"], states[-1]
+    cell = make_cell(model, fixed, value, lam1)
+    xa, info, _ = cell.solve(x1, q, ad=False)
+    if not info["converged"]:
+        return {"type": "unresolved", "reason": f"period-{q} orbit not found at the merge"}
+    lead = lambda inf: max((complex(a, b) for a, b in inf["multipliers"]), key=abs)
+    ra = {"lambda": lam1, "leading": [lead(info).real, lead(info).imag]}
+    log(json.dumps({"half_orbit": lam1, "mu": ra["leading"]}))
+    delta = max(abs(lam1 - records[-2]["lambda"]) * 4 if len(records) > 1 else 1e-5, 1e-6)
+    lam, x = lam1, xa
+    for _ in range(tries):
+        lam = lam + sign * delta
+        cell = make_cell(model, fixed, value, lam)
+        xb, inf2, _ = cell.solve(x, q, ad=False)
+        if not inf2["converged"]:
+            return {"type": "unresolved", "reason": f"period-{q} orbit lost at {lam}"}
+        rb = {"lambda": lam, "leading": [lead(inf2).real, lead(inf2).imag]}
+        log(json.dumps({"half_orbit": lam, "mu": rb["leading"]}))
+        if (ra["leading"][0] + 1) * (rb["leading"][0] + 1) < 0:
+            st, xs_, un, xu = (ra, xa, rb, xb) if ra["leading"][0] > -1 else (rb, xb, ra, xa)
+            res = refine_flip(model, fixed, value, q, st, xs_, un, xu, log=log)
+            res["note"] = f"period-{2 * q} orbit merges here with the period-{q} orbit (its flip)"
+            res["type"] = f"flip of the period-{q} orbit"
+            return res
+        ra, xa, x = rb, xb, xb
+        delta *= 2
+    return {"type": "unresolved", "reason": f"no sign change of mu + 1 of the period-{q} orbit within {tries} steps"}
+
+
 def boundary(model, fixed, value, p, records, states, stop, log):
     """Locate and classify the boundary at the end of one continuation direction."""
     if not records:
@@ -95,6 +129,8 @@ def boundary(model, fixed, value, p, records, states, stop, log):
                 return {"type": "unresolved", "reason": str(err), "classified": cls}
         return {"type": "unresolved", "reason": f"lost stability through {cls['type']}", "classified": cls,
                 "between": [records[-2]["lambda"], last["lambda"]]}
+    if last.get("half_period_distance", 1.0) < 0.05 and p % 2 == 0:
+        return half_flip(model, fixed, value, p // 2, records, states, log)
     fold = eb.fold_estimate(records)
     if fold["fold"] is None:
         return {"type": "unresolved", "reason": f"{stop}; {fold['reason']}", "last_leading": last["leading"]}
