@@ -121,8 +121,8 @@ system; Section~\ref{sec:beyond} also measures how much of the mechanism survive
 \paragraph{Contributions.} The results fall into four groups.
 \begin{enumerate}
 \item \emph{Chaos in released models, and what it does to inference} (Sections~\ref{sec:maps}
-  and~\ref{sec:consequences}; Appendix~\ref{sec:scale}). Temperature and steering move the loop between repeating text and chaos with embedded windows in all three model families, Qwen2.5, OLMo-2 and Llama-3. The regime decides whether a run can be
-  reproduced. Run twice with only the batch layout changed, 190 of 192 chaotic float64 loops of Qwen2.5-0.5B grow past
+  and~\ref{sec:consequences}; Appendix~\ref{sec:scale}). Temperature and steering move the loop between repeating text and chaos with embedded windows in all three model families, Qwen2.5, OLMo-2 and Llama-3. The regime decides whether rounding differences
+  between runs grow. Run twice with only the batch layout changed, 190 of 192 chaotic float64 loops of Qwen2.5-0.5B grow past
   a relative distance of $10^{-2}$ after a median of 102 steps, in line with the Lyapunov exponent (median ratio
   0.91), and at 173 of them the most probable readout token comes to differ; 182 of 192 periodic loops stay within
   $10^{-2}$. Qwen2.5-7B and Llama-3.1-8B without steering (24 of 24 and 20 of 20 chaotic loops diverge, 0 of 24 and 1
@@ -627,7 +627,7 @@ size, on the horizon and on how close the run comes to a change of answer, so a 
 answer when the starting difference is large. In bfloat16 the starting difference is already about $10^{-3}$, so continuous
 feedback carries it into different answers within a short budget even where the float64 loop is not chaotic (below).
 
-\paragraph{The regime decides whether a run can be reproduced.} Language-model inference is not bitwise
+\paragraph{The regime decides whether rounding differences grow.} Language-model inference is not bitwise
 reproducible: GPU kernels choose different reduction orders for different matrix shapes, so a request's result depends
 on the batch it shares and on the hardware \cite{he2025nondeterminism,yuan2025nondeterminism}. We ran the 448 labeled
 cells of the horizon check (192 chaotic, 192 periodic and 64 other cells of two float64 maps; Appendix~\ref{sec:methods})
