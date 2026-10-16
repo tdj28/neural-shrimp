@@ -27250,3 +27250,10 @@ The pod job set "damping" runs tools/damping_locate.py with D1's local settings.
 - **Expected.** About 1.5 h for DA and 1.3 h for DB, downloads included.
 - **Limits.** Run limits of 150 and 120 min, and the tool's cost guard per pod; private amounts in cost-ledger.md.
 - **Change since D1.** The tool now runs the knockout pass per temperature and moves recorded tensors to one device. On the 0.5B it reproduces D1's knockout values (MLP 0: 2.28 and 2.90 against 2.27-2.93) and the plain-twin check (below 1e-9).
+
+## 2026-10-16 05:03 UTC: FC, attempt 1 partly failed (kept); conditions rerun with --resume
+
+The clean condition completed: 800 s, periods 0, 3 and 5. The run then stopped at the first noise condition on a parsing bug: "noise-1e-10".split("-") cut the level at its minus sign. The clean results are kept in false-chaos/fc1/false-chaos.json.
+- **Clean exponents over the offsets 1e-12 to 1e-4:** chaotic +0.092 to +0.099; period 3 -0.123 to -0.128; strongly contracting -0.843 to -0.862. No merges.
+- **Fix:** split at the first "-" only. A --resume option keeps the finished conditions, after checking that the settings, cells and offsets match.
+- The four remaining conditions are rerun into the same file.

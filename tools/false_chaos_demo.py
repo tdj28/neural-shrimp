@@ -64,6 +64,7 @@ def main():
     ap.add_argument("--free-steps", type=int, default=300, help="steps of the free twin's distance kept")
     ap.add_argument("--conditions", nargs="+", default=CONDITIONS)
     ap.add_argument("--seed", type=int, default=0)
+    ap.add_argument("--resume", action="store_true", help="keep the conditions already in the output file")
     ap.add_argument("--threads", type=int, default=8)
     ap.add_argument("--out", required=True)
     args = ap.parse_args()
@@ -80,11 +81,21 @@ def main():
     out.mkdir(parents=True, exist_ok=True)
     results = {"args": vars(args), "cells": [{"alpha": c[0], "log10_temperature": c[1], "label": c[2]}
                                              for c in CELLS], "eps": EPS, "conditions": {}}
+    if args.resume and (out / "false-chaos.json").is_file():       # keep finished conditions of the same settings
+        old = json.loads((out / "false-chaos.json").read_text())
+        same = {k: old["args"][k] for k in ("transient", "record", "free_steps", "seed")} == \
+            {k: vars(args)[k] for k in ("transient", "record", "free_steps", "seed")}
+        if not same or old["cells"] != results["cells"] or old["eps"] != EPS:
+            raise SystemExit("--resume: the existing file was made with other settings")
+        results["conditions"] = old["conditions"]
+        results["resumed_from_args"] = old["args"]
     nrm = lambda a: a.norm(dim=-1)                                                # noqa: E731
     for cond in args.conditions:
+        if cond in results["conditions"]:
+            continue
         tic = time.perf_counter()
         rng = np.random.default_rng(args.seed)
-        sigma = float(cond.split("-")[1]) if cond.startswith("noise") else 0.0
+        sigma = float(cond.split("-", 1)[1]) if cond.startswith("noise") else 0.0
         if cond == "float32-final-norm":
             norm.forward = types.MethodType(float32_norm_forward, norm)
         X = loop.prepare(steer)
