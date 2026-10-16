@@ -441,6 +441,17 @@ def cluster_bootstrap_ci(x, clusters, n_boot=N_BOOT, seed=BOOT_SEED, level=0.95)
     return [float(np.quantile(m, a)), float(np.quantile(m, 1 - a))]
 
 
+def cp_upper(k, n, level=0.95):
+    """Exact one-sided Clopper-Pearson upper confidence limit for a binomial proportion with k successes in n trials
+    (added after the held-out outcomes were seen: with no cell disagreeing, the bootstrap interval of the mean is
+    degenerate, and since every per-cell share is at most 1, the expected share is at most P(a cell has any
+    disagreement), which this bounds)."""
+    from scipy.stats import beta
+    if n == 0:
+        return None
+    return 1.0 if k >= n else float(beta.ppf(level, k + 1, n - k))
+
+
 def spearman(x, y):
     x, y = np.asarray(x, float), np.asarray(y, float)
     if len(x) < 3 or np.all(x == x[0]) or np.all(y == y[0]):
@@ -1287,14 +1298,19 @@ def summarize_group(rows):
         return {"mean": float(np.mean(x)) if x else None, "boot95": bootstrap_mean_ci(x), "cells": len(x)}
 
     pos = [rows[u]["positive_pass"] for u in us if rows[u]["positive_pass"] is not None]
+    n_any = sum(v > 0 for v in vals)
     return {"cells": len(us), "disagreement": dict(mean_ci("disagreement"),
                                                   boot95_families=cluster_bootstrap_ci(vals, fams),
                                                   families=len(set(fams)),
-                                                  cells_with_any=sum(v > 0 for v in vals),
+                                                  cells_with_any=n_any,
+                                                  # post-run addition (see cp_upper)
+                                                  cells_with_any_upper95_one_sided=cp_upper(n_any, len(us)),
                                                   differing_pairs=sum(rows[u]["differing_pairs"] for u in us),
                                                   pairs=sum(rows[u]["pairs"] for u in us),
                                                   max=max(vals)),
-            "text_disagreement": mean_ci("text_disagreement"),
+            "text_disagreement": dict(mean_ci("text_disagreement"),
+                                      cells_with_any=sum(rows[u]["text_disagreement"] > 0 for u in us),
+                                      max=max(rows[u]["text_disagreement"] for u in us)),
             "disagreement_in_format": mean_ci("disagreement_in_format"),
             "in_format_share": mean_ci("in_format_share"),
             "differs_from_reference": mean_ci("differs_from_reference"),

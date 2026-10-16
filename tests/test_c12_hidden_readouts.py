@@ -124,6 +124,15 @@ def test_pair_statistics():
     assert c5.spearman([1, 1, 1], [1, 2, 3]) is None
 
 
+def test_clopper_pearson_upper():
+    pytest.importorskip("scipy")
+    for n in (1, 7, 92, 105):
+        assert c5.cp_upper(0, n) == pytest.approx(1 - 0.05 ** (1 / n), rel=1e-9)
+    assert c5.cp_upper(3, 3) == 1.0 and c5.cp_upper(0, 0) is None
+    assert c5.cp_upper(5, 100) == pytest.approx(0.1022533776, rel=1e-6)
+    assert c5.cp_upper(1, 92) > c5.cp_upper(0, 92)
+
+
 def test_bootstraps_deterministic_and_sensible():
     x = [0.0, 0.1, 0.2, 0.3, 0.4]
     a, b = c5.bootstrap_mean_ci(x), c5.bootstrap_mean_ci(x)
