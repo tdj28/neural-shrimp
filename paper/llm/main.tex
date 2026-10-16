@@ -621,8 +621,10 @@ Batch-invariant kernels, which fix the order of every reduction independently of
 of difference \cite{he2025nondeterminism}. In a periodic regime that is enough, and small differences would be forgiven
 even without it. In a chaotic regime it is not: any remaining difference, from another GPU model, a library or compiler
 version, the numerical precision, or a mathematically equivalent reordering of a sum, is amplified in the same way, so a
-run is reproducible only if the whole computation is repeated bit for bit. The regime of the loop, not the kernel,
-decides whether a rerun reproduces a run. In bfloat16 the starting difference is already about $10^{-3}$, so continuous
+run is reproducible only if the whole computation is repeated bit for bit. Numerical differences are the disturbance;
+the feedback dynamics decide whether it grows. How far it grows within a given budget also depends on its starting
+size, on the horizon and on how close the run comes to a change of answer, so a periodic loop can still change an
+answer when the starting difference is large. In bfloat16 the starting difference is already about $10^{-3}$, so continuous
 feedback carries it into different answers within a short budget even where the float64 loop is not chaotic (below).
 
 \paragraph{The regime decides whether a run can be reproduced.} Language-model inference is not bitwise
