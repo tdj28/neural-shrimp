@@ -27345,3 +27345,27 @@ All five conditions are complete in false-chaos/fc1 (clean from attempt 1, four 
 - Offsets 1e-10 to 1e-8 give false positives up to 2.03 on the period-3 loop and 1.08 on the strongly contracting orbit.
 - At 1e-12 and 1e-11, the twin and base rows merge in 454-771 of 800 steps.
 - At 1e-6 and above: contracting -0.177 to -0.123 and -0.853 to -0.783; chaotic 0.059 to 0.078, against clean 0.094. That is a change of the map itself, still positive.
+
+## 2026-10-16 06:14 UTC: D1 local results (Qwen2.5 0.5B, 1.5B, 3B; float64, CPU)
+
+**Gates.** Every model and temperature completed: 24 temperatures and 500 recorded steps each. The closure error of the residual decomposition is at most 1.4e-8, 3.1e-8 and 4.6e-8. The knockout batch reproduces the main batch's network factor within 1.1e-8.
+
+**The network factor falls with size where chaos usually occurs.** Medians per entropy bin:
+
+| entropy | 0.5B | 1.5B | 3B |
+|---|---|---|---|
+| 0-1 nats | -0.40 | -0.76 | -1.75 |
+| 1-3 nats | +0.22 | -0.35 | -1.84 |
+| 3-6 nats | +0.02 | no temperatures | -1.54 |
+| above 10 nats | +0.82 | +2.59 | +2.09 |
+
+Above 10 nats, at nearly uniform distributions, the larger models have the larger factor; the 1.5B is chaotic there.
+
+**Which term changes.** Growth through the stack falls (median 4.5-5.2 nats for 0.5B against 3.6-4.2 for 3B between 0 and 6 nats), while dilution barely changes (4.8-5.1 against 5.3-5.7).
+
+**Where.** Profiles through depth at matched entropy:
+- *After block 1:* the relative change (growth minus residual norm, A - N) is -0.1 for 0.5B and -0.6 to -0.8 for 3B.
+- *From block 2 to the end (about 2 nats):* the residual norm grows by 2.2, 2.4 and 2.7 nats (0.5B, 1.5B, 3B), but the token's change grows by 2.4, 1.45 and 1.1 nats. In the larger models, later blocks write mostly what the prompt dictates, insensitive to the fed-back token.
+- *Knockouts:* the first block is the main amplifier (0.5B: MLP 0, +2.4; 1.5B: attention 0, +3.74; 3B: attention 0, +1.86). Single damping sublayers are weak, -0.05 to -0.27 each.
+
+**Hypothesis to test with D on pods (7B-72B, Llama, OLMo).** The deficit between the residual stream's growth and the token's change through depth grows with size. That would make deeper and larger models damp the fed-back token more at the entropies where chaos occurs.
