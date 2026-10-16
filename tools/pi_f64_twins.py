@@ -99,7 +99,8 @@ def run_all(loop, args, problems, by_len, cue, configs, levels, vec, out):
                 loop.sm.steer = torch.as_tensor(rows, dtype=torch.float64, device=loop.device)[:, None, :]
             dirs = []                                   # per unit, its own seeded directions: batching-independent
             for p, c in batch:
-                rng = np.random.default_rng([args.seed, p["index"], int(round(c[0] * 1e6)), int(round(c[1] * 1e6))])
+                key = [args.seed, p["index"], int(round(c[0] * 1e6)), int(round(abs(c[1]) * 1e6))]
+                rng = np.random.default_rng(key + [1] if c[1] < 0 else key)   # seeds must be non-negative
                 dirs.append(rng.normal(size=(K, E.shape[1])))
             dirs = np.stack(dirs, axis=1)               # (K, n, d)
             dist = np.zeros((args.soft_steps, K, n))

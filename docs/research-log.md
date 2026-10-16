@@ -27320,3 +27320,10 @@ All five arms completed: 400 problem pairs each, every problem in both layouts. 
 - Top-n filtering from 30 down to 5 does not reduce the batch sensitivity relative to the full vocabulary, as consult 11 cautioned; only the greedy top-1 arm does.
 - PIF64 found this configuration contracting in float64 (no 1e-10 twin changes an answer). The bf16 flips therefore come from bfloat16 rounding differences acting at near-tied choices, not from chaotic amplification.
 - This pilot is the development data for the confirmatory matrix.
+
+## 2026-10-16 05:38 UTC: PIF64-H2, attempt 2 failed on the pods (kept); fix and local smoke test before relaunch
+
+Both pods (commit 48e30e68) stopped in the first minute with "ValueError: expected non-negative integer". The cause: the twin directions were seeded with numpy SeedSequence entries built from alpha, and negative alpha (the kindness direction) gave a negative entry.
+- Both pods were verified terminated; the job logs are kept under runpod/soft64/20261016T052635Z and 20261016T052655Z.
+- **Fix:** the entry is |alpha|, with a trailing 1 appended for negative alpha. The seeds of alpha >= 0, and so PIF64-H, are unchanged.
+- Before the relaunch, the exact argument set (alphas -0.05 -0.02 0.01, three twin levels) is smoke-tested locally on the 0.5B.
