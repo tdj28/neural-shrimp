@@ -1153,6 +1153,44 @@ def cmd_analyze(args):
                           "frac": "".join(str(min(9, int(f * 10))) for f in r["repeat_fraction"])}))
 
 
+def run_record(d):
+    """Settings, manifests and per-batch gate summaries of one run directory."""
+    out = OUT_ROOT / d
+    rec = {"dir": d}
+    if (out / "settings.json").exists():
+        rec["settings"] = json.loads((out / "settings.json").read_text())
+    mans = []
+    for f in sorted(out.glob("manifest-*.json")):
+        m = json.loads(f.read_text())
+        mans.append({"file": f.name, "git": m.get("git"), "argv": m.get("argv"), "started_utc": m.get("started_utc"),
+                     "threads": m.get("threads"), "model_revision": m.get("model_revision"),
+                     "torch": m.get("torch"), "transformers": m.get("transformers"), "env": m.get("env")})
+    rec["manifests"] = mans
+    gates = []
+    for f in sorted(out.glob("loop-b[0-9][0-9].json")):
+        b = json.loads(f.read_text())
+        z = np.load(f.with_suffix(".npz"), allow_pickle=False)
+        lab = z["label"]
+        gates.append({"file": f.name, "prompts": b["prompts"], "status": "pass" if not b["gate_failures"] else "fail",
+                      "gate_failures": b["gate_failures"],
+                      "virtual_retirement_mismatches": len(b["virtual_retirement_mismatches"]),
+                      "labels": {k: int((lab == k).sum()) for k in LABELS}, "twin_cells": int(z["twins"].sum()),
+                      "supplementary_cells": int(z["supplementary"].sum()), "retired_cells": int(z["retired"].sum()),
+                      "retirement_recorded": int((z["retire_step"] >= 0).sum()),
+                      "median_retire_step": float(np.median(z["retire_step"][z["retire_step"] >= 0]))
+                      if (z["retire_step"] >= 0).any() else None,
+                      "twin_collapses": int(z["collapses"].sum()),
+                      "max_residual_periodic": float(np.nanmax(z["residual"])) if np.isfinite(z["residual"]).any()
+                      else None, "seconds": b["seconds"]})
+    for f in sorted(out.glob("samples-p[0-9][0-9].npz")):
+        z = np.load(f, allow_pickle=False)
+        fails = json.loads(str(z["gate_failures"]))
+        gates.append({"file": f.name, "status": "pass" if not fails else "fail", "gate_failures": fails,
+                      "shape": list(z["tokens"].shape), "seconds": float(z["seconds"][0])})
+    rec["gates"] = gates
+    return rec
+
+
 def cmd_summarize(args):
     """Receipt: settings, prompts, choices, deviations, results and the SHA-256 of every raw file of the runs."""
     rec = json.loads(Path(args.template).read_text()) if args.template else {}
@@ -1162,6 +1200,7 @@ def cmd_summarize(args):
             if f.is_file() and not f.name.endswith(".tmp"):
                 files.append({"path": str(f.relative_to(OUT_ROOT)), "bytes": f.stat().st_size,
                               "sha256": sha256_file(f)})
+    rec["runs"] = [run_record(d) for d in args.runs]
     for split, path in (("development", args.dev_analysis), ("heldout", args.heldout_analysis)):
         if path:
             rec.setdefault("results", {})[split] = json.loads((OUT_ROOT / path).read_text())
