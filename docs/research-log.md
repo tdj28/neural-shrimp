@@ -27549,3 +27549,46 @@ Both arms completed: 400 problem pairs each, every problem in both layouts. Rece
 Pod rpjvsn9lryoyu5 (H200 community, commit 056d7483) ran about 17 minutes. The Qwen3.5-4B download stopped at 8.9 of 9.3 GB with an HTTP read timeout, and the 9B download failed outright. Every job then failed to load its model, and no result was produced. Logs are kept under runpod/soft64/20261016T083611Z.
 
 **Fix.** The job set's download step now resumes up to 5 times with a 120 s timeout and checks that every shard listed in the checkpoint index is present and nonempty. A model whose download stays incomplete is skipped and logged as such, instead of being run on a partial checkpoint.
+
+## 2026-10-16 10:40 UTC: Run card CT, amendment: a longer record for the weak chaotic cell
+
+**Why.** The first CT cell (Qwen2.5-0.5B, philosophy at block 12, alpha 0.0652, log10 T -0.156) passed the chaotic label (exponent 0.0982 at both offsets, no period up to 64). Its 1e-10 twin, however, was still 1e-7 to 1e-8 away after the 60 recorded steps (consistent with the exponent: about 3 decades in 60 steps). At this exponent the twin needs a few hundred steps before the most probable tokens differ.
+
+**Run.** The same tool (tools/chaos_texts.py, unchanged since fb14ed56), the same cell and settings, with --record 500. Receipt: docs/chaos-texts/qwen0.5b-philosophy-long.json. Local CPU, 4 threads.
+
+## 2026-10-16 10:41 UTC: Run MOE, pod MB2 results: dense Qwen3.5-4B and 9B controls (M3)
+
+**Pod.** jzbbddt3c7sqbh (H200 community), commit 34aa6d24 (from the orchestrator log). Runner rc 0; the results.tgz hash matches the runner's (8ee3aa49...). Verified terminated. Both downloads were complete (every shard of the checkpoint index present). Revisions pinned: Qwen3.5-4B 851bf6e8, Qwen3.5-9B c2022362. Prompt as for every Qwen3.5 model: non-thinking chat template. Concept vectors at layer 16 of 32 (mean residual norms 12.4 and 44.5).
+
+**Rows gated.** Every job ended with status 0. The labels below were read from each scan's npz. Chaotic: no period, exponent > 1e-3.
+
+| model | unsteered sweep (128 T) | philosophy 32x32 | hostility 32x32 | median network factor, 0.3-6 nats |
+|---|---|---|---|---|
+| Qwen3.5-4B (dense) | 19 chaotic, largest 0.791 | 153 (14.9 %), largest 0.841 | 323 (31.5 %), largest 0.891 | +0.05 |
+| Qwen3.5-9B (dense) | 10 chaotic, largest 0.483 | 73 (7.1 %), largest 0.677 | 161 (15.7 %), largest 0.746 | -1.41 |
+| Qwen3.5-35B-A3B (MoE, 3B active), M1t and MA | 0 (largest -0.265) | 0 (largest -0.112) | 52 irregular (5.1 %), largest 0.216 | -1.90 |
+
+- Rows that fit neither label: 4B hostility has 1 cell with a period and a positive exponent, and 22 cells with no period up to 32 and an exponent not above 1e-3. 4B philosophy has 5 such no-period cells, 9B philosophy 9, 9B hostility 14, 9B sweep 1.
+- Ranges, transients (sweeps 1000 + 2000 steps, maps 300 + 300) and max periods (64 and 32) are those of the MoE runs.
+- Run D closure: 3.9e-8 (4B) and 7.1e-8 (9B). The plain-twin checks of the knockout rows are within 2e-8 (largest 1.93e-8).
+
+**Where the damping sits.** Profiles at the temperature nearest 1 nat of entropy:
+
+| model | A_L (change through the stack) | N_L (residual growth) | first-block gap A_1-N_1 | deficit after block 2 |
+|---|---|---|---|---|
+| 4B | 5.17 | 4.44 | -0.41 | -0.83 |
+| 9B | 4.01 | 5.44 | -1.37 | 0.38 |
+| 35B-A3B | 1.76 | 3.58 | -0.35 | 1.54 |
+
+- The MoE's residual stream grows least of the three ($N_L$ 3.58). The fed-back token's change grows far less ($A_L$ 1.76): the change falls behind through depth.
+- **Knockouts at 2-4 nats.** In all three models, block 0 (attention and MLP or experts) is the largest amplifier. Its effect is weaker in the MoE:
+  - attention 0: 1.27 (4B), 1.33 (9B), 0.76 (MoE);
+  - MLP or expert block 0: 0.92, 0.77, 0.24.
+  These cells sit at different entropies (3.89, 2.09 and 2.80 nats).
+
+**Reading.**
+- Within one family with the same hybrid attention, chaos decreases from 4B to 9B to the 35B MoE on every measure. Damping increases in the same order.
+- The MoE, with 3B active parameters per token, damps more than the dense 9B, which has three times as many active parameters. Its chaos is far rarer than in the dense 4B of about its active size.
+- So in this family, routing does not let a large model behave like a small one: by these measures the MoE resembles a larger dense model, which the size trend would predict for its total size. Three models, one family, exploratory.
+- Routing switches play no part at the twin offsets (pod MA), so this is a property of the smooth map.
+- The dense controls also rule out the hybrid attention as the cause of the MoE's contraction: the dense 4B and 9B share it and are chaotic.

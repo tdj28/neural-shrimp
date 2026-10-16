@@ -1,0 +1,3847 @@
+{
+ "args": {
+  "model": "qwen0.5b",
+  "layer": 12,
+  "vectors": "llm-phase-map/vectors-l12",
+  "concept": "philosophy",
+  "cells": [
+   "0.0652,-0.156",
+   "0.07484,-0.1226",
+   "0.07277,-0.041"
+  ],
+  "transient": 1000,
+  "record": 60,
+  "lyapunov_steps": 1000,
+  "eps_text": 1e-10,
+  "tol": 1e-08,
+  "threads": 6,
+  "json": "docs/chaos-texts/qwen0.5b-philosophy.json"
+ },
+ "cells": [
+  {
+   "alpha": 0.0652,
+   "log10T": -0.156,
+   "period": 0,
+   "lyapunov": [
+    0.09817084676234838,
+    0.09817096555929154
+   ],
+   "chaotic": true,
+   "split_step": null,
+   "text": " existence\n\nThe existence\n\nThe question\n\nThe existence\n\nThe question\n\nThe existence\n\nThe existence\n\nThe existence\n\nThe existence\n\nThe question\n\nThe existence\n\nThe question\n\nThe existence\n\nThe existence\n\nThe existence\n\nThe existence\n\nThe existence\n\nThe existence\n\nThe existence\n\nThe existence\n\nThe",
+   "twin_text": " existence\n\nThe existence\n\nThe question\n\nThe existence\n\nThe question\n\nThe existence\n\nThe existence\n\nThe existence\n\nThe existence\n\nThe question\n\nThe existence\n\nThe question\n\nThe existence\n\nThe existence\n\nThe existence\n\nThe existence\n\nThe existence\n\nThe existence\n\nThe existence\n\nThe existence\n\nThe",
+   "steps": [
+    {
+     "top": [
+      {
+       "token": 13885,
+       "text": " existence",
+       "p": 0.19232974372945694
+      },
+      {
+       "token": 3405,
+       "text": " question",
+       "p": 0.17923503912958608
+      },
+      {
+       "token": 3738,
+       "text": " human",
+       "p": 0.11798357969278941
+      }
+     ],
+     "twin": " existence",
+     "log10_distance": -9.86
+    },
+    {
+     "top": [
+      {
+       "token": 271,
+       "text": "\n\n",
+       "p": 0.6305960423664464
+      },
+      {
+       "token": 198,
+       "text": "\n",
+       "p": 0.2217367186818747
+      },
+      {
+       "token": 323,
+       "text": " and",
+       "p": 0.0557047090319976
+      }
+     ],
+     "twin": "\n\n",
+     "log10_distance": -9.61
+    },
+    {
+     "top": [
+      {
+       "token": 785,
+       "text": "The",
+       "p": 0.34986383515609626
+      },
+      {
+       "token": 1986,
+       "text": "This",
+       "p": 0.15973356906825298
+      },
+      {
+       "token": 2132,
+       "text": "It",
+       "p": 0.10258124006969611
+      }
+     ],
+     "twin": "The",
+     "log10_distance": -10.11
+    },
+    {
+     "top": [
+      {
+       "token": 13885,
+       "text": " existence",
+       "p": 0.20362865332207505
+      },
+      {
+       "token": 3405,
+       "text": " question",
+       "p": 0.1544590298639962
+      },
+      {
+       "token": 3738,
+       "text": " human",
+       "p": 0.1068447159040202
+      }
+     ],
+     "twin": " existence",
+     "log10_distance": -9.52
+    },
+    {
+     "top": [
+      {
+       "token": 271,
+       "text": "\n\n",
+       "p": 0.7299966456170888
+      },
+      {
+       "token": 198,
+       "text": "\n",
+       "p": 0.1779211364887838
+      },
+      {
+       "token": 13,
+       "text": ".",
+       "p": 0.02126216386409535
+      }
+     ],
+     "twin": "\n\n",
+     "log10_distance": -10.1
+    },
+    {
+     "top": [
+      {
+       "token": 785,
+       "text": "The",
+       "p": 0.3660629751256234
+      },
+      {
+       "token": 1986,
+       "text": "This",
+       "p": 0.1408863852565229
+      },
+      {
+       "token": 2132,
+       "text": "It",
+       "p": 0.10428128251832446
+      }
+     ],
+     "twin": "The",
+     "log10_distance": -10.48
+    },
+    {
+     "top": [
+      {
+       "token": 3405,
+       "text": " question",
+       "p": 0.1893068761411664
+      },
+      {
+       "token": 13885,
+       "text": " existence",
+       "p": 0.18535164687168665
+      },
+      {
+       "token": 3738,
+       "text": " human",
+       "p": 0.1217382424623319
+      }
+     ],
+     "twin": " question",
+     "log10_distance": -9.78
+    },
+    {
+     "top": [
+      {
+       "token": 271,
+       "text": "\n\n",
+       "p": 0.5637319335200358
+      },
+      {
+       "token": 198,
+       "text": "\n",
+       "p": 0.20504296201888733
+      },
+      {
+       "token": 323,
+       "text": " and",
+       "p": 0.11824822383704273
+      }
+     ],
+     "twin": "\n\n",
+     "log10_distance": -9.27
+    },
+    {
+     "top": [
+      {
+       "token": 785,
+       "text": "The",
+       "p": 0.3423276362869414
+      },
+      {
+       "token": 1986,
+       "text": "This",
+       "p": 0.13969963044660255
+      },
+      {
+       "token": 2132,
+       "text": "It",
+       "p": 0.09337894816036076
+      }
+     ],
+     "twin": "The",
+     "log10_distance": -9.14
+    },
+    {
+     "top": [
+      {
+       "token": 13885,
+       "text": " existence",
+       "p": 0.220319036497194
+      },
+      {
+       "token": 3405,
+       "text": " question",
+       "p": 0.14177517801031347
+      },
+      {
+       "token": 3738,
+       "text": " human",
+       "p": 0.09877124455988096
+      }
+     ],
+     "twin": " existence",
+     "log10_distance": -9.17
+    },
+    {
+     "top": [
+      {
+       "token": 271,
+       "text": "\n\n",
+       "p": 0.7275285694256398
+      },
+      {
+       "token": 198,
+       "text": "\n",
+       "p": 0.16413894620043262
+      },
+      {
+       "token": 13,
+       "text": ".",
+       "p": 0.026321487071675406
+      }
+     ],
+     "twin": "\n\n",
+     "log10_distance": -9.84
+    },
+    {
+     "top": [
+      {
+       "token": 785,
+       "text": "The",
+       "p": 0.36761950540375415
+      },
+      {
+       "token": 1986,
+       "text": "This",
+       "p": 0.1400126353585727
+      },
+      {
+       "token": 2132,
+       "text": "It",
+       "p": 0.10398069491969679
+      }
+     ],
+     "twin": "The",
+     "log10_distance": -10.29
+    },
+    {
+     "top": [
+      {
+       "token": 3405,
+       "text": " question",
+       "p": 0.19515499444969417
+      },
+      {
+       "token": 13885,
+       "text": " existence",
+       "p": 0.18178869467715372
+      },
+      {
+       "token": 3738,
+       "text": " human",
+       "p": 0.1224271113557511
+      }
+     ],
+     "twin": " question",
+     "log10_distance": -10.29
+    },
+    {
+     "top": [
+      {
+       "token": 271,
+       "text": "\n\n",
+       "p": 0.520697065001576
+      },
+      {
+       "token": 198,
+       "text": "\n",
+       "p": 0.1876390334613359
+      },
+      {
+       "token": 323,
+       "text": " and",
+       "p": 0.16687267228105324
+      }
+     ],
+     "twin": "\n\n",
+     "log10_distance": -9.71
+    },
+    {
+     "top": [
+      {
+       "token": 785,
+       "text": "The",
+       "p": 0.32698541724046093
+      },
+      {
+       "token": 1986,
+       "text": "This",
+       "p": 0.12030539656118353
+      },
+      {
+       "token": 33975,
+       "text": "Human",
+       "p": 0.08307381683077998
+      }
+     ],
+     "twin": "The",
+     "log10_distance": -9.49
+    },
+    {
+     "top": [
+      {
+       "token": 13885,
+       "text": " existence",
+       "p": 0.2530155737285497
+      },
+      {
+       "token": 3405,
+       "text": " question",
+       "p": 0.128881500563607
+      },
+      {
+       "token": 3738,
+       "text": " human",
+       "p": 0.06902523489662042
+      }
+     ],
+     "twin": " existence",
+     "log10_distance": -9.33
+    },
+    {
+     "top": [
+      {
+       "token": 271,
+       "text": "\n\n",
+       "p": 0.6204751199568118
+      },
+      {
+       "token": 198,
+       "text": "\n",
+       "p": 0.1632012031232353
+      },
+      {
+       "token": 374,
+       "text": " is",
+       "p": 0.04943645015585799
+      }
+     ],
+     "twin": "\n\n",
+     "log10_distance": -9.11
+    },
+    {
+     "top": [
+      {
+       "token": 785,
+       "text": "The",
+       "p": 0.35137736796226376
+      },
+      {
+       "token": 1986,
+       "text": "This",
+       "p": 0.13826884231043746
+      },
+      {
+       "token": 2132,
+       "text": "It",
+       "p": 0.09711651243106476
+      }
+     ],
+     "twin": "The",
+     "log10_distance": -9.09
+    },
+    {
+     "top": [
+      {
+       "token": 13885,
+       "text": " existence",
+       "p": 0.20615175697593288
+      },
+      {
+       "token": 3405,
+       "text": " question",
+       "p": 0.16295769913054609
+      },
+      {
+       "token": 3738,
+       "text": " human",
+       "p": 0.10996300896098354
+      }
+     ],
+     "twin": " existence",
+     "log10_distance": -9.04
+    },
+    {
+     "top": [
+      {
+       "token": 271,
+       "text": "\n\n",
+       "p": 0.704245386025895
+      },
+      {
+       "token": 198,
+       "text": "\n",
+       "p": 0.19874758917662116
+      },
+      {
+       "token": 13,
+       "text": ".",
+       "p": 0.017253061643674652
+      }
+     ],
+     "twin": "\n\n",
+     "log10_distance": -9.28
+    },
+    {
+     "top": [
+      {
+       "token": 785,
+       "text": "The",
+       "p": 0.3607222268558793
+      },
+      {
+       "token": 1986,
+       "text": "This",
+       "p": 0.14801615258566883
+      },
+      {
+       "token": 2132,
+       "text": "It",
+       "p": 0.10346375469289171
+      }
+     ],
+     "twin": "The",
+     "log10_distance": -9.59
+    },
+    {
+     "top": [
+      {
+       "token": 13885,
+       "text": " existence",
+       "p": 0.19285786869411317
+      },
+      {
+       "token": 3405,
+       "text": " question",
+       "p": 0.1783950221879328
+      },
+      {
+       "token": 3738,
+       "text": " human",
+       "p": 0.11762518604523879
+      }
+     ],
+     "twin": " existence",
+     "log10_distance": -8.99
+    },
+    {
+     "top": [
+      {
+       "token": 271,
+       "text": "\n\n",
+       "p": 0.6355618459971559
+      },
+      {
+       "token": 198,
+       "text": "\n",
+       "p": 0.22188246855380528
+      },
+      {
+       "token": 323,
+       "text": " and",
+       "p": 0.05205642859969105
+      }
+     ],
+     "twin": "\n\n",
+     "log10_distance": -8.79
+    },
+    {
+     "top": [
+      {
+       "token": 785,
+       "text": "The",
+       "p": 0.35041899320427866
+      },
+      {
+       "token": 1986,
+       "text": "This",
+       "p": 0.1597162500010468
+      },
+      {
+       "token": 2132,
+       "text": "It",
+       "p": 0.10265942894455456
+      }
+     ],
+     "twin": "The",
+     "log10_distance": -9.33
+    },
+    {
+     "top": [
+      {
+       "token": 13885,
+       "text": " existence",
+       "p": 0.20312973502818898
+      },
+      {
+       "token": 3405,
+       "text": " question",
+       "p": 0.15578697304075687
+      },
+      {
+       "token": 3738,
+       "text": " human",
+       "p": 0.10740625389982987
+      }
+     ],
+     "twin": " existence",
+     "log10_distance": -8.75
+    },
+    {
+     "top": [
+      {
+       "token": 271,
+       "text": "\n\n",
+       "p": 0.728836133337652
+      },
+      {
+       "token": 198,
+       "text": "\n",
+       "p": 0.1799731203471534
+      },
+      {
+       "token": 13,
+       "text": ".",
+       "p": 0.020709655550874242
+      }
+     ],
+     "twin": "\n\n",
+     "log10_distance": -9.31
+    },
+    {
+     "top": [
+      {
+       "token": 785,
+       "text": "The",
+       "p": 0.36567778882176777
+      },
+      {
+       "token": 1986,
+       "text": "This",
+       "p": 0.14132141397382322
+      },
+      {
+       "token": 2132,
+       "text": "It",
+       "p": 0.1042403187165967
+      }
+     ],
+     "twin": "The",
+     "log10_distance": -9.65
+    },
+    {
+     "top": [
+      {
+       "token": 3405,
+       "text": " question",
+       "p": 0.18836625674786808
+      },
+      {
+       "token": 13885,
+       "text": " existence",
+       "p": 0.18600122470796474
+      },
+      {
+       "token": 3738,
+       "text": " human",
+       "p": 0.1214892878994629
+      }
+     ],
+     "twin": " question",
+     "log10_distance": -8.97
+    },
+    {
+     "top": [
+      {
+       "token": 271,
+       "text": "\n\n",
+       "p": 0.5705233936362203
+      },
+      {
+       "token": 198,
+       "text": "\n",
+       "p": 0.20754239715020184
+      },
+      {
+       "token": 323,
+       "text": " and",
+       "p": 0.111017457722026
+      }
+     ],
+     "twin": "\n\n",
+     "log10_distance": -8.49
+    },
+    {
+     "top": [
+      {
+       "token": 785,
+       "text": "The",
+       "p": 0.343496118553429
+      },
+      {
+       "token": 1986,
+       "text": "This",
+       "p": 0.14325969805100952
+      },
+      {
+       "token": 2132,
+       "text": "It",
+       "p": 0.09540560104658354
+      }
+     ],
+     "twin": "The",
+     "log10_distance": -8.41
+    },
+    {
+     "top": [
+      {
+       "token": 13885,
+       "text": " existence",
+       "p": 0.2169932714252742
+      },
+      {
+       "token": 3405,
+       "text": " question",
+       "p": 0.14284780579926512
+      },
+      {
+       "token": 3738,
+       "text": " human",
+       "p": 0.1006000918200362
+      }
+     ],
+     "twin": " existence",
+     "log10_distance": -8.44
+    },
+    {
+     "top": [
+      {
+       "token": 271,
+       "text": "\n\n",
+       "p": 0.7289320802051754
+      },
+      {
+       "token": 198,
+       "text": "\n",
+       "p": 0.16541311178217183
+      },
+      {
+       "token": 13,
+       "text": ".",
+       "p": 0.02553948360177075
+      }
+     ],
+     "twin": "\n\n",
+     "log10_distance": -9.26
+    },
+    {
+     "top": [
+      {
+       "token": 785,
+       "text": "The",
+       "p": 0.3676269171496034
+      },
+      {
+       "token": 1986,
+       "text": "This",
+       "p": 0.139850217427986
+      },
+      {
+       "token": 2132,
+       "text": "It",
+       "p": 0.10408394878260592
+      }
+     ],
+     "twin": "The",
+     "log10_distance": -9.74
+    },
+    {
+     "top": [
+      {
+       "token": 3405,
+       "text": " question",
+       "p": 0.19475912267755582
+      },
+      {
+       "token": 13885,
+       "text": " existence",
+       "p": 0.1819543669946512
+      },
+      {
+       "token": 3738,
+       "text": " human",
+       "p": 0.12248464156680007
+      }
+     ],
+     "twin": " question",
+     "log10_distance": -9.43
+    },
+    {
+     "top": [
+      {
+       "token": 271,
+       "text": "\n\n",
+       "p": 0.5234047990386347
+      },
+      {
+       "token": 198,
+       "text": "\n",
+       "p": 0.18881371717423412
+      },
+      {
+       "token": 323,
+       "text": " and",
+       "p": 0.16371035068721063
+      }
+     ],
+     "twin": "\n\n",
+     "log10_distance": -8.8
+    },
+    {
+     "top": [
+      {
+       "token": 785,
+       "text": "The",
+       "p": 0.3283442179782503
+      },
+      {
+       "token": 1986,
+       "text": "This",
+       "p": 0.12102480222530619
+      },
+      {
+       "token": 33975,
+       "text": "Human",
+       "p": 0.07997835035652161
+      }
+     ],
+     "twin": "The",
+     "log10_distance": -8.58
+    },
+    {
+     "top": [
+      {
+       "token": 13885,
+       "text": " existence",
+       "p": 0.2508395827389853
+      },
+      {
+       "token": 3405,
+       "text": " question",
+       "p": 0.1301188133421624
+      },
+      {
+       "token": 3738,
+       "text": " human",
+       "p": 0.07163278508525435
+      }
+     ],
+     "twin": " existence",
+     "log10_distance": -8.43
+    },
+    {
+     "top": [
+      {
+       "token": 271,
+       "text": "\n\n",
+       "p": 0.6372884693755358
+      },
+      {
+       "token": 198,
+       "text": "\n",
+       "p": 0.16252450885578262
+      },
+      {
+       "token": 374,
+       "text": " is",
+       "p": 0.0449534735528741
+      }
+     ],
+     "twin": "\n\n",
+     "log10_distance": -8.26
+    },
+    {
+     "top": [
+      {
+       "token": 785,
+       "text": "The",
+       "p": 0.3537874597902342
+      },
+      {
+       "token": 1986,
+       "text": "This",
+       "p": 0.14294550485914007
+      },
+      {
+       "token": 2132,
+       "text": "It",
+       "p": 0.09904618911438823
+      }
+     ],
+     "twin": "The",
+     "log10_distance": -8.36
+    },
+    {
+     "top": [
+      {
+       "token": 13885,
+       "text": " existence",
+       "p": 0.2012984272352983
+      },
+      {
+       "token": 3405,
+       "text": " question",
+       "p": 0.16822676626812064
+      },
+      {
+       "token": 3738,
+       "text": " human",
+       "p": 0.11218309052208117
+      }
+     ],
+     "twin": " existence",
+     "log10_distance": -8.15
+    },
+    {
+     "top": [
+      {
+       "token": 271,
+       "text": "\n\n",
+       "p": 0.6844332669705276
+      },
+      {
+       "token": 198,
+       "text": "\n",
+       "p": 0.2089794935660426
+      },
+      {
+       "token": 323,
+       "text": " and",
+       "p": 0.0238670342081903
+      }
+     ],
+     "twin": "\n\n",
+     "log10_distance": -8.19
+    },
+    {
+     "top": [
+      {
+       "token": 785,
+       "text": "The",
+       "p": 0.35730236749790906
+      },
+      {
+       "token": 1986,
+       "text": "This",
+       "p": 0.15266439826001077
+      },
+      {
+       "token": 2132,
+       "text": "It",
+       "p": 0.10308985323043264
+      }
+     ],
+     "twin": "The",
+     "log10_distance": -8.56
+    },
+    {
+     "top": [
+      {
+       "token": 13885,
+       "text": " existence",
+       "p": 0.19685756893548859
+      },
+      {
+       "token": 3405,
+       "text": " question",
+       "p": 0.17133572023356552
+      },
+      {
+       "token": 3738,
+       "text": " human",
+       "p": 0.11451558581810846
+      }
+     ],
+     "twin": " existence",
+     "log10_distance": -7.91
+    },
+    {
+     "top": [
+      {
+       "token": 271,
+       "text": "\n\n",
+       "p": 0.6749102209460671
+      },
+      {
+       "token": 198,
+       "text": "\n",
+       "p": 0.21487993821072135
+      },
+      {
+       "token": 323,
+       "text": " and",
+       "p": 0.029057747616957442
+      }
+     ],
+     "twin": "\n\n",
+     "log10_distance": -7.9
+    },
+    {
+     "top": [
+      {
+       "token": 785,
+       "text": "The",
+       "p": 0.355713853765941
+      },
+      {
+       "token": 1986,
+       "text": "This",
+       "p": 0.15485443588755674
+      },
+      {
+       "token": 2132,
+       "text": "It",
+       "p": 0.10294440271013733
+      }
+     ],
+     "twin": "The",
+     "log10_distance": -8.32
+    },
+    {
+     "top": [
+      {
+       "token": 13885,
+       "text": " existence",
+       "p": 0.19855416381796892
+      },
+      {
+       "token": 3405,
+       "text": " question",
+       "p": 0.16777779970625883
+      },
+      {
+       "token": 3738,
+       "text": " human",
+       "p": 0.1129456631655544
+      }
+     ],
+     "twin": " existence",
+     "log10_distance": -7.64
+    },
+    {
+     "top": [
+      {
+       "token": 271,
+       "text": "\n\n",
+       "p": 0.6926740323717421
+      },
+      {
+       "token": 198,
+       "text": "\n",
+       "p": 0.20710886274704515
+      },
+      {
+       "token": 323,
+       "text": " and",
+       "p": 0.02173942694882715
+      }
+     ],
+     "twin": "\n\n",
+     "log10_distance": -7.74
+    },
+    {
+     "top": [
+      {
+       "token": 785,
+       "text": "The",
+       "p": 0.35861435841379896
+      },
+      {
+       "token": 1986,
+       "text": "This",
+       "p": 0.15097278478255655
+      },
+      {
+       "token": 2132,
+       "text": "It",
+       "p": 0.10319584274135404
+      }
+     ],
+     "twin": "The",
+     "log10_distance": -8.08
+    },
+    {
+     "top": [
+      {
+       "token": 13885,
+       "text": " existence",
+       "p": 0.1954751837966418
+      },
+      {
+       "token": 3405,
+       "text": " question",
+       "p": 0.17387662780119315
+      },
+      {
+       "token": 3738,
+       "text": " human",
+       "p": 0.1157480045239941
+      }
+     ],
+     "twin": " existence",
+     "log10_distance": -7.45
+    },
+    {
+     "top": [
+      {
+       "token": 271,
+       "text": "\n\n",
+       "p": 0.661076590253225
+      },
+      {
+       "token": 198,
+       "text": "\n",
+       "p": 0.21910900662752295
+      },
+      {
+       "token": 323,
+       "text": " and",
+       "p": 0.036017702367439314
+      }
+     ],
+     "twin": "\n\n",
+     "log10_distance": -7.38
+    },
+    {
+     "top": [
+      {
+       "token": 785,
+       "text": "The",
+       "p": 0.3536630820890938
+      },
+      {
+       "token": 1986,
+       "text": "This",
+       "p": 0.15732468139743847
+      },
+      {
+       "token": 2132,
+       "text": "It",
+       "p": 0.1028388041779288
+      }
+     ],
+     "twin": "The",
+     "log10_distance": -7.86
+    },
+    {
+     "top": [
+      {
+       "token": 13885,
+       "text": " existence",
+       "p": 0.20044034994962404
+      },
+      {
+       "token": 3405,
+       "text": " question",
+       "p": 0.16327814341694058
+      },
+      {
+       "token": 3738,
+       "text": " human",
+       "p": 0.11082995138299544
+      }
+     ],
+     "twin": " existence",
+     "log10_distance": -7.17
+    },
+    {
+     "top": [
+      {
+       "token": 271,
+       "text": "\n\n",
+       "p": 0.7114746320164116
+      },
+      {
+       "token": 198,
+       "text": "\n",
+       "p": 0.19575038529284033
+      },
+      {
+       "token": 13,
+       "text": ".",
+       "p": 0.017449766763465283
+      }
+     ],
+     "twin": "\n\n",
+     "log10_distance": -7.41
+    },
+    {
+     "top": [
+      {
+       "token": 785,
+       "text": "The",
+       "p": 0.361987267646807
+      },
+      {
+       "token": 1986,
+       "text": "This",
+       "p": 0.14626789669687854
+      },
+      {
+       "token": 2132,
+       "text": "It",
+       "p": 0.10364736606598092
+      }
+     ],
+     "twin": "The",
+     "log10_distance": -7.7
+    },
+    {
+     "top": [
+      {
+       "token": 13885,
+       "text": " existence",
+       "p": 0.19131869242926142
+      },
+      {
+       "token": 3405,
+       "text": " question",
+       "p": 0.18070140518512148
+      },
+      {
+       "token": 3738,
+       "text": " human",
+       "p": 0.11869619005040605
+      }
+     ],
+     "twin": " existence",
+     "log10_distance": -7.11
+    },
+    {
+     "top": [
+      {
+       "token": 271,
+       "text": "\n\n",
+       "p": 0.6215062518976908
+      },
+      {
+       "token": 198,
+       "text": "\n",
+       "p": 0.22102295262002203
+      },
+      {
+       "token": 323,
+       "text": " and",
+       "p": 0.06282241346361349
+      }
+     ],
+     "twin": "\n\n",
+     "log10_distance": -6.85
+    },
+    {
+     "top": [
+      {
+       "token": 785,
+       "text": "The",
+       "p": 0.34890058362372084
+      },
+      {
+       "token": 1986,
+       "text": "This",
+       "p": 0.15930022880926967
+      },
+      {
+       "token": 2132,
+       "text": "It",
+       "p": 0.10234920342608711
+      }
+     ],
+     "twin": "The",
+     "log10_distance": -7.28
+    },
+    {
+     "top": [
+      {
+       "token": 13885,
+       "text": " existence",
+       "p": 0.20461676498366393
+      },
+      {
+       "token": 3405,
+       "text": " question",
+       "p": 0.15214506577271844
+      },
+      {
+       "token": 3738,
+       "text": " human",
+       "p": 0.10591661922472895
+      }
+     ],
+     "twin": " existence",
+     "log10_distance": -6.95
+    },
+    {
+     "top": [
+      {
+       "token": 271,
+       "text": "\n\n",
+       "p": 0.7308721139175063
+      },
+      {
+       "token": 198,
+       "text": "\n",
+       "p": 0.17485481892219895
+      },
+      {
+       "token": 13,
+       "text": ".",
+       "p": 0.022182854881642046
+      }
+     ],
+     "twin": "\n\n",
+     "log10_distance": -7.51
+    },
+    {
+     "top": [
+      {
+       "token": 785,
+       "text": "The",
+       "p": 0.3665759042346536
+      },
+      {
+       "token": 1986,
+       "text": "This",
+       "p": 0.14039425976238806
+      },
+      {
+       "token": 2132,
+       "text": "It",
+       "p": 0.10430250700730777
+      }
+     ],
+     "twin": "The",
+     "log10_distance": -7.99
+    }
+   ]
+  },
+  {
+   "alpha": 0.07484,
+   "log10T": -0.1226,
+   "period": 0,
+   "lyapunov": [
+    0.4436558333296384,
+    0.4436592253034106
+   ],
+   "chaotic": true,
+   "split_step": 44,
+   "text": "\n\nThe is there is a. -\n\nThe is\n\nThe is a is a. This is there is a. Is\n\n is\n\nThe is a.\n\nThe question\n\nThe is\n\nThe is a.\n\n is is\n\nThe is\n\nThe is\n\nThe is a. This is there",
+   "twin_text": "\n\nThe is there is a. -\n\nThe is\n\nThe is a is a. This is there is a. Is\n\n is\n\nThe is a.\n\nThe question\n\nThe is\n\nThe is a.Is\n\nThe is there is a.Is\n\nThe is a is a. This",
+   "steps": [
+    {
+     "top": [
+      {
+       "token": 271,
+       "text": "\n\n",
+       "p": 0.2679757313139507
+      },
+      {
+       "token": 374,
+       "text": " is",
+       "p": 0.09427677564387912
+      },
+      {
+       "token": 198,
+       "text": "\n",
+       "p": 0.08568341336383035
+      }
+     ],
+     "twin": "\n\n",
+     "log10_distance": -10.02
+    },
+    {
+     "top": [
+      {
+       "token": 785,
+       "text": "The",
+       "p": 0.2212095557054954
+      },
+      {
+       "token": 1986,
+       "text": "This",
+       "p": 0.16652096412257955
+      },
+      {
+       "token": 3862,
+       "text": "There",
+       "p": 0.04855130158975446
+      }
+     ],
+     "twin": "The",
+     "log10_distance": -10.04
+    },
+    {
+     "top": [
+      {
+       "token": 374,
+       "text": " is",
+       "p": 0.9567578843575654
+      },
+      {
+       "token": 1128,
+       "text": " what",
+       "p": 0.005279881942810307
+      },
+      {
+       "token": 358,
+       "text": " I",
+       "p": 0.0034060653005466525
+      }
+     ],
+     "twin": " is",
+     "log10_distance": -10.19
+    },
+    {
+     "top": [
+      {
+       "token": 1052,
+       "text": " there",
+       "p": 0.2235510960306469
+      },
+      {
+       "token": 264,
+       "text": " a",
+       "p": 0.2159724948328172
+      },
+      {
+       "token": 432,
+       "text": " it",
+       "p": 0.20672657368221226
+      }
+     ],
+     "twin": " there",
+     "log10_distance": -10.28
+    },
+    {
+     "top": [
+      {
+       "token": 374,
+       "text": " is",
+       "p": 0.6216113328158469
+      },
+      {
+       "token": 12824,
+       "text": " indeed",
+       "p": 0.10611958752200994
+      },
+      {
+       "token": 7838,
+       "text": " certainly",
+       "p": 0.07376541461792017
+      }
+     ],
+     "twin": " is",
+     "log10_distance": -10.07
+    },
+    {
+     "top": [
+      {
+       "token": 264,
+       "text": " a",
+       "p": 0.2974998412777209
+      },
+      {
+       "token": 432,
+       "text": " it",
+       "p": 0.14291011953947433
+      },
+      {
+       "token": 537,
+       "text": " not",
+       "p": 0.13430147557727654
+      }
+     ],
+     "twin": " a",
+     "log10_distance": -9.85
+    },
+    {
+     "top": [
+      {
+       "token": 13,
+       "text": ".",
+       "p": 0.489743538115936
+      },
+      {
+       "token": 271,
+       "text": "\n\n",
+       "p": 0.15111975497974092
+      },
+      {
+       "token": 198,
+       "text": "\n",
+       "p": 0.017592573386460215
+      }
+     ],
+     "twin": ".",
+     "log10_distance": -9.05
+    },
+    {
+     "top": [
+      {
+       "token": 481,
+       "text": " -",
+       "p": 0.134012935437389
+      },
+      {
+       "token": 1986,
+       "text": "This",
+       "p": 0.06211897807346653
+      },
+      {
+       "token": 1096,
+       "text": " This",
+       "p": 0.05488774149431618
+      }
+     ],
+     "twin": " -",
+     "log10_distance": -8.94
+    },
+    {
+     "top": [
+      {
+       "token": 271,
+       "text": "\n\n",
+       "p": 0.3531393148228336
+      },
+      {
+       "token": 1112,
+       "text": "...",
+       "p": 0.10062624748756488
+      },
+      {
+       "token": 481,
+       "text": " -",
+       "p": 0.09171448478721883
+      }
+     ],
+     "twin": "\n\n",
+     "log10_distance": -8.47
+    },
+    {
+     "top": [
+      {
+       "token": 785,
+       "text": "The",
+       "p": 0.3002059990086183
+      },
+      {
+       "token": 1986,
+       "text": "This",
+       "p": 0.13999348672737777
+      },
+      {
+       "token": 12,
+       "text": "-",
+       "p": 0.07020239277197231
+      }
+     ],
+     "twin": "The",
+     "log10_distance": -8.43
+    },
+    {
+     "top": [
+      {
+       "token": 374,
+       "text": " is",
+       "p": 0.1606963260540159
+      },
+      {
+       "token": 13885,
+       "text": " existence",
+       "p": 0.12450024524383708
+      },
+      {
+       "token": 1128,
+       "text": " what",
+       "p": 0.09288809221358199
+      }
+     ],
+     "twin": " is",
+     "log10_distance": -8.32
+    },
+    {
+     "top": [
+      {
+       "token": 271,
+       "text": "\n\n",
+       "p": 0.37844932600766296
+      },
+      {
+       "token": 198,
+       "text": "\n",
+       "p": 0.22331591363965392
+      },
+      {
+       "token": 30,
+       "text": "?",
+       "p": 0.08644801009072162
+      }
+     ],
+     "twin": "\n\n",
+     "log10_distance": -8.36
+    },
+    {
+     "top": [
+      {
+       "token": 785,
+       "text": "The",
+       "p": 0.2337728575747631
+      },
+      {
+       "token": 1986,
+       "text": "This",
+       "p": 0.11499413211259103
+      },
+      {
+       "token": 3862,
+       "text": "There",
+       "p": 0.09022778015939761
+      }
+     ],
+     "twin": "The",
+     "log10_distance": -8.36
+    },
+    {
+     "top": [
+      {
+       "token": 374,
+       "text": " is",
+       "p": 0.8640439586839493
+      },
+      {
+       "token": 1128,
+       "text": " what",
+       "p": 0.01735120229297394
+      },
+      {
+       "token": 13885,
+       "text": " existence",
+       "p": 0.011781567285177425
+      }
+     ],
+     "twin": " is",
+     "log10_distance": -7.87
+    },
+    {
+     "top": [
+      {
+       "token": 264,
+       "text": " a",
+       "p": 0.23463951978054967
+      },
+      {
+       "token": 432,
+       "text": " it",
+       "p": 0.20264450753049887
+      },
+      {
+       "token": 1052,
+       "text": " there",
+       "p": 0.18843096592698086
+      }
+     ],
+     "twin": " a",
+     "log10_distance": -8.14
+    },
+    {
+     "top": [
+      {
+       "token": 374,
+       "text": " is",
+       "p": 0.5061617989877876
+      },
+      {
+       "token": 12824,
+       "text": " indeed",
+       "p": 0.10876004153027534
+      },
+      {
+       "token": 7838,
+       "text": " certainly",
+       "p": 0.06271209477233367
+      }
+     ],
+     "twin": " is",
+     "log10_distance": -7.61
+    },
+    {
+     "top": [
+      {
+       "token": 264,
+       "text": " a",
+       "p": 0.4516955145938544
+      },
+      {
+       "token": 458,
+       "text": " an",
+       "p": 0.11669106406618424
+      },
+      {
+       "token": 537,
+       "text": " not",
+       "p": 0.09728293038631267
+      }
+     ],
+     "twin": " a",
+     "log10_distance": -7.44
+    },
+    {
+     "top": [
+      {
+       "token": 13,
+       "text": ".",
+       "p": 0.9158213342587818
+      },
+      {
+       "token": 271,
+       "text": "\n\n",
+       "p": 0.041206448084007676
+      },
+      {
+       "token": 198,
+       "text": "\n",
+       "p": 0.004953667666641024
+      }
+     ],
+     "twin": ".",
+     "log10_distance": -7.82
+    },
+    {
+     "top": [
+      {
+       "token": 1096,
+       "text": " This",
+       "p": 0.3021256205453776
+      },
+      {
+       "token": 576,
+       "text": " The",
+       "p": 0.09244705711985814
+      },
+      {
+       "token": 2160,
+       "text": " Is",
+       "p": 0.08958591249054403
+      }
+     ],
+     "twin": " This",
+     "log10_distance": -7.92
+    },
+    {
+     "top": [
+      {
+       "token": 374,
+       "text": " is",
+       "p": 0.9898426461267866
+      },
+      {
+       "token": 1231,
+       "text": " may",
+       "p": 0.002398838022537282
+      },
+      {
+       "token": 4977,
+       "text": " seems",
+       "p": 0.0021333672394995245
+      }
+     ],
+     "twin": " is",
+     "log10_distance": -9.57
+    },
+    {
+     "top": [
+      {
+       "token": 1052,
+       "text": " there",
+       "p": 0.23866648907618254
+      },
+      {
+       "token": 432,
+       "text": " it",
+       "p": 0.2085802680735227
+      },
+      {
+       "token": 264,
+       "text": " a",
+       "p": 0.20633801164674542
+      }
+     ],
+     "twin": " there",
+     "log10_distance": -9.6
+    },
+    {
+     "top": [
+      {
+       "token": 374,
+       "text": " is",
+       "p": 0.6507129127721315
+      },
+      {
+       "token": 12824,
+       "text": " indeed",
+       "p": 0.10117040589509499
+      },
+      {
+       "token": 7838,
+       "text": " certainly",
+       "p": 0.076438324070233
+      }
+     ],
+     "twin": " is",
+     "log10_distance": -9.55
+    },
+    {
+     "top": [
+      {
+       "token": 264,
+       "text": " a",
+       "p": 0.27025508692029293
+      },
+      {
+       "token": 432,
+       "text": " it",
+       "p": 0.16022155096793164
+      },
+      {
+       "token": 537,
+       "text": " not",
+       "p": 0.13624224398830087
+      }
+     ],
+     "twin": " a",
+     "log10_distance": -9.43
+    },
+    {
+     "top": [
+      {
+       "token": 13,
+       "text": ".",
+       "p": 0.210781142319861
+      },
+      {
+       "token": 271,
+       "text": "\n\n",
+       "p": 0.14100530745267711
+      },
+      {
+       "token": 374,
+       "text": " is",
+       "p": 0.06701440956470481
+      }
+     ],
+     "twin": ".",
+     "log10_distance": -8.42
+    },
+    {
+     "top": [
+      {
+       "token": 2160,
+       "text": " Is",
+       "p": 0.10920139170826618
+      },
+      {
+       "token": 481,
+       "text": " -",
+       "p": 0.05931735126505545
+      },
+      {
+       "token": 576,
+       "text": " The",
+       "p": 0.05920911504738522
+      }
+     ],
+     "twin": " Is",
+     "log10_distance": -7.78
+    },
+    {
+     "top": [
+      {
+       "token": 271,
+       "text": "\n\n",
+       "p": 0.2052368578658077
+      },
+      {
+       "token": 7838,
+       "text": " certainly",
+       "p": 0.13191836155822642
+      },
+      {
+       "token": 481,
+       "text": " -",
+       "p": 0.07866659453067165
+      }
+     ],
+     "twin": "\n\n",
+     "log10_distance": -7.25
+    },
+    {
+     "top": [
+      {
+       "token": 374,
+       "text": " is",
+       "p": 0.08810772812090882
+      },
+      {
+       "token": 271,
+       "text": "\n\n",
+       "p": 0.06892706312276083
+      },
+      {
+       "token": 576,
+       "text": " The",
+       "p": 0.0626385622852995
+      }
+     ],
+     "twin": " is",
+     "log10_distance": -6.05
+    },
+    {
+     "top": [
+      {
+       "token": 271,
+       "text": "\n\n",
+       "p": 0.32442838991724005
+      },
+      {
+       "token": 481,
+       "text": " -",
+       "p": 0.07710695379100843
+      },
+      {
+       "token": 1112,
+       "text": "...",
+       "p": 0.06870407320590344
+      }
+     ],
+     "twin": "\n\n",
+     "log10_distance": -6.1
+    },
+    {
+     "top": [
+      {
+       "token": 785,
+       "text": "The",
+       "p": 0.28676966727402164
+      },
+      {
+       "token": 1986,
+       "text": "This",
+       "p": 0.15631797273804576
+      },
+      {
+       "token": 3862,
+       "text": "There",
+       "p": 0.05307094645562425
+      }
+     ],
+     "twin": "The",
+     "log10_distance": -6.09
+    },
+    {
+     "top": [
+      {
+       "token": 374,
+       "text": " is",
+       "p": 0.3342170753551816
+      },
+      {
+       "token": 13885,
+       "text": " existence",
+       "p": 0.1038785231330086
+      },
+      {
+       "token": 1128,
+       "text": " what",
+       "p": 0.06783221207107536
+      }
+     ],
+     "twin": " is",
+     "log10_distance": -5.27
+    },
+    {
+     "top": [
+      {
+       "token": 264,
+       "text": " a",
+       "p": 0.2730471130341292
+      },
+      {
+       "token": 198,
+       "text": "\n",
+       "p": 0.16771229634690737
+      },
+      {
+       "token": 271,
+       "text": "\n\n",
+       "p": 0.13025892152423532
+      }
+     ],
+     "twin": " a",
+     "log10_distance": -4.41
+    },
+    {
+     "top": [
+      {
+       "token": 13,
+       "text": ".",
+       "p": 0.21883903611165542
+      },
+      {
+       "token": 785,
+       "text": "The",
+       "p": 0.05538627567272422
+      },
+      {
+       "token": 12,
+       "text": "-",
+       "p": 0.054544714629706434
+      }
+     ],
+     "twin": ".",
+     "log10_distance": -3.13
+    },
+    {
+     "top": [
+      {
+       "token": 271,
+       "text": "\n\n",
+       "p": 0.31837608636302367
+      },
+      {
+       "token": 1112,
+       "text": "...",
+       "p": 0.1118385157216419
+      },
+      {
+       "token": 3555,
+       "text": " What",
+       "p": 0.08176506988813852
+      }
+     ],
+     "twin": "\n\n",
+     "log10_distance": -2.95
+    },
+    {
+     "top": [
+      {
+       "token": 785,
+       "text": "The",
+       "p": 0.342579868914064
+      },
+      {
+       "token": 1986,
+       "text": "This",
+       "p": 0.16955647275252736
+      },
+      {
+       "token": 3862,
+       "text": "There",
+       "p": 0.04308552176766297
+      }
+     ],
+     "twin": "The",
+     "log10_distance": -3.18
+    },
+    {
+     "top": [
+      {
+       "token": 3405,
+       "text": " question",
+       "p": 0.14340525381507477
+      },
+      {
+       "token": 13885,
+       "text": " existence",
+       "p": 0.12631865473981438
+      },
+      {
+       "token": 3738,
+       "text": " human",
+       "p": 0.08076462831180992
+      }
+     ],
+     "twin": " question",
+     "log10_distance": -2.5
+    },
+    {
+     "top": [
+      {
+       "token": 271,
+       "text": "\n\n",
+       "p": 0.44936530695627447
+      },
+      {
+       "token": 198,
+       "text": "\n",
+       "p": 0.2000035614805941
+      },
+      {
+       "token": 374,
+       "text": " is",
+       "p": 0.14112412898019686
+      }
+     ],
+     "twin": "\n\n",
+     "log10_distance": -2.73
+    },
+    {
+     "top": [
+      {
+       "token": 785,
+       "text": "The",
+       "p": 0.28560625434251635
+      },
+      {
+       "token": 1986,
+       "text": "This",
+       "p": 0.10600632141026224
+      },
+      {
+       "token": 3862,
+       "text": "There",
+       "p": 0.07148109380937388
+      }
+     ],
+     "twin": "The",
+     "log10_distance": -2.82
+    },
+    {
+     "top": [
+      {
+       "token": 374,
+       "text": " is",
+       "p": 0.2640753129143734
+      },
+      {
+       "token": 13885,
+       "text": " existence",
+       "p": 0.10180876833647062
+      },
+      {
+       "token": 1128,
+       "text": " what",
+       "p": 0.0674165875501368
+      }
+     ],
+     "twin": " is",
+     "log10_distance": -1.8
+    },
+    {
+     "top": [
+      {
+       "token": 271,
+       "text": "\n\n",
+       "p": 0.4418796368418699
+      },
+      {
+       "token": 198,
+       "text": "\n",
+       "p": 0.284508227112682
+      },
+      {
+       "token": 30,
+       "text": "?",
+       "p": 0.05825759249446502
+      }
+     ],
+     "twin": "\n\n",
+     "log10_distance": -1.98
+    },
+    {
+     "top": [
+      {
+       "token": 785,
+       "text": "The",
+       "p": 0.26751940708429706
+      },
+      {
+       "token": 1986,
+       "text": "This",
+       "p": 0.11722356681021168
+      },
+      {
+       "token": 3862,
+       "text": "There",
+       "p": 0.07045437761379107
+      }
+     ],
+     "twin": "The",
+     "log10_distance": -2.03
+    },
+    {
+     "top": [
+      {
+       "token": 374,
+       "text": " is",
+       "p": 0.6321207133274352
+      },
+      {
+       "token": 13885,
+       "text": " existence",
+       "p": 0.04871504662993835
+      },
+      {
+       "token": 1128,
+       "text": " what",
+       "p": 0.03389668785009428
+      }
+     ],
+     "twin": " is",
+     "log10_distance": -1.24
+    },
+    {
+     "top": [
+      {
+       "token": 264,
+       "text": " a",
+       "p": 0.25944244689795243
+      },
+      {
+       "token": 432,
+       "text": " it",
+       "p": 0.17765063365571163
+      },
+      {
+       "token": 537,
+       "text": " not",
+       "p": 0.13733931195245885
+      }
+     ],
+     "twin": " a",
+     "log10_distance": -1.41
+    },
+    {
+     "top": [
+      {
+       "token": 13,
+       "text": ".",
+       "p": 0.134625205328839
+      },
+      {
+       "token": 374,
+       "text": " is",
+       "p": 0.12397533367518422
+      },
+      {
+       "token": 271,
+       "text": "\n\n",
+       "p": 0.1181556869092461
+      }
+     ],
+     "twin": ".",
+     "log10_distance": -0.38
+    },
+    {
+     "top": [
+      {
+       "token": 271,
+       "text": "\n\n",
+       "p": 0.13927312545418047
+      },
+      {
+       "token": 374,
+       "text": " is",
+       "p": 0.13512030075597936
+      },
+      {
+       "token": 481,
+       "text": " -",
+       "p": 0.05732328632136557
+      }
+     ],
+     "twin": "Is",
+     "log10_distance": -0.04
+    },
+    {
+     "top": [
+      {
+       "token": 374,
+       "text": " is",
+       "p": 0.1716980140612094
+      },
+      {
+       "token": 576,
+       "text": " The",
+       "p": 0.09263437764671645
+      },
+      {
+       "token": 2160,
+       "text": " Is",
+       "p": 0.0781979481954139
+      }
+     ],
+     "twin": "\n\n",
+     "log10_distance": -0.02
+    },
+    {
+     "top": [
+      {
+       "token": 374,
+       "text": " is",
+       "p": 0.2852168463138983
+      },
+      {
+       "token": 279,
+       "text": " the",
+       "p": 0.1906659331166901
+      },
+      {
+       "token": 7838,
+       "text": " certainly",
+       "p": 0.06380026437510167
+      }
+     ],
+     "twin": "The",
+     "log10_distance": 0.09
+    },
+    {
+     "top": [
+      {
+       "token": 271,
+       "text": "\n\n",
+       "p": 0.3865794603730803
+      },
+      {
+       "token": 198,
+       "text": "\n",
+       "p": 0.16017809469329372
+      },
+      {
+       "token": 374,
+       "text": " is",
+       "p": 0.08177140007231196
+      }
+     ],
+     "twin": " is",
+     "log10_distance": 0.09
+    },
+    {
+     "top": [
+      {
+       "token": 785,
+       "text": "The",
+       "p": 0.2748495871412264
+      },
+      {
+       "token": 1986,
+       "text": "This",
+       "p": 0.1047891402023944
+      },
+      {
+       "token": 2121,
+       "text": "As",
+       "p": 0.07399737340497946
+      }
+     ],
+     "twin": " there",
+     "log10_distance": 0.17
+    },
+    {
+     "top": [
+      {
+       "token": 374,
+       "text": " is",
+       "p": 0.2628114279721788
+      },
+      {
+       "token": 1128,
+       "text": " what",
+       "p": 0.0997589578908572
+      },
+      {
+       "token": 13885,
+       "text": " existence",
+       "p": 0.08871682154149668
+      }
+     ],
+     "twin": " is",
+     "log10_distance": 0.12
+    },
+    {
+     "top": [
+      {
+       "token": 271,
+       "text": "\n\n",
+       "p": 0.46725453296889125
+      },
+      {
+       "token": 198,
+       "text": "\n",
+       "p": 0.32639569159877674
+      },
+      {
+       "token": 30,
+       "text": "?",
+       "p": 0.03964519279728322
+      }
+     ],
+     "twin": " a",
+     "log10_distance": 0.0
+    },
+    {
+     "top": [
+      {
+       "token": 785,
+       "text": "The",
+       "p": 0.3038876584616251
+      },
+      {
+       "token": 1986,
+       "text": "This",
+       "p": 0.1373355233946223
+      },
+      {
+       "token": 2132,
+       "text": "It",
+       "p": 0.07075955792242727
+      }
+     ],
+     "twin": ".",
+     "log10_distance": 0.14
+    },
+    {
+     "top": [
+      {
+       "token": 374,
+       "text": " is",
+       "p": 0.1835277179790328
+      },
+      {
+       "token": 13885,
+       "text": " existence",
+       "p": 0.1217522437879368
+      },
+      {
+       "token": 3405,
+       "text": " question",
+       "p": 0.06767373806779474
+      }
+     ],
+     "twin": "Is",
+     "log10_distance": 0.11
+    },
+    {
+     "top": [
+      {
+       "token": 271,
+       "text": "\n\n",
+       "p": 0.39125435277517967
+      },
+      {
+       "token": 198,
+       "text": "\n",
+       "p": 0.20554845335974598
+      },
+      {
+       "token": 374,
+       "text": " is",
+       "p": 0.11475825740783065
+      }
+     ],
+     "twin": "\n\n",
+     "log10_distance": -0.32
+    },
+    {
+     "top": [
+      {
+       "token": 785,
+       "text": "The",
+       "p": 0.262373836367711
+      },
+      {
+       "token": 1986,
+       "text": "This",
+       "p": 0.11529083883614152
+      },
+      {
+       "token": 3862,
+       "text": "There",
+       "p": 0.080903282737676
+      }
+     ],
+     "twin": "The",
+     "log10_distance": -0.69
+    },
+    {
+     "top": [
+      {
+       "token": 374,
+       "text": " is",
+       "p": 0.4931433582341224
+      },
+      {
+       "token": 1128,
+       "text": " what",
+       "p": 0.06411448793101411
+      },
+      {
+       "token": 13885,
+       "text": " existence",
+       "p": 0.0627109916776102
+      }
+     ],
+     "twin": " is",
+     "log10_distance": -0.21
+    },
+    {
+     "top": [
+      {
+       "token": 264,
+       "text": " a",
+       "p": 0.3758552556432418
+      },
+      {
+       "token": 537,
+       "text": " not",
+       "p": 0.12454277925578756
+      },
+      {
+       "token": 458,
+       "text": " an",
+       "p": 0.10810019400158971
+      }
+     ],
+     "twin": " a",
+     "log10_distance": -0.47
+    },
+    {
+     "top": [
+      {
+       "token": 13,
+       "text": ".",
+       "p": 0.8198344557704703
+      },
+      {
+       "token": 271,
+       "text": "\n\n",
+       "p": 0.09004872374844089
+      },
+      {
+       "token": 198,
+       "text": "\n",
+       "p": 0.01244574168013829
+      }
+     ],
+     "twin": " is",
+     "log10_distance": -0.05
+    },
+    {
+     "top": [
+      {
+       "token": 1096,
+       "text": " This",
+       "p": 0.25906349564781894
+      },
+      {
+       "token": 576,
+       "text": " The",
+       "p": 0.0855109036318997
+      },
+      {
+       "token": 2160,
+       "text": " Is",
+       "p": 0.07752974868950288
+      }
+     ],
+     "twin": " a",
+     "log10_distance": 0.23
+    },
+    {
+     "top": [
+      {
+       "token": 374,
+       "text": " is",
+       "p": 0.9898462742556199
+      },
+      {
+       "token": 1231,
+       "text": " may",
+       "p": 0.002087218567919525
+      },
+      {
+       "token": 4977,
+       "text": " seems",
+       "p": 0.0015368906293821611
+      }
+     ],
+     "twin": ".",
+     "log10_distance": 0.13
+    },
+    {
+     "top": [
+      {
+       "token": 1052,
+       "text": " there",
+       "p": 0.2386978141211015
+      },
+      {
+       "token": 432,
+       "text": " it",
+       "p": 0.20852545769902459
+      },
+      {
+       "token": 264,
+       "text": " a",
+       "p": 0.2063156465282707
+      }
+     ],
+     "twin": " This",
+     "log10_distance": 0.0
+    }
+   ]
+  },
+  {
+   "alpha": 0.07277,
+   "log10T": -0.041,
+   "period": 0,
+   "lyapunov": [
+    0.3553240087137,
+    0.3553197660580401
+   ],
+   "chaotic": true,
+   "split_step": 51,
+   "text": " This\n\nThe is\n\nThe\n\nThe I\n\nThe is a is a.-\n\nThe is\n\nThe\n\n\n\nThe is a is\n\nThe is a is a. This\n\nThe is\n\nThe is a. -\n\nThe is a.Is\n\nThe is a. Is\n\nThe is",
+   "twin_text": " This\n\nThe is\n\nThe\n\nThe I\n\nThe is a is a.-\n\nThe is\n\nThe\n\n\n\nThe is a is\n\nThe is a is a. This\n\nThe is\n\nThe is a. -\n\nThe is a.\n\nThe\n\n\n\nThe is a is a.",
+   "steps": [
+    {
+     "top": [
+      {
+       "token": 1096,
+       "text": " This",
+       "p": 0.08268297046083445
+      },
+      {
+       "token": 481,
+       "text": " -",
+       "p": 0.06313797595404617
+      },
+      {
+       "token": 2160,
+       "text": " Is",
+       "p": 0.040342194376917564
+      }
+     ],
+     "twin": " This",
+     "log10_distance": -10.51
+    },
+    {
+     "top": [
+      {
+       "token": 271,
+       "text": "\n\n",
+       "p": 0.2555876737244311
+      },
+      {
+       "token": 77,
+       "text": "n",
+       "p": 0.12227150370967216
+      },
+      {
+       "token": 481,
+       "text": " -",
+       "p": 0.10839770033505262
+      }
+     ],
+     "twin": "\n\n",
+     "log10_distance": -10.67
+    },
+    {
+     "top": [
+      {
+       "token": 785,
+       "text": "The",
+       "p": 0.1635646626277153
+      },
+      {
+       "token": 1986,
+       "text": "This",
+       "p": 0.1004086630532528
+      },
+      {
+       "token": 2121,
+       "text": "As",
+       "p": 0.053674100358904485
+      }
+     ],
+     "twin": "The",
+     "log10_distance": -11.16
+    },
+    {
+     "top": [
+      {
+       "token": 374,
+       "text": " is",
+       "p": 0.2783670254743907
+      },
+      {
+       "token": 358,
+       "text": " I",
+       "p": 0.05812683451507109
+      },
+      {
+       "token": 419,
+       "text": " this",
+       "p": 0.045727929369117404
+      }
+     ],
+     "twin": " is",
+     "log10_distance": -10.66
+    },
+    {
+     "top": [
+      {
+       "token": 271,
+       "text": "\n\n",
+       "p": 0.20851999855326442
+      },
+      {
+       "token": 198,
+       "text": "\n",
+       "p": 0.168286302385425
+      },
+      {
+       "token": 374,
+       "text": " is",
+       "p": 0.08198428823691657
+      }
+     ],
+     "twin": "\n\n",
+     "log10_distance": -10.04
+    },
+    {
+     "top": [
+      {
+       "token": 785,
+       "text": "The",
+       "p": 0.10923174801821639
+      },
+      {
+       "token": 1986,
+       "text": "This",
+       "p": 0.07012861086582024
+      },
+      {
+       "token": 9707,
+       "text": "Hello",
+       "p": 0.05311855316947556
+      }
+     ],
+     "twin": "The",
+     "log10_distance": -9.81
+    },
+    {
+     "top": [
+      {
+       "token": 271,
+       "text": "\n\n",
+       "p": 0.3170231319080213
+      },
+      {
+       "token": 1112,
+       "text": "...",
+       "p": 0.05344738113577932
+      },
+      {
+       "token": 65702,
+       "text": " Inquiry",
+       "p": 0.050325950730230544
+      }
+     ],
+     "twin": "\n\n",
+     "log10_distance": -9.52
+    },
+    {
+     "top": [
+      {
+       "token": 785,
+       "text": "The",
+       "p": 0.12232406847648081
+      },
+      {
+       "token": 12,
+       "text": "-",
+       "p": 0.1029502647972741
+      },
+      {
+       "token": 1986,
+       "text": "This",
+       "p": 0.08999509136195316
+      }
+     ],
+     "twin": "The",
+     "log10_distance": -9.29
+    },
+    {
+     "top": [
+      {
+       "token": 358,
+       "text": " I",
+       "p": 0.09744898438488515
+      },
+      {
+       "token": 271,
+       "text": "\n\n",
+       "p": 0.07020214686843602
+      },
+      {
+       "token": 432,
+       "text": " it",
+       "p": 0.06929358892283678
+      }
+     ],
+     "twin": " I",
+     "log10_distance": -8.71
+    },
+    {
+     "top": [
+      {
+       "token": 271,
+       "text": "\n\n",
+       "p": 0.514564295515314
+      },
+      {
+       "token": 198,
+       "text": "\n",
+       "p": 0.25829161692140173
+      },
+      {
+       "token": 374,
+       "text": " is",
+       "p": 0.018366242310209446
+      }
+     ],
+     "twin": "\n\n",
+     "log10_distance": -9.14
+    },
+    {
+     "top": [
+      {
+       "token": 785,
+       "text": "The",
+       "p": 0.19114008809137337
+      },
+      {
+       "token": 1986,
+       "text": "This",
+       "p": 0.10306045764843966
+      },
+      {
+       "token": 2132,
+       "text": "It",
+       "p": 0.0601999220243589
+      }
+     ],
+     "twin": "The",
+     "log10_distance": -9.0
+    },
+    {
+     "top": [
+      {
+       "token": 374,
+       "text": " is",
+       "p": 0.8278011684630195
+      },
+      {
+       "token": 358,
+       "text": " I",
+       "p": 0.014033422747051405
+      },
+      {
+       "token": 1128,
+       "text": " what",
+       "p": 0.0073714421199201265
+      }
+     ],
+     "twin": " is",
+     "log10_distance": -8.94
+    },
+    {
+     "top": [
+      {
+       "token": 264,
+       "text": " a",
+       "p": 0.20065852420655106
+      },
+      {
+       "token": 432,
+       "text": " it",
+       "p": 0.18429542248935377
+      },
+      {
+       "token": 1052,
+       "text": " there",
+       "p": 0.15834935358818017
+      }
+     ],
+     "twin": " a",
+     "log10_distance": -9.23
+    },
+    {
+     "top": [
+      {
+       "token": 374,
+       "text": " is",
+       "p": 0.3545755436043049
+      },
+      {
+       "token": 12824,
+       "text": " indeed",
+       "p": 0.13633187002556524
+      },
+      {
+       "token": 7838,
+       "text": " certainly",
+       "p": 0.07554245147067924
+      }
+     ],
+     "twin": " is",
+     "log10_distance": -8.65
+    },
+    {
+     "top": [
+      {
+       "token": 264,
+       "text": " a",
+       "p": 0.23483678110005718
+      },
+      {
+       "token": 458,
+       "text": " an",
+       "p": 0.08039058039948176
+      },
+      {
+       "token": 198,
+       "text": "\n",
+       "p": 0.07575425051115509
+      }
+     ],
+     "twin": " a",
+     "log10_distance": -7.84
+    },
+    {
+     "top": [
+      {
+       "token": 13,
+       "text": ".",
+       "p": 0.18801951023046234
+      },
+      {
+       "token": 271,
+       "text": "\n\n",
+       "p": 0.17744223104600362
+      },
+      {
+       "token": 198,
+       "text": "\n",
+       "p": 0.05514057078101213
+      }
+     ],
+     "twin": ".",
+     "log10_distance": -7.25
+    },
+    {
+     "top": [
+      {
+       "token": 12,
+       "text": "-",
+       "p": 0.062090806979771235
+      },
+      {
+       "token": 785,
+       "text": "The",
+       "p": 0.054989970564880086
+      },
+      {
+       "token": 42990,
+       "text": "Este",
+       "p": 0.04832372148862274
+      }
+     ],
+     "twin": "-",
+     "log10_distance": -6.99
+    },
+    {
+     "top": [
+      {
+       "token": 271,
+       "text": "\n\n",
+       "p": 0.47261051520984065
+      },
+      {
+       "token": 198,
+       "text": "\n",
+       "p": 0.1446088258665013
+      },
+      {
+       "token": 481,
+       "text": " -",
+       "p": 0.06017714069982606
+      }
+     ],
+     "twin": "\n\n",
+     "log10_distance": -7.35
+    },
+    {
+     "top": [
+      {
+       "token": 785,
+       "text": "The",
+       "p": 0.16402006825681195
+      },
+      {
+       "token": 33975,
+       "text": "Human",
+       "p": 0.10027760988319391
+      },
+      {
+       "token": 1986,
+       "text": "This",
+       "p": 0.06510865075571888
+      }
+     ],
+     "twin": "The",
+     "log10_distance": -7.28
+    },
+    {
+     "top": [
+      {
+       "token": 374,
+       "text": " is",
+       "p": 0.3282473800031092
+      },
+      {
+       "token": 65702,
+       "text": " Inquiry",
+       "p": 0.05177756539680925
+      },
+      {
+       "token": 271,
+       "text": "\n\n",
+       "p": 0.03061571120874621
+      }
+     ],
+     "twin": " is",
+     "log10_distance": -7.31
+    },
+    {
+     "top": [
+      {
+       "token": 271,
+       "text": "\n\n",
+       "p": 0.1421560006963447
+      },
+      {
+       "token": 198,
+       "text": "\n",
+       "p": 0.1370483940475504
+      },
+      {
+       "token": 264,
+       "text": " a",
+       "p": 0.1135314875693384
+      }
+     ],
+     "twin": "\n\n",
+     "log10_distance": -6.83
+    },
+    {
+     "top": [
+      {
+       "token": 785,
+       "text": "The",
+       "p": 0.15570273897028766
+      },
+      {
+       "token": 2132,
+       "text": "It",
+       "p": 0.05468596584231089
+      },
+      {
+       "token": 40,
+       "text": "I",
+       "p": 0.048337290442626496
+      }
+     ],
+     "twin": "The",
+     "log10_distance": -6.33
+    },
+    {
+     "top": [
+      {
+       "token": 271,
+       "text": "\n\n",
+       "p": 0.14381786087081272
+      },
+      {
+       "token": 65702,
+       "text": " Inquiry",
+       "p": 0.07075901731347296
+      },
+      {
+       "token": 358,
+       "text": " I",
+       "p": 0.051436187894647815
+      }
+     ],
+     "twin": "\n\n",
+     "log10_distance": -5.93
+    },
+    {
+     "top": [
+      {
+       "token": 271,
+       "text": "\n\n",
+       "p": 0.5054094717224006
+      },
+      {
+       "token": 198,
+       "text": "\n",
+       "p": 0.2287460320939318
+      },
+      {
+       "token": 30,
+       "text": "?",
+       "p": 0.018620149783176984
+      }
+     ],
+     "twin": "\n\n",
+     "log10_distance": -6.26
+    },
+    {
+     "top": [
+      {
+       "token": 785,
+       "text": "The",
+       "p": 0.1772872522758561
+      },
+      {
+       "token": 1986,
+       "text": "This",
+       "p": 0.09327104437908094
+      },
+      {
+       "token": 2132,
+       "text": "It",
+       "p": 0.05508288234578282
+      }
+     ],
+     "twin": "The",
+     "log10_distance": -6.07
+    },
+    {
+     "top": [
+      {
+       "token": 374,
+       "text": " is",
+       "p": 0.7112566831277487
+      },
+      {
+       "token": 358,
+       "text": " I",
+       "p": 0.020274839474376572
+      },
+      {
+       "token": 65702,
+       "text": " Inquiry",
+       "p": 0.01151016162770567
+      }
+     ],
+     "twin": " is",
+     "log10_distance": -5.58
+    },
+    {
+     "top": [
+      {
+       "token": 264,
+       "text": " a",
+       "p": 0.2151291825072155
+      },
+      {
+       "token": 432,
+       "text": " it",
+       "p": 0.1716945920452346
+      },
+      {
+       "token": 1052,
+       "text": " there",
+       "p": 0.1257142567319829
+      }
+     ],
+     "twin": " a",
+     "log10_distance": -5.85
+    },
+    {
+     "top": [
+      {
+       "token": 374,
+       "text": " is",
+       "p": 0.18928594647540087
+      },
+      {
+       "token": 12824,
+       "text": " indeed",
+       "p": 0.10656313615739722
+      },
+      {
+       "token": 271,
+       "text": "\n\n",
+       "p": 0.05400802868082714
+      }
+     ],
+     "twin": " is",
+     "log10_distance": -5.01
+    },
+    {
+     "top": [
+      {
+       "token": 271,
+       "text": "\n\n",
+       "p": 0.5432255695459307
+      },
+      {
+       "token": 198,
+       "text": "\n",
+       "p": 0.32229540098191367
+      },
+      {
+       "token": 1112,
+       "text": "...",
+       "p": 0.012459518387340076
+      }
+     ],
+     "twin": "\n\n",
+     "log10_distance": -5.28
+    },
+    {
+     "top": [
+      {
+       "token": 785,
+       "text": "The",
+       "p": 0.2120899623972741
+      },
+      {
+       "token": 1986,
+       "text": "This",
+       "p": 0.11281619000041011
+      },
+      {
+       "token": 2132,
+       "text": "It",
+       "p": 0.06192554740125342
+      }
+     ],
+     "twin": "The",
+     "log10_distance": -5.81
+    },
+    {
+     "top": [
+      {
+       "token": 374,
+       "text": " is",
+       "p": 0.8384310851396696
+      },
+      {
+       "token": 358,
+       "text": " I",
+       "p": 0.012146205414518342
+      },
+      {
+       "token": 1128,
+       "text": " what",
+       "p": 0.009918776481182464
+      }
+     ],
+     "twin": " is",
+     "log10_distance": -5.61
+    },
+    {
+     "top": [
+      {
+       "token": 264,
+       "text": " a",
+       "p": 0.19769324350259537
+      },
+      {
+       "token": 432,
+       "text": " it",
+       "p": 0.18558989845950688
+      },
+      {
+       "token": 1052,
+       "text": " there",
+       "p": 0.1628617326675474
+      }
+     ],
+     "twin": " a",
+     "log10_distance": -5.95
+    },
+    {
+     "top": [
+      {
+       "token": 374,
+       "text": " is",
+       "p": 0.3765709448737744
+      },
+      {
+       "token": 12824,
+       "text": " indeed",
+       "p": 0.1378055735416821
+      },
+      {
+       "token": 7838,
+       "text": " certainly",
+       "p": 0.07846278173449116
+      }
+     ],
+     "twin": " is",
+     "log10_distance": -5.45
+    },
+    {
+     "top": [
+      {
+       "token": 264,
+       "text": " a",
+       "p": 0.3143382098848792
+      },
+      {
+       "token": 458,
+       "text": " an",
+       "p": 0.098163996765317
+      },
+      {
+       "token": 279,
+       "text": " the",
+       "p": 0.06731918862613735
+      }
+     ],
+     "twin": " a",
+     "log10_distance": -4.85
+    },
+    {
+     "top": [
+      {
+       "token": 13,
+       "text": ".",
+       "p": 0.6333289941855982
+      },
+      {
+       "token": 271,
+       "text": "\n\n",
+       "p": 0.1018031557192398
+      },
+      {
+       "token": 198,
+       "text": "\n",
+       "p": 0.019490981759896428
+      }
+     ],
+     "twin": ".",
+     "log10_distance": -4.63
+    },
+    {
+     "top": [
+      {
+       "token": 1096,
+       "text": " This",
+       "p": 0.08767757448998618
+      },
+      {
+       "token": 481,
+       "text": " -",
+       "p": 0.06188257896353069
+      },
+      {
+       "token": 2160,
+       "text": " Is",
+       "p": 0.04178269752670213
+      }
+     ],
+     "twin": " This",
+     "log10_distance": -4.45
+    },
+    {
+     "top": [
+      {
+       "token": 271,
+       "text": "\n\n",
+       "p": 0.21785799443445344
+      },
+      {
+       "token": 77,
+       "text": "n",
+       "p": 0.13184267465984528
+      },
+      {
+       "token": 481,
+       "text": " -",
+       "p": 0.11199438479589127
+      }
+     ],
+     "twin": "\n\n",
+     "log10_distance": -3.77
+    },
+    {
+     "top": [
+      {
+       "token": 785,
+       "text": "The",
+       "p": 0.15785192567059786
+      },
+      {
+       "token": 1986,
+       "text": "This",
+       "p": 0.0963388584190506
+      },
+      {
+       "token": 2121,
+       "text": "As",
+       "p": 0.04619248152247742
+      }
+     ],
+     "twin": "The",
+     "log10_distance": -3.94
+    },
+    {
+     "top": [
+      {
+       "token": 374,
+       "text": " is",
+       "p": 0.22203095927141434
+      },
+      {
+       "token": 358,
+       "text": " I",
+       "p": 0.05763931764645517
+      },
+      {
+       "token": 65702,
+       "text": " Inquiry",
+       "p": 0.03900551697894062
+      }
+     ],
+     "twin": " is",
+     "log10_distance": -3.22
+    },
+    {
+     "top": [
+      {
+       "token": 271,
+       "text": "\n\n",
+       "p": 0.395089813352101
+      },
+      {
+       "token": 198,
+       "text": "\n",
+       "p": 0.23615332196857092
+      },
+      {
+       "token": 374,
+       "text": " is",
+       "p": 0.023107219211191386
+      }
+     ],
+     "twin": "\n\n",
+     "log10_distance": -3.16
+    },
+    {
+     "top": [
+      {
+       "token": 785,
+       "text": "The",
+       "p": 0.14876673227943113
+      },
+      {
+       "token": 33975,
+       "text": "Human",
+       "p": 0.08996482561205348
+      },
+      {
+       "token": 1986,
+       "text": "This",
+       "p": 0.08136201026463379
+      }
+     ],
+     "twin": "The",
+     "log10_distance": -3.07
+    },
+    {
+     "top": [
+      {
+       "token": 374,
+       "text": " is",
+       "p": 0.3638719838704856
+      },
+      {
+       "token": 65702,
+       "text": " Inquiry",
+       "p": 0.04460487606261496
+      },
+      {
+       "token": 271,
+       "text": "\n\n",
+       "p": 0.036454953745054634
+      }
+     ],
+     "twin": " is",
+     "log10_distance": -3.02
+    },
+    {
+     "top": [
+      {
+       "token": 264,
+       "text": " a",
+       "p": 0.2275960395751595
+      },
+      {
+       "token": 458,
+       "text": " an",
+       "p": 0.09254305609049537
+      },
+      {
+       "token": 279,
+       "text": " the",
+       "p": 0.07408770595745737
+      }
+     ],
+     "twin": " a",
+     "log10_distance": -2.33
+    },
+    {
+     "top": [
+      {
+       "token": 13,
+       "text": ".",
+       "p": 0.21165946671418776
+      },
+      {
+       "token": 271,
+       "text": "\n\n",
+       "p": 0.15782539288533073
+      },
+      {
+       "token": 198,
+       "text": "\n",
+       "p": 0.044474624022109166
+      }
+     ],
+     "twin": ".",
+     "log10_distance": -1.7
+    },
+    {
+     "top": [
+      {
+       "token": 481,
+       "text": " -",
+       "p": 0.06649177107036143
+      },
+      {
+       "token": 12,
+       "text": "-",
+       "p": 0.04356532978837154
+      },
+      {
+       "token": 785,
+       "text": "The",
+       "p": 0.04225089246851238
+      }
+     ],
+     "twin": " -",
+     "log10_distance": -1.0
+    },
+    {
+     "top": [
+      {
+       "token": 271,
+       "text": "\n\n",
+       "p": 0.45385835282300824
+      },
+      {
+       "token": 198,
+       "text": "\n",
+       "p": 0.13079144970750278
+      },
+      {
+       "token": 481,
+       "text": " -",
+       "p": 0.08450182207452163
+      }
+     ],
+     "twin": "\n\n",
+     "log10_distance": -1.1
+    },
+    {
+     "top": [
+      {
+       "token": 785,
+       "text": "The",
+       "p": 0.17757597183042917
+      },
+      {
+       "token": 1986,
+       "text": "This",
+       "p": 0.07075310454883221
+      },
+      {
+       "token": 33975,
+       "text": "Human",
+       "p": 0.07007045052765674
+      }
+     ],
+     "twin": "The",
+     "log10_distance": -0.96
+    },
+    {
+     "top": [
+      {
+       "token": 374,
+       "text": " is",
+       "p": 0.3516818459485338
+      },
+      {
+       "token": 65702,
+       "text": " Inquiry",
+       "p": 0.03547704724815657
+      },
+      {
+       "token": 358,
+       "text": " I",
+       "p": 0.03299734700099425
+      }
+     ],
+     "twin": " is",
+     "log10_distance": -1.13
+    },
+    {
+     "top": [
+      {
+       "token": 264,
+       "text": " a",
+       "p": 0.25765711787485357
+      },
+      {
+       "token": 458,
+       "text": " an",
+       "p": 0.1009872857025787
+      },
+      {
+       "token": 279,
+       "text": " the",
+       "p": 0.07105923995917442
+      }
+     ],
+     "twin": " a",
+     "log10_distance": -0.9
+    },
+    {
+     "top": [
+      {
+       "token": 13,
+       "text": ".",
+       "p": 0.35368407082397346
+      },
+      {
+       "token": 271,
+       "text": "\n\n",
+       "p": 0.14434841994072348
+      },
+      {
+       "token": 198,
+       "text": "\n",
+       "p": 0.034701474473583425
+      }
+     ],
+     "twin": ".",
+     "log10_distance": -0.34
+    },
+    {
+     "top": [
+      {
+       "token": 3872,
+       "text": "Is",
+       "p": 0.0637868478241812
+      },
+      {
+       "token": 481,
+       "text": " -",
+       "p": 0.04411529460132902
+      },
+      {
+       "token": 1986,
+       "text": "This",
+       "p": 0.04339680171213988
+      }
+     ],
+     "twin": "\n\n",
+     "log10_distance": 0.24
+    },
+    {
+     "top": [
+      {
+       "token": 271,
+       "text": "\n\n",
+       "p": 0.5001381566097084
+      },
+      {
+       "token": 198,
+       "text": "\n",
+       "p": 0.2002914629283324
+      },
+      {
+       "token": 481,
+       "text": " -",
+       "p": 0.051879107147893615
+      }
+     ],
+     "twin": "The",
+     "log10_distance": 0.01
+    },
+    {
+     "top": [
+      {
+       "token": 785,
+       "text": "The",
+       "p": 0.17773307972415645
+      },
+      {
+       "token": 1986,
+       "text": "This",
+       "p": 0.08128889539289111
+      },
+      {
+       "token": 33975,
+       "text": "Human",
+       "p": 0.06915499682511679
+      }
+     ],
+     "twin": "\n\n",
+     "log10_distance": 0.04
+    },
+    {
+     "top": [
+      {
+       "token": 374,
+       "text": " is",
+       "p": 0.586739006594204
+      },
+      {
+       "token": 358,
+       "text": " I",
+       "p": 0.02385212761232393
+      },
+      {
+       "token": 65702,
+       "text": " Inquiry",
+       "p": 0.021061319399433544
+      }
+     ],
+     "twin": "\n\n",
+     "log10_distance": 0.26
+    },
+    {
+     "top": [
+      {
+       "token": 264,
+       "text": " a",
+       "p": 0.2602604737044161
+      },
+      {
+       "token": 432,
+       "text": " it",
+       "p": 0.1305112058892744
+      },
+      {
+       "token": 537,
+       "text": " not",
+       "p": 0.1014826853523488
+      }
+     ],
+     "twin": "The",
+     "log10_distance": 0.08
+    },
+    {
+     "top": [
+      {
+       "token": 13,
+       "text": ".",
+       "p": 0.30581371710784905
+      },
+      {
+       "token": 271,
+       "text": "\n\n",
+       "p": 0.11746182604866631
+      },
+      {
+       "token": 198,
+       "text": "\n",
+       "p": 0.01953517631773995
+      }
+     ],
+     "twin": " is",
+     "log10_distance": 0.17
+    },
+    {
+     "top": [
+      {
+       "token": 2160,
+       "text": " Is",
+       "p": 0.057051886698783846
+      },
+      {
+       "token": 481,
+       "text": " -",
+       "p": 0.04734799527745639
+      },
+      {
+       "token": 3872,
+       "text": "Is",
+       "p": 0.04366537873448858
+      }
+     ],
+     "twin": " a",
+     "log10_distance": 0.32
+    },
+    {
+     "top": [
+      {
+       "token": 271,
+       "text": "\n\n",
+       "p": 0.4673845017330628
+      },
+      {
+       "token": 198,
+       "text": "\n",
+       "p": 0.13965886613227993
+      },
+      {
+       "token": 481,
+       "text": " -",
+       "p": 0.08183967560761679
+      }
+     ],
+     "twin": " is",
+     "log10_distance": -0.02
+    },
+    {
+     "top": [
+      {
+       "token": 785,
+       "text": "The",
+       "p": 0.1731620863433525
+      },
+      {
+       "token": 33975,
+       "text": "Human",
+       "p": 0.08548131247058566
+      },
+      {
+       "token": 1986,
+       "text": "This",
+       "p": 0.06685925336804499
+      }
+     ],
+     "twin": " a",
+     "log10_distance": 0.24
+    },
+    {
+     "top": [
+      {
+       "token": 374,
+       "text": " is",
+       "p": 0.34585926295133496
+      },
+      {
+       "token": 65702,
+       "text": " Inquiry",
+       "p": 0.042535699254051644
+      },
+      {
+       "token": 358,
+       "text": " I",
+       "p": 0.02987160802661811
+      }
+     ],
+     "twin": ".",
+     "log10_distance": 0.38
+    }
+   ]
+  }
+ ]
+}
