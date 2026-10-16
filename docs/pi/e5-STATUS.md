@@ -42,3 +42,7 @@ tests/test_e5_repetition_onset.py (36 pass). Raw outputs: /data2/neural-shrimp-d
 - Dev, chosen rule: Spearman(T_chaos, T_rep) = 0.29 (95% bootstrap -0.75 to 0.91); partial given T_H -0.12;
   Spearman(T_H, T_rep) = 0.71; matched-temperature chaotic minus periodic repetition fraction -0.038 (-0.11 to 0.04).
   Too few prompts to conclude anything.
+
+## Update 2026-10-16 23:56 UTC
+heldout-sample-1 finished on its own: all 24 held-out prompts sampled (no gate failures logged). The resume command
+above is no longer needed; only the analysis and summarize commands remain.
