@@ -27632,7 +27632,7 @@ Run by a separate agent on the CPU (Qwen2.5-0.5B-Instruct, float32). Code tools/
 
 **Run.** Same tool and settings as CT (unchanged since fb14ed56): --record 120, so that the 1e-10 copy's split falls inside the record at this exponent (expected near step 55). Receipt docs/chaos-texts/qwen0.5b-hostility.json. Local CPU, 4 threads. Used as a chaos example only if it passes the label.
 
-## 2026-10-16 11:19 UTC: Run card PM (confirmatory): the soft-thinking matrix on fresh problems, design frozen before any data
+## 2026-10-16 11:28 UTC: Run card PM (confirmatory): the soft-thinking matrix on fresh problems, design frozen before any data
 
 **Design.** docs/pi-matrix-confirmatory.md (consult 11's matrix, as adjudicated), committed with this entry before any run.
 - Qwen2.5-7B-Instruct, bfloat16, on the local RTX 2000 Ada.
