@@ -27592,3 +27592,34 @@ Pod rpjvsn9lryoyu5 (H200 community, commit 056d7483) ran about 17 minutes. The Q
 - So in this family, routing does not let a large model behave like a small one: by these measures the MoE resembles a larger dense model, which the size trend would predict for its total size. Three models, one family, exploratory.
 - Routing switches play no part at the twin offsets (pod MA), so this is a property of the smooth map.
 - The dense controls also rule out the hybrid attention as the cause of the MoE's contraction: the dense 4B and 9B share it and are chaotic.
+
+## 2026-10-16 10:58 UTC: C12-1 results (selective control): the attack is retired; early perturbations give less leverage than late ones
+
+Run by a separate agent on the CPU (Qwen2.5-0.5B-Instruct, float32). Code tools/c12_selective_control.py with 10 tests; the held-out run used commit 3a962e52. Receipt docs/pi/c12-1-summary.json (commit 5aff6dbc): settings, choices, deviations, per-arm rates with paired bootstrap intervals over problems, controls, compute, and SHA-256 of 47 raw files under explore/pi/c12-1/.
+
+**Primary endpoint, held out** (64 problems; early injection, S = 16, radius 1 token norm).
+- Delta = P(target | 20-step projected gradient ascent) - P(target | compute-matched random search) = +0.042 [0.008, 0.083], over 101 baseline-correct problem-temperature pairs on 60 problems (5 against 0 hits).
+- The interval excludes a 10-point advantage, so the card's decision rule retires the method. Unconditional: +0.039 [0.000, 0.086] over 128 pairs.
+
+**Early against late, same dose.** The optimizer hit 5 of 101 targets early and 14 of 101 late: -0.117 [-0.208, -0.033]. The loop gives less leverage early, not more.
+- At S = 8: early 2 and 10 of 126 (radius 1 and 3), late 24 and 44. At S = 1: 31 and 67 of 126.
+- Random search never hit the target late or at S = 1.
+- Random early directions change about 28 % of answers at radius 1 (1,254 of 4,545 candidates) but almost never to the target: unstructured instability without selective control.
+
+**Controls.**
+- All 1,282 zero-perturbation rows reproduce the baseline. The forced-target scorer passes 384 of 384.
+- Positive control (late, radius 10): 48 of 101 for the optimizer, 0 of 101 for random search.
+- Derivatives: float64 central differences converge as h^2. Float32 rollout gradients have cosine at least 0.999999 to float64.
+- Float32 batch-layout differences are at most 1.6e-3 at any step, with no answer flips. The radii (1 and 3 token norms) are token-sized, not rounding-sized.
+
+**Deviations from the card** (recorded in the receipt).
+- S = 32 replaced by 16, since development accuracy at S = 32 was 1-10 of 16 at every temperature. This was decided on baselines, before any attack outcome.
+- 6 answer tokens instead of 12.
+- The 5-step optimizer failed its positive control on development problems and was replaced by a 20-step version, with K raised to 45. This was decided after development attack outcomes, before held-out data.
+- The doses came from the dose rule's pre-specified fallback. The control radius was set on development outcomes.
+
+**Caveats.**
+- Both chosen temperatures contract at the median (twin rates -0.131 and -0.058 per step): this tests the contracting, mildly sensitive regime, not chaos.
+- One small model, one task, float32 on the CPU.
+
+**Reading.** In this pipeline, sensitivity to perturbations does not translate into control. Small early nudges fade and large ones scramble the answer unpredictably. Only a perturbation of the last fed-back token before the answer steers it to a chosen wrong value. For the paper this is a negative control on the security reading of the loop's sensitivity: no evidence that the loop amplifies a targeted perturbation into a chosen answer.
