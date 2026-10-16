@@ -133,7 +133,7 @@ system; Section~\ref{sec:beyond} also measures how much of the mechanism survive
   baseline. An exploratory causal test shows that the loop carries this: resetting the fed-back state before every soft step
   removes nearly all of it (on an H100, 66 against 1.6\,\% of answers changed in Qwen2.5-0.5B, and 64 against
   1.6\,\% in Qwen2.5-7B), and accuracy changes by at most 5 points. A chaotic loop's text reuses the phrases of
-  neighboring loops in no fixed order, and a copy started $10^{-10}$ away writes the same text for 10 to 151 steps,
+  neighboring loops in no fixed order, and a copy started $10^{-10}$ away writes the same text for 9 to 150 steps,
   then a different one (Table~\ref{tab:chaostexts}). Exactly repeating text can hide a chaotic state (Section~\ref{sec:hostile}). Beyond the model's
   first-token uncertainty, the loop's regime carries no detectable information about the accuracy of ordinary sampled
   answers, and we find no advantage at the edge of chaos.
@@ -611,11 +611,14 @@ arbitrary precision. To show the second property in words, we ran the loop at ce
 float64. We then recorded it together with a copy started at a relative distance of $10^{-10}$, about 600 times smaller
 than the relative rounding error of float32. The copy is never reset. Its distance from the loop grows at about the
 rate the cell's Lyapunov exponent sets, faster or slower over finite stretches (Figure~\ref{fig:chaostwins}). The two write the same text until the distance
-is a sizable fraction of the soft token, and different texts afterwards. In Qwen2.5-0.5B, two cells steered along
+has grown to between 1.3\,\% and 170\,\% of the soft token's norm, and different texts afterwards. In Qwen2.5-0.5B, two cells steered along
 philosophy, with exponents 0.44 and 0.36, split at steps 44 and 51, and a cell steered along hostility, with exponent
-0.35, at step 45. By then the distance had grown by 8.5 to 10.2 decades, to between 3\,\% and 170\,\% of the soft
-token's norm. The splits fall where two candidates nearly tie: at step 44 of the first cell, a blank line and `` is''
-have probabilities 0.139 and 0.135, and at step 45 of the hostility cell, ``Yes'' and ``No'' have 0.303 and 0.298.
+0.35, at step 45. By then the distance had grown by 8.5 to 10.2 decades. The splits come where no token dominates. At
+each of the seven splits we recorded, in this model and in Qwen2.5-1.5B below, the loop's most probable token has a
+probability of at most 0.31 and leads the next by at most 0.08, and at five of them the copy writes the loop's second
+choice. At step 44 of the cell with exponent 0.44, a
+blank line and `` is'' have probabilities 0.139 and 0.135; at step 45 of the hostility cell, ``Yes'' and ``No'' have
+0.303 and 0.298, and the copy writes ``No''.
 
 The texts show where the chaos lives. Next to the period-3 crescent, where the exponent is only 0.10, the loop keeps
 the skeleton of the period-3 text, a blank line, ``The'' and a noun, and only the noun varies, between `` existence''
@@ -680,7 +683,8 @@ Split: the step of the recording at which the texts first differ. Float64; \text
 \centering
 \includegraphics[width=0.62\linewidth]{fig-chaos-twins.png}
 \caption{How a difference of $10^{-10}$ becomes a different text. The relative distance between a chaotic loop and its
-copy (Table~\ref{tab:chaostexts}), never reset, against the step in units of the cell's Lyapunov time $1/\lambda$.
+copy, never reset, for the six cells of Table~\ref{tab:chaostexts} and a seventh (Qwen2.5-1.5B, philosophy,
+$\alpha=0.07376$, $\log_{10}T=0.0165$), against the step in units of the cell's Lyapunov time $1/\lambda$.
 Labels give the model (0.5B and 1.5B: Qwen2.5-0.5B- and -1.5B-Instruct), the steering direction and strength, the
 exponent and the step of the split.
 Dotted: $10^{-10}e^{\lambda t}$, the growth the exponent sets on average. Dots: the first step at which the two write
@@ -710,8 +714,8 @@ derivative at every step. On a periodic attractor the derivative contracts on av
 the difference decays until both runs follow the same orbit and write the same text. On a chaotic attractor the
 exponent $\lambda$ is positive and the difference grows like $d_1e^{\lambda t}$ from its first value $d_1$, so it
 reaches a relative size of $10^{-2}$ after about $\ln(10^{-2}/d_1)/\lambda$ steps (about 100 steps for $d_1\approx
-10^{-15}$ and $\lambda\approx0.3$). Within a few more steps, as it grows to a sizable fraction of the state, the runs
-write different text (Table~\ref{tab:chaostexts} shows such splits). This has a practical consequence.
+10^{-15}$ and $\lambda\approx0.3$). At most a few Lyapunov times later, at 1.3 to 170\,\% of the state's norm in the examples of
+Table~\ref{tab:chaostexts} (0 to 16 steps after the distance passes $10^{-2}$), the runs write different text. This has a practical consequence.
 Batch-invariant kernels, which fix the order of every reduction independently of the batch size, remove this source
 of difference \cite{he2025nondeterminism}. In a periodic regime that is enough, and small differences would be forgiven
 even without it. In a chaotic regime it is not: any remaining difference, from another GPU model, a library or compiler
