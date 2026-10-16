@@ -93,3 +93,11 @@ q1f 1.5 h, q1e 45 min, q2b 2 h, q1c 15 min, q1d 1 h.
   the half-period test.
 - R1 from a straight segment sorted by s (replaced by curve1d); smoothed-spline curve chart (offline test failed).
 - q1b through-continuation stopped by hand at log10 T -1.127 (step control froze).
+
+## Addendum: rank spectra finished (all 6 cells, `rank-spectra/spectra.json`)
+
+Composed-map sigma2/sigma1: P2 0.081, P3 0.092, P6 0.261, P8 stripe 4.0e-5, chaotic crescent stretch (12 steps)
+3.1e-4, chaotic stripe stretch (12 steps) 3.9e-9. Per step, lambda2/lambda1 of Sigma_p stays 0.23-0.87 over all 43
+states (chaotic cells included) and DF's sigma2/sigma1 0.12-0.80. So one-dimensionality builds up in the composed
+loop, strongest along the stripes and in the chaos, not in the single-step readout (provisional; DF dense vs JVP
+<= 7.3e-14).
