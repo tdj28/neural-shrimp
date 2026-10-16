@@ -27593,7 +27593,7 @@ Pod rpjvsn9lryoyu5 (H200 community, commit 056d7483) ran about 17 minutes. The Q
 - Routing switches play no part at the twin offsets (pod MA), so this is a property of the smooth map.
 - The dense controls also rule out the hybrid attention as the cause of the MoE's contraction: the dense 4B and 9B share it and are chaotic.
 
-## 2026-10-16 10:58 UTC: C12-1 results (selective control): the attack is retired; early perturbations give less leverage than late ones
+## 2026-10-16 10:51 UTC: C12-1 results (selective control): the attack is retired; early perturbations give less leverage than late ones
 
 Run by a separate agent on the CPU (Qwen2.5-0.5B-Instruct, float32). Code tools/c12_selective_control.py with 10 tests; the held-out run used commit 3a962e52. Receipt docs/pi/c12-1-summary.json (commit 5aff6dbc): settings, choices, deviations, per-arm rates with paired bootstrap intervals over problems, controls, compute, and SHA-256 of 47 raw files under explore/pi/c12-1/.
 
