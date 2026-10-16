@@ -156,7 +156,17 @@ LENIENT_ALLOW = {"allow", "allowed", "permit", "permitted", "grant", "granted", 
                  "accepted", "yes"}
 LENIENT_DENY = {"deny", "denied", "prohibit", "prohibited", "forbid", "forbidden", "refuse", "refused", "reject",
                 "rejected", "block", "blocked", "no"}
-LAYER_ORDER = (14, 10, 18)
+LAYER_ORDER = (14, 10, 18)                     # Qwen2.5-1.5B (28 layers); layer_order() in general
+
+
+def layer_order(n_layers):
+    """Candidate steering layers in rule order: the middle layer, then 0.36 and 0.64 of the depth (28 layers: 14, 10,
+    18, the repository's standard layer 14 first; 36 layers: 18, 13, 23)."""
+    return (n_layers // 2, int(round(0.36 * n_layers)), int(round(0.64 * n_layers)))
+
+
+def n_layers_of(model_key):
+    return json.loads((ph.snapshot(MODELS[model_key]) / "config.json").read_text())["num_hidden_layers"]
 
 
 # ----------------------------------------------------------------------------------------------- task
@@ -462,8 +472,8 @@ def choose_alpha(table, change_valid=0.25, change_min=0.10, unparse_max=0.10, sa
 
 
 def choose_layer(tables, order=LAYER_ORDER):
-    """Layer rule: the first layer in `order` (14, the repository's standard middle layer for this model, then 10, then
-    18) whose sweep is valid under choose_alpha. A missing sweep for the next layer in order is reported, not skipped;
+    """Layer rule: the first layer in `order` (layer_order: for 28 layers 14, the repository's standard middle layer,
+    then 10, then 18) whose sweep is valid under choose_alpha. A missing sweep for the next layer in order is reported, not skipped;
     if every layer is invalid, the intervention is invalid (run card)."""
     results = {}
     for L in order:
@@ -834,6 +844,7 @@ def cmd_vectors(args):
     torch_threads(args)
     eng = Engine(args.model, args.threads)
     out = out_dir(args, f"vectors-{args.model}")
+    args.layers = args.layers or list(layer_order(eng.n_layers))
     st = eng.layer_states(list(PERMISSIVE) + list(RESTRICTIVE), args.layers)
     n = len(PERMISSIVE)
     vecs, info = {}, {"statements_sha256": hashlib.sha256(json.dumps([PERMISSIVE, RESTRICTIVE]).encode()).hexdigest(),
@@ -855,8 +866,9 @@ def cmd_vectors(args):
     print(json.dumps(info))
 
 
-def load_vecs(path, layer):
+def load_vecs(path, layer, model_key=None):
     import torch
+    path = path or DATA / f"vectors-{model_key}"
     data = np.load(Path(path) / "vectors.npz")
     return (torch.tensor(data[f"contrast-l{layer}"], dtype=torch.float32),
             torch.tensor(data[f"random-l{layer}"], dtype=torch.float32), sha256_file(Path(path) / "vectors.npz"))
@@ -903,7 +915,7 @@ def cmd_smoke(args):
     torch_threads(args)
     import torch
     eng = Engine(args.model, args.threads, layer=args.layer)
-    v, u, vsha = load_vecs(args.vectors, args.layer)
+    v, u, vsha = load_vecs(args.vectors, args.layer, args.model)
     insts = smoke_instances()
     out = out_dir(args, "smoke")
     ramp, hold, dwell = 2, 2, 4
@@ -975,7 +987,7 @@ def cmd_baseline(args):
 def cmd_sweep(args):
     torch_threads(args)
     eng = Engine(args.model, args.threads, layer=args.layer)
-    v, u, vsha = load_vecs(args.vectors, args.layer)
+    v, u, vsha = load_vecs(args.vectors, args.layer, args.model)
     insts = split_instances(args, args.split)
     out = out_dir(args, f"sweep-{args.model}-l{args.layer}-{args.split}", resume=args.resume)
     N = max(args.readouts)
@@ -1005,7 +1017,7 @@ def cmd_histories(args):
         if ch.get(k) is None:
             raise SystemExit(f"choices file lacks {k}")
     eng = Engine(ch["model"], args.threads, layer=ch["layer"])
-    v, u, vsha = load_vecs(args.vectors, ch["layer"])
+    v, u, vsha = load_vecs(args.vectors, ch["layer"], ch["model"])
     insts = split_instances(args, args.split)
     out = out_dir(args, f"histories-{args.split}", resume=args.resume)
     ramp, hold, dwell = ch["ramp"], ch["hold"], args.dwell
@@ -1272,7 +1284,7 @@ def cmd_choose(args):
             a = json.loads(Path(path).read_text())
             S = str(ch["P"] + 32)
             tables[int(a["layer"])] = {float(al): t for al, t in a["by_S"][S].items()}
-        r = choose_layer(tables)
+        r = choose_layer(tables, layer_order(n_layers_of(ch["model"])))
         ch["layer_rule"] = json.loads(json.dumps(r, default=str))
         if r["status"] == "chosen":
             ch.update({"layer": r["layer"], "alpha_final": r["alpha_final"], "alpha_high": r["alpha_high"]})
@@ -1343,12 +1355,12 @@ def main():
     p.add_argument("--json", default=str(INSTANCES_FILE))
     p = sub.add_parser("vectors")
     common(p)
-    p.add_argument("--layers", type=int, nargs="+", default=[10, 14, 18])
+    p.add_argument("--layers", type=int, nargs="+", default=None, help="default: layer_order of the model")
     p = sub.add_parser("smoke")
     common(p)
     p.add_argument("--layer", type=int, default=14)
     p.add_argument("--alpha", type=float, default=0.05)
-    p.add_argument("--vectors", default=str(DATA / "vectors-qwen1.5b"))
+    p.add_argument("--vectors", default=None, help="default: DATA/vectors-<model>")
     p = sub.add_parser("baseline")
     common(p)
     p.add_argument("--split", default="dev", choices=("dev", "test"))
@@ -1359,7 +1371,7 @@ def main():
     common(p)
     p.add_argument("--split", default="dev", choices=("dev", "calib"))
     p.add_argument("--layer", type=int, required=True)
-    p.add_argument("--vectors", default=str(DATA / "vectors-qwen1.5b"))
+    p.add_argument("--vectors", default=None, help="default: DATA/vectors-<model>")
     p.add_argument("--alphas", type=float, nargs="+", required=True)
     p.add_argument("--starts", type=int, default=4)
     p.add_argument("--readouts", type=int, nargs="+", required=True)
@@ -1368,7 +1380,7 @@ def main():
     common(p, model=False)
     p.add_argument("--split", required=True, choices=("dev", "test"))
     p.add_argument("--choices", required=True)
-    p.add_argument("--vectors", default=str(DATA / "vectors-qwen1.5b"))
+    p.add_argument("--vectors", default=None, help="default: DATA/vectors-<model of the choices>")
     p.add_argument("--starts", type=int, default=8)
     p.add_argument("--dwell", type=int, default=64)
     p.add_argument("--histories", nargs="+", default=list(HISTORIES), choices=HISTORIES)

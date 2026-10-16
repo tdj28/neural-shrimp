@@ -257,6 +257,11 @@ def test_choose_layer_order_and_invalid():
     assert r["status"].startswith("intervention invalid")
 
 
+def test_layer_order_scales_with_depth():
+    assert c4.layer_order(28) == (14, 10, 18) == c4.LAYER_ORDER
+    assert c4.layer_order(36) == (18, 13, 23)
+
+
 def test_choose_bias():
     rows = [_row(i, "prohibited", 0, "unsteered", "DENY", thr=float(i), forced="ALLOW") for i in range(1, 5)]
     r = c4.choose_bias(rows, 56, 0.5, grid=[0.0, 1.0, 2.0, 2.5, 3.0, 5.0])
