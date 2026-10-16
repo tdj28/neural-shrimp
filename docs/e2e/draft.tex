@@ -1,0 +1,109 @@
+% Run E2E (exploratory): draft text for the main session to integrate. Numbers come from docs/e2e/e2e-summary.json
+% and the receipts in docs/e2e; everything is Qwen2.5-0.5B-Instruct, philosophy direction at layer 12, float64.
+% Not yet edited into paper/llm/main.tex. Values marked TBD are filled once their runs finish.
+
+\section{Where the windows come from}
+\label{sec:e2e}
+
+The maps of Section~\ref{sec:maps} show three structures: a region where the loop repeats `` is it'', a fan of
+stripes that accumulates on its edge, and a narrow band that crosses the stripes. This section follows one chain of
+causes from the readout to these structures and to the one-humped return maps behind the chaos
+(Figure~\ref{fig:e2e}). Every link is a computation on the full map; where a simpler model is used, it is compared
+with the full map and the discrepancy is stated.
+
+\paragraph{The 2-cycle is made by temperature, not inherited from greedy decoding.} At zero temperature the loop is
+greedy decoding with a one-token memory, $g(t)=\arg\max_s z_s(\text{prefix},e_t)$. We computed $g$ for the tokens of
+the windows over $0\le\alpha\le0.12$ (one forward pass per token and steering strength). Greedy decoding has no
+`` is it'' loop anywhere in this range: after `` it'' the most probable next token is ``'s'', not `` is'', for every
+$\alpha<0.105$, and after `` is'' it is `` there'' from $\alpha\approx0.064$ to $0.077$. At $\alpha=0.070$ the greedy
+loops reached from these tokens are `` is there'' and ``\textbackslash n\textbackslash nThe question''. The 2-cycle
+exists because the fed-back token is a mixture. At $\alpha=0.070$, $\log_{10}T=-0.19$, the soft token after `` is''
+mixes three nearly tied continuations, `` it'' (0.26), `` there'' (0.24) and `` a'' (0.21), and the model continues
+this mixture with `` is'' (0.74) rather than ``'s'' (0.10). Continued in temperature at fixed steering, the 2-cycle is
+stable only in a band of temperature (Figure~\ref{fig:e2e}a). Toward higher temperature it ends in the fold that
+bounds the region, at $\log_{10}T=-0.1741065$ (from $(1-\mu)^2$ on the stable branch; the continued fold curve of
+Appendix~\ref{sec:curves} passes $\alpha=0.070$ at $-0.1741065$, the same to $10^{-8}$). Toward lower temperature it
+loses stability in a flip, at $\log_{10}T=$ TBD (critical multiplier real, $-1$; next modulus TBD). Below the flip the
+loop sits ever closer to the tie between `` is'' and ``'s'': their probabilities are $0.72/0.28$ at the flip and
+$0.50/0.50$ below $\log_{10}T=-1.1$, and the multiplier grows as the temperature falls, to $-27$ at
+$\log_{10}T=-1.127$, where we stopped. The states stay far from token embeddings (relative distances 0.39 and 0.57).
+The orbit does not connect to a superstable greedy loop. It is a temperature-made compromise between continuations
+that greedy decoding would separate, stable only where $1/T$ is large enough to resolve the mixture and small enough
+not to amplify the `` is''/``'s'' decision.
+
+\paragraph{Beyond the fold, the ghost.} Past the fold the 2-cycle no longer exists, but trajectories pass slowly
+through the bottleneck it leaves behind (Section~\ref{sec:mechanism}). Each passage adds laps of `` is it'' before
+the loop escapes through ``. This is there is a'' and is reinjected. The number of laps fixes the period of the
+window, and the passage law sets where the windows lie, accumulating on the fold as
+$\alpha_N-\alpha_c\propto N^{-2}$ (Figure~\ref{fig:e2e}b). The stripes are therefore images of the fold curve: they
+run parallel to it because they are counted from it.
+
+\paragraph{The band is a doubling cascade of a different competition.} The band that crosses the stripes near
+$\log_{10}T=-0.14$ is the period-6 orbit ``\textbackslash n\textbackslash nThe question\textbackslash
+n\textbackslash nThe existence''. On the cut $\alpha=0.070$ it is bounded above by the flip of the period-3 loop
+``\textbackslash n\textbackslash nThe existence'', at $\log_{10}T=-0.1392937$, where the period-6 orbit merges into
+it, and below by its own flip into period 12, at $-0.1414292$ (both crossing multipliers real and equal to $-1$; next
+moduli 0.20 and 0.55). It is the first doubling of the crescent's cascade (Section~\ref{sec:cascade}), continued to
+larger steering. Its tokens compete at a different phase and in a different part of state space from the stripes:
+the noun after ``The'' (`` existence'' against `` question'', probabilities $0.17$ and $0.14$ at $\alpha=0.070$),
+against `` it'', `` there'' and `` a'' after `` is'' for the stripes. Each family's bifurcation curves are set by its
+own logit gaps, so the curves of the two families cross instead of avoiding each other. Where both attractors are
+stable, the loop is bistable: TBD (census).
+
+\paragraph{Why the return maps are one-dimensional.} The derivative of the loop is
+$DF=T^{-1}\Sigma_pJ_{\tilde h}$ \eqref{eq:gain}. A natural guess is that $\Sigma_p$ is nearly rank one where two tokens
+compete, so that each step stretches only along $e_A-e_B$. The computation does not support that guess step by
+step. Along the orbits we examined, the second eigenvalue of $\Sigma_p$ is 0.40 to 0.87 of the first (TBD over all
+cells), as at the period-8 orbit of Section~\ref{sec:theory}, although the leading eigenvector is aligned with the
+difference of two competing embeddings (cosine 0.77 to 1.00; for the crescent `` existence'' and `` question'',
+0.94). One dimension appears in the composed loop instead. The monodromy of the period-3 loop has multipliers
+$-0.608$ and $0.130$ (next modulus TBD), and the chaotic attractor next to it lies on a curve: pushed once through
+the three-step return map, states interpolated along the attractor land back on it within $2\times10^{-5}$ of the
+curve's length (median; at most $1.8\times10^{-3}$), and the four leading Lyapunov exponents give a Kaplan--Yorke
+dimension of TBD. Read in the log-odds of the two competing nouns, $s=(z_{\rm existence}-z_{\rm question})/T$, at
+the phase where they compete, the return map has a single minimum (Figure~\ref{fig:e2e}e). Along part of the
+attractor $s$ is not a valid coordinate: the curve turns back in $s$ near its lower end, so a second, short branch
+appears; in the arclength along the curve the map is single valued.
+
+\paragraph{A sigmoid composed with a smooth response.} If only the share $q=p_A/(p_A+p_B)$ of the two nouns varied,
+with the rest of the distribution frozen, the loop would reduce to
+\begin{equation}
+  q_{n+1}=\sigma\!\big(h(q_n)/T\big),\qquad h(q)=z_A-z_B\ \text{after the remaining steps of the network},
+  \label{eq:e2emap}
+\end{equation}
+a logistic sigmoid with slope $1/T$ composed with the network's response to a blend of the two tokens. Its multiplier
+at a fixed point is $q(1-q)h'(q)/T$: the readout's variance $q(1-q)$ of the competing pair, amplified by $1/T$ and by
+the network's sensitivity to the blend. The sigmoid is monotone, so the hump comes from $h$: after either clean noun
+the network next prefers `` existence'', after a blend it prefers `` question''. Built from the network with the rest
+of the distribution frozen at a state of the chaotic attractor, \eqref{eq:e2emap} reproduces the shape of the full
+return map over the attractor's range of $s$ and places the first flip of the crescent at $\alpha=0.06476$ along
+$\log_{10}T=-0.156$, against $0.0644767$ in the full map (a shift of $2.9\times10^{-4}$, half of the next interval
+of the cascade). It does not reproduce the cascade: its period-6 orbit stays stable to $\alpha=0.06525$, where the
+full map is chaotic. The depth of the hump depends on how the rest of the distribution moves along the attractor,
+which the frozen model leaves out. For the 2-cycle the competing pair at low temperature is `` is'' and ``'s'';
+with it, \eqref{eq:e2emap} follows the 2-cycle's multiplier within TBD on $-0.70\le\log_{10}T\le-0.43$ and puts its
+flip at $\log_{10}T=-0.5081$, against TBD in the full map. Near the fold, where three continuations compete after
+`` is'', neither pair reduces the 2-cycle (with `` it''/`` there'' the reduced map is superstable, $|\mu|<10^{-3}$,
+where the full orbit's multiplier is $-0.68$ to $-4.5$).
+
+\paragraph{Why chaos shows up.} Taken together: steering moves a near-tie between continuations into the range of
+temperatures where the readout neither ignores it nor decides it, $q(1-q)/T$ of order one. There the loop's response
+to a blend is folded, more of one token leading back to the other, which gives a one-humped return map. The fold of
+the 2-cycle and the flips of the crescent's loop are the two ways such a map loses a stable orbit, and the stripes
+and the cascade are what follows them. Strong contraction in all other directions keeps the dynamics on a curve, so
+the universal behavior of one-humped maps, including Feigenbaum's ratios, applies.
+
+% ---------------------------------------------------------------------------------------------------------------
+% One-paragraph version for the Chaos article
+% ---------------------------------------------------------------------------------------------------------------
+\paragraph{Where the windows come from (short version).} The periodic windows are temperature-made compromises
+between nearly tied continuations, not inherited greedy loops: with a one-token memory, greedy decoding at the same
+steering has no `` is it'' loop (after `` it'' it writes ``'s''), but at $T\approx0.67$ the fed-back blend of
+`` it'', `` there'' and `` a'' is continued with `` is'', and the 2-cycle is stable between a fold at high
+temperature (the edge on which the stripes accumulate, as the ghost of the fold) and a flip at low temperature,
+below which the `` is''/``'s'' tie, amplified by $1/T$, destabilizes it. The band crossing the stripes is the first
+doubling of a second loop, ``\textbackslash n\textbackslash nThe existence'', whose nouns compete in another part
+of state space, so its curves cross the stripes'. The derivative $T^{-1}\Sigma_pJ$ is not rank one at single
+steps, but the composed loop contracts every direction but one: the chaotic attractor lies on a curve, and its
+return map, read in the log-odds of the competing tokens, has one hump. A two-token model, a sigmoid of slope $1/T$
+composed with the network's response to a blend, reproduces the hump and the first flip, but not the whole cascade.
