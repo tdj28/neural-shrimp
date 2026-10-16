@@ -10,7 +10,9 @@ specified wrong answer (target) of a problem with sum c is c + 10 if that keeps 
 
 Pipeline (pi_harness soft mode; Qwen2.5-0.5B-Instruct in float32 on the CPU). The prompt, then S soft steps, each of
 which feeds the concept token sum_i q_i e_i (q = softmax(z / T) restricted to its top-15 tokens and renormalized),
-then the cue "\\n\\nThe answer is" and 12 greedy answer tokens. The evaluation path (no gradients, KV cache) repeats
+then the cue "\\n\\nThe answer is" and --answer-tokens greedy answer tokens (pi_harness's 12 by default; the
+C12-1 runs use 6, which fit every answer up to four digits with its period: with 12, the model sometimes began to
+repeat the cue, and pi_harness.extract_answer, which reads the number after the last "answer is", then found none). The evaluation path (no gradients, KV cache) repeats
 pi_harness's operations (log_softmax, top-k of the probabilities, pi_harness.concept_token); every reported answer
 comes from it.
 
@@ -517,7 +519,7 @@ def split_problems(args, split):
 def cmd_calibrate(args):
     """Development problems: baseline accuracy at S = 0, 1, 8, 32 and twin expansion, per temperature."""
     torch_threads(args)
-    eng = Engine(args.model, "float32", args.threads)
+    eng = Engine(args.model, "float32", args.threads, answer_tokens=args.answer_tokens)
     torch = eng.torch
     probs = split_problems(args, "dev")
     out = out_dir(args, "calibrate")
@@ -594,7 +596,16 @@ def cmd_calibrate(args):
             fr = np.array(rates)
             curves = np.array([[np.nan if x is None else x for x in tw["log10_d"]] for r in recs for tw in r["twins"]
                                if tw["kind"] == "twin" and tw["eps"] == eps])
+            by_h = {}
+            for hz in args.horizons:
+                if hz < 2:
+                    continue
+                rr = [((tw["log10_d"][hz - 1] - tw["log10_d"][0]) * math.log(10) / (hz - 1))
+                      if tw["log10_d"][hz - 1] is not None else float("-inf")
+                      for r in recs for tw in r["twins"] if tw["kind"] == "twin" and tw["eps"] == eps]
+                by_h[str(hz)] = {"median": float(np.median(rr)), "share_expanding": float(np.mean(np.array(rr) > 0))}
             tsum["twin"][str(eps)] = {"n_twins": n_tw, "net_rate_median": float(np.median(fr)),
+                                      "net_rate_by_horizon": by_h,
                                       "log10_d_median_by_step": [None if np.all(np.isnan(c)) else round(float(np.nanmedian(c)), 3)
                                                                  for c in curves.T],
                                       "merged_exactly_share_by_step": [round(float(np.mean(np.isnan(c))), 3) for c in curves.T],
@@ -625,7 +636,7 @@ def cmd_layouts(args):
     S = max(args.horizons)
     res_all = {"provenance": provenance(args), "dtypes": {}}
     for dtype in args.dtypes:
-        eng = Engine(args.model, dtype, args.threads)
+        eng = Engine(args.model, dtype, args.threads, answer_tokens=args.answer_tokens)
         torch = eng.torch
         targets = [eng.target_ids(p["target"]) for p in probs]
         dres = {}
@@ -665,7 +676,7 @@ def cmd_layouts(args):
 def cmd_bench(args):
     """Cost of one gradient pass in objective evaluations, at run batch sizes, interleaved repetitions."""
     torch_threads(args)
-    eng = Engine(args.model, "float32", args.threads)
+    eng = Engine(args.model, "float32", args.threads, answer_tokens=args.answer_tokens)
     torch = eng.torch
     out = out_dir(args, "bench")
     probs = split_problems(args, "dev")
@@ -708,7 +719,7 @@ def cmd_derivcheck(args):
     """Directional derivatives of the gradient path against central differences; cache against no cache; save
     composed-rollout gradients for a float32 / float64 comparison."""
     torch_threads(args)
-    eng = Engine(args.model, args.dtype, args.threads)
+    eng = Engine(args.model, args.dtype, args.threads, answer_tokens=args.answer_tokens)
     torch = eng.torch
     out = out_dir(args, "derivcheck")
     probs = split_problems(args, "dev")[:args.n_problems]
@@ -777,7 +788,7 @@ def cmd_derivcheck(args):
 
 def cmd_run(args):
     torch_threads(args)
-    eng = Engine(args.model, "float32", args.threads)
+    eng = Engine(args.model, "float32", args.threads, answer_tokens=args.answer_tokens)
     torch = eng.torch
     probs = split_problems(args, args.split)
     out = out_dir(args, f"run-{args.split}", resume=args.resume)
@@ -1117,6 +1128,83 @@ def cmd_analyze(args):
         "forced": summ["controls"]["forced_target_scorer"]}}, indent=1))
 
 
+def compact_rates(rates, keep=("pairs", "problems", "target_hits", "rate", "wilson95_pairs", "problem_weighted",
+                                "boot95_problems", "answer_changed", "invalid", "correct_kept")):
+    out = {}
+    for k, v in rates.items():
+        out[k] = {"eligible": {kk: v["eligible"][kk] for kk in keep},
+                  "unconditional": {kk: v["unconditional"][kk] for kk in keep},
+                  "by_temperature_eligible": {T: {kk: b[kk] for kk in ("pairs", "target_hits", "answer_changed")}
+                                              for T, b in v["by_temperature"].items()}}
+        for extra in ("candidates_eligible", "J_gain_median"):
+            if extra in v:
+                out[k][extra] = v[extra]
+    return out
+
+
+def cmd_receipt(args):
+    """Compact receipt: settings and choices (from --spec), calibration, layouts, compute, derivative checks, the
+    analysis of each run, and the SHA-256 and size of every raw output file."""
+    spec = json.loads(Path(args.spec).read_text())
+    rec = {k: spec[k] for k in ("card", "label", "settings", "choices", "deviations", "caveats") if k in spec}
+    rec["problems"] = {"file": "docs/pi/c12-1-problems.json", "seed": PROBLEM_SEED, "n_dev": N_DEV, "n_test": N_TEST,
+                       "sha256": problems_hash(make_problems()),
+                       "target_rule": "correct + 10 if that keeps the digit count, else correct - 10"}
+    paths = spec["paths"]
+    cal = json.loads((Path(paths["calibrate"]) / "calibrate.json").read_text())
+    rec["calibration"] = {"commit": cal["provenance"]["commit"], "temperatures": {
+        T: {"accuracy": {S: f"{a['correct']}/{a['n']}" for S, a in v["accuracy"].items()},
+            "twins": {e: {k: t[k] for k in ("n_twins", "net_rate_median", "net_rate_quartiles", "share_expanding",
+                                             "answer_flips", "log10_d_median_by_step")} for e, t in v["twin"].items()},
+            "zero_twin_max_rel": v["zero_twin_max_rel"]} for T, v in cal["summary"]["temperatures"].items()}}
+    if "layouts" in paths:
+        lay = json.loads((Path(paths["layouts"]) / "layouts.json").read_text())
+        rec["layouts"] = {"commit": lay["provenance"]["commit"], "dtypes": {
+            dt: {T: {c: {"first_token_rel_diff": x["rel_diff_first_token"],
+                         "max_rel_diff_any_step": max(x["rel_diff_by_step_max"]),
+                         "answer_flips": x["answer_flips"], "n": x["n"]} for c, x in v["comparisons"].items()}
+                 for T, v in d.items()} for dt, d in lay["dtypes"].items()}}
+    if "bench" in paths:
+        b = json.loads((Path(paths["bench"]) / "bench.json").read_text())
+        rec["bench"] = {"commit": b["provenance"]["commit"],
+                        "configs": [{k: c[k] for k in ("n_steps", "fwd_rows", "grad_rows", "c_grad",
+                                                        "c_gradpath_forward", "K_matched")} for c in b["configs"]]}
+    rec["derivcheck"] = {}
+    for dt, dpath in paths.get("derivcheck", {}).items():
+        d = json.loads(Path(dpath).read_text())
+        fd = defaultdict(list)
+        for c in d["checks"]:
+            for row in c["fd"]:
+                fd[(c["T"], c["n_steps"], row["h_rel"])] += row["rel_err"]
+        rec["derivcheck"][dt] = {
+            "commit": d["provenance"]["commit"],
+            "central_difference_rel_err_max": {f"T{T}_S{n}_h{h}": float(np.max(v)) for (T, n, h), v in sorted(fd.items())},
+            "gradient_path_vs_evaluation_path_J_absdiff_max": float(max(max(c["J_path_abs_diff"]) for c in d["checks"])),
+            "cache_vs_nocache": [{"T": c["T"], "n_steps": c["n_steps"], "grad_rel_diff_max": max(c["grad_rel_diff"]),
+                                  "grad_cos_min": min(c["grad_cos"])} for c in d["cache_vs_nocache"]],
+            "float32_vs_float64": {k: {"grad_rel_diff_max": max(v["rel_diff"]), "grad_cos_min": min(v["cos"]),
+                                       "J_absdiff_max": max(v["J_abs_diff"])} for k, v in d.get("grads", {}).items()}}
+    rec["runs"] = {}
+    for name, rp in paths["runs"].items():
+        a = json.loads(Path(rp["analysis"]).read_text())
+        rec["runs"][name] = {"dir": rp["dir"], "runs": a["runs"], "gate": a["gate"], "baseline": a["baseline"],
+                             "controls": a["controls"], "rates": compact_rates(a["rates"]), "contrasts": a["contrasts"],
+                             "compute": a["compute"]}
+        for k in ("primary", "early_vs_late_primary_dose"):
+            if k in a:
+                rec["runs"][name][k] = a[k]
+    raw = []
+    for d in spec["raw_dirs"]:
+        for f in sorted(Path(d).rglob("*")):
+            if f.is_file():
+                raw.append({"path": str(f.relative_to(DATA.parent.parent.parent)), "sha256": sha256_file(f),
+                            "bytes": f.stat().st_size})
+    rec["raw"] = {"root": str(DATA.parent.parent.parent), "files": raw}
+    Path(args.json).parent.mkdir(parents=True, exist_ok=True)
+    Path(args.json).write_text(json.dumps(rec, indent=1) + "\n")
+    print(json.dumps({"written": args.json, "raw_files": len(raw)}))
+
+
 # ----------------------------------------------------------------------------------------------- CLI
 
 def main():
@@ -1129,6 +1217,8 @@ def main():
         p.add_argument("--problems", default=None, help="problem list JSON (default: regenerate; a file must match)")
         p.add_argument("--limit", type=int, default=0, help="first N problems of the split (0: all)")
         p.add_argument("--out", default=None)
+        p.add_argument("--answer-tokens", type=int, default=ANSWER_TOKENS,
+                       help="greedy answer tokens after the cue (pi_harness default 12; C12-1 runs use 6, see docstring)")
 
     p = sub.add_parser("problems")
     p.add_argument("--json", default=None)
@@ -1183,8 +1273,11 @@ def main():
     p.add_argument("runs", nargs="+")
     p.add_argument("--primary-radius", type=float, default=None)
     p.add_argument("--json", default=None)
+    p = sub.add_parser("receipt")
+    p.add_argument("--spec", required=True, help="JSON: card, settings, choices, deviations, paths, raw_dirs")
+    p.add_argument("--json", required=True)
     args = ap.parse_args()
-    {"problems": cmd_problems, "calibrate": cmd_calibrate, "layouts": cmd_layouts, "bench": cmd_bench,
+    {"receipt": cmd_receipt, "problems": cmd_problems, "calibrate": cmd_calibrate, "layouts": cmd_layouts, "bench": cmd_bench,
      "derivcheck": cmd_derivcheck, "run": cmd_run, "analyze": cmd_analyze}[args.cmd](args)
 
 
