@@ -27901,3 +27901,26 @@ Problems, arms, endpoints, predictions and analysis are unchanged. Cost plan and
 **Smoke test.** CPU, DeepSeek-R1-Distill-Qwen-1.5B, float32, both arms and both tasks with 12/8-step budgets. It ran end to end through the analysis: full groups from GSM8K train[256:], MATH copies, forced switches at the cap.
 
 **Cost.** Plan and ceiling are in the private ledger.
+
+## 2026-10-16 18:40 UTC: Run card E2E (exploratory): an end-to-end explanation of the windows, their crossing and the return maps (human request)
+
+**Request.** "We need to explain why this 2-cycle is here in the first place ... same thing with the horizontal ones ... and then we have to explain the return maps ... such that the reader ... says 'I understand exactly why chaos shows up'". Run by a separate agent on the local CPU (RunPod allowed if the CPU stays busy).
+
+**Q1. Where the 2-cycle "is it" comes from.**
+- Hypothesis: it continues a cycle of the zero-temperature successor map g(t) = argmax z(prefix, E_t) at the same steering. That is a cycle of greedy decoding with a one-token memory, superstable as T -> 0 because the readout's covariance vanishes there.
+- Tests:
+  - g on the candidate tokens as alpha varies;
+  - continuation of the 2-cycle in T down toward 0, where the multipliers should go to 0 and the states toward token embeddings, and up to its fold, the stripes' accumulation boundary;
+  - the same for the period-3 loop of the crescent and the period-6 band. If they do not connect to T = 0 (isolas), say how they are born.
+
+**Q2. The near-horizontal period-6 band.**
+- Continue its fold and flip curves across the stripe fan and overlay them on the stripes map.
+- Run a coexistence census at the crossings (fixed start and states on each attractor) to show whether they are bistable.
+
+**Q3. Why one-dimensional return maps.**
+- Hypothesis: where two tokens compete, the readout covariance Sigma_p is nearly rank one, along e_A - e_B. The dynamics then lives near a curve and reduces to a scalar map of the type p' = sigma(g(p)/T): a sigmoid whose slope 1/T stretches where tokens compete and folds where they saturate, with a single hump as in the logistic map.
+- Tests:
+  - the spectrum of Sigma_p and of DF along chaotic and stripe orbits;
+  - a reduced scalar map built from the model, compared with the full map in periods, multipliers, fold locations, the cascade's ratios and the Lyapunov exponent, with the discrepancies stated.
+
+**Output.** Receipts in docs/e2e/; figures; draft paper text for the main session to integrate. Exploratory; every claim is tested quantitatively against the full map (AGENTS.md: "Test heuristic models quantitatively").
