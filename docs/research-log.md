@@ -27458,3 +27458,28 @@ At T 1.2 and alpha -0.05, 1e-10 twins change 97.5 % of answer texts.
 **Reading.** In two families the larger checkpoints damp because the early amplification that lets the fed-back token's change keep pace with the residual stream weakens or disappears. No component does the damping. OLMo-2 does not follow.
 
 **Paper.** The paragraph "Where the network damps" with fig:damping, a methods note, and one sentence in "What this implies for larger models" (written as an extrapolation).
+
+## 2026-10-16 08:06 UTC: Run card MOE (exploratory): mixture-of-experts models under the working theory (human: "Do them all")
+
+**Question.** Does the loop's gain picture hold for mixture-of-experts models: the readout factor, plus the network factor whose damping comes from the residual stream outgrowing the fed-back token's change? And does routing, which makes the map piecewise smooth, matter?
+
+**M1 (local CPU, float64): OLMoE-1B-7B-0125-Instruct** (rev b89a7c4b; 64 experts, top 8, 16 pre-normalization layers).
+- *Float64:* the experts stay bfloat16 and are used exactly in float64 (tools/olmoe_float64.py); the router softmax is patched.
+- *Gate passed:* no module output is non-float64. Central differences of the map converge as h^2: 1.55e-4, 1.55e-6 and 1.59e-8 relative change for h = 1e-2, 1e-3 and 1e-4, with rounding at 1e-6.
+- *(a) Unsteered sweep:* 130 temperatures over log10 T in [-1, 1.2], 1000 + 2000 steps, twin 1e-6, max period 64, as OLMo-2-1B's wide sweep. A positive exponent without a period is labeled irregular, since routing jumps can inflate finite-difference exponents.
+- *(b) Run D with routing analysis:* tools/damping_locate.py with tools/moe_routing.py. Per step it adds the network factor of a frozen-routing twin (same input as the free twin, the base row's experts); the free twin's expert-set switches per router; and the base row's smallest routing margin (the gap between the 8th and 9th routing probability).
+- *Comparison:* dense OLMo-2-1B and 7B.
+
+**M2 (pod): Qwen3.5-35B-A3B,** run D with the routing analysis. The caches of the linear-attention layers are restored after every step, as in SoftLoop.
+
+**M3 (pod): dense controls Qwen3.5-4B (rev 851bf6e8; about the MoE's active size) and Qwen3.5-9B (rev c2022362).** Both have 32 layers, 24 of them linear attention.
+- An unsteered sweep: 128 temperatures over [-1, 0.3], 1000 + 2000 steps.
+- Concept vectors at layer 16, the middle (as the MoE's 20 of 40).
+- Maps along philosophy (alpha in [-0.12, 0.12], log10 T in [-1, 0.3]) and hostility-vs-kindness (alpha in [0, 0.12], log10 T in [-0.3, 0.3]), at 32x32 with 300 + 300 steps and max period 32, as for the MoE.
+- Run D.
+
+**Readout.**
+- MoE against dense within each family: chaotic and irregular shares, and the network factor at matched entropy.
+- The routing contribution, the free minus the frozen network factor, and how close orbits come to routing boundaries.
+
+**Cost plan (private amounts in cost-ledger.md).** M2 and M3 run on one or two H200-class pods, about 45 min and 1.2 h. Ceilings are set in the ledger before launch.

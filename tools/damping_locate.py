@@ -55,7 +55,8 @@ class Probe:
         self.handles = []
         for l, layer in enumerate(self.layers):
             self.handles.append(layer.register_forward_pre_hook(self._pre(l), with_kwargs=True))
-            self.handles.append(layer.self_attn.register_forward_hook(self._sub("attn", l)))
+            attn = layer.self_attn if hasattr(layer, "self_attn") else layer.linear_attn     # hybrid models
+            self.handles.append(attn.register_forward_hook(self._sub("attn", l)))
             self.handles.append(layer.mlp.register_forward_hook(self._sub("mlp", l)))
         self.handles.append(model.model.norm.register_forward_hook(self._norm))
 
@@ -84,13 +85,37 @@ class Probe:
             self.rec["ht"] = output[:, -1].detach().clone()
 
 
-def expand_cache(torch, base, R):
+def make_cache(torch, model, prefix_ids, R, hybrid):
+    """Prefix cache for R identical rows. For hybrid models (linear-attention layers with recurrent states that
+    cannot be cropped) the prefix states are saved, to be restored after every step, as in SoftLoop."""
     from transformers import DynamicCache
 
-    c = DynamicCache()
-    for li, layer in enumerate(base.layers):
-        c.update(layer.keys.expand(R, -1, -1, -1).contiguous(), layer.values.expand(R, -1, -1, -1).contiguous(), li)
-    return c
+    c = DynamicCache(config=model.config) if hybrid else DynamicCache()
+    with torch.no_grad():
+        model(input_ids=prefix_ids.repeat(R, 1), past_key_values=c, use_cache=True, logits_to_keep=1)
+    saved = None
+    if hybrid:
+        saved = {i: ({k: v.clone() for k, v in layer.conv_states.items() if v is not None},
+                     {k: v.clone() for k, v in layer.recurrent_states.items() if v is not None},
+                     dict(layer.has_previous_state))
+                 for i, layer in enumerate(c.layers) if hasattr(layer, "recurrent_states")}
+        if not saved:
+            raise SystemExit("hybrid model without linear-attention cache layers")
+    return c, saved
+
+
+def reset_cache(c, saved, L0):
+    if saved is None:
+        c.crop(L0)
+        return
+    for i, layer in enumerate(c.layers):
+        if i in saved:
+            conv, rec, flags = saved[i]
+            layer.conv_states = {k: v.clone() for k, v in conv.items()}
+            layer.recurrent_states = {k: v.clone() for k, v in rec.items()}
+            layer.has_previous_state = dict(flags)
+        else:
+            layer.crop(L0)
 
 
 def main():
@@ -98,8 +123,6 @@ def main():
 
     import explore_llm_attractors as ela
     import explore_llm_soft_loop as esl
-    from transformers import DynamicCache
-
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--model", default="qwen0.5b")
     ap.add_argument("--log-temperature", type=float, nargs=2, default=[-0.3, 0.9])
@@ -126,24 +149,34 @@ def main():
     out = ela.DATA / "explore" / args.out
     out.mkdir(parents=True, exist_ok=True)
 
-    base_cache = DynamicCache()
     with torch.no_grad():
-        model(input_ids=loop.prefix_ids, past_key_values=base_cache, use_cache=True, logits_to_keep=1)
         start = model.get_input_embeddings()(loop.prefix_ids[:, -1:])[0, 0].to(sd)
     L0 = loop.prefix_ids.shape[1]
     caches = {}
+    routing = None
+    if any(type(m).__name__.endswith("TopKRouter") for m in model.modules()):
+        import moe_routing                         # mixture of experts: margins, switches, a frozen-routing twin
+        routing = moe_routing.RoutingProbe(model)
 
     def forward(X, temps):
         """X (R, d) soft tokens, temps (R,) -> final normalized hidden state (R, d), p and next soft token F."""
         R = X.shape[0]
-        if R not in caches:
-            caches[R] = expand_cache(torch, base_cache, R)
-        c = caches[R]
+        if R not in caches:                          # the prefix pass is neither recorded, clamped nor routed
+            saved_state = (probe.capture, probe.clamp)
+            probe.capture, probe.clamp = False, {}
+            if routing is not None:
+                route_state = (routing.capture, routing.freeze, routing.switch_pairs)
+                routing.capture, routing.freeze, routing.switch_pairs = False, None, None
+            caches[R] = make_cache(torch, model, loop.prefix_ids, R, loop.hybrid)
+            probe.capture, probe.clamp = saved_state
+            if routing is not None:
+                routing.capture, routing.freeze, routing.switch_pairs = route_state
+        c, saved = caches[R]
         with torch.no_grad():
             o = model.model(inputs_embeds=X[:, None, :].to(loop.dtype), past_key_values=c, use_cache=True)
             ht = o.last_hidden_state[:, -1]
             z = model.lm_head(ht).to(dev, sd)
-        c.crop(L0)
+        reset_cache(c, saved, L0)
         p = torch.softmax(z / temps[:, None], dim=-1)
         return ht.to(dev, sd), p, p @ E
 
@@ -154,7 +187,7 @@ def main():
     rng = np.random.default_rng(args.seed)
     g = torch.as_tensor(rng.normal(size=tuple(X.shape)), dtype=sd, device=dev)
     twin = X + g / g.norm(dim=1, keepdim=True) * args.eps * X.norm(dim=1, keepdim=True)
-    T2 = torch.cat([T, T])
+    T2 = torch.cat([T, T, T]) if routing is not None else torch.cat([T, T])
     nrm = lambda a: a.norm(dim=-1)                                                # noqa: E731
     dot = lambda a, b: (a * b).sum(-1)                                            # noqa: E731
 
@@ -163,6 +196,9 @@ def main():
     sums_l = {k: np.zeros((L, n)) for k in names_l}
     per_l = {k: np.zeros((keep, L, n), dtype=np.float32) for k in names_l}
     names = ("log_g_net", "stack", "dilution", "final_norm", "log_g_read", "c_x", "closure", "entropy")
+    if routing is not None:
+        names = names + ("log_g_net_frozen", "switch_step", "switches", "margin_min")
+    margins = []
     sums = {k: np.zeros(n) for k in names}
     growth = np.zeros(n)
     ko = {"steps": 0, "delta_attn": np.zeros((L, len(args.knockout_cells))),
@@ -172,10 +208,18 @@ def main():
     max_closure = np.zeros(n)
 
     for i in range(args.record):
-        Xb = torch.cat([X, twin])
+        Xb = torch.cat([X, twin, twin]) if routing is not None else torch.cat([X, twin])
         probe.capture, probe.rec = True, {}
+        if routing is not None:
+            routing.reset()
+            routing.capture = True
+            routing.freeze = (list(range(2 * n, 3 * n)), list(range(n)))      # third block: routing frozen to base
+            routing.switch_pairs = (list(range(n, 2 * n)), list(range(n)))    # does the free twin switch experts
         ht, p, F = forward(Xb, T2)
         probe.capture = False
+        if routing is not None:
+            mmin, sw = routing.summary(list(range(n)))
+            routing.capture, routing.freeze, routing.switch_pairs = False, None, None
         rec = {k: v.to(dev, sd) for k, v in probe.rec.items()}
         b, t = slice(0, n), slice(n, 2 * n)
         dx = Xb[t] - Xb[b]
@@ -188,6 +232,13 @@ def main():
         step["log_g_net"] = torch.log((nrm(dht) / nrm(hb)) / (ndx / nx))
         step["log_g_read"] = torch.log((nrm(dF) / nrm(F[b])) / (nrm(dht) / nrm(hb)))
         step["c_x"] = dot(dx, dhL) / nrm(dhL) ** 2
+        if routing is not None:
+            dhf = ht[2 * n:3 * n] - hb                       # the frozen twin: same input, base row's experts
+            step["log_g_net_frozen"] = torch.log((nrm(dhf) / nrm(hb)) / (ndx / nx))
+            step["switch_step"] = (sw > 0).to(sd)
+            step["switches"] = sw.to(sd)
+            step["margin_min"] = mmin.to(dev, sd)
+            margins.append(mmin.cpu().numpy())
         total = dx.clone()
         lay = {k: [] for k in names_l}
         for l in range(L):
@@ -263,10 +314,15 @@ def main():
                "boundary_term": float(np.log(np.linalg.norm(s[-1]) / x0[c]) / R)}
         rec.update({f"mean_{k}": float(sums[k][c] / R) for k in names})
         rec["max_closure"] = float(max_closure[c])
+        if routing is not None:
+            mc = np.array(margins)[:, c]
+            rec["margin_min_over_steps"] = float(mc.min())
+            rec["margin_median"] = float(np.median(mc))
         cells.append(rec)
     np.savez_compressed(out / "layers.npz", log10_temperature=log_ts,
                         **{f"mean_{k}": sums_l[k] / R for k in names_l}, **{f"steps_{k}": per_l[k] for k in names_l})
     summary = {"args": vars(args), "layers": L, "hidden": int(E.shape[1]), "prefix_tokens": int(L0),
+               "hybrid": bool(loop.hybrid), "routers": len(routing.routers) if routing is not None else 0,
                "embedding_norm_median": float(nrm(E).median()), "cells": cells,
                "seconds": round(time.perf_counter() - tic, 1)}
     if ko["steps"]:

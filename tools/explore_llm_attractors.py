@@ -46,7 +46,11 @@ MODELS ={"qwen0.5b": "Qwen/Qwen2.5-0.5B-Instruct", "qwen1.5b": "Qwen/Qwen2.5-1.5
           "qwen3b": "Qwen/Qwen2.5-3B-Instruct", "qwen14b": "Qwen/Qwen2.5-14B-Instruct",
           "qwen32b": "Qwen/Qwen2.5-32B-Instruct", "olmo2-1b": "allenai/OLMo-2-0425-1B-Instruct",
           "olmo2-13b": "allenai/OLMo-2-1124-13B-Instruct", "olmo2-32b": "allenai/OLMo-2-0325-32B-Instruct",
-          "llama3.2-1b": "meta-llama/Llama-3.2-1B-Instruct", "llama3.2-3b": "meta-llama/Llama-3.2-3B-Instruct"}
+          "llama3.2-1b": "meta-llama/Llama-3.2-1B-Instruct", "llama3.2-3b": "meta-llama/Llama-3.2-3B-Instruct",
+          # mixture-of-experts study (run MOE): OLMoE (64 experts, top 8; float64: olmoe_float64) and dense Qwen3.5
+          # controls for Qwen3.5-35B-A3B (4B: about its active size; 9B)
+          "olmoe-1b-7b": "allenai/OLMoE-1B-7B-0125-Instruct",
+          "qwen3.5-4b": "Qwen/Qwen3.5-4B", "qwen3.5-9b": "Qwen/Qwen3.5-9B"}
 PROMPTS = {
     "open": "You are an AI talking with another AI. You have complete freedom. Feel free to pursue whatever you want.",
     "task": "You are an AI collaborating with another AI on one task: planning a three-day trip to Kyoto. "
@@ -166,6 +170,16 @@ class Engine:
                 self.bf16_bytes = float64_except_decoder_linears(self.model)
             else:
                 self.model = self.model.to(torch.float64)
+        elif dtype == "float64" and model.startswith("olmoe"):
+            # OLMoE: load the stored bfloat16 weights, keep the experts bfloat16 (used in float64 slice by slice,
+            # exact) and cast the rest to float64 with the router softmax patched (tools/olmoe_float64.py); the
+            # normalizations and rotary tables are patched below with the dense models
+            import olmoe_float64
+
+            self.model = AutoModelForCausalLM.from_pretrained(self.name, dtype="auto", cache_dir=CACHE)
+            if device is not None:
+                self.model = self.model.to(device)
+            self.float64_patch = olmoe_float64.prepare(self.model, keep_experts_bf16=True)
         elif dtype == "float64" and model.startswith("qwen3.5"):
             # Qwen3.5 (hybrid attention, optionally mixture of experts): load the stored bfloat16 weights, then cast
             # and patch the float32 code paths (tools/qwen35_float64.py); experts stay bfloat16 and are used in
