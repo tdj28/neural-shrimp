@@ -3452,13 +3452,13 @@ second checkpoint, is the unreported bounded search).}
 \end{itemize}
 \paragraph{Hardware.} Float64 GPU computations ran on rented NVIDIA H100 (NVL, PCIe and 80\,GB HBM3), H200,
 H200 NVL and A100 80\,GB (SXM4 and PCIe) GPUs, one GPU per run except for the 70B-class models, whose layers were
-spread over two; the float32 frames of the rotation video ran on RTX 4090 GPUs; the first reset test of Section~\ref{sec:consequences} ran on a local NVIDIA RTX 2000 Ada workstation GPU and its replication on an H100 NVL; cross-checks and the interval
-proof ran on CPUs. The manifest
+spread over two; the float32 frames of the rotation video ran on RTX 4090 GPUs; the first reset test of Section~\ref{sec:consequences} ran on a local NVIDIA RTX 2000 Ada workstation GPU and its replication on an H100 NVL; cross-checks, the interval
+proof, the second prospective passage test, the coexistence runs and the near-nilpotent searches ran on CPUs. The manifest
 \path{docs/manifests/runpod-runs.json} records for each run the GPU type, the code commit, the job and its
 arguments, the wall time and the exit status, and the available hashes of the uploaded code and input archives and of
 the retrieved results, with absent fields left explicit; per-run receipts and accepted provenance limitations are
-kept with it. Regenerated at 16:53 UTC on 15 October 2026, after the last run, it lists 401 runs with retrieved results (code and
-input-archive hashes for 293, result-archive hashes for 376) and 20 pods that ended without results. GPU types round float64 reductions differently, so quantities used across runs
+kept with it. Regenerated at 02:11 UTC on 16 October 2026, after the last run, it lists 438 runs with retrieved results (code and
+input-archive hashes for 330, result-archive hashes for 412) and 21 pods that ended without results. GPU types round float64 reductions differently, so quantities used across runs
 were checked across hardware where it mattered (for example, flip parameters agree between CPU and H100 to
 $4\times10^{-15}$).
 {\sloppy Code: \path{tools/explore_llm_soft_loop.py}, \path{tools/bifurcation_curves.py}, \path{tools/llm_feigenbaum.py},

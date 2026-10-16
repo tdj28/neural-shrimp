@@ -1,5 +1,5 @@
 {
- "generated_utc": "2026-10-15T16:53:32Z",
+ "generated_utc": "2026-10-16T02:11:39Z",
  "note": "GPU type, cloud and provenance of every pod; costs are kept out of this file by policy",
  "runs_with_results": [
   {
@@ -9126,6 +9126,840 @@
     "explore/llm-soft-loop/pod64/fm5d/locate-curve-a1-down-fold-minus-14",
     "explore/llm-soft-loop/pod64/fm5d/locate-curve-a1-down-fold-minus-39"
    ]
+  },
+  {
+   "run": "20261015T170403Z",
+   "pod_id": "0yxvaphaxhovgb",
+   "name": "neural-shrimp-rr2",
+   "gpu_type": "SECURE:NVIDIA H100 NVL",
+   "commit": "a560667611d229efabd401e202c42c82b3f92738",
+   "jobset": "rr",
+   "jobset_args": "h05-heldout-bf16:qwen0.5b:12:0.0:bf16:heldout:15 h05-heldout-f32:qwen0.5b:12:0.0:float32:heldout:15 q7-dev-bf16:qwen7b:14:0.2:bf16:dev:15 q7-heldout-bf16:qwen7b:14:0.2:bf16:heldout:45 q7-heldout-f32:qwen7b:14:0.2:float32:heldout:50",
+   "extra_data": [],
+   "started_utc": "2026-10-15T17:04:04Z",
+   "wall_seconds": 2249,
+   "runner_returncode": 0,
+   "hash_verified": true,
+   "results_sha256": "dd486882440ce0fa13f06b0ff2bc4951c04e991e6932509e8281ab51dcc8fd98",
+   "code_sha256": "377037bcf42a950cb50350fbe69c9c9b92932676176fb7cd4408b61f94b77dec",
+   "data_sha256": "f425388da2f9fe2392ca7e1dea3826d44b492fd4b1c6106e5f0874784f29d778",
+   "extract_clash": false,
+   "outputs": [
+    "explore/llm-soft-loop/pod64/rr/h05-heldout-bf16",
+    "explore/llm-soft-loop/pod64/rr/h05-heldout-f32",
+    "explore/llm-soft-loop/pod64/rr/q7-dev-bf16",
+    "explore/llm-soft-loop/pod64/rr/q7-heldout-bf16",
+    "explore/llm-soft-loop/pod64/rr/q7-heldout-f32"
+   ]
+  },
+  {
+   "run": "20261015T173629Z",
+   "pod_id": "5lecpuuitkayb0",
+   "name": "neural-shrimp-oc",
+   "gpu_type": "SECURE:NVIDIA H100 80GB HBM3",
+   "commit": "0a09d31ee3e88606b859fd19e55c20d7abd05b9a",
+   "jobset": "shrimp",
+   "jobset_args": "75 30",
+   "extra_data": [
+    "explore/llm-phase-map/vectors-l4",
+    "explore/llm-phase-map/vectors-l16",
+    "explore/llm-soft-loop/pod64/fm5/curve-a1-up-fold-minus",
+    "explore/llm-soft-loop/pod64/fm5/branch-a1-up",
+    "explore/llm-soft-loop/pod64/fm5/branch-a2-up",
+    "explore/llm-soft-loop/pod64/fm5/branch-a2-down",
+    "explore/llm-soft-loop/pod64/fm5/branch-a1-down"
+   ],
+   "started_utc": "2026-10-15T17:36:32Z",
+   "wall_seconds": 7,
+   "runner_returncode": null,
+   "hash_verified": null,
+   "results_sha256": null,
+   "code_sha256": "1fef1ed37be4650f9e7e97996111a16b76979859ea2151181be56c9e09d771f9",
+   "data_sha256": "ba921dbeb90b6ea03d3994fd3c353894b6145ac8f963bf171cc57173d801d6e1",
+   "extract_clash": false,
+   "outputs": []
+  },
+  {
+   "run": "20261015T173705Z",
+   "pod_id": "zexok9v975lvsu",
+   "name": "neural-shrimp-oc",
+   "gpu_type": "SECURE:NVIDIA A100-SXM4-80GB",
+   "commit": "0a09d31ee3e88606b859fd19e55c20d7abd05b9a",
+   "jobset": "shrimp",
+   "jobset_args": "75 30",
+   "extra_data": [
+    "explore/llm-phase-map/vectors-l4",
+    "explore/llm-phase-map/vectors-l16",
+    "explore/llm-soft-loop/pod64/fm5/curve-a1-up-fold-minus",
+    "explore/llm-soft-loop/pod64/fm5/branch-a1-up",
+    "explore/llm-soft-loop/pod64/fm5/branch-a2-up",
+    "explore/llm-soft-loop/pod64/fm5/branch-a2-down",
+    "explore/llm-soft-loop/pod64/fm5/branch-a1-down"
+   ],
+   "started_utc": "2026-10-15T17:37:08Z",
+   "wall_seconds": 2079,
+   "runner_returncode": 0,
+   "hash_verified": true,
+   "results_sha256": "62a00d3af388fe5d02edc1db5f90cdc933cc2a638afa7ce2a9aa35ee6024753b",
+   "code_sha256": "1fef1ed37be4650f9e7e97996111a16b76979859ea2151181be56c9e09d771f9",
+   "data_sha256": "ba921dbeb90b6ea03d3994fd3c353894b6145ac8f963bf171cc57173d801d6e1",
+   "extract_clash": true,
+   "outputs": [
+    "explore/llm-soft-loop/pod64/cl/run",
+    "explore/llm-soft-loop/pod64/oc/census",
+    "explore/llm-soft-loop/pod64/oc/census-2",
+    "explore/llm-soft-loop/pod64/oc/census-3"
+   ]
+  },
+  {
+   "run": "20261015T180538Z",
+   "pod_id": "nrh6ubhh9pramf",
+   "name": "neural-shrimp-soft64",
+   "gpu_type": "SECURE:NVIDIA H100 80GB HBM3",
+   "commit": "7bc518c778d8ee9f709b3983812eca94b292901c",
+   "jobset": "dss",
+   "jobset_args": "p8-grat4-host16-cascade 200 --period 8 --seed -0.106229 0.108630 --alpha -0.1080 -0.1025 --alpha2 0.1030 0.1124 --resolution 32 19 --layer 4 --vectors llm-phase-map/vectors-l4 --concept gratitude --block2 16 --vectors2 llm-phase-map/vectors-l16 --concept2 hostility --fixed-log-temperature -0.1 --k 6 --tol 1e-12",
+   "extra_data": [
+    "explore/llm-phase-map/vectors-l4",
+    "explore/llm-phase-map/vectors-l16"
+   ],
+   "started_utc": "2026-10-15T18:05:41Z",
+   "wall_seconds": 187,
+   "runner_returncode": 0,
+   "hash_verified": true,
+   "results_sha256": "0d133287e88b161f5832803a785d851b1bb871c29a2af2ceb84ebacec54a3d2f",
+   "code_sha256": "188bc9057b08475e21471f2e385ff03b1d15a0d1c83f47dd60cf6fba922ffc39",
+   "data_sha256": "2fd37693890d6823bf25d55be167e917d3bda91daf68dc79d9815c77cc426b67",
+   "extract_clash": false,
+   "outputs": [
+    "explore/llm-soft-loop/pod64/dss/p8-grat4-host16-cascade"
+   ]
+  },
+  {
+   "run": "20261015T180641Z",
+   "pod_id": "vc6ddok951a1bg",
+   "name": "neural-shrimp-soft64",
+   "gpu_type": "SECURE:NVIDIA H100 NVL",
+   "commit": "7bc518c778d8ee9f709b3983812eca94b292901c",
+   "jobset": "dss",
+   "jobset_args": "p4-grat4-host16-cascade 150 --period 4 --seed -0.106229 0.101685 --alpha -0.1090 -0.1015 --alpha2 0.0995 0.1124 --resolution 43 25 --layer 4 --vectors llm-phase-map/vectors-l4 --concept gratitude --block2 16 --vectors2 llm-phase-map/vectors-l16 --concept2 hostility --fixed-log-temperature -0.1 --k 6 --tol 1e-12",
+   "extra_data": [
+    "explore/llm-phase-map/vectors-l4",
+    "explore/llm-phase-map/vectors-l16"
+   ],
+   "started_utc": "2026-10-15T18:06:43Z",
+   "wall_seconds": 163,
+   "runner_returncode": 0,
+   "hash_verified": true,
+   "results_sha256": "bbc3d6fe86a1c2f0233cd65a228834dc536c8bc92857c2ead77ae1df3e04a6a8",
+   "code_sha256": "188bc9057b08475e21471f2e385ff03b1d15a0d1c83f47dd60cf6fba922ffc39",
+   "data_sha256": "2fd37693890d6823bf25d55be167e917d3bda91daf68dc79d9815c77cc426b67",
+   "extract_clash": false,
+   "outputs": [
+    "explore/llm-soft-loop/pod64/dss/p4-grat4-host16-cascade"
+   ]
+  },
+  {
+   "run": "20261015T180642Z",
+   "pod_id": "7l9vz6ejsbxzq9",
+   "name": "neural-shrimp-soft64",
+   "gpu_type": "SECURE:NVIDIA H100 80GB HBM3",
+   "commit": "7bc518c778d8ee9f709b3983812eca94b292901c",
+   "jobset": "tb",
+   "jobset_args": "zg3-grat4-host16-t-0.1 70 --block1 4 --vectors1 llm-phase-map/vectors-l4 --concept1 gratitude --block2 16 --vectors2 llm-phase-map/vectors-l16 --concept2 hostility --log-temperature -0.1 --alpha1 -0.1100 -0.0990 --alpha2 0.0990 0.1124 --resolution 128 --transient 1000 --record 600 --chunk 2048",
+   "extra_data": [
+    "explore/llm-phase-map/vectors-l4",
+    "explore/llm-phase-map/vectors-l16"
+   ],
+   "started_utc": "2026-10-15T18:06:45Z",
+   "wall_seconds": 2925,
+   "runner_returncode": 0,
+   "hash_verified": true,
+   "results_sha256": "1bffbd39d1e0542b8f62cd2ac24a40adbd8810b5c6fb9d02be11e9cd54827487",
+   "code_sha256": "188bc9057b08475e21471f2e385ff03b1d15a0d1c83f47dd60cf6fba922ffc39",
+   "data_sha256": "2fd37693890d6823bf25d55be167e917d3bda91daf68dc79d9815c77cc426b67",
+   "extract_clash": false,
+   "outputs": [
+    "explore/llm-soft-loop/pod64/tb/zg3-grat4-host16-t-0.1"
+   ]
+  },
+  {
+   "run": "20261015T180724Z",
+   "pod_id": "tjyl08hc0j9sbf",
+   "name": "neural-shrimp-soft64",
+   "gpu_type": "SECURE:NVIDIA H100 80GB HBM3",
+   "commit": "7bc518c778d8ee9f709b3983812eca94b292901c",
+   "jobset": "dss",
+   "jobset_args": "p2-grat4-host16-cascade 100 --period 2 --seed -0.098094 0.106646 --alpha -0.1025 -0.0975 --alpha2 0.0995 0.1124 --resolution 52 20 --layer 4 --vectors llm-phase-map/vectors-l4 --concept gratitude --block2 16 --vectors2 llm-phase-map/vectors-l16 --concept2 hostility --fixed-log-temperature -0.1 --k 6 --tol 1e-12",
+   "extra_data": [
+    "explore/llm-phase-map/vectors-l4",
+    "explore/llm-phase-map/vectors-l16"
+   ],
+   "started_utc": "2026-10-15T18:07:27Z",
+   "wall_seconds": 130,
+   "runner_returncode": 0,
+   "hash_verified": true,
+   "results_sha256": "0ffc39a3065fcd2474bc68a2fd3825b1f315e1fc1703efe8d8bf38e15ce90693",
+   "code_sha256": "188bc9057b08475e21471f2e385ff03b1d15a0d1c83f47dd60cf6fba922ffc39",
+   "data_sha256": "2fd37693890d6823bf25d55be167e917d3bda91daf68dc79d9815c77cc426b67",
+   "extract_clash": false,
+   "outputs": [
+    "explore/llm-soft-loop/pod64/dss/p2-grat4-host16-cascade"
+   ]
+  },
+  {
+   "run": "20261015T182127Z",
+   "pod_id": "zkedjkc1c58fcn",
+   "name": "neural-shrimp-soft64",
+   "gpu_type": "SECURE:NVIDIA H100 PCIe",
+   "commit": "1b1ef257c26ed5f48651c0db9f9170cb11a65df7",
+   "jobset": "dss",
+   "jobset_args": "p8-grat4-host16-cascade 200 --period 8 --seed -0.104642 0.107241 --alpha -0.1080 -0.1025 --alpha2 0.1030 0.1124 --resolution 32 19 --layer 4 --vectors llm-phase-map/vectors-l4 --concept gratitude --block2 16 --vectors2 llm-phase-map/vectors-l16 --concept2 hostility --fixed-log-temperature -0.1 --k 6 --tol 1e-12",
+   "extra_data": [
+    "explore/llm-phase-map/vectors-l4",
+    "explore/llm-phase-map/vectors-l16"
+   ],
+   "started_utc": "2026-10-15T18:21:29Z",
+   "wall_seconds": 12100,
+   "runner_returncode": 0,
+   "hash_verified": true,
+   "results_sha256": "a88ba16293aae462a8f267eb15ef7c88d659d68a7bbd2b13b134ef8f0422cc72",
+   "code_sha256": "cce419718cdfa910db507cb63f63c112586aab2ef9202ac7ca9ff916e9c4b03a",
+   "data_sha256": "2fd37693890d6823bf25d55be167e917d3bda91daf68dc79d9815c77cc426b67",
+   "extract_clash": false,
+   "outputs": [
+    "explore/llm-soft-loop/pod64/dss/p8-grat4-host16-cascade"
+   ]
+  },
+  {
+   "run": "20261015T182127Z-p2",
+   "pod_id": "356pr9qcyijx6r",
+   "name": "neural-shrimp-soft64",
+   "gpu_type": "SECURE:NVIDIA H100 80GB HBM3",
+   "commit": "1b1ef257c26ed5f48651c0db9f9170cb11a65df7",
+   "jobset": "dss",
+   "jobset_args": "p2-grat4-host16-cascade 100 --period 2 --seed -0.099681 0.103074 --alpha -0.1025 -0.0975 --alpha2 0.0995 0.1124 --resolution 52 20 --multipliers-only --layer 4 --vectors llm-phase-map/vectors-l4 --concept gratitude --block2 16 --vectors2 llm-phase-map/vectors-l16 --concept2 hostility --fixed-log-temperature -0.1 --k 6 --tol 1e-12",
+   "extra_data": [
+    "explore/llm-phase-map/vectors-l4",
+    "explore/llm-phase-map/vectors-l16"
+   ],
+   "started_utc": "2026-10-15T18:21:30Z",
+   "wall_seconds": 4078,
+   "runner_returncode": 0,
+   "hash_verified": true,
+   "results_sha256": "e192f5a9c943ae646a9cb8c4323ae357d2506cc739ed668604f372f1927d1262",
+   "code_sha256": "cce419718cdfa910db507cb63f63c112586aab2ef9202ac7ca9ff916e9c4b03a",
+   "data_sha256": "2fd37693890d6823bf25d55be167e917d3bda91daf68dc79d9815c77cc426b67",
+   "extract_clash": true,
+   "outputs": [
+    "explore/llm-soft-loop/pod64/dss/p2-grat4-host16-cascade"
+   ]
+  },
+  {
+   "run": "20261015T182249Z",
+   "pod_id": "26gjt14al9nnbo",
+   "name": "neural-shrimp-soft64",
+   "gpu_type": "SECURE:NVIDIA H100 NVL",
+   "commit": "1b1ef257c26ed5f48651c0db9f9170cb11a65df7",
+   "jobset": "dss",
+   "jobset_args": "p4-grat4-host16-cascade 150 --period 4 --seed -0.104443 0.101883 --alpha -0.1090 -0.1015 --alpha2 0.0995 0.1124 --resolution 43 25 --layer 4 --vectors llm-phase-map/vectors-l4 --concept gratitude --block2 16 --vectors2 llm-phase-map/vectors-l16 --concept2 hostility --fixed-log-temperature -0.1 --k 6 --tol 1e-12",
+   "extra_data": [
+    "explore/llm-phase-map/vectors-l4",
+    "explore/llm-phase-map/vectors-l16"
+   ],
+   "started_utc": "2026-10-15T18:22:50Z",
+   "wall_seconds": 6181,
+   "runner_returncode": 0,
+   "hash_verified": true,
+   "results_sha256": "0987720a73662a64adeb23aafd9b3d9ac9c4bc3f70b34443192f0ee8a8973021",
+   "code_sha256": "cce419718cdfa910db507cb63f63c112586aab2ef9202ac7ca9ff916e9c4b03a",
+   "data_sha256": "2fd37693890d6823bf25d55be167e917d3bda91daf68dc79d9815c77cc426b67",
+   "extract_clash": false,
+   "outputs": [
+    "explore/llm-soft-loop/pod64/dss/p4-grat4-host16-cascade"
+   ]
+  },
+  {
+   "run": "20261015T195345Z",
+   "pod_id": "2k2mojlmjn54u5",
+   "name": "neural-shrimp-soft64",
+   "gpu_type": "COMMUNITY:NVIDIA H100 NVL",
+   "commit": "5f2502fdcb74b7926c2f1b053b3217e51bb09799",
+   "jobset": "scan64",
+   "jobset_args": "q05-neuron832 75 --model qwen0.5b --layer 12 --prompt open --window 1 --vectors llm-soft-loop/controls/vectors-qwen0.5b-l12-neurons --concept neuron-target-832 --log-temperature -1.0 0.3 --alpha -0.12 0.12 --resolution 128 128 --transient 500 --samples 300 --record 80 --max-period 48 --chaos-level 0.001",
+   "extra_data": [
+    "explore/llm-soft-loop/controls/vectors-qwen0.5b-l12-neurons"
+   ],
+   "started_utc": "2026-10-15T19:53:46Z",
+   "wall_seconds": 2203,
+   "runner_returncode": 0,
+   "hash_verified": true,
+   "results_sha256": "66ecb3d67f5066ed57d4782987b5575602f0659e4085b787eac3eccb77048086",
+   "code_sha256": "66bbd9c83a60995ba52df62c82a6209bc993483599fa1e702bce0f7f3c1112a9",
+   "data_sha256": "869d424795a736fcb9dca12d933850d9c3132abfa8b6847eaeafe438afa71cc7",
+   "extract_clash": false,
+   "outputs": [
+    "explore/llm-soft-loop/pod64/scan64/q05-neuron832"
+   ]
+  },
+  {
+   "run": "20261015T195356Z",
+   "pod_id": "rz5xb1qpcwg7yb",
+   "name": "neural-shrimp-soft64",
+   "gpu_type": "SECURE:NVIDIA H100 NVL",
+   "commit": "5f2502fdcb74b7926c2f1b053b3217e51bb09799",
+   "jobset": "scan64",
+   "jobset_args": "q05-neuron833 75 --model qwen0.5b --layer 12 --prompt open --window 1 --vectors llm-soft-loop/controls/vectors-qwen0.5b-l12-neurons --concept neuron-neighbour-833 --log-temperature -1.0 0.3 --alpha -0.12 0.12 --resolution 128 128 --transient 500 --samples 300 --record 80 --max-period 48 --chaos-level 0.001",
+   "extra_data": [
+    "explore/llm-soft-loop/controls/vectors-qwen0.5b-l12-neurons"
+   ],
+   "started_utc": "2026-10-15T19:53:58Z",
+   "wall_seconds": 2487,
+   "runner_returncode": 0,
+   "hash_verified": true,
+   "results_sha256": "0b1982e066d2694ed934df1bba2df5bf9155fb9c9eae287ccdcd9d5d2604b2d8",
+   "code_sha256": "66bbd9c83a60995ba52df62c82a6209bc993483599fa1e702bce0f7f3c1112a9",
+   "data_sha256": "869d424795a736fcb9dca12d933850d9c3132abfa8b6847eaeafe438afa71cc7",
+   "extract_clash": false,
+   "outputs": [
+    "explore/llm-soft-loop/pod64/scan64/q05-neuron833"
+   ]
+  },
+  {
+   "run": "20261015T195406Z",
+   "pod_id": "4rsbq9yoc1fhvr",
+   "name": "neural-shrimp-soft64",
+   "gpu_type": "SECURE:NVIDIA H100 NVL",
+   "commit": "5f2502fdcb74b7926c2f1b053b3217e51bb09799",
+   "jobset": "scan64",
+   "jobset_args": "q05-neuron4137 75 --model qwen0.5b --layer 12 --prompt open --window 1 --vectors llm-soft-loop/controls/vectors-qwen0.5b-l12-neurons --concept neuron-random-4137 --log-temperature -1.0 0.3 --alpha -0.12 0.12 --resolution 128 128 --transient 500 --samples 300 --record 80 --max-period 48 --chaos-level 0.001",
+   "extra_data": [
+    "explore/llm-soft-loop/controls/vectors-qwen0.5b-l12-neurons"
+   ],
+   "started_utc": "2026-10-15T19:54:08Z",
+   "wall_seconds": 2262,
+   "runner_returncode": 0,
+   "hash_verified": true,
+   "results_sha256": "13bc020233e2e9e7cb860f548033de747b14fdbc5c9403d42ed76414c88d6214",
+   "code_sha256": "66bbd9c83a60995ba52df62c82a6209bc993483599fa1e702bce0f7f3c1112a9",
+   "data_sha256": "869d424795a736fcb9dca12d933850d9c3132abfa8b6847eaeafe438afa71cc7",
+   "extract_clash": false,
+   "outputs": [
+    "explore/llm-soft-loop/pod64/scan64/q05-neuron4137"
+   ]
+  },
+  {
+   "run": "20261015T201543Z",
+   "pod_id": "1du7utga0e9nfw",
+   "name": "neural-shrimp-z128-b04",
+   "gpu_type": "SECURE:NVIDIA H200",
+   "commit": "36828ca94c73d4bc02233e5f2782f436714d06e5",
+   "jobset": "bigctrl",
+   "jobset_args": "map 150 hostility-vs-kindness name=z128-b04 --alpha 0.06 0.12 --log-temperature 0.15779527559055118 0.16606299212598424 --resolution 8 128 --transient 300 --samples 300 --max-period 32 --chunk 128",
+   "extra_data": [],
+   "started_utc": "2026-10-15T20:15:46Z",
+   "wall_seconds": 5762,
+   "runner_returncode": 0,
+   "hash_verified": true,
+   "results_sha256": "8adad26087bd33895b968be58436e91ac370b3cde53aef6ea09d4206efa2128f",
+   "code_sha256": "6ce761943832621ec45e9282f047b6fb892ec3bef23cd071464cd6453abe030a",
+   "data_sha256": "f425388da2f9fe2392ca7e1dea3826d44b492fd4b1c6106e5f0874784f29d778",
+   "extract_clash": false,
+   "outputs": [
+    "explore/llm-soft-loop/pod64/controls70/hostility-vs-kindness-z128-b04"
+   ]
+  },
+  {
+   "run": "20261015T201551Z",
+   "pod_id": "t86hj56u4gc9vz",
+   "name": "neural-shrimp-z128-b08",
+   "gpu_type": "SECURE:NVIDIA H200",
+   "commit": "36828ca94c73d4bc02233e5f2782f436714d06e5",
+   "jobset": "bigctrl",
+   "jobset_args": "map 150 hostility-vs-kindness name=z128-b08 --alpha 0.06 0.12 --log-temperature 0.19559055118110236 0.20385826771653542 --resolution 8 128 --transient 300 --samples 300 --max-period 32 --chunk 128",
+   "extra_data": [],
+   "started_utc": "2026-10-15T20:15:54Z",
+   "wall_seconds": 6562,
+   "runner_returncode": 0,
+   "hash_verified": true,
+   "results_sha256": "8213e861041b311804fc1f61ea08d18f344b91cb4632ca6a704dae065b6d5d34",
+   "code_sha256": "6ce761943832621ec45e9282f047b6fb892ec3bef23cd071464cd6453abe030a",
+   "data_sha256": "f425388da2f9fe2392ca7e1dea3826d44b492fd4b1c6106e5f0874784f29d778",
+   "extract_clash": false,
+   "outputs": [
+    "explore/llm-soft-loop/pod64/controls70/hostility-vs-kindness-z128-b08"
+   ]
+  },
+  {
+   "run": "20261015T201559Z",
+   "pod_id": "khwkxfdok6utt3",
+   "name": "neural-shrimp-z128-b00",
+   "gpu_type": "SECURE:NVIDIA H200",
+   "commit": "36828ca94c73d4bc02233e5f2782f436714d06e5",
+   "jobset": "bigctrl",
+   "jobset_args": "map 150 hostility-vs-kindness name=z128-b00 --alpha 0.06 0.12 --log-temperature 0.12 0.12826771653543306 --resolution 8 128 --transient 300 --samples 300 --max-period 32 --chunk 128",
+   "extra_data": [],
+   "started_utc": "2026-10-15T20:16:02Z",
+   "wall_seconds": 5985,
+   "runner_returncode": 0,
+   "hash_verified": true,
+   "results_sha256": "9a15839a9140f254ced21989952d3924b097c3e3d6f14230ef242e519cea6cfe",
+   "code_sha256": "6ce761943832621ec45e9282f047b6fb892ec3bef23cd071464cd6453abe030a",
+   "data_sha256": "f425388da2f9fe2392ca7e1dea3826d44b492fd4b1c6106e5f0874784f29d778",
+   "extract_clash": false,
+   "outputs": [
+    "explore/llm-soft-loop/pod64/controls70/hostility-vs-kindness-z128-b00"
+   ]
+  },
+  {
+   "run": "20261015T201607Z",
+   "pod_id": "sghj1gi7s4wzmz",
+   "name": "neural-shrimp-z128-b12",
+   "gpu_type": "SECURE:NVIDIA H200",
+   "commit": "36828ca94c73d4bc02233e5f2782f436714d06e5",
+   "jobset": "bigctrl",
+   "jobset_args": "map 150 hostility-vs-kindness name=z128-b12 --alpha 0.06 0.12 --log-temperature 0.23338582677165357 0.24165354330708663 --resolution 8 128 --transient 300 --samples 300 --max-period 32 --chunk 128",
+   "extra_data": [],
+   "started_utc": "2026-10-15T20:16:10Z",
+   "wall_seconds": 6037,
+   "runner_returncode": 0,
+   "hash_verified": true,
+   "results_sha256": "f4aa917fc85665ffa75837960001ee215c74660832b270d3ab1cfdd59c0d26bc",
+   "code_sha256": "6ce761943832621ec45e9282f047b6fb892ec3bef23cd071464cd6453abe030a",
+   "data_sha256": "f425388da2f9fe2392ca7e1dea3826d44b492fd4b1c6106e5f0874784f29d778",
+   "extract_clash": false,
+   "outputs": [
+    "explore/llm-soft-loop/pod64/controls70/hostility-vs-kindness-z128-b12"
+   ]
+  },
+  {
+   "run": "20261015T201721Z",
+   "pod_id": "6tg19sajqmjy3p",
+   "name": "neural-shrimp-z128-b11",
+   "gpu_type": "SECURE:NVIDIA H200",
+   "commit": "36828ca94c73d4bc02233e5f2782f436714d06e5",
+   "jobset": "bigctrl",
+   "jobset_args": "map 150 hostility-vs-kindness name=z128-b11 --alpha 0.06 0.12 --log-temperature 0.22393700787401577 0.23220472440944884 --resolution 8 128 --transient 300 --samples 300 --max-period 32 --chunk 128",
+   "extra_data": [],
+   "started_utc": "2026-10-15T20:17:25Z",
+   "wall_seconds": 6426,
+   "runner_returncode": 0,
+   "hash_verified": true,
+   "results_sha256": "df7a40efff03283d467af7957c7697eef50531894c8c8670327ab174b5b09390",
+   "code_sha256": "6ce761943832621ec45e9282f047b6fb892ec3bef23cd071464cd6453abe030a",
+   "data_sha256": "f425388da2f9fe2392ca7e1dea3826d44b492fd4b1c6106e5f0874784f29d778",
+   "extract_clash": false,
+   "outputs": [
+    "explore/llm-soft-loop/pod64/controls70/hostility-vs-kindness-z128-b11"
+   ]
+  },
+  {
+   "run": "20261015T201851Z",
+   "pod_id": "zz0iw7hezubrj5",
+   "name": "neural-shrimp-z128-b09",
+   "gpu_type": "SECURE:NVIDIA H200",
+   "commit": "36828ca94c73d4bc02233e5f2782f436714d06e5",
+   "jobset": "bigctrl",
+   "jobset_args": "map 150 hostility-vs-kindness name=z128-b09 --alpha 0.06 0.12 --log-temperature 0.20503937007874018 0.21330708661417325 --resolution 8 128 --transient 300 --samples 300 --max-period 32 --chunk 128",
+   "extra_data": [],
+   "started_utc": "2026-10-15T20:18:54Z",
+   "wall_seconds": 6722,
+   "runner_returncode": 0,
+   "hash_verified": true,
+   "results_sha256": "de33758018b8fc324fe947aedcdf2f6ac5f2da646bfb03d62b4f645a49753994",
+   "code_sha256": "6ce761943832621ec45e9282f047b6fb892ec3bef23cd071464cd6453abe030a",
+   "data_sha256": "f425388da2f9fe2392ca7e1dea3826d44b492fd4b1c6106e5f0874784f29d778",
+   "extract_clash": false,
+   "outputs": [
+    "explore/llm-soft-loop/pod64/controls70/hostility-vs-kindness-z128-b09"
+   ]
+  },
+  {
+   "run": "20261015T203554Z",
+   "pod_id": "xlzyyehu6qkeiv",
+   "name": "neural-shrimp-z128-b03",
+   "gpu_type": "SECURE:NVIDIA H100 NVL",
+   "commit": "36828ca94c73d4bc02233e5f2782f436714d06e5",
+   "jobset": "bigctrl",
+   "jobset_args": "map 150 hostility-vs-kindness name=z128-b03 --alpha 0.06 0.12 --log-temperature 0.14834645669291338 0.15661417322834645 --resolution 8 128 --transient 300 --samples 300 --max-period 32 --chunk 128",
+   "extra_data": [],
+   "started_utc": "2026-10-15T20:35:56Z",
+   "wall_seconds": 8842,
+   "runner_returncode": 0,
+   "hash_verified": true,
+   "results_sha256": "3734d967cd7a75c3da3d1c194b9884735fcd46dfcfc999856cfa2031741b476c",
+   "code_sha256": "6ce761943832621ec45e9282f047b6fb892ec3bef23cd071464cd6453abe030a",
+   "data_sha256": "f425388da2f9fe2392ca7e1dea3826d44b492fd4b1c6106e5f0874784f29d778",
+   "extract_clash": false,
+   "outputs": [
+    "explore/llm-soft-loop/pod64/controls70/hostility-vs-kindness-z128-b03"
+   ]
+  },
+  {
+   "run": "20261015T205217Z",
+   "pod_id": "vin3vknb5u2sxv",
+   "name": "neural-shrimp-z128-b07",
+   "gpu_type": "COMMUNITY:NVIDIA H100 NVL",
+   "commit": "36828ca94c73d4bc02233e5f2782f436714d06e5",
+   "jobset": "bigctrl",
+   "jobset_args": "map 150 hostility-vs-kindness name=z128-b07 --alpha 0.06 0.12 --log-temperature 0.1861417322834646 0.19440944881889766 --resolution 8 128 --transient 300 --samples 300 --max-period 32 --chunk 128",
+   "extra_data": [],
+   "started_utc": "2026-10-15T20:52:18Z",
+   "wall_seconds": 8216,
+   "runner_returncode": 0,
+   "hash_verified": true,
+   "results_sha256": "cc74ae3834a688b6c6199036b6b9ddc71a1c29982fc20123731ac2e3bb553770",
+   "code_sha256": "6ce761943832621ec45e9282f047b6fb892ec3bef23cd071464cd6453abe030a",
+   "data_sha256": "f425388da2f9fe2392ca7e1dea3826d44b492fd4b1c6106e5f0874784f29d778",
+   "extract_clash": false,
+   "outputs": [
+    "explore/llm-soft-loop/pod64/controls70/hostility-vs-kindness-z128-b07"
+   ]
+  },
+  {
+   "run": "20261015T215146Z",
+   "pod_id": "q6atyp8rnpl1t3",
+   "name": "neural-shrimp-z128-b14",
+   "gpu_type": "COMMUNITY:NVIDIA H100 NVL",
+   "commit": "36828ca94c73d4bc02233e5f2782f436714d06e5",
+   "jobset": "bigctrl",
+   "jobset_args": "map 150 hostility-vs-kindness name=z128-b14 --alpha 0.06 0.12 --log-temperature 0.2522834645669292 0.2605511811023622 --resolution 8 128 --transient 300 --samples 300 --max-period 32 --chunk 128",
+   "extra_data": [],
+   "started_utc": "2026-10-15T21:51:47Z",
+   "wall_seconds": 8277,
+   "runner_returncode": 0,
+   "hash_verified": true,
+   "results_sha256": "4717dc13e0a48aada6ad9c58ff2213fdd02f00605b234efa3ec4acd450349081",
+   "code_sha256": "6ce761943832621ec45e9282f047b6fb892ec3bef23cd071464cd6453abe030a",
+   "data_sha256": "f425388da2f9fe2392ca7e1dea3826d44b492fd4b1c6106e5f0874784f29d778",
+   "extract_clash": false,
+   "outputs": [
+    "explore/llm-soft-loop/pod64/controls70/hostility-vs-kindness-z128-b14"
+   ]
+  },
+  {
+   "run": "20261015T215547Z",
+   "pod_id": "12ve3vpb67d6bc",
+   "name": "neural-shrimp-z128-b01",
+   "gpu_type": "SECURE:NVIDIA H200",
+   "commit": "36828ca94c73d4bc02233e5f2782f436714d06e5",
+   "jobset": "bigctrl",
+   "jobset_args": "map 150 hostility-vs-kindness name=z128-b01 --alpha 0.06 0.12 --log-temperature 0.1294488188976378 0.13771653543307086 --resolution 8 128 --transient 300 --samples 300 --max-period 32 --chunk 128",
+   "extra_data": [],
+   "started_utc": "2026-10-15T21:55:50Z",
+   "wall_seconds": 5739,
+   "runner_returncode": 0,
+   "hash_verified": true,
+   "results_sha256": "652b4af0bb49ebe39d3f1f72a7fdb0f35da3252e4754b2a9d674e2f116a45f91",
+   "code_sha256": "6ce761943832621ec45e9282f047b6fb892ec3bef23cd071464cd6453abe030a",
+   "data_sha256": "f425388da2f9fe2392ca7e1dea3826d44b492fd4b1c6106e5f0874784f29d778",
+   "extract_clash": false,
+   "outputs": [
+    "explore/llm-soft-loop/pod64/controls70/hostility-vs-kindness-z128-b01"
+   ]
+  },
+  {
+   "run": "20261015T215655Z",
+   "pod_id": "uesbdkxjxw8v95",
+   "name": "neural-shrimp-z128-b13",
+   "gpu_type": "SECURE:NVIDIA H200",
+   "commit": "36828ca94c73d4bc02233e5f2782f436714d06e5",
+   "jobset": "bigctrl",
+   "jobset_args": "map 150 hostility-vs-kindness name=z128-b13 --alpha 0.06 0.12 --log-temperature 0.24283464566929136 0.2511023622047244 --resolution 8 128 --transient 300 --samples 300 --max-period 32 --chunk 128",
+   "extra_data": [],
+   "started_utc": "2026-10-15T21:56:58Z",
+   "wall_seconds": 5846,
+   "runner_returncode": 0,
+   "hash_verified": true,
+   "results_sha256": "8aaffc39e098c2868050e5f7f5ece3a2b61e48e388fac70bb5c69b2ca0289297",
+   "code_sha256": "6ce761943832621ec45e9282f047b6fb892ec3bef23cd071464cd6453abe030a",
+   "data_sha256": "f425388da2f9fe2392ca7e1dea3826d44b492fd4b1c6106e5f0874784f29d778",
+   "extract_clash": false,
+   "outputs": [
+    "explore/llm-soft-loop/pod64/controls70/hostility-vs-kindness-z128-b13"
+   ]
+  },
+  {
+   "run": "20261015T215856Z",
+   "pod_id": "8uauxhl4im18b0",
+   "name": "neural-shrimp-soft64",
+   "gpu_type": "SECURE:NVIDIA H100 NVL",
+   "commit": "87b9756460738f7a35164ddc708514d5336b2d83",
+   "jobset": "dss",
+   "jobset_args": "p8l-grat4-host16 240 --period 8 --seed -0.106472 0.106335 --alpha -0.1068 -0.1044 --alpha2 0.1040 0.1064 --resolution 20 20 --layer 4 --vectors llm-phase-map/vectors-l4 --concept gratitude --block2 16 --vectors2 llm-phase-map/vectors-l16 --concept2 hostility --fixed-log-temperature -0.1 --k 6 --tol 1e-12 --multipliers-only",
+   "extra_data": [
+    "explore/llm-phase-map/vectors-l4",
+    "explore/llm-phase-map/vectors-l16"
+   ],
+   "started_utc": "2026-10-15T21:58:58Z",
+   "wall_seconds": 4094,
+   "runner_returncode": 0,
+   "hash_verified": true,
+   "results_sha256": "f6dc4bed11871368bd735e4ccb10bff0a9b7daad66557d4148385f3ca7051e31",
+   "code_sha256": "fea48898c090ae1a762e07eed6240533bd45e34b7b8de54ae9f08e66b071b4f2",
+   "data_sha256": "2fd37693890d6823bf25d55be167e917d3bda91daf68dc79d9815c77cc426b67",
+   "extract_clash": false,
+   "outputs": [
+    "explore/llm-soft-loop/pod64/dss/p8l-grat4-host16"
+   ]
+  },
+  {
+   "run": "20261015T215906Z",
+   "pod_id": "tvtb8m3srrdvbo",
+   "name": "neural-shrimp-soft64",
+   "gpu_type": "SECURE:NVIDIA H100 PCIe",
+   "commit": "87b9756460738f7a35164ddc708514d5336b2d83",
+   "jobset": "dss",
+   "jobset_args": "p4l-grat4-host16 180 --period 4 --seed -0.103375 0.100114 --alpha -0.1050 -0.1010 --alpha2 0.0950 0.1002 --resolution 35 27 --layer 4 --vectors llm-phase-map/vectors-l4 --concept gratitude --block2 16 --vectors2 llm-phase-map/vectors-l16 --concept2 hostility --fixed-log-temperature -0.1 --k 6 --tol 1e-12 --multipliers-only",
+   "extra_data": [
+    "explore/llm-phase-map/vectors-l4",
+    "explore/llm-phase-map/vectors-l16"
+   ],
+   "started_utc": "2026-10-15T21:59:09Z",
+   "wall_seconds": 9842,
+   "runner_returncode": 0,
+   "hash_verified": true,
+   "results_sha256": "6be2b5193eca22acc1ac3e0149ef61a1911df0f6359fa2a6ed7808dc1c292fe0",
+   "code_sha256": "fea48898c090ae1a762e07eed6240533bd45e34b7b8de54ae9f08e66b071b4f2",
+   "data_sha256": "2fd37693890d6823bf25d55be167e917d3bda91daf68dc79d9815c77cc426b67",
+   "extract_clash": false,
+   "outputs": [
+    "explore/llm-soft-loop/pod64/dss/p4l-grat4-host16"
+   ]
+  },
+  {
+   "run": "20261015T220440Z",
+   "pod_id": "ehw4vbopk4ly8k",
+   "name": "neural-shrimp-z128-b06",
+   "gpu_type": "SECURE:NVIDIA H200",
+   "commit": "36828ca94c73d4bc02233e5f2782f436714d06e5",
+   "jobset": "bigctrl",
+   "jobset_args": "map 150 hostility-vs-kindness name=z128-b06 --alpha 0.06 0.12 --log-temperature 0.17669291338582677 0.18496062992125983 --resolution 8 128 --transient 300 --samples 300 --max-period 32 --chunk 128",
+   "extra_data": [],
+   "started_utc": "2026-10-15T22:04:43Z",
+   "wall_seconds": 6229,
+   "runner_returncode": 0,
+   "hash_verified": true,
+   "results_sha256": "0815b94167b760041195e740462771133a398fa6ba4bd60dd502c6127e38d8ec",
+   "code_sha256": "6ce761943832621ec45e9282f047b6fb892ec3bef23cd071464cd6453abe030a",
+   "data_sha256": "f425388da2f9fe2392ca7e1dea3826d44b492fd4b1c6106e5f0874784f29d778",
+   "extract_clash": false,
+   "outputs": [
+    "explore/llm-soft-loop/pod64/controls70/hostility-vs-kindness-z128-b06"
+   ]
+  },
+  {
+   "run": "20261015T220554Z",
+   "pod_id": "zlftc34cqm0onu",
+   "name": "neural-shrimp-z128-b15",
+   "gpu_type": "SECURE:NVIDIA H200",
+   "commit": "36828ca94c73d4bc02233e5f2782f436714d06e5",
+   "jobset": "bigctrl",
+   "jobset_args": "map 150 hostility-vs-kindness name=z128-b15 --alpha 0.06 0.12 --log-temperature 0.26173228346456695 0.27 --resolution 8 128 --transient 300 --samples 300 --max-period 32 --chunk 128",
+   "extra_data": [],
+   "started_utc": "2026-10-15T22:05:57Z",
+   "wall_seconds": 6188,
+   "runner_returncode": 0,
+   "hash_verified": true,
+   "results_sha256": "1c99c0839c7657ec55714e2bdcd6f8612969be44169dc2c17b6129a78c8f394e",
+   "code_sha256": "6ce761943832621ec45e9282f047b6fb892ec3bef23cd071464cd6453abe030a",
+   "data_sha256": "f425388da2f9fe2392ca7e1dea3826d44b492fd4b1c6106e5f0874784f29d778",
+   "extract_clash": false,
+   "outputs": [
+    "explore/llm-soft-loop/pod64/controls70/hostility-vs-kindness-z128-b15"
+   ]
+  },
+  {
+   "run": "20261015T221122Z",
+   "pod_id": "w7cpe6vhtxh88n",
+   "name": "neural-shrimp-z128-b05",
+   "gpu_type": "SECURE:NVIDIA H200",
+   "commit": "36828ca94c73d4bc02233e5f2782f436714d06e5",
+   "jobset": "bigctrl",
+   "jobset_args": "map 150 hostility-vs-kindness name=z128-b05 --alpha 0.06 0.12 --log-temperature 0.16724409448818897 0.17551181102362207 --resolution 8 128 --transient 300 --samples 300 --max-period 32 --chunk 128",
+   "extra_data": [],
+   "started_utc": "2026-10-15T22:11:25Z",
+   "wall_seconds": 5723,
+   "runner_returncode": 0,
+   "hash_verified": true,
+   "results_sha256": "4da9557dd50149978f3a263bd5e82e612fec53e6bc92730ff3abe0012582109b",
+   "code_sha256": "6ce761943832621ec45e9282f047b6fb892ec3bef23cd071464cd6453abe030a",
+   "data_sha256": "f425388da2f9fe2392ca7e1dea3826d44b492fd4b1c6106e5f0874784f29d778",
+   "extract_clash": false,
+   "outputs": [
+    "explore/llm-soft-loop/pod64/controls70/hostility-vs-kindness-z128-b05"
+   ]
+  },
+  {
+   "run": "20261015T222505Z",
+   "pod_id": "jlr6yc35kz6xdu",
+   "name": "neural-shrimp-soft64",
+   "gpu_type": "SECURE:NVIDIA H100 80GB HBM3",
+   "commit": "a76d59914f5c49546d23b6e6b3a62a899dfcf77f",
+   "jobset": "scan64",
+   "jobset_args": "ft-a 35 --alpha 0.0640 0.0656 --resolution 1 1600 --model qwen0.5b --layer 12 --vectors llm-phase-map/vectors-l12 --concept philosophy --log-temperature -0.156 -0.156 --transient 3000 --samples 400 --record 256 --max-period 48 --projections",
+   "extra_data": [],
+   "started_utc": "2026-10-15T22:25:09Z",
+   "wall_seconds": 650,
+   "runner_returncode": 0,
+   "hash_verified": true,
+   "results_sha256": "a5edb7f600009b40f9016cfea2bb4499baf4a39e3683771b09cb73e27bd62953",
+   "code_sha256": "ac7bd62c58f2bc8f3c627902d967f7d726dab83e7c1de917fc6e5482aaf9a3a4",
+   "data_sha256": "f425388da2f9fe2392ca7e1dea3826d44b492fd4b1c6106e5f0874784f29d778",
+   "extract_clash": false,
+   "outputs": [
+    "explore/llm-soft-loop/pod64/scan64/ft-a"
+   ]
+  },
+  {
+   "run": "20261015T223715Z",
+   "pod_id": "1txyvztv6fqcl4",
+   "name": "neural-shrimp-soft64",
+   "gpu_type": "SECURE:NVIDIA H100 NVL",
+   "commit": "a76d59914f5c49546d23b6e6b3a62a899dfcf77f",
+   "jobset": "scan64",
+   "jobset_args": "ft-c 35 --alpha 0.0650990 0.0651040 --resolution 1 1000 --model qwen0.5b --layer 12 --vectors llm-phase-map/vectors-l12 --concept philosophy --log-temperature -0.156 -0.156 --transient 3000 --samples 400 --record 256 --max-period 48 --projections",
+   "extra_data": [],
+   "started_utc": "2026-10-15T22:37:17Z",
+   "wall_seconds": 656,
+   "runner_returncode": 0,
+   "hash_verified": true,
+   "results_sha256": "11f1d573ee252df3c3c477b000978ae1851b6c137ebe52263026be9ac3b6a388",
+   "code_sha256": "ac7bd62c58f2bc8f3c627902d967f7d726dab83e7c1de917fc6e5482aaf9a3a4",
+   "data_sha256": "f425388da2f9fe2392ca7e1dea3826d44b492fd4b1c6106e5f0874784f29d778",
+   "extract_clash": false,
+   "outputs": [
+    "explore/llm-soft-loop/pod64/scan64/ft-c"
+   ]
+  },
+  {
+   "run": "20261015T224944Z",
+   "pod_id": "e6wdaadyoti7vp",
+   "name": "neural-shrimp-soft64",
+   "gpu_type": "SECURE:NVIDIA H100 NVL",
+   "commit": "a76d59914f5c49546d23b6e6b3a62a899dfcf77f",
+   "jobset": "scan64",
+   "jobset_args": "ft-b 35 --alpha 0.06504 0.065108 --resolution 1 1360 --model qwen0.5b --layer 12 --vectors llm-phase-map/vectors-l12 --concept philosophy --log-temperature -0.156 -0.156 --transient 3000 --samples 400 --record 256 --max-period 48 --projections",
+   "extra_data": [],
+   "started_utc": "2026-10-15T22:49:45Z",
+   "wall_seconds": 892,
+   "runner_returncode": 0,
+   "hash_verified": true,
+   "results_sha256": "0e4e9013cec9ffadb23066623e0659ea4c4db81cb5c015dba6eb354935c3d758",
+   "code_sha256": "ac7bd62c58f2bc8f3c627902d967f7d726dab83e7c1de917fc6e5482aaf9a3a4",
+   "data_sha256": "f425388da2f9fe2392ca7e1dea3826d44b492fd4b1c6106e5f0874784f29d778",
+   "extract_clash": false,
+   "outputs": [
+    "explore/llm-soft-loop/pod64/scan64/ft-b"
+   ]
+  },
+  {
+   "run": "20261015T230334Z",
+   "pod_id": "vc4o9cy2046q80",
+   "name": "neural-shrimp-z128-b02",
+   "gpu_type": "SECURE:NVIDIA H100 NVL",
+   "commit": "36828ca94c73d4bc02233e5f2782f436714d06e5",
+   "jobset": "bigctrl",
+   "jobset_args": "map 150 hostility-vs-kindness name=z128-b02 --alpha 0.06 0.12 --log-temperature 0.13889763779527559 0.14716535433070865 --resolution 8 128 --transient 300 --samples 300 --max-period 32 --chunk 128",
+   "extra_data": [],
+   "started_utc": "2026-10-15T23:03:35Z",
+   "wall_seconds": 8759,
+   "runner_returncode": 0,
+   "hash_verified": true,
+   "results_sha256": "4f5d28d9dbbd8597879d20744d53aad19d5a2fbb834e42d6fc2d33d9c5ade896",
+   "code_sha256": "6ce761943832621ec45e9282f047b6fb892ec3bef23cd071464cd6453abe030a",
+   "data_sha256": "f425388da2f9fe2392ca7e1dea3826d44b492fd4b1c6106e5f0874784f29d778",
+   "extract_clash": false,
+   "outputs": [
+    "explore/llm-soft-loop/pod64/controls70/hostility-vs-kindness-z128-b02"
+   ]
+  },
+  {
+   "run": "20261015T230953Z",
+   "pod_id": "f5nqtj0y0ayn0k",
+   "name": "neural-shrimp-z128-b10",
+   "gpu_type": "COMMUNITY:NVIDIA H100 NVL",
+   "commit": "36828ca94c73d4bc02233e5f2782f436714d06e5",
+   "jobset": "bigctrl",
+   "jobset_args": "map 150 hostility-vs-kindness name=z128-b10 --alpha 0.06 0.12 --log-temperature 0.21448818897637795 0.22275590551181104 --resolution 8 128 --transient 300 --samples 300 --max-period 32 --chunk 128",
+   "extra_data": [],
+   "started_utc": "2026-10-15T23:09:54Z",
+   "wall_seconds": 8227,
+   "runner_returncode": 0,
+   "hash_verified": true,
+   "results_sha256": "8c537f2145b6476709666baf88d1b70146e35abeacc13f2c18ea6a550fb8d332",
+   "code_sha256": "6ce761943832621ec45e9282f047b6fb892ec3bef23cd071464cd6453abe030a",
+   "data_sha256": "f425388da2f9fe2392ca7e1dea3826d44b492fd4b1c6106e5f0874784f29d778",
+   "extract_clash": false,
+   "outputs": [
+    "explore/llm-soft-loop/pod64/controls70/hostility-vs-kindness-z128-b10"
+   ]
+  },
+  {
+   "run": "20261016T001202Z",
+   "pod_id": "c2umlo2xcovwgw",
+   "name": "neural-shrimp-soft64",
+   "gpu_type": "COMMUNITY:NVIDIA H100 NVL",
+   "commit": "5b2832d4354b1a95afcd0cac044ed82779266da4",
+   "jobset": "dss",
+   "jobset_args": "p8l2-band 70 --period 8 --seed -0.1054 0.1055 --alpha -0.1068 -0.1044 --alpha2 0.10501052631578947 0.10602105263157895 --resolution 9 20 --attempts 3 --layer 4 --vectors llm-phase-map/vectors-l4 --concept gratitude --block2 16 --vectors2 llm-phase-map/vectors-l16 --concept2 hostility --fixed-log-temperature -0.1 --k 6 --tol 1e-12 --multipliers-only",
+   "extra_data": [
+    "explore/llm-phase-map/vectors-l4",
+    "explore/llm-phase-map/vectors-l16"
+   ],
+   "started_utc": "2026-10-16T00:12:03Z",
+   "wall_seconds": 2239,
+   "runner_returncode": 0,
+   "hash_verified": true,
+   "results_sha256": "9de0c4486ebd29dd05a50bfe55e5b3d550fb7b11077e3f3469337b0cc21a5bd0",
+   "code_sha256": "3f8672efdcfe0fed1e33f84b8a124dfb82c23fb6b1547d25b040faaa90f5384d",
+   "data_sha256": "2fd37693890d6823bf25d55be167e917d3bda91daf68dc79d9815c77cc426b67",
+   "extract_clash": false,
+   "outputs": [
+    "explore/llm-soft-loop/pod64/dss/p8l2-band"
+   ]
+  },
+  {
+   "run": "20261016T013053Z",
+   "pod_id": "2xq5jv1bt231ud",
+   "name": "neural-shrimp-pt128",
+   "gpu_type": "SECURE:NVIDIA H100 NVL",
+   "commit": "f3ccec707fd35f9a11477a4a851d928533e68026",
+   "jobset": "bigctrl",
+   "jobset_args": "cells 80 hostility-vs-kindness name=pt128 docs/plateau-cells-z128.json --transient 300 --record 300 --eps 1e-4 1e-5 1e-6 --tangent",
+   "extra_data": [],
+   "started_utc": "2026-10-16T01:30:55Z",
+   "wall_seconds": 409,
+   "runner_returncode": 0,
+   "hash_verified": true,
+   "results_sha256": "63f90f7a3dc3242d69d89eed59d7d0750c2e221456f33e8338235f3040ea22d1",
+   "code_sha256": "29d24abaa33efb7c1e101118ef9e75adde36477eb1b31469539caf01d70d4605",
+   "data_sha256": "f425388da2f9fe2392ca7e1dea3826d44b492fd4b1c6106e5f0874784f29d778",
+   "extract_clash": false,
+   "outputs": [
+    "explore/llm-soft-loop/pod64/controls70/hostility-vs-kindness-pt128"
+   ]
+  },
+  {
+   "run": "20261016T013907Z",
+   "pod_id": "gbik1t4891gbit",
+   "name": "neural-shrimp-pt128",
+   "gpu_type": "SECURE:NVIDIA H100 NVL",
+   "commit": "696ba00320360409e6f3cc7d3df14f211784e431",
+   "jobset": "bigctrl",
+   "jobset_args": "cells 80 hostility-vs-kindness name=pt128 docs/plateau-cells-z128.json --transient 300 --record 300 --eps 1e-4 1e-5 1e-6 --tangent",
+   "extra_data": [],
+   "started_utc": "2026-10-16T01:39:08Z",
+   "wall_seconds": 1740,
+   "runner_returncode": 0,
+   "hash_verified": true,
+   "results_sha256": "c12a5d0b0c2c5509a41daca6a6db537d3919be49e5db08b0b19a1114b7cc7066",
+   "code_sha256": "ac0a67c47a355190d8c3a0dd8202765478acf1c5fbaf4b05e8117da34f8e0140",
+   "data_sha256": "f425388da2f9fe2392ca7e1dea3826d44b492fd4b1c6106e5f0874784f29d778",
+   "extract_clash": true,
+   "outputs": [
+    "explore/llm-soft-loop/pod64/controls70/hostility-vs-kindness-pt128"
+   ]
   }
  ],
  "pods_without_results": [
@@ -9429,34 +10263,47 @@
     "terminate_requested",
     "terminated_verified"
    ]
+  },
+  {
+   "pod_id": "g24zxcgwypxcr5",
+   "name": "neural-shrimp-soft64",
+   "gpu_type": "NVIDIA H200",
+   "cloud": "SECURE",
+   "created": "2026-10-15T18:06:47+00:00",
+   "terminated": "2026-10-15T18:06:54+00:00",
+   "events": [
+    "created",
+    "terminate_requested",
+    "terminated_verified"
+   ]
   }
  ],
  "summary": {
-  "pods_created": 421,
-  "runs_with_results": 401,
+  "pods_created": 459,
+  "runs_with_results": 438,
   "runs_by_gpu": {
-   "NVIDIA H100 NVL": 175,
-   "NVIDIA H200": 78,
-   "NVIDIA H100 80GB HBM3": 72,
+   "NVIDIA H100 NVL": 192,
+   "NVIDIA H200": 89,
+   "NVIDIA H100 80GB HBM3": 78,
    "NVIDIA GeForce RTX 4090": 29,
-   "NVIDIA A100-SXM4-80GB": 26,
-   "NVIDIA H100 PCIe": 9,
+   "NVIDIA A100-SXM4-80GB": 27,
+   "NVIDIA H100 PCIe": 11,
    "NVIDIA A100 80GB PCIe": 8,
    "NVIDIA H200 NVL": 4
   },
   "runs_by_jobset": {
    "bp": 41,
-   "scan64": 22,
+   "scan64": 28,
+   "bigctrl": 27,
    "cascade": 20,
    "morph": 20,
+   "dss": 20,
    "scanband": 19,
    "llamamap": 16,
    "scan32": 12,
-   "dss": 11,
    "skeleton": 10,
    "bigsweep": 10,
    "qwen35moe": 9,
-   "bigctrl": 9,
    "p4curves": 8,
    "edges": 8,
    "superstable": 8,
@@ -9464,7 +10311,7 @@
    "huginnS": 7,
    "bigmap": 7,
    "codim2": 7,
-   "tb": 6,
+   "tb": 7,
    "mech": 6,
    "p1ladder": 5,
    "llama8b": 5,
@@ -9500,6 +10347,7 @@
    "spectrum": 2,
    "reprotask": 2,
    "reprollama": 2,
+   "shrimp": 2,
    "maps": 1,
    "p4a": 1,
    "highT": 1,
@@ -9532,8 +10380,9 @@
    "tbmulti": 1,
    "fm5": 1,
    "fm5c": 1,
-   "fm5d": 1
+   "fm5d": 1,
+   "rr": 1
   },
-  "pods_without_results": 20
+  "pods_without_results": 21
  }
 }
