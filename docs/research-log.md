@@ -27958,7 +27958,7 @@ Run by a separate agent, CPU float64. Tool tools/c12_hidden_readouts.py (14 test
 
 **Reading.** The visible text does not record the state, but in these readouts the hidden differences only shift probabilities, within the margins of the greedy answers. That is an observability limit, not a behavioral failure, for these queries. One model, one line, three steering-dominated queries.
 
-## 2026-10-16 19:05 UTC: Run H results (stability horizon of soft thinking, bf16, local GPU), joined with the float64 twins (PIF64-H/H2)
+## 2026-10-16 19:01 UTC: Run H results (stability horizon of soft thinking, bf16, local GPU), joined with the float64 twins (PIF64-H/H2)
 
 **Setup.** Qwen2.5-7B-Instruct, soft thinking with top-15, 200 GSM8K test problems, layouts 8 and 16, answer readouts after S = 2..128 soft steps. The 12 configurations are T in {0.6, 1.2} x alpha in {-0.02, 0, 0.01, 0.02, 0.03, 0.05} along hostility-vs-kindness at block 14. All 12 exited 0. Receipt docs/pi/h-horizon-summary.json (tools/pi_horizon_analyze.py, joined with explore/pi/pif64h).
 

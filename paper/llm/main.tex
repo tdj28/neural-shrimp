@@ -876,6 +876,21 @@ for 6.2\,\% of the problems. In float64 the same pipeline contracts. On 1312 and
 (full vocabulary and top-15), a perturbation of $10^{-10}$ ended below its initial size, and none changed an answer.
 These flips are therefore not chaos of the float64 map: the feedback carries bfloat16 rounding differences forward
 until they decide answers that the model holds only weakly, and it does so for discrete feedback as well.
+
+\paragraph{How the dependence builds up.} An exploratory study read the answers of the same pipeline after every
+doubling of the number of soft steps, from 2 to 128. It used 200 GSM8K test problems, two temperatures (0.6 and 1.2),
+and six steering strengths along the hostility direction ($\alpha$ from $-0.02$ to $0.05$). The two layouts agree on
+90 to 96\,\% of the answers after 2 steps and on 51 to 70\,\% after 128, in every configuration. Among the problems
+whose layouts disagree, the median first disagreement comes after 8 steps. Float64 copies of the same configurations,
+started $10^{-10}$ apart, separate the two sources of disagreement.
+\begin{itemize}
+  \item Unsteered or weakly steered ($|\alpha|\le0.02$), the copies change at most 1.5\,\% of the answers. The loop
+  contracts, so the bfloat16 disagreements are rounding carried forward by the feedback.
+  \item At $\alpha=0.05$ they change 13.5 and 27.5\,\% of the answers. The loop itself is then sensitive, but accuracy
+  has fallen to between 0.5 and 2\,\%.
+\end{itemize}
+In this model, then, the regime in which Soft Thinking is useful is the regime of accumulated rounding, not of chaos
+(\texttt{docs/pi/h-horizon-summary.json}).
 \begin{figure}[tbp]
 \centering
 \includegraphics[width=\linewidth]{fig-repro.png}
