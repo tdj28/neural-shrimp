@@ -1,0 +1,165 @@
+{
+  "status": "prepared",
+  "repository": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp",
+  "raw_root": "/data2/neural-shrimp-data/codex/need-to-audit-20261016",
+  "python": "/data2/neural-shrimp/.venv/bin/python",
+  "source_files": [
+    {
+      "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/need-to-audit-20261016/damping/controls.py",
+      "bytes": 5527,
+      "sha256": "a4f612f956ab17f2d48cd851c0bb46d80546a1137d91758b1a7fc95b8a5244c2"
+    },
+    {
+      "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/need-to-audit-20261016/damping/reduce.py",
+      "bytes": 15162,
+      "sha256": "54b3c146babba280be0c7f3f7d5dede987a100ccffb183bccbb369771418a9d8"
+    },
+    {
+      "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/need-to-audit-20261016/damping/run-001-card.json",
+      "bytes": 19792,
+      "sha256": "0055c5d0742888efca0ae7833fb91e8ae121a7b10ac18e0bd4578131a0552e0c"
+    },
+    {
+      "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/need-to-audit-20261016/damping/run.py",
+      "bytes": 12894,
+      "sha256": "18f8606dbdd9344180aa3a4324d497eff3fb27d0988fb2cd0a0d1c01ff8604bc"
+    },
+    {
+      "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/need-to-audit-20261016/pm/controls.py",
+      "bytes": 6352,
+      "sha256": "9939440c13d1b7fbf82e2e44f8432e5f6687045317c1a2d94735f524f3c60b18"
+    },
+    {
+      "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/need-to-audit-20261016/pm/core.py",
+      "bytes": 15498,
+      "sha256": "59999e636fc5e2e14a096614ec61f1bb9eda958eb5db17a2f592100d57431a00"
+    },
+    {
+      "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/need-to-audit-20261016/pm/run-001-card.json",
+      "bytes": 3015,
+      "sha256": "c0b6d7c2e9cfd2409c5f9a8a28d12fe8b7e0b9eb407fd3d2c64668078094ec42"
+    },
+    {
+      "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/need-to-audit-20261016/pm/run.py",
+      "bytes": 14214,
+      "sha256": "b24a529984e6f664d33b6f231626addb7919ee3930f1b84e1dd3ccba3b0ba9b6"
+    },
+    {
+      "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/need-to-audit-20261016/root/root_audit.py",
+      "bytes": 33753,
+      "sha256": "4e2164bc2c7bc7fc7b79abfdca705e93c1ceaec21f33579fce18f12115207cc6"
+    },
+    {
+      "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/need-to-audit-20261016/root/run-001-card.json",
+      "bytes": 1464,
+      "sha256": "bc12863ae3063e750818e7302c3caa4cf27189d5ab8a75c67f47b8cb33f2ab57"
+    },
+    {
+      "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/need-to-audit-20261016/supervise.py",
+      "bytes": 8569,
+      "sha256": "e361919ed104a800ed043d15726edc10775260fc482d6f98d9c5fb7c98f1e77e"
+    }
+  ],
+  "lanes": {
+    "pm": {
+      "entry": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/need-to-audit-20261016/pm/run.py",
+      "arguments": [
+        "--card",
+        "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/need-to-audit-20261016/pm/run-001-card.json",
+        "--out",
+        "/data2/neural-shrimp-data/codex/need-to-audit-20261016/run-001/pm"
+      ],
+      "output": "/data2/neural-shrimp-data/codex/need-to-audit-20261016/run-001/pm",
+      "supervision": "/data2/neural-shrimp-data/codex/need-to-audit-20261016/run-001/pm-supervision",
+      "preflight_pins": [
+        {
+          "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/need-to-audit-20261016/pm/run-001-card.json",
+          "bytes": 3015,
+          "sha256": "c0b6d7c2e9cfd2409c5f9a8a28d12fe8b7e0b9eb407fd3d2c64668078094ec42"
+        }
+      ],
+      "limits": {
+        "as_bytes": 1073741824,
+        "cpu_seconds": 55,
+        "wall_seconds": 60,
+        "output_bytes": 33554432
+      },
+      "prior_receipts": [],
+      "controls_integrated_once": 12
+    },
+    "damping": {
+      "entry": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/need-to-audit-20261016/damping/run.py",
+      "arguments": [
+        "--card",
+        "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/need-to-audit-20261016/damping/run-001-card.json",
+        "--out",
+        "/data2/neural-shrimp-data/codex/need-to-audit-20261016/run-001/damping"
+      ],
+      "output": "/data2/neural-shrimp-data/codex/need-to-audit-20261016/run-001/damping",
+      "supervision": "/data2/neural-shrimp-data/codex/need-to-audit-20261016/run-001/damping-supervision",
+      "preflight_pins": [
+        {
+          "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/need-to-audit-20261016/damping/run-001-card.json",
+          "bytes": 19792,
+          "sha256": "0055c5d0742888efca0ae7833fb91e8ae121a7b10ac18e0bd4578131a0552e0c"
+        }
+      ],
+      "limits": {
+        "as_bytes": 1073741824,
+        "cpu_seconds": 55,
+        "wall_seconds": 60,
+        "output_bytes": 67108864
+      },
+      "prior_receipts": [
+        "/data2/neural-shrimp-data/codex/need-to-audit-20261016/run-001/pm-supervision/receipt.json"
+      ],
+      "controls_integrated_once": 9
+    },
+    "root": {
+      "entry": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/need-to-audit-20261016/root/root_audit.py",
+      "arguments": [
+        "--source-packet",
+        "/tmp/need-to-audit-20261016-source-001",
+        "--out",
+        "/data2/neural-shrimp-data/codex/need-to-audit-20261016/run-001/root"
+      ],
+      "output": "/data2/neural-shrimp-data/codex/need-to-audit-20261016/run-001/root",
+      "supervision": "/data2/neural-shrimp-data/codex/need-to-audit-20261016/run-001/root-supervision",
+      "preflight_pins": [
+        {
+          "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/need-to-audit-20261016/root/run-001-card.json",
+          "bytes": 1464,
+          "sha256": "bc12863ae3063e750818e7302c3caa4cf27189d5ab8a75c67f47b8cb33f2ab57"
+        },
+        {
+          "path": "/tmp/need-to-audit-20261016-operation/root-inputs.json",
+          "bytes": 186227,
+          "sha256": "52db03cdd38f31767f9714aee6bc2cfcef589f8873e9c9d6027a46e765144606"
+        }
+      ],
+      "limits": {
+        "as_bytes": 4294967296,
+        "cpu_seconds": 110,
+        "wall_seconds": 120,
+        "output_bytes": 134217728
+      },
+      "prior_receipts": [
+        "/data2/neural-shrimp-data/codex/need-to-audit-20261016/run-001/damping-supervision/receipt.json"
+      ],
+      "controls_integrated_once": 6,
+      "input_inventory": {
+        "path": "/tmp/need-to-audit-20261016-operation/root-inputs.json",
+        "bytes": 186227,
+        "sha256": "52db03cdd38f31767f9714aee6bc2cfcef589f8873e9c9d6027a46e765144606"
+      }
+    }
+  },
+  "serial_order": [
+    "pm",
+    "damping",
+    "root"
+  ],
+  "admission": "Prepared exact source/card supervisor for Root review; no target execution authorized by this status.",
+  "resource_scope": "One worker CPU plus one supervisor, nice10/thread1,20GiB startup and16GiB runtime RAM floors,16GiB disk floor. Per-lane OUT plus stdout/stderr sampled cap; source/admission/receipt small metadata outside that cap. Fixed cleanup5+5 seconds; no automatic retry or parallel lane.",
+  "scientific_scope": "Unblinded saved-data arithmetic, all failures and exact differences retained; computational completion is not scientific acceptance. Item14 incomplete E5/E2E is excluded; items15\u201316 are separate editorial checks."
+}

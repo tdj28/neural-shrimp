@@ -1,0 +1,11 @@
+--- preparation-001/run.py
++++ run.py
+@@ -141,7 +141,7 @@
+             order_one_steps_predicted=math.log(1/doc["args"]["eps_text"])/lam if math.isfinite(lam) and lam != 0 else None,
+             lyapunov_times_at_split=lam*split if split else None,
+             log10_distance_at_split=logs[split-1] if split else None,
+-            first_step_distance_above_0.1=next((i+1 for i,v in enumerate(logs) if v > -1), None)))
++            **{"first_step_distance_above_0.1":next((i+1 for i,v in enumerate(logs) if v > -1), None)}))
+     if len({(x["receipt"],x["index"]) for x in chosen}) != 7: raise ValueError("duplicate figure selection")
+     left, right = docs["qwen0.5b-philosophy"], docs["qwen0.5b-philosophy-long"]
+     if (left["args"]["threads"],right["args"]["threads"]) != (6,4) or (left["cells"][0]["alpha"],left["cells"][0]["log10T"]) != (right["cells"][0]["alpha"],right["cells"][0]["log10T"]): raise ValueError("thread association")

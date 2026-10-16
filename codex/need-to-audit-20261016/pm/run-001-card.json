@@ -1,0 +1,70 @@
+{
+  "schema": "independent-pm-pm2-v1",
+  "admission": "prepared",
+  "output": "/data2/neural-shrimp-data/codex/need-to-audit-20261016/run-001/pm",
+  "inputs": {
+    "path": "/tmp/need-to-audit-20261016-pm/inputs.json",
+    "bytes": 162822,
+    "sha256": "bfac7c1c2607b55a5eeee0d01cba643747c4d0871e6f304f917afedab76ddf79"
+  },
+  "source_sha256": {
+    "run.py": "b24a529984e6f664d33b6f231626addb7919ee3930f1b84e1dd3ccba3b0ba9b6",
+    "core.py": "59999e636fc5e2e14a096614ec61f1bb9eda958eb5db17a2f592100d57431a00",
+    "controls.py": "9939440c13d1b7fbf82e2e44f8432e5f6687045317c1a2d94735f524f3c60b18"
+  },
+  "controls_groups": 12,
+  "resources": {
+    "worker_CPUs": 1,
+    "supervisor": 1,
+    "nice": 10,
+    "AS_bytes": 1073741824,
+    "CPU_seconds": 55,
+    "wall_seconds": 60,
+    "output_bytes": 33554432,
+    "input_bytes_ceiling": 50331648,
+    "output_scope": "worker output directory; outer stdout/stderr and source/receipt overhead are coordinator-owned and must fit its separate declared reserve",
+    "cost_basis": "Prepared unexecuted synthetic full-shape control workload. One serial combined audit is proposed by Root; no independent numerical forecast measurement exists yet.",
+    "input_metadata": {
+      "original_record_files": 19,
+      "record_rows": 8192,
+      "original_record_bytes": 36729067,
+      "all_selected_pin_bytes": 38229446,
+      "selected_pin_count": 127
+    },
+    "metadata_selection": {
+      "seconds_metadata_selection_before_serialization": 0.010400339961051941,
+      "metadata_bytes_read": 530721,
+      "raw_record_or_summary_payload_read": false,
+      "parent_measurement_scope": "Inference metadata001 .5995s/79.12MB is combined multi-lane schema/hash work, not PM numerical forecast."
+    }
+  },
+  "protocol": {
+    "single_run": "12 manufactured groups/full-shape serialization first, then original saved scoring once; stop on controls failure",
+    "producer_execution": false,
+    "model_or_native_replay": false,
+    "RNG_order_basis": "Published JSON insertion order, not original analyzer CLI attestation. No order search.",
+    "unblinded": true,
+    "original_source_scope": "Pinned source and original recorded metadata only; no reconstructed historical analyzer CLI order or loaded model weights."
+  },
+  "expected_outputs": [
+    "controls/manufactured.json",
+    "controls/report.json",
+    "row-diagnostics.json",
+    "comparisons.json",
+    "chronology.json",
+    "report.json",
+    "manifest.json"
+  ],
+  "success_fields": {
+    "report.computational_completed": true,
+    "report.scientific_claims_accepted": false,
+    "manifest.computational_completed": true,
+    "manifest.file_count": 6
+  },
+  "limitations": [
+    "Suffix-only extraction cannot recover full discarded text.",
+    "Byte-marker normalized extraction is an alternative diagnostic only.",
+    "Every raw source duplicate/unpaired/negative filler row and published leaf delta remains.",
+    "Recorded start times do not independently attest wall clocks or unseen prior use."
+  ]
+}

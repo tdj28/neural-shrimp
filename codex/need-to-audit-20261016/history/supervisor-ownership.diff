@@ -1,0 +1,16 @@
+--- prepared-001
++++ prepared-002
+@@ -92,10 +92,9 @@
+                 except subprocess.TimeoutExpired:os.killpg(proc.pid,signal.SIGKILL);proc.wait(timeout=5)
+             else:proc.wait()
+         if members(proc.pid):
+-            reason=reason or 'owned descendants after parent exit';os.killpg(proc.pid,signal.SIGTERM)
+-            end=time.monotonic()+5
+-            while members(proc.pid) and time.monotonic()<end:time.sleep(.1)
+-            if members(proc.pid):os.killpg(proc.pid,signal.SIGKILL)
++            # Parent is already reaped: numeric group alone does not authorize signals.
++            # These workers must not spawn children. Preserve unexpected membership.
++            reason=reason or 'unexpected group/session members after parent exit; retained for exact ownership review'
+         worker=json.loads((sup/'worker-startup.json').read_text())
+         assert worker['identity']['nice']==10 and worker['identity']['threads']==1
+         assert worker['address_space']==[lane['limits']['as_bytes']]*2 and worker['cpu_seconds']==[lane['limits']['cpu_seconds']]*2

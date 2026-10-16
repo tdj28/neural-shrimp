@@ -1,0 +1,3 @@
+# 16 October 2026: prelaunch syntax correction
+
+Inference's prelaunch AST check rejected run.py `ad3e60a0` line144 before any control or target execution: the intended JSON key `first_step_distance_above_0.1` was incorrectly written as a keyword argument. The exact original driver/card/release remain in preparation-001. Replace that keyword with `**{literal_key: same_expression}`; the key, formula, selections, inputs, resources and scientific rules are unchanged. All three executable source files then passed ast.parse only. This is a preserved source-preparation refusal, not a scientific run or retry.

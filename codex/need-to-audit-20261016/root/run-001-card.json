@@ -1,0 +1,42 @@
+{
+  "status": "prepared",
+  "source_expected_commit": null,
+  "scope": "Items 6\u201313 independent saved-data subset; six manufactured controls run once before all eight components; explicit components repair only after review, no automatic retry.",
+  "source": {
+    "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/need-to-audit-20261016/root/root_audit.py",
+    "bytes": 33753,
+    "sha256": "4e2164bc2c7bc7fc7b79abfdca705e93c1ceaec21f33579fce18f12115207cc6"
+  },
+  "source_packet": "/tmp/need-to-audit-20261016-source-001",
+  "input_inventory": {
+    "path": "/tmp/need-to-audit-20261016-operation/root-inputs.json",
+    "bytes": 186227,
+    "sha256": "52db03cdd38f31767f9714aee6bc2cfcef589f8873e9c9d6027a46e765144606"
+  },
+  "controls": 6,
+  "components": [
+    "false_chaos",
+    "horizon",
+    "pif64",
+    "pilots",
+    "selective",
+    "quantization",
+    "steering",
+    "hidden"
+  ],
+  "resources": {
+    "cpu_threads": 1,
+    "supervisor": 1,
+    "as_bytes": 4294967296,
+    "cpu_seconds": 110,
+    "wall_seconds": 120,
+    "output_bytes": 134217728
+  },
+  "measurement_basis": {
+    "metadata_io_seconds": 0.9511341149918735,
+    "original_io_files": 334,
+    "original_io_bytes": 285924332,
+    "scope": "Metadata and hash IO only; not a numerical runtime guarantee."
+  },
+  "preserve": "All component failures, discrepancies and uncomputed diagnostics retained. No producer imports or model execution."
+}
