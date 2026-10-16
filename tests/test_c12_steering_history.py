@@ -210,6 +210,23 @@ def test_choose_model_P():
     assert c4.choose_model_P({56: 0.8})["model_ok"]                          # the threshold is inclusive
 
 
+def test_choose_pipeline_prefers_small_model_long_predwell():
+    res = {("qwen1.5b", 0.6): {56: 0.55, 44: 0.6}, ("qwen1.5b", 0.3): {56: 0.82, 44: 0.9},
+           ("qwen1.5b", 2.0): {56: 0.85, 44: 0.95}, ("qwen1.5b", 1.0): {56: 0.7, 44: 0.92},
+           ("qwen3b", 0.3): {56: 0.95, 44: 0.95}}
+    r = c4.choose_pipeline(res)
+    assert r["model"] == "qwen1.5b" and r["temperature"] == 2.0 and r["P"] == 24     # (8, 8) first, then accuracy
+    res[("qwen1.5b", 2.0)] = {56: 0.82, 44: 0.95}
+    r = c4.choose_pipeline(res)
+    assert r["temperature"] == 0.3                           # equal accuracy: the temperature closest to 0.6
+    res = {("qwen1.5b", 0.6): {56: 0.55, 44: 0.6}, ("qwen1.5b", 1.0): {56: 0.7, 44: 0.85},
+           ("qwen3b", 0.3): {56: 0.95, 44: 0.95}}
+    r = c4.choose_pipeline(res)
+    assert r["model"] == "qwen1.5b" and r["P"] == 12 and r["temperature"] == 1.0    # smaller model before P
+    r = c4.choose_pipeline({("qwen1.5b", 0.6): {56: 0.5, 44: 0.5}, ("qwen3b", 0.6): {56: 0.4, 44: 0.6}})
+    assert r["model"] is None and len(r["table"]) == 2
+
+
 def _tab(rows):
     return {a: {"fa_proh": f, "unparseable": u} for a, f, u in rows}
 

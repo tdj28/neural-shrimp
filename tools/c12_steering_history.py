@@ -69,6 +69,13 @@ choose_bias; choices go to docs/pi/c12-4-choices.json, committed before the runs
       runs after P + 32 >= 10 points with a bootstrap interval above zero). The held-out run uses the same code and
       planted phrase whatever this check shows; a failed check is reported as a caveat.
   H   held-out histories (48 instances x 8 starts x 7 histories) after the choices and the receipt draft are pushed.
+Amendment 1 (2026-10-16, after D0; before any steering run on development instances). At T = 0.6 both qwen1.5b
+(accuracy 0.547 after 56 soft steps, 0.594 after 44) and qwen3b (0.430, 0.578) fail the 80 % rule; both lose the
+task as soft steps accumulate (unparseable answers up to 14 % and 32 %). The run card does not fix T; C12-1 found T =
+0.6 the worst temperature for long horizons. The baseline-only choice is therefore extended to T in {0.3, 1.0, 2.0}
+(choose_pipeline: qwen1.5b at any temperature before qwen3b before qwen7b; then the longer pre-dwell; then the higher
+accuracy; then T closest to 0.6). qwen7b in float32 (about 30 GB) is not run while it would leave the shared machine
+without memory headroom.
 
 Subcommands (prefix CUDA_VISIBLE_DEVICES= ; nice -n 10 uv run --no-sync python; --threads 6):
   instances  write the instance list (docs/pi/c12-4-instances.json) and its SHA-256; checks prompt lengths;
@@ -429,6 +436,31 @@ def choose_model_P(acc, threshold=0.80, dwell=32, candidates=((8, 8), (4, 4))):
     return {"model_ok": False, "table": table, "threshold": threshold}
 
 
+def choose_pipeline(results, models=("qwen1.5b", "qwen3b", "qwen7b"), default_T=TEMPERATURE, threshold=0.80):
+    """Model, temperature and pre-dwell rule (amendment, fixed after the T = 0.6 baselines of qwen1.5b and qwen3b
+    failed and before the other temperatures' outputs were seen). results: {(model, T): {S: accuracy}} of unsteered
+    development baselines. For each model in order (the run card prefers the smallest): the (T, ramp, hold) candidates
+    that pass choose_model_P; prefer the longer pre-dwell ((8, 8) over (4, 4)), then the higher accuracy at its
+    primary readout, then the temperature closest to the pi_harness default 0.6. If no temperature passes for a
+    model, the next model; if none passes, None."""
+    table = []
+    for model in models:
+        cands = []
+        for (m, T), acc in sorted(results.items()):
+            if m != model:
+                continue
+            r = choose_model_P(acc, threshold)
+            table.append({"model": m, "T": T, **{k: r.get(k) for k in ("model_ok", "ramp", "hold", "P", "S_primary",
+                                                                         "accuracy")}})
+            if r["model_ok"]:
+                cands.append((-r["P"], -r["accuracy"], abs(T - default_T), T, r))
+        if cands:
+            _, _, _, T, r = min(cands)
+            return {"model": model, "temperature": T, "ramp": r["ramp"], "hold": r["hold"], "P": r["P"],
+                    "S_primary": r["S_primary"], "accuracy": r["accuracy"], "table": table}
+    return {"model": None, "table": table}
+
+
 def choose_alpha(table, change_valid=0.25, change_min=0.10, unparse_max=0.10, sat_max=0.80, high_sat=0.90,
                  high_unparse_max=0.25):
     """Alpha rule (fixed before the sweep outputs were seen). table: {alpha: {"fa_proh", "unparseable"}} of the static
@@ -547,6 +579,7 @@ class Engine:
 
     def __init__(self, model_key="qwen1.5b", threads=6, layer=None, top_n=TOP_N, T=TEMPERATURE,
                  answer_tokens=ANSWER_TOKENS):
+        T = TEMPERATURE if T is None else T
         import torch
         from transformers import AutoModelForCausalLM, AutoTokenizer
         from transformers.cache_utils import DynamicCache
@@ -914,7 +947,7 @@ def cmd_smoke(args):
     """Engine checks on two smoke instances (seed SMOKE_SEED, neither development nor held-out)."""
     torch_threads(args)
     import torch
-    eng = Engine(args.model, args.threads, layer=args.layer)
+    eng = Engine(args.model, args.threads, layer=args.layer, T=args.temperature)
     v, u, vsha = load_vecs(args.vectors, args.layer, args.model)
     insts = smoke_instances()
     out = out_dir(args, "smoke")
@@ -964,9 +997,10 @@ def cmd_smoke(args):
 
 def cmd_baseline(args):
     torch_threads(args)
-    eng = Engine(args.model, args.threads)
+    eng = Engine(args.model, args.threads, T=args.temperature)
     insts = split_instances(args, args.split)
-    out = out_dir(args, f"baseline-{args.model}-{args.split}", resume=args.resume)
+    tag = "" if args.temperature == TEMPERATURE else f"-T{args.temperature:g}"
+    out = out_dir(args, f"baseline-{args.model}{tag}-{args.split}", resume=args.resume)
     N = max(args.readouts)
     starts = list(range(args.starts))
     batches = []
@@ -986,10 +1020,11 @@ def cmd_baseline(args):
 
 def cmd_sweep(args):
     torch_threads(args)
-    eng = Engine(args.model, args.threads, layer=args.layer)
+    eng = Engine(args.model, args.threads, layer=args.layer, T=args.temperature)
     v, u, vsha = load_vecs(args.vectors, args.layer, args.model)
     insts = split_instances(args, args.split)
-    out = out_dir(args, f"sweep-{args.model}-l{args.layer}-{args.split}", resume=args.resume)
+    tag = "" if args.temperature == TEMPERATURE else f"-T{args.temperature:g}"
+    out = out_dir(args, f"sweep-{args.model}{tag}-l{args.layer}-{args.split}", resume=args.resume)
     N = max(args.readouts)
     starts = list(range(args.starts))
     batches = []
@@ -1016,7 +1051,7 @@ def cmd_histories(args):
     for k in ("model", "layer", "alpha_final", "alpha_high", "ramp", "hold"):
         if ch.get(k) is None:
             raise SystemExit(f"choices file lacks {k}")
-    eng = Engine(ch["model"], args.threads, layer=ch["layer"])
+    eng = Engine(ch["model"], args.threads, layer=ch["layer"], T=ch.get("temperature", TEMPERATURE))
     v, u, vsha = load_vecs(args.vectors, ch["layer"], ch["model"])
     insts = split_instances(args, args.split)
     out = out_dir(args, f"histories-{args.split}", resume=args.resume)
@@ -1278,6 +1313,18 @@ def cmd_choose(args):
         if r["model_ok"]:
             ch.update({"model": model, "ramp": r["ramp"], "hold": r["hold"], "P": r["P"], "dwell": 32,
                        "dwell_secondary": 64})
+    elif args.stage == "pipeline":
+        results = {}
+        for path in args.analysis:
+            a = json.loads(Path(path).read_text())
+            h = json.loads((Path(a["run"]) / "run.json").read_text())["history"][-1]
+            results[(h["args"]["model"], float(h["temperature"]))] = {int(S): v for S, v in a["accuracy_by_S"].items()}
+        r = choose_pipeline(results)
+        ch["pipeline_rule"] = {"results": [{"model": m, "T": T, "accuracy_by_S": acc}
+                                           for (m, T), acc in sorted(results.items())], **r}
+        if r["model"] is not None:
+            ch.update({"model": r["model"], "temperature": r["temperature"], "ramp": r["ramp"], "hold": r["hold"],
+                       "P": r["P"], "dwell": 32, "dwell_secondary": 64})
     elif args.stage == "alpha":
         tables = {}
         for path in args.analysis:
@@ -1360,17 +1407,20 @@ def main():
     common(p)
     p.add_argument("--layer", type=int, default=14)
     p.add_argument("--alpha", type=float, default=0.05)
+    p.add_argument("--temperature", type=float, default=TEMPERATURE)
     p.add_argument("--vectors", default=None, help="default: DATA/vectors-<model>")
     p = sub.add_parser("baseline")
     common(p)
     p.add_argument("--split", default="dev", choices=("dev", "test"))
     p.add_argument("--starts", type=int, default=8)
+    p.add_argument("--temperature", type=float, default=TEMPERATURE)
     p.add_argument("--readouts", type=int, nargs="+", default=[0, 8, 16, 24, 32, 44, 56, 64, 76, 88, 96])
     p.add_argument("--instances-per-batch", type=int, default=8)
     p = sub.add_parser("sweep")
     common(p)
     p.add_argument("--split", default="dev", choices=("dev", "calib"))
     p.add_argument("--layer", type=int, required=True)
+    p.add_argument("--temperature", type=float, default=TEMPERATURE)
     p.add_argument("--vectors", default=None, help="default: DATA/vectors-<model>")
     p.add_argument("--alphas", type=float, nargs="+", required=True)
     p.add_argument("--starts", type=int, default=4)
@@ -1390,7 +1440,7 @@ def main():
     p.add_argument("--bias", type=float, default=None, help="endpoint-only logit bias b (default: from the choices)")
     p.add_argument("--json", default=None)
     p = sub.add_parser("choose")
-    p.add_argument("stage", choices=("model", "alpha", "bias"))
+    p.add_argument("stage", choices=("model", "pipeline", "alpha", "bias"))
     p.add_argument("--choices", required=True)
     p.add_argument("--analysis", nargs="*", default=[])
     p.add_argument("--run", default=None, help="bias stage: the development histories run")
