@@ -27752,3 +27752,20 @@ Receipt docs/chaos-texts/qwen1.5b-philosophy.json (philosophy at layer 14, 60 re
 **At the split.** At every split, the loop's top token has a probability of at most 0.31 (0.3026, hostility cell) and leads the second by at most 0.078. At five of seven splits the copy writes the loop's second choice.
 
 **Fixed** in the paper (034fa93d), the Chaos article (d660864) and the blog. The paper's figure caption now names the seventh cell (Qwen2.5-1.5B, alpha 0.07376), which is plotted but not in the table.
+
+## 2026-10-16 13:04 UTC: Run card C12-5 (exploratory): does an identical visible text hide states that answer differently? (consult 12, direction 5; run by a separate agent on the CPU)
+
+**Question.** In band chaos the loop writes an exactly repeating text while its state moves chaotically (paper: "Chaos behind a repeating text"; Qwen2.5-0.5B, hostility-vs-kindness at block 12, alpha 0.0655, the temperature line with 65 such cells). Do two states with identical visible histories answer the same follow-up query differently? If they do, the visible text is not a sufficient record of the state. If they do not, the latent difference stays invisible to these readouts: an observability limit, not a behavioral one.
+
+**Design.**
+- **Cells.** The chaotic cells of the line (explore/llm-soft-loop/pod64/hidden/tline-a0.0655 and h2-line-exact) whose leading token repeats exactly. They are split by a fixed rule into 8 development cells and the rest held out.
+- **States.** Per cell, after 1000 transient steps in float64, 16 states at one phase of the visible cycle, at least one full cycle apart. The loop's leading tokens over the preceding 70 steps must be identical across them (exact collision); this is checked and recorded.
+- **Readouts.** The soft token is followed by a fixed suffix, then 8 greedy tokens decoded in float64. There are three follow-up queries, fixed on development cells before held-out data: a yes or no question, a one-word answer and a numeric rating. The answer is the extracted label.
+- **Primary endpoint.** The share of state pairs within a cell (same phase, identical traces) whose answers differ, per query. Cells are the units, with a bootstrap over cells.
+- **Controls.**
+  - Negative: a state paired with its exact recomputation, which should give no disagreement.
+  - Periodic: cells of the period-7 body where the text repeats and the state is periodic, which should give no disagreement.
+  - Positive: a readout that reports a state-dependent number (the probability of a fixed token to 6 digits), to show that the pipeline detects latent differences.
+- **Description:** the latent distances between paired states, and whether disagreement grows with distance.
+
+**Decision.** Frequent disagreement among exact collisions establishes that the visible text does not determine downstream behavior in this regime. No disagreement, with the positive control passing, bounds the effect for these readouts.
