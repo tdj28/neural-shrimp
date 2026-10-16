@@ -1885,6 +1885,58 @@ context is kept as well: in Soft Thinking's growing context (Appendix~\ref{sec:b
 none of eleven steered cells, six of them chaotic as one-token maps, and at one of 48 unsteered temperatures on two
 prompts, transiently.
 
+\paragraph{Where the network damps.} The network factor can be resolved through the stack. Let $h_l$ be the residual
+stream at the soft token's position entering block $l+1$, and $\delta h_l$ its change. The factor then splits exactly
+into three terms: the growth of the change through the stack, $A_L=\log(\lVert\delta h_L\rVert/\lVert\delta x\rVert)$;
+minus the growth of the residual stream itself, $N_L=\log(\lVert h_L\rVert/\lVert x\rVert)$; plus the final
+normalization. The difference $A_l-N_l$ is the log of the relative change after $l$ blocks (Appendix~\ref{sec:methods}).
+
+We measured this split along the unsteered loop of fourteen models at 24 temperatures each
+(Figure~\ref{fig:damping}). At 0.3 to 6 nats, the entropies where the loop's chaos occurs at low temperature, the
+median network factor falls with size in two of the three families.
+\begin{itemize}
+  \item In Qwen2.5 it falls from $-0.12$ at 0.5B to $-1.99$ at 72B, though not monotonically ($-1.80$ at 3B, $-0.85$ at
+  7B).
+  \item In Llama-3 it falls from $-0.14$ at 8B to $-1.50$ and $-1.30$ at 70B.
+  \item In OLMo-2 it does not fall: $+0.11$, $-0.52$, $-0.79$ and $-0.36$ from 1B to 32B. OLMo-2-32B, the family's most
+  chaotic model, is the least damped of its three larger models.
+\end{itemize}
+Qwen2.5-72B is the only model whose network factor stays negative at nearly uniform distributions: $-1.12$ above
+10 nats, against $+0.22$ to $+2.97$ for the 1.5B to 32B models, as its stability under entropy clamping suggests.
+
+The profiles through depth show where the difference arises. Near 1 nat, the change of the fed-back token keeps pace
+with the growing residual stream in the small models: after the last block their relative change ends at $-0.32$
+(Qwen2.5-0.5B) and $-0.51$ (Llama-3.1-8B). It does not keep pace in the large ones, where it ends at $-2.51$
+(Qwen2.5-72B) and $-2.08$ (Llama-3.1-70B): their blocks keep writing a growing state that depends little on the
+fed-back token.
+
+Sublayer knockouts hold one attention or MLP output at the soft token at its unperturbed value. They find no component
+that does the damping: near 1 nat, removing any single sublayer raises the network factor by at most 0.44 nats in any of
+the fourteen models. The amplification
+moves instead.
+\begin{itemize}
+  \item In the Qwen2.5 models from 1.5B to 32B, the first attention layer amplifies the change: removing it lowers the
+  factor by 1.67 to 3.74 nats near 1 nat.
+  \item In the 0.5B model, the first MLP does (2.40).
+  \item In Qwen2.5-72B and in both 70B Llama models, no sublayer contributes more than 0.46.
+\end{itemize}
+The larger models' damping is therefore not added by a component. The early amplification that lets the change keep
+pace with the residual stream is weaker or absent. These are descriptive comparisons of trained checkpoints within
+three families, and the OLMo-2 exception shows that training can break the trend.
+\begin{figure}[tbp]
+\centering
+\includegraphics[width=\linewidth]{fig-damping.png}
+\caption{Where the network damps a change of the fed-back token. Unsteered loop on the paper's prompt, 24
+temperatures per model, float64; a twin at relative offset $10^{-7}$ along the evolving tangent; 500 transient and 500
+measured steps. (a) Network factor against the mean next-token entropy on the orbit, for fourteen models (Qwen2.5
+blue, Llama-3 red, OLMo-2 gray; darker for larger models). (b) Median network factor between 0.3 and 6 nats against the
+number of parameters; bars give the range of the medians in the bins 0--1, 1--3 and 3--6 nats. (c) The log relative
+change $A_l-N_l$ after $l$ blocks against relative depth, at each model's temperature nearest 1 nat. (d) The two parts
+of the final relative change at that temperature: the gap after the first block, $A_1-N_1$ (solid), and the deficit
+through the remaining blocks, $(N_L-N_2)-(A_L-A_2)$, drawn with a minus sign (dashed).}
+\label{fig:damping}
+\end{figure}
+
 \paragraph{What this implies for larger models.} Size does not set this chaos in a simple way. In Qwen2.5, the 14B
 model's chaos did not vanish but moved to higher temperature, to where its next-token distribution spreads; in OLMo-2
 the largest model was the most chaotic; two 70B Llama checkpoints with different post-training gave different results
@@ -1907,6 +1959,10 @@ gain of its loop where its own next-token distribution is spread, no single forw
 to find it in a larger model one has to run the loop there, across prompts. For frontier models this means two
 things: their unsteered chaos may be rare, if, like the largest models here, their distributions spread over a narrow
 range of temperature; and steering still drives both 70B-class models that we steered, Llama-3.3-70B and Qwen2.5-72B, into chaos (Appendix~\ref{sec:size}).
+Resolved through the stack, the damping grows with size in Qwen2.5 and Llama-3 because the change of the fed-back
+token stops keeping pace with the residual stream (Figure~\ref{fig:damping}). If larger models of these families
+continue the trend, their unsteered loops need stronger token competition to become chaotic, which steering can still
+supply; this is an extrapolation from checkpoints up to 72B, and OLMo-2 does not follow it.
 Figure~\ref{fig:z128} shows it at 70B parameters: in a $128\times128$ float64 scan of Llama-3.3-70B-Instruct steered
 along its hostility direction, computed after the precision fix, 20.8\,\% of the 16{,}384 cells are chaotic, in a band
 threaded by periodic windows, as in the 0.5B model's maps; a test of 24 sampled cells at three twin offsets and an
@@ -2326,6 +2382,21 @@ state, so where attractors coexist, a map shows the one whose basin contains tha
 dynamical identities: one continuous orbit changes its label where two tokens tie for the maximum. We therefore call
 two labeled regions different attractors only when the contraction rate jumps between them or when float64 orbits of
 both exist at one parameter value.
+
+\paragraph{Resolving the network factor through the stack.} Hooks read, at the soft token's position, the residual
+stream entering each block, the outputs of its attention and MLP sublayers, and the final hidden state before and
+after the final normalization. They do so for the base row and for a twin at relative offset $10^{-7}$ along the
+evolving tangent direction. The split of the network factor into $A_L-N_L$ and the final normalization is exact.
+
+In the pre-normalization architectures of Qwen2.5 and Llama-3, the residual stream adds the sublayer outputs,
+$\delta h_L=\delta x+\sum_s\delta o_s$, and this sum closes to within $4\times10^{-7}$ relative in every model and
+temperature. OLMo-2 normalizes each sublayer's output before adding it, so the sum does not close there (relative
+errors of 0.9 to 150). For OLMo-2 we therefore use only quantities that do not depend on it: the factor itself, $A_l$,
+$N_l$ and the knockouts.
+
+A knockout holds one sublayer's output at the soft token at its value in the base row while the input carries the
+twin's change, which blocks the change's path through that sublayer. The knockout rows reproduce the plain twin's
+network factor within $5.1\times10^{-7}$.
 
 \paragraph{False chaos and real chaos.} A twin exponent measures how fast the difference between two trajectories
 grows, so anything that adds a difference of its own can imitate growth. Suppose that both rows receive independent
