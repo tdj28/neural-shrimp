@@ -27965,7 +27965,7 @@ Run by a separate agent, CPU float64. Tool tools/c12_hidden_readouts.py (14 test
 **Results.**
 - **Agreement decays with soft steps.** Answer agreement between the two layouts falls from 0.90-0.96 at S = 2 to 0.51-0.70 at S = 128 in every configuration. Unsteered: 0.93 to 0.685 (T 0.6) and 0.945 to 0.67 (T 1.2).
 - **Horizon.** Among problems whose layouts split, the median first readout with different answer text is step 8 (4-16). 5 to 41 problems never split.
-- **Steering lowers both agreement and accuracy.** At alpha 0.03-0.05, agreement at S = 128 is 0.53-0.64 and accuracy 0.005-0.06, against 0.47-0.49 unsteered.
+- **Steering lowers both agreement and accuracy.** At alpha 0.03-0.05, agreement at S = 128 is 0.53-0.64 and accuracy 0.005-0.06 (layout 16; at alpha 0.05 both layouts span 0.005-0.025), against 0.47-0.49 unsteered.
 - **The float64 twins separate the two regimes.**
   - Unsteered and weakly steered (|alpha| <= 0.02): 1e-10 twins change 0 to 1.5 % of answers and 1e-6 twins at most 3.5 %. The float64 loop contracts, so the bf16 layout flips there are rounding at weakly held answers carried forward by the feedback.
   - At alpha 0.05: 1e-10 twins change 13.5 % (T 0.6) and 27.5 % (T 1.2) of answers, and 1e-3 twins 82.5 % and 89 %. At alpha 0.03, T 1.2, the 1e-10 twins change 2 %. Strong steering makes the float64 loop itself sensitive, where accuracy is already near zero.
