@@ -1,0 +1,91 @@
+{
+ "problems": 1319,
+ "eps0": 1e-10,
+ "soft_steps": 64,
+ "top_n": 15,
+ "temperature": 0.6,
+ "twins_per_problem": 3,
+ "accuracy": {
+  "k": 237,
+  "n": 1319,
+  "rate": 0.17968157695223655,
+  "ci95": [
+   0.15990197305098827,
+   0.20132155503936824
+  ]
+ },
+ "twin_flip_any": {
+  "k": 0,
+  "n": 1319,
+  "rate": 0.0,
+  "ci95": [
+   -2.168404344971009e-19,
+   0.002903945030982515
+  ]
+ },
+ "twin_flip_pairs": {
+  "k": 0,
+  "n": 3957,
+  "rate": 0.0,
+  "ci95": [
+   0.0,
+   0.0009698592890362709
+  ]
+ },
+ "class_counts": {
+  "separated": 0,
+  "grew": 5,
+  "contracted": 1314
+ },
+ "merged_twins": 1844,
+ "twins": 3957,
+ "net_rate_quantiles": {
+  "0.1": NaN,
+  "0.25": NaN,
+  "0.5": -0.31034859922155167,
+  "0.75": -0.1513187545589537,
+  "0.9": -0.08023981501838647
+ },
+ "separation_step_median": null,
+ "separation_step_quartiles": null,
+ "flip_by_class": {
+  "separated": {
+   "k": 0,
+   "n": 0,
+   "rate": NaN,
+   "ci95": [
+    NaN,
+    NaN
+   ]
+  },
+  "grew": {
+   "k": 0,
+   "n": 5,
+   "rate": 0.0,
+   "ci95": [
+    0.0,
+    0.43448246865939283
+   ]
+  },
+  "contracted": {
+   "k": 0,
+   "n": 1314,
+   "rate": 0.0,
+   "ci95": [
+    -2.168404344971009e-19,
+    0.0029149628397311016
+   ]
+  }
+ },
+ "entropy_mean_by_class": {
+  "separated": null,
+  "grew": 0.19687975330211807,
+  "contracted": 0.11636467534986178
+ },
+ "gap_min_by_class": {
+  "separated": null,
+  "grew": 0.09094289478020083,
+  "contracted": 0.16781225451194537
+ },
+ "f64_run": "../neural-shrimp-data/explore/pi/pif64/topn15"
+}

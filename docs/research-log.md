@@ -27095,3 +27095,54 @@ tools/audit/dss_bfs_audit.py rebuilds the old breadth-first order from each prog
 - Later joined to float64 growth rates (PIF64 and a steered float64 follow-up).
 
 **Practical meaning.** How many soft steps are safe in a given configuration, and whether steering makes continuous reasoning less reproducible, and by how much.
+
+## 2026-10-16 04:35 UTC: PIF64 results (float64 twins in the soft-thinking pipeline, Qwen2.5-7B-Instruct, all 1319 GSM8K test problems)
+
+**Runs.**
+- A2: top-n 15, pod erlimawveyei6i, H100 NVL community.
+- B2: full vocabulary, pod j7kpz86dvrpizq, H100 NVL secure.
+- Commit 8d9bd67c, read from the orchestrator logs. T = 0.6, 64 soft steps, 3 twins per problem at relative 1e-10 on the first concept token.
+- Both pods were verified terminated; the results.tgz hashes match the runner's (89fd25ce..., cb472328...).
+- Receipts: docs/pi/pif64-full.json and docs/pi/pif64-topn15.json (tools/pi_f64_analyze.py).
+- Every one of the 1319 problems has a record in both arms (gate checked: no duplicates, no missing problems).
+
+**Results (both arms alike).**
+- **Answers:** no twin changed its answer (0 of 3957 twins in each arm; 95 % upper bound 0.1 % of twins, 0.3 % of problems).
+- **Separation:** no twin passed a relative distance of 1e-3.
+- **Contraction:** 1312 (full) and 1314 (top-15) of 1319 problems ended with every twin closer than 1e-10. 1850 and 1844 of 3957 twins merged with the base row exactly (below float64 resolution). The median net rate is -0.32 and -0.31 per step.
+- **Accuracy:** 18.0 % (237/1319) in both arms.
+- **Joined to the bf16 E1 full-vocabulary arm (first 400 problems):**
+  - the batch change 8 -> 16 changed 101/400 answers (25.3 %, [21.2, 29.7]) and 210/400 trajectories;
+  - 399 of those 400 problems contract in float64;
+  - the bf16 flip rate among the contracting problems is 100/399.
+
+**Interpretation (exploratory).** At these settings, the soft-thinking pipeline is not chaotic: it contracts a small change on nearly every problem. The bf16 answer changes under a batch change are therefore not chaotic amplification. bf16 rounding differences are large (around 1e-3 relative) and arise at every step, so they can move a contracting run across near-tied choices.
+- This matches the earlier appendix result: in Soft Thinking's growing context, an early perturbation grew in none of eleven steered cells.
+- The hypothesis is tested next with float64 twins at 1e-3 (PIF64-H).
+
+## 2026-10-16 04:35 UTC: Amendment to run card H, and run card PIF64-H (float64 horizon over temperature and steering)
+
+**Why.** PIF64 shows contraction at T = 0.6. The horizon question becomes: where in temperature and steering does the pipeline begin to expand, and do answers then follow the expansion?
+
+**Values chosen from the 7B steered maps, before any pipeline data.** In the one-token maps (scale7/coarse-64-*), chaos is rare for |alpha| < 0.05 (philosophy 0.3-0.5 %, hostility-vs-kindness 2.7-5.8 % of cells). It reaches 9.2 % / 29.1 % for 0.05-0.1 and 21.9 % / 54.8 % for 0.1-0.12. Hence:
+- alpha in {0, 0.05, 0.1}, along hostility-vs-kindness (the more chaotic direction, and the misalignment line), at zero-based block 14;
+- T in {0.6, 0.85, 1.2, 1.7} (log10 T -0.22, -0.07, 0.08, 0.23).
+
+Run card H's alpha in {0, 0.01, 0.02, 0.04} along philosophy is replaced by this grid on the local GPU as well (H has not started).
+
+**PIF64-H design.**
+- tools/pi_f64_twins.py v2: Qwen2.5-7B-Instruct in float64 (bf16-valued weights), top-n 15, 128 soft steps, the first 200 GSM8K test problems.
+- 12 configurations: the 4 temperatures x the 3 steering strengths.
+- Twins at relative 1e-10, 1e-6 and 1e-3, two per level, displaced on the first concept token.
+- Records: per-step log10 distances, answers and answer texts.
+- Pod split: one pod runs T 0.6 and 0.85, the other T 1.2 and 1.7.
+- Readouts:
+  - per configuration and level: the answer and text flip rates, the share separating past dmax and the median crossing step;
+  - the bf16 layout horizons of H on the same problems and configurations, joined per problem.
+
+**Cost plan (private amounts in cost-ledger.md).**
+- Measured: PIF64 ran 1319 problems x 4 rows x 78 forwards in 1474 s on an H100 NVL, about 0.114 s per forward at 32 rows.
+- Estimate: about 0.22 s per forward at 63 rows, and about 160 batches x 142 forwards per pod, so about 85 min with model load.
+- Limits: run 120 min, job set 110 min, and the tool's cost guard per pod.
+
+**Mixed-batch check.** On the 0.5B (CPU), the configuration mixing of v2 reproduces a single-configuration run: identical texts and entropies, and log10 distances within the 0.001 rounding.
