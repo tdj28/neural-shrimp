@@ -26910,3 +26910,20 @@ tools/audit/dss_bfs_audit.py rebuilds the old breadth-first order from each prog
 - Tools: tools/paper_llm_figures.py (passages and window-law labels; docstring wording) and tools/plot_fm5.py (axis labels).
 
 **Bibliography.** 25 entries printed their arXiv identifier twice, via note or howpublished next to eprint. The duplicate fields are removed; "English" is protected.
+
+## 2026-10-16 01:07 UTC: NIL4 result: no near-nilpotent point in the period-4 cell. The search converges where three leading multipliers of equal modulus 0.0325 sit at 120 degrees
+
+**Run.** tools/nilpotent_search.py, local CPU, 1189 s. Receipt: docs/nilpotent/p4-nil4.jsonl.
+- The march from the P4L seed converged at every step: primitive period 4, split 0.18-0.22, token loop (56568, 13) x 2.
+- The damped Newton on c1 = c2 = 0 converged in 5 iterations at (alpha1, alpha2) = (-0.1034774, 0.0984017), with c1 and c2 at zero to the printed precision.
+
+**At that point.** The three leading multipliers are 0.03248 (real) and 0.03252 e^{+-i120 deg} (-0.01628 +- 0.02815i); the fourth is 5e-5.
+- c1 = c2 = 0 holds because the three sit on the cube roots of one number, not because they vanish. The characteristic polynomial of the leading block is near z^3 - r^3 with r = 0.0325.
+- Strongest contraction there: 0.0325 per period, slightly below the grid minimum of 0.0375.
+
+**Comparison with period 5.** The near-nilpotent point there has the same three-fold arrangement, 3.578e-3 and 3.354e-3 at +-117 degrees, but moduli ten times smaller.
+
+**Reading.**
+- The period-4 cell has no near-nilpotent head at the bottom of its U.
+- Its leading spectrum there is three-dimensional, consistent with rule (iii).
+- The period-5 window remains the only cell with a near-nilpotent point.
