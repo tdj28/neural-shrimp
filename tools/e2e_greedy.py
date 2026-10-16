@@ -26,6 +26,7 @@ import e2e_model as em  # noqa: E402
 
 LISTED = ["is", "it", "nn", "The", "existence", "question", ".", "This", "there", "a"]
 CYCLES = {"is-it": [("is", "it"), ("it", "is")],
+          "is-there": [("is", "there"), ("there", "is")],
           "nn-The-existence": [("nn", "The"), ("The", "existence"), ("existence", "nn")],
           "nn-The-question": [("nn", "The"), ("The", "question"), ("question", "nn")]}
 
@@ -150,18 +151,24 @@ def refine(args):
 
 
 def cycles(args):
+    """Cycles of g reached from the listed tokens, at each alpha of --alphas or of a grid (--grid A0 A1 N); the
+    prefix is prepared once per alpha and successors are computed on demand."""
     model = em.Model(args.threads)
+    loop, torch = model.loop, model.torch
     out = em.OUT / args.out
     out.mkdir(parents=True, exist_ok=True)
+    alphas = list(np.linspace(*args.grid[:2], int(args.grid[2]))) if args.grid else args.alphas
     res = {"args": vars(args), "alphas": []}
-    for al in args.alphas:
+    for al in alphas:
+        loop.prepare((al * model.v)[None])
         succ = {}
 
         def g(t):
             if t not in succ:
-                z = logits_for(model, [al], [t])[0, 0]
+                X = torch.as_tensor(model.E[t][None, None], dtype=torch.float64)
+                z = loop.logits(X).cpu().numpy()[0]
                 top = np.argsort(-z)[:2]
-                succ[t] = (int(top[0]), float(z[top[0]] - z[top[1]]))
+                succ[t] = (int(top[0]), float(z[top[0]] - z[top[1]]), int(top[1]))
             return succ[t][0]
 
         found = {}
@@ -175,12 +182,14 @@ def cycles(args):
                 k = min(range(len(cyc)), key=lambda j: cyc[j])
                 cyc = cyc[k:] + cyc[:k]
                 key = " ".join(map(str, cyc))
-                found.setdefault(key, {"tokens": [model.decode(t) for t in cyc],
-                                       "margins": [succ[t][1] for t in cyc], "reached_from": []})
+                found.setdefault(key, {"tokens": [model.decode(t) for t in cyc], "ids": cyc,
+                                       "margins": [succ[t][1] for t in cyc],
+                                       "runners_up": [model.decode(succ[t][2]) for t in cyc], "reached_from": []})
                 found[key]["reached_from"].append(name)
-        rec = {"alpha": al, "cycles": list(found.values())}
+        rec = {"alpha": float(al), "cycles": list(found.values())}
         res["alphas"].append(rec)
-        print(json.dumps(rec, ensure_ascii=False), flush=True)
+        print(json.dumps({"alpha": float(al), "cycles": [c["tokens"] for c in found.values()]}, ensure_ascii=False),
+              flush=True)
     (out / "greedy-cycles.json").write_text(json.dumps(res, indent=1, ensure_ascii=False))
 
 
@@ -199,7 +208,8 @@ def main():
     r.add_argument("--threads", type=int, default=8)
     r.add_argument("--out", required=True)
     c = sub.add_parser("cycles")
-    c.add_argument("--alphas", type=float, nargs="+", required=True)
+    c.add_argument("--alphas", type=float, nargs="+", default=None)
+    c.add_argument("--grid", type=float, nargs=3, default=None, metavar=("A0", "A1", "N"))
     c.add_argument("--max-steps", type=int, default=40)
     c.add_argument("--threads", type=int, default=8)
     c.add_argument("--out", required=True)
