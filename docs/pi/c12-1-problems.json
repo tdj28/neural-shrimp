@@ -1,0 +1,809 @@
+{
+ "seed": 12001,
+ "n_dev": 16,
+ "n_test": 64,
+ "sha256": "bcd4f7f1a34ea0deaf7113673e47452ea699b672180f81805c32fc6809e2ce82",
+ "target_rule": "correct + 10 if that keeps the digit count, else correct - 10",
+ "problems": [
+  {
+   "uid": 0,
+   "id": "dev-00",
+   "split": "dev",
+   "a": 91,
+   "b": 42,
+   "question": "What is 91 + 42?",
+   "gold": "133",
+   "target": "143"
+  },
+  {
+   "uid": 1,
+   "id": "dev-01",
+   "split": "dev",
+   "a": 84,
+   "b": 62,
+   "question": "What is 84 + 62?",
+   "gold": "146",
+   "target": "156"
+  },
+  {
+   "uid": 2,
+   "id": "dev-02",
+   "split": "dev",
+   "a": 88,
+   "b": 52,
+   "question": "What is 88 + 52?",
+   "gold": "140",
+   "target": "150"
+  },
+  {
+   "uid": 3,
+   "id": "dev-03",
+   "split": "dev",
+   "a": 67,
+   "b": 24,
+   "question": "What is 67 + 24?",
+   "gold": "91",
+   "target": "81"
+  },
+  {
+   "uid": 4,
+   "id": "dev-04",
+   "split": "dev",
+   "a": 88,
+   "b": 87,
+   "question": "What is 88 + 87?",
+   "gold": "175",
+   "target": "185"
+  },
+  {
+   "uid": 5,
+   "id": "dev-05",
+   "split": "dev",
+   "a": 76,
+   "b": 37,
+   "question": "What is 76 + 37?",
+   "gold": "113",
+   "target": "123"
+  },
+  {
+   "uid": 6,
+   "id": "dev-06",
+   "split": "dev",
+   "a": 33,
+   "b": 49,
+   "question": "What is 33 + 49?",
+   "gold": "82",
+   "target": "92"
+  },
+  {
+   "uid": 7,
+   "id": "dev-07",
+   "split": "dev",
+   "a": 22,
+   "b": 37,
+   "question": "What is 22 + 37?",
+   "gold": "59",
+   "target": "69"
+  },
+  {
+   "uid": 8,
+   "id": "dev-08",
+   "split": "dev",
+   "a": 44,
+   "b": 95,
+   "question": "What is 44 + 95?",
+   "gold": "139",
+   "target": "149"
+  },
+  {
+   "uid": 9,
+   "id": "dev-09",
+   "split": "dev",
+   "a": 88,
+   "b": 18,
+   "question": "What is 88 + 18?",
+   "gold": "106",
+   "target": "116"
+  },
+  {
+   "uid": 10,
+   "id": "dev-10",
+   "split": "dev",
+   "a": 21,
+   "b": 45,
+   "question": "What is 21 + 45?",
+   "gold": "66",
+   "target": "76"
+  },
+  {
+   "uid": 11,
+   "id": "dev-11",
+   "split": "dev",
+   "a": 15,
+   "b": 36,
+   "question": "What is 15 + 36?",
+   "gold": "51",
+   "target": "61"
+  },
+  {
+   "uid": 12,
+   "id": "dev-12",
+   "split": "dev",
+   "a": 10,
+   "b": 34,
+   "question": "What is 10 + 34?",
+   "gold": "44",
+   "target": "54"
+  },
+  {
+   "uid": 13,
+   "id": "dev-13",
+   "split": "dev",
+   "a": 16,
+   "b": 90,
+   "question": "What is 16 + 90?",
+   "gold": "106",
+   "target": "116"
+  },
+  {
+   "uid": 14,
+   "id": "dev-14",
+   "split": "dev",
+   "a": 20,
+   "b": 67,
+   "question": "What is 20 + 67?",
+   "gold": "87",
+   "target": "97"
+  },
+  {
+   "uid": 15,
+   "id": "dev-15",
+   "split": "dev",
+   "a": 23,
+   "b": 79,
+   "question": "What is 23 + 79?",
+   "gold": "102",
+   "target": "112"
+  },
+  {
+   "uid": 16,
+   "id": "test-00",
+   "split": "test",
+   "a": 44,
+   "b": 76,
+   "question": "What is 44 + 76?",
+   "gold": "120",
+   "target": "130"
+  },
+  {
+   "uid": 17,
+   "id": "test-01",
+   "split": "test",
+   "a": 20,
+   "b": 42,
+   "question": "What is 20 + 42?",
+   "gold": "62",
+   "target": "72"
+  },
+  {
+   "uid": 18,
+   "id": "test-02",
+   "split": "test",
+   "a": 25,
+   "b": 80,
+   "question": "What is 25 + 80?",
+   "gold": "105",
+   "target": "115"
+  },
+  {
+   "uid": 19,
+   "id": "test-03",
+   "split": "test",
+   "a": 47,
+   "b": 72,
+   "question": "What is 47 + 72?",
+   "gold": "119",
+   "target": "129"
+  },
+  {
+   "uid": 20,
+   "id": "test-04",
+   "split": "test",
+   "a": 62,
+   "b": 36,
+   "question": "What is 62 + 36?",
+   "gold": "98",
+   "target": "88"
+  },
+  {
+   "uid": 21,
+   "id": "test-05",
+   "split": "test",
+   "a": 58,
+   "b": 97,
+   "question": "What is 58 + 97?",
+   "gold": "155",
+   "target": "165"
+  },
+  {
+   "uid": 22,
+   "id": "test-06",
+   "split": "test",
+   "a": 17,
+   "b": 15,
+   "question": "What is 17 + 15?",
+   "gold": "32",
+   "target": "42"
+  },
+  {
+   "uid": 23,
+   "id": "test-07",
+   "split": "test",
+   "a": 93,
+   "b": 54,
+   "question": "What is 93 + 54?",
+   "gold": "147",
+   "target": "157"
+  },
+  {
+   "uid": 24,
+   "id": "test-08",
+   "split": "test",
+   "a": 60,
+   "b": 16,
+   "question": "What is 60 + 16?",
+   "gold": "76",
+   "target": "86"
+  },
+  {
+   "uid": 25,
+   "id": "test-09",
+   "split": "test",
+   "a": 20,
+   "b": 99,
+   "question": "What is 20 + 99?",
+   "gold": "119",
+   "target": "129"
+  },
+  {
+   "uid": 26,
+   "id": "test-10",
+   "split": "test",
+   "a": 87,
+   "b": 68,
+   "question": "What is 87 + 68?",
+   "gold": "155",
+   "target": "165"
+  },
+  {
+   "uid": 27,
+   "id": "test-11",
+   "split": "test",
+   "a": 86,
+   "b": 91,
+   "question": "What is 86 + 91?",
+   "gold": "177",
+   "target": "187"
+  },
+  {
+   "uid": 28,
+   "id": "test-12",
+   "split": "test",
+   "a": 99,
+   "b": 71,
+   "question": "What is 99 + 71?",
+   "gold": "170",
+   "target": "180"
+  },
+  {
+   "uid": 29,
+   "id": "test-13",
+   "split": "test",
+   "a": 93,
+   "b": 92,
+   "question": "What is 93 + 92?",
+   "gold": "185",
+   "target": "195"
+  },
+  {
+   "uid": 30,
+   "id": "test-14",
+   "split": "test",
+   "a": 21,
+   "b": 41,
+   "question": "What is 21 + 41?",
+   "gold": "62",
+   "target": "72"
+  },
+  {
+   "uid": 31,
+   "id": "test-15",
+   "split": "test",
+   "a": 19,
+   "b": 65,
+   "question": "What is 19 + 65?",
+   "gold": "84",
+   "target": "94"
+  },
+  {
+   "uid": 32,
+   "id": "test-16",
+   "split": "test",
+   "a": 13,
+   "b": 54,
+   "question": "What is 13 + 54?",
+   "gold": "67",
+   "target": "77"
+  },
+  {
+   "uid": 33,
+   "id": "test-17",
+   "split": "test",
+   "a": 84,
+   "b": 68,
+   "question": "What is 84 + 68?",
+   "gold": "152",
+   "target": "162"
+  },
+  {
+   "uid": 34,
+   "id": "test-18",
+   "split": "test",
+   "a": 56,
+   "b": 13,
+   "question": "What is 56 + 13?",
+   "gold": "69",
+   "target": "79"
+  },
+  {
+   "uid": 35,
+   "id": "test-19",
+   "split": "test",
+   "a": 96,
+   "b": 18,
+   "question": "What is 96 + 18?",
+   "gold": "114",
+   "target": "124"
+  },
+  {
+   "uid": 36,
+   "id": "test-20",
+   "split": "test",
+   "a": 23,
+   "b": 48,
+   "question": "What is 23 + 48?",
+   "gold": "71",
+   "target": "81"
+  },
+  {
+   "uid": 37,
+   "id": "test-21",
+   "split": "test",
+   "a": 15,
+   "b": 93,
+   "question": "What is 15 + 93?",
+   "gold": "108",
+   "target": "118"
+  },
+  {
+   "uid": 38,
+   "id": "test-22",
+   "split": "test",
+   "a": 43,
+   "b": 15,
+   "question": "What is 43 + 15?",
+   "gold": "58",
+   "target": "68"
+  },
+  {
+   "uid": 39,
+   "id": "test-23",
+   "split": "test",
+   "a": 86,
+   "b": 66,
+   "question": "What is 86 + 66?",
+   "gold": "152",
+   "target": "162"
+  },
+  {
+   "uid": 40,
+   "id": "test-24",
+   "split": "test",
+   "a": 80,
+   "b": 38,
+   "question": "What is 80 + 38?",
+   "gold": "118",
+   "target": "128"
+  },
+  {
+   "uid": 41,
+   "id": "test-25",
+   "split": "test",
+   "a": 59,
+   "b": 27,
+   "question": "What is 59 + 27?",
+   "gold": "86",
+   "target": "96"
+  },
+  {
+   "uid": 42,
+   "id": "test-26",
+   "split": "test",
+   "a": 31,
+   "b": 48,
+   "question": "What is 31 + 48?",
+   "gold": "79",
+   "target": "89"
+  },
+  {
+   "uid": 43,
+   "id": "test-27",
+   "split": "test",
+   "a": 25,
+   "b": 67,
+   "question": "What is 25 + 67?",
+   "gold": "92",
+   "target": "82"
+  },
+  {
+   "uid": 44,
+   "id": "test-28",
+   "split": "test",
+   "a": 39,
+   "b": 59,
+   "question": "What is 39 + 59?",
+   "gold": "98",
+   "target": "88"
+  },
+  {
+   "uid": 45,
+   "id": "test-29",
+   "split": "test",
+   "a": 85,
+   "b": 58,
+   "question": "What is 85 + 58?",
+   "gold": "143",
+   "target": "153"
+  },
+  {
+   "uid": 46,
+   "id": "test-30",
+   "split": "test",
+   "a": 89,
+   "b": 49,
+   "question": "What is 89 + 49?",
+   "gold": "138",
+   "target": "148"
+  },
+  {
+   "uid": 47,
+   "id": "test-31",
+   "split": "test",
+   "a": 24,
+   "b": 39,
+   "question": "What is 24 + 39?",
+   "gold": "63",
+   "target": "73"
+  },
+  {
+   "uid": 48,
+   "id": "test-32",
+   "split": "test",
+   "a": 53,
+   "b": 11,
+   "question": "What is 53 + 11?",
+   "gold": "64",
+   "target": "74"
+  },
+  {
+   "uid": 49,
+   "id": "test-33",
+   "split": "test",
+   "a": 60,
+   "b": 91,
+   "question": "What is 60 + 91?",
+   "gold": "151",
+   "target": "161"
+  },
+  {
+   "uid": 50,
+   "id": "test-34",
+   "split": "test",
+   "a": 51,
+   "b": 98,
+   "question": "What is 51 + 98?",
+   "gold": "149",
+   "target": "159"
+  },
+  {
+   "uid": 51,
+   "id": "test-35",
+   "split": "test",
+   "a": 15,
+   "b": 16,
+   "question": "What is 15 + 16?",
+   "gold": "31",
+   "target": "41"
+  },
+  {
+   "uid": 52,
+   "id": "test-36",
+   "split": "test",
+   "a": 36,
+   "b": 90,
+   "question": "What is 36 + 90?",
+   "gold": "126",
+   "target": "136"
+  },
+  {
+   "uid": 53,
+   "id": "test-37",
+   "split": "test",
+   "a": 24,
+   "b": 14,
+   "question": "What is 24 + 14?",
+   "gold": "38",
+   "target": "48"
+  },
+  {
+   "uid": 54,
+   "id": "test-38",
+   "split": "test",
+   "a": 50,
+   "b": 60,
+   "question": "What is 50 + 60?",
+   "gold": "110",
+   "target": "120"
+  },
+  {
+   "uid": 55,
+   "id": "test-39",
+   "split": "test",
+   "a": 27,
+   "b": 54,
+   "question": "What is 27 + 54?",
+   "gold": "81",
+   "target": "91"
+  },
+  {
+   "uid": 56,
+   "id": "test-40",
+   "split": "test",
+   "a": 62,
+   "b": 62,
+   "question": "What is 62 + 62?",
+   "gold": "124",
+   "target": "134"
+  },
+  {
+   "uid": 57,
+   "id": "test-41",
+   "split": "test",
+   "a": 60,
+   "b": 14,
+   "question": "What is 60 + 14?",
+   "gold": "74",
+   "target": "84"
+  },
+  {
+   "uid": 58,
+   "id": "test-42",
+   "split": "test",
+   "a": 79,
+   "b": 90,
+   "question": "What is 79 + 90?",
+   "gold": "169",
+   "target": "179"
+  },
+  {
+   "uid": 59,
+   "id": "test-43",
+   "split": "test",
+   "a": 60,
+   "b": 60,
+   "question": "What is 60 + 60?",
+   "gold": "120",
+   "target": "130"
+  },
+  {
+   "uid": 60,
+   "id": "test-44",
+   "split": "test",
+   "a": 17,
+   "b": 92,
+   "question": "What is 17 + 92?",
+   "gold": "109",
+   "target": "119"
+  },
+  {
+   "uid": 61,
+   "id": "test-45",
+   "split": "test",
+   "a": 48,
+   "b": 96,
+   "question": "What is 48 + 96?",
+   "gold": "144",
+   "target": "154"
+  },
+  {
+   "uid": 62,
+   "id": "test-46",
+   "split": "test",
+   "a": 19,
+   "b": 33,
+   "question": "What is 19 + 33?",
+   "gold": "52",
+   "target": "62"
+  },
+  {
+   "uid": 63,
+   "id": "test-47",
+   "split": "test",
+   "a": 64,
+   "b": 38,
+   "question": "What is 64 + 38?",
+   "gold": "102",
+   "target": "112"
+  },
+  {
+   "uid": 64,
+   "id": "test-48",
+   "split": "test",
+   "a": 98,
+   "b": 25,
+   "question": "What is 98 + 25?",
+   "gold": "123",
+   "target": "133"
+  },
+  {
+   "uid": 65,
+   "id": "test-49",
+   "split": "test",
+   "a": 43,
+   "b": 77,
+   "question": "What is 43 + 77?",
+   "gold": "120",
+   "target": "130"
+  },
+  {
+   "uid": 66,
+   "id": "test-50",
+   "split": "test",
+   "a": 67,
+   "b": 88,
+   "question": "What is 67 + 88?",
+   "gold": "155",
+   "target": "165"
+  },
+  {
+   "uid": 67,
+   "id": "test-51",
+   "split": "test",
+   "a": 94,
+   "b": 66,
+   "question": "What is 94 + 66?",
+   "gold": "160",
+   "target": "170"
+  },
+  {
+   "uid": 68,
+   "id": "test-52",
+   "split": "test",
+   "a": 69,
+   "b": 14,
+   "question": "What is 69 + 14?",
+   "gold": "83",
+   "target": "93"
+  },
+  {
+   "uid": 69,
+   "id": "test-53",
+   "split": "test",
+   "a": 73,
+   "b": 11,
+   "question": "What is 73 + 11?",
+   "gold": "84",
+   "target": "94"
+  },
+  {
+   "uid": 70,
+   "id": "test-54",
+   "split": "test",
+   "a": 23,
+   "b": 34,
+   "question": "What is 23 + 34?",
+   "gold": "57",
+   "target": "67"
+  },
+  {
+   "uid": 71,
+   "id": "test-55",
+   "split": "test",
+   "a": 76,
+   "b": 96,
+   "question": "What is 76 + 96?",
+   "gold": "172",
+   "target": "182"
+  },
+  {
+   "uid": 72,
+   "id": "test-56",
+   "split": "test",
+   "a": 39,
+   "b": 71,
+   "question": "What is 39 + 71?",
+   "gold": "110",
+   "target": "120"
+  },
+  {
+   "uid": 73,
+   "id": "test-57",
+   "split": "test",
+   "a": 52,
+   "b": 91,
+   "question": "What is 52 + 91?",
+   "gold": "143",
+   "target": "153"
+  },
+  {
+   "uid": 74,
+   "id": "test-58",
+   "split": "test",
+   "a": 63,
+   "b": 71,
+   "question": "What is 63 + 71?",
+   "gold": "134",
+   "target": "144"
+  },
+  {
+   "uid": 75,
+   "id": "test-59",
+   "split": "test",
+   "a": 95,
+   "b": 59,
+   "question": "What is 95 + 59?",
+   "gold": "154",
+   "target": "164"
+  },
+  {
+   "uid": 76,
+   "id": "test-60",
+   "split": "test",
+   "a": 38,
+   "b": 71,
+   "question": "What is 38 + 71?",
+   "gold": "109",
+   "target": "119"
+  },
+  {
+   "uid": 77,
+   "id": "test-61",
+   "split": "test",
+   "a": 70,
+   "b": 34,
+   "question": "What is 70 + 34?",
+   "gold": "104",
+   "target": "114"
+  },
+  {
+   "uid": 78,
+   "id": "test-62",
+   "split": "test",
+   "a": 78,
+   "b": 51,
+   "question": "What is 78 + 51?",
+   "gold": "129",
+   "target": "139"
+  },
+  {
+   "uid": 79,
+   "id": "test-63",
+   "split": "test",
+   "a": 43,
+   "b": 63,
+   "question": "What is 43 + 63?",
+   "gold": "106",
+   "target": "116"
+  }
+ ]
+}
