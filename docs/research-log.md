@@ -27769,3 +27769,56 @@ Receipt docs/chaos-texts/qwen1.5b-philosophy.json (philosophy at layer 14, 60 re
 - **Description:** the latent distances between paired states, and whether disagreement grows with distance.
 
 **Decision.** Frequent disagreement among exact collisions establishes that the visible text does not determine downstream behavior in this regime. No disagreement, with the positive control passing, bounds the effect for these readouts.
+
+## 2026-10-16 14:03 UTC: C12-2 results (compression fidelity): Q8 keeps one-step distributions and occupancy but moves 1 start in 7 to another attractor, as KL-matched noise does; Q4 shifts occupancy but is not close one step ahead
+
+Run by a separate agent on the CPU. Receipt docs/pi/c12-2-summary.json (commit b38e49f5): settings, prompt-list hashes, gates, per-temperature shares, endpoints, one-step statistics, controls and SHA-256 of 110 raw files under explore/pi/c12-2/.
+- Tool and 34 unit tests: tools/c12_compression_fidelity.py at 74af76c5, committed before any run. Design and analysis changes were committed before any held-out output.
+
+**Setting.**
+- Qwen2.5-0.5B-Instruct, float64 with the norm and rotary patches, window 1, unsteered.
+- 48 held-out prompts (6 system prompts x 8 openers), 8 temperatures over log10 T in [-0.5, 0.5], 2 starts per prompt and temperature.
+- 256 + 64 steps per start, then twin steps for starts without a period.
+- Variants:
+  - reference;
+  - Q8_0-like (bit-identical to ggml's Q8_0 reference quantizer, unit-tested);
+  - symmetric 4-bit, levels -7..7;
+  - frozen Gaussian logit noise with one-step KL matched to Q8 on development states.
+- Every held-out batch and variant passed its gates.
+
+**Primary (Q4 - reference, share of starts in verified orbits of period <= 8, prompts as units, n = 48).**
+- +6.8 points (82.2 % -> 88.9 %): t interval [+2.6, +11.0], prompt bootstrap [+3.0, +10.9], system-prompt cluster bootstrap [+3.9, +9.6].
+- Most of it is at log10 T = 0.21 (+37.5 points), where 32 of the reference's 37 chaotic starts become periodic: Q4 moves the edge of the chaotic band.
+
+**Q4 is not close one step ahead,** so it does not test the card's premise of a large closed-loop change at small one-step KL. Its attractor-state KL has mean 0.83 nats and median 0.32, top-1 agreement is 52 %, and the median one-step map error is 11.5 %.
+
+**Q8 and noise.**
+- Occupancy is unchanged: Q8 +1.2 [-1.9, +4.2], noise -1.3 [-4.7, +2.1].
+- One-step distributions stay close. Q8: KL mean 0.0028 nats (median 0.0010, p99 0.033), top-1 agreement 94.5 %, median map error 0.6 %. Noise: KL mean 0.0023.
+- Yet 108 of 768 starts (14.1 %) under Q8, and 115 (15.0 %) under noise, end in a different class or period.
+- These changes concentrate at the transition temperatures (31 of 96 starts at log10 T = 0.07, 0 to 2 at log10 T >= 0.36), and in cells where the reference's two starts already disagree.
+- Same-period Q8 orbits move by a median 0.4 %.
+
+**Controls.**
+- A bitwise repeat of a development batch is identical in every array.
+- Adjacent reference temperatures shift the share by -43.8 and +46.9 points, so the endpoint detects real changes.
+- Central differences converge as h^2.
+- No twin collapses; closure residuals of verified orbits are at most 2.5e-10.
+
+**Deviations** (recorded in the receipt).
+- 2 starts instead of 8, decided from timing before the development run. An extension with 4 starts fit only one batch: Q4 -2.1 [-12.0, +7.8].
+- The 4-bit quantizer is the card's symmetric -7..7, not ggml's Q4_0.
+- The chaos label also requires no period up to 64 after the twin phase.
+- Verified orbits require the period to hold over the 64 confirmation steps.
+- Batches of 6 prompts.
+- One provisional summary briefly exceeded the 6-thread limit.
+
+**Caveats.**
+- One 0.5B model.
+- Quantization is simulated: weights are quantized, the arithmetic stays float64.
+- 2 starts per cell; finite-horizon labels.
+
+**Reading.**
+- Q8 keeps the attractors' statistics but not individual runs. About one start in seven reaches a different attractor, as often as unstructured noise of the same one-step size causes, mostly near transitions.
+- One-step fidelity metrics therefore certify aggregate closed-loop behavior here, but not the attractor a given run reaches.
+- No evidence was found of a structured quantization effect beyond noise of matched one-step size.
