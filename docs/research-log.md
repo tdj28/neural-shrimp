@@ -26817,3 +26817,32 @@ tools/audit/dss_bfs_audit.py rebuilds the old breadth-first order from each prog
 - P2 and P4 are unaffected.
 - P8 without its 7 attracting suspect cells: median |mu2|/|mu1| 0.0266 (was 0.0271), median area contraction 0.5040 (0.5034), smallest leading modulus 0.0340 unchanged. Every quoted value (0.027, 0.50, 0.034) stands.
 - P8L: more than half of its solved cells, the rows below the band, were reached through the band of slipped cells. SHC-L2 row 8 overlaps them. If its multipliers agree with P8L's row 8, the lower rows are the same orbit by continuity; if not, they are reported as unverified.
+
+## 2026-10-16 00:45 UTC: SHC-L result, P4L: unresolved under the frozen rule. The two trace-zero arms join in a U without crossing; the leading pair is not isolated where T = 0 and D = 0 come closest
+
+**Run.** Pod on SECURE H100 PCIe: runner rc 0, job status 0, archive hash verified, terminated and verified gone; wall 9842 s; commit 87b97564 (old continuation).
+
+**Grid.** 27 x 35 cells: alpha1 -0.1050 to -0.1010, alpha2 0.0950 to 0.1002. Reading: tools/dss_window.py without panel (a), because the classifier map TB does not cover this grid and the tool refuses; output docs/dss/shc-p4l-window.json.
+- **Cells:** 945; 763 primitive (697 attracting, 66 repelling), 180 slipped onto a divisor-period orbit, 2 failed.
+- **Audit** (tools/audit/dss_bfs_audit.py): no primitive cell has a slipped ancestor. The solved cells are one continued orbit.
+
+**Rule items.**
+- **Trace checkerboards:** none.
+- **T-D quads:** none.
+- **D:** negative at 550 of 697 attracting cells, with 64 sign changes of D.
+- **Third multiplier:** |mu3|/|mu2| >= 0.5 at 107 attracting cells and >= 0.9 at 90. These are cells where mu2 and mu3 form a complex pair.
+- **Smallest leading modulus:** 0.0375 at (alpha1 -0.10346, alpha2 0.09852).
+
+**Geometry.**
+- The diagonal stripe and the vertical column, the two trace-zero curves that SHC-P4 saw not crossing, join here into one U-shaped curve. Its bottom is near (-0.1031, 0.0980), and it is open at the grid's top edge.
+- A second trace-zero line runs along the repelling boundary at the lower left.
+- The D = 0 curve passes within one cell of the U's left arm near (-0.10346, 0.09845). There, (T, D) take all four sign combinations within a 3 x 2 block, but not within any 2 x 2 block, and the leading modulus is smallest.
+- Left of that point |mu3| equals |mu2|.
+
+**Verdict, by the frozen rule:** unresolved. There is no head (no checkerboard, no T-D quad). The U is not a contour closed on the grid. The arms do not separate, so this is not a turn-away. Near the closest approach of T = 0 and D = 0 the third multiplier is comparable to the second (rule iii).
+
+**Exploratory reading.**
+- The period-4 cell's trace-zero arms do not cross: they are one curve that turns.
+- Whether T = D = 0 has a solution near (-0.10346, 0.09845), a near-nilpotent point like the period-5 one, is open. A two-parameter Newton search, as for period 5, could settle it.
+
+**Cost:** in the private ledger.
