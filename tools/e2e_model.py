@@ -129,13 +129,13 @@ class Cell:
                                                                             for z in vals_fd[:4]]}
         if not ok:
             return x, info, Q
-        if ad:
-            Q2, H2, vals, conv, _ = self.multipliers(x, p, k=k, iters=ad_iters, Q0=Q, ad=True)
-            info["multipliers"] = [[float(z.real), float(z.imag)] for z in vals]
-            info["multipliers_converged"] = bool(conv)
-            info["crossing_side"] = en.classify(vals)
-            Q = Q2
-        return x, info, Q
+        # multipliers at the converged orbit: forward-mode JVPs (ad) or central differences of batched steps
+        Q2, H2, vals, conv, _ = self.multipliers(x, p, k=k, iters=ad_iters if ad else 4, Q0=Q, ad=ad)
+        info["multipliers"] = [[float(z.real), float(z.imag)] for z in vals]
+        info["multipliers_converged"] = bool(conv)
+        info["multipliers_source"] = "forward-mode JVP" if ad else "central differences (h = 1e-6 |x|)"
+        info["crossing_side"] = en.classify(vals)
+        return x, info, Q2
 
     def text(self, x, p):
         """Leading token, its probability and the runner-up at each point of a p-orbit from x."""
