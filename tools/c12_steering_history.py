@@ -75,6 +75,7 @@ Subcommands (prefix CUDA_VISIBLE_DEVICES= ; nice -n 10 uv run --no-sync python; 
   vectors    build v and u at candidate layers (development statements);
   smoke      engine checks on a smoke instance (neither development nor held-out): zero == direct bitwise, readouts
              do not perturb the trajectory, steering reaches the layer output exactly;
+             (`sweep --split calib`: the steering scale on 8 calibration instances, neither development nor held-out)
   baseline   unsteered runs with readouts at many step counts (the model and P choices);
   sweep      static steering, the direct history at a grid of alphas (the layer and alpha choices);
   histories  the full history set on one split, with parameters from a choices JSON;
@@ -107,6 +108,7 @@ INSTANCE_SEED = 12401
 RANDOM_DIR_SEED = 12402
 BOOT_SEED = 12403
 SMOKE_SEED = 12409
+CALIB_SEED = 12410
 N_DEV, N_TEST = 16, 48
 N_USERS, N_OPS = 4, 3
 TOP_N = 15
@@ -193,6 +195,12 @@ def make_instances(seed=INSTANCE_SEED, n_dev=N_DEV, n_test=N_TEST, splits=None):
 
 def smoke_instances():
     return make_instances(seed=SMOKE_SEED, splits=(("smoke", 2, USERS_SMOKE),))
+
+
+def calib_instances():
+    """Engineering calibration of the steering scale (neither development nor held-out): 8 instances, seed CALIB_SEED,
+    users from USERS_SMOKE."""
+    return make_instances(seed=CALIB_SEED, splits=(("calib", 8, USERS_SMOKE),))
 
 
 def instances_hash(insts):
@@ -786,6 +794,9 @@ def out_dir(args, name, resume=False):
 
 
 def split_instances(args, split):
+    if split == "calib":
+        insts = calib_instances()
+        return insts[:args.limit] if args.limit else insts
     insts = [i for i in load_instances(args.instances) if i["split"] == split]
     return insts[:args.limit] if args.limit else insts
 
@@ -807,7 +818,7 @@ def cmd_instances(args):
     tok = AutoTokenizer.from_pretrained(ph.snapshot(MODELS[args.model]))
     lens = sorted({len(tok.apply_chat_template([{"role": "user", "content": prompt_text(i)}],
                                                add_generation_prompt=True, return_dict=True)["input_ids"])
-                   for i in insts + smoke_instances()})
+                   for i in insts + smoke_instances() + calib_instances()})
     if len(lens) != 1:
         raise SystemExit(f"prompt lengths differ: {lens}")
     blob = {"seed": INSTANCE_SEED, "n_dev": N_DEV, "n_test": N_TEST, "sha256": instances_hash(insts),
@@ -966,7 +977,7 @@ def cmd_sweep(args):
     eng = Engine(args.model, args.threads, layer=args.layer)
     v, u, vsha = load_vecs(args.vectors, args.layer)
     insts = split_instances(args, args.split)
-    out = out_dir(args, f"sweep-{args.model}-l{args.layer}", resume=args.resume)
+    out = out_dir(args, f"sweep-{args.model}-l{args.layer}-{args.split}", resume=args.resume)
     N = max(args.readouts)
     starts = list(range(args.starts))
     batches = []
@@ -1346,7 +1357,7 @@ def main():
     p.add_argument("--instances-per-batch", type=int, default=8)
     p = sub.add_parser("sweep")
     common(p)
-    p.add_argument("--split", default="dev", choices=("dev",))
+    p.add_argument("--split", default="dev", choices=("dev", "calib"))
     p.add_argument("--layer", type=int, required=True)
     p.add_argument("--vectors", default=str(DATA / "vectors-qwen1.5b"))
     p.add_argument("--alphas", type=float, nargs="+", required=True)

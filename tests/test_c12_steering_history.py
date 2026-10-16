@@ -37,6 +37,14 @@ def test_smoke_instances_separate():
     assert not {u for i in s for u in i["users"]} & set(c4.USERS_DEV + c4.USERS_TEST)
 
 
+def test_calib_instances_separate_and_balanced():
+    c = c4.calib_instances()
+    assert len(c) == 8 and all(i["split"] == "calib" for i in c)
+    assert sum(i["cls"] == "prohibited" for i in c) == 4
+    assert not {u for i in c for u in i["users"]} & set(c4.USERS_DEV + c4.USERS_TEST)
+    assert all(c4.gold_of(i) == i["gold"] for i in c)
+
+
 def test_prompt_text_states_table_and_request():
     inst = c4.make_instances()[0]
     t = c4.prompt_text(inst)
@@ -54,7 +62,7 @@ def test_prompt_length_constant():
     except (SystemExit, OSError):
         pytest.skip("tokenizer not available")
     lens = {len(tok.apply_chat_template([{"role": "user", "content": c4.prompt_text(i)}], add_generation_prompt=True,
-                                        return_dict=True)["input_ids"]) for i in c4.make_instances() + c4.smoke_instances()}
+                                        return_dict=True)["input_ids"]) for i in c4.make_instances() + c4.smoke_instances() + c4.calib_instances()}
     assert len(lens) == 1
     for w in c4.START_WORDS:
         assert len(tok(w, add_special_tokens=False)["input_ids"]) == 1
