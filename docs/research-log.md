@@ -27146,3 +27146,28 @@ Run card H's alpha in {0, 0.01, 0.02, 0.04} along philosophy is replaced by this
 - Limits: run 120 min, job set 110 min, and the tool's cost guard per pod.
 
 **Mixed-batch check.** On the 0.5B (CPU), the configuration mixing of v2 reproduces a single-configuration run: identical texts and entropies, and log10 distances within the 0.001 rounding.
+
+## 2026-10-16 04:41 UTC: Run card D (exploratory): where in the network the loop damps a change of its fed-back token, and how that scales with size
+
+**Human request (16 Oct).** Does size damp chaos, and how? Then: "Locate it". The goal is to suggest what frontier-size models do.
+
+**Known before this run.**
+- The gain split is descriptive. At matched entropy, the network factor of larger checkpoints is lower: Llama-3.1-8B to 70B, and Qwen2.5 7B to 72B.
+- Qwen2.5-72B stays periodic under entropy clamping.
+- Which block, sublayer or mechanism carries the damping is unknown.
+
+**Design.** tools/damping_locate.py, in float64, on the paper's prompt, unsteered.
+- Temperatures: 24, at log10 T in [-0.3, 0.9], the wide gain-split line.
+- Steps: 500 transient and 500 recorded, with a twin at relative 1e-7.
+- Per step, the exact split log g_net = stack growth - dilution by the residual stream + final normalization.
+- Per block: cumulative growth A_l and residual norm N_l; per sublayer: gain, parallel coefficient and direct share in the final change.
+- Knockouts every 25 recorded steps at 5 temperatures (indices 2, 7, 12, 17, 22): one row per sublayer whose output at the soft token is clamped to the base row's.
+- Smoke test (0.5B, 6 temperatures, 40 steps): the split closes to 1e-12, the residual decomposition closes exactly, and the knockout batch's plain twin reproduces the main batch's g_net within 2e-8.
+
+**Order.**
+1. Locally (CPU, float64): Qwen2.5-0.5B, 1.5B and 3B.
+2. Then pods, with a costed plan before launch: Qwen2.5-7B, 14B, 32B and 72B; Llama-3.1-8B and 70B; Llama-3.3-70B; OLMo-2.
+
+**Readout.**
+- Per model, at matched entropy bins as in the gain-split comparison: which term of the split changes with size (stack growth, dilution, final normalization), which blocks and sublayers damp (negative parallel coefficients, negative knockout effects), and at what relative depth.
+- Then the scaling of each term with depth, width and parameter count within a family. A trend that holds within Qwen2.5 and Llama can be extrapolated to larger open models; it is tested on one before any frontier statement.
