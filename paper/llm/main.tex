@@ -856,15 +856,20 @@ Soft Thinking with its published settings on Qwen2.5-7B-Instruct in bfloat16. Th
 restricted to the 15 most probable, $T=0.6$ and 64 soft steps. The test used 256 GSM8K training problems that no
 earlier run had scored, on an H100 GPU. Only the batch layout changed, between batches of 8 and of 16 prompts of equal
 length without padding, and the answer changed for 21.1\,\% of the problems (54 of 256; 95\,\% interval clustered by
-batch $[16.3,26.1]$). This confirms the prediction of more than 10\,\%. Three of the four directional secondary predictions held:
+batch $[16.3,26.1]$). This confirms the prediction of more than 10\,\%. Each secondary prediction compares another arm with this one on
+the same 256 problems (paired differences of flip rates, intervals clustered by batch, exact McNemar tests):
 \begin{itemize}
-  \item replaying the reference run's fed-back tokens in both layouts cut the rate to 5.9\,\% (difference 15.2
-  points, $[10.4,20.2]$);
-  \item with 16 soft steps instead of 64, the rate was 6.6\,\%;
-  \item ordinary greedy chain-of-thought decoding changed 2.3\,\% of its answers, at 89\,\% accuracy;
-  \item feeding back only the most probable token changed 17.6\,\%, not significantly fewer than top-15 (difference
-  3.5 points, $[-2.9,10.3]$). This prediction failed.
+  \item replaying the reference run's fed-back tokens in both layouts: 5.9\,\% (difference 15.2 points,
+  $[10.4,20.2]$, $p=8\times10^{-9}$); predicted lower, and it is;
+  \item 16 soft steps instead of 64: 6.6\,\% (difference 14.5 points, $[10.0,19.0]$, $p=4\times10^{-7}$); predicted
+  lower, and it is;
+  \item ordinary greedy chain-of-thought decoding: 2.3\,\%, at 89\,\% accuracy (difference 18.8 points,
+  $[13.7,23.6]$, $p=10^{-11}$); predicted lower, and it is;
+  \item feeding back only the most probable token: 17.6\,\% (difference 3.5 points, $[-2.9,10.3]$, $p=0.35$);
+  predicted lower, and the test cannot tell the two apart.
 \end{itemize}
+The three confirmed differences would survive a correction for the four tests by a wide margin, and the fourth is a
+clear null: discrete feedback through the same pipeline flips nearly as many answers as continuous feedback does.
 The full vocabulary gave 22.3\,\% (no prediction). Most changes are between wrong answers: through the soft pipeline
 this model answers only 22 to 30\,\% of the problems correctly, and the layout changes whether the answer is correct
 for 6.2\,\% of the problems. In float64 the same pipeline contracts. On 1312 and 1314 of the 1319 GSM8K test problems
