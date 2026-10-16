@@ -27852,3 +27852,33 @@ The human asked to move the confirmatory matrix to RunPod, because the local GPU
 - job set `pm`;
 - $PY in tools/pi_matrix_run.sh.
 Problems, arms, endpoints, predictions and analysis are unchanged. Cost plan and ceiling are in the private ledger.
+
+## 2026-10-16 17:06 UTC: Run PM results (confirmatory, frozen before data): the primary prediction holds, Soft Thinking as published flips 21.1 % of fresh answers under a batch-layout change
+
+**Pod.** 2u7un5iibetcbq (COMMUNITY H100 NVL), commit 0f24b344 (from the orchestrator log). Runner rc 0, results hash verified, terminated (verified), 31 min.
+- All 7 arms exited 0, each with 256 problems in both layouts (512 records), on GPU "NVIDIA H100 NVL".
+- Receipt docs/pi/pm-summary.json, from tools/pi_matrix_analyze.py as frozen: 77 clusters, 10,000 bootstrap draws, seed 20261016.
+
+**Primary.** top15-s64 flip rate 21.1 % (54/256); cluster 95 % [16.3, 26.1], Wilson [16.5, 26.5]. The prediction (> 10 %, lower bound > 5 %) is confirmed. Development value: 25.75 % (E1, RTX 2000 Ada).
+
+**Secondary contrasts** (paired, top15-s64 minus the arm):
+| arm | flip rate | difference [cluster 95 %] | McNemar p | prediction |
+|---|---|---|---|---|
+| replay (fed-back tokens clamped) | 5.9 % | +15.2 [+10.4, +20.2] | 7.6e-9 | holds |
+| greedy chain of thought | 2.3 % | +18.75 [+13.7, +23.6] | 1.1e-11 | holds |
+| top15-s16 | 6.6 % | +14.5 [+10.0, +19.0] | 4.3e-7 | holds |
+| top1-s64 (discrete feedback) | 17.6 % | +3.5 [-2.9, +10.3] | 0.35 | does not hold |
+| full-s64 | 22.3 % | -1.2 [-5.3, +3.1] | 0.74 | no prediction |
+| full-s16 | 7.4 % | +13.7 [+9.1, +18.4] | 3.3e-6 | no prediction |
+
+**Descriptive.**
+- Accuracy in the soft arms is 22-30 % (top-15, 64 steps: 24.6 % and 22.3 %); greedy chain of thought reaches 89 %.
+- Exactly one layout is correct in 6.2 % of problems (top-15, 64 steps), 0.4 % for greedy: most flips are between wrong answers.
+- Missing numbers: 9-11 per layout in the 64-step soft arms.
+
+**Reading.**
+- On fresh problems and a serving GPU, the published Soft Thinking settings make one answer in five depend on the batch layout.
+- The fed-back pathway carries it: replay cuts it to 5.9 %.
+- It grows with the number of soft steps: 6.6 % at 16 steps.
+- Discrete top-1 feedback through the same pipeline flips nearly as often, so in this pipeline the effect is not specific to continuous mixtures. Greedy chain of thought, with confident answers, flips 2.3 %.
+- With PIF64 (float64 soft thinking contracts on 1312-1314 of 1319 test problems, and no 1e-10 twin changed an answer), the flips are bfloat16 rounding carried forward by the feedback to answers the model holds weakly. They are not chaos of the float64 map.

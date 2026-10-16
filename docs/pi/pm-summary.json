@@ -1,0 +1,317 @@
+{
+ "arms": {
+  "top15-s64": {
+   "run": "/root/neural-shrimp-data/explore/llm-soft-loop/pod64/pi/pm/top15-s64",
+   "mode": "soft",
+   "top_n": 15,
+   "soft_steps": 64,
+   "temperature": 0.6,
+   "layouts": [
+    8,
+    16
+   ],
+   "problems": 256,
+   "clusters": 77,
+   "answer_flips": 54,
+   "flip_rate": 0.2109375,
+   "flip_wilson95": [
+    0.16542210443322752,
+    0.26499981269582007
+   ],
+   "flip_cluster95": [
+    0.16260162601626016,
+    0.2607003891050584
+   ],
+   "accuracy": {
+    "8": 0.24609375,
+    "16": 0.22265625
+   },
+   "exactly_one_correct": 0.0625,
+   "missing_answers": {
+    "8": 9,
+    "16": 10
+   }
+  },
+  "replay": {
+   "run": "/root/neural-shrimp-data/explore/llm-soft-loop/pod64/pi/pm/replay",
+   "mode": "soft",
+   "top_n": 15,
+   "soft_steps": 64,
+   "temperature": 0.6,
+   "layouts": [
+    8,
+    16
+   ],
+   "problems": 256,
+   "clusters": 77,
+   "answer_flips": 15,
+   "flip_rate": 0.05859375,
+   "flip_wilson95": [
+    0.03582660749566102,
+    0.09441226595815483
+   ],
+   "flip_cluster95": [
+    0.033896712119281254,
+    0.08494208494208494
+   ],
+   "accuracy": {
+    "8": 0.23828125,
+    "16": 0.22265625
+   },
+   "exactly_one_correct": 0.03125,
+   "missing_answers": {
+    "8": 9,
+    "16": 10
+   }
+  },
+  "greedy": {
+   "run": "/root/neural-shrimp-data/explore/llm-soft-loop/pod64/pi/pm/greedy",
+   "mode": "hard",
+   "top_n": 0,
+   "soft_steps": 64,
+   "temperature": 0.0,
+   "layouts": [
+    8,
+    16
+   ],
+   "problems": 256,
+   "clusters": 77,
+   "answer_flips": 6,
+   "flip_rate": 0.0234375,
+   "flip_wilson95": [
+    0.01078486749269942,
+    0.05018099588221679
+   ],
+   "flip_cluster95": [
+    0.007662835249042145,
+    0.04182509505703422
+   ],
+   "accuracy": {
+    "8": 0.890625,
+    "16": 0.88671875
+   },
+   "exactly_one_correct": 0.00390625,
+   "missing_answers": {
+    "8": 0,
+    "16": 2
+   }
+  },
+  "top1-s64": {
+   "run": "/root/neural-shrimp-data/explore/llm-soft-loop/pod64/pi/pm/top1-s64",
+   "mode": "soft",
+   "top_n": 1,
+   "soft_steps": 64,
+   "temperature": 0.6,
+   "layouts": [
+    8,
+    16
+   ],
+   "problems": 256,
+   "clusters": 77,
+   "answer_flips": 45,
+   "flip_rate": 0.17578125,
+   "flip_wilson95": [
+    0.13404604813062532,
+    0.22710285891952264
+   ],
+   "flip_cluster95": [
+    0.13284132841328414,
+    0.2183106279598991
+   ],
+   "accuracy": {
+    "8": 0.27734375,
+    "16": 0.25390625
+   },
+   "exactly_one_correct": 0.0703125,
+   "missing_answers": {
+    "8": 11,
+    "16": 7
+   }
+  },
+  "full-s64": {
+   "run": "/root/neural-shrimp-data/explore/llm-soft-loop/pod64/pi/pm/full-s64",
+   "mode": "soft",
+   "top_n": 0,
+   "soft_steps": 64,
+   "temperature": 0.6,
+   "layouts": [
+    8,
+    16
+   ],
+   "problems": 256,
+   "clusters": 77,
+   "answer_flips": 57,
+   "flip_rate": 0.22265625,
+   "flip_wilson95": [
+    0.1760060099704121,
+    0.2775069105182687
+   ],
+   "flip_cluster95": [
+    0.17021091903073285,
+    0.2765957446808511
+   ],
+   "accuracy": {
+    "8": 0.24609375,
+    "16": 0.2265625
+   },
+   "exactly_one_correct": 0.04296875,
+   "missing_answers": {
+    "8": 7,
+    "16": 11
+   }
+  },
+  "top15-s16": {
+   "run": "/root/neural-shrimp-data/explore/llm-soft-loop/pod64/pi/pm/top15-s16",
+   "mode": "soft",
+   "top_n": 15,
+   "soft_steps": 16,
+   "temperature": 0.6,
+   "layouts": [
+    8,
+    16
+   ],
+   "problems": 256,
+   "clusters": 77,
+   "answer_flips": 17,
+   "flip_rate": 0.06640625,
+   "flip_wilson95": [
+    0.041870722707992844,
+    0.10376215298557846
+   ],
+   "flip_cluster95": [
+    0.0392156862745098,
+    0.09375318877551016
+   ],
+   "accuracy": {
+    "8": 0.29296875,
+    "16": 0.296875
+   },
+   "exactly_one_correct": 0.01171875,
+   "missing_answers": {
+    "8": 1,
+    "16": 1
+   }
+  },
+  "full-s16": {
+   "run": "/root/neural-shrimp-data/explore/llm-soft-loop/pod64/pi/pm/full-s16",
+   "mode": "soft",
+   "top_n": 0,
+   "soft_steps": 16,
+   "temperature": 0.6,
+   "layouts": [
+    8,
+    16
+   ],
+   "problems": 256,
+   "clusters": 77,
+   "answer_flips": 19,
+   "flip_rate": 0.07421875,
+   "flip_wilson95": [
+    0.04802610702770084,
+    0.11300077090562595
+   ],
+   "flip_cluster95": [
+    0.0437944799270073,
+    0.1076923076923077
+   ],
+   "accuracy": {
+    "8": 0.29296875,
+    "16": 0.2890625
+   },
+   "exactly_one_correct": 0.01171875,
+   "missing_answers": {
+    "8": 1,
+    "16": 1
+   }
+  }
+ },
+ "contrasts": {
+  "top15-s64 - replay": {
+   "problems": 256,
+   "flip_rate_difference": 0.15234375,
+   "cluster95": [
+    0.1044776119402985,
+    0.2018348623853211
+   ],
+   "discordant": [
+    44,
+    5
+   ],
+   "mcnemar_p": 7.59715845788378e-09
+  },
+  "top15-s64 - greedy": {
+   "problems": 256,
+   "flip_rate_difference": 0.1875,
+   "cluster95": [
+    0.13716814159292035,
+    0.2362888377445339
+   ],
+   "discordant": [
+    52,
+    4
+   ],
+   "mcnemar_p": 1.1008055578187737e-11
+  },
+  "top15-s64 - top1-s64": {
+   "problems": 256,
+   "flip_rate_difference": 0.03515625,
+   "cluster95": [
+    -0.029411764705882353,
+    0.10345171039978014
+   ],
+   "discordant": [
+    41,
+    32
+   ],
+   "mcnemar_p": 0.3491818381705883
+  },
+  "top15-s64 - full-s64": {
+   "problems": 256,
+   "flip_rate_difference": -0.01171875,
+   "cluster95": [
+    -0.05303030303030303,
+    0.030534351145038167
+   ],
+   "discordant": [
+    17,
+    20
+   ],
+   "mcnemar_p": 0.7428293587290682
+  },
+  "top15-s64 - top15-s16": {
+   "problems": 256,
+   "flip_rate_difference": 0.14453125,
+   "cluster95": [
+    0.10038574155674526,
+    0.19026631224408927
+   ],
+   "discordant": [
+    46,
+    9
+   ],
+   "mcnemar_p": 4.336383137015787e-07
+  },
+  "top15-s64 - full-s16": {
+   "problems": 256,
+   "flip_rate_difference": 0.13671875,
+   "cluster95": [
+    0.09057936833470058,
+    0.18439716312056736
+   ],
+   "discordant": [
+    46,
+    11
+   ],
+   "mcnemar_p": 3.3118847623803127e-06
+  }
+ },
+ "primary": {
+  "arm": "top15-s64",
+  "flip_rate": 0.2109375,
+  "cluster95": [
+   0.16260162601626016,
+   0.2607003891050584
+  ],
+  "confirmed": true
+ }
+}
