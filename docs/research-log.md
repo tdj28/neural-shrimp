@@ -27327,3 +27327,21 @@ Both pods (commit 48e30e68) stopped in the first minute with "ValueError: expect
 - Both pods were verified terminated; the job logs are kept under runpod/soft64/20261016T052635Z and 20261016T052655Z.
 - **Fix:** the entry is |alpha|, with a trailing 1 appended for negative alpha. The seeds of alpha >= 0, and so PIF64-H, are unchanged.
 - Before the relaunch, the exact argument set (alphas -0.05 -0.02 0.01, three twin levels) is smoke-tested locally on the 0.5B.
+
+## 2026-10-16 06:13 UTC: FC results (false chaos and real chaos)
+
+All five conditions are complete in false-chaos/fc1 (clean from attempt 1, four conditions with --resume). The receipt is paper/llm/figures/fig-false-chaos.json, written by tools/plot_false_chaos.py. The paper's methods paragraph "False chaos and real chaos" and the figure fig:falsechaos report them; the Chaos article has a short version.
+
+**Clean.** The exponents do not depend on the offset (1e-12 to 1e-4): chaotic +0.092 to +0.099; period 3 -0.123 to -0.128; strongly contracting -0.843 to -0.862.
+
+**Added noise (sigma 1e-10, 1e-8, 1e-6).**
+- Where noise dominates (r >= 10 e^lambda), all three cells read the same false exponent; the prediction max(lambda, log(sqrt2 sigma/eps)) holds within 0.005 (4.951-4.953 against 4.952 at sigma 1e-10, eps 1e-12).
+- Well above the crossover (r <= 0.1 e^lambda), it holds within 0.046.
+- In the crossover (2 offsets per cell and level), the measurement exceeds the prediction by up to 0.42; the model's assumption of contraction within one step fails there.
+- Lowest chaotic estimate under noise: 0.088. Contracting estimates were lowered by at most 0.048.
+- The free twin under sigma 1e-8 plateaus at about 1.8e-8 (median log10 -7.75); the model predicts 3.0e-8.
+
+**float32 final normalization.**
+- Offsets 1e-10 to 1e-8 give false positives up to 2.03 on the period-3 loop and 1.08 on the strongly contracting orbit.
+- At 1e-12 and 1e-11, the twin and base rows merge in 454-771 of 800 steps.
+- At 1e-6 and above: contracting -0.177 to -0.123 and -0.853 to -0.783; chaotic 0.059 to 0.078, against clean 0.094. That is a change of the map itself, still positive.
