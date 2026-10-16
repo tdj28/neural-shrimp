@@ -27902,7 +27902,7 @@ Problems, arms, endpoints, predictions and analysis are unchanged. Cost plan and
 
 **Cost.** Plan and ceiling are in the private ledger.
 
-## 2026-10-16 18:40 UTC: Run card E2E (exploratory): an end-to-end explanation of the windows, their crossing and the return maps (human request)
+## 2026-10-16 18:12 UTC: Run card E2E (exploratory): an end-to-end explanation of the windows, their crossing and the return maps (human request)
 
 **Request.** "We need to explain why this 2-cycle is here in the first place ... same thing with the horizontal ones ... and then we have to explain the return maps ... such that the reader ... says 'I understand exactly why chaos shows up'". Run by a separate agent on the local CPU (RunPod allowed if the CPU stays busy).
 
