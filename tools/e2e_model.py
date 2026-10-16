@@ -99,10 +99,12 @@ class Cell:
         """M V for the p-fold map at x by central differences, all 2k perturbed states iterated in one batch."""
         V = np.asarray(V, dtype=np.float64)
         k = V.shape[1]
-        h = h_rel * np.linalg.norm(x)
-        X = np.concatenate([x[None] + h * V.T, x[None] - h * V.T])
+        nrm = np.linalg.norm(V, axis=0)
+        nrm[nrm == 0] = 1.0
+        h = h_rel * np.linalg.norm(x) / nrm                  # the same relative step along every column
+        X = np.concatenate([x[None] + h[:, None] * V.T, x[None] - h[:, None] * V.T])
         Y = self.Fp(X, p)
-        return ((Y[:k] - Y[k:]) / (2 * h)).T
+        return ((Y[:k] - Y[k:]) / (2 * h[:, None])).T
 
     def apply_M_ad(self, pts, V):
         """M V by forward-mode JVPs through the orbit points pts (x_0 .. x_{p-1}); V (d, k)."""
@@ -117,14 +119,24 @@ class Cell:
         apply = (lambda V: self.apply_M_ad(pts, V)) if ad else (lambda V: self.apply_M_fd(x, p, V))
         return en.subspace_iteration(apply, self.d, k, iters=iters, Q0=Q0, tol=tol)
 
-    def solve(self, x0, p, k=6, Q0=None, tol=1e-12, fd_iters=8, ad_iters=10, maxit=40, ad=True):
-        """Newton-Picard for F^p(x) = x from x0 (subspace from FD products, coupling by FD), then multipliers from
-        AD subspace iteration warm-started on the FD subspace. Fails loudly (converged False) when Newton-Picard
-        does not reach tol: the caller decides; nothing is substituted."""
-        Q, H, vals_fd, _, _ = en.subspace_iteration(lambda V: self.apply_M_fd(x0, p, V), self.d, k, iters=fd_iters,
-                                                    Q0=Q0, tol=1e-7)
-        x, hist, ok = en.newton_picard(lambda y: self.Fp(y, p), lambda V: self.apply_M_fd(x0, p, V), x0, Q, H,
-                                       tol=tol, maxit=maxit)
+    def solve(self, x0, p, k=6, Q0=None, tol=1e-12, fd_iters=8, ad_iters=10, maxit=40, ad=True, cycles=8, inner=4):
+        """Newton-Picard for F^p(x) = x from x0. The dominant subspace and the coupling products come from central
+        differences at the current iterate and are refreshed every `inner` iterations (the linear model drifts when
+        x0 is far from the orbit); multipliers at the converged orbit from forward-mode JVPs (ad) or differences.
+        Fails loudly (converged False) when tol is not reached: the caller decides; nothing is substituted."""
+        x, Q, hist, ok = np.asarray(x0, dtype=np.float64).copy(), Q0, [], False
+        vals_fd = None
+        for c in range(cycles):
+            xc = x.copy()
+            Q, H, vals_fd, _, _ = en.subspace_iteration(lambda V: self.apply_M_fd(xc, p, V), self.d, k,
+                                                        iters=fd_iters if c == 0 and Q0 is None else 3, Q0=Q,
+                                                        tol=1e-7)
+            V, Hm = en.dominant_block(Q, H, max(1, k // 2))
+            x, h, ok = en.newton_picard(lambda y: self.Fp(y, p), lambda W: self.apply_M_fd(xc, p, W), xc, V, Hm,
+                                        tol=tol, maxit=inner if c < cycles - 1 else maxit)
+            hist += h if not hist else h[1:]
+            if ok or not np.all(np.isfinite(x)):
+                break
         info = {"converged": bool(ok), "residuals": hist, "fd_multipliers": [[float(z.real), float(z.imag)]
                                                                             for z in vals_fd[:4]]}
         if not ok:

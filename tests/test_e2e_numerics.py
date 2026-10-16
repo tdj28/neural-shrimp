@@ -98,3 +98,28 @@ def test_gridmap_logistic_orbits_and_lyapunov():
     assert abs(g4.lyapunov(0.1234, transient=100, steps=200000) - np.log(2)) < 0.02
     ex = g.extrema()
     assert len(ex) == 1 and ex[0]["kind"] == "max" and abs(ex[0]["at"] - 0.5) < 1e-9
+
+
+def test_dominant_block_speeds_up_newton_picard_with_a_rough_subspace():
+    n = 60
+    M, _ = nonnormal(n, [0.6, -0.35, 0.2], rest_scale=0.02, seed=5)
+    xs = np.linspace(-1, 1, n)
+
+    def Fp(x):
+        e = x - xs
+        return xs + M @ e + 0.05 * e ** 2
+
+    Q, H, vals, _, _ = en.subspace_iteration(lambda V: M @ V, n, 6, iters=3)     # deliberately few iterations
+    V, Hm = en.dominant_block(Q, H, 3)
+    assert V.shape[1] == 3 and np.allclose(V.T @ V, np.eye(3))
+    assert np.allclose(sorted(np.linalg.eigvals(Hm).real), sorted(vals[:3].real))
+    x0 = xs + 1e-2 * np.random.default_rng(6).normal(size=n)
+    _, hist_full, ok1 = en.newton_picard(Fp, lambda W: M @ W, x0, Q, H, tol=1e-13)
+    _, hist_dom, ok2 = en.newton_picard(Fp, lambda W: M @ W, x0, V, Hm, tol=1e-13)
+    assert ok2 and len(hist_dom) <= len(hist_full)
+
+
+def test_dominant_block_keeps_complex_pairs_whole():
+    H = np.array([[0.3, -0.5, 0.0], [0.5, 0.3, 0.0], [0.0, 0.0, 0.1]])
+    V, Hm = en.dominant_block(np.eye(3), H, 1)
+    assert Hm.shape == (2, 2)

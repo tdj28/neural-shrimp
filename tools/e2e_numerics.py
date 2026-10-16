@@ -50,6 +50,21 @@ def subspace_iteration(apply_M, n, k, iters=12, Q0=None, seed=0, tol=1e-9):
     return Q, H, vals, converged, history
 
 
+def dominant_block(Q, H, m):
+    """Restrict a Rayleigh-Ritz pair (Q, H = Q^T M Q) to its m leading eigenvalues (a complex pair kept whole) by
+    an ordered real Schur form: returns (V, Hm) with V = Q Z[:, :m'] orthonormal and Hm = Z^T H Z [:m', :m']. The
+    leading Schur vectors of a block subspace iteration converge at the rate |mu_(k+1) / mu_m|, far faster than
+    the whole block, so V is a much better invariant subspace than Q for Newton-Picard."""
+    from scipy.linalg import schur
+
+    vals = np.linalg.eigvals(H)
+    mods = np.sort(np.abs(vals))[::-1]
+    m = min(m, len(mods))
+    cutoff = mods[m - 1] * (1 - 1e-12)
+    Tm, Z, sdim = schur(H, output="real", sort=lambda re, im: abs(complex(re, im)) >= cutoff)
+    return Q @ Z[:, :sdim], Tm[:sdim, :sdim]
+
+
 def newton_picard(Fp, apply_M, x0, V, H, tol=1e-12, maxit=40, couple=True):
     """Solve Fp(x) = x when M = D Fp has a few dominant multipliers and contracts strongly elsewhere.
 
