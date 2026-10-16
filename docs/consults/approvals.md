@@ -232,3 +232,16 @@ skill, section 7A). Spend is recorded only in the gitignored `cost-ledger.md`
 - **Model:** `gpt-6-astra`, Responses Pro mode, xhigh effort, at most 40,000 output tokens. The canonical client's
   reserves apply, and so does its $5 per-call authorization ceiling, which lies inside the human's $15 budget. Advice
   is advisory and is adjudicated locally in `adjudication.md`.
+
+## Consult 12 (approved): new ideas for practical consequences (idea generation, not review)
+
+- **Approval (human, in session, 16 October 2026, about 04:20 UTC):** "No I wanted you to solicit gpt pro for
+  additional ideas not just review yours", then "Keep this one and do another just asking for ideas". This is an
+  explicit request for a second paid consult, within the $15 budget given for consult 11.
+- **Milestone:** the same major campaign as consult 11 (program PI). The decision it can improve: which practical
+  consequences to test, drawn from a wider set of ideas than our own.
+- **Scope:** one `research-strategy` request with a compact idea-generation brief,
+  `2026-10-16-practical-ideas/brief.md`. No retry or second pass without a new recorded decision.
+- **Model:** `gpt-6-astra`, Responses Pro mode, xhigh effort, at most 40,000 output tokens, $5 per-call guard.
+  Consults 11 and 12 together stay within the $15 budget. Ideas are advisory: they are adjudicated locally and any
+  test is designed and run under the usual protocol.
