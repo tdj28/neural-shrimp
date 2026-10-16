@@ -123,3 +123,10 @@ def test_dominant_block_keeps_complex_pairs_whole():
     H = np.array([[0.3, -0.5, 0.0], [0.5, 0.3, 0.0], [0.0, 0.0, 0.1]])
     V, Hm = en.dominant_block(np.eye(3), H, 1)
     assert Hm.shape == (2, 2)
+
+
+def test_gridmap_ignores_clamped_end_points():
+    s = np.linspace(-5, 5, 401)
+    g = en.GridMap(s, 2.0 * s)                  # leaves the interval at both ends; only 0 is a fixed point
+    orbs = g.periodic_orbits(1)
+    assert len(orbs) == 1 and abs(orbs[0]["points"][0]) < 1e-9 and abs(orbs[0]["multiplier"] - 2) < 1e-9

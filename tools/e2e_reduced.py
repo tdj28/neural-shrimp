@@ -144,6 +144,66 @@ def r2(args):
                                              "rows": rows}, indent=1))
 
 
+def r2_fixed_points(model_r2, cell, n, grid):
+    s, s2, h = model_r2.gridmap(cell, n=n)
+    g = en.GridMap(s, s2)
+    return g, g.periodic_orbits(1, grid=grid)
+
+
+def r2scan(args):
+    """R2 fixed points along a cut (free alpha at fixed log10 T, or free log10 T at fixed alpha) and the events
+    where their number changes (a fold of the reduced map: two fixed points meet, multiplier +1) or a multiplier
+    crosses -1 (a flip), each refined by bisection on the cut. The reduced map's events are then compared with the
+    full map's (continued fold curves, located flips)."""
+    model = em.Model(args.threads)
+    a, b = em.TOKENS[args.pair[0]], em.TOKENS[args.pair[1]]
+    ref = json.loads((em.OUT / args.ref / "section.json").read_text())["args"]
+    refcell = model.cell(ref["alpha"], ref["log_t"])
+    S = np.load(em.OUT / args.ref / "section.npz")
+    i = int(np.argmin(np.abs(S["s"] - np.median(S["s"])))) if args.ref_index < 0 else args.ref_index
+    model_r2 = R2(model, a, b, args.period, refcell.probs(S["states"][i][None])[0])
+
+    def at(lam):
+        cell = model.cell(lam, args.value) if args.fixed == "log_t" else model.cell(args.value, lam)
+        g, fps = r2_fixed_points(model_r2, cell, args.n, args.grid)
+        return {"lambda": float(lam), "fixed_points": [[f["points"][0], f["multiplier"]] for f in fps]}
+
+    lams = np.linspace(args.range[0], args.range[1], args.steps)
+    rows = []
+    for lam in lams:
+        rows.append(at(lam))
+        print(json.dumps(rows[-1]), flush=True)
+
+    def stable_count(r):
+        return sum(1 for _, m in r["fixed_points"] if abs(m) < 1)
+
+    def signature(r):
+        return (len(r["fixed_points"]), stable_count(r))
+
+    events = []
+    for r0, r1 in zip(rows, rows[1:]):
+        if signature(r0) == signature(r1):
+            continue
+        lo, hi = r0, r1
+        for _ in range(args.bisect):
+            mid = at(0.5 * (lo["lambda"] + hi["lambda"]))
+            if signature(mid) == signature(lo):
+                lo = mid
+            else:
+                hi = mid
+        kind = ("fold (fixed points appear or vanish in a pair)" if len(lo["fixed_points"]) != len(hi["fixed_points"])
+                else "stability change at fixed count (flip if the multiplier passes -1)")
+        mults = [m for _, m in lo["fixed_points"] + hi["fixed_points"]]
+        events.append({"between": [lo["lambda"], hi["lambda"]], "kind": kind, "lo": lo, "hi": hi,
+                       "near_minus_one": bool(any(abs(m + 1) < 0.2 for m in mults)),
+                       "near_plus_one": bool(any(abs(m - 1) < 0.2 for m in mults))})
+        print(json.dumps({"event": events[-1]["between"], "kind": kind}), flush=True)
+    out = em.OUT / args.out
+    out.mkdir(parents=True, exist_ok=True)
+    (out / "r2scan.json").write_text(json.dumps({"args": vars(args), "ref_index": i, "w": model_r2.w,
+                                                 "rows": rows, "events": events}, indent=1))
+
+
 def r1_map(cell, a, b, period, ends, n, project):
     """R1: n states on the segment between the two section states `ends`, pushed `project` times through
     G = F^period, then the log-odds before and after one more G. Returns (s, s', spread) with s sorted; spread is
@@ -221,8 +281,22 @@ def main():
         r.add_argument("--grid", type=int, default=4000)
         r.add_argument("--threads", type=int, default=8)
         r.add_argument("--out", required=True)
+    r = sub.add_parser("r2scan")
+    r.add_argument("--ref", required=True)
+    r.add_argument("--ref-index", type=int, default=-1)
+    r.add_argument("--pair", nargs=2, required=True, choices=sorted(em.TOKENS))
+    r.add_argument("--period", type=int, required=True)
+    r.add_argument("--fixed", choices=("alpha", "log_t"), required=True)
+    r.add_argument("--value", type=float, required=True)
+    r.add_argument("--range", type=float, nargs=2, required=True)
+    r.add_argument("--steps", type=int, default=25)
+    r.add_argument("--bisect", type=int, default=12)
+    r.add_argument("--n", type=int, default=401)
+    r.add_argument("--grid", type=int, default=4000)
+    r.add_argument("--threads", type=int, default=8)
+    r.add_argument("--out", required=True)
     args = ap.parse_args()
-    {"section": section, "r1": r1, "r2": r2}[args.cmd](args)
+    {"section": section, "r1": r1, "r2": r2, "r2scan": r2scan}[args.cmd](args)
 
 
 if __name__ == "__main__":

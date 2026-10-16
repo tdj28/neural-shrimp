@@ -226,6 +226,8 @@ class GridMap:
                 roots.append(xs[i])
             elif gs[i] * gs[i + 1] < 0:
                 roots.append(brentq(g, xs[i], xs[i + 1], xtol=tol))
+        span = self.hi - self.lo
+        roots = [r for r in roots if min(r - self.lo, self.hi - r) > 1e-9 * span]   # clamped ends are not orbits
         orbits = []
         for r in roots:
             pts = self.iterate(r, period - 1)
