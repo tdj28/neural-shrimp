@@ -26790,3 +26790,14 @@ Over both frozen tests, the continuous integral (the secondary in Task 5, the pr
 - The abstract, introduction, summary box and contribution sentence now report 42 of 48 at four new folds, the misses at a period-6 fold and their size (3 to 5 %), and that both all-row criteria failed.
 - A new paragraph "A second prospective test" and Table tab:prospective2 give C passing all 12, D's midpoints passing, and D's entrance passages short, more so closer to the fold. The candidate causes are named as untested.
 - The Chaos summary sentence is qualified, and the Chaos hostile coefficients are now a = -1.1683, b = 44.525, matching the main paper.
+
+## 2026-10-16 00:11 UTC: Amendment to SHC-L2 (before its result): moved from local CPU to one pod
+
+**Why.** On the local CPU the band ran at about 181 s per cell; the CPU was shared with PT2's setup and the coexistence runs. That projects to about 9 h for 180 cells. The local attempt is stopped after 11 cells; its progress.jsonl is kept in explore/llm-soft-loop/dss/p8l2-band.
+
+**Run.**
+- Grid, seed, settings and decision rule unchanged.
+- Job set dss at commit 5b2832d4 (which contains the continuation fix), one H100-class pod, max rate 4.0/h.
+- Expected about 45 min (P8L ran at 10 s per cell). Ceiling in the private ledger.
+- Output: llm-soft-loop/pod64/dss/p8l2-band.
+- Approval: the human's 100 top-up, requested for Z128 completion, PT128 and this rerun.
