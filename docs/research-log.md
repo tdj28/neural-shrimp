@@ -27050,3 +27050,10 @@ tools/audit/dss_bfs_audit.py rebuilds the old breadth-first order from each prog
 
 **E4 pilot** (queued after E1). Ordinary chain-of-thought decoding on the same 400 problems, 320 new tokens: greedy, and seeded sampling (T = 0.7, top-p 0.95, one uniform per problem and step from default_rng(20261016 + index), the same in both layouts).
 - Readout: output and answer flips between layouts; accuracy of flipped against stable problems; first divergence step; margin and entropy at the divergence step.
+
+## 2026-10-16 03:48 UTC: PIF64 attempt 1 failed on both pods before any problem (the 7B was not downloaded); fixed and relaunched
+
+**Failure.** Pods hk6ayl87gwgpkx (A) and gbb8voipqkp3nx (B): both terminated and verified gone, about 2 min each.
+- Both tools stopped at load: the pod runs Hugging Face offline, and the new pif64 job set did not call the runner's get7b, which downloads the pinned Qwen2.5-7B-Instruct revision a09a3545.
+
+**Fix.** pif64 now calls get7b. Same settings; relaunched at the commit of this entry. The failed run folders are kept.

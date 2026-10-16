@@ -321,6 +321,7 @@ snapshot_download('Qwen/Qwen2.5-7B-Instruct', revision='$REV7', cache_dir='$NEUR
                # downloaded by name): JOBARGS = NAME MINUTES then tool arguments
     name=${JOBARGS[0]}
     minutes=${JOBARGS[1]}
+    get7b                         # the pinned Qwen2.5-7B-Instruct (the pod runs offline otherwise)
     TOOL=pi_f64_twins.py run pif64-$name "$minutes" --device cuda "${JOBARGS[@]:2}" --out $D/pi/$name
     ;;
   dss)         # superstable curves and doubly superstable points of one orbit (tools/doubly_superstable.py grid, float64
