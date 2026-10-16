@@ -27369,3 +27369,38 @@ Above 10 nats, at nearly uniform distributions, the larger models have the large
 - *Knockouts:* the first block is the main amplifier (0.5B: MLP 0, +2.4; 1.5B: attention 0, +3.74; 3B: attention 0, +1.86). Single damping sublayers are weak, -0.05 to -0.27 each.
 
 **Hypothesis to test with D on pods (7B-72B, Llama, OLMo).** The deficit between the residual stream's growth and the token's change through depth grows with size. That would make deeper and larger models damp the fed-back token more at the entropies where chaos occurs.
+
+## 2026-10-16 06:27 UTC: Run D, pod DB3 results (Qwen2.5 7B, 14B, 32B; Llama-3.1-8B; OLMo-2 1B, 7B, 13B, 32B), with a gate failure for OLMo-2
+
+**Pod.** 4ynfol0npxfd68 (H200), commit 874afbf4 (from the orchestrator log). Verified terminated; the results.tgz hash matches the runner's (53b135ab...). All eight models ended with status 0, each with 24 temperatures and 500 recorded steps.
+
+**Gate: the residual decomposition does not apply to OLMo-2.** Its closure error is 0.88, 3.4, 8.2 and 150 for 1B, 7B, 13B and 32B, against at most 3.7e-7 for Qwen and Llama.
+- The cause: OLMo-2 normalizes each attention and MLP output before adding it to the residual stream, and the tool hooks the outputs before that normalization.
+- For OLMo-2 the sublayer shares, gains and parallel coefficients are therefore invalid and are not used.
+- Still valid: the network factor and its split (from x, h_L and the final hidden state); the per-block A_l and N_l (block inputs); and the knockouts (clamping the pre-normalization output still blocks that path).
+
+**Network factor, medians at 0-1 and 1-3 nats.**
+
+| model | layers | 0-1 nats | 1-3 nats |
+|---|---|---|---|
+| Qwen2.5-0.5B | 24 | -0.40 | +0.22 |
+| Qwen2.5-1.5B | 28 | -0.76 | -0.35 |
+| Qwen2.5-3B | 36 | -1.75 | -1.84 |
+| Qwen2.5-7B | 28 | -0.88 | -0.90 |
+| Qwen2.5-14B | 48 | -1.98 | -0.94 |
+| Qwen2.5-32B | 64 | -1.96 | -1.59 |
+| Llama-3.1-8B | 32 | -0.55 | -0.16 |
+| OLMo-2-1B | 16 | +0.11 | -0.06 |
+| OLMo-2-7B | 32 | -0.63 | -0.52 |
+| OLMo-2-13B | 40 | -0.88 | -0.03 |
+| OLMo-2-32B | 64 | -0.05 | -0.75 |
+
+- In Qwen2.5 the damping tracks depth more than parameter count.
+- It matches the fixed-window chaos counts: 3B at 0 %, the less damped 7B at 12.7 %.
+- It shows no further growth from 14B to 32B at 0-1 nats.
+
+**Two parts in Qwen2.5 (profiles nearest 0.7 and 2 nats).**
+- *First block:* the gap A_1 - N_1 widens with size: -0.06/-0.16 (0.5B), -0.2 (1.5B), -0.45/-0.49 (7B), -0.6/-0.81 (3B), -0.81/-0.93 (14B), -1.09/-1.14 (32B). For Llama-8B and OLMo-2 it is about 0 to -0.2.
+- *Through depth:* the residual stream outgrows the change, a deficit of 0.66-1.47 nats in Qwen models from 1.5B up, against -0.23 to 0.06 in 0.5B; 0.35-0.77 in Llama-8B; -0.57 to 0.88 in OLMo-2.
+
+**Pending.** Qwen2.5-72B, Llama-3.1-70B and Llama-3.3-70B (pod DA2).
