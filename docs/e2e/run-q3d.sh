@@ -9,4 +9,6 @@ R="nice -n 10 env CUDA_VISIBLE_DEVICES= .venv/bin/python tools/e2e_reduced.py"
 C="0.0640 -0.156 0.0644 -0.156 0.0646 -0.156 0.0648 -0.156 0.0650 -0.156 0.06505 -0.156 0.06509 -0.156 0.06511 -0.156 0.0652 -0.156 0.06525 -0.156"
 $R section --threads 4 --alpha 0.0652 --log-t -0.156 --pair existence question --period 3 --transient 2000 --steps 3000 --out red-sec-crescent > $L/red-sec-crescent.log 2>&1
 $R r2 --threads 4 --ref red-sec-crescent --pair existence question --period 3 --cells $C --out red-r2-crescent > $L/red-r2-crescent.log 2>&1
-$R r1 --threads 4 --ref red-sec-crescent --pair existence question --period 3 --cells $C --out red-r1-crescent > $L/red-r1-crescent.log 2>&1
+$R curve1d --threads 4 --ref red-sec-crescent --pair existence question --period 3 --out red-curve1d-crescent > $L/red-curve1d-crescent.log 2>&1
+# (replaced, 16 Oct: R1 from a straight segment sorted by s fails here, because s is not monotone along the
+# attractor curve: it folds back at the curve's turning point; curve1d uses the arclength along the curve)

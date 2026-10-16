@@ -204,6 +204,99 @@ def r2scan(args):
                                                  "rows": rows, "events": events}, indent=1))
 
 
+def arclength(X, k=8, start=None):
+    """Geodesic (arclength) coordinate along a sampled curve: shortest-path distances in the k-nearest-neighbour
+    graph of the points X (n, d) from the point `start` (index), normalized to [0, 1]. Raises when the graph is
+    disconnected (the points do not sample one arc)."""
+    from scipy.sparse import csr_matrix
+    from scipy.sparse.csgraph import dijkstra
+    from scipy.spatial import cKDTree
+
+    tree = cKDTree(X)
+    dist, idx = tree.query(X, k=k + 1)
+    n = len(X)
+    rows = np.repeat(np.arange(n), k)
+    G = csr_matrix((dist[:, 1:].ravel(), (rows, idx[:, 1:].ravel())), shape=(n, n))
+    G = G.maximum(G.T)
+    d = dijkstra(G, indices=start)
+    if not np.all(np.isfinite(d)):
+        raise ValueError("the neighbour graph is disconnected")
+    return d / d.max()
+
+
+def project_to_chain(C, Y):
+    """For each row of Y, the arclength position on the polyline C (m, d) (cumulative length normalized to [0, 1])
+    of the nearest point, and the distance to it."""
+    seg = np.diff(C, axis=0)
+    L = np.linalg.norm(seg, axis=1)
+    cum = np.concatenate([[0.0], np.cumsum(L)])
+    out_t, out_d = [], []
+    for y in Y:
+        w = y[None] - C[:-1]
+        u = np.clip(np.einsum("ij,ij->i", w, seg) / np.maximum(L ** 2, 1e-300), 0, 1)
+        P = C[:-1] + u[:, None] * seg
+        dd = np.linalg.norm(P - y[None], axis=1)
+        j = int(np.argmin(dd))
+        out_t.append((cum[j] + u[j] * L[j]) / cum[-1])
+        out_d.append(dd[j])
+    return np.array(out_t), np.array(out_d), cum[-1]
+
+
+def curve1d(args):
+    """R1 on the attractor's own curve: arclength coordinate tau along the section states of a chaotic record,
+    the data return map (tau_n, tau_{n+1}), and the model's map on a dense tau grid: states interpolated along the
+    ordered curve, pushed once through G = F^period, projected back onto the curve (with the transverse distance)."""
+    model = em.Model(args.threads)
+    a, b = em.TOKENS[args.pair[0]], em.TOKENS[args.pair[1]]
+    S = np.load(em.OUT / args.ref / "section.npz")
+    sec = json.loads((em.OUT / args.ref / "section.json").read_text())
+    X, s = S["states"], S["s"]
+    tau = arclength(X, k=args.k, start=int(np.argmax(s)))
+    order = np.argsort(tau)
+    C = X[order]
+    # thin the chain to points at least `spacing` apart in arclength (noise in ordering at tiny spacing)
+    keep = [0]
+    for i in range(1, len(C)):
+        if np.linalg.norm(C[i] - C[keep[-1]]) > args.spacing * np.linalg.norm(C[-1] - C[0]) / len(C):
+            keep.append(i)
+    C = C[keep]
+    t_data, d_data, length = project_to_chain(C, X)
+    pairs = np.column_stack([t_data[:-1], t_data[1:]])
+    cell = model.cell(sec["args"]["alpha"], sec["args"]["log_t"])
+    tg = np.linspace(0, 1, args.n)
+    seg_len = np.concatenate([[0.0], np.cumsum(np.linalg.norm(np.diff(C, axis=0), axis=1))])
+    seg_len /= seg_len[-1]
+    Xg = np.array([np.array([np.interp(t, seg_len, C[:, j]) for j in range(C.shape[1])]) for t in tg]) \
+        if C.shape[1] < 0 else np.stack([np.interp(tg, seg_len, C[:, j]) for j in range(C.shape[1])], axis=1)
+    Yg = cell.Fp(Xg, args.period)
+    t_img, d_img, _ = project_to_chain(C, Yg)
+    sg, _ = logodds(cell, Xg, a, b)
+    g = en.GridMap(tg, t_img)
+    rec = {"args": vars(args), "chain_points": int(len(C)), "curve_length": float(length),
+           "curve_length_relative": float(length / np.linalg.norm(X.mean(0))),
+           "data_transverse_max_relative": float(d_data.max() / length),
+           "model_transverse_max_relative": float(d_img.max() / length),
+           "model_transverse_median_relative": float(np.median(d_img) / length),
+           "lyapunov_twin_per_step": sec["lyapunov_twin"], "lyapunov_twin_per_return": 3 * sec["lyapunov_twin"]
+           if args.period == 3 else args.period * sec["lyapunov_twin"],
+           "extrema": g.extrema()}
+    try:
+        rec["lyapunov_R1_per_return"] = g.lyapunov(0.37, transient=2000, steps=200000)
+    except ValueError as err:
+        rec["lyapunov_R1_per_return"] = str(err)
+    for per in (1, 2, 3):
+        rec[f"orbits_{per}"] = g.periodic_orbits(per, grid=4000)
+    # data map residual against the model map
+    rec["data_vs_model_max_abs"] = float(np.abs(g(pairs[:, 0]) - pairs[:, 1]).max())
+    rec["data_vs_model_median_abs"] = float(np.median(np.abs(g(pairs[:, 0]) - pairs[:, 1])))
+    out = em.OUT / args.out
+    out.mkdir(parents=True, exist_ok=True)
+    np.savez_compressed(out / "curve1d.npz", tau_grid=tg, tau_image=t_img, transverse=d_img, s_grid=sg,
+                        pairs=pairs, chain=C)
+    (out / "curve1d.json").write_text(json.dumps(rec, indent=1))
+    print(json.dumps({k: rec[k] for k in rec if k not in ("args", "orbits_3")}))
+
+
 def r1_map(cell, a, b, period, ends, n, project):
     """R1: n states on the segment between the two section states `ends`, pushed `project` times through
     G = F^period, then the log-odds before and after one more G. Returns (s, s', spread) with s sorted; spread is
@@ -281,6 +374,15 @@ def main():
         r.add_argument("--grid", type=int, default=4000)
         r.add_argument("--threads", type=int, default=8)
         r.add_argument("--out", required=True)
+    c = sub.add_parser("curve1d")
+    c.add_argument("--ref", required=True)
+    c.add_argument("--pair", nargs=2, required=True, choices=sorted(em.TOKENS))
+    c.add_argument("--period", type=int, required=True)
+    c.add_argument("--k", type=int, default=8)
+    c.add_argument("--spacing", type=float, default=0.3)
+    c.add_argument("--n", type=int, default=801)
+    c.add_argument("--threads", type=int, default=8)
+    c.add_argument("--out", required=True)
     r = sub.add_parser("r2scan")
     r.add_argument("--ref", required=True)
     r.add_argument("--ref-index", type=int, default=-1)
@@ -296,7 +398,7 @@ def main():
     r.add_argument("--threads", type=int, default=8)
     r.add_argument("--out", required=True)
     args = ap.parse_args()
-    {"section": section, "r1": r1, "r2": r2, "r2scan": r2scan}[args.cmd](args)
+    {"section": section, "r1": r1, "r2": r2, "r2scan": r2scan, "curve1d": curve1d}[args.cmd](args)
 
 
 if __name__ == "__main__":
