@@ -27822,3 +27822,25 @@ Run by a separate agent on the CPU. Receipt docs/pi/c12-2-summary.json (commit b
 - Q8 keeps the attractors' statistics but not individual runs. About one start in seven reaches a different attractor, as often as unstructured noise of the same one-step size causes, mostly near transitions.
 - One-step fidelity metrics therefore certify aggregate closed-loop behavior here, but not the attractor a given run reaches.
 - No evidence was found of a structured quantization effect beyond noise of matched one-step size.
+
+## 2026-10-16 14:06 UTC: Run card E5 (exploratory): does the loop's chaos onset predict where sampled generation stops repeating? (program PI; run by a separate agent on the CPU)
+
+**Question.** Ordinary sampled generation falls into verbatim repetition at low temperature and stops repeating as the temperature rises. The soft-token loop turns chaotic at intermediate temperatures, where next tokens compete (theory section). Across prompts, does the temperature at which a prompt's loop first turns chaotic predict the temperature at which that prompt's sampled text stops repeating? And does it predict that temperature beyond what the prompt's own next-token entropy predicts?
+
+**Design.**
+- **Model and prompts.** Qwen2.5-0.5B-Instruct, unsteered. 32 open prompts, built from fixed lists of system prompts and openers by a fixed rule; 8 for development and 24 held out.
+- **Loop.** For each prompt, the soft-token map (window 1, float64) at 24 temperatures over log10 T in [-1, 0.5]: 1000 transient and 1000 measured steps, twins at 1e-6 and 1e-8, periods up to 64.
+  - T_chaos is the lowest temperature labeled chaotic (no period, both exponents above 1e-3).
+  - Prompts whose loop is never chaotic are reported, and enter the primary analysis as censored at the top of the grid.
+- **Sampling.** At the same 24 temperatures, 16 samples of 256 tokens per prompt (ancestral sampling, full vocabulary, float32), with seeds fixed per prompt and temperature.
+  - A sample repeats if its last 96 tokens are exactly periodic with a period of at most 32.
+  - T_rep is the lowest temperature at which fewer than half of the samples repeat (interpolated in log10 T).
+- **Entropy baseline.** T_H is the temperature at which the next-token entropy of the prompt's own first step reaches 2 nats. This is a single forward pass, so no loop is needed.
+
+**Primary endpoint.** The Spearman correlation between log T_chaos and log T_rep over the 24 held-out prompts, with a bootstrap interval over prompts.
+
+**Secondary.**
+- The partial correlation of T_chaos with T_rep given T_H, i.e. whether the loop adds anything beyond the entropy.
+- The repetition rate in chaotic against periodic cells at matched temperature.
+
+**Decision.** A clear positive correlation that survives the entropy baseline would make the loop's chaos onset a usable marker of where sampled text stops looping. A correlation that the entropy explains says the shared cause is token competition. That is the theory's prediction, and the result is still informative.
