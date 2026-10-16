@@ -72,7 +72,7 @@ def verify_period(cell, x, p, transient, tol=1e-7, max_period=48):
 
 
 def continue_branch(model, fixed, free, lam0, x0, p, to, step, step_min, step_max, out, k=6, mu_stop=0.995,
-                    log=print, max_points=400, ad=True, name="branch.json"):
+                    log=print, max_points=400, ad=True, name="branch.json", through=False):
     """Natural continuation of a period-p orbit in `free` ('log_t' or 'alpha') from lam0 toward `to`."""
     def make(lam):
         return model.cell(lam, fixed) if free == "alpha" else model.cell(fixed, lam)
@@ -119,7 +119,7 @@ def continue_branch(model, fixed, free, lam0, x0, p, to, step, step_min, step_ma
         np.save(out / name.replace(".json", "-states.npy"), np.array(states))
         (out / name).write_text(json.dumps({"records": records, "stop": "running"}, indent=1, ensure_ascii=False))
         mod = abs(lead)
-        if mod >= 1.0:
+        if mod >= 1.0 and not through:
             stop = f"left the stable side (|mu| = {mod:.6f})"
             break
         if abs(lead.imag) < 1e-9 and lead.real > mu_stop:
@@ -130,7 +130,11 @@ def continue_branch(model, fixed, free, lam0, x0, p, to, step, step_min, step_ma
         # step control: near a fold (1 - mu)^2 is linear in the parameter, so the remaining distance is estimated
         # from the last two points and the step kept to a third of it; elsewhere the step grows
         h = min(step_max, h * 1.5)
-        if len(records) >= 2 and mod > 0.6:
+        if through and len(records) >= 2:      # through instabilities: keep the step where |mu| changes fast
+            dm = abs(mod - abs(complex(*records[-2]["leading"])))
+            if dm > 0.3:
+                h = max(step_min, h / 2)
+        elif len(records) >= 2 and mod > 0.6:
             m1, m2 = complex(*records[-2]["leading"]), lead
             if abs(m1.imag) < 1e-9 and abs(m2.imag) < 1e-9 and 0 < m1.real < 1 and 0 < m2.real < 1:
                 y1, y2 = (1 - m1.real) ** 2, (1 - m2.real) ** 2
@@ -178,7 +182,7 @@ def run(args, free, fixed, lam0):
 
     records, states, stop = continue_branch(model, fixed, free, lam0, X, args.period, args.to, args.step,
                                             args.step_min, args.step_max, out, k=args.k, mu_stop=args.mu_stop,
-                                            log=log, ad=not args.fd)
+                                            log=log, ad=not args.fd, through=args.through)
     fold = fold_estimate(records) if records else {"fold": None, "reason": "no points"}
     res = {"args": vars(args), "free": free, "fixed": fixed, "period": args.period, "stop": stop, "fold": fold,
            "records": records}
@@ -203,6 +207,7 @@ def main():
         s.add_argument("--step-max", type=float, default=0.1 if name == "tcont" else 2e-3)
         s.add_argument("--mu-stop", type=float, default=0.995)
         s.add_argument("--k", type=int, default=6)
+        s.add_argument("--through", action="store_true", help="continue through losses of stability")
         s.add_argument("--fd", action="store_true", help="multipliers by central differences (faster) instead of AD")
         s.add_argument("--threads", type=int, default=8)
         s.add_argument("--out", required=True)
