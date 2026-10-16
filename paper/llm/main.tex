@@ -36,14 +36,16 @@ Feeding a language model the expected embedding of its own next token, as Soft T
 dynamical system. In Qwen2.5, OLMo-2 and Llama-3 models of 0.5B to 72B
 parameters, temperature and steering move this loop between repeating text and chaos, with positive finite-time
 Lyapunov exponents that exact tangents reproduce. The chaos has practical consequences. Rerun with only the batch size
-changed, chaotic float64 loops separate until their most probable tokens differ, on the schedule the Lyapunov exponent sets, while periodic loops mostly stay together, in four models up to 70B. In frozen
-tests on arithmetic, the batch layout changed 56\,\% of the answers of bfloat16 soft-thinking inference in a 0.5B
-model and 55\,\% in a 7B model, far more often than those of a forced greedy baseline. An exploratory reset of the fed-back state at every step removed most such changes. Exactly repeating text can hide
+changed, chaotic float64 loops separate until their most probable tokens differ, on the schedule the Lyapunov exponent sets, while periodic loops mostly stay together, in four models up to 70B. In arithmetic
+tests designed before the runs, merely running a problem in a batch with others, which changes only the rounding,
+changed 56\,\% of the answers of bfloat16 soft-thinking inference in a 0.5B model and 55\,\% in a 7B model, far more
+often than with greedy decoding. An exploratory reset of the fed-back state at every step removed most such changes. Exactly repeating text can hide
 a chaotic state. Along the sampled orbits, steering creates the chaos mainly by making next tokens compete,
 which turns the softmax readout from a contraction into an expansion; a logit bias alone suffices. Earlier injection
 carries chaos to lower temperature, steering at two depths creates chaos neither depth causes alone, and two chaotic
-loops writing one text lock each other into periodic orbits. Beyond first-token uncertainty, the loop's regime does not mark
-the accuracy of ordinary answers, and we find no edge-of-chaos advantage. The loop obeys quantitative laws of
+loops writing one text lock each other into periodic orbits. Whether a prompt's loop is chaotic does not predict
+the accuracy of ordinary sampled answers beyond what the model's uncertainty about its first answer token predicts,
+and we find no edge-of-chaos advantage. The loop obeys quantitative laws of
 low-dimensional maps: doubling ratios approach Feigenbaum's constant (4.6688 against 4.6692), periodic windows
 accumulate on folds with a $1/N^2$ law, fold normal forms predicted 42 of 48 frozen passage times at four new folds
 within one iterate (the six misses, at a period-6 fold, 3 to 5\,\% short), and interval arithmetic proves an attracting period-8 orbit. In the recurrent-depth model Huginn, a frozen test confirmed a predicted accuracy loss. The loop is not ordinary sampled generation.
