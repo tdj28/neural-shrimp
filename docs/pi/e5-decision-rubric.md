@@ -17,3 +17,15 @@ not finished; dev sampling not started). Tool commit 425716a8.
 4. Held-out samples: keep 16 per cell unless the projected held-out duration (loop with retirement projected from the
    development virtual-retirement steps and the measured throughput; sampling at the development rate) exceeds 7 h;
    then 12 per cell (8 if the projection exceeds 9.5 h). All 24 temperatures and all 24 held-out prompts are kept.
+
+## Application (2026-10-16 19:30 UTC, after the development outcomes, before any held-out run)
+
+Applied mechanically by `tools/e5_repetition_onset.py choices` (docs/pi/e5-choices.json):
+1. Retirement: zero virtual-retirement mismatches among 192 development cells (175 recorded), all gates pass, so the
+   held-out loop uses --retire.
+2. Repetition rule: the card's rule leaves 4 of 8 development prompts censored (degenerate); long loops are present,
+   so period <= 48 (window 96) was tried first and leaves 1 of 8 censored: adopted.
+3. Entropy level: every development prompt reaches 2 nats within the grid: 2 nats kept.
+4. Samples: projected held-out duration 7.8 h (loop 1.35 h with retirement at 57 row-steps/s, sampling 6.46 h at the
+   development mean of 970 s per prompt) exceeds 7 h: 12 samples per cell.
+The held-out sampling uses the buffered sampler, validated bitwise on development prompt 0 (no change to any rule).

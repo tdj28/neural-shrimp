@@ -1,0 +1,112 @@
+{
+ "rubric": "docs/pi/e5-decision-rubric.md",
+ "development_runs": {
+  "loop": [
+   "dev-loop-1"
+  ],
+  "samples": [
+   "dev-sample-1"
+  ]
+ },
+ "gates_all_pass": true,
+ "retire": true,
+ "repetition_rule": {
+  "variants": {
+   "card": {
+    "window": 96,
+    "qmax": 32,
+    "censored": 4,
+    "censored_below": 4,
+    "censored_above": 0,
+    "T_rep_log10": [
+     null,
+     null,
+     -0.8858695652173914,
+     -0.7608695652173912,
+     null,
+     -1.0,
+     -0.4130434782608696,
+     null
+    ]
+   },
+   "period_48": {
+    "window": 96,
+    "qmax": 48,
+    "censored": 1,
+    "censored_below": 1,
+    "censored_above": 0,
+    "T_rep_log10": [
+     -0.11956521739130438,
+     null,
+     -0.3869565217391305,
+     -0.6180124223602484,
+     -0.2336956521739131,
+     -0.6739130434782609,
+     -0.17826086956521742,
+     -0.28260869565217395
+    ]
+   },
+   "window_64": {
+    "window": 64,
+    "qmax": 32,
+    "censored": 4,
+    "censored_below": 4,
+    "censored_above": 0,
+    "T_rep_log10": [
+     null,
+     null,
+     -0.717391304347826,
+     -0.7608695652173912,
+     null,
+     -0.9565217391304348,
+     -0.18478260869565222,
+     null
+    ]
+   }
+  },
+  "card_rule_degenerate": true,
+  "chosen": "period_48",
+  "rep_window": 96,
+  "rep_qmax": 48
+ },
+ "entropy_level": {
+  "log10_T_H_at_2_nats": [
+   0.2452959946344521,
+   0.036965545664123876,
+   0.1950428433288404,
+   0.09169081674001371,
+   0.1780277695542733,
+   0.05551151987228883,
+   0.12984154165785167,
+   0.0395998225766927
+  ],
+  "outside_grid": 0,
+  "h_target": 2.0,
+  "changed": false
+ },
+ "heldout_samples": {
+  "dev_loop_row_steps": 414000,
+  "dev_loop_seconds": 7255.1158843715675,
+  "row_steps_per_second": 57.06318225623495,
+  "projected_loop_hours": 1.3451171776926256,
+  "projected_sampling_hours_at_16": 6.464271104323755,
+  "projected_total_hours": 7.80938828201638,
+  "samples_per_cell": 12
+ },
+ "rep_window": 96,
+ "rep_qmax": 48,
+ "h_target": 2.0,
+ "samples": 12,
+ "git": {
+  "commit": "1f352e0684beb5d04458bdfeae0e74cdbae91af9",
+  "tool_dirty": false
+ },
+ "created_utc": "2026-10-16T19:22:49Z",
+ "sampler_impl": "buffered",
+ "sampler_note": "held-out sampling uses InverseCDFSampler (--sampler-impl buffered, commit a57f96aa): the same operations in the same order as the development sampler; the re-run of development prompt 0 gave bitwise-identical tokens for all 384 samples (dev-sample-buffered-1/compare-dev-sample-1.json, also the sampling repeat control) in 724 s against 833 s. The samples-per-cell rule was applied as written, with the development mean rate (no amendment).",
+ "development_analysis": "analysis-dev-1/analysis-dev.json (card's rule); development outcomes were seen before these choices",
+ "deviations_from_card": [
+  "repetition rule: period at most 48 instead of 32 (window 96 unchanged), by rubric item 2: with the card's rule 4 of 8 development prompts had T_rep censored below the grid because most low-temperature loops are sentence loops of 33-48 tokens; with period <= 48, 1 of 8 (prompt 2, whose replies never loop within 256 tokens under any window or period bound tried)",
+  "held-out samples: 12 per prompt and temperature instead of 16, by rubric item 4 (projected held-out duration 7.8 h > 7 h at the development sampling rate)"
+ ]
+}
