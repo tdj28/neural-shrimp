@@ -340,6 +340,43 @@ snapshot_download('openai/gsm8k', repo_type='dataset', revision='740312add88f781
     log "end pm status $?"
     cat "$LOGS/pm.log"
     ;;
+  pm2)         # run PM2 (docs/pi-matrix2-confirmatory.md): Soft Thinking with a reasoning model under two batch
+               # layouts, bfloat16 (tools/pi_reason.py); JOBARGS = MODEL MINUTES TASK... (gsm8k, math500)
+    model=${JOBARGS[0]}
+    minutes=${JOBARGS[1]}
+    case $model in
+      r1qwen7b)  REPO=deepseek-ai/DeepSeek-R1-Distill-Qwen-7B; MREV=916b56a44061fd5cd7d6a8fb632557ed4f724f60 ;;
+      r1llama8b) REPO=deepseek-ai/DeepSeek-R1-Distill-Llama-8B; MREV=6a6f4aa4197940add57724a7707d069478df56b1 ;;
+      qwq32b)    REPO=Qwen/QwQ-32B; MREV=976055f8c83f394f35dbd3ab09a285a984907bd0 ;;
+      *) log "unknown model $model"; exit 5 ;;
+    esac
+    end=$(( $(date +%s) + minutes * 60 ))
+    for try in 1 2 3; do
+      log "download $REPO $MREV (try $try)"
+      HF_HUB_OFFLINE=0 HF_HUB_DOWNLOAD_TIMEOUT=120 $PY -c "
+from huggingface_hub import snapshot_download
+c = '$NEURAL_SHRIMP_DATA/models/hf/hub'
+snapshot_download('$REPO', revision='$MREV', cache_dir=c)
+snapshot_download('openai/gsm8k', repo_type='dataset', revision='740312add88f781978c0658806c59bc2815b9866', cache_dir=c)
+snapshot_download('HuggingFaceH4/MATH-500', repo_type='dataset', revision='6e4ed1a2a79af7d8630a6b768ec859cb5af4d3be',
+                  cache_dir=c)" >> "$LOGS/setup-pm2.log" 2>&1 && break
+    done
+    MDIR=$NEURAL_SHRIMP_DATA/models/hf/hub/models--${REPO//\//--}
+    mkdir -p "$MDIR/refs" && printf %s "$MREV" > "$MDIR/refs/main"
+    uv pip install -q -p $PY "pandas==3.0.6" "pyarrow==26.0.0" > "$LOGS/setup-pandas.log" 2>&1
+    mkdir -p /data2 && ln -sfn "$NEURAL_SHRIMP_DATA" /data2/neural-shrimp-data   # pi_harness's fixed cache path
+    for arm in soft plain; do                   # every soft arm first: the primary endpoint needs only those
+      for task in "${JOBARGS[@]:2}"; do
+        if [ "$task" = gsm8k ]; then lay="8 16"; lim=256; else lay="1 8"; lim=64; fi
+        left=$(( (end - $(date +%s)) / 60 ))
+        if [ $left -le 1 ]; then log "time budget spent: $model-$task-$arm skipped"; continue; fi
+        log "start $model-$task-$arm"
+        timeout "${left}m" $PY tools/pi_reason.py --model $model --task $task --arm $arm --layouts $lay \
+          --limit $lim --out "$OUT/$D/pi/pm2/$model-$task-$arm" > "$LOGS/pm2-$model-$task-$arm.log" 2>&1
+        log "end $model-$task-$arm status $?"
+      done
+    done
+    ;;
   dss)         # superstable curves and doubly superstable points of one orbit (tools/doubly_superstable.py grid, float64
                # on the GPU): JOBARGS = NAME MINUTES then grid arguments (vectors uploaded with --extra-data)
     name=${JOBARGS[0]}

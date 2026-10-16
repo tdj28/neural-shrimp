@@ -92,7 +92,8 @@ def main():
             clusters[rows[i]["cluster"]].append(rows[i]["flip"])
         k = int(flips.sum())
         out["arms"][name] = {
-            "run": cfg.get("out"), "mode": cfg["mode"], "top_n": cfg.get("top_n"), "soft_steps": cfg.get("soft_steps"),
+            "run": cfg.get("out"), "mode": cfg.get("mode", cfg.get("arm")), "top_n": cfg.get("top_n"),
+            "soft_steps": cfg.get("soft_steps"),
             "temperature": cfg["temperature"], "layouts": list(layouts), "problems": n, "clusters": len(clusters),
             "answer_flips": k, "flip_rate": k / n if n else float("nan"), "flip_wilson95": wilson(k, n),
             "flip_cluster95": cluster_boot([np.array(v, dtype=float) for v in clusters.values()], rng) if n else None,

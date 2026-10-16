@@ -27882,3 +27882,22 @@ Problems, arms, endpoints, predictions and analysis are unchanged. Cost plan and
 - It grows with the number of soft steps: 6.6 % at 16 steps.
 - Discrete top-1 feedback through the same pipeline flips nearly as often, so in this pipeline the effect is not specific to continuous mixtures. Greedy chain of thought, with confident answers, flips 2.3 %.
 - With PIF64 (float64 soft thinking contracts on 1312-1314 of 1319 test problems, and no 1e-10 twin changed an answer), the flips are bfloat16 rounding carried forward by the feedback to answers the model holds weakly. They are not chaos of the float64 map.
+
+## 2026-10-16 17:58 UTC: Run card PM2 (confirmatory, frozen before data): Soft Thinking with reasoning models, two tasks, two GPU types
+
+**Request.** The human answered "well, let's fix this!" to PM's weaknesses (one model, one GPU type, one task, a model that answers poorly), then chose "Full plan now".
+
+**Design.** docs/pi-matrix2-confirmatory.md, committed with this entry before any data.
+- Models: DeepSeek-R1-Distill-Qwen-7B, DeepSeek-R1-Distill-Llama-8B and QwQ-32B (pinned revisions).
+- Tasks: GSM8K (fresh training problems in full equal-length batches of 16, layouts 8/16) and the first 64 integer-answer problems of MATH-500 (alone and as 8 copies).
+- Hardware: H100, H200 for QwQ, and an A100 replication.
+- Arms: soft thinking until the model's own end-of-thinking token (top-15, T 0.6, cap 1536), against discrete sampled thinking; the answer phase uses common random numbers.
+- Primary: the pooled soft flip rate over the five primary cells, predicted above 5 % with lower bound above 2 %. Every cell is reported with intervals, without a pass count.
+
+**Code.**
+- New: tools/pi_reason.py and tools/pi_matrix2_analyze.py, plus job set pm2. pi_harness.py is unchanged.
+- pi_matrix_analyze.py accepts "arm" where it read "mode"; PM's results are unchanged.
+
+**Smoke test.** CPU, DeepSeek-R1-Distill-Qwen-1.5B, float32, both arms and both tasks with 12/8-step budgets. It ran end to end through the analysis: full groups from GSM8K train[256:], MATH copies, forced switches at the cap.
+
+**Cost.** Plan and ceiling are in the private ledger.
