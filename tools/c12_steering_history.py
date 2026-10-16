@@ -116,6 +116,8 @@ RANDOM_DIR_SEED = 12402
 BOOT_SEED = 12403
 SMOKE_SEED = 12409
 CALIB_SEED = 12410
+CALIB2_SEED = 12411
+RENDERINGS = ("rows", "cells")
 N_DEV, N_TEST = 16, 48
 N_USERS, N_OPS = 4, 3
 TOP_N = 15
@@ -220,6 +222,12 @@ def calib_instances():
     return make_instances(seed=CALIB_SEED, splits=(("calib", 8, USERS_SMOKE),))
 
 
+def calib2_instances():
+    """Engineering check of the prompt rendering (neither development nor held-out): 24 instances, seed CALIB2_SEED,
+    users from USERS_SMOKE."""
+    return make_instances(seed=CALIB2_SEED, splits=(("calib2", 24, USERS_SMOKE),))
+
+
 def instances_hash(insts):
     return hashlib.sha256(json.dumps(insts, sort_keys=True, separators=(",", ":")).encode()).hexdigest()
 
@@ -231,15 +239,28 @@ def gold_of(inst):
     return "ALLOW" if inst["matrix"][a][b] else "DENY"
 
 
-def prompt_text(inst):
-    rows = []
-    for user, row in zip(inst["users"], inst["matrix"]):
-        cells = ", ".join(f"{op} {'allowed' if ok else 'denied'}" for op, ok in zip(inst["ops"], row))
-        rows.append(f"- {user}: {cells}")
-    return ("You are checking requests against an access-control policy. The permission table states, for every user "
-            "and operation, whether the operation is allowed or denied.\n\nPermission table:\n" + "\n".join(rows)
-            + f"\n\nRequest: {inst['request_user']} asks to {inst['request_op']}.\n\n"
-            "Is the request allowed by the table? Answer with one word: ALLOW or DENY.")
+def prompt_text(inst, rendering="rows"):
+    """The user message. rows (the first rendering): one line per user listing every operation as allowed or denied;
+    cells: one line per user and operation ("- Judy download: allowed") and a pointer to that line."""
+    if rendering == "rows":
+        rows = []
+        for user, row in zip(inst["users"], inst["matrix"]):
+            cells = ", ".join(f"{op} {'allowed' if ok else 'denied'}" for op, ok in zip(inst["ops"], row))
+            rows.append(f"- {user}: {cells}")
+        return ("You are checking requests against an access-control policy. The permission table states, for every "
+                "user and operation, whether the operation is allowed or denied.\n\nPermission table:\n"
+                + "\n".join(rows) + f"\n\nRequest: {inst['request_user']} asks to {inst['request_op']}.\n\n"
+                "Is the request allowed by the table? Answer with one word: ALLOW or DENY.")
+    if rendering == "cells":
+        lines = [f"- {user} {op}: {'allowed' if ok else 'denied'}"
+                 for user, row in zip(inst["users"], inst["matrix"]) for op, ok in zip(inst["ops"], row)]
+        return ("You are checking requests against an access-control policy. The permission table has one line for "
+                "every user and operation, stating whether that user may perform that operation (allowed) or not "
+                "(denied).\n\nPermission table:\n" + "\n".join(lines)
+                + f"\n\nRequest: {inst['request_user']} asks to {inst['request_op']}.\n\n"
+                f"Find the line for {inst['request_user']} and {inst['request_op']}. Is the request allowed by the "
+                "table? Answer with one word: ALLOW or DENY.")
+    raise ValueError(f"unknown rendering {rendering!r}")
 
 
 _LEAD = re.compile(r"^[\s\"'*:`]*")
@@ -578,8 +599,9 @@ class Engine:
     """Qwen2.5 soft-thinking rollouts on the CPU with per-row, per-step steering at one decoder layer."""
 
     def __init__(self, model_key="qwen1.5b", threads=6, layer=None, top_n=TOP_N, T=TEMPERATURE,
-                 answer_tokens=ANSWER_TOKENS):
+                 answer_tokens=ANSWER_TOKENS, rendering="rows"):
         T = TEMPERATURE if T is None else T
+        self.rendering = rendering
         import torch
         from transformers import AutoModelForCausalLM, AutoTokenizer
         from transformers.cache_utils import DynamicCache
@@ -622,7 +644,7 @@ class Engine:
         return output + self.steer.to(output.dtype)
 
     def prompt_ids(self, inst):
-        msgs = [{"role": "user", "content": prompt_text(inst)}]
+        msgs = [{"role": "user", "content": prompt_text(inst, self.rendering)}]
         return list(self.tok.apply_chat_template(msgs, add_generation_prompt=True, return_dict=True)["input_ids"])
 
     def cache(self, kv):
@@ -837,8 +859,8 @@ def out_dir(args, name, resume=False):
 
 
 def split_instances(args, split):
-    if split == "calib":
-        insts = calib_instances()
+    if split in ("calib", "calib2"):
+        insts = calib_instances() if split == "calib" else calib2_instances()
         return insts[:args.limit] if args.limit else insts
     insts = [i for i in load_instances(args.instances) if i["split"] == split]
     return insts[:args.limit] if args.limit else insts
@@ -859,14 +881,19 @@ def cmd_instances(args):
     if any(gold_of(i) != i["gold"] for i in insts):
         raise SystemExit("gold differs from the table")
     tok = AutoTokenizer.from_pretrained(ph.snapshot(MODELS[args.model]))
-    lens = sorted({len(tok.apply_chat_template([{"role": "user", "content": prompt_text(i)}],
-                                               add_generation_prompt=True, return_dict=True)["input_ids"])
-                   for i in insts + smoke_instances() + calib_instances()})
-    if len(lens) != 1:
-        raise SystemExit(f"prompt lengths differ: {lens}")
+    plen = {}
+    for rendering in RENDERINGS:
+        lens = sorted({len(tok.apply_chat_template([{"role": "user", "content": prompt_text(i, rendering)}],
+                                                   add_generation_prompt=True, return_dict=True)["input_ids"])
+                       for i in insts + smoke_instances() + calib_instances() + calib2_instances()})
+        if len(lens) != 1:
+            raise SystemExit(f"prompt lengths differ ({rendering}): {lens}")
+        plen[rendering] = lens[0]
+    lens = [plen["rows"]]
     blob = {"seed": INSTANCE_SEED, "n_dev": N_DEV, "n_test": N_TEST, "sha256": instances_hash(insts),
-            "prompt_tokens": lens[0], "tokenizer": str(ph.snapshot(MODELS[args.model])),
-            "example_prompt": prompt_text(insts[0]), "instances": insts}
+            "prompt_tokens": lens[0], "prompt_tokens_by_rendering": plen,
+            "tokenizer": str(ph.snapshot(MODELS[args.model])), "example_prompt": prompt_text(insts[0]),
+            "example_prompt_cells": prompt_text(insts[0], "cells"), "instances": insts}
     if args.json:
         Path(args.json).parent.mkdir(parents=True, exist_ok=True)
         Path(args.json).write_text(json.dumps(blob, indent=1) + "\n")
@@ -947,7 +974,7 @@ def cmd_smoke(args):
     """Engine checks on two smoke instances (seed SMOKE_SEED, neither development nor held-out)."""
     torch_threads(args)
     import torch
-    eng = Engine(args.model, args.threads, layer=args.layer, T=args.temperature)
+    eng = Engine(args.model, args.threads, layer=args.layer, T=args.temperature, rendering=args.rendering)
     v, u, vsha = load_vecs(args.vectors, args.layer, args.model)
     insts = smoke_instances()
     out = out_dir(args, "smoke")
@@ -997,9 +1024,10 @@ def cmd_smoke(args):
 
 def cmd_baseline(args):
     torch_threads(args)
-    eng = Engine(args.model, args.threads, T=args.temperature)
+    eng = Engine(args.model, args.threads, T=args.temperature, rendering=args.rendering)
     insts = split_instances(args, args.split)
-    tag = "" if args.temperature == TEMPERATURE else f"-T{args.temperature:g}"
+    tag = ("" if args.temperature == TEMPERATURE else f"-T{args.temperature:g}") + \
+        ("" if args.rendering == "rows" else f"-{args.rendering}")
     out = out_dir(args, f"baseline-{args.model}{tag}-{args.split}", resume=args.resume)
     N = max(args.readouts)
     starts = list(range(args.starts))
@@ -1014,16 +1042,17 @@ def cmd_baseline(args):
     info = provenance(args, {"kind": "baseline", "instances_sha256": instances_hash(load_instances(args.instances)),
                              "model_path": str(eng.path), "uids": [i["uid"] for i in insts], "starts": starts,
                              "start_ids": eng.start_ids, "n_steps": N, "readouts": sorted(args.readouts),
-                             "temperature": eng.T, "top_n": eng.top_n, "answer_tokens": eng.answer_tokens})
+                             "temperature": eng.T, "rendering": eng.rendering, "top_n": eng.top_n, "answer_tokens": eng.answer_tokens})
     run_batches(args, eng, out, batches, N, sorted(args.readouts), None, None, info)
 
 
 def cmd_sweep(args):
     torch_threads(args)
-    eng = Engine(args.model, args.threads, layer=args.layer, T=args.temperature)
+    eng = Engine(args.model, args.threads, layer=args.layer, T=args.temperature, rendering=args.rendering)
     v, u, vsha = load_vecs(args.vectors, args.layer, args.model)
     insts = split_instances(args, args.split)
-    tag = "" if args.temperature == TEMPERATURE else f"-T{args.temperature:g}"
+    tag = ("" if args.temperature == TEMPERATURE else f"-T{args.temperature:g}") + \
+        ("" if args.rendering == "rows" else f"-{args.rendering}")
     out = out_dir(args, f"sweep-{args.model}{tag}-l{args.layer}-{args.split}", resume=args.resume)
     N = max(args.readouts)
     starts = list(range(args.starts))
@@ -1041,7 +1070,7 @@ def cmd_sweep(args):
                              "model_path": str(eng.path), "vectors_sha256": vsha, "uids": [i["uid"] for i in insts],
                              "starts": starts, "start_ids": eng.start_ids, "n_steps": N,
                              "readouts": sorted(args.readouts), "alphas": args.alphas, "layer": args.layer,
-                             "temperature": eng.T, "top_n": eng.top_n, "answer_tokens": eng.answer_tokens})
+                             "temperature": eng.T, "rendering": eng.rendering, "top_n": eng.top_n, "answer_tokens": eng.answer_tokens})
     run_batches(args, eng, out, batches, N, sorted(args.readouts), v, u, info)
 
 
@@ -1051,7 +1080,8 @@ def cmd_histories(args):
     for k in ("model", "layer", "alpha_final", "alpha_high", "ramp", "hold"):
         if ch.get(k) is None:
             raise SystemExit(f"choices file lacks {k}")
-    eng = Engine(ch["model"], args.threads, layer=ch["layer"], T=ch.get("temperature", TEMPERATURE))
+    eng = Engine(ch["model"], args.threads, layer=ch["layer"], T=ch.get("temperature", TEMPERATURE),
+                 rendering=ch.get("rendering", "rows"))
     v, u, vsha = load_vecs(args.vectors, ch["layer"], ch["model"])
     insts = split_instances(args, args.split)
     out = out_dir(args, f"histories-{args.split}", resume=args.resume)
@@ -1079,7 +1109,7 @@ def cmd_histories(args):
                              "choices_sha256": sha256_file(args.choices), "uids": [i["uid"] for i in insts],
                              "starts": starts, "start_ids": eng.start_ids, "n_steps": N, "P": P, "dwell": dwell,
                              "readouts": reads, "histories": args.histories, "plant_ids": eng.plant_ids,
-                             "temperature": eng.T, "top_n": eng.top_n, "answer_tokens": eng.answer_tokens})
+                             "temperature": eng.T, "rendering": eng.rendering, "top_n": eng.top_n, "answer_tokens": eng.answer_tokens})
     run_batches(args, eng, out, batches, N, reads, v, u, info, pair=True)
 
 
@@ -1314,17 +1344,23 @@ def cmd_choose(args):
             ch.update({"model": model, "ramp": r["ramp"], "hold": r["hold"], "P": r["P"], "dwell": 32,
                        "dwell_secondary": 64})
     elif args.stage == "pipeline":
-        results = {}
+        results, renderings = {}, set()
         for path in args.analysis:
             a = json.loads(Path(path).read_text())
             h = json.loads((Path(a["run"]) / "run.json").read_text())["history"][-1]
+            if h["args"]["split"] != "dev":
+                raise SystemExit(f"{path}: the pipeline rule uses development baselines only")
+            renderings.add(h.get("rendering", "rows"))
             results[(h["args"]["model"], float(h["temperature"]))] = {int(S): v for S, v in a["accuracy_by_S"].items()}
+        if len(renderings) != 1:
+            raise SystemExit(f"analyses mix renderings {sorted(renderings)}")
+        rendering = renderings.pop()
         r = choose_pipeline(results)
-        ch["pipeline_rule"] = {"results": [{"model": m, "T": T, "accuracy_by_S": acc}
-                                           for (m, T), acc in sorted(results.items())], **r}
+        ch.setdefault("pipeline_rule", {})[rendering] = {
+            "results": [{"model": m, "T": T, "accuracy_by_S": acc} for (m, T), acc in sorted(results.items())], **r}
         if r["model"] is not None:
-            ch.update({"model": r["model"], "temperature": r["temperature"], "ramp": r["ramp"], "hold": r["hold"],
-                       "P": r["P"], "dwell": 32, "dwell_secondary": 64})
+            ch.update({"model": r["model"], "temperature": r["temperature"], "rendering": rendering,
+                       "ramp": r["ramp"], "hold": r["hold"], "P": r["P"], "dwell": 32, "dwell_secondary": 64})
     elif args.stage == "alpha":
         tables = {}
         for path in args.analysis:
@@ -1408,19 +1444,22 @@ def main():
     p.add_argument("--layer", type=int, default=14)
     p.add_argument("--alpha", type=float, default=0.05)
     p.add_argument("--temperature", type=float, default=TEMPERATURE)
+    p.add_argument("--rendering", default="rows", choices=RENDERINGS)
     p.add_argument("--vectors", default=None, help="default: DATA/vectors-<model>")
     p = sub.add_parser("baseline")
     common(p)
-    p.add_argument("--split", default="dev", choices=("dev", "test"))
+    p.add_argument("--split", default="dev", choices=("dev", "test", "calib", "calib2"))
     p.add_argument("--starts", type=int, default=8)
     p.add_argument("--temperature", type=float, default=TEMPERATURE)
+    p.add_argument("--rendering", default="rows", choices=RENDERINGS)
     p.add_argument("--readouts", type=int, nargs="+", default=[0, 8, 16, 24, 32, 44, 56, 64, 76, 88, 96])
     p.add_argument("--instances-per-batch", type=int, default=8)
     p = sub.add_parser("sweep")
     common(p)
-    p.add_argument("--split", default="dev", choices=("dev", "calib"))
+    p.add_argument("--split", default="dev", choices=("dev", "calib", "calib2"))
     p.add_argument("--layer", type=int, required=True)
     p.add_argument("--temperature", type=float, default=TEMPERATURE)
+    p.add_argument("--rendering", default="rows", choices=RENDERINGS)
     p.add_argument("--vectors", default=None, help="default: DATA/vectors-<model>")
     p.add_argument("--alphas", type=float, nargs="+", required=True)
     p.add_argument("--starts", type=int, default=4)

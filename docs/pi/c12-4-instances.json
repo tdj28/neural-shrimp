@@ -4,8 +4,13 @@
  "n_test": 48,
  "sha256": "4be27e06272c3d4a884ce0769ed7bdb6a07fc063a8a06d762245c073b435ae0b",
  "prompt_tokens": 134,
+ "prompt_tokens_by_rendering": {
+  "rows": 134,
+  "cells": 176
+ },
  "tokenizer": "/data2/neural-shrimp-data/models/hf/hub/models--Qwen--Qwen2.5-1.5B-Instruct/snapshots/989aa7980e4cf806f80c7fef2b1adb7bc71aa306",
  "example_prompt": "You are checking requests against an access-control policy. The permission table states, for every user and operation, whether the operation is allowed or denied.\n\nPermission table:\n- Erin: comment allowed, approve allowed, download denied\n- Grace: comment allowed, approve denied, download allowed\n- Ivan: comment allowed, approve denied, download allowed\n- Judy: comment denied, approve allowed, download allowed\n\nRequest: Judy asks to download.\n\nIs the request allowed by the table? Answer with one word: ALLOW or DENY.",
+ "example_prompt_cells": "You are checking requests against an access-control policy. The permission table has one line for every user and operation, stating whether that user may perform that operation (allowed) or not (denied).\n\nPermission table:\n- Erin comment: allowed\n- Erin approve: allowed\n- Erin download: denied\n- Grace comment: allowed\n- Grace approve: denied\n- Grace download: allowed\n- Ivan comment: allowed\n- Ivan approve: denied\n- Ivan download: allowed\n- Judy comment: denied\n- Judy approve: allowed\n- Judy download: allowed\n\nRequest: Judy asks to download.\n\nFind the line for Judy and download. Is the request allowed by the table? Answer with one word: ALLOW or DENY.",
  "instances": [
   {
    "uid": 0,
