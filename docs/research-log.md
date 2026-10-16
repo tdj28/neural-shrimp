@@ -28074,3 +28074,27 @@ The report is codex/need-to-audit-20261016/final-report.md (frozen at 2b217294).
 - Wording: quantization ("no detectable change"); steering history ("persisted through the 64 steps tested", random "no detectable effect"); "arbitrary precision" removed.
 
 **Not audited:** E5 and E2E (unfinished).
+
+## 2026-10-16 23:58 UTC: Run PM2F results: in float64, the R1-Qwen-7B loop mostly contracts, while the QwQ-32B and R1-Llama-8B loops grow slowly in about half of the copies, and a 1e-10 difference changes 11-18 % of their answers
+
+**Pods.** Commit 21d300a6; all runner rc 0, hashes verified, terminated.
+- A: H100 NVL, R1-Qwen-7B, 128 problems. B: H100 NVL, R1-Llama-8B, 128 problems. C: secure H200, QwQ-32B, 32 problems.
+- Receipt docs/pi/pm2f-summary.json; raw data explore/llm-soft-loop/pod64/pi/pm2f64/.
+
+**Results** (2 twins per problem at relative 1e-10, sharing the base row's random numbers):
+
+| model | twins whose distance at the end of thinking exceeds 1e-10 | answer flips per twin (per problem) | growth rate, quartiles per step | float64 accuracy |
+|---|---|---|---|---|
+| R1-Distill-Qwen-7B | 40/256 (216 shrank; median end distance 1e-15.9) | 2.3 % (3.9 %) | 0.0002 / 0.0041 / 0.0098 | 85.2 % |
+| R1-Distill-Llama-8B | 145/256 | 18.4 % (21.9 %) | 0.0045 / 0.0082 / 0.0121 | 79.7 % |
+| QwQ-32B | 34/64 | 10.9 % (12.5 %) | 0.0058 / 0.0097 / 0.0142 | 78.1 % |
+
+The growth rates are fitted only where the distance passed 10 eps0.
+
+**Reading.**
+- The PM2 bf16 layout flips (14.5 %, 37.5 % and 19.5 %) have two sources.
+  - In R1-Qwen-7B the float64 loop mostly contracts, so the flips are mainly rounding carried to near-tie answers.
+  - In QwQ-32B and R1-Llama-8B, the float64 loop expands slowly in about half of the copies, and a 1e-10 difference alone changes 11-18 % of the answers. There the loop's own sensitivity (weak finite-time chaos over about 1000 thinking steps) contributes.
+- The abstract's "where we checked in float64 the pipeline contracts" must be qualified.
+
+**Observation (not a test).** R1-Llama-8B answers 79.7 % in float64, against 49-54 % in bf16 (PM2). The problem sets overlap (the first 128 of PM2's 256), which suggests that bf16 rounding itself degrades its soft thinking.

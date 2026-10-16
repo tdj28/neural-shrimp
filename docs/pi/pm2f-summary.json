@@ -1,0 +1,61 @@
+{
+ "run": "PM2F",
+ "source": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/pi/pm2f64",
+ "eps0": 1e-10,
+ "models": {
+  "r1qwen7b": {
+   "problems": 128,
+   "twins": 256,
+   "accuracy_base": 0.8515625,
+   "twins_grew": 40,
+   "twins_shrank": 216,
+   "twin_flips": 6,
+   "twin_flip_rate": 0.0234375,
+   "problems_any_flip": 0.0390625,
+   "different_switch": 2,
+   "growth_rate_quartiles": [
+    0.00016101904457060059,
+    0.004124054793284102,
+    0.0098380135729206
+   ],
+   "growth_rate_n": 152,
+   "log10_end_think_median": -15.889049325857599
+  },
+  "r1llama8b": {
+   "problems": 128,
+   "twins": 256,
+   "accuracy_base": 0.796875,
+   "twins_grew": 145,
+   "twins_shrank": 111,
+   "twin_flips": 47,
+   "twin_flip_rate": 0.18359375,
+   "problems_any_flip": 0.21875,
+   "different_switch": 27,
+   "growth_rate_quartiles": [
+    0.004464428135007769,
+    0.008201658433743233,
+    0.012149097258858998
+   ],
+   "growth_rate_n": 229,
+   "log10_end_think_median": -7.550582514634865
+  },
+  "qwq32b": {
+   "problems": 32,
+   "twins": 64,
+   "accuracy_base": 0.78125,
+   "twins_grew": 34,
+   "twins_shrank": 30,
+   "twin_flips": 7,
+   "twin_flip_rate": 0.109375,
+   "problems_any_flip": 0.125,
+   "different_switch": 13,
+   "growth_rate_quartiles": [
+    0.005780467282503865,
+    0.009694848811567047,
+    0.014160561866878855
+   ],
+   "growth_rate_n": 53,
+   "log10_end_think_median": -8.992541805784752
+  }
+ }
+}
