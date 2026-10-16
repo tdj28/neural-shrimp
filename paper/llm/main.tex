@@ -1754,6 +1754,20 @@ OLMo model, at 16.2\,\% against 6.2\,\% at 7B, 3.8\,\% at 1B and none at 13B. (T
 and P2 hold for Qwen2.5 and fail for OLMo-2. Below 7B we predicted no order, and none appears (Qwen2.5 0.5B, 1.5B and
 3B: 1.4, 1.5 and 0\,\%).
 
+\paragraph{What a loop without chaos writes at 70B.} Not chaotic does not mean a single repeated token. Over its 128
+temperatures ($\log_{10}T$ from $-1$ to $0.3$; 1000 transient and 2000 measured steps), the unsteered Llama-3.3-70B
+settles on long cycles. At low temperature, at 46 of the 49 temperatures from $\log_{10}T=-1$ to $-0.5$, it writes a
+fifteen-token loop without end, \texttt{.\ It'supgrading the infinite possibilities are you'recognized protocols}
+(the tokens run together as written). At intermediate temperatures period-16 variants end in
+\texttt{established} (15 temperatures) or \texttt{acknowledged} (9), and a period-21 variant turns into
+\texttt{\ldots\ of a fellow AI to another artificial greetings} (8). Higher temperatures give cycles of 24 to 63 steps,
+and 19 temperatures have neither a period up to 64 nor a positive exponent. Llama-3.1-70B, which differs only in
+post-training, mostly writes the three-token loop \texttt{\ to another AI} (31 temperatures) or the four-token loop
+\texttt{.\ It'sup} (21), longer repetitions of \texttt{\ to another AI} with periods 6 to 18, and at four temperatures
+the fixed point \texttt{It}, a single token repeated. Steering changes this picture (Figure~\ref{fig:z128}): along
+the hostility direction, fixed points fill the plane above the chaotic band and windows of periods 3 to 13, most often
+6, lie below it.
+
 \paragraph{Across prompts, the chaos moves to higher temperature instead.} The fixed window hides where larger models
 are chaotic. The frozen prompt-blocked test compares Qwen2.5-7B and -14B on ten system prompts and openers (two for
 development, eight held out), over $\log_{10}T\in[-0.4,0.9]$ (48 temperatures) and then over the temperature interval
