@@ -856,7 +856,7 @@ Soft Thinking with its published settings on Qwen2.5-7B-Instruct in bfloat16. Th
 restricted to the 15 most probable, $T=0.6$ and 64 soft steps. The test used 256 GSM8K training problems that no
 earlier run had scored, on an H100 GPU. Only the batch layout changed, between batches of 8 and of 16 prompts of equal
 length without padding, and the answer changed for 21.1\,\% of the problems (54 of 256; 95\,\% interval clustered by
-batch $[16.3,26.1]$). This confirms the prediction of more than 10\,\%. Four of the five secondary predictions held:
+batch $[16.3,26.1]$). This confirms the prediction of more than 10\,\%. Three of the four directional secondary predictions held:
 \begin{itemize}
   \item replaying the reference run's fed-back tokens in both layouts cut the rate to 5.9\,\% (difference 15.2
   points, $[10.4,20.2]$);
@@ -2367,7 +2367,8 @@ regimes and boundaries to be mapped, rather than as a function to be evaluated p
 appropriate stance for both interpretability and safety evaluation. The reproducibility tests of
 Section~\ref{sec:consequences} make this concrete: in a chaotic regime the batch a request happens to share decides,
 after a predictable number of steps, what the loop writes. In low precision, continuous feedback makes even short-budget
-answers depend on the batch, which greedy decoding does not.
+answers depend on the batch, far more often than greedy decoding does; over a long run whose answers the model
+holds weakly, discrete feedback does too.
 
 \paragraph{Is the chaos useful?} The chaos we map is not a source of new content. The chaotic cells of
 Table~\ref{tab:transcripts} recombine the phrases of the neighboring loops in an order that did not settle over the recorded horizon: the
