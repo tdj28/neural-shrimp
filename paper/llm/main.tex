@@ -590,6 +590,26 @@ systems. We report three: whether a run can be reproduced, how the depth at whic
 chaos it causes, and what happens when two steering vectors are combined. A fourth, that a repeating text can hide a
 chaotic state from anyone who reads only the output, is shown in Section~\ref{sec:hostile}.
 
+\paragraph{How a change of batch reaches the output.} Floating-point addition is not associative: $(a+b)+c$ and
+$a+(b+c)$ can differ in the last bit \cite{goldberg1991floating}. A matrix multiplication in a transformer sums thousands
+of products, and GPU libraries split and order those sums according to the shape of the matrices, to keep the hardware
+busy; the number of requests processed together, the batch, is part of that shape. The same request computed alone or
+in a batch therefore receives results that differ at the rounding level, about $10^{-16}$ relative in float64 and about
+$10^{-3}$ in bfloat16. In a single forward pass such differences are invisible. In a feedback loop they are not lost:
+each output becomes the next input, so the difference between two runs is fed back and transformed by the map's
+derivative at every step. On a periodic attractor the derivative contracts on average, the exponent is negative, and
+the difference decays until both runs follow the same orbit and write the same text. On a chaotic attractor the
+exponent $\lambda$ is positive and the difference grows like $d_1e^{\lambda t}$ from its first value $d_1$, so it
+reaches a relative size of $10^{-2}$ after about $\ln(10^{-2}/d_1)/\lambda$ steps (about 100 steps for $d_1\approx
+10^{-15}$ and $\lambda\approx0.3$), after which the runs write different text. This has a practical consequence.
+Batch-invariant kernels, which fix the order of every reduction independently of the batch size, remove this source
+of difference \cite{he2025nondeterminism}. In a periodic regime that is enough, and small differences would be forgiven
+even without it. In a chaotic regime it is not: any remaining difference, from another GPU model, a library or compiler
+version, the numerical precision, or a mathematically equivalent reordering of a sum, is amplified in the same way, so a
+run is reproducible only if the whole computation is repeated bit for bit. The regime of the loop, not the kernel,
+decides whether a rerun reproduces a run. In bfloat16 the starting difference is already about $10^{-3}$, so continuous
+feedback carries it into different answers within a short budget even where the float64 loop is not chaotic (below).
+
 \paragraph{The regime decides whether a run can be reproduced.} Language-model inference is not bitwise
 reproducible: GPU kernels choose different reduction orders for different matrix shapes, so a request's result depends
 on the batch it shares and on the hardware \cite{he2025nondeterminism,yuan2025nondeterminism}. We ran the 448 labeled
