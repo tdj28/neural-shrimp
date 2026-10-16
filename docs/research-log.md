@@ -27623,3 +27623,11 @@ Run by a separate agent on the CPU (Qwen2.5-0.5B-Instruct, float32). Code tools/
 - One small model, one task, float32 on the CPU.
 
 **Reading.** In this pipeline, sensitivity to perturbations does not translate into control. Small early nudges fade and large ones scramble the answer unpredictably. Only a perturbation of the last fed-back token before the answer steers it to a chosen wrong value. For the paper this is a negative control on the security reading of the loop's sensitivity: no evidence that the loop amplifies a targeted perturbation into a chosen answer.
+
+## 2026-10-16 11:02 UTC: Run card CT, amendment 2: one chaotic cell on the hostility plane
+
+**Why.** The paper's hostility section shows hostile periodic loops ("!Yes!Yes, that's crap!Yeah" and its period-adding relatives) but no chaotic text from that plane.
+
+**Cell.** Qwen2.5-0.5B along hostility-vs-kindness at block 12 (vectors-l12-p1b): alpha 0.08946, log10 T -0.05566. It is chosen from the float64 zoom hwindows-fine (192x192; 500 transient and 300 measured steps) as a cell whose 5x5 neighborhood is chaotic throughout (exponent 0.411, neighborhood minimum 0.304). It lies between the "that's crap" period-adding windows.
+
+**Run.** Same tool and settings as CT (unchanged since fb14ed56): --record 120, so that the 1e-10 copy's split falls inside the record at this exponent (expected near step 55). Receipt docs/chaos-texts/qwen0.5b-hostility.json. Local CPU, 4 threads. Used as a chaos example only if it passes the label.
