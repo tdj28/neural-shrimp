@@ -1197,7 +1197,7 @@ def cmd_receipt(args):
     """Compact receipt: settings and choices (from --spec), calibration, layouts, compute, derivative checks, the
     analysis of each run, and the SHA-256 and size of every raw output file."""
     spec = json.loads(Path(args.spec).read_text())
-    rec = {k: spec[k] for k in ("card", "label", "settings", "choices", "deviations", "caveats") if k in spec}
+    rec = {k: v for k, v in spec.items() if k not in ("paths", "raw_dirs")}
     rec["problems"] = {"file": "docs/pi/c12-1-problems.json", "seed": PROBLEM_SEED, "n_dev": N_DEV, "n_test": N_TEST,
                        "sha256": problems_hash(make_problems()),
                        "target_rule": "correct + 10 if that keeps the digit count, else correct - 10"}
