@@ -27716,3 +27716,24 @@ Receipts docs/chaos-texts/qwen0.5b-philosophy.json (3 cells, 60 recorded steps, 
 - A persistent difference of at least 10 points after the dwell would show that a static steering calibration does not describe the steered model's behavior.
 - A difference that vanishes with dwell indicates delay.
 - No difference bounds the concern for these tasks.
+
+## 2026-10-16 12:27 UTC: CT results for Qwen2.5-1.5B (gated): three chaotic cells; the paper passage is complete
+
+Receipt docs/chaos-texts/qwen1.5b-philosophy.json (philosophy at layer 14, 60 recorded steps, 6 threads). All three cells passed the label: no period up to 64, and exponents above 1e-3 at both offsets.
+
+| cell | exponents | split | log10 distance at split | lambda * split | growth rate to 1e-2 / lambda |
+|---|---|---|---|---|---|
+| 0.07376, 0.0165 | 0.834, 0.834 | 22 | -0.38 | 18.3 | 1.47 |
+| 0.10553, 0.0322 | 0.799, 0.799 | 10 | -1.43 | 8.0 | 2.42 |
+| unsteered, log10 T 0.657 | 0.587, 0.587 | 43 | -1.89 | 25.2 | 0.89 |
+
+- **Steered texts:** short questions between line breaks ("What?", "What? Or", "In", "What: How"). The second cell splits at an almost exact tie: "What" 0.091 against "In" 0.090. Its copy's distance grew a hundredfold in the first step (1e-10 to 1e-8): finite-time stretching far above the 1000-step average.
+- **Unsteered text** at nearly uniform distributions: the most probable token stays between 2.0e-4 and 9.3e-4 in the recorded steps. The loop writes exclamation marks (ASCII and full width), commas, the end-of-turn marker and the Chinese token 一下.
+- **Across all seven cells:**
+  - Up to 1e-2, the copies grew at 1.15 to 1.47 times lambda in five steered cells, at 2.42 times in one, and at 0.89 times in the unsteered cell.
+  - The texts split at 3 % to 170 % of the soft token's norm. The splits came after 10 to 151 steps.
+
+**Paper (e21b345c).**
+- The passage, tab:chaostexts (six examples, CJK via CJKutf8) and fig-chaos-twins (seven cells) are complete.
+- The intro now says "10 to 151 steps".
+- Next: the short version for the Chaos article, and the blog.
