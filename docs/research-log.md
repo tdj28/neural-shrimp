@@ -27288,3 +27288,12 @@ The clean condition completed: 800 s, periods 0, 3 and 5. The run then stopped a
 - Question: does steering that keeps the task working already expand the loop?
 
 **Run H (bf16, local GPU; not started).** The grid changes to T in {0.6, 1.2} x alpha in {-0.02, 0, 0.01, 0.02, 0.03, 0.05}, so every bf16 configuration has a float64 counterpart.
+
+## 2026-10-16 05:26 UTC: PIF64-H2, launch attempt 1 failed before any pod (kept); relaunched
+
+The launcher pinned commit ae71c377. The upload list now names tools/damping_locate.py, which that commit lacks, so git archive failed before any pod was created (no cost).
+
+The relaunch uses commit 48e30e68. Between the two commits:
+- tools/pi_f64_twins.py is unchanged;
+- tools/pi_harness.py gained one line (readout texts, unused here);
+- the runner gained the damping job set (the pif64 job set is unchanged).
