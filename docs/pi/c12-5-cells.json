@@ -1,0 +1,7522 @@
+{
+ "card": "C12-5 (docs/research-log.md, 'Run card C12-5')",
+ "rules": {
+  "chaotic": "hidden_chaos.classify 'hidden chaos' in either line file (no state period, exponent > 1e-3 at both offsets, periodic leading token), merged by log10 T; sorted by log10 T; development = ranks floor((2i + 1) N / 16), i = 0..7",
+  "periodic": "state period 7 and leading-token period 7 in either line file, merged by log10 T; 16 at ranks floor((2i + 1) N / 32); development = positions 4 and 12 of these 16",
+  "text_period": "lcm of the line files' leading-token periods",
+  "states": "X_t at t = 1070 + k s, k = 0..15, s = q ceil(70 / q)"
+ },
+ "line_files": [
+  {
+   "path": "explore/llm-soft-loop/pod64/hidden/tline-a0.0655/hidden-chaos.json",
+   "sha256": "1dce4e4099ac8e3bf9bc67bfbf3691326c575f8ffddda461499695a3498fe3f4"
+  },
+  {
+   "path": "explore/llm-soft-loop/pod64/hidden/h2-line-exact/hidden-chaos.json",
+   "sha256": "5c9af53fd68cfc93304343d28734185caec5a38f2b5fafa96d5efae5856b118d"
+  }
+ ],
+ "counts": {
+  "chaotic-dev": 8,
+  "chaotic-heldout": 98,
+  "periodic-dev": 2,
+  "periodic-heldout": 14
+ },
+ "candidates_total": {
+  "chaotic": 106,
+  "periodic": 384
+ },
+ "hash": "baa5635a61c5fbd43e83c209b0435ffd2753eabfaace1b3c85f4e6cfe8fad388",
+ "cells": [
+  {
+   "log10T": 0.1769435310936383,
+   "sources": [
+    {
+     "file": "llm-soft-loop/pod64/hidden/tline-a0.0655/hidden-chaos.json",
+     "index": 88,
+     "lyapunov": [
+      0.0234393886790918,
+      0.023062251890316483
+     ],
+     "period": 0,
+     "lead_period": 21,
+     "lead_tokens": [
+      40,
+      0,
+      9454,
+      33360,
+      271,
+      89783,
+      9707
+     ],
+     "lead_text": [
+      "I",
+      "!",
+      "Yes",
+      " heels",
+      "\n\n",
+      " defiance",
+      "Hello"
+     ],
+     "class": "hidden chaos"
+    }
+   ],
+   "uid": "c000",
+   "kind": "chaotic",
+   "rank": 0,
+   "split": "heldout",
+   "text_period": 21,
+   "spacing": 84,
+   "collect": [
+    1070,
+    1154,
+    1238,
+    1322,
+    1406,
+    1490,
+    1574,
+    1658,
+    1742,
+    1826,
+    1910,
+    1994,
+    2078,
+    2162,
+    2246,
+    2330
+   ],
+   "t_end": 2400,
+   "seed_key": 0
+  },
+  {
+   "log10T": 0.1780639742673338,
+   "sources": [
+    {
+     "file": "llm-soft-loop/pod64/hidden/h2-line-exact/hidden-chaos.json",
+     "index": 165,
+     "lyapunov": [
+      0.07798124198089916,
+      0.0778516528486634
+     ],
+     "period": 0,
+     "lead_period": 7,
+     "lead_tokens": [
+      271,
+      40,
+      0,
+      9454,
+      33360,
+      89783
+     ],
+     "lead_text": [
+      "\n\n",
+      "I",
+      "!",
+      "Yes",
+      " heels",
+      " defiance"
+     ],
+     "class": "hidden chaos"
+    }
+   ],
+   "uid": "c001",
+   "kind": "chaotic",
+   "rank": 1,
+   "split": "heldout",
+   "text_period": 7,
+   "spacing": 70,
+   "collect": [
+    1070,
+    1140,
+    1210,
+    1280,
+    1350,
+    1420,
+    1490,
+    1560,
+    1630,
+    1700,
+    1770,
+    1840,
+    1910,
+    1980,
+    2050,
+    2120
+   ],
+   "t_end": 2190,
+   "seed_key": 1
+  },
+  {
+   "log10T": 0.17807648320228733,
+   "sources": [
+    {
+     "file": "llm-soft-loop/pod64/hidden/h2-line-exact/hidden-chaos.json",
+     "index": 166,
+     "lyapunov": [
+      0.04308144077126943,
+      0.04289845029685633
+     ],
+     "period": 0,
+     "lead_period": 7,
+     "lead_tokens": [
+      33360,
+      271,
+      89783,
+      40,
+      0,
+      9454
+     ],
+     "lead_text": [
+      " heels",
+      "\n\n",
+      " defiance",
+      "I",
+      "!",
+      "Yes"
+     ],
+     "class": "hidden chaos"
+    }
+   ],
+   "uid": "c002",
+   "kind": "chaotic",
+   "rank": 2,
+   "split": "heldout",
+   "text_period": 7,
+   "spacing": 70,
+   "collect": [
+    1070,
+    1140,
+    1210,
+    1280,
+    1350,
+    1420,
+    1490,
+    1560,
+    1630,
+    1700,
+    1770,
+    1840,
+    1910,
+    1980,
+    2050,
+    2120
+   ],
+   "t_end": 2190,
+   "seed_key": 2
+  },
+  {
+   "log10T": 0.17809077912794852,
+   "sources": [
+    {
+     "file": "llm-soft-loop/pod64/hidden/tline-a0.0655/hidden-chaos.json",
+     "index": 195,
+     "lyapunov": [
+      0.05502562102584276,
+      0.05509221352922921
+     ],
+     "period": 0,
+     "lead_period": 7,
+     "lead_tokens": [
+      271,
+      89783,
+      40,
+      0,
+      9454,
+      33360
+     ],
+     "lead_text": [
+      "\n\n",
+      " defiance",
+      "I",
+      "!",
+      "Yes",
+      " heels"
+     ],
+     "class": "hidden chaos"
+    }
+   ],
+   "uid": "c003",
+   "kind": "chaotic",
+   "rank": 3,
+   "split": "heldout",
+   "text_period": 7,
+   "spacing": 70,
+   "collect": [
+    1070,
+    1140,
+    1210,
+    1280,
+    1350,
+    1420,
+    1490,
+    1560,
+    1630,
+    1700,
+    1770,
+    1840,
+    1910,
+    1980,
+    2050,
+    2120
+   ],
+   "t_end": 2190,
+   "seed_key": 3
+  },
+  {
+   "log10T": 0.17970979270907791,
+   "sources": [
+    {
+     "file": "llm-soft-loop/pod64/hidden/tline-a0.0655/hidden-chaos.json",
+     "index": 346,
+     "lyapunov": [
+      0.06141201771954113,
+      0.060516851219614254
+     ],
+     "period": 0,
+     "lead_period": 10,
+     "lead_tokens": [
+      0,
+      2753,
+      77661,
+      271,
+      89783,
+      93796,
+      9707
+     ],
+     "lead_text": [
+      "!",
+      "No",
+      "PDOException",
+      "\n\n",
+      " defiance",
+      "importe",
+      "Hello"
+     ],
+     "class": "hidden chaos"
+    }
+   ],
+   "uid": "c004",
+   "kind": "chaotic",
+   "rank": 4,
+   "split": "heldout",
+   "text_period": 10,
+   "spacing": 70,
+   "collect": [
+    1070,
+    1140,
+    1210,
+    1280,
+    1350,
+    1420,
+    1490,
+    1560,
+    1630,
+    1700,
+    1770,
+    1840,
+    1910,
+    1980,
+    2050,
+    2120
+   ],
+   "t_end": 2190,
+   "seed_key": 4
+  },
+  {
+   "log10T": 0.17987062187276626,
+   "sources": [
+    {
+     "file": "llm-soft-loop/pod64/hidden/tline-a0.0655/hidden-chaos.json",
+     "index": 361,
+     "lyapunov": [
+      0.059030742077814495,
+      0.059929630816534796
+     ],
+     "period": 0,
+     "lead_period": 10,
+     "lead_tokens": [
+      89783,
+      271,
+      9707,
+      0,
+      2753,
+      77661,
+      93796
+     ],
+     "lead_text": [
+      " defiance",
+      "\n\n",
+      "Hello",
+      "!",
+      "No",
+      "PDOException",
+      "importe"
+     ],
+     "class": "hidden chaos"
+    }
+   ],
+   "uid": "c005",
+   "kind": "chaotic",
+   "rank": 5,
+   "split": "heldout",
+   "text_period": 10,
+   "spacing": 70,
+   "collect": [
+    1070,
+    1140,
+    1210,
+    1280,
+    1350,
+    1420,
+    1490,
+    1560,
+    1630,
+    1700,
+    1770,
+    1840,
+    1910,
+    1980,
+    2050,
+    2120
+   ],
+   "t_end": 2190,
+   "seed_key": 5
+  },
+  {
+   "log10T": 0.1798902787705504,
+   "sources": [
+    {
+     "file": "llm-soft-loop/pod64/hidden/h2-line-exact/hidden-chaos.json",
+     "index": 311,
+     "lyapunov": [
+      0.0511167698093137,
+      0.04990468898878167
+     ],
+     "period": 0,
+     "lead_period": 10,
+     "lead_tokens": [
+      9707,
+      0,
+      2753,
+      77661,
+      271,
+      89783,
+      93796
+     ],
+     "lead_text": [
+      "Hello",
+      "!",
+      "No",
+      "PDOException",
+      "\n\n",
+      " defiance",
+      "importe"
+     ],
+     "class": "hidden chaos"
+    }
+   ],
+   "uid": "c006",
+   "kind": "chaotic",
+   "rank": 6,
+   "split": "dev",
+   "text_period": 10,
+   "spacing": 70,
+   "collect": [
+    1070,
+    1140,
+    1210,
+    1280,
+    1350,
+    1420,
+    1490,
+    1560,
+    1630,
+    1700,
+    1770,
+    1840,
+    1910,
+    1980,
+    2050,
+    2120
+   ],
+   "t_end": 2190,
+   "seed_key": 6
+  },
+  {
+   "log10T": 0.1799135096497498,
+   "sources": [
+    {
+     "file": "llm-soft-loop/pod64/hidden/tline-a0.0655/hidden-chaos.json",
+     "index": 365,
+     "lyapunov": [
+      0.047541626732767635,
+      0.048971673572549154
+     ],
+     "period": 0,
+     "lead_period": 10,
+     "lead_tokens": [
+      2753,
+      77661,
+      271,
+      89783,
+      93796,
+      9707,
+      0
+     ],
+     "lead_text": [
+      "No",
+      "PDOException",
+      "\n\n",
+      " defiance",
+      "importe",
+      "Hello",
+      "!"
+     ],
+     "class": "hidden chaos"
+    }
+   ],
+   "uid": "c007",
+   "kind": "chaotic",
+   "rank": 7,
+   "split": "heldout",
+   "text_period": 10,
+   "spacing": 70,
+   "collect": [
+    1070,
+    1140,
+    1210,
+    1280,
+    1350,
+    1420,
+    1490,
+    1560,
+    1630,
+    1700,
+    1770,
+    1840,
+    1910,
+    1980,
+    2050,
+    2120
+   ],
+   "t_end": 2190,
+   "seed_key": 7
+  },
+  {
+   "log10T": 0.17996533238027163,
+   "sources": [
+    {
+     "file": "llm-soft-loop/pod64/hidden/h2-line-exact/hidden-chaos.json",
+     "index": 317,
+     "lyapunov": [
+      0.035832038124894924,
+      0.03680003353729069
+     ],
+     "period": 0,
+     "lead_period": 10,
+     "lead_tokens": [
+      93796,
+      89783,
+      271,
+      9707,
+      0,
+      2753,
+      77661
+     ],
+     "lead_text": [
+      "importe",
+      " defiance",
+      "\n\n",
+      "Hello",
+      "!",
+      "No",
+      "PDOException"
+     ],
+     "class": "hidden chaos"
+    }
+   ],
+   "uid": "c008",
+   "kind": "chaotic",
+   "rank": 8,
+   "split": "heldout",
+   "text_period": 10,
+   "spacing": 70,
+   "collect": [
+    1070,
+    1140,
+    1210,
+    1280,
+    1350,
+    1420,
+    1490,
+    1560,
+    1630,
+    1700,
+    1770,
+    1840,
+    1910,
+    1980,
+    2050,
+    2120
+   ],
+   "t_end": 2190,
+   "seed_key": 8
+  },
+  {
+   "log10T": 0.17996711937097926,
+   "sources": [
+    {
+     "file": "llm-soft-loop/pod64/hidden/tline-a0.0655/hidden-chaos.json",
+     "index": 370,
+     "lyapunov": [
+      0.03807058213810231,
+      0.038257173319923427
+     ],
+     "period": 0,
+     "lead_period": 10,
+     "lead_tokens": [
+      271,
+      89783,
+      93796,
+      9707,
+      0,
+      2753,
+      77661
+     ],
+     "lead_text": [
+      "\n\n",
+      " defiance",
+      "importe",
+      "Hello",
+      "!",
+      "No",
+      "PDOException"
+     ],
+     "class": "hidden chaos"
+    }
+   ],
+   "uid": "c009",
+   "kind": "chaotic",
+   "rank": 9,
+   "split": "heldout",
+   "text_period": 10,
+   "spacing": 70,
+   "collect": [
+    1070,
+    1140,
+    1210,
+    1280,
+    1350,
+    1420,
+    1490,
+    1560,
+    1630,
+    1700,
+    1770,
+    1840,
+    1910,
+    1980,
+    2050,
+    2120
+   ],
+   "t_end": 2190,
+   "seed_key": 9
+  },
+  {
+   "log10T": 0.18010650464617584,
+   "sources": [
+    {
+     "file": "llm-soft-loop/pod64/hidden/tline-a0.0655/hidden-chaos.json",
+     "index": 383,
+     "lyapunov": [
+      0.0092145759363784,
+      0.010063591446544742
+     ],
+     "period": 0,
+     "lead_period": 24,
+     "lead_tokens": [
+      33360,
+      271,
+      89783,
+      9707,
+      0,
+      2753,
+      77661,
+      93796
+     ],
+     "lead_text": [
+      " heels",
+      "\n\n",
+      " defiance",
+      "Hello",
+      "!",
+      "No",
+      "PDOException",
+      "importe"
+     ],
+     "class": "hidden chaos"
+    }
+   ],
+   "uid": "c010",
+   "kind": "chaotic",
+   "rank": 10,
+   "split": "heldout",
+   "text_period": 24,
+   "spacing": 72,
+   "collect": [
+    1070,
+    1142,
+    1214,
+    1286,
+    1358,
+    1430,
+    1502,
+    1574,
+    1646,
+    1718,
+    1790,
+    1862,
+    1934,
+    2006,
+    2078,
+    2150
+   ],
+   "t_end": 2220,
+   "seed_key": 10
+  },
+  {
+   "log10T": 0.18024052894924947,
+   "sources": [
+    {
+     "file": "llm-soft-loop/pod64/hidden/h2-line-exact/hidden-chaos.json",
+     "index": 339,
+     "lyapunov": [
+      0.0038114229551416733,
+      0.0036939569498881685
+     ],
+     "period": 0,
+     "lead_period": 55,
+     "lead_tokens": [
+      0,
+      9454,
+      33360,
+      271,
+      89783,
+      9707,
+      2753,
+      77661
+     ],
+     "lead_text": [
+      "!",
+      "Yes",
+      " heels",
+      "\n\n",
+      " defiance",
+      "Hello",
+      "No",
+      "PDOException"
+     ],
+     "class": "hidden chaos"
+    }
+   ],
+   "uid": "c011",
+   "kind": "chaotic",
+   "rank": 11,
+   "split": "heldout",
+   "text_period": 55,
+   "spacing": 110,
+   "collect": [
+    1070,
+    1180,
+    1290,
+    1400,
+    1510,
+    1620,
+    1730,
+    1840,
+    1950,
+    2060,
+    2170,
+    2280,
+    2390,
+    2500,
+    2610,
+    2720
+   ],
+   "t_end": 2790,
+   "seed_key": 11
+  },
+  {
+   "log10T": 0.180481772694782,
+   "sources": [
+    {
+     "file": "llm-soft-loop/pod64/hidden/tline-a0.0655/hidden-chaos.json",
+     "index": 418,
+     "lyapunov": [
+      0.03094626682080689,
+      0.030636527006374762
+     ],
+     "period": 0,
+     "lead_period": 17,
+     "lead_tokens": [
+      89783,
+      271,
+      93796,
+      116275,
+      40,
+      0,
+      9454,
+      33360
+     ],
+     "lead_text": [
+      " defiance",
+      "\n\n",
+      "importe",
+      "领土",
+      "I",
+      "!",
+      "Yes",
+      " heels"
+     ],
+     "class": "hidden chaos"
+    }
+   ],
+   "uid": "c012",
+   "kind": "chaotic",
+   "rank": 12,
+   "split": "heldout",
+   "text_period": 17,
+   "spacing": 85,
+   "collect": [
+    1070,
+    1155,
+    1240,
+    1325,
+    1410,
+    1495,
+    1580,
+    1665,
+    1750,
+    1835,
+    1920,
+    2005,
+    2090,
+    2175,
+    2260,
+    2345
+   ],
+   "t_end": 2415,
+   "seed_key": 12
+  },
+  {
+   "log10T": 0.18084631879914223,
+   "sources": [
+    {
+     "file": "llm-soft-loop/pod64/hidden/tline-a0.0655/hidden-chaos.json",
+     "index": 452,
+     "lyapunov": [
+      0.012457589176347187,
+      0.012714776849595058
+     ],
+     "period": 0,
+     "lead_period": 56,
+     "lead_tokens": [
+      9707,
+      0,
+      9454,
+      33360,
+      271,
+      89783,
+      40,
+      2753
+     ],
+     "lead_text": [
+      "Hello",
+      "!",
+      "Yes",
+      " heels",
+      "\n\n",
+      " defiance",
+      "I",
+      "No"
+     ],
+     "class": "hidden chaos"
+    }
+   ],
+   "uid": "c013",
+   "kind": "chaotic",
+   "rank": 13,
+   "split": "heldout",
+   "text_period": 56,
+   "spacing": 112,
+   "collect": [
+    1070,
+    1182,
+    1294,
+    1406,
+    1518,
+    1630,
+    1742,
+    1854,
+    1966,
+    2078,
+    2190,
+    2302,
+    2414,
+    2526,
+    2638,
+    2750
+   ],
+   "t_end": 2820,
+   "seed_key": 13
+  },
+  {
+   "log10T": 0.18144674767691207,
+   "sources": [
+    {
+     "file": "llm-soft-loop/pod64/hidden/tline-a0.0655/hidden-chaos.json",
+     "index": 508,
+     "lyapunov": [
+      0.044710061232296906,
+      0.04483123867500025
+     ],
+     "period": 0,
+     "lead_period": 14,
+     "lead_tokens": [
+      9707,
+      0,
+      9454,
+      33360,
+      271,
+      89783,
+      40
+     ],
+     "lead_text": [
+      "Hello",
+      "!",
+      "Yes",
+      " heels",
+      "\n\n",
+      " defiance",
+      "I"
+     ],
+     "class": "hidden chaos"
+    }
+   ],
+   "uid": "c014",
+   "kind": "chaotic",
+   "rank": 14,
+   "split": "heldout",
+   "text_period": 14,
+   "spacing": 70,
+   "collect": [
+    1070,
+    1140,
+    1210,
+    1280,
+    1350,
+    1420,
+    1490,
+    1560,
+    1630,
+    1700,
+    1770,
+    1840,
+    1910,
+    1980,
+    2050,
+    2120
+   ],
+   "t_end": 2190,
+   "seed_key": 14
+  },
+  {
+   "log10T": 0.18145389563974268,
+   "sources": [
+    {
+     "file": "llm-soft-loop/pod64/hidden/h2-line-exact/hidden-chaos.json",
+     "index": 436,
+     "lyapunov": [
+      0.03150357697553862,
+      0.03126724342748076
+     ],
+     "period": 0,
+     "lead_period": 14,
+     "lead_tokens": [
+      9707,
+      0,
+      9454,
+      33360,
+      271,
+      89783,
+      40
+     ],
+     "lead_text": [
+      "Hello",
+      "!",
+      "Yes",
+      " heels",
+      "\n\n",
+      " defiance",
+      "I"
+     ],
+     "class": "hidden chaos"
+    }
+   ],
+   "uid": "c015",
+   "kind": "chaotic",
+   "rank": 15,
+   "split": "heldout",
+   "text_period": 14,
+   "spacing": 70,
+   "collect": [
+    1070,
+    1140,
+    1210,
+    1280,
+    1350,
+    1420,
+    1490,
+    1560,
+    1630,
+    1700,
+    1770,
+    1840,
+    1910,
+    1980,
+    2050,
+    2120
+   ],
+   "t_end": 2190,
+   "seed_key": 15
+  },
+  {
+   "log10T": 0.18145746962115797,
+   "sources": [
+    {
+     "file": "llm-soft-loop/pod64/hidden/tline-a0.0655/hidden-chaos.json",
+     "index": 509,
+     "lyapunov": [
+      0.03017072037143864,
+      0.03029249515386052
+     ],
+     "period": 0,
+     "lead_period": 14,
+     "lead_tokens": [
+      9707,
+      0,
+      9454,
+      33360,
+      271,
+      89783,
+      40
+     ],
+     "lead_text": [
+      "Hello",
+      "!",
+      "Yes",
+      " heels",
+      "\n\n",
+      " defiance",
+      "I"
+     ],
+     "class": "hidden chaos"
+    }
+   ],
+   "uid": "c016",
+   "kind": "chaotic",
+   "rank": 16,
+   "split": "heldout",
+   "text_period": 14,
+   "spacing": 70,
+   "collect": [
+    1070,
+    1140,
+    1210,
+    1280,
+    1350,
+    1420,
+    1490,
+    1560,
+    1630,
+    1700,
+    1770,
+    1840,
+    1910,
+    1980,
+    2050,
+    2120
+   ],
+   "t_end": 2190,
+   "seed_key": 16
+  },
+  {
+   "log10T": 0.1814664045746962,
+   "sources": [
+    {
+     "file": "llm-soft-loop/pod64/hidden/h2-line-exact/hidden-chaos.json",
+     "index": 437,
+     "lyapunov": [
+      0.0307039245536729,
+      0.03119471523603435
+     ],
+     "period": 0,
+     "lead_period": 14,
+     "lead_tokens": [
+      9707,
+      0,
+      9454,
+      33360,
+      271,
+      89783,
+      40
+     ],
+     "lead_text": [
+      "Hello",
+      "!",
+      "Yes",
+      " heels",
+      "\n\n",
+      " defiance",
+      "I"
+     ],
+     "class": "hidden chaos"
+    }
+   ],
+   "uid": "c017",
+   "kind": "chaotic",
+   "rank": 17,
+   "split": "heldout",
+   "text_period": 14,
+   "spacing": 70,
+   "collect": [
+    1070,
+    1140,
+    1210,
+    1280,
+    1350,
+    1420,
+    1490,
+    1560,
+    1630,
+    1700,
+    1770,
+    1840,
+    1910,
+    1980,
+    2050,
+    2120
+   ],
+   "t_end": 2190,
+   "seed_key": 17
+  },
+  {
+   "log10T": 0.18146819156540386,
+   "sources": [
+    {
+     "file": "llm-soft-loop/pod64/hidden/tline-a0.0655/hidden-chaos.json",
+     "index": 510,
+     "lyapunov": [
+      0.026262722777337443,
+      0.026019173644207944
+     ],
+     "period": 0,
+     "lead_period": 14,
+     "lead_tokens": [
+      40,
+      0,
+      9454,
+      33360,
+      271,
+      89783,
+      9707
+     ],
+     "lead_text": [
+      "I",
+      "!",
+      "Yes",
+      " heels",
+      "\n\n",
+      " defiance",
+      "Hello"
+     ],
+     "class": "hidden chaos"
+    }
+   ],
+   "uid": "c018",
+   "kind": "chaotic",
+   "rank": 18,
+   "split": "heldout",
+   "text_period": 14,
+   "spacing": 70,
+   "collect": [
+    1070,
+    1140,
+    1210,
+    1280,
+    1350,
+    1420,
+    1490,
+    1560,
+    1630,
+    1700,
+    1770,
+    1840,
+    1910,
+    1980,
+    2050,
+    2120
+   ],
+   "t_end": 2190,
+   "seed_key": 18
+  },
+  {
+   "log10T": 0.18147891350964973,
+   "sources": [
+    {
+     "file": "llm-soft-loop/pod64/hidden/tline-a0.0655/hidden-chaos.json",
+     "index": 511,
+     "lyapunov": [
+      0.024032033147867893,
+      0.023901357729886587
+     ],
+     "period": 0,
+     "lead_period": 14,
+     "lead_tokens": [
+      9707,
+      0,
+      9454,
+      33360,
+      271,
+      89783,
+      40
+     ],
+     "lead_text": [
+      "Hello",
+      "!",
+      "Yes",
+      " heels",
+      "\n\n",
+      " defiance",
+      "I"
+     ],
+     "class": "hidden chaos"
+    },
+    {
+     "file": "llm-soft-loop/pod64/hidden/h2-line-exact/hidden-chaos.json",
+     "index": 438,
+     "lyapunov": [
+      0.024786259413435593,
+      0.02296452541929784
+     ],
+     "period": 0,
+     "lead_period": 14,
+     "lead_tokens": [
+      9707,
+      0,
+      9454,
+      33360,
+      271,
+      89783,
+      40
+     ],
+     "lead_text": [
+      "Hello",
+      "!",
+      "Yes",
+      " heels",
+      "\n\n",
+      " defiance",
+      "I"
+     ],
+     "class": "hidden chaos"
+    }
+   ],
+   "uid": "c019",
+   "kind": "chaotic",
+   "rank": 19,
+   "split": "dev",
+   "text_period": 14,
+   "spacing": 70,
+   "collect": [
+    1070,
+    1140,
+    1210,
+    1280,
+    1350,
+    1420,
+    1490,
+    1560,
+    1630,
+    1700,
+    1770,
+    1840,
+    1910,
+    1980,
+    2050,
+    2120
+   ],
+   "t_end": 2190,
+   "seed_key": 19
+  },
+  {
+   "log10T": 0.18478127233738384,
+   "sources": [
+    {
+     "file": "llm-soft-loop/pod64/hidden/tline-a0.0655/hidden-chaos.json",
+     "index": 819,
+     "lyapunov": [
+      0.0065486035798338876,
+      0.005676919430463006
+     ],
+     "period": 0,
+     "lead_period": 28,
+     "lead_tokens": [
+      9707,
+      0,
+      9454,
+      33360,
+      271,
+      89783,
+      77661
+     ],
+     "lead_text": [
+      "Hello",
+      "!",
+      "Yes",
+      " heels",
+      "\n\n",
+      " defiance",
+      "PDOException"
+     ],
+     "class": "hidden chaos"
+    },
+    {
+     "file": "llm-soft-loop/pod64/hidden/h2-line-exact/hidden-chaos.json",
+     "index": 702,
+     "lyapunov": [
+      0.002978892024921036,
+      0.005503810572932701
+     ],
+     "period": 0,
+     "lead_period": 28,
+     "lead_tokens": [
+      9707,
+      0,
+      9454,
+      33360,
+      271,
+      89783,
+      77661
+     ],
+     "lead_text": [
+      "Hello",
+      "!",
+      "Yes",
+      " heels",
+      "\n\n",
+      " defiance",
+      "PDOException"
+     ],
+     "class": "hidden chaos"
+    }
+   ],
+   "uid": "c020",
+   "kind": "chaotic",
+   "rank": 20,
+   "split": "heldout",
+   "text_period": 28,
+   "spacing": 84,
+   "collect": [
+    1070,
+    1154,
+    1238,
+    1322,
+    1406,
+    1490,
+    1574,
+    1658,
+    1742,
+    1826,
+    1910,
+    1994,
+    2078,
+    2162,
+    2246,
+    2330
+   ],
+   "t_end": 2400,
+   "seed_key": 20
+  },
+  {
+   "log10T": 0.1847937812723374,
+   "sources": [
+    {
+     "file": "llm-soft-loop/pod64/hidden/h2-line-exact/hidden-chaos.json",
+     "index": 703,
+     "lyapunov": [
+      0.004281226586662839,
+      0.002235662468424098
+     ],
+     "period": 0,
+     "lead_period": 28,
+     "lead_tokens": [
+      9707,
+      0,
+      9454,
+      33360,
+      271,
+      89783,
+      77661
+     ],
+     "lead_text": [
+      "Hello",
+      "!",
+      "Yes",
+      " heels",
+      "\n\n",
+      " defiance",
+      "PDOException"
+     ],
+     "class": "hidden chaos"
+    }
+   ],
+   "uid": "c021",
+   "kind": "chaotic",
+   "rank": 21,
+   "split": "heldout",
+   "text_period": 28,
+   "spacing": 84,
+   "collect": [
+    1070,
+    1154,
+    1238,
+    1322,
+    1406,
+    1490,
+    1574,
+    1658,
+    1742,
+    1826,
+    1910,
+    1994,
+    2078,
+    2162,
+    2246,
+    2330
+   ],
+   "t_end": 2400,
+   "seed_key": 21
+  },
+  {
+   "log10T": 0.18480271622587563,
+   "sources": [
+    {
+     "file": "llm-soft-loop/pod64/hidden/tline-a0.0655/hidden-chaos.json",
+     "index": 821,
+     "lyapunov": [
+      0.008039924546292649,
+      0.008119821320042013
+     ],
+     "period": 0,
+     "lead_period": 28,
+     "lead_tokens": [
+      9707,
+      0,
+      9454,
+      33360,
+      271,
+      89783,
+      77661
+     ],
+     "lead_text": [
+      "Hello",
+      "!",
+      "Yes",
+      " heels",
+      "\n\n",
+      " defiance",
+      "PDOException"
+     ],
+     "class": "hidden chaos"
+    }
+   ],
+   "uid": "c022",
+   "kind": "chaotic",
+   "rank": 22,
+   "split": "heldout",
+   "text_period": 28,
+   "spacing": 84,
+   "collect": [
+    1070,
+    1154,
+    1238,
+    1322,
+    1406,
+    1490,
+    1574,
+    1658,
+    1742,
+    1826,
+    1910,
+    1994,
+    2078,
+    2162,
+    2246,
+    2330
+   ],
+   "t_end": 2400,
+   "seed_key": 22
+  },
+  {
+   "log10T": 0.18480629020729092,
+   "sources": [
+    {
+     "file": "llm-soft-loop/pod64/hidden/h2-line-exact/hidden-chaos.json",
+     "index": 704,
+     "lyapunov": [
+      0.009371557946157728,
+      0.007165964377564784
+     ],
+     "period": 0,
+     "lead_period": 28,
+     "lead_tokens": [
+      9707,
+      0,
+      9454,
+      33360,
+      271,
+      89783,
+      77661
+     ],
+     "lead_text": [
+      "Hello",
+      "!",
+      "Yes",
+      " heels",
+      "\n\n",
+      " defiance",
+      "PDOException"
+     ],
+     "class": "hidden chaos"
+    }
+   ],
+   "uid": "c023",
+   "kind": "chaotic",
+   "rank": 23,
+   "split": "heldout",
+   "text_period": 28,
+   "spacing": 84,
+   "collect": [
+    1070,
+    1154,
+    1238,
+    1322,
+    1406,
+    1490,
+    1574,
+    1658,
+    1742,
+    1826,
+    1910,
+    1994,
+    2078,
+    2162,
+    2246,
+    2330
+   ],
+   "t_end": 2400,
+   "seed_key": 23
+  },
+  {
+   "log10T": 0.18481343817012152,
+   "sources": [
+    {
+     "file": "llm-soft-loop/pod64/hidden/tline-a0.0655/hidden-chaos.json",
+     "index": 822,
+     "lyapunov": [
+      0.00980481241419325,
+      0.009524249268415882
+     ],
+     "period": 0,
+     "lead_period": 28,
+     "lead_tokens": [
+      9707,
+      0,
+      9454,
+      33360,
+      271,
+      89783,
+      77661
+     ],
+     "lead_text": [
+      "Hello",
+      "!",
+      "Yes",
+      " heels",
+      "\n\n",
+      " defiance",
+      "PDOException"
+     ],
+     "class": "hidden chaos"
+    }
+   ],
+   "uid": "c024",
+   "kind": "chaotic",
+   "rank": 24,
+   "split": "heldout",
+   "text_period": 28,
+   "spacing": 84,
+   "collect": [
+    1070,
+    1154,
+    1238,
+    1322,
+    1406,
+    1490,
+    1574,
+    1658,
+    1742,
+    1826,
+    1910,
+    1994,
+    2078,
+    2162,
+    2246,
+    2330
+   ],
+   "t_end": 2400,
+   "seed_key": 24
+  },
+  {
+   "log10T": 0.18481879914224447,
+   "sources": [
+    {
+     "file": "llm-soft-loop/pod64/hidden/h2-line-exact/hidden-chaos.json",
+     "index": 705,
+     "lyapunov": [
+      0.013404123488733643,
+      0.013390999296339775
+     ],
+     "period": 0,
+     "lead_period": 28,
+     "lead_tokens": [
+      9707,
+      0,
+      9454,
+      33360,
+      271,
+      89783,
+      77661
+     ],
+     "lead_text": [
+      "Hello",
+      "!",
+      "Yes",
+      " heels",
+      "\n\n",
+      " defiance",
+      "PDOException"
+     ],
+     "class": "hidden chaos"
+    }
+   ],
+   "uid": "c025",
+   "kind": "chaotic",
+   "rank": 25,
+   "split": "heldout",
+   "text_period": 28,
+   "spacing": 84,
+   "collect": [
+    1070,
+    1154,
+    1238,
+    1322,
+    1406,
+    1490,
+    1574,
+    1658,
+    1742,
+    1826,
+    1910,
+    1994,
+    2078,
+    2162,
+    2246,
+    2330
+   ],
+   "t_end": 2400,
+   "seed_key": 25
+  },
+  {
+   "log10T": 0.1848241601143674,
+   "sources": [
+    {
+     "file": "llm-soft-loop/pod64/hidden/tline-a0.0655/hidden-chaos.json",
+     "index": 823,
+     "lyapunov": [
+      0.010552736601639521,
+      0.01055488689554256
+     ],
+     "period": 0,
+     "lead_period": 28,
+     "lead_tokens": [
+      9707,
+      0,
+      9454,
+      33360,
+      271,
+      89783,
+      77661
+     ],
+     "lead_text": [
+      "Hello",
+      "!",
+      "Yes",
+      " heels",
+      "\n\n",
+      " defiance",
+      "PDOException"
+     ],
+     "class": "hidden chaos"
+    }
+   ],
+   "uid": "c026",
+   "kind": "chaotic",
+   "rank": 26,
+   "split": "heldout",
+   "text_period": 28,
+   "spacing": 84,
+   "collect": [
+    1070,
+    1154,
+    1238,
+    1322,
+    1406,
+    1490,
+    1574,
+    1658,
+    1742,
+    1826,
+    1910,
+    1994,
+    2078,
+    2162,
+    2246,
+    2330
+   ],
+   "t_end": 2400,
+   "seed_key": 26
+  },
+  {
+   "log10T": 0.184831308077198,
+   "sources": [
+    {
+     "file": "llm-soft-loop/pod64/hidden/h2-line-exact/hidden-chaos.json",
+     "index": 706,
+     "lyapunov": [
+      0.011430785044927583,
+      0.012998094599774065
+     ],
+     "period": 0,
+     "lead_period": 28,
+     "lead_tokens": [
+      9707,
+      0,
+      9454,
+      33360,
+      271,
+      89783,
+      77661
+     ],
+     "lead_text": [
+      "Hello",
+      "!",
+      "Yes",
+      " heels",
+      "\n\n",
+      " defiance",
+      "PDOException"
+     ],
+     "class": "hidden chaos"
+    }
+   ],
+   "uid": "c027",
+   "kind": "chaotic",
+   "rank": 27,
+   "split": "heldout",
+   "text_period": 28,
+   "spacing": 84,
+   "collect": [
+    1070,
+    1154,
+    1238,
+    1322,
+    1406,
+    1490,
+    1574,
+    1658,
+    1742,
+    1826,
+    1910,
+    1994,
+    2078,
+    2162,
+    2246,
+    2330
+   ],
+   "t_end": 2400,
+   "seed_key": 27
+  },
+  {
+   "log10T": 0.1848348820586133,
+   "sources": [
+    {
+     "file": "llm-soft-loop/pod64/hidden/tline-a0.0655/hidden-chaos.json",
+     "index": 824,
+     "lyapunov": [
+      0.01167074559220486,
+      0.01148653678661233
+     ],
+     "period": 0,
+     "lead_period": 28,
+     "lead_tokens": [
+      9707,
+      0,
+      9454,
+      33360,
+      271,
+      89783,
+      77661
+     ],
+     "lead_text": [
+      "Hello",
+      "!",
+      "Yes",
+      " heels",
+      "\n\n",
+      " defiance",
+      "PDOException"
+     ],
+     "class": "hidden chaos"
+    }
+   ],
+   "uid": "c028",
+   "kind": "chaotic",
+   "rank": 28,
+   "split": "heldout",
+   "text_period": 28,
+   "spacing": 84,
+   "collect": [
+    1070,
+    1154,
+    1238,
+    1322,
+    1406,
+    1490,
+    1574,
+    1658,
+    1742,
+    1826,
+    1910,
+    1994,
+    2078,
+    2162,
+    2246,
+    2330
+   ],
+   "t_end": 2400,
+   "seed_key": 28
+  },
+  {
+   "log10T": 0.18484381701215152,
+   "sources": [
+    {
+     "file": "llm-soft-loop/pod64/hidden/h2-line-exact/hidden-chaos.json",
+     "index": 707,
+     "lyapunov": [
+      0.011738339075332548,
+      0.01086048673391911
+     ],
+     "period": 0,
+     "lead_period": 28,
+     "lead_tokens": [
+      9707,
+      0,
+      9454,
+      33360,
+      271,
+      89783,
+      77661
+     ],
+     "lead_text": [
+      "Hello",
+      "!",
+      "Yes",
+      " heels",
+      "\n\n",
+      " defiance",
+      "PDOException"
+     ],
+     "class": "hidden chaos"
+    }
+   ],
+   "uid": "c029",
+   "kind": "chaotic",
+   "rank": 29,
+   "split": "heldout",
+   "text_period": 28,
+   "spacing": 84,
+   "collect": [
+    1070,
+    1154,
+    1238,
+    1322,
+    1406,
+    1490,
+    1574,
+    1658,
+    1742,
+    1826,
+    1910,
+    1994,
+    2078,
+    2162,
+    2246,
+    2330
+   ],
+   "t_end": 2400,
+   "seed_key": 29
+  },
+  {
+   "log10T": 0.18484560400285918,
+   "sources": [
+    {
+     "file": "llm-soft-loop/pod64/hidden/tline-a0.0655/hidden-chaos.json",
+     "index": 825,
+     "lyapunov": [
+      0.014144193701155298,
+      0.013542481778420773
+     ],
+     "period": 0,
+     "lead_period": 28,
+     "lead_tokens": [
+      9707,
+      0,
+      9454,
+      33360,
+      271,
+      89783,
+      77661
+     ],
+     "lead_text": [
+      "Hello",
+      "!",
+      "Yes",
+      " heels",
+      "\n\n",
+      " defiance",
+      "PDOException"
+     ],
+     "class": "hidden chaos"
+    }
+   ],
+   "uid": "c030",
+   "kind": "chaotic",
+   "rank": 30,
+   "split": "heldout",
+   "text_period": 28,
+   "spacing": 84,
+   "collect": [
+    1070,
+    1154,
+    1238,
+    1322,
+    1406,
+    1490,
+    1574,
+    1658,
+    1742,
+    1826,
+    1910,
+    1994,
+    2078,
+    2162,
+    2246,
+    2330
+   ],
+   "t_end": 2400,
+   "seed_key": 30
+  },
+  {
+   "log10T": 0.18485632594710508,
+   "sources": [
+    {
+     "file": "llm-soft-loop/pod64/hidden/tline-a0.0655/hidden-chaos.json",
+     "index": 826,
+     "lyapunov": [
+      0.01075578248003311,
+      0.011125329910473814
+     ],
+     "period": 0,
+     "lead_period": 28,
+     "lead_tokens": [
+      9707,
+      0,
+      9454,
+      33360,
+      271,
+      89783,
+      77661
+     ],
+     "lead_text": [
+      "Hello",
+      "!",
+      "Yes",
+      " heels",
+      "\n\n",
+      " defiance",
+      "PDOException"
+     ],
+     "class": "hidden chaos"
+    },
+    {
+     "file": "llm-soft-loop/pod64/hidden/h2-line-exact/hidden-chaos.json",
+     "index": 708,
+     "lyapunov": [
+      0.010969620695802118,
+      0.010095434415640913
+     ],
+     "period": 0,
+     "lead_period": 28,
+     "lead_tokens": [
+      9707,
+      0,
+      9454,
+      33360,
+      271,
+      89783,
+      77661
+     ],
+     "lead_text": [
+      "Hello",
+      "!",
+      "Yes",
+      " heels",
+      "\n\n",
+      " defiance",
+      "PDOException"
+     ],
+     "class": "hidden chaos"
+    }
+   ],
+   "uid": "c031",
+   "kind": "chaotic",
+   "rank": 31,
+   "split": "heldout",
+   "text_period": 28,
+   "spacing": 84,
+   "collect": [
+    1070,
+    1154,
+    1238,
+    1322,
+    1406,
+    1490,
+    1574,
+    1658,
+    1742,
+    1826,
+    1910,
+    1994,
+    2078,
+    2162,
+    2246,
+    2330
+   ],
+   "t_end": 2400,
+   "seed_key": 31
+  },
+  {
+   "log10T": 0.18486704789135097,
+   "sources": [
+    {
+     "file": "llm-soft-loop/pod64/hidden/tline-a0.0655/hidden-chaos.json",
+     "index": 827,
+     "lyapunov": [
+      0.01600544467449906,
+      0.015818283802154737
+     ],
+     "period": 0,
+     "lead_period": 28,
+     "lead_tokens": [
+      9707,
+      0,
+      9454,
+      33360,
+      271,
+      89783,
+      77661
+     ],
+     "lead_text": [
+      "Hello",
+      "!",
+      "Yes",
+      " heels",
+      "\n\n",
+      " defiance",
+      "PDOException"
+     ],
+     "class": "hidden chaos"
+    }
+   ],
+   "uid": "c032",
+   "kind": "chaotic",
+   "rank": 32,
+   "split": "heldout",
+   "text_period": 28,
+   "spacing": 84,
+   "collect": [
+    1070,
+    1154,
+    1238,
+    1322,
+    1406,
+    1490,
+    1574,
+    1658,
+    1742,
+    1826,
+    1910,
+    1994,
+    2078,
+    2162,
+    2246,
+    2330
+   ],
+   "t_end": 2400,
+   "seed_key": 32
+  },
+  {
+   "log10T": 0.1848688348820586,
+   "sources": [
+    {
+     "file": "llm-soft-loop/pod64/hidden/h2-line-exact/hidden-chaos.json",
+     "index": 709,
+     "lyapunov": [
+      0.014584463053961343,
+      0.014914068343637316
+     ],
+     "period": 0,
+     "lead_period": 28,
+     "lead_tokens": [
+      9707,
+      0,
+      9454,
+      33360,
+      271,
+      89783,
+      77661
+     ],
+     "lead_text": [
+      "Hello",
+      "!",
+      "Yes",
+      " heels",
+      "\n\n",
+      " defiance",
+      "PDOException"
+     ],
+     "class": "hidden chaos"
+    }
+   ],
+   "uid": "c033",
+   "kind": "chaotic",
+   "rank": 33,
+   "split": "dev",
+   "text_period": 28,
+   "spacing": 84,
+   "collect": [
+    1070,
+    1154,
+    1238,
+    1322,
+    1406,
+    1490,
+    1574,
+    1658,
+    1742,
+    1826,
+    1910,
+    1994,
+    2078,
+    2162,
+    2246,
+    2330
+   ],
+   "t_end": 2400,
+   "seed_key": 33
+  },
+  {
+   "log10T": 0.18487776983559684,
+   "sources": [
+    {
+     "file": "llm-soft-loop/pod64/hidden/tline-a0.0655/hidden-chaos.json",
+     "index": 828,
+     "lyapunov": [
+      0.014264380992980054,
+      0.014657345509667099
+     ],
+     "period": 0,
+     "lead_period": 28,
+     "lead_tokens": [
+      9707,
+      0,
+      9454,
+      33360,
+      271,
+      89783,
+      77661
+     ],
+     "lead_text": [
+      "Hello",
+      "!",
+      "Yes",
+      " heels",
+      "\n\n",
+      " defiance",
+      "PDOException"
+     ],
+     "class": "hidden chaos"
+    }
+   ],
+   "uid": "c034",
+   "kind": "chaotic",
+   "rank": 34,
+   "split": "heldout",
+   "text_period": 28,
+   "spacing": 84,
+   "collect": [
+    1070,
+    1154,
+    1238,
+    1322,
+    1406,
+    1490,
+    1574,
+    1658,
+    1742,
+    1826,
+    1910,
+    1994,
+    2078,
+    2162,
+    2246,
+    2330
+   ],
+   "t_end": 2400,
+   "seed_key": 34
+  },
+  {
+   "log10T": 0.18488134381701216,
+   "sources": [
+    {
+     "file": "llm-soft-loop/pod64/hidden/h2-line-exact/hidden-chaos.json",
+     "index": 710,
+     "lyapunov": [
+      0.015637555544037344,
+      0.016122460432062936
+     ],
+     "period": 0,
+     "lead_period": 28,
+     "lead_tokens": [
+      9707,
+      0,
+      9454,
+      33360,
+      271,
+      89783,
+      77661
+     ],
+     "lead_text": [
+      "Hello",
+      "!",
+      "Yes",
+      " heels",
+      "\n\n",
+      " defiance",
+      "PDOException"
+     ],
+     "class": "hidden chaos"
+    }
+   ],
+   "uid": "c035",
+   "kind": "chaotic",
+   "rank": 35,
+   "split": "heldout",
+   "text_period": 28,
+   "spacing": 84,
+   "collect": [
+    1070,
+    1154,
+    1238,
+    1322,
+    1406,
+    1490,
+    1574,
+    1658,
+    1742,
+    1826,
+    1910,
+    1994,
+    2078,
+    2162,
+    2246,
+    2330
+   ],
+   "t_end": 2400,
+   "seed_key": 35
+  },
+  {
+   "log10T": 0.18488849177984273,
+   "sources": [
+    {
+     "file": "llm-soft-loop/pod64/hidden/tline-a0.0655/hidden-chaos.json",
+     "index": 829,
+     "lyapunov": [
+      0.0152191889353893,
+      0.015573388776160019
+     ],
+     "period": 0,
+     "lead_period": 28,
+     "lead_tokens": [
+      9707,
+      0,
+      9454,
+      33360,
+      271,
+      89783,
+      77661
+     ],
+     "lead_text": [
+      "Hello",
+      "!",
+      "Yes",
+      " heels",
+      "\n\n",
+      " defiance",
+      "PDOException"
+     ],
+     "class": "hidden chaos"
+    }
+   ],
+   "uid": "c036",
+   "kind": "chaotic",
+   "rank": 36,
+   "split": "heldout",
+   "text_period": 28,
+   "spacing": 84,
+   "collect": [
+    1070,
+    1154,
+    1238,
+    1322,
+    1406,
+    1490,
+    1574,
+    1658,
+    1742,
+    1826,
+    1910,
+    1994,
+    2078,
+    2162,
+    2246,
+    2330
+   ],
+   "t_end": 2400,
+   "seed_key": 36
+  },
+  {
+   "log10T": 0.18489385275196568,
+   "sources": [
+    {
+     "file": "llm-soft-loop/pod64/hidden/h2-line-exact/hidden-chaos.json",
+     "index": 711,
+     "lyapunov": [
+      0.01710719509444922,
+      0.017537844715252493
+     ],
+     "period": 0,
+     "lead_period": 28,
+     "lead_tokens": [
+      9707,
+      0,
+      9454,
+      33360,
+      271,
+      89783,
+      77661
+     ],
+     "lead_text": [
+      "Hello",
+      "!",
+      "Yes",
+      " heels",
+      "\n\n",
+      " defiance",
+      "PDOException"
+     ],
+     "class": "hidden chaos"
+    }
+   ],
+   "uid": "c037",
+   "kind": "chaotic",
+   "rank": 37,
+   "split": "heldout",
+   "text_period": 28,
+   "spacing": 84,
+   "collect": [
+    1070,
+    1154,
+    1238,
+    1322,
+    1406,
+    1490,
+    1574,
+    1658,
+    1742,
+    1826,
+    1910,
+    1994,
+    2078,
+    2162,
+    2246,
+    2330
+   ],
+   "t_end": 2400,
+   "seed_key": 37
+  },
+  {
+   "log10T": 0.18489921372408863,
+   "sources": [
+    {
+     "file": "llm-soft-loop/pod64/hidden/tline-a0.0655/hidden-chaos.json",
+     "index": 830,
+     "lyapunov": [
+      0.00857569258404986,
+      0.00711145425057967
+     ],
+     "period": 0,
+     "lead_period": 28,
+     "lead_tokens": [
+      9707,
+      0,
+      9454,
+      33360,
+      271,
+      89783,
+      77661
+     ],
+     "lead_text": [
+      "Hello",
+      "!",
+      "Yes",
+      " heels",
+      "\n\n",
+      " defiance",
+      "PDOException"
+     ],
+     "class": "hidden chaos"
+    }
+   ],
+   "uid": "c038",
+   "kind": "chaotic",
+   "rank": 38,
+   "split": "heldout",
+   "text_period": 28,
+   "spacing": 84,
+   "collect": [
+    1070,
+    1154,
+    1238,
+    1322,
+    1406,
+    1490,
+    1574,
+    1658,
+    1742,
+    1826,
+    1910,
+    1994,
+    2078,
+    2162,
+    2246,
+    2330
+   ],
+   "t_end": 2400,
+   "seed_key": 38
+  },
+  {
+   "log10T": 0.18490636168691924,
+   "sources": [
+    {
+     "file": "llm-soft-loop/pod64/hidden/h2-line-exact/hidden-chaos.json",
+     "index": 712,
+     "lyapunov": [
+      0.014595400027519074,
+      0.015157660835378305
+     ],
+     "period": 0,
+     "lead_period": 28,
+     "lead_tokens": [
+      9707,
+      0,
+      9454,
+      33360,
+      271,
+      89783,
+      77661
+     ],
+     "lead_text": [
+      "Hello",
+      "!",
+      "Yes",
+      " heels",
+      "\n\n",
+      " defiance",
+      "PDOException"
+     ],
+     "class": "hidden chaos"
+    }
+   ],
+   "uid": "c039",
+   "kind": "chaotic",
+   "rank": 39,
+   "split": "heldout",
+   "text_period": 28,
+   "spacing": 84,
+   "collect": [
+    1070,
+    1154,
+    1238,
+    1322,
+    1406,
+    1490,
+    1574,
+    1658,
+    1742,
+    1826,
+    1910,
+    1994,
+    2078,
+    2162,
+    2246,
+    2330
+   ],
+   "t_end": 2400,
+   "seed_key": 39
+  },
+  {
+   "log10T": 0.1850278770550393,
+   "sources": [
+    {
+     "file": "llm-soft-loop/pod64/hidden/tline-a0.0655/hidden-chaos.json",
+     "index": 842,
+     "lyapunov": [
+      0.010612566148284666,
+      0.010053831354913247
+     ],
+     "period": 0,
+     "lead_period": 28,
+     "lead_tokens": [
+      9707,
+      0,
+      9454,
+      33360,
+      271,
+      89783,
+      77661
+     ],
+     "lead_text": [
+      "Hello",
+      "!",
+      "Yes",
+      " heels",
+      "\n\n",
+      " defiance",
+      "PDOException"
+     ],
+     "class": "hidden chaos"
+    }
+   ],
+   "uid": "c040",
+   "kind": "chaotic",
+   "rank": 40,
+   "split": "heldout",
+   "text_period": 28,
+   "spacing": 84,
+   "collect": [
+    1070,
+    1154,
+    1238,
+    1322,
+    1406,
+    1490,
+    1574,
+    1658,
+    1742,
+    1826,
+    1910,
+    1994,
+    2078,
+    2162,
+    2246,
+    2330
+   ],
+   "t_end": 2400,
+   "seed_key": 40
+  },
+  {
+   "log10T": 0.1850314510364546,
+   "sources": [
+    {
+     "file": "llm-soft-loop/pod64/hidden/h2-line-exact/hidden-chaos.json",
+     "index": 722,
+     "lyapunov": [
+      0.020447147276595773,
+      0.018592303634981946
+     ],
+     "period": 0,
+     "lead_period": 28,
+     "lead_tokens": [
+      9707,
+      0,
+      9454,
+      33360,
+      271,
+      89783,
+      77661
+     ],
+     "lead_text": [
+      "Hello",
+      "!",
+      "Yes",
+      " heels",
+      "\n\n",
+      " defiance",
+      "PDOException"
+     ],
+     "class": "hidden chaos"
+    }
+   ],
+   "uid": "c041",
+   "kind": "chaotic",
+   "rank": 41,
+   "split": "heldout",
+   "text_period": 28,
+   "spacing": 84,
+   "collect": [
+    1070,
+    1154,
+    1238,
+    1322,
+    1406,
+    1490,
+    1574,
+    1658,
+    1742,
+    1826,
+    1910,
+    1994,
+    2078,
+    2162,
+    2246,
+    2330
+   ],
+   "t_end": 2400,
+   "seed_key": 41
+  },
+  {
+   "log10T": 0.1850385989992852,
+   "sources": [
+    {
+     "file": "llm-soft-loop/pod64/hidden/tline-a0.0655/hidden-chaos.json",
+     "index": 843,
+     "lyapunov": [
+      0.014278577911546745,
+      0.014311952099592
+     ],
+     "period": 0,
+     "lead_period": 28,
+     "lead_tokens": [
+      9707,
+      0,
+      9454,
+      33360,
+      271,
+      89783,
+      77661
+     ],
+     "lead_text": [
+      "Hello",
+      "!",
+      "Yes",
+      " heels",
+      "\n\n",
+      " defiance",
+      "PDOException"
+     ],
+     "class": "hidden chaos"
+    }
+   ],
+   "uid": "c042",
+   "kind": "chaotic",
+   "rank": 42,
+   "split": "heldout",
+   "text_period": 28,
+   "spacing": 84,
+   "collect": [
+    1070,
+    1154,
+    1238,
+    1322,
+    1406,
+    1490,
+    1574,
+    1658,
+    1742,
+    1826,
+    1910,
+    1994,
+    2078,
+    2162,
+    2246,
+    2330
+   ],
+   "t_end": 2400,
+   "seed_key": 42
+  },
+  {
+   "log10T": 0.18504395997140816,
+   "sources": [
+    {
+     "file": "llm-soft-loop/pod64/hidden/h2-line-exact/hidden-chaos.json",
+     "index": 723,
+     "lyapunov": [
+      0.01620120276209941,
+      0.0168994988077054
+     ],
+     "period": 0,
+     "lead_period": 28,
+     "lead_tokens": [
+      9707,
+      0,
+      9454,
+      33360,
+      271,
+      89783,
+      77661
+     ],
+     "lead_text": [
+      "Hello",
+      "!",
+      "Yes",
+      " heels",
+      "\n\n",
+      " defiance",
+      "PDOException"
+     ],
+     "class": "hidden chaos"
+    }
+   ],
+   "uid": "c043",
+   "kind": "chaotic",
+   "rank": 43,
+   "split": "heldout",
+   "text_period": 28,
+   "spacing": 84,
+   "collect": [
+    1070,
+    1154,
+    1238,
+    1322,
+    1406,
+    1490,
+    1574,
+    1658,
+    1742,
+    1826,
+    1910,
+    1994,
+    2078,
+    2162,
+    2246,
+    2330
+   ],
+   "t_end": 2400,
+   "seed_key": 43
+  },
+  {
+   "log10T": 0.1850493209435311,
+   "sources": [
+    {
+     "file": "llm-soft-loop/pod64/hidden/tline-a0.0655/hidden-chaos.json",
+     "index": 844,
+     "lyapunov": [
+      0.014922665136863286,
+      0.015357775883280116
+     ],
+     "period": 0,
+     "lead_period": 28,
+     "lead_tokens": [
+      9707,
+      0,
+      9454,
+      33360,
+      271,
+      89783,
+      77661
+     ],
+     "lead_text": [
+      "Hello",
+      "!",
+      "Yes",
+      " heels",
+      "\n\n",
+      " defiance",
+      "PDOException"
+     ],
+     "class": "hidden chaos"
+    }
+   ],
+   "uid": "c044",
+   "kind": "chaotic",
+   "rank": 44,
+   "split": "heldout",
+   "text_period": 28,
+   "spacing": 84,
+   "collect": [
+    1070,
+    1154,
+    1238,
+    1322,
+    1406,
+    1490,
+    1574,
+    1658,
+    1742,
+    1826,
+    1910,
+    1994,
+    2078,
+    2162,
+    2246,
+    2330
+   ],
+   "t_end": 2400,
+   "seed_key": 44
+  },
+  {
+   "log10T": 0.18505646890636168,
+   "sources": [
+    {
+     "file": "llm-soft-loop/pod64/hidden/h2-line-exact/hidden-chaos.json",
+     "index": 724,
+     "lyapunov": [
+      0.01415546615457274,
+      0.014895177878208264
+     ],
+     "period": 0,
+     "lead_period": 28,
+     "lead_tokens": [
+      9707,
+      0,
+      9454,
+      33360,
+      271,
+      89783,
+      77661
+     ],
+     "lead_text": [
+      "Hello",
+      "!",
+      "Yes",
+      " heels",
+      "\n\n",
+      " defiance",
+      "PDOException"
+     ],
+     "class": "hidden chaos"
+    }
+   ],
+   "uid": "c045",
+   "kind": "chaotic",
+   "rank": 45,
+   "split": "heldout",
+   "text_period": 28,
+   "spacing": 84,
+   "collect": [
+    1070,
+    1154,
+    1238,
+    1322,
+    1406,
+    1490,
+    1574,
+    1658,
+    1742,
+    1826,
+    1910,
+    1994,
+    2078,
+    2162,
+    2246,
+    2330
+   ],
+   "t_end": 2400,
+   "seed_key": 45
+  },
+  {
+   "log10T": 0.18506004288777697,
+   "sources": [
+    {
+     "file": "llm-soft-loop/pod64/hidden/tline-a0.0655/hidden-chaos.json",
+     "index": 845,
+     "lyapunov": [
+      0.011416946087806194,
+      0.012935145728958151
+     ],
+     "period": 0,
+     "lead_period": 28,
+     "lead_tokens": [
+      9707,
+      0,
+      9454,
+      33360,
+      271,
+      89783,
+      77661
+     ],
+     "lead_text": [
+      "Hello",
+      "!",
+      "Yes",
+      " heels",
+      "\n\n",
+      " defiance",
+      "PDOException"
+     ],
+     "class": "hidden chaos"
+    }
+   ],
+   "uid": "c046",
+   "kind": "chaotic",
+   "rank": 46,
+   "split": "dev",
+   "text_period": 28,
+   "spacing": 84,
+   "collect": [
+    1070,
+    1154,
+    1238,
+    1322,
+    1406,
+    1490,
+    1574,
+    1658,
+    1742,
+    1826,
+    1910,
+    1994,
+    2078,
+    2162,
+    2246,
+    2330
+   ],
+   "t_end": 2400,
+   "seed_key": 46
+  },
+  {
+   "log10T": 0.18506897784131524,
+   "sources": [
+    {
+     "file": "llm-soft-loop/pod64/hidden/h2-line-exact/hidden-chaos.json",
+     "index": 725,
+     "lyapunov": [
+      0.01587367060042353,
+      0.015672870211102807
+     ],
+     "period": 0,
+     "lead_period": 28,
+     "lead_tokens": [
+      9707,
+      0,
+      9454,
+      33360,
+      271,
+      89783,
+      77661
+     ],
+     "lead_text": [
+      "Hello",
+      "!",
+      "Yes",
+      " heels",
+      "\n\n",
+      " defiance",
+      "PDOException"
+     ],
+     "class": "hidden chaos"
+    }
+   ],
+   "uid": "c047",
+   "kind": "chaotic",
+   "rank": 47,
+   "split": "heldout",
+   "text_period": 28,
+   "spacing": 84,
+   "collect": [
+    1070,
+    1154,
+    1238,
+    1322,
+    1406,
+    1490,
+    1574,
+    1658,
+    1742,
+    1826,
+    1910,
+    1994,
+    2078,
+    2162,
+    2246,
+    2330
+   ],
+   "t_end": 2400,
+   "seed_key": 47
+  },
+  {
+   "log10T": 0.18507076483202287,
+   "sources": [
+    {
+     "file": "llm-soft-loop/pod64/hidden/tline-a0.0655/hidden-chaos.json",
+     "index": 846,
+     "lyapunov": [
+      0.013877416159727353,
+      0.012686759247597741
+     ],
+     "period": 0,
+     "lead_period": 28,
+     "lead_tokens": [
+      9707,
+      0,
+      9454,
+      33360,
+      271,
+      89783,
+      77661
+     ],
+     "lead_text": [
+      "Hello",
+      "!",
+      "Yes",
+      " heels",
+      "\n\n",
+      " defiance",
+      "PDOException"
+     ],
+     "class": "hidden chaos"
+    }
+   ],
+   "uid": "c048",
+   "kind": "chaotic",
+   "rank": 48,
+   "split": "heldout",
+   "text_period": 28,
+   "spacing": 84,
+   "collect": [
+    1070,
+    1154,
+    1238,
+    1322,
+    1406,
+    1490,
+    1574,
+    1658,
+    1742,
+    1826,
+    1910,
+    1994,
+    2078,
+    2162,
+    2246,
+    2330
+   ],
+   "t_end": 2400,
+   "seed_key": 48
+  },
+  {
+   "log10T": 0.18508148677626876,
+   "sources": [
+    {
+     "file": "llm-soft-loop/pod64/hidden/tline-a0.0655/hidden-chaos.json",
+     "index": 847,
+     "lyapunov": [
+      0.013070809517292939,
+      0.013854019585355454
+     ],
+     "period": 0,
+     "lead_period": 28,
+     "lead_tokens": [
+      9707,
+      0,
+      9454,
+      33360,
+      271,
+      89783,
+      77661
+     ],
+     "lead_text": [
+      "Hello",
+      "!",
+      "Yes",
+      " heels",
+      "\n\n",
+      " defiance",
+      "PDOException"
+     ],
+     "class": "hidden chaos"
+    },
+    {
+     "file": "llm-soft-loop/pod64/hidden/h2-line-exact/hidden-chaos.json",
+     "index": 726,
+     "lyapunov": [
+      0.014105874132932067,
+      0.014682063772937771
+     ],
+     "period": 0,
+     "lead_period": 28,
+     "lead_tokens": [
+      9707,
+      0,
+      9454,
+      33360,
+      271,
+      89783,
+      77661
+     ],
+     "lead_text": [
+      "Hello",
+      "!",
+      "Yes",
+      " heels",
+      "\n\n",
+      " defiance",
+      "PDOException"
+     ],
+     "class": "hidden chaos"
+    }
+   ],
+   "uid": "c049",
+   "kind": "chaotic",
+   "rank": 49,
+   "split": "heldout",
+   "text_period": 28,
+   "spacing": 84,
+   "collect": [
+    1070,
+    1154,
+    1238,
+    1322,
+    1406,
+    1490,
+    1574,
+    1658,
+    1742,
+    1826,
+    1910,
+    1994,
+    2078,
+    2162,
+    2246,
+    2330
+   ],
+   "t_end": 2400,
+   "seed_key": 49
+  },
+  {
+   "log10T": 0.18509220872051466,
+   "sources": [
+    {
+     "file": "llm-soft-loop/pod64/hidden/tline-a0.0655/hidden-chaos.json",
+     "index": 848,
+     "lyapunov": [
+      0.014039443090372543,
+      0.01415741947962338
+     ],
+     "period": 0,
+     "lead_period": 28,
+     "lead_tokens": [
+      9707,
+      0,
+      9454,
+      33360,
+      271,
+      89783,
+      77661
+     ],
+     "lead_text": [
+      "Hello",
+      "!",
+      "Yes",
+      " heels",
+      "\n\n",
+      " defiance",
+      "PDOException"
+     ],
+     "class": "hidden chaos"
+    }
+   ],
+   "uid": "c050",
+   "kind": "chaotic",
+   "rank": 50,
+   "split": "heldout",
+   "text_period": 28,
+   "spacing": 84,
+   "collect": [
+    1070,
+    1154,
+    1238,
+    1322,
+    1406,
+    1490,
+    1574,
+    1658,
+    1742,
+    1826,
+    1910,
+    1994,
+    2078,
+    2162,
+    2246,
+    2330
+   ],
+   "t_end": 2400,
+   "seed_key": 50
+  },
+  {
+   "log10T": 0.1850939957112223,
+   "sources": [
+    {
+     "file": "llm-soft-loop/pod64/hidden/h2-line-exact/hidden-chaos.json",
+     "index": 727,
+     "lyapunov": [
+      0.014725593078503041,
+      0.014642078004145097
+     ],
+     "period": 0,
+     "lead_period": 28,
+     "lead_tokens": [
+      9707,
+      0,
+      9454,
+      33360,
+      271,
+      89783,
+      77661
+     ],
+     "lead_text": [
+      "Hello",
+      "!",
+      "Yes",
+      " heels",
+      "\n\n",
+      " defiance",
+      "PDOException"
+     ],
+     "class": "hidden chaos"
+    }
+   ],
+   "uid": "c051",
+   "kind": "chaotic",
+   "rank": 51,
+   "split": "heldout",
+   "text_period": 28,
+   "spacing": 84,
+   "collect": [
+    1070,
+    1154,
+    1238,
+    1322,
+    1406,
+    1490,
+    1574,
+    1658,
+    1742,
+    1826,
+    1910,
+    1994,
+    2078,
+    2162,
+    2246,
+    2330
+   ],
+   "t_end": 2400,
+   "seed_key": 51
+  },
+  {
+   "log10T": 0.18510293066476055,
+   "sources": [
+    {
+     "file": "llm-soft-loop/pod64/hidden/tline-a0.0655/hidden-chaos.json",
+     "index": 849,
+     "lyapunov": [
+      0.015342736699299475,
+      0.013595733467712581
+     ],
+     "period": 0,
+     "lead_period": 28,
+     "lead_tokens": [
+      9707,
+      0,
+      9454,
+      33360,
+      271,
+      89783,
+      77661
+     ],
+     "lead_text": [
+      "Hello",
+      "!",
+      "Yes",
+      " heels",
+      "\n\n",
+      " defiance",
+      "PDOException"
+     ],
+     "class": "hidden chaos"
+    }
+   ],
+   "uid": "c052",
+   "kind": "chaotic",
+   "rank": 52,
+   "split": "heldout",
+   "text_period": 28,
+   "spacing": 84,
+   "collect": [
+    1070,
+    1154,
+    1238,
+    1322,
+    1406,
+    1490,
+    1574,
+    1658,
+    1742,
+    1826,
+    1910,
+    1994,
+    2078,
+    2162,
+    2246,
+    2330
+   ],
+   "t_end": 2400,
+   "seed_key": 52
+  },
+  {
+   "log10T": 0.18510650464617584,
+   "sources": [
+    {
+     "file": "llm-soft-loop/pod64/hidden/h2-line-exact/hidden-chaos.json",
+     "index": 728,
+     "lyapunov": [
+      0.009028864400461098,
+      0.008890859000042946
+     ],
+     "period": 0,
+     "lead_period": 28,
+     "lead_tokens": [
+      9707,
+      0,
+      9454,
+      33360,
+      271,
+      89783,
+      77661
+     ],
+     "lead_text": [
+      "Hello",
+      "!",
+      "Yes",
+      " heels",
+      "\n\n",
+      " defiance",
+      "PDOException"
+     ],
+     "class": "hidden chaos"
+    }
+   ],
+   "uid": "c053",
+   "kind": "chaotic",
+   "rank": 53,
+   "split": "heldout",
+   "text_period": 28,
+   "spacing": 84,
+   "collect": [
+    1070,
+    1154,
+    1238,
+    1322,
+    1406,
+    1490,
+    1574,
+    1658,
+    1742,
+    1826,
+    1910,
+    1994,
+    2078,
+    2162,
+    2246,
+    2330
+   ],
+   "t_end": 2400,
+   "seed_key": 53
+  },
+  {
+   "log10T": 0.18511365260900642,
+   "sources": [
+    {
+     "file": "llm-soft-loop/pod64/hidden/tline-a0.0655/hidden-chaos.json",
+     "index": 850,
+     "lyapunov": [
+      0.012229362349477852,
+      0.011953506301404893
+     ],
+     "period": 0,
+     "lead_period": 28,
+     "lead_tokens": [
+      9707,
+      0,
+      9454,
+      33360,
+      271,
+      89783,
+      77661
+     ],
+     "lead_text": [
+      "Hello",
+      "!",
+      "Yes",
+      " heels",
+      "\n\n",
+      " defiance",
+      "PDOException"
+     ],
+     "class": "hidden chaos"
+    }
+   ],
+   "uid": "c054",
+   "kind": "chaotic",
+   "rank": 54,
+   "split": "heldout",
+   "text_period": 28,
+   "spacing": 84,
+   "collect": [
+    1070,
+    1154,
+    1238,
+    1322,
+    1406,
+    1490,
+    1574,
+    1658,
+    1742,
+    1826,
+    1910,
+    1994,
+    2078,
+    2162,
+    2246,
+    2330
+   ],
+   "t_end": 2400,
+   "seed_key": 54
+  },
+  {
+   "log10T": 0.18511901358112937,
+   "sources": [
+    {
+     "file": "llm-soft-loop/pod64/hidden/h2-line-exact/hidden-chaos.json",
+     "index": 729,
+     "lyapunov": [
+      0.014611133683819298,
+      0.014628007807798393
+     ],
+     "period": 0,
+     "lead_period": 28,
+     "lead_tokens": [
+      9707,
+      0,
+      9454,
+      33360,
+      271,
+      89783,
+      77661
+     ],
+     "lead_text": [
+      "Hello",
+      "!",
+      "Yes",
+      " heels",
+      "\n\n",
+      " defiance",
+      "PDOException"
+     ],
+     "class": "hidden chaos"
+    }
+   ],
+   "uid": "c055",
+   "kind": "chaotic",
+   "rank": 55,
+   "split": "heldout",
+   "text_period": 28,
+   "spacing": 84,
+   "collect": [
+    1070,
+    1154,
+    1238,
+    1322,
+    1406,
+    1490,
+    1574,
+    1658,
+    1742,
+    1826,
+    1910,
+    1994,
+    2078,
+    2162,
+    2246,
+    2330
+   ],
+   "t_end": 2400,
+   "seed_key": 55
+  },
+  {
+   "log10T": 0.1851243745532523,
+   "sources": [
+    {
+     "file": "llm-soft-loop/pod64/hidden/tline-a0.0655/hidden-chaos.json",
+     "index": 851,
+     "lyapunov": [
+      0.012561559968064054,
+      0.012170019235338777
+     ],
+     "period": 0,
+     "lead_period": 28,
+     "lead_tokens": [
+      9707,
+      0,
+      9454,
+      33360,
+      271,
+      89783,
+      77661
+     ],
+     "lead_text": [
+      "Hello",
+      "!",
+      "Yes",
+      " heels",
+      "\n\n",
+      " defiance",
+      "PDOException"
+     ],
+     "class": "hidden chaos"
+    }
+   ],
+   "uid": "c056",
+   "kind": "chaotic",
+   "rank": 56,
+   "split": "heldout",
+   "text_period": 28,
+   "spacing": 84,
+   "collect": [
+    1070,
+    1154,
+    1238,
+    1322,
+    1406,
+    1490,
+    1574,
+    1658,
+    1742,
+    1826,
+    1910,
+    1994,
+    2078,
+    2162,
+    2246,
+    2330
+   ],
+   "t_end": 2400,
+   "seed_key": 56
+  },
+  {
+   "log10T": 0.18513152251608292,
+   "sources": [
+    {
+     "file": "llm-soft-loop/pod64/hidden/h2-line-exact/hidden-chaos.json",
+     "index": 730,
+     "lyapunov": [
+      0.012817954391218021,
+      0.012801558449801962
+     ],
+     "period": 0,
+     "lead_period": 28,
+     "lead_tokens": [
+      9707,
+      0,
+      9454,
+      33360,
+      271,
+      89783,
+      77661
+     ],
+     "lead_text": [
+      "Hello",
+      "!",
+      "Yes",
+      " heels",
+      "\n\n",
+      " defiance",
+      "PDOException"
+     ],
+     "class": "hidden chaos"
+    }
+   ],
+   "uid": "c057",
+   "kind": "chaotic",
+   "rank": 57,
+   "split": "heldout",
+   "text_period": 28,
+   "spacing": 84,
+   "collect": [
+    1070,
+    1154,
+    1238,
+    1322,
+    1406,
+    1490,
+    1574,
+    1658,
+    1742,
+    1826,
+    1910,
+    1994,
+    2078,
+    2162,
+    2246,
+    2330
+   ],
+   "t_end": 2400,
+   "seed_key": 57
+  },
+  {
+   "log10T": 0.1851350964974982,
+   "sources": [
+    {
+     "file": "llm-soft-loop/pod64/hidden/tline-a0.0655/hidden-chaos.json",
+     "index": 852,
+     "lyapunov": [
+      0.01244580800940924,
+      0.012421570110205742
+     ],
+     "period": 0,
+     "lead_period": 28,
+     "lead_tokens": [
+      9707,
+      0,
+      9454,
+      33360,
+      271,
+      89783,
+      77661
+     ],
+     "lead_text": [
+      "Hello",
+      "!",
+      "Yes",
+      " heels",
+      "\n\n",
+      " defiance",
+      "PDOException"
+     ],
+     "class": "hidden chaos"
+    }
+   ],
+   "uid": "c058",
+   "kind": "chaotic",
+   "rank": 58,
+   "split": "heldout",
+   "text_period": 28,
+   "spacing": 84,
+   "collect": [
+    1070,
+    1154,
+    1238,
+    1322,
+    1406,
+    1490,
+    1574,
+    1658,
+    1742,
+    1826,
+    1910,
+    1994,
+    2078,
+    2162,
+    2246,
+    2330
+   ],
+   "t_end": 2400,
+   "seed_key": 58
+  },
+  {
+   "log10T": 0.18514403145103644,
+   "sources": [
+    {
+     "file": "llm-soft-loop/pod64/hidden/h2-line-exact/hidden-chaos.json",
+     "index": 731,
+     "lyapunov": [
+      0.012496718753696713,
+      0.011767044705877763
+     ],
+     "period": 0,
+     "lead_period": 28,
+     "lead_tokens": [
+      9707,
+      0,
+      9454,
+      33360,
+      271,
+      89783,
+      77661
+     ],
+     "lead_text": [
+      "Hello",
+      "!",
+      "Yes",
+      " heels",
+      "\n\n",
+      " defiance",
+      "PDOException"
+     ],
+     "class": "hidden chaos"
+    }
+   ],
+   "uid": "c059",
+   "kind": "chaotic",
+   "rank": 59,
+   "split": "dev",
+   "text_period": 28,
+   "spacing": 84,
+   "collect": [
+    1070,
+    1154,
+    1238,
+    1322,
+    1406,
+    1490,
+    1574,
+    1658,
+    1742,
+    1826,
+    1910,
+    1994,
+    2078,
+    2162,
+    2246,
+    2330
+   ],
+   "t_end": 2400,
+   "seed_key": 59
+  },
+  {
+   "log10T": 0.1851458184417441,
+   "sources": [
+    {
+     "file": "llm-soft-loop/pod64/hidden/tline-a0.0655/hidden-chaos.json",
+     "index": 853,
+     "lyapunov": [
+      0.009971499544576554,
+      0.009786501794269634
+     ],
+     "period": 0,
+     "lead_period": 28,
+     "lead_tokens": [
+      9707,
+      0,
+      9454,
+      33360,
+      271,
+      89783,
+      77661
+     ],
+     "lead_text": [
+      "Hello",
+      "!",
+      "Yes",
+      " heels",
+      "\n\n",
+      " defiance",
+      "PDOException"
+     ],
+     "class": "hidden chaos"
+    }
+   ],
+   "uid": "c060",
+   "kind": "chaotic",
+   "rank": 60,
+   "split": "heldout",
+   "text_period": 28,
+   "spacing": 84,
+   "collect": [
+    1070,
+    1154,
+    1238,
+    1322,
+    1406,
+    1490,
+    1574,
+    1658,
+    1742,
+    1826,
+    1910,
+    1994,
+    2078,
+    2162,
+    2246,
+    2330
+   ],
+   "t_end": 2400,
+   "seed_key": 60
+  },
+  {
+   "log10T": 0.18515654038599,
+   "sources": [
+    {
+     "file": "llm-soft-loop/pod64/hidden/tline-a0.0655/hidden-chaos.json",
+     "index": 854,
+     "lyapunov": [
+      0.00936286740947081,
+      0.008314634566452442
+     ],
+     "period": 0,
+     "lead_period": 28,
+     "lead_tokens": [
+      9707,
+      0,
+      9454,
+      33360,
+      271,
+      89783,
+      77661
+     ],
+     "lead_text": [
+      "Hello",
+      "!",
+      "Yes",
+      " heels",
+      "\n\n",
+      " defiance",
+      "PDOException"
+     ],
+     "class": "hidden chaos"
+    },
+    {
+     "file": "llm-soft-loop/pod64/hidden/h2-line-exact/hidden-chaos.json",
+     "index": 732,
+     "lyapunov": [
+      0.008912336442482174,
+      0.00948861167760917
+     ],
+     "period": 0,
+     "lead_period": 28,
+     "lead_tokens": [
+      9707,
+      0,
+      9454,
+      33360,
+      271,
+      89783,
+      77661
+     ],
+     "lead_text": [
+      "Hello",
+      "!",
+      "Yes",
+      " heels",
+      "\n\n",
+      " defiance",
+      "PDOException"
+     ],
+     "class": "hidden chaos"
+    }
+   ],
+   "uid": "c061",
+   "kind": "chaotic",
+   "rank": 61,
+   "split": "heldout",
+   "text_period": 28,
+   "spacing": 84,
+   "collect": [
+    1070,
+    1154,
+    1238,
+    1322,
+    1406,
+    1490,
+    1574,
+    1658,
+    1742,
+    1826,
+    1910,
+    1994,
+    2078,
+    2162,
+    2246,
+    2330
+   ],
+   "t_end": 2400,
+   "seed_key": 61
+  },
+  {
+   "log10T": 0.1851672623302359,
+   "sources": [
+    {
+     "file": "llm-soft-loop/pod64/hidden/tline-a0.0655/hidden-chaos.json",
+     "index": 855,
+     "lyapunov": [
+      0.0042231623174459835,
+      0.004694033096904546
+     ],
+     "period": 0,
+     "lead_period": 28,
+     "lead_tokens": [
+      9707,
+      0,
+      9454,
+      33360,
+      271,
+      89783,
+      77661
+     ],
+     "lead_text": [
+      "Hello",
+      "!",
+      "Yes",
+      " heels",
+      "\n\n",
+      " defiance",
+      "PDOException"
+     ],
+     "class": "hidden chaos"
+    }
+   ],
+   "uid": "c062",
+   "kind": "chaotic",
+   "rank": 62,
+   "split": "heldout",
+   "text_period": 28,
+   "spacing": 84,
+   "collect": [
+    1070,
+    1154,
+    1238,
+    1322,
+    1406,
+    1490,
+    1574,
+    1658,
+    1742,
+    1826,
+    1910,
+    1994,
+    2078,
+    2162,
+    2246,
+    2330
+   ],
+   "t_end": 2400,
+   "seed_key": 62
+  },
+  {
+   "log10T": 0.18517798427448176,
+   "sources": [
+    {
+     "file": "llm-soft-loop/pod64/hidden/tline-a0.0655/hidden-chaos.json",
+     "index": 856,
+     "lyapunov": [
+      0.004826847966188354,
+      0.004625195867451339
+     ],
+     "period": 0,
+     "lead_period": 28,
+     "lead_tokens": [
+      9707,
+      0,
+      9454,
+      33360,
+      271,
+      89783,
+      77661
+     ],
+     "lead_text": [
+      "Hello",
+      "!",
+      "Yes",
+      " heels",
+      "\n\n",
+      " defiance",
+      "PDOException"
+     ],
+     "class": "hidden chaos"
+    }
+   ],
+   "uid": "c063",
+   "kind": "chaotic",
+   "rank": 63,
+   "split": "heldout",
+   "text_period": 28,
+   "spacing": 84,
+   "collect": [
+    1070,
+    1154,
+    1238,
+    1322,
+    1406,
+    1490,
+    1574,
+    1658,
+    1742,
+    1826,
+    1910,
+    1994,
+    2078,
+    2162,
+    2246,
+    2330
+   ],
+   "t_end": 2400,
+   "seed_key": 63
+  },
+  {
+   "log10T": 0.18518870621872766,
+   "sources": [
+    {
+     "file": "llm-soft-loop/pod64/hidden/tline-a0.0655/hidden-chaos.json",
+     "index": 857,
+     "lyapunov": [
+      0.0029053972498802377,
+      0.0015555101211933058
+     ],
+     "period": 0,
+     "lead_period": 28,
+     "lead_tokens": [
+      9707,
+      0,
+      9454,
+      33360,
+      271,
+      89783,
+      77661
+     ],
+     "lead_text": [
+      "Hello",
+      "!",
+      "Yes",
+      " heels",
+      "\n\n",
+      " defiance",
+      "PDOException"
+     ],
+     "class": "hidden chaos"
+    }
+   ],
+   "uid": "c064",
+   "kind": "chaotic",
+   "rank": 64,
+   "split": "heldout",
+   "text_period": 28,
+   "spacing": 84,
+   "collect": [
+    1070,
+    1154,
+    1238,
+    1322,
+    1406,
+    1490,
+    1574,
+    1658,
+    1742,
+    1826,
+    1910,
+    1994,
+    2078,
+    2162,
+    2246,
+    2330
+   ],
+   "t_end": 2400,
+   "seed_key": 64
+  },
+  {
+   "log10T": 0.1851940671908506,
+   "sources": [
+    {
+     "file": "llm-soft-loop/pod64/hidden/h2-line-exact/hidden-chaos.json",
+     "index": 735,
+     "lyapunov": [
+      0.003141976916953565,
+      0.0033375300638503664
+     ],
+     "period": 0,
+     "lead_period": 28,
+     "lead_tokens": [
+      9707,
+      0,
+      9454,
+      33360,
+      271,
+      89783,
+      77661
+     ],
+     "lead_text": [
+      "Hello",
+      "!",
+      "Yes",
+      " heels",
+      "\n\n",
+      " defiance",
+      "PDOException"
+     ],
+     "class": "hidden chaos"
+    }
+   ],
+   "uid": "c065",
+   "kind": "chaotic",
+   "rank": 65,
+   "split": "heldout",
+   "text_period": 28,
+   "spacing": 84,
+   "collect": [
+    1070,
+    1154,
+    1238,
+    1322,
+    1406,
+    1490,
+    1574,
+    1658,
+    1742,
+    1826,
+    1910,
+    1994,
+    2078,
+    2162,
+    2246,
+    2330
+   ],
+   "t_end": 2400,
+   "seed_key": 65
+  },
+  {
+   "log10T": 0.18994746247319513,
+   "sources": [
+    {
+     "file": "llm-soft-loop/pod64/hidden/h2-line-exact/hidden-chaos.json",
+     "index": 1115,
+     "lyapunov": [
+      0.09126471344396983,
+      0.09110397038107486
+     ],
+     "period": 0,
+     "lead_period": 7,
+     "lead_tokens": [
+      40,
+      0,
+      9454,
+      33360,
+      271,
+      61498
+     ],
+     "lead_text": [
+      "I",
+      "!",
+      "Yes",
+      " heels",
+      "\n\n",
+      "pee"
+     ],
+     "class": "hidden chaos"
+    }
+   ],
+   "uid": "c066",
+   "kind": "chaotic",
+   "rank": 66,
+   "split": "heldout",
+   "text_period": 7,
+   "spacing": 70,
+   "collect": [
+    1070,
+    1140,
+    1210,
+    1280,
+    1350,
+    1420,
+    1490,
+    1560,
+    1630,
+    1700,
+    1770,
+    1840,
+    1910,
+    1980,
+    2050,
+    2120
+   ],
+   "t_end": 2190,
+   "seed_key": 66
+  },
+  {
+   "log10T": 0.1899492494639028,
+   "sources": [
+    {
+     "file": "llm-soft-loop/pod64/hidden/tline-a0.0655/hidden-chaos.json",
+     "index": 1301,
+     "lyapunov": [
+      0.08949605670107415,
+      0.09013551673279704
+     ],
+     "period": 0,
+     "lead_period": 7,
+     "lead_tokens": [
+      40,
+      0,
+      9454,
+      33360,
+      271,
+      61498
+     ],
+     "lead_text": [
+      "I",
+      "!",
+      "Yes",
+      " heels",
+      "\n\n",
+      "pee"
+     ],
+     "class": "hidden chaos"
+    }
+   ],
+   "uid": "c067",
+   "kind": "chaotic",
+   "rank": 67,
+   "split": "heldout",
+   "text_period": 7,
+   "spacing": 70,
+   "collect": [
+    1070,
+    1140,
+    1210,
+    1280,
+    1350,
+    1420,
+    1490,
+    1560,
+    1630,
+    1700,
+    1770,
+    1840,
+    1910,
+    1980,
+    2050,
+    2120
+   ],
+   "t_end": 2190,
+   "seed_key": 67
+  },
+  {
+   "log10T": 0.1899599714081487,
+   "sources": [
+    {
+     "file": "llm-soft-loop/pod64/hidden/tline-a0.0655/hidden-chaos.json",
+     "index": 1302,
+     "lyapunov": [
+      0.0871068261952121,
+      0.0872079459351544
+     ],
+     "period": 0,
+     "lead_period": 7,
+     "lead_tokens": [
+      40,
+      0,
+      9454,
+      33360,
+      271,
+      61498
+     ],
+     "lead_text": [
+      "I",
+      "!",
+      "Yes",
+      " heels",
+      "\n\n",
+      "pee"
+     ],
+     "class": "hidden chaos"
+    },
+    {
+     "file": "llm-soft-loop/pod64/hidden/h2-line-exact/hidden-chaos.json",
+     "index": 1116,
+     "lyapunov": [
+      0.08712959240450818,
+      0.08717089303240842
+     ],
+     "period": 0,
+     "lead_period": 7,
+     "lead_tokens": [
+      40,
+      0,
+      9454,
+      33360,
+      271,
+      61498
+     ],
+     "lead_text": [
+      "I",
+      "!",
+      "Yes",
+      " heels",
+      "\n\n",
+      "pee"
+     ],
+     "class": "hidden chaos"
+    }
+   ],
+   "uid": "c068",
+   "kind": "chaotic",
+   "rank": 68,
+   "split": "heldout",
+   "text_period": 7,
+   "spacing": 70,
+   "collect": [
+    1070,
+    1140,
+    1210,
+    1280,
+    1350,
+    1420,
+    1490,
+    1560,
+    1630,
+    1700,
+    1770,
+    1840,
+    1910,
+    1980,
+    2050,
+    2120
+   ],
+   "t_end": 2190,
+   "seed_key": 68
+  },
+  {
+   "log10T": 0.18997069335239458,
+   "sources": [
+    {
+     "file": "llm-soft-loop/pod64/hidden/tline-a0.0655/hidden-chaos.json",
+     "index": 1303,
+     "lyapunov": [
+      0.08283569739033797,
+      0.08299660524538069
+     ],
+     "period": 0,
+     "lead_period": 7,
+     "lead_tokens": [
+      40,
+      0,
+      9454,
+      33360,
+      271,
+      61498
+     ],
+     "lead_text": [
+      "I",
+      "!",
+      "Yes",
+      " heels",
+      "\n\n",
+      "pee"
+     ],
+     "class": "hidden chaos"
+    }
+   ],
+   "uid": "c069",
+   "kind": "chaotic",
+   "rank": 69,
+   "split": "heldout",
+   "text_period": 7,
+   "spacing": 70,
+   "collect": [
+    1070,
+    1140,
+    1210,
+    1280,
+    1350,
+    1420,
+    1490,
+    1560,
+    1630,
+    1700,
+    1770,
+    1840,
+    1910,
+    1980,
+    2050,
+    2120
+   ],
+   "t_end": 2190,
+   "seed_key": 69
+  },
+  {
+   "log10T": 0.1899724803431022,
+   "sources": [
+    {
+     "file": "llm-soft-loop/pod64/hidden/h2-line-exact/hidden-chaos.json",
+     "index": 1117,
+     "lyapunov": [
+      0.08342908519169225,
+      0.08397569670652218
+     ],
+     "period": 0,
+     "lead_period": 7,
+     "lead_tokens": [
+      40,
+      0,
+      9454,
+      33360,
+      271,
+      61498
+     ],
+     "lead_text": [
+      "I",
+      "!",
+      "Yes",
+      " heels",
+      "\n\n",
+      "pee"
+     ],
+     "class": "hidden chaos"
+    }
+   ],
+   "uid": "c070",
+   "kind": "chaotic",
+   "rank": 70,
+   "split": "heldout",
+   "text_period": 7,
+   "spacing": 70,
+   "collect": [
+    1070,
+    1140,
+    1210,
+    1280,
+    1350,
+    1420,
+    1490,
+    1560,
+    1630,
+    1700,
+    1770,
+    1840,
+    1910,
+    1980,
+    2050,
+    2120
+   ],
+   "t_end": 2190,
+   "seed_key": 70
+  },
+  {
+   "log10T": 0.18998141529664045,
+   "sources": [
+    {
+     "file": "llm-soft-loop/pod64/hidden/tline-a0.0655/hidden-chaos.json",
+     "index": 1304,
+     "lyapunov": [
+      0.07836415665458679,
+      0.0790750255768378
+     ],
+     "period": 0,
+     "lead_period": 7,
+     "lead_tokens": [
+      40,
+      0,
+      9454,
+      33360,
+      271,
+      61498
+     ],
+     "lead_text": [
+      "I",
+      "!",
+      "Yes",
+      " heels",
+      "\n\n",
+      "pee"
+     ],
+     "class": "hidden chaos"
+    }
+   ],
+   "uid": "c071",
+   "kind": "chaotic",
+   "rank": 71,
+   "split": "heldout",
+   "text_period": 7,
+   "spacing": 70,
+   "collect": [
+    1070,
+    1140,
+    1210,
+    1280,
+    1350,
+    1420,
+    1490,
+    1560,
+    1630,
+    1700,
+    1770,
+    1840,
+    1910,
+    1980,
+    2050,
+    2120
+   ],
+   "t_end": 2190,
+   "seed_key": 71
+  },
+  {
+   "log10T": 0.18998498927805577,
+   "sources": [
+    {
+     "file": "llm-soft-loop/pod64/hidden/h2-line-exact/hidden-chaos.json",
+     "index": 1118,
+     "lyapunov": [
+      0.08260621847630496,
+      0.08270796987537507
+     ],
+     "period": 0,
+     "lead_period": 7,
+     "lead_tokens": [
+      40,
+      0,
+      9454,
+      33360,
+      271,
+      61498
+     ],
+     "lead_text": [
+      "I",
+      "!",
+      "Yes",
+      " heels",
+      "\n\n",
+      "pee"
+     ],
+     "class": "hidden chaos"
+    }
+   ],
+   "uid": "c072",
+   "kind": "chaotic",
+   "rank": 72,
+   "split": "dev",
+   "text_period": 7,
+   "spacing": 70,
+   "collect": [
+    1070,
+    1140,
+    1210,
+    1280,
+    1350,
+    1420,
+    1490,
+    1560,
+    1630,
+    1700,
+    1770,
+    1840,
+    1910,
+    1980,
+    2050,
+    2120
+   ],
+   "t_end": 2190,
+   "seed_key": 72
+  },
+  {
+   "log10T": 0.1899974982130093,
+   "sources": [
+    {
+     "file": "llm-soft-loop/pod64/hidden/h2-line-exact/hidden-chaos.json",
+     "index": 1119,
+     "lyapunov": [
+      0.07640857079084434,
+      0.07708973114974689
+     ],
+     "period": 0,
+     "lead_period": 7,
+     "lead_tokens": [
+      40,
+      0,
+      9454,
+      33360,
+      271,
+      61498
+     ],
+     "lead_text": [
+      "I",
+      "!",
+      "Yes",
+      " heels",
+      "\n\n",
+      "pee"
+     ],
+     "class": "hidden chaos"
+    }
+   ],
+   "uid": "c073",
+   "kind": "chaotic",
+   "rank": 73,
+   "split": "heldout",
+   "text_period": 7,
+   "spacing": 70,
+   "collect": [
+    1070,
+    1140,
+    1210,
+    1280,
+    1350,
+    1420,
+    1490,
+    1560,
+    1630,
+    1700,
+    1770,
+    1840,
+    1910,
+    1980,
+    2050,
+    2120
+   ],
+   "t_end": 2190,
+   "seed_key": 73
+  },
+  {
+   "log10T": 0.19000285918513224,
+   "sources": [
+    {
+     "file": "llm-soft-loop/pod64/hidden/tline-a0.0655/hidden-chaos.json",
+     "index": 1306,
+     "lyapunov": [
+      0.07669270039293567,
+      0.07759192477915763
+     ],
+     "period": 0,
+     "lead_period": 7,
+     "lead_tokens": [
+      271,
+      40,
+      0,
+      9454,
+      33360,
+      61498
+     ],
+     "lead_text": [
+      "\n\n",
+      "I",
+      "!",
+      "Yes",
+      " heels",
+      "pee"
+     ],
+     "class": "hidden chaos"
+    }
+   ],
+   "uid": "c074",
+   "kind": "chaotic",
+   "rank": 74,
+   "split": "heldout",
+   "text_period": 7,
+   "spacing": 70,
+   "collect": [
+    1070,
+    1140,
+    1210,
+    1280,
+    1350,
+    1420,
+    1490,
+    1560,
+    1630,
+    1700,
+    1770,
+    1840,
+    1910,
+    1980,
+    2050,
+    2120
+   ],
+   "t_end": 2190,
+   "seed_key": 74
+  },
+  {
+   "log10T": 0.19002251608291637,
+   "sources": [
+    {
+     "file": "llm-soft-loop/pod64/hidden/h2-line-exact/hidden-chaos.json",
+     "index": 1121,
+     "lyapunov": [
+      0.0708105451128011,
+      0.07078280706077851
+     ],
+     "period": 0,
+     "lead_period": 7,
+     "lead_tokens": [
+      271,
+      61498,
+      40,
+      0,
+      9454,
+      33360
+     ],
+     "lead_text": [
+      "\n\n",
+      "pee",
+      "I",
+      "!",
+      "Yes",
+      " heels"
+     ],
+     "class": "hidden chaos"
+    }
+   ],
+   "uid": "c075",
+   "kind": "chaotic",
+   "rank": 75,
+   "split": "heldout",
+   "text_period": 7,
+   "spacing": 70,
+   "collect": [
+    1070,
+    1140,
+    1210,
+    1280,
+    1350,
+    1420,
+    1490,
+    1560,
+    1630,
+    1700,
+    1770,
+    1840,
+    1910,
+    1980,
+    2050,
+    2120
+   ],
+   "t_end": 2190,
+   "seed_key": 75
+  },
+  {
+   "log10T": 0.19002430307362403,
+   "sources": [
+    {
+     "file": "llm-soft-loop/pod64/hidden/tline-a0.0655/hidden-chaos.json",
+     "index": 1308,
+     "lyapunov": [
+      0.07817692132380218,
+      0.07822044510469124
+     ],
+     "period": 0,
+     "lead_period": 7,
+     "lead_tokens": [
+      271,
+      61498,
+      40,
+      0,
+      9454,
+      33360
+     ],
+     "lead_text": [
+      "\n\n",
+      "pee",
+      "I",
+      "!",
+      "Yes",
+      " heels"
+     ],
+     "class": "hidden chaos"
+    }
+   ],
+   "uid": "c076",
+   "kind": "chaotic",
+   "rank": 76,
+   "split": "heldout",
+   "text_period": 7,
+   "spacing": 70,
+   "collect": [
+    1070,
+    1140,
+    1210,
+    1280,
+    1350,
+    1420,
+    1490,
+    1560,
+    1630,
+    1700,
+    1770,
+    1840,
+    1910,
+    1980,
+    2050,
+    2120
+   ],
+   "t_end": 2190,
+   "seed_key": 76
+  },
+  {
+   "log10T": 0.1900350250178699,
+   "sources": [
+    {
+     "file": "llm-soft-loop/pod64/hidden/tline-a0.0655/hidden-chaos.json",
+     "index": 1309,
+     "lyapunov": [
+      0.06253789399480497,
+      0.061330386038641736
+     ],
+     "period": 0,
+     "lead_period": 7,
+     "lead_tokens": [
+      271,
+      40,
+      0,
+      9454,
+      33360,
+      61498
+     ],
+     "lead_text": [
+      "\n\n",
+      "I",
+      "!",
+      "Yes",
+      " heels",
+      "pee"
+     ],
+     "class": "hidden chaos"
+    },
+    {
+     "file": "llm-soft-loop/pod64/hidden/h2-line-exact/hidden-chaos.json",
+     "index": 1122,
+     "lyapunov": [
+      0.06237465978080642,
+      0.06179287342672087
+     ],
+     "period": 0,
+     "lead_period": 7,
+     "lead_tokens": [
+      271,
+      40,
+      0,
+      9454,
+      33360,
+      61498
+     ],
+     "lead_text": [
+      "\n\n",
+      "I",
+      "!",
+      "Yes",
+      " heels",
+      "pee"
+     ],
+     "class": "hidden chaos"
+    }
+   ],
+   "uid": "c077",
+   "kind": "chaotic",
+   "rank": 77,
+   "split": "heldout",
+   "text_period": 7,
+   "spacing": 70,
+   "collect": [
+    1070,
+    1140,
+    1210,
+    1280,
+    1350,
+    1420,
+    1490,
+    1560,
+    1630,
+    1700,
+    1770,
+    1840,
+    1910,
+    1980,
+    2050,
+    2120
+   ],
+   "t_end": 2190,
+   "seed_key": 77
+  },
+  {
+   "log10T": 0.19004753395282345,
+   "sources": [
+    {
+     "file": "llm-soft-loop/pod64/hidden/h2-line-exact/hidden-chaos.json",
+     "index": 1123,
+     "lyapunov": [
+      0.06566119677635979,
+      0.06436838768485051
+     ],
+     "period": 0,
+     "lead_period": 7,
+     "lead_tokens": [
+      33360,
+      271,
+      61498,
+      40,
+      0,
+      9454
+     ],
+     "lead_text": [
+      " heels",
+      "\n\n",
+      "pee",
+      "I",
+      "!",
+      "Yes"
+     ],
+     "class": "hidden chaos"
+    }
+   ],
+   "uid": "c078",
+   "kind": "chaotic",
+   "rank": 78,
+   "split": "heldout",
+   "text_period": 7,
+   "spacing": 70,
+   "collect": [
+    1070,
+    1140,
+    1210,
+    1280,
+    1350,
+    1420,
+    1490,
+    1560,
+    1630,
+    1700,
+    1770,
+    1840,
+    1910,
+    1980,
+    2050,
+    2120
+   ],
+   "t_end": 2190,
+   "seed_key": 78
+  },
+  {
+   "log10T": 0.1900564689063617,
+   "sources": [
+    {
+     "file": "llm-soft-loop/pod64/hidden/tline-a0.0655/hidden-chaos.json",
+     "index": 1311,
+     "lyapunov": [
+      0.06467756642946534,
+      0.06474931573312598
+     ],
+     "period": 0,
+     "lead_period": 7,
+     "lead_tokens": [
+      271,
+      61498,
+      40,
+      0,
+      9454,
+      33360
+     ],
+     "lead_text": [
+      "\n\n",
+      "pee",
+      "I",
+      "!",
+      "Yes",
+      " heels"
+     ],
+     "class": "hidden chaos"
+    }
+   ],
+   "uid": "c079",
+   "kind": "chaotic",
+   "rank": 79,
+   "split": "heldout",
+   "text_period": 7,
+   "spacing": 70,
+   "collect": [
+    1070,
+    1140,
+    1210,
+    1280,
+    1350,
+    1420,
+    1490,
+    1560,
+    1630,
+    1700,
+    1770,
+    1840,
+    1910,
+    1980,
+    2050,
+    2120
+   ],
+   "t_end": 2190,
+   "seed_key": 79
+  },
+  {
+   "log10T": 0.19006719085060758,
+   "sources": [
+    {
+     "file": "llm-soft-loop/pod64/hidden/tline-a0.0655/hidden-chaos.json",
+     "index": 1312,
+     "lyapunov": [
+      0.026138236379219353,
+      0.02694157123142709
+     ],
+     "period": 0,
+     "lead_period": 7,
+     "lead_tokens": [
+      33360,
+      271,
+      61498,
+      40,
+      0,
+      9454
+     ],
+     "lead_text": [
+      " heels",
+      "\n\n",
+      "pee",
+      "I",
+      "!",
+      "Yes"
+     ],
+     "class": "hidden chaos"
+    }
+   ],
+   "uid": "c080",
+   "kind": "chaotic",
+   "rank": 80,
+   "split": "heldout",
+   "text_period": 7,
+   "spacing": 70,
+   "collect": [
+    1070,
+    1140,
+    1210,
+    1280,
+    1350,
+    1420,
+    1490,
+    1560,
+    1630,
+    1700,
+    1770,
+    1840,
+    1910,
+    1980,
+    2050,
+    2120
+   ],
+   "t_end": 2190,
+   "seed_key": 80
+  },
+  {
+   "log10T": 0.19008863473909937,
+   "sources": [
+    {
+     "file": "llm-soft-loop/pod64/hidden/tline-a0.0655/hidden-chaos.json",
+     "index": 1314,
+     "lyapunov": [
+      0.03393871751528508,
+      0.03449921162283021
+     ],
+     "period": 0,
+     "lead_period": 7,
+     "lead_tokens": [
+      271,
+      40,
+      0,
+      9454,
+      33360,
+      61498
+     ],
+     "lead_text": [
+      "\n\n",
+      "I",
+      "!",
+      "Yes",
+      " heels",
+      "pee"
+     ],
+     "class": "hidden chaos"
+    }
+   ],
+   "uid": "c081",
+   "kind": "chaotic",
+   "rank": 81,
+   "split": "heldout",
+   "text_period": 7,
+   "spacing": 70,
+   "collect": [
+    1070,
+    1140,
+    1210,
+    1280,
+    1350,
+    1420,
+    1490,
+    1560,
+    1630,
+    1700,
+    1770,
+    1840,
+    1910,
+    1980,
+    2050,
+    2120
+   ],
+   "t_end": 2190,
+   "seed_key": 81
+  },
+  {
+   "log10T": 0.19009935668334524,
+   "sources": [
+    {
+     "file": "llm-soft-loop/pod64/hidden/tline-a0.0655/hidden-chaos.json",
+     "index": 1315,
+     "lyapunov": [
+      0.06564472371513637,
+      0.06629933806688472
+     ],
+     "period": 0,
+     "lead_period": 7,
+     "lead_tokens": [
+      61498,
+      271,
+      40,
+      0,
+      9454,
+      33360
+     ],
+     "lead_text": [
+      "pee",
+      "\n\n",
+      "I",
+      "!",
+      "Yes",
+      " heels"
+     ],
+     "class": "hidden chaos"
+    }
+   ],
+   "uid": "c082",
+   "kind": "chaotic",
+   "rank": 82,
+   "split": "heldout",
+   "text_period": 7,
+   "spacing": 70,
+   "collect": [
+    1070,
+    1140,
+    1210,
+    1280,
+    1350,
+    1420,
+    1490,
+    1560,
+    1630,
+    1700,
+    1770,
+    1840,
+    1910,
+    1980,
+    2050,
+    2120
+   ],
+   "t_end": 2190,
+   "seed_key": 82
+  },
+  {
+   "log10T": 0.19011007862759113,
+   "sources": [
+    {
+     "file": "llm-soft-loop/pod64/hidden/tline-a0.0655/hidden-chaos.json",
+     "index": 1316,
+     "lyapunov": [
+      0.05497661020029097,
+      0.05563946116796202
+     ],
+     "period": 0,
+     "lead_period": 7,
+     "lead_tokens": [
+      40,
+      0,
+      9454,
+      33360,
+      271,
+      61498
+     ],
+     "lead_text": [
+      "I",
+      "!",
+      "Yes",
+      " heels",
+      "\n\n",
+      "pee"
+     ],
+     "class": "hidden chaos"
+    },
+    {
+     "file": "llm-soft-loop/pod64/hidden/h2-line-exact/hidden-chaos.json",
+     "index": 1128,
+     "lyapunov": [
+      0.05576865471891323,
+      0.05516669499301077
+     ],
+     "period": 0,
+     "lead_period": 7,
+     "lead_tokens": [
+      40,
+      0,
+      9454,
+      33360,
+      271,
+      61498
+     ],
+     "lead_text": [
+      "I",
+      "!",
+      "Yes",
+      " heels",
+      "\n\n",
+      "pee"
+     ],
+     "class": "hidden chaos"
+    }
+   ],
+   "uid": "c083",
+   "kind": "chaotic",
+   "rank": 83,
+   "split": "heldout",
+   "text_period": 7,
+   "spacing": 70,
+   "collect": [
+    1070,
+    1140,
+    1210,
+    1280,
+    1350,
+    1420,
+    1490,
+    1560,
+    1630,
+    1700,
+    1770,
+    1840,
+    1910,
+    1980,
+    2050,
+    2120
+   ],
+   "t_end": 2190,
+   "seed_key": 83
+  },
+  {
+   "log10T": 0.1901225875625447,
+   "sources": [
+    {
+     "file": "llm-soft-loop/pod64/hidden/h2-line-exact/hidden-chaos.json",
+     "index": 1129,
+     "lyapunov": [
+      0.062294319613401684,
+      0.0626030442876949
+     ],
+     "period": 0,
+     "lead_period": 7,
+     "lead_tokens": [
+      0,
+      9454,
+      33360,
+      271,
+      61498,
+      40
+     ],
+     "lead_text": [
+      "!",
+      "Yes",
+      " heels",
+      "\n\n",
+      "pee",
+      "I"
+     ],
+     "class": "hidden chaos"
+    }
+   ],
+   "uid": "c084",
+   "kind": "chaotic",
+   "rank": 84,
+   "split": "heldout",
+   "text_period": 7,
+   "spacing": 70,
+   "collect": [
+    1070,
+    1140,
+    1210,
+    1280,
+    1350,
+    1420,
+    1490,
+    1560,
+    1630,
+    1700,
+    1770,
+    1840,
+    1910,
+    1980,
+    2050,
+    2120
+   ],
+   "t_end": 2190,
+   "seed_key": 84
+  },
+  {
+   "log10T": 0.19013152251608292,
+   "sources": [
+    {
+     "file": "llm-soft-loop/pod64/hidden/tline-a0.0655/hidden-chaos.json",
+     "index": 1318,
+     "lyapunov": [
+      0.05719434926336634,
+      0.05490453262196331
+     ],
+     "period": 0,
+     "lead_period": 7,
+     "lead_tokens": [
+      271,
+      61498,
+      40,
+      0,
+      9454,
+      33360
+     ],
+     "lead_text": [
+      "\n\n",
+      "pee",
+      "I",
+      "!",
+      "Yes",
+      " heels"
+     ],
+     "class": "hidden chaos"
+    }
+   ],
+   "uid": "c085",
+   "kind": "chaotic",
+   "rank": 85,
+   "split": "heldout",
+   "text_period": 7,
+   "spacing": 70,
+   "collect": [
+    1070,
+    1140,
+    1210,
+    1280,
+    1350,
+    1420,
+    1490,
+    1560,
+    1630,
+    1700,
+    1770,
+    1840,
+    1910,
+    1980,
+    2050,
+    2120
+   ],
+   "t_end": 2190,
+   "seed_key": 85
+  },
+  {
+   "log10T": 0.19014224446032882,
+   "sources": [
+    {
+     "file": "llm-soft-loop/pod64/hidden/tline-a0.0655/hidden-chaos.json",
+     "index": 1319,
+     "lyapunov": [
+      0.050303555780542186,
+      0.049482919644437094
+     ],
+     "period": 0,
+     "lead_period": 7,
+     "lead_tokens": [
+      271,
+      40,
+      0,
+      9454,
+      33360,
+      61498
+     ],
+     "lead_text": [
+      "\n\n",
+      "I",
+      "!",
+      "Yes",
+      " heels",
+      "pee"
+     ],
+     "class": "hidden chaos"
+    }
+   ],
+   "uid": "c086",
+   "kind": "chaotic",
+   "rank": 86,
+   "split": "dev",
+   "text_period": 7,
+   "spacing": 70,
+   "collect": [
+    1070,
+    1140,
+    1210,
+    1280,
+    1350,
+    1420,
+    1490,
+    1560,
+    1630,
+    1700,
+    1770,
+    1840,
+    1910,
+    1980,
+    2050,
+    2120
+   ],
+   "t_end": 2190,
+   "seed_key": 86
+  },
+  {
+   "log10T": 0.19014760543245177,
+   "sources": [
+    {
+     "file": "llm-soft-loop/pod64/hidden/h2-line-exact/hidden-chaos.json",
+     "index": 1131,
+     "lyapunov": [
+      0.05758608198200601,
+      0.0566801645300761
+     ],
+     "period": 0,
+     "lead_period": 7,
+     "lead_tokens": [
+      271,
+      61498,
+      40,
+      0,
+      9454,
+      33360
+     ],
+     "lead_text": [
+      "\n\n",
+      "pee",
+      "I",
+      "!",
+      "Yes",
+      " heels"
+     ],
+     "class": "hidden chaos"
+    }
+   ],
+   "uid": "c087",
+   "kind": "chaotic",
+   "rank": 87,
+   "split": "heldout",
+   "text_period": 7,
+   "spacing": 70,
+   "collect": [
+    1070,
+    1140,
+    1210,
+    1280,
+    1350,
+    1420,
+    1490,
+    1560,
+    1630,
+    1700,
+    1770,
+    1840,
+    1910,
+    1980,
+    2050,
+    2120
+   ],
+   "t_end": 2190,
+   "seed_key": 87
+  },
+  {
+   "log10T": 0.19015296640457469,
+   "sources": [
+    {
+     "file": "llm-soft-loop/pod64/hidden/tline-a0.0655/hidden-chaos.json",
+     "index": 1320,
+     "lyapunov": [
+      0.04980184138992634,
+      0.04941696894528894
+     ],
+     "period": 0,
+     "lead_period": 7,
+     "lead_tokens": [
+      33360,
+      271,
+      61498,
+      40,
+      0,
+      9454
+     ],
+     "lead_text": [
+      " heels",
+      "\n\n",
+      "pee",
+      "I",
+      "!",
+      "Yes"
+     ],
+     "class": "hidden chaos"
+    }
+   ],
+   "uid": "c088",
+   "kind": "chaotic",
+   "rank": 88,
+   "split": "heldout",
+   "text_period": 7,
+   "spacing": 70,
+   "collect": [
+    1070,
+    1140,
+    1210,
+    1280,
+    1350,
+    1420,
+    1490,
+    1560,
+    1630,
+    1700,
+    1770,
+    1840,
+    1910,
+    1980,
+    2050,
+    2120
+   ],
+   "t_end": 2190,
+   "seed_key": 88
+  },
+  {
+   "log10T": 0.19016368834882058,
+   "sources": [
+    {
+     "file": "llm-soft-loop/pod64/hidden/tline-a0.0655/hidden-chaos.json",
+     "index": 1321,
+     "lyapunov": [
+      0.05086541859099887,
+      0.050388467449793986
+     ],
+     "period": 0,
+     "lead_period": 7,
+     "lead_tokens": [
+      271,
+      61498,
+      40,
+      0,
+      9454,
+      33360
+     ],
+     "lead_text": [
+      "\n\n",
+      "pee",
+      "I",
+      "!",
+      "Yes",
+      " heels"
+     ],
+     "class": "hidden chaos"
+    }
+   ],
+   "uid": "c089",
+   "kind": "chaotic",
+   "rank": 89,
+   "split": "heldout",
+   "text_period": 7,
+   "spacing": 70,
+   "collect": [
+    1070,
+    1140,
+    1210,
+    1280,
+    1350,
+    1420,
+    1490,
+    1560,
+    1630,
+    1700,
+    1770,
+    1840,
+    1910,
+    1980,
+    2050,
+    2120
+   ],
+   "t_end": 2190,
+   "seed_key": 89
+  },
+  {
+   "log10T": 0.19017262330235882,
+   "sources": [
+    {
+     "file": "llm-soft-loop/pod64/hidden/h2-line-exact/hidden-chaos.json",
+     "index": 1133,
+     "lyapunov": [
+      0.05520966765372154,
+      0.05559688033475408
+     ],
+     "period": 0,
+     "lead_period": 7,
+     "lead_tokens": [
+      40,
+      0,
+      9454,
+      33360,
+      271,
+      61498
+     ],
+     "lead_text": [
+      "I",
+      "!",
+      "Yes",
+      " heels",
+      "\n\n",
+      "pee"
+     ],
+     "class": "hidden chaos"
+    }
+   ],
+   "uid": "c090",
+   "kind": "chaotic",
+   "rank": 90,
+   "split": "heldout",
+   "text_period": 7,
+   "spacing": 70,
+   "collect": [
+    1070,
+    1140,
+    1210,
+    1280,
+    1350,
+    1420,
+    1490,
+    1560,
+    1630,
+    1700,
+    1770,
+    1840,
+    1910,
+    1980,
+    2050,
+    2120
+   ],
+   "t_end": 2190,
+   "seed_key": 90
+  },
+  {
+   "log10T": 0.19017441029306648,
+   "sources": [
+    {
+     "file": "llm-soft-loop/pod64/hidden/tline-a0.0655/hidden-chaos.json",
+     "index": 1322,
+     "lyapunov": [
+      0.05213446023420539,
+      0.051776773029451446
+     ],
+     "period": 0,
+     "lead_period": 7,
+     "lead_tokens": [
+      271,
+      61498,
+      40,
+      0,
+      9454,
+      33360
+     ],
+     "lead_text": [
+      "\n\n",
+      "pee",
+      "I",
+      "!",
+      "Yes",
+      " heels"
+     ],
+     "class": "hidden chaos"
+    }
+   ],
+   "uid": "c091",
+   "kind": "chaotic",
+   "rank": 91,
+   "split": "heldout",
+   "text_period": 7,
+   "spacing": 70,
+   "collect": [
+    1070,
+    1140,
+    1210,
+    1280,
+    1350,
+    1420,
+    1490,
+    1560,
+    1630,
+    1700,
+    1770,
+    1840,
+    1910,
+    1980,
+    2050,
+    2120
+   ],
+   "t_end": 2190,
+   "seed_key": 91
+  },
+  {
+   "log10T": 0.19018513223731237,
+   "sources": [
+    {
+     "file": "llm-soft-loop/pod64/hidden/tline-a0.0655/hidden-chaos.json",
+     "index": 1323,
+     "lyapunov": [
+      0.055959346234953286,
+      0.054383023839805526
+     ],
+     "period": 0,
+     "lead_period": 7,
+     "lead_tokens": [
+      40,
+      0,
+      9454,
+      33360,
+      271,
+      61498
+     ],
+     "lead_text": [
+      "I",
+      "!",
+      "Yes",
+      " heels",
+      "\n\n",
+      "pee"
+     ],
+     "class": "hidden chaos"
+    },
+    {
+     "file": "llm-soft-loop/pod64/hidden/h2-line-exact/hidden-chaos.json",
+     "index": 1134,
+     "lyapunov": [
+      0.05334109082816963,
+      0.055898925024168336
+     ],
+     "period": 0,
+     "lead_period": 7,
+     "lead_tokens": [
+      40,
+      0,
+      9454,
+      33360,
+      271,
+      61498
+     ],
+     "lead_text": [
+      "I",
+      "!",
+      "Yes",
+      " heels",
+      "\n\n",
+      "pee"
+     ],
+     "class": "hidden chaos"
+    }
+   ],
+   "uid": "c092",
+   "kind": "chaotic",
+   "rank": 92,
+   "split": "heldout",
+   "text_period": 7,
+   "spacing": 70,
+   "collect": [
+    1070,
+    1140,
+    1210,
+    1280,
+    1350,
+    1420,
+    1490,
+    1560,
+    1630,
+    1700,
+    1770,
+    1840,
+    1910,
+    1980,
+    2050,
+    2120
+   ],
+   "t_end": 2190,
+   "seed_key": 92
+  },
+  {
+   "log10T": 0.19019585418155827,
+   "sources": [
+    {
+     "file": "llm-soft-loop/pod64/hidden/tline-a0.0655/hidden-chaos.json",
+     "index": 1324,
+     "lyapunov": [
+      0.05143430122832984,
+      0.05139288821802896
+     ],
+     "period": 0,
+     "lead_period": 7,
+     "lead_tokens": [
+      9454,
+      33360,
+      271,
+      61498,
+      40,
+      0
+     ],
+     "lead_text": [
+      "Yes",
+      " heels",
+      "\n\n",
+      "pee",
+      "I",
+      "!"
+     ],
+     "class": "hidden chaos"
+    }
+   ],
+   "uid": "c093",
+   "kind": "chaotic",
+   "rank": 93,
+   "split": "heldout",
+   "text_period": 7,
+   "spacing": 70,
+   "collect": [
+    1070,
+    1140,
+    1210,
+    1280,
+    1350,
+    1420,
+    1490,
+    1560,
+    1630,
+    1700,
+    1770,
+    1840,
+    1910,
+    1980,
+    2050,
+    2120
+   ],
+   "t_end": 2190,
+   "seed_key": 93
+  },
+  {
+   "log10T": 0.1901976411722659,
+   "sources": [
+    {
+     "file": "llm-soft-loop/pod64/hidden/h2-line-exact/hidden-chaos.json",
+     "index": 1135,
+     "lyapunov": [
+      0.049985053263235206,
+      0.048738219848909387
+     ],
+     "period": 0,
+     "lead_period": 7,
+     "lead_tokens": [
+      9454,
+      33360,
+      271,
+      61498,
+      40,
+      0
+     ],
+     "lead_text": [
+      "Yes",
+      " heels",
+      "\n\n",
+      "pee",
+      "I",
+      "!"
+     ],
+     "class": "hidden chaos"
+    }
+   ],
+   "uid": "c094",
+   "kind": "chaotic",
+   "rank": 94,
+   "split": "heldout",
+   "text_period": 7,
+   "spacing": 70,
+   "collect": [
+    1070,
+    1140,
+    1210,
+    1280,
+    1350,
+    1420,
+    1490,
+    1560,
+    1630,
+    1700,
+    1770,
+    1840,
+    1910,
+    1980,
+    2050,
+    2120
+   ],
+   "t_end": 2190,
+   "seed_key": 94
+  },
+  {
+   "log10T": 0.19020657612580416,
+   "sources": [
+    {
+     "file": "llm-soft-loop/pod64/hidden/tline-a0.0655/hidden-chaos.json",
+     "index": 1325,
+     "lyapunov": [
+      0.04606869321443497,
+      0.045979748778457195
+     ],
+     "period": 0,
+     "lead_period": 7,
+     "lead_tokens": [
+      33360,
+      271,
+      61498,
+      40,
+      0,
+      9454
+     ],
+     "lead_text": [
+      " heels",
+      "\n\n",
+      "pee",
+      "I",
+      "!",
+      "Yes"
+     ],
+     "class": "hidden chaos"
+    }
+   ],
+   "uid": "c095",
+   "kind": "chaotic",
+   "rank": 95,
+   "split": "heldout",
+   "text_period": 7,
+   "spacing": 70,
+   "collect": [
+    1070,
+    1140,
+    1210,
+    1280,
+    1350,
+    1420,
+    1490,
+    1560,
+    1630,
+    1700,
+    1770,
+    1840,
+    1910,
+    1980,
+    2050,
+    2120
+   ],
+   "t_end": 2190,
+   "seed_key": 95
+  },
+  {
+   "log10T": 0.19021015010721945,
+   "sources": [
+    {
+     "file": "llm-soft-loop/pod64/hidden/h2-line-exact/hidden-chaos.json",
+     "index": 1136,
+     "lyapunov": [
+      0.04372386040066074,
+      0.04433047907647773
+     ],
+     "period": 0,
+     "lead_period": 7,
+     "lead_tokens": [
+      0,
+      9454,
+      33360,
+      271,
+      61498,
+      40
+     ],
+     "lead_text": [
+      "!",
+      "Yes",
+      " heels",
+      "\n\n",
+      "pee",
+      "I"
+     ],
+     "class": "hidden chaos"
+    }
+   ],
+   "uid": "c096",
+   "kind": "chaotic",
+   "rank": 96,
+   "split": "heldout",
+   "text_period": 7,
+   "spacing": 70,
+   "collect": [
+    1070,
+    1140,
+    1210,
+    1280,
+    1350,
+    1420,
+    1490,
+    1560,
+    1630,
+    1700,
+    1770,
+    1840,
+    1910,
+    1980,
+    2050,
+    2120
+   ],
+   "t_end": 2190,
+   "seed_key": 96
+  },
+  {
+   "log10T": 0.19021729807005003,
+   "sources": [
+    {
+     "file": "llm-soft-loop/pod64/hidden/tline-a0.0655/hidden-chaos.json",
+     "index": 1326,
+     "lyapunov": [
+      0.032018418537495374,
+      0.031716631767837726
+     ],
+     "period": 0,
+     "lead_period": 7,
+     "lead_tokens": [
+      0,
+      9454,
+      33360,
+      271,
+      61498,
+      40
+     ],
+     "lead_text": [
+      "!",
+      "Yes",
+      " heels",
+      "\n\n",
+      "pee",
+      "I"
+     ],
+     "class": "hidden chaos"
+    }
+   ],
+   "uid": "c097",
+   "kind": "chaotic",
+   "rank": 97,
+   "split": "heldout",
+   "text_period": 7,
+   "spacing": 70,
+   "collect": [
+    1070,
+    1140,
+    1210,
+    1280,
+    1350,
+    1420,
+    1490,
+    1560,
+    1630,
+    1700,
+    1770,
+    1840,
+    1910,
+    1980,
+    2050,
+    2120
+   ],
+   "t_end": 2190,
+   "seed_key": 97
+  },
+  {
+   "log10T": 0.19022265904217298,
+   "sources": [
+    {
+     "file": "llm-soft-loop/pod64/hidden/h2-line-exact/hidden-chaos.json",
+     "index": 1137,
+     "lyapunov": [
+      0.03479662170806017,
+      0.03415972264936184
+     ],
+     "period": 0,
+     "lead_period": 7,
+     "lead_tokens": [
+      40,
+      0,
+      9454,
+      33360,
+      271,
+      61498
+     ],
+     "lead_text": [
+      "I",
+      "!",
+      "Yes",
+      " heels",
+      "\n\n",
+      "pee"
+     ],
+     "class": "hidden chaos"
+    }
+   ],
+   "uid": "c098",
+   "kind": "chaotic",
+   "rank": 98,
+   "split": "heldout",
+   "text_period": 7,
+   "spacing": 70,
+   "collect": [
+    1070,
+    1140,
+    1210,
+    1280,
+    1350,
+    1420,
+    1490,
+    1560,
+    1630,
+    1700,
+    1770,
+    1840,
+    1910,
+    1980,
+    2050,
+    2120
+   ],
+   "t_end": 2190,
+   "seed_key": 98
+  },
+  {
+   "log10T": 0.19022802001429592,
+   "sources": [
+    {
+     "file": "llm-soft-loop/pod64/hidden/tline-a0.0655/hidden-chaos.json",
+     "index": 1327,
+     "lyapunov": [
+      0.036339949053054064,
+      0.03731526635238646
+     ],
+     "period": 0,
+     "lead_period": 7,
+     "lead_tokens": [
+      271,
+      61498,
+      40,
+      0,
+      9454,
+      33360
+     ],
+     "lead_text": [
+      "\n\n",
+      "pee",
+      "I",
+      "!",
+      "Yes",
+      " heels"
+     ],
+     "class": "hidden chaos"
+    }
+   ],
+   "uid": "c099",
+   "kind": "chaotic",
+   "rank": 99,
+   "split": "dev",
+   "text_period": 7,
+   "spacing": 70,
+   "collect": [
+    1070,
+    1140,
+    1210,
+    1280,
+    1350,
+    1420,
+    1490,
+    1560,
+    1630,
+    1700,
+    1770,
+    1840,
+    1910,
+    1980,
+    2050,
+    2120
+   ],
+   "t_end": 2190,
+   "seed_key": 99
+  },
+  {
+   "log10T": 0.19023516797712653,
+   "sources": [
+    {
+     "file": "llm-soft-loop/pod64/hidden/h2-line-exact/hidden-chaos.json",
+     "index": 1138,
+     "lyapunov": [
+      0.03001716718897301,
+      0.030280715706749436
+     ],
+     "period": 0,
+     "lead_period": 7,
+     "lead_tokens": [
+      271,
+      61498,
+      40,
+      0,
+      9454,
+      33360
+     ],
+     "lead_text": [
+      "\n\n",
+      "pee",
+      "I",
+      "!",
+      "Yes",
+      " heels"
+     ],
+     "class": "hidden chaos"
+    }
+   ],
+   "uid": "c100",
+   "kind": "chaotic",
+   "rank": 100,
+   "split": "heldout",
+   "text_period": 7,
+   "spacing": 70,
+   "collect": [
+    1070,
+    1140,
+    1210,
+    1280,
+    1350,
+    1420,
+    1490,
+    1560,
+    1630,
+    1700,
+    1770,
+    1840,
+    1910,
+    1980,
+    2050,
+    2120
+   ],
+   "t_end": 2190,
+   "seed_key": 100
+  },
+  {
+   "log10T": 0.19024767691208005,
+   "sources": [
+    {
+     "file": "llm-soft-loop/pod64/hidden/h2-line-exact/hidden-chaos.json",
+     "index": 1139,
+     "lyapunov": [
+      0.031847726217134484,
+      0.03180280812024552
+     ],
+     "period": 0,
+     "lead_period": 7,
+     "lead_tokens": [
+      33360,
+      271,
+      61498,
+      40,
+      0,
+      9454
+     ],
+     "lead_text": [
+      " heels",
+      "\n\n",
+      "pee",
+      "I",
+      "!",
+      "Yes"
+     ],
+     "class": "hidden chaos"
+    }
+   ],
+   "uid": "c101",
+   "kind": "chaotic",
+   "rank": 101,
+   "split": "heldout",
+   "text_period": 7,
+   "spacing": 70,
+   "collect": [
+    1070,
+    1140,
+    1210,
+    1280,
+    1350,
+    1420,
+    1490,
+    1560,
+    1630,
+    1700,
+    1770,
+    1840,
+    1910,
+    1980,
+    2050,
+    2120
+   ],
+   "t_end": 2190,
+   "seed_key": 101
+  },
+  {
+   "log10T": 0.1902494639027877,
+   "sources": [
+    {
+     "file": "llm-soft-loop/pod64/hidden/tline-a0.0655/hidden-chaos.json",
+     "index": 1329,
+     "lyapunov": [
+      0.030929173551906435,
+      0.030209977272654072
+     ],
+     "period": 0,
+     "lead_period": 7,
+     "lead_tokens": [
+      61498,
+      271,
+      40,
+      0,
+      9454,
+      33360
+     ],
+     "lead_text": [
+      "pee",
+      "\n\n",
+      "I",
+      "!",
+      "Yes",
+      " heels"
+     ],
+     "class": "hidden chaos"
+    }
+   ],
+   "uid": "c102",
+   "kind": "chaotic",
+   "rank": 102,
+   "split": "heldout",
+   "text_period": 7,
+   "spacing": 70,
+   "collect": [
+    1070,
+    1140,
+    1210,
+    1280,
+    1350,
+    1420,
+    1490,
+    1560,
+    1630,
+    1700,
+    1770,
+    1840,
+    1910,
+    1980,
+    2050,
+    2120
+   ],
+   "t_end": 2190,
+   "seed_key": 102
+  },
+  {
+   "log10T": 0.1902601858470336,
+   "sources": [
+    {
+     "file": "llm-soft-loop/pod64/hidden/tline-a0.0655/hidden-chaos.json",
+     "index": 1330,
+     "lyapunov": [
+      0.02653659094238008,
+      0.02632543642720154
+     ],
+     "period": 0,
+     "lead_period": 7,
+     "lead_tokens": [
+      40,
+      0,
+      9454,
+      33360,
+      271,
+      61498
+     ],
+     "lead_text": [
+      "I",
+      "!",
+      "Yes",
+      " heels",
+      "\n\n",
+      "pee"
+     ],
+     "class": "hidden chaos"
+    },
+    {
+     "file": "llm-soft-loop/pod64/hidden/h2-line-exact/hidden-chaos.json",
+     "index": 1140,
+     "lyapunov": [
+      0.02553370666116419,
+      0.02606150675136089
+     ],
+     "period": 0,
+     "lead_period": 7,
+     "lead_tokens": [
+      40,
+      0,
+      9454,
+      33360,
+      271,
+      61498
+     ],
+     "lead_text": [
+      "I",
+      "!",
+      "Yes",
+      " heels",
+      "\n\n",
+      "pee"
+     ],
+     "class": "hidden chaos"
+    }
+   ],
+   "uid": "c103",
+   "kind": "chaotic",
+   "rank": 103,
+   "split": "heldout",
+   "text_period": 7,
+   "spacing": 70,
+   "collect": [
+    1070,
+    1140,
+    1210,
+    1280,
+    1350,
+    1420,
+    1490,
+    1560,
+    1630,
+    1700,
+    1770,
+    1840,
+    1910,
+    1980,
+    2050,
+    2120
+   ],
+   "t_end": 2190,
+   "seed_key": 103
+  },
+  {
+   "log10T": 0.19027090779127948,
+   "sources": [
+    {
+     "file": "llm-soft-loop/pod64/hidden/tline-a0.0655/hidden-chaos.json",
+     "index": 1331,
+     "lyapunov": [
+      0.01778532974170853,
+      0.017259765776042494
+     ],
+     "period": 0,
+     "lead_period": 7,
+     "lead_tokens": [
+      40,
+      0,
+      9454,
+      33360,
+      271,
+      61498
+     ],
+     "lead_text": [
+      "I",
+      "!",
+      "Yes",
+      " heels",
+      "\n\n",
+      "pee"
+     ],
+     "class": "hidden chaos"
+    }
+   ],
+   "uid": "c104",
+   "kind": "chaotic",
+   "rank": 104,
+   "split": "heldout",
+   "text_period": 7,
+   "spacing": 70,
+   "collect": [
+    1070,
+    1140,
+    1210,
+    1280,
+    1350,
+    1420,
+    1490,
+    1560,
+    1630,
+    1700,
+    1770,
+    1840,
+    1910,
+    1980,
+    2050,
+    2120
+   ],
+   "t_end": 2190,
+   "seed_key": 104
+  },
+  {
+   "log10T": 0.19027269478198713,
+   "sources": [
+    {
+     "file": "llm-soft-loop/pod64/hidden/h2-line-exact/hidden-chaos.json",
+     "index": 1141,
+     "lyapunov": [
+      0.014768235888328705,
+      0.015269356059485862
+     ],
+     "period": 0,
+     "lead_period": 7,
+     "lead_tokens": [
+      33360,
+      271,
+      61498,
+      40,
+      0,
+      9454
+     ],
+     "lead_text": [
+      " heels",
+      "\n\n",
+      "pee",
+      "I",
+      "!",
+      "Yes"
+     ],
+     "class": "hidden chaos"
+    }
+   ],
+   "uid": "c105",
+   "kind": "chaotic",
+   "rank": 105,
+   "split": "heldout",
+   "text_period": 7,
+   "spacing": 70,
+   "collect": [
+    1070,
+    1140,
+    1210,
+    1280,
+    1350,
+    1420,
+    1490,
+    1560,
+    1630,
+    1700,
+    1770,
+    1840,
+    1910,
+    1980,
+    2050,
+    2120
+   ],
+   "t_end": 2190,
+   "seed_key": 105
+  },
+  {
+   "log10T": 0.1766254467476769,
+   "sources": [
+    {
+     "file": "llm-soft-loop/pod64/hidden/h2-line-exact/hidden-chaos.json",
+     "index": 50,
+     "lyapunov": [
+      -0.017598918487626944,
+      -0.017821918578934285
+     ],
+     "period": 7,
+     "lead_period": 7,
+     "lead_tokens": [
+      271,
+      40,
+      0,
+      9454,
+      33360,
+      89783
+     ],
+     "lead_text": [
+      "\n\n",
+      "I",
+      "!",
+      "Yes",
+      " heels",
+      " defiance"
+     ],
+     "class": "periodic"
+    }
+   ],
+   "uid": "p012",
+   "kind": "periodic",
+   "rank": 12,
+   "split": "heldout",
+   "text_period": 7,
+   "spacing": 70,
+   "collect": [
+    1070,
+    1140,
+    1210,
+    1280,
+    1350,
+    1420,
+    1490,
+    1560,
+    1630,
+    1700,
+    1770,
+    1840,
+    1910,
+    1980,
+    2050,
+    2120
+   ],
+   "t_end": 2190,
+   "seed_key": 100012
+  },
+  {
+   "log10T": 0.18734560400285918,
+   "sources": [
+    {
+     "file": "llm-soft-loop/pod64/hidden/h2-line-exact/hidden-chaos.json",
+     "index": 907,
+     "lyapunov": [
+      -0.014703019020723419,
+      -0.014944457981759944
+     ],
+     "period": 7,
+     "lead_period": 7,
+     "lead_tokens": [
+      9707,
+      0,
+      9454,
+      33360,
+      271,
+      89783
+     ],
+     "lead_text": [
+      "Hello",
+      "!",
+      "Yes",
+      " heels",
+      "\n\n",
+      " defiance"
+     ],
+     "class": "periodic"
+    }
+   ],
+   "uid": "p036",
+   "kind": "periodic",
+   "rank": 36,
+   "split": "heldout",
+   "text_period": 7,
+   "spacing": 70,
+   "collect": [
+    1070,
+    1140,
+    1210,
+    1280,
+    1350,
+    1420,
+    1490,
+    1560,
+    1630,
+    1700,
+    1770,
+    1840,
+    1910,
+    1980,
+    2050,
+    2120
+   ],
+   "t_end": 2190,
+   "seed_key": 100036
+  },
+  {
+   "log10T": 0.18749571122230163,
+   "sources": [
+    {
+     "file": "llm-soft-loop/pod64/hidden/h2-line-exact/hidden-chaos.json",
+     "index": 919,
+     "lyapunov": [
+      -0.027178006698369644,
+      -0.027876930511707226
+     ],
+     "period": 7,
+     "lead_period": 7,
+     "lead_tokens": [
+      9707,
+      0,
+      9454,
+      33360,
+      271,
+      89783
+     ],
+     "lead_text": [
+      "Hello",
+      "!",
+      "Yes",
+      " heels",
+      "\n\n",
+      " defiance"
+     ],
+     "class": "periodic"
+    }
+   ],
+   "uid": "p060",
+   "kind": "periodic",
+   "rank": 60,
+   "split": "heldout",
+   "text_period": 7,
+   "spacing": 70,
+   "collect": [
+    1070,
+    1140,
+    1210,
+    1280,
+    1350,
+    1420,
+    1490,
+    1560,
+    1630,
+    1700,
+    1770,
+    1840,
+    1910,
+    1980,
+    2050,
+    2120
+   ],
+   "t_end": 2190,
+   "seed_key": 100060
+  },
+  {
+   "log10T": 0.1876458184417441,
+   "sources": [
+    {
+     "file": "llm-soft-loop/pod64/hidden/h2-line-exact/hidden-chaos.json",
+     "index": 931,
+     "lyapunov": [
+      -0.041586899891821176,
+      -0.04163292813399875
+     ],
+     "period": 7,
+     "lead_period": 7,
+     "lead_tokens": [
+      9707,
+      0,
+      9454,
+      33360,
+      271,
+      89783
+     ],
+     "lead_text": [
+      "Hello",
+      "!",
+      "Yes",
+      " heels",
+      "\n\n",
+      " defiance"
+     ],
+     "class": "periodic"
+    }
+   ],
+   "uid": "p084",
+   "kind": "periodic",
+   "rank": 84,
+   "split": "heldout",
+   "text_period": 7,
+   "spacing": 70,
+   "collect": [
+    1070,
+    1140,
+    1210,
+    1280,
+    1350,
+    1420,
+    1490,
+    1560,
+    1630,
+    1700,
+    1770,
+    1840,
+    1910,
+    1980,
+    2050,
+    2120
+   ],
+   "t_end": 2190,
+   "seed_key": 100084
+  },
+  {
+   "log10T": 0.18779592566118655,
+   "sources": [
+    {
+     "file": "llm-soft-loop/pod64/hidden/h2-line-exact/hidden-chaos.json",
+     "index": 943,
+     "lyapunov": [
+      -0.058004568358525105,
+      -0.058040313986177025
+     ],
+     "period": 7,
+     "lead_period": 7,
+     "lead_tokens": [
+      9707,
+      0,
+      9454,
+      33360,
+      271,
+      89783
+     ],
+     "lead_text": [
+      "Hello",
+      "!",
+      "Yes",
+      " heels",
+      "\n\n",
+      " defiance"
+     ],
+     "class": "periodic"
+    }
+   ],
+   "uid": "p108",
+   "kind": "periodic",
+   "rank": 108,
+   "split": "dev",
+   "text_period": 7,
+   "spacing": 70,
+   "collect": [
+    1070,
+    1140,
+    1210,
+    1280,
+    1350,
+    1420,
+    1490,
+    1560,
+    1630,
+    1700,
+    1770,
+    1840,
+    1910,
+    1980,
+    2050,
+    2120
+   ],
+   "t_end": 2190,
+   "seed_key": 100108
+  },
+  {
+   "log10T": 0.18794603288062903,
+   "sources": [
+    {
+     "file": "llm-soft-loop/pod64/hidden/h2-line-exact/hidden-chaos.json",
+     "index": 955,
+     "lyapunov": [
+      -0.07701629730221572,
+      -0.0802940201692891
+     ],
+     "period": 7,
+     "lead_period": 7,
+     "lead_tokens": [
+      9707,
+      0,
+      9454,
+      33360,
+      271,
+      89783
+     ],
+     "lead_text": [
+      "Hello",
+      "!",
+      "Yes",
+      " heels",
+      "\n\n",
+      " defiance"
+     ],
+     "class": "periodic"
+    }
+   ],
+   "uid": "p132",
+   "kind": "periodic",
+   "rank": 132,
+   "split": "heldout",
+   "text_period": 7,
+   "spacing": 70,
+   "collect": [
+    1070,
+    1140,
+    1210,
+    1280,
+    1350,
+    1420,
+    1490,
+    1560,
+    1630,
+    1700,
+    1770,
+    1840,
+    1910,
+    1980,
+    2050,
+    2120
+   ],
+   "t_end": 2190,
+   "seed_key": 100132
+  },
+  {
+   "log10T": 0.18809614010007147,
+   "sources": [
+    {
+     "file": "llm-soft-loop/pod64/hidden/h2-line-exact/hidden-chaos.json",
+     "index": 967,
+     "lyapunov": [
+      -0.10037182072868019,
+      -0.10054339587636307
+     ],
+     "period": 7,
+     "lead_period": 7,
+     "lead_tokens": [
+      9707,
+      0,
+      9454,
+      33360,
+      271,
+      89783
+     ],
+     "lead_text": [
+      "Hello",
+      "!",
+      "Yes",
+      " heels",
+      "\n\n",
+      " defiance"
+     ],
+     "class": "periodic"
+    }
+   ],
+   "uid": "p156",
+   "kind": "periodic",
+   "rank": 156,
+   "split": "heldout",
+   "text_period": 7,
+   "spacing": 70,
+   "collect": [
+    1070,
+    1140,
+    1210,
+    1280,
+    1350,
+    1420,
+    1490,
+    1560,
+    1630,
+    1700,
+    1770,
+    1840,
+    1910,
+    1980,
+    2050,
+    2120
+   ],
+   "t_end": 2190,
+   "seed_key": 100156
+  },
+  {
+   "log10T": 0.18824624731951395,
+   "sources": [
+    {
+     "file": "llm-soft-loop/pod64/hidden/h2-line-exact/hidden-chaos.json",
+     "index": 979,
+     "lyapunov": [
+      -0.12982821424245233,
+      -0.12950984325069162
+     ],
+     "period": 7,
+     "lead_period": 7,
+     "lead_tokens": [
+      9707,
+      0,
+      9454,
+      33360,
+      271,
+      89783
+     ],
+     "lead_text": [
+      "Hello",
+      "!",
+      "Yes",
+      " heels",
+      "\n\n",
+      " defiance"
+     ],
+     "class": "periodic"
+    }
+   ],
+   "uid": "p180",
+   "kind": "periodic",
+   "rank": 180,
+   "split": "heldout",
+   "text_period": 7,
+   "spacing": 70,
+   "collect": [
+    1070,
+    1140,
+    1210,
+    1280,
+    1350,
+    1420,
+    1490,
+    1560,
+    1630,
+    1700,
+    1770,
+    1840,
+    1910,
+    1980,
+    2050,
+    2120
+   ],
+   "t_end": 2190,
+   "seed_key": 100180
+  },
+  {
+   "log10T": 0.1883963545389564,
+   "sources": [
+    {
+     "file": "llm-soft-loop/pod64/hidden/h2-line-exact/hidden-chaos.json",
+     "index": 991,
+     "lyapunov": [
+      -0.16999606809119375,
+      -0.1706253200613059
+     ],
+     "period": 7,
+     "lead_period": 7,
+     "lead_tokens": [
+      9707,
+      0,
+      9454,
+      33360,
+      271,
+      89783
+     ],
+     "lead_text": [
+      "Hello",
+      "!",
+      "Yes",
+      " heels",
+      "\n\n",
+      " defiance"
+     ],
+     "class": "periodic"
+    }
+   ],
+   "uid": "p204",
+   "kind": "periodic",
+   "rank": 204,
+   "split": "heldout",
+   "text_period": 7,
+   "spacing": 70,
+   "collect": [
+    1070,
+    1140,
+    1210,
+    1280,
+    1350,
+    1420,
+    1490,
+    1560,
+    1630,
+    1700,
+    1770,
+    1840,
+    1910,
+    1980,
+    2050,
+    2120
+   ],
+   "t_end": 2190,
+   "seed_key": 100204
+  },
+  {
+   "log10T": 0.18854646175839887,
+   "sources": [
+    {
+     "file": "llm-soft-loop/pod64/hidden/h2-line-exact/hidden-chaos.json",
+     "index": 1003,
+     "lyapunov": [
+      -0.23366908502039604,
+      -0.23435040827016393
+     ],
+     "period": 7,
+     "lead_period": 7,
+     "lead_tokens": [
+      9707,
+      0,
+      9454,
+      33360,
+      271,
+      89783
+     ],
+     "lead_text": [
+      "Hello",
+      "!",
+      "Yes",
+      " heels",
+      "\n\n",
+      " defiance"
+     ],
+     "class": "periodic"
+    }
+   ],
+   "uid": "p228",
+   "kind": "periodic",
+   "rank": 228,
+   "split": "heldout",
+   "text_period": 7,
+   "spacing": 70,
+   "collect": [
+    1070,
+    1140,
+    1210,
+    1280,
+    1350,
+    1420,
+    1490,
+    1560,
+    1630,
+    1700,
+    1770,
+    1840,
+    1910,
+    1980,
+    2050,
+    2120
+   ],
+   "t_end": 2190,
+   "seed_key": 100228
+  },
+  {
+   "log10T": 0.18869656897784132,
+   "sources": [
+    {
+     "file": "llm-soft-loop/pod64/hidden/h2-line-exact/hidden-chaos.json",
+     "index": 1015,
+     "lyapunov": [
+      -0.3898156333733505,
+      -0.39079852909710544
+     ],
+     "period": 7,
+     "lead_period": 7,
+     "lead_tokens": [
+      9707,
+      0,
+      9454,
+      33360,
+      271,
+      89783
+     ],
+     "lead_text": [
+      "Hello",
+      "!",
+      "Yes",
+      " heels",
+      "\n\n",
+      " defiance"
+     ],
+     "class": "periodic"
+    }
+   ],
+   "uid": "p252",
+   "kind": "periodic",
+   "rank": 252,
+   "split": "heldout",
+   "text_period": 7,
+   "spacing": 70,
+   "collect": [
+    1070,
+    1140,
+    1210,
+    1280,
+    1350,
+    1420,
+    1490,
+    1560,
+    1630,
+    1700,
+    1770,
+    1840,
+    1910,
+    1980,
+    2050,
+    2120
+   ],
+   "t_end": 2190,
+   "seed_key": 100252
+  },
+  {
+   "log10T": 0.18884667619728376,
+   "sources": [
+    {
+     "file": "llm-soft-loop/pod64/hidden/h2-line-exact/hidden-chaos.json",
+     "index": 1027,
+     "lyapunov": [
+      -0.4971754914107124,
+      -0.49971302972538484
+     ],
+     "period": 7,
+     "lead_period": 7,
+     "lead_tokens": [
+      9707,
+      0,
+      9454,
+      33360,
+      271,
+      89783
+     ],
+     "lead_text": [
+      "Hello",
+      "!",
+      "Yes",
+      " heels",
+      "\n\n",
+      " defiance"
+     ],
+     "class": "periodic"
+    }
+   ],
+   "uid": "p276",
+   "kind": "periodic",
+   "rank": 276,
+   "split": "heldout",
+   "text_period": 7,
+   "spacing": 70,
+   "collect": [
+    1070,
+    1140,
+    1210,
+    1280,
+    1350,
+    1420,
+    1490,
+    1560,
+    1630,
+    1700,
+    1770,
+    1840,
+    1910,
+    1980,
+    2050,
+    2120
+   ],
+   "t_end": 2190,
+   "seed_key": 100276
+  },
+  {
+   "log10T": 0.18899678341672624,
+   "sources": [
+    {
+     "file": "llm-soft-loop/pod64/hidden/h2-line-exact/hidden-chaos.json",
+     "index": 1039,
+     "lyapunov": [
+      -0.21113414676674686,
+      -0.21162910420046335
+     ],
+     "period": 7,
+     "lead_period": 7,
+     "lead_tokens": [
+      9707,
+      0,
+      9454,
+      33360,
+      271,
+      89783
+     ],
+     "lead_text": [
+      "Hello",
+      "!",
+      "Yes",
+      " heels",
+      "\n\n",
+      " defiance"
+     ],
+     "class": "periodic"
+    }
+   ],
+   "uid": "p300",
+   "kind": "periodic",
+   "rank": 300,
+   "split": "dev",
+   "text_period": 7,
+   "spacing": 70,
+   "collect": [
+    1070,
+    1140,
+    1210,
+    1280,
+    1350,
+    1420,
+    1490,
+    1560,
+    1630,
+    1700,
+    1770,
+    1840,
+    1910,
+    1980,
+    2050,
+    2120
+   ],
+   "t_end": 2190,
+   "seed_key": 100300
+  },
+  {
+   "log10T": 0.18914689063616869,
+   "sources": [
+    {
+     "file": "llm-soft-loop/pod64/hidden/h2-line-exact/hidden-chaos.json",
+     "index": 1051,
+     "lyapunov": [
+      -0.10780029692278593,
+      -0.11109615927524497
+     ],
+     "period": 7,
+     "lead_period": 7,
+     "lead_tokens": [
+      9707,
+      0,
+      9454,
+      33360,
+      271,
+      89783
+     ],
+     "lead_text": [
+      "Hello",
+      "!",
+      "Yes",
+      " heels",
+      "\n\n",
+      " defiance"
+     ],
+     "class": "periodic"
+    }
+   ],
+   "uid": "p324",
+   "kind": "periodic",
+   "rank": 324,
+   "split": "heldout",
+   "text_period": 7,
+   "spacing": 70,
+   "collect": [
+    1070,
+    1140,
+    1210,
+    1280,
+    1350,
+    1420,
+    1490,
+    1560,
+    1630,
+    1700,
+    1770,
+    1840,
+    1910,
+    1980,
+    2050,
+    2120
+   ],
+   "t_end": 2190,
+   "seed_key": 100324
+  },
+  {
+   "log10T": 0.19059792709077913,
+   "sources": [
+    {
+     "file": "llm-soft-loop/pod64/hidden/h2-line-exact/hidden-chaos.json",
+     "index": 1167,
+     "lyapunov": [
+      -0.02898900028493228,
+      -0.027853613586172103
+     ],
+     "period": 7,
+     "lead_period": 7,
+     "lead_tokens": [
+      0,
+      9454,
+      33360,
+      271,
+      61498,
+      40
+     ],
+     "lead_text": [
+      "!",
+      "Yes",
+      " heels",
+      "\n\n",
+      "pee",
+      "I"
+     ],
+     "class": "periodic"
+    }
+   ],
+   "uid": "p348",
+   "kind": "periodic",
+   "rank": 348,
+   "split": "heldout",
+   "text_period": 7,
+   "spacing": 70,
+   "collect": [
+    1070,
+    1140,
+    1210,
+    1280,
+    1350,
+    1420,
+    1490,
+    1560,
+    1630,
+    1700,
+    1770,
+    1840,
+    1910,
+    1980,
+    2050,
+    2120
+   ],
+   "t_end": 2190,
+   "seed_key": 100348
+  },
+  {
+   "log10T": 0.19074803431022158,
+   "sources": [
+    {
+     "file": "llm-soft-loop/pod64/hidden/h2-line-exact/hidden-chaos.json",
+     "index": 1179,
+     "lyapunov": [
+      -0.2957661844283747,
+      -0.2938166220537576
+     ],
+     "period": 7,
+     "lead_period": 7,
+     "lead_tokens": [
+      40,
+      0,
+      9454,
+      33360,
+      271,
+      61498
+     ],
+     "lead_text": [
+      "I",
+      "!",
+      "Yes",
+      " heels",
+      "\n\n",
+      "pee"
+     ],
+     "class": "periodic"
+    }
+   ],
+   "uid": "p372",
+   "kind": "periodic",
+   "rank": 372,
+   "split": "heldout",
+   "text_period": 7,
+   "spacing": 70,
+   "collect": [
+    1070,
+    1140,
+    1210,
+    1280,
+    1350,
+    1420,
+    1490,
+    1560,
+    1630,
+    1700,
+    1770,
+    1840,
+    1910,
+    1980,
+    2050,
+    2120
+   ],
+   "t_end": 2190,
+   "seed_key": 100372
+  }
+ ]
+}
