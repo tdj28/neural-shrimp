@@ -27533,3 +27533,13 @@ Both arms completed: 400 problem pairs each, every problem in both layouts. Rece
 - At the twin offset 1e-7, the free twin switched no expert at any step, model or temperature. The frozen-routing twin's network factor equals the free twin's exactly (largest difference 0.00), so along these orbits the exponents measure the smooth map.
 - The orbits still pass close to routing boundaries. The per-step smallest router-logit gap (8th against 9th expert, minimum over the routers) has medians of about 1e-3 per temperature, with minima down to 3.4e-7 (OLMoE) and 3.6e-6 (Qwen3.5-MoE).
 - Perturbations at bf16 size (about 1e-3 relative) would therefore switch experts often: an MoE-specific discontinuity in low-precision inference, absent from the float64 exponents.
+
+## 2026-10-16 08:37 UTC: Correction to the previous entry (routing gaps) and the MoE knockouts
+
+**Correction.** The per-temperature medians of the smallest router-logit gap span 1.1e-4 to 1.7e-2 (OLMoE) and 1.2e-4 to 4.0e-3 (Qwen3.5-MoE), not "about 1e-3". The per-temperature minima span 3.4e-7 to 6.2e-3 and 3.6e-6 to 1.3e-3.
+
+**Knockouts near 1 nat.** Neither MoE has a dominant amplifier:
+- OLMoE: largest MoE blocks 7, 9 and 0 at 0.27, 0.27 and 0.25; strongest dampers -0.14.
+- Qwen3.5-MoE: attention 0 at 0.42, MoE 0 at 0.38; strongest damper attention 39 at -0.22.
+- This is the pattern of the 70-72B dense models.
+- The knockout rows reproduce the plain twin within 8.5e-9.
