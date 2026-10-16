@@ -28055,3 +28055,22 @@ Run by a separate agent on the CPU, float32. Tool tools/c12_steering_history.py 
 **Smoke test.** CPU, R1-Distill-Qwen-1.5B, 10 thinking steps: the twins contracted from 1e-10 to 1e-16..1e-18.
 
 Costs and ceilings are in the private ledger. Pods are terminated by the orchestrator at their run limits.
+
+## 2026-10-16 23:00 UTC: Codex's audit of NEED_TO_AUDIT applied
+
+The report is codex/need-to-audit-20261016/final-report.md (frozen at 2b217294).
+
+**What reproduced exactly.**
+- The PM and PM2 primary criteria pass.
+- All 500 PM publication values and all 367 damping, MoE and text values reproduce exactly.
+- 8,274 of 8,363 values in items 6-13 reproduce exactly. The rest are small arithmetic or interval-convention differences, all disclosed.
+
+**Prose and bound corrections, applied in the paper (dbf722b8) and the Chaos article (881d9b0) and sent to the blog agent.**
+- Damping: the profile endpoint is the input of the last block; the knockout bound is scoped to one temperature per model; the figure's partition is caveated; "only Qwen2.5 model".
+- PM2: rates 14.5 and 19.5 %; soft accuracy 86-90 %; nonsignificance is not equivalence.
+- Horizon: text changes against extracted numbers (4.5 % and 9.0 %).
+- Selective control: the random rate (34 of 101 eligible pairs, not "about 28 %").
+- Bounds rounded outward: false chaos 0.006, 0.047, 0.43 and 0.087; split distances 1.27-176 %; router gap 3.38e-7; hidden-state bound 3.21 %.
+- Wording: quantization ("no detectable change"); steering history ("persisted through the 64 steps tested", random "no detectable effect"); "arbitrary precision" removed.
+
+**Not audited:** E5 and E2E (unfinished).
