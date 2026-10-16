@@ -2696,6 +2696,21 @@ $\lambda$ is positive, the opposite of an edge optimum. Post hoc, the curvature 
 contracting tenth of prompts ($\lambda\le-3.42$), answered 5.3 points ($[3.0,7.6]$) better than the covariates
 predict. That is a lead for a future test, not a finding.
 
+\paragraph{Sensitivity without control.} A loop whose answers change with rounding differences raises a further
+question: can a deliberate perturbation of one fed-back token steer the answer to a chosen wrong value? An exploratory
+test asked this of the Qwen2.5-0.5B soft-thinking pipeline on two-digit additions, in float32, with 16 soft steps, at
+temperatures 0.3 and 1.0 (both contracting at the median), on 16 development and 64 held-out problems. The target was
+the correct sum plus or minus 10. A 20-step projected gradient ascent on the target's log-probability perturbed the first
+soft token by one token norm, and random search over 45 directions with at least as much computation served as the
+comparison. On the held-out problems, the early perturbations reached the target in 5 of 101 problem-temperature pairs
+that the unperturbed pipeline answered correctly, and random search in none: a difference of 4.2 points (95\,\%
+interval $[0.8,8.3]$), below the advantage of 10 points that the design required. The same optimization applied to the
+last soft token before the answer cue reached the target in 14 of the 101, so in this pipeline the loop gives less
+leverage early than late. Random early perturbations of that size changed about 28\,\% of the answers, almost never to
+the target. Here the loop's sensitivity comes without selective control. The test covers only the contracting regime,
+where the pipeline still answers correctly, and the doses and the optimizer were chosen on the development problems
+(\texttt{docs/pi/c12-1-summary.json}).
+
 \section{Bifurcation curves and cusps}
 \label{sec:curves}
 \paragraph{Period-8 stripe.} Continued for 80 points with a float64 test function, the fold curve of the period-8
