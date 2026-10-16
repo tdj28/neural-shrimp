@@ -325,6 +325,7 @@ def run(args):
                     rec["gain"] = [round(s[r], 5) for s in steps["gain"]]
                     if readouts:
                         rec["readouts"] = {str(k): extract_answer(v[r]) for k, v in readouts.items()}
+                        rec["readout_texts"] = {str(k): v[r] for k, v in readouts.items()}
                     if args.gain_cap:
                         rec["temp"] = [round(s[r], 5) for s in steps["temp"]]
                 rec_f.write(json.dumps(rec) + "\n")
