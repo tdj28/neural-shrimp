@@ -27737,3 +27737,18 @@ Receipt docs/chaos-texts/qwen1.5b-philosophy.json (philosophy at layer 14, 60 re
 - The passage, tab:chaostexts (six examples, CJK via CJKutf8) and fig-chaos-twins (seven cells) are complete.
 - The intro now says "10 to 151 steps".
 - Next: the short version for the Chaos article, and the blog.
+
+## 2026-10-16 13:02 UTC: Correction to the 12:27 CT entry (split distances and counting), from the blog agent's cross-check
+
+**Distances.** "The texts split at 3 % to 170 % of the soft token's norm" holds for the four 0.5B cells only (3.4 % to 174 %). Across all seven cells the split distance is 1.3 % (the unsteered 1.5B cell) to 174 %. The growth before the split is 8.1 to 10.2 decades.
+
+**Counting.** The splits come at steps 10 to 151, so the loop and its copy write the same text for 9 to 150 steps. The paper's intro had said "for 10 to 151 steps".
+
+**After 1e-2.** The texts first differ 0 to 16 steps after the distance passes 1e-2:
+- 0 for the hostility cell, which splits at the crossing step;
+- 16 for the crescent cell (exponent 0.10);
+- at most 7 for the others.
+
+**At the split.** At every split, the loop's top token has a probability of at most 0.31 (0.3026, hostility cell) and leads the second by at most 0.078. At five of seven splits the copy writes the loop's second choice.
+
+**Fixed** in the paper (034fa93d), the Chaos article (d660864) and the blog. The paper's figure caption now names the seventh cell (Qwen2.5-1.5B, alpha 0.07376), which is plotted but not in the table.
