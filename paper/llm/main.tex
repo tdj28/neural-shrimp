@@ -134,7 +134,7 @@ system; Section~\ref{sec:beyond} also measures how much of the mechanism survive
   removes nearly all of it (on an H100, 66 against 1.6\,\% of answers changed in Qwen2.5-0.5B, and 64 against
   1.6\,\% in Qwen2.5-7B), and accuracy changes by at most 5 points. In a test frozen before its data, Soft Thinking with its published
   settings changed the answers to 21\,\% of 256 fresh GSM8K problems in Qwen2.5-7B with the batch layout alone, on an
-  H100, mostly between wrong answers; replaying the fed-back tokens cut this to 6\,\%; with reasoning models that answer 86 to 92\,\% of the problems correctly (DeepSeek-R1-Distill-Qwen-7B and QwQ-32B), 15 to 20\,\% of the answers changed, as often with discrete sampled thinking as with soft thinking. A chaotic loop's text reuses the phrases of
+  H100, mostly between wrong answers; replaying the fed-back tokens cut this to 6\,\%; with reasoning models that answer 83 to 92\,\% of the problems correctly (DeepSeek-R1-Distill-Qwen-7B and QwQ-32B), 15 to 20\,\% of the soft-thinking answers changed, and about as many with discrete sampled thinking. A chaotic loop's text reuses the phrases of
   neighboring loops in no fixed order, and a copy started $10^{-10}$ away writes the same text for 9 to 150 steps,
   then a different one (Table~\ref{tab:chaostexts}). Exactly repeating text can hide a chaotic state (Section~\ref{sec:hostile}). Beyond the model's
   first-token uncertainty, the loop's regime carries no detectable information about the accuracy of ordinary sampled

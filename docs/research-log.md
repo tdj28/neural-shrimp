@@ -28034,6 +28034,6 @@ Run by a separate agent on the CPU, float32. Tool tools/c12_steering_history.py 
 - The plain arm samples with common random numbers.
 
 **Reading.**
-- In reasoning models that answer GSM8K well (86-92 %), the batch layout alone changes 12-20 % of answers. It changes correctness for 8-15 % of problems, whether the model thinks in soft tokens or samples discrete tokens with identical random numbers.
+- In reasoning models that answer GSM8K well (83-92 % across both arms), the batch layout alone changes 10-20 % of answers. It changes correctness for 8-15 % of problems, whether the model thinks in soft tokens or samples discrete tokens with identical random numbers.
 - The effect is a property of long feedback in bfloat16, not of continuous thinking.
 - The earlier non-reasoning result (21 %, PM) generalizes to models that answer well.
