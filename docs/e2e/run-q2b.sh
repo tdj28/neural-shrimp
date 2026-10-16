@@ -3,7 +3,7 @@
 cd /data2/neural-shrimp
 L=/data2/neural-shrimp-data/explore/e2e/logs
 B="nice -n 10 env CUDA_VISIBLE_DEVICES= .venv/bin/python tools/e2e_band.py cut --threads 4"
-for ac in 0.0690:-0.14270 0.0715:-0.13910 0.0680:-0.14560; do
+for ac in 0.0690:-0.14270 0.0715:-0.13910; do
   a=${ac%%:*}; c=${ac#*:}
   $B --fixed alpha --value $a --center $c --period 6 --span 0.012 --out band-cut-a$a > $L/band-cut-a$a.log 2>&1
 done
