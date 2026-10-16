@@ -116,3 +116,21 @@ def test_paired_delta_weights_problems_equally():
     assert out["pairs"] == 3 and out["problems"] == 2      # (2, 1.5) is not baseline-correct
     assert out["estimate"] == pytest.approx(0.25)          # problem 1: (1 + 0) / 2; problem 2: 0
     assert out["a_only"] == 1 and out["b_only"] == 0
+
+
+def _rates(table):
+    out = {}
+    for rho, early, late in table:
+        for inj, r in (("early", early), ("late", late)):
+            out[f"S16_{inj}_rho{rho}_pga"] = {"S": 16, "inj": inj, "rho": rho, "arm": "pga",
+                                              "eligible": {"rate": r}}
+    return out
+
+
+def test_dose_rule():
+    d = c12.choose_doses(_rates([(0.01, 0.0, 0.0), (0.1, 0.1, 0.3), (0.3, 0.2, 0.6), (1.0, 0.5, 0.9)]), 16)
+    assert d["rule_met"] and d["small"] == 0.1 and d["large"] == 0.3
+    d = c12.choose_doses(_rates([(0.01, 0.0, 0.0), (0.1, 0.0, 0.1), (0.3, 0.26, 0.1)]), 16)
+    assert d["small"] == 0.3 and d["large"] == pytest.approx(0.9)   # largest radius qualifies: 3x
+    d = c12.choose_doses(_rates([(0.01, 0.0, 0.0), (0.1, 0.0, 0.1)]), 16)
+    assert not d["rule_met"] and (d["small"], d["large"]) == (1.0, 3.0)

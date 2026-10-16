@@ -1128,6 +1128,31 @@ def cmd_analyze(args):
         "forced": summ["controls"]["forced_target_scorer"]}}, indent=1))
 
 
+def choose_doses(rates, horizon, threshold=0.25, fallback=(1.0, 3.0)):
+    """Dose rule (fixed before the development staircase): the smaller dose is the smallest staircase radius at
+    which the pga arm, early or late injection (whichever is higher), converts at least `threshold` of the eligible
+    development pairs (both temperatures pooled); the larger dose is the next staircase radius. If no radius
+    qualifies, `fallback`."""
+    radii = sorted({v["rho"] for v in rates.values() if v["S"] == horizon and v["arm"] == "pga"})
+    table = []
+    for rho in radii:
+        r = {inj: rates.get(f"S{horizon}_{inj}_rho{rho}_pga", {}).get("eligible", {}).get("rate") for inj in ("early", "late")}
+        table.append({"rho": rho, "pga_early": r["early"], "pga_late": r["late"],
+                      "best": max(x for x in r.values() if x is not None)})
+    ok = [t["rho"] for t in table if t["best"] >= threshold]
+    if not ok:
+        return {"rule_met": False, "small": fallback[0], "large": fallback[1], "table": table}
+    small = ok[0]
+    bigger = [r for r in radii if r > small]
+    return {"rule_met": True, "small": small, "large": bigger[0] if bigger else 3 * small, "table": table}
+
+
+def cmd_doses(args):
+    a = json.loads(Path(args.analysis).read_text())
+    out = choose_doses(a["rates"], args.horizon, args.threshold)
+    print(json.dumps(out, indent=1))
+
+
 def compact_rates(rates, keep=("pairs", "problems", "target_hits", "rate", "wilson95_pairs", "problem_weighted",
                                 "boot95_problems", "answer_changed", "invalid", "correct_kept")):
     out = {}
@@ -1273,11 +1298,15 @@ def main():
     p.add_argument("runs", nargs="+")
     p.add_argument("--primary-radius", type=float, default=None)
     p.add_argument("--json", default=None)
+    p = sub.add_parser("doses")
+    p.add_argument("analysis", help="analysis JSON of the development staircase")
+    p.add_argument("--horizon", type=int, required=True)
+    p.add_argument("--threshold", type=float, default=0.25)
     p = sub.add_parser("receipt")
     p.add_argument("--spec", required=True, help="JSON: card, settings, choices, deviations, paths, raw_dirs")
     p.add_argument("--json", required=True)
     args = ap.parse_args()
-    {"receipt": cmd_receipt, "problems": cmd_problems, "calibrate": cmd_calibrate, "layouts": cmd_layouts, "bench": cmd_bench,
+    {"doses": cmd_doses, "receipt": cmd_receipt, "problems": cmd_problems, "calibrate": cmd_calibrate, "layouts": cmd_layouts, "bench": cmd_bench,
      "derivcheck": cmd_derivcheck, "run": cmd_run, "analyze": cmd_analyze}[args.cmd](args)
 
 
