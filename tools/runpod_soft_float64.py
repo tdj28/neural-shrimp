@@ -31,7 +31,7 @@ UPLOAD_PATHS = ("tools/explore_llm_soft_loop.py", "tools/explore_llm_attractors.
                 "tools/huginn_relax_eval.py", "tools/huginn_edge.py", "tools/p1_committor.py", "tools/p1_detection.py", "tools/p1_select_dose.py", "tools/cusp_check.py", "tools/llm_sae_readout.py", "tools/cusp_unfolding.py", "tools/pilot_stage2.py",
                 "tools/steering_controls.py", "docs/steering-controls-selection.json", "tools/qwen35_float64.py",
                 "tools/selfref_features.py", "tools/hidden_chaos.py", "tools/gain_split.py", "tools/start_state.py", "docs/h2-horizon-cells.json",
-                "docs/steering-controls-selection-70b.json", "docs/prefix-scale-prefixes.json", "docs/plateau-cells-z70.json", "docs/plateau-cells-l31-70b.json", "docs/q72fix-cells.json",
+                "docs/steering-controls-selection-70b.json", "docs/prefix-scale-prefixes.json", "docs/plateau-cells-z70.json", "docs/plateau-cells-z128.json", "docs/plateau-cells-l31-70b.json", "docs/q72fix-cells.json",
                 "tools/prefix_transition.py", "tools/soft_thinking_twins.py", "docs/st72-cells-p3.json",
                 "tools/lyapunov_spectrum.py", "docs/tc-spectrum-cells.json", "docs/ky-cells-philosophy.json", "docs/ky-cells-hostility.json", "tools/cusp_locate.py", "tools/repro_reset.py", "docs/rr-problems.json", "tools/window_census.py", "tools/window_closure.py", "docs/oc", "docs/cl", "docs/wp-line-cells.json", "docs/fl15-line-cells.json", "docs/fl7-line-cells.json",
                 "pyproject.toml")

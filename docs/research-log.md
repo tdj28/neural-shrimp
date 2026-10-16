@@ -26945,3 +26945,33 @@ tools/audit/dss_bfs_audit.py rebuilds the old breadth-first order from each prog
 **PT128 draw** (rule 9be05853). tools/plateau_cells.py, seed 20261015: 12 chaotic, 6 periodic and 6 unresolved cells, no shortfall; docs/plateau-cells-z128.json. Tests: tests/test_plateau_cells.py, 2 pass.
 
 **Next.** PT128 runs on one pod at the commit of this entry.
+
+## 2026-10-16 01:37 UTC: Chaos article restructured into a focused version (human: "ok fix it as you suggest")
+
+**Commit.** Chaos repo e0655b8, from 3e15a16. The comprehensive version is tagged comprehensive-2026-10-16.
+
+**Result.** 16 pages including references; the body and back matter end on page 14. 11 figures, 2 tables, abstract 242 words, Figure 1 on page 1, no overfull boxes or undefined references.
+
+**Structure, as one argument.**
+1. Introduction.
+2. The soft-token map: state space, the derivative and its check, steering as a probe with the neuron diagram, numerics.
+3. Why the loop can be chaotic: the temperature bounds, the Hopfield limit, the mechanism figure.
+4. Chaos and its consequences: labels and their accuracy; generality, with the Qwen2.5-1.5B and Z128 70B figures; reproducibility; answers of a task.
+5. Periodic windows and the saddle-node bottleneck: loop texts and coexistence, the stripe orbits, the fold figure, passages and the window law, both prospective tests in one table.
+6. The cascade: the Feigenbaum tree, ratios and Aitken, the bubble's flip normal form, band chaos, the computer-assisted proof.
+7. Shrimp-shaped windows, about one page, at the human's request: what a shrimp is with the anatomy figure; the period-5 window as a shrimp of a two-dimensional map; its near-nilpotent center; no one-dimensional head anywhere (the hostile period-7 arcs, the U-shaped trace-zero curves of the period-4 and period-8 cells, and NIL4's 0.0325 at 120 degrees, ten times the period-5 moduli).
+8. Discussion.
+
+**Moved to the supplementary material,** with pointers: the cusp classification and the cusp-kinds, period-5-folds and foliation figures; the hostility section except band chaos; the morph and size figures and the size table; the flip table; the Feigenbaum ratio figure; the passages panel; steering-depth and two-depth details; the behavioral nulls and Huginn (one sentence each).
+
+**Data availability:** the placeholder statement with TODO(release). The Z128 sentence says a test of sampled labels at three twin offsets "is reported in the supplementary material" (the coordinator's fallback wording), so the full paper must carry PT128's result.
+
+## 2026-10-16 01:38 UTC: PT128 attempt 1 failed before any cell (cells file missing from the pod archive); relaunched after the fix
+
+**Failure.** Pod 2xq5jv1bt231ud (SECURE 2 x H100 NVL): runner rc 0, archive hash verified, terminated; 409 s, about 0.7 in cost (in the ledger).
+- The vectors and the build ran (status 0). The cells job stopped with "FileNotFoundError: docs/plateau-cells-z128.json".
+- Cause: the pod receives an allow-listed archive of files, and the new cells file was not on the list.
+
+**Fix.** Added docs/plateau-cells-z128.json to the allow-list in tools/runpod_soft_float64.py.
+- Same draw, rule and settings; relaunched at the commit of this entry.
+- The failed attempt's outputs are kept in runpod/soft64/20261016T013053Z.
