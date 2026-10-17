@@ -1,0 +1,84 @@
+{
+  "status": "reviewed_for_execution",
+  "repository": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp",
+  "raw_root": "/data2/neural-shrimp-data/codex/task27-ready-review-20261017",
+  "python": "/data2/neural-shrimp/.venv/bin/python",
+  "source_files": [
+    {
+      "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/task27-ready-review-20261017/tokenizer/run.py",
+      "bytes": 17172,
+      "sha256": "82a513d33d4cde6d099d56e592d01ac4beaff8f0e1e4c0f0712c223e36819f87"
+    },
+    {
+      "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/task27-ready-review-20261017/tokenizer/pm_core.py",
+      "bytes": 15498,
+      "sha256": "59999e636fc5e2e14a096614ec61f1bb9eda958eb5db17a2f592100d57431a00"
+    },
+    {
+      "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/task27-ready-review-20261017/tokenizer/controls.py",
+      "bytes": 3270,
+      "sha256": "9bcaebbf42060ec8989601bfb9e9f8a9dbe79250d56f0a43912d997a4a61e1a6"
+    },
+    {
+      "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/task27-ready-review-20261017/tokenizer/run-002-card.json",
+      "bytes": 4031,
+      "sha256": "ed0aa36b272134e57cd598ef99f69ed3b381ac3b03dcb765ceeda06f6df05ec1"
+    },
+    {
+      "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/task27-ready-review-20261017/supervise-tokenizer.py",
+      "bytes": 8570,
+      "sha256": "5f3726ec013dc5da9524caeeadd3bafb9e4191d5581b1333f95ec910c57fb596"
+    }
+  ],
+  "lanes": {
+    "tokenizer": {
+      "entry": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/task27-ready-review-20261017/tokenizer/run.py",
+      "arguments": [
+        "--card",
+        "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/task27-ready-review-20261017/tokenizer/run-002-card.json",
+        "--out",
+        "/data2/neural-shrimp-data/codex/task27-ready-review-20261017/run-002/tokenizer"
+      ],
+      "output": "/data2/neural-shrimp-data/codex/task27-ready-review-20261017/run-002/tokenizer",
+      "supervision": "/data2/neural-shrimp-data/codex/task27-ready-review-20261017/run-002/tokenizer-supervision",
+      "preflight_pins": [
+        {
+          "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/task27-ready-review-20261017/tokenizer/run-002-card.json",
+          "bytes": 4031,
+          "sha256": "ed0aa36b272134e57cd598ef99f69ed3b381ac3b03dcb765ceeda06f6df05ec1"
+        },
+        {
+          "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/task27-ready-review-20261017/tokenizer/inputs.json",
+          "bytes": 23613,
+          "sha256": "4a5d0a0ded94b0f92d177cb01211258c5cc1c69bdeda6083d2abdf9a8f24b9f4"
+        },
+        {
+          "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/task27-ready-review-20261017/tokenizer/import-supplement.json",
+          "bytes": 3327,
+          "sha256": "b18da1e24e2a3c6aa5d90a38e38104b94044ff43ecbfbf89648ff1ac06db412f"
+        },
+        {
+          "path": "/data2/neural-shrimp-data/codex/task27-ready-review-20261017/run-002/tokenizer-profile-original-closure.json",
+          "bytes": 7201,
+          "sha256": "4ce2a430ed76abaad242daaefc89c6d8e1344aae170229dbaf593d16560b1c5b"
+        }
+      ],
+      "input_inventory": null,
+      "limits": {
+        "as_bytes": 12884901888,
+        "cpu_seconds": 55,
+        "wall_seconds": 60,
+        "output_bytes": 67108864
+      },
+      "prior_receipts": [
+        "/data2/neural-shrimp-data/codex/task27-ready-review-20261017/run-002/tokenizer-profile-supervision/receipt.json"
+      ]
+    }
+  },
+  "serial_order": [
+    "tokenizer"
+  ],
+  "admission": "Root accepted unchanged source after review of actual branch, measured recovery profile and renewed human instruction. No controls/model repeat.",
+  "resource_scope": "CPU1+supervisor,nice10/thread1,worker12GiB55CPU60wall+5+5,64MiB wholeOUT+streams,28/16GiB RAM16GiBdisk; parent soft1GiB/hard12GiB.",
+  "scientific_scope": "Sole actual512-row current-runtime decoder comparison, eight published count endpoints; no model run. Historical runtime remains unverified."
+}

@@ -1,0 +1,3 @@
+# Actual decoder replay admission, 17 October 2026
+
+The human resumed all unfinished queue tasks. Root takes ownership from errored Inference. Profile002 completed and closed. Its measured 512x4096 synthetic-ID decode covers the actual 512-row scale; actual IDs and all eight conditions are admitted under unchanged ceilings. Source and extractor unchanged. Actual branch checks exact64 unique selected indices, all condition identities, writes row-level comparisons and preserves absent answer IDs separately. No repeated manufactured controls. This tests current pinned packages, not historical runtime. Both original profile attempts are retained. Source, actual card and this operation are privately checkpointed before launch.

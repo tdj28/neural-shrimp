@@ -1,6 +1,6 @@
 {
   "schema": "tokenizer-only-card-v1",
-  "status": "prepared",
+  "status": "admitted",
   "mode": "actual",
   "interpreter": "/data2/neural-shrimp/.venv/bin/python",
   "output": "/data2/neural-shrimp-data/codex/task27-ready-review-20261017/run-002/tokenizer",
@@ -35,7 +35,7 @@
     "bytes": 23613,
     "sha256": "4a5d0a0ded94b0f92d177cb01211258c5cc1c69bdeda6083d2abdf9a8f24b9f4"
   },
-  "scope": "Same local tokenizer/extractor and nine manufactured controls; profile002 only permits installed Torch import with empty CUDA visibility/passive initialization checks. No model/weight loading or tensor/model/GPU execution. Actual512-row replay remains separately unadmitted.",
+  "scope": "Sole actual512-row current-runtime decoder comparison, eight published count endpoints; no model run. Historical runtime remains unverified.",
   "budget": {
     "common_pins": 44,
     "common_declared_bytes": 53926710,
@@ -55,8 +55,8 @@
     "scientific_claims_accepted": false,
     "rows_expected": 512
   },
-  "resources_basis": "Profile001 failed importing libtorch_cpu under1GiB AS before controls/decoder. Root selected12GiB hard AS as a bounded unmeasured recovery ceiling with28GiB startup/16GiB runtime RAM floors.55CPU/60external seconds and64MiB output unchanged. No automatic escalation. Actual resource admission awaits measured profile002.",
-  "execution_owner": "Inference, after Root exact source/card review and private checkpoint; no profile/actual admission from prepared status.",
+  "resources_basis": "Completed profile002: 7.9241s external, 1439280KiB at reap, 41584783B synthetic output; same512 rows with up to4096 IDs profiled. Actual within unchanged60s/55CPU/12GiB/64MiB ceilings. No retry.",
+  "execution_owner": "Root, human-authorized resumption 2026-10-17",
   "limitations": [
     "Historical package runtime unavailable; current pinned5.19/0.23.3/installedTorch2.14.1 only.",
     "Literal local snapshot path and conditional decoder fallback unchanged.",
@@ -64,7 +64,7 @@
     "Passive CUDA initialization state is recorded before load and before/after bulkdecode; no hardware availability query.",
     "Listed metadata/Python pins are not complete native/transitive binary attestation.",
     "Original001 failure retained; nine controls never executed there and run once only in profile002.",
-    "Prepared status refuses execution; actual512-row card needs measured profile and separate review."
+    "Actual separately admitted by Root after completed recovery profile and human resumption."
   ],
   "recovery_supplement": {
     "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/task27-ready-review-20261017/tokenizer/import-supplement.json",
