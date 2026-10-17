@@ -925,8 +925,8 @@ model (21.9\,\%) (\texttt{docs/pi/pm2fix-summary.json}, \texttt{docs/pi/pm2fix-m
   same three models. Only in DeepSeek-R1-Distill-Llama-8B did soft thinking change significantly more, by 7.4 points
   ($[1.9,12.9]$, McNemar $p=0.029$), and it answered correctly 4.7 points less often
   ($[-8.6,-0.8]$, McNemar $p=0.096$). Elsewhere no soft-minus-plain
-  difference is significant, which does not show that the two are equal. The effect does not require continuous
-  thinking: long feedback in bfloat16 suffices.
+  difference is significant, which does not show that the two are equal. In these pipelines the effect did not
+  require continuous thinking: long sampled feedback in bfloat16 showed it too.
   \item On an A100 instead of an H100, the first model's soft rate was 11.7\,\% (difference 2.7 points,
   $[-1.6,6.6]$), a separate replication on a second GPU type; the difference is not significant, which again does not
   establish equality.
@@ -937,12 +937,12 @@ model (21.9\,\%) (\texttt{docs/pi/pm2fix-summary.json}, \texttt{docs/pi/pm2fix-m
 \end{itemize}
 These runs did not use the Cold Stop rule of the Soft Thinking paper, which ends thinking once the entropy has stayed
 below 0.01 nats for 256 steps. An exploratory rerun used it, with a thinking budget of 4096 steps
-(\texttt{docs/pi/pm2cs-design.md}, \texttt{docs/pi/pm2cs-summary.json}). Cold Stop ended thinking in only 6 of the 1024
-soft rows and in none of the 1024 sampled rows; the models nearly always ended it themselves. The layout still changed the answers: 8.6\,\% (soft) and
+(\texttt{docs/pi/pm2cs-design.md}, \texttt{docs/pi/pm2cs-summary.json}). Cold Stop ended thinking in only 6 of the 512
+soft rows and in none of the 512 sampled rows; the models nearly always ended it themselves. The layout still changed the answers: 8.6\,\% (soft) and
 17.2\,\% (sampled) for DeepSeek-R1-Distill-Qwen-7B on 128 GSM8K problems, 50.0 and 54.7\,\% for it on MATH-500, and
 17.2 and 9.4\,\% for QwQ-32B on 64 GSM8K problems. The soft-minus-sampled difference changes sign between these
-cells. On the same type of GPU, every row that finished thinking within the original 1536 steps was reproduced
-exactly, so the changes come from the rows the original budget cut short; the DeepSeek-R1-Distill-Qwen-7B GSM8K rerun
+cells. On the same type of GPU, every row that ended thinking on its own within the original 1536 steps was reproduced
+exactly in its saved switch step and answer, so the changes come from the rows the original budget cut short; the DeepSeek-R1-Distill-Qwen-7B GSM8K rerun
 ran on a different H100 variant.
 
 Is this chaos? We ran float64 copies of the same pipeline. Each copy's first soft token was displaced from the base
@@ -954,7 +954,7 @@ of the copies ended above the initial displacement (131 of 192 and 145 of 256). 
 distance lay between ten times the displacement and $10^{-3}$, the median growth rates were 0.011 and 0.008 per step.
 The displacement alone changed 13.5 and 18.4\,\% of the answers, respectively. In those models the loop's own sensitivity contributes to the answer
 changes. It is a weak, finite-time instability over about a thousand thinking steps, and it acts on top of the rounding; it is
-not an asymptotic chaos measurement. Some copies ended thinking before their base row (14 in R1-Llama, 7 in QwQ),
+not an asymptotic chaos measurement. Some copies ended thinking before their base row (14 in R1-Llama, 23 in QwQ),
 and the copies of one problem are not independent
 (\texttt{docs/pi/pm2f-summary.json}, \texttt{docs/pi/pm2f64b-summary.json}; 128 problems for each 7--8B model and
 96 for QwQ-32B).
@@ -2463,8 +2463,10 @@ x_A'=(1-c)F(x_A)+cF(x_B),\qquad x_B'=(1-c)F(x_B)+cF(x_A).
 \end{equation}
 The state where both copies agree, $x_A=x_B$, is then invariant, and on it each copy runs the single loop. A small
 difference $u=x_A-x_B$ evolves as $u'=(1-2c)\,DF\,u$, so its growth rate is exactly $\lambda_\perp=\lambda_1+\ln|1-2c|$,
-where $\lambda_1$ is the leading Lyapunov exponent of the single loop. The copies therefore synchronize, for typical
-orbits, once $c$ exceeds $c^*=(1-e^{-\lambda_1})/2$ \cite{fujisaka1983stability,pecora1990synchronization}. Near
+where $\lambda_1$ is the leading Lyapunov exponent of the single loop. Along the synchronized orbit, typical
+transverse perturbations therefore decay when $\lambda_\perp<0$, which for $0\le c<1/2$ means $c>c^*=(1-e^{-\lambda_1})/2$
+\cite{fujisaka1983stability,pecora1990synchronization}. This local condition need not imply synchronization from
+every start. Near
 $c^*$ the theory predicts on-off intermittency: long synchronized stretches broken by bursts, with stretch lengths
 distributed as a power law of exponent $-3/2$ \cite{platt1993onoff,heagy1994characterization}. Above $c^*$, unstable
 periodic orbits inside the attractor that are more expanding than average can still cause bursts (attractor bubbling)
@@ -2474,15 +2476,18 @@ We tested this on three chaotic cells of Qwen2.5-0.5B's loop (philosophy directi
 $\lambda_1=0.098$, 0.437 and 0.196 per step over 3000 steps, so that $c^*=0.046$, 0.177 and 0.089
 (Figure~\ref{fig:sync}; \texttt{docs/sync/sync-summary.json}). The difference's growth rate, measured directly on the
 coupled map at seven couplings from 0 to 0.30 in each cell, follows $\lambda_1+\ln|1-2c|$ from $+0.44$ to $-0.82$, within 0.051 at
-every point. In the first cell the copies synchronized between $c=0.045$ and 0.05, at $c^*$. In the second they
-synchronized between 0.18 and 0.19 when "synchronized" means a difference below $10^{-6}$, also at $c^*$. Just below
+every point. In the first cell the copies synchronized between $c=0.045$ and 0.05, consistent with $c^*$. In the second they
+synchronized between 0.18 and 0.19 when ``synchronized'' means a difference below $10^{-6}$, consistent with $c^*$;
+on the stricter criterion of $10^{-8}$ they had not synchronized by 0.19. Just below
 it, at $c=0.16$ to 0.17, the difference burst 12 to 14 times in 10,000 steps, and the synchronized stretches had a
-power-law length distribution with fitted slopes of $-1.5$ to $-1.8$, consistent with $-3/2$; these fits are rough.
+length distribution whose rough log-binned slopes lay between about $-1.8$ and $-1.5$, close to $-3/2$; these
+descriptive fits, from the few runs with enough stretches, do not establish a power law.
 In the third cell the copies synchronized robustly only at $c$ between about 0.12 and 0.16, depending on the start
 and the run length, well above $c^*$. At $c=0.105$ to 0.115,
 where the difference should shrink on average, it still burst from the rounding level ($10^{-14}$) to order one, 5
 to 10 times in 10,000 steps, as attractor bubbling predicts. We did not compute the exponents of the periodic orbits
-that would cause it. These bursts are seeded by float64 rounding alone, since the copies are otherwise identical.
+that would cause it. No noise or mismatch was added; rounding-level differences between the two rows of a batch
+(below $10^{-15}$) are a plausible seed of the bursts.
 Synchronized copies write the same text, and their texts sample the single loop's attractor. Below $c^*$, many pairs
 instead locked onto periodic orbits of the joint state (periods 6 to 12, verified to close within $2.2\times10^{-13}$),
 on which the two copies write different or staggered texts. In the first cell, starts far from the attractor often
@@ -3062,15 +3067,16 @@ $-0.131$ and $-0.058$ per step), where the pipeline still answers correctly, and
 chosen on the development problems (\texttt{docs/pi/c12-1-summary.json}).
 
 \paragraph{Taming and using the sensitivity.} Two exploratory tests with Qwen2.5-7B-Instruct in bfloat16 (512
-fresh GSM8K problems, soft thinking with the top 15 tokens at $T=0.6$ for 64 steps) asked whether the theory gives a
+unused GSM8K training problems, 16 at each of 32 prompt lengths, fixed before any outcome; soft thinking with the top 15 tokens at $T=0.6$ for 64 steps) asked whether the theory gives a
 remedy, and whether the sensitivity can be put to use. The factorization of Section~\ref{sec:theory} locates the
-expansion in the readout. Lowering a step's temperature until a proxy of the readout gain fell below a cap reduced the
+expansion in the readout. Lowering a step's temperature until a proxy of the readout gain fell below a cap (the cap could not be met on about
+1\,\% of steps, at exact ties) reduced the
 share of answers that the batch layout changed from 27.7 to about 23\,\% (by 4.1 to 4.7 points at three caps), and
 accuracy did not fall. Lowering the temperature to 0.5 at every step, a control added after the first result, gained
 as much accuracy, and the caps' extra reduction of flips relative to it (2.7 to 3.3 points) was not significant. So
-the remedy is modest and not shown to be specific to the readout. Second, a majority vote over eight runs whose first
-soft token was displaced by a relative $10^{-3}$ was no more accurate than one run ($+0.2$ points, $[-1.0,1.4]$),
-although one displacement changed 20.2\,\% of the answers; sampled self-consistency with eight samples gained 5.6
+the remedy is modest and not shown to be specific to the readout. Second, a plurality vote over eight runs whose first
+soft token was displaced by a relative $10^{-3}$ showed no detectable accuracy gain over one run ($+0.2$ points,
+$[-1.0,1.4]$), although one displacement changed 20.2\,\% of the answers on average; sampled self-consistency with eight samples gained 5.6
 points ($[3.5,8.1]$). The perturbed runs differ, but rarely toward the correct answer. Problems whose perturbed runs
 disagreed were also the ones answered correctly least often (\texttt{docs/pi/e2-summary.json},
 \texttt{docs/pi/e3-summary.json}).
@@ -3112,9 +3118,9 @@ context are different systems, and this test did not find a bridge between them
 \paragraph{Coupled agents (behavioral check).} Two Qwen2.5-1.5B-Instruct agents solving the same multiplication
 problem each fed back a fraction $1-c$ of their own concept token and $c$ of the other's, while their contexts grew
 (64 problems, 8 pairs each; float32; exploratory). At $c=0.25$ wrong-answer agreement rose by only 1.6 points
-($[-0.6,3.9]$) and accuracy fell by 5.5 points, as it did with replayed messages. At $c=0.5$ the agents locked, both
-answering the same wrong number in 41.0\,\% of pairs, and accuracy fell by 12.5 points. At this strength both agents
-receive the same input from the first step on, so the agreement is built in; only the accuracy loss is a finding
+($[-0.6,3.9]$) and accuracy fell by 5.5 points, as it did with replayed messages. At $c=0.5$ mixing gives the two agents
+equal next inputs, although their growing contexts differ. They then agreed on 96\,\% of answers, including
+41.0\,\% of pairs that gave the same wrong number, and accuracy was 12.5 points lower than for independent agents
 (\texttt{docs/pi/c12-3-summary.json}).
 
 \paragraph{Steering history and a policy decision.} Coexisting attractors suggest that the history of a steering
@@ -3135,9 +3141,9 @@ from differently worded statements (cosine 0.77 with the first), gave 19.3 point
 excursion raised false denials of permitted requests by 23.4 points ($[17.1,29.7]$). An excursion of the same size
 along a random direction showed no detectable effect ($-3.1$ points, $[-8.9,2.1]$), and an excursion of zero size
 changed none of the 384 decisions (\texttt{docs/pi/c12-4c-summary.json}). The present steering strength therefore
-does not describe the steered model's behavior here. What the loop wrote during
-the excursion stays in its growing context and keeps biasing the decision: this is a memory of the context, not
-hysteresis of a fixed-size state. One model and one schedule were tested, in float32, with two wordings of one
+does not describe the steered model's behavior here. The effect persists after the steering values match. Because what the loop wrote during the excursion stays in its
+growing context, a memory of the context is the plausible mechanism, although these tests do not isolate it; this is
+history dependence of the protocol, not a demonstration of hysteresis in a fixed-size state. One model and one schedule were tested, in float32, with two wordings of one
 direction.
 
 \paragraph{Does the hidden state change answers?} In band chaos the loop writes an exactly repeating text while its
