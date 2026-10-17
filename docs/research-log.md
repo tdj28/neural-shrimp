@@ -28907,3 +28907,7 @@ Brief: /data2/CHECK_THESE.md. Findings: /data2/CHECK_THESE_FINDINGS.md (sha256 c
 **Applied:** paper 13b9726b and the following commit; Chaos article ba57386.
 
 **Left as is:** F9, the 893,868-cell total. It is a reconstruction whose partition was found by matching both published totals; the human decides whether to label it so.
+
+## 2026-10-17: Task28 Codex basin profile (exploratory)
+
+Human-authorized Task28: test which sampled starts reach coexisting loops and whether fixed-start proximity explains the outcome. Source tools/task28_basins.py; detailed design/card codex/basins-task28/. CPU-only full-float64 manual map, batch2/16/323 timing and AD/central-difference check, 300-second deadline, output /data2/neural-shrimp-data/explore/basins/task28/profile-001. A small crescent basin despite the fixed-start choice would challenge a generic-basin explanation. No global basin/fractal or causal claim from this pilot. No target census until measured resource admission.
