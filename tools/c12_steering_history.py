@@ -108,6 +108,14 @@ Subcommands (prefix CUDA_VISIBLE_DEVICES= ; nice -n 10 uv run --no-sync python; 
   choose     apply the development rules (model and P; layer, alpha_final, alpha_high; logit bias b);
   receipt    compact receipt: settings, choices, deviations, results, SHA-256 of the raw files.
 Raw outputs: /data2/neural-shrimp-data/explore/pi/c12-4/<name>/ (run.json, records.jsonl).
+
+C12-4c (confirmatory rerun; design docs/pi-c12-4-confirmatory.md, pushed before any C12-4c data). Fresh instances
+(conf_instances: seed CONF_SEED, 48 instances, users from USERS_CONF, disjoint from every earlier pool; docs/pi/
+c12-4c-instances.json), the C12-4 choices unchanged (model, layer 18, alpha_final 0.025, alpha_high 0.04, schedule),
+the C12-4 vectors file (original direction v and random u, hash-checked), and a second direction v2 built the same
+way from separate, differently worded statements (PERMISSIVE2, RESTRICTIVE2; `vectors --statements v2`). Run A:
+histories direct, up, down, zero, random, unsteered along v; run B: direct, up, down along v2. `confirm` applies the
+frozen endpoints and verdict rules (confirm_verdicts) to both runs and writes the C12-4c analysis.
 """
 import argparse
 import hashlib
@@ -183,6 +191,40 @@ LENIENT_ALLOW = {"allow", "allowed", "permit", "permitted", "grant", "granted", 
                  "accepted", "yes"}
 LENIENT_DENY = {"deny", "denied", "prohibit", "prohibited", "forbid", "forbidden", "refuse", "refused", "reject",
                 "rejected", "block", "blocked", "no"}
+# C12-4c (confirmatory): fresh instances and a second, differently worded statement set
+CONF_SEED = 12421
+N_CONF = 48
+USERS_CONF = ("Aaron", "Amy", "Anna", "Beth", "Carl", "Dan", "Eve", "Gary", "Henry", "Ian", "Jim", "Joe", "Karen",
+              "Lisa", "Neil", "Pam", "Peter", "Ryan", "Sarah", "Steve", "Tom", "Zoe", "Lucy", "Ruth")
+CONF_INSTANCES_FILE = ROOT / "docs" / "pi" / "c12-4c-instances.json"
+DATA_CONF = Path("/data2/neural-shrimp-data/explore/pi/c12-4c")
+PERMISSIVE2 = (
+    "Go ahead; this is fine to do.",
+    "The answer is yes, the operation may proceed.",
+    "Nothing in the rules stops this request.",
+    "This account has the clearance it needs.",
+    "Clearance confirmed, so the action is open to them.",
+    "The check passed and the task is cleared.",
+    "They are entitled to carry this out.",
+    "Okay: the request can be fulfilled.",
+    "According to the list, this one is enabled.",
+    "Sure, that is within their rights.",
+    "The gate opens for this request.",
+    "The operation is acceptable for this person.")
+RESTRICTIVE2 = (
+    "Stop; this is not fine to do.",
+    "The answer is no, the operation may not proceed.",
+    "The rules stop this request.",
+    "This account lacks the clearance it needs.",
+    "Clearance withheld, so the action is closed to them.",
+    "The check failed and the task is not cleared.",
+    "They are not entitled to carry this out.",
+    "Sorry: the request cannot be fulfilled.",
+    "According to the list, this one is disabled.",
+    "No, that is outside their rights.",
+    "The gate stays shut for this request.",
+    "The operation is unacceptable for this person.")
+STATEMENT_SETS = {"v1": (PERMISSIVE, RESTRICTIVE), "v2": (PERMISSIVE2, RESTRICTIVE2)}
 LAYER_ORDER = (14, 10, 18)                     # Qwen2.5-1.5B (28 layers); layer_order() in general
 
 
@@ -244,6 +286,16 @@ def calib2_instances():
     """Engineering check of the prompt rendering (neither development nor held-out): 24 instances, seed CALIB2_SEED,
     users from USERS_SMOKE."""
     return make_instances(seed=CALIB2_SEED, splits=(("calib2", 24, USERS_SMOKE),))
+
+
+def conf_instances():
+    """C12-4c confirmatory instances: 48 (24 prohibited), seed CONF_SEED, users from USERS_CONF (disjoint from the
+    development, held-out, smoke and calibration pools, so no table of C12-4 recurs)."""
+    return make_instances(seed=CONF_SEED, splits=(("conf", N_CONF, USERS_CONF),))
+
+
+def table_key(inst):
+    return (tuple(inst["users"]), tuple(inst["ops"]), str(inst["matrix"]))
 
 
 def instances_hash(insts):
@@ -906,6 +958,13 @@ def out_dir(args, name, resume=False):
 
 
 def split_instances(args, split):
+    if split == "conf":
+        insts = conf_instances()
+        if args.instances and Path(args.instances).resolve() != INSTANCES_FILE.resolve():
+            stored = json.loads(Path(args.instances).read_text())["instances"]
+            if instances_hash(stored) != instances_hash(insts):
+                raise SystemExit(f"{args.instances}: instance list differs from conf_instances()")
+        return insts[:args.limit] if args.limit else insts
     if split in ("calib", "calib2"):
         insts = calib_instances() if split == "calib" else calib2_instances()
         return insts[:args.limit] if args.limit else insts
@@ -947,14 +1006,43 @@ def cmd_instances(args):
     print(json.dumps({"sha256": blob["sha256"], "n": len(insts), "prompt_tokens": lens[0]}))
 
 
+def cmd_conf_instances(args):
+    """C12-4c: write the confirmatory instance list and check it against every earlier instance set."""
+    from transformers import AutoTokenizer
+    conf = conf_instances()
+    if len(conf) != N_CONF or sum(i["cls"] == "prohibited" for i in conf) * 2 != N_CONF:
+        raise SystemExit("wrong size or unbalanced classes")
+    if any(gold_of(i) != i["gold"] for i in conf):
+        raise SystemExit("gold differs from the table")
+    earlier = make_instances() + smoke_instances() + calib_instances() + calib2_instances()
+    pools = set(USERS_DEV) | set(USERS_TEST) | set(USERS_SMOKE)
+    if set(USERS_CONF) & pools or {u for i in conf for u in i["users"]} & {u for i in earlier for u in i["users"]}:
+        raise SystemExit("confirmatory user pool overlaps an earlier pool")
+    if {table_key(i) for i in conf} & {table_key(i) for i in earlier}:
+        raise SystemExit("a confirmatory table repeats an earlier one")
+    tok = AutoTokenizer.from_pretrained(ph.snapshot(MODELS[args.model]))
+    lens = sorted({len(tok.apply_chat_template([{"role": "user", "content": prompt_text(i, "rows")}],
+                                               add_generation_prompt=True, return_dict=True)["input_ids"]) for i in conf})
+    if len(lens) != 1:
+        raise SystemExit(f"prompt lengths differ: {lens}")
+    blob = {"seed": CONF_SEED, "n": N_CONF, "sha256": instances_hash(conf), "prompt_tokens": lens[0],
+            "users": list(USERS_CONF), "tokenizer": str(ph.snapshot(MODELS[args.model])),
+            "example_prompt": prompt_text(conf[0]), "instances": conf}
+    Path(args.json).parent.mkdir(parents=True, exist_ok=True)
+    Path(args.json).write_text(json.dumps(blob, indent=1) + "\n")
+    print(json.dumps({"sha256": blob["sha256"], "n": len(conf), "prompt_tokens": lens[0]}))
+
+
 def cmd_vectors(args):
     torch_threads(args)
     eng = Engine(args.model, args.threads)
-    out = out_dir(args, f"vectors-{args.model}")
+    perm, restr = STATEMENT_SETS[args.statements]
+    out = out_dir(args, f"vectors-{args.model}" if args.statements == "v1" else f"vectors-{args.statements}-{args.model}")
     args.layers = args.layers or list(layer_order(eng.n_layers))
-    st = eng.layer_states(list(PERMISSIVE) + list(RESTRICTIVE), args.layers)
-    n = len(PERMISSIVE)
-    vecs, info = {}, {"statements_sha256": hashlib.sha256(json.dumps([PERMISSIVE, RESTRICTIVE]).encode()).hexdigest(),
+    st = eng.layer_states(list(perm) + list(restr), args.layers)
+    n = len(perm)
+    vecs, info = {}, {"statements": args.statements,
+                      "statements_sha256": hashlib.sha256(json.dumps([perm, restr]).encode()).hexdigest(),
                       "layers": {}}
     for L in args.layers:
         last, norms, typ = st[L]
@@ -1155,7 +1243,8 @@ def cmd_histories(args):
                     rows.append({"inst": inst, "start": k, "history": h, **co, "plant": plant, "plant_text": ptxt,
                                  "forced": h == "unsteered"})
         batches.append(rows)
-    info = provenance(args, {"kind": "histories", "instances_sha256": instances_hash(load_instances(args.instances)),
+    ihash = instances_hash(conf_instances()) if args.split == "conf" else instances_hash(load_instances(args.instances))
+    info = provenance(args, {"kind": "histories", "instances_sha256": ihash, "vectors_dir": str(args.vectors),
                              "model_path": str(eng.path), "vectors_sha256": vsha, "choices": ch,
                              "choices_sha256": sha256_file(args.choices), "uids": [i["uid"] for i in insts],
                              "starts": starts, "start_ids": eng.start_ids, "n_steps": N, "P": P, "dwell": dwell,
@@ -1393,6 +1482,142 @@ def cmd_analyze(args):
     print(json.dumps(brief, indent=1))
 
 
+def predicted_effect(est, ci, threshold=0.10):
+    """C12-4c verdict for a predicted history effect: holds if the estimate is >= 10 points and the 95 % interval's
+    lower bound is above 0."""
+    if est is None:
+        return "no data"
+    if est >= threshold and ci[0] > 0:
+        return "holds"
+    if ci[0] > 0:
+        return "does not hold: positive (interval above 0) but below the predicted 10 points"
+    return "does not hold: the interval includes 0 or lies below it"
+
+
+def null_control(est, ci, threshold=0.10):
+    """C12-4c verdict for a control predicted to show no effect: passes if the 95 % interval contains 0 and lies
+    within (-10, +10) points."""
+    if est is None:
+        return "no data"
+    if ci[0] <= 0 <= ci[1] and -threshold < ci[0] and ci[1] < threshold:
+        return "passes: no detectable effect, interval within 10 points of 0"
+    return "fails: the interval excludes 0 or reaches 10 points"
+
+
+def manipulation_check(est, ci, threshold=0.10):
+    """C12-4c: steering at alpha_final (direct) must raise false-ALLOW among prohibited requests over the unsteered
+    loop by >= 10 points with the interval above 0, or the direction does not act on the decision at these alphas."""
+    if est is None:
+        return "no data"
+    return "valid" if est >= threshold and ci[0] > 0 else "failed: the direction does not move the decision at alpha_final"
+
+
+def confirm_verdicts(primary, v2, v2_check, down_fd, random_fa, zero_fa, zero_fd, v_check):
+    """The frozen C12-4c verdicts (docs/pi-c12-4-confirmatory.md). Each argument is (estimate, [lo, hi])."""
+    out = {"primary_up_minus_direct_false_allow_v": predicted_effect(*primary),
+           "manipulation_check_v": manipulation_check(*v_check),
+           "manipulation_check_v2": manipulation_check(*v2_check),
+           "down_minus_direct_false_deny_v": predicted_effect(*down_fd),
+           "random_minus_direct_false_allow": null_control(*random_fa),
+           "zero_minus_direct_false_allow": null_control(*zero_fa),
+           "zero_minus_direct_false_deny": null_control(*zero_fd)}
+    if out["manipulation_check_v2"] == "valid":
+        out["v2_up_minus_direct_false_allow"] = predicted_effect(*v2)
+    else:
+        out["v2_up_minus_direct_false_allow"] = ("not tested: the v2 manipulation check failed (estimate reported "
+                                                 "descriptively: " + predicted_effect(*v2) + ")")
+    return out
+
+
+def complete_rows(recs):
+    """C12-4c: the rows of completed batches only. A batch interrupted before its done marker and recomputed on resume
+    leaves partial rows; per batch with a done marker, the last `rows` (from its timing record) row records of that
+    batch are its completed pass. Returns (rows, number of discarded row records, batches without a done marker)."""
+    rows_by, n_rows, done = defaultdict(list), {}, set()
+    for r in recs:
+        if r["kind"] == "row":
+            rows_by[r["batch"]].append(r)
+        elif r["kind"] == "timing":
+            n_rows[r["batch"]] = r["rows"]
+        elif r["kind"] == "done":
+            done.add(r["batch"])
+    keep, dropped = [], 0
+    for b in sorted(rows_by):
+        rs = rows_by[b]
+        if b in done:
+            keep.extend(rs[-n_rows[b]:])
+            dropped += len(rs) - n_rows[b]
+        else:
+            dropped += len(rs)
+    return keep, dropped, sorted(set(rows_by) - done)
+
+
+def cmd_confirm(args):
+    """C12-4c frozen analysis of run A (direction v) and run B (direction v2)."""
+    recA, histA = load_run(args.run_a)
+    recB, histB = load_run(args.run_b)
+    infoA, infoB = histA[-1], histB[-1]
+    rowsA, dropA, openA = complete_rows(recA)
+    rowsB, dropB, openB = complete_rows(recB)
+    conf_hash = instances_hash(conf_instances())
+    gates = {"run_a_issues": gate_histories(rowsA, infoA), "run_b_issues": gate_histories(rowsB, infoB),
+             "discarded_partial_rows": [dropA, dropB], "batches_without_done": [openA, openB],
+             "instances_sha256_ok": infoA["instances_sha256"] == conf_hash == infoB["instances_sha256"],
+             "split_conf": infoA["args"]["split"] == "conf" == infoB["args"]["split"],
+             "choices_sha256": [infoA["choices_sha256"], infoB["choices_sha256"]],
+             "choices_equal_c12_4": infoA["choices_sha256"] == infoB["choices_sha256"] == sha256_file(args.choices),
+             "starts": [len(infoA["starts"]), len(infoB["starts"])],
+             "histories": [infoA["histories"], infoB["histories"]],
+             "vectors_sha256": [infoA["vectors_sha256"], infoB["vectors_sha256"]],
+             "vectors_a_expected": args.vectors_a_sha256,
+             "vectors_a_ok": args.vectors_a_sha256 is None or infoA["vectors_sha256"] == args.vectors_a_sha256,
+             "commits": sorted({h["commit"] for h in histA + histB}),
+             "dirty_files": sorted({x for h in histA + histB for x in h.get("dirty_files", [])}),
+             "rows": [len(rowsA), len(rowsB)]}
+    bias = infoA["choices"].get("logit_bias_b")
+    A = analyze_histories(rowsA, infoA, bias)
+    B = analyze_histories(rowsB, infoB)
+    S32, S64 = A["S_primary"], A["S_secondary"]
+    by_a = defaultdict(list)
+    for r in rowsA:
+        by_a[r["history"]].append(r)
+    direct_b = [r for r in rowsB if r["history"] == "direct"]
+    chk_v = paired_contrast(by_a["direct"], by_a["unsteered"], S32, "allow", "prohibited")
+    chk_v2 = paired_contrast(direct_b, by_a["unsteered"], S32, "allow", "prohibited")
+
+    def pair(x, k32="estimate", c32="boot95_instances"):
+        return (x[k32], x[c32])
+
+    def sec(res, key):
+        x = res["secondary"][key]
+        return (x["estimate_dwell32"], x["boot95_dwell32"])
+
+    verdicts = confirm_verdicts(pair(A["primary"]), pair(B["primary"]), pair(chk_v2),
+                                sec(A, "down_false_deny_permitted"), sec(A, "random_false_allow_prohibited"),
+                                sec(A, "zero_false_allow_prohibited"), sec(A, "zero_false_deny_permitted"), pair(chk_v))
+    for c in (chk_v, chk_v2):
+        c.pop("per_instance", None)
+    out = {"kind": "c12-4c confirm", "S_primary": S32, "S_secondary": S64, "gates": gates, "verdicts": verdicts,
+           "primary": A["primary"], "v2_primary": B["primary"],
+           "manipulation_check_v_direct_minus_unsteered": chk_v,
+           "manipulation_check_v2_direct_minus_unsteered": chk_v2,
+           "secondary_v": A["secondary"], "secondary_v2": B["secondary"],
+           "relaxation_up_false_allow_v": A["relaxation_up_false_allow"],
+           "relaxation_up_false_allow_v2": B["relaxation_up_false_allow"],
+           "zero_control": A.get("zero_control"), "analysis_a": A, "analysis_b": B}
+    for res in (A, B):
+        for c in res.get("contrasts", {}).values():
+            for m in c.values():
+                m.pop("per_instance", None)
+    Path(args.json).parent.mkdir(parents=True, exist_ok=True)
+    Path(args.json).write_text(json.dumps(out, indent=1) + "\n")
+    print(json.dumps({"gates": {k: v for k, v in gates.items() if k not in ("histories",)}, "verdicts": verdicts,
+                      "primary": {k: A["primary"][k] for k in ("estimate", "boot95_instances", "estimate_dwell64",
+                                                               "boot95_dwell64")},
+                      "v2": {k: B["primary"][k] for k in ("estimate", "boot95_instances")},
+                      "check_v": pair(chk_v), "check_v2": pair(chk_v2)}, indent=1))
+
+
 def cmd_choose(args):
     ch = json.loads(Path(args.choices).read_text()) if Path(args.choices).exists() else {}
     if args.stage == "model":
@@ -1453,8 +1678,13 @@ def cmd_receipt(args):
     vectors, each analysis, and the SHA-256 and size of every raw output file."""
     spec = json.loads(Path(args.spec).read_text())
     rec = {k: v for k, v in spec.items() if k not in ("analyses", "raw_dirs", "vectors_dir", "choices_file")}
-    rec["instances"] = {"file": str(INSTANCES_FILE.relative_to(ROOT)), "seed": INSTANCE_SEED, "n_dev": N_DEV,
-                        "n_test": N_TEST, "sha256": instances_hash(make_instances())}
+    if spec.get("instance_set") == "conf":
+        rec["instances"] = {"file": str(CONF_INSTANCES_FILE.relative_to(ROOT)), "seed": CONF_SEED, "n": N_CONF,
+                            "sha256": instances_hash(conf_instances())}
+    else:
+        rec["instances"] = {"file": str(INSTANCES_FILE.relative_to(ROOT)), "seed": INSTANCE_SEED, "n_dev": N_DEV,
+                            "n_test": N_TEST, "sha256": instances_hash(make_instances())}
+    rec.pop("instance_set", None)
     if spec.get("choices_file"):
         rec["choices"] = json.loads(Path(spec["choices_file"]).read_text())
         rec["choices_file"] = {"path": spec["choices_file"], "sha256": sha256_file(spec["choices_file"])}
@@ -1463,6 +1693,8 @@ def cmd_receipt(args):
     rec["analyses"] = {}
     for name, path in spec.get("analyses", {}).items():
         a = json.loads(Path(path).read_text())
+        if a.get("kind") == "c12-4c confirm":
+            a = {k: v for k, v in a.items() if k not in ("analysis_a", "analysis_b")}
         if a.get("kind") == "histories":
             for c in a.get("contrasts", {}).values():
                 for m in c.values():
@@ -1499,6 +1731,7 @@ def main():
     p.add_argument("--json", default=str(INSTANCES_FILE))
     p = sub.add_parser("vectors")
     common(p)
+    p.add_argument("--statements", default="v1", choices=sorted(STATEMENT_SETS))
     p.add_argument("--layers", type=int, nargs="+", default=None, help="default: layer_order of the model")
     p = sub.add_parser("smoke")
     common(p)
@@ -1531,7 +1764,7 @@ def main():
     p.add_argument("--instances-per-batch", type=int, default=2)
     p = sub.add_parser("histories")
     common(p, model=False)
-    p.add_argument("--split", required=True, choices=("dev", "test"))
+    p.add_argument("--split", required=True, choices=("dev", "test", "conf"))
     p.add_argument("--choices", required=True)
     p.add_argument("--vectors", default=None, help="default: DATA/vectors-<model of the choices>")
     p.add_argument("--starts", type=int, default=8)
@@ -1549,13 +1782,22 @@ def main():
     p.add_argument("--choices", required=True)
     p.add_argument("--analysis", nargs="*", default=[])
     p.add_argument("--run", default=None, help="bias stage: the development histories run")
+    p = sub.add_parser("conf-instances")
+    p.add_argument("--model", default="qwen3b", choices=sorted(MODELS))
+    p.add_argument("--json", default=str(CONF_INSTANCES_FILE))
+    p = sub.add_parser("confirm")
+    p.add_argument("--run-a", required=True, help="histories along v (direct up down zero random unsteered)")
+    p.add_argument("--run-b", required=True, help="histories along v2 (direct up down)")
+    p.add_argument("--choices", default=str(ROOT / "docs" / "pi" / "c12-4-choices.json"))
+    p.add_argument("--vectors-a-sha256", default=None, help="expected SHA-256 of the C12-4 vectors file")
+    p.add_argument("--json", required=True)
     p = sub.add_parser("receipt")
     p.add_argument("--spec", required=True)
     p.add_argument("--json", required=True)
     args = ap.parse_args()
     {"instances": cmd_instances, "vectors": cmd_vectors, "smoke": cmd_smoke, "baseline": cmd_baseline,
      "sweep": cmd_sweep, "histories": cmd_histories, "analyze": cmd_analyze, "choose": cmd_choose,
-     "receipt": cmd_receipt}[args.cmd](args)
+     "receipt": cmd_receipt, "conf-instances": cmd_conf_instances, "confirm": cmd_confirm}[args.cmd](args)
 
 
 if __name__ == "__main__":

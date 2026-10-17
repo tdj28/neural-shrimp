@@ -338,3 +338,127 @@ def test_choose_bias():
     assert r["b"] == 2.5 and r["fa_at_b"] == 0.5                  # b > thr for thr = 1, 2
     r = c4.choose_bias(rows, 56, 0.0, grid=[0.0, 1.0])
     assert r["b"] == 0.0
+
+
+# ----------------------------------------------------------------------------------------------- C12-4c
+
+
+def test_conf_instances_fresh_balanced_disjoint():
+    a, b = c4.conf_instances(), c4.conf_instances()
+    assert a == b and len(a) == c4.N_CONF == 48
+    assert sum(i["cls"] == "prohibited" for i in a) == 24
+    assert all(i["split"] == "conf" and c4.gold_of(i) == i["gold"] for i in a)
+    earlier = c4.make_instances() + c4.smoke_instances() + c4.calib_instances() + c4.calib2_instances()
+    assert not set(c4.USERS_CONF) & set(c4.USERS_DEV + c4.USERS_TEST + c4.USERS_SMOKE)
+    assert not {u for i in a for u in i["users"]} & {u for i in earlier for u in i["users"]}
+    assert not {c4.table_key(i) for i in a} & {c4.table_key(i) for i in earlier}
+    assert len({c4.table_key(i) for i in a}) == 48
+    assert len(set(c4.USERS_CONF)) == 24
+
+
+def test_conf_instances_file_matches_generator():
+    import json
+    blob = json.loads(c4.CONF_INSTANCES_FILE.read_text())
+    assert blob["sha256"] == c4.instances_hash(c4.conf_instances()) == c4.instances_hash(blob["instances"])
+    assert blob["seed"] == c4.CONF_SEED != c4.INSTANCE_SEED
+
+
+def test_second_statement_set_separate_and_matched():
+    p2, r2 = c4.STATEMENT_SETS["v2"]
+    assert len(p2) == len(r2) == 12 and len(set(p2)) == 12 and len(set(r2)) == 12
+    assert not (set(p2) | set(r2)) & (set(c4.PERMISSIVE) | set(c4.RESTRICTIVE))
+    assert c4.STATEMENT_SETS["v1"] == (c4.PERMISSIVE, c4.RESTRICTIVE)
+    for s in p2 + r2:   # differently worded: none of the decision words or their stems
+        low = s.lower()
+        assert not any(w in low for w in ("allow", "deny", "denied", "permi", "grant", "approv", "refus", "reject",
+                                          "authori", "prohibit", "forbid", "access", "polic"))
+
+
+def test_verdict_rules():
+    assert c4.predicted_effect(0.21, [0.15, 0.27]) == "holds"
+    assert c4.predicted_effect(0.10, [0.01, 0.2]) == "holds"
+    assert c4.predicted_effect(0.08, [0.02, 0.14]).startswith("does not hold: positive")
+    assert c4.predicted_effect(0.15, [-0.01, 0.3]).startswith("does not hold: the interval")
+    assert c4.predicted_effect(None, [None, None]) == "no data"
+    assert c4.null_control(0.0, [0.0, 0.0]).startswith("passes")
+    assert c4.null_control(0.01, [-0.04, 0.06]).startswith("passes")
+    assert c4.null_control(0.05, [0.01, 0.09]).startswith("fails")
+    assert c4.null_control(0.03, [-0.02, 0.11]).startswith("fails")
+    assert c4.manipulation_check(0.34, [0.25, 0.43]) == "valid"
+    assert c4.manipulation_check(0.05, [0.0, 0.1]).startswith("failed")
+    ok = (0.2, [0.1, 0.3])
+    nul = (0.0, [-0.03, 0.03])
+    v = c4.confirm_verdicts(ok, ok, ok, ok, nul, nul, nul, ok)
+    assert v["primary_up_minus_direct_false_allow_v"] == "holds" and v["v2_up_minus_direct_false_allow"] == "holds"
+    v = c4.confirm_verdicts(ok, ok, (0.02, [-0.05, 0.08]), ok, nul, nul, nul, ok)
+    assert v["v2_up_minus_direct_false_allow"].startswith("not tested")
+
+
+def _fake_run(tmp, name, histories, uids, effect, split="conf"):
+    import json
+    ramp, hold, dwell = 8, 8, 64
+    P, N = 24, 88
+    reads = [16, 24, 56, 88]
+    choices = {"model": "qwen3b", "layer": 18, "alpha_final": 0.025, "alpha_high": 0.04, "ramp": ramp, "hold": hold,
+               "logit_bias_b": 5.0}
+    d = tmp / name
+    d.mkdir()
+    info = {"kind": "histories", "args": {"split": split}, "uids": uids, "starts": [0, 1], "histories": histories,
+            "choices": choices, "P": P, "n_steps": N, "readouts": reads, "commit": "abc",
+            "instances_sha256": c4.instances_hash(c4.conf_instances()), "choices_sha256": "x", "vectors_sha256": "y",
+            "dirty_files": []}
+    (d / "run.json").write_text(json.dumps({"history": [info]}))
+    rng = np.random.default_rng(0)
+    with open(d / "records.jsonl", "w") as f:
+        for uid in uids:
+            cls = "prohibited" if uid % 2 == 0 else "permitted"
+            gold = "DENY" if cls == "prohibited" else "ALLOW"
+            for k in (0, 1):
+                for h in histories:
+                    co = c4.history_coefficients(h, 0.025, 0.04, ramp, hold, dwell)
+                    p_allow = 0.4 + (effect if h == "up" else 0.0) - (0.3 if h == "unsteered" else 0.0)
+                    ro = {}
+                    for S in reads:
+                        dec = "ALLOW" if rng.random() < p_allow else "DENY"
+                        ro[str(S)] = {"text": " " + dec, "decision": dec, "zA": 1.0, "zD": 0.5, "thr": 1.0,
+                                      "forced_decision": "ALLOW"}
+                    rec = {"kind": "row", "batch": 0, "uid": uid, "start": k, "history": h, "cls": cls, "gold": gold,
+                           "alpha": [round(float(a), 8) for a in co["alpha"]], "alpha_pre": co["alpha_pre"],
+                           "beta": None, "top1": [1] * N, "readouts": ro}
+                    if h != "direct":
+                        rec["dist_to_direct"] = [0.0] * N
+                    f.write(json.dumps(rec) + "\n")
+        f.write(json.dumps({"kind": "timing", "batch": 0, "rows": len(uids) * 2 * len(histories)}) + "\n")
+        f.write(json.dumps({"kind": "done", "batch": 0}) + "\n")
+    return d
+
+
+def test_cmd_confirm_end_to_end(tmp_path):
+    import json
+    from types import SimpleNamespace
+    uids = list(range(12))
+    a = _fake_run(tmp_path, "a", ["direct", "up", "down", "zero", "random", "unsteered"], uids, 0.5)
+    b = _fake_run(tmp_path, "b", ["direct", "up", "down"], uids, 0.5)
+    chf = tmp_path / "choices.json"
+    chf.write_text("{}")
+    out = tmp_path / "confirm.json"
+    c4.cmd_confirm(SimpleNamespace(run_a=str(a), run_b=str(b), choices=str(chf), vectors_a_sha256="y",
+                                   json=str(out)))
+    res = json.loads(out.read_text())
+    assert res["gates"]["instances_sha256_ok"] and res["gates"]["split_conf"] and res["gates"]["vectors_a_ok"]
+    assert res["gates"]["run_a_issues"] == [] and res["gates"]["run_b_issues"] == []
+    assert res["S_primary"] == 56 and res["primary"]["estimate"] > 0.2
+    assert set(res["verdicts"]) >= {"primary_up_minus_direct_false_allow_v", "v2_up_minus_direct_false_allow",
+                                    "manipulation_check_v", "manipulation_check_v2",
+                                    "random_minus_direct_false_allow", "zero_minus_direct_false_allow"}
+
+
+def test_complete_rows_drops_partial_batches():
+    recs = [{"kind": "row", "batch": 0, "uid": 0, "x": "a"}, {"kind": "row", "batch": 0, "uid": 1, "x": "a"},
+            {"kind": "timing", "batch": 0, "rows": 2}, {"kind": "done", "batch": 0},
+            {"kind": "row", "batch": 1, "uid": 2, "x": "partial"},                       # interrupted
+            {"kind": "row", "batch": 1, "uid": 2, "x": "b"}, {"kind": "row", "batch": 1, "uid": 3, "x": "b"},
+            {"kind": "timing", "batch": 1, "rows": 2}, {"kind": "done", "batch": 1},
+            {"kind": "row", "batch": 2, "uid": 4, "x": "open"}]
+    keep, dropped, open_ = c4.complete_rows(recs)
+    assert [r["x"] for r in keep] == ["a", "a", "b", "b"] and dropped == 2 and open_ == [2]

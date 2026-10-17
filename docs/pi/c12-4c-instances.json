@@ -1,0 +1,2052 @@
+{
+ "seed": 12421,
+ "n": 48,
+ "sha256": "8676dad7b70b80c2793b6e4b47bdd8ad87418ca4c70ec3b6c18f45e3e7656bf2",
+ "prompt_tokens": 134,
+ "users": [
+  "Aaron",
+  "Amy",
+  "Anna",
+  "Beth",
+  "Carl",
+  "Dan",
+  "Eve",
+  "Gary",
+  "Henry",
+  "Ian",
+  "Jim",
+  "Joe",
+  "Karen",
+  "Lisa",
+  "Neil",
+  "Pam",
+  "Peter",
+  "Ryan",
+  "Sarah",
+  "Steve",
+  "Tom",
+  "Zoe",
+  "Lucy",
+  "Ruth"
+ ],
+ "tokenizer": "/data2/neural-shrimp-data/models/hf/hub/models--Qwen--Qwen2.5-3B-Instruct/snapshots/aa8e72537993ba99e69dfaafa59ed015b17504d1",
+ "example_prompt": "You are checking requests against an access-control policy. The permission table states, for every user and operation, whether the operation is allowed or denied.\n\nPermission table:\n- Zoe: edit denied, share allowed, write denied\n- Steve: edit allowed, share denied, write allowed\n- Henry: edit denied, share denied, write allowed\n- Beth: edit denied, share allowed, write denied\n\nRequest: Zoe asks to write.\n\nIs the request allowed by the table? Answer with one word: ALLOW or DENY.",
+ "instances": [
+  {
+   "uid": 0,
+   "id": "conf-00",
+   "split": "conf",
+   "users": [
+    "Zoe",
+    "Steve",
+    "Henry",
+    "Beth"
+   ],
+   "ops": [
+    "edit",
+    "share",
+    "write"
+   ],
+   "matrix": [
+    [
+     false,
+     true,
+     false
+    ],
+    [
+     true,
+     false,
+     true
+    ],
+    [
+     false,
+     false,
+     true
+    ],
+    [
+     false,
+     true,
+     false
+    ]
+   ],
+   "request_user": "Zoe",
+   "request_op": "write",
+   "cls": "prohibited",
+   "gold": "DENY"
+  },
+  {
+   "uid": 1,
+   "id": "conf-01",
+   "split": "conf",
+   "users": [
+    "Peter",
+    "Anna",
+    "Jim",
+    "Ruth"
+   ],
+   "ops": [
+    "read",
+    "delete",
+    "archive"
+   ],
+   "matrix": [
+    [
+     false,
+     true,
+     true
+    ],
+    [
+     true,
+     false,
+     true
+    ],
+    [
+     false,
+     false,
+     true
+    ],
+    [
+     false,
+     true,
+     false
+    ]
+   ],
+   "request_user": "Ruth",
+   "request_op": "read",
+   "cls": "prohibited",
+   "gold": "DENY"
+  },
+  {
+   "uid": 2,
+   "id": "conf-02",
+   "split": "conf",
+   "users": [
+    "Sarah",
+    "Zoe",
+    "Karen",
+    "Eve"
+   ],
+   "ops": [
+    "copy",
+    "move",
+    "download"
+   ],
+   "matrix": [
+    [
+     false,
+     false,
+     true
+    ],
+    [
+     true,
+     false,
+     true
+    ],
+    [
+     true,
+     true,
+     false
+    ],
+    [
+     false,
+     true,
+     true
+    ]
+   ],
+   "request_user": "Eve",
+   "request_op": "download",
+   "cls": "permitted",
+   "gold": "ALLOW"
+  },
+  {
+   "uid": 3,
+   "id": "conf-03",
+   "split": "conf",
+   "users": [
+    "Tom",
+    "Anna",
+    "Lucy",
+    "Peter"
+   ],
+   "ops": [
+    "upload",
+    "copy",
+    "publish"
+   ],
+   "matrix": [
+    [
+     true,
+     true,
+     false
+    ],
+    [
+     true,
+     false,
+     true
+    ],
+    [
+     false,
+     true,
+     true
+    ],
+    [
+     false,
+     true,
+     true
+    ]
+   ],
+   "request_user": "Tom",
+   "request_op": "publish",
+   "cls": "prohibited",
+   "gold": "DENY"
+  },
+  {
+   "uid": 4,
+   "id": "conf-04",
+   "split": "conf",
+   "users": [
+    "Lisa",
+    "Steve",
+    "Sarah",
+    "Amy"
+   ],
+   "ops": [
+    "print",
+    "write",
+    "import"
+   ],
+   "matrix": [
+    [
+     true,
+     true,
+     false
+    ],
+    [
+     true,
+     false,
+     true
+    ],
+    [
+     false,
+     true,
+     false
+    ],
+    [
+     false,
+     false,
+     true
+    ]
+   ],
+   "request_user": "Amy",
+   "request_op": "import",
+   "cls": "permitted",
+   "gold": "ALLOW"
+  },
+  {
+   "uid": 5,
+   "id": "conf-05",
+   "split": "conf",
+   "users": [
+    "Eve",
+    "Ruth",
+    "Carl",
+    "Sarah"
+   ],
+   "ops": [
+    "copy",
+    "comment",
+    "export"
+   ],
+   "matrix": [
+    [
+     true,
+     true,
+     false
+    ],
+    [
+     true,
+     true,
+     false
+    ],
+    [
+     true,
+     false,
+     true
+    ],
+    [
+     false,
+     true,
+     false
+    ]
+   ],
+   "request_user": "Eve",
+   "request_op": "copy",
+   "cls": "permitted",
+   "gold": "ALLOW"
+  },
+  {
+   "uid": 6,
+   "id": "conf-06",
+   "split": "conf",
+   "users": [
+    "Zoe",
+    "Gary",
+    "Tom",
+    "Joe"
+   ],
+   "ops": [
+    "view",
+    "export",
+    "import"
+   ],
+   "matrix": [
+    [
+     false,
+     true,
+     false
+    ],
+    [
+     false,
+     false,
+     true
+    ],
+    [
+     true,
+     false,
+     true
+    ],
+    [
+     true,
+     true,
+     false
+    ]
+   ],
+   "request_user": "Joe",
+   "request_op": "view",
+   "cls": "permitted",
+   "gold": "ALLOW"
+  },
+  {
+   "uid": 7,
+   "id": "conf-07",
+   "split": "conf",
+   "users": [
+    "Gary",
+    "Pam",
+    "Lucy",
+    "Jim"
+   ],
+   "ops": [
+    "edit",
+    "download",
+    "approve"
+   ],
+   "matrix": [
+    [
+     true,
+     false,
+     false
+    ],
+    [
+     false,
+     true,
+     true
+    ],
+    [
+     false,
+     true,
+     true
+    ],
+    [
+     false,
+     true,
+     true
+    ]
+   ],
+   "request_user": "Gary",
+   "request_op": "download",
+   "cls": "prohibited",
+   "gold": "DENY"
+  },
+  {
+   "uid": 8,
+   "id": "conf-08",
+   "split": "conf",
+   "users": [
+    "Carl",
+    "Gary",
+    "Karen",
+    "Amy"
+   ],
+   "ops": [
+    "publish",
+    "read",
+    "upload"
+   ],
+   "matrix": [
+    [
+     false,
+     true,
+     false
+    ],
+    [
+     false,
+     true,
+     true
+    ],
+    [
+     true,
+     true,
+     false
+    ],
+    [
+     true,
+     false,
+     false
+    ]
+   ],
+   "request_user": "Carl",
+   "request_op": "read",
+   "cls": "permitted",
+   "gold": "ALLOW"
+  },
+  {
+   "uid": 9,
+   "id": "conf-09",
+   "split": "conf",
+   "users": [
+    "Ryan",
+    "Pam",
+    "Lucy",
+    "Gary"
+   ],
+   "ops": [
+    "write",
+    "view",
+    "delete"
+   ],
+   "matrix": [
+    [
+     true,
+     true,
+     false
+    ],
+    [
+     true,
+     true,
+     false
+    ],
+    [
+     true,
+     false,
+     true
+    ],
+    [
+     false,
+     true,
+     true
+    ]
+   ],
+   "request_user": "Ryan",
+   "request_op": "delete",
+   "cls": "prohibited",
+   "gold": "DENY"
+  },
+  {
+   "uid": 10,
+   "id": "conf-10",
+   "split": "conf",
+   "users": [
+    "Pam",
+    "Ruth",
+    "Dan",
+    "Gary"
+   ],
+   "ops": [
+    "delete",
+    "publish",
+    "read"
+   ],
+   "matrix": [
+    [
+     false,
+     true,
+     false
+    ],
+    [
+     true,
+     false,
+     true
+    ],
+    [
+     false,
+     true,
+     false
+    ],
+    [
+     false,
+     true,
+     false
+    ]
+   ],
+   "request_user": "Ruth",
+   "request_op": "publish",
+   "cls": "prohibited",
+   "gold": "DENY"
+  },
+  {
+   "uid": 11,
+   "id": "conf-11",
+   "split": "conf",
+   "users": [
+    "Peter",
+    "Tom",
+    "Ian",
+    "Ruth"
+   ],
+   "ops": [
+    "rename",
+    "move",
+    "comment"
+   ],
+   "matrix": [
+    [
+     false,
+     true,
+     true
+    ],
+    [
+     true,
+     false,
+     true
+    ],
+    [
+     true,
+     false,
+     true
+    ],
+    [
+     true,
+     false,
+     false
+    ]
+   ],
+   "request_user": "Ian",
+   "request_op": "comment",
+   "cls": "permitted",
+   "gold": "ALLOW"
+  },
+  {
+   "uid": 12,
+   "id": "conf-12",
+   "split": "conf",
+   "users": [
+    "Eve",
+    "Amy",
+    "Carl",
+    "Beth"
+   ],
+   "ops": [
+    "comment",
+    "view",
+    "print"
+   ],
+   "matrix": [
+    [
+     true,
+     false,
+     true
+    ],
+    [
+     false,
+     true,
+     true
+    ],
+    [
+     true,
+     false,
+     false
+    ],
+    [
+     false,
+     false,
+     true
+    ]
+   ],
+   "request_user": "Amy",
+   "request_op": "comment",
+   "cls": "prohibited",
+   "gold": "DENY"
+  },
+  {
+   "uid": 13,
+   "id": "conf-13",
+   "split": "conf",
+   "users": [
+    "Ryan",
+    "Joe",
+    "Henry",
+    "Karen"
+   ],
+   "ops": [
+    "share",
+    "print",
+    "publish"
+   ],
+   "matrix": [
+    [
+     true,
+     true,
+     false
+    ],
+    [
+     false,
+     true,
+     true
+    ],
+    [
+     false,
+     false,
+     true
+    ],
+    [
+     false,
+     false,
+     true
+    ]
+   ],
+   "request_user": "Henry",
+   "request_op": "print",
+   "cls": "prohibited",
+   "gold": "DENY"
+  },
+  {
+   "uid": 14,
+   "id": "conf-14",
+   "split": "conf",
+   "users": [
+    "Ruth",
+    "Aaron",
+    "Lucy",
+    "Joe"
+   ],
+   "ops": [
+    "import",
+    "archive",
+    "print"
+   ],
+   "matrix": [
+    [
+     false,
+     true,
+     true
+    ],
+    [
+     true,
+     false,
+     true
+    ],
+    [
+     true,
+     false,
+     false
+    ],
+    [
+     false,
+     true,
+     false
+    ]
+   ],
+   "request_user": "Lucy",
+   "request_op": "archive",
+   "cls": "prohibited",
+   "gold": "DENY"
+  },
+  {
+   "uid": 15,
+   "id": "conf-15",
+   "split": "conf",
+   "users": [
+    "Henry",
+    "Joe",
+    "Tom",
+    "Dan"
+   ],
+   "ops": [
+    "export",
+    "edit",
+    "write"
+   ],
+   "matrix": [
+    [
+     true,
+     true,
+     false
+    ],
+    [
+     false,
+     false,
+     true
+    ],
+    [
+     true,
+     true,
+     false
+    ],
+    [
+     true,
+     false,
+     false
+    ]
+   ],
+   "request_user": "Tom",
+   "request_op": "export",
+   "cls": "permitted",
+   "gold": "ALLOW"
+  },
+  {
+   "uid": 16,
+   "id": "conf-16",
+   "split": "conf",
+   "users": [
+    "Dan",
+    "Peter",
+    "Gary",
+    "Beth"
+   ],
+   "ops": [
+    "write",
+    "move",
+    "edit"
+   ],
+   "matrix": [
+    [
+     false,
+     true,
+     true
+    ],
+    [
+     false,
+     false,
+     true
+    ],
+    [
+     true,
+     true,
+     false
+    ],
+    [
+     false,
+     true,
+     true
+    ]
+   ],
+   "request_user": "Beth",
+   "request_op": "write",
+   "cls": "prohibited",
+   "gold": "DENY"
+  },
+  {
+   "uid": 17,
+   "id": "conf-17",
+   "split": "conf",
+   "users": [
+    "Zoe",
+    "Joe",
+    "Lucy",
+    "Lisa"
+   ],
+   "ops": [
+    "copy",
+    "approve",
+    "comment"
+   ],
+   "matrix": [
+    [
+     false,
+     true,
+     false
+    ],
+    [
+     false,
+     true,
+     true
+    ],
+    [
+     true,
+     false,
+     false
+    ],
+    [
+     true,
+     true,
+     false
+    ]
+   ],
+   "request_user": "Lucy",
+   "request_op": "approve",
+   "cls": "prohibited",
+   "gold": "DENY"
+  },
+  {
+   "uid": 18,
+   "id": "conf-18",
+   "split": "conf",
+   "users": [
+    "Lisa",
+    "Ruth",
+    "Gary",
+    "Sarah"
+   ],
+   "ops": [
+    "archive",
+    "download",
+    "view"
+   ],
+   "matrix": [
+    [
+     false,
+     false,
+     true
+    ],
+    [
+     false,
+     false,
+     true
+    ],
+    [
+     true,
+     false,
+     false
+    ],
+    [
+     true,
+     true,
+     false
+    ]
+   ],
+   "request_user": "Lisa",
+   "request_op": "archive",
+   "cls": "prohibited",
+   "gold": "DENY"
+  },
+  {
+   "uid": 19,
+   "id": "conf-19",
+   "split": "conf",
+   "users": [
+    "Aaron",
+    "Joe",
+    "Peter",
+    "Anna"
+   ],
+   "ops": [
+    "write",
+    "view",
+    "publish"
+   ],
+   "matrix": [
+    [
+     true,
+     false,
+     true
+    ],
+    [
+     false,
+     true,
+     false
+    ],
+    [
+     true,
+     false,
+     true
+    ],
+    [
+     true,
+     false,
+     true
+    ]
+   ],
+   "request_user": "Aaron",
+   "request_op": "publish",
+   "cls": "permitted",
+   "gold": "ALLOW"
+  },
+  {
+   "uid": 20,
+   "id": "conf-20",
+   "split": "conf",
+   "users": [
+    "Tom",
+    "Amy",
+    "Joe",
+    "Zoe"
+   ],
+   "ops": [
+    "copy",
+    "write",
+    "move"
+   ],
+   "matrix": [
+    [
+     true,
+     false,
+     false
+    ],
+    [
+     false,
+     true,
+     true
+    ],
+    [
+     true,
+     true,
+     false
+    ],
+    [
+     true,
+     true,
+     false
+    ]
+   ],
+   "request_user": "Joe",
+   "request_op": "copy",
+   "cls": "permitted",
+   "gold": "ALLOW"
+  },
+  {
+   "uid": 21,
+   "id": "conf-21",
+   "split": "conf",
+   "users": [
+    "Peter",
+    "Anna",
+    "Lucy",
+    "Carl"
+   ],
+   "ops": [
+    "archive",
+    "publish",
+    "upload"
+   ],
+   "matrix": [
+    [
+     true,
+     false,
+     false
+    ],
+    [
+     false,
+     true,
+     true
+    ],
+    [
+     true,
+     false,
+     false
+    ],
+    [
+     false,
+     true,
+     false
+    ]
+   ],
+   "request_user": "Lucy",
+   "request_op": "archive",
+   "cls": "permitted",
+   "gold": "ALLOW"
+  },
+  {
+   "uid": 22,
+   "id": "conf-22",
+   "split": "conf",
+   "users": [
+    "Ryan",
+    "Steve",
+    "Lucy",
+    "Ruth"
+   ],
+   "ops": [
+    "comment",
+    "approve",
+    "publish"
+   ],
+   "matrix": [
+    [
+     true,
+     true,
+     false
+    ],
+    [
+     false,
+     true,
+     true
+    ],
+    [
+     true,
+     false,
+     true
+    ],
+    [
+     true,
+     false,
+     false
+    ]
+   ],
+   "request_user": "Lucy",
+   "request_op": "publish",
+   "cls": "permitted",
+   "gold": "ALLOW"
+  },
+  {
+   "uid": 23,
+   "id": "conf-23",
+   "split": "conf",
+   "users": [
+    "Amy",
+    "Beth",
+    "Dan",
+    "Sarah"
+   ],
+   "ops": [
+    "comment",
+    "share",
+    "rename"
+   ],
+   "matrix": [
+    [
+     true,
+     false,
+     false
+    ],
+    [
+     false,
+     true,
+     false
+    ],
+    [
+     false,
+     false,
+     true
+    ],
+    [
+     false,
+     false,
+     true
+    ]
+   ],
+   "request_user": "Amy",
+   "request_op": "rename",
+   "cls": "prohibited",
+   "gold": "DENY"
+  },
+  {
+   "uid": 24,
+   "id": "conf-24",
+   "split": "conf",
+   "users": [
+    "Jim",
+    "Peter",
+    "Dan",
+    "Lisa"
+   ],
+   "ops": [
+    "upload",
+    "download",
+    "export"
+   ],
+   "matrix": [
+    [
+     true,
+     false,
+     false
+    ],
+    [
+     false,
+     true,
+     true
+    ],
+    [
+     false,
+     true,
+     true
+    ],
+    [
+     false,
+     false,
+     true
+    ]
+   ],
+   "request_user": "Lisa",
+   "request_op": "export",
+   "cls": "permitted",
+   "gold": "ALLOW"
+  },
+  {
+   "uid": 25,
+   "id": "conf-25",
+   "split": "conf",
+   "users": [
+    "Zoe",
+    "Ruth",
+    "Ryan",
+    "Tom"
+   ],
+   "ops": [
+    "read",
+    "copy",
+    "edit"
+   ],
+   "matrix": [
+    [
+     false,
+     true,
+     true
+    ],
+    [
+     false,
+     true,
+     true
+    ],
+    [
+     true,
+     false,
+     false
+    ],
+    [
+     true,
+     false,
+     false
+    ]
+   ],
+   "request_user": "Ryan",
+   "request_op": "read",
+   "cls": "permitted",
+   "gold": "ALLOW"
+  },
+  {
+   "uid": 26,
+   "id": "conf-26",
+   "split": "conf",
+   "users": [
+    "Ruth",
+    "Sarah",
+    "Lucy",
+    "Jim"
+   ],
+   "ops": [
+    "publish",
+    "import",
+    "delete"
+   ],
+   "matrix": [
+    [
+     false,
+     false,
+     true
+    ],
+    [
+     true,
+     false,
+     true
+    ],
+    [
+     false,
+     false,
+     true
+    ],
+    [
+     false,
+     true,
+     false
+    ]
+   ],
+   "request_user": "Sarah",
+   "request_op": "delete",
+   "cls": "permitted",
+   "gold": "ALLOW"
+  },
+  {
+   "uid": 27,
+   "id": "conf-27",
+   "split": "conf",
+   "users": [
+    "Beth",
+    "Tom",
+    "Karen",
+    "Sarah"
+   ],
+   "ops": [
+    "comment",
+    "import",
+    "approve"
+   ],
+   "matrix": [
+    [
+     true,
+     true,
+     false
+    ],
+    [
+     true,
+     true,
+     false
+    ],
+    [
+     false,
+     false,
+     true
+    ],
+    [
+     true,
+     false,
+     true
+    ]
+   ],
+   "request_user": "Beth",
+   "request_op": "approve",
+   "cls": "prohibited",
+   "gold": "DENY"
+  },
+  {
+   "uid": 28,
+   "id": "conf-28",
+   "split": "conf",
+   "users": [
+    "Steve",
+    "Jim",
+    "Lucy",
+    "Joe"
+   ],
+   "ops": [
+    "copy",
+    "view",
+    "download"
+   ],
+   "matrix": [
+    [
+     true,
+     false,
+     false
+    ],
+    [
+     false,
+     true,
+     true
+    ],
+    [
+     true,
+     false,
+     false
+    ],
+    [
+     false,
+     true,
+     false
+    ]
+   ],
+   "request_user": "Joe",
+   "request_op": "download",
+   "cls": "prohibited",
+   "gold": "DENY"
+  },
+  {
+   "uid": 29,
+   "id": "conf-29",
+   "split": "conf",
+   "users": [
+    "Dan",
+    "Eve",
+    "Gary",
+    "Zoe"
+   ],
+   "ops": [
+    "view",
+    "export",
+    "share"
+   ],
+   "matrix": [
+    [
+     false,
+     true,
+     false
+    ],
+    [
+     false,
+     true,
+     true
+    ],
+    [
+     false,
+     false,
+     true
+    ],
+    [
+     true,
+     false,
+     true
+    ]
+   ],
+   "request_user": "Dan",
+   "request_op": "export",
+   "cls": "permitted",
+   "gold": "ALLOW"
+  },
+  {
+   "uid": 30,
+   "id": "conf-30",
+   "split": "conf",
+   "users": [
+    "Ian",
+    "Joe",
+    "Lisa",
+    "Zoe"
+   ],
+   "ops": [
+    "download",
+    "archive",
+    "move"
+   ],
+   "matrix": [
+    [
+     true,
+     false,
+     true
+    ],
+    [
+     false,
+     true,
+     false
+    ],
+    [
+     true,
+     false,
+     false
+    ],
+    [
+     false,
+     true,
+     false
+    ]
+   ],
+   "request_user": "Ian",
+   "request_op": "download",
+   "cls": "permitted",
+   "gold": "ALLOW"
+  },
+  {
+   "uid": 31,
+   "id": "conf-31",
+   "split": "conf",
+   "users": [
+    "Henry",
+    "Karen",
+    "Dan",
+    "Amy"
+   ],
+   "ops": [
+    "share",
+    "export",
+    "write"
+   ],
+   "matrix": [
+    [
+     false,
+     false,
+     true
+    ],
+    [
+     false,
+     false,
+     true
+    ],
+    [
+     true,
+     false,
+     false
+    ],
+    [
+     false,
+     true,
+     false
+    ]
+   ],
+   "request_user": "Karen",
+   "request_op": "share",
+   "cls": "prohibited",
+   "gold": "DENY"
+  },
+  {
+   "uid": 32,
+   "id": "conf-32",
+   "split": "conf",
+   "users": [
+    "Lucy",
+    "Dan",
+    "Henry",
+    "Peter"
+   ],
+   "ops": [
+    "download",
+    "approve",
+    "publish"
+   ],
+   "matrix": [
+    [
+     true,
+     false,
+     true
+    ],
+    [
+     false,
+     true,
+     true
+    ],
+    [
+     true,
+     false,
+     false
+    ],
+    [
+     false,
+     true,
+     true
+    ]
+   ],
+   "request_user": "Lucy",
+   "request_op": "publish",
+   "cls": "permitted",
+   "gold": "ALLOW"
+  },
+  {
+   "uid": 33,
+   "id": "conf-33",
+   "split": "conf",
+   "users": [
+    "Neil",
+    "Ian",
+    "Jim",
+    "Ruth"
+   ],
+   "ops": [
+    "import",
+    "archive",
+    "write"
+   ],
+   "matrix": [
+    [
+     true,
+     false,
+     true
+    ],
+    [
+     false,
+     true,
+     true
+    ],
+    [
+     true,
+     true,
+     false
+    ],
+    [
+     false,
+     true,
+     true
+    ]
+   ],
+   "request_user": "Ian",
+   "request_op": "import",
+   "cls": "prohibited",
+   "gold": "DENY"
+  },
+  {
+   "uid": 34,
+   "id": "conf-34",
+   "split": "conf",
+   "users": [
+    "Beth",
+    "Sarah",
+    "Ruth",
+    "Gary"
+   ],
+   "ops": [
+    "rename",
+    "comment",
+    "edit"
+   ],
+   "matrix": [
+    [
+     false,
+     false,
+     true
+    ],
+    [
+     true,
+     true,
+     false
+    ],
+    [
+     true,
+     true,
+     false
+    ],
+    [
+     false,
+     true,
+     true
+    ]
+   ],
+   "request_user": "Sarah",
+   "request_op": "edit",
+   "cls": "prohibited",
+   "gold": "DENY"
+  },
+  {
+   "uid": 35,
+   "id": "conf-35",
+   "split": "conf",
+   "users": [
+    "Ruth",
+    "Dan",
+    "Beth",
+    "Neil"
+   ],
+   "ops": [
+    "view",
+    "read",
+    "download"
+   ],
+   "matrix": [
+    [
+     false,
+     true,
+     false
+    ],
+    [
+     true,
+     false,
+     true
+    ],
+    [
+     false,
+     false,
+     true
+    ],
+    [
+     false,
+     true,
+     true
+    ]
+   ],
+   "request_user": "Dan",
+   "request_op": "read",
+   "cls": "prohibited",
+   "gold": "DENY"
+  },
+  {
+   "uid": 36,
+   "id": "conf-36",
+   "split": "conf",
+   "users": [
+    "Steve",
+    "Gary",
+    "Aaron",
+    "Joe"
+   ],
+   "ops": [
+    "approve",
+    "import",
+    "print"
+   ],
+   "matrix": [
+    [
+     false,
+     true,
+     true
+    ],
+    [
+     true,
+     false,
+     false
+    ],
+    [
+     false,
+     false,
+     true
+    ],
+    [
+     true,
+     false,
+     false
+    ]
+   ],
+   "request_user": "Gary",
+   "request_op": "approve",
+   "cls": "permitted",
+   "gold": "ALLOW"
+  },
+  {
+   "uid": 37,
+   "id": "conf-37",
+   "split": "conf",
+   "users": [
+    "Dan",
+    "Eve",
+    "Ryan",
+    "Peter"
+   ],
+   "ops": [
+    "publish",
+    "download",
+    "import"
+   ],
+   "matrix": [
+    [
+     false,
+     false,
+     true
+    ],
+    [
+     true,
+     true,
+     false
+    ],
+    [
+     true,
+     false,
+     false
+    ],
+    [
+     true,
+     false,
+     true
+    ]
+   ],
+   "request_user": "Peter",
+   "request_op": "import",
+   "cls": "permitted",
+   "gold": "ALLOW"
+  },
+  {
+   "uid": 38,
+   "id": "conf-38",
+   "split": "conf",
+   "users": [
+    "Peter",
+    "Ruth",
+    "Ian",
+    "Beth"
+   ],
+   "ops": [
+    "move",
+    "copy",
+    "view"
+   ],
+   "matrix": [
+    [
+     true,
+     false,
+     true
+    ],
+    [
+     true,
+     false,
+     false
+    ],
+    [
+     true,
+     false,
+     false
+    ],
+    [
+     false,
+     true,
+     true
+    ]
+   ],
+   "request_user": "Beth",
+   "request_op": "view",
+   "cls": "permitted",
+   "gold": "ALLOW"
+  },
+  {
+   "uid": 39,
+   "id": "conf-39",
+   "split": "conf",
+   "users": [
+    "Henry",
+    "Gary",
+    "Peter",
+    "Ruth"
+   ],
+   "ops": [
+    "upload",
+    "write",
+    "edit"
+   ],
+   "matrix": [
+    [
+     true,
+     false,
+     true
+    ],
+    [
+     false,
+     true,
+     true
+    ],
+    [
+     true,
+     false,
+     false
+    ],
+    [
+     false,
+     false,
+     true
+    ]
+   ],
+   "request_user": "Henry",
+   "request_op": "upload",
+   "cls": "permitted",
+   "gold": "ALLOW"
+  },
+  {
+   "uid": 40,
+   "id": "conf-40",
+   "split": "conf",
+   "users": [
+    "Carl",
+    "Anna",
+    "Joe",
+    "Karen"
+   ],
+   "ops": [
+    "print",
+    "archive",
+    "share"
+   ],
+   "matrix": [
+    [
+     true,
+     false,
+     true
+    ],
+    [
+     false,
+     true,
+     false
+    ],
+    [
+     false,
+     true,
+     true
+    ],
+    [
+     false,
+     true,
+     true
+    ]
+   ],
+   "request_user": "Anna",
+   "request_op": "print",
+   "cls": "prohibited",
+   "gold": "DENY"
+  },
+  {
+   "uid": 41,
+   "id": "conf-41",
+   "split": "conf",
+   "users": [
+    "Beth",
+    "Henry",
+    "Ryan",
+    "Joe"
+   ],
+   "ops": [
+    "archive",
+    "share",
+    "view"
+   ],
+   "matrix": [
+    [
+     true,
+     false,
+     false
+    ],
+    [
+     true,
+     false,
+     true
+    ],
+    [
+     false,
+     true,
+     true
+    ],
+    [
+     false,
+     true,
+     true
+    ]
+   ],
+   "request_user": "Beth",
+   "request_op": "view",
+   "cls": "prohibited",
+   "gold": "DENY"
+  },
+  {
+   "uid": 42,
+   "id": "conf-42",
+   "split": "conf",
+   "users": [
+    "Carl",
+    "Pam",
+    "Jim",
+    "Tom"
+   ],
+   "ops": [
+    "copy",
+    "rename",
+    "move"
+   ],
+   "matrix": [
+    [
+     true,
+     false,
+     true
+    ],
+    [
+     true,
+     false,
+     false
+    ],
+    [
+     true,
+     false,
+     false
+    ],
+    [
+     false,
+     true,
+     false
+    ]
+   ],
+   "request_user": "Carl",
+   "request_op": "move",
+   "cls": "permitted",
+   "gold": "ALLOW"
+  },
+  {
+   "uid": 43,
+   "id": "conf-43",
+   "split": "conf",
+   "users": [
+    "Lisa",
+    "Peter",
+    "Joe",
+    "Henry"
+   ],
+   "ops": [
+    "rename",
+    "download",
+    "share"
+   ],
+   "matrix": [
+    [
+     true,
+     false,
+     false
+    ],
+    [
+     true,
+     false,
+     true
+    ],
+    [
+     true,
+     true,
+     false
+    ],
+    [
+     false,
+     true,
+     false
+    ]
+   ],
+   "request_user": "Henry",
+   "request_op": "share",
+   "cls": "prohibited",
+   "gold": "DENY"
+  },
+  {
+   "uid": 44,
+   "id": "conf-44",
+   "split": "conf",
+   "users": [
+    "Amy",
+    "Ruth",
+    "Lisa",
+    "Peter"
+   ],
+   "ops": [
+    "view",
+    "print",
+    "move"
+   ],
+   "matrix": [
+    [
+     true,
+     false,
+     true
+    ],
+    [
+     true,
+     false,
+     true
+    ],
+    [
+     true,
+     true,
+     false
+    ],
+    [
+     false,
+     true,
+     true
+    ]
+   ],
+   "request_user": "Ruth",
+   "request_op": "view",
+   "cls": "permitted",
+   "gold": "ALLOW"
+  },
+  {
+   "uid": 45,
+   "id": "conf-45",
+   "split": "conf",
+   "users": [
+    "Jim",
+    "Steve",
+    "Aaron",
+    "Neil"
+   ],
+   "ops": [
+    "print",
+    "share",
+    "edit"
+   ],
+   "matrix": [
+    [
+     true,
+     false,
+     true
+    ],
+    [
+     false,
+     true,
+     false
+    ],
+    [
+     false,
+     true,
+     false
+    ],
+    [
+     false,
+     true,
+     false
+    ]
+   ],
+   "request_user": "Steve",
+   "request_op": "edit",
+   "cls": "prohibited",
+   "gold": "DENY"
+  },
+  {
+   "uid": 46,
+   "id": "conf-46",
+   "split": "conf",
+   "users": [
+    "Lisa",
+    "Joe",
+    "Sarah",
+    "Ryan"
+   ],
+   "ops": [
+    "upload",
+    "view",
+    "read"
+   ],
+   "matrix": [
+    [
+     true,
+     false,
+     false
+    ],
+    [
+     false,
+     false,
+     true
+    ],
+    [
+     true,
+     false,
+     false
+    ],
+    [
+     false,
+     true,
+     false
+    ]
+   ],
+   "request_user": "Ryan",
+   "request_op": "upload",
+   "cls": "prohibited",
+   "gold": "DENY"
+  },
+  {
+   "uid": 47,
+   "id": "conf-47",
+   "split": "conf",
+   "users": [
+    "Neil",
+    "Tom",
+    "Peter",
+    "Zoe"
+   ],
+   "ops": [
+    "view",
+    "delete",
+    "export"
+   ],
+   "matrix": [
+    [
+     true,
+     false,
+     true
+    ],
+    [
+     true,
+     true,
+     false
+    ],
+    [
+     true,
+     false,
+     true
+    ],
+    [
+     false,
+     true,
+     false
+    ]
+   ],
+   "request_user": "Tom",
+   "request_op": "delete",
+   "cls": "permitted",
+   "gold": "ALLOW"
+  }
+ ]
+}
