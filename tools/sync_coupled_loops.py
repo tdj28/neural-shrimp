@@ -105,7 +105,7 @@ def powerlaw_slope(lengths, min_len=2, min_count=100):
     ok = h >= 3
     if ok.sum() < 3:
         return None
-    slope, icpt = np.polyfit(np.log(mid[ok]), np.log(dens[ok]), 1)
+    slope, _ = np.polyfit(np.log(mid[ok]), np.log(dens[ok]), 1)
     return {"slope": float(slope), "bins_used": int(ok.sum()), "n": int(len(x)), "min_len": int(min_len)}
 
 
@@ -302,6 +302,10 @@ def sweep(args):
     if len(cells) != len(args.cells):
         raise SystemExit(f"unknown cell index in {args.cells}")
     cs = parse_cs(args)
+    per_cell = {int(k): [float(c) for c in v_] for k, v_ in json.loads(args.c_per_cell).items()} \
+        if args.c_per_cell else None
+    if per_cell and set(per_cell) != {c["index"] for c in cells}:
+        raise SystemExit("--c-per-cell must list exactly the cells of --cells")
     X0, X1 = attractor_states(loop, cells, v, args.transient, extra=args.far_extra if args.start == "far" else 0)
     rows, temps, steer, pair_c, meta = [], [], [], [], []
     rng = np.random.default_rng(args.seed)
@@ -312,7 +316,7 @@ def sweep(args):
             b = a + args.offset * a.norm() * g / g.norm()
         else:
             b = X1[ci]
-        for c in cs:
+        for c in (per_cell[cell["index"]] if per_cell else cs):
             rows += [a, b]
             temps += [10.0 ** cell["log10_temperature"]] * 2
             steer += [cell["alpha"] * v] * 2
@@ -381,6 +385,117 @@ def transverse(args):
         print(json.dumps({"cell": c["index"], "lambda1_jvp": round(float(jl[i].mean()), 4)}), flush=True)
 
 
+def excursions(d, low=SYNC_TOL, high=1e-3):
+    """Number of bursts: passages from below `low` to above `high`."""
+    n, state = 0, None
+    for x in d:
+        if x < low:
+            state = "low"
+        elif x > high and state == "low":
+            n, state = n + 1, "high"
+    return n
+
+
+def token_hist(tok, V):
+    h = np.bincount(tok.ravel(), minlength=V).astype(float)
+    return h / h.sum()
+
+
+def analyze(args):
+    import explore_llm_attractors as ela
+    from transformers import AutoTokenizer
+
+    tok_dec = AutoTokenizer.from_pretrained(ela.MODELS[MODEL], cache_dir=ela.CACHE)
+    base = ela.DATA / "explore" / "sync"
+    cells = {c["index"]: c for c in load_cells()}
+    pub = json.loads((ela.DATA / "explore" / "e2e" / "lyap-spectrum" / "lyapunov-spectrum.json").read_text())
+    pub = {c["index"]: c["exponents"][0] for c in pub["cells"]}
+    summary = {"commit": git_commit(), "sync_tol": SYNC_TOL, "sync_rule": f"max distance over the last "
+               f"{args.tail} steps below {SYNC_TOL}", "cells": {}}
+    ck = json.loads((base / "check" / "check.json").read_text())
+    summary["check"] = [{"index": c["index"], "bitwise": c["bitwise"], "max_abs_diff_rel": c["max_abs_diff_rel"],
+                         "fd_rel_err": dict(zip(map(str, c["fd_h"]), c["fd_rel_err"]))} for c in ck["cells"]]
+    tj = json.loads((base / "transverse" / "transverse.json").read_text())
+    tz = np.load(base / "transverse" / "transverse.npz")
+    if tj.get("commit", {}).get("tools_dirty"):
+        summary["warnings"] = ["transverse run had uncommitted tool changes"]
+    for i, c in enumerate(tj["cells"]):
+        jl = tz["jvp_logs"][i]
+        lam, se = float(jl.mean()), block_se(jl)
+        ci = c["index"]
+        cs_ = c_star(lam)
+        rows = []
+        for k, m in enumerate(tj["pairs"]):
+            if m["cell"] != ci:
+                continue
+            lg = tz["logs"][k]
+            meas, mse = float(lg.mean()), block_se(lg)
+            pred = float(predicted_transverse(lam, m["c"]))
+            rows.append({"c": m["c"], "measured": meas, "measured_se": mse, "predicted": pred,
+                         "measured_minus_predicted": meas - pred,
+                         "measured_minus_ln_factor": meas - float(np.log(abs(1 - 2 * m["c"])))})
+        summary["cells"][str(ci)] = {**cells[ci], "lambda1_published": pub.get(ci),
+                                     "lambda1_jvp": lam, "lambda1_jvp_se": se, "lambda1_jvp_steps": int(len(jl)),
+                                     "c_star_published": c_star(pub[ci]), "c_star_jvp": cs_,
+                                     "c_star_jvp_2se": [c_star(lam - 2 * se), c_star(lam + 2 * se)],
+                                     "transverse": rows, "sweeps": {}}
+    for name in args.sweeps:
+        sj = json.loads((base / name / "sweep.json").read_text())
+        sz = np.load(base / name / "sweep.npz")
+        dist, tok = sz["dist"], sz["tok"]
+        steps = sj["steps"]
+        V = int(tok.max()) + 1
+        for ci in sorted({m["cell"] for m in sj["pairs"]}):
+            idx = [k for k, m in enumerate(sj["pairs"]) if m["cell"] == ci]
+            c0 = [k for k in idx if sj["pairs"][k]["c"] == 0.0]
+            ref = None
+            if c0:
+                h0a = token_hist(tok[2 * c0[0], steps // 2:], V)
+                h0b = token_hist(tok[2 * c0[0] + 1, steps // 2:], V)
+                ref = (h0a + h0b) / 2
+            rows = []
+            for k in idx:
+                d = dist[k, 1:]
+                tail = d[-args.tail:]
+                synced = bool(tail.max() < SYNC_TOL)
+                row = {"c": sj["pairs"][k]["c"], "mean_dist": float(d.mean()),
+                       "mean_dist_second_half": float(d[len(d) // 2:].mean()),
+                       "frac_below_tol": float((d < SYNC_TOL).mean()), "synced": synced,
+                       "tail_max": float(tail.max()), "tail_median": float(np.median(tail)),
+                       "first_below_tol": int(np.argmax(d < SYNC_TOL)) + 1 if (d < SYNC_TOL).any() else None,
+                       "bursts_1e-8_to_1e-3": excursions(d)}
+                for th in (1e-4, 1e-6):
+                    lens, cens = run_lengths(d < th)
+                    row[f"laminar_{th:g}"] = {"n": int(len(lens)), "censored_last": cens,
+                                              "max": int(lens.max()) if len(lens) else 0,
+                                              "fit": powerlaw_slope(lens[:-1] if cens else lens)}
+                ta, tb = tok[2 * k, -args.text_len:], tok[2 * k + 1, -args.text_len:]
+                row["text_A_last"] = tok_dec.decode(ta.tolist())
+                row["text_B_last"] = tok_dec.decode(tb.tolist())
+                row["top1_equal_frac_second_half"] = float((tok[2 * k, steps // 2:] == tok[2 * k + 1, steps // 2:]).mean())
+                if ref is not None:
+                    hA = token_hist(tok[2 * k, steps // 2:], V)
+                    row["tv_A_vs_c0_tokens"] = float(0.5 * np.abs(hA - ref).sum())
+                rows.append(row)
+            if c0:
+                h0a = token_hist(tok[2 * c0[0], steps // 2:], V)
+                h0b = token_hist(tok[2 * c0[0] + 1, steps // 2:], V)
+                tv0 = float(0.5 * np.abs(h0a - h0b).sum())
+            else:
+                tv0 = None
+            th = threshold_interval([r["c"] for r in rows], [r["synced"] for r in rows])
+            summary["cells"][str(ci)]["sweeps"][name] = {"start": sj["args"]["start"], "steps": steps,
+                                                         "complete": sj["complete"], "commit": sj["commit"],
+                                                         "sweep_npz_sha256": sj["sweep_npz_sha256"],
+                                                         "threshold": th, "tv_c0_A_vs_B_tokens": tv0, "pairs": rows}
+    out = ROOT / "docs" / "sync" / "sync-summary.json"
+    out.parent.mkdir(parents=True, exist_ok=True)
+    out.write_text(json.dumps(summary, indent=1, ensure_ascii=False))
+    for ci, c in summary["cells"].items():
+        print(ci, "lambda1", round(c["lambda1_jvp"], 4), "+-", round(c["lambda1_jvp_se"], 4), "c*",
+              round(c["c_star_jvp"], 4), {n: s["threshold"] for n, s in c["sweeps"].items()})
+
+
 def block_se(x, nblocks=10):
     """Standard error of the mean from nblocks contiguous blocks."""
     x = np.asarray(x, dtype=float)
@@ -412,11 +527,16 @@ def main():
     sw.add_argument("--offset", type=float, default=1e-3)
     sw.add_argument("--far-extra", type=int, default=500)
     sw.add_argument("--save-every", type=int, default=250)
+    sw.add_argument("--c-per-cell", default=None, help='JSON {"cell": [c, ...]}: per-cell grids (overrides --c)')
     tr = sub.choices["transverse"]
     tr.add_argument("--delta", type=float, default=1e-7)
     tr.add_argument("--record-jvp", type=int, default=2000)
+    an = sub.add_parser("analyze")
+    an.add_argument("--sweeps", nargs="+", default=["sweep-near"])
+    an.add_argument("--tail", type=int, default=500)
+    an.add_argument("--text-len", type=int, default=12)
     args = ap.parse_args()
-    {"check": check, "sweep": sweep, "transverse": transverse}[args.cmd](args)
+    {"check": check, "sweep": sweep, "transverse": transverse, "analyze": analyze}[args.cmd](args)
 
 
 if __name__ == "__main__":
