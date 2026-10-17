@@ -28266,3 +28266,36 @@ Costs, guards and the ceiling are in the private ledger. Every pod terminates it
 **Not run (deviations from the consult, for time).** The text-only communication arm, the single solver at equal total compute, a GPU float64 check and a second model family.
 
 **Smoke (engineering, 2 smoke problems, qwen1.5b).** Selfreplay reproduced live exactly in every row. The detector check passed and no answer was unparsed. live50 synchronizes the pair (equal top-1 tokens in 92 % of steps 16-48) while live at c = 0.25 barely does (9 % against 5 % independent). The time is about 100 s per problem and phase with 6 threads, so the held-out qwen1.5b run takes about 3.6 h.
+
+## 2026-10-17 01:05 UTC: Run card C12-4c (confirmatory, frozen before data): rerun of the C12-4 steering-history result on fresh instances, with a second direction (human, 17 Oct: "please do 1 through 7")
+
+**Design:** docs/pi-c12-4-confirmatory.md, frozen and pushed at 76ae09fe before any C12-4c data. Run by a separate agent on the CPU (float32, 6 threads, nice 10).
+
+**Fixed from C12-4.** The model, pipeline, layer 18, alpha_final 0.025, alpha_high 0.04, schedule (P 24, dwell 64), scoring, 8 starts and bootstrap. Both reused files are hash-checked:
+- docs/pi/c12-4-choices.json;
+- the C12-4 vectors file for v and u.
+
+**Fresh.**
+- 48 instances (24 prohibited), seed 12421, from a new user pool disjoint from every C12-4 pool: docs/pi/c12-4c-instances.json.
+- A second direction v2, built the same way at layer 18 from 12 + 12 differently worded statements: cos(v, v2) = 0.77, norms 541 and 537. It uses the same alphas, without recalibration.
+
+**Arms.**
+- Run A along v: direct, up, down, zero, random, unsteered (2304 rows).
+- Run B along v2: direct, up, down (1152 rows).
+- The planted control and a separate logit-bias arm are dropped, as stated in the design.
+
+**Primary.** Up minus direct false-ALLOW among prohibited requests after the 32-step dwell, along v. Predicted: at least +10 points, with the lower bound of the 95 % bootstrap interval above 0.
+
+**Secondary,** with frozen verdict rules:
+1. The same contrast along v2, conditional on v2's manipulation check: direct minus unsteered at least +10 points, with the interval above 0.
+2. The down excursion's false-DENY on permitted requests: at least +10 points, lower bound above 0.
+3. The random-direction control: interval contains 0 and lies within ±10 points.
+4. The zero-amplitude control, for false-ALLOW and false-DENY: the same rule.
+
+**Independent check:** tools/c12_4c_check.py recomputes every contrast from the raw records.
+
+**Output and estimate.**
+- Output: /data2/neural-shrimp-data/explore/pi/c12-4c/ (run-a, run-b, confirm.json, check.json); receipt docs/pi/c12-4c-summary.json; status docs/pi/c12-4c-STATUS.md.
+- Estimated time: about 3.2 h for A and 1.6 h for B.
+
+**What would surprise us.** An up-minus-direct contrast with its interval reaching 0 on fresh tables. That would mean C12-4's +21 points depended on its particular instances.
