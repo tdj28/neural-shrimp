@@ -28790,3 +28790,102 @@ By sensitivity:
   - cell 2: 0.09 to 0.15.
 - **New full-state periodicity check.** In the near and far sweeps, many unsynchronized pairs below c* have a pair distance that repeats exactly with period 4 to 12. Far starts in cell 0 at c = 0.14 and 0.20 never synchronize. A new `periodic` subcommand (code committed before it runs) iterates the coupled map from each such pair's final state. It records full-state return distances of (x_A, x_B) for P up to 40, with tolerance 1e-9 relative. It labels a pair periodic only if the joint state closes. Multipliers of these orbits are not computed, so their stability is shown only by the fact that the orbit attracts in forward iteration.
 - **Secondary tolerance.** A synchronization tolerance of 1e-6 is reported alongside the primary 1e-8. It is added because bubbling excursions just above 1e-8 decide the primary bracket in some cells.
+
+## 2026-10-17 08:10 UTC: SYNC results (exploratory): coupled chaotic soft-token loops synchronize near the predicted threshold. The local exponent law holds; on-off intermittency appears below threshold and bursting above it. Weak coupling also creates periodic, unsynchronized states.
+
+**Runs.**
+- Code: ee060c3a (check, transverse, near sweep), dc17093b (refinement), d01933aa (far sweep), e75d6e37 (periodic checks); the analysis and figure come from later commits of the same tool.
+- CPU float64, 4 threads, nice 10, at most 2 processes plus light analysis.
+- Raw data: neural-shrimp-data/explore/sync/{check, transverse, sweep-near, sweep-refine, sweep-far, periodic, periodic-synced}.
+- Receipt: docs/sync/sync-summary.json. Figure: paper/llm/figures/fig-sync.png (tools/plot_sync.py --refine sweep-refine --ts sweep-refine:1:0.165 sweep-refine:2:0.115).
+
+**Gates.**
+- Precision.
+  - keep_float64_norms is active (the tool refuses to run without the patched norms and rotary tables).
+  - Central differences against the exact JVP fall 100x per decade of h from 1e-2 to 1e-5 relative: errors 3.3e-4 to 3.3e-8 in cell 0, the same law in cells 1 and 2. They reach a rounding floor of 4e-10 to 2e-9 at h 1e-5 to 3e-5.
+- Batch position. float64 F is not bitwise batch invariant.
+  - Pair against single row, swapped layout and batch of 8 differ by at most 6.0e-15 relative (max abs element over |F|).
+  - Two identical rows in one batch differ by up to 8.9e-16.
+  - The pairs therefore ran in one batch as the card allows. The synchronized manifold is invariant only up to a roundoff-level noise of about 1e-15, which is what feeds the bursts below.
+
+**Leading exponent (own JVP, 3000 steps, block standard errors).**
+
+| cell | lambda_1 (published, 600 steps) | lambda_1 (JVP) | c* (JVP) | c* at lambda_1 ± 2 s.e. |
+|---|---|---|---|---|
+| 0 | 0.109 | 0.0975 ± 0.0095 | 0.0464 | 0.0377 to 0.0550 |
+| 1 | 0.424 | 0.437 ± 0.016 | 0.177 | 0.166 to 0.188 |
+| 2 | 0.239 | 0.196 ± 0.014 | 0.089 | 0.077 to 0.101 |
+
+Cell 2's published value lies 3 s.e. above the new one: 600 steps are short for this intermittent attractor.
+
+**Transverse exponent measured on the coupled map.** Renormalized twins (delta 1e-7) at c = 0 to 0.30, 2000 steps each, 21 configurations.
+- The measured exponent follows lambda_1 + ln|1-2c| across the whole range from +0.44 to -0.82 (panel b).
+- The largest |measured - predicted| per cell is 0.014 (cell 0), 0.051 (cell 1) and 0.046 (cell 2). The largest ratio to the twin's own standard error is 3.4, 4.0 and 1.9; the prediction's own error is not included in that ratio.
+- Subtracting ln|1-2c| from every measurement gives lambda_1 estimates of 0.088 to 0.111, 0.386 to 0.448 and 0.186 to 0.241. These ranges, over seven 2000-step orbits per cell, are the finite-time scatter. The deviations from the prediction are at that level, and no trend with c is resolved.
+- The local linear law u' = (1-2c) DF u therefore holds on the real coupled map.
+
+**Thresholds.** c_obs is the bracket (largest unsynchronized c, smallest c from which all larger grid values stay synchronized). The primary rule requires the distance to stay below 1e-8 over the last 500 steps; the secondary rule uses 1e-6.
+
+| cell | c* (JVP) | near, 3000 steps, step 0.01 | refine, 10000 steps | far start, 2000 steps, step 0.02 |
+|---|---|---|---|---|
+| 0 | 0.046 | (0.04, 0.05] | (0.045, 0.05] | see below |
+| 1 | 0.177 | (0.22, 0.23] primary; 0.20 already synchronized | none synchronized up to 0.19 primary (0.19: tail max 3e-7); (0.18, 0.19] secondary | (0.18, 0.20] |
+| 2 | 0.089 | (0.15, 0.16] | (0.12, 0.15] | (0.14, 0.16] primary; (0.10, 0.12] secondary |
+
+- **Cell 0** agrees: c_obs lies within the 2 s.e. range of c*.
+- **Cell 1** agrees to within about 0.01 to 0.02 under the secondary rule. In the near sweep, isolated excursions just above 1e-8 at c = 0.21 and 0.22 (tail max 2e-8 and 1e-8) push the primary bracket to 0.23.
+- **Cell 2** synchronizes robustly only at c of about 0.13 to 0.16, well above c* (0.089, upper 2 s.e. 0.101, highest finite-time estimate 0.107).
+
+**Intermittency and bursting.** A burst is a passage from below 1e-8 to above 1e-3; the card's rule needs at least 5 in one record.
+- **Cell 1, below c* (on-off intermittency).** c = 0.16, 0.165 and 0.17 give 13, 14 and 12 bursts in 10000 steps. The distance spends 8 to 20 % of steps below 1e-8 and returns to O(1) (panel c).
+  - Laminar phases (runs below 1e-4) number 200 to 293 per pair. Log-binned slopes lie between -1.52 and -1.72 (threshold 1e-4) and between -1.61 and -1.76 (threshold 1e-6), against the -3/2 of on-off intermittency.
+  - At c = 0.18, just above c* (0.177) but inside its 2 s.e. range, there are 13 bursts with slopes -1.42 and -1.34.
+  - These slopes are crude: about 150 to 300 phases, all lengths from 2 steps up, an unknown cutoff and no error bars. They are consistent with -3/2 but do not establish it.
+  - At c = 0.14 and 0.15, the laminar phases are short (at most 138 steps): ordinary chaotic desynchronization.
+- **Cell 2, above c* (bursting consistent with attractor bubbling).**
+  - At c = 0.105, 0.11 and 0.115, where the typical-orbit transverse exponent is predicted negative (-0.02 to -0.05 per step), the synchronized pair still bursts 5, 10 and 6 times in 10000 steps. The bursts start from the roundoff floor (1e-14) and reach O(1) relative distance (panel d).
+  - Below c* (0.09 and 0.095), there are 10 and 15 bursts.
+  - The synchronized floor itself rises as c falls toward threshold, from about 1e-14 at c = 0.3 to 1e-10 to 1e-8 at c = 0.15 to 0.18 (near sweep). This is the noise amplification expected when transiently unstable stretches of the orbit amplify the roundoff mismatch.
+  - The orbits embedded in the attractor were not computed, so the mechanism (transversely unstable periodic orbits) is inferred, not shown.
+- **Cell 0.** No pair bursts 5 times (at most 2). The transition is sharp.
+
+**Weak coupling makes periodic, unsynchronized states.** Below c*, many pairs stop being chaotic and lock onto periodic orbits of the joint state (x_A, x_B). The full-state return distance closes below 1e-9 (2.7e-15 to 2.2e-13) at the primitive period, which is:
+- 6 in cell 0 (c = 0.02, 0.04);
+- 6 in cell 1 (c = 0.03, 0.07);
+- 12, 10, 8 and 8 in cell 2 (c = 0.01, 0.02, 0.04, 0.06);
+- 6 and 4 in cell 0's far starts at c = 0.14 and 0.20, above c*;
+- 6 in cell 1 far (c = 0.06) and 8 in cell 2 far (c = 0.04).
+
+The pair distance stays at 0.05 to 1.7: the two agents emit staggered or different texts (for example " is it is a. This" against " indeed a. This is a"). The uncoupled c = 0 pairs do not close (minimum return 3e-3 and 0.3). Multipliers were not computed, so these orbits are only known to attract in forward iteration.
+
+**Cell 0 is bistable.**
+- Most far starts in cell 0 synchronize, but onto an orbit of F with primitive period 2 ("it is it is", return 7e-15 at c = 0.12 and 5e-15 at c = 0.30), not onto the chaotic "existence / question" attractor.
+- The uncoupled rows from the same starts stay on "existence".
+- So F at cell 0 has an attracting period-2 orbit coexisting with the chaotic attractor (attracting along the synchronized manifold, where the dynamics is F itself). The coupling transient moves the pair into its basin.
+- The far-start thresholds for cell 0 ((0.20, 0.22], non-monotone) therefore measure basin effects and coexisting periodic states, not the chaotic transverse exponent.
+
+**Synchronized texts and the single-loop attractor.**
+- On the manifold, the coupled update is exactly F, so a synchronized orbit is an orbit of the single loop.
+- Top-1 token distributions of synchronized pairs (second half) differ from the c = 0 rows by total variation:
+  - 0 to 0.005 in cell 0 (near starts);
+  - 0.011 to 0.040 in cell 1;
+  - 0.015 to 0.047 in cell 2.
+- For comparison, two independent c = 0 rows differ by 0.000, 0.033 and 0.039 (near). The synchronized orbits therefore sample the single loop's attractor, except for cell 0's far starts on the period-2 orbit (total variation 1.0).
+- Synchronized agents write identical text, for example cell 1: "The is a. This is there is a. Is"; cell 0: " existence / The question / The existence ...".
+- Unsynchronized chaotic pairs share 18 to 25 % of top-1 tokens at c = 0 (cells 1 and 2) and write the same vocabulary out of phase.
+
+**Interpretation.**
+- The standard theory of coupled identical chaotic maps describes this LLM loop quantitatively at the local level. The transverse exponent equals lambda_1 + ln|1-2c| within finite-time scatter, and the typical-orbit threshold c* locates the transition in cells 0 and 1.
+- The global behaviour carries the textbook complications:
+  - on-off intermittency below c*, with laminar-length slopes near -3/2;
+  - bursting above c* in cell 2, consistent with bubbling, where robust synchronization needs c about 0.04 to 0.07 above c*;
+  - coupling-induced periodic, unsynchronized states;
+  - a coexisting periodic attractor in cell 0.
+
+**Limits and caveats.**
+- Exploratory. One model, one direction and three cells. One start per (cell, c) for near starts and one for far starts.
+- lambda_1 uncertainties come from block standard errors on single orbits. The scatter between orbits is larger than the block errors suggest.
+- Bursting in exact symmetry is driven here by float64 roundoff (about 1e-15). No external mismatch or noise was added, so burst rates depend on that floor.
+- Transversely unstable embedded periodic orbits were not computed. Bubbling is inferred from bursts above c*, not from orbit exponents.
+- The multipliers of the periodic unsynchronized orbits and of cell 0's period-2 orbit were not computed.
+- The panel (a) points at grid values shared by the near and refinement sweeps show the refinement value: the second half of a 10000-step record instead of 3000.

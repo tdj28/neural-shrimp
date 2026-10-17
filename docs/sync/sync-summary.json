@@ -1,0 +1,5199 @@
+{
+ "commit": {
+  "commit": "e75d6e37609946d26ec1d3b3ab71b6b292b5e489",
+  "tools_dirty": false
+ },
+ "sync_tol": 1e-08,
+ "sync_rule": "max distance over the last 500 steps below 1e-08",
+ "cells": {
+  "0": {
+   "index": 0,
+   "log10_temperature": -0.156,
+   "alpha": 0.0652,
+   "lambda1_published": 0.10940792690952314,
+   "lambda1_jvp": 0.09750146083565657,
+   "lambda1_jvp_se": 0.009507328678060272,
+   "lambda1_jvp_steps": 3000,
+   "c_star_published": 0.05181765418493345,
+   "c_star_jvp": 0.04644949178533753,
+   "c_star_jvp_2se": [
+    0.037742869888796715,
+    0.05499212429175021
+   ],
+   "transverse": [
+    {
+     "c": 0.0,
+     "measured": 0.10369527702638728,
+     "measured_se": 0.004390484060161738,
+     "predicted": 0.09750146083565657,
+     "measured_minus_predicted": 0.006193816190730714,
+     "measured_minus_ln_factor": 0.10369527702638728
+    },
+    {
+     "c": 0.05,
+     "measured": -0.015277629626993373,
+     "measured_se": 0.0067927389883101815,
+     "predicted": -0.007859054822169712,
+     "measured_minus_predicted": -0.0074185748048236615,
+     "measured_minus_ln_factor": 0.0900828860308329
+    },
+    {
+     "c": 0.1,
+     "measured": -0.11248930922050622,
+     "measured_se": 0.007318573584140953,
+     "predicted": -0.12564209047855313,
+     "measured_minus_predicted": 0.013152781258046906,
+     "measured_minus_ln_factor": 0.11065424209370349
+    },
+    {
+     "c": 0.15,
+     "measured": -0.2679374832508343,
+     "measured_se": 0.0026293829753092817,
+     "predicted": -0.25917348310307586,
+     "measured_minus_predicted": -0.00876400014775841,
+     "measured_minus_ln_factor": 0.08873746068789817
+    },
+    {
+     "c": 0.2,
+     "measured": -0.4002148072327144,
+     "measured_se": 0.00592445752319958,
+     "predicted": -0.41332416293033414,
+     "measured_minus_predicted": 0.013109355697619729,
+     "measured_minus_ln_factor": 0.11061081653327631
+    },
+    {
+     "c": 0.25,
+     "measured": -0.5828080306460816,
+     "measured_se": 0.009953756882036452,
+     "predicted": -0.5956457197242887,
+     "measured_minus_predicted": 0.012837689078207148,
+     "measured_minus_ln_factor": 0.11033914991386373
+    },
+    {
+     "c": 0.3,
+     "measured": -0.8138673900098818,
+     "measured_se": 0.006658824209743661,
+     "predicted": -0.8187892710384984,
+     "measured_minus_predicted": 0.00492188102861657,
+     "measured_minus_ln_factor": 0.10242334186427315
+    }
+   ],
+   "sweeps": {
+    "sweep-near": {
+     "start": "near",
+     "steps": 3000,
+     "complete": true,
+     "commit": {
+      "commit": "dc17093b8d69f8618fd981dbbb5a5b4fd91516c9",
+      "tools_dirty": false
+     },
+     "sweep_npz_sha256": "89b18f0c47e514786e6535f9e086f5ccb4fbfd59d000faa1b138f0e40c914dfd",
+     "threshold": {
+      "c_lo": 0.04,
+      "c_hi": 0.05,
+      "status": "bracketed",
+      "non_monotone": false
+     },
+     "threshold_tol_1e-6_secondary": {
+      "c_lo": 0.04,
+      "c_hi": 0.05,
+      "status": "bracketed",
+      "non_monotone": false
+     },
+     "tv_c0_A_vs_B_tokens": 0.0,
+     "pairs": [
+      {
+       "c": 0.0,
+       "mean_dist": 0.10045466306016669,
+       "mean_dist_second_half": 0.09773721566529779,
+       "frac_below_tol": 0.0,
+       "synced": false,
+       "synced_1e-6": false,
+       "tail_max": 0.3239598569811876,
+       "tail_median": 0.06499500300831751,
+       "first_below_tol": null,
+       "bursts_1e-8_to_1e-3": 0,
+       "laminar_0.0001": {
+        "n": 0,
+        "censored_last": false,
+        "max": 0,
+        "fit": null
+       },
+       "laminar_1e-06": {
+        "n": 0,
+        "censored_last": false,
+        "max": 0,
+        "fit": null
+       },
+       "text_A_last": " existence\n\nThe existence\n\nThe existence\n\nThe existence\n\nThe",
+       "text_B_last": " existence\n\nThe question\n\nThe existence\n\nThe existence\n\nThe",
+       "top1_equal_frac_second_half": 0.8693333333333333,
+       "tv_A_vs_c0_tokens": 0.0
+      },
+      {
+       "c": 0.01,
+       "mean_dist": 0.17022669833439644,
+       "mean_dist_second_half": 0.17194802605936912,
+       "frac_below_tol": 0.0,
+       "synced": false,
+       "synced_1e-6": false,
+       "tail_max": 0.25676440205328394,
+       "tail_median": 0.18431508704760696,
+       "first_below_tol": null,
+       "bursts_1e-8_to_1e-3": 0,
+       "laminar_0.0001": {
+        "n": 0,
+        "censored_last": false,
+        "max": 0,
+        "fit": null
+       },
+       "laminar_1e-06": {
+        "n": 0,
+        "censored_last": false,
+        "max": 0,
+        "fit": null
+       },
+       "text_A_last": " question\n\nThe existence\n\nThe question\n\nThe existence\n\nThe",
+       "text_B_last": " existence\n\nThe question\n\nThe existence\n\nThe question\n\nThe",
+       "top1_equal_frac_second_half": 0.6666666666666666,
+       "tv_A_vs_c0_tokens": 0.08066666666666666
+      },
+      {
+       "c": 0.02,
+       "mean_dist": 0.16874394813033644,
+       "mean_dist_second_half": 0.17083419455456586,
+       "frac_below_tol": 0.0,
+       "synced": false,
+       "synced_1e-6": false,
+       "tail_max": 0.21621414476786427,
+       "tail_median": 0.17719192000065326,
+       "first_below_tol": null,
+       "bursts_1e-8_to_1e-3": 0,
+       "laminar_0.0001": {
+        "n": 0,
+        "censored_last": false,
+        "max": 0,
+        "fit": null
+       },
+       "laminar_1e-06": {
+        "n": 0,
+        "censored_last": false,
+        "max": 0,
+        "fit": null
+       },
+       "text_A_last": " question\n\nThe existence\n\nThe question\n\nThe existence\n\nThe",
+       "text_B_last": " existence\n\nThe question\n\nThe existence\n\nThe question\n\nThe",
+       "top1_equal_frac_second_half": 0.6666666666666666,
+       "tv_A_vs_c0_tokens": 0.08066666666666666
+      },
+      {
+       "c": 0.03,
+       "mean_dist": 0.1368734959368812,
+       "mean_dist_second_half": 0.14558745449723243,
+       "frac_below_tol": 0.0,
+       "synced": false,
+       "synced_1e-6": false,
+       "tail_max": 0.18622641792380526,
+       "tail_median": 0.1717369336522102,
+       "first_below_tol": null,
+       "bursts_1e-8_to_1e-3": 0,
+       "laminar_0.0001": {
+        "n": 0,
+        "censored_last": false,
+        "max": 0,
+        "fit": null
+       },
+       "laminar_1e-06": {
+        "n": 0,
+        "censored_last": false,
+        "max": 0,
+        "fit": null
+       },
+       "text_A_last": " existence\n\nThe question\n\nThe existence\n\nThe question\n\nThe",
+       "text_B_last": " question\n\nThe existence\n\nThe question\n\nThe existence\n\nThe",
+       "top1_equal_frac_second_half": 0.6666666666666666,
+       "tv_A_vs_c0_tokens": 0.08066666666666666
+      },
+      {
+       "c": 0.04,
+       "mean_dist": 0.10307146686092965,
+       "mean_dist_second_half": 0.11901883428697242,
+       "frac_below_tol": 0.0,
+       "synced": false,
+       "synced_1e-6": false,
+       "tail_max": 0.16178753509070404,
+       "tail_median": 0.14060560692798377,
+       "first_below_tol": null,
+       "bursts_1e-8_to_1e-3": 0,
+       "laminar_0.0001": {
+        "n": 3,
+        "censored_last": false,
+        "max": 3,
+        "fit": null
+       },
+       "laminar_1e-06": {
+        "n": 0,
+        "censored_last": false,
+        "max": 0,
+        "fit": null
+       },
+       "text_A_last": " question\n\nThe existence\n\nThe question\n\nThe existence\n\nThe",
+       "text_B_last": " existence\n\nThe question\n\nThe existence\n\nThe question\n\nThe",
+       "top1_equal_frac_second_half": 0.6666666666666666,
+       "tv_A_vs_c0_tokens": 0.08066666666666666
+      },
+      {
+       "c": 0.05,
+       "mean_dist": 0.0010573538685245457,
+       "mean_dist_second_half": 7.81687397566989e-08,
+       "frac_below_tol": 0.46166666666666667,
+       "synced": true,
+       "synced_1e-6": true,
+       "tail_max": 8.215208256128468e-12,
+       "tail_median": 3.3168659670718667e-13,
+       "first_below_tol": 1608,
+       "bursts_1e-8_to_1e-3": 0,
+       "laminar_0.0001": {
+        "n": 78,
+        "censored_last": true,
+        "max": 1628,
+        "fit": null
+       },
+       "laminar_1e-06": {
+        "n": 49,
+        "censored_last": true,
+        "max": 1430,
+        "fit": null
+       },
+       "text_A_last": " existence\n\nThe question\n\nThe existence\n\nThe existence\n\nThe",
+       "text_B_last": " existence\n\nThe question\n\nThe existence\n\nThe existence\n\nThe",
+       "top1_equal_frac_second_half": 1.0,
+       "tv_A_vs_c0_tokens": 0.003333333333333334
+      },
+      {
+       "c": 0.06,
+       "mean_dist": 0.00209539093126999,
+       "mean_dist_second_half": 1.5405113548086003e-12,
+       "frac_below_tol": 0.6996666666666667,
+       "synced": true,
+       "synced_1e-6": true,
+       "tail_max": 8.829261961282615e-11,
+       "tail_median": 3.3030070549622957e-13,
+       "first_below_tol": 855,
+       "bursts_1e-8_to_1e-3": 0,
+       "laminar_0.0001": {
+        "n": 6,
+        "censored_last": true,
+        "max": 2301,
+        "fit": null
+       },
+       "laminar_1e-06": {
+        "n": 15,
+        "censored_last": true,
+        "max": 2150,
+        "fit": null
+       },
+       "text_A_last": " existence\n\nThe question\n\nThe existence\n\nThe question\n\nThe",
+       "text_B_last": " existence\n\nThe question\n\nThe existence\n\nThe question\n\nThe",
+       "top1_equal_frac_second_half": 1.0,
+       "tv_A_vs_c0_tokens": 0.0020000000000000018
+      },
+      {
+       "c": 0.07,
+       "mean_dist": 3.399277019643533e-05,
+       "mean_dist_second_half": 9.024125695828599e-14,
+       "frac_below_tol": 0.9103333333333333,
+       "synced": true,
+       "synced_1e-6": true,
+       "tail_max": 8.017562340858624e-13,
+       "tail_median": 5.758576833666254e-14,
+       "first_below_tol": 258,
+       "bursts_1e-8_to_1e-3": 0,
+       "laminar_0.0001": {
+        "n": 7,
+        "censored_last": true,
+        "max": 2882,
+        "fit": null
+       },
+       "laminar_1e-06": {
+        "n": 9,
+        "censored_last": true,
+        "max": 2780,
+        "fit": null
+       },
+       "text_A_last": " existence\n\nThe question\n\nThe existence\n\nThe question\n\nThe",
+       "text_B_last": " existence\n\nThe question\n\nThe existence\n\nThe question\n\nThe",
+       "top1_equal_frac_second_half": 1.0,
+       "tv_A_vs_c0_tokens": 0.003333333333333334
+      },
+      {
+       "c": 0.08,
+       "mean_dist": 1.807139121450921e-05,
+       "mean_dist_second_half": 7.502369822370152e-14,
+       "frac_below_tol": 0.9136666666666666,
+       "synced": true,
+       "synced_1e-6": true,
+       "tail_max": 5.307013973773731e-13,
+       "tail_median": 5.1562975488482505e-14,
+       "first_below_tol": 189,
+       "bursts_1e-8_to_1e-3": 0,
+       "laminar_0.0001": {
+        "n": 12,
+        "censored_last": true,
+        "max": 2911,
+        "fit": null
+       },
+       "laminar_1e-06": {
+        "n": 5,
+        "censored_last": true,
+        "max": 2834,
+        "fit": null
+       },
+       "text_A_last": " existence\n\nThe existence\n\nThe existence\n\nThe existence\n\nThe",
+       "text_B_last": " existence\n\nThe existence\n\nThe existence\n\nThe existence\n\nThe",
+       "top1_equal_frac_second_half": 1.0,
+       "tv_A_vs_c0_tokens": 0.0013333333333333391
+      },
+      {
+       "c": 0.09,
+       "mean_dist": 1.1899482770836004e-05,
+       "mean_dist_second_half": 4.969518132123427e-14,
+       "frac_below_tol": 0.957,
+       "synced": true,
+       "synced_1e-6": true,
+       "tail_max": 3.421542775556789e-13,
+       "tail_median": 3.949454103693102e-14,
+       "first_below_tol": 125,
+       "bursts_1e-8_to_1e-3": 0,
+       "laminar_0.0001": {
+        "n": 6,
+        "censored_last": true,
+        "max": 2954,
+        "fit": null
+       },
+       "laminar_1e-06": {
+        "n": 8,
+        "censored_last": true,
+        "max": 2879,
+        "fit": null
+       },
+       "text_A_last": " existence\n\nThe question\n\nThe existence\n\nThe question\n\nThe",
+       "text_B_last": " existence\n\nThe question\n\nThe existence\n\nThe question\n\nThe",
+       "top1_equal_frac_second_half": 1.0,
+       "tv_A_vs_c0_tokens": 0.0026666666666666644
+      },
+      {
+       "c": 0.1,
+       "mean_dist": 8.821592619240162e-06,
+       "mean_dist_second_half": 5.0230742899728543e-14,
+       "frac_below_tol": 0.96,
+       "synced": true,
+       "synced_1e-6": true,
+       "tail_max": 2.891482129273166e-13,
+       "tail_median": 2.7811610498432856e-14,
+       "first_below_tol": 102,
+       "bursts_1e-8_to_1e-3": 0,
+       "laminar_0.0001": {
+        "n": 7,
+        "censored_last": true,
+        "max": 2960,
+        "fit": null
+       },
+       "laminar_1e-06": {
+        "n": 3,
+        "censored_last": true,
+        "max": 2913,
+        "fit": null
+       },
+       "text_A_last": " existence\n\nThe question\n\nThe existence\n\nThe existence\n\nThe",
+       "text_B_last": " existence\n\nThe question\n\nThe existence\n\nThe existence\n\nThe",
+       "top1_equal_frac_second_half": 1.0,
+       "tv_A_vs_c0_tokens": 0.001999999999999995
+      },
+      {
+       "c": 0.11,
+       "mean_dist": 6.984748623844751e-06,
+       "mean_dist_second_half": 3.562898995362007e-14,
+       "frac_below_tol": 0.968,
+       "synced": true,
+       "synced_1e-6": true,
+       "tail_max": 2.3902729856574096e-13,
+       "tail_median": 2.0179344433785505e-14,
+       "first_below_tol": 93,
+       "bursts_1e-8_to_1e-3": 0,
+       "laminar_0.0001": {
+        "n": 4,
+        "censored_last": true,
+        "max": 2972,
+        "fit": null
+       },
+       "laminar_1e-06": {
+        "n": 7,
+        "censored_last": true,
+        "max": 2930,
+        "fit": null
+       },
+       "text_A_last": " existence\n\nThe existence\n\nThe question\n\nThe existence\n\nThe",
+       "text_B_last": " existence\n\nThe existence\n\nThe question\n\nThe existence\n\nThe",
+       "top1_equal_frac_second_half": 1.0,
+       "tv_A_vs_c0_tokens": 0.0026666666666666644
+      },
+      {
+       "c": 0.12,
+       "mean_dist": 5.7227083479724635e-06,
+       "mean_dist_second_half": 3.156529013108942e-14,
+       "frac_below_tol": 0.9726666666666667,
+       "synced": true,
+       "synced_1e-6": true,
+       "tail_max": 2.076366467668131e-13,
+       "tail_median": 2.0987591232631205e-14,
+       "first_below_tol": 72,
+       "bursts_1e-8_to_1e-3": 0,
+       "laminar_0.0001": {
+        "n": 2,
+        "censored_last": true,
+        "max": 2981,
+        "fit": null
+       },
+       "laminar_1e-06": {
+        "n": 2,
+        "censored_last": true,
+        "max": 2947,
+        "fit": null
+       },
+       "text_A_last": " existence\n\nThe existence\n\nThe existence\n\nThe question\n\nThe",
+       "text_B_last": " existence\n\nThe existence\n\nThe existence\n\nThe question\n\nThe",
+       "top1_equal_frac_second_half": 1.0,
+       "tv_A_vs_c0_tokens": 0.0026666666666666644
+      },
+      {
+       "c": 0.13,
+       "mean_dist": 4.78609281403158e-06,
+       "mean_dist_second_half": 2.415194147816754e-14,
+       "frac_below_tol": 0.9763333333333334,
+       "synced": true,
+       "synced_1e-6": true,
+       "tail_max": 1.3707078278588157e-13,
+       "tail_median": 1.1657967076567538e-14,
+       "first_below_tol": 71,
+       "bursts_1e-8_to_1e-3": 0,
+       "laminar_0.0001": {
+        "n": 2,
+        "censored_last": true,
+        "max": 2981,
+        "fit": null
+       },
+       "laminar_1e-06": {
+        "n": 2,
+        "censored_last": true,
+        "max": 2954,
+        "fit": null
+       },
+       "text_A_last": " existence\n\nThe existence\n\nThe existence\n\nThe question\n\nThe",
+       "text_B_last": " existence\n\nThe existence\n\nThe existence\n\nThe question\n\nThe",
+       "top1_equal_frac_second_half": 1.0,
+       "tv_A_vs_c0_tokens": 0.003333333333333334
+      },
+      {
+       "c": 0.14,
+       "mean_dist": 4.056061554024885e-06,
+       "mean_dist_second_half": 2.1590017086038824e-14,
+       "frac_below_tol": 0.9796666666666667,
+       "synced": true,
+       "synced_1e-6": true,
+       "tail_max": 1.3598025579673394e-13,
+       "tail_median": 1.2663815944257832e-14,
+       "first_below_tol": 48,
+       "bursts_1e-8_to_1e-3": 0,
+       "laminar_0.0001": {
+        "n": 1,
+        "censored_last": true,
+        "max": 2987,
+        "fit": null
+       },
+       "laminar_1e-06": {
+        "n": 3,
+        "censored_last": true,
+        "max": 2960,
+        "fit": null
+       },
+       "text_A_last": " question\n\nThe existence\n\nThe question\n\nThe existence\n\nThe",
+       "text_B_last": " question\n\nThe existence\n\nThe question\n\nThe existence\n\nThe",
+       "top1_equal_frac_second_half": 1.0,
+       "tv_A_vs_c0_tokens": 0.0006666666666666626
+      },
+      {
+       "c": 0.15,
+       "mean_dist": 3.4682619940213388e-06,
+       "mean_dist_second_half": 2.2255259201092133e-14,
+       "frac_below_tol": 0.9826666666666667,
+       "synced": true,
+       "synced_1e-6": true,
+       "tail_max": 1.912524561012728e-13,
+       "tail_median": 1.2937083377438437e-14,
+       "first_below_tol": 48,
+       "bursts_1e-8_to_1e-3": 0,
+       "laminar_0.0001": {
+        "n": 1,
+        "censored_last": true,
+        "max": 2987,
+        "fit": null
+       },
+       "laminar_1e-06": {
+        "n": 3,
+        "censored_last": true,
+        "max": 2966,
+        "fit": null
+       },
+       "text_A_last": " question\n\nThe existence\n\nThe question\n\nThe existence\n\nThe",
+       "text_B_last": " question\n\nThe existence\n\nThe question\n\nThe existence\n\nThe",
+       "top1_equal_frac_second_half": 1.0,
+       "tv_A_vs_c0_tokens": 0.004666666666666666
+      },
+      {
+       "c": 0.16,
+       "mean_dist": 2.984420025281539e-06,
+       "mean_dist_second_half": 1.729854877833387e-14,
+       "frac_below_tol": 0.9846666666666667,
+       "synced": true,
+       "synced_1e-6": true,
+       "tail_max": 1.4380622225331634e-13,
+       "tail_median": 1.2225801500001581e-14,
+       "first_below_tol": 47,
+       "bursts_1e-8_to_1e-3": 0,
+       "laminar_0.0001": {
+        "n": 2,
+        "censored_last": true,
+        "max": 2989,
+        "fit": null
+       },
+       "laminar_1e-06": {
+        "n": 2,
+        "censored_last": true,
+        "max": 2969,
+        "fit": null
+       },
+       "text_A_last": " existence\n\nThe existence\n\nThe question\n\nThe existence\n\nThe",
+       "text_B_last": " existence\n\nThe existence\n\nThe question\n\nThe existence\n\nThe",
+       "top1_equal_frac_second_half": 1.0,
+       "tv_A_vs_c0_tokens": 0.00399999999999999
+      },
+      {
+       "c": 0.17,
+       "mean_dist": 2.5799656126676454e-06,
+       "mean_dist_second_half": 1.516335065452488e-14,
+       "frac_below_tol": 0.986,
+       "synced": true,
+       "synced_1e-6": true,
+       "tail_max": 9.851458489098484e-14,
+       "tail_median": 8.541763693239615e-15,
+       "first_below_tol": 41,
+       "bursts_1e-8_to_1e-3": 0,
+       "laminar_0.0001": {
+        "n": 2,
+        "censored_last": true,
+        "max": 2989,
+        "fit": null
+       },
+       "laminar_1e-06": {
+        "n": 2,
+        "censored_last": true,
+        "max": 2974,
+        "fit": null
+       },
+       "text_A_last": " question\n\nThe existence\n\nThe existence\n\nThe existence\n\nThe",
+       "text_B_last": " question\n\nThe existence\n\nThe existence\n\nThe existence\n\nThe",
+       "top1_equal_frac_second_half": 1.0,
+       "tv_A_vs_c0_tokens": 0.003333333333333334
+      },
+      {
+       "c": 0.18,
+       "mean_dist": 2.2381039250083928e-06,
+       "mean_dist_second_half": 1.332025449581984e-14,
+       "frac_below_tol": 0.987,
+       "synced": true,
+       "synced_1e-6": true,
+       "tail_max": 6.25792039549445e-14,
+       "tail_median": 8.064872940269405e-15,
+       "first_below_tol": 39,
+       "bursts_1e-8_to_1e-3": 0,
+       "laminar_0.0001": {
+        "n": 2,
+        "censored_last": true,
+        "max": 2989,
+        "fit": null
+       },
+       "laminar_1e-06": {
+        "n": 1,
+        "censored_last": true,
+        "max": 2980,
+        "fit": null
+       },
+       "text_A_last": " existence\n\nThe question\n\nThe existence\n\nThe question\n\nThe",
+       "text_B_last": " existence\n\nThe question\n\nThe existence\n\nThe question\n\nThe",
+       "top1_equal_frac_second_half": 1.0,
+       "tv_A_vs_c0_tokens": 0.001999999999999995
+      },
+      {
+       "c": 0.19,
+       "mean_dist": 1.9467618082445326e-06,
+       "mean_dist_second_half": 1.263554264268953e-14,
+       "frac_below_tol": 0.9883333333333333,
+       "synced": true,
+       "synced_1e-6": true,
+       "tail_max": 1.0606814528122525e-13,
+       "tail_median": 9.388768290890592e-15,
+       "first_below_tol": 36,
+       "bursts_1e-8_to_1e-3": 0,
+       "laminar_0.0001": {
+        "n": 1,
+        "censored_last": true,
+        "max": 2992,
+        "fit": null
+       },
+       "laminar_1e-06": {
+        "n": 2,
+        "censored_last": true,
+        "max": 2980,
+        "fit": null
+       },
+       "text_A_last": " existence\n\nThe question\n\nThe existence\n\nThe question\n\nThe",
+       "text_B_last": " existence\n\nThe question\n\nThe existence\n\nThe question\n\nThe",
+       "top1_equal_frac_second_half": 1.0,
+       "tv_A_vs_c0_tokens": 0.004666666666666666
+      },
+      {
+       "c": 0.2,
+       "mean_dist": 1.696909378697268e-06,
+       "mean_dist_second_half": 1.1162234308230858e-14,
+       "frac_below_tol": 0.9893333333333333,
+       "synced": true,
+       "synced_1e-6": true,
+       "tail_max": 6.737969206580176e-14,
+       "tail_median": 7.135680659125546e-15,
+       "first_below_tol": 30,
+       "bursts_1e-8_to_1e-3": 0,
+       "laminar_0.0001": {
+        "n": 1,
+        "censored_last": true,
+        "max": 2993,
+        "fit": null
+       },
+       "laminar_1e-06": {
+        "n": 2,
+        "censored_last": true,
+        "max": 2981,
+        "fit": null
+       },
+       "text_A_last": " question\n\nThe existence\n\nThe question\n\nThe existence\n\nThe",
+       "text_B_last": " question\n\nThe existence\n\nThe question\n\nThe existence\n\nThe",
+       "top1_equal_frac_second_half": 1.0,
+       "tv_A_vs_c0_tokens": 0.0026666666666666644
+      },
+      {
+       "c": 0.21,
+       "mean_dist": 1.4815808564622798e-06,
+       "mean_dist_second_half": 9.785786518267343e-15,
+       "frac_below_tol": 0.9903333333333333,
+       "synced": true,
+       "synced_1e-6": true,
+       "tail_max": 7.609842286065945e-14,
+       "tail_median": 6.3327939487395275e-15,
+       "first_below_tol": 30,
+       "bursts_1e-8_to_1e-3": 0,
+       "laminar_0.0001": {
+        "n": 1,
+        "censored_last": true,
+        "max": 2993,
+        "fit": null
+       },
+       "laminar_1e-06": {
+        "n": 2,
+        "censored_last": true,
+        "max": 2981,
+        "fit": null
+       },
+       "text_A_last": " question\n\nThe existence\n\nThe existence\n\nThe existence\n\nThe",
+       "text_B_last": " question\n\nThe existence\n\nThe existence\n\nThe existence\n\nThe",
+       "top1_equal_frac_second_half": 1.0,
+       "tv_A_vs_c0_tokens": 0.0006666666666666626
+      },
+      {
+       "c": 0.22,
+       "mean_dist": 1.2952715927908382e-06,
+       "mean_dist_second_half": 9.053443165069399e-15,
+       "frac_below_tol": 0.991,
+       "synced": true,
+       "synced_1e-6": true,
+       "tail_max": 3.970026050103271e-14,
+       "tail_median": 6.243207420211313e-15,
+       "first_below_tol": 28,
+       "bursts_1e-8_to_1e-3": 0,
+       "laminar_0.0001": {
+        "n": 1,
+        "censored_last": true,
+        "max": 2993,
+        "fit": null
+       },
+       "laminar_1e-06": {
+        "n": 2,
+        "censored_last": true,
+        "max": 2982,
+        "fit": null
+       },
+       "text_A_last": " existence\n\nThe existence\n\nThe existence\n\nThe existence\n\nThe",
+       "text_B_last": " existence\n\nThe existence\n\nThe existence\n\nThe existence\n\nThe",
+       "top1_equal_frac_second_half": 1.0,
+       "tv_A_vs_c0_tokens": 0.0
+      },
+      {
+       "c": 0.23,
+       "mean_dist": 1.1335483880266593e-06,
+       "mean_dist_second_half": 9.193798666998926e-15,
+       "frac_below_tol": 0.9916666666666667,
+       "synced": true,
+       "synced_1e-6": true,
+       "tail_max": 5.132999710208228e-14,
+       "tail_median": 6.373258955015154e-15,
+       "first_below_tol": 26,
+       "bursts_1e-8_to_1e-3": 0,
+       "laminar_0.0001": {
+        "n": 1,
+        "censored_last": true,
+        "max": 2993,
+        "fit": null
+       },
+       "laminar_1e-06": {
+        "n": 1,
+        "censored_last": true,
+        "max": 2987,
+        "fit": null
+       },
+       "text_A_last": " existence\n\nThe question\n\nThe existence\n\nThe question\n\nThe",
+       "text_B_last": " existence\n\nThe question\n\nThe existence\n\nThe question\n\nThe",
+       "top1_equal_frac_second_half": 1.0,
+       "tv_A_vs_c0_tokens": 0.004666666666666666
+      },
+      {
+       "c": 0.24,
+       "mean_dist": 9.927867846335472e-07,
+       "mean_dist_second_half": 7.657907795877868e-15,
+       "frac_below_tol": 0.9933333333333333,
+       "synced": true,
+       "synced_1e-6": true,
+       "tail_max": 5.417293495482388e-14,
+       "tail_median": 5.443283628329277e-15,
+       "first_below_tol": 21,
+       "bursts_1e-8_to_1e-3": 0,
+       "laminar_0.0001": {
+        "n": 1,
+        "censored_last": true,
+        "max": 2993,
+        "fit": null
+       },
+       "laminar_1e-06": {
+        "n": 1,
+        "censored_last": true,
+        "max": 2987,
+        "fit": null
+       },
+       "text_A_last": " existence\n\nThe existence\n\nThe existence\n\nThe question\n\nThe",
+       "text_B_last": " existence\n\nThe existence\n\nThe existence\n\nThe question\n\nThe",
+       "top1_equal_frac_second_half": 1.0,
+       "tv_A_vs_c0_tokens": 0.0
+      },
+      {
+       "c": 0.25,
+       "mean_dist": 8.699874404305897e-07,
+       "mean_dist_second_half": 7.047027179547653e-15,
+       "frac_below_tol": 0.9933333333333333,
+       "synced": true,
+       "synced_1e-6": true,
+       "tail_max": 4.726479179347185e-14,
+       "tail_median": 4.160432858168027e-15,
+       "first_below_tol": 21,
+       "bursts_1e-8_to_1e-3": 0,
+       "laminar_0.0001": {
+        "n": 1,
+        "censored_last": true,
+        "max": 2994,
+        "fit": null
+       },
+       "laminar_1e-06": {
+        "n": 1,
+        "censored_last": true,
+        "max": 2987,
+        "fit": null
+       },
+       "text_A_last": " existence\n\nThe existence\n\nThe question\n\nThe existence\n\nThe",
+       "text_B_last": " existence\n\nThe existence\n\nThe question\n\nThe existence\n\nThe",
+       "top1_equal_frac_second_half": 1.0,
+       "tv_A_vs_c0_tokens": 0.0020000000000000018
+      },
+      {
+       "c": 0.26,
+       "mean_dist": 7.626437548581468e-07,
+       "mean_dist_second_half": 6.3333071260518254e-15,
+       "frac_below_tol": 0.9936666666666667,
+       "synced": true,
+       "synced_1e-6": true,
+       "tail_max": 3.705584335125482e-14,
+       "tail_median": 4.134788566562584e-15,
+       "first_below_tol": 20,
+       "bursts_1e-8_to_1e-3": 0,
+       "laminar_0.0001": {
+        "n": 1,
+        "censored_last": true,
+        "max": 2994,
+        "fit": null
+       },
+       "laminar_1e-06": {
+        "n": 1,
+        "censored_last": true,
+        "max": 2988,
+        "fit": null
+       },
+       "text_A_last": " question\n\nThe existence\n\nThe existence\n\nThe existence\n\nThe",
+       "text_B_last": " question\n\nThe existence\n\nThe existence\n\nThe existence\n\nThe",
+       "top1_equal_frac_second_half": 1.0,
+       "tv_A_vs_c0_tokens": 0.0
+      },
+      {
+       "c": 0.27,
+       "mean_dist": 6.68643944799821e-07,
+       "mean_dist_second_half": 5.807157162790004e-15,
+       "frac_below_tol": 0.9936666666666667,
+       "synced": true,
+       "synced_1e-6": true,
+       "tail_max": 3.141197196709815e-14,
+       "tail_median": 4.2464864486276494e-15,
+       "first_below_tol": 20,
+       "bursts_1e-8_to_1e-3": 0,
+       "laminar_0.0001": {
+        "n": 1,
+        "censored_last": true,
+        "max": 2994,
+        "fit": null
+       },
+       "laminar_1e-06": {
+        "n": 1,
+        "censored_last": true,
+        "max": 2989,
+        "fit": null
+       },
+       "text_A_last": " existence\n\nThe existence\n\nThe existence\n\nThe question\n\nThe",
+       "text_B_last": " existence\n\nThe existence\n\nThe existence\n\nThe question\n\nThe",
+       "top1_equal_frac_second_half": 1.0,
+       "tv_A_vs_c0_tokens": 0.0013333333333333322
+      },
+      {
+       "c": 0.28,
+       "mean_dist": 5.861969846043595e-07,
+       "mean_dist_second_half": 5.50189786025172e-15,
+       "frac_below_tol": 0.9943333333333333,
+       "synced": true,
+       "synced_1e-6": true,
+       "tail_max": 3.8618640305695935e-14,
+       "tail_median": 3.851585932813358e-15,
+       "first_below_tol": 15,
+       "bursts_1e-8_to_1e-3": 0,
+       "laminar_0.0001": {
+        "n": 1,
+        "censored_last": true,
+        "max": 2995,
+        "fit": null
+       },
+       "laminar_1e-06": {
+        "n": 1,
+        "censored_last": true,
+        "max": 2989,
+        "fit": null
+       },
+       "text_A_last": " existence\n\nThe existence\n\nThe existence\n\nThe existence\n\nThe",
+       "text_B_last": " existence\n\nThe existence\n\nThe existence\n\nThe existence\n\nThe",
+       "top1_equal_frac_second_half": 1.0,
+       "tv_A_vs_c0_tokens": 0.00399999999999999
+      },
+      {
+       "c": 0.29,
+       "mean_dist": 5.13775532702219e-07,
+       "mean_dist_second_half": 4.951040385596775e-15,
+       "frac_below_tol": 0.9953333333333333,
+       "synced": true,
+       "synced_1e-6": true,
+       "tail_max": 2.1263078469861453e-14,
+       "tail_median": 3.205205481355794e-15,
+       "first_below_tol": 15,
+       "bursts_1e-8_to_1e-3": 0,
+       "laminar_0.0001": {
+        "n": 1,
+        "censored_last": true,
+        "max": 2995,
+        "fit": null
+       },
+       "laminar_1e-06": {
+        "n": 1,
+        "censored_last": true,
+        "max": 2989,
+        "fit": null
+       },
+       "text_A_last": " existence\n\nThe existence\n\nThe existence\n\nThe existence\n\nThe",
+       "text_B_last": " existence\n\nThe existence\n\nThe existence\n\nThe existence\n\nThe",
+       "top1_equal_frac_second_half": 1.0,
+       "tv_A_vs_c0_tokens": 0.004666666666666666
+      },
+      {
+       "c": 0.3,
+       "mean_dist": 4.500712302805503e-07,
+       "mean_dist_second_half": 4.38362364131076e-15,
+       "frac_below_tol": 0.9953333333333333,
+       "synced": true,
+       "synced_1e-6": true,
+       "tail_max": 1.8707649376047725e-14,
+       "tail_median": 2.757081898326462e-15,
+       "first_below_tol": 15,
+       "bursts_1e-8_to_1e-3": 0,
+       "laminar_0.0001": {
+        "n": 1,
+        "censored_last": true,
+        "max": 2995,
+        "fit": null
+       },
+       "laminar_1e-06": {
+        "n": 2,
+        "censored_last": true,
+        "max": 2990,
+        "fit": null
+       },
+       "text_A_last": " question\n\nThe existence\n\nThe question\n\nThe existence\n\nThe",
+       "text_B_last": " question\n\nThe existence\n\nThe question\n\nThe existence\n\nThe",
+       "top1_equal_frac_second_half": 1.0,
+       "tv_A_vs_c0_tokens": 0.0006666666666666696
+      }
+     ]
+    },
+    "sweep-refine": {
+     "start": "near",
+     "steps": 10000,
+     "complete": true,
+     "commit": {
+      "commit": "e75d6e37609946d26ec1d3b3ab71b6b292b5e489",
+      "tools_dirty": false
+     },
+     "sweep_npz_sha256": "a4ea16da5742cc8b2a61b5df30d804857597e7f0ef348b8280f0414bd0646240",
+     "threshold": {
+      "c_lo": 0.045,
+      "c_hi": 0.05,
+      "status": "bracketed",
+      "non_monotone": false
+     },
+     "threshold_tol_1e-6_secondary": {
+      "c_lo": 0.045,
+      "c_hi": 0.05,
+      "status": "bracketed",
+      "non_monotone": false
+     },
+     "tv_c0_A_vs_B_tokens": null,
+     "pairs": [
+      {
+       "c": 0.04,
+       "mean_dist": 0.07878079026373701,
+       "mean_dist_second_half": 0.11901392524185399,
+       "frac_below_tol": 0.0244,
+       "synced": false,
+       "synced_1e-6": false,
+       "tail_max": 0.1617875350906798,
+       "tail_median": 0.14720951595202011,
+       "first_below_tol": 1485,
+       "bursts_1e-8_to_1e-3": 2,
+       "laminar_0.0001": {
+        "n": 52,
+        "censored_last": false,
+        "max": 679,
+        "fit": null
+       },
+       "laminar_1e-06": {
+        "n": 69,
+        "censored_last": false,
+        "max": 371,
+        "fit": null
+       },
+       "text_A_last": "\n\nThe question\n\nThe existence\n\nThe question\n\nThe existence",
+       "text_B_last": "\n\nThe existence\n\nThe question\n\nThe existence\n\nThe question",
+       "top1_equal_frac_second_half": 0.6666
+      },
+      {
+       "c": 0.045,
+       "mean_dist": 0.03549849006367951,
+       "mean_dist_second_half": 0.05364353182353487,
+       "frac_below_tol": 0.0033,
+       "synced": false,
+       "synced_1e-6": false,
+       "tail_max": 0.15310800978040318,
+       "tail_median": 0.135459603427025,
+       "first_below_tol": 3034,
+       "bursts_1e-8_to_1e-3": 1,
+       "laminar_0.0001": {
+        "n": 97,
+        "censored_last": false,
+        "max": 1370,
+        "fit": null
+       },
+       "laminar_1e-06": {
+        "n": 104,
+        "censored_last": false,
+        "max": 233,
+        "fit": null
+       },
+       "text_A_last": "\n\nThe question\n\nThe existence\n\nThe question\n\nThe existence",
+       "text_B_last": "\n\nThe existence\n\nThe question\n\nThe existence\n\nThe question",
+       "top1_equal_frac_second_half": 0.8624
+      },
+      {
+       "c": 0.05,
+       "mean_dist": 0.00030367864235197845,
+       "mean_dist_second_half": 3.232337912558868e-08,
+       "frac_below_tol": 0.7014,
+       "synced": true,
+       "synced_1e-6": true,
+       "tail_max": 5.832397116734031e-10,
+       "tail_median": 1.3030294336765447e-12,
+       "first_below_tol": 783,
+       "bursts_1e-8_to_1e-3": 1,
+       "laminar_0.0001": {
+        "n": 68,
+        "censored_last": true,
+        "max": 7656,
+        "fit": null
+       },
+       "laminar_1e-06": {
+        "n": 109,
+        "censored_last": true,
+        "max": 3618,
+        "fit": null
+       },
+       "text_A_last": "\n\nThe existence\n\nThe existence\n\nThe existence\n\nThe existence",
+       "text_B_last": "\n\nThe existence\n\nThe existence\n\nThe existence\n\nThe existence",
+       "top1_equal_frac_second_half": 1.0
+      },
+      {
+       "c": 0.055,
+       "mean_dist": 0.0004737792865781214,
+       "mean_dist_second_half": 3.897610899928969e-12,
+       "frac_below_tol": 0.921,
+       "synced": true,
+       "synced_1e-6": true,
+       "tail_max": 1.934742010188522e-11,
+       "tail_median": 1.3432917916679306e-13,
+       "first_below_tol": 771,
+       "bursts_1e-8_to_1e-3": 0,
+       "laminar_0.0001": {
+        "n": 22,
+        "censored_last": true,
+        "max": 9329,
+        "fit": null
+       },
+       "laminar_1e-06": {
+        "n": 5,
+        "censored_last": true,
+        "max": 9267,
+        "fit": null
+       },
+       "text_A_last": "\n\nThe existence\n\nThe existence\n\nThe existence\n\nThe question",
+       "text_B_last": "\n\nThe existence\n\nThe existence\n\nThe existence\n\nThe question",
+       "top1_equal_frac_second_half": 1.0
+      },
+      {
+       "c": 0.06,
+       "mean_dist": 3.8591246176573244e-05,
+       "mean_dist_second_half": 4.236879812682829e-13,
+       "frac_below_tol": 0.9452,
+       "synced": true,
+       "synced_1e-6": true,
+       "tail_max": 1.3866353625318775e-12,
+       "tail_median": 1.0089848462571354e-13,
+       "first_below_tol": 423,
+       "bursts_1e-8_to_1e-3": 0,
+       "laminar_0.0001": {
+        "n": 10,
+        "censored_last": true,
+        "max": 9717,
+        "fit": null
+       },
+       "laminar_1e-06": {
+        "n": 8,
+        "censored_last": true,
+        "max": 9626,
+        "fit": null
+       },
+       "text_A_last": "\n\nThe existence\n\nThe existence\n\nThe existence\n\nThe existence",
+       "text_B_last": "\n\nThe existence\n\nThe existence\n\nThe existence\n\nThe existence",
+       "top1_equal_frac_second_half": 1.0
+      },
+      {
+       "c": 0.065,
+       "mean_dist": 1.8989681713460727e-05,
+       "mean_dist_second_half": 1.1403614374998976e-13,
+       "frac_below_tol": 0.9612,
+       "synced": true,
+       "synced_1e-6": true,
+       "tail_max": 6.283186809860496e-13,
+       "tail_median": 6.702290408156626e-14,
+       "first_below_tol": 369,
+       "bursts_1e-8_to_1e-3": 0,
+       "laminar_0.0001": {
+        "n": 10,
+        "censored_last": true,
+        "max": 9819,
+        "fit": null
+       },
+       "laminar_1e-06": {
+        "n": 28,
+        "censored_last": true,
+        "max": 9648,
+        "fit": null
+       },
+       "text_A_last": "\n\nThe existence\n\nThe existence\n\nThe existence\n\nThe question",
+       "text_B_last": "\n\nThe existence\n\nThe existence\n\nThe existence\n\nThe question",
+       "top1_equal_frac_second_half": 1.0
+      },
+      {
+       "c": 0.07,
+       "mean_dist": 1.0198916966029454e-05,
+       "mean_dist_second_half": 1.143807870756579e-13,
+       "frac_below_tol": 0.9664,
+       "synced": true,
+       "synced_1e-6": true,
+       "tail_max": 4.841690936594465e-13,
+       "tail_median": 5.701525206071662e-14,
+       "first_below_tol": 306,
+       "bursts_1e-8_to_1e-3": 0,
+       "laminar_0.0001": {
+        "n": 7,
+        "censored_last": true,
+        "max": 9882,
+        "fit": null
+       },
+       "laminar_1e-06": {
+        "n": 9,
+        "censored_last": true,
+        "max": 9780,
+        "fit": null
+       },
+       "text_A_last": "\n\nThe question\n\nThe existence\n\nThe question\n\nThe existence",
+       "text_B_last": "\n\nThe question\n\nThe existence\n\nThe question\n\nThe existence",
+       "top1_equal_frac_second_half": 1.0
+      },
+      {
+       "c": 0.08,
+       "mean_dist": 5.421316730088656e-06,
+       "mean_dist_second_half": 6.752216496416203e-14,
+       "frac_below_tol": 0.9764,
+       "synced": true,
+       "synced_1e-6": true,
+       "tail_max": 3.6894947874710077e-13,
+       "tail_median": 4.855290724339956e-14,
+       "first_below_tol": 189,
+       "bursts_1e-8_to_1e-3": 0,
+       "laminar_0.0001": {
+        "n": 12,
+        "censored_last": true,
+        "max": 9911,
+        "fit": null
+       },
+       "laminar_1e-06": {
+        "n": 5,
+        "censored_last": true,
+        "max": 9834,
+        "fit": null
+       },
+       "text_A_last": "\n\nThe existence\n\nThe question\n\nThe existence\n\nThe question",
+       "text_B_last": "\n\nThe existence\n\nThe question\n\nThe existence\n\nThe question",
+       "top1_equal_frac_second_half": 1.0
+      }
+     ]
+    },
+    "sweep-far": {
+     "start": "far",
+     "steps": 2000,
+     "complete": true,
+     "commit": {
+      "commit": "d01933aa23c9737d672d0055499f6ce5618c8f0d",
+      "tools_dirty": false
+     },
+     "sweep_npz_sha256": "bb56b4069e5a8ec8be81e9453ed09949f7bd4e2f12b8707ee3833b807e348c39",
+     "threshold": {
+      "c_lo": 0.2,
+      "c_hi": 0.22,
+      "status": "bracketed",
+      "non_monotone": true
+     },
+     "threshold_tol_1e-6_secondary": {
+      "c_lo": 0.2,
+      "c_hi": 0.22,
+      "status": "bracketed",
+      "non_monotone": true
+     },
+     "tv_c0_A_vs_B_tokens": 0.0030000000000000027,
+     "pairs": [
+      {
+       "c": 0.0,
+       "mean_dist": 1.6517000990850925,
+       "mean_dist_second_half": 1.6509538165477793,
+       "frac_below_tol": 0.0,
+       "synced": false,
+       "synced_1e-6": false,
+       "tail_max": 2.3138009214477404,
+       "tail_median": 1.734341651568943,
+       "first_below_tol": null,
+       "bursts_1e-8_to_1e-3": 0,
+       "laminar_0.0001": {
+        "n": 0,
+        "censored_last": false,
+        "max": 0,
+        "fit": null
+       },
+       "laminar_1e-06": {
+        "n": 0,
+        "censored_last": false,
+        "max": 0,
+        "fit": null
+       },
+       "text_A_last": "The existence\n\nThe existence\n\nThe existence\n\nThe existence\n\n",
+       "text_B_last": "\n\nThe existence\n\nThe question\n\nThe existence\n\nThe existence",
+       "top1_equal_frac_second_half": 0.0,
+       "tv_A_vs_c0_tokens": 0.0015000000000000013
+      },
+      {
+       "c": 0.02,
+       "mean_dist": 1.3295365108124675,
+       "mean_dist_second_half": 1.32854221909171,
+       "frac_below_tol": 0.0,
+       "synced": false,
+       "synced_1e-6": false,
+       "tail_max": 1.853810025178084,
+       "tail_median": 1.1892032971443545,
+       "first_below_tol": null,
+       "bursts_1e-8_to_1e-3": 0,
+       "laminar_0.0001": {
+        "n": 0,
+        "censored_last": false,
+        "max": 0,
+        "fit": null
+       },
+       "laminar_1e-06": {
+        "n": 0,
+        "censored_last": false,
+        "max": 0,
+        "fit": null
+       },
+       "text_A_last": " is it is it is it is it is it is it",
+       "text_B_last": "\n\nThe existence\n\nThe existence\n\nThe existence\n\nThe existence",
+       "top1_equal_frac_second_half": 0.0,
+       "tv_A_vs_c0_tokens": 1.0
+      },
+      {
+       "c": 0.04,
+       "mean_dist": 0.0972583883702918,
+       "mean_dist_second_half": 5.672947312537429e-15,
+       "frac_below_tol": 0.901,
+       "synced": true,
+       "synced_1e-6": true,
+       "tail_max": 2.055587011932445e-14,
+       "tail_median": 5.288447480365027e-15,
+       "first_below_tol": 199,
+       "bursts_1e-8_to_1e-3": 0,
+       "laminar_0.0001": {
+        "n": 1,
+        "censored_last": true,
+        "max": 1807,
+        "fit": null
+       },
+       "laminar_1e-06": {
+        "n": 1,
+        "censored_last": true,
+        "max": 1805,
+        "fit": null
+       },
+       "text_A_last": " it is it is it is it is it is it is",
+       "text_B_last": " it is it is it is it is it is it is",
+       "top1_equal_frac_second_half": 1.0,
+       "tv_A_vs_c0_tokens": 1.0
+      },
+      {
+       "c": 0.06,
+       "mean_dist": 0.07435219029761679,
+       "mean_dist_second_half": 5.45615211690067e-15,
+       "frac_below_tol": 0.9235,
+       "synced": true,
+       "synced_1e-6": true,
+       "tail_max": 1.4942204205770188e-14,
+       "tail_median": 5.0802756968550125e-15,
+       "first_below_tol": 154,
+       "bursts_1e-8_to_1e-3": 0,
+       "laminar_0.0001": {
+        "n": 1,
+        "censored_last": true,
+        "max": 1852,
+        "fit": null
+       },
+       "laminar_1e-06": {
+        "n": 1,
+        "censored_last": true,
+        "max": 1850,
+        "fit": null
+       },
+       "text_A_last": " is it is it is it is it is it is it",
+       "text_B_last": " is it is it is it is it is it is it",
+       "top1_equal_frac_second_half": 1.0,
+       "tv_A_vs_c0_tokens": 1.0
+      },
+      {
+       "c": 0.08,
+       "mean_dist": 0.011453879701527229,
+       "mean_dist_second_half": 5.0118606206984764e-15,
+       "frac_below_tol": 0.984,
+       "synced": true,
+       "synced_1e-6": true,
+       "tail_max": 1.5618668694269456e-14,
+       "tail_median": 4.811003744334854e-15,
+       "first_below_tol": 32,
+       "bursts_1e-8_to_1e-3": 0,
+       "laminar_0.0001": {
+        "n": 1,
+        "censored_last": true,
+        "max": 1973,
+        "fit": null
+       },
+       "laminar_1e-06": {
+        "n": 1,
+        "censored_last": true,
+        "max": 1970,
+        "fit": null
+       },
+       "text_A_last": " is it is it is it is it is it is it",
+       "text_B_last": " is it is it is it is it is it is it",
+       "top1_equal_frac_second_half": 1.0,
+       "tv_A_vs_c0_tokens": 1.0
+      },
+      {
+       "c": 0.1,
+       "mean_dist": 0.008037344804399197,
+       "mean_dist_second_half": 4.785232584387022e-15,
+       "frac_below_tol": 0.986,
+       "synced": true,
+       "synced_1e-6": true,
+       "tail_max": 1.593664187891669e-14,
+       "tail_median": 4.167140845801087e-15,
+       "first_below_tol": 29,
+       "bursts_1e-8_to_1e-3": 0,
+       "laminar_0.0001": {
+        "n": 1,
+        "censored_last": true,
+        "max": 1978,
+        "fit": null
+       },
+       "laminar_1e-06": {
+        "n": 1,
+        "censored_last": true,
+        "max": 1976,
+        "fit": null
+       },
+       "text_A_last": " it is it is it is it is it is it is",
+       "text_B_last": " it is it is it is it is it is it is",
+       "top1_equal_frac_second_half": 1.0,
+       "tv_A_vs_c0_tokens": 1.0
+      },
+      {
+       "c": 0.12,
+       "mean_dist": 0.00695315549623969,
+       "mean_dist_second_half": 4.5181589700512154e-15,
+       "frac_below_tol": 0.988,
+       "synced": true,
+       "synced_1e-6": true,
+       "tail_max": 1.3592779737968131e-14,
+       "tail_median": 3.969071252708028e-15,
+       "first_below_tol": 25,
+       "bursts_1e-8_to_1e-3": 0,
+       "laminar_0.0001": {
+        "n": 1,
+        "censored_last": true,
+        "max": 1983,
+        "fit": null
+       },
+       "laminar_1e-06": {
+        "n": 1,
+        "censored_last": true,
+        "max": 1978,
+        "fit": null
+       },
+       "text_A_last": " it is it is it is it is it is it is",
+       "text_B_last": " it is it is it is it is it is it is",
+       "top1_equal_frac_second_half": 1.0,
+       "tv_A_vs_c0_tokens": 1.0
+      },
+      {
+       "c": 0.14,
+       "mean_dist": 0.8917586811028441,
+       "mean_dist_second_half": 0.8913900224004426,
+       "frac_below_tol": 0.0,
+       "synced": false,
+       "synced_1e-6": false,
+       "tail_max": 1.2919361348689549,
+       "tail_median": 0.8203846558535441,
+       "first_below_tol": null,
+       "bursts_1e-8_to_1e-3": 0,
+       "laminar_0.0001": {
+        "n": 0,
+        "censored_last": false,
+        "max": 0,
+        "fit": null
+       },
+       "laminar_1e-06": {
+        "n": 0,
+        "censored_last": false,
+        "max": 0,
+        "fit": null
+       },
+       "text_A_last": " is it is a. This is it is a. This",
+       "text_B_last": " indeed a. This is a indeed a. This is a",
+       "top1_equal_frac_second_half": 0.0,
+       "tv_A_vs_c0_tokens": 1.0
+      },
+      {
+       "c": 0.16,
+       "mean_dist": 0.015715589768553032,
+       "mean_dist_second_half": 3.860863702186835e-15,
+       "frac_below_tol": 0.976,
+       "synced": true,
+       "synced_1e-6": true,
+       "tail_max": 1.0484994248589736e-14,
+       "tail_median": 3.559651071857009e-15,
+       "first_below_tol": 49,
+       "bursts_1e-8_to_1e-3": 0,
+       "laminar_0.0001": {
+        "n": 1,
+        "censored_last": true,
+        "max": 1957,
+        "fit": null
+       },
+       "laminar_1e-06": {
+        "n": 1,
+        "censored_last": true,
+        "max": 1955,
+        "fit": null
+       },
+       "text_A_last": " is it is it is it is it is it is it",
+       "text_B_last": " is it is it is it is it is it is it",
+       "top1_equal_frac_second_half": 1.0,
+       "tv_A_vs_c0_tokens": 1.0
+      },
+      {
+       "c": 0.18,
+       "mean_dist": 0.008365681566331733,
+       "mean_dist_second_half": 3.567256650078873e-15,
+       "frac_below_tol": 0.9865,
+       "synced": true,
+       "synced_1e-6": true,
+       "tail_max": 1.0981604912494734e-14,
+       "tail_median": 3.3073237853829655e-15,
+       "first_below_tol": 28,
+       "bursts_1e-8_to_1e-3": 0,
+       "laminar_0.0001": {
+        "n": 1,
+        "censored_last": true,
+        "max": 1979,
+        "fit": null
+       },
+       "laminar_1e-06": {
+        "n": 1,
+        "censored_last": true,
+        "max": 1975,
+        "fit": null
+       },
+       "text_A_last": " is it is it is it is it is it is it",
+       "text_B_last": " is it is it is it is it is it is it",
+       "top1_equal_frac_second_half": 1.0,
+       "tv_A_vs_c0_tokens": 1.0
+      },
+      {
+       "c": 0.2,
+       "mean_dist": 0.8289202948727444,
+       "mean_dist_second_half": 0.8295598170206574,
+       "frac_below_tol": 0.0,
+       "synced": false,
+       "synced_1e-6": false,
+       "tail_max": 1.0438740306135392,
+       "tail_median": 0.7878236261861189,
+       "first_below_tol": null,
+       "bursts_1e-8_to_1e-3": 0,
+       "laminar_0.0001": {
+        "n": 0,
+        "censored_last": false,
+        "max": 0,
+        "fit": null
+       },
+       "laminar_1e-06": {
+        "n": 0,
+        "censored_last": false,
+        "max": 0,
+        "fit": null
+       },
+       "text_A_last": " a. This is a. This is a. This is",
+       "text_B_last": " This is a. This is a. This is a.",
+       "top1_equal_frac_second_half": 0.0,
+       "tv_A_vs_c0_tokens": 0.9999999999999999
+      },
+      {
+       "c": 0.22,
+       "mean_dist": 0.021052652888036438,
+       "mean_dist_second_half": 3.0274979010662066e-15,
+       "frac_below_tol": 0.9665,
+       "synced": true,
+       "synced_1e-6": true,
+       "tail_max": 1.086486561457867e-14,
+       "tail_median": 2.634577871601869e-15,
+       "first_below_tol": 68,
+       "bursts_1e-8_to_1e-3": 0,
+       "laminar_0.0001": {
+        "n": 1,
+        "censored_last": true,
+        "max": 1937,
+        "fit": null
+       },
+       "laminar_1e-06": {
+        "n": 1,
+        "censored_last": true,
+        "max": 1935,
+        "fit": null
+       },
+       "text_A_last": " it is it is it is it is it is it is",
+       "text_B_last": " it is it is it is it is it is it is",
+       "top1_equal_frac_second_half": 1.0,
+       "tv_A_vs_c0_tokens": 1.0
+      },
+      {
+       "c": 0.24,
+       "mean_dist": 0.00293044803526784,
+       "mean_dist_second_half": 7.613431517868065e-15,
+       "frac_below_tol": 0.9815,
+       "synced": true,
+       "synced_1e-6": true,
+       "tail_max": 4.484765630007653e-14,
+       "tail_median": 5.386224719142913e-15,
+       "first_below_tol": 38,
+       "bursts_1e-8_to_1e-3": 0,
+       "laminar_0.0001": {
+        "n": 1,
+        "censored_last": true,
+        "max": 1978,
+        "fit": null
+       },
+       "laminar_1e-06": {
+        "n": 1,
+        "censored_last": true,
+        "max": 1971,
+        "fit": null
+       },
+       "text_A_last": "The existence\n\nThe question\n\nThe existence\n\nThe question\n\n",
+       "text_B_last": "The existence\n\nThe question\n\nThe existence\n\nThe question\n\n",
+       "top1_equal_frac_second_half": 1.0,
+       "tv_A_vs_c0_tokens": 0.0040000000000000036
+      },
+      {
+       "c": 0.26,
+       "mean_dist": 0.0020765713937721236,
+       "mean_dist_second_half": 2.6181252720401563e-15,
+       "frac_below_tol": 0.9925,
+       "synced": true,
+       "synced_1e-6": true,
+       "tail_max": 8.288194199982134e-15,
+       "tail_median": 2.4243904288277612e-15,
+       "first_below_tol": 16,
+       "bursts_1e-8_to_1e-3": 0,
+       "laminar_0.0001": {
+        "n": 1,
+        "censored_last": true,
+        "max": 1989,
+        "fit": null
+       },
+       "laminar_1e-06": {
+        "n": 1,
+        "censored_last": true,
+        "max": 1987,
+        "fit": null
+       },
+       "text_A_last": " it is it is it is it is it is it is",
+       "text_B_last": " it is it is it is it is it is it is",
+       "top1_equal_frac_second_half": 1.0,
+       "tv_A_vs_c0_tokens": 1.0
+      },
+      {
+       "c": 0.28,
+       "mean_dist": 0.002024035881803221,
+       "mean_dist_second_half": 2.3599436987644217e-15,
+       "frac_below_tol": 0.9915,
+       "synced": true,
+       "synced_1e-6": true,
+       "tail_max": 9.322825942845089e-15,
+       "tail_median": 2.1104853030121393e-15,
+       "first_below_tol": 18,
+       "bursts_1e-8_to_1e-3": 0,
+       "laminar_0.0001": {
+        "n": 1,
+        "censored_last": true,
+        "max": 1988,
+        "fit": null
+       },
+       "laminar_1e-06": {
+        "n": 1,
+        "censored_last": true,
+        "max": 1985,
+        "fit": null
+       },
+       "text_A_last": " it is it is it is it is it is it is",
+       "text_B_last": " it is it is it is it is it is it is",
+       "top1_equal_frac_second_half": 1.0,
+       "tv_A_vs_c0_tokens": 1.0
+      },
+      {
+       "c": 0.3,
+       "mean_dist": 0.0017555621937489078,
+       "mean_dist_second_half": 2.0417992409445855e-15,
+       "frac_below_tol": 0.9915,
+       "synced": true,
+       "synced_1e-6": true,
+       "tail_max": 5.852506922732712e-15,
+       "tail_median": 1.8681348998132097e-15,
+       "first_below_tol": 18,
+       "bursts_1e-8_to_1e-3": 0,
+       "laminar_0.0001": {
+        "n": 1,
+        "censored_last": true,
+        "max": 1988,
+        "fit": null
+       },
+       "laminar_1e-06": {
+        "n": 1,
+        "censored_last": true,
+        "max": 1985,
+        "fit": null
+       },
+       "text_A_last": " it is it is it is it is it is it is",
+       "text_B_last": " it is it is it is it is it is it is",
+       "top1_equal_frac_second_half": 1.0,
+       "tv_A_vs_c0_tokens": 1.0
+      }
+     ]
+    }
+   }
+  },
+  "1": {
+   "index": 1,
+   "log10_temperature": -0.1226,
+   "alpha": 0.07484,
+   "lambda1_published": 0.42415037775733194,
+   "lambda1_jvp": 0.4370358776552274,
+   "lambda1_jvp_se": 0.016012518563217646,
+   "lambda1_jvp_steps": 3000,
+   "c_star_published": 0.17283726074391043,
+   "c_star_jvp": 0.17702587205696707,
+   "c_star_jvp_2se": [
+    0.16651520974182848,
+    0.18720526282530636
+   ],
+   "transverse": [
+    {
+     "c": 0.0,
+     "measured": 0.4359541116747819,
+     "measured_se": 0.01919470740712155,
+     "predicted": 0.4370358776552274,
+     "measured_minus_predicted": -0.0010817659804455149,
+     "measured_minus_ln_factor": 0.4359541116747819
+    },
+    {
+     "c": 0.05,
+     "measured": 0.3040501989787782,
+     "measured_se": 0.014990132576093638,
+     "predicted": 0.3316753619974011,
+     "measured_minus_predicted": -0.02762516301862289,
+     "measured_minus_ln_factor": 0.4094107146366045
+    },
+    {
+     "c": 0.1,
+     "measured": 0.18135988475851492,
+     "measured_se": 0.015263173881379304,
+     "predicted": 0.21389232634101768,
+     "measured_minus_predicted": -0.032532441582502764,
+     "measured_minus_ln_factor": 0.40450343607272465
+    },
+    {
+     "c": 0.15,
+     "measured": 0.029756244653107673,
+     "measured_se": 0.0155440772025389,
+     "predicted": 0.08036093371649494,
+     "measured_minus_predicted": -0.05060468906338727,
+     "measured_minus_ln_factor": 0.3864311885918401
+    },
+    {
+     "c": 0.2,
+     "measured": -0.10489091450000226,
+     "measured_se": 0.0159889737237588,
+     "predicted": -0.07378974611076333,
+     "measured_minus_predicted": -0.03110116838923893,
+     "measured_minus_ln_factor": 0.40593470926598846
+    },
+    {
+     "c": 0.25,
+     "measured": -0.3028774718722229,
+     "measured_se": 0.011761015729801963,
+     "predicted": -0.2561113029047179,
+     "measured_minus_predicted": -0.04676616896750502,
+     "measured_minus_ln_factor": 0.39026970868772237
+    },
+    {
+     "c": 0.3,
+     "measured": -0.4683796594897535,
+     "measured_se": 0.008362601775962677,
+     "predicted": -0.4792548542189276,
+     "measured_minus_predicted": 0.010875194729174087,
+     "measured_minus_ln_factor": 0.4479110723844015
+    }
+   ],
+   "sweeps": {
+    "sweep-near": {
+     "start": "near",
+     "steps": 3000,
+     "complete": true,
+     "commit": {
+      "commit": "dc17093b8d69f8618fd981dbbb5a5b4fd91516c9",
+      "tools_dirty": false
+     },
+     "sweep_npz_sha256": "89b18f0c47e514786e6535f9e086f5ccb4fbfd59d000faa1b138f0e40c914dfd",
+     "threshold": {
+      "c_lo": 0.22,
+      "c_hi": 0.23,
+      "status": "bracketed",
+      "non_monotone": true
+     },
+     "threshold_tol_1e-6_secondary": {
+      "c_lo": 0.19,
+      "c_hi": 0.2,
+      "status": "bracketed",
+      "non_monotone": false
+     },
+     "tv_c0_A_vs_B_tokens": 0.03333333333333332,
+     "pairs": [
+      {
+       "c": 0.0,
+       "mean_dist": 1.092215613760399,
+       "mean_dist_second_half": 1.087436860952891,
+       "frac_below_tol": 0.0,
+       "synced": false,
+       "synced_1e-6": false,
+       "tail_max": 3.927248069792326,
+       "tail_median": 1.050575955222849,
+       "first_below_tol": null,
+       "bursts_1e-8_to_1e-3": 0,
+       "laminar_0.0001": {
+        "n": 1,
+        "censored_last": false,
+        "max": 3,
+        "fit": null
+       },
+       "laminar_1e-06": {
+        "n": 0,
+        "censored_last": false,
+        "max": 0,
+        "fit": null
+       },
+       "text_A_last": " a. This is there is a. Is\n\n\n\nThe",
+       "text_B_last": " is a. This is there is a. Is\n\n is",
+       "top1_equal_frac_second_half": 0.17866666666666667,
+       "tv_A_vs_c0_tokens": 0.016666666666666673
+      },
+      {
+       "c": 0.01,
+       "mean_dist": 1.0863989749889225,
+       "mean_dist_second_half": 1.1329502642170635,
+       "frac_below_tol": 0.0,
+       "synced": false,
+       "synced_1e-6": false,
+       "tail_max": 3.79571140924977,
+       "tail_median": 1.0639586538437573,
+       "first_below_tol": null,
+       "bursts_1e-8_to_1e-3": 0,
+       "laminar_0.0001": {
+        "n": 2,
+        "censored_last": false,
+        "max": 4,
+        "fit": null
+       },
+       "laminar_1e-06": {
+        "n": 0,
+        "censored_last": false,
+        "max": 0,
+        "fit": null
+       },
+       "text_A_last": " a is a. This is there is a. -\n\n",
+       "text_B_last": " is a. This is there is a. -\n\nThe",
+       "top1_equal_frac_second_half": 0.15,
+       "tv_A_vs_c0_tokens": 0.06733333333333333
+      },
+      {
+       "c": 0.02,
+       "mean_dist": 1.066570971724007,
+       "mean_dist_second_half": 1.0690515215105583,
+       "frac_below_tol": 0.0,
+       "synced": false,
+       "synced_1e-6": false,
+       "tail_max": 3.733823221857983,
+       "tail_median": 1.0058304795125639,
+       "first_below_tol": null,
+       "bursts_1e-8_to_1e-3": 0,
+       "laminar_0.0001": {
+        "n": 1,
+        "censored_last": false,
+        "max": 5,
+        "fit": null
+       },
+       "laminar_1e-06": {
+        "n": 0,
+        "censored_last": false,
+        "max": 0,
+        "fit": null
+       },
+       "text_A_last": " there is a. This is a\n\nThe is a.",
+       "text_B_last": ". -\n\nThe is\n\nThe is a is a.",
+       "top1_equal_frac_second_half": 0.16333333333333333,
+       "tv_A_vs_c0_tokens": 0.09933333333333334
+      },
+      {
+       "c": 0.03,
+       "mean_dist": 1.1735449075297872,
+       "mean_dist_second_half": 1.1906123226210155,
+       "frac_below_tol": 0.0,
+       "synced": false,
+       "synced_1e-6": false,
+       "tail_max": 1.7409147663024318,
+       "tail_median": 1.108769590449115,
+       "first_below_tol": null,
+       "bursts_1e-8_to_1e-3": 0,
+       "laminar_0.0001": {
+        "n": 0,
+        "censored_last": false,
+        "max": 0,
+        "fit": null
+       },
+       "laminar_1e-06": {
+        "n": 0,
+        "censored_last": false,
+        "max": 0,
+        "fit": null
+       },
+       "text_A_last": " is a is a. This is a is a. This",
+       "text_B_last": " a. This is a is a. This is a is",
+       "top1_equal_frac_second_half": 0.0,
+       "tv_A_vs_c0_tokens": 0.43066666666666664
+      },
+      {
+       "c": 0.04,
+       "mean_dist": 1.1631520582556927,
+       "mean_dist_second_half": 1.1699276808206545,
+       "frac_below_tol": 0.0,
+       "synced": false,
+       "synced_1e-6": false,
+       "tail_max": 1.7857594965215118,
+       "tail_median": 1.07684171621316,
+       "first_below_tol": null,
+       "bursts_1e-8_to_1e-3": 0,
+       "laminar_0.0001": {
+        "n": 0,
+        "censored_last": false,
+        "max": 0,
+        "fit": null
+       },
+       "laminar_1e-06": {
+        "n": 0,
+        "censored_last": false,
+        "max": 0,
+        "fit": null
+       },
+       "text_A_last": " a. This is a is a. This is a is",
+       "text_B_last": " is a is a. This is a is a. This",
+       "top1_equal_frac_second_half": 0.0,
+       "tv_A_vs_c0_tokens": 0.43066666666666664
+      },
+      {
+       "c": 0.05,
+       "mean_dist": 0.9341315120024883,
+       "mean_dist_second_half": 0.943355803602119,
+       "frac_below_tol": 0.0,
+       "synced": false,
+       "synced_1e-6": false,
+       "tail_max": 1.5694414002873636,
+       "tail_median": 0.944763274435662,
+       "first_below_tol": null,
+       "bursts_1e-8_to_1e-3": 0,
+       "laminar_0.0001": {
+        "n": 1,
+        "censored_last": false,
+        "max": 2,
+        "fit": null
+       },
+       "laminar_1e-06": {
+        "n": 0,
+        "censored_last": false,
+        "max": 0,
+        "fit": null
+       },
+       "text_A_last": ". This is there is a. This is there is a",
+       "text_B_last": " is a is a. This is a is a. This",
+       "top1_equal_frac_second_half": 0.16666666666666666,
+       "tv_A_vs_c0_tokens": 0.37966666666666665
+      },
+      {
+       "c": 0.06,
+       "mean_dist": 1.1513630456245443,
+       "mean_dist_second_half": 1.1623764114467028,
+       "frac_below_tol": 0.0,
+       "synced": false,
+       "synced_1e-6": false,
+       "tail_max": 1.7540322701940172,
+       "tail_median": 1.068741750711541,
+       "first_below_tol": null,
+       "bursts_1e-8_to_1e-3": 0,
+       "laminar_0.0001": {
+        "n": 1,
+        "censored_last": false,
+        "max": 4,
+        "fit": null
+       },
+       "laminar_1e-06": {
+        "n": 0,
+        "censored_last": false,
+        "max": 0,
+        "fit": null
+       },
+       "text_A_last": ". This is a is a. This is a is a",
+       "text_B_last": " This is a is a. This is a is a.",
+       "top1_equal_frac_second_half": 0.0,
+       "tv_A_vs_c0_tokens": 0.43066666666666664
+      },
+      {
+       "c": 0.07,
+       "mean_dist": 1.1246317706483857,
+       "mean_dist_second_half": 1.133360521410727,
+       "frac_below_tol": 0.0,
+       "synced": false,
+       "synced_1e-6": false,
+       "tail_max": 1.7017565125393617,
+       "tail_median": 1.0731017153997946,
+       "first_below_tol": null,
+       "bursts_1e-8_to_1e-3": 0,
+       "laminar_0.0001": {
+        "n": 1,
+        "censored_last": false,
+        "max": 4,
+        "fit": null
+       },
+       "laminar_1e-06": {
+        "n": 0,
+        "censored_last": false,
+        "max": 0,
+        "fit": null
+       },
+       "text_A_last": ". This is a is a. This is a is a",
+       "text_B_last": " This is a is a. This is a is a.",
+       "top1_equal_frac_second_half": 0.0,
+       "tv_A_vs_c0_tokens": 0.43066666666666664
+      },
+      {
+       "c": 0.08,
+       "mean_dist": 0.8745684540095344,
+       "mean_dist_second_half": 0.9283614548683451,
+       "frac_below_tol": 0.0,
+       "synced": false,
+       "synced_1e-6": false,
+       "tail_max": 3.780980190177342,
+       "tail_median": 0.8850221184537355,
+       "first_below_tol": null,
+       "bursts_1e-8_to_1e-3": 0,
+       "laminar_0.0001": {
+        "n": 4,
+        "censored_last": false,
+        "max": 5,
+        "fit": null
+       },
+       "laminar_1e-06": {
+        "n": 0,
+        "censored_last": false,
+        "max": 0,
+        "fit": null
+       },
+       "text_A_last": " a is a. This is a is\n\nThe is\n\n",
+       "text_B_last": " a is\n\nThe is a. This is a is a",
+       "top1_equal_frac_second_half": 0.25933333333333336,
+       "tv_A_vs_c0_tokens": 0.09900000000000005
+      },
+      {
+       "c": 0.09,
+       "mean_dist": 0.7715472163504219,
+       "mean_dist_second_half": 0.774941644403791,
+       "frac_below_tol": 0.0,
+       "synced": false,
+       "synced_1e-6": false,
+       "tail_max": 2.779395469035658,
+       "tail_median": 0.7747425880458855,
+       "first_below_tol": null,
+       "bursts_1e-8_to_1e-3": 0,
+       "laminar_0.0001": {
+        "n": 6,
+        "censored_last": false,
+        "max": 5,
+        "fit": null
+       },
+       "laminar_1e-06": {
+        "n": 0,
+        "censored_last": false,
+        "max": 0,
+        "fit": null
+       },
+       "text_A_last": " is a.The\n\nThe is a. This certainly\n\n",
+       "text_B_last": " is a.The\n\nThe is a. - certainly\n\n",
+       "top1_equal_frac_second_half": 0.3453333333333333,
+       "tv_A_vs_c0_tokens": 0.10900000000000003
+      },
+      {
+       "c": 0.1,
+       "mean_dist": 0.7577380314704936,
+       "mean_dist_second_half": 0.7282550002626261,
+       "frac_below_tol": 0.0,
+       "synced": false,
+       "synced_1e-6": false,
+       "tail_max": 3.6254694725017904,
+       "tail_median": 0.7718883063535958,
+       "first_below_tol": null,
+       "bursts_1e-8_to_1e-3": 0,
+       "laminar_0.0001": {
+        "n": 6,
+        "censored_last": false,
+        "max": 4,
+        "fit": null
+       },
+       "laminar_1e-06": {
+        "n": 0,
+        "censored_last": false,
+        "max": 0,
+        "fit": null
+       },
+       "text_A_last": " is a.Is\n\nThe is a is aThe is",
+       "text_B_last": " is a.The\n\nThe is a is aThe I",
+       "top1_equal_frac_second_half": 0.3546666666666667,
+       "tv_A_vs_c0_tokens": 0.08133333333333335
+      },
+      {
+       "c": 0.11,
+       "mean_dist": 0.7533331028191581,
+       "mean_dist_second_half": 0.7120032432618512,
+       "frac_below_tol": 0.0,
+       "synced": false,
+       "synced_1e-6": false,
+       "tail_max": 3.400986059127051,
+       "tail_median": 0.7584747508395165,
+       "first_below_tol": null,
+       "bursts_1e-8_to_1e-3": 0,
+       "laminar_0.0001": {
+        "n": 10,
+        "censored_last": false,
+        "max": 6,
+        "fit": null
+       },
+       "laminar_1e-06": {
+        "n": 0,
+        "censored_last": false,
+        "max": 0,
+        "fit": null
+       },
+       "text_A_last": " is\n\nThe is\n\nThe is a. This is\n\n",
+       "text_B_last": " This is a. Is the\n\n\n\nThe is a.",
+       "top1_equal_frac_second_half": 0.36133333333333334,
+       "tv_A_vs_c0_tokens": 0.082
+      },
+      {
+       "c": 0.12,
+       "mean_dist": 0.6403460876604041,
+       "mean_dist_second_half": 0.6111717015207062,
+       "frac_below_tol": 0.0,
+       "synced": false,
+       "synced_1e-6": false,
+       "tail_max": 3.391342697249244,
+       "tail_median": 0.7707965010838687,
+       "first_below_tol": null,
+       "bursts_1e-8_to_1e-3": 0,
+       "laminar_0.0001": {
+        "n": 25,
+        "censored_last": false,
+        "max": 9,
+        "fit": null
+       },
+       "laminar_1e-06": {
+        "n": 2,
+        "censored_last": false,
+        "max": 4,
+        "fit": null
+       },
+       "text_A_last": "The is a\n\n\n\n It is a is\n\nThe is",
+       "text_B_last": " is a is a. This is there is a. This",
+       "top1_equal_frac_second_half": 0.44733333333333336,
+       "tv_A_vs_c0_tokens": 0.07133333333333336
+      },
+      {
+       "c": 0.13,
+       "mean_dist": 0.6578810510406911,
+       "mean_dist_second_half": 0.6197060108854815,
+       "frac_below_tol": 0.0,
+       "synced": false,
+       "synced_1e-6": false,
+       "tail_max": 2.9603118293490516,
+       "tail_median": 0.6929427107853714,
+       "first_below_tol": null,
+       "bursts_1e-8_to_1e-3": 0,
+       "laminar_0.0001": {
+        "n": 16,
+        "censored_last": false,
+        "max": 48,
+        "fit": null
+       },
+       "laminar_1e-06": {
+        "n": 4,
+        "censored_last": false,
+        "max": 8,
+        "fit": null
+       },
+       "text_A_last": "\n\nThe is a.Is\n\nThe is a\n\n -",
+       "text_B_last": " This I\n\nThe I\n\nThe is a.This\n\n",
+       "top1_equal_frac_second_half": 0.414,
+       "tv_A_vs_c0_tokens": 0.07566666666666666
+      },
+      {
+       "c": 0.14,
+       "mean_dist": 0.37876690481605874,
+       "mean_dist_second_half": 0.4023887265439369,
+       "frac_below_tol": 0.017666666666666667,
+       "synced": false,
+       "synced_1e-6": false,
+       "tail_max": 3.0929634419946472,
+       "tail_median": 0.16706281078559743,
+       "first_below_tol": 85,
+       "bursts_1e-8_to_1e-3": 1,
+       "laminar_0.0001": {
+        "n": 58,
+        "censored_last": false,
+        "max": 173,
+        "fit": null
+       },
+       "laminar_1e-06": {
+        "n": 24,
+        "censored_last": false,
+        "max": 69,
+        "fit": null
+       },
+       "text_A_last": " is a. This is a.Is\n\nThe is a",
+       "text_B_last": " is\n\nThe is\n\nThe is a. This is a",
+       "top1_equal_frac_second_half": 0.622,
+       "tv_A_vs_c0_tokens": 0.05199999999999997
+      },
+      {
+       "c": 0.15,
+       "mean_dist": 0.37901022340614615,
+       "mean_dist_second_half": 0.3455070873047407,
+       "frac_below_tol": 0.0013333333333333333,
+       "synced": false,
+       "synced_1e-6": false,
+       "tail_max": 3.088396522577259,
+       "tail_median": 0.033756829280212175,
+       "first_below_tol": 1854,
+       "bursts_1e-8_to_1e-3": 1,
+       "laminar_0.0001": {
+        "n": 49,
+        "censored_last": false,
+        "max": 61,
+        "fit": null
+       },
+       "laminar_1e-06": {
+        "n": 13,
+        "censored_last": false,
+        "max": 10,
+        "fit": null
+       },
+       "text_A_last": " is a. -\n\n...\n\nThe is a is a",
+       "text_B_last": " is a. -\n\n is -The is a is a",
+       "top1_equal_frac_second_half": 0.6606666666666666,
+       "tv_A_vs_c0_tokens": 0.05766666666666664
+      },
+      {
+       "c": 0.16,
+       "mean_dist": 0.2708992967355158,
+       "mean_dist_second_half": 0.2569658703501679,
+       "frac_below_tol": 0.006,
+       "synced": false,
+       "synced_1e-6": false,
+       "tail_max": 2.0844437000587583,
+       "tail_median": 0.0009590013342438749,
+       "first_below_tol": 1251,
+       "bursts_1e-8_to_1e-3": 3,
+       "laminar_0.0001": {
+        "n": 87,
+        "censored_last": false,
+        "max": 68,
+        "fit": null
+       },
+       "laminar_1e-06": {
+        "n": 24,
+        "censored_last": false,
+        "max": 17,
+        "fit": null
+       },
+       "text_A_last": "The is\n\nThe is there is a.The\n\nThe",
+       "text_B_last": "The is\n\nThe is there is a.Is\n\nThe",
+       "top1_equal_frac_second_half": 0.7473333333333333,
+       "tv_A_vs_c0_tokens": 0.04433333333333333
+      },
+      {
+       "c": 0.17,
+       "mean_dist": 0.0286983870028662,
+       "mean_dist_second_half": 0.05609387491709394,
+       "frac_below_tol": 0.475,
+       "synced": false,
+       "synced_1e-6": false,
+       "tail_max": 2.8128993158845446,
+       "tail_median": 3.697082827317817e-08,
+       "first_below_tol": 374,
+       "bursts_1e-8_to_1e-3": 1,
+       "laminar_0.0001": {
+        "n": 41,
+        "censored_last": true,
+        "max": 1368,
+        "fit": null
+       },
+       "laminar_1e-06": {
+        "n": 38,
+        "censored_last": true,
+        "max": 834,
+        "fit": null
+       },
+       "text_A_last": " is a. This is there is a. Is\n\n\n\n",
+       "text_B_last": " is a. This is there is a. Is\n\n\n\n",
+       "top1_equal_frac_second_half": 0.942,
+       "tv_A_vs_c0_tokens": 0.0203333333333333
+      },
+      {
+       "c": 0.18,
+       "mean_dist": 6.716925097897426e-06,
+       "mean_dist_second_half": 6.077545514323417e-07,
+       "frac_below_tol": 0.7856666666666666,
+       "synced": false,
+       "synced_1e-6": false,
+       "tail_max": 0.00013241901725564954,
+       "tail_median": 4.2352493788679335e-10,
+       "first_below_tol": 61,
+       "bursts_1e-8_to_1e-3": 0,
+       "laminar_0.0001": {
+        "n": 7,
+        "censored_last": true,
+        "max": 2557,
+        "fit": null
+       },
+       "laminar_1e-06": {
+        "n": 27,
+        "censored_last": true,
+        "max": 693,
+        "fit": null
+       },
+       "text_A_last": "The is a. This is there is a. Is\n\n",
+       "text_B_last": "The is a. This is there is a. Is\n\n",
+       "top1_equal_frac_second_half": 1.0,
+       "tv_A_vs_c0_tokens": 0.01599999999999999
+      },
+      {
+       "c": 0.19,
+       "mean_dist": 0.0003375329548809084,
+       "mean_dist_second_half": 0.000665987608354171,
+       "frac_below_tol": 0.7966666666666666,
+       "synced": false,
+       "synced_1e-6": false,
+       "tail_max": 0.12312577249682105,
+       "tail_median": 1.905245868314087e-08,
+       "first_below_tol": 54,
+       "bursts_1e-8_to_1e-3": 1,
+       "laminar_0.0001": {
+        "n": 14,
+        "censored_last": true,
+        "max": 2416,
+        "fit": null
+       },
+       "laminar_1e-06": {
+        "n": 21,
+        "censored_last": false,
+        "max": 2131,
+        "fit": null
+       },
+       "text_A_last": " is a is aThe is\n\nThe is a. -",
+       "text_B_last": " is a is aThe is\n\nThe is a. -",
+       "top1_equal_frac_second_half": 0.9986666666666667,
+       "tv_A_vs_c0_tokens": 0.028666666666666642
+      },
+      {
+       "c": 0.2,
+       "mean_dist": 3.6509845527707777e-06,
+       "mean_dist_second_half": 4.914114052400802e-10,
+       "frac_below_tol": 0.965,
+       "synced": true,
+       "synced_1e-6": true,
+       "tail_max": 4.6598298476333926e-11,
+       "tail_median": 1.2666127407703473e-13,
+       "first_below_tol": 73,
+       "bursts_1e-8_to_1e-3": 0,
+       "laminar_0.0001": {
+        "n": 7,
+        "censored_last": true,
+        "max": 2949,
+        "fit": null
+       },
+       "laminar_1e-06": {
+        "n": 4,
+        "censored_last": true,
+        "max": 2933,
+        "fit": null
+       },
+       "text_A_last": "The is a. This is there is a. Is\n\n",
+       "text_B_last": "The is a. This is there is a. Is\n\n",
+       "top1_equal_frac_second_half": 1.0,
+       "tv_A_vs_c0_tokens": 0.01966666666666669
+      },
+      {
+       "c": 0.21,
+       "mean_dist": 1.9626697929785572e-06,
+       "mean_dist_second_half": 6.882270840262623e-11,
+       "frac_below_tol": 0.9733333333333334,
+       "synced": false,
+       "synced_1e-6": true,
+       "tail_max": 2.3648659019832187e-08,
+       "tail_median": 7.277384554089673e-13,
+       "first_below_tol": 63,
+       "bursts_1e-8_to_1e-3": 0,
+       "laminar_0.0001": {
+        "n": 3,
+        "censored_last": true,
+        "max": 2951,
+        "fit": null
+       },
+       "laminar_1e-06": {
+        "n": 4,
+        "censored_last": true,
+        "max": 2943,
+        "fit": null
+       },
+       "text_A_last": "\n\n isThe is\n\nThe is a is a. This",
+       "text_B_last": "\n\n isThe is\n\nThe is a is a. This",
+       "top1_equal_frac_second_half": 1.0,
+       "tv_A_vs_c0_tokens": 0.01933333333333335
+      },
+      {
+       "c": 0.22,
+       "mean_dist": 1.4062830381101777e-06,
+       "mean_dist_second_half": 1.9431634152726962e-11,
+       "frac_below_tol": 0.9833333333333333,
+       "synced": false,
+       "synced_1e-6": true,
+       "tail_max": 1.103064165127281e-08,
+       "tail_median": 4.998818624359963e-14,
+       "first_below_tol": 45,
+       "bursts_1e-8_to_1e-3": 0,
+       "laminar_0.0001": {
+        "n": 2,
+        "censored_last": true,
+        "max": 2989,
+        "fit": null
+       },
+       "laminar_1e-06": {
+        "n": 3,
+        "censored_last": true,
+        "max": 2961,
+        "fit": null
+       },
+       "text_A_last": "The is a.\n\n The is\n\nThe is a is",
+       "text_B_last": "The is a.\n\n The is\n\nThe is a is",
+       "top1_equal_frac_second_half": 1.0,
+       "tv_A_vs_c0_tokens": 0.013666666666666686
+      },
+      {
+       "c": 0.23,
+       "mean_dist": 1.0935854979175385e-06,
+       "mean_dist_second_half": 7.695748917801258e-12,
+       "frac_below_tol": 0.9853333333333333,
+       "synced": true,
+       "synced_1e-6": true,
+       "tail_max": 7.12776286664461e-11,
+       "tail_median": 5.140933742361189e-14,
+       "first_below_tol": 32,
+       "bursts_1e-8_to_1e-3": 0,
+       "laminar_0.0001": {
+        "n": 2,
+        "censored_last": true,
+        "max": 2989,
+        "fit": null
+       },
+       "laminar_1e-06": {
+        "n": 4,
+        "censored_last": true,
+        "max": 2957,
+        "fit": null
+       },
+       "text_A_last": " a. Is\n\nThe is a is a. - certainly",
+       "text_B_last": " a. Is\n\nThe is a is a. - certainly",
+       "top1_equal_frac_second_half": 1.0,
+       "tv_A_vs_c0_tokens": 0.03566666666666668
+      },
+      {
+       "c": 0.24,
+       "mean_dist": 8.571841952727525e-07,
+       "mean_dist_second_half": 6.578905580970022e-12,
+       "frac_below_tol": 0.99,
+       "synced": true,
+       "synced_1e-6": true,
+       "tail_max": 2.474432400993876e-11,
+       "tail_median": 1.5513392505806275e-14,
+       "first_below_tol": 31,
+       "bursts_1e-8_to_1e-3": 0,
+       "laminar_0.0001": {
+        "n": 2,
+        "censored_last": true,
+        "max": 2990,
+        "fit": null
+       },
+       "laminar_1e-06": {
+        "n": 3,
+        "censored_last": true,
+        "max": 2971,
+        "fit": null
+       },
+       "text_A_last": " there is a. -\n\n\n\nThe is there is a",
+       "text_B_last": " there is a. -\n\n\n\nThe is there is a",
+       "top1_equal_frac_second_half": 1.0,
+       "tv_A_vs_c0_tokens": 0.036333333333333356
+      },
+      {
+       "c": 0.25,
+       "mean_dist": 6.783408261414782e-07,
+       "mean_dist_second_half": 2.4746490467073464e-11,
+       "frac_below_tol": 0.9893333333333333,
+       "synced": true,
+       "synced_1e-6": true,
+       "tail_max": 4.111124059399066e-11,
+       "tail_median": 3.19654370609805e-14,
+       "first_below_tol": 16,
+       "bursts_1e-8_to_1e-3": 0,
+       "laminar_0.0001": {
+        "n": 3,
+        "censored_last": true,
+        "max": 2990,
+        "fit": null
+       },
+       "laminar_1e-06": {
+        "n": 3,
+        "censored_last": true,
+        "max": 2973,
+        "fit": null
+       },
+       "text_A_last": " is there is a. Is\n\nThe is a is a",
+       "text_B_last": " is there is a. Is\n\nThe is a is a",
+       "top1_equal_frac_second_half": 1.0,
+       "tv_A_vs_c0_tokens": 0.01400000000000003
+      },
+      {
+       "c": 0.26,
+       "mean_dist": 5.401591133607445e-07,
+       "mean_dist_second_half": 3.699582567258603e-13,
+       "frac_below_tol": 0.991,
+       "synced": true,
+       "synced_1e-6": true,
+       "tail_max": 8.640759248449213e-12,
+       "tail_median": 2.210626416670168e-14,
+       "first_below_tol": 15,
+       "bursts_1e-8_to_1e-3": 0,
+       "laminar_0.0001": {
+        "n": 2,
+        "censored_last": true,
+        "max": 2992,
+        "fit": null
+       },
+       "laminar_1e-06": {
+        "n": 1,
+        "censored_last": true,
+        "max": 2987,
+        "fit": null
+       },
+       "text_A_last": " there is a. Is\n\nThe I\n\nThe existence\n\n",
+       "text_B_last": " there is a. Is\n\nThe I\n\nThe existence\n\n",
+       "top1_equal_frac_second_half": 1.0,
+       "tv_A_vs_c0_tokens": 0.011333333333333369
+      },
+      {
+       "c": 0.27,
+       "mean_dist": 4.3288315118080293e-07,
+       "mean_dist_second_half": 1.0426152239779265e-13,
+       "frac_below_tol": 0.9916666666666667,
+       "synced": true,
+       "synced_1e-6": true,
+       "tail_max": 1.0642232704297695e-12,
+       "tail_median": 7.247993684605615e-15,
+       "first_below_tol": 14,
+       "bursts_1e-8_to_1e-3": 0,
+       "laminar_0.0001": {
+        "n": 2,
+        "censored_last": true,
+        "max": 2992,
+        "fit": null
+       },
+       "laminar_1e-06": {
+        "n": 1,
+        "censored_last": true,
+        "max": 2988,
+        "fit": null
+       },
+       "text_A_last": "\n\nThe is a. This is there is a. Is",
+       "text_B_last": "\n\nThe is a. This is there is a. Is",
+       "top1_equal_frac_second_half": 1.0,
+       "tv_A_vs_c0_tokens": 0.024333333333333346
+      },
+      {
+       "c": 0.28,
+       "mean_dist": 3.492547929562195e-07,
+       "mean_dist_second_half": 1.6565685358931686e-13,
+       "frac_below_tol": 0.9933333333333333,
+       "synced": true,
+       "synced_1e-6": true,
+       "tail_max": 5.564660374326917e-12,
+       "tail_median": 9.791405093334862e-15,
+       "first_below_tol": 14,
+       "bursts_1e-8_to_1e-3": 0,
+       "laminar_0.0001": {
+        "n": 2,
+        "censored_last": true,
+        "max": 2992,
+        "fit": null
+       },
+       "laminar_1e-06": {
+        "n": 1,
+        "censored_last": true,
+        "max": 2988,
+        "fit": null
+       },
+       "text_A_last": " a. Is\n\nThe is a is\n\nThe is a",
+       "text_B_last": " a. Is\n\nThe is a is\n\nThe is a",
+       "top1_equal_frac_second_half": 1.0,
+       "tv_A_vs_c0_tokens": 0.03800000000000004
+      },
+      {
+       "c": 0.29,
+       "mean_dist": 2.838771377602918e-07,
+       "mean_dist_second_half": 3.882959727832327e-14,
+       "frac_below_tol": 0.9946666666666667,
+       "synced": true,
+       "synced_1e-6": true,
+       "tail_max": 1.8507624585514213e-12,
+       "tail_median": 7.205745478429218e-15,
+       "first_below_tol": 14,
+       "bursts_1e-8_to_1e-3": 0,
+       "laminar_0.0001": {
+        "n": 2,
+        "censored_last": true,
+        "max": 2994,
+        "fit": null
+       },
+       "laminar_1e-06": {
+        "n": 1,
+        "censored_last": true,
+        "max": 2989,
+        "fit": null
+       },
+       "text_A_last": ". This is there is a. Is\n\nThe\n\nThe",
+       "text_B_last": ". This is there is a. Is\n\nThe\n\nThe",
+       "top1_equal_frac_second_half": 1.0,
+       "tv_A_vs_c0_tokens": 0.023999999999999997
+      },
+      {
+       "c": 0.3,
+       "mean_dist": 2.3258793317603869e-07,
+       "mean_dist_second_half": 5.681972158511859e-14,
+       "frac_below_tol": 0.9956666666666667,
+       "synced": true,
+       "synced_1e-6": true,
+       "tail_max": 4.327496404691755e-12,
+       "tail_median": 5.7863641042976484e-15,
+       "first_below_tol": 14,
+       "bursts_1e-8_to_1e-3": 0,
+       "laminar_0.0001": {
+        "n": 2,
+        "censored_last": true,
+        "max": 2994,
+        "fit": null
+       },
+       "laminar_1e-06": {
+        "n": 1,
+        "censored_last": true,
+        "max": 2989,
+        "fit": null
+       },
+       "text_A_last": " a. -\n\nThe is\n\nThe is\n\nThe is",
+       "text_B_last": " a. -\n\nThe is\n\nThe is\n\nThe is",
+       "top1_equal_frac_second_half": 1.0,
+       "tv_A_vs_c0_tokens": 0.017333333333333326
+      }
+     ]
+    },
+    "sweep-refine": {
+     "start": "near",
+     "steps": 10000,
+     "complete": true,
+     "commit": {
+      "commit": "e75d6e37609946d26ec1d3b3ab71b6b292b5e489",
+      "tools_dirty": false
+     },
+     "sweep_npz_sha256": "a4ea16da5742cc8b2a61b5df30d804857597e7f0ef348b8280f0414bd0646240",
+     "threshold": {
+      "c_lo": 0.19,
+      "c_hi": null,
+      "status": "no synchronized c on the grid"
+     },
+     "threshold_tol_1e-6_secondary": {
+      "c_lo": 0.18,
+      "c_hi": 0.19,
+      "status": "bracketed",
+      "non_monotone": false
+     },
+     "tv_c0_A_vs_B_tokens": null,
+     "pairs": [
+      {
+       "c": 0.14,
+       "mean_dist": 0.44340132918070774,
+       "mean_dist_second_half": 0.4501277031150421,
+       "frac_below_tol": 0.0049,
+       "synced": false,
+       "synced_1e-6": false,
+       "tail_max": 3.173096818070421,
+       "tail_median": 0.5459814239096835,
+       "first_below_tol": 85,
+       "bursts_1e-8_to_1e-3": 3,
+       "laminar_0.0001": {
+        "n": 138,
+        "censored_last": false,
+        "max": 138,
+        "fit": {
+         "slope": -1.3959164828772723,
+         "bins_used": 5,
+         "n": 123,
+         "min_len": 2
+        }
+       },
+       "laminar_1e-06": {
+        "n": 38,
+        "censored_last": false,
+        "max": 38,
+        "fit": null
+       },
+       "text_A_last": " a. This is a is a. -\n\nThe is",
+       "text_B_last": " a. - is a. -\n\nThe is a.",
+       "top1_equal_frac_second_half": 0.5684
+      },
+      {
+       "c": 0.15,
+       "mean_dist": 0.3294538522660486,
+       "mean_dist_second_half": 0.33100264357856624,
+       "frac_below_tol": 0.0009,
+       "synced": false,
+       "synced_1e-6": false,
+       "tail_max": 3.0202237393941833,
+       "tail_median": 0.14810272387295992,
+       "first_below_tol": 353,
+       "bursts_1e-8_to_1e-3": 2,
+       "laminar_0.0001": {
+        "n": 204,
+        "censored_last": false,
+        "max": 76,
+        "fit": {
+         "slope": -1.8323709234221721,
+         "bins_used": 7,
+         "n": 182,
+         "min_len": 2
+        }
+       },
+       "laminar_1e-06": {
+        "n": 34,
+        "censored_last": false,
+        "max": 8,
+        "fit": null
+       },
+       "text_A_last": " This is there is a. Is\n\nThe is a.",
+       "text_B_last": " This is there is a. Is\n\nThe is a.",
+       "top1_equal_frac_second_half": 0.6762
+      },
+      {
+       "c": 0.16,
+       "mean_dist": 0.17673013498128412,
+       "mean_dist_second_half": 0.1287722754661252,
+       "frac_below_tol": 0.0789,
+       "synced": false,
+       "synced_1e-6": false,
+       "tail_max": 0.22350969580913882,
+       "tail_median": 1.8414744739010283e-11,
+       "first_below_tol": 1262,
+       "bursts_1e-8_to_1e-3": 13,
+       "laminar_0.0001": {
+        "n": 293,
+        "censored_last": true,
+        "max": 743,
+        "fit": {
+         "slope": -1.7236533739121525,
+         "bins_used": 11,
+         "n": 237,
+         "min_len": 2
+        }
+       },
+       "laminar_1e-06": {
+        "n": 152,
+        "censored_last": false,
+        "max": 385,
+        "fit": {
+         "slope": -1.7593425620318526,
+         "bins_used": 8,
+         "n": 132,
+         "min_len": 2
+        }
+       },
+       "text_A_last": ". This is there is a. Is\n\nThe\n\nThe",
+       "text_B_last": ". This is there is a. Is\n\nThe\n\nThe",
+       "top1_equal_frac_second_half": 0.8766
+      },
+      {
+       "c": 0.165,
+       "mean_dist": 0.19258993529378113,
+       "mean_dist_second_half": 0.1931885227522326,
+       "frac_below_tol": 0.1483,
+       "synced": false,
+       "synced_1e-6": false,
+       "tail_max": 2.113483276318508,
+       "tail_median": 0.0011300020123760045,
+       "first_below_tol": 140,
+       "bursts_1e-8_to_1e-3": 14,
+       "laminar_0.0001": {
+        "n": 200,
+        "censored_last": false,
+        "max": 1059,
+        "fit": {
+         "slope": -1.618809860049813,
+         "bins_used": 10,
+         "n": 166,
+         "min_len": 2
+        }
+       },
+       "laminar_1e-06": {
+        "n": 173,
+        "censored_last": false,
+        "max": 543,
+        "fit": {
+         "slope": -1.6359446986237256,
+         "bins_used": 9,
+         "n": 146,
+         "min_len": 2
+        }
+       },
+       "text_A_last": "The is a. This is there is a. Is\n\n",
+       "text_B_last": "The is a. This is there is a. Is\n\n",
+       "top1_equal_frac_second_half": 0.8016
+      },
+      {
+       "c": 0.17,
+       "mean_dist": 0.1374045776143338,
+       "mean_dist_second_half": 0.0913442297450296,
+       "frac_below_tol": 0.2043,
+       "synced": false,
+       "synced_1e-6": false,
+       "tail_max": 0.035134463389355816,
+       "tail_median": 1.2704160751584577e-05,
+       "first_below_tol": 533,
+       "bursts_1e-8_to_1e-3": 12,
+       "laminar_0.0001": {
+        "n": 216,
+        "censored_last": true,
+        "max": 695,
+        "fit": {
+         "slope": -1.5210298829106625,
+         "bins_used": 11,
+         "n": 171,
+         "min_len": 2
+        }
+       },
+       "laminar_1e-06": {
+        "n": 185,
+        "censored_last": false,
+        "max": 470,
+        "fit": {
+         "slope": -1.609905221117064,
+         "bins_used": 8,
+         "n": 156,
+         "min_len": 2
+        }
+       },
+       "text_A_last": " a. This is there is a. Is\n\n\n\nThe",
+       "text_B_last": " a. This is there is a. Is\n\n\n\nThe",
+       "top1_equal_frac_second_half": 0.9076
+      },
+      {
+       "c": 0.175,
+       "mean_dist": 0.018672078500654766,
+       "mean_dist_second_half": 0.008380503573569606,
+       "frac_below_tol": 0.6583,
+       "synced": false,
+       "synced_1e-6": false,
+       "tail_max": 2.7236548173616024e-06,
+       "tail_median": 2.071888826564058e-11,
+       "first_below_tol": 423,
+       "bursts_1e-8_to_1e-3": 2,
+       "laminar_0.0001": {
+        "n": 59,
+        "censored_last": true,
+        "max": 5000,
+        "fit": null
+       },
+       "laminar_1e-06": {
+        "n": 112,
+        "censored_last": true,
+        "max": 1407,
+        "fit": null
+       },
+       "text_A_last": "\n\nThe is a is\n\nThe is a is a.",
+       "text_B_last": "\n\nThe is a is\n\nThe is a is a.",
+       "top1_equal_frac_second_half": 0.9918
+      },
+      {
+       "c": 0.18,
+       "mean_dist": 0.021131187613506977,
+       "mean_dist_second_half": 0.033362494704866096,
+       "frac_below_tol": 0.5788,
+       "synced": false,
+       "synced_1e-6": false,
+       "tail_max": 0.01064441224433744,
+       "tail_median": 1.733255810893128e-07,
+       "first_below_tol": 61,
+       "bursts_1e-8_to_1e-3": 13,
+       "laminar_0.0001": {
+        "n": 142,
+        "censored_last": true,
+        "max": 3294,
+        "fit": {
+         "slope": -1.4237844446925851,
+         "bins_used": 9,
+         "n": 108,
+         "min_len": 2
+        }
+       },
+       "laminar_1e-06": {
+        "n": 138,
+        "censored_last": true,
+        "max": 1416,
+        "fit": {
+         "slope": -1.3370563916757123,
+         "bins_used": 8,
+         "n": 108,
+         "min_len": 2
+        }
+       },
+       "text_A_last": " is there is a. Is\n\n\n\nThe is a.",
+       "text_B_last": " is there is a. Is\n\n\n\nThe is a.",
+       "top1_equal_frac_second_half": 0.9638
+      },
+      {
+       "c": 0.19,
+       "mean_dist": 1.264698109964297e-06,
+       "mean_dist_second_half": 1.296378642111559e-07,
+       "frac_below_tol": 0.9486,
+       "synced": false,
+       "synced_1e-6": true,
+       "tail_max": 2.863329309397641e-07,
+       "tail_median": 2.8749735260047807e-12,
+       "first_below_tol": 54,
+       "bursts_1e-8_to_1e-3": 0,
+       "laminar_0.0001": {
+        "n": 4,
+        "censored_last": true,
+        "max": 9957,
+        "fit": null
+       },
+       "laminar_1e-06": {
+        "n": 18,
+        "censored_last": true,
+        "max": 3088,
+        "fit": null
+       },
+       "text_A_last": "The is a. - certainly\n\nThe existence\n\nThe is",
+       "text_B_last": "The is a. - certainly\n\nThe existence\n\nThe is",
+       "top1_equal_frac_second_half": 1.0
+      }
+     ]
+    },
+    "sweep-far": {
+     "start": "far",
+     "steps": 2000,
+     "complete": true,
+     "commit": {
+      "commit": "d01933aa23c9737d672d0055499f6ce5618c8f0d",
+      "tools_dirty": false
+     },
+     "sweep_npz_sha256": "bb56b4069e5a8ec8be81e9453ed09949f7bd4e2f12b8707ee3833b807e348c39",
+     "threshold": {
+      "c_lo": 0.18,
+      "c_hi": 0.2,
+      "status": "bracketed",
+      "non_monotone": false
+     },
+     "threshold_tol_1e-6_secondary": {
+      "c_lo": 0.18,
+      "c_hi": 0.2,
+      "status": "bracketed",
+      "non_monotone": false
+     },
+     "tv_c0_A_vs_B_tokens": 0.032999999999999995,
+     "pairs": [
+      {
+       "c": 0.0,
+       "mean_dist": 1.108738541490693,
+       "mean_dist_second_half": 1.1382804926658212,
+       "frac_below_tol": 0.0,
+       "synced": false,
+       "synced_1e-6": false,
+       "tail_max": 3.4122429171331237,
+       "tail_median": 1.0432931846113718,
+       "first_below_tol": null,
+       "bursts_1e-8_to_1e-3": 0,
+       "laminar_0.0001": {
+        "n": 1,
+        "censored_last": false,
+        "max": 4,
+        "fit": null
+       },
+       "laminar_1e-06": {
+        "n": 0,
+        "censored_last": false,
+        "max": 0,
+        "fit": null
+       },
+       "text_A_last": " a is a. This is there is a. Is\n\n",
+       "text_B_last": " is\n\nThe is a. This is there is a.",
+       "top1_equal_frac_second_half": 0.132,
+       "tv_A_vs_c0_tokens": 0.01649999999999999
+      },
+      {
+       "c": 0.02,
+       "mean_dist": 1.023409630271907,
+       "mean_dist_second_half": 1.0337153453839933,
+       "frac_below_tol": 0.0,
+       "synced": false,
+       "synced_1e-6": false,
+       "tail_max": 3.0955501585957643,
+       "tail_median": 0.9896491173910079,
+       "first_below_tol": null,
+       "bursts_1e-8_to_1e-3": 0,
+       "laminar_0.0001": {
+        "n": 3,
+        "censored_last": false,
+        "max": 9,
+        "fit": null
+       },
+       "laminar_1e-06": {
+        "n": 1,
+        "censored_last": false,
+        "max": 4,
+        "fit": null
+       },
+       "text_A_last": ". This is there is a. This is a.This",
+       "text_B_last": " is a is\n\nThe is a is a. This is",
+       "top1_equal_frac_second_half": 0.199,
+       "tv_A_vs_c0_tokens": 0.061
+      },
+      {
+       "c": 0.04,
+       "mean_dist": 1.2099748466594662,
+       "mean_dist_second_half": 1.2104074101881384,
+       "frac_below_tol": 0.0,
+       "synced": false,
+       "synced_1e-6": false,
+       "tail_max": 1.9187055987844903,
+       "tail_median": 0.9835871204896713,
+       "first_below_tol": null,
+       "bursts_1e-8_to_1e-3": 0,
+       "laminar_0.0001": {
+        "n": 0,
+        "censored_last": false,
+        "max": 0,
+        "fit": null
+       },
+       "laminar_1e-06": {
+        "n": 0,
+        "censored_last": false,
+        "max": 0,
+        "fit": null
+       },
+       "text_A_last": " is a is a. This is a is a. This",
+       "text_B_last": " a is a. This is a is a. This is",
+       "top1_equal_frac_second_half": 0.0,
+       "tv_A_vs_c0_tokens": 0.4235
+      },
+      {
+       "c": 0.06,
+       "mean_dist": 0.9283475233910894,
+       "mean_dist_second_half": 0.9349172674487697,
+       "frac_below_tol": 0.0,
+       "synced": false,
+       "synced_1e-6": false,
+       "tail_max": 1.4555738023228555,
+       "tail_median": 0.9111679063473838,
+       "first_below_tol": null,
+       "bursts_1e-8_to_1e-3": 0,
+       "laminar_0.0001": {
+        "n": 1,
+        "censored_last": false,
+        "max": 4,
+        "fit": null
+       },
+       "laminar_1e-06": {
+        "n": 0,
+        "censored_last": false,
+        "max": 0,
+        "fit": null
+       },
+       "text_A_last": " is a. This is a is a. This is a",
+       "text_B_last": " is there is a. This is there is a. This",
+       "top1_equal_frac_second_half": 0.166,
+       "tv_A_vs_c0_tokens": 0.4235
+      },
+      {
+       "c": 0.08,
+       "mean_dist": 0.8459468965149011,
+       "mean_dist_second_half": 0.8463555189019433,
+       "frac_below_tol": 0.0,
+       "synced": false,
+       "synced_1e-6": false,
+       "tail_max": 3.4144062634748766,
+       "tail_median": 0.8208692956692228,
+       "first_below_tol": null,
+       "bursts_1e-8_to_1e-3": 0,
+       "laminar_0.0001": {
+        "n": 4,
+        "censored_last": false,
+        "max": 4,
+        "fit": null
+       },
+       "laminar_1e-06": {
+        "n": 0,
+        "censored_last": false,
+        "max": 0,
+        "fit": null
+       },
+       "text_A_last": " This is a is a. This is a is a.",
+       "text_B_last": " a. This is a is a. - is a.",
+       "top1_equal_frac_second_half": 0.306,
+       "tv_A_vs_c0_tokens": 0.155
+      },
+      {
+       "c": 0.1,
+       "mean_dist": 0.8155111592145925,
+       "mean_dist_second_half": 0.8029111753537933,
+       "frac_below_tol": 0.0,
+       "synced": false,
+       "synced_1e-6": false,
+       "tail_max": 3.346451999067164,
+       "tail_median": 0.8483646282049365,
+       "first_below_tol": null,
+       "bursts_1e-8_to_1e-3": 0,
+       "laminar_0.0001": {
+        "n": 3,
+        "censored_last": false,
+        "max": 6,
+        "fit": null
+       },
+       "laminar_1e-06": {
+        "n": 0,
+        "censored_last": false,
+        "max": 0,
+        "fit": null
+       },
+       "text_A_last": "The is\n\nThe is a.This I\n\nThe existence",
+       "text_B_last": " a. This is a is a. This is a is",
+       "top1_equal_frac_second_half": 0.31,
+       "tv_A_vs_c0_tokens": 0.09200000000000001
+      },
+      {
+       "c": 0.12,
+       "mean_dist": 0.6060407380182794,
+       "mean_dist_second_half": 0.595158535039702,
+       "frac_below_tol": 0.0,
+       "synced": false,
+       "synced_1e-6": false,
+       "tail_max": 3.384612164957214,
+       "tail_median": 0.7477846585490697,
+       "first_below_tol": null,
+       "bursts_1e-8_to_1e-3": 0,
+       "laminar_0.0001": {
+        "n": 23,
+        "censored_last": false,
+        "max": 9,
+        "fit": null
+       },
+       "laminar_1e-06": {
+        "n": 2,
+        "censored_last": false,
+        "max": 4,
+        "fit": null
+       },
+       "text_A_last": "The is a. -\n\nThe is a. This is",
+       "text_B_last": "The is a. This is a. Is is a.",
+       "top1_equal_frac_second_half": 0.448,
+       "tv_A_vs_c0_tokens": 0.07350000000000001
+      },
+      {
+       "c": 0.14,
+       "mean_dist": 0.41379953847655715,
+       "mean_dist_second_half": 0.5229191798393186,
+       "frac_below_tol": 0.0025,
+       "synced": false,
+       "synced_1e-6": false,
+       "tail_max": 3.1717151799208265,
+       "tail_median": 0.18302223844963672,
+       "first_below_tol": 668,
+       "bursts_1e-8_to_1e-3": 1,
+       "laminar_0.0001": {
+        "n": 34,
+        "censored_last": false,
+        "max": 97,
+        "fit": null
+       },
+       "laminar_1e-06": {
+        "n": 10,
+        "censored_last": false,
+        "max": 31,
+        "fit": null
+       },
+       "text_A_last": " a. This is a\n\nThe is\n\nThe is a",
+       "text_B_last": "The question\n\nThe is a.This\n\nThe is a",
+       "top1_equal_frac_second_half": 0.509,
+       "tv_A_vs_c0_tokens": 0.099
+      },
+      {
+       "c": 0.16,
+       "mean_dist": 0.18911989877125954,
+       "mean_dist_second_half": 0.22062431823229672,
+       "frac_below_tol": 0.2175,
+       "synced": false,
+       "synced_1e-6": false,
+       "tail_max": 1.8697996703862665,
+       "tail_median": 0.02911631113150443,
+       "first_below_tol": 351,
+       "bursts_1e-8_to_1e-3": 2,
+       "laminar_0.0001": {
+        "n": 39,
+        "censored_last": false,
+        "max": 454,
+        "fit": null
+       },
+       "laminar_1e-06": {
+        "n": 29,
+        "censored_last": false,
+        "max": 308,
+        "fit": null
+       },
+       "text_A_last": " is a. This is there is a. Is\n\n\n\n",
+       "text_B_last": " is a. This is there is a. Is\n\n\n\n",
+       "top1_equal_frac_second_half": 0.78,
+       "tv_A_vs_c0_tokens": 0.04300000000000001
+      },
+      {
+       "c": 0.18,
+       "mean_dist": 0.016732458145716625,
+       "mean_dist_second_half": 1.897032614747006e-06,
+       "frac_below_tol": 0.8265,
+       "synced": false,
+       "synced_1e-6": false,
+       "tail_max": 0.00034795091764798334,
+       "tail_median": 2.2964646099737946e-11,
+       "first_below_tol": 123,
+       "bursts_1e-8_to_1e-3": 0,
+       "laminar_0.0001": {
+        "n": 7,
+        "censored_last": true,
+        "max": 1493,
+        "fit": null
+       },
+       "laminar_1e-06": {
+        "n": 15,
+        "censored_last": true,
+        "max": 836,
+        "fit": null
+       },
+       "text_A_last": " Is\n\nThe is a is\n\nThe is\nThe is",
+       "text_B_last": " Is\n\nThe is a is\n\nThe is\nThe is",
+       "top1_equal_frac_second_half": 1.0,
+       "tv_A_vs_c0_tokens": 0.02749999999999999
+      },
+      {
+       "c": 0.2,
+       "mean_dist": 0.016170836905441643,
+       "mean_dist_second_half": 1.1883203209934247e-07,
+       "frac_below_tol": 0.8965,
+       "synced": true,
+       "synced_1e-6": true,
+       "tail_max": 3.2396537064081776e-11,
+       "tail_median": 4.393858873901502e-14,
+       "first_below_tol": 146,
+       "bursts_1e-8_to_1e-3": 0,
+       "laminar_0.0001": {
+        "n": 8,
+        "censored_last": true,
+        "max": 1879,
+        "fit": null
+       },
+       "laminar_1e-06": {
+        "n": 5,
+        "censored_last": true,
+        "max": 1062,
+        "fit": null
+       },
+       "text_A_last": " is a. Is\n\n\n\nThe is\n\nThe is a",
+       "text_B_last": " is a. Is\n\n\n\nThe is\n\nThe is a",
+       "top1_equal_frac_second_half": 1.0,
+       "tv_A_vs_c0_tokens": 0.019999999999999993
+      },
+      {
+       "c": 0.22,
+       "mean_dist": 0.00778395993579749,
+       "mean_dist_second_half": 1.163266308976441e-11,
+       "frac_below_tol": 0.9325,
+       "synced": true,
+       "synced_1e-6": true,
+       "tail_max": 1.3983893906173564e-10,
+       "tail_median": 6.90030891562946e-14,
+       "first_below_tol": 134,
+       "bursts_1e-8_to_1e-3": 0,
+       "laminar_0.0001": {
+        "n": 2,
+        "censored_last": true,
+        "max": 1943,
+        "fit": null
+       },
+       "laminar_1e-06": {
+        "n": 6,
+        "censored_last": true,
+        "max": 1874,
+        "fit": null
+       },
+       "text_A_last": " there is a. Is\n\nThe is a.Is\n\n",
+       "text_B_last": " there is a. Is\n\nThe is a.Is\n\n",
+       "top1_equal_frac_second_half": 1.0,
+       "tv_A_vs_c0_tokens": 0.016000000000000004
+      },
+      {
+       "c": 0.24,
+       "mean_dist": 0.006578842555049119,
+       "mean_dist_second_half": 2.83259450879811e-12,
+       "frac_below_tol": 0.9625,
+       "synced": true,
+       "synced_1e-6": true,
+       "tail_max": 2.48340857450568e-10,
+       "tail_median": 2.210613876316385e-14,
+       "first_below_tol": 76,
+       "bursts_1e-8_to_1e-3": 0,
+       "laminar_0.0001": {
+        "n": 1,
+        "censored_last": true,
+        "max": 1944,
+        "fit": null
+       },
+       "laminar_1e-06": {
+        "n": 2,
+        "censored_last": true,
+        "max": 1930,
+        "fit": null
+       },
+       "text_A_last": "The is a. -\n\nThe is\n\nThe is\n",
+       "text_B_last": "The is a. -\n\nThe is\n\nThe is\n",
+       "top1_equal_frac_second_half": 1.0,
+       "tv_A_vs_c0_tokens": 0.031
+      },
+      {
+       "c": 0.26,
+       "mean_dist": 0.00247141678895895,
+       "mean_dist_second_half": 4.347276081425693e-12,
+       "frac_below_tol": 0.974,
+       "synced": true,
+       "synced_1e-6": true,
+       "tail_max": 1.0417656576611947e-09,
+       "tail_median": 2.8134605111968765e-14,
+       "first_below_tol": 53,
+       "bursts_1e-8_to_1e-3": 0,
+       "laminar_0.0001": {
+        "n": 2,
+        "censored_last": true,
+        "max": 1973,
+        "fit": null
+       },
+       "laminar_1e-06": {
+        "n": 1,
+        "censored_last": true,
+        "max": 1956,
+        "fit": null
+       },
+       "text_A_last": " is a. This is there is a. Is\n\n\n\n",
+       "text_B_last": " is a. This is there is a. Is\n\n\n\n",
+       "top1_equal_frac_second_half": 1.0,
+       "tv_A_vs_c0_tokens": 0.023000000000000003
+      },
+      {
+       "c": 0.28,
+       "mean_dist": 0.00267644112237467,
+       "mean_dist_second_half": 5.166218000454485e-14,
+       "frac_below_tol": 0.97,
+       "synced": true,
+       "synced_1e-6": true,
+       "tail_max": 2.101137214190042e-12,
+       "tail_median": 7.678143735813731e-15,
+       "first_below_tol": 55,
+       "bursts_1e-8_to_1e-3": 0,
+       "laminar_0.0001": {
+        "n": 1,
+        "censored_last": true,
+        "max": 1966,
+        "fit": null
+       },
+       "laminar_1e-06": {
+        "n": 4,
+        "censored_last": true,
+        "max": 1949,
+        "fit": null
+       },
+       "text_A_last": " a. This is there is a. Is\n\n is The",
+       "text_B_last": " a. This is there is a. Is\n\n is The",
+       "top1_equal_frac_second_half": 1.0,
+       "tv_A_vs_c0_tokens": 0.039500000000000014
+      },
+      {
+       "c": 0.3,
+       "mean_dist": 0.0022589622313157693,
+       "mean_dist_second_half": 9.502540687325212e-14,
+       "frac_below_tol": 0.9775,
+       "synced": true,
+       "synced_1e-6": true,
+       "tail_max": 1.6409694568483207e-12,
+       "tail_median": 8.156213413111563e-15,
+       "first_below_tol": 46,
+       "bursts_1e-8_to_1e-3": 0,
+       "laminar_0.0001": {
+        "n": 1,
+        "censored_last": true,
+        "max": 1973,
+        "fit": null
+       },
+       "laminar_1e-06": {
+        "n": 3,
+        "censored_last": true,
+        "max": 1958,
+        "fit": null
+       },
+       "text_A_last": " a. Is\n\nThe I\n\nThe existence\n\nThe is",
+       "text_B_last": " a. Is\n\nThe I\n\nThe existence\n\nThe is",
+       "top1_equal_frac_second_half": 1.0,
+       "tv_A_vs_c0_tokens": 0.02599999999999999
+      }
+     ]
+    }
+   }
+  },
+  "2": {
+   "index": 2,
+   "log10_temperature": -0.115,
+   "alpha": 0.064,
+   "lambda1_published": 0.23877119577035952,
+   "lambda1_jvp": 0.19590131660017163,
+   "lambda1_jvp_se": 0.014211896694399517,
+   "lambda1_jvp_steps": 3000,
+   "c_star_published": 0.10620246657952259,
+   "c_star_jvp": 0.08895332117855786,
+   "c_star_jvp_2se": [
+    0.07710218607762787,
+    0.10047234436366159
+   ],
+   "transverse": [
+    {
+     "c": 0.0,
+     "measured": 0.20419647089275428,
+     "measured_se": 0.021618100833341498,
+     "predicted": 0.19590131660017163,
+     "measured_minus_predicted": 0.008295154292582652,
+     "measured_minus_ln_factor": 0.20419647089275428
+    },
+    {
+     "c": 0.05,
+     "measured": 0.11464076946725339,
+     "measured_se": 0.017878673339263743,
+     "predicted": 0.09054080094234535,
+     "measured_minus_predicted": 0.024099968524908047,
+     "measured_minus_ln_factor": 0.22000128512507966
+    },
+    {
+     "c": 0.1,
+     "measured": 0.01786424634410694,
+     "measured_se": 0.024970884585773845,
+     "predicted": -0.027242234714038083,
+     "measured_minus_predicted": 0.04510648105814502,
+     "measured_minus_ln_factor": 0.24100779765831665
+    },
+    {
+     "c": 0.15,
+     "measured": -0.17066648876128152,
+     "measured_se": 0.011582426562517656,
+     "predicted": -0.16077362733856082,
+     "measured_minus_predicted": -0.009892861422720695,
+     "measured_minus_ln_factor": 0.18600845517745093
+    },
+    {
+     "c": 0.2,
+     "measured": -0.3141049941787734,
+     "measured_se": 0.016534228303193184,
+     "predicted": -0.3149243071658191,
+     "measured_minus_predicted": 0.0008193129870456839,
+     "measured_minus_ln_factor": 0.1967206295872173
+    },
+    {
+     "c": 0.25,
+     "measured": -0.463283631813871,
+     "measured_se": 0.02022990978970169,
+     "predicted": -0.49724586395977366,
+     "measured_minus_predicted": 0.03396223214590266,
+     "measured_minus_ln_factor": 0.2298635487460743
+    },
+    {
+     "c": 0.3,
+     "measured": -0.7282057338212731,
+     "measured_se": 0.014698837868578694,
+     "predicted": -0.7203894152739834,
+     "measured_minus_predicted": -0.007816318547289702,
+     "measured_minus_ln_factor": 0.18808499805288192
+    }
+   ],
+   "sweeps": {
+    "sweep-near": {
+     "start": "near",
+     "steps": 3000,
+     "complete": true,
+     "commit": {
+      "commit": "dc17093b8d69f8618fd981dbbb5a5b4fd91516c9",
+      "tools_dirty": false
+     },
+     "sweep_npz_sha256": "89b18f0c47e514786e6535f9e086f5ccb4fbfd59d000faa1b138f0e40c914dfd",
+     "threshold": {
+      "c_lo": 0.15,
+      "c_hi": 0.16,
+      "status": "bracketed",
+      "non_monotone": true
+     },
+     "threshold_tol_1e-6_secondary": {
+      "c_lo": 0.13,
+      "c_hi": 0.14,
+      "status": "bracketed",
+      "non_monotone": false
+     },
+     "tv_c0_A_vs_B_tokens": 0.03866666666666667,
+     "pairs": [
+      {
+       "c": 0.0,
+       "mean_dist": 0.9291733374504424,
+       "mean_dist_second_half": 0.9410206514437859,
+       "frac_below_tol": 0.0,
+       "synced": false,
+       "synced_1e-6": false,
+       "tail_max": 3.4150533899315283,
+       "tail_median": 1.0416733024207028,
+       "first_below_tol": null,
+       "bursts_1e-8_to_1e-3": 0,
+       "laminar_0.0001": {
+        "n": 0,
+        "censored_last": false,
+        "max": 0,
+        "fit": null
+       },
+       "laminar_1e-06": {
+        "n": 0,
+        "censored_last": false,
+        "max": 0,
+        "fit": null
+       },
+       "text_A_last": "\n\nThe is it is it is it is it is it",
+       "text_B_last": " it is it is it is a is\n\nThe is it",
+       "top1_equal_frac_second_half": 0.246,
+       "tv_A_vs_c0_tokens": 0.019333333333333348
+      },
+      {
+       "c": 0.01,
+       "mean_dist": 1.1599978951257968,
+       "mean_dist_second_half": 1.1752912950354193,
+       "frac_below_tol": 0.0,
+       "synced": false,
+       "synced_1e-6": false,
+       "tail_max": 2.0116445649336905,
+       "tail_median": 1.052617941650928,
+       "first_below_tol": null,
+       "bursts_1e-8_to_1e-3": 0,
+       "laminar_0.0001": {
+        "n": 0,
+        "censored_last": false,
+        "max": 0,
+        "fit": null
+       },
+       "laminar_1e-06": {
+        "n": 0,
+        "censored_last": false,
+        "max": 0,
+        "fit": null
+       },
+       "text_A_last": " a. This is it is it is it is a is",
+       "text_B_last": ". This is it is it is it is a is a",
+       "top1_equal_frac_second_half": 0.0,
+       "tv_A_vs_c0_tokens": 0.176
+      },
+      {
+       "c": 0.02,
+       "mean_dist": 0.8178295066474566,
+       "mean_dist_second_half": 0.8182946394363009,
+       "frac_below_tol": 0.0,
+       "synced": false,
+       "synced_1e-6": false,
+       "tail_max": 1.6495547773023802,
+       "tail_median": 0.7552048312999089,
+       "first_below_tol": null,
+       "bursts_1e-8_to_1e-3": 0,
+       "laminar_0.0001": {
+        "n": 1,
+        "censored_last": false,
+        "max": 1,
+        "fit": null
+       },
+       "laminar_1e-06": {
+        "n": 0,
+        "censored_last": false,
+        "max": 0,
+        "fit": null
+       },
+       "text_A_last": " it is it is a. This is it is it is",
+       "text_B_last": " a. This is it is it is a is a.",
+       "top1_equal_frac_second_half": 0.3,
+       "tv_A_vs_c0_tokens": 0.15866666666666665
+      },
+      {
+       "c": 0.03,
+       "mean_dist": 0.9478647449642794,
+       "mean_dist_second_half": 1.1991569672541826,
+       "frac_below_tol": 0.0,
+       "synced": false,
+       "synced_1e-6": false,
+       "tail_max": 2.6864369064882574,
+       "tail_median": 1.0336517452799818,
+       "first_below_tol": null,
+       "bursts_1e-8_to_1e-3": 0,
+       "laminar_0.0001": {
+        "n": 14,
+        "censored_last": false,
+        "max": 16,
+        "fit": null
+       },
+       "laminar_1e-06": {
+        "n": 2,
+        "censored_last": false,
+        "max": 5,
+        "fit": null
+       },
+       "text_A_last": " is a is a. This is it is it is a",
+       "text_B_last": " it is a is a. This is it is it is",
+       "top1_equal_frac_second_half": 0.0,
+       "tv_A_vs_c0_tokens": 0.23633333333333334
+      },
+      {
+       "c": 0.04,
+       "mean_dist": 1.1334512228001499,
+       "mean_dist_second_half": 1.1373800557830251,
+       "frac_below_tol": 0.0,
+       "synced": false,
+       "synced_1e-6": false,
+       "tail_max": 1.621483061158266,
+       "tail_median": 1.0193597029633548,
+       "first_below_tol": null,
+       "bursts_1e-8_to_1e-3": 0,
+       "laminar_0.0001": {
+        "n": 0,
+        "censored_last": false,
+        "max": 0,
+        "fit": null
+       },
+       "laminar_1e-06": {
+        "n": 0,
+        "censored_last": false,
+        "max": 0,
+        "fit": null
+       },
+       "text_A_last": " a. This is it is it is a. This is",
+       "text_B_last": " is it is a. This is it is it is a",
+       "top1_equal_frac_second_half": 0.0,
+       "tv_A_vs_c0_tokens": 0.21233333333333332
+      },
+      {
+       "c": 0.05,
+       "mean_dist": 0.9678933369860263,
+       "mean_dist_second_half": 0.991704349224255,
+       "frac_below_tol": 0.0,
+       "synced": false,
+       "synced_1e-6": false,
+       "tail_max": 1.508840252393161,
+       "tail_median": 0.9130518352104076,
+       "first_below_tol": null,
+       "bursts_1e-8_to_1e-3": 0,
+       "laminar_0.0001": {
+        "n": 0,
+        "censored_last": false,
+        "max": 0,
+        "fit": null
+       },
+       "laminar_1e-06": {
+        "n": 0,
+        "censored_last": false,
+        "max": 0,
+        "fit": null
+       },
+       "text_A_last": " is it is a indeed a. This is it is a",
+       "text_B_last": " indeed a. This is it is a indeed a. This",
+       "top1_equal_frac_second_half": 0.0,
+       "tv_A_vs_c0_tokens": 0.4576666666666667
+      },
+      {
+       "c": 0.06,
+       "mean_dist": 1.056773192499221,
+       "mean_dist_second_half": 1.1836558897323888,
+       "frac_below_tol": 0.0,
+       "synced": false,
+       "synced_1e-6": false,
+       "tail_max": 2.5372879841826963,
+       "tail_median": 0.9739288293001378,
+       "first_below_tol": null,
+       "bursts_1e-8_to_1e-3": 0,
+       "laminar_0.0001": {
+        "n": 5,
+        "censored_last": false,
+        "max": 19,
+        "fit": null
+       },
+       "laminar_1e-06": {
+        "n": 1,
+        "censored_last": false,
+        "max": 8,
+        "fit": null
+       },
+       "text_A_last": " is it is it is a. This is it is it",
+       "text_B_last": " This is it is it is a. This is it is",
+       "top1_equal_frac_second_half": 0.0,
+       "tv_A_vs_c0_tokens": 0.21033333333333332
+      },
+      {
+       "c": 0.07,
+       "mean_dist": 0.5019380777322351,
+       "mean_dist_second_half": 0.49108720253438454,
+       "frac_below_tol": 0.022,
+       "synced": false,
+       "synced_1e-6": false,
+       "tail_max": 2.85805929080012,
+       "tail_median": 0.0014561179725757116,
+       "first_below_tol": 951,
+       "bursts_1e-8_to_1e-3": 2,
+       "laminar_0.0001": {
+        "n": 38,
+        "censored_last": false,
+        "max": 176,
+        "fit": null
+       },
+       "laminar_1e-06": {
+        "n": 16,
+        "censored_last": false,
+        "max": 91,
+        "fit": null
+       },
+       "text_A_last": " a indeed\n\nThe is it is a. This is it",
+       "text_B_last": ". This is a indeed\n\nHello is it is a.",
+       "top1_equal_frac_second_half": 0.5673333333333334,
+       "tv_A_vs_c0_tokens": 0.12166666666666666
+      },
+      {
+       "c": 0.08,
+       "mean_dist": 0.24141865112774988,
+       "mean_dist_second_half": 0.12722283295704456,
+       "frac_below_tol": 0.209,
+       "synced": false,
+       "synced_1e-6": false,
+       "tail_max": 2.5592889244296098,
+       "tail_median": 0.01514529692864437,
+       "first_below_tol": 399,
+       "bursts_1e-8_to_1e-3": 3,
+       "laminar_0.0001": {
+        "n": 40,
+        "censored_last": false,
+        "max": 448,
+        "fit": null
+       },
+       "laminar_1e-06": {
+        "n": 40,
+        "censored_last": false,
+        "max": 362,
+        "fit": null
+       },
+       "text_A_last": "\n\nHello indeed\n\nThe existence\n\nThe this is a.",
+       "text_B_last": "\n\nThe is a. This certainly\n\nThe is it is",
+       "top1_equal_frac_second_half": 0.89,
+       "tv_A_vs_c0_tokens": 0.04199999999999998
+      },
+      {
+       "c": 0.09,
+       "mean_dist": 0.27247102534340506,
+       "mean_dist_second_half": 0.272332086477959,
+       "frac_below_tol": 0.20366666666666666,
+       "synced": false,
+       "synced_1e-6": false,
+       "tail_max": 0.0007141602357484583,
+       "tail_median": 8.996957871607889e-11,
+       "first_below_tol": 115,
+       "bursts_1e-8_to_1e-3": 2,
+       "laminar_0.0001": {
+        "n": 50,
+        "censored_last": true,
+        "max": 426,
+        "fit": null
+       },
+       "laminar_1e-06": {
+        "n": 34,
+        "censored_last": true,
+        "max": 283,
+        "fit": null
+       },
+       "text_A_last": " is it is a is\n\nThe is a. This is",
+       "text_B_last": " is it is a is\n\nThe is a. This is",
+       "top1_equal_frac_second_half": 0.75,
+       "tv_A_vs_c0_tokens": 0.08433333333333334
+      },
+      {
+       "c": 0.1,
+       "mean_dist": 0.25554762295405103,
+       "mean_dist_second_half": 0.25603053220955213,
+       "frac_below_tol": 0.47633333333333333,
+       "synced": false,
+       "synced_1e-6": false,
+       "tail_max": 1.2406654221452153e-06,
+       "tail_median": 1.6039517445303422e-12,
+       "first_below_tol": 287,
+       "bursts_1e-8_to_1e-3": 2,
+       "laminar_0.0001": {
+        "n": 26,
+        "censored_last": true,
+        "max": 871,
+        "fit": null
+       },
+       "laminar_1e-06": {
+        "n": 12,
+        "censored_last": true,
+        "max": 865,
+        "fit": null
+       },
+       "text_A_last": " is\n\nThe is it is it is it is it is",
+       "text_B_last": " is\n\nThe is it is it is it is it is",
+       "top1_equal_frac_second_half": 0.764,
+       "tv_A_vs_c0_tokens": 0.07800000000000001
+      },
+      {
+       "c": 0.11,
+       "mean_dist": 0.10555936390629156,
+       "mean_dist_second_half": 0.01071927215589826,
+       "frac_below_tol": 0.41233333333333333,
+       "synced": false,
+       "synced_1e-6": false,
+       "tail_max": 5.2661899442604804e-05,
+       "tail_median": 4.3038265215535064e-10,
+       "first_below_tol": 888,
+       "bursts_1e-8_to_1e-3": 2,
+       "laminar_0.0001": {
+        "n": 39,
+        "censored_last": true,
+        "max": 884,
+        "fit": null
+       },
+       "laminar_1e-06": {
+        "n": 25,
+        "censored_last": true,
+        "max": 713,
+        "fit": null
+       },
+       "text_A_last": " it is a is a. This is it is it is",
+       "text_B_last": " it is a is a. This is it is it is",
+       "top1_equal_frac_second_half": 0.99,
+       "tv_A_vs_c0_tokens": 0.022666666666666675
+      },
+      {
+       "c": 0.12,
+       "mean_dist": 0.001358522699781407,
+       "mean_dist_second_half": 3.107710468305831e-05,
+       "frac_below_tol": 0.7476666666666667,
+       "synced": false,
+       "synced_1e-6": false,
+       "tail_max": 0.0002684527130815792,
+       "tail_median": 4.537347564254279e-13,
+       "first_below_tol": 115,
+       "bursts_1e-8_to_1e-3": 2,
+       "laminar_0.0001": {
+        "n": 15,
+        "censored_last": true,
+        "max": 988,
+        "fit": null
+       },
+       "laminar_1e-06": {
+        "n": 31,
+        "censored_last": true,
+        "max": 739,
+        "fit": null
+       },
+       "text_A_last": " is it is it is a is\n\nThe is a.",
+       "text_B_last": " is it is it is a is\n\nThe is a.",
+       "top1_equal_frac_second_half": 1.0,
+       "tv_A_vs_c0_tokens": 0.021333333333333333
+      },
+      {
+       "c": 0.13,
+       "mean_dist": 0.0020250564801026763,
+       "mean_dist_second_half": 3.779947146277312e-09,
+       "frac_below_tol": 0.9576666666666667,
+       "synced": false,
+       "synced_1e-6": false,
+       "tail_max": 1.0601256752598308e-06,
+       "tail_median": 6.254549477256309e-13,
+       "first_below_tol": 60,
+       "bursts_1e-8_to_1e-3": 0,
+       "laminar_0.0001": {
+        "n": 4,
+        "censored_last": true,
+        "max": 2966,
+        "fit": null
+       },
+       "laminar_1e-06": {
+        "n": 3,
+        "censored_last": true,
+        "max": 2862,
+        "fit": null
+       },
+       "text_A_last": " is it is it is a is\n\nThe is a.",
+       "text_B_last": " is it is it is a is\n\nThe is a.",
+       "top1_equal_frac_second_half": 1.0,
+       "tv_A_vs_c0_tokens": 0.026666666666666693
+      },
+      {
+       "c": 0.14,
+       "mean_dist": 0.0074298120473392,
+       "mean_dist_second_half": 4.5531967611368527e-11,
+       "frac_below_tol": 0.9556666666666667,
+       "synced": true,
+       "synced_1e-6": true,
+       "tail_max": 2.494916423388405e-09,
+       "tail_median": 4.9213357180928184e-14,
+       "first_below_tol": 84,
+       "bursts_1e-8_to_1e-3": 0,
+       "laminar_0.0001": {
+        "n": 5,
+        "censored_last": true,
+        "max": 2921,
+        "fit": null
+       },
+       "laminar_1e-06": {
+        "n": 2,
+        "censored_last": true,
+        "max": 2476,
+        "fit": null
+       },
+       "text_A_last": " it is it is a is\n\nThe is it is it",
+       "text_B_last": " it is it is a is\n\nThe is it is it",
+       "top1_equal_frac_second_half": 1.0,
+       "tv_A_vs_c0_tokens": 0.034000000000000016
+      },
+      {
+       "c": 0.15,
+       "mean_dist": 0.021212438228437006,
+       "mean_dist_second_half": 5.1640621097775915e-09,
+       "frac_below_tol": 0.8946666666666667,
+       "synced": false,
+       "synced_1e-6": true,
+       "tail_max": 8.393328132997607e-08,
+       "tail_median": 6.37906107222807e-14,
+       "first_below_tol": 234,
+       "bursts_1e-8_to_1e-3": 0,
+       "laminar_0.0001": {
+        "n": 12,
+        "censored_last": true,
+        "max": 2789,
+        "fit": null
+       },
+       "laminar_1e-06": {
+        "n": 7,
+        "censored_last": true,
+        "max": 1496,
+        "fit": null
+       },
+       "text_A_last": " Indeed\n\nThe is\n\nHello is there is it is it",
+       "text_B_last": " Indeed\n\nThe is\n\nHello is there is it is it",
+       "top1_equal_frac_second_half": 1.0,
+       "tv_A_vs_c0_tokens": 0.025333333333333347
+      },
+      {
+       "c": 0.16,
+       "mean_dist": 0.004482250992622942,
+       "mean_dist_second_half": 1.4896266420488654e-08,
+       "frac_below_tol": 0.9423333333333334,
+       "synced": true,
+       "synced_1e-6": true,
+       "tail_max": 3.6884261785407644e-10,
+       "tail_median": 1.590657609219458e-14,
+       "first_below_tol": 92,
+       "bursts_1e-8_to_1e-3": 0,
+       "laminar_0.0001": {
+        "n": 2,
+        "censored_last": true,
+        "max": 2967,
+        "fit": null
+       },
+       "laminar_1e-06": {
+        "n": 5,
+        "censored_last": true,
+        "max": 2067,
+        "fit": null
+       },
+       "text_A_last": ". This is it is it is it is it is it",
+       "text_B_last": ". This is it is it is it is it is it",
+       "top1_equal_frac_second_half": 1.0,
+       "tv_A_vs_c0_tokens": 0.04700000000000001
+      },
+      {
+       "c": 0.17,
+       "mean_dist": 0.021630322865428847,
+       "mean_dist_second_half": 3.384481319408199e-09,
+       "frac_below_tol": 0.9476666666666667,
+       "synced": true,
+       "synced_1e-6": true,
+       "tail_max": 4.127035972454201e-10,
+       "tail_median": 1.9092856846629007e-14,
+       "first_below_tol": 129,
+       "bursts_1e-8_to_1e-3": 0,
+       "laminar_0.0001": {
+        "n": 2,
+        "censored_last": true,
+        "max": 2892,
+        "fit": null
+       },
+       "laminar_1e-06": {
+        "n": 3,
+        "censored_last": true,
+        "max": 1463,
+        "fit": null
+       },
+       "text_A_last": " it is it is it is a is\n\nThe is a",
+       "text_B_last": " it is it is it is a is\n\nThe is a",
+       "top1_equal_frac_second_half": 1.0,
+       "tv_A_vs_c0_tokens": 0.014666666666666666
+      },
+      {
+       "c": 0.18,
+       "mean_dist": 0.003130519103324591,
+       "mean_dist_second_half": 1.2548617164844828e-09,
+       "frac_below_tol": 0.97,
+       "synced": true,
+       "synced_1e-6": true,
+       "tail_max": 1.2422848635982823e-10,
+       "tail_median": 1.2693071230103033e-14,
+       "first_below_tol": 70,
+       "bursts_1e-8_to_1e-3": 0,
+       "laminar_0.0001": {
+        "n": 4,
+        "censored_last": true,
+        "max": 2945,
+        "fit": null
+       },
+       "laminar_1e-06": {
+        "n": 1,
+        "censored_last": true,
+        "max": 2933,
+        "fit": null
+       },
+       "text_A_last": " is it is it is it is a is\n\nThe is",
+       "text_B_last": " is it is it is it is a is\n\nThe is",
+       "top1_equal_frac_second_half": 1.0,
+       "tv_A_vs_c0_tokens": 0.03666666666666665
+      },
+      {
+       "c": 0.19,
+       "mean_dist": 0.007141145221647487,
+       "mean_dist_second_half": 2.0748403184447664e-12,
+       "frac_below_tol": 0.971,
+       "synced": true,
+       "synced_1e-6": true,
+       "tail_max": 3.5462513657832957e-12,
+       "tail_median": 7.332636901471409e-15,
+       "first_below_tol": 85,
+       "bursts_1e-8_to_1e-3": 0,
+       "laminar_0.0001": {
+        "n": 3,
+        "censored_last": true,
+        "max": 2933,
+        "fit": null
+       },
+       "laminar_1e-06": {
+        "n": 2,
+        "censored_last": true,
+        "max": 2919,
+        "fit": null
+       },
+       "text_A_last": " is it is it is it is a is\n\nThe is",
+       "text_B_last": " is it is it is it is a is\n\nThe is",
+       "top1_equal_frac_second_half": 1.0,
+       "tv_A_vs_c0_tokens": 0.022333333333333334
+      },
+      {
+       "c": 0.2,
+       "mean_dist": 0.0014821358912487268,
+       "mean_dist_second_half": 1.1379787839136631e-11,
+       "frac_below_tol": 0.9773333333333334,
+       "synced": true,
+       "synced_1e-6": true,
+       "tail_max": 2.247138658949738e-11,
+       "tail_median": 7.637418894921336e-15,
+       "first_below_tol": 63,
+       "bursts_1e-8_to_1e-3": 0,
+       "laminar_0.0001": {
+        "n": 4,
+        "censored_last": true,
+        "max": 2942,
+        "fit": null
+       },
+       "laminar_1e-06": {
+        "n": 1,
+        "censored_last": true,
+        "max": 2940,
+        "fit": null
+       },
+       "text_A_last": " is it is it is it is it is it is a",
+       "text_B_last": " is it is it is it is it is it is a",
+       "top1_equal_frac_second_half": 1.0,
+       "tv_A_vs_c0_tokens": 0.04433333333333332
+      },
+      {
+       "c": 0.21,
+       "mean_dist": 0.0061709746167745326,
+       "mean_dist_second_half": 1.035499072495775e-12,
+       "frac_below_tol": 0.9696666666666667,
+       "synced": true,
+       "synced_1e-6": true,
+       "tail_max": 1.76160500098838e-10,
+       "tail_median": 9.346140148775336e-15,
+       "first_below_tol": 92,
+       "bursts_1e-8_to_1e-3": 0,
+       "laminar_0.0001": {
+        "n": 3,
+        "censored_last": true,
+        "max": 2939,
+        "fit": null
+       },
+       "laminar_1e-06": {
+        "n": 4,
+        "censored_last": true,
+        "max": 2920,
+        "fit": null
+       },
+       "text_A_last": " it is it is it is a is\n\nThe is a",
+       "text_B_last": " it is it is it is a is\n\nThe is a",
+       "top1_equal_frac_second_half": 1.0,
+       "tv_A_vs_c0_tokens": 0.02166666666666669
+      },
+      {
+       "c": 0.22,
+       "mean_dist": 0.002187329530854937,
+       "mean_dist_second_half": 1.2153162068460994e-13,
+       "frac_below_tol": 0.977,
+       "synced": true,
+       "synced_1e-6": true,
+       "tail_max": 1.3660973517480791e-11,
+       "tail_median": 6.679201750996322e-15,
+       "first_below_tol": 69,
+       "bursts_1e-8_to_1e-3": 0,
+       "laminar_0.0001": {
+        "n": 3,
+        "censored_last": true,
+        "max": 2948,
+        "fit": null
+       },
+       "laminar_1e-06": {
+        "n": 1,
+        "censored_last": true,
+        "max": 2935,
+        "fit": null
+       },
+       "text_A_last": " it is it is it is it is it is a is",
+       "text_B_last": " it is it is it is it is it is a is",
+       "top1_equal_frac_second_half": 1.0,
+       "tv_A_vs_c0_tokens": 0.036333333333333336
+      },
+      {
+       "c": 0.23,
+       "mean_dist": 7.569445726108334e-05,
+       "mean_dist_second_half": 8.174596741276653e-14,
+       "frac_below_tol": 0.987,
+       "synced": true,
+       "synced_1e-6": true,
+       "tail_max": 3.947657786163408e-12,
+       "tail_median": 7.328978082736079e-15,
+       "first_below_tol": 40,
+       "bursts_1e-8_to_1e-3": 0,
+       "laminar_0.0001": {
+        "n": 2,
+        "censored_last": true,
+        "max": 2982,
+        "fit": null
+       },
+       "laminar_1e-06": {
+        "n": 1,
+        "censored_last": true,
+        "max": 2979,
+        "fit": null
+       },
+       "text_A_last": ".\n\nThe is it is it is it is it is",
+       "text_B_last": ".\n\nThe is it is it is it is it is",
+       "top1_equal_frac_second_half": 1.0,
+       "tv_A_vs_c0_tokens": 0.026333333333333354
+      },
+      {
+       "c": 0.24,
+       "mean_dist": 3.938467405776335e-05,
+       "mean_dist_second_half": 9.74585127972001e-13,
+       "frac_below_tol": 0.9873333333333333,
+       "synced": true,
+       "synced_1e-6": true,
+       "tail_max": 3.6776490663729094e-11,
+       "tail_median": 4.705259511010962e-15,
+       "first_below_tol": 39,
+       "bursts_1e-8_to_1e-3": 0,
+       "laminar_0.0001": {
+        "n": 2,
+        "censored_last": true,
+        "max": 2982,
+        "fit": null
+       },
+       "laminar_1e-06": {
+        "n": 1,
+        "censored_last": true,
+        "max": 2979,
+        "fit": null
+       },
+       "text_A_last": " it is it is it is it is a is\n\nThe",
+       "text_B_last": " it is it is it is it is a is\n\nThe",
+       "top1_equal_frac_second_half": 1.0,
+       "tv_A_vs_c0_tokens": 0.02433333333333333
+      },
+      {
+       "c": 0.25,
+       "mean_dist": 2.2810647915411464e-05,
+       "mean_dist_second_half": 3.1660071608293194e-14,
+       "frac_below_tol": 0.9856666666666667,
+       "synced": true,
+       "synced_1e-6": true,
+       "tail_max": 1.1719488713648662e-12,
+       "tail_median": 5.161342004624781e-15,
+       "first_below_tol": 39,
+       "bursts_1e-8_to_1e-3": 0,
+       "laminar_0.0001": {
+        "n": 2,
+        "censored_last": true,
+        "max": 2982,
+        "fit": null
+       },
+       "laminar_1e-06": {
+        "n": 1,
+        "censored_last": true,
+        "max": 2979,
+        "fit": null
+       },
+       "text_A_last": " is it is a is\n\nThe is it is it is",
+       "text_B_last": " is it is a is\n\nThe is it is it is",
+       "top1_equal_frac_second_half": 1.0,
+       "tv_A_vs_c0_tokens": 0.022666666666666682
+      },
+      {
+       "c": 0.26,
+       "mean_dist": 1.2983645134645875e-05,
+       "mean_dist_second_half": 1.4185373271591627e-13,
+       "frac_below_tol": 0.9903333333333333,
+       "synced": true,
+       "synced_1e-6": true,
+       "tail_max": 5.700293632416339e-13,
+       "tail_median": 4.268861335451795e-15,
+       "first_below_tol": 26,
+       "bursts_1e-8_to_1e-3": 0,
+       "laminar_0.0001": {
+        "n": 2,
+        "censored_last": true,
+        "max": 2982,
+        "fit": null
+       },
+       "laminar_1e-06": {
+        "n": 1,
+        "censored_last": true,
+        "max": 2979,
+        "fit": null
+       },
+       "text_A_last": " it is it is it is it is it is a is",
+       "text_B_last": " it is it is it is it is it is a is",
+       "top1_equal_frac_second_half": 1.0,
+       "tv_A_vs_c0_tokens": 0.031000000000000017
+      },
+      {
+       "c": 0.27,
+       "mean_dist": 7.231928961406291e-06,
+       "mean_dist_second_half": 2.082530366171346e-14,
+       "frac_below_tol": 0.9866666666666667,
+       "synced": true,
+       "synced_1e-6": true,
+       "tail_max": 2.995876861133168e-13,
+       "tail_median": 4.0594859655439606e-15,
+       "first_below_tol": 25,
+       "bursts_1e-8_to_1e-3": 0,
+       "laminar_0.0001": {
+        "n": 2,
+        "censored_last": true,
+        "max": 2982,
+        "fit": null
+       },
+       "laminar_1e-06": {
+        "n": 1,
+        "censored_last": true,
+        "max": 2980,
+        "fit": null
+       },
+       "text_A_last": " a is\n\nThe is it is a. This is it",
+       "text_B_last": " a is\n\nThe is it is a. This is it",
+       "top1_equal_frac_second_half": 1.0,
+       "tv_A_vs_c0_tokens": 0.025333333333333322
+      },
+      {
+       "c": 0.28,
+       "mean_dist": 3.951825678344872e-06,
+       "mean_dist_second_half": 2.5603415089925707e-14,
+       "frac_below_tol": 0.9923333333333333,
+       "synced": true,
+       "synced_1e-6": true,
+       "tail_max": 9.935058791101834e-14,
+       "tail_median": 3.250410738204314e-15,
+       "first_below_tol": 24,
+       "bursts_1e-8_to_1e-3": 0,
+       "laminar_0.0001": {
+        "n": 2,
+        "censored_last": true,
+        "max": 2983,
+        "fit": null
+       },
+       "laminar_1e-06": {
+        "n": 1,
+        "censored_last": true,
+        "max": 2981,
+        "fit": null
+       },
+       "text_A_last": " a. This is it is it is it is it is",
+       "text_B_last": " a. This is it is it is it is it is",
+       "top1_equal_frac_second_half": 1.0,
+       "tv_A_vs_c0_tokens": 0.021333333333333336
+      },
+      {
+       "c": 0.29,
+       "mean_dist": 2.126034417205952e-06,
+       "mean_dist_second_half": 1.2778294472873992e-14,
+       "frac_below_tol": 0.993,
+       "synced": true,
+       "synced_1e-6": true,
+       "tail_max": 1.7813989164123048e-13,
+       "tail_median": 3.4390586809118914e-15,
+       "first_below_tol": 22,
+       "bursts_1e-8_to_1e-3": 0,
+       "laminar_0.0001": {
+        "n": 2,
+        "censored_last": true,
+        "max": 2983,
+        "fit": null
+       },
+       "laminar_1e-06": {
+        "n": 1,
+        "censored_last": true,
+        "max": 2981,
+        "fit": null
+       },
+       "text_A_last": " is a. This certainly. It certainly!Este certainly\n\n",
+       "text_B_last": " is a. This certainly. It certainly!Este certainly\n\n",
+       "top1_equal_frac_second_half": 1.0,
+       "tv_A_vs_c0_tokens": 0.03233333333333333
+      },
+      {
+       "c": 0.3,
+       "mean_dist": 1.132503249635057e-06,
+       "mean_dist_second_half": 7.995003016657634e-15,
+       "frac_below_tol": 0.993,
+       "synced": true,
+       "synced_1e-6": true,
+       "tail_max": 2.368841852016956e-13,
+       "tail_median": 3.445555902429876e-15,
+       "first_below_tol": 22,
+       "bursts_1e-8_to_1e-3": 0,
+       "laminar_0.0001": {
+        "n": 2,
+        "censored_last": true,
+        "max": 2984,
+        "fit": null
+       },
+       "laminar_1e-06": {
+        "n": 1,
+        "censored_last": true,
+        "max": 2982,
+        "fit": null
+       },
+       "text_A_last": " it is it is it is it is a is\n\nThe",
+       "text_B_last": " it is it is it is it is a is\n\nThe",
+       "top1_equal_frac_second_half": 1.0,
+       "tv_A_vs_c0_tokens": 0.020333333333333325
+      }
+     ]
+    },
+    "sweep-refine": {
+     "start": "near",
+     "steps": 10000,
+     "complete": true,
+     "commit": {
+      "commit": "e75d6e37609946d26ec1d3b3ab71b6b292b5e489",
+      "tools_dirty": false
+     },
+     "sweep_npz_sha256": "a4ea16da5742cc8b2a61b5df30d804857597e7f0ef348b8280f0414bd0646240",
+     "threshold": {
+      "c_lo": 0.12,
+      "c_hi": 0.15,
+      "status": "bracketed",
+      "non_monotone": false
+     },
+     "threshold_tol_1e-6_secondary": {
+      "c_lo": 0.12,
+      "c_hi": 0.15,
+      "status": "bracketed",
+      "non_monotone": true
+     },
+     "tv_c0_A_vs_B_tokens": null,
+     "pairs": [
+      {
+       "c": 0.09,
+       "mean_dist": 0.34832721854315335,
+       "mean_dist_second_half": 0.22065016641618987,
+       "frac_below_tol": 0.2228,
+       "synced": false,
+       "synced_1e-6": false,
+       "tail_max": 3.001707230939328,
+       "tail_median": 8.530347332144182e-10,
+       "first_below_tol": 294,
+       "bursts_1e-8_to_1e-3": 10,
+       "laminar_0.0001": {
+        "n": 106,
+        "censored_last": false,
+        "max": 917,
+        "fit": null
+       },
+       "laminar_1e-06": {
+        "n": 90,
+        "censored_last": false,
+        "max": 893,
+        "fit": null
+       },
+       "text_A_last": " a indeed\n\nThe is\nThe is it is a indeed",
+       "text_B_last": " is a.\n\nHello is Indeed a.Hello it is",
+       "top1_equal_frac_second_half": 0.795
+      },
+      {
+       "c": 0.095,
+       "mean_dist": 0.12533557340297016,
+       "mean_dist_second_half": 0.10842721822903077,
+       "frac_below_tol": 0.3869,
+       "synced": false,
+       "synced_1e-6": false,
+       "tail_max": 0.0003257843782520379,
+       "tail_median": 3.903375334619433e-10,
+       "first_below_tol": 426,
+       "bursts_1e-8_to_1e-3": 15,
+       "laminar_0.0001": {
+        "n": 109,
+        "censored_last": true,
+        "max": 1153,
+        "fit": null
+       },
+       "laminar_1e-06": {
+        "n": 156,
+        "censored_last": true,
+        "max": 794,
+        "fit": {
+         "slope": -1.0743740875414467,
+         "bins_used": 7,
+         "n": 136,
+         "min_len": 2
+        }
+       },
+       "text_A_last": " it is it is it is a. Is it's a",
+       "text_B_last": " it is it is it is a. Is it's a",
+       "top1_equal_frac_second_half": 0.9004
+      },
+      {
+       "c": 0.1,
+       "mean_dist": 0.7854521185985104,
+       "mean_dist_second_half": 1.0418577524066486,
+       "frac_below_tol": 0.1706,
+       "synced": false,
+       "synced_1e-6": false,
+       "tail_max": 1.501365961819674,
+       "tail_median": 0.9251519485989643,
+       "first_below_tol": 415,
+       "bursts_1e-8_to_1e-3": 2,
+       "laminar_0.0001": {
+        "n": 16,
+        "censored_last": false,
+        "max": 1396,
+        "fit": null
+       },
+       "laminar_1e-06": {
+        "n": 19,
+        "censored_last": false,
+        "max": 722,
+        "fit": null
+       },
+       "text_A_last": " This is it is a. This is it is a.",
+       "text_B_last": " is a. This is it is a. This is it",
+       "top1_equal_frac_second_half": 0.0
+      },
+      {
+       "c": 0.105,
+       "mean_dist": 0.03745028341027478,
+       "mean_dist_second_half": 0.04992613164216911,
+       "frac_below_tol": 0.7623,
+       "synced": false,
+       "synced_1e-6": true,
+       "tail_max": 7.806756964649277e-07,
+       "tail_median": 2.413764194710904e-11,
+       "first_below_tol": 424,
+       "bursts_1e-8_to_1e-3": 5,
+       "laminar_0.0001": {
+        "n": 41,
+        "censored_last": true,
+        "max": 4059,
+        "fit": null
+       },
+       "laminar_1e-06": {
+        "n": 62,
+        "censored_last": true,
+        "max": 2018,
+        "fit": null
+       },
+       "text_A_last": " it is it is a is\n\nThe is a.\n\n",
+       "text_B_last": " it is it is a is\n\nThe is a.\n\n",
+       "top1_equal_frac_second_half": 0.9512
+      },
+      {
+       "c": 0.11,
+       "mean_dist": 0.1162453584820967,
+       "mean_dist_second_half": 0.031575497747929074,
+       "frac_below_tol": 0.6008,
+       "synced": false,
+       "synced_1e-6": false,
+       "tail_max": 2.493130350029889,
+       "tail_median": 8.394382079432025e-07,
+       "first_below_tol": 854,
+       "bursts_1e-8_to_1e-3": 10,
+       "laminar_0.0001": {
+        "n": 71,
+        "censored_last": true,
+        "max": 3096,
+        "fit": null
+       },
+       "laminar_1e-06": {
+        "n": 77,
+        "censored_last": true,
+        "max": 2452,
+        "fit": null
+       },
+       "text_A_last": " is a. This is a is a. This is it",
+       "text_B_last": " is a. This is a is a. This is it",
+       "top1_equal_frac_second_half": 0.9698
+      },
+      {
+       "c": 0.115,
+       "mean_dist": 0.07930191203464888,
+       "mean_dist_second_half": 0.026004504525297824,
+       "frac_below_tol": 0.7523,
+       "synced": false,
+       "synced_1e-6": false,
+       "tail_max": 1.6889083669719906,
+       "tail_median": 4.5278271249712417e-07,
+       "first_below_tol": 651,
+       "bursts_1e-8_to_1e-3": 6,
+       "laminar_0.0001": {
+        "n": 36,
+        "censored_last": true,
+        "max": 3431,
+        "fit": null
+       },
+       "laminar_1e-06": {
+        "n": 40,
+        "censored_last": true,
+        "max": 2089,
+        "fit": null
+       },
+       "text_A_last": " is isHello!Yes certainly\n\nThe is aThe is",
+       "text_B_last": " is isHello!Yes certainly\n\nThe is aThe is",
+       "top1_equal_frac_second_half": 0.976
+      },
+      {
+       "c": 0.12,
+       "mean_dist": 0.004814052939215246,
+       "mean_dist_second_half": 0.009189704142001627,
+       "frac_below_tol": 0.9045,
+       "synced": false,
+       "synced_1e-6": false,
+       "tail_max": 3.4312711883337157e-05,
+       "tail_median": 4.784791351284664e-13,
+       "first_below_tol": 149,
+       "bursts_1e-8_to_1e-3": 1,
+       "laminar_0.0001": {
+        "n": 9,
+        "censored_last": true,
+        "max": 7065,
+        "fit": null
+       },
+       "laminar_1e-06": {
+        "n": 33,
+        "censored_last": true,
+        "max": 2739,
+        "fit": null
+       },
+       "text_A_last": " a. This is it is it is it is it is",
+       "text_B_last": " a. This is it is it is it is it is",
+       "top1_equal_frac_second_half": 0.9902
+      },
+      {
+       "c": 0.15,
+       "mean_dist": 0.00728556297963338,
+       "mean_dist_second_half": 0.0011398632708788973,
+       "frac_below_tol": 0.9602,
+       "synced": true,
+       "synced_1e-6": true,
+       "tail_max": 1.1012948822315975e-09,
+       "tail_median": 3.1253280121384314e-14,
+       "first_below_tol": 112,
+       "bursts_1e-8_to_1e-3": 1,
+       "laminar_0.0001": {
+        "n": 7,
+        "censored_last": true,
+        "max": 5510,
+        "fit": null
+       },
+       "laminar_1e-06": {
+        "n": 10,
+        "censored_last": true,
+        "max": 5478,
+        "fit": null
+       },
+       "text_A_last": " is it is it is it is a is\n\nThe is",
+       "text_B_last": " is it is it is it is a is\n\nThe is",
+       "top1_equal_frac_second_half": 0.9986
+      }
+     ]
+    },
+    "sweep-far": {
+     "start": "far",
+     "steps": 2000,
+     "complete": true,
+     "commit": {
+      "commit": "d01933aa23c9737d672d0055499f6ce5618c8f0d",
+      "tools_dirty": false
+     },
+     "sweep_npz_sha256": "bb56b4069e5a8ec8be81e9453ed09949f7bd4e2f12b8707ee3833b807e348c39",
+     "threshold": {
+      "c_lo": 0.14,
+      "c_hi": 0.16,
+      "status": "bracketed",
+      "non_monotone": false
+     },
+     "threshold_tol_1e-6_secondary": {
+      "c_lo": 0.1,
+      "c_hi": 0.12,
+      "status": "bracketed",
+      "non_monotone": false
+     },
+     "tv_c0_A_vs_B_tokens": 0.03500000000000001,
+     "pairs": [
+      {
+       "c": 0.0,
+       "mean_dist": 0.8821410150769864,
+       "mean_dist_second_half": 0.9015606288930487,
+       "frac_below_tol": 0.0,
+       "synced": false,
+       "synced_1e-6": false,
+       "tail_max": 3.166601590328231,
+       "tail_median": 0.9973145961606755,
+       "first_below_tol": null,
+       "bursts_1e-8_to_1e-3": 0,
+       "laminar_0.0001": {
+        "n": 2,
+        "censored_last": false,
+        "max": 2,
+        "fit": null
+       },
+       "laminar_1e-06": {
+        "n": 0,
+        "censored_last": false,
+        "max": 0,
+        "fit": null
+       },
+       "text_A_last": " is it is it is it is it is it is a",
+       "text_B_last": " it is it is a is a. This is it is",
+       "top1_equal_frac_second_half": 0.265,
+       "tv_A_vs_c0_tokens": 0.0175
+      },
+      {
+       "c": 0.02,
+       "mean_dist": 0.7781882164776819,
+       "mean_dist_second_half": 0.7795146299308435,
+       "frac_below_tol": 0.0,
+       "synced": false,
+       "synced_1e-6": false,
+       "tail_max": 1.4097536440991378,
+       "tail_median": 0.5978947826235846,
+       "first_below_tol": null,
+       "bursts_1e-8_to_1e-3": 0,
+       "laminar_0.0001": {
+        "n": 0,
+        "censored_last": false,
+        "max": 0,
+        "fit": null
+       },
+       "laminar_1e-06": {
+        "n": 0,
+        "censored_last": false,
+        "max": 0,
+        "fit": null
+       },
+       "text_A_last": ". This is it is it is a is a. This",
+       "text_B_last": " is it is a. This is it is it is it",
+       "top1_equal_frac_second_half": 0.3,
+       "tv_A_vs_c0_tokens": 0.2255
+      },
+      {
+       "c": 0.04,
+       "mean_dist": 1.1333249116135593,
+       "mean_dist_second_half": 1.1375876538219536,
+       "frac_below_tol": 0.0,
+       "synced": false,
+       "synced_1e-6": false,
+       "tail_max": 1.6214830611582363,
+       "tail_median": 1.0372404235824606,
+       "first_below_tol": null,
+       "bursts_1e-8_to_1e-3": 0,
+       "laminar_0.0001": {
+        "n": 0,
+        "censored_last": false,
+        "max": 0,
+        "fit": null
+       },
+       "laminar_1e-06": {
+        "n": 0,
+        "censored_last": false,
+        "max": 0,
+        "fit": null
+       },
+       "text_A_last": " it is it is a. This is it is it is",
+       "text_B_last": ". This is it is it is a. This is it",
+       "top1_equal_frac_second_half": 0.0,
+       "tv_A_vs_c0_tokens": 0.2005
+      },
+      {
+       "c": 0.06,
+       "mean_dist": 1.0766152412217753,
+       "mean_dist_second_half": 1.1394163919552547,
+       "frac_below_tol": 0.0,
+       "synced": false,
+       "synced_1e-6": false,
+       "tail_max": 1.7882799750317866,
+       "tail_median": 0.9921226418502251,
+       "first_below_tol": null,
+       "bursts_1e-8_to_1e-3": 0,
+       "laminar_0.0001": {
+        "n": 2,
+        "censored_last": false,
+        "max": 1,
+        "fit": null
+       },
+       "laminar_1e-06": {
+        "n": 0,
+        "censored_last": false,
+        "max": 0,
+        "fit": null
+       },
+       "text_A_last": " it is it is a. This is it is it is",
+       "text_B_last": " is it is a. This is it is it is a",
+       "top1_equal_frac_second_half": 0.0,
+       "tv_A_vs_c0_tokens": 0.2005
+      },
+      {
+       "c": 0.08,
+       "mean_dist": 0.38336608442114223,
+       "mean_dist_second_half": 0.5733625928082252,
+       "frac_below_tol": 0.0235,
+       "synced": false,
+       "synced_1e-6": false,
+       "tail_max": 2.5917044759632364,
+       "tail_median": 0.04943481658249044,
+       "first_below_tol": 236,
+       "bursts_1e-8_to_1e-3": 3,
+       "laminar_0.0001": {
+        "n": 31,
+        "censored_last": true,
+        "max": 124,
+        "fit": null
+       },
+       "laminar_1e-06": {
+        "n": 24,
+        "censored_last": false,
+        "max": 51,
+        "fit": null
+       },
+       "text_A_last": " it is it is it is it is a is\n\nThe",
+       "text_B_last": " it is it is it is it is a is\n\nThe",
+       "top1_equal_frac_second_half": 0.502,
+       "tv_A_vs_c0_tokens": 0.16100000000000003
+      },
+      {
+       "c": 0.1,
+       "mean_dist": 0.03904143728758993,
+       "mean_dist_second_half": 3.6694672459668205e-07,
+       "frac_below_tol": 0.7315,
+       "synced": false,
+       "synced_1e-6": false,
+       "tail_max": 1.1629395743983079e-05,
+       "tail_median": 5.575160984605427e-12,
+       "first_below_tol": 302,
+       "bursts_1e-8_to_1e-3": 0,
+       "laminar_0.0001": {
+        "n": 13,
+        "censored_last": true,
+        "max": 875,
+        "fit": null
+       },
+       "laminar_1e-06": {
+        "n": 17,
+        "censored_last": true,
+        "max": 607,
+        "fit": null
+       },
+       "text_A_last": " is it is it is it is it is it is a",
+       "text_B_last": " is it is it is it is it is it is a",
+       "top1_equal_frac_second_half": 1.0,
+       "tv_A_vs_c0_tokens": 0.023000000000000013
+      },
+      {
+       "c": 0.12,
+       "mean_dist": 0.001352698000578726,
+       "mean_dist_second_half": 2.71152500156751e-10,
+       "frac_below_tol": 0.865,
+       "synced": false,
+       "synced_1e-6": true,
+       "tail_max": 1.6407189703958938e-08,
+       "tail_median": 2.4513806257439586e-13,
+       "first_below_tol": 109,
+       "bursts_1e-8_to_1e-3": 1,
+       "laminar_0.0001": {
+        "n": 7,
+        "censored_last": true,
+        "max": 1825,
+        "fit": null
+       },
+       "laminar_1e-06": {
+        "n": 9,
+        "censored_last": true,
+        "max": 1702,
+        "fit": null
+       },
+       "text_A_last": " it is it is a is a. This is it is",
+       "text_B_last": " it is it is a is a. This is it is",
+       "top1_equal_frac_second_half": 1.0,
+       "tv_A_vs_c0_tokens": 0.025000000000000005
+      },
+      {
+       "c": 0.14,
+       "mean_dist": 0.0011244689417276817,
+       "mean_dist_second_half": 7.66554487504847e-07,
+       "frac_below_tol": 0.897,
+       "synced": false,
+       "synced_1e-6": true,
+       "tail_max": 8.741190230504905e-07,
+       "tail_median": 1.8153237535463727e-13,
+       "first_below_tol": 79,
+       "bursts_1e-8_to_1e-3": 0,
+       "laminar_0.0001": {
+        "n": 2,
+        "censored_last": true,
+        "max": 982,
+        "fit": null
+       },
+       "laminar_1e-06": {
+        "n": 5,
+        "censored_last": true,
+        "max": 934,
+        "fit": null
+       },
+       "text_A_last": ". This is it is it is it is it is it",
+       "text_B_last": ". This is it is it is it is it is it",
+       "top1_equal_frac_second_half": 1.0,
+       "tv_A_vs_c0_tokens": 0.029499999999999974
+      },
+      {
+       "c": 0.16,
+       "mean_dist": 0.00019742175043691094,
+       "mean_dist_second_half": 1.6095776286779719e-12,
+       "frac_below_tol": 0.979,
+       "synced": true,
+       "synced_1e-6": true,
+       "tail_max": 3.082094457687157e-10,
+       "tail_median": 2.3492699312441156e-14,
+       "first_below_tol": 40,
+       "bursts_1e-8_to_1e-3": 0,
+       "laminar_0.0001": {
+        "n": 1,
+        "censored_last": true,
+        "max": 1984,
+        "fit": null
+       },
+       "laminar_1e-06": {
+        "n": 3,
+        "censored_last": true,
+        "max": 1966,
+        "fit": null
+       },
+       "text_A_last": " is\n\nThe is it is it is it is it is",
+       "text_B_last": " is\n\nThe is it is it is it is it is",
+       "top1_equal_frac_second_half": 1.0,
+       "tv_A_vs_c0_tokens": 0.015500000000000005
+      },
+      {
+       "c": 0.18,
+       "mean_dist": 0.00016767720059157617,
+       "mean_dist_second_half": 5.837285112025724e-13,
+       "frac_below_tol": 0.976,
+       "synced": true,
+       "synced_1e-6": true,
+       "tail_max": 5.5495197215918944e-11,
+       "tail_median": 1.3610195032841417e-14,
+       "first_below_tol": 46,
+       "bursts_1e-8_to_1e-3": 0,
+       "laminar_0.0001": {
+        "n": 1,
+        "censored_last": true,
+        "max": 1984,
+        "fit": null
+       },
+       "laminar_1e-06": {
+        "n": 3,
+        "censored_last": true,
+        "max": 1958,
+        "fit": null
+       },
+       "text_A_last": " is it is a is\n\nThe is it is it is",
+       "text_B_last": " is it is a is\n\nThe is it is it is",
+       "top1_equal_frac_second_half": 1.0,
+       "tv_A_vs_c0_tokens": 0.027000000000000007
+      },
+      {
+       "c": 0.2,
+       "mean_dist": 0.00014828617202579863,
+       "mean_dist_second_half": 1.913589231344954e-13,
+       "frac_below_tol": 0.982,
+       "synced": true,
+       "synced_1e-6": true,
+       "tail_max": 1.3290739032267703e-12,
+       "tail_median": 7.707165132346346e-15,
+       "first_below_tol": 37,
+       "bursts_1e-8_to_1e-3": 0,
+       "laminar_0.0001": {
+        "n": 1,
+        "censored_last": true,
+        "max": 1984,
+        "fit": null
+       },
+       "laminar_1e-06": {
+        "n": 2,
+        "censored_last": true,
+        "max": 1968,
+        "fit": null
+       },
+       "text_A_last": " is it is it is it is it is it is a",
+       "text_B_last": " is it is it is it is it is it is a",
+       "top1_equal_frac_second_half": 1.0,
+       "tv_A_vs_c0_tokens": 0.02299999999999998
+      },
+      {
+       "c": 0.22,
+       "mean_dist": 0.00013270218292179507,
+       "mean_dist_second_half": 6.107789598155169e-13,
+       "frac_below_tol": 0.983,
+       "synced": true,
+       "synced_1e-6": true,
+       "tail_max": 2.561491660417905e-12,
+       "tail_median": 4.936290922767822e-15,
+       "first_below_tol": 35,
+       "bursts_1e-8_to_1e-3": 0,
+       "laminar_0.0001": {
+        "n": 1,
+        "censored_last": true,
+        "max": 1985,
+        "fit": null
+       },
+       "laminar_1e-06": {
+        "n": 1,
+        "censored_last": true,
+        "max": 1981,
+        "fit": null
+       },
+       "text_A_last": " a. This is it is it is it is it is",
+       "text_B_last": " a. This is it is it is it is it is",
+       "top1_equal_frac_second_half": 1.0,
+       "tv_A_vs_c0_tokens": 0.023500000000000007
+      },
+      {
+       "c": 0.24,
+       "mean_dist": 0.00011927811019452438,
+       "mean_dist_second_half": 7.232453111936421e-14,
+       "frac_below_tol": 0.9875,
+       "synced": true,
+       "synced_1e-6": true,
+       "tail_max": 8.966487472329824e-12,
+       "tail_median": 5.581821561620787e-15,
+       "first_below_tol": 24,
+       "bursts_1e-8_to_1e-3": 0,
+       "laminar_0.0001": {
+        "n": 2,
+        "censored_last": true,
+        "max": 1986,
+        "fit": null
+       },
+       "laminar_1e-06": {
+        "n": 1,
+        "censored_last": true,
+        "max": 1981,
+        "fit": null
+       },
+       "text_A_last": " it is it is it is a is\n\nThe is a",
+       "text_B_last": " it is it is it is a is\n\nThe is a",
+       "top1_equal_frac_second_half": 1.0,
+       "tv_A_vs_c0_tokens": 0.03899999999999999
+      },
+      {
+       "c": 0.26,
+       "mean_dist": 0.0001084877503358671,
+       "mean_dist_second_half": 9.420148946310262e-14,
+       "frac_below_tol": 0.9805,
+       "synced": true,
+       "synced_1e-6": true,
+       "tail_max": 2.081078791750662e-12,
+       "tail_median": 4.417745003510619e-15,
+       "first_below_tol": 37,
+       "bursts_1e-8_to_1e-3": 0,
+       "laminar_0.0001": {
+        "n": 3,
+        "censored_last": true,
+        "max": 1971,
+        "fit": null
+       },
+       "laminar_1e-06": {
+        "n": 1,
+        "censored_last": true,
+        "max": 1966,
+        "fit": null
+       },
+       "text_A_last": " is it is it is it is it is a is a",
+       "text_B_last": " is it is it is it is it is a is a",
+       "top1_equal_frac_second_half": 1.0,
+       "tv_A_vs_c0_tokens": 0.02449999999999998
+      },
+      {
+       "c": 0.28,
+       "mean_dist": 9.591994395086206e-05,
+       "mean_dist_second_half": 8.649957059599968e-15,
+       "frac_below_tol": 0.981,
+       "synced": true,
+       "synced_1e-6": true,
+       "tail_max": 1.421349631122816e-13,
+       "tail_median": 3.553495217197297e-15,
+       "first_below_tol": 30,
+       "bursts_1e-8_to_1e-3": 0,
+       "laminar_0.0001": {
+        "n": 1,
+        "censored_last": true,
+        "max": 1994,
+        "fit": null
+       },
+       "laminar_1e-06": {
+        "n": 1,
+        "censored_last": true,
+        "max": 1980,
+        "fit": null
+       },
+       "text_A_last": "\n\nThe is a. This is it is it is it",
+       "text_B_last": "\n\nThe is a. This is it is it is it",
+       "top1_equal_frac_second_half": 1.0,
+       "tv_A_vs_c0_tokens": 0.02899999999999999
+      },
+      {
+       "c": 0.3,
+       "mean_dist": 8.536958137108136e-05,
+       "mean_dist_second_half": 1.0852903141804968e-14,
+       "frac_below_tol": 0.9865,
+       "synced": true,
+       "synced_1e-6": true,
+       "tail_max": 3.9422596362377163e-13,
+       "tail_median": 2.944476579905832e-15,
+       "first_below_tol": 28,
+       "bursts_1e-8_to_1e-3": 0,
+       "laminar_0.0001": {
+        "n": 1,
+        "censored_last": true,
+        "max": 1995,
+        "fit": null
+       },
+       "laminar_1e-06": {
+        "n": 1,
+        "censored_last": true,
+        "max": 1976,
+        "fit": null
+       },
+       "text_A_last": " is it is it is it is it is a is\n\n",
+       "text_B_last": " is it is it is it is it is a is\n\n",
+       "top1_equal_frac_second_half": 1.0,
+       "tv_A_vs_c0_tokens": 0.024000000000000018
+      }
+     ]
+    }
+   }
+  }
+ },
+ "check": [
+  {
+   "index": 0,
+   "bitwise": {
+    "pair_vs_single": false,
+    "swapped_layout": false,
+    "batch8_vs_pair": false,
+    "identical_rows_equal": false
+   },
+   "max_abs_diff_rel": {
+    "pair_vs_single_a": 2.114493426216087e-15,
+    "pair_vs_single_b": 5.965527347392245e-15,
+    "swapped_layout_a": 5.822518130160239e-16,
+    "swapped_layout_b": 8.069805829520331e-16,
+    "batch8_vs_pair_a": 1.1900409862520488e-15,
+    "identical_rows_differ": 5.822518130160239e-16
+   },
+   "fd_rel_err": {
+    "0.01": 0.00033418235813538466,
+    "0.003": 3.008388583187778e-05,
+    "0.001": 3.342727008924312e-06,
+    "0.0003": 3.008585981511026e-07,
+    "0.0001": 3.3424243967177785e-08,
+    "3e-05": 3.166932702353488e-09,
+    "1e-05": 4.286363433926869e-10,
+    "1e-06": 2.905901309206453e-09,
+    "1e-07": 9.036457075887134e-08
+   }
+  },
+  {
+   "index": 1,
+   "bitwise": {
+    "pair_vs_single": false,
+    "swapped_layout": false,
+    "batch8_vs_pair": false,
+    "identical_rows_equal": false
+   },
+   "max_abs_diff_rel": {
+    "pair_vs_single_a": 2.7720975924176617e-15,
+    "pair_vs_single_b": 1.5957032359715113e-15,
+    "swapped_layout_a": 1.51417095384158e-16,
+    "swapped_layout_b": 1.543289626030841e-16,
+    "batch8_vs_pair_a": 5.241360994067008e-16,
+    "identical_rows_differ": 1.51417095384158e-16
+   },
+   "fd_rel_err": {
+    "0.01": 0.000597487572849841,
+    "0.003": 5.3819822888038845e-05,
+    "0.001": 5.980430144880678e-06,
+    "0.0003": 5.382403327515223e-07,
+    "0.0001": 5.9826495909195e-08,
+    "3e-05": 5.335971856227272e-09,
+    "1e-05": 7.724398465616858e-10,
+    "1e-06": 6.951287796200261e-09,
+    "1e-07": 1.3695143261150482e-07
+   }
+  },
+  {
+   "index": 2,
+   "bitwise": {
+    "pair_vs_single": false,
+    "swapped_layout": false,
+    "batch8_vs_pair": false,
+    "identical_rows_equal": false
+   },
+   "max_abs_diff_rel": {
+    "pair_vs_single_a": 2.2301628719836044e-15,
+    "pair_vs_single_b": 1.8470674093115744e-15,
+    "swapped_layout_a": 8.893287526314988e-16,
+    "swapped_layout_b": 9.303746950606448e-16,
+    "batch8_vs_pair_a": 4.686078427327513e-16,
+    "identical_rows_differ": 8.893287526314988e-16
+   },
+   "fd_rel_err": {
+    "0.01": 0.0001858776578265526,
+    "0.003": 1.6734756637626678e-05,
+    "0.001": 1.8594700640990372e-06,
+    "0.0003": 1.6734701609412744e-07,
+    "0.0001": 1.8614425730640876e-08,
+    "3e-05": 1.9110602024194775e-09,
+    "1e-05": 2.0323444611474973e-09,
+    "1e-06": 4.347426694028933e-09,
+    "1e-07": 1.504338021412378e-07
+   }
+  }
+ ],
+ "warnings": [
+  "transverse run had uncommitted tool changes"
+ ]
+}
