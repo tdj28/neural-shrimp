@@ -1,7 +1,7 @@
 {
   "schema": "task27-e2e3-sync-run-card-v1",
-  "status": "prepared",
-  "source_expected_commit": null,
+  "status": "reviewed-for-execution",
+  "source_expected_commit": "09a38c0beee6be1099020b2de3272b384f74b6e6",
   "source_sha256": {
     "run": "454ad22cc7faa7dced4a6ff8ab4cc98b8b6f0c8674eb5064095e212a692bfb48",
     "e2e3": "b4d442ddc51ac24a853b47b778a2594ace2d4998982f709fafe6edded2ccf261",
@@ -844,5 +844,6 @@
     "scientific_flags_need_not_pass": "Every failure/mismatch/undefined remains reviewable; no producer-agreement tolerance",
     "profile_controls": "Consumed hash-bound completed profile; not rerun in actual worker",
     "sampled_output_scope": "Entire actual output directory and stdout/stderr; no synthetic input is written"
-  }
+  },
+  "admission_authority": "Root exact admission fdab6b8a; no scientific/source/input changes, no repeated profile controls. Source_expected_commit binds prepared science; exact dispatch commit captured by supervisor. Sole serial run after private/source/capacity checks."
 }

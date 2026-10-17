@@ -1,0 +1,158 @@
+{
+  "status": "reviewed_for_execution",
+  "repository": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp",
+  "raw_root": "/data2/neural-shrimp-data/codex/task27-ready-review-20261017",
+  "python": "/data2/neural-shrimp/.venv/bin/python",
+  "source_files": [
+    {
+      "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/task27-ready-review-20261017/c12/run.py",
+      "bytes": 23078,
+      "sha256": "cf82989b0f4fcee19a4fb5928dd9f369b11bcb29e93c05d4b2636f62528d2149"
+    },
+    {
+      "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/task27-ready-review-20261017/c12/reducers.py",
+      "bytes": 40090,
+      "sha256": "b2ca166449f7b7021cc4e31c928f5a06a2a2396d0fd21110a741efae02ad6625"
+    },
+    {
+      "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/task27-ready-review-20261017/c12/controls.py",
+      "bytes": 10689,
+      "sha256": "cf8003c739adfb10e0a4d81b8616774ccb2d9279f66b8f294d4e1caa59bf6366"
+    },
+    {
+      "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/task27-ready-review-20261017/c12/run-001-card.json",
+      "bytes": 6020,
+      "sha256": "b318cfe0fd6507c464f96eda95b288554ea3b2d8d25b37f0bdd8f79807922c09"
+    },
+    {
+      "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/task27-ready-review-20261017/e2e3-sync/run.py",
+      "bytes": 18568,
+      "sha256": "454ad22cc7faa7dced4a6ff8ab4cc98b8b6f0c8674eb5064095e212a692bfb48"
+    },
+    {
+      "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/task27-ready-review-20261017/e2e3-sync/e2e3.py",
+      "bytes": 17626,
+      "sha256": "b4d442ddc51ac24a853b47b778a2594ace2d4998982f709fafe6edded2ccf261"
+    },
+    {
+      "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/task27-ready-review-20261017/e2e3-sync/synchronization.py",
+      "bytes": 16709,
+      "sha256": "adc754093b7d8f011fe677254289692012002ef1812cdf858f7792c6fd17eebc"
+    },
+    {
+      "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/task27-ready-review-20261017/e2e3-sync/run-001-card.json",
+      "bytes": 33842,
+      "sha256": "7072366904a0c939ef0ddb41e5b32d7fe1e22d144b65e3e94c873c3a4e552993"
+    },
+    {
+      "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/task27-ready-review-20261017/supervise.py",
+      "bytes": 8569,
+      "sha256": "e361919ed104a800ed043d15726edc10775260fc482d6f98d9c5fb7c98f1e77e"
+    }
+  ],
+  "lanes": {
+    "c12": {
+      "entry": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/task27-ready-review-20261017/c12/run.py",
+      "arguments": [
+        "--card",
+        "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/task27-ready-review-20261017/c12/run-001-card.json",
+        "--out",
+        "/data2/neural-shrimp-data/codex/task27-ready-review-20261017/run-001/c12"
+      ],
+      "output": "/data2/neural-shrimp-data/codex/task27-ready-review-20261017/run-001/c12",
+      "supervision": "/data2/neural-shrimp-data/codex/task27-ready-review-20261017/run-001/c12-supervision",
+      "preflight_pins": [
+        {
+          "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/task27-ready-review-20261017/c12/run-001-card.json",
+          "bytes": 6020,
+          "sha256": "b318cfe0fd6507c464f96eda95b288554ea3b2d8d25b37f0bdd8f79807922c09"
+        },
+        {
+          "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/task27-ready-review-20261017/task27-c12-e2e3-sync-root-actual-admission.md",
+          "bytes": 2761,
+          "sha256": "fdab6b8a13a0f14003d46ed7b84c1fa066d0a671ea4f07a1febe246340ab14ea"
+        },
+        {
+          "path": "/data2/neural-shrimp-data/codex/task27-ready-review-20261017/run-001/c12-profile/controls.json",
+          "bytes": 986,
+          "sha256": "267e45711e72d4e2fd22d675d0760dcb8bbe3c662175052e85c8b92ad3f9b8a5"
+        },
+        {
+          "path": "/data2/neural-shrimp-data/codex/task27-ready-review-20261017/run-001/c12-profile/report.json",
+          "bytes": 648,
+          "sha256": "36649f8cc6c11d64f3dcc5f797136e7d7e5cf513e2030355e3037004e9e1bb12"
+        },
+        {
+          "path": "/data2/neural-shrimp-data/codex/task27-ready-review-20261017/run-001/c12-profile-supervision/receipt.json",
+          "bytes": 6890,
+          "sha256": "ea4e01c8dd2cb56faf2841c4640f77490940f5b7bedb719767a5ae7de4aaab1d"
+        },
+        {
+          "path": "/data2/neural-shrimp-data/codex/task27-ready-review-20261017/run-001/c12-profile-original-closure.json",
+          "bytes": 7986,
+          "sha256": "9c313c037cc1fe8fb94eea0cb8354ecbde6cc92b4ee191d1cb761e4ef0049669"
+        }
+      ],
+      "input_inventory": {
+        "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/task27-ready-review-20261017/c12/inputs.json",
+        "bytes": 23036,
+        "sha256": "d35eb39b2e0738e32b22fc2472f28e0843647c00e2fc11e469084c66d5bbd60b"
+      },
+      "limits": {
+        "as_bytes": 1073741824,
+        "cpu_seconds": 55,
+        "wall_seconds": 60,
+        "output_bytes": 134217728
+      },
+      "prior_receipts": [
+        "/data2/neural-shrimp-data/codex/task27-ready-review-20261017/run-001/remaining-pmx-supervision/receipt.json"
+      ],
+      "controls_inherited_not_rerun": 15
+    },
+    "e2e3-sync": {
+      "entry": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/task27-ready-review-20261017/e2e3-sync/run.py",
+      "arguments": [
+        "--card",
+        "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/task27-ready-review-20261017/e2e3-sync/run-001-card.json",
+        "--out",
+        "/data2/neural-shrimp-data/codex/task27-ready-review-20261017/run-001/e2e3-sync"
+      ],
+      "output": "/data2/neural-shrimp-data/codex/task27-ready-review-20261017/run-001/e2e3-sync",
+      "supervision": "/data2/neural-shrimp-data/codex/task27-ready-review-20261017/run-001/e2e3-sync-supervision",
+      "preflight_pins": [
+        {
+          "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/task27-ready-review-20261017/e2e3-sync/run-001-card.json",
+          "bytes": 33842,
+          "sha256": "7072366904a0c939ef0ddb41e5b32d7fe1e22d144b65e3e94c873c3a4e552993"
+        },
+        {
+          "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/task27-ready-review-20261017/task27-c12-e2e3-sync-root-actual-admission.md",
+          "bytes": 2761,
+          "sha256": "fdab6b8a13a0f14003d46ed7b84c1fa066d0a671ea4f07a1febe246340ab14ea"
+        }
+      ],
+      "input_inventory": {
+        "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/task27-ready-review-20261017/e2e3-sync/operational-input-pins.json",
+        "bytes": 25301,
+        "sha256": "553c814ae1bc5aa3d847398e60022073ffc4c94488aa8a4e11da34c0accf5f12"
+      },
+      "limits": {
+        "as_bytes": 2147483648,
+        "cpu_seconds": 55,
+        "wall_seconds": 60,
+        "output_bytes": 268435456
+      },
+      "prior_receipts": [
+        "/data2/neural-shrimp-data/codex/task27-ready-review-20261017/run-001/c12-supervision/receipt.json"
+      ],
+      "controls_inherited_not_rerun": 12
+    }
+  },
+  "serial_order": [
+    "c12",
+    "e2e3-sync"
+  ],
+  "admission": "Root full exact actual source/card admission fdab6b8a; only statuses/preparedsourcecommit/operational paths bound. No controls rerun.",
+  "resource_scope": "CPU1+supervisor/nice10/thread1,55CPU60wall+5+5,20/16GiB RAM16GiBdisk. C12 1GiBAS128MiB output; E2/sync2GiBAS256MiB output.",
+  "scientific_scope": "Independent saved heldout C12 and E2/E3/sync arithmetic only. Preserve every outcome; no favorable agreement gate or automatic retry, no model/tokenizer/watch."
+}
