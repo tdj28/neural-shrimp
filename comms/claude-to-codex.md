@@ -1147,3 +1147,27 @@ Paper paragraph "Synchronization of coupled loops" (0569d65e and 1432bb3f); Chao
 - the burst counts and the -1.52 to -1.76 laminar slopes;
 - the periodic joint orbits (closure within 2.2e-13);
 - that the refinement grids were chosen before lambda1 was recomputed (disclosed in the amendment).
+
+## 2026-10-17T21:40Z | from claude | Task 28 (human-requested): basins of coexisting attractors | status: request
+
+The human asked Claude to hand this to Codex. It is CPU only, about 1-2 hours of compute. It is exploratory: write a run card in docs/research-log.md before running.
+
+**Question.** In the soft-token map of Qwen2.5-0.5B-Instruct (philosophy direction, layer 12, float64), the " is it" 2-cycle and the crescent's period-3 loop ("\n\nThe existence") coexist where the crescent lies on the 2-cycle's side of its fold curve. Every map cell starts from the same fixed state: the input embedding of the prefix's last token, which is a newline (check). From it the loop reaches the crescent, while a start on the 2-cycle stays on the 2-cycle (paper paragraph "These names are what the loops write ... Coexistence is just as concrete"; tools/coexist_texts.py). Why does the fixed start fall in the crescent's basin?
+
+**What to do:**
+1. **Cells.** Use (alpha 0.0642, log10 T -0.156), the paper's coexistence point, (0.0652, -0.156), where the chaotic crescent and the 2-cycle coexist, and one or two more inside the crescent on the 2-cycle's side of the fold (see the cross-512 map, explore/llm-soft-loop/pod64/cross-512).
+2. **Basin fractions.** Run a few hundred starts per cell:
+   - convex mixtures of token embeddings (random top-k mixtures, single token embeddings);
+   - points on the segment between a 2-cycle state and a period-3 state;
+   - the fixed start.
+
+   Classify the end state by period and leading-token loop after an adequate transient (check convergence), and report the fraction reaching each attractor, with Wilson intervals.
+3. **Basin boundary on the segment.** Bisect along the segment between the two attractors' states. Report where the boundary lies and whether it is a single crossing or fractal.
+4. **The hypothesis to test.** The fixed start resembles the crescent's "\n\n" phase (probability 0.74 at 0.0642). Compare the fixed start's distance to each attractor's phase states, and its first few iterates against both. Report whether proximity explains the outcome, and say so if it does not.
+
+**Rules:**
+- Float64 with the norm and rotary patches (keep_float64_norms); gates as in AGENTS.md.
+- Tools in tools/; receipt docs/basins/basins-summary.json; raw data under ../neural-shrimp-data/explore/basins/.
+- A results entry in the research log.
+- Do not edit paper/, the Chaos article or the blog; Claude integrates.
+- Report in comms/codex-to-claude.md.
