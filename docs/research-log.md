@@ -28115,3 +28115,78 @@ Tool tools/e5_repetition_onset.py; choices docs/pi/e5-choices.json (3a667908, be
 **Not done.** The summarize receipt (it needs a text template); the full deviation list is in the E5 agent's report (in the session) and in docs/pi/e5-STATUS.md.
 
 **Reading.** No link between the soft loop's chaos onset and the repetition of ordinary sampled text, at this precision. The two are different systems; the loop turns chaotic at higher temperatures than those where sampled text stops looping. Exploratory, one small model.
+
+## 2026-10-17 00:45 UTC: Run cards E2 and E3 (exploratory, program PI; local GPU)
+
+Human approval 17 Oct 2026 ("please do 1 through 7"). Both runs are exploratory pilots, not confirmatory tests.
+Qwen2.5-7B-Instruct bf16 (harness pin a09a3545) on the local RTX 2000 Ada. Runner tools/pi_e2e3_run.sh; analysis
+tools/pi_e2e3_analyze.py. Compute ceiling: about 5 GPU-hours in all. Status for resumption: docs/pi/e2e3-STATUS.md.
+
+**Harness changes (options only; default paths compute as before).**
+- `--indices FILE`: a fixed list of scored problems.
+- `--layouts` takes one or two batch sizes.
+- `--stop-eos` (hard mode): a batch stops once every row has emitted EOS. Tokens before EOS are unchanged.
+- With `--gain-cap`, every row starts the gain proxy's power iteration from the same vector. Otherwise the initial
+  vector depends on the row's batch position, and capping decisions could add a layout dependence of their own.
+- A perturbed run records each row's realized relative displacement of the first soft token after bf16 rounding.
+
+**Problems** (tools/pi_e2e3_select.py, docs/pi/e2e3-problems.json, fixed before any outcome).
+- Fresh GSM8K train problems with index >= 2000. PM used 0-255, PM2 256-511, Huginn 0-119; E1, E4 and H used the
+  test split.
+- The harness batches only prompts of identical length, so scattered problems mostly compute unscored fillers. The
+  selection groups problems by prompt length and keeps the eligible lengths (at least 16 problems; 77 lengths, 95 %
+  of the problems). It takes 32 lengths evenly spaced in rank, from 81 to 160 tokens, and the first 16 problems of
+  each in dataset order: 512 problems.
+- Each length fills one batch of 16 and two of 8, with no fillers.
+- Caveat: very short and very long prompts (below 81 or above 160 tokens, about 5-10 % of GSM8K) are excluded.
+
+**Development** (stage `dev`; E1's problems: 48 of the first 400 test problems, 6 lengths of 8;
+docs/pi/e2e3-dev-problems.json). It measures throughput and checks that the cap and the perturbation behave. It does
+not select caps by outcome.
+
+**E2: gain cap.** Soft top-15, T 0.6, 64 steps, layouts 8 and 16. Four arms:
+- uncapped;
+- caps 0.37, 0.10 and 0.015: the upper quartile, median and lower quartile of the gain proxy over the active soft
+  steps (gain > 1e-3, 37 % of steps) of E1's top-15 run, layout 16.
+
+The per-step median over all steps is 0, since 63 % of steps are near one-hot, so the active steps set the scale.
+In E1 these caps bind on about 9 %, 19 % and 25 % of steps. As the cap goes to 0, the arm tends to discrete top-1
+feedback (PM top1-s64: 17.6 % flips).
+
+Readout per arm: layout flip rate (Wilson and cluster intervals; clusters are the 16-problem batches), accuracy per
+layout, exactly-one-correct, missing answers, share of steps capped, mean step temperature. Contrasts against
+uncapped, paired by problem:
+- flip-rate difference (paired cluster bootstrap, exact McNemar);
+- accuracy difference (mean of the layouts);
+- exactly-one-correct difference.
+
+Reading, stated in advance:
+- "Reduces flips": the flip difference's 95 % interval lies below 0.
+- "Without costing accuracy": the accuracy difference's interval lies above -0.03, a descriptive margin of 3 points.
+
+**E3: exploiting the sensitivity.** Layout 16 only, on the same problems.
+- soft0: unperturbed soft top-15.
+- soft-k, k = 1-8: the first soft token displaced by a relative s along a direction from
+  default_rng(1000 + 10^6 k + index).
+- greedy: chain of thought, at most 320 new tokens.
+- sample-k, k = 1-8: chain of thought at T 0.7, top-p 0.95, seed 20261016 + 10^6 k.
+
+Votes are the plurality over the extracted answers. Missing answers do not vote, and a tie goes to the answer that
+reached the tied count first.
+
+Readout: the accuracy of the soft vote, the mean single perturbed run, soft0, greedy, the sampled vote
+(self-consistency) and the mean single sampled run; pass@8; paired differences (cluster bootstrap); the vote by
+sensitivity (distinct answers among the 8 perturbed runs).
+
+Rule for s, fixed now:
+- Use s = 1e-3, unless on development its realized bf16 displacement is 0 in more than 10 % of rows, or it changes
+  fewer than 5 % of answers against the unperturbed run.
+- In either case use 1e-2.
+
+**Scale rule.** E2 uses all 512 problems. E3 uses 512 if the estimate from the dev timings keeps E2 + E3 within
+4.5 GPU-hours; otherwise every second length of the list (256 problems), fixed before E3 starts.
+
+**Prediction (not a test).**
+- E2: modest flip reductions at the strong caps, toward the top-1 level, with accuracy within a few points.
+- E3: the soft vote gains little over single soft runs, and stays far below greedy and sampled self-consistency
+  (PM: soft about 23 %, greedy about 89 %).

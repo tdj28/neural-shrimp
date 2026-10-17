@@ -115,14 +115,20 @@ def make_batches(test, train, tok, size, limit):
     return batches
 
 
-def gain_proxy(torch, p, E, T, k=64, iters=12):
-    """Largest eigenvalue of Cov_p(e) over the top-k tokens of p (renormalized), divided by T; per row."""
+def gain_proxy(torch, p, E, T, k=64, iters=12, row_invariant=False):
+    """Largest eigenvalue of Cov_p(e) over the top-k tokens of p (renormalized), divided by T; per row.
+    row_invariant: every row starts the power iteration from the same vector, so a row's value does not depend on its
+    position in the batch (used by --gain-cap, whose decisions must not add a layout dependence of their own)."""
     w, idx = torch.topk(p, k, dim=-1)
     w = w / w.sum(-1, keepdim=True)
     X = E[idx].float()                                   # (B, k, d)
     mu = (w[..., None] * X).sum(1, keepdim=True)
     Xc = (X - mu) * w[..., None].sqrt()                  # covariance = Xc^T Xc
-    v = torch.randn(X.shape[0], X.shape[2], device=X.device, generator=torch.Generator(X.device).manual_seed(0))
+    if row_invariant:
+        v = torch.randn(1, X.shape[2], device=X.device, generator=torch.Generator(X.device).manual_seed(0))
+        v = v.expand(X.shape[0], -1).contiguous()
+    else:
+        v = torch.randn(X.shape[0], X.shape[2], device=X.device, generator=torch.Generator(X.device).manual_seed(0))
     for _ in range(iters):
         v = torch.einsum("bkd,bk->bd", Xc, torch.einsum("bkd,bd->bk", Xc, v))
         v = v / v.norm(dim=-1, keepdim=True).clamp_min(1e-30)
@@ -185,8 +191,14 @@ def run(args):
             raise SystemExit(f"no saved concept tokens under {args.replay_from}/emb")
     if args.save_embeddings:
         (out / "emb").mkdir(exist_ok=True)
+    pool = test[args.offset:]
+    if args.indices:                                          # E2/E3: a fixed problem list (tools/pi_e2e3_select.py)
+        keep = set(json.loads(Path(args.indices).read_text())["indices"])
+        pool = [p for p in test if p["index"] in keep]
+        if len(pool) != len(keep):
+            raise SystemExit("--indices names problems outside the split")
     for layout in args.layouts:
-        batches = make_batches(test[args.offset:], train, tok, layout, args.limit)
+        batches = make_batches(pool, train, tok, layout, args.limit)
         t0 = time.time()
         for bi, batch in enumerate(batches):
             if all((r["index"], layout) in done for r in batch if r["scored"]):
@@ -203,6 +215,8 @@ def run(args):
                 embs = []
                 readouts = {}
                 n_steps = args.soft_steps if args.mode == "soft" else args.max_new
+                ended = torch.zeros(B, dtype=torch.bool, device=dev)
+                realized = None
                 for t in range(n_steps):
                     Tt = torch.full((B,), T, device=dev)
                     logp = torch.log_softmax(z / T, dim=-1)
@@ -218,7 +232,7 @@ def run(args):
                             w, idx = torch.topk(p, args.top_n, dim=-1)
                             q = torch.zeros_like(p).scatter_(-1, idx, w)
                         q = q / q.sum(-1, keepdim=True)
-                        g = gain_proxy(torch, q, E, T)
+                        g = gain_proxy(torch, q, E, T, row_invariant=bool(args.gain_cap))
                         if args.gain_cap:                  # E2: lower T per row until the gain proxy is <= cap
                             for r in range(B):
                                 if g[r] > args.gain_cap:
@@ -230,7 +244,7 @@ def run(args):
                                             w, idx = torch.topk(pr, args.top_n, dim=-1)
                                             pr = torch.zeros_like(pr).scatter_(-1, idx, w)
                                         pr = pr / pr.sum(-1, keepdim=True)
-                                        if gain_proxy(torch, pr, E, mid)[0] > args.gain_cap:
+                                        if gain_proxy(torch, pr, E, mid, row_invariant=True)[0] > args.gain_cap:
                                             hi = mid
                                         else:
                                             lo = mid
@@ -240,7 +254,7 @@ def run(args):
                                         pr = torch.zeros_like(pr).scatter_(-1, idx, w)
                                     q[r] = (pr / pr.sum(-1, keepdim=True))[0]
                                     Tt[r] = lo
-                                    g[r] = gain_proxy(torch, q[r:r + 1], E, lo)[0]
+                                    g[r] = gain_proxy(torch, q[r:r + 1], E, lo, row_invariant=True)[0]
                         steps["gain"].append(g.tolist())
                         steps["temp"].append(Tt.tolist())
                         e = concept_token(torch, q, E, args.top_n).to(E.dtype)  # computed in float32
@@ -253,10 +267,12 @@ def run(args):
                                     continue
                                 e[r] = replay[key][t].to(e.device)
                         if t == 0 and args.perturb:
+                            e0 = e.float().clone()
                             for r, row in enumerate(batch):
                                 rv = np.random.default_rng(args.perturb_seed + max(row["index"], 0)).normal(size=e.shape[1])
                                 d = torch.tensor(rv / np.linalg.norm(rv), device=dev, dtype=torch.float32)
                                 e[r] = (e[r].float() + args.perturb * e[r].float().norm() * d).to(E.dtype)
+                            realized = ((e.float() - e0).norm(dim=-1) / e0.norm(dim=-1)).tolist()  # after bf16
                         if args.save_embeddings:
                             embs.append(e.detach().cpu())
                         o = model(inputs_embeds=e[:, None, :], past_key_values=past, use_cache=True)
@@ -274,6 +290,10 @@ def run(args):
                             pos = torch.searchsorted(cs, u).clamp_max(cs.shape[-1] - 1)
                             nxt = order.gather(-1, pos)[:, 0]
                         gen.append(nxt.tolist())
+                        if args.stop_eos:                          # E3: all rows ended; later steps change nothing
+                            ended = ended | (nxt == tok.eos_token_id)
+                            if bool(ended.all()):
+                                break
                         o = model(input_ids=nxt[:, None], past_key_values=past, use_cache=True)
                     past, z = o.past_key_values, o.logits[:, -1, :].float()
                     if args.mode == "soft" and (t + 1) in args.readout_steps and (t + 1) < n_steps:
@@ -328,6 +348,8 @@ def run(args):
                         rec["readout_texts"] = {str(k): v[r] for k, v in readouts.items()}
                     if args.gain_cap:
                         rec["temp"] = [round(s[r], 5) for s in steps["temp"]]
+                    if realized is not None:
+                        rec["perturb_realized"] = realized[r]
                 rec_f.write(json.dumps(rec) + "\n")
             rec_f.flush()
             if bi % 10 == 0:
@@ -392,19 +414,21 @@ def main():
     r.add_argument("--mode", choices=("hard", "soft"), required=True)
     r.add_argument("--split", default="test")
     r.add_argument("--limit", type=int, default=0, help="first N test problems (0: all)")
-    r.add_argument("--layouts", type=int, nargs=2, default=[8, 16])
+    r.add_argument("--layouts", type=int, nargs="+", default=[8, 16], help="batch sizes (one or two)")
     r.add_argument("--temperature", type=float, default=0.6)
     r.add_argument("--top-n", type=int, default=0, help="soft: concept tokens kept (0: full vocabulary)")
     r.add_argument("--top-p", type=float, default=0.95, help="hard sampling nucleus")
     r.add_argument("--soft-steps", type=int, default=64)
     r.add_argument("--answer-tokens", type=int, default=12)
     r.add_argument("--max-new", type=int, default=320)
+    r.add_argument("--stop-eos", action="store_true", help="hard: stop a batch once every row has emitted EOS")
     r.add_argument("--gain-cap", type=float, default=0.0)
     r.add_argument("--perturb", type=float, default=0.0)
     r.add_argument("--perturb-seed", type=int, default=1000)
     r.add_argument("--seed", type=int, default=20261016)
     r.add_argument("--save-embeddings", action="store_true")
     r.add_argument("--replay-from", default=None, help="feed this run's saved concept tokens (mechanism probe)")
+    r.add_argument("--indices", default=None, help="JSON file whose 'indices' list the scored problems")
     r.add_argument("--offset", type=int, default=0, help="skip the first N test problems (fresh problems)")
     r.add_argument("--readout-steps", type=int, nargs="*", default=[], help="soft: also answer after these steps")
     r.add_argument("--alpha", type=float, default=0.0, help="steering strength (0: unsteered)")
