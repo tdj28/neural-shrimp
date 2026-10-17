@@ -908,22 +908,31 @@ DeepSeek-R1-Distill-Qwen-7B, DeepSeek-R1-Distill-Llama-8B and QwQ-32B. A row thi
 $T=0.6$) until its most probable next token ends the thinking block, or until 1536 steps. It then answers by sampling
 discrete tokens, with random numbers shared between the two layouts. The comparison arm thinks with discrete tokens
 sampled the same way. On fresh GSM8K problems the batches held 8 or 16 prompts of equal length. On the integer-answer
-problems of MATH-500, each problem ran alone or as eight copies of itself. Over the five primary cells, the batch
-layout changed 29.6\,\% of the soft-thinking answers (265 of 896; 95\,\% interval $[27.3,31.8]$), confirming the
-prediction of more than 5\,\%.
+problems of MATH-500, each problem ran alone or as eight copies of itself. In the first run the tokenizer of
+DeepSeek-R1-Distill-Llama-8B loaded wrongly: it dropped the spaces and newlines of every prompt, and the model thought
+far less and answered 45\,\% of a check set correctly, against 83\,\% with the correct tokenizer in bfloat16 and
+81\,\% in float64 (\texttt{docs/pi/pm2x-llama-diag.json}). Its GSM8K cell was rerun with the correct tokenizer, an
+amendment after the data; its MATH-500 cell is left out until it is rerun. Over the four remaining primary cells, the
+batch layout changed 24.0\,\% of the soft-thinking answers (200 of 832; 95\,\% interval $[21.6,26.5]$), confirming
+the prediction of more than 5\,\%. The prediction holds in every version of the pooling, including the original run
+(29.6\,\%) and the run without both cells of this model (21.9\,\%) (\texttt{docs/pi/pm2fix-summary.json}).
 \begin{itemize}
-  \item The two models that answer GSM8K well changed their answers with the layout alone: DeepSeek-R1-Distill-Qwen-7B
+  \item All three models changed their GSM8K answers with the layout alone: DeepSeek-R1-Distill-Qwen-7B
   for 14.5\,\% of the problems ($[10.9,18.0]$) at 88 to 90\,\% accuracy, and QwQ-32B for 19.5\,\% ($[16.4,22.3]$) at
-  86 to 87\,\%. The layout decided whether the answer was correct for 11.7 and 14.5\,\% of the problems.
-  \item Discrete sampled thinking changed about as many answers in every cell. On GSM8K the rates were 10.2\,\% and
-  19.9\,\% for the same two models, and no soft-minus-plain difference is significant. This does not show that the
-  two are equal, but the effect does not require continuous thinking: long feedback in bfloat16 suffices.
+  86 to 87\,\%, and DeepSeek-R1-Distill-Llama-8B for 28.9\,\% ($[23.4,34.4]$) at 74 to 77\,\%. The layout decided
+  whether the answer was correct for 11.7, 14.5 and 18.0\,\% of the problems.
+  \item Discrete sampled thinking also changed many answers. On GSM8K the rates were 10.2, 19.9 and 21.5\,\% for the
+  same three models. Only in DeepSeek-R1-Distill-Llama-8B did soft thinking change significantly more, by 7.4 points
+  ($[1.9,12.9]$, McNemar $p=0.029$), and it answered correctly 4.7 points less often
+  ($[-8.6,-0.8]$, McNemar $p=0.096$). Elsewhere no soft-minus-plain
+  difference is significant, which does not show that the two are equal. The effect does not require continuous
+  thinking: long feedback in bfloat16 suffices.
   \item On an A100 instead of an H100, the first model's soft rate was 11.7\,\% (difference 2.7 points,
   $[-1.6,6.6]$), a separate replication on a second GPU type; the difference is not significant, which again does not
   establish equality.
-  \item Where the budgets cut the reasoning short, accuracy was lower and the layout changed more answers: 61 and
-  67\,\% of the answers on MATH-500, where half of the rows reached the thinking cap, and 37.5\,\% for
-  DeepSeek-R1-Distill-Llama-8B on GSM8K, which answered 49 to 54\,\% of the problems correctly.
+  \item Where the budget cut the reasoning short, accuracy was lower and the layout changed more answers: 61\,\% of
+  the answers of DeepSeek-R1-Distill-Qwen-7B on MATH-500, where half of the problems reached the thinking cap and
+  44 to 48\,\% were answered correctly.
 \end{itemize}
 The Cold Stop rule of the Soft Thinking paper, which ends thinking when its entropy stays low, was not used
 (\texttt{docs/pi/pm2-summary.json}).
