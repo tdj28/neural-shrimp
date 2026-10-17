@@ -2453,6 +2453,54 @@ together; dots mark periodic cells.}
 \label{fig:dialogue}
 \end{figure}
 
+\paragraph{Synchronization of coupled loops.} Alternating writers are one way to couple two loops. The classical way
+to couple identical chaotic maps is to mix their outputs: each copy of the loop feeds back a fraction $1-c$ of its own
+soft token and a fraction $c$ of the other's,
+\begin{equation}
+x_A'=(1-c)F(x_A)+cF(x_B),\qquad x_B'=(1-c)F(x_B)+cF(x_A).
+\end{equation}
+The state where both copies agree, $x_A=x_B$, is then invariant, and on it each copy runs the single loop. A small
+difference $u=x_A-x_B$ evolves as $u'=(1-2c)\,DF\,u$, so its growth rate is exactly $\lambda_\perp=\lambda_1+\ln|1-2c|$,
+where $\lambda_1$ is the leading Lyapunov exponent of the single loop. The copies therefore synchronize, for typical
+orbits, once $c$ exceeds $c^*=(1-e^{-\lambda_1})/2$ \cite{fujisaka1983stability,pecora1990synchronization}. Near
+$c^*$ the theory predicts on-off intermittency: long synchronized stretches broken by bursts, with stretch lengths
+distributed as a power law of exponent $-3/2$ \cite{platt1993onoff,heagy1994characterization}. Above $c^*$, unstable
+periodic orbits inside the attractor that are more expanding than average can still cause bursts (attractor bubbling)
+\cite{ashwin1994bubbling}.
+
+We tested this on three chaotic cells of Qwen2.5-0.5B's loop (philosophy direction, layer 12, float64), with
+$\lambda_1=0.098$, 0.437 and 0.196 per step over 3000 steps, so that $c^*=0.046$, 0.177 and 0.089
+(Figure~\ref{fig:sync}; \texttt{docs/sync/sync-summary.json}). The difference's growth rate, measured directly on the
+coupled map at seven couplings from 0 to 0.30 in each cell, follows $\lambda_1+\ln|1-2c|$ from $+0.44$ to $-0.82$, within 0.051 at
+every point. In the first cell the copies synchronized between $c=0.045$ and 0.05, at $c^*$. In the second they
+synchronized between 0.18 and 0.19 when "synchronized" means a difference below $10^{-6}$, also at $c^*$. Just below
+it, at $c=0.16$ to 0.17, the difference burst 12 to 14 times in 10,000 steps, and the synchronized stretches had a
+power-law length distribution with fitted slopes of $-1.5$ to $-1.8$, consistent with $-3/2$; these fits are rough.
+In the third cell the copies synchronized robustly only at $c$ between about 0.12 and 0.16, depending on the start
+and the run length, well above $c^*$. At $c=0.105$ to 0.115,
+where the difference should shrink on average, it still burst from the rounding level ($10^{-14}$) to order one, 5
+to 10 times in 10,000 steps, as attractor bubbling predicts. We did not compute the exponents of the periodic orbits
+that would cause it. These bursts are seeded by float64 rounding alone, since the copies are otherwise identical.
+Synchronized copies write the same text, and their texts sample the single loop's attractor. Below $c^*$, many pairs
+instead locked onto periodic orbits of the joint state (periods 6 to 12, verified to close within $2.2\times10^{-13}$),
+on which the two copies write different or staggered texts. In the first cell, starts far from the attractor often
+synchronized onto a second attractor of the single loop, an attracting 2-cycle ``it is''.
+
+The coupled-agents check of Appendix~\ref{sec:behaviour} differs in one essential way: there the contexts grow, so the
+two agents are not two copies of a fixed map, and at $c=0.25$ they barely synchronized although $c=0.25$ exceeds $c^*$
+for all three cells here.
+\begin{figure}[tbp]
+\centering
+\includegraphics[width=\linewidth]{figures/fig-sync.png}
+\caption{Synchronization of two coupled copies of the soft-token loop (Qwen2.5-0.5B-Instruct, philosophy direction,
+layer 12, float64). (a) Mean relative difference between the copies in the second half of the run against the
+coupling $c$, for three chaotic cells; dashed, the predicted threshold $c^*=(1-e^{-\lambda_1})/2$. (b) The difference's
+growth rate measured on the coupled map against the prediction $\lambda_1+\ln|1-2c|$ (bars: two standard errors).
+(c) On-off intermittency just below the threshold of the second cell ($c=0.165$). (d) Bursts above the predicted
+threshold in the third cell ($c=0.115$), as in attractor bubbling.}
+\label{fig:sync}
+\end{figure}
+
 \section{Discussion}
 \label{sec:discussion}
 \paragraph{What theory allows, and what is new.} Chaos and periodic windows occur in many nonlinear feedback systems:
