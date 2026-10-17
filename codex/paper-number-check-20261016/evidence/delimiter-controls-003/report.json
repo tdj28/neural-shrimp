@@ -1,0 +1,153 @@
+{
+  "scope": "Seven focused manufactured delimiter groups only; no target files, extraction sweep, old controls or profile repeated.",
+  "source_sha256": "d8c4c278b77c1507cbaa308913eb24c2e3bfe57f6085fa94dc627e864d31f403",
+  "groups": [
+    {
+      "name": "row_break_bracket",
+      "source": "\\\\[2pt] period-8 $x-2$",
+      "expected": [
+        "2",
+        "8",
+        "-2"
+      ],
+      "actual": [
+        "2",
+        "8",
+        "-2"
+      ],
+      "expected_math_spans": [
+        "$x-2$"
+      ],
+      "actual_math_spans": [
+        "$x-2$"
+      ],
+      "passed": true
+    },
+    {
+      "name": "row_break_then_dollar",
+      "source": "\\\\$-8$ OLMo-2",
+      "expected": [
+        "-8",
+        "2"
+      ],
+      "actual": [
+        "-8",
+        "2"
+      ],
+      "expected_math_spans": [
+        "$-8$"
+      ],
+      "actual_math_spans": [
+        "$-8$"
+      ],
+      "passed": true
+    },
+    {
+      "name": "adjacent_inline",
+      "source": "$-1$$-2$ period-8",
+      "expected": [
+        "-1",
+        "-2",
+        "8"
+      ],
+      "actual": [
+        "-1",
+        "-2",
+        "8"
+      ],
+      "expected_math_spans": [
+        "$-1$",
+        "$-2$"
+      ],
+      "actual_math_spans": [
+        "$-1$",
+        "$-2$"
+      ],
+      "passed": true
+    },
+    {
+      "name": "escaped_then_inline",
+      "source": "\\$$-8$ period-3",
+      "expected": [
+        "-8",
+        "3"
+      ],
+      "actual": [
+        "-8",
+        "3"
+      ],
+      "expected_math_spans": [
+        "$-8$"
+      ],
+      "actual_math_spans": [
+        "$-8$"
+      ],
+      "passed": true
+    },
+    {
+      "name": "row_break_then_display",
+      "source": "\\\\\\[x-2\\] period-8",
+      "expected": [
+        "-2",
+        "8"
+      ],
+      "actual": [
+        "-2",
+        "8"
+      ],
+      "expected_math_spans": [
+        "\\[x-2\\]"
+      ],
+      "actual_math_spans": [
+        "\\[x-2\\]"
+      ],
+      "passed": true
+    },
+    {
+      "name": "display_then_inline",
+      "source": "$$x-3$$ period-6 $-2$",
+      "expected": [
+        "-3",
+        "6",
+        "-2"
+      ],
+      "actual": [
+        "-3",
+        "6",
+        "-2"
+      ],
+      "expected_math_spans": [
+        "$$x-3$$",
+        "$-2$"
+      ],
+      "actual_math_spans": [
+        "$$x-3$$",
+        "$-2$"
+      ],
+      "passed": true
+    },
+    {
+      "name": "masked_figure_fragment",
+      "source": "\\includegraphics[width=0.49\\linewidth]{a.png}\\\\[2pt]\\caption{Top: period-8 ($T=-0.135$).}",
+      "expected": [
+        "2",
+        "8",
+        "-0.135"
+      ],
+      "actual": [
+        "2",
+        "8",
+        "-0.135"
+      ],
+      "expected_math_spans": [
+        "$T=-0.135$"
+      ],
+      "actual_math_spans": [
+        "$T=-0.135$"
+      ],
+      "passed": true
+    }
+  ],
+  "passed": 7,
+  "failed": 0
+}
