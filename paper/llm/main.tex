@@ -2551,7 +2551,7 @@ OLMo-2 7B and Llama-3.1 8B have maps but no continued orbits. The size compariso
 offset per label, and part of the 70B-class maps predate a precision fix and were rechecked only in samples. The maps
 use one prompt (more in the size tests), and steering uses contrastive vectors, checked against random and
 sparse-autoencoder directions in two models. Chaos labels are finite-horizon estimates: a longer horizon check kept 86
-and 92 of 96 chaotic labels in two maps, near the accumulation of a cascade transient chaos makes labels less reliable (on one line only 135 of 235 chaotic labels held), no chaotic cell is proved chaotic, and only one periodic orbit is proved to exist. The Feigenbaum ratios are
+and 92 of 96 chaotic labels in two maps, near the accumulation of a cascade transient chaos makes labels less reliable (on one line only 135 of 235 chaotic labels held), the chaotic cells are numerically validated (twin exponents agree with exact tangents, across precisions and horizons) but not yet established by a computer-assisted proof, and one periodic orbit has such a proof. The Feigenbaum ratios are
 finite-order values. All orbit, bifurcation and chaos results concern the soft-token map, not sampled generation with
 a growing context. Appendix~\ref{sec:limits} gives the details.
 
@@ -4069,7 +4069,7 @@ model, and OLMo-2-7B and -32B), and steering uses contrastive vectors, checked a
 directions in two models. The soft-token loop is one inference scheme: Appendix~\ref{sec:bridge} extends it to memories of up to sixteen soft tokens and to the growing context of Soft Thinking, but sampled decoding of discrete tokens is a different system. The evidence consists of numerical
 validation, cross-checks and prospectively frozen passage tests (including failed all-row criteria), with a
 computer-assisted proof for only one orbit at one parameter point. Chaos labels are finite-horizon estimates (300
-measured steps after 300 to 500 transient steps), and no chaotic cell is proved chaotic. A computer-assisted proof of chaos, such as a horseshoe verified by covering
+measured steps after 300 to 500 transient steps), and the chaotic cells are numerically validated (twin exponents agree with exact tangents, across precisions and horizons) but not yet established by a computer-assisted proof. A computer-assisted proof of chaos, such as a horseshoe verified by covering
 relations, would need enclosures of the map over boxes many orders of magnitude larger than the period-8 proof's
 (radius $2^{-640}$). With the ball arithmetic used there, a box of radius $2^{-80}$ already loses the positivity
 of an RMS normalization at layer 3 (the enclosures overestimate through the layers), so such a proof needs other
