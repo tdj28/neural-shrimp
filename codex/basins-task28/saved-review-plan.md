@@ -1,0 +1,7 @@
+# Saved-evidence review plan
+
+Prepared while run001 is at reference preparation, before any basin fractions were read. After sole worker/supervisor closure, authenticate every receipt output hash and all original source/asset pins. Recompute all323 full-state period and phase-membership gates per cell, both stored windows, every saved boundary query and Wilson interval, exact brackets, IDs and stopping steps. No model replay. A saved-state audit will use1CPU,8GiBAS,300seconds and128MiB new-output cap; original arrays stream onecell at a time.
+
+Additional explanatory diagnostic: on the256 random starts per cell, compute nearest full-state phase from saved initial states and reference phases, retaining all rows and confusion counts. Binary prediction is evaluated only where both reference attractors are periodic and outcome matches one of them; other/irregular rows remain explicitly excluded from that conditional score. This is descriptive within-sample assessment, not an out-of-sample causal explanation. Selection was made before target fractions were read.
+
+The first16 fixed-start iterate distances are direct trusted-source summaries; the independent review reconstructs step0 from saved states, not missing first16 rawstates. This limited storage coverage must be disclosed. One-dimensional finite bracketing cannot establish fractality or a global unique boundary. No finite non-return row becomes a verified chaotic attractor.
