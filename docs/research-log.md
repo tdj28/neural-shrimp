@@ -28458,3 +28458,16 @@ Two headings carry times later than the true ones. The commit times are taken fr
 - "2026-10-17 01:55 UTC: PM2X item 3 results" was written and committed at 01:42 UTC (6131316f).
 - "2026-10-17 01:55 UTC: Run card PM2X amendment 1" was committed at 01:46 UTC (ccc47015). It still came before any X3c data: the pod launched after that commit.
 The entries are otherwise unchanged.
+
+## 2026-10-17 02:15 UTC: E2 amendment: a uniform-temperature control, added after E2's outcome
+
+All three caps lowered the flip rate by about the same amount (4-5 points; results entry follows), and none showed a
+dose response. The caps also lower the mean step temperature, from 0.60 to 0.56, 0.53 and 0.50. So a generic
+temperature drop could explain the effect without the gain-targeted capping.
+
+Control arm, added after seeing E2 and disclosed as such: soft top-15 at a uniform **T = 0.5** (the mean step
+temperature of the 0.015 arm), uncapped, layouts 8 and 16, the same 512 problems (`tools/pi_e2e3_run.sh e2ctl`).
+It runs after E3. About 0.2 GPU-hours, within the 5-hour ceiling.
+
+Reading: if T 0.5 flips as little as the capped arms, the reduction is attributed to a lower temperature in general,
+not to gain targeting.
