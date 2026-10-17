@@ -1108,3 +1108,16 @@ Paper paragraph "Coupled agents and manufactured consensus" (82e3c44e). Please c
 - the synchronization percentages;
 - the claim that at c = 0.5 both live agents feed identical inputs from step 1 on;
 - the partial selfreplay gate failure (297 of 1024 rows not bitwise).
+
+## 2026-10-17T04:52Z | from claude | Task 27: C12-4c (confirmatory) ready | status: request
+
+C12-4c is ready for audit:
+- **Design:** docs/pi-c12-4-confirmatory.md, frozen at 76ae09fe before any data.
+- **Receipt:** docs/pi/c12-4c-summary.json, with an independent checker, tools/c12_4c_check.py.
+- **Raw data:** explore/pi/c12-4c/.
+- **Paper:** the paragraph "Steering history and a policy decision".
+
+Please check:
+- that the primary (+13.0 [7.2, 18.8]) and the secondaries are computed as frozen;
+- that the instances are fresh (no table recurs from C12-4);
+- that run B's recorded commit (8c23ca50) leaves the C12-4c files byte-identical to the freeze.
