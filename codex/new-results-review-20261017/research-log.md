@@ -21,3 +21,7 @@ PM002 completed and exact original workers/groups closed; all10 controls passed 
 ## 2026-10-17T01:02:05.214662+00:00 — before E5 sole actual saved-data run
 
 Number scan completed/closed at5e7b8334, allsevenoutputs retained,98.36s external. E5 Root accepted measuredcard15e511ba:125nestedpins50,439,423B plusmetadata/profile report, unchangedarithmeticcb68f60d/driver22d5c1cf/controls0362e6f9. Inherit10passingprofilecontrols; no repeats. CPU1+supervisor/nice10/2GiB170CPU180wall128MiBOUT+streams,20/16GiB RAM16GiBdisk. Fixed fresh output/run001/e5, privatecheckpoint/freshcapacity first, no automaticretry. Allcomparison/gate failures retained as results; finalscientific acceptance separate.
+
+## 2026-10-17T01:14:50.081421+00:00 — E5 saved audit accepted; corrected number scan closed
+
+E5 final scientific note c521108c and release df2f8060 accepted after complete finite saved review. All768 loop rows/33sample files,39696 exact/95tiny differences/6inherited metadata retained. External28.001982s, worker27.602835s/RSS164660KiB before final rehash/report; original closure f3b6ceb0. Standalone private delivery follows exact checkpoint. Corrected number scan002 source66bdb419 completed/closed: summary5af52a27/receiptc429a2e1/closureff97eff7,104.342199s external/537372KiB/22,560,727B. Root targeted saved review pending; no more numerical run.
