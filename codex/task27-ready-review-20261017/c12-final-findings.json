@@ -1,0 +1,272 @@
+{
+  "status": "scientific_review_complete_pending_Root_acceptance",
+  "scope": "C12 heldout saved outputs only; no rescoring or native replay",
+  "original_source": "5cc02f5ee6d34d1339a045aa367df78fbf45d7ce",
+  "evidence": [
+    {
+      "path": "/data2/neural-shrimp-data/codex/task27-ready-review-20261017/run-001/c12/report.json",
+      "bytes": 32490,
+      "sha256": "4cafda48e27cb5185b41481fae2c649f31ad4ce2bafafbd09d762814cc76ff50"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/codex/task27-ready-review-20261017/run-001/c12/manifest.json",
+      "bytes": 941,
+      "sha256": "88fac101ad7a76ff717009511f160c6559ba7fdc0a1f11971ddfd83e3a7d466e"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/codex/task27-ready-review-20261017/run-001/c12-supervision/receipt.json",
+      "bytes": 6781,
+      "sha256": "3ecf1826da7675fa313a14e1eee4d00410080466d025b1202d62f7b888a0525c"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/codex/task27-ready-review-20261017/run-001/c12-original-closure.json",
+      "bytes": 7859,
+      "sha256": "9c74871511b2eaffb91756d749889a7713ce4549a1f69054bd867f8a988d851e"
+    }
+  ],
+  "comparison_counts": [
+    {
+      "document": "analysis3",
+      "disposition": "exact",
+      "leaves": 8553
+    },
+    {
+      "document": "check",
+      "disposition": "exact",
+      "leaves": 82
+    },
+    {
+      "document": "confirm",
+      "disposition": "exact",
+      "leaves": 3821
+    },
+    {
+      "document": "publication3",
+      "disposition": "different",
+      "leaves": 3
+    },
+    {
+      "document": "publication3",
+      "disposition": "exact",
+      "leaves": 392
+    },
+    {
+      "document": "publication3",
+      "disposition": "inherited_scope",
+      "leaves": 1045
+    },
+    {
+      "document": "publication4",
+      "disposition": "different",
+      "leaves": 2
+    },
+    {
+      "document": "publication4",
+      "disposition": "exact",
+      "leaves": 484
+    },
+    {
+      "document": "publication4",
+      "disposition": "inherited_scope",
+      "leaves": 56
+    },
+    {
+      "document": "receipt_spec",
+      "disposition": "different",
+      "leaves": 2
+    },
+    {
+      "document": "receipt_spec",
+      "disposition": "exact",
+      "leaves": 4
+    },
+    {
+      "document": "receipt_spec",
+      "disposition": "inherited_scope",
+      "leaves": 31
+    }
+  ],
+  "all_seven_differences": [
+    {
+      "basis": "recorded_config_identity",
+      "disposition": "different",
+      "document": "publication3",
+      "own": "qwen1.5b",
+      "path": [
+        "model"
+      ],
+      "published": "qwen1.5b (Qwen2.5-1.5B-Instruct), CPU float32, 6 threads, nice 10"
+    },
+    {
+      "basis": "own_C3_literal_verdict",
+      "disposition": "different",
+      "document": "publication3",
+      "own": "no resolved excess wrong agreement (interval includes zero or is negative)",
+      "path": [
+        "decision_3a"
+      ],
+      "published": "Primary (c = 0.25): no resolved excess wrong agreement. Secondary (c = 0.5): an excess well above the 10-point threshold and above replay; at c = 0.5, however, both live agents feed identical inputs from step 1 on, so agreement there is close to construction (any-answer agreement 96 %). The non-trivial finding is that this consensus comes with lower accuracy."
+    },
+    {
+      "basis": "own_C3_literal_verdict",
+      "disposition": "different",
+      "document": "publication3",
+      "own": "no resolved reduction of wrong agreement at preserved accuracy",
+      "path": [
+        "decision_3b"
+      ],
+      "published": "No remedy to test: at c = 0.25 there is no excess to remove (sparse minus live SWA -0.4, -2.9 to +2.0); sparse accuracy differs from live by +2.3 (0.0 to +4.9) at readout 48."
+    },
+    {
+      "basis": "recorded_run_metadata",
+      "disposition": "different",
+      "document": "publication4",
+      "own": "13930c756982c42a15316b9cf1639c31a395e2fbffa21b2e6a25f51e3942309d",
+      "path": [
+        "freeze",
+        "tool_sha256"
+      ],
+      "published": "13930c756982... (identical in both runs and at the freeze commit)"
+    },
+    {
+      "basis": "recorded_run_metadata",
+      "disposition": "different",
+      "document": "publication4",
+      "own": "a8546c81ff4c54b9b096a0fac9d7a6ae99252c2261314d381e753a26408d9e09",
+      "path": [
+        "freeze",
+        "pi_harness_sha256"
+      ],
+      "published": "a8546c81ff4c... (identical in both runs and at the freeze commit)"
+    },
+    {
+      "basis": "recorded_run_metadata",
+      "disposition": "different",
+      "document": "receipt_spec",
+      "own": "13930c756982c42a15316b9cf1639c31a395e2fbffa21b2e6a25f51e3942309d",
+      "path": [
+        "freeze",
+        "tool_sha256"
+      ],
+      "published": "13930c756982... (identical in both runs and at the freeze commit)"
+    },
+    {
+      "basis": "recorded_run_metadata",
+      "disposition": "different",
+      "document": "receipt_spec",
+      "own": "a8546c81ff4c54b9b096a0fac9d7a6ae99252c2261314d381e753a26408d9e09",
+      "path": [
+        "freeze",
+        "pi_harness_sha256"
+      ],
+      "published": "a8546c81ff4c... (identical in both runs and at the freeze commit)"
+    }
+  ],
+  "row_dispositions": {
+    "c12-3-rows.jsonl": {
+      "rows": 8192,
+      "stored_flag_counts": {
+        "identity.items": 32768,
+        "issues.items": 0,
+        "nonfinite.items": 0,
+        "previous_lines.items": 0
+      }
+    },
+    "c12-4c-rows.jsonl": {
+      "rows": 3456,
+      "stored_flag_counts": {
+        "reason=completed_tail": 3456,
+        "run=a": 2304,
+        "selected=True": 3456,
+        "run=b": 1152
+      }
+    }
+  },
+  "row_exceptions": {
+    "c12-3-rows.jsonl": [],
+    "c12-4c-rows.jsonl": []
+  },
+  "c3_fixed_checks": {
+    "48_steps": true,
+    "64_test_problems": true,
+    "canonical_problems_hash": true,
+    "dtype": true,
+    "model_qwen1_5b": true,
+    "phases12": true,
+    "readouts": true,
+    "rows8192": true,
+    "settings": true,
+    "test_split": true
+  },
+  "c4_fixed_checks": {
+    "a": {
+      "P": true,
+      "alpha_final": true,
+      "alpha_high": true,
+      "classes_24_each": true,
+      "dwell": true,
+      "histories": true,
+      "hold": true,
+      "instances_48_unique": true,
+      "layer": true,
+      "mask_special": true,
+      "model": true,
+      "n_steps": true,
+      "ramp": true,
+      "readouts": true,
+      "row_count": true,
+      "starts": true,
+      "temperature": true,
+      "uids": true
+    },
+    "b": {
+      "P": true,
+      "alpha_final": true,
+      "alpha_high": true,
+      "classes_24_each": true,
+      "dwell": true,
+      "histories": true,
+      "hold": true,
+      "instances_48_unique": true,
+      "layer": true,
+      "mask_special": true,
+      "model": true,
+      "n_steps": true,
+      "ramp": true,
+      "readouts": true,
+      "row_count": true,
+      "starts": true,
+      "temperature": true,
+      "uids": true
+    }
+  },
+  "c4_metadata_freshness_checks": {
+    "both_conf_splits": true,
+    "both_instance_hashes": true,
+    "canonical_instance_hash": true,
+    "choices_identity": true,
+    "gold_and_class": true,
+    "no_prior_table_matches": true,
+    "recorded_v2_hash": true,
+    "recorded_v_hash": true,
+    "source_links": true,
+    "source_user_pools_disjoint": true
+  },
+  "c4_verdicts": {
+    "down_minus_direct_false_deny_v": "holds",
+    "manipulation_check_v": "valid",
+    "manipulation_check_v2": "valid",
+    "primary_up_minus_direct_false_allow_v": "holds",
+    "random_minus_direct_false_allow": "passes: no detectable effect, interval within 10 points of 0",
+    "v2_up_minus_direct_false_allow": "holds",
+    "zero_minus_direct_false_allow": "passes: no detectable effect, interval within 10 points of 0",
+    "zero_minus_direct_false_deny": "passes: no detectable effect, interval within 10 points of 0"
+  },
+  "historical_lifecycle_observer": "Inference; reviewer uses saved receipts/manifest.",
+  "findings": [
+    "All heldout numerical analysis/checker leaves exactly reproduce.",
+    "Seven literal differences are explanatory prose/model labels/abbreviated source hashes.",
+    "C3 half mixing equalizes inputs, not necessarily different KV histories or native states;9 selfreplay top1 sequences differ.",
+    "C4 frozen finite primary/controls/v2 qualify; causal and historical push/native identity scope remains limited."
+  ]
+}
