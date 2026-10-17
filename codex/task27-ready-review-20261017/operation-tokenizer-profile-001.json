@@ -1,0 +1,84 @@
+{
+  "status": "reviewed_for_execution",
+  "repository": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp",
+  "raw_root": "/data2/neural-shrimp-data/codex/task27-ready-review-20261017",
+  "python": "/data2/neural-shrimp/.venv/bin/python",
+  "source_files": [
+    {
+      "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/task27-ready-review-20261017/tokenizer/run.py",
+      "bytes": 16008,
+      "sha256": "4b78e2aa75b0c4cfcaf4a2496430be762674438ecbbc6421069fe49e4e0f0121"
+    },
+    {
+      "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/task27-ready-review-20261017/tokenizer/pm_core.py",
+      "bytes": 15498,
+      "sha256": "59999e636fc5e2e14a096614ec61f1bb9eda958eb5db17a2f592100d57431a00"
+    },
+    {
+      "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/task27-ready-review-20261017/tokenizer/controls.py",
+      "bytes": 3270,
+      "sha256": "9bcaebbf42060ec8989601bfb9e9f8a9dbe79250d56f0a43912d997a4a61e1a6"
+    },
+    {
+      "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/task27-ready-review-20261017/tokenizer/profile-001-card.json",
+      "bytes": 3320,
+      "sha256": "1fb4a7b5ee3297a1dbbd52b8a6a2a9393dda28fcaa13297c87adbe45b515b70f"
+    },
+    {
+      "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/task27-ready-review-20261017/supervise.py",
+      "bytes": 8569,
+      "sha256": "e361919ed104a800ed043d15726edc10775260fc482d6f98d9c5fb7c98f1e77e"
+    }
+  ],
+  "lanes": {
+    "tokenizer-profile": {
+      "entry": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/task27-ready-review-20261017/tokenizer/run.py",
+      "arguments": [
+        "--card",
+        "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/task27-ready-review-20261017/tokenizer/profile-001-card.json",
+        "--out",
+        "/data2/neural-shrimp-data/codex/task27-ready-review-20261017/run-001/tokenizer-profile"
+      ],
+      "output": "/data2/neural-shrimp-data/codex/task27-ready-review-20261017/run-001/tokenizer-profile",
+      "supervision": "/data2/neural-shrimp-data/codex/task27-ready-review-20261017/run-001/tokenizer-profile-supervision",
+      "preflight_pins": [
+        {
+          "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/task27-ready-review-20261017/tokenizer/profile-001-card.json",
+          "bytes": 3320,
+          "sha256": "1fb4a7b5ee3297a1dbbd52b8a6a2a9393dda28fcaa13297c87adbe45b515b70f"
+        },
+        {
+          "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/task27-ready-review-20261017/tokenizer/inputs.json",
+          "bytes": 20092,
+          "sha256": "ae9178026b0717d2f87e8a29ef2bf0868d2682a9814a93c798f28ee0f604e7eb"
+        },
+        {
+          "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/task27-ready-review-20261017/task27-tokenizer-root-profile-acceptance.md",
+          "bytes": 2581,
+          "sha256": "7a33136cbe9b7496d93d3ef3052327d0d04f7b3d052ef3683ba68e8a8ff07663"
+        }
+      ],
+      "input_inventory": {
+        "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/task27-ready-review-20261017/tokenizer/profile-common-inputs.json",
+        "bytes": 6928,
+        "sha256": "4db67ceb8a78ab08774647b83f50ba813510bfb065452b3ecbb2f8af6aefa9a8"
+      },
+      "limits": {
+        "as_bytes": 1073741824,
+        "cpu_seconds": 55,
+        "wall_seconds": 60,
+        "output_bytes": 67108864
+      },
+      "prior_receipts": [
+        "/data2/neural-shrimp-data/codex/task27-ready-review-20261017/run-001/e2e3-sync-supervision/receipt.json"
+      ],
+      "controls_integrated_once": 9
+    }
+  },
+  "serial_order": [
+    "tokenizer-profile"
+  ],
+  "admission": "Root exact7a33136c accepted releasefd3cb712/run4b78e2aa/profilecard2e2150ae. Sole manufactured current-runtime tokenizer-only profile after private source/capacity/oldclosure and released saved-presentation slots. No targets,model imports,downloads,installations or automatic retry.",
+  "resource_scope": "CPU1+supervisor,nice10/thread1,1GiB55CPU60wall+5+5,64MiB wholeOUT+streams,20/16GiB RAM16GiBdisk.",
+  "scientific_scope": "Manufactured512x4096token decoding and nine focused controls only; current runtime semantics, not historical-runtime attestation. Actual saved512rows remains unadmitted."
+}

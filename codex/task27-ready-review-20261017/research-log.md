@@ -19,3 +19,7 @@ Root exact source/card acceptancece1774d9 authorizes eight focused controls once
 ## Admitted C12 and E2/E3/synchronization actual run001
 
 Root exact admission fdab6b8a approves measured, fixed serial C12 then E2/sync saved-data computations after remaining PMX closure. Cards and operation-actuals-001.json bind unchanged science/inputs;15 and12 already completed profile controls are inherited, never repeated. C12 1GiB55CPU60wall128MiB; E2/sync2GiB55CPU60wall256MiB;20/16GiB RAM16GiBdisk. Prepared source 09a38c0beee6be1099020b2de3272b384f74b6e6; actual immutable dispatch captured separately. No model/tokenizer/pod/watch and no automatic retry. Scientific differences/failed qualifications remain independent of computational completion.
+
+## Admitted tokenizer-only manufactured profile
+
+Root exact7a33136c source/card acceptance admits one nine-control plus512x4096synthetic-token profile using exactlocal snapshot/packages. Fixed1GiB55CPU60wall64MiB,CPU1+supervisor, no model/backend weights/network/download/install. Code/profilecard/commoninputprojection and operation-tokenizer-profile-001.json pin all authority before dispatch. Both saved-presentation CPU slots closed; actual saved decoder comparison awaits measured card. No watch.

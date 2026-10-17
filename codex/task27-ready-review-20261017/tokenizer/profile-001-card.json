@@ -1,0 +1,68 @@
+{
+  "schema": "tokenizer-only-card-v1",
+  "status": "admitted",
+  "mode": "profile",
+  "interpreter": "/data2/neural-shrimp/.venv/bin/python",
+  "output": "/data2/neural-shrimp-data/codex/task27-ready-review-20261017/run-001/tokenizer-profile",
+  "limits": {
+    "cpu_seconds": 55,
+    "wall_seconds": 60,
+    "address_space_bytes": 1073741824,
+    "output_bytes": 67108864,
+    "input_bytes": 134217728,
+    "threads": 1,
+    "nice": 10
+  },
+  "source_files": {
+    "run.py": {
+      "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/task27-ready-review-20261017/tokenizer/run.py",
+      "bytes": 16008,
+      "sha256": "4b78e2aa75b0c4cfcaf4a2496430be762674438ecbbc6421069fe49e4e0f0121"
+    },
+    "pm_core.py": {
+      "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/task27-ready-review-20261017/tokenizer/pm_core.py",
+      "bytes": 15498,
+      "sha256": "59999e636fc5e2e14a096614ec61f1bb9eda958eb5db17a2f592100d57431a00"
+    },
+    "controls.py": {
+      "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/task27-ready-review-20261017/tokenizer/controls.py",
+      "bytes": 3270,
+      "sha256": "9bcaebbf42060ec8989601bfb9e9f8a9dbe79250d56f0a43912d997a4a61e1a6"
+    }
+  },
+  "inputs": {
+    "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/task27-ready-review-20261017/tokenizer/inputs.json",
+    "bytes": 20092,
+    "sha256": "ae9178026b0717d2f87e8a29ef2bf0868d2682a9814a93c798f28ee0f604e7eb"
+  },
+  "scope": "Profile: nine focused manufactured groups and512x4096-token synthetic decode/serialize. Actual:512saved rows,8decoder-change comparison fields, all missing/duplicate/invalid IDs retained. No model/backend weights or producer imports.",
+  "budget": {
+    "common_pins": 30,
+    "common_declared_bytes": 53384391,
+    "actual_extra_pins": 18,
+    "actual_extra_declared_bytes": 2969707,
+    "metadata_packaging_elapsed_seconds": 0.09317776281386614,
+    "measurement_scope": "Metadata/source file hashing and packaging only; rawtarget/hashIO and tokenizer runtime unmeasured."
+  },
+  "output_names": [
+    "controls.json",
+    "rows.json",
+    "report.json",
+    "manifest.json"
+  ],
+  "success_contract": {
+    "schema": "tokenizer-only-replay-v1",
+    "computational_completed": true,
+    "resource_profile_only": true,
+    "scientific_claims_accepted": false,
+    "rows_expected": 512
+  },
+  "resources_basis": "One bounded profile proposed, not executed.1GiB AS and64MiB output are failure ceilings, not prior measurements. Actual admission remains pending measured load/decode/serialization cost.4096ID ceiling is declared largest generation budget, not an assertion of observed lengths.",
+  "execution_owner": "Inference, after Root exact source/card review and private checkpoint; no profile/actual admission from prepared status.",
+  "limitations": [
+    "Exact historical transformers/tokenizers runtime unavailable; current5.19/0.23.3 semantics only.",
+    "Local path preserved; no Hub-ID substitution to force a different AutoTokenizer route.",
+    "All model backends disabled; offline/local files only; no weights loaded.",
+    "Profile failures retained; no automatic retry or alternate package/decoder selected."
+  ]
+}
