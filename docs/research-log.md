@@ -28359,3 +28359,11 @@ Numbers used (float64, from raw files):
 ## 2026-10-17 01:50 UTC: C12-3 development model choice: qwen1.5b
 
 Phase 1 on the 16 development problems (raw: explore/pi/c12-3/dev-0.5b-1, dev-1.5b-1). The independent-arm accuracy at readout 48 is 0.227 for qwen0.5b and 0.547 for qwen1.5b; parsed answers are 97 % and 99 %. Both lie in [0.2, 0.8], and the rule `choose_model` takes the accuracy closest to 0.5: **qwen1.5b** (docs/pi/c12-3-choices.json). The analysis code also printed development SWA and accuracy for every phase-1 arm; the rule does not use them, and no setting changes. The held-out run (test-1: 64 problems, both phases) starts after this commit. Under the shared machine's load, a phase takes about 100-130 s per problem, so the run should take about 4 h.
+
+## 2026-10-17 01:55 UTC: Paper-number trace
+
+Read-only CPU trace of the nine main.tex numbers that the Codex number-to-data checker (codex/paper-number-check-20261016/final-report.md) could not match to committed JSON. Receipt with sources, SHA256 and computations: `docs/receipts/paper-numbers-20261017.json`. Paper not edited.
+- Verified against committed JSON: -72.695 (fold D raw_a -72.69497) and 42.64 (midpoint arctan_G 42.64465 at q 0.03), both in codex/confirm-fold-2/design.json.
+- Derived but undocumented, now receipted: 0.072940 and 0.069060 (run inputs of the hidden-chaos/cell-stripe-* cells; exponents 0.129/0.130 and 0.198/0.198); 2.895 and 4.101 (outward-rounded worst-case superstable ratio ranges [2.89579, 3.33745] and [4.01929, 4.10032] from run C9; the C11 log entry quotes them nearest-rounded); 4.648 (Qwen2.5-1.5B flip ratio 4.648159); 893,868 (34-map census reconstructed to 987,308 cells exactly, minus 93,440 in the five omitted maps).
+- Wrong in the last digit: 0.18921, the second fold of the hostility period-7 branch at alpha 0.066, is the V6 bracket midpoint; the continued fold curve puts it at log10 T 0.189222 (bracket upper end), i.e. 0.18922.
+- Side leads, outside the nine and not receipted: the continued flip curve hub7-flip-plus crosses alpha 0.066 at log10 T 0.19195 (start point) and about 0.18955 (between points 16 and 17), against the paper's 0.1919 and 0.1899 (both V6 bracket midpoints).

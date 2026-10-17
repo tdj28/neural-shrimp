@@ -1,0 +1,405 @@
+{
+ "purpose": "Trace of nine paper/llm/main.tex numbers that the Codex number-to-data checker (codex/paper-number-check-20261016/final-report.md) could not match to committed JSON. Recomputed from raw data on 2026-10-17 (CPU, read-only).",
+ "created": "2026-10-17",
+ "entries": [
+  {
+   "literal": "0.072940",
+   "section": "Period adding written in text (Table tab:transcripts)",
+   "classification": "derived but undocumented",
+   "value": 0.07294,
+   "log10T": -0.115,
+   "computation": "Run input alpha (args.alpha) of the chaotic transcript cell, written to six decimals. Largest exponents at twin offsets 1e-6/1e-9 = [0.1287, 0.12974] (two decimals 0.13/0.13); class visible chaos; transcript (transient 600, 64 recorded steps) mean entropy 2.446 nats.",
+   "note": "Not a grid cell of map-stripes-256 (nearest grid alpha 0.0729412 / 0.0690588); the cells were run at these exact inputs.",
+   "sources": [
+    {
+     "path": "../neural-shrimp-data/explore/llm-soft-loop/hidden-chaos/cell-stripe-0.07294/hidden-chaos.json",
+     "sha256": "84f6dd3d28e2f70f20e03a25e2599e0d9661ae2ed3394a86c73a9cc0d5363544",
+     "bytes": 1103
+    },
+    {
+     "path": "../neural-shrimp-data/explore/llm-soft-loop/transcripts/stripes/transcripts.json",
+     "sha256": "bffa0812f4f05b234bfa27c21e9f37b347313c248b46599b720ccd0f030234ff",
+     "bytes": 77116
+    }
+   ]
+  },
+  {
+   "literal": "0.069060",
+   "section": "Period adding written in text (Table tab:transcripts)",
+   "classification": "derived but undocumented",
+   "value": 0.06906,
+   "log10T": -0.115,
+   "computation": "Run input alpha (args.alpha) of the chaotic transcript cell, written to six decimals. Largest exponents at twin offsets 1e-6/1e-9 = [0.19828, 0.19848] (two decimals 0.20/0.20); class visible chaos; transcript (transient 600, 64 recorded steps) mean entropy 2.388 nats.",
+   "note": "Not a grid cell of map-stripes-256 (nearest grid alpha 0.0729412 / 0.0690588); the cells were run at these exact inputs.",
+   "sources": [
+    {
+     "path": "../neural-shrimp-data/explore/llm-soft-loop/hidden-chaos/cell-stripe-0.06906/hidden-chaos.json",
+     "sha256": "f4249d97b474f6c5ca6f8a924a78894f2ecb5e71bea4b53fd965b7961771072d",
+     "bytes": 1115
+    },
+    {
+     "path": "../neural-shrimp-data/explore/llm-soft-loop/transcripts/stripes/transcripts.json",
+     "sha256": "bffa0812f4f05b234bfa27c21e9f37b347313c248b46599b720ccd0f030234ff",
+     "bytes": 77116
+    }
+   ]
+  },
+  {
+   "literal": "-72.695",
+   "section": "Mechanism: a saddle-node bottleneck",
+   "classification": "verified",
+   "value": -72.69496557995095,
+   "computation": "design.json target D raw_a, rounded to three decimals (raw_b 72.23676813 -> 72.237).",
+   "sources": [
+    {
+     "path": "codex/confirm-fold-2/design.json",
+     "sha256": "5a8ac959ebb38d54814116043c5b2a6866856f0078c96a040cadfe0ba260aa15",
+     "committed": true
+    }
+   ]
+  },
+  {
+   "literal": "42.64",
+   "section": "Mechanism: a saddle-node bottleneck (Table tab:prospective2)",
+   "classification": "verified",
+   "value": 42.644651077234315,
+   "computation": "design.json rows C-2-midpoint and D-2-midpoint (q = 0.03) arctan_G, two decimals; full-channel 85.2893 -> 85.29. RESULTS.md shows the same value to three decimals (42.645), which is why a literal match failed.",
+   "sources": [
+    {
+     "path": "codex/confirm-fold-2/design.json",
+     "sha256": "5a8ac959ebb38d54814116043c5b2a6866856f0078c96a040cadfe0ba260aa15",
+     "committed": true
+    }
+   ]
+  },
+  {
+   "literal": "2.895",
+   "section": "A period-doubling cascade to chaos",
+   "classification": "derived but undocumented",
+   "value": 2.895788375199321,
+   "computation": "min over the clean-bracket corners of (s24-s12)/(s48-s24); range [2.895788, 3.337445], rounded outward to [2.895, 3.338]. s12 bracket [0.06596669617192479, 0.06597903913953078], s24 bracket [0.06607945594067384, 0.06608014120412474], s48 0.066114132784466, s96 0.066122589892689 (run C9). The research log (C11 entry) quotes the nearest-rounded ranges [2.896, 3.337] and [4.019, 4.100]; the paper rounds outward.",
+   "sources": [
+    {
+     "path": "../neural-shrimp-data/explore/llm-soft-loop/pod64/superstable/crescent-t-0.14798/superstable.json",
+     "sha256": "3be0c402e695e12d06259c3e2fb646c842f645ccf1b98ba9e90fcbc51e101e58",
+     "bytes": 11545
+    }
+   ]
+  },
+  {
+   "literal": "4.101",
+   "section": "A period-doubling cascade to chaos",
+   "classification": "derived but undocumented",
+   "value": 4.100319267516641,
+   "computation": "max over the s24 clean bracket of (s48-s24)/(s96-s48); range [4.019291, 4.100319], rounded outward to [4.019, 4.101]. s12 bracket [0.06596669617192479, 0.06597903913953078], s24 bracket [0.06607945594067384, 0.06608014120412474], s48 0.066114132784466, s96 0.066122589892689 (run C9). The research log (C11 entry) quotes the nearest-rounded ranges [2.896, 3.337] and [4.019, 4.100]; the paper rounds outward.",
+   "sources": [
+    {
+     "path": "../neural-shrimp-data/explore/llm-soft-loop/pod64/superstable/crescent-t-0.14798/superstable.json",
+     "sha256": "3be0c402e695e12d06259c3e2fb646c842f645ccf1b98ba9e90fcbc51e101e58",
+     "bytes": 11545
+    }
+   ]
+  },
+  {
+   "literal": "0.18921",
+   "section": "Steering toward hostility",
+   "classification": "wrong (last digit)",
+   "value_in_paper": 0.18921,
+   "correct_value": 0.18922,
+   "computation": "Run V6 branch at alpha 0.066 brackets the second fold (real +1, next modulus 8.6e-05) between log10 T 0.189196764 and 0.189222169; the paper quotes the bracket midpoint (0.1892095). The continued fold curve hub7-foldS-plus (points 24-25 converged folds, residuals <= 1.7e-11) crosses alpha = 0.066 at log10 T 0.1892223 (cubic fit over points 22-27; linear gives 0.1892238), at the bracket's upper end. To five decimals the fold is 0.18922. The first fold (bracket [0.187968539, 0.187973659]; curve start 0.18796851) is correctly 0.18797.",
+   "sources": [
+    {
+     "path": "../neural-shrimp-data/explore/llm-soft-loop/pod64/hverify/branch-hub7-Tdown/branch.json",
+     "sha256": "afff7e464e79a4802fca65308452e716b8a19a34f2491c0e660985fd9b83ccba",
+     "bytes": 62053
+    },
+    {
+     "path": "../neural-shrimp-data/explore/llm-soft-loop/pod64/hcurves/hub7-foldS-plus/curve.json",
+     "sha256": "0bf6f562b6343e21e7fe35a55c109407d92e0a1cc02983607f8ea28ce408e321",
+     "bytes": 58212
+    }
+   ]
+  },
+  {
+   "literal": "4.648",
+   "section": "Replication and scale",
+   "classification": "derived but undocumented",
+   "value": 4.648159043427669,
+   "computation": "Qwen2.5-1.5B, alpha 0.100: flips (log10 T, periods 4->8 ... 256->512) ['-0.003126922235424109', '-0.0021666499294120977', '-0.00190024522705658', '-0.0018380241237525106', '-0.001824434015999929', '-0.0018215102546514878', '-0.0018208834782723728']; interval ratios [3.604562, 4.281581, 4.578411, 4.648159, 4.66476]. 4.648 = (f[32->64]-f[64->128])/(f[64->128]-f[128->256]).",
+   "sources": [
+    {
+     "path": "../neural-shrimp-data/explore/llm-soft-loop/pod64/cascade/q15-a0.100-p4/cascade.json",
+     "sha256": "f34ae48b56fc86ebb9715b474556419e87f9b5440ec1a5deabe8b13a860769f0",
+     "bytes": 18833
+    },
+    {
+     "path": "../neural-shrimp-data/explore/llm-soft-loop/pod64/edges/q15-a0.100-p16/edges.json",
+     "sha256": "21835010d1a556563b3007d095838ce0c1231d93ed99fdb5541be678492382df",
+     "bytes": 1932
+    },
+    {
+     "path": "../neural-shrimp-data/explore/llm-soft-loop/pod64/edges/q15-a0.100-p32/edges.json",
+     "sha256": "09c41b7d27d3870c1422290ba845f8df523fdca7c8752291470e0d277ccbddf8",
+     "bytes": 1939
+    },
+    {
+     "path": "../neural-shrimp-data/explore/llm-soft-loop/pod64/cascade/q15-a0.100-p64/cascade.json",
+     "sha256": "a188f9524ecbfb28142ce11c6fa4c5a1237f827765e01d81e5dccd8cb97d4ff3",
+     "bytes": 12787
+    },
+    {
+     "path": "../neural-shrimp-data/explore/llm-soft-loop/pod64/cascade/q15-a0.100-p128/cascade.json",
+     "sha256": "ea7720e728617bd59ca407efcade66c78ef5c360b1c8049e17afd6488bcef920",
+     "bytes": 34504
+    }
+   ]
+  },
+  {
+   "literal": "893\\,868",
+   "section": "Evidence and reproducibility (Table tab:search)",
+   "classification": "derived but undocumented",
+   "value": 893868,
+   "computation": "Reconstruction of the 00:19 UTC 14 Oct census (log 22644): the 34 distinct soft-token maps below (band tiles merged into their stitched maps; smoke-scan32/64 and timing-8 runs excluded) total 987308 cells (paper 987,308); the five omitted maps (scan-K1 256, zoom-left/right/p4 9216 each, map-highT-256-families 65536) hold 93440; reported = 893868. The rule reproduces both totals exactly; it was found by matching, so it is a consistent reconstruction, not the original enumeration (kept only in a session scratchpad).",
+   "maps": [
+    {
+     "map": "cross-512",
+     "cells": 262144,
+     "omitted": false,
+     "path": "../neural-shrimp-data/explore/llm-soft-loop/pod64/cross-512/scan.npz",
+     "sha256": "2129285dce4a52550a512f1ba96776b8df575db315752a15e1672d499af4d9a4"
+    },
+    {
+     "map": "map-highT-256-families",
+     "cells": 65536,
+     "omitted": true,
+     "path": "../neural-shrimp-data/explore/llm-soft-loop/pod64/map-highT-256-families/scan.npz",
+     "sha256": "ab7ba951e811f79226bd294f0d0e006f3c68c2cec705cf2f98a52dc49f9f2ed0"
+    },
+    {
+     "map": "map-p4body-192-families",
+     "cells": 36864,
+     "omitted": false,
+     "path": "../neural-shrimp-data/explore/llm-soft-loop/pod64/map-p4body-192-families/scan.npz",
+     "sha256": "194fc57b99072754db4b5f84a410d8628422ed36e3f73fdb777f7ac47389548d"
+    },
+    {
+     "map": "map-stripes-256",
+     "cells": 65536,
+     "omitted": false,
+     "path": "../neural-shrimp-data/explore/llm-soft-loop/pod64/map-stripes-256/scan.npz",
+     "sha256": "5c66a6f715cc339f82af6255f1d0189d750410fb51c78d7fa6b282f93498b1a7"
+    },
+    {
+     "map": "pairmap-qwen0.5b/gratitude",
+     "cells": 16384,
+     "omitted": false,
+     "path": "../neural-shrimp-data/explore/llm-soft-loop/pod64/pairmap-qwen0.5b/map128-gratitude/scan.npz",
+     "sha256": "837e843a8691000b839359b6e9bcf15ed6f5c78a1688fdecc8f28f53cb2a399a"
+    },
+    {
+     "map": "pairmap-qwen0.5b/philosophy",
+     "cells": 16384,
+     "omitted": false,
+     "path": "../neural-shrimp-data/explore/llm-soft-loop/pod64/pairmap-qwen0.5b/map128-philosophy/scan.npz",
+     "sha256": "5b740c2bb5704c0056ffe18953b1a56129c5532082045b4dfb32a78c0d98ed9e"
+    },
+    {
+     "map": "pairmap-qwen2-0.5b/gratitude",
+     "cells": 16384,
+     "omitted": false,
+     "path": "../neural-shrimp-data/explore/llm-soft-loop/pod64/pairmap-qwen2-0.5b/map128-gratitude/scan.npz",
+     "sha256": "0b44a11c9d021b5bdd6c620ea8443dc1a746ad3f3ac9a277c7909afc4a78c8fe"
+    },
+    {
+     "map": "pairmap-qwen2-0.5b/philosophy",
+     "cells": 16384,
+     "omitted": false,
+     "path": "../neural-shrimp-data/explore/llm-soft-loop/pod64/pairmap-qwen2-0.5b/map128-philosophy/scan.npz",
+     "sha256": "38478b4c18445f7af8129460bfca300ed45b6f1211b8b7b9c1e79589763302c9"
+    },
+    {
+     "map": "scale15/coarse-64",
+     "cells": 4096,
+     "omitted": false,
+     "path": "../neural-shrimp-data/explore/llm-soft-loop/pod64/scale15/coarse-64/scan.npz",
+     "sha256": "ee5f2d0d360d2c8b129c72ba0f7e2ebb0c7c74ad8ef28384bc10fd929909d2b3"
+    },
+    {
+     "map": "scale15/zoom-256",
+     "cells": 65536,
+     "omitted": false,
+     "path": "../neural-shrimp-data/explore/llm-soft-loop/pod64/scale15/zoom-256/scan.npz",
+     "sha256": "f1c7a3a00e6e15f2d0232122ae7a881529bfee20f288b5caa5ec8e7a5c24d924"
+    },
+    {
+     "map": "s15cut",
+     "cells": 4096,
+     "omitted": false,
+     "path": "../neural-shrimp-data/explore/llm-soft-loop/pod64/bands/s15cut/scan.npz",
+     "sha256": "5921783f73448e33324f923cf232b649071ebf574669f4142d4f9280899f9f09"
+    },
+    {
+     "map": "scale7/coarse-64-hostility",
+     "cells": 4096,
+     "omitted": false,
+     "path": "../neural-shrimp-data/explore/llm-soft-loop/pod64/scale7/coarse-64-hostility/scan.npz",
+     "sha256": "d2bbaffc8a47940a228b3f450dbc3200330a7a7a3120001a03181f8b04057818"
+    },
+    {
+     "map": "scale7/coarse-64-philosophy",
+     "cells": 4096,
+     "omitted": false,
+     "path": "../neural-shrimp-data/explore/llm-soft-loop/pod64/scale7/coarse-64-philosophy/scan.npz",
+     "sha256": "74f4ce281afa04790789a4b4df25f565adb6fd457a8f52f62ef8b4cf355620c5"
+    },
+    {
+     "map": "olmo2-7b/coarse-64-hostility",
+     "cells": 4096,
+     "omitted": false,
+     "path": "../neural-shrimp-data/explore/llm-soft-loop/pod64/scalex-olmo2-7b/coarse-64-hostility/scan.npz",
+     "sha256": "2004e94e185ada86f9246d3e868ce202cc757435813568d12edd7839e962813f"
+    },
+    {
+     "map": "olmo2-7b/coarse-64-philosophy",
+     "cells": 4096,
+     "omitted": false,
+     "path": "../neural-shrimp-data/explore/llm-soft-loop/pod64/scalex-olmo2-7b/coarse-64-philosophy/scan.npz",
+     "sha256": "2d2c990efb0c01c720d2c472a1fb15f88c56c55926c909571f7f1c9a9a686241"
+    },
+    {
+     "map": "llama8b/gratitude",
+     "cells": 4096,
+     "omitted": false,
+     "path": "../neural-shrimp-data/explore/llm-soft-loop/pod64/llama8b-a/coarse-64-gratitude/scan.npz",
+     "sha256": "1ada337a0c8bee6454eb05a5c678dd0f8e1004c41935c6384129f534a2fa5ad4"
+    },
+    {
+     "map": "llama8b/hostility",
+     "cells": 4096,
+     "omitted": false,
+     "path": "../neural-shrimp-data/explore/llm-soft-loop/pod64/llama8b-b/coarse-64-hostility-vs-kindness/scan.npz",
+     "sha256": "ea0d93e94f6ebe842685f5fa43d0e725d7236ad0df136ece1e6507cbcec40958"
+    },
+    {
+     "map": "llama8b/philosophy",
+     "cells": 4096,
+     "omitted": false,
+     "path": "../neural-shrimp-data/explore/llm-soft-loop/pod64/llama8b-b/coarse-64-philosophy/scan.npz",
+     "sha256": "dc37f6954bdc92d93c13d98b7747e787b6c33900605c7e29c94d5cb31e1b777a"
+    },
+    {
+     "map": "scan32/hmap-coarse",
+     "cells": 24576,
+     "omitted": false,
+     "path": "../neural-shrimp-data/explore/llm-soft-loop/pod64/scan32/hmap-coarse/scan.npz",
+     "sha256": "7d72fcb26334418f6e394ba49e745d4dca00d6c1ea0f895bd21636c30c1c2ba3"
+    },
+    {
+     "map": "scan32/hzoom-A",
+     "cells": 36864,
+     "omitted": false,
+     "path": "../neural-shrimp-data/explore/llm-soft-loop/pod64/scan32/hzoom-A/scan.npz",
+     "sha256": "bb57cfe108b00defc600f8df5342b6a70b819055380880f2d9def2876914e960"
+    },
+    {
+     "map": "scan32/hzoom-B",
+     "cells": 36864,
+     "omitted": false,
+     "path": "../neural-shrimp-data/explore/llm-soft-loop/pod64/scan32/hzoom-B/scan.npz",
+     "sha256": "0c9f9e1685d1bf04f895e3b3dafd9e672c31d74bbd4659cc004e2da809cf4dc1"
+    },
+    {
+     "map": "scan64/hcascade-zoom",
+     "cells": 25600,
+     "omitted": false,
+     "path": "../neural-shrimp-data/explore/llm-soft-loop/pod64/scan64/hcascade-zoom/scan.npz",
+     "sha256": "f21cd19cb91c2c195c97ea8d7c4c1265fdb0d8462d8c0e4ef92c3117402ac639"
+    },
+    {
+     "map": "scan64/hwindows-fine",
+     "cells": 36864,
+     "omitted": false,
+     "path": "../neural-shrimp-data/explore/llm-soft-loop/pod64/scan64/hwindows-fine/scan.npz",
+     "sha256": "3b80491756ace03ff4918ea87578af0c2dd99fa4c8f149d58554c1b52e256778"
+    },
+    {
+     "map": "scan64/q05-alpha0",
+     "cells": 512,
+     "omitted": false,
+     "path": "../neural-shrimp-data/explore/llm-soft-loop/pod64/scan64/q05-alpha0/scan.npz",
+     "sha256": "a152aae2a716ce4b5757b424674f150283ee981756bcf34c751a98701daeba09"
+    },
+    {
+     "map": "hcascade/aline-t0.1830",
+     "cells": 1400,
+     "omitted": false,
+     "path": "../neural-shrimp-data/explore/llm-soft-loop/pod64/hcascade/aline-t0.1830/scan.npz",
+     "sha256": "aab6022d580093e551100ec722f90c515545c1bcd04d368fcfc80e88f2bc6f07"
+    },
+    {
+     "map": "hcascade/tline-a0.0655",
+     "cells": 1400,
+     "omitted": false,
+     "path": "../neural-shrimp-data/explore/llm-soft-loop/pod64/hcascade/tline-a0.0655/scan.npz",
+     "sha256": "e8465b7f8115b3ab0e81326b4418c1f0aefd1d3a86a93133e7c8fbd7f0e4ca49"
+    },
+    {
+     "map": "cut-t-0.115",
+     "cells": 700,
+     "omitted": false,
+     "path": "../neural-shrimp-data/explore/llm-soft-loop/cut-t-0.115/scan.npz",
+     "sha256": "9ce05ede7f8e7c81fbba136e859fd9f2e56ffb99421bfe8c5718ac16fb8cbaf5"
+    },
+    {
+     "map": "zoom-Z1-256",
+     "cells": 65536,
+     "omitted": false,
+     "path": "../neural-shrimp-data/explore/llm-soft-loop/pod64/zoom-Z1-256/scan.npz",
+     "sha256": "06f43d1b6fd9d0126a5c58aa9318f0725a94a0eb65822f14b6f9a68ad98adc3d"
+    },
+    {
+     "map": "zoom-Z2-256",
+     "cells": 65536,
+     "omitted": false,
+     "path": "../neural-shrimp-data/explore/llm-soft-loop/pod64/zoom-Z2-256/scan.npz",
+     "sha256": "b2156014e77e30da313126f296152434952b8550d88426dba0b0620d326b2d49"
+    },
+    {
+     "map": "zoom-Z3-256",
+     "cells": 65536,
+     "omitted": false,
+     "path": "../neural-shrimp-data/explore/llm-soft-loop/pod64/zoom-Z3-256/scan.npz",
+     "sha256": "83a56b00d5bbe662fbaf9b5837979c484d85d6dbca343210c614f09b087766d0"
+    },
+    {
+     "map": "scan-K1",
+     "cells": 256,
+     "omitted": true,
+     "path": "../neural-shrimp-data/explore/llm-soft-loop/scan-K1/scan.npz",
+     "sha256": "53f0686d9d86889e62d2ef67e9a660fb1b5ae7d5a934356c529cf7c385d513e1"
+    },
+    {
+     "map": "zoom-left",
+     "cells": 9216,
+     "omitted": true,
+     "path": "../neural-shrimp-data/explore/llm-soft-loop/zoom-left/scan.npz",
+     "sha256": "bee46c6443dd5e8ae8a9faedf1ef312900a599f2ba62cc78da0b6ce1b78e8949"
+    },
+    {
+     "map": "zoom-right",
+     "cells": 9216,
+     "omitted": true,
+     "path": "../neural-shrimp-data/explore/llm-soft-loop/zoom-right/scan.npz",
+     "sha256": "d8fc104b55145a5580e7e8bfafc08d6c5c72d2801574b19dd0777ceaedc0b827"
+    },
+    {
+     "map": "zoom-p4",
+     "cells": 9216,
+     "omitted": true,
+     "path": "../neural-shrimp-data/explore/llm-soft-loop/zoom-p4/scan.npz",
+     "sha256": "7a39427d1b61988d4f050427e39eed37916335e77622f6a556b2dd2791e4ec19"
+    }
+   ]
+  }
+ ]
+}
