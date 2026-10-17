@@ -28655,3 +28655,33 @@ The independent recomputation (tools/c12_4c_check.py) agrees on every contrast: 
 - The size confirmed here is about 13 to 15 points, not 21: the exploratory estimate was optimistic.
 - Limits: one model, layer and schedule; CPU float32; synthetic tasks. The memory is the stored context of a growing-context loop.
 - Status: confirmatory for this setting.
+
+## 2026-10-17 05:05 UTC: Run card SYNC (exploratory): do two coupled copies of the chaotic soft-token loop synchronize where the theory of coupled identical chaotic maps predicts? (human, 17 Oct: "Do it")
+
+**Question.** The C12-3 coupled-agents test strayed from chaos theory. This run asks a dynamical question of the paper's own map. Take F, the soft-token loop: Qwen2.5-0.5B-Instruct, philosophy direction at layer 12, the "open" prompt with opener "Hello!", window 1, float64 with the norm and rotary patches (keep_float64_norms), on the CPU. Couple two copies symmetrically in their outputs: x_A' = (1-c) F(x_A) + c F(x_B), and x_B' symmetric. Both rows of a pair are in one batch.
+
+**Theory (checked).** u = x_A - x_B obeys u' = (1-2c)(F(x_A) - F(x_B)) = (1-2c) DF u + O(|u|^2). Along a typical synchronized orbit, every transverse exponent is lambda_i + ln|1-2c|. Synchronization is therefore linearly stable for c > c* = (1 - exp(-lambda_1))/2 when c < 1/2. Near c*, unstable periodic orbits in the attractor with larger exponents predict attractor bubbling and on-off intermittency, whose laminar phases have a -3/2 length distribution. In exact float64 arithmetic with no mismatch, a pair whose rows become bitwise equal stays equal: there is no noise floor, so bubbling may be suppressed. This is recorded as a caveat, not a result.
+
+**Cells.** The three chaotic cells of docs/e2e/lyap-cells.json, with published lambda_1 = 0.109, 0.424 and 0.239 per step (600-step records). The predicted c* values are 0.052, 0.173 and 0.106.
+
+**Code.** tools/sync_coupled_loops.py at ee060c3a, with tests/test_sync_coupled_loops.py (7 passed; a logistic-map surrogate synchronizes above its c* = 0.25 only, and its twin exponent matches ln 2 + ln|1-2c|).
+
+**Runs.** CPU only, 4 threads, nice 10, at most 2 processes. Raw data goes to neural-shrimp-data/explore/sync/.
+1. `check` (gate). Batch-position invariance of F: pair against single row, swapped layout, batch of 8, and identical rows in one batch. Central differences against the exact JVP for h from 1e-2 to 1e-7 relative, which should fall about 100x per decade of h.
+   - If bitwise invariance fails at the 1e-15 level only, the pair runs continue in one batch and the difference is disclosed as a roundoff-level symmetry breaking.
+   - If it fails above 1e-12, the rows are evaluated separately.
+2. `transverse`. Renormalized twin pairs (delta 1e-7 relative) on the coupled map, 3 cells x c in {0, 0.05, 0.1, 0.15, 0.2, 0.25, 0.3}, 2000 steps after a 1000-step transient. Exact-JVP lambda_1 of the single loop, 3000 steps. Compare the measured transverse exponent with lambda_1 + ln|1-2c|.
+3. `sweep --start near`. 3 cells x c = 0 to 0.30 in steps of 0.01. B starts at relative offset 1e-3 from A, after a 1000-step transient. 3000 steps. Record the relative distance and the top-1 tokens of both rows at every step.
+4. Refinement near c*, with long records for intermittency. Per cell, 8 c values around each measured c*: 10000 steps, start near.
+5. `sweep --start far` (if time). B starts 500 steps further along the attractor. 3 cells x c = 0 to 0.30 in steps of 0.02, 2000 steps.
+
+**Measures.**
+- A pair counts as synchronized when its relative distance stays below 1e-8 over the last 500 steps.
+- c_obs is the bracket between the largest unsynchronized c and the smallest c from which all larger grid values synchronize.
+- Also recorded: the mean distance, the fraction of steps below 1e-8, and the laminar phase lengths (steps below 1e-4 and 1e-6). A slope is fitted only with at least 100 phases.
+- Leading tokens are recorded when synchronized and when not.
+- The synchronized orbit is checked against the single loop: the top-1 token distribution and entropy are compared with the c = 0 rows.
+
+**Decision rules (exploratory).**
+- Agreement holds if c_obs brackets c* within the grid step plus the uncertainty implied by the lambda_1 error (block standard error).
+- Intermittency is claimed only if bursts recur within a single record: excursions from below 1e-8 to above 1e-3 at least 5 times.
