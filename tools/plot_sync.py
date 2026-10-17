@@ -4,7 +4,7 @@
     threshold c* = (1 - exp(-lambda_1)) / 2 marked; (b) measured against predicted transverse exponent; (c) the
     distance time series of the pair near threshold with the most bursts (if any pair bursts).
 
-Usage: python tools/plot_sync.py [--sweep sweep-near] [--ts-sweep NAME --ts-cell I --ts-c C]
+Usage: python tools/plot_sync.py [--sweep sweep-near] [--refine NAME ...] [--ts sweep:cell:c ...]
 """
 import argparse
 import json
@@ -31,13 +31,14 @@ def main():
     ap.add_argument("--summary", default=str(ROOT / "docs" / "sync" / "sync-summary.json"))
     ap.add_argument("--sweep", default="sweep-near", help="sweep shown in panel (a)")
     ap.add_argument("--refine", nargs="*", default=[], help="further sweeps overlaid in panel (a)")
-    ap.add_argument("--ts-sweep", default=None)
-    ap.add_argument("--ts-cell", type=int, default=None)
-    ap.add_argument("--ts-c", type=float, default=None)
+    ap.add_argument("--ts", nargs="*", default=None, help="time-series panels, each sweep:cell:c (default: the pair "
+                    "with the most bursts)")
     ap.add_argument("--out", default=str(ROOT / "paper" / "llm" / "figures" / "fig-sync.png"))
     args = ap.parse_args()
     S = json.loads(Path(args.summary).read_text())
-    fig, axes = plt.subplots(1, 3, figsize=(13.5, 4.0))
+    picks = [(a, int(b), float(c)) for a, b, c in (t.split(":") for t in args.ts)] if args.ts else []
+    npan = 2 + max(1, len(picks))
+    fig, axes = plt.subplots(1, npan, figsize=(4.5 * npan, 4.0))
     ax = axes[0]
     for k, (ci, c) in enumerate(sorted(S["cells"].items())):
         col = COLORS[k % 3]
@@ -73,22 +74,22 @@ def main():
     ax.set_ylabel(r"measured transverse exponent (twin)")
     ax.set_title("(b) transverse exponent; bars: 2 s.e.")
     ax.legend(fontsize=8)
-    ax = axes[2]
-    pick = None
-    if args.ts_sweep is not None:
-        pick = (args.ts_sweep, args.ts_cell, args.ts_c)
-    else:
-        best = 0
+    if not picks:
+        best, pick = 0, None
         for ci, c in S["cells"].items():
             for name, sw in c["sweeps"].items():
                 for r in sw["pairs"]:
                     if r["bursts_1e-8_to_1e-3"] > best:
                         best, pick = r["bursts_1e-8_to_1e-3"], (name, int(ci), r["c"])
-    if pick is None:
-        ax.text(0.5, 0.5, "no pair bursts\n(no passage from $<10^{-8}$ to $>10^{-3}$)", ha="center",
-                va="center", transform=ax.transAxes)
-        ax.set_axis_off()
-    else:
+        picks = [pick]
+    for j, pick in enumerate(picks):
+        ax = axes[2 + j]
+        letter = "cdefg"[j]
+        if pick is None:
+            ax.text(0.5, 0.5, "no pair bursts\n(no passage from $<10^{-8}$ to $>10^{-3}$)", ha="center",
+                    va="center", transform=ax.transAxes)
+            ax.set_axis_off()
+            continue
         name, ci, cc = pick
         base = ela.DATA / "explore" / "sync" / name
         sj = json.loads((base / "sweep.json").read_text())
@@ -97,15 +98,16 @@ def main():
         if not k:
             raise SystemExit(f"no pair cell {ci} c {cc} in {name}")
         d = np.maximum(dist[k[0]], 1e-18)
-        ax.semilogy(np.arange(len(d)), d, lw=0.5, color=COLORS[ci % 3])
+        cells = sorted(S["cells"])
+        ax.semilogy(np.arange(len(d)), d, lw=0.4, color=COLORS[cells.index(str(ci)) % 3])
         cst = S["cells"][str(ci)]["c_star_jvp"]
-        ax.set_title(f"(c) cell {ci}, c = {cc:g} ($c^*$ = {cst:.3f})")
+        ax.set_title(f"({letter}) cell {ci}, c = {cc:g} (predicted $c^*$ = {cst:.3f})")
         ax.set_xlabel("step")
         ax.set_ylabel(r"$|x_A - x_B| / |x_A|$")
     fig.tight_layout()
     Path(args.out).parent.mkdir(parents=True, exist_ok=True)
     fig.savefig(args.out, dpi=200)
-    print(args.out, "time series:", pick)
+    print(args.out, "time series:", picks)
 
 
 if __name__ == "__main__":
