@@ -1,0 +1,27 @@
+# PM2F source contract — prepared, no execution
+
+This new assignment is item 1 of Claude's Task 27 dated 2026-10-17T00:40Z. It covers the three original PM2F saved JSONL sets only. PM/PM2 are not rerun; the separately queued precision comparison and later follow-ups are outside this adapter. The paper's current abstract and “Is this chaos?” paragraph have been read as claims to audit, so this preparation is not outcome-blind, although no target row or numerical summary payload has been decoded.
+
+Read source at the coordinator's stated current revision36713c41:
+
+- tools/pi_reason_f64.py SHA4be2bbf44da72084053e3193e68ed32014101ba43b22d531804242f27ba971e3.
+- tools/explore_llm_attractors.py SHA136e263ba48d6e6c4119d56568bdfcda10afc9984cecb2f6e24f4cc22718e55e.
+- tools/pi_reason.py SHA05b157bccd6bf35ded700fc06ab3d88b47f68c7b087afa082b1b61506e0c676f.
+
+Original source21d300a6 and loader/library/command association remain to be supplied and checked against these semantics. These source hashes do not attest actual loaded checkpoint weights.
+
+1. **There is no retained distance series in this writer.** The raw JSONL retains per-twin fitted growth_rate and log10 maximum/end distances, answers and switch fields. Distances, selected fitting indices, residuals, native state/cache vectors and RNG directions are discarded. Saved scalar aggregation is independently reproducible; the slope, its fit window and the recorded distances cannot be independently reconstructed from this output. The audit must report that limitation explicitly rather than invent a distance replay.
+
+2. **Growth is not a single predicate.** The source growth_rate selects inclusive10*eps0 <= d <=1e-3 and requires at least2 selected samples. It fits log(distance) against their indices. A positive fit can coexist with end distance below eps0. Own output must distinguish positive fitted rate, max excursion above eps0 and endpoint above/below/equal nominal eps0; all undefined/nonfinite cases remain. Endpoint comparison is to nominal injected eps0, because actual initial distance is not saved. No arbitrary tolerance is introduced.
+
+3. **Window and clock are conditional.** At each loop index t, the distance is measured between fed-back embeddings before the next model call. The writer slices d[:base_switch], excluding the base switching step, then removes NaN values and fits against indices in that compressed sequence. It does not require the twin to remain in thinking throughout the base-defined interval. If the twin switches earlier, the compared inputs can belong to different modes. same_switch and all switch fields must remain explicit; no fixed smooth autonomous-map Lyapunov interpretation follows automatically. The log distances floor at1e-300, so a saved−300 is censored and cannot distinguish zero from smaller positive values.
+
+4. **Finite perturbation, not renormalized tangent growth.** Directions come from default_rng([seed,group_index]); each twin's first input is displaced by eps0 times its own input norm along a normalized random direction. All rows sharing a problem use default_rng(seed+index) and consume one uniform at each global step. The path is finite-separation without tangent/Benettin renormalization. Both twins share the base and problem; twin counts are not independent-problem sample sizes. No new statistical confidence or chaos gate is proposed.
+
+5. **Source-level float64 support is conditional on historical association.** Engine(...,'float64',device,'bf16') patches nn.Linear before load; decoder linear weights stay bf16 but are converted to float64 for float64 inputs. Other parameters/floating buffers, including embeddings, become float64. RMSNorm and rotary forwards are patched; hooked originals are rebound and stale hooks refused; attention is constrained to sdpa/None. PM2F also refuses non-float64 embeddings. These measures concern computation using stored bf16 weights, not recovery of pre-quantization weights. A source review is not a measurement of every historical kernel. No new model/load/precision replay is requested here.
+
+6. **Completeness and extraction remain finite.** Group selection emits full groups of equal prompt length from the train split after offset; limit can be rounded up to a full group. Resume skips a group only if every index is already present, so a partial prior group can create duplicated indices; retain and diagnose duplicates rather than overwrite. Answers are decoded by the original tokenizer and pr.extract before saving, with no text or answer token sequence retained in this writer. Own arithmetic can check stored correct/flip/same_switch equality, but cannot independently re-extract answers from discarded text.
+
+Current manuscript lines47–50 and930–937 connect fitted rates and “about half grew.” The forthcoming audit will compare those claims with separately labelled endpoint and fit-slope counts. It will not infer asymptotic chaos, causal exclusivity of rounding, or equal sensitivity across models from these finite scalar records.
+
+Metadata f31751f5 subsequently bound exact historical21d300a6 source bytes equal to the three current writer/loader sources above, plus original runner/dependency/archive associations. There is still no historical inline summary implementation. The two declared growth projections and explicit quartile convention are independent interpretations, not retroactive producer-code claims. Original eight C startup failures remain in the driver report. No target payload or control was executed.
