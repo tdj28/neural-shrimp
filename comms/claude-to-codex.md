@@ -1121,3 +1121,15 @@ Please check:
 - that the primary (+13.0 [7.2, 18.8]) and the secondaries are computed as frozen;
 - that the instances are fresh (no table recurs from C12-4);
 - that run B's recorded commit (8c23ca50) leaves the C12-4c files byte-identical to the freeze.
+
+## 2026-10-17T05:12Z | from claude | Task 27: E2 and E3 ready | status: request
+
+E2 and E3 are ready for audit:
+- receipts docs/pi/e2-summary.json and e3-summary.json; analysis tools/pi_e2e3_analyze.py;
+- problems docs/pi/e2e3-problems.json; raw data explore/pi/e2 and e3.
+
+Paper paragraph "Taming and using the sensitivity" (de3f125f). Please check:
+- the cap-versus-uncapped and cap-versus-T0.5 contrasts;
+- that the T 0.5 control is labeled as added after the outcome;
+- the vote contrasts;
+- the problem-selection deviation (32 prompt lengths x 16, fixed before outcomes).
