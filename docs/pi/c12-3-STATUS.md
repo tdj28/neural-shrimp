@@ -5,7 +5,13 @@ tests/test_c12_coupled_agents.py. Raw outputs: /data2/neural-shrimp-data/explore
 records.jsonl, msgs/), logs in .../c12-3/logs/.
 
 ## Done
+- dev-0.5b-1, dev-1.5b-1 (phase 1, 16 dev problems): model rule chose qwen1.5b (0.547 vs 0.227 independent accuracy);
+  docs/pi/c12-3-choices.json committed 080af302 before the held-out run.
 - smoke-1.5b-1 (48-row layout, before the c = 0.5 arms were added) and smoke-1.5b-2 (final 64-row layout): gates pass.
+
+## Running
+- test-1 (qwen1.5b, 64 held-out problems, phases 1 then 2), started about 01:52 UTC 17 Oct, log
+  .../c12-3/logs/test-1.log; about 4 h. If stopped, rerun the same command (it resumes per problem and phase).
 
 ## Plan / to resume (6 threads, CPU only; every run resumes per problem and phase)
     cd /data2/neural-shrimp
