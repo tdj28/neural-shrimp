@@ -28299,3 +28299,38 @@ Costs, guards and the ceiling are in the private ledger. Every pod terminates it
 - Estimated time: about 3.2 h for A and 1.6 h for B.
 
 **What would surprise us.** An up-minus-direct contrast with its interval reaching 0 on fresh tables. That would mean C12-4's +21 points depended on its particular instances.
+
+## 2026-10-17 01:05 UTC: E2/E3 development outcome and amendment (before any E2 or E3 outcome)
+
+Development stage (tools/pi_e2e3_run.sh dev at 769e3f10; raw explore/pi/e2e3-dev/): 48 of E1's test problems.
+
+**Throughput** (wall time per run, including the model load).
+- Soft, two layouts (12 batches): 138 s uncapped; 127, 161 and 203 s at caps 0.37, 0.10 and 0.015.
+- Soft, layout 16 only (6 batches): 60-68 s.
+- Chain of thought, layout 16 (6 batches): 168 s greedy, 184 s sampled. Some batch always reached the 320-token
+  limit, so `--stop-eos` saves little.
+
+The estimate for E2 and E3 at 512 problems is about 1.2 and 2.6 GPU-hours, within the 4.5-hour rule. **E3 uses all
+512 problems.**
+
+**Perturbation.** Realized bf16 displacement of the first soft token, and answer changes against the unperturbed
+run:
+
+| s | realized displacement | zero displacements | answer changes |
+|---|---|---|---|
+| 1e-4 | 2.3e-5 to 3.3e-5 (bf16 rounding absorbs most of it) | 0 | 12.5 % |
+| 1e-3 | 7.8e-4 to 8.8e-4 | 0 | 20.8 % and 14.6 % (two seeds) |
+| 1e-2 | 1.0e-2 | 0 | 22.9 % |
+
+By the card's rule, **s = 1e-3**.
+
+**Amendment: the cap is unattainable at exact ties.**
+- At caps 0.10 and 0.015, 52 of 6,144 soft steps (0.85 %) in the 0.10 arm ended with the gain proxy far above the cap
+  (up to 520). All of them sit at a top-2 logit gap of exactly 0, a tie in the bf16 logits.
+- There, lowering T leaves a 50/50 mixture of the tied tokens, so the proxy grows like 1/T. The bisection then stops
+  at its floor, T = 1e-3, and the step feeds back that mixture.
+- The harness is unchanged. The analysis now reports these steps as "cap unmet" (`steps_cap_unmet_share`) and gives
+  the median gain over the steps where the cap held. The E2 arms run as carded.
+
+Development values (48 problems, not results): flip rates 25.0, 25.0, 16.7 and 20.8 % (uncapped, 0.37, 0.10, 0.015);
+accuracy 15-19 %. Development greedy and sampled chain of thought scored 95.8 % and 89.6 %.
