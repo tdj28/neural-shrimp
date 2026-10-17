@@ -28775,3 +28775,9 @@ By sensitivity:
 - Soft answers come from 12 greedy tokens after the cue. 16-24 of 512 soft rows per run have no number.
 - Chain of thought is capped at 320 new tokens, and 71-88 of 512 rows per run reach the cap.
 - The gain proxy is the harness's 12-step power-iteration estimate, not the exact readout Jacobian.
+
+**Correction to the two E2/E3 entries above (range ends at their true extremes, checked against the raw files).**
+- E3 single-run ranges: perturbed soft 22.4-23.8 % (not 22.5-23.9), sampled 83.0-86.3 % (not 83.0-86.4).
+- Realized displacement: 7.4e-4 to 9.96e-4 (not "to 1.0e-3").
+- Development entry (01:05 UTC): s = 1e-4 realized 2.2e-5 to 3.3e-5 (not 2.3e-5), and development accuracy
+  14.5-18.8 % (not 15-19 %).
