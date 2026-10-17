@@ -194,6 +194,17 @@ def e3(args):
     return out
 
 
+def raw_receipt(runs):
+    """SHA-256 and size of every run's records and settings, for the compact receipt."""
+    import hashlib
+    out = {}
+    for run in runs:
+        for f in ("records.jsonl", "run.json"):
+            q = Path(run) / f
+            out[str(q)] = {"sha256": hashlib.sha256(q.read_bytes()).hexdigest(), "bytes": q.stat().st_size}
+    return out
+
+
 def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     sub = ap.add_subparsers(dest="cmd", required=True)
@@ -209,6 +220,9 @@ def main():
     b.add_argument("--json", default=None)
     args = ap.parse_args()
     out = e2(args) if args.cmd == "e2" else e3(args)
+    runs = ([a.split("=", 1)[1] for a in args.arm] if args.cmd == "e2"
+            else [args.soft0, *args.soft, args.greedy, *args.sample])
+    out["raw"] = raw_receipt(runs)
     print(json.dumps(out, indent=1))
     if args.json:
         Path(args.json).write_text(json.dumps(out, indent=1) + "\n")
