@@ -28440,3 +28440,14 @@ The primary criterion (> 5 %, lower bound > 2 %) holds in every version.
 - The PM2F observation that "bf16 rounding itself degrades its soft thinking". Precision has no measurable effect.
 
 The R1-Qwen-7B and QwQ-32B cells and every PM2F cell are unaffected: their tokenizers load correctly, and PM2F loads by repository name.
+
+## 2026-10-17 01:55 UTC: Run card PM2X amendment 1 (before its data): corrected R1-Llama-8B MATH-500 cell (X3c)
+
+The coordinator asked for the second R1-Llama cell to be corrected as well.
+- Pod X3c, job set `preason`, `pm2fix-math r1llama8b 155 1536 0 math500:64`, on an H100 NVL, the GPU of PM2's pod B.
+- The PM2 design is unchanged: the first 64 integer-answer MATH-500 problems, layouts 1 and 8 copies, soft and plain, budget 1536, no Cold Stop. The only change is the checked tokenizer.
+- Commit ae1712a0.
+- Receipt: docs/pi/pm2fix-math-summary.json, with the pooled PM2 primary recomputed with both R1-Llama cells corrected.
+- Cost guard and ceiling are in the private ledger.
+
+**Note on item 4.** The Cold Stop pod X4a ran on an H100 PCIe, PM2's pod A on an H100 NVL. Its comparison with PM2 therefore changes the GPU as well as the end of thinking. The QwQ pod X4c ran on an H200, as PM2's pod C did.
