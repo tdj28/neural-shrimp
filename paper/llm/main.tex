@@ -4071,8 +4071,9 @@ validation, cross-checks and prospectively frozen passage tests (including faile
 computer-assisted proof for only one orbit at one parameter point. Chaos labels are finite-horizon estimates (300
 measured steps after 300 to 500 transient steps), and the chaotic cells are numerically validated (twin exponents agree with exact tangents, across precisions and horizons) but not yet established by a computer-assisted proof. A computer-assisted proof of chaos, such as a horseshoe verified by covering
 relations, would need enclosures of the map over boxes many orders of magnitude larger than the period-8 proof's
-(radius $2^{-640}$). With the ball arithmetic used there, a box of radius $2^{-80}$ already loses the positivity
-of an RMS normalization at layer 3 (the enclosures overestimate through the layers), so such a proof needs other
+(radius $2^{-640}$). That proof is unaffected, but its ball arithmetic does not scale to large boxes: in a separate
+test, a box of radius $2^{-80}$ already gave enclosures too wide to show that an RMS normalization at layer 3
+divides by a positive number (the enclosures overestimate through the layers), so a proof of chaos needs other
 verified methods. A horizon check retested
 random cells of two float64 maps (Figures~\ref{fig:teaser} and~\ref{fig:stripes}) with 1000 transient and 2000
 measured steps at two twin offsets: 86 and 92 of 96 cells labeled chaotic stayed chaotic (all but one of the rest
