@@ -5,8 +5,10 @@ Design: docs/pi-c12-4-confirmatory.md. Launcher: tools/c12_4c_run.sh. Raw output
 
 ## State
 
-- 2026-10-17 00:55 UTC: design, code, tests (32 pass) and instance list ready; freeze commit pending push. No
-  confirmatory data exists.
+- 2026-10-17 00:55 UTC: design, code, tests (33 pass) and instance list ready.
+- 2026-10-17 01:00 UTC: freeze pushed at 76ae09fe (verified on origin/main); run card at d1745366.
+- 2026-10-17 01:06 UTC: tools/c12_4c_run.sh launched (log: /data2/neural-shrimp-data/explore/pi/c12-4c/logs/run.log);
+  machine load about 25 on 32 logical CPUs at launch. Run A (24 batches) first, then run B (12 batches).
 
 ## Resume
 
@@ -18,3 +20,6 @@ Design: docs/pi-c12-4-confirmatory.md. Launcher: tools/c12_4c_run.sh. Raw output
   the completed pass of each batch (complete_rows; the discarded count is a gate field).
 - After the run: write docs/pi/c12-4c-summary.json (receipt spec with instance_set "conf"), append results to
   docs/research-log.md, and update this file.
+- 2026-10-17 01:18 UTC: run A batch 0 took 683 s (load 36 from other agents' jobs; dry-run estimate 430-500 s).
+  Projection: about 4.6 h for A and 2.3 h for B, near the 7 h estimate, finishing about 08:00 UTC. The design's
+  reduction rule applies only before data, so the run continues unchanged.
