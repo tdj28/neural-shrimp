@@ -3058,15 +3058,23 @@ schedule can matter, not only its present value. An exploratory test asked this 
 answers. Qwen2.5-3B-Instruct, thinking in soft tokens, judged synthetic access-control requests against a supplied
 permission table, answering ALLOW or DENY, while a permissive-versus-restrictive direction steered it at layer 18.
 Every run ended with 32 steps at the same steering strength ($\alpha=0.025$). Some runs got there directly; others
-first made a brief excursion to $\alpha=0.04$ and back. The excursion raised the share of prohibited requests wrongly
-allowed from 49.5 to 70.8\,\%, a difference of 21.4 points (95\,\% interval over 24 held-out instances
-$[15.6,26.6]$). The difference was 20.3 points after 64 steps: it persisted through the 64 steps tested. A restrictive excursion likewise
-raised false denials of permitted requests by 31.2 points ($[22.4,41.1]$). An excursion of the same size along a random
-direction showed no detectable effect on either rate (1.0 points, $[-4.2,6.3]$), and an excursion of zero size changed no decision. The
-present steering strength therefore does not describe the steered model's behavior here. What the loop wrote during
+first made a brief excursion to $\alpha=0.04$ and back. In the exploratory run, the excursion raised the share of
+prohibited requests wrongly allowed from 49.5 to 70.8\,\%, a difference of 21.4 points (95\,\% interval over 24
+held-out instances $[15.6,26.6]$; \texttt{docs/pi/c12-4-summary.json}).
+
+We then repeated the test as a confirmatory one. The design, the analysis and a fresh set of 48 instances (drawn from
+a new pool of users) were fixed and pushed before any data (\texttt{docs/pi-c12-4-confirmatory.md}), with the
+prediction that the excursion would raise false allowing by at least 10 points, with an interval excluding zero. The
+prediction held, with a smaller effect: 13.0 points ($[7.2,18.8]$ over 24 prohibited instances) after the 32 steps at
+the final strength, and 15.1 points ($[10.4,19.8]$) after 64 steps. A second permissive direction, built the same way
+from differently worded statements (cosine 0.77 with the first), gave 19.3 points ($[12.5,26.1]$). A restrictive
+excursion raised false denials of permitted requests by 23.4 points ($[17.1,29.7]$). An excursion of the same size
+along a random direction showed no detectable effect ($-3.1$ points, $[-8.9,2.1]$), and an excursion of zero size
+changed none of the 384 decisions (\texttt{docs/pi/c12-4c-summary.json}). The present steering strength therefore
+does not describe the steered model's behavior here. What the loop wrote during
 the excursion stays in its growing context and keeps biasing the decision: this is a memory of the context, not
-hysteresis of a fixed-size state. One model, one direction and one schedule were tested, in float32
-(\texttt{docs/pi/c12-4-summary.json}).
+hysteresis of a fixed-size state. One model and one schedule were tested, in float32, with two wordings of one
+direction.
 
 \paragraph{Does the hidden state change answers?} In band chaos the loop writes an exactly repeating text while its
 state moves chaotically (Section~\ref{sec:hostile}). An exploratory test asked whether states with the same visible
