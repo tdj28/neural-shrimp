@@ -58,12 +58,16 @@ def e2(args):
         for i in idx:
             clusters[rows[i]["cluster"]].append(rows[i]["flip"])
         k = int(sum(rows[i]["flip"] for i in idx))
-        steps = capped = 0
-        temps, gains = [], []
+        steps = capped = unmet = 0
+        temps, gains, met = [], [], []
+        cap = cfg.get("gain_cap") or 0.0
         for i in idx:
             for lay in layouts:
                 r = recs[name][i][lay]
                 gains.extend(r["gain"])
+                if cap:                                   # an exact top-2 tie makes the cap unattainable (gain ~ 1/T)
+                    unmet += sum(g > cap * 1.001 for g in r["gain"])
+                    met.extend(g for g in r["gain"] if g <= cap * 1.001)
                 if "temp" in r:
                     temps.extend(r["temp"])
                     capped += sum(t < cfg["temperature"] for t in r["temp"])
@@ -81,7 +85,9 @@ def e2(args):
                                 for la, s in zip(layouts, "ab")},
             "steps_capped_share": capped / steps if temps else 0.0,
             "mean_step_temperature": float(np.mean(temps)) if temps else cfg["temperature"],
-            "mean_gain": float(np.mean(gains)), "max_gain": float(np.max(gains))}
+            "mean_gain": float(np.mean(gains)), "max_gain": float(np.max(gains)),
+            "steps_cap_unmet_share": unmet / steps if cap else None,
+            "median_gain_where_met": float(np.median(met)) if met else None}
     rows0 = arms[args.base][1]
     for name, (cfg, rows, _) in arms.items():
         if name == args.base:
