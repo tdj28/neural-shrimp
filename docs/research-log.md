@@ -28889,3 +28889,21 @@ The pair distance stays at 0.05 to 1.7: the two agents emit staggered or differe
 - Transversely unstable embedded periodic orbits were not computed. Bubbling is inferred from bursts above c*, not from orbit exponents.
 - The multipliers of the periodic unsynchronized orbits and of cell 0's period-2 orbit were not computed.
 - The panel (a) points at grid values shared by the near and refinement sweeps show the refinement value: the second half of a 10000-step record instead of 3000.
+
+## 2026-10-17 18:38 UTC: Cursor audit of the 17 Oct round: findings verified and applied
+
+Brief: /data2/CHECK_THESE.md. Findings: /data2/CHECK_THESE_FINDINGS.md (sha256 c7d4572b52a445e8…). Scripts: ../neural-shrimp-data/scratch/audit-cursor-1017/. Reference commit 4d20b2ea. There were 11 findings, 3 of them must-fix.
+
+**Check 1** (Codex's unfinished item): independent re-decoding of all 512 saved answer-id rows gives 3 changed answers in reason-plain-legacy and 0 in the other seven, confirming docs/pi/pm2x-llama-diag.json. The checker on 4d20b2ea found 0 unmatched literals.
+
+**Rechecked here from the raw files before editing:**
+- **F1:** DF ratio 0.117-0.893 over 43 states (rank-spectra/spectra.json). It was quoted as 0.12-0.80, including in this log's E2E entry above.
+- **F2:** census cell (0.0708, -0.1396), start "below" -> period 10.
+- **F4:** the greedy successor of " it" is " is" for alpha >= 0.105 (31 grid rows).
+- **F7:** secondary exponents reach -2.0031.
+- **F5:** the two-token flip lies between 0.0646 and 0.0648; it is now quoted as that bracket.
+- **F3** (Chaos abstract), **F6** (refined greedy edges), **F8** (the 1/N^2 law; free fit 2.18 +- 0.06), **F10** (extrapolated fold) and **F11** (scope of the picture sentences): accepted from Cursor's cited files.
+
+**Applied:** paper 13b9726b and the following commit; Chaos article ba57386.
+
+**Left as is:** F9, the 893,868-cell total. It is a reconstruction whose partition was found by matching both published totals; the human decides whether to label it so.

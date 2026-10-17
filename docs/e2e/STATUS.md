@@ -101,3 +101,4 @@ Composed-map sigma2/sigma1: P2 0.081, P3 0.092, P6 0.261, P8 stripe 4.0e-5, chao
 states (chaotic cells included) and DF's sigma2/sigma1 0.12-0.80. So one-dimensionality builds up in the composed
 loop, strongest along the stripes and in the chaos, not in the single-step readout (provisional; DF dense vs JVP
 <= 7.3e-14).
+- Correction 17 Oct 2026 (Cursor audit F1): over all 43 states, DF's sigma2/sigma1 is 0.117-0.893, quoted as 0.11-0.90 (not 0.12-0.80).

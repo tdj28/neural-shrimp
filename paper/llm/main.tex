@@ -56,7 +56,7 @@ loops writing one text lock each other into periodic orbits. Whether a prompt's 
 the accuracy of ordinary sampled answers beyond what the model's uncertainty about its first answer token predicts,
 and we find no edge-of-chaos advantage. The loop obeys quantitative laws of
 low-dimensional maps: doubling ratios approach Feigenbaum's constant (4.6688 against 4.6692), periodic windows
-accumulate on folds with a $1/N^2$ law, passage times predicted in advance from fold normal forms came within one
+accumulate on folds with distances close to a $1/N^2$ law, passage times predicted in advance from fold normal forms came within one
 iterate in 42 of 48 cases at four new folds (the six misses, at a period-6 fold, 3 to 5\,\% short), and interval arithmetic proves an attracting period-8 orbit. In the recurrent-depth model Huginn, a frozen test confirmed a predicted accuracy loss. The loop is not ordinary sampled generation.
 \end{abstract}
 
@@ -165,7 +165,8 @@ system; Section~\ref{sec:beyond} also measures how much of the mechanism survive
   period step. A fold's normal form, computed from derivatives, predicts without fitting how long trajectories linger
   near the vanished orbit: in two frozen tests at four new folds, 42 of 48 forecasts fell within one iterate, and
   both all-row criteria failed (the second because passages from the entrance of a period-6 fold's channel came in 3
-  to 5\,\% short), and windows accumulate on the fold with a $1/N^2$ law. On the nine fold curves we continued,
+  to 5\,\% short), and windows accumulate on the fold with distances close to a $1/N^2$ law
+  (a free fit gives an exponent of $2.18\pm0.06$). On the nine fold curves we continued,
   all thirteen tangent reversals are located cusps, and near them local unfoldings, frozen before solving, matched the
   orbits that Newton solves recovered at twelve parameter offsets in number and at eleven in stability. A doubling
   cascade has superstable points through period 768 and finite-order Feigenbaum ratios that approach $\delta$ (the
