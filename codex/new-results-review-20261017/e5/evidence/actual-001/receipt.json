@@ -1,0 +1,80 @@
+{
+  "lane": "e5",
+  "source_commit": "a2a63b3ec7ccf2c27377725d9f22cde37b69ec55",
+  "argv": [
+    "/data2/neural-shrimp/.venv/bin/python",
+    "-I",
+    "-B",
+    "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/new-results-review-20261017/e5/run.py",
+    "--card",
+    "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/new-results-review-20261017/e5/run-001-card.json",
+    "--out",
+    "/data2/neural-shrimp-data/codex/new-results-review-20261017/run-001/e5"
+  ],
+  "returncode": 0,
+  "failure": null,
+  "external_elapsed_seconds": 28.001981965266168,
+  "worker_reaped": true,
+  "worker_observed_after_exec": {
+    "pid": 384963,
+    "starttime": 214558087,
+    "pgid": 384963,
+    "sid": 384963,
+    "state": "R",
+    "nice": 10,
+    "threads": 1,
+    "uid_line": "Uid:\t1000\t1000\t1000\t1000",
+    "cmdline": "/data2/neural-shrimp/.venv/bin/python -I -B /home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/new-results-review-20261017/e5/run.py --card /home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/new-results-review-20261017/e5/run-001-card.json --out /data2/neural-shrimp-data/codex/new-results-review-20261017/run-001/e5 ",
+    "limits": "Limit                     Soft Limit           Hard Limit           Units     \nMax cpu time              170                  170                  seconds   \nMax file size             134217728            134217728            bytes     \nMax data size             unlimited            unlimited            bytes     \nMax stack size            8388608              unlimited            bytes     \nMax core file size        0                    unlimited            bytes     \nMax resident set          unlimited            unlimited            bytes     \nMax processes             375398               375398               processes \nMax open files            65535                65535                files     \nMax locked memory         8388608              8388608              bytes     \nMax address space         2147483648           2147483648           bytes     \nMax file locks            unlimited            unlimited            locks     \nMax pending signals       375398               375398               signals   \nMax msgqueue size         819200               819200               bytes     \nMax nice priority         0                    0                    \nMax realtime priority     0                    0                    \nMax realtime timeout      200000               200000               us        \n"
+  },
+  "worker_pid": 384963,
+  "worker_identity_absent": true,
+  "worker_group_session_absent": true,
+  "supervisor": {
+    "pid": 384932,
+    "starttime": 214558073,
+    "pgid": 384932,
+    "sid": 384932,
+    "state": "R",
+    "nice": 10,
+    "threads": 1,
+    "uid_line": "Uid:\t1000\t1000\t1000\t1000",
+    "cmdline": "/data2/neural-shrimp/.venv/bin/python -I -B /home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/new-results-review-20261017/supervise.py --plan /home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/new-results-review-20261017/operation-e5-actual-001.json --lane e5 --source a2a63b3ec7ccf2c27377725d9f22cde37b69ec55 ",
+    "limits": "Limit                     Soft Limit           Hard Limit           Units     \nMax cpu time              unlimited            unlimited            seconds   \nMax file size             unlimited            unlimited            bytes     \nMax data size             unlimited            unlimited            bytes     \nMax stack size            8388608              unlimited            bytes     \nMax core file size        0                    unlimited            bytes     \nMax resident set          unlimited            unlimited            bytes     \nMax processes             375398               375398               processes \nMax open files            65535                65535                files     \nMax locked memory         8388608              8388608              bytes     \nMax address space         1073741824           4294967296           bytes     \nMax file locks            unlimited            unlimited            locks     \nMax pending signals       375398               375398               signals   \nMax msgqueue size         819200               819200               bytes     \nMax nice priority         0                    0                    \nMax realtime priority     0                    0                    \nMax realtime timeout      200000               200000               us        \n"
+  },
+  "output_files": [
+    {
+      "path": "/data2/neural-shrimp-data/codex/new-results-review-20261017/run-001/e5/analysis.json",
+      "bytes": 211007,
+      "sha256": "647cd52aeacb45193e4f766222772835c88b67f8a1a2bfa9abb7296c655c3153"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/codex/new-results-review-20261017/run-001/e5/comparisons.json",
+      "bytes": 5503919,
+      "sha256": "7574a332ff2db2a7bc1343935c35f64c30a0b7c3de7d98a801284d87c09d1a1f"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/codex/new-results-review-20261017/run-001/e5/controls.json",
+      "bytes": 706,
+      "sha256": "6d976e3784b4405786af337a0edbc9423152c27a294a93c37533966d8473ed7f"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/codex/new-results-review-20261017/run-001/e5/draws.json",
+      "bytes": 7125015,
+      "sha256": "ddf96c332f185534b3a46a89d351b84beb19735aa22c1ff6a55fc253aa9b9976"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/codex/new-results-review-20261017/run-001/e5/evidence.json",
+      "bytes": 862084,
+      "sha256": "ed31d60bc60af8bb0e439c709f6c489d1762f8ced6c9ae6b29faaa3bacab5c2f"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/codex/new-results-review-20261017/run-001/e5/report.json",
+      "bytes": 38358,
+      "sha256": "6dab96a4371f29fdf676ee3152c0a7508ad4d0f1e4051e77d9708fed5cb2d146"
+    }
+  ],
+  "actual_output_bytes": 13741089,
+  "children_ru_maxrss_kib_at_reap": 164660,
+  "scope": "External window includes startup, pre/post checks and serialization; source/native producer execution is not attested. Scientific claims require separate saved-result review."
+}

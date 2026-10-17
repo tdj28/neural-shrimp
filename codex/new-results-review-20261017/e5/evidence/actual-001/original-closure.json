@@ -1,0 +1,102 @@
+{
+  "utc": "2026-10-17T01:04:30.440708+00:00",
+  "source_commit": "a2a63b3ec7ccf2c27377725d9f22cde37b69ec55",
+  "computational_completed": true,
+  "disposition": "Sole separately admitted E5 saved-data audit completed; scientific interpretation pending",
+  "worker_returncode": 0,
+  "worker_reaped": true,
+  "original_identities": [
+    {
+      "pid": 384932,
+      "starttime": 214558073,
+      "pgid": 384932,
+      "sid": 384932,
+      "state": "R",
+      "nice": 10,
+      "threads": 1,
+      "uid_line": "Uid:\t1000\t1000\t1000\t1000",
+      "cmdline": "/data2/neural-shrimp/.venv/bin/python -I -B /home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/new-results-review-20261017/supervise.py --plan /home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/new-results-review-20261017/operation-e5-actual-001.json --lane e5 --source a2a63b3ec7ccf2c27377725d9f22cde37b69ec55 ",
+      "limits": "Limit                     Soft Limit           Hard Limit           Units     \nMax cpu time              unlimited            unlimited            seconds   \nMax file size             unlimited            unlimited            bytes     \nMax data size             unlimited            unlimited            bytes     \nMax stack size            8388608              unlimited            bytes     \nMax core file size        0                    unlimited            bytes     \nMax resident set          unlimited            unlimited            bytes     \nMax processes             375398               375398               processes \nMax open files            65535                65535                files     \nMax locked memory         8388608              8388608              bytes     \nMax address space         1073741824           4294967296           bytes     \nMax file locks            unlimited            unlimited            locks     \nMax pending signals       375398               375398               signals   \nMax msgqueue size         819200               819200               bytes     \nMax nice priority         0                    0                    \nMax realtime priority     0                    0                    \nMax realtime timeout      200000               200000               us        \n"
+    },
+    {
+      "pid": 384963,
+      "starttime": 214558087,
+      "pgid": 384963,
+      "sid": 384963,
+      "state": "R",
+      "nice": 10,
+      "threads": 1,
+      "uid_line": "Uid:\t1000\t1000\t1000\t1000",
+      "cmdline": "/data2/neural-shrimp/.venv/bin/python -I -B /home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/new-results-review-20261017/supervise.py --plan /home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/new-results-review-20261017/operation-e5-actual-001.json --lane e5 --source a2a63b3ec7ccf2c27377725d9f22cde37b69ec55 ",
+      "limits": "Limit                     Soft Limit           Hard Limit           Units     \nMax cpu time              170                  170                  seconds   \nMax file size             134217728            134217728            bytes     \nMax data size             unlimited            unlimited            bytes     \nMax stack size            8388608              unlimited            bytes     \nMax core file size        0                    unlimited            bytes     \nMax resident set          unlimited            unlimited            bytes     \nMax processes             375398               375398               processes \nMax open files            65535                65535                files     \nMax locked memory         8388608              8388608              bytes     \nMax address space         2147483648           2147483648           bytes     \nMax file locks            unlimited            unlimited            locks     \nMax pending signals       375398               375398               signals   \nMax msgqueue size         819200               819200               bytes     \nMax nice priority         0                    0                    \nMax realtime priority     0                    0                    \nMax realtime timeout      200000               200000               us        \n"
+    }
+  ],
+  "both_original_pids_absent": true,
+  "both_original_groups_sessions_absent": true,
+  "source_blobs_verified": 5,
+  "output_files_verified": [
+    {
+      "path": "/data2/neural-shrimp-data/codex/new-results-review-20261017/run-001/e5/analysis.json",
+      "bytes": 211007,
+      "sha256": "647cd52aeacb45193e4f766222772835c88b67f8a1a2bfa9abb7296c655c3153"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/codex/new-results-review-20261017/run-001/e5/comparisons.json",
+      "bytes": 5503919,
+      "sha256": "7574a332ff2db2a7bc1343935c35f64c30a0b7c3de7d98a801284d87c09d1a1f"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/codex/new-results-review-20261017/run-001/e5/controls.json",
+      "bytes": 706,
+      "sha256": "6d976e3784b4405786af337a0edbc9423152c27a294a93c37533966d8473ed7f"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/codex/new-results-review-20261017/run-001/e5/draws.json",
+      "bytes": 7125015,
+      "sha256": "ddf96c332f185534b3a46a89d351b84beb19735aa22c1ff6a55fc253aa9b9976"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/codex/new-results-review-20261017/run-001/e5/evidence.json",
+      "bytes": 862084,
+      "sha256": "ed31d60bc60af8bb0e439c709f6c489d1762f8ced6c9ae6b29faaa3bacab5c2f"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/codex/new-results-review-20261017/run-001/e5/report.json",
+      "bytes": 38358,
+      "sha256": "6dab96a4371f29fdf676ee3152c0a7508ad4d0f1e4051e77d9708fed5cb2d146"
+    }
+  ],
+  "supervision_files": [
+    {
+      "path": "/data2/neural-shrimp-data/codex/new-results-review-20261017/run-001/e5-supervision/admission.json",
+      "bytes": 4457,
+      "sha256": "d2bc403e467c300af1530e7cbaa6de8e4f2416819f8c8a3f0a43afa707d20612"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/codex/new-results-review-20261017/run-001/e5-supervision/receipt.json",
+      "bytes": 6301,
+      "sha256": "e8cb9995e3c7d655d2d76cb3d98ed5feec1e039ca4d45710add71aa7c6088c3b"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/codex/new-results-review-20261017/run-001/e5-supervision/stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/codex/new-results-review-20261017/run-001/e5-supervision/stdout.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/codex/new-results-review-20261017/run-001/e5-supervision/worker-startup.json",
+      "bytes": 2598,
+      "sha256": "263954935eef5b64b3903ae8ef48688d77ff2aedc055f4a3055d9e5466545a88"
+    }
+  ],
+  "preflight": {
+    "path": "/data2/neural-shrimp-data/codex/new-results-review-20261017/e5-actual-preflight.json",
+    "bytes": 557,
+    "sha256": "782198affcfc3ecdd56a603d28620df06c1ec58c12ade424e12ddc2c11d002b6"
+  },
+  "dispatch_scope": "Original setsid --wait dispatch session44510 completed exit0. Exact worker exit0/reaped; subsequent supervisor/worker births and groups absent observed."
+}

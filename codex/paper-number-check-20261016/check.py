@@ -77,14 +77,36 @@ def clean_tex(original, captions_only=False):
             s=s[:a]+blank(s[a:b])+s[b:]
     return s,dispositions
 
+def math_spans(text):
+    """Literal TeX math delimiters; macros are deliberately not expanded."""
+    spans=[]; opened=None
+    token=re.compile(r'(?<!\\)(?:\$\$|\$)|\\[()\[\]]|\\(?:begin|end)\{(?:equation|align|alignat|gather|multline|math|displaymath)\*?\}')
+    closes={'$':'$','$$':'$$',r'\(':r'\)',r'\[':r'\]'}
+    for m in token.finditer(text):
+        t=m[0]
+        if opened is not None:
+            if t==opened[1]: spans.append((opened[0],m.end())); opened=None
+        elif t in closes: opened=(m.start(),closes[t])
+        elif t.startswith(r'\begin{'): opened=(m.start(),t.replace(r'\begin{',r'\end{',1))
+    if opened is not None: spans.append((opened[0],len(text)))
+    return spans
+
 def numeric_tokens(text):
     # Power-of-ten alternatives must be considered before their leading 10.
     pattern=re.compile(POWER.pattern+'|'+NUM.pattern)
+    spans=math_spans(text); starts=[a for a,b in spans]
     for m in pattern.finditer(text):
         raw=m[0]; a=m.start(); b=m.end()
-        # A range dash between two digits is not a unary minus.
-        if raw.startswith('-') and a and (text[a-1].isdigit() or text[a-1]=='}'):
-            raw=raw[1:]; a+=1
+        # Prose hyphens (period-8, Llama-3, 7--8B) are separators.
+        # Preserve unary negatives and doubled subtraction inside literal math.
+        si=bisect.bisect_right(starts,a)-1
+        in_math=si>=0 and a<spans[si][1]
+        if raw.startswith('-') and a:
+            previous=text[a-1]
+            prose_separator=not in_math and (previous.isalpha() or previous in '_-')
+            numeric_range=previous.isdigit() or previous=='}'
+            if prose_separator or numeric_range:
+                raw=raw[1:]; a+=1
         t=re.sub(r'\\[,!;:]|[\u2009\u202f,~\s]','',raw).replace('\u2212','-')
         t=re.sub(r'\\(?:times|cdot)10\^\{?([+-]?\d+)\}?',r'e\1',t)
         p=re.fullmatch(r'([+-]?)10\^\{?([+-]?\d+)\}?',t)

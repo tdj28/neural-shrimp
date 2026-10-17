@@ -1,0 +1,66 @@
+{
+  "status": "reviewed_for_execution",
+  "repository": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp",
+  "raw_root": "/data2/neural-shrimp-data/codex/paper-number-check-20261016",
+  "python": "/data2/neural-shrimp/.venv/bin/python",
+  "source_files": [
+    {
+      "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/paper-number-check-20261016/check.py",
+      "bytes": 22588,
+      "sha256": "bf5182386936115c3b83cd3da097005b07dce16e49943e481864df39f496dd69"
+    },
+    {
+      "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/paper-number-check-20261016/sign_controls.py",
+      "bytes": 2392,
+      "sha256": "96d73ac595a40b3b5238b129e5b038f5c39db0e6f7151d67281ebe54aba333b0"
+    },
+    {
+      "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/paper-number-check-20261016/sign-controls-002-card.json",
+      "bytes": 1830,
+      "sha256": "75e298ba6dd646203b00398291b6b592228637294abc6a0fdcd59731d63f0ee4"
+    },
+    {
+      "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/new-results-review-20261017/supervise.py",
+      "bytes": 8569,
+      "sha256": "e361919ed104a800ed043d15726edc10775260fc482d6f98d9c5fb7c98f1e77e"
+    }
+  ],
+  "lanes": {
+    "sign_controls": {
+      "entry": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/paper-number-check-20261016/sign_controls.py",
+      "arguments": [
+        "--out",
+        "/data2/neural-shrimp-data/codex/paper-number-check-20261016/sign-controls-002"
+      ],
+      "output": "/data2/neural-shrimp-data/codex/paper-number-check-20261016/sign-controls-002",
+      "supervision": "/data2/neural-shrimp-data/codex/paper-number-check-20261016/sign-controls-002-supervision",
+      "preflight_pins": [
+        {
+          "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/paper-number-check-20261016/sign-controls-002-card.json",
+          "bytes": 1830,
+          "sha256": "75e298ba6dd646203b00398291b6b592228637294abc6a0fdcd59731d63f0ee4"
+        },
+        {
+          "path": "/data2/neural-shrimp-data/codex/new-results-review-20261017/run-001/e5-original-closure.json",
+          "bytes": 7323,
+          "sha256": "f3b6ceb016c70944f916d72dd03dd9a573eb95d3351f55a88e385554600d026d"
+        }
+      ],
+      "limits": {
+        "as_bytes": 1073741824,
+        "cpu_seconds": 10,
+        "wall_seconds": 15,
+        "output_bytes": 8388608
+      },
+      "prior_receipts": [
+        "/data2/neural-shrimp-data/codex/new-results-review-20261017/run-001/e5-supervision/receipt.json"
+      ],
+      "controls_integrated_once": 8
+    }
+  },
+  "serial_order": [
+    "sign_controls"
+  ],
+  "admission": "Root fully read exact prepared card29d1e3d6/planffe9fbd8 and accepted eight focused controls under fixed10CPU15wall1GiB8MiB. Only status/admission and corresponding card pin changed. Private checkpoint, fresh capacity and prior owned closure required; no target scan or old controls/profile in this invocation.",
+  "dispatch": "Unchanged e361919e supervisor; setsid --wait nice -n10,20/16GiB available RAM,16GiB disk,5+5 cleanup; close original births/groups before next lane."
+}

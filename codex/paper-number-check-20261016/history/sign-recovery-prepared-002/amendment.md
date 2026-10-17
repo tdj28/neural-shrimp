@@ -1,0 +1,7 @@
+# 17 October 2026: prose hyphens versus mathematical minus signs
+
+Root found a concrete parser defect while reading the first completed frozen-paper candidate report: `period-8`, `OLMo-2`, `Llama-3`, and TeX double-hyphen ranges could emit negative literals. This produced incorrect candidate searches. Original run001, its inputs, source, all outputs, and closure remain preserved. The defect is in the candidate tool, not evidence that those scientific quantities are negative.
+
+The correction classifies literal TeX math spans and treats ASCII hyphens immediately following prose letters/underscores/dashes as separators outside those spans. True unary minus remains, including mathematical subtraction with a negative operand. Existing numeric range handling, scientific notation, all other extraction/matching/rounding rules and the frozen paper/data inputs are unchanged. Macro expansion is still unsupported. The exact source diff and focused manufactured controls precede any corrected scan. Target outcomes from run001 are disclosed exposure; no scientific gate is changed.
+
+Run002 must use fresh output, exact source review/private checkpoint/fresh capacity, and the existing measured actual sizing: 98.358730 seconds external, 537360 KiB observed, 22,565,957 bytes output. Keep CPU1+supervisor, 2GiB AS, 140CPU/150wall seconds and128MiB output; no extension or automatic retry. Source-only focused controls are separate and bounded; do not repeat the full profile or original19controls. All candidates remain search leads, never verified support.

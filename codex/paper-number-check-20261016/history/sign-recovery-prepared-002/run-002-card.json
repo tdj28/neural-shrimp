@@ -1,0 +1,124 @@
+{
+  "schema": "paper-number-check-actual-card-v1",
+  "status": "prepared_not_admitted",
+  "frozen_publication_commit": "36713c413505cf814dd114e5618bd58212019619",
+  "main_tex_sha256": "910c8e37a201c769937b3e524417d3adcbdb653bfd8bc1bbde808ad6c7c929e7",
+  "inventory": {
+    "path": "/tmp/claude-task26-27-20261017-source-001/manifest.json",
+    "bytes": 543395,
+    "sha256": "6f99963fb87d01124bf47bbe1ce9f8bf00bb37195249c184a94e93a76792645a"
+  },
+  "root": "/tmp/claude-task26-27-20261017-source-001/tree",
+  "input_accounting": {
+    "selected_files": 1368,
+    "selected_bytes": 32028343,
+    "json_receipts": 1361,
+    "receipt_bytes": 28563249,
+    "tex_files": 6,
+    "tex_bytes": 394198,
+    "optional_log_bytes": 3070896,
+    "inventory_bytes": 543395,
+    "unique_selected_plus_inventory_bytes": 32571738,
+    "scope": "Unchanged original frozen input bytes; run001 was exposed and is retained with its discovered sign-token defect."
+  },
+  "source": {
+    "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/paper-number-check-20261016/check.py",
+    "bytes": 22588,
+    "sha256": "bf5182386936115c3b83cd3da097005b07dce16e49943e481864df39f496dd69"
+  },
+  "output": "/data2/neural-shrimp-data/codex/paper-number-check-20261016/run-002",
+  "arguments": [
+    "--root",
+    "/tmp/claude-task26-27-20261017-source-001/tree",
+    "--inventory",
+    "/tmp/claude-task26-27-20261017-source-001/manifest.json",
+    "--include-log",
+    "--output",
+    "/data2/neural-shrimp-data/codex/paper-number-check-20261016/run-002"
+  ],
+  "limits": {
+    "as_bytes": 2147483648,
+    "cpu_seconds": 140,
+    "wall_seconds": 150,
+    "output_bytes": 134217728
+  },
+  "resource_scope": "CPU1 plus supervisor, nice10/thread1,20/16GiB available RAM and16GiB disk floors. All7 output files+streams sampled128MiB; source/receipts separate. Fixed5+5cleanup; no automatic retry.",
+  "expected_outputs": [
+    "numbers.json",
+    "candidate-groups.json.gz",
+    "receipt-index.json.gz",
+    "coverage.json",
+    "report.md",
+    "run-summary.json",
+    "manifest.json"
+  ],
+  "measurement": {
+    "report": {
+      "path": "/data2/neural-shrimp-data/codex/paper-number-check-20261016/manufactured-001/report.json",
+      "bytes": 2720,
+      "sha256": "f8234adea141b7eaa2f12735212991ef69c4c0df8e3acf0e7ff7ffd48d547822"
+    },
+    "receipt": {
+      "path": "/data2/neural-shrimp-data/codex/paper-number-check-20261016/manufactured-001-supervision/receipt.json",
+      "bytes": 337173,
+      "sha256": "e74181fb3ff3949882a6aebdd6ddc1b4e596aedcd4798a73a6e37610f70e9298"
+    },
+    "closure": {
+      "path": "/data2/neural-shrimp-data/codex/paper-number-check-20261016/manufactured-001-original-closure.json",
+      "bytes": 6566,
+      "sha256": "2f43532f2532c6694299f1ca3bf1f66924738b86105ed5c3e127336588a7939a"
+    },
+    "controls_passed_once": 19,
+    "profile_inputs": 20791596,
+    "profile_checker_seconds": 36.43990133609623,
+    "profile_checker_output_bytes": 14713341,
+    "profile_rss_kib_before_final_report": 556492
+  },
+  "sizing_estimate": {
+    "disclosed_scaling_factor": 1.6,
+    "checker_seconds_estimate": 58.30384213775397,
+    "checker_output_bytes_estimate": 23541345.6,
+    "rss_kib_linear_estimate": 890387.2000000001,
+    "limitations": "Input byte scaling only; actual unique values, syntax and candidate diversity unknown. Whole scan, log indexing, final serialization and supervision are bounded by fixed150wall/140CPU/2GiB/128MiB; failure retained, no extension."
+  },
+  "success": "Computational completion and exact frozen input/output hashes only. Candidate matches are not support/verification of claims. Missing, bound, ambiguous, log-only and policy-excluded cases remain explicit.",
+  "publication_policy": "Raw lossless receipt-value index and candidate-group outputs remain external; compact Git reports may contain paper literals/candidate paths only, never monetary source values.",
+  "controls": "Original19 groups/profile inherited once; eight focused sign controls must pass once under separate sign-controls-002 before run002. Their exact report/receipt/closure pins will be added after completion; none repeated in actual scan.",
+  "admission": "Prepared for exact Root review; unchanged140CPU150wall2GiB128MiB. Focused controls must pass, then private source/card checkpoint and fresh capacity before sole corrected scan. No automatic retry or extension.",
+  "recovery": {
+    "amendment": {
+      "path": "/tmp/paper-number-check-20261016-sign-fix-002/amendment.md",
+      "bytes": 1558,
+      "sha256": "1d0d4657f881d184fbfdaad14ecb7ab4fc3b23a6e0964882bb86f9740a079629"
+    },
+    "source_diff": {
+      "path": "/tmp/paper-number-check-20261016-sign-fix-002/check.diff",
+      "bytes": 2070,
+      "sha256": "09a642a13d459fa29b8fd148a35f63bd0f7d69e6af5f8cfbd2ac7f3cb712d3d1"
+    },
+    "independent_review": {
+      "path": "/tmp/paper-number-check-20261016-sign-fix-002/independent-source-review.md",
+      "bytes": 3056,
+      "sha256": "a2021a09236739b512ec5ba7301307c95a15910f46e5ccaa3d90773f1d1a09e1"
+    },
+    "original_run_summary": {
+      "path": "/data2/neural-shrimp-data/codex/paper-number-check-20261016/run-001/run-summary.json",
+      "bytes": 1878,
+      "sha256": "2c6783d7522bb8e2373aa721867ee11b0cb548216c83749fe7e485e28411ac75"
+    },
+    "original_receipt": {
+      "path": "/data2/neural-shrimp-data/codex/paper-number-check-20261016/run-001-supervision/receipt.json",
+      "bytes": 6539,
+      "sha256": "b9a592712a46dd8b603a98081f950b00f646980b9881df3a327fdf267ecb58f8"
+    },
+    "original_closure": {
+      "path": "/data2/neural-shrimp-data/codex/paper-number-check-20261016/run-001-original-closure.json",
+      "bytes": 6486,
+      "sha256": "5e7b8334ef3009615d1ba9bc899594c0373c09506af4d8c9130d0a555dfdcca8"
+    },
+    "measured_original_external_seconds": 98.35872961394489,
+    "observed_children_rss_kib": 537360,
+    "original_output_bytes": 22565957,
+    "scope": "Only sign token extraction changes. Original outputs remain immutable. This is a corrected candidate scan, not scientific recomputation; all candidates remain unverified search leads."
+  }
+}

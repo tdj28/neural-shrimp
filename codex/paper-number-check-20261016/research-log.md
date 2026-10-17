@@ -7,3 +7,7 @@ The exact card and operation plan are committed beside unchanged checker/control
 ## 2026-10-17T00:58:09.788707+00:00 — before sole frozen target scan run001
 
 Root accepted preparedcard4f0e9a45/plan99163a57 after passing19controls and synthetic36.44s/20.79MB input profile. Freeze36713c41/main910c8e37/inventory6f99963f;1368selectedfiles32,028,343B, including optionallog. Unchanged f64c843a checker. OneCPU+supervisor/nice10,2GiBAS140CPU150wall128MiBwholeOUT+streams;20/16GiB RAM16GiBdisk.1.6x byte-sizing estimate58.30s/23.54MB output, not guarantee. All candidates losslessly external; candidate match is not claim verification. No repeatedcontrols or automatic retry; exactprivatecheckpoint/freshcapacity first.
+
+## 2026-10-17T01:09:40.836066+00:00 — before focused sign controls and corrected candidate scan
+
+Original run001 is preserved: Root found prose period/model/range hyphens emitted as negative literals. Accepted narrow source bf518238 and independent review a2021a09 distinguish literal TeX math. Eight focused manufactured groups only, CPU1+supervisor/nice10,10CPU15wall1GiB8MiB wholeOUT+streams,20/16GiB RAM and16GiB disk, unchanged e361 supervision and bounded cleanup. No old19 controls/profile repeated. Actual002 is separately prepared at unchanged frozen36713c41 inputs and140CPU150wall2GiB128MiB; it awaits passing focused controls, exact result pins and final admission. No scientific claim follows from numerical coincidence.

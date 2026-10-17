@@ -1,0 +1,73 @@
+{
+  "status": "prepared_not_admitted",
+  "repository": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp",
+  "raw_root": "/data2/neural-shrimp-data/codex/paper-number-check-20261016",
+  "python": "/data2/neural-shrimp/.venv/bin/python",
+  "source_files": [
+    {
+      "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/paper-number-check-20261016/check.py",
+      "bytes": 22588,
+      "sha256": "bf5182386936115c3b83cd3da097005b07dce16e49943e481864df39f496dd69"
+    },
+    {
+      "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/paper-number-check-20261016/run-002-card.json",
+      "bytes": 6164,
+      "sha256": "3c76a74d606f5b64d20974fe25e82325779738f26fcec6153e760dba3d132986"
+    },
+    {
+      "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/new-results-review-20261017/supervise.py",
+      "bytes": 8569,
+      "sha256": "e361919ed104a800ed043d15726edc10775260fc482d6f98d9c5fb7c98f1e77e"
+    }
+  ],
+  "lanes": {
+    "actual": {
+      "entry": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/paper-number-check-20261016/check.py",
+      "arguments": [
+        "--root",
+        "/tmp/claude-task26-27-20261017-source-001/tree",
+        "--inventory",
+        "/tmp/claude-task26-27-20261017-source-001/manifest.json",
+        "--include-log",
+        "--output",
+        "/data2/neural-shrimp-data/codex/paper-number-check-20261016/run-002"
+      ],
+      "output": "/data2/neural-shrimp-data/codex/paper-number-check-20261016/run-002",
+      "supervision": "/data2/neural-shrimp-data/codex/paper-number-check-20261016/run-002-supervision",
+      "preflight_pins": [
+        {
+          "path": "/tmp/claude-task26-27-20261017-source-001/manifest.json",
+          "bytes": 543395,
+          "sha256": "6f99963fb87d01124bf47bbe1ce9f8bf00bb37195249c184a94e93a76792645a"
+        },
+        {
+          "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/paper-number-check-20261016/run-002-card.json",
+          "bytes": 6164,
+          "sha256": "3c76a74d606f5b64d20974fe25e82325779738f26fcec6153e760dba3d132986"
+        },
+        {
+          "path": "/data2/neural-shrimp-data/codex/paper-number-check-20261016/run-001-original-closure.json",
+          "bytes": 6486,
+          "sha256": "5e7b8334ef3009615d1ba9bc899594c0373c09506af4d8c9130d0a555dfdcca8"
+        }
+      ],
+      "limits": {
+        "as_bytes": 2147483648,
+        "cpu_seconds": 140,
+        "wall_seconds": 150,
+        "output_bytes": 134217728
+      },
+      "prior_receipts": [
+        "/data2/neural-shrimp-data/codex/paper-number-check-20261016/sign-controls-002-supervision/receipt.json"
+      ],
+      "controls_inherited_once": 19,
+      "focused_controls_inherited_once": 8
+    }
+  },
+  "serial_order": [
+    "actual"
+  ],
+  "scope": "Computational completion and exact frozen input/output hashes only. Candidate matches are not support/verification of claims. Missing, bound, ambiguous, log-only and policy-excluded cases remain explicit.",
+  "source_card_paths_prepared": "Same frozen input and unchanged supervisor; exact focused-control receipt pins and status/admission transition after passing controls.",
+  "admission": "Prepared for exact Root review; unchanged140CPU150wall2GiB128MiB. Focused controls must pass, then private source/card checkpoint and fresh capacity before sole corrected scan. No automatic retry or extension."
+}
