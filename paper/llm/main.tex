@@ -47,8 +47,8 @@ GSM8K problems with the batch layout alone, and reasoning models that answer 86 
 ordinary sampled reasoning with the same random numbers changed about as many. The two sources differ by
 model: in float64 the loops of Qwen2.5-7B and DeepSeek-R1-Distill-Qwen-7B mostly contract, so their answer changes
 are bfloat16 rounding carried to answers that sit near ties, while the loops of QwQ-32B and DeepSeek-R1-Distill-Llama-8B
-grow slowly in about half of the copies, and a relative displacement of $10^{-10}$ alone changes about 11 and 18\,\%
-of their answers, respectively. Exactly repeating text can hide
+grow slowly in more than half of the copies, and a relative displacement of $10^{-10}$ alone changes about 14 and
+18\,\% of their answers, respectively. Exactly repeating text can hide
 a chaotic state. In Qwen2.5-0.5B, along recorded orbits, steering creates the chaos mainly by making next tokens compete,
 which turns the softmax readout from a contraction into an expansion; a logit bias alone suffices. Earlier injection
 carries chaos to lower temperature, steering at two depths creates chaos neither depth causes alone, and two chaotic
@@ -911,11 +911,11 @@ sampled the same way. On fresh GSM8K problems the batches held 8 or 16 prompts o
 problems of MATH-500, each problem ran alone or as eight copies of itself. In the first run the tokenizer of
 DeepSeek-R1-Distill-Llama-8B loaded wrongly: it dropped the spaces and newlines of every prompt, and the model thought
 far less and answered 45\,\% of a check set correctly, against 83\,\% with the correct tokenizer in bfloat16 and
-81\,\% in float64 (\texttt{docs/pi/pm2x-llama-diag.json}). Its GSM8K cell was rerun with the correct tokenizer, an
-amendment after the data; its MATH-500 cell is left out until it is rerun. Over the four remaining primary cells, the
-batch layout changed 24.0\,\% of the soft-thinking answers (200 of 832; 95\,\% interval $[21.6,26.5]$), confirming
-the prediction of more than 5\,\%. The prediction holds in every version of the pooling, including the original run
-(29.6\,\%) and the run without both cells of this model (21.9\,\%) (\texttt{docs/pi/pm2fix-summary.json}).
+81\,\% in float64 (\texttt{docs/pi/pm2x-llama-diag.json}). Both of its cells were rerun with the correct tokenizer,
+an amendment after the data. Over the five primary cells, the batch layout changed 27.1\,\% of the soft-thinking
+answers (243 of 896; 95\,\% interval $[24.7,29.5]$), confirming the prediction of more than 5\,\%. The prediction
+holds in every version of the pooling, including the original run (29.6\,\%) and the run without both cells of this
+model (21.9\,\%) (\texttt{docs/pi/pm2fix-summary.json}, \texttt{docs/pi/pm2fix-math-summary.json}).
 \begin{itemize}
   \item All three models changed their GSM8K answers with the layout alone: DeepSeek-R1-Distill-Qwen-7B
   for 14.5\,\% of the problems ($[10.9,18.0]$) at 88 to 90\,\% accuracy, and QwQ-32B for 19.5\,\% ($[16.4,22.3]$) at
@@ -930,25 +930,34 @@ the prediction of more than 5\,\%. The prediction holds in every version of the 
   \item On an A100 instead of an H100, the first model's soft rate was 11.7\,\% (difference 2.7 points,
   $[-1.6,6.6]$), a separate replication on a second GPU type; the difference is not significant, which again does not
   establish equality.
-  \item Where the budget cut the reasoning short, accuracy was lower and the layout changed more answers: 61\,\% of
-  the answers of DeepSeek-R1-Distill-Qwen-7B on MATH-500, where half of the problems reached the thinking cap and
-  44 to 48\,\% were answered correctly.
+  \item Where the budget cut the reasoning short, accuracy was lower and the layout changed more answers. On MATH-500,
+  where half or more of the problems reached the thinking cap, it changed 61\,\% of the answers of
+  DeepSeek-R1-Distill-Qwen-7B (44 to 48\,\% correct) and 67\,\% of those of DeepSeek-R1-Distill-Llama-8B (39 to
+  42\,\% correct).
 \end{itemize}
-The Cold Stop rule of the Soft Thinking paper, which ends thinking when its entropy stays low, was not used
-(\texttt{docs/pi/pm2-summary.json}).
+These runs did not use the Cold Stop rule of the Soft Thinking paper, which ends thinking once the entropy has stayed
+below 0.01 nats for 256 steps. An exploratory rerun used it, with a thinking budget of 4096 steps
+(\texttt{docs/pi/pm2cs-design.md}, \texttt{docs/pi/pm2cs-summary.json}). Cold Stop ended thinking in only 6 of the 1024
+soft rows and in none of the 1024 sampled rows; the models nearly always ended it themselves. The layout still changed the answers: 8.6\,\% (soft) and
+17.2\,\% (sampled) for DeepSeek-R1-Distill-Qwen-7B on 128 GSM8K problems, 50.0 and 54.7\,\% for it on MATH-500, and
+17.2 and 9.4\,\% for QwQ-32B on 64 GSM8K problems. The soft-minus-sampled difference changes sign between these
+cells. On the same type of GPU, every row that finished thinking within the original 1536 steps was reproduced
+exactly, so the changes come from the rows the original budget cut short; the DeepSeek-R1-Distill-Qwen-7B GSM8K rerun
+ran on a different H100 variant.
 
 Is this chaos? We ran float64 copies of the same pipeline. Each copy's first soft token was displaced from the base
 row's by a relative $10^{-10}$, and all copies shared the base row's random numbers. The three models respond differently. In
 DeepSeek-R1-Distill-Qwen-7B, 216 of 256 copies ended the thinking at a distance from their base row below the
 initial displacement, and 2.3\,\% changed the answer. Its layout flips are therefore mainly bfloat16
-rounding carried to answers near ties, as in Qwen2.5-7B. In QwQ-32B and DeepSeek-R1-Distill-Llama-8B, about half of
-the copies ended above the initial displacement (34 of 64 and 145 of 256). Fitted over the steps where the distance
-lay between ten times the displacement and $10^{-3}$, the median growth rates were 0.010 and 0.008 per step. The
-displacement alone changed 10.9 and 18.4\,\% of the answers, respectively. In those models the loop's own sensitivity contributes to the answer
+rounding carried to answers near ties, as in Qwen2.5-7B. In QwQ-32B and DeepSeek-R1-Distill-Llama-8B, more than half
+of the copies ended above the initial displacement (131 of 192 and 145 of 256). Fitted over the steps where the
+distance lay between ten times the displacement and $10^{-3}$, the median growth rates were 0.011 and 0.008 per step.
+The displacement alone changed 13.5 and 18.4\,\% of the answers, respectively. In those models the loop's own sensitivity contributes to the answer
 changes. It is a weak, finite-time instability over about a thousand thinking steps, and it acts on top of the rounding; it is
 not an asymptotic chaos measurement. Some copies ended thinking before their base row (14 in R1-Llama, 7 in QwQ),
 and the copies of one problem are not independent
-(\texttt{docs/pi/pm2f-summary.json}; 128 problems for each 7--8B model and 32 for QwQ-32B).
+(\texttt{docs/pi/pm2f-summary.json}, \texttt{docs/pi/pm2f64b-summary.json}; 128 problems for each 7--8B model and
+96 for QwQ-32B).
 \begin{figure}[tbp]
 \centering
 \includegraphics[width=\linewidth]{fig-repro.png}
