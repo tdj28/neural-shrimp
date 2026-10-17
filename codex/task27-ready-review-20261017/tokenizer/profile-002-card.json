@@ -1,0 +1,84 @@
+{
+  "schema": "tokenizer-only-card-v1",
+  "status": "admitted",
+  "mode": "profile",
+  "interpreter": "/data2/neural-shrimp/.venv/bin/python",
+  "output": "/data2/neural-shrimp-data/codex/task27-ready-review-20261017/run-002/tokenizer-profile",
+  "limits": {
+    "cpu_seconds": 55,
+    "wall_seconds": 60,
+    "address_space_bytes": 12884901888,
+    "output_bytes": 67108864,
+    "input_bytes": 134217728,
+    "threads": 1,
+    "nice": 10
+  },
+  "source_files": {
+    "run.py": {
+      "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/task27-ready-review-20261017/tokenizer/run.py",
+      "bytes": 17172,
+      "sha256": "82a513d33d4cde6d099d56e592d01ac4beaff8f0e1e4c0f0712c223e36819f87"
+    },
+    "pm_core.py": {
+      "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/task27-ready-review-20261017/tokenizer/pm_core.py",
+      "bytes": 15498,
+      "sha256": "59999e636fc5e2e14a096614ec61f1bb9eda958eb5db17a2f592100d57431a00"
+    },
+    "controls.py": {
+      "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/task27-ready-review-20261017/tokenizer/controls.py",
+      "bytes": 3270,
+      "sha256": "9bcaebbf42060ec8989601bfb9e9f8a9dbe79250d56f0a43912d997a4a61e1a6"
+    }
+  },
+  "inputs": {
+    "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/task27-ready-review-20261017/tokenizer/inputs.json",
+    "bytes": 23613,
+    "sha256": "4a5d0a0ded94b0f92d177cb01211258c5cc1c69bdeda6083d2abdf9a8f24b9f4"
+  },
+  "scope": "Same local tokenizer/extractor and nine manufactured controls; profile002 only permits installed Torch import with empty CUDA visibility/passive initialization checks. No model/weight loading or tensor/model/GPU execution. Actual512-row replay remains separately unadmitted.",
+  "budget": {
+    "common_pins": 44,
+    "common_declared_bytes": 53926710,
+    "actual_extra_pins": 18,
+    "actual_extra_declared_bytes": 2969707,
+    "measurement_scope": "Static metadata/source byte accounting only; recovery load/decode/serialization is unmeasured."
+  },
+  "output_names": [
+    "controls.json",
+    "rows.json",
+    "report.json",
+    "manifest.json"
+  ],
+  "success_contract": {
+    "schema": "tokenizer-only-replay-v1",
+    "computational_completed": true,
+    "resource_profile_only": true,
+    "scientific_claims_accepted": false,
+    "rows_expected": 512
+  },
+  "resources_basis": "Profile001 failed importing libtorch_cpu under1GiB AS before controls/decoder. Root selected12GiB hard AS as a bounded unmeasured recovery ceiling with28GiB startup/16GiB runtime RAM floors.55CPU/60external seconds and64MiB output unchanged. No automatic escalation. Actual resource admission awaits measured profile002.",
+  "execution_owner": "Inference, after Root exact source/card review and private checkpoint; no profile/actual admission from prepared status.",
+  "limitations": [
+    "Historical package runtime unavailable; current pinned5.19/0.23.3/installedTorch2.14.1 only.",
+    "Literal local snapshot path and conditional decoder fallback unchanged.",
+    "Installed Torch may map CUDA libraries; workload invokes no weights, tensor computation, model or GPU operations.",
+    "Passive CUDA initialization state is recorded before load and before/after bulkdecode; no hardware availability query.",
+    "Listed metadata/Python pins are not complete native/transitive binary attestation.",
+    "Original001 failure retained; nine controls never executed there and run once only in profile002.",
+    "Prepared status refuses execution; actual512-row card needs measured profile and separate review."
+  ],
+  "recovery_supplement": {
+    "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/task27-ready-review-20261017/tokenizer/import-supplement.json",
+    "bytes": 3327,
+    "sha256": "b18da1e24e2a3c6aa5d90a38e38104b94044ff43ecbfbf89648ff1ac06db412f"
+  },
+  "admission_resources": {
+    "startup_available_ram_bytes": 30064771072,
+    "runtime_available_ram_floor_bytes": 17179869184,
+    "disk_free_floor_bytes": 17179869184,
+    "parent_soft_as_bytes": 1073741824,
+    "parent_hard_as_bytes": 12884901888,
+    "worker_hard_as_bytes": 12884901888,
+    "enforcement_owner": "Inference separate reviewed supervisor/operation plan; card does not itself set kernel limits."
+  }
+}

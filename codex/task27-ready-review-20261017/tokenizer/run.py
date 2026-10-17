@@ -18,11 +18,11 @@ import traceback
 ROUNDTRIP = 'Natalia sold 48 clips in April.\nThen she sold half as many.'
 CONDITIONS = ('gen-bf16', 'gen-bf16-4096', 'gen-fp32', 'reason-plain',
               'reason-plain-ans1024', 'reason-plain-eager', 'reason-plain-legacy', 'reason-soft')
-LIMITS = {'cpu_seconds': 55, 'wall_seconds': 60, 'address_space_bytes': 1073741824,
+LIMITS = {'cpu_seconds': 55, 'wall_seconds': 60, 'address_space_bytes': 12884901888,
           'output_bytes': 67108864, 'input_bytes': 134217728, 'threads': 1, 'nice': 10}
-BASE = '/data2/neural-shrimp-data/codex/task27-ready-review-20261017/run-001/'
+BASE = '/data2/neural-shrimp-data/codex/task27-ready-review-20261017/run-002/'
 ENV = {'HF_HUB_OFFLINE': '1', 'TRANSFORMERS_OFFLINE': '1',
-       'HF_HUB_DISABLE_TELEMETRY': '1', 'USE_TORCH': '0', 'USE_TF': '0',
+       'HF_HUB_DISABLE_TELEMETRY': '1', 'CUDA_VISIBLE_DEVICES': '', 'USE_TF': '0',
        'USE_FLAX': '0', 'TOKENIZERS_PARALLELISM': 'false',
        'OMP_NUM_THREADS': '1', 'OPENBLAS_NUM_THREADS': '1', 'MKL_NUM_THREADS': '1'}
 
@@ -81,6 +81,23 @@ def checked_choice(auto, fallback):
     if not final['ok']:
         raise ValueError('source checked-loader refusal: fallback roundtrip failed')
     return tok, {'auto': before, 'fallback_used': True, 'selected': final}
+
+
+def backend_state(stage):
+    """Passive import/state accounting; no CUDA availability query or initialization."""
+    if os.environ.get('CUDA_VISIBLE_DEVICES') != '':
+        raise ValueError('GPU visibility contract changed')
+    torch = sys.modules.get('torch')
+    initialized = None if torch is None else bool(torch.cuda.is_initialized())
+    state = {'stage': stage, 'torch_imported': torch is not None,
+             'torch_runtime_version': None if torch is None else str(torch.__version__),
+             'torch_module_path': None if torch is None else str(torch.__file__),
+             'cuda_initialized': initialized,
+             'cuda_visible_devices': os.environ['CUDA_VISIBLE_DEVICES'],
+             'scope': 'Passive PyTorch initialization flag; native CUDA libraries may be mapped.'}
+    if initialized:
+        raise ValueError('unexpected PyTorch CUDA initialization: ' + stage)
+    return state
 
 
 def load_pair(meta):
@@ -217,10 +234,10 @@ def main():
         if versions != meta['versions']:
             raise ValueError('package version mismatch')
         core = adjacent('pm_core')
+        backend = [backend_state('before_tokenizer_load')]
         legacy, checked, trace = load_pair(meta)
+        backend.append(backend_state('after_load_before_decode'))
         allowed = (set(legacy.get_vocab().values()), set(checked.get_vocab().values()))
-        if any(x == 'torch' or x.startswith('torch.') for x in sys.modules):
-            raise ValueError('model backend imported despite tokenizer-only contract')
         if mode == 'profile':
             controls = adjacent('controls').run(sys.modules[__name__], core.answer)
             store.write('controls.json', controls)
@@ -267,6 +284,7 @@ def main():
                 'field_names': {k: sorted(v.keys()) for k, v in published.get('conditions', {}).items()
                                 if isinstance(v, dict)},
                 'disposition': 'Only eight answers_changed_by_decoder fields replayed here; other PMX analysis is separate.'}
+        backend.append(backend_state('after_decode_before_rows_write'))
         store.write('rows.json', ledger)
         through_rows = time.perf_counter() - started
         after = [verify(x) for x in pins]
@@ -279,13 +297,15 @@ def main():
                   'resource_profile_only': mode == 'profile', 'source_files': source_after,
                   'card': pin(args.card), 'inputs_manifest': card['inputs'], 'inputs': after,
                   'versions': versions, 'interpreter': sys.executable, 'offline_environment': ENV,
-                  'tokenizer_trace': trace, 'conditions': summaries, 'rows': len(ledger),
+                  'tokenizer_trace': trace, 'backend_import_observations': backend,
+                  'conditions': summaries, 'rows': len(ledger),
                   'comparisons': comparisons, 'publication_other_fields': publication_outside_scope,
                   'timing_seconds_through_rows_serialization': through_rows,
                   'timing_seconds_after_rehash_before_report': time.perf_counter() - started,
                   'rss_kib_observed_before_report': resource.getrusage(resource.RUSAGE_SELF).ru_maxrss,
                   'limits': ['Current tokenizer semantics, not historical runtime attestation.',
-                             'No model weights, model generation, saved text reconstruction or accuracy rescore.',
+                             'Installed Torch import permitted; no model weights, tensor/model/GPU work or accuracy rescore.',
+                             'CUDA initialization flags do not attest all native/transitive binary bytes or unmapped CUDA libraries.',
                              'Missing answer_ids has separate literal-empty and qualified-unavailable dispositions.',
                              'Spaced-text roundtrip is a finite fixture, not universal invertibility.']}
         store.write('report.json', report)

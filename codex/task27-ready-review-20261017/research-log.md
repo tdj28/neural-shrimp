@@ -27,3 +27,7 @@ Root exact7a33136c source/card acceptance admits one nine-control plus512x4096sy
 ## 17 October 2026: tokenizer profile failure and C12 final acceptance
 
 Original tokenizer profile at private9775a9b6 exited1 during Transformers import before controls or decoder execution; libtorch_cpu.so mapping failed. Supervisor failure:null is enforcement-only, not success. Exact failure/streams/source/births preserved; original session59488 is reaped and both original groups absent per closure0a4fca43. No alternate runtime or retry admitted. C12 final note125f4929 and Root acceptance529feea4 are adopted with complete saved coverage archived outside Git. All original pending-science text remains historical. Watches stopped, zero owned jobs.
+
+## 17 October 2026: admitted tokenizer import recovery profile002
+
+Root b1489ab8 accepted the narrow same-decoder import/resource amendment. Installed Torch import is permitted; CUDA visibility is empty and passive initialization flags are checked. No weights/tensor/model/GPU execution. Exact profile-002-card.json and operation-tokenizer-profile-002.json fix12GiB workerAS,55CPU60wall64MiB,28/16GiB RAM16GiBdisk; separate supervisor soft1GiB/hard12GiB. Original001 exit1 remains immutable. Nine controls have never completed and run once if loading succeeds. Actual512-row decoding remains unadmitted. E2 final note95d8b1ad/Root571183c2 now accepted/adopted; no additional scoring.
