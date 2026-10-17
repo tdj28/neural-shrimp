@@ -1,0 +1,88 @@
+{
+  "schema": "paper-number-check-actual-card-v1",
+  "status": "reviewed_for_execution",
+  "frozen_publication_commit": "36713c413505cf814dd114e5618bd58212019619",
+  "main_tex_sha256": "910c8e37a201c769937b3e524417d3adcbdb653bfd8bc1bbde808ad6c7c929e7",
+  "inventory": {
+    "path": "/tmp/claude-task26-27-20261017-source-001/manifest.json",
+    "bytes": 543395,
+    "sha256": "6f99963fb87d01124bf47bbe1ce9f8bf00bb37195249c184a94e93a76792645a"
+  },
+  "root": "/tmp/claude-task26-27-20261017-source-001/tree",
+  "input_accounting": {
+    "selected_files": 1368,
+    "selected_bytes": 32028343,
+    "json_receipts": 1361,
+    "receipt_bytes": 28563249,
+    "tex_files": 6,
+    "tex_bytes": 394198,
+    "optional_log_bytes": 3070896,
+    "inventory_bytes": 543395,
+    "unique_selected_plus_inventory_bytes": 32571738,
+    "scope": "Existing metadata byte accounting, no target numeric parsing or matches before this admission."
+  },
+  "source": {
+    "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/paper-number-check-20261016/check.py",
+    "bytes": 21477,
+    "sha256": "f64c843ae8869e286ed446bc9ed5291e43be996bc521a8934cc4f83ccf8200a5"
+  },
+  "output": "/data2/neural-shrimp-data/codex/paper-number-check-20261016/run-001",
+  "arguments": [
+    "--root",
+    "/tmp/claude-task26-27-20261017-source-001/tree",
+    "--inventory",
+    "/tmp/claude-task26-27-20261017-source-001/manifest.json",
+    "--include-log",
+    "--output",
+    "/data2/neural-shrimp-data/codex/paper-number-check-20261016/run-001"
+  ],
+  "limits": {
+    "as_bytes": 2147483648,
+    "cpu_seconds": 140,
+    "wall_seconds": 150,
+    "output_bytes": 134217728
+  },
+  "resource_scope": "CPU1 plus supervisor, nice10/thread1,20/16GiB available RAM and16GiB disk floors. All7 output files+streams sampled128MiB; source/receipts separate. Fixed5+5cleanup; no automatic retry.",
+  "expected_outputs": [
+    "numbers.json",
+    "candidate-groups.json.gz",
+    "receipt-index.json.gz",
+    "coverage.json",
+    "report.md",
+    "run-summary.json",
+    "manifest.json"
+  ],
+  "measurement": {
+    "report": {
+      "path": "/data2/neural-shrimp-data/codex/paper-number-check-20261016/manufactured-001/report.json",
+      "bytes": 2720,
+      "sha256": "f8234adea141b7eaa2f12735212991ef69c4c0df8e3acf0e7ff7ffd48d547822"
+    },
+    "receipt": {
+      "path": "/data2/neural-shrimp-data/codex/paper-number-check-20261016/manufactured-001-supervision/receipt.json",
+      "bytes": 337173,
+      "sha256": "e74181fb3ff3949882a6aebdd6ddc1b4e596aedcd4798a73a6e37610f70e9298"
+    },
+    "closure": {
+      "path": "/data2/neural-shrimp-data/codex/paper-number-check-20261016/manufactured-001-original-closure.json",
+      "bytes": 6566,
+      "sha256": "2f43532f2532c6694299f1ca3bf1f66924738b86105ed5c3e127336588a7939a"
+    },
+    "controls_passed_once": 19,
+    "profile_inputs": 20791596,
+    "profile_checker_seconds": 36.43990133609623,
+    "profile_checker_output_bytes": 14713341,
+    "profile_rss_kib_before_final_report": 556492
+  },
+  "sizing_estimate": {
+    "disclosed_scaling_factor": 1.6,
+    "checker_seconds_estimate": 58.30384213775397,
+    "checker_output_bytes_estimate": 23541345.6,
+    "rss_kib_linear_estimate": 890387.2000000001,
+    "limitations": "Input byte scaling only; actual unique values, syntax and candidate diversity unknown. Whole scan, log indexing, final serialization and supervision are bounded by fixed150wall/140CPU/2GiB/128MiB; failure retained, no extension."
+  },
+  "success": "Computational completion and exact frozen input/output hashes only. Candidate matches are not support/verification of claims. Missing, bound, ambiguous, log-only and policy-excluded cases remain explicit.",
+  "publication_policy": "Raw lossless receipt-value index and candidate-group outputs remain external; compact Git reports may contain paper literals/candidate paths only, never monetary source values.",
+  "controls": "Inherited passing19groups; no repeated controls in actual scan.",
+  "admission": "Root fully read prepared card4f0e9a45/plan99163a57 and admitted one frozen scan after E5 profile closure, private checkpoint and fresh capacity. Source/input/criteria and fixed140CPU150wall2GiB128MiB unchanged;19 controls inherited once, no automatic retry or extension."
+}

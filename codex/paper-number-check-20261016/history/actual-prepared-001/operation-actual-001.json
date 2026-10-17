@@ -1,0 +1,66 @@
+{
+  "status": "prepared_not_admitted",
+  "repository": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp",
+  "raw_root": "/data2/neural-shrimp-data/codex/paper-number-check-20261016",
+  "python": "/data2/neural-shrimp/.venv/bin/python",
+  "source_files": [
+    {
+      "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/paper-number-check-20261016/check.py",
+      "bytes": 21477,
+      "sha256": "f64c843ae8869e286ed446bc9ed5291e43be996bc521a8934cc4f83ccf8200a5"
+    },
+    {
+      "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/paper-number-check-20261016/run-001-card.json",
+      "bytes": 4009,
+      "sha256": "4f0e9a45cf458894ea30b31f7a183265a7720d04d40c85ad66ff9f82ed0cdd6f"
+    },
+    {
+      "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/new-results-review-20261017/supervise.py",
+      "bytes": 8569,
+      "sha256": "e361919ed104a800ed043d15726edc10775260fc482d6f98d9c5fb7c98f1e77e"
+    }
+  ],
+  "lanes": {
+    "actual": {
+      "entry": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/paper-number-check-20261016/check.py",
+      "arguments": [
+        "--root",
+        "/tmp/claude-task26-27-20261017-source-001/tree",
+        "--inventory",
+        "/tmp/claude-task26-27-20261017-source-001/manifest.json",
+        "--include-log",
+        "--output",
+        "/data2/neural-shrimp-data/codex/paper-number-check-20261016/run-001"
+      ],
+      "output": "/data2/neural-shrimp-data/codex/paper-number-check-20261016/run-001",
+      "supervision": "/data2/neural-shrimp-data/codex/paper-number-check-20261016/run-001-supervision",
+      "preflight_pins": [
+        {
+          "path": "/tmp/claude-task26-27-20261017-source-001/manifest.json",
+          "bytes": 543395,
+          "sha256": "6f99963fb87d01124bf47bbe1ce9f8bf00bb37195249c184a94e93a76792645a"
+        },
+        {
+          "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/paper-number-check-20261016/run-001-card.json",
+          "bytes": 4009,
+          "sha256": "4f0e9a45cf458894ea30b31f7a183265a7720d04d40c85ad66ff9f82ed0cdd6f"
+        }
+      ],
+      "limits": {
+        "as_bytes": 2147483648,
+        "cpu_seconds": 140,
+        "wall_seconds": 150,
+        "output_bytes": 134217728
+      },
+      "prior_receipts": [
+        "/data2/neural-shrimp-data/codex/new-results-review-20261017/profile-001/e5-supervision/receipt.json"
+      ],
+      "controls_inherited_once": 19
+    }
+  },
+  "serial_order": [
+    "actual"
+  ],
+  "scope": "Computational completion and exact frozen input/output hashes only. Candidate matches are not support/verification of claims. Missing, bound, ambiguous, log-only and policy-excluded cases remain explicit.",
+  "source_card_paths_prepared": "Final prepared-to-reviewed status/admission and exact cardhash update only after Root acceptance; E5 profile closure required."
+}
