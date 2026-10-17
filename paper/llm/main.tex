@@ -3011,6 +3011,20 @@ contracts for most problems (on the development problems 10 and 38\,\% of twins 
 $-0.131$ and $-0.058$ per step), where the pipeline still answers correctly, and the doses and the optimizer were
 chosen on the development problems (\texttt{docs/pi/c12-1-summary.json}).
 
+\paragraph{Taming and using the sensitivity.} Two exploratory tests with Qwen2.5-7B-Instruct in bfloat16 (512
+fresh GSM8K problems, soft thinking with the top 15 tokens at $T=0.6$ for 64 steps) asked whether the theory gives a
+remedy, and whether the sensitivity can be put to use. The factorization of Section~\ref{sec:theory} locates the
+expansion in the readout. Lowering a step's temperature until a proxy of the readout gain fell below a cap reduced the
+share of answers that the batch layout changed from 27.7 to about 23\,\% (by 4.1 to 4.7 points at three caps), and
+accuracy did not fall. Lowering the temperature to 0.5 at every step, a control added after the first result, gained
+as much accuracy, and the caps' extra reduction of flips relative to it (2.7 to 3.3 points) was not significant. So
+the remedy is modest and not shown to be specific to the readout. Second, a majority vote over eight runs whose first
+soft token was displaced by a relative $10^{-3}$ was no more accurate than one run ($+0.2$ points, $[-1.0,1.4]$),
+although one displacement changed 20.2\,\% of the answers; sampled self-consistency with eight samples gained 5.6
+points ($[3.5,8.1]$). The perturbed runs differ, but rarely toward the correct answer. Problems whose perturbed runs
+disagreed were also the ones answered correctly least often (\texttt{docs/pi/e2-summary.json},
+\texttt{docs/pi/e3-summary.json}).
+
 \paragraph{Weight quantization and the attractors.} Deployed models are often quantized, and quantization is usually
 checked one step at a time, by how close the quantized model's next-token distributions stay to the original's. An
 exploratory test asked whether that check certifies the closed loop. We quantized every linear weight of the decoder
