@@ -1,0 +1,244 @@
+{
+ "run": "PM2X item 3b (R1-Distill-Llama-8B GSM8K rerun with the checked tokenizer; PM2 design otherwise unchanged)",
+ "source_commit": "ae1712a00141ed937e956299ce012f16a051a65c",
+ "pod": "x54879k3ktq53j (H100 NVL)",
+ "results_tgz_sha256": "eeb1dc752074d82276541dc3cfd65110d768eaea3f65d25bd05fd363bdfe136d",
+ "raw": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/pi/pm2fix/",
+ "analysis": "tools/pi_matrix2_analyze.py",
+ "cell_corrected": {
+  "role": "primary",
+  "model": "r1llama8b",
+  "task": "gsm8k",
+  "layouts": [
+   8,
+   16
+  ],
+  "soft": {
+   "problems": 256,
+   "clusters": 16,
+   "answer_flips": 74,
+   "flip_rate": 0.2890625,
+   "flip_wilson95": [
+    0.23697329998924946,
+    0.34738863953735283
+   ],
+   "flip_cluster95": [
+    0.234375,
+    0.34375
+   ],
+   "accuracy": {
+    "8": 0.73828125,
+    "16": 0.76953125
+   },
+   "exactly_one_correct": 0.1796875,
+   "missing_answers": {
+    "8": 0,
+    "16": 0
+   },
+   "forced_switch": 93,
+   "median_switch_step": 1080.0
+  },
+  "plain": {
+   "problems": 256,
+   "clusters": 16,
+   "answer_flips": 55,
+   "flip_rate": 0.21484375,
+   "flip_wilson95": [
+    0.1689435877630668,
+    0.2691753304858585
+   ],
+   "flip_cluster95": [
+    0.15625,
+    0.26953125
+   ],
+   "accuracy": {
+    "8": 0.81640625,
+    "16": 0.81640625
+   },
+   "exactly_one_correct": 0.140625,
+   "missing_answers": {
+    "8": 0,
+    "16": 0
+   },
+   "forced_switch": 60
+  },
+  "soft_minus_plain_flips": {
+   "problems": 256,
+   "difference": 0.07421875,
+   "cluster95": [
+    0.01953125,
+    0.12890625
+   ],
+   "discordant": [
+    44,
+    25
+   ],
+   "mcnemar_p": 0.029493493531317288
+  },
+  "soft_minus_plain_accuracy_larger_layout": {
+   "problems": 256,
+   "difference": -0.046875,
+   "cluster95": [
+    -0.0859375,
+    -0.0078125
+   ],
+   "discordant": [
+    16,
+    28
+   ],
+   "mcnemar_p": 0.09614175442061423
+  }
+ },
+ "cell_pm2_legacy_tokenizer": {
+  "role": "primary",
+  "model": "r1llama8b",
+  "task": "gsm8k",
+  "layouts": [
+   8,
+   16
+  ],
+  "soft": {
+   "problems": 256,
+   "clusters": 16,
+   "answer_flips": 96,
+   "flip_rate": 0.375,
+   "flip_wilson95": [
+    0.3179550161060169,
+    0.4357409480578956
+   ],
+   "flip_cluster95": [
+    0.328125,
+    0.421875
+   ],
+   "accuracy": {
+    "8": 0.52734375,
+    "16": 0.54296875
+   },
+   "exactly_one_correct": 0.1328125,
+   "missing_answers": {
+    "8": 1,
+    "16": 0
+   },
+   "forced_switch": 39,
+   "median_switch_step": 190.5
+  },
+  "plain": {
+   "problems": 256,
+   "clusters": 16,
+   "answer_flips": 103,
+   "flip_rate": 0.40234375,
+   "flip_wilson95": [
+    0.34414640373724253,
+    0.4634285682658142
+   ],
+   "flip_cluster95": [
+    0.33203125,
+    0.4765625
+   ],
+   "accuracy": {
+    "8": 0.50390625,
+    "16": 0.4921875
+   },
+   "exactly_one_correct": 0.16796875,
+   "missing_answers": {
+    "8": 0,
+    "16": 0
+   },
+   "forced_switch": 33
+  },
+  "soft_minus_plain_flips": {
+   "problems": 256,
+   "difference": -0.02734375,
+   "cluster95": [
+    -0.09375,
+    0.03125
+   ],
+   "discordant": [
+    46,
+    53
+   ],
+   "mcnemar_p": 0.546713483598813
+  },
+  "soft_minus_plain_accuracy_larger_layout": {
+   "problems": 256,
+   "difference": 0.05078125,
+   "cluster95": [
+    0.0078125,
+    0.09375
+   ],
+   "discordant": [
+    36,
+    23
+   ],
+   "mcnemar_p": 0.11747735024505848
+  }
+ },
+ "pooled_primary_variants": {
+  "as_published_pm2": {
+   "cells": [
+    "A-gsm8k",
+    "A-math",
+    "B-gsm8k",
+    "B-math",
+    "C-gsm8k"
+   ],
+   "problems": 896,
+   "answer_flips": 265,
+   "flip_rate": 0.29575892857142855,
+   "cluster95": [
+    0.2734375,
+    0.31808035714285715
+   ],
+   "confirmed": true
+  },
+  "r1llama_gsm8k_corrected": {
+   "cells": [
+    "A-gsm8k",
+    "A-math",
+    "Bfix-gsm8k",
+    "B-math",
+    "C-gsm8k"
+   ],
+   "problems": 896,
+   "answer_flips": 243,
+   "flip_rate": 0.27120535714285715,
+   "cluster95": [
+    0.24776785714285715,
+    0.29464285714285715
+   ],
+   "confirmed": true
+  },
+  "r1llama_gsm8k_corrected_r1llama_math_dropped": {
+   "cells": [
+    "A-gsm8k",
+    "A-math",
+    "Bfix-gsm8k",
+    "C-gsm8k"
+   ],
+   "problems": 832,
+   "answer_flips": 200,
+   "flip_rate": 0.2403846153846154,
+   "cluster95": [
+    0.21634615384615385,
+    0.2644230769230769
+   ],
+   "confirmed": true
+  },
+  "r1llama_cells_dropped": {
+   "cells": [
+    "A-gsm8k",
+    "A-math",
+    "C-gsm8k"
+   ],
+   "problems": 576,
+   "answer_flips": 126,
+   "flip_rate": 0.21875,
+   "cluster95": [
+    0.19270833333333334,
+    0.24305555555555555
+   ],
+   "confirmed": true
+  }
+ },
+ "note": "R1-Llama MATH-500 (cell B-math) still has the legacy tokenizer and was not rerun."
+}

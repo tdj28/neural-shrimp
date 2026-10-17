@@ -1,0 +1,244 @@
+{
+ "run": "PM2X item 3 (R1-Distill-Llama-8B diagnosis)",
+ "source_commit": "ae1712a00141ed937e956299ce012f16a051a65c",
+ "pod": "17z174u3bkbj0a (H100 NVL)",
+ "results_tgz_sha256": "0362cb04806448a353cc2e554621b2f661adb6e96ba48b744760439fbe871761",
+ "raw": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/pi/llama-diag/",
+ "f64_source": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/pi/pm2f64/r1llama8b (PM2F base rows)",
+ "analysis": "tools/pi_llama_diag_analyze.py",
+ "problems": 64,
+ "f64": {
+  "n": 64,
+  "accuracy": 0.8125,
+  "wilson95": [
+   0.7002563933674387,
+   0.8893535687353672
+  ]
+ },
+ "conditions": {
+  "gen-bf16": {
+   "n": 64,
+   "complete": true,
+   "accuracy": 0.8125,
+   "wilson95": [
+    0.7002563933674387,
+    0.8893535687353672
+   ],
+   "tokenizer": "TokenizersBackend",
+   "roundtrip": true,
+   "attn": "sdpa",
+   "gpu": "NVIDIA H100 NVL",
+   "missing": 0,
+   "answer_at_budget": 12,
+   "think_forced": 0,
+   "no_end_of_thinking": 12,
+   "median_think_end": 884.0,
+   "minus_f64": {
+    "problems": 64,
+    "difference": 0.0,
+    "discordant": [
+     4,
+     4
+    ],
+    "mcnemar_p": 1.0
+   },
+   "answers_changed_by_decoder": 0
+  },
+  "gen-bf16-4096": {
+   "n": 64,
+   "complete": true,
+   "accuracy": 0.859375,
+   "wilson95": [
+    0.753837181611304,
+    0.9242142748069228
+   ],
+   "tokenizer": "TokenizersBackend",
+   "roundtrip": true,
+   "attn": "sdpa",
+   "gpu": "NVIDIA H100 NVL",
+   "missing": 0,
+   "answer_at_budget": 4,
+   "think_forced": 0,
+   "no_end_of_thinking": 4,
+   "median_think_end": 948.0,
+   "minus_f64": {
+    "problems": 64,
+    "difference": 0.046875,
+    "discordant": [
+     4,
+     1
+    ],
+    "mcnemar_p": 0.375
+   },
+   "answers_changed_by_decoder": 0
+  },
+  "gen-fp32": {
+   "n": 64,
+   "complete": true,
+   "accuracy": 0.828125,
+   "wilson95": [
+    0.7178678827866934,
+    0.9012225774212527
+   ],
+   "tokenizer": "TokenizersBackend",
+   "roundtrip": true,
+   "attn": "sdpa",
+   "gpu": "NVIDIA H100 NVL",
+   "missing": 0,
+   "answer_at_budget": 12,
+   "think_forced": 0,
+   "no_end_of_thinking": 12,
+   "median_think_end": 893.5,
+   "minus_f64": {
+    "problems": 64,
+    "difference": 0.015625,
+    "discordant": [
+     5,
+     4
+    ],
+    "mcnemar_p": 1.0
+   },
+   "answers_changed_by_decoder": 0
+  },
+  "reason-plain": {
+   "n": 64,
+   "complete": true,
+   "accuracy": 0.828125,
+   "wilson95": [
+    0.7178678827866934,
+    0.9012225774212527
+   ],
+   "tokenizer": "TokenizersBackend",
+   "roundtrip": true,
+   "attn": "sdpa",
+   "gpu": "NVIDIA H100 NVL",
+   "missing": 0,
+   "answer_at_budget": 5,
+   "think_forced": 15,
+   "no_end_of_thinking": 0,
+   "median_think_end": 984.0,
+   "minus_f64": {
+    "problems": 64,
+    "difference": 0.015625,
+    "discordant": [
+     4,
+     3
+    ],
+    "mcnemar_p": 1.0
+   },
+   "answers_changed_by_decoder": 0
+  },
+  "reason-plain-ans1024": {
+   "n": 64,
+   "complete": true,
+   "accuracy": 0.90625,
+   "wilson95": [
+    0.8101712030635407,
+    0.9563217476701068
+   ],
+   "tokenizer": "TokenizersBackend",
+   "roundtrip": true,
+   "attn": "sdpa",
+   "gpu": "NVIDIA H100 NVL",
+   "missing": 0,
+   "answer_at_budget": 0,
+   "think_forced": 15,
+   "no_end_of_thinking": 0,
+   "median_think_end": 984.0,
+   "minus_f64": {
+    "problems": 64,
+    "difference": 0.09375,
+    "discordant": [
+     6,
+     0
+    ],
+    "mcnemar_p": 0.03125
+   },
+   "answers_changed_by_decoder": 0
+  },
+  "reason-plain-eager": {
+   "n": 64,
+   "complete": true,
+   "accuracy": 0.78125,
+   "wilson95": [
+    0.6656721594362567,
+    0.8649768064562686
+   ],
+   "tokenizer": "TokenizersBackend",
+   "roundtrip": true,
+   "attn": "eager",
+   "gpu": "NVIDIA H100 NVL",
+   "missing": 0,
+   "answer_at_budget": 3,
+   "think_forced": 15,
+   "no_end_of_thinking": 0,
+   "median_think_end": 1104.5,
+   "minus_f64": {
+    "problems": 64,
+    "difference": -0.03125,
+    "discordant": [
+     2,
+     4
+    ],
+    "mcnemar_p": 0.6875
+   },
+   "answers_changed_by_decoder": 0
+  },
+  "reason-plain-legacy": {
+   "n": 64,
+   "complete": true,
+   "accuracy": 0.453125,
+   "wilson95": [
+    0.3372944769635036,
+    0.5742640287210753
+   ],
+   "tokenizer": "LlamaTokenizer",
+   "roundtrip": false,
+   "attn": "sdpa",
+   "gpu": "NVIDIA H100 NVL",
+   "missing": 0,
+   "answer_at_budget": 23,
+   "think_forced": 6,
+   "no_end_of_thinking": 0,
+   "median_think_end": 211.0,
+   "minus_f64": {
+    "problems": 64,
+    "difference": -0.359375,
+    "discordant": [
+     2,
+     25
+    ],
+    "mcnemar_p": 5.647540092468262e-06
+   },
+   "answers_changed_by_decoder": 3
+  },
+  "reason-soft": {
+   "n": 64,
+   "complete": true,
+   "accuracy": 0.75,
+   "wilson95": [
+    0.6318372344143515,
+    0.8398507352678932
+   ],
+   "tokenizer": "TokenizersBackend",
+   "roundtrip": true,
+   "attn": "sdpa",
+   "gpu": "NVIDIA H100 NVL",
+   "missing": 0,
+   "answer_at_budget": 2,
+   "think_forced": 26,
+   "no_end_of_thinking": 0,
+   "median_think_end": 1231.0,
+   "minus_f64": {
+    "problems": 64,
+    "difference": -0.0625,
+    "discordant": [
+     2,
+     6
+    ],
+    "mcnemar_p": 0.2890625
+   },
+   "answers_changed_by_decoder": 0
+  }
+ }
+}

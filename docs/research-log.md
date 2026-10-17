@@ -28367,3 +28367,76 @@ Read-only CPU trace of the nine main.tex numbers that the Codex number-to-data c
 - Derived but undocumented, now receipted: 0.072940 and 0.069060 (run inputs of the hidden-chaos/cell-stripe-* cells; exponents 0.129/0.130 and 0.198/0.198); 2.895 and 4.101 (outward-rounded worst-case superstable ratio ranges [2.89579, 3.33745] and [4.01929, 4.10032] from run C9; the C11 log entry quotes them nearest-rounded); 4.648 (Qwen2.5-1.5B flip ratio 4.648159); 893,868 (34-map census reconstructed to 987,308 cells exactly, minus 93,440 in the five omitted maps).
 - Wrong in the last digit: 0.18921, the second fold of the hostility period-7 branch at alpha 0.066, is the V6 bracket midpoint; the continued fold curve puts it at log10 T 0.189222 (bracket upper end), i.e. 0.18922.
 - Side leads, outside the nine and not receipted: the continued flip curve hub7-flip-plus crosses alpha 0.066 at log10 T 0.19195 (start point) and about 0.18955 (between points 16 and 17), against the paper's 0.1919 and 0.1899 (both V6 bracket midpoints).
+
+## 2026-10-17 01:55 UTC: PM2X item 3 results: R1-Llama-8B's low PM2 accuracy is a tokenizer artifact, not a precision effect; corrected GSM8K cell
+
+**Pods.** Commit ae1712a0, from the orchestrator logs. Runner rc 0, results hashes verified, both terminated (not in inventory).
+- X3 (diagnosis): 17z174u3bkbj0a, H100 NVL.
+- X3b (corrected rerun): x54879k3ktq53j, H100 NVL.
+- Receipts: docs/pi/pm2x-llama-diag.json and docs/pi/pm2fix-summary.json. Raw data: explore/llm-soft-loop/pod64/pi/llama-diag/ and pm2fix/.
+
+**Diagnosis.**
+- Problems: the 64 problems of docs/pi/llama-diag-indices.json, the first 64 of PM2F.
+- Every condition is complete (64/64), with no missing answers.
+- Wilson 95 % intervals are rounded outward. Each condition is paired with the PM2F float64 soft base rows by exact McNemar.
+
+| condition | tokenizer | accuracy [95 %] | minus float64, discordant (+/-), p |
+|---|---|---|---|
+| pi_reason plain, bf16, PM2 tokenizer (layout 1) | LlamaTokenizer, spaces dropped | 45.3 % [33.7, 57.5] | -35.9 points, 2/25, p 5.6e-6 |
+| pi_reason plain, bf16 (layout 8) | checked | 82.8 % [71.7, 90.2] | +1.6, 4/3, p 1 |
+| pi_reason soft, bf16 | checked | 75.0 % [63.1, 84.0] | -6.3, 2/6, p 0.29 |
+| pi_reason plain, answer budget 1024 | checked | 90.6 % [81.0, 95.7] | +9.4, 6/0, p 0.031 |
+| pi_reason plain, eager attention | checked | 78.1 % [66.5, 86.5] | -3.1, 2/4, p 0.69 |
+| HF generate(), bf16, 1792 new tokens | checked | 81.3 % [70.0, 89.0] | 0.0, 4/4, p 1 |
+| HF generate(), float32, 1792 | checked | 82.8 % [71.7, 90.2] | +1.6, 5/4, p 1 |
+| HF generate(), bf16, 4096 | checked | 85.9 % [75.3, 92.5] | +4.7, 4/1, p 0.38 |
+| float64 pipeline (PM2F base rows, soft) | repository load (correct) | 81.3 % [70.0, 89.0] | (reference) |
+
+**Mechanism.** With the PM2 tokenizer, the model reads a prompt without spaces or newlines. It thinks much less: the median end of thinking is step 211, against 984 for the checked tokenizer. Its answers run into the 256-token answer budget in 23 of 64 rows, against 5 of 64.
+
+**What is not the cause.**
+- bf16 against float32 against float64: no difference (82.8, 82.8 and 81.3 %).
+- Feeding inputs_embeds against input ids: pi_reason plain 82.8 %, generate() 81.3 %.
+- The attention implementation: eager is within noise, -3.1 points, p 0.69.
+- Llama-3.1 rope scaling in bf16: bf16 and float32 agree, so nothing here points to it.
+
+**Answer budget.** It costs accuracy: 1024 tokens give +7.8 points over 256 on the same rows (90.6 % against 82.8 %). That effect is common to every PM2 cell.
+
+**Decode markers.** Re-decoding each row's answer ids with the correct tokenizer changes the extracted answer in 3 of 64 legacy rows and in none of the checked rows. Most of the artifact is in the prompt, not the decoding.
+
+**Corrected R1-Llama-8B GSM8K cell** (X3b: PM2 design, 256 problems, layouts 8/16, budget 1536, the checked tokenizer). This is an amendment after data to a confirmatory run.
+
+| | soft | plain |
+|---|---|---|
+| layout flips [cluster 95 %] | 28.9 % (74/256) [23.4, 34.4] | 21.5 % (55/256) [15.6, 27.0] |
+| accuracy, layouts 8 / 16 | 73.8 / 77.0 % | 81.6 / 81.6 % |
+| exactly one layout correct | 18.0 % | 14.1 % |
+| thinking ended by the 1536 budget (rows of both layouts) | 93/512 | 60/512 |
+| median soft switch step | 1080 | |
+
+PM2 as published had soft 37.5 %, plain 40.2 %, accuracy 54.3 / 49.2 % and a median switch of 190.
+- Soft minus plain flips: +7.4 points, cluster [+1.9, +12.9], McNemar p 0.029 (44 against 25 discordant). As published PM2 had -2.7, p 0.55.
+- Soft minus plain accuracy (layout 16): -4.7, cluster [-8.6, -0.8], McNemar p 0.096.
+
+**Pooled PM2 primary** (soft flips over the five primary cells):
+
+| version | flips | rate [cluster 95 %] |
+|---|---|---|
+| as published | 265/896 | 29.6 % [27.3, 31.9] |
+| R1-Llama GSM8K replaced by the corrected cell | 243/896 | 27.1 % [24.7, 29.5] |
+| also without R1-Llama MATH-500 (still on the legacy tokenizer, not rerun) | 200/832 | 24.0 % [21.6, 26.5] |
+| without both R1-Llama cells | 126/576 | 21.9 % [19.2, 24.4] |
+
+The primary criterion (> 5 %, lower bound > 2 %) holds in every version.
+
+**Affected PM2 numbers.** All four R1-Llama-8B rows of the PM2 results are affected: GSM8K and MATH-500, soft and plain.
+- Their flip rates: 37.5 / 40.2 % and 67.2 / 62.5 %.
+- Their accuracies: 54.3 / 49.2 % and 39.1 / 37.5 %.
+- Exactly-one-correct: 13.3 % and 25.0 %.
+- The R1-Llama median switch step of 190.
+- Their soft-minus-plain contrasts.
+- The pooled primary (29.6 %).
+- The "answers poorly" caveat.
+- The PM2F observation that "bf16 rounding itself degrades its soft thinking". Precision has no measurable effect.
+
+The R1-Qwen-7B and QwQ-32B cells and every PM2F cell are unaffected: their tokenizers load correctly, and PM2F loads by repository name.
