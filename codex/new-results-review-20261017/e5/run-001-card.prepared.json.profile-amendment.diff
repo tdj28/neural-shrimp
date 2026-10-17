@@ -1,0 +1,40 @@
+--- preparation-001/run-001-card.prepared.json
++++ run-001-card.prepared.json
+@@ -8,9 +8,9 @@
+     "sha256": "b70e19fb379fd91d7568ef7d80e22ff375abea5cf56d169e3a2b80dde7c59474"
+   },
+   "source_sha256": {
+-    "controls": "0362e6f95ec05fc6ac97176a32ae9a266fd1d23acbb5db6212e3ce064cc3b0ea",
+-    "run": "c808e05fb2d83ac5743ec1d88a1d8d99bd3ed5775e21e88586a8e8ccbb0e957a",
+-    "arithmetic": "cb68f60da0ca33cf77863facc2f5ffc2c7649068fe34131519cb2c7cddb251f4"
++    "arithmetic": "cb68f60da0ca33cf77863facc2f5ffc2c7649068fe34131519cb2c7cddb251f4",
++    "run": "22d5c1cfdf4e92391e054d5e4f5dfcbf39343476321149f719e99afe6c8cddce",
++    "controls": "0362e6f95ec05fc6ac97176a32ae9a266fd1d23acbb5db6212e3ce064cc3b0ea"
+   },
+   "input_file_count": 125,
+   "input_bytes": 50439423,
+@@ -40,7 +40,7 @@
+     "available_ram_during_gib": 16,
+     "disk_free_gib": 16
+   },
+-  "measurement_status": "unmeasured saved computation; source/header sizes only, fixed refusal cap, no automatic extension",
++  "measurement_status": "Awaiting separately admitted manufactured profile; this actual card remains unlaunchable.",
+   "planned_workload": {
+     "loop_cells": 768,
+     "native_final_states_shape": [
+@@ -61,7 +61,13 @@
+     "bootstrap_endpoint_streams_per_panel": 7,
+     "draws_per_stream": 10000,
+     "permutation_draws_per_panel": 10000,
+-    "controls_groups": 10
++    "controls_groups": 0,
++    "inherited_profile_control_groups": 10
+   },
+-  "scientific_completion": "Computational completion is separate from source gates, statistical results and comparison differences."
++  "scientific_completion": "Computational completion is separate from source gates, statistical results and comparison differences.",
++  "profile_receipt": {
++    "path": "/data2/neural-shrimp-data/codex/new-results-review-20261017/profile-001/e5/report.json",
++    "bytes": null,
++    "sha256": null
++  }
+ }

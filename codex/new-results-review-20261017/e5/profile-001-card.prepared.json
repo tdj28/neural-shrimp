@@ -1,0 +1,40 @@
+{
+  "schema": "e5-manufactured-profile-card-v1",
+  "status": "prepared",
+  "source_expected_commit": null,
+  "source_sha256": {
+    "profile": "3116f5d821b929ad94cc033e715543b51b900ae237800c1a6439cf63ce966a01",
+    "arithmetic": "cb68f60da0ca33cf77863facc2f5ffc2c7649068fe34131519cb2c7cddb251f4",
+    "controls": "0362e6f95ec05fc6ac97176a32ae9a266fd1d23acbb5db6212e3ce064cc3b0ea"
+  },
+  "output": "/data2/neural-shrimp-data/codex/new-results-review-20261017/profile-001/e5",
+  "expected_outputs": [
+    "controls.json",
+    "workload.json",
+    "report.json"
+  ],
+  "resource_proposal": {
+    "cpu_threads": 1,
+    "auxiliary_supervisors": 1,
+    "nice": 10,
+    "cpu_seconds": 55,
+    "wall_seconds": 60,
+    "address_space_bytes": 2147483648,
+    "output_bytes": 67108864,
+    "cleanup_seconds": [
+      5,
+      5
+    ],
+    "available_ram_before_gib": 20,
+    "available_ram_during_gib": 16,
+    "disk_free_gib": 16
+  },
+  "input_scope": "Only three exact own sources and this plan; no original target metadata/arrays/model. Fixtures are literal in profile.py.",
+  "completion": "Computational complete, all10 manufactured groups passed, entropy manufactured roots defined.",
+  "measured_workload": "2\u00d7151936 synthetic logits, both full/masked64step roots and24T curves;24 synthetic prompts,7\u00d71000 bootstrap plus1000 permutation statistics.",
+  "known_unmeasured_scope": [
+    "actual raw hashes/decompression and token suffix processing",
+    "actual summary comparison and output lengths",
+    "external lifecycle and report serialization"
+  ]
+}

@@ -1,0 +1,68 @@
+{
+  "status": "reviewed_for_execution",
+  "repository": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp",
+  "raw_root": "/data2/neural-shrimp-data/codex/new-results-review-20261017",
+  "python": "/data2/neural-shrimp/.venv/bin/python",
+  "source_files": [
+    {
+      "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/new-results-review-20261017/e5/profile.py",
+      "bytes": 4783,
+      "sha256": "3116f5d821b929ad94cc033e715543b51b900ae237800c1a6439cf63ce966a01"
+    },
+    {
+      "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/new-results-review-20261017/e5/arithmetic.py",
+      "bytes": 21882,
+      "sha256": "cb68f60da0ca33cf77863facc2f5ffc2c7649068fe34131519cb2c7cddb251f4"
+    },
+    {
+      "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/new-results-review-20261017/e5/controls.py",
+      "bytes": 6867,
+      "sha256": "0362e6f95ec05fc6ac97176a32ae9a266fd1d23acbb5db6212e3ce064cc3b0ea"
+    },
+    {
+      "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/new-results-review-20261017/e5/profile-001-card.json",
+      "bytes": 1899,
+      "sha256": "adf5048ae77a4cc049626969f0f3fd15a04206ce440139fff988d50ff5442f66"
+    },
+    {
+      "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/new-results-review-20261017/supervise.py",
+      "bytes": 8569,
+      "sha256": "e361919ed104a800ed043d15726edc10775260fc482d6f98d9c5fb7c98f1e77e"
+    }
+  ],
+  "lanes": {
+    "e5-profile": {
+      "entry": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/new-results-review-20261017/e5/profile.py",
+      "arguments": [
+        "--card",
+        "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/new-results-review-20261017/e5/profile-001-card.json",
+        "--out",
+        "/data2/neural-shrimp-data/codex/new-results-review-20261017/profile-001/e5"
+      ],
+      "output": "/data2/neural-shrimp-data/codex/new-results-review-20261017/profile-001/e5",
+      "supervision": "/data2/neural-shrimp-data/codex/new-results-review-20261017/profile-001/e5-supervision",
+      "preflight_pins": [
+        {
+          "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/new-results-review-20261017/e5/profile-001-card.json",
+          "bytes": 1899,
+          "sha256": "adf5048ae77a4cc049626969f0f3fd15a04206ce440139fff988d50ff5442f66"
+        }
+      ],
+      "limits": {
+        "as_bytes": 2147483648,
+        "cpu_seconds": 55,
+        "wall_seconds": 60,
+        "output_bytes": 67108864
+      },
+      "prior_receipts": [
+        "/data2/neural-shrimp-data/codex/new-results-review-20261017/run-002/pm2f-supervision/receipt.json"
+      ],
+      "controls_integrated_once": 10
+    }
+  },
+  "serial_order": [
+    "e5-profile"
+  ],
+  "admission": "Root accepted sole manufactured profile3116f5d8/card1aea019f after full source review. Exact private source commit is captured by generic supervisor --source, source blobs and clean private ancestry; this advisory field remains null. No target data read or automatic retry. Actual E5 run remains separately unadmitted.",
+  "resource_scope": "One CPU worker plus unchanged e361 supervisor, nice10/thread1.20/16GiB RAM and16GiB disk floors. Fixed60wall55CPU2GiB64MiB OUT+streams; no target I/O."
+}

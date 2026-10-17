@@ -1,0 +1,75 @@
+{
+  "lane": "pm2f",
+  "source_commit": "8f4e96a1601deae8cb58ad33ba2c82524bc1c5df",
+  "argv": [
+    "/data2/neural-shrimp/.venv/bin/python",
+    "-I",
+    "-B",
+    "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/new-results-review-20261017/pm2f/run.py",
+    "--card",
+    "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/new-results-review-20261017/pm2f/run-002-card.json",
+    "--out",
+    "/data2/neural-shrimp-data/codex/new-results-review-20261017/run-002/pm2f"
+  ],
+  "returncode": 0,
+  "failure": null,
+  "external_elapsed_seconds": 0.3406059290282428,
+  "worker_reaped": true,
+  "worker_observed_after_exec": {
+    "pid": 368622,
+    "starttime": 214492453,
+    "pgid": 368622,
+    "sid": 368622,
+    "state": "R",
+    "nice": 10,
+    "threads": 1,
+    "uid_line": "Uid:\t1000\t1000\t1000\t1000",
+    "cmdline": "/data2/neural-shrimp/.venv/bin/python -I -B /home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/new-results-review-20261017/pm2f/run.py --card /home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/new-results-review-20261017/pm2f/run-002-card.json --out /data2/neural-shrimp-data/codex/new-results-review-20261017/run-002/pm2f ",
+    "limits": "Limit                     Soft Limit           Hard Limit           Units     \nMax cpu time              25                   25                   seconds   \nMax file size             16777216             16777216             bytes     \nMax data size             unlimited            unlimited            bytes     \nMax stack size            8388608              unlimited            bytes     \nMax core file size        0                    unlimited            bytes     \nMax resident set          unlimited            unlimited            bytes     \nMax processes             375398               375398               processes \nMax open files            65535                65535                files     \nMax locked memory         8388608              8388608              bytes     \nMax address space         1073741824           1073741824           bytes     \nMax file locks            unlimited            unlimited            locks     \nMax pending signals       375398               375398               signals   \nMax msgqueue size         819200               819200               bytes     \nMax nice priority         0                    0                    \nMax realtime priority     0                    0                    \nMax realtime timeout      200000               200000               us        \n"
+  },
+  "worker_pid": 368622,
+  "worker_identity_absent": true,
+  "worker_group_session_absent": true,
+  "supervisor": {
+    "pid": 368593,
+    "starttime": 214492437,
+    "pgid": 368593,
+    "sid": 368593,
+    "state": "R",
+    "nice": 10,
+    "threads": 1,
+    "uid_line": "Uid:\t1000\t1000\t1000\t1000",
+    "cmdline": "/data2/neural-shrimp/.venv/bin/python -I -B /home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/new-results-review-20261017/supervise.py --plan /home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/new-results-review-20261017/operation-pm2f-002.json --lane pm2f --source 8f4e96a1601deae8cb58ad33ba2c82524bc1c5df ",
+    "limits": "Limit                     Soft Limit           Hard Limit           Units     \nMax cpu time              unlimited            unlimited            seconds   \nMax file size             unlimited            unlimited            bytes     \nMax data size             unlimited            unlimited            bytes     \nMax stack size            8388608              unlimited            bytes     \nMax core file size        0                    unlimited            bytes     \nMax resident set          unlimited            unlimited            bytes     \nMax processes             375398               375398               processes \nMax open files            65535                65535                files     \nMax locked memory         8388608              8388608              bytes     \nMax address space         1073741824           4294967296           bytes     \nMax file locks            unlimited            unlimited            locks     \nMax pending signals       375398               375398               signals   \nMax msgqueue size         819200               819200               bytes     \nMax nice priority         0                    0                    \nMax realtime priority     0                    0                    \nMax realtime timeout      200000               200000               us        \n"
+  },
+  "output_files": [
+    {
+      "path": "/data2/neural-shrimp-data/codex/new-results-review-20261017/run-002/pm2f/comparisons.json",
+      "bytes": 20647,
+      "sha256": "95b8aa561bee716c7098ffeafee12207630a55ba9e157588be31fbc48e5fbde6"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/codex/new-results-review-20261017/run-002/pm2f/controls.json",
+      "bytes": 1434,
+      "sha256": "3de912c69607cabb56c94cb558b9afa06a233623f9ba4d93c6d5dc038ac98f3e"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/codex/new-results-review-20261017/run-002/pm2f/manifest.json",
+      "bytes": 615,
+      "sha256": "02aefa41d13f58dd730965663ed1b76375ce74313a2f23214fc600d6a54c7c93"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/codex/new-results-review-20261017/run-002/pm2f/models.json",
+      "bytes": 677185,
+      "sha256": "1551b34286f4de7a6d32bbf229a14589319c61a62e4376e3d5414343bcef03ba"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/codex/new-results-review-20261017/run-002/pm2f/report.json",
+      "bytes": 46514,
+      "sha256": "85e11fa9186b7ca27ff1bbfabc348a2d6726a6a23907bc11695f4d33beeb05e0"
+    }
+  ],
+  "actual_output_bytes": 746395,
+  "children_ru_maxrss_kib_at_reap": 38508,
+  "scope": "External window includes startup, pre/post checks and serialization; source/native producer execution is not attested. Scientific claims require separate saved-result review."
+}

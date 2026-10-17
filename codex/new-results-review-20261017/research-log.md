@@ -13,3 +13,7 @@ Nine controls passed and duplicate-source-rows control failed. Driver stopped be
 ## 2026-10-17T00:52:12.697299+00:00 — before PM2F run002
 
 Root accepted coree7fb200e one-line copy-before-append fix and cardad26661d/diffe19fdbf0. Source history and failed001 remain immutable. Run ten controls then actual saved scalars once at fresh002; same35pins/25CPU30wall1GiB16MiB. Number manufactured lane completed/closed. Later summary sourcebc8f4b90 is a separate source-authority supplement, not proof of original invocation; both declared audit projections unchanged.
+
+## 2026-10-17T00:53:57.354001+00:00 — before sole E5 manufactured profile
+
+PM002 completed and exact original workers/groups closed; all10 controls passed and288saved rows reconstructed. Scientific review pending. E5 profile exact sources/card/operation are committed now;10 controls once plus two151936-vector full/masked entropy workloads and24prompt/1000draw statistics. CPU1+supervisor/nice10/2GiB55CPU60wall64MiB wholeOUT+streams;20/16GiB RAM16GiBdisk. No E5 target read; no automatic retry. Root accepted source/card; original unexecuted preparation and withdrawn source-reading allegation preserved as history, not an actual source bug.
