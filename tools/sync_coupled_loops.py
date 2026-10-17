@@ -385,6 +385,68 @@ def transverse(args):
         print(json.dumps({"cell": c["index"], "lambda1_jvp": round(float(jl[i].mean()), 4)}), flush=True)
 
 
+def closure(states, max_period):
+    """Full-state return distances |X_{t+P} - X_t| / |X_t| from the first state, for P = 1..max_period, per pair
+    (states: list of tensors (2n, K, d) over time, pair rows interleaved); returns (n, max_period)."""
+    X0 = states[0]
+    n = X0.shape[0] // 2
+    a = X0.reshape(n, -1)
+    out = np.zeros((n, max_period))
+    for P in range(1, max_period + 1):
+        b = states[P].reshape(n, -1)
+        out[:, P - 1] = ((b - a).norm(dim=1) / a.norm(dim=1)).double().cpu().numpy()
+    return out
+
+
+def periodic(args):
+    """Full-state periodicity of unsynchronized pairs: from each sweep's final state of the listed pairs, iterate
+    the coupled map and record the return distances of the joint state (x_A, x_B); primitive period = smallest P
+    with return distance below --tol (None when no P qualifies)."""
+    torch = __import__("torch")
+    loop, v = make_loop(args.threads)
+    cells = {c["index"]: c for c in load_cells()}
+    base = out_dir("")
+    rows, temps, steer, cs, meta = [], [], [], [], []
+    for spec in args.pairs:
+        name, ci, c = spec.split(":")
+        sj = json.loads((base / name / "sweep.json").read_text())
+        fin = np.load(base / name / "sweep.npz")["final"]
+        k = [i for i, m in enumerate(sj["pairs"]) if m["cell"] == int(ci) and abs(m["c"] - float(c)) < 1e-12]
+        if len(k) != 1:
+            raise SystemExit(f"pair {spec} not found once in {name}")
+        k = k[0]
+        rows += [torch.as_tensor(fin[2 * k]), torch.as_tensor(fin[2 * k + 1])]
+        cell = cells[int(ci)]
+        temps += [10.0 ** cell["log10_temperature"]] * 2
+        steer += [cell["alpha"] * v] * 2
+        cs.append(float(c))
+        meta.append({"sweep": name, "cell": int(ci), "c": float(c), "steps_before": sj["steps"]})
+    X = torch.stack(rows).to(loop.state_dtype)
+    temps = np.array(temps)
+    loop.prepare(np.stack(steer))
+    for _ in range(args.settle):
+        X, _ = coupled_step(loop, X, temps, cs)
+    states, toks = [X.clone()], []
+    for _ in range(args.max_period):
+        X, p = coupled_step(loop, X, temps, cs)
+        states.append(X.clone())
+        toks.append(p.argmax(dim=-1).cpu().numpy())
+    ret = closure(states, args.max_period)
+    res = []
+    for i, m in enumerate(meta):
+        ok = np.flatnonzero(ret[i] < args.tol)
+        P = int(ok[0]) + 1 if len(ok) else None
+        res.append({**m, "primitive_period": P, "return_distance_at_P": float(ret[i, P - 1]) if P else None,
+                    "min_return": float(ret[i].min()), "argmin_return": int(ret[i].argmin()) + 1,
+                    "pair_distance_now": float(rel_distance(states[0])[i]),
+                    "top1_A": [int(t[2 * i]) for t in toks[:P or 12]],
+                    "top1_B": [int(t[2 * i + 1]) for t in toks[:P or 12]]})
+        print(json.dumps(res[-1]), flush=True)
+    o = out_dir(args.out)
+    (o / "periodic.json").write_text(json.dumps({"args": vars(args), "commit": git_commit(), "pairs": res},
+                                                indent=1))
+
+
 def excursions(d, low=SYNC_TOL, high=1e-3):
     """Number of bursts: passages from below `low` to above `high`."""
     n, state = 0, None
@@ -534,12 +596,19 @@ def main():
     tr = sub.choices["transverse"]
     tr.add_argument("--delta", type=float, default=1e-7)
     tr.add_argument("--record-jvp", type=int, default=2000)
+    pe = sub.add_parser("periodic")
+    pe.add_argument("--threads", type=int, default=4)
+    pe.add_argument("--pairs", nargs="+", required=True, help="sweep:cell:c")
+    pe.add_argument("--settle", type=int, default=0)
+    pe.add_argument("--max-period", type=int, default=40)
+    pe.add_argument("--tol", type=float, default=1e-9)
+    pe.add_argument("--out", required=True)
     an = sub.add_parser("analyze")
     an.add_argument("--sweeps", nargs="+", default=["sweep-near"])
     an.add_argument("--tail", type=int, default=500)
     an.add_argument("--text-len", type=int, default=12)
     args = ap.parse_args()
-    {"check": check, "sweep": sweep, "transverse": transverse, "analyze": analyze}[args.cmd](args)
+    {"check": check, "sweep": sweep, "transverse": transverse, "analyze": analyze, "periodic": periodic}[args.cmd](args)
 
 
 if __name__ == "__main__":

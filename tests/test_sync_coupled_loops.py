@@ -106,3 +106,12 @@ def test_powerlaw_slope_recovers_minus_three_halves():
     fit = scl.powerlaw_slope(x[x < 1e5], min_len=2)
     assert fit is not None and abs(fit["slope"] + 1.5) < 0.1
     assert scl.powerlaw_slope([3, 4, 5]) is None
+
+
+def test_closure_finds_primitive_period():
+    import torch
+
+    seq = [torch.tensor([[[1.0]], [[2.0]]]) * (1 + (t % 3)) for t in range(10)]
+    ret = scl.closure(seq, 6)
+    assert ret.shape == (1, 6)
+    assert ret[0, 2] == 0 and ret[0, 5] == 0 and ret[0, 0] > 0 and ret[0, 1] > 0

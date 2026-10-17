@@ -28781,3 +28781,12 @@ By sensitivity:
 - Realized displacement: 7.4e-4 to 9.96e-4 (not "to 1.0e-3").
 - Development entry (01:05 UTC): s = 1e-4 realized 2.2e-5 to 3.3e-5 (not 2.3e-5), and development accuracy
   14.5-18.8 % (not 15-19 %).
+
+## 2026-10-17 07:45 UTC: SYNC amendment 1 (exploratory, after part of the data)
+
+- **Refinement grids.** The refinement grids (run 4) were chosen from the published c* values and the first 250 sweep steps, before this run's own lambda_1 was available:
+  - cell 0: 0.04 to 0.08;
+  - cell 1: 0.14 to 0.19;
+  - cell 2: 0.09 to 0.15.
+- **New full-state periodicity check.** In the near and far sweeps, many unsynchronized pairs below c* have a pair distance that repeats exactly with period 4 to 12. Far starts in cell 0 at c = 0.14 and 0.20 never synchronize. A new `periodic` subcommand (code committed before it runs) iterates the coupled map from each such pair's final state. It records full-state return distances of (x_A, x_B) for P up to 40, with tolerance 1e-9 relative. It labels a pair periodic only if the joint state closes. Multipliers of these orbits are not computed, so their stability is shown only by the fact that the orbit attracts in forward iteration.
+- **Secondary tolerance.** A synchronization tolerance of 1e-6 is reported alongside the primary 1e-8. It is added because bubbling excursions just above 1e-8 decide the primary bracket in some cells.
