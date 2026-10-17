@@ -1,0 +1,37 @@
+{
+  "status": "running",
+  "owner": "Root",
+  "source": "e8bc3a1708cc00dbd2aaab7cee4d263726ea1e37",
+  "session": 40021,
+  "plan": "actual-plan.json",
+  "raw_root": "/data2/neural-shrimp-data/explore/basins/task28/run-001",
+  "startup_checked_utc": "2026-10-17T21:50:41.973966+00:00",
+  "identities": [
+    {
+      "pid": 1345973,
+      "starttime": 222036340,
+      "pgid": 1345973,
+      "sid": 1345973,
+      "state": "S",
+      "nice": 10,
+      "threads": 1,
+      "uid_line": "Uid:\t1000\t1000\t1000\t1000",
+      "cmdline": "/data2/neural-shrimp/.venv/bin/python -I -B codex/basins-task28/supervise.py --plan codex/basins-task28/actual-plan.json --lane actual --source e8bc3a1708cc00dbd2aaab7cee4d263726ea1e37 ",
+      "limits": "Limit                     Soft Limit           Hard Limit           Units     \nMax cpu time              unlimited            unlimited            seconds   \nMax file size             unlimited            unlimited            bytes     \nMax data size             unlimited            unlimited            bytes     \nMax stack size            8388608              unlimited            bytes     \nMax core file size        0                    unlimited            bytes     \nMax resident set          unlimited            unlimited            bytes     \nMax processes             375398               375398               processes \nMax open files            65535                65535                files     \nMax locked memory         8388608              8388608              bytes     \nMax address space         1073741824           12884901888          bytes     \nMax file locks            unlimited            unlimited            locks     \nMax pending signals       375398               375398               signals   \nMax msgqueue size         819200               819200               bytes     \nMax nice priority         0                    0                    \nMax realtime priority     0                    0                    \nMax realtime timeout      200000               200000               us        \n"
+    },
+    {
+      "pid": 1346067,
+      "starttime": 222036366,
+      "pgid": 1346067,
+      "sid": 1346067,
+      "state": "R",
+      "nice": 10,
+      "threads": 4,
+      "uid_line": "Uid:\t1000\t1000\t1000\t1000",
+      "cmdline": "/data2/neural-shrimp/.venv/bin/python -I -B /home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/tools/task28_basins.py --card /home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/basins-task28/actual-card.json --out /data2/neural-shrimp-data/explore/basins/task28/run-001 ",
+      "limits": "Limit                     Soft Limit           Hard Limit           Units     \nMax cpu time              70000                70000                seconds   \nMax file size             4294967296           4294967296           bytes     \nMax data size             unlimited            unlimited            bytes     \nMax stack size            8388608              unlimited            bytes     \nMax core file size        0                    unlimited            bytes     \nMax resident set          unlimited            unlimited            bytes     \nMax processes             375398               375398               processes \nMax open files            65535                65535                files     \nMax locked memory         8388608              8388608              bytes     \nMax address space         12884901888          12884901888          bytes     \nMax file locks            unlimited            unlimited            locks     \nMax pending signals       375398               375398               signals   \nMax msgqueue size         819200               819200               bytes     \nMax nice priority         0                    0                    \nMax realtime priority     0                    0                    \nMax realtime timeout      200000               200000               us        \n"
+    }
+  ],
+  "completed": "Task27 remaining decoder audit accepted; eight exact counts",
+  "watches": "not restarted; bounded current Task28 only"
+}
