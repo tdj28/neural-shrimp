@@ -28548,3 +28548,24 @@ The 4096 budget ended thinking in 1.5-3.6 % of GSM8K rows, not "3-4 %":
 - QwQ soft 4/128, plain 2/128.
 
 PM2's 1536 budget ended it in 10.1-24.3 %, not "8-24 %": R1-Qwen soft 26/256, plain 57/256; QwQ soft 22/128, plain 31/128. The rest of the entry is unchanged.
+
+## 2026-10-17 03:40 UTC: PM2X item 3c results: corrected R1-Llama-8B MATH-500 cell, and the PM2 primary with both R1-Llama cells corrected
+
+**Pod.** X3c ytpiizjb3nyy06, H100 NVL, commit ae1712a0 (orchestrator log). Runner rc 0, results hash verified, terminated (not in inventory), 6754 s.
+- Receipt docs/pi/pm2fix-math-summary.json; raw data explore/llm-soft-loop/pod64/pi/pm2fix-math/.
+- The PM2 design is unchanged except for the checked tokenizer (TokenizersBackend, round trip true).
+
+**Corrected cell** (64 problems, layouts 1 and 8 copies; cluster 95 % intervals rounded outward; PM2 as published in parentheses):
+
+| | soft | plain |
+|---|---|---|
+| flips | 67.2 % (43/64) [56.2, 78.2] (67.2 %) | 56.2 % (36/64) [43.7, 68.8] (62.5 %) |
+| accuracy, layouts 1 / 8 | 42.2 / 39.1 % (35.9 / 39.1) | 48.4 / 40.6 % (42.2 / 37.5) |
+| exactly one layout correct | 28.1 % (25.0) | 23.4 % (26.6) |
+| thinking ended by the 1536 budget (of 128 rows) | 39 | 41 |
+
+- Soft minus plain flips: +10.9 [0.0, +23.5], McNemar p 0.12. Soft minus plain accuracy (8 copies): -1.6, p 1.
+- The soft flip count equals PM2's by coincidence: only 46 of 128 soft rows give the same answer as PM2's.
+- The median soft switch is the 1536 cap, so MATH-500 accuracy here is limited by the budget, as in PM2. That limit, not the tokenizer, dominates this cell.
+
+**Pooled PM2 primary with both R1-Llama cells corrected** (A-gsm8k, A-math, the corrected B-gsm8k and B-math, and C-gsm8k): 27.1 % (243/896), cluster 95 % [24.7, 29.5]. Confirmed (> 5 %, lower bound > 2 %). It is identical to the GSM8K-only correction because the MATH soft flip count is unchanged.

@@ -1,0 +1,194 @@
+{
+ "run": "PM2X item 3c (R1-Distill-Llama-8B MATH-500 rerun with the checked tokenizer; PM2 design otherwise unchanged; amendment 1)",
+ "source_commit": "ae1712a00141ed937e956299ce012f16a051a65c",
+ "pod": "ytpiizjb3nyy06 (COMMUNITY H100 NVL)",
+ "results_tgz_sha256": "c6ca3d5828cd09d856c56f66a664a16a374f4c36ee3d7fc8b5bbb92241113967",
+ "raw": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/pi/pm2fix-math/",
+ "analysis": "tools/pi_matrix2_analyze.py",
+ "cell_corrected": {
+  "role": "primary",
+  "model": "r1llama8b",
+  "task": "math500",
+  "layouts": [
+   1,
+   8
+  ],
+  "soft": {
+   "problems": 64,
+   "clusters": 64,
+   "answer_flips": 43,
+   "flip_rate": 0.671875,
+   "flip_wilson95": [
+    0.5499910575052442,
+    0.774294421651299
+   ],
+   "flip_cluster95": [
+    0.5625,
+    0.78125
+   ],
+   "accuracy": {
+    "1": 0.421875,
+    "8": 0.390625
+   },
+   "exactly_one_correct": 0.28125,
+   "missing_answers": {
+    "1": 0,
+    "8": 0
+   },
+   "forced_switch": 39,
+   "median_switch_step": 1536.0
+  },
+  "plain": {
+   "problems": 64,
+   "clusters": 64,
+   "answer_flips": 36,
+   "flip_rate": 0.5625,
+   "flip_wilson95": [
+    0.44086208863767085,
+    0.6770599037828904
+   ],
+   "flip_cluster95": [
+    0.4375,
+    0.6875
+   ],
+   "accuracy": {
+    "1": 0.484375,
+    "8": 0.40625
+   },
+   "exactly_one_correct": 0.234375,
+   "missing_answers": {
+    "1": 1,
+    "8": 0
+   },
+   "forced_switch": 41
+  },
+  "soft_minus_plain_flips": {
+   "problems": 64,
+   "difference": 0.109375,
+   "cluster95": [
+    0.0,
+    0.234375
+   ],
+   "discordant": [
+    11,
+    4
+   ],
+   "mcnemar_p": 0.11846923828125
+  },
+  "soft_minus_plain_accuracy_larger_layout": {
+   "problems": 64,
+   "difference": -0.015625,
+   "cluster95": [
+    -0.140625,
+    0.109375
+   ],
+   "discordant": [
+    8,
+    9
+   ],
+   "mcnemar_p": 1.0
+  }
+ },
+ "cell_pm2_legacy_tokenizer": {
+  "role": "primary",
+  "model": "r1llama8b",
+  "task": "math500",
+  "layouts": [
+   1,
+   8
+  ],
+  "soft": {
+   "problems": 64,
+   "clusters": 64,
+   "answer_flips": 43,
+   "flip_rate": 0.671875,
+   "flip_wilson95": [
+    0.5499910575052442,
+    0.774294421651299
+   ],
+   "flip_cluster95": [
+    0.546875,
+    0.78125
+   ],
+   "accuracy": {
+    "1": 0.359375,
+    "8": 0.390625
+   },
+   "exactly_one_correct": 0.25,
+   "missing_answers": {
+    "1": 0,
+    "8": 0
+   },
+   "forced_switch": 45,
+   "median_switch_step": 1536.0
+  },
+  "plain": {
+   "problems": 64,
+   "clusters": 64,
+   "answer_flips": 40,
+   "flip_rate": 0.625,
+   "flip_wilson95": [
+    0.5025037858726236,
+    0.7333401989684987
+   ],
+   "flip_cluster95": [
+    0.5,
+    0.734375
+   ],
+   "accuracy": {
+    "1": 0.421875,
+    "8": 0.375
+   },
+   "exactly_one_correct": 0.265625,
+   "missing_answers": {
+    "1": 0,
+    "8": 1
+   },
+   "forced_switch": 35
+  },
+  "soft_minus_plain_flips": {
+   "problems": 64,
+   "difference": 0.046875,
+   "cluster95": [
+    -0.09375,
+    0.1875
+   ],
+   "discordant": [
+    12,
+    9
+   ],
+   "mcnemar_p": 0.6636238098144531
+  },
+  "soft_minus_plain_accuracy_larger_layout": {
+   "problems": 64,
+   "difference": 0.015625,
+   "cluster95": [
+    -0.125,
+    0.15625
+   ],
+   "discordant": [
+    11,
+    10
+   ],
+   "mcnemar_p": 1.0
+  }
+ },
+ "pooled_primary_both_r1llama_cells_corrected": {
+  "cells": [
+   "A-gsm8k",
+   "A-math",
+   "Bfix-gsm8k",
+   "Bfix-math",
+   "C-gsm8k"
+  ],
+  "problems": 896,
+  "answer_flips": 243,
+  "flip_rate": 0.27120535714285715,
+  "cluster95": [
+   0.24776785714285715,
+   0.29464285714285715
+  ],
+  "confirmed": true
+ },
+ "note": "Pooled over A-gsm8k, A-math, Bfix-gsm8k (docs/pi/pm2fix-summary.json), Bfix-math, C-gsm8k. The corrected MATH soft cell has 43/64 flips, as the legacy one did (different rows), so the pooled count equals the GSM8K-only correction."
+}
