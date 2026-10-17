@@ -3045,20 +3045,13 @@ median gap over these 15 is 0.42 decades of temperature. The soft-token loop and
 context are different systems, and this test did not find a bridge between them
 (\texttt{docs/pi/e5-heldout-analysis.json}).
 
-\paragraph{Coupled agents and manufactured consensus.} When two soft-thinking agents exchange their thoughts, do
-they lock into agreeing on the same wrong answer, as the coupled loops of Section~\ref{sec:dialogue} lock into shared
-orbits? Two copies of Qwen2.5-1.5B-Instruct each thought for 48 soft steps about the same two-digit multiplication
-problem. At every step each agent fed back a mixture: a fraction $1-c$ of its own concept token and a fraction $c$ of
-the other's (64 held-out problems, 8 pairs each; float32; exploratory). At $c=0.25$ the agents barely synchronized
-(the same leading token in 11\,\% of steps, against 7\,\% for independent agents). The rate at which both gave the
-same wrong answer rose from 3.7 to 5.3\,\%, a difference of 1.6 points ($[-0.6,3.9]$), and the exchange lowered
-accuracy by 5.5 points ($[-9.1,-1.9]$). Messages replayed from another pair's run lowered it about as much, so the cost
-comes from mixing in another trajectory, not from the exchange being mutual. At $c=0.5$ the agents locked (the same
-leading token in 94\,\% of steps). Wrong agreement rose to 41.0\,\% (37.3 points above independent agents,
-$[31.6,43.2]$), while accuracy fell by 12.5 points ($[-17.1,-8.0]$). Consensus was manufactured at reduced
-correctness. At this strength, however, both agents feed back the same average from the first step on, so their
-agreement is close to built in; the loss of accuracy is not. Separating mutual coupling from shared input at strong
-coupling needs asymmetric or delayed exchange, which we did not test (\texttt{docs/pi/c12-3-summary.json}).
+\paragraph{Coupled agents (behavioral check).} Two Qwen2.5-1.5B-Instruct agents solving the same multiplication
+problem each fed back a fraction $1-c$ of their own concept token and $c$ of the other's, while their contexts grew
+(64 problems, 8 pairs each; float32; exploratory). At $c=0.25$ wrong-answer agreement rose by only 1.6 points
+($[-0.6,3.9]$) and accuracy fell by 5.5 points, as it did with replayed messages. At $c=0.5$ the agents locked, both
+answering the same wrong number in 41.0\,\% of pairs, and accuracy fell by 12.5 points. At this strength both agents
+receive the same input from the first step on, so the agreement is built in; only the accuracy loss is a finding
+(\texttt{docs/pi/c12-3-summary.json}).
 
 \paragraph{Steering history and a policy decision.} Coexisting attractors suggest that the history of a steering
 schedule can matter, not only its present value. An exploratory test asked this of a decision with right and wrong
