@@ -28540,3 +28540,11 @@ On all 96, 49 of 192 twins end thinking at a different step from their base row.
   - MATH flips at 50-55 %.
 - The sign of soft minus plain differs between cells, so neither arm is consistently more sensitive.
 - The PM2 conclusion is unchanged: under bf16 the batch layout alone changes a substantial share of answers, with both soft and plain thinking. It does not depend on how thinking ends or on PM2's budget.
+
+## 2026-10-17 03:29 UTC: Correction to the PM2CS entry (budget shares)
+
+The 4096 budget ended thinking in 1.5-3.6 % of GSM8K rows, not "3-4 %":
+- R1-Qwen soft 9/256, plain 6/256;
+- QwQ soft 4/128, plain 2/128.
+
+PM2's 1536 budget ended it in 10.1-24.3 %, not "8-24 %": R1-Qwen soft 26/256, plain 57/256; QwQ soft 22/128, plain 31/128. The rest of the entry is unchanged.
