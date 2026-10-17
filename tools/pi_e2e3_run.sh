@@ -1,7 +1,7 @@
 #!/bin/bash
 # Program PI runs E2 (gain-capped soft thinking) and E3 (vote over perturbed soft runs, against sampled
 # self-consistency) on the local GPU: Qwen2.5-7B-Instruct bf16, run card in docs/research-log.md (2026-10-17).
-# Usage: tools/pi_e2e3_run.sh dev|e2|e2ctl|e3 [PROBLEMS_JSON]   (a rerun resumes each run from its records)
+# Usage: tools/pi_e2e3_run.sh dev|e2|e3 [PROBLEMS_JSON]   (a rerun resumes each run from its records)
 set -o pipefail
 cd "$(dirname "$0")/.."
 STAGE=$1
@@ -29,10 +29,6 @@ case $STAGE in
     SPLIT=train; IDX=${2:-docs/pi/e2e3-problems.json}; O=$D/e2
     for cap in 0 0.37 0.10 0.015; do run $O/cap$cap $SOFT --layouts 8 16 --gain-cap $cap; done
     ;;
-  e2ctl)                                   # added after E2's outcome: a uniform lower temperature, no cap
-    SPLIT=train; IDX=${2:-docs/pi/e2e3-problems.json}; O=$D/e2
-    run $O/t0.5 --mode soft --top-n 15 --temperature 0.5 --soft-steps 64 --layouts 8 16
-    ;;
   e3)
     SPLIT=train; IDX=${2:-docs/pi/e2e3-problems.json}; O=$D/e3; S=${E3_PERTURB:-1e-3}
     run $O/soft0 $SOFT --layouts 16
@@ -41,6 +37,6 @@ case $STAGE in
     for k in 1 2 3 4 5 6 7 8; do run $O/sample-k$k --mode hard --temperature 0.7 --max-new 320 --stop-eos --layouts 16 \
       --seed $((20261016 + k * 1000000)); done
     ;;
-  *) echo "usage: $0 dev|e2|e2ctl|e3 [PROBLEMS_JSON]"; exit 2 ;;
+  *) echo "usage: $0 dev|e2|e3 [PROBLEMS_JSON]"; exit 2 ;;
 esac
 echo "stage $STAGE done $(date -u +%H:%M:%S)"

@@ -28466,7 +28466,7 @@ dose response. The caps also lower the mean step temperature, from 0.60 to 0.56,
 temperature drop could explain the effect without the gain-targeted capping.
 
 Control arm, added after seeing E2 and disclosed as such: soft top-15 at a uniform **T = 0.5** (the mean step
-temperature of the 0.015 arm), uncapped, layouts 8 and 16, the same 512 problems (`tools/pi_e2e3_run.sh e2ctl`).
+temperature of the 0.015 arm), uncapped, layouts 8 and 16, the same 512 problems (`tools/pi_e2ctl_run.sh`; kept out of the running E3 script).
 It runs after E3. About 0.2 GPU-hours, within the 5-hour ceiling.
 
 Reading: if T 0.5 flips as little as the capped arms, the reduction is attributed to a lower temperature in general,
