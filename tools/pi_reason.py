@@ -23,6 +23,18 @@ Prompt: the user message is the problem followed by "Please reason step by step,
 \\boxed{}." under the model's chat template. The answer is the content of the last \\boxed{} of the answer phase, else
 its last number; integers are compared as integers.
 
+Tokenizer (17 Oct 2026). Under transformers 5, AutoTokenizer.from_pretrained(<snapshot path>) builds a
+SentencePiece-style LlamaTokenizer for DeepSeek-R1-Distill-Llama-8B, which drops every space and newline from the
+prompt and leaves byte-level markers in decoded text. PM2 ran that way (--tokenizer legacy reproduces it). The default
+("checked") falls back to the fast tokenizer of tokenizer.json when a round-trip of spaced text fails, and refuses to
+run if the fallback fails too. The Qwen models load identically either way.
+
+Cold Stop (option, off by default): the rule of Soft Thinking (Zhang et al. 2025, arXiv 2505.15778; code
+eric-ai-lab/Soft-Thinking, sglang schedule_batch.update_topk_info): during thinking, count consecutive steps whose
+entropy of softmax(z / T) over the full vocabulary (nats) is below --cold-stop-entropy; the counter resets when a step
+is not below it; when it reaches --cold-stop-length, the step's token is replaced by the end-of-thinking token. The
+published settings are 0.01 and 256. Applied here in both arms.
+
 Writes OUT/records.jsonl (one line per scored problem and layout) and OUT/run.json. Analysis: tools/pi_matrix_analyze.py.
 Usage: python tools/pi_reason.py --model r1qwen7b --task gsm8k --arm soft --layouts 8 16 --limit 256 --out RUN
 """
@@ -44,6 +56,30 @@ MODELS = {"r1qwen7b": "models--deepseek-ai--DeepSeek-R1-Distill-Qwen-7B",
 MATH500 = "datasets--HuggingFaceH4--MATH-500"
 SUFFIX = "Please reason step by step, and put your final answer within \\boxed{}."
 INT = re.compile(r"^-?\d+$")
+
+
+ROUNDTRIP = "Natalia sold 48 clips in April.\nThen she sold half as many."
+
+
+def roundtrip_ok(tok):
+    return tok.decode(tok(ROUNDTRIP, add_special_tokens=False)["input_ids"]) == ROUNDTRIP
+
+
+def load_tokenizer(path, mode="checked"):
+    """The model's tokenizer; mode "legacy" is PM2's AutoTokenizer load, "checked" verifies a round-trip of spaced
+    text and otherwise loads the fast tokenizer from tokenizer.json (see the module docstring)."""
+    from transformers import AutoTokenizer, PreTrainedTokenizerFast
+    tok = AutoTokenizer.from_pretrained(path)
+    if mode == "legacy" or roundtrip_ok(tok):
+        return tok
+    tok = PreTrainedTokenizerFast.from_pretrained(path)
+    if not roundtrip_ok(tok):
+        raise SystemExit(f"no tokenizer of {path} round-trips spaced text")
+    return tok
+
+
+def entropy(torch, p):
+    return -(p * torch.log(p.clamp_min(1e-12))).sum(-1)
 
 
 def prompt_ids(tok, question):
@@ -145,19 +181,23 @@ def sample_nucleus(torch, p, top_p, u):
 
 def run(args):
     import torch
-    from transformers import AutoModelForCausalLM, AutoTokenizer
+    from transformers import AutoModelForCausalLM
     path = ph.snapshot(MODELS[args.model])
-    tok = AutoTokenizer.from_pretrained(path)
+    tok = load_tokenizer(path, args.tokenizer)
     end_think = tok.convert_tokens_to_ids("</think>")
     if end_think is None or end_think == tok.unk_token_id:
         raise SystemExit("the tokenizer has no </think> token")
     eos = tok.eos_token_id
     dev = args.device
-    model = AutoModelForCausalLM.from_pretrained(path, dtype=getattr(torch, args.dtype), device_map=dev)
+    kw = {"attn_implementation": args.attn} if args.attn else {}
+    model = AutoModelForCausalLM.from_pretrained(path, dtype=getattr(torch, args.dtype), device_map=dev, **kw)
     model.eval()
     E = model.get_input_embeddings().weight
     if args.task == "gsm8k":
         pool = ph.load_gsm8k(args.split)[args.offset:]
+        if args.indices:
+            keep = set(json.loads(Path(args.indices).read_text()))
+            pool = [p for p in pool if p["index"] in keep]
         batches = gsm8k_batches(pool, tok, args.layouts, args.limit)
     else:
         batches = math_batches(load_math500(), tok, args.layouts, args.limit)
@@ -165,7 +205,8 @@ def run(args):
     out.mkdir(parents=True, exist_ok=True)
     (out / "run.json").write_text(json.dumps({
         "args": vars(args), "model_path": str(path), "end_think_id": int(end_think), "eos_id": int(eos),
-        "torch": torch.__version__, "cuda": torch.version.cuda,
+        "torch": torch.__version__, "cuda": torch.version.cuda, "tokenizer_class": type(tok).__name__,
+        "tokenizer_roundtrip": roundtrip_ok(tok), "attn_implementation": model.config._attn_implementation,
         "gpu": torch.cuda.get_device_name() if dev == "cuda" else "cpu",
         "batches": {str(L): len(b) for L, b in batches.items()}}, indent=1))
     done = set()
@@ -186,6 +227,8 @@ def run(args):
             mode = [0] * B                   # 0 thinking, 1 answering, 2 finished
             switch = [None] * B
             forced = [False] * B
+            cold = [False] * B
+            low = [0] * B
             answer = [[] for _ in range(B)]
             top1 = [[] for _ in range(B)]
             with torch.no_grad():
@@ -198,14 +241,20 @@ def run(args):
                     p = torch.softmax(z / T, dim=-1)
                     u = torch.tensor([rg.random() for rg in rngs], device=dev)
                     am = z.argmax(-1)
+                    if args.cold_stop_entropy > 0:
+                        ent = entropy(torch, p).tolist()
                     sampled = sample_nucleus(torch, p, args.top_p, u)
                     tokens = torch.full((B,), eos, device=dev, dtype=torch.long)
                     use_soft = torch.zeros(B, dtype=torch.bool, device=dev)
                     for r in range(B):
                         if mode[r] == 0:
                             top1[r].append(int(am[r]))
+                            if args.cold_stop_entropy > 0:
+                                low[r] = low[r] + 1 if ent[r] < args.cold_stop_entropy else 0
                             if t >= args.think_budget:          # budget spent: insert the end of thinking
                                 tokens[r], mode[r], switch[r], forced[r] = end_think, 1, t, True
+                            elif args.cold_stop_entropy > 0 and low[r] >= args.cold_stop_length:   # Cold Stop
+                                tokens[r], mode[r], switch[r], cold[r] = end_think, 1, t, True
                             elif args.arm == "soft":
                                 if int(am[r]) == end_think:
                                     tokens[r], mode[r], switch[r] = end_think, 1, t
@@ -239,7 +288,8 @@ def run(args):
                 ans = extract(text)
                 rec = {"index": row["index"], "layout": layout, "batch": bi, "row": r, "prompt_len": len(row["ids"]),
                        "answer": ans, "gold": row["gold"], "correct": ans is not None and ans == row["gold"],
-                       "switch_step": switch[r], "forced_switch": forced[r], "answer_tokens": len(toks),
+                       "switch_step": switch[r], "forced_switch": forced[r], "cold_stop": cold[r],
+                       "answer_tokens": len(toks), "answer_ids": toks,
                        "text": text[-600:], "top1": top1[r]}
                 rec_f.write(json.dumps(rec) + "\n")
             rec_f.flush()
@@ -255,7 +305,12 @@ def main():
     ap.add_argument("--split", default="train")
     ap.add_argument("--offset", type=int, default=256, help="gsm8k: skip the first N problems of the split")
     ap.add_argument("--limit", type=int, default=256, help="scored problems (gsm8k: rounded to full batches)")
-    ap.add_argument("--layouts", type=int, nargs=2, default=[8, 16])
+    ap.add_argument("--layouts", type=int, nargs="+", default=[8, 16], help="one or two batch layouts")
+    ap.add_argument("--indices", help="gsm8k: JSON list of dataset indices to keep (before grouping)")
+    ap.add_argument("--tokenizer", default="checked", choices=("checked", "legacy"))
+    ap.add_argument("--attn", default=None, help="attention implementation (default: transformers' choice)")
+    ap.add_argument("--cold-stop-entropy", type=float, default=0.0, help="Cold Stop threshold in nats (0: off)")
+    ap.add_argument("--cold-stop-length", type=int, default=256, help="Cold Stop: consecutive low-entropy steps")
     ap.add_argument("--temperature", type=float, default=0.6)
     ap.add_argument("--top-n", type=int, default=15)
     ap.add_argument("--top-p", type=float, default=0.95)
