@@ -1,0 +1,66 @@
+{
+  "status": "prepared_not_admitted",
+  "repository": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp",
+  "raw_root": "/data2/neural-shrimp-data/codex/paper-number-check-20261016",
+  "python": "/data2/neural-shrimp/.venv/bin/python",
+  "source_files": [
+    {
+      "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/paper-number-check-20261016/check.py",
+      "bytes": 23312,
+      "sha256": "d8c4c278b77c1507cbaa308913eb24c2e3bfe57f6085fa94dc627e864d31f403"
+    },
+    {
+      "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/paper-number-check-20261016/delimiter_controls.py",
+      "bytes": 2536,
+      "sha256": "95396d0bb042ba9c7c1f2afe690a23856bfd9a671daf8794706df1c48cef2795"
+    },
+    {
+      "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/paper-number-check-20261016/delimiter-controls-003-card.json",
+      "bytes": 1569,
+      "sha256": "86ddf7d1b361c9be61748812d0d88df6b68c35bda4a61c1b722fb99d4fd85484"
+    },
+    {
+      "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/new-results-review-20261017/supervise.py",
+      "bytes": 8569,
+      "sha256": "e361919ed104a800ed043d15726edc10775260fc482d6f98d9c5fb7c98f1e77e"
+    }
+  ],
+  "lanes": {
+    "delimiter_controls": {
+      "entry": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/paper-number-check-20261016/delimiter_controls.py",
+      "arguments": [
+        "--out",
+        "/data2/neural-shrimp-data/codex/paper-number-check-20261016/delimiter-controls-003"
+      ],
+      "output": "/data2/neural-shrimp-data/codex/paper-number-check-20261016/delimiter-controls-003",
+      "supervision": "/data2/neural-shrimp-data/codex/paper-number-check-20261016/delimiter-controls-003-supervision",
+      "preflight_pins": [
+        {
+          "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/paper-number-check-20261016/delimiter-controls-003-card.json",
+          "bytes": 1569,
+          "sha256": "86ddf7d1b361c9be61748812d0d88df6b68c35bda4a61c1b722fb99d4fd85484"
+        },
+        {
+          "path": "/data2/neural-shrimp-data/codex/paper-number-check-20261016/run-002-original-closure.json",
+          "bytes": 6553,
+          "sha256": "ff97eff7466e4e6c3422f980cbd3e35d81dc4ec72b93b8d806945ede4614adf2"
+        }
+      ],
+      "limits": {
+        "as_bytes": 1073741824,
+        "cpu_seconds": 10,
+        "wall_seconds": 15,
+        "output_bytes": 8388608
+      },
+      "prior_receipts": [
+        "/data2/neural-shrimp-data/codex/paper-number-check-20261016/run-002-supervision/receipt.json"
+      ],
+      "controls_integrated_once": 7
+    }
+  },
+  "serial_order": [
+    "delimiter_controls"
+  ],
+  "admission": "Prepared exact operational card, pending Root read/private checkpoint/fresh capacity.",
+  "dispatch": "Unchanged e361919e supervisor; setsid --wait nice -n10,20/16GiB available RAM,16GiB disk,5+5 cleanup; close original births/groups before next lane."
+}

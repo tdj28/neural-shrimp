@@ -1,0 +1,73 @@
+{
+  "status": "prepared_not_admitted",
+  "repository": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp",
+  "raw_root": "/data2/neural-shrimp-data/codex/paper-number-check-20261016",
+  "python": "/data2/neural-shrimp/.venv/bin/python",
+  "source_files": [
+    {
+      "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/paper-number-check-20261016/check.py",
+      "bytes": 23312,
+      "sha256": "d8c4c278b77c1507cbaa308913eb24c2e3bfe57f6085fa94dc627e864d31f403"
+    },
+    {
+      "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/paper-number-check-20261016/run-003-card.json",
+      "bytes": 8388,
+      "sha256": "0e8988283c0625c0317e11e71135e52d4d430b217306349d3c73a5ca01c60930"
+    },
+    {
+      "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/new-results-review-20261017/supervise.py",
+      "bytes": 8569,
+      "sha256": "e361919ed104a800ed043d15726edc10775260fc482d6f98d9c5fb7c98f1e77e"
+    }
+  ],
+  "lanes": {
+    "actual": {
+      "entry": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/paper-number-check-20261016/check.py",
+      "arguments": [
+        "--root",
+        "/tmp/claude-task26-27-20261017-source-001/tree",
+        "--inventory",
+        "/tmp/claude-task26-27-20261017-source-001/manifest.json",
+        "--include-log",
+        "--output",
+        "/data2/neural-shrimp-data/codex/paper-number-check-20261016/run-003"
+      ],
+      "output": "/data2/neural-shrimp-data/codex/paper-number-check-20261016/run-003",
+      "supervision": "/data2/neural-shrimp-data/codex/paper-number-check-20261016/run-003-supervision",
+      "preflight_pins": [
+        {
+          "path": "/tmp/claude-task26-27-20261017-source-001/manifest.json",
+          "bytes": 543395,
+          "sha256": "6f99963fb87d01124bf47bbe1ce9f8bf00bb37195249c184a94e93a76792645a"
+        },
+        {
+          "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/paper-number-check-20261016/run-003-card.json",
+          "bytes": 8388,
+          "sha256": "0e8988283c0625c0317e11e71135e52d4d430b217306349d3c73a5ca01c60930"
+        },
+        {
+          "path": "/data2/neural-shrimp-data/codex/paper-number-check-20261016/run-002-original-closure.json",
+          "bytes": 6553,
+          "sha256": "ff97eff7466e4e6c3422f980cbd3e35d81dc4ec72b93b8d806945ede4614adf2"
+        }
+      ],
+      "limits": {
+        "as_bytes": 2147483648,
+        "cpu_seconds": 140,
+        "wall_seconds": 150,
+        "output_bytes": 134217728
+      },
+      "prior_receipts": [
+        "/data2/neural-shrimp-data/codex/paper-number-check-20261016/delimiter-controls-003-supervision/receipt.json"
+      ],
+      "controls_inherited_once": 19,
+      "focused_controls_inherited_once": 7
+    }
+  },
+  "serial_order": [
+    "actual"
+  ],
+  "scope": "Computational completion and exact frozen input/output hashes only. Candidate matches are not support/verification of claims. Missing, bound, ambiguous, log-only and policy-excluded cases remain explicit.",
+  "source_card_paths_prepared": "Await seven new control results/pins and final status transition; previous19+8controls not repeated.",
+  "admission": "Prepared for Root exact review after disclosed delimiter defect. Same frozen inputs140CPU150wall2GiB128MiB; seven focused controls and exact completed pins pending. No extension or automatic retry."
+}

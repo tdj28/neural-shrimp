@@ -79,15 +79,30 @@ def clean_tex(original, captions_only=False):
 
 def math_spans(text):
     """Literal TeX math delimiters; macros are deliberately not expanded."""
-    spans=[]; opened=None
-    token=re.compile(r'(?<!\\)(?:\$\$|\$)|\\[()\[\]]|\\(?:begin|end)\{(?:equation|align|alignat|gather|multline|math|displaymath)\*?\}')
-    closes={'$':'$','$$':'$$',r'\(':r'\)',r'\[':r'\]'}
+    spans=[]; opened=None; skip_until=-1
+    token=re.compile(r'\$|\\[()\[\]]|\\(?:begin|end)\{(?:equation|align|alignat|gather|multline|math|displaymath)\*?\}')
+    closes={r'\(':r'\)',r'\[':r'\]'}
     for m in token.finditer(text):
-        t=m[0]
-        if opened is not None:
+        a=m.start(); t=m[0]
+        if a<skip_until: continue
+        # A row break \\[2pt] is not display math. An even run of preceding
+        # backslashes leaves the delimiter active; an odd run escapes it.
+        k=a-1
+        while k>=0 and text[k]=='\\': k-=1
+        if (a-k-1)%2: continue
+        if t=='$':
+            if opened is None:
+                end='$$' if text.startswith('$$',a) else '$'
+                opened=(a,end); skip_until=a+len(end)
+            elif opened[1]=='$':
+                # In $a$$b$, close the first inline span, then open the next.
+                spans.append((opened[0],a+1)); opened=None
+            elif opened[1]=='$$' and text.startswith('$$',a):
+                spans.append((opened[0],a+2)); opened=None; skip_until=a+2
+        elif opened is not None:
             if t==opened[1]: spans.append((opened[0],m.end())); opened=None
-        elif t in closes: opened=(m.start(),closes[t])
-        elif t.startswith(r'\begin{'): opened=(m.start(),t.replace(r'\begin{',r'\end{',1))
+        elif t in closes: opened=(a,closes[t])
+        elif t.startswith(r'\begin{'): opened=(a,t.replace(r'\begin{',r'\end{',1))
     if opened is not None: spans.append((opened[0],len(text)))
     return spans
 
