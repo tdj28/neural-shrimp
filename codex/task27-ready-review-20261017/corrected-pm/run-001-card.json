@@ -1,14 +1,14 @@
 {
   "schema": "task27-pmx-corrected-card-v1",
-  "admission": "prepared_not_admitted",
-  "source_expected_commit": null,
+  "admission": "reviewed_for_execution",
+  "source_expected_commit": "9e6f3b0e97d4f64cf1bb0a01ae087d694312ee1a",
   "source_sha256": {
     "controls.py": "dc92d589394c7d4f4f91dae1d2f555132113b107420bae9fef17e35fe40c93b5",
     "run.py": "96e0b34d0e62a54a0084aabbbe1e8a296b407d98a2d7f05538825528f55edc7c",
     "pm_core.py": "59999e636fc5e2e14a096614ec61f1bb9eda958eb5db17a2f592100d57431a00"
   },
   "inputs": {
-    "path": "/tmp/task27-pmx-corrected-prep/inputs.json",
+    "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/task27-ready-review-20261017/corrected-pm/inputs.json",
     "bytes": 13773,
     "sha256": "4b05e6ed72bc376153e139c4444d50c989ffd5924384bcfa275b279540b86997"
   },
@@ -61,5 +61,6 @@
   "expected_integrated_controls": {
     "passed": 6,
     "failed": 0
-  }
+  },
+  "admission_authority": "Root full source/card/guard acceptance at task27-ready-root-source-acceptance.md; sole integrated six focused controls plus corrected saved-data run. Source_expected_commit binds private prepared science; exact dispatch commit is independently captured by supervisor receipt. No retry/extension."
 }

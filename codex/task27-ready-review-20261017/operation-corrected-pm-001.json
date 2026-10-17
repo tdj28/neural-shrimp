@@ -1,0 +1,84 @@
+{
+  "status": "reviewed_for_execution",
+  "repository": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp",
+  "raw_root": "/data2/neural-shrimp-data/codex/task27-ready-review-20261017",
+  "python": "/data2/neural-shrimp/.venv/bin/python",
+  "source_files": [
+    {
+      "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/task27-ready-review-20261017/corrected-pm/pm_core.py",
+      "bytes": 15498,
+      "sha256": "59999e636fc5e2e14a096614ec61f1bb9eda958eb5db17a2f592100d57431a00"
+    },
+    {
+      "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/task27-ready-review-20261017/corrected-pm/run.py",
+      "bytes": 6252,
+      "sha256": "96e0b34d0e62a54a0084aabbbe1e8a296b407d98a2d7f05538825528f55edc7c"
+    },
+    {
+      "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/task27-ready-review-20261017/corrected-pm/controls.py",
+      "bytes": 2681,
+      "sha256": "dc92d589394c7d4f4f91dae1d2f555132113b107420bae9fef17e35fe40c93b5"
+    },
+    {
+      "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/task27-ready-review-20261017/corrected-pm/run-001-card.json",
+      "bytes": 2674,
+      "sha256": "0e819ec95a9799854c6fe6e58924aa3d5db1a82ae7c6593af708b737e82c81c8"
+    },
+    {
+      "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/task27-ready-review-20261017/supervise.py",
+      "bytes": 8569,
+      "sha256": "e361919ed104a800ed043d15726edc10775260fc482d6f98d9c5fb7c98f1e77e"
+    }
+  ],
+  "lanes": {
+    "corrected-pm": {
+      "entry": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/task27-ready-review-20261017/corrected-pm/run.py",
+      "arguments": [
+        "--card",
+        "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/task27-ready-review-20261017/corrected-pm/run-001-card.json",
+        "--out",
+        "/data2/neural-shrimp-data/codex/task27-ready-review-20261017/run-001/corrected-pm"
+      ],
+      "output": "/data2/neural-shrimp-data/codex/task27-ready-review-20261017/run-001/corrected-pm",
+      "supervision": "/data2/neural-shrimp-data/codex/task27-ready-review-20261017/run-001/corrected-pm-supervision",
+      "preflight_pins": [
+        {
+          "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/task27-ready-review-20261017/corrected-pm/run-001-card.json",
+          "bytes": 2674,
+          "sha256": "0e819ec95a9799854c6fe6e58924aa3d5db1a82ae7c6593af708b737e82c81c8"
+        },
+        {
+          "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/task27-ready-review-20261017/corrected-pm/inputs.json",
+          "bytes": 13773,
+          "sha256": "4b05e6ed72bc376153e139c4444d50c989ffd5924384bcfa275b279540b86997"
+        },
+        {
+          "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/task27-ready-review-20261017/task27-ready-root-source-acceptance.md",
+          "bytes": 3571,
+          "sha256": "284aaf43965a75067accf45a8a5225465aed544f95c15c8177cfe0d09cc599a1"
+        }
+      ],
+      "input_inventory": {
+        "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/task27-ready-review-20261017/corrected-pm/inputs.json",
+        "bytes": 13773,
+        "sha256": "4b05e6ed72bc376153e139c4444d50c989ffd5924384bcfa275b279540b86997"
+      },
+      "limits": {
+        "as_bytes": 1073741824,
+        "cpu_seconds": 55,
+        "wall_seconds": 60,
+        "output_bytes": 67108864
+      },
+      "prior_receipts": [
+        "/data2/neural-shrimp-data/codex/paper-number-check-20261016/run-003-supervision/receipt.json"
+      ],
+      "controls_integrated_once": 6
+    }
+  },
+  "serial_order": [
+    "corrected-pm"
+  ],
+  "admission": "Root accepts exactsource96e0b34d/dc92d589/59999e63 and preparedcard87bf971b with path/sourcecommit/status-only binding. Existing supervisee361 unchanged; fresh private equality/capacity/priorclosure required.",
+  "resource_scope": "OneCPUworker+supervisor,nice10/thread1,1GiBworker,55CPU60wall+5+5,64MiBOUT+streams;20/16GiB RAM and16GiBdisk floors.",
+  "scientific_scope": "Corrected R1-Llama cells and four revised/exclusion pools only. No native/tokenizer/model/otherproducer execution, no watch."
+}
