@@ -1,0 +1,20 @@
+{
+ "model": "qwen1.5b",
+ "qualified": true,
+ "rule": "Development rule: among models whose independent-arm accuracy lies in [lo, hi] with at least min_parsed parsed\n    answers, the one with accuracy closest to 0.5 (tie: the smaller model, listed first). None qualifies: the model\n    closest to 0.5, flagged.",
+ "results": [
+  {
+   "model": "qwen0.5b",
+   "run": "dev-0.5b-1",
+   "acc": 0.2265625,
+   "unparsed": 0.03125
+  },
+  {
+   "model": "qwen1.5b",
+   "run": "dev-1.5b-1",
+   "acc": 0.546875,
+   "unparsed": 0.0078125
+  }
+ ],
+ "made": "2026-10-17T01:36:30Z"
+}

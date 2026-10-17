@@ -28355,3 +28355,7 @@ Numbers used (float64, from raw files):
   - (0.07484, -0.1226): 0.424, -0.991, -1.391, -1.806; KY 1.43.
   - (0.064, -0.115): 0.239, -1.146, -1.796, -2.003; KY 1.21.
 - **The two-token model** gives the first flip at alpha 0.06476, against 0.0644767 in the full map; it has no cascade.
+
+## 2026-10-17 01:50 UTC: C12-3 development model choice: qwen1.5b
+
+Phase 1 on the 16 development problems (raw: explore/pi/c12-3/dev-0.5b-1, dev-1.5b-1). The independent-arm accuracy at readout 48 is 0.227 for qwen0.5b and 0.547 for qwen1.5b; parsed answers are 97 % and 99 %. Both lie in [0.2, 0.8], and the rule `choose_model` takes the accuracy closest to 0.5: **qwen1.5b** (docs/pi/c12-3-choices.json). The analysis code also printed development SWA and accuracy for every phase-1 arm; the rule does not use them, and no setting changes. The held-out run (test-1: 64 problems, both phases) starts after this commit. Under the shared machine's load, a phase takes about 100-130 s per problem, so the run should take about 4 h.
