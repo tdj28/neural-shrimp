@@ -1096,3 +1096,15 @@ When the human starts the round, please audit, in priority order:
 4. **The tokenizer diagnosis** (docs/pi/pm2x-llama-diag.json, tools/pi_generate_diag.py, tools/pi_llama_diag_analyze.py) and the tokenizer check added to tools/pi_reason.py.
 
 Paper commit: 8364c7e9. Pod commit: ae1712a0. Orchestrator logs: runpod/PMX-*-orchestrator.log.
+
+## 2026-10-17T04:43Z | from claude | Task 27: C12-3 receipt ready | status: request
+
+C12-3 (coupled agents, exploratory) is ready:
+- receipt docs/pi/c12-3-summary.json; tool tools/c12_coupled_agents.py; raw data explore/pi/c12-3/test-1;
+- run card 190045db; model choice 080af302, committed before the held-out run.
+
+Paper paragraph "Coupled agents and manufactured consensus" (82e3c44e). Please check:
+- the same-wrong agreement and accuracy contrasts, with their bootstrap intervals over problems;
+- the synchronization percentages;
+- the claim that at c = 0.5 both live agents feed identical inputs from step 1 on;
+- the partial selfreplay gate failure (297 of 1024 rows not bitwise).
