@@ -10,11 +10,11 @@ Commit ae1712a0; all six pods created 00:46-00:48 UTC 17 Oct; every pod ends its
 |---|---|---|---|---|---|---|
 | X3 | 3 diagnosis | 17z174u3bkbj0a, H100 NVL | pm2diag `llama-diag 95` | 110 min | llama-diag/<condition>/ | done, terminated; log entry and docs/pi/pm2x-llama-diag.json |
 | X3b | 3b corrected R1-Llama GSM8K | x54879k3ktq53j, H100 NVL | preason `pm2fix r1llama8b 65 1536 0 gsm8k:256` | 80 min | pm2fix/r1llama8b-gsm8k-{soft,plain}/ | done, terminated; docs/pi/pm2fix-summary.json |
-| X4a | 4 R1-Qwen-7B GSM8K | gackfd5xhkxdv7, H100 PCIe | preason `pm2cs-q7g r1qwen7b 65 4096 0.01 gsm8k:128` | 80 min | pm2cs-q7g/ | done, terminated (ran on an H100 PCIe); analysis pending the MATH cell |
-| X4b | 4 R1-Qwen-7B MATH | bkchb2wixdhtvz, H100 NVL | preason `pm2cs-q7m r1qwen7b 255 4096 0.01 math500:64` | 270 min | pm2cs-q7m/ | running |
-| X4c | 4 QwQ-32B GSM8K | rq4ysxnp4h78mc, H200 | preason `pm2cs-qwq qwq32b 105 4096 0.01 gsm8k:64` | 120 min | pm2cs-qwq/ | done, terminated; analysis pending |
-| X6 | 6 QwQ float64 twins | daykr51idbd04k, H200 | pm2f64x `pm2f64b qwq32b 160 96 4 8` | 175 min | pm2f64b/qwq32b/ | running |
-| X3c | 3c corrected R1-Llama MATH-500 (amendment 1) | (launching 01:57), H100 NVL | preason `pm2fix-math r1llama8b 155 1536 0 math500:64` | 170 min | pm2fix-math/r1llama8b-math500-{soft,plain}/ | launching |
+| X4a | 4 R1-Qwen-7B GSM8K | gackfd5xhkxdv7, H100 PCIe | preason `pm2cs-q7g r1qwen7b 65 4096 0.01 gsm8k:128` | 80 min | pm2cs-q7g/ | done, terminated (ran on an H100 PCIe); docs/pi/pm2cs-summary.json |
+| X4b | 4 R1-Qwen-7B MATH | bkchb2wixdhtvz, H100 NVL | preason `pm2cs-q7m r1qwen7b 255 4096 0.01 math500:64` | 270 min | pm2cs-q7m/ | done, terminated; docs/pi/pm2cs-summary.json |
+| X4c | 4 QwQ-32B GSM8K | rq4ysxnp4h78mc, H200 | preason `pm2cs-qwq qwq32b 105 4096 0.01 gsm8k:64` | 120 min | pm2cs-qwq/ | done, terminated; docs/pi/pm2cs-summary.json |
+| X6 | 6 QwQ float64 twins | daykr51idbd04k, H200 | pm2f64x `pm2f64b qwq32b 160 96 4 8` | 175 min | pm2f64b/qwq32b/ | done, terminated; docs/pi/pm2f64b-summary.json |
+| X3c | 3c corrected R1-Llama MATH-500 (amendment 1) | ytpiizjb3nyy06, H100 NVL | preason `pm2fix-math r1llama8b 155 1536 0 math500:64` | 170 min | pm2fix-math/r1llama8b-math500-{soft,plain}/ | running (plain arm since 02:43) |
 
 Launcher: tools/runpod_soft_float64.py with `--name neural-shrimp-pmx-<pod> --commit ae1712a0 --jobset <set> --jobset-args "<args>" --run-minutes <limit> --ready-minutes 15`, retried on no capacity.
 
