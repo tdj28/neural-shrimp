@@ -1,0 +1,28 @@
+--- admitted-run001-card
++++ proposed-run002-card
+@@ -1,9 +1,9 @@
+ {
+   "task": "PM2F-independent-saved-audit",
+   "status": "reviewed",
+-  "output": "/data2/neural-shrimp-data/codex/new-results-review-20261017/run-001/pm2f",
++  "output": "/data2/neural-shrimp-data/codex/new-results-review-20261017/run-002/pm2f",
+   "source_pins": {
+-    "core.py": "aaab006f2f8a93bb715cf2ed0f2d83adf2db67165fa287a9c9831fb1115a119d",
++    "core.py": "e7fb200ebedd6522604b2cbccb3a3c561f1f23085fbce97edb168fc1f2c5f9b9",
+     "controls.py": "7fe20fafae697295bf83caccef09ccaedc8ef19a4af52e8e051b14231c65081c",
+     "run.py": "1e8c02a5ee09ee6fb3f5887b0f9608385ae4fb4d2d0c98cbb991f8f8c739167a"
+   },
+@@ -61,6 +61,11 @@
+     "computational_completed": true,
+     "scientific_claims_accepted": false
+   },
+-  "admission": "Root accepted exact PM2F source/card and one integrated10-group/full-shape/actual saved-scalar run on 17 October 2026 after private checkpoint and fresh capacity. Same fixed input and source pins,25CPU/30wall1GiB16MiB; no automatic retry or model execution. Scientific findings remain pending saved-result review.",
+-  "code_directory": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/new-results-review-20261017/pm2f"
++  "admission": "Root accepted exact one-line duplicate-history snapshot correction91b80815 after preserved run001 control failure. This separately admitted run002 uses the unchanged35inputs/driver/controls/limits, fresh output and private checkpoint/capacity. No target scoring occurred in001; no automatic retry.",
++  "code_directory": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/new-results-review-20261017/pm2f",
++  "prior_attempt": {
++    "closure_path": "/data2/neural-shrimp-data/codex/new-results-review-20261017/run-001/pm2f-original-closure.json",
++    "sha256": "49dc241259bf25d4a721a2f2d84dfe5b30be400064773a7973e55579a9711269",
++    "disposition": "One integrated control failure before target decoding; original source/output/receipt preserved."
++  }
+ }

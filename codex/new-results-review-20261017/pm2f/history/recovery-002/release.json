@@ -1,0 +1,37 @@
+{
+  "status": "prepared_unexecuted",
+  "scope": "Only duplicate witness list snapshot correction; no threshold, projection, data selection or control changes.",
+  "original_core": {
+    "path": "/tmp/new-results-20261017-pm2f-prep/core.py",
+    "bytes": 15010,
+    "sha256": "aaab006f2f8a93bb715cf2ed0f2d83adf2db67165fa287a9c9831fb1115a119d"
+  },
+  "corrected_core": {
+    "path": "/tmp/new-results-20261017-pm2f-prep/recovery-002/core.py",
+    "bytes": 15016,
+    "sha256": "e7fb200ebedd6522604b2cbccb3a3c561f1f23085fbce97edb168fc1f2c5f9b9"
+  },
+  "diff": {
+    "path": "/tmp/new-results-20261017-pm2f-prep/recovery-002/core.diff",
+    "bytes": 601,
+    "sha256": "91b80815e20fa826519ffceb4efd8d599958e580b329ad07ab10c6ad725012c6"
+  },
+  "unchanged_controls": {
+    "path": "/tmp/new-results-20261017-pm2f-prep/controls.py",
+    "bytes": 7331,
+    "sha256": "7fe20fafae697295bf83caccef09ccaedc8ef19a4af52e8e051b14231c65081c"
+  },
+  "unchanged_driver": {
+    "path": "/tmp/new-results-20261017-pm2f-prep/run.py",
+    "bytes": 8681,
+    "sha256": "1e8c02a5ee09ee6fb3f5887b0f9608385ae4fb4d2d0c98cbb991f8f8c739167a"
+  },
+  "original_failure": {
+    "controls_path": "/data2/neural-shrimp-data/codex/new-results-review-20261017/run-001/pm2f/controls.json",
+    "controls_sha256": "e29ada6fb15e476f469021a80f867d71c30215341b32155ad554ce1c001df0b5",
+    "failed_group": "duplicate_source_rows_retained",
+    "other_groups_passed": 9,
+    "target_analysis_started": false
+  },
+  "execution": "No controls/target rerun; Root exact delta and new run002 card/checkpoint remain required."
+}

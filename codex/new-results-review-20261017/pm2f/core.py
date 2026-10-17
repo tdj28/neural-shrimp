@@ -82,7 +82,7 @@ def reduce_rows(rows, args):
             raise ValueError(f'row {line}: invalid correct/switch type or range')
         if not isinstance(r['twins'], list) or len(r['twins']) != K:
             raise ValueError(f'row {line}: twin count mismatch')
-        previous = observed.get(r['index'], [])
+        previous = list(observed.get(r['index'], []))
         observed.setdefault(r['index'], []).append(line)
         base_correct = r['answer'] == r['gold']
         row = {'line': line, 'index': r['index'], 'duplicate_of_lines': list(previous),
