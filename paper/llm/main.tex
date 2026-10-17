@@ -2927,8 +2927,8 @@ individual run reaches. We found no effect of quantization beyond that of unstru
 \paragraph{Chaos onset and repetition in sampled text.} Does the temperature at which a prompt's loop turns chaotic
 predict the temperature at which ordinary sampled text stops repeating itself verbatim? An exploratory test with
 Qwen2.5-0.5B-Instruct on 24 held-out prompts found no association. The Spearman correlation is $-0.23$ (95\,\%
-interval $[-0.59,0.24]$, permutation $p=0.28$). At matched temperature, chaotic and periodic cells showed the same
-repetition rate, within 0.003. Sampled text stopped repeating well below the loop's chaos onset, by a median of 0.42
+interval $[-0.59,0.24]$, permutation $p=0.28$). At matched temperature, the repetition rates of chaotic and periodic
+cells differed by only 0.003. Sampled text stopped repeating well below the loop's chaos onset, by a median of 0.42
 decades of temperature in 13 of the 15 prompts where both were observed. The soft-token loop and sampled decoding with
 a growing context are different systems, and this test found no bridge between the two
 (\texttt{docs/pi/e5-heldout-analysis.json}).

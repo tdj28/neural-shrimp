@@ -28099,7 +28099,7 @@ The growth rates are fitted only where the distance passed 10 eps0.
 
 **Observation (not a test).** R1-Llama-8B answers 79.7 % in float64, against 49-54 % in bf16 (PM2). The problem sets overlap (the first 128 of PM2's 256), which suggests that bf16 rounding itself degrades its soft thinking.
 
-## 2026-10-17 00:20 UTC: E5 results (held-out): the loop's chaos onset does not predict where sampled text stops repeating
+## 2026-10-17 00:01 UTC: E5 results (held-out): the loop's chaos onset does not predict where sampled text stops repeating
 
 Tool tools/e5_repetition_onset.py; choices docs/pi/e5-choices.json (3a667908, before held-out data). Analysis receipt: docs/pi/e5-heldout-analysis.json (copy of explore/pi/e5/analysis-heldout-1). Qwen2.5-0.5B-Instruct, 24 held-out prompts; the loop at 24 temperatures; 12 samples x 256 tokens per cell.
 
