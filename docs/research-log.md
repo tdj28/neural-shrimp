@@ -28471,3 +28471,24 @@ It runs after E3. About 0.2 GPU-hours, within the 5-hour ceiling.
 
 Reading: if T 0.5 flips as little as the capped arms, the reduction is attributed to a lower temperature in general,
 not to gain targeting.
+
+## 2026-10-17 02:51 UTC: PM2X item 6 results: QwQ-32B float64 twins on 64 more problems; the slow growth and the 1e-10 flips persist
+
+**Pod.** X6 daykr51idbd04k, SECURE H200, commit ae1712a0 (orchestrator log). Runner rc 0, results hash verified, terminated (not in inventory), 7371 s.
+- Receipt docs/pi/pm2f64b-summary.json; raw data explore/llm-soft-loop/pod64/pi/pm2f64b/qwq32b/.
+- Problems: groups 9-24 of 4, i.e. --limit 96 --skip-groups 8. They are disjoint from PM2F's 32 problems; the summary tool refuses duplicate indices.
+
+**Results** (2 twins per problem at relative 1e-10, sharing the base row's random numbers; Wilson 95 % intervals rounded outward):
+
+| set | problems | twins whose end-of-thinking distance exceeds 1e-10 | answer flips per twin | problems with any flip | growth rate, quartiles per step | float64 accuracy |
+|---|---|---|---|---|---|---|
+| PM2F (first 32) | 32 | 34/64 | 10.9 % (7/64) | 12.5 % | 0.0058 / 0.0097 / 0.0142 | 78.1 % |
+| new 64 | 64 | 97/128 | 14.8 % (19/128) [9.7, 22.1] | 20.3 % [12.2, 31.8] | 0.0090 / 0.0123 / 0.0175 | 73.4 % [61.5, 82.8] |
+| all 96 | 96 | 131/192 | 13.5 % (26/192) [9.4, 19.2] | 17.7 % [11.3, 26.6] | 0.0073 / 0.0115 / 0.0175 | 75.0 % [65.4, 82.6] |
+
+On all 96, 49 of 192 twins end thinking at a different step from their base row. The median log10 distance at the end of thinking is -5.2.
+
+**Reading.**
+- With three times the problems, the PM2F reading for QwQ-32B holds and is somewhat stronger. The float64 soft-thinking loop expands slowly in about two thirds of the copies (median growth about 0.012 per step).
+- A relative 1e-10 change alone flips 13.5 % of answers.
+- The QwQ entry of PM2F (10.9 %, "about half of the copies") is within these intervals.
