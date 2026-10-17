@@ -28098,3 +28098,20 @@ The growth rates are fitted only where the distance passed 10 eps0.
 - The abstract's "where we checked in float64 the pipeline contracts" must be qualified.
 
 **Observation (not a test).** R1-Llama-8B answers 79.7 % in float64, against 49-54 % in bf16 (PM2). The problem sets overlap (the first 128 of PM2's 256), which suggests that bf16 rounding itself degrades its soft thinking.
+
+## 2026-10-17 00:20 UTC: E5 results (held-out): the loop's chaos onset does not predict where sampled text stops repeating
+
+Tool tools/e5_repetition_onset.py; choices docs/pi/e5-choices.json (3a667908, before held-out data). Analysis receipt: docs/pi/e5-heldout-analysis.json (copy of explore/pi/e5/analysis-heldout-1). Qwen2.5-0.5B-Instruct, 24 held-out prompts; the loop at 24 temperatures; 12 samples x 256 tokens per cell.
+
+**Primary.** Spearman(log T_chaos, log T_rep) = -0.23, bootstrap [-0.59, 0.24], permutation p 0.28. Cluster bootstraps by opener and by system prompt: [-0.58, 0.47] and [-0.57, 0.08]. The card's own repetition rule gives -0.34 [-0.70, 0.09].
+
+**Secondary.**
+- Partial correlation given T_H: -0.23.
+- Spearman(T_H, T_rep) = -0.07. The development hint of 0.71 did not hold.
+- Repetition at matched temperature, chaotic minus periodic cells: +0.003.
+
+**Descriptive.** Sampled text stops repeating well below the loop's chaos onset: in 13 of 15 uncensored prompts, median gap -0.42 decades. Six prompts are never chaotic.
+
+**Not done.** The summarize receipt (it needs a text template); the full deviation list is in the E5 agent's report (in the session) and in docs/pi/e5-STATUS.md.
+
+**Reading.** No link between the soft loop's chaos onset and the repetition of ordinary sampled text, at this precision. The two are different systems; the loop turns chaotic at higher temperatures than those where sampled text stops looping. Exploratory, one small model.
