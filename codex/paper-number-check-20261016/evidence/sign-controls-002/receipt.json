@@ -1,0 +1,53 @@
+{
+  "lane": "sign_controls",
+  "source_commit": "cc621612704e65179e760a102720bcdc6294955e",
+  "argv": [
+    "/data2/neural-shrimp/.venv/bin/python",
+    "-I",
+    "-B",
+    "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/paper-number-check-20261016/sign_controls.py",
+    "--out",
+    "/data2/neural-shrimp-data/codex/paper-number-check-20261016/sign-controls-002"
+  ],
+  "returncode": 0,
+  "failure": null,
+  "external_elapsed_seconds": 0.1430258289910853,
+  "worker_reaped": true,
+  "worker_observed_after_exec": {
+    "pid": 396294,
+    "starttime": 214598398,
+    "pgid": 396294,
+    "sid": 396294,
+    "state": "R",
+    "nice": 10,
+    "threads": 1,
+    "uid_line": "Uid:\t1000\t1000\t1000\t1000",
+    "cmdline": "/data2/neural-shrimp/.venv/bin/python -I -B /home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/paper-number-check-20261016/sign_controls.py --out /data2/neural-shrimp-data/codex/paper-number-check-20261016/sign-controls-002 ",
+    "limits": "Limit                     Soft Limit           Hard Limit           Units     \nMax cpu time              10                   10                   seconds   \nMax file size             8388608              8388608              bytes     \nMax data size             unlimited            unlimited            bytes     \nMax stack size            8388608              unlimited            bytes     \nMax core file size        0                    unlimited            bytes     \nMax resident set          unlimited            unlimited            bytes     \nMax processes             375398               375398               processes \nMax open files            65535                65535                files     \nMax locked memory         8388608              8388608              bytes     \nMax address space         1073741824           1073741824           bytes     \nMax file locks            unlimited            unlimited            locks     \nMax pending signals       375398               375398               signals   \nMax msgqueue size         819200               819200               bytes     \nMax nice priority         0                    0                    \nMax realtime priority     0                    0                    \nMax realtime timeout      200000               200000               us        \n"
+  },
+  "worker_pid": 396294,
+  "worker_identity_absent": true,
+  "worker_group_session_absent": true,
+  "supervisor": {
+    "pid": 396264,
+    "starttime": 214598384,
+    "pgid": 396264,
+    "sid": 396264,
+    "state": "R",
+    "nice": 10,
+    "threads": 1,
+    "uid_line": "Uid:\t1000\t1000\t1000\t1000",
+    "cmdline": "/data2/neural-shrimp/.venv/bin/python -I -B /home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/new-results-review-20261017/supervise.py --plan /home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/paper-number-check-20261016/operation-sign-controls-002.json --lane sign_controls --source cc621612704e65179e760a102720bcdc6294955e ",
+    "limits": "Limit                     Soft Limit           Hard Limit           Units     \nMax cpu time              unlimited            unlimited            seconds   \nMax file size             unlimited            unlimited            bytes     \nMax data size             unlimited            unlimited            bytes     \nMax stack size            8388608              unlimited            bytes     \nMax core file size        0                    unlimited            bytes     \nMax resident set          unlimited            unlimited            bytes     \nMax processes             375398               375398               processes \nMax open files            65535                65535                files     \nMax locked memory         8388608              8388608              bytes     \nMax address space         1073741824           4294967296           bytes     \nMax file locks            unlimited            unlimited            locks     \nMax pending signals       375398               375398               signals   \nMax msgqueue size         819200               819200               bytes     \nMax nice priority         0                    0                    \nMax realtime priority     0                    0                    \nMax realtime timeout      200000               200000               us        \n"
+  },
+  "output_files": [
+    {
+      "path": "/data2/neural-shrimp-data/codex/paper-number-check-20261016/sign-controls-002/report.json",
+      "bytes": 7326,
+      "sha256": "c1bf89dcc6b57cf8e29e55130a678068d4bde8d210345db722385432421df903"
+    }
+  ],
+  "actual_output_bytes": 7326,
+  "children_ru_maxrss_kib_at_reap": 19220,
+  "scope": "External window includes startup, pre/post checks and serialization; source/native producer execution is not attested. Scientific claims require separate saved-result review."
+}

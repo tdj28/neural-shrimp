@@ -1,0 +1,396 @@
+{
+  "scope": "Focused manufactured sign parser controls only. No target reads or full profile repetition.",
+  "source_sha256": "bf5182386936115c3b83cd3da097005b07dce16e49943e481864df39f496dd69",
+  "groups": [
+    {
+      "name": "prose_identifiers",
+      "source": "period-8 OLMo-2 Llama-3 step_4-5",
+      "expected": [
+        "8",
+        "2",
+        "3",
+        "4",
+        "5"
+      ],
+      "actual": [
+        "8",
+        "2",
+        "3",
+        "4",
+        "5"
+      ],
+      "tokens": [
+        {
+          "a": 7,
+          "b": 8,
+          "raw": "8",
+          "literal": "8",
+          "quantum": "1"
+        },
+        {
+          "a": 14,
+          "b": 15,
+          "raw": "2",
+          "literal": "2",
+          "quantum": "1"
+        },
+        {
+          "a": 22,
+          "b": 23,
+          "raw": "3",
+          "literal": "3",
+          "quantum": "1"
+        },
+        {
+          "a": 29,
+          "b": 30,
+          "raw": "4",
+          "literal": "4",
+          "quantum": "1"
+        },
+        {
+          "a": 31,
+          "b": 32,
+          "raw": "5",
+          "literal": "5",
+          "quantum": "1"
+        }
+      ],
+      "passed": true
+    },
+    {
+      "name": "tex_and_plain_ranges",
+      "source": "7--8B, 3-5, 11---18; -5",
+      "expected": [
+        "7",
+        "8",
+        "3",
+        "5",
+        "11",
+        "18",
+        "-5"
+      ],
+      "actual": [
+        "7",
+        "8",
+        "3",
+        "5",
+        "11",
+        "18",
+        "-5"
+      ],
+      "tokens": [
+        {
+          "a": 0,
+          "b": 1,
+          "raw": "7",
+          "literal": "7",
+          "quantum": "1"
+        },
+        {
+          "a": 3,
+          "b": 4,
+          "raw": "8",
+          "literal": "8",
+          "quantum": "1"
+        },
+        {
+          "a": 7,
+          "b": 8,
+          "raw": "3",
+          "literal": "3",
+          "quantum": "1"
+        },
+        {
+          "a": 9,
+          "b": 10,
+          "raw": "5",
+          "literal": "5",
+          "quantum": "1"
+        },
+        {
+          "a": 12,
+          "b": 14,
+          "raw": "11",
+          "literal": "11",
+          "quantum": "1"
+        },
+        {
+          "a": 17,
+          "b": 19,
+          "raw": "18",
+          "literal": "18",
+          "quantum": "1"
+        },
+        {
+          "a": 21,
+          "b": 23,
+          "raw": "-5",
+          "literal": "-5",
+          "quantum": "1"
+        }
+      ],
+      "passed": true
+    },
+    {
+      "name": "inline_math_negatives",
+      "source": "$-8$ and $x-2$ and $5--2$ and $\\alpha-0.02$",
+      "expected": [
+        "-8",
+        "-2",
+        "5",
+        "-2",
+        "-0.02"
+      ],
+      "actual": [
+        "-8",
+        "-2",
+        "5",
+        "-2",
+        "-0.02"
+      ],
+      "tokens": [
+        {
+          "a": 1,
+          "b": 3,
+          "raw": "-8",
+          "literal": "-8",
+          "quantum": "1"
+        },
+        {
+          "a": 11,
+          "b": 13,
+          "raw": "-2",
+          "literal": "-2",
+          "quantum": "1"
+        },
+        {
+          "a": 20,
+          "b": 21,
+          "raw": "5",
+          "literal": "5",
+          "quantum": "1"
+        },
+        {
+          "a": 22,
+          "b": 24,
+          "raw": "-2",
+          "literal": "-2",
+          "quantum": "1"
+        },
+        {
+          "a": 37,
+          "b": 42,
+          "raw": "-0.02",
+          "literal": "-0.02",
+          "quantum": "0.01"
+        }
+      ],
+      "passed": true
+    },
+    {
+      "name": "display_delimiters",
+      "source": "\\(-8\\) and \\[-3.2\\] and $$-4$$; period-7",
+      "expected": [
+        "-8",
+        "-3.2",
+        "-4",
+        "7"
+      ],
+      "actual": [
+        "-8",
+        "-3.2",
+        "-4",
+        "7"
+      ],
+      "tokens": [
+        {
+          "a": 2,
+          "b": 4,
+          "raw": "-8",
+          "literal": "-8",
+          "quantum": "1"
+        },
+        {
+          "a": 13,
+          "b": 17,
+          "raw": "-3.2",
+          "literal": "-3.2",
+          "quantum": "0.1"
+        },
+        {
+          "a": 26,
+          "b": 28,
+          "raw": "-4",
+          "literal": "-4",
+          "quantum": "1"
+        },
+        {
+          "a": 39,
+          "b": 40,
+          "raw": "7",
+          "literal": "7",
+          "quantum": "1"
+        }
+      ],
+      "passed": true
+    },
+    {
+      "name": "math_environment",
+      "source": "\\begin{align*}x-2\\end{align*} period-3",
+      "expected": [
+        "-2",
+        "3"
+      ],
+      "actual": [
+        "-2",
+        "3"
+      ],
+      "tokens": [
+        {
+          "a": 15,
+          "b": 17,
+          "raw": "-2",
+          "literal": "-2",
+          "quantum": "1"
+        },
+        {
+          "a": 37,
+          "b": 38,
+          "raw": "3",
+          "literal": "3",
+          "quantum": "1"
+        }
+      ],
+      "passed": true
+    },
+    {
+      "name": "escaped_dollar",
+      "source": "price\\$ text period-8, followed by $-8$",
+      "expected": [
+        "8",
+        "-8"
+      ],
+      "actual": [
+        "8",
+        "-8"
+      ],
+      "tokens": [
+        {
+          "a": 20,
+          "b": 21,
+          "raw": "8",
+          "literal": "8",
+          "quantum": "1"
+        },
+        {
+          "a": 36,
+          "b": 38,
+          "raw": "-8",
+          "literal": "-8",
+          "quantum": "1"
+        }
+      ],
+      "passed": true
+    },
+    {
+      "name": "scientific_regression",
+      "source": "$-3.2\\times10^{-4}$, $10^{-10}$, 11\\,040, 2.5e-3, −.25",
+      "expected": [
+        "-.00032",
+        "1e-10",
+        "11040",
+        ".0025",
+        "-.25"
+      ],
+      "actual": [
+        "-0.00032",
+        "1E-10",
+        "11040",
+        "0.0025",
+        "-0.25"
+      ],
+      "tokens": [
+        {
+          "a": 1,
+          "b": 18,
+          "raw": "-3.2\\times10^{-4}",
+          "literal": "-3.2\\times10^{-4}",
+          "quantum": "0.00001"
+        },
+        {
+          "a": 22,
+          "b": 30,
+          "raw": "10^{-10}",
+          "literal": "10^{-10}",
+          "quantum": "1E-10"
+        },
+        {
+          "a": 33,
+          "b": 40,
+          "raw": "11\\,040",
+          "literal": "11\\,040",
+          "quantum": "1"
+        },
+        {
+          "a": 42,
+          "b": 48,
+          "raw": "2.5e-3",
+          "literal": "2.5e-3",
+          "quantum": "0.0001"
+        },
+        {
+          "a": 50,
+          "b": 54,
+          "raw": "−.25",
+          "literal": "−.25",
+          "quantum": "0.01"
+        }
+      ],
+      "passed": true
+    },
+    {
+      "name": "line_column_and_raw",
+      "source": "Heading\nperiod-8 $-8$",
+      "expected": [
+        "8",
+        "-8"
+      ],
+      "actual": [
+        "8",
+        "-8"
+      ],
+      "tokens": [
+        {
+          "a": 15,
+          "b": 16,
+          "raw": "8",
+          "literal": "8",
+          "quantum": "1"
+        },
+        {
+          "a": 18,
+          "b": 20,
+          "raw": "-8",
+          "literal": "-8",
+          "quantum": "1"
+        }
+      ],
+      "passed": true,
+      "locations": [
+        [
+          2,
+          8,
+          "8"
+        ],
+        [
+          2,
+          11,
+          "-8"
+        ]
+      ]
+    }
+  ],
+  "passed": 8,
+  "failed": 0
+}
