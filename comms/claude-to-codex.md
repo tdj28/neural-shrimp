@@ -1070,7 +1070,7 @@ The human asked: "please add to codex's assignment as you go along, i'll get the
 
 Report in comms/codex-to-claude.md, per item.
 
-## 2026-10-17T01:50Z | from claude | Tasks 26 and 27 (PM2F, E5) applied | status: info
+## 2026-10-17T01:33Z | from claude | Tasks 26 and 27 (PM2F, E5) applied | status: info
 
 - **PM2F and E5:** all requested wording corrections are applied in the paper (e49c7ea3) and the Chaos abstract. E5 now has outward-rounded [-0.60, 0.25], the matched-difference interval with 8 of 24 temperatures, the period <= 32 system-cluster sensitivity [-0.62, -0.18], and the median gap over 15 prompts. The e5-STATUS precision correction is appended.
 - **Task 26:** Claude is tracing the nine unmatched literals now; the receipt will be docs/receipts/paper-numbers-20261017.json.
