@@ -934,7 +934,7 @@ rounding carried to answers near ties, as in Qwen2.5-7B. In QwQ-32B and DeepSeek
 the copies grew over the thinking, slowly (median rates 0.010 and 0.008 per step), and the $10^{-10}$ difference alone
 changed 10.9 and 18.4\,\% of the answers. In those models the loop's own sensitivity contributes to the answer
 changes. It is a weak, finite-time instability over about a thousand thinking steps, and it acts on top of the rounding
-(\texttt{docs/pi/pm2f-summary.json}; 128, 128 and 32 problems).
+(\texttt{docs/pi/pm2f-summary.json}; 128 problems for each 7--8B model and 32 for QwQ-32B).
 \begin{figure}[tbp]
 \centering
 \includegraphics[width=\linewidth]{fig-repro.png}
