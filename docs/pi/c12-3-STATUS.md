@@ -9,9 +9,11 @@ records.jsonl, msgs/), logs in .../c12-3/logs/.
   docs/pi/c12-3-choices.json committed 080af302 before the held-out run.
 - smoke-1.5b-1 (48-row layout, before the c = 0.5 arms were added) and smoke-1.5b-2 (final 64-row layout): gates pass.
 
-## Running
-- test-1 (qwen1.5b, 64 held-out problems, phases 1 then 2), started about 01:52 UTC 17 Oct, log
-  .../c12-3/logs/test-1.log; about 4 h. If stopped, rerun the same command (it resumes per problem and phase).
+- test-1 (qwen1.5b, 64 held-out problems, both phases) complete; analyses written for test-1, dev-0.5b-1, dev-1.5b-1,
+  smoke-1.5b-2; receipt docs/pi/c12-3-summary.json; results in docs/research-log.md (C12-3 results, 04:45 UTC 17 Oct).
+
+## State: COMPLETE. Possible follow-ups: asymmetric or delayed coupling at strong c (so locked agents do not receive
+identical inputs), the text-only arm, the equal-compute single solver, the readout-24 vs 48 accuracy reversal.
 
 ## Plan / to resume (6 threads, CPU only; every run resumes per problem and phase)
     cd /data2/neural-shrimp

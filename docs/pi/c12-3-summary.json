@@ -1,0 +1,2682 @@
+{
+ "experiment": "C12-3 coupled agents (exploratory)",
+ "settings": {
+  "coupling": 0.25,
+  "strong_coupling": 0.5,
+  "steps": 48,
+  "readouts": [
+   24,
+   48
+  ],
+  "primary_readout": 48,
+  "sparse_every": 4,
+  "top_n": 15,
+  "temperature": 0.6,
+  "answer_tokens": 8,
+  "start_words": [
+   " Let",
+   " The",
+   " First",
+   " Check",
+   " Looking",
+   " So",
+   " We",
+   " Based"
+  ],
+  "pairs": 8,
+  "mask_special": true,
+  "dtype": "float32",
+  "problem_seed": 12301,
+  "boot_seed": 12303,
+  "n_boot": 10000
+ },
+ "problems_sha256": "22e80901bdf89289662155b99794309dcd18af93f228008e4c08b726adc223ac",
+ "status": "exploratory (run card docs/research-log.md 'Run card C12-3', commit 190045db; model choice 080af302 before the held-out run)",
+ "model": "qwen1.5b (Qwen2.5-1.5B-Instruct), CPU float32, 6 threads, nice 10",
+ "choice": "choose_model on development phase 1: independent accuracy at readout 48 was 0.227 (qwen0.5b) and 0.547 (qwen1.5b); qwen1.5b is closer to 0.5 (docs/pi/c12-3-choices.json)",
+ "label": "At the primary coupling c = 0.25, live exchange does not resolve any excess same-wrong agreement over independent agents (+1.6 points, 95 % interval -0.6 to +3.9; 64 held-out problems x 8 pairs) or over replayed messages (+0.8, -1.8 to +3.3). It lowers accuracy at 48 steps (-5.5 points, -9.1 to -1.9), as replayed and unrelated messages also do. At c = 0.5 the agents lock (equal top-1 tokens in 94 % of steps 16-48), and same-wrong agreement rises from 3.7 % to 41.0 % (+37.3 points, 31.6 to 43.2) while accuracy falls by 12.5 points (-17.1 to -8.0): consensus is manufactured at reduced correctness. Replayed c = 0.5 messages reach 16.2 % (live50 minus replay50 +24.8, 20.5 to 29.3).",
+ "decision_3a": "Primary (c = 0.25): no resolved excess wrong agreement. Secondary (c = 0.5): an excess well above the 10-point threshold and above replay; at c = 0.5, however, both live agents feed identical inputs from step 1 on, so agreement there is close to construction (any-answer agreement 96 %). The non-trivial finding is that this consensus comes with lower accuracy.",
+ "decision_3b": "No remedy to test: at c = 0.25 there is no excess to remove (sparse minus live SWA -0.4, -2.9 to +2.0); sparse accuracy differs from live by +2.3 (0.0 to +4.9) at readout 48.",
+ "deviations": [
+  "Arms live50 and replay50 (c = 0.5) were added after the first smoke run and before any development run; they are in the run card.",
+  "Development ran phase 1 only (the model rule needs only the independent arm), to save time.",
+  "Not run: the text-only communication arm, the single solver at equal total compute, a float64 check and a second model family.",
+  "The selfreplay gate (live reproduced exactly) holds for every answer and readout text, but not bitwise: 297 of 1024 rows differ in some pair distance, and 9 in at least one top-1 token, because float32 arithmetic depends on the batch position (phase 2 is a different batch). The run card required exact reproduction; this is a partial gate failure at the trajectory level, not at the answer level."
+ ],
+ "caveats": [
+  "Exploratory, one model, one task (two-digit multiplication), one temperature (0.6), 48 soft steps, float32 CPU.",
+  "replay50 is not a clean no-reciprocity control. The partner pair it replays is itself locked, so both replay agents receive nearly the same message stream. That common drive alone synchronizes them partly (equal top-1 tokens in 52 % of steps).",
+  "The readout time matters: at 24 steps, live c = 0.25 is more accurate than independent (+9.4 points, 6.3 to 12.4), and so is unrelated (+9.5), but replay is not (+0.9). At 24 steps live SWA is lower than independent (-2.5, -4.7 to -0.2). The primary readout is 48.",
+  "Same-wrong agreement at c = 0.25 is rare in every arm (about 19-27 of 512 pairs), so the interval of the primary contrast spans about 4.5 points."
+ ],
+ "runs": {
+  "smoke-1.5b-1": {
+   "path": "/data2/neural-shrimp-data/explore/pi/c12-3/smoke-1.5b-1",
+   "files_sha256": {
+    "analysis.json": "ed5c45d7cbec9468cfd5ad5429fee63bd57e815f695fbf2620a853b34823dbd9",
+    "records.jsonl": "28ea8ae7efc3a3e926469a4802cb955fec62456d900c6259d60177b467b57598",
+    "run.json": "5289bf4c9508578027f0dcecebc2c8424ea0d40997c8ef60198f17519215c825",
+    "msgs/*.pt (sha256 of the sorted per-file hashes)": "a54a7d37cb0333702a2e55c21198be9a05fa27a52318f4862df1ba80548e856c"
+   },
+   "commits": [
+    "36713c413505cf814dd114e5618bd58212019619"
+   ],
+   "model": "qwen1.5b",
+   "split": "smoke",
+   "results": {
+    "24": {
+     "readout": 24,
+     "n_problems": 2,
+     "arms": {
+      "independent": {
+       "swa": 0.0,
+       "agree": 0.1875,
+       "acc": 0.4375,
+       "chance_swa": 0.041666666666666664,
+       "unparsed": 0.0,
+       "detector_swa": 0.5625,
+       "detector_expected": 0.5625,
+       "both_correct": 0.1875,
+       "excess_over_chance": {
+        "mean": -0.041666666666666664,
+        "ci": [
+         -0.041666666666666664,
+         -0.041666666666666664
+        ]
+       }
+      },
+      "live": {
+       "swa": 0.0625,
+       "agree": 0.375,
+       "acc": 0.5,
+       "chance_swa": 0.03125,
+       "unparsed": 0.0,
+       "detector_swa": 0.5,
+       "detector_expected": 0.5,
+       "both_correct": 0.3125,
+       "excess_over_chance": {
+        "mean": 0.03125,
+        "ci": [
+         0.0,
+         0.0625
+        ]
+       }
+      },
+      "sparse": {
+       "swa": 0.0625,
+       "agree": 0.25,
+       "acc": 0.46875,
+       "chance_swa": 0.05208333333333333,
+       "unparsed": 0.0,
+       "detector_swa": 0.53125,
+       "detector_expected": 0.53125,
+       "both_correct": 0.1875,
+       "excess_over_chance": {
+        "mean": 0.010416666666666668,
+        "ci": [
+         -0.041666666666666664,
+         0.0625
+        ]
+       }
+      },
+      "replay": {
+       "swa": 0.0,
+       "agree": 0.1875,
+       "acc": 0.4375,
+       "chance_swa": 0.010416666666666666,
+       "unparsed": 0.0,
+       "detector_swa": 0.5625,
+       "detector_expected": 0.5625,
+       "both_correct": 0.1875,
+       "excess_over_chance": {
+        "mean": -0.010416666666666666,
+        "ci": [
+         -0.020833333333333332,
+         0.0
+        ]
+       }
+      },
+      "unrelated": {
+       "swa": 0.0625,
+       "agree": 0.25,
+       "acc": 0.4375,
+       "chance_swa": 0.05208333333333333,
+       "unparsed": 0.0,
+       "detector_swa": 0.5625,
+       "detector_expected": 0.5625,
+       "both_correct": 0.1875,
+       "excess_over_chance": {
+        "mean": 0.01041666666666667,
+        "ci": [
+         -0.020833333333333332,
+         0.04166666666666667
+        ]
+       }
+      },
+      "selfreplay": {
+       "swa": 0.0625,
+       "agree": 0.375,
+       "acc": 0.5,
+       "chance_swa": 0.03125,
+       "unparsed": 0.0,
+       "detector_swa": 0.5,
+       "detector_expected": 0.5,
+       "both_correct": 0.3125,
+       "excess_over_chance": {
+        "mean": 0.03125,
+        "ci": [
+         0.0,
+         0.0625
+        ]
+       }
+      }
+     },
+     "contrasts": {
+      "live_minus_independent_swa": {
+       "mean": 0.0625,
+       "ci": [
+        0.0,
+        0.125
+       ]
+      },
+      "live_minus_replay_swa": {
+       "mean": 0.0625,
+       "ci": [
+        0.0,
+        0.125
+       ]
+      },
+      "sparse_minus_live_swa": {
+       "mean": 0.0,
+       "ci": [
+        0.0,
+        0.0
+       ]
+      },
+      "sparse_minus_independent_swa": {
+       "mean": 0.0625,
+       "ci": [
+        0.0,
+        0.125
+       ]
+      },
+      "replay_minus_independent_swa": {
+       "mean": 0.0,
+       "ci": [
+        0.0,
+        0.0
+       ]
+      },
+      "unrelated_minus_independent_swa": {
+       "mean": 0.0625,
+       "ci": [
+        0.0,
+        0.125
+       ]
+      },
+      "live_minus_independent_acc": {
+       "mean": 0.0625,
+       "ci": [
+        -0.125,
+        0.25
+       ]
+      },
+      "live_minus_replay_acc": {
+       "mean": 0.0625,
+       "ci": [
+        0.0,
+        0.125
+       ]
+      },
+      "sparse_minus_live_acc": {
+       "mean": -0.03125,
+       "ci": [
+        -0.1875,
+        0.125
+       ]
+      },
+      "sparse_minus_independent_acc": {
+       "mean": 0.03125,
+       "ci": [
+        0.0,
+        0.0625
+       ]
+      },
+      "replay_minus_independent_acc": {
+       "mean": 0.0,
+       "ci": [
+        -0.125,
+        0.125
+       ]
+      },
+      "unrelated_minus_independent_acc": {
+       "mean": 0.0,
+       "ci": [
+        -0.1875,
+        0.1875
+       ]
+      },
+      "live_minus_independent_agree": {
+       "mean": 0.1875,
+       "ci": [
+        0.125,
+        0.25
+       ]
+      },
+      "sparse_minus_live_agree": {
+       "mean": -0.125,
+       "ci": [
+        -0.25,
+        0.0
+       ]
+      }
+     },
+     "gates": {
+      "detector_ok": true,
+      "unparsed_max_arm": 0.0
+     },
+     "sync": {
+      "independent": {
+       "median_dist_last": 1.084,
+       "median_dist_steps_16_48": 1.18332828125,
+       "top1_equal_share_steps_16_48": 0.056640625
+      },
+      "live": {
+       "median_dist_last": 0.8585499999999999,
+       "median_dist_steps_16_48": 1.03775647859375,
+       "top1_equal_share_steps_16_48": 0.095703125
+      },
+      "sparse": {
+       "median_dist_last": 0.9716499999999999,
+       "median_dist_steps_16_48": 1.1033265625,
+       "top1_equal_share_steps_16_48": 0.09375
+      },
+      "replay": {
+       "median_dist_last": 1.2854999999999999,
+       "median_dist_steps_16_48": 1.10018086609375,
+       "top1_equal_share_steps_16_48": 0.06640625
+      },
+      "unrelated": {
+       "median_dist_last": 1.082,
+       "median_dist_steps_16_48": 1.0533171874999998,
+       "top1_equal_share_steps_16_48": 0.072265625
+      },
+      "selfreplay": {
+       "median_dist_last": 0.8585499999999999,
+       "median_dist_steps_16_48": 1.03775647859375,
+       "top1_equal_share_steps_16_48": 0.095703125
+      }
+     },
+     "decision_3a": "no resolved excess wrong agreement (interval includes zero or is negative)",
+     "decision_3b": "no resolved reduction of wrong agreement at preserved accuracy"
+    },
+    "48": {
+     "readout": 48,
+     "n_problems": 2,
+     "arms": {
+      "independent": {
+       "swa": 0.0,
+       "agree": 0.25,
+       "acc": 0.5625,
+       "chance_swa": 0.0625,
+       "unparsed": 0.0,
+       "detector_swa": 0.4375,
+       "detector_expected": 0.4375,
+       "both_correct": 0.25,
+       "excess_over_chance": {
+        "mean": -0.0625,
+        "ci": [
+         -0.125,
+         0.0
+        ]
+       }
+      },
+      "live": {
+       "swa": 0.0625,
+       "agree": 0.5625,
+       "acc": 0.65625,
+       "chance_swa": 0.03125,
+       "unparsed": 0.0,
+       "detector_swa": 0.34375,
+       "detector_expected": 0.34375,
+       "both_correct": 0.5,
+       "excess_over_chance": {
+        "mean": 0.03125,
+        "ci": [
+         0.0,
+         0.0625
+        ]
+       }
+      },
+      "sparse": {
+       "swa": 0.0625,
+       "agree": 0.5625,
+       "acc": 0.625,
+       "chance_swa": 0.11458333333333333,
+       "unparsed": 0.0,
+       "detector_swa": 0.375,
+       "detector_expected": 0.375,
+       "both_correct": 0.5,
+       "excess_over_chance": {
+        "mean": -0.05208333333333333,
+        "ci": [
+         -0.10416666666666666,
+         0.0
+        ]
+       }
+      },
+      "replay": {
+       "swa": 0.0,
+       "agree": 0.3125,
+       "acc": 0.53125,
+       "chance_swa": 0.010416666666666666,
+       "unparsed": 0.0,
+       "detector_swa": 0.46875,
+       "detector_expected": 0.46875,
+       "both_correct": 0.3125,
+       "excess_over_chance": {
+        "mean": -0.010416666666666666,
+        "ci": [
+         -0.020833333333333332,
+         0.0
+        ]
+       }
+      },
+      "unrelated": {
+       "swa": 0.125,
+       "agree": 0.625,
+       "acc": 0.625,
+       "chance_swa": 0.020833333333333332,
+       "unparsed": 0.0,
+       "detector_swa": 0.375,
+       "detector_expected": 0.375,
+       "both_correct": 0.5,
+       "excess_over_chance": {
+        "mean": 0.10416666666666667,
+        "ci": [
+         0.0,
+         0.20833333333333334
+        ]
+       }
+      },
+      "selfreplay": {
+       "swa": 0.0625,
+       "agree": 0.5625,
+       "acc": 0.65625,
+       "chance_swa": 0.03125,
+       "unparsed": 0.0,
+       "detector_swa": 0.34375,
+       "detector_expected": 0.34375,
+       "both_correct": 0.5,
+       "excess_over_chance": {
+        "mean": 0.03125,
+        "ci": [
+         0.0,
+         0.0625
+        ]
+       }
+      }
+     },
+     "contrasts": {
+      "live_minus_independent_swa": {
+       "mean": 0.0625,
+       "ci": [
+        0.0,
+        0.125
+       ]
+      },
+      "live_minus_replay_swa": {
+       "mean": 0.0625,
+       "ci": [
+        0.0,
+        0.125
+       ]
+      },
+      "sparse_minus_live_swa": {
+       "mean": 0.0,
+       "ci": [
+        0.0,
+        0.0
+       ]
+      },
+      "sparse_minus_independent_swa": {
+       "mean": 0.0625,
+       "ci": [
+        0.0,
+        0.125
+       ]
+      },
+      "replay_minus_independent_swa": {
+       "mean": 0.0,
+       "ci": [
+        0.0,
+        0.0
+       ]
+      },
+      "unrelated_minus_independent_swa": {
+       "mean": 0.125,
+       "ci": [
+        0.0,
+        0.25
+       ]
+      },
+      "live_minus_independent_acc": {
+       "mean": 0.09375,
+       "ci": [
+        0.0,
+        0.1875
+       ]
+      },
+      "live_minus_replay_acc": {
+       "mean": 0.125,
+       "ci": [
+        0.0,
+        0.25
+       ]
+      },
+      "sparse_minus_live_acc": {
+       "mean": -0.03125,
+       "ci": [
+        -0.125,
+        0.0625
+       ]
+      },
+      "sparse_minus_independent_acc": {
+       "mean": 0.0625,
+       "ci": [
+        -0.125,
+        0.25
+       ]
+      },
+      "replay_minus_independent_acc": {
+       "mean": -0.03125,
+       "ci": [
+        -0.0625,
+        0.0
+       ]
+      },
+      "unrelated_minus_independent_acc": {
+       "mean": 0.0625,
+       "ci": [
+        -0.0625,
+        0.1875
+       ]
+      },
+      "live_minus_independent_agree": {
+       "mean": 0.3125,
+       "ci": [
+        0.25,
+        0.375
+       ]
+      },
+      "sparse_minus_live_agree": {
+       "mean": 0.0,
+       "ci": [
+        -0.125,
+        0.125
+       ]
+      }
+     },
+     "gates": {
+      "detector_ok": true,
+      "unparsed_max_arm": 0.0
+     },
+     "sync": {
+      "independent": {
+       "median_dist_last": 1.084,
+       "median_dist_steps_16_48": 1.18332828125,
+       "top1_equal_share_steps_16_48": 0.056640625
+      },
+      "live": {
+       "median_dist_last": 0.8585499999999999,
+       "median_dist_steps_16_48": 1.03775647859375,
+       "top1_equal_share_steps_16_48": 0.095703125
+      },
+      "sparse": {
+       "median_dist_last": 0.9716499999999999,
+       "median_dist_steps_16_48": 1.1033265625,
+       "top1_equal_share_steps_16_48": 0.09375
+      },
+      "replay": {
+       "median_dist_last": 1.2854999999999999,
+       "median_dist_steps_16_48": 1.10018086609375,
+       "top1_equal_share_steps_16_48": 0.06640625
+      },
+      "unrelated": {
+       "median_dist_last": 1.082,
+       "median_dist_steps_16_48": 1.0533171874999998,
+       "top1_equal_share_steps_16_48": 0.072265625
+      },
+      "selfreplay": {
+       "median_dist_last": 0.8585499999999999,
+       "median_dist_steps_16_48": 1.03775647859375,
+       "top1_equal_share_steps_16_48": 0.095703125
+      }
+     },
+     "decision_3a": "no resolved excess wrong agreement (interval includes zero or is negative)",
+     "decision_3b": "no resolved reduction of wrong agreement at preserved accuracy"
+    }
+   }
+  },
+  "smoke-1.5b-2": {
+   "path": "/data2/neural-shrimp-data/explore/pi/c12-3/smoke-1.5b-2",
+   "files_sha256": {
+    "analysis.json": "23d9c36c81821b8a90c5b4dde4d87542151c4c1a4dcc7c76cc2056aa90586b0d",
+    "records.jsonl": "3593ae6df686b2d7372a556dfc1807cb7fbcd9f85a1117c1cd4372efacabea36",
+    "run.json": "db86fbc2824fd80a7ddb77ab4cb9dc74d680d12b088bbbed9417d87dab904ee2",
+    "msgs/*.pt (sha256 of the sorted per-file hashes)": "1251f86f77866d4a3229cee5ceca54f5abdb85d9c3df14b1a1f6e370851700f8"
+   },
+   "commits": [
+    "769e3f10e62d0a228889b1c589deca3f596c9b31"
+   ],
+   "model": "qwen1.5b",
+   "split": "smoke",
+   "results": {
+    "24": {
+     "readout": 24,
+     "n_problems": 2,
+     "arms": {
+      "independent": {
+       "swa": 0.0,
+       "agree": 0.1875,
+       "acc": 0.4375,
+       "chance_swa": 0.041666666666666664,
+       "unparsed": 0.0,
+       "detector_swa": 0.5625,
+       "detector_expected": 0.5625,
+       "both_correct": 0.1875,
+       "excess_over_chance": {
+        "mean": -0.041666666666666664,
+        "ci": [
+         -0.041666666666666664,
+         -0.041666666666666664
+        ]
+       }
+      },
+      "live": {
+       "swa": 0.0625,
+       "agree": 0.375,
+       "acc": 0.5,
+       "chance_swa": 0.03125,
+       "unparsed": 0.0,
+       "detector_swa": 0.5,
+       "detector_expected": 0.5,
+       "both_correct": 0.3125,
+       "excess_over_chance": {
+        "mean": 0.03125,
+        "ci": [
+         0.0,
+         0.0625
+        ]
+       }
+      },
+      "sparse": {
+       "swa": 0.0625,
+       "agree": 0.25,
+       "acc": 0.46875,
+       "chance_swa": 0.05208333333333333,
+       "unparsed": 0.0,
+       "detector_swa": 0.53125,
+       "detector_expected": 0.53125,
+       "both_correct": 0.1875,
+       "excess_over_chance": {
+        "mean": 0.010416666666666668,
+        "ci": [
+         -0.041666666666666664,
+         0.0625
+        ]
+       }
+      },
+      "live50": {
+       "swa": 0.375,
+       "agree": 0.8125,
+       "acc": 0.46875,
+       "chance_swa": 0.041666666666666664,
+       "unparsed": 0.0,
+       "detector_swa": 0.53125,
+       "detector_expected": 0.53125,
+       "both_correct": 0.4375,
+       "excess_over_chance": {
+        "mean": 0.3333333333333333,
+        "ci": [
+         0.125,
+         0.5416666666666666
+        ]
+       }
+      },
+      "replay": {
+       "swa": 0.0,
+       "agree": 0.1875,
+       "acc": 0.4375,
+       "chance_swa": 0.010416666666666666,
+       "unparsed": 0.0,
+       "detector_swa": 0.5625,
+       "detector_expected": 0.5625,
+       "both_correct": 0.1875,
+       "excess_over_chance": {
+        "mean": -0.010416666666666666,
+        "ci": [
+         -0.020833333333333332,
+         0.0
+        ]
+       }
+      },
+      "unrelated": {
+       "swa": 0.0625,
+       "agree": 0.25,
+       "acc": 0.4375,
+       "chance_swa": 0.05208333333333333,
+       "unparsed": 0.0,
+       "detector_swa": 0.5625,
+       "detector_expected": 0.5625,
+       "both_correct": 0.1875,
+       "excess_over_chance": {
+        "mean": 0.01041666666666667,
+        "ci": [
+         -0.020833333333333332,
+         0.04166666666666667
+        ]
+       }
+      },
+      "selfreplay": {
+       "swa": 0.0625,
+       "agree": 0.375,
+       "acc": 0.5,
+       "chance_swa": 0.03125,
+       "unparsed": 0.0,
+       "detector_swa": 0.5,
+       "detector_expected": 0.5,
+       "both_correct": 0.3125,
+       "excess_over_chance": {
+        "mean": 0.03125,
+        "ci": [
+         0.0,
+         0.0625
+        ]
+       }
+      },
+      "replay50": {
+       "swa": 0.1875,
+       "agree": 0.5625,
+       "acc": 0.59375,
+       "chance_swa": 0.03125,
+       "unparsed": 0.0,
+       "detector_swa": 0.40625,
+       "detector_expected": 0.40625,
+       "both_correct": 0.375,
+       "excess_over_chance": {
+        "mean": 0.15625,
+        "ci": [
+         0.0,
+         0.3125
+        ]
+       }
+      }
+     },
+     "contrasts": {
+      "live_minus_independent_swa": {
+       "mean": 0.0625,
+       "ci": [
+        0.0,
+        0.125
+       ]
+      },
+      "live_minus_replay_swa": {
+       "mean": 0.0625,
+       "ci": [
+        0.0,
+        0.125
+       ]
+      },
+      "live50_minus_independent_swa": {
+       "mean": 0.375,
+       "ci": [
+        0.125,
+        0.625
+       ]
+      },
+      "live50_minus_replay50_swa": {
+       "mean": 0.1875,
+       "ci": [
+        0.125,
+        0.25
+       ]
+      },
+      "replay50_minus_independent_swa": {
+       "mean": 0.1875,
+       "ci": [
+        0.0,
+        0.375
+       ]
+      },
+      "live50_minus_independent_acc": {
+       "mean": 0.03125,
+       "ci": [
+        -0.125,
+        0.1875
+       ]
+      },
+      "live50_minus_replay50_acc": {
+       "mean": -0.125,
+       "ci": [
+        -0.1875,
+        -0.0625
+       ]
+      },
+      "live50_minus_independent_agree": {
+       "mean": 0.625,
+       "ci": [
+        0.5,
+        0.75
+       ]
+      },
+      "sparse_minus_live_swa": {
+       "mean": 0.0,
+       "ci": [
+        0.0,
+        0.0
+       ]
+      },
+      "sparse_minus_independent_swa": {
+       "mean": 0.0625,
+       "ci": [
+        0.0,
+        0.125
+       ]
+      },
+      "replay_minus_independent_swa": {
+       "mean": 0.0,
+       "ci": [
+        0.0,
+        0.0
+       ]
+      },
+      "unrelated_minus_independent_swa": {
+       "mean": 0.0625,
+       "ci": [
+        0.0,
+        0.125
+       ]
+      },
+      "live_minus_independent_acc": {
+       "mean": 0.0625,
+       "ci": [
+        -0.125,
+        0.25
+       ]
+      },
+      "live_minus_replay_acc": {
+       "mean": 0.0625,
+       "ci": [
+        0.0,
+        0.125
+       ]
+      },
+      "sparse_minus_live_acc": {
+       "mean": -0.03125,
+       "ci": [
+        -0.1875,
+        0.125
+       ]
+      },
+      "sparse_minus_independent_acc": {
+       "mean": 0.03125,
+       "ci": [
+        0.0,
+        0.0625
+       ]
+      },
+      "replay_minus_independent_acc": {
+       "mean": 0.0,
+       "ci": [
+        -0.125,
+        0.125
+       ]
+      },
+      "unrelated_minus_independent_acc": {
+       "mean": 0.0,
+       "ci": [
+        -0.1875,
+        0.1875
+       ]
+      },
+      "live_minus_independent_agree": {
+       "mean": 0.1875,
+       "ci": [
+        0.125,
+        0.25
+       ]
+      },
+      "sparse_minus_live_agree": {
+       "mean": -0.125,
+       "ci": [
+        -0.25,
+        0.0
+       ]
+      }
+     },
+     "gates": {
+      "selfreplay_text_identical": 1.0,
+      "selfreplay_top1_identical": 1.0,
+      "detector_ok": true,
+      "unparsed_max_arm": 0.0
+     },
+     "sync": {
+      "independent": {
+       "median_dist_last": 1.0805,
+       "median_dist_steps_16_48": 1.15099375,
+       "top1_equal_share_steps_16_48": 0.052734375
+      },
+      "live": {
+       "median_dist_last": 0.8586,
+       "median_dist_steps_16_48": 1.04605505125,
+       "top1_equal_share_steps_16_48": 0.09375
+      },
+      "sparse": {
+       "median_dist_last": 0.9716499999999999,
+       "median_dist_steps_16_48": 1.1033734375000002,
+       "top1_equal_share_steps_16_48": 0.09375
+      },
+      "live50": {
+       "median_dist_last": 0.002232,
+       "median_dist_steps_16_48": 0.09408474915305703,
+       "top1_equal_share_steps_16_48": 0.919921875
+      },
+      "replay": {
+       "median_dist_last": 1.2445,
+       "median_dist_steps_16_48": 1.10016992859375,
+       "top1_equal_share_steps_16_48": 0.06640625
+      },
+      "unrelated": {
+       "median_dist_last": 0.9963500000000001,
+       "median_dist_steps_16_48": 1.0529753125,
+       "top1_equal_share_steps_16_48": 0.0703125
+      },
+      "selfreplay": {
+       "median_dist_last": 0.8586,
+       "median_dist_steps_16_48": 1.0460527075,
+       "top1_equal_share_steps_16_48": 0.09375
+      },
+      "replay50": {
+       "median_dist_last": 0.7846,
+       "median_dist_steps_16_48": 0.614686541125,
+       "top1_equal_share_steps_16_48": 0.44921875
+      }
+     },
+     "decision_3a": "no resolved excess wrong agreement (interval includes zero or is negative)",
+     "decision_3b": "no resolved reduction of wrong agreement at preserved accuracy"
+    },
+    "48": {
+     "readout": 48,
+     "n_problems": 2,
+     "arms": {
+      "independent": {
+       "swa": 0.0,
+       "agree": 0.25,
+       "acc": 0.5625,
+       "chance_swa": 0.0625,
+       "unparsed": 0.0,
+       "detector_swa": 0.4375,
+       "detector_expected": 0.4375,
+       "both_correct": 0.25,
+       "excess_over_chance": {
+        "mean": -0.0625,
+        "ci": [
+         -0.125,
+         0.0
+        ]
+       }
+      },
+      "live": {
+       "swa": 0.0625,
+       "agree": 0.5625,
+       "acc": 0.65625,
+       "chance_swa": 0.03125,
+       "unparsed": 0.0,
+       "detector_swa": 0.34375,
+       "detector_expected": 0.34375,
+       "both_correct": 0.5,
+       "excess_over_chance": {
+        "mean": 0.03125,
+        "ci": [
+         0.0,
+         0.0625
+        ]
+       }
+      },
+      "sparse": {
+       "swa": 0.0625,
+       "agree": 0.5625,
+       "acc": 0.625,
+       "chance_swa": 0.11458333333333333,
+       "unparsed": 0.0,
+       "detector_swa": 0.375,
+       "detector_expected": 0.375,
+       "both_correct": 0.5,
+       "excess_over_chance": {
+        "mean": -0.05208333333333333,
+        "ci": [
+         -0.10416666666666666,
+         0.0
+        ]
+       }
+      },
+      "live50": {
+       "swa": 0.1875,
+       "agree": 0.875,
+       "acc": 0.6875,
+       "chance_swa": 0.0625,
+       "unparsed": 0.0,
+       "detector_swa": 0.3125,
+       "detector_expected": 0.3125,
+       "both_correct": 0.6875,
+       "excess_over_chance": {
+        "mean": 0.125,
+        "ci": [
+         0.0,
+         0.25
+        ]
+       }
+      },
+      "replay": {
+       "swa": 0.0,
+       "agree": 0.3125,
+       "acc": 0.53125,
+       "chance_swa": 0.010416666666666666,
+       "unparsed": 0.0,
+       "detector_swa": 0.46875,
+       "detector_expected": 0.46875,
+       "both_correct": 0.3125,
+       "excess_over_chance": {
+        "mean": -0.010416666666666666,
+        "ci": [
+         -0.020833333333333332,
+         0.0
+        ]
+       }
+      },
+      "unrelated": {
+       "swa": 0.0625,
+       "agree": 0.5625,
+       "acc": 0.625,
+       "chance_swa": 0.020833333333333332,
+       "unparsed": 0.0,
+       "detector_swa": 0.375,
+       "detector_expected": 0.375,
+       "both_correct": 0.5,
+       "excess_over_chance": {
+        "mean": 0.04166666666666667,
+        "ci": [
+         0.0,
+         0.08333333333333334
+        ]
+       }
+      },
+      "selfreplay": {
+       "swa": 0.0625,
+       "agree": 0.5625,
+       "acc": 0.65625,
+       "chance_swa": 0.03125,
+       "unparsed": 0.0,
+       "detector_swa": 0.34375,
+       "detector_expected": 0.34375,
+       "both_correct": 0.5,
+       "excess_over_chance": {
+        "mean": 0.03125,
+        "ci": [
+         0.0,
+         0.0625
+        ]
+       }
+      },
+      "replay50": {
+       "swa": 0.25,
+       "agree": 0.625,
+       "acc": 0.53125,
+       "chance_swa": 0.041666666666666664,
+       "unparsed": 0.0,
+       "detector_swa": 0.46875,
+       "detector_expected": 0.46875,
+       "both_correct": 0.375,
+       "excess_over_chance": {
+        "mean": 0.20833333333333334,
+        "ci": [
+         0.0,
+         0.4166666666666667
+        ]
+       }
+      }
+     },
+     "contrasts": {
+      "live_minus_independent_swa": {
+       "mean": 0.0625,
+       "ci": [
+        0.0,
+        0.125
+       ]
+      },
+      "live_minus_replay_swa": {
+       "mean": 0.0625,
+       "ci": [
+        0.0,
+        0.125
+       ]
+      },
+      "live50_minus_independent_swa": {
+       "mean": 0.1875,
+       "ci": [
+        0.0,
+        0.375
+       ]
+      },
+      "live50_minus_replay50_swa": {
+       "mean": -0.0625,
+       "ci": [
+        -0.125,
+        0.0
+       ]
+      },
+      "replay50_minus_independent_swa": {
+       "mean": 0.25,
+       "ci": [
+        0.0,
+        0.5
+       ]
+      },
+      "live50_minus_independent_acc": {
+       "mean": 0.125,
+       "ci": [
+        0.0,
+        0.25
+       ]
+      },
+      "live50_minus_replay50_acc": {
+       "mean": 0.15625,
+       "ci": [
+        0.125,
+        0.1875
+       ]
+      },
+      "live50_minus_independent_agree": {
+       "mean": 0.625,
+       "ci": [
+        0.5,
+        0.75
+       ]
+      },
+      "sparse_minus_live_swa": {
+       "mean": 0.0,
+       "ci": [
+        0.0,
+        0.0
+       ]
+      },
+      "sparse_minus_independent_swa": {
+       "mean": 0.0625,
+       "ci": [
+        0.0,
+        0.125
+       ]
+      },
+      "replay_minus_independent_swa": {
+       "mean": 0.0,
+       "ci": [
+        0.0,
+        0.0
+       ]
+      },
+      "unrelated_minus_independent_swa": {
+       "mean": 0.0625,
+       "ci": [
+        0.0,
+        0.125
+       ]
+      },
+      "live_minus_independent_acc": {
+       "mean": 0.09375,
+       "ci": [
+        0.0,
+        0.1875
+       ]
+      },
+      "live_minus_replay_acc": {
+       "mean": 0.125,
+       "ci": [
+        0.0,
+        0.25
+       ]
+      },
+      "sparse_minus_live_acc": {
+       "mean": -0.03125,
+       "ci": [
+        -0.125,
+        0.0625
+       ]
+      },
+      "sparse_minus_independent_acc": {
+       "mean": 0.0625,
+       "ci": [
+        -0.125,
+        0.25
+       ]
+      },
+      "replay_minus_independent_acc": {
+       "mean": -0.03125,
+       "ci": [
+        -0.0625,
+        0.0
+       ]
+      },
+      "unrelated_minus_independent_acc": {
+       "mean": 0.0625,
+       "ci": [
+        -0.0625,
+        0.1875
+       ]
+      },
+      "live_minus_independent_agree": {
+       "mean": 0.3125,
+       "ci": [
+        0.25,
+        0.375
+       ]
+      },
+      "sparse_minus_live_agree": {
+       "mean": 0.0,
+       "ci": [
+        -0.125,
+        0.125
+       ]
+      }
+     },
+     "gates": {
+      "selfreplay_text_identical": 1.0,
+      "selfreplay_top1_identical": 1.0,
+      "detector_ok": true,
+      "unparsed_max_arm": 0.0
+     },
+     "sync": {
+      "independent": {
+       "median_dist_last": 1.0805,
+       "median_dist_steps_16_48": 1.15099375,
+       "top1_equal_share_steps_16_48": 0.052734375
+      },
+      "live": {
+       "median_dist_last": 0.8586,
+       "median_dist_steps_16_48": 1.04605505125,
+       "top1_equal_share_steps_16_48": 0.09375
+      },
+      "sparse": {
+       "median_dist_last": 0.9716499999999999,
+       "median_dist_steps_16_48": 1.1033734375000002,
+       "top1_equal_share_steps_16_48": 0.09375
+      },
+      "live50": {
+       "median_dist_last": 0.002232,
+       "median_dist_steps_16_48": 0.09408474915305703,
+       "top1_equal_share_steps_16_48": 0.919921875
+      },
+      "replay": {
+       "median_dist_last": 1.2445,
+       "median_dist_steps_16_48": 1.10016992859375,
+       "top1_equal_share_steps_16_48": 0.06640625
+      },
+      "unrelated": {
+       "median_dist_last": 0.9963500000000001,
+       "median_dist_steps_16_48": 1.0529753125,
+       "top1_equal_share_steps_16_48": 0.0703125
+      },
+      "selfreplay": {
+       "median_dist_last": 0.8586,
+       "median_dist_steps_16_48": 1.0460527075,
+       "top1_equal_share_steps_16_48": 0.09375
+      },
+      "replay50": {
+       "median_dist_last": 0.7846,
+       "median_dist_steps_16_48": 0.614686541125,
+       "top1_equal_share_steps_16_48": 0.44921875
+      }
+     },
+     "decision_3a": "no resolved excess wrong agreement (interval includes zero or is negative)",
+     "decision_3b": "no resolved reduction of wrong agreement at preserved accuracy"
+    }
+   }
+  },
+  "dev-0.5b-1": {
+   "path": "/data2/neural-shrimp-data/explore/pi/c12-3/dev-0.5b-1",
+   "files_sha256": {
+    "analysis.json": "aeeb0affd57df81b0533acac527852de1a34e01061747ba7aa1755565bef816a",
+    "records.jsonl": "1e452a555089e9920d8f8ae3683c8de51beb9ca44f1081cb71700946fafa2955",
+    "run.json": "9263aac3b1fa98ef7726dbd6df6a3be4b5b4cfc8c52ca10ac1cba2a1aa4ee892",
+    "msgs/*.pt (sha256 of the sorted per-file hashes)": "db64bd66f0b01b65990aa3f589b754249761cea293530f854cafcf5291a1f4fd"
+   },
+   "commits": [
+    "190045db93afb32cb64565eb3e1d25c702caf522"
+   ],
+   "model": "qwen0.5b",
+   "split": "dev",
+   "results": {
+    "24": {
+     "readout": 24,
+     "n_problems": 16,
+     "arms": {
+      "independent": {
+       "swa": 0.109375,
+       "agree": 0.1796875,
+       "acc": 0.1875,
+       "chance_swa": 0.08854166666666667,
+       "unparsed": 0.0,
+       "detector_swa": 0.8125,
+       "detector_expected": 0.8125,
+       "both_correct": 0.0703125,
+       "excess_over_chance": {
+        "mean": 0.020833333333333336,
+        "ci": [
+         -0.01953125,
+         0.06510416666666666
+        ]
+       }
+      },
+      "live": {
+       "swa": 0.0625,
+       "agree": 0.09375,
+       "acc": 0.140625,
+       "chance_swa": 0.07942708333333333,
+       "unparsed": 0.0078125,
+       "detector_swa": 0.8515625,
+       "detector_expected": 0.8515625,
+       "both_correct": 0.03125,
+       "excess_over_chance": {
+        "mean": -0.016927083333333332,
+        "ci": [
+         -0.05729166666666666,
+         0.02216796874999953
+        ]
+       }
+      },
+      "sparse": {
+       "swa": 0.109375,
+       "agree": 0.2109375,
+       "acc": 0.17578125,
+       "chance_swa": 0.07421875,
+       "unparsed": 0.01171875,
+       "detector_swa": 0.8125,
+       "detector_expected": 0.8125,
+       "both_correct": 0.1015625,
+       "excess_over_chance": {
+        "mean": 0.03515625,
+        "ci": [
+         -0.005208333333333331,
+         0.078125
+        ]
+       }
+      },
+      "live50": {
+       "swa": 0.7578125,
+       "agree": 0.9296875,
+       "acc": 0.17578125,
+       "chance_swa": 0.109375,
+       "unparsed": 0.0,
+       "detector_swa": 0.82421875,
+       "detector_expected": 0.82421875,
+       "both_correct": 0.171875,
+       "excess_over_chance": {
+        "mean": 0.6484375,
+        "ci": [
+         0.5286458333333333,
+         0.75
+        ]
+       }
+      }
+     },
+     "contrasts": {
+      "live_minus_independent_swa": {
+       "mean": -0.046875,
+       "ci": [
+        -0.125,
+        0.0234375
+       ]
+      },
+      "live50_minus_independent_swa": {
+       "mean": 0.6484375,
+       "ci": [
+        0.53125,
+        0.7578125
+       ]
+      },
+      "live50_minus_independent_acc": {
+       "mean": -0.01171875,
+       "ci": [
+        -0.078125,
+        0.04296875
+       ]
+      },
+      "live50_minus_independent_agree": {
+       "mean": 0.75,
+       "ci": [
+        0.6640625,
+        0.828125
+       ]
+      },
+      "sparse_minus_live_swa": {
+       "mean": 0.046875,
+       "ci": [
+        -0.0078125,
+        0.109375
+       ]
+      },
+      "sparse_minus_independent_swa": {
+       "mean": 0.0,
+       "ci": [
+        -0.078125,
+        0.0703125
+       ]
+      },
+      "live_minus_independent_acc": {
+       "mean": -0.046875,
+       "ci": [
+        -0.125,
+        0.015625
+       ]
+      },
+      "sparse_minus_live_acc": {
+       "mean": 0.03515625,
+       "ci": [
+        -0.011816406249999134,
+        0.0859375
+       ]
+      },
+      "sparse_minus_independent_acc": {
+       "mean": -0.01171875,
+       "ci": [
+        -0.0625,
+        0.03125
+       ]
+      },
+      "live_minus_independent_agree": {
+       "mean": -0.0859375,
+       "ci": [
+        -0.1640625,
+        -0.015429687500002842
+       ]
+      },
+      "sparse_minus_live_agree": {
+       "mean": 0.1171875,
+       "ci": [
+        0.046875,
+        0.1875
+       ]
+      }
+     },
+     "gates": {
+      "detector_ok": true,
+      "unparsed_max_arm": 0.01171875
+     },
+     "sync": {
+      "independent": {
+       "median_dist_last": 1.1909999999999998,
+       "median_dist_steps_16_48": 1.163596875,
+       "top1_equal_share_steps_16_48": 0.052490234375
+      },
+      "live": {
+       "median_dist_last": 1.0945,
+       "median_dist_steps_16_48": 1.088326112703125,
+       "top1_equal_share_steps_16_48": 0.080078125
+      },
+      "sparse": {
+       "median_dist_last": 1.1815,
+       "median_dist_steps_16_48": 1.11383375,
+       "top1_equal_share_steps_16_48": 0.072509765625
+      },
+      "live50": {
+       "median_dist_last": 0.010430499999999999,
+       "median_dist_steps_16_48": 0.10144049091741719,
+       "top1_equal_share_steps_16_48": 0.918701171875
+      }
+     },
+     "decision_3b": "no resolved reduction of wrong agreement at preserved accuracy"
+    },
+    "48": {
+     "readout": 48,
+     "n_problems": 16,
+     "arms": {
+      "independent": {
+       "swa": 0.125,
+       "agree": 0.2734375,
+       "acc": 0.2265625,
+       "chance_swa": 0.140625,
+       "unparsed": 0.03125,
+       "detector_swa": 0.7421875,
+       "detector_expected": 0.7421875,
+       "both_correct": 0.1484375,
+       "excess_over_chance": {
+        "mean": -0.015625000000000003,
+        "ci": [
+         -0.0859375,
+         0.05468749999999999
+        ]
+       }
+      },
+      "live": {
+       "swa": 0.1015625,
+       "agree": 0.203125,
+       "acc": 0.18359375,
+       "chance_swa": 0.0625,
+       "unparsed": 0.01171875,
+       "detector_swa": 0.8046875,
+       "detector_expected": 0.8046875,
+       "both_correct": 0.1015625,
+       "excess_over_chance": {
+        "mean": 0.0390625,
+        "ci": [
+         0.0026041666666666644,
+         0.07815755208333286
+        ]
+       }
+      },
+      "sparse": {
+       "swa": 0.109375,
+       "agree": 0.2421875,
+       "acc": 0.20703125,
+       "chance_swa": 0.09375,
+       "unparsed": 0.01953125,
+       "detector_swa": 0.7734375,
+       "detector_expected": 0.7734375,
+       "both_correct": 0.1328125,
+       "excess_over_chance": {
+        "mean": 0.015625000000000003,
+        "ci": [
+         -0.029947916666666657,
+         0.06510416666666666
+        ]
+       }
+      },
+      "live50": {
+       "swa": 0.71875,
+       "agree": 0.8984375,
+       "acc": 0.18359375,
+       "chance_swa": 0.078125,
+       "unparsed": 0.05078125,
+       "detector_swa": 0.765625,
+       "detector_expected": 0.765625,
+       "both_correct": 0.1796875,
+       "excess_over_chance": {
+        "mean": 0.640625,
+        "ci": [
+         0.5286458333333334,
+         0.73828125
+        ]
+       }
+      }
+     },
+     "contrasts": {
+      "live_minus_independent_swa": {
+       "mean": -0.0234375,
+       "ci": [
+        -0.109375,
+        0.046875
+       ]
+      },
+      "live50_minus_independent_swa": {
+       "mean": 0.59375,
+       "ci": [
+        0.4765625,
+        0.7109375
+       ]
+      },
+      "live50_minus_independent_acc": {
+       "mean": -0.04296875,
+       "ci": [
+        -0.09375,
+        0.0078125
+       ]
+      },
+      "live50_minus_independent_agree": {
+       "mean": 0.625,
+       "ci": [
+        0.5078125,
+        0.7421875
+       ]
+      },
+      "sparse_minus_live_swa": {
+       "mean": 0.0078125,
+       "ci": [
+        -0.0703125,
+        0.08613281249999716
+       ]
+      },
+      "sparse_minus_independent_swa": {
+       "mean": -0.015625,
+       "ci": [
+        -0.0625,
+        0.0234375
+       ]
+      },
+      "live_minus_independent_acc": {
+       "mean": -0.04296875,
+       "ci": [
+        -0.08984375,
+        0.0
+       ]
+      },
+      "sparse_minus_live_acc": {
+       "mean": 0.0234375,
+       "ci": [
+        -0.01953125,
+        0.07421875
+       ]
+      },
+      "sparse_minus_independent_acc": {
+       "mean": -0.01953125,
+       "ci": [
+        -0.0859375,
+        0.0390625
+       ]
+      },
+      "live_minus_independent_agree": {
+       "mean": -0.0703125,
+       "ci": [
+        -0.1640625,
+        0.015625
+       ]
+      },
+      "sparse_minus_live_agree": {
+       "mean": 0.0390625,
+       "ci": [
+        -0.0703125,
+        0.140625
+       ]
+      }
+     },
+     "gates": {
+      "detector_ok": true,
+      "unparsed_max_arm": 0.05078125
+     },
+     "sync": {
+      "independent": {
+       "median_dist_last": 1.1909999999999998,
+       "median_dist_steps_16_48": 1.163596875,
+       "top1_equal_share_steps_16_48": 0.052490234375
+      },
+      "live": {
+       "median_dist_last": 1.0945,
+       "median_dist_steps_16_48": 1.088326112703125,
+       "top1_equal_share_steps_16_48": 0.080078125
+      },
+      "sparse": {
+       "median_dist_last": 1.1815,
+       "median_dist_steps_16_48": 1.11383375,
+       "top1_equal_share_steps_16_48": 0.072509765625
+      },
+      "live50": {
+       "median_dist_last": 0.010430499999999999,
+       "median_dist_steps_16_48": 0.10144049091741719,
+       "top1_equal_share_steps_16_48": 0.918701171875
+      }
+     },
+     "decision_3b": "no resolved reduction of wrong agreement at preserved accuracy"
+    }
+   }
+  },
+  "dev-1.5b-1": {
+   "path": "/data2/neural-shrimp-data/explore/pi/c12-3/dev-1.5b-1",
+   "files_sha256": {
+    "analysis.json": "3d08049a034e49ae65e88ddbb874ee5f7c1a6f7b9e9e790e660e4685ea537783",
+    "records.jsonl": "01344b7318f8c56f2fd4aea7491085c349c82667901cd39cb972fe3cd3a45cbd",
+    "run.json": "5e58a5a6d6769825e7ab7262ec3536aca2d536019f7e91a03fd045b364dd441a",
+    "msgs/*.pt (sha256 of the sorted per-file hashes)": "a4ffd36cc07a2efb945f4832341ff2c73e1d1c4e2cdb93e954aad4cbae78ec7f"
+   },
+   "commits": [
+    "5ea594878f3bc81bc848b4144cfa6b63a94fc116"
+   ],
+   "model": "qwen1.5b",
+   "split": "dev",
+   "results": {
+    "24": {
+     "readout": 24,
+     "n_problems": 16,
+     "arms": {
+      "independent": {
+       "swa": 0.078125,
+       "agree": 0.28125,
+       "acc": 0.375,
+       "chance_swa": 0.08854166666666666,
+       "unparsed": 0.0,
+       "detector_swa": 0.625,
+       "detector_expected": 0.625,
+       "both_correct": 0.203125,
+       "excess_over_chance": {
+        "mean": -0.010416666666666661,
+        "ci": [
+         -0.04817708333333333,
+         0.032552083333333336
+        ]
+       }
+      },
+      "live": {
+       "swa": 0.0859375,
+       "agree": 0.296875,
+       "acc": 0.3515625,
+       "chance_swa": 0.078125,
+       "unparsed": 0.0,
+       "detector_swa": 0.6484375,
+       "detector_expected": 0.6484375,
+       "both_correct": 0.2109375,
+       "excess_over_chance": {
+        "mean": 0.007812500000000002,
+        "ci": [
+         -0.01953125,
+         0.03776041666666667
+        ]
+       }
+      },
+      "sparse": {
+       "swa": 0.0625,
+       "agree": 0.265625,
+       "acc": 0.390625,
+       "chance_swa": 0.10156249999999999,
+       "unparsed": 0.0,
+       "detector_swa": 0.609375,
+       "detector_expected": 0.609375,
+       "both_correct": 0.203125,
+       "excess_over_chance": {
+        "mean": -0.0390625,
+        "ci": [
+         -0.05468749999999999,
+         -0.02473958333333333
+        ]
+       }
+      },
+      "live50": {
+       "swa": 0.5625,
+       "agree": 0.8359375,
+       "acc": 0.2890625,
+       "chance_swa": 0.06510416666666667,
+       "unparsed": 0.0,
+       "detector_swa": 0.7109375,
+       "detector_expected": 0.7109375,
+       "both_correct": 0.2734375,
+       "excess_over_chance": {
+        "mean": 0.49739583333333326,
+        "ci": [
+         0.39192708333333337,
+         0.5950520833333333
+        ]
+       }
+      }
+     },
+     "contrasts": {
+      "live_minus_independent_swa": {
+       "mean": 0.0078125,
+       "ci": [
+        -0.0390625,
+        0.046875
+       ]
+      },
+      "live50_minus_independent_swa": {
+       "mean": 0.484375,
+       "ci": [
+        0.390625,
+        0.578125
+       ]
+      },
+      "live50_minus_independent_acc": {
+       "mean": -0.0859375,
+       "ci": [
+        -0.16015625,
+        -0.015625
+       ]
+      },
+      "live50_minus_independent_agree": {
+       "mean": 0.5546875,
+       "ci": [
+        0.46875,
+        0.6328125
+       ]
+      },
+      "sparse_minus_live_swa": {
+       "mean": -0.0234375,
+       "ci": [
+        -0.0546875,
+        0.0078125
+       ]
+      },
+      "sparse_minus_independent_swa": {
+       "mean": -0.015625,
+       "ci": [
+        -0.046875,
+        0.0
+       ]
+      },
+      "live_minus_independent_acc": {
+       "mean": -0.0234375,
+       "ci": [
+        -0.09375,
+        0.046875
+       ]
+      },
+      "sparse_minus_live_acc": {
+       "mean": 0.0390625,
+       "ci": [
+        -0.02734375,
+        0.10546875
+       ]
+      },
+      "sparse_minus_independent_acc": {
+       "mean": 0.015625,
+       "ci": [
+        -0.02734375,
+        0.05859375
+       ]
+      },
+      "live_minus_independent_agree": {
+       "mean": 0.015625,
+       "ci": [
+        -0.0703125,
+        0.1015625
+       ]
+      },
+      "sparse_minus_live_agree": {
+       "mean": -0.03125,
+       "ci": [
+        -0.109375,
+        0.0546875
+       ]
+      }
+     },
+     "gates": {
+      "detector_ok": true,
+      "unparsed_max_arm": 0.0
+     },
+     "sync": {
+      "independent": {
+       "median_dist_last": 1.1745,
+       "median_dist_steps_16_48": 1.1282156250000002,
+       "top1_equal_share_steps_16_48": 0.054931640625
+      },
+      "live": {
+       "median_dist_last": 1.0430000000000001,
+       "median_dist_steps_16_48": 1.06494984375,
+       "top1_equal_share_steps_16_48": 0.099365234375
+      },
+      "sparse": {
+       "median_dist_last": 1.1085,
+       "median_dist_steps_16_48": 1.1068890625,
+       "top1_equal_share_steps_16_48": 0.065673828125
+      },
+      "live50": {
+       "median_dist_last": 0.001562,
+       "median_dist_steps_16_48": 0.08103944035009532,
+       "top1_equal_share_steps_16_48": 0.927734375
+      }
+     },
+     "decision_3b": "no resolved reduction of wrong agreement at preserved accuracy"
+    },
+    "48": {
+     "readout": 48,
+     "n_problems": 16,
+     "arms": {
+      "independent": {
+       "swa": 0.0859375,
+       "agree": 0.46875,
+       "acc": 0.546875,
+       "chance_swa": 0.09244791666666666,
+       "unparsed": 0.0078125,
+       "detector_swa": 0.4453125,
+       "detector_expected": 0.4453125,
+       "both_correct": 0.3828125,
+       "excess_over_chance": {
+        "mean": -0.006510416666666664,
+        "ci": [
+         -0.03255208333333333,
+         0.0234375
+        ]
+       }
+      },
+      "live": {
+       "swa": 0.1328125,
+       "agree": 0.359375,
+       "acc": 0.40625,
+       "chance_swa": 0.08984375,
+       "unparsed": 0.0,
+       "detector_swa": 0.59375,
+       "detector_expected": 0.59375,
+       "both_correct": 0.2265625,
+       "excess_over_chance": {
+        "mean": 0.04296875,
+        "ci": [
+         0.0026041666666666687,
+         0.09114583333333334
+        ]
+       }
+      },
+      "sparse": {
+       "swa": 0.0859375,
+       "agree": 0.4609375,
+       "acc": 0.53515625,
+       "chance_swa": 0.11197916666666667,
+       "unparsed": 0.0,
+       "detector_swa": 0.46484375,
+       "detector_expected": 0.46484375,
+       "both_correct": 0.375,
+       "excess_over_chance": {
+        "mean": -0.02604166666666667,
+        "ci": [
+         -0.07942708333333334,
+         0.016927083333333332
+        ]
+       }
+      },
+      "live50": {
+       "swa": 0.546875,
+       "agree": 0.9765625,
+       "acc": 0.4296875,
+       "chance_swa": 0.07421875,
+       "unparsed": 0.0078125,
+       "detector_swa": 0.5625,
+       "detector_expected": 0.5625,
+       "both_correct": 0.4296875,
+       "excess_over_chance": {
+        "mean": 0.47265625,
+        "ci": [
+         0.38151041666666663,
+         0.5677083333333333
+        ]
+       }
+      }
+     },
+     "contrasts": {
+      "live_minus_independent_swa": {
+       "mean": 0.046875,
+       "ci": [
+        -0.0234375,
+        0.1171875
+       ]
+      },
+      "live50_minus_independent_swa": {
+       "mean": 0.4609375,
+       "ci": [
+        0.3515625,
+        0.5703125
+       ]
+      },
+      "live50_minus_independent_acc": {
+       "mean": -0.1171875,
+       "ci": [
+        -0.2109375,
+        -0.03125
+       ]
+      },
+      "live50_minus_independent_agree": {
+       "mean": 0.5078125,
+       "ci": [
+        0.359375,
+        0.6484375
+       ]
+      },
+      "sparse_minus_live_swa": {
+       "mean": -0.046875,
+       "ci": [
+        -0.1328125,
+        0.0390625
+       ]
+      },
+      "sparse_minus_independent_swa": {
+       "mean": 0.0,
+       "ci": [
+        -0.046875,
+        0.046875
+       ]
+      },
+      "live_minus_independent_acc": {
+       "mean": -0.140625,
+       "ci": [
+        -0.2421875,
+        -0.046875
+       ]
+      },
+      "sparse_minus_live_acc": {
+       "mean": 0.12890625,
+       "ci": [
+        0.01953125,
+        0.23828125
+       ]
+      },
+      "sparse_minus_independent_acc": {
+       "mean": -0.01171875,
+       "ci": [
+        -0.05859375,
+        0.03515625
+       ]
+      },
+      "live_minus_independent_agree": {
+       "mean": -0.109375,
+       "ci": [
+        -0.234375,
+        0.0234375
+       ]
+      },
+      "sparse_minus_live_agree": {
+       "mean": 0.1015625,
+       "ci": [
+        -0.0390625,
+        0.2265625
+       ]
+      }
+     },
+     "gates": {
+      "detector_ok": true,
+      "unparsed_max_arm": 0.0078125
+     },
+     "sync": {
+      "independent": {
+       "median_dist_last": 1.1745,
+       "median_dist_steps_16_48": 1.1282156250000002,
+       "top1_equal_share_steps_16_48": 0.054931640625
+      },
+      "live": {
+       "median_dist_last": 1.0430000000000001,
+       "median_dist_steps_16_48": 1.06494984375,
+       "top1_equal_share_steps_16_48": 0.099365234375
+      },
+      "sparse": {
+       "median_dist_last": 1.1085,
+       "median_dist_steps_16_48": 1.1068890625,
+       "top1_equal_share_steps_16_48": 0.065673828125
+      },
+      "live50": {
+       "median_dist_last": 0.001562,
+       "median_dist_steps_16_48": 0.08103944035009532,
+       "top1_equal_share_steps_16_48": 0.927734375
+      }
+     },
+     "decision_3b": "no resolved reduction of wrong agreement at preserved accuracy"
+    }
+   }
+  },
+  "test-1": {
+   "path": "/data2/neural-shrimp-data/explore/pi/c12-3/test-1",
+   "files_sha256": {
+    "analysis.json": "f87ef9f97d1d4e7137e5843ee8c32b28468e6da36f76f7308cc4ce88deab7c2e",
+    "records.jsonl": "2eb7d2c023a1377b8c8e2200cc540db781bacfe036b1afdc0e078d331be41800",
+    "run.json": "a96d6b200b141d2e5ef3e61d4a4898e86defef2e4efc48d870008e893d0b1dbb",
+    "msgs/*.pt (sha256 of the sorted per-file hashes)": "6faea9efd70aaeec6cec4fa40af4a3584afacb5a133bdd2929c88a7cdf2e24cf"
+   },
+   "commits": [
+    "080af302f442c4e59e9ef643f9156183f0ce5d3f"
+   ],
+   "model": "qwen1.5b",
+   "split": "test",
+   "results": {
+    "24": {
+     "readout": 24,
+     "n_problems": 64,
+     "arms": {
+      "independent": {
+       "swa": 0.064453125,
+       "agree": 0.287109375,
+       "acc": 0.427734375,
+       "chance_swa": 0.06673177083333333,
+       "unparsed": 0.0,
+       "detector_swa": 0.572265625,
+       "detector_expected": 0.572265625,
+       "both_correct": 0.22265625,
+       "excess_over_chance": {
+        "mean": -0.002278645833333333,
+        "ci": [
+         -0.017260742187499928,
+         0.012695312500000002
+        ]
+       }
+      },
+      "live": {
+       "swa": 0.0390625,
+       "agree": 0.37890625,
+       "acc": 0.521484375,
+       "chance_swa": 0.039713541666666664,
+       "unparsed": 0.0,
+       "detector_swa": 0.478515625,
+       "detector_expected": 0.478515625,
+       "both_correct": 0.33984375,
+       "excess_over_chance": {
+        "mean": -0.0006510416666666652,
+        "ci": [
+         -0.013346354166666664,
+         0.012369791666666668
+        ]
+       }
+      },
+      "sparse": {
+       "swa": 0.046875,
+       "agree": 0.2890625,
+       "acc": 0.4560546875,
+       "chance_swa": 0.06249999999999999,
+       "unparsed": 0.0,
+       "detector_swa": 0.5439453125,
+       "detector_expected": 0.5439453125,
+       "both_correct": 0.2421875,
+       "excess_over_chance": {
+        "mean": -0.015624999999999998,
+        "ci": [
+         -0.028320312499999997,
+         -0.001953124999999997
+        ]
+       }
+      },
+      "live50": {
+       "swa": 0.49609375,
+       "agree": 0.87890625,
+       "acc": 0.4091796875,
+       "chance_swa": 0.0224609375,
+       "unparsed": 0.0,
+       "detector_swa": 0.5908203125,
+       "detector_expected": 0.5908203125,
+       "both_correct": 0.3828125,
+       "excess_over_chance": {
+        "mean": 0.4736328125,
+        "ci": [
+         0.419921875,
+         0.5270182291666667
+        ]
+       }
+      },
+      "replay": {
+       "swa": 0.0625,
+       "agree": 0.296875,
+       "acc": 0.4365234375,
+       "chance_swa": 0.04622395833333333,
+       "unparsed": 0.0,
+       "detector_swa": 0.5634765625,
+       "detector_expected": 0.5634765625,
+       "both_correct": 0.234375,
+       "excess_over_chance": {
+        "mean": 0.016276041666666668,
+        "ci": [
+         0.0003255208333333337,
+         0.033528645833333336
+        ]
+       }
+      },
+      "unrelated": {
+       "swa": 0.025390625,
+       "agree": 0.35546875,
+       "acc": 0.5224609375,
+       "chance_swa": 0.028645833333333332,
+       "unparsed": 0.0,
+       "detector_swa": 0.4775390625,
+       "detector_expected": 0.4775390625,
+       "both_correct": 0.330078125,
+       "excess_over_chance": {
+        "mean": -0.003255208333333332,
+        "ci": [
+         -0.015950520833333332,
+         0.0107421875
+        ]
+       }
+      },
+      "selfreplay": {
+       "swa": 0.0390625,
+       "agree": 0.37890625,
+       "acc": 0.521484375,
+       "chance_swa": 0.039713541666666664,
+       "unparsed": 0.0,
+       "detector_swa": 0.478515625,
+       "detector_expected": 0.478515625,
+       "both_correct": 0.33984375,
+       "excess_over_chance": {
+        "mean": -0.0006510416666666652,
+        "ci": [
+         -0.013346354166666664,
+         0.012369791666666668
+        ]
+       }
+      },
+      "replay50": {
+       "swa": 0.162109375,
+       "agree": 0.41015625,
+       "acc": 0.3896484375,
+       "chance_swa": 0.022786458333333332,
+       "unparsed": 0.0,
+       "detector_swa": 0.6103515625,
+       "detector_expected": 0.6103515625,
+       "both_correct": 0.248046875,
+       "excess_over_chance": {
+        "mean": 0.13932291666666669,
+        "ci": [
+         0.11360677083333333,
+         0.16634114583333334
+        ]
+       }
+      }
+     },
+     "contrasts": {
+      "live_minus_independent_swa": {
+       "mean": -0.025390625,
+       "ci": [
+        -0.046875,
+        -0.001953125
+       ]
+      },
+      "live_minus_replay_swa": {
+       "mean": -0.0234375,
+       "ci": [
+        -0.044921875,
+        -0.00390625
+       ]
+      },
+      "live50_minus_independent_swa": {
+       "mean": 0.431640625,
+       "ci": [
+        0.373046875,
+        0.4921875
+       ]
+      },
+      "live50_minus_replay50_swa": {
+       "mean": 0.333984375,
+       "ci": [
+        0.279296875,
+        0.388671875
+       ]
+      },
+      "replay50_minus_independent_swa": {
+       "mean": 0.09765625,
+       "ci": [
+        0.06640625,
+        0.130859375
+       ]
+      },
+      "live50_minus_independent_acc": {
+       "mean": -0.0185546875,
+       "ci": [
+        -0.0546875,
+        0.0166015625
+       ]
+      },
+      "live50_minus_replay50_acc": {
+       "mean": 0.01953125,
+       "ci": [
+        -0.0107421875,
+        0.0478515625
+       ]
+      },
+      "live50_minus_independent_agree": {
+       "mean": 0.591796875,
+       "ci": [
+        0.5331542968750005,
+        0.65234375
+       ]
+      },
+      "sparse_minus_live_swa": {
+       "mean": 0.0078125,
+       "ci": [
+        -0.01171875,
+        0.02734375
+       ]
+      },
+      "sparse_minus_independent_swa": {
+       "mean": -0.017578125,
+       "ci": [
+        -0.0390625,
+        0.00390625
+       ]
+      },
+      "replay_minus_independent_swa": {
+       "mean": -0.001953125,
+       "ci": [
+        -0.02734375,
+        0.025390625
+       ]
+      },
+      "unrelated_minus_independent_swa": {
+       "mean": -0.0390625,
+       "ci": [
+        -0.060546875,
+        -0.017578125
+       ]
+      },
+      "live_minus_independent_acc": {
+       "mean": 0.09375,
+       "ci": [
+        0.0625,
+        0.12404785156249964
+       ]
+      },
+      "live_minus_replay_acc": {
+       "mean": 0.0849609375,
+       "ci": [
+        0.0625,
+        0.107421875
+       ]
+      },
+      "sparse_minus_live_acc": {
+       "mean": -0.0654296875,
+       "ci": [
+        -0.09375,
+        -0.0380859375
+       ]
+      },
+      "sparse_minus_independent_acc": {
+       "mean": 0.0283203125,
+       "ci": [
+        0.00390625,
+        0.0517578125
+       ]
+      },
+      "replay_minus_independent_acc": {
+       "mean": 0.0087890625,
+       "ci": [
+        -0.0185546875,
+        0.03515625
+       ]
+      },
+      "unrelated_minus_independent_acc": {
+       "mean": 0.0947265625,
+       "ci": [
+        0.056640625,
+        0.1328125
+       ]
+      },
+      "live_minus_independent_agree": {
+       "mean": 0.091796875,
+       "ci": [
+        0.046875,
+        0.13671875
+       ]
+      },
+      "sparse_minus_live_agree": {
+       "mean": -0.08984375,
+       "ci": [
+        -0.1328125,
+        -0.046875
+       ]
+      }
+     },
+     "gates": {
+      "selfreplay_text_identical": 1.0,
+      "selfreplay_top1_identical": 0.9912109375,
+      "detector_ok": true,
+      "unparsed_max_arm": 0.0
+     },
+     "sync": {
+      "independent": {
+       "median_dist_last": 1.1925,
+       "median_dist_steps_16_48": 1.104845397046875,
+       "top1_equal_share_steps_16_48": 0.0665283203125
+      },
+      "live": {
+       "median_dist_last": 1.053,
+       "median_dist_steps_16_48": 1.0661626044218748,
+       "top1_equal_share_steps_16_48": 0.1097412109375
+      },
+      "sparse": {
+       "median_dist_last": 1.0745,
+       "median_dist_steps_16_48": 1.086702584234375,
+       "top1_equal_share_steps_16_48": 0.0653076171875
+      },
+      "live50": {
+       "median_dist_last": 0.0044915,
+       "median_dist_steps_16_48": 0.07233297634477032,
+       "top1_equal_share_steps_16_48": 0.93768310546875
+      },
+      "replay": {
+       "median_dist_last": 1.142,
+       "median_dist_steps_16_48": 1.0882602360964797,
+       "top1_equal_share_steps_16_48": 0.0755615234375
+      },
+      "unrelated": {
+       "median_dist_last": 1.1155,
+       "median_dist_steps_16_48": 1.0869453125000001,
+       "top1_equal_share_steps_16_48": 0.064697265625
+      },
+      "selfreplay": {
+       "median_dist_last": 1.0505,
+       "median_dist_steps_16_48": 1.0661626044218748,
+       "top1_equal_share_steps_16_48": 0.1102294921875
+      },
+      "replay50": {
+       "median_dist_last": 0.52365,
+       "median_dist_steps_16_48": 0.534387150915625,
+       "top1_equal_share_steps_16_48": 0.52484130859375
+      }
+     },
+     "decision_3a": "no resolved excess wrong agreement (interval includes zero or is negative)",
+     "decision_3b": "no resolved reduction of wrong agreement at preserved accuracy"
+    },
+    "48": {
+     "readout": 48,
+     "n_problems": 64,
+     "arms": {
+      "independent": {
+       "swa": 0.037109375,
+       "agree": 0.568359375,
+       "acc": 0.6796875,
+       "chance_swa": 0.0400390625,
+       "unparsed": 0.00390625,
+       "detector_swa": 0.31640625,
+       "detector_expected": 0.31640625,
+       "both_correct": 0.53125,
+       "excess_over_chance": {
+        "mean": -0.0029296874999999996,
+        "ci": [
+         -0.023763020833333336,
+         0.012695312500000002
+        ]
+       }
+      },
+      "live": {
+       "swa": 0.052734375,
+       "agree": 0.5234375,
+       "acc": 0.625,
+       "chance_swa": 0.04329427083333333,
+       "unparsed": 0.0009765625,
+       "detector_swa": 0.3740234375,
+       "detector_expected": 0.3740234375,
+       "both_correct": 0.470703125,
+       "excess_over_chance": {
+        "mean": 0.009440104166666668,
+        "ci": [
+         -0.0026041666666666657,
+         0.023111979166666668
+        ]
+       }
+      },
+      "sparse": {
+       "swa": 0.048828125,
+       "agree": 0.537109375,
+       "acc": 0.6484375,
+       "chance_swa": 0.044921875,
+       "unparsed": 0.005859375,
+       "detector_swa": 0.345703125,
+       "detector_expected": 0.345703125,
+       "both_correct": 0.48828125,
+       "excess_over_chance": {
+        "mean": 0.003906250000000002,
+        "ci": [
+         -0.0078124999999999965,
+         0.0166015625
+        ]
+       }
+      },
+      "live50": {
+       "swa": 0.41015625,
+       "agree": 0.962890625,
+       "acc": 0.5546875,
+       "chance_swa": 0.03255208333333333,
+       "unparsed": 0.0009765625,
+       "detector_swa": 0.4443359375,
+       "detector_expected": 0.4443359375,
+       "both_correct": 0.552734375,
+       "excess_over_chance": {
+        "mean": 0.3776041666666667,
+        "ci": [
+         0.322265625,
+         0.435546875
+        ]
+       }
+      },
+      "replay": {
+       "swa": 0.044921875,
+       "agree": 0.478515625,
+       "acc": 0.6103515625,
+       "chance_swa": 0.04459635416666667,
+       "unparsed": 0.0009765625,
+       "detector_swa": 0.388671875,
+       "detector_expected": 0.388671875,
+       "both_correct": 0.43359375,
+       "excess_over_chance": {
+        "mean": 0.0003255208333333322,
+        "ci": [
+         -0.013020833333333332,
+         0.014973958333333332
+        ]
+       }
+      },
+      "unrelated": {
+       "swa": 0.052734375,
+       "agree": 0.509765625,
+       "acc": 0.6171875,
+       "chance_swa": 0.04231770833333333,
+       "unparsed": 0.0009765625,
+       "detector_swa": 0.3818359375,
+       "detector_expected": 0.3818359375,
+       "both_correct": 0.45703125,
+       "excess_over_chance": {
+        "mean": 0.010416666666666668,
+        "ci": [
+         -0.004882812499999998,
+         0.026367187500000003
+        ]
+       }
+      },
+      "selfreplay": {
+       "swa": 0.052734375,
+       "agree": 0.5234375,
+       "acc": 0.625,
+       "chance_swa": 0.04329427083333333,
+       "unparsed": 0.0009765625,
+       "detector_swa": 0.3740234375,
+       "detector_expected": 0.3740234375,
+       "both_correct": 0.470703125,
+       "excess_over_chance": {
+        "mean": 0.009440104166666668,
+        "ci": [
+         -0.0026041666666666657,
+         0.023111979166666668
+        ]
+       }
+      },
+      "replay50": {
+       "swa": 0.162109375,
+       "agree": 0.5703125,
+       "acc": 0.517578125,
+       "chance_swa": 0.0224609375,
+       "unparsed": 0.0009765625,
+       "detector_swa": 0.4814453125,
+       "detector_expected": 0.4814453125,
+       "both_correct": 0.408203125,
+       "excess_over_chance": {
+        "mean": 0.1396484375,
+        "ci": [
+         0.10416666666666667,
+         0.17643229166666666
+        ]
+       }
+      }
+     },
+     "contrasts": {
+      "live_minus_independent_swa": {
+       "mean": 0.015625,
+       "ci": [
+        -0.005859375,
+        0.0390625
+       ]
+      },
+      "live_minus_replay_swa": {
+       "mean": 0.0078125,
+       "ci": [
+        -0.017578125,
+        0.033203125
+       ]
+      },
+      "live50_minus_independent_swa": {
+       "mean": 0.373046875,
+       "ci": [
+        0.31640625,
+        0.4316894531249993
+       ]
+      },
+      "live50_minus_replay50_swa": {
+       "mean": 0.248046875,
+       "ci": [
+        0.205078125,
+        0.29296875
+       ]
+      },
+      "replay50_minus_independent_swa": {
+       "mean": 0.125,
+       "ci": [
+        0.08784179687500043,
+        0.1640625
+       ]
+      },
+      "live50_minus_independent_acc": {
+       "mean": -0.125,
+       "ci": [
+        -0.1708984375,
+        -0.080078125
+       ]
+      },
+      "live50_minus_replay50_acc": {
+       "mean": 0.037109375,
+       "ci": [
+        0.009765625,
+        0.0634765625
+       ]
+      },
+      "live50_minus_independent_agree": {
+       "mean": 0.39453125,
+       "ci": [
+        0.31640625,
+        0.470703125
+       ]
+      },
+      "sparse_minus_live_swa": {
+       "mean": -0.00390625,
+       "ci": [
+        -0.029296875,
+        0.01953125
+       ]
+      },
+      "sparse_minus_independent_swa": {
+       "mean": 0.01171875,
+       "ci": [
+        -0.009765625,
+        0.033203125
+       ]
+      },
+      "replay_minus_independent_swa": {
+       "mean": 0.0078125,
+       "ci": [
+        -0.015625,
+        0.03125
+       ]
+      },
+      "unrelated_minus_independent_swa": {
+       "mean": 0.015625,
+       "ci": [
+        -0.005859375,
+        0.037109375
+       ]
+      },
+      "live_minus_independent_acc": {
+       "mean": -0.0546875,
+       "ci": [
+        -0.0908203125,
+        -0.0185546875
+       ]
+      },
+      "live_minus_replay_acc": {
+       "mean": 0.0146484375,
+       "ci": [
+        -0.0107421875,
+        0.041015625
+       ]
+      },
+      "sparse_minus_live_acc": {
+       "mean": 0.0234375,
+       "ci": [
+        0.0,
+        0.048828125
+       ]
+      },
+      "sparse_minus_independent_acc": {
+       "mean": -0.03125,
+       "ci": [
+        -0.060546875,
+        -0.0029296875
+       ]
+      },
+      "replay_minus_independent_acc": {
+       "mean": -0.0693359375,
+       "ci": [
+        -0.10546875,
+        -0.033203125
+       ]
+      },
+      "unrelated_minus_independent_acc": {
+       "mean": -0.0625,
+       "ci": [
+        -0.1044921875,
+        -0.021484375
+       ]
+      },
+      "live_minus_independent_agree": {
+       "mean": -0.044921875,
+       "ci": [
+        -0.095703125,
+        0.005859375
+       ]
+      },
+      "sparse_minus_live_agree": {
+       "mean": 0.013671875,
+       "ci": [
+        -0.025390625,
+        0.0546875
+       ]
+      }
+     },
+     "gates": {
+      "selfreplay_text_identical": 1.0,
+      "selfreplay_top1_identical": 0.9912109375,
+      "detector_ok": true,
+      "unparsed_max_arm": 0.005859375
+     },
+     "sync": {
+      "independent": {
+       "median_dist_last": 1.1925,
+       "median_dist_steps_16_48": 1.104845397046875,
+       "top1_equal_share_steps_16_48": 0.0665283203125
+      },
+      "live": {
+       "median_dist_last": 1.053,
+       "median_dist_steps_16_48": 1.0661626044218748,
+       "top1_equal_share_steps_16_48": 0.1097412109375
+      },
+      "sparse": {
+       "median_dist_last": 1.0745,
+       "median_dist_steps_16_48": 1.086702584234375,
+       "top1_equal_share_steps_16_48": 0.0653076171875
+      },
+      "live50": {
+       "median_dist_last": 0.0044915,
+       "median_dist_steps_16_48": 0.07233297634477032,
+       "top1_equal_share_steps_16_48": 0.93768310546875
+      },
+      "replay": {
+       "median_dist_last": 1.142,
+       "median_dist_steps_16_48": 1.0882602360964797,
+       "top1_equal_share_steps_16_48": 0.0755615234375
+      },
+      "unrelated": {
+       "median_dist_last": 1.1155,
+       "median_dist_steps_16_48": 1.0869453125000001,
+       "top1_equal_share_steps_16_48": 0.064697265625
+      },
+      "selfreplay": {
+       "median_dist_last": 1.0505,
+       "median_dist_steps_16_48": 1.0661626044218748,
+       "top1_equal_share_steps_16_48": 0.1102294921875
+      },
+      "replay50": {
+       "median_dist_last": 0.52365,
+       "median_dist_steps_16_48": 0.534387150915625,
+       "top1_equal_share_steps_16_48": 0.52484130859375
+      }
+     },
+     "decision_3a": "no resolved excess wrong agreement (interval includes zero or is negative)",
+     "decision_3b": "no resolved reduction of wrong agreement at preserved accuracy"
+    }
+   }
+  }
+ }
+}

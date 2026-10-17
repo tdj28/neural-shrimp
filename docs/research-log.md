@@ -28569,3 +28569,42 @@ PM2's 1536 budget ended it in 10.1-24.3 %, not "8-24 %": R1-Qwen soft 26/256, pl
 - The median soft switch is the 1536 cap, so MATH-500 accuracy here is limited by the budget, as in PM2. That limit, not the tokenizer, dominates this cell.
 
 **Pooled PM2 primary with both R1-Llama cells corrected** (A-gsm8k, A-math, the corrected B-gsm8k and B-math, and C-gsm8k): 27.1 % (243/896), cluster 95 % [24.7, 29.5]. Confirmed (> 5 %, lower bound > 2 %). It is identical to the GSM8K-only correction because the MATH soft flip count is unchanged.
+
+## 2026-10-17 04:45 UTC: C12-3 results (coupled agents, exploratory): weak coupling makes no wrong consensus; strong coupling locks the agents and manufactures it at lower accuracy
+
+Run test-1: qwen1.5b, 64 held-out problems x 8 start pairs x 8 arms, CPU float32 (code edeb7675, run at 080af302). Raw outputs are in explore/pi/c12-3/test-1 and the receipt is docs/pi/c12-3-summary.json. Every interval is a 95 % percentile bootstrap over problems. Readout 48 is primary.
+
+**Gates.**
+- The agreement detector check passes in every arm and problem.
+- At most 0.6 % of answers in any arm are unparsed.
+- Selfreplay reproduces live in every answer and readout text at both readouts, but not bitwise. 297 of 1024 rows differ in some pair distance and 9 in at least one top-1 token, because float32 results depend on the batch position (phase 2 is another batch). The gate the card asked for (exact reproduction) therefore fails at the trajectory level and holds at the answer level.
+
+**Primary (c = 0.25).**
+- Same-wrong agreement (SWA) is 3.7 % for independent agents and 5.3 % for live agents: live minus independent is **+1.6 points [-0.6, +3.9]**, far below the 10-point threshold.
+- Live minus replay is +0.8 [-1.8, +3.3].
+- Every arm at c = 0.25 sits at its chance pairing level. The excess over chance is -0.3 for independent and +0.9 [-0.3, +2.3] for live.
+- Live coupling lowers accuracy at 48 steps (0.680 to 0.625, -5.5 [-9.1, -1.9]). Replayed and unrelated messages lower it by about as much (-6.9, -6.3), so the loss comes from mixing in another trajectory, not from reciprocity.
+- The pairs barely synchronize: equal top-1 tokens in 11 % of steps 16-48, against 7 % for independent agents.
+- Run-card decision 3A: no resolved excess wrong agreement.
+
+**3B (sparse exchange).** There is nothing to remove at c = 0.25. Sparse minus live SWA is -0.4 [-2.9, +2.0], and sparse minus live accuracy is +2.3 [0.0, +4.9]. Decision: no resolved remedy. The test is uninformative rather than negative.
+
+**Strong coupling (c = 0.5, secondary).**
+- The live pair locks. Equal top-1 tokens fill 94 % of steps 16-48, the median concept-token distance at step 48 is 0.0045, and the two agents give the same answer in 96 % of pairs.
+- SWA rises to 41.0 % (+37.3 [31.6, 43.2] over independent; excess over chance +37.8), while accuracy falls to 0.555 (-12.5 [-17.1, -8.0]). This is consensus manufactured at reduced correctness, the harm pattern the consult describes.
+- replay50 reaches 16.2 % SWA with accuracy 0.518, so live50 minus replay50 is +24.8 [20.5, 29.3] in SWA and +3.7 [1.0, 6.4] in accuracy.
+- Caveats on this arm:
+  - At c = 0.5, both live agents feed the identical input (e_A + e_B)/2 from step 1 on, so their agreement is close to built in.
+  - replay50 is not a clean control. The pair it replays is locked, so both replay agents receive nearly one message stream, and that common drive alone synchronizes them partly (equal top-1 tokens in 52 % of steps).
+  - The accuracy loss is a property of heavy mixing; replay50 loses more.
+
+**Readout 24 (secondary).** Early on, live c = 0.25 is more accurate than independent (+9.4 [6.3, 12.4]), as is unrelated (+9.5) but not replay (+0.9). Live SWA is lower than independent (-2.5 [-4.7, -0.2]). The effect of coupling on accuracy therefore changes sign between 24 and 48 steps. The cause is unexplored.
+
+**Development (descriptive).** The dev phase 1 (16 problems) showed the same pattern: c = 0.5 SWA 0.55 against 0.09 for qwen1.5b.
+
+**Interpretation.** With these agents, synchronization and wrong consensus go together: weak coupling neither synchronizes nor creates wrong agreement, and strong coupling does both and costs accuracy. Separating dynamical reciprocity from shared input at c = 0.5 needs a design in which the locked agents do not receive identical inputs (for example, asymmetric weights or delayed messages).
+
+**Not run, and limits.**
+- Not run: the text-only arm, the equal-compute single solver, float64, and other models or tasks.
+- The smoke runs used uncommitted code (engineering only).
+- Total CPU time was about 5 h with 6 threads.
