@@ -8,6 +8,8 @@ tests/test_e5_repetition_onset.py (36 pass). Raw outputs: /data2/neural-shrimp-d
   outcome (docs/pi/e5-decision-rubric.md, 1372b309); later analysis-only and receipt code, buffered sampler, compare.
 - precision-1: float64 effective precision confirmed (central differences fall about 100-fold per decade of h to about
   1e-8 at log10 T = 0.11 and 0.37; batch-position repeats bitwise identical).
+  Correction 17 Oct 2026 (Codex Task 27 audit): batch-position repeats agree within 2.92e-16, not all bitwise; buffered
+  token sequences are exactly equal. The derivative ladder saturates, so it does not establish h^2 convergence.
 - dev-loop-1 (8 dev prompts x 24 T, full procedure, virtual retirement): 177 periodic, 15 chaotic, 0 irregular; all
   gates pass; 175 of 192 cells virtually retired, 0 label mismatches.
 - dev-sample-1 (16 samples x 256 tokens per cell); dev-sample-buffered-1: buffered sampler re-run of prompt 0, all 384
