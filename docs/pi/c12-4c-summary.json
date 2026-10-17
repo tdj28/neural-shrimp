@@ -1,0 +1,852 @@
+{
+ "card": "C12-4c, confirmatory rerun of the C12-4 steering-history result (docs/research-log.md, 'Run card C12-4c', 2026-10-17 01:05 UTC, commit d1745366; design docs/pi-c12-4-confirmatory.md frozen and pushed at 76ae09fe before any data; human approval 17 Oct 2026, 'please do 1 through 7')",
+ "label": "confirmatory",
+ "status": "final: run A (2304 rows) and run B (1152 rows) complete, every gate passed, independent check agrees",
+ "tool": "tools/c12_steering_history.py (confirm, conf-instances; tests: tests/test_c12_steering_history.py), independent check tools/c12_4c_check.py, launcher tools/c12_4c_run.sh",
+ "settings": {
+  "fixed_from_c12_4": "docs/pi/c12-4-choices.json (sha256 cc466df0...3298): qwen3b (Qwen2.5-3B-Instruct), float32 on the CPU (6 threads, nice 10), soft thinking T 0.6, top-15, special tokens masked, rows rendering, layer 18, alpha_final 0.025, alpha_high 0.04, ramp 8, hold 8, P 24, dwell 64, readouts after 16/24/56/88 soft steps, 8 starts, 4 greedy answer tokens, strict scoring, bootstrap over instances (10,000, seed 12403)",
+  "fresh_instances": "48 (24 prohibited), seed 12421, user pool USERS_CONF disjoint from all C12-4 pools; docs/pi/c12-4c-instances.json",
+  "direction_v": "C12-4 vectors file vectors-qwen3b/vectors.npz (sha256 1aae5153...8475), contrast-l18 and random-l18 (u)",
+  "direction_v2": "12 + 12 differently worded statements (PERMISSIVE2, RESTRICTIVE2), same construction at layer 18; vectors-v2-qwen3b/vectors.npz (sha256 4554a8d1...61d5); |v2| 540.8, |v| 536.7, cos(v, v2) 0.772; same alphas, not recalibrated",
+  "arms": "run A along v: direct, up, down, zero, random, unsteered (48 x 8 x 6 = 2304 rows, 2 instances per batch); run B along v2: direct, up, down (1152 rows, 4 instances per batch)"
+ },
+ "deviations": [
+  "None from the frozen design in arms, instances, endpoints, analysis or verdict rules.",
+  "Run B's recorded HEAD is 8c23ca50 (a later commit by another task); the tool, harness, launcher, checker, instance list and choices are byte-identical to the freeze commit 76ae09fe (git diff empty; tool and harness SHA-256 equal in both runs).",
+  "Clock times in the run card heading (01:05 UTC) and in the status file were about 10 minutes late; the commit and run timestamps above are the record (freeze 00:54:53, run card 00:55:17, run A start 00:55:54 UTC).",
+  "Runtime 3.89 h of batch time (2.93 h for A, 0.95 h for B), within the 7 h budget; all 8 starts kept."
+ ],
+ "caveats": [
+  "The confirmed effect is smaller than the exploratory C12-4 estimate: +13.0 points [7.3, 18.75] against +21.4 [15.6, 26.6]; the confirmatory interval lies below the exploratory point estimate. Its 64-step value is +15.1 [10.4, 19.8].",
+  "One model (Qwen2.5-3B-Instruct), layer 18, one (alpha_final, alpha_high) pair and one schedule; CPU float32; synthetic access-control tables.",
+  "v2 is a second wording of the same concept, not an unrelated direction: cos(v, v2) = 0.772. At alpha_final, v2 moves the decision more than v (direct minus unsteered false-ALLOW +43.2 against +29.7 points).",
+  "The effect is carried by the stored context of the growing-context pipeline, not by hysteresis of a fixed-size state (as in C12-4).",
+  "The planted positive control and a separate logit-bias arm were dropped by design; the logit bias (b 5.0) is reported descriptively from the unsteered rows."
+ ],
+ "freeze": {
+  "design": "docs/pi-c12-4-confirmatory.md",
+  "freeze_commit": "76ae09fea7e50d33995b7b3f85e5ec2b82e99a7d",
+  "freeze_committed_utc": "2026-10-17T00:54:53Z",
+  "run_card_commit": "d17453668100354505d192ab922e7525cbe5c414",
+  "run_a_started_utc": "2026-10-17T00:55:54Z",
+  "run_a_finished_utc": "2026-10-17T03:51:59Z",
+  "run_b_started_utc": "2026-10-17T03:52:08Z",
+  "run_b_finished_utc": "2026-10-17T04:49:15Z",
+  "tool_sha256": "13930c756982... (identical in both runs and at the freeze commit)",
+  "pi_harness_sha256": "a8546c81ff4c... (identical in both runs and at the freeze commit)"
+ },
+ "instances": {
+  "file": "docs/pi/c12-4c-instances.json",
+  "seed": 12421,
+  "n": 48,
+  "sha256": "8676dad7b70b80c2793b6e4b47bdd8ad87418ca4c70ec3b6c18f45e3e7656bf2"
+ },
+ "choices": {
+  "model_rule": {
+   "qwen1.5b": {
+    "model_ok": false,
+    "table": [
+     {
+      "ramp": 8,
+      "hold": 8,
+      "P": 24,
+      "S_primary": 56,
+      "accuracy": 0.546875
+     },
+     {
+      "ramp": 4,
+      "hold": 4,
+      "P": 12,
+      "S_primary": 44,
+      "accuracy": 0.59375
+     }
+    ],
+    "threshold": 0.8
+   }
+  },
+  "pipeline_rule": {
+   "rows-mask": {
+    "results": [
+     {
+      "model": "qwen1.5b",
+      "T": 0.3,
+      "accuracy_by_S": {
+       "0": 0.6875,
+       "8": 0.671875,
+       "16": 0.671875,
+       "24": 0.703125,
+       "32": 0.71875,
+       "44": 0.7890625,
+       "56": 0.7890625,
+       "64": 0.8203125,
+       "76": 0.7890625,
+       "88": 0.84375,
+       "96": 0.8046875
+      }
+     },
+     {
+      "model": "qwen1.5b",
+      "T": 0.6,
+      "accuracy_by_S": {
+       "0": 0.6875,
+       "8": 0.6875,
+       "16": 0.7265625,
+       "24": 0.765625,
+       "32": 0.7578125,
+       "44": 0.796875,
+       "56": 0.78125,
+       "64": 0.796875,
+       "76": 0.765625,
+       "88": 0.8203125,
+       "96": 0.8046875
+      }
+     },
+     {
+      "model": "qwen1.5b",
+      "T": 1.0,
+      "accuracy_by_S": {
+       "0": 0.6875,
+       "8": 0.6640625,
+       "16": 0.6796875,
+       "24": 0.7109375,
+       "32": 0.734375,
+       "44": 0.7421875,
+       "56": 0.7734375,
+       "64": 0.7578125,
+       "76": 0.75,
+       "88": 0.7421875,
+       "96": 0.7421875
+      }
+     },
+     {
+      "model": "qwen1.5b",
+      "T": 2.0,
+      "accuracy_by_S": {
+       "0": 0.6875,
+       "8": 0.71875,
+       "16": 0.71875,
+       "24": 0.71875,
+       "32": 0.7734375,
+       "44": 0.7734375,
+       "56": 0.7578125,
+       "64": 0.7734375,
+       "76": 0.7734375,
+       "88": 0.7578125,
+       "96": 0.7734375
+      }
+     },
+     {
+      "model": "qwen3b",
+      "T": 0.6,
+      "accuracy_by_S": {
+       "0": 0.75,
+       "8": 0.796875,
+       "16": 0.828125,
+       "24": 0.875,
+       "32": 0.8515625,
+       "44": 0.8828125,
+       "56": 0.84375,
+       "64": 0.8359375,
+       "76": 0.828125,
+       "88": 0.8125,
+       "96": 0.8359375
+      }
+     }
+    ],
+    "model": "qwen3b",
+    "temperature": 0.6,
+    "ramp": 8,
+    "hold": 8,
+    "P": 24,
+    "S_primary": 56,
+    "accuracy": 0.84375,
+    "table": [
+     {
+      "model": "qwen1.5b",
+      "T": 0.3,
+      "model_ok": false,
+      "ramp": null,
+      "hold": null,
+      "P": null,
+      "S_primary": null,
+      "accuracy": null
+     },
+     {
+      "model": "qwen1.5b",
+      "T": 0.6,
+      "model_ok": false,
+      "ramp": null,
+      "hold": null,
+      "P": null,
+      "S_primary": null,
+      "accuracy": null
+     },
+     {
+      "model": "qwen1.5b",
+      "T": 1.0,
+      "model_ok": false,
+      "ramp": null,
+      "hold": null,
+      "P": null,
+      "S_primary": null,
+      "accuracy": null
+     },
+     {
+      "model": "qwen1.5b",
+      "T": 2.0,
+      "model_ok": false,
+      "ramp": null,
+      "hold": null,
+      "P": null,
+      "S_primary": null,
+      "accuracy": null
+     },
+     {
+      "model": "qwen3b",
+      "T": 0.6,
+      "model_ok": true,
+      "ramp": 8,
+      "hold": 8,
+      "P": 24,
+      "S_primary": 56,
+      "accuracy": 0.84375
+     }
+    ]
+   }
+  },
+  "model": "qwen3b",
+  "temperature": 0.6,
+  "rendering": "rows",
+  "mask_special": true,
+  "ramp": 8,
+  "hold": 8,
+  "P": 24,
+  "dwell": 32,
+  "dwell_secondary": 64,
+  "layer_rule": {
+   "status": "chosen",
+   "layer": 18,
+   "alpha_final": 0.025,
+   "alpha_high": 0.04,
+   "results": {
+    "18": {
+     "fa_proh_alpha0": 0.125,
+     "rules": {
+      "change_valid": 0.25,
+      "change_min": 0.1,
+      "unparse_max": 0.1,
+      "sat_max": 0.8,
+      "high_sat": 0.9,
+      "high_unparse_max": 0.25
+     },
+     "valid": true,
+     "alpha_final": 0.025,
+     "alpha_high": 0.04,
+     "alpha_final_rule": "fa_proh closest to 0.5 among changing, unsaturated, parseable alphas",
+     "alpha_high_rule": "smallest saturating alpha (fa_proh >= 0.90, unparseable <= 25 %)"
+    }
+   }
+  },
+  "layer": 18,
+  "alpha_final": 0.025,
+  "alpha_high": 0.04,
+  "logit_bias_rule": {
+   "b": 5.0,
+   "fa_at_b": 0.4375,
+   "fa_direct": 0.4375,
+   "curve": {
+    "0.0": 0.125,
+    "0.25": 0.125,
+    "0.5": 0.125,
+    "0.75": 0.1875,
+    "1.0": 0.1875,
+    "1.25": 0.1875,
+    "1.5": 0.1875,
+    "1.75": 0.1875,
+    "2.0": 0.1875,
+    "2.25": 0.1875,
+    "2.5": 0.1875,
+    "2.75": 0.25,
+    "3.0": 0.25,
+    "3.25": 0.25,
+    "3.5": 0.25,
+    "3.75": 0.25,
+    "4.0": 0.3125,
+    "4.25": 0.3125,
+    "4.5": 0.3125,
+    "4.75": 0.375,
+    "5.0": 0.4375,
+    "5.25": 0.4375,
+    "5.5": 0.4375,
+    "5.75": 0.5,
+    "6.0": 0.5,
+    "6.25": 0.5,
+    "6.5": 0.5625,
+    "6.75": 0.5625,
+    "7.0": 0.5625,
+    "7.25": 0.5625,
+    "7.5": 0.625,
+    "7.75": 0.75,
+    "8.0": 0.75,
+    "8.25": 0.8125,
+    "8.5": 0.8125,
+    "8.75": 0.875,
+    "9.0": 0.875,
+    "9.25": 0.875,
+    "9.5": 0.9375,
+    "9.75": 0.9375,
+    "10.0": 0.9375,
+    "10.25": 0.9375,
+    "10.5": 1.0,
+    "10.75": 1.0,
+    "11.0": 1.0,
+    "11.25": 1.0,
+    "11.5": 1.0,
+    "11.75": 1.0,
+    "12.0": 1.0,
+    "12.25": 1.0,
+    "12.5": 1.0,
+    "12.75": 1.0,
+    "13.0": 1.0,
+    "13.25": 1.0,
+    "13.5": 1.0,
+    "13.75": 1.0,
+    "14.0": 1.0,
+    "14.25": 1.0,
+    "14.5": 1.0,
+    "14.75": 1.0,
+    "15.0": 1.0,
+    "15.25": 1.0,
+    "15.5": 1.0,
+    "15.75": 1.0,
+    "16.0": 1.0,
+    "16.25": 1.0,
+    "16.5": 1.0,
+    "16.75": 1.0,
+    "17.0": 1.0,
+    "17.25": 1.0,
+    "17.5": 1.0,
+    "17.75": 1.0,
+    "18.0": 1.0,
+    "18.25": 1.0,
+    "18.5": 1.0,
+    "18.75": 1.0,
+    "19.0": 1.0,
+    "19.25": 1.0,
+    "19.5": 1.0,
+    "19.75": 1.0,
+    "20.0": 1.0
+   }
+  },
+  "logit_bias_b": 5.0
+ },
+ "choices_file": {
+  "path": "/data2/neural-shrimp/docs/pi/c12-4-choices.json",
+  "sha256": "cc466df0da86bedad740f5d8306df543c78ca7e4f91e511d86ce4ba3f3943298"
+ },
+ "vectors": {
+  "statements": "v2",
+  "statements_sha256": "770ae945cab4e2c928588bca8cf7ee473d2e685c21ba62017a689761e4e2beef",
+  "layers": {
+   "18": {
+    "raw_difference_norm": 16.280855400883095,
+    "mean_residual_norm": 540.8423131745761,
+    "median_norm_tokens_after_first": 72.25936366268525,
+    "cos_contrast_random": -0.010106659481033436,
+    "unit_permissive_projection_mean": 6.632168792661929,
+    "unit_restrictive_projection_mean": -9.648686608221167
+   }
+  },
+  "vectors_sha256": "4554a8d1d816826baa2ed942df0eef8d0c550d89261087a6312d41b9adb161d5"
+ },
+ "analyses": {
+  "confirm": {
+   "kind": "c12-4c confirm",
+   "S_primary": 56,
+   "S_secondary": 88,
+   "gates": {
+    "run_a_issues": [],
+    "run_b_issues": [],
+    "discarded_partial_rows": [
+     0,
+     0
+    ],
+    "batches_without_done": [
+     [],
+     []
+    ],
+    "instances_sha256_ok": true,
+    "split_conf": true,
+    "choices_sha256": [
+     "cc466df0da86bedad740f5d8306df543c78ca7e4f91e511d86ce4ba3f3943298",
+     "cc466df0da86bedad740f5d8306df543c78ca7e4f91e511d86ce4ba3f3943298"
+    ],
+    "choices_equal_c12_4": true,
+    "starts": [
+     8,
+     8
+    ],
+    "histories": [
+     [
+      "direct",
+      "up",
+      "down",
+      "zero",
+      "random",
+      "unsteered"
+     ],
+     [
+      "direct",
+      "up",
+      "down"
+     ]
+    ],
+    "vectors_sha256": [
+     "1aae51535d2485bb0c010ed9801a0374bb88179e01f735cfca1ff8bf56148475",
+     "4554a8d1d816826baa2ed942df0eef8d0c550d89261087a6312d41b9adb161d5"
+    ],
+    "vectors_a_expected": "1aae51535d2485bb0c010ed9801a0374bb88179e01f735cfca1ff8bf56148475",
+    "vectors_a_ok": true,
+    "commits": [
+     "8c23ca50a3057cf1d1dd40623185995ad69b1152",
+     "d17453668100354505d192ab922e7525cbe5c414"
+    ],
+    "dirty_files": [],
+    "rows": [
+     2304,
+     1152
+    ]
+   },
+   "verdicts": {
+    "primary_up_minus_direct_false_allow_v": "holds",
+    "manipulation_check_v": "valid",
+    "manipulation_check_v2": "valid",
+    "down_minus_direct_false_deny_v": "holds",
+    "random_minus_direct_false_allow": "passes: no detectable effect, interval within 10 points of 0",
+    "zero_minus_direct_false_allow": "passes: no detectable effect, interval within 10 points of 0",
+    "zero_minus_direct_false_deny": "passes: no detectable effect, interval within 10 points of 0",
+    "v2_up_minus_direct_false_allow": "holds"
+   },
+   "primary": {
+    "definition": "false-ALLOW rate among prohibited requests, up-excursion minus direct, after P + 32 = 56 soft steps; instances are the units (mean over starts), paired, percentile bootstrap over instances (10,000 resamples)",
+    "estimate": 0.13020833333333334,
+    "boot95_instances": [
+     0.07291666666666667,
+     0.1875
+    ],
+    "instances": 24,
+    "instances_positive": 15,
+    "instances_negative": 2,
+    "estimate_dwell64": 0.15104166666666666,
+    "boot95_dwell64": [
+     0.10416666666666667,
+     0.19791666666666666
+    ],
+    "decision": "persistent: >= 10 points after the 32-step dwell and after 64 steps"
+   },
+   "v2_primary": {
+    "definition": "false-ALLOW rate among prohibited requests, up-excursion minus direct, after P + 32 = 56 soft steps; instances are the units (mean over starts), paired, percentile bootstrap over instances (10,000 resamples)",
+    "estimate": 0.19270833333333334,
+    "boot95_instances": [
+     0.125,
+     0.2604166666666667
+    ],
+    "instances": 24,
+    "instances_positive": 18,
+    "instances_negative": 1,
+    "estimate_dwell64": 0.22916666666666666,
+    "boot95_dwell64": [
+     0.171875,
+     0.2864583333333333
+    ],
+    "decision": "persistent: >= 10 points after the 32-step dwell and after 64 steps"
+   },
+   "manipulation_check_v_direct_minus_unsteered": {
+    "estimate": 0.296875,
+    "boot95_instances": [
+     0.171875,
+     0.4167968749999981
+    ],
+    "instances": 24,
+    "instances_positive": 20,
+    "instances_negative": 2
+   },
+   "manipulation_check_v2_direct_minus_unsteered": {
+    "estimate": 0.4322916666666667,
+    "boot95_instances": [
+     0.3020833333333333,
+     0.546875
+    ],
+    "instances": 24,
+    "instances_positive": 22,
+    "instances_negative": 1
+   },
+   "secondary_v": {
+    "down_false_allow_prohibited": {
+     "estimate_dwell32": -0.3020833333333333,
+     "boot95_dwell32": [
+      -0.3958333333333333,
+      -0.21354166666666666
+     ],
+     "estimate_dwell64": -0.171875,
+     "boot95_dwell64": [
+      -0.2760416666666667,
+      -0.08333333333333333
+     ],
+     "decision": "bounded: the interval after the 32-step dwell lies below 10 points"
+    },
+    "up_false_deny_permitted": {
+     "estimate_dwell32": 0.005208333333333333,
+     "boot95_dwell32": [
+      -0.03125,
+      0.046875
+     ],
+     "estimate_dwell64": 0.005208333333333333,
+     "boot95_dwell64": [
+      -0.03125,
+      0.041666666666666664
+     ],
+     "decision": "bounded: the interval after the 32-step dwell lies below 10 points"
+    },
+    "down_false_deny_permitted": {
+     "estimate_dwell32": 0.234375,
+     "boot95_dwell32": [
+      0.171875,
+      0.296875
+     ],
+     "estimate_dwell64": 0.17708333333333334,
+     "boot95_dwell64": [
+      0.09895833333333333,
+      0.25
+     ],
+     "decision": "persistent: >= 10 points after the 32-step dwell and after 64 steps"
+    },
+    "random_false_allow_prohibited": {
+     "estimate_dwell32": -0.03125,
+     "boot95_dwell32": [
+      -0.08854166666666667,
+      0.020833333333333332
+     ],
+     "estimate_dwell64": 0.010416666666666666,
+     "boot95_dwell64": [
+      -0.041666666666666664,
+      0.07291666666666667
+     ],
+     "decision": "bounded: the interval after the 32-step dwell lies below 10 points"
+    },
+    "random_false_deny_permitted": {
+     "estimate_dwell32": 0.026041666666666668,
+     "boot95_dwell32": [
+      -0.010416666666666666,
+      0.0625
+     ],
+     "estimate_dwell64": 0.0,
+     "boot95_dwell64": [
+      -0.03125,
+      0.03125
+     ],
+     "decision": "bounded: the interval after the 32-step dwell lies below 10 points"
+    },
+    "zero_false_allow_prohibited": {
+     "estimate_dwell32": 0.0,
+     "boot95_dwell32": [
+      0.0,
+      0.0
+     ],
+     "estimate_dwell64": 0.0,
+     "boot95_dwell64": [
+      0.0,
+      0.0
+     ],
+     "decision": "bounded: the interval after the 32-step dwell lies below 10 points"
+    },
+    "zero_false_deny_permitted": {
+     "estimate_dwell32": 0.0,
+     "boot95_dwell32": [
+      0.0,
+      0.0
+     ],
+     "estimate_dwell64": 0.0,
+     "boot95_dwell64": [
+      0.0,
+      0.0
+     ],
+     "decision": "bounded: the interval after the 32-step dwell lies below 10 points"
+    }
+   },
+   "secondary_v2": {
+    "down_false_allow_prohibited": {
+     "estimate_dwell32": -0.19270833333333334,
+     "boot95_dwell32": [
+      -0.2708333333333333,
+      -0.11458333333333333
+     ],
+     "estimate_dwell64": -0.08854166666666667,
+     "boot95_dwell64": [
+      -0.18229166666666666,
+      0.005208333333333333
+     ],
+     "decision": "bounded: the interval after the 32-step dwell lies below 10 points"
+    },
+    "up_false_deny_permitted": {
+     "estimate_dwell32": 0.010416666666666666,
+     "boot95_dwell32": [
+      -0.015625,
+      0.036458333333333336
+     ],
+     "estimate_dwell64": 0.005208333333333333,
+     "boot95_dwell64": [
+      -0.015625,
+      0.026041666666666668
+     ],
+     "decision": "bounded: the interval after the 32-step dwell lies below 10 points"
+    },
+    "down_false_deny_permitted": {
+     "estimate_dwell32": 0.2708333333333333,
+     "boot95_dwell32": [
+      0.19270833333333334,
+      0.3541666666666667
+     ],
+     "estimate_dwell64": 0.2552083333333333,
+     "boot95_dwell64": [
+      0.171875,
+      0.34375
+     ],
+     "decision": "persistent: >= 10 points after the 32-step dwell and after 64 steps"
+    }
+   },
+   "relaxation_up_false_allow_v": {
+    "16": 0.09895833333333333,
+    "24": 0.15104166666666666,
+    "56": 0.13020833333333334,
+    "88": 0.15104166666666666
+   },
+   "relaxation_up_false_allow_v2": {
+    "16": 0.08854166666666667,
+    "24": 0.109375,
+    "56": 0.19270833333333334,
+    "88": 0.22916666666666666
+   },
+   "zero_control": {
+    "rows": 384,
+    "top1_sequences_differ": 0,
+    "any_readout_text_differs": 0,
+    "max_rel_concept_distance": 0.0
+   }
+  },
+  "independent_check": {
+   "primary": {
+    "independent": {
+     "estimate": 0.13020833333333334,
+     "ci": [
+      0.07291666666666667,
+      0.1875
+     ],
+     "instances": 24
+    },
+    "confirm": {
+     "estimate": 0.13020833333333334,
+     "ci": [
+      0.07291666666666667,
+      0.1875
+     ]
+    },
+    "estimate_agrees": true,
+    "interval_agrees_0.02": true
+   },
+   "primary_dwell64": {
+    "independent": {
+     "estimate": 0.15104166666666666,
+     "ci": [
+      0.10416666666666667,
+      0.19791666666666666
+     ],
+     "instances": 24
+    },
+    "confirm": {
+     "estimate": 0.15104166666666666,
+     "ci": [
+      0.10416666666666667,
+      0.19791666666666666
+     ]
+    },
+    "estimate_agrees": true,
+    "interval_agrees_0.02": true
+   },
+   "v2": {
+    "independent": {
+     "estimate": 0.19270833333333334,
+     "ci": [
+      0.125,
+      0.2604166666666667
+     ],
+     "instances": 24
+    },
+    "confirm": {
+     "estimate": 0.19270833333333334,
+     "ci": [
+      0.125,
+      0.2604166666666667
+     ]
+    },
+    "estimate_agrees": true,
+    "interval_agrees_0.02": true
+   },
+   "down_fd": {
+    "independent": {
+     "estimate": 0.234375,
+     "ci": [
+      0.171875,
+      0.296875
+     ],
+     "instances": 24
+    },
+    "confirm": {
+     "estimate": 0.234375,
+     "ci": [
+      0.171875,
+      0.296875
+     ]
+    },
+    "estimate_agrees": true,
+    "interval_agrees_0.02": true
+   },
+   "random_fa": {
+    "independent": {
+     "estimate": -0.03125,
+     "ci": [
+      -0.08854166666666667,
+      0.020833333333333332
+     ],
+     "instances": 24
+    },
+    "confirm": {
+     "estimate": -0.03125,
+     "ci": [
+      -0.08854166666666667,
+      0.020833333333333332
+     ]
+    },
+    "estimate_agrees": true,
+    "interval_agrees_0.02": true
+   },
+   "zero_fa": {
+    "independent": {
+     "estimate": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ],
+     "instances": 24
+    },
+    "confirm": {
+     "estimate": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ]
+    },
+    "estimate_agrees": true,
+    "interval_agrees_0.02": true
+   },
+   "zero_fd": {
+    "independent": {
+     "estimate": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ],
+     "instances": 24
+    },
+    "confirm": {
+     "estimate": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ]
+    },
+    "estimate_agrees": true,
+    "interval_agrees_0.02": true
+   },
+   "check_v": {
+    "independent": {
+     "estimate": 0.296875,
+     "ci": [
+      0.17708333333333334,
+      0.4166666666666667
+     ],
+     "instances": 24
+    },
+    "confirm": {
+     "estimate": 0.296875,
+     "ci": [
+      0.171875,
+      0.4167968749999981
+     ]
+    },
+    "estimate_agrees": true,
+    "interval_agrees_0.02": true
+   },
+   "check_v2": {
+    "independent": {
+     "estimate": 0.4322916666666667,
+     "ci": [
+      0.3072916666666667,
+      0.546875
+     ],
+     "instances": 24
+    },
+    "confirm": {
+     "estimate": 0.4322916666666667,
+     "ci": [
+      0.3020833333333333,
+      0.546875
+     ]
+    },
+    "estimate_agrees": true,
+    "interval_agrees_0.02": true
+   },
+   "all_agree": true
+  }
+ },
+ "raw": {
+  "root": "/data2/neural-shrimp-data/explore/pi",
+  "files": [
+   {
+    "path": "c12-4c/run-a/records.jsonl",
+    "sha256": "574228528e4b00347f5d54541b84b347a9a8f173eb155881d1bcd51bede2ea56",
+    "bytes": 9488887
+   },
+   {
+    "path": "c12-4c/run-a/run.json",
+    "sha256": "f6305a91547dd097129ed5a1d5cb09b05dcc612112470ece7f02be642d2b5340",
+    "bytes": 9558
+   },
+   {
+    "path": "c12-4c/run-b/records.jsonl",
+    "sha256": "fc72d1ca22ac9bfdc9926d53517d467015ebe80f8457ec7b19552a8848aedb41",
+    "bytes": 4573053
+   },
+   {
+    "path": "c12-4c/run-b/run.json",
+    "sha256": "fe92fdf0df45c8043a39426e431daae237f105cdf5935e1cb4be1a480ba3a5c1",
+    "bytes": 9438
+   },
+   {
+    "path": "c12-4c/vectors-v2-qwen3b/vectors.json",
+    "sha256": "27727efef408b12cd23beb41a72fc32c3302cd0f7d1e9bf63c558d3f01852ae4",
+    "bytes": 1957
+   },
+   {
+    "path": "c12-4c/vectors-v2-qwen3b/vectors.npz",
+    "sha256": "4554a8d1d816826baa2ed942df0eef8d0c550d89261087a6312d41b9adb161d5",
+    "bytes": 33298
+   },
+   {
+    "path": "c12-4c/logs/run.log",
+    "sha256": "362b8033ee12e699cfff8e3da39e237d8c961b3573b1a1da253204bfd0cafa02",
+    "bytes": 9133
+   }
+  ]
+ }
+}

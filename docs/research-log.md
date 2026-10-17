@@ -28608,3 +28608,50 @@ Run test-1: qwen1.5b, 64 held-out problems x 8 start pairs x 8 arms, CPU float32
 - Not run: the text-only arm, the equal-compute single solver, float64, and other models or tasks.
 - The smoke runs used uncommitted code (engineering only).
 - Total CPU time was about 5 h with 6 threads.
+
+## 2026-10-17 04:55 UTC: C12-4c results (confirmatory, frozen before data): the steering-history effect replicates on fresh instances (+13.0 points [7.3, 18.75]), smaller than in C12-4, and with a second direction (+19.3 [12.5, 26.0])
+
+Run by a separate agent on the CPU, float32, 6 threads, nice 10. Design docs/pi-c12-4-confirmatory.md, frozen and pushed at 76ae09fe (committed 00:54:53 UTC). Run card at d1745366 (00:55:17); run A started at 00:55:54. The heading time of the run card (01:05 UTC) was about 10 minutes late; the commit and run timestamps are the record.
+
+Receipt: docs/pi/c12-4c-summary.json. Raw data: /data2/neural-shrimp-data/explore/pi/c12-4c/ (run-a, run-b, confirm.json, check.json).
+
+**Gates.** Every gate passed:
+- run A has 2304 rows and run B 1152; no gate issues and no partial batches;
+- the instance, choices and v hashes match;
+- the tool and harness SHA-256 are identical in both runs and at the freeze commit. Run B's recorded HEAD, 8c23ca50, is a later commit by another task, with no change to any C12-4c file.
+
+The independent recomputation (tools/c12_4c_check.py) agrees on every contrast: estimates exactly, intervals within 0.02. Batch time was 3.89 h (A 2.93 h, B 0.95 h), with all 8 starts kept.
+
+**Primary (holds).** Up minus direct false-ALLOW among prohibited requests after the 32-step dwell, along v: +0.130, bootstrap [0.073, 0.1875] over 24 instances (15 positive, 2 negative). After 64 steps: +0.151 [0.104, 0.198].
+- The prediction (at least +10 points, lower bound above 0) holds.
+- The effect is smaller than C12-4's exploratory +0.214 [0.156, 0.266]. The confirmatory interval lies below that point estimate.
+
+**Secondary,** with the frozen verdict rules:
+
+| endpoint (after P + 32) | estimate [95 %] | verdict |
+|---|---|---|
+| v2: up minus direct false-ALLOW | +0.193 [0.125, 0.260]; 64 steps +0.229 [0.172, 0.286] | holds |
+| v2 manipulation check: direct minus unsteered | +0.432 [0.302, 0.547] | valid |
+| v manipulation check: direct minus unsteered | +0.297 [0.172, 0.417] | valid |
+| down minus direct false-DENY (v) | +0.234 [0.172, 0.297]; 64 steps +0.177 [0.099, 0.250] | holds |
+| random minus direct false-ALLOW | -0.031 [-0.089, 0.021] | passes |
+| zero minus direct false-ALLOW and false-DENY | 0 [0, 0] | passes |
+
+**Descriptive.**
+- Rates after 56 soft steps along v:
+  - false-ALLOW: direct 0.464, up 0.594, down 0.161, random 0.432, unsteered 0.167;
+  - false-DENY: direct 0.146, down 0.380.
+- Along v2: false-ALLOW direct 0.599, up 0.792; false-DENY direct 0.052, down 0.323.
+- The up effect does not relax. Along v it is +0.099 at the peak, +0.151 at the return, +0.130 after 32 steps and +0.151 after 64. Along v2: +0.089, +0.109, +0.193, +0.229.
+- The first-token margin shifts by +1.78 nats [1.06, 2.50].
+- The zero-amplitude excursion leaves every top-1 sequence and readout text unchanged (0 of 384 rows).
+- Top-1 agreement with direct over the last 16 dwell steps is 5 % for up and 10 % for random. The random excursion changes 49 of 384 decisions (27 ALLOW->DENY, 16 DENY->ALLOW) but not the rates.
+- The logit bias (b 5.0, descriptive) gives 0.307 false-ALLOW.
+- v2 down minus direct false-DENY: +0.271 [0.193, 0.354].
+
+**Reading.**
+- On fresh tables, in the same model, layer, alphas and schedule, a past permissive excursion leaves the decision more permissive at the same final steering strength, and a restrictive one more restrictive. The effect persists through 64 steps.
+- A second, differently worded contrast direction (cos 0.77 with v) shows the same effect.
+- The size confirmed here is about 13 to 15 points, not 21: the exploratory estimate was optimistic.
+- Limits: one model, layer and schedule; CPU float32; synthetic tasks. The memory is the stored context of a growing-context loop.
+- Status: confirmatory for this setting.
