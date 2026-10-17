@@ -1,0 +1,19 @@
+{
+  "status": "reviewed_manufactured_only",
+  "scope": "Root accepted sole 19 functional groups followed by one 1361-receipt/6600-number manufactured profile. No target inputs. Preserve all failures; no automatic retry.",
+  "source_sha256": {
+    "check.py": "f64c843ae8869e286ed446bc9ed5291e43be996bc521a8934cc4f83ccf8200a5",
+    "controls.py": "999e74a4fa8538dd2b801e7898bd23fbca7b6923d6a443391119c967e121deea"
+  },
+  "output": "/data2/neural-shrimp-data/codex/paper-number-check-20261016/manufactured-001",
+  "limits": {
+    "as_bytes": 1073741824,
+    "cpu_seconds": 110,
+    "wall_seconds": 120,
+    "output_bytes": 134217728
+  },
+  "expected_controls": 19,
+  "expected_profile_files": 1361,
+  "resource_scope": "CPU1 plus supervisor; nice10/thread1; 20/16GiB RAM and16GiB disk floors. Entire fresh output tree including generated fixtures/refusals plus stdout/stderr sampled against128MiB.",
+  "admission": "Root full parser/source/control review and explicit manufactured-only admission; exact HEAD/git-blob default inventory guard accepted. Private checkpoint and fresh capacity required. Actual number-index execution remains unadmitted."
+}

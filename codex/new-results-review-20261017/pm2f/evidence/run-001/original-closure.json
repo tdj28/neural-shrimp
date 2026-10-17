@@ -1,0 +1,82 @@
+{
+  "utc": "2026-10-17T00:48:38.593334+00:00",
+  "source_commit": "9ee92f3c7a847a4d1da4dffc21b71b49f31a8609",
+  "computational_completed": false,
+  "disposition": "Preserved integrated-control failure before target scoring; no retry",
+  "worker_returncode": 1,
+  "worker_reaped": true,
+  "original_identities": [
+    {
+      "pid": 359334,
+      "starttime": 214464098,
+      "pgid": 359334,
+      "sid": 359334,
+      "state": "R",
+      "nice": 10,
+      "threads": 1,
+      "uid_line": "Uid:\t1000\t1000\t1000\t1000",
+      "cmdline": "/data2/neural-shrimp/.venv/bin/python -I -B /home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/new-results-review-20261017/supervise.py --plan /home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/new-results-review-20261017/operation-pm2f-001.json --lane pm2f --source 9ee92f3c7a847a4d1da4dffc21b71b49f31a8609 ",
+      "limits": "Limit                     Soft Limit           Hard Limit           Units     \nMax cpu time              unlimited            unlimited            seconds   \nMax file size             unlimited            unlimited            bytes     \nMax data size             unlimited            unlimited            bytes     \nMax stack size            8388608              unlimited            bytes     \nMax core file size        0                    unlimited            bytes     \nMax resident set          unlimited            unlimited            bytes     \nMax processes             375398               375398               processes \nMax open files            65535                65535                files     \nMax locked memory         8388608              8388608              bytes     \nMax address space         1073741824           4294967296           bytes     \nMax file locks            unlimited            unlimited            locks     \nMax pending signals       375398               375398               signals   \nMax msgqueue size         819200               819200               bytes     \nMax nice priority         0                    0                    \nMax realtime priority     0                    0                    \nMax realtime timeout      200000               200000               us        \n"
+    },
+    {
+      "pid": 359363,
+      "starttime": 214464114,
+      "pgid": 359363,
+      "sid": 359363,
+      "state": "R",
+      "nice": 10,
+      "threads": 1,
+      "uid_line": "Uid:\t1000\t1000\t1000\t1000",
+      "cmdline": "/data2/neural-shrimp/.venv/bin/python -I -B /home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/new-results-review-20261017/supervise.py --plan /home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/new-results-review-20261017/operation-pm2f-001.json --lane pm2f --source 9ee92f3c7a847a4d1da4dffc21b71b49f31a8609 ",
+      "limits": "Limit                     Soft Limit           Hard Limit           Units     \nMax cpu time              25                   25                   seconds   \nMax file size             16777216             16777216             bytes     \nMax data size             unlimited            unlimited            bytes     \nMax stack size            8388608              unlimited            bytes     \nMax core file size        0                    unlimited            bytes     \nMax resident set          unlimited            unlimited            bytes     \nMax processes             375398               375398               processes \nMax open files            65535                65535                files     \nMax locked memory         8388608              8388608              bytes     \nMax address space         1073741824           1073741824           bytes     \nMax file locks            unlimited            unlimited            locks     \nMax pending signals       375398               375398               signals   \nMax msgqueue size         819200               819200               bytes     \nMax nice priority         0                    0                    \nMax realtime priority     0                    0                    \nMax realtime timeout      200000               200000               us        \n"
+    }
+  ],
+  "both_original_pids_absent": true,
+  "both_original_groups_sessions_absent": true,
+  "source_blobs_verified": 5,
+  "output_files_verified": [
+    {
+      "path": "/data2/neural-shrimp-data/codex/new-results-review-20261017/run-001/pm2f/controls.json",
+      "bytes": 1472,
+      "sha256": "e29ada6fb15e476f469021a80f867d71c30215341b32155ad554ce1c001df0b5"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/codex/new-results-review-20261017/run-001/pm2f/failure.json",
+      "bytes": 90,
+      "sha256": "6a91f8b803164c64ea4c134137f30fa4cbcbab97e04327fe13f4db41f92c5913"
+    }
+  ],
+  "supervision_files": [
+    {
+      "path": "/data2/neural-shrimp-data/codex/new-results-review-20261017/run-001/pm2f-supervision/admission.json",
+      "bytes": 4458,
+      "sha256": "6c75c9a35103c372164b259629c622ec7aa4a6ae9398f6c46fa2576d72d3fa8b"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/codex/new-results-review-20261017/run-001/pm2f-supervision/receipt.json",
+      "bytes": 5424,
+      "sha256": "82d19b1f26faf691675176afd333d994ccc5ed4b032bdc939481b05aadb696a3"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/codex/new-results-review-20261017/run-001/pm2f-supervision/stderr.log",
+      "bytes": 865,
+      "sha256": "79ce471a41d62e8002e92abaebe743d706d4bfc0ec2cf7df4de4beeb309a32c4"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/codex/new-results-review-20261017/run-001/pm2f-supervision/stdout.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/codex/new-results-review-20261017/run-001/pm2f-supervision/worker-startup.json",
+      "bytes": 2597,
+      "sha256": "7ed0352af8de1de12a61242aaa510bc5247fc6d142cb1419cc70c9e617b0b249"
+    }
+  ],
+  "preflight": {
+    "path": "/data2/neural-shrimp-data/codex/new-results-review-20261017/pm2f-preflight.json",
+    "bytes": 773,
+    "sha256": "dbf4cbc4b39bd186187249455ef71fcef950c2fad99d25df15edac201758be46"
+  },
+  "dispatch_scope": "Original exec setsid launcher returned exit0 at .051s because setsid detached. This is not supervisor exit status. Original worker receipt records exit1/reaped; subsequent exact supervisor/worker births and groups absent independently observed. No tool session remained."
+}

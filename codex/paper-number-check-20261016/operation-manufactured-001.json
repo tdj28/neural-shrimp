@@ -1,0 +1,62 @@
+{
+  "status": "reviewed_for_execution",
+  "repository": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp",
+  "raw_root": "/data2/neural-shrimp-data/codex/paper-number-check-20261016",
+  "python": "/data2/neural-shrimp/.venv/bin/python",
+  "source_files": [
+    {
+      "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/paper-number-check-20261016/check.py",
+      "bytes": 21477,
+      "sha256": "f64c843ae8869e286ed446bc9ed5291e43be996bc521a8934cc4f83ccf8200a5"
+    },
+    {
+      "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/paper-number-check-20261016/controls.py",
+      "bytes": 8421,
+      "sha256": "999e74a4fa8538dd2b801e7898bd23fbca7b6923d6a443391119c967e121deea"
+    },
+    {
+      "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/paper-number-check-20261016/manufactured-001-card.json",
+      "bytes": 1150,
+      "sha256": "ce938fa7cf2bb955d1560d85ab24a769702221dc7e85659d9a92a60364cd916a"
+    },
+    {
+      "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/new-results-review-20261017/supervise.py",
+      "bytes": 8569,
+      "sha256": "e361919ed104a800ed043d15726edc10775260fc482d6f98d9c5fb7c98f1e77e"
+    }
+  ],
+  "lanes": {
+    "manufactured": {
+      "entry": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/paper-number-check-20261016/controls.py",
+      "arguments": [
+        "--profile",
+        "--out",
+        "/data2/neural-shrimp-data/codex/paper-number-check-20261016/manufactured-001"
+      ],
+      "output": "/data2/neural-shrimp-data/codex/paper-number-check-20261016/manufactured-001",
+      "supervision": "/data2/neural-shrimp-data/codex/paper-number-check-20261016/manufactured-001-supervision",
+      "preflight_pins": [
+        {
+          "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/paper-number-check-20261016/manufactured-001-card.json",
+          "bytes": 1150,
+          "sha256": "ce938fa7cf2bb955d1560d85ab24a769702221dc7e85659d9a92a60364cd916a"
+        }
+      ],
+      "limits": {
+        "as_bytes": 1073741824,
+        "cpu_seconds": 110,
+        "wall_seconds": 120,
+        "output_bytes": 134217728
+      },
+      "prior_receipts": [
+        "/data2/neural-shrimp-data/codex/new-results-review-20261017/run-001/pm2f-supervision/receipt.json"
+      ],
+      "controls_integrated_once": 19
+    }
+  },
+  "serial_order": [
+    "manufactured"
+  ],
+  "admission": "Root full parser/source/control review and explicit manufactured-only admission; exact HEAD/git-blob default inventory guard accepted. Private checkpoint and fresh capacity required. Actual number-index execution remains unadmitted.",
+  "dispatch": "setsid --wait nice -n10; wait for original supervisor completion and then exact owned closure."
+}
