@@ -28334,3 +28334,24 @@ By the card's rule, **s = 1e-3**.
 
 Development values (48 problems, not results): flip rates 25.0, 25.0, 16.7 and 20.8 % (uncapped, 0.37, 0.10, 0.015);
 accuracy 15-19 %. Development greedy and sampled chain of thought scored 95.8 % and 89.6 %.
+
+## 2026-10-17 01:08 UTC: E2E written up: paper section "From greedy loops to chaos: one picture"
+
+Paper commit c92bb496 (section sec:picture before "Beyond the one-token loop"). The Chaos article has a Discussion paragraph, "One picture". The blog agent was asked to sync. Sources: docs/e2e/STATUS.md, explore/e2e/. Run q2b (the extra band cuts) and fig-e2e are still in the queue. The section cites no number from them; if q2b changes the band picture, amend the section.
+
+Numbers used (float64, from raw files):
+- **Greedy loops:**
+  - " is there" for alpha in [0.0630, 0.0777] (greedy-refine);
+  - "\n\nThe question" for alpha in [0.0661, 0.0700];
+  - " is it" is never a greedy cycle for alpha in [0, 0.12] (greedy-scan2).
+- **Column at alpha 0.070** (tcol-a0.070-p2start, 96 cells): 59 cells end on "\n\nThe question" and 16 on the period-4 " is it is there".
+- **The 2-cycle at alpha 0.070:** a flip at log10 T -0.5147881 (p2-flip-a0.070, multiplier -0.99999998) and a fold at -0.1741065.
+- **The period-3 crescent loop:** a fold at alpha 0.065, log10 T -0.14536 (p3-tcont-a0.0650-up).
+- **The band** is bounded by flips at -0.1392937 and -0.1414292. In the census, every start ended on the 6-cycle (2 crossing cells, 5 starts each).
+- **Per-step spread:** the second over the first eigenvalue of Sigma_p is 0.23-0.87 (all 43 states); the second over the first singular value of DF is 0.12-0.80.
+- **Composed maps,** second over first singular value: P2 0.081, P3 0.092, P6 0.261; 12 chaotic crescent steps 3.1e-4; chaotic stripe 3.9e-9.
+- **Lyapunov spectra** (k 4, record 600):
+  - (0.0652, -0.156): 0.109, -0.822, -1.321, -1.690; KY 1.13.
+  - (0.07484, -0.1226): 0.424, -0.991, -1.391, -1.806; KY 1.43.
+  - (0.064, -0.115): 0.239, -1.146, -1.796, -2.003; KY 1.21.
+- **The two-token model** gives the first flip at alpha 0.06476, against 0.0644767 in the full map; it has no cascade.
