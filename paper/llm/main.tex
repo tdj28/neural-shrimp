@@ -1943,9 +1943,32 @@ spectra say the same. At three chaotic cells the leading exponents are $0.109$, 
 three lie between $-0.82$ and $-2.0$, and the Kaplan--Yorke dimension is 1.13, 1.43 and 1.21. One direction expands
 and the rest are crushed, so the attractor is nearly a curve, and a scalar return map with a single maximum describes
 it. That is the shape that makes period doubling and Feigenbaum's ratios inevitable. A scalar model built from the two
-competing tokens, $q'=\sigma(h(q)/T)$, reproduces the crescent's hump and places its first flip at $\alpha=0.06476$
-against 0.0644767 in the full map. It does not reproduce the cascade, so the competition sets the shape, while the
+competing tokens, $q'=\sigma(h(q)/T)$, reproduces the crescent's hump (Figure~\ref{fig:e2e}e) and, at $\log_{10}T=-0.156$, places its first flip at
+$\alpha=0.06476$ against 0.0644767 in the full map. It does not reproduce the cascade, so the competition sets the shape, while the
 rest of the network sets where the cascade ends.
+
+\begin{figure}[tbp]
+\centering
+\includegraphics[width=\linewidth]{figures/fig-e2e.png}
+\caption{One picture, in float64 (Qwen2.5-0.5B, philosophy direction, layer 12). (a) Leading multiplier of the
+`` is it'' 2-cycle along temperature at $\alpha=0.070$. It is stable (blue, inside the grey band $|\mu|<1$) only between
+the flip ($\log_{10}T=-0.5148$) and the fold ($-0.1741$). The boxes give the two blended continuations at each phase
+of the cycle, with their probabilities. (b) Largest Lyapunov exponent along the row $\log_{10}T=-0.115$ of the
+$256\times256$ map. Beyond the fold $\alpha_c$ of the 2-cycle, periodic windows (grey, labeled with their periods)
+alternate with chaos (red). Inset: $1/\sqrt{\alpha_N-\alpha_c}$ for the fold edges of the windows against their period. For
+the longer windows (periods 16 to 20) it grows linearly with the period, as the ghost predicts
+(Section~\ref{sec:mechanism}). (c) Part of the crossing map, with the fold curve of
+the 2-cycle (cyan). The period-6 band is bounded by the flip of the period-3 orbit above and the flip of the period-6
+orbit below, located on cuts at $\alpha=0.069$, $0.070$ and $0.0715$. On the cut $\log_{10}T=-0.148$, the crescent's
+period-3 orbit is born at a fold ($\alpha=0.06444$) and flips at $\alpha=0.06548$. White circles: the census cells,
+where every start ended on the band's 6-cycle. (d) Second over first eigenvalue of the readout covariance
+$\Sigma_p$ and second over first singular value of the step derivative $DF$ at every recorded state of four periodic
+orbits and two chaotic attractors, and the
+same ratio for the derivative composed over one period, or over twelve steps for the chaotic cells (stars).
+(e) Return map of the crescent's attractor in the noun log-odds $s$ (black), with the two-token model
+$q'=\sigma(h(q)/T)$ (dashed).}
+\label{fig:e2e}
+\end{figure}
 
 \paragraph{The picture.} At zero temperature the loop writes greedy loops. As the temperature rises, the soft token
 starts to mix the two continuations a token has, and the mixtures form new periodic orbits that no token sequence has.

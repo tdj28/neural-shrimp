@@ -53,24 +53,28 @@ def panel_a(ax, summary):
     ax.set_yscale("symlog", linthresh=1.0)
     fold = load(E2E / "p2-tcont-a0.070-up" / "branch.json")["fold"]["fold"]
     ax.axvline(fold, color="tab:cyan", ls="--", lw=1)
-    ax.text(fold, 30, " fold", color="tab:cyan", fontsize=7, va="top")
-    flip = summary.get("q1", {}).get("p2_flip_a0.070")
-    if flip:
+    ax.text(fold, 0.98, "fold ", color="tab:cyan", fontsize=7, va="top", ha="right", transform=ax.get_xaxis_transform())
+    fj = load(E2E / "p2-flip-a0.070" / "flip.json")
+    if fj:
+        flip = fj["lambda"]
+        summary.setdefault("q1", {})["p2_flip_a0.070"] = flip
         ax.axvline(flip, color="tab:purple", ls=":", lw=1)
-        ax.text(flip, 30, " flip", color="tab:purple", fontsize=7, va="top")
+        ax.text(flip, 0.98, " flip", color="tab:purple", fontsize=7, va="top", transform=ax.get_xaxis_transform())
     ax.set_xlabel(r"$\log_{10}T$ ($\alpha=0.070$)")
     ax.set_ylabel(r"leading multiplier of the 2-cycle")
     ax.set_ylim(-40, 3)
     # what competes at the two phases, at three temperatures
+    offsets = {-0.19: (-38, -30), -0.5325: (0, -30), -1.1004: (34, 24)}
     for target in (-0.19, -0.5325, -1.1004):
         r = min(recs, key=lambda q: abs(q["lambda"] - target))
         ph0, ph1 = r["phases"]
         txt = (" / ".join(f"{t.strip() or repr(t)} {p:.2f}" for t, p in ph0["top"][:3]) + "\n" +
                " / ".join(f"{t.strip() or repr(t)} {p:.2f}" for t, p in ph1["top"][:2]))
-        ax.annotate(txt, (r["lambda"], r["leading"][0]), fontsize=5.5, xytext=(0, -26 if r["leading"][0] > -2 else 14),
+        ax.annotate(txt, (r["lambda"], r["leading"][0]), fontsize=5.5, xytext=offsets[target],
                     textcoords="offset points", ha="center",
+                    bbox=dict(boxstyle="round,pad=0.2", fc="white", ec="0.8", lw=0.4),
                     arrowprops=dict(arrowstyle="-", lw=0.4, color="0.5"))
-    ax.legend(fontsize=6, loc="lower left", frameon=False)
+    ax.legend(fontsize=6, loc="center left", frameon=False)
     ax.set_title("(a) the 2-cycle exists in a band of temperature", fontsize=8, loc="left")
 
 
@@ -89,24 +93,27 @@ def panel_b(ax, summary):
     edges = load(SOFT / "pod64" / "edges" / "stripes-t-0.115" / "edges.json")
     lab = []
     if edges:
-        for w in edges["windows"]:
+        last = -1.0
+        for w in sorted(edges["windows"], key=lambda w: -w["alpha_centre"]):
             c = w["alpha_centre"]
-            ax.text(c, -0.95, str(w["period"]), fontsize=5.5, ha="center", color="0.2")
+            if last - c > 0.0012 or last < 0:
+                ax.text(c, -1.0, str(w["period"]), fontsize=5.5, ha="center", color="0.2")
+                last = c
             folds = [e["lambda"] for e in w["edges"] if e["kind"] == "fold"]
             if folds:
                 lab.append((w["period"], folds[0]))
     ax.set_xlim(al[0], al[-1])
-    ax.set_ylim(-1.05, 0.6)
+    ax.set_ylim(-1.75, 0.6)
     ax.set_xlabel(r"$\alpha$ ($\log_{10}T=%.3f$, row of the $256^2$ map)" % lt[i])
     ax.set_ylabel("largest Lyapunov exponent")
-    ax.legend(fontsize=6, loc="upper right", frameon=False)
+    ax.legend(fontsize=6, loc="lower left", frameon=False)
     ax.set_title("(b) beyond the fold: the ghost's stripes", fontsize=8, loc="left")
     if lab:
-        ins = ax.inset_axes([0.55, 0.08, 0.4, 0.3])
+        ins = ax.inset_axes([0.5, 0.1, 0.46, 0.2])
         n = np.array([p for p, _ in lab])
         y = 1 / np.sqrt(np.array([a for _, a in lab]) - ac)
         ins.plot(n, y, "o", ms=2.5, color="k")
-        ins.set_xlabel("period", fontsize=5)
+        ins.set_title("fold edge against period", fontsize=5, pad=2)
         ins.set_ylabel(r"$1/\sqrt{\alpha_N-\alpha_c}$", fontsize=5)
         ins.tick_params(labelsize=5)
         summary.setdefault("q1", {})["stripe_fold_edges_t-0.115"] = lab
@@ -127,8 +134,8 @@ def panel_c(ax, summary):
     if c:
         ax.plot([p["alpha"] for p in c["points"]], [p["log10_temperature"] for p in c["points"]], color="tab:cyan",
                 lw=1.2, label="2-cycle fold")
-    marks = {"flip of the period-3 orbit": ("m", "^", "period-3 flip"), "flip": ("tab:orange", "v", "period-6 flip"),
-             "fold": ("lime", "s", "period-6 fold")}
+    marks = {"period-3 flip": ("m", "^"), "period-6 flip": ("tab:orange", "v"), "period-3 fold": ("lime", "s"),
+             "period-6 fold": ("tab:green", "D")}
     seen = set()
     rows = []
     for cut in sorted(E2E.glob("band-cut-a*")) + sorted(E2E.glob("crescent-cut-t*")):
@@ -141,9 +148,8 @@ def panel_c(ax, summary):
             if b.get("lambda") is None:
                 continue
             kind = b["type"]
-            if j["args"]["period"] == 3 and kind == "flip":
-                kind = "flip of the period-3 orbit"
-            colour, m, label = marks.get(kind, ("w", "x", kind))
+            label = "period-3 flip" if kind == "flip of the period-3 orbit" else f"period-{j['args']['period']} {kind}"
+            colour, m = marks.get(label, ("w", "x"))
             x, y = (a["value"], b["lambda"]) if a["fixed"] == "alpha" else (b["lambda"], a["value"])
             ax.plot(x, y, m, color=colour, ms=4, mec="k", mew=0.4, label=None if label in seen else label)
             seen.add(label)
@@ -215,7 +221,7 @@ def main():
     args = ap.parse_args()
     summary = load(args.summary) or {}
     fig = plt.figure(figsize=(10.5, 7.6))
-    gs = fig.add_gridspec(2, 6, hspace=0.42, wspace=0.9)
+    gs = fig.add_gridspec(2, 6, hspace=0.45, wspace=1.25)
     panel_a(fig.add_subplot(gs[0, 0:3]), summary)
     panel_b(fig.add_subplot(gs[0, 3:6]), summary)
     panel_c(fig.add_subplot(gs[1, 0:2]), summary)
