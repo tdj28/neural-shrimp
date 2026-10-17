@@ -1,0 +1,58 @@
+{
+  "schema": "c12-manufactured-profile-card-v1",
+  "status": "admitted",
+  "output": "/data2/neural-shrimp-data/codex/task27-ready-review-20261017/run-001/c12-profile",
+  "source_files": {
+    "profile.py": {
+      "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/task27-ready-review-20261017/c12/profile.py",
+      "bytes": 3777,
+      "sha256": "f0816e6ffe31e6379f68c653bc9543c484096d3076fa0a60204850862ce422b8"
+    },
+    "run.py": {
+      "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/task27-ready-review-20261017/c12/run.py",
+      "bytes": 22255,
+      "sha256": "2d2e036c6f36c531d3dc113e87e59c19c2f0dc92db22057442b40096042a4661"
+    },
+    "reducers.py": {
+      "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/task27-ready-review-20261017/c12/reducers.py",
+      "bytes": 40090,
+      "sha256": "b2ca166449f7b7021cc4e31c928f5a06a2a2396d0fd21110a741efae02ad6625"
+    },
+    "controls.py": {
+      "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/task27-ready-review-20261017/c12/controls.py",
+      "bytes": 10689,
+      "sha256": "cf8003c739adfb10e0a4d81b8616774ccb2d9279f66b8f294d4e1caa59bf6366"
+    }
+  },
+  "limits": {
+    "cpu_seconds": 55,
+    "wall_seconds": 60,
+    "address_space_bytes": 1073741824,
+    "output_bytes": 134217728,
+    "input_bytes": 67108864,
+    "threads": 1,
+    "nice": 10
+  },
+  "inputs": "No target inputs. Only captured own source files and this card.",
+  "workload": "15 controls once; manufacture8192 C3rows plus2304A/1152B rows+markers, two C3readouts, full C4 bootstrap summaries, sequential nine-contrast checker, row/comparison serialization. No model, raw data or producer module.",
+  "outputs": [
+    "controls.json",
+    "c12-3.json",
+    "c12-3-rows.jsonl",
+    "c12-4c.json",
+    "c12-4c-rows.jsonl",
+    "comparisons.jsonl",
+    "report.json",
+    "manifest.json"
+  ],
+  "success_contract": {
+    "schema": "c12-manufactured-resource-v1",
+    "computational_completed": true,
+    "resource_profile_only": true,
+    "scientific_claims_accepted": false,
+    "groups": 15
+  },
+  "measurement_scope": "Time includes controls, manufacturing, scoring and scientific serialization, before profile report/manifest. Observed RSS at same point. Target IO and parser-mismatch recomputation are unmeasured; actual forecast must disclose them.",
+  "ownership": "Prepared refusal until Root exact source/card approval and Inference private checkpoint/admission. Generic supervisor unchanged; no execution from reviewer.",
+  "authorization": "Root exact source/resource acceptance17Oct2026; sole manufactured profile, no targets. Actual captured Git commit is bound by reviewed supervisor --source/private equality."
+}

@@ -1,0 +1,9 @@
+# E2/E3 and synchronization manufactured profile acceptance
+
+Root, 17 October 2026. Read full own adapter454ad22cc7faa7dced4a6ff8ab4cc98b8b6f0c8674eb5064095e212a692bfb48 and profilec85e56f36fb80391a75b292d5eace2266d6d186db1c6b2115757f96cf9fbff06, complete profile-001-plan.json and field-map.md. Pure sources b4d442dd,adc75409 and controls590bbe91 remain previously accepted and unchanged.
+
+Accept one manufactured-only full-shape profile via Inference's unchanged reviewed supervisor after exact source/plan/private checkpoint and fresh capacity. CPU1 worker plus supervisor,nice10/thread1,2GiBAS,55CPU60wall plus5sTERM/5sKILL,256MiB whole-output+streams,20GiB startup16GiB runtime available RAM,16GiB disk floor. Exact prepared-to-reviewed admission and snapshot binding only. No actual target result parsing follows from this approval.
+
+Profile executes12 focused controls once,14336 synthetic rows,615000 sweep pair-steps,1.23M token positions,42000 transverse logs and9000JVP logs; times manufacture/JSONdecode/arithmetic/serialization. Current synthetic content exercises run-length, censored tails and all coverage paths. It does not measure actual target hash IO, compressed NPZ read, all historical source authority or published-comparison serialization; use measurements plus disclosed margin for a distinct actual card. Preserve failures and do not silently retry.
+
+Actual adapter full-cohort qualifications stay separate from common-row statistics; five-arm E2 schedule and separately reset T0.5 baseline are fixed before own outcomes. Original CLI/order remains inherited unless supplied; all signed discrepancies retained without favorable-order search. Native check/periodic assertions remain explicitly inherited, and original dirty-tool flag is not cleared by current clean source. No model/tokenizer/GPU calls are admitted in this lane.

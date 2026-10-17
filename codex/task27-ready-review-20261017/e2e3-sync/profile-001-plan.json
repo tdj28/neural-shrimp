@@ -1,0 +1,62 @@
+{
+  "schema": "task27-e2e3-sync-manufactured-plan-v1",
+  "status": "reviewed_for_execution",
+  "source_expected_commit": null,
+  "entrypoint": "profile.py",
+  "argv": [
+    "--out",
+    "/data2/neural-shrimp-data/codex/task27-ready-review-20261017/profile-001/e2e3-sync"
+  ],
+  "source_sha256": {
+    "e2e3": "b4d442ddc51ac24a853b47b778a2594ace2d4998982f709fafe6edded2ccf261",
+    "synchronization": "adc754093b7d8f011fe677254289692012002ef1812cdf858f7792c6fd17eebc",
+    "controls": "590bbe91f34d567b1a83cd37d08ce453d4b114bfb247ccd57f9f51855c8af3f8",
+    "run": "454ad22cc7faa7dced4a6ff8ab4cc98b8b6f0c8674eb5064095e212a692bfb48",
+    "profile": "c85e56f36fb80391a75b292d5eace2266d6d186db1c6b2115757f96cf9fbff06"
+  },
+  "resources": {
+    "worker_cpus": 1,
+    "supervisor_cpus": 1,
+    "nice": 10,
+    "cpu_seconds": 55,
+    "wall_seconds": 60,
+    "address_space_bytes": 2147483648,
+    "output_bytes": 268435456,
+    "available_ram_start_bytes": 21474836480,
+    "available_ram_floor_bytes": 17179869184,
+    "available_disk_bytes": 17179869184,
+    "termination_grace_seconds": 5,
+    "kill_grace_seconds": 5,
+    "blas_threads": 1
+  },
+  "expected_outputs": [
+    "controls.json",
+    "manufactured-records.json",
+    "evidence.json",
+    "report.json"
+  ],
+  "success_contract": {
+    "schema": "task27-e2e3-sync-profile-v1",
+    "computational_status": "complete",
+    "controls.passed": 12,
+    "controls.failed": 0
+  },
+  "scope": "One manufactured-only full-shape workload plus accepted 12 control groups; no target inputs or native/model calls. Full output-directory and stdout/stderr bytes count toward cap.",
+  "measurements_pending": true,
+  "shape": {
+    "e2_runs": 5,
+    "e2_rows": 5120,
+    "e3_runs": 18,
+    "e3_rows": 9216,
+    "problems": 512,
+    "layout16_clusters": 32,
+    "bootstrap_draws_per_statistic": 10000,
+    "sweep_pair_steps": 615000,
+    "sweep_token_positions": 1230000,
+    "transverse_log_samples": 42000,
+    "jvp_log_samples": 9000,
+    "periodic_selected": 18
+  },
+  "limits": "Unmeasured prospective bound, not a cost guarantee. Actual target hashing/decompression/printed comparisons remain outside this manufactured measurement.",
+  "authorization": "Root exact source/resource acceptance17Oct2026; sole manufactured profile, no targets. Actual captured Git commit is bound by reviewed supervisor --source/private equality."
+}

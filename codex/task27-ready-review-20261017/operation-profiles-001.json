@@ -1,0 +1,141 @@
+{
+  "status": "reviewed_for_execution",
+  "repository": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp",
+  "raw_root": "/data2/neural-shrimp-data/codex/task27-ready-review-20261017",
+  "python": "/data2/neural-shrimp/.venv/bin/python",
+  "source_files": [
+    {
+      "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/task27-ready-review-20261017/c12/profile.py",
+      "bytes": 3777,
+      "sha256": "f0816e6ffe31e6379f68c653bc9543c484096d3076fa0a60204850862ce422b8"
+    },
+    {
+      "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/task27-ready-review-20261017/c12/run.py",
+      "bytes": 22255,
+      "sha256": "2d2e036c6f36c531d3dc113e87e59c19c2f0dc92db22057442b40096042a4661"
+    },
+    {
+      "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/task27-ready-review-20261017/c12/reducers.py",
+      "bytes": 40090,
+      "sha256": "b2ca166449f7b7021cc4e31c928f5a06a2a2396d0fd21110a741efae02ad6625"
+    },
+    {
+      "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/task27-ready-review-20261017/c12/controls.py",
+      "bytes": 10689,
+      "sha256": "cf8003c739adfb10e0a4d81b8616774ccb2d9279f66b8f294d4e1caa59bf6366"
+    },
+    {
+      "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/task27-ready-review-20261017/c12/profile-001-card.json",
+      "bytes": 2832,
+      "sha256": "257dbaf91f2ed4ddeba9d2755d306db0a10c17ec145df8d923a4ab7a80a1c304"
+    },
+    {
+      "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/task27-ready-review-20261017/e2e3-sync/profile.py",
+      "bytes": 7463,
+      "sha256": "c85e56f36fb80391a75b292d5eace2266d6d186db1c6b2115757f96cf9fbff06"
+    },
+    {
+      "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/task27-ready-review-20261017/e2e3-sync/run.py",
+      "bytes": 18568,
+      "sha256": "454ad22cc7faa7dced4a6ff8ab4cc98b8b6f0c8674eb5064095e212a692bfb48"
+    },
+    {
+      "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/task27-ready-review-20261017/e2e3-sync/e2e3.py",
+      "bytes": 17626,
+      "sha256": "b4d442ddc51ac24a853b47b778a2594ace2d4998982f709fafe6edded2ccf261"
+    },
+    {
+      "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/task27-ready-review-20261017/e2e3-sync/synchronization.py",
+      "bytes": 16709,
+      "sha256": "adc754093b7d8f011fe677254289692012002ef1812cdf858f7792c6fd17eebc"
+    },
+    {
+      "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/task27-ready-review-20261017/e2e3-sync/controls.py",
+      "bytes": 7616,
+      "sha256": "590bbe91f34d567b1a83cd37d08ce453d4b114bfb247ccd57f9f51855c8af3f8"
+    },
+    {
+      "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/task27-ready-review-20261017/e2e3-sync/profile-001-plan.json",
+      "bytes": 2374,
+      "sha256": "7b68b57ac5778f47196bc129b35e2061e969b1d7aa7326dfdd54b94b9fa044d3"
+    },
+    {
+      "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/task27-ready-review-20261017/supervise.py",
+      "bytes": 8569,
+      "sha256": "e361919ed104a800ed043d15726edc10775260fc482d6f98d9c5fb7c98f1e77e"
+    }
+  ],
+  "lanes": {
+    "c12-profile": {
+      "entry": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/task27-ready-review-20261017/c12/profile.py",
+      "arguments": [
+        "--card",
+        "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/task27-ready-review-20261017/c12/profile-001-card.json",
+        "--out",
+        "/data2/neural-shrimp-data/codex/task27-ready-review-20261017/run-001/c12-profile"
+      ],
+      "output": "/data2/neural-shrimp-data/codex/task27-ready-review-20261017/run-001/c12-profile",
+      "supervision": "/data2/neural-shrimp-data/codex/task27-ready-review-20261017/run-001/c12-profile-supervision",
+      "preflight_pins": [
+        {
+          "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/task27-ready-review-20261017/c12/profile-001-card.json",
+          "bytes": 2832,
+          "sha256": "257dbaf91f2ed4ddeba9d2755d306db0a10c17ec145df8d923a4ab7a80a1c304"
+        },
+        {
+          "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/task27-ready-review-20261017/task27-c12-root-profile-acceptance.md",
+          "bytes": 1676,
+          "sha256": "dc9307508e08bc5129e7dab275888adc675ba8a46185267f18962631963ea927"
+        }
+      ],
+      "limits": {
+        "as_bytes": 1073741824,
+        "cpu_seconds": 55,
+        "wall_seconds": 60,
+        "output_bytes": 134217728
+      },
+      "prior_receipts": [
+        "/data2/neural-shrimp-data/codex/task27-ready-review-20261017/run-001/corrected-pm-supervision/receipt.json"
+      ],
+      "controls_integrated_once": 15
+    },
+    "e2e3-sync-profile": {
+      "entry": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/task27-ready-review-20261017/e2e3-sync/profile.py",
+      "arguments": [
+        "--out",
+        "/data2/neural-shrimp-data/codex/task27-ready-review-20261017/profile-001/e2e3-sync"
+      ],
+      "output": "/data2/neural-shrimp-data/codex/task27-ready-review-20261017/profile-001/e2e3-sync",
+      "supervision": "/data2/neural-shrimp-data/codex/task27-ready-review-20261017/profile-001/e2e3-sync-supervision",
+      "preflight_pins": [
+        {
+          "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/task27-ready-review-20261017/e2e3-sync/profile-001-plan.json",
+          "bytes": 2374,
+          "sha256": "7b68b57ac5778f47196bc129b35e2061e969b1d7aa7326dfdd54b94b9fa044d3"
+        },
+        {
+          "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/task27-ready-review-20261017/task27-e2e3-sync-root-profile-acceptance.md",
+          "bytes": 1855,
+          "sha256": "eedf67641b46d500803fa3ac9b67c357761c01deef89cfbb513fc39d4ae5d220"
+        }
+      ],
+      "limits": {
+        "as_bytes": 2147483648,
+        "cpu_seconds": 55,
+        "wall_seconds": 60,
+        "output_bytes": 268435456
+      },
+      "prior_receipts": [
+        "/data2/neural-shrimp-data/codex/task27-ready-review-20261017/run-001/c12-profile-supervision/receipt.json"
+      ],
+      "controls_integrated_once": 12
+    }
+  },
+  "serial_order": [
+    "c12-profile",
+    "e2e3-sync-profile"
+  ],
+  "admission": "Root accepted exact two manufactured profiles. Only status/path/source capture bindings; no target numerical work. Serialize C12 then E2/sync, fresh private/capacity/old closure for each.",
+  "resource_scope": "CPU1+supervisor nice10/thread1,55CPU60wall+5+5,20/16GiB RAM/16GiBdisk; C12 1GiBAS128MiB OUT+streams, E2/sync2GiBAS256MiB OUT+streams.",
+  "scientific_scope": "Manufactured measurements only; all controls once, no model/tokenizer/raw targets. No automatic retry."
+}
