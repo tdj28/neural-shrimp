@@ -461,7 +461,7 @@ def analyze(args):
                 row = {"c": sj["pairs"][k]["c"], "mean_dist": float(d.mean()),
                        "mean_dist_second_half": float(d[len(d) // 2:].mean()),
                        "frac_below_tol": float((d < SYNC_TOL).mean()), "synced": synced,
-                       "tail_max": float(tail.max()), "tail_median": float(np.median(tail)),
+                       "synced_1e-6": bool(tail.max() < 1e-6), "tail_max": float(tail.max()), "tail_median": float(np.median(tail)),
                        "first_below_tol": int(np.argmax(d < SYNC_TOL)) + 1 if (d < SYNC_TOL).any() else None,
                        "bursts_1e-8_to_1e-3": excursions(d)}
                 for th in (1e-4, 1e-6):
@@ -487,7 +487,10 @@ def analyze(args):
             summary["cells"][str(ci)]["sweeps"][name] = {"start": sj["args"]["start"], "steps": steps,
                                                          "complete": sj["complete"], "commit": sj["commit"],
                                                          "sweep_npz_sha256": sj["sweep_npz_sha256"],
-                                                         "threshold": th, "tv_c0_A_vs_B_tokens": tv0, "pairs": rows}
+                                                         "threshold": th,
+                                                         "threshold_tol_1e-6_secondary": threshold_interval(
+                                                             [r["c"] for r in rows], [r["synced_1e-6"] for r in rows]),
+                                                         "tv_c0_A_vs_B_tokens": tv0, "pairs": rows}
     out = ROOT / "docs" / "sync" / "sync-summary.json"
     out.parent.mkdir(parents=True, exist_ok=True)
     out.write_text(json.dumps(summary, indent=1, ensure_ascii=False))
