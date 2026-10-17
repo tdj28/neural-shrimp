@@ -11,3 +11,7 @@ Root accepted the exact source and prepared card, then authorized status/path/so
 ##17October2026: manufactured profile admission
 
 Corrected PMX is closed and Root scientifically accepted; completion pointer retains original evidence. Root accepted sole C12 profile (15 integrated controls plus synthetic8192/2304/1152 rows) and E2/E3/sync profile (12 controls plus full synthetic shapes), strictly serial, no target data. Exact pre-run cards and operation-profiles-001.json bind source and caps. Both original prepared packages retained in profile-preparation-archive.json. No watch or model launch.
+
+## Admitted remaining PMX run001
+
+Root exact source/card acceptancece1774d9 authorizes eight focused controls once then three complete ColdStop cells, QwQ64new+32old and eight diagnosis conditions. Fixed55CPU60wall1GiB64MiB; sources/inputs/card operation-remaining-pmx-001.json. Prior C12 and E2/sync profiles are complete/closed; no target profiles or original broad suites repeated. Decoder check separate. Prepared science commit b1f7880fb5b4278eacb04f5573d2abc859495cf1; actual dispatch commit captured externally. Watches stopped.

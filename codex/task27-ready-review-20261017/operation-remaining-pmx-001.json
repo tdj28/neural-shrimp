@@ -1,0 +1,94 @@
+{
+  "status": "reviewed_for_execution",
+  "repository": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp",
+  "raw_root": "/data2/neural-shrimp-data/codex/task27-ready-review-20261017",
+  "python": "/data2/neural-shrimp/.venv/bin/python",
+  "source_files": [
+    {
+      "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/task27-ready-review-20261017/remaining-pmx/run.py",
+      "bytes": 5070,
+      "sha256": "bf7160e70303a0a430896f6e2618bc64ad9bd888d53824269495231bb68f63ab"
+    },
+    {
+      "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/task27-ready-review-20261017/remaining-pmx/reduce.py",
+      "bytes": 9992,
+      "sha256": "41fa970e25b820f0c6a9f7178ddeee76bacbb734b89694f15d94e8681f586599"
+    },
+    {
+      "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/task27-ready-review-20261017/remaining-pmx/controls.py",
+      "bytes": 4693,
+      "sha256": "c5d8a375ad6178dd6a4edc6677e41238e6b09838dea808a5147a9e05abb57278"
+    },
+    {
+      "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/task27-ready-review-20261017/remaining-pmx/pm_core.py",
+      "bytes": 15498,
+      "sha256": "59999e636fc5e2e14a096614ec61f1bb9eda958eb5db17a2f592100d57431a00"
+    },
+    {
+      "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/task27-ready-review-20261017/remaining-pmx/twin_core.py",
+      "bytes": 15016,
+      "sha256": "e7fb200ebedd6522604b2cbccb3a3c561f1f23085fbce97edb168fc1f2c5f9b9"
+    },
+    {
+      "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/task27-ready-review-20261017/remaining-pmx/run-001-card.json",
+      "bytes": 3735,
+      "sha256": "d8c28781778307f0571dd31f403d676f799a50394384c5b9b83aa60d18cd2de8"
+    },
+    {
+      "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/task27-ready-review-20261017/supervise.py",
+      "bytes": 8569,
+      "sha256": "e361919ed104a800ed043d15726edc10775260fc482d6f98d9c5fb7c98f1e77e"
+    }
+  ],
+  "lanes": {
+    "remaining-pmx": {
+      "entry": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/task27-ready-review-20261017/remaining-pmx/run.py",
+      "arguments": [
+        "--card",
+        "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/task27-ready-review-20261017/remaining-pmx/run-001-card.json",
+        "--out",
+        "/data2/neural-shrimp-data/codex/task27-ready-review-20261017/run-001/remaining-pmx"
+      ],
+      "output": "/data2/neural-shrimp-data/codex/task27-ready-review-20261017/run-001/remaining-pmx",
+      "supervision": "/data2/neural-shrimp-data/codex/task27-ready-review-20261017/run-001/remaining-pmx-supervision",
+      "preflight_pins": [
+        {
+          "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/task27-ready-review-20261017/remaining-pmx/run-001-card.json",
+          "bytes": 3735,
+          "sha256": "d8c28781778307f0571dd31f403d676f799a50394384c5b9b83aa60d18cd2de8"
+        },
+        {
+          "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/task27-ready-review-20261017/remaining-pmx/inputs.json",
+          "bytes": 349416,
+          "sha256": "0deaf37fb95e8ed53cffbbe9f399094d02e42fc830220905d48282cb21cf30a7"
+        },
+        {
+          "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/task27-ready-review-20261017/task27-pmx-remaining-root-acceptance.md",
+          "bytes": 2072,
+          "sha256": "ce1774d9abbb1c39a8e52d7b9fcb166ff27f37db57250927e4f52aacdb9e0b50"
+        }
+      ],
+      "input_inventory": {
+        "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/task27-ready-review-20261017/remaining-pmx/inputs.json",
+        "bytes": 349416,
+        "sha256": "0deaf37fb95e8ed53cffbbe9f399094d02e42fc830220905d48282cb21cf30a7"
+      },
+      "limits": {
+        "as_bytes": 1073741824,
+        "cpu_seconds": 55,
+        "wall_seconds": 60,
+        "output_bytes": 67108864
+      },
+      "prior_receipts": [
+        "/data2/neural-shrimp-data/codex/task27-ready-review-20261017/profile-001/e2e3-sync-supervision/receipt.json"
+      ],
+      "controls_integrated_once": 8
+    }
+  },
+  "serial_order": [
+    "remaining-pmx"
+  ],
+  "admission": "Root exact source/card acceptancece1774d9; only administrative status/sourcecommit/path/receipt-timing binding. Fresh private equality/capacity/prior-owned-closure, no other numerical worker.",
+  "resource_scope": "OneCPU+supervisor/nice10/thread1/1GiB55CPU60wall+5+5/64MiBOUT+streams,20/16GiB RAM16GiBdisk.",
+  "scientific_scope": "Saved record arithmetic only; every disagreement/inherited endpoint retained, no decoder/model execution or favorable comparison gate."
+}
