@@ -28685,3 +28685,93 @@ The independent recomputation (tools/c12_4c_check.py) agrees on every contrast: 
 **Decision rules (exploratory).**
 - Agreement holds if c_obs brackets c* within the grid step plus the uncertainty implied by the lambda_1 error (block standard error).
 - Intermittency is claimed only if bursts recur within a single record: excursions from below 1e-8 to above 1e-3 at least 5 times.
+
+## 2026-10-17 05:20 UTC: E2 and E3 results (exploratory): a gain cap removes about a sixth of the layout flips; voting over perturbed soft runs does not help
+
+Qwen2.5-7B-Instruct bf16 on the local GPU, 512 fresh GSM8K train problems (docs/pi/e2e3-problems.json). Receipts:
+docs/pi/e2-summary.json and docs/pi/e3-summary.json, with SHA-256 hashes of every run's records. Raw data:
+explore/pi/e2/ and explore/pi/e3/.
+- Harness: identical at every launch commit (f55d38c6 for E2, 67765f75 for E3, 43ba01d7 for the T 0.5 control).
+- GPU time: about 4.5 hours in all (development 22 min, E2 68 min, E3 167 min, control 11 min).
+- Every row gated: 512 scored rows per run and layout, no fillers.
+- Rerun determinism: E3's unperturbed run reproduces E2's uncapped layout-16 rows exactly (512 of 512 identical
+  tokens and answers).
+
+**E2: gain cap** (soft top-15, T 0.6, 64 steps; layouts 8 and 16). Clusters are the 32 batches of 16.
+
+| arm | flips | flip rate [cluster 95 %] | accuracy (8 / 16) | exactly one correct | steps capped (cap unmet) | mean step T |
+|---|---|---|---|---|---|---|
+| uncapped | 142 | 27.7 % [24.4, 31.1] | 21.1 / 22.1 % | 6.1 % | - | 0.60 |
+| cap 0.37 | 118 | 23.0 % [18.5, 27.8] | 23.0 / 24.2 % | 5.1 % | 9.0 % (0.93 %) | 0.56 |
+| cap 0.10 | 119 | 23.2 % [19.3, 27.2] | 23.4 / 23.2 % | 4.5 % | 17.9 % (1.07 %) | 0.53 |
+| cap 0.015 | 121 | 23.6 % [19.5, 27.8] | 23.6 / 24.6 % | 5.7 % | 26.9 % (1.05 %) | 0.50 |
+| T 0.5 uniform (control, added after E2) | 135 | 26.4 % [22.0, 31.1] | 22.5 / 24.0 % | 7.4 % | - | 0.50 |
+
+Paired contrasts against uncapped, in points:
+
+| arm | flip difference [95 %] | discordant (uncapped only / arm only), McNemar p | accuracy difference [95 %] |
+|---|---|---|---|
+| cap 0.37 | -4.7 [-8.6, -0.7] | 70 / 46, 0.032 | +2.1 [+0.5, +3.6] |
+| cap 0.10 | -4.5 [-8.1, -0.9] | 85 / 62, 0.069 | +1.8 [0.0, +3.6] |
+| cap 0.015 | -4.1 [-7.3, -0.7] | 79 / 58, 0.087 | +2.5 [+0.7, +4.4] |
+| T 0.5 | -1.4 [-4.9, +2.2] | 58 / 51, 0.57 | +1.7 [+0.3, +3.1] |
+
+Caps against the T 0.5 control: flip differences -3.3 [-7.9, +1.0], -3.1 [-6.9, +0.6] and -2.7 [-7.1, +1.6];
+accuracy differences +0.4, +0.1 and +0.9 (all intervals contain 0).
+
+*Reading.*
+- By the card's criteria, every cap reduces flips (interval below 0) without costing accuracy (accuracy rose by about
+  2 points). The reduction is small: 4-5 of 28 points, so flips stay at 23 %.
+- There is no dose response. The mildest cap, binding on 9 % of the steps, does as well as the strongest (27 %). This
+  fits flips that are seeded at a few high-gain steps.
+- A uniform drop to T 0.5 reduced flips by only 1.4 points (not resolved), while raising accuracy just as much.
+  - The accuracy gain is therefore generic to a lower temperature.
+  - The flip reduction points to gain targeting, but the direct cap-minus-control contrasts are not resolved (their
+    intervals reach +0.6 to +1.6).
+- The control was added after the outcome. One temperature and one problem set: a pilot, not a demonstration.
+- Uncapped flips at 27.7 % are above PM's 21.1 % (different problems and length mix).
+- At exact bf16 top-2 ties (about 1 % of steps) the cap is unattainable and the step runs at T = 1e-3 (amendment of
+  01:05 UTC).
+
+**E3: vote over perturbed soft runs** (layout 16; 8 soft runs, the first soft token displaced by a relative 1e-3,
+realized after bf16 7.4e-4 to 1.0e-3).
+- A perturbation changed 20.2 % of the answers against the unperturbed run, which is close to the layout flip rate.
+- Distinct answers per problem: 1.60 among the 8 soft runs, 1.80 among the 8 sampled runs.
+
+| decoder | accuracy |
+|---|---|
+| soft, unperturbed single run | 22.1 % |
+| soft, mean single perturbed run (range 22.5-23.9 %) | 23.0 % |
+| **soft, vote of 8 perturbed runs** | **23.2 %** |
+| soft, pass@8 | 28.9 % |
+| greedy chain of thought | 85.4 % |
+| sampled chain of thought, mean single run (T 0.7; range 83.0-86.4 %) | 84.8 % |
+| **sampled self-consistency, vote of 8** | **90.4 %** |
+| sampled, pass@8 | 96.5 % |
+
+Paired differences, in points [cluster 95 %]:
+- soft vote minus single perturbed run: +0.2 [-1.0, +1.4];
+- soft vote minus unperturbed: +1.2 [-0.2, +2.8];
+- soft vote minus greedy: -62.1 [-67.2, -56.6];
+- soft vote minus self-consistency: -67.2 [-71.7, -62.5];
+- self-consistency minus single sampled run: +5.6 [+3.5, +8.1];
+- self-consistency minus greedy: +5.1 [+2.5, +7.9].
+
+By sensitivity:
+- Problems whose 8 perturbed runs all agree (300): soft accuracy 30 %.
+- Problems with 2 or 3 distinct answers (144 and 48): 14 % and 8 %. The vote does not lift them (13.9 % and 8.3 %,
+  against single runs at 14.4 % and 9.4 %).
+
+*Reading.*
+- The perturbation-induced diversity is real but carries almost no correct answers: pass@8 is only 29 %. A vote
+  cannot recover what the runs do not contain.
+- Self-consistency gains 5.6 points from the same number of runs because its runs are individually accurate and
+  diverse.
+- Sensitivity marks hard problems (accuracy falls with the number of distinct answers), but at this accuracy level
+  exploiting it gives nothing.
+
+**Caveats.**
+- Prompt lengths are restricted to 81-160 tokens.
+- Soft answers come from 12 greedy tokens after the cue. 16-24 of 512 soft rows per run have no number.
+- Chain of thought is capped at 320 new tokens, and 71-88 of 512 rows per run reach the cap.
+- The gain proxy is the harness's 12-step power-iteration estimate, not the exact readout Jacobian.

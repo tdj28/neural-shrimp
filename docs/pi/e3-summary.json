@@ -1,0 +1,320 @@
+{
+ "experiment": "E3 majority vote over perturbed soft runs against sampled self-consistency (exploratory)",
+ "program": "PI",
+ "model": "Qwen2.5-7B-Instruct bf16, snapshot a09a3545 (harness pin)",
+ "hardware": "local NVIDIA RTX 2000 Ada, torch 2.14.1+cu130, CUDA 13.0",
+ "problems": 512,
+ "harness_sha256": "a8546c81ff4c54b9b096a0fac9d7a6ae99252c2261314d381e753a26408d9e09",
+ "storage_root": "/data2/neural-shrimp-data",
+ "status": "exploratory pilot",
+ "source_commit_at_launch": "67765f7558f0ec88b339625fc5c5365bae7d9854",
+ "run_card": "docs/research-log.md 2026-10-17 00:45 UTC; s = 1e-3 chosen by the card's rule on development (01:05 UTC)",
+ "settings": {
+  "layout": 16,
+  "soft": "top-15, T 0.6, 64 steps; perturbation relative 1e-3 of the first soft token, direction default_rng(1000 + 1e6 k + index), k = 1-8",
+  "greedy": "T 0, at most 320 new tokens",
+  "sample": "T 0.7, top-p 0.95, seed 20261016 + 1e6 k, k = 1-8, at most 320 new tokens",
+  "stop_eos": true,
+  "vote": "plurality over extracted answers; missing answers do not vote; ties to the answer first reaching the tied count"
+ },
+ "gates": {
+  "soft0 equals E2 uncapped layout 16": "512/512 identical tokens and answers (rerun determinism)",
+  "missing answers per run": "soft0 24; perturbed soft 16-23; greedy 1; sampled 0-5",
+  "hit the 320-token limit": "greedy 75/512; sampled 71-88/512 per run",
+  "single-run accuracy range": "perturbed soft 0.2246-0.2383; sampled 0.8301-0.8633",
+  "every run 512 scored rows, no fillers": true
+ },
+ "gpu_minutes": 166.7,
+ "clusters": 32,
+ "K_soft": 8,
+ "K_sample": 8,
+ "accuracy": {
+  "soft_vote": 0.232421875,
+  "soft_single": 0.230224609375,
+  "soft0": 0.220703125,
+  "greedy": 0.853515625,
+  "sample_vote": 0.904296875,
+  "sample_single": 0.847900390625,
+  "soft_pass": 0.2890625,
+  "sample_pass": 0.96484375
+ },
+ "contrasts": {
+  "soft_vote - soft_single": {
+   "difference": 0.002197265625,
+   "cluster95": [
+    -0.009521484375,
+    0.01318359375
+   ]
+  },
+  "soft_vote - soft0": {
+   "difference": 0.01171875,
+   "cluster95": [
+    -0.001953125,
+    0.02734375
+   ]
+  },
+  "soft_vote - greedy": {
+   "difference": -0.62109375,
+   "cluster95": [
+    -0.671875,
+    -0.56640625
+   ]
+  },
+  "soft_vote - sample_vote": {
+   "difference": -0.671875,
+   "cluster95": [
+    -0.716796875,
+    -0.625
+   ]
+  },
+  "sample_vote - sample_single": {
+   "difference": 0.056396484375,
+   "cluster95": [
+    0.03515625,
+    0.080322265625
+   ]
+  },
+  "sample_vote - greedy": {
+   "difference": 0.05078125,
+   "cluster95": [
+    0.025390625,
+    0.078125
+   ]
+  },
+  "soft_single - soft0": {
+   "difference": 0.009521484375,
+   "cluster95": [
+    -0.002197265625,
+    0.021484375
+   ]
+  }
+ },
+ "soft_answer_changed_vs_unperturbed": 0.201904296875,
+ "soft_distinct_answers_mean": 1.595703125,
+ "sample_distinct_answers_mean": 1.8046875,
+ "by_soft_sensitivity_distinct_answers": {
+  "1": {
+   "problems": 300,
+   "soft_vote": 0.3,
+   "soft_single": 0.3,
+   "soft0": 0.29333333333333333,
+   "greedy": 0.87,
+   "sample_vote": 0.9266666666666666
+  },
+  "2": {
+   "problems": 144,
+   "soft_vote": 0.1388888888888889,
+   "soft_single": 0.1440972222222222,
+   "soft0": 0.13194444444444445,
+   "greedy": 0.8472222222222222,
+   "sample_vote": 0.8819444444444444
+  },
+  "3": {
+   "problems": 48,
+   "soft_vote": 0.08333333333333333,
+   "soft_single": 0.09375,
+   "soft0": 0.0625,
+   "greedy": 0.8125,
+   "sample_vote": 0.8333333333333334
+  },
+  "4": {
+   "problems": 16,
+   "soft_vote": 0.25,
+   "soft_single": 0.1328125,
+   "soft0": 0.125,
+   "greedy": 0.75,
+   "sample_vote": 0.875
+  },
+  "5": {
+   "problems": 3,
+   "soft_vote": 0.0,
+   "soft_single": 0.08333333333333333,
+   "soft0": 0.3333333333333333,
+   "greedy": 0.6666666666666666,
+   "sample_vote": 1.0
+  },
+  "6": {
+   "problems": 1,
+   "soft_vote": 1.0,
+   "soft_single": 0.25,
+   "soft0": 0.0,
+   "greedy": 1.0,
+   "sample_vote": 1.0
+  }
+ },
+ "perturb_realized_relative": {
+  "min": 0.0007423411589115858,
+  "median": 0.0008273515559267253,
+  "max": 0.0009954804554581642
+ },
+ "runs": {
+  "soft0": "/data2/neural-shrimp-data/explore/pi/e3/soft0",
+  "soft": [
+   "/data2/neural-shrimp-data/explore/pi/e3/soft-k1",
+   "/data2/neural-shrimp-data/explore/pi/e3/soft-k2",
+   "/data2/neural-shrimp-data/explore/pi/e3/soft-k3",
+   "/data2/neural-shrimp-data/explore/pi/e3/soft-k4",
+   "/data2/neural-shrimp-data/explore/pi/e3/soft-k5",
+   "/data2/neural-shrimp-data/explore/pi/e3/soft-k6",
+   "/data2/neural-shrimp-data/explore/pi/e3/soft-k7",
+   "/data2/neural-shrimp-data/explore/pi/e3/soft-k8"
+  ],
+  "greedy": "/data2/neural-shrimp-data/explore/pi/e3/greedy",
+  "sample": [
+   "/data2/neural-shrimp-data/explore/pi/e3/sample-k1",
+   "/data2/neural-shrimp-data/explore/pi/e3/sample-k2",
+   "/data2/neural-shrimp-data/explore/pi/e3/sample-k3",
+   "/data2/neural-shrimp-data/explore/pi/e3/sample-k4",
+   "/data2/neural-shrimp-data/explore/pi/e3/sample-k5",
+   "/data2/neural-shrimp-data/explore/pi/e3/sample-k6",
+   "/data2/neural-shrimp-data/explore/pi/e3/sample-k7",
+   "/data2/neural-shrimp-data/explore/pi/e3/sample-k8"
+  ]
+ },
+ "raw": {
+  "/data2/neural-shrimp-data/explore/pi/e3/soft0/records.jsonl": {
+   "sha256": "ac8aeee8f39866e43637b6d10b79df679f0fae700b870f7e78cdcbdf01c9c5e0",
+   "bytes": 1264456
+  },
+  "/data2/neural-shrimp-data/explore/pi/e3/soft0/run.json": {
+   "sha256": "57de31de5168f1f5f61359c89f67bcf73252b40fe15a255b794aa01cbb6bac64",
+   "bytes": 952
+  },
+  "/data2/neural-shrimp-data/explore/pi/e3/soft-k1/records.jsonl": {
+   "sha256": "e79efabbc7c6cc39eb0c95a708e7e3947381c815b0d3f6f1052247e3191cb974",
+   "bytes": 1286856
+  },
+  "/data2/neural-shrimp-data/explore/pi/e3/soft-k1/run.json": {
+   "sha256": "5e032412800cc5697b6e27ca6382d5c83116846b2753ed9366869578cd4e92a2",
+   "bytes": 959
+  },
+  "/data2/neural-shrimp-data/explore/pi/e3/soft-k2/records.jsonl": {
+   "sha256": "4f45e4fe7fe78d67b7d4e0ab9a28e072eb54ee8726a7f2575c7147c50b7f388e",
+   "bytes": 1286660
+  },
+  "/data2/neural-shrimp-data/explore/pi/e3/soft-k2/run.json": {
+   "sha256": "5f5d8df68be541c9186d8f930ec345770508c1c11d609431ce169192c2070870",
+   "bytes": 959
+  },
+  "/data2/neural-shrimp-data/explore/pi/e3/soft-k3/records.jsonl": {
+   "sha256": "493dc3346ac98ec01ec4d2549144a6553654c1289876bbd69180db8e1db8810d",
+   "bytes": 1286482
+  },
+  "/data2/neural-shrimp-data/explore/pi/e3/soft-k3/run.json": {
+   "sha256": "78e49dee559aed51960a78eb96b8e15bc92a684442d2912e4d7c0103bb00ed4e",
+   "bytes": 959
+  },
+  "/data2/neural-shrimp-data/explore/pi/e3/soft-k4/records.jsonl": {
+   "sha256": "0709f065755072b7d6db7f2f8fc37c792c02d7b91b6ff1dd43b1fe7417bbbba4",
+   "bytes": 1286673
+  },
+  "/data2/neural-shrimp-data/explore/pi/e3/soft-k4/run.json": {
+   "sha256": "20af0cc135c464b03fd4f598809579f281dee7ccede940ace6c43622449a9a9d",
+   "bytes": 959
+  },
+  "/data2/neural-shrimp-data/explore/pi/e3/soft-k5/records.jsonl": {
+   "sha256": "27f20757bb65ca76d85fd041033d48c4408ade8e63047e672d0c75da9b28f7a9",
+   "bytes": 1286131
+  },
+  "/data2/neural-shrimp-data/explore/pi/e3/soft-k5/run.json": {
+   "sha256": "12ffd6e2af7cadad601c90220efd84f268718a56ca02dead347791fa9f02d46e",
+   "bytes": 959
+  },
+  "/data2/neural-shrimp-data/explore/pi/e3/soft-k6/records.jsonl": {
+   "sha256": "d97317903081eb168e358439c8c9ceff8a62ae4ac57c17197d284778ae1a9ca2",
+   "bytes": 1285630
+  },
+  "/data2/neural-shrimp-data/explore/pi/e3/soft-k6/run.json": {
+   "sha256": "5be68b6399337917f6ebe07e8bd78c840d013ff386690a49bbb5719897708784",
+   "bytes": 959
+  },
+  "/data2/neural-shrimp-data/explore/pi/e3/soft-k7/records.jsonl": {
+   "sha256": "251219895a39ed55b6c9dcd7c068fdf2c0ed8112a4dd8b98187f5f1f9a28c048",
+   "bytes": 1287087
+  },
+  "/data2/neural-shrimp-data/explore/pi/e3/soft-k7/run.json": {
+   "sha256": "261a479bedf91efcdc7abf9c7fb0e0b29833a645ab397d47955ac73dc11febd7",
+   "bytes": 959
+  },
+  "/data2/neural-shrimp-data/explore/pi/e3/soft-k8/records.jsonl": {
+   "sha256": "a4afb2e8513a672ea2f759e8179ec2278c45f31751c058d853e3563cb3e3856c",
+   "bytes": 1286792
+  },
+  "/data2/neural-shrimp-data/explore/pi/e3/soft-k8/run.json": {
+   "sha256": "edffd3705679581713ad926cb6d5fa41ea49af0bcb9525b8a464f1a9dc9f731e",
+   "bytes": 959
+  },
+  "/data2/neural-shrimp-data/explore/pi/e3/greedy/records.jsonl": {
+   "sha256": "eec5c9c60580c6c0ea23a585c1479e45759c5f78aeb8ccf2168c6c8be391449e",
+   "bytes": 5339724
+  },
+  "/data2/neural-shrimp-data/explore/pi/e3/greedy/run.json": {
+   "sha256": "99f8435b59874b193cf9be51ab818a6aa688d31289d32227e4b0d4e8669e1df2",
+   "bytes": 951
+  },
+  "/data2/neural-shrimp-data/explore/pi/e3/sample-k1/records.jsonl": {
+   "sha256": "71274405d17769a470cccce803f58d545ef2921d7ea41b1f8d020f4df01de7ab",
+   "bytes": 5170489
+  },
+  "/data2/neural-shrimp-data/explore/pi/e3/sample-k1/run.json": {
+   "sha256": "8a6d65c6c9a079531442028bae24b00eef80028e6b1ed009a3128436e1388848",
+   "bytes": 954
+  },
+  "/data2/neural-shrimp-data/explore/pi/e3/sample-k2/records.jsonl": {
+   "sha256": "edaafd36a6c7445fe16dbe1c4edeea80291df53769181746d5c506bdbf8666da",
+   "bytes": 5178662
+  },
+  "/data2/neural-shrimp-data/explore/pi/e3/sample-k2/run.json": {
+   "sha256": "20f42b63ce13fec627cc140ddb9c1890c2182f5fe3bfae24f18da0a11987ef11",
+   "bytes": 954
+  },
+  "/data2/neural-shrimp-data/explore/pi/e3/sample-k3/records.jsonl": {
+   "sha256": "4057120a1054d4159e90be399b22f12dd279f281360992be62d782a705f4ccbf",
+   "bytes": 5173913
+  },
+  "/data2/neural-shrimp-data/explore/pi/e3/sample-k3/run.json": {
+   "sha256": "d92e36b460ef149de2222b4c92726e8b9537858b51a66e3b6e47c56526cc6a01",
+   "bytes": 954
+  },
+  "/data2/neural-shrimp-data/explore/pi/e3/sample-k4/records.jsonl": {
+   "sha256": "d9d08012761bab4893bd3034e2adc03cdbe89edbc178e170ee921e005b8a4136",
+   "bytes": 5108530
+  },
+  "/data2/neural-shrimp-data/explore/pi/e3/sample-k4/run.json": {
+   "sha256": "35f7f2ac52534c7865b79fc9f82bc24b0c39e7ec5c8df46feb52a98ecab3f8b0",
+   "bytes": 954
+  },
+  "/data2/neural-shrimp-data/explore/pi/e3/sample-k5/records.jsonl": {
+   "sha256": "517e7f04db999d7baecbe4ac6f6e787c1a447538b5855eabafd548030df58149",
+   "bytes": 5164785
+  },
+  "/data2/neural-shrimp-data/explore/pi/e3/sample-k5/run.json": {
+   "sha256": "07854b781f91fb138dafe2082cc602a5bb7eb229a8f1caf3d5094ead5b02a25c",
+   "bytes": 954
+  },
+  "/data2/neural-shrimp-data/explore/pi/e3/sample-k6/records.jsonl": {
+   "sha256": "e18ee3faf2f2c62a48b8f8c5eb95a04bf84bd9861aea7c151111b9fd15d046a9",
+   "bytes": 5151777
+  },
+  "/data2/neural-shrimp-data/explore/pi/e3/sample-k6/run.json": {
+   "sha256": "de8494e67a3a25fef91bcb5203d4ccde3d8fede8f29441890559172a904b7efb",
+   "bytes": 954
+  },
+  "/data2/neural-shrimp-data/explore/pi/e3/sample-k7/records.jsonl": {
+   "sha256": "fbebf441913f1d46641d11f418f0da350e2b812cc54300d05a6cf66d3398fb8a",
+   "bytes": 5172767
+  },
+  "/data2/neural-shrimp-data/explore/pi/e3/sample-k7/run.json": {
+   "sha256": "a3a80ee815b588b00947e4b639caa6664e1f23e8cd71900e8246d31e8e0be2bd",
+   "bytes": 954
+  },
+  "/data2/neural-shrimp-data/explore/pi/e3/sample-k8/records.jsonl": {
+   "sha256": "50a107c36787d0c85fc2412cca792755cdc22e73cef346b0530a87f3f329d1c6",
+   "bytes": 5212450
+  },
+  "/data2/neural-shrimp-data/explore/pi/e3/sample-k8/run.json": {
+   "sha256": "fd168cad291e5e711f7fe277c7566aa48247252bf3fb21a4832a1e8f70d6b631",
+   "bytes": 954
+  }
+ }
+}

@@ -1,0 +1,432 @@
+{
+ "experiment": "E2 gain-capped soft thinking (exploratory)",
+ "program": "PI",
+ "model": "Qwen2.5-7B-Instruct bf16, snapshot a09a3545 (harness pin)",
+ "hardware": "local NVIDIA RTX 2000 Ada, torch 2.14.1+cu130, CUDA 13.0",
+ "problems": {
+  "file": "docs/pi/e2e3-problems.json",
+  "sha256_indices": "49083f0ea015329e5702ddf933b5fec3d591d178770168e9afbf7bfc477c76ed",
+  "count": 512,
+  "rule": "GSM8K train index >= 2000; 32 prompt lengths (81-160 tokens) evenly spaced in rank among lengths with >= 16 problems; first 16 per length; no fillers"
+ },
+ "harness_sha256": "a8546c81ff4c54b9b096a0fac9d7a6ae99252c2261314d381e753a26408d9e09",
+ "storage_root": "/data2/neural-shrimp-data",
+ "status": "exploratory pilot",
+ "source_commit_at_launch": {
+  "cap arms": "f55d38c6693cc0232f6401f1be454268a9dc49cc",
+  "t0.5 control": "43ba01d7 (tools/pi_e2ctl_run.sh)"
+ },
+ "run_card": "docs/research-log.md 2026-10-17 00:45 UTC; amendments 01:05 UTC (unattainable cap at exact ties) and 02:15 UTC (T 0.5 control, added after the E2 outcome)",
+ "settings": "soft top-15, 64 steps, T 0.6 (cap arms: per-step T lowered by bisection until gain proxy <= cap), layouts 8 and 16, 12 greedy answer tokens",
+ "caps_from": "E1 top-15 layout 16 active-step gain quartiles (0.37 upper, 0.10 median, 0.015 lower)",
+ "bootstrap_note": "cluster bootstraps share one RNG stream in arm order; intervals shift by about 0.001-0.002 when arms are added",
+ "gpu_minutes": {
+  "dev (shared with E3)": 21.6,
+  "cap arms": 68.1,
+  "t0.5": 10.8
+ },
+ "arms": {
+  "uncapped": {
+   "run": "/data2/neural-shrimp-data/explore/pi/e2/cap0",
+   "gain_cap": 0.0,
+   "top_n": 15,
+   "temperature": 0.6,
+   "soft_steps": 64,
+   "layouts": [
+    8,
+    16
+   ],
+   "problems": 512,
+   "clusters": 32,
+   "answer_flips": 142,
+   "flip_rate": 0.27734375,
+   "flip_wilson95": [
+    0.24033271159123004,
+    0.3176710198372925
+   ],
+   "flip_cluster95": [
+    0.244140625,
+    0.310546875
+   ],
+   "accuracy": {
+    "8": 0.2109375,
+    "16": 0.220703125
+   },
+   "accuracy_mean": 0.2158203125,
+   "exactly_one_correct": 0.060546875,
+   "missing_answers": {
+    "8": 19,
+    "16": 24
+   },
+   "steps_capped_share": 0.0,
+   "mean_step_temperature": 0.6,
+   "mean_gain": 0.0725984309387207,
+   "max_gain": 0.8897,
+   "steps_cap_unmet_share": null,
+   "median_gain_where_met": null
+  },
+  "cap0.37": {
+   "run": "/data2/neural-shrimp-data/explore/pi/e2/cap0.37",
+   "gain_cap": 0.37,
+   "top_n": 15,
+   "temperature": 0.6,
+   "soft_steps": 64,
+   "layouts": [
+    8,
+    16
+   ],
+   "problems": 512,
+   "clusters": 32,
+   "answer_flips": 118,
+   "flip_rate": 0.23046875,
+   "flip_wilson95": [
+    0.19607853039217127,
+    0.2688733550213035
+   ],
+   "flip_cluster95": [
+    0.185546875,
+    0.27734375
+   ],
+   "accuracy": {
+    "8": 0.23046875,
+    "16": 0.2421875
+   },
+   "accuracy_mean": 0.236328125,
+   "exactly_one_correct": 0.05078125,
+   "missing_answers": {
+    "8": 17,
+    "16": 17
+   },
+   "steps_capped_share": 0.0897979736328125,
+   "mean_step_temperature": 0.5615403935241698,
+   "mean_gain": 3.699285872497559,
+   "max_gain": 539.12372,
+   "steps_cap_unmet_share": 0.0092926025390625,
+   "median_gain_where_met": 0.0
+  },
+  "cap0.10": {
+   "run": "/data2/neural-shrimp-data/explore/pi/e2/cap0.10",
+   "gain_cap": 0.1,
+   "top_n": 15,
+   "temperature": 0.6,
+   "soft_steps": 64,
+   "layouts": [
+    8,
+    16
+   ],
+   "problems": 512,
+   "clusters": 32,
+   "answer_flips": 119,
+   "flip_rate": 0.232421875,
+   "flip_wilson95": [
+    0.1979107472113093,
+    0.27091829845279247
+   ],
+   "flip_cluster95": [
+    0.193359375,
+    0.271484375
+   ],
+   "accuracy": {
+    "8": 0.234375,
+    "16": 0.232421875
+   },
+   "accuracy_mean": 0.2333984375,
+   "exactly_one_correct": 0.044921875,
+   "missing_answers": {
+    "8": 18,
+    "16": 18
+   },
+   "steps_capped_share": 0.1790313720703125,
+   "mean_step_temperature": 0.5344460789489744,
+   "mean_gain": 4.06767437423706,
+   "max_gain": 529.64307,
+   "steps_cap_unmet_share": 0.010711669921875,
+   "median_gain_where_met": 0.0
+  },
+  "cap0.015": {
+   "run": "/data2/neural-shrimp-data/explore/pi/e2/cap0.015",
+   "gain_cap": 0.015,
+   "top_n": 15,
+   "temperature": 0.6,
+   "soft_steps": 64,
+   "layouts": [
+    8,
+    16
+   ],
+   "problems": 512,
+   "clusters": 32,
+   "answer_flips": 121,
+   "flip_rate": 0.236328125,
+   "flip_wilson95": [
+    0.20157840920407466,
+    0.2750049569612811
+   ],
+   "flip_cluster95": [
+    0.1953125,
+    0.27734375
+   ],
+   "accuracy": {
+    "8": 0.236328125,
+    "16": 0.24609375
+   },
+   "accuracy_mean": 0.2412109375,
+   "exactly_one_correct": 0.056640625,
+   "missing_answers": {
+    "8": 19,
+    "16": 20
+   },
+   "steps_capped_share": 0.26873779296875,
+   "mean_step_temperature": 0.5044704522705077,
+   "mean_gain": 3.932563391418457,
+   "max_gain": 529.64307,
+   "steps_cap_unmet_share": 0.0105133056640625,
+   "median_gain_where_met": 0.0
+  },
+  "t0.5": {
+   "run": "/data2/neural-shrimp-data/explore/pi/e2/t0.5",
+   "gain_cap": 0.0,
+   "top_n": 15,
+   "temperature": 0.5,
+   "soft_steps": 64,
+   "layouts": [
+    8,
+    16
+   ],
+   "problems": 512,
+   "clusters": 32,
+   "answer_flips": 135,
+   "flip_rate": 0.263671875,
+   "flip_wilson95": [
+    0.22736711786372893,
+    0.30349649181040467
+   ],
+   "flip_cluster95": [
+    0.220703125,
+    0.310546875
+   ],
+   "accuracy": {
+    "8": 0.224609375,
+    "16": 0.240234375
+   },
+   "accuracy_mean": 0.232421875,
+   "exactly_one_correct": 0.07421875,
+   "missing_answers": {
+    "8": 18,
+    "16": 20
+   },
+   "steps_capped_share": 0.0,
+   "mean_step_temperature": 0.5,
+   "mean_gain": 0.0747419612121582,
+   "max_gain": 1.05986,
+   "steps_cap_unmet_share": null,
+   "median_gain_where_met": null
+  }
+ },
+ "contrasts": {
+  "cap0.37 - uncapped": {
+   "problems": 512,
+   "flip_rate_difference": -0.046875,
+   "flip_cluster95": [
+    -0.0859375,
+    -0.0078125
+   ],
+   "flip_discordant_base_only_arm_only": [
+    70,
+    46
+   ],
+   "flip_mcnemar_p": 0.032272020733093106,
+   "accuracy_difference": 0.0205078125,
+   "accuracy_cluster95": [
+    0.005859375,
+    0.03515625
+   ],
+   "exactly_one_correct_difference": -0.009765625,
+   "exactly_one_cluster95": [
+    -0.029296875,
+    0.009765625
+   ]
+  },
+  "cap0.10 - uncapped": {
+   "problems": 512,
+   "flip_rate_difference": -0.044921875,
+   "flip_cluster95": [
+    -0.080078125,
+    -0.009765625
+   ],
+   "flip_discordant_base_only_arm_only": [
+    85,
+    62
+   ],
+   "flip_mcnemar_p": 0.06923250717353216,
+   "accuracy_difference": 0.017578125,
+   "accuracy_cluster95": [
+    0.0009765625,
+    0.03515625
+   ],
+   "exactly_one_correct_difference": -0.015625,
+   "exactly_one_cluster95": [
+    -0.033203125,
+    0.001953125
+   ]
+  },
+  "cap0.015 - uncapped": {
+   "problems": 512,
+   "flip_rate_difference": -0.041015625,
+   "flip_cluster95": [
+    -0.072265625,
+    -0.0078125
+   ],
+   "flip_discordant_base_only_arm_only": [
+    79,
+    58
+   ],
+   "flip_mcnemar_p": 0.08713322647534709,
+   "accuracy_difference": 0.025390625,
+   "accuracy_cluster95": [
+    0.0078125,
+    0.0439453125
+   ],
+   "exactly_one_correct_difference": -0.00390625,
+   "exactly_one_cluster95": [
+    -0.021484375,
+    0.013671875
+   ]
+  },
+  "t0.5 - uncapped": {
+   "problems": 512,
+   "flip_rate_difference": -0.013671875,
+   "flip_cluster95": [
+    -0.048828125,
+    0.021484375
+   ],
+   "flip_discordant_base_only_arm_only": [
+    58,
+    51
+   ],
+   "flip_mcnemar_p": 0.5657001139736338,
+   "accuracy_difference": 0.0166015625,
+   "accuracy_cluster95": [
+    0.00390625,
+    0.0302734375
+   ],
+   "exactly_one_correct_difference": 0.013671875,
+   "exactly_one_cluster95": [
+    -0.009765625,
+    0.037109375
+   ]
+  }
+ },
+ "raw": {
+  "/data2/neural-shrimp-data/explore/pi/e2/cap0/records.jsonl": {
+   "sha256": "ca8c316c7fcca59111f9b5becd172e79371d3cb498837a02d51786962d86bc62",
+   "bytes": 2527665
+  },
+  "/data2/neural-shrimp-data/explore/pi/e2/cap0/run.json": {
+   "sha256": "3e1026b0955966c846ae5deae1776b6d126a1ffe5ba362308131350b6cd478ff",
+   "bytes": 957
+  },
+  "/data2/neural-shrimp-data/explore/pi/e2/cap0.37/records.jsonl": {
+   "sha256": "548aad1f9cb80d0a7d08c3d4e66fa8f5df6b19666d597384f0d75d4ddb74d317",
+   "bytes": 2888191
+  },
+  "/data2/neural-shrimp-data/explore/pi/e2/cap0.37/run.json": {
+   "sha256": "3d3a53d25b9bea135c61c87a0c77bdffb791fc79a589399330488dc10038e153",
+   "bytes": 961
+  },
+  "/data2/neural-shrimp-data/explore/pi/e2/cap0.10/records.jsonl": {
+   "sha256": "250001d7a884c6ba2b42243124ce34ead6f9f86f6d94240d5a705d38a61fa8d7",
+   "bytes": 2907097
+  },
+  "/data2/neural-shrimp-data/explore/pi/e2/cap0.10/run.json": {
+   "sha256": "e1681b786cec92b9032f0ccfe060e28334b0449bc7ee2f3d561febc4c317383b",
+   "bytes": 960
+  },
+  "/data2/neural-shrimp-data/explore/pi/e2/cap0.015/records.jsonl": {
+   "sha256": "bb00aa625bf64b98ecd9c08a15371e83e23e3859d1fe7c57a2a1229f5531692f",
+   "bytes": 2921131
+  },
+  "/data2/neural-shrimp-data/explore/pi/e2/cap0.015/run.json": {
+   "sha256": "a27eb53f1dd328608e688c799b7210442caee2988f4ee0f3442bf91c7c178630",
+   "bytes": 963
+  },
+  "/data2/neural-shrimp-data/explore/pi/e2/t0.5/records.jsonl": {
+   "sha256": "b766a98493781211c8b0b9ca04124f547034eef27bd468cddff0edca34aae5bc",
+   "bytes": 2367551
+  },
+  "/data2/neural-shrimp-data/explore/pi/e2/t0.5/run.json": {
+   "sha256": "7d1a62abac5e561936b1b80e47eeef2eb3f1288916c88f0f31943f9b2e0c55d4",
+   "bytes": 957
+  }
+ },
+ "contrasts_vs_t0.5": {
+  "cap0.37 - t0.5": {
+   "problems": 512,
+   "flip_rate_difference": -0.033203125,
+   "flip_cluster95": [
+    -0.078125,
+    0.009765625
+   ],
+   "flip_discordant_base_only_arm_only": [
+    69,
+    52
+   ],
+   "flip_mcnemar_p": 0.14548652043450483,
+   "accuracy_difference": 0.00390625,
+   "accuracy_cluster95": [
+    -0.0107421875,
+    0.01953125
+   ],
+   "exactly_one_correct_difference": -0.0234375,
+   "exactly_one_cluster95": [
+    -0.048828125,
+    0.001953125
+   ]
+  },
+  "cap0.10 - t0.5": {
+   "problems": 512,
+   "flip_rate_difference": -0.03125,
+   "flip_cluster95": [
+    -0.068359375,
+    0.005859375
+   ],
+   "flip_discordant_base_only_arm_only": [
+    76,
+    60
+   ],
+   "flip_mcnemar_p": 0.19818134136296867,
+   "accuracy_difference": 0.0009765625,
+   "accuracy_cluster95": [
+    -0.015625,
+    0.0185546875
+   ],
+   "exactly_one_correct_difference": -0.029296875,
+   "exactly_one_cluster95": [
+    -0.05078125,
+    -0.009765625
+   ]
+  },
+  "cap0.015 - t0.5": {
+   "problems": 512,
+   "flip_rate_difference": -0.02734375,
+   "flip_cluster95": [
+    -0.0703125,
+    0.015625
+   ],
+   "flip_discordant_base_only_arm_only": [
+    70,
+    56
+   ],
+   "flip_mcnemar_p": 0.24670624718941767,
+   "accuracy_difference": 0.0087890625,
+   "accuracy_cluster95": [
+    -0.0068359375,
+    0.0263671875
+   ],
+   "exactly_one_correct_difference": -0.017578125,
+   "exactly_one_cluster95": [
+    -0.044921875,
+    0.009765625
+   ]
+  }
+ }
+}
