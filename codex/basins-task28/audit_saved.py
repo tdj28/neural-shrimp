@@ -21,10 +21,11 @@ def main():
  report=json.loads((root/'report.json').read_text());assert report['completed'];receipt=json.loads((root.parent/(root.name+'-supervision')/'receipt.json').read_text());assert receipt['returncode']==0 and receipt['failure'] is None and receipt['worker_reaped'] and receipt['worker_group_session_absent']
  for p in receipt['output_files']:
   q=pin(p['path']);assert all(q[k]==p[k] for k in ['bytes','sha256'])
+ assert periods(np.load(root/'donor.npz')['tail'])[0][0]==2
  results=[]
  for entry in report['results']:
   alpha=entry['alpha'];v=json.loads((root/f'result-{alpha}.json').read_text());assert v==entry
-  z=np.load(root/f'basins-{alpha}.npz');rt=np.load(root/f'references-{alpha}.npz')['tail'];tail=z['tail'];mid=z['mid'];per=periods(tail);mp=periods(mid);stops=np.load(root/f'basins-{alpha}-stop-steps.npy');assert stops.shape==(323,) and np.all((stops>=192)&(stops<=1200))
+  z=np.load(root/f'basins-{alpha}.npz');rt=np.load(root/f'references-{alpha}.npz')['tail'];tail=z['tail'];mid=z['mid'];assert [x[0] for x in periods(rt)]==v['reference_periods'];assert v['reference_periods'][1]==2;per=periods(tail);mp=periods(mid);stops=np.load(root/f'basins-{alpha}-stop-steps.npy');assert stops.shape==(323,) and np.all((stops>=192)&(stops<=1200))
   assert z['initial'].shape==(323,896) and z['single_ids'].shape==(128,) and z['mixture_ids'].shape==(128,8);assert np.allclose(z['mixture_weights'].sum(1),1,rtol=0,atol=1e-14) and np.all(z['mixture_weights']>0)
   for j,row in enumerate(v['rows']):
    assert row['index']==j and row['period']==per[j][0] and row['mid_period']==mp[j][0]
@@ -44,11 +45,17 @@ def main():
     assert np.allclose(s['wilson95'],[center-half,center+half],rtol=0,atol=1e-15)
   seg=[r['label'] for r in v['rows'][256:321]];assert seg==v['segment_labels'];changes=[j for j in range(64) if seg[j]!=seg[j+1]];assert len(changes)==len(v['coarse_transitions'])
   for j,b in zip(changes,v['coarse_transitions']):assert b==dict(lo=j/64,hi=(j+1)/64,left=seg[j],right=seg[j+1])
-  for depth in range(8 if v['refined_binary_brackets'] else 0):
+  rebuilt=[b.copy() for b in v['coarse_transitions'] if (b['left']=='donor_period2')!=(b['right']=='donor_period2')]
+  if len(rebuilt)>16:rebuilt=[]
+  assert len(rebuilt)==len(v['refined_binary_brackets'])
+  for depth in range(8 if rebuilt else 0):
    bz=np.load(root/f'boundary-{alpha}-{depth}.npz');bps=periods(bz['tail']);rows=[x for x in v['bisection_history'] if x['depth']==depth];assert len(rows)==len(bps)
    for j,row in enumerate(rows):
-    assert row['u']==bz['u'][j] and row['period']==bps[j][0]
+    assert row['u']==bz['u'][j]==(rebuilt[j]['lo']+rebuilt[j]['hi'])/2 and row['period']==bps[j][0]
     dist=float(np.min(np.linalg.norm(bz['tail'][-1,j]-rt[-2:,1],axis=1))/np.linalg.norm(bz['tail'][-1,j]));assert abs(row['distance']-dist)<1e-14;assert row['donor']==(bps[j][0]==2 and dist<1e-6)
+    if row['donor']==(rebuilt[j]['left']=='donor_period2'):rebuilt[j]['lo']=row['u']
+    else:rebuilt[j]['hi']=row['u']
+  assert rebuilt==v['refined_binary_brackets']
   for b in v['refined_binary_brackets']:assert 0<=b['lo']<b['hi']<=1 and b['hi']-b['lo']==1/16384
   initial=z['initial'][-2];d2=float(np.min(np.linalg.norm(rt[-2:,1]-initial,axis=1)));d3=float(np.min(np.linalg.norm(rt[-(v['reference_periods'][0] or 129):,0]-initial,axis=1)));assert abs(d2-v['proximity'][0]['min_distance_period2'])<1e-14 and abs(d3-v['proximity'][0]['min_distance_crescent_reference'])<1e-14
   nearest=[];confusion={};eligible=0;correct=0
