@@ -28335,7 +28335,7 @@ By the card's rule, **s = 1e-3**.
 Development values (48 problems, not results): flip rates 25.0, 25.0, 16.7 and 20.8 % (uncapped, 0.37, 0.10, 0.015);
 accuracy 15-19 %. Development greedy and sampled chain of thought scored 95.8 % and 89.6 %.
 
-## 2026-10-17 01:25 UTC: E2E written up: paper section "From greedy loops to chaos: one picture"
+## 2026-10-17 01:08 UTC: E2E written up: paper section "From greedy loops to chaos: one picture"
 
 Paper commit c92bb496 (section sec:picture before "Beyond the one-token loop"). The Chaos article has a Discussion paragraph, "One picture". The blog agent was asked to sync. Sources: docs/e2e/STATUS.md, explore/e2e/. Run q2b (the extra band cuts) and fig-e2e are still in the queue. The section cites no number from them; if q2b changes the band picture, amend the section.
 
