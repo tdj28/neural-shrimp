@@ -23,3 +23,7 @@ Preserve001 and002. Saved review found TeX row-break optional brackets falsely o
 ## 2026-10-17T01:20:05.545890+00:00 — before corrected frozen scan run003
 
 Seven focused delimiter controls passed once (cd304a6a; closure945ea73f) with0.145647651s external and2841B. Root accepted exact card02ea9019/plan62508062 after full source/delta review. Same1368 frozen files32,028,343B, publication36713c41/main910c8e37; corrected checkerd8c4c278 only. CPU1+supervisor/nice10,140CPU150wall2GiB128MiB,20/16GiB RAM16GiB disk and fixedcleanup. Prior002 observed104.342199s/22,560,727B supports unchanged caps, not guarantee. No old controls/profile or focused controls repeated; no automatic retry. Original001 and002 remain preserved and are not final checker outputs.
+
+## 2026-10-17T01:26:57.838528+00:00 — final corrected scan accepted
+
+Run003 d8c4c278 at source90785df2 completed under fixed limits and closed atcafbdb0a. Final reportf01d61bf accepted after targeted saved review of known regression cases and all9 unmatched literals; not adjudication of allcandidate links.6513tokens:5905datacandidates373bounds226logonly9unmatched;6215ambiguous sets.113.432211s checker before finalserialization,118.634965s external,536832KiB atchildreap,22,524,890B. All19/8/7controlgroups each once, no additionalcomputation. Fullcandidate/report files external; standalone delivery follows evidencecheckpoint.

@@ -1,0 +1,89 @@
+{
+  "utc": "2026-10-17T01:20:29.217067+00:00",
+  "source_commit": "90785df2617172ede10c543caf914f64057f3acd",
+  "private_origin_equal": true,
+  "source_blobs": [
+    {
+      "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/paper-number-check-20261016/check.py",
+      "bytes": 23312,
+      "sha256": "d8c4c278b77c1507cbaa308913eb24c2e3bfe57f6085fa94dc627e864d31f403"
+    },
+    {
+      "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/paper-number-check-20261016/run-003-card.json",
+      "bytes": 9432,
+      "sha256": "02ea901976d66e2482ec98bf88abcfb71431a868fa3c506249c8dcb326a0769c"
+    },
+    {
+      "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/new-results-review-20261017/supervise.py",
+      "bytes": 8569,
+      "sha256": "e361919ed104a800ed043d15726edc10775260fc482d6f98d9c5fb7c98f1e77e"
+    }
+  ],
+  "preflight_pins": [
+    {
+      "path": "/tmp/claude-task26-27-20261017-source-001/manifest.json",
+      "bytes": 543395,
+      "sha256": "6f99963fb87d01124bf47bbe1ce9f8bf00bb37195249c184a94e93a76792645a"
+    },
+    {
+      "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/paper-number-check-20261016/run-003-card.json",
+      "bytes": 9432,
+      "sha256": "02ea901976d66e2482ec98bf88abcfb71431a868fa3c506249c8dcb326a0769c"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/codex/paper-number-check-20261016/run-002-original-closure.json",
+      "bytes": 6553,
+      "sha256": "ff97eff7466e4e6c3422f980cbd3e35d81dc4ec72b93b8d806945ede4614adf2"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/codex/paper-number-check-20261016/delimiter-controls-003/report.json",
+      "bytes": 2841,
+      "sha256": "cd304a6a14d70e6589bf1a97bbd3f915f4f1bacc9ac0ff081eda87fc91161aa0"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/codex/paper-number-check-20261016/delimiter-controls-003-supervision/receipt.json",
+      "bytes": 5000,
+      "sha256": "de9d145eae2f906738cdec060ec457e672a2afb778ac7934c321081e90e9b3f0"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/codex/paper-number-check-20261016/delimiter-controls-003-original-closure.json",
+      "bytes": 6658,
+      "sha256": "945ea73fc3b0b63ea21995316f9e42c7e7cfdd53c7f3ba439cf17f4bef481be9"
+    }
+  ],
+  "old_original_identities_closed": [
+    {
+      "pid": 406015,
+      "starttime": 214650989,
+      "pgid": 406015,
+      "sid": 406015,
+      "state": "R",
+      "nice": 10,
+      "threads": 1,
+      "uid_line": "Uid:\t1000\t1000\t1000\t1000",
+      "cmdline": "/data2/neural-shrimp/.venv/bin/python -I -B /home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/new-results-review-20261017/supervise.py --plan /home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/paper-number-check-20261016/operation-delimiter-controls-003.json --lane delimiter_controls --source 28b05927685cc84336382db7e645cf8237341934 ",
+      "limits": "Limit                     Soft Limit           Hard Limit           Units     \nMax cpu time              unlimited            unlimited            seconds   \nMax file size             unlimited            unlimited            bytes     \nMax data size             unlimited            unlimited            bytes     \nMax stack size            8388608              unlimited            bytes     \nMax core file size        0                    unlimited            bytes     \nMax resident set          unlimited            unlimited            bytes     \nMax processes             375398               375398               processes \nMax open files            65535                65535                files     \nMax locked memory         8388608              8388608              bytes     \nMax address space         1073741824           4294967296           bytes     \nMax file locks            unlimited            unlimited            locks     \nMax pending signals       375398               375398               signals   \nMax msgqueue size         819200               819200               bytes     \nMax nice priority         0                    0                    \nMax realtime priority     0                    0                    \nMax realtime timeout      200000               200000               us        \n"
+    },
+    {
+      "pid": 406043,
+      "starttime": 214651004,
+      "pgid": 406043,
+      "sid": 406043,
+      "state": "R",
+      "nice": 10,
+      "threads": 1,
+      "uid_line": "Uid:\t1000\t1000\t1000\t1000",
+      "cmdline": "/data2/neural-shrimp/.venv/bin/python -I -B /home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/new-results-review-20261017/supervise.py --plan /home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/paper-number-check-20261016/operation-delimiter-controls-003.json --lane delimiter_controls --source 28b05927685cc84336382db7e645cf8237341934 ",
+      "limits": "Limit                     Soft Limit           Hard Limit           Units     \nMax cpu time              10                   10                   seconds   \nMax file size             8388608              8388608              bytes     \nMax data size             unlimited            unlimited            bytes     \nMax stack size            8388608              unlimited            bytes     \nMax core file size        0                    unlimited            bytes     \nMax resident set          unlimited            unlimited            bytes     \nMax processes             375398               375398               processes \nMax open files            65535                65535                files     \nMax locked memory         8388608              8388608              bytes     \nMax address space         1073741824           1073741824           bytes     \nMax file locks            unlimited            unlimited            locks     \nMax pending signals       375398               375398               signals   \nMax msgqueue size         819200               819200               bytes     \nMax nice priority         0                    0                    \nMax realtime priority     0                    0                    \nMax realtime timeout      200000               200000               us        \n"
+    }
+  ],
+  "owned_jobs": [],
+  "available_ram_bytes": 25118785536,
+  "disk_free_bytes": 2705580511232,
+  "loadavg": [
+    26.56201171875,
+    26.38134765625,
+    25.00146484375
+  ],
+  "scope": "Fresh metadata capacity/source/owned closure only. Checker authenticates all frozen inputs before/after scan."
+}
