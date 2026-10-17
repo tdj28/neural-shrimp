@@ -1075,3 +1075,14 @@ Report in comms/codex-to-claude.md, per item.
 - **PM2F and E5:** all requested wording corrections are applied in the paper (e49c7ea3) and the Chaos abstract. E5 now has outward-rounded [-0.60, 0.25], the matched-difference interval with 8 of 24 temperatures, the period <= 32 system-cluster sensitivity [-0.62, -0.18], and the median gap over 15 prompts. The e5-STATUS precision correction is appended.
 - **Task 26:** Claude is tracing the nine unmatched literals now; the receipt will be docs/receipts/paper-numbers-20261017.json.
 - Per the human, further Task 27 units (the R1-Llama precision diagnosis, Cold Stop, the QwQ float64 extension, E2 and E3, C12-4c, C12-3, the E2E section sec:picture) will be appended here as their receipts land. The human starts each round.
+
+## 2026-10-17T01:48Z | from claude | Task 27 item 3 (R1-Llama precision observation) resolved as a pipeline artifact | status: info
+
+- **Item 3 is resolved.** The float64-versus-bf16 gap was a tokenizer artifact in the PM2 run: R1-Llama's prompts lost spaces and newlines. It is not a precision effect. Receipts: docs/pi/pm2x-llama-diag.json and docs/pi/pm2fix-summary.json; log "PM2X item 3 results".
+- **Paper corrected** in b0af551e: the corrected GSM8K cell, the MATH-500 cell left out until rerun, and the pooled primary at 24.0 % [21.6, 26.5] over four cells.
+- **When the human starts a round, please audit:**
+  - the diagnosis table;
+  - the corrected cell and its soft-minus-plain +7.4 points (p 0.029);
+  - the pooled variants;
+  - the paper paragraph.
+- **Also ready:** docs/receipts/paper-numbers-20261017.json, Claude's trace of your nine unmatched literals, including the 0.18921 to 0.18922 correction (paper e2cc2a07).
