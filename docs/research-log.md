@@ -28492,3 +28492,51 @@ On all 96, 49 of 192 twins end thinking at a different step from their base row.
 - With three times the problems, the PM2F reading for QwQ-32B holds and is somewhat stronger. The float64 soft-thinking loop expands slowly in about two thirds of the copies (median growth about 0.012 per step).
 - A relative 1e-10 change alone flips 13.5 % of answers.
 - The QwQ entry of PM2F (10.9 %, "about half of the copies") is within these intervals.
+
+## 2026-10-17 03:28 UTC: PM2CS results (PM2X item 4, exploratory): Cold Stop almost never fires; the longer budget changes little, and layout flips persist
+
+**Pods.** Commit ae1712a0 (orchestrator logs). All runner rc 0, results hashes verified, terminated (not in inventory).
+- R1-Qwen-7B GSM8K: gackfd5xhkxdv7, H100 PCIe. PM2's pod A was an H100 NVL, so this cell also changes the GPU.
+- R1-Qwen-7B MATH-500: bkchb2wixdhtvz, H100 NVL.
+- QwQ-32B GSM8K: rq4ysxnp4h78mc, H200.
+- Receipt docs/pi/pm2cs-summary.json (tools/pi_pm2cs_analyze.py); raw data explore/llm-soft-loop/pod64/pi/pm2cs-{q7g,q7m,qwq}/.
+- Design: docs/pi/pm2cs-design.md, with Cold Stop as published (entropy < 0.01 nats for 256 consecutive steps) and a 4096-step thinking budget.
+
+**How thinking ended.**
+- Cold Stop fired in 6 of 1024 rows: 3 R1-Qwen GSM8K soft rows and 3 R1-Qwen MATH soft rows, and in no plain or QwQ row. The low-entropy runs it waits for are rare in these thinking traces.
+- The 4096 budget ended thinking in 3-4 % of GSM8K rows (PM2's 1536 budget: 8-24 %) and in 12-18 rows of 64 per layout on MATH (PM2: 32-38).
+
+**Bitwise check.**
+- On the same GPU type (H100 NVL for MATH; H200 for QwQ), every row that ended thinking before 1536 in PM2 is reproduced exactly: the same switch step and the same answer. That is 61/61 and 57/57 on MATH, 106/106 and 97/97 for QwQ.
+- So those cells differ from PM2 only in the rows that PM2 cut at 1536.
+- On the H100 PCIe, R1-Qwen GSM8K reproduces only 3 of 230 such switch steps: a different GPU model gives different trajectories.
+
+**Endpoints** (cluster 95 % intervals rounded outward; "PM2" is PM2's rows on the same problems):
+
+| cell | arm | flips, PM2CS | flips, PM2 | accuracy, PM2CS (two layouts) | exactly one correct, PM2CS / PM2 |
+|---|---|---|---|---|---|
+| R1-Qwen-7B GSM8K (128) | soft | 8.6 % [3.9, 14.9] | 12.5 % | 87.5 / 87.5 % | 7.8 / 10.2 % |
+| | plain | 17.2 % [12.5, 21.9] | 11.7 % | 85.2 / 85.9 % | 13.3 / 8.6 % |
+| R1-Qwen-7B MATH-500 int (64) | soft | 50.0 % [37.5, 62.5] | 60.9 % | 48.4 / 48.4 % | 21.9 / 26.6 % |
+| | plain | 54.7 % [42.1, 67.2] | 53.1 % | 42.2 / 50.0 % | 23.4 / 15.6 % |
+| QwQ-32B GSM8K (64) | soft | 17.2 % [9.3, 23.5] | 23.4 % | 84.4 / 89.1 % | 10.9 / 15.6 % |
+| | plain | 9.4 % [6.2, 15.7] | 20.3 % | 90.6 / 90.6 % | 3.1 / 15.6 % |
+
+**Soft minus plain flips (PM2CS).**
+- R1-Qwen GSM8K: -8.6 [-14.9, -1.5], McNemar p 0.013.
+- MATH: -4.7 [-18.8, +9.4], p 0.65.
+- QwQ: +7.8 [+3.1, +12.5], p 0.063.
+- In PM2 on the same problems, all three intervals include 0.
+
+**PM2CS minus PM2 flips** (paired by problem, exact McNemar):
+- R1-Qwen GSM8K soft -3.9 (p 0.33), plain +5.5 (p 0.23).
+- MATH soft -10.9 (p 0.065), plain +1.6 (p 1).
+- QwQ soft -6.3 (p 0.13), plain -10.9 (p 0.039).
+
+**Reading (exploratory).**
+- The published Cold Stop rule, at its published settings, does not shorten thinking in these models and tasks.
+- Raising the budget from 1536 to 4096 lets the cut rows finish. That lowers some flip rates, most clearly for QwQ plain, where 9 of the 9 changed problems were rows that PM2 cut. It does not remove the layout sensitivity:
+  - GSM8K flips stay at 9-17 %;
+  - MATH flips at 50-55 %.
+- The sign of soft minus plain differs between cells, so neither arm is consistently more sensitive.
+- The PM2 conclusion is unchanged: under bf16 the batch layout alone changes a substantial share of answers, with both soft and plain thinking. It does not depend on how thinking ends or on PM2's budget.
