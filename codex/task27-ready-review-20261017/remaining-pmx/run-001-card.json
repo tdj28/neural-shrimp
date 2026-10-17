@@ -1,0 +1,81 @@
+{
+  "schema": "task27-pmx-remaining-card-v1",
+  "admission": "prepared_not_admitted",
+  "source_expected_commit": null,
+  "source_sha256": {
+    "controls.py": "c5d8a375ad6178dd6a4edc6677e41238e6b09838dea808a5147a9e05abb57278",
+    "pm_core.py": "59999e636fc5e2e14a096614ec61f1bb9eda958eb5db17a2f592100d57431a00",
+    "reduce.py": "41fa970e25b820f0c6a9f7178ddeee76bacbb734b89694f15d94e8681f586599",
+    "run.py": "bf7160e70303a0a430896f6e2618bc64ad9bd888d53824269495231bb68f63ab",
+    "twin_core.py": "e7fb200ebedd6522604b2cbccb3a3c561f1f23085fbce97edb168fc1f2c5f9b9"
+  },
+  "inputs": {
+    "path": "/tmp/task27-pmx-remaining-prep/inputs.json",
+    "bytes": 349416,
+    "sha256": "0deaf37fb95e8ed53cffbbe9f399094d02e42fc830220905d48282cb21cf30a7"
+  },
+  "output": "/data2/neural-shrimp-data/codex/task27-ready-review-20261017/run-001/remaining-pmx",
+  "max_input_bytes": 67108864,
+  "resource": {
+    "cpu_workers": 1,
+    "supervisor": 1,
+    "nice": 10,
+    "threads": 1,
+    "address_space_bytes": 1073741824,
+    "cpu_seconds": 55,
+    "wall_seconds": 60,
+    "terminate_grace_seconds": 5,
+    "kill_grace_seconds": 5,
+    "output_cap_bytes": 67108864,
+    "output_cap_scope": "Entire owned output directory plus supervisor stdout/stderr; source snapshot/receipts separately retained",
+    "startup_available_ram_bytes": 21474836480,
+    "runtime_available_ram_bytes": 17179869184,
+    "free_disk_bytes": 17179869184
+  },
+  "prior_measured_receipt": {
+    "path": "/data2/neural-shrimp-data/codex/task27-ready-review-20261017/run-001/corrected-pm-supervision/receipt.json",
+    "bytes": 6383,
+    "sha256": "f9bf7b6c679e4c2a74be4a57731627877f3ddc8adfd7dc217ca8baacc827c0d9"
+  },
+  "expected_report": {
+    "schema": "task27-pmx-remaining-saved-v1",
+    "computational_completed": true,
+    "scientific_claims_accepted": false,
+    "cold_cells": 3,
+    "qwq_new_problems": 64,
+    "qwq_combined_problems": 96,
+    "diagnosis_conditions": 8
+  },
+  "expected_files": [
+    "controls.json",
+    "cold-stop.json",
+    "qwq.json",
+    "diagnosis.json",
+    "evidence.json",
+    "comparisons.json",
+    "report.json",
+    "manifest.json"
+  ],
+  "prohibited": [
+    "model/tokenizer execution",
+    "GPU/pod work",
+    "automatic retry",
+    "watch restart"
+  ],
+  "science_scope": "Three finite Cold Stop cells with source reset streams; old32+new64 QwQ; eight saved diagnosis conditions. Decoder endpoint separately admitted only. Full cohort/order/semantic-args gates; every difference and inherited field retained.",
+  "expected_integrated_controls": {
+    "passed": 8,
+    "failed": 0
+  },
+  "measurement_basis": {
+    "measured_corrected_pm_external_seconds": 3.1632430679160803,
+    "measured_corrected_pm_rows": 4864,
+    "measured_corrected_pm_input_bytes": 31088947,
+    "measured_corrected_pm_output_bytes": 4713530,
+    "measured_corrected_pm_rss_at_reap_kib": 91092,
+    "new_declared_input_files": 64,
+    "new_declared_input_bytes": 26664517,
+    "new_outer_input_bytes": 349416,
+    "scaling": "New 12 ColdStop arms in six per-cell analyses omit four expensive pooled 10k loops; 96 QwQ rows and512 diagnosis rows add simple scalar processing. 60s/1GiB/64MiB is a conservative bounded proposal, not an observed full-shape guarantee. No new profile or old control repeat."
+  }
+}
