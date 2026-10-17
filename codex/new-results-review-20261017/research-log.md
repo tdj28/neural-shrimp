@@ -17,3 +17,7 @@ Root accepted coree7fb200e one-line copy-before-append fix and cardad26661d/diff
 ## 2026-10-17T00:53:57.354001+00:00 — before sole E5 manufactured profile
 
 PM002 completed and exact original workers/groups closed; all10 controls passed and288saved rows reconstructed. Scientific review pending. E5 profile exact sources/card/operation are committed now;10 controls once plus two151936-vector full/masked entropy workloads and24prompt/1000draw statistics. CPU1+supervisor/nice10/2GiB55CPU60wall64MiB wholeOUT+streams;20/16GiB RAM16GiBdisk. No E5 target read; no automatic retry. Root accepted source/card; original unexecuted preparation and withdrawn source-reading allegation preserved as history, not an actual source bug.
+
+## 2026-10-17T01:02:05.214662+00:00 — before E5 sole actual saved-data run
+
+Number scan completed/closed at5e7b8334, allsevenoutputs retained,98.36s external. E5 Root accepted measuredcard15e511ba:125nestedpins50,439,423B plusmetadata/profile report, unchangedarithmeticcb68f60d/driver22d5c1cf/controls0362e6f9. Inherit10passingprofilecontrols; no repeats. CPU1+supervisor/nice10/2GiB170CPU180wall128MiBOUT+streams,20/16GiB RAM16GiBdisk. Fixed fresh output/run001/e5, privatecheckpoint/freshcapacity first, no automaticretry. Allcomparison/gate failures retained as results; finalscientific acceptance separate.

@@ -1,0 +1,163 @@
+{
+  "scope": "PM2F only; independent unblinded saved-row arithmetic, followed by literal saved-output scientific review; no model or reducer replay in this review",
+  "coverage": {
+    "models": 3,
+    "base_rows": 288,
+    "twins": 576,
+    "source_groups": [
+      16,
+      16,
+      8
+    ],
+    "duplicate_rows": 0,
+    "row_diagnostic_exceptions": 0,
+    "base_correct_flag_disagreements": 0,
+    "twin_flip_flag_disagreements": 0,
+    "same_switch_flag_disagreements": 0
+  },
+  "comparison": {
+    "endpoint_model_leaves": {
+      "exact": 42,
+      "nonexact": 0
+    },
+    "fitted_sign_alternative": {
+      "exact": 36,
+      "nonexact": 6,
+      "meaning": "intentional difference of definitions; all six grew/shrank deltas remain in the note and literal coverage"
+    },
+    "eps0_exact": true,
+    "run_and_source_labels": "inherited descriptive metadata, not independently reconstructed numerical leaves"
+  },
+  "models": [
+    {
+      "id": "r1qwen7b",
+      "problems": 128,
+      "twins": 256,
+      "base_correct": 109,
+      "endpoint_above_nominal": 40,
+      "endpoint_below_nominal": 216,
+      "endpoint_equal": 0,
+      "endpoint_undefined": 0,
+      "twin_flips": 6,
+      "any_flip_problems": 5,
+      "different_switch": 2,
+      "earlier_twin_switch": 0,
+      "defined_rates": 152,
+      "positive_rates": 115,
+      "negative_rates": 37,
+      "undefined_rates": 104,
+      "positive_rate_endpoint_below": 76,
+      "max_above_nominal": 243,
+      "max_below_nominal": 13,
+      "endpoint_log_floor_count": 13
+    },
+    {
+      "id": "r1llama8b",
+      "problems": 128,
+      "twins": 256,
+      "base_correct": 102,
+      "endpoint_above_nominal": 145,
+      "endpoint_below_nominal": 111,
+      "endpoint_equal": 0,
+      "endpoint_undefined": 0,
+      "twin_flips": 47,
+      "any_flip_problems": 28,
+      "different_switch": 27,
+      "earlier_twin_switch": 14,
+      "defined_rates": 229,
+      "positive_rates": 200,
+      "negative_rates": 29,
+      "undefined_rates": 27,
+      "positive_rate_endpoint_below": 57,
+      "max_above_nominal": 254,
+      "max_below_nominal": 2,
+      "endpoint_log_floor_count": 0
+    },
+    {
+      "id": "qwq32b",
+      "problems": 32,
+      "twins": 64,
+      "base_correct": 25,
+      "endpoint_above_nominal": 34,
+      "endpoint_below_nominal": 30,
+      "endpoint_equal": 0,
+      "endpoint_undefined": 0,
+      "twin_flips": 7,
+      "any_flip_problems": 4,
+      "different_switch": 13,
+      "earlier_twin_switch": 7,
+      "defined_rates": 53,
+      "positive_rates": 50,
+      "negative_rates": 3,
+      "undefined_rates": 11,
+      "positive_rate_endpoint_below": 16,
+      "max_above_nominal": 62,
+      "max_below_nominal": 2,
+      "endpoint_log_floor_count": 0
+    }
+  ],
+  "findings": [
+    {
+      "priority": "must",
+      "location": "main.tex 47-50, 931-933",
+      "issue": "Endpoint-below majority does not establish exclusive or mainly bfloat16-rounding / near-tie causation.",
+      "correction": "Report finite pipeline sensitivity and retain causal uncertainty."
+    },
+    {
+      "priority": "must",
+      "location": "main.tex 930-932",
+      "issue": "Saved endpoint is compared with nominal eps0; realized initial separation is unavailable.",
+      "correction": "Say below nominal relative eps0 in the base-defined pre-switch window."
+    },
+    {
+      "priority": "must",
+      "location": "main.tex 933-936",
+      "issue": "Restricted-window slope medians over all defined fits are conflated with net endpoint growth of its growing subgroup.",
+      "correction": "State defined denominators53/229 and fit window separately from endpoint counts34/64 and145/256."
+    },
+    {
+      "priority": "must",
+      "location": "main.tex 934-937",
+      "issue": "Mixed pipeline phases and varying base windows limit a uniform finite-time instability claim.",
+      "correction": "Retain earlier switches14/7, variable horizons and non-asymptotic scope."
+    },
+    {
+      "priority": "must",
+      "location": "Chaos current snapshot main.tex 51-52",
+      "issue": "Loop itself grows slowly overstates the same evidence; unqualified11-18% range omits exact extremes.",
+      "correction": "Use7/64 QwQ and47/256 R1-Llama flips; name models and approximately10.9%/18.4% if rounded."
+    }
+  ],
+  "source_clarification": {
+    "later_producer_commit": "5a507a2a74c89a51265acc0e92bf33275c89c788",
+    "later_summary_sha256": "bc8f4b90caf3c1f6b791bef1215e968899f52519995dff40076b7e94ffa80dc0",
+    "meaning": "Source explicitly uses endpoint >nominal eps0 versus <=; original invocation is not attested. Own equality count is zero for all models. New intervals outside frozen comparison not recomputed."
+  },
+  "failure_history": {
+    "run001": "Nine controls passed, duplicate_source_rows_retained failed before target analysis; all source/failure receipts preserved.",
+    "correction": "Snapshot previous duplicate-line list before append; only witness bookkeeping changes.",
+    "run002": "All ten controls passed and first successful actual saved-row analysis completed."
+  },
+  "limits": [
+    "Native distances and realized initial separation not saved; no independent fit/extremum reconstruction.",
+    "Answer strings/gold reconstruct saved equality flags; native tokenizer extraction not independently reconstructed.",
+    "Source-level float64 implementation with bf16-stored weights is not historical native-kernel/model-weight attestation.",
+    "Two twins per problem are dependent; no new confidence intervals or population generalization.",
+    "Initial source gap and later summary-source clarification retain separate chronology.",
+    "Only assigned current Chaos abstract text was checked; no broad article/blog audit."
+  ],
+  "authority": {
+    "source_commit": "8f4e96a1601deae8cb58ad33ba2c82524bc1c5df",
+    "report_sha256": "85e11fa9186b7ca27ff1bbfabc348a2d6726a6a23907bc11695f4d33beeb05e0",
+    "receipt_sha256": "b8c4967d17c8a43351e118981056dfb59cf5796c92578d5807cfe66b83b16854",
+    "owner_closure_sha256": "b42a05bd61a0a05fcfbbfc4487e344fb373e5a69dc6fc1d974baaedf3d8bca02",
+    "direct_execution_and_process_observations": "Inference; this reviewer read the saved authority and receipt/output linkage"
+  },
+  "timing": {
+    "supervisor_external_elapsed_seconds": 0.3406059290282428,
+    "worker_observation_seconds": 0.17415966605767608,
+    "worker_observation_scope": "through posthash before report",
+    "rss_kib_observed_at_that_point": 38508,
+    "worker_output_bytes": 746395
+  }
+}

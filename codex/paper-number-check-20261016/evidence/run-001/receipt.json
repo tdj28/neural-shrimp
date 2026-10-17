@@ -1,0 +1,88 @@
+{
+  "lane": "actual",
+  "source_commit": "d9251b61275350badace0c44396188a49a729d11",
+  "argv": [
+    "/data2/neural-shrimp/.venv/bin/python",
+    "-I",
+    "-B",
+    "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/paper-number-check-20261016/check.py",
+    "--root",
+    "/tmp/claude-task26-27-20261017-source-001/tree",
+    "--inventory",
+    "/tmp/claude-task26-27-20261017-source-001/manifest.json",
+    "--include-log",
+    "--output",
+    "/data2/neural-shrimp-data/codex/paper-number-check-20261016/run-001"
+  ],
+  "returncode": 0,
+  "failure": null,
+  "external_elapsed_seconds": 98.35872961394489,
+  "worker_reaped": true,
+  "worker_observed_after_exec": {
+    "pid": 377589,
+    "starttime": 214528008,
+    "pgid": 377589,
+    "sid": 377589,
+    "state": "R",
+    "nice": 10,
+    "threads": 1,
+    "uid_line": "Uid:\t1000\t1000\t1000\t1000",
+    "cmdline": "/data2/neural-shrimp/.venv/bin/python -I -B /home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/paper-number-check-20261016/check.py --root /tmp/claude-task26-27-20261017-source-001/tree --inventory /tmp/claude-task26-27-20261017-source-001/manifest.json --include-log --output /data2/neural-shrimp-data/codex/paper-number-check-20261016/run-001 ",
+    "limits": "Limit                     Soft Limit           Hard Limit           Units     \nMax cpu time              140                  140                  seconds   \nMax file size             134217728            134217728            bytes     \nMax data size             unlimited            unlimited            bytes     \nMax stack size            8388608              unlimited            bytes     \nMax core file size        0                    unlimited            bytes     \nMax resident set          unlimited            unlimited            bytes     \nMax processes             375398               375398               processes \nMax open files            65535                65535                files     \nMax locked memory         8388608              8388608              bytes     \nMax address space         2147483648           2147483648           bytes     \nMax file locks            unlimited            unlimited            locks     \nMax pending signals       375398               375398               signals   \nMax msgqueue size         819200               819200               bytes     \nMax nice priority         0                    0                    \nMax realtime priority     0                    0                    \nMax realtime timeout      200000               200000               us        \n"
+  },
+  "worker_pid": 377589,
+  "worker_identity_absent": true,
+  "worker_group_session_absent": true,
+  "supervisor": {
+    "pid": 377560,
+    "starttime": 214527990,
+    "pgid": 377560,
+    "sid": 377560,
+    "state": "R",
+    "nice": 10,
+    "threads": 1,
+    "uid_line": "Uid:\t1000\t1000\t1000\t1000",
+    "cmdline": "/data2/neural-shrimp/.venv/bin/python -I -B /home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/new-results-review-20261017/supervise.py --plan /home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/paper-number-check-20261016/operation-actual-001.json --lane actual --source d9251b61275350badace0c44396188a49a729d11 ",
+    "limits": "Limit                     Soft Limit           Hard Limit           Units     \nMax cpu time              unlimited            unlimited            seconds   \nMax file size             unlimited            unlimited            bytes     \nMax data size             unlimited            unlimited            bytes     \nMax stack size            8388608              unlimited            bytes     \nMax core file size        0                    unlimited            bytes     \nMax resident set          unlimited            unlimited            bytes     \nMax processes             375398               375398               processes \nMax open files            65535                65535                files     \nMax locked memory         8388608              8388608              bytes     \nMax address space         1073741824           4294967296           bytes     \nMax file locks            unlimited            unlimited            locks     \nMax pending signals       375398               375398               signals   \nMax msgqueue size         819200               819200               bytes     \nMax nice priority         0                    0                    \nMax realtime priority     0                    0                    \nMax realtime timeout      200000               200000               us        \n"
+  },
+  "output_files": [
+    {
+      "path": "/data2/neural-shrimp-data/codex/paper-number-check-20261016/run-001/candidate-groups.json.gz",
+      "bytes": 2493355,
+      "sha256": "8727c08c3a6add4a2dcb7f8ececa036fe92515b8277f79b91f05e6b98aa5ff9d"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/codex/paper-number-check-20261016/run-001/coverage.json",
+      "bytes": 423458,
+      "sha256": "151df51143da5870bb85cef1e6605f80034b41ce2cfd9ec6c34e3437d599a7f5"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/codex/paper-number-check-20261016/run-001/manifest.json",
+      "bytes": 947,
+      "sha256": "178ab857f665576cf8ae706545dde0fbe930db773c2cc6331d6a4f4e12d4cb0b"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/codex/paper-number-check-20261016/run-001/numbers.json",
+      "bytes": 10504488,
+      "sha256": "4d6dda1e10a52d4dfbfa1360f1cca5706c188d9ef702e8b00a1586b92e2ec54f"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/codex/paper-number-check-20261016/run-001/receipt-index.json.gz",
+      "bytes": 5067162,
+      "sha256": "3c802f11df30a9c14e7f3a1a8b7c1c48ee97450acf85fdb4368aa59c8107ea65"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/codex/paper-number-check-20261016/run-001/report.md",
+      "bytes": 4074669,
+      "sha256": "393951acd6905190a585a7c4da09fd952fa61e995a6f24486265b14400f70ddd"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/codex/paper-number-check-20261016/run-001/run-summary.json",
+      "bytes": 1878,
+      "sha256": "2c6783d7522bb8e2373aa721867ee11b0cb548216c83749fe7e485e28411ac75"
+    }
+  ],
+  "actual_output_bytes": 22565957,
+  "children_ru_maxrss_kib_at_reap": 537360,
+  "scope": "External window includes startup, pre/post checks and serialization; source/native producer execution is not attested. Scientific claims require separate saved-result review."
+}

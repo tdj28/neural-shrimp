@@ -1,0 +1,162 @@
+{
+  "schema": "e5-saved-audit-card-v1",
+  "status": "reviewed",
+  "source_expected_commit": null,
+  "metadata": {
+    "path": "/tmp/claude-task27-20261017-metadata-001/e5-metadata.json",
+    "bytes": 1471256,
+    "sha256": "b70e19fb379fd91d7568ef7d80e22ff375abea5cf56d169e3a2b80dde7c59474"
+  },
+  "source_sha256": {
+    "arithmetic": "cb68f60da0ca33cf77863facc2f5ffc2c7649068fe34131519cb2c7cddb251f4",
+    "run": "22d5c1cfdf4e92391e054d5e4f5dfcbf39343476321149f719e99afe6c8cddce",
+    "controls": "0362e6f95ec05fc6ac97176a32ae9a266fd1d23acbb5db6212e3ce064cc3b0ea"
+  },
+  "input_file_count": 125,
+  "input_bytes": 50439423,
+  "max_input_bytes": 100663296,
+  "output": "/data2/neural-shrimp-data/codex/new-results-review-20261017/run-001/e5",
+  "expected_outputs": [
+    "controls.json",
+    "analysis.json",
+    "evidence.json",
+    "draws.json",
+    "comparisons.json",
+    "report.json"
+  ],
+  "resource_proposal": {
+    "cpu_threads": 1,
+    "auxiliary_supervisors": 1,
+    "nice": 10,
+    "cpu_seconds": 170,
+    "wall_seconds": 180,
+    "address_space_bytes": 2147483648,
+    "output_bytes": 134217728,
+    "cleanup_seconds": [
+      5,
+      5
+    ],
+    "available_ram_before_gib": 20,
+    "available_ram_during_gib": 16,
+    "disk_free_gib": 16
+  },
+  "measurement_status": "Manufactured profile completed once; exact source and10/0 controls Root-reviewed. Actual audit remains prepared/unlaunchable pending final card review, private checkpoint and fresh coordinator capacity.",
+  "planned_workload": {
+    "loop_cells": 768,
+    "native_final_states_shape": [
+      768,
+      896
+    ],
+    "first_step_logits_shape": [
+      32,
+      151936
+    ],
+    "sample_files": 33,
+    "original_tokens_per_sample": 256,
+    "development_samples_per_temperature": 16,
+    "heldout_samples_per_temperature": 12,
+    "temperatures": 24,
+    "entropy_bisections_per_full_and_masked_vector": 64,
+    "main_and_cardrule_statistical_panels": 2,
+    "bootstrap_endpoint_streams_per_panel": 7,
+    "draws_per_stream": 10000,
+    "permutation_draws_per_panel": 10000,
+    "controls_groups": 0,
+    "inherited_profile_control_groups": 10
+  },
+  "scientific_completion": "Computational completion is separate from source gates, statistical results and comparison differences.",
+  "profile_receipt": {
+    "path": "/data2/neural-shrimp-data/codex/new-results-review-20261017/profile-001/e5/report.json",
+    "bytes": 1907,
+    "sha256": "a435f8a8dcc61ebb3001cefb162757700b00a134a83b2f7d2a8b951e2b76b5f0"
+  },
+  "measured_basis": {
+    "profile_source_commit": "d17453668100354505d192ab922e7525cbe5c414",
+    "report": {
+      "path": "/data2/neural-shrimp-data/codex/new-results-review-20261017/profile-001/e5/report.json",
+      "bytes": 1907,
+      "sha256": "a435f8a8dcc61ebb3001cefb162757700b00a134a83b2f7d2a8b951e2b76b5f0"
+    },
+    "supervision_receipt": {
+      "path": "/data2/neural-shrimp-data/codex/new-results-review-20261017/profile-001/e5-supervision/receipt.json",
+      "bytes": 5684,
+      "sha256": "c14289c4e2472203e40bed88ee572b3fb9356784342e93e8effd1f22821905ac"
+    },
+    "owner_closure": {
+      "path": "/data2/neural-shrimp-data/codex/new-results-review-20261017/profile-001/e5-original-closure.json",
+      "bytes": 6705,
+      "sha256": "58afa68c1d87bea5e09b77be1832d9dba22e4cdffbb9168a6a6fc5939ce52d21"
+    },
+    "observed_by": "Inference; this lane read the closed saved receipts only",
+    "controls": {
+      "passed": 10,
+      "failed": 0,
+      "repeated_in_actual": false
+    },
+    "entropy_seconds_for_two_vectors": 0.8374509350396693,
+    "statistics_seconds_for_one_1000_draw_panel": 0.12059152172878385,
+    "through_workload_serialization_seconds": 1.0606019948609173,
+    "observed_peak_kib_before_final_report": 52864,
+    "whole_worker_external_seconds": 1.249280422925949,
+    "whole_manufactured_output_bytes": 384858,
+    "prior_metadata_io": {
+      "manifest": {
+        "path": "/tmp/claude-task27-20261017-metadata-001/manifest.json",
+        "bytes": 39549,
+        "sha256": "0dc7debc59be14233b5e28680e6af08810954d38c4b7b72e3f879ac47557e135"
+      },
+      "seconds": 1.0195356248877943,
+      "bytes_read_for_hashing": 52382168,
+      "scope": "Whole PM+E5 source/header/hash metadata pass, not an E5-only payload read or decompression measurement. No new IO measurement."
+    }
+  },
+  "forecast": {
+    "entropy_scale": 16,
+    "entropy_seconds": 13.399214960634708,
+    "statistics_scale": 20,
+    "statistics_seconds": 2.411830434575677,
+    "measured_component_linear_extrapolation_seconds": 15.811045395210385,
+    "round_up_component_seconds": 16,
+    "explicit_unmeasured_allowances_seconds": {
+      "raw_before_after_hashing_metadata_parsing_npz_read_and_decompression": 10,
+      "all_token_period_tail_checks_loop_cell_scalar_gates": 30,
+      "actual_comparisons_and_all_output_serialization": 30,
+      "other_python_startup_and_bookkeeping": 10
+    },
+    "component_plus_allowance_seconds": 95.81104539521039,
+    "round_up_planning_seconds": 96,
+    "hard_limits_not_estimates": {
+      "cpu_seconds": 170,
+      "wall_seconds": 180
+    },
+    "no_automatic_extension_or_retry": true,
+    "caveat": "Scaling is a planning estimate from manufactured inputs, not a runtime guarantee. Original string/array values and result lengths have not been inspected. Fixed caps preserve any failure."
+  },
+  "output_forecast": {
+    "manufactured_workload_bytes": 382525,
+    "times_twenty_statistical_scale_bytes": 7650500,
+    "additional_unmeasured_evidence_comparison_report_allowance_bytes": 33554432,
+    "planning_total_bytes": 41204932,
+    "hard_cap_bytes": 134217728,
+    "hard_cap_scope": "whole output directory plus stdout/stderr under inherited supervisor; report output subtotal is not the complete cap",
+    "caveat": "Multiplication overcounts some synthetic fixture fields but does not measure actual comparison/output lengths; extra32MiB is an allowance, not an established bound."
+  },
+  "input_accounting_scope": {
+    "nested_metadata_file_pins": 125,
+    "nested_bytes": 50439423,
+    "outer_metadata_bytes": 1471256,
+    "profile_report_bytes": 1907,
+    "actual_runtime_files_including_outer_and_profile": 127,
+    "actual_runtime_bytes_including_outer_and_profile": 51912586,
+    "setup_receipt_and_closure": "bound in card for review/owner authority; actual code separately verifies the profile report, not these setup operational records"
+  },
+  "source_association": {
+    "arithmetic_and_controls": "identical to passed profile; run22d5c1cf only consumes and verifies that receipt",
+    "original_analyzer_commit": "29c399330879f3035dd8933213e5e4b50859c221",
+    "original_and_frozen_current_analyzer_sha256": "90f7d17a7894849c1527e55243b37097711efca6fa2e99f67bd70000900221f3",
+    "choices_commit": "3a667908d9f871b24d51f37778153f28ebf8d7c4",
+    "choices_sha256": "f8bda278a8df68dd499cc5d67d9dcd73b82452f48482f0e738346b8f06c732a5",
+    "historical_scope": "Original local source/invocation metadata; no newly observed historical model execution or original loaded-model bytes."
+  },
+  "admission": "Root accepted exact measured preparedcard15e511ba/source22d5c1cf/cb68f60d/0362e6f9 and unchanged125pins. Sole actual saved-data audit after number actual closure, private checkpoint and freshcapacity;170CPU180wall2GiB128MiB fixed. Inherit10profilecontrols, no repeatedcontrols or automatic retry/extension. Exact actualsourcecommit bound by supervisor --source/cleanprivate ancestry and five capturedGitblobs."
+}
