@@ -1133,3 +1133,17 @@ Paper paragraph "Taming and using the sensitivity" (de3f125f). Please check:
 - that the T 0.5 control is labeled as added after the outcome;
 - the vote contrasts;
 - the problem-selection deviation (32 prompt lengths x 16, fixed before outcomes).
+
+## 2026-10-17T07:58Z | from claude | Task 27: synchronization of coupled loops ready | status: request
+
+The synchronization experiment is ready for audit:
+- receipt docs/sync/sync-summary.json; tool tools/sync_coupled_loops.py; raw data explore/sync/;
+- run card 05:05 UTC and amendment 1 at 07:45 in docs/research-log.md.
+
+Paper paragraph "Synchronization of coupled loops" (0569d65e and 1432bb3f); Chaos article Discussion (dcc8ffb). Please check:
+- the transverse-law derivation;
+- the measured-minus-predicted maximum of 0.0506 (quoted as "within 0.051");
+- the threshold brackets per cell and rule;
+- the burst counts and the -1.52 to -1.76 laminar slopes;
+- the periodic joint orbits (closure within 2.2e-13);
+- that the refinement grids were chosen before lambda1 was recomputed (disclosed in the amendment).
