@@ -1,0 +1,752 @@
+{
+ "seed": 12301,
+ "sha256": "22e80901bdf89289662155b99794309dcd18af93f228008e4c08b726adc223ac",
+ "prompt_lengths": {
+  "qwen0.5b": [
+   65
+  ],
+  "qwen1.5b": [
+   65
+  ]
+ },
+ "problems": [
+  {
+   "uid": 0,
+   "id": "dev-00",
+   "split": "dev",
+   "a": 28,
+   "b": 33,
+   "question": "What is 28 times 33?",
+   "gold": "924"
+  },
+  {
+   "uid": 1,
+   "id": "dev-01",
+   "split": "dev",
+   "a": 56,
+   "b": 41,
+   "question": "What is 56 times 41?",
+   "gold": "2296"
+  },
+  {
+   "uid": 2,
+   "id": "dev-02",
+   "split": "dev",
+   "a": 35,
+   "b": 67,
+   "question": "What is 35 times 67?",
+   "gold": "2345"
+  },
+  {
+   "uid": 3,
+   "id": "dev-03",
+   "split": "dev",
+   "a": 39,
+   "b": 57,
+   "question": "What is 39 times 57?",
+   "gold": "2223"
+  },
+  {
+   "uid": 4,
+   "id": "dev-04",
+   "split": "dev",
+   "a": 62,
+   "b": 73,
+   "question": "What is 62 times 73?",
+   "gold": "4526"
+  },
+  {
+   "uid": 5,
+   "id": "dev-05",
+   "split": "dev",
+   "a": 87,
+   "b": 16,
+   "question": "What is 87 times 16?",
+   "gold": "1392"
+  },
+  {
+   "uid": 6,
+   "id": "dev-06",
+   "split": "dev",
+   "a": 98,
+   "b": 81,
+   "question": "What is 98 times 81?",
+   "gold": "7938"
+  },
+  {
+   "uid": 7,
+   "id": "dev-07",
+   "split": "dev",
+   "a": 56,
+   "b": 61,
+   "question": "What is 56 times 61?",
+   "gold": "3416"
+  },
+  {
+   "uid": 8,
+   "id": "dev-08",
+   "split": "dev",
+   "a": 79,
+   "b": 15,
+   "question": "What is 79 times 15?",
+   "gold": "1185"
+  },
+  {
+   "uid": 9,
+   "id": "dev-09",
+   "split": "dev",
+   "a": 79,
+   "b": 94,
+   "question": "What is 79 times 94?",
+   "gold": "7426"
+  },
+  {
+   "uid": 10,
+   "id": "dev-10",
+   "split": "dev",
+   "a": 69,
+   "b": 98,
+   "question": "What is 69 times 98?",
+   "gold": "6762"
+  },
+  {
+   "uid": 11,
+   "id": "dev-11",
+   "split": "dev",
+   "a": 95,
+   "b": 89,
+   "question": "What is 95 times 89?",
+   "gold": "8455"
+  },
+  {
+   "uid": 12,
+   "id": "dev-12",
+   "split": "dev",
+   "a": 71,
+   "b": 59,
+   "question": "What is 71 times 59?",
+   "gold": "4189"
+  },
+  {
+   "uid": 13,
+   "id": "dev-13",
+   "split": "dev",
+   "a": 98,
+   "b": 99,
+   "question": "What is 98 times 99?",
+   "gold": "9702"
+  },
+  {
+   "uid": 14,
+   "id": "dev-14",
+   "split": "dev",
+   "a": 85,
+   "b": 49,
+   "question": "What is 85 times 49?",
+   "gold": "4165"
+  },
+  {
+   "uid": 15,
+   "id": "dev-15",
+   "split": "dev",
+   "a": 79,
+   "b": 81,
+   "question": "What is 79 times 81?",
+   "gold": "6399"
+  },
+  {
+   "uid": 16,
+   "id": "test-00",
+   "split": "test",
+   "a": 44,
+   "b": 36,
+   "question": "What is 44 times 36?",
+   "gold": "1584"
+  },
+  {
+   "uid": 17,
+   "id": "test-01",
+   "split": "test",
+   "a": 44,
+   "b": 46,
+   "question": "What is 44 times 46?",
+   "gold": "2024"
+  },
+  {
+   "uid": 18,
+   "id": "test-02",
+   "split": "test",
+   "a": 51,
+   "b": 15,
+   "question": "What is 51 times 15?",
+   "gold": "765"
+  },
+  {
+   "uid": 19,
+   "id": "test-03",
+   "split": "test",
+   "a": 17,
+   "b": 52,
+   "question": "What is 17 times 52?",
+   "gold": "884"
+  },
+  {
+   "uid": 20,
+   "id": "test-04",
+   "split": "test",
+   "a": 26,
+   "b": 96,
+   "question": "What is 26 times 96?",
+   "gold": "2496"
+  },
+  {
+   "uid": 21,
+   "id": "test-05",
+   "split": "test",
+   "a": 35,
+   "b": 91,
+   "question": "What is 35 times 91?",
+   "gold": "3185"
+  },
+  {
+   "uid": 22,
+   "id": "test-06",
+   "split": "test",
+   "a": 27,
+   "b": 17,
+   "question": "What is 27 times 17?",
+   "gold": "459"
+  },
+  {
+   "uid": 23,
+   "id": "test-07",
+   "split": "test",
+   "a": 55,
+   "b": 85,
+   "question": "What is 55 times 85?",
+   "gold": "4675"
+  },
+  {
+   "uid": 24,
+   "id": "test-08",
+   "split": "test",
+   "a": 86,
+   "b": 35,
+   "question": "What is 86 times 35?",
+   "gold": "3010"
+  },
+  {
+   "uid": 25,
+   "id": "test-09",
+   "split": "test",
+   "a": 59,
+   "b": 73,
+   "question": "What is 59 times 73?",
+   "gold": "4307"
+  },
+  {
+   "uid": 26,
+   "id": "test-10",
+   "split": "test",
+   "a": 18,
+   "b": 91,
+   "question": "What is 18 times 91?",
+   "gold": "1638"
+  },
+  {
+   "uid": 27,
+   "id": "test-11",
+   "split": "test",
+   "a": 28,
+   "b": 32,
+   "question": "What is 28 times 32?",
+   "gold": "896"
+  },
+  {
+   "uid": 28,
+   "id": "test-12",
+   "split": "test",
+   "a": 31,
+   "b": 71,
+   "question": "What is 31 times 71?",
+   "gold": "2201"
+  },
+  {
+   "uid": 29,
+   "id": "test-13",
+   "split": "test",
+   "a": 45,
+   "b": 73,
+   "question": "What is 45 times 73?",
+   "gold": "3285"
+  },
+  {
+   "uid": 30,
+   "id": "test-14",
+   "split": "test",
+   "a": 38,
+   "b": 73,
+   "question": "What is 38 times 73?",
+   "gold": "2774"
+  },
+  {
+   "uid": 31,
+   "id": "test-15",
+   "split": "test",
+   "a": 69,
+   "b": 82,
+   "question": "What is 69 times 82?",
+   "gold": "5658"
+  },
+  {
+   "uid": 32,
+   "id": "test-16",
+   "split": "test",
+   "a": 91,
+   "b": 64,
+   "question": "What is 91 times 64?",
+   "gold": "5824"
+  },
+  {
+   "uid": 33,
+   "id": "test-17",
+   "split": "test",
+   "a": 22,
+   "b": 44,
+   "question": "What is 22 times 44?",
+   "gold": "968"
+  },
+  {
+   "uid": 34,
+   "id": "test-18",
+   "split": "test",
+   "a": 63,
+   "b": 94,
+   "question": "What is 63 times 94?",
+   "gold": "5922"
+  },
+  {
+   "uid": 35,
+   "id": "test-19",
+   "split": "test",
+   "a": 73,
+   "b": 52,
+   "question": "What is 73 times 52?",
+   "gold": "3796"
+  },
+  {
+   "uid": 36,
+   "id": "test-20",
+   "split": "test",
+   "a": 14,
+   "b": 23,
+   "question": "What is 14 times 23?",
+   "gold": "322"
+  },
+  {
+   "uid": 37,
+   "id": "test-21",
+   "split": "test",
+   "a": 35,
+   "b": 75,
+   "question": "What is 35 times 75?",
+   "gold": "2625"
+  },
+  {
+   "uid": 38,
+   "id": "test-22",
+   "split": "test",
+   "a": 33,
+   "b": 43,
+   "question": "What is 33 times 43?",
+   "gold": "1419"
+  },
+  {
+   "uid": 39,
+   "id": "test-23",
+   "split": "test",
+   "a": 45,
+   "b": 74,
+   "question": "What is 45 times 74?",
+   "gold": "3330"
+  },
+  {
+   "uid": 40,
+   "id": "test-24",
+   "split": "test",
+   "a": 74,
+   "b": 86,
+   "question": "What is 74 times 86?",
+   "gold": "6364"
+  },
+  {
+   "uid": 41,
+   "id": "test-25",
+   "split": "test",
+   "a": 55,
+   "b": 79,
+   "question": "What is 55 times 79?",
+   "gold": "4345"
+  },
+  {
+   "uid": 42,
+   "id": "test-26",
+   "split": "test",
+   "a": 27,
+   "b": 15,
+   "question": "What is 27 times 15?",
+   "gold": "405"
+  },
+  {
+   "uid": 43,
+   "id": "test-27",
+   "split": "test",
+   "a": 35,
+   "b": 47,
+   "question": "What is 35 times 47?",
+   "gold": "1645"
+  },
+  {
+   "uid": 44,
+   "id": "test-28",
+   "split": "test",
+   "a": 98,
+   "b": 64,
+   "question": "What is 98 times 64?",
+   "gold": "6272"
+  },
+  {
+   "uid": 45,
+   "id": "test-29",
+   "split": "test",
+   "a": 14,
+   "b": 24,
+   "question": "What is 14 times 24?",
+   "gold": "336"
+  },
+  {
+   "uid": 46,
+   "id": "test-30",
+   "split": "test",
+   "a": 53,
+   "b": 33,
+   "question": "What is 53 times 33?",
+   "gold": "1749"
+  },
+  {
+   "uid": 47,
+   "id": "test-31",
+   "split": "test",
+   "a": 18,
+   "b": 56,
+   "question": "What is 18 times 56?",
+   "gold": "1008"
+  },
+  {
+   "uid": 48,
+   "id": "test-32",
+   "split": "test",
+   "a": 93,
+   "b": 26,
+   "question": "What is 93 times 26?",
+   "gold": "2418"
+  },
+  {
+   "uid": 49,
+   "id": "test-33",
+   "split": "test",
+   "a": 99,
+   "b": 25,
+   "question": "What is 99 times 25?",
+   "gold": "2475"
+  },
+  {
+   "uid": 50,
+   "id": "test-34",
+   "split": "test",
+   "a": 55,
+   "b": 44,
+   "question": "What is 55 times 44?",
+   "gold": "2420"
+  },
+  {
+   "uid": 51,
+   "id": "test-35",
+   "split": "test",
+   "a": 92,
+   "b": 77,
+   "question": "What is 92 times 77?",
+   "gold": "7084"
+  },
+  {
+   "uid": 52,
+   "id": "test-36",
+   "split": "test",
+   "a": 99,
+   "b": 62,
+   "question": "What is 99 times 62?",
+   "gold": "6138"
+  },
+  {
+   "uid": 53,
+   "id": "test-37",
+   "split": "test",
+   "a": 86,
+   "b": 42,
+   "question": "What is 86 times 42?",
+   "gold": "3612"
+  },
+  {
+   "uid": 54,
+   "id": "test-38",
+   "split": "test",
+   "a": 68,
+   "b": 77,
+   "question": "What is 68 times 77?",
+   "gold": "5236"
+  },
+  {
+   "uid": 55,
+   "id": "test-39",
+   "split": "test",
+   "a": 51,
+   "b": 71,
+   "question": "What is 51 times 71?",
+   "gold": "3621"
+  },
+  {
+   "uid": 56,
+   "id": "test-40",
+   "split": "test",
+   "a": 38,
+   "b": 25,
+   "question": "What is 38 times 25?",
+   "gold": "950"
+  },
+  {
+   "uid": 57,
+   "id": "test-41",
+   "split": "test",
+   "a": 77,
+   "b": 28,
+   "question": "What is 77 times 28?",
+   "gold": "2156"
+  },
+  {
+   "uid": 58,
+   "id": "test-42",
+   "split": "test",
+   "a": 56,
+   "b": 55,
+   "question": "What is 56 times 55?",
+   "gold": "3080"
+  },
+  {
+   "uid": 59,
+   "id": "test-43",
+   "split": "test",
+   "a": 98,
+   "b": 29,
+   "question": "What is 98 times 29?",
+   "gold": "2842"
+  },
+  {
+   "uid": 60,
+   "id": "test-44",
+   "split": "test",
+   "a": 61,
+   "b": 42,
+   "question": "What is 61 times 42?",
+   "gold": "2562"
+  },
+  {
+   "uid": 61,
+   "id": "test-45",
+   "split": "test",
+   "a": 77,
+   "b": 21,
+   "question": "What is 77 times 21?",
+   "gold": "1617"
+  },
+  {
+   "uid": 62,
+   "id": "test-46",
+   "split": "test",
+   "a": 43,
+   "b": 55,
+   "question": "What is 43 times 55?",
+   "gold": "2365"
+  },
+  {
+   "uid": 63,
+   "id": "test-47",
+   "split": "test",
+   "a": 11,
+   "b": 63,
+   "question": "What is 11 times 63?",
+   "gold": "693"
+  },
+  {
+   "uid": 64,
+   "id": "test-48",
+   "split": "test",
+   "a": 25,
+   "b": 59,
+   "question": "What is 25 times 59?",
+   "gold": "1475"
+  },
+  {
+   "uid": 65,
+   "id": "test-49",
+   "split": "test",
+   "a": 98,
+   "b": 72,
+   "question": "What is 98 times 72?",
+   "gold": "7056"
+  },
+  {
+   "uid": 66,
+   "id": "test-50",
+   "split": "test",
+   "a": 37,
+   "b": 29,
+   "question": "What is 37 times 29?",
+   "gold": "1073"
+  },
+  {
+   "uid": 67,
+   "id": "test-51",
+   "split": "test",
+   "a": 54,
+   "b": 31,
+   "question": "What is 54 times 31?",
+   "gold": "1674"
+  },
+  {
+   "uid": 68,
+   "id": "test-52",
+   "split": "test",
+   "a": 15,
+   "b": 26,
+   "question": "What is 15 times 26?",
+   "gold": "390"
+  },
+  {
+   "uid": 69,
+   "id": "test-53",
+   "split": "test",
+   "a": 37,
+   "b": 25,
+   "question": "What is 37 times 25?",
+   "gold": "925"
+  },
+  {
+   "uid": 70,
+   "id": "test-54",
+   "split": "test",
+   "a": 56,
+   "b": 32,
+   "question": "What is 56 times 32?",
+   "gold": "1792"
+  },
+  {
+   "uid": 71,
+   "id": "test-55",
+   "split": "test",
+   "a": 62,
+   "b": 31,
+   "question": "What is 62 times 31?",
+   "gold": "1922"
+  },
+  {
+   "uid": 72,
+   "id": "test-56",
+   "split": "test",
+   "a": 87,
+   "b": 61,
+   "question": "What is 87 times 61?",
+   "gold": "5307"
+  },
+  {
+   "uid": 73,
+   "id": "test-57",
+   "split": "test",
+   "a": 23,
+   "b": 16,
+   "question": "What is 23 times 16?",
+   "gold": "368"
+  },
+  {
+   "uid": 74,
+   "id": "test-58",
+   "split": "test",
+   "a": 79,
+   "b": 49,
+   "question": "What is 79 times 49?",
+   "gold": "3871"
+  },
+  {
+   "uid": 75,
+   "id": "test-59",
+   "split": "test",
+   "a": 46,
+   "b": 32,
+   "question": "What is 46 times 32?",
+   "gold": "1472"
+  },
+  {
+   "uid": 76,
+   "id": "test-60",
+   "split": "test",
+   "a": 54,
+   "b": 62,
+   "question": "What is 54 times 62?",
+   "gold": "3348"
+  },
+  {
+   "uid": 77,
+   "id": "test-61",
+   "split": "test",
+   "a": 42,
+   "b": 84,
+   "question": "What is 42 times 84?",
+   "gold": "3528"
+  },
+  {
+   "uid": 78,
+   "id": "test-62",
+   "split": "test",
+   "a": 52,
+   "b": 83,
+   "question": "What is 52 times 83?",
+   "gold": "4316"
+  },
+  {
+   "uid": 79,
+   "id": "test-63",
+   "split": "test",
+   "a": 43,
+   "b": 74,
+   "question": "What is 43 times 74?",
+   "gold": "3182"
+  },
+  {
+   "uid": 80,
+   "id": "smoke-00",
+   "split": "smoke",
+   "a": 47,
+   "b": 37,
+   "question": "What is 47 times 37?",
+   "gold": "1739"
+  },
+  {
+   "uid": 81,
+   "id": "smoke-01",
+   "split": "smoke",
+   "a": 49,
+   "b": 53,
+   "question": "What is 49 times 53?",
+   "gold": "2597"
+  }
+ ]
+}

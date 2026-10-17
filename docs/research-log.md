@@ -28237,3 +28237,32 @@ Rule for s, fixed now:
 **Tests.** tests/test_pi_reason.py, which includes the R1-Llama tokenizer defect. CPU smoke runs of Cold Stop, the legacy and eager options, and generate() on R1-Qwen-1.5B.
 
 Costs, guards and the ceiling are in the private ledger. Every pod terminates itself at its run limit. Status and resume notes: docs/pi/followups-STATUS.md.
+
+## 2026-10-17 00:52 UTC: Run card C12-3 (exploratory): does coupling two soft-thinking agents manufacture agreement on the same wrong answer? (consult 12, direction 3; run by a separate agent on the CPU)
+
+**Question.** The paper's "Two loops in conversation" shows two soft-token loops locking each other into periodic orbits. Does such coupling make two agents agree on the *same wrong answer* more often than the dependence already induced by a shared model and task (consult 12, 3A)? Does exchanging only every fourth step keep the benefits and reduce wrong agreement (3B)? Human approval: 17 Oct 2026, "please do 1 through 7".
+
+**Design.** Tool: tools/c12_coupled_agents.py, tests tests/test_c12_coupled_agents.py.
+- **Task.** Fresh synthetic two-digit multiplication ("What is a times b?", a, b in 11..99, no multiple of 10), seed 12301: 16 development and 64 held-out problems, plus 2 smoke problems used only for engineering. The problem list and its SHA-256 are in docs/pi/c12-3-problems.json. Every prompt has 65 tokens.
+- **Agents.** Two copies of one model with separate contexts run soft thinking on the same prompt for 48 steps. The settings are those of C12-4: the pi_harness concept token (top-15, T = 0.6), CPU float32, special tokens masked from the support. Step 0 feeds a start-token embedding; pair k (k = 0..7) gives agent A the start word k and agent B the word k + 1 (C12-4's eight start words). On a coupled step t >= 1, each agent feeds (1 - c) e_own + c m, where e is its own concept token and m the message it receives. Readouts use the cue "The answer is" and 8 greedy tokens, after 48 steps (primary) and 24.
+- **Arms** (all with the same model calls):
+  - independent (no exchange);
+  - live (c = 0.25, every step, m = the partner's concept token at that step);
+  - sparse (live exchange at t = 4, 8, ...);
+  - replay (c = 0.25, the messages that the partner role sent in the live run of pair k + 1 on the same problem);
+  - unrelated (the live messages of pair k on the next problem: a negative control for task content);
+  - selfreplay (the pair's own live messages: an engineering control that must reproduce live exactly);
+  - live50 and replay50 (c = 0.5, secondary; at c = 0.5 both agents of a live pair receive identical inputs from step 1 on).
+  Phase 1 (independent, live, sparse, live50) and phase 2 (the replayed arms) are batches of 64 rows per problem.
+- **Primary endpoint.** Live minus independent same-wrong agreement (SWA). SWA is the share of a problem's 8 pairs whose two agents give a parsed, wrong and equal answer. The estimate is the mean over held-out problems with a percentile bootstrap over problems (10,000 resamples, seed 12303).
+- **Secondary endpoints.** Live minus replay; sparse minus live (SWA and accuracy); unrelated and replay minus independent; the live50 contrasts; accuracy and any-answer agreement per arm; each arm's excess over chance pairing, i.e. cross pairs of agents with different start words from different pairs.
+- **Synchronization diagnostics.** The pair's relative concept-token distance and the share of equal top-1 tokens.
+- **Gates.** Selfreplay reproduces live (text and top-1, all rows). The agreement detector, which pairs each agent with itself, returns exactly its parsed-error rate. The unparsed share is recorded per arm.
+
+**Development (model choice only).** Phase 1 on the 16 development problems for qwen0.5b and qwen1.5b. Rule `choose_model`, fixed now: among models whose independent-arm accuracy (readout 48) lies in [0.2, 0.8] with at least 90 % parsed answers, take the one closest to 0.5 (tie: qwen0.5b). If none qualifies, take the one closest to 0.5 and flag it. The choice goes to docs/pi/c12-3-choices.json and is committed before the held-out run. Coupling strengths, steps and arms are fixed now and are not tuned on development outcomes.
+
+**Decision (3A).** Live exceeding independent by at least 10 points (interval above zero) and exceeding replay (interval above zero) would implicate reciprocity. An excess equal to replay's favors message content. More agreement without more same-wrong answers kills the harm claim. Accuracy outside [0.2, 0.8] invalidates the task. **3B.** Sparse reduces wrong agreement (sparse minus live, interval below zero) while the lower bound of its accuracy difference from live stays above -5 points: the remedy. Otherwise there is no resolved remedy.
+
+**Not run (deviations from the consult, for time).** The text-only communication arm, the single solver at equal total compute, a GPU float64 check and a second model family.
+
+**Smoke (engineering, 2 smoke problems, qwen1.5b).** Selfreplay reproduced live exactly in every row. The detector check passed and no answer was unparsed. live50 synchronizes the pair (equal top-1 tokens in 92 % of steps 16-48) while live at c = 0.25 barely does (9 % against 5 % independent). The time is about 100 s per problem and phase with 6 threads, so the held-out qwen1.5b run takes about 3.6 h.
