@@ -1,0 +1,3 @@
+# Remaining decoder audit completed
+
+All512 saved rows in8x64 conditions qualified; all eight published answers_changed_by_decoder fields reproduced exactly. The legacy reason-plain condition changes3/64 extracted answers between decoders; each other condition changes0/64. This supports the existing tokenizer diagnosis under current pinned packages, not historical runtime reproduction or a precision effect. All source/input/output pins and row identities verified, every stored answer comparison recounted, original worker/supervisor groups absent. Sole actual run6.346s external, exit0; no controls/model repeat. Original failed profile001 and successful002 remain. See tokenizer-actual-final.json for exact evidence pins.

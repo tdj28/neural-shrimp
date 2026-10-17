@@ -7,6 +7,7 @@ def write(p,x):
  with Path(p).open('x') as f:json.dump(x,f,indent=2,allow_nan=False);f.write('\n')
 def period(tail,tol=1e-8):
  # tail: time,batch,state. Require every return in final64 comparisons.
+ assert tail.shape[0]>=96 and np.isfinite(tail).all() and np.all(np.linalg.norm(tail,axis=-1)>0)
  ans=np.zeros(tail.shape[1],int);errs=[]
  for p in range(1,33):
   a=tail[-64:];b=tail[-64-p:-p];e=np.max(np.linalg.norm(a-b,axis=-1)/np.linalg.norm(a,axis=-1),axis=0)
@@ -28,8 +29,29 @@ def main():
  progress=(out/'progress.jsonl').open('x')
  def event(**kw):progress.write(json.dumps(dict(elapsed=time.monotonic()-start,**kw))+'\n');progress.flush()
  def step(x,a,c):
-  z=model.logits(x,a,c);p=torch.softmax(z/(10.**-.156),dim=-1);return p@model.embedding,p
+  z=model.logits(x,a,c);p=torch.softmax(z/(10.**-.156),dim=-1);y=p@model.embedding
+  if not torch.isfinite(y).all() or torch.any(y.norm(dim=-1)==0):raise ValueError('nonfinite/zero state')
+  return y,p
  def evolve(x,a,c,n,label,record=129):
+  if label.startswith(('basins-','boundary-')):
+   count=len(x);active=np.arange(count);hist=[x.numpy().copy()];kh=[];ph=[];previous=np.zeros(count,int)
+   final=np.empty((129,count,896));midpoint=np.empty_like(final);kt=np.empty((129,count),int);pt=np.empty((129,count));ends=x.clone();stopped=np.zeros(count,int)
+   previous_tail=None
+   for i in range(n):
+    x,p=step(x,a,c);hist.append(x.numpy().copy());kh.append(p.argmax(-1).numpy());ph.append(p.max(-1).values.numpy())
+    hist=hist[-129:];kh=kh[-129:];ph=ph[-129:]
+    if (i+1)%32==0 and i+1>=160:
+     h=np.array(hist);pd,er=period(h);done=((pd>0)&(pd==previous[active])) if i+1<n else np.ones(len(active),bool)
+     if i+1==n:done[:]=True
+     if done.any():
+      ids=active[done];final[:,ids]=h[:,done];kt[:,ids]=np.array(kh)[:,done];pt[:,ids]=np.array(ph)[:,done];midpoint[:,ids]=(previous_tail if previous_tail is not None else h)[:,done];ends[ids]=x[done];stopped[ids]=i+1
+     previous[active]=pd;keep=~done;previous_tail=h[:,keep].copy();active=active[keep];x=x[keep];hist=[v[keep] for v in hist];kh=[v[keep] for v in kh];ph=[v[keep] for v in ph]
+     event(stage=label,steps=i+1,total=n,active=len(active))
+     if not len(active):break
+   if len(active):
+    h=np.array(hist);final[:,active]=h;kt[:,active]=np.array(kh);pt[:,active]=np.array(ph);midpoint[:,active]=(previous_tail if previous_tail is not None else h);ends[active]=x;stopped[active]=n
+   np.save(out/(label+'-stop-steps.npy'),stopped)
+   return ends,final,kt,pt,midpoint
   tail=[];mid=None;tokens=[];probs=[]
   for i in range(n):
    x,p=step(x,a,c)
@@ -54,12 +76,12 @@ def main():
    for h in [.01,.003,.001]:
     diff=(model(x+h*d,a,-.156,c)-model(x-h*d,a,-.156,c))/(2*h);fd.append({'h':h,'relative_jvp_error':float((diff-j).norm()/j.norm())})
    write(out/'report.json',dict(mode='profile',times=times,fd=fd,load_seconds=load,elapsed=time.monotonic()-start,rss_kib=resource.getrusage(resource.RUSAGE_SELF).ru_maxrss));return
-  a=.0655;c=model.prefix_cache(a);donor,dt,_,_,_=evolve(model.initial_state()[None],a,c,1000,'donor')
+  a=.0655;c=model.prefix_cache(a);donor,dt,_,_,_=evolve(model.initial_state()[None],a,c,600,'donor')
   dp,de=period(dt);assert dp[0]==2,('donor not period2',dp)
   np.savez(out/'donor.npz',tail=dt,errors=de)
   all_results=[]
   for a in card['alphas']:
-   c=model.prefix_cache(a);fixed=model.initial_state();ref,rt,rk,rp,_=evolve(torch.stack([fixed,donor[0]]),a,c,1200,f'references-{a}')
+   c=model.prefix_cache(a);fixed=model.initial_state();ref,rt,rk,rp,_=evolve(torch.stack([fixed,donor[0]]),a,c,600,f'references-{a}')
    periods,errors=period(rt);assert periods[1]==2,('target donor not2',a,periods)
    if a in [.0642,.0644]:assert periods[0]==3,('fixed crescent not3',a,periods)
    np.savez(out/f'references-{a}.npz',tail=rt,token_ids=rk,probabilities=rp,errors=errors)

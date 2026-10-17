@@ -28911,3 +28911,7 @@ Brief: /data2/CHECK_THESE.md. Findings: /data2/CHECK_THESE_FINDINGS.md (sha256 c
 ## 2026-10-17: Task28 Codex basin profile (exploratory)
 
 Human-authorized Task28: test which sampled starts reach coexisting loops and whether fixed-start proximity explains the outcome. Source tools/task28_basins.py; detailed design/card codex/basins-task28/. CPU-only full-float64 manual map, batch2/16/323 timing and AD/central-difference check, 300-second deadline, output /data2/neural-shrimp-data/explore/basins/task28/profile-001. A small crescent basin despite the fixed-start choice would challenge a generic-basin explanation. No global basin/fractal or causal claim from this pilot. No target census until measured resource admission.
+
+## 2026-10-17: Task28 measured CPU admission and cost amendment
+
+Profile001 completed (see codex/basins-task28/profile-completion.json). Batch323 takes8.53-8.90s/step; float64 AD/central-difference check passes h-squared scaling. Before basin outcomes, adopt consecutive full-state period checks for early stopping (192..1200 steps),600 donor/reference steps and8 bisections; retain unsettled rows. All details in actual-admission.md. Sole CPU2+supervisor run capped10h/12GiBAS/4GiB outputs, no retry; target /data2/neural-shrimp-data/explore/basins/task28/run-001. This ceiling is not a runtime forecast; the earlier1-2h estimate was too optimistic for fixed-length batching.

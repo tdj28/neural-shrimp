@@ -1,0 +1,9 @@
+# Task28 measured actual admission
+
+Profile001 closed successfully: batch2 .34-.36s/step; batch16 .57-.59; batch3238.53-8.90. Float64 central differences vs AD decrease approximately h^2 (.001128, .0001016, .00001129). About5.80GiB observed RSS. No target basin proportions read.
+
+Disclosed cost-driven amendment BEFORE target census: fixed-length census would require about9h without boundary work, exceeding Claude estimate. Periodic trajectories may stop at two successive32-step checks with same primitive period and every64-return residual below1e-8; earliest192 steps, maximum1200. Save129 full states from both confirming windows, exact stopping step and every unresolved final row. Bisection also uses this rule and8 levels, not12 (finite bracket width1/16384 before any additional switches; no uniqueness/fractality claim). Donor/reference600 steps matches original producer horizon; gate period2 and periodic reference3. Wrong reference period fails loudly. Source adds explicit zero/nonfinite refusal. These changes preserve primitive-return tolerance; no target-outcome-driven sampling selection.
+
+Best-case sampled census ~1.4h plus reference and boundary; irregular starts could cost much more. Admit a fixed10h external/70000CPU-second hard ceiling with no extension or retry. CPU2worker+supervisor,12GiBAS,4GiB sampled output cap,28GiB startup/16GiB runtime RAM floors,16GiB disk. Current availability will be rechecked by supervisor. No GPU/paid compute. Upper ceiling permits honest unresolved output/failure rather than promising Claude's1-2h estimate. Existing scientific source and exact change read by Root;8 manufactured controls pass. Computational source and card privately checkpoint before run.
+
+Actual matching results are finite convergence classifications, not rigorous local stability/chaos or basin geometry proofs. Independent saved scalar/state review after closure; no model rerun for audit.
