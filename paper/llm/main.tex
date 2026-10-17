@@ -4123,7 +4123,7 @@ test were fixed before the computations that test them
  & explored & reported & note \\
 \midrule
 Soft-token maps (distinct) & 34 & 29 & plus one partial map, reported \\
-\quad cells & 987\,308 & 893\,868 & omitted: 5 discovery or side maps \\
+\quad cells & 987\,308 & 893\,868 & omitted: 5 discovery or side maps$^{a}$ \\
 \quad float32 maps & 7 & 4 & \\
 Models with maps & 6 & 6 & one prompt; 3 directions and $\alpha=0$ \\
 Periodic families ($\ge6$ cells) & $\approx2600$ & -- & counted per labeled map \\
@@ -4139,7 +4139,9 @@ Language models loaded & 8 & 7 & Ouro-1.4B not reported \\
 \caption{Search scale on 14 October 2026, before the steering-control maps; the reversal row includes the two cusps
 located on 15 October (Huginn's frozen test counted once; of the two
 tests not reported here, one belongs to the separately reported sampled-dialogue study and one, a cusp pilot in a
-second checkpoint, is the unreported bounded search).}
+second checkpoint, is the unreported bounded search). $^{a}$The five omitted maps are a high-temperature family map,
+a 256-cell scan and three float64 zooms. The census saved only its totals; this list was reconstructed on 17 October
+from the raw maps as the set whose omission reproduces both totals (\texttt{docs/receipts/paper-numbers-20261017.json}).}
 \label{tab:search}
 \end{table}
 \begin{itemize}
