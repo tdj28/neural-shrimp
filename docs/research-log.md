@@ -28451,3 +28451,10 @@ The coordinator asked for the second R1-Llama cell to be corrected as well.
 - Cost guard and ceiling are in the private ledger.
 
 **Note on item 4.** The Cold Stop pod X4a ran on an H100 PCIe, PM2's pod A on an H100 NVL. Its comparison with PM2 therefore changes the GPU as well as the end of thinking. The QwQ pod X4c ran on an H200, as PM2's pod C did.
+
+## 2026-10-17 01:48 UTC: Correction to two PM2X heading times
+
+Two headings carry times later than the true ones. The commit times are taken from git.
+- "2026-10-17 01:55 UTC: PM2X item 3 results" was written and committed at 01:42 UTC (6131316f).
+- "2026-10-17 01:55 UTC: Run card PM2X amendment 1" was committed at 01:46 UTC (ccc47015). It still came before any X3c data: the pod launched after that commit.
+The entries are otherwise unchanged.
