@@ -123,7 +123,7 @@ period-doubling cascades and shrimp-shaped domains of low-dimensional maps \cite
 motivate looking for such structure here, but they do not show that a trained network realizes it. We test this
 directly. We locate chaos and periodic windows in the models' parameter space, read the texts the loop writes there,
 and check whether bifurcation theory, applied to derivatives computed from the model, predicts its behavior before
-the behavior is measured. The models realize this structure, and the predictions largely hold. We also show where the chaos comes from (Section~\ref{sec:theory}), and that larger models do not simply leave it behind (Section~\ref{sec:sizemain}). Ordinary sampled generation with a growing context is a different
+the behavior is measured. The models realize this structure, and the predictions largely hold. We also show where the chaos comes from (Section~\ref{sec:theory}; Section~\ref{sec:picture} assembles the pieces into one picture), and that larger models do not simply leave it behind (Section~\ref{sec:sizemain}). Ordinary sampled generation with a growing context is a different
 system; Section~\ref{sec:beyond} also measures how much of the mechanism survives sampling.
 
 \paragraph{Contributions.} The results fall into four groups.
@@ -1876,6 +1876,68 @@ each at the phase continuous with the fold curve. One orbit with another token l
 \label{fig:foliation}
 \end{figure}
 
+
+\section{From greedy loops to chaos: one picture}
+\label{sec:picture}
+The preceding sections establish the pieces: a factorized derivative, folds, cascades and windows. This section
+assembles them into one account of why the loop of Qwen2.5-0.5B along the philosophy direction looks the way it does.
+It answers three questions: where the periodic orbits come from, why the windows cross one another, and why
+one-dimensional maps describe a network with 896-dimensional states. Every step was checked against the full map in
+float64 (\texttt{docs/e2e/}).
+
+\paragraph{At zero temperature: greedy loops.} As $T\to0$ the soft token becomes the embedding of the most probable
+token, and the loop becomes greedy decoding with a one-token memory (Section~\ref{sec:theory}). Its cycles are the
+zero-temperature attractors, and they are superstable. Along this direction the greedy map has a two-token loop
+`` is there'' for $0.0630\le\alpha\le0.0777$ and a three-token loop ``\textbackslash n\textbackslash nThe question''
+for $0.0661\le\alpha\le0.0700$. At $\alpha=0.070$ and low temperature, the loop indeed settles on these: in a column of
+96 temperatures from $\log_{10}T=-2$ upward, 59 end on ``\textbackslash n\textbackslash nThe question'' and 16 on
+a period-4 loop that alternates `` is it'' and `` is there''.
+
+\paragraph{At finite temperature: compromises between competing continuations.} The attractors that organize the maps
+are not greedy loops. No value of $\alpha$ between 0 and 0.12 makes `` is it'' a greedy cycle; after `` it'' greedy
+decoding writes ``'s''. The 2-cycle exists only because the soft token is a mixture. After `` is'', the fed-back
+vector mixes `` it'' and `` there''; after `` it'', it mixes `` is'' and ``'s''. Each step thus feeds back a weighted
+blend of two continuations, and the blend closes into a cycle that no single token sequence forms. Such a compromise
+lives in a band of temperature and dies at both of its ends. At $\alpha=0.070$ the 2-cycle is stable between
+$\log_{10}T=-0.5147881$, where a multiplier reaches $-1$ (a flip: the competition becomes too sharp, and the blend
+alternates), and $\log_{10}T=-0.1741065$, where a multiplier reaches $+1$ (a fold, the cyan curve of
+Figure~\ref{fig:stripes}). The period-3 loop of the crescent, ``\textbackslash n\textbackslash nThe existence'', is a
+compromise of the same kind, between `` existence'' and `` question'' in the noun slot. It too lives in a band, between
+a fold above (at $\alpha=0.065$, $\log_{10}T=-0.14536$) and a flip below. It does not connect to a zero-temperature
+loop.
+
+\paragraph{What happens at the two ends.} Beyond the fold the 2-cycle is gone, but its ghost delays every trajectory
+that passes near it. The number of laps $N$ spent there grows as the inverse square root of the distance to the fold,
+so periodic windows of period $2N+6$ line up parallel to the fold curve and crowd toward it as $1/N^2$
+(Section~\ref{sec:mechanism}). This gives the near-vertical fan of stripes. Below the flip, a compromise starts
+alternating between its two blends, and in the crescent the alternation doubles again and again, a Feigenbaum cascade
+into chaos (Section~\ref{sec:cascade}). The near-horizontal band that crosses the stripes near $\log_{10}T=-0.14$ is
+the first doubling of the crescent's period-3 loop, continued to larger $\alpha$. At $\alpha=0.070$ it is bounded by
+two flips, at $\log_{10}T=-0.1392937$ above and $-0.1414292$ below. The two families cross because each is bounded by
+its own curves: the stripes by the distance to the fold of `` is it'', the band by the flips of the period-3 loop.
+Where they overlap, we tested two crossing points from five starts each, and every start ended on the band's 6-cycle.
+
+\paragraph{Why one dimension.} A single step of the map is not close to rank one. Along these orbits, the second
+eigenvalue of the readout covariance $\Sigma_p$ is 0.23 to 0.87 of the first, and the second singular value of the
+step derivative is 0.12 to 0.80 of the first. Composed over a cycle, however, the map is nearly one-dimensional. The
+ratio of the two leading singular values is 0.081 for the 2-cycle, 0.092 for the period-3 loop and 0.26 for the
+period-6 band; it falls to $3\times10^{-4}$ over twelve steps of the chaotic crescent and to $4\times10^{-9}$ in the
+chaotic stripes. Each step stretches some direction, but different steps stretch different ones, and only the
+direction along which the competition between two continuations repeats keeps growing over a cycle. The Lyapunov
+spectra say the same. At three chaotic cells the leading exponents are $0.109$, $0.424$ and $0.239$ per step, the next
+three lie between $-0.82$ and $-2.0$, and the Kaplan--Yorke dimension is 1.13, 1.43 and 1.21. One direction expands
+and the rest are crushed, so the attractor is nearly a curve, and a scalar return map with a single maximum describes
+it. That is the shape that makes period doubling and Feigenbaum's ratios inevitable. A scalar model built from the two
+competing tokens, $q'=\sigma(h(q)/T)$, reproduces the crescent's hump and places its first flip at $\alpha=0.06476$
+against 0.0644767 in the full map. It does not reproduce the cascade, so the competition sets the shape, while the
+rest of the network sets where the cascade ends.
+
+\paragraph{The picture.} At zero temperature the loop writes greedy loops. As the temperature rises, the soft token
+starts to mix the two continuations a token has, and the mixtures form new periodic orbits that no token sequence has.
+Each lives between a flip, where the competition is too sharp, and a fold, where it is too weak. Their folds leave
+ghosts that line up the windows, and their flips start cascades into chaos. Because one competition stretches while
+the rest of the network contracts, every one of these structures follows the laws of one-dimensional maps. Steering
+moves which continuations compete, and so where all of this happens.
 
 \section{Beyond the one-token loop}
 \label{sec:beyond}
