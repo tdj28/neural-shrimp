@@ -1,0 +1,65 @@
+{
+  "schema": "task27-pmx-corrected-card-v1",
+  "admission": "prepared_not_admitted",
+  "source_expected_commit": null,
+  "source_sha256": {
+    "controls.py": "dc92d589394c7d4f4f91dae1d2f555132113b107420bae9fef17e35fe40c93b5",
+    "run.py": "96e0b34d0e62a54a0084aabbbe1e8a296b407d98a2d7f05538825528f55edc7c",
+    "pm_core.py": "59999e636fc5e2e14a096614ec61f1bb9eda958eb5db17a2f592100d57431a00"
+  },
+  "inputs": {
+    "path": "/tmp/task27-pmx-corrected-prep/inputs.json",
+    "bytes": 13773,
+    "sha256": "4b05e6ed72bc376153e139c4444d50c989ffd5924384bcfa275b279540b86997"
+  },
+  "output": "/data2/neural-shrimp-data/codex/task27-ready-review-20261017/run-001/corrected-pm",
+  "max_input_bytes": 67108864,
+  "resource": {
+    "cpu_workers": 1,
+    "supervisor": 1,
+    "nice": 10,
+    "threads": 1,
+    "address_space_bytes": 1073741824,
+    "cpu_seconds": 55,
+    "wall_seconds": 60,
+    "terminate_grace_seconds": 5,
+    "kill_grace_seconds": 5,
+    "output_cap_bytes": 67108864,
+    "output_cap_scope": "Entire owned output directory plus supervisor stdout/stderr; source snapshot/receipts separately retained",
+    "startup_available_ram_bytes": 21474836480,
+    "runtime_available_ram_bytes": 17179869184,
+    "free_disk_bytes": 17179869184
+  },
+  "prior_measured_receipt": {
+    "path": "/data2/neural-shrimp-data/codex/need-to-audit-20261016/run-001/pm-supervision/receipt.json",
+    "bytes": 6388,
+    "sha256": "c44e01a98abdf715d5f0c70301b65375270fc1e164dd36c4a03679f7624e1858"
+  },
+  "expected_report": {
+    "schema": "task27-pmx-corrected-saved-v1",
+    "computational_completed": true,
+    "scientific_claims_accepted": false,
+    "arm_count": 14,
+    "variant_count": 4,
+    "record_count": 4864
+  },
+  "expected_files": [
+    "controls.json",
+    "results.json",
+    "row-diagnostics.json",
+    "comparisons.json",
+    "report.json",
+    "manifest.json"
+  ],
+  "prohibited": [
+    "model/tokenizer execution",
+    "GPU/pod work",
+    "automatic retry",
+    "watch restart"
+  ],
+  "science_scope": "Corrected saved-cell and explicitly ordered pooled comparisons; original baseline reference retained, earlier audit not rerun.",
+  "expected_integrated_controls": {
+    "passed": 6,
+    "failed": 0
+  }
+}
