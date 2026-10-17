@@ -1,0 +1,138 @@
+{
+ "rule": "The harness batches only prompts of identical token length, so a scattered problem set spends most of its compute on\nunscored filler rows. Rule (fixed before any E2 or E3 outcome): among GSM8K train problems with index >= 2000 (never\nscored by PM 0-255, PM2 256-511, Huginn 0-119, or the test-split runs E1, E4, H), group by chat-templated prompt\nlength (Qwen2.5-7B-Instruct tokenizer, the harness's prompt). Lengths with at least 16 problems are eligible. Take G\nlengths evenly spaced in rank over the sorted eligible lengths and, from each, its first 16 problems in dataset order.\nEach length then fills exactly one batch of 16 and two batches of 8, with no fillers.",
+ "split": "test",
+ "start": 0,
+ "end": 400,
+ "groups": [
+  {
+   "length": 92,
+   "indices": [
+    48,
+    50,
+    68,
+    123,
+    191,
+    209,
+    251,
+    264
+   ]
+  },
+  {
+   "length": 98,
+   "indices": [
+    49,
+    78,
+    179,
+    252,
+    260,
+    287,
+    332,
+    352
+   ]
+  },
+  {
+   "length": 104,
+   "indices": [
+    51,
+    180,
+    202,
+    220,
+    272,
+    277,
+    378,
+    382
+   ]
+  },
+  {
+   "length": 111,
+   "indices": [
+    5,
+    163,
+    171,
+    207,
+    211,
+    235,
+    258,
+    282
+   ]
+  },
+  {
+   "length": 117,
+   "indices": [
+    52,
+    61,
+    112,
+    172,
+    214,
+    250,
+    342,
+    343
+   ]
+  },
+  {
+   "length": 137,
+   "indices": [
+    42,
+    54,
+    99,
+    146,
+    266,
+    267,
+    303,
+    323
+   ]
+  }
+ ],
+ "eligible_lengths": 19,
+ "indices": [
+  5,
+  42,
+  48,
+  49,
+  50,
+  51,
+  52,
+  54,
+  61,
+  68,
+  78,
+  99,
+  112,
+  123,
+  146,
+  163,
+  171,
+  172,
+  179,
+  180,
+  191,
+  202,
+  207,
+  209,
+  211,
+  214,
+  220,
+  235,
+  250,
+  251,
+  252,
+  258,
+  260,
+  264,
+  266,
+  267,
+  272,
+  277,
+  282,
+  287,
+  303,
+  323,
+  332,
+  342,
+  343,
+  352,
+  378,
+  382
+ ],
+ "sha256_indices": "7c22b2e403c7d37d18a92f3c7b391b2ff6860d0dc188a5765f0fad74cab4f175"
+}

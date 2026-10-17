@@ -10,7 +10,8 @@ the relative distance of its fed-back input from the base row's at every step, t
 differs from the base row's.
 
 Problems: the GSM8K training problems of run PM2 (after the first 256, in full groups of identical prompt length),
-grouped --group per batch.
+grouped --group per batch; --skip-groups N leaves out the first N groups (dataset order), so a later run extends an
+earlier one without overlap and with the same per-group directions.
 Usage: python tools/pi_reason_f64.py --model r1qwen7b --limit 128 --out RUN
 """
 import argparse
@@ -41,6 +42,8 @@ def main():
     ap.add_argument("--offset", type=int, default=256)
     ap.add_argument("--limit", type=int, default=128)
     ap.add_argument("--group", type=int, default=8, help="problems per batch (identical prompt length)")
+    ap.add_argument("--skip-groups", type=int, default=0,
+                    help="skip the first N groups (to extend an earlier run without overlap; --limit counts them)")
     ap.add_argument("--twins", type=int, default=2)
     ap.add_argument("--eps0", type=float, default=1e-10)
     ap.add_argument("--temperature", type=float, default=0.6)
@@ -80,6 +83,8 @@ def main():
     T, K, dev = args.temperature, args.twins, args.device
     t0 = time.time()
     for gi, group in enumerate(groups):
+        if gi < args.skip_groups:
+            continue
         if all(p["index"] in done for p in group):
             continue
         n = len(group)

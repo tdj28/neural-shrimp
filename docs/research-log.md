@@ -28115,3 +28115,125 @@ Tool tools/e5_repetition_onset.py; choices docs/pi/e5-choices.json (3a667908, be
 **Not done.** The summarize receipt (it needs a text template); the full deviation list is in the E5 agent's report (in the session) and in docs/pi/e5-STATUS.md.
 
 **Reading.** No link between the soft loop's chaos onset and the repetition of ordinary sampled text, at this precision. The two are different systems; the loop turns chaotic at higher temperatures than those where sampled text stops looping. Exploratory, one small model.
+
+## 2026-10-17 00:45 UTC: Run cards E2 and E3 (exploratory, program PI; local GPU)
+
+Human approval 17 Oct 2026 ("please do 1 through 7"). Both runs are exploratory pilots, not confirmatory tests.
+Qwen2.5-7B-Instruct bf16 (harness pin a09a3545) on the local RTX 2000 Ada. Runner tools/pi_e2e3_run.sh; analysis
+tools/pi_e2e3_analyze.py. Compute ceiling: about 5 GPU-hours in all. Status for resumption: docs/pi/e2e3-STATUS.md.
+
+**Harness changes (options only; default paths compute as before).**
+- `--indices FILE`: a fixed list of scored problems.
+- `--layouts` takes one or two batch sizes.
+- `--stop-eos` (hard mode): a batch stops once every row has emitted EOS. Tokens before EOS are unchanged.
+- With `--gain-cap`, every row starts the gain proxy's power iteration from the same vector. Otherwise the initial
+  vector depends on the row's batch position, and capping decisions could add a layout dependence of their own.
+- A perturbed run records each row's realized relative displacement of the first soft token after bf16 rounding.
+
+**Problems** (tools/pi_e2e3_select.py, docs/pi/e2e3-problems.json, fixed before any outcome).
+- Fresh GSM8K train problems with index >= 2000. PM used 0-255, PM2 256-511, Huginn 0-119; E1, E4 and H used the
+  test split.
+- The harness batches only prompts of identical length, so scattered problems mostly compute unscored fillers. The
+  selection groups problems by prompt length and keeps the eligible lengths (at least 16 problems; 77 lengths, 95 %
+  of the problems). It takes 32 lengths evenly spaced in rank, from 81 to 160 tokens, and the first 16 problems of
+  each in dataset order: 512 problems.
+- Each length fills one batch of 16 and two of 8, with no fillers.
+- Caveat: very short and very long prompts (below 81 or above 160 tokens, about 5-10 % of GSM8K) are excluded.
+
+**Development** (stage `dev`; E1's problems: 48 of the first 400 test problems, 6 lengths of 8;
+docs/pi/e2e3-dev-problems.json). It measures throughput and checks that the cap and the perturbation behave. It does
+not select caps by outcome.
+
+**E2: gain cap.** Soft top-15, T 0.6, 64 steps, layouts 8 and 16. Four arms:
+- uncapped;
+- caps 0.37, 0.10 and 0.015: the upper quartile, median and lower quartile of the gain proxy over the active soft
+  steps (gain > 1e-3, 37 % of steps) of E1's top-15 run, layout 16.
+
+The per-step median over all steps is 0, since 63 % of steps are near one-hot, so the active steps set the scale.
+In E1 these caps bind on about 9 %, 19 % and 25 % of steps. As the cap goes to 0, the arm tends to discrete top-1
+feedback (PM top1-s64: 17.6 % flips).
+
+Readout per arm: layout flip rate (Wilson and cluster intervals; clusters are the 16-problem batches), accuracy per
+layout, exactly-one-correct, missing answers, share of steps capped, mean step temperature. Contrasts against
+uncapped, paired by problem:
+- flip-rate difference (paired cluster bootstrap, exact McNemar);
+- accuracy difference (mean of the layouts);
+- exactly-one-correct difference.
+
+Reading, stated in advance:
+- "Reduces flips": the flip difference's 95 % interval lies below 0.
+- "Without costing accuracy": the accuracy difference's interval lies above -0.03, a descriptive margin of 3 points.
+
+**E3: exploiting the sensitivity.** Layout 16 only, on the same problems.
+- soft0: unperturbed soft top-15.
+- soft-k, k = 1-8: the first soft token displaced by a relative s along a direction from
+  default_rng(1000 + 10^6 k + index).
+- greedy: chain of thought, at most 320 new tokens.
+- sample-k, k = 1-8: chain of thought at T 0.7, top-p 0.95, seed 20261016 + 10^6 k.
+
+Votes are the plurality over the extracted answers. Missing answers do not vote, and a tie goes to the answer that
+reached the tied count first.
+
+Readout: the accuracy of the soft vote, the mean single perturbed run, soft0, greedy, the sampled vote
+(self-consistency) and the mean single sampled run; pass@8; paired differences (cluster bootstrap); the vote by
+sensitivity (distinct answers among the 8 perturbed runs).
+
+Rule for s, fixed now:
+- Use s = 1e-3, unless on development its realized bf16 displacement is 0 in more than 10 % of rows, or it changes
+  fewer than 5 % of answers against the unperturbed run.
+- In either case use 1e-2.
+
+**Scale rule.** E2 uses all 512 problems. E3 uses 512 if the estimate from the dev timings keeps E2 + E3 within
+4.5 GPU-hours; otherwise every second length of the list (256 problems), fixed before E3 starts.
+
+**Prediction (not a test).**
+- E2: modest flip reductions at the strong caps, toward the top-1 level, with accuracy within a few points.
+- E3: the soft vote gains little over single soft runs, and stays far below greedy and sampled self-consistency
+  (PM: soft about 23 %, greedy about 89 %).
+
+## 2026-10-17 00:55 UTC: Run card PM2X (exploratory): three follow-ups to PM2 and PM2F (human, 17 Oct: "please do 1 through 7", items 3, 4 and 6)
+
+**Item 3: why R1-Distill-Llama-8B answers poorly in PM2 (bf16).**
+
+*Found before any run.*
+- Under transformers 5.19, `AutoTokenizer.from_pretrained(<snapshot path>)`, as tools/pi_reason.py loaded it, builds a SentencePiece-style `LlamaTokenizer` for this model. That tokenizer drops every space and newline: the PM2 prompt reads "Nataliasoldclipsto48ofherfriendsinApril.Pleasereasonstepbystep,...". Decoding leaves byte-level markers (Ġ, Ċ).
+- The same model loaded by repository name, as the float64 Engine of PM2F loads it, gives the correct `TokenizersBackend`.
+- R1-Qwen-7B and QwQ-32B load identically both ways (`Qwen2Tokenizer`, identical prompt ids).
+- Correction to the PM2F entry: only 53 of PM2F's 128 R1-Llama problems are among PM2's 256, not "the first 128". PM2F groups by 8, PM2 by 16. On those 53 problems, PM2 bf16 is 38-43 % correct and PM2F float64 79 %.
+
+*Code.*
+- tools/pi_reason.py now checks a round trip of spaced text. On failure it falls back to the fast tokenizer of tokenizer.json, and it refuses to run if that fails too. `--tokenizer legacy` reproduces PM2.
+- New options: `--indices`, `--attn`, one or two `--layouts`, and `answer_ids` in the records.
+- New: tools/pi_generate_diag.py, plain HF `generate()` on the same prompts, groups and sampling (T 0.6, top-p 0.95, no top-k), with one budget for thinking and answer together.
+
+*Diagnosis.*
+- Job set `pm2diag`, one H100. The 64 problems are the first 64 of PM2F's R1-Llama set (docs/pi/llama-diag-indices.json).
+- Runs:
+  - pi_reason plain bf16 with the legacy tokenizer (layout 1), which reproduces PM2;
+  - the same with the checked tokenizer (layout 8);
+  - soft bf16;
+  - plain with an answer budget of 1024;
+  - plain with eager attention;
+  - generate() in bf16 and in float32 with 1792 new tokens, and in bf16 with 4096.
+- These are compared with the PM2F float64 base rows on the same 64 problems.
+- The decode markers are checked by re-decoding `answer_ids` with both tokenizers and extracting again.
+
+*Corrective rerun (item 3b).* Job set `preason` `pm2fix`: R1-Llama-8B GSM8K, the PM2 design unchanged (256 problems, layouts 8/16, soft and plain, budget 1536) except for the checked tokenizer.
+- It runs in parallel with the diagnosis on a second H100, to give corrected numbers for the R1-Llama GSM8K cell.
+- MATH-500 R1-Llama is not rerun (cost ceiling).
+- This is an amendment after data to a confirmatory run, and is reported as such.
+
+**Item 4: Cold Stop and a 4096 thinking budget.**
+- Design: docs/pi/pm2cs-design.md, fixed before any data. Endpoints are as in PM2; status exploratory.
+- Cells: R1-Qwen-7B GSM8K (128 problems) and MATH-500 integers (64) on two H100s, and QwQ-32B GSM8K (64) on an H200.
+- Job sets `preason` `pm2cs-q7g`, `pm2cs-q7m` and `pm2cs-qwq`.
+
+**Item 6: QwQ-32B float64 twins on 64 more problems.**
+- Job set `pm2f64x` `pm2f64b`, on an H200: tools/pi_reason_f64.py with `--group 4 --limit 96 --skip-groups 8`.
+- That is groups 9-24 of the PM2F selection. They are disjoint from PM2F's 32 problems; this was checked: the first 8 groups reproduce PM2F's indices exactly.
+- The per-group twin directions are seeded by the original group index.
+- Readouts as in PM2F.
+
+**Tests.** tests/test_pi_reason.py, which includes the R1-Llama tokenizer defect. CPU smoke runs of Cold Stop, the legacy and eager options, and generate() on R1-Qwen-1.5B.
+
+Costs, guards and the ceiling are in the private ledger. Every pod terminates itself at its run limit. Status and resume notes: docs/pi/followups-STATUS.md.

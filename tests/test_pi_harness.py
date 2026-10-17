@@ -31,3 +31,22 @@ def test_batches_have_equal_lengths_and_mark_fillers():
             assert len(b) == size
             assert len({len(r["ids"]) for r in b}) == 1           # one prompt length per batch: no padding
             assert all(r["index"] < 0 for r in b if not r["scored"])
+
+
+def test_gain_proxy_row_invariant_ignores_batch_position():
+    import torch
+    g = torch.Generator().manual_seed(1)
+    E = torch.randn(200, 16, generator=g)
+    p = torch.softmax(torch.randn(3, 200, generator=g) * 3, dim=-1)
+    full = ph.gain_proxy(torch, p, E, 0.6, row_invariant=True)
+    for r in range(3):
+        alone = ph.gain_proxy(torch, p[r:r + 1], E, 0.6, row_invariant=True)
+        assert torch.allclose(full[r], alone[0], rtol=1e-5)
+
+
+def test_vote_plurality_ties_and_missing():
+    import pi_e2e3_analyze as pe
+    assert pe.vote(["3", "4", "4", None]) == "4"
+    assert pe.vote(["3", "4", "4", "3"]) == "4"        # 4 reached two first
+    assert pe.vote([None, None]) is None
+    assert pe.vote(["5"]) == "5"

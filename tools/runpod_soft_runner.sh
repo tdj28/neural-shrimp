@@ -70,6 +70,30 @@ snapshot_download('Qwen/Qwen2.5-7B-Instruct', revision='$REV7', cache_dir='$NEUR
   mkdir -p "$REFS7" && printf %s "$REV7" > "$REFS7/main"
 }
 
+getreasoner() {  # getreasoner MODEL: the pinned reasoning model, GSM8K and MATH-500 into the pod's HF cache (as pm2)
+  local model=$1 REPO MREV
+  case $model in
+    r1qwen7b)  REPO=deepseek-ai/DeepSeek-R1-Distill-Qwen-7B; MREV=916b56a44061fd5cd7d6a8fb632557ed4f724f60 ;;
+    r1llama8b) REPO=deepseek-ai/DeepSeek-R1-Distill-Llama-8B; MREV=6a6f4aa4197940add57724a7707d069478df56b1 ;;
+    qwq32b)    REPO=Qwen/QwQ-32B; MREV=976055f8c83f394f35dbd3ab09a285a984907bd0 ;;
+    *) log "unknown model $model"; exit 5 ;;
+  esac
+  for try in 1 2 3; do
+    log "download $REPO $MREV (try $try)"
+    HF_HUB_OFFLINE=0 HF_HUB_DOWNLOAD_TIMEOUT=120 $PY -c "
+from huggingface_hub import snapshot_download
+c = '$NEURAL_SHRIMP_DATA/models/hf/hub'
+snapshot_download('$REPO', revision='$MREV', cache_dir=c)
+snapshot_download('openai/gsm8k', repo_type='dataset', revision='740312add88f781978c0658806c59bc2815b9866', cache_dir=c)
+snapshot_download('HuggingFaceH4/MATH-500', repo_type='dataset', revision='6e4ed1a2a79af7d8630a6b768ec859cb5af4d3be',
+                  cache_dir=c)" >> "$LOGS/setup-reasoner.log" 2>&1 && break
+  done
+  local MDIR=$NEURAL_SHRIMP_DATA/models/hf/hub/models--${REPO//\//--}
+  mkdir -p "$MDIR/refs" && printf %s "$MREV" > "$MDIR/refs/main"
+  uv pip install -q -p $PY "pandas==3.0.6" "pyarrow==26.0.0" > "$LOGS/setup-pandas.log" 2>&1
+  mkdir -p /data2 && ln -sfn "$NEURAL_SHRIMP_DATA" /data2/neural-shrimp-data   # pi_harness's fixed cache path
+}
+
 run() {   # run NAME MINUTES ARGS...: one explore_llm_soft_loop call (or tools/$TOOL) under a wall-time limit,
           # echoing its progress file once a minute so that the streamed log shows the time per point
   local name=$1 minutes=$2
@@ -366,6 +390,60 @@ snapshot_download('openai/gsm8k', repo_type='dataset', revision='740312add88f781
     timeout "${minutes}m" $PY tools/pi_reason_f64.py --model $model --limit $lim --group $grp --device cuda \
       --out "$OUT/$D/pi/pm2f64/$model" > "$LOGS/pm2f64-$model.log" 2>&1
     log "end pm2f64-$model status $?"
+    ;;
+  pm2diag)     # item 3 (17 Oct): why R1-Distill-Llama-8B answers poorly in PM2 bf16; 64 PM2F problems
+               # (docs/pi/llama-diag-indices.json); JOBARGS = OUTNAME MINUTES
+    name=${JOBARGS[0]}; minutes=${JOBARGS[1]}
+    getreasoner r1llama8b
+    end=$(( $(date +%s) + minutes * 60 ))
+    D8="--model r1llama8b --task gsm8k --layouts 8 --limit 64"
+    R="$OUT/$D/pi/$name"
+    while read -r tag tool targs; do
+      left=$(( (end - $(date +%s)) / 60 ))
+      if [ $left -le 1 ]; then log "time budget spent: $tag skipped"; continue; fi
+      log "start $tag"
+      timeout "${left}m" $PY tools/$tool $targs --out "$R/$tag" > "$LOGS/$name-$tag.log" 2>&1 < /dev/null
+      log "end $tag status $?"
+    done <<JOBS
+reason-plain-legacy pi_reason.py --model r1llama8b --task gsm8k --arm plain --layouts 1 --limit 64 --indices docs/pi/llama-diag-indices.json --tokenizer legacy
+reason-plain pi_reason.py $D8 --arm plain
+gen-bf16 pi_generate_diag.py --model r1llama8b --dtype bfloat16 --limit 64 --group 8
+gen-fp32 pi_generate_diag.py --model r1llama8b --dtype float32 --limit 64 --group 8
+reason-soft pi_reason.py $D8 --arm soft
+reason-plain-ans1024 pi_reason.py $D8 --arm plain --answer-budget 1024
+reason-plain-eager pi_reason.py $D8 --arm plain --attn eager
+gen-bf16-4096 pi_generate_diag.py --model r1llama8b --dtype bfloat16 --limit 64 --group 8 --max-new-tokens 4096
+JOBS
+    ;;
+  preason)     # pi_reason.py soft and plain arms under a new output name (items 3b and 4, 17 Oct);
+               # JOBARGS = OUTNAME MODEL MINUTES THINK_BUDGET COLD_STOP_ENTROPY TASK:LIMIT...
+               # (gsm8k layouts 8 16, math500 layouts 1 8; Cold Stop length 256 when the entropy is above 0)
+    name=${JOBARGS[0]}; model=${JOBARGS[1]}; minutes=${JOBARGS[2]}; tb=${JOBARGS[3]}; cse=${JOBARGS[4]}
+    getreasoner $model
+    end=$(( $(date +%s) + minutes * 60 ))
+    for arm in soft plain; do
+      for tl in "${JOBARGS[@]:5}"; do
+        task=${tl%%:*}; lim=${tl##*:}
+        if [ "$task" = gsm8k ]; then lay="8 16"; else lay="1 8"; fi
+        left=$(( (end - $(date +%s)) / 60 ))
+        if [ $left -le 1 ]; then log "time budget spent: $model-$task-$arm skipped"; continue; fi
+        log "start $model-$task-$arm"
+        timeout "${left}m" $PY tools/pi_reason.py --model $model --task $task --arm $arm --layouts $lay \
+          --limit $lim --think-budget $tb --cold-stop-entropy $cse --cold-stop-length 256 \
+          --out "$OUT/$D/pi/$name/$model-$task-$arm" > "$LOGS/$name-$model-$task-$arm.log" 2>&1
+        log "end $model-$task-$arm status $?"
+      done
+    done
+    ;;
+  pm2f64x)     # float64 twins extending a PM2F run without overlap (item 6, 17 Oct);
+               # JOBARGS = OUTNAME MODEL MINUTES LIMIT GROUP SKIP_GROUPS
+    name=${JOBARGS[0]}; model=${JOBARGS[1]}; minutes=${JOBARGS[2]}; lim=${JOBARGS[3]}; grp=${JOBARGS[4]}
+    skip=${JOBARGS[5]}
+    getreasoner $model
+    log "start $name-$model"
+    timeout "${minutes}m" $PY tools/pi_reason_f64.py --model $model --limit $lim --group $grp --skip-groups $skip \
+      --device cuda --out "$OUT/$D/pi/$name/$model" > "$LOGS/$name-$model.log" 2>&1
+    log "end $name-$model status $?"
     ;;
   pm2)         # run PM2 (docs/pi-matrix2-confirmatory.md): Soft Thinking with a reasoning model under two batch
                # layouts, bfloat16 (tools/pi_reason.py); JOBARGS = MODEL MINUTES TASK... (gsm8k, math500)
