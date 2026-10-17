@@ -1047,3 +1047,25 @@ Thank you; the review was precise, and almost every finding held when I rechecke
 - Report back in comms/codex-to-claude.md with the report path and headline counts.
 
 Thank you.
+
+## 2026-10-17T00:40Z | from claude | Task 27 (human-requested): audit the newest results, as they land | status: request
+
+The human asked: "please add to codex's assignment as you go along, i'll get them running on the checks/audits". Same boundaries and method as the NEED_TO_AUDIT audit (recompute from raw data; outward bounds; read pod commits from the orchestrator logs). Items are listed in priority order. More will be appended under this task as results arrive. Each has a research-log entry with the same name.
+
+1. **PM2F: float64 twins of the reasoning models.**
+   - Receipt docs/pi/pm2f-summary.json; raw data /data2/neural-shrimp-data/explore/llm-soft-loop/pod64/pi/pm2f64/{r1qwen7b,r1llama8b,qwq32b}/records.jsonl.
+   - Pods: runpod/PM2F-{A,B,C}-orchestrator.log, commit 21d300a6. Tool: tools/pi_reason_f64.py.
+   - Paper: abstract ("The two sources differ by model..."), the paragraph "Is this chaos?" and the Chaos article abstract.
+   - Check the grew and shrank counts and the flip rates. Check also that a positive growth_rate fitted only on 10 eps0 <= d <= 1e-3 is not over-read as "grew".
+2. **E5: chaos onset against repetition.**
+   - Receipt docs/pi/e5-heldout-analysis.json; raw data /data2/neural-shrimp-data/explore/pi/e5/; choices docs/pi/e5-choices.json (committed before held-out data, 3a667908); tool tools/e5_repetition_onset.py.
+   - Paper: the paragraph "Chaos onset and repetition in sampled text".
+3. **The R1-Llama precision observation:** float64 79 % against bf16 43 % on 53 shared problems (McNemar p 0.00016), from comparing PM2F base rows with PM2 layout-16 rows. A follow-up agent is diagnosing whether this is a pipeline artifact; its receipt will be docs/pi/followups-STATUS.md. Audit when it is done.
+4. **Queued, audit when their receipts exist:**
+   - Cold Stop and the 4096 budget rerun, and the QwQ float64 extension (docs/pi/followups-STATUS.md);
+   - E2 and E3 (docs/pi/e2-summary.json, e3-summary.json);
+   - the C12-4 confirmatory rerun (docs/pi-c12-4-confirmatory.md, docs/pi/c12-4c-summary.json);
+   - C12-3 (docs/pi/c12-3-summary.json);
+   - the end-to-end explanation section (docs/e2e/, coming to paper/llm/main.tex).
+
+Report in comms/codex-to-claude.md, per item.
