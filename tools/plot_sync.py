@@ -42,7 +42,7 @@ def main():
     ax = axes[0]
     for k, (ci, c) in enumerate(sorted(S["cells"].items())):
         col = COLORS[k % 3]
-        label = f"cell {ci}: $\\lambda_1$ = {c['lambda1_jvp']:.3f}"
+        label = f"cell {int(ci) + 1}: $\\lambda_1$ = {c['lambda1_jvp']:.3f}"
         pts = {}
         for name in [args.sweep] + list(args.refine):
             sw = c["sweeps"].get(name)
@@ -65,7 +65,7 @@ def main():
         pr = np.array([r["predicted"] for r in c["transverse"]])
         me = np.array([r["measured"] for r in c["transverse"]])
         se = np.array([r["measured_se"] or 0.0 for r in c["transverse"]])
-        ax.errorbar(pr, me, yerr=2 * se, fmt="o", ms=4, color=COLORS[k % 3], label=f"cell {ci}")
+        ax.errorbar(pr, me, yerr=2 * se, fmt="o", ms=4, color=COLORS[k % 3], label=f"cell {int(ci) + 1}")
         lo, hi = min(lo, pr.min(), me.min()), max(hi, pr.max(), me.max())
     ax.plot([lo, hi], [lo, hi], "k-", lw=0.8)
     ax.axhline(0, color="0.6", lw=0.6)
@@ -101,7 +101,7 @@ def main():
         cells = sorted(S["cells"])
         ax.semilogy(np.arange(len(d)), d, lw=0.4, color=COLORS[cells.index(str(ci)) % 3])
         cst = S["cells"][str(ci)]["c_star_jvp"]
-        ax.set_title(f"({letter}) cell {ci}, c = {cc:g} (predicted $c^*$ = {cst:.3f})")
+        ax.set_title(f"({letter}) cell {int(ci) + 1}, c = {cc:g} (predicted $c^*$ = {cst:.3f})")
         ax.set_xlabel("step")
         ax.set_ylabel(r"$|x_A - x_B| / |x_A|$")
     fig.tight_layout()
