@@ -265,8 +265,18 @@ def main():
     out.mkdir(parents=False,exist_ok=False);W=Writer(out);started=time.monotonic()
     try:
         for p in pins.values():check_pin(p)
-        R=own('reducers');controls=own('controls').run_controls();W.write('controls.json',controls)
-        if controls['failed'] or controls['passed']!=15:raise ValueError('manufactured controls failed; target parsing refused')
+        for p in card['inherited_profile'].values():check_pin(p)
+        controls=load_json(card['inherited_profile']['controls'])
+        profile=load_json(card['inherited_profile']['report'])
+        receipt=load_json(card['inherited_profile']['receipt'])
+        closure=load_json(card['inherited_profile']['closure'])
+        if (controls['failed'] or controls['passed']!=15 or profile.get('groups')!=15
+            or not profile.get('computational_completed') or not profile.get('resource_profile_only')
+            or receipt.get('returncode')!=0 or not receipt.get('worker_reaped')
+            or closure.get('worker_returncode')!=0 or not closure.get('worker_reaped')):
+            raise ValueError('inherited sole manufactured profile not complete/passed')
+        W.write('controls.json',controls)  # Literal saved result; no controls rerun.
+        R=own('reducers')
         raw={};configs={}
         for k in ('c3','a','b'):
             raw[k]=[json.loads(line) for line in Path(pins[k+'_records']['path']).read_text().splitlines()]
@@ -291,8 +301,10 @@ def main():
         W.lines('comparisons.jsonl',counted())
         for p in pins.values():check_pin(p)
         check_pin(card['inputs'])
+        for p in card['inherited_profile'].values():check_pin(p)
         report={'schema':'independent-c12-heldout-v1','computational_completed':True,'scientific_claims_accepted':False,
           'input_manifest':card['inputs'],'input_files':list(pins.values()),'source_evidence':evidence,
+          'inherited_manufactured_profile':card['inherited_profile'],'controls_executed_in_this_run':False,
           'components':{k:{'completed':'refusal' not in v,'qualified_saved_rows':v.get('qualified_saved_rows'),'refusal':v.get('refusal')} for k,v in components.items()},
           'comparisons':[{'document':k[0],'disposition':k[1],'leaves':v} for k,v in sorted(comparison_counts.items())],
           'source_files':card['source_files'],'elapsed_through_rehash_before_report':time.monotonic()-started,

@@ -1,0 +1,114 @@
+{
+  "schema": "c12-heldout-card-v1",
+  "status": "prepared",
+  "source_expected_commit": null,
+  "output": "/data2/neural-shrimp-data/codex/task27-ready-review-20261017/run-001/c12",
+  "limits": {
+    "cpu_seconds": 55,
+    "wall_seconds": 60,
+    "address_space_bytes": 1073741824,
+    "output_bytes": 134217728,
+    "input_bytes": 67108864,
+    "threads": 1,
+    "nice": 10
+  },
+  "source_files": {
+    "run.py": {
+      "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/task27-ready-review-20261017/c12/run.py",
+      "bytes": 23078,
+      "sha256": "cf82989b0f4fcee19a4fb5928dd9f369b11bcb29e93c05d4b2636f62528d2149"
+    },
+    "reducers.py": {
+      "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/task27-ready-review-20261017/c12/reducers.py",
+      "bytes": 40090,
+      "sha256": "b2ca166449f7b7021cc4e31c928f5a06a2a2396d0fd21110a741efae02ad6625"
+    },
+    "controls.py": {
+      "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/task27-ready-review-20261017/c12/controls.py",
+      "bytes": 10689,
+      "sha256": "cf8003c739adfb10e0a4d81b8616774ccb2d9279f66b8f294d4e1caa59bf6366"
+    }
+  },
+  "inputs": {
+    "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/task27-ready-review-20261017/c12/inputs.json",
+    "bytes": 23036,
+    "sha256": "d35eb39b2e0738e32b22fc2472f28e0843647c00e2fc11e469084c66d5bbd60b"
+  },
+  "input_budget": {
+    "selected_pins": 60,
+    "selected_bytes": 23974125,
+    "response_jsonl_bytes": 20892820,
+    "metadata_basis": "Schema/source metadata only; no own raw-input timing or scientific replay performed.",
+    "additional_profile_pins": 4,
+    "additional_profile_bytes": 16510
+  },
+  "scope": {
+    "runs": [
+      "c12-3/test-1",
+      "c12-4c/run-a",
+      "c12-4c/run-b"
+    ],
+    "jsonl_records": [
+      8192,
+      2352,
+      1176
+    ],
+    "selected_scientific_rows_expected": [
+      8192,
+      2304,
+      1152
+    ],
+    "development": "Inherited/outside heldout arithmetic; all publication leaves explicitly classified.",
+    "algorithm": "Independent NumPy/stdlib reducers; original per-call problem/instance bootstraps and distinct original sequential checker stream; exact all-leaf comparisons, no model/native arrays/producer imports.",
+    "controls": "Exact saved15/15 sole manufactured controls inherited and pinned with profile report/receipt/closure; not re-executed in actual run.",
+    "source": "Frozen32c2f84f and original commit exports; no original loaded-weight or remote push attestation invented."
+  },
+  "resources_basis": {
+    "measurement": "Sole manufactured profile36649f8c:5.719832411967218s through scientific serialization,148488KiB observed before report; supervisor5.912918999325484s external,65463048B outputs. Direct execution/closure observations belong to Inference.",
+    "bootstrap": "Largest one-call index matrix10000x64 int64 is5120000B; calls sequential, no complete resample arrays retained.",
+    "output": "Eight fixed outputs; source-sized row ledgers plus summaries/comparisons.128MiB is a failure ceiling, not arbitrary malformed-input guarantee. Worker reserves1MiB for final report/manifest/failure; supervisor counts outputs+stdout/stderr.",
+    "memory": "1GiB hard address-space ceiling; observed RSS separately reported before final report. No claim of a measured full-worker peak.",
+    "historical_basis": "Exact complete manufactured shape measured once; actual hash/IO and actual parser-mismatch branches remain unmeasured. No extra profile or controls repeat.",
+    "preflight": "Inference generic supervisor fresh20GiB RAM/16GiB disk, runtime16GiB RAM/disk;CPU1 with separate supervisor, exact nice10,55CPU60wall and cleanup as existing reviewed supervisor.",
+    "forecast": "2x5.719832411967218s for arithmetic/parser sensitivity plus30s unmeasured original hash/IO/metadata margin =41.43966482393444s;55CPU/60external remains a hard failure ceiling, not a worst-case proof."
+  },
+  "outputs": [
+    "controls.json",
+    "c12-3.json",
+    "c12-4c.json",
+    "c12-3-rows.jsonl",
+    "c12-4c-rows.jsonl",
+    "comparisons.jsonl",
+    "report.json",
+    "manifest.json"
+  ],
+  "success_contract": {
+    "report_schema": "independent-c12-heldout-v1",
+    "computational_completed": true,
+    "scientific_claims_accepted": false,
+    "manifest": "Seven earlier file pins, excludes itself; scientific refusals/differences do not become passes."
+  },
+  "admission": "Prepared status refuses. Inference alone may bind exact reviewed source/card, private checkpoint and actual admitted status; no execution from this release.",
+  "inherited_profile": {
+    "controls": {
+      "path": "/data2/neural-shrimp-data/codex/task27-ready-review-20261017/run-001/c12-profile/controls.json",
+      "bytes": 986,
+      "sha256": "267e45711e72d4e2fd22d675d0760dcb8bbe3c662175052e85c8b92ad3f9b8a5"
+    },
+    "report": {
+      "path": "/data2/neural-shrimp-data/codex/task27-ready-review-20261017/run-001/c12-profile/report.json",
+      "bytes": 648,
+      "sha256": "36649f8cc6c11d64f3dcc5f797136e7d7e5cf513e2030355e3037004e9e1bb12"
+    },
+    "receipt": {
+      "path": "/data2/neural-shrimp-data/codex/task27-ready-review-20261017/run-001/c12-profile-supervision/receipt.json",
+      "bytes": 6890,
+      "sha256": "ea4e01c8dd2cb56faf2841c4640f77490940f5b7bedb719767a5ae7de4aaab1d"
+    },
+    "closure": {
+      "path": "/data2/neural-shrimp-data/codex/task27-ready-review-20261017/run-001/c12-profile-original-closure.json",
+      "bytes": 7986,
+      "sha256": "9c313c037cc1fe8fb94eea0cb8354ecbde6cc92b4ee191d1cb761e4ef0049669"
+    }
+  }
+}
