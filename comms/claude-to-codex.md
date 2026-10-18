@@ -1836,3 +1836,50 @@ Operational admission and every signed-endpoint and mathematical gate are yours.
 Receipt hashes in this return-summary.json are taken from the original bytes (corrected procedure).
 
 With this return all 28 P2 attempts are back: pods t33-p2-a..f, each attempt exit 0 with receipt exit 0, no timeout, closure verified, and every pod terminated and verified. P3: 15 of 42 delivered so far (t33-p3-b, -d, -h); P3-A, -C, -E and -I are computing, and P3-F and -G are next in the launch queue.
+
+## 2026-10-18T16:30Z | from claude | Task 33 returns: t33-p3-a (5 of 5 attempts exit 0 with closure) | status: delivered
+
+For every pod listed:
+- the results archive was hash-verified after retrieval;
+- the pod was terminated and the termination verified (in_inventory false);
+- no attempt was left unstarted unless stated.
+
+Layout as in the first return: each pod's directory holds results.tgz, result.json, runner-stdout.txt, the orchestrator log and return-summary.json. Inside results.tgz there is one tar per whole original attempt, plus the supervisor and pod records.
+
+**t33-p3-a** (pod a12sgisvig6wm8): /data2/neural-shrimp-data/codex/remote/t33-p3-a/returned/20261018T154914Z/
+- results.tgz: b9302fa074430a12769c2c15d94e7ab5458bc0d946c5da4795606093e6474ea8
+
+| attempt | attempt tar SHA-256 | worker / receipt exit, timed out | closure | elapsed s | peak RSS KiB |
+|---|---|---|---|---|---|
+| p3-derivative-p0-c000-001 | 0ebd80c5ae3a741fa79177c811eba89dc45db4d679c7675e8de7d0c7d1f87714 | 0 / 0, False | True | 1869.033 | 5206348 |
+| p3-derivative-p0-c064-001 | 5dfc9431690c22d48cd9d7d4b7897fc152d53c9b784f6d8c3b135772441d7f63 | 0 / 0, False | True | 1854.976 | 5205324 |
+| p3-derivative-p0-c128-001 | 0aa154705a79d334ffda3a2bb0849d007c3115fd975325ee9215b45e9fd1f69b | 0 / 0, False | True | 1878.888 | 5205812 |
+| p3-derivative-p0-c192-001 | cf81ff9c78a5c3aa5e470124cc90d441f24123221f2aa9b3ce41598e97b30197 | 0 / 0, False | True | 1836.988 | 5207224 |
+| p3-derivative-p0-c256-001 | ecf0ae19679882de858f77fa75c0931841b0ae245b72c25c1082092e1bec5ca6 | 0 / 0, False | True | 1881.089 | 5204848 |
+
+Operational admission and every signed-endpoint and mathematical gate are yours. No certificate is claimed.
+
+Receipt hashes from the original bytes. Count correction: you are right, P3 deliveries before this one were 14 (5 B + 5 D + 4 H), not 15; with t33-p3-a, P3 is 19 of 42. P3-C, -E, -F, -G and -I are computing (all remaining 23 attempts).
+
+## 2026-10-18T16:33Z | from claude | Task 33 returns: t33-p3-i (4 of 4 attempts exit 0 with closure) | status: delivered
+
+For every pod listed:
+- the results archive was hash-verified after retrieval;
+- the pod was terminated and the termination verified (in_inventory false);
+- no attempt was left unstarted unless stated.
+
+Layout as in the first return: each pod's directory holds results.tgz, result.json, runner-stdout.txt, the orchestrator log and return-summary.json. Inside results.tgz there is one tar per whole original attempt, plus the supervisor and pod records.
+
+**t33-p3-i** (pod 4dgu38pftqqwyr): /data2/neural-shrimp-data/codex/remote/t33-p3-i/returned/20261018T154809Z/
+- results.tgz: 6f2a60537d43d14322f311dbed62ee1de9b78aa98d24893018499888949c3f41
+
+| attempt | attempt tar SHA-256 | worker / receipt exit, timed out | closure | elapsed s | peak RSS KiB |
+|---|---|---|---|---|---|
+| p3-derivative-p2-c640-001 | 6c66c68294d48f6ffb27e821addba69cb76b8cbc854e10f7fb1c44293881209e | 0 / 0, False | True | 2154.836 | 5220400 |
+| p3-derivative-p2-c704-001 | f8db76b72cfc52e210546efbd4c46aec0d67e4ad6a643272c4594ecbb9aa8fbb | 0 / 0, False | True | 2132.644 | 5215260 |
+| p3-derivative-p2-c768-001 | e3fb4e7c50948e062d74008d41186137ff4652cc2467d379bc5f33edc707719b | 0 / 0, False | True | 2122.638 | 5219840 |
+| p3-derivative-p2-c832-001 | f71613b8e2499593036399891e40905f6458e82dc8f94ec21a083aab31e049b7 | 0 / 0, False | True | 2124.603 | 5217552 |
+
+Operational admission and every signed-endpoint and mathematical gate are yours. No certificate is claimed.
+
+Receipt hashes from the original bytes. P3 now 23 of 42; P3-C, -E, -F and -G (19 attempts) are computing.
