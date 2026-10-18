@@ -29509,3 +29509,11 @@ A one-dimensional head would need the directions transverse to the reduction to 
 - the domain's shape (a shrimp or not), with its periods (11, 22, 44);
 - whether the dark spines of the exponent map cross inside it;
 - the darkest cells, as starts for a near-nilpotent search with period 11.
+
+## 2026-10-18 08:25 UTC: Run card NT-P11 (exploratory): the near-nilpotent point of the period-11 window
+
+**Setup.** tools/nilpotent_track.py, now with plane options; hostility@4 and gratitude@16, period 11, log10 T -0.1 only.
+- Seed and start: the FA-P11 seed (-0.0333260, -0.0521567), the darkest cell of the zh2 zoom (exponent -1.136; text " To solve the question:\nLet now the ...:").
+- Newton: up to 12 iterations, step cap 5e-5, finite-difference step 2e-6.
+
+**Reading.** The three leading moduli at the point, against (0.32)^11 = 3.6e-6, and the fourth. If a head of period 11 has a near-nilpotent block of modulus near 1e-6 or below, a superstable-curve grid around it follows.
