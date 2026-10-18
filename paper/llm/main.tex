@@ -51,7 +51,9 @@ Lyapunov exponents that automatic-differentiation tangents reproduce. We call th
 label, not a proof of an asymptotic chaotic set; 74 to 92\,\% of sampled labels persist to $10^5$ steps. Finite-time
 expansion has direct consequences for reproducibility. Rerun with only the batch size changed, chaotic float64 loops
 separate until their most probable tokens differ, on the schedule the Lyapunov exponent sets, while periodic loops
-mostly stay together, in four models up to 70B. In arithmetic tests designed before the runs, changing only the batch
+mostly stay together, in four models up to 70B; with
+the matrix shapes held fixed the runs are bitwise identical, and a displacement injected instead grows on the same
+schedule. In arithmetic tests designed before the runs, changing only the batch
 layout, which alters the floating-point execution while the intended computation stays the same, changed the answers
 of bfloat16 soft-thinking inference on 56\,\% of 96 problems in a 0.5B model and 55\,\% in a 7B model, far more often
 than with greedy decoding; an exploratory reset of the fed-back state at every step removed most of these changes. In
@@ -176,6 +178,7 @@ Claim & Evidence & Where \\
 The loop's derivative factorizes into a readout covariance and the network's Jacobian & identity & Sec.~\ref{sec:theory} \\
 Chaotic regimes with periodic windows in 15 models; 74--92\,\% of sampled labels last $10^5$ steps & numerical & Secs.~\ref{sec:maps}, \ref{sec:sizemain} \\
 Chaotic float64 loops separate on the Lyapunov schedule when only the batch layout changes & numerical & Sec.~\ref{sec:consequences} \\
+With fixed matrix shapes the runs are bitwise identical; injected displacements grow on the Lyapunov schedule & frozen & Sec.~\ref{sec:consequences} \\
 The batch layout changes long-feedback answers (bfloat16 pipelines, Soft Thinking, reasoning models) & frozen & Sec.~\ref{sec:consequences} \\
 Resetting the fed-back state removes most of these changes & exploratory & Sec.~\ref{sec:consequences} \\
 Steering creates chaos mainly through token competition (0.5B model; weaker evidence at 7B) & exploratory interventions & Sec.~\ref{sec:theory} \\
@@ -942,6 +945,34 @@ $\ln(10^{-2}/d_1)/\lambda$, where $d_1$ is the smallest nonzero distance in the 
 and a log-log correlation of $0.73$ over 190 cells. This uses the whole run and is therefore retrospective; an
 independent recomputation with the first nonzero distance instead gives the same rounded values. The two chaotic
 cells that never diverge have exponents of $0.013$ and $0.0013$, for which the predicted step lies beyond the run.
+
+\paragraph{A fixed-shape control and a dose test.} Two checks, fixed in advance (\repo{docs/fs-design.md}), test this
+account directly on the same 448 cells (Figure~\ref{fig:fixedshape}). When the matrix shapes do not change, the two runs
+are bitwise identical over all 1500 steps in every cell, both when the same rows run twice and when the rows are
+permuted, so that each cell has other neighbors and another position in the batch. The difference therefore comes
+from the shapes alone: rows do not leak into one another, and the computation is deterministic. Changing the shape
+again separates 190 of the 192 chaotic cells and leaves 182 of the 192 periodic ones within $10^{-2}$, as before.
+With the shapes fixed, we then displaced the start of each cell by a relative amount $d$ from $10^{-15}$ to
+$10^{-3}$. In the chaotic cells the displacement grows on the schedule the exponent sets. The step at which it passes
+$10^{-2}$ divided by $\ln(10^{-2}/d)/\lambda$ has medians of 0.87, 1.01, 1.08, 1.10 and 1.18 for $d=10^{-15}$ to
+$10^{-7}$, inside the frozen band from 0.7 to 1.3. The median step rises by 2.9 per unit of $\ln(1/d)$, against a
+median $1/\lambda$ of 3.9, within the frozen 30\,\%. At $10^{-5}$ and $10^{-3}$ the linear account fails (medians
+1.21 and 1.67), as it must for displacements that are no longer small. In the periodic cells a displacement of
+$10^{-11}$ or less separates the runs in at most 6.3\,\% of cells. From $10^{-9}$ upward it separates 10 to 59\,\%, as
+displaced states cross into another attractor's basin. This fails a secondary criterion, which allowed at most
+10\,\% up to $d=10^{-5}$.
+\begin{figure}[tbp]
+\centering
+\includegraphics[width=\linewidth]{fig-fixed-shape.png}
+\caption{Fixed-shape control and dose test (Qwen2.5-0.5B-Instruct, the 448 labeled cells of two float64 maps, 1500
+lockstep steps; \repo{tools/repro_noise.py}, \repo{tools/plot_fixed_shape.py}). (a) Largest relative distance between
+paired runs per cell: with the same matrix shapes, whether the same rows run twice or the rows are permuted, it is
+exactly zero in all 448 cells (plotted at $10^{-18}$); a changed shape separates the chaotic cells. (b) With the shapes
+fixed, a displacement $d$ injected at the start passes $10^{-2}$ after the number of steps $\ln(10^{-2}/d)/\lambda$
+predicts (chaotic cells; medians and quartiles; labels: median ratio of measured to predicted). (c) Share of
+periodic cells whose displaced runs separate, which they do only by crossing into another basin.}
+\label{fig:fixedshape}
+\end{figure}
 The same holds without steering in Qwen2.5-7B, whose embeddings are untied. Over 24 chaotic and 24 periodic
 temperatures of its unsteered loop, all 24 chaotic float64 runs diverge, after a median of 56 steps (the exponent again
 accounts for the step, median ratio $0.95$), and at 23 of them the readout's most probable token differs at some step
