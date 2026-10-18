@@ -1115,6 +1115,17 @@ snapshot_download('$repo', revision='$rev', cache_dir='$NEURAL_SHRIMP_DATA/model
     TOOL=shrimp_centre.py run shrimpc-${JOBARGS[0]} "${JOBARGS[1]}" --device cuda --threads 8 "${JOBARGS[@]:2}" \
       --out $D/shrimp/${JOBARGS[0]}
     ;;
+  fa)          # run FA: the domain of one attractor family found by following it cell by cell from a seed
+               # (tools/follow_attractor.py, float64 on the GPU): JOBARGS = NAME MINUTES ARGS...; vectors-l4/l16 uploaded
+               # with --extra-data
+    TOOL=follow_attractor.py run fa-${JOBARGS[0]} "${JOBARGS[1]}" --device cuda --threads 8 "${JOBARGS[@]:2}" \
+      --out $D/fa/${JOBARGS[0]}
+    ;;
+  nt)          # run NT: the near-nilpotent point of the period-5 window continued in log10 T (tools/nilpotent_track.py,
+               # float64 on the GPU): JOBARGS = NAME MINUTES ARGS...; vectors-l4/l16 uploaded with --extra-data
+    TOOL=nilpotent_track.py run nt-${JOBARGS[0]} "${JOBARGS[1]}" --device cuda --threads 8 "${JOBARGS[@]:2}" \
+      --out $D/nt/${JOBARGS[0]}
+    ;;
   nbounds)     # run NB: norm bounds of the factorized derivative (tools/norm_bounds.py, float32 on the GPU):
                # JOBARGS = NAME MINUTES MODE ARGS... (cells file docs/nb-cells.json uploaded with the code)
     TOOL=norm_bounds.py run nb-${JOBARGS[0]} "${JOBARGS[1]}" ${JOBARGS[2]} --device cuda --threads 8 "${JOBARGS[@]:3}" \

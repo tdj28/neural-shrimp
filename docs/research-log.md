@@ -29395,3 +29395,28 @@ This is the FM5 fold map (fm5 job set; the paper's anatomy at -0.100) at log10 T
 - the readout term against temperature at the low-temperature onset.
 
 Test A (sampled L and T*) follows from the recorded max log||J_h|| plus the sup mode.
+
+## 2026-10-18 07:26 UTC: Run card FA-100 (exploratory; human: show our real shrimp): the domain of the period-5 attractor, found by following it
+
+**Why.** The fixed-start maps start every cell from one text. In the legs of the period-5 window (gratitude@4 / hostility@16, log10 T -0.1), that start settles on a coexisting period-4 attractor, so the legs and shells do not show and the window does not look like a shrimp. The fold and flip curves (FM5) outline the legs but leave them unfilled.
+
+**Tool.** tools/follow_attractor.py, smoke-tested on the CPU on a 5 x 5 grid: all 25 cells kept period 5.
+- **Seed:** the fixed start at (-0.118730, 0.100693), 900 steps, period 5 required. Reference word: the leading tokens ". . 你 . I".
+- **Following:** waves over an 8-neighbourhood. Each cell starts from the final state of its most stable member neighbour, then runs 250 transient steps and 200 recorded steps with one twin (offset 1e-6). Period: full-state recurrence (tolerance 1e-8, up to 64).
+- **Membership:** the cell's dominant token per phase matches its parent's in at least 4 of 5 phases (best rotation).
+- **Grid:** alpha1 [-0.1320, -0.1040] x alpha2 [0.0860, 0.1225], spacing 1.25e-4.
+
+**Reading, fixed now:**
+- the member domain (body, legs, shells), coloured by exponent;
+- member periods (5, 10, 20, none);
+- the agreement of its boundary with the FM5 fold and flip curves: the share of member cells next to a lost cell that lie within 1.5 cells of a computed curve.
+
+**Not claimed:** the domain is only where the attractor is reachable through the grid from the seed.
+
+## 2026-10-18 07:26 UTC: Run card NT (exploratory): the period-5 head point continued in temperature
+
+**Why.** The -0.105 zoom (P5Z 105d, 544 cells) shows a positive-multiplier wedge bounded by two complex-multiplier strips that come within one cell (1e-4) of each other and do not cross. The avoided crossing of a near-one-dimensional head has a gap that grows like the square root of the transverse multipliers, and the observed gap (about 3e-4) matches the transverse scale near 3e-3.
+
+**Tool.** tools/nilpotent_track.py continues the near-nilpotent point. At each temperature it solves for zero sum and zero pairwise sum of the 6 Ritz values (as tools/nilpotent_search.py), starting from (-0.1184836, 0.1017217) at -0.100. log10 T goes down in steps of 0.005, with predictor marches of (alpha1, alpha2, T); a second run goes up. No fallback: a non-converged temperature ends the track.
+
+**Reading, fixed now:** the common modulus of the three leading multipliers against T. If it falls by 10x or more over the range, the head approaches a one-dimensional doubly superstable point at lower T. A superstable-curve grid then follows at the lowest converged T.
