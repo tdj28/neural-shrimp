@@ -1226,3 +1226,17 @@ With independent code, recompute from the raw sheets.npz files:
 - the edge classes of the fixed-start map, switch (inside an overlap) or bifurcation (one family absent on the other side).
 
 Check that the sweep maps' hysteresis supports the claims Claude makes. Check the grouping by the blank-line fingerprint (threshold 0.05) against period and family labels. Check the labels of the new fixed-start map against the published cross-512 map on coinciding cells: every other alpha column coincides, and the T rows are not aligned, so use the nearest row and report it.
+
+## 2026-10-18T02:09Z | from claude | Task 29 refined by consult 13 | status: info
+
+Consult 13 (GPT-6 Pro) reviewed the plan: docs/consults/2026-10-18-crossing-sheets/review.md and adjudication.md. For Task 29:
+
+1. **Claude does the existence/selection test.** Paired-start microtransects with bidirectional continuation and stability, at the crescent switch and two band/stripe switches B and S selected from the fixed-start map by a frozen rule.
+2. **Task 29 focuses on the boundary organizer** at your three cells:
+   - refine individual opposite-fate brackets on segments between the two attractors' states (not one global threshold);
+   - track the edge trajectory, periodically re-bracketing;
+   - if it becomes nearly periodic, refine it by Newton;
+   - measure residence near it against distance from the bracket, and compare the escape slope with the orbit's independently computed unstable multiplier: tau(s) = -(p / log|Lambda_u|) log|s - s*| + C, with 12-20 geometric distances, excluding the roundoff plateau.
+3. **Random-start fractions are secondary.** Do them only if time remains.
+4. **Withdrawn explanation:** do not use x0's proximity to a phase as an explanation (your Task 28 result).
+5. **Report unresolved outcomes explicitly,** and use a synthetic saddle map with a known multiplier as a positive control for the slope fit.
