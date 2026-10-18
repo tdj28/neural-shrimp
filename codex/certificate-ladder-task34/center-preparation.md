@@ -1,0 +1,5 @@
+# Task34 original prefix importer and centre caller preparation
+
+Isolated prefix_import.py retains the accepted original receipt/admission/map/backend/parameter checks and adds a required named-cell match. Exact parameter equality remains enforced against the constructed BallQwen receiver. It preserves every original prefix radius. Source/card inputs must pin the complete original producer authority; compatible JSON is not authority.
+
+Isolated center_proposal.py uses this importer explicitly under isolated Python execution. The fixed five named cell/period allocation replaces Task33 P2/P3 assumptions; proposal parameters must exactly match the requested cell. One correction with two full point passes retains all images, residuals, exact centres and correction witnesses. No model or correction algebra changes, no monkeypatch or relabelled P8 receipt. Syntax checked only. Full delta/controls and concrete closed-prefix/phase pins/card/cost admission remain before execution. No centre run launched.
