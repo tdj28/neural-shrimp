@@ -1,0 +1,7 @@
+# Task33 original return contract preparation
+
+Prepared launch.py isolates accepted snapshot launcher to the owned coexistence raw root and Task33 derivative driver/plan paths, captures both certifier backend and Task33 source, and restricts driver selection to derivative_shard. The scientific worker remains1thread/18GiB/exact3600s, original source/manifest/stdout/stderr/status/receipt archive retained. Existing Claude outer wrapper remains responsible for effective shared capacity, exact remote ownership, watchdog, retrieval and dedicated-pod termination. No new remote execution or wrapper loop is requested by this source preparation.
+
+Prepared returned_shard.py reuses original whole-inventory and completed-shard checks with Task33 captured-plan path and explicit period2/3/phase/64-column admission. It checks all original artifacts/source/current assignment/status and native shard digest; operational admission is not mathematical endpoint acceptance or a certificate. Outer original closure/termination authority remains separately mandatory. Assembly must still independently authenticate signed actual receiver/basis/output endpoints, nominal containment and all28/42shards before strict root/primitive/attraction gates.
+
+Syntax checked only; focused synthetic original-return controls and source delta review remain. No dispatch card is ready until a closed refined centre and final box/radius are bound. Preserve every failed attempt. No P8 source/receipt mutation.
