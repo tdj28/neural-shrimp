@@ -33,3 +33,5 @@ Representative profile001 completed and closed, source55df1a34, session84833 rea
 2026-10-18T10:56Z: prefix001 COMPLETE/CLOSED,4outputs/6sourceblobs/227328balls authenticated;1827.7489s external,2048bits, no certificate. center_proposal.py fully reviewed,12manufactured importer controls passed. Separate one-correction P2/P3 cards prepared for serial admission; P2 first, no retry.
 
 P2center001 RUNNING session73577/sourcef9da6fc6. Original supervisor2202589/start226764217,worker2202685/start226764248 checked in host process view,UID1000/groups/command/nice10/1thread. Restricted process view could not see live processes, so host view used; prefix original groups also confirmed absent there. Serial18GiBAS/2900CPU/3000wall; no retry. P3 card prepared but not launched.
+
+2026-10-18T11:16Z: center-p2-001 COMPLETE/CLOSED,session73577reaped0.10artifacts/9sourceblobs,3584residual components/1792midpoint choices verified. Residual upper6.5198e-16 to3.19704e-29 (rounded up);450.2785s external, all4point calls109.56–110.81s. No certificate. Next serial P3center001 under existing reviewed card; actual point cost is below forecast.
