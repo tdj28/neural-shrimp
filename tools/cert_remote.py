@@ -139,7 +139,9 @@ def preflight(a):
         try:
             importlib.import_module(mod)
             got = md.version(dist)
-            imp[mod] = (got == ver, got)
+            # pip records torch's local label (2.14.1+cu130) in its metadata, uv did not; the exact build string is
+            # checked separately through torch.__version__, so here only the public version must match
+            imp[mod] = (got.split("+")[0] == ver, got)
         except Exception as e:                       # noqa: BLE001 - any import failure is a refusal
             imp[mod] = (False, f"import failed: {e}")
     checks["third_party_imports"] = (all(v[0] for v in imp.values()), {k: v[1] for k, v in imp.items()})
