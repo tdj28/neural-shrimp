@@ -39,6 +39,8 @@ def main():
     import explore_llm_soft_loop as esl
     import explore_llm_phase_map as elpm
     import bifurcation_curves as bc
+    sys.path.insert(0,str(Path(__file__).resolve().parent))
+    from branch_trace import trace_branch
     out=Path(a.out);out.mkdir(parents=True,exist_ok=False)
     def write(name,value):(out/name).write_text(json.dumps(value,indent=2,allow_nan=False)+'\n')
     start=time.monotonic()
@@ -55,7 +57,12 @@ def main():
     fam=esl.soft_family(loop,v,5,10,896,reference=None,exact_jvp=True,second=(16,w),log_temperature=-.1)
     def on_point(rec):
         with (out/'progress.jsonl').open('a') as f:f.write(json.dumps(rec,allow_nan=False)+'\n')
-    records,reason,ys=bc.trace_branch(fam,fam.to_np(X),[10*c['alpha'],10*c['alpha2']],free=0 if c['free']=='alpha' else 1,direction=c['direction'],steps=c['steps'],ds=c['ds'],ds_min=c['ds_min'],ds_max=c['ds_max'],tol=1e-10,max_newton=10,beyond=.005,bounds=tuple(10*b for b in c['bounds']),on_point=on_point,k=896,refine_k=4)
+    def on_attempt(rec):
+        # Infinity is an explicit failed-residual marker, never a JSON NaN/Infinity token.
+        if not np.isfinite(rec['relative_residual']):rec['relative_residual']='nonfinite'
+        with (out/'attempts.jsonl').open('a') as f:f.write(json.dumps(rec,allow_nan=False)+'\n')
+    def on_state(index,state):np.save(out/f'accepted-state-{index:03d}.npy',state)
+    records,reason,ys=trace_branch(fam,fam.to_np(X),[10*c['alpha'],10*c['alpha2']],free=0 if c['free']=='alpha' else 1,direction=c['direction'],steps=c['steps'],ds=c['ds'],ds_min=c['ds_min'],ds_max=c['ds_max'],tol=1e-10,max_newton=10,beyond=.005,bounds=tuple(10*b for b in c['bounds']),on_point=on_point,k=896,refine_k=4,on_attempt=on_attempt,on_state=on_state)
     for row in records:
         row['lambda']/=10
         if 'turn_lambda_estimate' in row:row['turn_lambda_estimate']/=10
