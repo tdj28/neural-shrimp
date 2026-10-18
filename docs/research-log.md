@@ -30002,3 +30002,30 @@ Pod: H100, repro job set, commit 7c01ba83; terminated. Raw data: explore/llm-sof
 - **Spoken trace fix.** Trimming word clips at -40 dBFS cut soft onsets ("This" at -43 to -45 dBFS sounded like "is"; "there" lost its "th"); the human heard missing words at 0:53. Clips are now trimmed at -50 dBFS with 40/80 ms margins, and every rendered trace checks each word's RMS in the final mix.
 - **American spelling** in the paper (30 changes), the Chaos article, the blog, figure labels and video overlays (human: "we use American spelling!").
 - **Videos folder** reorganized: superseded versions moved to videos/archive/, render caches to videos/cache/; nothing deleted.
+
+## 2026-10-18 21:40 UTC: arXiv v1 preparation (the Chaos article)
+
+- **Manuscript.** The arXiv version is the 20-page Chaos article (repository chaos-journal-neural-shrimp), not the
+  151-page full report. The full report is to accompany the journal version and a later arXiv version, once the
+  author has checked it. Decisions by the author: license CC BY 4.0, chosen because AIP asks that preprints carry at
+  least CC BY-NC; no conflict-of-interest subsection in v1; contact e-mail on the title page.
+- **Article edits** (Chaos repository, commits 7e693b0 and f24f1f1):
+  - the supplementary-material and data statements now say that the full report will accompany the journal version
+    (the AIP URL placeholder and the TODO(release) note are removed);
+  - "the computer-assisted proof" became plural, since the coexisting period-2 and period-3 orbits are also proved;
+  - the PDF title and author metadata are set.
+- **Source bundle.** build_arxiv_bundle.py (Chaos repository) collects main.tex, the TikZ input, the 14 figures,
+  main.bbl and a 00README.json naming main.tex as the only top-level file for pdflatex. It removes comments in the
+  upload copy only and refuses constructs it cannot strip safely. It then compiles the extracted archive in a fresh
+  directory, with shell escape off, no BibTeX run and no custom search paths. First build, from commit f24f1f1:
+  18 files, 4.1 MB, 20 pages, the same page count and text as the canonical PDF, no undefined references, no
+  overfull boxes. The archive and manifest are in neural-shrimp-data/arxiv/chaos-v1/.
+- **Checks before posting** (read-only agents):
+  - a full audit of the article (numbers, evidence levels, the form abstract against the article);
+  - two audits of today's additions to the full report against raw records;
+  - a full-history sweep of this repository before it is made public (credentials, private files, third-party
+    documents, sizes).
+  The results and the fixes follow in the next entry.
+- **Full report, paper/llm/main.tex.** It still has its private front matter (draft date and status paragraph). That
+  paragraph also has a stale sentence: it calls the period-8 orbit the only computer-assisted proof. Both are to be
+  fixed before the full report is posted.
