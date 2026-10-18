@@ -2009,7 +2009,80 @@ into chaos (Section~\ref{sec:cascade}). The near-horizontal band that crosses th
 the first doubling of the crescent's period-3 loop, continued to larger $\alpha$. At $\alpha=0.070$ it is bounded by
 two flips, at $\log_{10}T=-0.1392937$ above and $-0.1414292$ below. The two families cross because each is bounded by
 its own curves: the stripes by the distance to the fold of `` is it'', the band by the flips of the period-3 loop.
-Where they overlap, we tested two crossing points from five starts each, and every start ended on the band's 6-cycle.
+
+\paragraph{Why the two families cross in both orders.} Which family a map shows where they overlap is not decided by
+either family's curves. In parts of the crossing the crescent's family lies over the stripes, in others a stripe lies
+over the band, and the order can change from one cell to the next. Every cell of the maps starts from the same state,
+the embedding of the prompt's last token, so where two attractors coexist a map shows the one whose basin contains that
+state. To see what the maps hide, we recomputed the window of Figure~\ref{fig:cross512} on a $192\times256$ grid in
+seven more ways: from the fixed start; from states of the crescent's period-3 orbit, of the band's 6-cycle and of the
+period-10 stripe; and by following each attractor continuously across the plane, with every column (or row) of cells
+starting from the final states of the previous one, in both directions of $\alpha$ and of $T$
+(Figure~\ref{fig:sheets}; \texttt{docs/sheets/analysis.json}).
+\begin{itemize}
+  \item \emph{Two overlapping sheets.} Periodic attractors of the crescent's family (loops that write
+  ``\textbackslash n\textbackslash nThe \ldots'') exist at 13{,}585 of the 49{,}152 cells, and those of the 2-cycle
+  and its stripes (loops that write `` is \ldots'') at 36{,}787. Both exist at 9{,}675 cells, on a broad arc that
+  covers the crescent and runs under the stripes (Figure~\ref{fig:sheets}b). The fixed-start map hides 32\,\% of the
+  crescent family's cells and 36\,\% of the 2-cycle family's. Along each temperature row the crescent family's
+  branch is continuous: at $\log_{10}T=-0.1415$ it runs from $\alpha=0.066$ to about 0.0745, under the stripes
+  (Figure~\ref{fig:sheets}d; Figure~\ref{fig:sheets3d} shows the two sheets in 3D).
+  \item \emph{Selection by the start.} Where only one family has a periodic attractor, the fixed start never reaches
+  the other: there is no exception among the 49{,}152 cells. Where both exist, it reaches the crescent's family at
+  65.4\,\% of the cells and the 2-cycle's family at 28.5\,\% (the rest are chaotic or unresolved). In the crescent
+  zone the split is 70 to 29\,\%; across the band it is 48.5 to 48.0\,\%, with the choice alternating from cell to
+  cell, which is the alternating order seen in the map. Of the map's 1{,}376 edges between periodic cells of different
+  families, 557 are pure switches: each side's family also exists on the other side, and only the basin that holds the
+  fixed start changes. At 662 one family ends while the other continues beneath it, and at 157 both end. These counts
+  are lower bounds on the overlap, since seven ways of starting cannot find every attractor.
+  \item \emph{The crescent's own edge is a switch.} At each temperature the crescent's period-3 orbit exists from its
+  fold onward, but the fixed start reaches it only farther right: in a strip up to $1.1\times10^{-3}$ wide in $\alpha$
+  both coexist and the map shows the 2-cycle (Figure~\ref{fig:hiddenstrip}). At $\log_{10}T=-0.148$ the map's
+  existence edge, $\alpha=0.06444$, coincides with the fold found by continuation, 0.064444. The strip narrows to the
+  grid spacing toward the top of the crescent.
+  \item \emph{Chaos.} Almost all chaotic attractors (96\,\% of the chaotic cells) visit the crescent family's
+  blank-line and ``The'' tokens, including the chaos between the stripe windows, so the chaotic regions cannot be
+  assigned to the 2-cycle's side alone.
+\end{itemize}
+Why the fixed start lands where it does is not explained by its nearness to either attractor. At three crescent cells
+random starts (single token embeddings and mixtures of the top 64) reached the 2-cycle in 82 to 90\,\% of cases, and the nearest attractor phase predicted their
+destinations worse than always guessing the 2-cycle (\texttt{docs/basins/basins-summary.json}). The newline that ends
+the prompt happens to lie in the crescent's basin over most of the overlap, even though that basin is the smaller one
+for random starts. Settle times give no sign of long transients at the switches (median 94 steps near the edges and 87
+elsewhere), so these basin boundaries do not hold trajectories for long.
+\begin{figure}[tbp]
+\centering
+\includegraphics[width=\linewidth]{figures/fig-sheets.png}
+\caption{What the fixed-start map shows, and what it hides (Qwen2.5-0.5B-Instruct, philosophy direction at layer 12,
+float64; the window of Figure~\ref{fig:cross512} on a $192\times256$ grid). (a) The attractor reached from the fixed
+start (colors as in Figure~\ref{fig:cross512}; black: chaos). (b) Where periodic attractors of each family exist,
+according to all eight maps of the run: four starts (the fixed start and states of the crescent's period-3 orbit, the
+band's 6-cycle and the period-10 stripe) and four adiabatic sweeps; black contour: where the fixed start reaches the
+crescent's family. (c) How many steps the fixed start takes to settle. (d) Cross-sections along three temperatures:
+the mean probability of the blank-line token on the attractor reached in each map against $\alpha$, colored by family,
+with the family the fixed start reaches shown as a ribbon at the bottom. The crescent family's branch (orange)
+continues under the stripes while the fixed start switches between the two branches.}
+\label{fig:sheets}
+\end{figure}
+\begin{figure}[tbp]
+\centering
+\includegraphics[width=\linewidth]{figures/fig-sheets-3d.png}
+\caption{The two families as sheets. Each point is an attractor found at one cell of Figure~\ref{fig:sheets}, at a
+height equal to its mean probability of the blank-line token: about 0.2 for the crescent's family (orange), about 0 for
+the 2-cycle and its stripes (blue); gray: chaos. (a) Everything found by the eight maps. (b) Only what the fixed-start
+map hides: periodic attractors found from another start at cells where the fixed start reaches something else.}
+\label{fig:sheets3d}
+\end{figure}
+\begin{figure}[tbp]
+\centering
+\includegraphics[width=\linewidth]{figures/fig-hidden-strip.png}
+\caption{The crescent's left edge is a switch, not its fold. (a) Along each temperature, the smallest $\alpha$ at
+which the crescent's periodic family exists in any map of the run (orange) and the smallest at which the fixed start
+reaches it (black); between them (purple) both exist and the map shows the 2-cycle. Star: the period-3 fold found by
+continuation at $\log_{10}T=-0.148$. (b) The width of that strip; pale points: rows where the fold lies beyond the
+window, so the width is a lower bound.}
+\label{fig:hiddenstrip}
+\end{figure}
 
 \paragraph{Why one dimension.} A single step of the map is not close to rank one. Along these orbits, the second
 eigenvalue of the readout covariance $\Sigma_p$ is 0.23 to 0.87 of the first, and the second singular value of the

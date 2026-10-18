@@ -29079,3 +29079,21 @@ The entry said that 72 % of chaotic cells lie between 0.05 and 0.2 in the blank-
 On that basis, 629 chaotic cells (4.4 %) use both families' words heavily, 13,154 (91.3 %) look like the crescent family, 577 (4.0 %) like the 2-family, and 51 like neither.
 
 **Accurate statement.** Almost all chaotic attractors visit the crescent family's "\n\nThe" phrases, including the chaos between the stripe windows (see the chaos-texts table), so chaos cannot be cleanly assigned to the 2-cycle's side. The groups of periodic attractors, and every footprint and edge count, are unaffected.
+
+## 2026-10-18 03:06 UTC: P5T rerun (amendment 1): suggestive, not conclusive
+
+**Run.** Commit ad3ba132; pod k1pqbathklzus5, terminated (verified); 235 s of compute. Raw data: explore/llm-soft-loop/pod64/sheets/p5temp-pilot2.
+
+**Results:**
+- **log10 T -0.100:** the head at (-0.11848, 0.10172) has moduli 0.0036, 0.0034 and 0.0034, as in the paper; the leading three are equal, so the head is three-dimensional.
+- **log10 T -0.105:** after recentering, the window's center has moduli 0.157, 0.008 and 0.001 (|mu2|/|mu1| 0.052; per-step area 0.264).
+  - The head search moved to (-0.11766, 0.10131), where the moduli are 0.127, 0.0038 and 0.0019 (|mu3|/|mu1| 0.015). It did not reach c1 = c2 = 0.
+  - The window is effectively one-dimensional there: one multiplier dominates by 30-70 times.
+- **log10 T -0.110:** the orbit was not recovered. Newton's residual was 3.5e-3 at |mu1| 1.28, and the run stopped. The tool failed to write that final status to summary.json, which is fixed in the follow-up.
+
+**Reading.**
+- The step from three comparable leading multipliers at -0.100 to one dominant multiplier at -0.105 is in the direction of the hypothesis that lower temperature makes the window one-dimensional.
+- But the head search on (c1, c2) is degenerate once the window is one-dimensional (c2 is small everywhere), so it cannot locate a one-dimensional head. Offsets at -0.100 were already nearly one-dimensional away from the special point (|mu2|/|mu1| 0.02 and 0.001).
+- So no conclusion yet.
+
+**Next, if approved.** A superstability grid (tools/doubly_superstable.py) over the window at two or three lower temperatures, with the window found by a coarse scan, to look for crossing curves where mu1 = 0.
