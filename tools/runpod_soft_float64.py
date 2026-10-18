@@ -32,7 +32,7 @@ UPLOAD_PATHS = ("tools/explore_llm_soft_loop.py", "tools/explore_llm_attractors.
                 "tools/steering_controls.py", "docs/steering-controls-selection.json", "tools/qwen35_float64.py",
                 "tools/selfref_features.py", "tools/hidden_chaos.py", "tools/gain_split.py", "tools/start_state.py", "docs/h2-horizon-cells.json",
                 "docs/steering-controls-selection-70b.json", "docs/prefix-scale-prefixes.json", "docs/plateau-cells-z70.json", "docs/plateau-cells-z128.json", "docs/plateau-cells-l31-70b.json", "docs/q72fix-cells.json",
-                "tools/sheets_map.py", "tools/sheets_transect.py", "tools/sheets_edge.py", "tools/p5_temperature.py", "tools/p5_dss_temperature.py", "tools/long_transients.py", "tools/cert_remote.py", "tools/cert_capacity.py", "tools/shrimp_centre.py", "tools/norm_bounds.py", "tools/follow_attractor.py", "tools/nilpotent_track.py", "tools/monodromy_svd.py",
+                "tools/sheets_map.py", "tools/sheets_transect.py", "tools/sheets_edge.py", "tools/p5_temperature.py", "tools/p5_dss_temperature.py", "tools/long_transients.py", "tools/cert_remote.py", "tools/cert_capacity.py", "tools/shrimp_centre.py", "tools/norm_bounds.py", "tools/follow_attractor.py", "tools/leg_centerline.py", "tools/nilpotent_track.py", "tools/monodromy_svd.py",
                 "docs/nb-cells.json", "docs/nb-cells-cross-a.json", "docs/nb-cells-cross-b.json", "tools/bound_hierarchy.py", "docs/bh/bh-cells.json", "tools/attractor_portrait.py", "tools/unstable_manifold.py", "tools/lyap_spectrum.py", "tools/basin_slice.py", "tools/attractor_sweep.py",
                 "docs/lt-cells.json",
                 "tools/prefix_transition.py", "tools/soft_thinking_twins.py", "docs/st72-cells-p3.json",
