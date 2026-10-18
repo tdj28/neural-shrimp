@@ -1,0 +1,1599 @@
+{
+  "status": "complete; finite exploratory evidence accepted by Root",
+  "updated_utc": "2026-10-18T01:42:58.873540+00:00",
+  "source_commit": "e8bc3a1708cc00dbd2aaab7cee4d263726ea1e37",
+  "audit_source_commit": "931aa77c7fb3d093fe32121524b2a1216a28d6a5",
+  "report": {
+    "path": "/data2/neural-shrimp-data/explore/basins/task28/run-001/report.json",
+    "bytes": 561285,
+    "sha256": "2627121fb9ca01ad11e3f442955083f65aa4c53a418a625383e502f3eb8231f7"
+  },
+  "receipt": {
+    "path": "/data2/neural-shrimp-data/explore/basins/task28/run-001-supervision/receipt.json",
+    "bytes": 18573,
+    "sha256": "e9e2cc6a06d696b8e22c0530741bec41048a6392d7aaa6ebfe9168f89d797177"
+  },
+  "saved_audit": {
+    "path": "/data2/neural-shrimp-data/explore/basins/task28/saved-audit-001/report.json",
+    "bytes": 17359,
+    "sha256": "1038f80d7ff4b77dd213204117623c48be782deaea68843e45713e5837da1b3a"
+  },
+  "audit_receipt": {
+    "path": "/data2/neural-shrimp-data/explore/basins/task28/saved-audit-001-supervision/receipt.json",
+    "bytes": 5525,
+    "sha256": "773864725c4047c8c9734f461b544b1aca9c374bca83d4e7f6be4fccf0640928"
+  },
+  "actual_closure": {
+    "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/basins-task28/actual-closure.json",
+    "bytes": 1600,
+    "sha256": "67abb1470d792fc23d5ca2e90219641f78d2e351fecb561371b827a1b8a6373d"
+  },
+  "audit_closure": {
+    "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/basins-task28/saved-audit-closure.json",
+    "bytes": 688,
+    "sha256": "dad64e6bc120b62e000bf58e695e8c4eb6b67d9babf3dc2581fd183bf5b84e3c"
+  },
+  "methods": {
+    "log10T": -0.156,
+    "alphas": [
+      0.0642,
+      0.0652,
+      0.0644
+    ],
+    "starts_per_cell": 323,
+    "single_uniform_vocabulary": 128,
+    "top64_dirichlet8_mixtures": 128,
+    "deterministic_segment": 65,
+    "fixed_and_donor_controls": 2,
+    "seed": 280017,
+    "period_threshold": 1e-08,
+    "phase_threshold": 1e-06,
+    "lags": [
+      1,
+      32
+    ],
+    "earliest_stop": 192,
+    "maximum_steps": 1200,
+    "successive_check_spacing": 32,
+    "return_window": 64,
+    "segment_refinement_levels": 8,
+    "segment_bracket_width": 6.103515625e-05
+  },
+  "results": [
+    {
+      "alpha": 0.0642,
+      "log10T": -0.156,
+      "reference_periods": [
+        3,
+        2
+      ],
+      "fractions": {
+        "single_embeddings": {
+          "crescent_period3": {
+            "count": 20,
+            "n": 128,
+            "fraction": 0.15625,
+            "wilson95": [
+              0.10348354800906658,
+              0.22904810942897047
+            ]
+          },
+          "donor_period2": {
+            "count": 107,
+            "n": 128,
+            "fraction": 0.8359375,
+            "wilson95": [
+              0.7621819239629298,
+              0.8901166835408066
+            ]
+          },
+          "other_period2": {
+            "count": 1,
+            "n": 128,
+            "fraction": 0.0078125,
+            "wilson95": [
+              0.0013804318928742412,
+              0.04292625943886061
+            ]
+          }
+        },
+        "top64_k8_mixtures": {
+          "crescent_period3": {
+            "count": 6,
+            "n": 128,
+            "fraction": 0.046875,
+            "wilson95": [
+              0.021657844171923776,
+              0.09849752245094322
+            ]
+          },
+          "donor_period2": {
+            "count": 115,
+            "n": 128,
+            "fraction": 0.8984375,
+            "wilson95": [
+              0.8339751366963888,
+              0.9396813512731592
+            ]
+          },
+          "other_period4": {
+            "count": 7,
+            "n": 128,
+            "fraction": 0.0546875,
+            "wilson95": [
+              0.026740201381346355,
+              0.10858490029974707
+            ]
+          }
+        }
+      },
+      "segment_labels": [
+        "donor_period2",
+        "donor_period2",
+        "donor_period2",
+        "donor_period2",
+        "donor_period2",
+        "donor_period2",
+        "crescent_period3",
+        "donor_period2",
+        "donor_period2",
+        "donor_period2",
+        "donor_period2",
+        "donor_period2",
+        "donor_period2",
+        "donor_period2",
+        "donor_period2",
+        "donor_period2",
+        "donor_period2",
+        "donor_period2",
+        "donor_period2",
+        "donor_period2",
+        "donor_period2",
+        "donor_period2",
+        "donor_period2",
+        "donor_period2",
+        "donor_period2",
+        "donor_period2",
+        "donor_period2",
+        "donor_period2",
+        "donor_period2",
+        "donor_period2",
+        "donor_period2",
+        "donor_period2",
+        "donor_period2",
+        "donor_period2",
+        "donor_period2",
+        "donor_period2",
+        "donor_period2",
+        "donor_period2",
+        "crescent_period3",
+        "crescent_period3",
+        "donor_period2",
+        "donor_period2",
+        "donor_period2",
+        "donor_period2",
+        "donor_period2",
+        "donor_period2",
+        "donor_period2",
+        "donor_period2",
+        "donor_period2",
+        "donor_period2",
+        "donor_period2",
+        "donor_period2",
+        "donor_period2",
+        "donor_period2",
+        "donor_period2",
+        "crescent_period3",
+        "crescent_period3",
+        "crescent_period3",
+        "crescent_period3",
+        "crescent_period3",
+        "crescent_period3",
+        "crescent_period3",
+        "crescent_period3",
+        "crescent_period3",
+        "crescent_period3"
+      ],
+      "coarse_transitions": [
+        {
+          "lo": 0.078125,
+          "hi": 0.09375,
+          "left": "donor_period2",
+          "right": "crescent_period3"
+        },
+        {
+          "lo": 0.09375,
+          "hi": 0.109375,
+          "left": "crescent_period3",
+          "right": "donor_period2"
+        },
+        {
+          "lo": 0.578125,
+          "hi": 0.59375,
+          "left": "donor_period2",
+          "right": "crescent_period3"
+        },
+        {
+          "lo": 0.609375,
+          "hi": 0.625,
+          "left": "crescent_period3",
+          "right": "donor_period2"
+        },
+        {
+          "lo": 0.84375,
+          "hi": 0.859375,
+          "left": "donor_period2",
+          "right": "crescent_period3"
+        }
+      ],
+      "refined_binary_brackets": [
+        {
+          "lo": 0.0936279296875,
+          "hi": 0.09368896484375,
+          "left": "donor_period2",
+          "right": "crescent_period3"
+        },
+        {
+          "lo": 0.0941162109375,
+          "hi": 0.09417724609375,
+          "left": "crescent_period3",
+          "right": "donor_period2"
+        },
+        {
+          "lo": 0.57904052734375,
+          "hi": 0.5791015625,
+          "left": "donor_period2",
+          "right": "crescent_period3"
+        },
+        {
+          "lo": 0.61199951171875,
+          "hi": 0.612060546875,
+          "left": "crescent_period3",
+          "right": "donor_period2"
+        },
+        {
+          "lo": 0.8515625,
+          "hi": 0.85162353515625,
+          "left": "donor_period2",
+          "right": "crescent_period3"
+        }
+      ],
+      "proximity": [
+        {
+          "step": 0,
+          "min_distance_period2": 0.5729251224404028,
+          "min_distance_crescent_reference": 0.3234236344790692,
+          "closer": "crescent_reference"
+        },
+        {
+          "step": 1,
+          "min_distance_period2": 0.32522606188523623,
+          "min_distance_crescent_reference": 0.03520605826920032,
+          "closer": "crescent_reference"
+        },
+        {
+          "step": 2,
+          "min_distance_period2": 0.2989216260465583,
+          "min_distance_crescent_reference": 0.03090071100489664,
+          "closer": "crescent_reference"
+        },
+        {
+          "step": 3,
+          "min_distance_period2": 0.44740109382251375,
+          "min_distance_crescent_reference": 0.05200225668028503,
+          "closer": "crescent_reference"
+        },
+        {
+          "step": 4,
+          "min_distance_period2": 0.31994383331812054,
+          "min_distance_crescent_reference": 0.00940995012089302,
+          "closer": "crescent_reference"
+        },
+        {
+          "step": 5,
+          "min_distance_period2": 0.2950434154339905,
+          "min_distance_crescent_reference": 0.016491611899218973,
+          "closer": "crescent_reference"
+        },
+        {
+          "step": 6,
+          "min_distance_period2": 0.47929153349856357,
+          "min_distance_crescent_reference": 0.017293552207111977,
+          "closer": "crescent_reference"
+        },
+        {
+          "step": 7,
+          "min_distance_period2": 0.32094742757472683,
+          "min_distance_crescent_reference": 0.002899770365210169,
+          "closer": "crescent_reference"
+        },
+        {
+          "step": 8,
+          "min_distance_period2": 0.30563697266600837,
+          "min_distance_crescent_reference": 0.0071206166453743605,
+          "closer": "crescent_reference"
+        },
+        {
+          "step": 9,
+          "min_distance_period2": 0.4853839448442362,
+          "min_distance_crescent_reference": 0.014954333260235975,
+          "closer": "crescent_reference"
+        },
+        {
+          "step": 10,
+          "min_distance_period2": 0.3208403575662013,
+          "min_distance_crescent_reference": 0.0036776152639912607,
+          "closer": "crescent_reference"
+        },
+        {
+          "step": 11,
+          "min_distance_period2": 0.2991054013904557,
+          "min_distance_crescent_reference": 0.008299590996933228,
+          "closer": "crescent_reference"
+        },
+        {
+          "step": 12,
+          "min_distance_period2": 0.4917191299824516,
+          "min_distance_crescent_reference": 0.006092832378984876,
+          "closer": "crescent_reference"
+        },
+        {
+          "step": 13,
+          "min_distance_period2": 0.3208288203830288,
+          "min_distance_crescent_reference": 0.001071405461863339,
+          "closer": "crescent_reference"
+        },
+        {
+          "step": 14,
+          "min_distance_period2": 0.3048505045992379,
+          "min_distance_crescent_reference": 0.00430027892939349,
+          "closer": "crescent_reference"
+        },
+        {
+          "step": 15,
+          "min_distance_period2": 0.4909620271317751,
+          "min_distance_crescent_reference": 0.0069364255843805366,
+          "closer": "crescent_reference"
+        },
+        {
+          "step": 16,
+          "min_distance_period2": 0.3207787710099978,
+          "min_distance_crescent_reference": 0.0017300848933097558,
+          "closer": "crescent_reference"
+        }
+      ],
+      "mid_final_period_changes": 0,
+      "scope": "Finite sampled basins only. No-return is unresolved/irregular, not chaos proof. Wilson intervals apply only to each IID random arm. Finite crossing observations do not prove fractality/uniqueness. Proximity is descriptive, not a causal explanation."
+    },
+    {
+      "alpha": 0.0652,
+      "log10T": -0.156,
+      "reference_periods": [
+        0,
+        2
+      ],
+      "fractions": {
+        "single_embeddings": {
+          "donor_period2": {
+            "count": 105,
+            "n": 128,
+            "fraction": 0.8203125,
+            "wilson95": [
+              0.7447837371324442,
+              0.8771754002548395
+            ]
+          },
+          "no_return_up_to32": {
+            "count": 22,
+            "n": 128,
+            "fraction": 0.171875,
+            "wilson95": [
+              0.11633115948147267,
+              0.24653996807301726
+            ]
+          },
+          "other_period2": {
+            "count": 1,
+            "n": 128,
+            "fraction": 0.0078125,
+            "wilson95": [
+              0.0013804318928742412,
+              0.04292625943886061
+            ]
+          }
+        },
+        "top64_k8_mixtures": {
+          "donor_period2": {
+            "count": 115,
+            "n": 128,
+            "fraction": 0.8984375,
+            "wilson95": [
+              0.8339751366963888,
+              0.9396813512731592
+            ]
+          },
+          "no_return_up_to32": {
+            "count": 7,
+            "n": 128,
+            "fraction": 0.0546875,
+            "wilson95": [
+              0.026740201381346355,
+              0.10858490029974707
+            ]
+          },
+          "other_period4": {
+            "count": 4,
+            "n": 128,
+            "fraction": 0.03125,
+            "wilson95": [
+              0.01221826524505338,
+              0.07759763126136077
+            ]
+          },
+          "other_period8": {
+            "count": 2,
+            "n": 128,
+            "fraction": 0.015625,
+            "wilson95": [
+              0.004295449710144082,
+              0.055180976679817195
+            ]
+          }
+        }
+      },
+      "segment_labels": [
+        "donor_period2",
+        "donor_period2",
+        "donor_period2",
+        "donor_period2",
+        "donor_period2",
+        "donor_period2",
+        "donor_period2",
+        "donor_period2",
+        "donor_period2",
+        "donor_period2",
+        "donor_period2",
+        "donor_period2",
+        "donor_period2",
+        "donor_period2",
+        "donor_period2",
+        "donor_period2",
+        "donor_period2",
+        "donor_period2",
+        "donor_period2",
+        "donor_period2",
+        "donor_period2",
+        "donor_period2",
+        "donor_period2",
+        "donor_period2",
+        "donor_period2",
+        "donor_period2",
+        "donor_period2",
+        "donor_period2",
+        "no_return_up_to32",
+        "donor_period2",
+        "donor_period2",
+        "donor_period2",
+        "donor_period2",
+        "donor_period2",
+        "donor_period2",
+        "donor_period2",
+        "donor_period2",
+        "donor_period2",
+        "donor_period2",
+        "donor_period2",
+        "donor_period2",
+        "no_return_up_to32",
+        "no_return_up_to32",
+        "no_return_up_to32",
+        "donor_period2",
+        "donor_period2",
+        "donor_period2",
+        "donor_period2",
+        "donor_period2",
+        "donor_period2",
+        "donor_period2",
+        "donor_period2",
+        "donor_period2",
+        "no_return_up_to32",
+        "donor_period2",
+        "donor_period2",
+        "donor_period2",
+        "donor_period2",
+        "donor_period2",
+        "no_return_up_to32",
+        "no_return_up_to32",
+        "no_return_up_to32",
+        "no_return_up_to32",
+        "no_return_up_to32",
+        "no_return_up_to32"
+      ],
+      "coarse_transitions": [
+        {
+          "lo": 0.421875,
+          "hi": 0.4375,
+          "left": "donor_period2",
+          "right": "no_return_up_to32"
+        },
+        {
+          "lo": 0.4375,
+          "hi": 0.453125,
+          "left": "no_return_up_to32",
+          "right": "donor_period2"
+        },
+        {
+          "lo": 0.625,
+          "hi": 0.640625,
+          "left": "donor_period2",
+          "right": "no_return_up_to32"
+        },
+        {
+          "lo": 0.671875,
+          "hi": 0.6875,
+          "left": "no_return_up_to32",
+          "right": "donor_period2"
+        },
+        {
+          "lo": 0.8125,
+          "hi": 0.828125,
+          "left": "donor_period2",
+          "right": "no_return_up_to32"
+        },
+        {
+          "lo": 0.828125,
+          "hi": 0.84375,
+          "left": "no_return_up_to32",
+          "right": "donor_period2"
+        },
+        {
+          "lo": 0.90625,
+          "hi": 0.921875,
+          "left": "donor_period2",
+          "right": "no_return_up_to32"
+        }
+      ],
+      "refined_binary_brackets": [
+        {
+          "lo": 0.4354248046875,
+          "hi": 0.43548583984375,
+          "left": "donor_period2",
+          "right": "no_return_up_to32"
+        },
+        {
+          "lo": 0.437744140625,
+          "hi": 0.43780517578125,
+          "left": "no_return_up_to32",
+          "right": "donor_period2"
+        },
+        {
+          "lo": 0.63720703125,
+          "hi": 0.63726806640625,
+          "left": "donor_period2",
+          "right": "no_return_up_to32"
+        },
+        {
+          "lo": 0.685546875,
+          "hi": 0.68560791015625,
+          "left": "no_return_up_to32",
+          "right": "donor_period2"
+        },
+        {
+          "lo": 0.82806396484375,
+          "hi": 0.828125,
+          "left": "donor_period2",
+          "right": "no_return_up_to32"
+        },
+        {
+          "lo": 0.828125,
+          "hi": 0.82818603515625,
+          "left": "no_return_up_to32",
+          "right": "donor_period2"
+        },
+        {
+          "lo": 0.91522216796875,
+          "hi": 0.915283203125,
+          "left": "donor_period2",
+          "right": "no_return_up_to32"
+        }
+      ],
+      "proximity": [
+        {
+          "step": 0,
+          "min_distance_period2": 0.5736944396336944,
+          "min_distance_crescent_reference": 0.29912470564052474,
+          "closer": "crescent_reference"
+        },
+        {
+          "step": 1,
+          "min_distance_period2": 0.3259507342786463,
+          "min_distance_crescent_reference": 0.0339372911745177,
+          "closer": "crescent_reference"
+        },
+        {
+          "step": 2,
+          "min_distance_period2": 0.304915518997879,
+          "min_distance_crescent_reference": 0.017152785998239342,
+          "closer": "crescent_reference"
+        },
+        {
+          "step": 3,
+          "min_distance_period2": 0.49146761285215923,
+          "min_distance_crescent_reference": 0.005220653512544381,
+          "closer": "crescent_reference"
+        },
+        {
+          "step": 4,
+          "min_distance_period2": 0.3212706529040698,
+          "min_distance_crescent_reference": 0.0007183308811172481,
+          "closer": "crescent_reference"
+        },
+        {
+          "step": 5,
+          "min_distance_period2": 0.3077401764229304,
+          "min_distance_crescent_reference": 0.0006817457605245153,
+          "closer": "crescent_reference"
+        },
+        {
+          "step": 6,
+          "min_distance_period2": 0.45461516402016944,
+          "min_distance_crescent_reference": 0.0006128793224384707,
+          "closer": "crescent_reference"
+        },
+        {
+          "step": 7,
+          "min_distance_period2": 0.3208560846259717,
+          "min_distance_crescent_reference": 8.479697026984767e-05,
+          "closer": "crescent_reference"
+        },
+        {
+          "step": 8,
+          "min_distance_period2": 0.29632566434703955,
+          "min_distance_crescent_reference": 0.00022254677373568398,
+          "closer": "crescent_reference"
+        },
+        {
+          "step": 9,
+          "min_distance_period2": 0.48575657745111234,
+          "min_distance_crescent_reference": 0.00020288276063223663,
+          "closer": "crescent_reference"
+        },
+        {
+          "step": 10,
+          "min_distance_period2": 0.32142325842208275,
+          "min_distance_crescent_reference": 3.080472230730474e-05,
+          "closer": "crescent_reference"
+        },
+        {
+          "step": 11,
+          "min_distance_period2": 0.3099292495290549,
+          "min_distance_crescent_reference": 9.231357501092464e-05,
+          "closer": "crescent_reference"
+        },
+        {
+          "step": 12,
+          "min_distance_period2": 0.4213763044126432,
+          "min_distance_crescent_reference": 0.000564309741515061,
+          "closer": "crescent_reference"
+        },
+        {
+          "step": 13,
+          "min_distance_period2": 0.3172937881791603,
+          "min_distance_crescent_reference": 0.00010795161275183538,
+          "closer": "crescent_reference"
+        },
+        {
+          "step": 14,
+          "min_distance_period2": 0.29748421589424434,
+          "min_distance_crescent_reference": 0.0005087127287490502,
+          "closer": "crescent_reference"
+        },
+        {
+          "step": 15,
+          "min_distance_period2": 0.475610552746345,
+          "min_distance_crescent_reference": 0.000823355213280597,
+          "closer": "crescent_reference"
+        },
+        {
+          "step": 16,
+          "min_distance_period2": 0.3213997600628614,
+          "min_distance_crescent_reference": 0.00015973429131457028,
+          "closer": "crescent_reference"
+        }
+      ],
+      "mid_final_period_changes": 0,
+      "scope": "Finite sampled basins only. No-return is unresolved/irregular, not chaos proof. Wilson intervals apply only to each IID random arm. Finite crossing observations do not prove fractality/uniqueness. Proximity is descriptive, not a causal explanation."
+    },
+    {
+      "alpha": 0.0644,
+      "log10T": -0.156,
+      "reference_periods": [
+        3,
+        2
+      ],
+      "fractions": {
+        "single_embeddings": {
+          "donor_period2": {
+            "count": 106,
+            "n": 128,
+            "fraction": 0.828125,
+            "wilson95": [
+              0.7534600319269827,
+              0.8836688405185272
+            ]
+          },
+          "other_period2": {
+            "count": 1,
+            "n": 128,
+            "fraction": 0.0078125,
+            "wilson95": [
+              0.0013804318928742412,
+              0.04292625943886061
+            ]
+          },
+          "other_period6": {
+            "count": 21,
+            "n": 128,
+            "fraction": 0.1640625,
+            "wilson95": [
+              0.1098833164591933,
+              0.23781807603707017
+            ]
+          }
+        },
+        "top64_k8_mixtures": {
+          "donor_period2": {
+            "count": 112,
+            "n": 128,
+            "fraction": 0.875,
+            "wilson95": [
+              0.8065737291824854,
+              0.9215735536123834
+            ]
+          },
+          "other_period4": {
+            "count": 7,
+            "n": 128,
+            "fraction": 0.0546875,
+            "wilson95": [
+              0.026740201381346355,
+              0.10858490029974707
+            ]
+          },
+          "other_period6": {
+            "count": 9,
+            "n": 128,
+            "fraction": 0.0703125,
+            "wilson95": [
+              0.03742976830393997,
+              0.12823480349360633
+            ]
+          }
+        }
+      },
+      "segment_labels": [
+        "donor_period2",
+        "donor_period2",
+        "donor_period2",
+        "donor_period2",
+        "donor_period2",
+        "donor_period2",
+        "donor_period2",
+        "donor_period2",
+        "donor_period2",
+        "donor_period2",
+        "donor_period2",
+        "donor_period2",
+        "donor_period2",
+        "donor_period2",
+        "donor_period2",
+        "donor_period2",
+        "donor_period2",
+        "donor_period2",
+        "donor_period2",
+        "donor_period2",
+        "donor_period2",
+        "donor_period2",
+        "other_period6",
+        "donor_period2",
+        "donor_period2",
+        "donor_period2",
+        "donor_period2",
+        "donor_period2",
+        "other_period6",
+        "donor_period2",
+        "donor_period2",
+        "donor_period2",
+        "donor_period2",
+        "donor_period2",
+        "donor_period2",
+        "donor_period2",
+        "donor_period2",
+        "donor_period2",
+        "other_period6",
+        "other_period6",
+        "donor_period2",
+        "donor_period2",
+        "donor_period2",
+        "donor_period2",
+        "donor_period2",
+        "donor_period2",
+        "donor_period2",
+        "donor_period2",
+        "donor_period2",
+        "donor_period2",
+        "donor_period2",
+        "donor_period2",
+        "donor_period2",
+        "donor_period2",
+        "donor_period2",
+        "donor_period2",
+        "other_period6",
+        "other_period6",
+        "other_period6",
+        "other_period6",
+        "other_period6",
+        "other_period6",
+        "other_period6",
+        "other_period6",
+        "crescent_period3"
+      ],
+      "coarse_transitions": [
+        {
+          "lo": 0.328125,
+          "hi": 0.34375,
+          "left": "donor_period2",
+          "right": "other_period6"
+        },
+        {
+          "lo": 0.34375,
+          "hi": 0.359375,
+          "left": "other_period6",
+          "right": "donor_period2"
+        },
+        {
+          "lo": 0.421875,
+          "hi": 0.4375,
+          "left": "donor_period2",
+          "right": "other_period6"
+        },
+        {
+          "lo": 0.4375,
+          "hi": 0.453125,
+          "left": "other_period6",
+          "right": "donor_period2"
+        },
+        {
+          "lo": 0.578125,
+          "hi": 0.59375,
+          "left": "donor_period2",
+          "right": "other_period6"
+        },
+        {
+          "lo": 0.609375,
+          "hi": 0.625,
+          "left": "other_period6",
+          "right": "donor_period2"
+        },
+        {
+          "lo": 0.859375,
+          "hi": 0.875,
+          "left": "donor_period2",
+          "right": "other_period6"
+        },
+        {
+          "lo": 0.984375,
+          "hi": 1.0,
+          "left": "other_period6",
+          "right": "crescent_period3"
+        }
+      ],
+      "refined_binary_brackets": [
+        {
+          "lo": 0.34344482421875,
+          "hi": 0.343505859375,
+          "left": "donor_period2",
+          "right": "other_period6"
+        },
+        {
+          "lo": 0.3519287109375,
+          "hi": 0.35198974609375,
+          "left": "other_period6",
+          "right": "donor_period2"
+        },
+        {
+          "lo": 0.43743896484375,
+          "hi": 0.4375,
+          "left": "donor_period2",
+          "right": "other_period6"
+        },
+        {
+          "lo": 0.4375,
+          "hi": 0.43756103515625,
+          "left": "other_period6",
+          "right": "donor_period2"
+        },
+        {
+          "lo": 0.58245849609375,
+          "hi": 0.58251953125,
+          "left": "donor_period2",
+          "right": "other_period6"
+        },
+        {
+          "lo": 0.61669921875,
+          "hi": 0.61676025390625,
+          "left": "other_period6",
+          "right": "donor_period2"
+        },
+        {
+          "lo": 0.87152099609375,
+          "hi": 0.87158203125,
+          "left": "donor_period2",
+          "right": "other_period6"
+        }
+      ],
+      "proximity": [
+        {
+          "step": 0,
+          "min_distance_period2": 0.5730678621018968,
+          "min_distance_crescent_reference": 0.3195342764895165,
+          "closer": "crescent_reference"
+        },
+        {
+          "step": 1,
+          "min_distance_period2": 0.3253740028380143,
+          "min_distance_crescent_reference": 0.035160598115679904,
+          "closer": "crescent_reference"
+        },
+        {
+          "step": 2,
+          "min_distance_period2": 0.3003372265193705,
+          "min_distance_crescent_reference": 0.028973422489194645,
+          "closer": "crescent_reference"
+        },
+        {
+          "step": 3,
+          "min_distance_period2": 0.4674325250930754,
+          "min_distance_crescent_reference": 0.02650850096891543,
+          "closer": "crescent_reference"
+        },
+        {
+          "step": 4,
+          "min_distance_period2": 0.3208532588210445,
+          "min_distance_crescent_reference": 0.004743172249006175,
+          "closer": "crescent_reference"
+        },
+        {
+          "step": 5,
+          "min_distance_period2": 0.30176649977128117,
+          "min_distance_crescent_reference": 0.0035855845728303905,
+          "closer": "crescent_reference"
+        },
+        {
+          "step": 6,
+          "min_distance_period2": 0.4907096750580603,
+          "min_distance_crescent_reference": 0.0025024318836688437,
+          "closer": "crescent_reference"
+        },
+        {
+          "step": 7,
+          "min_distance_period2": 0.3209079458560552,
+          "min_distance_crescent_reference": 0.000438682994367124,
+          "closer": "crescent_reference"
+        },
+        {
+          "step": 8,
+          "min_distance_period2": 0.30420060237597674,
+          "min_distance_crescent_reference": 0.0016870539214383366,
+          "closer": "crescent_reference"
+        },
+        {
+          "step": 9,
+          "min_distance_period2": 0.49006948553067503,
+          "min_distance_crescent_reference": 0.003074061635810543,
+          "closer": "crescent_reference"
+        },
+        {
+          "step": 10,
+          "min_distance_period2": 0.32089681175023255,
+          "min_distance_crescent_reference": 0.0007644276088020403,
+          "closer": "crescent_reference"
+        },
+        {
+          "step": 11,
+          "min_distance_period2": 0.3026454697482341,
+          "min_distance_crescent_reference": 0.0018017902564926378,
+          "closer": "crescent_reference"
+        },
+        {
+          "step": 12,
+          "min_distance_period2": 0.4923236980306521,
+          "min_distance_crescent_reference": 0.002381781123664744,
+          "closer": "crescent_reference"
+        },
+        {
+          "step": 13,
+          "min_distance_period2": 0.32089866833509006,
+          "min_distance_crescent_reference": 0.0005844233786046483,
+          "closer": "crescent_reference"
+        },
+        {
+          "step": 14,
+          "min_distance_period2": 0.304143453937477,
+          "min_distance_crescent_reference": 0.0014808435243684746,
+          "closer": "crescent_reference"
+        },
+        {
+          "step": 15,
+          "min_distance_period2": 0.49054543243490617,
+          "min_distance_crescent_reference": 0.002380328921648769,
+          "closer": "crescent_reference"
+        },
+        {
+          "step": 16,
+          "min_distance_period2": 0.3208942623570964,
+          "min_distance_crescent_reference": 0.0005893180393370721,
+          "closer": "crescent_reference"
+        }
+      ],
+      "mid_final_period_changes": 0,
+      "scope": "Finite sampled basins only. No-return is unresolved/irregular, not chaos proof. Wilson intervals apply only to each IID random arm. Finite crossing observations do not prove fractality/uniqueness. Proximity is descriptive, not a causal explanation."
+    }
+  ],
+  "saved_arithmetic_review": [
+    {
+      "alpha": 0.0642,
+      "nearest_phase_heuristic": {
+        "eligible": 248,
+        "correct": 26,
+        "accuracy": 0.10483870967741936,
+        "confusion": {
+          "crescent_period3 -> donor_period2": 222,
+          "crescent_period3 -> crescent_period3": 26
+        },
+        "excluded": 8,
+        "scope": "Post-design explanatory diagnostic on both256 sampled random starts; irregular/other outcomes retained outside binary score. No causality or out-of-sample claim."
+      },
+      "rows_checked": 323,
+      "counts": {
+        "single_embeddings": {
+          "crescent_period3": 20,
+          "donor_period2": 107,
+          "other_period2": 1
+        },
+        "top64_k8_mixtures": {
+          "crescent_period3": 6,
+          "donor_period2": 115,
+          "other_period4": 7
+        }
+      },
+      "stop_min": 192,
+      "stop_max": 320,
+      "stop_mean": 201.41176470588235,
+      "at_ceiling": 0,
+      "coarse_transitions": 5,
+      "refined_brackets": [
+        {
+          "lo": 0.0936279296875,
+          "hi": 0.09368896484375,
+          "left": "donor_period2",
+          "right": "crescent_period3"
+        },
+        {
+          "lo": 0.0941162109375,
+          "hi": 0.09417724609375,
+          "left": "crescent_period3",
+          "right": "donor_period2"
+        },
+        {
+          "lo": 0.57904052734375,
+          "hi": 0.5791015625,
+          "left": "donor_period2",
+          "right": "crescent_period3"
+        },
+        {
+          "lo": 0.61199951171875,
+          "hi": 0.612060546875,
+          "left": "crescent_period3",
+          "right": "donor_period2"
+        },
+        {
+          "lo": 0.8515625,
+          "hi": 0.85162353515625,
+          "left": "donor_period2",
+          "right": "crescent_period3"
+        }
+      ],
+      "proximity": [
+        {
+          "step": 0,
+          "min_distance_period2": 0.5729251224404028,
+          "min_distance_crescent_reference": 0.3234236344790692,
+          "closer": "crescent_reference"
+        },
+        {
+          "step": 1,
+          "min_distance_period2": 0.32522606188523623,
+          "min_distance_crescent_reference": 0.03520605826920032,
+          "closer": "crescent_reference"
+        },
+        {
+          "step": 2,
+          "min_distance_period2": 0.2989216260465583,
+          "min_distance_crescent_reference": 0.03090071100489664,
+          "closer": "crescent_reference"
+        },
+        {
+          "step": 3,
+          "min_distance_period2": 0.44740109382251375,
+          "min_distance_crescent_reference": 0.05200225668028503,
+          "closer": "crescent_reference"
+        },
+        {
+          "step": 4,
+          "min_distance_period2": 0.31994383331812054,
+          "min_distance_crescent_reference": 0.00940995012089302,
+          "closer": "crescent_reference"
+        },
+        {
+          "step": 5,
+          "min_distance_period2": 0.2950434154339905,
+          "min_distance_crescent_reference": 0.016491611899218973,
+          "closer": "crescent_reference"
+        },
+        {
+          "step": 6,
+          "min_distance_period2": 0.47929153349856357,
+          "min_distance_crescent_reference": 0.017293552207111977,
+          "closer": "crescent_reference"
+        },
+        {
+          "step": 7,
+          "min_distance_period2": 0.32094742757472683,
+          "min_distance_crescent_reference": 0.002899770365210169,
+          "closer": "crescent_reference"
+        },
+        {
+          "step": 8,
+          "min_distance_period2": 0.30563697266600837,
+          "min_distance_crescent_reference": 0.0071206166453743605,
+          "closer": "crescent_reference"
+        },
+        {
+          "step": 9,
+          "min_distance_period2": 0.4853839448442362,
+          "min_distance_crescent_reference": 0.014954333260235975,
+          "closer": "crescent_reference"
+        },
+        {
+          "step": 10,
+          "min_distance_period2": 0.3208403575662013,
+          "min_distance_crescent_reference": 0.0036776152639912607,
+          "closer": "crescent_reference"
+        },
+        {
+          "step": 11,
+          "min_distance_period2": 0.2991054013904557,
+          "min_distance_crescent_reference": 0.008299590996933228,
+          "closer": "crescent_reference"
+        },
+        {
+          "step": 12,
+          "min_distance_period2": 0.4917191299824516,
+          "min_distance_crescent_reference": 0.006092832378984876,
+          "closer": "crescent_reference"
+        },
+        {
+          "step": 13,
+          "min_distance_period2": 0.3208288203830288,
+          "min_distance_crescent_reference": 0.001071405461863339,
+          "closer": "crescent_reference"
+        },
+        {
+          "step": 14,
+          "min_distance_period2": 0.3048505045992379,
+          "min_distance_crescent_reference": 0.00430027892939349,
+          "closer": "crescent_reference"
+        },
+        {
+          "step": 15,
+          "min_distance_period2": 0.4909620271317751,
+          "min_distance_crescent_reference": 0.0069364255843805366,
+          "closer": "crescent_reference"
+        },
+        {
+          "step": 16,
+          "min_distance_period2": 0.3207787710099978,
+          "min_distance_crescent_reference": 0.0017300848933097558,
+          "closer": "crescent_reference"
+        }
+      ],
+      "period_disagreements": 0
+    },
+    {
+      "alpha": 0.0652,
+      "nearest_phase_heuristic": {
+        "eligible": 0,
+        "correct": 0,
+        "accuracy": null,
+        "confusion": {},
+        "excluded": 256,
+        "scope": "Post-design explanatory diagnostic on both256 sampled random starts; irregular/other outcomes retained outside binary score. No causality or out-of-sample claim."
+      },
+      "rows_checked": 323,
+      "counts": {
+        "single_embeddings": {
+          "donor_period2": 105,
+          "no_return_up_to32": 22,
+          "other_period2": 1
+        },
+        "top64_k8_mixtures": {
+          "donor_period2": 115,
+          "no_return_up_to32": 7,
+          "other_period4": 4,
+          "other_period8": 2
+        }
+      },
+      "stop_min": 192,
+      "stop_max": 1200,
+      "stop_mean": 326.2910216718266,
+      "at_ceiling": 41,
+      "coarse_transitions": 7,
+      "refined_brackets": [
+        {
+          "lo": 0.4354248046875,
+          "hi": 0.43548583984375,
+          "left": "donor_period2",
+          "right": "no_return_up_to32"
+        },
+        {
+          "lo": 0.437744140625,
+          "hi": 0.43780517578125,
+          "left": "no_return_up_to32",
+          "right": "donor_period2"
+        },
+        {
+          "lo": 0.63720703125,
+          "hi": 0.63726806640625,
+          "left": "donor_period2",
+          "right": "no_return_up_to32"
+        },
+        {
+          "lo": 0.685546875,
+          "hi": 0.68560791015625,
+          "left": "no_return_up_to32",
+          "right": "donor_period2"
+        },
+        {
+          "lo": 0.82806396484375,
+          "hi": 0.828125,
+          "left": "donor_period2",
+          "right": "no_return_up_to32"
+        },
+        {
+          "lo": 0.828125,
+          "hi": 0.82818603515625,
+          "left": "no_return_up_to32",
+          "right": "donor_period2"
+        },
+        {
+          "lo": 0.91522216796875,
+          "hi": 0.915283203125,
+          "left": "donor_period2",
+          "right": "no_return_up_to32"
+        }
+      ],
+      "proximity": [
+        {
+          "step": 0,
+          "min_distance_period2": 0.5736944396336944,
+          "min_distance_crescent_reference": 0.29912470564052474,
+          "closer": "crescent_reference"
+        },
+        {
+          "step": 1,
+          "min_distance_period2": 0.3259507342786463,
+          "min_distance_crescent_reference": 0.0339372911745177,
+          "closer": "crescent_reference"
+        },
+        {
+          "step": 2,
+          "min_distance_period2": 0.304915518997879,
+          "min_distance_crescent_reference": 0.017152785998239342,
+          "closer": "crescent_reference"
+        },
+        {
+          "step": 3,
+          "min_distance_period2": 0.49146761285215923,
+          "min_distance_crescent_reference": 0.005220653512544381,
+          "closer": "crescent_reference"
+        },
+        {
+          "step": 4,
+          "min_distance_period2": 0.3212706529040698,
+          "min_distance_crescent_reference": 0.0007183308811172481,
+          "closer": "crescent_reference"
+        },
+        {
+          "step": 5,
+          "min_distance_period2": 0.3077401764229304,
+          "min_distance_crescent_reference": 0.0006817457605245153,
+          "closer": "crescent_reference"
+        },
+        {
+          "step": 6,
+          "min_distance_period2": 0.45461516402016944,
+          "min_distance_crescent_reference": 0.0006128793224384707,
+          "closer": "crescent_reference"
+        },
+        {
+          "step": 7,
+          "min_distance_period2": 0.3208560846259717,
+          "min_distance_crescent_reference": 8.479697026984767e-05,
+          "closer": "crescent_reference"
+        },
+        {
+          "step": 8,
+          "min_distance_period2": 0.29632566434703955,
+          "min_distance_crescent_reference": 0.00022254677373568398,
+          "closer": "crescent_reference"
+        },
+        {
+          "step": 9,
+          "min_distance_period2": 0.48575657745111234,
+          "min_distance_crescent_reference": 0.00020288276063223663,
+          "closer": "crescent_reference"
+        },
+        {
+          "step": 10,
+          "min_distance_period2": 0.32142325842208275,
+          "min_distance_crescent_reference": 3.080472230730474e-05,
+          "closer": "crescent_reference"
+        },
+        {
+          "step": 11,
+          "min_distance_period2": 0.3099292495290549,
+          "min_distance_crescent_reference": 9.231357501092464e-05,
+          "closer": "crescent_reference"
+        },
+        {
+          "step": 12,
+          "min_distance_period2": 0.4213763044126432,
+          "min_distance_crescent_reference": 0.000564309741515061,
+          "closer": "crescent_reference"
+        },
+        {
+          "step": 13,
+          "min_distance_period2": 0.3172937881791603,
+          "min_distance_crescent_reference": 0.00010795161275183538,
+          "closer": "crescent_reference"
+        },
+        {
+          "step": 14,
+          "min_distance_period2": 0.29748421589424434,
+          "min_distance_crescent_reference": 0.0005087127287490502,
+          "closer": "crescent_reference"
+        },
+        {
+          "step": 15,
+          "min_distance_period2": 0.475610552746345,
+          "min_distance_crescent_reference": 0.000823355213280597,
+          "closer": "crescent_reference"
+        },
+        {
+          "step": 16,
+          "min_distance_period2": 0.3213997600628614,
+          "min_distance_crescent_reference": 0.00015973429131457028,
+          "closer": "crescent_reference"
+        }
+      ],
+      "period_disagreements": 0
+    },
+    {
+      "alpha": 0.0644,
+      "nearest_phase_heuristic": {
+        "eligible": 218,
+        "correct": 0,
+        "accuracy": 0.0,
+        "confusion": {
+          "crescent_period3 -> donor_period2": 218
+        },
+        "excluded": 38,
+        "scope": "Post-design explanatory diagnostic on both256 sampled random starts; irregular/other outcomes retained outside binary score. No causality or out-of-sample claim."
+      },
+      "rows_checked": 323,
+      "counts": {
+        "single_embeddings": {
+          "donor_period2": 106,
+          "other_period2": 1,
+          "other_period6": 21
+        },
+        "top64_k8_mixtures": {
+          "donor_period2": 112,
+          "other_period4": 7,
+          "other_period6": 9
+        }
+      },
+      "stop_min": 192,
+      "stop_max": 576,
+      "stop_mean": 239.25696594427245,
+      "at_ceiling": 0,
+      "coarse_transitions": 8,
+      "refined_brackets": [
+        {
+          "lo": 0.34344482421875,
+          "hi": 0.343505859375,
+          "left": "donor_period2",
+          "right": "other_period6"
+        },
+        {
+          "lo": 0.3519287109375,
+          "hi": 0.35198974609375,
+          "left": "other_period6",
+          "right": "donor_period2"
+        },
+        {
+          "lo": 0.43743896484375,
+          "hi": 0.4375,
+          "left": "donor_period2",
+          "right": "other_period6"
+        },
+        {
+          "lo": 0.4375,
+          "hi": 0.43756103515625,
+          "left": "other_period6",
+          "right": "donor_period2"
+        },
+        {
+          "lo": 0.58245849609375,
+          "hi": 0.58251953125,
+          "left": "donor_period2",
+          "right": "other_period6"
+        },
+        {
+          "lo": 0.61669921875,
+          "hi": 0.61676025390625,
+          "left": "other_period6",
+          "right": "donor_period2"
+        },
+        {
+          "lo": 0.87152099609375,
+          "hi": 0.87158203125,
+          "left": "donor_period2",
+          "right": "other_period6"
+        }
+      ],
+      "proximity": [
+        {
+          "step": 0,
+          "min_distance_period2": 0.5730678621018968,
+          "min_distance_crescent_reference": 0.3195342764895165,
+          "closer": "crescent_reference"
+        },
+        {
+          "step": 1,
+          "min_distance_period2": 0.3253740028380143,
+          "min_distance_crescent_reference": 0.035160598115679904,
+          "closer": "crescent_reference"
+        },
+        {
+          "step": 2,
+          "min_distance_period2": 0.3003372265193705,
+          "min_distance_crescent_reference": 0.028973422489194645,
+          "closer": "crescent_reference"
+        },
+        {
+          "step": 3,
+          "min_distance_period2": 0.4674325250930754,
+          "min_distance_crescent_reference": 0.02650850096891543,
+          "closer": "crescent_reference"
+        },
+        {
+          "step": 4,
+          "min_distance_period2": 0.3208532588210445,
+          "min_distance_crescent_reference": 0.004743172249006175,
+          "closer": "crescent_reference"
+        },
+        {
+          "step": 5,
+          "min_distance_period2": 0.30176649977128117,
+          "min_distance_crescent_reference": 0.0035855845728303905,
+          "closer": "crescent_reference"
+        },
+        {
+          "step": 6,
+          "min_distance_period2": 0.4907096750580603,
+          "min_distance_crescent_reference": 0.0025024318836688437,
+          "closer": "crescent_reference"
+        },
+        {
+          "step": 7,
+          "min_distance_period2": 0.3209079458560552,
+          "min_distance_crescent_reference": 0.000438682994367124,
+          "closer": "crescent_reference"
+        },
+        {
+          "step": 8,
+          "min_distance_period2": 0.30420060237597674,
+          "min_distance_crescent_reference": 0.0016870539214383366,
+          "closer": "crescent_reference"
+        },
+        {
+          "step": 9,
+          "min_distance_period2": 0.49006948553067503,
+          "min_distance_crescent_reference": 0.003074061635810543,
+          "closer": "crescent_reference"
+        },
+        {
+          "step": 10,
+          "min_distance_period2": 0.32089681175023255,
+          "min_distance_crescent_reference": 0.0007644276088020403,
+          "closer": "crescent_reference"
+        },
+        {
+          "step": 11,
+          "min_distance_period2": 0.3026454697482341,
+          "min_distance_crescent_reference": 0.0018017902564926378,
+          "closer": "crescent_reference"
+        },
+        {
+          "step": 12,
+          "min_distance_period2": 0.4923236980306521,
+          "min_distance_crescent_reference": 0.002381781123664744,
+          "closer": "crescent_reference"
+        },
+        {
+          "step": 13,
+          "min_distance_period2": 0.32089866833509006,
+          "min_distance_crescent_reference": 0.0005844233786046483,
+          "closer": "crescent_reference"
+        },
+        {
+          "step": 14,
+          "min_distance_period2": 0.304143453937477,
+          "min_distance_crescent_reference": 0.0014808435243684746,
+          "closer": "crescent_reference"
+        },
+        {
+          "step": 15,
+          "min_distance_period2": 0.49054543243490617,
+          "min_distance_crescent_reference": 0.002380328921648769,
+          "closer": "crescent_reference"
+        },
+        {
+          "step": 16,
+          "min_distance_period2": 0.3208942623570964,
+          "min_distance_crescent_reference": 0.0005893180393370721,
+          "closer": "crescent_reference"
+        }
+      ],
+      "period_disagreements": 0
+    }
+  ],
+  "limitations": [
+    "First16-iterate distances are trusted-source execution summaries; only step0 has independent saved-state reconstruction.",
+    "Finite sampled returns do not prove attraction, absence of other boundaries, fractality or chaos.",
+    "These are independent arithmetic checks of saved states, not independent model trajectories.",
+    "Early stopping and variable batch sizes are finite numerical classifications, not a stability or asymptotic primitive-orbit certificate.",
+    "At alpha .0644 the 600-step reference is period3 but fixed census stops at512 with period6: lag3 residual1.348052190171368e-8,lag6 1.3840229072217864e-9. Keep this threshold/batching/stopping discrepancy; do not claim a new verified period6 attractor.",
+    "Binary bracket endpoint labels retain original coarse labels: complement interior may contain other finite labels.",
+    "Wilson intervals are marginal within the two specified random-start distributions, not universal state-space volumes or simultaneous confidence bands."
+  ],
+  "resources": {
+    "external_elapsed_seconds": 13681.598448751029,
+    "raw_bytes": 1949874745,
+    "children_ru_maxrss_kib_at_reap": 7807160,
+    "owned_jobs_remaining": 0,
+    "automatic_retries": 0
+  },
+  "zero_outcome_supplement": {
+    "alpha": 0.0644,
+    "label": "crescent_period3",
+    "each_random_arm_n": 128,
+    "each_count": 0,
+    "each_wilson95": [
+      0,
+      0.029136956273508416
+    ],
+    "scope": "Derived from zero observed labels; original run report remains unchanged."
+  }
+}

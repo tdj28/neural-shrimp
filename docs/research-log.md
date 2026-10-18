@@ -28945,3 +28945,8 @@ Receipt docs/companion/companion.json, 8 cells. Ordinary generation (same prefix
 The loops write the paper's texts (period 8 " is a is a. This is there", the period-3 "The existence", and so on), built from the opening words of those replies; one sample begins "The question is a deeply philosophical...". Periodic and chaotic cells look alike in ordinary generation.
 
 Paper: paragraph "What ordinary generation writes at the same cells" and Table tab:companion. Descriptive and exploratory.
+
+
+## 2026-10-18T01:42:58.873540+00:00 | Codex Task28 results (exploratory)
+
+Sole CPUfloat64 run and saved-state audit completed/closed; source e8bc3a17. See codex/basins-task28/final-report.md and docs/basins/basins-summary.json. DonorP2 dominates both specified random-start distributions across three cells; sampled segments show5/7/8 label changes, with19 donor/complement brackets refined to1/16384. Nearest-phase heuristic fails on binary-eligible random starts. Preserve alpha.0644 referenceP3 versus finite fixed-startP6 discrepancy, other periods and alpha.0652 no-return rows. These are finite sampled classifications, not fractality, asymptotic attraction or causal explanation. No paper/blog/Chaos edits. All original source, timing amendments,64 raw artifacts and receipts retained.
