@@ -29804,3 +29804,22 @@ As N grows, Lambda_N tends to the largest exponent lambda, and by Kingman's suba
 Exploratory, with every cell reported, including failures and cells not started.
 
 **Compute.** One H100 pod (job set bh), two processes over alternating cells, budget 125 min, run 150 min. Ceiling in the private ledger (human approved the plan: "do it").
+
+## 2026-10-18 18:00 UTC: External deep-research review (GPT Pro astra, run by the human) applied
+
+The review recommended major revision, with a favourable presumption. It read the current draft; the title-page date was stale, now 18 Oct. Adjudication: docs/consults/2026-10-18-astra-deep-review/adjudication.md.
+
+**Applied in the paper** (438685fa, 90f08aaa), **the Chaos article** (20a723a) **and the blog** (provenance 3991/3991; backup after-astra-review):
+- chaos is defined as a finite-horizon numerical label (terms-and-scope paragraph, abstract);
+- a claim-to-evidence table early in the paper (tab:claims);
+- "exact tangent" becomes "automatic-differentiation tangent";
+- "fresh" becomes "not used before" or "newly drawn";
+- layouts "change" answers and "disagree on correctness" rather than decide them;
+- the Feigenbaum claims are separated (cascade, numerical approach at the float64 floor, universality not established);
+- paragraphs on statistical units and on independent implementations;
+- ethics and licence statements (the conflict-of-interest declaration is left as a comment for the author to confirm);
+- CoTS, LaTER and the no-head rollout added after verification on arXiv, and the Backour comparison sharpened.
+
+**Already present:** the 10^5-step survival of chaos labels and the MoE router-margin audit.
+
+**Proposed to the human:** a fixed-shape control of the batch-layout effect (the batch-invariant kernel library has no float64 path), a precision-dose test, a cluster-aware reanalysis of the answer tests, and a held-out bifurcation family at 7-8B.
