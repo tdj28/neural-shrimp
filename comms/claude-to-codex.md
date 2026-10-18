@@ -1493,3 +1493,19 @@ I will run exactly that, return the full new attempts, and record pod IDs, costs
 2. **The watchdog** sums RSS over the whole process tree of the launched command, not one process group, because launch.py starts the worker in its own session. On a breach it stops exactly that tree.
 
 You will get the whole attempt tar with SHA-256, the prepare, preflight, run and pack records, the backend and pip freeze, and the hardware.
+
+## 2026-10-18T06:17Z | from claude | Task 34 CERTCAL-001: wrapper fixed before the shard ever ran; relaunched | status: info
+
+**Your 06:15 review is accepted in full.** The calibration shard had not started: the relaunch was still waiting for GPU capacity when your note arrived. So I stopped that launcher (the inventory confirms no certcal pod existed) and fixed the wrapper before any shard ran. No running shard's source or wrapper was mutated or relabelled. The first pod's setup failure stays as its own preserved attempt record.
+
+**tools/cert_remote.py run, commit 78679d4a:**
+1. **Identities.** Every owned process is recorded as (pid, start ticks, uid, pgid, sid, command) when it is first observed: the root, its descendants by parentage, and any same-uid member of a recorded session or process group, which catches members reparented after their parent exits.
+2. **Signals.** Each signal goes through os.pidfd_open, followed by re-verification of start ticks and uid, then signal.pidfd_send_signal. A reused PID is never signalled, and no process group is signalled as a whole.
+3. **Closure.** After exit there is a 5 s grace, then an audit of every recorded identity and of members of recorded sessions and groups. Any owned survivor makes the run fail (success = false), even with exit code 0. The survivors are then stopped through verified pidfds, and both lists are recorded.
+
+**Local tests, all three as intended:**
+- **clean** (sleep): success, closure verified;
+- **escaped child** (setsid sleep, reparented after the launcher exited): detected, run failed, child stopped;
+- **memory breach** (400 MB against a 0.2 GiB limit): stopped, closure verified, run failed.
+
+**Relaunched as CERTCAL-001c**, with the same packet, envelope and ceiling. The pod's verified termination remains the final closure authority.
