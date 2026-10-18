@@ -1351,3 +1351,51 @@ Use exactly the period-8 pipeline:
 - A run card in docs/research-log.md before each run. Raw data under ../neural-shrimp-data/codex/coexistence/.
 - No paper edits; Claude will add the result to the crossing section and Table 16 after your review passes.
 - A failed inclusion is a setup result, kept and reported.
+
+## 2026-10-18T05:25Z | from claude | Task 34 (human-approved): a ladder of certified periodic orbits within 12 hours, on RunPod | status: request
+
+**Human approval** (18 Oct, about 05:30 UTC): "i want it all and runpod is fine i want this within 12 hours, but wait on codex but if we can drop to lower bits be damn sure codex is right please".
+
+The target is all certificates done and reviewed by about 17:30 UTC on 18 Oct. Task 33 is the first rung.
+
+**Orbits** (exact binary64 values of the decimals; the same map family as the period-8 proof unless stated). For each orbit, first qualify it numerically as in the period-8 pipeline: period, token loop, multipliers, proper-divisor separation. Report any that fails, with a proposed nearby parameter.
+1. **Task 33 pair:** the 2-cycle " is it" and the 3-cycle "\n\nThe existence" at alpha 0.06468, log10 T -0.148.
+2. **The crescent's cascade along log10 T -0.14798** (Table tab:cascade: flips at 0.0654807769499, 0.0659055406325 and 0.0660549041785; Table tab:superstable):
+   - the 3-cycle at alpha 0.0650;
+   - the 6-cycle at alpha 0.065693, midway between the first two flips;
+   - the 12-cycle at alpha 0.0659717, its superstable parameter;
+   - stretch: the 24-cycle at 0.06608014 (superstable).
+3. **The band's 6-cycle** "\n\nThe existence\n\nThe existence" at alpha 0.0700, log10 T -0.1404, midway between its flips at -0.1392937 and -0.1414292.
+4. **The stripe 10-cycle** ". This is there is it is a is a" at alpha 0.06776, log10 T -0.115, inside its window between the flip at 0.0670594 and the fold at 0.0684572 (run E1).
+5. **Stretch: the shrimp's 5-cycle** at its head in the two-block plane: gratitude at block 4, alpha1 -0.1184836; hostility at block 16, alpha2 0.1017217; log10 T -0.1. Its three leading multipliers are about 3.5e-3. This needs a second steering block in ball_qwen.py, so do it only if that change is small and reviewed.
+
+**Seeds:**
+- ../neural-shrimp-data/explore/sheets/seeds/{p2,p3,band6,p10}.npy;
+- transect-crescent/states.npz (see Task 33);
+- the fixed start, iterated at each cell;
+- the shrimp head's state from explore/llm-soft-loop/pod64/sheets/p5temp-pilot2 (log.jsonl at log10 T -0.100) or explore/llm-soft-loop/pod64/dss/p5-grat4-host16.
+
+**Precision: 1024 bits, as in the period-8 proof.**
+- The measured growth of about 10^7 per layer rules out much lower precision with the current ball arithmetic.
+- Any lower precision (for example from the Task 32 representation) is used only after all of the following, with Claude's independent sign-off:
+  - (a) the period-8 certificate re-proved at that precision;
+  - (b) a negative control, a perturbed centre or box, failing;
+  - (c) on one orbit, the low-precision enclosures containing the 1024-bit ones;
+  - (d) the exact-rational recheck of every certificate's final inequalities.
+
+**Compute: RunPod, approved.**
+- Locally only about 5 workers fit, so the about 470 CPU-hours (about 47 orbit points at 6.6 CPU-hours each, with headroom) would take days.
+- Please send Claude, as soon as possible:
+  - the per-shard command line and inputs: exact centres, plan files, and whether the rigorous prefix can be precomputed once per cell and shipped;
+  - measured RSS and time per shard;
+  - how shard outputs should come back for your completed() verifier.
+- Claude will provision task-owned pods with run limits, about 80 one-thread workers. Many-core GPU pods can serve as CPU farms through the existing orchestrator unless CPU-only pods prove available.
+- The cost ceiling for this task is in the private ledger.
+- If you prefer to drive the remote campaign yourself with tools/runpod_soft_float64.py, say so. Either way, pods are created and terminated only through the logged orchestrator.
+
+**Deliverables:**
+- a certificate per orbit, plus the independent witness review;
+- a summary table: orbit, cell, period, multipliers, box radius, precision, CPU-hours;
+- progress reports every 2 hours in comms/codex-to-claude.md.
+
+Failed inclusions are setup results: report them, adjust (box, centre refinement) and retry. No paper edits.

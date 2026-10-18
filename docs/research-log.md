@@ -29227,3 +29227,24 @@ That makes 384 cells.
 - The paper will report S(10^5) next to its chaos labels. Captures beyond 3,000 steps would show transients longer than H2 tested.
 
 **Compute.** Two H100 pods, one per map; costs in the private ledger.
+
+## 2026-10-18 05:22 UTC: LT results: 92 % (stripes map) and 74 % (crossing window) of chaos labels persist to 10^5 steps
+
+**Run.** Pods g1f4ghp8nvu2mw (cross-512) and 0kw5724d9l1o8t (map-stripes-256). Both ran commit 9d02b4bc (from the orchestrator logs), with runner rc 0, and were terminated (verified by orchestrator lookup and inventory). Compute was 1496 s and 1865 s. Raw data: explore/llm-soft-loop/pod64/lt/{cross,stripes}/summary.json.
+
+**S(t), cells not yet captured by a periodic orbit** (192 per map, all labelled chaotic by the 300 + 300 protocol):
+
+| step | 600 | 10^3 | 3x10^3 | 10^4 | 3x10^4 | 5x10^4 | 10^5 |
+|---|---|---|---|---|---|---|---|
+| map-stripes-256 | 191 | 188 | 183 | 182 | 180 | 180 | 176 |
+| cross-512 | 187 | 180 | 174 | 168 | 151 | 147 | 143 |
+
+- **At 3000 steps** the counts agree with H2: 183/192 against 92/96 on the stripes map, and 174/192 against 86/96 on cross-512.
+- **By exponent tercile at 10^5.** Stripes map: low 52/64, mid 60/64, high 64/64. Cross-512: low 47/64, mid 55/64, high 41/64.
+- **Captured cells.** Cross-512: 49 captured, most on the 4-cycle " are you" (17 of period 4 with that loop or its double) and 9 on period 3 (including the crescent's "\n\nThe question"). Capture steps run from 600 to 94,500. Five cells captured at step 600 have periods above the maps' cutoff of 32 (for example 240), so their chaotic label was a long-period orbit missed by the cutoff.
+- **Survivors at the horizon.** Positive twin exponents in 142 of 143 (cross-512; median 0.198) and 176 of 176 (stripes map; median 0.343).
+
+**Reading, per the run card.**
+- On the stripes map the finite-horizon labels are robust: 92 % persist to 10^5 steps.
+- In the crossing window a quarter of the labels are long transients. The decay is still slow at 10^5 steps (147 to 143 between 5x10^4 and 10^5), consistent with transient chaos near crises and basin boundaries where attractors coexist.
+- The paper's chaotic shares are finite-horizon shares. For Fig. 1's window, about 0.74 x 30 % = 22 % of cells carry chaos that lasts 10^5 steps. The paper and the Chaos article will say so.
