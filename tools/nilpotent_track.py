@@ -39,6 +39,12 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--period", type=int, default=5)
+    ap.add_argument("--block1", type=int, default=4)
+    ap.add_argument("--vectors1", default="llm-phase-map/vectors-l4")
+    ap.add_argument("--concept1", default="gratitude")
+    ap.add_argument("--block2", type=int, default=16)
+    ap.add_argument("--vectors2", default="llm-phase-map/vectors-l16")
+    ap.add_argument("--concept2", default="hostility")
     ap.add_argument("--seed", type=float, nargs=2, required=True, help="fixed-start cell at the first temperature")
     ap.add_argument("--start", type=float, nargs=2, required=True, help="first guess of the point")
     ap.add_argument("--log-t", type=float, nargs="+", required=True)
@@ -71,14 +77,14 @@ def main():
         log.flush()
 
     P = args.period
-    loop = esl.SoftLoop("qwen0.5b", 4, args.threads, "open", ela.OPENER, 1, "float64", args.device)
-    v = elpm.load_vectors("llm-phase-map/vectors-l4")["gratitude"]
-    loop.sm.add_steer_layer(16)
-    w = elpm.load_vectors("llm-phase-map/vectors-l16")["hostility"]
+    loop = esl.SoftLoop("qwen0.5b", args.block1, args.threads, "open", ela.OPENER, 1, "float64", args.device)
+    v = elpm.load_vectors(args.vectors1)[args.concept1]
+    loop.sm.add_steer_layer(args.block2)
+    w = elpm.load_vectors(args.vectors2)[args.concept2]
     tol = lfb.tol_for(P, 1e-12)
 
     def make_cell(a1, a2, lt):
-        loop.extra = (16, np.array([a2 * w]))
+        loop.extra = (args.block2, np.array([a2 * w]))
         return esl.SoftOrbit(loop, a1 * v, 10.0 ** lt, chunk=512)
 
     def solve(a1, a2, lt, X, Q, full=True):

@@ -1,5 +1,6 @@
 """Run P5C (exploratory; human: "we must find a verifiable shrimp"): locate a doubly superstable point of the
-one-dimensional reduction of the period-5 window, the centre of a shrimp in Gallas' sense.
+one-dimensional reduction of a period-p window (--period, default 5; any two-block plane), the centre of a shrimp in
+Gallas' sense.
 
 In the effectively one-dimensional map, the leading multiplier of a period-p orbit splits into one signed factor per
 step (tools/doubly_superstable.py): c_i = <DF(x_i) v_i, r_(i+1)> / <v_i, r_i>, with v_i the chain of the leading
@@ -39,11 +40,15 @@ import explore_llm_soft_loop as esl  # noqa: E402
 import llm_feigenbaum as lfb  # noqa: E402
 from doubly_superstable import chain_dirs, factors, leading  # noqa: E402
 
-P = 5
-
-
 def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
+    ap.add_argument("--period", type=int, default=5)
+    ap.add_argument("--block1", type=int, default=4)
+    ap.add_argument("--vectors1", default="llm-phase-map/vectors-l4")
+    ap.add_argument("--concept1", default="gratitude")
+    ap.add_argument("--block2", type=int, default=16)
+    ap.add_argument("--vectors2", default="llm-phase-map/vectors-l16")
+    ap.add_argument("--concept2", default="hostility")
     ap.add_argument("--log-t", type=float, required=True, help="log10 T at the start (fixed unless freed)")
     ap.add_argument("--alpha2", type=float, default=None, help="fixed alpha2 when --free alpha1 logt")
     ap.add_argument("--march-from", type=float, nargs=2, required=True, metavar=("A1", "A2"))
@@ -76,13 +81,14 @@ def main():
         logf.write(json.dumps(rec) + "\n")
         logf.flush()
 
-    loop = esl.SoftLoop("qwen0.5b", 4, args.threads, "open", ela.OPENER, 1, "float64", args.device)
-    v = elpm.load_vectors("llm-phase-map/vectors-l4")["gratitude"]
-    loop.sm.add_steer_layer(16)
-    w = elpm.load_vectors("llm-phase-map/vectors-l16")["hostility"]
+    P = args.period
+    loop = esl.SoftLoop("qwen0.5b", args.block1, args.threads, "open", ela.OPENER, 1, "float64", args.device)
+    v = elpm.load_vectors(args.vectors1)[args.concept1]
+    loop.sm.add_steer_layer(args.block2)
+    w = elpm.load_vectors(args.vectors2)[args.concept2]
 
     def make_cell(a1, a2, lt):
-        loop.extra = (16, np.array([a2 * w]))
+        loop.extra = (args.block2, np.array([a2 * w]))
         return esl.SoftOrbit(loop, a1 * v, 10.0 ** lt, chunk=512)
 
     tol = lfb.tol_for(P, 1e-12)

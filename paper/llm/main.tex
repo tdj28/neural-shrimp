@@ -1872,13 +1872,18 @@ which need only a nonlinear degeneracy.
 \paragraph{The shrimp itself.} The fixed-start maps hide most of this window: in its legs the fixed start settles on a
 coexisting period-4 attractor. To see the window whole, we followed its attractor from the body outward over a grid of
 spacing $1.25\times10^{-4}$ in both strengths (Figure~\ref{fig:realshrimp}; \repo{tools/follow_attractor.py}). Each
-cell starts from the final state of a neighbouring cell that is still on the attractor, and it stays on the attractor
-only if its orbit has a period that is a multiple of five and the body's five-token text, or no detectable period, an
-exactly repeating text and no positive exponent (a slowly converging orbit next to a fold or a flip). The followed
-attractor fills a shrimp: a body against the fold curve and three long legs, each between a fold curve and a flip
-curve, with shells of periods 10, 20 and 40 beyond the flips and chaos behind the same five-token text outside them; a
-fourth leg, thinner than a grid step, is not entered. Of its 1720 cells, 822 have period 5, 371 period 10 and 82 period
-20. The computed curves lie where the followed domain ends: of the 292 pairs of neighbouring cells with periods 5 and
+cell starts from the final state of a neighbouring cell that is still on the attractor and runs 250 steps, followed by
+300 recorded steps with a twin. It stays on the attractor only if its orbit has a period that is a multiple of five and
+the body's five-token text in at least four of its five places, or no detectable period, an exactly repeating text and
+no positive exponent (a slowly converging orbit next to a fold or a flip); cells with chaos behind the same text are
+recorded but not continued. (A first rule, which compared each cell only with its neighbour, leaked across the fold
+into the surrounding chaos, where intermittent motion keeps the same text most of the time.) The followed attractor
+fills a shrimp: a body against the fold curve and three long legs, each between a fold curve and a flip curve, reaching
+$(\alpha_1,\alpha_2)=(-0.1148,0.109)$, $(-0.1252,0.0918)$ and, on the left, $\alpha_2=0.108$, with shells of periods
+10, 20 and 40 beyond the flips and chaos behind the same five-token text outside them; a fourth leg, thinner than a grid
+step, is not entered. Of 2173 cells computed, 1720 are on the attractor: 822 with period 5, 371 with period 10, 82 with
+period 20 and 11 with period 40, a few with periods 15, 30 and 50 inside chaotic bands, 240 chaotic behind the same
+text and 178 converging slowly. The computed curves lie where the followed domain ends: of the 292 pairs of neighbouring cells with periods 5 and
 10, 251 straddle a flip curve to within one grid step, and of the 754 pairs in which a period-5 cell borders a cell
 where the attractor was lost, 504 lie within one step of a fold curve. Nearly all of the others lie along the lower leg,
 beyond the point where the continuation of its flip curve stopped at the bounds of the computation.

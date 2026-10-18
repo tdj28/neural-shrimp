@@ -29491,3 +29491,59 @@ The reading is unchanged.
 A one-dimensional head would need the directions transverse to the reduction to contract far more strongly than the leading direction varies across the window. That rules out this window, which spans its whole temperature range here.
 
 **Figure:** paper/llm/figures/fig-head-temperature.png (tools/plot_nilpotent_track.py).
+
+## 2026-10-18 08:22 UTC: Run card FA-P11 (exploratory): is the period-11 window of the bimodal plane a shrimp with a one-dimensional-looking head?
+
+**Why.**
+- At the -0.100 head, the three leading moduli, about 3.5e-3, equal (0.32)^5: three directions, each contracting at the per-step transverse rate over five steps.
+- If heads scale like that, the head of a separate window of period p has modulus near (0.32)^p. Its avoided crossing then shrinks relative to the window like the square root of that modulus. A period-11 head would be about 30 times sharper than the period-5 head, relative to its window: sharp enough to look like a crossing of superstable curves at grid resolution.
+- The plane steered with hostility at block 4 and gratitude at block 16 (zh2 zoom) is where the paper found N-shaped (bimodal) band maps. Its windows' darkest cells sit exactly at these floors: period 11 exponent -1.135 (|mu1| about 3.8e-6, against 0.32^11 = 3.6e-6) and period 7 exponent -1.148 (3.2e-4, against 3.5e-4).
+
+**Run.**
+- tools/follow_attractor.py, hostility@4 and gratitude@16, log10 T -0.1.
+- Seed: the darkest period-11 cell of the zh2 zoom, (-0.0333260, -0.0521567), on grid.
+- Grid: alpha1 [-0.043326, -0.028826] x alpha2 [-0.057157, -0.042657], spacing 5e-5.
+- Rule: --seed-period 11, --min-match 10 of 11.
+
+**Reading.**
+- the domain's shape (a shrimp or not), with its periods (11, 22, 44);
+- whether the dark spines of the exponent map cross inside it;
+- the darkest cells, as starts for a near-nilpotent search with period 11.
+
+## 2026-10-18 08:25 UTC: Run card NT-P11 (exploratory): the near-nilpotent point of the period-11 window
+
+**Setup.** tools/nilpotent_track.py, now with plane options; hostility@4 and gratitude@16, period 11, log10 T -0.1 only.
+- Seed and start: the FA-P11 seed (-0.0333260, -0.0521567), the darkest cell of the zh2 zoom (exponent -1.136; text " To solve the question:\nLet now the ...:").
+- Newton: up to 12 iterations, step cap 5e-5, finite-difference step 2e-6.
+
+**Reading.** The three leading moduli at the point, against (0.32)^11 = 3.6e-6, and the fourth. If a head of period 11 has a near-nilpotent block of modulus near 1e-6 or below, a superstable-curve grid around it follows.
+
+## 2026-10-18 08:31 UTC: NT-P11 result: the period-11 head is near-nilpotent at the 4e-7 level, four orders below its window's multipliers; run card P11Z (the trace around it)
+
+**NT-P11** (pod w7i74kyjluyerc, commit 8e3d8448; 89 s; terminated and verified).
+- From the darkest cell of the zh2 zoom, Newton converged in three iterations at (alpha1, alpha2) = (-0.0333026271, -0.0522112315): orbit residual 1.9e-15, |c1| 5.3e-8, |c2| 5.9e-14, no divisor-period orbit (split 1.45).
+- Text: " To solve the question:\nLet now the [5458]" plus ":\n" (11 tokens).
+- Three leading multipliers: a complex pair of modulus 3.93e-7 at ±68.9 degrees and a real one, -3.36e-7.
+- Then 1.35e-11, 4.0e-14 and 5.1e-16: the fourth is 2.9e4 times smaller than the leading three, against 7 times at the period-5 head.
+- The period-5 head's moduli (3.5e-3) were 50-100 times below its window's typical leading multipliers; this head's are about 1e4 times below (window exponents -0.3 to -1.3 per step, i.e. |mu1| 4e-2 to 6e-7).
+
+**Reading.**
+- A near-nilpotent head still, with three directions contracting together, but at a scale so far below the window's that the avoided crossing of its superstable curves should be about 1 % of the window.
+- At ordinary grid resolution, a head of the one-dimensional kind. This is a prediction, to be tested now.
+
+**Run card P11Z.** tools/doubly_superstable.py grid, period 11, hostility@4 and gratitude@16, log10 T -0.1.
+- Grid: 17 x 17 cells of spacing 1.75e-5 centered on the head (box +-1.4e-4).
+- March from the FA-P11 seed (fixed start period 11). Seed: the same cell, real leading multiplier, ratio 1.55, accepted with --seed-min-ratio 1.2.
+
+**Reading, fixed now:**
+- whether the trace of the leading pair changes sign in an alternating 2 x 2 block at the head (the crossing rule of the cascade grids);
+- the stretchings of the eleven steps: which two vanish at the head;
+- the smallest leading modulus on the grid.
+
+## 2026-10-18 08:33 UTC: Run card FA-105 (exploratory): the period-5 shrimp at a second temperature
+
+The FA-100 domain followed again at log10 T -0.105, where the head has moved to (-0.11740, 0.10419) (NT-down) and the window's fixed-start cell is (-0.117872, 0.102936) (P5D).
+- Same rule and spacing as FA-100b (commit of this card).
+- Grid: alpha1 [-0.1320, -0.1040] x alpha2 [0.0880, 0.1240].
+
+**Reading:** the shape and periods compared with FA-100b, and the shift of the body against the drift of the head.
