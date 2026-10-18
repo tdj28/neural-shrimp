@@ -140,7 +140,7 @@ def main():
     nF = int(np.ceil(total * args.fps))
     W, H = args.width, args.height
     fs = W / 1920
-    scale = 0.62 * min(W, H)
+    scale = 0.55 * min(W, H)
     fig = plt.figure(figsize=(W / 100, H / 100), dpi=100, facecolor="k")
     ax = fig.add_axes([0, 0, 1, 1])
     ax.set_axis_off()
