@@ -1,0 +1,186 @@
+{
+  "source_commit": "b00a066056d8f8cdbeaf6845d6c1108b204419bc",
+  "receipt_sha256": "eee27da71f51734c2fdc3450fd440d51b3af07db664461ede0cd3dbc41f61af4",
+  "report_sha256": "3b47e42f9715703bad21ddb1f4aeac11b1005b092bb65bb9e60e2c405ea6442a",
+  "artifact_count": 237,
+  "source_blobs_checked": 4,
+  "checks": [
+    {
+      "period": 2,
+      "all896_columns_exact": true,
+      "eigen_residual_reduction_delta": 0.0,
+      "fd_rows_checked": 14
+    },
+    {
+      "period": 3,
+      "all896_columns_exact": true,
+      "eigen_residual_reduction_delta": 0.0,
+      "fd_rows_checked": 7
+    }
+  ],
+  "session_reaped_exit": 0,
+  "original_pids_absent": true,
+  "receipt_group_closure": true,
+  "external_seconds": 1855.1790554421023,
+  "rows": [
+    {
+      "period": 2,
+      "state_index": 511,
+      "columns": 896,
+      "dense_seconds": 724.6559564294294,
+      "eigen_seconds": 0.5300259771756828,
+      "spectral_radius": 0.04755270346735819,
+      "next_modulus": 0.04755270346735819,
+      "critical_multiplier": [
+        -0.024813597229710833,
+        0.040565317693519745
+      ],
+      "critical_direct_eigen_residual_inf": 1.2123664798502355e-14,
+      "maximum_eigen_residual_inf": 7.169064519411744e-17,
+      "closure_inf": 3.802513859341161e-15,
+      "adjacent_separations": [
+        0.03991973336159638,
+        0.03991973336159638
+      ],
+      "critical_checks": [
+        {
+          "part": "real",
+          "zero_component": false,
+          "dense_vs_direct_inf": 5.71960014073003e-15,
+          "fd_ladder": [
+            {
+              "h": 0.01,
+              "absolute_inf_error": 9.984054772952137e-05
+            },
+            {
+              "h": 0.003,
+              "absolute_inf_error": 9.107273111050654e-06
+            },
+            {
+              "h": 0.001,
+              "absolute_inf_error": 1.0131169760683838e-06
+            },
+            {
+              "h": 0.0003,
+              "absolute_inf_error": 9.119394827651617e-08
+            },
+            {
+              "h": 0.0001,
+              "absolute_inf_error": 1.0135041583324983e-08
+            },
+            {
+              "h": 3e-05,
+              "absolute_inf_error": 9.155529849882993e-10
+            },
+            {
+              "h": 1e-05,
+              "absolute_inf_error": 1.194417954299143e-10
+            }
+          ]
+        },
+        {
+          "part": "imag",
+          "zero_component": false,
+          "dense_vs_direct_inf": 5.4240466285104816e-14,
+          "fd_ladder": [
+            {
+              "h": 0.01,
+              "absolute_inf_error": 0.0019478593871056801
+            },
+            {
+              "h": 0.003,
+              "absolute_inf_error": 0.0001673909151852118
+            },
+            {
+              "h": 0.001,
+              "absolute_inf_error": 1.852345601111331e-05
+            },
+            {
+              "h": 0.0003,
+              "absolute_inf_error": 1.6663398660198697e-06
+            },
+            {
+              "h": 0.0001,
+              "absolute_inf_error": 1.8514790295657765e-07
+            },
+            {
+              "h": 3e-05,
+              "absolute_inf_error": 1.667167461808644e-08
+            },
+            {
+              "h": 1e-05,
+              "absolute_inf_error": 1.9288380372073366e-09
+            }
+          ]
+        }
+      ],
+      "numerically_inside_unit_circle": true,
+      "scope": "Finite float64 numerical diagnostic; no rigorous stability/root certificate."
+    },
+    {
+      "period": 3,
+      "state_index": 510,
+      "columns": 896,
+      "dense_seconds": 1060.4849360333756,
+      "eigen_seconds": 0.80783034209162,
+      "spectral_radius": 0.23915373024615344,
+      "next_modulus": 0.15185677025123537,
+      "critical_multiplier": [
+        -0.23915373024615344,
+        0.0
+      ],
+      "critical_direct_eigen_residual_inf": 1.4349632593280148e-14,
+      "maximum_eigen_residual_inf": 2.0557139718593953e-16,
+      "closure_inf": 2.2447321779139884e-15,
+      "adjacent_separations": [
+        0.056139779286635945,
+        0.058118108115388034,
+        0.035521035565745526
+      ],
+      "critical_checks": [
+        {
+          "part": "real",
+          "zero_component": false,
+          "dense_vs_direct_inf": 1.2816137040516651e-14,
+          "fd_ladder": [
+            {
+              "h": 0.01,
+              "absolute_inf_error": 0.01855634651949195
+            },
+            {
+              "h": 0.003,
+              "absolute_inf_error": 0.0017821646682975069
+            },
+            {
+              "h": 0.001,
+              "absolute_inf_error": 0.00019769300790656308
+            },
+            {
+              "h": 0.0003,
+              "absolute_inf_error": 1.778778041720136e-05
+            },
+            {
+              "h": 0.0001,
+              "absolute_inf_error": 1.9763728144397974e-06
+            },
+            {
+              "h": 3e-05,
+              "absolute_inf_error": 1.7790204687173627e-07
+            },
+            {
+              "h": 1e-05,
+              "absolute_inf_error": 1.974963498990734e-08
+            }
+          ]
+        },
+        {
+          "part": "imag",
+          "zero_component": true
+        }
+      ],
+      "numerically_inside_unit_circle": true,
+      "scope": "Finite float64 numerical diagnostic; no rigorous stability/root certificate."
+    }
+  ],
+  "scope": "Numerical qualification only; no rigorous interval certificate."
+}
