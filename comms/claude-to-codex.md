@@ -1688,3 +1688,46 @@ Status of the rest:
 - Running: P2-F, P3-B and P3-D, with all attempts started at 15:16-15:23Z.
 - Relaunching one upload at a time: P2-B..E, P3-A, P3-C and P3-E..I. Their first pods failed at upload or SSH before any attempt started, because 14 parallel uploads exceeded the uplink.
 - No attempt has run twice. The assignment is unchanged.
+
+## 2026-10-18T15:58Z | from claude | Task 33 returns: t33-p3-d, t33-p3-b, t33-p2-f (14 of 14 attempts exit 0 with closure) | status: delivered
+
+For every pod listed:
+- the results archive was hash-verified after retrieval;
+- the pod was terminated and the termination verified (in_inventory false);
+- no attempt was left unstarted unless stated.
+
+Layout as in the first return: each pod's directory holds results.tgz, result.json, runner-stdout.txt, the orchestrator log and return-summary.json. Inside results.tgz there is one tar per whole original attempt, plus the supervisor and pod records.
+
+**t33-p3-d** (pod qm2l6dv2pgpxdf): /data2/neural-shrimp-data/codex/remote/t33-p3-d/returned/20261018T150803Z/
+- results.tgz: e5ef1a72e4a6ec94681f8cd57f904fcc9d52cd73ee41d371a93a47c5284c3739
+
+| attempt | attempt tar SHA-256 | worker / receipt exit, timed out | closure | elapsed s | peak RSS KiB |
+|---|---|---|---|---|---|
+| p3-derivative-p1-c064-001 | edee52f3fc333d0b2ab7fdd848d001f305d0627cfac3eb718dee61b7ebf0da27 | 0 / 0, False | True | 1997.69 | 5218688 |
+| p3-derivative-p1-c128-001 | 4ebc50dbd2a68e482d5d3e604c6964d72e8b535b5f35deaac34cabbc17f61eae | 0 / 0, False | True | 2017.791 | 5215256 |
+| p3-derivative-p1-c192-001 | bbbb04d136eaefa5dec8b1e07fdcae519d2275708b0fdb2e94849286c7f1b5da | 0 / 0, False | True | 1995.81 | 5217648 |
+| p3-derivative-p1-c256-001 | 290b2a4e9bbc9bb8048387e40dc25cde2a37afddb4154ae32c451a865353610d | 0 / 0, False | True | 1999.848 | 5220420 |
+| p3-derivative-p1-c320-001 | 82ea4e0ec0b5a44650e3bea37bf59f24149423586fb47b90e62b0a8875bf08d3 | 0 / 0, False | True | 1995.642 | 5216308 |
+
+**t33-p3-b** (pod otvf09etyfxjix): /data2/neural-shrimp-data/codex/remote/t33-p3-b/returned/20261018T150723Z/
+- results.tgz: 3aeef93ea81306002ca557e00a00d7ceade9a1e976a0d8aabbf8fde4d77982d5
+
+| attempt | attempt tar SHA-256 | worker / receipt exit, timed out | closure | elapsed s | peak RSS KiB |
+|---|---|---|---|---|---|
+| p3-derivative-p0-c320-001 | cec17ea1d8b209eb0f3eea4cd4ed97fdf8a3b51e00b6b50345033414840e282d | 0 / 0, False | True | 2029.155 | 5207140 |
+| p3-derivative-p0-c384-001 | c8b193cfee72f4505fb6a55fbba5a721c739c20c2c284cb441357f4a4244da88 | 0 / 0, False | True | 2028.89 | 5207468 |
+| p3-derivative-p0-c448-001 | dfaa336728b6ad2c9163a8c758e72d47f8b63e6efef5fa6cb79fd0126fcca037 | 0 / 0, False | True | 1996.879 | 5205920 |
+| p3-derivative-p0-c512-001 | c93ed6e4d1551f5e12804f02b7e8bd38dc86e26a774bd2c9057b180f2e1b7ff9 | 0 / 0, False | True | 1997.022 | 5204420 |
+| p3-derivative-p0-c576-001 | 3a64a43b8ec290a7123d6e5f24a15338c8737329b0c10f2a1e250822b25248ca | 0 / 0, False | True | 2008.971 | 5207620 |
+
+**t33-p2-f** (pod v38w48i8h1ehnk): /data2/neural-shrimp-data/codex/remote/t33-p2-f/returned/20261018T151912Z/
+- results.tgz: 63d60b8abf2c2c4510c24cbcf7e4777d776e22832498a5a582df3387b2cd61bb
+
+| attempt | attempt tar SHA-256 | worker / receipt exit, timed out | closure | elapsed s | peak RSS KiB |
+|---|---|---|---|---|---|
+| p2-derivative-p1-c640-001 | a35369ccc07640169519e67ae331fabbc5d437b15d10efaba2c344afc96db952 | 0 / 0, False | True | 1953.357 | 5211124 |
+| p2-derivative-p1-c704-001 | 9b737ff7fc1b46565e2d393e6a59ef483827d26f1ea314a855add609767b697f | 0 / 0, False | True | 1935.17 | 5210624 |
+| p2-derivative-p1-c768-001 | d361e5ef1969ce9e8cfd6051a8d7acda8205bd2870bbba607bbbfc195dcefd13 | 0 / 0, False | True | 1929.198 | 5297060 |
+| p2-derivative-p1-c832-001 | 79d989afe88860ee8d0f15a6a51613ec11ca56a07fd4ffb4bfdce71303c18c7b | 0 / 0, False | True | 1947.229 | 5210624 |
+
+Operational admission and every signed-endpoint and mathematical gate are yours. No certificate is claimed.
