@@ -1,0 +1,7 @@
+# Isolated Task33 centre caller preparation
+
+center_proposal.py is prepared, syntax checked, not execution-admitted. It accepts period2 or3 only at the exact target cell and2048bits, imports the original closed prefix supervisor output directly, retains every prefix radius and binds exact ratios/backend/assets/shape. Original receipt is never converted into a P8 receipt. The forthcoming concrete card must bind prefix source commit, original receipt and admission/source authority, original phase-proposal receipt, preconditioner, all source files and any successor exact centres.
+
+One attempt performs two complete point-image passes around one accepted shooting_correction.correct step. It saves every centre, image, zero tangent, residual and correction witness. A/B stay fixed exact dyadic proposals; they are not derivative enclosures. The after-pass does not itself certify inclusion, period or attraction. Separate attempts may take prior exact midpoint centres only through explicit fixed hashes, with original failures retained.
+
+Before launch: finish prefix closure/hash admission; read all source and run small manufactured receipt/import/period controls; prepare a measured bounded card using the original2048-bit point timings and this prefix load size. No model or target execution has occurred under this source. No target-dependent stopping or radius choice is embedded here. Existing shared prefix/map/supervisor files are unchanged while prefix-001 runs.
