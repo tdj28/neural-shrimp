@@ -92,7 +92,7 @@ def main():
                     "(a guide for the eye: the map visits only the states); 'step' uses 65 percent of each step")
     ap.add_argument("--all-trajectories", action="store_true", help="include trajectories that reach a periodic orbit "
                     "(for periodic cells); otherwise only the aperiodic ones")
-    ap.add_argument("--title", default="One chaotic trajectory through the strange attractor")
+    ap.add_argument("--title", default="One chaotic trajectory through the attractor")
     args = ap.parse_args()
     import matplotlib
     matplotlib.use("Agg")
@@ -162,10 +162,11 @@ def main():
                  "to guide the eye", color="0.6", fontsize=12 * fs)
     for k, t in enumerate(top):                       # the colors: the token the loop writes next
         fig.text(0.02, 0.84 - 0.034 * k, "\u25cf", color=rt.PALETTE[k], fontsize=17 * fs)
-        fig.text(0.04, 0.842 - 0.034 * k, repr(tok.decode([int(t)])), color="0.9", fontsize=14 * fs, family="monospace")
+        fig.text(0.04, 0.842 - 0.034 * k, repr(tok.decode([int(t)])).replace("\\n\\n", "\u23ce").replace("\\n", "\u23ce"),
+                 color="0.9", fontsize=14 * fs, family="monospace")
     fig.text(0.02, 0.84 - 0.034 * len(top), "\u25cf", color=rt.OTHER, fontsize=17 * fs)
     fig.text(0.04, 0.842 - 0.034 * len(top), "other tokens", color="0.9", fontsize=14 * fs)
-    fig.text(0.02, 0.875, "color: the token written next", color="0.75", fontsize=13 * fs)
+    fig.text(0.02, 0.875, "color: the most probable next token", color="0.75", fontsize=13 * fs)
     fig.text(0.5, 0.165, "\u23ce marks a line break that the loop writes", color="0.55", fontsize=12 * fs, ha="center")
     t_hist = fig.text(0.5, 0.115, "", color="0.75", fontsize=19 * fs, family="monospace", ha="center")
     t_word = fig.text(0.5, 0.04, "", color="w", fontsize=40 * fs, ha="center", weight="bold")

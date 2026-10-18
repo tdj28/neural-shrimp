@@ -125,10 +125,10 @@ def main():
              f"{sa['dtype']}; each frame: {first['coords'].shape[1]} trajectories after {sa['transient']} steps, "
              f"{first['coords'].shape[2]} states each, on fixed principal axes", fontsize=13 * fs, color="0.75")
     x, y = 0.04, 0.893                               # the token colors, in rows above the attractor
-    fig.text(x, y, "color = next token:", fontsize=11 * fs, color="0.8")
-    x += 0.085
+    fig.text(x, y, "color = most probable next token:", fontsize=11 * fs, color="0.8")
+    x += 0.16
     for k, t in enumerate(list(top) + [None]):
-        lab = "other" if t is None else repr(tok.decode([int(t)]))
+        lab = "other" if t is None else repr(tok.decode([int(t)])).replace("\\n\\n", "\u23ce").replace("\\n", "\u23ce")
         w = 0.012 + 0.0058 * len(lab)
         if x + w > 0.54:
             x, y = 0.125, y - 0.03

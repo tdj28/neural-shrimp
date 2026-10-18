@@ -104,7 +104,8 @@ def main():
     lo1, hi1, c1 = zoom_box(P[:, :2], 0.08)
     ax.add_patch(plt.Rectangle(lo1, *(hi1 - lo1), fill=False, ec="k", lw=0.8))
     a = rec["args"]
-    ax.set_title(f"(a) the attractor at $\\alpha={a['alpha']}$, $\\log_{{10}}T={a['log_t']}$ ({len(P):,} states)", fontsize=9)
+    ax.set_title(f"(a) projection of the attractor at $\\alpha={a['alpha']}$, $\\log_{{10}}T={a['log_t']}$ ({len(P):,} states)",
+                 fontsize=9)
     ax.set_xlabel("first principal coordinate")
     ax.set_ylabel("second principal coordinate")
     for col, (frac, label) in enumerate(((0.08, "(b) zoom"), (0.008, "(c) zoom, ten times closer"))):
@@ -124,7 +125,7 @@ def main():
     ax.scatter(s[:, :-1].ravel(), s[:, 1:].ravel(), s=0.15, c="k", alpha=0.4, linewidths=0, rasterized=True)
     ax.set_xlabel("$s_n$ (first principal coordinate)")
     ax.set_ylabel("$s_{n+1}$")
-    ax.set_title("(d) return map: stretching and folding", fontsize=9)
+    ax.set_title("(d) lag-one plot of the first principal coordinate", fontsize=9)
     ax = fig.add_subplot(gs[1, 1])
     rng = np.random.default_rng(0)
     r, Cr, slope, best = corr_dim(P[:, :8], rng)
@@ -165,8 +166,8 @@ def main():
             ax.set_xlim(lo[0] - pad, hi[0] + pad)
             ax.set_ylim(lo[1] - pad, hi[1] + pad)
             ax.legend(fontsize=7, markerscale=6, loc="lower right")
-            ax.set_title(f"(f) a band of the chaos past the cascade ($\\alpha={a2['alpha']}$)\n"
-                         "on the unstable manifold of its period-3 saddle", fontsize=9)
+            ax.set_title(f"(f) a band of the chaos past the cascade ($\\alpha={a2['alpha']}$) and sampled\n"
+                         "points of the unstable manifold of its period-3 saddle", fontsize=9)
         else:
             ax.scatter(P2[:, 0], P2[:, 1], s=0.15, c="tab:purple", alpha=0.5, linewidths=0, rasterized=True)
             ax.set_title(f"(f) banded chaos past a cascade: $\\alpha={a2['alpha']}$", fontsize=9)

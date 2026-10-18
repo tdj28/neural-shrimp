@@ -101,9 +101,9 @@ def main():
     col = np.tile(np.array(OTHER), (len(toks), 1))
     for k, t in enumerate(top):
         col[toks == t] = PALETTE[k]
-    labels = [repr(tok.decode([int(t)])) for t in top]
+    labels = [repr(tok.decode([int(t)])).replace("\\n\\n", "\u23ce").replace("\\n", "\u23ce") for t in top]
     a = rec["args"]
-    title = args.title or "A strange attractor of a language model's feedback loop"
+    title = args.title or "A chaotic attractor of a language model's feedback loop (numerically observed)"
     sub = args.subtitle or (f"Qwen2.5-0.5B-Instruct, soft-token loop, steering $\\alpha={a['alpha']}$, "
                             f"$\\log_{{10}}T={a['log_t']}$, {a['dtype']}")
     W, H = args.width, args.height
@@ -118,7 +118,7 @@ def main():
     fig.text(0.02, 0.922, sub, color="0.8", fontsize=15 * fs)
     when = f"each after {a['transient']} steps" if a["transient"] else "recorded from their start"
     fig.text(0.02, 0.025, f"{len(P):,} states of {int(aper.sum())} trajectories, {when}; "
-             f"axes: principal coordinates {', '.join(str(d + 1) for d in dims)}; color: the token the loop writes next",
+             f"projection on principal coordinates {', '.join(str(d + 1) for d in dims)}; color: the most probable next token",
              color="0.6", fontsize=12 * fs)
     for k, lab in enumerate(labels):
         fig.text(0.02, 0.86 - 0.035 * k, "●", color=PALETTE[k], fontsize=16)

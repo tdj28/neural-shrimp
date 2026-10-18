@@ -303,3 +303,7 @@ skill, section 7A). Spend is recorded only in the gitignored `cost-ledger.md`
   pass without a new recorded decision.
 - **Model:** `gpt-6-astra`, Pro mode, high effort, at most 16,000 output tokens, with a $3 per-call authorization guard.
   Advice is advisory and is adjudicated locally.
+
+| Request | Mode | Usage | Cost |
+|---|---|---|---|
+| consult 16, attractor naming | Pro, high effort, 16k output | 47,413 tokens in all | see private cost ledger |
