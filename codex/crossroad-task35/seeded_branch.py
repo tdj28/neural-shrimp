@@ -55,7 +55,7 @@ def main():
     write('seed-check.json',{'return_distances':returns,'seed_index':c['seed_index'],'seed_sha256':c['seed_sha256']})
     if not returns[4]<=1e-10 or not returns[0]>1e-7:
         raise ValueError('seed residual or primitive-period gate failed')
-    fam=esl.soft_family(loop,v,5,10,c['chunk'],reference=None,exact_jvp=True,second=(16,w),log_temperature=-.1)
+    fam=esl.soft_family(loop,v,5,10,c['chunk'],reference=loop,exact_jvp=True,second=(16,w),log_temperature=-.1)
     def on_point(rec):
         with (out/'progress.jsonl').open('a') as f:f.write(json.dumps(rec,allow_nan=False)+'\n')
     def on_attempt(rec):
