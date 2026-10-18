@@ -1,0 +1,441 @@
+{
+  "status": "reviewed_dispatch_requires_Claude_owned_capacity_and_existing_ceiling",
+  "period": 3,
+  "source_commit": "Exact privately pushed commit specified in standalone comms; checkout that commit for every attempt.",
+  "expected_backend": {
+    "python": "3.12.14 (main, Aug 25 2026, 14:00:49) [Clang 22.1.3 ]",
+    "python_flint": "0.9.0",
+    "flint": "3.6.0",
+    "numpy": "2.5.3",
+    "torch": "2.14.1+cu130",
+    "precision": 1024,
+    "threads": 1
+  },
+  "expected_assets": {
+    "model.safetensors": "fdf756fa7fcbe7404d5c60e26bff1a0c8b8aa1f72ced49e7dd0210fe288fb7fe",
+    "config.json": "18e18afcaccafade98daf13a54092927904649e1dd4eba8299ab717d5d94ff45",
+    "vectors.npz": "b630bb7bef06bde87f8e6a7ca5e8672f83d24bc0585bf19048e9e494a4357f41"
+  },
+  "source_sha256": {
+    "codex/certify-llm/streamed_head.py": "f6096528f5748392386e97e9a4722f5967aeb0ae24897aac1465d205fca4f24a",
+    "codex/certify-llm/ball_jet.py": "46b14d8bd65ed6c80174758daf37d00110cfa908813917bdb46c13749f999719",
+    "codex/certify-llm/ball_qwen.py": "fcc90849601984506adf26f651067734f9faef408c8f42dffe64bf5c68e98a80",
+    "codex/certify-llm/ball_linear.py": "5d54200f5880d818eabc97e7eed2f1cf02b83b617b39380bef38d49a7ac45ff2",
+    "codex/certify-llm/cache_io.py": "f4e25b2134bef8a71c27d3156baf01be9d25c593d7b780f90a66b9c1141abdef",
+    "codex/certify-llm/phase_domain.py": "a3856de84393068788c4cf4dc42fa6015da45b7912b56db995cc6b12922f8d8d",
+    "codex/certify-llm/derivative_coverage.py": "eb01dc001193b5e3982bcb41a582ac7c61cfe4e8fcd2a1ddf249126623fe63cf",
+    "codex/certify-llm/shooting_gates.py": "9c967c0dcb9783df53f33c05eb897050f4e8971f66767abbc8a01a8b1b85cf1f",
+    "codex/certify-llm/proof_gates.py": "ee6678b7dd5153ef095fd73d5711fcfc605f7a228c92b1335a9541cc3d7b2c6a",
+    "codex/crosscheck/qwen_map.py": "493a3d1d57fec227f5ba2e3f8f9cfcfdd02d22495d1d44e6449ede901310ae6e",
+    "codex/certificate-ladder-task34/derivative_shard.py": "577a68f03e47c884ef8b47cb993e4799cde09e673d656bae17d04e1c141ff98a",
+    "codex/certificate-ladder-task34/prefix_import.py": "80338ac588fc2e90a4d241a2d1fcf01f98f6f262e7a21c0deab4c9b45a9d0250"
+  },
+  "launcher_sha256": "4215433c1c0c0dfd4f9807b9c279f28f62ea67f8804934b042bc0889eecafea2",
+  "collector_sha256": "acd8d7d796c19276c9a94bc2df0cde67c900e74dd7ce1e04d4d6f3b0606021ac",
+  "definition": {
+    "path": "/data2/neural-shrimp-data/codex/certificate-ladder/cascade-p3-final-domain-001.json",
+    "bytes": 1583779,
+    "sha256": "1951e04a84e176260fcc4b7451ca396837a83a05344e97603490c437a7c0e43c"
+  },
+  "upstream_files": [
+    {
+      "path": "/data2/neural-shrimp-data/codex/certificate-ladder/cascade-p3-final-domain-001.json",
+      "bytes": 1583779,
+      "sha256": "1951e04a84e176260fcc4b7451ca396837a83a05344e97603490c437a7c0e43c"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/codex/certificate-ladder/prefix-cascade-p3-001-supervision/receipt.json",
+      "bytes": 5741,
+      "sha256": "9c0f913e10398400a34509e32e1d36ee460e291440f29073a1cd0161cec4a77c"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/codex/certificate-ladder/prefix-cascade-p3-001-supervision/admission.json",
+      "bytes": 4375,
+      "sha256": "70f37618a7649f7e98a45e6189fb88197f78bae4d146759212a0454bada147ac"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/codex/certificate-ladder/prefix-cascade-p3-001/inputs.json",
+      "bytes": 1139,
+      "sha256": "fa52df66cfa32b7021e33ed6d48d2d53b5f536bf59a51fca0bfd5f9db056a4fa"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/codex/certificate-ladder/prefix-cascade-p3-001/layers.jsonl",
+      "bytes": 2545,
+      "sha256": "a26e0de94363673d5bf4afe23d984d5c54d61c7703ee6e88a5fbf2715a205f83"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/codex/certificate-ladder/prefix-cascade-p3-001/prefix-cache.json.gz",
+      "bytes": 68581145,
+      "sha256": "dd3f3e91879f540eaf28fc888f456ddb16b10f7edf61e1e8e5bc9f419066d1f2"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/codex/certificate-ladder/prefix-cascade-p3-001/report.json",
+      "bytes": 416,
+      "sha256": "345f4d026773292662520380825354314a2d427a67756b3f95db5ad23b967317"
+    }
+  ],
+  "plans": [
+    {
+      "attempt": "cascade-p3-derivative-p0-c000-001",
+      "plan": "codex/certificate-ladder-task34/cascade-p3-derivative-p0-c000-001-plan.json",
+      "plan_sha256": "fe17ee985667e5233362860f3cd67306f6a0e86f2bfc9aaa6a40b603f24668fe",
+      "phase": 0,
+      "start_column": 0,
+      "command": "python -I -B -u codex/certificate-ladder-task34/launch.py --attempt cascade-p3-derivative-p0-c000-001 --driver derivative_shard --plan cascade-p3-derivative-p0-c000-001-plan.json --threads 1 --seconds 3600"
+    },
+    {
+      "attempt": "cascade-p3-derivative-p0-c064-001",
+      "plan": "codex/certificate-ladder-task34/cascade-p3-derivative-p0-c064-001-plan.json",
+      "plan_sha256": "d1a31087a8ef6835dffb11bed741766543280d52d32d4a45870a7423ee241bac",
+      "phase": 0,
+      "start_column": 64,
+      "command": "python -I -B -u codex/certificate-ladder-task34/launch.py --attempt cascade-p3-derivative-p0-c064-001 --driver derivative_shard --plan cascade-p3-derivative-p0-c064-001-plan.json --threads 1 --seconds 3600"
+    },
+    {
+      "attempt": "cascade-p3-derivative-p0-c128-001",
+      "plan": "codex/certificate-ladder-task34/cascade-p3-derivative-p0-c128-001-plan.json",
+      "plan_sha256": "88b6445180166a527bb4d954c0efbe5a483452ea420491522e1f1c4f9f00ec1a",
+      "phase": 0,
+      "start_column": 128,
+      "command": "python -I -B -u codex/certificate-ladder-task34/launch.py --attempt cascade-p3-derivative-p0-c128-001 --driver derivative_shard --plan cascade-p3-derivative-p0-c128-001-plan.json --threads 1 --seconds 3600"
+    },
+    {
+      "attempt": "cascade-p3-derivative-p0-c192-001",
+      "plan": "codex/certificate-ladder-task34/cascade-p3-derivative-p0-c192-001-plan.json",
+      "plan_sha256": "2b4e22eeb2ba95980763c5a485452631b0faf08ab0c0d3fd4768c83316840cf6",
+      "phase": 0,
+      "start_column": 192,
+      "command": "python -I -B -u codex/certificate-ladder-task34/launch.py --attempt cascade-p3-derivative-p0-c192-001 --driver derivative_shard --plan cascade-p3-derivative-p0-c192-001-plan.json --threads 1 --seconds 3600"
+    },
+    {
+      "attempt": "cascade-p3-derivative-p0-c256-001",
+      "plan": "codex/certificate-ladder-task34/cascade-p3-derivative-p0-c256-001-plan.json",
+      "plan_sha256": "54bbe0a95d7469f998667f2c6df3425f28dcfa2262de8d01b6b1f1f9f1bd9b93",
+      "phase": 0,
+      "start_column": 256,
+      "command": "python -I -B -u codex/certificate-ladder-task34/launch.py --attempt cascade-p3-derivative-p0-c256-001 --driver derivative_shard --plan cascade-p3-derivative-p0-c256-001-plan.json --threads 1 --seconds 3600"
+    },
+    {
+      "attempt": "cascade-p3-derivative-p0-c320-001",
+      "plan": "codex/certificate-ladder-task34/cascade-p3-derivative-p0-c320-001-plan.json",
+      "plan_sha256": "f0eac3223a9885e7509254c76342269d05b26b39a21f6a8721324e4d1437f125",
+      "phase": 0,
+      "start_column": 320,
+      "command": "python -I -B -u codex/certificate-ladder-task34/launch.py --attempt cascade-p3-derivative-p0-c320-001 --driver derivative_shard --plan cascade-p3-derivative-p0-c320-001-plan.json --threads 1 --seconds 3600"
+    },
+    {
+      "attempt": "cascade-p3-derivative-p0-c384-001",
+      "plan": "codex/certificate-ladder-task34/cascade-p3-derivative-p0-c384-001-plan.json",
+      "plan_sha256": "4940ac3c35c2cb16707ec65e111ad6d006aacafc8102ef11a5fb184a619ccd24",
+      "phase": 0,
+      "start_column": 384,
+      "command": "python -I -B -u codex/certificate-ladder-task34/launch.py --attempt cascade-p3-derivative-p0-c384-001 --driver derivative_shard --plan cascade-p3-derivative-p0-c384-001-plan.json --threads 1 --seconds 3600"
+    },
+    {
+      "attempt": "cascade-p3-derivative-p0-c448-001",
+      "plan": "codex/certificate-ladder-task34/cascade-p3-derivative-p0-c448-001-plan.json",
+      "plan_sha256": "33a4eaebbd5bbeabec657025786cd10cff75afea3b2717c9d80965ff92518af3",
+      "phase": 0,
+      "start_column": 448,
+      "command": "python -I -B -u codex/certificate-ladder-task34/launch.py --attempt cascade-p3-derivative-p0-c448-001 --driver derivative_shard --plan cascade-p3-derivative-p0-c448-001-plan.json --threads 1 --seconds 3600"
+    },
+    {
+      "attempt": "cascade-p3-derivative-p0-c512-001",
+      "plan": "codex/certificate-ladder-task34/cascade-p3-derivative-p0-c512-001-plan.json",
+      "plan_sha256": "4dc69522c5d492102d07f33094918df9d0a87ee1952e85ff55780737e41d2559",
+      "phase": 0,
+      "start_column": 512,
+      "command": "python -I -B -u codex/certificate-ladder-task34/launch.py --attempt cascade-p3-derivative-p0-c512-001 --driver derivative_shard --plan cascade-p3-derivative-p0-c512-001-plan.json --threads 1 --seconds 3600"
+    },
+    {
+      "attempt": "cascade-p3-derivative-p0-c576-001",
+      "plan": "codex/certificate-ladder-task34/cascade-p3-derivative-p0-c576-001-plan.json",
+      "plan_sha256": "ce7fd6c2159f046622a7c7823597f9963899b1fd963405dc87403f676521dcc0",
+      "phase": 0,
+      "start_column": 576,
+      "command": "python -I -B -u codex/certificate-ladder-task34/launch.py --attempt cascade-p3-derivative-p0-c576-001 --driver derivative_shard --plan cascade-p3-derivative-p0-c576-001-plan.json --threads 1 --seconds 3600"
+    },
+    {
+      "attempt": "cascade-p3-derivative-p0-c640-001",
+      "plan": "codex/certificate-ladder-task34/cascade-p3-derivative-p0-c640-001-plan.json",
+      "plan_sha256": "833950b599e9e22d0d8f85d90532050d81383f3d2a3086c6573c4ac12a01369d",
+      "phase": 0,
+      "start_column": 640,
+      "command": "python -I -B -u codex/certificate-ladder-task34/launch.py --attempt cascade-p3-derivative-p0-c640-001 --driver derivative_shard --plan cascade-p3-derivative-p0-c640-001-plan.json --threads 1 --seconds 3600"
+    },
+    {
+      "attempt": "cascade-p3-derivative-p0-c704-001",
+      "plan": "codex/certificate-ladder-task34/cascade-p3-derivative-p0-c704-001-plan.json",
+      "plan_sha256": "309b5c871517bd6ccd30741cf94ce33c6b9f9e7465142ba4b2665135d918df08",
+      "phase": 0,
+      "start_column": 704,
+      "command": "python -I -B -u codex/certificate-ladder-task34/launch.py --attempt cascade-p3-derivative-p0-c704-001 --driver derivative_shard --plan cascade-p3-derivative-p0-c704-001-plan.json --threads 1 --seconds 3600"
+    },
+    {
+      "attempt": "cascade-p3-derivative-p0-c768-001",
+      "plan": "codex/certificate-ladder-task34/cascade-p3-derivative-p0-c768-001-plan.json",
+      "plan_sha256": "efd7eadca4e47114c7f8de28857b923dcca851dcfadccbe13eabdd9704931530",
+      "phase": 0,
+      "start_column": 768,
+      "command": "python -I -B -u codex/certificate-ladder-task34/launch.py --attempt cascade-p3-derivative-p0-c768-001 --driver derivative_shard --plan cascade-p3-derivative-p0-c768-001-plan.json --threads 1 --seconds 3600"
+    },
+    {
+      "attempt": "cascade-p3-derivative-p0-c832-001",
+      "plan": "codex/certificate-ladder-task34/cascade-p3-derivative-p0-c832-001-plan.json",
+      "plan_sha256": "5652da893db96cf7f5b6216e24c6fdfec3918342c7063f49d7aae97fd48dc059",
+      "phase": 0,
+      "start_column": 832,
+      "command": "python -I -B -u codex/certificate-ladder-task34/launch.py --attempt cascade-p3-derivative-p0-c832-001 --driver derivative_shard --plan cascade-p3-derivative-p0-c832-001-plan.json --threads 1 --seconds 3600"
+    },
+    {
+      "attempt": "cascade-p3-derivative-p1-c000-001",
+      "plan": "codex/certificate-ladder-task34/cascade-p3-derivative-p1-c000-001-plan.json",
+      "plan_sha256": "29a92a3f1e689d91eb24fdf325bf79ad71523ab541e05725c8542155a45aa45c",
+      "phase": 1,
+      "start_column": 0,
+      "command": "python -I -B -u codex/certificate-ladder-task34/launch.py --attempt cascade-p3-derivative-p1-c000-001 --driver derivative_shard --plan cascade-p3-derivative-p1-c000-001-plan.json --threads 1 --seconds 3600"
+    },
+    {
+      "attempt": "cascade-p3-derivative-p1-c064-001",
+      "plan": "codex/certificate-ladder-task34/cascade-p3-derivative-p1-c064-001-plan.json",
+      "plan_sha256": "e39620eac4903f7972cc2a62ed94d1ea78c8267275ca69d7d6140b557b2a7fb8",
+      "phase": 1,
+      "start_column": 64,
+      "command": "python -I -B -u codex/certificate-ladder-task34/launch.py --attempt cascade-p3-derivative-p1-c064-001 --driver derivative_shard --plan cascade-p3-derivative-p1-c064-001-plan.json --threads 1 --seconds 3600"
+    },
+    {
+      "attempt": "cascade-p3-derivative-p1-c128-001",
+      "plan": "codex/certificate-ladder-task34/cascade-p3-derivative-p1-c128-001-plan.json",
+      "plan_sha256": "6435ca80870799d509b4adf32cbbbea7ff37ea4a58635a8441a759f9d382c2c8",
+      "phase": 1,
+      "start_column": 128,
+      "command": "python -I -B -u codex/certificate-ladder-task34/launch.py --attempt cascade-p3-derivative-p1-c128-001 --driver derivative_shard --plan cascade-p3-derivative-p1-c128-001-plan.json --threads 1 --seconds 3600"
+    },
+    {
+      "attempt": "cascade-p3-derivative-p1-c192-001",
+      "plan": "codex/certificate-ladder-task34/cascade-p3-derivative-p1-c192-001-plan.json",
+      "plan_sha256": "17ab274bdc718bb6b0e616210538f86f2d2012760519e73cb75f1bc19e3f8889",
+      "phase": 1,
+      "start_column": 192,
+      "command": "python -I -B -u codex/certificate-ladder-task34/launch.py --attempt cascade-p3-derivative-p1-c192-001 --driver derivative_shard --plan cascade-p3-derivative-p1-c192-001-plan.json --threads 1 --seconds 3600"
+    },
+    {
+      "attempt": "cascade-p3-derivative-p1-c256-001",
+      "plan": "codex/certificate-ladder-task34/cascade-p3-derivative-p1-c256-001-plan.json",
+      "plan_sha256": "8e9fe35c5b7fc4cb4ff600fad7e176fb735d59032cb4742187969c42e50ed947",
+      "phase": 1,
+      "start_column": 256,
+      "command": "python -I -B -u codex/certificate-ladder-task34/launch.py --attempt cascade-p3-derivative-p1-c256-001 --driver derivative_shard --plan cascade-p3-derivative-p1-c256-001-plan.json --threads 1 --seconds 3600"
+    },
+    {
+      "attempt": "cascade-p3-derivative-p1-c320-001",
+      "plan": "codex/certificate-ladder-task34/cascade-p3-derivative-p1-c320-001-plan.json",
+      "plan_sha256": "30a158caff4bde44313ee088f908ab3fc7984dc6197c0a17c40ea6ecaa3c349a",
+      "phase": 1,
+      "start_column": 320,
+      "command": "python -I -B -u codex/certificate-ladder-task34/launch.py --attempt cascade-p3-derivative-p1-c320-001 --driver derivative_shard --plan cascade-p3-derivative-p1-c320-001-plan.json --threads 1 --seconds 3600"
+    },
+    {
+      "attempt": "cascade-p3-derivative-p1-c384-001",
+      "plan": "codex/certificate-ladder-task34/cascade-p3-derivative-p1-c384-001-plan.json",
+      "plan_sha256": "22559ffccb56b7bda61c666f80971cd05ff4add452e1be9d9372115a5a1b1c61",
+      "phase": 1,
+      "start_column": 384,
+      "command": "python -I -B -u codex/certificate-ladder-task34/launch.py --attempt cascade-p3-derivative-p1-c384-001 --driver derivative_shard --plan cascade-p3-derivative-p1-c384-001-plan.json --threads 1 --seconds 3600"
+    },
+    {
+      "attempt": "cascade-p3-derivative-p1-c448-001",
+      "plan": "codex/certificate-ladder-task34/cascade-p3-derivative-p1-c448-001-plan.json",
+      "plan_sha256": "caee3f8324a1a9476ed67ed4c76ee9e3902184cf6d55a7d05446118aae7ae8df",
+      "phase": 1,
+      "start_column": 448,
+      "command": "python -I -B -u codex/certificate-ladder-task34/launch.py --attempt cascade-p3-derivative-p1-c448-001 --driver derivative_shard --plan cascade-p3-derivative-p1-c448-001-plan.json --threads 1 --seconds 3600"
+    },
+    {
+      "attempt": "cascade-p3-derivative-p1-c512-001",
+      "plan": "codex/certificate-ladder-task34/cascade-p3-derivative-p1-c512-001-plan.json",
+      "plan_sha256": "34a7b43842bf11b2c75919404285db681c1e5c3061c88c6c7961c382ec4b5ac6",
+      "phase": 1,
+      "start_column": 512,
+      "command": "python -I -B -u codex/certificate-ladder-task34/launch.py --attempt cascade-p3-derivative-p1-c512-001 --driver derivative_shard --plan cascade-p3-derivative-p1-c512-001-plan.json --threads 1 --seconds 3600"
+    },
+    {
+      "attempt": "cascade-p3-derivative-p1-c576-001",
+      "plan": "codex/certificate-ladder-task34/cascade-p3-derivative-p1-c576-001-plan.json",
+      "plan_sha256": "5391bad99b29c654b180d3cff0fc0fa3b263b46c97b4f0f24667bb1721f7c303",
+      "phase": 1,
+      "start_column": 576,
+      "command": "python -I -B -u codex/certificate-ladder-task34/launch.py --attempt cascade-p3-derivative-p1-c576-001 --driver derivative_shard --plan cascade-p3-derivative-p1-c576-001-plan.json --threads 1 --seconds 3600"
+    },
+    {
+      "attempt": "cascade-p3-derivative-p1-c640-001",
+      "plan": "codex/certificate-ladder-task34/cascade-p3-derivative-p1-c640-001-plan.json",
+      "plan_sha256": "07f00c54f7911c7a093babbc2124d3a2478a9858c49181ebd66e251cc4aef6d8",
+      "phase": 1,
+      "start_column": 640,
+      "command": "python -I -B -u codex/certificate-ladder-task34/launch.py --attempt cascade-p3-derivative-p1-c640-001 --driver derivative_shard --plan cascade-p3-derivative-p1-c640-001-plan.json --threads 1 --seconds 3600"
+    },
+    {
+      "attempt": "cascade-p3-derivative-p1-c704-001",
+      "plan": "codex/certificate-ladder-task34/cascade-p3-derivative-p1-c704-001-plan.json",
+      "plan_sha256": "2f0f22408f5cfe46d5cc5bef21685fefd954ebe22ede1660db014359b152b5ca",
+      "phase": 1,
+      "start_column": 704,
+      "command": "python -I -B -u codex/certificate-ladder-task34/launch.py --attempt cascade-p3-derivative-p1-c704-001 --driver derivative_shard --plan cascade-p3-derivative-p1-c704-001-plan.json --threads 1 --seconds 3600"
+    },
+    {
+      "attempt": "cascade-p3-derivative-p1-c768-001",
+      "plan": "codex/certificate-ladder-task34/cascade-p3-derivative-p1-c768-001-plan.json",
+      "plan_sha256": "1b7166dcc1ed56075d3df53550de2a36230d98e881509fbd047207dd2980b925",
+      "phase": 1,
+      "start_column": 768,
+      "command": "python -I -B -u codex/certificate-ladder-task34/launch.py --attempt cascade-p3-derivative-p1-c768-001 --driver derivative_shard --plan cascade-p3-derivative-p1-c768-001-plan.json --threads 1 --seconds 3600"
+    },
+    {
+      "attempt": "cascade-p3-derivative-p1-c832-001",
+      "plan": "codex/certificate-ladder-task34/cascade-p3-derivative-p1-c832-001-plan.json",
+      "plan_sha256": "2002d28a364b152f916b5eb09f0a2256baabeba8026c48bdf2334208973c97b7",
+      "phase": 1,
+      "start_column": 832,
+      "command": "python -I -B -u codex/certificate-ladder-task34/launch.py --attempt cascade-p3-derivative-p1-c832-001 --driver derivative_shard --plan cascade-p3-derivative-p1-c832-001-plan.json --threads 1 --seconds 3600"
+    },
+    {
+      "attempt": "cascade-p3-derivative-p2-c000-001",
+      "plan": "codex/certificate-ladder-task34/cascade-p3-derivative-p2-c000-001-plan.json",
+      "plan_sha256": "114cf0c10e6d6e7ab222542e38c61047e0df52088bc0c4fc821031ade8487479",
+      "phase": 2,
+      "start_column": 0,
+      "command": "python -I -B -u codex/certificate-ladder-task34/launch.py --attempt cascade-p3-derivative-p2-c000-001 --driver derivative_shard --plan cascade-p3-derivative-p2-c000-001-plan.json --threads 1 --seconds 3600"
+    },
+    {
+      "attempt": "cascade-p3-derivative-p2-c064-001",
+      "plan": "codex/certificate-ladder-task34/cascade-p3-derivative-p2-c064-001-plan.json",
+      "plan_sha256": "b3168778fc7ee47ffb1b82efc42b78801b9d2ae2a80dc87b97b80fd0db5c0c63",
+      "phase": 2,
+      "start_column": 64,
+      "command": "python -I -B -u codex/certificate-ladder-task34/launch.py --attempt cascade-p3-derivative-p2-c064-001 --driver derivative_shard --plan cascade-p3-derivative-p2-c064-001-plan.json --threads 1 --seconds 3600"
+    },
+    {
+      "attempt": "cascade-p3-derivative-p2-c128-001",
+      "plan": "codex/certificate-ladder-task34/cascade-p3-derivative-p2-c128-001-plan.json",
+      "plan_sha256": "c30ecec4c6c51129a65a7d2f5c4228cb67a36d801b3c103358bcfb5a0cd6e5b1",
+      "phase": 2,
+      "start_column": 128,
+      "command": "python -I -B -u codex/certificate-ladder-task34/launch.py --attempt cascade-p3-derivative-p2-c128-001 --driver derivative_shard --plan cascade-p3-derivative-p2-c128-001-plan.json --threads 1 --seconds 3600"
+    },
+    {
+      "attempt": "cascade-p3-derivative-p2-c192-001",
+      "plan": "codex/certificate-ladder-task34/cascade-p3-derivative-p2-c192-001-plan.json",
+      "plan_sha256": "f2a4d4f93882ab0c04d22aecab32093f06722c8fa5b163da3bbfb98bc25d56ca",
+      "phase": 2,
+      "start_column": 192,
+      "command": "python -I -B -u codex/certificate-ladder-task34/launch.py --attempt cascade-p3-derivative-p2-c192-001 --driver derivative_shard --plan cascade-p3-derivative-p2-c192-001-plan.json --threads 1 --seconds 3600"
+    },
+    {
+      "attempt": "cascade-p3-derivative-p2-c256-001",
+      "plan": "codex/certificate-ladder-task34/cascade-p3-derivative-p2-c256-001-plan.json",
+      "plan_sha256": "d29842e72c4b6793bcdd05aa12134d67036887f6e7302790b8ad59ef5be8eb46",
+      "phase": 2,
+      "start_column": 256,
+      "command": "python -I -B -u codex/certificate-ladder-task34/launch.py --attempt cascade-p3-derivative-p2-c256-001 --driver derivative_shard --plan cascade-p3-derivative-p2-c256-001-plan.json --threads 1 --seconds 3600"
+    },
+    {
+      "attempt": "cascade-p3-derivative-p2-c320-001",
+      "plan": "codex/certificate-ladder-task34/cascade-p3-derivative-p2-c320-001-plan.json",
+      "plan_sha256": "18ee9b49983103274f516eb55e68cd13b5c94291821825a28e891009fc5b8970",
+      "phase": 2,
+      "start_column": 320,
+      "command": "python -I -B -u codex/certificate-ladder-task34/launch.py --attempt cascade-p3-derivative-p2-c320-001 --driver derivative_shard --plan cascade-p3-derivative-p2-c320-001-plan.json --threads 1 --seconds 3600"
+    },
+    {
+      "attempt": "cascade-p3-derivative-p2-c384-001",
+      "plan": "codex/certificate-ladder-task34/cascade-p3-derivative-p2-c384-001-plan.json",
+      "plan_sha256": "e0ee2e2b43e58d1f08070d72c3a886203e18a2449f5512b9de120958671dfe6f",
+      "phase": 2,
+      "start_column": 384,
+      "command": "python -I -B -u codex/certificate-ladder-task34/launch.py --attempt cascade-p3-derivative-p2-c384-001 --driver derivative_shard --plan cascade-p3-derivative-p2-c384-001-plan.json --threads 1 --seconds 3600"
+    },
+    {
+      "attempt": "cascade-p3-derivative-p2-c448-001",
+      "plan": "codex/certificate-ladder-task34/cascade-p3-derivative-p2-c448-001-plan.json",
+      "plan_sha256": "c97b652fc5914947a3cd883c24422d17882580dc666f9456581edabcf445aff7",
+      "phase": 2,
+      "start_column": 448,
+      "command": "python -I -B -u codex/certificate-ladder-task34/launch.py --attempt cascade-p3-derivative-p2-c448-001 --driver derivative_shard --plan cascade-p3-derivative-p2-c448-001-plan.json --threads 1 --seconds 3600"
+    },
+    {
+      "attempt": "cascade-p3-derivative-p2-c512-001",
+      "plan": "codex/certificate-ladder-task34/cascade-p3-derivative-p2-c512-001-plan.json",
+      "plan_sha256": "cd257828d0b130810857a412fa62f67909b349c66334a8994ff124368d40278d",
+      "phase": 2,
+      "start_column": 512,
+      "command": "python -I -B -u codex/certificate-ladder-task34/launch.py --attempt cascade-p3-derivative-p2-c512-001 --driver derivative_shard --plan cascade-p3-derivative-p2-c512-001-plan.json --threads 1 --seconds 3600"
+    },
+    {
+      "attempt": "cascade-p3-derivative-p2-c576-001",
+      "plan": "codex/certificate-ladder-task34/cascade-p3-derivative-p2-c576-001-plan.json",
+      "plan_sha256": "d8146ea324626ff1b8db3a1c4cffc70d482f80f5a3f001e77ab71934278ac484",
+      "phase": 2,
+      "start_column": 576,
+      "command": "python -I -B -u codex/certificate-ladder-task34/launch.py --attempt cascade-p3-derivative-p2-c576-001 --driver derivative_shard --plan cascade-p3-derivative-p2-c576-001-plan.json --threads 1 --seconds 3600"
+    },
+    {
+      "attempt": "cascade-p3-derivative-p2-c640-001",
+      "plan": "codex/certificate-ladder-task34/cascade-p3-derivative-p2-c640-001-plan.json",
+      "plan_sha256": "cbb20626a81b93c6b3ebf76f16dcc5134d2d66002dac9cc37077ebd075866278",
+      "phase": 2,
+      "start_column": 640,
+      "command": "python -I -B -u codex/certificate-ladder-task34/launch.py --attempt cascade-p3-derivative-p2-c640-001 --driver derivative_shard --plan cascade-p3-derivative-p2-c640-001-plan.json --threads 1 --seconds 3600"
+    },
+    {
+      "attempt": "cascade-p3-derivative-p2-c704-001",
+      "plan": "codex/certificate-ladder-task34/cascade-p3-derivative-p2-c704-001-plan.json",
+      "plan_sha256": "160e4b187e839b84839a0750a8dc1de666d959506a43bbb9e0efe52e2cbe8f27",
+      "phase": 2,
+      "start_column": 704,
+      "command": "python -I -B -u codex/certificate-ladder-task34/launch.py --attempt cascade-p3-derivative-p2-c704-001 --driver derivative_shard --plan cascade-p3-derivative-p2-c704-001-plan.json --threads 1 --seconds 3600"
+    },
+    {
+      "attempt": "cascade-p3-derivative-p2-c768-001",
+      "plan": "codex/certificate-ladder-task34/cascade-p3-derivative-p2-c768-001-plan.json",
+      "plan_sha256": "af9dfd4e54003baf05fc36d470e99e97d17eab041397255d3cfae64ad50528d4",
+      "phase": 2,
+      "start_column": 768,
+      "command": "python -I -B -u codex/certificate-ladder-task34/launch.py --attempt cascade-p3-derivative-p2-c768-001 --driver derivative_shard --plan cascade-p3-derivative-p2-c768-001-plan.json --threads 1 --seconds 3600"
+    },
+    {
+      "attempt": "cascade-p3-derivative-p2-c832-001",
+      "plan": "codex/certificate-ladder-task34/cascade-p3-derivative-p2-c832-001-plan.json",
+      "plan_sha256": "622a8574480aecb0e64efb2d90f5f0562ab8d133ebc4ca6814a0e875bcef3dc5",
+      "phase": 2,
+      "start_column": 832,
+      "command": "python -I -B -u codex/certificate-ladder-task34/launch.py --attempt cascade-p3-derivative-p2-c832-001 --driver derivative_shard --plan cascade-p3-derivative-p2-c832-001-plan.json --threads 1 --seconds 3600"
+    }
+  ],
+  "measured_cost": {
+    "basis": "Closed calibration002: same backend,1024bits,64columns/fullvocabulary, earlier P8 domain. New-domain cost is forecast only.",
+    "per_shard_worker_seconds": 1866.785209,
+    "total_serial_forecast_seconds": 78404.97877799999,
+    "per_shard_hard_wall_seconds": 3600,
+    "per_shard_memory_gib": 18,
+    "per_shard_cpu_threads": 1,
+    "retained_storage_reservation_gib": 12
+  },
+  "preflight": [
+    "Exact scientific source,all42plan hashes,all upstream files and model assets; real absolute paths, no symlink relocation.",
+    "All runtime build/module versions as calibration002; no spoofing.",
+    "Claude exclusively records approved ceiling, exact pod ownership, effective cgroup CPU/RAM admission, bounded setup/retrieval/cleanup and verified termination. Each distinct worker reserves18GiB plus shared4GiB per pod, CPU1. Packing count limited by actual effective capacity and approved ceiling.",
+    "Each attempt fresh and run at most once; no automatic retries, extensions or precision change. Retain all failures.",
+    "Capture complete original source/manifest/plan/native outputs/events/stdout/stderr/receipt and exact writer termination evidence; retrieve and hash before terminating dedicated resources.",
+    "Return each completed attempt promptly, do not wait for all42. Use isolated returned_shard.py for operational admission; original signed endpoint audit and strict mathematical gates follow."
+  ],
+  "claim": "Derivative enclosures only. No certificate, token label or basin reachability claim from completion.",
+  "required_import_versions": {
+    "threadpoolctl": "3.7.0",
+    "tokenizers": "0.23.3",
+    "safetensors": "0.8.0",
+    "numpy": "2.5.3",
+    "python-flint": "0.9.0",
+    "torch_distribution": "2.14.1"
+  }
+}
