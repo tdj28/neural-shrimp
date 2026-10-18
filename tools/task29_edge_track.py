@@ -31,7 +31,7 @@ def main():
  if args.controls:print(json.dumps(controls(),indent=2));return
  card=json.loads(Path(args.card).read_text());out=Path(args.out);out.mkdir(parents=True,exist_ok=False)
  import torch
- torch.set_num_threads(2);torch.set_num_interop_threads(1)
+ threads=card.get('threads',2);assert threads in (1,2);torch.set_num_threads(threads);torch.set_num_interop_threads(1)
  def load(name,path):
   spec=importlib.util.spec_from_file_location(name,path);v=importlib.util.module_from_spec(spec);sys.modules[name]=v;spec.loader.exec_module(v);return v
  q=load('edge_map',card['map_source']);assert q.sha256(card['map_source'])==card['map_sha256']

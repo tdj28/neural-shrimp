@@ -1,0 +1,73 @@
+{
+  "status": "reviewed_for_execution",
+  "repository": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp",
+  "raw_root": "/data2/neural-shrimp-data/explore/sheets/codex-task29",
+  "python": "/data2/neural-shrimp/.venv/bin/python",
+  "cpu_threads": 1,
+  "startup_ram_gib": 40,
+  "source_files": [
+    {
+      "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/tools/task29_edge_track.py",
+      "bytes": 7016,
+      "sha256": "ac54b5e4944287acbf2dbda80cef4ea488bcacb06784747fbed3524094456cc1"
+    },
+    {
+      "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/mechanism-replay-task23/qwen_map.py",
+      "bytes": 14540,
+      "sha256": "493a3d1d57fec227f5ba2e3f8f9cfcfdd02d22495d1d44e6449ede901310ae6e"
+    },
+    {
+      "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/boundary-task29/edge-C-card.json",
+      "bytes": 1611,
+      "sha256": "ef840a82d463652ccd710233c1e78d5ac83f9106916f2b30489fa1e84ab2f0e2"
+    },
+    {
+      "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/certify-chaos/supervise.py",
+      "bytes": 8727,
+      "sha256": "306db32a2c8ada9beb67547bbaafc6d0d7a597b5861b0e629ca9a07801223c44"
+    }
+  ],
+  "cpu_ids": [
+    2
+  ],
+  "lanes": {
+    "edge": {
+      "entry": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/tools/task29_edge_track.py",
+      "arguments": [
+        "--card",
+        "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/boundary-task29/edge-C-card.json",
+        "--out",
+        "/data2/neural-shrimp-data/explore/sheets/codex-task29/edge-C-001"
+      ],
+      "output": "/data2/neural-shrimp-data/explore/sheets/codex-task29/edge-C-001",
+      "supervision": "/data2/neural-shrimp-data/explore/sheets/codex-task29/edge-C-001-supervision",
+      "preflight_pins": [
+        {
+          "path": "/data2/neural-shrimp-data/explore/sheets/codex-task29/seeds-001/C.npz",
+          "bytes": 16562410,
+          "sha256": "d4a32fd85f8747751f7fada05e73c0cff2787690edd82a11852be673aa0fe01c"
+        },
+        {
+          "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/boundary-task29/seed-completion.json",
+          "bytes": 2254,
+          "sha256": "ad699e790903c3db5200885aec8b683586c4419b8c155bf4b21e8ec890873195"
+        },
+        {
+          "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/mechanism-replay-task23/qwen_map.py",
+          "bytes": 14540,
+          "sha256": "493a3d1d57fec227f5ba2e3f8f9cfcfdd02d22495d1d44e6449ede901310ae6e"
+        }
+      ],
+      "prior_receipts": [
+        "/data2/neural-shrimp-data/explore/sheets/codex-task29/C-cost-001-supervision/receipt.json"
+      ],
+      "limits": {
+        "as_bytes": 12884901888,
+        "cpu_seconds": 17500,
+        "wall_seconds": 18000,
+        "output_bytes": 2147483648
+      }
+    }
+  },
+  "cost_basis": "OneCPU17-row profile mean0.80142s;1200 coarse steps project962s. Earlier A full run1956s at2CPU, two unresolved bracket midpoints. C may differ;5h hardwall/17500CPU bounds all cases, no extension/retry. CPU1+supervisor concurrent with ArbCPU1+supervisor. Full18+12GiBAS and12GiB shared reserve;40GiB available startup admits remaining reserve only after verifying existing Arb RSS>=2GiB."
+}
