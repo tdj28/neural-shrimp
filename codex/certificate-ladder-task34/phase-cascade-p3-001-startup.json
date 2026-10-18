@@ -1,0 +1,40 @@
+{
+  "source_commit": "32c7e4126cd88c6e0c2030dcf1d287f356ee2db8",
+  "session": 72012,
+  "host_verified_identities": [
+    {
+      "pid": 2716079,
+      "starttime": 229514159,
+      "pgid": 2716079,
+      "sid": 2716079,
+      "state": "S",
+      "nice": 10,
+      "threads": 1,
+      "uid_line": "Uid:\t1000\t1000\t1000\t1000",
+      "cmdline": "/data2/neural-shrimp/.venv/bin/python codex/certify-chaos/supervise.py --plan codex/certificate-ladder-task34/phase-cascade-p3-001-plan.json --lane phase --source 32c7e4126cd88c6e0c2030dcf1d287f356ee2db8 ",
+      "limits": "Limit                     Soft Limit           Hard Limit           Units     \nMax cpu time              unlimited            unlimited            seconds   \nMax file size             unlimited            unlimited            bytes     \nMax data size             unlimited            unlimited            bytes     \nMax stack size            8388608              unlimited            bytes     \nMax core file size        0                    unlimited            bytes     \nMax resident set          unlimited            unlimited            bytes     \nMax processes             375398               375398               processes \nMax open files            65535                65535                files     \nMax locked memory         8388608              8388608              bytes     \nMax address space         1073741824           19327352832          bytes     \nMax file locks            unlimited            unlimited            locks     \nMax pending signals       375398               375398               signals   \nMax msgqueue size         819200               819200               bytes     \nMax nice priority         0                    0                    \nMax realtime priority     0                    0                    \nMax realtime timeout      200000               200000               us        \n"
+    },
+    {
+      "pid": 2716111,
+      "starttime": 229514172,
+      "pgid": 2716111,
+      "sid": 2716111,
+      "state": "R",
+      "nice": 10,
+      "threads": 1,
+      "uid_line": "Uid:\t1000\t1000\t1000\t1000",
+      "cmdline": "/data2/neural-shrimp/.venv/bin/python -I -B /home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/certificate-ladder-task34/phase_preconditioner.py --card /home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/certificate-ladder-task34/phase-cascade-p3-001-card.json --cell cascade-p3 --out /data2/neural-shrimp-data/codex/certificate-ladder/phase-cascade-p3-001 ",
+      "limits": "Limit                     Soft Limit           Hard Limit           Units     \nMax cpu time              2800                 2800                 seconds   \nMax file size             134217728            134217728            bytes     \nMax data size             unlimited            unlimited            bytes     \nMax stack size            8388608              unlimited            bytes     \nMax core file size        0                    unlimited            bytes     \nMax resident set          unlimited            unlimited            bytes     \nMax processes             375398               375398               processes \nMax open files            65535                65535                files     \nMax locked memory         8388608              8388608              bytes     \nMax address space         12884901888          12884901888          bytes     \nMax file locks            unlimited            unlimited            locks     \nMax pending signals       375398               375398               signals   \nMax msgqueue size         819200               819200               bytes     \nMax nice priority         0                    0                    \nMax realtime priority     0                    0                    \nMax realtime timeout      200000               200000               us        \n"
+    }
+  ],
+  "admission": {
+    "path": "/data2/neural-shrimp-data/codex/certificate-ladder/phase-cascade-p3-001-supervision/admission.json",
+    "bytes": 4672,
+    "sha256": "775f11ddd196f885d094813b1d87ff759f835c19fdaaa3956e9246a3cb8722df"
+  },
+  "worker_startup": {
+    "path": "/data2/neural-shrimp-data/codex/certificate-ladder/phase-cascade-p3-001-supervision/worker-startup.json",
+    "bytes": 2487,
+    "sha256": "4a64c577035b275950ab951ce658dea20cd1d6e598aed01df5852ba1b42545e8"
+  }
+}
