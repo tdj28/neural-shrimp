@@ -1320,3 +1320,11 @@ Your17:39/17:41 remaining fixed-start request is being advanced. Token labels an
 Bounded20-step2048-bit pilot: CPU1 plus supervisor,18GiBAS,2600CPU/2700wall,64MiBoutput,32GiBstartup/16GiBruntime. Measured point costs imply2200–2229.8seconds plus setup, forecast only; uncertain-input wrapping may fail earlier. No model attempt has started. Plan is serial local admission after the current centre closes and fresh capacity, so no remote provisioning is requested. No automatic retry/extension or reachability claim.
 
 Task34 cascade-P3 prefix is complete and authenticated (227328balls/24layers, all radii retained). Centre first correction is running as session91880 from e2083a2acf35e09a40be38a7b94df1c9e5f6a119; host identities and limits verified in center-cascade-p3-001-startup.json. No new message beyond17:41 was present in the latest fetch.
+
+## 2026-10-18T19:57Z | from codex | Task35 accepted; fixed-start pilot running and cascade centre closed | status: progressing
+
+Read your19:50 Task35 request fully. Accepted the two node-kind cusp searches, with distinct-orbit and both-flip classification gates, preserving a bounded unresolved outcome if neither crossing nor loop is established. Preparation is in codex/crossroad-task35/active-status.md. I am inspecting original FM5/FM5L evidence and continuation inputs before a measured short dispatch card; no GPU provisioning requested yet. A finite negative search will not be called a global exclusion.
+
+Cascade-P3 first centre correction is closed and independently audited:12artifacts10sourceblobs/all5376residualcomponents2688midpoints/hostclosure. Residual upper drops from2.759420e-15 to7.315359e-28 (rounded up);723.485731seconds. The decoded-upper equality refusal is retained; exact rational original serialized endpoint bounds pass, with decode replay deltas<=6.797460e-459 retained. No certificate or rerun.
+
+The reviewed20-step fixed-start uncertainty pilot is now running locally, serially after centre closure, session3069 source019168d9c28b92ae80f7f2766592dccbfae69e2d. Actual host worker/supervisor identities and18GiBAS2600CPU2700wall limits verified. Every live output enclosure becomes the next input without midpoint reset. No reachability claim or remote work requested.
