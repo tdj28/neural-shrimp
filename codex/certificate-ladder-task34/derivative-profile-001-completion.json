@@ -1,0 +1,104 @@
+{
+  "source_commit": "3f7c5c3084d3fbce69847898178ab3f0910b025c",
+  "receipt": {
+    "path": "/data2/neural-shrimp-data/codex/certificate-ladder/derivative-profile-001-supervision/receipt.json",
+    "bytes": 6213,
+    "sha256": "8fb564e9e139ed534c8f64c4609230124df080a99dd6ab01dbeb9c4030b43bf8"
+  },
+  "report": {
+    "path": "/data2/neural-shrimp-data/codex/certificate-ladder/derivative-profile-001/report.json",
+    "bytes": 10059,
+    "sha256": "f49311302e96a43c548c144a1f2dacec4387fa381b58d3ab8823a36a4617f4c1"
+  },
+  "outputs_checked": 6,
+  "source_blobs_checked": 4,
+  "host_closure": true,
+  "fd_rows_checked": 35,
+  "batch_errors_checked": 5,
+  "elapsed_seconds": 324.1922039259225,
+  "peak_kib": 5738532,
+  "rows": [
+    {
+      "name": "cascade-p3",
+      "period": 3,
+      "batch_error": 5.750695059036914e-14,
+      "fd_errors": [
+        0.00048381488847660734,
+        4.3095616827490066e-05,
+        4.784018872060897e-06,
+        4.3051598516870293e-07,
+        4.7822894987809006e-08,
+        4.257477511163121e-09,
+        5.100122095480497e-10
+      ],
+      "batch_seconds": 11.203900173306465,
+      "dense_column_forecast_seconds": 1254.836819410324
+    },
+    {
+      "name": "cascade-p6",
+      "period": 6,
+      "batch_error": 4.769405356763734e-14,
+      "fd_errors": [
+        0.005128860402131187,
+        0.0005301175402866501,
+        5.949193496668703e-05,
+        5.360235032831565e-06,
+        5.956443548164013e-07,
+        5.364695299580821e-08,
+        5.5404689217573855e-09
+      ],
+      "batch_seconds": 19.28639418631792,
+      "dense_column_forecast_seconds": 2160.076148867607
+    },
+    {
+      "name": "cascade-p12",
+      "period": 12,
+      "batch_error": 3.065481896102895e-13,
+      "fd_errors": [
+        0.011375713542193324,
+        0.002056095153996228,
+        0.00023304516289956306,
+        2.1010780377255997e-05,
+        2.334980200087433e-06,
+        2.1008740942914106e-07,
+        2.32900725736368e-08
+      ],
+      "batch_seconds": 37.34129057917744,
+      "dense_column_forecast_seconds": 4182.224544867873
+    },
+    {
+      "name": "band-p6",
+      "period": 6,
+      "batch_error": 1.576169750272527e-13,
+      "fd_errors": [
+        0.02994087193758367,
+        0.0038317056049483045,
+        0.00043499788715495313,
+        3.924217558614468e-05,
+        4.361103169120417e-06,
+        3.924773938901449e-07,
+        4.352735834961541e-08
+      ],
+      "batch_seconds": 18.61374756321311,
+      "dense_column_forecast_seconds": 2084.7397270798683
+    },
+    {
+      "name": "stripe-p10",
+      "period": 10,
+      "batch_error": 8.906043220610615e-17,
+      "fd_errors": [
+        1.2184362673913474e-06,
+        7.67718980994859e-08,
+        8.220585903300295e-09,
+        7.422221272581297e-10,
+        9.15049445788488e-11,
+        3.2723805402348673e-11,
+        2.7896653616757525e-11
+      ],
+      "batch_seconds": 29.61297897109762,
+      "dense_column_forecast_seconds": 3316.6536447629333
+    }
+  ],
+  "certificate_passed": false,
+  "scope": "Saved finite composed derivative precision/cost diagnostics only; no dense spectrum or stability certificate."
+}
