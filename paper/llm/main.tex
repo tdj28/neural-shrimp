@@ -547,7 +547,7 @@ tables that the library would otherwise compute in float32; two exceptions, floa
 records and a float32 final normalization in the two-GPU runs of 70B-class models before 14 October, are marked where they occur (Appendix~\ref{sec:methods} and Section~\ref{sec:sizemain}). A cell of a phase map is chaotic when the
 largest finite-horizon Lyapunov exponent of a twin trajectory (offset $10^{-6}$, renormalized every step; 300
 measured steps after 300 transient ones unless stated) exceeds $10^{-3}$ and no period up to 32 (48 in later zooms) is
-found; at 448 checked cells exact tangents reproduce the twin exponents within $0.0041$, and the label is a finite-horizon diagnostic, not a proof.
+found; at 448 checked cells exact tangents reproduce the twin exponents within $0.0041$, and the label is a finite-horizon diagnostic, not a proof. In random samples of 192 chaos-labelled cells from each of the two main float64 maps (Figures~\ref{fig:stripes} and~\ref{fig:teaser}), 176 and 143 cells were never captured by a periodic orbit in $10^5$ steps and all but one kept a positive exponent; the others were long transients that ended on periodic orbits after 600 to 94{,}500 steps \cite{grebogi1983crises}. Chaotic shares of a map are therefore finite-horizon shares of its window.
 Noise in a measured difference can fake chaos but does not hide it: below the noise level a twin exponent rises as
 the offset shrinks, while a real exponent does not depend on the offset (Appendix~\ref{sec:methods},
 Figure~\ref{fig:falsechaos}).
@@ -560,7 +560,7 @@ and the checks on maps with known answers.
 \section{Chaos with periodic windows}
 \label{sec:maps}
 Figure~\ref{fig:stripes} shows a $256\times256$ float64 map over $\alpha\in[0.060,0.082]$ and
-$\log_{10}T\in[-0.17,-0.04]$. More than half of its cells are chaotic (35{,}650 of 65{,}536), and periodic windows of
+$\log_{10}T\in[-0.17,-0.04]$. More than half of its cells (35{,}650 of 65{,}536) meet the finite-horizon criterion, and 92\,\% of a random sample of them stay chaotic for $10^5$ steps, and periodic windows of
 periods 2--32 are embedded in the chaos. Inside each window the gray darkens toward curves on which the periodic
 orbit is most strongly attracting (Section~\ref{sec:organization}).
 \begin{figure}[H]
@@ -575,7 +575,7 @@ period-8 fold curve (Appendix~\ref{sec:curves}).}
 \label{fig:stripes}
 \end{figure}
 
-Figure~\ref{fig:teaser} resolves the stripes' lower ends at $512\times512$ cells (78{,}868 chaotic), and
+Figure~\ref{fig:teaser} resolves the stripes' lower ends at $512\times512$ cells, of which 78{,}868 (30\,\%) meet the criterion; 74\,\% of a random sample of these stay chaotic for $10^5$ steps, and the share hardly depends on the resolution (30.0\,\% at $256\times256$), and
 Figure~\ref{fig:cross512} labels the same cells by their attractor texts. Three structures stand out. The 2-cycle ``is
 it'' fills the left, bounded by its fold curve, on which the stripes accumulate. A closed crescent of the period-3
 loop ``\textbackslash n\textbackslash nThe existence'' contains its period doublings and a chaotic core
@@ -2695,7 +2695,7 @@ the project repository.}
 Steering acts via token competition & crossover along orbits; logit bias & partly prospective & \codelink{tools/crossover.py} \\
 \addlinespace[3pt]
 \multicolumn{4}{l}{\textsc{Chaos and its consequences}} \\
-\rowcolor{black!7} Chaos in 15 models & twin and tangent exponents & numerical & \codelink{tools/explore_llm_soft_loop.py} \\
+\rowcolor{black!7} Chaos in 15 models & tangent exponents; 74--92\,\% last $10^5$ steps & numerical & \codelink{tools/explore_llm_soft_loop.py} \\
 Batch layout splits chaotic loops & paired float64 runs, 4 models & numerical & \codelink{tools/repro_noise.py} \\
 \rowcolor{black!7} Batch layout changes answers & arithmetic, GSM8K, reasoning & prospective & \codelink{tools/pi_harness.py} \\
 Chaos does not predict accuracy & regression on fresh problems & prospective & \codelink{tools/bpc_analyze.py} \\
