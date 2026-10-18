@@ -278,3 +278,17 @@ skill, section 7A). Spend is recorded only in the gitignored `cost-ledger.md`
   per-call authorization guard. Advice is advisory and is adjudicated locally.
 - **Usage:** 32,490 input and 30,600 output tokens (the amount is in the private cost ledger). Adjudication:
   `2026-10-18-chaos-certification/adjudication.md`.
+
+## Consult 15 (approved): everything in motion — the shrimp and its head, the one-dimensional head, the norm bounds, the ladder
+
+- **Approval (human, in session, 18 October 2026, about 09:35 UTC):** "Please do a pro consult about everything we have
+  in motion, especially the bounds and your shrimp candidates", then "Cost approved". This explicitly requests and
+  approves one paid consult.
+- **Milestone:** a numerically verified shrimp is now in the paper and both companions, the norm-bound tests are
+  written up, and the next day of compute must be allocated (section 7A). The decisions it can improve: the wording and
+  sufficiency of the shrimp claim; the head's classification; the search for a one-dimensional head; the framing of the
+  bounds; the allocation of the remaining compute.
+- **Scope:** one `research-strategy` request with a compact brief, `2026-10-18-night-status/brief.md`. No retry or
+  second pass without a new recorded decision.
+- **Model:** `gpt-6-astra`, Responses Pro mode, xhigh effort, at most 40,000 output tokens, with the client's $5
+  per-call authorization guard. Advice is advisory and is adjudicated locally.
