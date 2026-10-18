@@ -1,0 +1,71 @@
+{
+  "status": "reviewed_for_execution",
+  "repository": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp",
+  "raw_root": "/data2/neural-shrimp-data/codex/coexistence",
+  "python": "/data2/neural-shrimp/.venv/bin/python",
+  "cpu_threads": 1,
+  "cpu_ids": [
+    0
+  ],
+  "startup_ram_gib": 32,
+  "source_files": [
+    {
+      "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/coexistence-task33/p2_saved_witness.py",
+      "bytes": 4830,
+      "sha256": "21b0bf5ab898cd2827951e5a5ef1d5b3a066032cac9c2b8c08a64f69b425f071"
+    },
+    {
+      "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/certify-llm/witness_audit.py",
+      "bytes": 13400,
+      "sha256": "48098fec18005f5d521dfe6685cf311532814263ceaa982c763aae864b505d90"
+    },
+    {
+      "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/certify-llm/cache_io.py",
+      "bytes": 6547,
+      "sha256": "f4e25b2134bef8a71c27d3156baf01be9d25c593d7b780f90a66b9c1141abdef"
+    },
+    {
+      "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/certify-llm/phase_domain.py",
+      "bytes": 12083,
+      "sha256": "a3856de84393068788c4cf4dc42fa6015da45b7912b56db995cc6b12922f8d8d"
+    },
+    {
+      "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/certify-chaos/supervise.py",
+      "bytes": 8727,
+      "sha256": "306db32a2c8ada9beb67547bbaafc6d0d7a597b5861b0e629ca9a07801223c44"
+    }
+  ],
+  "lanes": {
+    "audit": {
+      "entry": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/coexistence-task33/p2_saved_witness.py",
+      "arguments": [
+        "--out",
+        "/data2/neural-shrimp-data/codex/coexistence/assembly-p2-audit-001"
+      ],
+      "output": "/data2/neural-shrimp-data/codex/coexistence/assembly-p2-audit-001",
+      "supervision": "/data2/neural-shrimp-data/codex/coexistence/assembly-p2-audit-001-supervision",
+      "preflight_pins": [
+        {
+          "path": "/data2/neural-shrimp-data/codex/coexistence/assembly-p2-001-supervision/receipt.json",
+          "bytes": 5860,
+          "sha256": "21c99c01fae8ebd789f30499e7884731d60ab3ba27bbbf3bbd191fef8f3a77c6"
+        },
+        {
+          "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/coexistence-task33/p2-assembly-001-card.json",
+          "bytes": 30772,
+          "sha256": "458347f7f5fed8b115ea3e0d52108738c29435b24492365e21c68cbff765dfa2"
+        }
+      ],
+      "limits": {
+        "as_bytes": 19327352832,
+        "cpu_seconds": 1200,
+        "wall_seconds": 1300,
+        "output_bytes": 33554432
+      },
+      "prior_receipts": [
+        "/data2/neural-shrimp-data/codex/coexistence/assembly-p2-001-supervision/receipt.json"
+      ]
+    }
+  },
+  "cost_basis": "Independent saved Fraction scalar/row-norm audit of1.174GB report using accepted generic witness_audit.py. No dense multiplication/model evaluation. Original assembly228.961s and3.812GiBchildpeak;18GiBAS1200CPU1300wall is bounded finite audit budget, not runtime guarantee. No retry/extension."
+}
