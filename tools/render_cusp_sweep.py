@@ -1,5 +1,5 @@
 """Video: the quartic map of Carcasses et al. (1991), x -> c + (1+a)x + bx^2 + x^4, in the plane of b and c while a
-sweeps from +1 to -3 (10 s). Every frame is computed: fold (multiplier +1), flip (-1) and superstable (0) curves of
+sweeps from +1 to -3 (24 s, slowing smoothly through the swallowtail and the crossroad onset). Every frame is computed: fold (multiplier +1), flip (-1) and superstable (0) curves of
 the fixed points, parametrized by the fixed point x, and the number of attracting fixed points on a grid (batched
 companion-matrix roots). The labels are computed too:
 - the cusp sits at x = t, a = 8t^3, with cubic normal-form coefficient c3 = 4t; c3 > 0: saddle kind (passing through
@@ -11,7 +11,7 @@ curves reconnect into the loop (the codimension-three point a7 of Carcasses et a
 A first pass fixes one frame that contains every frame's cusp, flip crossing and flip loop; rendering refuses to
 start if any of them would leave it.
 
-Usage: python tools/render_cusp_sweep.py [--out MP4] [--json OUT_JSON] [--fps 30] [--seconds 10]
+Usage: python tools/render_cusp_sweep.py [--out MP4] [--json OUT_JSON] [--fps 30] [--seconds 24] [--pace eased|knots]
 """
 import argparse
 import json
@@ -92,11 +92,21 @@ def features(a):
     return out
 
 
-def schedule(n):
-    """a(t): +1 to -3, slower through a = 0 (swallowtail point) and a = -2 (loop reconnection)."""
-    knots_t = [0.0, 0.22, 0.36, 0.62, 0.78, 1.0]
-    knots_a = [1.0, 0.15, -0.15, -1.85, -2.15, -3.0]
-    return np.interp(np.linspace(0.0, 1.0, n), knots_t, knots_a)
+def schedule(n, pace="eased"):
+    """a(t) from +1 to -3.
+    eased (human, 18 Oct 2026: the passage from the swallowtail into the crossroad went too fast): a smooth time
+    density dt/da = 1 + 6 exp(-((a + 0.35)/0.45)^2) + 3 exp(-((a + 2)/0.15)^2), so that the sweep slows gradually to
+    a seventh of its base speed around the swallowtail point (a = 0) and the first crossroads, and again where the
+    spring loop forms (a = -2), without any jump in speed.
+    knots: the piecewise-linear schedule of the 15 Oct video (videos/cusp-sweep-quartic.mp4)."""
+    if pace == "knots":
+        knots_t = [0.0, 0.22, 0.36, 0.62, 0.78, 1.0]
+        knots_a = [1.0, 0.15, -0.15, -1.85, -2.15, -3.0]
+        return np.interp(np.linspace(0.0, 1.0, n), knots_t, knots_a)
+    a = np.linspace(1.0, -3.0, 40001)
+    w = 1.0 + 6.0 * np.exp(-((a + 0.35) / 0.45) ** 2) + 3.0 * np.exp(-((a + 2.0) / 0.15) ** 2)
+    t = np.concatenate([[0.0], np.cumsum(0.5 * (w[1:] + w[:-1]) * np.abs(np.diff(a)))])
+    return np.interp(np.linspace(0.0, 1.0, n), t / t[-1], a)
 
 
 def main():
@@ -104,11 +114,13 @@ def main():
     ap.add_argument("--out", default="../neural-shrimp-data/videos/cusp-sweep-quartic.mp4")
     ap.add_argument("--json")
     ap.add_argument("--fps", type=int, default=30)
-    ap.add_argument("--seconds", type=float, default=10.0)
+    ap.add_argument("--seconds", type=float, default=24.0)
+    ap.add_argument("--pace", default="eased", choices=("eased", "knots"),
+                    help="eased: smooth slowdowns at the swallowtail and crossroad onset and at the loop; knots: 15 Oct video")
     ap.add_argument("--still", type=float, default=None, help="render only the frame nearest this a, as a PNG")
     ap.add_argument("--still-out", default=None, help="PNG path for --still")
     args = ap.parse_args()
-    avals = schedule(int(round(args.fps * args.seconds)))
+    avals = schedule(int(round(args.fps * args.seconds)), args.pace)
     cache = Path(args.out).with_suffix(".features.npy")
     if cache.exists():
         feats = list(np.load(cache, allow_pickle=True))
@@ -167,8 +179,8 @@ def main():
         ax.set_xlabel("$b$", fontsize=13); ax.set_ylabel("$c$", fontsize=13)
         ax.set_title(r"$x\mapsto c+(1+a)\,x+b\,x^2+x^4$:   $a=%+.3f$" % a, fontsize=15)
         c3 = f["c3"]
-        if abs(a) < 0.02:
-            head, body = "swallowtail point", "the cusp passes through\n$a=b=c=0$; its cubic\ncoefficient $c_3=4t$\nchanges sign"
+        if abs(a) < 0.06:                                    # shown for about a second at the eased pace
+            head, body = "near the swallowtail point", "at $a=0$ the cusp passes\nthrough $a=b=c=0$; its cubic\ncoefficient $c_3=4t$\nchanges sign"
         elif c3 > 0:
             head, body = "saddle kind ($c_3>0$)", "through the cusp:\nsaddle $\\to$ node + 2 saddles;\nthe attracting fixed point\nlives only in the wedge"
         elif f["loop"] is not None:
@@ -179,9 +191,11 @@ def main():
             head, body = "node kind ($c_3<0$)", "the flip curves\nreconnect"
         side.text(0.0, 0.95, head, fontsize=16, weight="bold", va="top")
         side.text(0.0, 0.80, body, fontsize=13, va="top", linespacing=1.4)
-        side.text(0.0, 0.30, "black: fold ($\\mu=+1$)\nred dashed: flip ($\\mu=-1$)\nblue dotted: superstable ($\\mu=0$)\n"
+        side.text(0.0, 0.36, "black: fold ($\\mu=+1$)\nred dashed: flip ($\\mu=-1$)\nblue dotted: superstable ($\\mu=0$)\n"
+                  "gold star: the cusp, where two fold\n    branches meet\nred dot: where the flip curves of the\n"
+                  "    two branches cross\nred band: the flip loop\n"
                   "gray: one attracting fixed point\nblue: two attracting fixed points\nperiod-2 curves not drawn",
-                  fontsize=10.5, va="top", color="0.25", linespacing=1.5)
+                  fontsize=10.5, va="top", color="0.25", linespacing=1.45)
         bar.set_xlim(1.0, -3.0); bar.set_ylim(0, 1); bar.set_yticks([])
         bar.axvspan(1.0, a, color="#8fb3d9")
         for v, lab in ((0.0, "swallowtail\npoint"), (-2.0, "loop forms\n($a_7=-2$)")):

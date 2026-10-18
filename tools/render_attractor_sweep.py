@@ -94,30 +94,35 @@ def main():
     fig.text(0.03, 0.922, f"Qwen2.5-0.5B-Instruct, soft-token loop steered along 'philosophy' at layer 12, "
              f"$\\log_{{10}}T={log_t}$, {sa['dtype']}; each frame: {coords.shape[1]} trajectories after {sa['transient']} "
              f"steps, {coords.shape[2]} states each, on fixed principal axes", fontsize=13 * fs, color="0.75")
-    axL = fig.add_axes([0.04, 0.17, 0.50, 0.70], facecolor="k")
+    axL = fig.add_axes([0.04, 0.17, 0.50, 0.65], facecolor="k")
     axL.set_xlim(lo[0], hi[0])
     axL.set_ylim(lo[1], hi[1])
     axL.set_xlabel("first principal coordinate of the state", fontsize=12 * fs)
     axL.set_ylabel("second principal coordinate", fontsize=12 * fs)
     axL.tick_params(labelsize=9 * fs)
-    scat = axL.scatter(np.zeros(1), np.zeros(1), s=4.0 * fs, linewidths=0, alpha=0.85)
-    x = 0.04                                         # the token colours, as one line above the attractor
-    fig.text(x, 0.893, "colour = next token:", fontsize=11 * fs, color="0.8")
+    halo = axL.scatter(np.zeros(1), np.zeros(1), s=60.0 * fs, linewidths=0, alpha=0.10)   # periodic orbits stay visible
+    scat = axL.scatter(np.zeros(1), np.zeros(1), s=5.0 * fs, linewidths=0, alpha=0.9)
+    x, y = 0.04, 0.893                               # the token colours, in rows above the attractor
+    fig.text(x, y, "colour = next token:", fontsize=11 * fs, color="0.8")
     x += 0.085
     for k, t in enumerate(list(top) + [None]):
         lab = "other" if t is None else repr(tok.decode([int(t)]))
-        fig.text(x, 0.893, "\u25cf", fontsize=12 * fs, color=OTHER if t is None else PALETTE[k])
-        fig.text(x + 0.009, 0.893, lab, fontsize=11 * fs, color="0.9", family="monospace")
-        x += 0.012 + 0.0058 * len(lab)
-    axM = fig.add_axes([0.60, 0.47, 0.37, 0.42])
+        w = 0.012 + 0.0058 * len(lab)
+        if x + w > 0.54:
+            x, y = 0.125, y - 0.03
+        fig.text(x, y, "\u25cf", fontsize=12 * fs, color=OTHER if t is None else PALETTE[k])
+        fig.text(x + 0.009, y, lab, fontsize=11 * fs, color="0.9", family="monospace")
+        x += w
+    axM = fig.add_axes([0.60, 0.47, 0.37, 0.37])
     ext = [al[0], al[-1], lt[0], lt[-1]]
     axM.imshow(img, origin="lower", extent=ext, aspect="auto", interpolation="nearest")
     axM.axhline(log_t, color="w", lw=0.8, ls="--", alpha=0.7)
     dot, = axM.plot([alphas[0]], [log_t], "o", color="red", ms=11 * fs, mec="w", mew=1.5)
     axM.set_xlabel(r"steering strength $\alpha$", fontsize=12 * fs)
     axM.set_ylabel(r"$\log_{10}$ temperature", fontsize=12 * fs)
-    axM.set_title("where we are: the Lyapunov map of this plane (color: chaos, gray: repeating text)",
-                  fontsize=11.5 * fs, color="0.9")
+    axM.set_title("Lyapunov map of the plane (color: chaos; gray: repeating text)\n"
+                  "red dot: the cell shown in this frame; dashed line: the path of the sweep",
+                  fontsize=11.5 * fs, color="0.9", linespacing=1.4)
     axM.tick_params(labelsize=9 * fs)
     axE = fig.add_axes([0.60, 0.17, 0.37, 0.21], facecolor="k")
     lam = ly[row]
@@ -128,7 +133,7 @@ def main():
     edot, = axE.plot([alphas[0]], [0], "o", color="red", ms=8 * fs, mec="w", mew=1.0)
     axE.set_xlim(al[0], al[-1])
     axE.set_ylim(max(-1.6, float(np.percentile(lam, 1)) - 0.05), float(lam.max()) + 0.05)
-    axE.set_xlabel(r"steering strength $\alpha$ along the dashed line", fontsize=12 * fs)
+    axE.set_xlabel(r"steering strength $\alpha$ along the dashed line (red: this frame)", fontsize=12 * fs)
     axE.set_ylabel("largest Lyapunov\nexponent (map)", fontsize=11 * fs)
     axE.tick_params(labelsize=9 * fs)
     t_alpha = fig.text(0.04, 0.095, "", fontsize=17 * fs)
@@ -145,8 +150,10 @@ def main():
             continue
         xy = coords[f, :, :, :2].reshape(-1, 2)
         tk = tokens[f].reshape(-1)
-        scat.set_offsets(xy)
-        scat.set_facecolors([cmap.get(int(t), OTHER) for t in tk])
+        cols = [cmap.get(int(t), OTHER) for t in tk]
+        for art in (halo, scat):
+            art.set_offsets(xy)
+            art.set_facecolors(cols)
         a = float(alphas[f])
         dot.set_data([a], [log_t])
         j = int(np.argmin(np.abs(al - a)))
