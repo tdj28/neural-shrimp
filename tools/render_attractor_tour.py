@@ -77,11 +77,15 @@ def main():
     ap.add_argument("--all-trajectories", action="store_true", help="keep trajectories that reach a periodic orbit (with "
                     "their transients: the approach to a periodic attractor)")
     ap.add_argument("--subtitle", default=None)
+    ap.add_argument("--zoom", type=float, default=1.0, help="scale factor for the picture (below 1 zooms out)")
     ap.add_argument("--axes", default=None, help="footer text describing the axes (default: principal coordinates)")
     ap.add_argument("--turns", type=float, default=1.0, help="full turns of the camera over the video")
     ap.add_argument("--fade-transient", default=None, help="U0,U1,STEP: between fractions U0 and U1 of the video, "
                     "drop each trajectory's early states until only steps >= STEP remain (shows the approach, then "
                     "the attractor alone)")
+    ap.add_argument("--fade-to-orbit", type=float, default=None, help="with --fade-transient and --mark-orbit: after "
+                    "U1, also fade out (over 6 percent of the video) every state farther than this from the marked "
+                    "cycle, in the run's 12 recorded principal coordinates, so that only the cycle remains")
     ap.add_argument("--mark-orbit", type=int, default=0, help="mark the N states of a period-N orbit that most "
                     "trajectories reach (their last N recorded states) as glowing points")
     args = ap.parse_args()
@@ -107,6 +111,8 @@ def main():
         if not (0 <= u0 < u1 <= 1 and 0 < s_max < nsteps):
             raise SystemExit("--fade-transient needs 0 <= U0 < U1 <= 1 and 0 < STEP < recorded steps")
         fade = (u0, u1, int(s_max))
+    if args.fade_to_orbit is not None and not (fade and args.mark_orbit):
+        raise SystemExit("--fade-to-orbit needs --fade-transient and --mark-orbit")
     med = np.median(P, axis=0)
     sc = np.percentile(np.linalg.norm(P - med, axis=1), 99.0)            # frame the bulk, not the farthest excursions
     P = (P - med) / sc
@@ -143,7 +149,7 @@ def main():
     fig.text(0.02, 0.86 - 0.035 * len(labels), "●", color=OTHER, fontsize=16)
     fig.text(0.04, 0.862 - 0.035 * len(labels), "other tokens", color="0.9", fontsize=13)
     cam = fig.text(0.98, 0.03, "", color="0.6", fontsize=11, ha="right")
-    scale = 0.55 * min(W, H)
+    scale = 0.55 * min(W, H) * args.zoom
     orbit = None
     if args.mark_orbit:                              # the attracting cycle itself: last N states of converged runs
         conv = np.nonzero(z["periods"] == args.mark_orbit)[0]
@@ -154,6 +160,11 @@ def main():
         Ot = T[conv[0], -args.mark_orbit:]
         ocol = [PALETTE[list(top).index(t)] if t in top else OTHER for t in Ot]
         orbit = (Oc, ocol)
+        if args.fade_to_orbit is not None:            # distance of every state to the cycle in the recorded coordinates
+            Ofull = C[conv[0], -args.mark_orbit:].astype(np.float64)
+            X = C[aper].reshape(-1, C.shape[2]).astype(np.float64)
+            dist = np.min(np.linalg.norm(X[:, None, :] - Ofull[None], axis=2), axis=1)
+            far0 = np.log10(max(dist.max(), 10 * args.fade_to_orbit))
         glow2 = ax.scatter(np.zeros(len(Oc)), np.zeros(len(Oc)), s=520 * fs, c=ocol, alpha=0.22, linewidths=0)
         glow1 = ax.scatter(np.zeros(len(Oc)), np.zeros(len(Oc)), s=150 * fs, c=ocol, alpha=0.6, linewidths=0)
         core = ax.scatter(np.zeros(len(Oc)), np.zeros(len(Oc)), s=34 * fs, c="w", linewidths=0)
@@ -168,8 +179,15 @@ def main():
         else:
             s0 = int(round(fade[2] * min(1.0, max(0.0, (u - fade[0]) / (fade[1] - fade[0])))))
             keep = step_of >= s0
+            cut = None
+            if args.fade_to_orbit is not None and u > fade[1]:
+                w = min(1.0, (u - fade[1]) / 0.06)     # threshold falls geometrically to the given distance
+                cut = 10 ** (far0 + w * (np.log10(args.fade_to_orbit) - far0))
+                keep &= dist <= cut
             im.set_data(render(P[keep], col[keep], az, el, W, H, scale, 3.0, args.glow))
             shown = "recorded from their start" if s0 == 0 else f"steps {s0} to {nsteps} of each"
+            if cut is not None and cut <= 1.0001 * args.fade_to_orbit:
+                shown += f", within {args.fade_to_orbit:g} of the cycle"
             foot.set_text(f"{int(keep.sum()):,} states of {int(aper.sum())} trajectories, {shown}; {proj}")
         if orbit is not None:
             Q = orbit[0] @ rotation(az, el).T

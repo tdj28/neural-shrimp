@@ -92,6 +92,7 @@ def main():
                     "(a guide for the eye: the map visits only the states); 'step' uses 65 percent of each step")
     ap.add_argument("--all-trajectories", action="store_true", help="include trajectories that reach a periodic orbit "
                     "(for periodic cells); otherwise only the aperiodic ones")
+    ap.add_argument("--zoom", type=float, default=1.0, help="scale factor for the picture (below 1 zooms out)")
     ap.add_argument("--title", default="One chaotic trajectory through the attractor")
     args = ap.parse_args()
     import matplotlib
@@ -140,7 +141,7 @@ def main():
     nF = int(np.ceil(total * args.fps))
     W, H = args.width, args.height
     fs = W / 1920
-    scale = 0.55 * min(W, H)
+    scale = 0.55 * min(W, H) * args.zoom
     fig = plt.figure(figsize=(W / 100, H / 100), dpi=100, facecolor="k")
     ax = fig.add_axes([0, 0, 1, 1])
     ax.set_axis_off()
