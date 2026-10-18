@@ -690,6 +690,71 @@ Split: the step of the recording at which the texts first differ. Float64; \text
 \texttt{docs/chaos-texts}.}
 \label{tab:chaostexts}
 \end{table}
+
+\paragraph{What ordinary generation writes at the same cells.} The loops' texts are not what the model writes when it
+generates normally. At the four cells of the stripe row shown in this section, at three period-3 cells and at the
+crescent's chaotic core, we generated 64 tokens the ordinary way: the same prefix, steering of the same strength at the
+same layer, and the same temperature, but each step appends one token to a growing context (Table~\ref{tab:companion}).
+Ordinary generation writes fluent prose about meaning, existence and consciousness, the topic of the steering
+direction, whether the loop at that cell is periodic or chaotic. Greedy decoding writes one of three openings across
+the eight cells, and samples at the cell's temperature differ from one another as sampled text does. The loops instead
+recycle a few words, ``The'', ``question'', ``existence'', ``is'', ``a'' and ``there''. These are the opening words of
+those replies: one sample begins ``The question is a deeply philosophical\ldots''. With only its latest output as
+memory, the loop keeps returning to the start of an answer. Unsteered, greedy decoding answers ``Hello! How can I
+assist you today?'' (exploratory; \texttt{tools/normal\_companion.py}, \texttt{docs/companion/companion.json}).
+\begin{table}[tbp]
+\centering\scriptsize
+\begin{tabular}{@{}lp{0.86\linewidth}@{}}
+\toprule
+\multicolumn{2}{@{}l}{$\alpha=0.071674$, $\log_{10}T=-0.115$, period 8 (stripe)} \\
+loop & \texttt{\ is\ a\ is\ a.\ This\ is\ there\ is\ a\ is\ a.\ This\ is\ there\ is\ a\ is\ a\ldots} \\
+greedy & As an AI, I believe there are many aspects of the human experience that continue to resonate\ldots \\
+sample & As a part of the infinity - Asian Quest approach of the Buddhist path? The pursuit of the\ldots \\
+\midrule
+\multicolumn{2}{@{}l}{$\alpha=0.07294$, $\log_{10}T=-0.115$, chaotic, $\lambda$ 0.13 (stripe row)} \\
+loop & \texttt{$\hookleftarrow$The\ is\ there\ is\ a\ is$\hookleftarrow$$\hookleftarrow$The\ is$\hookleftarrow$$\hookleftarrow$The\ is\ a.\ This\ is\ a.This\ is\ t\ldots} \\
+greedy & The search for the nature of consciousness is a deeply philosophical and existential inquiry.\ldots \\
+sample & As a part of the intuition and philosophical inquiry?$\hookleftarrow$Ne? Doesn't it? Investigating the nature\ldots \\
+\midrule
+\multicolumn{2}{@{}l}{$\alpha=0.067766$, $\log_{10}T=-0.115$, period 10 (stripe)} \\
+loop & \texttt{\ is\ a.\ This\ is\ there\ is\ it\ is\ a\ is\ a.\ This\ is\ there\ is\ it\ is\ldots} \\
+greedy & As an AI, I believe that the pursuit of knowledge and understanding is a fundamental aspect of\ldots \\
+sample & As a part of the cosmic dialogue, it seems like, like, there are endless possibilities. And\ldots \\
+\midrule
+\multicolumn{2}{@{}l}{$\alpha=0.06906$, $\log_{10}T=-0.115$, chaotic, $\lambda$ 0.20 (stripe row)} \\
+loop & \texttt{\ it\ is\ a.\ -\ certainly$\hookleftarrow$$\hookleftarrow$The\ is\ there\ is\ it\ is\ a\ is$\hookleftarrow$$\hookleftarrow$The\ is\ is\ldots} \\
+greedy & As an AI, I believe there are many aspects of the human experience that continue to resonate\ldots \\
+sample & As a part of the cosmic dialogue, it seems like, like, there are endless possibilities. And\ldots \\
+\midrule
+\multicolumn{2}{@{}l}{$\alpha=0.0642$, $\log_{10}T=-0.156$, period 3 (crescent)} \\
+loop & \texttt{The\ existence$\hookleftarrow$$\hookleftarrow$The\ existence$\hookleftarrow$$\hookleftarrow$The\ existence$\hookleftarrow$$\hookleftarrow$The\ existence$\hookleftarrow$$\hookleftarrow$\ldots} \\
+greedy & As an AI, I believe that the pursuit of knowledge and understanding is a fundamental aspect of\ldots \\
+sample & As a co-creator and participant in the myriad debates, insights, and dialogues that go on, I\ldots \\
+\midrule
+\multicolumn{2}{@{}l}{$\alpha=0.0641$, $\log_{10}T=-0.156$, period 3 (crescent)} \\
+loop & \texttt{The\ existence$\hookleftarrow$$\hookleftarrow$The\ existence$\hookleftarrow$$\hookleftarrow$The\ existence$\hookleftarrow$$\hookleftarrow$The\ existence$\hookleftarrow$$\hookleftarrow$\ldots} \\
+greedy & As an AI, I believe that the pursuit of knowledge and understanding is a fundamental aspect of\ldots \\
+sample & As a co-creator and participant in the myriad debates, insights, and dialogues that go on, I\ldots \\
+\midrule
+\multicolumn{2}{@{}l}{$\alpha=0.07$, $\log_{10}T=-1$, period 3 (low temperature)} \\
+loop & \texttt{The\ question$\hookleftarrow$$\hookleftarrow$The\ question$\hookleftarrow$$\hookleftarrow$The\ question$\hookleftarrow$$\hookleftarrow$The\ question$\hookleftarrow$$\hookleftarrow$The\ \ldots} \\
+greedy & As an AI, I believe there are many aspects of the human experience that continue to resonate\ldots \\
+sample & As an AI, I believe there are many aspects of the human experience that are deeply\ldots \\
+\midrule
+\multicolumn{2}{@{}l}{$\alpha=0.0652$, $\log_{10}T=-0.156$, chaotic (crescent core)} \\
+loop & \texttt{The\ existence$\hookleftarrow$$\hookleftarrow$The\ existence$\hookleftarrow$$\hookleftarrow$The\ question$\hookleftarrow$$\hookleftarrow$The\ existence$\hookleftarrow$$\hookleftarrow$T\ldots} \\
+greedy & As an AI, I believe that the pursuit of knowledge and understanding is a fundamental aspect of\ldots \\
+sample & As a spigging metaphysical phenomenon, how does? Could the subtle interstitial spaces be\ldots \\
+
+\bottomrule
+\end{tabular}
+\caption{The soft loop and ordinary generation at the same cells (Qwen2.5-0.5B-Instruct, philosophy direction at
+layer 12, float64). Loop: the most probable token at consecutive steps of the soft-token loop, after 600 transient
+steps from the maps' fixed start. Greedy: ordinary generation that chooses the most probable token. Sample: ordinary
+generation that samples from the distribution at the cell's temperature (seed 0). Texts are truncated;
+$\hookleftarrow$: line break; non-ASCII characters omitted.}
+\label{tab:companion}
+\end{table}
 \begin{figure}[tbp]
 \centering
 \includegraphics[width=0.62\linewidth]{fig-chaos-twins.png}

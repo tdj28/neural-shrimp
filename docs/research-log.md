@@ -28934,3 +28934,14 @@ Qwen2.5-0.5B-Instruct, float64 CPU, the paper's prefix, and the philosophy steer
 **Reading.** Descriptive only. Report whether ordinary generation writes the loop's text, a related text, or something unrelated. No prediction is made.
 
 **Output.** docs/companion/companion.json.
+
+## 2026-10-18 00:29 UTC: NC results: ordinary generation at the loop cells writes fluent steered prose, not the loops' texts
+
+Receipt docs/companion/companion.json, 8 cells. Ordinary generation (same prefix, steering, layer and temperature; 64 tokens):
+- **Greedy:** three distinct openings across the 8 cells ("As an AI, I believe that the pursuit of..." in 4, "As an AI, I believe there are many aspects..." in 3, "The search for the nature of consciousness..." in 1).
+- **Samples at T:** differ from one another, and are fluent prose on meaning, existence and consciousness.
+- **Unsteered greedy:** "Hello! How can I assist you today?".
+
+The loops write the paper's texts (period 8 " is a is a. This is there", the period-3 "The existence", and so on), built from the opening words of those replies; one sample begins "The question is a deeply philosophical...". Periodic and chaotic cells look alike in ordinary generation.
+
+Paper: paragraph "What ordinary generation writes at the same cells" and Table tab:companion. Descriptive and exploratory.
