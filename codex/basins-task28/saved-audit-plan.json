@@ -1,0 +1,58 @@
+{
+  "status": "reviewed_for_execution",
+  "repository": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp",
+  "raw_root": "/data2/neural-shrimp-data/explore/basins/task28",
+  "python": "/data2/neural-shrimp/.venv/bin/python",
+  "source_files": [
+    {
+      "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/basins-task28/audit_saved.py",
+      "bytes": 7343,
+      "sha256": "c804c017b81d6da6aec3645da4e41372f9081e0960cffe0bf6c76f3e6215239d"
+    },
+    {
+      "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/task27-ready-review-20261017/supervise-tokenizer.py",
+      "bytes": 8570,
+      "sha256": "5f3726ec013dc5da9524caeeadd3bafb9e4191d5581b1333f95ec910c57fb596"
+    }
+  ],
+  "lanes": {
+    "audit": {
+      "entry": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/basins-task28/audit_saved.py",
+      "arguments": [
+        "--raw",
+        "/data2/neural-shrimp-data/explore/basins/task28/run-001",
+        "--out",
+        "/data2/neural-shrimp-data/explore/basins/task28/saved-audit-001"
+      ],
+      "output": "/data2/neural-shrimp-data/explore/basins/task28/saved-audit-001",
+      "supervision": "/data2/neural-shrimp-data/explore/basins/task28/saved-audit-001-supervision",
+      "preflight_pins": [
+        {
+          "path": "/data2/neural-shrimp-data/explore/basins/task28/run-001-supervision/receipt.json",
+          "bytes": 18573,
+          "sha256": "e9e2cc6a06d696b8e22c0530741bec41048a6392d7aaa6ebfe9168f89d797177"
+        },
+        {
+          "path": "/data2/neural-shrimp-data/explore/basins/task28/run-001/report.json",
+          "bytes": 561285,
+          "sha256": "2627121fb9ca01ad11e3f442955083f65aa4c53a418a625383e502f3eb8231f7"
+        },
+        {
+          "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/basins-task28/actual-closure.json",
+          "bytes": 1600,
+          "sha256": "67abb1470d792fc23d5ca2e90219641f78d2e351fecb561371b827a1b8a6373d"
+        }
+      ],
+      "limits": {
+        "as_bytes": 8589934592,
+        "cpu_seconds": 290,
+        "wall_seconds": 300,
+        "output_bytes": 134217728
+      },
+      "prior_receipts": [
+        "/data2/neural-shrimp-data/explore/basins/task28/run-001-supervision/receipt.json"
+      ]
+    }
+  },
+  "admission": "Root read exact saved-state audit. One CPU; source and original writer closure checked. No model replay. 1.95GB hash and <=1GB per-cell arrays bounded by 8GiB/300s; prior operational IO supports allowance."
+}
