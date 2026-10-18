@@ -30068,3 +30068,44 @@ was not edited.
 Six, not seven, of the twelve 18 October curve runs at log10 T -0.1 were rebuilt from progress logs without full
 spectra: four of FM5X (a1-down-auto-plus, a1-down-fold-minus, a1-down-fold-plus, a1-up-fold-minus) and two of FM5L
 (a1-down-plus, a1-up-plus). The paper text states no count and is unaffected.
+
+## 2026-10-18 23:40 UTC: LC result: the shrimp's fourth (lower-right) leg along its centre line
+
+**Deviation, disclosed.** The run card below was written after the run, not before: the human asked for the result as
+fast as possible ("Do it as fast as we can so multiple pods are fine"). The code was committed before the run
+(tools/leg_centerline.py; runner commit cd8d3035) and was tested locally on 5 anchors first.
+
+**Question.** The follow run FA-100b (grid 1.25e-4) filled the body and three long legs. Its fourth (lower-right) leg,
+"thinner than a grid step", was never entered. Does the period-5 attractor live along that leg?
+
+**Design.**
+- The leg is the strip between the continued fold curve fm5x/curve-a1-up-fold-plus and the flip curve
+  fm5x/curve-a2-down-flip-minus. At fixed alpha2 it is 5.1e-5 wide near the body and narrows to 3.5e-8, so no grid
+  can follow it.
+- At each of the fold curve's 128 points between alpha2 0.0749 and 0.0976, three cells were run:
+  - the centre, midway between the two curves;
+  - one leg width beyond the fold;
+  - one leg width beyond the flip.
+- Each cell starts from that fold point's continued period-5 state and is judged by follow_attractor's rule against
+  the body's reference word: 250 transient steps and 300 recorded steps with a twin, float64.
+- Three H100 pods (lc-a, lc-b, lc-c) each took one segment.
+
+**Result** (DATA/explore/llm-soft-loop/pod64/leg/lower-right-{a,b,c}/leg.json):
+- centre: 128 of 128 are members, period 5 at 127 and period 20 at one, all with the body's text; exponents -0.448 to
+  -0.014;
+- beyond the fold: 0 of 128 are members; they reach period 4, 8, 12, 16 or 32, or no period;
+- beyond the flip: 118 of 128 are members, doubled orbits (periods 10, 20, 25, 60) or chaos behind the same text. In
+  the narrowest segment (widths 3.5e-8 to 6.8e-8), 8 of these cells still show period 5.
+
+**Reading.** The fourth leg is a genuine leg of the shrimp: the attractor of the body's family lives along its
+whole length, down to the continuation bound. It is lost beyond the fold, and beyond the flip it has doubled or turned
+chaotic.
+
+**Figure and text.**
+- fig-real-shrimp panel (a) now shows the centre points and labels the fourth leg. The caption notes that the orange
+  band beside the head is the period-10 shell, not a leg (the human's question: "a flip curve emerging from the head
+  ... look like an extra leg").
+- The anatomy caption now says where Type A appears.
+- The article and the full report are updated.
+
+Cost about $0.7 (three pods, about 5 minutes each).
