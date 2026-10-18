@@ -29447,3 +29447,28 @@ The reading is unchanged.
 - **NT-down:** at -0.105 and the same alpha the orbit is repelling (mu1 = -2.25), and the Newton steps left the window (mu1 -9.1, orbit residual 0.12): not converged, so the track ended. No fallback.
 - **Cause:** the window drifts about (+0.00086, +0.00224) in alpha per -0.005 in log10 T, measured from its fixed-start cells.
 - **Amendment** (before the rerun): --slope (-0.172, -0.449) for the first predictor, steps of 0.001 in log10 T, and a Newton cap of 1e-4. The reading is unchanged.
+
+## 2026-10-18 08:05 UTC: FA-100b result (the shrimp's domain) and run card FM5X (its legs' curves to their tips)
+
+**FA-100b** (pod 7hszqghxlt6f5i, H100 NVL, commit 88386a5a; 749 s, 87 waves, stopped with no frontier; terminated and verified). Of 2,173 computed cells, 1,720 are members:
+- periodic, 1,302: period 5 822, period 10 371, period 20 82, period 40 11, period 15 10, period 30 5, period 50 1;
+- chaos behind the repeating five-token text: 240;
+- no period found and no positive exponent: 178.
+- 453 cells are not members.
+
+**Shape.**
+- The body lies against the fold curve.
+- Three long legs run between fold and flip curves: up-right to (-0.1148, 0.109), down-left to (-0.1252, 0.0918), and up the left side to 0.108.
+- Period-10 and period-20 shells lie along the flip curves, with chaos behind the repeating text outside them.
+- The fourth (lower-right) leg is thinner than a grid step, so the following did not enter it.
+
+**Boundary gate** (tools/plot_real_shrimp.py; docs/fa/fa-100-summary.json):
+- 5|10 pairs: 251 of 292 within 1 grid step of a computed flip curve, 267 within 2; median 0.24 steps.
+- 5|lost pairs: 504 of 754 within 1 step of a fold curve, 529 within 2.
+- Of the 210 lost pairs more than 2 steps from every curve, nearly all lie along the lower-left leg below alpha2 0.0957. That leg's flip curve (FM5 curve-a2-down-flip-plus) stopped with "parameters out of bounds" at alpha1 -0.1251: a coverage gap of the curves, not a disagreement. Several other leg curves stopped at the same bounds (alpha1 >= -0.125 or -0.130, alpha2 0.085-0.120) or at their step limits.
+
+**Run card FM5X.** The same curves, continued again from the FM5 branches with bounds alpha1 [-0.140, -0.095] and alpha2 [0.075, 0.130], 250 steps, ds 0.001 to 0.004. New job set fm5x, at most four curves per pod; FM5T-105 showed eight do not fit in 80 GB.
+- Pod A: a2-down flip +, a1-down fold -, a1-down auto -, a1-down fold +.
+- Pod B: a1-up fold -, a1-down auto +, a1-up fold +, a2-down flip -.
+
+**Reading:** the curves to the leg tips, gated as FM5 (residual, |g|, critical multiplier at +1 or -1); the boundary gate is then rerun on all pairs.

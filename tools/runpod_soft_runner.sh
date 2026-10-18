@@ -1894,10 +1894,13 @@ snapshot_download('$REPO', revision='$MREV', cache_dir='$NEURAL_SHRIMP_DATA/mode
     wait
     ;;
   fm5t)        # run FM5T: the FM5 fold map of the period-5 window at another temperature. JOBARGS: NAME LOG10T SEED-A1 SEED-A2
-               # BRANCH-MINUTES CURVE-MINUTES CURVE-STEPS DS DS-MAX. Four branches from the seed (alpha1 and alpha2 each
-               # way), then every boundary they reach continued both ways with its kind detected (auto).
+               # BRANCH-MINUTES CURVE-MINUTES CURVE-STEPS DS DS-MAX [BRANCHES]. Four branches from the seed (alpha1 and
+               # alpha2 each way), then every boundary they reach continued both ways with its kind detected (auto).
+               # BRANCHES (comma-separated, e.g. a2-up,a2-down) restricts both steps to those branches: eight curve
+               # processes do not fit in 80 GB together (FM5T-105: four ran out of memory)
     nm=${JOBARGS[0]}; lt=${JOBARGS[1]}; sa1=${JOBARGS[2]}; sa2=${JOBARGS[3]}
     bmin=${JOBARGS[4]}; cmin=${JOBARGS[5]}; csteps=${JOBARGS[6]}; cds=${JOBARGS[7]}; cdsmax=${JOBARGS[8]}
+    BL=" $(echo "${JOBARGS[9]:-a1-up,a1-down,a2-up,a2-down}" | tr ',' ' ') "
     export OMP_NUM_THREADS=2 OPENBLAS_NUM_THREADS=2 MKL_NUM_THREADS=2
     TBA="--layer 4 --vectors llm-phase-map/vectors-l4 --concept gratitude --block2 16 --vectors2 llm-phase-map/vectors-l16
          --concept2 hostility --log-temperature $lt"
@@ -1905,18 +1908,36 @@ snapshot_download('$REPO', revision='$MREV', cache_dir='$NEURAL_SHRIMP_DATA/mode
          --transient 900 --steps 150 --ds 0.002 --ds-max 0.01 --beyond 0.0005"
     SEED="--alpha $sa1 --alpha2 $sa2"
     FD=$D/fm5t-$nm
-    run $nm-branch-a1-up "$bmin" $BR5 $TBA $SEED --free alpha --direction 1 --bounds -0.125 -0.100 --out $FD/branch-a1-up &
-    run $nm-branch-a1-down "$bmin" $BR5 $TBA $SEED --free alpha --direction -1 --bounds -0.125 -0.100 --out $FD/branch-a1-down &
-    run $nm-branch-a2-up "$bmin" $BR5 $TBA $SEED --free alpha2 --direction 1 --bounds 0.088 0.118 --out $FD/branch-a2-up &
-    run $nm-branch-a2-down "$bmin" $BR5 $TBA $SEED --free alpha2 --direction -1 --bounds 0.088 0.118 --out $FD/branch-a2-down &
+    [[ $BL == *" a1-up "* ]] && run $nm-branch-a1-up "$bmin" $BR5 $TBA $SEED --free alpha --direction 1 --bounds -0.125 -0.100 --out $FD/branch-a1-up &
+    [[ $BL == *" a1-down "* ]] && run $nm-branch-a1-down "$bmin" $BR5 $TBA $SEED --free alpha --direction -1 --bounds -0.125 -0.100 --out $FD/branch-a1-down &
+    [[ $BL == *" a2-up "* ]] && run $nm-branch-a2-up "$bmin" $BR5 $TBA $SEED --free alpha2 --direction 1 --bounds 0.088 0.118 --out $FD/branch-a2-up &
+    [[ $BL == *" a2-down "* ]] && run $nm-branch-a2-down "$bmin" $BR5 $TBA $SEED --free alpha2 --direction -1 --bounds 0.088 0.118 --out $FD/branch-a2-down &
     wait
     C5="curve --device cuda --threads 2 --dtype float64 --reference-dtype none --no-exact-jvp --gmres-tol 1e-10
         --tol 1e-10 --gtol 1e-9 --max-newton 10 --chunk 448 --steps $csteps --ds $cds --ds-max $cdsmax
         --alpha-bounds -0.125 -0.100 --alpha2-bounds 0.088 0.118"
-    for b in a1-up a2-up a2-down a1-down; do
+    for b in $BL; do
       for dir in 1 -1; do n=$([ $dir = 1 ] && echo plus || echo minus)
         run $nm-curve-$b-$n "$cmin" $C5 --start $FD/branch-$b --kind auto --direction $dir --out $FD/curve-$b-$n &
       done
+    done
+    wait
+    ;;
+  fm5x)        # run FM5X: fold and flip curves of the FM5 period-5 orbit continued again from the FM5 branches with wider
+               # bounds (alpha1 -0.140..-0.095, alpha2 0.075..0.130), so that the legs are traced to their tips (FM5 and
+               # FM5c stopped at alpha1 -0.125 / -0.130 and alpha2 0.085-0.120). fm5 branches and vectors uploaded with
+               # --extra-data. JOBARGS: NAME CURVE-MINUTES STEPS DS DS-MAX SPEC... with SPEC = BRANCH:KIND:DIRECTION
+               # (e.g. a2-down:flip:1); at most four specs per pod (memory)
+    nm=${JOBARGS[0]}; cmin=${JOBARGS[1]}; csteps=${JOBARGS[2]}; cds=${JOBARGS[3]}; cdsmax=${JOBARGS[4]}
+    export OMP_NUM_THREADS=2 OPENBLAS_NUM_THREADS=2 MKL_NUM_THREADS=2   # the curve tool reads the map from the branch
+    C5="curve --device cuda --threads 2 --dtype float64 --reference-dtype none --no-exact-jvp --gmres-tol 1e-10
+        --tol 1e-10 --gtol 1e-9 --max-newton 10 --chunk 448 --steps $csteps --ds $cds --ds-max $cdsmax
+        --alpha-bounds -0.140 -0.095 --alpha2-bounds 0.075 0.130"
+    for spec in "${JOBARGS[@]:5}"; do
+      IFS=: read -r b kind dir <<< "$spec"
+      n=$([ $dir = 1 ] && echo plus || echo minus)
+      run $nm-curve-$b-$kind-$n "$cmin" $C5 --start $D/fm5/branch-$b --kind $kind --direction $dir \
+        --out $D/fm5x/curve-$b-$kind-$n &
     done
     wait
     ;;
