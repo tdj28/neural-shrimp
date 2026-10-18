@@ -77,6 +77,11 @@ def main():
     ap.add_argument("--all-trajectories", action="store_true", help="keep trajectories that reach a periodic orbit (with "
                     "their transients: the approach to a periodic attractor)")
     ap.add_argument("--subtitle", default=None)
+    ap.add_argument("--axes", default=None, help="footer text describing the axes (default: principal coordinates)")
+    ap.add_argument("--turns", type=float, default=1.0, help="full turns of the camera over the video")
+    ap.add_argument("--fade-transient", default=None, help="U0,U1,STEP: between fractions U0 and U1 of the video, "
+                    "drop each trajectory's early states until only steps >= STEP remain (shows the approach, then "
+                    "the attractor alone)")
     ap.add_argument("--mark-orbit", type=int, default=0, help="mark the N states of a period-N orbit that most "
                     "trajectories reach (their last N recorded states) as glowing points")
     args = ap.parse_args()
@@ -94,6 +99,14 @@ def main():
             else z["periods"] == 0)                 # the chaotic attractor only: drop starts that reached a periodic orbit
     P = C[aper][:, :, dims].reshape(-1, 3).astype(np.float64)
     toks = T[aper].reshape(-1)
+    nsteps = C.shape[1]
+    step_of = np.tile(np.arange(nsteps), int(aper.sum()))          # recorded step of every flattened state
+    fade = None
+    if args.fade_transient:
+        u0, u1, s_max = (float(x) for x in args.fade_transient.split(","))
+        if not (0 <= u0 < u1 <= 1 and 0 < s_max < nsteps):
+            raise SystemExit("--fade-transient needs 0 <= U0 < U1 <= 1 and 0 < STEP < recorded steps")
+        fade = (u0, u1, int(s_max))
     med = np.median(P, axis=0)
     sc = np.percentile(np.linalg.norm(P - med, axis=1), 99.0)            # frame the bulk, not the farthest excursions
     P = (P - med) / sc
@@ -120,9 +133,10 @@ def main():
     fig.text(0.02, 0.955, title, color="w", fontsize=24 * fs)
     fig.text(0.02, 0.922, sub, color="0.8", fontsize=15 * fs)
     when = f"each after {a['transient']} steps" if a["transient"] else "recorded from their start"
-    fig.text(0.02, 0.025, f"{len(P):,} states of {int(aper.sum())} trajectories, {when}; "
-             f"projection on principal coordinates {', '.join(str(d + 1) for d in dims)}; color: the most probable next token",
-             color="0.6", fontsize=12 * fs)
+    proj = args.axes or (f"projection on principal coordinates {', '.join(str(d + 1) for d in dims)}; "
+                         "color: the most probable next token")
+    foot = fig.text(0.02, 0.025, f"{len(P):,} states of {int(aper.sum())} trajectories, {when}; {proj}",
+                    color="0.6", fontsize=12 * fs)
     for k, lab in enumerate(labels):
         fig.text(0.02, 0.86 - 0.035 * k, "●", color=PALETTE[k], fontsize=16)
         fig.text(0.04, 0.862 - 0.035 * k, lab, color="0.9", fontsize=13, family="monospace")
@@ -147,9 +161,16 @@ def main():
                  fontsize=13 * fs, ha="right")
     for i in range(args.frames):
         u = i / args.frames
-        az = 2 * np.pi * u
+        az = 2 * np.pi * args.turns * u
         el = np.radians(args.elev_min + (args.elev_max - args.elev_min) * 0.5 * (1 - np.cos(2 * np.pi * u)))
-        im.set_data(render(P, col, az, el, W, H, scale, 3.0, args.glow))
+        if fade is None:
+            im.set_data(render(P, col, az, el, W, H, scale, 3.0, args.glow))
+        else:
+            s0 = int(round(fade[2] * min(1.0, max(0.0, (u - fade[0]) / (fade[1] - fade[0])))))
+            keep = step_of >= s0
+            im.set_data(render(P[keep], col[keep], az, el, W, H, scale, 3.0, args.glow))
+            shown = "recorded from their start" if s0 == 0 else f"steps {s0} to {nsteps} of each"
+            foot.set_text(f"{int(keep.sum()):,} states of {int(aper.sum())} trajectories, {shown}; {proj}")
         if orbit is not None:
             Q = orbit[0] @ rotation(az, el).T
             f = 3.0 / (3.0 + Q[:, 1])

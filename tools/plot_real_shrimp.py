@@ -190,7 +190,7 @@ def figure(fa, curves, located, out):
     skeleton(axB, ms=10)
     axB.set_xlim(e2[0], e2[1])
     axB.set_ylim(e2[2], e2[3])
-    axB.set_title("(c) the body: the trace-zero curve closes around the head (Type A)", fontsize=9)
+    axB.set_title("(c) the body: the trace-zero curve closes around the head, as in Type A", fontsize=9)
 
     # (d) the junction of the upper leg: two cusps, the crossing, the census
     skeleton(axC, ms=13, head=False)
