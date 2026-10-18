@@ -307,3 +307,15 @@ skill, section 7A). Spend is recorded only in the gitignored `cost-ledger.md`
 | Request | Mode | Usage | Cost |
 |---|---|---|---|
 | consult 16, attractor naming | Pro, high effort, 16k output | 47,413 tokens in all | see private cost ledger |
+
+## Consult 17: check of the rewritten theory section (18 October 2026)
+
+- **Approval (human, in session, 18 October 2026):** "For that section can you do a pro consult to make sure we haven't
+  botched anything." This explicitly requests one paid consult, on the rewritten section "Why the loop can be chaotic"
+  of the Chaos article.
+- **Milestone:** arXiv v1 of the Chaos article tonight; the theory section was rewritten for readers outside nonlinear
+  dynamics and must be correct before posting.
+- **Scope:** one `research-note-scientific` request with the brief `2026-10-18-theory-section/brief.md`. No retry or
+  second pass without a new recorded decision.
+- **Model:** `gpt-6-astra`, Pro mode, high effort; the per-call authorization guard and the cost are in the private
+  cost ledger. Advice is advisory and is adjudicated locally.
