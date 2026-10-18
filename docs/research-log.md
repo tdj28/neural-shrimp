@@ -29177,3 +29177,7 @@ On that basis, 629 chaotic cells (4.4 %) use both families' words heavily, 13,15
 ## 2026-10-18: Codex Task31 independent complete sheet-map audit — run card
 
 After Task29 edge-A closed with both selected midpoints unresolved, Task32 queue prioritizes Task31. Run independent codex/sheets-audit-task31/audit.py over the six authenticated map files, current exact metadata, published final analysis and nearest-row cross512 comparison. Inputs/card/plan are pinned in the owned task folder. CPU2 plus supervisor,8GiB AS,240CPU/300wall seconds,128MiB output,28GiB startup/16GiB runtime RAM floor. No model or pod calls; no numerical retry. All differences, original/amended grouping and finite-absence limitations retained. Original producer summaries and03:04 correction were seen before audit. Raw explore/sheets/codex-task31/actual-001. Archive I/O authentication measured10.063s for1.375GB; target arithmetic remains unmeasured but small and bounded.
+
+## 2026-10-18: Task32 StageA2 analytic control — run card
+
+Exact1024-bit Arb face checks for the rationally rotated896-dimensional product map, branches[-1,-2/5],[2/5,1], transverse radius1/16. Positive4t²-2/factor1/10; negatives factor3/2 and unstable t/2. One CPU,nice10,1GiBAS,60CPU/60wall seconds, no model. Save all12 transition checks and exact chart construction at codex/chaos-proof/analytic-001. This establishes checker controls only, not a Qwen graph or proof.
