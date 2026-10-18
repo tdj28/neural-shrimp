@@ -29579,3 +29579,14 @@ The FA-100 domain followed again at log10 T -0.105, where the head has moved to 
 - Pod A runs the alpha1 branches and their curves; pod B the alpha2 ones.
 
 **Reading:** the fold and flip curves bounding the period-11 domain, gated as FM5; their agreement with the domain's edge (tools/plot_real_shrimp.py boundary gate, adapted); cusps; whether flips and shells exist.
+
+## 2026-10-18 08:53 UTC: Run card P11C (exploratory): the doubly superstable point of the period-11 reduction
+
+At the FA-P11 seed, beside the head, the per-step factors of steps 2 and 4 are 0.0149 and 0.0170; all others are 0.10 or larger. On the partial P11Z grid, step 4's transported factor changes sign along a row about 4e-5 above the head, and step 2's at the grid's left edge.
+
+**Run.** tools/shrimp_centre.py, now general: --period 11, hostility@4 and gratitude@16, log10 T -0.1.
+- Newton on (c_2, c_4) = 0 from the near-nilpotent point (-0.0333026, -0.0522112), marched from the FA-P11 seed.
+- Finite-difference step 2e-6, cap 2e-5, references refreshed.
+- Check grid: 7 x 7 within +-1e-5.
+
+**Reading:** convergence; the distance to the near-nilpotent point; the full spectrum at the point; whether all four sign quadrants of (c_2, c_4) surround it.
