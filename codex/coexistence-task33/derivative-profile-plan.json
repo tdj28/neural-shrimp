@@ -1,0 +1,73 @@
+{
+  "status": "reviewed_for_execution",
+  "repository": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp",
+  "raw_root": "/data2/neural-shrimp-data/codex/coexistence",
+  "python": "/data2/neural-shrimp/.venv/bin/python",
+  "cpu_threads": 1,
+  "cpu_ids": [
+    0
+  ],
+  "startup_ram_gib": 28,
+  "source_files": [
+    {
+      "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/crosscheck/qwen_map.py",
+      "bytes": 14540,
+      "sha256": "493a3d1d57fec227f5ba2e3f8f9cfcfdd02d22495d1d44e6449ede901310ae6e"
+    },
+    {
+      "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/certify-chaos/supervise.py",
+      "bytes": 8727,
+      "sha256": "306db32a2c8ada9beb67547bbaafc6d0d7a597b5861b0e629ca9a07801223c44"
+    },
+    {
+      "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/coexistence-task33/derivative_profile.py",
+      "bytes": 3660,
+      "sha256": "474f1d7be55c995a9ffcf9b63f13ec675d2452195b9bc065407652330118193f"
+    },
+    {
+      "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/coexistence-task33/derivative-profile-card.json",
+      "bytes": 908,
+      "sha256": "c83a8bb9b34fbf4997c6c9152e52346f32fd9b0ea5849ab60b72cd05005abd2f"
+    }
+  ],
+  "lanes": {
+    "derivative_profile": {
+      "entry": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/coexistence-task33/derivative_profile.py",
+      "arguments": [
+        "--card",
+        "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/coexistence-task33/derivative-profile-card.json",
+        "--out",
+        "/data2/neural-shrimp-data/codex/coexistence/derivative-profile-001"
+      ],
+      "output": "/data2/neural-shrimp-data/codex/coexistence/derivative-profile-001",
+      "supervision": "/data2/neural-shrimp-data/codex/coexistence/derivative-profile-001-supervision",
+      "preflight_pins": [
+        {
+          "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/sheets/transect-crescent/states.npz",
+          "bytes": 241708,
+          "sha256": "005fc67ccff79f382eb4f3372175c8b8ce22fa0dd03a923fb0046de90ea663bd"
+        },
+        {
+          "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/crosscheck/qwen_map.py",
+          "bytes": 14540,
+          "sha256": "493a3d1d57fec227f5ba2e3f8f9cfcfdd02d22495d1d44e6449ede901310ae6e"
+        },
+        {
+          "path": "/data2/neural-shrimp-data/codex/coexistence/settle-001/states.npy",
+          "sha256": "c791daf1a1474b3869f76bdff32ca6af677b51f0d11f578db44c09ea25d90f77",
+          "bytes": 7354496
+        }
+      ],
+      "limits": {
+        "as_bytes": 12884901888,
+        "cpu_seconds": 550,
+        "wall_seconds": 600,
+        "output_bytes": 33554432
+      },
+      "prior_receipts": [
+        "/data2/neural-shrimp-data/codex/coexistence/settle-001-supervision/receipt.json"
+      ]
+    }
+  },
+  "cost_basis": "Task33 two-row map512steps264.13s external; Task14 period7 dense896columns777.955s CPU2. This representative profile only8columns each period2/3 plus2singleJVP and28composedFD evaluations;550CPU/600wall,12GiBAS/32MiB bounded envelope. New timing is measured, extrapolation not guaranteed."
+}
