@@ -90,20 +90,19 @@ def figure(fa, curves, located, out):
     matplotlib.use("Agg")
     import matplotlib.pyplot as plt
     from matplotlib.colors import ListedColormap
+    from matplotlib.patches import Patch
 
     import dss_window as dw
+    import period_colors as pc
 
     a1, a2, lab, lam, per = fa["alpha1"], fa["alpha2"], fa["label"], fa["lyapunov"], fa["period"]
     st = float(a1[1] - a1[0])
     ext = [a1[0] - st / 2, a1[-1] + st / 2, a2[0] - st / 2, a2[-1] + st / 2]
-    fig = plt.figure(figsize=(12.5, 6.6), dpi=200)
-    gs = fig.add_gridspec(2, 2, width_ratios=[1.35, 1], wspace=0.22, hspace=0.3)
-    axA = fig.add_subplot(gs[:, 0])
-    axB = fig.add_subplot(gs[0, 1])
-    axC = fig.add_subplot(gs[1, 1])
-    loc = [(r["final"]["alpha"], r["final"]["alpha2"], r["located"], r["final"].get("c")) for r in located.values()]
+    fig, axes = plt.subplots(2, 2, figsize=(12.0, 10.6), dpi=200)
+    axA, axE, axB, axC = axes.ravel()
+    loc = [(r["final"]["alpha"], r["final"]["alpha2"], r["located"]) for r in located.values()]
 
-    def skeleton(ax, ms=9, lw=1.2):
+    def skeleton(ax, ms=9, lw=1.2, head=True):
         for rec in curves.values():
             pts = rec["points"]
             if not pts:
@@ -112,39 +111,68 @@ def figure(fa, curves, located, out):
             ax.plot([q["alpha"] for q in pts], [q["alpha2"] for q in pts], "-" if fold else "--",
                     color="k" if fold else "r", lw=lw if fold else lw * 0.9, zorder=4)
         seen = []
-        for x, y, ok, c in loc:
-            if ok and not any(abs(x - s[0]) < 1e-6 and abs(y - s[1]) < 1e-6 for s in seen):
+        for x, y, ok in loc:
+            if ok and not any(abs(x - s_[0]) < 1e-6 and abs(y - s_[1]) < 1e-6 for s_ in seen):
                 seen.append((x, y))
                 ax.plot(x, y, "*", color="gold", ms=ms, mec="k", mew=0.6, zorder=6)
+        crossings = []
         for rec in curves.values():
             if rec["kind"] == "fold" and rec["points"]:
                 for _, _, x in pf.self_crossings(np.array([[q["alpha"], q["alpha2"]] for q in rec["points"]])):
-                    ax.plot(*x, "x", color="m", ms=ms * 0.8, mew=1.6, zorder=7)
-        ax.plot(*HEAD, "o", color="w", mec="k", mew=1.0, ms=ms * 0.6, zorder=8)
+                    if not any(abs(x[0] - c[0]) < 1e-6 and abs(x[1] - c[1]) < 1e-6 for c in crossings):
+                        crossings.append(x)
+                        ax.plot(*x, "x", color="m", ms=ms * 0.8, mew=1.6, zorder=7)
+        if head:
+            ax.plot(*HEAD, "o", color="w", mec="k", mew=1.0, ms=ms * 0.6, zorder=8)
 
-    # (a) the followed domain
-    member_p = np.where(lab == 1, lam, np.nan)
-    member_c = np.where(lab == 2, 1.0, np.nan)        # chaos behind the repeating period-5 text
-    member_u = np.where(lab == 3, 1.0, np.nan)        # no period found, no positive exponent (slow convergence)
-    lost = np.where(lab == 0, 1.0, np.nan)
-    axA.set_facecolor("w")
-    axA.imshow(lost, origin="lower", extent=ext, aspect="auto", cmap=ListedColormap(["0.86"]), interpolation="nearest")
-    im = axA.imshow(member_p, origin="lower", extent=ext, aspect="auto", cmap="viridis", vmin=-1.2, vmax=0.0,
-                    interpolation="nearest")
-    axA.imshow(member_c, origin="lower", extent=ext, aspect="auto", cmap=ListedColormap(["k"]), interpolation="nearest")
-    axA.imshow(member_u, origin="lower", extent=ext, aspect="auto", cmap=ListedColormap(["0.45"]),
-               interpolation="nearest")
-    cb = fig.colorbar(im, ax=axA, fraction=0.04, pad=0.02)
-    cb.set_label("Lyapunov exponent of the followed attractor (periodic)", fontsize=8)
-    skeleton(axA, ms=10, lw=1.1)
     m = lab >= 1
     ii, jj = np.where(m)
-    pad = 6 * st
-    axA.set_xlim(a1[jj.min()] - pad, a1[jj.max()] + pad)
-    axA.set_ylim(a2[ii.min()] - pad, a2[ii.max()] + pad)
-    axA.set_title("(a) the period-5 shrimp: domain of its attractor, followed from the body", fontsize=9)
+    pad = 5 * st
+    lims = (a1[jj.min()] - pad, a1[jj.max()] + pad, a2[ii.min()] - pad, a2[ii.max()] + pad)
+    other = np.where(lab == 0, 1.0, np.nan)
 
-    # (b) the body over the continued orbit's trace
+    # (a) the followed domain by period
+    P = np.where(lab == 1, per.astype(float), np.nan)
+    cats = pc.categorize([P])
+    axA.imshow(other, origin="lower", extent=ext, aspect="auto", cmap=ListedColormap(["0.88"]), interpolation="nearest")
+    im = axA.imshow(cats.index(P), origin="lower", extent=ext, aspect="auto", cmap=cats.cmap, norm=cats.norm,
+                    interpolation="nearest")
+    axA.imshow(np.where(lab == 2, 1.0, np.nan), origin="lower", extent=ext, aspect="auto", cmap=ListedColormap(["k"]),
+               interpolation="nearest")
+    axA.imshow(np.where(lab == 3, 1.0, np.nan), origin="lower", extent=ext, aspect="auto",
+               cmap=ListedColormap(["0.55"]), interpolation="nearest")
+    cats.colorbar(im, ax=axA, label="period of the followed attractor")
+    skeleton(axA, ms=10, lw=1.0)
+    axA.legend(handles=[Patch(color="k", label="chaos behind the five-token text"),
+                        Patch(color="0.55", label="no period found, exponent < 0.005"),
+                        Patch(color="0.88", label="attractor lost")], fontsize=6.5, loc="lower right")
+    for txt, xy, xyt in [("body", (-0.1193, 0.1006), (-0.1172, 0.0985)),
+                         ("leg", (-0.1166, 0.1068), (-0.1160, 0.1040)),
+                         ("leg", (-0.1243, 0.0940), (-0.1222, 0.0930)),
+                         ("leg", (-0.1237, 0.1062), (-0.1222, 0.1072)),
+                         ("period-10 shell", (-0.1210, 0.1020), (-0.1222, 0.1048))]:
+        axA.annotate(txt, xy, xytext=xyt, fontsize=8, ha="center",
+                     arrowprops=dict(arrowstyle="-", color="k", lw=0.6), zorder=9)
+    axA.set_title("(a) the shrimp: domain of the period-5 attractor, followed cell by cell", fontsize=9)
+
+    # (b) the same domain by exponent: the dark spines
+    im2 = axE.imshow(np.where(lab == 1, lam, np.nan), origin="lower", extent=ext, aspect="auto", cmap="magma",
+                     vmin=-1.2, vmax=0.0, interpolation="nearest")
+    axE.imshow(np.where(lab == 2, 1.0, np.nan), origin="lower", extent=ext, aspect="auto",
+               cmap=ListedColormap(["#8fc1e3"]), interpolation="nearest")         # chaos: light blue, not dark
+    axE.imshow(np.where(lab == 3, 1.0, np.nan), origin="lower", extent=ext, aspect="auto",
+               cmap=ListedColormap(["0.55"]), interpolation="nearest")
+    axE.imshow(other, origin="lower", extent=ext, aspect="auto", cmap=ListedColormap(["0.88"]), interpolation="nearest")
+    fig.colorbar(im2, ax=axE, fraction=0.046, label="Lyapunov exponent (periodic attractor)")
+    skeleton(axE, ms=10, lw=0.8)
+    axE.legend(handles=[Patch(color="#8fc1e3", label="chaos behind the five-token text")], fontsize=6.5,
+               loc="lower right")
+    axE.set_title("(b) the same domain by exponent (dark: strongly contracting); white circle: the head", fontsize=9)
+    for ax in (axA, axE):
+        ax.set_xlim(lims[0], lims[1])
+        ax.set_ylim(lims[2], lims[3])
+
+    # (c) the body over the continued orbit's trace
     z = np.load(DATA / "explore" / DSS / "grid.npz", allow_pickle=True)
     b1, b2 = z["alpha"], z["log10_temperature"]
     mu1, mu2 = dw.leading_pair(z)
@@ -153,34 +181,34 @@ def figure(fa, curves, located, out):
     t = np.real(mu1 + mu2)
     d1, d2 = b1[1] - b1[0], b2[1] - b2[0]
     e2 = [b1[0] - d1 / 2, b1[-1] + d1 / 2, b2[0] - d2 / 2, b2[-1] + d2 / 2]
-    im2 = axB.imshow(np.where(stable, t, np.nan), origin="lower", extent=e2, aspect="auto", cmap="RdBu_r", vmin=-0.6,
+    im3 = axB.imshow(np.where(stable, t, np.nan), origin="lower", extent=e2, aspect="auto", cmap="RdBu_r", vmin=-0.6,
                      vmax=0.6, interpolation="nearest")
     axB.imshow(np.where(ok & ~stable, 1.0, np.nan), origin="lower", extent=e2, aspect="auto",
                cmap=ListedColormap(["0.8"]), interpolation="nearest")
-    axB.contour(b1, b2, np.where(ok, t, np.nan), levels=[0], colors="k", linewidths=0.9)
-    cb2 = fig.colorbar(im2, ax=axB, fraction=0.05, pad=0.02)
-    cb2.set_label(r"trace $\mu_1+\mu_2$", fontsize=8)
-    skeleton(axB, ms=9)
+    axB.contour(b1, b2, np.where(ok, t, np.nan), levels=[0], colors="k", linewidths=1.0)
+    fig.colorbar(im3, ax=axB, fraction=0.046, label=r"trace $\mu_1+\mu_2$ of the continued orbit")
+    skeleton(axB, ms=10)
     axB.set_xlim(e2[0], e2[1])
     axB.set_ylim(e2[2], e2[3])
-    axB.set_title("(b) the body: closed trace-zero curve around the head (white circle)", fontsize=9)
+    axB.set_title("(c) the body: the trace-zero curve closes around the head (Type A)", fontsize=9)
 
-    # (c) the junction of the upper leg: two cusps, the crossing, the census
-    skeleton(axC, ms=12)
+    # (d) the junction of the upper leg: two cusps, the crossing, the census
+    skeleton(axC, ms=13, head=False)
     census = json.loads((ROOT / "docs" / "oc" / "oc-summary.json").read_text())["points"]
     for q in census:
         axC.plot(q["alpha"], q["alpha2"], "o", ms=4.5, color="tab:green" if q["match"] else "tab:orange", mec="k",
                  mew=0.4, zorder=8)
         axC.annotate(f"{q['found']} ({q['attracting']})", (q["alpha"], q["alpha2"]), xytext=(3, 2),
-                     textcoords="offset points", fontsize=6.5, zorder=9)
+                     textcoords="offset points", fontsize=7, zorder=9)
     axC.set_xlim(-0.11935, -0.11880)
     axC.set_ylim(0.10255, 0.10425)
-    axC.ticklabel_format(useOffset=False)
-    axC.set_title("(c) the leg junction: cusps (stars), crossing (x); orbits found (attracting)", fontsize=9)
-    for ax in (axA, axB, axC):
+    axC.set_title("(d) leg junction: cusps (stars), crossing (x); period-5 orbits found (attracting)", fontsize=9)
+    for ax in (axA, axE, axB, axC):
         ax.set_xlabel(r"$\alpha_1$ (gratitude, block 4)", fontsize=8)
         ax.set_ylabel(r"$\alpha_2$ (hostility, block 16)", fontsize=8)
         ax.tick_params(labelsize=7)
+        ax.ticklabel_format(useOffset=False)
+    fig.tight_layout()
     fig.savefig(out, bbox_inches="tight")
 
 

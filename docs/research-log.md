@@ -29472,3 +29472,22 @@ The reading is unchanged.
 - Pod B: a1-up fold -, a1-down auto +, a1-up fold +, a2-down flip -.
 
 **Reading:** the curves to the leg tips, gated as FM5 (residual, |g|, critical multiplier at +1 or -1); the boundary gate is then rerun on all pairs.
+
+## 2026-10-18 08:08 UTC: NT-b result: the shrimp's head stays three-dimensional over the window's temperature range
+
+**Runs.** NT-down (pod vxvgaq46enza6y) and NT-up (pod mphzm2o1m9y6dw), commit 99ef15de, steps of 0.001 with the drift predictor; both terminated and verified.
+- Every row was gated (tools/plot_nilpotent_track.py, docs/nt/nt-summary.json): orbit residual below 1e-9, no divisor-period orbit, and |c1|, |c2| below 1e-7.
+- Passed: log10 T -0.104 to -0.094, 11 temperatures.
+- -0.105 failed the invariant gate (|c1| 2.2e-7) and ended the downward track.
+- Upward, the march lost the orbit at -0.093 (residual 4.7e-4), which ended the track.
+
+**Result.**
+- The near-nilpotent point moves along a nearly straight line, from (-0.11739, 0.10419) at -0.105 to (-0.11975, 0.09931) at -0.094.
+- At every temperature, its three leading multipliers (one real, plus a complex pair at about ±117 degrees) have comparable moduli, 2.41e-3 to 5.56e-3 over the passed rows.
+- A fourth multiplier approaches them twice: 1.05e-3 at -0.104 and 1.81e-3 at -0.096, against a smallest value of 9.6e-5 at -0.094. The fifth stays at 1.6-2.2e-5.
+
+**Reading.** The hypothesis that a lower temperature makes the head one-dimensional is not supported over the range where the head exists. The head is a near-nilpotent block of at least three comparable directions throughout: a Type A head of a map that is effectively three-dimensional there. The avoided crossing seen at -0.105 (P5Z 105d, tip105b) is the same phenomenon.
+
+A one-dimensional head would need the directions transverse to the reduction to contract far more strongly than the leading direction varies across the window. That rules out this window, which spans its whole temperature range here.
+
+**Figure:** paper/llm/figures/fig-head-temperature.png (tools/plot_nilpotent_track.py).
