@@ -30029,3 +30029,36 @@ Pod: H100, repro job set, commit 7c01ba83; terminated. Raw data: explore/llm-sof
 - **Full report, paper/llm/main.tex.** It still has its private front matter (draft date and status paragraph). That
   paragraph also has a stale sentence: it calls the period-8 orbit the only computer-assisted proof. Both are to be
   fixed before the full report is posted.
+
+## 2026-10-18 22:20 UTC: full report corrected after the two audits of today's additions (commit ceb03881)
+
+Each finding was rechecked against its raw file before the edit; only paper/llm/main.tex changed. The Chaos article
+was not edited.
+- **Cusp count.** 13 of 17 tangent reversals on eleven continued fold curves are located cusps. The four found on 18
+  October are flagged but not located: (-0.11938, 0.10042) on the lower-left leg's fold curve (docs/fm5l/lower-leg.json),
+  (-0.13295, 0.08530) on the FM5X extension of the second fold curve (point 224), and two on the partial FM5T-105 trace
+  at log10 T -0.105 (fm5t-t105/curve-a1-up-plus/progress.jsonl, points 50 and 67, turns of 179 degrees; never assembled
+  into a curve.json and not drawn in fig-shrimp-temperature). The audit's "13 of 15" missed these two.
+- **Curve bounds.** FM5 and FM5c: critical multiplier within 1.12e-7, other multipliers at most 0.395, third multiplier
+  at most 0.00316. With FM5X and FM5L: 1.84e-7 and 0.8605 (rising at the lower-right leg's continuation bound); on the
+  second fold curve 0.603. Third multiplier above 0.0032 only outside the followed domain (up to 0.0101); seven of the
+  twelve 18 October curve runs were rebuilt from progress logs and kept no full spectra.
+- **Shrimp text.** Follow rule: exponent below 0.005 (three places). First fold curve along the upper and lower-right
+  legs. Head singular values (docs/rk/rk-summary.json) and leading modulus 2.41-5.56e-3 (docs/nt/nt-summary.json), as
+  in the article. Complex pairs at -0.105: 0.0967-0.1089 (P5Z 105d, tip105b). Lower leg: minimum multiplier -13.918;
+  0.0919 is the lowest period-5 cell (a chaotic member lies at 0.09175); arm distances reassigned (flip arm 0.0173,
+  max 0.0543; fold arm 0.0551, max 0.456). Transects: 3 of 8 brackets reached 1/64, five stopped at 1/4 or 1/2 at a
+  third loop. "The geometry of a Type A head".
+- **Other numbers.** Coexistence bound 1.091e-3 and multiplier moduli; abstract 12 to 14 % (11.72, 14.45); factorization
+  2.0e-12 (1.9387e-12); captures to 97,500 steps; NB stripes sample 3,840 of 4,096 (top four rows past the 90-minute
+  limit); no estimate below the 60-step tangent exponent, 13 cells below the map exponent; delay coordinates; unstable
+  manifold iterated 20 times under F^6; BH paragraph rewritten from bh.json (cell 17 disagrees for k = 17-29, all 24
+  agree at 30, cell 1 disagrees only with its map label) with k times the median overshoot 1.14-2.96 and 2.86-3.92.
+- **Status and evidence.** The coexistence proof is in the status sentence, the evidence table and the limitations;
+  the fixed-shape control is scoped to Qwen2.5-0.5B with its failed secondary criterion (abstract, claims row, evidence
+  ladder); the steering row reads partly frozen in both tables; the manifest sentence covers runs to 16 October; the
+  frozen-test sentence is scoped to the census; "proofs" plural. The draft label stays.
+- **Build.** latexmk: 152 pages, no undefined references, no new overfull box (the evidence table's 22.6 pt box
+  predates these edits).
+- **Article, not edited.** Its "for k from 1 to 32" holds for the dyadic block lengths only; over every window length
+  of the overlapping windows the periodic range runs to 4.38 (k = 30). The report now says k = 1, 2, 4, ..., 32.
