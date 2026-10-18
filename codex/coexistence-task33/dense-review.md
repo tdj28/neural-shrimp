@@ -1,0 +1,7 @@
+# Full numerical monodromy admission
+
+Root reviewed dense_qualify.py and the reused exact map/card/supervisor. Admit one dense-001 after private checkpoint and fresh capacity. Both fixed saved states, all896positivebasis columns in8column batches, no missing-column substitution. Save every block, matrix, full eigensystem/residuals. Sort eigenvalues by modulus; do not substitute a desired crossing. Direct composed JVP on both real/imaginary critical components independently checks the critical eigenpair. Retain all seven FD ladder rows per nonzero component and closure/separation diagnostics. Strict numerical modulus<1 remains numerical only; interval gates follow separately.
+
+Three new eigensystem controls passed: real stable, complex unit pair, unstable. Reuse the four completed composed derivative orientation/FD controls and actual measured profile; no broad repeat. First8column profile was at the same state/map/backend. All columns are computed here for one complete independently bound matrix; no eigenanalysis from a partial profile.
+
+CPU1+supervisor,12GiBAS,3800CPU/3900wall,128MiBoutput,28GiBstartup/16GiBruntimeRAM,16GiBdisk.112batches times measured7.6781+8.8844seconds implies1855.0seconds before eigensolve/criticalchecks/IO, not a guarantee. No retry/extension. Existing source/input pins and prior closed receipt required by supervisor; no other owned numerical run. Preserve any partial failure. Verify all rows and source/output/closure evidence before reporting stability results.
