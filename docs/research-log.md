@@ -29181,3 +29181,7 @@ After Task29 edge-A closed with both selected midpoints unresolved, Task32 queue
 ## 2026-10-18: Task32 StageA2 analytic control — run card
 
 Exact1024-bit Arb face checks for the rationally rotated896-dimensional product map, branches[-1,-2/5],[2/5,1], transverse radius1/16. Positive4t²-2/factor1/10; negatives factor3/2 and unstable t/2. One CPU,nice10,1GiBAS,60CPU/60wall seconds, no model. Save all12 transition checks and exact chart construction at codex/chaos-proof/analytic-001. This establishes checker controls only, not a Qwen graph or proof.
+
+## 2026-10-18: Task32 A1 and Task29 C cost profile — concurrent run cards
+
+Human requests parallel work unless resource constrained. Measured46.63GiB available, load1.73,2.70TB disk; admit two CPU1 workers and their supervisors (4auxiliaryslots), distinct CPU affinities0/2, nice10. Reserve18GiB Arb plus12GiB edge profile and12GiB shared headroom. Both preflights require42GiB available; runtime16GiB floor. Task32 two planned exact-parameter cells share one weight load and each build a fresh rigorous prefix plus one point step from exact newline embedding at1024bits. Exact card/source pins under codex/certify-chaos;7000CPU/7200wall,1GiBoutput, no retry. Existing roughly900s prefix+point is the timing basis, not a guarantee. StageA2 controls passed all12 transition checks including both negative types; this is not a Qwen proof. Task29 profile measures16steps of17rows on one CPU,240CPU/300wall,16MiBoutput; no scientific labels. Long edgeC remains unadmitted until profile.
