@@ -1,17 +1,19 @@
 """Run SH analysis: combine the sheet maps into footprints, overlaps and edge classes (exploratory).
 
 Inputs are the outputs of tools/sheets_map.py: one or more sheets.npz files with seeded maps and sweeps on one grid.
-Every attractor, periodic or chaotic, is assigned to one of two groups by its key-token fingerprint (the mean
-probability of the blank-line token "\\n\\n" over the recorded steps):
-- the 3-group, the crescent's period-3 family with its doublings and the band, which writes "\\n\\nThe ..." paragraphs
-  (p("\\n\\n") at least --threshold);
-- the 2-group, the " is it" 2-cycle and the stripe windows, which write " is ..." text (p("\\n\\n") below it).
+Every periodic attractor is assigned to one of two groups by its loop of leading tokens:
+- the 3-group, the crescent's period-3 family with its doublings and the band, whose loop writes "\\n\\nThe ..."
+  paragraphs (the loop contains the blank-line token);
+- the 2-group, the " is it" 2-cycle and the stripe windows, whose loop writes " is ..." text.
+Chaotic cells form a third class: their fingerprint (mean probability of the blank-line token) is reported but not used
+to assign a group, because chaotic attractors can mix both groups' texts.
 
-Each group's footprint is the set of cells where at least one map reached an attractor of that group. Where both
+Each group's footprint is the set of cells where at least one map reached a periodic attractor of that group. Where both
 footprints cover a cell, the two attractors coexist there. Each edge between neighboring cells of the fixed-start map
 whose groups differ is then classed:
-- **switch** (inside the overlap): both groups exist on both sides;
-- **bifurcation**: the group seen on one side is absent on the other side in every map.
+- **switch**: each side's family also exists on the other side, so the edge is pure selection by the start;
+- **one family ends**: one side's family is absent on the other side, while the other family continues beneath;
+- **both families end**: neither family exists on the other side.
 
 Writes OUT/analysis.json and OUT/fields.npz (groups per map, footprints, overlap, edge classes), for the figure tool.
 
@@ -52,10 +54,14 @@ def load_maps(dirs):
 
 
 def group_of(m, blank_idx, threshold):
-    """+1: 3-group, -1: 2-group, 0: unknown (cell not computed)."""
-    pb = m["keyprob"][..., blank_idx]
-    g = np.where(pb >= threshold, 1, -1)
-    return np.where(np.isnan(pb), 0, g)
+    """Periodic cells by their token loop: +1 (3-group: the loop contains the blank-line token), -1 (2-group: it does
+    not). Cells with no detected period: 0, or 2 for chaos (exponent > 1e-3), whose fingerprint is reported
+    separately because chaotic attractors can mix the two groups' texts."""
+    fam = m["family"]
+    tok = m["tokens"]
+    has = np.vectorize(lambda f: (1 if "\n\n" in tok.get(int(f), "") else -1) if f >= 0 else 0)(fam)
+    chaos = (fam < 0) & (m["lyapunov"] > 1e-3)
+    return np.where(chaos, 2, has).astype(int)
 
 
 def main():
@@ -73,9 +79,11 @@ def main():
     G = np.stack(list(groups.values()))
     foot3 = (G == 1).any(0)
     foot2 = (G == -1).any(0)
+    pb_default = maps[args.default]["keyprob"][..., bi]
+    chaos_default = groups[args.default] == 2
     overlap = foot3 & foot2
     dflt = groups[args.default]
-    edges = {"switch": 0, "bifurcation": 0, "unknown": 0}
+    edges = {"switch": 0, "one_family_ends": 0, "both_families_end": 0}
     edge_class = np.zeros(dflt.shape + (2,), dtype=int)      # [.., 0]: edge to the right; [.., 1]: edge upward
     for axis in (1, 0):
         a = dflt
@@ -85,16 +93,20 @@ def main():
             valid[:, -1] = False
         else:
             valid[-1, :] = False
-        diff = valid & (a != b) & (a != 0) & (b != 0)
-        ov_b = np.roll(overlap, -1, axis=axis)
-        sw = diff & overlap & ov_b
-        bf = diff & ~(overlap | ov_b)
-        un = diff & ~sw & ~bf
+        diff = valid & (a != b) & np.isin(a, (1, -1)) & np.isin(b, (1, -1))
+        # the family shown on side a exists on side b, and vice versa (footprints of the shown groups)
+        foot = {1: foot3, -1: foot2}
+        fb = {g: np.roll(foot[g], -1, axis=axis) for g in (1, -1)}
+        a_on_b = np.where(a == 1, fb[1], fb[-1])            # a's group exists at b
+        b_on_a = np.where(b == 1, foot3, foot2)             # b's group exists at a
+        sw = diff & a_on_b & b_on_a
+        both = diff & ~a_on_b & ~b_on_a
+        one = diff & ~sw & ~both
         k = 0 if axis == 1 else 1
-        edge_class[..., k] = np.where(sw, 1, np.where(bf, 2, np.where(un, 3, 0)))
+        edge_class[..., k] = np.where(sw, 1, np.where(one, 3, np.where(both, 2, 0)))
         edges["switch"] += int(sw.sum())
-        edges["bifurcation"] += int(bf.sum())
-        edges["unknown"] += int(un.sum())
+        edges["one_family_ends"] += int(one.sum())
+        edges["both_families_end"] += int(both.sum())
     stl = maps[args.default]["settle"].astype(float)
     on_edge = (edge_class > 0).any(-1)
     near = on_edge | np.roll(on_edge, 1, 0) | np.roll(on_edge, 1, 1)
@@ -113,8 +125,15 @@ def main():
         "edges_of_fixed_start_map": edges,
         "median_settle_near_edges": float(np.median(stl[near & fixed])) if (near & fixed).any() else None,
         "median_settle_elsewhere": float(np.median(stl[~near & fixed])) if (~near & fixed).any() else None,
-        "per_map_group_cells": {n: {"3group": int((g == 1).sum()), "2group": int((g == -1).sum())}
+        "per_map_group_cells": {n: {"3group": int((g == 1).sum()), "2group": int((g == -1).sum()),
+                                    "chaos": int((g == 2).sum()), "no_period": int((g == 0).sum())}
                                 for n, g in groups.items()},
+        "chaos_in_fixed_start_map": {"cells": int(chaos_default.sum()),
+                                     "p_blank_histogram": {"bins": [0, 0.01, 0.03, 0.05, 0.08, 0.12, 0.2, 0.3, 1.0],
+                                                           "counts": np.histogram(pb_default[chaos_default],
+                                                                                  bins=[0, 0.01, 0.03, 0.05, 0.08, 0.12,
+                                                                                        0.2, 0.3, 1.0])[0].tolist()},
+                                     "chaos_cells_inside_overlap": int((chaos_default & overlap).sum())},
     }
     out = DATA / "explore" / args.out
     out.mkdir(parents=True, exist_ok=True)
