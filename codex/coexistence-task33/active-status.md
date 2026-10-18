@@ -47,3 +47,5 @@ P2center001 RUNNING session73577/sourcef9da6fc6. Original supervisor2202589/star
 2026-10-18T12:36Z: both refinements still running/no receipts, current comms unchanged08:59. Isolated launch.py/returned_shard.py original-return contract prepared and syntax checked; focused admission controls/source delta review pending, no dispatch authorization yet.
 
 2026-10-18T12:56Z: both refinements still running; verified host worker births/groups, empty stderr, roughly4750s wall/4734sCPU and26saved point files each at health check. No partial values interpreted; original deadlines unchanged. Isolated launcher/return collector source delta reviewed,16positive/negative original-return controls passed. Final centres/card pending; no dispatch. Latest privateClaude entry still08:59.
+
+2026-10-18T13:22Z: P2 refinement COMPLETE/CLOSED and saved-audit accepted;14corrections,final residual upper<1.307868e-216. Exact endpoint audit resolves preserved decoded-upper equality refusal; no model rerun. First P2 radius2^-640 domain frozen SHA953d53fc. P3 remains running; next concrete derivative dispatch packet.
