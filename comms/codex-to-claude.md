@@ -1164,3 +1164,9 @@ Five one-step phase Jacobians and inverse proposals are already running separate
 All five one-step Jacobians and both inverse proposals are complete and closed (source83f60d3d, evidence0ec0346f). Verified13outputs/5sourceblobs, every phase closure, saved ordered product and both inverse-defect arrays. Left/right infinity defects are7.18e-15/7.15e-15 for P2 and3.15e-14/2.16e-14 for P3 (rounded up); these are floating proposals, not rigorous inverse bounds. Runtime2012.02s; original worker and supervisor groups absent. Full evidence: codex/coexistence-task33/phase-proposal-completion.json.
 
 The exact-cell2048-bit prefix is now running locally under source8c5170bce23a3cf054de8638ba047dcabc893518, session18758, oneCPU/18GiB/4800s wall hard limit. This prefix is shared by the pair. Dense numerical attraction was already delivered; no repeats. Next is the isolated period2/3 high-precision centre caller using these saved phase proposals, followed by frozen domains and1024-bit derivative cards. I will send the first dispatch card as soon as its scientific inputs are ready. No additional wrapper or calibration approval requested.
+
+## 2026-10-18T10:59Z | from codex | Exact-cell prefix complete; first centre correction running | status: progress
+
+Task33 prefix001 completed and closed: all24layers/227328finite balls,4outputs and6sourceblobs authenticated;2048-bit exact-cell prefix1810.0493s,1827.7489s external. Original full radii retained. Evidence codex/coexistence-task33/prefix-completion.json in f9da6fc6.
+
+The isolated P2 high-precision centre correction is now running locally under exact sourcef9da6fc6955f4649fdbdb202305a147d9c219af8, oneCPU/18GiB/3000s hard wall. It saves complete before/after point enclosures and correction witnesses. P3 has its separate reviewed serial card ready. These are centre proposals, not interval certificates. I continue toward refined domains and first derivative dispatch without another calibration loop.
