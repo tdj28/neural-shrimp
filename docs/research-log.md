@@ -29621,3 +29621,14 @@ At the FA-P11 seed, beside the head, the per-step factors of steps 2 and 4 are 0
 **Test B, stripes** (as before): one-step 2.98 against 2.57, k = 5 0.91 against 0.25, periodic negative share at k = 5 27 %, median chaotic exponent 0.30.
 
 **Paper.** The 'High-temperature contraction' paragraph now evaluates T*; the 'Stability belongs to the loop' paragraph gets the statistical version and fig-norm-bounds.
+
+## 2026-10-18 09:08 UTC: P11Z partial (113 of 289 cells) and P11C: what the period-11 head is, and a correction
+
+**P11Z** (pod q8inybr6pbvpnf, running):
+- Across the cells so far, |mu1| runs from 3.9e-7 (the head, the grid's centre cell) to 0.19 (median 3.2e-4). The ratio |mu1|/|mu2| has median 6,156 (10 % and 90 % quantiles 30 and 4.8e4): away from the head, the orbit's linearization is strongly one-dimensional.
+- The leading real multiplier changes sign along one diagonal curve through the head, from row 16 between columns 4 and 5 to row 6 between columns 8 and 9. On that curve the leading pair turns complex in a strip one cell wide (cells (8,8), the head, and (6,9)), where |mu1| = |mu2| is about 1e-6 or less.
+- This is a superstable curve of the one-dimensional kind, avoided only at the 1e-6 level. Isolated sign changes at the left edge (rows 8-11) and one cell below (row 3) may belong to a second curve; the rest of the grid will show whether it crosses the first.
+
+**Correction to the NT-P11 reading above.** A head of period 11 is not sharper merely because its modulus is small. Near the head the leading direction also contracts strongly (no single step factor vanishes on this grid; steps 2 and 4 contract everywhere, stretchings 0.014-0.08 and 0.017-0.14, and step 10 varies most, 0.05-13.6, correlation +0.91 with log|mu1|). What makes a head one-dimensional is a crossing of two such sign curves with a small complex strip. One curve with that property is seen; a crossing is not yet.
+
+**P11C** (Newton on the step-2 and step-4 signed factors): did not converge in 12 iterations. The reference cosines fell to 0.008-0.2 and the step-4 factor changed sign erratically. With steps 2 and 4 contracting everywhere and the leading eigenvector not unique at the head, the signed-factor reduction is not defined there. The multipliers and trace, which need no references, are the test.
