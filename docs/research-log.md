@@ -29159,3 +29159,17 @@ On that basis, 629 chaotic cells (4.4 %) use both families' words heavily, 13,15
   2. the cross test on S's four brackets (--from-report);
   3. B rerun in full with the amended tool and no time limit.
 - **Endpoint under amendment 1:** the number of held-out switches (S and B) that the cross test classes as selection, with the unresolved and intrinsic counts. The fixed classifier's 0 of 7 stays on record.
+
+## 2026-10-18 04:21 UTC: Consult 14 (a computer-assisted proof of chaos) received and adjudicated
+
+**Request.** Human request in session: "can you do a pro consult on certification proof of chaos please". The brief, review and adjudication are in docs/consults/2026-10-18-chaos-certification/. Usage was 32,490 input and 30,600 output tokens.
+
+**Main advice, adopted:**
+- Prove positive entropy of an iterate F^k on a small invariant set, using a sparse graph of covering relations without cone conditions at first, rather than a full horseshoe over the attractor.
+- Price the proof with complete returns, not one step.
+- Bound transverse and mixed terms explicitly.
+- Start at 1024 bits.
+- Keep Arb rather than build GPU interval arithmetic.
+- Search both candidate cells with equal budgets.
+
+**Next step, pending the human's approval:** the paired-cell, complete-return pilot. It needs 50-300 CPU-hours locally and 1-2 weeks of development; nothing is run yet.
