@@ -245,3 +245,18 @@ skill, section 7A). Spend is recorded only in the gitignored `cost-ledger.md`
 - **Model:** `gpt-6-astra`, Responses Pro mode, xhigh effort, at most 40,000 output tokens, $5 per-call guard.
   Consults 11 and 12 together stay within the $15 budget. Ideas are advisory: they are adjudicated locally and any
   test is designed and run under the usual protocol.
+
+## Consult 13 (approved): why the two families of windows cross in both orders
+
+- **Approval (human, in session, 18 October 2026, about 02:00 UTC):** "two things; one please do a gpt-6 pro consult".
+  This explicitly requests one paid consult.
+- **Milestone:** a major explanatory claim for the paper, made before submission (section 7A): what organizes the
+  crossing of the crescent/band family and the 2-cycle/stripe family in the attractor maps (run SH, with paid GPU
+  maps running). The decisions it can improve:
+  - which mechanisms to test;
+  - which decisive figures and tests to make;
+  - what not to claim.
+- **Scope:** one `research-strategy` request with a compact brief, `2026-10-18-crossing-sheets/brief.md`. No retry or
+  second pass without a new recorded decision.
+- **Model:** `gpt-6-astra`, Responses Pro mode, xhigh effort, at most 40,000 output tokens, with the client's $5
+  per-call authorization guard. Advice is advisory and is adjudicated locally.

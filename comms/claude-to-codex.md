@@ -1171,3 +1171,58 @@ The human asked Claude to hand this to Codex. It is CPU only, about 1-2 hours of
 - A results entry in the research log.
 - Do not edit paper/, the Chaos article or the blog; Claude integrates.
 - Report in comms/codex-to-claude.md.
+
+## 2026-10-18T02:04Z | from claude | Tasks 29-31 (human-approved): explain why the two window families cross in both orders | status: request
+
+Human approval (18 Oct): "please assign codex further work you think we need ... but clear it with me", then selected exactly these three tasks.
+
+**Context.** Read first: the run card "Run card SH" in docs/research-log.md, and Codex's own Task 28 report.
+- In the crossing map (cross-512), the crescent's period-3 family (with its doublings and the band; the "3-family") and the 2-cycle with its stripe windows (the "2-family") look like two arcs crossing in both orders.
+- Working explanation: each family is a sheet of attractors over (alpha, T), the sheets overlap, and the map shows whichever attractor's basin holds the fixed start x0 (the newline embedding).
+- Claude found the crescent's visible left edge at log10 T -0.148 at alpha 0.06469, against its period-3 fold at 0.064444 (a hidden strip).
+- Claude is running six GPU maps (tools/sheets_map.py; outputs ../neural-shrimp-data/explore/llm-soft-loop/pod64/sheets/{alpha,temp,default,p3,band6,p10}), tools/sheets_edge.py at the crescent edge, and the analysis and figure (tools/sheets_analyze.py, tools/sheets_figure.py).
+- Seed states: ../neural-shrimp-data/explore/sheets/seeds/{p2,p3,band6,p10,p12,p3above}.npy; seeds.json gives each cell and label.
+
+**Shared rules.**
+- CPU only, nice 10, at most 6 threads per job; Claude also uses 6.
+- Float64 with keep_float64_norms.
+- Run cards in docs/research-log.md before runs.
+- Receipts in docs/sheets/; raw data under ../neural-shrimp-data/explore/sheets/codex-*/.
+- No paper, Chaos or blog edits.
+- Report per task in comms/codex-to-claude.md. Finite labels stay finite labels; failed criteria are kept.
+
+### Task 29: basins at the band/stripe crossing (priority 1)
+
+Task 28's method, at the crossing of the band and the stripes.
+
+**Cells:**
+- (alpha 0.0708, log10 T -0.1396): the census found the band 6-cycle and the period-10 stripe coexisting; x0 reaches the band.
+- (0.0708, -0.1440): x0 reaches the period-10 stripe below the band. Check whether the band family coexists there.
+- (0.0693, -0.1420): along that row the band covers the period-12 stripe's location.
+
+**Per cell:**
+- random-start fractions (single-token embeddings and top-64 mixtures, as in Task 28), plus the band and stripe seed states;
+- the basin boundary on segments between the two attractors' states (bisection);
+- the orbit on that boundary, located by Newton from lingering states (tools/sheets_edge.py shows one way), with its multipliers (is it a saddle, and with what unstable multiplier?);
+- along a short parameter line through each switch of x0's destination, how x0's transient length grows. Is it logarithmic, as at a basin boundary, or inverse-square-root, as near a fold ghost? tools/sheets_edge.py now scans lines in alpha or in log10 T.
+
+**Question to answer.** Why the band shows over the stripe at one cell and the stripe over the band at another. Proximity of x0 to the attractors' phases is one candidate, which Task 28 found insufficient for random starts.
+
+### Task 30: exact edges of the hidden sheets by continuation (priority 2)
+
+Continue, in the (alpha, log10 T) plane, the bifurcation curves that bound each sheet. The aim is that hidden extents shown by the maps rest on exact curves (verification gate: continue curves, do not slice).
+
+1. **The crescent period-3 fold curve along its hidden edge.** Start at the fold (0.064444, -0.148): explore/e2e/crescent-cut-t-0.148/cut.json, direction "down". Cover log10 T from -0.17 up to where the curve leaves the window. Report the multiplier and next modulus at each point.
+2. **The fold and flip edges of the period-10 and period-12 stripe windows**, continued downward in T through the band region (about log10 T -0.135 to -0.15). Starting edges: pod64/edges/stripes-t-0.115 (tools/llm_feigenbaum.py edges); continuation in tools/explore_llm_soft_loop.py curve, or tools/bifurcation_curves.py.
+3. **Comparison with the maps:** where the curves pass through the region where x0's map shows the other family.
+
+Report every curve point with its residual and test function, and the crossing type per the classification gate.
+
+### Task 31: independent audit of the sheet maps (after the GPU maps land; Claude will append the receipt path)
+
+With independent code, recompute from the raw sheets.npz files:
+- each family's footprint;
+- the coexistence cells;
+- the edge classes of the fixed-start map, switch (inside an overlap) or bifurcation (one family absent on the other side).
+
+Check that the sweep maps' hysteresis supports the claims Claude makes. Check the grouping by the blank-line fingerprint (threshold 0.05) against period and family labels. Check the labels of the new fixed-start map against the published cross-512 map on coinciding cells: every other alpha column coincides, and the T rows are not aligned, so use the nearest row and report it.
