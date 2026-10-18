@@ -1,0 +1,7 @@
+# Task34 composed derivative profile source review
+
+Root reviewed full isolated delta on 18 October 2026. Same accepted Task33 manual float64 map, eight positive basis columns, normalized sum direct composed JVP and all seven central-difference spacings. New cells have independent parameter-specific prefix caches; the exact five-cell allocation is checked, including repeated period6 with distinct names. Five positive/negative allocation controls passed (valid, duplicate, changedcell, wrongperiod, missingrow); accepted composed-map algebra controls are reused. No model evaluation during review.
+
+Original complete513x896state histories and original finite-screen reports must be hash-bound from closed settle001. Every row is retained: failed finiteclosure/primitive screen gets explicit not_qualified and no derivative computation, not an invented multiplier. State at index513-period is fixed before outcomes. Every basis/state/direction/AD/plus/minus vector and all FD errors are saved. Source hash checks before/after; pinned map loader retains exact assets. No dense spectrum or interval proof is claimed.
+
+Task33 derivative-profile001 measured50.057898s external/5721384KiB childpeak for totalperiod5. Linear totalperiod37 forecast370.428447s plus extra prefixes; bounded700CPU750wall12GiBAS64MiBoutput, oneCPU+supervisor,28GiBstartup/16GiBruntime. Forecast only, no retry/extension. Actual state/input pins, private checkpoint and fresh capacity follow complete settle closure; no profile run admitted yet.
