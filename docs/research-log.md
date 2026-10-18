@@ -29767,3 +29767,11 @@ ledger.
 - The boundary gate (tools/plot_real_shrimp.py) is then rerun with these curves. Success means the leg's
   (5 | lost) and (5 | 10) pairs lie within one or two steps of these curves.
 - If the branches find no boundary within the bounds, or the march fails, that outcome is recorded as it is.
+
+## 2026-10-18 16:50 UTC: Steering written into the theory (human: the section had no steering in its equations)
+
+- Paper (517cbd31), Chaos article (9af282e) and blog (provenance 3991/3991, Hugo builds; backup blog-bundle-backup/after-steering): the map is labelled (eq:map) and carried as F_{T,alpha}. The derivative is DF_{T,alpha} = (1/T) Sigma_p J_{h_alpha}, with p = softmax(z_alpha/T) and h_alpha the final normalized hidden state of the steered network. A new paragraph, "Where steering and temperature enter", explains why steering has no derivative term (alpha v does not depend on x) and acts by moving the operating point of both factors.
+- New measurement in that paragraph (nb runs cells2, cross-a, cross-b; 7936 cells). Grouping cells by steering strength alone accounts for 30/32 % of the variance of the orbit-averaged readout term and 7/33 % of the network term (stripes map / crossing window); grouping by temperature alone accounts for 21/27 % and 47/4 %. Both parameters move both factors.
+- Not put in the paper, recorded here: on these two steered maps the norm-based network term ranks chaotic above periodic cells with AUC 0.906 / 0.825, the readout term with 0.469 / 0.448; the one-step bound with 0.903 / 0.866 and the five-step bound with 0.978 / 0.952. These are worst-case norms, not the tangent-growth split of "Steering makes tokens compete" (chaotic cells have the larger readout factor there). Stating both without reconciling them would read as a contradiction, so the theory section points to the mechanism paragraph instead.
+- The threshold is now T_*(alpha) = diam(E)^2 L(alpha)/4, a curve in the plane. The per-alpha maxima of ||J|| (lower estimates of L(alpha)) run from 7.59e3 to 1.54e5 over the 64 + 64 sampled steering strengths, so T_*(alpha) >= 2.7e3 everywhere sampled and >= 5.6e4 at alpha = 0.06.
+- Correction: the earlier "T_* >= 5.7e4" rounded a lower bound up. The exact value from the raw data is 56,563, so the bound is now stated as >= 5.6e4 in all three documents.
