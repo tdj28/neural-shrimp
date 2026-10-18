@@ -29604,3 +29604,20 @@ At the FA-P11 seed, beside the head, the per-step factors of steps 2 and 4 are 0
 - **Endpoint under amendment 1:** 2 of 8 held-out switches are selections, with 2 intrinsic and 4 unresolved. The fixed classifier's 0 of 7 stays on record.
 
 **Reading.** Both mechanisms of the sheet maps occur at single switches: basin selection inside an overlap (S) and the end of a family (B). Added to the paper's crossing paragraph.
+
+## 2026-10-18 09:01 UTC: NB final (7,936 cells; cross-512 part B added): tests A and B written into the paper
+
+**Data:** cells2 (stripes, 3,840), cross-a and cross-b (cross-512, 4,096); all pods terminated and verified. Summary docs/nb/nb-summary.json; figure paper/llm/figures/fig-norm-bounds.png (tools/plot_norm_bounds.py).
+
+**Test A:** L >= 1.54e5 over all 7,936 cells (unchanged), so T* >= 5.66e4 and log10 T* >= 4.75.
+
+**Test B, cross-512** (1,242 chaotic, 2,682 periodic):
+- 0 chain violations at every k.
+- 3 chaotic-labelled cells have a negative k = 5 estimate, all with a negative tangent exponent on their own trajectory.
+- Precision 0.30 for k <= 3, 0.33 at k = 4, 0.38 at k = 5.
+- Periodic cells with a negative estimate: 14 % at k = 4 and 29 % at k = 5.
+- Medians, chaotic against periodic: one-step 2.93 against 2.62; k = 5 0.80 against 0.22. Median tangent exponent of the chaotic cells 0.17.
+
+**Test B, stripes** (as before): one-step 2.98 against 2.57, k = 5 0.91 against 0.25, periodic negative share at k = 5 27 %, median chaotic exponent 0.30.
+
+**Paper.** The 'High-temperature contraction' paragraph now evaluates T*; the 'Stability belongs to the loop' paragraph gets the statistical version and fig-norm-bounds.
