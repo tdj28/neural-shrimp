@@ -262,3 +262,17 @@ skill, section 7A). Spend is recorded only in the gitignored `cost-ledger.md`
   per-call authorization guard. Advice is advisory and is adjudicated locally.
 - **Usage:** 29,153 input and 24,279 output tokens (the amount is in the private cost ledger). Adjudication:
   `2026-10-18-crossing-sheets/adjudication.md`.
+
+## Consult 14 (approved): a computer-assisted proof of chaos
+
+- **Approval (human, in session, 18 October 2026, about 04:12 UTC):** "can you do a pro consult on certification
+  proof of chaos please". This explicitly requests one paid consult.
+- **Milestone:** planning a new study to turn the paper's numerically validated chaos into a computer-assisted proof
+  (section 7A). The decisions it can improve, before any development time or compute is committed:
+  - the route (covering relations, a homoclinic orbit, a Conley index, or a one-dimensional reduction);
+  - the feasibility trial that best replaces our cost guesses with measurements;
+  - the estimate of effort and compute, and what not to claim.
+- **Scope:** one `research-strategy` request with a compact brief, `2026-10-18-chaos-certification/brief.md`. No retry
+  or second pass without a new recorded decision.
+- **Model:** `gpt-6-astra`, Responses Pro mode, xhigh effort, at most 40,000 output tokens, with the client's $5
+  per-call authorization guard. Advice is advisory and is adjudicated locally.
