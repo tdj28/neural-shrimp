@@ -1062,6 +1062,11 @@ snapshot_download('$repo', revision='$rev', cache_dir='$NEURAL_SHRIMP_DATA/model
     TOOL=p5_dss_temperature.py run p5dss-${JOBARGS[0]} "${JOBARGS[1]}" --device cuda --threads 8 "${JOBARGS[@]:2}" \
       --out $D/sheets/p5dss-${JOBARGS[0]}
     ;;
+  ltrans)      # run LT: long transients behind chaos labels (tools/long_transients.py, float64 on the GPU):
+               # JOBARGS = NAME MINUTES ARGS... (cells file docs/lt-cells.json uploaded with the code)
+    TOOL=long_transients.py run lt-${JOBARGS[0]} "${JOBARGS[1]}" --device cuda --threads 8 "${JOBARGS[@]:2}" \
+      --out $D/lt/${JOBARGS[0]}
+    ;;
   hidden)      # hidden chaos along a line (tools/hidden_chaos.py): JOBARGS NAME MINUTES ARGS...; float64 on the GPU,
                # Qwen2.5-0.5B (cached), twins at two offsets, leading-token statistics, into hidden/NAME
     TOOL=hidden_chaos.py run hidden-${JOBARGS[0]} "${JOBARGS[1]}" line --device cuda --dtype float64 \

@@ -29205,3 +29205,25 @@ CellC alpha.0693/log10T-.142, complete seed P6/P12 references. Same finite-fate/
 - **The meaningful check** uses footprints from the seven other maps (tools/sheets_analyze.py, leave_default_out in docs/sheets/analysis.json). Where those maps find only one family, the fixed start reaches the other family at 70 of 31,042 cells (0.2 %): 10 of 3,890 where only the crescent family is found, and 60 of 27,152 where only the 2-cycle family is found.
 - Where both are found (9,605 cells), it reaches the crescent family at 6,272 and the 2-cycle family at 2,747.
 - The paper's bullet and the blog now state this. The overlap percentages (65.4 % and 28.5 % of the 9,675 cells where any map finds both) are unchanged.
+
+## 2026-10-18 04:44 UTC: Run card LT (exploratory): are the maps' chaos labels long transients?
+
+**Motivation.** An outside review of the Chaos article (GPT Pro deep research, relayed by the human) asks whether cells labelled chaotic after 300 + 300 steps might be long chaotic transients that end on periodic orbits. The earlier horizon check H2 went to 3,000 steps: 86 of 96 and 92 of 96 chaotic labels held in cross-512 and map-stripes-256. The human approved this run ("yes proceed"; "use pods to speed things up").
+
+**Sample.** docs/lt-cells.json, all labelled chaotic by the maps' short protocol (exponent > 1e-3, no period up to 32), chosen before any LT data. Per map (cross-512 and map-stripes-256):
+- the 96 chaotic cells of H2 (seed 20261014);
+- 96 fresh cells drawn uniformly from the remaining chaotic cells (seed 20261018).
+
+That makes 384 cells.
+
+**Protocol.** tools/long_transients.py, float64, from the fixed start to 10^5 steps.
+- A capture check at step 600 and then every 500 steps: the smallest period up to 256 with full-state recurrence below 1e-8 max(1, |x|) over 2 repetitions. The capture step is recorded with the period and leading-token loop.
+- At the horizon, a twin exponent over 2000 steps (offset 1e-6).
+
+**Reading, fixed now:**
+- S(t), the fraction not captured, at 600, 10^3, 2x10^3, 3x10^3, 5x10^3, 10^4, 2x10^4, 3x10^4, 5x10^4 and 10^5 steps, per map and per tercile of the map's exponent, with counts.
+- The never-captured cells with and without a positive exponent at the horizon.
+- The captured periods.
+- The paper will report S(10^5) next to its chaos labels. Captures beyond 3,000 steps would show transients longer than H2 tested.
+
+**Compute.** Two H100 pods, one per map; costs in the private ledger.
