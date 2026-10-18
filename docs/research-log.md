@@ -29517,3 +29517,25 @@ A one-dimensional head would need the directions transverse to the reduction to 
 - Newton: up to 12 iterations, step cap 5e-5, finite-difference step 2e-6.
 
 **Reading.** The three leading moduli at the point, against (0.32)^11 = 3.6e-6, and the fourth. If a head of period 11 has a near-nilpotent block of modulus near 1e-6 or below, a superstable-curve grid around it follows.
+
+## 2026-10-18 08:31 UTC: NT-P11 result: the period-11 head is near-nilpotent at the 4e-7 level, four orders below its window's multipliers; run card P11Z (the trace around it)
+
+**NT-P11** (pod w7i74kyjluyerc, commit 8e3d8448; 89 s; terminated and verified).
+- From the darkest cell of the zh2 zoom, Newton converged in three iterations at (alpha1, alpha2) = (-0.0333026271, -0.0522112315): orbit residual 1.9e-15, |c1| 5.3e-8, |c2| 5.9e-14, no divisor-period orbit (split 1.45).
+- Text: " To solve the question:\nLet now the [5458]" plus ":\n" (11 tokens).
+- Three leading multipliers: a complex pair of modulus 3.93e-7 at ±68.9 degrees and a real one, -3.36e-7.
+- Then 1.35e-11, 4.0e-14 and 5.1e-16: the fourth is 2.9e4 times smaller than the leading three, against 7 times at the period-5 head.
+- The period-5 head's moduli (3.5e-3) were 50-100 times below its window's typical leading multipliers; this head's are about 1e4 times below (window exponents -0.3 to -1.3 per step, i.e. |mu1| 4e-2 to 6e-7).
+
+**Reading.**
+- A near-nilpotent head still, with three directions contracting together, but at a scale so far below the window's that the avoided crossing of its superstable curves should be about 1 % of the window.
+- At ordinary grid resolution, a head of the one-dimensional kind. This is a prediction, to be tested now.
+
+**Run card P11Z.** tools/doubly_superstable.py grid, period 11, hostility@4 and gratitude@16, log10 T -0.1.
+- Grid: 17 x 17 cells of spacing 1.75e-5 centered on the head (box +-1.4e-4).
+- March from the FA-P11 seed (fixed start period 11). Seed: the same cell, real leading multiplier, ratio 1.55, accepted with --seed-min-ratio 1.2.
+
+**Reading, fixed now:**
+- whether the trace of the leading pair changes sign in an alternating 2 x 2 block at the head (the crossing rule of the cascade grids);
+- the stretchings of the eleven steps: which two vanish at the head;
+- the smallest leading modulus on the grid.
