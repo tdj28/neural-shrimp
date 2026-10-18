@@ -1,0 +1,329 @@
+{
+  "status": "reviewed_dispatch_requires_Claude_owned_capacity_and_existing_ceiling",
+  "period": 2,
+  "source_commit": "Exact privately pushed commit specified in standalone comms; checkout that commit for every attempt.",
+  "expected_backend": {
+    "python": "3.12.14 (main, Aug 25 2026, 14:00:49) [Clang 22.1.3 ]",
+    "python_flint": "0.9.0",
+    "flint": "3.6.0",
+    "numpy": "2.5.3",
+    "torch": "2.14.1+cu130",
+    "precision": 1024,
+    "threads": 1
+  },
+  "expected_assets": {
+    "model.safetensors": "fdf756fa7fcbe7404d5c60e26bff1a0c8b8aa1f72ced49e7dd0210fe288fb7fe",
+    "config.json": "18e18afcaccafade98daf13a54092927904649e1dd4eba8299ab717d5d94ff45",
+    "vectors.npz": "b630bb7bef06bde87f8e6a7ca5e8672f83d24bc0585bf19048e9e494a4357f41"
+  },
+  "source_sha256": {
+    "codex/certify-llm/streamed_head.py": "f6096528f5748392386e97e9a4722f5967aeb0ae24897aac1465d205fca4f24a",
+    "codex/certify-llm/ball_jet.py": "46b14d8bd65ed6c80174758daf37d00110cfa908813917bdb46c13749f999719",
+    "codex/certify-llm/ball_qwen.py": "fcc90849601984506adf26f651067734f9faef408c8f42dffe64bf5c68e98a80",
+    "codex/certify-llm/ball_linear.py": "5d54200f5880d818eabc97e7eed2f1cf02b83b617b39380bef38d49a7ac45ff2",
+    "codex/certify-llm/cache_io.py": "f4e25b2134bef8a71c27d3156baf01be9d25c593d7b780f90a66b9c1141abdef",
+    "codex/certify-llm/phase_domain.py": "a3856de84393068788c4cf4dc42fa6015da45b7912b56db995cc6b12922f8d8d",
+    "codex/certify-llm/derivative_coverage.py": "eb01dc001193b5e3982bcb41a582ac7c61cfe4e8fcd2a1ddf249126623fe63cf",
+    "codex/certify-llm/shooting_gates.py": "9c967c0dcb9783df53f33c05eb897050f4e8971f66767abbc8a01a8b1b85cf1f",
+    "codex/certify-llm/proof_gates.py": "ee6678b7dd5153ef095fd73d5711fcfc605f7a228c92b1335a9541cc3d7b2c6a",
+    "codex/crosscheck/qwen_map.py": "493a3d1d57fec227f5ba2e3f8f9cfcfdd02d22495d1d44e6449ede901310ae6e",
+    "codex/coexistence-task33/derivative_shard.py": "671615f1d88bdcd64df646937228434f533b1152f0005dd4669abfdacbfb34c9",
+    "codex/coexistence-task33/prefix_import.py": "b4f82802a9bf77b8d90e399c5c7e9b2635106d39532079852539ee227f1211e8"
+  },
+  "launcher_sha256": "c269fa4a601c357e3b3e96960dc780f067f6a2099cedecac099d6e060233219d",
+  "collector_sha256": "a42e9e166fb729036edb173b17e4aca03afb86e86820a47516132c194e28523e",
+  "definition": {
+    "path": "/data2/neural-shrimp-data/codex/coexistence/p2-final-domain-001.json",
+    "bytes": 1055555,
+    "sha256": "953d53fcf324a9d872d6db4a2f63e4e2395a95f4e942423a2a7bc7a0d5840f1f"
+  },
+  "upstream_files": [
+    {
+      "path": "/data2/neural-shrimp-data/codex/coexistence/p2-final-domain-001.json",
+      "bytes": 1055555,
+      "sha256": "953d53fcf324a9d872d6db4a2f63e4e2395a95f4e942423a2a7bc7a0d5840f1f"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/codex/coexistence/prefix-001-supervision/receipt.json",
+      "bytes": 5559,
+      "sha256": "0e787d0ebd6fb505a202c96fb3cc2429803aa8cc50c5271f728dc3da59af6f12"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/codex/coexistence/prefix-001-supervision/admission.json",
+      "bytes": 4466,
+      "sha256": "84be8d159949dc60aa0f3909c6a16ee5a967dab0e40cd717dda2738331bcfa28"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/codex/coexistence/prefix-001/inputs.json",
+      "bytes": 1117,
+      "sha256": "726c125e1f20d85ab9396b70bc5aad6dab8ad6589c24d2a71e05e976796cf67d"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/codex/coexistence/prefix-001/layers.jsonl",
+      "bytes": 2544,
+      "sha256": "48051a8aaba048be4e4ba871fa97a3048ae557bf13e7c35bd9e18e544a46ffc2"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/codex/coexistence/prefix-001/prefix-cache.json.gz",
+      "bytes": 68579136,
+      "sha256": "52ead55348240b014ab3d0d41a925a58dfc477ceb8fdd2d3801e4ff7c5996634"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/codex/coexistence/prefix-001/report.json",
+      "bytes": 416,
+      "sha256": "462c88abca7d69b4ee2b5a95475ff9b60c38ae7bcd7c80bffbabc477947361fa"
+    }
+  ],
+  "plans": [
+    {
+      "attempt": "p2-derivative-p0-c000-001",
+      "plan": "codex/coexistence-task33/p2-derivative-p0-c000-001-plan.json",
+      "plan_sha256": "3fe592855d9c78a334635f049aa61d7407df460ababa4c469530e45850ae79b5",
+      "phase": 0,
+      "start_column": 0,
+      "command": "python -I -B -u codex/coexistence-task33/launch.py --attempt p2-derivative-p0-c000-001 --driver derivative_shard --plan p2-derivative-p0-c000-001-plan.json --threads 1 --seconds 3600"
+    },
+    {
+      "attempt": "p2-derivative-p0-c064-001",
+      "plan": "codex/coexistence-task33/p2-derivative-p0-c064-001-plan.json",
+      "plan_sha256": "27000bcaeb323389e07cb9c8192bbad591cbcb60c963b188d55edcffbf005743",
+      "phase": 0,
+      "start_column": 64,
+      "command": "python -I -B -u codex/coexistence-task33/launch.py --attempt p2-derivative-p0-c064-001 --driver derivative_shard --plan p2-derivative-p0-c064-001-plan.json --threads 1 --seconds 3600"
+    },
+    {
+      "attempt": "p2-derivative-p0-c128-001",
+      "plan": "codex/coexistence-task33/p2-derivative-p0-c128-001-plan.json",
+      "plan_sha256": "9dcc1296bb5107006907719097909af71a53150c721e33428f62e1de727e88d6",
+      "phase": 0,
+      "start_column": 128,
+      "command": "python -I -B -u codex/coexistence-task33/launch.py --attempt p2-derivative-p0-c128-001 --driver derivative_shard --plan p2-derivative-p0-c128-001-plan.json --threads 1 --seconds 3600"
+    },
+    {
+      "attempt": "p2-derivative-p0-c192-001",
+      "plan": "codex/coexistence-task33/p2-derivative-p0-c192-001-plan.json",
+      "plan_sha256": "60c8b6b43a774adc262740d27610290e2d68e397cbaf7e7783a8abd81ab4bfd3",
+      "phase": 0,
+      "start_column": 192,
+      "command": "python -I -B -u codex/coexistence-task33/launch.py --attempt p2-derivative-p0-c192-001 --driver derivative_shard --plan p2-derivative-p0-c192-001-plan.json --threads 1 --seconds 3600"
+    },
+    {
+      "attempt": "p2-derivative-p0-c256-001",
+      "plan": "codex/coexistence-task33/p2-derivative-p0-c256-001-plan.json",
+      "plan_sha256": "95f9cf6e5407077bca403dd6c7a6c882a8bd49c3fd2b636ef8fcc1ade98578a7",
+      "phase": 0,
+      "start_column": 256,
+      "command": "python -I -B -u codex/coexistence-task33/launch.py --attempt p2-derivative-p0-c256-001 --driver derivative_shard --plan p2-derivative-p0-c256-001-plan.json --threads 1 --seconds 3600"
+    },
+    {
+      "attempt": "p2-derivative-p0-c320-001",
+      "plan": "codex/coexistence-task33/p2-derivative-p0-c320-001-plan.json",
+      "plan_sha256": "4cdc7f88e0ba12f9fe14c26d992e629f2bb0547283291b8dfe52a09e760a15bf",
+      "phase": 0,
+      "start_column": 320,
+      "command": "python -I -B -u codex/coexistence-task33/launch.py --attempt p2-derivative-p0-c320-001 --driver derivative_shard --plan p2-derivative-p0-c320-001-plan.json --threads 1 --seconds 3600"
+    },
+    {
+      "attempt": "p2-derivative-p0-c384-001",
+      "plan": "codex/coexistence-task33/p2-derivative-p0-c384-001-plan.json",
+      "plan_sha256": "b7c7d16693800b94208869f7456026650966c017a903cb417051a4e3a2f39367",
+      "phase": 0,
+      "start_column": 384,
+      "command": "python -I -B -u codex/coexistence-task33/launch.py --attempt p2-derivative-p0-c384-001 --driver derivative_shard --plan p2-derivative-p0-c384-001-plan.json --threads 1 --seconds 3600"
+    },
+    {
+      "attempt": "p2-derivative-p0-c448-001",
+      "plan": "codex/coexistence-task33/p2-derivative-p0-c448-001-plan.json",
+      "plan_sha256": "0ce8dbdc97c54d4947ddccdd308298390d082cab061dc2cea7a764993392ef2a",
+      "phase": 0,
+      "start_column": 448,
+      "command": "python -I -B -u codex/coexistence-task33/launch.py --attempt p2-derivative-p0-c448-001 --driver derivative_shard --plan p2-derivative-p0-c448-001-plan.json --threads 1 --seconds 3600"
+    },
+    {
+      "attempt": "p2-derivative-p0-c512-001",
+      "plan": "codex/coexistence-task33/p2-derivative-p0-c512-001-plan.json",
+      "plan_sha256": "75574e03558c711e834befb2dc8a6f8af4cef611eff8355cf5b5624208c5a05a",
+      "phase": 0,
+      "start_column": 512,
+      "command": "python -I -B -u codex/coexistence-task33/launch.py --attempt p2-derivative-p0-c512-001 --driver derivative_shard --plan p2-derivative-p0-c512-001-plan.json --threads 1 --seconds 3600"
+    },
+    {
+      "attempt": "p2-derivative-p0-c576-001",
+      "plan": "codex/coexistence-task33/p2-derivative-p0-c576-001-plan.json",
+      "plan_sha256": "d2f690fdb5aeea258f918bffc9a7cdb59c5501a2ed7f8a51f8b7bd00b049276c",
+      "phase": 0,
+      "start_column": 576,
+      "command": "python -I -B -u codex/coexistence-task33/launch.py --attempt p2-derivative-p0-c576-001 --driver derivative_shard --plan p2-derivative-p0-c576-001-plan.json --threads 1 --seconds 3600"
+    },
+    {
+      "attempt": "p2-derivative-p0-c640-001",
+      "plan": "codex/coexistence-task33/p2-derivative-p0-c640-001-plan.json",
+      "plan_sha256": "74937a549ab803442b3ccdf9a15586c6f962dcc6e7c0911d5bd13e9fab6c1489",
+      "phase": 0,
+      "start_column": 640,
+      "command": "python -I -B -u codex/coexistence-task33/launch.py --attempt p2-derivative-p0-c640-001 --driver derivative_shard --plan p2-derivative-p0-c640-001-plan.json --threads 1 --seconds 3600"
+    },
+    {
+      "attempt": "p2-derivative-p0-c704-001",
+      "plan": "codex/coexistence-task33/p2-derivative-p0-c704-001-plan.json",
+      "plan_sha256": "219091370c13cb1ec8fef0b682669b0c9b3323b41000b9c1686aab9248a4bd10",
+      "phase": 0,
+      "start_column": 704,
+      "command": "python -I -B -u codex/coexistence-task33/launch.py --attempt p2-derivative-p0-c704-001 --driver derivative_shard --plan p2-derivative-p0-c704-001-plan.json --threads 1 --seconds 3600"
+    },
+    {
+      "attempt": "p2-derivative-p0-c768-001",
+      "plan": "codex/coexistence-task33/p2-derivative-p0-c768-001-plan.json",
+      "plan_sha256": "d4a53b28ab4ec8a89ce38803e8d988d11c2a5f41b032753e20583b9964bc0dae",
+      "phase": 0,
+      "start_column": 768,
+      "command": "python -I -B -u codex/coexistence-task33/launch.py --attempt p2-derivative-p0-c768-001 --driver derivative_shard --plan p2-derivative-p0-c768-001-plan.json --threads 1 --seconds 3600"
+    },
+    {
+      "attempt": "p2-derivative-p0-c832-001",
+      "plan": "codex/coexistence-task33/p2-derivative-p0-c832-001-plan.json",
+      "plan_sha256": "edf83d47215007067f6158a6e886f6a3444b80ed29d98a4944ed6101e7e4dfb3",
+      "phase": 0,
+      "start_column": 832,
+      "command": "python -I -B -u codex/coexistence-task33/launch.py --attempt p2-derivative-p0-c832-001 --driver derivative_shard --plan p2-derivative-p0-c832-001-plan.json --threads 1 --seconds 3600"
+    },
+    {
+      "attempt": "p2-derivative-p1-c000-001",
+      "plan": "codex/coexistence-task33/p2-derivative-p1-c000-001-plan.json",
+      "plan_sha256": "8681a8b6d30dd0f74d16b7519018599cefccce50f5b4f314e67b4e2711846b47",
+      "phase": 1,
+      "start_column": 0,
+      "command": "python -I -B -u codex/coexistence-task33/launch.py --attempt p2-derivative-p1-c000-001 --driver derivative_shard --plan p2-derivative-p1-c000-001-plan.json --threads 1 --seconds 3600"
+    },
+    {
+      "attempt": "p2-derivative-p1-c064-001",
+      "plan": "codex/coexistence-task33/p2-derivative-p1-c064-001-plan.json",
+      "plan_sha256": "44439105ba7726632e5fad8fc0006a38b8523172217c40ecdb6a36048e56661f",
+      "phase": 1,
+      "start_column": 64,
+      "command": "python -I -B -u codex/coexistence-task33/launch.py --attempt p2-derivative-p1-c064-001 --driver derivative_shard --plan p2-derivative-p1-c064-001-plan.json --threads 1 --seconds 3600"
+    },
+    {
+      "attempt": "p2-derivative-p1-c128-001",
+      "plan": "codex/coexistence-task33/p2-derivative-p1-c128-001-plan.json",
+      "plan_sha256": "ee2be8167495bf144c12b7ca4cec82e28e3b70ac6251f246d41892c7f14dff30",
+      "phase": 1,
+      "start_column": 128,
+      "command": "python -I -B -u codex/coexistence-task33/launch.py --attempt p2-derivative-p1-c128-001 --driver derivative_shard --plan p2-derivative-p1-c128-001-plan.json --threads 1 --seconds 3600"
+    },
+    {
+      "attempt": "p2-derivative-p1-c192-001",
+      "plan": "codex/coexistence-task33/p2-derivative-p1-c192-001-plan.json",
+      "plan_sha256": "477523541f7b6c42ce3462a62ed7f03980e61486f1f18a39e214c4a1a5f68347",
+      "phase": 1,
+      "start_column": 192,
+      "command": "python -I -B -u codex/coexistence-task33/launch.py --attempt p2-derivative-p1-c192-001 --driver derivative_shard --plan p2-derivative-p1-c192-001-plan.json --threads 1 --seconds 3600"
+    },
+    {
+      "attempt": "p2-derivative-p1-c256-001",
+      "plan": "codex/coexistence-task33/p2-derivative-p1-c256-001-plan.json",
+      "plan_sha256": "65dbd261aedde57f271fffc4e9bc85c08bf446525c22e2614897f42f485c4f29",
+      "phase": 1,
+      "start_column": 256,
+      "command": "python -I -B -u codex/coexistence-task33/launch.py --attempt p2-derivative-p1-c256-001 --driver derivative_shard --plan p2-derivative-p1-c256-001-plan.json --threads 1 --seconds 3600"
+    },
+    {
+      "attempt": "p2-derivative-p1-c320-001",
+      "plan": "codex/coexistence-task33/p2-derivative-p1-c320-001-plan.json",
+      "plan_sha256": "536a896812b3fbc066de419c8c3f0c22db8ddde503b57928fe18d7b8e3b3c35c",
+      "phase": 1,
+      "start_column": 320,
+      "command": "python -I -B -u codex/coexistence-task33/launch.py --attempt p2-derivative-p1-c320-001 --driver derivative_shard --plan p2-derivative-p1-c320-001-plan.json --threads 1 --seconds 3600"
+    },
+    {
+      "attempt": "p2-derivative-p1-c384-001",
+      "plan": "codex/coexistence-task33/p2-derivative-p1-c384-001-plan.json",
+      "plan_sha256": "f8cf5cc8f6ac5ec1362f9f551fcac78cbd4db5e27745cf23cf1b34d50e882b0b",
+      "phase": 1,
+      "start_column": 384,
+      "command": "python -I -B -u codex/coexistence-task33/launch.py --attempt p2-derivative-p1-c384-001 --driver derivative_shard --plan p2-derivative-p1-c384-001-plan.json --threads 1 --seconds 3600"
+    },
+    {
+      "attempt": "p2-derivative-p1-c448-001",
+      "plan": "codex/coexistence-task33/p2-derivative-p1-c448-001-plan.json",
+      "plan_sha256": "5ef056f0022fa36f77d5f4c2b1ef37850425d7fc4916c6bab8cfc85be7c25e2b",
+      "phase": 1,
+      "start_column": 448,
+      "command": "python -I -B -u codex/coexistence-task33/launch.py --attempt p2-derivative-p1-c448-001 --driver derivative_shard --plan p2-derivative-p1-c448-001-plan.json --threads 1 --seconds 3600"
+    },
+    {
+      "attempt": "p2-derivative-p1-c512-001",
+      "plan": "codex/coexistence-task33/p2-derivative-p1-c512-001-plan.json",
+      "plan_sha256": "e92762aa3068a14ebe8368d177cf2d3c2d40cc751533c25e1cd59c57ccf33520",
+      "phase": 1,
+      "start_column": 512,
+      "command": "python -I -B -u codex/coexistence-task33/launch.py --attempt p2-derivative-p1-c512-001 --driver derivative_shard --plan p2-derivative-p1-c512-001-plan.json --threads 1 --seconds 3600"
+    },
+    {
+      "attempt": "p2-derivative-p1-c576-001",
+      "plan": "codex/coexistence-task33/p2-derivative-p1-c576-001-plan.json",
+      "plan_sha256": "495affc0b2f75d2c8cd1be61b09b18f884517d1e8a1a8c92432aa994262e2384",
+      "phase": 1,
+      "start_column": 576,
+      "command": "python -I -B -u codex/coexistence-task33/launch.py --attempt p2-derivative-p1-c576-001 --driver derivative_shard --plan p2-derivative-p1-c576-001-plan.json --threads 1 --seconds 3600"
+    },
+    {
+      "attempt": "p2-derivative-p1-c640-001",
+      "plan": "codex/coexistence-task33/p2-derivative-p1-c640-001-plan.json",
+      "plan_sha256": "a7ed045258b7b1d2037dfe20c05aa91d8e7837e34dda365907a48b497c02e72f",
+      "phase": 1,
+      "start_column": 640,
+      "command": "python -I -B -u codex/coexistence-task33/launch.py --attempt p2-derivative-p1-c640-001 --driver derivative_shard --plan p2-derivative-p1-c640-001-plan.json --threads 1 --seconds 3600"
+    },
+    {
+      "attempt": "p2-derivative-p1-c704-001",
+      "plan": "codex/coexistence-task33/p2-derivative-p1-c704-001-plan.json",
+      "plan_sha256": "38042b1bb09e232f00154705d0732d80a05c817efaf19e36b4f4b5fdf5001397",
+      "phase": 1,
+      "start_column": 704,
+      "command": "python -I -B -u codex/coexistence-task33/launch.py --attempt p2-derivative-p1-c704-001 --driver derivative_shard --plan p2-derivative-p1-c704-001-plan.json --threads 1 --seconds 3600"
+    },
+    {
+      "attempt": "p2-derivative-p1-c768-001",
+      "plan": "codex/coexistence-task33/p2-derivative-p1-c768-001-plan.json",
+      "plan_sha256": "8761cd4aea6719970b3663fc9f0df3b6975af967f592be9349f67cc22ef2e971",
+      "phase": 1,
+      "start_column": 768,
+      "command": "python -I -B -u codex/coexistence-task33/launch.py --attempt p2-derivative-p1-c768-001 --driver derivative_shard --plan p2-derivative-p1-c768-001-plan.json --threads 1 --seconds 3600"
+    },
+    {
+      "attempt": "p2-derivative-p1-c832-001",
+      "plan": "codex/coexistence-task33/p2-derivative-p1-c832-001-plan.json",
+      "plan_sha256": "e22b5c64de076a95d309863ff2933a9ece4e97c6607aed016f48c03632c2d073",
+      "phase": 1,
+      "start_column": 832,
+      "command": "python -I -B -u codex/coexistence-task33/launch.py --attempt p2-derivative-p1-c832-001 --driver derivative_shard --plan p2-derivative-p1-c832-001-plan.json --threads 1 --seconds 3600"
+    }
+  ],
+  "measured_cost": {
+    "basis": "Closed calibration002: same backend,1024bits,64columns/fullvocabulary, earlier P8 domain. New-domain cost is forecast only.",
+    "per_shard_worker_seconds": 1866.785209,
+    "total_serial_forecast_seconds": 52269.985852,
+    "per_shard_hard_wall_seconds": 3600,
+    "per_shard_memory_gib": 18,
+    "per_shard_cpu_threads": 1,
+    "retained_storage_reservation_gib": 8
+  },
+  "preflight": [
+    "Exact scientific source,all28plan hashes,all upstream files and model assets; real absolute paths, no symlink relocation.",
+    "All runtime build/module versions as calibration002; no spoofing.",
+    "Claude exclusively records approved ceiling, exact pod ownership, effective cgroup CPU/RAM admission, bounded setup/retrieval/cleanup and verified termination. Each distinct worker reserves18GiB plus shared4GiB per pod, CPU1. Packing count limited by actual effective capacity and approved ceiling.",
+    "Each attempt fresh and run at most once; no automatic retries, extensions or precision change. Retain all failures.",
+    "Capture complete original source/manifest/plan/native outputs/events/stdout/stderr/receipt and exact writer termination evidence; retrieve and hash before terminating dedicated resources.",
+    "Return each completed attempt promptly, do not wait for all28. Use isolated returned_shard.py for operational admission; original signed endpoint audit and strict mathematical gates follow."
+  ],
+  "claim": "Derivative enclosures only. No certificate, token label or basin reachability claim from completion.",
+  "required_import_versions": {
+    "threadpoolctl": "3.7.0",
+    "tokenizers": "0.23.3",
+    "safetensors": "0.8.0",
+    "numpy": "2.5.3",
+    "python-flint": "0.9.0",
+    "torch_distribution": "2.14.1"
+  }
+}
