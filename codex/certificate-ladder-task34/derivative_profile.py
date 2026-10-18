@@ -9,9 +9,14 @@ def sha(path):
         for b in iter(lambda: f.read(1048576), b''): h.update(b)
     return h.hexdigest()
 
+def validate_cells(cells):
+    expected=[('cascade-p3',.0650,-.14798,3),('cascade-p6',.065693,-.14798,6),('cascade-p12',.0659717,-.14798,12),('band-p6',.0700,-.1404,6),('stripe-p10',.06776,-.115,10)]
+    actual=[(c['name'],c['alpha'],c['log10T'],c['period']) for c in cells]
+    if actual!=expected:raise ValueError('exact five-cell allocation differs')
+
 def main():
     ap = argparse.ArgumentParser(); ap.add_argument('--card', required=True); ap.add_argument('--out', required=True)
-    args = ap.parse_args(); card = json.loads(Path(args.card).read_text())
+    args = ap.parse_args(); card = json.loads(Path(args.card).read_text());validate_cells(card['cells'])
     for e in card['inputs']:
         if sha(e['path']) != e['sha256']: raise ValueError('input hash mismatch')
     out = Path(args.out); out.mkdir(parents=True, exist_ok=False)
