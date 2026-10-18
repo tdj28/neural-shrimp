@@ -30109,3 +30109,41 @@ chaotic.
 - The article and the full report are updated.
 
 Cost about $0.7 (three pods, about 5 minutes each).
+
+## 2026-10-19 00:20 UTC: run card P9S (exploratory): is the period-9 window of Fig. 1 a second shrimp? With HR9, a 3x finer map of its region
+
+**Origin.** The human spotted a shrimp-like window in the crossing window (Fig. 1) near alpha 0.0735-0.0750,
+log10 T -0.155: "I see a classic shrimp shape ... did we check that one out". The 512^2 map shows a period-9 window
+there:
+- family 192 ("\n\nThe question\n\nThe existence\n\nThe existence") fills 1,470 cells around alpha 0.0706-0.0762,
+  log10 T -0.157 to -0.145;
+- family 2 ("\n\nThe question\n\nThe question\n\nThe existence") fills 2,189 cells just below it;
+- period-18 cells (162) lie beside it.
+It was never analyzed. The human asked for the full study before v1.
+
+**Criteria, fixed now (as for the period-5 shrimp).** The window is called a shrimp only if all of these hold:
+- primitive period-9 orbits of the full state, verified by Newton in float64, with their stability;
+- fold and flip curves continued in (alpha, log10 T);
+- a body with legs bounded by those curves, and the doubled shells beyond the flips;
+- the edge of the followed domain matched by the curves (boundary gate as for the period-5 shrimp: neighbouring
+  pairs with period 9 | period 18 within one or two grid steps of a flip curve, period 9 | lost within one or two
+  steps of a fold or flip curve).
+Cusps are located where a fold curve turns back. Otherwise the window is reported as a shrimp-shaped window, with
+what failed.
+
+**Runs.**
+- P9S-orbits (local, float64): Newton at the most contracting interior cell of each family:
+  - family 192 at (0.074388, -0.15362);
+  - family 2 at (0.075709, -0.16384).
+- P9S-curves: eight H100-class pods (job set toolseq, explore_llm_soft_loop.py, float64, philosophy@12).
+  - Each pod runs one branch of the family-192 period-9 orbit from (0.074388, -0.15362): log10 T up or down, or
+    alpha up or down; 150 points; ds 0.002, ds-max 0.01; 5e-4 past the first turn.
+  - Each pod then continues that branch's boundary (fold or flip, auto) in one direction: 120 points; ds 0.002,
+    ds-max 0.02; tol 1e-10; gtol 1e-9; bounds alpha [0.068, 0.080], log10 T [-0.175, -0.135].
+- P9S-follow: tools/follow_attractor.py extended to the (alpha, log10 T) plane (in progress), then one pod.
+- HR9: the region alpha [0.0710, 0.0760] x log10 T [-0.1625, -0.1475] at 512 x 512 float64 cells, with Fig. 1's
+  scan settings (transient 300, samples 300, record 80, max period 32, tol 1e-8, eps 1e-6, chaos level 1e-3), in
+  eight bands of 64 rows on eight pods (job set scanband), stitched locally.
+
+**Gates.** Every curve point's residual, test function and critical multiplier are read from the raw files before any
+summary. A fold curve must keep a real +1 and a flip curve a real -1.
