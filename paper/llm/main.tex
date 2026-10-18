@@ -187,7 +187,7 @@ Late doubling ratios approach Feigenbaum's $\delta$, at the float64 floor & nume
 Every tangent reversal of the continued fold curves is a cusp; local unfoldings match Newton solves & numerical; unfoldings frozen & Sec.~\ref{sec:organization} \\
 A period-5 window is a shrimp in a two-parameter plane (boundary organization) & numerical; found by search & Sec.~\ref{sec:organization} \\
 An attracting period-8 orbit exists & proof & App.~\ref{sec:evidence} \\
-Attracting orbits of periods 2 and 3 coexist at one parameter cell, with certified token loops & proof & App.~\ref{sec:evidence} \\
+Attracting orbits of periods 2 and 3 coexist at one parameter cell, with certified token loops and basin neighbourhoods & proof & App.~\ref{sec:evidence} \\
 No accuracy information beyond first-token uncertainty; no edge-of-chaos advantage & frozen; bounded nulls & Sec.~\ref{sec:consequences} \\
 Huginn: a predicted accuracy loss & frozen & Sec.~\ref{sec:huginn} \\
 \bottomrule
@@ -244,7 +244,8 @@ Huginn: a predicted accuracy loss & frozen & Sec.~\ref{sec:huginn} \\
   13 points and found two coexisting attracting orbits at all five points inside it. An interval-arithmetic proof shows that a primitive period-8 orbit exists and is locally attracting, to our
   knowledge the first proof of a periodic orbit of a full transformer language-model map. A second proof of
   the same kind shows that at one parameter cell a period-2 and a period-3 orbit coexist, each unique in its box and
-  locally attracting: two different attracting behaviors under identical settings (Appendix~\ref{sec:evidence}).
+  locally attracting, each with a certified, if tiny, neighbourhood of its basin: two different attracting behaviors
+  under identical settings (Appendix~\ref{sec:evidence}).
 \item \emph{Beyond the one-token loop} (Sections~\ref{sec:beyond} to~\ref{sec:dialogue}). The chaos is not an
   artifact of the one-token window: with a memory of 8 or 16 soft tokens Qwen2.5-7B is chaotic at more temperatures
   than with one, and in Soft Thinking's growing context a tiny early perturbation grows exponentially inside its
@@ -4778,8 +4779,12 @@ from the raw maps as the set whose omission reproduces both totals (\repo{docs/r
   151\,936 tokens by a positive margin, so the 2-cycle writes `` is it'' and the 3-cycle a blank line, ``The'' and
   `` existence'' (\path{codex/coexistence-task33/token-labels-release.json}); the same check gives the period-8
   orbit's loop `` is there is a is a. This''. These are the readouts of the feedback orbits, not sentences generated
-  autoregressively. The proof says nothing about which orbit a given start reaches, the trapping of the whole box or
-  the window's global organization. The record is
+  autoregressively. A further certificate gives explicit basin neighbourhoods: every state in the closed
+  infinity-norm ball of radius $2^{-681}$ about the 2-cycle's frozen center at phase 0 converges to the 2-cycle, and
+  every state within $2^{-700}$ of the 3-cycle's center converges to the 3-cycle
+  (\path{codex/coexistence-task33/inner-basin-release.json}). These neighbourhoods are tiny. The proofs say nothing
+  about which orbit a start outside them reaches, including the fixed start of the maps, nor about the trapping of
+  the whole box or the window's global organization. The record is
   \path{codex/coexistence-task33/pair-certificate-release.json}.
 \item Rung 2: the 2-cycle's fold and its normal form. An independent reimplementation of the forward map and solver
   recovers $\alpha_c$, $a$ and $b$ (to $6\times10^{-15}$, $3\times10^{-12}$ and $2\times10^{-6}$ relatively), and $ab$
