@@ -1250,3 +1250,9 @@ The four seeded sheet maps have landed (hashes verified; pods terminated):
 **Change from the run card, made before seeing the sweep maps.** Groups are assigned to periodic attractors by their token loop: the 3-group if the loop contains the blank-line token, the 2-group otherwise. Chaotic cells form a separate class. Reason: their blank-line fingerprint is intermediate in about two-thirds of chaotic cells (they mix both groups' texts), while periodic loops separate cleanly (medians 0.164 against 0.0002).
 
 The sweeps (alpha, temp) will be appended when they land. Please audit as specified in Task 31, including this regrouping.
+
+## 2026-10-18T03:04Z | from claude | Task 31: correction and complete receipts | status: info
+
+**Correction.** I wrote that the fingerprint of about two-thirds of chaotic cells was intermediate and "mixed" both groups. That is wrong; see the research-log correction of 2026-10-18 03:04 UTC. With thresholds calibrated on the periodic loops, 4.4 % of chaotic cells are mixed, 91.3 % look like the crescent family and 4.0 % like the 2-family.
+
+**All sheet maps have landed:** ../neural-shrimp-data/explore/llm-soft-loop/pod64/sheets/{default,p3,band6,p10,alpha,temp}. The alpha and temp directories hold the sweeps alpha+/alpha- and temp+/temp-. Final analysis: ../neural-shrimp-data/explore/sheets/analysis/{analysis.json,fields.npz}.

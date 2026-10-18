@@ -29065,3 +29065,17 @@ Periods are checked by full-state recurrence over 4 repetitions (q <= 64, tol 1e
 - This tells us nothing about the head at lower T. Raw data: explore/llm-soft-loop/pod64/sheets/p5temp-pilot.
 
 **Amendment 1** (before any rerun data). Steps of 0.005 in T. At each temperature, recentering comes before the head search: Gauss-Newton on log|mu1| along its finite-difference gradient, with steps capped at 3e-4 and halving, until |mu1| < 0.3, so the window is followed as it moves. The head-search step cap is raised to (1e-4, 2e-4). There are two offset points instead of four. The run stops, and says so, if recentering cannot recover an attracting orbit. Readouts and reading are unchanged.
+
+## 2026-10-18 03:04 UTC: Correction to "SH results, part 1": the chaos-fingerprint statement
+
+The entry said that 72 % of chaotic cells lie between 0.05 and 0.2 in the blank-line fingerprint, "mixing both groups' texts". Both parts are wrong:
+- The bins give 83 % (12,001 of 14,411 chaotic cells of the fixed-start map).
+- A value in that range does not mean mixing, because the crescent family's own periodic loops reach 0.06-0.37 in blank-line plus "The" probability.
+
+**Calibrated recount.** Two thresholds are set by the periodic loops:
+- crescent-family words ("\n\n", "The") above 0.030, which 99 % of the 2-family's periodic loops stay below;
+- 2-family words (" is", " it") above 0.323, which 99 % of the crescent family's loops stay below.
+
+On that basis, 629 chaotic cells (4.4 %) use both families' words heavily, 13,154 (91.3 %) look like the crescent family, 577 (4.0 %) like the 2-family, and 51 like neither.
+
+**Accurate statement.** Almost all chaotic attractors visit the crescent family's "\n\nThe" phrases, including the chaos between the stripe windows (see the chaos-texts table), so chaos cannot be cleanly assigned to the 2-cycle's side. The groups of periodic attractors, and every footprint and edge count, are unaffected.
