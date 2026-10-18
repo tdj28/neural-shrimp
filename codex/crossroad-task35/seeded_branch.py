@@ -63,7 +63,8 @@ def main():
         if not np.isfinite(rec['relative_residual']):rec['relative_residual']='nonfinite'
         with (out/'attempts.jsonl').open('a') as f:f.write(json.dumps(rec,allow_nan=False)+'\n')
     def on_state(index,state):np.save(out/f'accepted-state-{index:03d}.npy',state)
-    records,reason,ys=trace_branch(fam,fam.to_np(X),[10*c['alpha'],10*c['alpha2']],free=0 if c['free']=='alpha' else 1,direction=c['direction'],steps=c['steps'],ds=c['ds'],ds_min=c['ds_min'],ds_max=c['ds_max'],tol=1e-10,max_newton=10,beyond=.005,bounds=tuple(10*b for b in c['bounds']),on_point=on_point,k=896,refine_k=4,on_attempt=on_attempt,on_state=on_state)
+    def on_matrix(index,matrix):np.save(out/f'monodromy-{index:03d}.npy',matrix)
+    records,reason,ys=trace_branch(fam,fam.to_np(X),[10*c['alpha'],10*c['alpha2']],free=0 if c['free']=='alpha' else 1,direction=c['direction'],steps=c['steps'],ds=c['ds'],ds_min=c['ds_min'],ds_max=c['ds_max'],tol=1e-10,max_newton=10,beyond=.005,bounds=tuple(10*b for b in c['bounds']),on_point=on_point,k=896,refine_k=4,on_attempt=on_attempt,on_state=on_state,on_matrix=on_matrix)
     for row in records:
         row['lambda']/=10
         if 'turn_lambda_estimate' in row:row['turn_lambda_estimate']/=10

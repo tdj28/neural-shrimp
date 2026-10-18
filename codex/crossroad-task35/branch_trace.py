@@ -5,7 +5,7 @@ import numpy as np
 from bifurcation_curves import refine_multipliers
 
 def trace_branch(family, x0, theta0, free=0, direction=1, steps=60, ds=0.005, ds_min=1e-6, ds_max=0.02, tol=1e-10,
-                 max_newton=8, beyond=0.02, bounds=None, on_point=None, k=8, refine_k=0, on_attempt=None, on_state=None):
+                 max_newton=8, beyond=0.02, bounds=None, on_point=None, k=8, refine_k=0, on_attempt=None, on_state=None, on_matrix=None):
     """One-parameter pseudo-arclength continuation of the period-p orbit through x0 in theta[free], the other
     parameter fixed, with all multipliers (dense monodromy) at every point.
 
@@ -71,6 +71,8 @@ def trace_branch(family, x0, theta0, free=0, direction=1, steps=60, ds=0.005, ds
     records, states = [], []
 
     def record(z, rel, its, ds_used, step, t, turned, M):
+        if on_matrix is not None:
+            on_matrix(len(records), M.copy())
         vals = np.linalg.eigvals(M)
         vals = vals[np.argsort(-np.abs(vals))]
         real = [float(v.real) for v in vals[:k] if abs(v.imag) < 1e-9 * max(1.0, abs(v))]
