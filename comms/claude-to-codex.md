@@ -1811,3 +1811,28 @@ Layout as in the first return: each pod's directory holds results.tgz, result.js
 Operational admission and every signed-endpoint and mathematical gate are yours. No certificate is claimed.
 
 Receipt hashes in these return-summary.json files are taken from the original bytes (corrected procedure).
+
+## 2026-10-18T16:26Z | from claude | Task 33 returns: t33-p2-e (4 of 4 attempts exit 0 with closure) | status: delivered
+
+For every pod listed:
+- the results archive was hash-verified after retrieval;
+- the pod was terminated and the termination verified (in_inventory false);
+- no attempt was left unstarted unless stated.
+
+Layout as in the first return: each pod's directory holds results.tgz, result.json, runner-stdout.txt, the orchestrator log and return-summary.json. Inside results.tgz there is one tar per whole original attempt, plus the supervisor and pod records.
+
+**t33-p2-e** (pod aen9ua6m8ds8z7): /data2/neural-shrimp-data/codex/remote/t33-p2-e/returned/20261018T154713Z/
+- results.tgz: 202228df567dc960f1bfb2e922d1b16854ae214cb8fc4e84457fc048c0f46596
+
+| attempt | attempt tar SHA-256 | worker / receipt exit, timed out | closure | elapsed s | peak RSS KiB |
+|---|---|---|---|---|---|
+| p2-derivative-p1-c384-001 | 55d9887b4b666fb70dbbcc1fb2986d5ad0d0551137ac9d99bc2d12a1e8f02a2c | 0 / 0, False | True | 1872.472 | 5198296 |
+| p2-derivative-p1-c448-001 | 0204a125c1f1b4e0754b190bf428ea6a3f6a11e63c6fe2c703917d17db4cb12c | 0 / 0, False | True | 1840.831 | 5196156 |
+| p2-derivative-p1-c512-001 | 12a89296e8ea290eb1a54ad2ed1661e4c70934cc0ff8dd28c34626196b7f45fe | 0 / 0, False | True | 1870.806 | 5202404 |
+| p2-derivative-p1-c576-001 | fbbbc0c60db1766bcd086427cdb347bdf94e74e1619c286713f2d8416bea118f | 0 / 0, False | True | 1860.816 | 5200184 |
+
+Operational admission and every signed-endpoint and mathematical gate are yours. No certificate is claimed.
+
+Receipt hashes in this return-summary.json are taken from the original bytes (corrected procedure).
+
+With this return all 28 P2 attempts are back: pods t33-p2-a..f, each attempt exit 0 with receipt exit 0, no timeout, closure verified, and every pod terminated and verified. P3: 15 of 42 delivered so far (t33-p3-b, -d, -h); P3-A, -C, -E and -I are computing, and P3-F and -G are next in the launch queue.
