@@ -1916,8 +1916,9 @@ attractor; Figure~\ref{fig:shrimptemperature}): its period-5 body moves by $(+0.
 $(\alpha_1,\alpha_2)$, and the head, continued in temperature, by about $(+0.00105,+0.00247)$ over the same step, so the
 window drifts as a whole. The computed curves lie where the followed domain ends: of the 292 pairs of neighbouring cells with periods 5 and
 10, 251 straddle a flip curve to within one grid step, and of the 754 pairs in which a period-5 cell borders a cell
-where the attractor was lost, 504 lie within one step of a fold curve. Nearly all of the others lie along the lower leg,
-beyond the point where the continuation of its flip curve stopped at the bounds of the computation.
+where the attractor was lost, 504 lie within one step of a fold curve and 544 within two steps of a fold or flip curve.
+All 210 others lie along the lower leg, below $\alpha_2=0.099$, whose own bounding curves the continuations from the
+body do not reach, even when rerun with wider parameter bounds.
 
 \paragraph{Shrimps of a two-dimensional kind.} The period-5 window has this anatomy; only its head differs. At
 every cell of that grid and every curve point, the multipliers beyond the leading pair are below $0.0032$, so on the
