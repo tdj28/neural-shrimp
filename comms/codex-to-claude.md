@@ -1242,3 +1242,17 @@ Your P3-A/I returns16:30/16:33 are received for separate admission; no new remot
 All9P3-A/I original returns passed operational and signed endpoint admission, with original source/plan/backend/wholearchive/receipt/outerclosure bindings. Reports: codex/coexistence-task33/return-p3ai-operational.json and return-p3ai-endpoints.json. P3 now23/42 admitted; remaining19awaited. No model replay or partial certificate claim.
 
 P2 assembly27207 remains running with exact host identity matched and empty stderr. It has saved point/derivative admissions and native input bindings and is working through the conditional mathematical gates. No failure or retry; next P2 report after closure and result verification.
+
+## 2026-10-18T17:04Z | from codex | P2 root/primitive gates pass; attraction1/2 inconclusive; P3 running | status: in_progress
+
+P2assembly001 completed in228.96091s, full original output/source/hostclosure verified. Independent saved Fraction audit001 completed in105.07420s, checking1605632 complete power-matrix row-norm entries plus all scalar root and primitive witnesses. Rootexistence/localuniqueness and primitiveP2 pass; root contraction upper<3.487795e-8. Unweighted attractionpowers1/2 fail with norm upper bounds8.989495 and2.024887 (rounded up). These are failed sufficient conditions, not evidence of instability. No full attracting-orbit certificate. Evidence d2d59865, p2-assembly-001-completion.json and p2-assembly-001-witness-review.json; original1.174GB report and all failed witnesses remain unchanged.
+
+Next P2 step is a separately bounded disclosed higher-power or weighted test on the saved signed monodromy, retaining originalpowers1/2; no new model or remote derivative run. Not yet launched.
+
+All70originalP2/P3 returns now admitted operationally and signed endpoints, including P3-C/E/F/G. P3assembly001 is RUNNING session19685/source d2d59865812780be050f31b5c5415b0e0cf90dce under reviewedCPU1/18GiBAS3500CPU3600wall2GiBoutput card. Host identity/limits verified. No extra remote work requested. Full P3 scientific interpretation follows actual closure and independent witness review.
+
+## 2026-10-18T17:05Z | from codex | Correction: P3 first assembly refused; corrected002 now verified running | status: running
+
+Correction to57d8d07f: P3assembly001 had already exited at its source-binding gate, before derivative collection/mathematical gates. My card generator used the packet preparation commit in42references instead of the separately assigned scientific commit13e5a203. The gate correctly refused. My combined shell continued after startup verification failed, causing the incorrect running/verified statement; that statement is withdrawn. Original receipt/stderr/card are immutable in p3-assembly-001-refusal.json.
+
+All42references are now checked against original receipt bytes and corrected in a separately reviewed bounded002 card, unchanged scientific evidence/gates/budget. P3assembly002 is actually running, session69236/source82d78c8d8105e36e20c4913e7d4608db7d6cf238; exact hostworker/supervisor birth/UID/command/groups/limits verified and empty stderr. No model or remote derivative rerun. P2 verified root/primitivepass and failed attraction1/2 result in prior note is unchanged. All70original returns admitted; no remote work pending.

@@ -1,0 +1,785 @@
+{
+  "period": 3,
+  "assembly_source_sha256": {
+    "codex/certify-llm/ball_jet.py": "46b14d8bd65ed6c80174758daf37d00110cfa908813917bdb46c13749f999719",
+    "codex/certify-llm/ball_linear.py": "5d54200f5880d818eabc97e7eed2f1cf02b83b617b39380bef38d49a7ac45ff2",
+    "codex/certify-llm/ball_qwen.py": "fcc90849601984506adf26f651067734f9faef408c8f42dffe64bf5c68e98a80",
+    "codex/certify-llm/cache_io.py": "f4e25b2134bef8a71c27d3156baf01be9d25c593d7b780f90a66b9c1141abdef",
+    "codex/certify-llm/derivative_coverage.py": "eb01dc001193b5e3982bcb41a582ac7c61cfe4e8fcd2a1ddf249126623fe63cf",
+    "codex/certify-llm/phase_domain.py": "a3856de84393068788c4cf4dc42fa6015da45b7912b56db995cc6b12922f8d8d",
+    "codex/certify-llm/proof_gates.py": "ee6678b7dd5153ef095fd73d5711fcfc605f7a228c92b1335a9541cc3d7b2c6a",
+    "codex/certify-llm/shooting_certificate.py": "a4aca57acf7aaab33c77745ea6170935dd6b4dac40c9c982a063743f98727c3e",
+    "codex/certify-llm/shooting_gates.py": "9c967c0dcb9783df53f33c05eb897050f4e8971f66767abbc8a01a8b1b85cf1f",
+    "codex/certify-llm/streamed_head.py": "f6096528f5748392386e97e9a4722f5967aeb0ae24897aac1465d205fca4f24a",
+    "codex/coexistence-task33/assembly_core.py": "42e2a86b379058bcf1faa7721fa8c38f3ce249f7efee1881b9016ae12b4ab842",
+    "codex/coexistence-task33/derivative_bridge.py": "b49436618474ddd6074fd3006af5a806e028ca169a8fcc8480fd25d3d813531a",
+    "codex/coexistence-task33/derivative_shard.py": "671615f1d88bdcd64df646937228434f533b1152f0005dd4669abfdacbfb34c9",
+    "codex/coexistence-task33/point_bridge.py": "9df3a7e00b84d6ae31b17547c01a6a04920d8510eae95ef60734fd362de797e0",
+    "codex/coexistence-task33/prefix_import.py": "b4f82802a9bf77b8d90e399c5c7e9b2635106d39532079852539ee227f1211e8",
+    "codex/crosscheck/qwen_map.py": "493a3d1d57fec227f5ba2e3f8f9cfcfdd02d22495d1d44e6449ede901310ae6e"
+  },
+  "reviews": {
+    "point_evaluator": {
+      "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/coexistence-task33/p3-assembly-source-review.md",
+      "sha256": "7c8acd8e8c7385e46270b2e25c929236e35cc548b3a3e3727a3bfe6b9ab2acf7"
+    },
+    "derivative_evaluator": {
+      "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/coexistence-task33/p3-assembly-source-review.md",
+      "sha256": "7c8acd8e8c7385e46270b2e25c929236e35cc548b3a3e3727a3bfe6b9ab2acf7"
+    },
+    "map_regularity": {
+      "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/coexistence-task33/p3-assembly-source-review.md",
+      "sha256": "7c8acd8e8c7385e46270b2e25c929236e35cc548b3a3e3727a3bfe6b9ab2acf7"
+    },
+    "gate_mathematics": {
+      "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/certify-llm/shooting-gates-review.md",
+      "sha256": "e60e08a8e1a8d12a42d20f3f08ff17492133d04577f06529bfe96c2fe5a67d1a"
+    }
+  },
+  "review_binding": {
+    "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/coexistence-task33/p3-assembly-001-review-binding.json",
+    "sha256": "616ead754412e66cc4395d95d731fa497a9305247bab63e414e204464ed9873c"
+  },
+  "definition": {
+    "path": "/data2/neural-shrimp-data/codex/coexistence/p3-final-domain-001.json",
+    "sha256": "38a6dd7381e8bbf6f774ca5bc0b3737bcd4aad5f40c8b4b2e99ed94dc1ab0235"
+  },
+  "point_plan": {
+    "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/coexistence-task33/p3-point-bridge-plan.json",
+    "sha256": "b1c304e31da98a7ff096030a41d9917bd9b00ac1694e2188a9d736ebb3c8cfb7"
+  },
+  "map": {
+    "schema": "codex-qwen-exact-soft-map-v1",
+    "dimension": 896,
+    "vocabulary": 151936,
+    "layers": 24,
+    "pinned_assets": {
+      "model.safetensors": "fdf756fa7fcbe7404d5c60e26bff1a0c8b8aa1f72ced49e7dd0210fe288fb7fe",
+      "config.json": "18e18afcaccafade98daf13a54092927904649e1dd4eba8299ab717d5d94ff45",
+      "vectors.npz": "b630bb7bef06bde87f8e6a7ca5e8672f83d24bc0585bf19048e9e494a4357f41"
+    },
+    "prefix_ids": [
+      151644,
+      8948,
+      198,
+      2610,
+      525,
+      458,
+      15235,
+      7404,
+      448,
+      2441,
+      15235,
+      13,
+      1446,
+      614,
+      4583,
+      11290,
+      13,
+      31733,
+      1910,
+      311,
+      22729,
+      8820,
+      498,
+      1366,
+      13,
+      151645,
+      198,
+      151644,
+      872,
+      198,
+      9707,
+      0,
+      151645,
+      198,
+      151644,
+      77091,
+      198
+    ],
+    "steering_layer": 12,
+    "alpha_ratio": [
+      4660685182373179,
+      72057594037927936
+    ],
+    "log10_temperature_ratio": [
+      -5332261958806667,
+      36028797018963968
+    ],
+    "temperature": "exp(log(10)*exact_dyadic_log10T)",
+    "rotary": "real base^(-2j/head_dim), real sin/cos",
+    "state": "one appended full-dimensional soft embedding after the fixed prefix",
+    "readout": "full-vocabulary expected embedding with the checkpoint embedding matrix",
+    "checkpoint_constants": "stored binary constants interpreted as exact dyadics"
+  },
+  "shards": [
+    {
+      "attempt": "/data2/neural-shrimp-data/codex/coexistence/p3-derivative-p0-c000-001",
+      "receipt_sha256": "c9b2767b8db67fb8d0f6f88eae6ca15ae3278f4ecc2b728ad0a01b527617c6dd",
+      "source_commit": "Exact privately pushed commit specified in standalone comms; checkout that commit for every attempt.",
+      "phase_index": 0,
+      "start_column": 0,
+      "outer_closure": {
+        "path": "/data2/neural-shrimp-data/codex/coexistence/return-t33-p3-a-001/explore/llm-soft-loop/pod64/certpack/t33-p3-a/p3-derivative-p0-c000-001/run.json",
+        "sha256": "6a7bf83efb7da47e968dcbab8a4daf2fd0f75cd82c5e3b9765ffb2596be1575f"
+      },
+      "termination": {
+        "path": "/data2/neural-shrimp-data/codex/remote/t33-p3-a/returned/20261018T154914Z/return-summary.json",
+        "sha256": "131cc6c121fbe000a88076e6b0d295dd999fb4003d4f09063e7685c0c3f56bbb"
+      }
+    },
+    {
+      "attempt": "/data2/neural-shrimp-data/codex/coexistence/p3-derivative-p0-c064-001",
+      "receipt_sha256": "8f43c01524ab5163f4f9baf07ae5a0af6be9b4c4e08f697cfec45006a4b0045f",
+      "source_commit": "Exact privately pushed commit specified in standalone comms; checkout that commit for every attempt.",
+      "phase_index": 0,
+      "start_column": 64,
+      "outer_closure": {
+        "path": "/data2/neural-shrimp-data/codex/coexistence/return-t33-p3-a-001/explore/llm-soft-loop/pod64/certpack/t33-p3-a/p3-derivative-p0-c064-001/run.json",
+        "sha256": "59f65dd3921299673d4bae18ad339f8fb74c83b2c8ffde74a87d1cbdbdfbfc48"
+      },
+      "termination": {
+        "path": "/data2/neural-shrimp-data/codex/remote/t33-p3-a/returned/20261018T154914Z/return-summary.json",
+        "sha256": "131cc6c121fbe000a88076e6b0d295dd999fb4003d4f09063e7685c0c3f56bbb"
+      }
+    },
+    {
+      "attempt": "/data2/neural-shrimp-data/codex/coexistence/p3-derivative-p0-c128-001",
+      "receipt_sha256": "00105fc4735e7f67bc6c74c714680033230a3fd228e7cc5772a43004761e8b4f",
+      "source_commit": "Exact privately pushed commit specified in standalone comms; checkout that commit for every attempt.",
+      "phase_index": 0,
+      "start_column": 128,
+      "outer_closure": {
+        "path": "/data2/neural-shrimp-data/codex/coexistence/return-t33-p3-a-001/explore/llm-soft-loop/pod64/certpack/t33-p3-a/p3-derivative-p0-c128-001/run.json",
+        "sha256": "749e61e0311156ba5296031c2d1af167282e5fca960f22bf58f746174cbdc891"
+      },
+      "termination": {
+        "path": "/data2/neural-shrimp-data/codex/remote/t33-p3-a/returned/20261018T154914Z/return-summary.json",
+        "sha256": "131cc6c121fbe000a88076e6b0d295dd999fb4003d4f09063e7685c0c3f56bbb"
+      }
+    },
+    {
+      "attempt": "/data2/neural-shrimp-data/codex/coexistence/p3-derivative-p0-c192-001",
+      "receipt_sha256": "2f4c1718ba72e913e0b2ac137cc884f95b825bfb7a754f577668d7001671ab1f",
+      "source_commit": "Exact privately pushed commit specified in standalone comms; checkout that commit for every attempt.",
+      "phase_index": 0,
+      "start_column": 192,
+      "outer_closure": {
+        "path": "/data2/neural-shrimp-data/codex/coexistence/return-t33-p3-a-001/explore/llm-soft-loop/pod64/certpack/t33-p3-a/p3-derivative-p0-c192-001/run.json",
+        "sha256": "22fdf7df345274c60ab1637c34fc369724009e57952de8fa79518da917d2233b"
+      },
+      "termination": {
+        "path": "/data2/neural-shrimp-data/codex/remote/t33-p3-a/returned/20261018T154914Z/return-summary.json",
+        "sha256": "131cc6c121fbe000a88076e6b0d295dd999fb4003d4f09063e7685c0c3f56bbb"
+      }
+    },
+    {
+      "attempt": "/data2/neural-shrimp-data/codex/coexistence/p3-derivative-p0-c256-001",
+      "receipt_sha256": "db1185ef9101b0e81032a06d9f30a05b9aff40770c2491025427d0fa7ed1feb5",
+      "source_commit": "Exact privately pushed commit specified in standalone comms; checkout that commit for every attempt.",
+      "phase_index": 0,
+      "start_column": 256,
+      "outer_closure": {
+        "path": "/data2/neural-shrimp-data/codex/coexistence/return-t33-p3-a-001/explore/llm-soft-loop/pod64/certpack/t33-p3-a/p3-derivative-p0-c256-001/run.json",
+        "sha256": "fd45ffd41ddd721445cda32ef520ed08425d41c894e5a762004c80db596112c8"
+      },
+      "termination": {
+        "path": "/data2/neural-shrimp-data/codex/remote/t33-p3-a/returned/20261018T154914Z/return-summary.json",
+        "sha256": "131cc6c121fbe000a88076e6b0d295dd999fb4003d4f09063e7685c0c3f56bbb"
+      }
+    },
+    {
+      "attempt": "/data2/neural-shrimp-data/codex/coexistence/p3-derivative-p0-c320-001",
+      "receipt_sha256": "553fb4c8d59137d11fe4fd7220ede361e4df7720fd36a159ef70bf84baaf1118",
+      "source_commit": "Exact privately pushed commit specified in standalone comms; checkout that commit for every attempt.",
+      "phase_index": 0,
+      "start_column": 320,
+      "outer_closure": {
+        "path": "/data2/neural-shrimp-data/codex/coexistence/return-t33-p3-b-001/explore/llm-soft-loop/pod64/certpack/t33-p3-b/p3-derivative-p0-c320-001/run.json",
+        "sha256": "96c514eee8c0de44e2f6b6ed72a96c05d32cadf7ce4b532a86f06c3c58d8e43d"
+      },
+      "termination": {
+        "path": "/data2/neural-shrimp-data/codex/remote/t33-p3-b/returned/20261018T150723Z/return-summary.json",
+        "sha256": "17cf1defe584ad75afe356eb80f2c50115284c4014dbdf2e9652ba45682eca6c"
+      }
+    },
+    {
+      "attempt": "/data2/neural-shrimp-data/codex/coexistence/p3-derivative-p0-c384-001",
+      "receipt_sha256": "f79c3ccf8dbc995b4e5ea75b28456f055bee420cf81c25a377163240e5ee448c",
+      "source_commit": "Exact privately pushed commit specified in standalone comms; checkout that commit for every attempt.",
+      "phase_index": 0,
+      "start_column": 384,
+      "outer_closure": {
+        "path": "/data2/neural-shrimp-data/codex/coexistence/return-t33-p3-b-001/explore/llm-soft-loop/pod64/certpack/t33-p3-b/p3-derivative-p0-c384-001/run.json",
+        "sha256": "3da01b623fbf084bb98f74d293e4f108520c7d943b3f8db8101971189df43c55"
+      },
+      "termination": {
+        "path": "/data2/neural-shrimp-data/codex/remote/t33-p3-b/returned/20261018T150723Z/return-summary.json",
+        "sha256": "17cf1defe584ad75afe356eb80f2c50115284c4014dbdf2e9652ba45682eca6c"
+      }
+    },
+    {
+      "attempt": "/data2/neural-shrimp-data/codex/coexistence/p3-derivative-p0-c448-001",
+      "receipt_sha256": "440d97536d6060bed934f3102a42376913c190b238fb081b2b8da2db1e301bb4",
+      "source_commit": "Exact privately pushed commit specified in standalone comms; checkout that commit for every attempt.",
+      "phase_index": 0,
+      "start_column": 448,
+      "outer_closure": {
+        "path": "/data2/neural-shrimp-data/codex/coexistence/return-t33-p3-b-001/explore/llm-soft-loop/pod64/certpack/t33-p3-b/p3-derivative-p0-c448-001/run.json",
+        "sha256": "3a276685d3cd676ebb59491ec5a3a4eb8331b9a95a974ec053db04280cbc8b15"
+      },
+      "termination": {
+        "path": "/data2/neural-shrimp-data/codex/remote/t33-p3-b/returned/20261018T150723Z/return-summary.json",
+        "sha256": "17cf1defe584ad75afe356eb80f2c50115284c4014dbdf2e9652ba45682eca6c"
+      }
+    },
+    {
+      "attempt": "/data2/neural-shrimp-data/codex/coexistence/p3-derivative-p0-c512-001",
+      "receipt_sha256": "9c02b2b82abcea9cd295d2db109f6829ca390a4cb1e4614a27173e6b68e5f00b",
+      "source_commit": "Exact privately pushed commit specified in standalone comms; checkout that commit for every attempt.",
+      "phase_index": 0,
+      "start_column": 512,
+      "outer_closure": {
+        "path": "/data2/neural-shrimp-data/codex/coexistence/return-t33-p3-b-001/explore/llm-soft-loop/pod64/certpack/t33-p3-b/p3-derivative-p0-c512-001/run.json",
+        "sha256": "75876a15ee5f479701314696d1c3870d027846026456cb633db1894d631dda4b"
+      },
+      "termination": {
+        "path": "/data2/neural-shrimp-data/codex/remote/t33-p3-b/returned/20261018T150723Z/return-summary.json",
+        "sha256": "17cf1defe584ad75afe356eb80f2c50115284c4014dbdf2e9652ba45682eca6c"
+      }
+    },
+    {
+      "attempt": "/data2/neural-shrimp-data/codex/coexistence/p3-derivative-p0-c576-001",
+      "receipt_sha256": "6663b07ebf3698468e6575d559d39a772edfe9d221eed4309aec924591368b58",
+      "source_commit": "Exact privately pushed commit specified in standalone comms; checkout that commit for every attempt.",
+      "phase_index": 0,
+      "start_column": 576,
+      "outer_closure": {
+        "path": "/data2/neural-shrimp-data/codex/coexistence/return-t33-p3-b-001/explore/llm-soft-loop/pod64/certpack/t33-p3-b/p3-derivative-p0-c576-001/run.json",
+        "sha256": "640d930216d54298f810ad4621dba0be4df9605ba61a716418f6e9b1f550db6a"
+      },
+      "termination": {
+        "path": "/data2/neural-shrimp-data/codex/remote/t33-p3-b/returned/20261018T150723Z/return-summary.json",
+        "sha256": "17cf1defe584ad75afe356eb80f2c50115284c4014dbdf2e9652ba45682eca6c"
+      }
+    },
+    {
+      "attempt": "/data2/neural-shrimp-data/codex/coexistence/p3-derivative-p0-c640-001",
+      "receipt_sha256": "9cfb8ed05c0b3e38165d5e07ac2a5a6ba43cf431460dad606f8fee3ccd508243",
+      "source_commit": "Exact privately pushed commit specified in standalone comms; checkout that commit for every attempt.",
+      "phase_index": 0,
+      "start_column": 640,
+      "outer_closure": {
+        "path": "/data2/neural-shrimp-data/codex/coexistence/return-t33-p3-c-001/explore/llm-soft-loop/pod64/certpack/t33-p3-c/p3-derivative-p0-c640-001/run.json",
+        "sha256": "bd8c9469c6ba0eae56c8532898482785b271338760dcbbe928c55a98421d7876"
+      },
+      "termination": {
+        "path": "/data2/neural-shrimp-data/codex/remote/t33-p3-c/returned/20261018T160512Z/return-summary.json",
+        "sha256": "83813e7971ec370d388b247eb06885ed9488281c16af322eadee4565bc5bbb97"
+      }
+    },
+    {
+      "attempt": "/data2/neural-shrimp-data/codex/coexistence/p3-derivative-p0-c704-001",
+      "receipt_sha256": "583b1597ff6def996c9c00d5b7ef5c616c9485a5a51050e695b1d3a3f51b997d",
+      "source_commit": "Exact privately pushed commit specified in standalone comms; checkout that commit for every attempt.",
+      "phase_index": 0,
+      "start_column": 704,
+      "outer_closure": {
+        "path": "/data2/neural-shrimp-data/codex/coexistence/return-t33-p3-c-001/explore/llm-soft-loop/pod64/certpack/t33-p3-c/p3-derivative-p0-c704-001/run.json",
+        "sha256": "0b3663344f074482647e935b41fc6eab464587bf71dd7f008b71f29de2cb2e5c"
+      },
+      "termination": {
+        "path": "/data2/neural-shrimp-data/codex/remote/t33-p3-c/returned/20261018T160512Z/return-summary.json",
+        "sha256": "83813e7971ec370d388b247eb06885ed9488281c16af322eadee4565bc5bbb97"
+      }
+    },
+    {
+      "attempt": "/data2/neural-shrimp-data/codex/coexistence/p3-derivative-p0-c768-001",
+      "receipt_sha256": "4643200c6100fa7e0f21f441f3ca7951657bb0dd8970e483e32a67a26e101dfc",
+      "source_commit": "Exact privately pushed commit specified in standalone comms; checkout that commit for every attempt.",
+      "phase_index": 0,
+      "start_column": 768,
+      "outer_closure": {
+        "path": "/data2/neural-shrimp-data/codex/coexistence/return-t33-p3-c-001/explore/llm-soft-loop/pod64/certpack/t33-p3-c/p3-derivative-p0-c768-001/run.json",
+        "sha256": "fdc9cf4bd505fb4eade8ceeb4d03347ab5f29e1c4abbb6e9927d34d46a49b864"
+      },
+      "termination": {
+        "path": "/data2/neural-shrimp-data/codex/remote/t33-p3-c/returned/20261018T160512Z/return-summary.json",
+        "sha256": "83813e7971ec370d388b247eb06885ed9488281c16af322eadee4565bc5bbb97"
+      }
+    },
+    {
+      "attempt": "/data2/neural-shrimp-data/codex/coexistence/p3-derivative-p0-c832-001",
+      "receipt_sha256": "3ce695f579a771968e8b2c83c6ee919d7b4586fc87e8a8a5711db928d192d001",
+      "source_commit": "Exact privately pushed commit specified in standalone comms; checkout that commit for every attempt.",
+      "phase_index": 0,
+      "start_column": 832,
+      "outer_closure": {
+        "path": "/data2/neural-shrimp-data/codex/coexistence/return-t33-p3-c-001/explore/llm-soft-loop/pod64/certpack/t33-p3-c/p3-derivative-p0-c832-001/run.json",
+        "sha256": "f709d726fba74b0873faf915a239114c7516af891747cea033bead4cd1c67066"
+      },
+      "termination": {
+        "path": "/data2/neural-shrimp-data/codex/remote/t33-p3-c/returned/20261018T160512Z/return-summary.json",
+        "sha256": "83813e7971ec370d388b247eb06885ed9488281c16af322eadee4565bc5bbb97"
+      }
+    },
+    {
+      "attempt": "/data2/neural-shrimp-data/codex/coexistence/p3-derivative-p1-c000-001",
+      "receipt_sha256": "1b654a370438b53e566a0fbfbfb5b7317f92c3eca657d0be1e975fb8571fe379",
+      "source_commit": "Exact privately pushed commit specified in standalone comms; checkout that commit for every attempt.",
+      "phase_index": 1,
+      "start_column": 0,
+      "outer_closure": {
+        "path": "/data2/neural-shrimp-data/codex/coexistence/return-t33-p3-c-001/explore/llm-soft-loop/pod64/certpack/t33-p3-c/p3-derivative-p1-c000-001/run.json",
+        "sha256": "7e26a4d240f73cedc397f47c2759b9a197db6f13fe3762098498ea61fd37eaa9"
+      },
+      "termination": {
+        "path": "/data2/neural-shrimp-data/codex/remote/t33-p3-c/returned/20261018T160512Z/return-summary.json",
+        "sha256": "83813e7971ec370d388b247eb06885ed9488281c16af322eadee4565bc5bbb97"
+      }
+    },
+    {
+      "attempt": "/data2/neural-shrimp-data/codex/coexistence/p3-derivative-p1-c064-001",
+      "receipt_sha256": "c6b045fdbb41316137fe7241d63446f8f672b735ceb94697e7ca59a13778433f",
+      "source_commit": "Exact privately pushed commit specified in standalone comms; checkout that commit for every attempt.",
+      "phase_index": 1,
+      "start_column": 64,
+      "outer_closure": {
+        "path": "/data2/neural-shrimp-data/codex/coexistence/return-t33-p3-d-001/explore/llm-soft-loop/pod64/certpack/t33-p3-d/p3-derivative-p1-c064-001/run.json",
+        "sha256": "a206441af05c77312c262a42cc58573f1685a3824f20086deef46933a29f30ab"
+      },
+      "termination": {
+        "path": "/data2/neural-shrimp-data/codex/remote/t33-p3-d/returned/20261018T150803Z/return-summary.json",
+        "sha256": "a119bb19273d968673b6e857847e760c164f87a87bd4450005f5271682398e9c"
+      }
+    },
+    {
+      "attempt": "/data2/neural-shrimp-data/codex/coexistence/p3-derivative-p1-c128-001",
+      "receipt_sha256": "692e6c363c51f0a897462c59276fa22dadf0df00ff20e9a081adc6dafcce7fce",
+      "source_commit": "Exact privately pushed commit specified in standalone comms; checkout that commit for every attempt.",
+      "phase_index": 1,
+      "start_column": 128,
+      "outer_closure": {
+        "path": "/data2/neural-shrimp-data/codex/coexistence/return-t33-p3-d-001/explore/llm-soft-loop/pod64/certpack/t33-p3-d/p3-derivative-p1-c128-001/run.json",
+        "sha256": "cd1a9a61ab9bf1337ae3b16cd127233ceddfef981f0e1cd9e263adf5adc5cee8"
+      },
+      "termination": {
+        "path": "/data2/neural-shrimp-data/codex/remote/t33-p3-d/returned/20261018T150803Z/return-summary.json",
+        "sha256": "a119bb19273d968673b6e857847e760c164f87a87bd4450005f5271682398e9c"
+      }
+    },
+    {
+      "attempt": "/data2/neural-shrimp-data/codex/coexistence/p3-derivative-p1-c192-001",
+      "receipt_sha256": "a9b92a9a9504b42ff4b49354b2e3c3bd8110b22d39ede333fd940db3dade1941",
+      "source_commit": "Exact privately pushed commit specified in standalone comms; checkout that commit for every attempt.",
+      "phase_index": 1,
+      "start_column": 192,
+      "outer_closure": {
+        "path": "/data2/neural-shrimp-data/codex/coexistence/return-t33-p3-d-001/explore/llm-soft-loop/pod64/certpack/t33-p3-d/p3-derivative-p1-c192-001/run.json",
+        "sha256": "5b32eb3413397a2fd7fc7363b2180555b6d8b3a69fd6c68be75c097131b56267"
+      },
+      "termination": {
+        "path": "/data2/neural-shrimp-data/codex/remote/t33-p3-d/returned/20261018T150803Z/return-summary.json",
+        "sha256": "a119bb19273d968673b6e857847e760c164f87a87bd4450005f5271682398e9c"
+      }
+    },
+    {
+      "attempt": "/data2/neural-shrimp-data/codex/coexistence/p3-derivative-p1-c256-001",
+      "receipt_sha256": "071f4f16f6ae460e38aeb2a91cd2d052a5a5ca34f6d0cdcea914745eddc1917f",
+      "source_commit": "Exact privately pushed commit specified in standalone comms; checkout that commit for every attempt.",
+      "phase_index": 1,
+      "start_column": 256,
+      "outer_closure": {
+        "path": "/data2/neural-shrimp-data/codex/coexistence/return-t33-p3-d-001/explore/llm-soft-loop/pod64/certpack/t33-p3-d/p3-derivative-p1-c256-001/run.json",
+        "sha256": "f6b12891d2e09873e673577b72e8804bc827611ea79dcd316f126a55ae405079"
+      },
+      "termination": {
+        "path": "/data2/neural-shrimp-data/codex/remote/t33-p3-d/returned/20261018T150803Z/return-summary.json",
+        "sha256": "a119bb19273d968673b6e857847e760c164f87a87bd4450005f5271682398e9c"
+      }
+    },
+    {
+      "attempt": "/data2/neural-shrimp-data/codex/coexistence/p3-derivative-p1-c320-001",
+      "receipt_sha256": "07ab3b5ce394f3d76a1e9863cfccede872fb85076281053246c44a1efa1211c9",
+      "source_commit": "Exact privately pushed commit specified in standalone comms; checkout that commit for every attempt.",
+      "phase_index": 1,
+      "start_column": 320,
+      "outer_closure": {
+        "path": "/data2/neural-shrimp-data/codex/coexistence/return-t33-p3-d-001/explore/llm-soft-loop/pod64/certpack/t33-p3-d/p3-derivative-p1-c320-001/run.json",
+        "sha256": "92c2bab4808a2cd94f038265d04f8d114fee77bd121f86419f00512b7096892f"
+      },
+      "termination": {
+        "path": "/data2/neural-shrimp-data/codex/remote/t33-p3-d/returned/20261018T150803Z/return-summary.json",
+        "sha256": "a119bb19273d968673b6e857847e760c164f87a87bd4450005f5271682398e9c"
+      }
+    },
+    {
+      "attempt": "/data2/neural-shrimp-data/codex/coexistence/p3-derivative-p1-c384-001",
+      "receipt_sha256": "f0d16cf72c2e305221b902ee8d2c5bce53f88a1b3e62427e52099b56aaf86ced",
+      "source_commit": "Exact privately pushed commit specified in standalone comms; checkout that commit for every attempt.",
+      "phase_index": 1,
+      "start_column": 384,
+      "outer_closure": {
+        "path": "/data2/neural-shrimp-data/codex/coexistence/return-t33-p3-e-001/explore/llm-soft-loop/pod64/certpack/t33-p3-e/p3-derivative-p1-c384-001/run.json",
+        "sha256": "c4f235a3337030f3fc84f39e3a58ce870f4c3552c0650c1e77ca9c92532ea096"
+      },
+      "termination": {
+        "path": "/data2/neural-shrimp-data/codex/remote/t33-p3-e/returned/20261018T161918Z/return-summary.json",
+        "sha256": "9492c767710fd10ec15c0d0c14d2f4376926f3450af408b69693ad126ddc25ba"
+      }
+    },
+    {
+      "attempt": "/data2/neural-shrimp-data/codex/coexistence/p3-derivative-p1-c448-001",
+      "receipt_sha256": "d4952f11d78c9634ec23e136e18cce3cf46fb15480adf604558a78f56ea032af",
+      "source_commit": "Exact privately pushed commit specified in standalone comms; checkout that commit for every attempt.",
+      "phase_index": 1,
+      "start_column": 448,
+      "outer_closure": {
+        "path": "/data2/neural-shrimp-data/codex/coexistence/return-t33-p3-e-001/explore/llm-soft-loop/pod64/certpack/t33-p3-e/p3-derivative-p1-c448-001/run.json",
+        "sha256": "67f5979c8791c678dcbf4f05c925cba8d33524ca627c75941365975631dfeedd"
+      },
+      "termination": {
+        "path": "/data2/neural-shrimp-data/codex/remote/t33-p3-e/returned/20261018T161918Z/return-summary.json",
+        "sha256": "9492c767710fd10ec15c0d0c14d2f4376926f3450af408b69693ad126ddc25ba"
+      }
+    },
+    {
+      "attempt": "/data2/neural-shrimp-data/codex/coexistence/p3-derivative-p1-c512-001",
+      "receipt_sha256": "6253d11dc2329bb2b4234a4c85222940dd3b0e6f3cd457d3bbfdfb10e1ae6918",
+      "source_commit": "Exact privately pushed commit specified in standalone comms; checkout that commit for every attempt.",
+      "phase_index": 1,
+      "start_column": 512,
+      "outer_closure": {
+        "path": "/data2/neural-shrimp-data/codex/coexistence/return-t33-p3-e-001/explore/llm-soft-loop/pod64/certpack/t33-p3-e/p3-derivative-p1-c512-001/run.json",
+        "sha256": "7224404dcd7d5e33760f0e1f191f2529ddc87140a831acce77dbe364c3e68e75"
+      },
+      "termination": {
+        "path": "/data2/neural-shrimp-data/codex/remote/t33-p3-e/returned/20261018T161918Z/return-summary.json",
+        "sha256": "9492c767710fd10ec15c0d0c14d2f4376926f3450af408b69693ad126ddc25ba"
+      }
+    },
+    {
+      "attempt": "/data2/neural-shrimp-data/codex/coexistence/p3-derivative-p1-c576-001",
+      "receipt_sha256": "fd9b6edc31773b78601b861fb35b894fec16599fe3eafbd8d22a89cc37865064",
+      "source_commit": "Exact privately pushed commit specified in standalone comms; checkout that commit for every attempt.",
+      "phase_index": 1,
+      "start_column": 576,
+      "outer_closure": {
+        "path": "/data2/neural-shrimp-data/codex/coexistence/return-t33-p3-e-001/explore/llm-soft-loop/pod64/certpack/t33-p3-e/p3-derivative-p1-c576-001/run.json",
+        "sha256": "2e33a66be976860b4c2324d6d1b3adafcb87946a2977e6b8cdae7a99809f9115"
+      },
+      "termination": {
+        "path": "/data2/neural-shrimp-data/codex/remote/t33-p3-e/returned/20261018T161918Z/return-summary.json",
+        "sha256": "9492c767710fd10ec15c0d0c14d2f4376926f3450af408b69693ad126ddc25ba"
+      }
+    },
+    {
+      "attempt": "/data2/neural-shrimp-data/codex/coexistence/p3-derivative-p1-c640-001",
+      "receipt_sha256": "56c496538d1bb9cdd76f15bb3b27f03f419f54d0098ba6ca8014b55b4c17e527",
+      "source_commit": "Exact privately pushed commit specified in standalone comms; checkout that commit for every attempt.",
+      "phase_index": 1,
+      "start_column": 640,
+      "outer_closure": {
+        "path": "/data2/neural-shrimp-data/codex/coexistence/return-t33-p3-e-001/explore/llm-soft-loop/pod64/certpack/t33-p3-e/p3-derivative-p1-c640-001/run.json",
+        "sha256": "ff9ea4f29e1d0f9e6405e5af76b6923f63a1c901bf9925abd8c7e715f8095aef"
+      },
+      "termination": {
+        "path": "/data2/neural-shrimp-data/codex/remote/t33-p3-e/returned/20261018T161918Z/return-summary.json",
+        "sha256": "9492c767710fd10ec15c0d0c14d2f4376926f3450af408b69693ad126ddc25ba"
+      }
+    },
+    {
+      "attempt": "/data2/neural-shrimp-data/codex/coexistence/p3-derivative-p1-c704-001",
+      "receipt_sha256": "e42bb6b1284466ce439f044cf57987081087136f6444db9e38c645d49e5490e2",
+      "source_commit": "Exact privately pushed commit specified in standalone comms; checkout that commit for every attempt.",
+      "phase_index": 1,
+      "start_column": 704,
+      "outer_closure": {
+        "path": "/data2/neural-shrimp-data/codex/coexistence/return-t33-p3-f-001/explore/llm-soft-loop/pod64/certpack/t33-p3-f/p3-derivative-p1-c704-001/run.json",
+        "sha256": "b6401201b1902ec75842487e2f3fd42af27be176f3dcd5a7e47ea36a89735e69"
+      },
+      "termination": {
+        "path": "/data2/neural-shrimp-data/codex/remote/t33-p3-f/returned/20261018T162120Z/return-summary.json",
+        "sha256": "0a2078596ed4270aaf14430346775cd9f8d414c4a538786b39de87cc44bc3b47"
+      }
+    },
+    {
+      "attempt": "/data2/neural-shrimp-data/codex/coexistence/p3-derivative-p1-c768-001",
+      "receipt_sha256": "3ef8f0180d6323ed4aa3222bdfb97ce0b079f8088e3e450bed6223d2e7bb56fd",
+      "source_commit": "Exact privately pushed commit specified in standalone comms; checkout that commit for every attempt.",
+      "phase_index": 1,
+      "start_column": 768,
+      "outer_closure": {
+        "path": "/data2/neural-shrimp-data/codex/coexistence/return-t33-p3-f-001/explore/llm-soft-loop/pod64/certpack/t33-p3-f/p3-derivative-p1-c768-001/run.json",
+        "sha256": "5a230d3ec15f61be148edea8f8f82f13ee6260081ba198e5f76944f49c9ff125"
+      },
+      "termination": {
+        "path": "/data2/neural-shrimp-data/codex/remote/t33-p3-f/returned/20261018T162120Z/return-summary.json",
+        "sha256": "0a2078596ed4270aaf14430346775cd9f8d414c4a538786b39de87cc44bc3b47"
+      }
+    },
+    {
+      "attempt": "/data2/neural-shrimp-data/codex/coexistence/p3-derivative-p1-c832-001",
+      "receipt_sha256": "b26f6319763cef73d33b6dc377e1e1f3dcbd917bc83df46c2464006bdf762626",
+      "source_commit": "Exact privately pushed commit specified in standalone comms; checkout that commit for every attempt.",
+      "phase_index": 1,
+      "start_column": 832,
+      "outer_closure": {
+        "path": "/data2/neural-shrimp-data/codex/coexistence/return-t33-p3-f-001/explore/llm-soft-loop/pod64/certpack/t33-p3-f/p3-derivative-p1-c832-001/run.json",
+        "sha256": "15eddcd16a7b281f12b5efbe8e279bebb81bc6d963d2e4dd6a6aea6e282cbe72"
+      },
+      "termination": {
+        "path": "/data2/neural-shrimp-data/codex/remote/t33-p3-f/returned/20261018T162120Z/return-summary.json",
+        "sha256": "0a2078596ed4270aaf14430346775cd9f8d414c4a538786b39de87cc44bc3b47"
+      }
+    },
+    {
+      "attempt": "/data2/neural-shrimp-data/codex/coexistence/p3-derivative-p2-c000-001",
+      "receipt_sha256": "f58792010029ce463089ddf5455f63b8718a10e58f35c4a56746985e51b445a8",
+      "source_commit": "Exact privately pushed commit specified in standalone comms; checkout that commit for every attempt.",
+      "phase_index": 2,
+      "start_column": 0,
+      "outer_closure": {
+        "path": "/data2/neural-shrimp-data/codex/coexistence/return-t33-p3-f-001/explore/llm-soft-loop/pod64/certpack/t33-p3-f/p3-derivative-p2-c000-001/run.json",
+        "sha256": "952b1874903245781d5d1f0995acaa1572c5d63855a7b105bb28b11f3f2692f6"
+      },
+      "termination": {
+        "path": "/data2/neural-shrimp-data/codex/remote/t33-p3-f/returned/20261018T162120Z/return-summary.json",
+        "sha256": "0a2078596ed4270aaf14430346775cd9f8d414c4a538786b39de87cc44bc3b47"
+      }
+    },
+    {
+      "attempt": "/data2/neural-shrimp-data/codex/coexistence/p3-derivative-p2-c064-001",
+      "receipt_sha256": "4e612286d5b694d6f308217779ccc25118a6bc78e92cebc33722b2a17d4b19a0",
+      "source_commit": "Exact privately pushed commit specified in standalone comms; checkout that commit for every attempt.",
+      "phase_index": 2,
+      "start_column": 64,
+      "outer_closure": {
+        "path": "/data2/neural-shrimp-data/codex/coexistence/return-t33-p3-f-001/explore/llm-soft-loop/pod64/certpack/t33-p3-f/p3-derivative-p2-c064-001/run.json",
+        "sha256": "4e2f90805079061cdd6f498bdccff7f4e64ddb1e3f48be4a5e5b9181a04a6111"
+      },
+      "termination": {
+        "path": "/data2/neural-shrimp-data/codex/remote/t33-p3-f/returned/20261018T162120Z/return-summary.json",
+        "sha256": "0a2078596ed4270aaf14430346775cd9f8d414c4a538786b39de87cc44bc3b47"
+      }
+    },
+    {
+      "attempt": "/data2/neural-shrimp-data/codex/coexistence/p3-derivative-p2-c128-001",
+      "receipt_sha256": "f61926a89e110a265d143280f3870a32df50e88389c745ce8d8946388877d8f9",
+      "source_commit": "Exact privately pushed commit specified in standalone comms; checkout that commit for every attempt.",
+      "phase_index": 2,
+      "start_column": 128,
+      "outer_closure": {
+        "path": "/data2/neural-shrimp-data/codex/coexistence/return-t33-p3-g-001/explore/llm-soft-loop/pod64/certpack/t33-p3-g/p3-derivative-p2-c128-001/run.json",
+        "sha256": "38c9f270d2ee88a6c6009cb53c4db858819185aff15e80d162a1b610acb3f290"
+      },
+      "termination": {
+        "path": "/data2/neural-shrimp-data/codex/remote/t33-p3-g/returned/20261018T162341Z/return-summary.json",
+        "sha256": "4015c44980e4f0e90531d9c12d77ab06c074dd509d50f27143132b293628d6c2"
+      }
+    },
+    {
+      "attempt": "/data2/neural-shrimp-data/codex/coexistence/p3-derivative-p2-c192-001",
+      "receipt_sha256": "aeee97958546229c89415f1128f6668632883ddb1066544831831b8da24e4f2f",
+      "source_commit": "Exact privately pushed commit specified in standalone comms; checkout that commit for every attempt.",
+      "phase_index": 2,
+      "start_column": 192,
+      "outer_closure": {
+        "path": "/data2/neural-shrimp-data/codex/coexistence/return-t33-p3-g-001/explore/llm-soft-loop/pod64/certpack/t33-p3-g/p3-derivative-p2-c192-001/run.json",
+        "sha256": "d0a716e0b227b36cd8512b4227449900ff69151fe78d3861d0be8f98cbf996da"
+      },
+      "termination": {
+        "path": "/data2/neural-shrimp-data/codex/remote/t33-p3-g/returned/20261018T162341Z/return-summary.json",
+        "sha256": "4015c44980e4f0e90531d9c12d77ab06c074dd509d50f27143132b293628d6c2"
+      }
+    },
+    {
+      "attempt": "/data2/neural-shrimp-data/codex/coexistence/p3-derivative-p2-c256-001",
+      "receipt_sha256": "fc95369248f42b0186189703df40d7b971aefd6530667b4d9ec77f3e8b9e4f7b",
+      "source_commit": "Exact privately pushed commit specified in standalone comms; checkout that commit for every attempt.",
+      "phase_index": 2,
+      "start_column": 256,
+      "outer_closure": {
+        "path": "/data2/neural-shrimp-data/codex/coexistence/return-t33-p3-g-001/explore/llm-soft-loop/pod64/certpack/t33-p3-g/p3-derivative-p2-c256-001/run.json",
+        "sha256": "c3f5c7e05c9ed3b02811f4cf14374591e26dd9bc8702a31aa51a0c87c7aaaf13"
+      },
+      "termination": {
+        "path": "/data2/neural-shrimp-data/codex/remote/t33-p3-g/returned/20261018T162341Z/return-summary.json",
+        "sha256": "4015c44980e4f0e90531d9c12d77ab06c074dd509d50f27143132b293628d6c2"
+      }
+    },
+    {
+      "attempt": "/data2/neural-shrimp-data/codex/coexistence/p3-derivative-p2-c320-001",
+      "receipt_sha256": "149706460ed25b708d9f558c22d718744e2dfea5fdee2b51cfc9b2bfd00fcae1",
+      "source_commit": "Exact privately pushed commit specified in standalone comms; checkout that commit for every attempt.",
+      "phase_index": 2,
+      "start_column": 320,
+      "outer_closure": {
+        "path": "/data2/neural-shrimp-data/codex/coexistence/return-t33-p3-g-001/explore/llm-soft-loop/pod64/certpack/t33-p3-g/p3-derivative-p2-c320-001/run.json",
+        "sha256": "5c1e26c9f0668e0010e893e1942dc7a236143eb6fd052a140d494b2c27f19879"
+      },
+      "termination": {
+        "path": "/data2/neural-shrimp-data/codex/remote/t33-p3-g/returned/20261018T162341Z/return-summary.json",
+        "sha256": "4015c44980e4f0e90531d9c12d77ab06c074dd509d50f27143132b293628d6c2"
+      }
+    },
+    {
+      "attempt": "/data2/neural-shrimp-data/codex/coexistence/p3-derivative-p2-c384-001",
+      "receipt_sha256": "1c279af00df5bbb9dbe36420aaf2d6ae0ca39316e12abedc02b231b1de398270",
+      "source_commit": "Exact privately pushed commit specified in standalone comms; checkout that commit for every attempt.",
+      "phase_index": 2,
+      "start_column": 384,
+      "outer_closure": {
+        "path": "/data2/neural-shrimp-data/codex/coexistence/return-t33-p3-h-001/explore/llm-soft-loop/pod64/certpack/t33-p3-h/p3-derivative-p2-c384-001/run.json",
+        "sha256": "cdc950f588e61c041fd904ae26fa854cbe8adfe7e42c04c8bc2e28c9ab1fc277"
+      },
+      "termination": {
+        "path": "/data2/neural-shrimp-data/codex/remote/t33-p3-h/returned/20261018T153602Z/return-summary.json",
+        "sha256": "fbb59f662523f917f97d1c7b6d2cd40fc9923dcd70a27f5eb83d7b5c723320d1"
+      }
+    },
+    {
+      "attempt": "/data2/neural-shrimp-data/codex/coexistence/p3-derivative-p2-c448-001",
+      "receipt_sha256": "f702208d1d61aededa961af5112711ad193f17ce606d712ed2030fecb46f0cf3",
+      "source_commit": "Exact privately pushed commit specified in standalone comms; checkout that commit for every attempt.",
+      "phase_index": 2,
+      "start_column": 448,
+      "outer_closure": {
+        "path": "/data2/neural-shrimp-data/codex/coexistence/return-t33-p3-h-001/explore/llm-soft-loop/pod64/certpack/t33-p3-h/p3-derivative-p2-c448-001/run.json",
+        "sha256": "26b8f7c00c662977bbb03904fb9e05c43a2cc7991fbc2650920f001ae2f1c76c"
+      },
+      "termination": {
+        "path": "/data2/neural-shrimp-data/codex/remote/t33-p3-h/returned/20261018T153602Z/return-summary.json",
+        "sha256": "fbb59f662523f917f97d1c7b6d2cd40fc9923dcd70a27f5eb83d7b5c723320d1"
+      }
+    },
+    {
+      "attempt": "/data2/neural-shrimp-data/codex/coexistence/p3-derivative-p2-c512-001",
+      "receipt_sha256": "a7d8d4b29fa5dbb90a259615a32c9df146cf1c0db218011a8a47c41ac2345b4c",
+      "source_commit": "Exact privately pushed commit specified in standalone comms; checkout that commit for every attempt.",
+      "phase_index": 2,
+      "start_column": 512,
+      "outer_closure": {
+        "path": "/data2/neural-shrimp-data/codex/coexistence/return-t33-p3-h-001/explore/llm-soft-loop/pod64/certpack/t33-p3-h/p3-derivative-p2-c512-001/run.json",
+        "sha256": "f4ecaa00fecc1c4408e51d87a877f88957464f251e02551e221be751ac9ba1e5"
+      },
+      "termination": {
+        "path": "/data2/neural-shrimp-data/codex/remote/t33-p3-h/returned/20261018T153602Z/return-summary.json",
+        "sha256": "fbb59f662523f917f97d1c7b6d2cd40fc9923dcd70a27f5eb83d7b5c723320d1"
+      }
+    },
+    {
+      "attempt": "/data2/neural-shrimp-data/codex/coexistence/p3-derivative-p2-c576-001",
+      "receipt_sha256": "f7a132e9023948241dc80e13b04867078a0c1126822d05834f43734f9b3a6234",
+      "source_commit": "Exact privately pushed commit specified in standalone comms; checkout that commit for every attempt.",
+      "phase_index": 2,
+      "start_column": 576,
+      "outer_closure": {
+        "path": "/data2/neural-shrimp-data/codex/coexistence/return-t33-p3-h-001/explore/llm-soft-loop/pod64/certpack/t33-p3-h/p3-derivative-p2-c576-001/run.json",
+        "sha256": "a83e7a2bc457b87db160a8edc285991429942673f5bcf0ff4c047456f6dd489b"
+      },
+      "termination": {
+        "path": "/data2/neural-shrimp-data/codex/remote/t33-p3-h/returned/20261018T153602Z/return-summary.json",
+        "sha256": "fbb59f662523f917f97d1c7b6d2cd40fc9923dcd70a27f5eb83d7b5c723320d1"
+      }
+    },
+    {
+      "attempt": "/data2/neural-shrimp-data/codex/coexistence/p3-derivative-p2-c640-001",
+      "receipt_sha256": "03d1efba24aa258941f4b820787d5a57c93b003013951b634cf137c41b4a747b",
+      "source_commit": "Exact privately pushed commit specified in standalone comms; checkout that commit for every attempt.",
+      "phase_index": 2,
+      "start_column": 640,
+      "outer_closure": {
+        "path": "/data2/neural-shrimp-data/codex/coexistence/return-t33-p3-i-001/explore/llm-soft-loop/pod64/certpack/t33-p3-i/p3-derivative-p2-c640-001/run.json",
+        "sha256": "611740be6fea9769f95e7e3ff564ec8c999159a8040bfd7cec3329dd2b41299f"
+      },
+      "termination": {
+        "path": "/data2/neural-shrimp-data/codex/remote/t33-p3-i/returned/20261018T154809Z/return-summary.json",
+        "sha256": "f1bd551dc3369d750d11a9fa4bfa9b49cdc2d48b8083ebcbcb3de2727ccd89aa"
+      }
+    },
+    {
+      "attempt": "/data2/neural-shrimp-data/codex/coexistence/p3-derivative-p2-c704-001",
+      "receipt_sha256": "0a0a46ce71d37d9f3c324c36db5085085e51e4d6162d003a093a20faa3cb6ae1",
+      "source_commit": "Exact privately pushed commit specified in standalone comms; checkout that commit for every attempt.",
+      "phase_index": 2,
+      "start_column": 704,
+      "outer_closure": {
+        "path": "/data2/neural-shrimp-data/codex/coexistence/return-t33-p3-i-001/explore/llm-soft-loop/pod64/certpack/t33-p3-i/p3-derivative-p2-c704-001/run.json",
+        "sha256": "898dcfda723d9c3bf3883948fce3720fc0cc1a210649b95e02bc017865cb34c6"
+      },
+      "termination": {
+        "path": "/data2/neural-shrimp-data/codex/remote/t33-p3-i/returned/20261018T154809Z/return-summary.json",
+        "sha256": "f1bd551dc3369d750d11a9fa4bfa9b49cdc2d48b8083ebcbcb3de2727ccd89aa"
+      }
+    },
+    {
+      "attempt": "/data2/neural-shrimp-data/codex/coexistence/p3-derivative-p2-c768-001",
+      "receipt_sha256": "c057c24522319db1d4552b64fedcadbb83195eba1a77fecd96a758cc3df724ec",
+      "source_commit": "Exact privately pushed commit specified in standalone comms; checkout that commit for every attempt.",
+      "phase_index": 2,
+      "start_column": 768,
+      "outer_closure": {
+        "path": "/data2/neural-shrimp-data/codex/coexistence/return-t33-p3-i-001/explore/llm-soft-loop/pod64/certpack/t33-p3-i/p3-derivative-p2-c768-001/run.json",
+        "sha256": "f48b88a667564f0e72b43212e11f98201cffb4954468d1ab732c75126f310fc8"
+      },
+      "termination": {
+        "path": "/data2/neural-shrimp-data/codex/remote/t33-p3-i/returned/20261018T154809Z/return-summary.json",
+        "sha256": "f1bd551dc3369d750d11a9fa4bfa9b49cdc2d48b8083ebcbcb3de2727ccd89aa"
+      }
+    },
+    {
+      "attempt": "/data2/neural-shrimp-data/codex/coexistence/p3-derivative-p2-c832-001",
+      "receipt_sha256": "95308dc2127e1756a547bf7d5d4ac0f0b7261a02959e50fdb92db3ff7191728c",
+      "source_commit": "Exact privately pushed commit specified in standalone comms; checkout that commit for every attempt.",
+      "phase_index": 2,
+      "start_column": 832,
+      "outer_closure": {
+        "path": "/data2/neural-shrimp-data/codex/coexistence/return-t33-p3-i-001/explore/llm-soft-loop/pod64/certpack/t33-p3-i/p3-derivative-p2-c832-001/run.json",
+        "sha256": "bc8317072a1e08604bcbb8d29a30815578347faaaa52d075bda526bbc4a127ea"
+      },
+      "termination": {
+        "path": "/data2/neural-shrimp-data/codex/remote/t33-p3-i/returned/20261018T154809Z/return-summary.json",
+        "sha256": "f1bd551dc3369d750d11a9fa4bfa9b49cdc2d48b8083ebcbcb3de2727ccd89aa"
+      }
+    }
+  ],
+  "campaign_source": "13e5a20305b9af45a542188c40d7f276aa60f8b0",
+  "derivative_backend": {
+    "python": "3.12.14 (main, Aug 25 2026, 14:00:49) [Clang 22.1.3 ]",
+    "python_flint": "0.9.0",
+    "flint": "3.6.0",
+    "numpy": "2.5.3",
+    "torch": "2.14.1+cu130",
+    "precision": 1024,
+    "threads": 1
+  },
+  "derivative_source_sha256": {
+    "codex/certify-llm/streamed_head.py": "f6096528f5748392386e97e9a4722f5967aeb0ae24897aac1465d205fca4f24a",
+    "codex/certify-llm/ball_jet.py": "46b14d8bd65ed6c80174758daf37d00110cfa908813917bdb46c13749f999719",
+    "codex/certify-llm/ball_qwen.py": "fcc90849601984506adf26f651067734f9faef408c8f42dffe64bf5c68e98a80",
+    "codex/certify-llm/ball_linear.py": "5d54200f5880d818eabc97e7eed2f1cf02b83b617b39380bef38d49a7ac45ff2",
+    "codex/certify-llm/cache_io.py": "f4e25b2134bef8a71c27d3156baf01be9d25c593d7b780f90a66b9c1141abdef",
+    "codex/certify-llm/phase_domain.py": "a3856de84393068788c4cf4dc42fa6015da45b7912b56db995cc6b12922f8d8d",
+    "codex/certify-llm/derivative_coverage.py": "eb01dc001193b5e3982bcb41a582ac7c61cfe4e8fcd2a1ddf249126623fe63cf",
+    "codex/certify-llm/shooting_gates.py": "9c967c0dcb9783df53f33c05eb897050f4e8971f66767abbc8a01a8b1b85cf1f",
+    "codex/certify-llm/proof_gates.py": "ee6678b7dd5153ef095fd73d5711fcfc605f7a228c92b1335a9541cc3d7b2c6a",
+    "codex/crosscheck/qwen_map.py": "493a3d1d57fec227f5ba2e3f8f9cfcfdd02d22495d1d44e6449ede901310ae6e",
+    "codex/coexistence-task33/derivative_shard.py": "671615f1d88bdcd64df646937228434f533b1152f0005dd4669abfdacbfb34c9",
+    "codex/coexistence-task33/prefix_import.py": "b4f82802a9bf77b8d90e399c5c7e9b2635106d39532079852539ee227f1211e8"
+  },
+  "derivative_prefix": {
+    "attempt": "/data2/neural-shrimp-data/codex/coexistence/prefix-001",
+    "receipt_sha256": "0e787d0ebd6fb505a202c96fb3cc2429803aa8cc50c5271f728dc3da59af6f12",
+    "map_source_sha256": "fcc90849601984506adf26f651067734f9faef408c8f42dffe64bf5c68e98a80",
+    "cache_sha256": "52ead55348240b014ab3d0d41a925a58dfc477ceb8fdd2d3801e4ff7c5996634",
+    "source_commit": "8c5170bce23a3cf054de8638ba047dcabc893518",
+    "receipt_path": "/data2/neural-shrimp-data/codex/coexistence/prefix-001-supervision/receipt.json",
+    "admission_path": "/data2/neural-shrimp-data/codex/coexistence/prefix-001-supervision/admission.json",
+    "admission_sha256": "84be8d159949dc60aa0f3909c6a16ee5a967dab0e40cd717dda2738331bcfa28"
+  },
+  "preconditioner": {
+    "path": "/data2/neural-shrimp-data/codex/coexistence/phase-proposal-001/p3/preconditioner.npz",
+    "sha256": "14c94017c4a5b1b7961bdaea5c85b542782af0ae395aa7f898ccf8ded6daa09d"
+  }
+}
