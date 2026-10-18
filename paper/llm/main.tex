@@ -2029,11 +2029,17 @@ period 20 and 11 with period 40, a few with periods 15, 30 and 50 inside chaotic
 text and 178 converging slowly. At $\log_{10}T=-0.105$ the followed domain has the same anatomy (1760 cells on the
 attractor; Figure~\ref{fig:shrimptemperature}): its period-5 body moves by $(+0.00085,+0.00236)$ in
 $(\alpha_1,\alpha_2)$, and the head, continued in temperature, by about $(+0.00105,+0.00247)$ over the same step, so the
-window drifts as a whole. The computed curves lie where the followed domain ends: of the 292 pairs of neighbouring cells with periods 5 and
-10, 251 straddle a flip curve to within one grid step, and of the 754 pairs in which a period-5 cell borders a cell
-where the attractor was lost, 504 lie within one step of a fold curve and 544 within two steps of a fold or flip curve.
-All 210 others lie along the lower leg, below $\alpha_2=0.099$, whose own bounding curves the continuations from the
-body do not reach, even when rerun with wider parameter bounds.
+window drifts as a whole. The computed curves lie where the followed domain ends. The continuations from the body do
+not reach the lower-left leg's own boundary, even when rerun with wider parameter bounds, so we marched the period-5
+orbit into the leg by Newton's method, through the 68 cells by which the follow run entered it, and continued it there
+(Appendix~\ref{sec:hostility}, Figure~\ref{fig:lowerleg}). The leg is a strip between a flip curve on its left and a
+fold curve on its right. Every period-5 cell of the leg lies inside that strip (39 of 39), and no computed cell inside
+it is lost or has another period. With these curves, 276 of the 292 pairs of neighbouring cells with periods 5 and 10
+straddle a flip curve to within one grid step, and 290 to within two. Of the 754 pairs in which a period-5 cell borders
+a cell where the attractor was lost, 717 lie within one step of a fold curve and all 754 within two steps of a fold or
+flip curve, the farthest 1.7 steps away; with the body's curves alone these counts were 251, 504 and 544. Below
+$\alpha_2=0.0934$ the strip is narrower than one grid step (0.015 steps at $\alpha_2=0.080$, where the continuation
+reached its bound), so the leg goes on below the followed domain, too narrow to be followed cell by cell.
 
 \paragraph{Shrimps of a two-dimensional kind.} The period-5 window has this anatomy; only its head differs. At
 every cell of that grid and every curve point, the multipliers beyond the leading pair are below $0.0032$, so on the
@@ -2144,7 +2150,8 @@ number attracting (green: the count predicted before the computation; orange: no
 $\log_{10}T=-0.1$, float64). (a) The domain of the window's attractor, followed cell by cell from the body on a grid of
 spacing $1.25\times10^{-4}$, coloured by the period of the followed attractor (black: chaos behind the same five-token
 text; dark grey: no period found and no positive exponent; light grey: the attractor was lost), with the fold curves
-(black; multiplier $+1$) and flip curves (red, dashed; $-1$) of the period-5 orbit, the located cusps (gold stars), the
+(black; multiplier $+1$) and flip curves (red, dashed; $-1$) of the period-5 orbit, including the lower-left leg's own
+pair (Figure~\ref{fig:lowerleg}), the located cusps (gold stars), the
 self-crossings of the fold curves (magenta) and the near-nilpotent point (white circle). (b) The same domain coloured by
 the Lyapunov exponent of the periodic attractor (light blue: chaos behind the text): dark curves are the strongly
 contracting spines. (c) The body over the trace of the continued orbit's two leading multipliers (grey: repelling): the
@@ -3912,7 +3919,7 @@ in folds at $\alpha_1=-0.118166$ and $\alpha_2=0.102715$ (next moduli $0.0012$ a
 first loses stability in flips (at $\alpha_1=-0.12147$ and $\alpha_2=0.09954$), regains it where the same multiplier
 crosses $-1$ again (at $-0.12305$ and $0.09586$; a doubling bubble), and dies in a fold (at $-0.123323$ and
 $0.095720$). Three of these four folds lie on one continued fold curve (within $3.1\times10^{-7}$); the left one lies on a
-second. The first fold curve bounds the lower leg on its right, runs up the body's right edge and over its top, and
+second. The first fold curve bounds the lower-right leg on its right, runs up the body's right edge and over its top, and
 leaves along the upper leg. Near $\alpha_1=-0.1192$ its parameter tangent reverses twice, identically on two traces
 continued from different boundary points, and both reversals are located cusps (the test and criteria of
 Appendix~\ref{sec:curves}, applied on each trace): at $(\alpha_1,\alpha_2)=(-0.1192221,0.1040536)$, with
@@ -3921,7 +3928,7 @@ $\det J=88.6$. The two traces agree to $2\times10^{-12}$ in these positions and 
 Its outer arms cross at $(-0.11901,0.10346)$ (Figure~\ref{fig:period5folds}d). There they are folds of two different period-5 orbits with
 the same token loop: at the four continuation points that bracket the crossing, the orbits on the two arms differ by $3.65$ to
 $3.78\,\%$ of the state norm (root-mean-square over the five points, at the best phase alignment; both traces), 15.8
-to 44.5 times the state change between neighboring curve points (\path{docs/fm5/crossing-orbits.json}). The second fold curve, continued both ways from the left fold, runs from below the lower leg
+to 44.5 times the state change between neighboring curve points (\path{docs/fm5/crossing-orbits.json}). The second fold curve, continued both ways from the left fold, runs from below the lower-left leg
 far up the left of the plane, where the orbit has regained stability beyond its doubling bubble (critical
 multiplier within $1.2\times10^{-7}$ of $+1$; other multipliers below $0.4$). It has two more reversals, both located
 cusps: $(-0.1238662,0.0961512)$, with $c=-9.65\times10^{3}$ and $\det J=405.9$, and $(-0.1214073,0.1028234)$, with
@@ -3936,6 +3943,45 @@ lower sides and run along the legs. The fold curve resolves both anomalies of th
 lies $1.2\times10^{-5}$ from it, on the saddle branch, and the column of failed Newton solves at $\alpha_1=-0.119167$
 runs into the lower reversal, at $\alpha_1=-0.119166$, where the followed orbit ceases to exist between the folded
 branches.
+
+\paragraph{The lower-left leg's own curves.} The followed attractor enters the lower-left leg, but no line from the
+body's start crosses it, and the curves continued from the body pass to its left. We therefore marched the period-5
+orbit by Newton's method from the body's start, $(\alpha_1,\alpha_2)=(-0.11875,0.10075)$, through the 68 cells by which
+the follow run entered the leg (66 of period 5, and 2 of period 10 where the orbit exists but is unstable) to
+$(-0.124375,0.094)$. Newton's method converged at every cell, with largest relative residual $8.9\times10^{-13}$. At the
+end the leading multiplier is $+0.64$. Along $\alpha_1$ the orbit loses stability in a flip at $\alpha_1=-0.12451$
+(real crossing multiplier; next modulus $0.0060$), beyond which its multiplier falls to $-13.8$, and in the other
+direction it dies in a fold at $-0.1243654$ (next modulus $0.014$). Both boundaries were continued both ways in float64.
+The two continuations toward the body were stopped by their time limit; their points were recovered from the runs' logs
+after the same checks. At every point of the four curves the residual is at most $10^{-10}$ and the test function at
+most $5.2\times10^{-10}$; the critical multiplier is real and within $3.7\times10^{-8}$ of $-1$ on the flip curve and
+of $+1$ on the fold curve, and every other multiplier has modulus at most $0.21$. Downward, the two curves bound the leg
+to $\alpha_2=0.080$, the bound of the continuation. The strip between them narrows from $1.9$ grid steps at
+$\alpha_2=0.096$ to $0.58$ at $0.0919$, the lowest leg cell the follow run reached, and to $0.015$ at $0.080$
+(Figure~\ref{fig:lowerleg}c). Upward, the fold curve reverses direction at $(-0.11938,0.10042)$, where the continuation
+flags a cusp that we have not located, and the flip curve bends sharply at $(-0.12214,0.10135)$. Both then run back
+down the left of the plane alongside curves continued from the body, of the other kind, at median distances of $0.017$
+and $0.055$ grid steps (at most $0.055$ and $0.46$) over $\alpha_2\in[0.087,0.0995]$; they cross the body's curves only
+at isolated points. In every grid row from $\alpha_2=0.086$ to $0.096$, every period-5 cell of the leg lies inside the
+strip (39 of 39), although the strip is only $0.58$ to $1.9$ cells wide in the rows that have such cells. The strip also
+holds two slowly converging cells and 16 cells that the follow run never computed, all below its lowest leg cell
+(Figure~\ref{fig:lowerleg}b). Across the leg at $\alpha_2=0.094$ the multiplier passes from $+1$ at the fold to $-1$ at
+the flip within $1.5\times10^{-4}$ in $\alpha_1$ (Figure~\ref{fig:lowerleg}d).
+
+\begin{figure}[tbp]
+\centering
+\includegraphics[width=\linewidth]{fig-lower-leg.png}
+\caption{The lower-left leg of the period-5 shrimp and its own curves (Qwen2.5-0.5B-Instruct, gratitude at block~4 and
+hostility at block~16, $\log_{10}T=-0.1$, float64; \repo{tools/plot_lower_leg.py}). (a) The followed domain (colours as
+in Figure~\ref{fig:realshrimp}a) with the fold (black) and flip (red, dashed) curves of the orbit marched into the leg
+(pink: the 68 cells of the march), the curves continued from the body (grey), the located cusps (gold stars) and the
+cusp flagged on the leg's fold curve (white star); the follow grid ends at $\alpha_2=0.086$ (dotted). (b) The centres of
+all period-5 cells of the leg (white dots) lie between the flip curve and the fold curve. (c) The width of the strip
+between the two curves, in grid steps: it falls below one step at $\alpha_2=0.0934$; the follow run's lowest leg cell is
+at $0.0919$. (d) The leading multiplier of the period-5 orbit along $\alpha_1$ at $\alpha_2=0.094$, from $+1$ at the fold
+through $-1$ at the flip (shaded: the strip), and past the fold on the saddle branch (dotted).}
+\label{fig:lowerleg}
+\end{figure}
 
 \paragraph{Orbit census of the junction.} Before any solve we fixed 13 points around the junction
 (\path{docs/oc/oc-points.json}) and the number of period-5 orbits that a plane section of a swallowtail predicts at

@@ -29841,3 +29841,61 @@ Pod: H100, repro job set, commit 7c01ba83; terminated. Raw data: explore/llm-sof
 **Exploratory.** At d = 1e-5 and 1e-3 the ratios are 1.21 and 1.67: saturation, since these displacements are no longer small.
 
 **Text.** Paper sec:consequences paragraph, figure, abstract clause and claims-table row.
+
+## 2026-10-18 18:55 UTC: FM5L result: the lower-left leg's own fold and flip curves; every period-5 cell of the leg lies between them
+
+**Run.** Pod jlq3w1hcp4dyu3 (SECURE H100 80GB HBM3), commit 795fdb32, rc 0, hash verified, terminated. Raw archive runpod/soft64/20261018T162607Z. The extraction clashed only on five upload files of fm5l/, byte-identical to the local copies. Results copied to explore/llm-soft-loop/pod64/fm5l-a.
+
+**March.** From the seed (-0.11875, 0.10075) through the 68 waypoints of the follow run's parent chain to the target (-0.124375, 0.094). Newton converged at every waypoint; the largest relative residual is 8.9e-13.
+
+**Branches at the target** (alpha1 both ways; period 5; leading multiplier +0.6445 at the target):
+- Toward smaller alpha1: flip at alpha1 -0.12451534. The crossing multiplier is real, -1.009 at the bracketing point, and the next modulus is 0.0060. Beyond the flip the multiplier falls to -13.8 near -0.1257 and starts to rise again. The branch stopped at its 150-point limit.
+- Toward larger alpha1: fold at -0.12436537 (real +1.028, next modulus 0.014), then the saddle branch.
+
+**Curves** (kind auto, float64, 300 steps; bounds alpha1 [-0.135, -0.115], alpha2 [0.080, 0.105]):
+- curve-a1-down-minus (flip, 261 points) and curve-a1-up-minus (fold, 267) run down the leg to alpha2 0.080 and stop with "parameters out of bounds".
+- curve-a1-down-plus (flip, 281) and curve-a1-up-plus (fold, 248) were stopped by the 95-minute limit (status 124). They were rebuilt from progress.jsonl by tools/curve_from_progress.py, which first checks every point against the run's gates.
+- Every point of all four meets the gates:
+  - residual <= 1.0e-10 and |g| <= 5.1e-10;
+  - critical multiplier real and within 3.6e-8 of +1 (fold) or -1 (flip);
+  - other multipliers <= 0.205.
+- Unconverged inner GMRES solves: 48, 5, 11 and 0. Newton converged at every point regardless.
+
+**Geometry** (docs/fm5l/lower-leg.json; paper/llm/figures/fig-lower-leg.png, tools/plot_lower_leg.py):
+- The leg is a strip between the flip curve (left) and the fold curve (right).
+- Its alpha1 width, in grid steps:
+
+  | alpha2 | 0.096 | 0.094 | 0.0917 | 0.088 | 0.084 | 0.080 |
+  |---|---|---|---|---|---|---|
+  | width | 1.95 | 1.19 | 0.55 | 0.30 | 0.048 | 0.015 |
+
+- The strip is narrower than one grid step below alpha2 0.0934. The follow run's lowest leg cell is at 0.091875. The leg therefore continues below the followed domain, too narrow to be followed cell by cell.
+- Upward, the fold curve reverses at (-0.119383, 0.100425): a 176-degree turn at parameter speed 0.073. It is flagged as a cusp candidate but not located.
+- The flip curve bends at (-0.122143, 0.101354): a 76-degree turn at speed 0.13, a smooth turn.
+- Both then run back down the left of the plane, over alpha2 0.087-0.0995:
+  - the returning flip arm lies a median 0.017 grid steps (at most 0.054) from the body's second fold curve;
+  - the returning fold arm lies a median 0.055 steps (at most 0.46) from a body flip curve.
+- These are distinct curves: their critical multipliers have opposite signs, and they meet the body's curves only at isolated crossings. Each pair bounds a strip at most about a tenth of a grid step wide. What the orbits do inside these strips was not examined. The returning flip arm is not the regaining flip curve of the appendix's doubling bubble: its median distance to every earlier flip curve is 4.3 steps.
+
+**Membership** (rows alpha2 0.086-0.0960, below the located cusp at 0.09615):
+- Every period-5 cell of the leg lies inside the strip: 39 of 39.
+- Inside the strip are those 39 cells, 2 cells converging slowly, and 16 cells the follow run never computed (all below its lowest leg cell).
+- No computed cell inside the strip is lost or of another period.
+
+**Boundary gate** (rule of tools/plot_real_shrimp.py, in both forms):
+
+| | (5\|lost), ≤1 step of a fold | ≤2 steps of a fold | ≤1 step of a fold or flip | ≤2 steps of a fold or flip | (5\|10), ≤1 / ≤2 steps of a flip |
+|---|---|---|---|---|---|
+| before FM5L (FM5, FM5c, FM5d, FM5X) | 504 | 529 | 508 | 544 | 251 / 267 |
+| with FM5L | 717 | 736 | 739 | 754 (farthest 1.68 steps) | 276 / 290 (farthest 9.4 steps) |
+
+- The paper's "544 within two steps of a fold or flip curve" is the fold-or-flip form. docs/fa/fa-100-summary.json holds the fold-only form (529). Both reproduce.
+- Below alpha2 about 0.093 the two curves are less than two steps apart, so distances alone cannot tell fold from flip there. The membership test does.
+
+**Run-card gate: passed.** Every curve point meets the FM5 criteria, and the leg's (5|lost) and (5|10) pairs lie within one or two steps of these curves.
+
+**Not done:**
+- The cusp candidate on the fold curve is not located (cusp_locate.py, about 10 minutes on a pod).
+- The returning arms were cut by the time limit at alpha2 0.0857 (fold) and 0.0882 (flip).
+
+**Naming.** The paper used "the lower leg" for two legs. In the main text it is the lower-left leg (tip near (-0.1252, 0.0918); the gate sentence). In the appendix's first-fold-curve sentence it is the lower-right leg, along which the first fold curve descends (alpha1 -0.1206 to -0.1181). Both are now named explicitly.
