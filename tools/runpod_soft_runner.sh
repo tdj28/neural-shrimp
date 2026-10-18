@@ -1126,6 +1126,12 @@ snapshot_download('$repo', revision='$rev', cache_dir='$NEURAL_SHRIMP_DATA/model
     TOOL=nilpotent_track.py run nt-${JOBARGS[0]} "${JOBARGS[1]}" --device cuda --threads 8 "${JOBARGS[@]:2}" \
       --out $D/nt/${JOBARGS[0]}
     ;;
+  rk)          # run RK: singular values of the return map and the singular reduction lambda_red near a head
+               # (tools/monodromy_svd.py, float64 on the GPU): JOBARGS = NAME MINUTES ARGS...; vectors uploaded with
+               # --extra-data
+    TOOL=monodromy_svd.py run rk-${JOBARGS[0]} "${JOBARGS[1]}" --device cuda --threads 8 "${JOBARGS[@]:2}" \
+      --out $D/rk/${JOBARGS[0]}
+    ;;
   nbounds)     # run NB: norm bounds of the factorized derivative (tools/norm_bounds.py, float32 on the GPU):
                # JOBARGS = NAME MINUTES MODE ARGS... (cells file docs/nb-cells.json uploaded with the code)
     TOOL=norm_bounds.py run nb-${JOBARGS[0]} "${JOBARGS[1]}" ${JOBARGS[2]} --device cuda --threads 8 "${JOBARGS[@]:3}" \

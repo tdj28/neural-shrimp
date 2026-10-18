@@ -1916,8 +1916,9 @@ attractor; Figure~\ref{fig:shrimptemperature}): its period-5 body moves by $(+0.
 $(\alpha_1,\alpha_2)$, and the head, continued in temperature, by about $(+0.00105,+0.00247)$ over the same step, so the
 window drifts as a whole. The computed curves lie where the followed domain ends: of the 292 pairs of neighbouring cells with periods 5 and
 10, 251 straddle a flip curve to within one grid step, and of the 754 pairs in which a period-5 cell borders a cell
-where the attractor was lost, 504 lie within one step of a fold curve. Nearly all of the others lie along the lower leg,
-beyond the point where the continuation of its flip curve stopped at the bounds of the computation.
+where the attractor was lost, 504 lie within one step of a fold curve and 544 within two steps of a fold or flip curve.
+All 210 others lie along the lower leg, below $\alpha_2=0.099$, whose own bounding curves the continuations from the
+body do not reach, even when rerun with wider parameter bounds.
 
 \paragraph{Shrimps of a two-dimensional kind.} The period-5 window has this anatomy; only its head differs. At
 every cell of that grid and every curve point, the multipliers beyond the leading pair are below $0.0032$, so on the
@@ -1930,7 +1931,13 @@ the sum of their pairwise products vanish converges at $(\alpha_1,\alpha_2)=(-0.
 as the two conditions require of three roots (they make the roots the cube roots of their product), and the orbit
 contracts about 280-fold per period. This point of strongest contraction plays the role of the head. The equal moduli
 do not by themselves decide whether the return map is locally of higher rank there or nearly of rank one and strongly
-nonnormal; singular values of the return map would decide it. Continued in temperature, over the eleven values of $\log_{10}T$ from $-0.104$ to
+nonnormal; its singular values decide it (\repo{tools/monodromy_svd.py}, checked on synthetic operators with equal
+eigenvalues and different rank). At the point the second singular value of the return map is $1.8\times10^{-4}$ of the
+first when the cycle is started at one phase and at most 0.029 of it at the others, the same as within $2\times10^{-4}$
+of the point, while the first is about 65, four orders of magnitude above the eigenvalues; in the body, away from the
+head, the ratio is 0.017 to 0.23. Near its head the return map is nearly of rank one and strongly nonnormal: its
+eigenvalues are small because its leading left and right singular vectors are nearly orthogonal, not because a second
+direction matters. Continued in temperature, over the eleven values of $\log_{10}T$ from $-0.104$ to
 $-0.094$ at which the continuation passed its gates, the point moves along a nearly straight line; the common modulus
 of its three leading multipliers, the cube root of the determinant of the leading block, stays between $2.4$ and
 $5.6\times10^{-3}$, and a fourth multiplier approaches it twice (Figure~\ref{fig:headtemperature};

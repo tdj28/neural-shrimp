@@ -37,13 +37,18 @@ def orth(rows):
     return q.T
 
 
-def rsvd(fwd, bwd, n, q, power, rng):
-    """Leading singular values of an operator given as fwd(V) = M V and bwd(U) = M^T U on rows (q, n)."""
+def rsvd(fwd, bwd, n, q, power, rng, vectors=False):
+    """Leading singular values of an operator given as fwd(V) = M V and bwd(U) = M^T U on rows (q, n); with vectors,
+    also the leading left and right singular vectors u1, v1 (M v1 = s1 u1)."""
     Y = fwd(rng.normal(size=(q, n)))
     for _ in range(power):
         Y = fwd(orth(bwd(orth(Y))))
-    B = bwd(orth(Y))                       # rows (M^T q_i)^T: B = Q^T M
-    return np.linalg.svd(B, compute_uv=False)
+    Qm = orth(Y)
+    B = bwd(Qm)                            # rows (M^T q_i)^T: B = Q^T M, so M ~ Q^T B
+    if not vectors:
+        return np.linalg.svd(B, compute_uv=False)
+    Ub, S, Vt = np.linalg.svd(B, full_matrices=False)
+    return S, Qm.T @ Ub[:, 0], Vt[0]
 
 
 def ratios(s):
@@ -94,6 +99,11 @@ def main():
     ap.add_argument("--power", type=int, default=3)
     ap.add_argument("--tol-change", type=float, default=0.05)
     ap.add_argument("--controls", action="store_true")
+    ap.add_argument("--grid", type=int, default=0, help="an N x N grid of --grid-spacing around the first point "
+                    "(snake order); per point: the singular reduction lambda_red = s1 (v1 . u1) at the first phase, d1, "
+                    "the leading multipliers")
+    ap.add_argument("--grid-spacing", type=float, default=1.5e-5)
+    ap.add_argument("--no-check", action="store_true", help="skip the repeat with one more power iteration")
     ap.add_argument("--threads", type=int, default=8)
     ap.add_argument("--device", default="cpu")
     ap.add_argument("--out", required=True)
@@ -102,6 +112,18 @@ def main():
         raise SystemExit("--points needs pairs")
     pts = [(args.points[k], args.points[k + 1]) for k in range(0, len(args.points), 2)]
     labels = args.labels or [f"p{k}" for k in range(len(pts))]
+    if args.grid:
+        c1, c2 = pts[0]
+        h = args.grid_spacing
+        half = (args.grid - 1) / 2
+        grid_pts, grid_labels = [], []
+        for i in range(args.grid):                       # rows in alpha2, snake through alpha1
+            cols = range(args.grid) if i % 2 == 0 else range(args.grid - 1, -1, -1)
+            for j in cols:
+                grid_pts.append((c1 + (j - half) * h, c2 + (i - half) * h))
+                grid_labels.append(f"g{i:02d}_{j:02d}")
+        # start at the centre, then the snake
+        pts, labels = [pts[0]] + grid_pts, ["centre"] + grid_labels
 
     import explore_llm_attractors as ela
     import explore_llm_phase_map as elpm
@@ -208,11 +230,15 @@ def main():
                     Ut = vjp_rows(cell, x, Ut)
                 return Ut.reshape(U.shape[0], -1).double().cpu().numpy()
 
-            s1 = rsvd(fwd, bwd, n, args.q, args.power, rng)
-            s2 = rsvd(fwd, bwd, n, args.q, args.power + 1, rng)
-            r1, r2 = ratios(s1), ratios(s2)
-            change = {k: (abs(r2[k] - r1[k]) / max(abs(r2[k]), 1e-300)) if r1[k] is not None else None for k in r1}
-            rec["phases"].append({"phase": phi, "sigma": s2[:6].tolist(), **r2, "relative_change": change,
+            s2, u1, v1 = rsvd(fwd, bwd, n, args.q, args.power + (0 if args.no_check else 1), rng, vectors=True)
+            r2 = ratios(s2)
+            change = {}
+            if not args.no_check:
+                r1 = ratios(rsvd(fwd, bwd, n, args.q, args.power, rng))
+                change = {k: (abs(r2[k] - r1[k]) / max(abs(r2[k]), 1e-300)) if r1[k] is not None else None for k in r1}
+            lam_red = float(s2[0] * np.dot(v1, u1))      # nonzero eigenvalue of the rank-one part s1 u1 v1^T
+            rec["phases"].append({"phase": phi, "sigma": s2[:6].tolist(), **r2, "lambda_red": lam_red,
+                                  "cos_u1_v1": float(np.dot(v1, u1)), "relative_change": change,
                                   "unresolved": [k for k, c in change.items() if c is not None and c > args.tol_change]})
         rec["seconds"] = round(time.perf_counter() - tic, 1)
         emit(rec)
