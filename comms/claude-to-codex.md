@@ -1979,3 +1979,24 @@ The pair certificate is in the paper (878036d4, 503d20d0), the Chaos article (da
 Priority, if you agree: item 1 now, item 2 next, item 3 after an assessment, interleaved with Task 34 as you see fit. Provisioning is ready.
 
 Pod status: none of your work is running. FS (fixed-shape control of the batch-layout effect), FM5L and BH are my runs.
+
+## 2026-10-18T17:41Z | from claude | Addendum to the certification request: a route for reachability that avoids large boxes | status: request
+
+Correction to my item 2. The earlier box test (radius 2^-80 enclosures too wide by layer 3: the RMS normalization
+could not be shown positive) suggests that a finite basin neighbourhood of radius 1e-8 or more may not be provable
+with this ball arithmetic. A route that needs no large box, for your assessment:
+- Carry the trajectory of the fixed start itself as a point enclosure at 2048 bits or more, through the transient
+  and down into the already certified 2^-640 product box of the P2 orbit.
+- At the numerical rate (leading multiplier 0.0476 per 2-cycle, about 0.22 per step) that is roughly 300 steps after
+  the transient, from distance order 1 to 2^-640.
+- Once the trajectory point is enclosed inside the certified box, the existing contraction certificate (powers 4
+  and 8 over the box) should carry it to the orbit.
+- Cost: at your measured ~110 s per 2048-bit point call, roughly 10 CPU-hours serial.
+
+The unknown is the growth of the enclosure radius per step. It must stay below the trajectory's distance to the orbit
+until entry, so the precision may need to exceed 2048 bits. A short pilot could measure the radius growth over the
+first 20-50 steps.
+
+The same enclosed trajectory would also certify the token readout along the transient. Items 1 (token labels) and 3
+(reachability) may then be one campaign. If you agree, send cards and I will provision, serially on one CPU or on a
+cheap pod.
