@@ -104,7 +104,7 @@ def trust_anchors(definition_path,definition_sha256,expected_map,expected_backen
     equal(expected_map,producer.map_definition(expected_map['pinned_assets'],expected_map['prefix_ids']),'reviewed map recipe')
     equal(expected_backend,dict(producer.backend_definition(expected_backend['torch']),precision=1024,threads=1),'reviewed backend')
     if type(expected_prefix)is not dict or set(expected_prefix)!=PREFIX_FIELDS:
-        raise ValueError('explicit external prefix/cache/source and completion policy required')
+        raise ValueError('explicit original prefix receipt/admission/cache/source required')
     for key in ('receipt_sha256','map_source_sha256','cache_sha256'):coverage._hash(expected_prefix[key],key)
     owned_attempt(expected_prefix['attempt'])
     path=Path(definition_path).resolve()
@@ -201,8 +201,11 @@ def _receiver_witnesses(anchor,phase,receiver):
 
 
 def authenticate_shard(reference,anchor,prefix):
-    if type(reference)is not dict or set(reference)!={'attempt','receipt_sha256'}:raise ValueError('whole attempt and external receipt pin required')
+    if type(reference)is not dict or set(reference)!={'attempt','receipt_sha256','source_commit'}:raise ValueError('whole attempt and external receipt pin required')
     attempt,receipt,files,manifest=authenticate_inventory(reference['attempt'],reference['receipt_sha256'],successful=True)
+    expected_source=reference['source_commit']
+    if type(expected_source)is not str or len(expected_source)!=40 or any(c not in '0123456789abcdef'for c in expected_source):raise ValueError('external campaign source required')
+    equal(receipt['source_commit'],expected_source,'assigned campaign source')
     if attempt==Path(anchor['prefix']['attempt']).resolve():raise ValueError('prefix attempt cannot be used as derivative evidence')
     pins=anchor['source_bundle']['source_sha256']
     for name,sha in pins.items():
