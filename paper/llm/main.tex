@@ -7,11 +7,22 @@
 \usepackage[section]{placeins}
 \usepackage[font=small,labelfont=bf]{caption}
 \usepackage[numbers,sort&compress]{natbib}
-\usepackage[dvipsnames]{xcolor}
+\usepackage[dvipsnames,table]{xcolor}
+\usepackage{etoolbox}
+% Every table shades alternate rows so that rows, including wrapped ones, are easy to tell apart. The rules sit
+% flush with the shading, and \zebrafalse switches it off inside one table that shades its own rows.
+\newif\ifzebra\zebratrue
+\AtBeginEnvironment{tabular}{\ifzebra\rowcolors{2}{black!6}{}\fi\setlength{\aboverulesep}{0pt}%
+  \setlength{\belowrulesep}{0pt}\renewcommand{\arraystretch}{1.3}}
 \usepackage{CJKutf8}
 \usepackage{tikz}
 \usetikzlibrary{arrows.meta,positioning,calc,decorations.pathreplacing,fit}
 \usepackage[colorlinks=true,allcolors=blue]{hyperref}
+% Code and records of each result, in the project repository at the tag of this version (made at release).
+\newcommand{\repourl}{https://github.com/tdj28/neural-shrimp}
+\newcommand{\reporef}{arxiv-v1}
+\newcommand{\repo}[1]{\href{\repourl/blob/\reporef/#1}{\nolinkurl{#1}}}
+\newcommand{\codelink}[1]{\href{\repourl/blob/\reporef/#1}{code}}
 \usepackage{microtype}
 \hypersetup{pdftitle={Chaos and bifurcations in continuous language-model feedback},
   pdfsubject={Private working draft, 15 October 2026}}
@@ -200,7 +211,8 @@ map to a hidden-state coordinate \cite{johnson2026temperature}, without computin
 of the model's own map. Equilibrium, looped and recurrent-depth models have been analyzed through fixed
 points and Jacobians \cite{bai2019deq,bai2021stabilizing,geiping2025recurrent,tomihari2025recurrent,yang2026stars},
 and the closest methodological precedent, a derivative-based fold analysis of a small task-trained looped transformer, predicts
-passage times without fitting \cite{kim2026phase}. Appendix~\ref{sec:related} discusses this work, expected-embedding
+passage times and spectral gaps without fitting and derives from the same bottleneck an $N^{-2}$ tail of relaxation
+times over inputs \cite{kim2026phase}. Appendix~\ref{sec:related} discusses this work, expected-embedding
 feedback, and bifurcations, Feigenbaum ratios and shrimps in neural models in detail.
 
 To our knowledge, this is the first work to compute periodic orbits with their multipliers, continue fold and flip
@@ -301,7 +313,7 @@ The derivative of the loop (Figure~\ref{fig:loop}) is the covariance of the toke
 amplified by the inverse temperature and composed with the derivative of the network. At a state of the period-8
 orbit of Table~\ref{tab:orbits}, \eqref{eq:gain} agrees with forward-mode derivatives of the full map to a relative
 error of at most $1.35\times10^{-13}$ over eight random directions (Figure~\ref{fig:derivcheck};
-\texttt{tools/softmax\_gain.py}). Without tied embeddings, as in the 7B and 8B models, the logits are $z=W\tilde h(x)$ with an
+\repo{tools/softmax_gain.py}). Without tied embeddings, as in the 7B and 8B models, the logits are $z=W\tilde h(x)$ with an
 output matrix $W\neq E$, and $DF=T^{-1}E^{\top}(\operatorname{diag}p-pp^{\top})W J_{\tilde h}(x)$: $\Sigma_p$ becomes
 the cross-covariance $\operatorname{Cov}_{t\sim p}(e_t,w_t)$ of input and output embeddings, which is not symmetric in
 general. The temperature limits below do not change.
@@ -382,7 +394,7 @@ signed multipliers and the cycle norms at all eight starting phases. The expansi
 steps that follow, and the strongly anisotropic linear return of the stripe orbits is a property of the composed
 cycle, not of any single step or of the rank of $\Sigma_p$. Nor does the contraction need the actual alignment of
 the steps: with independent random (Haar) rotations inserted between the eight step Jacobians, all 16 tested products
-contract, and more strongly than the actual cycle (\texttt{tools/alignment\_intervention.py}). Stepwise norm or
+contract, and more strongly than the actual cycle (\repo{tools/alignment_intervention.py}). Stepwise norm or
 spectral summaries can be inconclusive; the ordered product of the step Jacobians captures the cycle's linear
 stability.
 
@@ -398,7 +410,7 @@ changes little. (b) Share of chaotic cells per temperature row under residual st
 cells) and under a logit bias along the direct logit effect of the steering vector, with no residual steering (241
 of 6837 cells). (c) Orbit-preserving crossover: change in the finite-time growth along recorded steered orbits when
 only the readout (orange) or only the network Jacobian (gray) is taken from the steered model; mean over held-out
-chaotic cells with 95\,\% bootstrap intervals. \texttt{tools/plot\_mechanism\_summary.py}.}
+chaotic cells with 95\,\% bootstrap intervals. \repo{tools/plot_mechanism_summary.py}.}
 \label{fig:mechsummary}
 \end{figure}
 \paragraph{Steering makes tokens compete.} Steering enters both factors of \eqref{eq:gain}: it moves the logits, and
@@ -499,8 +511,8 @@ crossover, 7B, 10 cells & readout effect & $+0.23$ $[-0.11,0.63]$ nats/step \\
 \bottomrule
 \end{tabular}
 \caption{Where steering's instability comes from (Qwen2.5-0.5B unless marked 7B, Qwen2.5-7B). Intervals: bootstrap over
-temperature rows (gain split) or over held-out cells (crossover). Runs MECH and XO; \texttt{tools/steer\_gain.py}, \texttt{tools/crossover.py},
-\texttt{tools/plot\_mechanism.py}.}
+temperature rows (gain split) or over held-out cells (crossover). Runs MECH and XO; \repo{tools/steer_gain.py}, \repo{tools/crossover.py},
+\repo{tools/plot_mechanism.py}.}
 \label{tab:mechanism}
 \end{table}
 \begin{figure}[tbp]
@@ -584,7 +596,7 @@ exponent $-1.19$), while from the fixed start it settles on the period-3 loop (e
 the fixed start reaches the crescent's chaotic attractor, whose text alternates irregularly between ``The question''
 and ``The existence'' paragraphs (exponent $+0.095$), and the 2-cycle start again writes `` is it'' ($-1.29$): one
 model, one steering vector and one temperature, and the text written after the transient depends on where the loop starts
-(\texttt{tools/coexist\_texts.py}, float64).
+(\repo{tools/coexist_texts.py}, float64).
 \begin{figure}[H]
 \centering
 \includegraphics[width=0.62\linewidth]{fig-cross512-families.png}
@@ -686,8 +698,8 @@ loop and of a copy started at a relative distance of $10^{-10}$ from it, from 14
 they differ to 9 steps after it (or the end of the recording); from that step on the text is red. $\hookleftarrow$: line break; [end]: the end-of-turn token; ``\begin{CJK}{UTF8}{gbsn}！\end{CJK}'' and ``\begin{CJK}{UTF8}{gbsn}，\end{CJK}'' in the last example
 are the full-width exclamation mark and comma. $\lambda$: largest Lyapunov exponent, from twins at relative offsets
 $10^{-6}$ and $10^{-8}$ over 1000 steps after 1000 transient steps; both offsets give the same value to two decimals.
-Split: the step of the recording at which the texts first differ. Float64; \texttt{tools/chaos\_texts.py}, receipts in
-\texttt{docs/chaos-texts}.}
+Split: the step of the recording at which the texts first differ. Float64; \repo{tools/chaos_texts.py}, receipts in
+\repo{docs/chaos-texts}.}
 \label{tab:chaostexts}
 \end{table}
 
@@ -701,7 +713,7 @@ the eight cells, and samples at the cell's temperature differ from one another a
 recycle a few words, ``The'', ``question'', ``existence'', ``is'', ``a'' and ``there''. These are the opening words of
 those replies: one sample begins ``The question is a deeply philosophical\ldots''. With only its latest output as
 memory, the loop keeps returning to the start of an answer. Unsteered, greedy decoding answers ``Hello! How can I
-assist you today?'' (exploratory; \texttt{tools/normal\_companion.py}, \texttt{docs/companion/companion.json}).
+assist you today?'' (exploratory; \repo{tools/normal_companion.py}, \repo{docs/companion/companion.json}).
 \begin{table}[tbp]
 \centering\scriptsize
 \begin{tabular}{@{}lp{0.86\linewidth}@{}}
@@ -927,7 +939,7 @@ accuracy differs from the reference's by more than 5 points. Within this budget,
 decides low-precision answers because the loop carries each step's rounding forward and amplifies it, not because the
 last steps alone are fragile; 128 problems per arm do not show that accuracy is unchanged.
 
-\paragraph{Soft Thinking as published.} A test frozen before its data (\texttt{docs/pi-matrix-confirmatory.md}) ran
+\paragraph{Soft Thinking as published.} A test frozen before its data (\repo{docs/pi-matrix-confirmatory.md}) ran
 Soft Thinking with its published settings on Qwen2.5-7B-Instruct in bfloat16. The settings are concept tokens
 restricted to the 15 most probable, $T=0.6$ and 64 soft steps. The test used 256 GSM8K training problems that no
 earlier run had scored, on an H100 GPU. Only the batch layout changed, between batches of 8 and of 16 prompts of equal
@@ -967,11 +979,11 @@ started $10^{-10}$ apart, separate the two sources of disagreement.
   then sensitive, but accuracy has fallen to between 0.5 and 2.5\,\% in either layout.
 \end{itemize}
 In this model, then, the regime in which Soft Thinking is useful is the regime of accumulated rounding, not of chaos
-(\texttt{docs/pi/h-horizon-summary.json}).
+(\repo{docs/pi/h-horizon-summary.json}).
 
 \paragraph{Reasoning models that answer well.} Qwen2.5-7B-Instruct answers few of these problems through the soft
 pipeline, so most of its flips are between wrong answers. A second test, also frozen before its data
-(\texttt{docs/pi-matrix2-confirmatory.md}), used reasoning models, as the Soft Thinking paper did:
+(\repo{docs/pi-matrix2-confirmatory.md}), used reasoning models, as the Soft Thinking paper did:
 DeepSeek-R1-Distill-Qwen-7B, DeepSeek-R1-Distill-Llama-8B and QwQ-32B. A row thinks in concept tokens (top 15,
 $T=0.6$) until its most probable next token ends the thinking block, or until 1536 steps. It then answers by sampling
 discrete tokens, with random numbers shared between the two layouts. The comparison arm thinks with discrete tokens
@@ -979,11 +991,11 @@ sampled the same way. On fresh GSM8K problems the batches held 8 or 16 prompts o
 problems of MATH-500, each problem ran alone or as eight copies of itself. In the first run the tokenizer of
 DeepSeek-R1-Distill-Llama-8B loaded wrongly: it dropped the spaces and newlines of every prompt, and the model thought
 far less and answered 45\,\% of a check set correctly, against 83\,\% with the correct tokenizer in bfloat16 and
-81\,\% in float64 (\texttt{docs/pi/pm2x-llama-diag.json}). Both of its cells were rerun with the correct tokenizer,
+81\,\% in float64 (\repo{docs/pi/pm2x-llama-diag.json}). Both of its cells were rerun with the correct tokenizer,
 an amendment after the data. Over the five primary cells, the batch layout changed 27.1\,\% of the soft-thinking
 answers (243 of 896; 95\,\% interval $[24.7,29.5]$), confirming the prediction of more than 5\,\%. The prediction
 holds in every version of the pooling, including the original run (29.6\,\%) and the run without both cells of this
-model (21.9\,\%) (\texttt{docs/pi/pm2fix-summary.json}, \texttt{docs/pi/pm2fix-math-summary.json}).
+model (21.9\,\%) (\repo{docs/pi/pm2fix-summary.json}, \repo{docs/pi/pm2fix-math-summary.json}).
 \begin{itemize}
   \item All three models changed their GSM8K answers with the layout alone: DeepSeek-R1-Distill-Qwen-7B
   for 14.5\,\% of the problems ($[10.9,18.0]$) at 88 to 90\,\% accuracy, and QwQ-32B for 19.5\,\% ($[16.4,22.3]$) at
@@ -1005,7 +1017,7 @@ model (21.9\,\%) (\texttt{docs/pi/pm2fix-summary.json}, \texttt{docs/pi/pm2fix-m
 \end{itemize}
 These runs did not use the Cold Stop rule of the Soft Thinking paper, which ends thinking once the entropy has stayed
 below 0.01 nats for 256 steps. An exploratory rerun used it, with a thinking budget of 4096 steps
-(\texttt{docs/pi/pm2cs-design.md}, \texttt{docs/pi/pm2cs-summary.json}). Cold Stop ended thinking in only 6 of the 512
+(\repo{docs/pi/pm2cs-design.md}, \repo{docs/pi/pm2cs-summary.json}). Cold Stop ended thinking in only 6 of the 512
 soft rows and in none of the 512 sampled rows; the models nearly always ended it themselves. The layout still changed the answers: 8.6\,\% (soft) and
 17.2\,\% (sampled) for DeepSeek-R1-Distill-Qwen-7B on 128 GSM8K problems, 50.0 and 54.7\,\% for it on MATH-500, and
 17.2 and 9.4\,\% for QwQ-32B on 64 GSM8K problems. The soft-minus-sampled difference changes sign between these
@@ -1024,7 +1036,7 @@ The displacement alone changed 13.5 and 18.4\,\% of the answers, respectively. I
 changes. It is a weak, finite-time instability over about a thousand thinking steps, and it acts on top of the rounding; it is
 not an asymptotic chaos measurement. Some copies ended thinking before their base row (14 in R1-Llama, 23 in QwQ),
 and the copies of one problem are not independent
-(\texttt{docs/pi/pm2f-summary.json}, \texttt{docs/pi/pm2f64b-summary.json}; 128 problems for each 7--8B model and
+(\repo{docs/pi/pm2f-summary.json}, \repo{docs/pi/pm2f64b-summary.json}; 128 problems for each 7--8B model and
 96 for QwQ-32B).
 \begin{figure}[tbp]
 \centering
@@ -1172,7 +1184,7 @@ oriented critical coordinate, $U=0.1/|b|$), measured on the network (dots) and i
 $v'=v+|a|\eps+|b|v^2$ (lines), take 144, 71, 34 and 14 iterates, as predicted. (d) A free trajectory at
 $\eps=10^{-5}$ alternates between laminar phases in the bottleneck ($|u|<U$, shaded; 40 to 70 iterates each) and bursts
 away from it, the signature of type-I intermittency. Branch residuals, fold, normal form and passages in float64; branch
-multipliers in float32. \texttt{tools/plot\_fold.py}.}
+multipliers in float32. \repo{tools/plot_fold.py}.}
 \label{fig:fold}
 \end{figure}
 \paragraph{The fold.} At $\log_{10}T=-0.115$ the 2-cycle ``is it'' dies in a fold at $\alpha_c=0.06279827$ (float64
@@ -1267,7 +1279,8 @@ $N_0$ also fitted gives $\gamma=2.18\pm0.06$ (1\,\% errors assumed), so the data
 the counting window: its scale $\sqrt{|a|\eps/|b|}$ is 1.35 to 3.51 times $U$, and a full passage lasts only 9 to
 23 iterates of $G$. The windows therefore lie outside the asymptotic regime in which the normal form fixes the
 prefactor \cite{pomeau1980intermittent,hirsch1982theory}, and the factor of about one third is a measured value, not a
-prediction.
+prediction. The same inversion of the bottleneck time gives the $N^{-2}$ tail of relaxation times over inputs found in
+a small task-trained looped transformer \cite{kim2026phase}; here $N$ counts the laps of a periodic window.
 \begin{figure}[H]
 \centering
 \includegraphics[width=0.85\linewidth]{fig-return-maps.png}
@@ -1276,8 +1289,10 @@ prediction.
 \label{fig:returnmaps}
 \end{figure}
 
-\paragraph{A prospective test.} To test the normal form at folds that played no part in shaping the mechanism, an
-independent implementation located two new folds and computed their normal-form coefficients by nested automatic
+\paragraph{A prospective test.} The same reduction, with both coefficients computed from the network's derivatives,
+predicts relaxation times and spectral gaps without fitting in a small task-trained looped transformer, where it was
+compared with measurements after the fact \cite{kim2026phase}. To test the normal form at folds that played no part in
+shaping the mechanism, an independent implementation located two new folds and computed their normal-form coefficients by nested automatic
 differentiation. All 24 passage predictions were pushed in a frozen design before any test trajectory was run.
 Target A is the 2-cycle's fold at a new temperature: $\log_{10}T=-0.140$, $\alpha_c=0.0670549$, $a=-7.055$,
 $b=-24.927$. Target B is the fold of the period-8 orbit of Table~\ref{tab:orbits}, continued in temperature at
@@ -1331,7 +1346,7 @@ quadratic normal form on that side, or the curvature of the center manifold at t
 that this test does not resolve. Over both frozen tests, the continuous integral came within one iterate of 42 of 48
 passages; all six misses are entrance passages at the period-6 fold, short by 3.1 to 5.2\,\%. The sign hypothesis
 frozen with the design, that midpoint and kicked passages do not exceed the discrete count, held in all 16 rows
-(\texttt{codex/confirm-fold-2}).
+(\repo{codex/confirm-fold-2}).
 \begin{table}[H]
 \centering\small
 \begin{tabular}{rcccc}
@@ -1890,10 +1905,10 @@ complex pair, so the leading pair is not isolated there. Neither cell has a cros
 analog of a one-dimensional shrimp's head, and the period-4 cell has no near-nilpotent point at the bottom of its U
 either: a two-parameter Newton search on the invariants of the leading spectrum, as for the period-5 window, converges
 where its three leading multipliers have nearly equal modulus, 0.0325, and lie $120^{\circ}$ apart, ten times the
-period-5 point's $3.5\times10^{-3}$ (\texttt{tools/nilpotent\_search.py}). Under the decision rule fixed before these
+period-5 point's $3.5\times10^{-3}$ (\repo{tools/nilpotent_search.py}). Under the decision rule fixed before these
 grids, both cells remain unresolved
 between the loop and turn-away types (the first period-8 grid left the bottom of the V unsolved because of a defect in
-the continuation, fixed for the second; \texttt{docs/dss}).
+the continuation, fixed for the second; \repo{docs/dss}).
 
 The junction where the upper leg leaves the body, two cusps that share a segment of the fold curve and a crossing
 of its other two branches, is the configuration that Mira et al.\ call a dovetail for critical curves with two such
@@ -1975,7 +1990,7 @@ The preceding sections establish the pieces: a factorized derivative, folds, cas
 assembles them into one account of why the loop of Qwen2.5-0.5B along the philosophy direction looks the way it does.
 It answers three questions: where the periodic orbits come from, why the windows cross one another, and why
 one-dimensional maps describe a network with 896-dimensional states. Every step was checked against the full map in
-float64 (\texttt{docs/e2e/}).
+float64 (\repo{docs/e2e/}).
 
 \paragraph{At zero temperature: greedy loops.} As $T\to0$ the soft token becomes the embedding of the most probable
 token, and the loop becomes greedy decoding with a one-token memory (Section~\ref{sec:theory}). Its cycles are the
@@ -2014,27 +2029,31 @@ its own curves: the stripes by the distance to the fold of `` is it'', the band 
 either family's curves. In parts of the crossing the crescent's family lies over the stripes, in others a stripe lies
 over the band, and the order can change from one cell to the next. Every cell of the maps starts from the same state,
 the embedding of the prompt's last token, so where two attractors coexist a map shows the one whose basin contains that
-state. To see what the maps hide, we recomputed the window of Figure~\ref{fig:cross512} on a $192\times256$ grid in
-seven more ways: from the fixed start; from states of the crescent's period-3 orbit, of the band's 6-cycle and of the
-period-10 stripe; and by following each attractor continuously across the plane, with every column (or row) of cells
-starting from the final states of the previous one, in both directions of $\alpha$ and of $T$
-(Figure~\ref{fig:sheets}; \texttt{docs/sheets/analysis.json}).
+state. To see what the maps hide, we recomputed the window of Figure~\ref{fig:cross512} on a $192\times256$ grid as
+eight maps: one from the fixed start; three from states of the crescent's period-3 orbit, of the band's 6-cycle and of
+the period-10 stripe; and four sweeps that follow each attractor across the plane as far as they can, with every column
+(or row) of cells starting from the final states of the previous one, in both directions of $\alpha$ and of $T$
+(Figure~\ref{fig:sheets}; \repo{docs/sheets/analysis.json}). An independent audit with separate code reproduced every
+count below from the raw maps.
 \begin{itemize}
-  \item \emph{Two overlapping sheets.} Periodic attractors of the crescent's family (loops that write
-  ``\textbackslash n\textbackslash nThe \ldots'') exist at 13{,}585 of the 49{,}152 cells, and those of the 2-cycle
-  and its stripes (loops that write `` is \ldots'') at 36{,}787. Both exist at 9{,}675 cells, on a broad arc that
+  \item \emph{Two overlapping sheets.} We group periodic attractors by the text their loops write, not by
+  continuation. Periodic attractors of the crescent's family (loops that write
+  ``\textbackslash n\textbackslash nThe \ldots'') were found at 13{,}585 of the 49{,}152 cells, and those of the
+  2-cycle and its stripes (loops that write `` is \ldots'') at 36{,}787. Both exist at 9{,}675 cells, on a broad arc that
   covers the crescent and runs under the stripes (Figure~\ref{fig:sheets}b). The fixed-start map hides 32\,\% of the
   crescent family's cells and 36\,\% of the 2-cycle family's. Along each temperature row the crescent family's
   branch is continuous: at $\log_{10}T=-0.1415$ it runs from $\alpha=0.066$ to about 0.0745, under the stripes
   (Figure~\ref{fig:sheets}d; Figure~\ref{fig:sheets3d} shows the two sheets in 3D).
-  \item \emph{Selection by the start.} Where only one family has a periodic attractor, the fixed start never reaches
-  the other: there is no exception among the 49{,}152 cells. Where both exist, it reaches the crescent's family at
-  65.4\,\% of the cells and the 2-cycle's family at 28.5\,\% (the rest are chaotic or unresolved). In the crescent
+  \item \emph{Selection by the start.} Where the seven other maps find a periodic attractor of only one family, the
+  fixed start reaches the other family at just 70 of those 31{,}042 cells (0.2\,\%). Where both families were found,
+  it reaches the crescent's family at 65.4\,\% of the cells and the 2-cycle's family at 28.5\,\% (the rest are
+  chaotic or unresolved). In the crescent
   zone the split is 70 to 29\,\%; across the band it is 48.5 to 48.0\,\%, with the choice alternating from cell to
   cell, which is the alternating order seen in the map. Of the map's 1{,}376 edges between periodic cells of different
-  families, 557 are pure switches: each side's family also exists on the other side, and only the basin that holds the
-  fixed start changes. At 662 one family ends while the other continues beneath it, and at 157 both end. These counts
-  are lower bounds on the overlap, since seven ways of starting cannot find every attractor.
+  families, 557 are pure switches: each side's family was also found on the other side, and only the basin that holds
+  the fixed start changes. At 662 one side's family was not found on the other side by any map, and at 157 neither
+  was. Eight maps cannot find every attractor, so these are not proofs that a family ends there, and the switch count
+  is a lower bound.
   \item \emph{The crescent's own edge is a switch.} At each temperature the crescent's period-3 orbit exists from its
   fold onward, but the fixed start reaches it only farther right: in a strip up to $1.1\times10^{-3}$ wide in $\alpha$
   both coexist and the map shows the 2-cycle (Figure~\ref{fig:hiddenstrip}). At $\log_{10}T=-0.148$ the map's
@@ -2046,7 +2065,7 @@ starting from the final states of the previous one, in both directions of $\alph
 \end{itemize}
 Why the fixed start lands where it does is not explained by its nearness to either attractor. At three crescent cells
 random starts (single token embeddings and mixtures of the top 64) reached the 2-cycle in 82 to 90\,\% of cases, and the nearest attractor phase predicted their
-destinations worse than always guessing the 2-cycle (\texttt{docs/basins/basins-summary.json}). The newline that ends
+destinations worse than always guessing the 2-cycle (\repo{docs/basins/basins-summary.json}). The newline that ends
 the prompt happens to lie in the crescent's basin over most of the overlap, even though that basin is the smaller one
 for random starts. Settle times give no sign of long transients at the switches (median 94 steps near the edges and 87
 elsewhere), so these basin boundaries do not hold trajectories for long.
@@ -2178,11 +2197,11 @@ no detected period, which is what ``positive'' abbreviates below). The stored ch
 float64 (Appendix~\ref{sec:methods}, ``Precision''), and the 70B-class models, spread over two GPUs, were recomputed
 where an earlier two-GPU computation was less precise (Appendix~\ref{sec:size}). The 7--8B
 and 70B-class models had shown a steep decline of chaos with size. Before measuring the others we fixed three
-predictions that extrapolate it (\texttt{docs/scaling-predictions.md}): within each family, every model above 8B is
+predictions that extrapolate it (\repo{docs/scaling-predictions.md}): within each family, every model above 8B is
 less chaotic than the family's 7--8B model (P1); the chaotic share does not increase with size above 7B (P2); and at
 matched next-token entropy, both gain factors of Section~\ref{sec:theory} of the 14B and 32B models lie at or below
 those of the 7B model (P3). After a review pointed out that a single prompt and a fixed temperature window could
-mislead, we froze a fourth test across ten prompts (\texttt{docs/prefix-scale-test.md}).
+mislead, we froze a fourth test across ten prompts (\repo{docs/prefix-scale-test.md}).
 
 \paragraph{In a fixed temperature window, chaos seems to fade with size.} Table~\ref{tab:scale} and
 Figure~\ref{fig:scale} give each model's chaotic share of the temperatures in $\log_{10}T\in[-1,0.3]$, the range
@@ -2224,7 +2243,7 @@ coarse temperatures of the 14B model are chaotic, from $0.59$ to $0.90$, and the
 near $0.519$; the initial sweep of Table~\ref{tab:scale} ended at $0.6$ and saw only the lower edge (the table now
 also includes the upper sweep). Within Qwen2.5, then, the larger model is not less chaotic: its distribution stays
 sharp up to higher temperature, and its chaos sits there. The decline in the fixed window is largely a shift. A
-second frozen test (\texttt{docs/prefix-scale-olmo.md}; stage 1 only, four held-out prompts) asked whether the OLMo-2
+second frozen test (\repo{docs/prefix-scale-olmo.md}; stage 1 only, four held-out prompts) asked whether the OLMo-2
 order survives other prompts. It does, with small counts: OLMo-2-32B is chaotic at more of the 48 temperatures than
 OLMo-2-7B on three of the four prompts (4, 5, 3 and 0 against 3, 0, 1 and 3), as predicted, and its chaos again lies
 somewhat higher ($\log_{10}T=0.10$--$0.35$ against $-0.01$--$0.21$).
@@ -2311,7 +2330,7 @@ $10^{-5}$ to $10^{-7}$, whereas Qwen2.5-0.5B under the same clamp is chaotic at 
 stays stable even where its readout is spread. The clamp changes the map, so this is consistent with damping by the
 network in the original map but does not identify it. The pretrained checkpoint is also mostly non-chaotic. A test
 frozen before
-its data (\texttt{docs/prefix-scale-72b-base.md}) predicted that the pretrained base model of the same size would be
+its data (\repo{docs/prefix-scale-72b-base.md}) predicted that the pretrained base model of the same size would be
 chaotic at three or more temperatures more than Qwen2.5-72B-Instruct on at least three of the four held-out prompts.
 It fails on all four: the base model is chaotic at 1, 0, 0 and 0 of the 48 temperatures (and at 2 on the paper's
 prompt; computed after the precision fix, with 500 transient and 1000 measured steps, half the Instruct model's
@@ -2405,7 +2424,7 @@ model's chaos did not vanish but moved to higher temperature, to where its next-
 the largest model was the most chaotic; two 70B Llama checkpoints with different post-training gave different results
 on the same grid;
 and at 70B, chaos that passes a three-offset test remains, rarer, with and without steering (Appendix~\ref{sec:size}). The shift does not
-continue to Qwen2.5-72B. A prompt-blocked test frozen before its data (\texttt{docs/prefix-scale-72b.md}) predicted
+continue to Qwen2.5-72B. A prompt-blocked test frozen before its data (\repo{docs/prefix-scale-72b.md}) predicted
 that the 72B model would be chaotic at fewer of the 48 temperatures than the 14B on at least three of four held-out
 prompts. It is chaotic at 0, 1, 0 and 0 of them, against 14, 9, 11 and 15, so the prediction holds on all four. These
 lines ran before the precision fix (1000 transient and 2000 measured steps, twins at $10^{-5}$ and $10^{-6}$, chaotic
@@ -2618,7 +2637,7 @@ periodic orbits inside the attractor that are more expanding than average can st
 
 We tested this on three chaotic cells of Qwen2.5-0.5B's loop (philosophy direction, layer 12, float64), with
 $\lambda_1=0.098$, 0.437 and 0.196 per step over 3000 steps, so that $c^*=0.046$, 0.177 and 0.089
-(Figure~\ref{fig:sync}; \texttt{docs/sync/sync-summary.json}). The difference's growth rate, measured directly on the
+(Figure~\ref{fig:sync}; \repo{docs/sync/sync-summary.json}). The difference's growth rate, measured directly on the
 coupled map at seven couplings from 0 to 0.30 in each cell, follows $\lambda_1+\ln|1-2c|$ from $+0.44$ to $-0.82$, within 0.051 at
 every point. In the first cell the copies synchronized between $c=0.045$ and 0.05, consistent with $c^*$. In the second they
 synchronized between 0.18 and 0.19 when ``synchronized'' means a difference below $10^{-6}$, consistent with $c^*$;
@@ -2654,6 +2673,48 @@ threshold in the third cell ($c=0.115$), as in attractor bubbling.}
 
 \section{Discussion}
 \label{sec:discussion}
+Table~\ref{tab:evidence} lists what each main result rests on: an identity, numerical computation in floating point,
+a test whose design was fixed before its data, or a computer-assisted proof.
+\begin{table*}[tbp]
+\centering
+\caption{What each main result rests on. \emph{Prospective}: the design, data and criteria were fixed and pushed before
+the data were collected; \emph{partly prospective}: some predictions or criteria were. Only the period-8 orbit is
+proved; chaos labels are finite-horizon numerical results. Each \emph{code} entry links to the main tool or record in
+the project repository.}
+\label{tab:evidence}
+\small
+\zebrafalse
+\setlength{\aboverulesep}{0pt}\setlength{\belowrulesep}{0pt}\setlength{\tabcolsep}{5pt}
+\renewcommand{\arraystretch}{1.4}
+\begin{tabular}{llll}
+\toprule
+\textbf{Result} & \textbf{Evidence} & \textbf{Status} & \textbf{Code} \\
+\midrule
+\multicolumn{4}{l}{\textsc{Mechanism}} \\
+\rowcolor{black!7} Factorized derivative of the loop & identity; checked to $10^{-13}$ & identity & \codelink{tools/softmax_gain.py} \\
+Steering acts via token competition & crossover along orbits; logit bias & partly prospective & \codelink{tools/crossover.py} \\
+\addlinespace[3pt]
+\multicolumn{4}{l}{\textsc{Chaos and its consequences}} \\
+\rowcolor{black!7} Chaos in 15 models & twin and tangent exponents & numerical & \codelink{tools/explore_llm_soft_loop.py} \\
+Batch layout splits chaotic loops & paired float64 runs, 4 models & numerical & \codelink{tools/repro_noise.py} \\
+\rowcolor{black!7} Batch layout changes answers & arithmetic, GSM8K, reasoning & prospective & \codelink{tools/pi_harness.py} \\
+Chaos does not predict accuracy & regression on fresh problems & prospective & \codelink{tools/bpc_analyze.py} \\
+\addlinespace[3pt]
+\multicolumn{4}{l}{\textsc{Bifurcations and scaling laws}} \\
+\rowcolor{black!7} Windows accumulate on folds ($1/N^2$) & fold-edge fits; forecasts within 3\,\% & partly prospective & \codelink{tools/llm_feigenbaum.py} \\
+Passage times from normal forms & 42 of 48 within one iterate & prospective & \codelink{codex/confirm-fold-2} \\
+\rowcolor{black!7} Cusps and their unfoldings & unfoldings fixed before solving & partly prospective & \codelink{tools/cusp_locate.py} \\
+Feigenbaum ratios & flips by continuation & numerical & \codelink{tools/llm_feigenbaum.py} \\
+\rowcolor{black!7} Shrimp anatomy (period 5) & maps and multipliers & numerical & \codelink{tools/doubly_superstable.py} \\
+Crossing window families & eight maps; independent audit & numerical & \codelink{tools/sheets_analyze.py} \\
+\rowcolor{black!7} Attracting period-8 orbit & interval arithmetic & \textbf{proof} & \codelink{codex/certify-llm} \\
+\addlinespace[3pt]
+\multicolumn{4}{l}{\textsc{Beyond the one-token loop}} \\
+\rowcolor{black!7} Steering history changes a decision & fresh instances & prospective & \codelink{tools/c12_steering_history.py} \\
+Huginn loses accuracy as predicted & generation test & prospective & \codelink{tools/huginn_relax_eval.py} \\
+\bottomrule
+\end{tabular}
+\end{table*}
 \paragraph{What theory allows, and what is new.} Chaos and periodic windows occur in many nonlinear feedback systems:
 random recurrent networks become chaotic above a critical gain \cite{sompolinsky1988chaos,doyon1994bifurcations},
 and periodic windows, shrimp-shaped domains and doubling cascades are found in low-dimensional maps and in
@@ -2796,6 +2857,15 @@ distributions by only 0.003 nats changes the attractor class or period of one st
 (Appendix~\ref{sec:behaviour}). Closed models permit none of these computations, which
 need the input embeddings, full next-token distributions and derivatives; for them the method and the questions
 transfer, not the numbers.
+
+\section*{Code and data availability}
+The code, the designs of the tests fixed in advance with their audits, the run cards, the failed attempts and
+hash-bound records of every computation are in the project repository, \url{https://github.com/tdj28/neural-shrimp};
+the links in this paper point to its tag \texttt{arxiv-v1}. Bulky raw trajectories and model states are kept outside
+the repository, which holds their checksums; they are available from the author.
+
+\section*{Funding}
+This work received no external funding; the author paid for all computation.
 
 \section*{Use of AI assistance}
 This work was carried out with AI coding and research agents (Anthropic's Claude Code and OpenAI's Codex) working
@@ -3023,7 +3093,7 @@ and flip curves in two parameters with minimally augmented systems \cite{govaert
 The test function $g$ of the bordered system $[[M\mp I,v],[w^\top,0]]$ is obtained by GMRES (generalized minimal
 residual iterations) with Jacobian-vector products, and its gradient by reverse-mode differentiation through a
 Jacobian-vector product. When the parameter tangent reverses, we flag a cusp candidate and test it with the normal
-form. To locate a codimension-two point on a continued curve (\texttt{tools/cusp\_locate.py}), we bracket a sign
+form. To locate a codimension-two point on a continued curve (\repo{tools/cusp_locate.py}), we bracket a sign
 change between two curve points, then retrace the curve from the left end with steps of a quarter of the bracket.
 We do this for three rounds and finish with a secant step. The function whose sign changes is the oriented quadratic
 coefficient $b\operatorname{sign}a$ for a cusp, $|\mu_2|-1$ for a second multiplier $\mu_2$ leaving the unit
@@ -3212,7 +3282,7 @@ eligible pairs), almost never to
 the target. Here the loop's sensitivity comes without selective control. The test covers temperatures at which the loop
 contracts for most problems (on the development problems 10 and 38\,\% of twins expanded, with median rates of
 $-0.131$ and $-0.058$ per step), where the pipeline still answers correctly, and the doses and the optimizer were
-chosen on the development problems (\texttt{docs/pi/c12-1-summary.json}).
+chosen on the development problems (\repo{docs/pi/c12-1-summary.json}).
 
 \paragraph{Taming and using the sensitivity.} Two exploratory tests with Qwen2.5-7B-Instruct in bfloat16 (512
 unused GSM8K training problems, 16 at each of 32 prompt lengths, fixed before any outcome; soft thinking with the top 15 tokens at $T=0.6$ for 64 steps) asked whether the theory gives a
@@ -3226,8 +3296,8 @@ the remedy is modest and not shown to be specific to the readout. Second, a plur
 soft token was displaced by a relative $10^{-3}$ showed no detectable accuracy gain over one run ($+0.2$ points,
 $[-1.0,1.4]$), although one displacement changed 20.2\,\% of the answers on average; sampled self-consistency with eight samples gained 5.6
 points ($[3.5,8.1]$). The perturbed runs differ, but rarely toward the correct answer. Problems whose perturbed runs
-disagreed were also the ones answered correctly least often (\texttt{docs/pi/e2-summary.json},
-\texttt{docs/pi/e3-summary.json}).
+disagreed were also the ones answered correctly least often (\repo{docs/pi/e2-summary.json},
+\repo{docs/pi/e3-summary.json}).
 
 \paragraph{Weight quantization and the attractors.} Deployed models are often quantized, and quantization is usually
 checked one step at a time, by how close the quantized model's next-token distributions stay to the original's. An
@@ -3249,7 +3319,7 @@ matches the 8-bit variant's, served as an unstructured control.
 In this model, then, a close one-step check was consistent with unchanged statistics of the closed loop but did not
 fix the attractor that an
 individual run reaches. We found no effect of quantization beyond that of unstructured noise of the same one-step size
-(\texttt{docs/pi/c12-2-summary.json}).
+(\repo{docs/pi/c12-2-summary.json}).
 
 \paragraph{Chaos onset and repetition in sampled text.} Does the temperature at which a prompt's loop turns chaotic
 predict the temperature at which ordinary sampled text stops repeating itself verbatim? An exploratory test with
@@ -3261,7 +3331,7 @@ differed by 0.003 (interval $[-0.013,0.023]$), with both regimes present at only
 the 15 prompts where both onsets were observed, sampled text stopped repeating below the loop's chaos onset. The
 median gap over these 15 is 0.42 decades of temperature. The soft-token loop and sampled decoding with a growing
 context are different systems, and this test did not find a bridge between them
-(\texttt{docs/pi/e5-heldout-analysis.json}).
+(\repo{docs/pi/e5-heldout-analysis.json}).
 
 \paragraph{Coupled agents (behavioral check).} Two Qwen2.5-1.5B-Instruct agents solving the same multiplication
 problem each fed back a fraction $1-c$ of their own concept token and $c$ of the other's, while their contexts grew
@@ -3269,7 +3339,7 @@ problem each fed back a fraction $1-c$ of their own concept token and $c$ of the
 ($[-0.6,3.9]$) and accuracy fell by 5.5 points, as it did with replayed messages. At $c=0.5$ mixing gives the two agents
 equal next inputs, although their growing contexts differ. They then agreed on 96\,\% of answers, including
 41.0\,\% of pairs that gave the same wrong number, and accuracy was 12.5 points lower than for independent agents
-(\texttt{docs/pi/c12-3-summary.json}).
+(\repo{docs/pi/c12-3-summary.json}).
 
 \paragraph{Steering history and a policy decision.} Coexisting attractors suggest that the history of a steering
 schedule can matter, not only its present value. An exploratory test asked this of a decision with right and wrong
@@ -3278,17 +3348,17 @@ permission table, answering ALLOW or DENY, while a permissive-versus-restrictive
 Every run ended with 32 steps at the same steering strength ($\alpha=0.025$). Some runs got there directly; others
 first made a brief excursion to $\alpha=0.04$ and back. In the exploratory run, the excursion raised the share of
 prohibited requests wrongly allowed from 49.5 to 70.8\,\%, a difference of 21.4 points (95\,\% interval over 24
-held-out instances $[15.6,26.6]$; \texttt{docs/pi/c12-4-summary.json}).
+held-out instances $[15.6,26.6]$; \repo{docs/pi/c12-4-summary.json}).
 
 We then repeated the test as a confirmatory one. The design, the analysis and a fresh set of 48 instances (drawn from
-a new pool of users) were fixed and pushed before any data (\texttt{docs/pi-c12-4-confirmatory.md}), with the
+a new pool of users) were fixed and pushed before any data (\repo{docs/pi-c12-4-confirmatory.md}), with the
 prediction that the excursion would raise false allowing by at least 10 points, with an interval excluding zero. The
 prediction held, with a smaller effect: 13.0 points ($[7.2,18.8]$ over 24 prohibited instances) after the 32 steps at
 the final strength, and 15.1 points ($[10.4,19.8]$) after 64 steps. A second permissive direction, built the same way
 from differently worded statements (cosine 0.77 with the first), gave 19.3 points ($[12.5,26.1]$). A restrictive
 excursion raised false denials of permitted requests by 23.4 points ($[17.1,29.7]$). An excursion of the same size
 along a random direction showed no detectable effect ($-3.1$ points, $[-8.9,2.1]$), and an excursion of zero size
-changed none of the 384 decisions (\texttt{docs/pi/c12-4c-summary.json}). The present steering strength therefore
+changed none of the 384 decisions (\repo{docs/pi/c12-4c-summary.json}). The present steering strength therefore
 does not describe the steered model's behavior here. The effect persists after the steering values match. Because what the loop wrote during the excursion stays in its
 growing context, a memory of the context is the plausible mechanism, although these tests do not isolate it; this is
 history dependence of the protocol, not a demonstration of hysteresis in a fixed-size state. One model and one schedule were tested, in float32, with two wordings of one
@@ -3305,7 +3375,7 @@ probability of a fixed answer token differed at six significant digits in 98 to 
 differences therefore reach the readout, but here they stay within the margins of the greedy choices, and only the
 wording of the yes-or-no answer changed, in 9 of the 92 cells. The visible text is not a complete record of the state.
 For these readouts that is a limit on what can be observed, not a change in behavior
-(\texttt{docs/pi/c12-5-summary.json}).
+(\repo{docs/pi/c12-5-summary.json}).
 
 \section{Bifurcation curves and cusps}
 \label{sec:curves}
@@ -4057,7 +4127,7 @@ $\log_{10}T$ in which the mean entropy on the orbit lies between 1 and 10 nats, 
 count does ($-0.44$; Figure~\ref{fig:scale}, right), but it misses the chaos of Qwen2.5-1.5B and -14B at nearly
 uniform distributions, above its 10-nat bound. This analysis was adapted after the OLMo-2-32B result, and the breadth
 is measured on the loop's own orbits, which chaos itself spreads, so the test is partly circular. A loop-free version,
-frozen before it was run (\texttt{docs/start-state-predictor.md}), uses one forward pass per model and prompt: the
+frozen before it was run (\repo{docs/start-state-predictor.md}), uses one forward pass per model and prompt: the
 entropy profile of the logits at the loop's start state, and the one-step gain there. Its primary prediction fails: the
 start-state breadth on the paper's prompt orders the fourteen dense models' chaotic length with Spearman $+0.30$,
 below the frozen threshold of $0.5$. The secondary criterion, its median over ten prompts, narrowly passes on the
@@ -4287,7 +4357,7 @@ located on 15 October (Huginn's frozen test counted once; of the two
 tests not reported here, one belongs to the separately reported sampled-dialogue study and one, a cusp pilot in a
 second checkpoint, is the unreported bounded search). $^{a}$The five omitted maps are a high-temperature family map,
 a 256-cell scan and three float64 zooms. The census saved only its totals; this list was reconstructed on 17 October
-from the raw maps as the set whose omission reproduces both totals (\texttt{docs/receipts/paper-numbers-20261017.json}).}
+from the raw maps as the set whose omission reproduces both totals (\repo{docs/receipts/paper-numbers-20261017.json}).}
 \label{tab:search}
 \end{table}
 \begin{itemize}

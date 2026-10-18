@@ -29189,3 +29189,41 @@ Human requests parallel work unless resource constrained. Measured46.63GiB avail
 ## 2026-10-18: Task29 edge-C-001 concurrent run card
 
 CellC alpha.0693/log10T-.142, complete seed P6/P12 references. Same finite-fate/bracket rules as edgeA, now CPU1 (measured17-row16step mean.80142s), nice10,12GiBAS,17500CPU/18000wall seconds,2GiBoutput. First2 opposite adjacent brackets of17coarse starts,16bisections,4epochs; preserve unresolved/thirdfates and stop those brackets. No silent retry. Source thread-count parameter is the only evaluator-driver change; numerical map unchanged. Run alongside Task32 point setup only after exact owned A1 identity/RSS>=2GiB and40GiB available ensure remaining18+12+12GiB combined reserve. No other numerical jobs.
+
+## 2026-10-18 04:39 UTC: Codex Task 31 (independent audit of the sheet maps) adjudicated; a circular claim corrected
+
+**Codex's report** (codex/sheets-audit-task31/final-report.md). An independent run on the saved data reproduced all 79 published JSON leaves and all 8 array fields exactly: footprints, overlap and the edge counts 557, 662 and 157.
+
+**Points accepted:**
+- **Edge classes.** "One family ends" and "both end" are finite-search non-observations, not certified bifurcations or disappearances. The paper now says "not found on the other side by any map" and that these are not proofs that a family ends; analysis.json gains an edge_class_note.
+- **Groups.** Token groups are not verified continuation families. The paper now says that attractors are grouped by the text their loops write.
+- **Sweeps.** The sweeps show finite path dependence, not quasistatic hysteresis. The blog's "tracked until it really ends" is now "tracked as far as the sweep can follow it", and the paper says "as far as they can".
+- Not independently recomputed by Codex: the calibrated chaos-word percentages of the earlier correction.
+
+**A circular claim, found while checking these points.**
+- The paper and blog said that where only one family has a periodic attractor, the fixed start never reaches the other, "with no exception among the 49,152 cells". The footprints include the fixed-start map itself, so this holds by construction. (The same sentence is in "SH results, part 1" above.)
+- **The meaningful check** uses footprints from the seven other maps (tools/sheets_analyze.py, leave_default_out in docs/sheets/analysis.json). Where those maps find only one family, the fixed start reaches the other family at 70 of 31,042 cells (0.2 %): 10 of 3,890 where only the crescent family is found, and 60 of 27,152 where only the 2-cycle family is found.
+- Where both are found (9,605 cells), it reaches the crescent family at 6,272 and the 2-cycle family at 2,747.
+- The paper's bullet and the blog now state this. The overlap percentages (65.4 % and 28.5 % of the 9,675 cells where any map finds both) are unchanged.
+
+## 2026-10-18 04:44 UTC: Run card LT (exploratory): are the maps' chaos labels long transients?
+
+**Motivation.** An outside review of the Chaos article (GPT Pro deep research, relayed by the human) asks whether cells labelled chaotic after 300 + 300 steps might be long chaotic transients that end on periodic orbits. The earlier horizon check H2 went to 3,000 steps: 86 of 96 and 92 of 96 chaotic labels held in cross-512 and map-stripes-256. The human approved this run ("yes proceed"; "use pods to speed things up").
+
+**Sample.** docs/lt-cells.json, all labelled chaotic by the maps' short protocol (exponent > 1e-3, no period up to 32), chosen before any LT data. Per map (cross-512 and map-stripes-256):
+- the 96 chaotic cells of H2 (seed 20261014);
+- 96 fresh cells drawn uniformly from the remaining chaotic cells (seed 20261018).
+
+That makes 384 cells.
+
+**Protocol.** tools/long_transients.py, float64, from the fixed start to 10^5 steps.
+- A capture check at step 600 and then every 500 steps: the smallest period up to 256 with full-state recurrence below 1e-8 max(1, |x|) over 2 repetitions. The capture step is recorded with the period and leading-token loop.
+- At the horizon, a twin exponent over 2000 steps (offset 1e-6).
+
+**Reading, fixed now:**
+- S(t), the fraction not captured, at 600, 10^3, 2x10^3, 3x10^3, 5x10^3, 10^4, 2x10^4, 3x10^4, 5x10^4 and 10^5 steps, per map and per tercile of the map's exponent, with counts.
+- The never-captured cells with and without a positive exponent at the horizon.
+- The captured periods.
+- The paper will report S(10^5) next to its chaos labels. Captures beyond 3,000 steps would show transients longer than H2 tested.
+
+**Compute.** Two H100 pods, one per map; costs in the private ledger.

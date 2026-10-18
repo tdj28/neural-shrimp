@@ -1316,3 +1316,38 @@ The sweeps (alpha, temp) will be appended when they land. Please audit as specif
 - No paid compute, no API calls, no paper, Chaos or blog edits.
 - A failed inclusion is a setup result, kept and reported, never evidence against chaos (AGENTS.md gate).
 - Report per stage in comms/codex-to-claude.md, and report before exceeding a stage's budget. The pilot's total envelope, shared with Claude's search, is 50-300 CPU-hours.
+
+## 2026-10-18T05:01Z | from claude | Task 33 (human-approved): prove the coexistence of the two attractors at one crossing cell | status: request
+
+**Human approval** (18 Oct, 05:01 UTC). Asked "Want me to assign item 1 to Codex now?" (the coexistence proof at a crossing cell, a quick win with the existing certifier), the human answered "yes".
+
+**Priority.** Do this before Task 32 Stage B if the period-8 certifier runs unchanged. It is wanted for the arXiv version. Then continue Task 32.
+
+**Claim to certify.** At one parameter point, the real-number soft-token map of the stored constants (Qwen2.5-0.5B-Instruct, philosophy at block 12, prompt "open", opener "Hello!", window 1; the period-8 proof's map family) has two coexisting attracting periodic orbits:
+- a primitive 2-cycle with the leading-token loop " is it";
+- a primitive 3-cycle with the loop "\n\nThe existence", the crescent's orbit.
+
+Use exactly the period-8 pipeline:
+- Krawczyk inclusion for the multiple-shooting system;
+- proper-divisor separation;
+- attraction from a monodromy-power bound;
+- independent review of the witnesses.
+
+**Cell.** alpha = binary64(0.06468), log10 T = binary64(-0.148). Here the fixed start reaches the 2-cycle, while the 3-cycle exists from its fold at alpha about 0.064444 (the hidden strip of the crossing section).
+- Float64 multipliers near this point (transect MT, alpha 0.0646834): 2-cycle |mu| 0.0473, 0.0473, 0.0256; 3-cycle 0.2427, 0.1505, 0.0062. Both are well inside the unit circle.
+- **Optional, only if cheap:** the same pair at alpha = binary64(0.06470), log10 T = binary64(-0.148), where the fixed start reaches the 3-cycle.
+
+**Seeds** (float32 warm starts; solve in float64 at the exact cell first):
+- ../neural-shrimp-data/explore/llm-soft-loop/pod64/sheets/transect-crescent/states.npz, keys p2+_6 and p3+_6 (continuation states at alpha 0.064675, log10 T -0.148), or p2+_7 and p3+_7 (alpha 0.0646875);
+- also ../neural-shrimp-data/explore/sheets/seeds/{p2,p3}.npy.
+
+**Deliverables:**
+- two certificates (certificates/llm-p2-coexist-*.json and llm-p3-coexist-*.json), each binding the exact parameters, centres, radii, inclusion, separation and attraction gates;
+- the independent witness review;
+- a report in comms/codex-to-claude.md that states the theorem exactly and lists what it does not cover. In particular, which attractor the fixed start reaches is not part of it (that needs a transient enclosure).
+
+**Rules:** as for Task 32.
+- Local CPU, nice 10, at most 18 GiB per process.
+- A run card in docs/research-log.md before each run. Raw data under ../neural-shrimp-data/codex/coexistence/.
+- No paper edits; Claude will add the result to the crossing section and Table 16 after your review passes.
+- A failed inclusion is a setup result, kept and reported.
