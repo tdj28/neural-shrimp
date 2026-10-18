@@ -181,9 +181,9 @@ system; Section~\ref{sec:beyond} also measures how much of the mechanism survive
   all thirteen tangent reversals are located cusps, and near them local unfoldings, frozen before solving, matched the
   orbits that Newton solves recovered at twelve parameter offsets in number and at eleven in stability. A doubling
   cascade has superstable points through period 768 and finite-order Feigenbaum ratios that approach $\delta$ (the
-  last, $4.6688$, against $4.6692$). A period-5 window of a plane steered at two depths has the anatomy of a shrimp in a
-  two-dimensional map: fold and flip curves bound a main cell with legs and doubling shells, a trace-zero loop
-  replaces the head of a one-dimensional shrimp, and twice the fold curve has two cusps of opposite kinds and a
+  last, $4.6688$, against $4.6692$). A period-5 window of a plane steered at two depths is a numerically verified shrimp of a
+  two-dimensional map: followed cell by cell, its attractor fills a main cell with legs and doubling shells bounded by
+  fold and flip curves, a trace-zero loop replaces the head of a one-dimensional shrimp, and twice the fold curve has two cusps of opposite kinds and a
   self-crossing. Around one of these junctions an orbit census fixed in advance matched the predicted counts at 9 of
   13 points and found two coexisting attracting orbits at all five points inside it. An interval-arithmetic proof shows that a primitive period-8 orbit exists and is locally attracting, to our
   knowledge the first proof of a periodic orbit of a full transformer language-model map
@@ -1869,6 +1869,20 @@ continued curve the critical multiplier stays at $+1$ or $-1$ to within $1.2\tim
 exceeds $0.4$ in modulus, so no second multiplier reaches the unit circle along them; this does not exclude cusps,
 which need only a nonlinear degeneracy.
 
+\paragraph{The shrimp itself.} The fixed-start maps hide most of this window: in its legs the fixed start settles on a
+coexisting period-4 attractor. To see the window whole, we followed its attractor from the body outward over a grid of
+spacing $1.25\times10^{-4}$ in both strengths (Figure~\ref{fig:realshrimp}; \repo{tools/follow_attractor.py}). Each
+cell starts from the final state of a neighbouring cell that is still on the attractor, and it stays on the attractor
+only if its orbit has a period that is a multiple of five and the body's five-token text, or no detectable period, an
+exactly repeating text and no positive exponent (a slowly converging orbit next to a fold or a flip). The followed
+attractor fills a shrimp: a body against the fold curve and three long legs, each between a fold curve and a flip
+curve, with shells of periods 10, 20 and 40 beyond the flips and chaos behind the same five-token text outside them; a
+fourth leg, thinner than a grid step, is not entered. Of its 1720 cells, 822 have period 5, 371 period 10 and 82 period
+20. The computed curves lie where the followed domain ends: of the 292 pairs of neighbouring cells with periods 5 and
+10, 251 straddle a flip curve to within one grid step, and of the 754 pairs in which a period-5 cell borders a cell
+where the attractor was lost, 504 lie within one step of a fold curve. Nearly all of the others lie along the lower leg,
+beyond the point where the continuation of its flip curve stopped at the bounds of the computation.
+
 \paragraph{Shrimps of a two-dimensional kind.} The period-5 window has this anatomy; only its head differs. At
 every cell of that grid and every curve point, the multipliers beyond the leading pair are below $0.0032$, so on the
 grid the orbit's linearization has at most two non-negligible directions. On the grid the leading multiplier never
@@ -1879,7 +1893,11 @@ the sum of their pairwise products vanish converges at $(\alpha_1,\alpha_2)=(-0.
 (\path{docs/review/p5-nilpotent.jsonl}). There the three leading multipliers have nearly equal moduli, $3.4$ to
 $3.6\times10^{-3}$: the orbit contracts about 280-fold per period, and its linearization has no dominant one- or
 two-dimensional part. This point of strongest contraction plays the role of the head, but the two-dimensional
-reading does not describe it. The determinant $D=\mu_1\mu_2$ of the leading pair also changes sign in the window
+reading does not describe it. Continued in temperature, over the eleven values of $\log_{10}T$ from $-0.104$ to
+$-0.094$ at which the continuation passed its gates, the point moves along a nearly straight line, and its three
+leading multipliers keep comparable moduli, $2.4$ to $5.6\times10^{-3}$, while a fourth approaches them twice
+(Figure~\ref{fig:headtemperature}; \repo{tools/nilpotent_track.py}). Over this range no temperature makes the head
+one-dimensional. The determinant $D=\mu_1\mu_2$ of the leading pair also changes sign in the window
 ($D<0$ at 41 of its 447 attracting cells), so the effective two-dimensional map reverses orientation in part of the
 window: a noninvertible setting in the sense of Mira \cite{mira1996chaotic}, not that of H\'enon's map, whose
 determinant has a fixed sign. The trace-zero curve around an island of negative trace (Figure~\ref{fig:period5folds}c)
@@ -1929,10 +1947,14 @@ two arms that cross in the shadow lie on different sheets, as in the model (Figu
 two cusps have cubic coefficients of opposite sign, as in any section of a swallowtail: one of the saddle-area kind
 ($c>0$, the upper cusp in both) and one of the crossroad or spring kind ($c<0$). We do not claim the swallowtail point
 itself, which needs a third parameter, and we have not traced the tail \cite{gallas1994dissecting}, determined
-symbolic sequences or tested for a periodicity hub \cite{vitolo2011hubs,jones2012rossler}. With these qualifications
-the period-5 window carries the anatomy of a shrimp, as Gallas found it in H\'enon's map, here in a two-dimensional map whose determinant changes sign
-\cite{henon1976two,gallas1993structure}; whether a two-dimensional map also reproduces its nonlinear dynamics is not
-tested (a closure test failed for numerical reasons; Appendix~\ref{sec:hostility}).
+symbolic sequences or tested for a periodicity hub \cite{vitolo2011hubs,jones2012rossler}. With these qualifications,
+the period-5 window meets the three numerical criteria we required before calling a window a shrimp: primitive
+periodic orbits of the full state (float64 Newton solves), their stability (the multipliers and the followed
+attractor), and the organization of their boundary (continued fold and flip curves with located cusps, matched by the
+edge of the followed domain). It is a numerically verified shrimp of the kind Gallas found in H\'enon's map, here in a
+two-dimensional map whose determinant changes sign \cite{henon1976two,gallas1993structure}; none of this is proved by
+interval arithmetic, and whether a two-dimensional map also reproduces its nonlinear dynamics is not tested (a closure
+test failed for numerical reasons; Appendix~\ref{sec:hostility}).
 \begin{figure}[tbp]
 \centering
 \includegraphics[width=\linewidth]{fig-period5-folds.png}
@@ -1948,6 +1970,23 @@ different period-5 orbits; its two traces, continued from two different boundary
 coincide. Circles: the 13 points of the orbit census, with the number of period-5 orbits found and, in brackets, the
 number attracting (green: the count predicted before the computation; orange: not).}
 \label{fig:period5folds}
+\end{figure}
+\begin{figure}[tbp]
+\centering
+\includegraphics[width=\linewidth]{fig-real-shrimp.png}
+\caption{The period-5 shrimp (Qwen2.5-0.5B-Instruct, gratitude at block~4 and hostility at block~16,
+$\log_{10}T=-0.1$, float64). (a) The domain of the window's attractor, followed cell by cell from the body on a grid of
+spacing $1.25\times10^{-4}$, coloured by the period of the followed attractor (black: chaos behind the same five-token
+text; dark grey: no period found and no positive exponent; light grey: the attractor was lost), with the fold curves
+(black; multiplier $+1$) and flip curves (red, dashed; $-1$) of the period-5 orbit, the located cusps (gold stars), the
+self-crossings of the fold curves (magenta) and the near-nilpotent point (white circle). (b) The same domain coloured by
+the Lyapunov exponent of the periodic attractor (light blue: chaos behind the text): dark curves are the strongly
+contracting spines. (c) The body over the trace of the continued orbit's two leading multipliers (grey: repelling): the
+trace-zero curve (black) closes around an island of negative trace, a head of Type~A, and passes the near-nilpotent
+point. (d) The junction of the upper leg: two cusps that share a segment of the fold curve and the crossing of its
+other branches, with the number of period-5 orbits found (attracting) at 13 points fixed before the computation (green:
+the count predicted by a section of a swallowtail; orange: not).}
+\label{fig:realshrimp}
 \end{figure}
 \begin{figure}[tbp]
 \centering
@@ -2705,7 +2744,7 @@ Chaos does not predict accuracy & regression on fresh problems & prospective & \
 Passage times from normal forms & 42 of 48 within one iterate & prospective & \codelink{codex/confirm-fold-2} \\
 \rowcolor{black!7} Cusps and their unfoldings & unfoldings fixed before solving & partly prospective & \codelink{tools/cusp_locate.py} \\
 Feigenbaum ratios & flips by continuation & numerical & \codelink{tools/llm_feigenbaum.py} \\
-\rowcolor{black!7} Shrimp anatomy (period 5) & maps and multipliers & numerical & \codelink{tools/doubly_superstable.py} \\
+\rowcolor{black!7} Period-5 shrimp (domain, legs, head) & followed attractor, curves & numerical & \codelink{tools/follow_attractor.py} \\
 Crossing window families & eight maps; independent audit & numerical & \codelink{tools/sheets_analyze.py} \\
 \rowcolor{black!7} Attracting period-8 orbit & interval arithmetic & \textbf{proof} & \codelink{codex/certify-llm} \\
 \addlinespace[3pt]
@@ -2740,8 +2779,10 @@ Section~\ref{sec:theory} is measured along three directions in a 0.5B model and 
 temperature the network factor can carry the instability. The loop's regime does not mark the accuracy of ordinary
 sampled answers beyond the model's first-token uncertainty, and when slight steering moved a prompt's loop into chaos no change of that accuracy was detected ($+0.36$ points,
 $[-0.36,1.08]$; Appendix~\ref{sec:behaviour}). We do not claim that ordinary sampled generation is
-chaotic in this sense (Appendix~\ref{sec:bridge}), nor that any window is a certified shrimp. The period-5 window carries the anatomy of a shrimp in a two-dimensional map
-(Section~\ref{sec:organization}): fold curves with located cusps, legs, doubling shells, a closed trace-zero curve, and two dovetails. The period-6 and period-7 windows have fold-and-flip skeletons with
+chaotic in this sense (Appendix~\ref{sec:bridge}), nor that any window is a certified shrimp. The period-5 window is a numerically verified shrimp of a two-dimensional map
+(Section~\ref{sec:organization}): its attractor, followed cell by cell, fills a body with legs and doubling shells bounded
+by continued fold and flip curves with located cusps, with a closed trace-zero curve and two dovetails; none of it is
+proved, and its head stays three-dimensional at every temperature where we continued it. The period-6 and period-7 windows have fold-and-flip skeletons with
 located cusps, and in the hostile period-7 body the superstable arcs avoid each other where a head would be. We have
 not traced tails or symbolic sequences, tested for a periodicity hub \cite{vitolo2011hubs,jones2012rossler}, or shown
 that a two-dimensional map reproduces the windows' nonlinear dynamics. The cusps are float64
@@ -3590,8 +3631,22 @@ crossing (Figure~\ref{fig:period5}b). One isolated cell holds a repelling orbit 
 ($\mu_1=1.65$), and near the top of the grid one column of Newton solves failed above cells whose leading multiplier
 rises to $0.88$; both are explained by the window's fold curve (next paragraph). A second turning point
 in the band maps therefore does not give this window a one-dimensional shrimp center. Like the hostile body, it is a window whose
-orbit has two comparable leading directions near its superstable strips, and whether it is the shrimp of a
-two-dimensional map is open.
+orbit has two comparable leading directions near its superstable strips; Section~\ref{sec:organization} shows that it
+is the shrimp of a two-dimensional map. Its head, the near-nilpotent point, keeps three leading multipliers of
+comparable modulus wherever we continued it in temperature (Figure~\ref{fig:headtemperature}). At $\log_{10}T=-0.105$,
+grids of the continued orbit over the tip of the band where the leading multiplier is positive show the same avoided
+crossing: the band narrows between two strips of complex leading pairs, of modulus $0.03$ to $0.1$, which come within
+one cell of each other ($5\times10^{-5}$ in $\alpha_1$) without crossing (\repo{docs/research-log.md}, runs P5Z).
+\begin{figure}[tbp]
+\centering
+\includegraphics[width=\linewidth]{fig-head-temperature.png}
+\caption{The head of the period-5 shrimp continued in temperature: the near-nilpotent point, where the sum of the
+leading multipliers and the sum of their pairwise products vanish (tools/nilpotent\_track.py; float64, steps of 0.001 in
+$\log_{10}T$). (a) Moduli of the five leading multipliers at the point ($\mu_2$ and $\mu_3$ form a complex pair of equal
+modulus; hollow: the row failed its gate, $|c_1|>10^{-7}$). Three multipliers of comparable modulus persist at every
+temperature, and a fourth approaches them twice. (b) The point's position in the plane, coloured by $\log_{10}T$.}
+\label{fig:headtemperature}
+\end{figure}
 \paragraph{The folds and flips of the period-5 window.} To resolve the folds the grid did not, we continued the
 window's period-5 orbit along four lines from one attracting cell, $(\alpha_1,\alpha_2)=(-0.118730,0.100693)$, and
 then the boundaries the lines found, each in both directions (float64; 18 to 73 points per line, 30 to 120 per curve;
