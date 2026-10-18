@@ -29899,3 +29899,56 @@ Pod: H100, repro job set, commit 7c01ba83; terminated. Raw data: explore/llm-sof
 - The returning arms were cut by the time limit at alpha2 0.0857 (fold) and 0.0882 (flip).
 
 **Naming.** The paper used "the lower leg" for two legs. In the main text it is the lower-left leg (tip near (-0.1252, 0.0918); the gate sentence). In the appendix's first-fold-curve sentence it is the lower-right leg, along which the first fold curve descends (alpha1 -0.1206 to -0.1181). Both are now named explicitly.
+
+## 2026-10-18 19:15 UTC: BH result (bound hierarchy, exact norms, 24 of 64 cells): the chain holds exactly; the bounds close on the exponent roughly as 1/k; the sign is right in 23 of 24 cells from k = 17
+
+**Run.** Pod b6244u0rdumte8 (COMMUNITY H100 NVL), commit 6b5ba25a, rc 0, hash verified, terminated. Two processes over alternating cells of docs/bh/bh-cells.json. Within the 125-minute budget, 24 cells completed (12 chaotic, 12 periodic by the maps' labels; the interleaved order kept the sample balanced) and 40 were not started. Readings: tools/analyze_bh.py, docs/bh/bh-summary.json.
+
+**Readings (as fixed in the run card):**
+1. **Chain.** B_k >= B_2k >= ... >= Lambda_N holds in every cell, with no violation (largest B_2k - B_k is 0). Lambda_N equals B_32 in every cell.
+2. **Factorization.** The largest relative error of DF = Sigma_p J_h / T over the J steps is 1.9e-12; the run card expected about 1e-13.
+3. **Convergence.** Median overshoot B_k - lambda_long, by k:
+
+   | k | 1 | 2 | 4 | 8 | 16 | 32 |
+   |---|---|---|---|---|---|---|
+   | chaotic | 2.72 | 1.48 | 0.735 | 0.324 | 0.133 | 0.036 |
+   | periodic | 2.86 | 1.55 | 0.82 | 0.445 | 0.24 | 0.123 |
+
+   The overshoot roughly halves with each doubling of k: close to 1/k, faster than 1/k at large k in chaotic cells and slower in periodic ones. In 4 chaotic cells B_32 lies below lambda_long. This is allowed: B_k bounds the 32-step window, not the long run.
+4. **Accuracy** (share of cells whose sign of B_k agrees with the sign of lambda_long; with the map label in brackets):
+
+   | k | 1-4 | 8 | 16 | 32 |
+   |---|---|---|---|---|
+   | dyadic | 0.54 (0.50) | 0.75 (0.71) | 0.92 (0.88) | 0.92 (0.88) |
+
+   - No dyadic k reaches 95 %.
+   - With overlapping windows the smallest k reaching 95 % is 17 for lambda_long (23 of 24 cells, held through k = 31) and 30 for the map label.
+   - Periodic cells with a positive bound: 12, 12, 12, 7, 3 and 3 of 12 at k = 1, 2, 4, 8, 16 and 32.
+   - With 24 cells, one cell is 4 %.
+5. **Gap.** The per-step gap log(||Sigma_p|| ||J_h|| / T) - log||DF|| has a median of 2.88 (chaotic) and 2.91 (periodic), at least 1.73. The factorized bound loses a factor of about e^2.9 per step to the misalignment of the readout and the network factors, on top of the one-step overshoot.
+
+**The disagreements.**
+- Index 1 (stripes map): the map says periodic (exponent -0.117 over 300 + 300 steps), but lambda_long is +0.124 over 2000 steps after the window. The bound sides with the long run (B_32 +0.334). This is the cell flagged earlier, where the map's label and the long-run exponent differ; lambda_long agrees with the map label in 23 of 24 cells.
+- Indices 17 and 23: periodic, lambda_long -0.146 and -0.185, but B_32 is still +0.019 and +0.035.
+
+**What this means for the theory.** The orbit-based bounds are exact upper envelopes, and they converge on the exponent at about the rate expected for a subadditive sequence, overshoot C/k with C about 2.8 per step. A cell with lambda < -C/k is therefore certified non-chaotic by B_k < 0. Near the boundary (|lambda| small) longer blocks are needed, and the boundary itself is approached only as k grows. These bounds need the orbit's own Jacobians. They certify and explain, but they do not predict chaos from the weights alone. Locating a new model's chaotic region still means running its loop, although blocks of about 20 to 30 steps suffice for the sign in this sample.
+
+## 2026-10-18 19:15 UTC: ATT and ATT2 results (attractor portraits, spectra, sweep) and F7A failure
+
+**ATT** (pod g84s1ewezesrvk, commit 689cc5fa): every job ran (rc 0), but the outputs were written to llm-soft-loop/portraits, outside the packed llm-soft-loop/pod64. Only the logs came back. The summaries survive in them:
+- Strong chaos (alpha 0.07248, log10 T -0.148): 501 of 512 starts not periodic after 800 steps, 11 on a period-4 orbit. Lyapunov spectrum (k = 4, QR, 3000 steps after 1000): 0.274, -1.052, -1.486, -1.856; D_KY 1.26 (running estimates 1.25-1.28).
+- Past the crescent's cascade (0.06626): 503 of 512 not periodic, 9 on period 2. Spectrum 0.036, -1.208, -1.283, -1.684; D_KY 1.030.
+- The certified pair (0.06468): 263 starts reach period 2 and 249 period 3; none is aperiodic.
+- Unstable manifold of the period-3 saddle at 0.06626: orbit residual 4.2e-13, unstable multiplier -1.772.
+- Fix: the toolseq job set now refuses any --out outside llm-soft-loop/pod64 before computing.
+
+**ATT2** (pod h23u0fo7eb0wd0, commit 2bb7eefb; rc 0, hash verified, terminated):
+- Float64 portraits reproduce the censuses: 498 aperiodic and 14 on period 4; 503 and 9 on period 2; pair 263 / 249.
+- The sweep for the movie: 432 values of alpha in [0.0625, 0.0775] at log10 T -0.148, 32 starts each, 250 + 200 steps. In 93 frames every start is aperiodic, in 286 none is, and 53 are mixed.
+- The unstable-manifold job hit its 4-minute limit (status 124) and wrote nothing. It is to be rerun.
+- First local look at the correlation sum of the float32 portrait: the local slope stays between about 0.4 and 1.0 over four decades of r, with no scaling range. No correlation dimension is reported. D_KY from the spectrum is the dimension estimate.
+
+**F7A failed** (pod 97y33ps19pich4, SECURE H100 80GB HBM3, terminated):
+- Every job (p3down, nfp3down, p3up, nfp3up, p10up) stopped with CUDA out of memory in jvp_rows. The chunk was 448 tangent columns, set from the 0.5B runs. Qwen2.5-7B in float64 holds about 61 GB of the 80 GB.
+- About 66 minutes of the 73-minute wall went to an unauthenticated download of the model.
+- Before a rerun: measure the largest chunk that fits (a short smoke test on the same GPU type), and fetch the model faster (an access token, or a pre-staged copy).
