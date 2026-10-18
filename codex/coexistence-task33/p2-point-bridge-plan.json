@@ -1,0 +1,102 @@
+{
+  "period": 2,
+  "source_commit": "067753b088ce82dc187588e922ade1d9248e364e",
+  "source_sha256": {
+    "codex/crosscheck/qwen_map.py": "493a3d1d57fec227f5ba2e3f8f9cfcfdd02d22495d1d44e6449ede901310ae6e",
+    "codex/certify-llm/ball_qwen.py": "fcc90849601984506adf26f651067734f9faef408c8f42dffe64bf5c68e98a80",
+    "codex/certify-llm/ball_linear.py": "5d54200f5880d818eabc97e7eed2f1cf02b83b617b39380bef38d49a7ac45ff2",
+    "codex/certify-llm/cache_io.py": "f4e25b2134bef8a71c27d3156baf01be9d25c593d7b780f90a66b9c1141abdef",
+    "codex/certify-llm/shooting_correction.py": "06a711c7becd970bb135bc28555bf91dfd24bd52a7c224f5ea2d25647f8bac1e",
+    "codex/certify-llm/proof_gates.py": "ee6678b7dd5153ef095fd73d5711fcfc605f7a228c92b1335a9541cc3d7b2c6a",
+    "codex/coexistence-task33/center_refinement.py": "fb3787abf70d8134c52f2288835826fee86a31590ed723aee0c7de669d803bba",
+    "codex/certify-chaos/supervise.py": "306db32a2c8ada9beb67547bbaafc6d0d7a597b5861b0e629ca9a07801223c44",
+    "codex/coexistence-task33/refine-p2-001-card.json": "95272101f5ec8b8a201942af6d45abe98f1fc2f21d59f7e7ac5632ee1b5f4365"
+  },
+  "receipt": {
+    "path": "/data2/neural-shrimp-data/codex/coexistence/refine-p2-001-supervision/receipt.json",
+    "sha256": "b0d5d0400aa3c852949eee2c5be618927489a7d28017edaebc9c2d34de0bb52c"
+  },
+  "admission": {
+    "path": "/data2/neural-shrimp-data/codex/coexistence/refine-p2-001-supervision/admission.json",
+    "sha256": "ef97f9d1436ba63d08f024f7c938e880057f5bedeeb1b0c9829cc24aece499d3"
+  },
+  "definition": {
+    "path": "/data2/neural-shrimp-data/codex/coexistence/p2-final-domain-001.json",
+    "sha256": "953d53fcf324a9d872d6db4a2f63e4e2395a95f4e942423a2a7bc7a0d5840f1f"
+  },
+  "card": {
+    "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/coexistence-task33/refine-p2-001-card.json",
+    "sha256": "95272101f5ec8b8a201942af6d45abe98f1fc2f21d59f7e7ac5632ee1b5f4365"
+  },
+  "card_relative_path": "codex/coexistence-task33/refine-p2-001-card.json",
+  "map": {
+    "schema": "codex-qwen-exact-soft-map-v1",
+    "dimension": 896,
+    "vocabulary": 151936,
+    "layers": 24,
+    "pinned_assets": {
+      "model.safetensors": "fdf756fa7fcbe7404d5c60e26bff1a0c8b8aa1f72ced49e7dd0210fe288fb7fe",
+      "config.json": "18e18afcaccafade98daf13a54092927904649e1dd4eba8299ab717d5d94ff45",
+      "vectors.npz": "b630bb7bef06bde87f8e6a7ca5e8672f83d24bc0585bf19048e9e494a4357f41"
+    },
+    "prefix_ids": [
+      151644,
+      8948,
+      198,
+      2610,
+      525,
+      458,
+      15235,
+      7404,
+      448,
+      2441,
+      15235,
+      13,
+      1446,
+      614,
+      4583,
+      11290,
+      13,
+      31733,
+      1910,
+      311,
+      22729,
+      8820,
+      498,
+      1366,
+      13,
+      151645,
+      198,
+      151644,
+      872,
+      198,
+      9707,
+      0,
+      151645,
+      198,
+      151644,
+      77091,
+      198
+    ],
+    "steering_layer": 12,
+    "alpha_ratio": [
+      4660685182373179,
+      72057594037927936
+    ],
+    "log10_temperature_ratio": [
+      -5332261958806667,
+      36028797018963968
+    ],
+    "temperature": "exp(log(10)*exact_dyadic_log10T)",
+    "rotary": "real base^(-2j/head_dim), real sin/cos",
+    "state": "one appended full-dimensional soft embedding after the fixed prefix",
+    "readout": "full-vocabulary expected embedding with the checkpoint embedding matrix",
+    "checkpoint_constants": "stored binary constants interpreted as exact dyadics"
+  },
+  "point_versions": {
+    "python_flint": "0.9.0",
+    "flint": "3.6.0"
+  },
+  "output": "/data2/neural-shrimp-data/codex/coexistence/refine-p2-001",
+  "iteration": 14
+}

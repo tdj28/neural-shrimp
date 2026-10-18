@@ -27,7 +27,8 @@ def decode_original(v,unpack,pack):
     return x
 
 def authenticate(plan,*,repository,unpack,pack,precision):
-    if precision not in (1024,2048):raise ValueError('assembly precision')
+    from flint import ctx
+    if precision not in (1024,2048) or ctx.prec!=precision or ctx.threads!=1:raise ValueError('assembly precision')
     p=plan['period'];n=896
     if type(p)is not int or p not in (2,3):raise ValueError('period')
     def pinned(key):
@@ -52,7 +53,23 @@ def authenticate(plan,*,repository,unpack,pack,precision):
     if (card['period'],card['precision'],card['alpha'],card['log10T'])!=(p,2048,.06468,-.148):raise ValueError('original point map')
     if definition['period']!=p or definition['dimension']!=n or definition['map']!=plan['map']:raise ValueError('definition map')
     if list(float(card['alpha']).as_integer_ratio())!=plan['map']['alpha_ratio'] or list(float(card['log10T']).as_integer_ratio())!=plan['map']['log10_temperature_ratio']:raise ValueError('exact parameter bridge')
+    # Full source/card authority is external and pinned, not inferred from output.
+    inputs={e['path']:e for e in card['inputs']}
+    if len(inputs)!=len(card['inputs']):raise ValueError('duplicate card inputs')
+    for name,e in inputs.items():
+        q=Path(name)
+        if q.is_symlink() or not q.is_file() or q.stat().st_size!=e['bytes'] or sha(q)!=e['sha256']:raise ValueError('original card input '+name)
+    prefix_path=Path(card['prefix_output'])/'inputs.json'
+    if str(prefix_path) not in inputs:raise ValueError('unbound prefix metadata')
+    meta=read(prefix_path)
+    for key in ('pinned_assets','prefix_ids','steering_layer','alpha_ratio','log10_temperature_ratio','temperature','rotary'):
+        if meta[key]!=plan['map'][key]:raise ValueError('prefix/map bridge '+key)
+    if meta['precision']!=2048 or meta['versions']!=plan['point_versions']:raise ValueError('point backend authority')
+    if meta['source_commit']!=card['prefix_source_commit']:raise ValueError('prefix original source')
     raw=Path(plan['output'])
+    if set(str(q) for q in raw.rglob('*') if q.is_file())!={name for name in inventory if Path(name).is_relative_to(raw)}:raise ValueError('whole output inventory')
+    argv=receipt['argv']
+    if argv!=admission['argv'] or argv[argv.index('--card')+1]!=str(cp) or argv[argv.index('--out')+1]!=str(raw):raise ValueError('original command binding')
     def original(name):
         path=raw/name
         if str(path) not in inventory:raise ValueError('missing original point artifact')
@@ -68,4 +85,4 @@ def authenticate(plan,*,repository,unpack,pack,precision):
         if len(obj['value'])!=n or len(obj['tangent'])!=n:raise ValueError('full state')
         if any(endpoints(v)!=(0,0) for v in obj['tangent']):raise ValueError('nonzero tangent')
         images.append([decode_original(v,unpack,pack) for v in obj['value']]);original_images.append(obj['value'])
-    return images,dict(period=p,dimension=n,source_commit=source,point_precision=2048,assembly_precision=precision,definition_sha256=sha(dp),receipt_sha256=sha(rp),original_images=original_images,original_centers=centers,certificate_passed=False,note='Original local receipt/source authority only; reviewed evaluator and independently bound prefix/assets/map are external trust prerequisites. No fresh model execution.')
+    return images,dict(period=p,dimension=n,source_commit=source,point_precision=2048,assembly_precision=precision,definition_sha256=sha(dp),receipt_sha256=sha(rp),original_images=original_images,original_centers=centers,certificate_passed=False,note='Original local receipt/source authority only; reviewed evaluator is an external trust prerequisite; original card inputs and prefix/assets/map bridge checked. No fresh model execution.')
