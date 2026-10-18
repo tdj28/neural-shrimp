@@ -1,0 +1,185 @@
+{
+  "receipt": {
+    "lane": "derivative_profile",
+    "source_commit": "c62d079edcb45809959e1562af729879be8451d9",
+    "argv": [
+      "/data2/neural-shrimp/.venv/bin/python",
+      "-I",
+      "-B",
+      "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/coexistence-task33/derivative_profile.py",
+      "--card",
+      "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/coexistence-task33/derivative-profile-card.json",
+      "--out",
+      "/data2/neural-shrimp-data/codex/coexistence/derivative-profile-001"
+    ],
+    "returncode": 0,
+    "failure": null,
+    "external_elapsed_seconds": 50.05789806926623,
+    "worker_reaped": true,
+    "worker_observed_after_exec": {
+      "pid": 2073742,
+      "starttime": 226041835,
+      "pgid": 2073742,
+      "sid": 2073742,
+      "state": "R",
+      "nice": 10,
+      "threads": 1,
+      "uid_line": "Uid:\t1000\t1000\t1000\t1000",
+      "cmdline": "/data2/neural-shrimp/.venv/bin/python -I -B /home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/coexistence-task33/derivative_profile.py --card /home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/coexistence-task33/derivative-profile-card.json --out /data2/neural-shrimp-data/codex/coexistence/derivative-profile-001 ",
+      "limits": "Limit                     Soft Limit           Hard Limit           Units     \nMax cpu time              550                  550                  seconds   \nMax file size             33554432             33554432             bytes     \nMax data size             unlimited            unlimited            bytes     \nMax stack size            8388608              unlimited            bytes     \nMax core file size        0                    unlimited            bytes     \nMax resident set          unlimited            unlimited            bytes     \nMax processes             375398               375398               processes \nMax open files            65535                65535                files     \nMax locked memory         8388608              8388608              bytes     \nMax address space         12884901888          12884901888          bytes     \nMax file locks            unlimited            unlimited            locks     \nMax pending signals       375398               375398               signals   \nMax msgqueue size         819200               819200               bytes     \nMax nice priority         0                    0                    \nMax realtime priority     0                    0                    \nMax realtime timeout      200000               200000               us        \n"
+    },
+    "worker_pid": 2073742,
+    "worker_identity_absent": true,
+    "worker_group_session_absent": true,
+    "supervisor": {
+      "pid": 2073650,
+      "starttime": 226041810,
+      "pgid": 2073650,
+      "sid": 2073650,
+      "state": "R",
+      "nice": 10,
+      "threads": 1,
+      "uid_line": "Uid:\t1000\t1000\t1000\t1000",
+      "cmdline": "/data2/neural-shrimp/.venv/bin/python -I -B codex/certify-chaos/supervise.py --plan codex/coexistence-task33/derivative-profile-plan.json --lane derivative_profile --source c62d079edcb45809959e1562af729879be8451d9 ",
+      "limits": "Limit                     Soft Limit           Hard Limit           Units     \nMax cpu time              unlimited            unlimited            seconds   \nMax file size             unlimited            unlimited            bytes     \nMax data size             unlimited            unlimited            bytes     \nMax stack size            8388608              unlimited            bytes     \nMax core file size        0                    unlimited            bytes     \nMax resident set          unlimited            unlimited            bytes     \nMax processes             375398               375398               processes \nMax open files            65535                65535                files     \nMax locked memory         8388608              8388608              bytes     \nMax address space         1073741824           19327352832          bytes     \nMax file locks            unlimited            unlimited            locks     \nMax pending signals       375398               375398               signals   \nMax msgqueue size         819200               819200               bytes     \nMax nice priority         0                    0                    \nMax realtime priority     0                    0                    \nMax realtime timeout      200000               200000               us        \n"
+    },
+    "output_files": [
+      {
+        "path": "/data2/neural-shrimp-data/codex/coexistence/derivative-profile-001/p2.npz",
+        "bytes": 241370,
+        "sha256": "9a8bff62f96f4aee7bd7ee91a22b98f2de1cb3e1c8f264ba66a119a29e4879f7"
+      },
+      {
+        "path": "/data2/neural-shrimp-data/codex/coexistence/derivative-profile-001/p3.npz",
+        "bytes": 241370,
+        "sha256": "dce24f627344e8ac9e2bd349a2c850615c6bbad72c1d42f21fe33656718b62ad"
+      },
+      {
+        "path": "/data2/neural-shrimp-data/codex/coexistence/derivative-profile-001/report.json",
+        "bytes": 2909,
+        "sha256": "32f7e7adbc7191471bd68e446f4c18c6a028b749a68a220b621fee6ed83fb949"
+      }
+    ],
+    "actual_output_bytes": 485649,
+    "children_ru_maxrss_kib_at_reap": 5721384,
+    "scope": "External window includes startup, pre/post checks and serialization; source/native producer execution is not attested. Scientific claims require separate saved-result review."
+  },
+  "report": {
+    "rows": [
+      {
+        "period": 2,
+        "state_index": 511,
+        "basis_columns": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7
+        ],
+        "batch_seconds": 7.678072573151439,
+        "single_jvp_seconds": 4.802147364709526,
+        "batch_linear_combination_vs_single_inf": 1.7430067805745963e-14,
+        "fd_ladder": [
+          {
+            "h": 0.01,
+            "seconds": 0.9971570507623255,
+            "absolute_inf_error": 7.915521490198149e-05
+          },
+          {
+            "h": 0.003,
+            "seconds": 1.017631386872381,
+            "absolute_inf_error": 7.1444527186578614e-06
+          },
+          {
+            "h": 0.001,
+            "seconds": 1.0336592001840472,
+            "absolute_inf_error": 7.940279925067292e-07
+          },
+          {
+            "h": 0.0003,
+            "seconds": 1.0515483720228076,
+            "absolute_inf_error": 7.146118273585996e-08
+          },
+          {
+            "h": 0.0001,
+            "seconds": 1.0219185682944953,
+            "absolute_inf_error": 7.944352051908205e-09
+          },
+          {
+            "h": 3e-05,
+            "seconds": 1.0400868807919323,
+            "absolute_inf_error": 7.132063928154408e-10
+          },
+          {
+            "h": 1e-05,
+            "seconds": 1.1314661391079426,
+            "absolute_inf_error": 1.2175500841912767e-10
+          }
+        ]
+      },
+      {
+        "period": 3,
+        "state_index": 510,
+        "basis_columns": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7
+        ],
+        "batch_seconds": 8.884437950793654,
+        "single_jvp_seconds": 6.675517536699772,
+        "batch_linear_combination_vs_single_inf": 3.462508058049707e-15,
+        "fd_ladder": [
+          {
+            "h": 0.01,
+            "seconds": 1.3647293029353023,
+            "absolute_inf_error": 0.0005134467227156173
+          },
+          {
+            "h": 0.003,
+            "seconds": 1.3747777179814875,
+            "absolute_inf_error": 4.7383588930617615e-05
+          },
+          {
+            "h": 0.001,
+            "seconds": 1.3560276399366558,
+            "absolute_inf_error": 5.276282431704998e-06
+          },
+          {
+            "h": 0.0003,
+            "seconds": 1.3451794032007456,
+            "absolute_inf_error": 4.7498186074926285e-07
+          },
+          {
+            "h": 0.0001,
+            "seconds": 1.3481727880425751,
+            "absolute_inf_error": 5.27871929258128e-08
+          },
+          {
+            "h": 3e-05,
+            "seconds": 1.7398879900574684,
+            "absolute_inf_error": 4.766884133949878e-09
+          },
+          {
+            "h": 1e-05,
+            "seconds": 1.4180347733199596,
+            "absolute_inf_error": 6.355678969227618e-10
+          }
+        ]
+      }
+    ],
+    "elapsed_seconds": 48.0715936711058,
+    "rss_kib": 5721384,
+    "scope": "Eight native composed derivative columns and fixed directional FD ladder; not a dense monodromy, multiplier, stability or interval certificate."
+  },
+  "all14_saved_fd_errors_recomputed_exact": true,
+  "original_pids_absent": true,
+  "session_reaped_exit": 0
+}
