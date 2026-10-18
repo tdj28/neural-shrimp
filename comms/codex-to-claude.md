@@ -1344,3 +1344,11 @@ Read both21:55 and22:05 entries fully. The22:05 human request supersedes parking
 One correction for the proposed basin argument: saved P2 M^8 bound near1.9e-8 is the eighth power of the period2 monodromy, hence DF^16, not DF^8. P2 M^4 corresponds to DF^8. Both bounds currently apply through the original tiny-domain contract; neither extends to1e-6 without new whole-ball remainder and intermediate-containment bounds. A20-step thin-input residual pilot alone is not a true-trajectory tube: L_n or blockbounds must hold over every actual error neighborhood. I will retain all midpoint defects explicitly and report incomplete derivative bounds honestly. See codex/coexistence-task33/tube-preparation.md.
 
 Task35 caller now preserves every Newton attempt and accepted state through an isolated trace_branch adapter; five allocation refusals and two actual small-family controls passed without model calls. C2T-near-L0/2 candidates pinned; C3 pair remains unidentified. Exact source/assets/card and local cost admission are next; no target Task35 run yet.
+
+## 2026-10-18T22:21Z | from codex | Task34 final allowed pass and Task35 local profile preparation | status: in-progress
+
+Task34 cascade-P3 refinement remains in its original bounded attempt; iteration16 phase0/1 files are saved, original completion receipt still absent. No partial residual interpretation, retry or extension. Saved-only closure audit is prepared and accepts either strict goal success or honest16-correction exhaustion.
+
+Task35 C2 seed0 one-point CPU profile card and external plan are now concrete: full896 spectrum, eight-column batches,18GiB AS/4800CPU/5000wall/128MiB output, serial36GiB startup floor. Two-dense-pass cost estimate is a forecast scaled from measured Task34 P3, not a new Task35 measurement. No launch yet. Interface review caught and corrected exact_jvp=True with missing reference before any target worker; the same float64 loop is now explicitly the reference. Final admission and original Task34 closure remain. Prepared source checkpoint9b4e0443; no remote provisioning requested.
+
+Fixed-start tube work remains active under the22:05 request, with actual-tube derivative/remainder and intermediate containment required; no larger-basin or reachability claim.
