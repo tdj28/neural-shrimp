@@ -29031,3 +29031,28 @@ Periods are checked by full-state recurrence over 4 repetitions (q <= 64, tol 1e
 **Endpoint, fixed now.** The number of held-out switches, out of B and S, classed as **selection (stable overlap)**: x0 changes family inside a refined bracket while both families' continuations keep their family across it with all computed multipliers inside the unit circle. Switches with chaos or no detected period on one side are **unresolved**; they are reported, not dropped. A switch where a family's continuation leaves its family is **intrinsic** for that family.
 
 **Compute.** One H100 pod; cost in the private ledger.
+
+## 2026-10-18 02:55 UTC: SH results, part 1 (four seeded maps): the crescent family is a continuous sheet under the stripes; the order flips only where both families exist
+
+**Data.**
+- Pods SD, SP3, SB6 and SP10 (commit fdce6122). Each pod's runner exited 0, its result hashes were verified, and it was terminated (orchestrator lookup plus inventory). The run took 49-54 min per map.
+- Maps: ../neural-shrimp-data/explore/llm-soft-loop/pod64/sheets/{default,p3,band6,p10}. Receipt docs/sheets/analysis-seeded.json (tools/sheets_analyze.py at 78ee53f1).
+- The grid is 192 x 256 over the cross-512 window, so the map has 49,152 cells.
+
+**Change before the sweeps were seen.** Groups are assigned by the periodic attractor's token loop (3-group if it contains the blank-line token), and chaos is kept separate. Periodic loops separate cleanly: blank-line medians 0.164 against 0.0002, and the 0.05 threshold sorts 99 % of each. Chaotic attractors do not: 72 % of chaotic cells lie between 0.05 and 0.2, mixing both groups' texts.
+
+**Results:**
+- **Footprints** (periodic attractors reached from at least one of the four starts): 3-group 12,638 cells, 2-group 32,100, both 7,570.
+- **Where only one family has a periodic attractor,** the fixed start never shows the other family. So the visible order can flip only inside overlaps.
+- **Band crossing** (alpha 0.0665-0.0745, log10 T -0.144 to -0.1385; 3,128 cells). Both families exist in 1,047 cells, where x0 picks the 3-group in 581 and the 2-group in 453. Elsewhere: 3-only 725 (x0 shows 3 in 552, never 2); 2-only 906 (x0 shows 2 in 691, never 3); neither 450 (chaos).
+- **Crescent zone** (alpha 0.0625-0.0675, log10 T -0.17 to -0.14; 11,008 cells). Both families exist in 4,273 cells; x0 picks the crescent in 2,998 (70 %) and the 2-cycle in 1,235.
+- **Edges of the fixed-start map** between periodic cells of different groups: 403 pure switches (each side's family also exists on the other side), 771 where one family ends while the other continues beneath, and 202 where both end.
+- **Cross-sections** (blank-line fingerprint against alpha, all maps): the crescent family's branch is continuous along each row; at log10 T -0.1415 it runs from alpha 0.066 to about 0.0745, across the stripes. The fixed start alternates between that branch and the stripe windows.
+- **The crescent's visible left edge is a switch curve beside its fold.** At each temperature, the period-3 orbit exists from its fold edge, but x0 reaches it only further right. The hidden strip is 0.00076, 0.00099, 0.00071, 0.00041, 0.00023, 0.00018 and 0.00006 in alpha at log10 T -0.165, -0.160, -0.155, -0.150, -0.148, -0.145 and -0.142, so it narrows toward the top of the crescent. At -0.148 the existence edge of the map (0.06444) matches the fold found by continuation (0.064444).
+- **Settle times** of x0 near the edges are barely longer than elsewhere (medians 94 and 87 steps). The basin boundaries here do not trap trajectories for long.
+
+**Caveats.**
+- Four starts give lower bounds on footprints and overlaps. The sweeps (pending) add more.
+- Labels are finite-horizon: 600 transient and 300 sample steps.
+
+**Pending.** The sweeps (pods SA and ST), the microtransects (pod MT, with the classification of the held-out switches B and S), and Codex Tasks 29-31.

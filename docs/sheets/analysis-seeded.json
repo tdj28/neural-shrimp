@@ -1,0 +1,89 @@
+{
+ "maps": {
+  "default": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/sheets/default/sheets.npz",
+  "p3": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/sheets/p3/sheets.npz",
+  "band6": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/sheets/band6/sheets.npz",
+  "p10": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/sheets/p10/sheets.npz"
+ },
+ "grid": {
+  "log10_temperature": [
+   -0.17,
+   -0.125,
+   192
+  ],
+  "alpha": [
+   0.0625,
+   0.077470645793,
+   256
+  ]
+ },
+ "threshold_p_blank": 0.05,
+ "cells": 47265,
+ "footprint_3group": 12638,
+ "footprint_2group": 32100,
+ "overlap_cells": 7570,
+ "fixed_start_3group_cells": 9239,
+ "fixed_start_2group_cells": 23615,
+ "fixed_start_3group_inside_overlap": 5080,
+ "fixed_start_2group_inside_overlap": 2388,
+ "edges_of_fixed_start_map": {
+  "switch": 403,
+  "one_family_ends": 771,
+  "both_families_end": 202
+ },
+ "median_settle_near_edges": 94.0,
+ "median_settle_elsewhere": 87.0,
+ "per_map_group_cells": {
+  "default": {
+   "3group": 9239,
+   "2group": 23615,
+   "chaos": 14411,
+   "no_period": 1887
+  },
+  "p3": {
+   "3group": 10210,
+   "2group": 22671,
+   "chaos": 14407,
+   "no_period": 1864
+  },
+  "band6": {
+   "3group": 11350,
+   "2group": 21935,
+   "chaos": 13984,
+   "no_period": 1883
+  },
+  "p10": {
+   "3group": 4260,
+   "2group": 32310,
+   "chaos": 10991,
+   "no_period": 1591
+  }
+ },
+ "chaos_in_fixed_start_map": {
+  "cells": 14411,
+  "p_blank_histogram": {
+   "bins": [
+    0,
+    0.01,
+    0.03,
+    0.05,
+    0.08,
+    0.12,
+    0.2,
+    0.3,
+    1.0
+   ],
+   "counts": [
+    240,
+    761,
+    1158,
+    2663,
+    1700,
+    7638,
+    251,
+    0
+   ]
+  },
+  "chaos_cells_inside_overlap": 102
+ }
+}
