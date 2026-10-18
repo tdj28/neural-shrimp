@@ -1057,6 +1057,11 @@ snapshot_download('$repo', revision='$rev', cache_dir='$NEURAL_SHRIMP_DATA/model
     TOOL=p5_temperature.py run p5temp-${JOBARGS[0]} "${JOBARGS[1]}" --device cuda --threads 8 "${JOBARGS[@]:2}" \
       --out $D/sheets/p5temp-${JOBARGS[0]}
     ;;
+  p5dss)       # period-5 shrimp step 2: window search and superstability grid at one temperature (tools/p5_dss_temperature.py,
+               # float64 on the GPU): JOBARGS = NAME MINUTES ARGS...; vectors-l4/l16 uploaded with --extra-data
+    TOOL=p5_dss_temperature.py run p5dss-${JOBARGS[0]} "${JOBARGS[1]}" --device cuda --threads 8 "${JOBARGS[@]:2}" \
+      --out $D/sheets/p5dss-${JOBARGS[0]}
+    ;;
   hidden)      # hidden chaos along a line (tools/hidden_chaos.py): JOBARGS NAME MINUTES ARGS...; float64 on the GPU,
                # Qwen2.5-0.5B (cached), twins at two offsets, leading-token statistics, into hidden/NAME
     TOOL=hidden_chaos.py run hidden-${JOBARGS[0]} "${JOBARGS[1]}" line --device cuda --dtype float64 \
