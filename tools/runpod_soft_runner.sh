@@ -2012,6 +2012,16 @@ snapshot_download('$REPO', revision='$MREV', cache_dir='$NEURAL_SHRIMP_DATA/mode
     done
     wait
     ;;
+  bh)          # run BH: the bound hierarchy with exact norms (tools/bound_hierarchy.py, float64 on the GPU) on the frozen
+               # sample docs/bh/bh-cells.json, split over PROCS processes (cells i, i+PROCS, ...). JOBARGS = NAME MINUTES
+               # BUDGET-MINUTES PROCS ARGS... (vectors-l12 uploaded with --extra-data)
+    nm=${JOBARGS[0]}; mins=${JOBARGS[1]}; bud=${JOBARGS[2]}; nproc=${JOBARGS[3]}
+    for i in $(seq 0 $((nproc - 1))); do
+      TOOL=bound_hierarchy.py run bh-$nm-$i "$mins" --cells-file docs/bh/bh-cells.json --device cuda --threads 4 \
+        --first $i --stride $nproc --budget-minutes $bud "${JOBARGS[@]:4}" --out $D/bh/$nm-$i &
+    done
+    wait
+    ;;
   fm5l)        # run FM5L: the lower leg's own fold and flip curves. The fixed start reaches a coexisting attractor in the
                # leg, so the period-5 orbit is marched by Newton from the fixed-start seed (SEED-A1 SEED-A2) along PATH
                # (explore-relative JSON of waypoints: the follow run's parent chain) to a target cell inside the leg. Two

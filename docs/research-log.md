@@ -29775,3 +29775,32 @@ ledger.
 - Not put in the paper, recorded here: on these two steered maps the norm-based network term ranks chaotic above periodic cells with AUC 0.906 / 0.825, the readout term with 0.469 / 0.448; the one-step bound with 0.903 / 0.866 and the five-step bound with 0.978 / 0.952. These are worst-case norms, not the tangent-growth split of "Steering makes tokens compete" (chaotic cells have the larger readout factor there). Stating both without reconciling them would read as a contradiction, so the theory section points to the mechanism paragraph instead.
 - The threshold is now T_*(alpha) = diam(E)^2 L(alpha)/4, a curve in the plane. The per-alpha maxima of ||J|| (lower estimates of L(alpha)) run from 7.59e3 to 1.54e5 over the 64 + 64 sampled steering strengths, so T_*(alpha) >= 2.7e3 everywhere sampled and >= 5.6e4 at alpha = 0.06.
 - Correction: the earlier "T_* >= 5.7e4" rounded a lower bound up. The exact value from the raw data is 56,563, so the bound is now stated as >= 5.6e4 in all three documents.
+
+## 2026-10-18 17:00 UTC: Run card BH (exploratory; human: a theory of bounds, shown to apply to and be accurate on what we have)
+
+**Theory being tested.** Along an orbit of F_{T,alpha}, with P_{i,k} the product of k step Jacobians, submultiplicativity gives an exact chain
+- for dyadic block lengths k dividing the recorded length N: Lambda_N = (1/N) log||P_{0,N}|| <= B_k <= B_{k/2} <= ... <= B_1 = mean log||DF||;
+- B_1 <= mean[log(||Sigma_p||/T) + log||J_h||].
+
+As N grows, Lambda_N tends to the largest exponent lambda, and by Kingman's subadditive ergodic theorem the block bounds close onto lambda. Each region {B_k > 0} therefore contains the chaotic region of the (alpha, T) plane, and these regions shrink onto it as k grows. NB checked this chain with power-iteration estimates. Here every norm is exact up to float64 rounding.
+
+**Tool.** tools/bound_hierarchy.py (local smoke test before launch).
+- Dense DF at each of N = 32 recorded steps (896 forward-mode JVPs per step).
+- Sigma_p exactly, as E^T diag(p) E - F F^T.
+- Dense J_h every 4th step, which also checks DF = Sigma_p J_h / T.
+- All norms by SVD; dyadic B_k for k = 1, 2, ..., 32, and overlapping-window averages for every k <= 32.
+- A 2000-step tangent exponent after the window (lambda_long), as the reference.
+- Transient: 1000 steps from the fixed start, as the maps.
+
+**Sample** (frozen before any BH data: docs/bh/bh-cells.json): 64 cells, 16 per (map, label) for the stripes map and the crossing window, chaotic and periodic by the maps' labels; random.Random(20261018); interleaved so that a partial run stays balanced.
+
+**Readings.**
+1. Does the chain hold exactly in every cell (any violation beyond 1e-12 is a bug or a precision problem)?
+2. The factorization error at the J steps (expected near 1e-13).
+3. Convergence: the median of B_k - lambda_long against k, per label.
+4. Accuracy: for each k, the share of cells whose sign of B_k agrees with the sign of lambda_long, and with the map label. Report the smallest k at which the bound's sign classifies at least 95 % of the cells, or that no k up to 32 does.
+5. The per-step gap log(||Sigma_p|| ||J_h|| / T) - log||DF||: how much the factorized bound loses to misalignment of the two factors.
+
+Exploratory, with every cell reported, including failures and cells not started.
+
+**Compute.** One H100 pod (job set bh), two processes over alternating cells, budget 125 min, run 150 min. Ceiling in the private ledger (human approved the plan: "do it").
