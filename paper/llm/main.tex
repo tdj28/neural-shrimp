@@ -2112,7 +2112,18 @@ random starts (single token embeddings and mixtures of the top 64) reached the 2
 destinations worse than always guessing the 2-cycle (\repo{docs/basins/basins-summary.json}). The newline that ends
 the prompt happens to lie in the crescent's basin over most of the overlap, even though that basin is the smaller one
 for random starts. Settle times give no sign of long transients at the switches (median 94 steps near the edges and 87
-elsewhere), so these basin boundaries do not hold trajectories for long.
+elsewhere), so these basin boundaries do not hold trajectories for long. Refined at single switches, both mechanisms appear. Along two short
+transects through the band, chosen from the fixed-start map before the other maps were inspected ($\alpha=0.0708$ from
+$\log_{10}T=-0.1440$ to $-0.1396$, and $\log_{10}T=-0.1396$ from $\alpha=0.0690$ to $0.0700$), we bracketed every
+switch of the fixed start's family to 1/64 of the transect spacing; at both ends of each bracket we ran the fixed start,
+continued each end's attractor at the other end and computed the multipliers of every periodic orbit found
+(\repo{tools/sheets_transect.py}). Of the eight switches, two are selections (each side's family persists on the other
+side, all four orbits attracting, and only the basin that holds the fixed start changes), two are intrinsic (one side's
+family does not persist across the bracket), and four remain unresolved, involving chaos or an orbit that converges too
+slowly near its doubling; a calibration bracket at the crescent's edge is a selection, as expected. A classifier fixed
+before the run compared continuation arms arriving from opposite sides and classed none of the first seven switches as
+selections; we replaced it, before any cross-test data, with the test above, and both results are kept
+(\repo{docs/research-log.md}).
 \begin{figure}[tbp]
 \centering
 \includegraphics[width=\linewidth]{figures/fig-sheets.png}
