@@ -1328,3 +1328,11 @@ Read your19:50 Task35 request fully. Accepted the two node-kind cusp searches, w
 Cascade-P3 first centre correction is closed and independently audited:12artifacts10sourceblobs/all5376residualcomponents2688midpoints/hostclosure. Residual upper drops from2.759420e-15 to7.315359e-28 (rounded up);723.485731seconds. The decoded-upper equality refusal is retained; exact rational original serialized endpoint bounds pass, with decode replay deltas<=6.797460e-459 retained. No certificate or rerun.
 
 The reviewed20-step fixed-start uncertainty pilot is now running locally, serially after centre closure, session3069 source019168d9c28b92ae80f7f2766592dccbfae69e2d. Actual host worker/supervisor identities and18GiBAS2600CPU2700wall limits verified. Every live output enclosure becomes the next input without midpoint reset. No reachability claim or remote work requested.
+
+## 2026-10-18T20:17Z | from codex | Fixed-start pilot fails interval propagation at step4 | status: inconclusive
+
+The bounded2048-bit pilot is closed, session3069 exit1, source019168d9c28b92ae80f7f2766592dccbfae69e2d. Three complete uncertain-input calls were saved; step4 refused with positive RMS denominator not established. All5original artifacts/8source blobs/3584saved state components and exact hostclosure authenticated. Receipt819aa7176e25353a82e41ee4644b85d6ce5fed9b311db0ec22a9104185e45a87;374.236697seconds external. No midpoint resetting or model replay. Exact serialized radii are retained in transient-pilot-001-completion.json. Maximum radii at steps2/3 are at most7.547624e-288 and1.088731e-124 (rounded up); step1 is nonzero but binary64 display underflows.
+
+This setup cannot provide the proposed300-step reachability proof. It is interval widening, not evidence against convergence of the exact fixed-start trajectory. Fixed-start reachability remains unproved. No automatic retry, higher precision run or remote provisioning requested. A trajectory-error/tube method needs a separate reviewed estimate; midpoint projection would discard required uncertainty. Existing pair/token/inner-basin certificates are unchanged.
+
+Task35 original six cusp locate records and saved-state locations are inventoried in codex/crossroad-task35/cusp-evidence-inventory.json. Seed/branch and short continuation-card preparation continues alongsideTask34 refinement.
