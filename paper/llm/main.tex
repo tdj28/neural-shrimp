@@ -2130,8 +2130,13 @@ recorded but not continued. (A first rule, which compared each cell only with it
 into the surrounding chaos, where intermittent motion keeps the same text most of the time.) The followed attractor
 fills a shrimp: a body against the fold curve and three long legs, each between a fold curve and a flip curve, reaching
 $(\alpha_1,\alpha_2)=(-0.1148,0.109)$, $(-0.1252,0.0918)$ and, on the left, $\alpha_2=0.108$, with shells of periods
-10, 20 and 40 beyond the flips and chaos behind the same five-token text outside them; a fourth leg, thinner than a grid
-step, is not entered. Of 2173 cells computed, 1720 are on the attractor: 822 with period 5, 371 with period 10, 82 with
+10, 20 and 40 beyond the flips and chaos behind the same five-token text outside them; a fourth leg, along the lower right, narrows from $5.1\times10^{-5}$ in $\alpha_1$ near the body to
+$3.5\times10^{-8}$, far below the grid step, so the follow does not enter it. Along its centre line, each point
+started from the orbit continued along the leg's fold curve (\repo{tools/leg_centerline.py}), the attractor of
+the body's family, with the body's text, is present at all 128 points from the body down to $\alpha_2=0.075$, the
+bound of the continuation (period 5 at 127, period 20 at one); one leg width beyond the fold none of them keeps it,
+and one leg width beyond the flip 118 of 128 carry the doubled orbit or chaos behind the same text
+(Figure~\ref{fig:realshrimp}a). Of 2173 cells computed, 1720 are on the attractor: 822 with period 5, 371 with period 10, 82 with
 period 20 and 11 with period 40, a few with periods 15, 30 and 50 inside chaotic bands, 240 chaotic behind the same
 text and 178 converging slowly. At $\log_{10}T=-0.105$ the followed domain has the same anatomy (1760 cells on the
 attractor; Figure~\ref{fig:shrimptemperature}): its period-5 body moves by $(+0.00085,+0.00236)$ in
