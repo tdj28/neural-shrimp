@@ -1,0 +1,7 @@
+# C2 seed0 bounded local profile
+
+2026-10-18T23:17Z: Root reviewed exact saved-seed caller, isolated trace delta and producer interfaces. The unchanged producer loader invokes float64 normalization/rotary patches; exact_jvp explicitly receives the same float64 loop as reference. Model/vector/tokenizer/source and candidate bytes are pinned. The candidate is a proposal requalified by the actual primitive-period/closure gates, not accepted on historical four-Ritz claims. No fixed-start settling replaces it. One initial point only; failed seed/correction remains an honest failure.
+
+Accepted small-family controls are reused; the only new matrix callback control passed, preserving the computed monodromy unchanged alongside eigenvalues and accepted state. Every evaluated Newton attempt is retained. Full dense eigensystem does not substitute for composed finite-difference qualification: this profile establishes costs and candidate numerics only, with no crossing/coefficient/crossroad or rigorous stability claim. Those gates remain before a longer scientific branch conclusion.
+
+External bounds: CPU1affinity0 plus supervisor,18GiBAS4800CPU5000wall128MiBoutput,36GiBstartup16GiBruntime. Forecast based on two dense P5 passes scaled from measured Task34P3; actual family throughput unknown, no extension or retry. Prior refinement receipt must be closed; fresh host capacity and private checkpoint required at admission. Exact live identity/limits checked after exec, then original receipts/source/output and saved matrix audit after closure. No paid/GPU launch.
