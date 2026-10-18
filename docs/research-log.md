@@ -28950,3 +28950,39 @@ Paper: paragraph "What ordinary generation writes at the same cells" and Table t
 ## 2026-10-18T01:42:58.873540+00:00 | Codex Task28 results (exploratory)
 
 Sole CPUfloat64 run and saved-state audit completed/closed; source e8bc3a17. See codex/basins-task28/final-report.md and docs/basins/basins-summary.json. DonorP2 dominates both specified random-start distributions across three cells; sampled segments show5/7/8 label changes, with19 donor/complement brackets refined to1/16384. Nearest-phase heuristic fails on binary-eligible random starts. Preserve alpha.0644 referenceP3 versus finite fixed-startP6 discrepancy, other periods and alpha.0652 no-return rows. These are finite sampled classifications, not fractality, asymptotic attraction or causal explanation. No paper/blog/Chaos edits. All original source, timing amendments,64 raw artifacts and receipts retained.
+
+## 2026-10-18 01:45 UTC: Run card SH (exploratory): attractor sheets, or why the arcs cross in both orders
+
+**Question** (human, 18 Oct). In the crossing map (Fig. cross512: Qwen2.5-0.5B, philosophy direction at layer 12), the crescent's period-3 family and the 2-cycle's structures (the blue region and the stripe windows) look like two arcs crossing almost perpendicularly. Sometimes the 3-arc lies over the 2-arc, sometimes the 2-arc over the 3-arc, as if two surfaces in 3D intersected. Explain the whole pattern.
+
+**Hypothesis to test.** Every published map starts each cell from one fixed state, so where attractors coexist a map shows only the one whose basin holds that state. Each family is then a sheet over the (alpha, T) plane extending under the others, and the over/under pattern traces where basin boundaries cross the fixed start. Two kinds of visible edges should then occur:
+- (a) bifurcation curves of the visible family (fold or flip), where an attractor is born or dies;
+- (b) switch curves inside overlaps, where both exist and the basin boundary moves across the fixed start.
+
+**Observations already in hand** (cross-512 labels; census of 17 Oct):
+- The band covers most stripe cells it crosses. Just below it, chaos interrupts the stripes. Period-3 "The existence" patches occur above and right of the band, up to alpha 0.0721.
+- In the census, the band 6-cycle and the stripe 10-cycle coexist at (0.0708, -0.1396).
+
+**Tool.** tools/sheets_map.py (tests in tests/test_sheets_map.py). It reuses the scan's labels exactly: four published cells reproduce period and family, with exponents within 0.007. It adds a settle step (transient length), mean probabilities of 9 key tokens, and final states.
+
+**Grid.** alpha in [0.0625, 0.07747065], 256 columns (every other cross-512 column); log10 T in [-0.17, -0.125], 192 rows. Float64 on H100 pods.
+
+**Maps:**
+- **Sweeps** (adiabatic continuation; each column starts from the previous column's final states): alpha+ and alpha- (one pod), temp+ and temp- (one pod). First column 600 transient steps; then 200 transient and 200 sample steps; record 80.
+- **Seeded maps** (one pod each; 600 transient, 300 samples, record 80): every cell starts from
+  - the maps' fixed start;
+  - the crescent's period-3 state;
+  - the band's 6-cycle state;
+  - the period-10 stripe state.
+
+  Seeds are in ../neural-shrimp-data/explore/sheets/seeds (seeds.json gives the cell and label of each).
+
+**Reading, fixed now:**
+- Coexistence at a cell means that two maps of this run reach different periodic families there. Sweeps reveal hysteresis.
+- Each visible edge of the fixed-start map is classified as (a) or (b). Type (a): the visible family itself is absent at the cell in every map of the run. Type (b): it is present in another map.
+- Settle ridges along edges are read as basin boundaries (slow escape near a saddle) or fold ghosts (bottleneck passage).
+- Follow-ups on local CPU, at chosen crossing points: Newton orbits, saddle orbits, the transient of the fixed start, and basin boundaries on segments. Codex's Task 28 covers three crescent cells.
+
+**Cost.** In the private ledger. Pods end at their run limit.
+
+**Output.** ../neural-shrimp-data/explore/llm-soft-loop/pod64/sheets/{alpha,temp,default,p3,band6,p10}.

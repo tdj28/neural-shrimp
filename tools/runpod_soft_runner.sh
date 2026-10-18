@@ -1037,6 +1037,11 @@ snapshot_download('$repo', revision='$rev', cache_dir='$NEURAL_SHRIMP_DATA/model
     run scan64-$name "$minutes" scan --device cuda --dtype float64 --chunk 2048 --tol 1e-8 --eps 1e-6 \
       "${JOBARGS[@]:2}" --out $D/scan64/$name
     ;;
+  sheets)      # attractor sheets over the parameter plane (run SH; tools/sheets_map.py, float64 on the GPU):
+               # JOBARGS = NAME MINUTES MODE ARGS...; seeds uploaded with --extra-data explore/sheets/seeds
+    TOOL=sheets_map.py run sheets-${JOBARGS[0]} "${JOBARGS[1]}" "${JOBARGS[2]}" --device cuda --threads 8 \
+      "${JOBARGS[@]:3}" --out $D/sheets/${JOBARGS[0]}
+    ;;
   hidden)      # hidden chaos along a line (tools/hidden_chaos.py): JOBARGS NAME MINUTES ARGS...; float64 on the GPU,
                # Qwen2.5-0.5B (cached), twins at two offsets, leading-token statistics, into hidden/NAME
     TOOL=hidden_chaos.py run hidden-${JOBARGS[0]} "${JOBARGS[1]}" line --device cuda --dtype float64 \
