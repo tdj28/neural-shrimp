@@ -44,8 +44,10 @@ as such. Huginn's spectra are float32 and its accuracy runs bfloat16. \planned{R
 computer-assisted proof is that of the period-8 orbit of Table~\ref{tab:orbits} (rung 3, Appendix~\ref{sec:evidence}).
 
 \begin{abstract}
-Feeding a language model the expected embedding of its own next token, as Soft Thinking does, turns this feedback form
-of inference into a dynamical system. In Qwen2.5, OLMo-2 and Llama-3 models of 0.5B to 72B parameters, temperature and
+Fed back through its own soft next-token distribution, as in Soft Thinking, a pretrained language model defines a
+discrete-time map with continuous states, whose dynamics can be mapped, predicted from derivatives at selected
+transitions and in places proved, and whose consequences for inference depend on the feedback architecture and the
+numerical regime. In Qwen2.5, OLMo-2 and Llama-3 models of 0.5B to 72B parameters, temperature and
 steering move the loop between periodic dynamics, which write repeating text, and regimes with positive finite-time
 Lyapunov exponents that automatic-differentiation tangents reproduce. We call these regimes chaotic as a numerical
 label, not a proof of an asymptotic chaotic set; 74 to 92\,\% of sampled labels persist to $10^5$ steps. Finite-time
@@ -103,7 +105,11 @@ over wide ranges of temperature and steering strength, explain why steering make
 does: in a chaotic regime an irrelevant change of batch layout can change what the loop writes. In bfloat16, where nearly every loop diverges, the batch layout
 changed the answers of a short soft-thinking pipeline on 56\,\% and 55\,\% of 96 arithmetic problems in two
 models. The same loops show quantitative signatures of low-dimensional dynamics, with late doubling ratios that
-approach Feigenbaum's constant numerically.
+approach Feigenbaum's constant numerically. In short, fed back through its own soft next-token distribution, a
+pretrained language model defines a discrete-time map with continuous states whose dynamics (periodic windows,
+period-doubling cascades, chaotic regimes and shrimp-shaped windows) can be mapped, predicted from derivatives at
+selected transitions and in places proved; their consequences for inference depend on the feedback architecture and
+the numerical regime.
 
 Three consequences follow for the use of such loops. The first concerns reproducibility: in a chaotic loop, differences far
 below anything a user controls, such as the batch layout or the numerical precision, can change the output: a chaotic
