@@ -29259,3 +29259,28 @@ The data are the fold edges of periods 16-32 (N = 5-13), with alpha_c = 0.062798
 - **The fixed exponent 2 with an offset** fits within 2.67, 1.60, 1.19 and 0.92 % for N >= 5, 6, 7 and 8.
 
 **Text changed** in the paper, the Chaos article and the blog: "2.18 +- 0.06 (1 % errors assumed)" is replaced by the statement above, and summary sentences now quote the log-log slope.
+
+## 2026-10-18 05:36 UTC: P5D results (superstability grids of the period-5 window at lower temperature) and run card P5Z (zooms)
+
+**P5D.** Commit 1e02289e; three pods, all terminated (verified).
+- **log10 T -0.120 (pod ibrcy85khfpa2z, 4 min):** "no window cell with all 8 neighbours in the window". Only 2 of 2304 coarse cells kept the window's token loop, although 154 cells had period 5. The tool required the -0.1 loop, so this is a setup result: the window's loop changes, or the window moves out of the box, by -0.12.
+- **log10 T -0.105 and -0.110 (pods 20pzcs5qgod3p2, gw0bxad9c779zj):** the windows were found (71 and 63 coarse cells). The 31 x 31 grids reached their 100-minute limit at 741 and 749 of 961 cells; the partial progress records are retrieved.
+
+**Reading** (multiplier sign maps, and the per-step stretchings |DF(x_i) v_i|/|v_i| with transported factors; tools/doubly_superstable.py):
+- **-0.105.** A band with mu > 0 inside the stable window is bounded by the superstable curves of two different steps: step 0 above and step 1 below (the cells whose smallest stretching is below 0.25). At the band's left tip (alpha1 about -0.1214, alpha2 about 0.1034), cells where step 0 nearly vanishes adjoin cells where step 1 does. There both stretchings are small together (min max(s0, s1) = 0.21 at (-0.121254, 0.103413)), and the leading multiplier turns complex with |mu| 0.01-0.05.
+- **Earlier sign flips were artifacts.** Four-quadrant sign patterns of the carried factors of steps 2 and 3 near the tip are orientation flips: those steps stretch by 1.5-5.7 and 1.9-2.1 on both sides. They are not crossings.
+- **-0.110.** Superstable curves of steps 0 and 3 run close together near (alpha1 -0.1163, alpha2 0.1065). The structure is not resolved at this grid spacing.
+- **Status:** not settled. The head appears as a small complex-multiplier island where two different steps' curves meet. Whether that island closes into a loop or shrinks to a point through which the two curves cross is not resolved.
+
+**Run card P5Z (exploratory).** Two zooms, tools/doubly_superstable.py grid, 21 x 21, same plane and settings as P5D, references taken at the seed:
+- **Z105:** log10 T -0.105, alpha1 [-0.12175, -0.12050], alpha2 [0.10290, 0.10440], seed (-0.121504, 0.103413).
+- **Z110:** log10 T -0.110, alpha1 [-0.11700, -0.11560], alpha2 [0.10400, 0.10720], seed (-0.11662, 0.10462).
+
+**Reading, fixed now.** Per zoom:
+- the cells with complex leading multipliers (the island), and its size;
+- whether the zero curves of two different steps' transported factors cross, shown by all four sign combinations among cells whose two stretchings are both small;
+- the minimum of max(s_a, s_b).
+
+A crossing with an island shrinking toward the transverse scale (|mu2| about 1e-3 to 1e-2) supports a shrimp centre of the reduced one-dimensional map. A closed island that the curves go around is a type-A head. If unresolved, the follow-up solves for temperature as an unknown.
+
+**Compute.** Two H100 pods; costs in the private ledger.
