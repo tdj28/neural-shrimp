@@ -1742,3 +1742,37 @@ The four staged pods were regenerated: t33-p2-a, t33-p3-d, t33-p3-b and t33-p2-f
 - Check: t33-p2-a c000 now reads 19d3b123765651a62ceedc9a8eab3899e2cae4e12ec719803336415259f4c8ac, your value.
 
 Nothing in results.tgz, the attempt tars, the receipts or the orchestrator records changed, and nothing was rerun or repacked. Every later return uses the corrected procedure. The first launches' setup refusals and their closure records (orchestrator logs with terminated true and in_inventory false) stay preserved under ../neural-shrimp-data/runpod/T33-*-orchestrator.log.
+
+## 2026-10-18T16:19Z | from claude | Task 33 returns: t33-p2-c, t33-p3-h (9 of 9 attempts exit 0 with closure) | status: delivered
+
+For every pod listed:
+- the results archive was hash-verified after retrieval;
+- the pod was terminated and the termination verified (in_inventory false);
+- no attempt was left unstarted unless stated.
+
+Layout as in the first return: each pod's directory holds results.tgz, result.json, runner-stdout.txt, the orchestrator log and return-summary.json. Inside results.tgz there is one tar per whole original attempt, plus the supervisor and pod records.
+
+**t33-p2-c** (pod fw59xhnpzoj8iy): /data2/neural-shrimp-data/codex/remote/t33-p2-c/returned/20261018T153623Z/
+- results.tgz: 8faf4a10fc7b90d93d73eaf00b1e9af94eaaa7633baaa58641d73de97c2888da
+
+| attempt | attempt tar SHA-256 | worker / receipt exit, timed out | closure | elapsed s | peak RSS KiB |
+|---|---|---|---|---|---|
+| p2-derivative-p0-c640-001 | 1ce34be75404cc3a7b168e211f83af5a630386a4f3920efddbc87378e189b18d | 0 / 0, False | True | 2001.283 | 5212628 |
+| p2-derivative-p0-c704-001 | 6731700c2f72b5b08040b415f1513d9c57913300d2d11ee4fd3d2657855a581f | 0 / 0, False | True | 1997.546 | 5212744 |
+| p2-derivative-p0-c768-001 | 47e823f934adb688c32cb30f8111ecd0f80414fb5a27848fdf84d0038b9997d9 | 0 / 0, False | True | 1999.401 | 5211448 |
+| p2-derivative-p0-c832-001 | 02d3b417822187d98aa458b2ec572f625d7faa861e1f61e2593439273f1c89f7 | 0 / 0, False | True | 2001.557 | 5307372 |
+| p2-derivative-p1-c000-001 | 9ea5d76c25728cf0736c042436eb338953d0acb5958aae5f808aa67943c6d8c9 | 0 / 0, False | True | 2003.258 | 5210144 |
+
+**t33-p3-h** (pod dqcw72pi96aqe6): /data2/neural-shrimp-data/codex/remote/t33-p3-h/returned/20261018T153602Z/
+- results.tgz: 5490f9eec693a0c9019b23f7098cfb59c969db1ddffae65cd8f4e399a5eb5bee
+
+| attempt | attempt tar SHA-256 | worker / receipt exit, timed out | closure | elapsed s | peak RSS KiB |
+|---|---|---|---|---|---|
+| p3-derivative-p2-c384-001 | 19f79080a789d73a069e98f7b140eb2db62085130de5c8eeec6914571e3a8bbd | 0 / 0, False | True | 2116.583 | 5216788 |
+| p3-derivative-p2-c448-001 | 8f32fd088887b6820df99803592dcdc2a98c151e4483c26ea2d4fc853a14068c | 0 / 0, False | True | 2116.309 | 5220404 |
+| p3-derivative-p2-c512-001 | a4652831f8b1402d9dd95c9b65ea545dfebc8f9325f8a55b17b38e0b4d4a449e | 0 / 0, False | True | 2114.129 | 5219260 |
+| p3-derivative-p2-c576-001 | c8c9330aecfd2f53479717bd52b7b469a6cdb9289d4e219b4cf473ec6d89dee9 | 0 / 0, False | True | 2146.437 | 5220844 |
+
+Operational admission and every signed-endpoint and mathematical gate are yours. No certificate is claimed.
+
+Receipt hashes in these return-summary.json files are taken from the original bytes (corrected procedure).
