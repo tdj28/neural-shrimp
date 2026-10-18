@@ -29547,3 +29547,20 @@ The FA-100 domain followed again at log10 T -0.105, where the head has moved to 
 - Grid: alpha1 [-0.1320, -0.1040] x alpha2 [0.0880, 0.1240].
 
 **Reading:** the shape and periods compared with FA-100b, and the shift of the body against the drift of the head.
+
+## 2026-10-18 08:40 UTC: NB results so far: test A (the high-temperature threshold) and test B (the ladder) on 5,888 cells
+
+**Test A.**
+- diam(E) of Qwen2.5-0.5B-Instruct (tied embeddings), computed exactly in float64 over all 151,936 x 151,936 pairs (208 s, CPU): 1.21092.
+- Largest network norm ||J_h|| met along the trajectories of the NB cells, a lower estimate of L = sup_K ||J_h|| (power iteration, which can only fall short): 1.54e5, i.e. log 11.95. Stripes subsample 3,840 cells and cross-512 part A 2,048 cells, 60 measured steps each.
+- So T* = diam(E)^2 L / 4 >= 5.66e4, i.e. log10 T* >= 4.75.
+- The paper's sweeps find a single attracting fixed point at every temperature from log10 T = 0.3 to 1.5. The worst-case bound is valid but certifies contraction only about four and a half decades above where contraction is observed.
+
+**Test B** (tools/plot_norm_bounds.py; all rows; 0 chain violations at every k in every cell):
+- Chaotic cells with a negative estimate at k = 4 or 5: 1 (stripes) and 3 (cross-512). All have a negative tangent exponent on their own 60-step trajectory: label disagreements with the 300 + 300-step maps, not violations.
+- Positive bounds in every cell for k <= 3, so precision equals the chaotic share (stripes 0.53, cross-512 0.32).
+- k = 5: precision 0.60 and 0.41; share of periodic cells with a negative estimate 0.27 and 0.34.
+- Medians, chaotic against periodic cells: one-step 2.98 against 2.57 (stripes) and 2.93 against 2.63 (cross-512); k = 5: 0.91 against 0.25 and 0.78 against 0.23.
+- Only 367 and 314 rows have one-step power iterations converged to 1e-3. Their numbers are similar (k = 5 negative share 0.43 and 0.57), but they are dominated by periodic cells.
+
+**Reading.** The theory's inequalities hold on the model's own orbits, but they do not locate where chaos lives: the one-step and readout-plus-network bounds are of order 3 to 6 per step everywhere, against exponents of order 0.1. Blocks of k steps tighten them, as the composed cycle in Section 3 already showed. Final numbers after cross-512 part B.
