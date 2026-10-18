@@ -29248,3 +29248,14 @@ That makes 384 cells.
 - On the stripes map the finite-horizon labels are robust: 92 % persist to 10^5 steps.
 - In the crossing window a quarter of the labels are long transients. The decay is still slow at 10^5 steps (147 to 143 between 5x10^4 and 10^5), consistent with transient chaos near crises and basin boundaries where attractors coexist.
 - The paper's chaotic shares are finite-horizon shares. For Fig. 1's window, about 0.74 x 30 % = 22 % of cells carry chaos that lasts 10^5 steps. The paper and the Chaos article will say so.
+
+## 2026-10-18 05:32 UTC: Window-law exponent refit (outside review): localization errors are tiny, the misfit is model error, and the free exponent depends on the fit range
+
+The data are the fold edges of periods 16-32 (N = 5-13), with alpha_c = 0.0627983 (tab:edges and the WP line).
+- **Localization errors:** about 2e-8 for the continuation folds and 1e-7/sqrt(12) for the WP line edges, that is 2e-5 to 2e-4 relative.
+- **The misfit is model error.** Both the free law C/(N+N0)^gamma and the fixed-exponent law C/(N+N0)^2 miss the edges by up to 0.9-0.99 % and 0.9-2.7 % respectively, with chi^2/dof in the thousands.
+- **The free gamma depends on the fit range:** 2.159 (N >= 5), 2.131 (N >= 6), 2.217 (N >= 7), 2.453 (N >= 8), with N0 from 0.53 to 2.09. With relative weights (the old fit), N >= 5 gives 2.178 +- 0.058.
+- **The log-log slope** is -1.998 (N >= 5) and -2.034 (N >= 8).
+- **The fixed exponent 2 with an offset** fits within 2.67, 1.60, 1.19 and 0.92 % for N >= 5, 6, 7 and 8.
+
+**Text changed** in the paper, the Chaos article and the blog: "2.18 +- 0.06 (1 % errors assumed)" is replaced by the statement above, and summary sentences now quote the log-log slope.
