@@ -90,6 +90,7 @@ def figure(fa, curves, located, out):
     matplotlib.use("Agg")
     import matplotlib.pyplot as plt
     from matplotlib.colors import ListedColormap
+    from matplotlib.lines import Line2D
     from matplotlib.patches import Patch
 
     import dss_window as dw
@@ -143,13 +144,28 @@ def figure(fa, curves, located, out):
                cmap=ListedColormap(["0.55"]), interpolation="nearest")
     cats.colorbar(im, ax=axA, label="period of the followed attractor")
     skeleton(axA, ms=10, lw=1.0)
-    axA.legend(handles=[Patch(color="k", label="chaos behind the five-token text"),
-                        Patch(color="0.55", label="no period found, exponent < 0.005"),
-                        Patch(color="0.88", label="attractor lost")], fontsize=6.5, loc="lower right")
+    # the fourth (lower-right) leg, too thin for the grid: centre-line check (tools/leg_centerline.py, run LC)
+    legc = []
+    for f in sorted((DATA / "explore/llm-soft-loop/pod64/leg").glob("lower-right-*/leg.json")):
+        legc += [r for r in json.loads(f.read_text())["cells"] if r["role"] == "centre"]
+    mem = [r for r in legc if r["label"] in (1, 2, 3)]
+    handles = [Patch(color="k", label="chaos behind the text"),
+               Patch(color="0.55", label="no period, exponent < 0.005"),
+               Patch(color="0.88", label="attractor lost")]
+    if legc:
+        axA.plot([r["alpha1"] for r in mem], [r["alpha2"] for r in mem], "o", ms=2.4, mfc="#1f77b4", mec="white",
+                 mew=0.3, zorder=8)
+        non = [r for r in legc if r["label"] not in (1, 2, 3)]
+        if non:
+            axA.plot([r["alpha1"] for r in non], [r["alpha2"] for r in non], "x", color="red", ms=4, zorder=8)
+        handles.append(Line2D([], [], marker="o", ls="", ms=3.5, mfc="#1f77b4", mec="white",
+                              label=f"fourth leg, centre line:\nperiod-5 family ({len(mem)}/{len(legc)})"))
+    axA.legend(handles=handles, fontsize=6.0, loc="lower right")
     for txt, xy, xyt in [("body", (-0.1193, 0.1006), (-0.1172, 0.0985)),
                          ("leg", (-0.1166, 0.1068), (-0.1160, 0.1040)),
                          ("leg", (-0.1243, 0.0940), (-0.1222, 0.0930)),
                          ("leg", (-0.1237, 0.1062), (-0.1222, 0.1072)),
+                         ("leg", (-0.11868, 0.0966), (-0.1168, 0.0972)),
                          ("period-10 shell", (-0.1210, 0.1020), (-0.1222, 0.1048))]:
         axA.annotate(txt, xy, xytext=xyt, fontsize=8, ha="center",
                      arrowprops=dict(arrowstyle="-", color="k", lw=0.6), zorder=9)
@@ -224,7 +240,7 @@ def main():
              if (DATA / "explore" / r).exists()]            # fm5x: the same curves continued to the legs' tips (FM5X);
     #                                                         fm5l-a: the lower leg's own curves, seeded inside the leg
     _, curves, located = pf.load("llm-soft-loop/pod64/fm5", extra)
-    lab, per, lam = fa["label"], fa["period"], fa["lyapunov"]
+    lab, per = fa["label"], fa["period"]
     periods = {int(q): int(((lab == 1) & (per == q)).sum()) for q in np.unique(per[lab == 1])}
     summary = {"fa": args.fa, "computed": int((lab >= 0).sum()), "members": int((lab >= 1).sum()),
                "members_by_period": periods,

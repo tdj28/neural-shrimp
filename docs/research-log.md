@@ -30068,3 +30068,82 @@ was not edited.
 Six, not seven, of the twelve 18 October curve runs at log10 T -0.1 were rebuilt from progress logs without full
 spectra: four of FM5X (a1-down-auto-plus, a1-down-fold-minus, a1-down-fold-plus, a1-up-fold-minus) and two of FM5L
 (a1-down-plus, a1-up-plus). The paper text states no count and is unaffected.
+
+## 2026-10-18 23:40 UTC: LC result: the shrimp's fourth (lower-right) leg along its centre line
+
+**Deviation, disclosed.** The run card below was written after the run, not before: the human asked for the result as
+fast as possible ("Do it as fast as we can so multiple pods are fine"). The code was committed before the run
+(tools/leg_centerline.py; runner commit cd8d3035) and was tested locally on 5 anchors first.
+
+**Question.** The follow run FA-100b (grid 1.25e-4) filled the body and three long legs. Its fourth (lower-right) leg,
+"thinner than a grid step", was never entered. Does the period-5 attractor live along that leg?
+
+**Design.**
+- The leg is the strip between the continued fold curve fm5x/curve-a1-up-fold-plus and the flip curve
+  fm5x/curve-a2-down-flip-minus. At fixed alpha2 it is 5.1e-5 wide near the body and narrows to 3.5e-8, so no grid
+  can follow it.
+- At each of the fold curve's 128 points between alpha2 0.0749 and 0.0976, three cells were run:
+  - the centre, midway between the two curves;
+  - one leg width beyond the fold;
+  - one leg width beyond the flip.
+- Each cell starts from that fold point's continued period-5 state and is judged by follow_attractor's rule against
+  the body's reference word: 250 transient steps and 300 recorded steps with a twin, float64.
+- Three H100 pods (lc-a, lc-b, lc-c) each took one segment.
+
+**Result** (DATA/explore/llm-soft-loop/pod64/leg/lower-right-{a,b,c}/leg.json):
+- centre: 128 of 128 are members, period 5 at 127 and period 20 at one, all with the body's text; exponents -0.448 to
+  -0.014;
+- beyond the fold: 0 of 128 are members; they reach period 4, 8, 12, 16 or 32, or no period;
+- beyond the flip: 118 of 128 are members, doubled orbits (periods 10, 20, 25, 60) or chaos behind the same text. In
+  the narrowest segment (widths 3.5e-8 to 6.8e-8), 8 of these cells still show period 5.
+
+**Reading.** The fourth leg is a genuine leg of the shrimp: the attractor of the body's family lives along its
+whole length, down to the continuation bound. It is lost beyond the fold, and beyond the flip it has doubled or turned
+chaotic.
+
+**Figure and text.**
+- fig-real-shrimp panel (a) now shows the centre points and labels the fourth leg. The caption notes that the orange
+  band beside the head is the period-10 shell, not a leg (the human's question: "a flip curve emerging from the head
+  ... look like an extra leg").
+- The anatomy caption now says where Type A appears.
+- The article and the full report are updated.
+
+Cost about $0.7 (three pods, about 5 minutes each).
+
+## 2026-10-19 00:20 UTC: run card P9S (exploratory): is the period-9 window of Fig. 1 a second shrimp? With HR9, a 3x finer map of its region
+
+**Origin.** The human spotted a shrimp-like window in the crossing window (Fig. 1) near alpha 0.0735-0.0750,
+log10 T -0.155: "I see a classic shrimp shape ... did we check that one out". The 512^2 map shows a period-9 window
+there:
+- family 192 ("\n\nThe question\n\nThe existence\n\nThe existence") fills 1,470 cells around alpha 0.0706-0.0762,
+  log10 T -0.157 to -0.145;
+- family 2 ("\n\nThe question\n\nThe question\n\nThe existence") fills 2,189 cells just below it;
+- period-18 cells (162) lie beside it.
+It was never analyzed. The human asked for the full study before v1.
+
+**Criteria, fixed now (as for the period-5 shrimp).** The window is called a shrimp only if all of these hold:
+- primitive period-9 orbits of the full state, verified by Newton in float64, with their stability;
+- fold and flip curves continued in (alpha, log10 T);
+- a body with legs bounded by those curves, and the doubled shells beyond the flips;
+- the edge of the followed domain matched by the curves (boundary gate as for the period-5 shrimp: neighbouring
+  pairs with period 9 | period 18 within one or two grid steps of a flip curve, period 9 | lost within one or two
+  steps of a fold or flip curve).
+Cusps are located where a fold curve turns back. Otherwise the window is reported as a shrimp-shaped window, with
+what failed.
+
+**Runs.**
+- P9S-orbits (local, float64): Newton at the most contracting interior cell of each family:
+  - family 192 at (0.074388, -0.15362);
+  - family 2 at (0.075709, -0.16384).
+- P9S-curves: eight H100-class pods (job set toolseq, explore_llm_soft_loop.py, float64, philosophy@12).
+  - Each pod runs one branch of the family-192 period-9 orbit from (0.074388, -0.15362): log10 T up or down, or
+    alpha up or down; 150 points; ds 0.002, ds-max 0.01; 5e-4 past the first turn.
+  - Each pod then continues that branch's boundary (fold or flip, auto) in one direction: 120 points; ds 0.002,
+    ds-max 0.02; tol 1e-10; gtol 1e-9; bounds alpha [0.068, 0.080], log10 T [-0.175, -0.135].
+- P9S-follow: tools/follow_attractor.py extended to the (alpha, log10 T) plane (in progress), then one pod.
+- HR9: the region alpha [0.0710, 0.0760] x log10 T [-0.1625, -0.1475] at 512 x 512 float64 cells, with Fig. 1's
+  scan settings (transient 300, samples 300, record 80, max period 32, tol 1e-8, eps 1e-6, chaos level 1e-3), in
+  eight bands of 64 rows on eight pods (job set scanband), stitched locally.
+
+**Gates.** Every curve point's residual, test function and critical multiplier are read from the raw files before any
+summary. A fold curve must keep a real +1 and a flip curve a real -1.
