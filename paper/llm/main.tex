@@ -184,7 +184,7 @@ Late doubling ratios approach Feigenbaum's $\delta$, at the float64 floor & nume
 Every tangent reversal of the continued fold curves is a cusp; local unfoldings match Newton solves & numerical; unfoldings frozen & Sec.~\ref{sec:organization} \\
 A period-5 window is a shrimp in a two-parameter plane (boundary organization) & numerical; found by search & Sec.~\ref{sec:organization} \\
 An attracting period-8 orbit exists & proof & App.~\ref{sec:evidence} \\
-Attracting orbits of periods 2 and 3 coexist at one parameter cell & proof & App.~\ref{sec:evidence} \\
+Attracting orbits of periods 2 and 3 coexist at one parameter cell, with certified token loops & proof & App.~\ref{sec:evidence} \\
 No accuracy information beyond first-token uncertainty; no edge-of-chaos advantage & frozen; bounded nulls & Sec.~\ref{sec:consequences} \\
 Huginn: a predicted accuracy loss & frozen & Sec.~\ref{sec:huginn} \\
 \bottomrule
@@ -4671,8 +4671,12 @@ from the raw maps as the set whose omission reproduces both totals (\repo{docs/r
   induced infinity-norm bounds, rounded up, are $7.51\times10^{-4}$ and $1.9\times10^{-8}$ for the 2-cycle and
   $0.342$ and $1.09\times10^{-3}$ for the 3-cycle; the numerical leading multipliers are $0.0476$ and $0.239$. An
   independent exact-rational audit rechecked every saved row norm (1\,605\,632 entries per orbit) and the scalar
-  and separation witnesses. The proof says nothing about which orbit a given start reaches, the token loops the
-  orbits write, the trapping of the whole box or the window's global organization. The record is
+  and separation witnesses. A separate check certifies the token loops: over every box of both orbits, the most probable next token leads all
+  151\,936 tokens by a positive margin, so the 2-cycle writes `` is it'' and the 3-cycle a blank line, ``The'' and
+  `` existence'' (\path{codex/coexistence-task33/token-labels-release.json}); the same check gives the period-8
+  orbit's loop `` is there is a is a. This''. These are the readouts of the feedback orbits, not sentences generated
+  autoregressively. The proof says nothing about which orbit a given start reaches, the trapping of the whole box or
+  the window's global organization. The record is
   \path{codex/coexistence-task33/pair-certificate-release.json}.
 \item Rung 2: the 2-cycle's fold and its normal form. An independent reimplementation of the forward map and solver
   recovers $\alpha_c$, $a$ and $b$ (to $6\times10^{-15}$, $3\times10^{-12}$ and $2\times10^{-6}$ relatively), and $ab$
