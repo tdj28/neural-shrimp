@@ -53,6 +53,30 @@ def authenticate_closure(ref):
             'termination_sha256':ref['termination']['sha256'],
             'attempt':name,'producer_termination_reported':True}
 
+REQUIRED_SOURCES=set(derivatives.producer.SOURCE_PATHS)|{
+    'codex/coexistence-task33/assembly_core.py',
+    'codex/coexistence-task33/point_bridge.py',
+    'codex/coexistence-task33/derivative_bridge.py',
+    'codex/certify-llm/shooting_certificate.py'}
+
+def authenticate_sources(plan,repository):
+    if set(plan['assembly_source_sha256'])!=REQUIRED_SOURCES:
+        raise ValueError('complete assembly source set')
+    for name,h in plan['assembly_source_sha256'].items():
+        if points.sha(Path(repository)/name)!=h:raise ValueError('assembly source pin')
+    if set(plan['reviews'])!={'point_evaluator','derivative_evaluator','map_regularity','gate_mathematics'}:
+        raise ValueError('review scope')
+    for ref in plan['reviews'].values():pinned(ref)
+    binding=json.loads(pinned(plan['review_binding']).read_text())
+    pinned(binding['historical_evaluator_review'])
+    for key in ('map','derivative_source_sha256','reviews'):
+        same(binding[key],plan[key],'review binding '+key)
+    same(binding['assembly_source_sha256'],plan['assembly_source_sha256'],'reviewed assembly source')
+    same(binding['point_plan'],plan['point_plan'],'reviewed point authority')
+    if binding['status']!='source_reviewed_conditional_enclosures':
+        raise ValueError('source review disposition')
+    return binding
+
 def exact_matrix(a):
     if a.shape!=(896,896) or not np.isfinite(a).all():raise ValueError('full finite proposal')
     values=[]
@@ -67,11 +91,11 @@ def assemble(plan,out,repository):
     p=plan['period']
     if type(p)is not int or p not in (2,3):raise ValueError('period2/3')
     out=Path(out);out.mkdir(parents=True,exist_ok=False)
-    def write(name,value):(out/name).write_text(json.dumps(value,indent=2,allow_nan=False)+'\n')
-    for name,h in plan['assembly_source_sha256'].items():
-        if points.sha(Path(repository)/name)!=h:raise ValueError('assembly source pin')
-    if set(plan['reviews'])!={'point_evaluator','derivative_evaluator','map_regularity','gate_mathematics'}:raise ValueError('review scope')
-    for ref in plan['reviews'].values():pinned(ref)
+    def write(name,value):
+        with (out/name).open('x')as f:json.dump(value,f,indent=2,allow_nan=False);f.write('\n')
+    authenticate_sources(plan,repository)
+    import torch
+    same(derivatives.producer.backend_definition(torch.__version__),plan['derivative_backend'],'assembly backend')
     definition=json.loads(pinned(plan['definition']).read_text());point_plan=json.loads(pinned(plan['point_plan']).read_text())
     same(definition['period'],p,'definition period');same(point_plan['period'],p,'point period')
     same(point_plan['definition'],plan['definition'],'same frozen point domain')
@@ -85,6 +109,7 @@ def assemble(plan,out,repository):
         authenticate_closure(ref) # Original records only; no remote process queries.
     jacobians,dr=derivatives.authenticate_and_collect(plan['definition']['path'],plan['definition']['sha256'],expected_map=plan['map'],expected_backend=plan['derivative_backend'],expected_source_sha256=plan['derivative_source_sha256'],expected_prefix=plan['derivative_prefix'],attempts=[{k:r[k]for k in ('attempt','receipt_sha256','source_commit')}for r in refs])
     write('derivative-admission.json',dr)
+    if len(dr['authenticated_attempts'])!=len(refs):raise ValueError('full authenticated coverage')
     for ref,audit in zip(refs,dr['authenticated_attempts']):
         same(audit['phase_index'],ref['phase_index'],'phase assignment');same(audit['direction_indices'],list(range(ref['start_column'],ref['start_column']+64)),'column assignment')
     centers=[[unpack(v)for v in row]for row in definition['centers']];radii=[unpack(v)for v in definition['radii']]
@@ -109,10 +134,21 @@ def assemble(plan,out,repository):
     same(bindings['domain_sha256'],shooting,'native gate domain')
     admission=dict(certificate_passed=False,plan_sha256=domain.canonical_hash(plan),bindings=bindings,point_report_sha256=points.sha(out/'point-admission.json'),derivative_report_sha256=points.sha(out/'derivative-admission.json'))
     write('admission.json',admission)
-    contract=gates.ShootingEnclosureContract(domain.canonical_hash(plan['map']),domain.canonical_hash(plan['derivative_source_sha256']),points.sha(out/'admission.json'),p,bindings['domain_sha256'],bindings['enclosures_sha256'],bindings['proposals_sha256'],gates.SHOOTING_DECLARATION)
+    contract=gates.ShootingEnclosureContract(domain.canonical_hash(plan['map']),domain.canonical_hash({'point_plan':plan['point_plan'],'derivative_source':plan['derivative_source_sha256'],'review_binding':plan['review_binding']}),points.sha(out/'admission.json'),p,bindings['domain_sha256'],bindings['enclosures_sha256'],bindings['proposals_sha256'],gates.SHOOTING_DECLARATION)
     result=certificate.check_shooting_certificate(centers,radii,images,jacobians,A,B,contract=contract,bound_method='factored',powers=(1,2))
     if result['certificate_passed']is not False:raise ValueError('separate release required')
+    if (ctx.prec,ctx.threads)!=(1024,1):raise ValueError('assembly context changed')
+    for key,value in bindings.items():same(result[key],value,'actual gate input '+key)
     write('conditional-gates.json',result)
     for name,h in plan['assembly_source_sha256'].items():
         if points.sha(Path(repository)/name)!=h:raise ValueError('assembly source changed')
     return dict(certificate_passed=False,conditional_gates=result['conditional_gates'],independent_witness_review_pending=True)
+
+if __name__=='__main__':
+    import argparse
+    ap=argparse.ArgumentParser();ap.add_argument('--card',required=True);ap.add_argument('--out',required=True)
+    args=ap.parse_args();ctx.prec=1024;ctx.threads=1
+    card=json.loads(Path(args.card).read_text())
+    answer=assemble(card,args.out,HERE.parents[1])
+    with (Path(args.out)/'summary.json').open('x')as f:json.dump(answer,f,indent=2);f.write('\n')
+    print(json.dumps(answer),flush=True)

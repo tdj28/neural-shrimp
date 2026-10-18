@@ -1,0 +1,575 @@
+{
+  "period": 2,
+  "assembly_source_sha256": {
+    "codex/certify-llm/ball_jet.py": "46b14d8bd65ed6c80174758daf37d00110cfa908813917bdb46c13749f999719",
+    "codex/certify-llm/ball_linear.py": "5d54200f5880d818eabc97e7eed2f1cf02b83b617b39380bef38d49a7ac45ff2",
+    "codex/certify-llm/ball_qwen.py": "fcc90849601984506adf26f651067734f9faef408c8f42dffe64bf5c68e98a80",
+    "codex/certify-llm/cache_io.py": "f4e25b2134bef8a71c27d3156baf01be9d25c593d7b780f90a66b9c1141abdef",
+    "codex/certify-llm/derivative_coverage.py": "eb01dc001193b5e3982bcb41a582ac7c61cfe4e8fcd2a1ddf249126623fe63cf",
+    "codex/certify-llm/phase_domain.py": "a3856de84393068788c4cf4dc42fa6015da45b7912b56db995cc6b12922f8d8d",
+    "codex/certify-llm/proof_gates.py": "ee6678b7dd5153ef095fd73d5711fcfc605f7a228c92b1335a9541cc3d7b2c6a",
+    "codex/certify-llm/shooting_certificate.py": "a4aca57acf7aaab33c77745ea6170935dd6b4dac40c9c982a063743f98727c3e",
+    "codex/certify-llm/shooting_gates.py": "9c967c0dcb9783df53f33c05eb897050f4e8971f66767abbc8a01a8b1b85cf1f",
+    "codex/certify-llm/streamed_head.py": "f6096528f5748392386e97e9a4722f5967aeb0ae24897aac1465d205fca4f24a",
+    "codex/coexistence-task33/assembly_core.py": "42e2a86b379058bcf1faa7721fa8c38f3ce249f7efee1881b9016ae12b4ab842",
+    "codex/coexistence-task33/derivative_bridge.py": "b49436618474ddd6074fd3006af5a806e028ca169a8fcc8480fd25d3d813531a",
+    "codex/coexistence-task33/derivative_shard.py": "671615f1d88bdcd64df646937228434f533b1152f0005dd4669abfdacbfb34c9",
+    "codex/coexistence-task33/point_bridge.py": "9df3a7e00b84d6ae31b17547c01a6a04920d8510eae95ef60734fd362de797e0",
+    "codex/coexistence-task33/prefix_import.py": "b4f82802a9bf77b8d90e399c5c7e9b2635106d39532079852539ee227f1211e8",
+    "codex/crosscheck/qwen_map.py": "493a3d1d57fec227f5ba2e3f8f9cfcfdd02d22495d1d44e6449ede901310ae6e"
+  },
+  "reviews": {
+    "point_evaluator": {
+      "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/coexistence-task33/assembly-source-review.md",
+      "sha256": "e7c1e1878672980ef2644d973316ca3b024e01c156955df203c7b094a1baa87b"
+    },
+    "derivative_evaluator": {
+      "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/coexistence-task33/assembly-source-review.md",
+      "sha256": "e7c1e1878672980ef2644d973316ca3b024e01c156955df203c7b094a1baa87b"
+    },
+    "map_regularity": {
+      "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/coexistence-task33/assembly-source-review.md",
+      "sha256": "e7c1e1878672980ef2644d973316ca3b024e01c156955df203c7b094a1baa87b"
+    },
+    "gate_mathematics": {
+      "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/certify-llm/shooting-gates-review.md",
+      "sha256": "e60e08a8e1a8d12a42d20f3f08ff17492133d04577f06529bfe96c2fe5a67d1a"
+    }
+  },
+  "review_binding": {
+    "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/coexistence-task33/p2-assembly-001-review-binding.json",
+    "sha256": "3d6abc0d2ba6d9fad28235c842b9ec3373fd90f51c9e98e8182c5fce4ff53246"
+  },
+  "definition": {
+    "path": "/data2/neural-shrimp-data/codex/coexistence/p2-final-domain-001.json",
+    "sha256": "953d53fcf324a9d872d6db4a2f63e4e2395a95f4e942423a2a7bc7a0d5840f1f"
+  },
+  "point_plan": {
+    "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/coexistence-task33/p2-point-bridge-plan.json",
+    "sha256": "df85970656761f2c5608f66e3820b06949fe3e8ce0e9ffd82b1ed61479896984"
+  },
+  "map": {
+    "schema": "codex-qwen-exact-soft-map-v1",
+    "dimension": 896,
+    "vocabulary": 151936,
+    "layers": 24,
+    "pinned_assets": {
+      "model.safetensors": "fdf756fa7fcbe7404d5c60e26bff1a0c8b8aa1f72ced49e7dd0210fe288fb7fe",
+      "config.json": "18e18afcaccafade98daf13a54092927904649e1dd4eba8299ab717d5d94ff45",
+      "vectors.npz": "b630bb7bef06bde87f8e6a7ca5e8672f83d24bc0585bf19048e9e494a4357f41"
+    },
+    "prefix_ids": [
+      151644,
+      8948,
+      198,
+      2610,
+      525,
+      458,
+      15235,
+      7404,
+      448,
+      2441,
+      15235,
+      13,
+      1446,
+      614,
+      4583,
+      11290,
+      13,
+      31733,
+      1910,
+      311,
+      22729,
+      8820,
+      498,
+      1366,
+      13,
+      151645,
+      198,
+      151644,
+      872,
+      198,
+      9707,
+      0,
+      151645,
+      198,
+      151644,
+      77091,
+      198
+    ],
+    "steering_layer": 12,
+    "alpha_ratio": [
+      4660685182373179,
+      72057594037927936
+    ],
+    "log10_temperature_ratio": [
+      -5332261958806667,
+      36028797018963968
+    ],
+    "temperature": "exp(log(10)*exact_dyadic_log10T)",
+    "rotary": "real base^(-2j/head_dim), real sin/cos",
+    "state": "one appended full-dimensional soft embedding after the fixed prefix",
+    "readout": "full-vocabulary expected embedding with the checkpoint embedding matrix",
+    "checkpoint_constants": "stored binary constants interpreted as exact dyadics"
+  },
+  "shards": [
+    {
+      "attempt": "/data2/neural-shrimp-data/codex/coexistence/p2-derivative-p0-c000-001",
+      "receipt_sha256": "19d3b123765651a62ceedc9a8eab3899e2cae4e12ec719803336415259f4c8ac",
+      "source_commit": "d627b74affa176037f553332d6fb5b26d1dd0b37",
+      "phase_index": 0,
+      "start_column": 0,
+      "outer_closure": {
+        "path": "/data2/neural-shrimp-data/codex/coexistence/return-t33-p2-a-001/explore/llm-soft-loop/pod64/certpack/t33-p2-a/p2-derivative-p0-c000-001/run.json",
+        "sha256": "a27c774433ad8ce01df0634682630f31a28c1e1be06443fa07a269834cb50365"
+      },
+      "termination": {
+        "path": "/data2/neural-shrimp-data/codex/remote/t33-p2-a/returned/20261018T150059Z/return-summary.json",
+        "sha256": "3f05b62789491d784466988f3639c75046cbe15a2dd76e05a47afa34ddfe2de9"
+      }
+    },
+    {
+      "attempt": "/data2/neural-shrimp-data/codex/coexistence/p2-derivative-p0-c064-001",
+      "receipt_sha256": "f6b21bf33fbe326e2cba8dd8ced170ecb9d66e79c33a0649e120d6de70a569b0",
+      "source_commit": "d627b74affa176037f553332d6fb5b26d1dd0b37",
+      "phase_index": 0,
+      "start_column": 64,
+      "outer_closure": {
+        "path": "/data2/neural-shrimp-data/codex/coexistence/return-t33-p2-a-001/explore/llm-soft-loop/pod64/certpack/t33-p2-a/p2-derivative-p0-c064-001/run.json",
+        "sha256": "a0c53c53e29947acc03f2357b9ddabc8b43da487b65d5a6bc7086dd447fc79ca"
+      },
+      "termination": {
+        "path": "/data2/neural-shrimp-data/codex/remote/t33-p2-a/returned/20261018T150059Z/return-summary.json",
+        "sha256": "3f05b62789491d784466988f3639c75046cbe15a2dd76e05a47afa34ddfe2de9"
+      }
+    },
+    {
+      "attempt": "/data2/neural-shrimp-data/codex/coexistence/p2-derivative-p0-c128-001",
+      "receipt_sha256": "1102f292d3b180a72a60050deff73eea73e2bc173a9d553506f3cc966f32443a",
+      "source_commit": "d627b74affa176037f553332d6fb5b26d1dd0b37",
+      "phase_index": 0,
+      "start_column": 128,
+      "outer_closure": {
+        "path": "/data2/neural-shrimp-data/codex/coexistence/return-t33-p2-a-001/explore/llm-soft-loop/pod64/certpack/t33-p2-a/p2-derivative-p0-c128-001/run.json",
+        "sha256": "e9726bd2b092affafff7dcb827a9719ecaef66ff87da6dd20e0fca902705c050"
+      },
+      "termination": {
+        "path": "/data2/neural-shrimp-data/codex/remote/t33-p2-a/returned/20261018T150059Z/return-summary.json",
+        "sha256": "3f05b62789491d784466988f3639c75046cbe15a2dd76e05a47afa34ddfe2de9"
+      }
+    },
+    {
+      "attempt": "/data2/neural-shrimp-data/codex/coexistence/p2-derivative-p0-c192-001",
+      "receipt_sha256": "95c8667fbdfd305ebfcaa7dbae71bdfaa9a7dd219612caa4d15b4288e21d0d1b",
+      "source_commit": "d627b74affa176037f553332d6fb5b26d1dd0b37",
+      "phase_index": 0,
+      "start_column": 192,
+      "outer_closure": {
+        "path": "/data2/neural-shrimp-data/codex/coexistence/return-t33-p2-a-001/explore/llm-soft-loop/pod64/certpack/t33-p2-a/p2-derivative-p0-c192-001/run.json",
+        "sha256": "8ab4c89af69ae181b55e6dbe5b30b68253a335a2a7e9c35dcc64520c3c033d1c"
+      },
+      "termination": {
+        "path": "/data2/neural-shrimp-data/codex/remote/t33-p2-a/returned/20261018T150059Z/return-summary.json",
+        "sha256": "3f05b62789491d784466988f3639c75046cbe15a2dd76e05a47afa34ddfe2de9"
+      }
+    },
+    {
+      "attempt": "/data2/neural-shrimp-data/codex/coexistence/p2-derivative-p0-c256-001",
+      "receipt_sha256": "1dde64119543b1e04303547a9f6405843e9e36b76458d34c564e4fc6e5e44c41",
+      "source_commit": "d627b74affa176037f553332d6fb5b26d1dd0b37",
+      "phase_index": 0,
+      "start_column": 256,
+      "outer_closure": {
+        "path": "/data2/neural-shrimp-data/codex/coexistence/return-t33-p2-a-001/explore/llm-soft-loop/pod64/certpack/t33-p2-a/p2-derivative-p0-c256-001/run.json",
+        "sha256": "6898b0a2abbf0f4c0a54e3398dedff5f979f6c9547972bb9c59876b1a7c8439a"
+      },
+      "termination": {
+        "path": "/data2/neural-shrimp-data/codex/remote/t33-p2-a/returned/20261018T150059Z/return-summary.json",
+        "sha256": "3f05b62789491d784466988f3639c75046cbe15a2dd76e05a47afa34ddfe2de9"
+      }
+    },
+    {
+      "attempt": "/data2/neural-shrimp-data/codex/coexistence/p2-derivative-p0-c320-001",
+      "receipt_sha256": "489d55f2093179ebc65a2c1ca28c09e64f70847e34ed6766566f6de6388cb1c0",
+      "source_commit": "d627b74affa176037f553332d6fb5b26d1dd0b37",
+      "phase_index": 0,
+      "start_column": 320,
+      "outer_closure": {
+        "path": "/data2/neural-shrimp-data/codex/coexistence/return-t33-p2-b-001/explore/llm-soft-loop/pod64/certpack/t33-p2-b/p2-derivative-p0-c320-001/run.json",
+        "sha256": "722d0dbbc201982c83017eacd688b2bd3625fd52071d99b68b119b5dfc60a20f"
+      },
+      "termination": {
+        "path": "/data2/neural-shrimp-data/codex/remote/t33-p2-b/returned/20261018T153603Z/return-summary.json",
+        "sha256": "4ff6abc750f10ec43c0d01542c60e92f4ed3190bb353f129ad780ceddb572311"
+      }
+    },
+    {
+      "attempt": "/data2/neural-shrimp-data/codex/coexistence/p2-derivative-p0-c384-001",
+      "receipt_sha256": "3afbdc1ab16c5351f958a79e358eb0a225c5a06b76bcb7ee78408923f13532a5",
+      "source_commit": "d627b74affa176037f553332d6fb5b26d1dd0b37",
+      "phase_index": 0,
+      "start_column": 384,
+      "outer_closure": {
+        "path": "/data2/neural-shrimp-data/codex/coexistence/return-t33-p2-b-001/explore/llm-soft-loop/pod64/certpack/t33-p2-b/p2-derivative-p0-c384-001/run.json",
+        "sha256": "d9cde742ba90ff6e082958e365a478bb6896b13335af388159a0926f2a85da06"
+      },
+      "termination": {
+        "path": "/data2/neural-shrimp-data/codex/remote/t33-p2-b/returned/20261018T153603Z/return-summary.json",
+        "sha256": "4ff6abc750f10ec43c0d01542c60e92f4ed3190bb353f129ad780ceddb572311"
+      }
+    },
+    {
+      "attempt": "/data2/neural-shrimp-data/codex/coexistence/p2-derivative-p0-c448-001",
+      "receipt_sha256": "f4de51ab7eb25fddab45a9491809bbddf8b446e0ff6b19e0482ee80639bfdb61",
+      "source_commit": "d627b74affa176037f553332d6fb5b26d1dd0b37",
+      "phase_index": 0,
+      "start_column": 448,
+      "outer_closure": {
+        "path": "/data2/neural-shrimp-data/codex/coexistence/return-t33-p2-b-001/explore/llm-soft-loop/pod64/certpack/t33-p2-b/p2-derivative-p0-c448-001/run.json",
+        "sha256": "0599b394b935a3061aacefdd102c89c9f69933282d27baf637bc552570bf1075"
+      },
+      "termination": {
+        "path": "/data2/neural-shrimp-data/codex/remote/t33-p2-b/returned/20261018T153603Z/return-summary.json",
+        "sha256": "4ff6abc750f10ec43c0d01542c60e92f4ed3190bb353f129ad780ceddb572311"
+      }
+    },
+    {
+      "attempt": "/data2/neural-shrimp-data/codex/coexistence/p2-derivative-p0-c512-001",
+      "receipt_sha256": "3c414c3b72251ca90d919b87b537325cb2bc02c4c8d7b51563e910848c1ca94b",
+      "source_commit": "d627b74affa176037f553332d6fb5b26d1dd0b37",
+      "phase_index": 0,
+      "start_column": 512,
+      "outer_closure": {
+        "path": "/data2/neural-shrimp-data/codex/coexistence/return-t33-p2-b-001/explore/llm-soft-loop/pod64/certpack/t33-p2-b/p2-derivative-p0-c512-001/run.json",
+        "sha256": "6815b2d41d34e7fbaa4e2e5be8fcc51a1d6c64163e9c7d6226e82b5602c4ffa9"
+      },
+      "termination": {
+        "path": "/data2/neural-shrimp-data/codex/remote/t33-p2-b/returned/20261018T153603Z/return-summary.json",
+        "sha256": "4ff6abc750f10ec43c0d01542c60e92f4ed3190bb353f129ad780ceddb572311"
+      }
+    },
+    {
+      "attempt": "/data2/neural-shrimp-data/codex/coexistence/p2-derivative-p0-c576-001",
+      "receipt_sha256": "621c3158d4ff758f96e70256c97d9f971346e9bbf3bd9b8e86337fcea1091c96",
+      "source_commit": "d627b74affa176037f553332d6fb5b26d1dd0b37",
+      "phase_index": 0,
+      "start_column": 576,
+      "outer_closure": {
+        "path": "/data2/neural-shrimp-data/codex/coexistence/return-t33-p2-b-001/explore/llm-soft-loop/pod64/certpack/t33-p2-b/p2-derivative-p0-c576-001/run.json",
+        "sha256": "2fe53229824c3c76c2b942111cf80f734901b9bd4a79563c95450778259f72ef"
+      },
+      "termination": {
+        "path": "/data2/neural-shrimp-data/codex/remote/t33-p2-b/returned/20261018T153603Z/return-summary.json",
+        "sha256": "4ff6abc750f10ec43c0d01542c60e92f4ed3190bb353f129ad780ceddb572311"
+      }
+    },
+    {
+      "attempt": "/data2/neural-shrimp-data/codex/coexistence/p2-derivative-p0-c640-001",
+      "receipt_sha256": "f24920748ee3e0da218da46e911a7796804b525b73bbad770e1d70d2589ff2b8",
+      "source_commit": "d627b74affa176037f553332d6fb5b26d1dd0b37",
+      "phase_index": 0,
+      "start_column": 640,
+      "outer_closure": {
+        "path": "/data2/neural-shrimp-data/codex/coexistence/return-t33-p2-c-001/explore/llm-soft-loop/pod64/certpack/t33-p2-c/p2-derivative-p0-c640-001/run.json",
+        "sha256": "b41406113dac786ec1db24a054835e336ef4bc2b05fce9ce54d0480cebeee3db"
+      },
+      "termination": {
+        "path": "/data2/neural-shrimp-data/codex/remote/t33-p2-c/returned/20261018T153623Z/return-summary.json",
+        "sha256": "9c36beedb9360ecb14d437cb957f2d408b766bacf1244b4702998c0dc8ccaf06"
+      }
+    },
+    {
+      "attempt": "/data2/neural-shrimp-data/codex/coexistence/p2-derivative-p0-c704-001",
+      "receipt_sha256": "ae56ce079ce23a9fdb638e4c8b8baee8dc596b4e564a18c39662a8e1da94d7cc",
+      "source_commit": "d627b74affa176037f553332d6fb5b26d1dd0b37",
+      "phase_index": 0,
+      "start_column": 704,
+      "outer_closure": {
+        "path": "/data2/neural-shrimp-data/codex/coexistence/return-t33-p2-c-001/explore/llm-soft-loop/pod64/certpack/t33-p2-c/p2-derivative-p0-c704-001/run.json",
+        "sha256": "69eb0e5768781ce9748aa902c3d5d253e403e870a9997233434fcf290c372e6e"
+      },
+      "termination": {
+        "path": "/data2/neural-shrimp-data/codex/remote/t33-p2-c/returned/20261018T153623Z/return-summary.json",
+        "sha256": "9c36beedb9360ecb14d437cb957f2d408b766bacf1244b4702998c0dc8ccaf06"
+      }
+    },
+    {
+      "attempt": "/data2/neural-shrimp-data/codex/coexistence/p2-derivative-p0-c768-001",
+      "receipt_sha256": "b75d5e10db47cb450a7381514094b4fd4a2531eedc68ff4afc3cac6fe19031e7",
+      "source_commit": "d627b74affa176037f553332d6fb5b26d1dd0b37",
+      "phase_index": 0,
+      "start_column": 768,
+      "outer_closure": {
+        "path": "/data2/neural-shrimp-data/codex/coexistence/return-t33-p2-c-001/explore/llm-soft-loop/pod64/certpack/t33-p2-c/p2-derivative-p0-c768-001/run.json",
+        "sha256": "70162f873c6124a6ba86ef1e80f623c69c0a2119472880c1e32f03cf06cb4ff0"
+      },
+      "termination": {
+        "path": "/data2/neural-shrimp-data/codex/remote/t33-p2-c/returned/20261018T153623Z/return-summary.json",
+        "sha256": "9c36beedb9360ecb14d437cb957f2d408b766bacf1244b4702998c0dc8ccaf06"
+      }
+    },
+    {
+      "attempt": "/data2/neural-shrimp-data/codex/coexistence/p2-derivative-p0-c832-001",
+      "receipt_sha256": "37664777cc1557ebc24d0f6fc4826d384470625d50779c35734624b48493d30c",
+      "source_commit": "d627b74affa176037f553332d6fb5b26d1dd0b37",
+      "phase_index": 0,
+      "start_column": 832,
+      "outer_closure": {
+        "path": "/data2/neural-shrimp-data/codex/coexistence/return-t33-p2-c-001/explore/llm-soft-loop/pod64/certpack/t33-p2-c/p2-derivative-p0-c832-001/run.json",
+        "sha256": "4e3fb10f470705dc73ff47645cf345bfd7bc54b1c081baf891aa3f363831f268"
+      },
+      "termination": {
+        "path": "/data2/neural-shrimp-data/codex/remote/t33-p2-c/returned/20261018T153623Z/return-summary.json",
+        "sha256": "9c36beedb9360ecb14d437cb957f2d408b766bacf1244b4702998c0dc8ccaf06"
+      }
+    },
+    {
+      "attempt": "/data2/neural-shrimp-data/codex/coexistence/p2-derivative-p1-c000-001",
+      "receipt_sha256": "bcde6ac3d10bee03b0be9b741b363a651bdd65c65947012c69d00007c064279f",
+      "source_commit": "d627b74affa176037f553332d6fb5b26d1dd0b37",
+      "phase_index": 1,
+      "start_column": 0,
+      "outer_closure": {
+        "path": "/data2/neural-shrimp-data/codex/coexistence/return-t33-p2-c-001/explore/llm-soft-loop/pod64/certpack/t33-p2-c/p2-derivative-p1-c000-001/run.json",
+        "sha256": "83c63f494dc3a1a6023df6df66db2371b5678d4b588d12424f033ef3d7d498ad"
+      },
+      "termination": {
+        "path": "/data2/neural-shrimp-data/codex/remote/t33-p2-c/returned/20261018T153623Z/return-summary.json",
+        "sha256": "9c36beedb9360ecb14d437cb957f2d408b766bacf1244b4702998c0dc8ccaf06"
+      }
+    },
+    {
+      "attempt": "/data2/neural-shrimp-data/codex/coexistence/p2-derivative-p1-c064-001",
+      "receipt_sha256": "aad180d3e54eab2ad2036f3fb3673bb8660d5b2774ffbc71045953d138e00657",
+      "source_commit": "d627b74affa176037f553332d6fb5b26d1dd0b37",
+      "phase_index": 1,
+      "start_column": 64,
+      "outer_closure": {
+        "path": "/data2/neural-shrimp-data/codex/coexistence/return-t33-p2-d-001/explore/llm-soft-loop/pod64/certpack/t33-p2-d/p2-derivative-p1-c064-001/run.json",
+        "sha256": "1597986d81aae05e5db8cacbbd2695aa5f4165d0c1702fc698c103f0c1dfdcc0"
+      },
+      "termination": {
+        "path": "/data2/neural-shrimp-data/codex/remote/t33-p2-d/returned/20261018T154442Z/return-summary.json",
+        "sha256": "974abe94dc485e74ceebc41416c630cede43ae01fc46467a0b92584142c402af"
+      }
+    },
+    {
+      "attempt": "/data2/neural-shrimp-data/codex/coexistence/p2-derivative-p1-c128-001",
+      "receipt_sha256": "f3e8257b14d00ae5b8e437718516cca3b958494f3d3ca5ebc04cf2b59f322c2a",
+      "source_commit": "d627b74affa176037f553332d6fb5b26d1dd0b37",
+      "phase_index": 1,
+      "start_column": 128,
+      "outer_closure": {
+        "path": "/data2/neural-shrimp-data/codex/coexistence/return-t33-p2-d-001/explore/llm-soft-loop/pod64/certpack/t33-p2-d/p2-derivative-p1-c128-001/run.json",
+        "sha256": "01b3d7b5699d5ea6bb458495ddf7e938462ef9cacb5f9d4266a16b8cd8796744"
+      },
+      "termination": {
+        "path": "/data2/neural-shrimp-data/codex/remote/t33-p2-d/returned/20261018T154442Z/return-summary.json",
+        "sha256": "974abe94dc485e74ceebc41416c630cede43ae01fc46467a0b92584142c402af"
+      }
+    },
+    {
+      "attempt": "/data2/neural-shrimp-data/codex/coexistence/p2-derivative-p1-c192-001",
+      "receipt_sha256": "818014f85fcdcdfd4966c29d720343e163f9dc827135e4024aea44266a25182f",
+      "source_commit": "d627b74affa176037f553332d6fb5b26d1dd0b37",
+      "phase_index": 1,
+      "start_column": 192,
+      "outer_closure": {
+        "path": "/data2/neural-shrimp-data/codex/coexistence/return-t33-p2-d-001/explore/llm-soft-loop/pod64/certpack/t33-p2-d/p2-derivative-p1-c192-001/run.json",
+        "sha256": "25f7d67ce4c797a341f06f4e6541abe3ddf8caad5e2bdeb461794990e3fbca56"
+      },
+      "termination": {
+        "path": "/data2/neural-shrimp-data/codex/remote/t33-p2-d/returned/20261018T154442Z/return-summary.json",
+        "sha256": "974abe94dc485e74ceebc41416c630cede43ae01fc46467a0b92584142c402af"
+      }
+    },
+    {
+      "attempt": "/data2/neural-shrimp-data/codex/coexistence/p2-derivative-p1-c256-001",
+      "receipt_sha256": "db0777cc4be385783473a0f32494422df8b2fa2ad3e873f6e2b4f813a419fe74",
+      "source_commit": "d627b74affa176037f553332d6fb5b26d1dd0b37",
+      "phase_index": 1,
+      "start_column": 256,
+      "outer_closure": {
+        "path": "/data2/neural-shrimp-data/codex/coexistence/return-t33-p2-d-001/explore/llm-soft-loop/pod64/certpack/t33-p2-d/p2-derivative-p1-c256-001/run.json",
+        "sha256": "4ae43ecdd9527c6dec0e89283451db75e6475fb575024a4074d6d6185d192889"
+      },
+      "termination": {
+        "path": "/data2/neural-shrimp-data/codex/remote/t33-p2-d/returned/20261018T154442Z/return-summary.json",
+        "sha256": "974abe94dc485e74ceebc41416c630cede43ae01fc46467a0b92584142c402af"
+      }
+    },
+    {
+      "attempt": "/data2/neural-shrimp-data/codex/coexistence/p2-derivative-p1-c320-001",
+      "receipt_sha256": "8aea21372baeb9ced6d3fbe1fe78eb01140744f32afa45ca5e688bc7b349663e",
+      "source_commit": "d627b74affa176037f553332d6fb5b26d1dd0b37",
+      "phase_index": 1,
+      "start_column": 320,
+      "outer_closure": {
+        "path": "/data2/neural-shrimp-data/codex/coexistence/return-t33-p2-d-001/explore/llm-soft-loop/pod64/certpack/t33-p2-d/p2-derivative-p1-c320-001/run.json",
+        "sha256": "0c483a69d8d4352d0442785e7cb50ff9a157420ef16fc46d386cfa44746ea8a7"
+      },
+      "termination": {
+        "path": "/data2/neural-shrimp-data/codex/remote/t33-p2-d/returned/20261018T154442Z/return-summary.json",
+        "sha256": "974abe94dc485e74ceebc41416c630cede43ae01fc46467a0b92584142c402af"
+      }
+    },
+    {
+      "attempt": "/data2/neural-shrimp-data/codex/coexistence/p2-derivative-p1-c384-001",
+      "receipt_sha256": "072fbec718e6f90462aa6cc9c966447e06f679a5ac4d55dff98a19a7822ee8fb",
+      "source_commit": "d627b74affa176037f553332d6fb5b26d1dd0b37",
+      "phase_index": 1,
+      "start_column": 384,
+      "outer_closure": {
+        "path": "/data2/neural-shrimp-data/codex/coexistence/return-t33-p2-e-001/explore/llm-soft-loop/pod64/certpack/t33-p2-e/p2-derivative-p1-c384-001/run.json",
+        "sha256": "cf779ae28cdd0ee6b8c76df31823d5711eda9a450f091d49b35e3127f38e94df"
+      },
+      "termination": {
+        "path": "/data2/neural-shrimp-data/codex/remote/t33-p2-e/returned/20261018T154713Z/return-summary.json",
+        "sha256": "55dba00fb286e662aa945c2c19b2c5bf7531292d9aad07178c6247f483587c2c"
+      }
+    },
+    {
+      "attempt": "/data2/neural-shrimp-data/codex/coexistence/p2-derivative-p1-c448-001",
+      "receipt_sha256": "a9223098fbb149466c8eedbe596add6677b6ba156f3be6b77df249591a4df135",
+      "source_commit": "d627b74affa176037f553332d6fb5b26d1dd0b37",
+      "phase_index": 1,
+      "start_column": 448,
+      "outer_closure": {
+        "path": "/data2/neural-shrimp-data/codex/coexistence/return-t33-p2-e-001/explore/llm-soft-loop/pod64/certpack/t33-p2-e/p2-derivative-p1-c448-001/run.json",
+        "sha256": "5be29a37043cd065c62096517461f3fcf628b01f767cdc846db4e2a4be716ae5"
+      },
+      "termination": {
+        "path": "/data2/neural-shrimp-data/codex/remote/t33-p2-e/returned/20261018T154713Z/return-summary.json",
+        "sha256": "55dba00fb286e662aa945c2c19b2c5bf7531292d9aad07178c6247f483587c2c"
+      }
+    },
+    {
+      "attempt": "/data2/neural-shrimp-data/codex/coexistence/p2-derivative-p1-c512-001",
+      "receipt_sha256": "4fbaae633807839b62d42945a755b7357cab6f0a003ab8e704f003ba3c971271",
+      "source_commit": "d627b74affa176037f553332d6fb5b26d1dd0b37",
+      "phase_index": 1,
+      "start_column": 512,
+      "outer_closure": {
+        "path": "/data2/neural-shrimp-data/codex/coexistence/return-t33-p2-e-001/explore/llm-soft-loop/pod64/certpack/t33-p2-e/p2-derivative-p1-c512-001/run.json",
+        "sha256": "799f0e45fc3bc99c656fc918bcb568714189adaafdfc68a323db8c8f0df78d00"
+      },
+      "termination": {
+        "path": "/data2/neural-shrimp-data/codex/remote/t33-p2-e/returned/20261018T154713Z/return-summary.json",
+        "sha256": "55dba00fb286e662aa945c2c19b2c5bf7531292d9aad07178c6247f483587c2c"
+      }
+    },
+    {
+      "attempt": "/data2/neural-shrimp-data/codex/coexistence/p2-derivative-p1-c576-001",
+      "receipt_sha256": "737c9682abe5447638a7f2016524a16bb63a743d3beef7af0fddd0fc01d289ae",
+      "source_commit": "d627b74affa176037f553332d6fb5b26d1dd0b37",
+      "phase_index": 1,
+      "start_column": 576,
+      "outer_closure": {
+        "path": "/data2/neural-shrimp-data/codex/coexistence/return-t33-p2-e-001/explore/llm-soft-loop/pod64/certpack/t33-p2-e/p2-derivative-p1-c576-001/run.json",
+        "sha256": "45c5aeb19634815413737c19182a59506af9fd6c56bdf4e4e71fa3b8d6b88177"
+      },
+      "termination": {
+        "path": "/data2/neural-shrimp-data/codex/remote/t33-p2-e/returned/20261018T154713Z/return-summary.json",
+        "sha256": "55dba00fb286e662aa945c2c19b2c5bf7531292d9aad07178c6247f483587c2c"
+      }
+    },
+    {
+      "attempt": "/data2/neural-shrimp-data/codex/coexistence/p2-derivative-p1-c640-001",
+      "receipt_sha256": "a8cdf6c4b370cf7d7a676b71aee203b49108789a7ebf430b44999d3d80dd552b",
+      "source_commit": "d627b74affa176037f553332d6fb5b26d1dd0b37",
+      "phase_index": 1,
+      "start_column": 640,
+      "outer_closure": {
+        "path": "/data2/neural-shrimp-data/codex/coexistence/return-t33-p2-f-001/explore/llm-soft-loop/pod64/certpack/t33-p2-f/p2-derivative-p1-c640-001/run.json",
+        "sha256": "321e7f8727ae3c2fc3109a3ff5d36fcb1293d7b1d3516ba51a8f6f2a7565ff49"
+      },
+      "termination": {
+        "path": "/data2/neural-shrimp-data/codex/remote/t33-p2-f/returned/20261018T151912Z/return-summary.json",
+        "sha256": "fd18dd98f2dc4dcbeeb5999b1b4f42604217bb658be0c6e3bc9ad610ae98b628"
+      }
+    },
+    {
+      "attempt": "/data2/neural-shrimp-data/codex/coexistence/p2-derivative-p1-c704-001",
+      "receipt_sha256": "df9f6043f7fa797d36ff1d6018a8270e4e9f9c269151081a3702ab668c5497f1",
+      "source_commit": "d627b74affa176037f553332d6fb5b26d1dd0b37",
+      "phase_index": 1,
+      "start_column": 704,
+      "outer_closure": {
+        "path": "/data2/neural-shrimp-data/codex/coexistence/return-t33-p2-f-001/explore/llm-soft-loop/pod64/certpack/t33-p2-f/p2-derivative-p1-c704-001/run.json",
+        "sha256": "07d095510ff950983eeee56fa31020691ff8cca9591a8c9124b457c76ecf75e8"
+      },
+      "termination": {
+        "path": "/data2/neural-shrimp-data/codex/remote/t33-p2-f/returned/20261018T151912Z/return-summary.json",
+        "sha256": "fd18dd98f2dc4dcbeeb5999b1b4f42604217bb658be0c6e3bc9ad610ae98b628"
+      }
+    },
+    {
+      "attempt": "/data2/neural-shrimp-data/codex/coexistence/p2-derivative-p1-c768-001",
+      "receipt_sha256": "542584e161c342727971e7d89ee702841f44250ac1b5f3bfae267433ac5dcd1a",
+      "source_commit": "d627b74affa176037f553332d6fb5b26d1dd0b37",
+      "phase_index": 1,
+      "start_column": 768,
+      "outer_closure": {
+        "path": "/data2/neural-shrimp-data/codex/coexistence/return-t33-p2-f-001/explore/llm-soft-loop/pod64/certpack/t33-p2-f/p2-derivative-p1-c768-001/run.json",
+        "sha256": "b49346b61cc81e5e04a32d85eef94b664bedc3ac3f3a88204fd23cad4dec898c"
+      },
+      "termination": {
+        "path": "/data2/neural-shrimp-data/codex/remote/t33-p2-f/returned/20261018T151912Z/return-summary.json",
+        "sha256": "fd18dd98f2dc4dcbeeb5999b1b4f42604217bb658be0c6e3bc9ad610ae98b628"
+      }
+    },
+    {
+      "attempt": "/data2/neural-shrimp-data/codex/coexistence/p2-derivative-p1-c832-001",
+      "receipt_sha256": "a36fc51cbc304062195ba36b60d96129dd5322f83a76a25771141290be552425",
+      "source_commit": "d627b74affa176037f553332d6fb5b26d1dd0b37",
+      "phase_index": 1,
+      "start_column": 832,
+      "outer_closure": {
+        "path": "/data2/neural-shrimp-data/codex/coexistence/return-t33-p2-f-001/explore/llm-soft-loop/pod64/certpack/t33-p2-f/p2-derivative-p1-c832-001/run.json",
+        "sha256": "0a4fa68d3757724b9f5b7e7cec950ddea988a6da49637cdf9cbda14853c7325f"
+      },
+      "termination": {
+        "path": "/data2/neural-shrimp-data/codex/remote/t33-p2-f/returned/20261018T151912Z/return-summary.json",
+        "sha256": "fd18dd98f2dc4dcbeeb5999b1b4f42604217bb658be0c6e3bc9ad610ae98b628"
+      }
+    }
+  ],
+  "campaign_source": "d627b74affa176037f553332d6fb5b26d1dd0b37",
+  "derivative_backend": {
+    "python": "3.12.14 (main, Aug 25 2026, 14:00:49) [Clang 22.1.3 ]",
+    "python_flint": "0.9.0",
+    "flint": "3.6.0",
+    "numpy": "2.5.3",
+    "torch": "2.14.1+cu130",
+    "precision": 1024,
+    "threads": 1
+  },
+  "derivative_source_sha256": {
+    "codex/certify-llm/streamed_head.py": "f6096528f5748392386e97e9a4722f5967aeb0ae24897aac1465d205fca4f24a",
+    "codex/certify-llm/ball_jet.py": "46b14d8bd65ed6c80174758daf37d00110cfa908813917bdb46c13749f999719",
+    "codex/certify-llm/ball_qwen.py": "fcc90849601984506adf26f651067734f9faef408c8f42dffe64bf5c68e98a80",
+    "codex/certify-llm/ball_linear.py": "5d54200f5880d818eabc97e7eed2f1cf02b83b617b39380bef38d49a7ac45ff2",
+    "codex/certify-llm/cache_io.py": "f4e25b2134bef8a71c27d3156baf01be9d25c593d7b780f90a66b9c1141abdef",
+    "codex/certify-llm/phase_domain.py": "a3856de84393068788c4cf4dc42fa6015da45b7912b56db995cc6b12922f8d8d",
+    "codex/certify-llm/derivative_coverage.py": "eb01dc001193b5e3982bcb41a582ac7c61cfe4e8fcd2a1ddf249126623fe63cf",
+    "codex/certify-llm/shooting_gates.py": "9c967c0dcb9783df53f33c05eb897050f4e8971f66767abbc8a01a8b1b85cf1f",
+    "codex/certify-llm/proof_gates.py": "ee6678b7dd5153ef095fd73d5711fcfc605f7a228c92b1335a9541cc3d7b2c6a",
+    "codex/crosscheck/qwen_map.py": "493a3d1d57fec227f5ba2e3f8f9cfcfdd02d22495d1d44e6449ede901310ae6e",
+    "codex/coexistence-task33/derivative_shard.py": "671615f1d88bdcd64df646937228434f533b1152f0005dd4669abfdacbfb34c9",
+    "codex/coexistence-task33/prefix_import.py": "b4f82802a9bf77b8d90e399c5c7e9b2635106d39532079852539ee227f1211e8"
+  },
+  "derivative_prefix": {
+    "attempt": "/data2/neural-shrimp-data/codex/coexistence/prefix-001",
+    "receipt_sha256": "0e787d0ebd6fb505a202c96fb3cc2429803aa8cc50c5271f728dc3da59af6f12",
+    "map_source_sha256": "fcc90849601984506adf26f651067734f9faef408c8f42dffe64bf5c68e98a80",
+    "cache_sha256": "52ead55348240b014ab3d0d41a925a58dfc477ceb8fdd2d3801e4ff7c5996634",
+    "source_commit": "8c5170bce23a3cf054de8638ba047dcabc893518",
+    "receipt_path": "/data2/neural-shrimp-data/codex/coexistence/prefix-001-supervision/receipt.json",
+    "admission_path": "/data2/neural-shrimp-data/codex/coexistence/prefix-001-supervision/admission.json",
+    "admission_sha256": "84be8d159949dc60aa0f3909c6a16ee5a967dab0e40cd717dda2738331bcfa28"
+  },
+  "preconditioner": {
+    "path": "/data2/neural-shrimp-data/codex/coexistence/phase-proposal-001/p2/preconditioner.npz",
+    "sha256": "e66f1947d0bafefba285ca5ceff8af25123db3b098791fb48ee9857d9faba7b0"
+  }
+}
