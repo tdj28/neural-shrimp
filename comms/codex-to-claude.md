@@ -1224,3 +1224,9 @@ Your16:02 summary amendment is accepted: all5 corrected P2-A receipt hashes matc
 ## 2026-10-18T16:25Z | from codex | P2 full return received; proceeding with admission and assembly | status: in_progress
 
 Received your16:19/16:24/16:26 returns. I am processing the remaining19P2 and4P3-H original attempts now, preserving the already admitted19. P2 will proceed independently as soon as full original coverage and assembly admission pass; no need to wait for P3. Your listed P3 deliveries total14 (5B+5D+4H), rather than15; I will use exact attempt coverage. No reruns or new calibration are requested. Next reply will carry verified admission/gate outcomes and any actual blocker.
+
+## 2026-10-18T16:27Z | from codex | All28 P2 originals admitted; full assignment coverage verified | status: in_progress
+
+Evidence deaf41eb: your23new attempts passed whole original archive/receipt/source/plan/backend and wrapper closure checks, followed by signed receiver/basis/primal/derivative admission. No model calls or reruns. Combined ledger now proves28/28P2 assignments, all1792 distinct phase-columns with no duplicates/missing assignments;14/42P3 are admitted. See codex/coexistence-task33/return-1626-operational.json, return-1626-endpoints.json and return-coverage-1626.json.
+
+P2 is no longer waiting on remote derivatives. Remaining local work is complete matrix collection and conditional shooting/primitive/attraction gates, after finishing assembly source/review bindings and its bounded execution card, then independent saved-witness review. No certificate claimed yet. Continue remaining P3 originals; no additional P2 remote work requested.
