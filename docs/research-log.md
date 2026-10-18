@@ -28996,3 +28996,38 @@ Human renewed queue authority; Claude refined29 at68197564. Priority is individu
 ## 2026-10-18T02:50:49.871431+00:00 | Codex Task29 seed result and edge-A run card
 
 All nine saved recurrence gates rechecked after closure. A(.0708,-.1396): fixed/bandP6 and stripeP10; C(.0693,-.142): fixed/bandP6 and stripeP12. B(.0708,-.144): allthree match stripeP10; no band nonexistence conclusion. Receipt and original closure codex/boundary-task29/seed-completion.json. Sole edge-A-001:17 coarse segment points, first up-to2 adjacent opposite known fates,16 initialbisections and4 rebracketed12-step epochs, max12rebrackets each. Known-fate fullstate/phase and two-window gates; unresolved/third fates stop, all queries retained. Own source tools/task29_edge_track.py and four passing bracket controls read by Root. CPU2+supervisor,nice10,12GiBAS,18000s hardwall/35000CPU,2GiBoutput,28/16GiBRAM16GiBdisk. Cost basis in edge-A-plan.json; unknown long residence bounded, no guarantee or extension. No Newton/stability/slope claim yet. Claude microtransects remain separate.
+## 2026-10-18 02:48 UTC: Run card P5T (exploratory): does lower temperature give the period-5 window a one-dimensional shrimp head?
+
+**Question** (human, 18 Oct). The human compared it to Rossler, where varying b changes the map of the (a, c) plane. The period-5 window of the two-block plane (gratitude at block 4, hostility at block 16) has the anatomy of a two-dimensional shrimp at log10 T = -0.1, but no one-dimensional head: at its near-nilpotent point the three leading multipliers have equal moduli (about 3.5e-3), and the per-step area contraction of the leading pair, the analog of Henon's |b|, is 0.41-0.50 in the plane's doubling cells. Does temperature act as the dissipation parameter?
+
+**Hypothesis.** At lower T fewer tokens compete, so the readout covariance, and with it each step's derivative, approaches rank one. If so, the window becomes one-dimensional at lower T, and a crossing of superstable curves (a true shrimp center) can appear.
+
+**Tool.** tools/p5_temperature.py, adapted from tools/p5_nilpotent.py; same map and seed. It continues the period-5 orbit and its head analog, the 2D Newton on (c1, c2) = (sum of Ritz values, sum of pairwise products), from log10 T -0.10 down to -0.20 in steps of 0.01. At each temperature it records the leading multipliers at the head and at four offsets of +-3e-4 in alpha.
+
+**Reading, fixed now.** The hypothesis is supported if, as T decreases:
+- |mu3|/|mu1| falls well below 1 at the head, so the leading pair is isolated;
+- then |mu2|/|mu1| and the area contraction |mu1 mu2|^(1/5) fall toward 0 at the offsets, so the window is one-dimensional.
+
+It is contradicted if the ratios stay near 1 or rise. If the orbit is lost, that is reported with the temperature. A positive pilot motivates a superstable-curve grid (tools/doubly_superstable.py) at the best temperature; it is not itself a shrimp claim.
+
+**Compute.** One H100 pod; cost in the private ledger.
+
+## 2026-10-18 02:49 UTC: Run card MT (exploratory, consult 13): microtransects that separate attractor existence from selection
+
+**Design.** Adopted from consult 13 (docs/consults/2026-10-18-crossing-sheets/adjudication.md). Tool tools/sheets_transect.py at commit 978c85af. At 17 points per transect it runs:
+- x0, the fixed start;
+- a frozen non-special token embedding (" world", chosen before any result);
+- continuation of two family seeds in both directions.
+
+Periods are checked by full-state recurrence over 4 repetitions (q <= 64, tol 1e-8). Every switch of x0's family is refined to 1/64 of the spacing. At the bracket ends each family is continued and its leading multipliers computed (subspace iteration, k = 6).
+
+**Transects.** Selected from the published fixed-start map cross-512 alone, before any seeded or sweep map of run SH is inspected:
+- **Development** (calibration): log10 T -0.148, alpha 0.06460 to 0.06480. Families p2, p3.
+- **B:** alpha 0.0708, log10 T -0.1440 to -0.1396 (column through period 10, chaos, the band's period 12, and the band). Families p10, band6.
+- **S:** log10 T -0.1396, alpha 0.0690 to 0.0700 (row from the period-12 stripe through unlabeled cells to the band family's period 6). Families p12, band6.
+
+**Also.** tools/sheets_edge.py at the development switch (log10 T -0.148, alpha 0.06465-0.06473; 22 bisections; the lingering orbit refined by Newton; its multipliers).
+
+**Endpoint, fixed now.** The number of held-out switches, out of B and S, classed as **selection (stable overlap)**: x0 changes family inside a refined bracket while both families' continuations keep their family across it with all computed multipliers inside the unit circle. Switches with chaos or no detected period on one side are **unresolved**; they are reported, not dropped. A switch where a family's continuation leaves its family is **intrinsic** for that family.
+
+**Compute.** One H100 pod; cost in the private ledger.
