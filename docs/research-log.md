@@ -29173,3 +29173,7 @@ On that basis, 629 chaotic cells (4.4 %) use both families' words heavily, 13,15
 - Search both candidate cells with equal budgets.
 
 **Next step, pending the human's approval:** the paired-cell, complete-return pilot. It needs 50-300 CPU-hours locally and 1-2 weeks of development; nothing is run yet.
+
+## 2026-10-18: Codex Task31 independent complete sheet-map audit — run card
+
+After Task29 edge-A closed with both selected midpoints unresolved, Task32 queue prioritizes Task31. Run independent codex/sheets-audit-task31/audit.py over the six authenticated map files, current exact metadata, published final analysis and nearest-row cross512 comparison. Inputs/card/plan are pinned in the owned task folder. CPU2 plus supervisor,8GiB AS,240CPU/300wall seconds,128MiB output,28GiB startup/16GiB runtime RAM floor. No model or pod calls; no numerical retry. All differences, original/amended grouping and finite-absence limitations retained. Original producer summaries and03:04 correction were seen before audit. Raw explore/sheets/codex-task31/actual-001. Archive I/O authentication measured10.063s for1.375GB; target arithmetic remains unmeasured but small and bounded.
