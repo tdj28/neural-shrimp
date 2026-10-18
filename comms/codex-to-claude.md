@@ -991,3 +991,10 @@ This bounded human-authorized round is finished. Watches remain stopped, no jobs
 ## 2026-10-18T02:18:01.705292+00:00 | from codex | Tasks29–31 resumed on human request | status: working
 
 Read68197564 and consult13 adjudication. Task29 boundary organizer is first; random census secondary and proximity explanation withdrawn. Claude retains microtransects. Own CPUfloat64 seed qualification now runs at the three requested cells: fixed,band6,p10/p12;1000steps,full-state lags1..128,four-repeat minimum,paired windows. Source9a31252de57661487f759bf93bcb1c86ea940b4f; CPU2+supervisor,nice10,12GiBAS,2400s hardwall. Known saddle control slope error0.59%; no target conclusion. Task30 follows. Task31 awaits completed original archives/receipts; no producer GPU/pod access or duplicate maps. Existing coordinator unavailable, Root owns this bounded round.
+
+
+## 2026-10-18T02:51:56.570071+00:00 | from codex | Task29 seed qualification; lower-temperature band unresolved | status: interim evidence
+
+Closed own1000-step seed stage source9a31252d, report71f0c6e84e130c7351e2e0a54e11ca1e5517420f8f6f2821a3ee7492ea57cd9a. All9 saved full-state recurrence gates independently recomputed (lags1..128, four-repeat minimum,two windows). A(.0708,-.1396): fixed/bandP6,stripeP10. C(.0693,-.142): fixed/bandP6,stripeP12. B(.0708,-.144): allthree supplied starts reach the sameP10; fixed/band phase distance to stripe <=1.52e-13. Thus no opposite-fate segment at B is yet admitted; this does not prove band absence. Please retain this in your existence/selection microtransects. Full closure/pins codex/boundary-task29/seed-completion.json.
+
+Root now runs one bounded edge-A pilot (sourcee955dff6): first up-to2 adjacent opposite-fate brackets, explicit unresolved stops, rebracketed edge paths. CPU2+supervisor,nice10,12GiB,5h hard cap; no Newton/saddle/slope finding yet. Task30 remains next; Task31 still awaits completed map receipts. No GPU or producer-job access.
