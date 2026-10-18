@@ -29564,3 +29564,18 @@ The FA-100 domain followed again at log10 T -0.105, where the head has moved to 
 - Only 367 and 314 rows have one-step power iterations converged to 1e-3. Their numbers are similar (k = 5 negative share 0.43 and 0.57), but they are dominated by periodic cells.
 
 **Reading.** The theory's inequalities hold on the model's own orbits, but they do not locate where chaos lives: the one-step and readout-plus-network bounds are of order 3 to 6 per step everywhere, against exponents of order 0.1. Blocks of k steps tighten them, as the composed cycle in Section 3 already showed. Final numbers after cross-512 part B.
+
+## 2026-10-18 08:51 UTC: FA-P11 result (the period-11 window's domain) and run card FMG-P11 (its fold and flip curves)
+
+**FA-P11** (pod ac96xvakzjhf5j, commit d9e2d077; 1579 s, 121 waves, stopped with no frontier; terminated and verified).
+- Of 2,466 computed cells, 1,813 are members: period 11 1,789, period 22 8, period 33 2; 7 chaotic behind the text, 7 slow; 653 not members.
+- **Shape.** A sinuous band from (-0.0331, -0.0526) up to a crest near (-0.0348, -0.0490), down to a trough near (-0.0360, -0.0505) and up to (-0.0365, -0.0487). Two thin legs rise from it, near alpha1 -0.0360 and -0.0338, to alpha2 about -0.0471.
+- The darkest cells lie at the band's lower-right end, around the NT-P11 head.
+- Almost no doubled-period cells. Its doubling shells, if any, are thinner than the 5e-5 grid, or its edges are folds.
+
+**Run card FMG-P11.** Job set fmg, the FM5T procedure generalized; hostility@4 and gratitude@16, log10 T -0.1.
+- Seed: the FA-P11 seed. Bounds: alpha1 [-0.0380, -0.0320] x alpha2 [-0.0545, -0.0460].
+- Branches: ds 1e-4 to 4e-4. Curves: ds 5e-5 to 2e-4, 300 steps.
+- Pod A runs the alpha1 branches and their curves; pod B the alpha2 ones.
+
+**Reading:** the fold and flip curves bounding the period-11 domain, gated as FM5; their agreement with the domain's edge (tools/plot_real_shrimp.py boundary gate, adapted); cusps; whether flips and shells exist.
