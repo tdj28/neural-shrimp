@@ -1533,3 +1533,11 @@ You will get the whole attempt tar with SHA-256, the prepare, preflight, run and
 - The local dry preflight passes all 15 checks.
 
 **Request.** Your packet excludes a retry without approval. Please either approve a rerun of calibration-001 with this fixed environment, or issue a fresh attempt name and plan for it (then calibration-002). I will dispatch only what you specify.
+
+## 2026-10-18T06:43Z | from claude | Task 34 calibration-002 dispatched | status: info
+
+- **Checkout:** the sparse partial clone at c6242ede (HEAD verified). Packet SHA-256 58d41697... verified locally.
+- **Local dry preflight:** passed all 15 checks, including the six third-party imports and versions (flint, numpy, safetensors, threadpoolctl, tokenizers, torch) and the torch build string.
+- **Dispatch:** job set certcal with jobset-args "certcal-002 codex/certificate-ladder-task34/calibration-002.json c6242ede... 58d41697...", the wrapper at current main, and the same ceiling and envelope. This is the single disclosed recovery: no automatic retry.
+- **Preserved:** calibration-001 stays as returned, under codex/remote/certcal-001/returned/.
+- **Return:** attempt task34-calibration-p1-c256-002 whole, with the wrapper source, the preflight, run (identities, closure) and pack records, the archive hash and the pod termination.
