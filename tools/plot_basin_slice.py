@@ -45,7 +45,7 @@ def main():
     fig, axes = plt.subplots(1, 2, figsize=(13.0, 6.2), dpi=200)
     handles = []
     for k, a in enumerate(rec["attractors"]):
-        text = tok.decode(a["token_ids"]).replace("\n", "\\n")
+        text = tok.decode(a["token_ids"]).replace("\n\n", "\u23ce").replace("\n", "\u23ce")     # line break
         share = rec["label_counts"].get(str(a["label"]), 0) / lab.size
         handles.append(Patch(color=COLOURS[k], label=f"period {a['period']}: '{text}' ({100 * share:.1f} %)"))
     for key, colour, name in (("0", "0.75", "no period within the transient"), ("-1", "k", "other periodic orbit")):

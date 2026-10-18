@@ -20,12 +20,19 @@ ROOT = Path(__file__).resolve().parents[1]
 DATA = Path(os.environ.get("NEURAL_SHRIMP_DATA", ROOT.parent / "neural-shrimp-data"))
 
 
-def kmeans(X, k, rng, iters=50):
-    C = X[rng.choice(len(X), k, replace=False)]
-    for _ in range(iters):
-        lab = np.argmin(((X[:, None, :] - C[None]) ** 2).sum(-1), axis=1)
-        C = np.array([X[lab == j].mean(0) if np.any(lab == j) else C[j] for j in range(k)])
-    return lab, C
+def kmeans(X, k, rng, iters=50, restarts=10):
+    """Best of several seeded k-means runs (smallest within-cluster sum of squares); one random start can merge two
+    bands and split another."""
+    best = None
+    for _ in range(restarts):
+        C = X[rng.choice(len(X), k, replace=False)]
+        for _ in range(iters):
+            lab = np.argmin(((X[:, None, :] - C[None]) ** 2).sum(-1), axis=1)
+            C = np.array([X[lab == j].mean(0) if np.any(lab == j) else C[j] for j in range(k)])
+        sse = float(((X - C[lab]) ** 2).sum())
+        if best is None or sse < best[0]:
+            best = (sse, lab, C)
+    return best[1], best[2]
 
 
 def main():
@@ -42,9 +49,9 @@ def main():
     import matplotlib.pyplot as plt
 
     zs = np.load(DATA / "explore" / args.strong / "portrait.npz", allow_pickle=True)
-    Ps = zs["coords"].reshape(-1, zs["coords"].shape[-1])
+    Ps = zs["coords"][zs["periods"] == 0].reshape(-1, zs["coords"].shape[-1])
     zb = np.load(DATA / "explore" / args.banded / "portrait.npz", allow_pickle=True)
-    Pb = zb["coords"].reshape(-1, zb["coords"].shape[-1])
+    Pb = zb["coords"][zb["periods"] == 0].reshape(-1, zb["coords"].shape[-1])   # the chaotic attractor's trajectories
     rng = np.random.default_rng(0)
     lab, C = kmeans(Pb[:, :2], args.bands, rng)
     order = np.argsort(C[:, 0])

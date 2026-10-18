@@ -140,6 +140,13 @@ def main():
     if args.glide == "step" or (isinstance(args.glide, float) and args.glide > 0.2):
         fig.text(0.02, 0.89, "the loop is a map: its state jumps once per step; the dot glides between states only "
                  "to guide the eye", color="0.6", fontsize=12 * fs)
+    for k, t in enumerate(top):                       # the colours: the token the loop writes next
+        fig.text(0.02, 0.84 - 0.034 * k, "\u25cf", color=rt.PALETTE[k], fontsize=17 * fs)
+        fig.text(0.04, 0.842 - 0.034 * k, repr(tok.decode([int(t)])), color="0.9", fontsize=14 * fs, family="monospace")
+    fig.text(0.02, 0.84 - 0.034 * len(top), "\u25cf", color=rt.OTHER, fontsize=17 * fs)
+    fig.text(0.04, 0.842 - 0.034 * len(top), "other tokens", color="0.9", fontsize=14 * fs)
+    fig.text(0.02, 0.875, "colour: the token written next", color="0.75", fontsize=13 * fs)
+    fig.text(0.5, 0.165, "\u23ce marks a line break that the loop writes", color="0.55", fontsize=12 * fs, ha="center")
     t_hist = fig.text(0.5, 0.115, "", color="0.75", fontsize=19 * fs, family="monospace", ha="center")
     t_word = fig.text(0.5, 0.04, "", color="w", fontsize=40 * fs, ha="center", weight="bold")
     t_step = fig.text(0.98, 0.955, "", color="0.6", fontsize=14 * fs, ha="right")
@@ -149,7 +156,7 @@ def main():
         u = tt / total
         az = np.radians(30.0 + args.turn * u)
         el = np.radians(22.0 + 8.0 * np.sin(2 * np.pi * u))
-        im.set_data(0.85 * rt.render(P, col, az, el, W, H, scale, 3.0, 0.5))
+        im.set_data(np.clip(rt.render(P, col, az, el, W, H, scale, 3.0, 0.8), 0, 1))
         k = int(np.searchsorted(starts, tt, side="right")) - 1          # current step (-1: intro)
         X, Y = project(traj, az, el, W, H, scale)
         if k < 0:

@@ -99,7 +99,7 @@ def main():
     ax = fig.add_subplot(gs[0, 0])
     ax.scatter(P[:, 0], P[:, 1], s=0.15, c=[cmap(c) for c in colors], alpha=0.6, linewidths=0, rasterized=True)
     for k, t in enumerate(top):
-        ax.plot([], [], "o", color=cmap(k), label=repr(tok.decode([int(t)])))
+        ax.plot([], [], "o", color=cmap(k), label=repr(tok.decode([int(t)])).replace("\\n\\n", "\u23ce").replace("\\n", "\u23ce"))
     ax.legend(fontsize=6, markerscale=1.5, loc="best", title="next token", title_fontsize=6)
     lo1, hi1, c1 = zoom_box(P[:, :2], 0.08)
     ax.add_patch(plt.Rectangle(lo1, *(hi1 - lo1), fill=False, ec="k", lw=0.8))
@@ -152,12 +152,24 @@ def main():
         z2, rec2 = load(args.second)
         P2 = z2["coords"][z2["periods"] == 0].reshape(-1, z2["coords"].shape[-1])
         ax = fig.add_subplot(gs[1, 2])
-        ax.scatter(P2[:, 0], P2[:, 1], s=0.15, c="tab:purple", alpha=0.5, linewidths=0, rasterized=True)
-        if args.manifold:
-            mz = np.load(DATA / "explore" / args.manifold / "manifold.npz")
-            ax.scatter(mz["proj"][:, 0], mz["proj"][:, 1], s=0.1, c="k", alpha=0.6, linewidths=0, rasterized=True)
         a2 = rec2["args"]
-        ax.set_title(f"(f) banded chaos past a cascade: $\\alpha={a2['alpha']}$", fontsize=9)
+        if args.manifold:                            # zoom onto the band that the computed manifold covers
+            M = np.load(DATA / "explore" / args.manifold / "manifold.npz")["proj"]
+            lo, hi = M[:, :2].min(0), M[:, :2].max(0)
+            pad = 0.08 * (hi - lo).max()
+            sel = np.all((P2[:, :2] >= lo - pad) & (P2[:, :2] <= hi + pad), axis=1)
+            ax.scatter(P2[sel, 0], P2[sel, 1], s=2.0, c="tab:purple", alpha=0.5, linewidths=0, rasterized=True,
+                       label="attractor states")
+            ax.scatter(M[:, 0], M[:, 1], s=0.2, c="k", alpha=0.8, linewidths=0, rasterized=True,
+                       label="unstable manifold of the period-3 saddle")
+            ax.set_xlim(lo[0] - pad, hi[0] + pad)
+            ax.set_ylim(lo[1] - pad, hi[1] + pad)
+            ax.legend(fontsize=7, markerscale=6, loc="lower right")
+            ax.set_title(f"(f) a band of the chaos past the cascade ($\\alpha={a2['alpha']}$)\n"
+                         "on the unstable manifold of its period-3 saddle", fontsize=9)
+        else:
+            ax.scatter(P2[:, 0], P2[:, 1], s=0.15, c="tab:purple", alpha=0.5, linewidths=0, rasterized=True)
+            ax.set_title(f"(f) banded chaos past a cascade: $\\alpha={a2['alpha']}$", fontsize=9)
         ax.set_xlabel("first principal coordinate")
         ax.set_ylabel("second principal coordinate")
         summary["census_second"] = rec2["census"]
