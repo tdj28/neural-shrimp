@@ -1,14 +1,40 @@
 {
-  "status": "seed qualification closed; edge-A admitted pending launch",
+  "status": "edge-A-001 running; seed stage complete",
   "owner": "Root; prior coordinator unavailable",
   "watches": "not restarted",
   "jobs": [],
-  "session": 15924,
-  "source": "9a31252de57661487f759bf93bcb1c86ea940b4f",
-  "identities": [],
+  "session": 77286,
+  "source": "e955dff61f618064cbbb132acc23b7240361706e",
+  "identities": [
+    {
+      "pid": 1646456,
+      "starttime": 223844796,
+      "pgid": 1646456,
+      "sid": 1646456,
+      "state": "S",
+      "nice": 10,
+      "threads": 1,
+      "uid_line": "Uid:\t1000\t1000\t1000\t1000",
+      "cmdline": "/data2/neural-shrimp/.venv/bin/python -I -B codex/basins-task28/supervise.py --plan codex/boundary-task29/edge-A-plan.json --lane edge --source e955dff61f618064cbbb132acc23b7240361706e ",
+      "limits": "Limit                     Soft Limit           Hard Limit           Units     \nMax cpu time              unlimited            unlimited            seconds   \nMax file size             unlimited            unlimited            bytes     \nMax data size             unlimited            unlimited            bytes     \nMax stack size            8388608              unlimited            bytes     \nMax core file size        0                    unlimited            bytes     \nMax resident set          unlimited            unlimited            bytes     \nMax processes             375398               375398               processes \nMax open files            65535                65535                files     \nMax locked memory         8388608              8388608              bytes     \nMax address space         1073741824           12884901888          bytes     \nMax file locks            unlimited            unlimited            locks     \nMax pending signals       375398               375398               signals   \nMax msgqueue size         819200               819200               bytes     \nMax nice priority         0                    0                    \nMax realtime priority     0                    0                    \nMax realtime timeout      200000               200000               us        \n"
+    },
+    {
+      "pid": 1646546,
+      "starttime": 223844820,
+      "pgid": 1646546,
+      "sid": 1646546,
+      "state": "R",
+      "nice": 10,
+      "threads": 4,
+      "uid_line": "Uid:\t1000\t1000\t1000\t1000",
+      "cmdline": "/data2/neural-shrimp/.venv/bin/python -I -B /home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/tools/task29_edge_track.py --card /home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/boundary-task29/edge-A-card.json --out /data2/neural-shrimp-data/explore/sheets/codex-task29/edge-A-001 ",
+      "limits": "Limit                     Soft Limit           Hard Limit           Units     \nMax cpu time              35000                35000                seconds   \nMax file size             2147483648           2147483648           bytes     \nMax data size             unlimited            unlimited            bytes     \nMax stack size            8388608              unlimited            bytes     \nMax core file size        0                    unlimited            bytes     \nMax resident set          unlimited            unlimited            bytes     \nMax processes             375398               375398               processes \nMax open files            65535                65535                files     \nMax locked memory         8388608              8388608              bytes     \nMax address space         12884901888          12884901888          bytes     \nMax file locks            unlimited            unlimited            locks     \nMax pending signals       375398               375398               signals   \nMax msgqueue size         819200               819200               bytes     \nMax nice priority         0                    0                    \nMax realtime priority     0                    0                    \nMax realtime timeout      200000               200000               us        \n"
+    }
+  ],
   "seed_completion": {
     "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/boundary-task29/seed-completion.json",
     "bytes": 2254,
     "sha256": "ad699e790903c3db5200885aec8b683586c4419b8c155bf4b21e8ec890873195"
-  }
+  },
+  "raw": "/data2/neural-shrimp-data/explore/sheets/codex-task29/edge-A-001"
 }
