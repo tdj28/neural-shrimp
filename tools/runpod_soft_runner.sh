@@ -34,12 +34,14 @@ snapshot_download('Qwen/Qwen2.5-0.5B-Instruct', revision='$REV', cache_dir='$NEU
 REFS=$NEURAL_SHRIMP_DATA/models/hf/hub/models--Qwen--Qwen2.5-0.5B-Instruct/refs
 mkdir -p "$REFS" && printf %s "$REV" > "$REFS/main"
 REV15=989aa7980e4cf806f80c7fef2b1adb7bc71aa306                 # Qwen2.5-1.5B-Instruct, the local snapshot
+if [ "$JOBSET" != certpack ]; then          # certificate packing needs only the 0.5B snapshot (and its memory headroom)
 HF_HUB_OFFLINE=0 $PY -c "
 from huggingface_hub import snapshot_download
 snapshot_download('Qwen/Qwen2.5-1.5B-Instruct', revision='$REV15', cache_dir='$NEURAL_SHRIMP_DATA/models/hf/hub')" \
   >> "$LOGS/setup-model.log" 2>&1
 REFS15=$NEURAL_SHRIMP_DATA/models/hf/hub/models--Qwen--Qwen2.5-1.5B-Instruct/refs
 mkdir -p "$REFS15" && printf %s "$REV15" > "$REFS15/main"
+fi
 if [ "$JOBSET" = p1control ] || [ "$JOBSET" = p1detect ] || [ "$JOBSET" = p1commit ] || [ "$JOBSET" = p1x ]; then   # the pinned toxicity classifier
   HF_HUB_OFFLINE=0 $PY -c "
 from huggingface_hub import snapshot_download
@@ -47,7 +49,7 @@ snapshot_download('unitary/toxic-bert', revision='4d6c22e74ba2fdd26bc4f7238f5076
                   cache_dir='$NEURAL_SHRIMP_DATA/models/hf/hub')" >> "$LOGS/setup-model.log" 2>&1
 fi
 GPUCHK="torch.cuda.get_device_name(0)"
-[ "$JOBSET" = certcal ] && GPUCHK="'cpu-only job set'"     # certificate shards use no GPU; a faulty host GPU must not stop them
+{ [ "$JOBSET" = certcal ] || [ "$JOBSET" = certpack ]; } && GPUCHK="'cpu-only job set'"   # certificate shards use no GPU; a faulty host GPU must not stop them
 $PY -c "import torch, transformers, numpy, scipy; print('versions', torch.__version__, torch.version.cuda,
 transformers.__version__, numpy.__version__, scipy.__version__, $GPUCHK)" > "$LOGS/versions.txt" \
   || { log "setup failed"; tail -5 "$LOGS"/setup-*.log; exit 3; }
@@ -1105,6 +1107,87 @@ snapshot_download('$repo', revision='$rev', cache_dir='$NEURAL_SHRIMP_DATA/model
       log "preflight refused: no launch"; cat "$CO/preflight.log"
     fi
     $CV -I tools/cert_remote.py pack --packet /root/cert-src/$packet --out "$CO" > "$CO/pack.log" 2>&1
+    $CV -I -c "import sys,numpy,torch,flint; print(sys.version); print(numpy.__version__, torch.__version__, flint.__version__, flint.__FLINT_VERSION__)" > "$CO/backend.txt" 2>&1
+    uv pip freeze -p /root/certvenv/bin/python > "$CO/pip-freeze.txt" 2>&1
+    free -g > "$CO/free.txt"; df -h /data2 > "$CO/df.txt"; nproc > "$CO/nproc.txt"; lscpu > "$CO/lscpu.txt"
+    cat "$CO/pack.log"
+    ;;
+  certpack)    # Task 33: several distinct attempts of one Codex multi-plan packet on one pod (tools/cert_remote.py).
+               # JOBARGS = NAME PACKET COMMIT PACKET_SHA256 ATTEMPTS BUDGET_MINUTES; ATTEMPTS comma-separated, PACKET relative
+               # to the checkout. Uploads and setup as certcal. The preflight checks every named plan and admits W concurrent
+               # workers from the effective capacity (18 GiB each plus 4 GiB shared, one CPU each). Each attempt runs once,
+               # its packet command unchanged, under its own run supervisor; a new attempt starts only while at least
+               # 4200 s of BUDGET_MINUTES (counted from the runner's start) remain, and attempts never started are listed in
+               # not-started.txt. Every attempt is packed separately, with SHA-256.
+    name=${JOBARGS[0]}; packet=${JOBARGS[1]}; commit=${JOBARGS[2]}; packet_sha=${JOBARGS[3]}; attempts=${JOBARGS[4]}
+    budget=${JOBARGS[5]}; T0=$(date +%s)
+    CO=$OUT/llm-soft-loop/pod64/certpack/$name
+    mkdir -p "$CO" /data2/neural-shrimp-runtime/python /data2/neural-shrimp-data
+    RD=$NEURAL_SHRIMP_DATA/codex/remote/$name
+    tar xf "$RD/cpython-3.12.14.tar" -C /data2/neural-shrimp-runtime/python
+    CPY=/data2/neural-shrimp-runtime/python/cpython-3.12.14-linux-x86_64-gnu/bin/python3.12
+    uv venv -q -p $CPY /root/certvenv > "$CO/setup-venv.log" 2>&1
+    uv pip install -q -p /root/certvenv/bin/python "numpy==2.5.3" "python-flint==0.9.0" "safetensors==0.8.0" \
+      "threadpoolctl==3.7.0" "tokenizers==0.23.3" \
+      > "$CO/setup-pip.log" 2>&1
+    uv pip install -q -p /root/certvenv/bin/python "torch==2.14.1+cu130" --index-url https://download.pytorch.org/whl/cu130 \
+      >> "$CO/setup-pip.log" 2>&1
+    uv cache clean > /dev/null 2>&1          # the wheel cache's pages would count against the container's memory
+    CV=/root/certvenv/bin/python
+    tar --no-same-owner -xf "$RD/src.tar" -C /root            # owned by the pod's user, so git accepts the repository
+    chown -R "$(id -u):$(id -g)" /root/cert-src
+    git -C /root/cert-src remote set-url origin /root/cert-src
+    $CV -I tools/cert_remote.py prepare --packet /root/cert-src/$packet --src-data $NEURAL_SHRIMP_DATA \
+      --record "$CO/prepare.json" > "$CO/prepare.log" 2>&1
+    log "prepare status $?"
+    # Setup's file pages count in the cgroup's memory.current, so they lower the measured headroom although the kernel
+    # can reclaim them. Write them back and advise the kernel to drop the clean pages of the setup files (no privilege
+    # needed); memory.current is recorded before and after. Nothing the attempts read is changed.
+    cat /sys/fs/cgroup/memory.current > "$CO/memory-current-before.txt" 2>&1
+    sync
+    $CV -I -c "
+import os, sys
+for top in sys.argv[1:]:
+    for d, _, fs in os.walk(top):
+        for f in fs:
+            try:
+                fd = os.open(os.path.join(d, f), os.O_RDONLY)
+            except OSError:
+                continue
+            try:
+                os.posix_fadvise(fd, 0, 0, os.POSIX_FADV_DONTNEED)
+            except OSError:
+                pass
+            os.close(fd)" /root/venv /root/certvenv /root/.cache /root/neural-shrimp-data /data2 /root/cert-src 2>> "$CO/fadvise.log"
+    cat /sys/fs/cgroup/memory.current > "$CO/memory-current-after.txt" 2>&1
+    log "memory.current before/after dropping setup pages: $(cat "$CO/memory-current-before.txt") $(cat "$CO/memory-current-after.txt")"
+    if $CV -I tools/cert_remote.py preflight --packet /root/cert-src/$packet --repo /root/cert-src --commit $commit \
+         --packet-sha256 $packet_sha --attempts "$attempts" --record "$CO/preflight.json" > "$CO/preflight.log" 2>&1; then
+      W=$($CV -I -c "import json,sys; print(int(json.load(open(sys.argv[1]))['admitted_workers']))" "$CO/preflight.json")
+      log "preflight passed: $W concurrent workers for ${attempts//,/ }"
+      for att in ${attempts//,/ }; do
+        while [ "$(jobs -rp | wc -l)" -ge "$W" ]; do wait -n; done
+        left=$(( T0 + budget * 60 - $(date +%s) ))
+        if [ "$left" -lt 4200 ]; then
+          log "not started ($left s of the budget left): $att"; echo "$att" >> "$CO/not-started.txt"; continue
+        fi
+        CMD=$($CV -I tools/cert_remote.py command --packet /root/cert-src/$packet --attempt "$att") \
+          || { log "command refused: $att"; echo "$att" >> "$CO/not-started.txt"; continue; }
+        CMD="$CV ${CMD#python }"
+        mkdir -p "$CO/$att"
+        log "start $att: $CMD"
+        $CV -I tools/cert_remote.py run --repo /root/cert-src --cmd "$CMD" --deadline-seconds 3900 --rss-limit-gib 18 \
+          --stdout "$CO/$att/launch.log" --record "$CO/$att/run.json" > "$CO/$att/run.log" 2>&1 &
+        sleep 5
+      done
+      wait
+      log "all started attempts ended"
+    else
+      log "preflight refused: no launch"; cat "$CO/preflight.log"
+    fi
+    for att in ${attempts//,/ }; do
+      $CV -I tools/cert_remote.py pack --packet /root/cert-src/$packet --attempt "$att" --out "$CO" >> "$CO/pack.log" 2>&1
+    done
     $CV -I -c "import sys,numpy,torch,flint; print(sys.version); print(numpy.__version__, torch.__version__, flint.__version__, flint.__FLINT_VERSION__)" > "$CO/backend.txt" 2>&1
     uv pip freeze -p /root/certvenv/bin/python > "$CO/pip-freeze.txt" 2>&1
     free -g > "$CO/free.txt"; df -h /data2 > "$CO/df.txt"; nproc > "$CO/nproc.txt"; lscpu > "$CO/lscpu.txt"

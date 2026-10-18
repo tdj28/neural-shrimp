@@ -15,6 +15,14 @@ run        the packet's command, unchanged, in the checkout. Owned processes are
            identity, never to a whole group. After exit, a closure audit; any owned survivor makes the run fail.
 pack       tar the whole new attempt directory and the records, with SHA-256
 
+Multi-plan packets (Task 33, for example codex/coexistence-task33/p2-dispatch-001.json) list many distinct attempts,
+each with its own plan and command; their attempts live under codex/coexistence. For them, preflight and pack take
+--attempts / --attempt naming the attempts of this pod, and preflight also checks every named plan (hash, source pins,
+command, fresh attempt), the packet's source, launcher and collector pins, the frozen domain and the import versions.
+It reports admitted_workers, the largest number of concurrent workers (at most one per named attempt) that the
+effective capacity admits; it refuses when not even one is admitted. `command` prints one attempt's packet command.
+Each attempt then runs once under its own `run` supervisor, unchanged.
+
 Each step writes a JSON record and exits nonzero on refusal or failure.
 """
 import argparse
@@ -53,6 +61,42 @@ def asset_paths(packet, data_root):
             "7ae557604adf67be50417f59c2c2f167def9a775")
     return {"model.safetensors": snap / "model.safetensors", "config.json": snap / "config.json",
             "vectors.npz": data_root / "explore/llm-phase-map/vectors-l12/vectors.npz"}
+
+
+LAUNCHER = "codex/coexistence-task33/launch.py"
+COLLECTOR = "codex/coexistence-task33/returned_shard.py"
+IMPORT_DIST = {"threadpoolctl": "threadpoolctl", "tokenizers": "tokenizers", "safetensors": "safetensors",
+               "numpy": "numpy", "python-flint": "python-flint", "torch_distribution": "torch"}
+
+
+def attempt_root(packet):
+    """Where launch.py creates the packet's attempts: Task 33 multi-plan packets under codex/coexistence, the Task 34
+    single-plan calibration packets under codex/llm-p8-certificate."""
+    return "codex/coexistence" if "plans" in packet else "codex/llm-p8-certificate"
+
+
+def plan_rows(packet, names):
+    """The rows of a multi-plan packet for the named attempts (comma-separated), in that order; refuses an unknown or
+    repeated name, an empty list, or a packet that lists an attempt twice."""
+    rows = {r["attempt"]: r for r in packet["plans"]}
+    names = [n for n in (names or "").split(",") if n]
+    if len(rows) != len(packet["plans"]) or not names or len(set(names)) != len(names) or any(n not in rows
+                                                                                          for n in names):
+        raise SystemExit(f"refused: {names} are not distinct attempts of this packet")
+    return [rows[n] for n in names]
+
+
+def command_problems(row):
+    """A packet command must run the pinned launcher for exactly its own attempt and plan."""
+    t = row["command"].split()
+    want = ["python", "-I", "-B", "-u", LAUNCHER]
+    probs = []
+    if t[:5] != want:
+        probs.append("does not start with " + " ".join(want))
+    for flag, value in (("--attempt", row["attempt"]), ("--plan", Path(row["plan"]).name)):
+        if flag not in t or t.index(flag) + 1 >= len(t) or t[t.index(flag) + 1] != value:
+            probs.append(f"{flag} is not {value}")
+    return probs
 
 
 def describe_file(p):
@@ -152,18 +196,55 @@ def preflight(a):
     bad = check_hashes(packet, data_root)
     checks["hashes"] = (not bad, bad)
     checks["packet_sha256"] = (sha(a.packet) == a.packet_sha256, sha(a.packet))
-    plan_path = repo / packet["plan"]
-    plan = json.loads(plan_path.read_text())
-    checks["plan_sha256"] = (sha(plan_path) == packet["plan_sha256"], sha(plan_path))
-    pins = plan.get("source_sha256", {})
-    pin_bad = [k for k, v in pins.items() if not (repo / k).is_file() or sha(repo / k) != v]
-    checks["source_pins"] = (bool(pins) and not pin_bad, {"pins": len(pins), "mismatched": pin_bad})
+
+    def pin_problems(pins):
+        return [k for k, v in pins.items() if not (repo / k).is_file() or sha(repo / k) != v]
+
+    multi = "plans" in packet
+    if multi:
+        rows = plan_rows(packet, a.attempts)
+        per = {}
+        for r in rows:
+            pp = repo / r["plan"]
+            pins = json.loads(pp.read_text()).get("source_sha256", {}) if pp.is_file() else {}
+            att = data_root / attempt_root(packet) / r["attempt"]
+            per[r["attempt"]] = {"plan_sha256_matches": pp.is_file() and sha(pp) == r["plan_sha256"],
+                                 "source_pins": len(pins), "mismatched_pins": pin_problems(pins),
+                                 "command_problems": command_problems(r), "attempt_absent": not att.exists()}
+        checks["plans"] = (all(v["plan_sha256_matches"] and v["source_pins"] and not v["mismatched_pins"]
+                               and not v["command_problems"] and v["attempt_absent"] for v in per.values()), per)
+        pk = packet["source_sha256"]
+        checks["packet_source_pins"] = (bool(pk) and not pin_problems(pk),
+                                        {"pins": len(pk), "mismatched": pin_problems(pk)})
+        for key, rel in (("launcher_sha256", LAUNCHER), ("collector_sha256", COLLECTOR)):
+            got = sha(repo / rel) if (repo / rel).is_file() else None
+            checks[key] = (got == packet[key], {"path": rel, "sha256": got})
+        d = packet["definition"]
+        dp = Path(d["path"])
+        checks["definition"] = (dp.is_file() and not dp.is_symlink() and dp.stat().st_size == d["bytes"]
+                                and sha(dp) == d["sha256"], describe_file(dp))
+        req, got = packet.get("required_import_versions", {}), {}
+        for k in req:
+            try:
+                got[k] = md.version(IMPORT_DIST[k])
+            except Exception as e:                   # noqa: BLE001 - an unknown or missing distribution is a refusal
+                got[k] = f"unavailable: {e}"
+        checks["required_import_versions"] = (bool(req) and all(str(got[k]).split("+")[0] == v for k, v in req.items()),
+                                              got)
+    else:
+        plan_path = repo / packet["plan"]
+        plan = json.loads(plan_path.read_text())
+        checks["plan_sha256"] = (sha(plan_path) == packet["plan_sha256"], sha(plan_path))
+        pins = plan.get("source_sha256", {})
+        pin_bad = pin_problems(pins)
+        checks["source_pins"] = (bool(pins) and not pin_bad, {"pins": len(pins), "mismatched": pin_bad})
     git = lambda *x: subprocess.run(["git", *x], cwd=repo, capture_output=True, text=True)  # noqa: E731
     head = git("rev-parse", "HEAD").stdout.strip()
     anc = git("merge-base", "--is-ancestor", head, "origin/main").returncode == 0
     checks["git_head"] = (head == a.commit and anc, {"head": head, "origin_main_contains": anc})
-    attempt = data_root / "codex/llm-p8-certificate" / packet["attempt"]
-    checks["fresh_attempt_absent"] = (not attempt.exists(), str(attempt))
+    if not multi:
+        attempt = data_root / attempt_root(packet) / packet["attempt"]
+        checks["fresh_attempt_absent"] = (not attempt.exists(), str(attempt))
     mem = {line.split(":")[0]: int(line.split()[1]) for line in open("/proc/meminfo")}
     avail_gib = mem["MemAvailable"] / 1024 ** 2
     checks["ram_available_gib"] = (avail_gib >= a.min_ram_gib, round(avail_gib, 2))
@@ -173,14 +254,30 @@ def preflight(a):
     sys.path.insert(0, str(Path(__file__).resolve().parent))
     import cert_capacity
     cap = cert_capacity.capacity()
-    adm = cert_capacity.packing_admission(cap, a.workers, a.per_worker_gib, a.shared_gib, 1)
-    checks["effective_capacity"] = (adm["admit"], {"admission": adm, "capacity": cap})
+    admitted = None
+    if multi:
+        # the largest number of concurrent workers, one per named attempt, that the effective capacity admits
+        admitted, trials = 0, []
+        for w in range(1, len(rows) + 1):
+            adm = cert_capacity.packing_admission(cap, w, a.per_worker_gib, a.shared_gib, 1)
+            trials.append({"workers": w, "admission": adm})
+            if not adm["admit"]:
+                break
+            admitted = w
+        checks["effective_capacity"] = (admitted >= 1, {"admitted_workers": admitted, "named_attempts": len(rows),
+                                                        "trials": trials, "capacity": cap})
+    else:
+        adm = cert_capacity.packing_admission(cap, a.workers, a.per_worker_gib, a.shared_gib, 1)
+        checks["effective_capacity"] = (adm["admit"], {"admission": adm, "capacity": cap})
     ok = all(v[0] for v in checks.values())
     rec = {"step": "preflight", "at": now(), "ok": ok, "commit": a.commit,
            "checks": {k: {"pass": bool(v[0]), "value": v[1]} for k, v in checks.items()},
            "info": container_limits()}
+    if multi:
+        rec.update(attempts=[r["attempt"] for r in rows], admitted_workers=admitted if ok else 0)
     write(a.record, rec)
-    print(json.dumps({"step": "preflight", "ok": ok, "failed": [k for k, v in checks.items() if not v[0]]}))
+    print(json.dumps({"step": "preflight", "ok": ok, "failed": [k for k, v in checks.items() if not v[0]],
+                      **({"admitted_workers": rec["admitted_workers"]} if multi else {})}))
     sys.exit(0 if ok else 1)
 
 
@@ -363,17 +460,33 @@ def run(a):
 
 def pack(a):
     packet = json.loads(Path(a.packet).read_text())
-    attempt = Path(a.data_root) / "codex/llm-p8-certificate" / packet["attempt"]
+    if "plans" in packet:
+        name = plan_rows(packet, a.attempt)[0]["attempt"] if a.attempt and "," not in a.attempt else None
+        if name is None:
+            raise SystemExit("refused: a multi-plan packet is packed one --attempt at a time")
+    else:
+        name = packet["attempt"]
+    attempt = Path(a.data_root) / attempt_root(packet) / name
     out = Path(a.out)
     out.mkdir(parents=True, exist_ok=True)
-    tar_path = out / f"{packet['attempt']}.tar"
+    tar_path = out / f"{name}.tar"
     with tarfile.open(tar_path, "w") as t:
         if attempt.exists():
             t.add(attempt, arcname=str(attempt.relative_to(a.data_root)))
-    rec = {"step": "pack", "at": now(), "attempt_present": attempt.exists(), "archive": tar_path.name,
-           "archive_sha256": sha(tar_path), "archive_bytes": tar_path.stat().st_size}
-    write(out / "pack.json", rec)
+    rec = {"step": "pack", "at": now(), "attempt": name, "attempt_present": attempt.exists(),
+           "archive": tar_path.name, "archive_sha256": sha(tar_path), "archive_bytes": tar_path.stat().st_size}
+    write(out / (f"pack-{name}.json" if "plans" in packet else "pack.json"), rec)
     print(json.dumps(rec))
+
+
+def command(a):
+    """Print one attempt's command exactly as the multi-plan packet gives it (after the same command check as
+    preflight)."""
+    packet = json.loads(Path(a.packet).read_text())
+    row = plan_rows(packet, a.attempt)
+    if len(row) != 1 or command_problems(row[0]):
+        raise SystemExit(f"refused: {a.attempt}: {command_problems(row[0]) if len(row) == 1 else 'one attempt'}")
+    print(row[0]["command"])
 
 
 def main():
@@ -391,11 +504,17 @@ def main():
     p.add_argument("--packet-sha256", required=True)
     p.add_argument("--min-ram-gib", type=float, default=24)
     p.add_argument("--min-disk-gib", type=float, default=16)
-    p.add_argument("--workers", type=int, default=1, help="concurrent workers the effective capacity must admit")
+    p.add_argument("--workers", type=int, default=1,
+                   help="single-plan packets: concurrent workers the effective capacity must admit")
+    p.add_argument("--attempts", help="multi-plan packets: this pod's distinct attempts, comma-separated")
     p.add_argument("--per-worker-gib", type=float, default=18.0)
     p.add_argument("--shared-gib", type=float, default=4.0)
     p.add_argument("--record", required=True)
     sub.choices["pack"].add_argument("--out", required=True)
+    sub.choices["pack"].add_argument("--attempt", help="multi-plan packets: the one attempt to pack")
+    c = sub.add_parser("command")
+    c.add_argument("--packet", required=True)
+    c.add_argument("--attempt", required=True)
     r = sub.add_parser("run")
     r.add_argument("--repo", required=True)
     r.add_argument("--cmd", required=True)
@@ -404,7 +523,7 @@ def main():
     r.add_argument("--stdout", required=True)
     r.add_argument("--record", required=True)
     a = ap.parse_args()
-    {"prepare": prepare, "preflight": preflight, "run": run, "pack": pack}[a.step](a)
+    {"prepare": prepare, "preflight": preflight, "run": run, "pack": pack, "command": command}[a.step](a)
 
 
 if __name__ == "__main__":

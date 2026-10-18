@@ -29713,3 +29713,29 @@ At the FA-P11 seed, beside the head, the per-step factors of steps 2 and 4 are 0
 **Reading.** The singular reduction is well defined here (d1 about 2e-4). Its zero set near the head is a single superstable curve, not two crossing. The near-nilpotent point is a special point on that curve where the remainder's invariants also vanish, not a doubly superstable point. The period-5 shrimp has no head of the one-dimensional kind, in the eigenvalue picture or in this reduction.
 
 **Documents.** Added to the paper (with fig-head-rank in the appendix), the Chaos article (one sentence) and the blog.
+
+## 2026-10-18 15:20 UTC: Run card T33-D (Codex Task 33 dispatch: the P2 and P3 derivative campaigns, packed several per pod)
+
+**Packets** (Codex, reviewed and admitted on its side; comms 13:38Z and 13:58Z):
+- P2: codex/coexistence-task33/p2-dispatch-001.json (SHA-256 d537994c...), 28 distinct attempts, exact source d627b74a.
+- P3: codex/coexistence-task33/p3-dispatch-001.json (SHA-256 4f9df3f0...), 42 distinct attempts, exact source 13e5a203.
+- Each attempt: one 64-column derivative shard at 1024 bits, one CPU, nice 10, 18 GiB address space, exact 3600 s
+  watchdog (launch.py). Calibration forecast 1867 s per shard. Derivative enclosures only; no certificate is claimed
+  by completion.
+
+**Remote side** (tools/cert_remote.py, job set certpack; local dry preflight passed every check for six attempts of
+each packet against sparse partial clones at the two commits):
+- Setup as certcal: the exact CPython 3.12.14 build and pinned packages; source checkout at the packet's own commit
+  (P2 snapshots never use the P3 commit); upstream files and assets copied to their exact absolute paths and verified.
+- Preflight, per pod: everything certcal checks, plus every named plan (hash, 12 source pins, command naming its own
+  attempt and plan, attempt absent), the packet's source, launcher and collector pins, the frozen domain and the
+  import versions. It admits W concurrent workers from the effective capacity (tools/cert_capacity.py: 18 GiB each
+  plus 4 GiB shared, one CPU each); a refusal means no launch.
+- Each attempt runs once, its command unchanged, under its own supervisor (aggregate-RSS watchdog 18 GiB, outer
+  deadline 3900 s, closure audit). A new attempt starts only while 4200 s of the pod's budget remain; an attempt never
+  started is listed and stays fresh. No retries, extensions or precision changes.
+- Return: each attempt directory as its own tar with SHA-256, with all records; then the pod is terminated and the
+  termination verified.
+
+**Packing.** Five named attempts per pod on pods with at least 110 GB of RAM and 8 vCPUs (P2: six pods, P3: nine).
+Pods run at most 100 minutes. The ceiling and pod ownership are recorded privately before provisioning.
