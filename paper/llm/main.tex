@@ -2700,7 +2700,11 @@ strength switch the model between distinct repeating texts, chaos and coexisting
 behavior becomes intermittent, with laminar phases whose duration the fold's normal form predicts in advance. This argues for treating
 an activation-steering coefficient like any control parameter of a nonlinear system. Its bifurcation set should be
 characterized before an operating point is chosen, history dependence should be expected near boundaries, and a
-monotone, smooth dose response should not be assumed. The block at which a vector enters matters as much as its
+monotone, smooth dose response should not be assumed. In a test fixed before its data, the history of a steering
+schedule did change a decision with right and wrong answers: after a brief excursion to stronger permissive steering
+and back, Qwen2.5-3B-Instruct, thinking in soft tokens, wrongly allowed 13 percentage points more of the prohibited
+access requests at the same final strength (Appendix~\ref{sec:behaviour}). There the memory most plausibly lies in
+the growing context, not in coexisting attractors of a fixed-size state. The block at which a vector enters matters as much as its
 strength. In a 0.5B and a 70B model, earlier injection gives more chaos and brings it to lower temperature, and two
 vectors at two blocks create chaos where neither does alone (Section~\ref{sec:consequences}). Outputs that fall into verbatim repetition at high steering
 doses are naturally treated as quality failures. In the present framework such loops are candidate attracting
