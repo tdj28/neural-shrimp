@@ -1,0 +1,82 @@
+{
+  "source": "bea0bff82e16d190d64569fcd56fdaabcfa4540b",
+  "session": 94939,
+  "supervisor": {
+    "pid": 3319269,
+    "starttime": 231318791,
+    "pgid": 3319269,
+    "sid": 3319269,
+    "state": "S",
+    "nice": 10,
+    "threads": 1,
+    "uid_line": "Uid:\t1000\t1000\t1000\t1000",
+    "cmdline": "/data2/neural-shrimp/.venv/bin/python -B codex/certify-chaos/supervise.py --plan codex/crossroad-task35/c2-seed0-profile-001-plan.json --lane profile --source bea0bff82e16d190d64569fcd56fdaabcfa4540b ",
+    "limits": "Limit                     Soft Limit           Hard Limit           Units     \nMax cpu time              unlimited            unlimited            seconds   \nMax file size             unlimited            unlimited            bytes     \nMax data size             unlimited            unlimited            bytes     \nMax stack size            8388608              unlimited            bytes     \nMax core file size        0                    unlimited            bytes     \nMax resident set          unlimited            unlimited            bytes     \nMax processes             375398               375398               processes \nMax open files            65535                65535                files     \nMax locked memory         8388608              8388608              bytes     \nMax address space         1073741824           19327352832          bytes     \nMax file locks            unlimited            unlimited            locks     \nMax pending signals       375398               375398               signals   \nMax msgqueue size         819200               819200               bytes     \nMax nice priority         0                    0                    \nMax realtime priority     0                    0                    \nMax realtime timeout      200000               200000               us        \n"
+  },
+  "worker": {
+    "pid": 3319379,
+    "starttime": 231318956,
+    "pgid": 3319379,
+    "sid": 3319379,
+    "state": "R",
+    "nice": 10,
+    "threads": 4,
+    "uid_line": "Uid:\t1000\t1000\t1000\t1000",
+    "cmdline": "/data2/neural-shrimp/.venv/bin/python -I -B /home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/crossroad-task35/seeded_branch.py --card /home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/crossroad-task35/c2-seed0-profile-001-card.json --out /data2/neural-shrimp-data/codex/crossroad/c2-seed0-profile-001 ",
+    "limits": "Limit                     Soft Limit           Hard Limit           Units     \nMax cpu time              4800                 4800                 seconds   \nMax file size             134217728            134217728            bytes     \nMax data size             unlimited            unlimited            bytes     \nMax stack size            8388608              unlimited            bytes     \nMax core file size        0                    unlimited            bytes     \nMax resident set          unlimited            unlimited            bytes     \nMax processes             375398               375398               processes \nMax open files            65535                65535                files     \nMax locked memory         8388608              8388608              bytes     \nMax address space         19327352832          19327352832          bytes     \nMax file locks            unlimited            unlimited            locks     \nMax pending signals       375398               375398               signals   \nMax msgqueue size         819200               819200               bytes     \nMax nice priority         0                    0                    \nMax realtime priority     0                    0                    \nMax realtime timeout      200000               200000               us        \n"
+  },
+  "capacity": {
+    "available_ram_bytes": 45420167168,
+    "disk_free_bytes": 2677373530112,
+    "loadavg": [
+      15.18994140625,
+      12.859375,
+      12.25341796875
+    ]
+  },
+  "limits": {
+    "as_bytes": 19327352832,
+    "cpu_seconds": 4800,
+    "wall_seconds": 5000,
+    "output_bytes": 134217728
+  },
+  "threads": [
+    {
+      "tid": 3319379,
+      "name": "python",
+      "state": "R",
+      "cpu_ticks": 5396,
+      "affinity": [
+        0
+      ]
+    },
+    {
+      "tid": 3319469,
+      "name": "jemalloc_bg_thd",
+      "state": "S",
+      "cpu_ticks": 0,
+      "affinity": [
+        0
+      ]
+    },
+    {
+      "tid": 3319680,
+      "name": "python",
+      "state": "S",
+      "cpu_ticks": 0,
+      "affinity": [
+        0
+      ]
+    },
+    {
+      "tid": 3320199,
+      "name": "python",
+      "state": "S",
+      "cpu_ticks": 0,
+      "affinity": [
+        0
+      ]
+    }
+  ],
+  "disclosure": "Initial exact-one-thread assertion refused: four library threads observed, three sleeping with zero CPU ticks, all affinity0. CPU1 envelope maintained; not claimed single OS thread. No limit/source change."
+}
