@@ -292,3 +292,18 @@ skill, section 7A). Spend is recorded only in the gitignored `cost-ledger.md`
   second pass without a new recorded decision.
 - **Model:** `gpt-6-astra`, Responses Pro mode, xhigh effort, at most 40,000 output tokens, with the client's $5
   per-call authorization guard. Advice is advisory and is adjudicated locally.
+
+## 2026-10-18 (about 20:40 UTC): consult 16, attractor naming
+
+- **Approval (human, in session, 18 October 2026):** "can you please do a pro consult on the attractor naming vs return
+  map? i jsut want to be 100% sure please". This explicitly requests one paid consult.
+- **Milestone:** the paper and its companions gain a section and figures on the attractors (strange attractor,
+  unstable-manifold skeleton, basins) and public videos; the terminology must be right before release.
+- **Scope:** one `research-strategy` request with the brief `2026-10-18-attractor-naming/brief.md`. No retry or second
+  pass without a new recorded decision.
+- **Model:** `gpt-6-astra`, Pro mode, high effort, at most 16,000 output tokens, with a $3 per-call authorization guard.
+  Advice is advisory and is adjudicated locally.
+
+| Request | Mode | Usage | Cost |
+|---|---|---|---|
+| consult 16, attractor naming | Pro, high effort, 16k output | 47,413 tokens in all | see private cost ledger |

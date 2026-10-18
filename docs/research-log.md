@@ -29985,3 +29985,20 @@ Pod: H100, repro job set, commit 7c01ba83; terminated. Raw data: explore/llm-sof
   - The 3 displayed principal coordinates show a median 93 % of each jump's length (quartiles 83-97 %) and hold 77 % of the variance (12 coordinates: 99.4 %). The projection does not create the jumps.
   - The traces are being re-rendered with a spoken opening that explains this.
 - **Period-8 counterpart** (human's request): a portrait of the period-8 window (alpha 0.0734, log10 T -0.148, float32, recorded from the first step). 509 of 512 starts reach one period-8 orbit, ". This is there is a is a"; one reaches period 16, one another period-8 orbit, one none. A tour and a spoken trace of it are rendering.
+
+## 2026-10-18 21:00 UTC: consult 16 on attractor naming adopted; Takens reconstruction; spoken-word fix; American spelling
+
+- **Consult 16** (human-requested; docs/consults/2026-10-18-attractor-naming/; adjudication there).
+  - "Attractor" is right for this discrete-time map, but the chaotic sets are numerically observed attractors (finite-time evidence); the certified cycles need no qualifier.
+  - Prefer "chaotic" to "strange": D_KY is a Lyapunov-dimension estimate, and there is no correlation scaling range.
+  - The loop is the soft-token feedback map, not a Poincare return map; s_{n+1} against s_n is a lag-one plot.
+  - The closure sentence was an overclaim; the reviewer's replacement is in the paper.
+  - Video legends now say "most probable next token". Paper, figure and video wording updated.
+  - Experiments suggested and deferred: a full-state unstable-manifold test with transverse kicks; persistence to 8192 steps; closure of the lag-one plot.
+- **Takens / delay reconstruction** (tools/delay_embedding.py, tools/plot_delay_embedding.py; alpha 0.07248, log10 T -0.148, float32, 16 x 6000 steps). Observable: log of the largest next-token probability.
+  - False nearest neighbors (ratio 10): 70.8, 10.4, 3.4, 2.3, 1.9 and 1.9 % for m = 1 to 6.
+  - Continuity: three-delay neighbors are a median 3.7e-4 apart in the full state, random pairs 0.30.
+  - In the paper as "a faithful reconstruction from the output alone; not a verified Takens embedding".
+- **Spoken trace fix.** Trimming word clips at -40 dBFS cut soft onsets ("This" at -43 to -45 dBFS sounded like "is"; "there" lost its "th"); the human heard missing words at 0:53. Clips are now trimmed at -50 dBFS with 40/80 ms margins, and every rendered trace checks each word's RMS in the final mix.
+- **American spelling** in the paper (30 changes), the Chaos article, the blog, figure labels and video overlays (human: "we use American spelling!").
+- **Videos folder** reorganized: superseded versions moved to videos/archive/, render caches to videos/cache/; nothing deleted.
