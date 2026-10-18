@@ -29632,3 +29632,18 @@ At the FA-P11 seed, beside the head, the per-step factors of steps 2 and 4 are 0
 **Correction to the NT-P11 reading above.** A head of period 11 is not sharper merely because its modulus is small. Near the head the leading direction also contracts strongly (no single step factor vanishes on this grid; steps 2 and 4 contract everywhere, stretchings 0.014-0.08 and 0.017-0.14, and step 10 varies most, 0.05-13.6, correlation +0.91 with log|mu1|). What makes a head one-dimensional is a crossing of two such sign curves with a small complex strip. One curve with that property is seen; a crossing is not yet.
 
 **P11C** (Newton on the step-2 and step-4 signed factors): did not converge in 12 iterations. The reference cosines fell to 0.008-0.2 and the step-4 factor changed sign erratically. With steps 2 and 4 contracting everywhere and the leading eigenvector not unique at the head, the signed-factor reduction is not defined there. The multipliers and trace, which need no references, are the test.
+
+## 2026-10-18 09:34 UTC: Consult 15 received and adjudicated; claims corrected in the paper
+
+**Consult.** gpt-6-astra, Pro, xhigh; 69,333 tokens; completed. The cost is in the private ledger. Brief, review and adjudication are in docs/consults/2026-10-18-night-status/; the raw bundle is under neural-shrimp-data/consults/.
+
+**Accepted:**
+- **"Of a two-dimensional map" overclaims.** No two-dimensional reduction is established; the claim is now "a numerically verified shrimp". The head's likeness to two-dimensional maps is geometric only.
+- **The three equal moduli are forced by the defining conditions.** If the sum and the pairwise sum of three roots vanish, the roots are the cube roots of their product. So "a point where three directions contract together" and "no temperature makes the head one-dimensional" were not supported. They are withdrawn; the track's measured quantities (common modulus, fourth multiplier, drift) are reported instead, and the rank question is stated as open.
+- **Type A** is an analogy.
+- **Period-11 gate:** not scale-aware. |c1| = 5.3e-8 is 0.14 of the root scale 3.9e-7, so the period-11 near-nilpotent point is not established.
+- **Norm bounds:** the factor dimensions were checked in code. J is the Jacobian of the final normalized hidden state (896 x 896), and the readout factor is the embedding covariance, so the formula applies. The text now names J.
+
+**Next, per the review's first recommendation:** singular-value ratios of the full monodromy near and away from a head, with synthetic positive controls, at the period-5 head first.
+
+**Paper changes:** abstract, the near-nilpotent and temperature sentences, the shrimp claim, the limitations sentence, the appendix sentence, the head figure caption and the T* sentence.

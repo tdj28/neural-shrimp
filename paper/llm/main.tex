@@ -181,9 +181,9 @@ system; Section~\ref{sec:beyond} also measures how much of the mechanism survive
   all thirteen tangent reversals are located cusps, and near them local unfoldings, frozen before solving, matched the
   orbits that Newton solves recovered at twelve parameter offsets in number and at eleven in stability. A doubling
   cascade has superstable points through period 768 and finite-order Feigenbaum ratios that approach $\delta$ (the
-  last, $4.6688$, against $4.6692$). A period-5 window of a plane steered at two depths is a numerically verified shrimp of a
-  two-dimensional map: followed cell by cell, its attractor fills a main cell with legs and doubling shells bounded by
-  fold and flip curves, a trace-zero loop replaces the head of a one-dimensional shrimp, and twice the fold curve has two cusps of opposite kinds and a
+  last, $4.6688$, against $4.6692$). A period-5 window of a plane steered at two depths is a numerically verified shrimp:
+  followed cell by cell, its attractor fills a main cell with legs and doubling shells bounded by fold and flip curves,
+  a trace-zero loop replaces the head of a one-dimensional shrimp, and twice the fold curve has two cusps of opposite kinds and a
   self-crossing. Around one of these junctions an orbit census fixed in advance matched the predicted counts at 9 of
   13 points and found two coexisting attracting orbits at all five points inside it. An interval-arithmetic proof shows that a primitive period-8 orbit exists and is locally attracting, to our
   knowledge the first proof of a periodic orbit of a full transformer language-model map
@@ -369,8 +369,9 @@ $\|DF\|\le\operatorname{diam}(E)^2L/(4T)$ on $K$, and $F$ is a contraction of $K
 $T>T_*=\tfrac14\operatorname{diam}(E)^2L$, with a single attracting fixed point that tends to the mean embedding as
 $T\to\infty$; without tied embeddings, $\operatorname{diam}(E)^2$ becomes $\operatorname{diam}(E)\operatorname{diam}(W)$.
 Here the exclusion is a bound, sufficient but far from sharp. With the exact diameter of the 0.5B model's tied
-embeddings, $\operatorname{diam}(E)=1.2109$, and the largest $\|J_{\tilde h}\|$ met along the trajectories of 7936 cells
-of the two main maps, $1.54\times10^{5}$ (a lower estimate of $L$, from power iteration), $T_*\ge5.7\times10^{4}$
+embeddings, $\operatorname{diam}(E)=1.2109$, and the largest norm of $J_{\tilde h}$, the Jacobian of the final normalized
+hidden state, met along the trajectories of 7936 cells of the two main maps, $1.54\times10^{5}$ (a lower estimate of $L$,
+from power iteration), the threshold of the bound is $T_*\ge5.7\times10^{4}$
 ($\log_{10}T_*\ge4.75$): about four and a half decades above the temperatures at which the sweeps below already find a
 single attracting fixed point (\repo{tools/norm_bounds.py}). It does not cover hard routing or a growing context. Away from near-ties, chaos thus needs temperatures at
 which the next-token distribution is spread enough to make $\Sigma_p$ large while $1/T$ still amplifies it. The
@@ -1922,15 +1923,16 @@ vanishes (its modulus stays at least $0.0139$): where a one-dimensional map woul
 multipliers form a complex pair, the node having become a focus, or pass each other as real numbers of opposite sign.
 Between grid cells, however, a two-parameter Newton search for the point where the sum of the leading multipliers and
 the sum of their pairwise products vanish converges at $(\alpha_1,\alpha_2)=(-0.1184836,0.1017217)$
-(\path{docs/review/p5-nilpotent.jsonl}). There the three leading multipliers have nearly equal moduli, $3.4$ to
-$3.6\times10^{-3}$: the orbit contracts about 280-fold per period, and its linearization has no dominant one- or
-two-dimensional part. This point of strongest contraction plays the role of the head, but the two-dimensional
-reading does not describe it. Continued in temperature, over the eleven values of $\log_{10}T$ from $-0.104$ to
-$-0.094$ at which the continuation passed its gates, the point moves along a nearly straight line, and its three
-leading multipliers keep comparable moduli, $2.4$ to $5.6\times10^{-3}$, while a fourth approaches them twice
-(Figure~\ref{fig:headtemperature}; \repo{tools/nilpotent_track.py}). Over this range no temperature makes the head
-one-dimensional. The determinant $D=\mu_1\mu_2$ of the leading pair also changes sign in the window
-($D<0$ at 41 of its 447 attracting cells), so the effective two-dimensional map reverses orientation in part of the
+(\path{docs/review/p5-nilpotent.jsonl}). There the three leading multipliers have moduli $3.4$ to $3.6\times10^{-3}$,
+as the two conditions require of three roots (they make the roots the cube roots of their product), and the orbit
+contracts about 280-fold per period. This point of strongest contraction plays the role of the head. The equal moduli
+do not by themselves decide whether the return map is locally of higher rank there or nearly of rank one and strongly
+nonnormal; singular values of the return map would decide it. Continued in temperature, over the eleven values of $\log_{10}T$ from $-0.104$ to
+$-0.094$ at which the continuation passed its gates, the point moves along a nearly straight line; the common modulus
+of its three leading multipliers, the cube root of the determinant of the leading block, stays between $2.4$ and
+$5.6\times10^{-3}$, and a fourth multiplier approaches it twice (Figure~\ref{fig:headtemperature};
+\repo{tools/nilpotent_track.py}). The determinant $D=\mu_1\mu_2$ of the leading pair also changes sign in the window
+($D<0$ at 41 of its 447 attracting cells), so the linearization restricted to the leading pair reverses orientation in part of the
 window: a noninvertible setting in the sense of Mira \cite{mira1996chaotic}, not that of H\'enon's map, whose
 determinant has a fixed sign. The trace-zero curve around an island of negative trace (Figure~\ref{fig:period5folds}c)
 is closed on the grid except at one cell next to the fold curve, where it must close, because on a fold the trace is
@@ -1983,10 +1985,12 @@ symbolic sequences or tested for a periodicity hub \cite{vitolo2011hubs,jones201
 the period-5 window meets the three numerical criteria we required before calling a window a shrimp: primitive
 periodic orbits of the full state (float64 Newton solves), their stability (the multipliers and the followed
 attractor), and the organization of their boundary (continued fold and flip curves with located cusps, matched by the
-edge of the followed domain). It is a numerically verified shrimp of the kind Gallas found in H\'enon's map, here in a
-two-dimensional map whose determinant changes sign \cite{henon1976two,gallas1993structure}; none of this is proved by
-interval arithmetic, and whether a two-dimensional map also reproduces its nonlinear dynamics is not tested (a closure
-test failed for numerical reasons; Appendix~\ref{sec:hostility}).
+edge of the followed domain). It is a numerically verified shrimp in a two-parameter plane of the full map, of the
+kind Gallas found in H\'enon's map \cite{henon1976two,gallas1993structure}. Its head resembles those of
+two-dimensional maps, a closed trace-zero curve rather than crossing superstable curves, but that likeness is
+geometric: no two-dimensional reduction of the dynamics is established (a closure test failed for numerical reasons;
+Appendix~\ref{sec:hostility}), the determinant of the leading pair changes sign, and none of this is proved by interval
+arithmetic.
 \begin{figure}[tbp]
 \centering
 \includegraphics[width=\linewidth]{fig-period5-folds.png}
@@ -2822,10 +2826,11 @@ Section~\ref{sec:theory} is measured along three directions in a 0.5B model and 
 temperature the network factor can carry the instability. The loop's regime does not mark the accuracy of ordinary
 sampled answers beyond the model's first-token uncertainty, and when slight steering moved a prompt's loop into chaos no change of that accuracy was detected ($+0.36$ points,
 $[-0.36,1.08]$; Appendix~\ref{sec:behaviour}). We do not claim that ordinary sampled generation is
-chaotic in this sense (Appendix~\ref{sec:bridge}), nor that any window is a certified shrimp. The period-5 window is a numerically verified shrimp of a two-dimensional map
+chaotic in this sense (Appendix~\ref{sec:bridge}), nor that any window is a certified shrimp. The period-5 window is a numerically verified shrimp
 (Section~\ref{sec:organization}): its attractor, followed cell by cell, fills a body with legs and doubling shells bounded
 by continued fold and flip curves with located cusps, with a closed trace-zero curve and two dovetails; none of it is
-proved, and its head stays three-dimensional at every temperature where we continued it. The period-6 and period-7 windows have fold-and-flip skeletons with
+proved, no two-dimensional reduction of its dynamics is established, and its head is not that of a one-dimensional
+shrimp. The period-6 and period-7 windows have fold-and-flip skeletons with
 located cusps, and in the hostile period-7 body the superstable arcs avoid each other where a head would be. We have
 not traced tails or symbolic sequences, tested for a periodicity hub \cite{vitolo2011hubs,jones2012rossler}, or shown
 that a two-dimensional map reproduces the windows' nonlinear dynamics. The cusps are float64
@@ -3675,8 +3680,8 @@ crossing (Figure~\ref{fig:period5}b). One isolated cell holds a repelling orbit 
 rises to $0.88$; both are explained by the window's fold curve (next paragraph). A second turning point
 in the band maps therefore does not give this window a one-dimensional shrimp center. Like the hostile body, it is a window whose
 orbit has two comparable leading directions near its superstable strips; Section~\ref{sec:organization} shows that it
-is the shrimp of a two-dimensional map. Its head, the near-nilpotent point, keeps three leading multipliers of
-comparable modulus wherever we continued it in temperature (Figure~\ref{fig:headtemperature}). At $\log_{10}T=-0.105$,
+is a numerically verified shrimp. Its head, the near-nilpotent point, persists wherever we continued it in temperature
+(Figure~\ref{fig:headtemperature}). At $\log_{10}T=-0.105$,
 grids of the continued orbit over the tip of the band where the leading multiplier is positive show the same avoided
 crossing: the band narrows between two strips of complex leading pairs, of modulus $0.03$ to $0.1$, which come within
 one cell of each other ($5\times10^{-5}$ in $\alpha_1$) without crossing (\repo{docs/research-log.md}, runs P5Z).
@@ -3686,8 +3691,9 @@ one cell of each other ($5\times10^{-5}$ in $\alpha_1$) without crossing (\repo{
 \caption{The head of the period-5 shrimp continued in temperature: the near-nilpotent point, where the sum of the
 leading multipliers and the sum of their pairwise products vanish (tools/nilpotent\_track.py; float64, steps of 0.001 in
 $\log_{10}T$). (a) Moduli of the five leading multipliers at the point ($\mu_2$ and $\mu_3$ form a complex pair of equal
-modulus; hollow: the row failed its gate, $|c_1|>10^{-7}$). Three multipliers of comparable modulus persist at every
-temperature, and a fourth approaches them twice. (b) The point's position in the plane, coloured by $\log_{10}T$.}
+modulus; hollow: the row failed its gate, $|c_1|>10^{-7}$). The defining conditions put the three leading multipliers on
+one modulus, the cube root of the leading block's determinant; a fourth multiplier approaches it twice. (b) The point's
+position in the plane, coloured by $\log_{10}T$.}
 \label{fig:headtemperature}
 \end{figure}
 \paragraph{The folds and flips of the period-5 window.} To resolve the folds the grid did not, we continued the
