@@ -86,6 +86,12 @@ def main():
     ap.add_argument("--seed", type=float, nargs=2, required=True, metavar=("A1", "A2"))
     ap.add_argument("--seed-period", type=int, default=5)
     ap.add_argument("--seed-transient", type=int, default=900)
+    ap.add_argument("--seed-state", default=None, help="NPY:ROW (DATA/explore-relative): start the seed cell from row ROW "
+                    "of a saved state file, for example the period-5 orbit states of a continued fold curve, instead of "
+                    "the fixed start (for a leg where the fixed start reaches another attractor)")
+    ap.add_argument("--reference-word", default=None, help="comma-separated token ids of the family's reference word "
+                    "(e.g. from the body's follow run); the seed's word must match it in every phase (best rotation), "
+                    "and membership is judged against it")
     ap.add_argument("--transient", type=int, default=250)
     ap.add_argument("--record", type=int, default=300)
     ap.add_argument("--token-steps", type=int, default=200)
@@ -183,12 +189,22 @@ def main():
     loop.extra = (args.block2, np.array([a2[i0] * w]))
     X0 = loop.prepare(np.array([a1[j0] * u]))
     loop.extra = None
+    if args.seed_state:                                  # a saved state on the followed family instead of the fixed start
+        path, row = args.seed_state.rsplit(":", 1)
+        st = np.load(esl.DATA / "explore" / path)[int(row)]
+        X0 = X0.clone()
+        X0[0, -1, :] = torch.as_tensor(st, dtype=X0.dtype, device=X0.device)
     Xs, ls, ps, tk = run([(i0, j0)], X0, args.seed_transient, args.record)
+    start = "the saved state" if args.seed_state else "the fixed start"
     if ps[0] != args.seed_period:
-        raise SystemExit(f"the fixed start at the seed cell ({a1[j0]}, {a2[i0]}) has period {ps[0]}, "
-                         f"not {args.seed_period}")
+        raise SystemExit(f"{start} at the seed cell ({a1[j0]}, {a2[i0]}) has period {ps[0]}, not {args.seed_period}")
     wd, ag = dominant_word(tk[-args.token_steps:], args.seed_period)
     ref = wd[0]
+    if args.reference_word:
+        given = np.array([int(t) for t in args.reference_word.split(",")], dtype=np.int64)
+        if len(given) != args.seed_period or best_match(ref, given) < args.seed_period:
+            raise SystemExit(f"the seed's word {ref.tolist()} does not match the reference word {given.tolist()}")
+        ref = given
     decode = loop.sm.tok.decode
     label[i0, j0], lam[i0, j0], period[i0, j0], words[i0, j0], agree[i0, j0] = 1, ls[0], ps[0], ref, ag[0]
     wave_of[i0, j0] = 0
