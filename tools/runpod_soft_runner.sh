@@ -1081,6 +1081,7 @@ snapshot_download('$repo', revision='$rev', cache_dir='$NEURAL_SHRIMP_DATA/model
     CPY=/data2/neural-shrimp-runtime/python/cpython-3.12.14-linux-x86_64-gnu/bin/python3.12
     uv venv -q -p $CPY /root/certvenv > "$CO/setup-venv.log" 2>&1
     uv pip install -q -p /root/certvenv/bin/python "numpy==2.5.3" "python-flint==0.9.0" "safetensors==0.8.0" \
+      "threadpoolctl==3.7.0" "tokenizers==0.23.3" \
       > "$CO/setup-pip.log" 2>&1
     uv pip install -q -p /root/certvenv/bin/python "torch==2.14.1+cu130" --index-url https://download.pytorch.org/whl/cu130 \
       >> "$CO/setup-pip.log" 2>&1

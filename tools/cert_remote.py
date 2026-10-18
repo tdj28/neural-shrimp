@@ -128,6 +128,21 @@ def preflight(a):
     checks["torch"] = (torch.__version__ == exp["torch"], torch.__version__)
     checks["python_flint"] = (flint.__version__ == exp["python_flint"], flint.__version__)
     checks["flint"] = (getattr(flint, "__FLINT_VERSION__", None) == exp["flint"], getattr(flint, "__FLINT_VERSION__", None))
+    # every third-party module the certifier imports anywhere (also inside functions), at the local pinned versions
+    import importlib
+    import importlib.metadata as md
+    want = {"flint": ("python-flint", "0.9.0"), "numpy": ("numpy", "2.5.3"), "safetensors": ("safetensors", "0.8.0"),
+            "threadpoolctl": ("threadpoolctl", "3.7.0"), "tokenizers": ("tokenizers", "0.23.3"),
+            "torch": ("torch", "2.14.1")}           # build string (+cu130) checked above
+    imp = {}
+    for mod, (dist, ver) in want.items():
+        try:
+            importlib.import_module(mod)
+            got = md.version(dist)
+            imp[mod] = (got == ver, got)
+        except Exception as e:                       # noqa: BLE001 - any import failure is a refusal
+            imp[mod] = (False, f"import failed: {e}")
+    checks["third_party_imports"] = (all(v[0] for v in imp.values()), {k: v[1] for k, v in imp.items()})
     parts = [Path(*data_root.parts[:i + 1]) for i in range(1, len(data_root.parts))]
     links = [str(p) for p in parts if p.is_symlink()]
     checks["data_root_real"] = (not links and data_root.is_dir() and os.path.realpath(data_root) == str(data_root),
