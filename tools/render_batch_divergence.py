@@ -328,13 +328,18 @@ def _worker(job):
 
 # ----------------------------------------------------------------------------------------------- output
 def upsert(manifest, entry):
+    """Replace this clip's entry in the manifest, holding a lock on the manifest file itself."""
     manifest.parent.mkdir(parents=True, exist_ok=True)
-    with open(manifest.with_suffix(".lock"), "w") as lock:
-        fcntl.flock(lock, fcntl.LOCK_EX)
-        data = json.loads(manifest.read_text()) if manifest.exists() else {"clips": []}
+    with open(manifest, "a+") as f:
+        fcntl.flock(f, fcntl.LOCK_EX)
+        f.seek(0)
+        raw = f.read()
+        data = json.loads(raw) if raw.strip() else {"clips": []}
         data["clips"] = [c for c in data["clips"] if c["file"] != entry["file"]] + [entry]
         data["clips"].sort(key=lambda c: c["file"])
-        manifest.write_text(json.dumps(data, indent=1, ensure_ascii=False) + "\n")
+        f.seek(0)
+        f.truncate()
+        f.write(json.dumps(data, indent=1, ensure_ascii=False) + "\n")
 
 
 def entry(S, out, seconds):

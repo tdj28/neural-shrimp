@@ -60,14 +60,18 @@ MODES = {
                  rows=("6 CPU threads", "4 CPU threads"),
                  footer=("Qwen2.5-0.5B-Instruct · soft-token loop · philosophy steering α = 0.0652, "
                          "log₁₀T = −0.156 · float64",
-                         "recorded after 1,000 warm-up steps · shown: the most probable next token at each step")),
+                         "steps counted after a 1,000-step warm-up, in which the two runs already drifted slightly "
+                         "apart (full report)",
+                         "shown: the most probable next token at each step · probabilities from the saved run "
+                         "records")),
     "twin": dict(a="docs/chaos-texts/qwen0.5b-hostility.json", steps=56, split=45, cell=(0.08946, -0.05566),
                  seconds=18.0, title="A loop and a copy started 10⁻¹⁰ apart",
                  subtitle="The copy's state starts displaced by one part in 10¹⁰; nothing else differs",
                  rows=("loop", "copy, started 10⁻¹⁰ away"),
                  footer=("Qwen2.5-0.5B-Instruct · hostility steering at layer 12 · α = 0.08946, log₁₀T = −0.05566 · "
                          "λ = 0.35 · float64 · article Table I",
-                         "recorded after 1,000 warm-up steps · shown: the most probable next token at each step")),
+                         "recorded after 1,000 warm-up steps · shown: the most probable next token · probabilities "
+                         "from the saved run record")),
 }
 
 
@@ -227,7 +231,7 @@ def chrome(ax, S, shown):
     if shown:
         text(ax, W - 80, 100, f"step {shown}", 52, WHITE, "bold", ha="right")
     for i, line in enumerate(spec["footer"]):
-        text(ax, 80, 1000 + 34 * i, line, 26, MUTED)
+        text(ax, 80, 1034 - 34 * (len(spec["footer"]) - 1 - i), line, 26, MUTED)
 
 
 def frame_pair(S, t):
@@ -261,11 +265,11 @@ def frame_pair(S, t):
                 text(ax, vx, yy, f"{tp['p']:.3f}", 28, tcol, family=MONO)
         if shown >= S["split"]:
             a = ramp(t, S["appear"][S["split"] - 1], 0.3)
-            ax.add_patch(plt.Rectangle((px, 752), 8, 58, color=RED, alpha=a, lw=0))
-            text(ax, px + 28, 796, f"step {S['split']}: different words", 40, WHITE, "bold", alpha=a)
-            text(ax, px + 28, 846, "the two most probable tokens swap places", 28, BODY, alpha=a)
-            text(ax, 140, 948, "red: from the first difference on · underlined: a token that differs between the runs",
-                 24, MUTED, alpha=a)
+            ax.add_patch(plt.Rectangle((px, 700), 8, 58, color=RED, alpha=a, lw=0))
+            text(ax, px + 28, 744, f"step {S['split']}: different words", 40, WHITE, "bold", alpha=a)
+            text(ax, px + 28, 794, "the two most probable tokens swap places", 28, BODY, alpha=a)
+            text(ax, px, 856, "red: from the first difference on", 24, MUTED, alpha=a)
+            text(ax, px, 888, "underlined: a token that differs between the runs", 24, MUTED, alpha=a)
     return fig
 
 
@@ -354,13 +358,18 @@ def git_state():
 
 
 def upsert(manifest, entry):
+    """Replace this clip's entry in the manifest, holding a lock on the manifest file itself."""
     manifest.parent.mkdir(parents=True, exist_ok=True)
-    with open(manifest.with_suffix(".lock"), "w") as lock:
-        fcntl.flock(lock, fcntl.LOCK_EX)
-        data = json.loads(manifest.read_text()) if manifest.exists() else {"clips": []}
+    with open(manifest, "a+") as f:
+        fcntl.flock(f, fcntl.LOCK_EX)
+        f.seek(0)
+        raw = f.read()
+        data = json.loads(raw) if raw.strip() else {"clips": []}
         data["clips"] = [c for c in data["clips"] if c["file"] != entry["file"]] + [entry]
         data["clips"].sort(key=lambda c: c["file"])
-        manifest.write_text(json.dumps(data, indent=1, ensure_ascii=False) + "\n")
+        f.seek(0)
+        f.truncate()
+        f.write(json.dumps(data, indent=1, ensure_ascii=False) + "\n")
 
 
 def manifest_entry(S, out, seconds):
