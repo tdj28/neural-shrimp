@@ -29679,3 +29679,24 @@ At the FA-P11 seed, beside the head, the per-step factors of steps 2 and 4 are 0
 **Run card RK-G.** The singular reduction lambda_red = s1 (v1 . u1), the nonzero eigenvalue of the rank-one part. It is defined wherever s1 is well separated from s2 (here d1 is about 1e-4), so also at the head, where the eigenvector-based reduction fails.
 - Grid: 11 x 11 cells of spacing 1e-5 around the head, phase 0.
 - Reading: the zero set of lambda_red. Two zero curves crossing at the head (lambda_red with a saddle there) would be a head of the one-dimensional kind in this reduction; a single zero curve through the head would not.
+
+## 2026-10-18 10:02 UTC: RK-P5 result: the period-5 head's return map is nearly of rank one and strongly nonnormal, not higher-dimensional
+
+**Run.** tools/monodromy_svd.py on the local GPU, float64; 1201 s; receipt docs/rk/rk-p5-head.jsonl.
+- Synthetic controls passed: identical eigenvalues, d1 = eps for rank one and about 1 for rank two.
+- Every reported ratio was stable to 5 % under one more power iteration; no point flagged unresolved.
+
+**Values** (d1 = s2/s1 and d3 = s4/s1 at phases 0, 2 and 4; s1 at phase 0):
+- **Body** (-0.118730, 0.100693): multipliers 0.27, 0.015, 4.6e-4; s1 6.2; d1 0.034, 0.23, 0.017; d3 about 5e-5 to 9e-5.
+- **Head** (near-nilpotent point): multipliers 3.6e-3, a 3.3e-3 pair, then 5.2e-4; s1 64.6; d1 1.8e-4, 0.029, 1.3e-3; d3 1.2e-5 to 1.4e-4.
+- **Inner ring** (+-5e-5; mu1 0.04 to 0.29): s1 61 to 72; d1 1.7e-4 to 1.8e-4 at phase 0, 0.009 to 0.031 at phase 2, 1.1e-3 to 1.5e-3 at phase 4.
+- **Outer N** (+2e-4 in alpha2; mu1 0.38): s1 83.5; d1 1.6e-4, 0.010, 1.0e-3.
+- **Outer E**: the march lost the orbit, because the point is beyond the fold. The remaining outer points were therefore not run.
+
+**Reading.**
+- No rise of d1 at the head: the return map near the head is nearly rank one, more so than in the body.
+- Its largest singular value (60 to 84) exceeds its eigenvalues (about 3e-3 at the head) by four orders of magnitude. The leading left and right singular vectors are nearly orthogonal there (strong nonnormality).
+- The comparable eigenvalues of the head therefore do not show a higher-dimensional core. This is the consult's nonnormal alternative, now measured.
+- The phase dependence of d1 (100-fold between phases) is itself a mark of nonnormality: eigenvalues do not depend on the phase, singular values do.
+
+**Next.** RK-G (the singular reduction's zero set around the head) is running.
