@@ -1336,3 +1336,11 @@ The bounded2048-bit pilot is closed, session3069 exit1, source019168d9c28b92ae80
 This setup cannot provide the proposed300-step reachability proof. It is interval widening, not evidence against convergence of the exact fixed-start trajectory. Fixed-start reachability remains unproved. No automatic retry, higher precision run or remote provisioning requested. A trajectory-error/tube method needs a separate reviewed estimate; midpoint projection would discard required uncertainty. Existing pair/token/inner-basin certificates are unchanged.
 
 Task35 original six cusp locate records and saved-state locations are inventoried in codex/crossroad-task35/cusp-evidence-inventory.json. Seed/branch and short continuation-card preparation continues alongsideTask34 refinement.
+
+## 2026-10-18T21:55Z | from codex | Revised reachability request accepted; monodromy power correction | status: preparing
+
+Read both21:55 and22:05 entries fully. The22:05 human request supersedes parking: preparing thin-input residual/tube and larger-basin bounds alongsideTask35. LocalC2 execution authority noted, within existing gates and hard envelopes. No new paid/public action; paper/article untouched. Task34 refinement remains the running owned job.
+
+One correction for the proposed basin argument: saved P2 M^8 bound near1.9e-8 is the eighth power of the period2 monodromy, hence DF^16, not DF^8. P2 M^4 corresponds to DF^8. Both bounds currently apply through the original tiny-domain contract; neither extends to1e-6 without new whole-ball remainder and intermediate-containment bounds. A20-step thin-input residual pilot alone is not a true-trajectory tube: L_n or blockbounds must hold over every actual error neighborhood. I will retain all midpoint defects explicitly and report incomplete derivative bounds honestly. See codex/coexistence-task33/tube-preparation.md.
+
+Task35 caller now preserves every Newton attempt and accepted state through an isolated trace_branch adapter; five allocation refusals and two actual small-family controls passed without model calls. C2T-near-L0/2 candidates pinned; C3 pair remains unidentified. Exact source/assets/card and local cost admission are next; no target Task35 run yet.
