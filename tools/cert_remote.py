@@ -8,9 +8,11 @@ prepare    copy the uploaded upstream files and assets to their exact absolute p
 preflight  exact backend (full sys.version, NumPy, Torch, python-flint, FLINT), a real data root (no symlink on its
            path), all hashes, the packet and plan hashes, every source pin of the plan against the checkout, Git HEAD
            at the dispatch commit with origin/main containing it, the fresh attempt absent, available RAM and disk
-run        the packet's command, unchanged, in the checkout: aggregate RSS of its whole process tree (launch.py starts
-           the worker in its own session) polled every 2 s against a limit, a hard deadline, cleanup of exactly that
-           tree; records start/end, exit, peak aggregate RSS
+run        the packet's command, unchanged, in the checkout. Owned processes are identified by (pid, start time, uid)
+           when observed: descendants by parentage and, after reparenting, members of a recorded session or group
+           (launch.py starts the worker in its own session). Aggregate RSS of the live owned processes is polled
+           every 2 s against a limit, with a hard deadline; signals go through pidfds re-verified against the recorded
+           identity, never to a whole group. After exit, a closure audit; any owned survivor makes the run fail.
 pack       tar the whole new attempt directory and the records, with SHA-256
 
 Each step writes a JSON record and exits nonzero on refusal or failure.
@@ -138,25 +140,52 @@ def preflight(a):
     sys.exit(0 if ok else 1)
 
 
-def tree(root):
-    """PIDs of root and all its descendants (launch.py starts the worker in its own session, so a process group alone
-    would miss it)."""
-    kids = {}
+def snapshot():
+    """pid -> identity fields (ppid, pgid, sid, start in clock ticks since boot, real uid, command) of every readable
+    process."""
+    procs = {}
     for d in os.listdir("/proc"):
         if not d.isdigit():
             continue
         try:
             st = open(f"/proc/{d}/stat").read()
-            ppid = int(st[st.rindex(")") + 2:].split()[1])
-        except (OSError, ValueError, IndexError):
+            rest = st[st.rindex(")") + 2:].split()
+            ppid, pgid, sid, start = int(rest[1]), int(rest[2]), int(rest[3]), int(rest[19])
+            uid = next(int(line.split()[1]) for line in open(f"/proc/{d}/status") if line.startswith("Uid:"))
+            cmd = open(f"/proc/{d}/cmdline", "rb").read().replace(b"\0", b" ").decode(errors="replace").strip()[:300]
+        except (OSError, ValueError, IndexError, StopIteration):
             continue
-        kids.setdefault(ppid, []).append(int(d))
-    out, todo = [], [root]
+        procs[int(d)] = {"ppid": ppid, "pgid": pgid, "sid": sid, "start": start, "uid": uid, "cmd": cmd}
+    return procs
+
+
+def adopt(procs, reg, uid):
+    """Add to the registry every descendant (by parentage) of a live registered process, and every process of the same
+    uid in a recorded session or process group (members reparented after their parent exited)."""
+    kids = {}
+    for pid, q in procs.items():
+        kids.setdefault(q["ppid"], []).append(pid)
+    todo = [k[0] for k in reg if k[0] in procs and procs[k[0]]["start"] == k[1]]
+    seen = set()
     while todo:
-        p = todo.pop()
-        out.append(p)
-        todo.extend(kids.get(p, []))
-    return out
+        pid = todo.pop()
+        if pid in seen or pid not in procs:
+            continue
+        seen.add(pid)
+        q = procs[pid]
+        if q["uid"] == uid and (pid, q["start"]) not in reg:
+            reg[(pid, q["start"])] = dict(pid=pid, first_seen=now(), via="parentage", **q)
+        todo.extend(kids.get(pid, []))
+    sids = {v["sid"] for v in reg.values()}
+    pgids = {v["pgid"] for v in reg.values()}
+    for pid, q in procs.items():
+        if q["uid"] == uid and (pid, q["start"]) not in reg and (q["sid"] in sids or q["pgid"] in pgids):
+            reg[(pid, q["start"])] = dict(pid=pid, first_seen=now(), via="recorded session or group", **q)
+
+
+def alive(reg, procs):
+    return [k for k, v in reg.items() if k[0] in procs and procs[k[0]]["start"] == k[1]
+            and procs[k[0]]["uid"] == v["uid"]]
 
 
 def rss_kib(pids):
@@ -171,51 +200,103 @@ def rss_kib(pids):
     return total
 
 
-def kill_tree(pids, sig):
-    groups = set()
-    for p in pids:
+def signal_verified(reg, sig):
+    """Signal each registered process through a pidfd opened first and then re-verified (start time and uid), so a
+    reused PID is never signalled; process groups are never signalled as a whole."""
+    sent = []
+    for (pid, start), ident in list(reg.items()):
         try:
-            groups.add(os.getpgid(p))
+            fd = os.pidfd_open(pid)
+        except OSError:
+            continue
+        try:
+            q = snapshot_one(pid)
+            if q and q["start"] == start and q["uid"] == ident["uid"]:
+                signal.pidfd_send_signal(fd, sig)
+                sent.append(pid)
         except OSError:
             pass
-    for g in groups:
-        try:
-            os.killpg(g, sig)
-        except OSError:
-            pass
+        finally:
+            os.close(fd)
+    return sent
+
+
+def snapshot_one(pid):
+    try:
+        st = open(f"/proc/{pid}/stat").read()
+        rest = st[st.rindex(")") + 2:].split()
+        uid = next(int(line.split()[1]) for line in open(f"/proc/{pid}/status") if line.startswith("Uid:"))
+        return {"start": int(rest[19]), "uid": uid}
+    except (OSError, ValueError, IndexError, StopIteration):
+        return None
+
+
+def stop(reg, uid):
+    """TERM, a 10 s grace, re-adoption of any new members, KILL; all through verified pidfds."""
+    term = signal_verified(reg, signal.SIGTERM)
+    time.sleep(10)
+    adopt(snapshot(), reg, uid)
+    kill = signal_verified(reg, signal.SIGKILL)
+    time.sleep(1)
+    return {"term_sent": term, "kill_sent": kill}
 
 
 def run(a):
     limit_kib = int(a.rss_limit_gib * 1024 ** 2)
+    uid = os.getuid()
     t0, started = time.time(), now()
     proc = subprocess.Popen(a.cmd, shell=True, cwd=a.repo, start_new_session=True,
                             stdout=open(a.stdout, "w"), stderr=subprocess.STDOUT)
-    peak, reason, peak_procs = 0, None, 0
+    reg = {}
+    q = snapshot_one(proc.pid)
+    if q:
+        procs = snapshot()
+        if proc.pid in procs:
+            reg[(proc.pid, procs[proc.pid]["start"])] = dict(pid=proc.pid, first_seen=now(), via="root",
+                                                            **procs[proc.pid])
+    peak, peak_procs, reason, stopped = 0, 0, None, None
     while proc.poll() is None:
-        pids = tree(proc.pid)
-        rss = rss_kib(pids)
+        procs = snapshot()
+        adopt(procs, reg, uid)
+        live = alive(reg, procs)
+        rss = rss_kib([k[0] for k in live])
         if rss > peak:
-            peak, peak_procs = rss, len(pids)
+            peak, peak_procs = rss, len(live)
         if rss > limit_kib:
-            reason = "aggregate RSS of the process tree above the limit"
+            reason = "aggregate RSS of the owned processes above the limit"
         elif time.time() - t0 > a.deadline_seconds:
             reason = "hard deadline"
         if reason:
-            kill_tree(pids, signal.SIGTERM)
-            time.sleep(10)
-            kill_tree(tree(proc.pid) + pids, signal.SIGKILL)
+            stopped = stop(reg, uid)
             break
         time.sleep(2)
     rc = proc.wait()
-    left = [p for p in tree(proc.pid) if p != proc.pid]
-    rec = {"step": "run", "command": a.cmd, "cwd": a.repo, "started": started, "ended": now(),
+    time.sleep(5)                                   # let exiting members finish before the closure audit
+    procs = snapshot()
+    adopt(procs, reg, uid)
+    left = [reg[k] for k in alive(reg, procs)]
+    cleanup = None
+    if left:
+        cleanup = stop(reg, uid)
+        procs = snapshot()
+        adopt(procs, reg, uid)
+    left_after = [reg[k] for k in alive(reg, procs)]
+    closed = not left_after
+    ok = rc == 0 and reason is None and not left
+    rec = {"step": "run", "command": a.cmd, "cwd": a.repo, "uid": uid, "started": started, "ended": now(),
            "elapsed_seconds": round(time.time() - t0, 3), "exit_code": rc, "killed_by_watchdog": reason,
-           "peak_aggregate_rss_kib": peak, "processes_at_peak": peak_procs, "rss_limit_kib": limit_kib,
-           "deadline_seconds": a.deadline_seconds, "owned_processes_left": left}
+           "watchdog_stop": stopped, "peak_aggregate_rss_kib": peak, "processes_at_peak": peak_procs,
+           "rss_limit_kib": limit_kib, "deadline_seconds": a.deadline_seconds,
+           "owned_identities": [dict(v, start_ticks=k[1]) for k, v in reg.items()],
+           "alive_after_exit": left, "cleanup_after_exit": cleanup, "alive_after_cleanup": left_after,
+           "closure_verified": closed, "success": ok,
+           "closure_note": ("Identities are (pid, start ticks, uid) recorded while observed; members of recorded sessions "
+                            "and groups are adopted after reparenting. Success requires exit 0, no watchdog stop and no "
+                            "owned process alive after exit. The pod's verified termination is the final closure.")}
     write(a.record, rec)
     print(json.dumps({k: rec[k] for k in ("step", "exit_code", "elapsed_seconds", "peak_aggregate_rss_kib",
-                                          "killed_by_watchdog")}))
-    sys.exit(0 if rc == 0 and reason is None else 1)
+                                          "killed_by_watchdog", "closure_verified", "success")}))
+    sys.exit(0 if ok else 1)
 
 
 def pack(a):
