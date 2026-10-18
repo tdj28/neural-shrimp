@@ -899,13 +899,44 @@ def branch(args):
     top = ref or loop
     if second is not None:
         top.extra = (args.block2, np.array([args.alpha2 * second[1]]))
-    orb = SoftOrbit(top, args.alpha * v, 10.0 ** args.log_temperature)
-    X = orb.iterate(orb.start, args.transient)
-    returns = orb.return_distances(X, args.max_period)
+    march = None
+    if args.march_from is not None:                             # reach (alpha, alpha2) from a fixed-start seed
+        if second is None:
+            raise SystemExit("branch: --march-from needs a two-block plane")
+        import llm_feigenbaum as lfb
+
+        def cell_at(a1, a2):
+            top.extra = (args.block2, np.array([a2 * second[1]]))
+            return SoftOrbit(top, a1 * v, 10.0 ** args.log_temperature)
+
+        seed = cell_at(*args.march_from)
+        X = seed.iterate(seed.start, args.transient)
+        returns = seed.return_distances(X, args.max_period)
+    else:
+        orb = SoftOrbit(top, args.alpha * v, 10.0 ** args.log_temperature)
+        X = orb.iterate(orb.start, args.transient)
+        returns = orb.return_distances(X, args.max_period)
     period = args.period or next((q for q, d in enumerate(returns, 1) if d < args.detect_tol), 0)
     if period == 0:
         raise SystemExit(f"no period up to {args.max_period} at tolerance {args.detect_tol} (smallest return "
                          f"distance {min(returns):.3g} at q = {int(np.argmin(returns)) + 1}); nothing to continue")
+    if args.march_from is not None:
+        # Newton continuation of this orbit through the waypoints (a path of cells where the orbit was followed, e.g.
+        # the parent chain of tools/follow_attractor.py) to (alpha, alpha2); a waypoint where Newton fails stops the
+        # run: the orbit is lost, and nothing is continued from a substitute
+        way = [tuple(q) for q in json.loads((DATA / "explore" / args.march_path).read_text())] if args.march_path else []
+        way.append((args.alpha, args.alpha2))
+        tol = lfb.tol_for(period, 1e-12)
+        Q = np.linalg.qr(np.random.default_rng(0).normal(size=(X.numel(), 12)))[0]
+        march = []
+        for k, (b1, b2) in enumerate([tuple(args.march_from)] + way):
+            X, Q, hist = lfb.newton(cell_at(b1, b2), X, period, Q, tol, 12)
+            march.append({"alpha": b1, "alpha2": b2, "residual": hist[-1], "newton_steps": len(hist) - 1})
+            if not hist[-1] < tol:
+                raise SystemExit(f"branch: the march lost the period-{period} orbit at waypoint {k} ({b1}, {b2}): "
+                                 f"residual {hist[-1]:.3g}")
+        orb = cell_at(args.alpha, args.alpha2)
+        returns = orb.return_distances(X, args.max_period)
     fam = soft_family(loop, v, period, args.alpha_scale, args.chunk, reference=ref, exact_jvp=args.exact_jvp,
                       second=second, log_temperature=args.log_temperature)
     out = DATA / "explore" / args.out
@@ -945,6 +976,8 @@ def branch(args):
     rec = {"args": vars(args), "free": args.free, "period": period, "return_distances_after_transient": returns,
            "stop": reason, "seconds": round(time.perf_counter() - tic, 1), "crossings": crossings,
            "points": records}
+    if march is not None:
+        rec["march"] = march
     (out / "branch.json").write_text(json.dumps(rec, indent=1))
     print(json.dumps({"period": period, "stop": reason, "points": len(records), "crossings": crossings,
                       "seconds": rec["seconds"]}))
@@ -1920,6 +1953,10 @@ def main():
     bb.add_argument("--vectors2", default=None)
     bb.add_argument("--concept2", default=None)
     bb.add_argument("--alpha2", type=float, default=None, help="steering strength of the second block")
+    bb.add_argument("--march-from", type=float, nargs=2, default=None, metavar=("A1", "A2"),
+                    help="two-block plane: detect the period from the fixed start at this cell, then continue the orbit "
+                         "by Newton through --march-path to (--alpha, --alpha2) before the branch starts")
+    bb.add_argument("--march-path", default=None, help="explore-relative JSON list of [alpha, alpha2] waypoints")
     bb.add_argument("--bounds", type=float, nargs=2, default=None,
                     help="range of the free parameter (default log10 T -1.5..0.5, alpha -0.2..0.2)")
     bb.add_argument("--tol", type=float, default=1e-10)

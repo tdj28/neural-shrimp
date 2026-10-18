@@ -2012,6 +2012,38 @@ snapshot_download('$REPO', revision='$MREV', cache_dir='$NEURAL_SHRIMP_DATA/mode
     done
     wait
     ;;
+  fm5l)        # run FM5L: the lower leg's own fold and flip curves. The fixed start reaches a coexisting attractor in the
+               # leg, so the period-5 orbit is marched by Newton from the fixed-start seed (SEED-A1 SEED-A2) along PATH
+               # (explore-relative JSON of waypoints: the follow run's parent chain) to a target cell inside the leg. Two
+               # branches cross the leg there (alpha1 each way), and every boundary they reach is continued both ways
+               # (kind auto). JOBARGS: NAME BRANCH-MINUTES CURVE-MINUTES CURVE-STEPS TARGET-A1 TARGET-A2 SEED-A1 SEED-A2
+               # PATH BRANCH-DS BRANCH-DS-MAX CURVE-DS CURVE-DS-MAX A1LO A1HI A2LO A2HI (vectors and PATH uploaded with
+               # --extra-data); four processes at most at a time
+    nm=${JOBARGS[0]}; bmin=${JOBARGS[1]}; cmin=${JOBARGS[2]}; csteps=${JOBARGS[3]}; ta1=${JOBARGS[4]}; ta2=${JOBARGS[5]}
+    sa1=${JOBARGS[6]}; sa2=${JOBARGS[7]}; path=${JOBARGS[8]}; bds=${JOBARGS[9]}; bdsmax=${JOBARGS[10]}
+    cds=${JOBARGS[11]}; cdsmax=${JOBARGS[12]}; a1lo=${JOBARGS[13]}; a1hi=${JOBARGS[14]}; a2lo=${JOBARGS[15]}
+    a2hi=${JOBARGS[16]}
+    export OMP_NUM_THREADS=2 OPENBLAS_NUM_THREADS=2 MKL_NUM_THREADS=2
+    TBA="--layer 4 --vectors llm-phase-map/vectors-l4 --concept gratitude --block2 16 --vectors2 llm-phase-map/vectors-l16
+         --concept2 hostility --log-temperature -0.1"
+    BRL="branch --device cuda --threads 2 --dtype float64 --reference-dtype none --no-exact-jvp --chunk 896 --period 0
+         --transient 900 --steps 150 --ds $bds --ds-max $bdsmax --beyond $bds --march-from $sa1 $sa2 --march-path $path"
+    FD=$D/fm5l-$nm
+    for dir in 1 -1; do n=$([ $dir = 1 ] && echo up || echo down)
+      run $nm-branch-a1-$n "$bmin" $BRL $TBA --alpha $ta1 --alpha2 $ta2 --free alpha --direction $dir \
+        --bounds $a1lo $a1hi --out $FD/branch-a1-$n &
+    done
+    wait
+    CL="curve --device cuda --threads 2 --dtype float64 --reference-dtype none --no-exact-jvp --gmres-tol 1e-10
+        --tol 1e-10 --gtol 1e-9 --max-newton 10 --chunk 448 --steps $csteps --ds $cds --ds-max $cdsmax
+        --alpha-bounds $a1lo $a1hi --alpha2-bounds $a2lo $a2hi"
+    for b in a1-up a1-down; do
+      for dir in 1 -1; do n=$([ $dir = 1 ] && echo plus || echo minus)
+        run $nm-curve-$b-$n "$cmin" $CL --start $FD/branch-$b --kind auto --direction $dir --out $FD/curve-$b-$n &
+      done
+    done
+    wait
+    ;;
   fmg)         # run FMG: the fold map of any window of a two-block plane (generalizes fm5t). JOBARGS: NAME LOG10T SEED-A1
                # SEED-A2 BRANCH-MINUTES CURVE-MINUTES CURVE-STEPS BRANCH-DS BRANCH-DS-MAX CURVE-DS CURVE-DS-MAX A1LO A1HI
                # A2LO A2HI CONCEPT1 CONCEPT2 [BRANCHES]. Four branches of the seed's attractor (period detected from the

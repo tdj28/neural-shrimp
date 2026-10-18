@@ -29739,3 +29739,31 @@ each packet against sparse partial clones at the two commits):
 
 **Packing.** Five named attempts per pod on pods with at least 110 GB of RAM and 8 vCPUs (P2: six pods, P3: nine).
 Pods run at most 100 minutes. The ceiling and pod ownership are recorded privately before provisioning.
+
+## 2026-10-18 15:10 UTC: Run card FM5L (exploratory): the lower leg's own fold and flip curves
+
+**Why.** The boundary gate leaves 210 (period 5 | lost) pairs more than two steps from every computed curve, all on
+the lower leg below the cusp at (-0.1239, 0.0962). Every curve we have was continued from branches seeded on the
+body. The fixed start reaches a coexisting attractor in the legs, so no branch was ever seeded inside the leg. Below
+the cusp the leg is one to two cells wide (1.25e-4 to 2.5e-4 in alpha1) and drops more steeply (slope about 3.4)
+than the fold and flip curves continued from the body (slope about 1.5), which pass 4 to 8 cells to its left. The
+leg's own edges are therefore other curves, never computed.
+
+**What.** New option of the branch command (tools/explore_llm_soft_loop.py, two-block planes): --march-from A1 A2
+--march-path FILE. The period is detected from the fixed start at the seed cell. The orbit is then continued by
+Newton through the waypoints to the target. A waypoint where Newton fails stops the run, and nothing is continued
+from a substitute. The waypoints are the follow run's parent chain (FA-100b, fa/t-0.100): 68 cells, all members
+(66 of period 5 and 2 of period 10, where the period-5 orbit is unstable beyond the flip but still exists). They run
+from the seed (-0.11875, 0.10075) to the target (-0.124375, 0.0940) inside the leg.
+
+At the target, two alpha1 branches cross the leg (ds 2e-5 to 1e-4 in alpha), and every boundary they reach is
+continued both ways as a fold or flip curve (kind auto, float64, 300 steps, ds 5e-5 to 2e-4). Curve bounds are
+alpha1 [-0.135, -0.115] and alpha2 [0.080, 0.105]. One H100 pod (job set fm5l); the ceiling is in the private
+ledger.
+
+**Gate.**
+- Each curve point must meet the FM5 criteria: residual, |g|, and a critical multiplier at +1 or -1 with nothing
+  else near the circle.
+- The boundary gate (tools/plot_real_shrimp.py) is then rerun with these curves. Success means the leg's
+  (5 | lost) and (5 | 10) pairs lie within one or two steps of these curves.
+- If the branches find no boundary within the bounds, or the march fails, that outcome is recorded as it is.
