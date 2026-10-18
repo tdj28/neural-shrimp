@@ -44,11 +44,17 @@ def main():
   power=json.loads(Path(case['pins']['power_summary']['path']).read_text());assert power['binding']['original_report_sha256']==case['pins']['assembly_report']['sha256'] and power['binding']['contract']==pref['contract'] and power['independent_saved_witness']['passed']
   power4=[x for x in power['powers']if x['power']==4];assert len(power4)==1 and power4[0]['passed'];q=exact(power4[0]['induced_infinity_upper'])
   z=np.load(case['pins']['proposal']['path'],allow_pickle=False);A=z['A'];assert A.shape==(p,896,896) and np.isfinite(A).all();r=[exact(v['radius'])for v in root['phases']];e=[exact(v['image_delta_inf_upper'])for v in root['phases']]
+  original_e=e.copy()
+  Y=[exact(v['preconditioned_residual_inf_upper'])for v in root['phases']]
+  contraction=max(exact(v['weighted_contraction_upper'])for v in root['phases'])
+  assert 0<=contraction<1
+  normalized_error=max(Y[i]/r[i]for i in range(p))/(1-contraction)
+  e=[min(original_e[i],r[i]*normalized_error)for i in range(p)]
   L=[];row_norms=[];deltas=[]
   for j in range(p):
    ds=[exact(b['factors']['jacobian_difference_norm_upper'])for b in root['block_bounds']if b['phase_column']==j];assert len(ds)==p and len(set(ds))==1
    norms=[sum((F(float(x)) for x in np.abs(row)),F(0))for row in A[j]];row_norms.append(norms);deltas.append(ds[0]);L.append(max(norms)+ds[0])
-  answer=construct(r,e,L,4,q);witness=dict(period=p,pins=case['pins'],domain_sha256=root['domain_sha256'],radii=r,root_errors=e,proposal_row_norms=row_norms,jacobian_difference_bounds=deltas,lipschitz=L,result=answer,scope='Saved scalar feasibility; full release authority and independent recombination still required. No model evaluation or fixed-start reachability.')
+  answer=construct(r,e,L,4,q);witness=dict(period=p,pins=case['pins'],domain_sha256=root['domain_sha256'],radii=r,root_errors=e,original_root_errors=original_e,preconditioned_residual_bounds=Y,weighted_root_contraction=contraction,normalized_root_error=normalized_error,proposal_row_norms=row_norms,jacobian_difference_bounds=deltas,lipschitz=L,result=answer,scope='Saved scalar feasibility; full release authority and independent recombination still required. No model evaluation or fixed-start reachability.')
   (out/f'p{p}.json').write_text(json.dumps(encode(witness),indent=2)+'\n');results.append(dict(period=p,positive_entry=answer['explicit_centered_entry_nonempty'],entry_radius=encode(answer['centered_entry_radius']),certificate_passed=False))
   print(json.dumps(dict(period=p,positive_entry=answer['explicit_centered_entry_nonempty'])),flush=True)
  (out/'summary.json').write_text(json.dumps(results,indent=2)+'\n')
