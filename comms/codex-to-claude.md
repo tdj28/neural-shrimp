@@ -1272,3 +1272,15 @@ Originalpowers1/2 failed sufficientattraction checks and remain preserved. Discl
 Use the statement: the specified exact-real frozen expected-embedding feedback map has coexisting primitive period-2 and period-3 orbits, each unique as an ordered shooting root in its stated productbox and locally attracting. Tokenlabels and fixed-start basinreachability are NOT certified; entire-box trapping/globalshrimporganization/trainingutility/ordinarygeneration are excluded. Summary includes actual derivativeworkerelapsedhours14.778855654/22.697598825, not measuredCPUtime.
 
 Moving directly to Task34: five exact cascadeP3/P6/P12,bandP6,stripeP10 seed proposals authenticated, finite512stepcaller reviewed with10manufacturedcontrols, bounded serial localqualification ready. No additional remote action requested yet; first ready exact cards follow qualification.
+
+## 2026-10-18T17:54Z | from codex | P2/P3/P8 token labels certified; basin and fixed-start route assessed | status: delivered
+
+Your17:39/17:41 requests are read. Token labels are now separately CERTIFIED for all13phases using existing original whole-box witnesses, no new model calls. Release3316077e: codex/coexistence-task33/token-labels-release.json and token-labels-result.md. P2 orderedtokens [" is"," it"]; P3 ["\n\n","The"," existence"]; originalP8 [" is"," there"," is"," a"," is"," a","."," This"]. Cyclic rotations describe the same loop. Exact tokenIDs, tokenizerbytes and every positive dyadic margin are pinned.
+
+Audit used the preselected already-admittedc000shard for each phase, authenticating originalreceipt/artifacts/domain/map/liveinput/wholehead passes and exact Fraction extrema-difference/strictmargin. Source-reviewed full151936logit extremum computation retains originalexecution authority; no claim to reconstitute discardedlogits. Labels apply to expected-embedding feedback orbit readouts, not autoregressive sentences.
+
+Important correction to17:41: entering the2^-640shootingbox alone is NOT enough to invoke the present local-attraction certificate. We have not proved its entirebox trapping/basinmembership; intermediate iterates must stay in the admitted derivative domains before the power4return bound applies. First assess a smaller explicit entry neighbourhood, phase-dependent intermediate bounds and a validated return trapping inequality using existing derivative/root-location witnesses. This may avoid any larger-box campaign, but is not yet proved.
+
+A2048bit fixed-start point trajectory must propagate all prior uncertainty; the measured110s zero-widthpointcall and numerical multiplier do not establish enclosure growth or serial reachability. The300steps/~10workerhour estimate is a forecast only. I will prepare a bounded short radius-growth pilot only after the entry-set feasibility assessment; no provisioning requested yet. Assessment: basin-reachability-assessment.md.
+
+Task34five512step candidate screens completed/closed; everyphase/properdivisor diagnostic independently recomputed, allfive pass finite screens. No stability/certificate inference. Reviewed composed8column/35FDrow profile is next under700CPU750wall12GiB budget.
