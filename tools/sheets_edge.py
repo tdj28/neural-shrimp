@@ -9,6 +9,7 @@ Along a line of constant log10 T across an edge where the map switches from fami
    leaves) seeds Newton's method for a period-p orbit; its multipliers say whether it is a saddle.
 
 Usage: python tools/sheets_edge.py --log-t -0.148 --alpha 0.0644 0.0648 --n 41 --period 3 --out sheets/edge-t-0.148
+       python tools/sheets_edge.py --alpha 0.0708 --log-t -0.140 -0.136 --n 41 --period 6 --out sheets/edge-a-0.0708
 """
 import argparse
 import json
@@ -55,8 +56,8 @@ def trajectory(r, alpha, lt, steps, period):
 
 def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    ap.add_argument("--log-t", type=float, required=True)
-    ap.add_argument("--alpha", type=float, nargs=2, required=True)
+    ap.add_argument("--log-t", type=float, nargs="+", required=True, help="one value (alpha line) or a range (T line)")
+    ap.add_argument("--alpha", type=float, nargs="+", required=True, help="a range (alpha line) or one value (T line)")
     ap.add_argument("--n", type=int, default=41)
     ap.add_argument("--period", type=int, required=True, help="period of the orbit sought near the switch")
     ap.add_argument("--transient", type=int, default=1500)
@@ -69,10 +70,15 @@ def main():
     out.mkdir(parents=True, exist_ok=True)
     tic = time.perf_counter()
     r = runner(args)
-    alphas = np.linspace(*args.alpha, args.n)
-    res = r.run_cells([(args.log_t, a) for a in alphas], None, args.transient)
-    prof = [{"alpha": float(a), "family": label(r, res, c), "period": int(res["period"][c]),
-             "lyapunov": float(res["lyapunov"][c]), "settle": int(res["settle"][c])} for c, a in enumerate(alphas)]
+    if len(args.alpha) == 2 and len(args.log_t) == 1:
+        line = [(args.log_t[0], a) for a in np.linspace(*args.alpha, args.n)]
+    elif len(args.alpha) == 1 and len(args.log_t) == 2:
+        line = [(t, args.alpha[0]) for t in np.linspace(*args.log_t, args.n)]
+    else:
+        raise SystemExit("give a range in exactly one of --alpha and --log-t")
+    res = r.run_cells(line, None, args.transient)
+    prof = [{"log10_temperature": float(t), "alpha": float(a), "family": label(r, res, c), "period": int(res["period"][c]),
+             "lyapunov": float(res["lyapunov"][c]), "settle": int(res["settle"][c])} for c, (t, a) in enumerate(line)]
     for p in prof:
         print(json.dumps(p), flush=True)
     fams = [p["family"] for p in prof]
@@ -82,10 +88,12 @@ def main():
         report["switch"] = None
         report["note"] = "no change of the fixed start's family along the line"
     else:
-        lo, hi, fl, fh = alphas[k], alphas[k + 1], fams[k], fams[k + 1]
+        lo, hi, fl, fh = 0.0, 1.0, fams[k], fams[k + 1]
+        pa, pb = np.array(line[k]), np.array(line[k + 1])
+        at = lambda u: tuple(pa + u * (pb - pa))
         for _ in range(args.bisect):
             mid = 0.5 * (lo + hi)
-            rm = r.run_cells([(args.log_t, mid)], None, args.transient)
+            rm = r.run_cells([at(mid)], None, args.transient)
             fm = label(r, rm, 0)
             if fm == fl:
                 lo = mid
@@ -94,25 +102,26 @@ def main():
             else:
                 report["third_family_at"] = {"alpha": float(mid), "family": fm}
                 break
-        report["switch"] = {"between": [float(lo), float(hi)], "families": [fl, fh]}
+        report["switch"] = {"between": [list(map(float, at(lo))), list(map(float, at(hi)))], "families": [fl, fh]}
         print(json.dumps(report["switch"]), flush=True)
         sad = []
-        for a in (lo, hi):
-            S, ret = trajectory(r, a, args.log_t, args.transient, args.period)
+        for u in (lo, hi):
+            t_u, a = at(u)
+            S, ret = trajectory(r, a, t_u, args.transient, args.period)
             j0 = int(np.argmin(ret[50:len(ret) // 2])) + 50      # lingering before the late convergence
-            orb = SoftOrbit(r.loop, a * r.v, 10.0 ** args.log_t, jacobian_method="ad")
+            orb = SoftOrbit(r.loop, a * r.v, 10.0 ** t_u, jacobian_method="ad")
             torch = r.torch
             X = torch.as_tensor(S[j0][None, None, :], dtype=torch.float64)
             Xs, hist, vals, pts = orb.newton(X, args.period, tol=1e-11, max_newton=10)
             xs = Xs[0, -1].double().cpu().numpy()
             dist = np.linalg.norm(S - xs, axis=1) / np.linalg.norm(xs)
-            sad.append({"alpha": float(a), "linger_step": j0, "linger_return": float(ret[j0]),
+            sad.append({"log10_temperature": float(t_u), "alpha": float(a), "linger_step": j0, "linger_return": float(ret[j0]),
                         "newton_residuals": [float(h) for h in hist],
                         "multipliers_abs": [float(abs(v)) for v in vals[:4]],
                         "multipliers": [[float(v.real), float(v.imag)] for v in vals[:4]],
                         "steps_within_1e-4_of_orbit": int((dist < 1e-4).sum()),
                         "closest_approach": float(dist.min()), "closest_step": int(dist.argmin())})
-            np.save(out / f"orbit-{a:.10f}.npy", xs)
+            np.save(out / f"orbit-{t_u:.8f}-{a:.10f}.npy", xs)
             print(json.dumps(sad[-1]), flush=True)
         report["lingering_orbits"] = sad
     report["seconds"] = round(time.perf_counter() - tic, 1)
