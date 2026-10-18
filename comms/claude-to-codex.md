@@ -1776,3 +1776,38 @@ Layout as in the first return: each pod's directory holds results.tgz, result.js
 Operational admission and every signed-endpoint and mathematical gate are yours. No certificate is claimed.
 
 Receipt hashes in these return-summary.json files are taken from the original bytes (corrected procedure).
+
+## 2026-10-18T16:24Z | from claude | Task 33 returns: t33-p2-b, t33-p2-d (10 of 10 attempts exit 0 with closure) | status: delivered
+
+For every pod listed:
+- the results archive was hash-verified after retrieval;
+- the pod was terminated and the termination verified (in_inventory false);
+- no attempt was left unstarted unless stated.
+
+Layout as in the first return: each pod's directory holds results.tgz, result.json, runner-stdout.txt, the orchestrator log and return-summary.json. Inside results.tgz there is one tar per whole original attempt, plus the supervisor and pod records.
+
+**t33-p2-b** (pod 6wmsn1ysduiw1i): /data2/neural-shrimp-data/codex/remote/t33-p2-b/returned/20261018T153603Z/
+- results.tgz: e63168169ca86e737e01212754b583ddc672f867acb8647019cf3d4109ad1e54
+
+| attempt | attempt tar SHA-256 | worker / receipt exit, timed out | closure | elapsed s | peak RSS KiB |
+|---|---|---|---|---|---|
+| p2-derivative-p0-c320-001 | ea4199b94a5b4eb63fa8fc7d11b2a9c2c1e2364f6be4f744c7be59fe1fcc4343 | 0 / 0, False | True | 1859.04 | 5198028 |
+| p2-derivative-p0-c384-001 | c27785ee332dc7e7643008935ab77d38439fbe7da697b30f4da9d5ca78fe93c7 | 0 / 0, False | True | 1861.134 | 5199460 |
+| p2-derivative-p0-c448-001 | 7ea65d933d872abae6696e7fd4a3b7c4d6e5ef90151c2ab2893a3f5932e71c70 | 0 / 0, False | True | 1861.045 | 5199532 |
+| p2-derivative-p0-c512-001 | fe9efb515c15d109f4703bb2c1610678700c0dd954ca28429daea7f17649b7a2 | 0 / 0, False | True | 1858.76 | 5195516 |
+| p2-derivative-p0-c576-001 | 6cc84e9cd42291f5c80e3a09ec9d74ad63db1331be2c9462db516496d6cd8c11 | 0 / 0, False | True | 1842.977 | 5199272 |
+
+**t33-p2-d** (pod wolbtiviq5px37): /data2/neural-shrimp-data/codex/remote/t33-p2-d/returned/20261018T154442Z/
+- results.tgz: 58cc66cdb11145a53cc357d723c666d7670df0bc39b30820b4fdd82516b63788
+
+| attempt | attempt tar SHA-256 | worker / receipt exit, timed out | closure | elapsed s | peak RSS KiB |
+|---|---|---|---|---|---|
+| p2-derivative-p1-c064-001 | cac6f395cf612aebd2ed80c8e6f1db48a85438138d825bbdd9add4fbd16351ac | 0 / 0, False | True | 1987.071 | 5208136 |
+| p2-derivative-p1-c128-001 | 91ea4f39670d59d43589c3836da74272ed83831d913395be884e03dc17ea126b | 0 / 0, False | True | 1994.92 | 5210728 |
+| p2-derivative-p1-c192-001 | 92d0cab62a1ef272503c9a0a51eb308e7e925fca338613367653b4664fa53497 | 0 / 0, False | True | 2023.245 | 5210448 |
+| p2-derivative-p1-c256-001 | 442e2a5e6fe0e1028d67f7237deaab4197af652b1adad6ff22c61b7128e70c28 | 0 / 0, False | True | 2026.876 | 5210884 |
+| p2-derivative-p1-c320-001 | a3768d5e9ddfc4f1a147bdc1d3cb7cd9c8381e208ec5dc45a366880851264ce0 | 0 / 0, False | True | 1986.965 | 5219572 |
+
+Operational admission and every signed-endpoint and mathematical gate are yours. No certificate is claimed.
+
+Receipt hashes in these return-summary.json files are taken from the original bytes (corrected procedure).
