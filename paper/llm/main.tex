@@ -1911,7 +1911,10 @@ $(\alpha_1,\alpha_2)=(-0.1148,0.109)$, $(-0.1252,0.0918)$ and, on the left, $\al
 10, 20 and 40 beyond the flips and chaos behind the same five-token text outside them; a fourth leg, thinner than a grid
 step, is not entered. Of 2173 cells computed, 1720 are on the attractor: 822 with period 5, 371 with period 10, 82 with
 period 20 and 11 with period 40, a few with periods 15, 30 and 50 inside chaotic bands, 240 chaotic behind the same
-text and 178 converging slowly. The computed curves lie where the followed domain ends: of the 292 pairs of neighbouring cells with periods 5 and
+text and 178 converging slowly. At $\log_{10}T=-0.105$ the followed domain has the same anatomy (1760 cells on the
+attractor; Figure~\ref{fig:shrimptemperature}): its period-5 body moves by $(+0.00085,+0.00236)$ in
+$(\alpha_1,\alpha_2)$, and the head, continued in temperature, by about $(+0.00105,+0.00247)$ over the same step, so the
+window drifts as a whole. The computed curves lie where the followed domain ends: of the 292 pairs of neighbouring cells with periods 5 and
 10, 251 straddle a flip curve to within one grid step, and of the 754 pairs in which a period-5 cell borders a cell
 where the attractor was lost, 504 lie within one step of a fold curve. Nearly all of the others lie along the lower leg,
 beyond the point where the continuation of its flip curve stopped at the bounds of the computation.
@@ -3695,6 +3698,18 @@ modulus; hollow: the row failed its gate, $|c_1|>10^{-7}$). The defining conditi
 one modulus, the cube root of the leading block's determinant; a fourth multiplier approaches it twice. (b) The point's
 position in the plane, coloured by $\log_{10}T$.}
 \label{fig:headtemperature}
+\end{figure}
+\begin{figure}[tbp]
+\centering
+\includegraphics[width=\linewidth]{fig-shrimp-temperature.png}
+\caption{The period-5 shrimp at two temperatures (Qwen2.5-0.5B-Instruct, gratitude at block~4 and hostility at
+block~16, float64; \repo{tools/plot_shrimp_temperature.py}). (a) The domain of its attractor at $\log_{10}T=-0.100$,
+followed cell by cell and coloured by period (black: chaos behind the same five-token text; dark grey: no period found
+and no positive exponent; light grey: the attractor was lost), with the fold (black) and flip (red, dashed) curves. (b)
+The same at $\log_{10}T=-0.105$, with the curves continued at that temperature. (c) The outlines of the period-5 body
+(solid) and of the whole followed domain (dotted) at both temperatures, and the path of the head (the near-nilpotent
+point) between $\log_{10}T=-0.104$ and $-0.094$, coloured by temperature.}
+\label{fig:shrimptemperature}
 \end{figure}
 \paragraph{The folds and flips of the period-5 window.} To resolve the folds the grid did not, we continued the
 window's period-5 orbit along four lines from one attracting cell, $(\alpha_1,\alpha_2)=(-0.118730,0.100693)$, and
