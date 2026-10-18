@@ -1115,6 +1115,11 @@ snapshot_download('$repo', revision='$rev', cache_dir='$NEURAL_SHRIMP_DATA/model
     TOOL=shrimp_centre.py run shrimpc-${JOBARGS[0]} "${JOBARGS[1]}" --device cuda --threads 8 "${JOBARGS[@]:2}" \
       --out $D/shrimp/${JOBARGS[0]}
     ;;
+  nbounds)     # run NB: norm bounds of the factorized derivative (tools/norm_bounds.py, float32 on the GPU):
+               # JOBARGS = NAME MINUTES MODE ARGS... (cells file docs/nb-cells.json uploaded with the code)
+    TOOL=norm_bounds.py run nb-${JOBARGS[0]} "${JOBARGS[1]}" ${JOBARGS[2]} --device cuda --threads 8 "${JOBARGS[@]:3}" \
+      --out $D/nb/${JOBARGS[0]}
+    ;;
   hidden)      # hidden chaos along a line (tools/hidden_chaos.py): JOBARGS NAME MINUTES ARGS...; float64 on the GPU,
                # Qwen2.5-0.5B (cached), twins at two offsets, leading-token statistics, into hidden/NAME
     TOOL=hidden_chaos.py run hidden-${JOBARGS[0]} "${JOBARGS[1]}" line --device cuda --dtype float64 \
