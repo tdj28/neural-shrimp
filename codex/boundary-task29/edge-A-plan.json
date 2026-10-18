@@ -1,0 +1,63 @@
+{
+  "status": "reviewed_for_execution",
+  "repository": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp",
+  "raw_root": "/data2/neural-shrimp-data/explore/sheets/codex-task29",
+  "python": "/data2/neural-shrimp/.venv/bin/python",
+  "source_files": [
+    {
+      "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/tools/task29_edge_track.py",
+      "bytes": 6956,
+      "sha256": "333e30b981ea67612df33487e6d82cbb229ebdc93df3c991e860489d5c1b2579"
+    },
+    {
+      "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/mechanism-replay-task23/qwen_map.py",
+      "bytes": 14540,
+      "sha256": "493a3d1d57fec227f5ba2e3f8f9cfcfdd02d22495d1d44e6449ede901310ae6e"
+    },
+    {
+      "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/boundary-task29/edge-A-card.json",
+      "bytes": 1596,
+      "sha256": "23aa712876fda3b687e4c6149b20b3c61fa7dcd2cc0cfe0e6ecf22991115d33e"
+    },
+    {
+      "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/basins-task28/supervise.py",
+      "bytes": 8581,
+      "sha256": "ab65773951e39afed480473b32203bb45dc27b053863a3eda47083eae1b6cf16"
+    }
+  ],
+  "lanes": {
+    "edge": {
+      "entry": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/tools/task29_edge_track.py",
+      "arguments": [
+        "--card",
+        "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/boundary-task29/edge-A-card.json",
+        "--out",
+        "/data2/neural-shrimp-data/explore/sheets/codex-task29/edge-A-001"
+      ],
+      "output": "/data2/neural-shrimp-data/explore/sheets/codex-task29/edge-A-001",
+      "supervision": "/data2/neural-shrimp-data/explore/sheets/codex-task29/edge-A-001-supervision",
+      "preflight_pins": [
+        {
+          "path": "/data2/neural-shrimp-data/explore/sheets/codex-task29/seeds-001/A.npz",
+          "bytes": 16562410,
+          "sha256": "9eeb2eb1dedf567da42d9e343826db3b3995f1fde3d693ffc49b016c527b56ac"
+        },
+        {
+          "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/boundary-task29/seed-completion.json",
+          "bytes": 2254,
+          "sha256": "ad699e790903c3db5200885aec8b683586c4419b8c155bf4b21e8ec890873195"
+        }
+      ],
+      "prior_receipts": [
+        "/data2/neural-shrimp-data/explore/sheets/codex-task29/seeds-001-supervision/receipt.json"
+      ],
+      "limits": {
+        "as_bytes": 12884901888,
+        "cpu_seconds": 35000,
+        "wall_seconds": 18000,
+        "output_bytes": 2147483648
+      }
+    }
+  },
+  "cost_basis": "Own Task29 three-row step means .386/.545/.910s (slow shared-CPU phase); Task28 measured16row ~.58s and2row~.35s. Typical early matching200-500steps; initial16bisections and4edgeepochs per up-to2brackets. 5h hardwall bounds unknown lingering/rebracket cost; not a guarantee. No extension/retry; unresolved fates stop bracket explicitly. One2CPUworker+supervisor."
+}

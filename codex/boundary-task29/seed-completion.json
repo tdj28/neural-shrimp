@@ -1,0 +1,106 @@
+{
+  "status": "owner closed; nine saved full-state gates independently recomputed",
+  "source": "9a31252de57661487f759bf93bcb1c86ea940b4f",
+  "report": {
+    "path": "/data2/neural-shrimp-data/explore/sheets/codex-task29/seeds-001/report.json",
+    "bytes": 4625,
+    "sha256": "71f0c6e84e130c7351e2e0a54e11ca1e5517420f8f6f2821a3ee7492ea57cd9a"
+  },
+  "receipt": {
+    "path": "/data2/neural-shrimp-data/explore/sheets/codex-task29/seeds-001-supervision/receipt.json",
+    "bytes": 6609,
+    "sha256": "5945da6002a2a49ec09b149bc7144ad12be73bed9cfa8b07ad242a50f020ce12"
+  },
+  "closure": {
+    "1607485": {
+      "identity": null,
+      "members": []
+    },
+    "1607583": {
+      "identity": null,
+      "members": []
+    }
+  },
+  "checks": [
+    {
+      "cell": {
+        "id": "A",
+        "alpha": 0.0708,
+        "log10T": -0.1396,
+        "stripe": "p10"
+      },
+      "period_windows": [
+        [
+          6,
+          6
+        ],
+        [
+          6,
+          6
+        ],
+        [
+          10,
+          10
+        ]
+      ],
+      "phase_distance_to_stripe_for_fixed_and_band": [
+        1.5773288943225705,
+        1.5773288943225703
+      ]
+    },
+    {
+      "cell": {
+        "id": "B",
+        "alpha": 0.0708,
+        "log10T": -0.144,
+        "stripe": "p10"
+      },
+      "period_windows": [
+        [
+          10,
+          10
+        ],
+        [
+          10,
+          10
+        ],
+        [
+          10,
+          10
+        ]
+      ],
+      "phase_distance_to_stripe_for_fixed_and_band": [
+        1.5173677597909606e-13,
+        1.0563655283733077e-13
+      ]
+    },
+    {
+      "cell": {
+        "id": "C",
+        "alpha": 0.0693,
+        "log10T": -0.142,
+        "stripe": "p12"
+      },
+      "period_windows": [
+        [
+          6,
+          6
+        ],
+        [
+          6,
+          6
+        ],
+        [
+          12,
+          12
+        ]
+      ],
+      "phase_distance_to_stripe_for_fixed_and_band": [
+        1.5253145498131997,
+        1.525314549813201
+      ]
+    }
+  ],
+  "external_seconds": 1853.3537288168445,
+  "scope": "A and C admit opposite periodic seed fates. At B all supplied starts match stripeP10; this does not prove band nonexistence. No stability or family continuation yet."
+}
