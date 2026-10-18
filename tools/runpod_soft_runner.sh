@@ -2012,6 +2012,17 @@ snapshot_download('$REPO', revision='$MREV', cache_dir='$NEURAL_SHRIMP_DATA/mode
     done
     wait
     ;;
+  toolseq)     # tools/*.py commands run one after another (float64 on the GPU): JOBARGS = NAME MINUTES TOOL.py ARGS...
+               # [:: NAME MINUTES TOOL.py ARGS ...] (vectors uploaded with --extra-data); a failing command does not stop
+               # the next
+    i=0; n=${#JOBARGS[@]}
+    while [ $i -lt $n ]; do
+      name=${JOBARGS[$i]}; minutes=${JOBARGS[$((i+1))]}; tool=${JOBARGS[$((i+2))]}; i=$((i+3)); cargs=()
+      while [ $i -lt $n ] && [ "${JOBARGS[$i]}" != "::" ]; do cargs+=("${JOBARGS[$i]}"); i=$((i+1)); done
+      i=$((i+1))
+      TOOL=$tool run $name "$minutes" "${cargs[@]}"
+    done
+    ;;
   eslseq)      # explore_llm_soft_loop commands run one after another (float64 on the GPU): JOBARGS = NAME MINUTES SUBCOMMAND
                # ARGS... [:: NAME MINUTES SUBCOMMAND ARGS ...]; downloads the pinned Qwen2.5-7B-Instruct when any
                # argument names qwen7b (vectors uploaded with --extra-data). A failing command does not stop the next.
