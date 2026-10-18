@@ -1115,6 +1115,11 @@ snapshot_download('$repo', revision='$rev', cache_dir='$NEURAL_SHRIMP_DATA/model
     TOOL=shrimp_centre.py run shrimpc-${JOBARGS[0]} "${JOBARGS[1]}" --device cuda --threads 8 "${JOBARGS[@]:2}" \
       --out $D/shrimp/${JOBARGS[0]}
     ;;
+  nbounds)     # run NB: norm bounds of the factorized derivative (tools/norm_bounds.py, float32 on the GPU):
+               # JOBARGS = NAME MINUTES MODE ARGS... (cells file docs/nb-cells.json uploaded with the code)
+    TOOL=norm_bounds.py run nb-${JOBARGS[0]} "${JOBARGS[1]}" ${JOBARGS[2]} --device cuda --threads 8 "${JOBARGS[@]:3}" \
+      --out $D/nb/${JOBARGS[0]}
+    ;;
   hidden)      # hidden chaos along a line (tools/hidden_chaos.py): JOBARGS NAME MINUTES ARGS...; float64 on the GPU,
                # Qwen2.5-0.5B (cached), twins at two offsets, leading-token statistics, into hidden/NAME
     TOOL=hidden_chaos.py run hidden-${JOBARGS[0]} "${JOBARGS[1]}" line --device cuda --dtype float64 \
@@ -1873,6 +1878,33 @@ snapshot_download('$REPO', revision='$MREV', cache_dir='$NEURAL_SHRIMP_DATA/mode
       for dir in 1 -1; do n=$([ $dir = 1 ] && echo plus || echo minus)
         run fm5-curve-$b-$kind-$n "$cmin" $C5 --start $D/fm5/branch-$b --kind $kind --direction $dir \
           --out $D/fm5/curve-$b-$kind-$n &
+      done
+    done
+    wait
+    ;;
+  fm5t)        # run FM5T: the FM5 fold map of the period-5 window at another temperature. JOBARGS: NAME LOG10T SEED-A1 SEED-A2
+               # BRANCH-MINUTES CURVE-MINUTES CURVE-STEPS DS DS-MAX. Four branches from the seed (alpha1 and alpha2 each
+               # way), then every boundary they reach continued both ways with its kind detected (auto).
+    nm=${JOBARGS[0]}; lt=${JOBARGS[1]}; sa1=${JOBARGS[2]}; sa2=${JOBARGS[3]}
+    bmin=${JOBARGS[4]}; cmin=${JOBARGS[5]}; csteps=${JOBARGS[6]}; cds=${JOBARGS[7]}; cdsmax=${JOBARGS[8]}
+    export OMP_NUM_THREADS=2 OPENBLAS_NUM_THREADS=2 MKL_NUM_THREADS=2
+    TBA="--layer 4 --vectors llm-phase-map/vectors-l4 --concept gratitude --block2 16 --vectors2 llm-phase-map/vectors-l16
+         --concept2 hostility --log-temperature $lt"
+    BR5="branch --device cuda --threads 2 --dtype float64 --reference-dtype none --no-exact-jvp --chunk 896 --period 0
+         --transient 900 --steps 150 --ds 0.002 --ds-max 0.01 --beyond 0.0005"
+    SEED="--alpha $sa1 --alpha2 $sa2"
+    FD=$D/fm5t-$nm
+    run $nm-branch-a1-up "$bmin" $BR5 $TBA $SEED --free alpha --direction 1 --bounds -0.125 -0.100 --out $FD/branch-a1-up &
+    run $nm-branch-a1-down "$bmin" $BR5 $TBA $SEED --free alpha --direction -1 --bounds -0.125 -0.100 --out $FD/branch-a1-down &
+    run $nm-branch-a2-up "$bmin" $BR5 $TBA $SEED --free alpha2 --direction 1 --bounds 0.088 0.118 --out $FD/branch-a2-up &
+    run $nm-branch-a2-down "$bmin" $BR5 $TBA $SEED --free alpha2 --direction -1 --bounds 0.088 0.118 --out $FD/branch-a2-down &
+    wait
+    C5="curve --device cuda --threads 2 --dtype float64 --reference-dtype none --no-exact-jvp --gmres-tol 1e-10
+        --tol 1e-10 --gtol 1e-9 --max-newton 10 --chunk 448 --steps $csteps --ds $cds --ds-max $cdsmax
+        --alpha-bounds -0.125 -0.100 --alpha2-bounds 0.088 0.118"
+    for b in a1-up a2-up a2-down a1-down; do
+      for dir in 1 -1; do n=$([ $dir = 1 ] && echo plus || echo minus)
+        run $nm-curve-$b-$n "$cmin" $C5 --start $FD/branch-$b --kind auto --direction $dir --out $FD/curve-$b-$n &
       done
     done
     wait
