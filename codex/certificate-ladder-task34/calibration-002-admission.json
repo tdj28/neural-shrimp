@@ -1,0 +1,95 @@
+{
+  "scope": "Operational completed() admission and exact stored native endpoint comparison; no new certificate or scale-up authorization",
+  "archive_sha256": "4eb0a6ca96ef41e1766095c78821d4f835821759fcf2be138eac921eba626c6b",
+  "receipt_sha256": "eba6e955aa0ee9b0427dacb99d516081b64bc4d5c98b9989c8b090326c17472d",
+  "artifacts_verified": 317,
+  "completed": {
+    "receipt_sha256": "eba6e955aa0ee9b0427dacb99d516081b64bc4d5c98b9989c8b090326c17472d",
+    "source_commit": "c6242ede708298d4db73b065c5d89798c729909b",
+    "elapsed_seconds": 1866.7852093428373,
+    "max_rss_kib": 5427704,
+    "bytes": 75636217
+  },
+  "all_input_direction_derivative_primal_fields_exact": true,
+  "different_top_level_fields": [
+    "forward_seconds"
+  ],
+  "differences": {
+    "forward_seconds": {
+      "original": 1508.2232607270125,
+      "remote": 1851.7786025255919
+    }
+  },
+  "remote_wrapper": {
+    "step": "run",
+    "command": "/root/certvenv/bin/python -I -B -u codex/certify-llm/launch.py --attempt task34-calibration-p1-c256-002 --driver derivative_shard --plan task34-calibration-p1-c256-002-plan.json --threads 1 --seconds 3600",
+    "cwd": "/root/cert-src",
+    "uid": 0,
+    "started": "2026-10-18T06:58:08.370942+00:00",
+    "ended": "2026-10-18T07:29:22.690575+00:00",
+    "elapsed_seconds": 1874.32,
+    "exit_code": 0,
+    "killed_by_watchdog": null,
+    "watchdog_stop": null,
+    "peak_aggregate_rss_kib": 5210936,
+    "processes_at_peak": 3,
+    "rss_limit_kib": 18874368,
+    "deadline_seconds": 3900.0,
+    "owned_identities": [
+      {
+        "pid": 688,
+        "first_seen": "2026-10-18T06:58:08.372525+00:00",
+        "via": "root",
+        "ppid": 687,
+        "pgid": 688,
+        "sid": 688,
+        "start": 525502729,
+        "uid": 0,
+        "cmd": "/bin/sh -c /root/certvenv/bin/python -I -B -u codex/certify-llm/launch.py --attempt task34-calibration-p1-c256-002 --driver derivative_shard --plan task34-calibration-p1-c256-002-plan.json --threads 1 --seconds 3600",
+        "start_ticks": 525502729
+      },
+      {
+        "pid": 689,
+        "first_seen": "2026-10-18T06:58:08.373277+00:00",
+        "via": "parentage",
+        "ppid": 688,
+        "pgid": 688,
+        "sid": 688,
+        "start": 525502729,
+        "uid": 0,
+        "cmd": "/root/certvenv/bin/python -I -B -u codex/certify-llm/launch.py --attempt task34-calibration-p1-c256-002 --driver derivative_shard --plan task34-calibration-p1-c256-002-plan.json --threads 1 --seconds 3600",
+        "start_ticks": 525502729
+      },
+      {
+        "pid": 1002,
+        "first_seen": "2026-10-18T06:58:10.374817+00:00",
+        "via": "parentage",
+        "ppid": 689,
+        "pgid": 1002,
+        "sid": 1002,
+        "start": 525502829,
+        "uid": 0,
+        "cmd": "/root/certvenv/bin/python -I -B -u /data2/neural-shrimp-data/codex/llm-p8-certificate/task34-calibration-p1-c256-002/source/codex/certify-llm/derivative_shard.py --output /data2/neural-shrimp-data/codex/llm-p8-certificate/task34-calibration-p1-c256-002/run --plan /data2/neural-shrimp-data/codex/llm-",
+        "start_ticks": 525502829
+      }
+    ],
+    "alive_after_exit": [],
+    "cleanup_after_exit": null,
+    "alive_after_cleanup": [],
+    "closure_verified": true,
+    "success": true,
+    "closure_note": "Identities are (pid, start ticks, uid) recorded while observed; members of recorded sessions and groups are adopted after reparenting. Success requires exit 0, no watchdog stop and no owned process alive after exit. The pod's verified termination is the final closure."
+  },
+  "preflight_sha256": "cc39a1bf5435060a80c6aaba6a432225efcfcd8a0256168c81ec63c05e11545d",
+  "audit_source_sha256": "0f2a680c9fa48b20bfb2a65a07abe122a7a30eff09ee932f018bd4298ec085bc",
+  "termination_basis": "Producer logged termination; Codex makes no pod query",
+  "outer_archive_sha256": "382a25c397d7d433a8f79d3cf63ed884abea4ead50375d91aed530e61969894e",
+  "producer_termination_record": {
+    "pod_id": "p0vfeutwdvaofc",
+    "terminated": true,
+    "direct_lookup": null,
+    "in_inventory": false
+  },
+  "termination_record_sha256": "c6c37536c1dbef17ff20be013b870a44ffcda4ba885fa784648716296e6e06cf",
+  "wrapper_and_runner_diff_1ed64363_to_4732fd03": "empty"
+}
