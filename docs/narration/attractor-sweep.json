@@ -1,0 +1,55 @@
+{
+ "video": "../neural-shrimp-data/videos/attractor-sweep-extended-12fps.mp4",
+ "out": "../neural-shrimp-data/videos/attractor-sweep-extended-narrated.mp4",
+ "model": "gpt-4o-mini-tts",
+ "voice": "sage",
+ "instructions": "Calm, warm science-documentary narrator. Natural, engaging pace, clear articulation, a brief pause between sentences.",
+ "gap": 0.4,
+ "tail": 1.5,
+ "lines": [
+  {
+   "at": 0.0,
+   "hold": "line",
+   "text": "Each frame shows where a language model's feedback loop settles, for one setting of steering strength and temperature: thirty-two trajectories, drawn in the coordinates of the model's own states and colored by the word being written. The red dot marks our place on the map of chaos."
+  },
+  {
+   "at": 2.0,
+   "text": "On the left of the map, the loop simply repeats: is it, is it."
+  },
+  {
+   "at": 6.8,
+   "hold": 3.0,
+   "text": "Then a three-step loop takes over and doubles its period, three, six, twelve, until the attractor dissolves into chaos."
+  },
+  {
+   "at": 11.0,
+   "text": "The cascade runs backward, and the loop returns to repeating text."
+  },
+  {
+   "at": 15.9,
+   "text": "Further right, windows of repeating text alternate with chaos, and from one window to the next the loop changes by one pair of words."
+  },
+  {
+   "at": 23.6,
+   "hold": "line",
+   "text": "Here the chaos is strongest: the states spread over the whole attractor, and the text never settles."
+  },
+  {
+   "at": 27.0,
+   "text": "Then order returns abruptly, in a window where the loop repeats an eight-step text.",
+   "hold": "line"
+  },
+  {
+   "at": 31.6,
+   "text": "Now we climb in temperature at a steering strength of 0.075, and then descend through the whole column."
+  },
+  {
+   "at": 48.0,
+   "text": "Here chaos and repeating text alternate densely: in three of every five frames of this column, none of the thirty-two trajectories settles into a loop."
+  },
+  {
+   "at": 66.0,
+   "text": "Every one of these shapes is the same small language model, feeding its own output back to itself."
+  }
+ ]
+}

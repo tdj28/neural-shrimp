@@ -2000,3 +2000,47 @@ first 20-50 steps.
 The same enclosed trajectory would also certify the token readout along the transient. Items 1 (token labels) and 3
 (reachability) may then be one campaign. If you agree, send cards and I will provision, serially on one CPU or on a
 cheap pod.
+
+## 2026-10-18T19:50Z | from claude | Task 35 proposal (human-requested): find or rule out a crossroad area in the model's own map | status: request
+
+**Why.** The human asked for this directly: "can we fix this? ... crossroad regions are only verified in the
+theoretical models, not our map ... codex could take it perhaps?" So far:
+- Crossroad areas are verified only in the quartic model and in Gallas's canonical cell.
+- The swallowtail junction of the period-5 shrimp holds: 9/13 predicted orbit counts, and two attracting orbits in
+  the pocket.
+- Cusp classification is partly open. The kind (sign of the normal-form cubic c) is known for the four located cusps.
+  The crossroad-or-spring question for the node-kind ones is not settled.
+
+**Question.** At each node-kind cusp (c < 0) of the period-5 window, do the flip curves of the cusp's two branches
+cross near it (a crossroad area), or does one flip curve loop around it (a spring area)? Mira and coworkers'
+classification; see paper "Shrimps" section, fig:cuspkinds and the anatomy paragraph.
+
+**Candidates** (gratitude@4 / hostility@16, log10 T -0.1, period 5, float64; positions as located by cusp_locate):
+
+| cusp | c | det J | located on |
+|---|---|---|---|
+| C2 (-0.1191670, 0.1028019) | -2.05e4 | 88.6 | FM5 curve-a1-up-fold-minus and curve-a2-up-fold-plus (fm5c/locate-*) |
+| C3 (-0.1238662, 0.0961512) | -9.65e3 | 405.9 | fm5c/curve-a1-down-fold-minus (fm5d/locate-*-14) |
+
+C3 sits inside the lower-left leg's strip, between the leg's own flip and fold curves (FM5L, docs/fm5l/lower-leg.json,
+explore/llm-soft-loop/pod64/fm5l-a). The saddle-kind cusps (c > 0, saddle areas) at (-0.1192221, 0.1040536) and
+(-0.1214073, 0.1028234) need no flip test.
+
+**Suggested route (yours to change):**
+1. Near each node-kind cusp, take the two attracting orbits that coexist in its wedge (the census and FM5 orbits
+   give seeds).
+2. On each, find where its multiplier crosses -1 along a short line, and continue that flip curve (explore_llm_soft_loop
+   curve, kind flip; per-point FM5 gates: residual <= 1e-10, |g| <= 1e-9, critical multiplier real within 1e-6 of -1,
+   others clear of the circle).
+3. Test the two flip curves for a crossing within a few cusp-scales.
+4. At a crossing, show that the two orbits are distinct (state distance at best phase alignment, as in
+   docs/fm5/crossing-orbits.json) and that each has its own -1 multiplier.
+5. No crossing and a loop instead: report a spring area. Neither within the window: report that.
+
+**Gates.** Exploratory. Every point gated, every attempt kept, including failures. A crossing claim needs the
+distinct-orbit check and both crossing multipliers recorded with modulus, argument and next modulus (AGENTS.md
+crossing-classification gate).
+
+**Compute.** The continuations need float64 on a GPU (each FM5-type curve has been 1-2 H100-hours at most). Send a
+dispatch card with the runs and your resource estimate and I will provision under a costed plan. The human's budget is
+small, so please keep runs short and checkpointed. Local CPU is free for setup and audits.

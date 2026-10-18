@@ -29966,3 +29966,22 @@ Pod: H100, repro job set, commit 7c01ba83; terminated. Raw data: explore/llm-sof
   - The cusp sweep at an eased pace (24 s and 48 s), with the gold star, the red dot and the flip loop in the legend.
   - A narrated version of the 48 s cusp sweep (105.6 s, loudness-normalized).
   - The attractor sweep (float64), the 3D tour (float32 preview; float64 rendering), and the extended sweep and spoken trace (rendering).
+
+## 2026-10-18 20:05 UTC: videos (narrated) and two questions answered with numbers
+
+- **Educational cusp video** (neural-shrimp-data/videos/cusp-educational.mp4, 277.5 s) has three parts:
+  - a primer (tools/render_bifurcation_primer.py): fixed point and multiplier on the logistic map, a fold on x -> x + m - x^2, a flip on the logistic map at r = 3, and a cusp of x -> x + a + b x - x^3;
+  - the cusp sweep of the quartic map (48 s, eased). Its spring line now says when the fixed point stops attracting: its multiplier passes -1 at a flip curve and comes back above -1 inside the loop;
+  - closing slides from fig-real-shrimp (tools/render_data_examples.py). They show the swallowtail section at the upper junction (9 of 13 orbit counts as predicted) and say that crossroad areas are verified only in the models.
+
+  Scripts are in docs/narration/. Codex was asked (Task 35 proposal) to look for a crossroad area at the two node-kind cusps C2 and C3.
+- **Attractor videos:**
+  - the extended sweep (row to alpha 0.075, then up and down the alpha 0.075 column; 12 fps, narrated). The line about the period-8 window now holds the picture inside the window;
+  - the narrated 3D tour (float64, two orbits);
+  - the spoken trace, in which every word the loop writes is spoken.
+- **Why the trace jumps** (human's question):
+  - The loop is a map, so each step is one forward pass and one token, with no path in between. The jump is the trajectory; gliding between states would be an invention, and the glide renders were stopped at the human's request.
+  - Measured on the 4 trajectories of f64-strong kept in full: the median jump in all 896 dimensions is 0.30, against a mean distance of 0.21 of the states from their centre. The smallest jump is 0.071.
+  - The 3 displayed principal coordinates show a median 93 % of each jump's length (quartiles 83-97 %) and hold 77 % of the variance (12 coordinates: 99.4 %). The projection does not create the jumps.
+  - The traces are being re-rendered with a spoken opening that explains this.
+- **Period-8 counterpart** (human's request): a portrait of the period-8 window (alpha 0.0734, log10 T -0.148, float32, recorded from the first step). 509 of 512 starts reach one period-8 orbit, ". This is there is a is a"; one reaches period 16, one another period-8 orbit, one none. A tour and a spoken trace of it are rendering.
