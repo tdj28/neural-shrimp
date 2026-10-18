@@ -1937,7 +1937,12 @@ first when the cycle is started at one phase and at most 0.029 of it at the othe
 of the point, while the first is about 65, four orders of magnitude above the eigenvalues; in the body, away from the
 head, the ratio is 0.017 to 0.23. Near its head the return map is nearly of rank one and strongly nonnormal: its
 eigenvalues are small because its leading left and right singular vectors are nearly orthogonal, not because a second
-direction matters. Continued in temperature, over the eleven values of $\log_{10}T$ from $-0.104$ to
+direction matters. In the reduction to this rank-one part, $\lambda=\sigma_1\,(v_1\cdot u_1)$, the nonzero eigenvalue of
+$\sigma_1u_1v_1^{\top}$, which stays defined where the eigenvalues collide (at the head $\lambda=-2.7\times10^{-4}$, so
+the two directions are orthogonal to about $4\times10^{-6}$), the head lies on a single zero curve: on an
+$11\times11$ grid of spacing $10^{-5}$ around it, $\lambda$ changes sign exactly once in every row, along one nearly
+straight line through the head (Figure~\ref{fig:headrank}). Even in this reduction the head is not a crossing of two
+superstable curves. Continued in temperature, over the eleven values of $\log_{10}T$ from $-0.104$ to
 $-0.094$ at which the continuation passed its gates, the point moves along a nearly straight line; the common modulus
 of its three leading multipliers, the cube root of the determinant of the leading block, stays between $2.4$ and
 $5.6\times10^{-3}$, and a fourth multiplier approaches it twice (Figure~\ref{fig:headtemperature};
@@ -3705,6 +3710,18 @@ modulus; hollow: the row failed its gate, $|c_1|>10^{-7}$). The defining conditi
 one modulus, the cube root of the leading block's determinant; a fourth multiplier approaches it twice. (b) The point's
 position in the plane, coloured by $\log_{10}T$.}
 \label{fig:headtemperature}
+\end{figure}
+\begin{figure}[tbp]
+\centering
+\includegraphics[width=\linewidth]{fig-head-rank.png}
+\caption{The rank of the period-5 shrimp's return map near its head (float64; \repo{tools/monodromy_svd.py},
+\repo{tools/plot_head_rank.py}). (a) Ratio of the second to the largest singular value of the return map, for the cycle
+started at three phases, in the body far from the head, at the head (the near-nilpotent point), at four points
+$5\times10^{-5}$ from it and at one $2\times10^{-4}$ from it, with the largest singular value (squares, right axis) and
+the modulus of the leading eigenvalue (triangles). (b) The reduction to the rank-one part,
+$\lambda=\sigma_1\,(v_1\cdot u_1)$, on an $11\times11$ grid of spacing $10^{-5}$ around the head (white circle), shown as
+$\mathrm{sign}(\lambda)\log_{10}(1+|\lambda|/10^{-4})$; its zero set (black) is one curve.}
+\label{fig:headrank}
 \end{figure}
 \begin{figure}[tbp]
 \centering

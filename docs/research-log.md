@@ -29700,3 +29700,16 @@ At the FA-P11 seed, beside the head, the per-step factors of steps 2 and 4 are 0
 - The phase dependence of d1 (100-fold between phases) is itself a mark of nonnormality: eigenvalues do not depend on the phase, singular values do.
 
 **Next.** RK-G (the singular reduction's zero set around the head) is running.
+
+## 2026-10-18 10:23 UTC: RK-G result: in the singular reduction the period-5 head lies on ONE zero curve
+
+**Run.** Pod bkhh6di13kq10q (H100 NVL, commit af6255d0; terminated and verified). 121 of 121 grid points converged: an 11 x 11 grid of spacing 1e-5 around the head, phase 0. Receipt docs/rk/rk-g-p5.jsonl; summary docs/rk/rk-summary.json; figure paper/llm/figures/fig-head-rank.png (tools/plot_head_rank.py).
+
+**Values.**
+- lambda_red = s1 (v1 . u1) at the head: -2.7e-4, against s1 of about 65, so the leading left and right singular vectors are orthogonal to 4e-6.
+- |lambda_red| rises to about 0.1 at the box edges.
+- The sign changes exactly once in each of the 11 rows, along one nearly straight line through the head (between columns 4/5 at the top and 6/7 at the bottom). It changes nowhere else.
+
+**Reading.** The singular reduction is well defined here (d1 about 2e-4). Its zero set near the head is a single superstable curve, not two crossing. The near-nilpotent point is a special point on that curve where the remainder's invariants also vanish, not a doubly superstable point. The period-5 shrimp has no head of the one-dimensional kind, in the eigenvalue picture or in this reduction.
+
+**Documents.** Added to the paper (with fig-head-rank in the appendix), the Chaos article (one sentence) and the blog.
