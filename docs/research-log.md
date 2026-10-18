@@ -29805,7 +29805,7 @@ Exploratory, with every cell reported, including failures and cells not started.
 
 **Compute.** One H100 pod (job set bh), two processes over alternating cells, budget 125 min, run 150 min. Ceiling in the private ledger (human approved the plan: "do it").
 
-## 2026-10-18 18:00 UTC: External deep-research review (GPT Pro astra, run by the human) applied
+## 2026-10-18 17:25 UTC: External deep-research review (GPT Pro astra, run by the human) applied
 
 The review recommended major revision, with a favourable presumption. It read the current draft; the title-page date was stale, now 18 Oct. Adjudication: docs/consults/2026-10-18-astra-deep-review/adjudication.md.
 
