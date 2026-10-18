@@ -1,0 +1,3 @@
+# Preserved capacity preflight refusal
+
+Phase cascadeP3 plan source d97e3828, session6383 exited1 before creating supervision/output or starting a scientific worker. Supervisor capacity check observed available_ram_bytes42792636416, disk_free_bytes2682461822976, loadavg[2.91796875,3.46337890625,3.8623046875]. Available RAM was below the unchanged40GiB combined-capacity startup floor. Original plan and refusal are retained. No phase computation occurred; no retry or threshold weakening was performed. Dense cascadeP3 continues unchanged. Re-admit the unused phase attempt only after dense closure and fresh serial capacity, with an explicit disclosed serial card update; do not poll-launch concurrent recovery.
