@@ -1,0 +1,95 @@
+{
+  "utc": "2026-10-18T04:39:32.456669+00:00",
+  "owner": "Root; previous coordinator usage-limited",
+  "status": "Task32 A1 and Task29 C running concurrently; Task31 complete and delivered; Task30 prepared",
+  "jobs": [
+    {
+      "task": "Task32 A1",
+      "session": 2736,
+      "source": "3e9ddfa45621d83444da858907412e091a6115b6",
+      "admission": {
+        "path": "/data2/neural-shrimp-data/codex/chaos-proof/points-001-supervision/admission.json",
+        "bytes": 3989,
+        "sha256": "d3df1a3d087335902ee080baffce8064a8f8f27e8e81ff97fb9fc5f6eab124d8"
+      },
+      "worker_startup": {
+        "path": "/data2/neural-shrimp-data/codex/chaos-proof/points-001-supervision/worker-startup.json",
+        "bytes": 2372,
+        "sha256": "6fdcc7ae8fee68580411cbfcc3f534bbe8ef55d2e8841844fc5d103316616468"
+      },
+      "identities": [
+        {
+          "pid": 1753614,
+          "starttime": 224483067,
+          "pgid": 1753614,
+          "sid": 1753614,
+          "cmdline": "/data2/neural-shrimp/.venv/bin/python -I -B codex/certify-chaos/supervise.py --plan codex/certify-chaos/point-plan.json --lane points --source 3e9ddfa45621d83444da858907412e091a6115b6 ",
+          "nice": 10,
+          "threads": 1,
+          "uid": "Uid:\t1000\t1000\t1000\t1000",
+          "limits": "Limit                     Soft Limit           Hard Limit           Units     \nMax cpu time              unlimited            unlimited            seconds   \nMax file size             unlimited            unlimited            bytes     \nMax data size             unlimited            unlimited            bytes     \nMax stack size            8388608              unlimited            bytes     \nMax core file size        0                    unlimited            bytes     \nMax resident set          unlimited            unlimited            bytes     \nMax processes             375398               375398               processes \nMax open files            65535                65535                files     \nMax locked memory         8388608              8388608              bytes     \nMax address space         1073741824           19327352832          bytes     \nMax file locks            unlimited            unlimited            locks     \nMax pending signals       375398               375398               signals   \nMax msgqueue size         819200               819200               bytes     \nMax nice priority         0                    0                    \nMax realtime priority     0                    0                    \nMax realtime timeout      200000               200000               us        \n"
+        },
+        {
+          "pid": 1753707,
+          "starttime": 224483084,
+          "pgid": 1753707,
+          "sid": 1753707,
+          "cmdline": "/data2/neural-shrimp/.venv/bin/python -I -B /home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/certify-chaos/point_setup.py --card /home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/certify-chaos/point-card.json --out /data2/neural-shrimp-data/codex/chaos-proof/points-001 ",
+          "nice": 10,
+          "threads": 1,
+          "uid": "Uid:\t1000\t1000\t1000\t1000",
+          "limits": "Limit                     Soft Limit           Hard Limit           Units     \nMax cpu time              7000                 7000                 seconds   \nMax file size             1073741824           1073741824           bytes     \nMax data size             unlimited            unlimited            bytes     \nMax stack size            8388608              unlimited            bytes     \nMax core file size        0                    unlimited            bytes     \nMax resident set          unlimited            unlimited            bytes     \nMax processes             375398               375398               processes \nMax open files            65535                65535                files     \nMax locked memory         8388608              8388608              bytes     \nMax address space         19327352832          19327352832          bytes     \nMax file locks            unlimited            unlimited            locks     \nMax pending signals       375398               375398               signals   \nMax msgqueue size         819200               819200               bytes     \nMax nice priority         0                    0                    \nMax realtime priority     0                    0                    \nMax realtime timeout      200000               200000               us        \n"
+        }
+      ]
+    },
+    {
+      "task": "Task29 C",
+      "session": 25608,
+      "source": "e9eb998bbff8e69d4ca03d7ae6b21a7d4043193a",
+      "admission": {
+        "path": "/data2/neural-shrimp-data/explore/sheets/codex-task29/edge-C-001-supervision/admission.json",
+        "bytes": 3886,
+        "sha256": "86a1e188d5f7628ad10fd3bb05f29dc8b773e76a6e912745fafb0e78f298db84"
+      },
+      "worker_startup": {
+        "path": "/data2/neural-shrimp-data/explore/sheets/codex-task29/edge-C-001-supervision/worker-startup.json",
+        "bytes": 2380,
+        "sha256": "7d90d712e43f8c4a7471361e2cb920c76a812b09c89b887e3b8733acd6f8d7d1"
+      },
+      "identities": [
+        {
+          "pid": 1755486,
+          "starttime": 224490230,
+          "pgid": 1755486,
+          "sid": 1755486,
+          "cmdline": "/data2/neural-shrimp/.venv/bin/python -I -B codex/certify-chaos/supervise.py --plan codex/boundary-task29/edge-C-plan.json --lane edge --source e9eb998bbff8e69d4ca03d7ae6b21a7d4043193a ",
+          "nice": 10,
+          "threads": 1,
+          "uid": "Uid:\t1000\t1000\t1000\t1000",
+          "limits": "Limit                     Soft Limit           Hard Limit           Units     \nMax cpu time              unlimited            unlimited            seconds   \nMax file size             unlimited            unlimited            bytes     \nMax data size             unlimited            unlimited            bytes     \nMax stack size            8388608              unlimited            bytes     \nMax core file size        0                    unlimited            bytes     \nMax resident set          unlimited            unlimited            bytes     \nMax processes             375398               375398               processes \nMax open files            65535                65535                files     \nMax locked memory         8388608              8388608              bytes     \nMax address space         1073741824           19327352832          bytes     \nMax file locks            unlimited            unlimited            locks     \nMax pending signals       375398               375398               signals   \nMax msgqueue size         819200               819200               bytes     \nMax nice priority         0                    0                    \nMax realtime priority     0                    0                    \nMax realtime timeout      200000               200000               us        \n"
+        },
+        {
+          "pid": 1755590,
+          "starttime": 224490252,
+          "pgid": 1755590,
+          "sid": 1755590,
+          "cmdline": "/data2/neural-shrimp/.venv/bin/python -I -B /home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/tools/task29_edge_track.py --card /home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/boundary-task29/edge-C-card.json --out /data2/neural-shrimp-data/explore/sheets/codex-task29/edge-C-001 ",
+          "nice": 10,
+          "threads": 1,
+          "uid": "Uid:\t1000\t1000\t1000\t1000",
+          "limits": "Limit                     Soft Limit           Hard Limit           Units     \nMax cpu time              17500                17500                seconds   \nMax file size             2147483648           2147483648           bytes     \nMax data size             unlimited            unlimited            bytes     \nMax stack size            8388608              unlimited            bytes     \nMax core file size        0                    unlimited            bytes     \nMax resident set          unlimited            unlimited            bytes     \nMax processes             375398               375398               processes \nMax open files            65535                65535                files     \nMax locked memory         8388608              8388608              bytes     \nMax address space         12884901888          12884901888          bytes     \nMax file locks            unlimited            unlimited            locks     \nMax pending signals       375398               375398               signals   \nMax msgqueue size         819200               819200               bytes     \nMax nice priority         0                    0                    \nMax realtime priority     0                    0                    \nMax realtime timeout      200000               200000               us        \n"
+        }
+      ]
+    }
+  ],
+  "reservation": "Two CPU1 workers plus two supervisors =4 auxiliary slots;18GiB+12GiB worker AS caps;12GiB shared headroom",
+  "Task32_stage_A_budget_CPU_hours": 10,
+  "Task32_A1_reserved_CPU_seconds": 7000,
+  "Task32_A2_report": {
+    "path": "/data2/neural-shrimp-data/codex/chaos-proof/analytic-001/report.json",
+    "bytes": 33165,
+    "sha256": "98af9bcbed5a4cf4515fea6ad24075313617b03162660a35aa13adea501dca71"
+  },
+  "no_automatic_retry_or_extension": true,
+  "watch_automations": "not restarted"
+}
