@@ -48,13 +48,13 @@ def render(P, col, az, el, W, H, scale, dist, glow):
     img = np.zeros((H * W, 3))
     for c in range(3):
         img[:, c] = np.bincount(idx, weights=col[ok, c] * wdepth[ok], minlength=H * W)
-    img = gaussian_filter(img.reshape(H, W, 3), sigma=(0.7, 0.7, 0))      # splat each state over about a pixel
+    img = gaussian_filter(img.reshape(H, W, 3), sigma=(0.9, 0.9, 0))      # splat each state over about a pixel
     lum = img.sum(2, keepdims=True)
     pos = lum[lum > 1e-9]
-    l0, l1 = np.percentile(pos, 55), np.percentile(pos, 99.9)
+    l0, l1 = np.percentile(pos, 50), np.percentile(pos, 99.0)            # the densest 1 % of pixels saturate
     hue = img / np.maximum(lum, 1e-12)
     inten = np.clip(np.log1p(lum / l0) / np.log1p(l1 / l0), 0, 1)        # logarithmic exposure: faint filaments show
-    out = hue * inten ** 0.8
+    out = hue * inten ** 0.55                                             # lifted midtones (human: "still too dim")
     if glow > 0:
         out = out + glow * gaussian_filter(out, sigma=(3, 3, 0))
     return np.clip(out ** 0.85, 0, 1)
@@ -70,13 +70,15 @@ def main():
     ap.add_argument("--height", type=int, default=1080)
     ap.add_argument("--elev-min", type=float, default=8.0)
     ap.add_argument("--elev-max", type=float, default=38.0)
-    ap.add_argument("--glow", type=float, default=0.6)
+    ap.add_argument("--glow", type=float, default=0.9)
     ap.add_argument("--dims", default="0,1,2", help="principal coordinates for x, y, z")
     ap.add_argument("--title", default=None)
     ap.add_argument("--keep-frames", default=None, help="folder to keep the PNG frames in")
     ap.add_argument("--all-trajectories", action="store_true", help="keep trajectories that reach a periodic orbit (with "
                     "their transients: the approach to a periodic attractor)")
     ap.add_argument("--subtitle", default=None)
+    ap.add_argument("--mark-orbit", type=int, default=0, help="mark the N states of a period-N orbit that most "
+                    "trajectories reach (their last N recorded states) as glowing points")
     args = ap.parse_args()
     import matplotlib
     matplotlib.use("Agg")
@@ -92,8 +94,9 @@ def main():
             else z["periods"] == 0)                 # the chaotic attractor only: drop starts that reached a periodic orbit
     P = C[aper][:, :, dims].reshape(-1, 3).astype(np.float64)
     toks = T[aper].reshape(-1)
-    P = P - np.median(P, axis=0)
-    P = P / np.percentile(np.linalg.norm(P, axis=1), 99.0)                # frame the bulk, not the farthest excursions
+    med = np.median(P, axis=0)
+    sc = np.percentile(np.linalg.norm(P - med, axis=1), 99.0)            # frame the bulk, not the farthest excursions
+    P = (P - med) / sc
     tok = AutoTokenizer.from_pretrained("Qwen/Qwen2.5-0.5B-Instruct", revision="7ae557604adf67be50417f59c2c2f167def9a775",
                                         cache_dir=str(DATA / "models/hf/hub"))
     uniq, counts = np.unique(toks, return_counts=True)
@@ -126,12 +129,33 @@ def main():
     fig.text(0.02, 0.86 - 0.035 * len(labels), "●", color=OTHER, fontsize=16)
     fig.text(0.04, 0.862 - 0.035 * len(labels), "other tokens", color="0.9", fontsize=13)
     cam = fig.text(0.98, 0.03, "", color="0.6", fontsize=11, ha="right")
-    scale = 0.62 * min(W, H)
+    scale = 0.55 * min(W, H)
+    orbit = None
+    if args.mark_orbit:                              # the attracting cycle itself: last N states of converged runs
+        conv = np.nonzero(z["periods"] == args.mark_orbit)[0]
+        if len(conv) == 0:
+            raise SystemExit(f"no trajectory reached period {args.mark_orbit}")
+        Oc = C[conv[0], -args.mark_orbit:][:, dims].astype(np.float64)
+        Oc = (Oc - med) / sc
+        Ot = T[conv[0], -args.mark_orbit:]
+        ocol = [PALETTE[list(top).index(t)] if t in top else OTHER for t in Ot]
+        orbit = (Oc, ocol)
+        glow2 = ax.scatter(np.zeros(len(Oc)), np.zeros(len(Oc)), s=520 * fs, c=ocol, alpha=0.22, linewidths=0)
+        glow1 = ax.scatter(np.zeros(len(Oc)), np.zeros(len(Oc)), s=150 * fs, c=ocol, alpha=0.6, linewidths=0)
+        core = ax.scatter(np.zeros(len(Oc)), np.zeros(len(Oc)), s=34 * fs, c="w", linewidths=0)
+        fig.text(0.98, 0.06, f"glowing points: the {args.mark_orbit} states of the loop", color="0.8",
+                 fontsize=13 * fs, ha="right")
     for i in range(args.frames):
         u = i / args.frames
         az = 2 * np.pi * u
         el = np.radians(args.elev_min + (args.elev_max - args.elev_min) * 0.5 * (1 - np.cos(2 * np.pi * u)))
         im.set_data(render(P, col, az, el, W, H, scale, 3.0, args.glow))
+        if orbit is not None:
+            Q = orbit[0] @ rotation(az, el).T
+            f = 3.0 / (3.0 + Q[:, 1])
+            xy = np.c_[Q[:, 0] * f * scale + W / 2, -Q[:, 2] * f * scale + H / 2]
+            for art in (glow2, glow1, core):
+                art.set_offsets(xy)
         cam.set_text(f"azimuth {np.degrees(az):5.1f}°, elevation {np.degrees(el):4.1f}°")
         fig.savefig(tmp / f"f{i:05d}.png", facecolor="k")
     plt.close(fig)

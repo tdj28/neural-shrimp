@@ -9,7 +9,9 @@ line's moment until it ends (plus a short gap), so speech and picture never drif
 original frames with these freezes inserted, and the lines placed on one soundtrack.
 
 Script: {"video": SRC, "out": OUT, "model": "gpt-4o-mini-tts", "voice": "sage", "instructions": "...",
-         "gap": 0.35, "tail": 1.0, "lines": [{"at": 0.0, "hold": 4.0, "text": "..."}, ...]}
+         "gap": 0.35, "tail": 1.0, "pack": false, "lines": [{"at": 0.0, "hold": 4.0, "text": "..."}, ...]}
+With "pack": true the lines play back to back (gap seconds apart, from the first line's time) and the narrated video
+ends tail seconds after the last line; the picture does not freeze while the narration waits.
 Paths are relative to the repository root. Output: OUT and OUT with suffix .timeline.json (where each line starts in
 the narrated video, every freeze, and the synthesis settings).
 
@@ -81,6 +83,13 @@ def main():
     lines = sorted(sc["lines"], key=lambda ln: ln["at"])
     wavs = [synthesize(ln["text"], model, voice, instr, key) for ln in lines]
     durs = [duration(w) for w in wavs]
+    if sc.get("pack"):                              # back to back: each line starts gap seconds after the previous one
+        t = lines[0]["at"]
+        for ln, d in zip(lines, durs):
+            ln["at"] = round(t, 3)
+            t += d + gap
+        if t - gap > vdur:
+            raise SystemExit(f"packed narration ends at {t - gap:.1f} s, after the video ({vdur:.1f} s): use a longer video")
     H, prev_end, holds, starts = 0.0, 0.0, {}, []
     for ln, d in zip(lines, durs):
         if not 0.0 <= ln["at"] <= vdur:
@@ -99,6 +108,8 @@ def main():
     total = vdur + H
     end_hold = max(0.0, prev_end + tail - total)
     total += end_hold
+    if sc.get("pack"):                              # cut the video shortly after the last line
+        total = min(total, prev_end + tail)
     chain = []
     for f in sorted(holds, reverse=True):                 # later frames first, so earlier indices do not shift
         chain.append(f"loop=loop={int(round(holds[f] * fps))}:size=1:start={f}")
@@ -114,7 +125,7 @@ def main():
             cmd += ["-i", str(w)]
         cmd += ["-filter_complex", f"[0:v]{vf}[vout];{af}", "-map", "[vout]", "-map", "[aout]", "-c:v", "libx264",
                 "-crf", "18", "-preset", "slow", "-pix_fmt", "yuv420p", "-r", f"{fps}", "-c:a", "aac", "-b:a", "192k",
-                "-movflags", "+faststart", str(Path(tmp) / "out.mp4")]
+                "-t", f"{total:.3f}", "-movflags", "+faststart", str(Path(tmp) / "out.mp4")]
         subprocess.run(cmd, check=True)
         Path(tmp, "out.mp4").replace(out)
     timeline = {"video": sc["video"], "out": sc["out"], "model": model, "voice": voice, "instructions": instr,
