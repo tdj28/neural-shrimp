@@ -214,7 +214,8 @@ def grid(args):
         raise SystemExit(f"Newton did not converge at the seed: {hist}")
     vals, vecs, res, rh, Q = lfb.ritz(cell, X, p, Q)
     mu, vlead, clean = leading(vals, vecs)
-    if not args.multipliers_only and (not clean or abs(mu.imag) > 1e-8):
+    seed_ok = abs(mu.imag) <= 1e-8 and (len(vals) < 2 or abs(mu) > args.seed_min_ratio * abs(vals[1]))
+    if not args.multipliers_only and not seed_ok:
         raise SystemExit(f"leading multiplier at the seed is {mu!r} (next {abs(vals[1]):.3g}): choose a seed away from "
                          "the superstable curves")
     refs = [np.ones(1)] * p
@@ -337,6 +338,10 @@ def main():
     g.add_argument("--multipliers-only", action="store_true",
                    help="two-dimensional regime: accept a complex or unclean leading multiplier at the seed and record "
                         "the three leading multipliers per cell (factors are still written but are not meaningful)")
+    g.add_argument("--seed-min-ratio", type=float, default=10.0,
+                   help="the seed needs a real leading multiplier at least this many times the next modulus (cells "
+                        "are still labelled clean at 10); a lower value only relaxes the seed, whose chain directions "
+                        "set the references of the signed factors, not the transported factors or stretchings")
     g.add_argument("--attempts", type=int, default=3,
                    help="distinct solved neighbours a failed cell is tried from (only solved cells seed neighbours)")
     g.add_argument("--out", required=True)
