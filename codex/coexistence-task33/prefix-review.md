@@ -1,0 +1,7 @@
+# Task33 prefix-001 source and execution review
+
+Root reviewed the complete isolated prefix_setup.py and unchanged BallQwen/DyadicWeightCache call path reused from accepted Task32 point_setup.py. Only the exact target cell and2048-bit precision differ; there is no point-step or orbit claim. Exact midpoint/radius pairs are retained without midpoint projection. Inputs include backend source hashes, exact binary64 parameter ratios, pinned model/config/vector hashes, prefix IDs, versions and real temperature/rotary convention. Current assets are checked by the loader and rehashed after execution. Original supervision receipt will remain authoritative; later cache reuse needs an explicit importer or disclosed envelope binding that receipt, not a relabelled historical P8 receipt.
+
+Six manufactured serialization controls passed: four finite enclosure round trips retain containment, nested layout matches the existing cache importer, and nonfinite input refuses. Syntax passed. No target or timing rerun. Previously accepted backend controls and mathematics are reused unchanged.
+
+The plan uses measured Task32 prefix cost790.48–806.62s at1024bits;2048 scaling is an extrapolation.4700CPU/4800wall and18GiBAS are hard limits with no retry/extension.512MiB output cap,32GiB available at launch and16GiB runtime floor. Both prior model jobs are closed, so this reserves only2auxslots. This local bounded run is within existing human authorization. Private checkpoint and fresh supervisor capacity gates precede launch.

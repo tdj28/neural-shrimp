@@ -1,0 +1,84 @@
+{
+  "status": "reviewed_for_execution",
+  "repository": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp",
+  "raw_root": "/data2/neural-shrimp-data/codex/coexistence",
+  "python": "/data2/neural-shrimp/.venv/bin/python",
+  "cpu_threads": 1,
+  "cpu_ids": [
+    0
+  ],
+  "startup_ram_gib": 32,
+  "source_files": [
+    {
+      "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/crosscheck/qwen_map.py",
+      "bytes": 14540,
+      "sha256": "493a3d1d57fec227f5ba2e3f8f9cfcfdd02d22495d1d44e6449ede901310ae6e"
+    },
+    {
+      "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/certify-llm/ball_qwen.py",
+      "bytes": 14008,
+      "sha256": "fcc90849601984506adf26f651067734f9faef408c8f42dffe64bf5c68e98a80"
+    },
+    {
+      "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/certify-llm/ball_linear.py",
+      "bytes": 9512,
+      "sha256": "5d54200f5880d818eabc97e7eed2f1cf02b83b617b39380bef38d49a7ac45ff2"
+    },
+    {
+      "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/coexistence-task33/prefix_setup.py",
+      "bytes": 4593,
+      "sha256": "72a95c042b4d5e229264b07886733b23c385f37b0dd95009dfa067935877fbc3"
+    },
+    {
+      "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/coexistence-task33/prefix-card.json",
+      "bytes": 906,
+      "sha256": "6c2ad90ef0332733f8f249833ec9d2adcd0799b1ec6c4dc415202df0b78e851c"
+    },
+    {
+      "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/certify-chaos/supervise.py",
+      "bytes": 8727,
+      "sha256": "306db32a2c8ada9beb67547bbaafc6d0d7a597b5861b0e629ca9a07801223c44"
+    }
+  ],
+  "lanes": {
+    "prefix": {
+      "entry": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/coexistence-task33/prefix_setup.py",
+      "arguments": [
+        "--card",
+        "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/coexistence-task33/prefix-card.json",
+        "--out",
+        "/data2/neural-shrimp-data/codex/coexistence/prefix-001"
+      ],
+      "output": "/data2/neural-shrimp-data/codex/coexistence/prefix-001",
+      "supervision": "/data2/neural-shrimp-data/codex/coexistence/prefix-001-supervision",
+      "preflight_pins": [
+        {
+          "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/crosscheck/qwen_map.py",
+          "bytes": 14540,
+          "sha256": "493a3d1d57fec227f5ba2e3f8f9cfcfdd02d22495d1d44e6449ede901310ae6e"
+        },
+        {
+          "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/certify-llm/ball_qwen.py",
+          "bytes": 14008,
+          "sha256": "fcc90849601984506adf26f651067734f9faef408c8f42dffe64bf5c68e98a80"
+        },
+        {
+          "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/certify-llm/ball_linear.py",
+          "bytes": 9512,
+          "sha256": "5d54200f5880d818eabc97e7eed2f1cf02b83b617b39380bef38d49a7ac45ff2"
+        }
+      ],
+      "limits": {
+        "as_bytes": 19327352832,
+        "cpu_seconds": 4700,
+        "wall_seconds": 4800,
+        "output_bytes": 536870912
+      },
+      "prior_receipts": [
+        "/data2/neural-shrimp-data/codex/coexistence/phase-proposal-001-supervision/receipt.json",
+        "/data2/neural-shrimp-data/codex/coexistence/dense-001-supervision/receipt.json"
+      ]
+    }
+  },
+  "cost_basis": "Measured1024-bit full prefixes790.48/806.62s and5.10GiB peak for Task32. New2048-bit prefix only: conservative4x806.62+serialization/setup allowance below4700CPU/4800wall; precision scaling is extrapolated, not guaranteed. OneCPU worker plus supervisor,18GiBAS,32GiBstartup/16GiBruntime floors. No retry or extension."
+}

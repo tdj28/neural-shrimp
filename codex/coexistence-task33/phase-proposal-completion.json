@@ -1,0 +1,83 @@
+{
+  "source_commit": "83f60d3d16fb7ac6e516489c76394e847550c39f",
+  "receipt_sha256": "7a145e78c65fd6baf9543ccfd4e1eb06805229c5248a58c2ae51ffafaa61dd92",
+  "report_sha256": "b084685f09dc529c8b1187e507594236ec656e72ee565ffb5bc49752be9518eb",
+  "artifact_count": 13,
+  "source_blobs_checked": 5,
+  "original_process_groups_absent": true,
+  "session_reaped_exit": 0,
+  "external_seconds": 2012.0185215207748,
+  "peak_child_kib": 5778564,
+  "checks": [
+    {
+      "period": 2,
+      "all_phase_arrays_and_residuals_exact": true,
+      "product_and_both_saved_defects_exact": true,
+      "all_finite": true
+    },
+    {
+      "period": 3,
+      "all_phase_arrays_and_residuals_exact": true,
+      "product_and_both_saved_defects_exact": true,
+      "all_finite": true
+    }
+  ],
+  "rows": [
+    {
+      "period": 2,
+      "phases": [
+        {
+          "phase": 0,
+          "relative_l2_closure": 8.361676867653829e-14,
+          "seconds": 437.8158608037047
+        },
+        {
+          "phase": 1,
+          "relative_l2_closure": 3.5888302369618804e-14,
+          "seconds": 402.50858658505604
+        }
+      ],
+      "diagnostics": {
+        "condition_2_estimate": 24.508293029102987,
+        "left_inverse_defect_inf": 7.179920947314147e-15,
+        "right_inverse_defect_inf": 7.149165386140135e-15,
+        "product_norm_inf": 8.989494439455195,
+        "inverse_norm_inf": 10.521529943767296,
+        "statement": "Floating diagnostics only; neither product nor inverse defect is a rigorous enclosure."
+      },
+      "product_order": "A[p-1] @ ... @ A[0]",
+      "certificate_passed": false
+    },
+    {
+      "period": 3,
+      "phases": [
+        {
+          "phase": 0,
+          "relative_l2_closure": 2.1047050956798676e-14,
+          "seconds": 407.9316286146641
+        },
+        {
+          "phase": 1,
+          "relative_l2_closure": 1.950067554804759e-14,
+          "seconds": 392.03982230089605
+        },
+        {
+          "phase": 2,
+          "relative_l2_closure": 3.836954182700457e-14,
+          "seconds": 363.6990514649078
+        }
+      ],
+      "diagnostics": {
+        "condition_2_estimate": 285.10603286574883,
+        "left_inverse_defect_inf": 3.140329420385935e-14,
+        "right_inverse_defect_inf": 2.1518951646092542e-14,
+        "product_norm_inf": 25.705407161943874,
+        "inverse_norm_inf": 25.319720068336167,
+        "statement": "Floating diagnostics only; neither product nor inverse defect is a rigorous enclosure."
+      },
+      "product_order": "A[p-1] @ ... @ A[0]",
+      "certificate_passed": false
+    }
+  ],
+  "scope": "Floating phase Jacobians and exact-dyadic inverse proposals; no interval enclosure or rigorous inverse claim."
+}
