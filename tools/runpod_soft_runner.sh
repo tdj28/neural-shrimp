@@ -1081,11 +1081,13 @@ snapshot_download('$repo', revision='$rev', cache_dir='$NEURAL_SHRIMP_DATA/model
     CPY=/data2/neural-shrimp-runtime/python/cpython-3.12.14-linux-x86_64-gnu/bin/python3.12
     uv venv -q -p $CPY /root/certvenv > "$CO/setup-venv.log" 2>&1
     uv pip install -q -p /root/certvenv/bin/python "numpy==2.5.3" "python-flint==0.9.0" "safetensors==0.8.0" \
+      "threadpoolctl==3.7.0" "tokenizers==0.23.3" \
       > "$CO/setup-pip.log" 2>&1
     uv pip install -q -p /root/certvenv/bin/python "torch==2.14.1+cu130" --index-url https://download.pytorch.org/whl/cu130 \
       >> "$CO/setup-pip.log" 2>&1
     CV=/root/certvenv/bin/python
-    tar xf "$RD/src.tar" -C /root
+    tar --no-same-owner -xf "$RD/src.tar" -C /root            # owned by the pod's user, so git accepts the repository
+    chown -R "$(id -u):$(id -g)" /root/cert-src
     git -C /root/cert-src remote set-url origin /root/cert-src
     $CV -I tools/cert_remote.py prepare --packet /root/cert-src/$packet --src-data $NEURAL_SHRIMP_DATA \
       --record "$CO/prepare.json" > "$CO/prepare.log" 2>&1
@@ -1107,6 +1109,11 @@ snapshot_download('$repo', revision='$rev', cache_dir='$NEURAL_SHRIMP_DATA/model
     uv pip freeze -p /root/certvenv/bin/python > "$CO/pip-freeze.txt" 2>&1
     free -g > "$CO/free.txt"; df -h /data2 > "$CO/df.txt"; nproc > "$CO/nproc.txt"; lscpu > "$CO/lscpu.txt"
     cat "$CO/pack.log"
+    ;;
+  shrimpc)     # run P5C: doubly superstable point of the period-5 window's reduction (tools/shrimp_centre.py, float64 on the
+               # GPU): JOBARGS = NAME MINUTES ARGS...; vectors-l4/l16 uploaded with --extra-data
+    TOOL=shrimp_centre.py run shrimpc-${JOBARGS[0]} "${JOBARGS[1]}" --device cuda --threads 8 "${JOBARGS[@]:2}" \
+      --out $D/shrimp/${JOBARGS[0]}
     ;;
   hidden)      # hidden chaos along a line (tools/hidden_chaos.py): JOBARGS NAME MINUTES ARGS...; float64 on the GPU,
                # Qwen2.5-0.5B (cached), twins at two offsets, leading-token statistics, into hidden/NAME

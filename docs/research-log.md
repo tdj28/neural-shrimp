@@ -29324,3 +29324,33 @@ Own ManualQwen CPUfloat64, exact alpha.06468/log10T-.148, pinned p2+_6/p3+_6 pro
 
 ## 2026-10-18 | Codex calibration002 disclosed environment recovery
 Original001 failed before columns on missing threadpoolctl, exit1/no timeout; whole returned archive/inventory authenticated and retained in calibration-001-failure.json. Fresh002 attempt/plan/packet adds explicit six-module import/version preflight; scientific evaluator/domain/prefix/1024bit/columns remain unchanged. Same oneCPU/nice10/18GiB/3600s limits and Claude-owned ceiling/orchestrator; no further automatic retry. Source packet codex/certificate-ladder-task34/calibration-002.json; original cost basis1521.453s/5420344KiB unchanged. No certificate claim.
+## 2026-10-18 06:32 UTC: P5Z amendment 3: tip zooms with a marched seed; the human's priority is a verifiable shrimp
+
+**Context.** The human wrote: "if you need to spend more to find that damn shrimp than do so. we must find a verifiable shrimp" (RunPod balance about 200). The test for a shrimp centre in this map, which is not strictly one-dimensional, is the two-dimensional-map criterion the paper already uses for the period-5 window: zero curves of the trace of the leading multiplier pair, tr = Re(mu1 + mu2).
+- At -0.100 the trace-zero curve is closed, a type-A head.
+- A centre is where two trace-zero curves cross in an X, the analog of a doubly superstable point.
+- **P5D -0.105 grid:** one 2 x 2 block at (row 18, col 11), with alpha1 -0.12125 to -0.12100 and alpha2 0.10341 to 0.10377, where the trace's sign alternates across the diagonal. That is an X candidate, at the band's tip where steps 0 and 1 are both small.
+- **Z110 zoom:** no X inside its box. One diagonal trace-zero curve, plus a pocket open at the lower edge. Its complex cells form a thin strip along which steps 2 and 3 are both small (min 0.043 and 0.067).
+- **Z105d:** running, but it expands from a seed far left of the tip and may not reach it in its time limit.
+
+**Change** (tools/doubly_superstable.py --march-from A1 A2 --march-steps N): start where the fixed start reaches the period-p orbit, and continue that orbit by Newton along a straight line to --seed. The march's Newton residuals are recorded.
+
+**Runs.** Three tip zooms, 21 x 21 over alpha1 [-0.12175, -0.12075] and alpha2 [0.10300, 0.10420], seed (-0.12150, 0.10341), marched in 30 steps from the P5D seed (-0.117872, 0.102936), --seed-min-ratio 2, at log10 T -0.103, -0.105 and -0.107.
+
+**Reading, fixed now:**
+- the trace sign map and its diagonal-alternating blocks, whose locations count as X candidates;
+- the step map: which steps have a stretching below 0.2;
+- the complex island: its cells and its size;
+- across the three temperatures, how the candidate moves or appears.
+
+An X that is present at fine resolution (all four sign quadrants around one point, with a complex island at most a cell or two) supports a shrimp centre in the two-dimensional-map sense. The next steps are then a Newton location of the point, its multipliers, the legs, and the window's fold and flip boundary.
+
+## 2026-10-18 06:34 UTC: Run card P5C (exploratory): Newton location of a doubly superstable point of the period-5 window's reduction
+
+**Tool.** tools/shrimp_centre.py (commit ca35df5f). It marches from the P5D fixed-start cell (-0.117872, 0.102936) at log10 T -0.105 to the start (-0.121254, 0.103770), next to the X candidate (mu -0.29, steps 0 and 1 small). References are the chain directions there, refreshed at each accepted step. It runs Newton on (c_0, c_1) = 0 in (alpha1, alpha2), with finite differences h 2e-6 and caps of 1e-4.
+
+**Reading, fixed now:**
+- Convergence of the factors of steps 0 and 1 to |F| < 1e-7 with a converged period-5 orbit carrying the window's token loop, and with reference cosines above 0.5, gives a doubly superstable point of the reduction.
+- At that point, report the leading multipliers (expected at the transverse scale), the stretchings, and the 7 x 7 local check grid, where all four sign quadrants of (c_0, c_1) are required.
+- Non-convergence, or a solution outside the window, is reported as such.
+- **Claim boundary:** a numerical point of the one-dimensional reduction, not a proof. In the full map the trace-zero curves form an avoided crossing around it.

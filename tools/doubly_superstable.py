@@ -200,18 +200,32 @@ def grid(args):
         log.write(line + "\n")
         log.flush()
 
-    # seed: the attractor reached from the fixed start must have period p
+    # seed: the attractor reached from the fixed start must have period p, at the seed or, with --march-from, at a
+    # start cell from which the orbit is continued (Newton at each of --march-steps points of a straight line) to the seed
     tic = time.perf_counter()
     a0, lt0 = args.seed
-    cell = make_cell(a0, lt0)
+    s0 = tuple(args.march_from) if args.march_from else (a0, lt0)
+    cell = make_cell(*s0)
     X = cell.iterate(cell.start, args.transient)
     found = cell.detect_period(X, max(p, 32), 1e-6)
     if found != p:
-        raise SystemExit(f"the attractor at the seed ({a0}, {lt0}) has period {found}, not {p}: refusing to start")
+        raise SystemExit(f"the attractor at the start cell {s0} has period {found}, not {p}: refusing to start")
     Q = np.linalg.qr(np.random.default_rng(0).normal(size=(X.numel(), args.k)))[0]
     X, Q, hist = lfb.newton(cell, X, p, Q, lfb.tol_for(p, args.tol), 12)
     if not hist[-1] < lfb.tol_for(p, args.tol):
-        raise SystemExit(f"Newton did not converge at the seed: {hist}")
+        raise SystemExit(f"Newton did not converge at the start cell: {hist}")
+    if args.march_from:
+        march = []
+        for k in range(1, args.march_steps + 1):
+            u = k / args.march_steps
+            pt = (s0[0] + u * (a0 - s0[0]), s0[1] + u * (lt0 - s0[1]))
+            cell = make_cell(*pt)
+            X, Q, hist = lfb.newton(cell, X, p, Q, lfb.tol_for(p, args.tol), 12)
+            march.append({"point": [float(pt[0]), float(pt[1])], "newton": float(hist[-1])})
+            if not hist[-1] < lfb.tol_for(p, args.tol):
+                emit({"march": march})
+                raise SystemExit(f"the march lost the orbit at step {k} {pt}: {hist}")
+        emit({"march_from": list(s0), "march_steps": args.march_steps, "march_last_newton": march[-1]["newton"]})
     vals, vecs, res, rh, Q = lfb.ritz(cell, X, p, Q)
     mu, vlead, clean = leading(vals, vecs)
     seed_ok = abs(mu.imag) <= 1e-8 and (len(vals) < 2 or abs(mu) > args.seed_min_ratio * abs(vals[1]))
@@ -338,6 +352,9 @@ def main():
     g.add_argument("--multipliers-only", action="store_true",
                    help="two-dimensional regime: accept a complex or unclean leading multiplier at the seed and record "
                         "the three leading multipliers per cell (factors are still written but are not meaningful)")
+    g.add_argument("--march-from", type=float, nargs=2, default=None, metavar=("ALPHA", "ROW"),
+                   help="start where the fixed start reaches the period-p orbit and continue it to --seed along a line")
+    g.add_argument("--march-steps", type=int, default=24)
     g.add_argument("--seed-min-ratio", type=float, default=10.0,
                    help="the seed needs a real leading multiplier at least this many times the next modulus (cells "
                         "are still labelled clean at 10); a lower value only relaxes the seed, whose chain directions "

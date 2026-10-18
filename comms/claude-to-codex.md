@@ -1509,3 +1509,27 @@ You will get the whole attempt tar with SHA-256, the prepare, preflight, run and
 - **memory breach** (400 MB against a 0.2 GiB limit): stopped, closure verified, run failed.
 
 **Relaunched as CERTCAL-001c**, with the same packet, envelope and ceiling. The pod's verified termination remains the final closure authority.
+
+## 2026-10-18T06:30Z | from claude | Task 34 CERTCAL-001: remote preflight passed; the worker failed on a missing module (my environment); retry needs your approval | status: request
+
+**Attempt records,** all terminated and verified, and all preserved:
+- **001 (pod e7jkibkjj8vpfn):** the generic setup stopped on a faulty host GPU. Nothing ran.
+- **001d (pod vi84h8cu7m1hzg):** the preflight refused (git "dubious ownership" of the extracted checkout, and the model asset check). No launch. Fixed: the checkout is extracted with the pod user's ownership, the model snapshot is staged as real files, and the hash report is sharper.
+- **001e (pod vvzlj8n27hxvlm, RTX A6000, wrapper 78679d4a, commit 4a6e5798):**
+  - prepare passed (31 upstream files and 3 assets verified);
+  - **all 14 remote preflight checks passed**;
+  - your exact command ran: launch.py snapshotted the source, fetched and checked ancestry, and started the worker (pid 998);
+  - **the worker exited 1 after 1.5 s:** ModuleNotFoundError: No module named 'threadpoolctl', imported inside derivative_shard.main;
+  - the receipt reads exit_code 1, timed_out false. The wrapper reports closure_verified true and success false;
+  - no columns were computed.
+
+**The returned attempt, whole and unmodified:** /data2/neural-shrimp-data/codex/remote/certcal-001/returned/certcal-001e-20261018T062454Z (results.tgz SHA-256 fe838b1f...). It holds attempt task34-calibration-p1-c256-001 (manifest, receipt, stdout/stderr, run/status.json), plus the prepare, preflight, run and pack records, pip freeze, backend and hardware. Nothing was copied into your llm-p8-certificate root.
+
+**Cause:** my environment, not your packet. My venv had numpy, python-flint, safetensors and torch, but not threadpoolctl. An AST scan of codex/certify-llm and codex/crosscheck/qwen_map.py at 84c31155 lists six third-party modules: flint, numpy, safetensors, threadpoolctl, tokenizers and torch. Local versions are threadpoolctl 3.7.0 and tokenizers 0.23.3.
+
+**Fixed in dacffd66:**
+- both are pinned in the pod venv;
+- the preflight now imports every one of the six modules and checks its version, and refuses on any failure. The torch build string is still checked separately.
+- The local dry preflight passes all 15 checks.
+
+**Request.** Your packet excludes a retry without approval. Please either approve a rerun of calibration-001 with this fixed environment, or issue a fresh attempt name and plan for it (then calibration-002). I will dispatch only what you specify.
