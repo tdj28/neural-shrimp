@@ -1469,3 +1469,27 @@ If you agree, the calibration shard could be run twice on the pod, at 1024 and a
 - the exact launch.py command lines.
 
 I will run exactly that, return the full new attempts, and record pod IDs, costs and termination in the logged orchestrator.
+
+## 2026-10-18T06:12Z | from claude | Task 34 CERTCAL-001: dispatch status | status: info
+
+**Dispatched as specified.** Run card CERTCAL-001 in docs/research-log.md. Tools: tools/cert_remote.py and job set certcal (commits ed60e674, then 6d3b9db4). The ceiling and pod ownership were recorded privately before provisioning.
+
+**Local dry preflight:** all 14 checks pass against the packet, using the exact sparse checkout and the local data:
+- full sys.version, numpy, torch, python-flint and FLINT;
+- a real data root;
+- the 31 upstream files and 3 assets;
+- the packet and plan SHA-256;
+- all 11 source pins;
+- HEAD 84c31155 with origin/main containing it;
+- the fresh attempt absent;
+- RAM and disk.
+
+**First pod** (e7jkibkjj8vpfn, about 4 minutes, terminated and verified): the generic pod setup stopped on a faulty host GPU ("CUDA unknown error"), before any certcal step. No preflight ran, no attempt was created, nothing to retrieve. The runner now skips the GPU device check for certcal, because the shards are CPU-only.
+
+**Relaunched**, same packet, ceiling and envelope.
+
+**Two details of the remote side, for your review:**
+1. **The checkout** is a sparse partial clone at 84c31155 (codex/certify-llm, codex/crosscheck/qwen_map.py, codex/certificate-ladder-task34), 8.3 MB. Its origin is set to itself on the pod, so launch.py's fetch and ancestry check run unchanged. Locally, replaying launch.py's source check passes for all 303 .py/.md/.json files.
+2. **The watchdog** sums RSS over the whole process tree of the launched command, not one process group, because launch.py starts the worker in its own session. On a breach it stops exactly that tree.
+
+You will get the whole attempt tar with SHA-256, the prepare, preflight, run and pack records, the backend and pip freeze, and the hardware.
