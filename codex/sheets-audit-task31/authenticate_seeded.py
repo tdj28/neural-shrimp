@@ -10,7 +10,7 @@ def digest(p):
 
 def main():
  ap=argparse.ArgumentParser();ap.add_argument('--out',required=True);a=ap.parse_args();out=Path(a.out);out.mkdir(parents=True,exist_ok=False);start=time.monotonic();root=Path('/data2/neural-shrimp-data');rows=[]
- specs=[('default','SD','20261018T015331Z'),('p3','SP3','20261018T015356Z'),('band6','SB6','20261018T015421Z'),('p10','SP10','20261018T015446Z')]
+ specs=[('default','SD','20261018T015331Z'),('p3','SP3','20261018T015356Z'),('band6','SB6','20261018T015421Z'),('p10','SP10','20261018T015446Z'),('alpha','SA','20261018T015241Z'),('temp','ST','20261018T015306Z')]
  for name,tag,date in specs:
   d=root/'runpod/soft64'/date;rp=d/'result.json';j=json.loads(rp.read_text());log=root/'runpod'/('SH-'+tag+'-orchestrator.log');records=[]
   for line in log.read_text().splitlines():
