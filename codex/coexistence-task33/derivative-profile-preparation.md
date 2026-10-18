@@ -1,0 +1,5 @@
+# Composed derivative profile preparation
+
+Source only, not yet admitted. Freeze the first eight positive basis columns and normalized sum direction, final saved phase0 at indices511(P2)/510(P3), and all seven central-difference steps1e-2,3e-3,1e-3,3e-4,1e-4,3e-5,1e-5. No best-row selection, eigenanalysis, or target-dependent plateau adjustment. The direct composed JVP versus batch column sum tests batching/linearity on the same composed map; the entire FD ladder measures effective precision, not merely dtype. Retain all native arrays and all differences.
+
+Review exact source, tiny manufactured composed-map controls and pin the completed settle-state hash plus own map/assets before execution. Use a separate bounded representative card informed by prior Task14 dense-column timing and the measured Task33 map cost; none is admitted here. This profile measures eight columns at the final saved state only, not all896columns or the critical multiplier. Full dense-versus-composed-JVP and critical-multiplier checks remain for later numerical qualification. No assertion of h-squared convergence before actual evidence.
