@@ -29666,3 +29666,16 @@ At the FA-P11 seed, beside the head, the per-step factors of steps 2 and 4 are 0
 - the rank picture at the head against the rings and the body;
 - d1 at the head well above d1 away (a decade or more) means a locally higher-rank return map;
 - d1 staying small at the head means a nearly rank-one, strongly nonnormal return map with comparable tiny eigenvalues.
+
+## 2026-10-18 09:57 UTC: RK-P5 first points: the head's return map is nearly of rank one and strongly nonnormal; run card RK-G (the singular reduction around the head)
+
+**RK-P5** (local GPU, running; 5 of 10 points so far):
+- **Far** (the body's fixed-start cell; multipliers 0.27, 0.015): s1 = 6.2; d1 = s2/s1 = 0.034, 0.23 and 0.017 at phases 0, 2 and 4.
+- **Head** (multipliers 3.6e-3, then a 3.3e-3 pair): s1 = 64.6; d1 = 1.8e-4, 0.029 and 1.3e-3; d3 = 1.2e-5 to 1.4e-4.
+- **Inner ring** at 5e-5 (mu1 0.04 to 0.29): s1 61 to 72; d1 the same as at the head to within 15 % at phase 0.
+
+**Reading.** No rise of d1 at the head: the return map there is nearly rank one, more so than in the body, with s1 about 65 against eigenvalues about 3e-3. The leading left and right singular vectors are nearly orthogonal: the consult's nonnormal alternative, not a higher-rank core.
+
+**Run card RK-G.** The singular reduction lambda_red = s1 (v1 . u1), the nonzero eigenvalue of the rank-one part. It is defined wherever s1 is well separated from s2 (here d1 is about 1e-4), so also at the head, where the eigenvector-based reduction fails.
+- Grid: 11 x 11 cells of spacing 1e-5 around the head, phase 0.
+- Reading: the zero set of lambda_red. Two zero curves crossing at the head (lambda_red with a saddle there) would be a head of the one-dimensional kind in this reduction; a single zero curve through the head would not.
