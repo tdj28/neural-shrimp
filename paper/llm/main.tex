@@ -2014,27 +2014,31 @@ its own curves: the stripes by the distance to the fold of `` is it'', the band 
 either family's curves. In parts of the crossing the crescent's family lies over the stripes, in others a stripe lies
 over the band, and the order can change from one cell to the next. Every cell of the maps starts from the same state,
 the embedding of the prompt's last token, so where two attractors coexist a map shows the one whose basin contains that
-state. To see what the maps hide, we recomputed the window of Figure~\ref{fig:cross512} on a $192\times256$ grid in
-seven more ways: from the fixed start; from states of the crescent's period-3 orbit, of the band's 6-cycle and of the
-period-10 stripe; and by following each attractor continuously across the plane, with every column (or row) of cells
-starting from the final states of the previous one, in both directions of $\alpha$ and of $T$
-(Figure~\ref{fig:sheets}; \texttt{docs/sheets/analysis.json}).
+state. To see what the maps hide, we recomputed the window of Figure~\ref{fig:cross512} on a $192\times256$ grid as
+eight maps: one from the fixed start; three from states of the crescent's period-3 orbit, of the band's 6-cycle and of
+the period-10 stripe; and four sweeps that follow each attractor across the plane as far as they can, with every column
+(or row) of cells starting from the final states of the previous one, in both directions of $\alpha$ and of $T$
+(Figure~\ref{fig:sheets}; \texttt{docs/sheets/analysis.json}). An independent audit with separate code reproduced every
+count below from the raw maps.
 \begin{itemize}
-  \item \emph{Two overlapping sheets.} Periodic attractors of the crescent's family (loops that write
-  ``\textbackslash n\textbackslash nThe \ldots'') exist at 13{,}585 of the 49{,}152 cells, and those of the 2-cycle
-  and its stripes (loops that write `` is \ldots'') at 36{,}787. Both exist at 9{,}675 cells, on a broad arc that
+  \item \emph{Two overlapping sheets.} We group periodic attractors by the text their loops write, not by
+  continuation. Periodic attractors of the crescent's family (loops that write
+  ``\textbackslash n\textbackslash nThe \ldots'') were found at 13{,}585 of the 49{,}152 cells, and those of the
+  2-cycle and its stripes (loops that write `` is \ldots'') at 36{,}787. Both exist at 9{,}675 cells, on a broad arc that
   covers the crescent and runs under the stripes (Figure~\ref{fig:sheets}b). The fixed-start map hides 32\,\% of the
   crescent family's cells and 36\,\% of the 2-cycle family's. Along each temperature row the crescent family's
   branch is continuous: at $\log_{10}T=-0.1415$ it runs from $\alpha=0.066$ to about 0.0745, under the stripes
   (Figure~\ref{fig:sheets}d; Figure~\ref{fig:sheets3d} shows the two sheets in 3D).
-  \item \emph{Selection by the start.} Where only one family has a periodic attractor, the fixed start never reaches
-  the other: there is no exception among the 49{,}152 cells. Where both exist, it reaches the crescent's family at
-  65.4\,\% of the cells and the 2-cycle's family at 28.5\,\% (the rest are chaotic or unresolved). In the crescent
+  \item \emph{Selection by the start.} Where the seven other maps find a periodic attractor of only one family, the
+  fixed start reaches the other family at just 70 of those 31{,}042 cells (0.2\,\%). Where both families were found,
+  it reaches the crescent's family at 65.4\,\% of the cells and the 2-cycle's family at 28.5\,\% (the rest are
+  chaotic or unresolved). In the crescent
   zone the split is 70 to 29\,\%; across the band it is 48.5 to 48.0\,\%, with the choice alternating from cell to
   cell, which is the alternating order seen in the map. Of the map's 1{,}376 edges between periodic cells of different
-  families, 557 are pure switches: each side's family also exists on the other side, and only the basin that holds the
-  fixed start changes. At 662 one family ends while the other continues beneath it, and at 157 both end. These counts
-  are lower bounds on the overlap, since seven ways of starting cannot find every attractor.
+  families, 557 are pure switches: each side's family was also found on the other side, and only the basin that holds
+  the fixed start changes. At 662 one side's family was not found on the other side by any map, and at 157 neither
+  was. Eight maps cannot find every attractor, so these are not proofs that a family ends there, and the switch count
+  is a lower bound.
   \item \emph{The crescent's own edge is a switch.} At each temperature the crescent's period-3 orbit exists from its
   fold onward, but the fixed start reaches it only farther right: in a strip up to $1.1\times10^{-3}$ wide in $\alpha$
   both coexist and the map shows the 2-cycle (Figure~\ref{fig:hiddenstrip}). At $\log_{10}T=-0.148$ the map's

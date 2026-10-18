@@ -107,6 +107,17 @@ def main():
         edges["switch"] += int(sw.sum())
         edges["one_family_ends"] += int(one.sum())
         edges["both_families_end"] += int(both.sum())
+    # The footprints include the fixed-start map, so "the fixed start never shows a group absent at that cell" holds by
+    # construction. The meaningful check uses footprints from the other maps only (18 Oct 2026, after Codex Task 31).
+    oth = np.array([g for n, g in groups.items() if n != args.default])
+    o3, o2 = (oth == 1).any(0), (oth == -1).any(0)
+    leave_default_out = {}
+    for lab, m in (("other_maps_find_3group_only", o3 & ~o2), ("other_maps_find_2group_only", o2 & ~o3),
+                   ("other_maps_find_both", o3 & o2), ("other_maps_find_neither", ~o3 & ~o2)):
+        leave_default_out[lab] = {"cells": int(m.sum()), "fixed_start_3group": int(((dflt == 1) & m).sum()),
+                                  "fixed_start_2group": int(((dflt == -1) & m).sum()),
+                                  "fixed_start_chaos": int(((dflt == 2) & m).sum()),
+                                  "fixed_start_no_period": int(((dflt == 0) & m).sum())}
     stl = maps[args.default]["settle"].astype(float)
     on_edge = (edge_class > 0).any(-1)
     near = on_edge | np.roll(on_edge, 1, 0) | np.roll(on_edge, 1, 1)
@@ -123,6 +134,10 @@ def main():
         "fixed_start_3group_inside_overlap": int(((dflt == 1) & overlap).sum()),
         "fixed_start_2group_inside_overlap": int(((dflt == -1) & overlap).sum()),
         "edges_of_fixed_start_map": edges,
+        "edge_class_note": ("switch: each side's group was found on the other side by some map. one_family_ends and "
+                            "both_families_end mean that one or both groups were NOT FOUND on the other side by any "
+                            "map: a finite search, not a certified bifurcation or disappearance (Codex Task 31)."),
+        "leave_default_out": leave_default_out,
         "median_settle_near_edges": float(np.median(stl[near & fixed])) if (near & fixed).any() else None,
         "median_settle_elsewhere": float(np.median(stl[~near & fixed])) if (~near & fixed).any() else None,
         "per_map_group_cells": {n: {"3group": int((g == 1).sum()), "2group": int((g == -1).sum()),
