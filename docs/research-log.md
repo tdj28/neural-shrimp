@@ -29115,3 +29115,47 @@ On that basis, 629 chaotic cells (4.4 %) use both families' words heavily, 13,15
 - If the window is not found in the coarse box, that is reported with the temperature.
 
 **Compute.** Three pods; costs in the private ledger.
+
+## 2026-10-18 04:05 UTC: MT results, part 1, and amendment 1 (before any cross-test data): the bracket test compared opposite arms
+
+**Run.** Pod dh0xagv1jhe5vs, commit 978c85af (from the orchestrator log); terminated (verified by orchestrator lookup and inventory). Raw data: explore/llm-soft-loop/pod64/sheets/{transect-crescent,transect-B,transect-S,edge-crescent}; runner output runpod/soft64/20261018T024942Z.
+- transect-crescent: status 0, 539 s.
+- transect-B: status 124. It timed out at its 22-minute limit after classifying 3 switches, so no transect.json was written; the log keeps the coarse x0 labels and the three classes.
+- transect-S: status 0, 1185 s.
+- edge-crescent: status 0, 748 s.
+
+**Development transect** (log10 T -0.148, calibration).
+- Both families persist across the whole transect, from their seeds and in both directions: the 2-cycle (|mu1| 0.047) and the crescent's period 3 (|mu1| 0.243).
+- x0 switches between them inside alpha [0.064683398, 0.064683594]. The class is selection (stable overlap), as expected.
+- The alternative start (" world") stays on the 2-cycle along the whole transect.
+
+**Edge** (log10 T -0.148).
+- The switch is bracketed to alpha [0.0646835575962, 0.0646835575986].
+- On the 2-cycle side, the lingering state seeds Newton to an unstable period-3 orbit (residual 4.7e-14) with two unstable multipliers, 3.11 and -1.20. The trajectory passes within 0.011 of it, but never within 1e-4.
+- On the period-3 side, the "lingering" state is the attracting period-3 orbit itself.
+- So the set that organizes this basin boundary is not identified. A saddle with two unstable directions cannot by itself form the boundary.
+
+**Held-out switches, as computed by the classifier fixed in the run card.**
+- S: 0 of 4 classed selection. Three are "intrinsic or unresolved: a family of x0 is not continued across the bracket", and one is "unresolved: x0 reaches no detected period on one side".
+- B: 3 switches classified before the timeout, 2 "intrinsic or unresolved" and 1 "unresolved".
+- **Endpoint as fixed: 0 of the 7 classified held-out switches.**
+
+**Why that number does not answer the run card's question.**
+- At a bracket, the classifier compares the continuation arm arriving from the low side (at the low end) with the arm arriving from the high side (at the high end).
+- On S, the period-12 seed fell onto the band at alpha 0.0700. The arm from the high side therefore never held period 12, and so it could never "keep its family across" a bracket.
+- Directly: the arm from the low side holds period 12 at every coarse point from alpha 0.0690 to 0.069375, attracting (twin exponents -0.36 to -0.48; |mu1| 0.009-0.010 at the low ends of the first two brackets). Both band arms hold the crescent family's period-3 orbit at every coarse point up to 0.0693125 (|mu1| 0.889-0.892 at both ends of the first two brackets).
+- So at the two switches near alpha 0.06912, both families exist and are attracting on both sides, according to the coarse arms. The classifier's verdict there comes from its pairing of arms.
+- Near 0.06943, the crescent family's orbit approaches its period doubling (|mu1| 0.944-0.972) and convergence slows. Several labels there are "-" with twin exponents of -0.009 to -0.019: slow convergence, not chaos.
+
+**Amendment 1** (before any cross-test data).
+- tools/sheets_transect.py gains a cross test (see its docstring):
+  - x0 is run at both bracket ends;
+  - each end's final state is continued at the other end;
+  - multipliers are computed for every periodic orbit found;
+  - a side with no detected period is rerun for 6000 steps.
+- Classes: **selection** if each side's family persists on the other side with all four orbits attracting; **intrinsic** if a side's family does not persist; **unresolved** otherwise.
+- Runs, on the local GPU (RTX 2000 Ada, idle; float64):
+  1. the cross test on the development bracket (calibration; expected: selection);
+  2. the cross test on S's four brackets (--from-report);
+  3. B rerun in full with the amended tool and no time limit.
+- **Endpoint under amendment 1:** the number of held-out switches (S and B) that the cross test classes as selection, with the unresolved and intrinsic counts. The fixed classifier's 0 of 7 stays on record.
