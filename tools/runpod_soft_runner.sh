@@ -1923,6 +1923,38 @@ snapshot_download('$REPO', revision='$MREV', cache_dir='$NEURAL_SHRIMP_DATA/mode
     done
     wait
     ;;
+  fmg)         # run FMG: the fold map of any window of a two-block plane (generalizes fm5t). JOBARGS: NAME LOG10T SEED-A1
+               # SEED-A2 BRANCH-MINUTES CURVE-MINUTES CURVE-STEPS BRANCH-DS BRANCH-DS-MAX CURVE-DS CURVE-DS-MAX A1LO A1HI
+               # A2LO A2HI CONCEPT1 CONCEPT2 [BRANCHES]. Four branches of the seed's attractor (period detected from the
+               # fixed start) in alpha1 and alpha2 each way, then every boundary they reach continued both ways (kind
+               # auto); BRANCHES (comma-separated) restricts both steps; at most four curve processes fit in 80 GB
+    nm=${JOBARGS[0]}; lt=${JOBARGS[1]}; sa1=${JOBARGS[2]}; sa2=${JOBARGS[3]}
+    bmin=${JOBARGS[4]}; cmin=${JOBARGS[5]}; csteps=${JOBARGS[6]}; bds=${JOBARGS[7]}; bdsmax=${JOBARGS[8]}
+    cds=${JOBARGS[9]}; cdsmax=${JOBARGS[10]}; a1lo=${JOBARGS[11]}; a1hi=${JOBARGS[12]}; a2lo=${JOBARGS[13]}; a2hi=${JOBARGS[14]}
+    c1=${JOBARGS[15]}; c2=${JOBARGS[16]}
+    BL=" $(echo "${JOBARGS[17]:-a1-up,a1-down,a2-up,a2-down}" | tr ',' ' ') "
+    export OMP_NUM_THREADS=2 OPENBLAS_NUM_THREADS=2 MKL_NUM_THREADS=2
+    TBA="--layer 4 --vectors llm-phase-map/vectors-l4 --concept $c1 --block2 16 --vectors2 llm-phase-map/vectors-l16
+         --concept2 $c2 --log-temperature $lt"
+    BRG="branch --device cuda --threads 2 --dtype float64 --reference-dtype none --no-exact-jvp --chunk 896 --period 0
+         --transient 900 --steps 150 --ds $bds --ds-max $bdsmax --beyond $bds"
+    SEED="--alpha $sa1 --alpha2 $sa2"
+    FD=$D/fmg-$nm
+    [[ $BL == *" a1-up "* ]] && run $nm-branch-a1-up "$bmin" $BRG $TBA $SEED --free alpha --direction 1 --bounds $a1lo $a1hi --out $FD/branch-a1-up &
+    [[ $BL == *" a1-down "* ]] && run $nm-branch-a1-down "$bmin" $BRG $TBA $SEED --free alpha --direction -1 --bounds $a1lo $a1hi --out $FD/branch-a1-down &
+    [[ $BL == *" a2-up "* ]] && run $nm-branch-a2-up "$bmin" $BRG $TBA $SEED --free alpha2 --direction 1 --bounds $a2lo $a2hi --out $FD/branch-a2-up &
+    [[ $BL == *" a2-down "* ]] && run $nm-branch-a2-down "$bmin" $BRG $TBA $SEED --free alpha2 --direction -1 --bounds $a2lo $a2hi --out $FD/branch-a2-down &
+    wait
+    CG="curve --device cuda --threads 2 --dtype float64 --reference-dtype none --no-exact-jvp --gmres-tol 1e-10
+        --tol 1e-10 --gtol 1e-9 --max-newton 10 --chunk 448 --steps $csteps --ds $cds --ds-max $cdsmax
+        --alpha-bounds $a1lo $a1hi --alpha2-bounds $a2lo $a2hi"
+    for b in $BL; do
+      for dir in 1 -1; do n=$([ $dir = 1 ] && echo plus || echo minus)
+        run $nm-curve-$b-$n "$cmin" $CG --start $FD/branch-$b --kind auto --direction $dir --out $FD/curve-$b-$n &
+      done
+    done
+    wait
+    ;;
   fm5x)        # run FM5X: fold and flip curves of the FM5 period-5 orbit continued again from the FM5 branches with wider
                # bounds (alpha1 -0.140..-0.095, alpha2 0.075..0.130), so that the legs are traced to their tips (FM5 and
                # FM5c stopped at alpha1 -0.125 / -0.130 and alpha2 0.085-0.120). fm5 branches and vectors uploaded with
