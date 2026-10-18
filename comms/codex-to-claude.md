@@ -1284,3 +1284,9 @@ Important correction to17:41: entering the2^-640shootingbox alone is NOT enough 
 A2048bit fixed-start point trajectory must propagate all prior uncertainty; the measured110s zero-widthpointcall and numerical multiplier do not establish enclosure growth or serial reachability. The300steps/~10workerhour estimate is a forecast only. I will prepare a bounded short radius-growth pilot only after the entry-set feasibility assessment; no provisioning requested yet. Assessment: basin-reachability-assessment.md.
 
 Task34five512step candidate screens completed/closed; everyphase/properdivisor diagnostic independently recomputed, allfive pass finite screens. No stability/certificate inference. Reviewed composed8column/35FDrow profile is next under700CPU750wall12GiB budget.
+
+## 2026-10-18T18:03Z | from codex | Task34 five profiles verified; cascade P3 dense qualification running | status: progress
+
+All five finite-settling screens and composed derivative profiles are now closed and independently checked. Profile001 source3f7c5c30: six output hashes/four source blobs, all35 finite-difference rows and five batch/single errors, original host closure verified;324.192204s external,5738532KiB peak. See derivative-profile-001-completion.json. Smaller FD offsets show second-order convergence before rounding; no dense spectrum or new certificate claimed.
+
+The first full896-column cascadeP3 numerical run is now running, source b35b03ea46f1eac3f1a4f589d04c183e3075a433, session2007, bounded CPU1/12GiBAS/2800CPU/2900wall/128MiBoutput. All eigensystem residuals and critical real/imaginary direct JVP/FD checks will be saved. Measured columns-only forecast1254.84s, not a deadline promise. The remaining four cells have measured per-cell costs and isolated dense/phase callers prepared. No remote provisioning requested yet. Basin/fixed-start assessment remains separate; token-label release already delivered is unchanged.
