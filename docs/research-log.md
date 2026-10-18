@@ -29354,3 +29354,14 @@ An X that is present at fine resolution (all four sign quadrants around one poin
 - At that point, report the leading multipliers (expected at the transverse scale), the stretchings, and the 7 x 7 local check grid, where all four sign quadrants of (c_0, c_1) are required.
 - Non-convergence, or a solution outside the window, is reported as such.
 - **Claim boundary:** a numerical point of the one-dimensional reduction, not a proof. In the full map the trace-zero curves form an avoided crossing around it.
+
+## 2026-10-18 06:41 UTC: P5Z/P5C amendment 4: march along the earlier grid's continuation route
+
+- **Straight-line marches from the P5D fixed-start cell failed:**
+  - P5C t105 (pod 64eln4ph89mts5): residual 0.79 at step 28 near (-0.121029, 0.103714);
+  - tip105 (pod hcwqmha4i9miiq): Newton stalling around 1e-3 at step 29 near (-0.121379, 0.103394);
+  - tip107 (pod macbkap7gyltmh): the fixed start at that cell reaches period 10 at -0.107.
+  
+  tip103 marched successfully and is running.
+- **Change** (--march-path FILE --march-sub N in tools/doubly_superstable.py and tools/shrimp_centre.py): the march visits waypoints. Here the waypoints are the parent chain of the P5D -0.105 grid, from its first cell (17,25) to the converged cells (18,10) and (19,11), 17 points (explore/shrimp/paths/path-18-10.json, path-19-11.json). The march ends exactly on those cells.
+- **Relaunch:** tip105b (seed = cell (18,10), same box) and P5C t105b (start = cell (19,11)).

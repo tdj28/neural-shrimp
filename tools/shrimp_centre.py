@@ -48,6 +48,8 @@ def main():
     ap.add_argument("--alpha2", type=float, default=None, help="fixed alpha2 when --free alpha1 logt")
     ap.add_argument("--march-from", type=float, nargs=2, required=True, metavar=("A1", "A2"))
     ap.add_argument("--march-steps", type=int, default=30)
+    ap.add_argument("--march-path", default=None, help="JSON list of [alpha1, alpha2] waypoints to march through")
+    ap.add_argument("--march-sub", type=int, default=2)
     ap.add_argument("--start", type=float, nargs=2, required=True, metavar=("A1", "A2"))
     ap.add_argument("--free", nargs=2, default=["alpha1", "alpha2"], choices=["alpha1", "alpha2", "logt"])
     ap.add_argument("--steps", type=int, nargs=2, required=True, metavar=("A", "B"))
@@ -120,10 +122,20 @@ def main():
     _, X, Q, ok, res = solve((args.march_from[0], args.march_from[1], args.log_t), X, Q)
     if not ok:
         raise SystemExit("Newton failed at --march-from")
-    for k in range(1, args.march_steps + 1):
-        u = k / args.march_steps
-        par = (args.march_from[0] + u * (args.start[0] - args.march_from[0]),
-               args.march_from[1] + u * (args.start[1] - args.march_from[1]), args.log_t)
+    if args.march_path:
+        way = [tuple(q) for q in json.loads(Path(args.march_path).read_text())] + [tuple(args.start)]
+        pts, prev = [], tuple(args.march_from)
+        for q in way:
+            for kk in range(1, args.march_sub + 1):
+                u = kk / args.march_sub
+                pts.append((prev[0] + u * (q[0] - prev[0]), prev[1] + u * (q[1] - prev[1])))
+            prev = q
+    else:
+        pts = [(args.march_from[0] + k / args.march_steps * (args.start[0] - args.march_from[0]),
+                args.march_from[1] + k / args.march_steps * (args.start[1] - args.march_from[1]))
+               for k in range(1, args.march_steps + 1)]
+    for k, q in enumerate(pts, 1):
+        par = (q[0], q[1], args.log_t)
         _, X, Q, ok, res = solve(par, X, Q)
         if not ok:
             raise SystemExit(f"march lost the orbit at step {k} {par}: residual {res}")

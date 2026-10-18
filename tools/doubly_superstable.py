@@ -216,9 +216,18 @@ def grid(args):
         raise SystemExit(f"Newton did not converge at the start cell: {hist}")
     if args.march_from:
         march = []
-        for k in range(1, args.march_steps + 1):
-            u = k / args.march_steps
-            pt = (s0[0] + u * (a0 - s0[0]), s0[1] + u * (lt0 - s0[1]))
+        if args.march_path:
+            way = [tuple(q) for q in json.loads(Path(args.march_path).read_text())] + [(a0, lt0)]
+            pts, prev = [], s0
+            for q in way:
+                for k in range(1, args.march_sub + 1):
+                    u = k / args.march_sub
+                    pts.append((prev[0] + u * (q[0] - prev[0]), prev[1] + u * (q[1] - prev[1])))
+                prev = q
+        else:
+            pts = [(s0[0] + k / args.march_steps * (a0 - s0[0]), s0[1] + k / args.march_steps * (lt0 - s0[1]))
+                   for k in range(1, args.march_steps + 1)]
+        for k, pt in enumerate(pts, 1):
             cell = make_cell(*pt)
             X, Q, hist = lfb.newton(cell, X, p, Q, lfb.tol_for(p, args.tol), 12)
             march.append({"point": [float(pt[0]), float(pt[1])], "newton": float(hist[-1])})
@@ -355,6 +364,8 @@ def main():
     g.add_argument("--march-from", type=float, nargs=2, default=None, metavar=("ALPHA", "ROW"),
                    help="start where the fixed start reaches the period-p orbit and continue it to --seed along a line")
     g.add_argument("--march-steps", type=int, default=24)
+    g.add_argument("--march-path", default=None, help="JSON list of [alpha, row] waypoints to march through")
+    g.add_argument("--march-sub", type=int, default=2, help="sub-steps between consecutive waypoints")
     g.add_argument("--seed-min-ratio", type=float, default=10.0,
                    help="the seed needs a real leading multiplier at least this many times the next modulus (cells "
                         "are still labelled clean at 10); a lower value only relaxes the seed, whose chain directions "
