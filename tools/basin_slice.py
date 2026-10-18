@@ -5,7 +5,7 @@ At one cell (alpha, log10 T), the start's soft-token state x0 (the last slot of 
 x0 + |x0| (s u + t v) for (s, t) on an N x N grid of [-R, R]^2. The plane is spanned by two orthonormal directions:
 by default u points from x0 towards a point of the first periodic attractor that the census finds, and v is the
 component towards the second; otherwise two seeded random directions. Every grid start is iterated --transient steps
-in float64, and its final state is classified by full-state recurrence (period up to --max-period, tolerance --tol)
+(float64 by default), and its final state is classified by full-state recurrence (period up to --max-period, tolerance --tol)
 and then by orbit: the attractor whose orbit passes closest to it (same rule as tools/attractor_portrait.py). Starts
 that settle on no periodic orbit within the transient are marked 0.
 
@@ -66,6 +66,10 @@ def main():
     ap.add_argument("--max-period", type=int, default=12)
     ap.add_argument("--tol", type=float, default=1e-9)
     ap.add_argument("--batch", type=int, default=512)
+    ap.add_argument("--dtype", default="float64", choices=("float64", "float32"),
+                    help="float32 for imaging only: keep --tol above its error (1e-4)")
+    ap.add_argument("--match-tol", type=float, default=None,
+                    help="relative distance for 'same orbit' (default 1e-6 in float64, 1e-3 in float32)")
     ap.add_argument("--device", default="cpu")
     ap.add_argument("--threads", type=int, default=8)
     ap.add_argument("--out", required=True)
@@ -73,7 +77,8 @@ def main():
     out = esl.DATA / "explore" / args.out
     out.mkdir(parents=True, exist_ok=True)
     tic = time.perf_counter()
-    loop = esl.SoftLoop(args.model, args.layer, args.threads, "open", ela.OPENER, 1, "float64", args.device)
+    match = args.match_tol if args.match_tol is not None else (1e-6 if args.dtype == "float64" else 1e-3)
+    loop = esl.SoftLoop(args.model, args.layer, args.threads, "open", ela.OPENER, 1, args.dtype, args.device)
     torch = loop.torch
     v = np.asarray(elpm.load_vectors(args.vectors)[args.concept], dtype=np.float64)
     steer = args.alpha * v
@@ -97,7 +102,7 @@ def main():
     for i in np.nonzero(per > 0)[0]:
         q = int(per[i])
         orb = Y[:q, i]
-        if not any(a[0] == q and np.min(np.linalg.norm(a[1][:, None] - orb[None], axis=-1)) < 1e-6 * r0 for a in attractors):
+        if not any(a[0] == q and np.min(np.linalg.norm(a[1][:, None] - orb[None], axis=-1)) < match * r0 for a in attractors):
             attractors.append((q, orb, toks[i, :q].tolist()))
     attractors.sort(key=lambda a: a[0])
     if args.plane == "attractors":
@@ -130,7 +135,7 @@ def main():
             q = per[k]
             dist = [np.min(np.linalg.norm(a[1] - Y[0, k], axis=1)) if a[0] == q else np.inf for a in attractors]
             j = int(np.argmin(dist))
-            labels[b0 + k] = j + 1 if dist[j] < 1e-6 * r0 else -1        # -1: periodic, but not a census attractor
+            labels[b0 + k] = j + 1 if dist[j] < match * r0 else -1        # -1: periodic, but not a census attractor
         print(json.dumps({"done": b0 + n, "of": len(D), "seconds": round(time.perf_counter() - tic, 1)}), flush=True)
     counts = {str(k): int((labels == k).sum()) for k in np.unique(labels)}
     np.savez_compressed(out / "basin.npz", s=s, labels=labels.reshape(S.shape), periods=periods.reshape(S.shape),
