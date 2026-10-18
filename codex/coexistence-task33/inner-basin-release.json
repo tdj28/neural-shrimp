@@ -1,0 +1,166 @@
+{
+  "schema": "codex-task33-explicit-inner-basin-v1",
+  "created_utc": "2026-10-18T19:17:53.092202+00:00",
+  "certificate_passed": true,
+  "status": "released",
+  "original_pair": {
+    "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/coexistence-task33/pair-certificate-release.json",
+    "bytes": 8219,
+    "sha256": "eb1e2238f2607408ddcbb31383c6a7e4c1c25f0803f5d9a5af90769a196fcf97"
+  },
+  "scalar_completion": {
+    "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/coexistence-task33/inner-entry-002-completion.json",
+    "bytes": 8779,
+    "sha256": "0be300bbf5c229a56a48951f4cd5410c7c5b45595f9ff24d73ec2150419d2950"
+  },
+  "theorem_review": {
+    "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/coexistence-task33/inner-entry-release-review.md",
+    "bytes": 3250,
+    "sha256": "950096248fb6d5f5449f46887a31439430267b5e395bf78b29647048f12cd970"
+  },
+  "checker": {
+    "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/coexistence-task33/release_inner_entry.py",
+    "bytes": 5718,
+    "sha256": "480fa985e28ba921bcc8cabbaadb89d32861481125f3b806fb3552841f3b840c"
+  },
+  "map": {
+    "schema": "codex-qwen-exact-soft-map-v1",
+    "dimension": 896,
+    "vocabulary": 151936,
+    "layers": 24,
+    "pinned_assets": {
+      "model.safetensors": "fdf756fa7fcbe7404d5c60e26bff1a0c8b8aa1f72ced49e7dd0210fe288fb7fe",
+      "config.json": "18e18afcaccafade98daf13a54092927904649e1dd4eba8299ab717d5d94ff45",
+      "vectors.npz": "b630bb7bef06bde87f8e6a7ca5e8672f83d24bc0585bf19048e9e494a4357f41"
+    },
+    "prefix_ids": [
+      151644,
+      8948,
+      198,
+      2610,
+      525,
+      458,
+      15235,
+      7404,
+      448,
+      2441,
+      15235,
+      13,
+      1446,
+      614,
+      4583,
+      11290,
+      13,
+      31733,
+      1910,
+      311,
+      22729,
+      8820,
+      498,
+      1366,
+      13,
+      151645,
+      198,
+      151644,
+      872,
+      198,
+      9707,
+      0,
+      151645,
+      198,
+      151644,
+      77091,
+      198
+    ],
+    "steering_layer": 12,
+    "alpha_ratio": [
+      4660685182373179,
+      72057594037927936
+    ],
+    "log10_temperature_ratio": [
+      -5332261958806667,
+      36028797018963968
+    ],
+    "temperature": "exp(log(10)*exact_dyadic_log10T)",
+    "rotary": "real base^(-2j/head_dim), real sin/cos",
+    "state": "one appended full-dimensional soft embedding after the fixed prefix",
+    "readout": "full-vocabulary expected embedding with the checkpoint embedding matrix",
+    "checkpoint_constants": "stored binary constants interpreted as exact dyadics"
+  },
+  "orbits": [
+    {
+      "period": 2,
+      "definition": {
+        "path": "/data2/neural-shrimp-data/codex/coexistence/p2-final-domain-001.json",
+        "sha256": "953d53fcf324a9d872d6db4a2f63e4e2395a95f4e942423a2a7bc7a0d5840f1f"
+      },
+      "center_phase": 0,
+      "radius_exact_dyadic": [
+        1,
+        -681
+      ],
+      "witness": {
+        "path": "/data2/neural-shrimp-data/codex/coexistence/inner-entry-002/p2.json",
+        "bytes": 219471,
+        "sha256": "669dd70b7ffcbaa95f6c80c35c8c3cc281b6736167b7eabd3517d36f39e58cea"
+      },
+      "original_assembly": {
+        "path": "/data2/neural-shrimp-data/codex/coexistence/assembly-p2-001/conditional-gates.json",
+        "bytes": 1174676877,
+        "sha256": "cc153d911710e703843bf59359821b7cab0594b68cd132e1d586fae782b0b05b"
+      },
+      "power_summary": {
+        "path": "/data2/neural-shrimp-data/codex/coexistence/power-pair-001/p2-summary.json",
+        "bytes": 3849,
+        "sha256": "cff84306044b1168e2e397985f2fea249aa13f092fa6047a79b44b8298e52135"
+      },
+      "domain_bindings": {
+        "domain_sha256": "dee12128178e5006e38a2f12c90f5e9419c280b753dfdee53590d074a3fc4ec3",
+        "enclosures_sha256": "be8c54268a075bd244a8f0c009eaddd54db7c81a1a324289644f69a73570c7b0",
+        "proposals_sha256": "19c2862bf14963f25db68e874e770e60dfc66164753cd459104465c9552d7d92"
+      },
+      "return_steps": 8,
+      "certificate_passed": true
+    },
+    {
+      "period": 3,
+      "definition": {
+        "path": "/data2/neural-shrimp-data/codex/coexistence/p3-final-domain-001.json",
+        "sha256": "38a6dd7381e8bbf6f774ca5bc0b3737bcd4aad5f40c8b4b2e99ed94dc1ab0235"
+      },
+      "center_phase": 0,
+      "radius_exact_dyadic": [
+        1,
+        -700
+      ],
+      "witness": {
+        "path": "/data2/neural-shrimp-data/codex/coexistence/inner-entry-002/p3.json",
+        "bytes": 346048,
+        "sha256": "cc60e10de6b0daee742f50b5c64a8097abfd38fce9662c4ac3f067d108543841"
+      },
+      "original_assembly": {
+        "path": "/data2/neural-shrimp-data/codex/coexistence/assembly-p3-002/conditional-gates.json",
+        "bytes": 1189519781,
+        "sha256": "edac57452482888dc23defdcd522a34fc63480dcd95348fc6ca0d2c1db51a528"
+      },
+      "power_summary": {
+        "path": "/data2/neural-shrimp-data/codex/coexistence/power-pair-001/p3-summary.json",
+        "bytes": 3849,
+        "sha256": "2b5315587bf5a502479428bae83390e62941d9174e751c47a56e8b105456e24a"
+      },
+      "domain_bindings": {
+        "domain_sha256": "0d8c1c7bb34bc48967a66e68a57b32f59ec0fb52c787cb8cc52fd2a226fb43f4",
+        "enclosures_sha256": "531fae04b113b6e9d510e58d821d0e26624d51436cc387815cfc08cc5ec619b2",
+        "proposals_sha256": "8aaabd12e3f06c1bf29721d87ab948ca545c8bfbd39c7045be37155c6b98ffb7"
+      },
+      "return_steps": 12,
+      "certificate_passed": true
+    }
+  ],
+  "statement": "Every full-dimensional real state in each stated closed infinity-norm ball around phase0 of the saved exact center tuple converges to the corresponding certified periodic orbit.",
+  "scope": "Trusted original Python/FLINT/Arb enclosure execution plus exact rational scalar witness audit. Intermediate phase containment and root-centered return trapping proved; the entire original shooting box need not be invariant. No fixed-start reachability, large basin volume, global geometry or ordinary generation claim.",
+  "preserved_attempts": [
+    "inner-entry001 conservative root-location bound gave no centered entry",
+    "inner-entry002 preflight checkpoint refusal before scientific worker"
+  ]
+}
