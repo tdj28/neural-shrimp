@@ -74,6 +74,9 @@ def main():
     ap.add_argument("--dims", default="0,1,2", help="principal coordinates for x, y, z")
     ap.add_argument("--title", default=None)
     ap.add_argument("--keep-frames", default=None, help="folder to keep the PNG frames in")
+    ap.add_argument("--all-trajectories", action="store_true", help="keep trajectories that reach a periodic orbit (with "
+                    "their transients: the approach to a periodic attractor)")
+    ap.add_argument("--subtitle", default=None)
     args = ap.parse_args()
     import matplotlib
     matplotlib.use("Agg")
@@ -85,7 +88,8 @@ def main():
     dims = [int(d) for d in args.dims.split(",")]
     C = z["coords"]
     T = z["tokens"]
-    aper = z["periods"] == 0                        # the chaotic attractor only: drop starts that reached a periodic orbit
+    aper = (np.ones(len(z["periods"]), dtype=bool) if args.all_trajectories
+            else z["periods"] == 0)                 # the chaotic attractor only: drop starts that reached a periodic orbit
     P = C[aper][:, :, dims].reshape(-1, 3).astype(np.float64)
     toks = T[aper].reshape(-1)
     P = P - np.median(P, axis=0)
@@ -100,8 +104,8 @@ def main():
     labels = [repr(tok.decode([int(t)])) for t in top]
     a = rec["args"]
     title = args.title or "A strange attractor of a language model's feedback loop"
-    sub = (f"Qwen2.5-0.5B-Instruct, soft-token loop, steering $\\alpha={a['alpha']}$, $\\log_{{10}}T={a['log_t']}$, "
-           f"{a['dtype']}")
+    sub = args.subtitle or (f"Qwen2.5-0.5B-Instruct, soft-token loop, steering $\\alpha={a['alpha']}$, "
+                            f"$\\log_{{10}}T={a['log_t']}$, {a['dtype']}")
     W, H = args.width, args.height
     tmp = Path(args.keep_frames) if args.keep_frames else Path(tempfile.mkdtemp(dir=os.environ.get("TMPDIR")))
     tmp.mkdir(parents=True, exist_ok=True)
@@ -112,7 +116,8 @@ def main():
     fs = W / 1920
     fig.text(0.02, 0.955, title, color="w", fontsize=24 * fs)
     fig.text(0.02, 0.922, sub, color="0.8", fontsize=15 * fs)
-    fig.text(0.02, 0.025, f"{len(P):,} states of {int(aper.sum())} trajectories, each after {a['transient']} steps; "
+    when = f"each after {a['transient']} steps" if a["transient"] else "recorded from their start"
+    fig.text(0.02, 0.025, f"{len(P):,} states of {int(aper.sum())} trajectories, {when}; "
              f"axes: principal coordinates {', '.join(str(d + 1) for d in dims)}; colour: the token the loop writes next",
              color="0.6", fontsize=12 * fs)
     for k, lab in enumerate(labels):

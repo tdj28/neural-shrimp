@@ -1,18 +1,43 @@
 {
  "video": "../neural-shrimp-data/videos/cusp-sweep-quartic-48s.mp4",
- "out": "../neural-shrimp-data/videos/cusp-sweep-quartic-narrated.mp4",
+ "out": "../neural-shrimp-data/videos/cusp-sweep-quartic-narrated-v2.mp4",
  "model": "gpt-4o-mini-tts",
  "voice": "sage",
  "instructions": "Calm, warm science-documentary narrator. Natural, engaging pace, clear articulation of technical terms, a brief pause between sentences.",
  "gap": 0.4,
  "tail": 1.5,
  "lines": [
-  {"at": 0.0, "hold": "line", "text": "This is the quartic map, which Mira and his colleagues used to classify how periodic windows are organized around a cusp. Each frame is the plane of two parameters, b and c. A third parameter, a, slides along the bar below."},
-  {"at": 0.0, "hold": "line", "text": "Black curves are folds, red dashed curves are flips, and the gold star is the cusp, where two fold branches meet. Gray means one attracting fixed point; blue means two."},
-  {"at": 0.3, "text": "For positive a, entering the wedge splits a saddle into a node and two saddles: a saddle area."},
-  {"at": 7.6, "hold": "line", "text": "At a equal to zero, the cusp passes through the swallowtail point."},
-  {"at": 8.7, "text": "Now the wedge splits a node into a saddle and two nodes. The flip curves of the two branches cross at the red dot: a crossroad area, like the kite where two legs of a shrimp cross. In the blue region, two attracting fixed points coexist."},
-  {"at": 41.3, "hold": "line", "text": "At a equal to minus two, the flip curves join into a loop around the cusp: a spring area, inside which the fixed point attracts again."},
-  {"at": 46.0, "text": "Saddle, crossroad and spring areas are the three ways a window can be organized around a cusp."}
+  {
+   "at": 0.0,
+   "hold": "line",
+   "text": "Now the cusp itself, in the quartic map that Mira and his colleagues used to classify how periodic windows are organized around a cusp. Each frame is the plane of two parameters, b and c. A third parameter, a, slides along the bar below."
+  },
+  {
+   "at": 0.0,
+   "hold": "line",
+   "text": "Black curves are folds, red dashed curves are flips, and the gold star is the cusp, where two fold branches meet. Gray means one attracting fixed point; blue means two."
+  },
+  {
+   "at": 0.3,
+   "text": "For positive a, entering the wedge splits a saddle into a node and two saddles: a saddle area."
+  },
+  {
+   "at": 7.6,
+   "hold": "line",
+   "text": "At a equal to zero, the cusp passes through the swallowtail point."
+  },
+  {
+   "at": 8.7,
+   "text": "Now the wedge splits a node into a saddle and two nodes. The flip curves of the two branches cross at the red dot: a crossroad area, like the kite where two legs of a shrimp cross. In the blue region, two attracting fixed points coexist."
+  },
+  {
+   "at": 41.3,
+   "hold": "line",
+   "text": "At a equal to minus two, a flip curve closes into a loop around the cusp: a spring area. Where the fixed point crosses a red flip curve, it stops attracting, because its multiplier passes minus one and an orbit of period two takes over. Inside the loop the multiplier comes back above minus one, and the fixed point attracts again."
+  },
+  {
+   "at": 46.0,
+   "text": "Saddle, crossroad and spring areas are the three ways a window can be organized around a cusp."
+  }
  ]
 }

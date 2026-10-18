@@ -68,6 +68,11 @@ def main():
     ap.add_argument("--model", default="gpt-4o-mini-tts")
     ap.add_argument("--intro", default="Follow one trajectory of the loop. At every step, the model writes the word "
                                       "you hear, and the dot jumps to its next state.")
+    ap.add_argument("--glide", default=0.14, type=lambda v: v if v == "step" else float(v), help="seconds of each hop spent gliding to the next state "
+                    "(a guide for the eye: the map visits only the states); 'step' uses 65 percent of each step")
+    ap.add_argument("--all-trajectories", action="store_true", help="include trajectories that reach a periodic orbit "
+                    "(for periodic cells); otherwise only the aperiodic ones")
+    ap.add_argument("--title", default="One chaotic trajectory through the strange attractor")
     args = ap.parse_args()
     import matplotlib
     matplotlib.use("Agg")
@@ -76,7 +81,7 @@ def main():
 
     z = np.load(DATA / "explore" / args.run / "portrait.npz", allow_pickle=True)
     rec = json.loads((DATA / "explore" / args.run / "portrait.json").read_text())
-    aper = np.nonzero(z["periods"] == 0)[0]
+    aper = np.arange(len(z["periods"])) if args.all_trajectories else np.nonzero(z["periods"] == 0)[0]
     C, T = z["coords"][aper][:, :, :3].astype(np.float64), z["tokens"][aper]
     P = C.reshape(-1, 3)
     med = np.median(P, axis=0)
@@ -128,15 +133,17 @@ def main():
     halo1 = ax.scatter([0], [0], s=130 * fs, alpha=0.50, linewidths=0)
     core = ax.scatter([0], [0], s=38 * fs, color="w", linewidths=0)
     a = rec["args"]
-    fig.text(0.02, 0.955, "One chaotic trajectory through the strange attractor", color="w", fontsize=24 * fs)
+    fig.text(0.02, 0.955, args.title, color="w", fontsize=24 * fs)
     fig.text(0.02, 0.922, f"Qwen2.5-0.5B-Instruct, soft-token loop, steering $\\alpha={a['alpha']}$, "
              f"$\\log_{{10}}T={a['log_t']}$, {a['dtype']}; each jump of the dot is one step of the loop", color="0.8",
              fontsize=15 * fs)
+    if args.glide == "step" or (isinstance(args.glide, float) and args.glide > 0.2):
+        fig.text(0.02, 0.89, "the loop is a map: its state jumps once per step; the dot glides between states only "
+                 "to guide the eye", color="0.6", fontsize=12 * fs)
     t_hist = fig.text(0.5, 0.115, "", color="0.75", fontsize=19 * fs, family="monospace", ha="center")
     t_word = fig.text(0.5, 0.04, "", color="w", fontsize=40 * fs, ha="center", weight="bold")
     t_step = fig.text(0.98, 0.955, "", color="0.6", fontsize=14 * fs, ha="right")
     tmp = Path(tempfile.mkdtemp(dir=os.environ.get("TMPDIR")))
-    glide = 0.14
     for i in range(nF):
         tt = i / args.fps
         u = tt / total
@@ -148,7 +155,8 @@ def main():
         if k < 0:
             px, py = X[0], Y[0]
         else:
-            frac = min(1.0, (tt - starts[k]) / glide)
+            g = 0.65 * durs[k] if args.glide == "step" else float(args.glide)
+            frac = min(1.0, (tt - starts[k]) / g)
             frac = frac * frac * (3 - 2 * frac)                         # smooth glide from the previous state
             j0 = max(k - 1, 0)
             px, py = X[j0] + (X[k] - X[j0]) * frac, Y[j0] + (Y[k] - Y[j0]) * frac
