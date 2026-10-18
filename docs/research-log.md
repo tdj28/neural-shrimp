@@ -29284,3 +29284,9 @@ The data are the fold edges of periods 16-32 (N = 5-13), with alpha_c = 0.062798
 A crossing with an island shrinking toward the transverse scale (|mu2| about 1e-3 to 1e-2) supports a shrimp centre of the reduced one-dimensional map. A closed island that the curves go around is a type-A head. If unresolved, the follow-up solves for temperature as an unknown.
 
 **Compute.** Two H100 pods; costs in the private ledger.
+
+## 2026-10-18 05:52 UTC: P5Z amendment 1: seeds must be cells where the fixed start reaches the 5-cycle
+
+- **Z105 first launch** (pod 8i4fvbkteozned, about 2 min, terminated): refused to start, because the fixed start at the seed (-0.121504, 0.103413) reaches a period-4 attractor. P5D had reached the 5-cycle there by continuing it from neighbouring cells. No cell of the tip region is a coarse window cell reachable from the fixed start.
+- **Z105 relaunch:** the box is extended to include the nearest such cell, alpha1 [-0.12240, -0.12050] and alpha2 [0.10160, 0.10440], at 23 x 23, seeded at that coarse window cell. The 5-cycle is continued breadth-first to the tip.
+- **Z110:** its pod (tor0cj78xl39hj) was created with the original seed (-0.11662, 0.10462), which is not a coarse window cell. If it refuses, it is relaunched at the window cell (-0.1165106, 0.1047234) inside the same box.
