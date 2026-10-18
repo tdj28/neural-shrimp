@@ -2012,6 +2012,18 @@ snapshot_download('$REPO', revision='$MREV', cache_dir='$NEURAL_SHRIMP_DATA/mode
     done
     wait
     ;;
+  eslseq)      # explore_llm_soft_loop commands run one after another (float64 on the GPU): JOBARGS = NAME MINUTES SUBCOMMAND
+               # ARGS... [:: NAME MINUTES SUBCOMMAND ARGS ...]; downloads the pinned Qwen2.5-7B-Instruct when any
+               # argument names qwen7b (vectors uploaded with --extra-data). A failing command does not stop the next.
+    case " ${JOBARGS[*]} " in *" qwen7b "*) get7b ;; esac
+    i=0; n=${#JOBARGS[@]}
+    while [ $i -lt $n ]; do
+      name=${JOBARGS[$i]}; minutes=${JOBARGS[$((i+1))]}; i=$((i+2)); cargs=()
+      while [ $i -lt $n ] && [ "${JOBARGS[$i]}" != "::" ]; do cargs+=("${JOBARGS[$i]}"); i=$((i+1)); done
+      i=$((i+1))
+      run $name "$minutes" "${cargs[@]}"
+    done
+    ;;
   bh)          # run BH: the bound hierarchy with exact norms (tools/bound_hierarchy.py, float64 on the GPU) on the frozen
                # sample docs/bh/bh-cells.json, split over PROCS processes (cells i, i+PROCS, ...). JOBARGS = NAME MINUTES
                # BUDGET-MINUTES PROCS ARGS... (vectors-l12 uploaded with --extra-data)

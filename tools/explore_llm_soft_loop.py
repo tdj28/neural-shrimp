@@ -1637,7 +1637,8 @@ def passage(args):
                     args.device)
     torch = loop.torch
     v = elpm.load_vectors(so["vectors"])[so["concept"]]
-    alphas = np.array([so["alpha"] + row["eps"] for row in rows])
+    in_temperature = nf.get("args", {}).get("param") == "temperature"     # a fold approached in log10 T (unsteered)
+    alphas = np.array([so["alpha"] + (0.0 if in_temperature else row["eps"]) for row in rows])
     start = loop.prepare(alphas[:, None] * v[None]).double().cpu().numpy()
     shape = (len(rows), loop.K, loop.E.shape[1])
     for i, row in enumerate(rows):
@@ -1645,7 +1646,8 @@ def passage(args):
             row["x0"] = start[i].ravel() + 1e-6 * np.linalg.norm(start[i]) * rng.normal(size=start[i].size)
     X = torch.as_tensor(np.array([row["x0"] for row in rows]).reshape(shape), dtype=loop.state_dtype,
                         device=loop.device)
-    temps = np.full(len(rows), 10.0 ** so["log10_temperature"])
+    temps = (10.0 ** np.array([so["log10_temperature"] + row["eps"] for row in rows]) if in_temperature
+             else np.full(len(rows), 10.0 ** so["log10_temperature"]))
     p = so["period"]
     lt = torch.as_tensor(l, dtype=loop.state_dtype, device=loop.device)
     xct = torch.as_tensor(xc, dtype=loop.state_dtype, device=loop.device)
