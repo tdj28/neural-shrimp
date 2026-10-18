@@ -29647,3 +29647,22 @@ At the FA-P11 seed, beside the head, the per-step factors of steps 2 and 4 are 0
 **Next, per the review's first recommendation:** singular-value ratios of the full monodromy near and away from a head, with synthetic positive controls, at the period-5 head first.
 
 **Paper changes:** abstract, the near-nilpotent and temperature sentences, the shrimp claim, the limitations sentence, the appendix sentence, the head figure caption and the T* sentence.
+
+## 2026-10-18 09:41 UTC: Run card RK-P5 (exploratory; consult 15, recommendation 1): is the period-5 head's return map nearly of rank one?
+
+**Tool.** tools/monodromy_svd.py: randomized range finder with power iterations, using forward-mode JVPs and reverse-mode VJPs chained along the orbit (float64, local GPU).
+- Records d1 = s2/s1 and d3 = s4/s1 of the monodromy at phases 0, 2 and 4, with the leading multipliers.
+- Each estimate is repeated with one more power iteration; a ratio that changes by more than 5 % is flagged unresolved.
+
+**Controls**, on synthetic operators with identical eigenvalues (all eps), passed: A1 = eps I + e1 e2^T gives d1 = eps; A2 = eps I + e1 e2^T + e2 e3^T gives d1 = 1 (eps 1e-6, 1e-4, 1e-2).
+
+**Points** (gratitude@4, hostility@16, log10 T -0.1):
+- far: the body's fixed-start cell (-0.118730, 0.100693);
+- head: the near-nilpotent point (-0.1184836, 0.1017217);
+- inner ring: four points at +-5e-5 in alpha1 and alpha2;
+- outer ring: the same four directions at 2e-4.
+
+**Reading:**
+- the rank picture at the head against the rings and the body;
+- d1 at the head well above d1 away (a decade or more) means a locally higher-rank return map;
+- d1 staying small at the head means a nearly rank-one, strongly nonnormal return map with comparable tiny eigenvalues.
