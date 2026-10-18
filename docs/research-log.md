@@ -29097,3 +29097,21 @@ On that basis, 629 chaotic cells (4.4 %) use both families' words heavily, 13,15
 - So no conclusion yet.
 
 **Next, if approved.** A superstability grid (tools/doubly_superstable.py) over the window at two or three lower temperatures, with the window found by a coarse scan, to look for crossing curves where mu1 = 0.
+
+## 2026-10-18 03:37 UTC: Run card P5D (exploratory): superstability grids of the period-5 window at lower temperature
+
+**Context.** P5T suggested that by log10 T -0.105 the period-5 window becomes effectively one-dimensional around its head analog (|mu2|/|mu1| about 0.05), but its head search cannot locate a one-dimensional head. The human approved three temperatures ("Run 3 temperatures now").
+
+**Tool.** tools/p5_dss_temperature.py. At one temperature it does three things:
+1. It re-finds the window with a 48 x 48 fixed-start scan of alpha1 [-0.1240, -0.1080] and alpha2 [0.0940, 0.1080]. The window's cells are those with period 5 and the loop of the window at -0.1 (tokens 13, 358, 13, 13, 56568, up to rotation).
+2. It seeds at the window cell nearest the centroid that has all 8 neighbours in the window.
+3. It runs tools/doubly_superstable.py grid at 31 x 31 over the window's bounding box (pad 1 coarse cell). Settings are as in DSS5: k 6, tol 1e-12, transient 900.
+
+**Temperatures.** log10 T -0.105, -0.110 and -0.120; one H100 pod each.
+
+**Reading, fixed now:**
+- Per temperature: the zero curves of the per-step factors of the leading multiplier, read from clean cells only (|mu1| > 10 |mu2|), and whether two different factors' zero curves cross (a doubly superstable point, the centre of a one-dimensional shrimp in Gallas' sense). Also the fraction of clean cells and the median |mu2|/|mu1|.
+- A crossing at one or more temperatures supports the hypothesis that lower temperature turns the two-dimensional head into a one-dimensional one. No crossing, or no clean cells, leaves it open.
+- If the window is not found in the coarse box, that is reported with the temperature.
+
+**Compute.** Three pods; costs in the private ledger.
