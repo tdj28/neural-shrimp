@@ -1,0 +1,109 @@
+{
+  "status": "reviewed_for_execution",
+  "repository": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp",
+  "raw_root": "/data2/neural-shrimp-data/codex/coexistence",
+  "python": "/data2/neural-shrimp/.venv/bin/python",
+  "cpu_threads": 1,
+  "cpu_ids": [
+    0
+  ],
+  "startup_ram_gib": 32,
+  "source_files": [
+    {
+      "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/coexistence-task33/higher_power.py",
+      "bytes": 3574,
+      "sha256": "29df1d8686ac10a4f430c04e3ac2d42eabc7f3409741c9da458175e16b48bf2c"
+    },
+    {
+      "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/coexistence-task33/power_witness.py",
+      "bytes": 1327,
+      "sha256": "2d5e8880d3c1db3a857bba5bad38909e8b672e582154232d11f8ff3dd35477a7"
+    },
+    {
+      "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/certify-llm/proof_gates.py",
+      "bytes": 15368,
+      "sha256": "ee6678b7dd5153ef095fd73d5711fcfc605f7a228c92b1335a9541cc3d7b2c6a"
+    },
+    {
+      "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/certify-llm/witness_audit.py",
+      "bytes": 13400,
+      "sha256": "48098fec18005f5d521dfe6685cf311532814263ceaa982c763aae864b505d90"
+    },
+    {
+      "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/certify-chaos/supervise.py",
+      "bytes": 8727,
+      "sha256": "306db32a2c8ada9beb67547bbaafc6d0d7a597b5861b0e629ca9a07801223c44"
+    }
+  ],
+  "lanes": {
+    "audit": {
+      "entry": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/coexistence-task33/higher_power.py",
+      "arguments": [
+        "--card",
+        "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/coexistence-task33/power-pair-001-card.json",
+        "--out",
+        "/data2/neural-shrimp-data/codex/coexistence/power-pair-001"
+      ],
+      "output": "/data2/neural-shrimp-data/codex/coexistence/power-pair-001",
+      "supervision": "/data2/neural-shrimp-data/codex/coexistence/power-pair-001-supervision",
+      "preflight_pins": [
+        {
+          "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/coexistence-task33/power-pair-001-card.json",
+          "bytes": 2117,
+          "sha256": "53e3c4384f35be52a4802afda9ecff5471b12a6144a85dedcf5bcee089b43caa"
+        },
+        {
+          "path": "/data2/neural-shrimp-data/codex/coexistence/assembly-p2-001-supervision/receipt.json",
+          "bytes": 5860,
+          "sha256": "21c99c01fae8ebd789f30499e7884731d60ab3ba27bbbf3bbd191fef8f3a77c6"
+        },
+        {
+          "path": "/data2/neural-shrimp-data/codex/coexistence/assembly-p2-001/conditional-gates.json",
+          "bytes": 1174676877,
+          "sha256": "cc153d911710e703843bf59359821b7cab0594b68cd132e1d586fae782b0b05b"
+        },
+        {
+          "path": "/data2/neural-shrimp-data/codex/coexistence/assembly-p2-audit-001-supervision/receipt.json",
+          "bytes": 4712,
+          "sha256": "dcd9f5a9fefde1b95bb23283360668fb4d3a33234c211e9f5c84a34b172894a0"
+        },
+        {
+          "path": "/data2/neural-shrimp-data/codex/coexistence/assembly-p2-audit-001/report.json",
+          "bytes": 5601,
+          "sha256": "b2ebfa0fb38b99e13ecaadeefc6f74f3984ab934c472abbe772b0e9cacc8f75f"
+        },
+        {
+          "path": "/data2/neural-shrimp-data/codex/coexistence/assembly-p3-002-supervision/receipt.json",
+          "bytes": 5860,
+          "sha256": "1b539755f71d764524dfdc3bd152f20f0c0580ba6c1dbe8e80988f3496451db5"
+        },
+        {
+          "path": "/data2/neural-shrimp-data/codex/coexistence/assembly-p3-002/conditional-gates.json",
+          "bytes": 1189519781,
+          "sha256": "edac57452482888dc23defdcd522a34fc63480dcd95348fc6ca0d2c1db51a528"
+        },
+        {
+          "path": "/data2/neural-shrimp-data/codex/coexistence/assembly-p3-audit-001-supervision/receipt.json",
+          "bytes": 4711,
+          "sha256": "3e10094695f1956fa00349d03c0921178fb952ef60e94fc4027db180276f196d"
+        },
+        {
+          "path": "/data2/neural-shrimp-data/codex/coexistence/assembly-p3-audit-001/report.json",
+          "bytes": 6559,
+          "sha256": "6162ad2b74668f71936adf9d87e7e32fbe2ffe146248cafbaaf610910c626f97"
+        }
+      ],
+      "limits": {
+        "as_bytes": 19327352832,
+        "cpu_seconds": 1800,
+        "wall_seconds": 2000,
+        "output_bytes": 4294967296
+      },
+      "prior_receipts": [
+        "/data2/neural-shrimp-data/codex/coexistence/assembly-p2-audit-001-supervision/receipt.json",
+        "/data2/neural-shrimp-data/codex/coexistence/assembly-p3-audit-001-supervision/receipt.json"
+      ]
+    }
+  },
+  "cost_basis": "Measured full assemblies P2228.961s/P3332.975s and P2 Fraction audit105.075s. This serial two-orbit extension reuses saved monodromy, fixed powers4/8, accepted interval exponentiation plus full Fraction norm review; no model/derivative calls.18GiBAS1800CPU2000wall4GiBoutput; no retry/extension. Originalfailedpowers1/2retained."
+}

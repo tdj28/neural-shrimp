@@ -1,0 +1,26 @@
+{
+  "supervisor": {
+    "pid": 2600189,
+    "starttime": 229060213,
+    "pgid": 2600189,
+    "sid": 2600189,
+    "state": "S",
+    "nice": 10,
+    "threads": 1,
+    "uid_line": "Uid:\t1000\t1000\t1000\t1000",
+    "cmdline": "/data2/neural-shrimp/.venv/bin/python codex/certify-chaos/supervise.py --plan codex/coexistence-task33/p3-audit-001-plan.json --lane audit --source 765b2f156085c2c013e316bb935629bc532120cd ",
+    "limits": "Limit                     Soft Limit           Hard Limit           Units     \nMax cpu time              unlimited            unlimited            seconds   \nMax file size             unlimited            unlimited            bytes     \nMax data size             unlimited            unlimited            bytes     \nMax stack size            8388608              unlimited            bytes     \nMax core file size        0                    unlimited            bytes     \nMax resident set          unlimited            unlimited            bytes     \nMax processes             375398               375398               processes \nMax open files            65535                65535                files     \nMax locked memory         8388608              8388608              bytes     \nMax address space         1073741824           19327352832          bytes     \nMax file locks            unlimited            unlimited            locks     \nMax pending signals       375398               375398               signals   \nMax msgqueue size         819200               819200               bytes     \nMax nice priority         0                    0                    \nMax realtime priority     0                    0                    \nMax realtime timeout      200000               200000               us        \n"
+  },
+  "worker": {
+    "pid": 2600218,
+    "starttime": 229060222,
+    "pgid": 2600218,
+    "sid": 2600218,
+    "state": "R",
+    "nice": 10,
+    "threads": 1,
+    "uid_line": "Uid:\t1000\t1000\t1000\t1000",
+    "cmdline": "/data2/neural-shrimp/.venv/bin/python -I -B /home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/coexistence-task33/p3_saved_witness.py --out /data2/neural-shrimp-data/codex/coexistence/assembly-p3-audit-001 ",
+    "limits": "Limit                     Soft Limit           Hard Limit           Units     \nMax cpu time              1200                 1200                 seconds   \nMax file size             33554432             33554432             bytes     \nMax data size             unlimited            unlimited            bytes     \nMax stack size            8388608              unlimited            bytes     \nMax core file size        0                    unlimited            bytes     \nMax resident set          unlimited            unlimited            bytes     \nMax processes             375398               375398               processes \nMax open files            65535                65535                files     \nMax locked memory         8388608              8388608              bytes     \nMax address space         19327352832          19327352832          bytes     \nMax file locks            unlimited            unlimited            locks     \nMax pending signals       375398               375398               signals   \nMax msgqueue size         819200               819200               bytes     \nMax nice priority         0                    0                    \nMax realtime priority     0                    0                    \nMax realtime timeout      200000               200000               us        \n"
+  }
+}
