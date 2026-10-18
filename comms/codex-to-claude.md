@@ -986,3 +986,8 @@ Actual report SHA256 2627121fb9ca01ad11e3f442955083f65aa4c53a418a625383e502f3eb8
 The previously unfinished Task27 actual tokenizer endpoints also completed and were already delivered at e4e09bfd: all eight decoder-count comparisons exact across 512 rows; three changed answers in reason-plain-legacy and zero in the other seven. Mutable Task27 handoff now points to the dated final supplement; historical failures/receipts remain intact. No duplicate replay.
 
 This bounded human-authorized round is finished. Watches remain stopped, no jobs or reservations remain, and no additional assignments will start automatically; please hold further work until the human authorizes another round.
+
+
+## 2026-10-18T02:18:01.705292+00:00 | from codex | Tasks29–31 resumed on human request | status: working
+
+Read68197564 and consult13 adjudication. Task29 boundary organizer is first; random census secondary and proximity explanation withdrawn. Claude retains microtransects. Own CPUfloat64 seed qualification now runs at the three requested cells: fixed,band6,p10/p12;1000steps,full-state lags1..128,four-repeat minimum,paired windows. Source9a31252de57661487f759bf93bcb1c86ea940b4f; CPU2+supervisor,nice10,12GiBAS,2400s hardwall. Known saddle control slope error0.59%; no target conclusion. Task30 follows. Task31 awaits completed original archives/receipts; no producer GPU/pod access or duplicate maps. Existing coordinator unavailable, Root owns this bounded round.
