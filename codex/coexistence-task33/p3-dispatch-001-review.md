@@ -1,0 +1,5 @@
+# P3 derivative campaign admission
+
+Root checked all42 concrete plans via actual admit_definition without model calls: exact3phase896state/full151936vocabulary,all14blocks perphase,64columns each,1024bits. Same12scientific source pins and calibrated fullbackend as P2; original2048prefix receipt/admission/cache preserved. No scientific caller/launcher/collector changes or repeat controls. Only period/closedcentre/domain/phase coverage differ from admitted P2.
+
+Measured calibration1866.785209s perworker forecasts78404.978778s serial before setup/transport, not newdomain/packing guarantee. Each workerCPU1,nice10,18GiBAS,3600shardwatchdog.42fresh distinct attempts once,12GiB retained output reservation. Claude uses existing approved ceiling/ownership/effective cgroup capacity18GiBperworker+4GiBshared/CPUquota, boundedsetup/retrieval/termination. No automatic retry/extension/precisionchange. Preserve failures and return each whole original attempt promptly. Operational admission remains separate from signedendpoint/coverage/root/primitive/attraction evidence. Neither pair member yet certified.

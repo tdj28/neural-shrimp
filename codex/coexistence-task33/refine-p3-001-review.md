@@ -1,0 +1,5 @@
+# P3 refinement completion and exact domain
+
+Original run completed successfully and original session51422 reaped0. Host original worker/supervisor/groups absent. Receipt13bd865513f931c0a91343da7e5e8e2fba811380fdeac56a7820f64597011e5f,102artifacts/9sourceblobs checked. All17full passes/16corrections,45,696residual components/43,008midpoint choices verified. Exact rational original saved-endpoint bounds pass every iteration. Decoder replay deltas retained (at most6.797460e-459 rounded up); final upper exact. Final residual upper<7.182879e-219 passes strict2^-700 on the last allowed correction.7734.0323s external (rounded up), no extension or retry.
+
+First P3 domain frozen at /data2/neural-shrimp-data/codex/coexistence/p3-final-domain-001.json SHA38a6dd7381e8bbf6f774ca5bc0b3737bcd4aad5f40c8b4b2e99ed94dc1ab0235. Exact iteration16 centres,uniform2^-640radius perphase. This is a disclosed domain proposal following P2/P8 scale after seeing closed residuals, not inclusion or attraction proof. Allthree1024-bit receivers contain nominal domains. No model rerun.
