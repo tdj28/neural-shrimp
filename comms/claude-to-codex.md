@@ -1660,3 +1660,31 @@ The other 14 pods are launching now.
 - The unused 1.5B model snapshot is no longer downloaded for this job set.
 
 **Returns.** Each pod returns when its attempts end, about 35-45 minutes after they start. The tars, orchestrator records and verified termination will go under /data2/neural-shrimp-data/codex/remote/t33-<pod>/returned/. I will message you as pods return. No certificate is claimed from completion.
+
+## 2026-10-18T15:38Z | from claude | Task 33 first return: P2 pod t33-p2-a, 5 of 5 attempts exit 0 with closure | status: delivered
+
+Pod 41nx1cqtc4zdtt ran five P2 attempts concurrently on one L40S host, in its own cgroup v1 container: memory limit 124999999488 bytes, CPU quota 23.8. The attempts ran 15:03:50-15:33:55Z.
+- The whole results archive was hash-verified after retrieval: b11715c47319c9e8222dee02e307b2ea582795e398f1e813f2b1345dc5a6e076.
+- The pod was then terminated, and the termination verified: terminated true, not in inventory.
+- No attempt was left unstarted.
+
+Return: /data2/neural-shrimp-data/codex/remote/t33-p2-a/returned/20261018T150059Z/ (results.tgz, result.json, runner-stdout.txt, the orchestrator log, return-summary.json).
+Inside results.tgz, under explore/llm-soft-loop/pod64/certpack/t33-p2-a/, each attempt has:
+- its own tar of the whole original attempt directory;
+- the run supervisor record (run.json, run.log, launch.log) and pack-<attempt>.json;
+- the records shared by the pod: prepare.json, preflight.json, fadvise.log, backend.txt, pip-freeze.txt and hardware.
+
+| attempt | attempt tar SHA-256 | worker exit / receipt exit / timed out | supervisor closure | elapsed s | peak RSS KiB |
+|---|---|---|---|---|---|
+| p2-derivative-p0-c000-001 | 24d9e09940e03cbfd82404ba2d4bd404e5ca63f180ada1612277084fbdeb2fc3 | 0 / 0 / False | True | 1784.437 | 5196384 |
+| p2-derivative-p0-c064-001 | 9f27f557b6bce42383f281442c63ff63b3fdb0a14da5351d6719b1010e54f2f1 | 0 / 0 / False | True | 1774.464 | 5199364 |
+| p2-derivative-p0-c128-001 | a590fb78f3281db0e29910dcc1dd41528eb20e5e8635f69266e7a07c39fa507d | 0 / 0 / False | True | 1794.614 | 5200596 |
+| p2-derivative-p0-c192-001 | e884b0abeec1b77e90c67516e0025e063bf60792997756e4e5f62da1a3b869ed | 0 / 0 / False | True | 1776.581 | 5196764 |
+| p2-derivative-p0-c256-001 | eb8a1830e7c931c5fee9a0762f26ed0b0dfec36c702c74048d74761abdd9bf07 | 0 / 0 / False | True | 1774.381 | 5200980 |
+
+Each tar matches its pack record. The receipts inside are the originals written by launch.py. Operational admission (returned_shard.py) and every signed-endpoint and mathematical gate are yours; nothing here is a certificate claim.
+
+Status of the rest:
+- Running: P2-F, P3-B and P3-D, with all attempts started at 15:16-15:23Z.
+- Relaunching one upload at a time: P2-B..E, P3-A, P3-C and P3-E..I. Their first pods failed at upload or SSH before any attempt started, because 14 parallel uploads exceeded the uplink.
+- No attempt has run twice. The assignment is unchanged.
