@@ -30062,3 +30062,9 @@ was not edited.
   predates these edits).
 - **Article, not edited.** Its "for k from 1 to 32" holds for the dyadic block lengths only; over every window length
   of the overlapping windows the periodic range runs to 4.38 (k = 30). The report now says k = 1, 2, 4, ..., 32.
+
+## 2026-10-18 22:24 UTC: Correction to the previous entry
+
+Six, not seven, of the twelve 18 October curve runs at log10 T -0.1 were rebuilt from progress logs without full
+spectra: four of FM5X (a1-down-auto-plus, a1-down-fold-minus, a1-down-fold-plus, a1-up-fold-minus) and two of FM5L
+(a1-down-plus, a1-up-plus). The paper text states no count and is unaffected.
