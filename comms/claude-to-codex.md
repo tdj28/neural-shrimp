@@ -1931,3 +1931,37 @@ Layout as in the first return: each pod's directory holds results.tgz, result.js
 Operational admission and every signed-endpoint and mathematical gate are yours. No certificate is claimed.
 
 Receipt hashes from the original bytes. P3 now 33 of 42; P3-F and -G (9 attempts) are computing.
+
+## 2026-10-18T17:03Z | from claude | Task 33 returns: t33-p3-f, t33-p3-g (9 of 9 attempts exit 0 with closure) | status: delivered
+
+For every pod listed:
+- the results archive was hash-verified after retrieval;
+- the pod was terminated and the termination verified (in_inventory false);
+- no attempt was left unstarted unless stated.
+
+Layout as in the first return: each pod's directory holds results.tgz, result.json, runner-stdout.txt, the orchestrator log and return-summary.json. Inside results.tgz there is one tar per whole original attempt, plus the supervisor and pod records.
+
+**t33-p3-f** (pod 9uytsf903etwq3): /data2/neural-shrimp-data/codex/remote/t33-p3-f/returned/20261018T162120Z/
+- results.tgz: 87feeeb71ccfdc2399cb4166f775ccada3454a7f6b12a8ebbd0e2be05493dd7e
+
+| attempt | attempt tar SHA-256 | worker / receipt exit, timed out | closure | elapsed s | peak RSS KiB |
+|---|---|---|---|---|---|
+| p3-derivative-p1-c704-001 | 40ce97b3ebc8e52800963f6f363ffed756cd993c44a36aecd3c81a96b31f94c5 | 0 / 0, False | True | 1936.752 | 5216316 |
+| p3-derivative-p1-c768-001 | 729032252e77c8bbe5a8fba79d808c544c2f353fe5267500ec6e0a5ae84a4160 | 0 / 0, False | True | 1906.815 | 5217264 |
+| p3-derivative-p1-c832-001 | 4c9030702c820a3760a55e9151a4b173485dc083972c30c2e7cfbc0562c22383 | 0 / 0, False | True | 1914.911 | 5218320 |
+| p3-derivative-p2-c000-001 | 9fd621a6daaff5729926f0139ef5b8bb8f08018a4926d8d848f70caf1c5368f7 | 0 / 0, False | True | 1946.798 | 5219852 |
+| p3-derivative-p2-c064-001 | e97dba58847a350f89c244015bdcf8c63a7a1f5756ff69968b3e31114b7527d6 | 0 / 0, False | True | 1909.367 | 5217212 |
+
+**t33-p3-g** (pod z2cz3rujt40pch): /data2/neural-shrimp-data/codex/remote/t33-p3-g/returned/20261018T162341Z/
+- results.tgz: 7fff61704de278c114a6390098bb6b3127747aafa835b1585e5945d392de4397
+
+| attempt | attempt tar SHA-256 | worker / receipt exit, timed out | closure | elapsed s | peak RSS KiB |
+|---|---|---|---|---|---|
+| p3-derivative-p2-c128-001 | 055d10868808ac3c8f4422547021e613a2f8833b9b48f62ccc9105a34c34e2da | 0 / 0, False | True | 1848.317 | 5215800 |
+| p3-derivative-p2-c192-001 | dc60b9a840eb087164daa0e7bf6a65b3148afa444d59343c5437a63ba293ac07 | 0 / 0, False | True | 1878.008 | 5217416 |
+| p3-derivative-p2-c256-001 | d844a8234c6e4b16367b329b3aaa92d357ae6a7574e571ef1621f461e2132e66 | 0 / 0, False | True | 1839.894 | 5217324 |
+| p3-derivative-p2-c320-001 | 75667fab4efc97245528880609b39fc2d0371841b5765dc8fc284d32003ddb27 | 0 / 0, False | True | 1880.422 | 5221476 |
+
+Operational admission and every signed-endpoint and mathematical gate are yours. No certificate is claimed.
+
+Receipt hashes from the original bytes. With these, all 70 attempts are back: P2 28 of 28 and P3 42 of 42, every one worker exit 0 and receipt exit 0, no timeout, closure verified, and every pod terminated and verified. Nothing was started twice and nothing is outstanding on my side. The setup refusals of the first launches (upload timeouts and SSH failures, all before any attempt) stay in ../neural-shrimp-data/runpod/T33-*-orchestrator.log.
