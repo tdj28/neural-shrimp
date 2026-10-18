@@ -29539,3 +29539,11 @@ A one-dimensional head would need the directions transverse to the reduction to 
 - whether the trace of the leading pair changes sign in an alternating 2 x 2 block at the head (the crossing rule of the cascade grids);
 - the stretchings of the eleven steps: which two vanish at the head;
 - the smallest leading modulus on the grid.
+
+## 2026-10-18 08:33 UTC: Run card FA-105 (exploratory): the period-5 shrimp at a second temperature
+
+The FA-100 domain followed again at log10 T -0.105, where the head has moved to (-0.11740, 0.10419) (NT-down) and the window's fixed-start cell is (-0.117872, 0.102936) (P5D).
+- Same rule and spacing as FA-100b (commit of this card).
+- Grid: alpha1 [-0.1320, -0.1040] x alpha2 [0.0880, 0.1240].
+
+**Reading:** the shape and periods compared with FA-100b, and the shift of the body against the drift of the head.
