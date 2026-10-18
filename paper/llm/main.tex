@@ -25,7 +25,7 @@
 \newcommand{\codelink}[1]{\href{\repourl/blob/\reporef/#1}{code}}
 \usepackage{microtype}
 \hypersetup{pdftitle={Chaos and bifurcations in continuous language-model feedback},
-  pdfsubject={Private working draft, 15 October 2026}}
+  pdfsubject={Private working draft, 18 October 2026}}
 \graphicspath{{figures/}}
 % Placeholders: red = planned, not started; orange = running or partly done. Remove all before submission.
 \newcommand{\planned}[1]{\textcolor{red}{\textbf{[Planned:} #1\textbf{]}}}
@@ -34,7 +34,7 @@
 
 \title{Chaos and bifurcations in continuous\\ language-model feedback}
 \author{Timothy D. Jones\\ Praxagent}
-\date{Private working draft, 15 October 2026}
+\date{Private working draft, 18 October 2026}
 
 \begin{document}
 \maketitle
@@ -44,31 +44,38 @@ as such. Huginn's spectra are float32 and its accuracy runs bfloat16. \planned{R
 computer-assisted proof is that of the period-8 orbit of Table~\ref{tab:orbits} (rung 3, Appendix~\ref{sec:evidence}).
 
 \begin{abstract}
-Feeding a language model the expected embedding of its own next token, as Soft Thinking does, turns inference into a
-dynamical system. In Qwen2.5, OLMo-2 and Llama-3 models of 0.5B to 72B
-parameters, temperature and steering move this loop between repeating text and chaos, with positive finite-time
-Lyapunov exponents that exact tangents reproduce. The chaos has practical consequences. Rerun with only the batch size
-changed, chaotic float64 loops separate until their most probable tokens differ, on the schedule the Lyapunov exponent sets, while periodic loops mostly stay together, in four models up to 70B. In arithmetic
-tests designed before the runs, merely running a problem in a batch with others, which changes only the rounding,
-changed 56\,\% of the answers of bfloat16 soft-thinking inference in a 0.5B model and 55\,\% in a 7B model, far more
-often than with greedy decoding. An exploratory reset of the fed-back state at every step removed most such changes.
-In tests fixed before their data, Soft Thinking with its published settings changed 21\,\% of the answers to fresh
-GSM8K problems with the batch layout alone, and reasoning models that answer 86 to 90\,\% of them correctly
-(DeepSeek-R1-Distill-Qwen-7B, QwQ-32B) changed 14.5 and 19.5\,\%, deciding correctness for 12 to 15\,\% of the problems;
-ordinary sampled reasoning with the same random numbers changed about as many. The two sources differ by
-model: in float64 the loops of Qwen2.5-7B and DeepSeek-R1-Distill-Qwen-7B mostly contract, so their answer changes
-are bfloat16 rounding carried to answers that sit near ties, while the loops of QwQ-32B and DeepSeek-R1-Distill-Llama-8B
-grow slowly in more than half of the copies, and a relative displacement of $10^{-10}$ alone changes about 14 and
-18\,\% of their answers, respectively. Exactly repeating text can hide
-a chaotic state. In Qwen2.5-0.5B, along recorded orbits, steering creates the chaos mainly by making next tokens compete,
-which turns the softmax readout from a contraction into an expansion; a logit bias alone suffices. Earlier injection
-carries chaos to lower temperature, steering at two depths creates chaos neither depth causes alone, and two chaotic
-loops writing one text lock each other into periodic orbits. Whether a prompt's loop is chaotic does not predict
-the accuracy of ordinary sampled answers beyond what the model's uncertainty about its first answer token predicts,
-and we find no edge-of-chaos advantage. The loop obeys quantitative laws of
-low-dimensional maps: finite-order doubling ratios approach Feigenbaum's constant (4.6688 against 4.6692), periodic windows
-accumulate on folds with distances close to a $1/N^2$ law, passage times predicted in advance from fold normal forms came within one
-iterate in 42 of 48 cases at four new folds (the six misses, at a period-6 fold, 3 to 5\,\% short), and interval arithmetic proves an attracting period-8 orbit. In the recurrent-depth model Huginn, a frozen test confirmed a predicted accuracy loss. The loop is not ordinary sampled generation.
+Feeding a language model the expected embedding of its own next token, as Soft Thinking does, turns this feedback form
+of inference into a dynamical system. In Qwen2.5, OLMo-2 and Llama-3 models of 0.5B to 72B parameters, temperature and
+steering move the loop between periodic dynamics, which write repeating text, and regimes with positive finite-time
+Lyapunov exponents that automatic-differentiation tangents reproduce. We call these regimes chaotic as a numerical
+label, not a proof of an asymptotic chaotic set; 74 to 92\,\% of sampled labels persist to $10^5$ steps. Finite-time
+expansion has direct consequences for reproducibility. Rerun with only the batch size changed, chaotic float64 loops
+separate until their most probable tokens differ, on the schedule the Lyapunov exponent sets, while periodic loops
+mostly stay together, in four models up to 70B. In arithmetic tests designed before the runs, changing only the batch
+layout, which alters the floating-point execution while the intended computation stays the same, changed the answers
+of bfloat16 soft-thinking inference on 56\,\% of 96 problems in a 0.5B model and 55\,\% in a 7B model, far more often
+than with greedy decoding; an exploratory reset of the fed-back state at every step removed most of these changes. In
+tests fixed before their data, Soft Thinking with its published settings changed 21\,\% of its answers to GSM8K
+problems not used before in this study with the batch layout alone, and reasoning models that answer 86 to 90\,\% of
+them correctly (DeepSeek-R1-Distill-Qwen-7B, QwQ-32B) changed 14.5 and 19.5\,\%, the two layouts disagreeing on
+correctness for 12 to 15\,\% of the problems. Ordinary sampled reasoning with the same random numbers changed about as
+many, so this sensitivity is not unique to continuous feedback. Two mechanisms contribute, depending on the model. In
+float64 the loops of Qwen2.5-7B and DeepSeek-R1-Distill-Qwen-7B mostly contract, so their answer changes are bfloat16
+rounding carried by long feedback to answers that sit near ties, while the loops of QwQ-32B and
+DeepSeek-R1-Distill-Llama-8B grow slowly in more than half of the copies, and a relative displacement of $10^{-10}$
+alone changes about 14 and 18\,\% of their answers, respectively. Exactly repeating text can hide a state with a
+positive finite-time exponent. In Qwen2.5-0.5B, along recorded orbits, steering creates the chaos mainly by making
+next tokens compete, which turns the softmax readout from a contraction into an expansion; a logit bias alone
+suffices for chaotic cells. Earlier injection carries chaos to lower temperature, and steering at two depths creates
+chaos neither depth causes alone. Whether a prompt's loop is chaotic does not predict the accuracy of ordinary sampled
+answers beyond what the model's uncertainty about its first answer token predicts, and within the precision of the
+tested designs we detect no edge-of-chaos advantage. The loop shows quantitative signatures of low-dimensional maps:
+late finite-order doubling ratios approach Feigenbaum's constant numerically (4.6688 against 4.6692, at the float64
+floor of the computation), periodic windows accumulate on folds with distances close to a $1/N^2$ law, passage times
+predicted in advance from fold normal forms came within one iterate in 42 of 48 cases at four new folds (the six
+misses, at a period-6 fold, 3 to 5\,\% short), and interval arithmetic proves an attracting period-8 orbit. In the
+recurrent-depth model Huginn, a frozen test confirmed a predicted accuracy loss. The loop is not ordinary sampled
+generation.
 \end{abstract}
 
 \section{Introduction}
@@ -89,17 +96,20 @@ Several recent inference methods feed a language model its own continuous output
 the expected embedding under the next-token distribution \cite{zhang2025softthinking}, latent-reasoning methods feed
 hidden states back \cite{hao2024coconut}, and recurrent-depth models iterate a block toward a fixed point
 \cite{geiping2025recurrent}. Each turns inference into an iterated map, and an iterated map can be chaotic. We show
-that the expected-embedding loop of released language models is chaotic over wide ranges of temperature and steering
-strength, explain why steering makes it so, and measure what the chaos does: in a chaotic regime an irrelevant
-change of batch layout decides what the loop writes. In bfloat16, where nearly every loop diverges, the batch layout
+that the expected-embedding loop of released language models is chaotic, in the finite-horizon sense defined below,
+over wide ranges of temperature and steering strength, explain why steering makes it so, and measure what the chaos
+does: in a chaotic regime an irrelevant change of batch layout can change what the loop writes. In bfloat16, where nearly every loop diverges, the batch layout
 changed the answers of a short soft-thinking pipeline on 56\,\% and 55\,\% of 96 arithmetic problems in two
-models. The same loops obey the quantitative
-laws of low-dimensional dynamics, down to Feigenbaum's constant.
+models. The same loops show quantitative signatures of low-dimensional dynamics, with late doubling ratios that
+approach Feigenbaum's constant numerically.
 
 Three consequences follow for the use of such loops. The first concerns reproducibility: in a chaotic loop, differences far
-below anything a user controls, such as the batch layout or the numerical precision, decide the output, and in an
+below anything a user controls, such as the batch layout or the numerical precision, can change the output: a chaotic
+loop amplifies them, and long low-precision feedback can carry them to answers that sit near ties even where the
+float64 loop contracts. In an
 exploratory test resetting the fed-back state before every soft step removed nearly all such changes (Section~\ref{sec:consequences}).
-Continuous-feedback inference can therefore be irreproducible because of its dynamics, not because of an implementation error. The second concerns steering:
+Ordinary numerical nondeterminism can thus become irreproducibility of the output, because the feedback amplifies or
+carries it. The second concerns steering:
 practitioners choose steering strengths, and here the strength is a bifurcation parameter, so near a boundary a small
 change switches the attractor or brings chaos, and a smooth dose-response cannot be assumed (Section~\ref{sec:discussion}).
 The third concerns prediction: where the loop is periodic, normal forms computed from the model's derivatives predicted
@@ -138,6 +148,48 @@ and check whether bifurcation theory, applied to derivatives computed from the m
 the behavior is measured. The models realize this structure, and the predictions largely hold. We also show where the chaos comes from (Section~\ref{sec:theory}; Section~\ref{sec:picture} assembles the pieces into one picture), and that larger models do not simply leave it behind (Section~\ref{sec:sizemain}). Ordinary sampled generation with a growing context is a different
 system; Section~\ref{sec:beyond} also measures how much of the mechanism survives sampling.
 
+\paragraph{Terms and scope.} Throughout, \emph{chaotic} is a numerical label: after a transient, the largest
+finite-time Lyapunov exponent exceeds $10^{-3}$ and no period up to a cutoff is detected (Appendix~\ref{sec:methods}).
+It is evidence of finite-time exponential separation along the measured trajectories, not a proof of an asymptotic
+chaotic set, and some labelled cells are long transients that a periodic orbit eventually captures: in random samples,
+74 and 92\,\% of the labels of two maps persist to $10^5$ steps (Section~\ref{sec:maps}). We call the computed
+exponents finite-time exponents and reserve ``chaotic attractor'' and ``chaotic set'' for cases with stronger evidence.
+Each claim is stated for the system on which it was measured. The autonomous soft-token map (a fixed prefix and one
+fed-back token), its versions with a longer fed-back memory, growing-context Soft Thinking, sampled thinking with
+common random numbers, ordinary generation and the recurrent block of Huginn are different systems, and results do
+not transfer between them without a test. Table~\ref{tab:claims} lists the main claims with the kind of evidence behind
+each.
+\begin{table}[tbp]
+\centering
+\caption{The main claims and the kind of evidence behind each. Identity: an analytic identity, checked numerically.
+Proof: computer-assisted, by interval arithmetic. Numerical: float64 computation with independent checks (tangent
+exponents, Newton residuals, continuation gates, longer horizons). Frozen: a test whose design, sample and criterion
+were fixed and pushed before its data. Exploratory: found by search or by an analysis designed after seeing data;
+structures selected this way are not estimates of how common they are. Details, amendments and failures are in
+Appendix~\ref{sec:evidence}.}
+\label{tab:claims}
+\small
+\begin{tabular}{p{0.56\linewidth}p{0.2\linewidth}p{0.14\linewidth}}
+\toprule
+Claim & Evidence & Where \\
+\midrule
+The loop's derivative factorizes into a readout covariance and the network's Jacobian & identity & Sec.~\ref{sec:theory} \\
+Chaotic regimes with periodic windows in 15 models; 74--92\,\% of sampled labels last $10^5$ steps & numerical & Secs.~\ref{sec:maps}, \ref{sec:sizemain} \\
+Chaotic float64 loops separate on the Lyapunov schedule when only the batch layout changes & numerical & Sec.~\ref{sec:consequences} \\
+The batch layout changes long-feedback answers (bfloat16 pipelines, Soft Thinking, reasoning models) & frozen & Sec.~\ref{sec:consequences} \\
+Resetting the fed-back state removes most of these changes & exploratory & Sec.~\ref{sec:consequences} \\
+Steering creates chaos mainly through token competition (0.5B model; weaker evidence at 7B) & exploratory interventions & Sec.~\ref{sec:theory} \\
+Fold normal forms predict passage times (42 of 48; both all-row criteria failed) & frozen & Sec.~\ref{sec:mechanism} \\
+Late doubling ratios approach Feigenbaum's $\delta$, at the float64 floor & numerical & Sec.~\ref{sec:cascade} \\
+Every tangent reversal of the continued fold curves is a cusp; local unfoldings match Newton solves & numerical; unfoldings frozen & Sec.~\ref{sec:organization} \\
+A period-5 window is a shrimp in a two-parameter plane (boundary organization) & numerical; found by search & Sec.~\ref{sec:organization} \\
+An attracting period-8 orbit exists & proof & App.~\ref{sec:evidence} \\
+No accuracy information beyond first-token uncertainty; no edge-of-chaos advantage & frozen; bounded nulls & Sec.~\ref{sec:consequences} \\
+Huginn: a predicted accuracy loss & frozen & Sec.~\ref{sec:huginn} \\
+\bottomrule
+\end{tabular}
+\end{table}
+
 \paragraph{Contributions.} The results fall into four groups.
 \begin{enumerate}
 \item \emph{Chaos in released models, and what it does to inference} (Sections~\ref{sec:maps}
@@ -152,12 +204,12 @@ system; Section~\ref{sec:beyond} also measures how much of the mechanism survive
   baseline. An exploratory causal test shows that the loop carries this: resetting the fed-back state before every soft step
   removes nearly all of it (on an H100, 66 against 1.6\,\% of answers changed in Qwen2.5-0.5B, and 64 against
   1.6\,\% in Qwen2.5-7B), and accuracy changes by at most 5 points. In a test frozen before its data, Soft Thinking with its published
-  settings changed the answers to 21\,\% of 256 fresh GSM8K problems in Qwen2.5-7B with the batch layout alone, on an
+  settings changed the answers to 21\,\% of 256 GSM8K problems not used before in this study in Qwen2.5-7B with the batch layout alone, on an
   H100, mostly between wrong answers; replaying the fed-back tokens cut this to 6\,\%; with reasoning models that answer 86 to 90\,\% of the problems correctly through soft thinking (DeepSeek-R1-Distill-Qwen-7B and QwQ-32B), 14.5 and 19.5\,\% of the soft-thinking answers changed, and a similar share with discrete sampled thinking. A chaotic loop's text reuses the phrases of
   neighboring loops in no fixed order, and a copy started $10^{-10}$ away writes the same text for 9 to 150 steps,
-  then a different one (Table~\ref{tab:chaostexts}). Exactly repeating text can hide a chaotic state (Section~\ref{sec:hostile}). Beyond the model's
+  then a different one (Table~\ref{tab:chaostexts}). Exactly repeating text can hide a state with a positive finite-time exponent (Section~\ref{sec:hostile}). Beyond the model's
   first-token uncertainty, the loop's regime carries no detectable information about the accuracy of ordinary sampled
-  answers, and we find no advantage at the edge of chaos.
+  answers, and within the precision of the tested designs we detect no advantage at the edge of chaos.
 \item \emph{Why the loop is chaotic, and how steering makes it so} (Section~\ref{sec:theory}). The loop's derivative
   factorizes into the inverse temperature, the covariance of token embeddings under the model's own next-token
   distribution, and the network's Jacobian; with tied embeddings and without the network the map would be a modern Hopfield update, which
@@ -180,8 +232,8 @@ system; Section~\ref{sec:beyond} also measures how much of the mechanism survive
   (log-log slope $-2.00$; fitted with an offset, the free exponent ranges from 2.13 to 2.45 with the fit range). On the nine fold curves we continued,
   all thirteen tangent reversals are located cusps, and near them local unfoldings, frozen before solving, matched the
   orbits that Newton solves recovered at twelve parameter offsets in number and at eleven in stability. A doubling
-  cascade has superstable points through period 768 and finite-order Feigenbaum ratios that approach $\delta$ (the
-  last, $4.6688$, against $4.6692$). A period-5 window of a plane steered at two depths is a numerically verified shrimp:
+  cascade has superstable points through period 768 and finite-order Feigenbaum ratios that approach $\delta$ numerically (the
+  last, $4.6688$, against $4.6692$, at the float64 floor of the computation). A period-5 window of a plane steered at two depths is a numerically verified shrimp:
   followed cell by cell, its attractor fills a main cell with legs and doubling shells bounded by fold and flip curves,
   a trace-zero loop replaces the head of a one-dimensional shrimp, and twice the fold curve has two cusps of opposite kinds and a
   self-crossing. Around one of these junctions an orbit census fixed in advance matched the predicted counts at 9 of
@@ -487,7 +539,7 @@ Second, a readout-only intervention gives chaos. We add to the logits a bias $\b
 of the steering vector ($b=Wv$, centered and scaled to unit standard deviation over the vocabulary), with no residual
 steering. This leaves the network untouched and changes only which tokens compete. It makes 3.5\,\% of the same
 temperature range chaotic (241 of 6837 cells), against 6.2\,\% for residual steering, mostly at
-$\log_{10}T>0.1$. Creating token competition therefore suffices for chaos, given the unmodified network.
+$\log_{10}T>0.1$. Creating token competition therefore suffices for chaotic cells in part of the plane, given the unmodified network.
 
 Third, a gain split compares different orbits, so steering could act simply by moving the orbit to other states. A
 crossover at fixed states separates the two contributions along the recorded orbits. Along recorded steered orbits we
@@ -600,7 +652,7 @@ tables that the library would otherwise compute in float32; two exceptions, floa
 records and a float32 final normalization in the two-GPU runs of 70B-class models before 14 October, are marked where they occur (Appendix~\ref{sec:methods} and Section~\ref{sec:sizemain}). A cell of a phase map is chaotic when the
 largest finite-horizon Lyapunov exponent of a twin trajectory (offset $10^{-6}$, renormalized every step; 300
 measured steps after 300 transient ones unless stated) exceeds $10^{-3}$ and no period up to 32 (48 in later zooms) is
-found; at 448 checked cells exact tangents reproduce the twin exponents within $0.0041$, and the label is a finite-horizon diagnostic, not a proof. In random samples of 192 chaos-labelled cells from each of the two main float64 maps (Figures~\ref{fig:stripes} and~\ref{fig:teaser}), 176 and 143 cells were never captured by a periodic orbit in $10^5$ steps and all but one kept a positive exponent; the others were long transients that ended on periodic orbits after 600 to 94{,}500 steps \cite{grebogi1983crises}. Chaotic shares of a map are therefore finite-horizon shares of its window.
+found; at 448 checked cells automatic-differentiation tangents reproduce the twin exponents within $0.0041$, and the label is a finite-horizon diagnostic, not a proof. In random samples of 192 chaos-labelled cells from each of the two main float64 maps (Figures~\ref{fig:stripes} and~\ref{fig:teaser}), 176 and 143 cells were never captured by a periodic orbit in $10^5$ steps and all but one kept a positive exponent; the others were long transients that ended on periodic orbits after 600 to 94{,}500 steps \cite{grebogi1983crises}. Chaotic shares of a map are therefore finite-horizon shares of its window.
 Noise in a measured difference can fake chaos but does not hide it: below the noise level a twin exponent rises as
 the offset shrinks, while a real exponent does not depend on the offset (Appendix~\ref{sec:methods},
 Figure~\ref{fig:falsechaos}).
@@ -973,7 +1025,7 @@ batch, and where the loop expands, even float64 rounding does. Over longer runs,
 rounding into different readout tokens, on the schedule its Lyapunov exponent sets.
 
 An exploratory causal test locates the low-precision effect in the loop. Following a suggestion of an external review, we reran
-the 0.5B pipeline at $T=1$ on 128 fresh additions, after a batch-1 reference run of each (exploratory; first on a
+the 0.5B pipeline at $T=1$ on 128 newly drawn additions, after a batch-1 reference run of each (exploratory; first on a
 workstation GPU, where the native pipeline's answers changed with the layout in 85\,\% of the problems, against
 56\,\% on the H100 of the frozen test). In the batch of four, two arms start from the reference's prompt state and
 are answered by the same batch-1 decoder. In the free arm the soft phase runs on its own; in the reset arm the
@@ -988,8 +1040,8 @@ and in Qwen2.5-7B. On the H100, in bfloat16, the answer changed in 85 of the 128
 in 2 (1.6\,\%) with reset in the 0.5B model, and in 82 (64\,\%) against 2 (1.6\,\%) in Qwen2.5-7B at $T=10^{0.2}$
 (exact McNemar $p\le2\times10^{-24}$); in the 7B model even float32 answers changed in 47 (37\,\%) against none. In bfloat16 on the H100 most batched steps reproduce the reference bitwise (the reset arm's median step distance is
 0), and the free loop amplifies the rare step that does not. No arm's
-accuracy differs from the reference's by more than 5 points. Within this budget, the batch
-decides low-precision answers because the loop carries each step's rounding forward and amplifies it, not because the
+accuracy differs from the reference's by more than 5 points. Within this budget, the batch layout
+changes low-precision answers because the loop carries each step's rounding forward and amplifies it, not because the
 last steps alone are fragile; 128 problems per arm do not show that accuracy is unchanged.
 
 \paragraph{Soft Thinking as published.} A test frozen before its data (\repo{docs/pi-matrix-confirmatory.md}) ran
@@ -1016,7 +1068,7 @@ this model answers only 22 to 30\,\% of the problems correctly, and the layout c
 for 6.2\,\% of the problems. In float64 the same pipeline contracts. On 1312 and 1314 of the 1319 GSM8K test problems
 (full vocabulary and top-15), a perturbation of $10^{-10}$ ended below its initial size, and none changed an answer.
 These flips are therefore not chaos of the float64 map: the feedback carries bfloat16 rounding differences forward
-until they decide answers that the model holds only weakly, and it does so for discrete feedback as well.
+until they change answers that the model holds only weakly, and it does so for discrete feedback as well.
 
 \paragraph{How the dependence builds up.} An exploratory study read the answers of the same pipeline after every
 doubling of the number of soft steps, from 2 to 128. It used 200 GSM8K test problems, two temperatures (0.6 and 1.2),
@@ -1040,7 +1092,7 @@ pipeline, so most of its flips are between wrong answers. A second test, also fr
 DeepSeek-R1-Distill-Qwen-7B, DeepSeek-R1-Distill-Llama-8B and QwQ-32B. A row thinks in concept tokens (top 15,
 $T=0.6$) until its most probable next token ends the thinking block, or until 1536 steps. It then answers by sampling
 discrete tokens, with random numbers shared between the two layouts. The comparison arm thinks with discrete tokens
-sampled the same way. On fresh GSM8K problems the batches held 8 or 16 prompts of equal length. On the integer-answer
+sampled the same way. On GSM8K problems not used before in this study the batches held 8 or 16 prompts of equal length. On the integer-answer
 problems of MATH-500, each problem ran alone or as eight copies of itself. In the first run the tokenizer of
 DeepSeek-R1-Distill-Llama-8B loaded wrongly: it dropped the spaces and newlines of every prompt, and the model thought
 far less and answered 45\,\% of a check set correctly, against 83\,\% with the correct tokenizer in bfloat16 and
@@ -1052,8 +1104,8 @@ model (21.9\,\%) (\repo{docs/pi/pm2fix-summary.json}, \repo{docs/pi/pm2fix-math-
 \begin{itemize}
   \item All three models changed their GSM8K answers with the layout alone: DeepSeek-R1-Distill-Qwen-7B
   for 14.5\,\% of the problems ($[10.9,18.0]$) at 88 to 90\,\% accuracy, and QwQ-32B for 19.5\,\% ($[16.4,22.3]$) at
-  86 to 87\,\%, and DeepSeek-R1-Distill-Llama-8B for 28.9\,\% ($[23.4,34.4]$) at 74 to 77\,\%. The layout decided
-  whether the answer was correct for 11.7, 14.5 and 18.0\,\% of the problems.
+  86 to 87\,\%, and DeepSeek-R1-Distill-Llama-8B for 28.9\,\% ($[23.4,34.4]$) at 74 to 77\,\%. The two layouts disagreed
+  on correctness for 11.7, 14.5 and 18.0\,\% of the problems.
   \item Discrete sampled thinking also changed many answers. On GSM8K the rates were 10.2, 19.9 and 21.5\,\% for the
   same three models. Only in DeepSeek-R1-Distill-Llama-8B did soft thinking change significantly more, by 7.4 points
   ($[1.9,12.9]$, McNemar $p=0.029$), and it answered correctly 4.7 points less often
@@ -1153,7 +1205,7 @@ and the single-push controls quoted in the text were computed separately on exac
 
 \paragraph{Does a chaotic loop predict worse answers in ordinary decoding? Not beyond the model's own uncertainty.}
 Two exploratory designs found no accuracy signature of the regimes that survives controls
-(Appendix~\ref{sec:behaviour}). A frozen test then labeled 4000 fresh products of two two-digit numbers by the regime
+(Appendix~\ref{sec:behaviour}). A frozen test then labeled 4000 newly drawn products of two two-digit numbers by the regime
 of the unsteered Qwen2.5-7B-Instruct's own loop at $\log_{10}T=0.40$. Chaotic-loop prompts are answered less
 accurately by ordinary sampling, by 7.1 points (95\,\% interval $[4.8,9.3]$), but the gap vanishes once seven
 difficulty covariates, fixed before sampling, enter the fit (label coefficient $+0.15$ points, $[-1.4,1.7]$,
@@ -1387,7 +1439,7 @@ one row outside the one-iterate criterion. The shortest period-8 rows give only 
 and its shortest forecasts carried little weight. A second test, frozen before any trajectory was run, made the
 continuous passage integral its primary predictor and the discrete count its secondary, and chose the distances so
 that every full-channel forecast is at least 16 iterates and every midpoint forecast at least 8. Its two folds are
-again fresh. Target C is the 2-cycle's fold at $\log_{10}T=-0.200$: $\alpha_c=0.0713690$, $a=-10.9505$, $b=-25.3300$.
+again new to the tests. Target C is the 2-cycle's fold at $\log_{10}T=-0.200$: $\alpha_c=0.0713690$, $a=-10.9505$, $b=-25.3300$.
 Target D is the fold of a period-6 orbit, a different family, at $\log_{10}T=-0.087439$: $\alpha_c=0.0756329$,
 $G=F^6$, $a=-72.695$, $b=72.237$. Distances $\eps=q^2/(ab)$ with $q=0.08$, $0.05$, $0.03$ and $0.018$ give both
 targets the same forecasts (Table~\ref{tab:prospective2}). At the 2-cycle's fold the integral held in all 12 rows,
@@ -1530,7 +1582,11 @@ differs from $\delta$ by $0.1\,\%$. Over the corners of the brackets the one bef
 limited by $s_{48}$, whose bracket is $2.4\times10^{-9}$ wide. The earlier ratio $4.572$ depends on $s_{24}$, known only
 within a bracket of $5.9\times10^{-6}$ (worst-case range $[1.01,4.65]$).
 Finite-order ratios also depend on the parameter coordinate, so only the trend of later ratios can
-test universality \cite{feigenbaum1978quantitative,papasavvas2015gain,liu2026learningchaos}.
+test universality \cite{feigenbaum1978quantitative,papasavvas2015gain,liu2026learningchaos}. Three claims should be kept apart here.
+The map has a period-doubling cascade; its late finite-order ratios approach $\delta$ numerically, with the digits
+limited by the brackets above, since the last flips lie near the float64 floor of the multiplier computation; and
+Feigenbaum's theory explains such convergence for an effectively one-dimensional, unimodal return map, a hypothesis
+these ratios alone do not establish for this map.
 \begin{table}[H]
 \centering\small
 \begin{tabular}{rllll}
@@ -2556,10 +2612,10 @@ prompts. It is chaotic at 0, 1, 0 and 0 of them, against 14, 9, 11 and 15, so th
 lines ran before the precision fix (1000 transient and 2000 measured steps, twins at $10^{-5}$ and $10^{-6}$, chaotic
 only when both exponents are positive); no temperature on them is positive at only one offset, and the one chaotic
 temperature ($\log_{10}T=0.319$, exponents 0.35 and 0.34) is chaotic again when recomputed in float64 throughout,
-with an exact tangent exponent of 0.34. With the paper's prompt, where it showed no robust chaos up to
+with an automatic-differentiation tangent exponent of 0.34. With the paper's prompt, where it showed no robust chaos up to
 $\log_{10}T=1.2$, that makes five prompts on which the 72B model is nearly free of unsteered chaos. Its next-token distribution jumps from sharp to nearly uniform within less
 than the grid spacing (0.03 decades), so a narrow chaotic band at the jump would be missed by the grid. Fine lines
-through the jump, computed in float64 throughout with exact tangent exponents, find only periodic orbits on the
+through the jump, computed in float64 throughout with automatic-differentiation tangent exponents, find only periodic orbits on the
 paper's prompt and on three of the four held-out prompts, and on the fourth a band of chaos about 0.02 decades wide
 just above the jump ($\log_{10}T=0.319$--$0.336$; exponents up to 0.40, which twins at $10^{-5}$ to $10^{-7}$ reproduce
 within 0.004), at nearly uniform distributions, as the 14B model's chaos but far narrower. A fixed temperature window is therefore the wrong yardstick, and so is size alone. A model's chaos follows the
@@ -2574,7 +2630,7 @@ supply; this is an extrapolation from checkpoints up to 72B, and OLMo-2 does not
 Figure~\ref{fig:z128} shows it at 70B parameters: in a $128\times128$ float64 scan of Llama-3.3-70B-Instruct steered
 along its hostility direction, computed after the precision fix, 20.8\,\% of the 16{,}384 cells are chaotic, in a band
 threaded by periodic windows, as in the 0.5B model's maps; a test of 24 sampled cells at three twin offsets and an
-exact tangent confirms 11 of the 12 chaotic and 5 of the 6 periodic labels (Appendix~\ref{sec:size}).
+automatic-differentiation tangent confirms 11 of the 12 chaotic and 5 of the 6 periodic labels (Appendix~\ref{sec:size}).
 \begin{figure}[tbp]
 \centering
 \includegraphics[width=\linewidth]{fig-zoom-llama70b-z128.png}
@@ -2666,7 +2722,7 @@ thresholds ($\lambda_c=1.074$--$1.126$ for the GSM8K prompts; median upper stabi
 development questions). Generation breaks earlier than log-likelihood scoring, consistent with answer changes that
 compound over tokens. The collapse at $1.2$ is the one \citet{wang2026taps} reported.
 
-A frozen test on fresh problems confirms this. Its design and analysis were pushed before any test item was read,
+A frozen test on problems not read before it was frozen confirms this. Its design and analysis were pushed before any test item was read,
 after two rounds of independent review. On 200 GSM8K test problems, accuracy is $0.330$ natively, $0.395$ at
 $\lambda=1.05$, $0.255$ at $1.15$ and $0.095$ at $1.20$. The two pre-stated predictions pass: accuracy declines at $1.20$ ($-23.5$
 points; 50 problems lost and 3 gained, exact one-sided McNemar $p=3\times10^{-12}$), and $1.05$ loses no more than
@@ -2824,7 +2880,7 @@ Steering acts via token competition & crossover along orbits; logit bias & partl
 \rowcolor{black!7} Chaos in 15 models & tangent exponents; 74--92\,\% last $10^5$ steps & numerical & \codelink{tools/explore_llm_soft_loop.py} \\
 Batch layout splits chaotic loops & paired float64 runs, 4 models & numerical & \codelink{tools/repro_noise.py} \\
 \rowcolor{black!7} Batch layout changes answers & arithmetic, GSM8K, reasoning & prospective & \codelink{tools/pi_harness.py} \\
-Chaos does not predict accuracy & regression on fresh problems & prospective & \codelink{tools/bpc_analyze.py} \\
+Chaos does not predict accuracy & regression on newly drawn problems & prospective & \codelink{tools/bpc_analyze.py} \\
 \addlinespace[3pt]
 \multicolumn{4}{l}{\textsc{Bifurcations and scaling laws}} \\
 \rowcolor{black!7} Windows accumulate on folds ($1/N^2$) & fold-edge fits; forecasts within 3\,\% & partly prospective & \codelink{tools/llm_feigenbaum.py} \\
@@ -2836,7 +2892,7 @@ Crossing window families & eight maps; independent audit & numerical & \codelink
 \rowcolor{black!7} Attracting period-8 orbit & interval arithmetic & \textbf{proof} & \codelink{codex/certify-llm} \\
 \addlinespace[3pt]
 \multicolumn{4}{l}{\textsc{Beyond the one-token loop}} \\
-\rowcolor{black!7} Steering history changes a decision & fresh instances & prospective & \codelink{tools/c12_steering_history.py} \\
+\rowcolor{black!7} Steering history changes a decision & new instances & prospective & \codelink{tools/c12_steering_history.py} \\
 Huginn loses accuracy as predicted & generation test & prospective & \codelink{tools/huginn_relax_eval.py} \\
 \bottomrule
 \end{tabular}
@@ -2881,7 +2937,7 @@ OLMo-2 7B and Llama-3.1 8B have maps but no continued orbits. The size compariso
 offset per label, and part of the 70B-class maps predate a precision fix and were rechecked only in samples. The maps
 use one prompt (more in the size tests), and steering uses contrastive vectors, checked against random and
 sparse-autoencoder directions in two models. Chaos labels are finite-horizon estimates: a longer horizon check kept 86
-and 92 of 96 chaotic labels in two maps, near the accumulation of a cascade transient chaos makes labels less reliable (on one line only 135 of 235 chaotic labels held), the chaotic cells are numerically validated (twin exponents agree with exact tangents, across precisions and horizons) but not yet established by a computer-assisted proof, and one periodic orbit has such a proof. The Feigenbaum ratios are
+and 92 of 96 chaotic labels in two maps, near the accumulation of a cascade transient chaos makes labels less reliable (on one line only 135 of 235 chaotic labels held), the chaotic cells are numerically validated (twin exponents agree with automatic-differentiation tangents, across precisions and horizons) but not yet established by a computer-assisted proof, and one periodic orbit has such a proof. The Feigenbaum ratios are
 finite-order values. All orbit, bifurcation and chaos results concern the soft-token map, not sampled generation with
 a growing context. Appendix~\ref{sec:limits} gives the details.
 
@@ -2906,12 +2962,12 @@ shortens the laminar phases of the bottleneck, by an amount that depends on how 
 \paragraph{What this suggests for interpretability and alignment.} Our results come from open models of 0.5B to
 72B parameters and the soft-token loop, but they suggest three things about models whose outputs feed back into their inputs, as in
 self-dialogue, agent loops and pipelines of model calls. First, where the loop is chaotic, a perturbation of
-$10^{-6}$ grows to order one within roughly 15 to 50 steps at the largest exponents we measured (those of the
+$10^{-6}$ grows to order one, while the loop stays in that regime, within roughly 15 to 50 steps at the largest exponents we measured (those of the
 unsteered 7B and 8B models, 0.30 to 0.88 per step), and more slowly at smaller ones. Even a complete account of single forward passes then predicts a long trajectory
 only if the state is known far more precisely than any interpretation supplies. Stepwise summaries can be
 inconclusive: every step of the period-8 orbit expands some direction while the cycle contracts, so the ordered
 product of the step Jacobians, not a summary of each step, captures the loop's stability
-(Section~\ref{sec:theory}). What remains predictable are the invariant sets, their
+(Section~\ref{sec:theory}). What can remain predictable are the invariant sets, their
 statistics and the boundaries between them. This extends the analysis of trained recurrent networks through their
 fixed points \cite{sussillo2013opening,maheswaranathan2019reverse} to the periodic orbits, chaos and bifurcations of a
 pretrained transformer. Second, feature dictionaries say which features an attractor occupies, but the boundaries
@@ -2933,7 +2989,7 @@ model enters depends on how much context it keeps (Table~\ref{tab:memory}), on t
 approached, and on the sampling noise (Appendix~\ref{sec:bridge}). Treating a looped model as a dynamical system, with
 regimes and boundaries to be mapped, rather than as a function to be evaluated point by point, seems to us the
 appropriate stance for both interpretability and safety evaluation. The reproducibility tests of
-Section~\ref{sec:consequences} make this concrete: in a chaotic regime the batch a request happens to share decides,
+Section~\ref{sec:consequences} make this concrete: in a chaotic regime the batch a request happens to share can change,
 after a predictable number of steps, what the loop writes. In low precision, continuous feedback makes even short-budget
 answers depend on the batch, far more often than greedy decoding does; over a long run whose answers the model
 holds weakly, discrete feedback does too.
@@ -2996,6 +3052,20 @@ the repository, which holds their checksums; they are available from the author.
 \section*{Funding}
 This work received no external funding; the author paid for all computation.
 
+% Competing interests: TO BE CONFIRMED BY THE AUTHOR before submission (external review, 18 Oct 2026). Draft:
+% \section*{Competing interests}
+% The author is affiliated with Praxagent and declares no financial or commercial interest in continuous-reasoning
+% methods, inference reproducibility, activation steering or related products.
+
+\section*{Ethics and responsible use}
+This study involved no human participants, private conversations or personal data. The access-control requests and
+their users in Appendix~\ref{sec:behaviour} are synthetic, and the benchmark problems are public; institutional review
+was therefore not applicable. The released models and benchmarks were used under the terms of their public licenses.
+Some experiments steer models toward hostile or permissive behavior; they measure the stability of iterated inference
+and release no harmful outputs. The results concern the auditability and control of iterative pipelines: near a
+bifurcation, a small change of a steering strength or of the numerical environment can change what such a pipeline
+does.
+
 \section*{Use of AI assistance}
 This work was carried out with AI coding and research agents (Anthropic's Claude Code and OpenAI's Codex) working
 under the author's direction. The agents wrote and ran the code, executed the experiments, checked results against
@@ -3044,9 +3114,20 @@ trained for a task, whereas ours is a released pretrained language model, and ou
 objects: the fold of a primitive periodic orbit, the full-channel passage of a two-step map, and the accumulation law
 of the windows, whose prefactor is set by the global reinjection. Expected-embedding
 feedback itself is used in training \cite{zeng2025ponderlm} and, training-free, in pretrained models
-\cite{zhang2025softthinking,wu2025singlethreaded}, next to continuous latent reasoning \cite{hao2024coconut}; a reduced
-dynamical model explains why pretrained models fail to preserve such mixtures \cite{backour2026mixture}, and whether
-they exploit the superposition the mixtures could carry has been questioned \cite{rizvimartel2026illusion}. Fixing
+\cite{zhang2025softthinking,wu2025singlethreaded}, next to continuous latent reasoning \cite{hao2024coconut}; Backour shows that the softmax readout and autoregressive feedback form a dynamical system that either amplifies
+small differences until one component of a mixture dominates or contracts different mixtures together, with
+pretrained rollouts mostly on the amplifying side \cite{backour2026mixture}; that analysis concerns the fate of
+mixtures, while ours computes the invariant sets, bifurcations and normal forms of the full released map and
+their consequences for reproducibility, and whether
+they exploit the superposition the mixtures could carry has been questioned \cite{rizvimartel2026illusion}.
+Newer methods vary what is fed back. CoTS keeps the sampled token and mixes in the expected embedding in
+proportion to the competition between the two leading candidates \cite{yu2026cots}, the near-tie that makes our
+loop's readout expand (Section~\ref{sec:theory}); since at least half of each input is the discrete token, our
+orbits do not carry over to it directly. LaTER feeds back a linear projection of the final hidden state
+\cite{li2026later}, and a trained projector lets a model roll out in a learned embedding space without its
+output head \cite{koriagin2026nohead}. For such hidden-state loops the derivative of Section~\ref{sec:theory}
+takes a different form, without the readout covariance, while the tools used here (orbits, multipliers,
+continuation and normal forms) apply unchanged. Fixing
 the prefix and the position turns that feedback into the autonomous map we analyze.
 
 In neural systems more broadly, saddle-node ghosts produce quantitative delays in task-trained recurrent networks
@@ -3080,14 +3161,32 @@ This makes the computed map rough at about $10^{-8}$ of the state (its fixed poi
 $10^{-15}$ on one GPU) and can matter for exponents measured with perturbations of $10^{-6}$ and below. The affected
 runs are the 70B-class sweeps and their plateau tests, the first Qwen2.5-72B prompt test, the 70B steering maps and
 the first zoom, the gain splits of the 70B-class models, and the start-state test, which spread all fourteen models
-over two GPUs; Appendix~\ref{sec:size} says which results we recomputed.
+over two GPUs; Appendix~\ref{sec:size} says which results we recomputed. Derivatives are automatic-differentiation tangents of
+this float64 computation: free of finite-difference truncation, but computed in floating point. We call a result
+exact only when it comes from interval or rational arithmetic, as in the proof of Appendix~\ref{sec:evidence}.
+
+\paragraph{Statistical units.} The cells of a parameter map are evaluations of one deterministic function at
+neighboring parameters, not independent experiments, and neighboring cells are strongly correlated. Their counts and
+shares therefore describe the area of a region on a chosen grid, not a prevalence over models or prompts. Comparisons
+between chaotic and periodic cells use temperature rows as units: intervals come from bootstraps over rows, and
+permutation $p$-values within rows are descriptive. Where a random sample of cells is drawn, its seed and sampling
+frame are recorded with the run. In tests on problems the problem is the unit, paired across conditions; where
+problems share a batch, intervals are clustered by batch, and McNemar tests, which treat problems as independent, are
+reported alongside them. Every interval names its resampling unit. A null result is stated together with the size of
+effect its interval excludes; effects smaller than that remain compatible with the data.
+
+\paragraph{Independent implementations.} Where an independent implementation reproduced a result, a second
+implementation of the map (and, where stated, of the solver or the normal-form computation), written separately by the
+second coding agent from the model's published architecture (\path{codex/crosscheck} in the repository), recomputed it.
+The two implementations share the stored weights, the tokenizer and the specification of the map, not code; hardware and
+library versions were not varied on purpose.
 
 \paragraph{Phase maps.} Each cell of a phase map is one parameter pair. Unless stated otherwise, we discard 300
 transient steps and measure over the next 300. The largest Lyapunov exponent comes from a twin trajectory at
 offset $10^{-6}$ that is renormalized to that offset after every step, Benettin's method with a finite-difference
 tangent \cite{benettin1980lyapunovI,benettin1980lyapunovII}; it estimates over a finite horizon the exponent that the
 multiplicative ergodic theorem defines as a limit \cite{oseledets1968multiplicative}. At the 448 random cells of the
-horizon check (Appendix~\ref{sec:limits}), an exact tangent vector carried by forward-mode differentiation
+horizon check (Appendix~\ref{sec:limits}), an automatic-differentiation tangent vector carried by forward-mode differentiation
 reproduces the twin exponents at offsets $10^{-6}$ and $10^{-9}$ within 0.0041 (median 0.0004), with the same 178
 chaotic labels, and at six chaotic cells the four leading exponents from QR iteration include exactly one positive one
 (0.06 to 0.42; the next is $-0.64$ to $-1.10$). The period is the smallest $q\le32$ (48 in the later zooms) for which the last state returns
@@ -3184,7 +3283,7 @@ $10^{-5}$, near zero at $10^{-6}$ and positive at $10^{-7}$, and its orbits are 
 throughout.
 
 Hence the rule we apply: a chaotic label needs an exponent that does not depend on the offset. We check this with
-three offsets, or with an exact tangent vector, which needs no offset. Two limits remain.
+three offsets, or with an automatic-differentiation tangent vector, which needs no offset. Two limits remain.
 \begin{itemize}
   \item The argument concerns noise in a measured difference. Noise acting on the dynamics can change which attractor a
   trajectory follows, and in some maps it lowers a positive exponent, the phenomenon of noise-induced order
@@ -3249,7 +3348,7 @@ $U=0.1/|b|$. We compare passage counts with the iterated quadratic map and with 
 root of $\operatorname{Re}\mu_c+1$, where $\mu_c$ is the multiplier with the smallest real part, using the Illinois
 variant of regula falsi with warm-started orbits. All but one or two multipliers are small, so Newton's method on
 $F^p(x)-x$ needs the monodromy only on a six-dimensional dominant subspace. We obtain that subspace by subspace
-iteration with exact forward-mode Jacobian-vector products chained along the orbit, so no dense Jacobian is formed,
+iteration with forward-mode Jacobian-vector products chained along the orbit, so no dense Jacobian is formed,
 and the residual is always the exact float64 $F^p(x)-x$. Each root is classified before it is accepted. The critical
 multiplier must be real and equal to $-1$, with a Ritz residual below $10^{-6}$, and the other computed Ritz values
 (six in all, estimates of the dominant spectrum) must lie inside the unit circle. We then reach the period-$2p$ orbit
@@ -3364,7 +3463,7 @@ label's coefficient is $-3.7$ to $-4.6$ points (permutation $p$ from $0.07$ to $
 entropy is measured during sampling, so the adjustment does not identify a causal effect of the regime.
 
 A frozen test addresses the second design. Its design, covariates and analysis were pushed before any data. It uses
-4000 fresh products of two two-digit numbers and the unsteered Qwen2.5-7B-Instruct at $\log_{10}T=0.40$: 1484 prompts
+4000 newly drawn products of two two-digit numbers and the unsteered Qwen2.5-7B-Instruct at $\log_{10}T=0.40$: 1484 prompts
 have a chaotic loop and 2509 a periodic one (seven with other labels are excluded). Chaotic-loop prompts are again answered less accurately by ordinary
 sampling, by 7.1 points (95\,\% interval $[4.8,9.3]$; 10 samples per prompt). The gap vanishes once seven difficulty
 covariates, all fixed before sampling, enter the fit. Beyond them the label's coefficient is $+0.15$ points
@@ -3479,7 +3578,7 @@ first made a brief excursion to $\alpha=0.04$ and back. In the exploratory run, 
 prohibited requests wrongly allowed from 49.5 to 70.8\,\%, a difference of 21.4 points (95\,\% interval over 24
 held-out instances $[15.6,26.6]$; \repo{docs/pi/c12-4-summary.json}).
 
-We then repeated the test as a confirmatory one. The design, the analysis and a fresh set of 48 instances (drawn from
+We then repeated the test as a confirmatory one. The design, the analysis and a new set of 48 instances (drawn from
 a new pool of users) were fixed and pushed before any data (\repo{docs/pi-c12-4-confirmatory.md}), with the
 prediction that the excursion would raise false allowing by at least 10 points, with an interval excluding zero. The
 prediction held, with a smaller effect: 13.0 points ($[7.2,18.8]$ over 24 prohibited instances) after the 32 steps at
@@ -4265,7 +4364,7 @@ at $10^{-4}$, $3\times10^{-5}$ and $10^{-5}$. The growth of small perturbations 
 two-GPU runs computed the final normalization in float32 (see the start of Section~\ref{sec:sizemain}); a controlled
 reproduction of this false chaos is in Appendix~\ref{sec:methods} (Figure~\ref{fig:falsechaos}). Recomputed in float64
 throughout, the window's orbits have periods 2 and 4, and their exponents are negative at all four offsets from
-$10^{-4}$ to $10^{-7}$ and for an exact tangent vector carried along the orbit by forward-mode differentiation, which
+$10^{-4}$ to $10^{-7}$ and for an automatic-differentiation tangent vector carried along the orbit by forward-mode differentiation, which
 needs no offset; the four twin exponents lie within 0.015 of the tangent exponent at every temperature, and the
 exponent approaches zero only
 where the period doubles from 2 to 4 ($\log_{10}T=0.374$). The selected cells below kept their labels at the larger
@@ -4312,7 +4411,7 @@ hostility plane, at the layer of Goodfire's 70B SAE and at equal norm, 4.3\,\% o
 concept vector, 3.5\,\% along the frozen-rule hostility feature, 1.1\,\% along a Gaussian direction and 0.2\,\% along
 a random live feature, against 28, 29, 39 and 27\,\% for the same four directions in Llama-3.1-8B (on one GPU);
 Qwen2.5-72B along hostility gives 0.8\,\%: eight cells, all at $\log_{10}T=0.26$--$0.30$. Recomputed in float64
-throughout, six of the eight are chaotic, with exact tangent exponents of 0.23 to 0.36 that the twins at all four
+throughout, six of the eight are chaotic, with automatic-differentiation tangent exponents of 0.23 to 0.36 that the twins at all four
 offsets from $10^{-4}$ to $10^{-7}$ reproduce within 0.01; five have nearly uniform next-token distributions (11.0 to
 11.1 nats) and one alternates between sharp and flat behind a period-2 leading token. The same temperatures without
 steering are period-2 orbits with exponents between $-3.8$ and $-3.6$, and the steered cells above $\log_{10}T=0.325$ are
@@ -4324,7 +4423,7 @@ concept plane at the same offset, computed after the precision fix in sixteen ba
 $\log_{10}T\approx0.23$ at $\alpha=0.06$ to $\approx0.19$ at $\alpha=0.12$; fixed points lie above it, and windows of
 periods 3, 5, 6 and 7, up to 13, fill the plane below. Only 1.7\,\% of the cells have neither a detected period nor a
 positive exponent. A plateau test of 24 cells drawn by a rule fixed in advance (12 chaotic, 6 periodic, 6 unresolved;
-300 transient and 300 measured steps, absolute twin offsets $10^{-4}$, $10^{-5}$ and $10^{-6}$ and an exact tangent)
+300 transient and 300 measured steps, absolute twin offsets $10^{-4}$, $10^{-5}$ and $10^{-6}$ and an automatic-differentiation tangent)
 confirms 11 of the 12 chaotic labels, whose four exponents agree within 0.012, and 5 of the 6 periodic ones. The two
 exceptions are neighboring cells near $\log_{10}T=0.20$ where a long, weakly attracting loop (periods 15 and 16) and
 chaos are reached from the same start depending on rounding: one cell labeled chaotic reached the loop, and one
@@ -4452,7 +4551,7 @@ model, and OLMo-2-7B and -32B), and steering uses contrastive vectors, checked a
 directions in two models. The soft-token loop is one inference scheme: Appendix~\ref{sec:bridge} extends it to memories of up to sixteen soft tokens and to the growing context of Soft Thinking, but sampled decoding of discrete tokens is a different system. The evidence consists of numerical
 validation, cross-checks and prospectively frozen passage tests (including failed all-row criteria), with a
 computer-assisted proof for only one orbit at one parameter point. Chaos labels are finite-horizon estimates (300
-measured steps after 300 to 500 transient steps), and the chaotic cells are numerically validated (twin exponents agree with exact tangents, across precisions and horizons) but not yet established by a computer-assisted proof. A computer-assisted proof of chaos, such as a horseshoe verified by covering
+measured steps after 300 to 500 transient steps), and the chaotic cells are numerically validated (twin exponents agree with automatic-differentiation tangents, across precisions and horizons) but not yet established by a computer-assisted proof. A computer-assisted proof of chaos, such as a horseshoe verified by covering
 relations, would need enclosures of the map over boxes many orders of magnitude larger than the period-8 proof's
 (radius $2^{-640}$). That proof is unaffected, but its ball arithmetic does not scale to large boxes: in a separate
 test, a box of radius $2^{-80}$ already gave enclosures too wide to show that an RMS normalization at layer 3
@@ -4566,7 +4665,7 @@ from the raw maps as the set whose omission reproduces both totals (\repo{docs/r
 \item Prospectively frozen, not independently reproduced: the scaling predictions P1--P3, the prompt-blocked size
   tests in Qwen2.5 (7B and 14B; 72B; 72B base against Instruct) and OLMo-2, and the loop-free predictor test of Section~\ref{sec:sizemain} and Appendix~\ref{sec:size}, all scored
   by code pushed before the data, together with the three-offset plateau tests of the 70B-class maps and the float64
-  recheck of the Qwen2.5-72B cells with exact tangent exponents. These are
+  recheck of the Qwen2.5-72B cells with automatic-differentiation tangent exponents. These are
   float64 computations at rung 1; no independent implementation has rechecked them.
 \item Prospectively frozen on 15 October: the answer-level reproducibility test in Qwen2.5-0.5B (positive), whose
   saved rows and statistics an independent implementation reproduced (the generation itself was not rerun); its 7B
