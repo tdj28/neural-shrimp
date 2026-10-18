@@ -38,23 +38,32 @@ def zoom_box(P, frac, center=None):
     return center - side / 2, center + side / 2, center
 
 
-def corr_dim(X, rng, n=6000):
+def corr_dim(X, rng, n=8000):
+    """Correlation sum C(r) of n sampled states and its local slope d log C / d log r. The reported dimension is the
+    median local slope over the widest window of consecutive radii whose local slopes stay within 10 % of their median
+    (the scaling range), and only if that window spans at least a decade of r; otherwise None."""
     idx = rng.choice(len(X), size=min(n, len(X)), replace=False)
     Y = X[idx]
-    D = np.sqrt(((Y[:, None, :] - Y[None, :, :]) ** 2).sum(-1))
-    d = D[np.triu_indices(len(Y), 1)]
-    r = np.logspace(np.log10(np.percentile(d, 0.05)), np.log10(np.percentile(d, 50)), 30)
+    sq = (Y ** 2).sum(1)
+    d = []
+    for i in range(0, len(Y), 1000):                 # distances of all pairs j > i, in blocks of rows
+        D2 = sq[i:i + 1000, None] + sq[None, :] - 2.0 * Y[i:i + 1000] @ Y.T
+        later = np.arange(len(Y))[None, :] > np.arange(i, i + D2.shape[0])[:, None]
+        d.append(np.sqrt(np.maximum(D2[later], 0.0)))
+    d = np.concatenate(d)
+    r = np.logspace(np.log10(np.percentile(d, 0.02)), np.log10(np.percentile(d, 50)), 36)
     C = np.array([(d < x).mean() for x in r])
-    lr, lc = np.log(r), np.log(C)
-    k = len(r)
+    lr, lc = np.log(r), np.log(np.maximum(C, 1e-300))
+    slope = np.gradient(lc, lr)
+    per_decade = (len(r) - 1) / np.log10(r[-1] / r[0])
+    need = int(np.ceil(per_decade)) + 1               # radii spanning one decade
     best = None
-    for a in range(0, k - 8):
-        b = a + 8
-        sl = np.polyfit(lr[a:b], lc[a:b], 1)[0]
-        resid = np.std(np.diff(lc[a:b]) / np.diff(lr[a:b]))
-        if best is None or resid < best[0]:
-            best = (resid, sl, a, b)
-    return r, C, best
+    for a in range(len(r)):
+        for b in range(a + need, len(r) + 1):
+            m = np.median(slope[a:b])
+            if np.all(np.abs(slope[a:b] - m) <= 0.1 * m) and (best is None or b - a > best[3] - best[2]):
+                best = (0.0, float(m), a, b)
+    return r, C, slope, best
 
 
 def main():
@@ -64,6 +73,7 @@ def main():
     ap.add_argument("--manifold", default=None)
     ap.add_argument("--out", required=True)
     ap.add_argument("--json")
+    ap.add_argument("--ky", type=float, default=None, help="Kaplan-Yorke dimension of the cell, drawn for comparison")
     args = ap.parse_args()
     import matplotlib
     matplotlib.use("Agg")
@@ -73,8 +83,9 @@ def main():
     tok = AutoTokenizer.from_pretrained("Qwen/Qwen2.5-0.5B-Instruct", revision="7ae557604adf67be50417f59c2c2f167def9a775",
                                         cache_dir=str(DATA / "models/hf/hub"))
     z, rec = load(args.main)
-    C = z["coords"]                                  # (starts, record, pcs)
-    T = z["tokens"]
+    aper = z["periods"] == 0                         # the chaotic attractor only: starts that reached a periodic orbit
+    C = z["coords"][aper]                            # (starts, record, pcs) would pile up at its few points
+    T = z["tokens"][aper]
     P = C.reshape(-1, C.shape[-1])
     toks = T.reshape(-1)
     uniq, counts = np.unique(toks, return_counts=True)
@@ -116,20 +127,30 @@ def main():
     ax.set_title("(d) return map: stretching and folding", fontsize=9)
     ax = fig.add_subplot(gs[1, 1])
     rng = np.random.default_rng(0)
-    r, Cr, best = corr_dim(P[:, :8], rng)
-    ax.loglog(r, Cr, "o-", ms=3)
-    _, sl, i0, i1 = best
-    ax.loglog(r[i0:i1], Cr[i0:i1], "r-", lw=2, label=f"slope {sl:.2f} (correlation dimension)")
+    r, Cr, slope, best = corr_dim(P[:, :8], rng)
+    ax.semilogx(r, slope, "o-", ms=3, color="k", label="local slope $d\\log C/d\\log r$")
+    if best is not None:
+        _, sl, i0, i1 = best
+        ax.semilogx(r[i0:i1], slope[i0:i1], "r-", lw=2.5, label=f"scaling range (a decade or more): median {sl:.2f}")
+    else:
+        sl, i0, i1 = None, None, None
+        ax.text(0.03, 0.06, "no scaling range: the local slope does not stay\nwithin 10 % over any decade of $r$",
+                transform=ax.transAxes, fontsize=7.5)
+    if args.ky is not None:
+        ax.axhline(args.ky, color="tab:blue", ls="--", lw=1.2, label=f"Kaplan-Yorke dimension {args.ky:.2f}")
+    ax.set_ylim(0, max(2.5, float(np.nanmax(slope[np.isfinite(slope)])) * 1.05))
     ax.set_xlabel("$r$ (distance in the first 8 principal coordinates)")
-    ax.set_ylabel("$C(r)$, share of pairs closer than $r$")
+    ax.set_ylabel("local slope of the correlation sum")
     ax.legend(fontsize=7)
-    ax.set_title("(e) correlation sum", fontsize=9)
-    summary = {"main": args.main, "states": int(len(P)), "census_main": rec["census"],
-               "variance_top": rec["variance_explained_top"][:4], "correlation_dimension_8pc": float(sl),
+    ax.set_title("(e) correlation dimension", fontsize=9)
+    summary = {"main": args.main, "states": int(len(P)), "aperiodic_starts": int(aper.sum()),
+               "census_main": rec["census"], "variance_top": rec["variance_explained_top"][:4],
+               "correlation_dimension_8pc": sl, "scaling_range_r": None if sl is None else [float(r[i0]), float(r[i1 - 1])],
+               "local_slope_range": [float(np.min(slope)), float(np.max(slope[:-3]))],
                "top_tokens": [tok.decode([int(t)]) for t in top]}
     if args.second:
         z2, rec2 = load(args.second)
-        P2 = z2["coords"].reshape(-1, z2["coords"].shape[-1])
+        P2 = z2["coords"][z2["periods"] == 0].reshape(-1, z2["coords"].shape[-1])
         ax = fig.add_subplot(gs[1, 2])
         ax.scatter(P2[:, 0], P2[:, 1], s=0.15, c="tab:purple", alpha=0.5, linewidths=0, rasterized=True)
         if args.manifold:
