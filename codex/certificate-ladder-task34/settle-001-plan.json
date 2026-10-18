@@ -1,0 +1,78 @@
+{
+  "status": "reviewed_for_execution",
+  "repository": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp",
+  "raw_root": "/data2/neural-shrimp-data/codex/certificate-ladder",
+  "python": "/data2/neural-shrimp/.venv/bin/python",
+  "cpu_threads": 1,
+  "cpu_ids": [
+    0
+  ],
+  "startup_ram_gib": 28,
+  "source_files": [
+    {
+      "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/certificate-ladder-task34/seed_settle.py",
+      "bytes": 3123,
+      "sha256": "8b85261e8cf6748d7942b0559bf50f292bccf9e1d43c0624446c4c74bbb59c23"
+    },
+    {
+      "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/certificate-ladder-task34/settle-001-card.json",
+      "bytes": 2829,
+      "sha256": "b9addac100540c652b786e7375d4d156ae94dc46f833b021ed9f3f7d9f50facb"
+    },
+    {
+      "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/crosscheck/qwen_map.py",
+      "bytes": 14540,
+      "sha256": "493a3d1d57fec227f5ba2e3f8f9cfcfdd02d22495d1d44e6449ede901310ae6e"
+    },
+    {
+      "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/certify-chaos/supervise.py",
+      "bytes": 8727,
+      "sha256": "306db32a2c8ada9beb67547bbaafc6d0d7a597b5861b0e629ca9a07801223c44"
+    }
+  ],
+  "lanes": {
+    "settle": {
+      "entry": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/certificate-ladder-task34/seed_settle.py",
+      "arguments": [
+        "--card",
+        "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/certificate-ladder-task34/settle-001-card.json",
+        "--out",
+        "/data2/neural-shrimp-data/codex/certificate-ladder/settle-001"
+      ],
+      "output": "/data2/neural-shrimp-data/codex/certificate-ladder/settle-001",
+      "supervision": "/data2/neural-shrimp-data/codex/certificate-ladder/settle-001-supervision",
+      "preflight_pins": [
+        {
+          "path": "/data2/neural-shrimp-data/explore/sheets/seeds/p3.npy",
+          "bytes": 7296,
+          "sha256": "a81b2d295f2415bac08750cdd1580c917eaa477026315481b893fe3e9aba5296"
+        },
+        {
+          "path": "/data2/neural-shrimp-data/explore/sheets/seeds/band6.npy",
+          "bytes": 7296,
+          "sha256": "44b23279a73f3bdf9a545e23315e24103a50909b0b5446d19a0719b4d58f7c9d"
+        },
+        {
+          "path": "/data2/neural-shrimp-data/explore/sheets/seeds/p10.npy",
+          "bytes": 7296,
+          "sha256": "31fd7ea3c70998c9b4308f1d0eb4e6048f68c566b5a0b06109e24c1d800af06a"
+        },
+        {
+          "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/crosscheck/qwen_map.py",
+          "bytes": 14540,
+          "sha256": "493a3d1d57fec227f5ba2e3f8f9cfcfdd02d22495d1d44e6449ede901310ae6e"
+        }
+      ],
+      "limits": {
+        "as_bytes": 12884901888,
+        "cpu_seconds": 2400,
+        "wall_seconds": 2500,
+        "output_bytes": 67108864
+      },
+      "prior_receipts": [
+        "/data2/neural-shrimp-data/codex/coexistence/power-pair-001-supervision/receipt.json"
+      ]
+    }
+  },
+  "cost_basis": "Task33 measured512steps/two-seed batch264.128s/5334772KiB. Five serial single-seed cells conservatively forecast5*264.128=1320.640s plusprefix/setup; bounded2400CPU2500wall12GiBAS64MiBoutput. All5*513*896float64states retained. No model run until privatecheckpoint/freshcapacity/previouspowerjobclosure. No retries/extensions."
+}

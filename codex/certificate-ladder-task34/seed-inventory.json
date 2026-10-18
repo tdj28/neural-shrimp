@@ -1,0 +1,134 @@
+{
+  "status": "proposal_inventory_only_no_model_evaluation",
+  "seeds": [
+    {
+      "name": "p2",
+      "path": "/data2/neural-shrimp-data/explore/sheets/seeds/p2.npy",
+      "present": true,
+      "bytes": 7296,
+      "sha256": "139a3166fc0f530e9a7c33df42e37cf316523c798c8849945c66219ecdee0114",
+      "shape": [
+        896
+      ],
+      "dtype": "float64",
+      "all_finite": true,
+      "array_bytes_sha256": "ebd3fb33d30bf5c45d2e51c2b5812df0c0736b9e23005cf5e16213b90cce2f7f"
+    },
+    {
+      "name": "p3",
+      "path": "/data2/neural-shrimp-data/explore/sheets/seeds/p3.npy",
+      "present": true,
+      "bytes": 7296,
+      "sha256": "a81b2d295f2415bac08750cdd1580c917eaa477026315481b893fe3e9aba5296",
+      "shape": [
+        896
+      ],
+      "dtype": "float64",
+      "all_finite": true,
+      "array_bytes_sha256": "eb161368944dc90a8ba6c5e8f216a2a077b01c3d5371a1b132383c316db4e526"
+    },
+    {
+      "name": "band6",
+      "path": "/data2/neural-shrimp-data/explore/sheets/seeds/band6.npy",
+      "present": true,
+      "bytes": 7296,
+      "sha256": "44b23279a73f3bdf9a545e23315e24103a50909b0b5446d19a0719b4d58f7c9d",
+      "shape": [
+        896
+      ],
+      "dtype": "float64",
+      "all_finite": true,
+      "array_bytes_sha256": "f3565a3ac47f823a42072cfd87d81454c4f507fb53666affa88d9cfafdb68d4b"
+    },
+    {
+      "name": "p10",
+      "path": "/data2/neural-shrimp-data/explore/sheets/seeds/p10.npy",
+      "present": true,
+      "bytes": 7296,
+      "sha256": "31fd7ea3c70998c9b4308f1d0eb4e6048f68c566b5a0b06109e24c1d800af06a",
+      "shape": [
+        896
+      ],
+      "dtype": "float64",
+      "all_finite": true,
+      "array_bytes_sha256": "b4a749e0e80404bdd69fa236420905a12810881d311d76ebebae2626202eb115"
+    }
+  ],
+  "cells": [
+    {
+      "name": "cascade-p3",
+      "alpha": 0.065,
+      "log10T": -0.14798,
+      "period": 3,
+      "seed": "p3",
+      "alpha_ratio": [
+        1170935903116329,
+        18014398509481984
+      ],
+      "log10T_ratio": [
+        -333221336429143,
+        2251799813685248
+      ]
+    },
+    {
+      "name": "cascade-p6",
+      "alpha": 0.065693,
+      "log10T": -0.14798,
+      "period": 6,
+      "seed": "p3",
+      "alpha_ratio": [
+        147927485160425,
+        2251799813685248
+      ],
+      "log10T_ratio": [
+        -333221336429143,
+        2251799813685248
+      ]
+    },
+    {
+      "name": "cascade-p12",
+      "alpha": 0.0659717,
+      "log10T": -0.14798,
+      "period": 12,
+      "seed": "p3",
+      "alpha_ratio": [
+        2376880988295985,
+        36028797018963968
+      ],
+      "log10T_ratio": [
+        -333221336429143,
+        2251799813685248
+      ]
+    },
+    {
+      "name": "band-p6",
+      "alpha": 0.07,
+      "log10T": -0.1404,
+      "period": 6,
+      "seed": "band6",
+      "alpha_ratio": [
+        1261007895663739,
+        18014398509481984
+      ],
+      "log10T_ratio": [
+        -5058443101462541,
+        36028797018963968
+      ]
+    },
+    {
+      "name": "stripe-p10",
+      "alpha": 0.06776,
+      "log10T": -0.115,
+      "period": 10,
+      "seed": "p10",
+      "alpha_ratio": [
+        4882622572009997,
+        72057594037927936
+      ],
+      "log10T_ratio": [
+        -8286623314361713,
+        72057594037927936
+      ]
+    }
+  ]
+}
