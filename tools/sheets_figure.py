@@ -91,7 +91,11 @@ def main():
     ax.imshow(code, origin="lower", extent=ext, aspect="auto", interpolation="nearest", cmap=cmap, vmin=0, vmax=3)
     g0 = F["groups"][list(F["names"]).index(args.default)]
     ax.contour(al, lt, (g0 == 1).astype(float), levels=[0.5], colors="k", linewidths=0.6)
-    ax.set_title("(b) what exists: 2-group, 3-group, both", fontsize=9, loc="left")
+    ax.set_title("(b) what exists (all maps)", fontsize=9, loc="left")
+    from matplotlib.patches import Patch
+    ax.legend(handles=[Patch(color="#ffbf80", label="crescent family only"), Patch(color="#9ec9ea", label="2-cycle family only"),
+                       Patch(color="#b48ad6", label="both"), Patch(facecolor="white", edgecolor="0.6", label="neither periodic")],
+              fontsize=6, frameon=True, framealpha=0.85, loc="lower right")
     ax.set_xlabel(r"$\alpha$")
     for r in args.rows:
         ax.axhline(r, color="k", ls=":", lw=0.6)
