@@ -1931,7 +1931,13 @@ the sum of their pairwise products vanish converges at $(\alpha_1,\alpha_2)=(-0.
 as the two conditions require of three roots (they make the roots the cube roots of their product), and the orbit
 contracts about 280-fold per period. This point of strongest contraction plays the role of the head. The equal moduli
 do not by themselves decide whether the return map is locally of higher rank there or nearly of rank one and strongly
-nonnormal; singular values of the return map would decide it. Continued in temperature, over the eleven values of $\log_{10}T$ from $-0.104$ to
+nonnormal; its singular values decide it (\repo{tools/monodromy_svd.py}, checked on synthetic operators with equal
+eigenvalues and different rank). At the point the second singular value of the return map is $1.8\times10^{-4}$ of the
+first when the cycle is started at one phase and at most 0.029 of it at the others, the same as within $2\times10^{-4}$
+of the point, while the first is about 65, four orders of magnitude above the eigenvalues; in the body, away from the
+head, the ratio is 0.017 to 0.23. Near its head the return map is nearly of rank one and strongly nonnormal: its
+eigenvalues are small because its leading left and right singular vectors are nearly orthogonal, not because a second
+direction matters. Continued in temperature, over the eleven values of $\log_{10}T$ from $-0.104$ to
 $-0.094$ at which the continuation passed its gates, the point moves along a nearly straight line; the common modulus
 of its three leading multipliers, the cube root of the determinant of the leading block, stays between $2.4$ and
 $5.6\times10^{-3}$, and a fourth multiplier approaches it twice (Figure~\ref{fig:headtemperature};
