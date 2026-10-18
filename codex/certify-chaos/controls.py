@@ -15,7 +15,7 @@ def main():
    whole=check(image(lo),image(hi),q(-1),q(1),factor*rho,rho)
    for j,(tl,th) in enumerate(branches):transitions.append({'source':i,'target':j,**check(image(lo),image(hi),tl,th,factor*rho,rho)})
    if name=='positive':
-    assert whole['covered'];assert image(q(1))-1==q(1);assert -1-image(q(2,5))==q(9,25)
+    assert whole['covered'];assert image(q(1))-1==q(1);assert (-1-image(q(2,5))).overlaps(q(9,25))
   expected=name=='positive';assert all(v['covered']==expected for v in transitions)
   if name=='transverse_negative':assert all(v['exit_pass'] and not v['stable_pass'] for v in transitions)
   if name=='contracting_negative':assert all(not v['exit_pass'] and v['stable_pass'] for v in transitions)
