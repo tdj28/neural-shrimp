@@ -25,3 +25,5 @@ Precision update: Claude05:48 protocol reviewed in05:52comm.768 remains experime
 2026-10-18T17:54Z: settle001 COMPLETE/CLOSED all5finitephase/divisor screens independentlyverified. derivative-profile001 RUNNING session80315,source3f7c5c3084d3fbce69847898178ab3f0910b025c,startupidentitiesverified. CPU1affinity0+supervisor,12GiBAS700CPU750wall64MiBoutput. Exact5cells,8composedcolumns/all35FDrows; no retry/extension. Initialdirtycheckoutpreflight refused beforeworker andpreserved; unusedscientificattempt thenlaunchedaftercompletedtokenreleasecheckpoint.
 
 2026-10-18T18:03Z: derivative-profile001 COMPLETE/CLOSED, all6outputs/4sourceblobs/35FDrows/5batcherrors checked, hostgroups absent;324.192204s external. Dense/phase isolated callers reviewed,8actualentry controls passed. First cascadeP3 dense card ready,1254.84s columnforecast,2800CPU2900wall12GiB; no launch yet.
+
+2026-10-18T18:02Z: dense-cascade-p3-001 RUNNING session2007,sourceb35b03ea46f1eac3f1a4f589d04c183e3075a433; host postexec identities verified,12GiBAS2800CPU2900wall128MiBoutput,CPU1affinity0+supervisor2slots. No retry/extension.
