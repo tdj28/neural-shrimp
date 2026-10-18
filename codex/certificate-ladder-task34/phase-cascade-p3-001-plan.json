@@ -1,0 +1,135 @@
+{
+  "status": "reviewed_for_execution",
+  "repository": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp",
+  "raw_root": "/data2/neural-shrimp-data/codex/certificate-ladder",
+  "python": "/data2/neural-shrimp/.venv/bin/python",
+  "cpu_threads": 1,
+  "cpu_ids": [
+    1
+  ],
+  "startup_ram_gib": 40,
+  "source_files": [
+    {
+      "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/certificate-ladder-task34/phase_preconditioner.py",
+      "bytes": 3578,
+      "sha256": "71e3a6046a4f0857df83089a508c1bad49851c00145abb81713bf7227f6c106f"
+    },
+    {
+      "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/certificate-ladder-task34/derivative_profile.py",
+      "bytes": 4489,
+      "sha256": "63d17376d9d33a7fda7669dfba03f317013a0aee19564533280edf9c51fbaf6b"
+    },
+    {
+      "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/certificate-ladder-task34/phase-cascade-p3-001-card.json",
+      "bytes": 6064,
+      "sha256": "fad1beeb1eda8afaed84bcf315d27ffc1f1e446f3c2694b9690c1c702e87aa4a"
+    },
+    {
+      "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/certify-llm/center_seed.py",
+      "bytes": 13786,
+      "sha256": "87cf27a05999641995d441704cd7a1ec3ea5aa0d2c0d200b0c05662e584572e5"
+    },
+    {
+      "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/crosscheck/qwen_map.py",
+      "bytes": 14540,
+      "sha256": "493a3d1d57fec227f5ba2e3f8f9cfcfdd02d22495d1d44e6449ede901310ae6e"
+    },
+    {
+      "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/certify-chaos/supervise.py",
+      "bytes": 8727,
+      "sha256": "306db32a2c8ada9beb67547bbaafc6d0d7a597b5861b0e629ca9a07801223c44"
+    }
+  ],
+  "lanes": {
+    "phase": {
+      "entry": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/certificate-ladder-task34/phase_preconditioner.py",
+      "arguments": [
+        "--card",
+        "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/certificate-ladder-task34/phase-cascade-p3-001-card.json",
+        "--cell",
+        "cascade-p3",
+        "--out",
+        "/data2/neural-shrimp-data/codex/certificate-ladder/phase-cascade-p3-001"
+      ],
+      "output": "/data2/neural-shrimp-data/codex/certificate-ladder/phase-cascade-p3-001",
+      "supervision": "/data2/neural-shrimp-data/codex/certificate-ladder/phase-cascade-p3-001-supervision",
+      "preflight_pins": [
+        {
+          "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/certificate-ladder-task34/settle-001-completion.json",
+          "bytes": 8713,
+          "sha256": "7ddd6092d9d2e0c080417ee542ce5412684fe7db8c04333d95e89d8631b4e317"
+        },
+        {
+          "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/crosscheck/qwen_map.py",
+          "bytes": 14540,
+          "sha256": "493a3d1d57fec227f5ba2e3f8f9cfcfdd02d22495d1d44e6449ede901310ae6e"
+        },
+        {
+          "path": "/data2/neural-shrimp-data/codex/certificate-ladder/settle-001/cascade-p3-states.npy",
+          "bytes": 3677312,
+          "sha256": "0da07f446781ca37d3a8cd3632c9aa644e09c56de47b0fdb85e7650923b6f900"
+        },
+        {
+          "path": "/data2/neural-shrimp-data/codex/certificate-ladder/settle-001/cascade-p3-report.json",
+          "bytes": 13458,
+          "sha256": "4111a2d17f43adc4eb4633a93db587a13ad328bb3fb768d9a89d8a8dddea5407"
+        },
+        {
+          "path": "/data2/neural-shrimp-data/codex/certificate-ladder/settle-001/cascade-p6-states.npy",
+          "bytes": 3677312,
+          "sha256": "fabf8ed13d79443b7545f422c1b9ff869fceee8b15e55f48bc7994db531c599c"
+        },
+        {
+          "path": "/data2/neural-shrimp-data/codex/certificate-ladder/settle-001/cascade-p6-report.json",
+          "bytes": 13597,
+          "sha256": "fdcddb51ef5027186d151c14e329d8cc7406e42a03a2b1c9e9a8b370b683f3c4"
+        },
+        {
+          "path": "/data2/neural-shrimp-data/codex/certificate-ladder/settle-001/cascade-p12-states.npy",
+          "bytes": 3677312,
+          "sha256": "350dd49153cbd73d746219f89332b4646fde544600108f6ace74a880779b9918"
+        },
+        {
+          "path": "/data2/neural-shrimp-data/codex/certificate-ladder/settle-001/cascade-p12-report.json",
+          "bytes": 13883,
+          "sha256": "23000e4238098cbd9539659b4ed7f55f9c3c380c27d36832ae72134fe9431e15"
+        },
+        {
+          "path": "/data2/neural-shrimp-data/codex/certificate-ladder/settle-001/band-p6-states.npy",
+          "bytes": 3677312,
+          "sha256": "ff951a38db30590f03e0961353561e805520fa67feb1b678317b66522f04c436"
+        },
+        {
+          "path": "/data2/neural-shrimp-data/codex/certificate-ladder/settle-001/band-p6-report.json",
+          "bytes": 13643,
+          "sha256": "1af35cf27a57ba9b242a1a78d8221b196d0f350c031eaa5dbec54f1e5f2a56bd"
+        },
+        {
+          "path": "/data2/neural-shrimp-data/codex/certificate-ladder/settle-001/stripe-p10-states.npy",
+          "bytes": 3677312,
+          "sha256": "854bb4c34fca06e619f541b020a349c22ced668915e8dd9d8a20de137dba81a2"
+        },
+        {
+          "path": "/data2/neural-shrimp-data/codex/certificate-ladder/settle-001/stripe-p10-report.json",
+          "bytes": 13775,
+          "sha256": "08441a3a2ad02c15a70279805f41c33dd810f7ab9d869b4e16be3c14658e2a10"
+        },
+        {
+          "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/certificate-ladder-task34/derivative-profile-001-completion.json",
+          "bytes": 3138,
+          "sha256": "65be4c94fa02b7773f80231f48e2d84f5bed7aaf11f903bb09a1a698312cb945"
+        }
+      ],
+      "limits": {
+        "as_bytes": 12884901888,
+        "cpu_seconds": 2800,
+        "wall_seconds": 2900,
+        "output_bytes": 134217728
+      },
+      "prior_receipts": [
+        "/data2/neural-shrimp-data/codex/certificate-ladder/derivative-profile-001-supervision/receipt.json"
+      ]
+    }
+  },
+  "cost_basis": "Three one-step full896Jacobians; actual Task33 fivephase2012.0185s implies1207.2111s, Task34 composedP3 forecast1254.83682s.2800CPU2900wall12GiBAS128MiB bounds inverse/condition overhead. Concurrent with denseP3 only:4auxslots inclsupervisors,24GiBcombinedAS plus16GiBheadroom,40GiBstartup."
+}
