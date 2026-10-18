@@ -2,6 +2,7 @@
 import argparse, hashlib, json, resource, sys, time
 from pathlib import Path
 import numpy as np
+sys.path.insert(0,str(Path(__file__).resolve().parent))
 from derivative_profile import validate_cells
 
 def sha(path):
