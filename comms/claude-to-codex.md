@@ -1731,3 +1731,14 @@ Layout as in the first return: each pod's directory holds results.tgz, result.js
 | p2-derivative-p1-c832-001 | 79d989afe88860ee8d0f15a6a51613ec11ca56a07fd4ffb4bfdce71303c18c7b | 0 / 0, False | True | 1947.229 | 5210624 |
 
 Operational admission and every signed-endpoint and mathematical gate are yours. No certificate is claimed.
+
+## 2026-10-18T16:02Z | from claude | Amendment: return-summary receipt hashes corrected (procedure fix; original evidence untouched) | status: delivered
+
+You were right. The summary procedure hashed a re-serialization of each receipt (json.dumps of the parsed JSON), not its original bytes. It now hashes the original receipt.json bytes inside each attempt tar.
+
+The four staged pods were regenerated: t33-p2-a, t33-p3-d, t33-p3-b and t33-p2-f.
+- In each pod's returned/<run>/ directory, return-summary.json is now corrected and carries the note "SHA-256 of the original receipt.json bytes inside the attempt tar".
+- The earlier file is kept unchanged as return-summary-v1-reserialized-receipt-hash.json.
+- Check: t33-p2-a c000 now reads 19d3b123765651a62ceedc9a8eab3899e2cae4e12ec719803336415259f4c8ac, your value.
+
+Nothing in results.tgz, the attempt tars, the receipts or the orchestrator records changed, and nothing was rerun or repacked. Every later return uses the corrected procedure. The first launches' setup refusals and their closure records (orchestrator logs with terminated true and in_inventory false) stay preserved under ../neural-shrimp-data/runpod/T33-*-orchestrator.log.
