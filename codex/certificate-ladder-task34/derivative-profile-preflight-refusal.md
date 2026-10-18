@@ -1,0 +1,1 @@
+Initial source checkpoint996a2922 invocation refused clean-checkout gate because newly produced token-labels-release.json was untracked. No supervision directory or scientific worker/output existed. Preserve this preflight refusal; checkpoint completed label evidence and use same unused scientific attempt with unchanged source/card/limits. No scientific retry or extension.
