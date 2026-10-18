@@ -1,0 +1,143 @@
+{
+  "status": "reviewed_prepared_requires_serial_fresh_capacity",
+  "repository": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp",
+  "raw_root": "/data2/neural-shrimp-data/codex/coexistence",
+  "python": "/data2/neural-shrimp/.venv/bin/python",
+  "cpu_threads": 1,
+  "cpu_ids": [
+    0
+  ],
+  "startup_ram_gib": 32,
+  "source_files": [
+    {
+      "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/crosscheck/qwen_map.py",
+      "bytes": 14540,
+      "sha256": "493a3d1d57fec227f5ba2e3f8f9cfcfdd02d22495d1d44e6449ede901310ae6e"
+    },
+    {
+      "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/certify-llm/ball_qwen.py",
+      "bytes": 14008,
+      "sha256": "fcc90849601984506adf26f651067734f9faef408c8f42dffe64bf5c68e98a80"
+    },
+    {
+      "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/certify-llm/ball_linear.py",
+      "bytes": 9512,
+      "sha256": "5d54200f5880d818eabc97e7eed2f1cf02b83b617b39380bef38d49a7ac45ff2"
+    },
+    {
+      "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/certify-llm/cache_io.py",
+      "bytes": 6547,
+      "sha256": "f4e25b2134bef8a71c27d3156baf01be9d25c593d7b780f90a66b9c1141abdef"
+    },
+    {
+      "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/certify-chaos/supervise.py",
+      "bytes": 8727,
+      "sha256": "306db32a2c8ada9beb67547bbaafc6d0d7a597b5861b0e629ca9a07801223c44"
+    },
+    {
+      "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/coexistence-task33/prefix_import.py",
+      "bytes": 4081,
+      "sha256": "b4f82802a9bf77b8d90e399c5c7e9b2635106d39532079852539ee227f1211e8"
+    },
+    {
+      "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/coexistence-task33/transient_pilot.py",
+      "bytes": 4858,
+      "sha256": "e71c16dbfed2d32b2fd654747743fb3568852efcc5b95651fcaf912715473780"
+    },
+    {
+      "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/coexistence-task33/transient-pilot-001-card.json",
+      "bytes": 4478,
+      "sha256": "798146ab93aeb7d0d451c30f12b14fdeaa67b6cb7b63ab77b025393ee46f8ab0"
+    }
+  ],
+  "lanes": {
+    "transient": {
+      "entry": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/coexistence-task33/transient_pilot.py",
+      "arguments": [
+        "--card",
+        "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/coexistence-task33/transient-pilot-001-card.json",
+        "--out",
+        "/data2/neural-shrimp-data/codex/coexistence/transient-pilot-001"
+      ],
+      "output": "/data2/neural-shrimp-data/codex/coexistence/transient-pilot-001",
+      "supervision": "/data2/neural-shrimp-data/codex/coexistence/transient-pilot-001-supervision",
+      "preflight_pins": [
+        {
+          "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/crosscheck/qwen_map.py",
+          "bytes": 14540,
+          "sha256": "493a3d1d57fec227f5ba2e3f8f9cfcfdd02d22495d1d44e6449ede901310ae6e"
+        },
+        {
+          "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/certify-llm/ball_qwen.py",
+          "bytes": 14008,
+          "sha256": "fcc90849601984506adf26f651067734f9faef408c8f42dffe64bf5c68e98a80"
+        },
+        {
+          "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/certify-llm/ball_linear.py",
+          "bytes": 9512,
+          "sha256": "5d54200f5880d818eabc97e7eed2f1cf02b83b617b39380bef38d49a7ac45ff2"
+        },
+        {
+          "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/certify-llm/cache_io.py",
+          "bytes": 6547,
+          "sha256": "f4e25b2134bef8a71c27d3156baf01be9d25c593d7b780f90a66b9c1141abdef"
+        },
+        {
+          "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/certify-chaos/supervise.py",
+          "bytes": 8727,
+          "sha256": "306db32a2c8ada9beb67547bbaafc6d0d7a597b5861b0e629ca9a07801223c44"
+        },
+        {
+          "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/coexistence-task33/prefix_import.py",
+          "bytes": 4081,
+          "sha256": "b4f82802a9bf77b8d90e399c5c7e9b2635106d39532079852539ee227f1211e8"
+        },
+        {
+          "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/coexistence-task33/transient_pilot.py",
+          "bytes": 4858,
+          "sha256": "e71c16dbfed2d32b2fd654747743fb3568852efcc5b95651fcaf912715473780"
+        },
+        {
+          "path": "/data2/neural-shrimp-data/codex/coexistence/prefix-001-supervision/receipt.json",
+          "bytes": 5559,
+          "sha256": "0e787d0ebd6fb505a202c96fb3cc2429803aa8cc50c5271f728dc3da59af6f12"
+        },
+        {
+          "path": "/data2/neural-shrimp-data/codex/coexistence/prefix-001-supervision/admission.json",
+          "bytes": 4466,
+          "sha256": "84be8d159949dc60aa0f3909c6a16ee5a967dab0e40cd717dda2738331bcfa28"
+        },
+        {
+          "path": "/data2/neural-shrimp-data/codex/coexistence/prefix-001/inputs.json",
+          "bytes": 1117,
+          "sha256": "726c125e1f20d85ab9396b70bc5aad6dab8ad6589c24d2a71e05e976796cf67d"
+        },
+        {
+          "path": "/data2/neural-shrimp-data/codex/coexistence/prefix-001/prefix-cache.json.gz",
+          "bytes": 68579136,
+          "sha256": "52ead55348240b014ab3d0d41a925a58dfc477ceb8fdd2d3801e4ff7c5996634"
+        },
+        {
+          "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/tools/explore_llm_soft_loop.py",
+          "bytes": 122332,
+          "sha256": "ead3b44a82c556c1a376f3e58c389cd3fb2f7329786ef0a712a3d92e7a920843"
+        },
+        {
+          "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/coexistence-task33/inner-basin-release.json",
+          "bytes": 6273,
+          "sha256": "ae5e66a2078535b0dd1817df949d8958614e128d4886a4dbd180aa5bffc8db9e"
+        }
+      ],
+      "limits": {
+        "as_bytes": 19327352832,
+        "cpu_seconds": 2600,
+        "wall_seconds": 2700,
+        "output_bytes": 67108864
+      },
+      "prior_receipts": [
+        "/data2/neural-shrimp-data/codex/coexistence/prefix-001-supervision/receipt.json"
+      ]
+    }
+  },
+  "cost_basis": "20 times observed2048point110-111.49s gives2200-2229.8s plus setup. Uncertain-input width may invalidate evaluation earlier; no guaranteed duration or success. Serial only after current centre closure. No retry/extension."
+}
