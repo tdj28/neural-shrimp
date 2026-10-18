@@ -29342,3 +29342,13 @@ Own ManualQwen CPUfloat64, exact alpha.06468/log10T-.148, pinned p2+_6/p3+_6 pro
 - across the three temperatures, how the candidate moves or appears.
 
 An X that is present at fine resolution (all four sign quadrants around one point, with a complex island at most a cell or two) supports a shrimp centre in the two-dimensional-map sense. The next steps are then a Newton location of the point, its multipliers, the legs, and the window's fold and flip boundary.
+
+## 2026-10-18 06:34 UTC: Run card P5C (exploratory): Newton location of a doubly superstable point of the period-5 window's reduction
+
+**Tool.** tools/shrimp_centre.py (commit ca35df5f). It marches from the P5D fixed-start cell (-0.117872, 0.102936) at log10 T -0.105 to the start (-0.121254, 0.103770), next to the X candidate (mu -0.29, steps 0 and 1 small). References are the chain directions there, refreshed at each accepted step. It runs Newton on (c_0, c_1) = 0 in (alpha1, alpha2), with finite differences h 2e-6 and caps of 1e-4.
+
+**Reading, fixed now:**
+- Convergence of the factors of steps 0 and 1 to |F| < 1e-7 with a converged period-5 orbit carrying the window's token loop, and with reference cosines above 0.5, gives a doubly superstable point of the reduction.
+- At that point, report the leading multipliers (expected at the transverse scale), the stretchings, and the 7 x 7 local check grid, where all four sign quadrants of (c_0, c_1) are required.
+- Non-convergence, or a solution outside the window, is reported as such.
+- **Claim boundary:** a numerical point of the one-dimensional reduction, not a proof. In the full map the trace-zero curves form an avoided crossing around it.
