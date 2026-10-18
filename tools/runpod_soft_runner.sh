@@ -1067,6 +1067,45 @@ snapshot_download('$repo', revision='$rev', cache_dir='$NEURAL_SHRIMP_DATA/model
     TOOL=long_transients.py run lt-${JOBARGS[0]} "${JOBARGS[1]}" --device cuda --threads 8 "${JOBARGS[@]:2}" \
       --out $D/lt/${JOBARGS[0]}
     ;;
+  certcal)     # Task 34: one Codex certificate shard packet (tools/cert_remote.py). JOBARGS = NAME PACKET COMMIT PACKET_SHA256,
+               # PACKET relative to the checkout. Uploaded data: codex/remote/NAME/{cpython-3.12.14.tar,src.tar} (the exact
+               # interpreter build and a sparse partial clone at COMMIT), the packet's upstream directories and vectors-l12; the
+               # Qwen2.5-0.5B snapshot is the pinned revision downloaded in the setup above. Every step refuses, never adapts.
+    name=${JOBARGS[0]}; packet=${JOBARGS[1]}; commit=${JOBARGS[2]}; packet_sha=${JOBARGS[3]}
+    CO=$OUT/llm-soft-loop/pod64/certcal/$name
+    mkdir -p "$CO" /data2/neural-shrimp-runtime/python /data2/neural-shrimp-data
+    RD=$NEURAL_SHRIMP_DATA/codex/remote/$name
+    tar xf "$RD/cpython-3.12.14.tar" -C /data2/neural-shrimp-runtime/python
+    CPY=/data2/neural-shrimp-runtime/python/cpython-3.12.14-linux-x86_64-gnu/bin/python3.12
+    uv venv -q -p $CPY /root/certvenv > "$CO/setup-venv.log" 2>&1
+    uv pip install -q -p /root/certvenv/bin/python "numpy==2.5.3" "python-flint==0.9.0" "safetensors==0.8.0" \
+      > "$CO/setup-pip.log" 2>&1
+    uv pip install -q -p /root/certvenv/bin/python "torch==2.14.1+cu130" --index-url https://download.pytorch.org/whl/cu130 \
+      >> "$CO/setup-pip.log" 2>&1
+    CV=/root/certvenv/bin/python
+    tar xf "$RD/src.tar" -C /root
+    git -C /root/cert-src remote set-url origin /root/cert-src
+    $CV -I tools/cert_remote.py prepare --packet /root/cert-src/$packet --src-data $NEURAL_SHRIMP_DATA \
+      --record "$CO/prepare.json" > "$CO/prepare.log" 2>&1
+    log "prepare status $?"
+    CMD=$($CV -I -c "import json,sys; c=json.load(open(sys.argv[1]))['command']; assert c.startswith('python '); print(c)" \
+          /root/cert-src/$packet)
+    CMD="$CV ${CMD#python }"
+    if $CV -I tools/cert_remote.py preflight --packet /root/cert-src/$packet --repo /root/cert-src --commit $commit \
+         --packet-sha256 $packet_sha --record "$CO/preflight.json" > "$CO/preflight.log" 2>&1; then
+      log "preflight passed: launching $CMD"
+      $CV -I tools/cert_remote.py run --repo /root/cert-src --cmd "$CMD" --deadline-seconds 3900 --rss-limit-gib 18 \
+        --stdout "$CO/launch.log" --record "$CO/run.json" > "$CO/run.log" 2>&1
+      log "run status $?"
+    else
+      log "preflight refused: no launch"; cat "$CO/preflight.log"
+    fi
+    $CV -I tools/cert_remote.py pack --packet /root/cert-src/$packet --out "$CO" > "$CO/pack.log" 2>&1
+    $CV -I -c "import sys,numpy,torch,flint; print(sys.version); print(numpy.__version__, torch.__version__, flint.__version__, flint.__FLINT_VERSION__)" > "$CO/backend.txt" 2>&1
+    uv pip freeze -p /root/certvenv/bin/python > "$CO/pip-freeze.txt" 2>&1
+    free -g > "$CO/free.txt"; df -h /data2 > "$CO/df.txt"; nproc > "$CO/nproc.txt"; lscpu > "$CO/lscpu.txt"
+    cat "$CO/pack.log"
+    ;;
   hidden)      # hidden chaos along a line (tools/hidden_chaos.py): JOBARGS NAME MINUTES ARGS...; float64 on the GPU,
                # Qwen2.5-0.5B (cached), twins at two offsets, leading-token statistics, into hidden/NAME
     TOOL=hidden_chaos.py run hidden-${JOBARGS[0]} "${JOBARGS[1]}" line --device cuda --dtype float64 \

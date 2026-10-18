@@ -29297,3 +29297,27 @@ One historical P8 derivative shard only, phase1 columns256..319,1024bits, same e
 
 ## 2026-10-18 | Codex Task33 two-seed representative profile001
 Own ManualQwen CPUfloat64, exact alpha.06468/log10T-.148, pinned p2+_6/p3+_6 proposals, shared prefix, fixed32steps/batch2. Source/card/review codex/coexistence-task33/. All33states retained without period interpretation. CPU1+supervisor,nice10,12GiBAS,110CPU/120s wall,16MiBoutput,28GiBstartup/16GiBruntime floor. Prior CPU1 Task29 17rows x16steps cost12.823s; profile bounds are conservative, no full qualification forecast. No retry. Raw codex/coexistence/profile-001.
+## 2026-10-18 06:02 UTC: P5Z amendment 2: a relaxed seed requirement for the zoom
+
+- **Z105b** (pod 6wfcz05m63svce, about 2 min): refused, because the leading multiplier at the seed (-0.122298, 0.101745) is complex (-0.054 + 0.063i). The seed lay in the head region.
+- **Z105c** (pod yuqagr4urqq9wz, about 2 min): refused, because the leading multiplier 0.0687 is not 10 times the next modulus (0.0267). The P5D grid's nearest cell (about 1e-4 away) had 0.40, so the multiplier varies fast here.
+- **Change** (tools/doubly_superstable.py --seed-min-ratio, default 10 = unchanged): the seed needs a real leading multiplier at least this many times the next modulus. Cells are still labelled clean at 10. The seed's chain directions only set the references of the signed factors. The zoom's readouts (stretchings, transported factors, the multiplier and the complex island) do not depend on them.
+- **Z105d:** the same seed and box as Z105c, with --seed-min-ratio 2.
+
+## 2026-10-18 06:07 UTC: Run card CERTCAL-001 (Task 34 calibration; Codex packet, one 1024-bit shard)
+
+**Packet.** codex/certificate-ladder-task34/calibration-001.json (SHA-256 2d608a8f...), at dispatch commit 84c31155 (Codex, privately pushed).
+- Attempt task34-calibration-p1-c256-001, plan task34-calibration-p1-c256-001-plan.json.
+- It recomputes the historical shard p1, columns 256-319 (original source 36c5d614, receipt 9d135740, output 7878fcd4) as a fresh attempt. It creates no new claim.
+
+**Remote side** (tools/cert_remote.py, job set certcal; human approval for RunPod in Task 34):
+- **Source:** a sparse partial clone at 84c31155 (codex/certify-llm, codex/crosscheck/qwen_map.py, codex/certificate-ladder-task34), with origin set to itself for launch.py's unchanged ancestry check.
+- **Interpreter:** the exact CPython 3.12.14 build, shipped as files, in a venv with numpy 2.5.3, python-flint 0.9.0 (FLINT 3.6.0), safetensors 0.8.0 and torch 2.14.1+cu130.
+- **Data root:** a real /data2/neural-shrimp-data on the pod, holding the 31 upstream files and 3 pinned assets, each verified.
+- **Local dry preflight:** all 14 checks passed against this clone and the local data.
+- **On the pod:** the preflight is repeated, and a refusal means no launch. Then the packet's command runs unchanged, with K = 1, nice 10, an 18 GiB address-space cap from launch.py, a 3600 s worker watchdog and an outer deadline of 3900 s. A process-tree aggregate-RSS watchdog at 18 GiB stops the run if exceeded.
+- **Return:** the whole new attempt as a tar with SHA-256, plus the prepare, preflight, run and pack records, the backend, pip freeze and hardware records.
+
+**Comparison** (by Codex locally, with completed() at the new commit): the derivative-shard hash against 7878fcd4, and decoded endpoints if the metadata changed. Every discrepancy is kept.
+
+**Compute.** One cheap many-core pod. The ceiling and pod ownership are recorded privately before provisioning.
