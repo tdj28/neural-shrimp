@@ -102,21 +102,39 @@ def main():
     ax.contour(al, lt, (g0 == 1).astype(float), levels=[0.5], colors="c", linewidths=0.6)
     ax.set_title("(c) how long the fixed start takes to settle", fontsize=9, loc="left")
     ax.set_xlabel(r"$\alpha$")
-    colors = plt.get_cmap("tab10")
+    groups = F["groups"]
+    gnames = list(F["names"])
+    gcol = {1: "#ff7f0e", -1: "#1f77b4", 2: "#999999"}
     for k, r in enumerate(args.rows):
         ax = fig.add_subplot(gs[1 + k // 3, k % 3]) if nrow > 1 else fig.add_subplot(gs[1, :])
         i = int(np.argmin(np.abs(lt - r)))
-        for c, (name, m) in enumerate(maps.items()):
+        for name, m in maps.items():
+            g = groups[gnames.index(name)][i]
             pb = m["keyprob"][i, :, bi]
-            if name == args.default:
-                continue
-            ax.plot(al, pb, ".", ms=2.2, color=colors(c % 10), label=name, alpha=0.8)
-        ax.plot(al, m0["keyprob"][i, :, bi], "-", color="k", lw=0.9, label="fixed start")
+            for gv, c in gcol.items():
+                sel = g == gv
+                ax.plot(al[sel], pb[sel], ".", ms=2.0, color=c, alpha=0.75)
+        # fate ribbon: the group the fixed start reaches at each alpha
+        g0r = groups[gnames.index(args.default)][i]
+        ymin = -0.045
+        for gv, c in gcol.items():
+            sel = g0r == gv
+            ax.scatter(al[sel], np.full(sel.sum(), ymin), marker="|", s=40, color=c, linewidths=1.2)
+        ax.axhline(ymin + 0.018, color="0.85", lw=0.5)
+        ax.set_ylim(ymin - 0.02, 0.27)
         ax.set_title(f"(d{k + 1}) cross-section at " + r"$\log_{10}T=$" + f"{lt[i]:.4f}", fontsize=9, loc="left")
         ax.set_xlabel(r"$\alpha$")
         ax.set_ylabel(r"mean $p(\hookleftarrow\hookleftarrow)$ on the attractor")
+        ax.text(0.01, 0.06, "fixed start", transform=ax.transAxes, fontsize=6, color="0.3")
+        ax.xaxis.set_major_locator(plt.MaxNLocator(4))
         if k == 0:
-            ax.legend(fontsize=6, markerscale=3, ncol=2, frameon=False)
+            from matplotlib.lines import Line2D
+            hs = [Line2D([], [], marker=".", ls="", color=gcol[1], label="crescent family (periodic)"),
+                  Line2D([], [], marker=".", ls="", color=gcol[-1], label="2-cycle and stripes (periodic)"),
+                  Line2D([], [], marker=".", ls="", color=gcol[2], label="chaotic")]
+            ax.legend(handles=hs, fontsize=6, frameon=False, loc="upper right")
+    for ax in fig.axes[:3]:
+        ax.xaxis.set_major_locator(plt.MaxNLocator(4))
     Path(args.out).parent.mkdir(parents=True, exist_ok=True)
     fig.savefig(args.out, dpi=220, bbox_inches="tight")
     print("wrote", args.out)
