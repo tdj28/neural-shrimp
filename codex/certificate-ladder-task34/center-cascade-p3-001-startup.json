@@ -1,0 +1,39 @@
+{
+  "checked_utc": "2026-10-18T19:39:02.069848+00:00",
+  "source_commit": "e2083a2acf35e09a40be38a7b94df1c9e5f6a119",
+  "session": 91880,
+  "supervisor": {
+    "pid": 2808163,
+    "starttime": 229878914,
+    "pgid": 2808163,
+    "sid": 2808163,
+    "state": "S",
+    "nice": 10,
+    "threads": 1,
+    "uid_line": "Uid:\t1000\t1000\t1000\t1000",
+    "cmdline": "/data2/neural-shrimp/.venv/bin/python codex/certify-chaos/supervise.py --plan codex/certificate-ladder-task34/center-cascade-p3-001-plan.json --lane center --source e2083a2acf35e09a40be38a7b94df1c9e5f6a119 ",
+    "limits": "Limit                     Soft Limit           Hard Limit           Units     \nMax cpu time              unlimited            unlimited            seconds   \nMax file size             unlimited            unlimited            bytes     \nMax data size             unlimited            unlimited            bytes     \nMax stack size            8388608              unlimited            bytes     \nMax core file size        0                    unlimited            bytes     \nMax resident set          unlimited            unlimited            bytes     \nMax processes             375398               375398               processes \nMax open files            65535                65535                files     \nMax locked memory         8388608              8388608              bytes     \nMax address space         1073741824           19327352832          bytes     \nMax file locks            unlimited            unlimited            locks     \nMax pending signals       375398               375398               signals   \nMax msgqueue size         819200               819200               bytes     \nMax nice priority         0                    0                    \nMax realtime priority     0                    0                    \nMax realtime timeout      200000               200000               us        \n"
+  },
+  "worker": {
+    "pid": 2808198,
+    "starttime": 229878936,
+    "pgid": 2808198,
+    "sid": 2808198,
+    "state": "R",
+    "nice": 10,
+    "threads": 1,
+    "uid_line": "Uid:\t1000\t1000\t1000\t1000",
+    "cmdline": "/data2/neural-shrimp/.venv/bin/python -I -B /home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/certificate-ladder-task34/center_proposal.py --card /home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/certificate-ladder-task34/center-cascade-p3-001-card.json --out /data2/neural-shrimp-data/codex/certificate-ladder/center-cascade-p3-001 ",
+    "limits": "Limit                     Soft Limit           Hard Limit           Units     \nMax cpu time              3900                 3900                 seconds   \nMax file size             268435456            268435456            bytes     \nMax data size             unlimited            unlimited            bytes     \nMax stack size            8388608              unlimited            bytes     \nMax core file size        0                    unlimited            bytes     \nMax resident set          unlimited            unlimited            bytes     \nMax processes             375398               375398               processes \nMax open files            65535                65535                files     \nMax locked memory         8388608              8388608              bytes     \nMax address space         19327352832          19327352832          bytes     \nMax file locks            unlimited            unlimited            locks     \nMax pending signals       375398               375398               signals   \nMax msgqueue size         819200               819200               bytes     \nMax nice priority         0                    0                    \nMax realtime priority     0                    0                    \nMax realtime timeout      200000               200000               us        \n"
+  },
+  "capacity": {
+    "available_ram_bytes": 45762940928,
+    "disk_free_bytes": 2681817403392,
+    "loadavg": [
+      4.41259765625,
+      4.62548828125,
+      4.693359375
+    ]
+  },
+  "status": "postexec_identity_verified_running"
+}

@@ -39,3 +39,8 @@ Precision update: Claude05:48 protocol reviewed in05:52comm.768 remains experime
 2026-10-18T18:57Z: prefix-cascade-p3-001 RUNNING session7878,sourcef63d015412df97724dc1fcb3576a6f469c005137,hostidentitiesverified;18GiBAS4700CPU4800wall512MiBoutput32GiBstartup,CPU1+supervisor2slots. Exactcell2048prefix, no orbitclaim/retry/extension. Isolated Task34 prefiximport/onecorrectioncaller prepared/syntaxchecked only; no centrelaunch.
 
 2026-10-18T19:37Z: prefix-cascade-p3-001 COMPLETE/CLOSED verified,session7878reaped0,4outputs6sourceblobs227328finiteballs24layers/hostclosurechecked,1883.883098sexternal. No repeat. Isolatedcentre/importer reviewed13+5controls passed; onecorrection cascadeP3 card ready,actualsameperiod676.3791sbasis,18GiBAS3900CPU4000wall.
+
+## 2026-10-18 centre startup after closed cascade-P3 prefix
+Prefix-cascade-p3-001 is closed and authenticated: four outputs, six source blobs, all 227328 finite balls and 24 layers; original radii retained. See prefix-cascade-p3-001-completion.json. No repeat required.
+
+Center-cascade-p3-001 now runs in session91880 from e2083a2acf35e09a40be38a7b94df1c9e5f6a119. Exact postexec host supervisor2808163/start229878914 and worker2808198/start229878936 verified; startup JSON records commands and limits. One correction/two complete point passes, serial18GiB AS/3900CPU/4000wall, two auxiliary slots. No retry/extension or pinned source edits. Authenticate every saved residual/correction after closure. Fixed-start transient preparation remains pending; certified inner basins do not establish fixed-start reachability.
