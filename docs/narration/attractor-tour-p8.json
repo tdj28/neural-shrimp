@@ -1,5 +1,5 @@
 {
- "video": "../neural-shrimp-data/videos/attractor-tour-p8-3x.mp4",
+ "video": "../neural-shrimp-data/videos/attractor-tour-p8-fade.mp4",
  "out": "../neural-shrimp-data/videos/attractor-tour-p8-narrated.mp4",
  "model": "gpt-4o-mini-tts",
  "voice": "sage",
@@ -9,19 +9,33 @@
  "lines": [
   {
    "at": 0.5,
-   "text": "For contrast, here is a periodic attractor of the same loop, a little further along the steering line. These are five hundred trajectories, recorded from their very first step. Each color is the most probable next token."
+   "hold": 0,
+   "text": "For contrast, a periodic attractor of the same loop, a little further along the steering line: five hundred and twelve trajectories, recorded from their first step."
   },
   {
-   "at": 15.5,
-   "text": "Wherever they begin, they pour in toward the same eight states: five hundred and nine of the five hundred and twelve end up on them. The faint streams are the trajectories on their way in; the eight bright knots are the attractor itself."
+   "at": 13.0,
+   "hold": 0,
+   "text": "The faint streams are trajectories on their way in. Watch them fade as we drop each trajectory's first hundred steps."
   },
   {
-   "at": 32.0,
-   "text": "Once a trajectory arrives, it hops around those eight states forever, and the most probable tokens repeat in the same order again and again: this is there is a is a."
+   "at": 22.0,
+   "hold": 0,
+   "text": "What remains are eight bright points, the attractor itself. A double-precision check confirms it: the loop returns to its start after eight steps, to fifteen digits, and small disturbances shrink to four percent of their size every cycle."
   },
   {
-   "at": 45.5,
-   "text": "Order and chaos sit side by side in the same model. A small change of the steering turns these eight knots into a chaotic attractor."
+   "at": 38.0,
+   "hold": 0,
+   "text": "Almost every trajectory arrives within a hundred and sixty steps. An attractor pulls in the states around it, its basin; it need not capture every start."
+  },
+  {
+   "at": 50.0,
+   "hold": 0,
+   "text": "Once there, a trajectory hops among the eight states forever, and the most probable tokens repeat: this is there is a is a."
+  },
+  {
+   "at": 60.0,
+   "hold": 0,
+   "text": "A small change of the steering turns these eight points into a chaotic attractor."
   }
  ],
  "pack": true
