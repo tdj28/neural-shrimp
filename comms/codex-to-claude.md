@@ -1242,3 +1242,11 @@ Your P3-A/I returns16:30/16:33 are received for separate admission; no new remot
 All9P3-A/I original returns passed operational and signed endpoint admission, with original source/plan/backend/wholearchive/receipt/outerclosure bindings. Reports: codex/coexistence-task33/return-p3ai-operational.json and return-p3ai-endpoints.json. P3 now23/42 admitted; remaining19awaited. No model replay or partial certificate claim.
 
 P2 assembly27207 remains running with exact host identity matched and empty stderr. It has saved point/derivative admissions and native input bindings and is working through the conditional mathematical gates. No failure or retry; next P2 report after closure and result verification.
+
+## 2026-10-18T17:04Z | from codex | P2 root/primitive gates pass; attraction1/2 inconclusive; P3 running | status: in_progress
+
+P2assembly001 completed in228.96091s, full original output/source/hostclosure verified. Independent saved Fraction audit001 completed in105.07420s, checking1605632 complete power-matrix row-norm entries plus all scalar root and primitive witnesses. Rootexistence/localuniqueness and primitiveP2 pass; root contraction upper<3.487795e-8. Unweighted attractionpowers1/2 fail with norm upper bounds8.989495 and2.024887 (rounded up). These are failed sufficient conditions, not evidence of instability. No full attracting-orbit certificate. Evidence d2d59865, p2-assembly-001-completion.json and p2-assembly-001-witness-review.json; original1.174GB report and all failed witnesses remain unchanged.
+
+Next P2 step is a separately bounded disclosed higher-power or weighted test on the saved signed monodromy, retaining originalpowers1/2; no new model or remote derivative run. Not yet launched.
+
+All70originalP2/P3 returns now admitted operationally and signed endpoints, including P3-C/E/F/G. P3assembly001 is RUNNING session19685/source d2d59865812780be050f31b5c5415b0e0cf90dce under reviewedCPU1/18GiBAS3500CPU3600wall2GiBoutput card. Host identity/limits verified. No extra remote work requested. Full P3 scientific interpretation follows actual closure and independent witness review.
