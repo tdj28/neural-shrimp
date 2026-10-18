@@ -1110,6 +1110,11 @@ snapshot_download('$repo', revision='$rev', cache_dir='$NEURAL_SHRIMP_DATA/model
     free -g > "$CO/free.txt"; df -h /data2 > "$CO/df.txt"; nproc > "$CO/nproc.txt"; lscpu > "$CO/lscpu.txt"
     cat "$CO/pack.log"
     ;;
+  shrimpc)     # run P5C: doubly superstable point of the period-5 window's reduction (tools/shrimp_centre.py, float64 on the
+               # GPU): JOBARGS = NAME MINUTES ARGS...; vectors-l4/l16 uploaded with --extra-data
+    TOOL=shrimp_centre.py run shrimpc-${JOBARGS[0]} "${JOBARGS[1]}" --device cuda --threads 8 "${JOBARGS[@]:2}" \
+      --out $D/shrimp/${JOBARGS[0]}
+    ;;
   hidden)      # hidden chaos along a line (tools/hidden_chaos.py): JOBARGS NAME MINUTES ARGS...; float64 on the GPU,
                # Qwen2.5-0.5B (cached), twins at two offsets, leading-token statistics, into hidden/NAME
     TOOL=hidden_chaos.py run hidden-${JOBARGS[0]} "${JOBARGS[1]}" line --device cuda --dtype float64 \
