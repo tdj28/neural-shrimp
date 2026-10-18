@@ -55,18 +55,31 @@ def asset_paths(packet, data_root):
             "vectors.npz": data_root / "explore/llm-phase-map/vectors-l12/vectors.npz"}
 
 
+def describe_file(p):
+    p = Path(p)
+    d = {"path": str(p), "exists": p.exists(), "is_symlink": p.is_symlink()}
+    if p.is_symlink():
+        d["link_target"] = os.readlink(p)
+    if p.is_file():
+        d.update(bytes=p.stat().st_size, sha256=sha(p))
+    return d
+
+
 def check_hashes(packet, data_root):
     bad = []
     for f in packet["upstream_files"]:
         p = Path(f["path"])
         if not p.is_file():
-            bad.append({"path": str(p), "problem": "missing"})
+            bad.append({"problem": "missing", **describe_file(p)})
         elif p.stat().st_size != f["bytes"] or sha(p) != f["sha256"]:
-            bad.append({"path": str(p), "problem": "bytes or sha256 differ"})
+            bad.append({"problem": "bytes or sha256 differ", "want_bytes": f["bytes"], "want_sha256": f["sha256"],
+                        **describe_file(p)})
     for name, p in asset_paths(packet, data_root).items():
         want = packet["expected_assets"][name]
-        if not p.is_file() or sha(p) != want:
-            bad.append({"path": str(p), "problem": "asset missing or sha256 differs"})
+        if not p.is_file():
+            bad.append({"problem": "asset missing", **describe_file(p)})
+        elif sha(p) != want:
+            bad.append({"problem": "asset sha256 differs", "want_sha256": want, **describe_file(p)})
     return bad
 
 
@@ -81,15 +94,22 @@ def prepare(a):
         if not dst.exists():
             shutil.copy2(src / rel, dst)
             copied.append(str(rel))
-    hub = "models/hf/hub/models--Qwen--Qwen2.5-0.5B-Instruct"
-    if not (data_root / hub).exists():
-        shutil.copytree(src / hub, data_root / hub, symlinks=True)
+    snap = ("models/hf/hub/models--Qwen--Qwen2.5-0.5B-Instruct/snapshots/"
+            "7ae557604adf67be50417f59c2c2f167def9a775")
+    source_files = {}
+    (data_root / snap).mkdir(parents=True, exist_ok=True)
+    if (src / snap).is_dir():
+        for f in sorted((src / snap).iterdir()):           # real files, symlinks into the blob store dereferenced
+            source_files[f.name] = describe_file(f)
+            if f.is_file() and not (data_root / snap / f.name).exists():
+                shutil.copy2(f, data_root / snap / f.name, follow_symlinks=True)
     vec = "explore/llm-phase-map/vectors-l12/vectors.npz"
     (data_root / vec).parent.mkdir(parents=True, exist_ok=True)
     if not (data_root / vec).exists():
         shutil.copy2(src / vec, data_root / vec)
     bad = check_hashes(packet, data_root)
-    rec = {"step": "prepare", "at": now(), "copied_upstream": len(copied), "hash_problems": bad, "ok": not bad}
+    rec = {"step": "prepare", "at": now(), "copied_upstream": len(copied), "model_source_snapshot": source_files,
+           "hash_problems": bad, "ok": not bad}
     write(a.record, rec)
     print(json.dumps({k: rec[k] for k in ("step", "copied_upstream", "ok")}))
     sys.exit(0 if not bad else 1)

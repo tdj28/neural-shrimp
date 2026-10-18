@@ -1085,7 +1085,8 @@ snapshot_download('$repo', revision='$rev', cache_dir='$NEURAL_SHRIMP_DATA/model
     uv pip install -q -p /root/certvenv/bin/python "torch==2.14.1+cu130" --index-url https://download.pytorch.org/whl/cu130 \
       >> "$CO/setup-pip.log" 2>&1
     CV=/root/certvenv/bin/python
-    tar xf "$RD/src.tar" -C /root
+    tar --no-same-owner -xf "$RD/src.tar" -C /root            # owned by the pod's user, so git accepts the repository
+    chown -R "$(id -u):$(id -g)" /root/cert-src
     git -C /root/cert-src remote set-url origin /root/cert-src
     $CV -I tools/cert_remote.py prepare --packet /root/cert-src/$packet --src-data $NEURAL_SHRIMP_DATA \
       --record "$CO/prepare.json" > "$CO/prepare.log" 2>&1
