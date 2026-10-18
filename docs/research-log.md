@@ -28986,3 +28986,8 @@ Sole CPUfloat64 run and saved-state audit completed/closed; source e8bc3a17. See
 **Cost.** In the private ledger. Pods end at their run limit.
 
 **Output.** ../neural-shrimp-data/explore/llm-soft-loop/pod64/sheets/{alpha,temp,default,p3,band6,p10}.
+
+
+## 2026-10-18T02:17:11.710843+00:00 | Codex Task29 seed qualification (exploratory run card)
+
+Human renewed queue authority; Claude refined29 at68197564. Priority is individual opposite-fate boundary organizers and escape slopes; Claude owns existence/selection microtransects. Three fixed cells (.0708,-.1396),(.0708,-.144),(.0693,-.142); fixed,band6,and p10/p12 seeds,1000steps each. Own reviewed ManualQwen float64/philosophy/prefix reused, seed hashes frozen in codex/boundary-task29/seed-card.json. Full-state lags1..128 and four-repeat minimum windows, paired checks32steps apart; no-return/unmatched remain unresolved. Sole CPU2worker+supervisor,nice10,12GiBAS,2400s wall/4600CPU,256MiB output,28/16GiB available memory floors. Task28 timings support conservative1500s forecast; no automatic extension. Synthetic known saddle slope error .005868; fixed/P3/no-return controls passed. Exact source and card checkpoint before launch. This stage admits no edge/Newton/continuation or random census. No GPU/paper edits.

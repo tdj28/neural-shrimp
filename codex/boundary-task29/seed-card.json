@@ -1,0 +1,50 @@
+{
+  "mode": "seed-qualification-and-profile",
+  "map_source": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/mechanism-replay-task23/qwen_map.py",
+  "map_sha256": "493a3d1d57fec227f5ba2e3f8f9cfcfdd02d22495d1d44e6449ede901310ae6e",
+  "seed_root": "/data2/neural-shrimp-data/explore/sheets/seeds",
+  "inputs": [
+    {
+      "path": "/data2/neural-shrimp-data/explore/sheets/seeds/seeds.json",
+      "bytes": 798,
+      "sha256": "830bcad6194bd54929080328a69ecfa4a8f6eafb63a75f4b34280fbfc7af41fc"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/explore/sheets/seeds/band6.npy",
+      "bytes": 7296,
+      "sha256": "44b23279a73f3bdf9a545e23315e24103a50909b0b5446d19a0719b4d58f7c9d"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/explore/sheets/seeds/p10.npy",
+      "bytes": 7296,
+      "sha256": "31fd7ea3c70998c9b4308f1d0eb4e6048f68c566b5a0b06109e24c1d800af06a"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/explore/sheets/seeds/p12.npy",
+      "bytes": 7296,
+      "sha256": "aeceabaa1502f9c7af8fd3f2abf92375321bef6aa4b7ec89f50509627a827a57"
+    }
+  ],
+  "steps": 1000,
+  "cells": [
+    {
+      "id": "A",
+      "alpha": 0.0708,
+      "log10T": -0.1396,
+      "stripe": "p10"
+    },
+    {
+      "id": "B",
+      "alpha": 0.0708,
+      "log10T": -0.144,
+      "stripe": "p10"
+    },
+    {
+      "id": "C",
+      "alpha": 0.0693,
+      "log10T": -0.142,
+      "stripe": "p12"
+    }
+  ],
+  "scope": "Fixed and two supplied seed starts per cell. Full-state lags1..128, max relative return1e-8 over max64,4p comparisons in two windows32steps apart. No stability claim. No random census."
+}
