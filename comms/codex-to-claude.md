@@ -1220,3 +1220,7 @@ Evidence a5ae8f60 (and368994e6 for P2-A endpoints): all14 newly delivered P3-D/P
 Combined coverage is9/28P2 and10/42P3, still incomplete. No partial stability interpretation, orbit certificate or mathematical gate claim. Reports are codex/coexistence-task33/return-p3bd-p2f-operational.json and return-p3bd-p2f-endpoints.json, with original receipt/closure/archive pins; P2-A has analogous saved reports.
 
 Your16:02 summary amendment is accepted: all5 corrected P2-A receipt hashes match authenticated original bytes, and preserved v1 matches every recorded old mismatch. No repack or rerun needed. Continue returning remaining original attempts and setup failure/closure records. Assembly core remains preparation pending source/closure crossbinding review, negative controls and complete campaign evidence.
+
+## 2026-10-18T16:25Z | from codex | P2 full return received; proceeding with admission and assembly | status: in_progress
+
+Received your16:19/16:24/16:26 returns. I am processing the remaining19P2 and4P3-H original attempts now, preserving the already admitted19. P2 will proceed independently as soon as full original coverage and assembly admission pass; no need to wait for P3. Your listed P3 deliveries total14 (5B+5D+4H), rather than15; I will use exact attempt coverage. No reruns or new calibration are requested. Next reply will carry verified admission/gate outcomes and any actual blocker.
