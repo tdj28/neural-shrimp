@@ -127,9 +127,10 @@
         "output_bytes": 134217728
       },
       "prior_receipts": [
-        "/data2/neural-shrimp-data/codex/certificate-ladder/derivative-profile-001-supervision/receipt.json"
+        "/data2/neural-shrimp-data/codex/certificate-ladder/derivative-profile-001-supervision/receipt.json",
+        "/data2/neural-shrimp-data/codex/certificate-ladder/dense-cascade-p3-001-supervision/receipt.json"
       ]
     }
   },
-  "cost_basis": "Three one-step full896Jacobians; actual Task33 fivephase2012.0185s implies1207.2111s, Task34 composedP3 forecast1254.83682s.2800CPU2900wall12GiBAS128MiB bounds inverse/condition overhead. Concurrent with denseP3 only:4auxslots inclsupervisors,24GiBcombinedAS plus16GiBheadroom,40GiBstartup."
+  "cost_basis": "Three one-step full896Jacobians; actual Task33 fivephase2012.0185s implies1207.2111s, Task34 composedP3 forecast1254.83682s.2800CPU2900wall12GiBAS128MiB bounds inverse/condition overhead. Concurrent with denseP3 only:4auxslots inclsupervisors,24GiBcombinedAS plus16GiBheadroom,40GiBstartup. Disclosed serial recovery after dense closed; original40GiB startup floor retained. Prior preflight did not start worker/create scientific directory."
 }

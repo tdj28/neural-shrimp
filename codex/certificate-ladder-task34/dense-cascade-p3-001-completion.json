@@ -1,0 +1,99 @@
+{
+  "receipt": {
+    "path": "/data2/neural-shrimp-data/codex/certificate-ladder/dense-cascade-p3-001-supervision/receipt.json",
+    "bytes": 32727,
+    "sha256": "015b373f5ceeadab05584c6832af8583f888f67223238013a0f4d42bd778a50b"
+  },
+  "source_commit": "b35b03ea46f1eac3f1a4f589d04c183e3075a433",
+  "source_blobs_checked": 5,
+  "outputs_checked": 119,
+  "host_closure": true,
+  "columns_checked": 896,
+  "eigen_residuals_checked": 896,
+  "fd_rows_checked": 7,
+  "scientific_row": {
+    "cell": {
+      "name": "cascade-p3",
+      "alpha": 0.065,
+      "log10T": -0.14798,
+      "period": 3,
+      "seed": "p3",
+      "alpha_ratio": [
+        1170935903116329,
+        18014398509481984
+      ],
+      "log10T_ratio": [
+        -333221336429143,
+        2251799813685248
+      ],
+      "seed_path": "/data2/neural-shrimp-data/explore/sheets/seeds/p3.npy",
+      "states": "/data2/neural-shrimp-data/codex/certificate-ladder/settle-001/cascade-p3-states.npy",
+      "settle_report": "/data2/neural-shrimp-data/codex/certificate-ladder/settle-001/cascade-p3-report.json"
+    },
+    "period": 3,
+    "state_index": 510,
+    "columns": 896,
+    "dense_seconds": 1102.6072292504832,
+    "eigen_seconds": 0.5160088688135147,
+    "spectral_radius": 0.5333404215647656,
+    "next_modulus": 0.11191873427276493,
+    "critical_multiplier": [
+      -0.5333404215647656,
+      0.0
+    ],
+    "critical_direct_eigen_residual_inf": 1.5981313494783933e-13,
+    "maximum_eigen_residual_inf": 2.914335439641036e-16,
+    "closure_inf": 5.464378949326942e-16,
+    "adjacent_separations": [
+      0.05819921286392476,
+      0.035632541796076216,
+      0.056482031503318444
+    ],
+    "critical_checks": [
+      {
+        "part": "real",
+        "zero_component": false,
+        "dense_vs_direct_inf": 1.5985476831126277e-13,
+        "fd_ladder": [
+          {
+            "h": 0.01,
+            "absolute_inf_error": 0.01153320151310441
+          },
+          {
+            "h": 0.003,
+            "absolute_inf_error": 0.001046056272004249
+          },
+          {
+            "h": 0.001,
+            "absolute_inf_error": 0.00011621857959149759
+          },
+          {
+            "h": 0.0003,
+            "absolute_inf_error": 1.0459489040423597e-05
+          },
+          {
+            "h": 0.0001,
+            "absolute_inf_error": 1.1621734494031422e-06
+          },
+          {
+            "h": 3e-05,
+            "absolute_inf_error": 1.0458074386002214e-07
+          },
+          {
+            "h": 1e-05,
+            "absolute_inf_error": 1.1624140795751803e-08
+          }
+        ]
+      },
+      {
+        "part": "imag",
+        "zero_component": true
+      }
+    ],
+    "numerically_inside_unit_circle": true,
+    "scope": "Finite float64 numerical diagnostic; no rigorous stability/root certificate."
+  },
+  "elapsed_seconds": 1131.9467418966815,
+  "certificate_passed": false,
+  "scope": "Saved composed matrix, complete eigensystem residuals, critical direct/FD comparisons and phase separation independently recomputed. AD and forward closure inherit reviewed original execution; no model rerun or interval certificate."
+}

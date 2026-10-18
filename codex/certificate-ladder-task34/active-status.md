@@ -29,3 +29,5 @@ Precision update: Claude05:48 protocol reviewed in05:52comm.768 remains experime
 2026-10-18T18:02Z: dense-cascade-p3-001 RUNNING session2007,sourceb35b03ea46f1eac3f1a4f589d04c183e3075a433; host postexec identities verified,12GiBAS2800CPU2900wall128MiBoutput,CPU1affinity0+supervisor2slots. No retry/extension.
 
 2026-10-18T18:20Z: phase-cascade-p3 preflight session6383 refused before scientificworker/output:42,792,636,416bytes available below40GiB concurrentfloor; failure preserved, no retry/weakening. Dense remains running. Phase plan held for disclosed serial admission after denseclosure. Four remaining named dense plans prepared with own measured costs; not launched. Inner-basin exact scalar construction prepared inTask33,7controls passed, target evidence admission pending.
+
+2026-10-18T18:36Z: dense-cascade-p3-001 COMPLETE/CLOSED verified,session2007reaped0,largestmultiplier-0.5333404215647656,nextmodulus0.11191873427276493;119outputs/5sourceblobs/all896columns/eigenresiduals/7FDrows checked. Numericalqualificationonly. Phaseunusedattempt serialreadmission prepared, original40GiBfloor retained.
