@@ -73,8 +73,8 @@ tested designs we detect no edge-of-chaos advantage. The loop shows quantitative
 late finite-order doubling ratios approach Feigenbaum's constant numerically (4.6688 against 4.6692, at the float64
 floor of the computation), periodic windows accumulate on folds with distances close to a $1/N^2$ law, passage times
 predicted in advance from fold normal forms came within one iterate in 42 of 48 cases at four new folds (the six
-misses, at a period-6 fold, 3 to 5\,\% short), and interval arithmetic proves an attracting period-8 orbit. In the
-recurrent-depth model Huginn, a frozen test confirmed a predicted accuracy loss. The loop is not ordinary sampled
+misses, at a period-6 fold, 3 to 5\,\% short), and interval arithmetic proves an attracting period-8 orbit and, at one parameter cell, two coexisting
+attracting orbits of periods 2 and 3. In the recurrent-depth model Huginn, a frozen test confirmed a predicted accuracy loss. The loop is not ordinary sampled
 generation.
 \end{abstract}
 
@@ -184,6 +184,7 @@ Late doubling ratios approach Feigenbaum's $\delta$, at the float64 floor & nume
 Every tangent reversal of the continued fold curves is a cusp; local unfoldings match Newton solves & numerical; unfoldings frozen & Sec.~\ref{sec:organization} \\
 A period-5 window is a shrimp in a two-parameter plane (boundary organization) & numerical; found by search & Sec.~\ref{sec:organization} \\
 An attracting period-8 orbit exists & proof & App.~\ref{sec:evidence} \\
+Attracting orbits of periods 2 and 3 coexist at one parameter cell & proof & App.~\ref{sec:evidence} \\
 No accuracy information beyond first-token uncertainty; no edge-of-chaos advantage & frozen; bounded nulls & Sec.~\ref{sec:consequences} \\
 Huginn: a predicted accuracy loss & frozen & Sec.~\ref{sec:huginn} \\
 \bottomrule
@@ -238,8 +239,10 @@ Huginn: a predicted accuracy loss & frozen & Sec.~\ref{sec:huginn} \\
   a trace-zero loop replaces the head of a one-dimensional shrimp, and twice the fold curve has two cusps of opposite kinds and a
   self-crossing. Around one of these junctions an orbit census fixed in advance matched the predicted counts at 9 of
   13 points and found two coexisting attracting orbits at all five points inside it. An interval-arithmetic proof shows that a primitive period-8 orbit exists and is locally attracting, to our
-  knowledge the first proof of a periodic orbit of a full transformer language-model map
-  (Appendix~\ref{sec:evidence}).
+  knowledge the first proof of a periodic orbit of a full transformer language-model map. A second proof of
+  the same kind shows that at one parameter cell a period-2 and a period-3 orbit coexist, each unique in its box and
+  locally attracting: two different attracting behaviors under identical settings (Appendix~
+ef{sec:evidence}).
 \item \emph{Beyond the one-token loop} (Sections~\ref{sec:beyond} to~\ref{sec:dialogue}). The chaos is not an
   artifact of the one-token window: with a memory of 8 or 16 soft tokens Qwen2.5-7B is chaotic at more temperatures
   than with one, and in Soft Thinking's growing context a tiny early perturbation grows exponentially inside its
@@ -2229,7 +2232,9 @@ count below from the raw maps.
   fold onward, but the fixed start reaches it only farther right: in a strip up to $1.1\times10^{-3}$ wide in $\alpha$
   both coexist and the map shows the 2-cycle (Figure~\ref{fig:hiddenstrip}). At $\log_{10}T=-0.148$ the map's
   existence edge, $\alpha=0.06444$, coincides with the fold found by continuation, 0.064444. The strip narrows to the
-  grid spacing toward the top of the crescent.
+  grid spacing toward the top of the crescent. At $(\alpha,\log_{10}T)=(0.06468,-0.148)$, inside the strip,
+  interval arithmetic proves that the 2-cycle and the 3-cycle coexist and that both attract
+  (Appendix~\ref{sec:evidence}).
   \item \emph{Chaos.} Almost all chaotic attractors (96\,\% of the chaotic cells) visit the crescent family's
   blank-line and ``The'' tokens, including the chaos between the stripe windows, so the chaotic regions cannot be
   assigned to the 2-cycle's side alone.
@@ -2937,7 +2942,7 @@ OLMo-2 7B and Llama-3.1 8B have maps but no continued orbits. The size compariso
 offset per label, and part of the 70B-class maps predate a precision fix and were rechecked only in samples. The maps
 use one prompt (more in the size tests), and steering uses contrastive vectors, checked against random and
 sparse-autoencoder directions in two models. Chaos labels are finite-horizon estimates: a longer horizon check kept 86
-and 92 of 96 chaotic labels in two maps, near the accumulation of a cascade transient chaos makes labels less reliable (on one line only 135 of 235 chaotic labels held), the chaotic cells are numerically validated (twin exponents agree with automatic-differentiation tangents, across precisions and horizons) but not yet established by a computer-assisted proof, and one periodic orbit has such a proof. The Feigenbaum ratios are
+and 92 of 96 chaotic labels in two maps, near the accumulation of a cascade transient chaos makes labels less reliable (on one line only 135 of 235 chaotic labels held), the chaotic cells are numerically validated (twin exponents agree with automatic-differentiation tangents, across precisions and horizons) but not yet established by a computer-assisted proof, and three periodic orbits have such proofs: the period-8 orbit and a coexisting period-2 and period-3 pair. The Feigenbaum ratios are
 finite-order values. All orbit, bifurcation and chaos results concern the soft-token map, not sampled generation with
 a growing context. Appendix~\ref{sec:limits} gives the details.
 
@@ -4646,6 +4651,23 @@ from the raw maps as the set whose omission reproduces both totals (\repo{docs/r
   first box, and it says nothing about the window's boundaries or global organization. The record
   (\path{certificates/llm-p8-certificate-final-001.json}) pins the SHA-256 hashes of the checkpoint, its
   configuration and the steering vector, and lists the 37 prefix token IDs.
+\item Rung 3: coexistence. At $\alpha=0.06468$ and $\log_{10}T=-0.148$, inside the strip of the crescent where the
+  2-cycle and the 3-cycle both exist (Section~\ref{sec:picture}), the same map, with the same reading of
+  parameters and constants, has a primitive period-2 orbit and a primitive period-3 orbit. Each is the unique
+  multiple-shooting root in its product of boxes of coordinate radius $2^{-640}$ around refined centers, and each is
+  locally attracting; different primitive periods make them distinct orbits. The construction is that of the
+  period-8 proof. The point enclosures are computed at 2048 bits and the derivative enclosures at 1024 bits, in 70
+  pieces that cover every phase and all 896 directions (28 for the 2-cycle, 42 for the 3-cycle; 37.5 worker-hours
+  on rented CPUs). Krawczyk-type inclusion gives existence and local uniqueness, and separation from the proper
+  divisors gives the primitive periods. For attraction, the unweighted bounds on the first and second powers of
+  the enclosed monodromy failed the sufficient condition: the monodromy is strongly nonnormal, so a single norm
+  overstates its growth. These failed attempts are kept in the record, and the fourth and eighth powers pass. Their
+  induced infinity-norm bounds, rounded up, are $7.51\times10^{-4}$ and $1.9\times10^{-8}$ for the 2-cycle and
+  $0.342$ and $1.09\times10^{-3}$ for the 3-cycle; the numerical leading multipliers are $0.0476$ and $0.239$. An
+  independent exact-rational audit rechecked every saved row norm (1\,605\,632 entries per orbit) and the scalar
+  and separation witnesses. The proof says nothing about which orbit a given start reaches, the token loops the
+  orbits write, the trapping of the whole box or the window's global organization. The record is
+  \path{codex/coexistence-task33/pair-certificate-release.json}.
 \item Rung 2: the 2-cycle's fold and its normal form. An independent reimplementation of the forward map and solver
   recovers $\alpha_c$, $a$ and $b$ (to $6\times10^{-15}$, $3\times10^{-12}$ and $2\times10^{-6}$ relatively), and $ab$
   also follows from the stable-branch multipliers. The same reimplementation reproduces all 18 fixed-entrance counts
