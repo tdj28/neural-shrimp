@@ -28915,3 +28915,22 @@ Human-authorized Task28: test which sampled starts reach coexisting loops and wh
 ## 2026-10-17: Task28 measured CPU admission and cost amendment
 
 Profile001 completed (see codex/basins-task28/profile-completion.json). Batch323 takes8.53-8.90s/step; float64 AD/central-difference check passes h-squared scaling. Before basin outcomes, adopt consecutive full-state period checks for early stopping (192..1200 steps),600 donor/reference steps and8 bisections; retain unsettled rows. All details in actual-admission.md. Sole CPU2+supervisor run capped10h/12GiBAS/4GiB outputs, no retry; target /data2/neural-shrimp-data/explore/basins/task28/run-001. This ceiling is not a runtime forecast; the earlier1-2h estimate was too optimistic for fixed-length batching.
+
+## 2026-10-18 00:06 UTC: Run card NC (exploratory): ordinary generation beside the soft loop, at the same cells
+
+Human, 17 Oct: for each periodic or chaotic cell shown in the paper and the blog, show what ordinary inference would write under the same conditions.
+
+**Setup.** Tool tools/normal_companion.py; cells docs/companion/cells.json:
+- the stripe row at log10 T -0.115: period 8 at alpha 0.071674, chaos at 0.072940, period 10 at 0.067766, chaos at 0.069060;
+- period-3 cells at (0.0642, -0.156), (0.0641, -0.156) and (0.070, -1.0);
+- the chaotic crescent core at (0.0652, -0.156).
+
+Qwen2.5-0.5B-Instruct, float64 CPU, the paper's prefix, and the philosophy steering added to the output of layer 12 at every position.
+
+**Per cell:**
+- the soft loop's argmax text: 48 steps after 600 transient steps from the fixed start;
+- ordinary generation with the same prefix, steering and temperature, appending one token per step (64 new tokens): greedy decoding, three samples from softmax(z/T) with seeds 0-2, and unsteered greedy.
+
+**Reading.** Descriptive only. Report whether ordinary generation writes the loop's text, a related text, or something unrelated. No prediction is made.
+
+**Output.** docs/companion/companion.json.
