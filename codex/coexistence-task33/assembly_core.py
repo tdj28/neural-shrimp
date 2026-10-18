@@ -3,7 +3,7 @@
 The enclosing reviewed run card must pin this source, the input plan and all
 external review/closure receipts. This module performs no model evaluation.
 """
-import json,hashlib,sys
+import json,hashlib,sys,shlex
 from pathlib import Path
 HERE=Path(__file__).resolve().parent
 sys.path[:0]=[str(HERE),str(HERE.parents[1]/'codex/certify-llm')]
@@ -23,6 +23,35 @@ def pinned(e):
     p=Path(e['path'])
     if p.is_symlink() or not p.is_file() or points.sha(p)!=e['sha256']:raise ValueError('pinned original bytes')
     return p
+
+def authenticate_closure(ref):
+    """Bind original wrapper closure and producer termination to this attempt."""
+    run=json.loads(pinned(ref['outer_closure']).read_text())
+    name=Path(ref['attempt']).name
+    if (run.get('step')!='run' or run.get('success') is not True
+        or run.get('closure_verified') is not True
+        or type(run.get('exit_code')) is not int or run['exit_code']!=0
+        or run.get('watchdog_stop') is not None
+        or run.get('killed_by_watchdog') is not None
+        or run.get('alive_after_exit')!=[] or run.get('alive_after_cleanup')!=[]):
+        raise ValueError('original wrapper not successfully closed')
+    command=shlex.split(run['command'])
+    for option,value in (('--attempt',name),('--driver','derivative_shard'),
+                         ('--plan',name+'-plan.json'),('--threads','1'),('--seconds','3600')):
+        if command.count(option)!=1 or command.index(option)+1>=len(command) or command[command.index(option)+1]!=value:
+            raise ValueError('outer command assignment')
+    if 'codex/coexistence-task33/launch.py' not in command:
+        raise ValueError('outer launcher')
+    summary=json.loads(pinned(ref['termination']).read_text())
+    termination=summary.get('terminated',{})
+    if termination.get('terminated') is not True or termination.get('in_inventory') is not False:
+        raise ValueError('producer termination incomplete')
+    rows=[row for row in summary['attempts'] if row['attempt']==name]
+    if len(rows)!=1 or rows[0]['receipt_sha256']!=ref['receipt_sha256']:
+        raise ValueError('termination receipt assignment')
+    return {'outer_closure_sha256':ref['outer_closure']['sha256'],
+            'termination_sha256':ref['termination']['sha256'],
+            'attempt':name,'producer_termination_reported':True}
 
 def exact_matrix(a):
     if a.shape!=(896,896) or not np.isfinite(a).all():raise ValueError('full finite proposal')
@@ -53,7 +82,7 @@ def assemble(plan,out,repository):
     if [(r['phase_index'],r['start_column'])for r in refs]!=expected:raise ValueError('exact ordered coverage assignments')
     for ref in refs:
         same(ref['source_commit'],plan['campaign_source'],'campaign source')
-        pinned(ref['outer_closure']) # Reviewed original closure report, no process queries.
+        authenticate_closure(ref) # Original records only; no remote process queries.
     jacobians,dr=derivatives.authenticate_and_collect(plan['definition']['path'],plan['definition']['sha256'],expected_map=plan['map'],expected_backend=plan['derivative_backend'],expected_source_sha256=plan['derivative_source_sha256'],expected_prefix=plan['derivative_prefix'],attempts=[{k:r[k]for k in ('attempt','receipt_sha256','source_commit')}for r in refs])
     write('derivative-admission.json',dr)
     for ref,audit in zip(refs,dr['authenticated_attempts']):
