@@ -7,8 +7,13 @@
 \usepackage[section]{placeins}
 \usepackage[font=small,labelfont=bf]{caption}
 \usepackage[numbers,sort&compress]{natbib}
-\usepackage[dvipsnames]{xcolor}
-\usepackage{colortbl}
+\usepackage[dvipsnames,table]{xcolor}
+\usepackage{etoolbox}
+% Every table shades alternate rows so that rows, including wrapped ones, are easy to tell apart. The rules sit
+% flush with the shading, and \zebrafalse switches it off inside one table that shades its own rows.
+\newif\ifzebra\zebratrue
+\AtBeginEnvironment{tabular}{\ifzebra\rowcolors{2}{black!6}{}\fi\setlength{\aboverulesep}{0pt}%
+  \setlength{\belowrulesep}{0pt}\renewcommand{\arraystretch}{1.3}}
 \usepackage{CJKutf8}
 \usepackage{tikz}
 \usetikzlibrary{arrows.meta,positioning,calc,decorations.pathreplacing,fit}
@@ -2674,6 +2679,7 @@ proved; chaos labels are finite-horizon numerical results. Each \emph{code} entr
 the project repository.}
 \label{tab:evidence}
 \small
+\zebrafalse
 \setlength{\aboverulesep}{0pt}\setlength{\belowrulesep}{0pt}\setlength{\tabcolsep}{5pt}
 \renewcommand{\arraystretch}{1.4}
 \begin{tabular}{llll}
