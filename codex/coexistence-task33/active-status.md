@@ -31,3 +31,5 @@ Representative profile001 completed and closed, source55df1a34, session84833 rea
 2026-10-18T10:36Z wake: private comms still08:59, no new request. prefix-001 session18758 remains running. Isolated center_proposal.py prepared (syntax only): original supervisor-bound prefix importer, exact period2/3 A/B, one correction with full before/after point witnesses. No centre card/launch admitted yet; prefix completion and bounded point-cost/source controls remain.
 
 2026-10-18T10:56Z: prefix001 COMPLETE/CLOSED,4outputs/6sourceblobs/227328balls authenticated;1827.7489s external,2048bits, no certificate. center_proposal.py fully reviewed,12manufactured importer controls passed. Separate one-correction P2/P3 cards prepared for serial admission; P2 first, no retry.
+
+P2center001 RUNNING session73577/sourcef9da6fc6. Original supervisor2202589/start226764217,worker2202685/start226764248 checked in host process view,UID1000/groups/command/nice10/1thread. Restricted process view could not see live processes, so host view used; prefix original groups also confirmed absent there. Serial18GiBAS/2900CPU/3000wall; no retry. P3 card prepared but not launched.
