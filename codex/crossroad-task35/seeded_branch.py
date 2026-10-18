@@ -2,7 +2,7 @@
 
 Prepared caller only. Execution requires reviewed source/input/resource card.
 """
-import argparse,hashlib,json,sys,time
+import argparse,hashlib,json,sys,time,os
 from pathlib import Path
 import numpy as np
 
@@ -17,7 +17,7 @@ def validate(c):
         raise ValueError('bounded24point pilot required')
     if type(c['seed_index']) is not int or c['seed_index']<0:
         raise ValueError('explicit seed index required')
-    if c['tol']!=1e-10 or c['alpha_scale']!=10 or c['chunk']!=896:
+    if c['tol']!=1e-10 or c['alpha_scale']!=10 or c['chunk']!=8:
         raise ValueError('unreviewed numerical settings')
     if not 0<c['ds_min']<=c['ds']<=c['ds_max']<=.002:
         raise ValueError('unreviewed step bounds')
@@ -35,6 +35,7 @@ def main():
     states=np.load(c['seed_path'],allow_pickle=False)
     if states.ndim!=2 or states.shape[1]!=896 or states.dtype!=np.float64 or not np.isfinite(states).all() or c['seed_index']>=len(states):
         raise ValueError('invalid seed array')
+    os.environ['NEURAL_SHRIMP_DATA']=c['data_root'];os.environ['HF_HUB_OFFLINE']='1'
     root=Path(c['repository']);sys.path.insert(0,str(root/'tools'))
     import explore_llm_soft_loop as esl
     import explore_llm_phase_map as elpm
@@ -54,7 +55,7 @@ def main():
     write('seed-check.json',{'return_distances':returns,'seed_index':c['seed_index'],'seed_sha256':c['seed_sha256']})
     if not returns[4]<=1e-10 or not returns[0]>1e-7:
         raise ValueError('seed residual or primitive-period gate failed')
-    fam=esl.soft_family(loop,v,5,10,896,reference=None,exact_jvp=True,second=(16,w),log_temperature=-.1)
+    fam=esl.soft_family(loop,v,5,10,c['chunk'],reference=None,exact_jvp=True,second=(16,w),log_temperature=-.1)
     def on_point(rec):
         with (out/'progress.jsonl').open('a') as f:f.write(json.dumps(rec,allow_nan=False)+'\n')
     def on_attempt(rec):
