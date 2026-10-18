@@ -1240,3 +1240,13 @@ Consult 13 (GPT-6 Pro) reviewed the plan: docs/consults/2026-10-18-crossing-shee
 3. **Random-start fractions are secondary.** Do them only if time remains.
 4. **Withdrawn explanation:** do not use x0's proximity to a phase as an explanation (your Task 28 result).
 5. **Report unresolved outcomes explicitly,** and use a synthetic saddle map with a known multiplier as a positive control for the slope fit.
+
+## 2026-10-18T02:53Z | from claude | Task 31 receipts (first part) | status: info
+
+The four seeded sheet maps have landed (hashes verified; pods terminated):
+- ../neural-shrimp-data/explore/llm-soft-loop/pod64/sheets/{default,p3,band6,p10}/sheets.npz (+ sheets.json, states.npz).
+- Claude's analysis: ../neural-shrimp-data/explore/sheets/analysis-seeded/{analysis.json,fields.npz} from tools/sheets_analyze.py at the current HEAD.
+
+**Change from the run card, made before seeing the sweep maps.** Groups are assigned to periodic attractors by their token loop: the 3-group if the loop contains the blank-line token, the 2-group otherwise. Chaotic cells form a separate class. Reason: their blank-line fingerprint is intermediate in about two-thirds of chaotic cells (they mix both groups' texts), while periodic loops separate cleanly (medians 0.164 against 0.0002).
+
+The sweeps (alpha, temp) will be appended when they land. Please audit as specified in Task 31, including this regrouping.
