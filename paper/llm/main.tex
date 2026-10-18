@@ -841,6 +841,54 @@ Split: the step of the recording at which the texts first differ. Float64; \repo
 \label{tab:chaostexts}
 \end{table}
 
+\paragraph{What the attractors look like.} The chaotic attractors can be drawn. At the cell of strongest chaos on
+the row $\log_{10}T=-0.148$ of Figure~\ref{fig:teaser} ($\alpha=0.07248$), 512 trajectories started near the fixed
+start and recorded for 600 steps after 400 transient steps (float64) settle, all but 14 of them, on one set: the other
+14 reach a coexisting period-4 orbit. Its states, projected on the first two of their principal axes (61.6\,\% of the
+variance; 77.4\,\% with the third), lie on thin folded filaments coloured by the token the loop writes next, and
+successive magnifications show layers within layers (Figure~\ref{fig:strangeattractor}). The loop is a map, not a
+flow: one step is one pass through the network, and a typical step moves the state by 0.30 in all 896 dimensions,
+more than the mean distance (0.21) of the states from their centre, so a single trajectory hops between filaments
+rather than sliding along them. The four leading Lyapunov exponents (QR iteration, 3000 steps) are $0.274$, $-1.052$,
+$-1.486$ and $-1.856$ per step, so $D_{\mathrm{KY}}=1.26$. The correlation sum gives no dimension: its local slope
+wanders between 0.42 and 0.91 over four decades of distance without settling on any decade, as for a strongly
+non-uniform measure. Past the crescent's cascade ($\alpha=0.06626$; exponents $0.036$, $-1.208$, \dots;
+$D_{\mathrm{KY}}=1.030$) the chaos is banded: each trajectory visits three thin bands in turn. The period-3 orbit that
+lost stability in the cascade is still there, as a saddle with multiplier $-1.772$ (next $0.040$); we continued it to
+this cell by Newton's method (relative residual $4.2\times10^{-13}$) and iterated a fundamental domain of its unstable
+manifold under six steps of the map. All $100{,}600$ recorded states of the band it reaches lie within
+$9.8\times10^{-6}$ of the computed manifold (median $3.9\times10^{-7}$) in the 12 leading principal coordinates,
+against a band width of 0.028: the band is the closure of the saddle's unstable manifold, to the resolution of the
+record. At the cell of the certified pair ($\alpha=0.06468$), every one of 9216 starts on a plane through the fixed
+start settles on the 2-cycle (47.3\,\%) or the 3-cycle (52.7\,\%) (float32, 400 steps). The two basins interleave
+in stripes, and the fixed start lies on their boundary at the resolution of the slice
+(Figure~\ref{fig:pairbasins}), consistent with the switch of the attractor reached from it within
+$2\times10^{-7}$ in $\alpha$ at the crescent's edge.
+
+\begin{figure}[tbp]
+\centering
+\includegraphics[width=\linewidth]{fig-strange-attractor.png}
+\caption{The strange attractor of the soft-token loop (Qwen2.5-0.5B-Instruct, philosophy direction at layer 12,
+$\log_{10}T=-0.148$, float64; \repo{tools/attractor_portrait.py}, \repo{tools/plot_attractor_portrait.py}). (a)
+298\,800 states of 498 trajectories at $\alpha=0.07248$ on their first two principal axes, coloured by the token
+written next (the return symbol in the legend marks a line break). (b, c) Magnifications of the boxed regions. (d) Successive values of the first principal
+coordinate. (e) Local slope of the correlation sum over the first eight principal coordinates; dashed, the
+Kaplan--Yorke dimension 1.26; no decade of distance has a constant slope. (f) One of the three bands of the chaotic
+attractor at $\alpha=0.06626$ (purple) and the unstable manifold of the embedded period-3 saddle (black;
+\repo{tools/unstable_manifold.py}).}
+\label{fig:strangeattractor}
+\end{figure}
+
+\begin{figure}[tbp]
+\centering
+\includegraphics[width=0.92\linewidth]{fig-pair-basins.png}
+\caption{Basins of the certified 2-cycle (blue, `` is it'') and 3-cycle (orange) at $\alpha=0.06468$,
+$\log_{10}T=-0.148$, on the plane through the fixed start (star) spanned by the directions to the two orbits
+(\repo{tools/basin_slice.py}; $96\times96$ starts within $0.08\,|x_0|$, float32, 400 steps, period by recurrence).
+(a) The whole slice; (b) the boxed region around the fixed start.}
+\label{fig:pairbasins}
+\end{figure}
+
 \paragraph{What ordinary generation writes at the same cells.} The loops' texts are not what the model writes when it
 generates normally. At the four cells of the stripe row shown in this section, at three period-3 cells and at the
 crescent's chaotic core, we generated 64 tokens the ordinary way: the same prefix, steering of the same strength at the
