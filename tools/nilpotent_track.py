@@ -11,7 +11,8 @@ through a list of temperatures:
 1. At the first temperature, the fixed start at --seed must reach period --period; the orbit is marched to --start
    and a damped two-parameter Newton iteration solves c1 = c2 = 0 (c1: sum of the --k Ritz values, c2: sum of their
    pairwise products) in (alpha1, alpha2), as tools/nilpotent_search.py.
-2. Each next temperature: predictor = the last point (or the linear extrapolation of the last two); the orbit is
+2. Each next temperature: predictor = the last point moved along --slope (the window's drift with T, measured from
+   its fixed-start cells), or the linear extrapolation of the last two points once there are two; the orbit is
    marched from the last solution to the predictor in --march-steps steps of (alpha1, alpha2, log10 T) together,
    then the same Newton iteration.
 3. Every solve records the Ritz values (moduli and arguments), the token loop, the Newton residual of the orbit, the
@@ -42,11 +43,13 @@ def main():
     ap.add_argument("--start", type=float, nargs=2, required=True, help="first guess of the point")
     ap.add_argument("--log-t", type=float, nargs="+", required=True)
     ap.add_argument("--march-steps", type=int, default=6)
+    ap.add_argument("--slope", type=float, nargs=2, default=[0.0, 0.0], metavar=("DA1", "DA2"),
+                    help="d(alpha1, alpha2)/d(log10 T) for the first predictor (later ones use the last two points)")
     ap.add_argument("--seed-march", type=float, default=2e-4, help="largest march step from --seed to --start")
     ap.add_argument("--iterations", type=int, default=10)
     ap.add_argument("--tol-f", type=float, default=1e-7)
     ap.add_argument("--h", type=float, default=5e-6, help="finite-difference step in alpha")
-    ap.add_argument("--cap", type=float, default=5e-4, help="largest Newton step in alpha")
+    ap.add_argument("--cap", type=float, default=1e-4, help="largest Newton step in alpha")
     ap.add_argument("--k", type=int, default=6)
     ap.add_argument("--threads", type=int, default=8)
     ap.add_argument("--device", default="cpu")
@@ -166,7 +169,7 @@ def main():
                 slope = (np.array(pts[-1]) - np.array(pts[-2])) / (args.log_t[m - 1] - args.log_t[m - 2])
                 a = np.array(pts[-1]) + slope * (lt - args.log_t[m - 1]) if abs(dlt) > 0 else np.array(pts[-1])
             else:
-                a = np.array(pts[-1])
+                a = np.array(pts[-1]) + np.array(args.slope) * (lt - args.log_t[m - 1])
             ok, rec, X, Q = march(prev, np.array([a[0], a[1], lt]), X, Q, args.march_steps)
             if not ok:
                 emit({"stop": "march lost the orbit", "log10_T": lt, "last": rec})

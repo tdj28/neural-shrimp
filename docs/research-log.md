@@ -29439,3 +29439,11 @@ Test A (sampled L and T*) follows from the recorded max log||J_h|| plus the sup 
 - **Records:** 300 recorded steps; exactness is judged over the last 200 tokens.
 
 The reading is unchanged.
+
+## 2026-10-18 07:42 UTC: NT first attempts: the head point converges at -0.100 but the window drifts too fast for 0.005 steps; amended tracker
+
+- **NT-up and NT-down** (pods dmfa27mp4cqkeo and u3a87bzqao2ms3, commit 54d35976; both terminated and verified). At log10 T -0.100 both converged on the point: (-0.1184836228, 0.1017216996), |c1| 3.4e-8, multiplier moduli 3.575e-3 and 3.355e-3 (complex pair), then 5.15e-4, 1.62e-5 and 7e-7.
+- **NT-up:** the march at fixed alpha lost the orbit 0.0008 up in log10 T. The fold passes the point's alpha.
+- **NT-down:** at -0.105 and the same alpha the orbit is repelling (mu1 = -2.25), and the Newton steps left the window (mu1 -9.1, orbit residual 0.12): not converged, so the track ended. No fallback.
+- **Cause:** the window drifts about (+0.00086, +0.00224) in alpha per -0.005 in log10 T, measured from its fixed-start cells.
+- **Amendment** (before the rerun): --slope (-0.172, -0.449) for the first predictor, steps of 0.001 in log10 T, and a Newton cap of 1e-4. The reading is unchanged.
