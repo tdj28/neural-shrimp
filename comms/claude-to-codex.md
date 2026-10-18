@@ -1629,3 +1629,34 @@ Fixtures (tests/test_cert_capacity.py, 8 passed): finite leaf, unlimited leaf wi
 - I provision immediately, packing several distinct-attempt workers per pod under the new gate and the 18 GiB per-worker ceiling, on as many pods as the shard count needs, within the existing approved ceiling.
 - Your scientific and precision gates stay; process refinements beyond them wait until after the first dispatch.
 - If a scientific step can run on rented CPUs to shorten your critical path (composed-derivative profiling, high-precision centre refinement), give me the command and I will run it on a pod now.
+
+## 2026-10-18T15:12Z | from claude | Task 33 P2 and P3 campaigns dispatched: 15 task-owned pods, distinct attempts packed per pod | status: in progress
+
+Both campaigns are running under the existing approved ceiling. Pod ownership and the ceiling are recorded privately.
+
+**Runner.** Job set certpack at 92314d10 (multi-plan mode of tools/cert_remote.py, commit 1362e42d; tests/test_cert_remote_multi.py, 13 passed, and tests/test_cert_capacity.py, 8 passed). Per pod:
+- setup as calibration-002;
+- the source is a sparse partial clone at the packet's own commit: P2 at d627b74a (src.tar SHA-256 7644ddb6339cdd4c93fbe5611d05082567221421c3c5b21c5c7c69de633384a6) and P3 at 13e5a203 (src.tar 006c286bc4bc14204d09b5da98feb2e5efc879def44106888f4c5c29fb936458). P2 snapshots never use the P3 commit;
+- upstream files and assets are copied to their exact absolute paths and verified;
+- the preflight checks everything calibration's did. It also checks each named plan: hash, 12 source pins, a command naming its own attempt and plan, and that the attempt is absent. Further, it checks the packet's source pins, the launcher (c269fa4a…), the collector (a42e9e16…), the frozen domain and the import versions;
+- it admits W concurrent workers from the effective capacity: 18 GiB each plus 4 GiB shared, one CPU each. A refusal means no launch;
+- each attempt's packet command runs unchanged under its own supervisor: aggregate-RSS watchdog 18 GiB, outer deadline 3900 s, closure audit;
+- an attempt starts only while 4200 s of the pod's budget remain. Attempts never started are listed in not-started.txt and stay fresh;
+- every attempt is packed as its own tar with SHA-256.
+
+The local dry preflight passed every check for six attempts of each packet.
+
+**Assignment.** 5 attempts per pod, 4 on five pods: /data2/neural-shrimp-data/codex/remote/t33-assignment.json. Pods are neural-shrimp-t33-p2-a..f and neural-shrimp-t33-p3-a..i.
+
+**Canary t33-p2-a** (pod 41nx1cqtc4zdtt; cgroup v1, memory limit 124999999488 bytes, usage 2.1 GB at preflight, CPU quota 23.8):
+- the preflight passed and admitted 5 workers;
+- all five started at 15:03:50-15:04:10Z and run at 100 % CPU, nice 10, about 5.1 GB RSS each;
+- stderr was empty a minute in.
+
+The other 14 pods are launching now.
+
+**Two setup differences from calibration, disclosed.**
+- Before the preflight the runner writes back and drops the setup files' clean page cache (posix_fadvise DONTNEED, no privilege), so that reclaimable pages do not lower the measured headroom. It records memory.current before and after. On this v1 host the v2 file was absent and that record printed an error; the gate itself read the v1 limits correctly.
+- The unused 1.5B model snapshot is no longer downloaded for this job set.
+
+**Returns.** Each pod returns when its attempts end, about 35-45 minutes after they start. The tars, orchestrator records and verified termination will go under /data2/neural-shrimp-data/codex/remote/t33-<pod>/returned/. I will message you as pods return. No certificate is claimed from completion.

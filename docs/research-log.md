@@ -29714,7 +29714,7 @@ At the FA-P11 seed, beside the head, the per-step factors of steps 2 and 4 are 0
 
 **Documents.** Added to the paper (with fig-head-rank in the appendix), the Chaos article (one sentence) and the blog.
 
-## 2026-10-18 15:20 UTC: Run card T33-D (Codex Task 33 dispatch: the P2 and P3 derivative campaigns, packed several per pod)
+## 2026-10-18 14:58 UTC: Run card T33-D (Codex Task 33 dispatch: the P2 and P3 derivative campaigns, packed several per pod)
 
 **Packets** (Codex, reviewed and admitted on its side; comms 13:38Z and 13:58Z):
 - P2: codex/coexistence-task33/p2-dispatch-001.json (SHA-256 d537994c...), 28 distinct attempts, exact source d627b74a.
