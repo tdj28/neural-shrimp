@@ -29420,3 +29420,22 @@ Test A (sampled L and T*) follows from the recorded max log||J_h|| plus the sup 
 **Tool.** tools/nilpotent_track.py continues the near-nilpotent point. At each temperature it solves for zero sum and zero pairwise sum of the 6 Ritz values (as tools/nilpotent_search.py), starting from (-0.1184836, 0.1017217) at -0.100. log10 T goes down in steps of 0.005, with predictor marches of (alpha1, alpha2, T); a second run goes up. No fallback: a non-converged temperature ends the track.
 
 **Reading, fixed now:** the common modulus of the three leading multipliers against T. If it falls by 10x or more over the range, the head approaches a one-dimensional doubly superstable point at lower T. A superstable-curve grid then follows at the lowest converged T.
+
+## 2026-10-18 07:36 UTC: FA-100a stopped; amendment to run card FA before the rerun: the membership rule leaked through intermittent chaos
+
+**What happened.** FA-100a (pod nln40c09aepaws, H100 NVL, commit 54d35976) followed the attractor for 32 waves: 3,643 propagating cells in 359 s.
+- The wave-20 snapshot (1,534 computed cells) shows the body correctly, with period 5 (437 cells), period-10 shells along both flip curves (116) and period 20 (26).
+- It also shows a large region beyond the fold curve labelled "member without a period" with positive exponents: the chaotic sea. Some period-4 cells (29) were also labelled members.
+
+**Cause.**
+- The rule used a majority vote of tokens per phase and compared each cell with its parent, not with the seed.
+- Next to a fold the motion is intermittent: long laminar phases near the ghost of the period-5 orbit keep the majority token. The word then drifted through those cells to "....." and admitted a period-4 attractor.
+- I stopped the run (SIGINT to the tool; the runner packed; retrieved; pod terminated and verified). The records are preserved at DATA/explore/llm-soft-loop/pod64/fa/t-0.100-attempt-a-majority-rule.
+
+**Amended rule** (tools/follow_attractor.py; smoke-tested before the rerun):
+- **Reference:** the seed's word, global (at least 4 of 5 phases).
+- **Propagating members:** a period that is a multiple of 5 (label 1), or no period found with exactly repeating tokens and exponent below 0.005 (label 3, slow convergence next to a fold or flip).
+- **Terminal members:** exactly repeating tokens with a larger exponent (label 2, chaos behind a repeating text); they are recorded but do not propagate.
+- **Records:** 300 recorded steps; exactness is judged over the last 200 tokens.
+
+The reading is unchanged.

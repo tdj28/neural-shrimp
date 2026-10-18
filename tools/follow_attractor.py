@@ -15,12 +15,20 @@ iteration, as in a hysteresis scan), so the attractor is kept wherever it exists
    Period: smallest q <= --max-period with |x_t - x_(t-q)| and |x_t - x_(t-2q)| below --tol * max(1, |x_t|) at the
    last step (0: none found).
 3. Membership: the dominant token of each of the --seed-period phases over the last --token-steps steps forms the
-   cell's word; a cell is a member if its word matches its parent's word (best rotation) in at least
-   --min-match phases. Members propagate (with their own word, so the word can drift one phase at a time). A non-member
-   is retried once (--max-attempts) if another member neighbour appears later.
+   cell's word, with its agreement (the share of steps of that phase carrying the dominant token). A cell belongs to
+   the family if its word matches the seed's reference word (best rotation) in at least --min-match phases, and
+   - its period is a multiple of --seed-period (label 1, propagates), or
+   - no period was found but its tokens repeat exactly (agreement 1 in every phase) and its exponent is below
+     --max-slow-exponent: a slowly converging orbit next to a fold or flip (label 3, propagates), or
+   - no period was found, its tokens repeat exactly and its exponent is larger: chaos behind a repeating text, the
+     chaotic bands of the cascade (label 2, a member that does not propagate).
+   Anything else is not a member (label 0). The reference is global, so the rule cannot drift through intermittent
+   chaos (FA-100a, the first attempt, used the parent's word and a majority vote and leaked across the fold into the
+   chaotic sea and into a period-4 attractor). A non-member is retried once (--max-attempts) if another propagating
+   member neighbour appears later.
 
-Labels: -1 not computed, 0 not a member (the attractor was lost), 1 member with a period found, 2 member without one
-(chaotic or not converged; see the exponent).
+Labels: -1 not computed, 0 not a member, 1 periodic member, 2 chaotic member with an exactly repeating text,
+3 member without a period found and without a positive exponent.
 
 Output: DATA/explore/OUT/follow.npz (grids, labels, exponents, periods, words, agreement, parents, attempts, waves),
 states.npz (final states of members, float32), summary.json, progress.jsonl.
@@ -79,8 +87,9 @@ def main():
     ap.add_argument("--seed-period", type=int, default=5)
     ap.add_argument("--seed-transient", type=int, default=900)
     ap.add_argument("--transient", type=int, default=250)
-    ap.add_argument("--record", type=int, default=200)
-    ap.add_argument("--token-steps", type=int, default=100)
+    ap.add_argument("--record", type=int, default=300)
+    ap.add_argument("--token-steps", type=int, default=200)
+    ap.add_argument("--max-slow-exponent", type=float, default=0.005)
     ap.add_argument("--max-period", type=int, default=64)
     ap.add_argument("--tol", type=float, default=1e-8)
     ap.add_argument("--eps", type=float, default=1e-6)
@@ -225,13 +234,21 @@ def main():
             parent[i, j] = (pi, pj)
             wave_of[i, j] = wave
             lam[i, j], period[i, j], words[i, j], agree[i, j] = lw[k], pw[k], wd[k], ag[k]
-            if best_match(wd[k], words[pi, pj]) >= args.min_match:
-                label[i, j] = 1 if pw[k] > 0 else 2
-                states[(i, j)] = Xf[k:k + 1]
-                new += 1
+            exact = bool(np.all(ag[k] >= 1.0))
+            if best_match(wd[k], ref) < args.min_match:
+                label[i, j] = 0
+            elif pw[k] > 0 and pw[k] % args.seed_period == 0:
+                label[i, j] = 1
+            elif pw[k] == 0 and exact and lw[k] < args.max_slow_exponent:
+                label[i, j] = 3
+            elif pw[k] == 0 and exact:
+                label[i, j] = 2
             else:
                 label[i, j] = 0
-        emit({"wave": wave, "cells": len(cells), "members": new, "total_members": len(states),
+            if label[i, j] in (1, 3):
+                states[(i, j)] = Xf[k:k + 1]
+                new += 1
+        emit({"wave": wave, "cells": len(cells), "propagating": new, "total_propagating": len(states),
               "computed": int((label >= 0).sum()), "seconds": round(time.perf_counter() - tic, 1)})
         if wave % 20 == 0:
             np.savez_compressed(out / "follow.npz", alpha1=a1, alpha2=a2, log10_temperature=args.log_temperature,
@@ -244,14 +261,15 @@ def main():
     keys = sorted(states)
     np.savez_compressed(out / "states.npz", index=np.array(keys, dtype=np.int32),
                         states=torch.cat([states[k] for k in keys]).float().cpu().numpy())
-    per = {int(q): int(((label >= 1) & (period == q)).sum()) for q in np.unique(period[label >= 1])}
+    per = {int(q): int(((label == 1) & (period == q)).sum()) for q in np.unique(period[label == 1])}
     summary = {"args": vars(args), "grid": [n2, n1], "waves": wave, "computed": int((label >= 0).sum()),
                "members": int((label >= 1).sum()), "members_periodic": int((label == 1).sum()),
-               "members_without_period": int((label == 2).sum()), "lost": int((label == 0).sum()),
+               "members_chaotic_repeating_text": int((label == 2).sum()),
+               "members_unresolved_slow": int((label == 3).sum()), "not_members": int((label == 0).sum()),
                "member_periods": per, "reference_word": ref.tolist(),
                "reference_text": [decode([int(t)]) for t in ref], "seconds": round(time.perf_counter() - tic, 1)}
     (out / "summary.json").write_text(json.dumps(summary, indent=1, ensure_ascii=False))
-    emit({k: summary[k] for k in ("waves", "computed", "members", "lost", "member_periods", "seconds")})
+    emit({k: summary[k] for k in ("waves", "computed", "members", "not_members", "member_periods", "seconds")})
 
 
 if __name__ == "__main__":
