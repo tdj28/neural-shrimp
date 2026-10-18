@@ -29007,3 +29007,23 @@ Human renewed queue authority; Claude refined29 at68197564. Priority is individu
 It is contradicted if the ratios stay near 1 or rise. If the orbit is lost, that is reported with the temperature. A positive pilot motivates a superstable-curve grid (tools/doubly_superstable.py) at the best temperature; it is not itself a shrimp claim.
 
 **Compute.** One H100 pod; cost in the private ledger.
+
+## 2026-10-18 02:49 UTC: Run card MT (exploratory, consult 13): microtransects that separate attractor existence from selection
+
+**Design.** Adopted from consult 13 (docs/consults/2026-10-18-crossing-sheets/adjudication.md). Tool tools/sheets_transect.py at commit 978c85af. At 17 points per transect it runs:
+- x0, the fixed start;
+- a frozen non-special token embedding (" world", chosen before any result);
+- continuation of two family seeds in both directions.
+
+Periods are checked by full-state recurrence over 4 repetitions (q <= 64, tol 1e-8). Every switch of x0's family is refined to 1/64 of the spacing. At the bracket ends each family is continued and its leading multipliers computed (subspace iteration, k = 6).
+
+**Transects.** Selected from the published fixed-start map cross-512 alone, before any seeded or sweep map of run SH is inspected:
+- **Development** (calibration): log10 T -0.148, alpha 0.06460 to 0.06480. Families p2, p3.
+- **B:** alpha 0.0708, log10 T -0.1440 to -0.1396 (column through period 10, chaos, the band's period 12, and the band). Families p10, band6.
+- **S:** log10 T -0.1396, alpha 0.0690 to 0.0700 (row from the period-12 stripe through unlabeled cells to the band family's period 6). Families p12, band6.
+
+**Also.** tools/sheets_edge.py at the development switch (log10 T -0.148, alpha 0.06465-0.06473; 22 bisections; the lingering orbit refined by Newton; its multipliers).
+
+**Endpoint, fixed now.** The number of held-out switches, out of B and S, classed as **selection (stable overlap)**: x0 changes family inside a refined bracket while both families' continuations keep their family across it with all computed multipliers inside the unit circle. Switches with chaos or no detected period on one side are **unresolved**; they are reported, not dropped. A switch where a family's continuation leaves its family is **intrinsic** for that family.
+
+**Compute.** One H100 pod; cost in the private ledger.
