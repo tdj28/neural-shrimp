@@ -69,10 +69,32 @@ IMPORT_DIST = {"threadpoolctl": "threadpoolctl", "tokenizers": "tokenizers", "sa
                "numpy": "numpy", "python-flint": "python-flint", "torch_distribution": "torch"}
 
 
+# Multi-plan packet families, recognized by the launcher their commands run: (attempt root under the data root,
+# collector). Task 33 packets launch codex/coexistence-task33/launch.py; Task 34 multi-plan packets (for example the
+# cascade period-3 derivative campaign) launch codex/certificate-ladder-task34/launch.py, whose ROOT is
+# DATA/codex/certificate-ladder. An unknown launcher is refused, never guessed.
+FAMILIES = {
+    "codex/coexistence-task33/launch.py": ("codex/coexistence", "codex/coexistence-task33/returned_shard.py"),
+    "codex/certificate-ladder-task34/launch.py": ("codex/certificate-ladder",
+                                                  "codex/certificate-ladder-task34/returned_shard.py"),
+}
+
+
+def family(packet):
+    """(launcher, attempt root, collector) of a packet. Single-plan Task 34 calibration packets keep the original
+    launcher and collector pins and create their attempts under codex/llm-p8-certificate."""
+    if "plans" not in packet:
+        return LAUNCHER, "codex/llm-p8-certificate", COLLECTOR
+    found = {(r["command"].split() + [None] * 5)[4] for r in packet["plans"]}
+    if len(found) != 1 or next(iter(found)) not in FAMILIES:
+        raise SystemExit(f"refused: the packet's commands run {sorted(map(str, found))}, not one known launcher")
+    launcher = next(iter(found))
+    return (launcher,) + FAMILIES[launcher]
+
+
 def attempt_root(packet):
-    """Where launch.py creates the packet's attempts: Task 33 multi-plan packets under codex/coexistence, the Task 34
-    single-plan calibration packets under codex/llm-p8-certificate."""
-    return "codex/coexistence" if "plans" in packet else "codex/llm-p8-certificate"
+    """Where the packet's launcher creates its attempts (see family)."""
+    return family(packet)[1]
 
 
 def plan_rows(packet, names):
@@ -86,10 +108,10 @@ def plan_rows(packet, names):
     return [rows[n] for n in names]
 
 
-def command_problems(row):
-    """A packet command must run the pinned launcher for exactly its own attempt and plan."""
+def command_problems(row, launcher=LAUNCHER):
+    """A packet command must run the packet's launcher for exactly its own attempt and plan."""
     t = row["command"].split()
-    want = ["python", "-I", "-B", "-u", LAUNCHER]
+    want = ["python", "-I", "-B", "-u", launcher]
     probs = []
     if t[:5] != want:
         probs.append("does not start with " + " ".join(want))
@@ -210,13 +232,14 @@ def preflight(a):
             att = data_root / attempt_root(packet) / r["attempt"]
             per[r["attempt"]] = {"plan_sha256_matches": pp.is_file() and sha(pp) == r["plan_sha256"],
                                  "source_pins": len(pins), "mismatched_pins": pin_problems(pins),
-                                 "command_problems": command_problems(r), "attempt_absent": not att.exists()}
+                                 "command_problems": command_problems(r, family(packet)[0]),
+                                 "attempt_absent": not att.exists()}
         checks["plans"] = (all(v["plan_sha256_matches"] and v["source_pins"] and not v["mismatched_pins"]
                                and not v["command_problems"] and v["attempt_absent"] for v in per.values()), per)
         pk = packet["source_sha256"]
         checks["packet_source_pins"] = (bool(pk) and not pin_problems(pk),
                                         {"pins": len(pk), "mismatched": pin_problems(pk)})
-        for key, rel in (("launcher_sha256", LAUNCHER), ("collector_sha256", COLLECTOR)):
+        for key, rel in (("launcher_sha256", family(packet)[0]), ("collector_sha256", family(packet)[2])):
             got = sha(repo / rel) if (repo / rel).is_file() else None
             checks[key] = (got == packet[key], {"path": rel, "sha256": got})
         d = packet["definition"]
@@ -484,8 +507,9 @@ def command(a):
     preflight)."""
     packet = json.loads(Path(a.packet).read_text())
     row = plan_rows(packet, a.attempt)
-    if len(row) != 1 or command_problems(row[0]):
-        raise SystemExit(f"refused: {a.attempt}: {command_problems(row[0]) if len(row) == 1 else 'one attempt'}")
+    launcher = family(packet)[0]
+    if len(row) != 1 or command_problems(row[0], launcher):
+        raise SystemExit(f"refused: {a.attempt}: {command_problems(row[0], launcher) if len(row) == 1 else 'one attempt'}")
     print(row[0]["command"])
 
 

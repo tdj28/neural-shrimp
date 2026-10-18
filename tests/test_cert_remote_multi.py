@@ -52,3 +52,21 @@ def test_command_check_refuses_mismatches(cmd):
 def test_attempt_roots():
     assert cr.attempt_root(PACKET) == "codex/coexistence"
     assert cr.attempt_root({"attempt": "x", "plan": "p"}) == "codex/llm-p8-certificate"
+
+
+def test_family_maps_task34_multi_plan_packets_and_refuses_unknown_launchers():
+    import pytest
+    import cert_remote as cr
+    row = {"attempt": "a1", "plan": "codex/certificate-ladder-task34/a1-plan.json",
+           "command": "python -I -B -u codex/certificate-ladder-task34/launch.py --attempt a1 --plan a1-plan.json"}
+    assert cr.family({"plans": [row]}) == ("codex/certificate-ladder-task34/launch.py", "codex/certificate-ladder",
+                                           "codex/certificate-ladder-task34/returned_shard.py")
+    assert cr.attempt_root({"plans": [row]}) == "codex/certificate-ladder"
+    assert cr.command_problems(row, "codex/certificate-ladder-task34/launch.py") == []
+    assert cr.command_problems(row)                       # the Task 33 launcher does not match this command
+    assert cr.family({"attempt": "x"})[1] == "codex/llm-p8-certificate"
+    other = dict(row, command="python -I -B -u codex/other/launch.py --attempt a1")
+    with pytest.raises(SystemExit):
+        cr.family({"plans": [other]})
+    with pytest.raises(SystemExit):
+        cr.family({"plans": [row, other]})
