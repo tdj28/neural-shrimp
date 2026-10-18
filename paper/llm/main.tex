@@ -66,7 +66,7 @@ carries chaos to lower temperature, steering at two depths creates chaos neither
 loops writing one text lock each other into periodic orbits. Whether a prompt's loop is chaotic does not predict
 the accuracy of ordinary sampled answers beyond what the model's uncertainty about its first answer token predicts,
 and we find no edge-of-chaos advantage. The loop obeys quantitative laws of
-low-dimensional maps: doubling ratios approach Feigenbaum's constant (4.6688 against 4.6692), periodic windows
+low-dimensional maps: finite-order doubling ratios approach Feigenbaum's constant (4.6688 against 4.6692), periodic windows
 accumulate on folds with distances close to a $1/N^2$ law, passage times predicted in advance from fold normal forms came within one
 iterate in 42 of 48 cases at four new folds (the six misses, at a period-6 fold, 3 to 5\,\% short), and interval arithmetic proves an attracting period-8 orbit. In the recurrent-depth model Huginn, a frozen test confirmed a predicted accuracy loss. The loop is not ordinary sampled generation.
 \end{abstract}
@@ -368,7 +368,7 @@ $\|\Sigma_p\|\le\operatorname{diam}(E)^2/4$. With $L=\sup_K\|J_{\tilde h}\|$, fi
 $\|DF\|\le\operatorname{diam}(E)^2L/(4T)$ on $K$, and $F$ is a contraction of $K$ for
 $T>T_*=\tfrac14\operatorname{diam}(E)^2L$, with a single attracting fixed point that tends to the mean embedding as
 $T\to\infty$; without tied embeddings, $\operatorname{diam}(E)^2$ becomes $\operatorname{diam}(E)\operatorname{diam}(W)$.
-Here the exclusion is a bound, sufficient but not sharp. It does not cover hard routing or a growing context. Away from near-ties, chaos thus needs temperatures at
+Here the exclusion is a bound, sufficient but not sharp, and we do not evaluate it, since $L$ is not computed. It does not cover hard routing or a growing context. Away from near-ties, chaos thus needs temperatures at
 which the next-token distribution is spread enough to make $\Sigma_p$ large while $1/T$ still amplifies it. The
 unsteered sweeps agree (Figure~\ref{fig:alpha0}). In the four long sweeps (Appendix~\ref{sec:origin}) the chaotic temperatures lie in one band,
 interleaved with periodic windows, and every band lies between $\log_{10}T=-0.20$ and $0.28$. Below the bands, all
@@ -669,33 +669,33 @@ the first eight distinct leading tokens of one chaotic cell confirmed at three t
 \begin{tabular}{@{}l p{0.88\linewidth}@{}}
 \toprule
 \multicolumn{2}{@{}l}{Qwen2.5-0.5B, philosophy, $\alpha=0.0652$, $\log_{10}T=-0.156$: $\lambda=0.10$, texts split at step 151} \\
-loop & \texttt{$\hookleftarrow$$\hookleftarrow$The\ question$\hookleftarrow$$\hookleftarrow$The\ existence$\hookleftarrow$$\hookleftarrow$The\ existence$\hookleftarrow$$\hookleftarrow$The\ existence$\hookleftarrow$$\hookleftarrow$The\textcolor{BrickRed}{\ existence$\hookleftarrow$$\hookleftarrow$The\ existence$\hookleftarrow$$\hookleftarrow$The\ existence$\hookleftarrow$$\hookleftarrow$The\ existence}} \\
-copy & \texttt{$\hookleftarrow$$\hookleftarrow$The\ question$\hookleftarrow$$\hookleftarrow$The\ existence$\hookleftarrow$$\hookleftarrow$The\ existence$\hookleftarrow$$\hookleftarrow$The\ existence$\hookleftarrow$$\hookleftarrow$The\textcolor{BrickRed}{\ question$\hookleftarrow$$\hookleftarrow$The\ existence$\hookleftarrow$$\hookleftarrow$The\ question$\hookleftarrow$$\hookleftarrow$The\ existence}} \\
+loop & \texttt{$\hookleftarrow$$\hookleftarrow$The\ question$\hookleftarrow$$\hookleftarrow$The\ existence$\hookleftarrow$$\hookleftarrow$The\ existence$\hookleftarrow$$\hookleftarrow$The\ existence$\hookleftarrow$$\hookleftarrow$The\,$\Vert$\,\textcolor{BrickRed}{\ existence$\hookleftarrow$$\hookleftarrow$The\ existence$\hookleftarrow$$\hookleftarrow$The\ existence$\hookleftarrow$$\hookleftarrow$The\ existence}} \\
+copy & \texttt{$\hookleftarrow$$\hookleftarrow$The\ question$\hookleftarrow$$\hookleftarrow$The\ existence$\hookleftarrow$$\hookleftarrow$The\ existence$\hookleftarrow$$\hookleftarrow$The\ existence$\hookleftarrow$$\hookleftarrow$The\,$\Vert$\,\textcolor{BrickRed}{\ question$\hookleftarrow$$\hookleftarrow$The\ existence$\hookleftarrow$$\hookleftarrow$The\ question$\hookleftarrow$$\hookleftarrow$The\ existence}} \\
 \midrule
 \multicolumn{2}{@{}l}{Qwen2.5-0.5B, philosophy, $\alpha=0.07484$, $\log_{10}T=-0.1226$: $\lambda=0.44$, texts split at step 44} \\
-loop & \texttt{\ is\ a.$\hookleftarrow$$\hookleftarrow$The\ question$\hookleftarrow$$\hookleftarrow$The\ is$\hookleftarrow$$\hookleftarrow$The\ is\ a.\textcolor{BrickRed}{$\hookleftarrow$$\hookleftarrow$\ is\ is$\hookleftarrow$$\hookleftarrow$The\ is$\hookleftarrow$$\hookleftarrow$The\ is$\hookleftarrow$$\hookleftarrow$}} \\
-copy & \texttt{\ is\ a.$\hookleftarrow$$\hookleftarrow$The\ question$\hookleftarrow$$\hookleftarrow$The\ is$\hookleftarrow$$\hookleftarrow$The\ is\ a.\textcolor{BrickRed}{Is$\hookleftarrow$$\hookleftarrow$The\ is\ there\ is\ a.Is$\hookleftarrow$$\hookleftarrow$}} \\
+loop & \texttt{\ is\ a.$\hookleftarrow$$\hookleftarrow$The\ question$\hookleftarrow$$\hookleftarrow$The\ is$\hookleftarrow$$\hookleftarrow$The\ is\ a.\,$\Vert$\,\textcolor{BrickRed}{$\hookleftarrow$$\hookleftarrow$\ is\ is$\hookleftarrow$$\hookleftarrow$The\ is$\hookleftarrow$$\hookleftarrow$The\ is$\hookleftarrow$$\hookleftarrow$}} \\
+copy & \texttt{\ is\ a.$\hookleftarrow$$\hookleftarrow$The\ question$\hookleftarrow$$\hookleftarrow$The\ is$\hookleftarrow$$\hookleftarrow$The\ is\ a.\,$\Vert$\,\textcolor{BrickRed}{Is$\hookleftarrow$$\hookleftarrow$The\ is\ there\ is\ a.Is$\hookleftarrow$$\hookleftarrow$}} \\
 \midrule
 \multicolumn{2}{@{}l}{Qwen2.5-0.5B, philosophy, $\alpha=0.07277$, $\log_{10}T=-0.041$: $\lambda=0.36$, texts split at step 51} \\
-loop & \texttt{$\hookleftarrow$$\hookleftarrow$The\ is$\hookleftarrow$$\hookleftarrow$The\ is\ a.\ -$\hookleftarrow$$\hookleftarrow$The\ is\ a.\textcolor{BrickRed}{Is$\hookleftarrow$$\hookleftarrow$The\ is\ a.\ Is$\hookleftarrow$$\hookleftarrow$The\ is}} \\
-copy & \texttt{$\hookleftarrow$$\hookleftarrow$The\ is$\hookleftarrow$$\hookleftarrow$The\ is\ a.\ -$\hookleftarrow$$\hookleftarrow$The\ is\ a.\textcolor{BrickRed}{$\hookleftarrow$$\hookleftarrow$The$\hookleftarrow$$\hookleftarrow$$\hookleftarrow$$\hookleftarrow$The\ is\ a\ is\ a.}} \\
+loop & \texttt{$\hookleftarrow$$\hookleftarrow$The\ is$\hookleftarrow$$\hookleftarrow$The\ is\ a.\ -$\hookleftarrow$$\hookleftarrow$The\ is\ a.\,$\Vert$\,\textcolor{BrickRed}{Is$\hookleftarrow$$\hookleftarrow$The\ is\ a.\ Is$\hookleftarrow$$\hookleftarrow$The\ is}} \\
+copy & \texttt{$\hookleftarrow$$\hookleftarrow$The\ is$\hookleftarrow$$\hookleftarrow$The\ is\ a.\ -$\hookleftarrow$$\hookleftarrow$The\ is\ a.\,$\Vert$\,\textcolor{BrickRed}{$\hookleftarrow$$\hookleftarrow$The$\hookleftarrow$$\hookleftarrow$$\hookleftarrow$$\hookleftarrow$The\ is\ a\ is\ a.}} \\
 \midrule
 \multicolumn{2}{@{}l}{Qwen2.5-0.5B, hostility, $\alpha=0.08946$, $\log_{10}T=-0.05566$: $\lambda=0.35$, texts split at step 45} \\
-loop & \texttt{Yes!Yes!Yes!Yes!Yes!Yes!Yes!\textcolor{BrickRed}{Yes,\ that!Yes!Yes!No,}} \\
-copy & \texttt{Yes!Yes!Yes!Yes!Yes!Yes!Yes!\textcolor{BrickRed}{No,\ that!Yes!Yes!Yes!}} \\
+loop & \texttt{Yes!Yes!Yes!Yes!Yes!Yes!Yes!\,$\Vert$\,\textcolor{BrickRed}{Yes,\ that!Yes!Yes!No,}} \\
+copy & \texttt{Yes!Yes!Yes!Yes!Yes!Yes!Yes!\,$\Vert$\,\textcolor{BrickRed}{No,\ that!Yes!Yes!Yes!}} \\
 \midrule
 \multicolumn{2}{@{}l}{Qwen2.5-1.5B, philosophy, $\alpha=0.10553$, $\log_{10}T=0.0322$: $\lambda=0.80$, texts split at step 10} \\
-loop & \texttt{$\hookleftarrow$$\hookleftarrow$$\hookleftarrow$What$\hookleftarrow$$\hookleftarrow$In$\hookleftarrow$$\hookleftarrow$$\hookleftarrow$What$\hookleftarrow$\textcolor{BrickRed}{What??$\hookleftarrow$$\hookleftarrow$$\hookleftarrow$$\hookleftarrow$What?$\hookleftarrow$What$\hookleftarrow$$\hookleftarrow$In$\hookleftarrow$$\hookleftarrow$}} \\
-copy & \texttt{$\hookleftarrow$$\hookleftarrow$$\hookleftarrow$What$\hookleftarrow$$\hookleftarrow$In$\hookleftarrow$$\hookleftarrow$$\hookleftarrow$What$\hookleftarrow$\textcolor{BrickRed}{In??$\hookleftarrow$$\hookleftarrow$$\hookleftarrow$What??$\hookleftarrow$$\hookleftarrow$$\hookleftarrow$$\hookleftarrow$What$\hookleftarrow$}} \\
+loop & \texttt{$\hookleftarrow$$\hookleftarrow$$\hookleftarrow$What$\hookleftarrow$$\hookleftarrow$In$\hookleftarrow$$\hookleftarrow$$\hookleftarrow$What$\hookleftarrow$\,$\Vert$\,\textcolor{BrickRed}{What??$\hookleftarrow$$\hookleftarrow$$\hookleftarrow$$\hookleftarrow$What?$\hookleftarrow$What$\hookleftarrow$$\hookleftarrow$In$\hookleftarrow$$\hookleftarrow$}} \\
+copy & \texttt{$\hookleftarrow$$\hookleftarrow$$\hookleftarrow$What$\hookleftarrow$$\hookleftarrow$In$\hookleftarrow$$\hookleftarrow$$\hookleftarrow$What$\hookleftarrow$\,$\Vert$\,\textcolor{BrickRed}{In??$\hookleftarrow$$\hookleftarrow$$\hookleftarrow$What??$\hookleftarrow$$\hookleftarrow$$\hookleftarrow$$\hookleftarrow$What$\hookleftarrow$}} \\
 \midrule
 \multicolumn{2}{@{}l}{Qwen2.5-1.5B, unsteered, $\log_{10}T=0.657$: $\lambda=0.59$, texts split at step 43} \\
-loop & \texttt{[end]!\begin{CJK}{UTF8}{gbsn}！\end{CJK}[end]!!\begin{CJK}{UTF8}{gbsn}，\end{CJK}$\hookleftarrow$!\begin{CJK}{UTF8}{gbsn}，\end{CJK}!![end]!\textcolor{BrickRed}{\begin{CJK}{UTF8}{gbsn}，\end{CJK}!!!\begin{CJK}{UTF8}{gbsn}，\end{CJK}$\hookleftarrow$!\begin{CJK}{UTF8}{gbsn}，\end{CJK}[end]!}} \\
-copy & \texttt{[end]!\begin{CJK}{UTF8}{gbsn}！\end{CJK}[end]!!\begin{CJK}{UTF8}{gbsn}，\end{CJK}$\hookleftarrow$!\begin{CJK}{UTF8}{gbsn}，\end{CJK}!![end]!\textcolor{BrickRed}{\begin{CJK}{UTF8}{gbsn}！\end{CJK}!!!\begin{CJK}{UTF8}{gbsn}，\end{CJK}[end]!!\begin{CJK}{UTF8}{gbsn}，\end{CJK}!}} \\
+loop & \texttt{[end]!\begin{CJK}{UTF8}{gbsn}！\end{CJK}[end]!!\begin{CJK}{UTF8}{gbsn}，\end{CJK}$\hookleftarrow$!\begin{CJK}{UTF8}{gbsn}，\end{CJK}!![end]!\,$\Vert$\,\textcolor{BrickRed}{\begin{CJK}{UTF8}{gbsn}，\end{CJK}!!!\begin{CJK}{UTF8}{gbsn}，\end{CJK}$\hookleftarrow$!\begin{CJK}{UTF8}{gbsn}，\end{CJK}[end]!}} \\
+copy & \texttt{[end]!\begin{CJK}{UTF8}{gbsn}！\end{CJK}[end]!!\begin{CJK}{UTF8}{gbsn}，\end{CJK}$\hookleftarrow$!\begin{CJK}{UTF8}{gbsn}，\end{CJK}!![end]!\,$\Vert$\,\textcolor{BrickRed}{\begin{CJK}{UTF8}{gbsn}！\end{CJK}!!!\begin{CJK}{UTF8}{gbsn}，\end{CJK}[end]!!\begin{CJK}{UTF8}{gbsn}，\end{CJK}!}} \\
 \bottomrule
 \end{tabular}
 \caption{What chaotic loops write. Each pair of lines shows the most probable token at consecutive steps of a chaotic
 loop and of a copy started at a relative distance of $10^{-10}$ from it, from 14 steps before the first step at which
-they differ to 9 steps after it (or the end of the recording); from that step on the text is red. $\hookleftarrow$: line break; [end]: the end-of-turn token; ``\begin{CJK}{UTF8}{gbsn}！\end{CJK}'' and ``\begin{CJK}{UTF8}{gbsn}，\end{CJK}'' in the last example
+they differ to 9 steps after it (or the end of the recording); from that step on (after the bar $\Vert$) the text is red. $\hookleftarrow$: line break; [end]: the end-of-turn token; ``\begin{CJK}{UTF8}{gbsn}！\end{CJK}'' and ``\begin{CJK}{UTF8}{gbsn}，\end{CJK}'' in the last example
 are the full-width exclamation mark and comma. $\lambda$: largest Lyapunov exponent, from twins at relative offsets
 $10^{-6}$ and $10^{-8}$ over 1000 steps after 1000 transient steps; both offsets give the same value to two decimals.
 Split: the step of the recording at which the texts first differ. Float64; \repo{tools/chaos_texts.py}, receipts in
@@ -2759,7 +2759,7 @@ a growing context. Appendix~\ref{sec:limits} gives the details.
 \paragraph{Steering strength is a bifurcation parameter.} In the soft-token map, small changes of the steering
 strength switch the model between distinct repeating texts, chaos and coexisting attractors. Near a fold curve,
 behavior becomes intermittent, with laminar phases whose duration the fold's normal form predicts in advance. This argues for treating
-an activation-steering coefficient like any control parameter of a nonlinear system. Its bifurcation set should be
+an activation-steering coefficient in a continuous-feedback loop like any control parameter of a nonlinear system; whether the same holds for ordinary generation is not tested here. Its bifurcation set should be
 characterized before an operating point is chosen, history dependence should be expected near boundaries, and a
 monotone, smooth dose response should not be assumed. In a test fixed before its data, the history of a steering
 schedule did change a decision with right and wrong answers: after a brief excursion to stronger permissive steering
