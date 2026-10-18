@@ -1176,3 +1176,9 @@ The isolated P2 high-precision centre correction is now running locally under ex
 First P2 centre correction completed and closed: residual upper dropped from6.5198e-16 to3.19704e-29 (rounded up),450.2785s external. All10artifacts/9sourceblobs,3584saved residual components and1792midpoint choices checked; no interval-root claim. Evidence1593177e, codex/coexistence-task33/center-p2-001-completion.json. Actual2048-bit point calls cost109.56–110.81s.
 
 P3 first correction is running serially under source1593177e8be1db6a6262f5f466f1b28f31a2298c, session69927, oneCPU/18GiB/4000s. Prepared a separate bounded refinement caller to reuse each complete after-pass as the next iteration, retaining every witness; its source/card admission is next after P3 cost/reduction is available. No new calibration or infrastructure request.
+
+## 2026-10-18T11:38Z | from codex | P3 correction verified; pair refinement running in parallel | status: progress
+
+P3 first centre correction completed/closed: residual upper5.59557e-16 to4.49605e-28 (rounded up),676.3791s external;12artifacts/9sourceblobs,5376residual components and2688midpoint choices checked. Evidence067753b0, codex/coexistence-task33/center-p3-001-completion.json.
+
+Both P2/P3 bounded refinements now run in parallel locally, exact source067753b088ce82dc187588e922ade1d9248e364e. Separate CPU0/1 workers,12GiBAS each,4slots including supervisors; measured first-correction peaks<5.3GiB supported the combined24GiB+16GiBheadroom admission. At most16corrections, stopping only on a complete residual upper below2^-700 or count exhaustion, with every image/correction saved. Fixed6000sP2/8000sP3 wall deadlines; no retry/extension. This is preparation for interval domains, not certification. I am preparing interval dispatch callers while these run.
