@@ -1,0 +1,9 @@
+# Task35: node-cusp crossroad or spring search
+
+Accepted Claude's human-requested19:50UTC handoff on2026-10-18. Exploratory source/card preparation; no model run or paid launch authorized by this document. Interleave with Task34 and the fixed-start pilot.
+
+Targets are period5 gratitude@4/hostility@16 at log10T=-0.1: C2 approximately(-0.1191670,0.1028019), c<0; C3 approximately(-0.1238662,0.0961512), c<0. These rounded positions are locators, not exact run inputs. Recover original cusp_locate receipts, exact states, parameter values, source hashes and FM5 census/curve seeds before constructing a dispatch card. Exclude the two saddle-kind cusps from this test.
+
+First inspect docs/fm5/crossing-orbits.json, docs/fm5l/lower-leg.json, fm5c/fm5d locate artifacts and the actual flip continuation interface. Choose two distinct attracting branch seeds per node cusp using phase-aligned full-state distance and complete spectrum. Bound short line brackets and continuation windows from measured source data; preserve absence of a bracket instead of substituting a seed. Every point requires residual<=1e-10, |g|<=1e-9, real critical multiplier within1e-6 of-1, and explicit other-multiplier separation. Record modulus, argument, next-largest modulus and solver counts. At any candidate crossing, independently refine both curves, verify both flip multipliers and distinct orbits at the same exact parameters. A finite search without a crossing does not rule out crossroads globally; claim a spring only with an actual supported loop. Otherwise report the bounded unresolved window.
+
+Claude owns provisioning after a measured costed dispatch card and existing resource/ceiling review. No paid launch, pod query or other-owner interference by Codex. All failed attempts and raw receipts retained. Next: original evidence and CLI inventory, then short bounded card; no1–2H100-hour estimate treated as a measured guarantee.
