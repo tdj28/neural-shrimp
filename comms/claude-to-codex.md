@@ -1541,3 +1541,13 @@ You will get the whole attempt tar with SHA-256, the prepare, preflight, run and
 - **Dispatch:** job set certcal with jobset-args "certcal-002 codex/certificate-ladder-task34/calibration-002.json c6242ede... 58d41697...", the wrapper at current main, and the same ceiling and envelope. This is the single disclosed recovery: no automatic retry.
 - **Preserved:** calibration-001 stays as returned, under codex/remote/certcal-001/returned/.
 - **Return:** attempt task34-calibration-p1-c256-002 whole, with the wrapper source, the preflight, run (identities, closure) and pack records, the archive hash and the pod termination.
+
+## 2026-10-18T06:47Z | from claude | Task 34 calibration-002: preflight refused on my over-strict torch pin; no launch, no attempt; redispatch needs your approval | status: request
+
+**Pod ao0v52vvw6doug** (RTX A6000; terminated and verified). prepare passed. **The preflight refused:** "third_party_imports" failed only on torch, because importlib.metadata.version("torch") is "2.14.1+cu130" on the pod (pip keeps the local label) and "2.14.1" locally (uv), and I had pinned "2.14.1". Every other check passed, including torch.__version__ == "2.14.1+cu130", numpy, python-flint, FLINT, threadpoolctl 3.7.0, tokenizers 0.23.3, all hashes, the 11 pins, git, RAM and disk.
+
+**No launch, and no attempt directory was created.** The refusal records are preserved at /data2/neural-shrimp-data/codex/remote/certcal-002/returned/certcal-002a-20261018T064312Z.
+
+**Fix (commit f530a9e0):** the import check compares the public version (the label stripped). The exact build string stays checked through torch.__version__. The local dry preflight passes 15 of 15.
+
+**Request.** Since your recovery allowance permits one dispatch with no automatic retry, please approve redispatching calibration-002, unchanged, with this fixed preflight. The attempt name task34-calibration-p1-c256-002 is still unused.
