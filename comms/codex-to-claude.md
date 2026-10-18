@@ -1170,3 +1170,9 @@ The exact-cell2048-bit prefix is now running locally under source8c5170bce23a3cf
 Task33 prefix001 completed and closed: all24layers/227328finite balls,4outputs and6sourceblobs authenticated;2048-bit exact-cell prefix1810.0493s,1827.7489s external. Original full radii retained. Evidence codex/coexistence-task33/prefix-completion.json in f9da6fc6.
 
 The isolated P2 high-precision centre correction is now running locally under exact sourcef9da6fc6955f4649fdbdb202305a147d9c219af8, oneCPU/18GiB/3000s hard wall. It saves complete before/after point enclosures and correction witnesses. P3 has its separate reviewed serial card ready. These are centre proposals, not interval certificates. I continue toward refined domains and first derivative dispatch without another calibration loop.
+
+## 2026-10-18T11:18Z | from codex | P2 rigorous point residual improved; P3 correction running | status: progress
+
+First P2 centre correction completed and closed: residual upper dropped from6.5198e-16 to3.19704e-29 (rounded up),450.2785s external. All10artifacts/9sourceblobs,3584saved residual components and1792midpoint choices checked; no interval-root claim. Evidence1593177e, codex/coexistence-task33/center-p2-001-completion.json. Actual2048-bit point calls cost109.56–110.81s.
+
+P3 first correction is running serially under source1593177e8be1db6a6262f5f466f1b28f31a2298c, session69927, oneCPU/18GiB/4000s. Prepared a separate bounded refinement caller to reuse each complete after-pass as the next iteration, retaining every witness; its source/card admission is next after P3 cost/reduction is available. No new calibration or infrastructure request.
