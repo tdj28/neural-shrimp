@@ -1,0 +1,64 @@
+{
+  "receipt": {
+    "path": "/data2/neural-shrimp-data/codex/certificate-ladder/phase-cascade-p3-001-supervision/receipt.json",
+    "bytes": 6803,
+    "sha256": "17a7794eb0b7df15526ffdd5971ef998b9ef065333bd29f1a687e3361ef588a9"
+  },
+  "source_commit": "32c7e4126cd88c6e0c2030dcf1d287f356ee2db8",
+  "source_blobs_checked": 6,
+  "outputs_checked": 8,
+  "host_closure": true,
+  "phases_checked": 3,
+  "seven_proposal_arrays_checked": true,
+  "scientific_row": {
+    "cell": {
+      "name": "cascade-p3",
+      "alpha": 0.065,
+      "log10T": -0.14798,
+      "period": 3,
+      "seed": "p3",
+      "alpha_ratio": [
+        1170935903116329,
+        18014398509481984
+      ],
+      "log10T_ratio": [
+        -333221336429143,
+        2251799813685248
+      ],
+      "seed_path": "/data2/neural-shrimp-data/explore/sheets/seeds/p3.npy",
+      "states": "/data2/neural-shrimp-data/codex/certificate-ladder/settle-001/cascade-p3-states.npy",
+      "settle_report": "/data2/neural-shrimp-data/codex/certificate-ladder/settle-001/cascade-p3-report.json"
+    },
+    "period": 3,
+    "phases": [
+      {
+        "phase": 0,
+        "relative_l2_closure": 0.0,
+        "seconds": 345.7762232730165
+      },
+      {
+        "phase": 1,
+        "relative_l2_closure": 0.0,
+        "seconds": 404.00642780121416
+      },
+      {
+        "phase": 2,
+        "relative_l2_closure": 9.696773335393912e-15,
+        "seconds": 388.5730590908788
+      }
+    ],
+    "diagnostics": {
+      "condition_2_estimate": 135.72311525170178,
+      "left_inverse_defect_inf": 2.5175780920703647e-14,
+      "right_inverse_defect_inf": 2.1519744892447646e-14,
+      "product_norm_inf": 36.99427156445033,
+      "inverse_norm_inf": 25.37588706450034,
+      "statement": "Floating diagnostics only; neither product nor inverse defect is a rigorous enclosure."
+    },
+    "product_order": "A[p-1] @ ... @ A[0]",
+    "certificate_passed": false
+  },
+  "elapsed_seconds": 1144.6036141640507,
+  "certificate_passed": false,
+  "scope": "Every saved phase residual, ordered product, inverse-defect array and diagnostic checked; no model evaluation, rigorous inverse or derivative proof."
+}

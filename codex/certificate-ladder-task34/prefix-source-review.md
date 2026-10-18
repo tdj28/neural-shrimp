@@ -1,0 +1,5 @@
+# Task34 prefix source admission
+
+Root reviewed full prefix_setup.py against accepted Task33 producer. Only explicit five named exact-cell allocation and provenance cell field differ; same stored constants,2048bits,full prefix length,24layers,227328 native balls with radii retained, cache serialization, backend/assets, layer events and input postchecks. Four actual entry-point negative controls reject wrong name/alpha/logT/precision before model load; accepted six serialization controls reused. Task34 must use its own authenticated receipt importer, never relabel Task33 authority.
+
+First cascadeP3 card binds exactbinary64(.0650,-.14798),2048bits and completed dense/phase evidence. Plan retains18GiBAS4700CPU4800wall512MiBoutput32GiBstartup16GiBruntime,CPU1+supervisor2slots. Prior measured2048prefix1810.0493s/1827.7489external supports bounded forecast; no deadline promise. No retries/extensions. All previous phase outputs/source/hostclosure and phase products/defects independently checked; floating proposal only. Fresh capacity and private checkpoint required before launch.
