@@ -276,3 +276,5 @@ skill, section 7A). Spend is recorded only in the gitignored `cost-ledger.md`
   or second pass without a new recorded decision.
 - **Model:** `gpt-6-astra`, Responses Pro mode, xhigh effort, at most 40,000 output tokens, with the client's $5
   per-call authorization guard. Advice is advisory and is adjudicated locally.
+- **Usage:** 32,490 input and 30,600 output tokens (the amount is in the private cost ledger). Adjudication:
+  `2026-10-18-chaos-certification/adjudication.md`.
