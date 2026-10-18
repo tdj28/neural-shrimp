@@ -1042,6 +1042,16 @@ snapshot_download('$repo', revision='$rev', cache_dir='$NEURAL_SHRIMP_DATA/model
     TOOL=sheets_map.py run sheets-${JOBARGS[0]} "${JOBARGS[1]}" "${JOBARGS[2]}" --device cuda --threads 8 \
       "${JOBARGS[@]:3}" --out $D/sheets/${JOBARGS[0]}
     ;;
+  transects)   # run SH local analyses on the GPU, in order: JOBARGS = NAME MINUTES KIND ARGS [:: NAME MINUTES KIND ARGS ...]
+               # KIND transect (tools/sheets_transect.py) or edge (tools/sheets_edge.py); seeds via --extra-data explore/sheets/seeds
+    i=0; n=${#JOBARGS[@]}
+    while [ $i -lt $n ]; do
+      name=${JOBARGS[$i]}; minutes=${JOBARGS[$((i+1))]}; kind=${JOBARGS[$((i+2))]}; i=$((i+3)); margs=()
+      while [ $i -lt $n ] && [ "${JOBARGS[$i]}" != "::" ]; do margs+=("${JOBARGS[$i]}"); i=$((i+1)); done
+      i=$((i+1))
+      TOOL=sheets_$kind.py run $kind-$name "$minutes" --device cuda --threads 8 "${margs[@]}" --out $D/sheets/$kind-$name
+    done
+    ;;
   hidden)      # hidden chaos along a line (tools/hidden_chaos.py): JOBARGS NAME MINUTES ARGS...; float64 on the GPU,
                # Qwen2.5-0.5B (cached), twins at two offsets, leading-token statistics, into hidden/NAME
     TOOL=hidden_chaos.py run hidden-${JOBARGS[0]} "${JOBARGS[1]}" line --device cuda --dtype float64 \

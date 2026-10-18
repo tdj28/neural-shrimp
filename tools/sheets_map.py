@@ -47,12 +47,15 @@ def canonical_loop(tokens):
     return min(t[i:] + t[:i] for i in range(len(t)))
 
 
-def detect_period(hist, max_period, tol):
-    """hist: (record, n, d) float64. Smallest q with |x_last - x_(last-q)| < tol * max(1, |x_last|), else 0."""
+def detect_period(hist, max_period, tol, reps=1):
+    """hist: (record, n, d) float64. Smallest q with |x_last - x_(last-k q)| < tol * max(1, |x_last|) for k = 1..reps
+    (reps = 1 is the scan's rule), else 0."""
     scale = np.maximum(1.0, np.linalg.norm(hist[-1], axis=1))
     per = np.zeros(hist.shape[1], dtype=int)
-    for q in range(min(max_period, len(hist) - 1), 0, -1):
-        close = np.linalg.norm(hist[-1 - q] - hist[-1], axis=1) < tol * scale
+    for q in range(min(max_period, (len(hist) - 1) // reps), 0, -1):
+        close = np.ones(hist.shape[1], dtype=bool)
+        for k in range(1, reps + 1):
+            close &= np.linalg.norm(hist[-1 - k * q] - hist[-1], axis=1) < tol * scale
         per = np.where(close, q, per)
     return per
 
@@ -139,7 +142,7 @@ class Runner:
                 tokens.append(p.argmax(-1).cpu().numpy().copy())
                 keyp += p[:, self.key_ids].double().cpu().numpy()
         hist = np.array(history)
-        per = detect_period(hist, a.max_period, a.tol)
+        per = detect_period(hist, a.max_period, a.tol, getattr(a, "reps", 1))
         toks = np.array(tokens)
         fam = np.full(n, -1, dtype=int)
         for c in range(n):

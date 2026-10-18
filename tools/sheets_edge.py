@@ -27,7 +27,7 @@ from explore_llm_soft_loop import DATA, SoftOrbit  # noqa: E402
 
 def runner(args):
     ns = types.SimpleNamespace(model="qwen0.5b", layer=12, vectors="llm-phase-map/vectors-l12", concept="philosophy",
-                               prompt="open", opener="Hello!", dtype="float64", device="cpu", threads=args.threads,
+                               prompt="open", opener="Hello!", dtype="float64", device=args.device, threads=args.threads,
                                samples=args.samples, record=80, max_period=32, tol=1e-8, settle_tol=1e-6, eps=1e-6,
                                seed=0)
     return sm.Runner(ns)
@@ -64,6 +64,7 @@ def main():
     ap.add_argument("--samples", type=int, default=200)
     ap.add_argument("--bisect", type=int, default=22)
     ap.add_argument("--threads", type=int, default=6)
+    ap.add_argument("--device", default="cpu")
     ap.add_argument("--out", required=True)
     args = ap.parse_args()
     out = DATA / "explore" / args.out
@@ -111,7 +112,7 @@ def main():
             j0 = int(np.argmin(ret[50:len(ret) // 2])) + 50      # lingering before the late convergence
             orb = SoftOrbit(r.loop, a * r.v, 10.0 ** t_u, jacobian_method="ad")
             torch = r.torch
-            X = torch.as_tensor(S[j0][None, None, :], dtype=torch.float64)
+            X = torch.as_tensor(S[j0][None, None, :], dtype=torch.float64, device=r.loop.device)
             Xs, hist, vals, pts = orb.newton(X, args.period, tol=1e-11, max_newton=10)
             xs = Xs[0, -1].double().cpu().numpy()
             dist = np.linalg.norm(S - xs, axis=1) / np.linalg.norm(xs)
