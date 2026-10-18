@@ -1,6 +1,34 @@
 {
-  "status": "prepared seed qualification; Task29 priority, Task30 later, Task31 awaits producer receipt",
+  "status": "seed qualification running; no scientific release",
   "owner": "Root; prior coordinator unavailable",
   "watches": "not restarted",
-  "jobs": []
+  "jobs": [],
+  "session": 15924,
+  "source": "9a31252de57661487f759bf93bcb1c86ea940b4f",
+  "identities": [
+    {
+      "pid": 1607485,
+      "starttime": 223640818,
+      "pgid": 1607485,
+      "sid": 1607485,
+      "state": "S",
+      "nice": 10,
+      "threads": 1,
+      "uid_line": "Uid:\t1000\t1000\t1000\t1000",
+      "cmdline": "/data2/neural-shrimp/.venv/bin/python -I -B codex/basins-task28/supervise.py --plan codex/boundary-task29/seed-plan.json --lane seeds --source 9a31252de57661487f759bf93bcb1c86ea940b4f ",
+      "limits": "Limit                     Soft Limit           Hard Limit           Units     \nMax cpu time              unlimited            unlimited            seconds   \nMax file size             unlimited            unlimited            bytes     \nMax data size             unlimited            unlimited            bytes     \nMax stack size            8388608              unlimited            bytes     \nMax core file size        0                    unlimited            bytes     \nMax resident set          unlimited            unlimited            bytes     \nMax processes             375398               375398               processes \nMax open files            65535                65535                files     \nMax locked memory         8388608              8388608              bytes     \nMax address space         1073741824           12884901888          bytes     \nMax file locks            unlimited            unlimited            locks     \nMax pending signals       375398               375398               signals   \nMax msgqueue size         819200               819200               bytes     \nMax nice priority         0                    0                    \nMax realtime priority     0                    0                    \nMax realtime timeout      200000               200000               us        \n"
+    },
+    {
+      "pid": 1607583,
+      "starttime": 223640850,
+      "pgid": 1607583,
+      "sid": 1607583,
+      "state": "R",
+      "nice": 10,
+      "threads": 4,
+      "uid_line": "Uid:\t1000\t1000\t1000\t1000",
+      "cmdline": "/data2/neural-shrimp/.venv/bin/python -I -B /home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/tools/task29_boundary.py --card /home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/boundary-task29/seed-card.json --out /data2/neural-shrimp-data/explore/sheets/codex-task29/seeds-001 ",
+      "limits": "Limit                     Soft Limit           Hard Limit           Units     \nMax cpu time              4600                 4600                 seconds   \nMax file size             268435456            268435456            bytes     \nMax data size             unlimited            unlimited            bytes     \nMax stack size            8388608              unlimited            bytes     \nMax core file size        0                    unlimited            bytes     \nMax resident set          unlimited            unlimited            bytes     \nMax processes             375398               375398               processes \nMax open files            65535                65535                files     \nMax locked memory         8388608              8388608              bytes     \nMax address space         12884901888          12884901888          bytes     \nMax file locks            unlimited            unlimited            locks     \nMax pending signals       375398               375398               signals   \nMax msgqueue size         819200               819200               bytes     \nMax nice priority         0                    0                    \nMax realtime priority     0                    0                    \nMax realtime timeout      200000               200000               us        \n"
+    }
+  ]
 }
