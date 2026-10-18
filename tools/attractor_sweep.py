@@ -80,7 +80,8 @@ def main():
     ap.add_argument("--alpha-from", type=float, default=None)
     ap.add_argument("--alpha-to", type=float, default=None)
     ap.add_argument("--log-t", type=float, default=None)
-    ap.add_argument("--path", default=None, help="'a1,t1;a2,t2;...': a polyline in (alpha, log10 T); frames are spread "
+    ap.add_argument("--path", default=None, help="'a1,t1/a2,t2/...' (or ';'): a polyline in (alpha, log10 T); '/' is safe "
+                    "in the remote shell of the pod launcher, ';' is not. Frames are spread "
                     "along it in proportion to length, alpha in units of 0.015 and log10 T in units of 0.045 (the cross-512 "
                     "map's spans); replaces --alpha-from/--alpha-to/--log-t")
     ap.add_argument("--basis-from", default=None, help="explore-relative .npz with mean and basis: use these axes (no pass 1)")
@@ -107,7 +108,9 @@ def main():
     torch = loop.torch
     v = np.asarray(elpm.load_vectors(args.vectors)[args.concept], dtype=np.float64)
     if args.path:
-        pts = np.array([[float(x) for x in q.split(",")] for q in args.path.split(";")])
+        pts = np.array([[float(x) for x in q.split(",")] for q in args.path.replace(";", "/").split("/")])
+        if len(pts) < 2:
+            raise SystemExit(f"--path needs at least two points, got {args.path!r}")
         seg = np.hypot(np.diff(pts[:, 0]) / 0.015, np.diff(pts[:, 1]) / 0.045)
         u = np.concatenate([[0.0], np.cumsum(seg)]) / seg.sum()
         f = np.linspace(0.0, 1.0, args.frames)

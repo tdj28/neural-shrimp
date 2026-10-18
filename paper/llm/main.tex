@@ -244,8 +244,7 @@ Huginn: a predicted accuracy loss & frozen & Sec.~\ref{sec:huginn} \\
   13 points and found two coexisting attracting orbits at all five points inside it. An interval-arithmetic proof shows that a primitive period-8 orbit exists and is locally attracting, to our
   knowledge the first proof of a periodic orbit of a full transformer language-model map. A second proof of
   the same kind shows that at one parameter cell a period-2 and a period-3 orbit coexist, each unique in its box and
-  locally attracting: two different attracting behaviors under identical settings (Appendix~
-ef{sec:evidence}).
+  locally attracting: two different attracting behaviors under identical settings (Appendix~\ref{sec:evidence}).
 \item \emph{Beyond the one-token loop} (Sections~\ref{sec:beyond} to~\ref{sec:dialogue}). The chaos is not an
   artifact of the one-token window: with a memory of 8 or 16 soft tokens Qwen2.5-7B is chaotic at more temperatures
   than with one, and in Soft Thinking's growing context a tiny early perturbation grows exponentially inside its
@@ -494,8 +493,23 @@ steps tighten as $k$ grows and begin to separate the regimes only at $k=4$ and 5
 29\,\% of the periodic cells of the two maps (medians 0.91 and 0.80 over the chaotic cells, 0.25 and 0.22 over the
 periodic ones). No estimate fell below its cell's own exponent at any $k$, and the norms are power-iteration estimates,
 which can only fall short, so the true bounds lie higher still; the four cells labelled chaotic by the maps whose $k=5$
-estimate is negative have negative exponents on these shorter trajectories. The inequalities of the factorization hold
-on the model's orbits, but they do not locate the chaos; the composed cycle does.
+estimate is negative have negative exponents on these shorter trajectories. With exact norms the picture sharpens
+(Figure~\ref{fig:boundhierarchy}). At the first 24 of 64 cells fixed in advance (12 labelled chaotic and 12 periodic,
+from both maps; float64; 32 recorded steps after 1000 transient steps from the fixed start; every norm from the dense
+step Jacobian; the remaining cells did not fit the compute budget), the block bounds $B_k$, averages of
+$\tfrac1k\log\|P\|$ over products $P$ of $k$ consecutive step Jacobians, satisfy
+$B_1\ge B_2\ge B_4\ge\dots\ge B_{32}=\tfrac1{32}\log\|DF^{32}\|$ in every cell, as submultiplicativity requires, and
+the factorization reproduces $DF$ to $1.9\times10^{-12}$. By the subadditive ergodic theorem
+\cite{kingman1973subadditive} such bounds close on the largest exponent as the blocks grow. Here their median overshoot
+of the exponent measured over the next 2000 steps falls from 2.72 per step at $k=1$ to 0.32 at $k=8$ and 0.036 at
+$k=32$ over the chaotic cells (periodic cells: 2.86, 0.45 and 0.12), roughly as $1/k$. The sign of the bound agrees with
+the sign of that exponent in 13 of the 24 cells for $k\le4$, in 22 at $k=16$, and in 23 for every window length from 17
+to 29 steps (averaged over the overlapping windows of the record). At 31 and 32 steps, where only two windows and one
+window fit, two periodic cells still have small positive bounds (0.019 and 0.035). The remaining disagreement is a cell
+that the map labels periodic, whose exponent over 2000 later steps is $+0.124$; its bound agrees with that exponent. The
+factorized bound loses a further 2.9 per step (median) to the misalignment of the readout and network factors. The
+factorized inequalities and short blocks do not locate the chaos. Blocks of about twenty steps of the model's own
+loop do, but that is a measurement along the orbit, not a forecast from the weights.
 \begin{figure}[tbp]
 \centering
 \includegraphics[width=\linewidth]{fig-norm-bounds.png}
@@ -507,6 +521,18 @@ average of $\tfrac15\log\|DF^5\|$ over blocks of five steps; black dots: cells t
 each bound over chaotic (red) and periodic (blue) cells, the median exponent of the chaotic cells (dotted), the share of
 cells with a positive bound that are chaotic (precision), and the share of periodic cells whose bound is negative.}
 \label{fig:normbounds}
+\end{figure}
+
+\begin{figure}[tbp]
+\centering
+\includegraphics[width=\linewidth]{fig-bound-hierarchy.png}
+\caption{The bound hierarchy with exact norms (Qwen2.5-0.5B-Instruct, philosophy direction at layer 12, float64; 24
+cells, 12 labelled chaotic by the maps, red, and 12 periodic, blue; 32 recorded steps; \repo{tools/bound_hierarchy.py},
+\repo{tools/analyze_bh.py}). (a) The block bound $B_k$ against the block length $k$ for every cell (thin lines; thick:
+medians), with each cell's exponent over the next 2000 steps (triangles). (b) The median overshoot $B_k-\lambda$ with
+its interquartile range, against $1/k$ from $k=1$ (dotted). (c) The share of cells whose sign of $B_k$ agrees with the
+sign of the long-run exponent (black) and with the map's label (purple); dotted: 95\,\%.}
+\label{fig:boundhierarchy}
 \end{figure}
 
 \begin{figure}[tbp]
