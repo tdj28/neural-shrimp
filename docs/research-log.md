@@ -29952,3 +29952,17 @@ Pod: H100, repro job set, commit 7c01ba83; terminated. Raw data: explore/llm-sof
 - Every job (p3down, nfp3down, p3up, nfp3up, p10up) stopped with CUDA out of memory in jvp_rows. The chunk was 448 tangent columns, set from the 0.5B runs. Qwen2.5-7B in float64 holds about 61 GB of the 80 GB.
 - About 66 minutes of the 73-minute wall went to an unauthenticated download of the model.
 - Before a rerun: measure the largest chunk that fits (a short smoke test on the same GPU type), and fetch the model faster (an access token, or a pre-staged copy).
+
+## 2026-10-18 19:35 UTC: BH written into the paper; a corrupted reference repaired; ATT3 done; narration
+
+- **Paper.** The "Stability belongs to the loop" paragraph now gives the exact-norm hierarchy: the chain in every cell, overshoot about 1/k, and sign agreement 13/24 for k <= 4, 22 at k = 16, 23 for every window length from 17 to 29 steps. It ends "a measurement along the orbit, not a forecast from the weights". New figure fig:boundhierarchy (tools/analyze_bh.py). New citation kingman1973subadditive, checked against the Crossref record of doi 10.1214/aop/1176996798 (Ann. Probab. 1(6), 883-899).
+- **Repair.** The contributions item on the pair certificate read "(Appendix~" followed by a line break and "ef{sec:evidence})". The \r of \ref had become a carriage return in an earlier scripted edit, and a later read turned it into a newline. LaTeX printed "ef{sec:evidence}" without an error. Fixed with a raw string.
+- **Scan for the same failure.** All three documents (paper, Chaos article, blog) were scanned for control characters and for line starts typical of swallowed \r and \n commands. Nothing else was found.
+- **ATT3** (pod gu7udvc202xqln, SECURE H100 80GB HBM3, 555 s, rc 0, hash verified, terminated):
+  - Column sweep along alpha 0.0749942, log10 T -0.125 to -0.170, 300 frames, on the horizontal sweep's axes (--basis-from). In 180 frames every start is aperiodic, in 62 none is, and 58 are mixed.
+  - Unstable manifold of the period-3 saddle at alpha 0.06626 (manifold.npz).
+  - The first launch was stopped before any job: a ';' in the job string would have been split by the pod's shell. Stopping the launcher orphaned pod oo23d78pm6a7lu for 68 s; it was terminated by hand and the termination verified.
+- **Videos** (neural-shrimp-data/videos/; scripts in docs/narration/; tools/narrate_video.py, OpenAI speech, human-requested):
+  - The cusp sweep at an eased pace (24 s and 48 s), with the gold star, the red dot and the flip loop in the legend.
+  - A narrated version of the 48 s cusp sweep (105.6 s, loudness-normalized).
+  - The attractor sweep (float64), the 3D tour (float32 preview; float64 rendering), and the extended sweep and spoken trace (rendering).

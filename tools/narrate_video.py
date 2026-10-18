@@ -106,7 +106,7 @@ def main():
                                                      if end_hold > 0 else []))
     af = "".join(f"[{i + 1}:a]adelay=delays={int(round(s * 1000))}:all=1[a{i}];" for i, s in enumerate(starts))
     af += "".join(f"[a{i}]" for i in range(len(starts))) + f"amix=inputs={len(starts)}:duration=longest:normalize=0,"
-    af += f"apad=whole_dur={total:.3f},atrim=0:{total:.3f}[aout]"
+    af += f"loudnorm=I=-16:TP=-1.5:LRA=11,apad=whole_dur={total:.3f},atrim=0:{total:.3f}[aout]"
     out.parent.mkdir(parents=True, exist_ok=True)
     with tempfile.TemporaryDirectory(dir=out.parent) as tmp:            # same filesystem as the output
         cmd = ["ffmpeg", "-y", "-loglevel", "error", "-i", str(src)]
