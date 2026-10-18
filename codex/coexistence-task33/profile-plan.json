@@ -1,0 +1,65 @@
+{
+  "status": "reviewed_for_execution",
+  "repository": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp",
+  "raw_root": "/data2/neural-shrimp-data/codex/coexistence",
+  "python": "/data2/neural-shrimp/.venv/bin/python",
+  "cpu_threads": 1,
+  "cpu_ids": [
+    0
+  ],
+  "startup_ram_gib": 28,
+  "source_files": [
+    {
+      "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/coexistence-task33/seed_profile.py",
+      "bytes": 2095,
+      "sha256": "bfe108e562fd042f169713829ecb2dba0b11d8536cea6a737863e8ab2789a697"
+    },
+    {
+      "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/coexistence-task33/profile-card.json",
+      "bytes": 785,
+      "sha256": "e3f4cb5999a6d60203f443b5457db982b0b7803f35b02d3ade88f0c87d534049"
+    },
+    {
+      "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/crosscheck/qwen_map.py",
+      "bytes": 14540,
+      "sha256": "493a3d1d57fec227f5ba2e3f8f9cfcfdd02d22495d1d44e6449ede901310ae6e"
+    },
+    {
+      "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/certify-chaos/supervise.py",
+      "bytes": 8727,
+      "sha256": "306db32a2c8ada9beb67547bbaafc6d0d7a597b5861b0e629ca9a07801223c44"
+    }
+  ],
+  "lanes": {
+    "profile": {
+      "entry": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/coexistence-task33/seed_profile.py",
+      "arguments": [
+        "--card",
+        "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/coexistence-task33/profile-card.json",
+        "--out",
+        "/data2/neural-shrimp-data/codex/coexistence/profile-001"
+      ],
+      "output": "/data2/neural-shrimp-data/codex/coexistence/profile-001",
+      "supervision": "/data2/neural-shrimp-data/codex/coexistence/profile-001-supervision",
+      "preflight_pins": [
+        {
+          "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/sheets/transect-crescent/states.npz",
+          "bytes": 241708,
+          "sha256": "005fc67ccff79f382eb4f3372175c8b8ce22fa0dd03a923fb0046de90ea663bd"
+        },
+        {
+          "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/crosscheck/qwen_map.py",
+          "bytes": 14540,
+          "sha256": "493a3d1d57fec227f5ba2e3f8f9cfcfdd02d22495d1d44e6449ede901310ae6e"
+        }
+      ],
+      "limits": {
+        "as_bytes": 12884901888,
+        "cpu_seconds": 110,
+        "wall_seconds": 120,
+        "output_bytes": 16777216
+      }
+    }
+  },
+  "cost_basis": "Representative profile only. Prior CPU1 Task29 measured17rows x16steps in12.823s. This2row x32step setup is bounded at110CPU/120wall; no final-run timing assumed."
+}
