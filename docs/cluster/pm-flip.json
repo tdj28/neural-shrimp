@@ -1,0 +1,102 @@
+{
+ "outcome": "flip",
+ "seed": 20261018,
+ "contrasts": {
+  "top15 - replay": {
+   "problems": 256,
+   "clusters": 77,
+   "mean_difference": 0.15234375,
+   "cluster_bootstrap95": [
+    0.10475913621262459,
+    0.20220588235294118
+   ],
+   "cluster_permutation_p": 4.9999750001249995e-06,
+   "draws": 200000,
+   "discordant": [
+    44,
+    5
+   ],
+   "item_mcnemar_p": 7.59715845788378e-09
+  },
+  "top15 - greedy": {
+   "problems": 256,
+   "clusters": 77,
+   "mean_difference": 0.1875,
+   "cluster_bootstrap95": [
+    0.13559322033898305,
+    0.23774003347534992
+   ],
+   "cluster_permutation_p": 4.9999750001249995e-06,
+   "draws": 200000,
+   "discordant": [
+    52,
+    4
+   ],
+   "item_mcnemar_p": 1.1008055578187737e-11
+  },
+  "top15 - top1": {
+   "problems": 256,
+   "clusters": 77,
+   "mean_difference": 0.03515625,
+   "cluster_bootstrap95": [
+    -0.029742551184597458,
+    0.1034513546798029
+   ],
+   "cluster_permutation_p": 0.36042319788401056,
+   "draws": 200000,
+   "discordant": [
+    41,
+    32
+   ],
+   "item_mcnemar_p": 0.3491818381705883
+  },
+  "top15 - full64": {
+   "problems": 256,
+   "clusters": 77,
+   "mean_difference": -0.01171875,
+   "cluster_bootstrap95": [
+    -0.052046426019883026,
+    0.02867420236206592
+   ],
+   "cluster_permutation_p": 0.7114314428427858,
+   "draws": 200000,
+   "discordant": [
+    17,
+    20
+   ],
+   "item_mcnemar_p": 0.7428293587290682
+  },
+  "top15 - top15s16": {
+   "problems": 256,
+   "clusters": 77,
+   "mean_difference": 0.14453125,
+   "cluster_bootstrap95": [
+    0.10155966938405797,
+    0.189873417721519
+   ],
+   "cluster_permutation_p": 4.9999750001249995e-06,
+   "draws": 200000,
+   "discordant": [
+    46,
+    9
+   ],
+   "item_mcnemar_p": 4.336383137015787e-07
+  },
+  "top15 - full16": {
+   "problems": 256,
+   "clusters": 77,
+   "mean_difference": 0.13671875,
+   "cluster_bootstrap95": [
+    0.09008697278593472,
+    0.18283690980893197
+   ],
+   "cluster_permutation_p": 4.9999750001249995e-06,
+   "draws": 200000,
+   "discordant": [
+    46,
+    11
+   ],
+   "item_mcnemar_p": 3.3118847623803127e-06
+  }
+ }
+}

@@ -3177,7 +3177,13 @@ between chaotic and periodic cells use temperature rows as units: intervals come
 permutation $p$-values within rows are descriptive. Where a random sample of cells is drawn, its seed and sampling
 frame are recorded with the run. In tests on problems the problem is the unit, paired across conditions; where
 problems share a batch, intervals are clustered by batch, and McNemar tests, which treat problems as independent, are
-reported alongside them. Every interval names its resampling unit. A null result is stated together with the size of
+reported alongside them. Batch-level randomization tests, which flip the sign of each batch's summed paired
+difference, give the same conclusions for every contrast of the Soft Thinking and reasoning-model tests
+(\repo{tools/cluster_tests.py}, \repo{docs/cluster/}). Soft Thinking's contrasts with replay, greedy decoding and
+16 soft steps all have batch-level $p\le5\times10^{-6}$, the resolution of 200\,000 draws, over 77 batches. In
+DeepSeek-R1-Distill-Llama-8B, soft thinking changes 7.4 points more answers than plain reasoning (batch level
+$p=0.033$, against $0.029$ for McNemar's test, over 16 batches) and answers correctly 4.7 points less often (batch
+level $p=0.063$, against $0.096$). Every interval names its resampling unit. A null result is stated together with the size of
 effect its interval excludes; effects smaller than that remain compatible with the data.
 
 \paragraph{Independent implementations.} Where an independent implementation reproduced a result, a second
