@@ -3114,9 +3114,20 @@ trained for a task, whereas ours is a released pretrained language model, and ou
 objects: the fold of a primitive periodic orbit, the full-channel passage of a two-step map, and the accumulation law
 of the windows, whose prefactor is set by the global reinjection. Expected-embedding
 feedback itself is used in training \cite{zeng2025ponderlm} and, training-free, in pretrained models
-\cite{zhang2025softthinking,wu2025singlethreaded}, next to continuous latent reasoning \cite{hao2024coconut}; a reduced
-dynamical model explains why pretrained models fail to preserve such mixtures \cite{backour2026mixture}, and whether
-they exploit the superposition the mixtures could carry has been questioned \cite{rizvimartel2026illusion}. Fixing
+\cite{zhang2025softthinking,wu2025singlethreaded}, next to continuous latent reasoning \cite{hao2024coconut}; Backour shows that the softmax readout and autoregressive feedback form a dynamical system that either amplifies
+small differences until one component of a mixture dominates or contracts different mixtures together, with
+pretrained rollouts mostly on the amplifying side \cite{backour2026mixture}; that analysis concerns the fate of
+mixtures, while ours computes the invariant sets, bifurcations and normal forms of the full released map and
+their consequences for reproducibility, and whether
+they exploit the superposition the mixtures could carry has been questioned \cite{rizvimartel2026illusion}.
+Newer methods vary what is fed back. CoTS keeps the sampled token and mixes in the expected embedding in
+proportion to the competition between the two leading candidates \cite{yu2026cots}, the near-tie that makes our
+loop's readout expand (Section~\ref{sec:theory}); since at least half of each input is the discrete token, our
+orbits do not carry over to it directly. LaTER feeds back a linear projection of the final hidden state
+\cite{li2026later}, and a trained projector lets a model roll out in a learned embedding space without its
+output head \cite{koriagin2026nohead}. For such hidden-state loops the derivative of Section~\ref{sec:theory}
+takes a different form, without the readout covariance, while the tools used here (orbits, multipliers,
+continuation and normal forms) apply unchanged. Fixing
 the prefix and the position turns that feedback into the autonomous map we analyze.
 
 In neural systems more broadly, saddle-node ghosts produce quantitative delays in task-trained recurrent networks
