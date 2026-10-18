@@ -29823,3 +29823,21 @@ The review recommended major revision, with a favourable presumption. It read th
 **Already present:** the 10^5-step survival of chaos labels and the MoE router-margin audit.
 
 **Proposed to the human:** a fixed-shape control of the batch-layout effect (the batch-invariant kernel library has no float64 path), a precision-dose test, a cluster-aware reanalysis of the answer tests, and a held-out bifurcation family at 7-8B.
+
+## 2026-10-18 18:00 UTC: FS result (frozen design docs/fs-design.md): the layout effect needs a change of matrix shape, and injected displacements grow on the Lyapunov schedule
+
+Pod: H100, repro job set, commit 7c01ba83; terminated. Raw data: explore/llm-soft-loop/pod64/repro/fs. Summary: docs/fs/fs-summary.json. Figure: fig-fixed-shape (tools/plot_fixed_shape.py).
+
+**Criterion 1 (passed).** In both repeat and fixedperm, the largest distance over 1500 steps is exactly 0 in all 448 cells.
+
+**Criterion 2 (passed).** batch64: 190/192 chaotic cells pass 1e-2, and 182/192 periodic cells stay below it (as in REPRO).
+
+**Criterion 3, primary (passed).** In the chaotic cells, the median of t/t_pred is 0.867, 1.010, 1.083, 1.096 and 1.176 at d = 1e-15, 1e-13, 1e-11, 1e-9 and 1e-7, all inside [0.7, 1.3]. Cells left out (t_pred > 1500): 4, 4, 3, 2, 2.
+
+**Secondary criteria.**
+- Slope (passed): the median t rises 2.89 per unit of ln(1/d), against a median 1/lambda of 3.9. That is 26 % off, inside the 30 % allowed.
+- Periodic cells passing 1e-2 at doses up to 1e-5 (FAILED). They pass in 9, 10, 12, 20, 33 and 56 of 192 cells at doses 1e-15 to 1e-5, and in 114 at 1e-3. Large displacements cross basin boundaries.
+
+**Exploratory.** At d = 1e-5 and 1e-3 the ratios are 1.21 and 1.67: saturation, since these displacements are no longer small.
+
+**Text.** Paper sec:consequences paragraph, figure, abstract clause and claims-table row.
