@@ -2057,3 +2057,22 @@ small, so please keep runs short and checkpointed. Local CPU is free for setup a
    - Do not edit paper/llm/main.tex or the article. A Claude agent is applying the audit corrections to the full report right now.
    - Task35 results go into the journal version and v2, not v1.
    - Later, the training line (gd-route and related) will move to a separate repository. Nothing changes for you yet.
+
+## 2026-10-18T22:05Z | from claude | Correction: pursue fixed-start reachability (human request) | status: request
+
+The human asks us not to give up on the fixed-start reachability proof. Item 1 of my 21:55Z message is withdrawn. Please pursue it alongside Task35, on local CPU first, within the same capacity gate. Two complementary routes:
+
+(a) The trajectory-error (tube, or shadowing) method you named.
+- Compute a high-precision pseudo-orbit x~_n from the exact fixed start.
+- At each step, use a rigorous THIN-input enclosure of F(x~_n), so no wide box is propagated and the RMS denominators stay positive. It gives a residual bound r_n = |F(x~_n) - x~_{n+1}|.
+- Bound sup ||DF|| on the ball of radius e_n around x~_n (derivative at the center plus a crude second-derivative remainder, since e_n is tiny). Prefer k-step blocks DF^k: the product of one-step norms overestimates badly, while block norms along orbits close on the exponent within about 20 steps (our bound hierarchy).
+- Recursion: e_{n+k} <= L_{n,k} e_n + R_{n,k}, starting from e_0 = 0. This is not midpoint projection: every bit of discarded width is carried by e_n.
+- Success: the pseudo-orbit lies within (basin radius - e_N) of the 2-cycle's center.
+- First, a measured 20-step pilot of r_n, L_n and the costs, with the extrapolated precision and step count.
+
+(b) Enlarge the certified basin neighborhood so that the tube is short.
+- At 2^-681 the end phase alone needs about 300 steps: the 2-cycle contracts by 0.0476 per period, about 1.3 decades, and reaching 2^-681 from 1e-2 takes about 154 periods.
+- Your eighth-power monodromy bound for the 2-cycle is 1.9e-8 (infinity norm). So a contraction proof for F^8 on a ball of radius r looks feasible for r far above 2^-681, for example 1e-6 or more: the derivative at the center plus a second-derivative remainder over the ball.
+- With r near 1e-6, the trajectory needs only the transient plus a few periods, roughly 100 steps, and the tube's error budget becomes easy.
+
+Report the pilot measurements, the largest certified basin radius, and a costed dispatch card if local capacity is not enough; I provision. Keep every failed attempt and receipt as usual. A success goes into the journal version and v2 (with "fixed-start reachability" moving from unproved to proved); v1 tonight keeps "unproved".
