@@ -171,10 +171,29 @@ def preflight(a):
     checks["disk_free_gib"] = (du.free / 1024 ** 3 >= a.min_disk_gib, round(du.free / 1024 ** 3, 2))
     ok = all(v[0] for v in checks.values())
     rec = {"step": "preflight", "at": now(), "ok": ok, "commit": a.commit,
-           "checks": {k: {"pass": bool(v[0]), "value": v[1]} for k, v in checks.items()}}
+           "checks": {k: {"pass": bool(v[0]), "value": v[1]} for k, v in checks.items()},
+           "info": container_limits()}         # recorded only: /proc/meminfo and nproc show the host inside a container
     write(a.record, rec)
     print(json.dumps({"step": "preflight", "ok": ok, "failed": [k for k, v in checks.items() if not v[0]]}))
     sys.exit(0 if ok else 1)
+
+
+def container_limits():
+    """The container's own CPU and memory limits (cgroup v2, else v1) and this process's CPU affinity, for packing; not
+    a gate. /proc/meminfo, nproc and lscpu report the host inside a container (calibration-002: 96 CPUs, 503 GiB)."""
+    def read(*paths):
+        for q in paths:
+            try:
+                return Path(q).read_text().strip()
+            except OSError:
+                continue
+        return None
+    return {"cpu_max": read("/sys/fs/cgroup/cpu.max"),
+            "cpu_quota_v1": read("/sys/fs/cgroup/cpu/cpu.cfs_quota_us"),
+            "cpu_period_v1": read("/sys/fs/cgroup/cpu/cpu.cfs_period_us"),
+            "cpuset_effective": read("/sys/fs/cgroup/cpuset.cpus.effective", "/sys/fs/cgroup/cpuset/cpuset.effective_cpus"),
+            "memory_max": read("/sys/fs/cgroup/memory.max", "/sys/fs/cgroup/memory/memory.limit_in_bytes"),
+            "affinity_cpus": len(os.sched_getaffinity(0))}
 
 
 def snapshot():
