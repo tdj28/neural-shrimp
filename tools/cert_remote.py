@@ -169,10 +169,16 @@ def preflight(a):
     checks["ram_available_gib"] = (avail_gib >= a.min_ram_gib, round(avail_gib, 2))
     du = shutil.disk_usage(data_root)
     checks["disk_free_gib"] = (du.free / 1024 ** 3 >= a.min_disk_gib, round(du.free / 1024 ** 3, 2))
+    # the container's own limits (tools/cert_capacity.py): /proc/meminfo and nproc show the host inside a container
+    sys.path.insert(0, str(Path(__file__).resolve().parent))
+    import cert_capacity
+    cap = cert_capacity.capacity()
+    adm = cert_capacity.packing_admission(cap, a.workers, a.per_worker_gib, a.shared_gib, 1)
+    checks["effective_capacity"] = (adm["admit"], {"admission": adm, "capacity": cap})
     ok = all(v[0] for v in checks.values())
     rec = {"step": "preflight", "at": now(), "ok": ok, "commit": a.commit,
            "checks": {k: {"pass": bool(v[0]), "value": v[1]} for k, v in checks.items()},
-           "info": container_limits()}         # recorded only: /proc/meminfo and nproc show the host inside a container
+           "info": container_limits()}
     write(a.record, rec)
     print(json.dumps({"step": "preflight", "ok": ok, "failed": [k for k, v in checks.items() if not v[0]]}))
     sys.exit(0 if ok else 1)
@@ -385,6 +391,9 @@ def main():
     p.add_argument("--packet-sha256", required=True)
     p.add_argument("--min-ram-gib", type=float, default=24)
     p.add_argument("--min-disk-gib", type=float, default=16)
+    p.add_argument("--workers", type=int, default=1, help="concurrent workers the effective capacity must admit")
+    p.add_argument("--per-worker-gib", type=float, default=18.0)
+    p.add_argument("--shared-gib", type=float, default=4.0)
     p.add_argument("--record", required=True)
     sub.choices["pack"].add_argument("--out", required=True)
     r = sub.add_parser("run")
