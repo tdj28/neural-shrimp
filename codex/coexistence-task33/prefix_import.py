@@ -27,6 +27,15 @@ def install_prefix(card, ball, assets, digest, unpack):
     receipt, check = checked_receipt(card['prefix_receipt'],card['prefix_receipt_sha256'],digest)
     if receipt['source_commit'] != card['prefix_source_commit']:
         raise ValueError('unreviewed prefix producer source')
+    admission_path=Path(card['prefix_admission_path'])
+    if digest(admission_path)!=card['prefix_admission_sha256']:
+        raise ValueError('original prefix admission hash mismatch')
+    admission=json.loads(admission_path.read_text())
+    if admission['source_commit']!=receipt['source_commit']:
+        raise ValueError('prefix admission source mismatch')
+    blobs={v['relative_path']:v['sha256'] for v in admission['source_blobs']}
+    if len(blobs)!=len(admission['source_blobs']) or blobs.get('codex/certify-llm/ball_qwen.py')!=card['prefix_map_source_sha256']:
+        raise ValueError('unreviewed original prefix map source')
     root = Path(card['prefix_output'])
     meta = json.loads(check(root/'inputs.json').read_text())
     if meta['source_commit'] != receipt['source_commit'] or meta['pinned_assets'] != assets:

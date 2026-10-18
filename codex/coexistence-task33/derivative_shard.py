@@ -85,11 +85,11 @@ def validate_plan(plan,*,owned=None):
     fields={'schema','definition_path','definition_sha256','map_sha256','backend_sha256',
             'source_sha256','evaluator_sha256','prefix_attempt','prefix_receipt_sha256',
             'prefix_map_source_sha256','prefix_cache_sha256','phase_index','start_column',
-            'precision','token_chunk','envelope','period','prefix_source_commit','prefix_output','prefix_receipt'}
+            'precision','token_chunk','envelope','period','prefix_source_commit','prefix_output','prefix_receipt','prefix_admission_path','prefix_admission_sha256'}
     if type(plan)is not dict or not fields<=set(plan) or set(plan)-fields-{'purpose','basis'} or plan['schema']!=SCHEMA:
         raise ValueError('complete final derivative-shard plan required')
     for name in ('definition_sha256','map_sha256','backend_sha256','evaluator_sha256',
-                 'prefix_receipt_sha256','prefix_map_source_sha256','prefix_cache_sha256'):
+                 'prefix_receipt_sha256','prefix_map_source_sha256','prefix_cache_sha256','prefix_admission_sha256'):
         coverage._hash(plan[name],name)
     if type(plan['period']) is not int or plan['period'] not in (2,3):raise ValueError('period2/3 required')
     for key,value in [('precision',1024),('token_chunk',1024)]:
@@ -110,6 +110,8 @@ def validate_plan(plan,*,owned=None):
     definition=Path(plan['definition_path']).resolve();prefix=Path(plan['prefix_attempt']).resolve()
     if not definition.is_relative_to(owned) or not definition.is_file():raise ValueError('existing owned candidate definition required')
     if prefix.parent!=owned or not prefix.is_dir():raise ValueError('existing owned prefix attempt required')
+    if Path(plan['prefix_output']).resolve()!=prefix:raise ValueError('prefix output/attempt mismatch')
+    if len(plan['prefix_source_commit'])!=40 or any(c not in '0123456789abcdef' for c in plan['prefix_source_commit']):raise ValueError('exact prefix source required')
     return definition,prefix
 
 
