@@ -237,8 +237,10 @@ input embedding $x$, and produces next-token logits $z(x)\in\mathbb{R}^V$. The s
 next-token embedding back in place of $x$:
 \begin{equation}
   F_{T,\alpha}(x) = E^{\top}\operatorname{softmax}\!\big(z_\alpha(x)/T\big),
+  \label{eq:map}
 \end{equation}
-where $z_\alpha$ adds $\alpha v$ to the residual stream at layer 12 at every position, prefix included. The steering
+where $z_\alpha(x)$ are the logits computed with $\alpha v$ added to the residual stream at layer 12 at every position,
+prefix included. The steering
 direction $v$ is contrastive: it compares last-token states of ``philosophy'' prompts with those of neutral prompts
 and is normalized to the mean residual norm. Positions are fixed and the window does not grow, so $F$ is an
 autonomous map of $\mathbb{R}^{896}$. As $T\to0$ it reduces, where the argmax is unique, to greedy decoding of the
@@ -297,14 +299,15 @@ period-8 orbit is off by 3\%. All orbits, multipliers and test functions below a
 
 \section{Why the loop can be chaotic}
 \label{sec:theory}
-The soft-token map has a simple derivative. With $p=\operatorname{softmax}(z/T)$,
+The soft-token map $F_{T,\alpha}$ of \eqref{eq:map} has a simple derivative with respect to the state $x$. With
+$p=\operatorname{softmax}(z_\alpha(x)/T)$,
 \begin{equation}
-DF(x)=\frac{1}{T}\,E^{\top}\bigl(\operatorname{diag}p-pp^{\top}\bigr)J_z(x).
+DF_{T,\alpha}(x)=\frac{1}{T}\,E^{\top}\bigl(\operatorname{diag}p-pp^{\top}\bigr)J_{z_\alpha}(x).
 \end{equation}
-Qwen2.5-0.5B ties its output matrix to the input embedding, so $z=E\tilde h(x)$, where $\tilde h$ is the final
-normalized hidden state, and the derivative factorizes:
+Qwen2.5-0.5B ties its output matrix to the input embedding, so $z_\alpha=E\tilde h_\alpha(x)$, where $\tilde h_\alpha$
+is the final normalized hidden state of the steered network, and the derivative factorizes:
 \begin{equation}
-DF(x)=\frac{1}{T}\,\Sigma_p\,J_{\tilde h}(x),\qquad
+DF_{T,\alpha}(x)=\frac{1}{T}\,\Sigma_p\,J_{\tilde h_\alpha}(x),\qquad
 \Sigma_p=E^{\top}\bigl(\operatorname{diag}p-pp^{\top}\bigr)E=\operatorname{Cov}_{t\sim p}(e_t).
 \label{eq:gain}
 \end{equation}
@@ -313,8 +316,9 @@ The derivative of the loop (Figure~\ref{fig:loop}) is the covariance of the toke
 amplified by the inverse temperature and composed with the derivative of the network. At a state of the period-8
 orbit of Table~\ref{tab:orbits}, \eqref{eq:gain} agrees with forward-mode derivatives of the full map to a relative
 error of at most $1.35\times10^{-13}$ over eight random directions (Figure~\ref{fig:derivcheck};
-\repo{tools/softmax_gain.py}). Without tied embeddings, as in the 7B and 8B models, the logits are $z=W\tilde h(x)$ with an
-output matrix $W\neq E$, and $DF=T^{-1}E^{\top}(\operatorname{diag}p-pp^{\top})W J_{\tilde h}(x)$: $\Sigma_p$ becomes
+\repo{tools/softmax_gain.py}). Without tied embeddings, as in the 7B and 8B models, the logits are $z_\alpha=W\tilde h_\alpha(x)$ with an
+output matrix $W\neq E$, and $DF_{T,\alpha}=T^{-1}E^{\top}(\operatorname{diag}p-pp^{\top})W J_{\tilde h_\alpha}(x)$:
+$\Sigma_p$ becomes
 the cross-covariance $\operatorname{Cov}_{t\sim p}(e_t,w_t)$ of input and output embeddings, which is not symmetric in
 general. The temperature limits below do not change.
 \begin{figure}[tbp]
@@ -330,6 +334,24 @@ same derivatives, $3.8\times10^{-14}$ to $1.35\times10^{-13}$, more than four or
 finite difference.}
 \label{fig:derivcheck}
 \end{figure}
+
+\paragraph{Where steering and temperature enter.} Temperature appears in \eqref{eq:gain} explicitly, as the factor
+$1/T$ and inside $p$. Steering does not appear, and this is not an omission: the vector $\alpha v$ is added to the
+residual stream whatever the state, so it contributes no derivative of its own with respect to $x$. It acts, as
+temperature also does, by moving the point at which the two factors are evaluated. In the readout factor $\Sigma_p/T$,
+steering decides which tokens compete in $p$ and temperature decides how sharply: $\Sigma_p$ is large where leading
+tokens are nearly tied and vanishes where one token dominates. In the network factor $J_{\tilde h_\alpha}$, steering
+shifts the operating point of every later block (attention weights, MLP activations and the scale of each RMS
+normalization), and so changes how strongly the network stretches a change of the fed-back token; temperature changes
+this factor too, because it moves the orbit along which the factor is evaluated. On the two main maps both parameters
+move both factors (orbit averages along the trajectories of Figure~\ref{fig:normbounds}, power-iteration estimates).
+Grouping the cells by steering strength alone accounts for 7 and 33\,\% of the variance of the network term
+$\langle\log\|J_{\tilde h_\alpha}\|\rangle$ over the stripes map and the crossing window, and grouping them by
+temperature alone for 47 and 4\,\%; for the readout term $\langle\log(\|\Sigma_p\|/T)\rangle$ the shares are 30 and
+32\,\% (steering) and 21 and 27\,\% (temperature). Which of the two changes turns the loop chaotic is measured later in
+this section (``Steering makes tokens compete''). From here on we drop the subscripts of $DF$ and $J_{\tilde h}$ when
+$(T,\alpha)$ is fixed. Every condition that involves them, the gain condition and the threshold
+$T_*$ below among them, describes a region of the $(\alpha,T)$ plane, not a range of $T$ alone.
 
 \paragraph{A Hopfield network with a transformer inside.} If the network passed its input straight through,
 $\tilde h(x)=x$, the map would be $F(x)=E^{\top}\operatorname{softmax}(Ex/T)$. This is exactly the update rule of a
@@ -364,16 +386,19 @@ would have to return to near-ties again and again.
 At high temperature the bound is explicit. For every distribution $p$ and unit vector $u$, the projections
 $u^{\top}e_t$ range over an interval no longer than the diameter $\operatorname{diam}(E)$ of the set of embeddings, and
 Popoviciu's inequality bounds a variance by a quarter of the squared range, so
-$\|\Sigma_p\|\le\operatorname{diam}(E)^2/4$. With $L=\sup_K\|J_{\tilde h}\|$, finite because $K$ is compact,
-$\|DF\|\le\operatorname{diam}(E)^2L/(4T)$ on $K$, and $F$ is a contraction of $K$ for
-$T>T_*=\tfrac14\operatorname{diam}(E)^2L$, with a single attracting fixed point that tends to the mean embedding as
-$T\to\infty$; without tied embeddings, $\operatorname{diam}(E)^2$ becomes $\operatorname{diam}(E)\operatorname{diam}(W)$.
-Here the exclusion is a bound, sufficient but far from sharp. With the exact diameter of the 0.5B model's tied
-embeddings, $\operatorname{diam}(E)=1.2109$, and the largest norm of $J_{\tilde h}$, the Jacobian of the final normalized
-hidden state, met along the trajectories of 7936 cells of the two main maps, $1.54\times10^{5}$ (a lower estimate of $L$,
-from power iteration), the threshold of the bound is $T_*\ge5.7\times10^{4}$
-($\log_{10}T_*\ge4.75$): about four and a half decades above the temperatures at which the sweeps below already find a
-single attracting fixed point (\repo{tools/norm_bounds.py}). It does not cover hard routing or a growing context. Away from near-ties, chaos thus needs temperatures at
+$\|\Sigma_p\|\le\operatorname{diam}(E)^2/4$. With $L(\alpha)=\sup_K\|J_{\tilde h_\alpha}\|$, finite because $K$ is
+compact, $\|DF_{T,\alpha}\|\le\operatorname{diam}(E)^2L(\alpha)/(4T)$ on $K$, and $F_{T,\alpha}$ is a contraction of $K$
+for $T>T_*(\alpha)=\tfrac14\operatorname{diam}(E)^2L(\alpha)$, with a single attracting fixed point that tends to the mean
+embedding as $T\to\infty$; without tied embeddings, $\operatorname{diam}(E)^2$ becomes
+$\operatorname{diam}(E)\operatorname{diam}(W)$. The threshold is a curve in the $(\alpha,T)$ plane, because the largest
+gain of the network depends on the steering. Here the exclusion is a bound, sufficient but far from sharp. With the
+exact diameter of the 0.5B model's tied embeddings, $\operatorname{diam}(E)=1.2109$, and the largest norms of
+$J_{\tilde h_\alpha}$, the Jacobian of the final normalized hidden state, met along the trajectories of 7936 cells of
+the two main maps (power-iteration estimates, so lower estimates of $L(\alpha)$), $T_*(\alpha)\ge2.7\times10^{3}$ at every
+steering strength sampled in these maps (64 per map), and $T_*(\alpha)\ge5.6\times10^{4}$ at $\alpha=0.06$, where the
+largest norm, $1.54\times10^{5}$, was met ($\log_{10}T_*\ge3.44$ and $\ge4.75$): three to four and a half decades above
+the temperatures at which the unsteered sweeps below already find a single attracting fixed point
+(\repo{tools/norm_bounds.py}). It does not cover hard routing or a growing context. Away from near-ties, chaos thus needs temperatures at
 which the next-token distribution is spread enough to make $\Sigma_p$ large while $1/T$ still amplifies it. The
 unsteered sweeps agree (Figure~\ref{fig:alpha0}). In the four long sweeps (Appendix~\ref{sec:origin}) the chaotic temperatures lie in one band,
 interleaved with periodic windows, and every band lies between $\log_{10}T=-0.20$ and $0.28$. Below the bands, all
@@ -441,9 +466,9 @@ only the readout (orange) or only the network Jacobian (gray) is taken from the 
 chaotic cells with 95\,\% bootstrap intervals. \repo{tools/plot_mechanism_summary.py}.}
 \label{fig:mechsummary}
 \end{figure}
-\paragraph{Steering makes tokens compete.} Steering enters both factors of \eqref{eq:gain}: it moves the logits, and
-with them $\Sigma_p$, and it moves the hidden states, and with them $J_{\tilde h}$. Which change makes the loop
-chaotic? Three measurements on Qwen2.5-0.5B, steered along the philosophy direction, give one answer
+\paragraph{Steering makes tokens compete.} Steering enters both factors of \eqref{eq:gain}, as described above: it moves
+the logits, and with them $\Sigma_p$, and it moves the hidden states, and with them $J_{\tilde h}$. Which change makes the
+loop chaotic? Three measurements on Qwen2.5-0.5B, steered along the philosophy direction, give one answer
 (Figure~\ref{fig:mechsummary}; details in Figure~\ref{fig:mechanism} and Table~\ref{tab:mechanism}). First, each step's growth splits exactly into a network
 factor $g_{\mathrm{net}}=(|\delta\tilde h|/|\tilde h|)/(|\delta x|/|x|)$ and a readout factor
 $g_{\mathrm{read}}=(|\delta F|/|F|)/(|\delta\tilde h|/|\tilde h|)$. Averaged along an orbit, their logarithms add up
