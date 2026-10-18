@@ -28991,3 +28991,19 @@ Sole CPUfloat64 run and saved-state audit completed/closed; source e8bc3a17. See
 ## 2026-10-18T02:17:11.710843+00:00 | Codex Task29 seed qualification (exploratory run card)
 
 Human renewed queue authority; Claude refined29 at68197564. Priority is individual opposite-fate boundary organizers and escape slopes; Claude owns existence/selection microtransects. Three fixed cells (.0708,-.1396),(.0708,-.144),(.0693,-.142); fixed,band6,and p10/p12 seeds,1000steps each. Own reviewed ManualQwen float64/philosophy/prefix reused, seed hashes frozen in codex/boundary-task29/seed-card.json. Full-state lags1..128 and four-repeat minimum windows, paired checks32steps apart; no-return/unmatched remain unresolved. Sole CPU2worker+supervisor,nice10,12GiBAS,2400s wall/4600CPU,256MiB output,28/16GiB available memory floors. Task28 timings support conservative1500s forecast; no automatic extension. Synthetic known saddle slope error .005868; fixed/P3/no-return controls passed. Exact source and card checkpoint before launch. This stage admits no edge/Newton/continuation or random census. No GPU/paper edits.
+
+## 2026-10-18 02:48 UTC: Run card P5T (exploratory): does lower temperature give the period-5 window a one-dimensional shrimp head?
+
+**Question** (human, 18 Oct). The human compared it to Rossler, where varying b changes the map of the (a, c) plane. The period-5 window of the two-block plane (gratitude at block 4, hostility at block 16) has the anatomy of a two-dimensional shrimp at log10 T = -0.1, but no one-dimensional head: at its near-nilpotent point the three leading multipliers have equal moduli (about 3.5e-3), and the per-step area contraction of the leading pair, the analog of Henon's |b|, is 0.41-0.50 in the plane's doubling cells. Does temperature act as the dissipation parameter?
+
+**Hypothesis.** At lower T fewer tokens compete, so the readout covariance, and with it each step's derivative, approaches rank one. If so, the window becomes one-dimensional at lower T, and a crossing of superstable curves (a true shrimp center) can appear.
+
+**Tool.** tools/p5_temperature.py, adapted from tools/p5_nilpotent.py; same map and seed. It continues the period-5 orbit and its head analog, the 2D Newton on (c1, c2) = (sum of Ritz values, sum of pairwise products), from log10 T -0.10 down to -0.20 in steps of 0.01. At each temperature it records the leading multipliers at the head and at four offsets of +-3e-4 in alpha.
+
+**Reading, fixed now.** The hypothesis is supported if, as T decreases:
+- |mu3|/|mu1| falls well below 1 at the head, so the leading pair is isolated;
+- then |mu2|/|mu1| and the area contraction |mu1 mu2|^(1/5) fall toward 0 at the offsets, so the window is one-dimensional.
+
+It is contradicted if the ratios stay near 1 or rise. If the orbit is lost, that is reported with the temperature. A positive pilot motivates a superstable-curve grid (tools/doubly_superstable.py) at the best temperature; it is not itself a shrimp claim.
+
+**Compute.** One H100 pod; cost in the private ledger.

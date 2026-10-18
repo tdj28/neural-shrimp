@@ -6,7 +6,7 @@ Along a straight transect in (alpha, log10 T) with --n points, the tool runs fou
 - **continuation:** each family seed (--family NAME=FILE.npy, DATA/explore-relative or absolute), continued along the
   transect in both directions. The first point starts from the seed with --first-transient steps; each later point
   starts from the previous point's final state with --transient steps.
-- **refinement:** the first switch of x0's family along the transect is refined by bisection to 1/2^--refine of the
+- **refinement:** each switch of x0's family along the transect (up to --max-switches) is refined by bisection to 1/2^--refine of the
   point spacing. At the two ends of the refined bracket, the tool reruns x0, then each continuation arm
   (warm-started from its state at the adjacent coarse point), with the leading multipliers of every periodic orbit
   found (block subspace iteration with JVPs, tools/explore_llm_soft_loop.SoftOrbit).
@@ -84,6 +84,7 @@ def main():
     ap.add_argument("--reps", type=int, default=4)
     ap.add_argument("--tol", type=float, default=1e-8)
     ap.add_argument("--refine", type=int, default=6)
+    ap.add_argument("--max-switches", type=int, default=4)
     ap.add_argument("--mult-k", type=int, default=6)
     ap.add_argument("--threads", type=int, default=8)
     ap.add_argument("--device", default="cpu")
@@ -143,15 +144,15 @@ def main():
         print(json.dumps({"continuation_step": step + 1, "of": args.n,
                           "seconds": round(time.perf_counter() - tic, 1)}), flush=True)
     report["continuation"] = cont
-    # refinement of the first x0 switch, with persistence and stability of each family at the bracket ends
+    # refinement of every x0 switch (up to --max-switches), with persistence and stability of each family at the
+    # bracket ends
     fx = [x["family"] for x in report["x0"]]
-    k = next((i for i in range(args.n - 1) if fx[i] != fx[i + 1]), None)
-    if k is None:
-        report["switch"] = None
-        report["class"] = "no switch of x0 along the transect"
-    else:
+    ks = [i for i in range(args.n - 1) if fx[i] != fx[i + 1]][:args.max_switches]
+    at = lambda u: tuple((p0 + u * (p1 - p0))[::-1])
+    report["switches"] = []
+    for k in ks:
         lo, hi = us[k], us[k + 1]
-        at = lambda u: tuple((p0 + u * (p1 - p0))[::-1])
+        sw = {"coarse": [k, k + 1], "families_x0_coarse": [fx[k], fx[k + 1]]}
         for _ in range(args.refine):
             mid = 0.5 * (lo + hi)
             fm = describe(r, r.run_cells([at(mid)], None, args.x0_transient), 0)["family"]
@@ -160,15 +161,17 @@ def main():
             elif fm == fx[k + 1]:
                 hi = mid
             else:
-                report["third_family"] = {"u": float(mid), "family": fm}
+                sw["third_family"] = {"u": float(mid), "family": fm}
                 break
         ends = [at(lo), at(hi)]
-        sw = {"u": [float(lo), float(hi)], "points": [{"alpha": e[1], "log10_temperature": e[0]} for e in ends],
-              "x0": [describe(r, r.run_cells([e], None, args.x0_transient), 0) for e in ends], "families": {}}
+        sw["u"] = [float(lo), float(hi)]
+        sw["points"] = [{"alpha": e[1], "log10_temperature": e[0]} for e in ends]
+        sw["x0"] = [describe(r, r.run_cells([e], None, args.x0_transient), 0) for e in ends]
+        sw["families"] = {}
         for name in fams:
             entry = []
-            for j, e in enumerate(ends):
-                src = states[f"{name}+_{k}"] if j == 0 else states[f"{name}-_{k + 1}"]
+            for jj, e in enumerate(ends):
+                src = states[f"{name}+_{k}"] if jj == 0 else states[f"{name}-_{k + 1}"]
                 rr = r.run_cells([e], torch.as_tensor(src[None, None, :], dtype=torch.float64, device=r.loop.device),
                                  args.transient)
                 dsc = describe(r, rr, 0)
@@ -177,24 +180,27 @@ def main():
                                                      args.mult_k)
                 entry.append(dsc)
             sw["families"][name] = entry
-        report["switch"] = sw
         fam_lo, fam_hi = sw["x0"][0]["family"], sw["x0"][1]["family"]
         persist = {}
         for name, entry in sw["families"].items():
             same = entry[0]["family"] == entry[1]["family"] != "-"
             stable = all(e.get("multipliers", {}).get("abs", [2])[0] < 1 and e.get("multipliers", {}).get("converged", False)
                          for e in entry)
-            persist[name] = {"same_family_both_ends": same, "attracting_both_ends": stable,
-                             "family": entry[0]["family"]}
-        report["persistence"] = persist
+            persist[name] = {"same_family_both_ends": same, "attracting_both_ends": stable, "family": entry[0]["family"]}
+        sw["persistence"] = persist
         holders = {persist[n]["family"]: persist[n] for n in persist if persist[n]["same_family_both_ends"]}
         if fam_lo != fam_hi and fam_lo in holders and fam_hi in holders and \
                 holders[fam_lo]["attracting_both_ends"] and holders[fam_hi]["attracting_both_ends"]:
-            report["class"] = "selection (stable overlap)"
+            sw["class"] = "selection (stable overlap)"
+        elif "-" in (fam_lo, fam_hi):
+            sw["class"] = "unresolved: x0 reaches no detected period on one side (chaos or a long transient)"
         elif fam_lo not in holders or fam_hi not in holders:
-            report["class"] = "intrinsic or unresolved: a family of x0 is not continued across the bracket"
+            sw["class"] = "intrinsic or unresolved: a family of x0 is not continued across the bracket"
         else:
-            report["class"] = "unresolved"
+            sw["class"] = "unresolved"
+        report["switches"].append(sw)
+        print(json.dumps({"switch": sw["u"], "families": [fam_lo, fam_hi], "class": sw["class"]}), flush=True)
+    report["class"] = [sw["class"] for sw in report["switches"]] or "no switch of x0 along the transect"
     report["seconds"] = round(time.perf_counter() - tic, 1)
     (out / "transect.json").write_text(json.dumps(report, indent=1, ensure_ascii=False))
     np.savez_compressed(out / "states.npz", **states)
