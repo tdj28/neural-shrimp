@@ -1,0 +1,223 @@
+{
+  "status": "prepared_requires_Claude_remote_preflight",
+  "attempt": "task34-calibration-p1-c256-002",
+  "plan": "codex/certify-llm/task34-calibration-p1-c256-002-plan.json",
+  "plan_sha256": "736a3a333fc5fd6e0e4362dc35508b91f670ed0652ab069eb383590bca0fb0dd",
+  "original_source": "36c5d6144a021b2648e54f4a0bae3c7e4ca1e641",
+  "original_receipt": {
+    "path": "/data2/neural-shrimp-data/codex/llm-p8-certificate/final-derivative-p1-c256-002/receipt.json",
+    "bytes": 57110,
+    "sha256": "9d13574047c9ba35c68eb67c4aa05dceb17f6dbe36fc1d7ad3bcfe4e2f331004"
+  },
+  "original_output": {
+    "path": "/data2/neural-shrimp-data/codex/llm-p8-certificate/final-derivative-p1-c256-002/run/derivative-shard.json",
+    "bytes": 23793413,
+    "sha256": "7878fcd414e2bfcee9227f6143cfb78ce8e809702ae50c64efacfadc4706c202"
+  },
+  "expected_backend": {
+    "python": "3.12.14 (main, Aug 25 2026, 14:00:49) [Clang 22.1.3 ]",
+    "python_flint": "0.9.0",
+    "flint": "3.6.0",
+    "numpy": "2.5.3",
+    "torch": "2.14.1+cu130",
+    "precision": 1024,
+    "threads": 1
+  },
+  "expected_assets": {
+    "model.safetensors": "fdf756fa7fcbe7404d5c60e26bff1a0c8b8aa1f72ced49e7dd0210fe288fb7fe",
+    "config.json": "18e18afcaccafade98daf13a54092927904649e1dd4eba8299ab717d5d94ff45",
+    "vectors.npz": "b630bb7bef06bde87f8e6a7ca5e8672f83d24bc0585bf19048e9e494a4357f41"
+  },
+  "upstream_files": [
+    {
+      "path": "/data2/neural-shrimp-data/codex/llm-p8-certificate/final-domain-002/definition.json",
+      "bytes": 4385478,
+      "sha256": "42959bcd5b1066c5c2ea326dd43e88023c233d6e5f58ab1062005797be230840"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/codex/llm-p8-certificate/final-domain-002/final-derivative-p0-c000-001-plan.json",
+      "bytes": 2998,
+      "sha256": "1a92d52586f003939a7720599e32d9070116163e3683c393b3d1854a4bec4381"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/codex/llm-p8-certificate/final-domain-002/final-point-admission-plan.json",
+      "bytes": 9102,
+      "sha256": "50c1a99ca0b91c1da1d7011e60640fd0f1f86b5f0f2fbc483bad21a21d7e0cd2"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/codex/llm-p8-certificate/final-domain-002/freeze-helper.py",
+      "bytes": 25752,
+      "sha256": "c974792b2870ec0dfc6121b417a1fa7d89c3ccf8bd8696d4180d5b51883a61d7"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/codex/llm-p8-certificate/final-domain-002/freeze-inputs.json",
+      "bytes": 8364,
+      "sha256": "17902fc905f1e1a3c491e735ff46e26e8d351da033e7761d28502fa64c37befe"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/codex/llm-p8-certificate/final-domain-002/manifest.json",
+      "bytes": 1212,
+      "sha256": "9764eda6c90edddf9620c7d260da680b677ffedb892ff19a20aafadfa30dcc4b"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/codex/llm-p8-certificate/final-domain-002/point-admission-report.json",
+      "bytes": 8721970,
+      "sha256": "e450cfee78e7739bcc802ec265ef92c84f9b5a69e665c79cfb8410647c0ca5e8"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/codex/llm-p8-certificate/final-domain-002/status.json",
+      "bytes": 2071,
+      "sha256": "376993a3a37dcb1c073393df4266ec6f0702e630869e040648c703de7939309a"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/codex/llm-p8-certificate/arb-pilot-002/manifest.json",
+      "bytes": 2153,
+      "sha256": "ca6afc9fd6d1b32759dbcf899af0f0f30a55bd9f3d4c7c2f5a19a3fd16f9c781"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/codex/llm-p8-certificate/arb-pilot-002/receipt.json",
+      "bytes": 3722,
+      "sha256": "565ecc98b37b592bb1da16a58ad4109e1dd2ab5f2eac71682f2af860531f33b9"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/codex/llm-p8-certificate/arb-pilot-002/run/box-inputs.json",
+      "bytes": 209142,
+      "sha256": "554d34132a2dab5181ac92c7d1c4d78b74192b3524a4659f5d552c1b179af646"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/codex/llm-p8-certificate/arb-pilot-002/run/candidate-history.json",
+      "bytes": 246,
+      "sha256": "9eda018f57c0c7b86a4e953de7f67f9a77bb9ac0848548eb68cc3d7359412db1"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/codex/llm-p8-certificate/arb-pilot-002/run/candidate-latest.npz",
+      "bytes": 7432,
+      "sha256": "666fee4db38460db89904bd4a7f4c4ded00dd54cc14617b582f5ae12b91f4ad6"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/codex/llm-p8-certificate/arb-pilot-002/run/events.jsonl",
+      "bytes": 54664,
+      "sha256": "6b5043a0ac31297b13dfcaa33ab7b4abc03f1f5eb78cbfcf8d973eceefc8b0c8"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/codex/llm-p8-certificate/arb-pilot-002/run/inputs.json",
+      "bytes": 1656,
+      "sha256": "db07359095ca9821e009f1061c575e3619b9c4c8394b2d9c64c188c9a539ceb2"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/codex/llm-p8-certificate/arb-pilot-002/run/point-step.json",
+      "bytes": 573226,
+      "sha256": "4cdf314f109a3698348b48427ac782de12cc44da9ef28faddc405b908cbfbb78"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/codex/llm-p8-certificate/arb-pilot-002/run/prefix-cache.json.gz",
+      "bytes": 35504587,
+      "sha256": "153bca72b85f4baf06bc536c4673b86253df849e4405c9513350c2288f4d4d22"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/codex/llm-p8-certificate/arb-pilot-002/run/proposal.json",
+      "bytes": 853,
+      "sha256": "bb9b33f281eaeca7daa936db9faa1a774f95967a0b76225bad3bff630c82157b"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/codex/llm-p8-certificate/arb-pilot-002/run/proposal.npz",
+      "bytes": 64778,
+      "sha256": "d8c57bff1d8a986c7c6a0f7d083caa77b4f6373c560d1f60ce0c57461caf668b"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/codex/llm-p8-certificate/arb-pilot-002/run/status.json",
+      "bytes": 1527,
+      "sha256": "dc16e3af57b0cb35aa78fd03a8697f4f9fac06a32442a414df1287473f62738b"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/codex/llm-p8-certificate/arb-pilot-002/source/codex/certify-llm/README.md",
+      "bytes": 5623,
+      "sha256": "b1848f104ab56e8cfd87cc922044ef13dc50068f1d996e033623fb206921acb9"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/codex/llm-p8-certificate/arb-pilot-002/source/codex/certify-llm/affine-code-review.md",
+      "bytes": 7880,
+      "sha256": "b950ed2f2108091df4d737d6657b41045ef5f82fa04637c47e2de2252f57c7c6"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/codex/llm-p8-certificate/arb-pilot-002/source/codex/certify-llm/ball_linear.py",
+      "bytes": 9512,
+      "sha256": "5d54200f5880d818eabc97e7eed2f1cf02b83b617b39380bef38d49a7ac45ff2"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/codex/llm-p8-certificate/arb-pilot-002/source/codex/certify-llm/ball_qwen.py",
+      "bytes": 13672,
+      "sha256": "3250d8b262e4a940b83de84005ad6f3155bc70635bfc623b0a000804cfc28c3e"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/codex/llm-p8-certificate/arb-pilot-002/source/codex/certify-llm/launch.py",
+      "bytes": 4311,
+      "sha256": "86e83d17b5a5415734ddb42036cd181c3aa9462aaa666e7965bc6ef699ef270e"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/codex/llm-p8-certificate/arb-pilot-002/source/codex/certify-llm/map-code-review.md",
+      "bytes": 13628,
+      "sha256": "6fff8d8b5d17cd316b155a14523a030997b27b25b168d27d4da54d76b8be19a9"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/codex/llm-p8-certificate/arb-pilot-002/source/codex/certify-llm/pilot.py",
+      "bytes": 9126,
+      "sha256": "09ccc111a314f68a1b721c9c8bdb6de465ea874264d0e430007f4591308eb6ea"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/codex/llm-p8-certificate/arb-pilot-002/source/codex/certify-llm/proof-design-review.md",
+      "bytes": 17979,
+      "sha256": "cabe361495a2d370081a8fb890f97966708f98601008c7a450caeacf16a5c5ef"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/codex/llm-p8-certificate/arb-pilot-002/source/codex/crosscheck/qwen_map.py",
+      "bytes": 14540,
+      "sha256": "493a3d1d57fec227f5ba2e3f8f9cfcfdd02d22495d1d44e6449ede901310ae6e"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/codex/llm-p8-certificate/arb-pilot-002/stderr.log",
+      "bytes": 1489,
+      "sha256": "7dc9893c346cdcef7cfc32101787eb96bd5838eeec8f7269b0c26a6525035d75"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/codex/llm-p8-certificate/arb-pilot-002/stdout.log",
+      "bytes": 54664,
+      "sha256": "6b5043a0ac31297b13dfcaa33ab7b4abc03f1f5eb78cbfcf8d973eceefc8b0c8"
+    }
+  ],
+  "source_commit": "Use the privately verified commit containing this packet, specified in standalone comms; validate all11 scientific source pins in the plan.",
+  "command": "python -I -B -u codex/certify-llm/launch.py --attempt task34-calibration-p1-c256-002 --driver derivative_shard --plan task34-calibration-p1-c256-002-plan.json --threads 1 --seconds 3600",
+  "remote_preflight": [
+    "Exact backend including full sys.version and numpy2.5.3; no metadata spoofing",
+    "Real /data2/neural-shrimp-data path, no symlink-resolution mismatch",
+    "All upstream file and model/vector hashes match; exact source manifest/private commit attested",
+    "Fresh output attempt absent; original output immutable",
+    "K=1;18GiBAS worker+launcher limits, nice10,3600s hard worker timeout; orchestrator total hard deadline includes bounded setup/retrieval/cleanup",
+    "Concrete task-owned pod and approved spending ceiling recorded privately by Claude before provisioning; no values copied into Git",
+    "At least24GiB available RAM after inputs/runtime setup and16GiB disk; aggregate process RSS watchdog18GiB with exact owned cleanup",
+    "Return whole attempt and original process/aggregate resources, archive hash, retrieval and verified pod termination",
+    "Import all six third-party modules, including threadpoolctl and tokenizers, at recorded versions before child launch; wrapper fix dacffd66 or reviewed equivalent."
+  ],
+  "comparison": "Compare every saved original input/output endpoint; report bitwise mismatches, do not overwrite original or silently substitute. completed() source argument must be the new dispatch commit; old source is comparator authority only.",
+  "no_precision_change": true,
+  "no_scale_up": true,
+  "recovery": {
+    "archive": "/data2/neural-shrimp-data/codex/remote/certcal-001/returned/certcal-001e-20261018T062454Z/explore/llm-soft-loop/pod64/certcal/certcal-001/task34-calibration-p1-c256-001.tar",
+    "sha256": "5942db5ad740d48302117d8a76c7f0f5bba94a62cd9ebac01828069f5aca3b9a",
+    "receipt_exit": 1,
+    "timeout": false,
+    "seconds": 1.520450073061511,
+    "artifacts_verified": 307,
+    "reason": "Missing threadpoolctl before numerical columns",
+    "outer_closure": true,
+    "pod_termination_basis": "Claude06:30 reports verified termination; no Codex pod query."
+  },
+  "required_import_versions": {
+    "threadpoolctl": "3.7.0",
+    "tokenizers": "0.23.3",
+    "safetensors": "0.8.0",
+    "numpy": "2.5.3",
+    "python-flint": "0.9.0",
+    "torch_distribution": "2.14.1"
+  }
+}

@@ -29321,3 +29321,6 @@ Own ManualQwen CPUfloat64, exact alpha.06468/log10T-.148, pinned p2+_6/p3+_6 pro
 **Comparison** (by Codex locally, with completed() at the new commit): the derivative-shard hash against 7878fcd4, and decoded endpoints if the metadata changed. Every discrepancy is kept.
 
 **Compute.** One cheap many-core pod. The ceiling and pod ownership are recorded privately before provisioning.
+
+## 2026-10-18 | Codex calibration002 disclosed environment recovery
+Original001 failed before columns on missing threadpoolctl, exit1/no timeout; whole returned archive/inventory authenticated and retained in calibration-001-failure.json. Fresh002 attempt/plan/packet adds explicit six-module import/version preflight; scientific evaluator/domain/prefix/1024bit/columns remain unchanged. Same oneCPU/nice10/18GiB/3600s limits and Claude-owned ceiling/orchestrator; no further automatic retry. Source packet codex/certificate-ladder-task34/calibration-002.json; original cost basis1521.453s/5420344KiB unchanged. No certificate claim.
