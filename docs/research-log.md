@@ -29491,3 +29491,21 @@ The reading is unchanged.
 A one-dimensional head would need the directions transverse to the reduction to contract far more strongly than the leading direction varies across the window. That rules out this window, which spans its whole temperature range here.
 
 **Figure:** paper/llm/figures/fig-head-temperature.png (tools/plot_nilpotent_track.py).
+
+## 2026-10-18 08:22 UTC: Run card FA-P11 (exploratory): is the period-11 window of the bimodal plane a shrimp with a one-dimensional-looking head?
+
+**Why.**
+- At the -0.100 head, the three leading moduli, about 3.5e-3, equal (0.32)^5: three directions, each contracting at the per-step transverse rate over five steps.
+- If heads scale like that, the head of a separate window of period p has modulus near (0.32)^p. Its avoided crossing then shrinks relative to the window like the square root of that modulus. A period-11 head would be about 30 times sharper than the period-5 head, relative to its window: sharp enough to look like a crossing of superstable curves at grid resolution.
+- The plane steered with hostility at block 4 and gratitude at block 16 (zh2 zoom) is where the paper found N-shaped (bimodal) band maps. Its windows' darkest cells sit exactly at these floors: period 11 exponent -1.135 (|mu1| about 3.8e-6, against 0.32^11 = 3.6e-6) and period 7 exponent -1.148 (3.2e-4, against 3.5e-4).
+
+**Run.**
+- tools/follow_attractor.py, hostility@4 and gratitude@16, log10 T -0.1.
+- Seed: the darkest period-11 cell of the zh2 zoom, (-0.0333260, -0.0521567), on grid.
+- Grid: alpha1 [-0.043326, -0.028826] x alpha2 [-0.057157, -0.042657], spacing 5e-5.
+- Rule: --seed-period 11, --min-match 10 of 11.
+
+**Reading.**
+- the domain's shape (a shrimp or not), with its periods (11, 22, 44);
+- whether the dark spines of the exponent map cross inside it;
+- the darkest cells, as starts for a near-nilpotent search with period 11.
