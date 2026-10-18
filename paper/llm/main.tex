@@ -368,7 +368,11 @@ $\|\Sigma_p\|\le\operatorname{diam}(E)^2/4$. With $L=\sup_K\|J_{\tilde h}\|$, fi
 $\|DF\|\le\operatorname{diam}(E)^2L/(4T)$ on $K$, and $F$ is a contraction of $K$ for
 $T>T_*=\tfrac14\operatorname{diam}(E)^2L$, with a single attracting fixed point that tends to the mean embedding as
 $T\to\infty$; without tied embeddings, $\operatorname{diam}(E)^2$ becomes $\operatorname{diam}(E)\operatorname{diam}(W)$.
-Here the exclusion is a bound, sufficient but not sharp, and we do not evaluate it, since $L$ is not computed. It does not cover hard routing or a growing context. Away from near-ties, chaos thus needs temperatures at
+Here the exclusion is a bound, sufficient but far from sharp. With the exact diameter of the 0.5B model's tied
+embeddings, $\operatorname{diam}(E)=1.2109$, and the largest $\|J_{\tilde h}\|$ met along the trajectories of 7936 cells
+of the two main maps, $1.54\times10^{5}$ (a lower estimate of $L$, from power iteration), $T_*\ge5.7\times10^{4}$
+($\log_{10}T_*\ge4.75$): about four and a half decades above the temperatures at which the sweeps below already find a
+single attracting fixed point (\repo{tools/norm_bounds.py}). It does not cover hard routing or a growing context. Away from near-ties, chaos thus needs temperatures at
 which the next-token distribution is spread enough to make $\Sigma_p$ large while $1/T$ still amplifies it. The
 unsteered sweeps agree (Figure~\ref{fig:alpha0}). In the four long sweeps (Appendix~\ref{sec:origin}) the chaotic temperatures lie in one band,
 interleaved with periodic windows, and every band lies between $\log_{10}T=-0.20$ and $0.28$. Below the bands, all
@@ -396,7 +400,30 @@ cycle, not of any single step or of the rank of $\Sigma_p$. Nor does the contrac
 the steps: with independent random (Haar) rotations inserted between the eight step Jacobians, all 16 tested products
 contract, and more strongly than the actual cycle (\repo{tools/alignment_intervention.py}). Stepwise norm or
 spectral summaries can be inconclusive; the ordered product of the step Jacobians captures the cycle's linear
-stability.
+stability. Across the maps the same holds statistically (Figure~\ref{fig:normbounds}). Along the trajectories
+of 7936 cells of the two main maps (every fourth cell of the stripes map and every eighth of the crossing window;
+float32; 300 transient and 60 measured steps), the orbit averages of $\log\|DF\|$ and of
+$\log(\|\Sigma_p\|/T)+\log\|J_{\tilde h}\|$ exceed zero in every cell, chaotic or periodic: their medians are 2.98 and
+2.57 per step over the chaotic and the periodic cells of the stripes map for $\log\|DF\|$, against a median exponent of
+0.30 in its chaotic cells (crossing window: 2.93, 2.62 and 0.17). Averages of $\tfrac1k\log\|DF^k\|$ over blocks of $k$
+steps tighten as $k$ grows and begin to separate the regimes only at $k=4$ and 5; at $k=5$ they are negative in 27 and
+29\,\% of the periodic cells of the two maps (medians 0.91 and 0.80 over the chaotic cells, 0.25 and 0.22 over the
+periodic ones). No estimate fell below its cell's own exponent at any $k$, and the norms are power-iteration estimates,
+which can only fall short, so the true bounds lie higher still; the four cells labelled chaotic by the maps whose $k=5$
+estimate is negative have negative exponents on these shorter trajectories. The inequalities of the factorization hold
+on the model's orbits, but they do not locate the chaos; the composed cycle does.
+\begin{figure}[tbp]
+\centering
+\includegraphics[width=\linewidth]{fig-norm-bounds.png}
+\caption{Norm bounds of the factorized derivative along the model's own orbits (Qwen2.5-0.5B-Instruct, philosophy
+direction at layer 12, float32; every eighth cell of the crossing window of Figure~\ref{fig:cross512}, top, and every
+fourth cell of the stripes map, bottom; 300 transient and 60 measured steps; \repo{tools/norm_bounds.py},
+\repo{tools/plot_norm_bounds.py}). Left: the orbit average of $\log\|DF\|$ per step (red: positive). Middle: the
+average of $\tfrac15\log\|DF^5\|$ over blocks of five steps; black dots: cells the map labels chaotic. Right: medians of
+each bound over chaotic (red) and periodic (blue) cells, the median exponent of the chaotic cells (dotted), the share of
+cells with a positive bound that are chaotic (precision), and the share of periodic cells whose bound is negative.}
+\label{fig:normbounds}
+\end{figure}
 
 \begin{figure}[tbp]
 \centering

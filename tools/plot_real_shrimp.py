@@ -219,7 +219,9 @@ def main():
     ap.add_argument("--out")
     args = ap.parse_args()
     fa = np.load(DATA / "explore" / args.fa / "follow.npz", allow_pickle=True)
-    _, curves, located = pf.load("llm-soft-loop/pod64/fm5", ["llm-soft-loop/pod64/fm5c", "llm-soft-loop/pod64/fm5d"])
+    extra = [r for r in ("llm-soft-loop/pod64/fm5c", "llm-soft-loop/pod64/fm5d", "llm-soft-loop/pod64/fm5x")
+             if (DATA / "explore" / r).exists()]            # fm5x: the same curves continued to the legs' tips (FM5X)
+    _, curves, located = pf.load("llm-soft-loop/pod64/fm5", extra)
     lab, per, lam = fa["label"], fa["period"], fa["lyapunov"]
     periods = {int(q): int(((lab == 1) & (per == q)).sum()) for q in np.unique(per[lab == 1])}
     summary = {"fa": args.fa, "computed": int((lab >= 0).sum()), "members": int((lab >= 1).sum()),
