@@ -2015,6 +2015,15 @@ snapshot_download('$REPO', revision='$MREV', cache_dir='$NEURAL_SHRIMP_DATA/mode
   toolseq)     # tools/*.py commands run one after another (float64 on the GPU): JOBARGS = NAME MINUTES TOOL.py ARGS...
                # [:: NAME MINUTES TOOL.py ARGS ...] (vectors uploaded with --extra-data); a failing command does not stop
                # the next
+    # only explore/llm-soft-loop/pod64 is packed into results.tgz: refuse every --out elsewhere before any compute
+    # (run ATT, 18 Oct 2026, wrote its portraits to llm-soft-loop/portraits and returned only logs)
+    for ((k=0; k<${#JOBARGS[@]}; k++)); do
+      if [ "${JOBARGS[$k]}" = "--out" ] && [[ "${JOBARGS[$((k+1))]}" != llm-soft-loop/pod64/* ]]; then
+        echo "toolseq refused: --out ${JOBARGS[$((k+1))]} is outside llm-soft-loop/pod64, the only retrieved folder" \
+          | tee -a $LOGS/toolseq-refused.log
+        JOBARGS=()
+      fi
+    done
     i=0; n=${#JOBARGS[@]}
     while [ $i -lt $n ]; do
       name=${JOBARGS[$i]}; minutes=${JOBARGS[$((i+1))]}; tool=${JOBARGS[$((i+2))]}; i=$((i+3)); cargs=()

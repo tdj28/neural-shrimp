@@ -1,0 +1,240 @@
+{
+ "run": "llm-soft-loop/pod64/fm5l-a",
+ "fa": "llm-soft-loop/pod64/fa/t-0.100",
+ "grid_step": 0.00012499999999998623,
+ "curves": {
+  "curve-a1-down-minus": {
+   "kind": "flip",
+   "points": 261,
+   "reconstructed": false,
+   "stop": "parameters out of bounds",
+   "max_residual": 9.62205388607004e-11,
+   "max_abs_g": 1.7303275313792e-10,
+   "max_multiplier_offset": 3.61267160631229e-08,
+   "max_other_spectral_radius": 0.20052403894566415,
+   "gmres_unconverged": 11,
+   "cusp_candidates": [],
+   "alpha_range": [
+    -0.12860364820427592,
+    -0.12451465439686449
+   ],
+   "alpha2_range": [
+    0.07998504341877921,
+    0.094
+   ]
+  },
+  "curve-a1-down-plus": {
+   "kind": "flip",
+   "points": 281,
+   "reconstructed": true,
+   "stop": "time limit (95 min); reconstructed from progress.jsonl (run FM5L, 18 Oct 2026)",
+   "max_residual": 9.996258681493174e-11,
+   "max_abs_g": 1.8302724952954112e-10,
+   "max_multiplier_offset": 1.8053347261570707e-08,
+   "max_other_spectral_radius": 0.024514876590280774,
+   "gmres_unconverged": 48,
+   "cusp_candidates": [
+    [
+     54,
+     -0.12214287202041149,
+     0.10135428062795201
+    ]
+   ],
+   "alpha_range": [
+    -0.12944795470015621,
+    -0.12213159404472622
+   ],
+   "alpha2_range": [
+    0.08824554431293481,
+    0.10135428062795201
+   ]
+  },
+  "curve-a1-up-minus": {
+   "kind": "fold",
+   "points": 267,
+   "reconstructed": false,
+   "stop": "parameters out of bounds",
+   "max_residual": 9.626631842532587e-11,
+   "max_abs_g": 3.326260234341061e-10,
+   "max_multiplier_offset": 3.61217702415928e-08,
+   "max_other_spectral_radius": 0.20511517326288536,
+   "gmres_unconverged": 0,
+   "cusp_candidates": [],
+   "alpha_range": [
+    -0.1285976941853288,
+    -0.12436535545934553
+   ],
+   "alpha2_range": [
+    0.0799537139633638,
+    0.094
+   ]
+  },
+  "curve-a1-up-plus": {
+   "kind": "fold",
+   "points": 248,
+   "reconstructed": true,
+   "stop": "time limit (95 min); reconstructed from progress.jsonl (run FM5L, 18 Oct 2026)",
+   "max_residual": 9.579074693015506e-11,
+   "max_abs_g": 5.140744520644557e-10,
+   "max_multiplier_offset": 1.5720230894800125e-08,
+   "max_other_spectral_radius": 0.019869592187225164,
+   "gmres_unconverged": 5,
+   "cusp_candidates": [
+    [
+     78,
+     -0.11938288379750195,
+     0.10042464640570277
+    ]
+   ],
+   "alpha_range": [
+    -0.1292501718791838,
+    -0.11938288379750195
+   ],
+   "alpha2_range": [
+    0.08569201724024827,
+    0.100598502584943
+   ]
+  }
+ },
+ "march": {
+  "waypoints": 70,
+  "max_residual": 8.880380886862616e-13,
+  "from": [
+   -0.11875,
+   0.10075
+  ],
+  "to": [
+   -0.124375,
+   0.094
+  ]
+ },
+ "branches": {
+  "branch-a1-down": {
+   "crossings": [
+    {
+     "between_log10_T": [
+      -0.12451007217905316,
+      -0.1245153427199823
+     ],
+     "between_indices": [
+      38,
+      39
+     ],
+     "type": "real -1 (flip)",
+     "crossing_multiplier": [
+      -1.008962471480284,
+      0.0,
+      1.008962471480284,
+      0.5
+     ],
+     "next_largest_modulus": 0.005982466307105638,
+     "multipliers_converged": true,
+     "multipliers_source": "refined"
+    }
+   ],
+   "stop": "150 points",
+   "alpha_range": [
+    -0.12437499999999999,
+    -0.12575709197480484
+   ]
+  },
+  "branch-a1-up": {
+   "crossings": [
+    {
+     "between_log10_T": [
+      -0.12436536482951102,
+      -0.12436542584923724
+     ],
+     "between_indices": [
+      11,
+      12
+     ],
+     "type": "real +1 (fold)",
+     "crossing_multiplier": [
+      1.0281148249453909,
+      0.0,
+      1.0281148249453909,
+      0.0
+     ],
+     "next_largest_modulus": 0.014001531569382997,
+     "multipliers_converged": true,
+     "multipliers_source": "refined"
+    }
+   ],
+   "stop": "0.002 past the first turn",
+   "alpha_range": [
+    -0.12437499999999999,
+    -0.12456656471310341
+   ]
+  }
+ },
+ "strip_width_steps": {
+  "0.0800": 0.014748647977126897,
+  "0.0820": 0.023748374787582578,
+  "0.0840": 0.04777827224456381,
+  "0.0860": 0.16543346971144723,
+  "0.0880": 0.30434749016231577,
+  "0.0900": 0.3678796810631507,
+  "0.0917": 0.5515816025750183,
+  "0.0940": 1.1943915001517906,
+  "0.0960": 1.9485814365227596
+ },
+ "rows_checked_alpha2": [
+  0.086,
+  0.096
+ ],
+ "cells_inside_strip": {
+  "not computed": 16,
+  "member, period 5": 39,
+  "converging slowly": 2
+ },
+ "leg_period5_cells_inside": 39,
+ "leg_period5_cells_outside": [],
+ "lowest_leg_period5_cell": [
+  -0.12512500000000076,
+  0.091875
+ ],
+ "strip_one_step_wide_from_alpha2": 0.09343458618146608,
+ "returning_arms_vs_body_curves": {
+  "curve-a1-down-plus": {
+   "kind": "flip",
+   "compared_with": "fold",
+   "points": 209,
+   "median_steps": 0.017338939352250754,
+   "max_steps": 0.05425985805368853,
+   "min_steps": 0.012610233877738271
+  },
+  "curve-a1-up-plus": {
+   "kind": "fold",
+   "compared_with": "flip",
+   "points": 118,
+   "median_steps": 0.055111918593736306,
+   "max_steps": 0.4558187389708905,
+   "min_steps": 0.04999263898986355
+  }
+ },
+ "gate_before": {
+  "5|lost pairs": 754,
+  "5|lost within 1 step of a fold": 504,
+  "5|lost within 2 steps of a fold": 529,
+  "5|lost within 1 step of a fold or flip": 508,
+  "5|lost within 2 steps of a fold or flip": 544,
+  "5|lost farthest from a fold or flip (steps)": 12.977532588812435,
+  "5|10 pairs": 292,
+  "5|10 within 1 step of a flip": 251,
+  "5|10 within 2 steps of a flip": 267,
+  "5|10 farthest (steps)": 12.059506799642635
+ },
+ "gate_with_fm5l": {
+  "5|lost pairs": 754,
+  "5|lost within 1 step of a fold": 717,
+  "5|lost within 2 steps of a fold": 736,
+  "5|lost within 1 step of a fold or flip": 739,
+  "5|lost within 2 steps of a fold or flip": 754,
+  "5|lost farthest from a fold or flip (steps)": 1.6791491793844786,
+  "5|10 pairs": 292,
+  "5|10 within 1 step of a flip": 276,
+  "5|10 within 2 steps of a flip": 290,
+  "5|10 farthest (steps)": 9.383581673691888
+ }
+}
