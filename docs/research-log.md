@@ -29056,3 +29056,12 @@ Periods are checked by full-state recurrence over 4 repetitions (q <= 64, tol 1e
 - Labels are finite-horizon: 600 transient and 300 sample steps.
 
 **Pending.** The sweeps (pods SA and ST), the microtransects (pod MT, with the classification of the held-out switches B and S), and Codex Tasks 29-31.
+
+## 2026-10-18 02:58 UTC: P5T, first attempt failed by method; amendment 1
+
+**First attempt.** Commit 978c85af; pod ulfxvicyfwqut5, terminated (verified).
+- At log10 T -0.10 it reproduced the paper's head: (-0.118484, 0.101722), moduli 0.0036, 0.0034, 0.0034.
+- A step of 0.01 in T moved the window in the (alpha1, alpha2) plane more than the damped head search could follow. At -0.11 and -0.12 the continued period-5 orbit at the old location was unstable (|mu1| 5.24 and 5.65). The search stalled there (c1 near -5.6), and at -0.13 the orbit Newton failed.
+- This tells us nothing about the head at lower T. Raw data: explore/llm-soft-loop/pod64/sheets/p5temp-pilot.
+
+**Amendment 1** (before any rerun data). Steps of 0.005 in T. At each temperature, recentering comes before the head search: Gauss-Newton on log|mu1| along its finite-difference gradient, with steps capped at 3e-4 and halving, until |mu1| < 0.3, so the window is followed as it moves. The head-search step cap is raised to (1e-4, 2e-4). There are two offset points instead of four. The run stops, and says so, if recentering cannot recover an attracting orbit. Readouts and reading are unchanged.

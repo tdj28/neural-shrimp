@@ -14,7 +14,9 @@ Procedure:
 - Seed exactly as tools/p5_nilpotent.py at log10 T = -0.1: march to its head and refine there by a 2D Newton on
   (c1, c2) = (sum of Ritz values, sum of pairwise products).
 - Step log10 T down in steps of --dlt to --lt-min. At each temperature: Newton for the period-5 orbit warm-started
-  from the previous one, then the 2D Newton in (alpha1, alpha2) on (c1, c2).
+  from the previous one; recentering toward smaller |mu1| until the orbit attracts (the window moves in the plane as
+  T changes; amendment after the first attempt, in which a step of 0.01 left the tracked orbit unstable); then the 2D
+  Newton in (alpha1, alpha2) on (c1, c2).
 - At each temperature, record the leading multipliers at the head and at four points offset by +-delta in each
   alpha (the window's dimension away from the special point).
 
@@ -49,7 +51,7 @@ def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--device", default="cpu")
     ap.add_argument("--threads", type=int, default=8)
-    ap.add_argument("--dlt", type=float, default=0.01)
+    ap.add_argument("--dlt", type=float, default=0.005)
     ap.add_argument("--lt-min", type=float, default=-0.20)
     ap.add_argument("--delta", type=float, default=3e-4)
     ap.add_argument("--newton2d", type=int, default=6)
@@ -95,6 +97,37 @@ def main():
                "c1": c1, "c2": c2, "seconds": round(time.perf_counter() - t, 1)}
         return rec, X, Q
 
+    def recenter(a, lt, X, Q, tag, target=0.3, iters=8, cap=3e-4):
+        """Move (alpha1, alpha2) toward smaller leading multiplier modulus until the orbit attracts (|mu1| < target):
+        Gauss-Newton on f = log|mu1| along its finite-difference gradient, with a step cap and halving."""
+        h = np.array([4e-6, 8e-6])
+        rec, X, Q = solve(a[0], a[1], lt, X, Q)
+        for it in range(iters):
+            if not rec["converged"] or rec["moduli"][0] < target:
+                break
+            f0 = np.log(rec["moduli"][0])
+            g = np.zeros(2)
+            for k in range(2):
+                b2 = a.copy()
+                b2[k] += h[k]
+                rk, _, _ = solve(b2[0], b2[1], lt, X.clone(), Q.copy())
+                g[k] = (np.log(rk["moduli"][0]) - f0) / h[k]
+            want = f0 - np.log(target)
+            step = -g * want / max(float(g @ g), 1e-30)
+            scale = min(1.0, cap / max(float(np.abs(step).max()), 1e-30))
+            for _ in range(6):
+                b2 = a + scale * step
+                rk, Xk, Qk = solve(b2[0], b2[1], lt, X.clone(), Q.copy())
+                if rk["converged"] and rk["moduli"][0] < rec["moduli"][0]:
+                    a, X, Q, rec = b2, Xk, Qk, rk
+                    break
+                scale *= 0.5
+            else:
+                break
+            rec["tag"] = f"{tag}-recenter-{it}"
+            emit(rec)
+        return a, X, Q, rec
+
     def head(a, lt, X, Q, tag):
         """2D Newton on (c1, c2) in (alpha1, alpha2) at one temperature (as tools/p5_nilpotent.py)."""
         h = np.array([4e-6, 8e-6])
@@ -113,7 +146,7 @@ def main():
                 rk, _, _ = solve(b[0], b[1], lt, X.clone(), Q.copy())
                 J[:, k] = (np.array([rk["c1"], rk["c2"]]) - F0) / h[k]
             step = np.linalg.solve(J, -F0)
-            lim = np.array([8.3e-5, 1.5e-4]) / 4
+            lim = np.array([1e-4, 2e-4])
             scale = min(1.0, float(np.min(lim / np.maximum(np.abs(step), 1e-30))))
             a = a + scale * step
         return a, X, Q, rec
@@ -145,14 +178,20 @@ def main():
         if not rec["converged"] or rec["tokens"] is None:
             summary.append({"log10T": float(lt), "status": "orbit lost", "last": rec})
             break
+        a, X, Q, crec = recenter(a, lt, X, Q, f"T{lt:+.3f}")
+        if not crec["converged"] or crec["moduli"][0] >= 1:
+            summary.append({"log10T": float(lt), "status": "window not recovered by recentering", "last": crec})
+            (out / "summary.json").write_text(json.dumps(summary, indent=1))
+            break
+        center = {k: crec[k] for k in ("a1", "a2", "moduli", "ratio21", "ratio31", "area_per_step", "tokens")}
         a, X, Q, hrec = head(a, lt, X, Q, f"T{lt:+.3f}")
         offs = []
-        for d1, d2 in ((args.delta, 0), (-args.delta, 0), (0, args.delta), (0, -args.delta)):
+        for d1, d2 in ((args.delta, 0), (0, args.delta)):
             ro, _, _ = solve(a[0] + d1, a[1] + d2, lt, X.clone(), Q.copy())
             ro["tag"] = f"T{lt:+.3f}-offset"
             emit(ro)
             offs.append({k: ro[k] for k in ("converged", "moduli", "ratio21", "ratio31", "area_per_step", "tokens")})
-        summary.append({"log10T": float(lt), "head": {k: hrec[k] for k in ("a1", "a2", "converged", "moduli", "ratio21",
+        summary.append({"log10T": float(lt), "center": center, "head": {k: hrec[k] for k in ("a1", "a2", "converged", "moduli", "ratio21",
                                                                             "ratio31", "area_per_step", "c1", "c2",
                                                                             "tokens")},
                         "offsets": offs, "seconds": round(time.perf_counter() - tic, 1)})
