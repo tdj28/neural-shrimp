@@ -7,6 +7,14 @@ differing only in one such detail, and measures how far the two trajectories dri
               same arithmetic on different matrix shapes;
     precision float32 against float64 (model and state);
     bf16      the model cast to bfloat16 (state kept in float32), the cells in batch n against batch 2n.
+Fixed-shape controls (run FS, external review 18 Oct 2026; float64, the matrix shapes identical in both runs):
+    repeat    the same n rows in the same order twice: the computation's own run-to-run determinism;
+    fixedperm the same n cells in a batch of n, the second run with its rows permuted (seeded), so each cell has other
+              neighbors and another row index but every kernel sees the same shapes;
+    dose      n x L rows in both runs (each cell once per level); in the second run the start of the block for level
+              d is displaced by d |x| along a seeded random unit direction, for d in --doses. Per cell and level, the
+              first step at which the distance exceeds --eps, against ln(eps / d) / lambda with lambda the cell's map
+              exponent.
 Per comparison, cell and step: the relative distance |x_A - x_B| / |x_A| of the soft tokens and whether the two most
 probable next tokens agree. Per cell: the first step at which the distance exceeds 1e-2, the first step after which
 the most probable tokens never agree again within the run, and the fraction of disagreeing steps over the last
@@ -66,6 +74,42 @@ def twin_runs(loopA, loopB, steer, padB, temps, steps, log=print, label=""):
     return dist, agree
 
 
+def fixed_runs(loopA, loopB, steerA, steerB, tempsA, tempsB, mapB, steps, perturb=None, log=print, label=""):
+    """Lockstep runs with the same number of rows; row i of A is compared with row mapB[i] of B. perturb: (rows,
+    rel) displaces the starts of those rows of B by rel |x| along seeded random unit directions. Returns the
+    per-step relative distances and token agreement (steps, rows of A)."""
+    torch = loopA.torch
+    XA = loopA.prepare(steerA)
+    XB = loopB.prepare(steerB)
+    if perturb is not None:
+        rows, rel = perturb
+        g = torch.Generator(device=XB.device).manual_seed(20261018)
+        U = torch.randn(XB[:, -1].shape, generator=g, dtype=XB.dtype, device=XB.device)
+        U = U / U.norm(dim=1, keepdim=True)
+        r = torch.as_tensor(rows, device=XB.device)
+        scale = torch.as_tensor(rel, dtype=XB.dtype, device=XB.device)
+        XB = XB.clone()
+        XB[r, -1] = XB[r, -1] + (scale[:, None] * XB[r, -1].norm(dim=1, keepdim=True)) * U[r]
+    tA = torch.as_tensor(tempsA, dtype=loopA.state_dtype, device=loopA.device)
+    tB = torch.as_tensor(tempsB, dtype=loopB.state_dtype, device=loopB.device)
+    m = torch.as_tensor(mapB, device=loopA.device)
+    n = len(steerA)
+    dist = np.zeros((steps, n), dtype=np.float64)
+    agree = np.zeros((steps, n), dtype=bool)
+    tic = time.perf_counter()
+    for i in range(steps):
+        XA, pA = loopA.step(XA, tA)
+        XB, pB = loopB.step(XB, tB)
+        a = XA[:, -1].double()
+        b = XB[m, -1].double().to(a.device)
+        dist[i] = ((a - b).norm(dim=1) / a.norm(dim=1)).cpu().numpy()
+        agree[i] = (pA.argmax(-1) == pB[m].argmax(-1).to(pA.device)).cpu().numpy()
+        if (i + 1) % 250 == 0:
+            log(json.dumps({"compare": label, "step": i + 1, "of": steps, "median_dist": float(np.median(dist[i])),
+                            "max_dist": float(dist[i].max()), "seconds": round(time.perf_counter() - tic, 1)}))
+    return dist, agree
+
+
 def summarize(dist, agree, tail):
     steps, n = dist.shape
     out = []
@@ -95,7 +139,9 @@ def main():
     ap.add_argument("--steps", type=int, default=1500)
     ap.add_argument("--tail", type=int, default=500)
     ap.add_argument("--compare", nargs="+", default=["batch64", "batch32", "precision", "bf16"],
-                    choices=("batch64", "batch32", "precision", "bf16"))
+                    choices=("batch64", "batch32", "precision", "bf16", "repeat", "fixedperm", "dose"))
+    ap.add_argument("--doses", type=float, nargs="+", default=[1e-15, 1e-13, 1e-11, 1e-9, 1e-7, 1e-5, 1e-3])
+    ap.add_argument("--eps", type=float, default=1e-2)
     ap.add_argument("--weights", default="native", choices=("native", "bf16"),
                     help="float64 runs of large models: bf16 storage of the decoder weights (exact), with --device auto")
     ap.add_argument("--threads", type=int, default=8)
@@ -152,6 +198,39 @@ def main():
                     loops[dt] = make_loop(esl, ela, args, dt)
             st, _ = rows_for(loops["float64"])
             dist, agree = twin_runs(loops["float64"], loops["float32"], st, None, temps, args.steps, log, comp)
+        elif comp in ("repeat", "fixedperm", "dose"):
+            if "float64" not in loops:
+                loops["float64"] = make_loop(esl, ela, args, "float64")
+            A = loops["float64"]
+            B = copy.copy(A)
+            st, _ = rows_for(A)
+            nc = len(st)
+            if comp == "repeat":
+                dist, agree = fixed_runs(A, B, st, st, temps, temps, np.arange(nc), args.steps, None, log, comp)
+            elif comp == "fixedperm":
+                perm = np.random.default_rng(20261018).permutation(nc)          # row j of B holds cell perm[j]
+                inv = np.argsort(perm)                                         # cell i sits in row inv[i] of B
+                dist, agree = fixed_runs(A, B, st, st[perm], temps, temps[perm], inv, args.steps, None, log, comp)
+                results["fixedperm_permutation"] = perm.tolist()
+            else:
+                L = len(args.doses)
+                stL = np.concatenate([st] * L)
+                tL = np.concatenate([temps] * L)
+                rel = np.repeat(np.asarray(args.doses, dtype=np.float64), nc)
+                dist, agree = fixed_runs(A, B, stL, stL, tL, tL, np.arange(nc * L), args.steps,
+                                         (np.arange(nc * L), rel), log, comp)
+                lam = np.asarray(spec.get("map_exponent", [np.nan] * nc), dtype=np.float64)
+                rows = []
+                for k, d0 in enumerate(args.doses):
+                    for c in range(nc):
+                        col = dist[:, k * nc + c]
+                        over = np.nonzero(col > args.eps)[0]
+                        t = int(over[0]) + 1 if len(over) else None
+                        pred = float(np.log(args.eps / d0) / lam[c]) if lam[c] > 0 else None
+                        rows.append({"dose": d0, "cell": c, "label": labels[c], "lambda": float(lam[c]),
+                                     "first_step_above_eps": t, "predicted": pred,
+                                     "max_dist": float(col.max()), "final_dist": float(col[-1])})
+                results["dose_passages"] = rows
         else:                                    # bf16: batch n against batch 2n with a bfloat16 model
             A = make_loop(esl, ela, args, "float32", bf16=True)
             B = copy.copy(A)
