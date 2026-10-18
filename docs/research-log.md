@@ -29590,3 +29590,17 @@ At the FA-P11 seed, beside the head, the per-step factors of steps 2 and 4 are 0
 - Check grid: 7 x 7 within +-1e-5.
 
 **Reading:** convergence; the distance to the near-nilpotent point; the full spectrum at the point; whether all four sign quadrants of (c_2, c_4) surround it.
+
+## 2026-10-18 08:55 UTC: MT results under amendment 1 (complete): 2 selection, 2 intrinsic, 4 unresolved of 8 held-out switches
+
+**Local GPU** (RTX 2000 Ada, float64; tools/sheets_transect.py with the cross test; log explore/sheets/mt-local.log; transect B2 at explore/sheets/transect-B2/transect.json).
+- **Calibration** (the crescent's edge, log10 T -0.148, alpha [0.0646834, 0.0646836]): selection, as expected.
+- **S** (log10 T -0.1396, alpha 0.0690-0.0700), the cross test on the four brackets: selection at [0.0691201, 0.0691211] and [0.0691289, 0.0691299]; unresolved at [0.0694219, 0.0694375] and [0.0694375, 0.0694531], where a continuation reaches no detected period near the band orbit's doubling.
+- **B**, rerun in full (alpha 0.0708, log10 T -0.1440 to -0.1396):
+  - P10 to P18 at u [0.109, 0.125]: intrinsic, the high side's family ends inside the bracket;
+  - P18 to P10 at u [0.125, 0.156]: intrinsic, the low side's family ends;
+  - P10 to chaos at u [0.320, 0.321]: unresolved, x0 reaches the same family at both ends;
+  - chaos to the band's loop at u [0.750, 0.781]: unresolved, no detected period on one side even after a long transient.
+- **Endpoint under amendment 1:** 2 of 8 held-out switches are selections, with 2 intrinsic and 4 unresolved. The fixed classifier's 0 of 7 stays on record.
+
+**Reading.** Both mechanisms of the sheet maps occur at single switches: basin selection inside an overlap (S) and the end of a family (B). Added to the paper's crossing paragraph.
