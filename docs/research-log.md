@@ -29379,3 +29379,19 @@ This is the FM5 fold map (fm5 job set; the paper's anatomy at -0.100) at log10 T
 - **Curves:** every boundary those branches reach, continued in both directions with its kind detected (auto). The job set is fm5t, a parameterized copy of fm5.
 
 **Reading:** the fold and flip curves bounding the window at -0.105, their tangent reversals (cusp candidates for a later FM5c-style check), and where they sit relative to the P5C point and the tip zoom. One H100 pod; costs in the private ledger.
+
+## 2026-10-18 06:50 UTC: Run card NB (exploratory; human-relayed proposal): do the factorized derivative's norm bounds capture where chaos lives?
+
+**Tool.** tools/norm_bounds.py cells (smoke-tested on CPU). Along each trajectory: readout log(||C_p||/T), network log||J_h||, one-step log||DF||, k-step block norms for k = 2-5, and the exact tangent exponent on the same orbit. Power iteration uses forward-mode and reverse-mode products. Float32.
+
+**Cells.** docs/nb-cells.json: every 4th cell of map-stripes-256 and every 8th of cross-512, 64 x 64 each, 8192 in total, with the maps' labels.
+
+**Smoke test** (two cells, 10 steps). The chain held: tangent 0.46 and -0.06 <= k5 1.08 and 0.88 <= k2 1.63 and 1.89 <= one-step 2.84 and 2.91 <= sum 5.76 and 5.90. It was loose and positive at the periodic cell too.
+
+**Reading, fixed now:**
+- violations (chaotic cells with a negative bound at any k), expected zero;
+- tightness per k (the share of cells with a positive bound that are chaotic);
+- per k, the temperature edges where the bound turns negative, against the maps' chaos edges;
+- the readout term against temperature at the low-temperature onset.
+
+Test A (sampled L and T*) follows from the recorded max log||J_h|| plus the sup mode.
