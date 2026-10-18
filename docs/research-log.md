@@ -29371,3 +29371,11 @@ An X that is present at fine resolution (all four sign quadrants around one poin
 - **P5C t105b:** the march lost the orbit at step 48 of 51, at waypoint cell (19,12) (-0.121004, 0.103770), with residual 1.04. It was arriving from cell (19,13), where the leading multipliers are complex; the low-rank Newton step does not carry across.
 - **tip105b:** its route ends at cell (18,10) through cells with real multipliers. It marched successfully and is running.
 - **Relaunch, P5C t105c:** the same route, path-18-10, with start at cell (18,10) itself: mu -0.40; stretchings of steps 0 and 1 are 0.31 and 0.22.
+
+## 2026-10-18 06:49 UTC: Run card FM5T-105 (exploratory): boundary organization of the period-5 window at log10 T -0.105
+
+This is the FM5 fold map (fm5 job set; the paper's anatomy at -0.100) at log10 T -0.105, as the boundary part of a verifiable shrimp.
+- **Branches:** four float64 branches of the period-5 orbit from the P5D fixed-start cell (-0.117872, 0.102936), alpha1 and alpha2 each way.
+- **Curves:** every boundary those branches reach, continued in both directions with its kind detected (auto). The job set is fm5t, a parameterized copy of fm5.
+
+**Reading:** the fold and flip curves bounding the window at -0.105, their tangent reversals (cusp candidates for a later FM5c-style check), and where they sit relative to the P5C point and the tip zoom. One H100 pod; costs in the private ledger.
