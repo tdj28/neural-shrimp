@@ -2658,6 +2658,49 @@ threshold in the third cell ($c=0.115$), as in attractor bubbling.}
 
 \section{Discussion}
 \label{sec:discussion}
+Table~\ref{tab:evidence} lists what each main result rests on: an identity, numerical computation in floating point,
+a test whose design was fixed before its data, or a computer-assisted proof.
+\begin{table*}[tbp]
+\centering
+\caption{What each main result rests on. ``Fixed in advance'': the design, data and criteria were pushed before the
+data were collected; ``partly'': some predictions or criteria were fixed in advance. Only the period-8 orbit is proved;
+the chaotic labels are finite-horizon numerical results.}
+\label{tab:evidence}
+\small
+\renewcommand{\arraystretch}{1.15}
+\begin{tabular}{>{\raggedright\arraybackslash}p{0.30\linewidth}>{\raggedright\arraybackslash}p{0.41\linewidth}>{\raggedright\arraybackslash}p{0.09\linewidth}>{\raggedright\arraybackslash}p{0.07\linewidth}}
+\toprule
+Result & Evidence & Fixed in advance & Proved \\
+\midrule
+The loop's derivative is the inverse temperature times the embedding covariance times the network Jacobian &
+identity for tied embeddings; reproduced by an independent implementation to $8\times10^{-14}$ & -- & identity \\
+Chaos over ranges of temperature and steering, in 15 models & positive twin and exact-tangent exponents over finite
+horizons; labels rechecked at 3000 steps & no & no \\
+Steering creates the chaos mainly through token competition & crossover of readout and network along recorded orbits;
+forward runs with a logit bias & partly & no \\
+Batch layout alone makes chaotic float64 loops diverge, on the schedule of the exponent & paired runs, four models up
+to 70B & no & no \\
+Batch layout changes the answers of soft-thinking inference & paired runs: arithmetic, GSM8K with Soft Thinking's
+published settings, reasoning models & yes & no \\
+Chaos of a prompt's loop does not predict sampled accuracy beyond first-answer uncertainty & regression on fresh
+problems & yes & no \\
+Periodic windows accumulate on folds with a $1/N^2$ law & fits of fold edges; the law placed later windows within
+3\,\% & partly & no \\
+Passage times near folds follow from normal forms & 42 of 48 forecasts within one iterate at four new folds & yes &
+no \\
+Cusps and their local unfoldings & located cusps; unfoldings and an orbit census fixed before solving & partly & no
+\\
+Doubling ratios approach Feigenbaum's constant & flips located by continuation; finite-order ratios & no & no \\
+An attracting period-8 orbit exists & interval arithmetic: Krawczyk inclusion and an attraction bound & -- & yes \\
+A period-5 window has the anatomy of a shrimp & maps and multipliers; no doubly superstable centre found & no & no
+\\
+Coexisting window families cross because the fixed start selects one attractor & eight maps from different starts and
+sweeps; counts reproduced by an independent audit & no & no \\
+A past steering excursion changes a policy decision & paired runs on fresh instances & yes & no \\
+Huginn loses accuracy at the predicted relaxation & generation test & yes & no \\
+\bottomrule
+\end{tabular}
+\end{table*}
 \paragraph{What theory allows, and what is new.} Chaos and periodic windows occur in many nonlinear feedback systems:
 random recurrent networks become chaotic above a critical gain \cite{sompolinsky1988chaos,doyon1994bifurcations},
 and periodic windows, shrimp-shaped domains and doubling cascades are found in low-dimensional maps and in
