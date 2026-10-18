@@ -5,8 +5,8 @@ shape evolving, and a panel with the Lyapunov map and a red dot showing our posi
 
 Input: one or more sweep runs (tools/attractor_sweep.py) on the same principal axes, a plan that strings their frames
 together in movie order, and the float64 map of the plane (cross-512 by default). Each frame shows (left) the recorded
-states of all trajectories at that cell, coloured by the token the loop writes next (each state a dot with a soft halo,
-so that a periodic orbit's few points stay visible); (right, top) the map, coloured as in the paper (chaotic cells by
+states of all trajectories at that cell, colored by the token the loop writes next (each state a dot with a soft halo,
+so that a periodic orbit's few points stay visible); (right, top) the map, colored as in the paper (chaotic cells by
 their largest Lyapunov exponent, the others in gray by how strongly they contract), with the path dashed and a red dot
 at the frame's cell; (right, bottom) the map's exponent along the path, legs marked, with the same position. The text
 gives the cell, the frame's census (periods found among the trajectories, or none up to the sweep's maximum) and the
@@ -42,8 +42,8 @@ def map_image(scan, chaos_level=1e-3):
     hot = plt.get_cmap("plasma")(Normalize(0.0, float(ly.max()))(np.clip(ly, 0, None)))
     neg = np.clip(-ly, 0, None)
     cap = float(np.percentile(neg[~chaos], 99))
-    grey = 1.0 - 0.9 * np.clip(neg / cap, 0, 1) ** 0.5
-    img = np.stack([grey, grey, grey, np.ones_like(grey)], axis=-1)
+    gray = 1.0 - 0.9 * np.clip(neg / cap, 0, 1) ** 0.5
+    img = np.stack([gray, gray, gray, np.ones_like(gray)], axis=-1)
     img[chaos] = hot[chaos]
     return lt, al, img, ly, per, chaos
 
@@ -124,8 +124,8 @@ def main():
     fig.text(0.03, 0.922, f"Qwen2.5-0.5B-Instruct, soft-token loop steered along 'philosophy' at layer 12, "
              f"{sa['dtype']}; each frame: {first['coords'].shape[1]} trajectories after {sa['transient']} steps, "
              f"{first['coords'].shape[2]} states each, on fixed principal axes", fontsize=13 * fs, color="0.75")
-    x, y = 0.04, 0.893                               # the token colours, in rows above the attractor
-    fig.text(x, y, "colour = next token:", fontsize=11 * fs, color="0.8")
+    x, y = 0.04, 0.893                               # the token colors, in rows above the attractor
+    fig.text(x, y, "color = next token:", fontsize=11 * fs, color="0.8")
     x += 0.085
     for k, t in enumerate(list(top) + [None]):
         lab = "other" if t is None else repr(tok.decode([int(t)]))

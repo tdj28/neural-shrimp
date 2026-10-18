@@ -5,7 +5,7 @@ chain) and continued there (tools/explore_llm_soft_loop.py curve; two of the fou
 and rebuilt from their progress logs by tools/curve_from_progress.py). The leg is bounded on its left by a flip curve
 (multiplier -1) and on its right by a fold curve (+1). Checks, written to --json:
 - strip width: the alpha1 distance from the flip arm to the fold arm at each alpha2, in grid steps;
-- membership: every grid cell whose centre lies inside the strip, by its follow-map label, and every period-5 cell of
+- membership: every grid cell whose center lies inside the strip, by its follow-map label, and every period-5 cell of
   the leg (below the cusp at alpha2 0.0961), inside or outside the strip;
 - the boundary gate of tools/plot_real_shrimp.py with and without the FM5L curves, in both forms (distance of (5|lost)
   pairs to a fold curve, and to the nearer of a fold or flip curve).
@@ -232,7 +232,7 @@ def main():
     curves_on(axB, lw=1.2)
     C5 = np.array([[a1[j], a2[i]] for i in rows for j in np.nonzero(m5[i])[0]])
     axB.plot(C5[:, 0], C5[:, 1], "o", color="w", mec="k", mew=0.5, ms=3.2, ls="none", zorder=8,
-             label="centres of period-5 cells")
+             label="centers of period-5 cells")
     axB.plot([], [], "r--", lw=1.2, label="flip curve (left edge of the strip)")
     axB.plot([], [], "k-", lw=1.2, label="fold curve (right edge)")
     axB.set_xlim(-0.12655, -0.12320)

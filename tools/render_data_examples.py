@@ -56,7 +56,7 @@ def main():
                 if key is not None:
                     im = crops[key]
                     h, w = im.shape[:2]
-                    z = 1.0 + 0.10 * (u * u * (3 - 2 * u))           # slow zoom towards the centre
+                    z = 1.0 + 0.10 * (u * u * (3 - 2 * u))           # slow zoom towards the center
                     ax = fig.add_axes([0.04, 0.14, 0.92, 0.72])
                     ax.imshow(im, interpolation="lanczos")
                     cx, cy = w / 2, h / 2

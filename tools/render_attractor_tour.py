@@ -4,7 +4,7 @@ attractor").
 The recorded states of a portrait run (tools/attractor_portrait.py) are placed at their first three principal
 coordinates and viewed by a camera that circles the attractor once (azimuth 0 to 360 degrees, elevation swinging
 between --elev-min and --elev-max) in perspective. Each frame is a density image: every state adds its next token's
-colour to its pixel, nearer states more strongly (depth cue), and the summed colour is tone-mapped on a black
+color to its pixel, nearer states more strongly (depth cue), and the summed color is tone-mapped on a black
 background, with a faint glow. Frames are encoded with ffmpeg (H.264).
 
 Usage: python tools/render_attractor_tour.py --run llm-soft-loop/pod64/portraits/f64-strong --out tour.mp4
@@ -118,7 +118,7 @@ def main():
     fig.text(0.02, 0.922, sub, color="0.8", fontsize=15 * fs)
     when = f"each after {a['transient']} steps" if a["transient"] else "recorded from their start"
     fig.text(0.02, 0.025, f"{len(P):,} states of {int(aper.sum())} trajectories, {when}; "
-             f"axes: principal coordinates {', '.join(str(d + 1) for d in dims)}; colour: the token the loop writes next",
+             f"axes: principal coordinates {', '.join(str(d + 1) for d in dims)}; color: the token the loop writes next",
              color="0.6", fontsize=12 * fs)
     for k, lab in enumerate(labels):
         fig.text(0.02, 0.86 - 0.035 * k, "●", color=PALETTE[k], fontsize=16)

@@ -153,7 +153,7 @@ system; Section~\ref{sec:beyond} also measures how much of the mechanism survive
 \paragraph{Terms and scope.} Throughout, \emph{chaotic} is a numerical label: after a transient, the largest
 finite-time Lyapunov exponent exceeds $10^{-3}$ and no period up to a cutoff is detected (Appendix~\ref{sec:methods}).
 It is evidence of finite-time exponential separation along the measured trajectories, not a proof of an asymptotic
-chaotic set, and some labelled cells are long transients that a periodic orbit eventually captures: in random samples,
+chaotic set, and some labeled cells are long transients that a periodic orbit eventually captures: in random samples,
 74 and 92\,\% of the labels of two maps persist to $10^5$ steps (Section~\ref{sec:maps}). We call the computed
 exponents finite-time exponents and reserve ``chaotic attractor'' and ``chaotic set'' for cases with stronger evidence.
 Each claim is stated for the system on which it was measured. The autonomous soft-token map (a fixed prefix and one
@@ -187,7 +187,7 @@ Late doubling ratios approach Feigenbaum's $\delta$, at the float64 floor & nume
 Every tangent reversal of the continued fold curves is a cusp; local unfoldings match Newton solves & numerical; unfoldings frozen & Sec.~\ref{sec:organization} \\
 A period-5 window is a shrimp in a two-parameter plane (boundary organization) & numerical; found by search & Sec.~\ref{sec:organization} \\
 An attracting period-8 orbit exists & proof & App.~\ref{sec:evidence} \\
-Attracting orbits of periods 2 and 3 coexist at one parameter cell, with certified token loops and basin neighbourhoods & proof & App.~\ref{sec:evidence} \\
+Attracting orbits of periods 2 and 3 coexist at one parameter cell, with certified token loops and basin neighborhoods & proof & App.~\ref{sec:evidence} \\
 No accuracy information beyond first-token uncertainty; no edge-of-chaos advantage & frozen; bounded nulls & Sec.~\ref{sec:consequences} \\
 Huginn: a predicted accuracy loss & frozen & Sec.~\ref{sec:huginn} \\
 \bottomrule
@@ -244,7 +244,7 @@ Huginn: a predicted accuracy loss & frozen & Sec.~\ref{sec:huginn} \\
   13 points and found two coexisting attracting orbits at all five points inside it. An interval-arithmetic proof shows that a primitive period-8 orbit exists and is locally attracting, to our
   knowledge the first proof of a periodic orbit of a full transformer language-model map. A second proof of
   the same kind shows that at one parameter cell a period-2 and a period-3 orbit coexist, each unique in its box and
-  locally attracting, each with a certified, if tiny, neighbourhood of its basin: two different attracting behaviors
+  locally attracting, each with a certified, if tiny, neighborhood of its basin: two different attracting behaviors
   under identical settings (Appendix~\ref{sec:evidence}).
 \item \emph{Beyond the one-token loop} (Sections~\ref{sec:beyond} to~\ref{sec:dialogue}). The chaos is not an
   artifact of the one-token window: with a memory of 8 or 16 soft tokens Qwen2.5-7B is chaotic at more temperatures
@@ -493,9 +493,9 @@ $\log(\|\Sigma_p\|/T)+\log\|J_{\tilde h}\|$ exceed zero in every cell, chaotic o
 steps tighten as $k$ grows and begin to separate the regimes only at $k=4$ and 5; at $k=5$ they are negative in 27 and
 29\,\% of the periodic cells of the two maps (medians 0.91 and 0.80 over the chaotic cells, 0.25 and 0.22 over the
 periodic ones). No estimate fell below its cell's own exponent at any $k$, and the norms are power-iteration estimates,
-which can only fall short, so the true bounds lie higher still; the four cells labelled chaotic by the maps whose $k=5$
+which can only fall short, so the true bounds lie higher still; the four cells labeled chaotic by the maps whose $k=5$
 estimate is negative have negative exponents on these shorter trajectories. With exact norms the picture sharpens
-(Figure~\ref{fig:boundhierarchy}). At the first 24 of 64 cells fixed in advance (12 labelled chaotic and 12 periodic,
+(Figure~\ref{fig:boundhierarchy}). At the first 24 of 64 cells fixed in advance (12 labeled chaotic and 12 periodic,
 from both maps; float64; 32 recorded steps after 1000 transient steps from the fixed start; every norm from the dense
 step Jacobian; the remaining cells did not fit the compute budget), the block bounds $B_k$, averages of
 $\tfrac1k\log\|P\|$ over products $P$ of $k$ consecutive step Jacobians, satisfy
@@ -528,7 +528,7 @@ cells with a positive bound that are chaotic (precision), and the share of perio
 \centering
 \includegraphics[width=\linewidth]{fig-bound-hierarchy.png}
 \caption{The bound hierarchy with exact norms (Qwen2.5-0.5B-Instruct, philosophy direction at layer 12, float64; 24
-cells, 12 labelled chaotic by the maps, red, and 12 periodic, blue; 32 recorded steps; \repo{tools/bound_hierarchy.py},
+cells, 12 labeled chaotic by the maps, red, and 12 periodic, blue; 32 recorded steps; \repo{tools/bound_hierarchy.py},
 \repo{tools/analyze_bh.py}). (a) The block bound $B_k$ against the block length $k$ for every cell (thin lines; thick:
 medians), with each cell's exponent over the next 2000 steps (triangles). (b) The median overshoot $B_k-\lambda$ with
 its interquartile range, against $1/k$ from $k=1$ (dotted). (c) The share of cells whose sign of $B_k$ agrees with the
@@ -685,7 +685,7 @@ tables that the library would otherwise compute in float32; two exceptions, floa
 records and a float32 final normalization in the two-GPU runs of 70B-class models before 14 October, are marked where they occur (Appendix~\ref{sec:methods} and Section~\ref{sec:sizemain}). A cell of a phase map is chaotic when the
 largest finite-horizon Lyapunov exponent of a twin trajectory (offset $10^{-6}$, renormalized every step; 300
 measured steps after 300 transient ones unless stated) exceeds $10^{-3}$ and no period up to 32 (48 in later zooms) is
-found; at 448 checked cells automatic-differentiation tangents reproduce the twin exponents within $0.0041$, and the label is a finite-horizon diagnostic, not a proof. In random samples of 192 chaos-labelled cells from each of the two main float64 maps (Figures~\ref{fig:stripes} and~\ref{fig:teaser}), 176 and 143 cells were never captured by a periodic orbit in $10^5$ steps and all but one kept a positive exponent; the others were long transients that ended on periodic orbits after 600 to 94{,}500 steps \cite{grebogi1983crises}. Chaotic shares of a map are therefore finite-horizon shares of its window.
+found; at 448 checked cells automatic-differentiation tangents reproduce the twin exponents within $0.0041$, and the label is a finite-horizon diagnostic, not a proof. In random samples of 192 chaos-labeled cells from each of the two main float64 maps (Figures~\ref{fig:stripes} and~\ref{fig:teaser}), 176 and 143 cells were never captured by a periodic orbit in $10^5$ steps and all but one kept a positive exponent; the others were long transients that ended on periodic orbits after 600 to 94{,}500 steps \cite{grebogi1983crises}. Chaotic shares of a map are therefore finite-horizon shares of its window.
 Noise in a measured difference can fake chaos but does not hide it: below the noise level a twin exponent rises as
 the offset shrinks, while a real exponent does not depend on the offset (Appendix~\ref{sec:methods},
 Figure~\ref{fig:falsechaos}).
@@ -845,10 +845,10 @@ Split: the step of the recording at which the texts first differ. Float64; \repo
 the row $\log_{10}T=-0.148$ of Figure~\ref{fig:teaser} ($\alpha=0.07248$), 512 trajectories started near the fixed
 start and recorded for 600 steps after 400 transient steps (float64) settle, all but 14 of them, on one set: the other
 14 reach a coexisting period-4 orbit. Its states, projected on the first two of their principal axes (61.6\,\% of the
-variance; 77.4\,\% with the third), lie on thin folded filaments coloured by the token the loop writes next, and
+variance; 77.4\,\% with the third), lie on thin folded filaments colored by the token the loop writes next, and
 successive magnifications show layers within layers (Figure~\ref{fig:strangeattractor}). The loop is a map, not a
 flow: one step is one pass through the network, and a typical step moves the state by 0.30 in all 896 dimensions,
-more than the mean distance (0.21) of the states from their centre, so a single trajectory hops between filaments
+more than the mean distance (0.21) of the states from their center, so a single trajectory hops between filaments
 rather than sliding along them. The four leading Lyapunov exponents (QR iteration, 3000 steps) are $0.274$, $-1.052$,
 $-1.486$ and $-1.856$ per step, so $D_{\mathrm{KY}}=1.26$. The correlation sum gives no dimension: its local slope
 wanders between 0.42 and 0.91 over four decades of distance without settling on any decade, as for a strongly
@@ -870,7 +870,7 @@ $2\times10^{-7}$ in $\alpha$ at the crescent's edge.
 \includegraphics[width=\linewidth]{fig-strange-attractor.png}
 \caption{The strange attractor of the soft-token loop (Qwen2.5-0.5B-Instruct, philosophy direction at layer 12,
 $\log_{10}T=-0.148$, float64; \repo{tools/attractor_portrait.py}, \repo{tools/plot_attractor_portrait.py}). (a)
-298\,800 states of 498 trajectories at $\alpha=0.07248$ on their first two principal axes, coloured by the token
+298\,800 states of 498 trajectories at $\alpha=0.07248$ on their first two principal axes, colored by the token
 written next (the return symbol in the legend marks a line break). (b, c) Magnifications of the boxed regions. (d) Successive values of the first principal
 coordinate. (e) Local slope of the correlation sum over the first eight principal coordinates; dashed, the
 Kaplan--Yorke dimension 1.26; no decade of distance has a constant slope. (f) One of the three bands of the chaotic
@@ -2090,11 +2090,11 @@ which need only a nonlinear degeneracy.
 \paragraph{The shrimp itself.} The fixed-start maps hide most of this window: in its legs the fixed start settles on a
 coexisting period-4 attractor. To see the window whole, we followed its attractor from the body outward over a grid of
 spacing $1.25\times10^{-4}$ in both strengths (Figure~\ref{fig:realshrimp}; \repo{tools/follow_attractor.py}). Each
-cell starts from the final state of a neighbouring cell that is still on the attractor and runs 250 steps, followed by
+cell starts from the final state of a neighboring cell that is still on the attractor and runs 250 steps, followed by
 300 recorded steps with a twin. It stays on the attractor only if its orbit has a period that is a multiple of five and
 the body's five-token text in at least four of its five places, or no detectable period, an exactly repeating text and
 no positive exponent (a slowly converging orbit next to a fold or a flip); cells with chaos behind the same text are
-recorded but not continued. (A first rule, which compared each cell only with its neighbour, leaked across the fold
+recorded but not continued. (A first rule, which compared each cell only with its neighbor, leaked across the fold
 into the surrounding chaos, where intermittent motion keeps the same text most of the time.) The followed attractor
 fills a shrimp: a body against the fold curve and three long legs, each between a fold curve and a flip curve, reaching
 $(\alpha_1,\alpha_2)=(-0.1148,0.109)$, $(-0.1252,0.0918)$ and, on the left, $\alpha_2=0.108$, with shells of periods
@@ -2109,7 +2109,7 @@ not reach the lower-left leg's own boundary, even when rerun with wider paramete
 orbit into the leg by Newton's method, through the 68 cells by which the follow run entered it, and continued it there
 (Appendix~\ref{sec:hostility}, Figure~\ref{fig:lowerleg}). The leg is a strip between a flip curve on its left and a
 fold curve on its right. Every period-5 cell of the leg lies inside that strip (39 of 39), and no computed cell inside
-it is lost or has another period. With these curves, 276 of the 292 pairs of neighbouring cells with periods 5 and 10
+it is lost or has another period. With these curves, 276 of the 292 pairs of neighboring cells with periods 5 and 10
 straddle a flip curve to within one grid step, and 290 to within two. Of the 754 pairs in which a period-5 cell borders
 a cell where the attractor was lost, 717 lie within one step of a fold curve and all 754 within two steps of a fold or
 flip curve, the farthest 1.7 steps away; with the body's curves alone these counts were 251, 504 and 544. Below
@@ -2223,13 +2223,13 @@ number attracting (green: the count predicted before the computation; orange: no
 \includegraphics[width=\linewidth]{fig-real-shrimp.png}
 \caption{The period-5 shrimp (Qwen2.5-0.5B-Instruct, gratitude at block~4 and hostility at block~16,
 $\log_{10}T=-0.1$, float64). (a) The domain of the window's attractor, followed cell by cell from the body on a grid of
-spacing $1.25\times10^{-4}$, coloured by the period of the followed attractor (black: chaos behind the same five-token
-text; dark grey: no period found and no positive exponent; light grey: the attractor was lost), with the fold curves
+spacing $1.25\times10^{-4}$, colored by the period of the followed attractor (black: chaos behind the same five-token
+text; dark gray: no period found and no positive exponent; light gray: the attractor was lost), with the fold curves
 (black; multiplier $+1$) and flip curves (red, dashed; $-1$) of the period-5 orbit, including the lower-left leg's own
 pair (Figure~\ref{fig:lowerleg}), the located cusps (gold stars), the
-self-crossings of the fold curves (magenta) and the near-nilpotent point (white circle). (b) The same domain coloured by
+self-crossings of the fold curves (magenta) and the near-nilpotent point (white circle). (b) The same domain colored by
 the Lyapunov exponent of the periodic attractor (light blue: chaos behind the text): dark curves are the strongly
-contracting spines. (c) The body over the trace of the continued orbit's two leading multipliers (grey: repelling): the
+contracting spines. (c) The body over the trace of the continued orbit's two leading multipliers (gray: repelling): the
 trace-zero curve (black) closes around an island of negative trace, a head of Type~A, and passes the near-nilpotent
 point. (d) The junction of the upper leg: two cusps that share a segment of the fold curve and the crossing of its
 other branches, with the number of period-5 orbits found (attracting) at 13 points fixed before the computation (green:
@@ -2424,10 +2424,10 @@ rest of the network sets where the cascade ends.
 \centering
 \includegraphics[width=\linewidth]{figures/fig-e2e.png}
 \caption{One picture, in float64 (Qwen2.5-0.5B, philosophy direction, layer 12). (a) Leading multiplier of the
-`` is it'' 2-cycle along temperature at $\alpha=0.070$. It is stable (blue, inside the grey band $|\mu|<1$) only between
+`` is it'' 2-cycle along temperature at $\alpha=0.070$. It is stable (blue, inside the gray band $|\mu|<1$) only between
 the flip ($\log_{10}T=-0.5148$) and the fold ($-0.1741$). The boxes give the two blended continuations at each phase
 of the cycle, with their probabilities. (b) Largest Lyapunov exponent along the row $\log_{10}T=-0.115$ of the
-$256\times256$ map. Beyond the fold $\alpha_c$ of the 2-cycle, periodic windows (grey, labeled with their periods)
+$256\times256$ map. Beyond the fold $\alpha_c$ of the 2-cycle, periodic windows (gray, labeled with their periods)
 alternate with chaos (red). Inset: $1/\sqrt{\alpha_N-\alpha_c}$ for the fold edges of the windows against their period. For
 the longer windows (periods 16 to 20) it grows linearly with the period, as the ghost predicts
 (Section~\ref{sec:mechanism}). (c) Part of the crossing map, with the fold curve of
@@ -3956,7 +3956,7 @@ leading multipliers and the sum of their pairwise products vanish (tools/nilpote
 $\log_{10}T$). (a) Moduli of the five leading multipliers at the point ($\mu_2$ and $\mu_3$ form a complex pair of equal
 modulus; hollow: the row failed its gate, $|c_1|>10^{-7}$). The defining conditions put the three leading multipliers on
 one modulus, the cube root of the leading block's determinant; a fourth multiplier approaches it twice. (b) The point's
-position in the plane, coloured by $\log_{10}T$.}
+position in the plane, colored by $\log_{10}T$.}
 \label{fig:headtemperature}
 \end{figure}
 \begin{figure}[tbp]
@@ -3976,11 +3976,11 @@ $\mathrm{sign}(\lambda)\log_{10}(1+|\lambda|/10^{-4})$; its zero set (black) is 
 \includegraphics[width=\linewidth]{fig-shrimp-temperature.png}
 \caption{The period-5 shrimp at two temperatures (Qwen2.5-0.5B-Instruct, gratitude at block~4 and hostility at
 block~16, float64; \repo{tools/plot_shrimp_temperature.py}). (a) The domain of its attractor at $\log_{10}T=-0.100$,
-followed cell by cell and coloured by period (black: chaos behind the same five-token text; dark grey: no period found
-and no positive exponent; light grey: the attractor was lost), with the fold (black) and flip (red, dashed) curves. (b)
+followed cell by cell and colored by period (black: chaos behind the same five-token text; dark gray: no period found
+and no positive exponent; light gray: the attractor was lost), with the fold (black) and flip (red, dashed) curves. (b)
 The same at $\log_{10}T=-0.105$, with the curves continued at that temperature. (c) The outlines of the period-5 body
 (solid) and of the whole followed domain (dotted) at both temperatures, and the path of the head (the near-nilpotent
-point) between $\log_{10}T=-0.104$ and $-0.094$, coloured by temperature.}
+point) between $\log_{10}T=-0.104$ and $-0.094$, colored by temperature.}
 \label{fig:shrimptemperature}
 \end{figure}
 \paragraph{The folds and flips of the period-5 window.} To resolve the folds the grid did not, we continued the
@@ -4047,10 +4047,10 @@ the flip within $1.5\times10^{-4}$ in $\alpha_1$ (Figure~\ref{fig:lowerleg}d).
 \centering
 \includegraphics[width=\linewidth]{fig-lower-leg.png}
 \caption{The lower-left leg of the period-5 shrimp and its own curves (Qwen2.5-0.5B-Instruct, gratitude at block~4 and
-hostility at block~16, $\log_{10}T=-0.1$, float64; \repo{tools/plot_lower_leg.py}). (a) The followed domain (colours as
+hostility at block~16, $\log_{10}T=-0.1$, float64; \repo{tools/plot_lower_leg.py}). (a) The followed domain (colors as
 in Figure~\ref{fig:realshrimp}a) with the fold (black) and flip (red, dashed) curves of the orbit marched into the leg
-(pink: the 68 cells of the march), the curves continued from the body (grey), the located cusps (gold stars) and the
-cusp flagged on the leg's fold curve (white star); the follow grid ends at $\alpha_2=0.086$ (dotted). (b) The centres of
+(pink: the 68 cells of the march), the curves continued from the body (gray), the located cusps (gold stars) and the
+cusp flagged on the leg's fold curve (white star); the follow grid ends at $\alpha_2=0.086$ (dotted). (b) The centers of
 all period-5 cells of the leg (white dots) lie between the flip curve and the fold curve. (c) The width of the strip
 between the two curves, in grid steps: it falls below one step at $\alpha_2=0.0934$; the follow run's lowest leg cell is
 at $0.0919$. (d) The leading multiplier of the period-5 orbit along $\alpha_1$ at $\alpha_2=0.094$, from $+1$ at the fold
@@ -4827,10 +4827,10 @@ from the raw maps as the set whose omission reproduces both totals (\repo{docs/r
   151\,936 tokens by a positive margin, so the 2-cycle writes `` is it'' and the 3-cycle a blank line, ``The'' and
   `` existence'' (\path{codex/coexistence-task33/token-labels-release.json}); the same check gives the period-8
   orbit's loop `` is there is a is a. This''. These are the readouts of the feedback orbits, not sentences generated
-  autoregressively. A further certificate gives explicit basin neighbourhoods: every state in the closed
+  autoregressively. A further certificate gives explicit basin neighborhoods: every state in the closed
   infinity-norm ball of radius $2^{-681}$ about the 2-cycle's frozen center at phase 0 converges to the 2-cycle, and
   every state within $2^{-700}$ of the 3-cycle's center converges to the 3-cycle
-  (\path{codex/coexistence-task33/inner-basin-release.json}). These neighbourhoods are tiny. The proofs say nothing
+  (\path{codex/coexistence-task33/inner-basin-release.json}). These neighborhoods are tiny. The proofs say nothing
   about which orbit a start outside them reaches, including the fixed start of the maps, nor about the trapping of
   the whole box or the window's global organization. The record is
   \path{codex/coexistence-task33/pair-certificate-release.json}.

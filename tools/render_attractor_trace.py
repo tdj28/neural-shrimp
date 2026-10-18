@@ -37,14 +37,34 @@ def project(P, az, el, W, H, scale, dist=3.0):
     return Q[:, 0] * f * scale + W / 2, -Q[:, 2] * f * scale + H / 2
 
 
-def trimmed(path):
-    """The clip without its leading and trailing silence (speech clips of single words carry 0.3 to 0.9 s of it), with
-    10 ms fades; cached next to the clip."""
-    out = path.with_suffix(".trim.wav")
+def trimmed(path, floor_dbfs=-50.0, lead=0.04, tail=0.08):
+    """The clip without its leading and trailing background: 10 ms frames quieter than floor_dbfs are cut at both ends,
+    keeping lead and tail seconds, with 10 ms fades; cached next to the clip. In these speech clips the words run from
+    about -24 to -49 dBFS and the background lies at -55 dBFS and below. A cut at -40 dBFS removed soft onsets (the
+    "Th" of "This" at -43 to -45 dBFS, so it sounded like "is"; human, 18 Oct: "the tts misses some words"). Every word
+    is also checked in the final mix."""
+    import warnings
+    from scipy.io import wavfile
+    out = path.with_suffix(".trim5.wav")
     if not out.exists():
-        af = ("silenceremove=start_periods=1:start_threshold=-40dB,areverse,"
-              "silenceremove=start_periods=1:start_threshold=-40dB,areverse,afade=t=in:d=0.01,areverse,afade=t=in:d=0.01,areverse")
-        subprocess.run(["ffmpeg", "-y", "-loglevel", "error", "-i", str(path), "-af", af, str(out)], check=True)
+        with warnings.catch_warnings():
+            warnings.simplefilter("ignore")              # streamed WAV: the header gives no length
+            rate, x = wavfile.read(path)
+        y = x.astype(np.float64)
+        y = y.mean(axis=1) if y.ndim > 1 else y
+        full = float(np.iinfo(x.dtype).max) if np.issubdtype(x.dtype, np.integer) else 1.0
+        n = max(1, int(0.01 * rate))
+        frames = len(y) // n
+        db = 20 * np.log10(np.sqrt(np.mean(y[:frames * n].reshape(frames, n) ** 2, axis=1)) / full + 1e-12)
+        loud = np.nonzero(db > floor_dbfs)[0]
+        a = max(0, loud[0] * n - int(lead * rate))
+        b = min(len(y), (loud[-1] + 1) * n + int(tail * rate))
+        seg = x[a:b].astype(np.float64)
+        f = max(1, int(0.01 * rate))
+        ramp = np.linspace(0.0, 1.0, f)
+        seg[:f] = (seg[:f].T * ramp).T
+        seg[-f:] = (seg[-f:].T * ramp[::-1]).T
+        wavfile.write(out, rate, seg.astype(x.dtype))
     return out
 
 
@@ -112,7 +132,7 @@ def main():
     t = t0
     for x in texts:
         w = spoken(x)
-        d = max(nv.duration(clip[w]) + 0.10, 0.40) if w else SILENT
+        d = max(nv.duration(clip[w]) + 0.10, 0.45) if w else SILENT
         starts.append(t)
         durs.append(d)
         t += d
@@ -140,12 +160,12 @@ def main():
     if args.glide == "step" or (isinstance(args.glide, float) and args.glide > 0.2):
         fig.text(0.02, 0.89, "the loop is a map: its state jumps once per step; the dot glides between states only "
                  "to guide the eye", color="0.6", fontsize=12 * fs)
-    for k, t in enumerate(top):                       # the colours: the token the loop writes next
+    for k, t in enumerate(top):                       # the colors: the token the loop writes next
         fig.text(0.02, 0.84 - 0.034 * k, "\u25cf", color=rt.PALETTE[k], fontsize=17 * fs)
         fig.text(0.04, 0.842 - 0.034 * k, repr(tok.decode([int(t)])), color="0.9", fontsize=14 * fs, family="monospace")
     fig.text(0.02, 0.84 - 0.034 * len(top), "\u25cf", color=rt.OTHER, fontsize=17 * fs)
     fig.text(0.04, 0.842 - 0.034 * len(top), "other tokens", color="0.9", fontsize=14 * fs)
-    fig.text(0.02, 0.875, "colour: the token written next", color="0.75", fontsize=13 * fs)
+    fig.text(0.02, 0.875, "color: the token written next", color="0.75", fontsize=13 * fs)
     fig.text(0.5, 0.165, "\u23ce marks a line break that the loop writes", color="0.55", fontsize=12 * fs, ha="center")
     t_hist = fig.text(0.5, 0.115, "", color="0.75", fontsize=19 * fs, family="monospace", ha="center")
     t_word = fig.text(0.5, 0.04, "", color="w", fontsize=40 * fs, ha="center", weight="bold")
@@ -209,10 +229,23 @@ def main():
     subprocess.run(cmd, check=True)
     part.replace(out)
     shutil.rmtree(tmp)
+    # check: every spoken word must be audible in the final soundtrack (RMS in its window, dBFS)
+    pcm = subprocess.run(["ffmpeg", "-v", "error", "-i", str(out), "-vn", "-ac", "1", "-ar", "16000", "-f", "s16le", "-"],
+                         capture_output=True, check=True).stdout
+    a16 = np.frombuffer(pcm, dtype=np.int16).astype(np.float64) / 32768.0
+    levels = []
+    for st, d, x in zip(starts, durs, texts):
+        if spoken(x):
+            seg = a16[int(st * 16000):int((st + d) * 16000)]
+            levels.append((x.strip(), round(st, 2), round(20 * np.log10(np.sqrt(np.mean(seg ** 2)) + 1e-12), 1)))
+    quiet = [lv for lv in levels if lv[2] < -40.0]
     info = {"out": str(out), "seconds": round(nF / args.fps, 2), "steps": len(texts), "trajectory": int(aper[args.trajectory]),
-            "first_step": args.first, "text": "".join(texts), "distinct_spoken_tokens": sorted(clip)}
+            "first_step": args.first, "text": "".join(texts), "distinct_spoken_tokens": sorted(clip),
+            "steps_detail": [{"text": x, "start": round(st, 3), "seconds": round(d, 3)} for st, d, x in zip(starts, durs, texts)],
+            "word_levels_dbfs": {"min": min(lv[2] for lv in levels), "median": float(np.median([lv[2] for lv in levels])),
+                                 "below_minus_40": quiet}}
     Path(str(out) + ".json").write_text(json.dumps(info, indent=1))
-    print(json.dumps({k: info[k] for k in ("out", "seconds", "steps", "distinct_spoken_tokens")}))
+    print(json.dumps({k: info[k] for k in ("out", "seconds", "steps", "distinct_spoken_tokens", "word_levels_dbfs")}))
 
 
 if __name__ == "__main__":

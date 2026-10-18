@@ -1,7 +1,7 @@
 """Figure: basins of coexisting attractors on a plane of starting states (tools/basin_slice.py output).
 
-Each grid start x0 + |x0| (s u + t w) is coloured by the attractor it settles on (the census's periodic attractors by
-their token loops; grey: no period found within the transient; black: periodic but not a census attractor). The fixed
+Each grid start x0 + |x0| (s u + t w) is colored by the attractor it settles on (the census's periodic attractors by
+their token loops; gray: no period found within the transient; black: periodic but not a census attractor). The fixed
 start (s, t) = (0, 0) is marked, and so are the directions of the two attractors when the plane was spanned by them.
 A second panel zooms into the stretch of boundary nearest the fixed start.
 
@@ -16,7 +16,7 @@ import numpy as np
 
 ROOT = Path(__file__).resolve().parents[1]
 DATA = Path(os.environ.get("NEURAL_SHRIMP_DATA", ROOT.parent / "neural-shrimp-data"))
-COLOURS = ["#1f77b4", "#ff7f0e", "#2ca02c", "#d62728", "#9467bd"]
+COLORS = ["#1f77b4", "#ff7f0e", "#2ca02c", "#d62728", "#9467bd"]
 
 
 def main():
@@ -38,20 +38,20 @@ def main():
                                         cache_dir=str(DATA / "models/hf/hub"))
     s, lab = z["s"], z["labels"]
     na = len(rec["attractors"])
-    # colour index: 0 black (periodic, other), 1 grey (no period), 2.. attractors
+    # color index: 0 black (periodic, other), 1 gray (no period), 2.. attractors
     idx = np.where(lab == -1, 0, np.where(lab == 0, 1, lab + 1))
-    cmap = ListedColormap(["k", "0.75"] + COLOURS[:na])
+    cmap = ListedColormap(["k", "0.75"] + COLORS[:na])
     ext = [s[0], s[-1], s[0], s[-1]]
     fig, axes = plt.subplots(1, 2, figsize=(13.0, 6.2), dpi=200)
     handles = []
     for k, a in enumerate(rec["attractors"]):
         text = tok.decode(a["token_ids"]).replace("\n\n", "\u23ce").replace("\n", "\u23ce")     # line break
         share = rec["label_counts"].get(str(a["label"]), 0) / lab.size
-        handles.append(Patch(color=COLOURS[k], label=f"period {a['period']}: '{text}' ({100 * share:.1f} %)"))
-    for key, colour, name in (("0", "0.75", "no period within the transient"), ("-1", "k", "other periodic orbit")):
+        handles.append(Patch(color=COLORS[k], label=f"period {a['period']}: '{text}' ({100 * share:.1f} %)"))
+    for key, color, name in (("0", "0.75", "no period within the transient"), ("-1", "k", "other periodic orbit")):
         if rec["label_counts"].get(key, 0):
-            handles.append(Patch(color=colour, label=f"{name} ({100 * rec['label_counts'][key] / lab.size:.1f} %)"))
-    # boundary cells: a neighbour with another label
+            handles.append(Patch(color=color, label=f"{name} ({100 * rec['label_counts'][key] / lab.size:.1f} %)"))
+    # boundary cells: a neighbor with another label
     edge = np.zeros_like(lab, dtype=bool)
     edge[:-1, :] |= lab[:-1, :] != lab[1:, :]
     edge[1:, :] |= lab[1:, :] != lab[:-1, :]
