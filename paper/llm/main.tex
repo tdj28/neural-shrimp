@@ -41,7 +41,8 @@
 \noindent\textbf{Status of this draft.} Unless marked otherwise, results on the soft-token map are numerically
 validated in float64 (rung 1 or 2 of the evidence ladder in Appendix~\ref{sec:evidence}). Float32 maps are labeled
 as such. Huginn's spectra are float32 and its accuracy runs bfloat16. \planned{Red} marks planned work and \inprogress{orange} running work. The only
-computer-assisted proof is that of the period-8 orbit of Table~\ref{tab:orbits} (rung 3, Appendix~\ref{sec:evidence}).
+computer-assisted proofs are those of the period-8 orbit of Table~\ref{tab:orbits} and of the coexisting attracting
+period-2 and period-3 orbits at one parameter cell (rung 3, Appendix~\ref{sec:evidence}).
 
 \begin{abstract}
 Fed back through its own soft next-token distribution, as in Soft Thinking, a pretrained language model defines a
@@ -53,16 +54,17 @@ Lyapunov exponents that automatic-differentiation tangents reproduce. We call th
 label, not a proof of an asymptotic chaotic set; 74 to 92\,\% of sampled labels persist to $10^5$ steps. Finite-time
 expansion has direct consequences for reproducibility. Rerun with only the batch size changed, chaotic float64 loops
 separate until their most probable tokens differ, on the schedule the Lyapunov exponent sets, while periodic loops
-mostly stay together, in four models up to 70B; with
+mostly stay together, in four models up to 70B. In a control fixed in advance in Qwen2.5-0.5B (448 cells), with
 the matrix shapes held fixed the runs are bitwise identical, and a displacement injected instead grows on the same
-schedule. In arithmetic tests designed before the runs, changing only the batch
+schedule, although one secondary criterion failed (from a displacement of $10^{-9}$ on, more than 10\,\% of the
+periodic loops also separated). In arithmetic tests designed before the runs, changing only the batch
 layout, which alters the floating-point execution while the intended computation stays the same, changed the answers
 of bfloat16 soft-thinking inference on 56\,\% of 96 problems in a 0.5B model and 55\,\% in a 7B model, far more often
 than with greedy decoding; an exploratory reset of the fed-back state at every step removed most of these changes. In
 tests fixed before their data, Soft Thinking with its published settings changed 21\,\% of its answers to GSM8K
 problems not used before in this study with the batch layout alone, and reasoning models that answer 86 to 90\,\% of
 them correctly (DeepSeek-R1-Distill-Qwen-7B, QwQ-32B) changed 14.5 and 19.5\,\%, the two layouts disagreeing on
-correctness for 12 to 15\,\% of the problems. Ordinary sampled reasoning with the same random numbers changed about as
+correctness for 12 to 14\,\% of the problems. Ordinary sampled reasoning with the same random numbers changed about as
 many, so this sensitivity is not unique to continuous feedback. Two mechanisms contribute, depending on the model. In
 float64 the loops of Qwen2.5-7B and DeepSeek-R1-Distill-Qwen-7B mostly contract, so their answer changes are bfloat16
 rounding carried by long feedback to answers that sit near ties, while the loops of QwQ-32B and
@@ -189,13 +191,13 @@ Claim & Evidence & Where \\
 The loop's derivative factorizes into a readout covariance and the network's Jacobian & identity & Sec.~\ref{sec:theory} \\
 Chaotic regimes with periodic windows in 15 models; 74--92\,\% of sampled labels last $10^5$ steps & numerical & Secs.~\ref{sec:maps}, \ref{sec:sizemain} \\
 Chaotic float64 loops separate on the Lyapunov schedule when only the batch layout changes & numerical & Sec.~\ref{sec:consequences} \\
-With fixed matrix shapes the runs are bitwise identical; injected displacements grow on the Lyapunov schedule & frozen & Sec.~\ref{sec:consequences} \\
+With fixed matrix shapes the runs are bitwise identical; injected displacements grow on the Lyapunov schedule (Qwen2.5-0.5B, 448 cells; a secondary criterion failed) & frozen & Sec.~\ref{sec:consequences} \\
 The batch layout changes long-feedback answers (bfloat16 pipelines, Soft Thinking, reasoning models) & frozen & Sec.~\ref{sec:consequences} \\
 Resetting the fed-back state removes most of these changes & exploratory & Sec.~\ref{sec:consequences} \\
-Steering creates chaos mainly through token competition (0.5B model; weaker evidence at 7B) & exploratory interventions & Sec.~\ref{sec:theory} \\
+Steering creates chaos mainly through token competition (0.5B model; weaker evidence at 7B; a frozen sufficiency criterion failed by overshoot) & interventions; partly frozen & Sec.~\ref{sec:theory} \\
 Fold normal forms predict passage times (42 of 48; both all-row criteria failed) & frozen & Sec.~\ref{sec:mechanism} \\
 Late doubling ratios approach Feigenbaum's $\delta$, at the float64 floor & numerical & Sec.~\ref{sec:cascade} \\
-Every tangent reversal of the continued fold curves is a cusp; local unfoldings match Newton solves & numerical; unfoldings frozen & Sec.~\ref{sec:organization} \\
+13 of the 17 tangent reversals of the continued fold curves are located cusps (four found on 18 October are not located); local unfoldings match Newton solves & numerical; unfoldings frozen & Sec.~\ref{sec:organization} \\
 A period-5 window is a shrimp in a two-parameter plane (boundary organization) & numerical; found by search & Sec.~\ref{sec:organization} \\
 An attracting period-8 orbit exists & proof & App.~\ref{sec:evidence} \\
 Attracting orbits of periods 2 and 3 coexist at one parameter cell, with certified token loops and basin neighborhoods & proof & App.~\ref{sec:evidence} \\
@@ -244,8 +246,8 @@ Huginn: a predicted accuracy loss & frozen & Sec.~\ref{sec:huginn} \\
   near the vanished orbit: in two frozen tests at four new folds, 42 of 48 forecasts fell within one iterate, and
   both all-row criteria failed (the second because passages from the entrance of a period-6 fold's channel came in 3
   to 5\,\% short), and windows accumulate on the fold with distances close to a $1/N^2$ law
-  (log-log slope $-2.00$; fitted with an offset, the free exponent ranges from 2.13 to 2.45 with the fit range). On the nine fold curves we continued,
-  all thirteen tangent reversals are located cusps, and near them local unfoldings, frozen before solving, matched the
+  (log-log slope $-2.00$; fitted with an offset, the free exponent ranges from 2.13 to 2.45 with the fit range). On the eleven fold curves we continued,
+  13 of the 17 tangent reversals are located cusps (the four found on 18 October are not located), and near them local unfoldings, frozen before solving, matched the
   orbits that Newton solves recovered at twelve parameter offsets in number and at eleven in stability. A doubling
   cascade has superstable points through period 768 and finite-order Feigenbaum ratios that approach $\delta$ numerically (the
   last, $4.6688$, against $4.6692$, at the float64 floor of the computation). A period-5 window of a plane steered at two depths is a numerically verified shrimp:
@@ -496,14 +498,17 @@ the steps: with independent random (Haar) rotations inserted between the eight s
 contract, and more strongly than the actual cycle (\repo{tools/alignment_intervention.py}). Stepwise norm or
 spectral summaries can be inconclusive; the ordered product of the step Jacobians captures the cycle's linear
 stability. Across the maps the same holds statistically (Figure~\ref{fig:normbounds}). Along the trajectories
-of 7936 cells of the two main maps (every fourth cell of the stripes map and every eighth of the crossing window;
-float32; 300 transient and 60 measured steps), the orbit averages of $\log\|DF\|$ and of
+of 7936 cells of the two main maps (every fourth cell of the stripes map, except its top four sampled rows, 256
+cells that did not run within the time limit, and every eighth of the crossing window; float32; 300 transient and 60
+measured steps), the orbit averages of $\log\|DF\|$ and of
 $\log(\|\Sigma_p\|/T)+\log\|J_{\tilde h}\|$ exceed zero in every cell, chaotic or periodic: their medians are 2.98 and
 2.57 per step over the chaotic and the periodic cells of the stripes map for $\log\|DF\|$, against a median exponent of
 0.30 in its chaotic cells (crossing window: 2.93, 2.62 and 0.17). Averages of $\tfrac1k\log\|DF^k\|$ over blocks of $k$
 steps tighten as $k$ grows and begin to separate the regimes only at $k=4$ and 5; at $k=5$ they are negative in 27 and
 29\,\% of the periodic cells of the two maps (medians 0.91 and 0.80 over the chaotic cells, 0.25 and 0.22 over the
-periodic ones). No estimate fell below its cell's own exponent at any $k$, and the norms are power-iteration estimates,
+periodic ones). No estimate fell below the tangent exponent of its own 60 measured steps at any $k$ (in 13 cells a
+$k=4$ or 5 estimate lies below the map's exponent, which was measured over 300 steps of a separate float64 run), and
+the norms are power-iteration estimates,
 which can only fall short, so the true bounds lie higher still; the four cells labeled chaotic by the maps whose $k=5$
 estimate is negative have negative exponents on these shorter trajectories. With exact norms the picture sharpens
 (Figure~\ref{fig:boundhierarchy}). At the first 24 of 64 cells fixed in advance (12 labeled chaotic and 12 periodic,
@@ -511,14 +516,18 @@ from both maps; float64; 32 recorded steps after 1000 transient steps from the f
 step Jacobian; the remaining cells did not fit the compute budget), the block bounds $B_k$, averages of
 $\tfrac1k\log\|P\|$ over products $P$ of $k$ consecutive step Jacobians, satisfy
 $B_1\ge B_2\ge B_4\ge\dots\ge B_{32}=\tfrac1{32}\log\|DF^{32}\|$ in every cell, as submultiplicativity requires, and
-the factorization reproduces $DF$ to $1.9\times10^{-12}$. By the subadditive ergodic theorem
+the factorization reproduces $DF$ to $2.0\times10^{-12}$. By the subadditive ergodic theorem
 \cite{kingman1973subadditive} such bounds close on the largest exponent as the blocks grow. Here their median overshoot
 of the exponent measured over the next 2000 steps falls from 2.72 per step at $k=1$ to 0.32 at $k=8$ and 0.036 at
-$k=32$ over the chaotic cells (periodic cells: 2.86, 0.45 and 0.12), roughly as $1/k$. The sign of the bound agrees with
-the sign of that exponent in 13 of the 24 cells for $k\le4$, in 22 at $k=16$, and in 23 for every window length from 17
-to 29 steps (averaged over the overlapping windows of the record). At 31 and 32 steps, where only two windows and one
-window fit, two periodic cells still have small positive bounds (0.019 and 0.035). The remaining disagreement is a cell
-that the map labels periodic, whose exponent over 2000 later steps is $+0.124$; its bound agrees with that exponent. The
+$k=32$ over the chaotic cells (periodic cells: 2.86, 0.45 and 0.12), roughly as $1/k$: for $k=1,2,4,\dots,32$, $k$
+times the median overshoot runs from 1.14 to 2.96 over the chaotic cells and from 2.86 to 3.92 over the periodic ones.
+The sign of the bound agrees with the sign of that exponent in 13 of the 24 cells for $k\le4$, in 22 at $k=16$, in 23
+for every window length from 17 to 29 steps (averaged over the overlapping windows of the record) and in all 24 at 30
+steps. From 17 to 29 steps the one disagreement is a cell that the map labels periodic, with an exponent of $-0.146$
+over the 2000 later steps, whose bound falls from $+0.112$ to $+0.011$ but stays positive. At 31 and 32 steps, where
+only two windows and one window fit, it and another periodic cell again have small positive bounds (0.019 and 0.035 at
+32 steps). A further cell, which the map labels periodic, has an exponent of $+0.124$ over the 2000 later steps; its
+bound agrees with that exponent and disagrees only with the map's label. The
 factorized bound loses a further 2.9 per step (median) to the misalignment of the readout and network factors. The
 factorized inequalities and short blocks do not locate the chaos. Blocks of about twenty steps of the model's own
 loop do, but that is a measurement along the orbit, not a forecast from the weights.
@@ -527,7 +536,8 @@ loop do, but that is a measurement along the orbit, not a forecast from the weig
 \includegraphics[width=\linewidth]{fig-norm-bounds.png}
 \caption{Norm bounds of the factorized derivative along the model's own orbits (Qwen2.5-0.5B-Instruct, philosophy
 direction at layer 12, float32; every eighth cell of the crossing window of Figure~\ref{fig:cross512}, top, and every
-fourth cell of the stripes map, bottom; 300 transient and 60 measured steps; \repo{tools/norm_bounds.py},
+fourth cell of the stripes map except its top four sampled rows, which did not run, bottom; 300 transient and 60
+measured steps; \repo{tools/norm_bounds.py},
 \repo{tools/plot_norm_bounds.py}). Left: the orbit average of $\log\|DF\|$ per step (red: positive). Middle: the
 average of $\tfrac15\log\|DF^5\|$ over blocks of five steps; black dots: cells the map labels chaotic. Right: medians of
 each bound over chaotic (red) and periodic (blue) cells, the median exponent of the chaotic cells (dotted), the share of
@@ -696,7 +706,7 @@ tables that the library would otherwise compute in float32; two exceptions, floa
 records and a float32 final normalization in the two-GPU runs of 70B-class models before 14 October, are marked where they occur (Appendix~\ref{sec:methods} and Section~\ref{sec:sizemain}). A cell of a phase map is chaotic when the
 largest finite-horizon Lyapunov exponent of a twin trajectory (offset $10^{-6}$, renormalized every step; 300
 measured steps after 300 transient ones unless stated) exceeds $10^{-3}$ and no period up to 32 (48 in later zooms) is
-found; at 448 checked cells automatic-differentiation tangents reproduce the twin exponents within $0.0041$, and the label is a finite-horizon diagnostic, not a proof. In random samples of 192 chaos-labeled cells from each of the two main float64 maps (Figures~\ref{fig:stripes} and~\ref{fig:teaser}), 176 and 143 cells were never captured by a periodic orbit in $10^5$ steps and all but one kept a positive exponent; the others were long transients that ended on periodic orbits after 600 to 94{,}500 steps \cite{grebogi1983crises}. Chaotic shares of a map are therefore finite-horizon shares of its window.
+found; at 448 checked cells automatic-differentiation tangents reproduce the twin exponents within $0.0041$, and the label is a finite-horizon diagnostic, not a proof. In random samples of 192 chaos-labeled cells from each of the two main float64 maps (Figures~\ref{fig:stripes} and~\ref{fig:teaser}), 176 and 143 cells were never captured by a periodic orbit in $10^5$ steps and all but one kept a positive exponent; the others were long transients that ended on periodic orbits after 600 to 97{,}500 steps \cite{grebogi1983crises}. Chaotic shares of a map are therefore finite-horizon shares of its window.
 Noise in a measured difference can fake chaos but does not hide it: below the noise level a twin exponent rises as
 the offset shrinks, while a real exponent does not depend on the offset (Appendix~\ref{sec:methods},
 Figure~\ref{fig:falsechaos}).
@@ -866,13 +876,13 @@ quantity of the exponents rather than a measured fractal dimension. The correlat
 slope wanders between 0.42 and 0.91 over four decades of distance without settling on any decade, as for a strongly
 non-uniform measure. One scalar of the output suffices to rebuild the set usefully: in delay coordinates of the
 logarithm of the largest next-token probability (float32, 16 trajectories of 6000 steps), the share of false nearest
-neighbors falls from 70.8\,\% with one delay and 10.4\,\% with two to 3.4\,\% with three, and points that are nearest
-neighbors in the three-delay space are a median $3.7\times10^{-4}$ apart in the full state, against 0.30 for random
+neighbors falls from 70.8\,\% with one delay coordinate and 10.4\,\% with two to 3.4\,\% with three, and points that are
+nearest neighbors in the space of three delay coordinates are a median $3.7\times10^{-4}$ apart in the full state, against 0.30 for random
 pairs. This supports a faithful reconstruction from the output alone; it is not a verified Takens embedding. Past the crescent's cascade ($\alpha=0.06626$; exponents $0.036$, $-1.208$, \dots;
 $D_{\mathrm{KY}}=1.030$) the chaos is banded: each trajectory visits three thin bands in turn. The period-3 orbit that
 lost stability in the cascade is still there, as a saddle with multiplier $-1.772$ (next $0.040$); we continued it to
 this cell by Newton's method (relative residual $4.2\times10^{-13}$) and iterated a fundamental domain of its unstable
-manifold under six steps of the map. In the 12 leading principal coordinates, every one of the $100{,}600$ recorded
+manifold 20 times under $F^6$, six steps of the map at a time. In the 12 leading principal coordinates, every one of the $100{,}600$ recorded
 states of the band it reaches lies within $9.8\times10^{-6}$ of the sampled points of the manifold (median
 $3.9\times10^{-7}$; the band is 0.028 wide). This supports an unstable-manifold description of the band at the sampled
 resolution; it does not establish that the band equals the closure of the manifold. At the cell of the certified pair ($\alpha=0.06468$), every one of 9216 starts on a plane through the fixed
@@ -2037,10 +2047,12 @@ Appendix~\ref{sec:methods} keep their critical multipliers at $+1$ and $-1$ (App
 curve of the 2-cycle ``is it'' traces the boundary of the period-2 region on which the stripes accumulate, as the
 mechanism of Section~\ref{sec:mechanism} requires. The fold curves of a period-6
 window, of a hostile period-7 window, of a period-4 window and of a period-5 window steered at two depths bend back
-on themselves. On the nine fold curves we continued, all thirteen reversals of the parameter tangent are located
+on themselves. On the eleven fold curves we continued, 13 of the 17 reversals of the parameter tangent are located
 cusps: the oriented quadratic coefficient of the fold's normal form changes sign there,
-while the cubic coefficient stays nonzero and the two-parameter unfolding is regular. This is not a global count of
-cusps. Near a cusp with negative cubic coefficient, three orbits of the same period coexist between the two fold
+while the cubic coefficient stays nonzero and the two-parameter unfolding is regular. The other four, all found on 18
+October, are flagged by the continuation but not located: one on the lower-left leg's own fold curve, one on an
+extension of the period-5 window's second fold curve, and two on a partial trace of a fold curve of the same window
+at $\log_{10}T=-0.105$. This is not a global count of cusps. Near a cusp with negative cubic coefficient, three orbits of the same period coexist between the two fold
 branches, two of them stable. At a fold point near one cusp in each of two windows, the local cubic model, frozen
 before solving, matched the number of orbits that Newton solves seeded at its predicted roots recovered at all twelve
 parameter offsets, and their stability at eleven; the search was not exhaustive.
@@ -2092,16 +2104,18 @@ wedge. Each frame contains the whole defining structure. Period-2 curves are not
 period-5 window (Figure~\ref{fig:period5folds}). A $31\times31$ grid of the window's continued orbit
 (Appendix~\ref{sec:hostility}) left two anomalies, signs of folds it could not resolve, so we continued the window's
 fold and flip curves in float64. One fold curve bounds the body on its right, runs over its top and along one side of
-each leg. Flip curves bound the body's upper-left and lower sides and the other side of each leg, so each leg lies
+the upper and lower-right legs. Flip curves bound the body's upper-left and lower sides and the other side of each leg, so each leg lies
 between a fold curve and a flip curve, as in Gallas's anatomy, and beyond the flips lie shells of periods 10 and 20.
 Where the upper leg leaves the body, the fold curve has two located cusps that share a segment of the curve, and its
 other two branches cross (Figure~\ref{fig:period5folds}d). At the crossing the two arms are folds of two different
 period-5 orbits with the same token loop (their states differ by about 4\,\%). A second fold curve, on the far left,
 where the orbit dies after regaining stability beyond a doubling bubble, has two more located cusps, which also share
 a segment, and its other two branches cross as well, again as folds of two different period-5 orbits (states about 9\,\%
-apart; Figure~\ref{fig:period5folds}a). Along every
-continued curve the critical multiplier stays at $+1$ or $-1$ to within $1.2\times10^{-7}$, and no other multiplier
-exceeds $0.4$ in modulus, so no second multiplier reaches the unit circle along them; this does not exclude cusps,
+apart; Figure~\ref{fig:period5folds}a). Along the curves continued on 15 October the critical multiplier stays at
+$+1$ or $-1$ to within $1.2\times10^{-7}$, and no other multiplier exceeds $0.4$ in modulus; with the curves of 18
+October (their extensions toward the legs' tips and the lower-left leg's own pair) these bounds become
+$1.9\times10^{-7}$ and $0.87$, the largest second multiplier ($0.86$) lying where the lower-right leg's curves reach
+the bound of the continuation. No second multiplier reaches the unit circle along them; this does not exclude cusps,
 which need only a nonlinear degeneracy.
 
 \paragraph{The shrimp itself.} The fixed-start maps hide most of this window: in its legs the fixed start settles on a
@@ -2110,7 +2124,7 @@ spacing $1.25\times10^{-4}$ in both strengths (Figure~\ref{fig:realshrimp}; \rep
 cell starts from the final state of a neighboring cell that is still on the attractor and runs 250 steps, followed by
 300 recorded steps with a twin. It stays on the attractor only if its orbit has a period that is a multiple of five and
 the body's five-token text in at least four of its five places, or no detectable period, an exactly repeating text and
-no positive exponent (a slowly converging orbit next to a fold or a flip); cells with chaos behind the same text are
+an exponent below 0.005 (a slowly converging orbit next to a fold or a flip); cells with chaos behind the same text are
 recorded but not continued. (A first rule, which compared each cell only with its neighbor, leaked across the fold
 into the surrounding chaos, where intermittent motion keeps the same text most of the time.) The followed attractor
 fills a shrimp: a body against the fold curve and three long legs, each between a fold curve and a flip curve, reaching
@@ -2134,8 +2148,10 @@ $\alpha_2=0.0934$ the strip is narrower than one grid step (0.015 steps at $\alp
 reached its bound), so the leg goes on below the followed domain, too narrow to be followed cell by cell.
 
 \paragraph{Shrimps of a two-dimensional kind.} The period-5 window has this anatomy; only its head differs. At
-every cell of that grid and every curve point, the multipliers beyond the leading pair are below $0.0032$, so on the
-grid the orbit's linearization has at most two non-negligible directions. On the grid the leading multiplier never
+every cell of the $31\times31$ continuation grid and every point of the curves continued on 15 October, the
+multipliers beyond the leading pair are below $0.0032$ (on the curves of 18 October at this temperature that recorded
+them, they stay below it inside the followed domain and reach $0.010$ beyond it), so on the grid the orbit's linearization has at
+most two non-negligible directions. On the grid the leading multiplier never
 vanishes (its modulus stays at least $0.0139$): where a one-dimensional map would be superstable, the two leading
 multipliers form a complex pair, the node having become a focus, or pass each other as real numbers of opposite sign.
 Between grid cells, however, a two-parameter Newton search for the point where the sum of the leading multipliers and
@@ -2146,8 +2162,8 @@ contracts about 280-fold per period. This point of strongest contraction plays t
 do not by themselves decide whether the return map is locally of higher rank there or nearly of rank one and strongly
 nonnormal; its singular values decide it (\repo{tools/monodromy_svd.py}, checked on synthetic operators with equal
 eigenvalues and different rank). At the point the second singular value of the return map is $1.8\times10^{-4}$ of the
-first when the cycle is started at one phase and at most 0.029 of it at the others, the same as within $2\times10^{-4}$
-of the point, while the first is about 65, four orders of magnitude above the eigenvalues; in the body, away from the
+first at one starting phase ($1.7$ to $1.8\times10^{-4}$ at four points $5\times10^{-5}$ away) and at most 0.031 at the
+others, while the first, at that phase, is about 65, four orders of magnitude above the eigenvalues; in the body, away from the
 head, the ratio is 0.017 to 0.23. Near its head the return map is nearly of rank one and strongly nonnormal: its
 eigenvalues are small because its leading left and right singular vectors are nearly orthogonal, not because a second
 direction matters. In the reduction to this rank-one part, $\lambda=\sigma_1\,(v_1\cdot u_1)$, the nonzero eigenvalue of
@@ -2156,9 +2172,8 @@ the two directions are orthogonal to about $4\times10^{-6}$), the head lies on a
 $11\times11$ grid of spacing $10^{-5}$ around it, $\lambda$ changes sign exactly once in every row, along one nearly
 straight line through the head (Figure~\ref{fig:headrank}). Even in this reduction the head is not a crossing of two
 superstable curves. Continued in temperature, over the eleven values of $\log_{10}T$ from $-0.104$ to
-$-0.094$ at which the continuation passed its gates, the point moves along a nearly straight line; the common modulus
-of its three leading multipliers, the cube root of the determinant of the leading block, stays between $2.4$ and
-$5.6\times10^{-3}$, and a fourth multiplier approaches it twice (Figure~\ref{fig:headtemperature};
+$-0.094$ at which the continuation passed its gates, the point moves along a nearly straight line; the leading modulus
+stays between $2.4$ and $5.6\times10^{-3}$, and a fourth multiplier approaches it twice (Figure~\ref{fig:headtemperature};
 \repo{tools/nilpotent_track.py}). The determinant $D=\mu_1\mu_2$ of the leading pair also changes sign in the window
 ($D<0$ at 41 of its 447 attracting cells), so the linearization restricted to the leading pair reverses orientation in part of the
 window: a noninvertible setting in the sense of Mira \cite{mira1996chaotic}, not that of H\'enon's map, whose
@@ -2241,13 +2256,13 @@ number attracting (green: the count predicted before the computation; orange: no
 \caption{The period-5 shrimp (Qwen2.5-0.5B-Instruct, gratitude at block~4 and hostility at block~16,
 $\log_{10}T=-0.1$, float64). (a) The domain of the window's attractor, followed cell by cell from the body on a grid of
 spacing $1.25\times10^{-4}$, colored by the period of the followed attractor (black: chaos behind the same five-token
-text; dark gray: no period found and no positive exponent; light gray: the attractor was lost), with the fold curves
+text; dark gray: no period found and an exponent below 0.005; light gray: the attractor was lost), with the fold curves
 (black; multiplier $+1$) and flip curves (red, dashed; $-1$) of the period-5 orbit, including the lower-left leg's own
 pair (Figure~\ref{fig:lowerleg}), the located cusps (gold stars), the
 self-crossings of the fold curves (magenta) and the near-nilpotent point (white circle). (b) The same domain colored by
 the Lyapunov exponent of the periodic attractor (light blue: chaos behind the text): dark curves are the strongly
 contracting spines. (c) The body over the trace of the continued orbit's two leading multipliers (gray: repelling): the
-trace-zero curve (black) closes around an island of negative trace, a head of Type~A, and passes the near-nilpotent
+trace-zero curve (black) closes around an island of negative trace, the geometry of a Type~A head, and passes the near-nilpotent
 point. (d) The junction of the upper leg: two cusps that share a segment of the fold curve and the crossing of its
 other branches, with the number of period-5 orbits found (attracting) at 13 points fixed before the computation (green:
 the count predicted by a section of a swallowtail; orange: not).}
@@ -2377,7 +2392,8 @@ for random starts. Settle times give no sign of long transients at the switches 
 elsewhere), so these basin boundaries do not hold trajectories for long. Refined at single switches, both mechanisms appear. Along two short
 transects through the band, chosen from the fixed-start map before the other maps were inspected ($\alpha=0.0708$ from
 $\log_{10}T=-0.1440$ to $-0.1396$, and $\log_{10}T=-0.1396$ from $\alpha=0.0690$ to $0.0700$), we bracketed every
-switch of the fixed start's family to 1/64 of the transect spacing; at both ends of each bracket we ran the fixed start,
+switch of the fixed start's family by bisection, to 1/64 of the transect spacing at three of the eight switches and to
+1/4 or 1/2 of it at the other five, where the bisection met a third loop; at both ends of each bracket we ran the fixed start,
 continued each end's attractor at the other end and computed the multipliers of every periodic orbit found
 (\repo{tools/sheets_transect.py}). Of the eight switches, two are selections (each side's family persists on the other
 side, all four orbits attracting, and only the basin that holds the fixed start changes), two are intrinsic (one side's
@@ -2995,8 +3011,8 @@ a test whose design was fixed before its data, or a computer-assisted proof.
 \begin{table*}[tbp]
 \centering
 \caption{What each main result rests on. \emph{Prospective}: the design, data and criteria were fixed and pushed before
-the data were collected; \emph{partly prospective}: some predictions or criteria were. Only the period-8 orbit is
-proved; chaos labels are finite-horizon numerical results. Each \emph{code} entry links to the main tool or record in
+the data were collected; \emph{partly prospective}: some predictions or criteria were. Only the period-8 orbit and
+the coexisting period-2 and period-3 orbits are proved; chaos labels are finite-horizon numerical results. Each \emph{code} entry links to the main tool or record in
 the project repository.}
 \label{tab:evidence}
 \small
@@ -3025,6 +3041,7 @@ Feigenbaum ratios & flips by continuation & numerical & \codelink{tools/llm_feig
 \rowcolor{black!7} Period-5 shrimp (domain, legs, head) & followed attractor, curves & numerical & \codelink{tools/follow_attractor.py} \\
 Crossing window families & eight maps; independent audit & numerical & \codelink{tools/sheets_analyze.py} \\
 \rowcolor{black!7} Attracting period-8 orbit & interval arithmetic & \textbf{proof} & \codelink{codex/certify-llm} \\
+Coexisting attracting 2- and 3-cycles & interval arithmetic & \textbf{proof} & \codelink{codex/coexistence-task33} \\
 \addlinespace[3pt]
 \multicolumn{4}{l}{\textsc{Beyond the one-token loop}} \\
 \rowcolor{black!7} Steering history changes a decision & new instances & prospective & \codelink{tools/c12_steering_history.py} \\
@@ -3298,7 +3315,7 @@ runs are the 70B-class sweeps and their plateau tests, the first Qwen2.5-72B pro
 the first zoom, the gain splits of the 70B-class models, and the start-state test, which spread all fourteen models
 over two GPUs; Appendix~\ref{sec:size} says which results we recomputed. Derivatives are automatic-differentiation tangents of
 this float64 computation: free of finite-difference truncation, but computed in floating point. We call a result
-exact only when it comes from interval or rational arithmetic, as in the proof of Appendix~\ref{sec:evidence}.
+exact only when it comes from interval or rational arithmetic, as in the proofs of Appendix~\ref{sec:evidence}.
 
 \paragraph{Statistical units.} The cells of a parameter map are evaluations of one deterministic function at
 neighboring parameters, not independent experiments, and neighboring cells are strongly correlated. Their counts and
@@ -3963,7 +3980,7 @@ orbit has two comparable leading directions near its superstable strips; Section
 is a numerically verified shrimp. Its head, the near-nilpotent point, persists wherever we continued it in temperature
 (Figure~\ref{fig:headtemperature}). At $\log_{10}T=-0.105$,
 grids of the continued orbit over the tip of the band where the leading multiplier is positive show the same avoided
-crossing: the band narrows between two strips of complex leading pairs, of modulus $0.03$ to $0.1$, which come within
+crossing: the band narrows between two strips of complex leading pairs, of modulus $0.097$ to $0.109$, which come within
 one cell of each other ($5\times10^{-5}$ in $\alpha_1$) without crossing (\repo{docs/research-log.md}, runs P5Z).
 \begin{figure}[tbp]
 \centering
@@ -3994,8 +4011,9 @@ $\mathrm{sign}(\lambda)\log_{10}(1+|\lambda|/10^{-4})$; its zero set (black) is 
 \caption{The period-5 shrimp at two temperatures (Qwen2.5-0.5B-Instruct, gratitude at block~4 and hostility at
 block~16, float64; \repo{tools/plot_shrimp_temperature.py}). (a) The domain of its attractor at $\log_{10}T=-0.100$,
 followed cell by cell and colored by period (black: chaos behind the same five-token text; dark gray: no period found
-and no positive exponent; light gray: the attractor was lost), with the fold (black) and flip (red, dashed) curves. (b)
-The same at $\log_{10}T=-0.105$, with the curves continued at that temperature. (c) The outlines of the period-5 body
+and an exponent below 0.005; light gray: the attractor was lost), with the fold (black) and flip (red, dashed) curves. (b)
+The same at $\log_{10}T=-0.105$, with the curves continued at that temperature (a partial trace of a further fold
+curve, with two flagged reversals, is not drawn). (c) The outlines of the period-5 body
 (solid) and of the whole followed domain (dotted) at both temperatures, and the path of the head (the near-nilpotent
 point) between $\log_{10}T=-0.104$ and $-0.094$, colored by temperature.}
 \label{fig:shrimptemperature}
@@ -4006,7 +4024,10 @@ then the boundaries the lines found, each in both directions (float64; 18 to 73 
 one of the eight curve runs failed at its start for lack of GPU memory, and its curve is covered by the other trace of
 the same fold). At every curve point the residual is below $10^{-10}$ and the test function below $10^{-9}$. The
 critical multiplier stays real and within $6\times10^{-8}$ of $+1$ on the fold curve and of $-1$ on the flip curves;
-the largest other multiplier modulus is $0.040$ on that fold curve and $0.122$ on the flip curves. Going right and up from the start, the orbit dies
+the largest other multiplier modulus is $0.040$ on that fold curve and $0.122$ on the flip curves. A rerun of these
+curves on 18 October with wider bounds, toward the legs' tips, keeps every critical multiplier within
+$1.9\times10^{-7}$ of $\pm1$, and the largest other modulus reaches $0.86$ where the lower-right leg's fold and flip
+curves end at the bound of the continuation. Going right and up from the start, the orbit dies
 in folds at $\alpha_1=-0.118166$ and $\alpha_2=0.102715$ (next moduli $0.0012$ and $0.0008$). Going left and down, it
 first loses stability in flips (at $\alpha_1=-0.12147$ and $\alpha_2=0.09954$), regains it where the same multiplier
 crosses $-1$ again (at $-0.12305$ and $0.09586$; a doubling bubble), and dies in a fold (at $-0.123323$ and
@@ -4022,9 +4043,11 @@ the same token loop: at the four continuation points that bracket the crossing, 
 $3.78\,\%$ of the state norm (root-mean-square over the five points, at the best phase alignment; both traces), 15.8
 to 44.5 times the state change between neighboring curve points (\path{docs/fm5/crossing-orbits.json}). The second fold curve, continued both ways from the left fold, runs from below the lower-left leg
 far up the left of the plane, where the orbit has regained stability beyond its doubling bubble (critical
-multiplier within $1.2\times10^{-7}$ of $+1$; other multipliers below $0.4$). It has two more reversals, both located
+multiplier within $1.2\times10^{-7}$ of $+1$ and other multipliers below $0.4$; in the rerun, $1.9\times10^{-7}$ and
+$0.61$). Within the bounds of 15 October it has two more reversals, both located
 cusps: $(-0.1238662,0.0961512)$, with $c=-9.65\times10^{3}$ and $\det J=405.9$, and $(-0.1214073,0.1028234)$, with
-$c=+4.75\times10^{4}$ and $\det J=-535.4$ (condition $1.2\times10^{4}$). This curve also crosses itself, at
+$c=+4.75\times10^{4}$ and $\det J=-535.4$ (condition $1.2\times10^{4}$). The rerun finds a third reversal, at
+$(-0.13295,0.08530)$, which the continuation flags but we have not located. This curve also crosses itself, at
 $(-0.12341,0.09904)$, between its points 6 and 64, which lie on either side of the two cusps (points 15 and 40), so
 that the two cusps share a segment and their other branches cross: a second dovetail. There too the arms are folds of
 two different period-5 orbits with the same token loop, which differ by $8.83$ to $9.06\,\%$ of the state norm
@@ -4042,21 +4065,22 @@ orbit by Newton's method from the body's start, $(\alpha_1,\alpha_2)=(-0.11875,0
 the follow run entered the leg (66 of period 5, and 2 of period 10 where the orbit exists but is unstable) to
 $(-0.124375,0.094)$. Newton's method converged at every cell, with largest relative residual $8.9\times10^{-13}$. At the
 end the leading multiplier is $+0.64$. Along $\alpha_1$ the orbit loses stability in a flip at $\alpha_1=-0.12451$
-(real crossing multiplier; next modulus $0.0060$), beyond which its multiplier falls to $-13.8$, and in the other
+(real crossing multiplier; next modulus $0.0060$), beyond which its multiplier falls to $-13.9$, and in the other
 direction it dies in a fold at $-0.1243654$ (next modulus $0.014$). Both boundaries were continued both ways in float64.
 The two continuations toward the body were stopped by their time limit; their points were recovered from the runs' logs
 after the same checks. At every point of the four curves the residual is at most $10^{-10}$ and the test function at
 most $5.2\times10^{-10}$; the critical multiplier is real and within $3.7\times10^{-8}$ of $-1$ on the flip curve and
 of $+1$ on the fold curve, and every other multiplier has modulus at most $0.21$. Downward, the two curves bound the leg
 to $\alpha_2=0.080$, the bound of the continuation. The strip between them narrows from $1.9$ grid steps at
-$\alpha_2=0.096$ to $0.58$ at $0.0919$, the lowest leg cell the follow run reached, and to $0.015$ at $0.080$
+$\alpha_2=0.096$ to $0.58$ at $0.0919$, the leg's lowest period-5 cell in the follow run, and to $0.015$ at $0.080$
 (Figure~\ref{fig:lowerleg}c). Upward, the fold curve reverses direction at $(-0.11938,0.10042)$, where the continuation
 flags a cusp that we have not located, and the flip curve bends sharply at $(-0.12214,0.10135)$. Both then run back
-down the left of the plane alongside curves continued from the body, of the other kind, at median distances of $0.017$
-and $0.055$ grid steps (at most $0.055$ and $0.46$) over $\alpha_2\in[0.087,0.0995]$; they cross the body's curves only
-at isolated points. In every grid row from $\alpha_2=0.086$ to $0.096$, every period-5 cell of the leg lies inside the
+down the left of the plane alongside curves continued from the body, of the other kind, over
+$\alpha_2\in[0.087,0.0995]$: the returning flip arm at a median distance of $0.017$ grid steps (at most $0.055$) from
+the body's second fold curve, and the returning fold arm at a median of $0.055$ (at most $0.46$) from a flip curve of
+the body; they cross the body's curves only at isolated points. In every grid row from $\alpha_2=0.086$ to $0.096$, every period-5 cell of the leg lies inside the
 strip (39 of 39), although the strip is only $0.58$ to $1.9$ cells wide in the rows that have such cells. The strip also
-holds two slowly converging cells and 16 cells that the follow run never computed, all below its lowest leg cell
+holds two slowly converging cells and 16 cells that the follow run never computed, all below the leg's lowest period-5 cell
 (Figure~\ref{fig:lowerleg}b). Across the leg at $\alpha_2=0.094$ the multiplier passes from $+1$ at the fold to $-1$ at
 the flip within $1.5\times10^{-4}$ in $\alpha_1$ (Figure~\ref{fig:lowerleg}d).
 
@@ -4069,8 +4093,8 @@ in Figure~\ref{fig:realshrimp}a) with the fold (black) and flip (red, dashed) cu
 (pink: the 68 cells of the march), the curves continued from the body (gray), the located cusps (gold stars) and the
 cusp flagged on the leg's fold curve (white star); the follow grid ends at $\alpha_2=0.086$ (dotted). (b) The centers of
 all period-5 cells of the leg (white dots) lie between the flip curve and the fold curve. (c) The width of the strip
-between the two curves, in grid steps: it falls below one step at $\alpha_2=0.0934$; the follow run's lowest leg cell is
-at $0.0919$. (d) The leading multiplier of the period-5 orbit along $\alpha_1$ at $\alpha_2=0.094$, from $+1$ at the fold
+between the two curves, in grid steps: it falls below one step at $\alpha_2=0.0934$; the leg's lowest period-5 cell in the
+follow run is at $0.0919$. (d) The leading multiplier of the period-5 orbit along $\alpha_1$ at $\alpha_2=0.094$, from $+1$ at the fold
 through $-1$ at the flip (shaded: the strip), and past the fold on the saddle branch (dotted).}
 \label{fig:lowerleg}
 \end{figure}
@@ -4729,8 +4753,9 @@ temperature.
 The maps use one prompt (Section~\ref{sec:sizemain} adds ten for Qwen2.5-7B and -14B, and four for Qwen2.5-72B, its base
 model, and OLMo-2-7B and -32B), and steering uses contrastive vectors, checked against norm-matched random and sparse-autoencoder
 directions in two models. The soft-token loop is one inference scheme: Appendix~\ref{sec:bridge} extends it to memories of up to sixteen soft tokens and to the growing context of Soft Thinking, but sampled decoding of discrete tokens is a different system. The evidence consists of numerical
-validation, cross-checks and prospectively frozen passage tests (including failed all-row criteria), with a
-computer-assisted proof for only one orbit at one parameter point. Chaos labels are finite-horizon estimates (300
+validation, cross-checks and prospectively frozen passage tests (including failed all-row criteria), with
+computer-assisted proofs for only three orbits at two parameter points (the period-8 orbit and a coexisting period-2
+and period-3 pair). Chaos labels are finite-horizon estimates (300
 measured steps after 300 to 500 transient steps), and the chaotic cells are numerically validated (twin exponents agree with automatic-differentiation tangents, across precisions and horizons) but not yet established by a computer-assisted proof. A computer-assisted proof of chaos, such as a horseshoe verified by covering
 relations, would need enclosures of the map over boxes many orders of magnitude larger than the period-8 proof's
 (radius $2^{-640}$). That proof is unaffected, but its ball arithmetic does not scale to large boxes: in a separate
@@ -4771,14 +4796,17 @@ orbit whose continuation was abandoned, a cell that proved aperiodic, a band who
 a pilot that found no cusp within a bounded search). Of 54 Newton orbit attempts, 7 failed. All nine tangent
 reversals on continued fold curves (seven found by 14 October, and two on traces of a period-4 fold curve continued on
 15 October) are numerically located cusps; the two reversals of a continued flip curve are smooth turns. The four
-reversals on the two fold curves of the period-5 window found on 15 October (below) are located cusps as well. Two of the five
+reversals on the two fold curves of the period-5 window found on 15 October (below) are located cusps as well. Four
+further reversals found on 18 October, one on the lower-left leg's own fold curve, one on the extension of the
+window's second fold curve and two on a partial trace of a fold curve of the window at $\log_{10}T=-0.105$, are flagged
+by the continuation but not located. Two of the five
 regions we flagged as shrimp candidates are reported as shrimp-like. On 15 October, the turning-point search of the
 two-block planes (not counted in Table~\ref{tab:search}) led to two more windows: a period-5 window, reported with its continued orbit and its continued fold and flip curves in
 Appendix~\ref{sec:hostility}, and a period-6 window that was mapped but not continued. One further
 language model (Ouro-1.4B) was explored and is not reported; its apparent chaos was a long transient. Every window
-was chosen after the maps were inspected. Only the passage forecasts, the cusp-unfolding offsets and Huginn's relaxation
-test were fixed before the computations that test them
-(Table~\ref{tab:search}).
+was chosen after the maps were inspected. In the census of Table~\ref{tab:search}, only the passage forecasts, the
+cusp-unfolding offsets and Huginn's relaxation test were fixed before the computations that test them; tests frozen
+later, up to the fixed-shape control of 18 October, are identified as such where they are reported.
 \begin{table}[H]
 \centering\small
 \begin{tabular}{lrrl}
@@ -4838,7 +4866,7 @@ from the raw maps as the set whose omission reproduces both totals (\repo{docs/r
   the enclosed monodromy failed the sufficient condition: the monodromy is strongly nonnormal, so a single norm
   overstates its growth. These failed attempts are kept in the record, and the fourth and eighth powers pass. Their
   induced infinity-norm bounds, rounded up, are $7.51\times10^{-4}$ and $1.9\times10^{-8}$ for the 2-cycle and
-  $0.342$ and $1.09\times10^{-3}$ for the 3-cycle; the numerical leading multipliers are $0.0476$ and $0.239$. An
+  $0.342$ and $1.091\times10^{-3}$ for the 3-cycle; the numerical leading multiplier moduli are $0.0476$ and $0.239$. An
   independent exact-rational audit rechecked every saved row norm (1\,605\,632 entries per orbit) and the scalar
   and separation witnesses. A separate check certifies the token loops: over every box of both orbits, the most probable next token leads all
   151\,936 tokens by a positive margin, so the 2-cycle writes `` is it'' and the 3-cycle a blank line, ``The'' and
@@ -4876,6 +4904,12 @@ from the raw maps as the set whose omission reproduces both totals (\repo{docs/r
   saved rows and statistics an independent implementation reproduced (the generation itself was not rerun); its 7B
   extension (positive) and the behavior test (null on its primary question; no edge optimum), not independently reproduced. All are reported in Section~\ref{sec:consequences}, the behavior test in detail in Appendix~\ref{sec:behaviour}, and each was scored by code pushed before the data
   (\path{docs/repro-task-test.md}, \path{docs/bpc-test.md}).
+\item Prospectively frozen on 18 October, not independently reproduced: the fixed-shape control and dose test in
+  Qwen2.5-0.5B (448 cells; \path{docs/fs-design.md}; Section~\ref{sec:consequences}). With unchanged matrix shapes the
+  paired runs are bitwise identical in every cell, a changed shape reproduces the earlier comparison, and in the
+  chaotic cells the primary dose criterion holds at every dose from $10^{-15}$ to $10^{-7}$. Of the secondary
+  criteria, the slope passed and the periodic one failed: from $d=10^{-9}$ on, more than 10\,\% of the periodic
+  cells separated.
 \item Independently reproduced from saved data (15 October): every summary field of the 0.5B batch-layout comparison
   (448 cells, four comparisons) and the gain-split, logit-bias and crossover summaries of Section~\ref{sec:theory}
   (5353, 6837 and 24 cells); the coefficients and offset rows of the flip normal-form test (Table~\ref{tab:flipnf}); the
@@ -4894,8 +4928,9 @@ proof, the second prospective passage test, the coexistence runs and the near-ni
 \path{docs/manifests/runpod-runs.json} records for each run the GPU type, the code commit, the job and its
 arguments, the wall time and the exit status, and the available hashes of the uploaded code and input archives and of
 the retrieved results, with absent fields left explicit; per-run receipts and accepted provenance limitations are
-kept with it. Regenerated at 02:11 UTC on 16 October 2026, after the last run, it lists 438 runs with retrieved results (code and
-input-archive hashes for 330, result-archive hashes for 412) and 21 pods that ended without results. GPU types round float64 reductions differently, so quantities used across runs
+kept with it. Regenerated at 02:11 UTC on 16 October 2026, it covers the runs up to that time: it lists 438 runs with retrieved results (code and
+input-archive hashes for 330, result-archive hashes for 412) and 21 pods that ended without results. Later runs are
+recorded with their receipts in the research log. GPU types round float64 reductions differently, so quantities used across runs
 were checked across hardware where it mattered (for example, flip parameters agree between CPU and H100 to
 $4\times10^{-15}$).
 {\sloppy Code: \path{tools/explore_llm_soft_loop.py}, \path{tools/bifurcation_curves.py}, \path{tools/llm_feigenbaum.py},
