@@ -347,12 +347,12 @@ def entry(S, out, seconds):
     dirty = bool(subprocess.run(["git", "-C", str(ROOT), "status", "--porcelain", "--",
                                  "tools/render_batch_divergence.py"], capture_output=True, text=True).stdout.strip())
     g, C, P = S["gates"], S["chosen"]["chaotic"], S["chosen"]["periodic"]
-    rel = lambda p: str(Path(p).resolve().relative_to(ROOT.parent))                  # noqa: E731
     return {"file": out.name, "clip": "N4", "chapter": "C7", "shot": "7.2", "seconds": seconds,
             "format": "1920x1080, 30 fps, H.264 High, yuv420p, CRF 16, no audio",
             "tool": "tools/render_batch_divergence.py", "commit": head, "tool_uncommitted": dirty, "sha256": sha256(out),
-            "data_sources": [{"path": rel(p), "sha256": sha256(p)} for p in (H2, FS, CELLS, SUMMARY)]
-                            + [{"path": rel(H2.parent / "repro.json"), "sha256": sha256(H2.parent / "repro.json")}],
+            "data_sources": [{"path": str(Path(p).resolve()), "sha256": sha256(p)}
+                             for p in (H2, FS, CELLS, SUMMARY, H2.parent / "repro.json")]
+                            + [{"path": str(ARTICLE.resolve()), "sha256": sha256(ARTICLE), "use": "statements checked"}],
             "fields": "h2cells: batch64_dist, batch64_agree; fs: repeat_dist, fixedperm_dist; cells: label, "
                       "map_exponent, map_period, cells",
             "numbers_shown": {"chaotic_pass_1e-2": [g["chaotic_pass_1e-2"], g["chaotic_cells"]],

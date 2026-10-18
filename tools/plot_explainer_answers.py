@@ -278,7 +278,8 @@ def entry(S, out, seconds):
     return {"file": out.name, "clip": "N5", "chapter": "C7", "shot": "7.3", "seconds": seconds,
             "format": "1920x1080, 30 fps, H.264 High, yuv420p, CRF 16, no audio",
             "tool": "tools/plot_explainer_answers.py", "commit": head, "tool_uncommitted": dirty, "sha256": sha256(out),
-            "data_sources": [{"path": p, "sha256": sha256(ROOT / p)} for p in S["sources"]],
+            "data_sources": [{"path": str((ROOT / p).resolve()), "sha256": sha256(ROOT / p)} for p in S["sources"]]
+                            + [{"path": str(ARTICLE.resolve()), "sha256": sha256(ARTICLE), "use": "statements checked"}],
             "numbers_shown": shown,
             "reasoning_model_accuracy_shown": f"{S['acc_range'][0]} to {S['acc_range'][1]} % "
                                               "(Soft Thinking arms, both layouts, pm2-summary cells A-gsm8k and C-gsm8k)",

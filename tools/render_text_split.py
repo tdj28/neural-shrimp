@@ -395,7 +395,8 @@ def manifest_entry(S, out, seconds):
             "format": "1920x1080, 30 fps, H.264 High, yuv420p, CRF 16, no audio",
             "tool": "tools/render_text_split.py", "mode": S["mode"], "commit": head, "tool_uncommitted": dirty,
             "sha256": sha256(out),
-            "data_sources": [{"path": p, "sha256": sha256(ROOT / p)} for p in S["sources"]],
+            "data_sources": [{"path": str((ROOT / p).resolve()), "sha256": sha256(ROOT / p)} for p in S["sources"]]
+                            + [{"path": str(ARTICLE.resolve()), "sha256": sha256(ARTICLE), "use": "statements checked"}],
             "fields": "steps[k].top[0].text (most probable token), steps[k].top[:2] (probabilities)"
                       + (", steps[k].twin, steps[k].log10_distance, lyapunov[0]" if S["mode"] == "twin" else ""),
             "numbers_shown": nums,
