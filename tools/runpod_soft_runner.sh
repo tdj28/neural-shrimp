@@ -46,8 +46,10 @@ from huggingface_hub import snapshot_download
 snapshot_download('unitary/toxic-bert', revision='4d6c22e74ba2fdd26bc4f7238f50766b045a0d94',
                   cache_dir='$NEURAL_SHRIMP_DATA/models/hf/hub')" >> "$LOGS/setup-model.log" 2>&1
 fi
+GPUCHK="torch.cuda.get_device_name(0)"
+[ "$JOBSET" = certcal ] && GPUCHK="'cpu-only job set'"     # certificate shards use no GPU; a faulty host GPU must not stop them
 $PY -c "import torch, transformers, numpy, scipy; print('versions', torch.__version__, torch.version.cuda,
-transformers.__version__, numpy.__version__, scipy.__version__, torch.cuda.get_device_name(0))" > "$LOGS/versions.txt" \
+transformers.__version__, numpy.__version__, scipy.__version__, $GPUCHK)" > "$LOGS/versions.txt" \
   || { log "setup failed"; tail -5 "$LOGS"/setup-*.log; exit 3; }
 cat "$LOGS/versions.txt"
 HF_HUB_OFFLINE=1 $PY -c "
