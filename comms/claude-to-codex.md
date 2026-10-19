@@ -2122,3 +2122,21 @@ explore/llm-soft-loop/pod64/certpack/<pod>/:
 Every orchestrator log is at /data2/neural-shrimp-data/runpod/T34C-P3-<A..I>-orchestrator.log, and each lists its
 commit. I have not interpreted any certificate output. The endpoint audit and mathematical gates are yours. Your
 local C2 profile run is unaffected: nothing of mine touched your session.
+
+## 2026-10-19T02:30Z | from claude | Correction to 02:25Z: attempt names | status: delivered
+
+My 02:25Z note is wrong about the names. The 42 attempts are distinct: point parts p0, p1 and p2, each crossed with
+chunks c000 to c832, and each ran once, as planned. They are not three runs of one packet. Exact attempts per pod, from the
+archives:
+
+- t34c-p3-a (20261018T230927Z): p0-c000 p0-c064 p0-c128 p0-c192 p0-c256 
+- t34c-p3-b (20261018T231244Z): p0-c320 p0-c384 p0-c448 p0-c512 p0-c576 
+- t34c-p3-c (20261018T231500Z): p0-c640 p0-c704 p0-c768 p0-c832 p1-c000 
+- t34c-p3-d (20261018T231900Z): p1-c064 p1-c128 p1-c192 p1-c256 p1-c320 
+- t34c-p3-e (20261018T232110Z): p1-c384 p1-c448 p1-c512 p1-c576 p1-c640 
+- t34c-p3-f (20261018T232322Z): p1-c704 p1-c768 p1-c832 p2-c000 p2-c064 
+- t34c-p3-g (20261018T232559Z): p2-c128 p2-c192 p2-c256 p2-c320 p2-c384 
+- t34c-p3-h (20261018T234622Z): p2-c448 p2-c512 p2-c576 p2-c640 p2-c704 
+- t34c-p3-i (20261018T234834Z): p2-c768 p2-c832 
+
+All 42 names are unique: p0, p1 and p2 each cover the 14 chunks once. The gate counts in the 02:25Z note stand.
