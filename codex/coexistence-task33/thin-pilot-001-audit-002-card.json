@@ -1,0 +1,58 @@
+{
+  "schema": "codex-task33-thin-audit-execution-card-v1",
+  "created_utc": "2026-10-19T02:57:38.502989+00:00",
+  "auditor_sha256": "b2a84b5022f71cadfce91e6fc21fa4ad9953bb0a1a0b0c1d62d24d43f0c7e4d5",
+  "original_execution": {
+    "source_commit": "e8db350006098683ab170645bf7ee7c317ca3b56",
+    "card": {
+      "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/coexistence-task33/thin-pilot-001-card.json",
+      "bytes": 4859,
+      "sha256": "33922427cb39bb72662122ae06c461acdbfc9314344e4e9f8a468d2b47164213"
+    },
+    "plan": {
+      "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/coexistence-task33/thin-pilot-001-plan.json",
+      "bytes": 9344,
+      "sha256": "bf07856a9637d1f174bcd4dfe65f66d2055091d59ac8758f6001ca0c3ef4ac90"
+    },
+    "receipt": {
+      "path": "/data2/neural-shrimp-data/codex/coexistence/thin-pilot-001-supervision/receipt.json",
+      "bytes": 9588,
+      "sha256": "8cc26e4a6eba2227bf6712588c7ff4fce381be855cb8b6b04b1fd6fbe13f4711"
+    },
+    "admission": {
+      "path": "/data2/neural-shrimp-data/codex/coexistence/thin-pilot-001-supervision/admission.json",
+      "bytes": 6296,
+      "sha256": "18ef3c15b21502ae758b06c37c2e93038a4953ae53f546a0bacd2ff8c27c0c17"
+    },
+    "lane": "thin",
+    "output": "/data2/neural-shrimp-data/codex/coexistence/thin-pilot-001",
+    "argv": [
+      "/data2/neural-shrimp/.venv/bin/python",
+      "-I",
+      "-B",
+      "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/coexistence-task33/thin_pilot.py",
+      "--card",
+      "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/coexistence-task33/thin-pilot-001-card.json",
+      "--out",
+      "/data2/neural-shrimp-data/codex/coexistence/thin-pilot-001"
+    ]
+  },
+  "result_path": "/data2/neural-shrimp-data/codex/coexistence/thin-pilot-001-audit-002/result.json",
+  "limits": {
+    "as_bytes": 2147483648,
+    "cpu_seconds": 300,
+    "wall_seconds": 360,
+    "output_bytes": 16777216
+  },
+  "cpu_threads": 1,
+  "cpu_ids": [
+    0
+  ],
+  "startup_ram_gib": 20,
+  "runtime_ram_gib": 16,
+  "trajectory_enclosure": false,
+  "certificate_passed": false,
+  "reachability_proved": false,
+  "scope": "One independent saved Fraction chain and initial BF16 row audit. No model replay, trajectory proof or automatic retry/extension.",
+  "amendment": "Exact literal original HF cache chain, canonical regular blob/full content SHA before and after BF16 read. Original audit001 refusal retained."
+}

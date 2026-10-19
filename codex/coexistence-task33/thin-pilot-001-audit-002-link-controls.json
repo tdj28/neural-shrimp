@@ -1,0 +1,61 @@
+{
+  "source": {
+    "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/coexistence-task33/audit_thin_pilot_002.py",
+    "bytes": 20739,
+    "sha256": "b2a84b5022f71cadfce91e6fc21fa4ad9953bb0a1a0b0c1d62d24d43f0c7e4d5"
+  },
+  "controls": [
+    {
+      "control": "literal two-link chain and exact BF16 row accepted",
+      "passed": true
+    },
+    {
+      "control": "different requested snapshot refused",
+      "passed": true
+    },
+    {
+      "control": "one-link metadata refused",
+      "passed": true
+    },
+    {
+      "control": "wrong link target refused",
+      "passed": true
+    },
+    {
+      "control": "different canonical destination refused",
+      "passed": true
+    },
+    {
+      "control": "changed/dangling cache link refused",
+      "passed": true
+    },
+    {
+      "control": "regular replacement of cache link refused",
+      "passed": true
+    },
+    {
+      "control": "generic evidence symlink remains refused",
+      "passed": true
+    },
+    {
+      "control": "wrong canonical content hash refused",
+      "passed": true
+    },
+    {
+      "control": "canonical symlink destination refused",
+      "passed": true
+    },
+    {
+      "control": "fresh audit002 allocation differs from preserved001",
+      "passed": true
+    },
+    {
+      "control": "only declared allocation/run functions differ; all numeric/authority helpers unchanged",
+      "passed": true
+    }
+  ],
+  "count": 12,
+  "target_evidence_reads": false,
+  "model_calls": 0,
+  "scope": "New exact-cache-chain adapter controls only; prior suites not repeated."
+}

@@ -1,0 +1,56 @@
+{
+  "checked_utc": "2026-10-19T02:57:38.502989+00:00",
+  "status": "closed_audit_refusal",
+  "receipt": {
+    "path": "/data2/neural-shrimp-data/codex/coexistence/thin-pilot-001-audit-001-supervision/receipt.json",
+    "bytes": 6143,
+    "sha256": "65493235c350f3bc4020fdfe78497e3cfe54352392f37b13657fd19ca5f40225"
+  },
+  "admission": {
+    "path": "/data2/neural-shrimp-data/codex/coexistence/thin-pilot-001-audit-001-supervision/admission.json",
+    "bytes": 4813,
+    "sha256": "788fc6d1ca8bf9ae6e7e1f4ebfc9a5eb853a7c200cf29a0474c52e7c15b23948"
+  },
+  "source_commit": "0ae6aaf413fcf68c45a16d713b64e4d461a7cdb5",
+  "output_files": [
+    {
+      "path": "/data2/neural-shrimp-data/codex/coexistence/thin-pilot-001-audit-001/failure.json",
+      "bytes": 1117,
+      "sha256": "8d5c34c8d228558870e2795f617f4cd74ecdce338da426f381ba71f37955c1c9"
+    }
+  ],
+  "source_blobs": [
+    {
+      "relative_path": "codex/coexistence-task33/audit_thin_pilot.py",
+      "sha256": "3acb5dd4caf238d11d3cddd0921d4736854de5a1e782f70f419fd4975f1b7490",
+      "bytes": 18897
+    },
+    {
+      "relative_path": "codex/certify-chaos/supervise.py",
+      "sha256": "306db32a2c8ada9beb67547bbaafc6d0d7a597b5861b0e629ca9a07801223c44",
+      "bytes": 8727
+    },
+    {
+      "relative_path": "codex/coexistence-task33/thin-pilot-001-audit-card.json",
+      "sha256": "1a6ba4dc5d07d5e232a31e30180dd0e33822efdb88af6e8aa61db813d7fa1450",
+      "bytes": 2404
+    },
+    {
+      "relative_path": "codex/coexistence-task33/thin-pilot-001-audit-admission-review.md",
+      "sha256": "bb9f19a3d41cbcae89c33f8a0bd4e0642e8735c0c49b327ce1aaa790f6ca9810",
+      "bytes": 3102
+    },
+    {
+      "relative_path": "codex/coexistence-task33/thin-pilot-saved-audit-source-review.md",
+      "sha256": "295e6f3d9a12553b18ea73b963110eb0d84ec7a1f0e104d5b86bedc1006c819c",
+      "bytes": 13063
+    }
+  ],
+  "host_original_groups_absent": true,
+  "external_elapsed_seconds": 1.0228966027498245,
+  "reason": "Generic regular-file-only checkpoint pin refused the original HF two-link cache snapshot before independent BF16/chain audit. Original science completed20steps; no saved-audit success claimed.",
+  "independent_scientific_audit_passed": false,
+  "trajectory_enclosure": false,
+  "certificate_passed": false,
+  "scope": "Short audit already closed before separate Root host check; no Root live-start claim. Original001 unchanged."
+}
