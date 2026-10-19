@@ -51,7 +51,7 @@ def load_curves(folder, max_residual, kind_tol):
     return out, report
 
 
-def boundary_gate(fa, ft, lab, fper, curves, period):
+def boundary_gate(fa, ft, lab, fper, curves, period, window=None):
     """As plot_real_shrimp.boundary_gate, in the (alpha, log10 T) plane with each axis in its own grid steps: for every
     pair of 8-neighbouring cells with (i) period p next to period 2p, the distance from the pair's midpoint to the
     nearest flip curve, and (ii) period p next to a cell where the attractor was lost, the distance to the nearest
@@ -83,6 +83,8 @@ def boundary_gate(fa, ft, lab, fper, curves, period):
                 if not (0 <= ii < n2 and 0 <= jj < n1) or lab[ii, jj] < 0:
                     continue
                 mid = ((fa[j] + fa[jj]) / 2, (ft[i] + ft[ii]) / 2)
+                if window and not (window[0] <= mid[0] <= window[1] and window[2] <= mid[1] <= window[3]):
+                    continue                      # pairs whose midpoint lies outside the gate window are not counted
                 if lab[ii, jj] == 1 and fper[ii, jj] == 2 * period and polys["flip"]:
                     pairs[f"{period}|{2 * period} (flip)"].append(dist(mid, "flip"))
                 elif lab[ii, jj] == 0 and polys["fold"]:
@@ -241,7 +243,9 @@ def main():
         axB.set_title(f"({letters[k0 + 1]}) the attractor followed from the body", fontsize=8)
         axB.legend(handles=handles, fontsize=5.6, loc="upper center", bbox_to_anchor=(0.5, -0.17), ncol=2,
                    frameon=False)                 # outside the axes: nothing of the domain is covered
-        summary["boundary_gate"] = boundary_gate(fa, ft, lab, fper, curves, args.period)
+        summary["boundary_gate"] = boundary_gate(fa, ft, lab, fper, curves, args.period)       # whole followed domain
+        summary["boundary_gate_window"] = list(ext)                                              # the close-up window
+        summary["boundary_gate_in_window"] = boundary_gate(fa, ft, lab, fper, curves, args.period, window=ext)
         summary["follow"] = {"members": int((lab == 1).sum()), "chaos_behind_text": int((lab == 2).sum()),
                              "slow": int((lab == 3).sum()), "lost": int((lab == 0).sum()),
                              "periods": {str(p): int(((lab == 1) & (fper == p)).sum()) for p in periods}}

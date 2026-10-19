@@ -805,9 +805,9 @@ tables that the library would otherwise compute in float32; two exceptions, floa
 records and a float32 final normalization in the two-GPU runs of 70B-class models before 14 October, are marked where they occur (Appendix~\ref{sec:methods} and Section~\ref{sec:sizemain}). A cell of a phase map is chaotic when the
 largest finite-horizon Lyapunov exponent of a twin trajectory (offset $10^{-6}$, renormalized every step; 300
 measured steps after 300 transient ones unless stated) exceeds $10^{-3}$ and no period up to 32 (48 in later zooms) is
-found; at 448 checked cells automatic-differentiation tangents reproduce the twin exponents within $0.0041$, and the label is a finite-horizon diagnostic, not a proof. The measured steps include the twin's alignment with
-the leading direction from its random start in 896 dimensions, which shifts the exponent of a periodic cell, in
-either direction, from $\ln|\mu_1|/p$ of its orbit: at two adjacent cells inside the kite of Figure~\ref{fig:p6kite},
+found; at 448 checked cells automatic-differentiation tangents reproduce the twin exponents within $0.0041$, and the label is a finite-horizon diagnostic, not a proof. The averaging window includes the twin's alignment from
+a random direction in 896 dimensions, so the finite-window estimate of a periodic cell differs from $\ln|\mu_1|/p$
+of its orbit, by amounts consistent with that transient (its contribution has not been isolated): at two adjacent cells inside the kite of Figure~\ref{fig:p6kite},
 the map gives $-0.2786$ and $-0.0885$ per step and the Newton-converged period-6 orbits $-0.2821$ and $-0.0813$, offsets
 of $+0.0035$ and $-0.0073$ (\repo{tools/kite_basin_check.py}). Periodic cells are classified by their period, not by
 this exponent; the gray scale of the maps carries the offset. In random samples of 192 chaos-labeled cells from each of the two main float64 maps (Figures~\ref{fig:stripes} and~\ref{fig:teaser}), 176 and 143 cells were never captured by a periodic orbit in $10^5$ steps and all but one kept a positive exponent; the others were long transients that ended on periodic orbits after 600 to 97{,}500 steps \cite{grebogi1983crises}. Chaotic shares of a map are therefore finite-horizon shares of its window.
@@ -2259,7 +2259,7 @@ which need only a nonlinear degeneracy.
 \paragraph{The shrimp itself.} From the fixed start, a $512\times512$ map of the window (Figure~\ref{fig:realshrimp}a;
 run HP5) shows the window's family in 59\,\% of the cells of the followed domain; in 24\,\% the fixed start reaches
 another periodic attractor, mostly the coexisting period-4 attractor and its doublings (periods 4, 8, 16 and 32), in
-12\,\% chaos, and in 5\,\% neither. To see the window whole, we followed its attractor from the body outward over a grid of
+12\,\% a largest exponent above $10^{-3}$ (chaos; at 33 cells it overrides a detected period), and in 5\,\% neither. To see the window whole, we followed its attractor from the body outward over a grid of
 spacing $1.25\times10^{-4}$ in both strengths (Figure~\ref{fig:realshrimp}; \repo{tools/follow_attractor.py}). Each
 cell starts from the final state of a neighboring cell that is still on the attractor and runs 250 steps, followed by
 300 recorded steps with a twin. It stays on the attractor only if its orbit has a period that is a multiple of five and
@@ -2399,11 +2399,12 @@ Figure~\ref{fig:cross512}, the attractor fills 4224 cells: a body and three long
 periods 12, 24 and 48 in 945 along the edges, other periods in 35, chaos behind the repeating text in 811 and slow
 cells in 487. Four float64 branches out of the body end at a fold above and on the right and at flips on the left and
 below. Continued in the plane with every point gated (residual at most $10^{-10}$, critical multiplier real and within
-$10^{-7}$ of $\pm1$), the curves outline the anatomy of Gallas's cell (Figure~\ref{fig:anatomy}a): the fold curve bounds
+$10^{-7}$ of $\pm1$ on the body and kite curves; four points of the extended leg curves reach $2.9\times10^{-7}$), the curves outline the anatomy of Gallas's cell (Figure~\ref{fig:anatomy}a): the fold curve bounds
 the body above and on the right, one flip curve bounds it on the upper left and a second along its bottom, and the
-doubled shells lie beyond both. Over the body, the edge of the followed domain lies within two grid steps of the curves
-for 294 of 419 neighboring pairs of periods 6 and 12 and for 384 of 742 pairs of period 6 and a lost attractor (median
-distances 0.4 and 0.6 steps); the far parts of the legs leave the traced curves, so their boundary is not resolved. A
+doubled shells lie beyond both. Within the window of Figure~\ref{fig:p6shrimp}a, the edge of the followed domain lies within two grid steps of the
+curves for all 232 neighboring pairs of periods 6 and 12 and all 459 pairs of period 6 and a lost attractor (median
+distances 0.19 steps); over the whole followed domain the shares fall to 388 of 916 and 1{,}720 of 1{,}888 (medians 4.3
+and 0.24 steps), because the far parts of the legs leave the traced curves, so their boundary is not resolved. A
 $640\times640$ fixed-start map centered on the body (steps $4.4\times10^{-6}$ in $\alpha$ and $1.25\times10^{-5}$ in
 $\log_{10}T$, about seven times finer than Figure~\ref{fig:cross512}; 66.5\,\% of its cells chaotic) shows the body
 with its dark lines of strongest contraction, the flip region along its bottom and the two lower legs leaving its
@@ -2427,7 +2428,7 @@ $0.07301$; at that temperature the two attracting orbits coexist for $\alpha$ be
 orbit, continued upward in $\log_{10}T$ from its flip at fixed $\alpha$, is attracting up to its own fold at
 $-0.153657$. The fold curves traced from the two folds turn back at the same point, the kite's cusp C, located at
 $(0.0730186,-0.1532803)$ (cubic coefficient $c=-1.33\times10^{4}$, unfolding determinant $\det J=-2624$, critical
-multiplier within $7.6\times10^{-9}$ of $+1$, next modulus $0.00095$), on the side of R toward the head. Its two
+multiplier within $7.7\times10^{-9}$ of $+1$, next modulus $0.00095$), on the side of R toward the head. Its two
 branches meet the two flip curves at A $=(0.072991,-0.153984)$ and B $=(0.072900,-0.153707)$, completing the kite
 C--A--R--B of Gallas's cell. Besides C,
 the fold curves have five more located cusps (Table~\ref{tab:p6cusps}): near the ends of the upper-left and lower-left
@@ -2443,10 +2444,12 @@ leading pair, $0.0004\pm0.0063i$, with a third
 multiplier of modulus $0.0051$: three multipliers of nearly equal small modulus, the near-nilpotent signature of the
 period-5 head. The dark line of strongest contraction runs from the flip crossing up the body and bends to the upper
 left, and all nine cells with a complex leading pair lie on its upper part (arguments 43 to 135 degrees, moduli 0.006
-to 0.038). The product $\delta=\mu_1\mu_2$ of the two leading multipliers is negative in 151 of the 529 cells, on the
-fold side of a single curve that runs up from the crossing. The real leading multiplier changes sign between neighboring
-cells 45 times; by an endpoint rule, 7 of these are candidate zero crossings ($|\mu_1|$ within a factor 3 of $|\mu_2|$
-on both sides) and 38 are exchanges of dominance between real multipliers of opposite sign. For a smoothly tracked
+to 0.038). At 289 solved cells the two largest-modulus multipliers form a real or complex-conjugate pair, and their real product
+is negative at 143; at the other 240 the leading real multiplier is followed by a complex-conjugate pair, so the first
+two alone define no real two-dimensional determinant, and we infer no determinant-zero curve from them. The real
+leading multiplier changes sign across 45 neighboring solved pairs; only two have leading and next moduli within a
+factor three at both ends, and this endpoint test does not tell a multiplier crossing zero from an exchange of
+dominance. For a smoothly tracked
 two-dimensional invariant subspace the eigenvalues solve $\lambda^2-\tau\lambda+\delta=0$, so $\delta=0$ marks a zero
 eigenvalue of that block, not of the leading multiplier; if $\delta$ has a nondegenerate saddle with a nonzero saddle
 value, its zero set near the saddle has two hyperbolic branches that approach and turn away, and the eigenvalues are
@@ -2510,52 +2513,56 @@ from cell to cell.}
 \label{fig:p6hook}
 \end{figure*}
 
-\paragraph{Symbolic dynamics.} The window's organization follows from a one-dimensional map, as the shape of a
-periodicity hub of the R\"ossler system follows from a conjugacy of its return map to unimodal maps
-\cite{jones2012rossler}. Where the attractor writes the body's six-token text, the loop visits six thin bands of the
-state space in turn, one per token, and returns to each band every six steps. Within a band, the six-step return map is,
-in most of the region, one-dimensional with a single turning point: plotted against its predecessor along the band, the next visit traces a
-parabola (Figure~\ref{fig:p6returnmaps}). We code each visit by the side of the turning point it lies on, L on the
-increasing branch and R on the decreasing one. The side is the sign of the six-step derivative along the band, which
-the twin trajectory of the Lyapunov exponent provides (\repo{tools/symbolic_dynamics.py}): the twin's offset direction is carried along the attractor, and
-its scalar product with its own direction six steps earlier has the sign of that derivative wherever the band turns
-by less than a right angle. In 48 of the 58 chaotic cells of a $48\times48$
-map of the window that write the six-token text, one threshold along the band separates the L visits from the R visits,
-with at most 4.7\,\% of the rarer symbol on the wrong side (none in 23
-cells), in every phase where the band is straight enough for the sign to be defined. The other 10
-cells lie in one column beside the body's left flip curve (3) and below the kite
-(7). In 7 of them the return map has more
-than one turning point: it rises and falls more than once (Figure~\ref{fig:p6returnmaps}h--k), so the six-step map
-there is not unimodal. A unimodal map with negative Schwarzian derivative has at most one attracting periodic orbit
-\cite{singer1978stable}; the extra turning points just below the kite fit the two attracting orbits that coexist inside
-it.
+\paragraph{Symbolic dynamics.} Jones's unimodal interpretation of selected R\"ossler return maps, in which the
+shape of a periodicity hub follows from a conjugacy to unimodal maps \cite{jones2012rossler}, suggests an approximate
+scalar coding of the six-band attractor. Where the attractor writes the body's six-token text, the loop visits six thin
+bands of the state space in turn, one per token, and returns to each band every six steps. Many sampled six-step return
+maps, plotted along a band's first principal axis, show a single turning point: the next visit traces a parabola against
+the previous one (Figure~\ref{fig:p6returnmaps}). We code each visit by the branch it lies on, L on the increasing one
+and R on the decreasing one. The branch is read from the sign of the six-step derivative along the band, which the twin
+trajectory of the Lyapunov exponent provides (\repo{tools/symbolic_dynamics.py}): the twin's offset direction is carried along the
+attractor, and its scalar product with its own direction six steps earlier has the sign of that derivative where the
+offset is aligned with the band and the band turns by less than a right angle. The checks below support this
+approximation; they do not prove it. Pooling the misplaced visits and the rarer symbol's visits over the phases where
+the band is straight enough for the sign to be defined, 48 of the 58 chaotic six-band cells of a $48\times48$ map of
+the window have an error ratio below 5\,\% (the largest passing ratio is 4.7\,\%, 23 cells have none, and a single
+phase of a passing cell reaches 21.7\,\%). The other 10 cells fail the coding test: one column beside the body's left
+flip curve (3) and below the kite (7). In 7 of them the return map has more than one resolved turning point: it rises
+and falls more than once (Figure~\ref{fig:p6returnmaps}h--k). For a $C^3$ unimodal interval map with negative
+Schwarzian derivative, at most one attracting periodic orbit can have an immediate basin that avoids the interval's
+endpoints \cite{singer1978stable}; the extra turning points below the kite are consistent with a scalar explanation of
+the coexistence inside it, but they establish neither a global scalar reduction nor its Schwarzian sign.
 
-A periodic orbit of period $6k$ visits each band $k$ times. The signs of its visits, rotated to the largest sequence in
-the order of kneading theory, give the word of its window in the sense of Metropolis, Stein and Stein
-\cite{metropolis1973finite,milnor1988iterated}: the itinerary of the critical point, whose last symbol tells on which
-side of the window's superstable curve the orbit lies. On the $640\times640$ grid of Figure~\ref{fig:p6shrimp}a,
-44{,}577 periodic cells of the six-band region carry a word, 23
-distinct words in all, each a superstable word of the quadratic family (Figure~\ref{fig:words}). The body and its period
-doublings carry the words of the doubling cascade: the empty word (period 6), R (12), RLR (24) and RLRRRLR (48). Windows
-in the surrounding chaos carry other words, among them RL (period 18), RLRR (30), and RLRRR and RLLRL, two distinct
-windows of period 36 that only their words tell apart. Each window is split by its superstable curve into a half where
-the orbit's leading multiplier is positive, next to the boundary where the orbit is born (a fold, or for a doubled orbit
-the flip curve of its parent), and a half where it is negative, next to its own flip; the multiplier's sign is that of
-$(-1)^{n_R}$, with $n_R$ the number of R's in the word including its last symbol. The 153 cells on the curves themselves, where the leading pair is
-complex, have no defined last symbol. Float64 Newton solves with exact Jacobians at the center of the largest patch of
-each window and side (23 cells) (Table~\ref{tab:p6words}) give the scan's word at all 16 cells where at
-least one phase is clean, and a complex leading pair at the 2 cells marked as on a superstable
-curve. At the remaining 5, just below the kite, no phase is clean, and the words found there
-(RLL, RLLLRLL, RLLLRLR, RLLLRRR) remain unconfirmed. Of the six-band cells, 3\,\%
-carry no word; 63\,\% of them lie within two cells of a window's edge.
+A periodic orbit of period $6k$ visits each band $k$ times. Its signs, rotated to the largest sequence in the order of
+kneading theory, give it a label W|X in the sense of Metropolis, Stein and Stein
+\cite{metropolis1973finite,milnor1988iterated}: W is matched to the quadratic family's superstable itinerary WC and
+names the window, and X records the orbit's inferred last branch symbol. Away from a superstable parameter this is an
+orbit label, not a measured itinerary of the critical point. After phase voting and an explicit MSS-admissibility
+filter, 44{,}577 periodic six-band cells on the $640\times640$ grid of Figure~\ref{fig:p6shrimp}a receive
+23 distinct window labels (Figure~\ref{fig:words}); the filter rejects 240 further cells whose labels are not
+MSS words. The body and its period doublings carry the words of the doubling cascade: the empty word (period 6), R (12),
+RLR (24) and RLRRRLR (48). Windows in the surrounding chaos carry other words, among them RL (period 18), RLRR (30), and
+RLRRR and RLLRL, two distinct windows of period 36 that only their words tell apart. Within a window, the label predicts
+the sign of the orbit's leading multiplier, $(-1)^{n_R}$ with $n_R$ the number of R's in W|X: positive next to the
+boundary where the orbit is born (a fold, or for a doubled orbit the flip curve of its parent) and negative next to its
+own flip. The curve where the predicted sign changes is a candidate for the window's superstable curve. The scan
+assigns C to 153 cells whose usable phases do not agree sufficiently on the last symbol; at the two selected C cells,
+Newton calculations report small, nonzero complex leading pairs. These labels mark ambiguous scalar coding, not
+located superstable curves. Float64 Newton solves with exact Jacobians at the center of the largest patch of each label
+(23 cells) (Table~\ref{tab:p6words}), scored by a subsequent clean-phase rule (phases whose L and R visits one threshold
+separates along the band, with every $|\cos|\ge0.5$), reproduce the scan's label at 16 cells; the two C cells have
+complex leading pairs, and at the remaining 5, just below the kite, no phase is clean, so their words (RLL, RLLLRLL,
+RLLLRLR, RLLLRRR) remain unconfirmed. These checks support selected labels, not the whole map. In total, 1{,}469 of the
+46{,}046 eligible periodic six-band cells fail a coding gate (3.2\,\%); 922 of them (63\,\%) lie within Euclidean
+distance two grid cells of the eligible domain's edge.
 
 \begin{figure*}[tbp]
 \centering
 \includegraphics[width=\textwidth]{fig-p6-return-maps.png}
 \caption{Return maps of the six-band chaos around the period-6 shrimp (Qwen2.5-0.5B-Instruct, philosophy direction at
 layer 12, float64; 1000 transient and 3000 recorded steps per cell). (a) The cells of a $48\times48$ map of the window of
-Figure~\ref{fig:p6shrimp}a: chaotic cells writing the six-token text whose visits a single threshold codes (green) or
-does not (red), other chaotic cells (gray) and periodic cells (white). (b--g) Six-step return maps at six green
+Figure~\ref{fig:p6shrimp}a: chaotic cells writing the six-token text that pass the pooled coding test (green: misplaced visits
+below 5\,\% of the rarer symbol's, pooled over the usable phases) or fail it (red), other chaotic cells (gray) and periodic cells (white). (b--g) Six-step return maps at six green
 cells: the position along one band (its first principal axis) against the position at the previous visit; blue:
 visits where the six-step derivative is positive (L), red: negative (R). (h--k) Return maps at four red cells (letters
 in (a)) with more than one turning point.}
@@ -2567,8 +2574,8 @@ in (a)) with more than one turning point.}
 \includegraphics[width=0.92\textwidth]{fig-p6-words.png}
 \caption{Symbolic words of the period-6 shrimp's windows ($640\times640$ float64 cells, the grid of
 Figure~\ref{fig:p6shrimp}a). (a) Each periodic cell of the six-band region colored by the word of its window: pale
-where the orbit's leading multiplier is positive, full where it is negative, magenta on the window's superstable curve
-(complex leading pair); light gray: chaos; mid gray: other periodic orbits; dark gray: no word. Windows marked ``not
+where the label predicts a positive leading multiplier, full where it predicts a negative one, magenta where the
+phases disagree on the last symbol (C); light gray: chaos; mid gray: other periodic orbits; dark gray: no word. Windows marked ``not
 confirmed'' in the legend are those of Table~\ref{tab:p6words}'s cells without a clean phase. (b) The box in (a). (c) The same words at the
 superstable parameters of the quadratic family $x\mapsto a-x^2$, on its bifurcation diagram (the body's empty word is
 that of its fixed point, at $a=0$); labels give the period of the soft-token orbit, six times the word's period.}
@@ -2581,7 +2588,7 @@ that of its fixed point, at $a=0$); labels give the period of the soft-token orb
 center of the largest patch of each window word and side of Figure~\ref{fig:words} (at least three cells). Word and
 side: the scan's label; $\mu_1$: the orbit's leading multiplier; clean: the phases whose L and R visits one threshold
 separates along the band, with every $|\cos|\ge0.5$; result: the clean phases give the scan's word (confirmed), no
-phase is clean, or the leading pair is complex (a cell on the superstable curve, side C).}
+phase is clean, or the leading pair is complex (side C: the scan's phases disagree on the last symbol).}
 \label{tab:p6words}
 \footnotesize
 \begin{tabular}{llrlrrl}
@@ -2660,7 +2667,8 @@ number attracting (green: the count predicted before the computation; orange: no
 $\log_{10}T=-0.1$, float64). (a) A $512\times512$ map of the window from the fixed start (run HP5; steps
 $2.4\times10^{-5}$ in $\alpha_1$ and $3.8\times10^{-5}$ in $\alpha_2$): cells whose period is a multiple of five, the
 window's family, in gray by contraction; other periodic attractors (among them the coexisting period-4 attractor that
-the fixed start reaches in parts of the legs) pale; chaotic cells by their largest exponent. (b) The same map with the
+the fixed start reaches in parts of the legs) pale; cells whose largest exponent exceeds $10^{-3}$ by its value (this overrides a detected period at 33 cells of the
+followed domain). (b) The same map with the
 window's verified skeleton: the fold curves (black; multiplier $+1$) and flip curves (red, dashed; $-1$) of the period-5
 orbit, including the lower-left leg's own pair (Figure~\ref{fig:lowerleg}), the located cusps (gold stars), the
 self-crossings of the fold curves (magenta) and the near-nilpotent point (white circle). Cyan: the edge of the domain of
@@ -5232,11 +5240,12 @@ tokens reversed, and both changes together; an opposite system prompt; happy and
 same texts without chat markup, a system prompt three times as long and a two-turn conversation; three prompts that are
 a single random vector, with no text at all; and the base prompt with the loop started from three random vectors.
 Every prompt gives chaos with periodic windows: 5.9 to 14.9\,\% of the plane is
-chaotic (7.0\,\% for the base prompt), with largest exponents of 0.62 to 0.85 per step. Removing the user message doubles the chaotic share, and even a prompt that is one random vector gives
+chaotic (7.0\,\% for the base prompt), with largest exponents of 0.62 to 0.85 per step (here chaotic means a largest exponent above $10^{-3}$ alone; this
+finite-window indicator overlaps a detected period at 3 to 18 cells per map). Removing the user message doubles the chaotic share, and even a prompt that is one random vector gives
 8 to 10\,\%. The prompt decides where the chaos lies, not whether it occurs: the
 chaotic cells of a variant overlap those of the base prompt by 1 to 37\,\%
-(Jaccard index). The start does not matter: from the three random starts the maps agree with the base map at
-98.9 to 99.0\,\% of the cells. Across the 19 prompts there is
+(Jaccard index). For the three random starts, the chaos/non-chaos threshold labels agree with the base run at
+98.9 to 99.0\,\% of the cells; the reached orbit still depends on the start: the detected periods agree at 86.5 to 93.1\,\%. Across the 19 prompts there is
 nonetheless a common structure (Figure~\ref{fig:promptfreq}): 48.3\,\% of the cells are chaotic for at
 least one prompt but only 3.0\,\% for half of them or more, and these hot spots lie at moderate
 steering of either sign in a band of temperature, where the mean fraction of chaotic cells per row peaks at 38\,\% near $\log_{10}T=0.15$, against 0.8\,\% below
@@ -5251,8 +5260,8 @@ at layer 12, float64;
 $128\times128$ cells over $\alpha\in[-0.12,0.12]$ and $\log_{10}T\in[-1,0.3]$). (a) The chaotic share of the plane for
 each of the 22 variants (19 prefixes, and the base prefix with the loop started from three random vectors), grouped by
 the kind of change; dotted: the base prompt (the system prompt ``You are an AI talking
-with another AI\ldots'' and the user message ``Hello!''). (b) Eight of the maps (gray: periodic, darker where more
-contracting; colors: the largest exponent of chaotic cells). The exact texts and token identities of the prompts are in
+with another AI\ldots'' and the user message ``Hello!''). (b) Eight of the maps (colors: the largest exponent where it exceeds $10^{-3}$; gray: the other cells, darker where
+more contracting, among them a few unresolved nonperiodic cells). The exact texts and token identities of the prompts are in
 the project repository (\repo{docs/prompt-variants}).}
 \label{fig:prompts}
 \end{figure*}

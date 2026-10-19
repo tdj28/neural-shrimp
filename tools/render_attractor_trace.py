@@ -94,6 +94,10 @@ def main():
                     "(for periodic cells); otherwise only the aperiodic ones")
     ap.add_argument("--zoom", type=float, default=1.0, help="scale factor for the picture (below 1 zooms out)")
     ap.add_argument("--title", default="One chaotic trajectory through the attractor")
+    ap.add_argument("--title-bottom", type=float, default=0.12, help="fraction of the frame height above the picture")
+    ap.add_argument("--workers", type=int, default=1, help="processes rendering frames in parallel (fork)")
+    ap.add_argument("--text-band-top", type=float, default=0.80, help="the picture ends above this fraction of the "
+                    "frame height; the running text and the spoken word sit below it")
     args = ap.parse_args()
     import matplotlib
     matplotlib.use("Agg")
@@ -141,81 +145,119 @@ def main():
     nF = int(np.ceil(total * args.fps))
     W, H = args.width, args.height
     fs = W / 1920
-    scale = 0.55 * min(W, H) * args.zoom
-    fig = plt.figure(figsize=(W / 100, H / 100), dpi=100, facecolor="k")
-    ax = fig.add_axes([0, 0, 1, 1])
-    ax.set_axis_off()
-    im = ax.imshow(np.zeros((H, W, 3)), interpolation="nearest", extent=[0, W, H, 0])
-    ax.set_xlim(0, W)
-    ax.set_ylim(H, 0)
-    trail = [ax.plot([], [], "-", color="w", lw=2.2 * fs, alpha=a, solid_capstyle="round")[0]
-             for a in np.linspace(0.55, 0.06, 8)]
-    halo2 = ax.scatter([0], [0], s=420 * fs, alpha=0.20, linewidths=0)
-    halo1 = ax.scatter([0], [0], s=130 * fs, alpha=0.50, linewidths=0)
-    core = ax.scatter([0], [0], s=38 * fs, color="w", linewidths=0)
-    a = rec["args"]
-    fig.text(0.02, 0.955, args.title, color="w", fontsize=24 * fs)
-    fig.text(0.02, 0.922, f"Qwen2.5-0.5B-Instruct, soft-token loop, steering $\\alpha={a['alpha']}$, "
-             f"$\\log_{{10}}T={a['log_t']}$, {a['dtype']}; each jump of the dot is one step of the loop", color="0.8",
-             fontsize=15 * fs)
-    if args.glide == "step" or (isinstance(args.glide, float) and args.glide > 0.2):
-        fig.text(0.02, 0.89, "the loop is a map: its state jumps once per step; the dot glides between states only "
-                 "to guide the eye", color="0.6", fontsize=12 * fs)
-    for k, t in enumerate(top):                       # the colors: the token the loop writes next
-        fig.text(0.02, 0.84 - 0.034 * k, "\u25cf", color=rt.PALETTE[k], fontsize=17 * fs)
-        fig.text(0.04, 0.842 - 0.034 * k, repr(tok.decode([int(t)])).replace("\\n\\n", "\u23ce").replace("\\n", "\u23ce"),
-                 color="0.9", fontsize=14 * fs, family="monospace")
-    fig.text(0.02, 0.84 - 0.034 * len(top), "\u25cf", color=rt.OTHER, fontsize=17 * fs)
-    fig.text(0.04, 0.842 - 0.034 * len(top), "other tokens", color="0.9", fontsize=14 * fs)
-    fig.text(0.02, 0.875, "color: the most probable next token", color="0.75", fontsize=13 * fs)
-    fig.text(0.5, 0.165, "\u23ce marks a line break that the loop writes", color="0.55", fontsize=12 * fs, ha="center")
-    t_hist = fig.text(0.5, 0.115, "", color="0.75", fontsize=19 * fs, family="monospace", ha="center")
-    t_word = fig.text(0.5, 0.04, "", color="w", fontsize=40 * fs, ha="center", weight="bold")
-    t_step = fig.text(0.98, 0.955, "", color="0.6", fontsize=14 * fs, ha="right")
+    # the attractor is fitted, over the whole camera path, between the title block (top 12 % of the frame) and the
+    # text band (bottom 20 %), so the running text and the spoken word never cover it (human, 19 Oct 2026: "text ...
+    # in the lower center area ... covers up the attractor")
+    ups, downs, sides = [], [], []
+    sub = P[:: max(1, len(P) // 20000)]
+    for u in np.linspace(0, 1, 25):
+        Q = sub @ rt.rotation(np.radians(30.0 + args.turn * u), np.radians(22.0 + 8.0 * np.sin(2 * np.pi * u))).T
+        f = 3.0 / (3.0 + Q[:, 1])
+        ups.append(np.percentile(Q[:, 2] * f, 99.7))
+        downs.append(np.percentile(-Q[:, 2] * f, 99.7))
+        sides.append(np.percentile(np.abs(Q[:, 0] * f), 99.7))
+    up, down, side = max(ups), max(downs), max(sides)
+    scale = min((args.text_band_top - args.title_bottom) * H / (up + down), 0.40 * W / side) * args.zoom
+    lift = int(round(H / 2 - (args.title_bottom * H + up * scale)))   # pixels the picture moves up
     tmp = Path(tempfile.mkdtemp(dir=os.environ.get("TMPDIR")))
-    for i in range(nF):
-        tt = i / args.fps
-        u = tt / total
-        az = np.radians(30.0 + args.turn * u)
-        el = np.radians(22.0 + 8.0 * np.sin(2 * np.pi * u))
-        im.set_data(np.clip(rt.render(P, col, az, el, W, H, scale, 3.0, 0.8), 0, 1))
-        k = int(np.searchsorted(starts, tt, side="right")) - 1          # current step (-1: intro)
-        X, Y = project(traj, az, el, W, H, scale)
-        if k < 0:
-            px, py = X[0], Y[0]
-        else:
-            g = 0.65 * durs[k] if args.glide == "step" else float(args.glide)
-            frac = min(1.0, (tt - starts[k]) / g)
-            frac = frac * frac * (3 - 2 * frac)                         # smooth glide from the previous state
-            j0 = max(k - 1, 0)
-            px, py = X[j0] + (X[k] - X[j0]) * frac, Y[j0] + (Y[k] - Y[j0]) * frac
-        kk = max(k, 0)
-        for m, ln in enumerate(trail):
-            j1, j2 = kk - m, kk - m - 1
-            if j2 >= 0:
-                xs = [px if m == 0 else X[j1], X[j2]]
-                ys = [py if m == 0 else Y[j1], Y[j2]]
-                ln.set_data(xs, ys)
+
+    def draw_frames(frame_ids):           # one matplotlib figure per worker; frames depend only on their time
+        fig = plt.figure(figsize=(W / 100, H / 100), dpi=100, facecolor="k")
+        ax = fig.add_axes([0, 0, 1, 1])
+        ax.set_axis_off()
+        im = ax.imshow(np.zeros((H, W, 3)), interpolation="nearest", extent=[0, W, H, 0])
+        ax.set_xlim(0, W)
+        ax.set_ylim(H, 0)
+        trail = [ax.plot([], [], "-", color="w", lw=2.2 * fs, alpha=a, solid_capstyle="round")[0]
+                 for a in np.linspace(0.55, 0.06, 8)]
+        halo2 = ax.scatter([0], [0], s=420 * fs, alpha=0.20, linewidths=0)
+        halo1 = ax.scatter([0], [0], s=130 * fs, alpha=0.50, linewidths=0)
+        core = ax.scatter([0], [0], s=38 * fs, color="w", linewidths=0)
+        a = rec["args"]
+        fig.text(0.02, 0.955, args.title, color="w", fontsize=24 * fs)
+        fig.text(0.02, 0.922, f"Qwen2.5-0.5B-Instruct, soft-token loop, steering $\\alpha={a['alpha']}$, "
+                 f"$\\log_{{10}}T={a['log_t']}$, {a['dtype']}; each jump of the dot is one step of the loop", color="0.8",
+                 fontsize=15 * fs)
+        if args.glide == "step" or (isinstance(args.glide, float) and args.glide > 0.2):
+            fig.text(0.02, 0.89, "the loop is a map: its state jumps once per step; the dot glides between states only "
+                     "to guide the eye", color="0.6", fontsize=12 * fs)
+        for k, t in enumerate(top):                       # the colors: the token the loop writes next
+            fig.text(0.02, 0.84 - 0.034 * k, "\u25cf", color=rt.PALETTE[k], fontsize=17 * fs)
+            label = repr(tok.decode([int(t)])).replace("\\n\\n", "\u23ce").replace("\\n", "\u23ce")
+            fig.text(0.04, 0.842 - 0.034 * k, label + ("  line break" if "\u23ce" in label else ""),
+                     color="0.9", fontsize=14 * fs, family="monospace")
+        fig.text(0.02, 0.84 - 0.034 * len(top), "\u25cf", color=rt.OTHER, fontsize=17 * fs)
+        fig.text(0.04, 0.842 - 0.034 * len(top), "other tokens", color="0.9", fontsize=14 * fs)
+        fig.text(0.02, 0.875, "color: the most probable next token", color="0.75", fontsize=13 * fs)
+        t_hist = fig.text(0.5, 0.115, "", color="0.75", fontsize=19 * fs, family="monospace", ha="center")
+        t_word = fig.text(0.5, 0.04, "", color="w", fontsize=40 * fs, ha="center", weight="bold")
+        t_step = fig.text(0.98, 0.955, "", color="0.6", fontsize=14 * fs, ha="right")
+        for i in frame_ids:
+            tt = i / args.fps
+            u = tt / total
+            az = np.radians(30.0 + args.turn * u)
+            el = np.radians(22.0 + 8.0 * np.sin(2 * np.pi * u))
+            frame = np.clip(rt.render(P, col, az, el, W, H, scale, 3.0, 0.8), 0, 1)
+            if lift > 0:
+                frame = np.concatenate([frame[lift:], np.zeros((lift,) + frame.shape[1:])])
+            elif lift < 0:
+                frame = np.concatenate([np.zeros((-lift,) + frame.shape[1:]), frame[:lift]])
+            im.set_data(frame)
+            k = int(np.searchsorted(starts, tt, side="right")) - 1          # current step (-1: intro)
+            X, Y = project(traj, az, el, W, H, scale)
+            Y = Y - lift
+            if k < 0:
+                px, py = X[0], Y[0]
             else:
-                ln.set_data([], [])
-        c = pal.get(int(ttok[kk]), rt.OTHER)
-        for art in (halo2, halo1, core):
-            art.set_offsets([[px, py]])
-        halo2.set_color([c])
-        halo1.set_color([c])
-        if k < 0:
-            t_word.set_text("")
-            t_hist.set_text("")
-            t_step.set_text("")
-        else:
-            hist = "".join(texts[max(0, k - 24):k]).replace("\n", "⏎")
-            t_hist.set_text("…" + hist[-70:] if hist else "")
-            cur = texts[k].replace("\n", "⏎")
-            t_word.set_text(f"“{cur.strip() or cur}”")
-            t_word.set_color(c)
-            t_step.set_text(f"step {k + 1} of {len(texts)}")
-        fig.savefig(tmp / f"f{i:05d}.png", facecolor="k")
-    plt.close(fig)
+                g = 0.65 * durs[k] if args.glide == "step" else float(args.glide)
+                frac = min(1.0, (tt - starts[k]) / g)
+                frac = frac * frac * (3 - 2 * frac)                         # smooth glide from the previous state
+                j0 = max(k - 1, 0)
+                px, py = X[j0] + (X[k] - X[j0]) * frac, Y[j0] + (Y[k] - Y[j0]) * frac
+            kk = max(k, 0)
+            for m, ln in enumerate(trail):
+                j1, j2 = kk - m, kk - m - 1
+                if j2 >= 0:
+                    xs = [px if m == 0 else X[j1], X[j2]]
+                    ys = [py if m == 0 else Y[j1], Y[j2]]
+                    ln.set_data(xs, ys)
+                else:
+                    ln.set_data([], [])
+            c = pal.get(int(ttok[kk]), rt.OTHER)
+            for art in (halo2, halo1, core):
+                art.set_offsets([[px, py]])
+            halo2.set_color([c])
+            halo1.set_color([c])
+            if k < 0:
+                t_word.set_text("")
+                t_hist.set_text("")
+                t_step.set_text("")
+            else:
+                hist = "".join(texts[max(0, k - 24):k]).replace("\n", "⏎")
+                t_hist.set_text("…" + hist[-70:] if hist else "")
+                cur = texts[k].replace("\n", "⏎")
+                t_word.set_text(f"“{cur.strip() or cur}”")
+                t_word.set_color(c)
+                t_step.set_text(f"step {k + 1} of {len(texts)}")
+            fig.savefig(tmp / f"f{i:05d}.png", facecolor="k")
+        plt.close(fig)
+
+    if args.workers <= 1:
+        draw_frames(range(nF))
+    else:                                 # forked workers inherit everything above; frames interleaved
+        import multiprocessing as mp
+        ctx = mp.get_context("fork")
+        procs = [ctx.Process(target=draw_frames, args=(range(w, nF, args.workers),)) for w in range(args.workers)]
+        for pr in procs:
+            pr.start()
+        for pr in procs:
+            pr.join()
+        failed = [pr.exitcode for pr in procs if pr.exitcode]
+        if failed:
+            raise SystemExit(f"frame workers failed: {failed}")
+        missing = [i for i in range(nF) if not (tmp / f"f{i:05d}.png").exists()]
+        if missing:
+            raise SystemExit(f"{len(missing)} frames missing")
     clips = ([(0.3, intro)] if intro else []) + [(s, clip[spoken(x)]) for s, x in zip(starts, texts) if spoken(x)]
     af = "".join(f"[{n + 1}:a]adelay=delays={int(round(s * 1000))}:all=1[a{n}];" for n, (s, _) in enumerate(clips))
     af += "".join(f"[a{n}]" for n in range(len(clips))) + f"amix=inputs={len(clips)}:duration=longest:normalize=0,"

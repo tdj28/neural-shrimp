@@ -31049,3 +31049,13 @@ conjugacy of the Rössler return map to unimodal maps, and orbits are traced by 
   -0.64..-0.29 and -0.17..-0.13). The outcome alternates from cell to cell.
 - Running: tools/hook_saddle_check.py (is the wedge's lower edge the start crossing the saddle's stable manifold?
   settling-time slope against 6/ln mu_u) and HR12-RS (the same box from a random start).
+
+## 2026-10-19 09:43 UTC: Codex Task 38 applied (5 must-fix, 9 of 10 should-fix; adjudication codex/postnight-task38/adjudication.md)
+
+- Every accepted finding was applied to the article and the report (symbolic-dynamics paragraphs rewritten as an
+  approximate coding; DSS6, gate, PV, HP5, random-start, repro, offset and cusp-bound sentences; figure legends;
+  captions).
+- New boundary-gate recipe recorded in fig-p6-shrimp.json: within the close-up window, flip 232/232 and fold 459/459
+  pairs are within two steps; over the whole followed domain, 388/916 and 1720/1888.
+- S3 (the p6-only branch is out of date) is flagged to the human.
+- Videos: never committed; both repositories now ignore video files (human).

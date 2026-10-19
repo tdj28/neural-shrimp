@@ -359,10 +359,10 @@ def plot_words(a, t, lam, status, word_idx, labels, mss, P, fig_path, zoom=None,
         note = (f"{n_unc} not confirmed, {len(others) - n_unc} not checked" if n_unc else "not checked")
         handles.append(Patch(color=OTHER_COLOR, label=f"{len(others)} other MSS words, periods {min(P * (len(W) + 1) for W in others)}"
                              f" to {max(P * (len(W) + 1) for W in others)}: {sum(present[W] for W in others)} cells ({note})"))
-    handles += [Patch(color=(1, 0, 1), label="on a superstable curve (X = C)"), Patch(color=(0.88, 0.88, 0.88), label="chaotic"),
+    handles += [Patch(color=(1, 0, 1), label="phases disagree on the last symbol (C)"), Patch(color=(0.88, 0.88, 0.88), label="chaotic"),
                 Patch(color=(0.55, 0.55, 0.55), label="other periodic"), Patch(color=(0.30, 0.30, 0.30), label="no word (gate failed)")]
     fig.legend(handles=handles, fontsize=5.8, loc="upper center", bbox_to_anchor=(0.5, 0.995), ncol=4, frameon=False,
-               title="window word W (pale: leading multiplier positive; full: negative)", title_fontsize=6.5)
+               title="window word W (leading multiplier predicted from the label: pale positive, full negative)", title_fontsize=6.5)
     fig.subplots_adjust(top=0.86)
     Path(fig_path).parent.mkdir(parents=True, exist_ok=True)
     fig.savefig(fig_path, dpi=300, bbox_inches="tight")
@@ -608,8 +608,8 @@ def plot_returnmaps(cells, zs, args, body):
     axm.set_ylabel(r"$\log_{10}T$")
     axm.set_title("(a) the cells of the 48 x 48 map", fontsize=7.5)
     from matplotlib.patches import Patch
-    axm.legend(handles=[Patch(color=(0.2, 0.6, 0.2), label="6-band chaos, unimodal coding"),
-                        Patch(color=(0.8, 0.2, 0.2), label="6-band chaos, not unimodal"),
+    axm.legend(handles=[Patch(color=(0.2, 0.6, 0.2), label="6-band chaos, passes the coding test"),
+                        Patch(color=(0.8, 0.2, 0.2), label="6-band chaos, fails the coding test"),
                         Patch(color=(0.6, 0.6, 0.6), label="other chaos"),
                         Patch(facecolor="w", edgecolor="k", lw=0.5, label="periodic")],
                fontsize=6, loc="upper center", bbox_to_anchor=(0.5, -0.09), ncol=2, frameon=False)
@@ -634,7 +634,7 @@ def plot_returnmaps(cells, zs, args, body):
         sv = z["return_projection"][c["row"], c["col"], jb, :, 0].astype(float)
         cs = z["word_cos"][c["row"], c["col"], jb + P::P][: len(sv) - 1]
         ax.scatter(sv[:-1], sv[1:], c=np.where(cs > 0, "tab:blue", "tab:red"), s=2, lw=0)
-        ax.set_title(f"({chr(104 + i)}) ({c['alpha']:.5f}, {c['log10_temperature']:.5f}), two turning points", fontsize=6.8)
+        ax.set_title(f"({chr(104 + i)}) ({c['alpha']:.5f}, {c['log10_temperature']:.5f}), more than one turning point", fontsize=6.8)
         ax.tick_params(labelsize=5.5)
         ax.set_xlabel(r"$s_n$", fontsize=6.5)
         if i == 0:
