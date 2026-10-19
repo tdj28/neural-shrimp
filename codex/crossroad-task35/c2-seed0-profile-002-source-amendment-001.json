@@ -1,0 +1,85 @@
+{
+  "schema": "codex-task35-held-source-amendment-v1",
+  "recorded_utc": "2026-10-19T20:20:43.066025+00:00",
+  "attempt": "c2-seed0-profile-002",
+  "reason": "Ordinary producer integration changed a current full-file pin while both allocations remained unlaunched/held. Disclosed adaptation of unused002 only; no historical pin replacement.",
+  "before_source_commit": "2db07ca8fd1bfbb9fc948e7fe95979df4f34bb42",
+  "after_source_commit": "de7e4b2dffa54a0968fc8906fce9183fe6b022c6",
+  "producer_change_commit": "005f0489",
+  "original_held_checkpoint": "6c5ddaf98558d5185f50b072c594574b737437df",
+  "historical_held_card": {
+    "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/crossroad-task35/c2-seed0-profile-002-card.json",
+    "bytes": 18850,
+    "sha256": "2d30207b58f95e3c5520ae8c46fa343e2bb887b2d245b6d0c35f552ad278bf39"
+  },
+  "historical_held_plan": {
+    "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/crossroad-task35/c2-seed0-profile-002-plan.json",
+    "bytes": 28123,
+    "sha256": "93c4ee2101a3aed162e4f8f39615110b3098dffab0a86c8a75f1f37e7ff79e07"
+  },
+  "historical_held_review": {
+    "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/crossroad-task35/c2-seed0-profile-002-review.json",
+    "bytes": 2547,
+    "sha256": "989d20ff2272410c204c0e6c7fd509c44bbe0ef9d42a85fceac77810cf2fef45"
+  },
+  "historical_packet_check": {
+    "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/crossroad-task35/c2-seed0-profile-002-packet-check.json",
+    "bytes": 2027,
+    "sha256": "44cc6d5250330fe325fb93d58ac1f69239c524f83f41840e3e6713e921f63f5b"
+  },
+  "historical_witness_scope": "Same-path old card/plan pins remain Git witnesses at6c5ddaf9, not current file pins. Original94ff source assessment, failed001 and their evidence are immutable.",
+  "old_full_source_pin": {
+    "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/tools/explore_llm_soft_loop.py",
+    "bytes": 130247,
+    "sha256": "6d9440be7f11b305a2e2e7e96956e533a4cdff9ea1309d7f2b006c2d289baf4e"
+  },
+  "current_full_source_pin": {
+    "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/tools/explore_llm_soft_loop.py",
+    "bytes": 131162,
+    "sha256": "938ce242164f2fa4960ef7fa05119076a43611a8e3cdc6f319796e8a4a590316"
+  },
+  "only_changed_top_level_ast_definitions": [
+    "render",
+    "main"
+  ],
+  "all_other_top_level_ast_nodes_unchanged": true,
+  "relevant_exact_source_segments": [
+    {
+      "symbol": "SoftLoop",
+      "bytes": 10771,
+      "sha256": "139fe8e3534873807375c326be13cc3f6161d28c4a9bdf2e33e0447759dc5032",
+      "exact_source_segment_unchanged": true
+    },
+    {
+      "symbol": "SoftOrbit",
+      "bytes": 8966,
+      "sha256": "ee3bcf3bd19f1b5841395b17bda27a1f3a7692cffd845ad02aa34984880c9f32",
+      "exact_source_segment_unchanged": true
+    },
+    {
+      "symbol": "soft_family",
+      "bytes": 6138,
+      "sha256": "1eac6e77ca93c73ba80624a777d7bc46f69e68ee13914005f00e9884bc8c08fc",
+      "exact_source_segment_unchanged": true
+    }
+  ],
+  "source_segment_algorithm": "SHA256 of UTF8 ast.get_source_segment for sole selected top-level class/function; not AST dump. Top-level AST equality is separate static coverage.",
+  "reviewers": [
+    "Root",
+    "task37_citations"
+  ],
+  "review_result": "PASS_for_bounded_source_delta",
+  "review_summary": "Nine added lines implement halo curves in render and add its CLI option in main. The new matplotlib.patheffects import is inside the optional render branch; CLI parsing remains under unchanged __main__ guard. Neither render nor main is reached by seeded_branch_002 importing SoftLoop/SoftOrbit/soft_family. No caller/helper/numerical source-path edit was made.",
+  "no_runtime_equivalence_or_native_trace_claim": true,
+  "new_controls_or_model_calls": 0,
+  "source_import_arrays_assets_runtime_capacity_reads": false,
+  "original_source_review_repeated": false,
+  "task34_saved_audit_affected": false,
+  "task34_scope": "Its plan has no soft_loop or symbolic_dynamics pin; closed original records and held saved-audit files remain unchanged.",
+  "card_delta": "Replace only the current soft_loop entry in inputs; attach this amendment, preserve initial held card/plan as historical Git witnesses, disclose integrated producer source change. All scientific parameters/external expected pins/limits/output paths remain identical.",
+  "plan_delta": "Replace only current soft_loop and card pins in source_files/preflight; append this amendment pin. Keep prior receipts and held/null admission/false authority fields.",
+  "capacity_reply_received": false,
+  "launch_authorized": false,
+  "scientific_qualification_admitted": false,
+  "certificate_passed": false
+}
