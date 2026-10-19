@@ -1,6 +1,6 @@
 {
   "schema": "codex-task33-tube-saved-audit-card-v1",
-  "status": "held_for_recovery_controls_and_separate_admission",
+  "status": "held_for_separate_admission",
   "created_utc": "2026-10-19T14:01:04.482328+00:00",
   "repository": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp",
   "output": "/data2/neural-shrimp-data/codex/coexistence/tube-target-001-audit-002",
@@ -103,7 +103,18 @@
     "coverage_disposition": "28 original methods and other test12 subcases passed; isolated corrected independent-pin refusal passed. Original29-method outcome remains failed, no broad rerun.",
     "source_unchanged": true
   },
-  "new_mocked_controls": null,
+  "new_mocked_controls": {
+    "receipt": {
+      "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/coexistence-task33/tube-saved-authority-002-controls-001.json",
+      "bytes": 2625,
+      "sha256": "fb7173e4c9881c1b3306c72ca6529c44eefb66f0e54ddedfee11856f71078446"
+    },
+    "source_commit": "4a4fe17607bb80d47470ea48ffdf914f04390516",
+    "new_methods": 10,
+    "passed": true,
+    "old_controls_repeated": false,
+    "actual_saved_audit_launched": false
+  },
   "recovery_amendment": {
     "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/coexistence-task33/tube-target-001-audit-002-recovery-amendment.json",
     "bytes": 2939,
@@ -124,5 +135,16 @@
     "sha256": "84a5f18a6e49a2a74a96d2f03fcc60935c9d4c99f5155645c9a4ae5b83607cf9"
   },
   "actual_fresh_capacity_admission": null,
-  "launch_authorized_by_preparation": false
+  "launch_authorized_by_preparation": false,
+  "precontrol_source_checkpoint": "4a4fe17607bb80d47470ea48ffdf914f04390516",
+  "precontrol_card": {
+    "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/coexistence-task33/tube-target-001-audit-002-card.json",
+    "bytes": 6751,
+    "sha256": "307bac560196d2dd613f56c89edf7d22bd98b5e91dab3e44e3a6ff5188e716b6"
+  },
+  "preparation_result": {
+    "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/coexistence-task33/tube-saved-authority-002-preparation-result.md",
+    "bytes": 3308,
+    "sha256": "18af11b5216fc7f8c5533268f6e6edceb8135f28f2e1c57aff3dc13e367dfd0e"
+  }
 }
