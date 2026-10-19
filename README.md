@@ -20,8 +20,7 @@ used for low-dimensional dynamical systems. Its main findings:
 
 ## The paper
 
-- **arXiv version:** a 27-page article written for the journal *Chaos* (link to be added when the preprint is
-  announced).
+- **arXiv version:** a focused article with the central results (link to be added when the preprint is announced).
 - **Full report:** [`paper/llm/main.pdf`](paper/llm/main.pdf), about 160 pages, with source in `paper/llm/`. It has every
   result, the methods, the test designs fixed before their data, the controls, and the failed or inconclusive attempts.
 - The tag `arxiv-v1` marks the state of this repository at the arXiv submission.
