@@ -152,7 +152,7 @@ def main():
     ax.set_ylim(ext[2], ext[3])
     ax.set_xlabel("steering along 'hostility-vs-kindness'")
     ax.set_ylabel("log10 temperature")
-    ax.set_title("(a) period-7 body: superstable lines are dark", fontsize=9)
+    ax.set_title("(a) period-7 body: dark lines where the leading multiplier is small", fontsize=9)
     report = {"rows": int(len(T)), "log10T": [float(T[0]), float(T[-1])], "cusps": cusps}
     if dss.exists():
         g = np.load(dss)
@@ -182,7 +182,7 @@ def main():
         bx.set_xlabel("steering along 'hostility-vs-kindness'")
         bx.set_ylabel("log10 temperature")
         bx.set_title("(b) one continued period-7 orbit: sign of its multiplier (red +, blue -),\n"
-                     "dark where |mu| is small; black: the superstable curves (mu = 0)", fontsize=8)
+                     "dark where |mu| is small; black: sign changes of the leading real multiplier", fontsize=8)
         report.update({"dss_cells": int(mu.size), "ok": int(ok.sum()), "zero_segments": len(segs),
                        "checkerboard_cells": n_check})
     if args.zoom:
@@ -205,7 +205,7 @@ def main():
         cx.set_xlabel("steering along 'hostility-vs-kindness'")
         cx.set_ylabel("log10 temperature")
         cx.set_title("(c) zoom of the closest approach: where a 1D map would have its center,\n"
-                     "the leading multipliers form a complex pair (x); white: mu = 0 between real cells", fontsize=8)
+                     "the leading multipliers form a complex pair (x); white: sign change between real cells", fontsize=8)
         if dss.exists():
             axes[0, 1].add_patch(plt.Rectangle((za[0], zt[0]), za[-1] - za[0], zt[-1] - zt[0], fill=False, ec="cyan",
                                                lw=1.0))
