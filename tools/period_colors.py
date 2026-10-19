@@ -21,13 +21,22 @@ from dataclasses import dataclass
 import numpy as np
 
 OTHER_COLOUR = (0.55, 0.55, 0.62, 1.0)      # bluish grey: periods (or attractors) without a colour of their own
+# Okabe and Ito's colours other than black, told apart under the common colour-vision deficiencies
+OKABE_ITO = ("#0072B2", "#E69F00", "#56B4E9", "#CC79A7", "#009E73", "#D55E00", "#F0E442")
 
 
-def palette():
-    """Qualitative colours without greys (grey marks special codes), in the order they are handed out: the nine
-    saturated tab20 colours, their nine light partners, then tab20b."""
+def palette(kind="tab"):
+    """Qualitative colours without greys (grey marks special codes), in the order they are handed out. kind "tab": the
+    nine saturated tab20 colours, their nine light partners, then tab20b; kind "cvd": the seven colours of OKABE_ITO,
+    safe for readers with colour-vision deficiencies (with fewer colours, more periods share "other")."""
     import matplotlib
 
+    if kind == "cvd":
+        from matplotlib.colors import to_rgba
+
+        return np.array([to_rgba(c) for c in OKABE_ITO])
+    if kind != "tab":
+        raise ValueError(f"unknown palette {kind!r}")
     tab20 = matplotlib.colormaps["tab20"](np.arange(20))
     tab20b = matplotlib.colormaps["tab20b"](np.arange(20))
     dark, light = np.delete(tab20[0::2], 7, axis=0), np.delete(tab20[1::2], 7, axis=0)   # index 7: the greys
@@ -155,20 +164,20 @@ def blocks_that_fit(ax, min_fontsize=6.5):
     return max(2, int(0.9 * length / min_fontsize))
 
 
-def categorize(arrays, max_blocks=None, other_colour=OTHER_COLOUR, bad="white"):
+def categorize(arrays, max_blocks=None, other_colour=OTHER_COLOUR, bad="white", kind="tab"):
     """Categories for the positive periods found in `arrays` (one array or a list of arrays: the panels sharing one
     colour scale). Non-positive and non-finite values are special codes and get no category.
 
     Colours are handed out in palette order by frequency (most cells first; ties: the shorter period), so the large
     regions get the saturated colours; categories, colour-bar blocks and legend entries are listed by period. With
     more periods than distinct colours (the palette) or than `max_blocks` (colour-bar blocks, "other" included),
-    only the most frequent periods get colours and the rest are grouped as "other"."""
+    only the most frequent periods get colours and the rest are grouped as "other". `kind` selects the palette."""
     if isinstance(arrays, np.ndarray) or np.isscalar(arrays):
         arrays = [arrays]
     vals = _positive_periods(arrays)
     if vals.size == 0:
         raise ValueError("no positive periods: nothing to colour by period")
-    colours = palette()
+    colours = palette(kind)
     if max_blocks is not None and int(max_blocks) < 2:
         raise ValueError(f"max_blocks must be at least 2, got {max_blocks}")
     u, counts = np.unique(vals, return_counts=True)

@@ -179,7 +179,7 @@ def render_args(tmp_path, **kw):
     import argparse
 
     a = dict(scan="s", max_period=None, chaos_level=0.005, curves=None, name=str(tmp_path / "out.png"), title=None,
-             window=None, style="period", families=0)
+             window=None, style="period", families=0, box=None)                # the CLI's defaults
     a.update(kw)
     return argparse.Namespace(**a)
 
@@ -192,7 +192,9 @@ def legend_and_image(fig):
 
 
 SCAN_P = np.array([[2, 3, 17, 33], [0, 2, 40, 33], [3, 0, 17, 2]], dtype=float)
-SCAN_L = np.where(np.array([[0, 0, 0, 0], [0, 0, 1, 0], [0, 0, 0, 0]]) == 1, 0.2, -0.3)   # the period-40 cell is chaotic
+# two cells with a positive exponent: the period-40 cell (a detected period wins: drawn by its period) and a cell
+# without a period (chaotic by the scans' criterion: exponent above the level and no period)
+SCAN_L = np.where(np.array([[0, 0, 0, 0], [0, 0, 1, 0], [0, 1, 0, 0]]) == 1, 0.2, -0.3)
 
 
 def test_render_gives_every_drawn_period_its_own_entry(monkeypatch, tmp_path):
@@ -200,10 +202,12 @@ def test_render_gives_every_drawn_period_its_own_entry(monkeypatch, tmp_path):
     fake_scan(tmp_path, SCAN_P, SCAN_L)
     esl.render(render_args(tmp_path))
     colours, img = legend_and_image(figs[0])
-    assert [k for k in colours if k.isdigit()] == ["2", "3", "17", "33"]  # 40 is drawn black (chaotic)
+    assert [k for k in colours if k.isdigit()] == ["2", "3", "17", "33", "40"]
     for r, c in np.ndindex(SCAN_P.shape):
         p = int(SCAN_P[r, c])
-        want = colours["Lyapunov > 0.005"] if SCAN_L[r, c] > 0.005 else colours[str(p)] if p > 0 \
+        chaotic = SCAN_L[r, c] > 0.005 and p <= 0
+        chaos_key = next(k for k in colours if k.startswith("chaotic (exponent > 0.005"))   # the legend's chaos entry
+        want = colours[chaos_key] if chaotic else colours[str(p)] if p > 0 \
             else colours["no period, not chaotic"]
         assert np.allclose(img[r, c], want), (r, c, p)
 
@@ -241,3 +245,13 @@ def test_replot_scan_figure_has_one_block_per_period(monkeypatch, tmp_path):
     bar = [ax for ax in figs[0].axes if ax.get_label() == "<colorbar>"][1]   # Lyapunov, period, entropy bars
     assert [t.get_text() for t in bar.get_yticklabels()] == ["1", "2", "25"]
     assert np.array_equal(bar.get_yticks(), [0, 1, 2])
+
+
+def test_cvd_palette_hands_out_okabe_ito_colours():
+    from matplotlib.colors import to_rgba
+
+    cats = pc.categorize([np.array([6, 6, 6, 12, 12, 24])], kind="cvd")
+    assert cats.periods == (6, 12, 24)
+    assert np.allclose(cats.colours, [to_rgba(c) for c in pc.OKABE_ITO[:3]])   # most frequent period first
+    with pytest.raises(ValueError):
+        pc.palette("rainbow")

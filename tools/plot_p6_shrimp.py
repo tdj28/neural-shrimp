@@ -3,17 +3,26 @@ against log10 T) with its verified skeleton, drawn as the period-5 shrimp of the
 fold curves black and solid, flip curves red and dashed, cusp candidates as gold stars.
 
 Panels:
-(a) the 512 x 512 float64 map HR9 (3x finer than Fig. 1), colored as Fig. 1 (chaotic cells by their largest exponent,
-    periodic cells in gray by contraction), with the continued curves;
-(b) the attractor followed from the body (tools/follow_attractor.py --plane alpha-temperature): members of the
+(a) with --clean: a float64 map alone (the report's figure: HR10, 640 x 640 cells, about 7x finer than Fig. 1), colored
+    as Fig. 1 (chaotic cells by their largest exponent, periodic cells in gray by contraction);
+(b) the same map with the continued curves (omitted with --skip-curves);
+(c) the attractor followed from the body (tools/follow_attractor.py --plane alpha-temperature): members of the
     period-6 family by period (6, 12, 24, ...), chaos behind the text, slow cells, and cells where the attractor was
     lost, with the same curves.
 
 Gate: every curve point drawn has residual <= --max-residual and a critical multiplier of the curve's kind (real +1 for
 a fold, real -1 for a flip, within --kind-tol); rejected points are counted and reported, never drawn.
 
-Usage: python tools/plot_p6_shrimp.py --scan llm-soft-loop/pod64/hr9 --curves llm-soft-loop/pod64/p6s \
-         --follow llm-soft-loop/pod64/p6s/follow --out paper/llm/figures/fig-p6-shrimp.png
+Usage (the report's figure, three panels):
+    python tools/plot_p6_shrimp.py --scan llm-soft-loop/pod64/hr10 --curves llm-soft-loop/pod64/p6s \
+      --follow llm-soft-loop/pod64/p6s/follow --clean --pseudo 0.072912 -0.154104 --extra llm-soft-loop/pod64/kite \
+      --follow-window 0.0672 0.0764 -0.164 -0.146 --out paper/llm/figures/fig-p6-shrimp.png
+The article's figure, two panels over one window (Fig. 1's map cropped with Fig. 1's colors, white box: the window of
+the close-up beside Gallas's cell; the followed attractor in colors safe for color-vision deficiencies):
+    python tools/plot_p6_shrimp.py --scan llm-soft-loop/pod64/cross-512 --window 0.0672 0.0764 -0.164 -0.146 \
+      --norm-full --curves llm-soft-loop/pod64/p6s --extra llm-soft-loop/pod64/kite --follow llm-soft-loop/pod64/p6s/follow \
+      --follow-window 0.0672 0.0764 -0.164 -0.146 --clean --skip-curves --short-titles --cvd \
+      --box 0.0718 0.0746 -0.157 -0.149 --out paper/llm/figures/fig-p6-shrimp-pair.png
 """
 import argparse
 import json
@@ -97,6 +106,37 @@ def boundary_gate(fa, ft, lab, fper, curves, period, window=None):
     return out
 
 
+def map_image(scan, window=None, chaos_level=1e-3, norm_full=False):
+    """The Lyapunov map of DATA/explore/<scan>/scan.npz as an RGBA image, colored as Fig. 1: chaotic cells (exponent
+    above chaos_level, no period) by their exponent in plasma, the others in gray, darker where more contracting. The
+    colors are scaled over the window, or over the whole scan with norm_full (a crop of a map then keeps its colors).
+    Returns the image, its extent, the exponents, the chaotic mask and the norm of the exponent colors."""
+    import matplotlib.pyplot as plt
+    from matplotlib.colors import Normalize
+
+    d = np.load(DATA / "explore" / scan / "scan.npz", allow_pickle=True)
+    lt, al, per, ly = d["log10_temperature"], d["alpha"], d["period"], d["lyapunov"]
+    full_ly, full_per = ly, per
+    if window:
+        a0, a1, t0, t1 = window
+        rows, cols = (lt >= t0) & (lt <= t1), (al >= a0) & (al <= a1)
+        if not rows.any() or not cols.any():
+            raise SystemExit("the window contains no cells of this scan")
+        lt, al, per, ly = lt[rows], al[cols], per[np.ix_(rows, cols)], ly[np.ix_(rows, cols)]
+    chaos = (ly > chaos_level) & (per <= 0)
+    ref_ly, ref_chaos = (full_ly, (full_ly > chaos_level) & (full_per <= 0)) if norm_full else (ly, chaos)
+    hot_norm = Normalize(0.0, float(np.max(ref_ly[ref_chaos])) if ref_chaos.any() else 1.0)
+    neg = np.clip(-ly, 0, None)
+    ref_neg = np.clip(-ref_ly, 0, None)
+    cap = max(float(np.percentile(ref_neg[~ref_chaos], 99)) if (~ref_chaos).any() else 1.0, 1e-12)
+    grey = 1.0 - 0.9 * np.clip(neg / cap, 0, 1) ** 0.5
+    img = np.stack([grey, grey, grey, np.ones_like(grey)], axis=-1)
+    img[chaos] = plt.get_cmap("plasma")(hot_norm(ly[chaos]))
+    da, dt = (al[1] - al[0]) / 2, (lt[1] - lt[0]) / 2
+    ext = [al[0] - da, al[-1] + da, lt[0] - dt, lt[-1] + dt]
+    return img, ext, ly, chaos, hot_norm
+
+
 def draw_located(ax, located, ms=9):
     """Gold stars at cusps located and checked by tools/cusp_locate.py (located: true)."""
     for f in located:
@@ -122,72 +162,9 @@ def draw_curves(ax, curves, lw=1.1, ms=7):
                 path_effects=[pe.Stroke(linewidth=lw + 1.2, foreground="w", alpha=0.7), pe.Normal()])
 
 
-def main():
-    ap = argparse.ArgumentParser(description=__doc__.split("\n\n")[0])
-    ap.add_argument("--scan", required=True)
-    ap.add_argument("--curves", required=True, help="explore-relative folder holding the *curve-*/curve.json runs")
-    ap.add_argument("--follow", default=None, help="explore-relative folder with follow.npz")
-    ap.add_argument("--window", type=float, nargs=4, default=None, metavar=("A0", "A1", "T0", "T1"))
-    ap.add_argument("--follow-window", type=float, nargs=4, default=None, metavar=("A0", "A1", "T0", "T1"),
-                    help="axis limits of panel (b) (default: those of panel a)")
-    ap.add_argument("--max-residual", type=float, default=1e-8)
-    ap.add_argument("--kind-tol", type=float, default=1e-3)
-    ap.add_argument("--chaos-level", type=float, default=1e-3)
-    ap.add_argument("--period", type=int, default=6, help="period of the body (for the boundary gate)")
-    ap.add_argument("--clean", action="store_true", help="add a first panel with the map alone, without curves")
-    ap.add_argument("--extra", nargs="*", default=[], help="further explore-relative folders whose curves and located cusps "
-                    "are drawn too (e.g. llm-soft-loop/pod64/kite)")
-    ap.add_argument("--head", type=float, nargs=2, default=None, metavar=("ALPHA", "LOG10T"),
-                    help="mark the head (the body's most contracting point) with a white circle")
-    ap.add_argument("--pseudo", type=float, nargs=2, default=None, metavar=("ALPHA", "LOG10T"),
-                    help="mark a verified pseudo-crossing of flip curves (two distinct orbits) with a cyan diamond")
-    ap.add_argument("--out", required=True)
-    args = ap.parse_args()
-
-    import matplotlib
-    matplotlib.use("Agg")
-    import matplotlib.pyplot as plt
-    from matplotlib.cm import ScalarMappable
-    from matplotlib.colors import ListedColormap, Normalize
-    from matplotlib.lines import Line2D
-    from matplotlib.patches import Patch
-
-    d = np.load(DATA / "explore" / args.scan / "scan.npz", allow_pickle=True)
-    lt, al, per, ly = d["log10_temperature"], d["alpha"], d["period"], d["lyapunov"]
-    if args.window:
-        a0, a1, t0, t1 = args.window
-        rows, cols = (lt >= t0) & (lt <= t1), (al >= a0) & (al <= a1)
-        lt, al, per, ly = lt[rows], al[cols], per[np.ix_(rows, cols)], ly[np.ix_(rows, cols)]
-    chaos = (ly > args.chaos_level) & (per <= 0)
-    hot_norm = Normalize(0.0, float(np.max(ly[chaos])) if chaos.any() else 1.0)
-    neg = np.clip(-ly, 0, None)
-    cap = max(float(np.percentile(neg[~chaos], 99)) if (~chaos).any() else 1.0, 1e-12)
-    grey = 1.0 - 0.9 * np.clip(neg / cap, 0, 1) ** 0.5
-    img = np.stack([grey, grey, grey, np.ones_like(grey)], axis=-1)
-    img[chaos] = plt.get_cmap("plasma")(hot_norm(ly[chaos]))
-    da, dt = (al[1] - al[0]) / 2, (lt[1] - lt[0]) / 2
-    ext = [al[0] - da, al[-1] + da, lt[0] - dt, lt[-1] + dt]
-
-    curves, report = load_curves(args.curves, args.max_residual, args.kind_tol)
-    located = sorted((DATA / "explore" / args.curves).glob("locate-*/locate.json"))
-    for extra in args.extra:                     # e.g. the kite's fold curves and cusps (run KITE)
-        c2, r2 = load_curves(extra, args.max_residual, args.kind_tol)
-        curves += c2
-        report += r2
-        located += sorted((DATA / "explore" / extra).glob("locate-*/locate.json"))
-    report_located = [{"locate": f.parent.name, "located": json.loads(f.read_text()).get("located")} for f in located]
-    panels = (2 if args.follow else 1) + (1 if args.clean else 0)
-    plt.rcParams.update({"font.size": 8})
-    fig, axes = plt.subplots(1, panels, figsize=(3.6 * panels - 0.2 * (panels - 1), 3.5), squeeze=False)
-    k0 = 0
+def draw_map_with_curves(fig, axes, k0, img, ext, ly, curves, located, args, hot_norm, ScalarMappable):
+    """The panel of the map with the continued curves, the located cusps and the markers; returns its color bar."""
     letters = "abc"
-    if args.clean:                       # the map alone: the window's own shape, with nothing drawn over it
-        ax0 = axes[0, 0]
-        ax0.imshow(img, origin="lower", aspect="auto", interpolation="nearest", extent=ext)
-        ax0.set_xlim(ext[0], ext[1]); ax0.set_ylim(ext[2], ext[3])
-        ax0.set_xlabel(r"steering strength $\alpha$"); ax0.set_ylabel(r"$\log_{10}T$")
-        ax0.set_title(f"(a) Lyapunov map, {ly.shape[1]} x {ly.shape[0]} float64 cells", fontsize=8)
-        k0 = 1
     axA = axes[0, k0]
     axA.imshow(img, origin="lower", aspect="auto", interpolation="nearest", extent=ext)
     draw_curves(axA, curves)
@@ -201,9 +178,85 @@ def main():
     if not args.clean:
         axA.set_ylabel(r"$\log_{10}T$")
     axA.set_title(f"({letters[k0]}) " + ("with the continued curves" if args.clean else
+                  "Lyapunov map" if args.short_titles else
                   f"Lyapunov map, {ly.shape[1]} x {ly.shape[0]} float64 cells"), fontsize=8)
-    cb = fig.colorbar(ScalarMappable(norm=hot_norm, cmap="plasma"), ax=[ax0, axA] if args.clean else axA,
+    cb = fig.colorbar(ScalarMappable(norm=hot_norm, cmap="plasma"), ax=[axes[0, 0], axA] if args.clean else axA,
                       orientation="horizontal", fraction=0.05, pad=0.16 if args.clean else 0.24, aspect=40)
+    return cb
+
+
+def main():
+    ap = argparse.ArgumentParser(description=__doc__.split("\n\n")[0])
+    ap.add_argument("--scan", required=True)
+    ap.add_argument("--curves", required=True, help="explore-relative folder holding the *curve-*/curve.json runs")
+    ap.add_argument("--follow", default=None, help="explore-relative folder with follow.npz")
+    ap.add_argument("--window", type=float, nargs=4, default=None, metavar=("A0", "A1", "T0", "T1"))
+    ap.add_argument("--follow-window", type=float, nargs=4, default=None, metavar=("A0", "A1", "T0", "T1"),
+                    help="axis limits of panel (b) (default: those of panel a)")
+    ap.add_argument("--max-residual", type=float, default=1e-8)
+    ap.add_argument("--kind-tol", type=float, default=1e-3)
+    ap.add_argument("--chaos-level", type=float, default=1e-3)
+    ap.add_argument("--period", type=int, default=6, help="period of the body (for the boundary gate)")
+    ap.add_argument("--clean", action="store_true", help="add a first panel with the map alone, without curves")
+    ap.add_argument("--skip-curves", action="store_true", help="with --clean and --follow: no panel of the map with the "
+                    "curves (they are drawn over the followed attractor only)")
+    ap.add_argument("--norm-full", action="store_true", help="scale the map's colors over the whole scan, not the window "
+                    "(a crop of Fig. 1's map keeps Fig. 1's colors)")
+    ap.add_argument("--short-titles", action="store_true", help="panel titles without the cell counts")
+    ap.add_argument("--box", type=float, nargs=4, default=None, metavar=("A0", "A1", "T0", "T1"),
+                    help="a thin white rectangle on the map alone (e.g. the window of a close-up)")
+    ap.add_argument("--cvd", action="store_true", help="period colors safe for color-vision deficiencies (Okabe-Ito)")
+    ap.add_argument("--extra", nargs="*", default=[], help="further explore-relative folders whose curves and located cusps "
+                    "are drawn too (e.g. llm-soft-loop/pod64/kite)")
+    ap.add_argument("--head", type=float, nargs=2, default=None, metavar=("ALPHA", "LOG10T"),
+                    help="mark the head (the body's most contracting point) with a white circle")
+    ap.add_argument("--pseudo", type=float, nargs=2, default=None, metavar=("ALPHA", "LOG10T"),
+                    help="mark a verified pseudo-crossing of flip curves (two distinct orbits) with a cyan diamond")
+    ap.add_argument("--out", required=True)
+    args = ap.parse_args()
+
+    import matplotlib
+    matplotlib.use("Agg")
+    import matplotlib.pyplot as plt
+    from matplotlib.cm import ScalarMappable
+    from matplotlib.colors import ListedColormap
+    from matplotlib.lines import Line2D
+    from matplotlib.patches import Patch
+
+    if args.skip_curves and not (args.clean and args.follow):
+        raise SystemExit("--skip-curves needs --clean and --follow (the curves must be drawn somewhere)")
+    img, ext, ly, chaos, hot_norm = map_image(args.scan, args.window, args.chaos_level, args.norm_full)
+
+    curves, report = load_curves(args.curves, args.max_residual, args.kind_tol)
+    located = sorted((DATA / "explore" / args.curves).glob("locate-*/locate.json"))
+    for extra in args.extra:                     # e.g. the kite's fold curves and cusps (run KITE)
+        c2, r2 = load_curves(extra, args.max_residual, args.kind_tol)
+        curves += c2
+        report += r2
+        located += sorted((DATA / "explore" / extra).glob("locate-*/locate.json"))
+    report_located = [{"locate": f.parent.name, "located": json.loads(f.read_text()).get("located")} for f in located]
+    panels = (2 if args.follow else 1) + (1 if args.clean else 0) - (1 if args.skip_curves else 0)
+    plt.rcParams.update({"font.size": 8})
+    fig, axes = plt.subplots(1, panels, figsize=(3.6 * panels - 0.2 * (panels - 1), 3.5), squeeze=False)
+    k0 = 0
+    letters = "abc"
+    if args.clean:                       # the map alone: the window's own shape, with nothing drawn over it
+        ax0 = axes[0, 0]
+        ax0.imshow(img, origin="lower", aspect="auto", interpolation="nearest", extent=ext)
+        ax0.set_xlim(ext[0], ext[1]); ax0.set_ylim(ext[2], ext[3])
+        ax0.set_xlabel(r"steering strength $\alpha$"); ax0.set_ylabel(r"$\log_{10}T$")
+        ax0.set_title("(a) Lyapunov map" if args.short_titles else
+                      f"(a) Lyapunov map, {ly.shape[1]} x {ly.shape[0]} float64 cells", fontsize=8)
+        if args.box:
+            b0, b1, c0, c1 = args.box
+            ax0.add_patch(plt.Rectangle((b0, c0), b1 - b0, c1 - c0, fill=False, ec="white", lw=0.9, zorder=5))
+        k0 = 1
+    if args.skip_curves:                         # vertical, as the period bar of (b): both panels keep one size
+        cb = fig.colorbar(ScalarMappable(norm=hot_norm, cmap="plasma"), ax=ax0, orientation="vertical", fraction=0.15,
+                          pad=0.05)
+        k0 = 0                                   # the followed attractor comes next, as panel (b)
+    else:
+        cb = draw_map_with_curves(fig, axes, k0, img, ext, ly, curves, located, args, hot_norm, ScalarMappable)
     cb.set_label(r"chaotic cells: largest exponent $\lambda$", fontsize=7)
     cb.ax.tick_params(labelsize=6.5)
     summary = {"scan": args.scan, "cells": int(ly.size), "chaotic": int(chaos.sum()), "curves": report,
@@ -222,7 +275,7 @@ def main():
         axB.imshow(np.where(lab == 0, 1.0, np.nan), origin="lower", extent=fext, aspect="auto",
                    cmap=ListedColormap(["0.88"]), interpolation="nearest")
         P = np.where(lab == 1, fper.astype(float), np.nan)
-        cats = pc.categorize([P], max_blocks=7)
+        cats = pc.categorize([P], max_blocks=7, kind="cvd" if args.cvd else "tab")
         im = axB.imshow(cats.index(P), origin="lower", extent=fext, aspect="auto", cmap=cats.cmap, norm=cats.norm,
                         interpolation="nearest")
         axB.imshow(np.where(lab == 2, 1.0, np.nan), origin="lower", extent=fext, aspect="auto",
@@ -243,6 +296,11 @@ def main():
         axB.set_title(f"({letters[k0 + 1]}) the attractor followed from the body", fontsize=8)
         axB.legend(handles=handles, fontsize=5.6, loc="upper center", bbox_to_anchor=(0.5, -0.17), ncol=2,
                    frameon=False)                 # outside the axes: nothing of the domain is covered
+        if args.skip_curves:                     # one window in both panels: the same ticks
+            for ax in (ax0, axB):
+                ax.set_xticks([0.068, 0.070, 0.072, 0.074, 0.076])
+                ax.set_yticks([-0.160, -0.155, -0.150])
+            axB.set_ylabel(r"$\log_{10}T$")
         summary["boundary_gate"] = boundary_gate(fa, ft, lab, fper, curves, args.period)       # whole followed domain
         summary["boundary_gate_window"] = list(ext)                                              # the close-up window
         summary["boundary_gate_in_window"] = boundary_gate(fa, ft, lab, fper, curves, args.period, window=ext)

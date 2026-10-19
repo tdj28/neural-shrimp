@@ -31220,3 +31220,36 @@ with HF_HUB_OFFLINE=0, which downloaded Qwen2.5-0.5B-Instruct at the pinned revi
 the project environment (output llm-soft-loop/readme-example-check).
 **Result.** All eight arrays of the two scan.npz files are bitwise identical (exponents, periods, entropies, families):
 16 chaotic and 47 periodic cells of 64. Each run took about 15 minutes with the two sharing the CPU.
+
+## 2026-10-19 19:06 UTC: article figures of the period-6 shrimp regrouped (human request); colorblind-safe period colors
+
+**Why.** The human asked to drop the dovetail panel of the article's anatomy figure, to turn Gallas's cell to the
+orientation of the period-6 shrimp and to show the shrimp beside it, and to show in the map panel the full window of
+the followed attractor ("they are connected shrimp"). A local colorblind audit of the 22 article figures (simulated
+deutan, protan and tritan vision and grayscale; scratch only) found the followed attractor's period colors 12 and 24
+nearly identical under protan vision.
+**Descriptive only; no new computation.** Every panel is drawn from existing records.
+- **Recovered command.** The report's fig-p6-shrimp.png (a865b0b8) was not logged with its last command; it is
+  reproduced byte for byte by `plot_p6_shrimp.py --scan llm-soft-loop/pod64/hr10 --curves llm-soft-loop/pod64/p6s
+  --follow llm-soft-loop/pod64/p6s/follow --clean --pseudo 0.072912 -0.154104 --extra llm-soft-loop/pod64/kite
+  --follow-window 0.0672 0.0764 -0.164 -0.146` (the window read off the committed image's ticks, then confirmed by
+  cmp). After the refactor below the same command still reproduces the file byte for byte, and
+  `plot_shrimp_anatomy.py` with its defaults still reproduces fig-shrimp-anatomy.png byte for byte. The report keeps
+  both figures unchanged.
+- **Article Fig. 19** (`plot_shrimp_anatomy.py --layout pair`, fig-shrimp-anatomy-pair.png): (a) Gallas's cell with
+  both axes reversed (a rotation by 180 degrees; the fold curve then bounds the main cell above and on the right, the
+  flips on the left and below, as for the shrimp); (b) the HR10 map with the continued curves, the kite's cusp C and
+  the pseudo-crossing R, gated as before (1560 points drawn, the same 4 rejected).
+- **Article Fig. 20** (`plot_p6_shrimp.py --skip-curves --norm-full --short-titles --cvd --box`,
+  command in the tool's docstring, fig-p6-shrimp-pair.png): (a) the cross-512 map of Fig. 1 cropped to the followed
+  window (0.0672-0.0764, -0.164 to -0.146; 63,852 cells, colors scaled over the whole map as in Fig. 1), with the
+  window of Fig. 19(b) outlined; (b) the followed attractor with the curves and the six cusps, periods in Okabe-Ito
+  colors (`period_colors.categorize(kind="cvd")`; the default palette is unchanged for the other 16 tools).
+- **Grid wording.** The follow grid steps (2.93e-5, 8.8e-5) are Fig. 1's (2.9354e-5, 8.8063e-5) rounded to three
+  digits, on its own offsets; the article now says "a grid with the steps of Fig. 1's".
+- **Tests.** tests/test_period_colors.py: three tests had failed since fd2e1693 (15 Oct), because the test namespace
+  lacked `box` and one assertion predated the cited chaos criterion (exponent above the level and no period); both
+  fixed. New: the cvd palette, and tests/test_p6_shrimp_map.py (a crop with --norm-full keeps the full map's colors).
+  14 passed.
+- **Text.** Backour clause corrected in both papers: the inverse temperature multiplies the coupling (Backour's
+  effective coupling is L/tau), and the critical value 2 belongs to the product.
