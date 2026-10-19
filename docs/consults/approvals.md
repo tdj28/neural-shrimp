@@ -333,3 +333,15 @@ skill, section 7A). Spend is recorded only in the gitignored `cost-ledger.md`
   second pass without a new recorded decision.
 - **Model:** `gpt-6-astra`, Pro mode, high effort, at most 20,000 output tokens; the per-call authorization guard and
   the cost are in the private cost ledger. Advice is advisory and is adjudicated locally.
+
+## Consult 19: relevance of the results to loops in current LLM systems (19 October 2026)
+
+- **Approval (human, in session, 19 October 2026):** "To help answer users who might say 'so what' can we find
+  academic references for this? ... Can you also get a pro consult on this too? ... we would have to know if the
+  differential equation we found to cause chaos would apply to this?" This explicitly requests one paid consult.
+- **Milestone:** arXiv v1 of the Chaos article; the discussion should state accurately which inference loops the
+  results apply to (expected-embedding feedback, hidden-state feedback, recurrent depth, agentic text loops).
+- **Scope:** one `research-strategy` request with the brief `2026-10-19-loop-relevance/brief.md` and the verified
+  reference list. No retry or second pass without a new recorded decision.
+- **Model:** `gpt-6-astra`, Pro mode, high effort, at most 16,000 output tokens; the per-call guard and the cost are in
+  the private cost ledger. Advice is advisory and is adjudicated locally.
