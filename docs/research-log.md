@@ -30430,3 +30430,21 @@ docs/consults/2026-10-19-external-reviews/triage.md).
   (alpha [0.050, 0.080], log10 T [-0.20, -0.12], 200 steps), to find where its branches meet on the left. Two
   H100-class pods, toolseq, same settings otherwise. A reversal found is located with cusp_locate in a follow-up
   pod.
+
+### 2026-10-19 02:28 UTC: run card DSS6 (exploratory): do superstable curves cross in the top period-6 body?
+
+- **Question** (the human: "that shrimp has the classic shape shown in the anatomy drawing ... including crossing
+  superstable black ditches"). Does the top period-6 body, around the seed (0.073097, -0.15204), contain a doubly
+  superstable center, where the zero curves of two different step factors of the leading multiplier cross? The
+  article says no window analyzed so far has one.
+- **Method:** tools/doubly_superstable.py grid, as in DSS1 (the period-7 body).
+  - Period 6, seed as above, 31 x 31 cells over alpha [0.0724, 0.0738] x log10 T [-0.1545, -0.1500].
+  - Philosophy vectors at layer 12, transient 900, tol 1e-12.
+  - One H100-class pod, job set dss.
+- **Reading, fixed now (as DSS1):**
+  - A doubly superstable point is reported only if the zero curves of two different factors cross inside the
+    grid. Each curve is read from sign changes between clean neighbouring cells (|mu_1| > 10 |mu_2|) that carry
+    the same token loop.
+  - The crossing must be approached from all four sectors, with the sign of mu alternating around it.
+  - Otherwise the result is reported as found: curves that do not cross, a single curve, or an unclean region
+    that hides the crossing.
