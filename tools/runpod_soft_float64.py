@@ -39,6 +39,7 @@ UPLOAD_PATHS = ("tools/explore_llm_soft_loop.py", "tools/explore_llm_attractors.
                 "tools/lyapunov_spectrum.py", "docs/tc-spectrum-cells.json", "docs/ky-cells-philosophy.json", "docs/ky-cells-hostility.json", "tools/cusp_locate.py", "tools/locate_curve_candidates.py", "tools/repro_reset.py", "docs/rr-problems.json", "tools/window_census.py", "tools/window_closure.py", "docs/oc", "docs/cl", "docs/wp-line-cells.json", "docs/fl15-line-cells.json", "docs/fl7-line-cells.json",
                 "tools/symbolic_dynamics.py", "tools/sd_verify_words.py", "tools/kite_basin_check.py",
                 "tools/hook_edge_track.py", "tools/hook_saddle_check.py",
+                "tools/hook_tip_strip.py", "tools/hook_tip_check.py",
                 "pyproject.toml")
 DATA_PATHS = ("explore/llm-phase-map/vectors-l12", "explore/llm-soft-loop/branch-p8-a0.0717-up2",
               "explore/llm-soft-loop/branch-p8-a0.0717-down", "explore/llm-soft-loop/branch-p2-t-0.115-alpha-up")
