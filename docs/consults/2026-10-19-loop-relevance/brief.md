@@ -67,9 +67,20 @@ map":**
 **(b0) Discussion, a general sentence before (b), at the human's request ("we should have a sentence or paragraph
 about the possibility of looping in general to introduce chaotic dynamics"):**
 > More generally, any inference scheme that feeds a network's output or internal state back as its input (soft-token
-> feedback, latent reasoning on hidden states, recurrent depth) defines an iterated nonlinear map, and nothing in such
-> an architecture guarantees convergence: the map can contract to a fixed point, settle into cycles, or become
-> chaotic. The soft-token map shows all three regimes in one pretrained model, organized as in low-dimensional maps.
+> feedback, latent reasoning on hidden states, recurrent depth) defines an iterated nonlinear map. Convergence of such
+> a map is guaranteed only by special structure: the readout alone, with tied embeddings, descends a convex energy
+> (Sec. III), but a full transformer block has no such energy. Where a loop converges, that is a property of the
+> trained weights and settings rather than of the architecture. The soft-token map shows fixed points, cycles and
+> chaos in one pretrained model. In a recurrent-depth model we found convergence at default settings, native
+> oscillation on some inputs and predicted loss of stability under over-relaxation, but no chaos.
+
+Human follow-up question to address in the review: "But the internal loops like in the rumor are more like
+Hopfield, so no chaos?" Our answer, to be checked:
+- Hopfield-type convergence holds only for gradient (energy-descending) maps, here the tied readout alone.
+- A trained recurrent-depth block is not such a map in general. Its convergence is trained, not guaranteed, and the
+  Huginn data show both convergence and instabilities, without chaos so far.
+- With two or three passes per token, no asymptotic regime is reached in deployment.
+Is this right, and how should it be put?
 
 **(b) Discussion, replacing the present Huginn clause:**
 > In the recurrent-depth model Huginn [Geiping et al.], which iterates a shared block in depth, the loop's derivative
