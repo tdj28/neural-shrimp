@@ -31,7 +31,7 @@ def arguments(argv=None):
  a=ap.parse_args(argv)
  require(a.attempt==ATTEMPT and a.source==SOURCE and a.cell==CELL,'wrong original producer allocation')
  out=Path(a.output)
- require(out.is_absolute(),'absolute saved-audit output required')
+ require(out==B/'dense-cascade-p6-001-audit-001/result.json','fresh owned saved-audit allocation required')
  require(not any(out==p or p in out.parents for p in (RAW,SUP)),'audit output cannot overwrite original producer evidence')
  return a
 
@@ -91,7 +91,8 @@ def pinned_source(path,expected):
 
 def main():
  require(__debug__,'assertions must remain enabled')
- a=arguments();out=Path(a.output);require(not out.exists(),'fresh saved-audit output required')
+ a=arguments();out=Path(a.output);require(not out.exists() and not out.parent.exists(),'fresh saved-audit output required')
+ out.parent.mkdir(exist_ok=False)
  require(all(os.environ.get(k)=='1' for k in THREADS),'one BLAS/OpenMP thread required before NumPy import')
  import numpy as np
  cardpin=pinned_source(CARD,CARD_SHA);planpin=pinned_source(PLAN,PLAN_SHA)

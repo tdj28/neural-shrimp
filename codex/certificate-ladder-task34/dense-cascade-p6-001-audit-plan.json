@@ -1,0 +1,67 @@
+{
+  "status": "prepared_requires_original_closure_and_receipt_pins",
+  "repository": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp",
+  "raw_root": "/data2/neural-shrimp-data/codex/certificate-ladder",
+  "python": "/data2/neural-shrimp/.venv/bin/python",
+  "cpu_threads": 1,
+  "cpu_ids": [
+    0
+  ],
+  "startup_ram_gib": 20,
+  "source_files": [
+    {
+      "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/certificate-ladder-task34/audit_dense_p6.py",
+      "bytes": 10942,
+      "sha256": "979d2c2ba50e56a6818358eefc05525cd1793de58a29f33a3cd254329959c930"
+    },
+    {
+      "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/certify-chaos/supervise.py",
+      "bytes": 8727,
+      "sha256": "306db32a2c8ada9beb67547bbaafc6d0d7a597b5861b0e629ca9a07801223c44"
+    },
+    {
+      "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/certificate-ladder-task34/dense-cascade-p6-001-audit-admission-review.md",
+      "bytes": 1727,
+      "sha256": "696d7f0293add8979fc40676222aec718afbd635860444dd62a4b4eb6fc3f076"
+    }
+  ],
+  "lanes": {
+    "audit": {
+      "entry": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/certificate-ladder-task34/audit_dense_p6.py",
+      "arguments": [
+        "--attempt",
+        "dense-cascade-p6-001",
+        "--source",
+        "19b63a2002b72ff5bcdaea441a141b58ed05e272",
+        "--cell",
+        "cascade-p6",
+        "--output",
+        "/data2/neural-shrimp-data/codex/certificate-ladder/dense-cascade-p6-001-audit-001/result.json"
+      ],
+      "output": "/data2/neural-shrimp-data/codex/certificate-ladder/dense-cascade-p6-001-audit-001",
+      "supervision": "/data2/neural-shrimp-data/codex/certificate-ladder/dense-cascade-p6-001-audit-001-supervision",
+      "preflight_pins": [
+        {
+          "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/certificate-ladder-task34/dense-cascade-p6-001-plan.json",
+          "bytes": 7176,
+          "sha256": "3217b86fe016cccab366f519bda3bcf1f5ce0b882efe5a62d728bf90d2f2bbb5"
+        },
+        {
+          "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/certificate-ladder-task34/dense-cascade-p3-001-card.json",
+          "bytes": 6064,
+          "sha256": "fad1beeb1eda8afaed84bcf315d27ffc1f1e446f3c2694b9690c1c702e87aa4a"
+        }
+      ],
+      "prior_receipts": [
+        "/data2/neural-shrimp-data/codex/certificate-ladder/dense-cascade-p6-001-supervision/receipt.json"
+      ],
+      "limits": {
+        "as_bytes": 2147483648,
+        "cpu_seconds": 120,
+        "wall_seconds": 180,
+        "output_bytes": 16777216
+      }
+    }
+  },
+  "cost_basis": "Same-size accepted saved896-square residual/FD recombination and hash audit, no model or eigensolve; original P3 eigensolve0.516009s for scale. Conservative120CPU180wall/2GiB cap. Exact producer receipt/admission pins and host closure required before admission."
+}
