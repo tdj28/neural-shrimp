@@ -31325,7 +31325,7 @@ nearly identical under protan vision.
   token pairs of Fig. 18 merge in grayscale. Tests of the touched tools pass; test_qwen35_float64
   ::test_hybrid_cache_restore fails as before these edits (SoftLoop has no attribute `extra`).
 
-## 2026-10-19 20:55 UTC: DITCH and DITCH2D results: the period-6 body's pseudo-superstable lines approach and turn away at the top
+## 2026-10-19 20:50 UTC: DITCH and DITCH2D results: the period-6 body's pseudo-superstable lines approach and turn away at the top
 
 - **Runs:** DITCH (two local float64 lines, CPU, 7 threads each; both complete, all cells solved) and DITCH2D (four H100-
   class bands; b0 v1rihh2hf4abfm, b1 t9fj7jozwzgx2s, b3 4n5h08xn68hfe6 and the relaunched b2 chzezm5vt31e2y, all H200, all
