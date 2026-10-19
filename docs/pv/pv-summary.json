@@ -1,0 +1,718 @@
+{
+ "chaos_level": 0.001,
+ "plane": {
+  "alpha": [
+   -0.12,
+   0.12
+  ],
+  "log10_temperature": [
+   -1.0,
+   0.3
+  ],
+  "shape": [
+   128,
+   128
+  ]
+ },
+ "conditions": [
+  {
+   "condition": "p00",
+   "label": "base: system prompt + \"Hello!\"",
+   "prefix_tokens": 37,
+   "chaotic_share": 0.0703,
+   "chaotic_share_by_band": {
+    "cold (log10 T < -0.5)": 0.0005,
+    "middle (-0.5 to 0)": 0.0721,
+    "hot (log10 T >= 0)": 0.1815
+   },
+   "max_lambda": 0.7371,
+   "periodic_share": 0.9217,
+   "leading_periods": [
+    [
+     5,
+     4718
+    ],
+    [
+     2,
+     4270
+    ],
+    [
+     4,
+     1786
+    ],
+    [
+     3,
+     1088
+    ]
+   ],
+   "agreement_with_base": 1.0,
+   "jaccard_chaotic_with_base": 1.0
+  },
+  {
+   "condition": "p01",
+   "label": "system prompt only",
+   "prefix_tokens": 30,
+   "chaotic_share": 0.1487,
+   "chaotic_share_by_band": {
+    "cold (log10 T < -0.5)": 0.0051,
+    "middle (-0.5 to 0)": 0.1374,
+    "hot (log10 T >= 0)": 0.4018
+   },
+   "max_lambda": 0.7463,
+   "periodic_share": 0.8367,
+   "leading_periods": [
+    [
+     2,
+     5084
+    ],
+    [
+     4,
+     2634
+    ],
+    [
+     3,
+     2006
+    ],
+    [
+     6,
+     746
+    ]
+   ],
+   "agreement_with_base": 0.8533,
+   "jaccard_chaotic_with_base": 0.1979
+  },
+  {
+   "condition": "p02",
+   "label": "\"Hello!\" only (Qwen default system)",
+   "prefix_tokens": 31,
+   "chaotic_share": 0.0741,
+   "chaotic_share_by_band": {
+    "cold (log10 T < -0.5)": 0.0016,
+    "middle (-0.5 to 0)": 0.0855,
+    "hot (log10 T >= 0)": 0.174
+   },
+   "max_lambda": 0.8491,
+   "periodic_share": 0.9124,
+   "leading_periods": [
+    [
+     5,
+     5794
+    ],
+    [
+     2,
+     3595
+    ],
+    [
+     1,
+     1572
+    ],
+    [
+     3,
+     890
+    ]
+   ],
+   "agreement_with_base": 0.9148,
+   "jaccard_chaotic_with_base": 0.2578
+  },
+  {
+   "condition": "p03",
+   "label": "neither (Qwen default system only)",
+   "prefix_tokens": 24,
+   "chaotic_share": 0.1357,
+   "chaotic_share_by_band": {
+    "cold (log10 T < -0.5)": 0.004,
+    "middle (-0.5 to 0)": 0.1169,
+    "hot (log10 T >= 0)": 0.3815
+   },
+   "max_lambda": 0.682,
+   "periodic_share": 0.845,
+   "leading_periods": [
+    [
+     2,
+     4207
+    ],
+    [
+     3,
+     2726
+    ],
+    [
+     5,
+     2396
+    ],
+    [
+     4,
+     1756
+    ]
+   ],
+   "agreement_with_base": 0.8653,
+   "jaccard_chaotic_with_base": 0.2092
+  },
+  {
+   "condition": "p04",
+   "label": "system words shuffled (1)",
+   "prefix_tokens": 37,
+   "chaotic_share": 0.0888,
+   "chaotic_share_by_band": {
+    "cold (log10 T < -0.5)": 0.0014,
+    "middle (-0.5 to 0)": 0.0971,
+    "hot (log10 T >= 0)": 0.218
+   },
+   "max_lambda": 0.7375,
+   "periodic_share": 0.8976,
+   "leading_periods": [
+    [
+     5,
+     3694
+    ],
+    [
+     2,
+     2528
+    ],
+    [
+     4,
+     2462
+    ],
+    [
+     1,
+     1383
+    ]
+   ],
+   "agreement_with_base": 0.8975,
+   "jaccard_chaotic_with_base": 0.2165
+  },
+  {
+   "condition": "p05",
+   "label": "system words shuffled (2)",
+   "prefix_tokens": 37,
+   "chaotic_share": 0.0918,
+   "chaotic_share_by_band": {
+    "cold (log10 T < -0.5)": 0.0038,
+    "middle (-0.5 to 0)": 0.1041,
+    "hot (log10 T >= 0)": 0.2154
+   },
+   "max_lambda": 0.8011,
+   "periodic_share": 0.8961,
+   "leading_periods": [
+    [
+     5,
+     3934
+    ],
+    [
+     2,
+     3649
+    ],
+    [
+     4,
+     1962
+    ],
+    [
+     1,
+     1181
+    ]
+   ],
+   "agreement_with_base": 0.9044,
+   "jaccard_chaotic_with_base": 0.2582
+  },
+  {
+   "condition": "p06",
+   "label": "user tokens reversed (\"!Hello\")",
+   "prefix_tokens": 37,
+   "chaotic_share": 0.0593,
+   "chaotic_share_by_band": {
+    "cold (log10 T < -0.5)": 0.0019,
+    "middle (-0.5 to 0)": 0.089,
+    "hot (log10 T >= 0)": 0.1044
+   },
+   "max_lambda": 0.6808,
+   "periodic_share": 0.9311,
+   "leading_periods": [
+    [
+     2,
+     9945
+    ],
+    [
+     3,
+     2671
+    ],
+    [
+     1,
+     753
+    ],
+    [
+     4,
+     735
+    ]
+   ],
+   "agreement_with_base": 0.9282,
+   "jaccard_chaotic_with_base": 0.2867
+  },
+  {
+   "condition": "p07",
+   "label": "both shuffled",
+   "prefix_tokens": 37,
+   "chaotic_share": 0.0668,
+   "chaotic_share_by_band": {
+    "cold (log10 T < -0.5)": 0.003,
+    "middle (-0.5 to 0)": 0.095,
+    "hot (log10 T >= 0)": 0.1247
+   },
+   "max_lambda": 0.7856,
+   "periodic_share": 0.9211,
+   "leading_periods": [
+    [
+     2,
+     10142
+    ],
+    [
+     4,
+     1529
+    ],
+    [
+     3,
+     1048
+    ],
+    [
+     1,
+     1007
+    ]
+   ],
+   "agreement_with_base": 0.9109,
+   "jaccard_chaotic_with_base": 0.2121
+  },
+  {
+   "condition": "p08",
+   "label": "opposite system prompt",
+   "prefix_tokens": 43,
+   "chaotic_share": 0.0776,
+   "chaotic_share_by_band": {
+    "cold (log10 T < -0.5)": 0.0006,
+    "middle (-0.5 to 0)": 0.093,
+    "hot (log10 T >= 0)": 0.1784
+   },
+   "max_lambda": 0.8107,
+   "periodic_share": 0.9123,
+   "leading_periods": [
+    [
+     5,
+     4765
+    ],
+    [
+     2,
+     3020
+    ],
+    [
+     4,
+     1963
+    ],
+    [
+     3,
+     1412
+    ]
+   ],
+   "agreement_with_base": 0.9314,
+   "jaccard_chaotic_with_base": 0.3664
+  },
+  {
+   "condition": "p09",
+   "label": "happy system prompt",
+   "prefix_tokens": 48,
+   "chaotic_share": 0.0623,
+   "chaotic_share_by_band": {
+    "cold (log10 T < -0.5)": 0.0002,
+    "middle (-0.5 to 0)": 0.0827,
+    "hot (log10 T >= 0)": 0.1305
+   },
+   "max_lambda": 0.7335,
+   "periodic_share": 0.928,
+   "leading_periods": [
+    [
+     5,
+     5122
+    ],
+    [
+     2,
+     3209
+    ],
+    [
+     6,
+     1536
+    ],
+    [
+     4,
+     1401
+    ]
+   ],
+   "agreement_with_base": 0.9341,
+   "jaccard_chaotic_with_base": 0.3364
+  },
+  {
+   "condition": "p10",
+   "label": "sad system prompt",
+   "prefix_tokens": 48,
+   "chaotic_share": 0.0743,
+   "chaotic_share_by_band": {
+    "cold (log10 T < -0.5)": 0.0019,
+    "middle (-0.5 to 0)": 0.0874,
+    "hot (log10 T >= 0)": 0.1711
+   },
+   "max_lambda": 0.7729,
+   "periodic_share": 0.9147,
+   "leading_periods": [
+    [
+     2,
+     5207
+    ],
+    [
+     5,
+     4592
+    ],
+    [
+     4,
+     1472
+    ],
+    [
+     1,
+     1393
+    ]
+   ],
+   "agreement_with_base": 0.9238,
+   "jaccard_chaotic_with_base": 0.3096
+  },
+  {
+   "condition": "p11",
+   "label": "happy user message",
+   "prefix_tokens": 47,
+   "chaotic_share": 0.1175,
+   "chaotic_share_by_band": {
+    "cold (log10 T < -0.5)": 0.0021,
+    "middle (-0.5 to 0)": 0.1422,
+    "hot (log10 T >= 0)": 0.2656
+   },
+   "max_lambda": 0.6945,
+   "periodic_share": 0.8683,
+   "leading_periods": [
+    [
+     2,
+     3993
+    ],
+    [
+     5,
+     3762
+    ],
+    [
+     4,
+     1567
+    ],
+    [
+     6,
+     1287
+    ]
+   ],
+   "agreement_with_base": 0.8867,
+   "jaccard_chaotic_with_base": 0.2473
+  },
+  {
+   "condition": "p12",
+   "label": "sad user message",
+   "prefix_tokens": 48,
+   "chaotic_share": 0.1039,
+   "chaotic_share_by_band": {
+    "cold (log10 T < -0.5)": 0.0013,
+    "middle (-0.5 to 0)": 0.099,
+    "hot (log10 T >= 0)": 0.2794
+   },
+   "max_lambda": 0.6947,
+   "periodic_share": 0.8736,
+   "leading_periods": [
+    [
+     2,
+     6375
+    ],
+    [
+     4,
+     2066
+    ],
+    [
+     6,
+     1585
+    ],
+    [
+     1,
+     977
+    ]
+   ],
+   "agreement_with_base": 0.8837,
+   "jaccard_chaotic_with_base": 0.1992
+  },
+  {
+   "condition": "p13",
+   "label": "plain text, no chat markup",
+   "prefix_tokens": 24,
+   "chaotic_share": 0.0634,
+   "chaotic_share_by_band": {
+    "cold (log10 T < -0.5)": 0.0233,
+    "middle (-0.5 to 0)": 0.0627,
+    "hot (log10 T >= 0)": 0.1299
+   },
+   "max_lambda": 0.6202,
+   "periodic_share": 0.9207,
+   "leading_periods": [
+    [
+     2,
+     7239
+    ],
+    [
+     4,
+     2392
+    ],
+    [
+     1,
+     2303
+    ],
+    [
+     3,
+     737
+    ]
+   ],
+   "agreement_with_base": 0.8822,
+   "jaccard_chaotic_with_base": 0.0631
+  },
+  {
+   "condition": "p15",
+   "label": "two-turn conversation",
+   "prefix_tokens": 63,
+   "chaotic_share": 0.1282,
+   "chaotic_share_by_band": {
+    "cold (log10 T < -0.5)": 0.0006,
+    "middle (-0.5 to 0)": 0.1052,
+    "hot (log10 T >= 0)": 0.3742
+   },
+   "max_lambda": 0.7636,
+   "periodic_share": 0.8575,
+   "leading_periods": [
+    [
+     2,
+     5389
+    ],
+    [
+     4,
+     2476
+    ],
+    [
+     5,
+     1066
+    ],
+    [
+     3,
+     997
+    ]
+   ],
+   "agreement_with_base": 0.8616,
+   "jaccard_chaotic_with_base": 0.1786
+  },
+  {
+   "condition": "p16",
+   "label": "prompt = one Gaussian vector",
+   "prefix_tokens": 1,
+   "chaotic_share": 0.1004,
+   "chaotic_share_by_band": {
+    "cold (log10 T < -0.5)": 0.0328,
+    "middle (-0.5 to 0)": 0.1586,
+    "hot (log10 T >= 0)": 0.1156
+   },
+   "max_lambda": 0.7283,
+   "periodic_share": 0.8722,
+   "leading_periods": [
+    [
+     1,
+     6113
+    ],
+    [
+     3,
+     3508
+    ],
+    [
+     2,
+     2057
+    ],
+    [
+     4,
+     1012
+    ]
+   ],
+   "agreement_with_base": 0.8397,
+   "jaccard_chaotic_with_base": 0.0313
+  },
+  {
+   "condition": "p17",
+   "label": "prompt = one random token",
+   "prefix_tokens": 1,
+   "chaotic_share": 0.0867,
+   "chaotic_share_by_band": {
+    "cold (log10 T < -0.5)": 0.025,
+    "middle (-0.5 to 0)": 0.0982,
+    "hot (log10 T >= 0)": 0.1688
+   },
+   "max_lambda": 0.7542,
+   "periodic_share": 0.8885,
+   "leading_periods": [
+    [
+     2,
+     6725
+    ],
+    [
+     1,
+     3642
+    ],
+    [
+     4,
+     2162
+    ],
+    [
+     3,
+     1073
+    ]
+   ],
+   "agreement_with_base": 0.8859,
+   "jaccard_chaotic_with_base": 0.1585
+  },
+  {
+   "condition": "p18",
+   "label": "prompt = one random mixture",
+   "prefix_tokens": 1,
+   "chaotic_share": 0.0815,
+   "chaotic_share_by_band": {
+    "cold (log10 T < -0.5)": 0.0472,
+    "middle (-0.5 to 0)": 0.1446,
+    "hot (log10 T >= 0)": 0.0344
+   },
+   "max_lambda": 0.6741,
+   "periodic_share": 0.9014,
+   "leading_periods": [
+    [
+     1,
+     10507
+    ],
+    [
+     2,
+     1301
+    ],
+    [
+     3,
+     1017
+    ],
+    [
+     4,
+     503
+    ]
+   ],
+   "agreement_with_base": 0.8517,
+   "jaccard_chaotic_with_base": 0.0118
+  },
+  {
+   "condition": "s1",
+   "label": "base, start = Gaussian vector",
+   "prefix_tokens": 37,
+   "chaotic_share": 0.069,
+   "chaotic_share_by_band": {
+    "cold (log10 T < -0.5)": 0.0005,
+    "middle (-0.5 to 0)": 0.0722,
+    "hot (log10 T >= 0)": 0.1755
+   },
+   "max_lambda": 0.7546,
+   "periodic_share": 0.923,
+   "leading_periods": [
+    [
+     2,
+     4265
+    ],
+    [
+     5,
+     3947
+    ],
+    [
+     4,
+     2020
+    ],
+    [
+     1,
+     1135
+    ]
+   ],
+   "agreement_with_base": 0.9905,
+   "jaccard_chaotic_with_base": 0.872
+  },
+  {
+   "condition": "s2",
+   "label": "base, start = random token",
+   "prefix_tokens": 37,
+   "chaotic_share": 0.0703,
+   "chaotic_share_by_band": {
+    "cold (log10 T < -0.5)": 0.0019,
+    "middle (-0.5 to 0)": 0.0717,
+    "hot (log10 T >= 0)": 0.1794
+   },
+   "max_lambda": 0.7644,
+   "periodic_share": 0.9203,
+   "leading_periods": [
+    [
+     2,
+     4895
+    ],
+    [
+     5,
+     3859
+    ],
+    [
+     4,
+     2088
+    ],
+    [
+     6,
+     1212
+    ]
+   ],
+   "agreement_with_base": 0.9894,
+   "jaccard_chaotic_with_base": 0.8603
+  },
+  {
+   "condition": "s3",
+   "label": "base, start = random mixture",
+   "prefix_tokens": 37,
+   "chaotic_share": 0.069,
+   "chaotic_share_by_band": {
+    "cold (log10 T < -0.5)": 0.0005,
+    "middle (-0.5 to 0)": 0.0705,
+    "hot (log10 T >= 0)": 0.1784
+   },
+   "max_lambda": 0.7574,
+   "periodic_share": 0.9237,
+   "leading_periods": [
+    [
+     5,
+     4560
+    ],
+    [
+     2,
+     4205
+    ],
+    [
+     4,
+     1783
+    ],
+    [
+     1,
+     1168
+    ]
+   ],
+   "agreement_with_base": 0.9897,
+   "jaccard_chaotic_with_base": 0.8629
+  }
+ ],
+ "failed": [
+  {
+   "condition": "p14",
+   "gate": "missing: /data2/neural-shrimp-data/explore/llm-soft-loop/pod64/bands/pv-p14/scan.npz"
+  }
+ ]
+}

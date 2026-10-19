@@ -32,6 +32,8 @@ LABELS = {
 
 def load(cond):
     d = BANDS / f"pv-{cond}"
+    if not (d / "scan.npz").exists() and (BANDS / f"pv-{cond}b" / "scan.npz").exists():
+        d = BANDS / f"pv-{cond}b"           # a rerun (p14: the first run ran out of GPU memory; rerun with --chunk 512)
     z = np.load(d / "scan.npz", allow_pickle=True)
     rec = json.loads((d / "scan.json").read_text())
     return z, rec
