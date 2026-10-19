@@ -1982,8 +1982,8 @@ unit circle near $\log_{10}T=0.1656$, turning $0.12$ of a revolution per step of
 the arms. The two invariant circles born at a 2-cycle's Neimark--Sacker point are exchanged by the map, so orbits
 locked on them have even periods, near 16 for this rotation, whereas the arms include period 7; and of four float32
 arm cells, only one kept its period in float64. In dissipative flows, windows wind in nested spirals around
-periodicity hubs \cite{vitolo2011hubs}, and in the R\"ossler system the hub's shape follows from a conjugacy to
-unimodal maps \cite{jones2012rossler}; we have not tested whether the arms here wind around such a hub. Float64 zooms
+periodicity hubs \cite{vitolo2011hubs}, and in the R\"ossler system the hub's shape was traced to a conjugacy to
+unimodal maps in part of its parameter plane \cite{jones2012rossler}; we have not tested whether the arms here wind around such a hub. Float64 zooms
 show more structure. In one arm a period-7 domain
 carries period-14 crescents with period-28 cores along its lower edge, between period-1 and period-2 regions and a
 chaotic band. In the cascade the windows are nested crescent arcs inside a dome bounded by the ``!Yes'' 2-cycle
@@ -5347,7 +5347,7 @@ tokens reversed, and both changes together; an opposite system prompt; happy and
 same texts without chat markup, a system prompt three times as long and a two-turn conversation; three prompts that are
 a single random vector, with no text at all (a Gaussian direction at the median embedding norm, the embedding of a
 random token, and a Dirichlet(0.1) mixture of the embeddings of 64 random tokens); and the base prompt with the loop started from three random vectors.
-Every prompt gives chaos with periodic windows: 5.9 to 14.9\,\% of the plane is
+Every prompt we tested gives chaos with periodic windows: 5.9 to 14.9\,\% of the plane is
 chaotic (7.0\,\% for the base prompt), with largest exponents of 0.62 to 0.85 per step (here chaotic means a largest exponent above $10^{-3}$ alone; this
 finite-window indicator overlaps a detected period at 3 to 18 cells per map). Removing the user message doubles the chaotic share, and even a prompt that is one random vector gives
 8 to 10\,\%. In every prompt we tested, chaos and periodic windows appear, but the prompt decides where they lie: the
@@ -5364,7 +5364,7 @@ near $\log_{10}T=0.03$, that of the text prompts near $0.16$.
 \begin{figure*}[tbp]
 \centering
 \includegraphics[width=\textwidth]{fig-prompt-variants.png}
-\caption{Every prompt gives chaos, at places that depend on the prompt (Qwen2.5-0.5B-Instruct, philosophy direction
+\caption{Every prompt we tested gives chaos, at places that depend on the prompt (Qwen2.5-0.5B-Instruct, philosophy direction
 at layer 12, float64;
 $128\times128$ cells over $\alpha\in[-0.12,0.12]$ and $\log_{10}T\in[-1,0.3]$). (a) The chaotic share of the plane for
 each of the 22 variants (19 prefixes, and the base prefix with the loop started from three random vectors), grouped by
