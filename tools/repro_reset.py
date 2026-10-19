@@ -2,7 +2,10 @@
 
 The pipeline is that of tools/repro_task.py (run REPRO-T): after the chat-templated question, `soft` steps each append the
 expected embedding E^T softmax(z / T) to the context; then the answer cue is appended and `answer` tokens are decoded
-greedily; the first integer is the answer (none: INVALID). Each problem is run in one precision (bf16: the model cast
+greedily; the first integer is the answer (none: INVALID). An arm's answer differs from the reference's when the
+two parsed integers differ, INVALID counting as a value, as in tools/repro_summary.py; the decoded texts are compared
+only for the batch-1 checks. (Before 19 October 2026 the records' differs_from_reference compared the texts; analyze
+now recomputes the comparison from the parsed values and reports the text comparison beside it.) Each problem is run in one precision (bf16: the model cast
 to bfloat16 with logits, softmax and the soft token in float32, as in REPRO-T; or float32) in four arms:
 
 - reference: batch 1, recording the target's logits z_t before every soft step and the final key-value cache;
@@ -132,16 +135,17 @@ def run_problem(loop, tok, ids, dis, T, n_soft, cue_ids, n_answer, problem):
     native, _, _ = rt.pipeline(loop, [ids] + dis, "soft", T, n_soft, cue_ids, n_answer)
     answers["native"] = native
     ref_text = tok.decode(answers["reference"])
+    ref_val = rt.parse(ref_text)
     for name, ans in answers.items():
         text = tok.decode(ans)
         val = rt.parse(text)
         rec[name] = {"text": text, "parsed": val, "correct": val == problem["answer"], "valid": val is not None,
-                     "differs_from_reference": text != ref_text}
+                     "differs_from_reference": val != ref_val, "text_differs_from_reference": text != ref_text}
     rec["batch1_checks_pass"] = bool(rec["reference_rerun_identical"]
                                      and max(rec["free_batch1_logit_distance"]) == 0.0
                                      and max(rec["reset_batch1_logit_distance"]) == 0.0
-                                     and not rec["free_batch1"]["differs_from_reference"]
-                                     and not rec["reset_batch1"]["differs_from_reference"])
+                                     and not rec["free_batch1"]["text_differs_from_reference"]
+                                     and not rec["reset_batch1"]["text_differs_from_reference"])
     return rec
 
 
@@ -190,6 +194,16 @@ def mcnemar_exact(b, c):
     return min(1.0, 2 * p)
 
 
+def answer_differs(rec, arm):
+    """The arm's parsed answer differs from the reference's (INVALID, None, counts as a value)."""
+    return rec[arm]["parsed"] != rec["reference"]["parsed"]
+
+
+def text_differs(rec, arm):
+    """The arm's decoded answer text differs from the reference's (the records' comparison before 19 Oct 2026)."""
+    return rec[arm]["text"] != rec["reference"]["text"]
+
+
 def analyze(args):
     import explore_llm_attractors as ela
     recs = []
@@ -199,8 +213,9 @@ def analyze(args):
     for dtype in sorted({r["dtype"] for r in recs}):
         rs = [r for r in recs if r["dtype"] == dtype]
         n = len(rs)
-        dis = {a: np.array([r[a]["differs_from_reference"] for r in rs], dtype=float)
+        dis = {a: np.array([answer_differs(r, a) for r in rs], dtype=float)
                for a in ("free", "reset", "native", "reference_rerun")}
+        text_dis = {a: int(sum(text_differs(r, a) for r in rs)) for a in ("free", "reset", "native", "reference_rerun")}
         delta = dis["free"] - dis["reset"]
         rng = np.random.default_rng(args.seed)
         boot = [delta[rng.integers(0, n, n)].mean() for _ in range(args.boot)]
@@ -214,6 +229,7 @@ def analyze(args):
             "problems": n, "checks_pass": int(sum(r["batch1_checks_pass"] for r in rs)),
             "disagreement": {a: float(v.mean()) for a, v in dis.items()},
             "disagreement_counts": {a: int(v.sum()) for a, v in dis.items()},
+            "text_disagreement_counts": text_dis,
             "delta_free_minus_reset": float(delta.mean()),
             "delta_bootstrap_95": [float(np.quantile(boot, 0.025)), float(np.quantile(boot, 0.975))],
             "discordant_free_only": b, "discordant_reset_only": c, "mcnemar_exact_p": mcnemar_exact(b, c),

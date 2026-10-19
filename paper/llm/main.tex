@@ -61,12 +61,14 @@ schedule, although one secondary criterion failed (from a displacement of $10^{-
 periodic loops also separated). In arithmetic tests designed before the runs, changing only the batch
 layout, which alters the floating-point execution while the intended computation stays the same, changed the answers
 of bfloat16 soft-thinking inference on 56\,\% of 96 problems in a 0.5B model and 55\,\% in a 7B model, far more often
-than with greedy decoding; an exploratory reset of the fed-back state at every step removed most of these changes. In
+than with greedy decoding, at temperatures where the pipeline answers poorly (none changed where it answers well); an
+exploratory reset of the fed-back state at every step removed most of these changes. In
 tests fixed before their data, Soft Thinking with its published settings changed 21\,\% of its answers to GSM8K
 problems not used before in this study with the batch layout alone, and reasoning models that answer 86 to 90\,\% of
 them correctly (DeepSeek-R1-Distill-Qwen-7B, QwQ-32B) changed 14.5 and 19.5\,\%, the two layouts disagreeing on
 correctness for 11.7 and 14.5\,\% of the problems. Ordinary sampled reasoning with the same random numbers changed about as
-many, so this sensitivity is not unique to continuous feedback. Two mechanisms contribute, depending on the model. In
+many, so this sensitivity is not unique to continuous feedback. Nearly all of these changes came from long runs that
+reached the thinking or answer budget in at least one layout. Two mechanisms contribute, depending on the model. In
 float64 the loops of Qwen2.5-7B and DeepSeek-R1-Distill-Qwen-7B mostly contract, so their answer changes are bfloat16
 rounding carried by long feedback to answers that sit near ties, while the loops of QwQ-32B and
 DeepSeek-R1-Distill-Llama-8B grow slowly in more than half of the copies, and a relative displacement of $10^{-10}$
@@ -109,7 +111,7 @@ measure what the chaos does: in a chaotic regime an irrelevant change of batch l
 writes (in Qwen2.5-0.5B it changed the text of 173 of 192 chaotic float64 loops, but of only 7 of 192 periodic
 ones). In bfloat16, where nearly every loop diverges, the batch layout
 changed the answers of a short soft-thinking pipeline on 56\,\% and 55\,\% of 96 arithmetic problems in two
-models. The same loops show quantitative signatures of low-dimensional dynamics, with late doubling ratios that
+models, at temperatures where the pipeline answers poorly; where it answers well, no answer changed. The same loops show quantitative signatures of low-dimensional dynamics, with late doubling ratios that
 approach Feigenbaum's constant numerically. In short, fed back through its own soft next-token distribution, a
 pretrained language model defines a discrete-time map with continuous states whose dynamics (periodic windows,
 period-doubling cascades, chaotic regimes and shrimp-shaped windows, the ``shrimps'' named by Gallas
@@ -225,8 +227,10 @@ Huginn: a predicted accuracy loss & frozen & Sec.~\ref{sec:huginn} \\
   loop diverges, and in a frozen test on 96 additions the batch layout changed the answer of a soft-thinking pipeline
   in 56\,\% of problems in Qwen2.5-0.5B and 55\,\% in Qwen2.5-7B, against never and 10\,\% for a forced greedy
   baseline. An exploratory causal test shows that the loop carries this: resetting the fed-back state before every soft step
-  removes nearly all of it (on an H100, 66 against 1.6\,\% of answers changed in Qwen2.5-0.5B, and 64 against
-  1.6\,\% in Qwen2.5-7B), and accuracy changes by at most 5 points. In a test frozen before its data, Soft Thinking with its published
+  removes nearly all of it (on an H100, 47 against 0.8\,\% of answers changed in Qwen2.5-0.5B, and 41\,\% against
+  none in Qwen2.5-7B), and accuracy changes by at most 5 points. These changes occur where the pipeline answers poorly
+  (23 of 96 problems correct in the 0.5B model at $T=1$); at $T=10^{0.4}$, where both models answer 90 to 96 of the 96
+  correctly, the layout changed no answer. In a test frozen before its data, Soft Thinking with its published
   settings changed the answers to 21\,\% of 256 GSM8K problems not used before in this study in Qwen2.5-7B with the batch layout alone, on an
   H100, mostly between wrong answers; replaying the fed-back tokens cut this to 6\,\%; with reasoning models that answer 86 to 90\,\% of the problems correctly through soft thinking (DeepSeek-R1-Distill-Qwen-7B and QwQ-32B), 14.5 and 19.5\,\% of the soft-thinking answers changed, and a similar share with discrete sampled thinking. A chaotic loop's text reuses the phrases of
   neighboring loops in no fixed order, and a copy started $10^{-10}$ away writes the same text for 9 to 150 steps,
@@ -1289,7 +1293,9 @@ fed the probability-weighted average of its token embeddings (the input of $F$),
 context, and a fixed answer cue then reads the number off greedily. Each problem ran alone and in a batch with three
 fixed distractor problems of the same length. Nothing is padded, so the two runs compute the same quantities and differ
 only in how the GPU groups its sums for the two matrix shapes, that is, by rounding. In bfloat16 the extracted answer changed with the batch layout in 56\,\% of the problems at $T=1$ and in
-8\,\% at $T=10^{0.2}$. A forced greedy baseline with the same budget (32 greedy tokens, then the same cue) produced
+8\,\% at $T=10^{0.2}$. At $T=1$ the pipeline answers 23 of the 96 problems correctly alone and 22 in the batch, so
+most changes are between wrong answers; at $T=10^{0.4}$, where it answers 90 of the 96 correctly in both layouts, no
+answer changed (\repo{docs/pi/layout-answer-audit.json}). A forced greedy baseline with the same budget (32 greedy tokens, then the same cue) produced
 identical token sequences in both layouts for every problem. The excess disagreement of soft over greedy decoding,
 averaged over the two temperatures, is 32.3 percentage points (95\,\% interval $[26.5,38.1]$; sign-flip $p=10^{-4}$,
 the smallest attainable). In float64 no answer changed within the 32 steps. There, the median growth of an injected
@@ -1301,7 +1307,10 @@ whose answers the model holds weakly (``Soft Thinking as published'', below). (T
 informative: forced through 32 tokens, the model writes past its answer, and the cue then extracts another number.)
 The same frozen test in Qwen2.5-7B, whose soft-thinking pipeline answers 51 to 64\,\% of these problems, replicates
 the result. In bfloat16 the batch layout changed the soft-thinking answer in 53 of the 96 problems (55\,\%) at
-$T=10^{0.2}$, the temperature at which the soft trace still matters. At this precision even the forced greedy baseline
+$T=10^{0.2}$, the temperature at which the soft trace still matters. In 24 of these 53 problems one layout gave no
+number (an invalid answer, which the frozen design counts as a value); in the other 29 (30\,\% of the problems) both
+gave numbers, and they differ. The pipeline answered 49 of the 96 correctly alone and 61 in the batch; at
+$T=10^{0.4}$ it answered all 96 correctly in both layouts, and no answer changed. At this precision even the forced greedy baseline
 changed in 10 of the 96, the known batch-variance effect. The excess over greedy decoding is 17.7 points
 ($[9.3,25.6]$, $p=2\times10^{-4}$). In float64, at that temperature, the 7B's loop amplifies an injected perturbation
 (median $+0.034$ nats per step), injected kicks change answers (2 of 18 kicks: six problems and three kick sizes), and
@@ -1312,30 +1321,37 @@ rounding into different readout tokens, on the schedule its Lyapunov exponent se
 
 An exploratory causal test locates the low-precision effect in the loop. Following a suggestion of an external review, we reran
 the 0.5B pipeline at $T=1$ on 128 newly drawn additions, after a batch-1 reference run of each (exploratory; first on a
-workstation GPU, where the native pipeline's answers changed with the layout in 85\,\% of the problems, against
+workstation GPU, where the native pipeline's answers changed with the layout in 74\,\% of the problems, against
 56\,\% on the H100 of the frozen test). In the batch of four, two arms start from the reference's prompt state and
 are answered by the same batch-1 decoder. In the free arm the soft phase runs on its own; in the reset arm the
 target's cache and logits are replaced by the reference's before every soft step, so that each step runs in the batch
-but only one at a time. In bfloat16 the answer changed in 102 of the 128 problems (80\,\%) in the free arm and in 14
-(11\,\%) in the reset arm, a difference of 69 points (95\,\% interval $[60,77]$; 90 discordant pairs against 2, exact
-McNemar $p=2\times10^{-24}$), while accuracy stayed between 23 and 25\,\% in every arm. One batched step moves the
+but only one at a time. In bfloat16 the answer changed in 88 of the 128 problems (69\,\%) in the free arm and in 7
+(5.5\,\%) in the reset arm, a difference of 63 points (95\,\% interval $[55,72]$; 82 discordant pairs against 1, exact
+McNemar $p=2\times10^{-23}$), while accuracy stayed between 23 and 25\,\% in every arm. One batched step moves the
 target's logits by a median $1.5\,\%$ of their norm; in the free arm the median difference grows to $0.79$ of it by
 step 32, while the reset arm's median per step stays between $1.3$ and $3.1\,\%$. In float32 the free arm's drift grows about 140-fold over the
-32 steps but stays near $10^{-4}$, and 4 of the 128 answers changed (none with reset). The test replicates on an H100
-and in Qwen2.5-7B. On the H100, in bfloat16, the answer changed in 85 of the 128 problems (66\,\%) in the free arm and
-in 2 (1.6\,\%) with reset in the 0.5B model, and in 82 (64\,\%) against 2 (1.6\,\%) in Qwen2.5-7B at $T=10^{0.2}$
-(exact McNemar $p\le2\times10^{-24}$); in the 7B model even float32 answers changed in 47 (37\,\%) against none. In bfloat16 on the H100 most batched steps reproduce the reference bitwise (the reset arm's median step distance is
+32 steps but stays near $10^{-4}$, and 3 of the 128 answers changed (none with reset). The test replicates on an H100
+and in Qwen2.5-7B. On the H100, in bfloat16, the answer changed in 60 of the 128 problems (47\,\%) in the free arm and
+in 1 (0.8\,\%) with reset in the 0.5B model, and in 52 (41\,\%) against none in Qwen2.5-7B at $T=10^{0.2}$
+(exact McNemar $p\le5\times10^{-16}$); in the 7B model even float32 answers changed in 33 (26\,\%) against none. In bfloat16 on the H100 most batched steps reproduce the reference bitwise (the reset arm's median step distance is
 0), and the free loop amplifies the rare step that does not. No arm's
 accuracy differs from the reference's by more than 5 points. Within this budget, the batch layout
 changes low-precision answers because the loop carries each step's rounding forward and amplifies it, not because the
-last steps alone are fragile; 128 problems per arm do not show that accuracy is unchanged.
+last steps alone are fragile; 128 problems per arm do not show that accuracy is unchanged. These counts compare the
+extracted numbers, as the frozen test does. Until 19 October 2026 the test compared the decoded answer texts, which
+also counts the same number followed by different text, and reported higher counts (102 and 14 on the workstation; 85
+and 2, and 82 and 2, on the H100); the corrected and the original summaries are in \repo{docs/rr}.
 
 \paragraph{Soft Thinking as published.} A test frozen before its data (\repo{docs/pi-matrix-confirmatory.md}) ran
 Soft Thinking with its published settings on Qwen2.5-7B-Instruct in bfloat16. The settings are concept tokens
 restricted to the 15 most probable, $T=0.6$ and 64 soft steps. The test used 256 GSM8K training problems that no
 earlier run had scored, on an H100 GPU. Only the batch layout changed, between batches of 8 and of 16 prompts of equal
 length without padding, and the answer changed for 21.1\,\% of the problems (54 of 256; 95\,\% interval clustered by
-batch $[16.3,26.1]$). This confirms the prediction of more than 10\,\%. Each secondary prediction compares another arm with this one on
+batch $[16.3,26.1]$). This confirms the prediction of more than 10\,\%. The batches deviated from the design in one
+respect: the harness filled each group of equal-length prompts from one pool of fillers, and where that pool ran
+short, both layouts received the same batch. Rebuilt from the tokenizer, 16 of the 256 problems ran in identical
+batches in both layouts, and none of them changed; among the other 240 the rate is 54 of 240 (22.5\,\%). Some batches
+were also short (11 of the 78 batches of 8 and 26 of the 77 of 16; \repo{docs/pi/layout-answer-audit.json}). Each secondary prediction compares another arm with this one on
 the same 256 problems (paired differences of flip rates, intervals clustered by batch, exact McNemar tests):
 \begin{itemize}
   \item replaying the reference run's fed-back tokens in both layouts: 5.9\,\% (difference 15.2 points,
@@ -1405,6 +1421,11 @@ model (21.9\,\%) (\repo{docs/pi/pm2fix-summary.json}, \repo{docs/pi/pm2fix-math-
   where half or more of the problems reached the thinking cap, it changed 61\,\% of the answers of
   DeepSeek-R1-Distill-Qwen-7B (44 to 48\,\% correct) and 67\,\% of those of DeepSeek-R1-Distill-Llama-8B (39 to
   42\,\% correct).
+  \item Nearly all GSM8K changes came from long runs. Of the 161 answers that the layout changed with soft thinking,
+  158 came from problems in which the thinking budget (1536 steps) or the answer budget (256 tokens) was reached in at
+  least one layout, and so did all 132 changes with sampled thinking. Among problems that finished within both budgets
+  in both layouts, the layout changed 3 of 480 soft answers and none of 477 sampled ones
+  (\repo{docs/pi/layout-answer-audit.json}).
 \end{itemize}
 These runs did not use the Cold Stop rule of the Soft Thinking paper, which ends thinking once the entropy has stayed
 below 0.01 nats for 256 steps. An exploratory rerun used it, with a thinking budget of 4096 steps

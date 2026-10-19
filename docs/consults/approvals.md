@@ -376,3 +376,16 @@ skill, section 7A). Spend is recorded only in the gitignored `cost-ledger.md`
 - Consult 21 executed 19 Oct 2026 21:06-21:12 UTC (one call, as approved; brief at 4ea66156, dry-002 checked first):
   completed, 61,631 tokens. Review and adjudication: docs/consults/2026-10-19-theory-math-refs/adjudication.md
   (artifacts in neural-shrimp-data/consults/2026-10-19-theory-math-refs/execute-001).
+
+## Consult 22: audit of the batch-layout answer tests (19 October 2026)
+
+- **Approval (human, in session, 19 October 2026):** "These numbers seem high can you audit these experiments with a
+  pro consult please", said of the answer-change rates in the article's "Reproducibility and answers" paragraph. This
+  explicitly requests one paid consult on those experiments.
+- **Milestone:** arXiv v1 of the Chaos article (submission imminent). The paragraph reports the article's
+  practical consequence, and the human doubts its magnitudes, so an artifact must be ruled out before posting.
+- **Scope:** one `research-note-scientific` request with the brief `2026-10-19-layout-answers-audit/brief.md`. The
+  brief holds the paragraph verbatim, the designs and results in compact form, and the implementation facts from a
+  local code audit. No raw data. No retry or second pass without a new recorded decision.
+- **Model:** `gpt-6-astra`, Pro mode, high effort, at most 25,000 output tokens. The per-call guard and the cost are in
+  the private cost ledger. Advice is advisory and is adjudicated locally.

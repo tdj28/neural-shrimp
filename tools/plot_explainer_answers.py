@@ -47,7 +47,8 @@ SOFT, COMP = "#FFD93F", "#9085E9"
 SANS = "DejaVu Sans"
 
 REPRO, PM, PM2 = "docs/repro-summary.json", "docs/pi/pm-summary.json", "docs/pi/pm2-summary.json"
-RR05, RR7 = "docs/rr/rr2-h05-heldout-analysis.json", "docs/rr/rr2-q7-heldout-analysis.json"
+# the reset test compared answer texts until 19 Oct 2026; the -int receipts compare the parsed integers (repro_reset.py)
+RR05, RR7 = "docs/rr/rr2-h05-heldout-analysis-int.json", "docs/rr/rr2-q7-heldout-analysis-int.json"
 # key: (receipt, path to a share in [0, 1], the number printed in the article)
 VALUES = {
     "t05_soft": (REPRO, ["answers", "qwen0.5b (REPRO-T)", "conditions", "bf16 soft 0.0", "answers_differ"], "56"),
@@ -60,8 +61,8 @@ VALUES = {
     "r1_plain": (PM2, ["cells", "A-gsm8k", "plain", "flip_rate"], "10.2"),
     "qwq_soft": (PM2, ["cells", "C-gsm8k", "soft", "flip_rate"], "19.5"),
     "qwq_plain": (PM2, ["cells", "C-gsm8k", "plain", "flip_rate"], "19.9"),
-    "rr05_free": (RR05, ["bf16", "disagreement", "free"], "66"),
-    "rr05_reset": (RR05, ["bf16", "disagreement", "reset"], "1.6"),
+    "rr05_free": (RR05, ["bf16", "disagreement", "free"], "47"),
+    "rr05_reset": (RR05, ["bf16", "disagreement", "reset"], "0.8"),
 }
 # sentences of the article (whitespace-normalized) that must still carry the printed numbers
 SENTENCES = [                                              # wording of the article's commit d353578

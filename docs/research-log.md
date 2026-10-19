@@ -31381,3 +31381,46 @@ nearly identical under protan vision.
     and -2.0813, factors 1.38, 1.67, 12.3 and 8.0.
   - The prompt-variants repository pointer dropped, at the human's request.
   - Now 28 pages and 23 figures.
+
+## 2026-10-19 22:43 UTC: Audit of the batch-layout answer tests: a comparison bug in the reset test, and qualifiers for every answer rate (dated correction)
+
+- **Trigger.** The human, reading the article's "Reproducibility and answers" paragraph: "These numbers seem high can
+  you audit these experiments with a pro consult please". A read-only local audit came first (subagent; every finding
+  below was rechecked from the raw records in this session). Pro consult 22 follows on the corrected text.
+- **Bug (reset test, run RR).** tools/repro_reset.py counted an answer as changed when the decoded 8-token answer text
+  differed, although its docstring and the frozen arithmetic test (tools/repro_summary.py) take the first integer as the
+  answer. Fixed: the records' comparison and analyze now use the parsed integers (INVALID counting as a value), and the
+  text comparison is reported beside them. Test added (tests/test_repro_reset.py; 3 passed). Corrected receipts:
+  docs/rr/*-analysis-int.json. The text-based originals are kept unchanged.
+  - Workstation 0.5B bf16: free 102 -> 88 of 128, reset 14 -> 7, native 109 -> 95. Discordant pairs 82 against 1
+    (p 1.7e-23); difference 0.633, 95 % interval [0.547, 0.719]. Float32: free 4 -> 3.
+  - H100 0.5B bf16: free 85 -> 60, reset 2 -> 1 (p 3.5e-18).
+  - H100 7B bf16: free 82 -> 52, reset 2 -> 0 (p 4.4e-16). 7B float32: free 47 -> 33.
+  - Accuracy still within 5 points of the reference in every arm. The conclusion (free far above reset) holds.
+- **Qualifiers** (tools/layout_answer_audit.py --batches -> docs/pi/layout-answer-audit.json):
+  - Arithmetic, REPRO-T, bf16 soft:
+    - 0.5B at log10 T 0, 0.2 and 0.4: 54, 8 and 0 changed. Correct alone/in batch: 23/22, 48/51 and 90/90.
+    - 7B at 0.2: 53 changed, 24 of them a number against no number. Correct 49/61. At 0.4: 0 changed, 96/96 correct.
+    - The changes sit where the pipeline answers poorly.
+  - Soft Thinking as published, PM. Rebuilt from the tokenizer, the batches match every record (0 mismatches).
+    - 16 of 256 problems ran in identical batches in both layouts: the harness filled short length groups from one
+      pool. None of them changed. Among the other 240: 54 changed (22.5 %).
+    - Short batches: 11 of 78 batches of 8, 26 of 77 of 16.
+  - Reasoning models, PM2 GSM8K primary cells (R1-Qwen pod A, R1-Llama pm2fix, QwQ):
+    - Changed answers: soft 37, 74 and 50; sampled 26, 55 and 51.
+    - With the thinking or answer budget reached in either layout: soft 158 of 161, sampled 132 of 132.
+    - Finished within both budgets in both layouts: 3 of 480 soft and 0 of 477 sampled answers changed.
+- **Ruled out**, from the code and the records:
+  - padding, masks and position ids (none passed);
+  - unequal prompts;
+  - random numbers depending on the layout (per-row generators seeded by problem index);
+  - stopping differences;
+  - nondeterminism within one layout (same-layout reruns bitwise identical wherever measured).
+- **Papers.**
+  - Article: the answers paragraph now gives each rate with what explains it (accuracy, missing numbers, no change
+    where answers are solid, corrected reset numbers 47 -> 0.8 % and 41 % -> none, budget split and the 4096-step
+    rerun). The abstract says "answers that the model holds weakly".
+  - Report: corrected reset passage with a note on the correction; arithmetic, PM and PM2 qualifiers; abstract,
+    introduction and contributions updated.
+- **Explainer.** tools/plot_explainer_answers.py reads the -int receipts (47 -> 0.8). Its sentence checks still cite
+  older article wording, so the explainer must be re-synced before release.

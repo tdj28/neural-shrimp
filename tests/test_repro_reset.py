@@ -31,3 +31,17 @@ def test_batch1_arms_reproduce_the_reference():
     rec = rr.run_problem(loop, tok, ids, dis, 1.0, 6, cue, 4, prob)
     assert rec["batch1_checks_pass"]
     assert max(rec["reset_logit_distance"]) < 1e-3                   # one step in the batch layout: rounding only
+
+
+def test_answers_compare_parsed_integers_not_text():
+    """The answer is the first integer: the same integer in different text is no change, INVALID against a number
+    is one, and two INVALIDs agree (as in tools/repro_summary.py)."""
+    ref = {"reference": {"text": "340<|im_end|>\n", "parsed": 340}}
+    same = dict(ref, free={"text": "340<|im_end|>\n<|endoftext|>", "parsed": 340})
+    assert not rr.answer_differs(same, "free") and rr.text_differs(same, "free")
+    other = dict(ref, free={"text": "34 0", "parsed": 34})
+    assert rr.answer_differs(other, "free")
+    none = dict(ref, free={"text": " Paris", "parsed": None})
+    assert rr.answer_differs(none, "free")
+    both_none = {"reference": {"text": " Paris", "parsed": None}, "free": {"text": " France", "parsed": None}}
+    assert not rr.answer_differs(both_none, "free")
