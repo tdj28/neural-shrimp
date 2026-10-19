@@ -31128,3 +31128,30 @@ conjugacy of the Rössler return map to unimodal maps, and orbits are traced by 
   - Upper edge: the fold, up to the finite-horizon offset above.
   - Tip: tangency predicted by the saddle-node normal form, not tested.
 - **Figure.** paper/llm/figures/fig-p6-hook-theory.png (tools/plot_hook_theory.py; report Fig. hooktheory).
+
+## 2026-10-19 12:35 UTC: tip of the hook: fold-point check done; run card HOOKTIP (exploratory)
+
+- **Fold-point check** (local RTX 2000 Ada, float64; tools/hook_tip_check.py, commit b5038c4d;
+  llm-soft-loop/kite/hook-tip).
+  - Seven Newton-converged points (17-23) of the continued fold curve kite-la-curve-plus. At each: orbit return
+    1.5e-11 to 7.2e-11, and the +1 multiplier from JVP and VJP power iteration agrees within 1e-8.
+  - The fixed start's landing coordinate u0 = l.(x - p0)/(l.r) is negative at points 17-19 (alpha 0.073002, 0.072992,
+    0.072980): -1.78e-3, -1.62e-3, -1.17e-3. The start then converges slowly onto the semi-stable orbit (final
+    distance 5e-5 to 8e-5 after 1500 steps). The drift fits u' = u + b u^2 with b = 56, 63, 68.
+  - u0 is positive at points 20-23 (alpha 0.072963, 0.072943, 0.072918, 0.072889): +2.9e-4, +4.9e-3, +1.7e-2,
+    +3.7e-2. The start escapes, ending about 1e-2 from the orbit.
+  - The sign change, the predicted tip, lies between points 20 and 19: alpha 0.0729632 to 0.0729797; linear
+    interpolation gives 0.0729665.
+  - The 300-step map's wedge appears to begin at alpha about 0.072963, at the left end of that interval.
+- **Run card HOOKTIP.**
+  - Hypothesis: within the map's short window (300 transient and 300 measured steps), cells that truly reach S but
+    linger near the fold orbit look like the weaker orbit. That would move the map's apparent tip left of the true
+    tip, and the upper edge above the fold (0.1 to 1.6 rows).
+  - Test: tools/hook_tip_strip.py on one A100 (commit db248fc8; the kite fold curve uploaded). 48 steering
+    strengths over alpha 0.072955-0.072985, at offsets -2, -1, -0.5, +0.5, +1, +2 and +4 rows (1.0955e-6 in log10 T)
+    below a cubic spline of the fold. Each cell gets the map's exponent (steps 300-600) and a long-horizon exponent
+    (steps 3000-3400) from one run.
+  - Prediction: beyond the fold (negative offsets), long-horizon exponents are those of S even where the short ones
+    are not. Just inside, the long-horizon boundary between W and S lies near the predicted tip, inside 0.0729632 to
+    0.0729797.
+  - A local run of the same design (3 offsets) was stopped after 13 minutes, at 1.4 s per step, in favor of the pod.
