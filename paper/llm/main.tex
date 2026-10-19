@@ -648,16 +648,20 @@ map's label (purple); dotted: 95\,\%.}
 \centering
 \includegraphics[width=\linewidth]{fig-mechanism-summary.png}
 \caption{Readout and network contributions to the growth under steering: the three measurements of this section
-(Qwen2.5-0.5B-Instruct unless marked 7B, float64). (a) Gain split along the attractors of the block-12 map: mean log
-readout factor (solid) and network factor (dashed) per step, for chaotic cells (red) and nearly unsteered cells,
-$|\alpha|\le0.01$ (gray), in the 18 temperature rows with at least three cells of each kind. In the nearly unsteered
-cells the readout's relative gain shrinks perturbations by 0.87 to 5.49 nats per step; in the chaotic cells it grows
-them, except in the three highest rows, while the network factor changes little. (b) Share of chaotic cells per
-temperature row under residual steering at block 12 (331 of 5353 cells) and under a logit bias along $Wv$, the output
-matrix applied to the steering vector, with no residual steering (241 of 6837 cells). (c) Orbit-preserving crossover:
-change in the finite-time growth along recorded steered orbits when only the readout (orange) or only the network
-Jacobian (gray) is taken from the steered model; means over the held-out chaotic cells (14 in the 0.5B model, 10 in
-the 7B model), with 95\,\% bootstrap intervals. \repo{tools/plot_mechanism_summary.py}.}
+(Qwen2.5-0.5B-Instruct unless marked 7B, float64). Orange: the readout factor $\Sigma_p/T$ of \eqref{eq:gain};
+blue: the network factor $J_{\tilde h}$. (a) Gain split along the attractors of the block-12 map: mean logarithm of
+each factor per step, for chaotic cells (solid) and nearly unsteered cells, $|\alpha|\le0.01$ (dashed), in the 18
+temperature rows with at least three cells of each kind; positive values expand perturbations, negative values
+contract them. In the nearly unsteered cells the readout's relative gain shrinks perturbations by 0.87 to 5.49 nats
+per step; in the chaotic cells it grows them, except in the three highest rows, while the network factor changes
+little. (b) Share of chaotic cells per temperature row under residual steering at block 12, which moves both factors
+(black; 331 of 5353 cells, 6.2\,\%), and under a logit bias along $Wv$, the output matrix applied to the steering
+vector, with no residual steering, which at a given state changes only the readout (orange; 241 of 6837 cells,
+3.5\,\%). (c) Orbit-preserving crossover: change in the finite-time growth along recorded steered orbits when only
+the readout (orange, circles) or only the network Jacobian (blue, squares) is taken from the steered model; means
+over the held-out chaotic cells with 95\,\% bootstrap intervals. Rows: the philosophy and gratitude directions and
+a random direction of the philosophy vector's norm in the 0.5B model, 14 cells each, and the philosophy direction in
+the 7B model, 10 cells. \repo{tools/plot_mechanism_summary.py}.}
 \label{fig:mechsummary}
 \end{figure}
 \paragraph{Steering makes tokens compete.} Steering could create chaos through either factor of \eqref{eq:gain}, as

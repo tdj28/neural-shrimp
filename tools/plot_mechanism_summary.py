@@ -23,7 +23,8 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "tools"))
 import plot_mechanism as pm  # noqa: E402
 
-RED, GRAY, PURPLE, ORANGE = "#c0392b", "0.45", "#7b3294", "#e08214"
+# one color per factor of DF = (1/T) Sigma_p J_h in every panel: readout Sigma_p/T orange, network J_h blue
+READ, NET = "#e08214", "#2c6fbb"
 
 
 def row_profiles(A, min_n=3):
@@ -56,64 +57,58 @@ def main():
     prof = row_profiles(amap)
     summary = {"rows": prof}
 
-    fig, axes = plt.subplots(1, 3, figsize=(7.1, 2.45), gridspec_kw={"width_ratios": [1.05, 1.0, 1.0], "wspace": 0.34})
+    # little text in the figure: colors and line styles are explained in the caption (orange: readout factor
+    # Sigma_p/T, blue: network factor J_h; in (a) solid: chaotic cells, dashed: nearly unsteered cells)
+    fig, axes = plt.subplots(1, 3, figsize=(7.1, 2.3), gridspec_kw={"width_ratios": [1.05, 1.0, 1.0], "wspace": 0.58})
+    dashed = (0, (3, 1.6))
     # (a) gain split per temperature row
     ax = axes[0]
     t = np.array([r["log10T"] for r in prof])
-    for key, col, ls, lab in (("read_chaotic", RED, "-", "readout, chaotic cells"),
-                              ("read_near0", GRAY, "-", r"readout, $|\alpha|\leq0.01$"),
-                              ("net_chaotic", RED, (0, (3, 1.6)), "network, chaotic cells"),
-                              ("net_near0", GRAY, (0, (3, 1.6)), r"network, $|\alpha|\leq0.01$")):
-        ax.plot(t, [r[key] for r in prof], ls=ls, color=col, lw=1.1, marker="o", ms=2.2, label=lab)
+    for key, col, ls in (("read_chaotic", READ, "-"), ("read_near0", READ, dashed),
+                         ("net_chaotic", NET, "-"), ("net_near0", NET, dashed)):
+        ax.plot(t, [r[key] for r in prof], ls=ls, color=col, lw=1.1, marker="o", ms=2.2)
     ax.axhline(0, color="black", lw=0.6)
-    ax.text(-0.195, 1.45, r"expands $\uparrow$", fontsize=6.3, va="top", color="0.3")
-    ax.text(-0.195, -0.95, r"contracts $\downarrow$", fontsize=6.3, va="top", color="0.3")
     ax.set_xlabel(r"$\log_{10}T$", fontsize=7.5)
     ax.set_ylabel("mean log factor per step (nats)", fontsize=7.5)
-    ax.set_title("(a) gain split along the orbits", fontsize=8)
-    ax.legend(fontsize=5.6, loc="lower right", frameon=False, handlelength=2.4)
+    ax.set_title("(a)", fontsize=8, loc="left")
     ax.set_ylim(-6.0, 1.6)
     # (b) chaotic share per temperature row
     ax = axes[1]
-    for (A, lab, col), ytext in zip(((amap, "residual steering", "black"), (bmap, "logit bias only", PURPLE)), (33, 23)):
+    for A, lab, col in ((amap, "residual steering", "black"), (bmap, "logit bias only", READ)):
         rows = np.unique(np.round(A["log10_temperature"], 6))
         share = np.array([A["chaotic"][np.isclose(A["log10_temperature"], r)].mean() for r in rows]) * 100
         n, k = int(len(A["chaotic"])), int(A["chaotic"].sum())
         ax.plot(rows, share, "-", color=col, lw=1.1)
-        ax.text(-0.58, ytext, f"{lab}\n{100 * k / n:.1f} % of cells", color=col, fontsize=6.3, va="top")
         summary[lab] = {"chaotic": k, "cells": n}
     ax.set_xlim(-0.6, 0.31)
+    ax.set_xticks([-0.6, -0.4, -0.2, 0.0, 0.2])
     ax.set_xlabel(r"$\log_{10}T$", fontsize=7.5)
     ax.set_ylabel("chaotic cells in the row (%)", fontsize=7.5)
-    ax.set_title("(b) token competition alone", fontsize=8)
+    ax.set_title("(b)", fontsize=8, loc="left")
     # (c) crossover effects
     ax = axes[2]
-    groups = (("XO", "0.5B, philosophy"), ("XO_gratitude", "0.5B, gratitude"), ("XO_random1", "0.5B, random"),
-              ("XO7", "7B, philosophy"))
+    groups = (("XO", "0.5B, philosophy", "philosophy"), ("XO_gratitude", "0.5B, gratitude", "gratitude"),
+              ("XO_random1", "0.5B, random", "random"), ("XO7", "7B, philosophy", "7B philosophy"))
     y = 0.0
     ticks, labels = [], []
     summary["crossover"] = {}
-    for key, name in groups:
+    for key, name, short in groups:
         s = stats[key]
-        for eff, col, mk, dy in (("readout_effect (10-00)", ORANGE, "o", 0.17), ("network_effect (01-00)", GRAY, "s", -0.17)):
+        for eff, col, mk, dy in (("readout_effect (10-00)", READ, "o", 0.17), ("network_effect (01-00)", NET, "s", -0.17)):
             v = s[eff]
             ax.errorbar([v["mean"]], [y + dy], xerr=[[v["mean"] - v["ci95"][0]], [v["ci95"][1] - v["mean"]]], fmt=mk,
-                        color=col, ms=3.6, capsize=2, lw=1.0, label=None)
+                        color=col, ms=3.6, capsize=2, lw=1.0)
             summary["crossover"].setdefault(name, {})[eff] = v
-        n = s["readout_effect (10-00)"]["cells"]
-        ax.text(-1.76, y + 0.36, f"{name} ({n} cells)", fontsize=6.2, va="bottom", ha="left", zorder=3,
-                bbox=dict(facecolor="white", edgecolor="none", pad=0.4))
+        ticks.append(y)
+        labels.append(short)
         y -= 1.0
-    ax.errorbar([], [], xerr=[], fmt="o", color=ORANGE, ms=3.6, label="steer only the readout")
-    ax.errorbar([], [], xerr=[], fmt="s", color=GRAY, ms=3.6, label="steer only the network")
     ax.axvline(0, color="black", lw=0.6)
-    ax.set_yticks([])
-    ax.set_ylim(y + 0.5, 1.75)
+    ax.set_yticks(ticks)
+    ax.set_yticklabels(labels, fontsize=6.5)
+    ax.set_ylim(y + 0.5, 0.6)
     ax.set_xlim(-1.8, 1.45)
     ax.set_xlabel("change in growth (nats per step)", fontsize=7.5)
-    ax.set_title("(c) crossover at fixed states", fontsize=8)
-    leg = ax.legend(fontsize=6, loc="upper right", frameon=True, framealpha=1.0, handletextpad=0.3)
-    leg.get_frame().set_edgecolor("none")
+    ax.set_title("(c)", fontsize=8, loc="left")
     for a in axes:
         a.tick_params(labelsize=6.5)
     fig.savefig(args.out, dpi=300, bbox_inches="tight", pad_inches=0.03)
