@@ -94,6 +94,15 @@ def boundary_gate(fa, ft, lab, fper, curves, period):
     return out
 
 
+def draw_located(ax, located, ms=9):
+    """Gold stars at cusps located and checked by tools/cusp_locate.py (located: true)."""
+    for f in located:
+        rec = json.loads(f.read_text())
+        if rec.get("located"):
+            fin = rec["final"]
+            ax.plot(fin["alpha"], fin["log10_temperature"], "*", color="gold", ms=ms, mec="k", mew=0.6, zorder=7)
+
+
 def draw_curves(ax, curves, lw=1.1, ms=7):
     from matplotlib import patheffects as pe
     for rec in curves:
@@ -105,9 +114,6 @@ def draw_curves(ax, curves, lw=1.1, ms=7):
         fold = rec["kind"] == "fold"
         ax.plot(x, y, "-" if fold else "--", color="k" if fold else "r", lw=lw if fold else lw * 0.9, zorder=4,
                 path_effects=[pe.Stroke(linewidth=lw + 1.2, foreground="w", alpha=0.7), pe.Normal()])
-        for q in pts:
-            if q.get("cusp_candidate"):
-                ax.plot(q["alpha"], q["log10_temperature"], "*", color="gold", ms=ms, mec="k", mew=0.6, zorder=6)
 
 
 def main():
@@ -148,12 +154,15 @@ def main():
     ext = [al[0] - da, al[-1] + da, lt[0] - dt, lt[-1] + dt]
 
     curves, report = load_curves(args.curves, args.max_residual, args.kind_tol)
+    located = sorted((DATA / "explore" / args.curves).glob("locate-*/locate.json"))
+    report_located = [{"locate": f.parent.name, "located": json.loads(f.read_text()).get("located")} for f in located]
     panels = 2 if args.follow else 1
     plt.rcParams.update({"font.size": 8})
     fig, axes = plt.subplots(1, panels, figsize=(7.0 if panels == 2 else 3.6, 3.5), squeeze=False)
     axA = axes[0, 0]
     axA.imshow(img, origin="lower", aspect="auto", interpolation="nearest", extent=ext)
     draw_curves(axA, curves)
+    draw_located(axA, located)
     axA.set_xlim(ext[0], ext[1]); axA.set_ylim(ext[2], ext[3])
     axA.set_xlabel(r"steering strength $\alpha$"); axA.set_ylabel(r"$\log_{10}T$")
     axA.set_title("(a) Lyapunov map, 512 x 512 float64 cells", fontsize=8)
@@ -161,7 +170,8 @@ def main():
                       pad=0.16)
     cb.set_label(r"chaotic cells: largest exponent $\lambda$", fontsize=7)
     cb.ax.tick_params(labelsize=6.5)
-    summary = {"scan": args.scan, "cells": int(ly.size), "chaotic": int(chaos.sum()), "curves": report}
+    summary = {"scan": args.scan, "cells": int(ly.size), "chaotic": int(chaos.sum()), "curves": report,
+               "located_cusps": report_located}
 
     if args.follow:
         z = np.load(DATA / "explore" / args.follow / "follow.npz", allow_pickle=True)
@@ -190,6 +200,7 @@ def main():
                    Line2D([], [], color="k", lw=1.1, label="fold curve"),
                    Line2D([], [], color="r", lw=1.0, ls="--", label="flip curve")]
         draw_curves(axB, curves)
+        draw_located(axB, located)
         axB.set_xlim(ext[0], ext[1]); axB.set_ylim(ext[2], ext[3])
         axB.set_xlabel(r"steering strength $\alpha$")
         axB.set_title("(b) the attractor followed from the body", fontsize=8)
