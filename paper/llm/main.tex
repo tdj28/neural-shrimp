@@ -1176,7 +1176,8 @@ feedback carries it into different answers within a short budget even where the 
 
 \paragraph{The regime decides whether rounding differences grow.} Language-model inference is not bitwise
 reproducible: GPU kernels choose different reduction orders for different matrix shapes, so a request's result depends
-on the batch it shares and on the hardware \cite{he2025nondeterminism,yuan2025nondeterminism}. We ran the 448 labeled
+on its batch layout, the set of requests that the GPU processes together with it, and on the hardware
+\cite{he2025nondeterminism,yuan2025nondeterminism}. We ran the 448 labeled
 cells of the horizon check (192 chaotic, 192 periodic and 64 other cells of two float64 maps; Appendix~\ref{sec:methods})
 twice in lockstep from the same start. The two runs differ only in the batch: all cells in one batch of $n$ rows, or
 the same rows followed by $n$ further rows whose steering vectors are those of the first $n$ in reverse order, at the
