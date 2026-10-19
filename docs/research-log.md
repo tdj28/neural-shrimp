@@ -30338,3 +30338,15 @@ logs, whose times are clock times.
   - Input: the TU fold curve, uploaded with --extra-data.
   - One H100-class pod, job set toolseq, 50 minutes.
   - It is called a located cusp only if every check passes; otherwise it stays a candidate.
+
+### 2026-10-19 01:51 UTC: P6S-AU result; run card P6S-TDfold
+
+- **P6S-AU** (pod 404bl44l1pj8il; rc 0; terminated 01:45 UTC). Along alpha upward from the seed, the orbit dies in a
+  fold between alpha 0.073292 and 0.073293 (multiplier beyond 1.2059, next modulus 0.0071).
+  - The fold curve was continued both ways: 82 + 69 points. Residual at most 8.7e-11, |g| at most 9.9e-10,
+    multiplier +1 within 4.9e-8, real.
+  - This is the same fold curve that P6S-TU traced. It passes the same cusp candidate, (0.074834, -0.159586) on this
+    trace and (0.074839, -0.159596) on TU's, the nearest curve points on each trace to the reversal.
+- **Run card P6S-TDfold** (exploratory). The fold where the restabilized period-6 orbit dies on the lower leg
+  (log10 T -0.160117 on the TD branch) is continued both ways: two H100-class pods, job set toolseq, curve --kind
+  fold, 100 steps, the same settings and bounds as P6S. Gates as before.
