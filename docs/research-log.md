@@ -31254,7 +31254,7 @@ nearly identical under protan vision.
 - **Text.** Backour clause corrected in both papers: the inverse temperature multiplies the coupling (Backour's
   effective coupling is L/tau), and the critical value 2 belongs to the product.
 
-## 2026-10-19 20:25 UTC: run card DITCH (exploratory, local CPU): is the dim ditch across the top of the lens a sign change?
+## 2026-10-19 19:35 UTC: run card DITCH (exploratory, local CPU): is the dim ditch across the top of the lens a sign change?
 
 - **Question** (the human, looking at the fine map of the period-6 body: "the ditch connecting them at the very top is
   dimmer but it's clearly there"). On the 31 x 31 grid of DSS6 (dss/p6-body) the real leading multiplier of the
