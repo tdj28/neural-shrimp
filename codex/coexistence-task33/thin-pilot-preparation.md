@@ -168,3 +168,16 @@ bound. No initial-point or tube statement here extends those old boxes.
 - `tools/explore_llm_soft_loop.py`: `ead3b44a82c556c1a376f3e58c389cd3fb2f7329786ef0a712a3d92e7a920843`
 - `codex/certify-llm/ball_jet.py`: `46b14d8bd65ed6c80174758daf37d00110cfa908813917bdb46c13749f999719`
 - `codex/certify-llm/streamed_head.py`: `f6096528f5748392386e97e9a4722f5967aeb0ae24897aac1465d205fca4f24a`
+
+## 2026-10-19T01:37Z wrapper and card review completed
+
+The initial source-only wrapper now has18 actual new interface/authority refusal
+controls and an independent full source review. See thin-pilot-001-source-review.md,
+thin-pilot-001-independent-review.md and thin-pilot-001-controls.json. The concurrent
+producer file change is explicitly crossbound to the unchanged original complete
+SoftLoop class, while the new current full file hash is pinned separately. Earlier
+source hashes above describe the earlier prepared snapshot and are not relabeled.
+The new card and serial-held plan are prepared; no model call, prefix loading or
+new numerical launch has occurred. Original loop/recurrence controls were not
+repeated. Current P6 producer and saved audit must close before fresh serial
+admission. Whole-tube derivative measurement remains separately required.
