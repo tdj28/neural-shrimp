@@ -93,6 +93,24 @@ Is this right, and how should it be put?
 > much as its number of passes. With only a few passes per token no attractor is reached, so conclusions about the
 > update operator must be checked at the loop count actually used.
 
+**(d) Discussion, appended to the paragraph "Steering and predictability" (alignment implication; the human asked
+whether to add a line about alignment):**
+> For safety interventions in continuous-feedback systems, such as steering toward honest or authorized behavior, the
+> same reasoning suggests evaluating not only an intervention's immediate behavioral effect but also the stability,
+> the reachable attractors and the observability of the dynamics it produces. An intervention that works at one
+> operating point may move the loop toward a bifurcation or into another basin, and a monitor of the emitted text
+> may miss state dynamics that drive the loop, a concern related to, but distinct from, the reduced visibility of
+> latent reasoning [Korbak et al. 2025, arXiv:2507.11473]. We tested no safety property here: whether such changes
+> reach a safety-relevant decision rather than only the wording is open.
+
+Context for (d):
+- A positive Lyapunov exponent says that some perturbations grow, not what they change. Instability and alignment are
+  different properties.
+- The article already reports that the loop's regime carries no detectable information about the accuracy of
+  ordinary sampled answers beyond the model's uncertainty about the first answer token.
+- The certified coexisting period-2 and period-3 attractors are a dynamical possibility, not "aligned" and
+  "misaligned" attractors.
+
 **(c) Data availability, added:**
 > The interval-arithmetic certificates, with their verification code, exact inputs and release records, are in that
 > repository: the period-8 orbit in codex/certify-llm (release record certificates/llm-p8-certificate-final-001.json),
@@ -112,7 +130,7 @@ Is this right, and how should it be put?
 2. **What may the paper claim** about looped transformers from the Huginn result and the soft-token results? Where is
    the line between a fair "so what" and an overreach? Is the "operating regime vs number of passes" sentence
    defensible, and in what form?
-3. **Wording.** Please correct or tighten (a), (b0), (b) and (c), to at most about 280 words in total. Is (b0)
+3. **Wording.** Please correct or tighten (a), (b0), (b), (c) and (d), to at most about 360 words in total. Is (b0)
    accurate as stated: no architectural guarantee of convergence, and all three regimes shown here? Say whether naming
    any press report in the paper would be a mistake (we plan not to).
 4. **Novelty.** Is the positioning against Kim (2026) and the looped-transformer literature fair? Is anything we
@@ -120,3 +138,5 @@ Is this right, and how should it be put?
 5. **Next experiment.** The single most informative follow-up for the journal version (for example, Lyapunov spectra
    and multipliers of a pretrained looped LM's update operator against task accuracy and reproducibility, at the
    deployed loop count and beyond). What should we watch for?
+6. **Alignment line (d).** Should the paper include it at all? If yes, in what form? Does it overreach given that no
+   safety property was tested?
