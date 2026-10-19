@@ -1,0 +1,94 @@
+{
+  "schema": "codex-task35-seed-capture-mocked-controls-result-v1",
+  "started_utc": "2026-10-19T17:02:26.084384+00:00",
+  "completed_utc": "2026-10-19T17:02:26.167533+00:00",
+  "source_checkpoint": "d38f0ad43585e56db8e79ee73b17a3fa5b3669b8",
+  "private_checkpoint_verified_before_run": true,
+  "card": {
+    "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/crossroad-task35/seed-phase-capture-controls-card.json",
+    "bytes": 3952,
+    "sha256": "131b84063ee5b0c8ec983ce39921347bad54f3b93910d14c5f2b5aa9b110ebc4"
+  },
+  "helper": {
+    "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/crossroad-task35/seed_phase_capture.py",
+    "bytes": 3518,
+    "sha256": "c3cbc0705e5614138691926955ba1178dded961f86bc4008068a4d0d59354276"
+  },
+  "fixture": {
+    "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/crossroad-task35/test_seed_phase_capture.py",
+    "bytes": 10856,
+    "sha256": "16d1d9f0dfabf2926992c9297f63b5cfe02ccb54ba45f865602feb2983a517da"
+  },
+  "argv": [
+    "/usr/bin/python3",
+    "-I",
+    "-B",
+    "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/crossroad-task35/test_seed_phase_capture.py"
+  ],
+  "explicit_environment": {
+    "OMP_NUM_THREADS": "1",
+    "OPENBLAS_NUM_THREADS": "1",
+    "MKL_NUM_THREADS": "1",
+    "NUMEXPR_NUM_THREADS": "1",
+    "HF_HUB_OFFLINE": "1",
+    "CUDA_VISIBLE_DEVICES": "",
+    "PYTHONDONTWRITEBYTECODE": "1"
+  },
+  "limits": {
+    "cpu_ids": [
+      0
+    ],
+    "nice": 10,
+    "as_bytes": 268435456,
+    "cpu_seconds": 30,
+    "wall_timeout_seconds": 40,
+    "file_size_bytes": 8388608
+  },
+  "returncode": 0,
+  "timed_out": false,
+  "elapsed_seconds": 0.06629192782565951,
+  "elapsed_upper_seconds_6dp": 0.066292,
+  "timing_scope": "Parent monotonic immediately before Popen through wait/reap; excludes subsequent Root hashes/closure checks.",
+  "reported_test_methods": 12,
+  "suite_passed": true,
+  "stdout": {
+    "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/crossroad-task35/seed-phase-capture-controls-001.stdout.txt",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "stderr": {
+    "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/crossroad-task35/seed-phase-capture-controls-001.stderr.txt",
+    "bytes": 1979,
+    "sha256": "3fcbc3e280c19a0dfc16ba358451ad4c61ab20a41f82fc0c977e1ef4f3e51b1a"
+  },
+  "startup": {
+    "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/crossroad-task35/seed-phase-capture-controls-001-startup.json",
+    "bytes": 642,
+    "sha256": "57f52c65fb9e8f4af4d5990678f41102dd1b698f4d8063ad206c561a24ee253c"
+  },
+  "original_child": {
+    "pid": 768942,
+    "starttime": 237591018,
+    "pgid": 768942,
+    "sid": 768942,
+    "nice": 10,
+    "threads": 1,
+    "uid": 1000,
+    "cmdline": "python3 - "
+  },
+  "child_reaped": true,
+  "child_pid_absent": true,
+  "group_session_members": [],
+  "root_separate_postexec_live_observation": false,
+  "source_pins_unchanged": true,
+  "new_mocked_fixture_runs": 1,
+  "old_controls_repeated": false,
+  "target_arrays_assets_or_producer_imports": false,
+  "model_backend_calls": 0,
+  "actual_caller_integrated": false,
+  "actual_profile002_prepared": false,
+  "seed_qualified": false,
+  "source_origin_or_runtime_authority_admitted": false,
+  "certificate_passed": false,
+  "scope": "Manufactured stdlib helper-interface controls only. No Task34 startup check or resource admission and no Task35 target execution."
+}
