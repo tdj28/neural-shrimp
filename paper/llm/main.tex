@@ -467,16 +467,18 @@ any finite difference.}
 \label{fig:derivcheck}
 \end{figure}
 
-\paragraph{Where steering and temperature enter.} Temperature appears in \eqref{eq:gain} explicitly, as the factor
-$1/T$ and inside $p$. In a two-token reduction with linear transport, the same inverse
+\paragraph{Where steering and temperature enter.} Temperature appears in \eqref{eq:gain} twice: explicitly, as the factor $1/T$, and inside $p$. As
+$T\to0$ the two pull in opposite directions and $p$ wins: where one token leads, $p$ concentrates on it, $\Sigma_p$
+vanishes faster than $1/T$ grows, and the readout factor tends to zero, so the loop approaches greedy decoding; only
+near ties between leading tokens does the factor grow, like $1/T$ (``High and low temperature'' below). In a two-token reduction with linear transport, the same inverse
 temperature multiplies a scalar coupling, and the product's critical value 2 separates the washout of a mixture from its takeover by one
-token \cite{backour2026mixture}. Steering does not appear, and this is not an omission: the vector $\alpha v$ is added to the
-residual stream whatever the state, so it contributes no derivative of its own with respect to $x$. It acts, as
-temperature also does, by moving the point at which the two factors are evaluated. In the readout factor $\Sigma_p/T$,
+token \cite{backour2026mixture}. Steering does not appear in \eqref{eq:gain}: the vector $\alpha v$ is the same whatever the state $x$, so it has no
+derivative of its own, and it changes $DF$ only by changing the quantities from which the two factors are computed. In the readout factor $\Sigma_p/T$,
 steering decides which tokens compete in $p$ and temperature decides how sharply: $\Sigma_p$ is large where tokens
 with different embeddings share the probability and tends to zero as one token takes all of it. In the network factor $J_{\tilde h_\alpha}$, steering
-shifts the operating point of every later block (attention weights, MLP activations and the scale of each RMS
-normalization), and so changes how strongly the network stretches a change of the fed-back token; temperature changes
+changes the input of every later block, and with it the attention weights, MLP activations and normalization
+scales at which that block's derivative is taken, and so changes how strongly the network stretches a change of
+the fed-back token; temperature changes
 this factor too, because it moves the orbit along which the factor is evaluated. On the two main maps both parameters
 move both factors (orbit averages along the trajectories of Figure~\ref{fig:normbounds}, power-iteration estimates).
 Grouping the cells by steering strength alone accounts for 7 and 33\,\% of the variance of the network term
