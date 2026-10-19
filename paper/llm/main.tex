@@ -344,7 +344,11 @@ step of Soft Thinking \cite{zhang2025softthinking}, and related methods feed bac
 \cite{hao2024coconut} or iterate a block to a fixed point \cite{geiping2025recurrent}; continuous feedback of this kind
 is studied because it can carry more than one token's worth of information. We also hold the prefix and the window
 fixed. That simplification is deliberate: it makes the loop an autonomous map whose orbits, exponents and bifurcations
-can be computed, and in one case proved, much as low-dimensional maps made the routes to turbulence tractable. We then
+can be computed, and in one case proved, much as low-dimensional maps made the routes to turbulence tractable.
+This fixed-prefix, fixed-window soft-token map differs both from ordinary autoregressive generation, whose context grows,
+and from recurrent-depth (looped) transformers, which repeatedly update hidden states through a shared block
+\cite{dehghani2019universal,giannou2023looped,geiping2025recurrent}; dynamical methods apply to both kinds of loop, but
+their update operators, and therefore their derivatives and stability conditions, differ. We then
 test which effects survive in the fuller systems: Soft Thinking's growing context, sampled decoding, longer fed-back
 memories and two models writing to each other (Appendices~\ref{sec:bridge} and~\ref{sec:dialogue}). The
 answer-level consequences reported below were measured in a soft-thinking pipeline with a growing context, not in the
@@ -2397,13 +2401,13 @@ the count predicted by a section of a swallowtail; orange: not).}
 \centering
 \includegraphics[width=\linewidth]{fig-shrimp-anatomy.png}
 \caption{The anatomy of a shrimp's cell in two classical one-dimensional models, computed (gray: one attracting fixed
-point; blue: two). (a) Gallas's canonical period-1 cell, $x\mapsto(a-x^2)^2-b$ (his eq.~(5.3), rotated as in his
+point; blue: two). (a) Gallas's canonical period-1 cell, $x\mapsto(a-x^2)^2-b$ (his eq.~(5.3), rotated and labeled as in his
 Figure~7 \cite{gallas1994dissecting}). Fold curves (black; multiplier $+1$) and flip curves (red, dashed; $-1$)
 bound the main cell, and the superstable curves (blue, dotted; $0$) of the map's critical points cross at the head H.
 Two legs, each between a fold and a flip curve, cross in the kite C--A--R--B, which begins at the cusp C of the fold
 curve; in the kite two attracting fixed points coexist, and their superstable curves cross at the tail T. The flip
 curves of the two legs cross at R, which makes the kite a crossroad area in the sense of Carcass\`es et al. The
-computed corners A and B agree with Gallas's to six digits. (b) The quartic model of Carcass\`es et
+computed corners A and B agree with Gallas's to six significant digits. (b) The quartic model of Carcass\`es et
 al.\ \cite{carcasses1991crossroad}, $x\mapsto c+(1+a)x+bx^2+x^4$, in the plane of $a$ and $c$ at $b=-1$, a plane they
 did not draw: the fold curve has two cusps $C_1$ and $C_2$ that share a segment and crosses itself at X (a dovetail, in the
 term Mira et al.\ use for critical curves with two such cusps \cite{mira1996chaotic}). Numbers: real fixed points in each region; a flip curve crosses the pocket,
@@ -2937,7 +2941,7 @@ Huginn-0125 iterates a recurrent block at fixed input tokens \cite{geiping2025re
 \cite{cobbe2021gsm8k} prompt, the native loop converges to a fixed point whose leading Jacobian pair is
 $0.588\pm0.771i$ (modulus $0.970$). For the relaxed loop $h\leftarrow(1-\lambda)h+\lambda F(h)$, whose multipliers
 are $1-\lambda+\lambda\mu$, this predicts that the pair crosses the unit circle at
-$\lambda_c=2(1-\operatorname{Re}\mu)/|1-\mu|^2=1.0777$, transversally and away from the strong resonances (at
+$\lambda_c=2(1-\operatorname{Re}\mu)/|1-\mu|^2=1.0775$, transversally and away from the strong resonances (at
 0.156 of a revolution per step): a Neimark--Sacker bifurcation. Below it the latent state
 decays; above it the state settles on a closed curve. A fit of the squared amplitude gives $\lambda_c=1.0778$, with
 $A/\sqrt{\lambda-\lambda_c}=0.52$--$0.54$. A stable circle that grows like the square root of the distance is
@@ -3285,7 +3289,23 @@ Section~\ref{sec:consequences} make this concrete: in a chaotic regime the batch
 after a predictable number of steps, what the loop writes, while in a periodic regime it almost never does (in the
 0.5B model, the text changed in 173 of 192 chaotic loops and in 7 of 192 periodic ones). In low precision, continuous feedback makes even short-budget
 answers depend on the batch, far more often than greedy decoding does; over a long run whose answers the model
-holds weakly, discrete feedback does too.
+holds weakly, discrete feedback does too. These findings motivate testing whether interventions in continuous-feedback
+systems, including steering for safety, alter finite-horizon sensitivity or task-relevant decisions as well as
+immediate outputs; such tests would complement research on how latent-reasoning architectures affect chain-of-thought
+monitorability \cite{korbak2025monitorability}. We tested no safety property: dynamical instability is neither
+misalignment nor evidence of it.
+
+\paragraph{Other inference loops.} Any inference scheme that feeds a network's output or internal state back as its
+input defines an iterated map, but feedback by itself implies neither convergence nor chaos. The energy-descent
+argument for the isolated tied readout (Section~\ref{sec:theory}) does not establish convergence of either complete
+feedback operator studied here. In the soft-token loop we find fixed points, cycles and chaos. In the recurrent-depth
+model Huginn (Section~\ref{sec:huginn}) the loop's derivative is the block's Jacobian, without the readout factor;
+there we observe convergence and oscillatory instability, predicted from the block's multipliers, and found no chaotic
+regime. These results motivate evaluating the dynamics of looped and recurrent-depth language models
+\cite{zhu2025ouro,bae2025mor} jointly with their number of iterations; they do not establish a general relation
+between stability and reasoning accuracy, especially at the short horizons of deployed loops, where no attractor need
+be reached. Agentic loops that sample discrete tokens and tool outputs have no derivative at all; only the
+zero-temperature limit and the sensitivity measurements of this paper bear on them.
 
 \paragraph{Is the chaos useful?} The chaos we map is not a source of new content. The chaotic cells of
 Table~\ref{tab:transcripts} recombine the phrases of the neighboring loops in an order that did not settle over the recorded horizon: the
@@ -3340,8 +3360,10 @@ transfer, not the numbers.
 \section*{Code and data availability}
 The code, the designs of the tests fixed in advance with their audits, the run cards, the failed attempts and
 hash-bound records of every computation are in the project repository, \url{https://github.com/tdj28/neural-shrimp};
-the links in this paper point to its tag \texttt{arxiv-v1}. Bulky raw trajectories and model states are kept outside
-the repository, which holds their checksums; they are available from the author.
+the links in this paper point to its tag \texttt{arxiv-v1}. For the interval-arithmetic certificates the repository
+holds the verification code, the exact map and input specifications, the release records and hashes of the native
+evidence. Bulky raw trajectories, model states and the native certificate evidence (center definitions and interval
+enclosures) are kept outside the repository, which holds their checksums; they are available from the author.
 
 \section*{Funding}
 This work received no external funding; the author paid for all computation.
@@ -3623,6 +3645,30 @@ $10^{-12}$ and never renormalized: real chaos grows; under noise the contracting
 and stays there; in clean float64 it stays near $10^{-14}$, the rounding floor of the map.}
 \label{fig:falsechaos}
 \end{figure}
+
+\paragraph{How a fold or flip curve is found.} Every curve in this paper is found in the same five steps, all on the
+full map in float64.
+(i) \emph{An orbit.} At one cell inside a window the loop is iterated from the fixed start until it settles; the
+period $p$ is the smallest return time of the full state, $\lVert F^p(x)-x\rVert$ small, and Newton's method on
+$F^p(x)=x$ with forward-mode Jacobians through the network refines the orbit to residuals near $10^{-14}$.
+(ii) \emph{A branch.} The orbit is continued in one parameter ($\log_{10}T$ at fixed $\alpha$, or $\alpha$ at fixed
+$T$) by pseudo-arclength steps, and at every point all multipliers are computed from the monodromy matrix
+$M=DF^p$. A fold shows up as a turning point of the branch, where the orbit meets a saddle and the branch turns back
+(a multiplier passes $+1$); a flip shows up as a real multiplier crossing $-1$, where the orbit doubles.
+(iii) \emph{A curve.} From the boundary point found on the branch, the bifurcation itself is continued in the plane of
+the two parameters. The unknowns are the orbit point and the two parameters; the equations are $F^p(x)-x=0$ and one
+scalar test function $g=0$, the last component of the solution of the bordered linear system with matrix
+$[[M\mp I,v],[w^\top,0]]$, which vanishes exactly when $M$ has the multiplier $\pm1$ (upper sign: fold)
+\cite{govaerts2000numerical,kuznetsov2023elements}. Newton's method with Jacobian-vector products through the network
+corrects each pseudo-arclength step.
+(iv) \emph{A gate at every point.} A point is drawn only if its residual is at most $10^{-10}$ and the critical
+multiplier of the dense monodromy is real and within $10^{-7}$ of $\pm1$; rejected points are counted and never
+drawn.
+(v) \emph{Cusps and the check against the map.} Where a fold curve's direction in the plane reverses, a cusp candidate
+is located by the sign change of the oriented quadratic coefficient of the fold normal form, and accepted only if the
+cubic coefficient and the unfolding determinant are nonzero. Finally, where the attractor followed cell by cell ends,
+a computed curve must be near (the boundary gates of the figures). For the 0.5B model one curve point takes about 50\,s
+on one H100 GPU.
 
 \paragraph{Periodic orbits.} We solve $F^p(x)=x$ by Newton's method with forward-mode Jacobians. The multipliers are
 the eigenvalues of the monodromy matrix, the ordered product of the step Jacobians along the orbit, which plays the
