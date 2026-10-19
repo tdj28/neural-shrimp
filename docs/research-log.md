@@ -31253,3 +31253,28 @@ nearly identical under protan vision.
   14 passed.
 - **Text.** Backour clause corrected in both papers: the inverse temperature multiplies the coupling (Backour's
   effective coupling is L/tau), and the critical value 2 belongs to the product.
+
+## 2026-10-19 20:25 UTC: run card DITCH (exploratory, local CPU): is the dim ditch across the top of the lens a sign change?
+
+- **Question** (the human, looking at the fine map of the period-6 body: "the ditch connecting them at the very top is
+  dimmer but it's clearly there"). On the 31 x 31 grid of DSS6 (dss/p6-body) the real leading multiplier of the
+  continued period-6 orbit changes sign across 45 neighbouring pairs, which lie on the main dark ditch and on an arc
+  around the lighter lens to its right (negative toward the flip curve, positive toward the fold; 9 cells with a
+  complex leading pair on the main ditch). The map also shows a dimmer ditch closing the lens at its top, near
+  log10 T -0.1522 at alpha 0.07318, where the grid shows no sign change (its rows are 1.5e-4 apart).
+- **Why the leading multiplier cannot vanish:** it is the largest in modulus, so it is zero only if all multipliers are
+  (a nilpotent monodromy); along a path where it changes sign it must therefore tie in modulus with another
+  multiplier (an exchange of dominance between multipliers of opposite sign, or a complex pair).
+- **Method:** tools/doubly_superstable.py grid --multipliers-only (the DSS6 machinery: continuation from a seed through
+  neighbouring cells, three leading multipliers per cell), period 6, philosophy vectors at layer 12, transient 900,
+  tol 1e-12, float64 on the local CPU (12 threads, one run at a time).
+  - A (the question): one column at alpha 0.07318, 26 rows over log10 T -0.1527 to -0.1517 (4e-5 apart), seed
+    (0.07318, -0.1526) inside the lens.
+  - B (control): one row at log10 T -0.1530, 21 columns over alpha 0.07292 to 0.07306 (7e-6 apart), across the main
+    ditch, where DSS6 has a sign change; seed (0.07304, -0.1530) inside the lens.
+- **Reading, fixed now:**
+  - The top ditch is a sign change if the real leading multiplier of the solved cells has opposite signs on its two
+    sides; a same-sign dip if it keeps its sign while its modulus has a local minimum; unresolved where cells are not
+    solved or the continuation changes token loop (reported as such).
+  - The method counts only if B shows the sign change of the main ditch.
+- **Outputs:** llm-soft-loop/p6s/ditch-top-a, llm-soft-loop/p6s/ditch-main-b.

@@ -193,6 +193,30 @@ PAIR_WORDS = ((1.17, 2.02, "leg"), (2.02, 1.3, "leg"), (-0.2, 0.55, "main cell")
 PAIR_KITE = (0.5, 1.32)
 
 
+def sign_changes(path):
+    """Midpoints of neighbouring solved cells of a continued-orbit grid whose real leading multipliers have opposite
+    signs, and the cells whose leading multiplier is a complex pair: the lines along which the leading multiplier
+    changes sign without vanishing (a largest multiplier can vanish only if all multipliers do)."""
+    g = np.load(path, allow_pickle=True)
+    al, lt, mu, mi, ok = g["alpha"], g["log10_temperature"], g["mu"], g["mu_imag"], g["ok"]
+    if str(g["row_axis"]) != "log10_temperature":
+        raise SystemExit("the grid's rows are not log10 T")
+    cplx = ok & np.isfinite(mi) & (np.abs(np.nan_to_num(mi)) > 0)
+    real = ok & np.isfinite(mu) & ~cplx
+    pts, n = [], 0
+    for i in range(len(lt)):
+        for j in range(len(al)):
+            for k, l in ((i, j + 1), (i + 1, j)):
+                if k < len(lt) and l < len(al) and real[i, j] and real[k, l] and np.sign(mu[i, j]) != np.sign(mu[k, l]):
+                    pts.append(((al[j] + al[l]) / 2, (lt[i] + lt[k]) / 2))
+                    n += 1
+    ii, jj = np.nonzero(cplx)
+    pts += [(al[j], lt[i]) for i, j in zip(ii, jj)]
+    modulus = np.where(ok, np.hypot(mu, np.nan_to_num(mi)), np.nan)
+    return {"points": pts, "sign_changes": n, "complex": int(cplx.sum()), "solved": int(ok.sum()),
+            "min_modulus": float(np.nanmin(modulus))}
+
+
 def draw_shrimp(ax, args, rec):
     """Panel (b) of the pair layout: the fine float64 map of the period-6 shrimp with its continued fold and flip curves,
     the located cusps and the pseudo-crossing R, drawn and gated as by plot_p6_shrimp.py (the markers are named in the
@@ -213,6 +237,11 @@ def draw_shrimp(ax, args, rec):
     p6.draw_curves(ax, curves, lw=0.9, ms=6)
     p6.draw_located(ax, located, ms=8)
     ax.plot(*args.pseudo, "D", color="cyan", mec="k", mew=0.6, ms=4.5, zorder=8)
+    if args.ditches:
+        pts = sign_changes(p6.DATA / "explore" / args.ditches / "grid.npz")
+        ax.plot(*zip(*pts["points"]), "o", ms=2.0, mfc="#4f8fd8", mec="white", mew=0.3, zorder=6)
+        rec["ditches"] = {"grid": args.ditches, "sign_changes": pts["sign_changes"], "complex": pts["complex"],
+                          "solved": pts["solved"], "min_modulus": pts["min_modulus"]}
     cusps = [json.loads(f.read_text())["final"] for f in located if json.loads(f.read_text()).get("located")]
     inside = [(c["alpha"], c["log10_temperature"]) for c in cusps
               if ext[0] <= c["alpha"] <= ext[1] and ext[2] <= c["log10_temperature"] <= ext[3]]
@@ -265,6 +294,9 @@ def main():
     ap.add_argument("--extra", nargs="*", default=["llm-soft-loop/pod64/kite"], help="pair: further curves and cusps")
     ap.add_argument("--pseudo", type=float, nargs=2, default=(0.072912, -0.154104), metavar=("ALPHA", "LOG10T"),
                     help="pair: the verified pseudo-crossing R of the two flip curves (cyan diamond)")
+    ap.add_argument("--ditches", default=None, help="pair: explore-relative folder of a doubly_superstable.py grid of the "
+                    "continued orbit (e.g. llm-soft-loop/pod64/dss/p6-body); marks where its real leading multiplier "
+                    "changes sign between solved neighbours, and its cells with a complex leading pair")
     args = ap.parse_args()
     if args.layout == "pair":
         return pair_figure(args)
