@@ -30204,3 +30204,26 @@ At the seed (alpha 0.073097, log10 T -0.15204), after the transient, Newton conv
   through zero along a single real direction. Whether the head has Type A or Type B geometry is left to the trace
   curves of the P6S continuation.
 - Output: llm-soft-loop/p6s/orbit-seed (orbit.json, orbit-state.npy), 260 s on 8 CPU threads.
+
+### 2026-10-19 02:40 UTC: follow tool in the (alpha, log10 T) plane (P6S-follow prerequisite); smoke test; the follow run card
+
+- **Code.** tools/follow_attractor.py gains `--plane alpha-temperature` with `--log-temperature-range` and `--step2`:
+  - one steering block, no second block;
+  - each cell and its twin run at their own row's temperature;
+  - two-block mode is unchanged, byte for byte against e1683593 in the new tests.
+  - The tool and tests/test_follow_attractor_plane.py (22 pass, CPU) were staged by the agent that wrote them. They
+    entered commit 6d6b4c45 through the shared index; the commit message does not name them. The tool's sha256 is
+    0278029905ec....
+- **Smoke test** (local RTX 2000 Ada, float64; llm-soft-loop/follow-test/p9-smoke). Run around the period-9 seed
+  before the target changed: 25 cells in two waves, all label 1, period 9, reference word in 9 of 9 phases. At the
+  map's coinciding cells, the exponents agree with Fig. 1's scan within 0.033, so each row ran at its own temperature.
+- **Seed check of the period-6 window** (llm-soft-loop/follow-test/p6-seedcheck): (0.0730982, -0.152032) gives
+  period 6, exponent -0.6866, and the word "\n\nThe question\n\nThe existence" in rotation.
+- **Run card P6S-follow** (one H100-class pod, job set toolseq). Follow family 6 from the seed (0.073097, -0.15204):
+  - window alpha [0.068, 0.080] x log10 T [-0.175, -0.135] on Fig. 1's grid steps (2.93e-5 and 8.8e-5); max-batch
+    2048; 80 minutes.
+  - `--min-match 6`: the "\n\nThe" frame fixes 4 of the 6 phases, so a weaker match would accept other loops
+    (for example family 7, period 12).
+  - Labels as in the period-5 follow: 1 periodic member, 2 chaos behind the text, 3 slow, 0 not a member.
+  - The edge of the followed domain is compared with the P6S fold and flip curves by the boundary gate of the P9S run
+    card.
