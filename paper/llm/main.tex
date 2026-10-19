@@ -112,7 +112,8 @@ changed the answers of a short soft-thinking pipeline on 56\,\% and 55\,\% of 96
 models. The same loops show quantitative signatures of low-dimensional dynamics, with late doubling ratios that
 approach Feigenbaum's constant numerically. In short, fed back through its own soft next-token distribution, a
 pretrained language model defines a discrete-time map with continuous states whose dynamics (periodic windows,
-period-doubling cascades, chaotic regimes and shrimp-shaped windows) can be mapped, predicted from derivatives at
+period-doubling cascades, chaotic regimes and shrimp-shaped windows, the ``shrimps'' named by Gallas
+\cite{gallas1993structure}) can be mapped, predicted from derivatives at
 selected transitions and in places proved; their consequences for inference depend on the feedback architecture and
 the numerical regime.
 
@@ -1525,7 +1526,8 @@ and vanish at $\alpha_c=0.06279827$. The vertical coordinate is the projection $
 fold's critical direction; orange, the normal form's fixed points $u^*=\pm\sqrt{|a|(\alpha_c-\alpha)/|b|}$. (b) The
 largest multiplier of $G=F^2$ on the two orbits reaches $+1$ at the fold, following the normal form's
 $1\mp2\sqrt{ab(\alpha_c-\alpha)}$ (open circles: a complex leading pair). (c) Beyond the fold the 2-cycle is gone, but
-its ghost slows the dynamics: controlled passages from the channel's entrance $v=-U$ to its exit $v=U$ ($v$ the
+its ghost, the slow bottleneck that a saddle-node bifurcation leaves behind
+\cite{strogatz1989predicted,strogatz2018nonlinear}, slows the dynamics: controlled passages from the channel's entrance $v=-U$ to its exit $v=U$ ($v$ the
 oriented critical coordinate, $U=0.1/|b|$), measured on the network (dots) and iterated from the normal form
 $v'=v+|a|\eps+|b|v^2$ (lines), take 144, 71, 34 and 14 iterates, as predicted. (d) A free trajectory at
 $\eps=10^{-5}$ alternates between laminar phases in the bottleneck ($|u|<U$, shaded; 40 to 70 iterates each) and bursts
@@ -1578,7 +1580,8 @@ count $N$, together with the full- and half-passage predictions.}
 \paragraph{Natural reinjection and the window law.} Free trajectories re-enter the channel slightly upstream of
 the bottleneck's middle ($v\approx-3\times10^{-4}$ to $-7\times10^{-4}$, in the same oriented coordinate). From each measured entry point, the
 normal form predicts the natural laminar durations within 4--8\% for $\eps\le10^{-4}$, and a natural passage lasts
-about 0.6 of a full one. The stripes therefore follow the $N^{-2}$ law of a saddle-node ghost (log-log slope $-2.00$,
+about 0.6 of a full one. The stripes therefore follow the $N^{-2}$ law of a saddle-node ghost
+\cite{strogatz1989predicted,strogatz2018nonlinear} (log-log slope $-2.00$,
 below), with about a third of
 the full-passage prefactor; the two fractions agree because the prefactor scales as the square of the passage
 fraction ($0.58^2\approx1/3$). The distances $d_N=\alpha_N-\alpha_c$ of stripe centers located on a float32 cut along
