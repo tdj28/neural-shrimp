@@ -24,6 +24,8 @@ gates and every number shown are upserted into --manifest.
 Usage: python tools/render_text_split.py --mode pair --out ../neural-shrimp-data/videos/explainer/parts/C0-01-N3a-thread-split.mp4
        python tools/render_text_split.py --mode twin --out ../neural-shrimp-data/videos/explainer/parts/C2-03-N3b-twin-split.mp4
        (add --still 17.5 to write one PNG at that time instead of the clip)
+       --seconds S --time-map '[[0,0],[t_clip,t_anim],...]' --push 1.03 fit the clip to measured narration
+       (tools/explainer_timewarp.py): each frame is drawn at the mapped time of the schedule, then pushed in slowly.
 """
 import argparse
 import datetime
@@ -39,6 +41,7 @@ import sys
 from pathlib import Path
 
 import matplotlib
+from explainer_timewarp import parse_time_map, push, warp
 
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt  # noqa: E402
@@ -61,7 +64,7 @@ MODES = {
                  footer=("Qwen2.5-0.5B-Instruct · soft-token loop · philosophy steering α = 0.0652, "
                          "log₁₀T = −0.156 · float64",
                          "steps counted after a 1,000-step warm-up, in which the two runs already drifted slightly "
-                         "apart (full report)",
+                         "apart (their probabilities differ from step 1)",
                          "shown: the most probable next token at each step · probabilities from the saved run "
                          "records")),
     "twin": dict(a="docs/chaos-texts/qwen0.5b-hostility.json", steps=56, split=45, cell=(0.08946, -0.05566),
@@ -298,7 +301,7 @@ def frame_twin(S, t):
             text(ax, 148, 565, f"step {S['split']}, loop:  {label(p[0]['text'])} {p[0]['p']:.3f}  ·  "
                  f"{label(p[1]['text'])} {p[1]['p']:.3f};  the copy writes {label(S['rows'][1][S['split'] - 1])}",
                  34, WHITE, "bold", alpha=a)
-            text(ax, 1500, 565, "(probabilities: full report)", 24, MUTED, alpha=a)
+            text(ax, W - 80, 565, "(probabilities: saved run record)", 24, MUTED, alpha=a, ha="right")
     # relative distance between loop and copy
     x0, x1, y0, y1 = 210, 1840, 628, 930
     pax = fig.add_axes([x0 / W, 1 - y1 / H, (x1 - x0) / W, (y1 - y0) / H], facecolor=BG)
@@ -341,11 +344,13 @@ def render(S, t):
 
 
 def _worker(job):
-    S, frames, outdir = job
+    S, frames, outdir, knots, seconds, zoom, center = job
     for i in frames:
-        fig = render(S, i / 30.0)
-        fig.savefig(outdir / f"{i:05d}.png", dpi=DPI, facecolor=BG)
+        fig = render(S, warp(i / 30.0, knots))
+        path = outdir / f"{i:05d}.png"
+        fig.savefig(path, dpi=DPI, facecolor=BG)
         plt.close(fig)
+        push(path, i / 30.0, seconds, zoom, center)
     return len(frames)
 
 
@@ -372,7 +377,7 @@ def upsert(manifest, entry):
         f.write(json.dumps(data, indent=1, ensure_ascii=False) + "\n")
 
 
-def manifest_entry(S, out, seconds):
+def manifest_entry(S, out, seconds, knots=None, zoom=1.0):
     spec, k = S["spec"], S["split"] - 1
     head, dirty = git_state()
     nums = {"steps_shown": [1, S["n"]], "first_different_step": S["split"]}
@@ -399,9 +404,9 @@ def manifest_entry(S, out, seconds):
                             + [{"path": str(ARTICLE.resolve()), "sha256": sha256(ARTICLE), "use": "statements checked"}],
             "fields": "steps[k].top[0].text (most probable token), steps[k].top[:2] (probabilities)"
                       + (", steps[k].twin, steps[k].log10_distance, lyapunov[0]" if S["mode"] == "twin" else ""),
-            "numbers_shown": nums,
+            "numbers_shown": nums, "time_map": knots, "push_in": zoom,
             "article": "Sec. V and Table I (27 equal steps with six and four threads; hostility split at step 45, "
-                       "lambda 0.35); the probabilities are in the full report and the receipts",
+                       "lambda 0.35); the probabilities are in the saved run records (receipts above)",
             "rendered_utc": datetime.datetime.now(datetime.timezone.utc).strftime("%Y-%m-%d %H:%M:%S")}
 
 
@@ -413,15 +418,21 @@ def main():
     ap.add_argument("--manifest", type=Path, default=None, help="default: MANIFEST-data-clips.json beside --out")
     ap.add_argument("--workers", type=int, default=6)
     ap.add_argument("--still", type=float, default=None, help="write one PNG at this time (s) and stop")
+    ap.add_argument("--seconds", type=float, default=None, help="clip length (default: the schedule's own)")
+    ap.add_argument("--time-map", default=None, help="JSON knots [[t_clip, t_anim], ...] (explainer_timewarp.py)")
+    ap.add_argument("--push", type=float, default=1.0, help="push-in factor over the clip (1: none)")
+    ap.add_argument("--push-center", type=float, nargs=2, default=(0.5, 0.5))
     a = ap.parse_args()
     S = prepare(a.mode)
-    seconds = MODES[a.mode]["seconds"]
+    seconds = a.seconds or MODES[a.mode]["seconds"]
+    knots = parse_time_map(a.time_map, seconds, MODES[a.mode]["seconds"])
     print(json.dumps({"mode": a.mode, "first_different_step": S["split"], "steps": S["n"], "seconds": seconds,
                       "step_times": [round(x, 2) for x in S["appear"]][S["split"] - 2:S["split"] + 1]}))
     if a.still is not None:
         out = a.out.with_name(a.out.stem + f"-still-{a.still:05.2f}.png")
-        fig = render(S, a.still)
+        fig = render(S, warp(a.still, knots))
         fig.savefig(out, dpi=DPI, facecolor=BG)
+        push(out, a.still, seconds, a.push, a.push_center)
         print(f"wrote {out}")
         return
     frames = a.frames_dir / a.out.stem
@@ -431,7 +442,7 @@ def main():
     n = int(round(seconds * 30))
     chunks = [list(range(i, n, a.workers)) for i in range(a.workers)]
     with mp.get_context("fork").Pool(a.workers) as pool:
-        done = sum(pool.map(_worker, [(S, c, frames) for c in chunks]))
+        done = sum(pool.map(_worker, [(S, c, frames, knots, seconds, a.push, tuple(a.push_center)) for c in chunks]))
     if done != n:
         fail(f"rendered {done} of {n} frames")
     a.out.parent.mkdir(parents=True, exist_ok=True)
@@ -441,7 +452,8 @@ def main():
                     str(a.out)], check=True)
     dur = float(subprocess.run(["ffprobe", "-v", "error", "-show_entries", "format=duration", "-of", "csv=p=0",
                                 str(a.out)], capture_output=True, text=True, check=True).stdout)
-    upsert(a.manifest or a.out.parent / "MANIFEST-data-clips.json", manifest_entry(S, a.out, round(dur, 3)))
+    upsert(a.manifest or a.out.parent / "MANIFEST-data-clips.json",
+           manifest_entry(S, a.out, round(dur, 3), knots if a.time_map else None, a.push))
     shutil.rmtree(frames)
     print(f"wrote {a.out} ({dur:.2f} s, {n} frames)")
 
