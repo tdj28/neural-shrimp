@@ -402,7 +402,8 @@ period-8 orbit is off by 3\%. All orbits, multipliers and test functions below a
 
 \section{Why the loop can be chaotic}
 \label{sec:theory}
-Chaos requires that nearby states drift apart: a small difference $\delta x$ between two states must, on average, grow
+Chaos in the sense used here, a positive largest Lyapunov exponent with no period found (the operational label of
+Appendix~\ref{sec:methods}), requires that nearby states drift apart: a small difference $\delta x$ between two states must, on average, grow
 from one step to the next, which is what a positive largest Lyapunov exponent measures (such growth alone does not
 make an attractor chaotic). To first order, one step multiplies the difference by the derivative of the map, so the
 question is decided there. The soft-token map $F_{T,\alpha}$ of \eqref{eq:map} has a simple derivative with respect to
@@ -426,8 +427,9 @@ fed-back position; those of the fixed prefix do not change); the factorization o
 The covariance form is the standard identity for the Hessian of the log-partition function of an exponential family
 \cite{wainwright2008graphical}, the Jacobian of the softmax \cite{gao2017softmax}, and it appears explicitly in the
 Jacobian of the modern Hopfield update \cite{ramsauer2020hopfield}; here it is composed with the derivative of the full
-transformer. Placed between a network Jacobian and its transpose, the same covariance becomes the
-Fisher information of the next-token distribution pulled back to the network's input, a metric used to attribute
+transformer. For tied embeddings, placed between a network Jacobian and its transpose and divided by $T^2$, the same
+covariance is the Fisher information of the next-token distribution pulled back to the network's input (for untied
+embeddings the covariance of the output vectors takes its place), a metric used to attribute
 predictions to tokens and to describe steering geometrically \cite{liu2026jacobianscopes,wang2026fishback}; in the
 feedback map it enters once, multiplied by the Jacobian.
 Each factor has a plain meaning. The network Jacobian $J_{\tilde h_\alpha}$ says how much the transformer's final
@@ -506,7 +508,7 @@ V(F(x))\le V(x)-\tfrac12\|F(x)-x\|^2 .
 Each step lowers this energy by at least half the squared length of the step. Along a cycle these decreases sum to
 zero, so every point of the cycle is fixed. $F$ maps every state into the convex hull of the embeddings, where $V$ is
 bounded below, so the steps of every orbit must shrink to zero: every accumulation point of an orbit is a fixed point,
-and the strict descent of the energy rules out cycles and chaotic motion (an unstable fixed point can still have
+and the strict descent of the energy rules out cycles of period above one and chaotic motion (an unstable fixed point can still have
 positive tangent exponents). In models with tied embeddings, such as Qwen2.5-0.5B, every cycle and every chaotic cell
 therefore depends on the network factor $J_{\tilde h}$ breaking this energy structure. With untied embeddings the
 network-free map $x\mapsto E^{\top}\operatorname{softmax}(Wx/T)$ has the derivative
@@ -528,12 +530,13 @@ squared range, so $\|\Sigma_p\|\le\operatorname{diam}(E)^2/4$. With $L(\alpha)=\
 network's largest gain on the set $K$ of possible states (finite because the Jacobian is continuous and $K$ is
 compact), $\|DF_{T,\alpha}\|\le\operatorname{diam}(E)^2L(\alpha)/(4T)$ on $K$, and $F_{T,\alpha}$ shrinks every
 distance, that is, it is a contraction of $K$, for $T>T_*(\alpha)=\tfrac14\operatorname{diam}(E)^2L(\alpha)$. Above
-this temperature the loop forgets where it started: its single fixed point attracts every orbit, and it tends to the
+this temperature the loop forgets where it started: by Banach's fixed-point theorem it has a single fixed point, which attracts
+every orbit, and it tends to the
 mean embedding as $T\to\infty$; without tied embeddings, $\operatorname{diam}(E)^2$ becomes
-$\operatorname{diam}(E)\operatorname{diam}(W)$. For affine softmax feedback systems, with a fixed matrix in place of
-the network, a sharp stability threshold is known \cite{wang2026logitfixed}. The threshold is a curve in the
+$\operatorname{diam}(E)\operatorname{diam}(W)$. For affine softmax feedback, with a fixed matrix in place of the network, a recent preprint proves a sharp spectral
+threshold for the uniqueness and global stability of the fixed point \cite{wang2026logitfixed}. The threshold is a curve in the
 $(\alpha,T)$ plane, because the largest
-gain of the network depends on the steering. The bound is rigorous but far from sharp, because it assumes the worst
+gain of the network depends on the steering. The bound is rigorous, but it does not locate the measured chaos boundary, because it assumes the worst
 case at every step. With the diameter of the 0.5B model's tied embeddings, $\operatorname{diam}(E)=1.2109$, computed
 over all pairs of embeddings, and the largest norms of
 $J_{\tilde h_\alpha}$, the Jacobian of the final normalized hidden state, met along the trajectories of 7936 cells of
@@ -545,11 +548,10 @@ It does not cover hard routing or a growing context.
 
 At low temperature $1/T$ is large, but one token takes almost all the probability, and $\Sigma_p$ vanishes faster than
 $1/T$ grows. At a state with a unique leading token $j$, the gain is $\|\Sigma_p\|/T=e^{-\Delta/T}(C+o(1))/T$, where
-$\Delta$ is the gap between the two largest logits and $C=\lVert\sum_i(e_i-e_j)(e_i-e_j)^{\top}\rVert$, the sum
+$\Delta$ is the gap between the two largest logits and $C=\lVert\sum_i(e_i-e_j)(w_i-w_j)^{\top}\rVert$, the sum
 running over the runner-up tokens whose logits trail by exactly $\Delta$. As $T\to0$, $F$ tends to the greedy map,
 which feeds back the embedding of the most probable token (at an exact tie, the limit averages the tied embeddings).
-The limit map takes finitely many values, so every orbit of it eventually repeats (Appendix~\ref{sec:bridge}). The
-convergence is pointwise, not uniform: near a tie between tokens with different embeddings the gain is of order $1/T$.
+The limit map takes finitely many values, so every orbit of it eventually repeats (Appendix~\ref{sec:bridge}). The convergence is pointwise and in general not uniform: near a tie between tokens with different embeddings the gain is of order $1/T$.
 At fixed $\alpha$ and small positive temperature, chaos is therefore excluded only on invariant sets that keep a
 uniform logit gap, $\Delta\ge\Delta_0>0$ at every state of the set and for every small $T$; a gap that shrinks
 with $T$ is not enough. Under that condition $\|\Sigma_p\|\le\operatorname{diam}(E)^2(V-1)e^{-\Delta_0/T}$, so
@@ -609,8 +611,8 @@ from both maps; float64; 32 recorded steps after 1000 transient steps from the f
 step Jacobian; the remaining cells did not fit the compute budget), let $P_{i,k}$ be the product of the $k$ step
 Jacobians from step $i$ on. The block bounds $B_k=\tfrac1N\sum_j\log\|P_{jk,k}\|$, over the $N/k$ disjoint blocks that
 tile the $N=32$ recorded steps, satisfy $B_1\ge B_2\ge B_4\ge\dots\ge B_{32}=\tfrac1{32}\log\|DF^{32}\|$ in every cell,
-as submultiplicativity requires for nested blocks, and the factorization reproduces $DF$ to $2.0\times10^{-12}$. For
-typical orbits of an invariant measure, the subadditive ergodic theorem \cite{kingman1973subadditive} guarantees that
+as submultiplicativity requires for nested blocks, and the factorization reproduces $DF$ to $2.0\times10^{-12}$. For orbits typical of an ergodic invariant measure on which $\log\|DF\|$ is integrable, the subadditive ergodic
+theorem \cite{kingman1973subadditive} guarantees that
 such bounds close on the largest exponent as the blocks grow, but it gives no rate and no guarantee for a finite
 record; the agreement below between finite windows of the recorded orbit and the later exponent is empirical. Here
 their median overshoot
@@ -664,12 +666,13 @@ map's label (purple); dotted: 95\,\%.}
 \includegraphics[width=\linewidth]{fig-mechanism-summary.png}
 \caption{Readout and network contributions to the growth under steering: the three measurements of this section
 (Qwen2.5-0.5B-Instruct unless marked 7B, float64). Orange: the readout factor $\Sigma_p/T$ of \eqref{eq:gain};
-blue: the network factor $J_{\tilde h}$. (a) Gain split along the attractors of the block-12 map: mean logarithm of
-each factor per step, for chaotic cells (solid) and nearly unsteered cells, $|\alpha|\le0.01$ (dashed), in the 18
+blue: the network factor $J_{\tilde h}$. (a) Gain split along the attractors of the block-12 map: mean logarithm per step of the relative gains $g_{\mathrm{read}}$ and $g_{\mathrm{net}}$ of
+the text (gains along the tangent direction, not operator norms), for chaotic cells (solid) and nearly unsteered cells, $|\alpha|\le0.01$ (dashed), in the 18
 temperature rows with at least three cells of each kind; positive values expand perturbations, negative values
 contract them. In the nearly unsteered cells the readout's relative gain shrinks perturbations by 0.87 to 5.49 nats
 per step; in the chaotic cells it grows them, except in the three highest rows, while the network factor changes
-little. (b) Share of chaotic cells per temperature row under residual steering at block 12, which moves both factors
+little. (b) Share of chaotic cells (both twin exponents above $10^{-3}$ and no period up to 64) per temperature row under
+residual steering at block 12, which moves both factors
 (black; 331 of 5353 cells, 6.2\,\%), and under a logit bias along $Wv$, the output matrix applied to the steering
 vector, with no residual steering, which at a given state changes only the readout (orange; 241 of 6837 cells,
 3.5\,\%). (c) Orbit-preserving crossover: change in the finite-time growth along recorded steered orbits when only
@@ -705,7 +708,8 @@ Second, a test that leaves the network unsteered. We add to the logits a bias $\
 matrix applied to the steering vector (a logit-space stand-in for the steering; $b$ is centered and scaled to unit
 standard deviation over the vocabulary), with no residual steering. At a given state this changes only the output
 probabilities, although the orbit it produces can visit different states. On its grid, 3.5\,\% of cells were chaotic
-(241 of 6837, all but one with a nonzero bias), against 6.2\,\% on the residual-steering grid (331 of 5353). A
+(241 of 6837, all but one with a nonzero bias), against 6.2\,\% on the residual-steering grid (331 of 5353; the two grids share their temperature rows
+but not a matched strength of intervention, so these are counts per grid, not a comparison of doses). A
 change of the output probabilities alone, with the network unsteered, therefore suffices for chaotic cells in part
 of the plane, mostly at $\log_{10}T\ge0.1$ (207 of the 241 cells), where the network factor itself can expand;
 below, 34 of 5676 cells of the bias grid are chaotic (0.6\,\%), against 169 of 4444 (3.8\,\%) under residual
@@ -715,7 +719,8 @@ Third, a gain split compares different orbits, so steering could act simply by m
 crossover at fixed states separates the two contributions along the recorded orbits. Along recorded steered orbits we
 evaluated the steered and the unsteered model at the same states and carried four tangent dynamics. Each pairs the
 steered or unsteered readout $R(p)$ with the steered or unsteered network Jacobian: arms 11, 10, 01 and 00. The
-hybrid arms 10 and 01 are not derivatives of any actual map; they apportion the growth along the recorded orbits. The frozen
+hybrid arms 10 and 01 are tangent products assembled along the recorded states, not the dynamics of a rerun hybrid
+model; they apportion the growth along the recorded orbits. The frozen
 validation (arm 11 within $0.02$ of the twin exponent at every cell) holds at 23 of 24 cells, all within $0.012$; at
 the remaining periodic cell, which contracts at about $-12$ per step, the twin offset falls to the rounding floor. The
 frozen sufficiency criterion (arm 10 within $0.1$ of arm 11 on average) fails by overshoot: steering only the readout
@@ -727,8 +732,7 @@ $+0.26$ ($[0.09,0.45]$). Below $\log_{10}T=0$ the steered readout turns the cont
 derivative already expands at the steered states ($+0.41$), and steering may act by bringing the orbit there. In
 Qwen2.5-7B, whose embeddings are untied, the same crossover (18 cells of its steered map at block 14; arm 11 equals the
 twin exponent within $10^{-4}$ at every cell) reproduces the damping. Over its 10 held-out chaotic cells, steering only
-the network response lowers the growth by $1.14$ nats per step ($[-1.61,-0.64]$), and steering only the readout adds
-$+0.23$ ($[-0.11,0.63]$). Eight of the ten lie at $\log_{10}T\ge0$, where the unsteered derivative already expands at
+the network response lowers the growth by $1.14$ nats per step ($[-1.61,-0.64]$), and steering only the readout adds $+0.23$ ($[-0.11,0.63]$, an interval that includes zero). Eight of the ten lie at $\log_{10}T\ge0$, where the unsteered derivative already expands at
 the steered states (mean $+1.33$). The crossover along two more directions of the 0.5B model gives the same
 signs. For gratitude the readout effect is $+0.33$ ($[0.07,0.59]$) and the network effect $-0.14$ ($[-0.29,0.01]$). For
 a random direction matched in norm to the philosophy vector, they are $+0.77$ ($[0.47,1.12]$) and $-0.09$
@@ -762,8 +766,8 @@ philosophy direction, float64).
 chaotic cells. (b) Row-matched differences between chaotic and periodic cells (black) and between chaotic and nearly
 unsteered cells (red) on the $101\times53$ map, with 95\,\% bootstrap intervals over temperature rows and
 permutation $p$-values. (c) Orbit-preserving crossover: finite-time growth along each recorded steered orbit when the
-readout and the network Jacobian are taken from the unsteered (0) or steered (1) model (the hybrid arms apportion the
-growth; they are not derivatives of any actual map); red, chaotic cells; blue,
+readout and the network Jacobian are taken from the unsteered (0) or steered (1) model (the hybrid arms apportion the growth; they are tangent products along the recorded states, not the dynamics of a
+rerun hybrid model); red, chaotic cells; blue,
 periodic cells; dark red, the mean over held-out chaotic cells; navy, the same mean in Qwen2.5-7B. (d) Share of chaotic cells per temperature under
 residual steering at block 12 and under a pure logit bias along $Wv$. (e) The two factors of the chaotic cells by
 steering block, at $\log_{10}T\le0$. (f) Kaplan--Yorke dimension against the readout's trace-to-leading-eigenvalue ratio at the chaotic cells of the dimension
