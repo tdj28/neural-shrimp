@@ -209,10 +209,22 @@ def frame(S, t):
     ax.axis("off")
     C, P = S["chosen"]["chaotic"], S["chosen"]["periodic"]
     g = S["gates"]
-    text(ax, 80, 100, "Only the batch grouping differs", 52, WHITE, "bold")
-    text(ax, 80, 152, "448 cells run twice from the same start; only their grouping into batches differs", 30, BODY)
-    text(ax, 80, 1030, "Qwen2.5-0.5B-Instruct · philosophy steering, layer 12 · float64 · cells: 192 chaotic, "
-                       "192 periodic, 64 other · article Sec. IV", 26, MUTED)
+    sens = S.get("framing") == "sensitivity"                 # explainer v2: sensitive dependence, no batch wording
+    if sens:
+        text(ax, 80, 100, "A tiny difference, two kinds of loop", 52, WHITE, "bold")
+        text(ax, 80, 152, "448 cells run twice from the same start; the two runs differ only at the rounding level",
+             30, BODY)
+        text(ax, 80, 1030, "Qwen2.5-0.5B-Instruct · philosophy steering, layer 12 · float64 · cells: 192 chaotic, "
+                           f"192 periodic, 64 other · article Sec. IV, Fig. {S['fig_repro']}", 26, MUTED)
+        if S.get("tag") and t < 3.5:
+            a = t / 0.4 if t < 0.4 else (1.0 if t < 3.1 else max(0.0, (3.5 - t) / 0.4))
+            ax.text(W - 60, 64, S["tag"], fontsize=34, color=WHITE, fontweight="bold", family=SANS, ha="right",
+                    va="center", alpha=a, bbox=dict(boxstyle="round,pad=0.35", fc=BG, ec="none", alpha=0.88 * a))
+    else:
+        text(ax, 80, 100, "Only the batch grouping differs", 52, WHITE, "bold")
+        text(ax, 80, 152, "448 cells run twice from the same start; only their grouping into batches differs", 30, BODY)
+        text(ax, 80, 1030, "Qwen2.5-0.5B-Instruct · philosophy steering, layer 12 · float64 · cells: 192 chaotic, "
+                           "192 periodic, 64 other · article Sec. IV", 26, MUTED)
     # main logarithmic axis
     x0, x1, y0, y1 = 190, 1250, 238, 786
     m = fig.add_axes([x0 / W, 1 - y1 / H, (x1 - x0) / W, (y1 - y0) / H], facecolor=BG)
@@ -263,6 +275,8 @@ def frame(S, t):
         kf = C["first_token_difference_step"]
         m.plot([kf], [D[kf - 1, C["index"]]], "o", ms=13, color=RED, mec=BG, mew=2, zorder=6, alpha=marks)
     ax.text((x0 + x1) / 2, 846, "step", fontsize=24, color=MUTED, ha="center", va="baseline", family=SANS)
+    if sens:                                                  # no fixed-shape control row in this framing
+        return _right_column(ax, S, t, x0, x1, C, P, g, pk, control=False)
     # strip for exact zero, below the logarithmic axis
     z = fig.add_axes([x0 / W, 1 - 936 / H, (x1 - x0) / W, 56 / H], facecolor=BG)
     z.set_xlim(0, xm)
@@ -282,7 +296,12 @@ def frame(S, t):
                alpha=zf)
     ax.plot([x0 - 30, x0 - 14], [842, 860], color=MUTED, lw=1.5)            # axis-break marks
     ax.plot([x0 - 30, x0 - 14], [850, 868], color=MUTED, lw=1.5)
-    # right column: legend, then what the frame shows
+    return _right_column(ax, S, t, x0, x1, C, P, g, pk, control=True)
+
+
+def _right_column(ax, S, t, x0, x1, C, P, g, pk, control):
+    """Legend, the marks of the highlighted runs and the counts; the fixed-shape control only with control=True."""
+    fig = ax.figure
     rx = 1310
     key_line(ax, rx, 262, CHAOS)
     text(ax, rx + 62, 262, f"a chaotic loop, λ = {C['lambda']:.2f} per step", 28, BODY)
@@ -311,7 +330,7 @@ def frame(S, t):
     if a3 > 0:
         text(ax, rx, 600, f"{g['periodic_stay_below_1e-2']} of {g['periodic_cells']}", 46, WHITE, "bold", alpha=a3)
         text(ax, rx, 642, "periodic loops stay below", 30, BODY, alpha=a3)
-    a4 = ramp(t, 14.2, 0.6)
+    a4 = ramp(t, 14.2, 0.6) if control else 0.0
     if a4 > 0:
         text(ax, rx, 870, "same matrix shapes (rows repeated", 28, WHITE, alpha=a4)
         text(ax, rx, 906, f"or permuted): exactly 0 in all {g['cells_all']}", 28, WHITE, alpha=a4)
@@ -387,10 +406,20 @@ def main():
     ap.add_argument("--time-map", default=None, help="JSON knots [[t_clip, t_anim], ...] (explainer_timewarp.py)")
     ap.add_argument("--push", type=float, default=1.0, help="push-in factor over the clip (1: none)")
     ap.add_argument("--push-center", type=float, nargs=2, default=(0.5, 0.5))
+    ap.add_argument("--framing", choices=("batch", "sensitivity"), default="batch",
+                    help="sensitivity: the same data as sensitive dependence (no batch wording, no fixed-shape row)")
+    ap.add_argument("--tag", default=None, help="chapter tag drawn top right for the first 3.5 s (sensitivity framing)")
     a = ap.parse_args()
     seconds = a.seconds or SECONDS
     knots = parse_time_map(a.time_map, seconds, SECONDS)
     S = prepare()
+    S["framing"], S["tag"] = a.framing, a.tag
+    if a.framing == "sensitivity":
+        aux = (ARTICLE.parent / "main.aux").read_text()
+        m = re.search(r"\\newlabel\{fig:repro\}\{\{(\d+)\}", aux)
+        if not m:
+            fail("fig:repro not found in the article's main.aux")
+        S["fig_repro"] = m.group(1)
     C, P = S["chosen"]["chaotic"], S["chosen"]["periodic"]
     print(json.dumps({"gates": S["gates"], "chaotic": C, "periodic": P}, indent=1))
     if a.still is not None:
@@ -418,7 +447,7 @@ def main():
     dur = float(subprocess.run(["ffprobe", "-v", "error", "-show_entries", "format=duration", "-of", "csv=p=0",
                                 str(a.out)], capture_output=True, text=True, check=True).stdout)
     rec = entry(S, a.out, round(dur, 3))
-    rec.update(time_map=knots if a.time_map else None, push_in=a.push)
+    rec.update(time_map=knots if a.time_map else None, push_in=a.push, framing=a.framing, tag=a.tag)
     upsert(a.manifest or a.out.parent / "MANIFEST-data-clips.json", rec)
     shutil.rmtree(frames)
     print(f"wrote {a.out} ({dur:.2f} s, {n} frames)")
