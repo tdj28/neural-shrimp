@@ -30350,3 +30350,45 @@ logs, whose times are clock times.
 - **Run card P6S-TDfold** (exploratory). The fold where the restabilized period-6 orbit dies on the lower leg
   (log10 T -0.160117 on the TD branch) is continued both ways: two H100-class pods, job set toolseq, curve --kind
   fold, 100 steps, the same settings and bounds as P6S. Gates as before.
+
+## 2026-10-19 01:52 UTC: full report and blog: corrections from the two external reviews of the arXiv article (report commit dde14621)
+
+Source: the GPT-Pro deep review and the Fable review, applied to the article in its commit c7528a8 (triage:
+docs/consults/2026-10-19-external-reviews/triage.md).
+
+- **Full report** (paper/llm/main.tex and references.bib, commit dde14621; latexmk builds, 155 pages, no undefined
+  references or citations):
+  - cross-covariance for untied embeddings (claims table, contributions); after eq. (gain), the covariance form with
+    its precedents (Wainwright and Jordan; Gao and Pavel; Ramsauer et al.); the two new bibliography entries copied
+    from the article and rechecked against Crossref (10.1561/2200000001) and arXiv (1704.00805);
+  - Kingman for typical orbits of an invariant measure, no finite-record guarantee; the noise heuristic under
+    independent noise (Methods in brief and the false-chaos appendix); dose-test basin crossings "presumably", the
+    attractors reached not classified (text and fig:fixedshape caption);
+  - band chaos with finite-horizon wording ("does not repeat over the 2000 steps", "over the run", a partition
+    consistent with not generating); D sign change does not establish noninvertibility; swallowtail "consistent with",
+    plane sections stated for the quartic models; superstable-curve caption with a nonvanishing Jacobian determinant;
+  - the one-picture section: a one-dimensional description supported, no global reduction (its return map has a
+    single extremum, a minimum in s); coupled copies: exact difference, its linearization, 0 <= c <= 1/2;
+  - float64 answers in the discussion (none in the 0.5B model, 5 % in the 7B); flips: the -1 test classifies the
+    crossing, flip coefficients only at the two bubble flips; abstract "within one iterate of the return map"; the
+    certified parameter reading where the main text states the coexistence proof.
+- **Two deviations from the article's wording, both from the raw data and the rounding gate:**
+  - T*: "at least 3.1 and 4.4 decades", not "at least three to four and a half": the per-alpha norms (7.59e3 to
+    1.54e5) give log10 T* >= 3.44 and >= 4.75, so 3.16 and 4.47 decades above log10 T = 0.28.
+  - Period-6 entrance shortfalls: "0.40 to 5.74 iterates", not "0.4 to 5.75". The raw audit (codex/confirm-fold-2,
+    audit.json sha256 e9062395..., all 24 rows observed and crossings verified) gives 0.4014 to 5.7448; Fable's 5.75
+    came from the table's rounded forecast 154.75.
+  - The shrink-factor caveat is worded "the location uncertainty of the period-384 flip leaves the last factor
+    undetermined", because "is not determined by the location uncertainty" can be read the other way.
+- **Blog** (praxagent bundle, not committed; backups in neural-shrimp-data/blog-bundle-backup/before-oct19-reviewfix
+  and after-oct19-reviewfix, with .sha256 manifests): the same corrections in the note's language (abstract, key
+  result, derivative section with a "Not a new formula" paragraph and two new references, T*, Kingman, noise model,
+  fixed-shape control and its figure note, passage tests counted in laps of the vanished loop, shortfall, shrink
+  factors, band chaos and the Figure 37 note, swallowtail, noninvertibility, Figure 41 note, the one-picture section
+  and its heading, coupled copies, limitations, discussion, flip classification in the methods); the blog-only
+  stretch-squeeze-fold section qualified in the same way. The certified-map reading was already in its proof
+  section. provenance.json: 18 entries re-anchored, 2 added (reviewfix19-001 and -002), generator dde14621;
+  scripts/check_provenance.py passes (4070 of 4070); Hugo 0.160.1 builds (neural-shrimp-data/render-tmp/
+  hugo-oct19-reviewfix). The 59 entries whose paper_text no longer occurs from earlier passes remain open.
+- **For the article (not edited here):** "0.4 to 5.75" and "at least ... four and a half decades" exceed the raw
+  values above, and the shrink-factor sentence is ambiguous.
