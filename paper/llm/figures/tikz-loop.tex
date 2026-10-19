@@ -60,17 +60,14 @@
     {readout gain: $\Sigma_p/T$, \ $\Sigma_p=\operatorname{Cov}_{t\sim p}(e_t)$} (mb.south east |- base);
   \node[font=\footnotesize, align=center, anchor=north] (eq) at ($(net.south east |- base)!0.5!(zb.south west |- base)+(0,-9mm)$)
     {$DF(x)=\dfrac{1}{T}\,\Sigma_p\,J_{\tilde h}(x)$};
-  \node[font=\footnotesize, align=left, anchor=north, draw=black!35, rounded corners=2pt, inner sep=3pt,
-        text width=128mm] at ($(eq.south)+(0,-1.5mm)$)
-    {No network, $\tilde h(x)=x$ and $J_{\tilde h}=I$: then $F(x)=E^{\top}\operatorname{softmax}(Ex/T)$ is the update of a
-     modern Hopfield network, which lowers an energy at every step and cannot cycle.};
 \end{tikzpicture}
 \caption{The soft-token loop. A fixed prompt is followed by one input embedding $x$. The transformer, with $\alpha v$
 added to the residual stream at a middle layer (at every position), gives the final normalized hidden state
 $\tilde h(x)$ at the position of $x$; with tied embeddings the logits are $z=E\tilde h$ (untied: $z=W\tilde h$), and
 $p=\operatorname{softmax}(z/T)$ is the next-token distribution. The expected embedding $E^{\top}p=F(x)$ is fed back
 as the next input, at the same position after the same prompt. Below: the two factors of the derivative
-\eqref{eq:gain}, the network's Jacobian $J_{\tilde h}$ and the readout gain $\Sigma_p/T$. With $J_{\tilde h}=I$ the loop
-is a modern Hopfield update \cite{ramsauer2020hopfield}, which cannot cycle (Section~\ref{sec:theory}).}
+\eqref{eq:gain}, the network's Jacobian $J_{\tilde h}$ and the readout gain $\Sigma_p/T$. Without the network,
+$\tilde h(x)=x$ and $J_{\tilde h}=I$, the loop $F(x)=E^{\top}\operatorname{softmax}(Ex/T)$ is the update of a modern
+Hopfield network \cite{ramsauer2020hopfield}, which lowers an energy at every step and so cannot cycle (Section~\ref{sec:theory}).}
 \label{fig:loop}
 \end{figure}
