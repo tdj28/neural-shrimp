@@ -142,6 +142,8 @@ def cmd_tts(args):
             paths[lid] = p
     out = WORK / "tts.json"
     old = json.loads(out.read_text()) if out.exists() else {"lines": {}}
+    if not args.ids:                                          # forget lines no longer in the narration
+        old["lines"] = {k: v for k, v in old["lines"].items() if k in ids}
     for ln in lines:
         p = paths[ln["id"]]
         x, rate = read_wav(p)
@@ -165,6 +167,19 @@ FPS = 30
 EDIT = ROOT / "docs" / "explainer" / "edit-v1.json"
 SHOTS_SPEC = EXPL / "parts" / "specs" / "shots.json"
 OUT = EXPL / "explainer-v1.mp4"
+TAG = "v1"
+
+
+def configure(edit_path):
+    """Point the module at one version of the explainer: the edit list names its narration, work directory and
+    output (defaults: version 1)."""
+    global EDIT, WORK, NARRATION, OUT, TAG
+    EDIT = rel(edit_path)
+    ed = json.loads(EDIT.read_text())
+    NARRATION = rel(ed.get("narration", "docs/explainer/narration-v1.json"))
+    WORK = rel(ed.get("work", "../neural-shrimp-data/render-tmp/explainer-v1"))
+    OUT = rel(ed.get("output", "../neural-shrimp-data/videos/explainer/explainer-v1.mp4"))
+    TAG = OUT.stem.replace("explainer-", "")
 
 
 def rel(path):
@@ -265,7 +280,7 @@ def cmd_plan(args):
         cut = 0.0
         for si, sh in enumerate(ch["shots"]):
             if not sh.get("lines"):
-                fail(f"shot {sh['id']} has no lines")
+                fail(f"shot {sh['id']} has no lines (a clear trace needs its lead lines)")
             pre = sh.get("pre", g["chapter_lead"] if si == 0 else g["cut_pre"])
             if si == 0:
                 t = pre
@@ -282,6 +297,16 @@ def cmd_plan(args):
                 shots[-1]["seconds"] = cut - shots[-1]["start"]
             rec = {"id": sh["id"], "kind": sh["kind"], "start": cut if si else 0.0, "lines": [],
                    "post": sh.get("post")}
+            if sh["kind"] == "trace_clear":                  # tokens play alone after the lead lines
+                side = json.loads(Path(str(rel(sh["src"])) + ".json").read_text())["steps_detail"]
+                a, b = sh.get("from_step", 1) - 1, (sh.get("to_step") or len(side)) - 1
+                if not 0 <= a <= b < len(side):
+                    fail(f"shot {sh['id']}: steps {a + 1} to {b + 1} outside the clip's {len(side)} steps")
+                tok0, tok1 = side[a]["start"], side[b]["start"] + side[b]["seconds"]
+                span = tok1 - tok0 + sh.get("tail", 0.7)
+                rec["post"] = sh.get("gap_before_tokens", 0.6) + span
+                rec["tokens"] = {"src_start": tok0, "src_end": tok1, "span": round(span, 3),
+                                 "gap_before": sh.get("gap_before_tokens", 0.6), "steps": [a + 1, b + 1]}
             for j, lid in enumerate(sh["lines"]):
                 if lid not in L or lid not in narr:
                     fail(f"line {lid} of shot {sh['id']} is not synthesized or not in the narration")
@@ -296,6 +321,8 @@ def cmd_plan(args):
                 t += L[lid]["seconds"]
                 prev = lid
             rec["_end"] = t
+            if rec.get("tokens"):
+                rec["tokens"]["start"] = round(t - rec["start"] + rec["tokens"]["gap_before"], 4)
             shots.append(rec)
         last = shots[-1]
         end = last["_end"] + (last["post"] if last.get("post") is not None else g["chapter_tail"])
@@ -372,9 +399,11 @@ def figshot_spec(sh, shot, lines_at, base_specs):
         spec[k] = eval_events(v, shot, lines_at)
     for path, expr in sh.get("set", {}).items():
         set_path(spec, path, evaluate(expr, shot, lines_at))
+    for path, value in sh.get("set_literal", {}).items():
+        set_path(spec, path, value)
     for key in ("stages", "overlays", "texts", "lower_third", "keys"):
         spec[key] = eval_events(spec.get(key, []), shot, lines_at)
-    spec.update(name=f"v1-{shot['id']}", seconds=shot["frames"] / FPS, out=str(WORK / "shots" / f"{shot['id']}.mp4"),
+    spec.update(name=f"{TAG}-{shot['id']}", seconds=shot["frames"] / FPS, out=str(WORK / "shots" / f"{shot['id']}.mp4"),
                 work=str(WORK / "fs-work"), still=[])
     spec.pop("variant", None)
     return spec
@@ -445,7 +474,7 @@ def cmd_shots(args):
                 rec["source_spec"] = sh.get("spec", "inline")
             elif sh["kind"] == "video":
                 pc, parts = precut(sh, shot, lines_at)
-                spec = {"name": f"v1-{shot['id']}", "video": str(pc), "video_ss": 0.0, "seconds": shot["frames"] / FPS,
+                spec = {"name": f"{TAG}-{shot['id']}", "video": str(pc), "video_ss": 0.0, "seconds": shot["frames"] / FPS,
                         "out": rec["out"], "work": str(WORK / "fs-work"), "still": []}
                 for k, v in sh.get("dress", {}).items():
                     spec[k] = eval_events(v, shot, lines_at) if isinstance(v, list) else v
@@ -461,13 +490,13 @@ def cmd_shots(args):
                     cmd += ["--mode", sh["mode"]]
                 cmd += ["--out", rec["out"], "--seconds", f"{shot['frames'] / FPS:.6f}", "--time-map", json.dumps(knots),
                         "--push", str(sh.get("push", 1.0)), "--workers", "6", "--frames-dir", str(WORK / "frames"),
-                        "--manifest", str(WORK / "MANIFEST-v1-data.json")]
+                        "--manifest", str(WORK / f"MANIFEST-{TAG}-data.json")]
                 tools_jobs.append((shot["id"], cmd))
                 rec.update(tool=f"tools/{tool}", knots=knots, push=sh.get("push", 1.0))
             elif sh["kind"] == "trim":
                 simple.append((shot, sh))
                 rec["src"] = str(rel(sh["src"]))
-            elif sh["kind"] == "trace":
+            elif sh["kind"] in ("trace", "trace_clear"):
                 simple.append((shot, sh))
                 rec["src"] = str(rel(sh["src"]))
             else:
@@ -478,6 +507,18 @@ def cmd_shots(args):
         src = rel(sh["src"])
         n = shot["frames"]
         ss = 0.0
+        if sh["kind"] == "trace_clear":
+            tk = shot["tokens"]
+            ss = round(tk["src_start"] - tk["start"], 3)
+            if ss < 0:
+                fail(f"shot {shot['id']}: the lead lines need {tk['start']:.2f} s before the first token, the clip "
+                     f"has {tk['src_start']:.2f} s")
+            wav = WORK / "audio" / f"trace-{shot['id']}.wav"
+            wav.parent.mkdir(parents=True, exist_ok=True)
+            a0 = tk["src_start"] - 0.12
+            run(["ffmpeg", "-y", "-v", "error", "-ss", f"{a0:.3f}", "-i", src, "-t", f"{tk['span'] + 0.12:.3f}", "-vn",
+                 "-ac", "1", "-ar", "48000", "-c:a", "pcm_f32le", wav])
+            record[shot["id"]].update(audio=str(wav), audio_at=round(tk["start"] - 0.12, 3), tokens=tk)
         if sh["kind"] == "trace":
             side = json.loads(Path(str(src) + ".json").read_text())
             ss = round(side["steps_detail"][0]["start"] - sh.get("pre", 0.3), 3)
@@ -496,7 +537,7 @@ def cmd_shots(args):
         log = open(WORK / f"tool-{sid}.log", "w")
         procs.append((sid, subprocess.Popen(cmd, cwd=ROOT, stdout=log, stderr=subprocess.STDOUT)))
     if batch:
-        bpath = WORK / "v1-shots.json"
+        bpath = WORK / f"{TAG}-shots.json"
         bpath.write_text(json.dumps(batch, indent=1, ensure_ascii=False))
         r = subprocess.run(["uv", "run", "--no-sync", "python", "tools/render_figure_shot.py", "--batch", str(bpath),
                             "--jobs", str(args.jobs)], cwd=ROOT, capture_output=True, text=True)
@@ -592,8 +633,9 @@ def build_audio(tl, edit, tts, shots_rec):
                 la = tl["line_audio"][ln["id"]]
                 src = tts["lines"][ln["id"]]["wav"]
                 out = lines_dir / f"{ln['id']}.wav"
+                stretch = f",atempo={tl['tempo']}" if abs(tl["tempo"] - 1.0) > 1e-9 else ""
                 run(["ffmpeg", "-y", "-v", "error", "-i", src, "-af",
-                     f"atrim=start={la['src_in']}:end={la['src_out']},asetpts=N/SR/TB,atempo={tl['tempo']},aresample=48000",
+                     f"atrim=start={la['src_in']}:end={la['src_out']},asetpts=N/SR/TB{stretch},aresample=48000",
                      "-ac", "1", "-c:a", "pcm_f32le", out])
                 x = load_mono(out)
                 lvl = gated_rms_db(x)
@@ -609,6 +651,26 @@ def build_audio(tl, edit, tts, shots_rec):
                                "level_in_dbfs": round(lvl, 1), "gain_db": round(target - lvl, 1)})
                 spans.append((t0, t0 + len(x) / rate))
     trace = []
+    for ch in tl["chapters"]:
+        for sh in ch["shots"]:
+            if sh["kind"] != "trace_clear":
+                continue
+            rec = shots_rec[sh["id"]]
+            x = load_mono(rec["audio"])
+            lvl = gated_rms_db(x)
+            x = x * 10 ** ((target - lvl) / 20)                    # the loop's own voice at the narration's level
+            x[:480] *= np.linspace(0, 1, 480)
+            x[-1440:] *= np.linspace(1, 0, 1440)
+            t0 = ch["start"] + sh["start"] + rec["audio_at"]
+            t1 = t0 + len(x) / rate
+            for a, b in spans:
+                if a < t1 and b > t0:
+                    fail(f"narration ({a:.2f}-{b:.2f} s) overlaps the spoken trajectory of shot {sh['id']} "
+                         f"({t0:.2f}-{t1:.2f} s)")
+            i0 = int(round(t0 * rate))
+            mix[i0:i0 + len(x)] += x
+            trace.append({"shot": sh["id"], "start": round(t0, 3), "end": round(t1, 3), "level_in_dbfs": round(lvl, 1),
+                          "duck_db": None, "steps": rec["tokens"]["steps"], "note": "in the clear, no narration"})
     for ch in tl["chapters"]:
         for sh in ch["shots"]:
             if sh["kind"] != "trace":
@@ -712,7 +774,7 @@ def cmd_assemble(args):
             "-movflags", "+faststart", OUT]
     run(cmd)
     # preview under 30 MB
-    prev = OUT.with_name("explainer-v1-preview.mp4")
+    prev = OUT.with_name(f"{OUT.stem}-preview.mp4")
     run(["ffmpeg", "-y", "-v", "error", "-i", OUT, "-vf", "scale=1280:720:flags=lanczos", "-c:v", "libx264", "-profile:v",
          "high", "-preset", "slow", "-crf", "26", "-pix_fmt", "yuv420p", "-c:a", "aac", "-b:a", "128k", "-movflags",
          "+faststart", prev])
@@ -750,17 +812,23 @@ def cmd_assemble(args):
                 clip["source"] = rec["src"]
                 clip["segments"] = rec["segments"]
                 clip["in"], clip["out"] = rec["segments"][0]["src_in"], rec["segments"][-1]["src_out"]
-            elif rec["kind"] in ("trim", "trace"):
+            elif rec["kind"] in ("trim", "trace", "trace_clear"):
                 clip["source"] = rec["src"]
                 clip["in"] = rec["src_in"]
                 clip["out"] = round(rec["src_in"] + sh["frames"] / FPS, 3)
                 if rec["kind"] == "trace":
                     clip["audio"] = "the clip's own spoken tokens, ducked by %d dB under the narration" % edit["duck_db"]
+                if rec["kind"] == "trace_clear":
+                    tk = rec["tokens"]
+                    clip["audio"] = (f"the clip's own spoken tokens, steps {tk['steps'][0]} to {tk['steps'][1]}, in the clear "
+                                     f"from {a0 + tk['start']:.2f} s to {a0 + tk['start'] + tk['span']:.2f} s; no narration")
             else:
                 clip["source"] = rec["tool"]
                 clip["time_map"] = rec["knots"]
                 clip["push_in"] = rec["push"]
                 clip["in"], clip["out"] = rec["knots"][0][1], rec["knots"][-1][1]
+            if ed_slot := next((s.get("slot") for c in edit["chapters"] for s in c["shots"] if s["id"] == sh["id"]), None):
+                clip["slot"] = ed_slot
             ed = next(s for c in edit["chapters"] for s in c["shots"] if s["id"] == sh["id"])
             if ed.get("sources"):
                 clip["data_sources"] = [str(rel(x)) for x in ed["sources"]]
@@ -848,6 +916,7 @@ def cmd_qa(args):
 
 def main():
     ap = argparse.ArgumentParser(description=__doc__.split("\n\n")[0])
+    ap.add_argument("--edit", default="docs/explainer/edit-v1.json", help="edit list (names narration, work, output)")
     sub = ap.add_subparsers(dest="cmd", required=True)
     p = sub.add_parser("tts")
     p.add_argument("--ids", nargs="*")
@@ -864,6 +933,7 @@ def main():
     p = sub.add_parser("qa")
     p.set_defaults(func=cmd_qa)
     args = ap.parse_args()
+    configure(args.edit)
     args.func(args)
 
 

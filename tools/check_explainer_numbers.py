@@ -57,6 +57,9 @@ RAW = {
     "89.9": "morph-video/frames.txt: last sampled angle of the 0 to 90 degree rotation (article: 0 to 90 degrees)",
     "-0.49": "article Sec. III: steering only the network response 'lowers it by 0.49' ([-0.63,-0.35])",
     "2.3 × 10⁻¹²": "h2cells/repro.npz: largest distance of the periodic cell shown (2.28e-12)",
+    "-0.44": "docs/scale-summary.json spearman.log_params (-0.4428)",
+    "15": "docs/scale-summary.json: 15 rows (models)",
+    "0.0655": "article Fig. (hidden) caption: alpha 0.0655",
 }
 # numbers inside the classical-model illustrations and the clips' own counters (the renderers compute them)
 CLASSICAL = {"bifurcation-primer.mp4": "tools/render_bifurcation_primer.py (logistic and quadratic maps)",
@@ -105,8 +108,11 @@ def in_article(num, art):
 
 def collect(timeline):
     items = []                                  # (where, text)
-    narr = {ln["id"]: ln for ln in json.loads((ROOT / "docs/explainer/narration-v1.json").read_text())["lines"]}
     tl = json.loads(Path(timeline).read_text())
+    narr = {ln["id"]: ln for ln in json.loads(Path(tl["narration"]).read_text())["lines"]}
+    edit = json.loads(Path(tl["edit"]).read_text())
+    work = (ROOT / edit["work"]).resolve() if "work" in edit else WORK
+    tag = Path(tl["video"]).stem.replace("explainer-", "")
     for ln in tl["lines"]:
         items.append((f"spoken {ln['id']}", narr[ln["id"]]["display"]))
     cards = json.loads(CARDS.read_text())["cards"]
@@ -121,14 +127,14 @@ def collect(timeline):
         for b in cards[name]["content"]:
             if b.get("text"):
                 items.append((f"card {name}", b["text"]))
-    shots = json.loads((WORK / "v1-shots.json").read_text())
+    shots = [r["spec"] for r in json.loads((work / "shots.json").read_text()).values() if r.get("spec")]
     for s in shots:
         for k in ("caption",):
             if s.get(k):
                 items.append((f"shot {s['name']} {k}", s[k]))
         for e in s.get("lower_third", []) + s.get("texts", []):
             items.append((f"shot {s['name']} text", e["text"]))
-    data = json.loads((WORK / "MANIFEST-v1-data.json").read_text())
+    data = json.loads((work / f"MANIFEST-{tag}-data.json").read_text())
     for c in data["clips"]:
         ns = c["numbers_shown"]
         if c["clip"] == "N5":                   # only what the chart prints (the receipts' raw shares are not shown)
