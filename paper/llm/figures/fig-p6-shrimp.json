@@ -52,6 +52,22 @@
    "stop": "100 points"
   },
   {
+   "curve": "p6s-td-fold-minus",
+   "kind": "fold",
+   "points": 39,
+   "drawn": 39,
+   "failed_gate": 0,
+   "stop": "parameters out of bounds"
+  },
+  {
+   "curve": "p6s-td-fold-plus",
+   "kind": "fold",
+   "points": 64,
+   "drawn": 64,
+   "failed_gate": 0,
+   "stop": "time limit (partial, rebuilt from progress.jsonl)"
+  },
+  {
    "curve": "p6s-tu-curve-minus",
    "kind": "fold",
    "points": 97,
@@ -66,6 +82,28 @@
    "drawn": 60,
    "failed_gate": 0,
    "stop": "parameters out of bounds"
+  },
+  {
+   "curve": "p6s-tu-fold-wide-minus",
+   "kind": "fold",
+   "points": 120,
+   "drawn": 119,
+   "failed_gate": 1,
+   "stop": "time limit (partial, rebuilt from progress.jsonl)"
+  },
+  {
+   "curve": "p6s-tu-fold-wide-plus",
+   "kind": "fold",
+   "points": 118,
+   "drawn": 118,
+   "failed_gate": 0,
+   "stop": "time limit (partial, rebuilt from progress.jsonl)"
+  }
+ ],
+ "located_cusps": [
+  {
+   "locate": "locate-tu-minus-34",
+   "located": true
   }
  ],
  "boundary_gate": {
@@ -78,10 +116,10 @@
   },
   "6|lost (fold)": {
    "pairs": 1888,
-   "within_1_step": 486,
-   "within_2_steps": 490,
-   "median_steps": 18.2821589247432,
-   "max_steps": 143.4458653626558
+   "within_1_step": 1428,
+   "within_2_steps": 1463,
+   "median_steps": 0.2988397707502275,
+   "max_steps": 29.336715463297686
   }
  },
  "follow": {

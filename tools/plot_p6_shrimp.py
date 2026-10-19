@@ -29,7 +29,8 @@ DATA = ROOT.parent / "neural-shrimp-data"
 def load_curves(folder, max_residual, kind_tol):
     """Every curve-*/curve.json under folder, gated point by point."""
     out, report = [], []
-    for f in sorted((DATA / "explore" / folder).glob("*curve-*/curve.json")):
+    base = DATA / "explore" / folder
+    for f in sorted(set(base.glob("*curve-*/curve.json")) | set(base.glob("*-fold-*/curve.json"))):
         c = json.loads(f.read_text())
         kind = c.get("kind")
         target = 1.0 if kind == "fold" else -1.0
@@ -112,6 +113,9 @@ def draw_curves(ax, curves, lw=1.1, ms=7):
         x = [q["alpha"] for q in pts]
         y = [q["log10_temperature"] for q in pts]
         fold = rec["kind"] == "fold"
+        for q in pts:
+            if fold and q.get("cusp_candidate"):         # tangent reversals of fold curves only
+                ax.plot(q["alpha"], q["log10_temperature"], "*", mfc="none", mec="gold", mew=1.0, ms=ms, zorder=6)
         ax.plot(x, y, "-" if fold else "--", color="k" if fold else "r", lw=lw if fold else lw * 0.9, zorder=4,
                 path_effects=[pe.Stroke(linewidth=lw + 1.2, foreground="w", alpha=0.7), pe.Normal()])
 
@@ -122,6 +126,8 @@ def main():
     ap.add_argument("--curves", required=True, help="explore-relative folder holding the *curve-*/curve.json runs")
     ap.add_argument("--follow", default=None, help="explore-relative folder with follow.npz")
     ap.add_argument("--window", type=float, nargs=4, default=None, metavar=("A0", "A1", "T0", "T1"))
+    ap.add_argument("--follow-window", type=float, nargs=4, default=None, metavar=("A0", "A1", "T0", "T1"),
+                    help="axis limits of panel (b) (default: those of panel a)")
     ap.add_argument("--max-residual", type=float, default=1e-8)
     ap.add_argument("--kind-tol", type=float, default=1e-3)
     ap.add_argument("--chaos-level", type=float, default=1e-3)
@@ -201,7 +207,8 @@ def main():
                    Line2D([], [], color="r", lw=1.0, ls="--", label="flip curve")]
         draw_curves(axB, curves)
         draw_located(axB, located)
-        axB.set_xlim(ext[0], ext[1]); axB.set_ylim(ext[2], ext[3])
+        fw = args.follow_window or ext
+        axB.set_xlim(fw[0], fw[1]); axB.set_ylim(fw[2], fw[3])
         axB.set_xlabel(r"steering strength $\alpha$")
         axB.set_title("(b) the attractor followed from the body", fontsize=8)
         axB.legend(handles=handles, fontsize=5.8, loc="lower left", framealpha=0.85)
