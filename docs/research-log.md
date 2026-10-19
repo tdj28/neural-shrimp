@@ -30267,3 +30267,45 @@ logs, whose times are clock times.
   the lean abstract, the page-1 figure placement and the new Fig. 1 image.
 - **Left open:** 56 provenance entries whose paper_text no longer occurs in main.tex after earlier wording changes
   (for example "fresh" problems, "deciding correctness"); they still match the note's prose, so the check passes.
+
+### 2026-10-19 01:20 UTC: HR9 result: the 512 x 512 float64 map of the human's screenshot region
+
+- **Runs.** 16 bands of 32 x 512 cells (job set scanband, commit bde03750) on A100 80 GB and H100 pods, returned
+  00:48 to 01:19 UTC, about 37 minutes of compute each. Every pod terminated and verified; the orchestrator logs are
+  HR9-C00 ... HR9-C15.
+- **Gate (every band read raw).** Shape 32 x 512 each; alpha 0.0709 to 0.0763 in every band; no NaN; consecutive
+  bands continue the temperature grid. One band edge deviates from the even step by 2.6e-6 relative: the band
+  limits were passed rounded to 10 decimals, a 1e-10 offset in log10 T. stitch therefore gained an explicit
+  `--rtol` option, run here with 1e-5.
+- **Stitched map:** llm-soft-loop/pod64/hr9 (scan.npz sha256 216e3ab12dab2960..., scan.json e4dd7832182eb314...).
+  - 262,144 cells: 154,105 chaotic (58.8 %), 94,355 periodic, 13,684 with neither label.
+  - Largest exponent 0.459.
+  - The window is alpha [0.0709, 0.0763] x log10 T [-0.1635, -0.1445]: steps 1.06e-5 and 3.72e-5, 2.8 and 2.4 times
+    finer than Fig. 1.
+- **Figure.** paper/llm/figures/fig-hr9-zoom.png (tools/plot_fig1_clean.py). The period-6 shrimp the human pointed at
+  is the gray window near (0.0731, -0.152). It has a body with dark, strongly contracting curves inside and legs
+  along the stripes. Smaller shrimp-shaped windows sit to its left, near (0.0717, -0.1535) and (0.0712, -0.1567),
+  and the period-9 window is at the right.
+
+### 2026-10-19 01:20 UTC: P6S partial results: the alpha-down flip curve and the follow
+
+- **P6S-AD** (pod 1df65fq9djb3f6, H100 NVL, commit f46ffce0; rc 0; terminated 01:14 UTC).
+  - The branch in alpha from the seed found a real -1 crossing (flip) between alpha 0.072877 and 0.072824. The
+    multiplier beyond the crossing is -1.259, with the next modulus 0.0020. The period-6 orbit then continues
+    (repelling) to the alpha bound.
+  - The flip curve was continued both ways: 29 + 59 points, every point gated.
+    - Residual at most 9.96e-11, |g| at most 8.3e-10, critical multiplier -1 within 2.21e-8, imaginary part 0.
+    - Other spectral radius 0.0015 to 0.77.
+    - GMRES left 12 and 127 products unconverged; recorded here, and the gates hold regardless.
+    - The curve runs from (0.073523, -0.175582) through the branch point (0.072863, -0.152040) to (0.067990,
+      -0.150916); both ends leave the bounds.
+- **P6S-follow** (pod ez2ydhxrbce16n, H100 NVL, commit 0ba03c2c; rc 0; terminated 01:16 UTC; 2531 s, 298 waves; the
+  frontier emptied before the 80-minute limit).
+  - 5426 cells computed: 4224 members and 1202 cells where the attractor was lost.
+  - Members: periodic 2926, of which period 6 has 1946, 12 has 770, 24 has 155, 48 has 20, and 18, 30, 36, 42 and
+    60 have 35 between them. Chaos behind the repeating text: 811. Slow cells: 487.
+  - The domain has a period-6 body near (0.0728-0.0742, -0.150 to -0.155) and three long legs: two run left along the
+    stripes and one runs right to alpha 0.077. Shells of periods 12, 24 and 48 line its edges.
+  - The body's upper-left edge follows the gated flip curve, with period 12 beyond it (boundary gate to be scored
+    when the fold curves are in).
+- **Still running:** P6S-TU, TD and AU, the temperature branches and the alpha-up branch with their curves.

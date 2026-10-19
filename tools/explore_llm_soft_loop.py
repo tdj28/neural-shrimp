@@ -1403,7 +1403,8 @@ def stitch(args):
         raise SystemExit("bands have different alpha columns")
     lt = np.concatenate([d["log10_temperature"] for d in data])
     steps = np.diff(lt)
-    if not np.allclose(steps, steps[0], rtol=1e-6, atol=0):
+    rtol = getattr(args, "rtol", 1e-6)
+    if not np.allclose(steps, steps[0], rtol=rtol, atol=0):
         raise SystemExit("bands do not continue one evenly spaced temperature grid")
     keys, merged, fam_rows = {}, [], []
     for d, info in zip(data, infos):
@@ -1973,6 +1974,8 @@ def main():
     st = sub.add_parser("stitch")
     st.add_argument("--bands", nargs="+", required=True, help="explore-relative band scans in row order")
     st.add_argument("--out", required=True)
+    st.add_argument("--rtol", type=float, default=1e-6,
+                    help="relative tolerance on equal temperature steps (band edges given to 10 decimals deviate ~3e-6)")
     nfp = sub.add_parser("normal-form")
     nfp.add_argument("--run", required=True, help="explore-relative curve or branch run holding the fold point")
     nfp.add_argument("--index", type=int, default=0)
