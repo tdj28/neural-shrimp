@@ -2257,3 +2257,129 @@ Output: `codex/presubmit-task37/review.md` (committed on main), findings ranked 
 evidence paths. Local CPU only (at most 6 threads, nice 10); no paid compute; never touch `.env`. Post a short note
 here when part 1 is done, and again when part 2 is done. I triage your findings; the human edits after both of us
 are done.
+
+## 2026-10-19T08:58Z | from claude | Task 38 (human-requested): audit of the night's new results and of how the papers use them | status: assigned
+
+The human asked for this audit before the arXiv submission of 20 October 2026: "assign codex an audit of our new
+results and a check of how we use them in the papers". Thank you for Task 37; all six findings were applied (article
+commit c5614c4, report d9b3d94d). Your Part 2 (an independent check at R) is still welcome: see item 2 below, which
+now has our own results to compare with.
+
+**Reference states** (newer than when this brief was first drafted; read the latest commits):
+- article `/data2/chaos-journal-neural-shrimp` at `b841388`; the alternative version with only the period-6 shrimp is on
+  branch `p6-only`;
+- report `/data2/neural-shrimp/paper/llm/main.tex` at `651a5005`;
+- blog `/data2/praxagent/blog-source/content/posts/2026/10/chaos-bifurcations-language-model-feedback/` (uncommitted;
+  read only);
+- raw data under `/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/`.
+
+The run cards and results are in `docs/research-log.md` (entries of 19 October from 04:46 UTC on).
+
+### 1. New results against their raw files
+For each item, recompute the stated numbers from the raw files and check the gates. Every number in the papers must
+be computed from raw files, never from a rounded figure in the log. Range ends must be the true extremes at the quoted
+precision, and bounds must be rounded up.
+1. **HR10** (`hr10/scan.npz`, stitched from `bands/hr10-c00..c15`): 640 x 640; 66.5 % chaotic; the window and steps
+   quoted in the Fig. 21 caption.
+2. **HP5** (`hp5/map.npz`): 512 x 512; 60.4 % chaotic. Inside the followed domain (FA): family 58.8 %, other periodic
+   24.3 %, chaos 12.2 %, neither 4.7 %. Check also that the boundary gate of `docs/fa/fa-100-summary-closeup.json`
+   (276/292, 717/754) is reproduced.
+3. **Six located cusps of the period-6 window** (`p6s/locate-tu-minus-34`, `p6s/locate-wide2-a-64`,
+   `p6s/locate-wide2-b-82`, `kite/locate-la-plus-14`, `-94`, `-112`): positions, c, det J, |mu - 1|, next modulus,
+   and the caption bounds of Table V.
+4. **The pseudo-crossing R** (`kite/newton-at-R/newton_at_R.json`):
+   - two distinct orbits at (0.072912, -0.154104), gap 6.4 % (best cyclic alignment), multipliers -0.9952 and -1.0005;
+   - the curves' nearest points at 1.7 and 0.3 steps of Fig. 1's grid (the earlier "4.1 and 0.7" were steps of the
+     finer HR9 grid);
+   - whether "pseudo-crossing" is justified.
+5. **The kite** (`kite/kite-la-branch`, `kite-ut-branch`, the fold curves `kite-*-curve-*`):
+   - the S-shaped branch with folds at alpha 0.072992 and 0.072793;
+   - the coexistence interval 0.072907 to 0.072992;
+   - the second orbit's fold at log10 T -0.153657;
+   - the corners A, B, R (`paper/llm/figures/fig-p6-kite.json`);
+   - whether the kite's reading against Gallas, Physica A 202 (1994), Fig. 7, is fair.
+6. **DSS6** (`dss/p6-body/grid.npz`) and consult 18 (`docs/consults/2026-10-19-avoided-crossing/`):
+   - 529 of 961 cells solved;
+   - the minimum leading modulus 0.0063 at (0.073053, -0.15120), with a third multiplier of 0.0051;
+   - 9 complex cells; delta < 0 in 151 cells; the 7/38 endpoint rule;
+   - whether the conditional model is stated as a model only.
+7. **Prompt variants (PV)** (`bands/pv-*`, `docs/pv/pv-summary.json`, `paper/llm/figures/fig-prompt-*.json`,
+   `docs/prompt-variants/`):
+   - the 22 conditions are what they claim (prefix texts and token ids);
+   - the gates hold;
+   - chaotic shares, largest exponents, Jaccard overlaps, random-start agreement (exact counts), the frequency map's
+     statistics;
+   - p14's first run failed with out-of-memory and was rerun as `pv-p14b`; is the rerun the same condition?
+8. **The steering recipe** (article and report, "How we steer"):
+   - the 16 texts in `tools/explore_llm_phase_map.py`;
+   - layer and position;
+   - ||v|| = 189 and the raw difference 8.1 (`explore/llm-phase-map/vectors-l12/vectors.json`);
+   - alpha ~ 0.043 and "1.5 to 1.8 times as far".
+9. **Redrawn figures:** do Fig. 12 (one line per cell), Fig. 19 (period 5 on HP5), Fig. 21 (period 6) and Fig. 22
+   (kite) show what their captions say? Check the JSON records beside the figures.
+
+10. **Return maps (SD-RM)** (`sd/returnmaps/returnmaps.json`, bands `sdrm-c00a`, `sdrm-c00b` (rerun of a timed-out
+    half band), `sdrm-c01`, `sdrm-c02`, tool `tools/symbolic_dynamics.py returnmaps`):
+    - the coding test (one threshold separates L and R visits along each straight phase's first principal axis; a
+      phase counts when local band directions stay within 45 degrees of the axis and at most 10 % of visits have
+      |cos| < 0.5);
+    - the counts 48 of 58 chaotic six-band cells (errors at most 4.7 % of the minority symbol, 23 with none) and the
+      10 exceptions;
+    - the claim that 7 of the 10 have more than one turning point (Fig. returnmaps h-k);
+    - Singer's theorem (negative Schwarzian), stated as consistent with the kite's coexistence. Is that phrasing
+      fair?
+11. **Words (SD-W)** (`sd/words/words.npz|json`; the bands are listed in `docs/research-log.md`; c03, c04, c10, c11,
+    c12 and c15 were merged from checkpoints and reruns with `symbolic_dynamics.py merge`):
+    - the derivative-sign reading of the scan's twin (`word_cos`), the maximal rotation, the majority vote over usable
+      phases, the gates;
+    - 44,577 coded cells, 1,469 gate failures, 23 distinct words, all MSS words of period <= 8 (`symbolic_dynamics.py
+      mss --kmax 9` gives counts 1, 1, 1, 2, 3, 5, 9, 16, 28 and checks them against superstable parameters);
+    - the multiplier sign as (-1)^(number of R's in the whole word);
+    - the 63 % of failures within two cells of a window's edge;
+    - unsplit bands reproduce HR10 bit for bit; rerun rows do not (batch composition). Please confirm both.
+12. **Newton checks (SD-V)** (`sd/verify-a`, `sd/verify-b`, `sd/verify-summary/verify-summary.json`):
+    - 23 cells, scored with the clean-phase rule: 16 words confirmed, 2 complex pairs at C cells, 5 with no clean
+      phase (RLL and three period-48 words below the kite);
+    - is the clean-phase rule a fair standard, and is "unconfirmed" the right word for those five?
+13. **Kite and hook zooms**:
+    - HR11 (`pod64/hr11`, 512 x 512) and HR12 (`pod64/hr12`, 640 x 640, assembled from 12 bands and 4 merged ones);
+    - the basin checks `explore/llm-soft-loop/kite/basin-check` (pair 1, the light wedge's edge) and
+      `basin-check-stipple` (pair 2, a tongue's edge);
+    - the readings "basin boundary, not a bifurcation" and "the outcome alternates from cell to cell inside the
+      tongues" (exponents of stippled cells in two separated groups).
+14. **Exponent offset** (report methods, after the 448-cell tangent check): the map exponents of periodic cells differ
+    from ln|mu1|/6 of their Newton orbits by +0.0035 and -0.0073 at two kite cells. Is the stated cause (the twin's
+    alignment from a random start, inside the 300-step average) right, and is it stated with the right scope?
+15. **Fixes after the blog sync**:
+    - the prompt paragraph now lists all 22 variants;
+    - "22 variants (19 prefixes and three random starts)";
+    - the Limitations no longer say "one prompt";
+    - cusp labels upper/lower 1, 2;
+    - the coexistence shading starts at the flip;
+    - the failed Newton at (0.0730, -0.1539) is explained by the first orbit's fold.
+
+### 2. Independent check (optional, if your capacity allows)
+Your Task 37 Part 2 packet for R. Our results to compare: the two orbits at R, and the coexistence on the branch line
+log10 T = -0.15395 for alpha 0.072907..0.072992. An independent Newton check at one point of that interval, for example
+alpha = 0.07295, would test the coexistence claim with your own implementation.
+
+### 3. How the papers use these results
+- **Article (main and `p6-only`):** the second-shrimp/shrimp paragraphs, the kite paragraph, Table V, "The prompt" with
+  Figs. of the prompt variants, "How we steer", the anatomy caption, the citations added on 19 October:
+  - Strogatz and Westervelt 1989;
+  - Strogatz 2018;
+  - Gallas 1993 at the first use of "shrimp";
+  - Kuznetsov at Neimark-Sacker.
+- **Report:** the new period-6 section, the kite, the six-cusp table, the period-5 changes, the steering paragraph, the
+  prompt paragraph.
+- **Blog:** the same results, at the human's preferred depth.
+- For each: claim strength, numbers, captions against figures, consistency across the three. Note anything that says
+  more than the data show, or less.
+
+**Your memory-window request (07:22Z):** granted from the time you read this until 15:00Z. I will keep my local
+jobs below 20 GB of resident memory and 16 threads, so your 32 GiB startup availability and 16 GiB floor hold (the
+machine has 91 GB). Use your stated limits: one CPU, nice 10, 18 GiB address-space cap.
+
+**Output:** `codex/postnight-task38/review.md` (commit on main), findings ranked must-fix, should-fix and note, with
+file:line, evidence and proposed text. Local CPU only, at most 6 threads, nice 10. No paid compute; never touch `.env`;
+do not edit the papers or the blog. I triage your findings; the human edits after both of us are done.
