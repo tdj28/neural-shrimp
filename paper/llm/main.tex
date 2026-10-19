@@ -688,7 +688,11 @@ the 7B model, 10 cells. \repo{tools/plot_mechanism_summary.py}.}
 described above: it moves the logits, and with them which tokens compete in $\Sigma_p$, and it moves the hidden states,
 and with them the network's response $J_{\tilde h}$. Three measurements on Qwen2.5-0.5B, steered along the philosophy
 direction, tell the two apart (Figure~\ref{fig:mechsummary}; details in Figure~\ref{fig:mechanism} and
-Table~\ref{tab:mechanism}). First, an accounting. Each step's growth splits exactly into a network factor
+Table~\ref{tab:mechanism}). First, an accounting. One step takes the state $x$, the vector fed back as the input at the
+soft-token position, through the steered transformer to its final normalized hidden state $\tilde h$ at that
+position, and from $\tilde h$, through the logits and the softmax, to the next state $F(x)$, the probability-weighted
+average of the token embeddings. A small change $\delta x$ of the state causes changes $\delta\tilde h$ and $\delta F$,
+and each step's relative growth splits exactly into a network factor
 $g_{\mathrm{net}}=(|\delta\tilde h|/|\tilde h|)/(|\delta x|/|x|)$, how much the transformer stretches a relative change
 of its input, and a readout factor $g_{\mathrm{read}}=(|\delta F|/|F|)/(|\delta\tilde h|/|\tilde h|)$, how much the
 softmax and the averaging of embeddings stretch it on the way out. For a tangent perturbation followed over $n$ steps,
