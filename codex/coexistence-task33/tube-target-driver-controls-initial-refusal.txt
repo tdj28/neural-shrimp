@@ -1,0 +1,14 @@
+Traceback (most recent call last):
+  File "/tmp/tube_target_driver_controls.py", line 155, in <module>
+    mutation('actual original thin output inventory whole-directory check enforced',lambda f:f.trees[m.THIN_RAW].append(Path('/synthetic/extra.json')))
+  File "/tmp/tube_target_driver_controls.py", line 137, in mutation
+    checked(name,test)
+  File "/tmp/tube_target_driver_controls.py", line 20, in checked
+    def checked(name,func):func();rows.append(dict(name=name,passed=True))
+                           ^^^^^^
+  File "/tmp/tube_target_driver_controls.py", line 136, in test
+    with f.mocked():refused(lambda:m.candidate(f.card))
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/tmp/tube_target_driver_controls.py", line 24, in refused
+    raise AssertionError('expected actual driver refusal absent')
+AssertionError: expected actual driver refusal absent

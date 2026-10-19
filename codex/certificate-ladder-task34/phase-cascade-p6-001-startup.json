@@ -1,0 +1,50 @@
+{
+  "checked_utc": "2026-10-19T03:01:46.736061+00:00",
+  "session_id": 4148,
+  "source_commit": "36366f7fb9b81e5f90d61aee1d09ae5730dff666",
+  "admission": {
+    "path": "/data2/neural-shrimp-data/codex/certificate-ladder/phase-cascade-p6-001-supervision/admission.json",
+    "bytes": 6840,
+    "sha256": "44b6fe0b7010af96ade48fbd254fe68288eeea997577033def35391285e20ac9"
+  },
+  "worker_startup": {
+    "path": "/data2/neural-shrimp-data/codex/certificate-ladder/phase-cascade-p6-001-supervision/worker-startup.json",
+    "bytes": 2490,
+    "sha256": "95800942281c121a94896ad6f2aeaf331d4cc21f4b940afd83bee43530fcc776"
+  },
+  "supervisor_actual": {
+    "pid": 3757343,
+    "starttime": 232544819,
+    "pgid": 3757343,
+    "sid": 3757343,
+    "state": "S",
+    "nice": 10,
+    "threads": 1,
+    "uid_line": "Uid:\t1000\t1000\t1000\t1000",
+    "cmdline": "/data2/neural-shrimp/.venv/bin/python -B codex/certify-chaos/supervise.py --plan codex/certificate-ladder-task34/phase-cascade-p6-001-plan.json --lane phase --source 36366f7fb9b81e5f90d61aee1d09ae5730dff666 ",
+    "limits": "Limit                     Soft Limit           Hard Limit           Units     \nMax cpu time              unlimited            unlimited            seconds   \nMax file size             unlimited            unlimited            bytes     \nMax data size             unlimited            unlimited            bytes     \nMax stack size            8388608              unlimited            bytes     \nMax core file size        0                    unlimited            bytes     \nMax resident set          unlimited            unlimited            bytes     \nMax processes             375398               375398               processes \nMax open files            65535                65535                files     \nMax locked memory         8388608              8388608              bytes     \nMax address space         1073741824           19327352832          bytes     \nMax file locks            unlimited            unlimited            locks     \nMax pending signals       375398               375398               signals   \nMax msgqueue size         819200               819200               bytes     \nMax nice priority         0                    0                    \nMax realtime priority     0                    0                    \nMax realtime timeout      200000               200000               us        \n"
+  },
+  "worker_actual": {
+    "pid": 3757383,
+    "starttime": 232544829,
+    "pgid": 3757383,
+    "sid": 3757383,
+    "state": "R",
+    "nice": 10,
+    "threads": 1,
+    "uid_line": "Uid:\t1000\t1000\t1000\t1000",
+    "cmdline": "/data2/neural-shrimp/.venv/bin/python -I -B /home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/certificate-ladder-task34/phase_preconditioner.py --card /home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/certificate-ladder-task34/phase-cascade-p3-001-card.json --cell cascade-p6 --out /data2/neural-shrimp-data/codex/certificate-ladder/phase-cascade-p6-001 ",
+    "limits": "Limit                     Soft Limit           Hard Limit           Units     \nMax cpu time              5080                 5080                 seconds   \nMax file size             134217728            134217728            bytes     \nMax data size             unlimited            unlimited            bytes     \nMax stack size            8388608              unlimited            bytes     \nMax core file size        0                    unlimited            bytes     \nMax resident set          unlimited            unlimited            bytes     \nMax processes             375398               375398               processes \nMax open files            65535                65535                files     \nMax locked memory         8388608              8388608              bytes     \nMax address space         12884901888          12884901888          bytes     \nMax file locks            unlimited            unlimited            locks     \nMax pending signals       375398               375398               signals   \nMax msgqueue size         819200               819200               bytes     \nMax nice priority         0                    0                    \nMax realtime priority     0                    0                    \nMax realtime timeout      200000               200000               us        \n"
+  },
+  "capacity": {
+    "available_ram_bytes": 40280612864,
+    "disk_free_bytes": 2663675498496,
+    "loadavg": [
+      4.4775390625,
+      4.96240234375,
+      4.94091796875
+    ]
+  },
+  "receipt_exists": false,
+  "scope": "Original postexec identities checked on host. Twoauxslots; no numerical interpretation."
+}

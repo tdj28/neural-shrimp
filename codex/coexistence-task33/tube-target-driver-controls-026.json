@@ -1,0 +1,581 @@
+{
+  "schema": "codex-task33-tube-driver-additional-interface-controls-v1",
+  "source_sha256": "ba32975a90ddc65c32cd3153ece35d0e3d938ab6d920a758d42dda75d3f18a88",
+  "controls_source_sha256": "ffa0d937b8dbc5603ee6d0d6d5da0bdebcdad534160147219a2b622a014e57fc",
+  "reused_fixture_source_sha256": "245cb11e8d1b680efe89e36834f77ea5e2c66b18f1db093887d5b3bf114b8fa3",
+  "count": 26,
+  "passed": true,
+  "controls": [
+    {
+      "name": "actual current admission refuses address space",
+      "passed": true,
+      "detail": "actual worker resource bound differs"
+    },
+    {
+      "name": "actual current admission refuses CPU limit",
+      "passed": true,
+      "detail": "actual worker resource bound differs"
+    },
+    {
+      "name": "actual current admission refuses file limit",
+      "passed": true,
+      "detail": "actual worker resource bound differs"
+    },
+    {
+      "name": "actual current admission refuses nice",
+      "passed": true,
+      "detail": "bounded nice10 single-CPU worker required"
+    },
+    {
+      "name": "actual current admission refuses affinity",
+      "passed": true,
+      "detail": "bounded nice10 single-CPU worker required"
+    },
+    {
+      "name": "actual current admission refuses initial source",
+      "passed": true,
+      "detail": "initial private checkpoint differs from supervisor source"
+    },
+    {
+      "name": "actual current admission refuses regularity source",
+      "passed": true,
+      "detail": "synthetic original source differs"
+    },
+    {
+      "name": "actual current admission refuses changed source after call",
+      "passed": true,
+      "detail": "synthetic pinned bytes differ"
+    },
+    {
+      "name": "actual prefix authority complete",
+      "passed": true,
+      "detail": "all original prefix joins accepted; no cache decoded"
+    },
+    {
+      "name": "actual prefix authority missing original layer",
+      "passed": true,
+      "detail": "original prefix completion differs"
+    },
+    {
+      "name": "actual prefix authority wrong original precision",
+      "passed": true,
+      "detail": "original prefix completion differs"
+    },
+    {
+      "name": "actual prefix authority wrong original cache bytes",
+      "passed": true,
+      "detail": "original prefix produced bytes differ"
+    },
+    {
+      "name": "actual prefix authority wrong prefix source",
+      "passed": true,
+      "detail": "original exact command/source/lane differs"
+    },
+    {
+      "name": "actual prefix authority unclosed prefix",
+      "passed": true,
+      "detail": "original worker closure absent"
+    },
+    {
+      "name": "actual backend interface requires and retains loaded extension pins",
+      "passed": true,
+      "detail": "empty extension inventory refused; original complete fake binary pin retained"
+    },
+    {
+      "name": "unaltered main with entirely fake dependencies: complete",
+      "passed": true,
+      "detail": {
+        "counter": {
+          "admission": 2,
+          "loader": 1,
+          "receiver": 1,
+          "backend": 2
+        },
+        "expected_failure": null,
+        "synthetic_output": "/tmp/tube-driver-interface-controls-wuthvzqe/complete/raw/tube-case",
+        "durable_files": [
+          {
+            "path": "/tmp/tube-driver-interface-controls-wuthvzqe/complete/raw/tube-case/actual-receiver.json",
+            "bytes": 166,
+            "sha256": "dcaf517caa3d56ba828b27d7c3471954804ca55f92b6c0403faadc9d9f641a84"
+          },
+          {
+            "path": "/tmp/tube-driver-interface-controls-wuthvzqe/complete/raw/tube-case/admission.json",
+            "bytes": 176,
+            "sha256": "5e2b6c04b465d1629920d81010c57cab551a9b0e29ccc6c9f3f2bd906083a659"
+          },
+          {
+            "path": "/tmp/tube-driver-interface-controls-wuthvzqe/complete/raw/tube-case/coverage.json",
+            "bytes": 19150,
+            "sha256": "67c740f4e97dd1aec8963869982b9011b633c18ec533579a00bf72396333c0f5"
+          },
+          {
+            "path": "/tmp/tube-driver-interface-controls-wuthvzqe/complete/raw/tube-case/prefix-binding.json",
+            "bytes": 2828,
+            "sha256": "25c0b4c65cbd5183fdaef1324893efb71091b755612a8883df85931cd6bdb047"
+          },
+          {
+            "path": "/tmp/tube-driver-interface-controls-wuthvzqe/complete/raw/tube-case/selection.json",
+            "bytes": 824,
+            "sha256": "b2be161582d88b348725fb13546741eff4640f8933d2d16fa714131278f92d18"
+          },
+          {
+            "path": "/tmp/tube-driver-interface-controls-wuthvzqe/complete/raw/tube-case/status.json",
+            "bytes": 2634,
+            "sha256": "ebccfa87213856106bc690540687f4326eed8afe9478e457eab707fdecfb247b"
+          },
+          {
+            "path": "/tmp/tube-driver-interface-controls-wuthvzqe/complete/raw/tube-case/tube-inputs.json",
+            "bytes": 166,
+            "sha256": "dcaf517caa3d56ba828b27d7c3471954804ca55f92b6c0403faadc9d9f641a84"
+          },
+          {
+            "path": "/tmp/tube-driver-interface-controls-wuthvzqe/complete/raw/tube-case/tube-operator.json",
+            "bytes": 263707,
+            "sha256": "14ef017bffb83816f4baabb1bd50856f6ed8fbac4f394f24b5656cfd77ff0127"
+          }
+        ]
+      }
+    },
+    {
+      "name": "unaltered main with entirely fake dependencies: pre-admission-refusal",
+      "passed": true,
+      "detail": {
+        "counter": {
+          "admission": 1,
+          "loader": 0,
+          "receiver": 0,
+          "backend": 0
+        },
+        "expected": "external supervisor owns pre-allocation failure"
+      }
+    },
+    {
+      "name": "unaltered main with entirely fake dependencies: candidate-refusal",
+      "passed": true,
+      "detail": {
+        "counter": {
+          "admission": 1,
+          "loader": 0,
+          "receiver": 0,
+          "backend": 0
+        },
+        "expected_failure": "manufactured saved-evidence refusal",
+        "synthetic_output": "/tmp/tube-driver-interface-controls-wuthvzqe/candidate-refusal/raw/tube-case",
+        "durable_files": [
+          {
+            "path": "/tmp/tube-driver-interface-controls-wuthvzqe/candidate-refusal/raw/tube-case/admission.json",
+            "bytes": 176,
+            "sha256": "5e2b6c04b465d1629920d81010c57cab551a9b0e29ccc6c9f3f2bd906083a659"
+          },
+          {
+            "path": "/tmp/tube-driver-interface-controls-wuthvzqe/candidate-refusal/raw/tube-case/failure.json",
+            "bytes": 1529,
+            "sha256": "b8c2910dfd978f9d92e8234111c922449c37c929934eee039865600926bc304f"
+          }
+        ]
+      }
+    },
+    {
+      "name": "unaltered main with entirely fake dependencies: loader-refusal",
+      "passed": true,
+      "detail": {
+        "counter": {
+          "admission": 1,
+          "loader": 1,
+          "receiver": 0,
+          "backend": 1
+        },
+        "expected_failure": "manufactured loader refusal",
+        "synthetic_output": "/tmp/tube-driver-interface-controls-wuthvzqe/loader-refusal/raw/tube-case",
+        "durable_files": [
+          {
+            "path": "/tmp/tube-driver-interface-controls-wuthvzqe/loader-refusal/raw/tube-case/admission.json",
+            "bytes": 176,
+            "sha256": "5e2b6c04b465d1629920d81010c57cab551a9b0e29ccc6c9f3f2bd906083a659"
+          },
+          {
+            "path": "/tmp/tube-driver-interface-controls-wuthvzqe/loader-refusal/raw/tube-case/failure.json",
+            "bytes": 1688,
+            "sha256": "1b5cdf25edc2f1b3a918f95cdebc453e5e42a2347533ea0c8604efc46d3fde89"
+          },
+          {
+            "path": "/tmp/tube-driver-interface-controls-wuthvzqe/loader-refusal/raw/tube-case/selection.json",
+            "bytes": 842,
+            "sha256": "fe3eef5f0fa150393f1a50c8f29998efb759a6eab2ae0a0b2e970890dc078f8f"
+          }
+        ]
+      }
+    },
+    {
+      "name": "unaltered main with entirely fake dependencies: domain-refusal",
+      "passed": true,
+      "detail": {
+        "counter": {
+          "admission": 1,
+          "loader": 1,
+          "receiver": 1,
+          "backend": 1
+        },
+        "expected_failure": "manufactured denominator refusal",
+        "synthetic_output": "/tmp/tube-driver-interface-controls-wuthvzqe/domain-refusal/raw/tube-case",
+        "durable_files": [
+          {
+            "path": "/tmp/tube-driver-interface-controls-wuthvzqe/domain-refusal/raw/tube-case/admission.json",
+            "bytes": 176,
+            "sha256": "5e2b6c04b465d1629920d81010c57cab551a9b0e29ccc6c9f3f2bd906083a659"
+          },
+          {
+            "path": "/tmp/tube-driver-interface-controls-wuthvzqe/domain-refusal/raw/tube-case/failure.json",
+            "bytes": 2179,
+            "sha256": "55af34523d43f3faaa6318fc84c3f826b970f69c97cdfc637a2321b04097000b"
+          },
+          {
+            "path": "/tmp/tube-driver-interface-controls-wuthvzqe/domain-refusal/raw/tube-case/prefix-binding.json",
+            "bytes": 2828,
+            "sha256": "25c0b4c65cbd5183fdaef1324893efb71091b755612a8883df85931cd6bdb047"
+          },
+          {
+            "path": "/tmp/tube-driver-interface-controls-wuthvzqe/domain-refusal/raw/tube-case/selection.json",
+            "bytes": 842,
+            "sha256": "3d3e32187ae79294648ad9e13a51b6b312a61a18e559e709ac31ecebd4011a74"
+          },
+          {
+            "path": "/tmp/tube-driver-interface-controls-wuthvzqe/domain-refusal/raw/tube-case/tube-inputs.json",
+            "bytes": 166,
+            "sha256": "dcaf517caa3d56ba828b27d7c3471954804ca55f92b6c0403faadc9d9f641a84"
+          }
+        ]
+      }
+    },
+    {
+      "name": "unaltered main with entirely fake dependencies: operator-then-refusal",
+      "passed": true,
+      "detail": {
+        "counter": {
+          "admission": 1,
+          "loader": 1,
+          "receiver": 1,
+          "backend": 1
+        },
+        "expected_failure": "manufactured bookkeeping refusal",
+        "synthetic_output": "/tmp/tube-driver-interface-controls-wuthvzqe/operator-then-refusal/raw/tube-case",
+        "durable_files": [
+          {
+            "path": "/tmp/tube-driver-interface-controls-wuthvzqe/operator-then-refusal/raw/tube-case/actual-receiver.json",
+            "bytes": 166,
+            "sha256": "dcaf517caa3d56ba828b27d7c3471954804ca55f92b6c0403faadc9d9f641a84"
+          },
+          {
+            "path": "/tmp/tube-driver-interface-controls-wuthvzqe/operator-then-refusal/raw/tube-case/admission.json",
+            "bytes": 176,
+            "sha256": "5e2b6c04b465d1629920d81010c57cab551a9b0e29ccc6c9f3f2bd906083a659"
+          },
+          {
+            "path": "/tmp/tube-driver-interface-controls-wuthvzqe/operator-then-refusal/raw/tube-case/failure.json",
+            "bytes": 2691,
+            "sha256": "d09646369b1eb79b41cb699687f005adc8dd95070290b49c26df1909b073a950"
+          },
+          {
+            "path": "/tmp/tube-driver-interface-controls-wuthvzqe/operator-then-refusal/raw/tube-case/prefix-binding.json",
+            "bytes": 2828,
+            "sha256": "25c0b4c65cbd5183fdaef1324893efb71091b755612a8883df85931cd6bdb047"
+          },
+          {
+            "path": "/tmp/tube-driver-interface-controls-wuthvzqe/operator-then-refusal/raw/tube-case/selection.json",
+            "bytes": 863,
+            "sha256": "0573e2ef3dcbe67193f12b96eba777ccd1fdc3969cf3c7202a741b4a05dcbfe7"
+          },
+          {
+            "path": "/tmp/tube-driver-interface-controls-wuthvzqe/operator-then-refusal/raw/tube-case/tube-inputs.json",
+            "bytes": 166,
+            "sha256": "dcaf517caa3d56ba828b27d7c3471954804ca55f92b6c0403faadc9d9f641a84"
+          },
+          {
+            "path": "/tmp/tube-driver-interface-controls-wuthvzqe/operator-then-refusal/raw/tube-case/tube-operator.json",
+            "bytes": 263707,
+            "sha256": "14ef017bffb83816f4baabb1bd50856f6ed8fbac4f394f24b5656cfd77ff0127"
+          }
+        ]
+      }
+    },
+    {
+      "name": "unaltered main with entirely fake dependencies: missing-coverage",
+      "passed": true,
+      "detail": {
+        "counter": {
+          "admission": 1,
+          "loader": 1,
+          "receiver": 1,
+          "backend": 1
+        },
+        "expected_failure": "full receiver output and final coverage artifacts required",
+        "synthetic_output": "/tmp/tube-driver-interface-controls-wuthvzqe/missing-coverage/raw/tube-case",
+        "durable_files": [
+          {
+            "path": "/tmp/tube-driver-interface-controls-wuthvzqe/missing-coverage/raw/tube-case/actual-receiver.json",
+            "bytes": 166,
+            "sha256": "dcaf517caa3d56ba828b27d7c3471954804ca55f92b6c0403faadc9d9f641a84"
+          },
+          {
+            "path": "/tmp/tube-driver-interface-controls-wuthvzqe/missing-coverage/raw/tube-case/admission.json",
+            "bytes": 176,
+            "sha256": "5e2b6c04b465d1629920d81010c57cab551a9b0e29ccc6c9f3f2bd906083a659"
+          },
+          {
+            "path": "/tmp/tube-driver-interface-controls-wuthvzqe/missing-coverage/raw/tube-case/failure.json",
+            "bytes": 2617,
+            "sha256": "f1a8f67875c8359e8dd9106f5a132f35f2515784bcf8cfc0fcaacfbe4ec58df7"
+          },
+          {
+            "path": "/tmp/tube-driver-interface-controls-wuthvzqe/missing-coverage/raw/tube-case/prefix-binding.json",
+            "bytes": 2828,
+            "sha256": "25c0b4c65cbd5183fdaef1324893efb71091b755612a8883df85931cd6bdb047"
+          },
+          {
+            "path": "/tmp/tube-driver-interface-controls-wuthvzqe/missing-coverage/raw/tube-case/selection.json",
+            "bytes": 848,
+            "sha256": "4bf7303287bd2a14dcf6563eae61036fa5a9fcdc987d88bc6569a74db7b4bdaf"
+          },
+          {
+            "path": "/tmp/tube-driver-interface-controls-wuthvzqe/missing-coverage/raw/tube-case/tube-inputs.json",
+            "bytes": 166,
+            "sha256": "dcaf517caa3d56ba828b27d7c3471954804ca55f92b6c0403faadc9d9f641a84"
+          },
+          {
+            "path": "/tmp/tube-driver-interface-controls-wuthvzqe/missing-coverage/raw/tube-case/tube-operator.json",
+            "bytes": 263707,
+            "sha256": "14ef017bffb83816f4baabb1bd50856f6ed8fbac4f394f24b5656cfd77ff0127"
+          }
+        ]
+      }
+    },
+    {
+      "name": "unaltered main with entirely fake dependencies: bad-coverage",
+      "passed": true,
+      "detail": {
+        "counter": {
+          "admission": 1,
+          "loader": 1,
+          "receiver": 1,
+          "backend": 1
+        },
+        "expected_failure": "final complete original coverage differs",
+        "synthetic_output": "/tmp/tube-driver-interface-controls-wuthvzqe/bad-coverage/raw/tube-case",
+        "durable_files": [
+          {
+            "path": "/tmp/tube-driver-interface-controls-wuthvzqe/bad-coverage/raw/tube-case/actual-receiver.json",
+            "bytes": 166,
+            "sha256": "dcaf517caa3d56ba828b27d7c3471954804ca55f92b6c0403faadc9d9f641a84"
+          },
+          {
+            "path": "/tmp/tube-driver-interface-controls-wuthvzqe/bad-coverage/raw/tube-case/admission.json",
+            "bytes": 176,
+            "sha256": "5e2b6c04b465d1629920d81010c57cab551a9b0e29ccc6c9f3f2bd906083a659"
+          },
+          {
+            "path": "/tmp/tube-driver-interface-controls-wuthvzqe/bad-coverage/raw/tube-case/coverage.json",
+            "bytes": 19084,
+            "sha256": "4d47fd3dfea0984cdb28a8f37878133b0ea526c2f279123eb6040499b6284c58"
+          },
+          {
+            "path": "/tmp/tube-driver-interface-controls-wuthvzqe/bad-coverage/raw/tube-case/failure.json",
+            "bytes": 2750,
+            "sha256": "5974a65cf2692560c6d08678f797a46419300293c5f7e8bc809235effadc6c56"
+          },
+          {
+            "path": "/tmp/tube-driver-interface-controls-wuthvzqe/bad-coverage/raw/tube-case/prefix-binding.json",
+            "bytes": 2828,
+            "sha256": "25c0b4c65cbd5183fdaef1324893efb71091b755612a8883df85931cd6bdb047"
+          },
+          {
+            "path": "/tmp/tube-driver-interface-controls-wuthvzqe/bad-coverage/raw/tube-case/selection.json",
+            "bytes": 836,
+            "sha256": "412f3df457179f80eaa7580c53241b82b29f9a93c8bde8bebda0fea95a3f9a8a"
+          },
+          {
+            "path": "/tmp/tube-driver-interface-controls-wuthvzqe/bad-coverage/raw/tube-case/tube-inputs.json",
+            "bytes": 166,
+            "sha256": "dcaf517caa3d56ba828b27d7c3471954804ca55f92b6c0403faadc9d9f641a84"
+          },
+          {
+            "path": "/tmp/tube-driver-interface-controls-wuthvzqe/bad-coverage/raw/tube-case/tube-operator.json",
+            "bytes": 263707,
+            "sha256": "14ef017bffb83816f4baabb1bd50856f6ed8fbac4f394f24b5656cfd77ff0127"
+          }
+        ]
+      }
+    },
+    {
+      "name": "unaltered main with entirely fake dependencies: duplicate-save",
+      "passed": true,
+      "detail": {
+        "counter": {
+          "admission": 1,
+          "loader": 1,
+          "receiver": 1,
+          "backend": 1
+        },
+        "expected_failure": "[Errno 17] File exists: '/tmp/tube-driver-interface-controls-wuthvzqe/duplicate-save/raw/tube-case/tube-operator.json'",
+        "synthetic_output": "/tmp/tube-driver-interface-controls-wuthvzqe/duplicate-save/raw/tube-case",
+        "durable_files": [
+          {
+            "path": "/tmp/tube-driver-interface-controls-wuthvzqe/duplicate-save/raw/tube-case/actual-receiver.json",
+            "bytes": 166,
+            "sha256": "dcaf517caa3d56ba828b27d7c3471954804ca55f92b6c0403faadc9d9f641a84"
+          },
+          {
+            "path": "/tmp/tube-driver-interface-controls-wuthvzqe/duplicate-save/raw/tube-case/admission.json",
+            "bytes": 176,
+            "sha256": "5e2b6c04b465d1629920d81010c57cab551a9b0e29ccc6c9f3f2bd906083a659"
+          },
+          {
+            "path": "/tmp/tube-driver-interface-controls-wuthvzqe/duplicate-save/raw/tube-case/failure.json",
+            "bytes": 3910,
+            "sha256": "420df7f0d222f96722bd9f035d2f94e9f9aeed2a27a926de3c164add46f497f9"
+          },
+          {
+            "path": "/tmp/tube-driver-interface-controls-wuthvzqe/duplicate-save/raw/tube-case/prefix-binding.json",
+            "bytes": 2828,
+            "sha256": "25c0b4c65cbd5183fdaef1324893efb71091b755612a8883df85931cd6bdb047"
+          },
+          {
+            "path": "/tmp/tube-driver-interface-controls-wuthvzqe/duplicate-save/raw/tube-case/selection.json",
+            "bytes": 842,
+            "sha256": "cb8ea5c310b609c6bb162e0ae77e2cfbb9918c5d706ba31f89664f19633bba07"
+          },
+          {
+            "path": "/tmp/tube-driver-interface-controls-wuthvzqe/duplicate-save/raw/tube-case/tube-inputs.json",
+            "bytes": 166,
+            "sha256": "dcaf517caa3d56ba828b27d7c3471954804ca55f92b6c0403faadc9d9f641a84"
+          },
+          {
+            "path": "/tmp/tube-driver-interface-controls-wuthvzqe/duplicate-save/raw/tube-case/tube-operator.json",
+            "bytes": 263707,
+            "sha256": "14ef017bffb83816f4baabb1bd50856f6ed8fbac4f394f24b5656cfd77ff0127"
+          }
+        ]
+      }
+    },
+    {
+      "name": "unaltered main with entirely fake dependencies: post-admission-refusal",
+      "passed": true,
+      "detail": {
+        "counter": {
+          "admission": 2,
+          "loader": 1,
+          "receiver": 1,
+          "backend": 1
+        },
+        "expected_failure": "manufactured authority refusal",
+        "synthetic_output": "/tmp/tube-driver-interface-controls-wuthvzqe/post-admission-refusal/raw/tube-case",
+        "durable_files": [
+          {
+            "path": "/tmp/tube-driver-interface-controls-wuthvzqe/post-admission-refusal/raw/tube-case/actual-receiver.json",
+            "bytes": 166,
+            "sha256": "dcaf517caa3d56ba828b27d7c3471954804ca55f92b6c0403faadc9d9f641a84"
+          },
+          {
+            "path": "/tmp/tube-driver-interface-controls-wuthvzqe/post-admission-refusal/raw/tube-case/admission.json",
+            "bytes": 176,
+            "sha256": "5e2b6c04b465d1629920d81010c57cab551a9b0e29ccc6c9f3f2bd906083a659"
+          },
+          {
+            "path": "/tmp/tube-driver-interface-controls-wuthvzqe/post-admission-refusal/raw/tube-case/coverage.json",
+            "bytes": 19150,
+            "sha256": "67c740f4e97dd1aec8963869982b9011b633c18ec533579a00bf72396333c0f5"
+          },
+          {
+            "path": "/tmp/tube-driver-interface-controls-wuthvzqe/post-admission-refusal/raw/tube-case/failure.json",
+            "bytes": 2876,
+            "sha256": "6e8db3805711b965a8551fcafd1e1720a82576f2f3e0f02a470ca71dd447748a"
+          },
+          {
+            "path": "/tmp/tube-driver-interface-controls-wuthvzqe/post-admission-refusal/raw/tube-case/prefix-binding.json",
+            "bytes": 2828,
+            "sha256": "25c0b4c65cbd5183fdaef1324893efb71091b755612a8883df85931cd6bdb047"
+          },
+          {
+            "path": "/tmp/tube-driver-interface-controls-wuthvzqe/post-admission-refusal/raw/tube-case/selection.json",
+            "bytes": 866,
+            "sha256": "eb68feadf28eae24034d39e6baf3ba2dff843153325b5a0f7c2c6b13c99993db"
+          },
+          {
+            "path": "/tmp/tube-driver-interface-controls-wuthvzqe/post-admission-refusal/raw/tube-case/tube-inputs.json",
+            "bytes": 166,
+            "sha256": "dcaf517caa3d56ba828b27d7c3471954804ca55f92b6c0403faadc9d9f641a84"
+          },
+          {
+            "path": "/tmp/tube-driver-interface-controls-wuthvzqe/post-admission-refusal/raw/tube-case/tube-operator.json",
+            "bytes": 263707,
+            "sha256": "14ef017bffb83816f4baabb1bd50856f6ed8fbac4f394f24b5656cfd77ff0127"
+          }
+        ]
+      }
+    },
+    {
+      "name": "unaltered main with entirely fake dependencies: backend-drift",
+      "passed": true,
+      "detail": {
+        "counter": {
+          "admission": 2,
+          "loader": 1,
+          "receiver": 1,
+          "backend": 2
+        },
+        "expected_failure": "post-call arithmetic backend changed",
+        "synthetic_output": "/tmp/tube-driver-interface-controls-wuthvzqe/backend-drift/raw/tube-case",
+        "durable_files": [
+          {
+            "path": "/tmp/tube-driver-interface-controls-wuthvzqe/backend-drift/raw/tube-case/actual-receiver.json",
+            "bytes": 166,
+            "sha256": "dcaf517caa3d56ba828b27d7c3471954804ca55f92b6c0403faadc9d9f641a84"
+          },
+          {
+            "path": "/tmp/tube-driver-interface-controls-wuthvzqe/backend-drift/raw/tube-case/admission.json",
+            "bytes": 176,
+            "sha256": "5e2b6c04b465d1629920d81010c57cab551a9b0e29ccc6c9f3f2bd906083a659"
+          },
+          {
+            "path": "/tmp/tube-driver-interface-controls-wuthvzqe/backend-drift/raw/tube-case/coverage.json",
+            "bytes": 19150,
+            "sha256": "67c740f4e97dd1aec8963869982b9011b633c18ec533579a00bf72396333c0f5"
+          },
+          {
+            "path": "/tmp/tube-driver-interface-controls-wuthvzqe/backend-drift/raw/tube-case/failure.json",
+            "bytes": 2754,
+            "sha256": "e0788c2c5b5e1fa42c94f3c4d2197130a590f77f1fa5c68222a70d3b5da24970"
+          },
+          {
+            "path": "/tmp/tube-driver-interface-controls-wuthvzqe/backend-drift/raw/tube-case/prefix-binding.json",
+            "bytes": 2828,
+            "sha256": "25c0b4c65cbd5183fdaef1324893efb71091b755612a8883df85931cd6bdb047"
+          },
+          {
+            "path": "/tmp/tube-driver-interface-controls-wuthvzqe/backend-drift/raw/tube-case/selection.json",
+            "bytes": 839,
+            "sha256": "60afe3d54fdc88683eac603b16bb1b68b3e8510ef328018f6edeaf77b5440b86"
+          },
+          {
+            "path": "/tmp/tube-driver-interface-controls-wuthvzqe/backend-drift/raw/tube-case/tube-inputs.json",
+            "bytes": 166,
+            "sha256": "dcaf517caa3d56ba828b27d7c3471954804ca55f92b6c0403faadc9d9f641a84"
+          },
+          {
+            "path": "/tmp/tube-driver-interface-controls-wuthvzqe/backend-drift/raw/tube-case/tube-operator.json",
+            "bytes": 263707,
+            "sha256": "14ef017bffb83816f4baabb1bd50856f6ed8fbac4f394f24b5656cfd77ff0127"
+          }
+        ]
+      }
+    }
+  ],
+  "actual_model_imports": 0,
+  "actual_model_calls": 0,
+  "actual_target_reads": 0,
+  "actual_target_evaluations": 0,
+  "Git_or_process_operations": 0,
+  "prior_controls_repeated": false,
+  "synthetic_evidence_root": "/tmp/tube-driver-interface-controls-wuthvzqe",
+  "scope": "Actual current_admission/prefix_authority/backend_definition/main source; external authority and model interfaces mocked. Durable exclusive writing/fsync is real only under the named /tmp synthetic root. No target numerical accuracy, asset authenticity or actual resource feasibility is established."
+}
