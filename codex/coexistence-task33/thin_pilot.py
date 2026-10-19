@@ -7,6 +7,7 @@ local defects into a true-trajectory error bound. Main requires a new explicit
 card, externally bounded supervision and a fresh output directory.
 """
 import argparse
+import ast
 import hashlib
 import json
 from pathlib import Path
@@ -23,6 +24,10 @@ PREFIX=dict(
  prefix_admission_path=str(RAW/'prefix-001-supervision/admission.json'),
  prefix_admission_sha256='84be8d159949dc60aa0f3909c6a16ee5a967dab0e40cd717dda2738331bcfa28',
  prefix_map_source_sha256='fcc90849601984506adf26f651067734f9faef408c8f42dffe64bf5c68e98a80')
+ORIGINAL_AUTHORITY=dict(
+ original_source_commit='019168d9c28b92ae80f7f2766592dccbfae69e2d',
+ original_source_sha256='ead3b44a82c556c1a376f3e58c389cd3fb2f7329786ef0a712a3d92e7a920843',
+ fixed_start_class_sha256='c590a4c0bb2ee3742333d66cfa204add121b63bcb43d6446f96e8cd047f3e50b')
 SCOPE='Point-centre image enclosures and local defects only; not a true-trajectory tube or reachability proof.'
 
 def sha(path):
@@ -50,12 +55,24 @@ def validate_card(card):
  if (authority.get('method')!='SoftLoop.prepare: embedding of last prefix token, K=1'
      or authority.get('scope')!='exact stored checkpoint constants; not bitwise identity with floating execution'
      or authority['source']['path']!=str(R/'tools/explore_llm_soft_loop.py')
-     or by_path.get(authority['source']['path'])!=authority['source']):
+     or by_path.get(authority['source']['path'])!=authority['source']
+     or any(authority.get(k)!=v for k,v in ORIGINAL_AUTHORITY.items())):
   raise ValueError('original fixed-start source authority required')
  required={str(Path(__file__).resolve()),str(Path(__file__).resolve().with_name('thin_pseudo_orbit.py')),
   PREFIX['prefix_receipt'],PREFIX['prefix_admission_path'],str(Path(PREFIX['prefix_output'])/'inputs.json'),
   str(Path(PREFIX['prefix_output'])/'prefix-cache.json.gz')}
- if not required<=set(by_path):raise ValueError('thin caller/helper and original prefix input pins required')
+ required.update(str(R/relative)for relative in ('codex/crosscheck/qwen_map.py',
+  'codex/certify-llm/ball_qwen.py','codex/certify-llm/ball_linear.py',
+  'codex/certify-llm/cache_io.py','codex/coexistence-task33/prefix_import.py'))
+ if not required<=set(by_path):raise ValueError('complete thin map/helper and original prefix input pins required')
+
+
+def verify_fixed_start_source(text):
+ # Pin the complete original SoftLoop class, including prepare and its window
+ # definition. Later unrelated producer CLI edits must not redefine this start.
+ nodes=[n for n in ast.parse(text).body if isinstance(n,ast.ClassDef)and n.name=='SoftLoop']
+ if len(nodes)!=1 or hashlib.sha256(ast.get_source_segment(text,nodes[0]).encode()).hexdigest()!=ORIGINAL_AUTHORITY['fixed_start_class_sha256']:
+  raise ValueError('original SoftLoop fixed-start definition changed')
 
 
 def main():
@@ -80,6 +97,7 @@ def main():
    if (path.is_symlink()or not path.is_file()or path.resolve()!=path
        or path.stat().st_size!=item['bytes']or digest(path)!=item['sha256']):
     raise ValueError('pinned input mismatch')
+  verify_fixed_start_source(Path(card['producer_initial_state_authority']['source']['path']).read_text())
   for name,expected in PINNED_SHA256.items():
    if digest(VECTOR_FILE if name=='vectors.npz'else SNAPSHOT/name)!=expected:raise ValueError('asset mismatch')
  verify();torch.set_num_threads(1);torch.set_num_interop_threads(1);ctx.prec=2048;ctx.threads=1

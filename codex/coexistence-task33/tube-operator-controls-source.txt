@@ -1,0 +1,70 @@
+"""New whole-direction-cube controls only: no model, target or old loop tests."""
+import copy,hashlib,importlib.util,json,sys
+from fractions import Fraction as Q
+from pathlib import Path
+from flint import arb,arb_mat,ctx
+R=Path('/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp')
+sys.path.insert(0,str(R/'codex/certify-llm'))
+from ball_jet import Jet
+spec=importlib.util.spec_from_file_location('tube_operator','/tmp/tube_operator.py');t=importlib.util.module_from_spec(spec);spec.loader.exec_module(t)
+ctx.prec=128;ctx.threads=1
+checks=[]
+def passed(name):checks.append(name)
+def refuse(name,fn):
+ try:fn()
+ except (ValueError,TypeError):passed(name);return
+ raise AssertionError('unexpected admission: '+name)
+def value(r):return Q(r['numerator'],r['denominator'])
+def pack_jets(jets):return [q.value for q in jets],arb_mat(len(jets),1,[q.tangent[0] for q in jets])
+def linear(x,v):
+ a,b=[Jet.make(x[i],(v[i,0],))for i in range(2)]
+ return pack_jets([a-b,Jet.make(0,(0,))])
+def square(x,v):
+ a=Jet.make(x[0],(v[0,0],));return pack_jets([a*a])
+# The exact linear row [1,-1] cancels on an all-ones direction, but its norm is2.
+c=[arb(0),arb(0)];x,V=t.build(c,Q(1,4),2)
+_,ordinary=linear(x,arb_mat([[1],[1]]));assert ordinary[0,0].is_exact() and ordinary[0,0]==0
+saved={};lin=t.evaluate(c,Q(1,4),linear,dimension=2,save=lambda n,r:saved.setdefault(n,copy.deepcopy(r)))
+assert value(lin['L'])>=2
+lo,hi=t.endpoints(lin['signed_derivative'][0][0]);assert lo<=-2 and hi>=2
+assert set(saved)=={'tube-inputs.json','tube-operator.json'} and saved['tube-operator.json']==lin
+assert not lin['trajectory_enclosure'] and not lin['certificate_passed']
+passed('cancellation row: ordinary all-ones action zero, interval cube bounds full norm2')
+# For x in [3/4,5/4], v in[-1,1], derivative 2*x*v has exact extrema +/-5/2.
+poly=t.evaluate([arb(1)],Q(1,4),square,dimension=1)
+analytic=Q(5,2);lo,hi=t.endpoints(poly['signed_derivative'][0][0]);assert lo<=-analytic and hi>=analytic
+L=value(poly['L']);assert L>=analytic
+# Retain any native mag rounding rather than falsely demanding equality.
+slack=L-analytic;assert slack<=Q(1,2**24)
+assert t.endpoints(poly['live_primal'][0])==(Q(3,4),Q(5,4))
+assert value(poly['row_abs_endpoint_upper'][0])==max(abs(lo),abs(hi))==L
+passed('nonlinear Jet square: analytic corner extrema +/-5/2 enclosed; exact outward slack retained')
+for name,D in [('ordinary all-ones',arb_mat([[1],[1]])),('ordinary basis',arb_mat([[1],[0]])),('too narrow interval',arb_mat([[arb(0,Q(1,2).numerator/Q(1,2).denominator)],[arb(0,1)]])),('wrong direction shape',arb_mat(2,2)),('nonfinite direction',arb_mat([[arb('nan')],[arb(0,1)]]))]:
+ refuse(name,lambda D=D:t.admit(c,Q(1,4),x,D,2))
+for name,centres,radius,dimension in [('uncertain centre',[arb(0,1),arb(0)],Q(1,4),2),('nonfinite centre',[arb('nan'),arb(0)],Q(1,4),2),('wrong centre dimension',[arb(0)],Q(1,4),2),('nonpositive radius',c,0,2),('negative radius',c,-1,2),('inexact float radius',c,.25,2),('nondyadic radius',c,Q(1,3),2),('bool radius',c,True,2)]:
+ refuse(name,lambda centres=centres,radius=radius,dimension=dimension:t.build(centres,radius,dimension))
+refuse('primal point does not contain positive nominal tube',lambda:t.admit(c,Q(1,4),[arb(0),arb(0)],V,2))
+refuse('wrong primal shape',lambda:t.admit(c,Q(1,4),[arb(0)],V,2))
+refuse('nonfinite primal',lambda:t.admit(c,Q(1,4),[arb('nan'),x[1]],V,2))
+def wrong_values(x,v):return [arb(0)],arb_mat(2,1)
+def wrong_derivatives(x,v):return [arb(0),arb(0)],arb_mat(2,2)
+def nonfinite_values(x,v):return [arb('nan'),arb(0)],arb_mat(2,1)
+def nonfinite_derivatives(x,v):return [arb(0),arb(0)],arb_mat([[arb('nan')],[arb(0)]])
+for name,f in [('wrong output dimension',wrong_values),('wrong derivative shape',wrong_derivatives),('nonfinite output',nonfinite_values),('nonfinite derivative',nonfinite_derivatives)]:refuse(name,lambda f=f:t.evaluate(c,Q(1,4),f,dimension=2))
+def mutate_primal(x,v):
+ answer=linear(x,v);x[0]=arb(0,2);return answer
+refuse('live primal mutation after valid result',lambda:t.evaluate(c,Q(1,4),mutate_primal,dimension=2))
+def mutate_direction(x,v):
+ answer=linear(x,v);v[0,0]=arb(0,2);return answer
+refuse('live interval direction mutation after valid result',lambda:t.evaluate(c,Q(1,4),mutate_direction,dimension=2))
+c2=[arb(0),arb(0)]
+def mutate_centre(x,v):
+ answer=linear(x,v);c2[0]=arb(1);return answer
+refuse('nominal centre mutation',lambda:t.evaluate(c2,Q(1,4),mutate_centre,dimension=2))
+def mutate_context(x,v):
+ answer=linear(x,v);ctx.prec=160;return answer
+try:refuse('arithmetic context mutation',lambda:t.evaluate(c,Q(1,4),mutate_context,dimension=2))
+finally:ctx.prec=128
+refuse('partial live input supplied',lambda:t.evaluate(c,Q(1,4),linear,dimension=2,primal=x))
+record=dict(status='passed',new_controls=len(checks),controls=checks,cancellation_L=lin['L'],polynomial_analytic_max=t.rational(analytic),polynomial_native_L=poly['L'],polynomial_outward_slack=t.rational(slack),source_sha256=hashlib.sha256(Path('/tmp/tube_operator.py').read_bytes()).hexdigest(),native_backend=dict(python_flint=__import__('flint').__version__,flint=__import__('flint').__FLINT_VERSION__),target_evaluations=0,model_calls=0,old_controls_repeated=False)
+print(json.dumps(record,indent=2))

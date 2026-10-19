@@ -1,0 +1,104 @@
+{
+  "status": "passed",
+  "new_wrapper_refusals": [
+    {
+      "control": "wrong experiment",
+      "refused": true
+    },
+    {
+      "control": "wrong trajectory_enclosure",
+      "refused": true
+    },
+    {
+      "control": "wrong certificate_passed",
+      "refused": true
+    },
+    {
+      "control": "wrong repository",
+      "refused": true
+    },
+    {
+      "control": "wrong precision",
+      "refused": true
+    },
+    {
+      "control": "wrong steps",
+      "refused": true
+    },
+    {
+      "control": "wrong alpha",
+      "refused": true
+    },
+    {
+      "control": "wrong log10T",
+      "refused": true
+    },
+    {
+      "control": "wrong initial_token_id",
+      "refused": true
+    },
+    {
+      "control": "wrong prefix_source_commit",
+      "refused": true
+    },
+    {
+      "control": "duplicate input",
+      "refused": true
+    },
+    {
+      "control": "missing map source",
+      "refused": true
+    },
+    {
+      "control": "missing thin loop",
+      "refused": true
+    },
+    {
+      "control": "source card crossbinding",
+      "refused": true
+    },
+    {
+      "control": "different original authority",
+      "refused": true
+    },
+    {
+      "control": "different original class hash",
+      "refused": true
+    },
+    {
+      "control": "changed actual start embedding index",
+      "refused": true
+    },
+    {
+      "control": "changed actual window definition",
+      "refused": true
+    }
+  ],
+  "valid_card_passed": true,
+  "original_and_current_class_source_passed": true,
+  "model_calls": 0,
+  "target_prefix_loaded": false,
+  "prior_loop_or_recurrence_controls_repeated": false,
+  "source": {
+    "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/coexistence-task33/thin_pilot.py",
+    "bytes": 8952,
+    "sha256": "a12fd306fb49392c0d4922b6c4d7aabec1dd56e0b0b835373ecf74287ff05cbc"
+  },
+  "card": {
+    "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/coexistence-task33/thin-pilot-001-card.json",
+    "bytes": 4859,
+    "sha256": "33922427cb39bb72662122ae06c461acdbfc9314344e4e9f8a468d2b47164213"
+  },
+  "original_authority": {
+    "source": {
+      "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/tools/explore_llm_soft_loop.py",
+      "bytes": 122549,
+      "sha256": "28418408507409f52df9217c71255131a1de8cfe7d059a35761971738883e120"
+    },
+    "method": "SoftLoop.prepare: embedding of last prefix token, K=1",
+    "scope": "exact stored checkpoint constants; not bitwise identity with floating execution",
+    "original_source_commit": "019168d9c28b92ae80f7f2766592dccbfae69e2d",
+    "original_source_sha256": "ead3b44a82c556c1a376f3e58c389cd3fb2f7329786ef0a712a3d92e7a920843",
+    "fixed_start_class_sha256": "c590a4c0bb2ee3742333d66cfa204add121b63bcb43d6446f96e8cd047f3e50b"
+  }
+}
