@@ -264,44 +264,106 @@ def cmd_words(args):
     (out / "words.json").write_text(json.dumps(rec_out, indent=1))
     print(json.dumps({k: v for k, v in rec_out.items() if k not in ("args", "body_text_tally")}, indent=1))
     if args.fig:
-        plot_words(a, t, lam, status, word_idx, labels, mss, P, args.fig)
+        plot_words(a, t, lam, status, word_idx, labels, mss, P, args.fig, zoom=args.zoom, unconfirmed=set(args.unconfirmed))
 
 
-def plot_words(a, t, lam, status, word_idx, labels, mss, P, fig_path):
+WORD_COLORS = {"": "#9ecae1", "R": "#4292c6", "RLR": "#08519c", "RLRRRLR": "#08306b", "RL": "#ff7f0e", "RLL": "#d62728",
+               "RLRR": "#2ca02c", "RLLR": "#9467bd", "RLRRR": "#8c564b", "RLLRL": "#e377c2", "RLLL": "#bcbd22",
+               "RLLLL": "#17becf", "RLLRR": "#7f3b08", "RLLLR": "#b15928"}
+OTHER_COLOR = "#e6ab02"                                      # every other MSS word (periods up to 48)
+
+
+def word_image(lam, status, word_idx, labels):
+    from matplotlib.colors import to_rgb
+    img = np.ones(lam.shape + (3,))
+    img[(status == 0) & (lam > 1e-3)] = (0.88, 0.88, 0.88)          # chaos
+    img[status == 1] = (0.55, 0.55, 0.55)                            # periodic, other family or period
+    img[status == 2] = (0.30, 0.30, 0.30)                            # gate failed
+    for i, lab in enumerate(labels):
+        W, X = lab.split("|")
+        c = np.array(to_rgb(WORD_COLORS.get(W, OTHER_COLOR)))
+        positive = ((W + X).count("R") % 2) == 0                    # sign of the leading multiplier
+        img[word_idx == i] = (1.0, 0.0, 1.0) if X == "C" else (0.45 * c + 0.55 if positive else c)
+    return img
+
+
+def plot_words(a, t, lam, status, word_idx, labels, mss, P, fig_path, zoom=None, unconfirmed=()):
     import matplotlib
     matplotlib.use("Agg")
     import matplotlib.pyplot as plt
-    from matplotlib.colors import to_rgb
+    from matplotlib.patches import Patch, Rectangle
 
-    Ws = sorted({lab.split("|")[0] for lab in labels}, key=mss.index)
-    palette = ["#1f77b4", "#ff7f0e", "#2ca02c", "#d62728", "#9467bd", "#8c564b", "#e377c2", "#17becf", "#bcbd22",
-               "#7f7f7f", "#aec7e8", "#ffbb78", "#98df8a", "#ff9896", "#c5b0d5", "#c49c94"]
-    col = {W: to_rgb(palette[i % len(palette)]) for i, W in enumerate(Ws)}
-    img = np.ones(lam.shape + (3,))
-    chaos = status == 0
-    img[chaos & (lam > 1e-3)] = (0.80, 0.80, 0.80)
-    img[status == 1] = (0.35, 0.35, 0.35)
-    img[status == 2] = (0.0, 0.0, 0.0)
+    img = word_image(lam, status, word_idx, labels)
+    present = {}
     for i, lab in enumerate(labels):
-        W, X = lab.split("|")
-        c = np.array(col[W])
-        img[word_idx == i] = c if X == "R" else 0.55 * c + 0.45
-    fig, ax = plt.subplots(figsize=(7.2, 6.0))
-    ax.imshow(img, origin="lower", extent=[a[0], a[-1], t[0], t[-1]], aspect="auto", interpolation="nearest")
-    ax.set_xlabel(r"steering strength $\alpha$")
-    ax.set_ylabel(r"$\log_{10}T$")
-    from matplotlib.patches import Patch
-    handles = []
-    for W in Ws:
-        n = sum(int((word_idx == i).sum()) for i, lab in enumerate(labels) if lab.split("|")[0] == W)
-        handles.append(Patch(color=col[W], label=f"{W or '(none)'}  (period {P * (len(W) + 1)}, {n} cells)"))
-    handles += [Patch(color=(0.8, 0.8, 0.8), label="chaotic"), Patch(color=(0.35, 0.35, 0.35), label="other periodic"),
-                Patch(color="k", label="gate failed")]
-    ax.legend(handles=handles, fontsize=6.5, loc="upper left", bbox_to_anchor=(1.01, 1.0), title="window word W\n(pale: X = L)",
-              title_fontsize=7)
-    fig.tight_layout()
+        W = lab.split("|")[0]
+        present[W] = present.get(W, 0) + int((word_idx == i).sum())
+    fig = plt.figure(figsize=(7.2, 8.4))
+    gs = fig.add_gridspec(2, 2, height_ratios=[1.0, 0.42], width_ratios=[1.15, 1.0], hspace=0.32, wspace=0.28)
+    axa, axb, axc = fig.add_subplot(gs[0, 0]), fig.add_subplot(gs[0, 1]), fig.add_subplot(gs[1, :])
+    ext = [a[0], a[-1], t[0], t[-1]]
+    axa.imshow(img, origin="lower", extent=ext, aspect="auto", interpolation="nearest")
+    axa.set_title("(a) the window of the period-6 shrimp", fontsize=8)
+    if zoom:
+        a0, a1, t0, t1 = zoom
+        axa.add_patch(Rectangle((a0, t0), a1 - a0, t1 - t0, fill=False, ec="k", lw=0.8))
+        ci = np.nonzero((a >= a0) & (a <= a1))[0]
+        ri = np.nonzero((t >= t0) & (t <= t1))[0]
+        axb.imshow(img[np.ix_(ri, ci)], origin="lower", extent=[a[ci[0]], a[ci[-1]], t[ri[0]], t[ri[-1]]], aspect="auto",
+                   interpolation="nearest")
+        axb.set_title("(b) the box in (a): small windows below the body", fontsize=8)
+    for ax in (axa, axb):
+        ax.set_xlabel(r"steering strength $\alpha$", fontsize=8)
+        ax.set_ylabel(r"$\log_{10}T$", fontsize=8)
+        ax.tick_params(labelsize=6.5)
+        ax.ticklabel_format(useOffset=False)
+    # (c) the words at their superstable parameters in the quadratic family x -> a - x^2
+    A = np.linspace(0.6, 2.0, 1400)
+    xs = []
+    for av in A:
+        x = 0.0
+        for _ in range(400):
+            x = av - x * x
+        orb = []
+        for _ in range(80):
+            x = av - x * x
+            orb.append(x)
+        xs.append(orb)
+    xs = np.array(xs)
+    axc.plot(np.repeat(A, xs.shape[1]), xs.ravel(), ",", color="0.55", alpha=0.6)
+    shown = [W for W in mss if W in present]
+    lab_k = 0
+    for W in shown:
+        aw = superstable_a(W) if W else 0.0
+        if aw < A[0]:
+            continue
+        col = WORD_COLORS.get(W, OTHER_COLOR)
+        axc.plot([aw, aw], [2.05, 2.45], color=col, lw=1.4, solid_capstyle="butt")
+        if present[W] >= 15:                               # label the larger windows; the rest are ticks only
+            axc.text(aw, 2.55 + 0.33 * (lab_k % 2), f"{W} ({P * (len(W) + 1)})", fontsize=5.8, ha="center", va="bottom",
+                     color=col)
+            lab_k += 1
+    axc.set_xlim(A[0], A[-1])
+    axc.set_ylim(-2.1, 3.3)
+    axc.set_xlabel(r"parameter $a$ of the quadratic map $x\mapsto a-x^2$", fontsize=8)
+    axc.set_ylabel(r"$x$", fontsize=8)
+    axc.tick_params(labelsize=6.5)
+    axc.set_title("(c) the same words at their superstable parameters in the quadratic family (period of the soft-token orbit)",
+                  fontsize=8)
+    listed = [W for W in shown if W in WORD_COLORS and present[W] >= 3]
+    others = [W for W in shown if W not in listed]
+    handles = [Patch(color=WORD_COLORS[W], label=f"{W or '(empty)'}: period {P * (len(W) + 1)}, {present[W]} cells"
+                     + (" (not confirmed)" if W in unconfirmed else "")) for W in listed]
+    if others:
+        handles.append(Patch(color=OTHER_COLOR, label=f"{len(others)} other MSS words, periods {min(P * (len(W) + 1) for W in others)}"
+                             f" to {max(P * (len(W) + 1) for W in others)}: {sum(present[W] for W in others)} cells (not checked)"))
+    handles += [Patch(color=(1, 0, 1), label="on a superstable curve (X = C)"), Patch(color=(0.88, 0.88, 0.88), label="chaotic"),
+                Patch(color=(0.55, 0.55, 0.55), label="other periodic"), Patch(color=(0.30, 0.30, 0.30), label="no word (gate failed)")]
+    fig.legend(handles=handles, fontsize=5.8, loc="upper center", bbox_to_anchor=(0.5, 0.995), ncol=4, frameon=False,
+               title="window word W (pale: leading multiplier positive; full: negative)", title_fontsize=6.5)
+    fig.subplots_adjust(top=0.86)
     Path(fig_path).parent.mkdir(parents=True, exist_ok=True)
-    fig.savefig(fig_path, dpi=250, bbox_inches="tight")
+    fig.savefig(fig_path, dpi=300, bbox_inches="tight")
     print(f"wrote {fig_path}")
 
 
@@ -584,6 +646,54 @@ def cmd_merge(args):
     print(json.dumps({"out": args.out, "rows_from_checkpoint": r0, "rows_from_rerun": int(len(tr)), "shape": list(out["lyapunov"].shape)}))
 
 
+def cmd_verify_summary(args):
+    """Score the float64 Newton checks (sd_verify_words.py) with the scan's rule and compare with the scan's words. A
+    phase is clean when its L and R points are separable along the phase's principal axis and the smallest |cos| of
+    its visits reaches --min-cos; the word is that of the clean phases (they must agree). A complex leading pair
+    marks a cell on a superstable curve (X = C). The scan's label is that of the word map at the nearest cell."""
+    from collections import Counter
+    rows = []
+    for v in args.verify:
+        rows += json.loads((DATA / "explore" / v / "verify.json").read_text())["cells"]
+    W = np.load(DATA / "explore" / args.words / "words.npz", allow_pickle=True)
+    labels = list(W["labels"])
+    out = []
+    for c in rows:
+        r = int(np.argmin(np.abs(W["log10_temperature"] - c["log10_temperature"])))
+        k = int(np.argmin(np.abs(W["alpha"] - c["alpha"])))
+        wi = int(W["word_index"][r, k])
+        scan = labels[wi] if wi >= 0 else {0: "chaotic", 1: "other", 2: "no word"}.get(int(W["status"][r, k]), "?")
+        rec = {"alpha": c["alpha"], "log10_temperature": c["log10_temperature"], "period": c["period"], "scan_label": scan,
+               "newton_residual": c["newton_residuals"][-1], "leading_multiplier": c["leading_multiplier"],
+               "second_modulus": c.get("second_modulus")}
+        if c.get("status") == "leading multiplier complex or not simple":
+            rec.update(newton_label="C (complex leading pair)", clean_phases=0,
+                       agrees=scan.endswith("|C"))
+        elif "phases" in c:
+            clean = [p["word"] for p in c["phases"] if p["separable"] in (True, None) and p["min_abs_cos"] >= args.min_cos]
+            cnt = Counter(clean)
+            if clean and len(cnt) == 1:
+                w = clean[0]
+                rec.update(newton_label=w[:-1] + "|" + w[-1], clean_phases=len(clean), agrees=(w[:-1] + "|" + w[-1]) == scan,
+                           mss=w[:-1] in set(mss_words(9)), parity=c.get("parity_matches_multiplier"))
+            else:
+                rec.update(newton_label="no clean phase" if not clean else "clean phases disagree", clean_phases=len(clean),
+                           agrees=None)
+        else:
+            rec.update(newton_label=c.get("status"), agrees=None)
+        out.append(rec)
+    summ = {"cells": len(out), "confirmed": sum(1 for r in out if r["agrees"] is True),
+            "contradicted": sum(1 for r in out if r["agrees"] is False),
+            "unscorable": sum(1 for r in out if r["agrees"] is None), "rows": out}
+    o = DATA / "explore" / args.out
+    o.mkdir(parents=True, exist_ok=True)
+    (o / "verify-summary.json").write_text(json.dumps(summ, indent=1))
+    print(json.dumps({k: summ[k] for k in ("cells", "confirmed", "contradicted", "unscorable")}))
+    for r in sorted(out, key=lambda r: (r["period"], r["scan_label"])):
+        print(f"q={r['period']:2d} ({r['alpha']:.7f}, {r['log10_temperature']:.7f}) scan {r['scan_label']:>12}  newton {r['newton_label']:>24}"
+              f"  clean {r.get('clean_phases')}  agrees {r['agrees']}")
+
+
 def main():
     ap = argparse.ArgumentParser(description=__doc__.split("\n\n")[0])
     sub = ap.add_subparsers(dest="cmd", required=True)
@@ -602,6 +712,8 @@ def main():
     w.add_argument("--compare", default=None, help="band prefix of an earlier scan on the same grid (reproducibility)")
     w.add_argument("--out", required=True)
     w.add_argument("--fig", default=None)
+    w.add_argument("--zoom", type=float, nargs=4, default=None, metavar=("A0", "A1", "T0", "T1"), help="box for panel (b)")
+    w.add_argument("--unconfirmed", nargs="*", default=[], help="window words the float64 check could not confirm (legend note)")
     r = sub.add_parser("returnmaps")
     r.add_argument("--bands", default=None)
     r.add_argument("--n", type=int, default=3)
@@ -621,12 +733,18 @@ def main():
     r.add_argument("--text-ids", type=int, nargs="*", default=None)
     r.add_argument("--out", required=True)
     r.add_argument("--fig", default=None)
+    vs = sub.add_parser("verify-summary")
+    vs.add_argument("--verify", nargs="+", required=True, help="explore-relative folders with verify.json")
+    vs.add_argument("--words", required=True, help="explore-relative folder with the word map's words.npz")
+    vs.add_argument("--min-cos", type=float, default=0.5)
+    vs.add_argument("--out", required=True)
     g = sub.add_parser("merge")
     g.add_argument("--partial", required=True, help="explore-relative band folder with scan-partial.npz")
     g.add_argument("--rerun", required=True, help="explore-relative band folder of the rerun of its missing rows")
     g.add_argument("--out", required=True)
     args = ap.parse_args()
-    {"mss": cmd_mss, "words": cmd_words, "returnmaps": cmd_returnmaps, "merge": cmd_merge}[args.cmd](args)
+    {"mss": cmd_mss, "words": cmd_words, "returnmaps": cmd_returnmaps, "merge": cmd_merge,
+     "verify-summary": cmd_verify_summary}[args.cmd](args)
 
 
 if __name__ == "__main__":

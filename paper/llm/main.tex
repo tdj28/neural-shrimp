@@ -2487,6 +2487,108 @@ bifurcation: on both sides of it both attracting period-6 orbits exist (leading 
 $0.60$ to $0.61$), and the fixed start reaches one above the edge and the other below (\repo{tools/kite_basin_check.py}).}
 \label{fig:p6kite}
 \end{figure*}
+
+\paragraph{Symbolic dynamics.} The window's organization follows from a one-dimensional map, as the shape of a
+periodicity hub of the R\"ossler system follows from a conjugacy of its return map to unimodal maps
+\cite{jones2012rossler}. Where the attractor writes the body's six-token text, the loop visits six thin bands of the
+state space in turn, one per token, and returns to each band every six steps. Within a band, the six-step return map is,
+in most of the region, one-dimensional with a single turning point: plotted against its predecessor along the band, the next visit traces a
+parabola (Figure~\ref{fig:returnmaps}). We code each visit by the side of the turning point it lies on, L on the
+increasing branch and R on the decreasing one. The side is the sign of the six-step derivative along the band, which
+the twin trajectory of the Lyapunov exponent provides (\repo{tools/symbolic_dynamics.py}): the twin's offset direction is carried along the attractor, and
+its scalar product with its own direction six steps earlier has the sign of that derivative wherever the band turns
+by less than a right angle. In 48 of the 58 chaotic cells of a $48\times48$
+map of the window that write the six-token text, one threshold along the band separates the L visits from the R visits,
+with at most 4.7\,\% of the rarer symbol on the wrong side (none in 23
+cells), in every phase where the band is straight enough for the sign to be defined. The other 10
+cells lie in one column beside the body's left flip curve (3) and below the kite
+(7). A unimodal map with negative
+Schwarzian derivative has at most one attracting periodic orbit \cite{singer1978stable}, so the coexistence of two in the
+kite already requires a second turning point there.
+
+A periodic orbit of period $6k$ visits each band $k$ times. The signs of its visits, rotated to the largest sequence in
+the order of kneading theory, give the word of its window in the sense of Metropolis, Stein and Stein
+\cite{metropolis1973finite,milnor1988iterated}: the itinerary of the critical point, whose last symbol tells on which
+side of the window's superstable curve the orbit lies. On the $640\times640$ grid of Figure~\ref{fig:p6shrimp}a,
+44{,}577 periodic cells of the six-band region carry a word, 23
+distinct words in all, each a superstable word of the quadratic family (Figure~\ref{fig:words}). The body and its period
+doublings carry the words of the doubling cascade: the empty word (period 6), R (12), RLR (24) and RLRRRLR (48). Windows
+in the surrounding chaos carry other words, among them RL (period 18), RLRR (30), and RLRRR and RLLRL, two distinct
+windows of period 36 that only their words tell apart. Each window is split by its superstable curve into a half where
+the orbit's leading multiplier is positive, next to the boundary where the orbit is born (a fold, or for a doubled orbit
+the flip curve of its parent), and a half where it is negative, next to its own flip; the multiplier's sign is that of
+$(-1)^{n_R}$, with $n_R$ the number of R's in the word including its last symbol. The 153 cells on the curves themselves, where the leading pair is
+complex, have no defined last symbol. Float64 Newton solves with exact Jacobians at the center of the largest patch of
+each window and side (23 cells) (Table~\ref{tab:p6words}) give the scan's word at all 16 cells where at
+least one phase is clean, and a complex leading pair at the 2 cells marked as on a superstable
+curve. At the remaining 5, just below the kite, no phase is clean, and the words found there
+(RLL, RLLLRLL, RLLLRLR, RLLLRRR) remain unconfirmed. Of the six-band cells, 3\,\%
+carry no word; 63\,\% of them lie within two cells of a window's edge.
+
+\begin{figure*}[tbp]
+\centering
+\includegraphics[width=\textwidth]{fig-p6-return-maps.png}
+\caption{Return maps of the six-band chaos around the period-6 shrimp (Qwen2.5-0.5B-Instruct, philosophy direction at
+layer 12, float64; 1000 transient and 3000 recorded steps per cell). (a) The cells of a $48\times48$ map of the window of
+Figure~\ref{fig:p6shrimp}a: chaotic cells writing the six-token text whose visits a single threshold codes (green) or
+does not (red), other chaotic cells (gray) and periodic cells (white). (b--g) Six-step return maps at six green
+cells: the position along one band (its first principal axis) against the position at the previous visit; blue:
+visits where the six-step derivative is positive (L), red: negative (R).}
+\label{fig:returnmaps}
+\end{figure*}
+
+\begin{figure*}[tbp]
+\centering
+\includegraphics[width=0.92\textwidth]{fig-p6-words.png}
+\caption{Symbolic words of the period-6 shrimp's windows ($640\times640$ float64 cells, the grid of
+Figure~\ref{fig:p6shrimp}a). (a) Each periodic cell of the six-band region colored by the word of its window: pale
+where the orbit's leading multiplier is positive, full where it is negative, magenta on the window's superstable curve
+(complex leading pair); light gray: chaos; mid gray: other periodic orbits; dark gray: no word. Windows marked ``not
+confirmed'' in the legend are those of Table~\ref{tab:p6words}'s cells without a clean phase. (b) The box in (a). (c) The same words at the
+superstable parameters of the quadratic family $x\mapsto a-x^2$, on its bifurcation diagram (the body's empty word is
+that of its fixed point, at $a=0$); labels give the period of the soft-token orbit, six times the word's period.}
+\label{fig:words}
+\end{figure*}
+
+\begin{table}[tbp]
+\centering
+\caption{Float64 checks of the symbolic words (\repo{tools/sd_verify_words.py}): Newton with exact Jacobians at the
+center of the largest patch of each window word and side of Figure~\ref{fig:words} (at least three cells). Word and
+side: the scan's label; $\mu_1$: the orbit's leading multiplier; clean: the phases whose L and R visits one threshold
+separates along the band, with every $|\cos|\ge0.5$; result: the clean phases give the scan's word (confirmed), no
+phase is clean, or the leading pair is complex (a cell on the superstable curve, side C).}
+\label{tab:p6words}
+\footnotesize
+\begin{tabular}{llrlrrl}
+\toprule
+word & side & period & $(\alpha,\log_{10}T)$ & $\mu_1$ & clean & result \\\\
+\midrule
+(empty) & C & 6 & $(0.0730707, -0.1520673)$ & $-0.002+0.024i$ & 0 & complex pair \\
+(empty) & L & 6 & $(0.0731584, -0.1527559)$ & $+0.189$ & 6 & confirmed \\
+(empty) & R & 6 & $(0.0732285, -0.1533944)$ & $-0.686$ & 6 & confirmed \\
+R & C & 12 & $(0.0732548, -0.1537825)$ & $-0.001+0.004i$ & 0 & complex pair \\
+R & L & 12 & $(0.0731628, -0.1539703)$ & $-0.770$ & 5 & confirmed \\
+R & R & 12 & $(0.0733030, -0.1538200)$ & $+0.078$ & 5 & confirmed \\
+RL & L & 18 & $(0.0730488, -0.1543333)$ & $-0.184$ & 3 & confirmed \\
+RL & R & 18 & $(0.0727465, -0.1528936)$ & $+0.266$ & 2 & confirmed \\
+RLL & L & 24 & $(0.0732110, -0.1542582)$ & $-0.481$ & 0 & \emph{no clean phase} \\
+RLL & R & 24 & $(0.0731847, -0.1542707)$ & $+0.278$ & 0 & \emph{no clean phase} \\
+RLR & L & 24 & $(0.0731540, -0.1540454)$ & $+0.178$ & 4 & confirmed \\
+RLR & R & 24 & $(0.0727772, -0.1524053)$ & $-0.526$ & 3 & confirmed \\
+RLRR & L & 30 & $(0.0731408, -0.1543208)$ & $-0.051$ & 3 & confirmed \\
+RLRR & R & 30 & $(0.0731408, -0.1542707)$ & $+0.139$ & 4 & confirmed \\
+RLLRL & L & 36 & $(0.0740260, -0.1569249)$ & $+0.168$ & 4 & confirmed \\
+RLLRL & R & 36 & $(0.0730444, -0.1543584)$ & $-0.439$ & 3 & confirmed \\
+RLRRR & L & 36 & $(0.0731671, -0.1542457)$ & $+0.146$ & 3 & confirmed \\
+RLRRR & R & 36 & $(0.0731628, -0.1541956)$ & $-0.063$ & 3 & confirmed \\
+RLLLRLL & L & 48 & $(0.0731803, -0.1543083)$ & $+0.169$ & 0 & \emph{no clean phase} \\
+RLLLRLR & L & 48 & $(0.0732066, -0.1543834)$ & $-0.251$ & 0 & \emph{no clean phase} \\
+RLLLRRR & L & 48 & $(0.0733074, -0.1541581)$ & $+0.035$ & 0 & \emph{no clean phase} \\
+RLRRRLR & L & 48 & $(0.0731146, -0.1541080)$ & $-0.085$ & 4 & confirmed \\
+RLRRRLR & R & 48 & $(0.0731102, -0.1541080)$ & $+0.226$ & 5 & confirmed \\
+\bottomrule
+\end{tabular}
+\end{table}
 \begin{table}[tbp]
 \centering
 \caption{The six located cusps of the period-6 window (float64), in the plane of $\alpha$ and $\log_{10}T$ (C: the cusp

@@ -30964,3 +30964,44 @@ conjugacy of the Rössler return map to unimodal maps, and orbits are traced by 
 - Checks per cell: phases agree; the parity of R's matches the sign of the leading multiplier; L and R visits are
   separable along each phase's principal axis; the word is an MSS word. Compare with the scan's word at the cell.
 - 2 toolseq pods (sdv-a, sdv-b), job 50 min. Output: llm-soft-loop/pod64/sd/verify-a, verify-b.
+
+## 2026-10-19 08:42 UTC: SD results: unimodal return maps and MSS words of the period-6 shrimp (in both papers)
+
+- **SD-RM (48 x 48, 3000 recorded steps per cell).**
+  - Band c00 timed out after its first chunk: its lower 8 rows were taken from the checkpoint, the other 8 rerun
+    (sdrm-c00b).
+  - 362 cells write the six-token text (6-band domain); 58 of them are chaotic.
+  - Coding test: in each straight phase (local band directions within 45 degrees of the axis, at most 10 % of visits
+    with |cos| < 0.5), the L/R visits must be separable by one threshold along the phase's first principal axis.
+  - 48 of 58 pass, with errors at most 4.7 % of the minority symbol; 23 have no errors. The 10 exceptions are 3 at
+    alpha 0.072694 (log10 T -0.1522 to -0.1527, beside the body's left flip curve) and 7 below the kite (alpha
+    0.07299-0.07323, log10 T -0.1544 to -0.1560).
+  - Singer (1978): a unimodal map with negative Schwarzian derivative has at most one attracting orbit, and the kite
+    has two.
+  - Method history: binned-median turning points (too noisy) -> separability (biased by majority symbol) -> errors
+    relative to the minority -> principal axis vs arc length -> straightness gate. Each step is documented in tool
+    commits 70b64878..5cd47ff7.
+- **SD-W (640 x 640, HR10's grid).**
+  - Bands c03, c04, c10, c11, c12 and c15 hit the 60-min job limit (word recording costs ~15 % more than HR10). Their
+    missing rows (1280-3200 cells) were rerun and merged with the checkpoints (symbolic_dynamics.py merge).
+  - Reproducibility: unsplit bands reproduce HR10 bit for bit (periods <= 32 and periodic exponents identical,
+    chaos labels identical). Rerun rows differ (in c11's two rerun rows, 9.5 % of periodic cells changed period):
+    another batch composition rounds differently, which decides the end of chaotic transients and basins.
+  - Words: majority vote over usable phases (|cos| >= 0.5 off the critical visit), at least 3 phases agreeing on W.
+  - 44,577 coded cells, 1,469 gate failures (3.2 % of 46,046 six-band cells; 63 % of them within 2 cells of chaos or
+    another family).
+  - 23 distinct words, all MSS words of period <= 8. Cascade "" (6), R (12), RLR (24), RLRRRLR (48); windows RL (18),
+    RLRR (30), RLRRR and RLLRL (36), RLL (24) and others. 153 cells lie on superstable curves (C).
+- **SD-V (float64 Newton with exact Jacobians, 23 cells: the center of the largest patch of each word and side).**
+  - First attempt: the tools were missing from the upload list; fixed in 168eb807.
+  - Scored with the scan's rule (clean phases: separable along the axis, min |cos| >= 0.5): 16 words confirmed and 2
+    complex leading pairs at the C cells; 0 contradicted.
+  - 5 cells have no clean phase: RLL both sides and RLLLRLL, RLLLRLR, RLLLRRR (period 48), all just below the kite
+    where the return map is not unimodal. These are unconfirmed in the papers.
+  - Strict all-phase agreement fails at 13 cells; in these, the phases holding the fold's tip (hairpin bands) flip
+    signs.
+- **Correction before writing.** The multiplier's sign is (-1)^{number of R's in the whole word}, not the last symbol
+  alone (R|L, period 12: mu1 = -0.770). The word figure colors cells by the multiplier's sign.
+- **Papers.** Paragraph "Symbolic dynamics" after the kite, Figs. returnmaps and words (both papers), Table p6words
+  (report). References: Metropolis, Stein & Stein (1973), Milnor & Thurston (1988), Singer (1978), all checked
+  against Crossref. Records: llm-soft-loop/pod64/sd/{returnmaps,words,verify-a,verify-b,verify-summary}.
