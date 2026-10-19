@@ -1,0 +1,498 @@
+{
+  "schema": "codex-task33-one-tube-card-v1",
+  "status": "prepared_requires_final_serial_admission",
+  "created_utc": "2026-10-19T03:08:32.737670+00:00",
+  "repository": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp",
+  "output": "/data2/neural-shrimp-data/codex/coexistence/tube-target-001",
+  "target_calls": 1,
+  "precision": 2048,
+  "directions": 1,
+  "dimension": 896,
+  "layers": 24,
+  "vocabulary": 151936,
+  "token_chunk": 1024,
+  "prefix": {
+    "prefix_receipt": "/data2/neural-shrimp-data/codex/coexistence/prefix-001-supervision/receipt.json",
+    "prefix_receipt_sha256": "0e787d0ebd6fb505a202c96fb3cc2429803aa8cc50c5271f728dc3da59af6f12",
+    "prefix_source_commit": "8c5170bce23a3cf054de8638ba047dcabc893518",
+    "prefix_output": "/data2/neural-shrimp-data/codex/coexistence/prefix-001",
+    "prefix_admission_path": "/data2/neural-shrimp-data/codex/coexistence/prefix-001-supervision/admission.json",
+    "prefix_admission_sha256": "84be8d159949dc60aa0f3909c6a16ee5a967dab0e40cd717dda2738331bcfa28",
+    "prefix_map_source_sha256": "fcc90849601984506adf26f651067734f9faef408c8f42dffe64bf5c68e98a80"
+  },
+  "regularity_contract": "The authenticated fixed-prefix real map is C1 on the nominal closed convex cube; the accepted interval-Jet graph encloses F(x) and DF(x)v for every admitted x and independently varying v in [-1,1]^896; every interval denominator and positive-root gate succeeds over the entire containing input enclosure.",
+  "regularity_review": {
+    "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/coexistence-task33/tube-target-001-regularity-review.md",
+    "bytes": 3482,
+    "sha256": "388c2d7038e86eaeddfb55d16df6832152a91ba23fde233f9d94c5d7f8ef79eb"
+  },
+  "supervision_admission": "/data2/neural-shrimp-data/codex/coexistence/tube-target-001-supervision/admission.json",
+  "supervision_plan": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/coexistence-task33/tube-target-001-plan.json",
+  "limits": {
+    "as_bytes": 19327352832,
+    "cpu_seconds": 3600,
+    "wall_seconds": 3900,
+    "output_bytes": 67108864
+  },
+  "source_sha256": {
+    "codex/coexistence-task33/tube_receiver.py": "de18915bec02aa27b84fa9f5a08768c33731efb94f6cf1a6f0dcdc2e42a76b49",
+    "codex/coexistence-task33/tube_operator.py": "4e837348df63dbea4a1cef752b30d3d73bce23a0a279a35696a502245d804722",
+    "codex/coexistence-task33/prefix_import.py": "b4f82802a9bf77b8d90e399c5c7e9b2635106d39532079852539ee227f1211e8",
+    "codex/certify-llm/streamed_head.py": "f6096528f5748392386e97e9a4722f5967aeb0ae24897aac1465d205fca4f24a",
+    "codex/certify-llm/ball_jet.py": "46b14d8bd65ed6c80174758daf37d00110cfa908813917bdb46c13749f999719",
+    "codex/certify-llm/ball_qwen.py": "fcc90849601984506adf26f651067734f9faef408c8f42dffe64bf5c68e98a80",
+    "codex/certify-llm/ball_linear.py": "5d54200f5880d818eabc97e7eed2f1cf02b83b617b39380bef38d49a7ac45ff2",
+    "codex/certify-llm/cache_io.py": "f4e25b2134bef8a71c27d3156baf01be9d25c593d7b780f90a66b9c1141abdef",
+    "codex/crosscheck/qwen_map.py": "493a3d1d57fec227f5ba2e3f8f9cfcfdd02d22495d1d44e6449ede901310ae6e",
+    "codex/certify-chaos/supervise.py": "306db32a2c8ada9beb67547bbaafc6d0d7a597b5861b0e629ca9a07801223c44",
+    "codex/coexistence-task33/tube_target_driver_002.py": "2c8e6ae4cb86b5d06b4e6a534d2e6f8a518d19f55fcab92b9b5d0b25210befc9",
+    "codex/coexistence-task33/tube-target-001-regularity-review.md": "388c2d7038e86eaeddfb55d16df6832152a91ba23fde233f9d94c5d7f8ef79eb"
+  },
+  "thin_execution": {
+    "source_commit": "e8db350006098683ab170645bf7ee7c317ca3b56",
+    "card": {
+      "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/coexistence-task33/thin-pilot-001-card.json",
+      "bytes": 4859,
+      "sha256": "33922427cb39bb72662122ae06c461acdbfc9314344e4e9f8a468d2b47164213"
+    },
+    "plan": {
+      "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/coexistence-task33/thin-pilot-001-plan.json",
+      "bytes": 9344,
+      "sha256": "bf07856a9637d1f174bcd4dfe65f66d2055091d59ac8758f6001ca0c3ef4ac90"
+    },
+    "receipt": {
+      "path": "/data2/neural-shrimp-data/codex/coexistence/thin-pilot-001-supervision/receipt.json",
+      "bytes": 9588,
+      "sha256": "8cc26e4a6eba2227bf6712588c7ff4fce381be855cb8b6b04b1fd6fbe13f4711"
+    },
+    "admission": {
+      "path": "/data2/neural-shrimp-data/codex/coexistence/thin-pilot-001-supervision/admission.json",
+      "bytes": 6296,
+      "sha256": "18ef3c15b21502ae758b06c37c2e93038a4953ae53f546a0bacd2ff8c27c0c17"
+    },
+    "lane": "thin",
+    "output": "/data2/neural-shrimp-data/codex/coexistence/thin-pilot-001",
+    "argv": [
+      "/data2/neural-shrimp/.venv/bin/python",
+      "-I",
+      "-B",
+      "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/coexistence-task33/thin_pilot.py",
+      "--card",
+      "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/coexistence-task33/thin-pilot-001-card.json",
+      "--out",
+      "/data2/neural-shrimp-data/codex/coexistence/thin-pilot-001"
+    ]
+  },
+  "audit_execution": {
+    "source_commit": "70b043192b775f2cc67860c4709bfc867de096eb",
+    "card": {
+      "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/coexistence-task33/thin-pilot-001-audit-002-card.json",
+      "bytes": 2565,
+      "sha256": "538e6ea648fa1e115dc35eceb4392d0798da9bc19f4c77c91098ac227fed8dd7"
+    },
+    "plan": {
+      "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/coexistence-task33/thin-pilot-001-audit-002-plan.json",
+      "bytes": 5418,
+      "sha256": "d719c9366fc84380fa4983fd9c579a425ed8faeb99c33aad29c6373c3f0292a6"
+    },
+    "receipt": {
+      "path": "/data2/neural-shrimp-data/codex/coexistence/thin-pilot-001-audit-002-supervision/receipt.json",
+      "bytes": 6155,
+      "sha256": "34709a21125942bbbbb07375b6e92f8a5505a4a0cf4bbcfbbe65729674386dd6"
+    },
+    "admission": {
+      "path": "/data2/neural-shrimp-data/codex/coexistence/thin-pilot-001-audit-002-supervision/admission.json",
+      "bytes": 5050,
+      "sha256": "d3af02fa5814478d56a9cf265c0cc6e524ed491db075562e238dfb8b90d460e5"
+    },
+    "lane": "audit",
+    "output": "/data2/neural-shrimp-data/codex/coexistence/thin-pilot-001-audit-002",
+    "argv": [
+      "/data2/neural-shrimp/.venv/bin/python",
+      "-I",
+      "-B",
+      "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/coexistence-task33/audit_thin_pilot_002.py",
+      "--source",
+      "e8db350006098683ab170645bf7ee7c317ca3b56",
+      "--card",
+      "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/coexistence-task33/thin-pilot-001-card.json",
+      "--card-sha256",
+      "33922427cb39bb72662122ae06c461acdbfc9314344e4e9f8a468d2b47164213",
+      "--plan",
+      "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/coexistence-task33/thin-pilot-001-plan.json",
+      "--plan-sha256",
+      "bf07856a9637d1f174bcd4dfe65f66d2055091d59ac8758f6001ca0c3ef4ac90",
+      "--receipt-sha256",
+      "8cc26e4a6eba2227bf6712588c7ff4fce381be855cb8b6b04b1fd6fbe13f4711",
+      "--admission-sha256",
+      "18ef3c15b21502ae758b06c37c2e93038a4953ae53f546a0bacd2ff8c27c0c17",
+      "--output",
+      "/data2/neural-shrimp-data/codex/coexistence/thin-pilot-001-audit-002/result.json"
+    ]
+  },
+  "prefix_execution": {
+    "source_commit": "8c5170bce23a3cf054de8638ba047dcabc893518",
+    "card": {
+      "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/coexistence-task33/prefix-card.json",
+      "bytes": 906,
+      "sha256": "6c2ad90ef0332733f8f249833ec9d2adcd0799b1ec6c4dc415202df0b78e851c"
+    },
+    "plan": {
+      "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/coexistence-task33/prefix-plan.json",
+      "bytes": 3957,
+      "sha256": "83df1df6585cc083ac3abce052504cc5d15e1aa12f1bc262bdb0272569e32725"
+    },
+    "receipt": {
+      "path": "/data2/neural-shrimp-data/codex/coexistence/prefix-001-supervision/receipt.json",
+      "bytes": 5559,
+      "sha256": "0e787d0ebd6fb505a202c96fb3cc2429803aa8cc50c5271f728dc3da59af6f12"
+    },
+    "admission": {
+      "path": "/data2/neural-shrimp-data/codex/coexistence/prefix-001-supervision/admission.json",
+      "bytes": 4466,
+      "sha256": "84be8d159949dc60aa0f3909c6a16ee5a967dab0e40cd717dda2738331bcfa28"
+    },
+    "lane": "prefix",
+    "output": "/data2/neural-shrimp-data/codex/coexistence/prefix-001",
+    "argv": [
+      "/data2/neural-shrimp/.venv/bin/python",
+      "-I",
+      "-B",
+      "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/coexistence-task33/prefix_setup.py",
+      "--card",
+      "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/coexistence-task33/prefix-card.json",
+      "--out",
+      "/data2/neural-shrimp-data/codex/coexistence/prefix-001"
+    ]
+  },
+  "audit_result": {
+    "path": "/data2/neural-shrimp-data/codex/coexistence/thin-pilot-001-audit-002/result.json",
+    "bytes": 51399,
+    "sha256": "e17d77123a04b01d325fcb83cf03e5997e843cc3c33577c398ece4c401866375"
+  },
+  "input_files": [
+    {
+      "path": "/data2/neural-shrimp-data/codex/coexistence/thin-pilot-001/centre-000.json",
+      "bytes": 95023,
+      "sha256": "d9e1f8167ec108c59b0fb549a5c565e9f3b18248980d7274f53de4e7d2f73b79"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/codex/coexistence/thin-pilot-001/step-001.json",
+      "bytes": 1232675,
+      "sha256": "0012ee04809e20484da7a56527861c2befc99496b3b57824698d9c6f0467c6b7"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/models/hf/hub/blobs/bb/bb5ff7e71536bbce6378f6d4bb523a77f1e9455965702d18bec33f599d5851f7",
+      "bytes": 988097824,
+      "sha256": "fdf756fa7fcbe7404d5c60e26bff1a0c8b8aa1f72ced49e7dd0210fe288fb7fe"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/models/hf/hub/models--Qwen--Qwen2.5-0.5B-Instruct/blobs/0dbb161213629a23f0fc00ef286e6b1e366d180f",
+      "bytes": 659,
+      "sha256": "18e18afcaccafade98daf13a54092927904649e1dd4eba8299ab717d5d94ff45"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/explore/llm-phase-map/vectors-l12/vectors.npz",
+      "bytes": 14860,
+      "sha256": "b630bb7bef06bde87f8e6a7ca5e8672f83d24bc0585bf19048e9e494a4357f41"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/codex/coexistence/prefix-001/inputs.json",
+      "bytes": 1117,
+      "sha256": "726c125e1f20d85ab9396b70bc5aad6dab8ad6589c24d2a71e05e976796cf67d"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/codex/coexistence/prefix-001/prefix-cache.json.gz",
+      "bytes": 68579136,
+      "sha256": "52ead55348240b014ab3d0d41a925a58dfc477ceb8fdd2d3801e4ff7c5996634"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/codex/coexistence/prefix-001-supervision/receipt.json",
+      "bytes": 5559,
+      "sha256": "0e787d0ebd6fb505a202c96fb3cc2429803aa8cc50c5271f728dc3da59af6f12"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/codex/coexistence/prefix-001-supervision/admission.json",
+      "bytes": 4466,
+      "sha256": "84be8d159949dc60aa0f3909c6a16ee5a967dab0e40cd717dda2738331bcfa28"
+    }
+  ],
+  "backend": {
+    "python": "3.12.14 (main, Aug 25 2026, 14:00:49) [Clang 22.1.3 ]",
+    "executable": {
+      "path": "/data2/neural-shrimp-runtime/python/cpython-3.12.14-linux-x86_64-gnu/bin/python3.12",
+      "bytes": 30894944,
+      "sha256": "fa67443527ed9647f760d807e2a38f26340757123e643c4639cf273ed15d5ea7"
+    },
+    "python_flint": "0.9.0",
+    "flint": "3.6.0",
+    "numpy": "2.5.3",
+    "torch": "2.14.1+cu130",
+    "safetensors": "0.8.0",
+    "threadpoolctl": "3.7.0",
+    "flint_extensions": {
+      "flint.flint_base.flint_base": {
+        "path": "/data2/neural-shrimp/.venv/lib/python3.12/site-packages/flint/flint_base/flint_base.abi3.so",
+        "bytes": 430457,
+        "sha256": "e6add68b9f09e1c7c80dcd7ac42463a089d1c4ab0306de95fdc4cfb3927164d3"
+      },
+      "flint.flint_base.flint_context": {
+        "path": "/data2/neural-shrimp/.venv/lib/python3.12/site-packages/flint/flint_base/flint_context.abi3.so",
+        "bytes": 150849,
+        "sha256": "ebde264a88d46e4fcb373842ff9b7c8fa368b5bf0bd2af3884093ad28c1ec86e"
+      },
+      "flint.functions.showgood": {
+        "path": "/data2/neural-shrimp/.venv/lib/python3.12/site-packages/flint/functions/showgood.abi3.so",
+        "bytes": 134601,
+        "sha256": "3b6ddc9563d515d63461a81b468078a40e7314d41142901b1bb11d0a37ffac23"
+      },
+      "flint.pyflint": {
+        "path": "/data2/neural-shrimp/.venv/lib/python3.12/site-packages/flint/pyflint.abi3.so",
+        "bytes": 29360,
+        "sha256": "1f7ef1f52024937f542772ff9190e2f74449228cd69a6746b6608fbbd449d138"
+      },
+      "flint.types.acb": {
+        "path": "/data2/neural-shrimp/.venv/lib/python3.12/site-packages/flint/types/acb.abi3.so",
+        "bytes": 538793,
+        "sha256": "0f02c1b41c78644cc831483b7539f3f93e84d9941a5a6015384d844f39ac5c75"
+      },
+      "flint.types.acb_mat": {
+        "path": "/data2/neural-shrimp/.venv/lib/python3.12/site-packages/flint/types/acb_mat.abi3.so",
+        "bytes": 209129,
+        "sha256": "8b47a859b5d7335f473996daad8b0c35792f51b10af4c49f155e8c5f7d1d8b9e"
+      },
+      "flint.types.acb_poly": {
+        "path": "/data2/neural-shrimp/.venv/lib/python3.12/site-packages/flint/types/acb_poly.abi3.so",
+        "bytes": 172321,
+        "sha256": "b691359c620bdd88b366023dd9bedca9bd79308f0910227e724b2a8afaaf440c"
+      },
+      "flint.types.acb_series": {
+        "path": "/data2/neural-shrimp/.venv/lib/python3.12/site-packages/flint/types/acb_series.abi3.so",
+        "bytes": 250809,
+        "sha256": "96096a93d8b1a5ca6222690b3fbdd9ee8fc935aa281f8fcd8af14fdbadd84cb8"
+      },
+      "flint.types.acb_theta": {
+        "path": "/data2/neural-shrimp/.venv/lib/python3.12/site-packages/flint/types/acb_theta.abi3.so",
+        "bytes": 93217,
+        "sha256": "84390d66434a2fdbdf30378f6aeefc8d8910c86cea62a2183a28ffbc1144fb68"
+      },
+      "flint.types.arb": {
+        "path": "/data2/neural-shrimp/.venv/lib/python3.12/site-packages/flint/types/arb.abi3.so",
+        "bytes": 489601,
+        "sha256": "d011dc0db2d7aa13955d8fd7f7bff1a91bcfbc18e05b8087d456d425f8b10309"
+      },
+      "flint.types.arb_mat": {
+        "path": "/data2/neural-shrimp/.venv/lib/python3.12/site-packages/flint/types/arb_mat.abi3.so",
+        "bytes": 200729,
+        "sha256": "ec51546842942c2462c5ce8f5d2db06ae32f2cea872cd21257390bafb252e2ac"
+      },
+      "flint.types.arb_poly": {
+        "path": "/data2/neural-shrimp/.venv/lib/python3.12/site-packages/flint/types/arb_poly.abi3.so",
+        "bytes": 163857,
+        "sha256": "5b42c4116f5a8cdf7831207536852d85908b30e75292653537b4c316ba7e3c42"
+      },
+      "flint.types.arb_series": {
+        "path": "/data2/neural-shrimp/.venv/lib/python3.12/site-packages/flint/types/arb_series.abi3.so",
+        "bytes": 263145,
+        "sha256": "72cd048eac6dfcc3541fd44f20729405c6da6e716a296b7307cf2d15eec6eb5b"
+      },
+      "flint.types.arf": {
+        "path": "/data2/neural-shrimp/.venv/lib/python3.12/site-packages/flint/types/arf.abi3.so",
+        "bytes": 147097,
+        "sha256": "2d7090ae59e162a9bbc09dc94b1022faa4f6ab095255744427e6dad5bdd24071"
+      },
+      "flint.types.dirichlet": {
+        "path": "/data2/neural-shrimp/.venv/lib/python3.12/site-packages/flint/types/dirichlet.abi3.so",
+        "bytes": 126361,
+        "sha256": "1fcaac2dda0c5e538ab555fe333d6e98060b25b4b8677f946dc11002d41d0b22"
+      },
+      "flint.types.fmpq": {
+        "path": "/data2/neural-shrimp/.venv/lib/python3.12/site-packages/flint/types/fmpq.abi3.so",
+        "bytes": 155297,
+        "sha256": "aa7c2b36622b4dc69bfae6a548646eb5027354dfbc7dd89536ffb3892e5275fb"
+      },
+      "flint.types.fmpq_mat": {
+        "path": "/data2/neural-shrimp/.venv/lib/python3.12/site-packages/flint/types/fmpq_mat.abi3.so",
+        "bytes": 159553,
+        "sha256": "16b4edaa65b81b3e1eef44bc29a955d01c52fa12e0d4ba01708abfe33498c533"
+      },
+      "flint.types.fmpq_mpoly": {
+        "path": "/data2/neural-shrimp/.venv/lib/python3.12/site-packages/flint/types/fmpq_mpoly.abi3.so",
+        "bytes": 345281,
+        "sha256": "b35fceb7da7840423618b2000a5f4b31aa6c989137e2d777726ba5de817c8af0"
+      },
+      "flint.types.fmpq_poly": {
+        "path": "/data2/neural-shrimp/.venv/lib/python3.12/site-packages/flint/types/fmpq_poly.abi3.so",
+        "bytes": 221569,
+        "sha256": "6823eab48876d50a37078a40a5c509067afa003bc1143610c0955d9dea17c723"
+      },
+      "flint.types.fmpq_series": {
+        "path": "/data2/neural-shrimp/.venv/lib/python3.12/site-packages/flint/types/fmpq_series.abi3.so",
+        "bytes": 180385,
+        "sha256": "9e0bab63bf2999e9c241c19a617f58b8af085323cde9f9fae5e5e9494607427d"
+      },
+      "flint.types.fmpq_vec": {
+        "path": "/data2/neural-shrimp/.venv/lib/python3.12/site-packages/flint/types/fmpq_vec.abi3.so",
+        "bytes": 110153,
+        "sha256": "e6b481c9d24ea27258139da59e5e9825c7613435de12c27d3f33c87a0de04d0d"
+      },
+      "flint.types.fmpz": {
+        "path": "/data2/neural-shrimp/.venv/lib/python3.12/site-packages/flint/types/fmpz.abi3.so",
+        "bytes": 225657,
+        "sha256": "6f38a48d550e033d5cd20a4a7f56ec5f46428d0e49320b33b7575a4313374047"
+      },
+      "flint.types.fmpz_mat": {
+        "path": "/data2/neural-shrimp/.venv/lib/python3.12/site-packages/flint/types/fmpz_mat.abi3.so",
+        "bytes": 217393,
+        "sha256": "f89bebcbf8688dc4e7d2a1290aae0953d1085ca8efc32fb8c875afc87cb316aa"
+      },
+      "flint.types.fmpz_mod": {
+        "path": "/data2/neural-shrimp/.venv/lib/python3.12/site-packages/flint/types/fmpz_mod.abi3.so",
+        "bytes": 146873,
+        "sha256": "4d41d454ba7c999a97c41c270ebb41589de6d514b70aff233b53821f7583deb0"
+      },
+      "flint.types.fmpz_mod_mat": {
+        "path": "/data2/neural-shrimp/.venv/lib/python3.12/site-packages/flint/types/fmpz_mod_mat.abi3.so",
+        "bytes": 213089,
+        "sha256": "a69e387ae2202bf72f4815d421783cf99aa85ceaf52e55f3876c175b2c511daf"
+      },
+      "flint.types.fmpz_mod_mpoly": {
+        "path": "/data2/neural-shrimp/.venv/lib/python3.12/site-packages/flint/types/fmpz_mod_mpoly.abi3.so",
+        "bytes": 349441,
+        "sha256": "67a781d110b32b4354aee3f066edced9bf5853ae370a93af56a2e97d6054b66a"
+      },
+      "flint.types.fmpz_mod_poly": {
+        "path": "/data2/neural-shrimp/.venv/lib/python3.12/site-packages/flint/types/fmpz_mod_poly.abi3.so",
+        "bytes": 357793,
+        "sha256": "1cbb47ea2527f58d104940f5beb536393baf0dbac65dab59fa62c52493a8da4b"
+      },
+      "flint.types.fmpz_mpoly": {
+        "path": "/data2/neural-shrimp/.venv/lib/python3.12/site-packages/flint/types/fmpz_mpoly.abi3.so",
+        "bytes": 357881,
+        "sha256": "94900a05b105ba1c98dc7e7cf2d62f308df8a500474d5bd586c2218d93531adc"
+      },
+      "flint.types.fmpz_poly": {
+        "path": "/data2/neural-shrimp/.venv/lib/python3.12/site-packages/flint/types/fmpz_poly.abi3.so",
+        "bytes": 246617,
+        "sha256": "a637d8bbd1f03454b1ac85614022fa38f6a72115b68a28e3cc8603352b479893"
+      },
+      "flint.types.fmpz_series": {
+        "path": "/data2/neural-shrimp/.venv/lib/python3.12/site-packages/flint/types/fmpz_series.abi3.so",
+        "bytes": 138889,
+        "sha256": "46dc80fdffde15698c2b6d2e142250434ab2958db5a6125a80d845bb11d935c0"
+      },
+      "flint.types.fmpz_vec": {
+        "path": "/data2/neural-shrimp/.venv/lib/python3.12/site-packages/flint/types/fmpz_vec.abi3.so",
+        "bytes": 118385,
+        "sha256": "77b63474e85155271cae0677c0c0fcb39ae22482a105eace4e469e63d7347c12"
+      },
+      "flint.types.fq_default": {
+        "path": "/data2/neural-shrimp/.venv/lib/python3.12/site-packages/flint/types/fq_default.abi3.so",
+        "bytes": 225433,
+        "sha256": "508401dbb7140b3737f30cfb23ed1efa983878a7d895205a53de4936dd0e2988"
+      },
+      "flint.types.fq_default_poly": {
+        "path": "/data2/neural-shrimp/.venv/lib/python3.12/site-packages/flint/types/fq_default_poly.abi3.so",
+        "bytes": 398609,
+        "sha256": "9c249389e727537021407cb192e4d9013a40eacd45ec9f042d76bd72bd0df0bc"
+      },
+      "flint.types.nmod": {
+        "path": "/data2/neural-shrimp/.venv/lib/python3.12/site-packages/flint/types/nmod.abi3.so",
+        "bytes": 113953,
+        "sha256": "4403f8cdde9e9a78e2c8eccc1eb00b34f10d557356a7bd71315b69a161cf1712"
+      },
+      "flint.types.nmod_mat": {
+        "path": "/data2/neural-shrimp/.venv/lib/python3.12/site-packages/flint/types/nmod_mat.abi3.so",
+        "bytes": 163673,
+        "sha256": "8339fb79f1973dc51d50cf8be5f0dc5e4ebd6fdbc532bdeedae460855d8da20d"
+      },
+      "flint.types.nmod_mpoly": {
+        "path": "/data2/neural-shrimp/.venv/lib/python3.12/site-packages/flint/types/nmod_mpoly.abi3.so",
+        "bytes": 340993,
+        "sha256": "16baf47ccd8d109e9c71769e493d6738c788ec408303a2d6c278ad5220a666ac"
+      },
+      "flint.types.nmod_poly": {
+        "path": "/data2/neural-shrimp/.venv/lib/python3.12/site-packages/flint/types/nmod_poly.abi3.so",
+        "bytes": 271129,
+        "sha256": "164ba5a9146f3b226bc1d875b1d2dfd71c6e45e6a448f65571db7fa94cd7929c"
+      },
+      "flint.types.nmod_series": {
+        "path": "/data2/neural-shrimp/.venv/lib/python3.12/site-packages/flint/types/nmod_series.abi3.so",
+        "bytes": 65352,
+        "sha256": "d00537c8cef1e5e57dadb6f3757d0c534c340975c0a6349ea416039118bc4387"
+      }
+    },
+    "precision": 2048,
+    "threads": 1
+  },
+  "backend_sha256": "a802e2ed684c46192b905384e6c9e8f4f5cd18b0bc03cec467ed50ee3f78beae",
+  "map": {
+    "schema": "codex-qwen-exact-soft-map-v1",
+    "dimension": 896,
+    "vocabulary": 151936,
+    "layers": 24,
+    "pinned_assets": {
+      "model.safetensors": "fdf756fa7fcbe7404d5c60e26bff1a0c8b8aa1f72ced49e7dd0210fe288fb7fe",
+      "config.json": "18e18afcaccafade98daf13a54092927904649e1dd4eba8299ab717d5d94ff45",
+      "vectors.npz": "b630bb7bef06bde87f8e6a7ca5e8672f83d24bc0585bf19048e9e494a4357f41"
+    },
+    "prefix_ids": [
+      151644,
+      8948,
+      198,
+      2610,
+      525,
+      458,
+      15235,
+      7404,
+      448,
+      2441,
+      15235,
+      13,
+      1446,
+      614,
+      4583,
+      11290,
+      13,
+      31733,
+      1910,
+      311,
+      22729,
+      8820,
+      498,
+      1366,
+      13,
+      151645,
+      198,
+      151644,
+      872,
+      198,
+      9707,
+      0,
+      151645,
+      198,
+      151644,
+      77091,
+      198
+    ],
+    "steering_layer": 12,
+    "alpha_ratio": [
+      4660685182373179,
+      72057594037927936
+    ],
+    "log10_temperature_ratio": [
+      -5332261958806667,
+      36028797018963968
+    ],
+    "temperature": "exp(log(10)*exact_dyadic_log10T)",
+    "rotary": "real base^(-2j/head_dim), real sin/cos",
+    "state": "one appended full-dimensional soft embedding after the fixed prefix",
+    "readout": "full-vocabulary expected embedding with the checkpoint embedding matrix",
+    "checkpoint_constants": "stored binary constants interpreted as exact dyadics"
+  },
+  "map_sha256": "7d130ad9a7dc42d5731f1cec45f03dc92f5cc3cdeea0f89cedae4da7db5b5f48",
+  "trajectory_enclosure": false,
+  "certificate_passed": false,
+  "reachability_proved": false,
+  "conditional_operator_bound_only": true
+}
