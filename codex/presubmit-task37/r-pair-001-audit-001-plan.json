@@ -1,0 +1,115 @@
+{
+  "status": "held",
+  "repository": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp",
+  "raw_root": "/data2/neural-shrimp-data/scratch/audit-codex-1019",
+  "python": "/data2/neural-shrimp/.venv/bin/python",
+  "cpu_threads": 1,
+  "cpu_ids": [
+    0
+  ],
+  "startup_ram_gib": 24,
+  "source_files": [
+    {
+      "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/presubmit-task37/audit_saved_numerics.py",
+      "bytes": 20218,
+      "sha256": "e840f06a91501a81dd396d3e20126c020e64c8698043e78a8dd0149274b40215"
+    },
+    {
+      "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/certify-chaos/supervise.py",
+      "bytes": 8727,
+      "sha256": "306db32a2c8ada9beb67547bbaafc6d0d7a597b5861b0e629ca9a07801223c44"
+    },
+    {
+      "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/presubmit-task37/run_saved_numerics.py",
+      "bytes": 2987,
+      "sha256": "091c70ce93616586611ad6005512999f073900b9c8c7bd516b5b23f92a292cd3"
+    },
+    {
+      "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/presubmit-task37/r-pair-001-audit-001-card.json",
+      "bytes": 12396,
+      "sha256": "2d00db321325c313101ed587ea87fe081e743205d5e699129d4d3a7e8b775e36"
+    }
+  ],
+  "lanes": {
+    "audit": {
+      "entry": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/presubmit-task37/run_saved_numerics.py",
+      "arguments": [
+        "--root",
+        "/data2/neural-shrimp-data/scratch/audit-codex-1019/r-pair-001",
+        "--out",
+        "/data2/neural-shrimp-data/scratch/audit-codex-1019/r-pair-001-audit-001"
+      ],
+      "output": "/data2/neural-shrimp-data/scratch/audit-codex-1019/r-pair-001-audit-001",
+      "supervision": "/data2/neural-shrimp-data/scratch/audit-codex-1019/r-pair-001-audit-001-supervision",
+      "preflight_pins": [
+        {
+          "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/presubmit-task37/r-pair-001-plan.json",
+          "bytes": 5873,
+          "sha256": "6dd23aa38be6c464f87649399eac59cf3b7ecc0e08e9475c9df2ee9c7df77a41"
+        },
+        {
+          "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/presubmit-task37/r-pair-001-card.json",
+          "bytes": 7848,
+          "sha256": "8222df4af6ed721cc79e54616c82b3a9376fda00a62921f3dee4d3a4cb0f3db7"
+        },
+        {
+          "path": "/data2/neural-shrimp-data/scratch/audit-codex-1019/r-pair-001-supervision/receipt.json",
+          "bytes": null,
+          "sha256": null,
+          "status": "unavailable_for_held_preparation",
+          "reason": "Final original receipt unavailable during this source-only preparation."
+        },
+        {
+          "path": "/data2/neural-shrimp-data/scratch/audit-codex-1019/r-pair-001-supervision/admission.json",
+          "bytes": null,
+          "sha256": null,
+          "status": "unavailable_for_held_preparation",
+          "reason": "Existing active-attempt admission deliberately not read; exact pin unavailable to this draft."
+        },
+        {
+          "path": "/data2/neural-shrimp-data/scratch/audit-codex-1019/r-pair-001-supervision/worker-startup.json",
+          "bytes": null,
+          "sha256": null,
+          "status": "unavailable_for_held_preparation",
+          "reason": "Existing active-attempt startup record deliberately not read; exact pin unavailable to this draft."
+        },
+        {
+          "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/presubmit-task37/r-pair-001-original-closure.json",
+          "bytes": null,
+          "sha256": null,
+          "status": "unavailable_for_held_preparation",
+          "reason": "Original attempt is still active by Root report. No final receipt, host closure or post-run inventory inspected."
+        },
+        {
+          "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/presubmit-task37/r-pair-001-original-input-inventory.json",
+          "bytes": null,
+          "sha256": null,
+          "status": "unavailable_for_held_preparation",
+          "reason": "Complete canonical regular-file inventory must be derived and authenticated only after original closure; no active target file inspected."
+        }
+      ],
+      "input_inventory": {
+        "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/presubmit-task37/r-pair-001-original-input-inventory.json",
+        "bytes": null,
+        "sha256": null,
+        "status": "unavailable_for_held_preparation",
+        "reason": "Complete canonical regular-file inventory must be derived and authenticated only after original closure; no active target file inspected."
+      },
+      "prior_receipts": [
+        "/data2/neural-shrimp-data/scratch/audit-codex-1019/r-pair-001-supervision/receipt.json"
+      ],
+      "limits": {
+        "as_bytes": 4294967296,
+        "cpu_seconds": 300,
+        "wall_seconds": 360,
+        "output_bytes": 16777216
+      }
+    }
+  },
+  "capacity_window": null,
+  "no_target_run": true,
+  "execution_environment": "Root must supply HF_HUB_OFFLINE=1 in the supervisor environment. Supervisor enforces one thread, nice10, one CPU, process/resource caps and unchanged16GiB runtime/disk floors.",
+  "held_reason": "Original final receipt/closure/full-inventory and fresh capacity pins are deliberately deferred. Wrapper source is prepared; mocked controls pending. Existing supervisor refuses held status. See saved-audit-admission-source-review.md and saved-audit-wrapper-preparation.md.",
+  "source_commit_for_future_supervisor_cli": "Root will use the new privately verified audit checkpoint, NOT the original8b565228 target commit.",
+  "no_automatic_retry_or_extension": true
+}

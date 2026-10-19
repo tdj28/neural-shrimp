@@ -1,0 +1,63 @@
+{
+  "schema": "task37-saved-wrapper-controls-card-v1",
+  "created_at": "2026-10-19T11:01:58.554663+00:00",
+  "status": "reviewed_for_one_mock_control_run",
+  "scope": "Exactly eight NEW stdlib mocked wrapper controls. No existing numerical controls, checker, original target outputs, model or producer modules run.",
+  "source_files": [
+    {
+      "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/presubmit-task37/run_saved_numerics.py",
+      "bytes": 2987,
+      "sha256": "091c70ce93616586611ad6005512999f073900b9c8c7bd516b5b23f92a292cd3"
+    },
+    {
+      "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/presubmit-task37/test_run_saved_numerics.py",
+      "bytes": 8367,
+      "sha256": "a5f1a6c5bee9bc11c437b6a7dbbdcfbc7f7fe156ea207c67a045734082775e9a"
+    }
+  ],
+  "external_limits": {
+    "cpu_seconds": 30,
+    "wall_seconds": 60,
+    "as_bytes": 536870912,
+    "file_size_bytes": 4194304
+  },
+  "cpu_ids": [
+    0
+  ],
+  "nice": 10,
+  "cpu_threads": 1,
+  "command": [
+    "/usr/bin/timeout",
+    "60s",
+    "/usr/bin/taskset",
+    "-c",
+    "0",
+    "/usr/bin/nice",
+    "-n",
+    "10",
+    "/usr/bin/prlimit",
+    "--as=536870912",
+    "--cpu=30",
+    "--fsize=4194304",
+    "--",
+    "/data2/neural-shrimp/.venv/bin/python",
+    "-I",
+    "-B",
+    "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/presubmit-task37/test_run_saved_numerics.py"
+  ],
+  "environment": {
+    "HF_HUB_OFFLINE": "1",
+    "OMP_NUM_THREADS": "1",
+    "OPENBLAS_NUM_THREADS": "1",
+    "MKL_NUM_THREADS": "1",
+    "NUMEXPR_NUM_THREADS": "1",
+    "PYTHONDONTWRITEBYTECODE": "1"
+  },
+  "requirements": [
+    "Commit and privately checkpoint exact source/card before invocation; preserve actual stdout/stderr/exit and exact source SHA.",
+    "One invocation only; preserve any failure before considering repairs.",
+    "No real audit directory creation: all allocations are temporary fixtures, runpy dispatch is mocked."
+  ],
+  "scientific_verdict_admitted": false,
+  "certificate_passed": false
+}
