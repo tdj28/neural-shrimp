@@ -1,0 +1,146 @@
+{
+  "map": {
+    "schema": "codex-qwen-exact-soft-map-v1",
+    "dimension": 896,
+    "vocabulary": 151936,
+    "layers": 24,
+    "pinned_assets": {
+      "model.safetensors": "fdf756fa7fcbe7404d5c60e26bff1a0c8b8aa1f72ced49e7dd0210fe288fb7fe",
+      "config.json": "18e18afcaccafade98daf13a54092927904649e1dd4eba8299ab717d5d94ff45",
+      "vectors.npz": "b630bb7bef06bde87f8e6a7ca5e8672f83d24bc0585bf19048e9e494a4357f41"
+    },
+    "prefix_ids": [
+      151644,
+      8948,
+      198,
+      2610,
+      525,
+      458,
+      15235,
+      7404,
+      448,
+      2441,
+      15235,
+      13,
+      1446,
+      614,
+      4583,
+      11290,
+      13,
+      31733,
+      1910,
+      311,
+      22729,
+      8820,
+      498,
+      1366,
+      13,
+      151645,
+      198,
+      151644,
+      872,
+      198,
+      9707,
+      0,
+      151645,
+      198,
+      151644,
+      77091,
+      198
+    ],
+    "steering_layer": 12,
+    "alpha_ratio": [
+      1170935903116329,
+      18014398509481984
+    ],
+    "log10_temperature_ratio": [
+      -333221336429143,
+      2251799813685248
+    ],
+    "temperature": "exp(log(10)*exact_dyadic_log10T)",
+    "rotary": "real base^(-2j/head_dim), real sin/cos",
+    "state": "one appended full-dimensional soft embedding after the fixed prefix",
+    "readout": "full-vocabulary expected embedding with the checkpoint embedding matrix",
+    "checkpoint_constants": "stored binary constants interpreted as exact dyadics"
+  },
+  "derivative_source_sha256": {
+    "codex/certify-llm/streamed_head.py": "f6096528f5748392386e97e9a4722f5967aeb0ae24897aac1465d205fca4f24a",
+    "codex/certify-llm/ball_jet.py": "46b14d8bd65ed6c80174758daf37d00110cfa908813917bdb46c13749f999719",
+    "codex/certify-llm/ball_qwen.py": "fcc90849601984506adf26f651067734f9faef408c8f42dffe64bf5c68e98a80",
+    "codex/certify-llm/ball_linear.py": "5d54200f5880d818eabc97e7eed2f1cf02b83b617b39380bef38d49a7ac45ff2",
+    "codex/certify-llm/cache_io.py": "f4e25b2134bef8a71c27d3156baf01be9d25c593d7b780f90a66b9c1141abdef",
+    "codex/certify-llm/phase_domain.py": "a3856de84393068788c4cf4dc42fa6015da45b7912b56db995cc6b12922f8d8d",
+    "codex/certify-llm/derivative_coverage.py": "eb01dc001193b5e3982bcb41a582ac7c61cfe4e8fcd2a1ddf249126623fe63cf",
+    "codex/certify-llm/shooting_gates.py": "9c967c0dcb9783df53f33c05eb897050f4e8971f66767abbc8a01a8b1b85cf1f",
+    "codex/certify-llm/proof_gates.py": "ee6678b7dd5153ef095fd73d5711fcfc605f7a228c92b1335a9541cc3d7b2c6a",
+    "codex/crosscheck/qwen_map.py": "493a3d1d57fec227f5ba2e3f8f9cfcfdd02d22495d1d44e6449ede901310ae6e",
+    "codex/certificate-ladder-task34/derivative_shard.py": "577a68f03e47c884ef8b47cb993e4799cde09e673d656bae17d04e1c141ff98a",
+    "codex/certificate-ladder-task34/prefix_import.py": "80338ac588fc2e90a4d241a2d1fcf01f98f6f262e7a21c0deab4c9b45a9d0250"
+  },
+  "reviews": {
+    "point_evaluator": {
+      "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/certificate-ladder-task34/assembly-source-review.md",
+      "sha256": "87ff2d50c0781ed36d7a2e3aa55d4f825b2a351d1c89f93ce1ed69c3f5952c39",
+      "bytes": 3821
+    },
+    "derivative_evaluator": {
+      "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/certificate-ladder-task34/assembly-source-review.md",
+      "sha256": "87ff2d50c0781ed36d7a2e3aa55d4f825b2a351d1c89f93ce1ed69c3f5952c39",
+      "bytes": 3821
+    },
+    "map_regularity": {
+      "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/certificate-ladder-task34/assembly-source-review.md",
+      "sha256": "87ff2d50c0781ed36d7a2e3aa55d4f825b2a351d1c89f93ce1ed69c3f5952c39",
+      "bytes": 3821
+    },
+    "gate_mathematics": {
+      "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/certify-llm/shooting-gates-review.md",
+      "sha256": "e60e08a8e1a8d12a42d20f3f08ff17492133d04577f06529bfe96c2fe5a67d1a",
+      "bytes": 8777
+    }
+  },
+  "cell": "cascade-p3",
+  "campaign_source": "42508b68a733acc4216b40d7b60215de36c5d543",
+  "operational_return": {
+    "path": "/data2/neural-shrimp-data/codex/certificate-ladder/return-cascade-p3-002/operational.json",
+    "sha256": "ff7f2defc4bd25d0890733f8b0f8c331e4b8792c215273ba33a9a284d00be08f",
+    "bytes": 169504
+  },
+  "assembly_source_sha256": {
+    "codex/certificate-ladder-task34/assembly_core.py": "832dcb9a86c57f8141e4eb3ad308a289f2a7a13af88443600d102776f351a4fc",
+    "codex/certificate-ladder-task34/derivative_bridge.py": "9305b6de66bef56717bd72cf83e48cb706d65084b0105f260098adfcd3e203d1",
+    "codex/certificate-ladder-task34/derivative_shard.py": "577a68f03e47c884ef8b47cb993e4799cde09e673d656bae17d04e1c141ff98a",
+    "codex/certificate-ladder-task34/point_bridge.py": "8f06fadf0e402abf875ef41a2ac92a47b284af88cc368bd69e1145e6411e6e34",
+    "codex/certificate-ladder-task34/prefix_import.py": "80338ac588fc2e90a4d241a2d1fcf01f98f6f262e7a21c0deab4c9b45a9d0250",
+    "codex/certificate-ladder-task34/return_operational.py": "4a7a44b1a1ff2fdee05ebe5ff36895c687ac1b973589254d5ead48e11ffb4cc3",
+    "codex/certificate-ladder-task34/returned_shard.py": "acd8d7d796c19276c9a94bc2df0cde67c900e74dd7ce1e04d4d6f3b0606021ac",
+    "codex/certify-llm/ball_jet.py": "46b14d8bd65ed6c80174758daf37d00110cfa908813917bdb46c13749f999719",
+    "codex/certify-llm/ball_linear.py": "5d54200f5880d818eabc97e7eed2f1cf02b83b617b39380bef38d49a7ac45ff2",
+    "codex/certify-llm/ball_qwen.py": "fcc90849601984506adf26f651067734f9faef408c8f42dffe64bf5c68e98a80",
+    "codex/certify-llm/cache_io.py": "f4e25b2134bef8a71c27d3156baf01be9d25c593d7b780f90a66b9c1141abdef",
+    "codex/certify-llm/derivative_coverage.py": "eb01dc001193b5e3982bcb41a582ac7c61cfe4e8fcd2a1ddf249126623fe63cf",
+    "codex/certify-llm/phase_domain.py": "a3856de84393068788c4cf4dc42fa6015da45b7912b56db995cc6b12922f8d8d",
+    "codex/certify-llm/proof_gates.py": "ee6678b7dd5153ef095fd73d5711fcfc605f7a228c92b1335a9541cc3d7b2c6a",
+    "codex/certify-llm/shooting_certificate.py": "a4aca57acf7aaab33c77745ea6170935dd6b4dac40c9c982a063743f98727c3e",
+    "codex/certify-llm/shooting_gates.py": "9c967c0dcb9783df53f33c05eb897050f4e8971f66767abbc8a01a8b1b85cf1f",
+    "codex/certify-llm/streamed_head.py": "f6096528f5748392386e97e9a4722f5967aeb0ae24897aac1465d205fca4f24a",
+    "codex/crosscheck/qwen_map.py": "493a3d1d57fec227f5ba2e3f8f9cfcfdd02d22495d1d44e6449ede901310ae6e"
+  },
+  "point_plan": {
+    "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/certificate-ladder-task34/cascade-p3-point-bridge-plan.json",
+    "sha256": "34902a123318184e314cedbc244b757dc3db90f28b33f1dbe9bc3c1e46bae03d",
+    "bytes": 3892
+  },
+  "status": "source_reviewed_conditional_enclosures",
+  "historical_evaluator_review": {
+    "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/certify-llm/final-evaluator-obligations-review.md",
+    "sha256": "92cf2b93036b92d18c09944da7e3073d2b358756a93ab43eb41a6e50fdc8961e",
+    "bytes": 24529
+  },
+  "declared_powers": [
+    1,
+    2,
+    4,
+    8
+  ]
+}

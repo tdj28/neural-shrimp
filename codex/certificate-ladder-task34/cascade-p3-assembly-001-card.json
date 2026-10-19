@@ -1,0 +1,475 @@
+{
+  "period": 3,
+  "cell": "cascade-p3",
+  "powers": [
+    1,
+    2,
+    4,
+    8
+  ],
+  "assembly_source_sha256": {
+    "codex/certificate-ladder-task34/assembly_core.py": "832dcb9a86c57f8141e4eb3ad308a289f2a7a13af88443600d102776f351a4fc",
+    "codex/certificate-ladder-task34/derivative_bridge.py": "9305b6de66bef56717bd72cf83e48cb706d65084b0105f260098adfcd3e203d1",
+    "codex/certificate-ladder-task34/derivative_shard.py": "577a68f03e47c884ef8b47cb993e4799cde09e673d656bae17d04e1c141ff98a",
+    "codex/certificate-ladder-task34/point_bridge.py": "8f06fadf0e402abf875ef41a2ac92a47b284af88cc368bd69e1145e6411e6e34",
+    "codex/certificate-ladder-task34/prefix_import.py": "80338ac588fc2e90a4d241a2d1fcf01f98f6f262e7a21c0deab4c9b45a9d0250",
+    "codex/certificate-ladder-task34/return_operational.py": "4a7a44b1a1ff2fdee05ebe5ff36895c687ac1b973589254d5ead48e11ffb4cc3",
+    "codex/certificate-ladder-task34/returned_shard.py": "acd8d7d796c19276c9a94bc2df0cde67c900e74dd7ce1e04d4d6f3b0606021ac",
+    "codex/certify-llm/ball_jet.py": "46b14d8bd65ed6c80174758daf37d00110cfa908813917bdb46c13749f999719",
+    "codex/certify-llm/ball_linear.py": "5d54200f5880d818eabc97e7eed2f1cf02b83b617b39380bef38d49a7ac45ff2",
+    "codex/certify-llm/ball_qwen.py": "fcc90849601984506adf26f651067734f9faef408c8f42dffe64bf5c68e98a80",
+    "codex/certify-llm/cache_io.py": "f4e25b2134bef8a71c27d3156baf01be9d25c593d7b780f90a66b9c1141abdef",
+    "codex/certify-llm/derivative_coverage.py": "eb01dc001193b5e3982bcb41a582ac7c61cfe4e8fcd2a1ddf249126623fe63cf",
+    "codex/certify-llm/phase_domain.py": "a3856de84393068788c4cf4dc42fa6015da45b7912b56db995cc6b12922f8d8d",
+    "codex/certify-llm/proof_gates.py": "ee6678b7dd5153ef095fd73d5711fcfc605f7a228c92b1335a9541cc3d7b2c6a",
+    "codex/certify-llm/shooting_certificate.py": "a4aca57acf7aaab33c77745ea6170935dd6b4dac40c9c982a063743f98727c3e",
+    "codex/certify-llm/shooting_gates.py": "9c967c0dcb9783df53f33c05eb897050f4e8971f66767abbc8a01a8b1b85cf1f",
+    "codex/certify-llm/streamed_head.py": "f6096528f5748392386e97e9a4722f5967aeb0ae24897aac1465d205fca4f24a",
+    "codex/crosscheck/qwen_map.py": "493a3d1d57fec227f5ba2e3f8f9cfcfdd02d22495d1d44e6449ede901310ae6e"
+  },
+  "reviews": {
+    "point_evaluator": {
+      "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/certificate-ladder-task34/assembly-source-review.md",
+      "sha256": "87ff2d50c0781ed36d7a2e3aa55d4f825b2a351d1c89f93ce1ed69c3f5952c39",
+      "bytes": 3821
+    },
+    "derivative_evaluator": {
+      "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/certificate-ladder-task34/assembly-source-review.md",
+      "sha256": "87ff2d50c0781ed36d7a2e3aa55d4f825b2a351d1c89f93ce1ed69c3f5952c39",
+      "bytes": 3821
+    },
+    "map_regularity": {
+      "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/certificate-ladder-task34/assembly-source-review.md",
+      "sha256": "87ff2d50c0781ed36d7a2e3aa55d4f825b2a351d1c89f93ce1ed69c3f5952c39",
+      "bytes": 3821
+    },
+    "gate_mathematics": {
+      "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/certify-llm/shooting-gates-review.md",
+      "sha256": "e60e08a8e1a8d12a42d20f3f08ff17492133d04577f06529bfe96c2fe5a67d1a",
+      "bytes": 8777
+    }
+  },
+  "definition": {
+    "path": "/data2/neural-shrimp-data/codex/certificate-ladder/cascade-p3-final-domain-001.json",
+    "sha256": "1951e04a84e176260fcc4b7451ca396837a83a05344e97603490c437a7c0e43c"
+  },
+  "point_plan": {
+    "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/certificate-ladder-task34/cascade-p3-point-bridge-plan.json",
+    "sha256": "34902a123318184e314cedbc244b757dc3db90f28b33f1dbe9bc3c1e46bae03d",
+    "bytes": 3892
+  },
+  "map": {
+    "schema": "codex-qwen-exact-soft-map-v1",
+    "dimension": 896,
+    "vocabulary": 151936,
+    "layers": 24,
+    "pinned_assets": {
+      "model.safetensors": "fdf756fa7fcbe7404d5c60e26bff1a0c8b8aa1f72ced49e7dd0210fe288fb7fe",
+      "config.json": "18e18afcaccafade98daf13a54092927904649e1dd4eba8299ab717d5d94ff45",
+      "vectors.npz": "b630bb7bef06bde87f8e6a7ca5e8672f83d24bc0585bf19048e9e494a4357f41"
+    },
+    "prefix_ids": [
+      151644,
+      8948,
+      198,
+      2610,
+      525,
+      458,
+      15235,
+      7404,
+      448,
+      2441,
+      15235,
+      13,
+      1446,
+      614,
+      4583,
+      11290,
+      13,
+      31733,
+      1910,
+      311,
+      22729,
+      8820,
+      498,
+      1366,
+      13,
+      151645,
+      198,
+      151644,
+      872,
+      198,
+      9707,
+      0,
+      151645,
+      198,
+      151644,
+      77091,
+      198
+    ],
+    "steering_layer": 12,
+    "alpha_ratio": [
+      1170935903116329,
+      18014398509481984
+    ],
+    "log10_temperature_ratio": [
+      -333221336429143,
+      2251799813685248
+    ],
+    "temperature": "exp(log(10)*exact_dyadic_log10T)",
+    "rotary": "real base^(-2j/head_dim), real sin/cos",
+    "state": "one appended full-dimensional soft embedding after the fixed prefix",
+    "readout": "full-vocabulary expected embedding with the checkpoint embedding matrix",
+    "checkpoint_constants": "stored binary constants interpreted as exact dyadics"
+  },
+  "shards": [
+    {
+      "attempt": "/data2/neural-shrimp-data/codex/certificate-ladder/cascade-p3-derivative-p0-c000-001",
+      "receipt_sha256": "c4bb3784ea0b231f974c36888e4dfc4e697c48908441e6476133a4325072d7a8",
+      "source_commit": "42508b68a733acc4216b40d7b60215de36c5d543",
+      "phase_index": 0,
+      "start_column": 0
+    },
+    {
+      "attempt": "/data2/neural-shrimp-data/codex/certificate-ladder/cascade-p3-derivative-p0-c064-001",
+      "receipt_sha256": "f431869483da4c6a3cf3a7c9bbc2e1e6d25abc5ad6b6d661d018046b6d0dc959",
+      "source_commit": "42508b68a733acc4216b40d7b60215de36c5d543",
+      "phase_index": 0,
+      "start_column": 64
+    },
+    {
+      "attempt": "/data2/neural-shrimp-data/codex/certificate-ladder/cascade-p3-derivative-p0-c128-001",
+      "receipt_sha256": "32c5dc0d255650c885745f88ab241b45218a96cb1eefb5ce1f8e9ea147be5322",
+      "source_commit": "42508b68a733acc4216b40d7b60215de36c5d543",
+      "phase_index": 0,
+      "start_column": 128
+    },
+    {
+      "attempt": "/data2/neural-shrimp-data/codex/certificate-ladder/cascade-p3-derivative-p0-c192-001",
+      "receipt_sha256": "38205f1374e2b3b342174dc5a3e71b0a4b79faf6f04cce5f4d3d4e45d61d2a55",
+      "source_commit": "42508b68a733acc4216b40d7b60215de36c5d543",
+      "phase_index": 0,
+      "start_column": 192
+    },
+    {
+      "attempt": "/data2/neural-shrimp-data/codex/certificate-ladder/cascade-p3-derivative-p0-c256-001",
+      "receipt_sha256": "7d62c79e5a7279ba929ae7c9c3a1402c45e7048d7dbdede0de2ac264f9c9b234",
+      "source_commit": "42508b68a733acc4216b40d7b60215de36c5d543",
+      "phase_index": 0,
+      "start_column": 256
+    },
+    {
+      "attempt": "/data2/neural-shrimp-data/codex/certificate-ladder/cascade-p3-derivative-p0-c320-001",
+      "receipt_sha256": "b6865f61dc7a2839b07b4b86ad5fe0d0afa89066a4e40800c390169843051c66",
+      "source_commit": "42508b68a733acc4216b40d7b60215de36c5d543",
+      "phase_index": 0,
+      "start_column": 320
+    },
+    {
+      "attempt": "/data2/neural-shrimp-data/codex/certificate-ladder/cascade-p3-derivative-p0-c384-001",
+      "receipt_sha256": "ab570664f4c62ec69316ab82dfbce0cc6d41d2aa25edfb56b9620f6f7606a0b4",
+      "source_commit": "42508b68a733acc4216b40d7b60215de36c5d543",
+      "phase_index": 0,
+      "start_column": 384
+    },
+    {
+      "attempt": "/data2/neural-shrimp-data/codex/certificate-ladder/cascade-p3-derivative-p0-c448-001",
+      "receipt_sha256": "6b3cfd6749a56b0052174a2d651516cf97a36bdd81f243917de791492d64e44f",
+      "source_commit": "42508b68a733acc4216b40d7b60215de36c5d543",
+      "phase_index": 0,
+      "start_column": 448
+    },
+    {
+      "attempt": "/data2/neural-shrimp-data/codex/certificate-ladder/cascade-p3-derivative-p0-c512-001",
+      "receipt_sha256": "e3a13c3c0fe1680ff8b9d31f26266a17c04eb8083839976b7b9df47f5e9d6317",
+      "source_commit": "42508b68a733acc4216b40d7b60215de36c5d543",
+      "phase_index": 0,
+      "start_column": 512
+    },
+    {
+      "attempt": "/data2/neural-shrimp-data/codex/certificate-ladder/cascade-p3-derivative-p0-c576-001",
+      "receipt_sha256": "54da78e2d1467f450e966f7deebe715d760b8dd312290ced90b5465ad43bcaa4",
+      "source_commit": "42508b68a733acc4216b40d7b60215de36c5d543",
+      "phase_index": 0,
+      "start_column": 576
+    },
+    {
+      "attempt": "/data2/neural-shrimp-data/codex/certificate-ladder/cascade-p3-derivative-p0-c640-001",
+      "receipt_sha256": "52e13cf836ab34af3edfba2ac4d7c82564b737bd09d79655896babbbeeb9fdc9",
+      "source_commit": "42508b68a733acc4216b40d7b60215de36c5d543",
+      "phase_index": 0,
+      "start_column": 640
+    },
+    {
+      "attempt": "/data2/neural-shrimp-data/codex/certificate-ladder/cascade-p3-derivative-p0-c704-001",
+      "receipt_sha256": "2adaf0db19f70be3e5530717016d49069f50a85e6d7acb62de23b913dd332c85",
+      "source_commit": "42508b68a733acc4216b40d7b60215de36c5d543",
+      "phase_index": 0,
+      "start_column": 704
+    },
+    {
+      "attempt": "/data2/neural-shrimp-data/codex/certificate-ladder/cascade-p3-derivative-p0-c768-001",
+      "receipt_sha256": "d0c9a2b8fbb0e66a1b34cd07c2d359d6e3ce6efbb74ef6495d2956ea6c3001d1",
+      "source_commit": "42508b68a733acc4216b40d7b60215de36c5d543",
+      "phase_index": 0,
+      "start_column": 768
+    },
+    {
+      "attempt": "/data2/neural-shrimp-data/codex/certificate-ladder/cascade-p3-derivative-p0-c832-001",
+      "receipt_sha256": "5edc3a186c888fd5fc9fee71ae09456f2732203cfe638576d9af21895fd0016e",
+      "source_commit": "42508b68a733acc4216b40d7b60215de36c5d543",
+      "phase_index": 0,
+      "start_column": 832
+    },
+    {
+      "attempt": "/data2/neural-shrimp-data/codex/certificate-ladder/cascade-p3-derivative-p1-c000-001",
+      "receipt_sha256": "c9d3081ff7045ac4f516230a84c1b308e97718ef5ad327004f8d0284eb5f70cc",
+      "source_commit": "42508b68a733acc4216b40d7b60215de36c5d543",
+      "phase_index": 1,
+      "start_column": 0
+    },
+    {
+      "attempt": "/data2/neural-shrimp-data/codex/certificate-ladder/cascade-p3-derivative-p1-c064-001",
+      "receipt_sha256": "b73e8c4d700e226a4963ca1399f70d04b063032f0e7c4ca92e75fd10cb0c9f2b",
+      "source_commit": "42508b68a733acc4216b40d7b60215de36c5d543",
+      "phase_index": 1,
+      "start_column": 64
+    },
+    {
+      "attempt": "/data2/neural-shrimp-data/codex/certificate-ladder/cascade-p3-derivative-p1-c128-001",
+      "receipt_sha256": "2f1c639b9d23b87b41643c89977c4bb4fb346de2b801c1026af8654303e93e2b",
+      "source_commit": "42508b68a733acc4216b40d7b60215de36c5d543",
+      "phase_index": 1,
+      "start_column": 128
+    },
+    {
+      "attempt": "/data2/neural-shrimp-data/codex/certificate-ladder/cascade-p3-derivative-p1-c192-001",
+      "receipt_sha256": "5cb587826aa0d441fefbea46c1ff87bff3cd0f59d9c79894a7b242d68f723770",
+      "source_commit": "42508b68a733acc4216b40d7b60215de36c5d543",
+      "phase_index": 1,
+      "start_column": 192
+    },
+    {
+      "attempt": "/data2/neural-shrimp-data/codex/certificate-ladder/cascade-p3-derivative-p1-c256-001",
+      "receipt_sha256": "fe45b3f5f0a16be8ca2c2fc68ccd44582be41890991d58c401474512eaba58f2",
+      "source_commit": "42508b68a733acc4216b40d7b60215de36c5d543",
+      "phase_index": 1,
+      "start_column": 256
+    },
+    {
+      "attempt": "/data2/neural-shrimp-data/codex/certificate-ladder/cascade-p3-derivative-p1-c320-001",
+      "receipt_sha256": "7759be04a4f031ad90c0445d16402714dee3cabd412636904aea731b82b1c0f5",
+      "source_commit": "42508b68a733acc4216b40d7b60215de36c5d543",
+      "phase_index": 1,
+      "start_column": 320
+    },
+    {
+      "attempt": "/data2/neural-shrimp-data/codex/certificate-ladder/cascade-p3-derivative-p1-c384-001",
+      "receipt_sha256": "548dc67b8cfa464b54a3dd18a43eb08144e3f7975178dabe616adad2580db78e",
+      "source_commit": "42508b68a733acc4216b40d7b60215de36c5d543",
+      "phase_index": 1,
+      "start_column": 384
+    },
+    {
+      "attempt": "/data2/neural-shrimp-data/codex/certificate-ladder/cascade-p3-derivative-p1-c448-001",
+      "receipt_sha256": "373a929040fe8dc393de8745ac56994d0c4d4614c5b688040545ad9b37682430",
+      "source_commit": "42508b68a733acc4216b40d7b60215de36c5d543",
+      "phase_index": 1,
+      "start_column": 448
+    },
+    {
+      "attempt": "/data2/neural-shrimp-data/codex/certificate-ladder/cascade-p3-derivative-p1-c512-001",
+      "receipt_sha256": "5e3c4d89545f2247562b4f1db21faa9753c1db775a89e65652941576bf572560",
+      "source_commit": "42508b68a733acc4216b40d7b60215de36c5d543",
+      "phase_index": 1,
+      "start_column": 512
+    },
+    {
+      "attempt": "/data2/neural-shrimp-data/codex/certificate-ladder/cascade-p3-derivative-p1-c576-001",
+      "receipt_sha256": "b99460267684768da068469c16d4dd98806bb984f1b55996362a478878cf4f9b",
+      "source_commit": "42508b68a733acc4216b40d7b60215de36c5d543",
+      "phase_index": 1,
+      "start_column": 576
+    },
+    {
+      "attempt": "/data2/neural-shrimp-data/codex/certificate-ladder/cascade-p3-derivative-p1-c640-001",
+      "receipt_sha256": "396760d0a1e3f6e5d6f5219fc9e535519be8866788f101cf795d19658b7bc78e",
+      "source_commit": "42508b68a733acc4216b40d7b60215de36c5d543",
+      "phase_index": 1,
+      "start_column": 640
+    },
+    {
+      "attempt": "/data2/neural-shrimp-data/codex/certificate-ladder/cascade-p3-derivative-p1-c704-001",
+      "receipt_sha256": "0a6359c4f12f6fc8f506580d3f494c9449f353c01b88d79de70301a961ba7507",
+      "source_commit": "42508b68a733acc4216b40d7b60215de36c5d543",
+      "phase_index": 1,
+      "start_column": 704
+    },
+    {
+      "attempt": "/data2/neural-shrimp-data/codex/certificate-ladder/cascade-p3-derivative-p1-c768-001",
+      "receipt_sha256": "3bf36703a9468d7d22e28244a746d602dda9fe8ac1ce00a5c240dee77265114e",
+      "source_commit": "42508b68a733acc4216b40d7b60215de36c5d543",
+      "phase_index": 1,
+      "start_column": 768
+    },
+    {
+      "attempt": "/data2/neural-shrimp-data/codex/certificate-ladder/cascade-p3-derivative-p1-c832-001",
+      "receipt_sha256": "99baa35a1d3cffcc3e0ccd727128b1d3b747181e550d9161575b9cc2b38a31df",
+      "source_commit": "42508b68a733acc4216b40d7b60215de36c5d543",
+      "phase_index": 1,
+      "start_column": 832
+    },
+    {
+      "attempt": "/data2/neural-shrimp-data/codex/certificate-ladder/cascade-p3-derivative-p2-c000-001",
+      "receipt_sha256": "85d4e6a643515b7936a4edcbb62e87b7121733f91f202bce6229ee58f7fef260",
+      "source_commit": "42508b68a733acc4216b40d7b60215de36c5d543",
+      "phase_index": 2,
+      "start_column": 0
+    },
+    {
+      "attempt": "/data2/neural-shrimp-data/codex/certificate-ladder/cascade-p3-derivative-p2-c064-001",
+      "receipt_sha256": "133d0c1ccf3ef61bcf80bae33f269fcbbbf94aa3496381c4650e4289aa997823",
+      "source_commit": "42508b68a733acc4216b40d7b60215de36c5d543",
+      "phase_index": 2,
+      "start_column": 64
+    },
+    {
+      "attempt": "/data2/neural-shrimp-data/codex/certificate-ladder/cascade-p3-derivative-p2-c128-001",
+      "receipt_sha256": "958b9a801a47d739dff4ac2511c95e8fcfc4cdb5482530155e1b99cfbe4a1484",
+      "source_commit": "42508b68a733acc4216b40d7b60215de36c5d543",
+      "phase_index": 2,
+      "start_column": 128
+    },
+    {
+      "attempt": "/data2/neural-shrimp-data/codex/certificate-ladder/cascade-p3-derivative-p2-c192-001",
+      "receipt_sha256": "96d2b3c2c19e3500404f847b903aa3f172875577b42ab2957757fc58bef9d5ac",
+      "source_commit": "42508b68a733acc4216b40d7b60215de36c5d543",
+      "phase_index": 2,
+      "start_column": 192
+    },
+    {
+      "attempt": "/data2/neural-shrimp-data/codex/certificate-ladder/cascade-p3-derivative-p2-c256-001",
+      "receipt_sha256": "0cb1ac857c58c90debb1dd8b03c2780a6f4e73e034e08b4baed421db0a5bd9a2",
+      "source_commit": "42508b68a733acc4216b40d7b60215de36c5d543",
+      "phase_index": 2,
+      "start_column": 256
+    },
+    {
+      "attempt": "/data2/neural-shrimp-data/codex/certificate-ladder/cascade-p3-derivative-p2-c320-001",
+      "receipt_sha256": "1a0467dc4fe94240d9f9f12a8d72394b88898cd0e6f3374be0845b6c97d848ed",
+      "source_commit": "42508b68a733acc4216b40d7b60215de36c5d543",
+      "phase_index": 2,
+      "start_column": 320
+    },
+    {
+      "attempt": "/data2/neural-shrimp-data/codex/certificate-ladder/cascade-p3-derivative-p2-c384-001",
+      "receipt_sha256": "d95e50e873f2c8fa8caab18febe9b7efa48d20b9b67ac8b5e313b272bef2650b",
+      "source_commit": "42508b68a733acc4216b40d7b60215de36c5d543",
+      "phase_index": 2,
+      "start_column": 384
+    },
+    {
+      "attempt": "/data2/neural-shrimp-data/codex/certificate-ladder/cascade-p3-derivative-p2-c448-001",
+      "receipt_sha256": "caba068f4928a2cef710de28d86779d35940fbae19ab13f77659ca5ca2b315f1",
+      "source_commit": "42508b68a733acc4216b40d7b60215de36c5d543",
+      "phase_index": 2,
+      "start_column": 448
+    },
+    {
+      "attempt": "/data2/neural-shrimp-data/codex/certificate-ladder/cascade-p3-derivative-p2-c512-001",
+      "receipt_sha256": "114f3e01817b5604b09f1bbb2c460dd03c965c1419759718441cc73575a6d2f9",
+      "source_commit": "42508b68a733acc4216b40d7b60215de36c5d543",
+      "phase_index": 2,
+      "start_column": 512
+    },
+    {
+      "attempt": "/data2/neural-shrimp-data/codex/certificate-ladder/cascade-p3-derivative-p2-c576-001",
+      "receipt_sha256": "de893b93e9db9f94bf6d62e2a2ddc3ff37583b2a81405b25edf1cd665bc32e55",
+      "source_commit": "42508b68a733acc4216b40d7b60215de36c5d543",
+      "phase_index": 2,
+      "start_column": 576
+    },
+    {
+      "attempt": "/data2/neural-shrimp-data/codex/certificate-ladder/cascade-p3-derivative-p2-c640-001",
+      "receipt_sha256": "5c9f9d8dae803ac1050125566cb0772236434b3f6a882f7bc5e7f81503fbbdc9",
+      "source_commit": "42508b68a733acc4216b40d7b60215de36c5d543",
+      "phase_index": 2,
+      "start_column": 640
+    },
+    {
+      "attempt": "/data2/neural-shrimp-data/codex/certificate-ladder/cascade-p3-derivative-p2-c704-001",
+      "receipt_sha256": "aee780d2e297e60b22c48950f8e25796eb8d14627aa5dfc083f8aed10d1c5cc4",
+      "source_commit": "42508b68a733acc4216b40d7b60215de36c5d543",
+      "phase_index": 2,
+      "start_column": 704
+    },
+    {
+      "attempt": "/data2/neural-shrimp-data/codex/certificate-ladder/cascade-p3-derivative-p2-c768-001",
+      "receipt_sha256": "e6677aa8b9f7dbb4dd14ffd230d88bad50eb61dc06ee26a7493b005589e88705",
+      "source_commit": "42508b68a733acc4216b40d7b60215de36c5d543",
+      "phase_index": 2,
+      "start_column": 768
+    },
+    {
+      "attempt": "/data2/neural-shrimp-data/codex/certificate-ladder/cascade-p3-derivative-p2-c832-001",
+      "receipt_sha256": "321679873fe9726cbc91e1eaf20227cc036bfb0d2f24b278f3c60531c741ab6d",
+      "source_commit": "42508b68a733acc4216b40d7b60215de36c5d543",
+      "phase_index": 2,
+      "start_column": 832
+    }
+  ],
+  "campaign_source": "42508b68a733acc4216b40d7b60215de36c5d543",
+  "derivative_backend": {
+    "python": "3.12.14 (main, Aug 25 2026, 14:00:49) [Clang 22.1.3 ]",
+    "python_flint": "0.9.0",
+    "flint": "3.6.0",
+    "numpy": "2.5.3",
+    "torch": "2.14.1+cu130",
+    "precision": 1024,
+    "threads": 1
+  },
+  "derivative_source_sha256": {
+    "codex/certify-llm/streamed_head.py": "f6096528f5748392386e97e9a4722f5967aeb0ae24897aac1465d205fca4f24a",
+    "codex/certify-llm/ball_jet.py": "46b14d8bd65ed6c80174758daf37d00110cfa908813917bdb46c13749f999719",
+    "codex/certify-llm/ball_qwen.py": "fcc90849601984506adf26f651067734f9faef408c8f42dffe64bf5c68e98a80",
+    "codex/certify-llm/ball_linear.py": "5d54200f5880d818eabc97e7eed2f1cf02b83b617b39380bef38d49a7ac45ff2",
+    "codex/certify-llm/cache_io.py": "f4e25b2134bef8a71c27d3156baf01be9d25c593d7b780f90a66b9c1141abdef",
+    "codex/certify-llm/phase_domain.py": "a3856de84393068788c4cf4dc42fa6015da45b7912b56db995cc6b12922f8d8d",
+    "codex/certify-llm/derivative_coverage.py": "eb01dc001193b5e3982bcb41a582ac7c61cfe4e8fcd2a1ddf249126623fe63cf",
+    "codex/certify-llm/shooting_gates.py": "9c967c0dcb9783df53f33c05eb897050f4e8971f66767abbc8a01a8b1b85cf1f",
+    "codex/certify-llm/proof_gates.py": "ee6678b7dd5153ef095fd73d5711fcfc605f7a228c92b1335a9541cc3d7b2c6a",
+    "codex/crosscheck/qwen_map.py": "493a3d1d57fec227f5ba2e3f8f9cfcfdd02d22495d1d44e6449ede901310ae6e",
+    "codex/certificate-ladder-task34/derivative_shard.py": "577a68f03e47c884ef8b47cb993e4799cde09e673d656bae17d04e1c141ff98a",
+    "codex/certificate-ladder-task34/prefix_import.py": "80338ac588fc2e90a4d241a2d1fcf01f98f6f262e7a21c0deab4c9b45a9d0250"
+  },
+  "derivative_prefix": {
+    "attempt": "/data2/neural-shrimp-data/codex/certificate-ladder/prefix-cascade-p3-001",
+    "receipt_sha256": "9c0f913e10398400a34509e32e1d36ee460e291440f29073a1cd0161cec4a77c",
+    "map_source_sha256": "fcc90849601984506adf26f651067734f9faef408c8f42dffe64bf5c68e98a80",
+    "cache_sha256": "dd3f3e91879f540eaf28fc888f456ddb16b10f7edf61e1e8e5bc9f419066d1f2",
+    "source_commit": "f63d015412df97724dc1fcb3576a6f469c005137",
+    "receipt_path": "/data2/neural-shrimp-data/codex/certificate-ladder/prefix-cascade-p3-001-supervision/receipt.json",
+    "admission_path": "/data2/neural-shrimp-data/codex/certificate-ladder/prefix-cascade-p3-001-supervision/admission.json",
+    "admission_sha256": "70f37618a7649f7e98a45e6189fb88197f78bae4d146759212a0454bada147ac"
+  },
+  "preconditioner": {
+    "path": "/data2/neural-shrimp-data/codex/certificate-ladder/phase-cascade-p3-001/cascade-p3/preconditioner.npz",
+    "sha256": "1e47156fe8c3dff21eff0d2ac20800c5bfae77b9a1af33600e265cb9dce9ffbc",
+    "bytes": 44980992
+  },
+  "operational_return": {
+    "path": "/data2/neural-shrimp-data/codex/certificate-ladder/return-cascade-p3-002/operational.json",
+    "sha256": "ff7f2defc4bd25d0890733f8b0f8c331e4b8792c215273ba33a9a284d00be08f",
+    "bytes": 169504
+  },
+  "signed_endpoint_admission": {
+    "path": "/data2/neural-shrimp-data/codex/certificate-ladder/return-cascade-p3-endpoints-001/endpoints.json",
+    "sha256": "6d9be05ee72b7f78d380042804cd7422f8a8945db0d586ac5f7cefb1983ffa02",
+    "bytes": 83766
+  },
+  "review_binding": {
+    "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/certificate-ladder-task34/cascade-p3-assembly-001-review-binding.json",
+    "sha256": "abe9ab2ebb1eff1211d365e4a66c909027e781308af82d6f82d9eb58338b4992",
+    "bytes": 7104
+  }
+}
