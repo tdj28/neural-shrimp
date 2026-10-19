@@ -30110,7 +30110,7 @@ chaotic.
 
 Cost about $0.7 (three pods, about 5 minutes each).
 
-## 2026-10-19 00:20 UTC: run card P9S (exploratory): is the period-9 window of Fig. 1 a second shrimp? With HR9, a 3x finer map of its region
+## 2026-10-18 23:52 UTC: run card P9S (exploratory): is the period-9 window of Fig. 1 a second shrimp? With HR9, a 3x finer map of its region
 
 **Origin.** The human spotted a shrimp-like window in the crossing window (Fig. 1) near alpha 0.0735-0.0750,
 log10 T -0.155: "I see a classic shrimp shape ... did we check that one out". The 512^2 map shows a period-9 window
@@ -30148,7 +30148,7 @@ what failed.
 **Gates.** Every curve point's residual, test function and critical multiplier are read from the raw files before any
 summary. A fold curve must keep a real +1 and a flip curve a real -1.
 
-### 2026-10-19 00:50 UTC: P9S/HR9 amendment, before any compute
+### 2026-10-19 00:07 UTC: P9S/HR9 amendment, before any compute
 
 - **Nothing has run yet.** At the $3.0/h cap no H100 was free. Two pods started just as their launcher was stopped
   for this change; both were terminated idle, before any upload (ids in the ledger).
@@ -30166,7 +30166,7 @@ summary. A fold curve must keep a real +1 and a flip curve a real -1.
   curves.
 - **P9S-orbits** run locally on the CPU in float64, for both seeds.
 
-### 2026-10-19 01:35 UTC: P9S/HR9 amendment 2. The target was the wrong window; run P6S replaces the period-9 curves
+### 2026-10-19 00:20 UTC: P9S/HR9 amendment 2. The target was the wrong window; run P6S replaces the period-9 curves
 
 - **The wrong window was studied.** The human meant the shrimp to the left of the period-9 window ("no! you are
   pointing at the wrong shrimp i meant the one to the left!!!"), at their original coordinates (alpha 0.0735,
@@ -30190,7 +30190,7 @@ summary. A fold curve must keep a real +1 and a flip curve a real -1.
 - **HR9 continues unchanged.** Its window, alpha [0.0709, 0.0763] x log10 T [-0.1635, -0.1445], contains both
   windows.
 
-### 2026-10-19 02:05 UTC: P6S-orbit result (local CPU, float64): the left shrimp's body orbit is a primitive, strongly attracting period-6 orbit
+### 2026-10-19 00:26 UTC: P6S-orbit result (local CPU, float64): the left shrimp's body orbit is a primitive, strongly attracting period-6 orbit
 
 At the seed (alpha 0.073097, log10 T -0.15204), after the transient, Newton converged on a period-6 orbit.
 - **Residual and primitivity.** Residual 1.6e-14. The smallest distance from the first point to the other five
@@ -30205,7 +30205,7 @@ At the seed (alpha 0.073097, log10 T -0.15204), after the transient, Newton conv
   curves of the P6S continuation.
 - Output: llm-soft-loop/p6s/orbit-seed (orbit.json, orbit-state.npy), 260 s on 8 CPU threads.
 
-### 2026-10-19 02:40 UTC: follow tool in the (alpha, log10 T) plane (P6S-follow prerequisite); smoke test; the follow run card
+### 2026-10-19 00:31 UTC: follow tool in the (alpha, log10 T) plane (P6S-follow prerequisite); smoke test; the follow run card
 
 - **Code.** tools/follow_attractor.py gains `--plane alpha-temperature` with `--log-temperature-range` and `--step2`:
   - one steering block, no second block;
@@ -30227,3 +30227,10 @@ At the seed (alpha 0.073097, log10 T -0.15204), after the transient, Newton conv
   - Labels as in the period-5 follow: 1 periodic member, 2 chaos behind the text, 3 slow, 0 not a member.
   - The edge of the followed domain is compared with the P6S fold and flip curves by the boundary gate of the P9S run
     card.
+
+### 2026-10-19 00:33 UTC: correction of times
+
+The headings of the five entries above, from run card P9S to the follow tool, and of two notes in
+comms/claude-to-codex.md, first carried estimated times, 20 minutes to 2 hours late. They now carry the commit times
+(UTC): 23:52, 00:07, 00:20, 00:26 and 00:31; comms 00:28 and 00:29. Pod events inside the entries cite the orchestrator
+logs, whose times are clock times.
