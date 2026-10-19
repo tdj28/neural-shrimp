@@ -2399,8 +2399,9 @@ runs P6S, HR9, HR10, DSS6 and KITE). At a strongly contracting cell of the map, 
 Newton's method in float64 converges to a primitive period-6 orbit (residual $1.6\times10^{-14}$) whose leading
 multipliers form a complex pair of modulus $0.016$. Followed from there through neighboring cells on the grid of
 Figure~\ref{fig:cross512}, the attractor fills 4224 cells: a body and three long legs, with period 6 in 1946 cells,
-periods 12, 24 and 48 in 945 along the edges, other periods in 35, chaos behind the repeating text in 811 and slow
-cells in 487. Four float64 branches out of the body end at a fold above and on the right and at flips on the left and
+periods 12, 24 and 48 in 945 along the edges, other periods in 35, chaos behind the repeating text in 811 (an exactly repeating text, no period up to
+64 and an exponent of at least 0.005) and slow cells in 487 (the same with an exponent below 0.005; with the maps'
+threshold of $10^{-3}$ the split would be 842 and 456). Four float64 branches out of the body end at a fold above and on the right and at flips on the left and
 below. Continued in the plane with every point checked (residual at most $10^{-10}$, critical multiplier real and within
 $10^{-7}$ of $\pm1$ on the body and kite curves; four points of the extended leg curves reach $2.9\times10^{-7}$), the curves outline the anatomy of Gallas's cell (Figure~\ref{fig:anatomy}a): the fold curve bounds
 the body above and on the right, one flip curve bounds it on the upper left and a second along its bottom, and the
