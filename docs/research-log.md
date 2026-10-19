@@ -30481,3 +30481,53 @@ docs/consults/2026-10-19-external-reviews/triage.md).
     through (0.0746, -0.1586) and (0.0723, -0.1582); then to (0.0688, -0.1640), where the time limit stopped it.
 - **Reading.** The lower window's legs end in fold-curve turns: the located cusp at its tip and this candidate at the
   right leg's end. The top body's cusps are being sought by P6S-wide.
+
+### 2026-10-19 03:05 UTC: Codex Task 36 (mathematics review) applied to the full report and the blog
+
+- **Report** (commit 44d5ea61, paper/llm/main.tex only; article 6fb6e7f wording as the model, adapted):
+  - A2: "candidate superstable curves" read from sign changes of the leading real multiplier, with the caveat that
+    two real multipliers can exchange dominance; "Type-B-like geometry"; fig:superstable caption as in the article;
+    the hub-zoom text and caption, the Gallas paragraph ("dark lines ... candidates"), the discussion, "superstable
+    strips" in the period-5 appendix.
+  - A9: fitted return relations "on the sampled range"; universality "occurs in suitable strongly dissipative
+    families"; "Why one dimension": finite spectra motivate scalar approximations, the cascade is separate finite
+    evidence, no global one-dimensional invariant reduction (replacing "the attractor is close to a curve").
+  - A13: uniform gap at fixed steering in both previews; the body states Delta >= Delta_0 > 0 uniformly in state and
+    small T, with ||DF|| <= L diam(E)^2 (V-1) exp(-Delta_0/T)/T. A15: unique maximizer in the "Why feed back",
+    one-picture, memory and frontier sentences. R7: tied embeddings in the Section 3 preview.
+  - A11/A12/R1 at the period-5 head: near-nilpotent defined as in the article, no "strongest contraction"; leading
+    modulus sets the asymptotic contraction (1/3.578e-3 = 280 per period) while one return has norm about 65
+    (sigma_1 = 64.6, docs/rk/rk-p5-head.jsonl); the rank-one part's eigenvalue (-2.704e-4) is 13.2 to 13.3 times
+    smaller than the leading modulus (3.578e-3, p5-nilpotent; 3.605e-3 at the rounded point), remainder norm
+    sigma_2 = 0.0114. A1: "product of the two leading multipliers", Mira inference removed. A5: fourth-leg caption
+    counts. A7 remnant ("the text does not determine the orbit") replaced. A8: noise model as an approximation in the
+    methods summary.
+  - R2 area growth; R3 simplified angle model with its three assumptions and the exact update stated, formula marked
+    approximate (crossover discrepancy up to 0.43 kept); R4 per-step error, x' = rho x + d example; R5 sign-test
+    p-value removed (17 of 17 kept descriptively); R6 disjoint dyadic B_k defined, overlapping-window averages called
+    diagnostics in text and fig:boundhierarchy caption (the panels plot overlapping averages; values from bh.json:
+    cell a-1 at -0.14638 falls from 0.1118 to 0.0113 over 17 to 29 steps; NB: medians fall with k in every map and
+    label, but 176 of 7936 cells rise between consecutive k, 0/6/21/149 at 1-2/2-3/3-4/4-5); R8 unit on a; R9 router
+    half-gap condition. Evidence-table row "Steering's growth is readout-side" (A10). latexmk: 155 pages, 0
+    undefined references; the only overfull box (22.6 pt, evidence table) predates the edit.
+- **Figure.** The committed fig-superstable-lines.png (75e7c19e, also in the article 6fb6e7f) has two panels: the
+  rerun omitted --zoom, so panel (c) and the cyan box were lost while both captions still describe them.
+  `uv run python tools/plot_superstable_lines.py --zoom p7-zoom-a p7-zoom-b p7-zoom-c` restores them with the new
+  labels (sha256 09d902ee...; zoom report 1155 cells, 221 complex, as in the text). It is in the working tree,
+  not committed (this task committed main.tex only); the article needs the same file.
+- **Blog** (praxagent bundle, not committed; backups blog-bundle-backup/before-oct19-codexfix and
+  after-oct19-codexfix with .sha256 manifests): the same corrections in plain language (abstract, why-feed-back,
+  numerics, temperature limits, norm bounds and the bound hierarchy with Figure 11, dimension, stretch-squeeze-fold,
+  passage tests, Feigenbaum, hostility short version, inside-body text and Figure 33, no-1D-center and Figure 34,
+  band chaos, atlas and Figure 40, period-5 head, verdict, one picture, greedy limit, MoE note, false chaos,
+  frontier, contribution). Outside the review, from the raw records: 153 -> 143 cells never captured (cross-512
+  table of 18 Oct), 94,500 -> 97,500 steps (94,500 was cross-512 alone), and the bound-hierarchy disagreement cell
+  was misdescribed. The three-panel figure copied in; provenance.json: 26 entries re-anchored, 3 removed (numbers
+  that no longer exist), 13 added (codexfix19-001 to -013), generator 44d5ea61; scripts/check_provenance.py passes
+  (4080 of 4080); Hugo 0.160.1 builds (render-tmp/hugo-oct19-codexfix).
+- **Not applied here:** the tikz-atlas.tex caption still says "superstable curves appear in its exponent maps"
+  (outside the allowed commit); fig-bound-hierarchy.png axis labels still read "block bound B_k" (caption fixed).
+  Article remnants for the coordinator: carry-over list "greedy cycles at zero temperature" and intro "reduces to
+  greedy decoding as T->0" without the unique-maximizer condition (A15); Section 3 preview without the
+  tied-embedding condition (R7); "can fake a positive exponent but not hide one" under a simple model (A8, weaker
+  than Codex's replacement); the two-panel figure.
