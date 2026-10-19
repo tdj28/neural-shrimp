@@ -1,0 +1,4192 @@
+{
+  "task": "Task39 citations and attribution",
+  "article_commit": "4ca5b5e35bc766581a5e2d326858fcd0edc312bb",
+  "main_sha256": "30c1f059ee225dbe0c2a3462d50ca501a580d9245e3209974eb17b98f403ceec",
+  "bib_sha256": "1f49caa5d53c69aec840f40dcb73ef25f6981cae25553e7f7d626cffbc565f2e",
+  "cited_count": 86,
+  "bibliography_count": 88,
+  "missing_keys": [],
+  "uncited_keys": [
+    "mira1987chaotic",
+    "vitolo2011hubs"
+  ],
+  "method": "Whole article/bibliography read. Exact current fields reconciled against prior primary records or new receipts. Reused checks are labelled; this is not a fresh full-text review of86 papers or verification of their results. No model or numerical audit.",
+  "prior_receipt_manifest": {
+    "codex/paper-review/root-citation-audit.json": {
+      "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/paper-review/root-citation-audit.json",
+      "sha256": "fc2e9f87fa033cf8b3d9e53e442d1e10f88da2759f59dcbc50c93ec11d941296"
+    },
+    "codex/paper-review-task27/components/theory-citation-ledger.json": {
+      "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/paper-review-task27/components/theory-citation-ledger.json",
+      "sha256": "edbc315f8c7167a4883f64ad66e2dbf423ab883373357d9387756f1abe7b1403"
+    },
+    "codex/presubmit-task37/citation-sources.json": {
+      "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/presubmit-task37/citation-sources.json",
+      "sha256": "0c6210d182456a30a7474056e7315554b6fc6a4df03a7f3674c47246661274f3"
+    },
+    "codex/paper-review/citation-audit.md": {
+      "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/paper-review/citation-audit.md",
+      "sha256": "a381f8dda89d2e5006dda790396b735cb069e642fb88c1bd8f4c42dbe91258ce"
+    },
+    "codex/paper-review-task27/components/root-citations.md": {
+      "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/paper-review-task27/components/root-citations.md",
+      "sha256": "ad6ad5f9a0cba22d018f37f800d944a770ce5740803142eb79c3983bfa7d26fe"
+    },
+    "codex/postnight-task38/citations-review.md": {
+      "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/postnight-task38/citations-review.md",
+      "sha256": "31ae02abf56f804431e00acfc3cfb97667714fbd603c1e7192f9ed2b92ca34e1"
+    },
+    "codex/postnight-task38/citations-gallas-ending-page-resolution.json": {
+      "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/postnight-task38/citations-gallas-ending-page-resolution.json",
+      "sha256": "130d771521253e6165cb16e32c7dc3c9efa383c1b9f16846947e031a2f59ea41"
+    },
+    "codex/postnight-task38/citations-strogatz2018-crossref.json": {
+      "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/postnight-task38/citations-strogatz2018-crossref.json",
+      "sha256": "53a9df1d3c0cfd280c7665aa32b87f7ef84873dc20bdfa0d3e80ce020a7db560"
+    },
+    "codex/postnight-task38/symbolic-review.md": {
+      "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/postnight-task38/symbolic-review.md",
+      "sha256": "fa9b93d7bdf2256d7823109ba2d5fce914b4a32ad9fa00d85b94e1764ee71dff"
+    },
+    "codex/postnight-task38/symbolic-results.json": {
+      "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/postnight-task38/symbolic-results.json",
+      "sha256": "deee40a74f09c18db032bdc79c5aa3968414221553cfa286f67f2890ccc08f8f"
+    },
+    "codex/postnight-task38/symbolic-evidence.json": {
+      "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/postnight-task38/symbolic-evidence.json",
+      "sha256": "c7447894f114f0e392bdd6241f3a31d66b4ce3df9618fd73f6066620e1f99df5"
+    }
+  },
+  "rows": [
+    {
+      "key": "zhang2025softthinking",
+      "main_tex_lines": [
+        83
+      ],
+      "entry_sha256": "aa40146806e6aa7d0e335a4eef9944216a18aa999ad2e156b98c58daddca7b3f",
+      "prior_records": [
+        {
+          "receipt": "codex/paper-review-task27/components/theory-citation-ledger.json",
+          "note": {
+            "key": "zhang2025softthinking",
+            "bib_line": 408,
+            "primary_url": "https://proceedings.neurips.cc/paper_files/paper/2025/hash/f7396d1c54d51416958d63e285377103-Abstract-Conference.html",
+            "verified": "Six-author roster/title,NeurIPS38,2025,DOI10.52202/085713-5629.",
+            "unverified_or_optional": "Primary landing gives Xin Wang; current Xin Eric Wang is an author-name variant not independently reconciled here. Pages187190–187212 not visible in returned primary text.",
+            "claim_scope": "Growing-context expected-embedding decoding; paper1462–1466 now distinguishes it from the autonomous map.",
+            "accepted_reuse": false,
+            "paper_lines": [
+              69,
+              244,
+              672,
+              1462
+            ]
+          }
+        },
+        {
+          "receipt": "codex/paper-review/citation-audit.md",
+          "note": "|`zhang2025softthinking`|[arXiv2505.15778v1](https://arxiv.org/abs/2505.15778v1),21May2025, eight authors as currently listed.|Matches explicit arXiv record. Prior independently checked NeurIPS landing has a different six-author roster; do not attach that venue to this roster without choosing the exact version.|"
+        }
+      ],
+      "primary_urls": [
+        "https://proceedings.neurips.cc/paper_files/paper/2025/hash/f7396d1c54d51416958d63e285377103-Abstract-Conference.html",
+        "https://arxiv.org/abs/2505.15778v1",
+        "https://doi.org/10.52202/085713-5629",
+        "https://proceedings.neurips.cc/paper_files/paper/2025/file/f7396d1c54d51416958d63e285377103-Paper-Conference.pdf"
+      ],
+      "status": "matched checked metadata",
+      "limitations": [],
+      "fresh_receipts": [
+        {
+          "file": "crossref-zhang2025softthinking.json",
+          "sha256": "4cf1b02d4b4ad799ea24279b07e0fd24743e83c91427b1991eef9ff46c45bc6c",
+          "method": "publisher-deposited Crossref DOI record"
+        }
+      ],
+      "fresh_metadata": {
+        "title": [
+          "Soft Thinking: Unlocking the Reasoning Potential of LLMs in Continuous Concept Space"
+        ],
+        "author": [
+          {
+            "given": "Zhen",
+            "family": "Zhang",
+            "sequence": "first",
+            "affiliation": [
+              {
+                "name": "Nanjing University"
+              }
+            ],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          },
+          {
+            "given": "Xuehai",
+            "family": "He",
+            "sequence": "additional",
+            "affiliation": [
+              {
+                "name": "University of California, San Diego"
+              }
+            ],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          },
+          {
+            "given": "Weixiang",
+            "family": "Yan",
+            "sequence": "additional",
+            "affiliation": [
+              {
+                "name": "Amazon"
+              }
+            ],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          },
+          {
+            "given": "Ao",
+            "family": "Shen",
+            "sequence": "additional",
+            "affiliation": [
+              {
+                "name": "Purdue University"
+              }
+            ],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          },
+          {
+            "given": "Chenyang",
+            "family": "Zhao",
+            "sequence": "additional",
+            "affiliation": [
+              {
+                "name": "UCLA Computer Science Department, University of California, Los Angeles"
+              }
+            ],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          },
+          {
+            "given": "Xin",
+            "family": "Wang",
+            "sequence": "additional",
+            "affiliation": [
+              {
+                "name": "Tsinghua University"
+              }
+            ],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          }
+        ],
+        "container-title": [
+          "Advances in Neural Information Processing Systems 38"
+        ],
+        "volume": null,
+        "issue": null,
+        "page": "187190-187212",
+        "published": {
+          "date-parts": [
+            [
+              2025
+            ]
+          ]
+        },
+        "publisher": "Neural Information Processing Systems Foundation, Inc. (NeurIPS)",
+        "DOI": "10.52202/085713-5629"
+      },
+      "fresh_result": "Current supplied title, author identities/order, venue, year, DOI, and stated volume/issue/pages match; punctuation/case/initial variants normalized. Specific name/version caveats below.",
+      "review_note": "Proceedings PDF first page verifies the current SIX authors and full name Xin Eric Wang. Portal/Crossref shorten Xin Wang; the arXiv version has EIGHT authors. The entry follows the proceedings version. Publisher-deposited DOI record confirms187190–187212; no author correction needed.",
+      "bib_start_line": 3,
+      "current_entry": "@inproceedings{zhang2025softthinking,\n  author        = {Zhang, Zhen and He, Xuehai and Yan, Weixiang and Shen, Ao and Zhao, Chenyang and Wang, Xin Eric},\n  title         = {{Soft Thinking}: Unlocking the Reasoning Potential of {LLMs} in Continuous Concept Space},\n  booktitle     = {Advances in Neural Information Processing Systems},\n  volume        = {38},\n  pages         = {187190--187212},\n  year          = {2025},\n  doi           = {10.52202/085713-5629},\n  url           = {https://proceedings.neurips.cc/paper_files/paper/2025/hash/f7396d1c54d51416958d63e285377103-Abstract-Conference.html},\n  eprint        = {2505.15778},\n  archivePrefix = {arXiv}\n}"
+    },
+    {
+      "key": "hao2024coconut",
+      "main_tex_lines": [
+        84
+      ],
+      "entry_sha256": "59ae0073eb0f3299477845018824c4ab2b290d3e9bf8a3e3b01aa652382cdce4",
+      "prior_records": [
+        {
+          "receipt": "codex/paper-review-task27/components/theory-citation-ledger.json",
+          "note": {
+            "key": "hao2024coconut",
+            "bib_line": 107,
+            "primary_url": "https://openreview.net/forum?id=Itxz7S4Ip3",
+            "verified": "Accepted Task13 primary COLM2025 publication candidate and exact author/title identity reused.",
+            "unverified_or_optional": "Do not claim a fresh conference-page fetch in this lane.",
+            "claim_scope": "Continuous latent-space reasoning is distinct from a fixed one-soft-slot autonomous map.",
+            "accepted_reuse": true,
+            "paper_lines": [
+              70,
+              244
+            ]
+          }
+        },
+        {
+          "receipt": "codex/paper-review/citation-audit.md",
+          "note": "|`hao2024coconut`|[arXiv2412.06769](https://arxiv.org/abs/2412.06769), first9Dec2024, v4 23Aug2026; [official COLM2025 paper](https://openreview.net/pdf?id=Itxz7S4Ip3), seven authors, title and published-as-COLM header verified.|Matches preprint; optional COLM2025 replacement. OpenReview forum later challenged the browser, but the official PDF was accessible; no invented pages/DOI.|"
+        }
+      ],
+      "primary_urls": [
+        "https://openreview.net/forum?id=Itxz7S4Ip3",
+        "https://arxiv.org/abs/2412.06769",
+        "https://openreview.net/pdf?id=Itxz7S4Ip3"
+      ],
+      "status": "matched checked metadata",
+      "limitations": [],
+      "bib_start_line": 16,
+      "current_entry": "@inproceedings{hao2024coconut,\n  author        = {Hao, Shibo and Sukhbaatar, Sainbayar and Su, DiJia and Li, Xian and Hu, Zhiting and Weston, Jason E.\n                   and Tian, Yuandong},\n  title         = {Training Large Language Models to Reason in a Continuous Latent Space},\n  booktitle     = {Second Conference on Language Modeling},\n  year          = {2025},\n  url           = {https://openreview.net/forum?id=Itxz7S4Ip3},\n  eprint        = {2412.06769},\n  archivePrefix = {arXiv}\n}"
+    },
+    {
+      "key": "geiping2025recurrent",
+      "main_tex_lines": [
+        85,
+        92,
+        1263
+      ],
+      "entry_sha256": "672ccca7c8b29e8d6e497446ed530da445ae04e64c11aca12d39d1d56df19ede",
+      "prior_records": [
+        {
+          "receipt": "codex/paper-review-task27/components/theory-citation-ledger.json",
+          "note": {
+            "key": "geiping2025recurrent",
+            "bib_line": 216,
+            "primary_url": "https://proceedings.nips.cc/paper_files/paper/2025/hash/3b01972cf31e6fa0fe29e4b8b5c2a0a1-Abstract-Conference.html",
+            "verified": "Accepted Task13 candidate verified NeurIPS38,46242–46293,DOI10.52202/085713-1380.",
+            "unverified_or_optional": "Exact primary URL and publication fields reused from the accepted candidate, not newly re-fetched.",
+            "claim_scope": "Training recurrent-depth models is distinct from the present frozen feedback map.",
+            "accepted_reuse": true,
+            "paper_lines": [
+              71,
+              233,
+              1947,
+              1998
+            ]
+          }
+        },
+        {
+          "receipt": "codex/paper-review/citation-audit.md",
+          "note": "|`geiping2025recurrent`|[arXiv2502.05171](https://arxiv.org/abs/2502.05171), v2 17Feb2025; [NeurIPS record](https://proceedings.nips.cc/paper_files/paper/2025/hash/3b01972cf31e6fa0fe29e4b8b5c2a0a1-Abstract-Conference.html), nine authors; DOI10.52202/085713-1380,38:46242–46293(2025).|Matches; optional published version. Its conference record uses Brian Bartoldson; the preprint uses Brian R. Bartoldson. Candidate follows conference metadata.|"
+        }
+      ],
+      "primary_urls": [
+        "https://proceedings.nips.cc/paper_files/paper/2025/hash/3b01972cf31e6fa0fe29e4b8b5c2a0a1-Abstract-Conference.html",
+        "https://arxiv.org/abs/2502.05171"
+      ],
+      "status": "matched checked metadata",
+      "limitations": [],
+      "bib_start_line": 27,
+      "current_entry": "@inproceedings{geiping2025recurrent,\n  author    = {Geiping, Jonas and McLeish, Sean and Jain, Neel and others},\n  title     = {Scaling up Test-Time Compute with Latent Reasoning: A Recurrent Depth Approach},\n  booktitle = {Advances in Neural Information Processing Systems},\n  volume    = {38},\n  pages     = {46242--46293},\n  year      = {2025},\n  doi       = {10.52202/085713-1380},\n  url       = {https://proceedings.neurips.cc/paper_files/paper/2025/hash/3b01972cf31e6fa0fe29e4b8b5c2a0a1-Abstract-Conference.html}\n}"
+    },
+    {
+      "key": "dehghani2019universal",
+      "main_tex_lines": [
+        92
+      ],
+      "entry_sha256": "14ef851b6412e417912fd56f712c0f277cbf76e0a364bcdf0eb96b600207997e",
+      "prior_records": [
+        {
+          "receipt": "codex/presubmit-task37/citation-sources.json",
+          "note": {
+            "key": "dehghani2019universal",
+            "urls": [
+              "https://arxiv.org/abs/1807.03819",
+              "https://arxiv.org/pdf/1807.03819v3",
+              "https://arxiv.org/html/1807.03819v3"
+            ],
+            "arxiv_version": "1807.03819v3",
+            "version_date": "2019-03-05",
+            "publication_status": "ICLR 2019; confirmed in primary PDF first-page publication header",
+            "fields_checked": [
+              "authors",
+              "title",
+              "year",
+              "venue",
+              "arxiv_id"
+            ],
+            "result": "match"
+          }
+        }
+      ],
+      "primary_urls": [
+        "https://arxiv.org/abs/1807.03819",
+        "https://arxiv.org/pdf/1807.03819v3",
+        "https://arxiv.org/html/1807.03819v3"
+      ],
+      "status": "matched checked metadata",
+      "limitations": [],
+      "bib_start_line": 826,
+      "current_entry": "@inproceedings{dehghani2019universal,\n  author        = {Dehghani, Mostafa and Gouws, Stephan and Vinyals, Oriol and Uszkoreit, Jakob and Kaiser, {\\L}ukasz},\n  title         = {{Universal Transformers}},\n  booktitle     = {The Seventh International Conference on Learning Representations},\n  year          = {2019},\n  url           = {https://arxiv.org/abs/1807.03819},\n  eprint        = {1807.03819},\n  archivePrefix = {arXiv}\n}"
+    },
+    {
+      "key": "giannou2023looped",
+      "main_tex_lines": [
+        92
+      ],
+      "entry_sha256": "9ffde78071fe506bdaaf96b0a07cd25e63e40834b8a6e8513f41f1b634ae042e",
+      "prior_records": [
+        {
+          "receipt": "codex/presubmit-task37/citation-sources.json",
+          "note": {
+            "key": "giannou2023looped",
+            "urls": [
+              "https://proceedings.mlr.press/v202/giannou23a.html",
+              "https://proceedings.mlr.press/v202/giannou23a/giannou23a.pdf",
+              "https://arxiv.org/abs/2301.13196"
+            ],
+            "arxiv_version": "2301.13196v1",
+            "version_date": "2023-01-30",
+            "publication_status": "ICML 2023, PMLR 202:11398-11442",
+            "fields_checked": [
+              "authors",
+              "title",
+              "year",
+              "venue",
+              "volume",
+              "pages",
+              "arxiv_id"
+            ],
+            "result": "match; publisher uses Jy-Yong where manuscript uses Jy-yong"
+          }
+        }
+      ],
+      "primary_urls": [
+        "https://proceedings.mlr.press/v202/giannou23a.html",
+        "https://proceedings.mlr.press/v202/giannou23a/giannou23a.pdf",
+        "https://arxiv.org/abs/2301.13196"
+      ],
+      "status": "matched checked metadata",
+      "limitations": [],
+      "bib_start_line": 836,
+      "current_entry": "@inproceedings{giannou2023looped,\n  author        = {Giannou, Angeliki and Rajput, Shashank and Sohn, Jy-yong and Lee, Kangwook and Lee, Jason D. and Papailiopoulos, Dimitris},\n  title         = {Looped Transformers as Programmable Computers},\n  booktitle     = {Proceedings of the 40th International Conference on Machine Learning},\n  series        = {Proceedings of Machine Learning Research},\n  volume        = {202},\n  pages         = {11398--11442},\n  year          = {2023},\n  publisher     = {PMLR},\n  url           = {https://proceedings.mlr.press/v202/giannou23a.html},\n  eprint        = {2301.13196},\n  archivePrefix = {arXiv}\n}"
+    },
+    {
+      "key": "gallas1993structure",
+      "main_tex_lines": [
+        96,
+        113,
+        1026
+      ],
+      "entry_sha256": "e4e56b99ee8e553c397a9188fbce03678896f7d37862a7929c6a1a03f53400c6",
+      "prior_records": [
+        {
+          "receipt": "codex/paper-review/root-citation-audit.json",
+          "note": {
+            "key": "gallas1993structure",
+            "source": "https://api.crossref.org/works/10.1103/PhysRevLett.70.2714",
+            "method": "publisher-deposited Crossref metadata",
+            "authors": [
+              "Jason A. C. Gallas"
+            ],
+            "title": "Structure of the parameter space of the Hénon map",
+            "venue": [
+              "Physical Review Letters"
+            ],
+            "volume": "70",
+            "issue": "18",
+            "pages_or_article": "2714-2717",
+            "year": 1993,
+            "doi": "10.1103/physrevlett.70.2714",
+            "disposition": "matches stated fields",
+            "response_sha256": "ea2f4fae403c7802eebae88457d1a8d6d4b7d1bcb7f26f4ef7ec7120bbb90f15"
+          }
+        },
+        {
+          "receipt": "codex/postnight-task38/citations-review.md",
+          "note": "| `gallas1993structure`, references.bib:71–80; first shrimp attribution article:96, p6-only:96, report:116 | Jason A. C. Gallas, *Structure of the parameter space of the Hénon map*, Physical Review Letters70(18),2714–2717(1993), DOI10.1103/PhysRevLett.70.2714. [APS original record](https://journals.aps.org/prl/abstract/10.1103/PhysRevLett.70.2714). | Correct and appropriately placed at the first naming of shrimps. The original abstract expressly describes shrimp-shaped isoperiodic domains. The 1993 paper's statement about bimodal topology is conjectural; this citation does not establish an LLM scalar or bimodal reduction. |"
+        }
+      ],
+      "primary_urls": [
+        "https://api.crossref.org/works/10.1103/PhysRevLett.70.2714",
+        "https://journals.aps.org/prl/abstract/10.1103/PhysRevLett.70.2714"
+      ],
+      "status": "matched checked metadata",
+      "limitations": [],
+      "bib_start_line": 71,
+      "current_entry": "@article{gallas1993structure,\n  author  = {Gallas, Jason A. C.},\n  title   = {Structure of the parameter space of the {H}{\\'e}non map},\n  journal = {Physical Review Letters},\n  volume  = {70},\n  number  = {18},\n  pages   = {2714--2717},\n  year    = {1993},\n  doi     = {10.1103/PhysRevLett.70.2714}\n}"
+    },
+    {
+      "key": "li2025quasilyapunov",
+      "main_tex_lines": [
+        98
+      ],
+      "entry_sha256": "550dd93256b5d92398a31a955c2df61a3a0151df9af9ecf67b911dca3d0bf0e7",
+      "prior_records": [
+        {
+          "receipt": "codex/paper-review/citation-audit.md",
+          "note": "|`li2025quasilyapunov`|[arXiv2503.13530v1](https://arxiv.org/abs/2503.13530v1),15Mar2025; Xiaojian Li, Yongkang Leng, Ruiqing Ding, Hangjie Mo, Shanlin Yang.|Matches; add URL/version if desired.|"
+        }
+      ],
+      "primary_urls": [
+        "https://arxiv.org/abs/2503.13530v1"
+      ],
+      "status": "matched checked metadata",
+      "limitations": [],
+      "bib_start_line": 82,
+      "current_entry": "@misc{li2025quasilyapunov,\n  author        = {Li, Xiaojian and Leng, Yongkang and Ding, Ruiqing and Mo, Hangjie and Yang, Shanlin},\n  title         = {Cognitive Activation and Chaotic Dynamics in Large Language Models: A Quasi-{L}yapunov Analysis of\n                   Reasoning Mechanisms},\n  year          = {2025},\n  url           = {https://arxiv.org/abs/2503.13530},\n  eprint        = {2503.13530},\n  archivePrefix = {arXiv}\n}"
+    },
+    {
+      "key": "jaca2026chaos",
+      "main_tex_lines": [
+        98
+      ],
+      "entry_sha256": "702a8ebf6fbe347478591945ba31619f43d05c4aa84e7b8aec273da07478c604",
+      "prior_records": [
+        {
+          "receipt": "codex/paper-review/citation-audit.md",
+          "note": "|`jaca2026chaos`|[arXiv2607.27805v1](https://arxiv.org/abs/2607.27805v1),30Jul2026; Gregorio Jaca, Kristóf Benedek, János Török.|Matches abstract-record author order; do not silently replace it with the differently ordered HTML byline.|"
+        }
+      ],
+      "primary_urls": [
+        "https://arxiv.org/abs/2607.27805v1"
+      ],
+      "status": "matched checked metadata",
+      "limitations": [],
+      "bib_start_line": 92,
+      "current_entry": "@misc{jaca2026chaos,\n  author        = {Jaca, Gregorio and Benedek, Krist{\\'o}f and T{\\\"o}r{\\\"o}k, J{\\'a}nos},\n  title         = {Chaos in reason: How chain-of-thought {LLMs} can look for an answer},\n  year          = {2026},\n  url           = {https://arxiv.org/abs/2607.27805},\n  eprint        = {2607.27805},\n  archivePrefix = {arXiv}\n}"
+    },
+    {
+      "key": "verazuniga2026selffeeding",
+      "main_tex_lines": [
+        98
+      ],
+      "entry_sha256": "db5bd40fabdef32f09eca82d5bb92b1422765361518802f87baa5594e3c7b6d7",
+      "prior_records": [
+        {
+          "receipt": "codex/paper-review-task27/components/theory-citation-ledger.json",
+          "note": {
+            "key": "verazuniga2026selffeeding",
+            "bib_line": 1313,
+            "primary_url": "https://arxiv.org/abs/2608.10986",
+            "verified": "Nicolás Vera Zúñiga,title,arXiv2608.10986,2026.",
+            "unverified_or_optional": "",
+            "claim_scope": "Construction/prior feedback work; distinguish constructed examples from a specific trained-model bifurcation map.",
+            "accepted_reuse": false,
+            "paper_lines": [
+              216
+            ]
+          }
+        }
+      ],
+      "primary_urls": [
+        "https://arxiv.org/abs/2608.10986"
+      ],
+      "status": "matched checked metadata",
+      "limitations": [],
+      "review_note": "Fresh abstract confirms discrete resampled token-ring probe with common-random-number damage spreading. Broad chaos-like sensitivity grouping is reasonable; it is not itself evidence for an autonomous smooth soft-token bifurcation.",
+      "bib_start_line": 101,
+      "current_entry": "@misc{verazuniga2026selffeeding,\n  author = {Vera Z{\\'u}{\\~n}iga, Nicol{\\'a}s},\n  title = {What Iterated Self-Feeding Probes of Language Models Measure, and a test that separates the construction from the model},\n  year = {2026}, eprint = {2608.10986}, archivePrefix = {arXiv},\n  primaryClass = {cs.CL}, url = {https://arxiv.org/abs/2608.10986}\n}"
+    },
+    {
+      "key": "arnold2024phase",
+      "main_tex_lines": [
+        99
+      ],
+      "entry_sha256": "013256b13f852ab356a9799bdb46c253c75c75bef0f4421b12efdeefac0691dd",
+      "prior_records": [
+        {
+          "receipt": "codex/paper-review/citation-audit.md",
+          "note": "|`arnold2024phase`|[arXiv2405.17088v1](https://arxiv.org/abs/2405.17088v1),27May2024; Julian Arnold, Flemming Holtorf, Frank Schäfer, Niels Lörch.|Matches. A later review submission is not publication authority.|"
+        }
+      ],
+      "primary_urls": [
+        "https://arxiv.org/abs/2405.17088v1"
+      ],
+      "status": "matched checked metadata",
+      "limitations": [],
+      "bib_start_line": 108,
+      "current_entry": "@misc{arnold2024phase,\n  author        = {Arnold, Julian and Holtorf, Flemming and Sch{\\\"a}fer, Frank and L{\\\"o}rch, Niels},\n  title         = {Phase Transitions in the Output Distribution of Large Language Models},\n  year          = {2024},\n  url           = {https://arxiv.org/abs/2405.17088},\n  eprint        = {2405.17088},\n  archivePrefix = {arXiv}\n}"
+    },
+    {
+      "key": "nakaishi2024phase",
+      "main_tex_lines": [
+        99
+      ],
+      "entry_sha256": "884d700a5eb62d4226182001e5b9fac7b5d565d0ca0383e52777f5174bc62e0f",
+      "prior_records": [
+        {
+          "receipt": "codex/paper-review/citation-audit.md",
+          "note": "|`nakaishi2024phase`|[arXiv2406.05335](https://arxiv.org/abs/2406.05335), first8Jun2024, currentv3 6Jun2026; Kai Nakaishi, Yoshihiko Nishikawa, Koji Hukushima.|Matches; identify the chosen version.|"
+        }
+      ],
+      "primary_urls": [
+        "https://arxiv.org/abs/2406.05335"
+      ],
+      "status": "matched checked metadata",
+      "limitations": [],
+      "bib_start_line": 117,
+      "current_entry": "@misc{nakaishi2024phase,\n  author        = {Nakaishi, Kai and Nishikawa, Yoshihiko and Hukushima, Koji},\n  title         = {Phase transition in large language models and the criticality of natural languages},\n  year          = {2024},\n  url           = {https://arxiv.org/abs/2406.05335},\n  eprint        = {2406.05335},\n  archivePrefix = {arXiv}\n}"
+    },
+    {
+      "key": "sun2025phase",
+      "main_tex_lines": [
+        99
+      ],
+      "entry_sha256": "080225ea4424fb637a21ff9c5321cb37b6de71e4855a34fef1c78ee83dbc8e21",
+      "prior_records": [
+        {
+          "receipt": "codex/paper-review/citation-audit.md",
+          "note": "|`sun2025phase`|[arXiv2501.16241v1](https://arxiv.org/abs/2501.16241v1),27Jan2025; Youran Sun, Babak Haghighat.|Matches.|"
+        }
+      ],
+      "primary_urls": [
+        "https://arxiv.org/abs/2501.16241v1"
+      ],
+      "status": "matched checked metadata",
+      "limitations": [],
+      "bib_start_line": 126,
+      "current_entry": "@misc{sun2025phase,\n  author        = {Sun, Youran and Haghighat, Babak},\n  title         = {Phase Transitions in Large Language Models and the {$O(N)$} Model},\n  year          = {2025},\n  url           = {https://arxiv.org/abs/2501.16241},\n  eprint        = {2501.16241},\n  archivePrefix = {arXiv}\n}"
+    },
+    {
+      "key": "ruan2026criticality",
+      "main_tex_lines": [
+        99
+      ],
+      "entry_sha256": "74687799e73d597c8cd742b76c662abd8e794dba79bab0a7262e2067232aeb36",
+      "prior_records": [
+        {
+          "receipt": "codex/paper-review/citation-audit.md",
+          "note": "|`ruan2026criticality`|[arXiv2606.06238v1](https://arxiv.org/abs/2606.06238v1),4Jun2026; Huajian Ruan, Jinyang Li, Xingyu Guo, Lingxiao Wang.|Matches; the comment aboutPAI2026 is not used to invent a proceedings citation.|"
+        }
+      ],
+      "primary_urls": [
+        "https://arxiv.org/abs/2606.06238v1"
+      ],
+      "status": "matched checked metadata",
+      "limitations": [],
+      "bib_start_line": 135,
+      "current_entry": "@misc{ruan2026criticality,\n  author        = {Ruan, Huajian and Li, Jinyang and Guo, Xingyu and Wang, Lingxiao},\n  title         = {Generative Criticality in Large Language Model Temperature Scaling},\n  year          = {2026},\n  url           = {https://arxiv.org/abs/2606.06238},\n  eprint        = {2606.06238},\n  archivePrefix = {arXiv}\n}"
+    },
+    {
+      "key": "holtzman2019degeneration",
+      "main_tex_lines": [
+        100
+      ],
+      "entry_sha256": "066eec5e50569613c0a3a77c6bb34d3acdbc181f45c92a23f73fde9e1d64860c",
+      "prior_records": [
+        {
+          "receipt": "codex/paper-review-task27/components/theory-citation-ledger.json",
+          "note": {
+            "key": "holtzman2019degeneration",
+            "bib_line": 296,
+            "primary_url": "https://openreview.net/pdf?id=rygGQyrFvH",
+            "verified": "Primary PDF identifies authors/title/ICLR2020.",
+            "unverified_or_optional": "",
+            "claim_scope": "Generation degeneration/repetition context appropriate; not a source for the new model-specific greedy counts.",
+            "accepted_reuse": false,
+            "paper_lines": [
+              224,
+              1404,
+              2544
+            ]
+          }
+        },
+        {
+          "receipt": "codex/paper-review/citation-audit.md",
+          "note": "|`holtzman2019degeneration`|[arXiv1904.09751](https://arxiv.org/abs/1904.09751), first22Apr2019, v2 14Feb2020; Ari Holtzman, Jan Buys, Li Du, Maxwell Forbes, Yejin Choi.|Matches preprint. ICLR2020 is indicated in primary arXiv metadata; direct OpenReview access hit a challenge, so retain the arXiv entry rather than pretend the venue record was read.|"
+        }
+      ],
+      "primary_urls": [
+        "https://openreview.net/pdf?id=rygGQyrFvH",
+        "https://arxiv.org/abs/1904.09751"
+      ],
+      "status": "matched checked metadata",
+      "limitations": [],
+      "bib_start_line": 144,
+      "current_entry": "@inproceedings{holtzman2019degeneration,\n  author        = {Holtzman, Ari and Buys, Jan and Du, Li and Forbes, Maxwell and Choi, Yejin},\n  title         = {The Curious Case of Neural Text Degeneration},\n  booktitle     = {The Eighth International Conference on Learning Representations},\n  year          = {2020},\n  url           = {https://openreview.net/forum?id=rygGQyrFvH},\n  eprint        = {1904.09751},\n  archivePrefix = {arXiv}\n}"
+    },
+    {
+      "key": "xu2022loop",
+      "main_tex_lines": [
+        100
+      ],
+      "entry_sha256": "5c5608b5ddc65a18aef424db5e436cc656daf1d605d1394fc2ddecba736a3b81",
+      "prior_records": [
+        {
+          "receipt": "codex/paper-review-task27/components/theory-citation-ledger.json",
+          "note": {
+            "key": "xu2022loop",
+            "bib_line": 307,
+            "primary_url": "https://proceedings.neurips.cc/paper_files/paper/2022/hash/148c0aeea1c5da82f4fa86a09d4190da-Abstract-Conference.html",
+            "verified": "Six authors/title,NeurIPS35,2022,DOI10.52202/068431-0223.",
+            "unverified_or_optional": "Added pages3082–3095 not visible in returned primary page.",
+            "claim_scope": "Self-reinforcing repetition attribution appropriate.",
+            "accepted_reuse": false,
+            "paper_lines": [
+              224,
+              1404,
+              2544
+            ]
+          }
+        },
+        {
+          "receipt": "codex/paper-review/citation-audit.md",
+          "note": "|`xu2022loop`|[arXiv2206.02369](https://arxiv.org/abs/2206.02369), first6Jun2022, v2 9Oct2022; [NeurIPS35](https://proceedings.neurips.cc/paper_files/paper/2022/hash/148c0aeea1c5da82f4fa86a09d4190da-Abstract-Conference.html); Jin Xu, Xiaojiang Liu, Jianhao Yan, Deng Cai, Huayang Li, Jian Li.|Matches. Landing confirms venue/year/volume; BibTeX retrieval failed, so page range/DOI not asserted.|"
+        }
+      ],
+      "primary_urls": [
+        "https://proceedings.neurips.cc/paper_files/paper/2022/hash/148c0aeea1c5da82f4fa86a09d4190da-Abstract-Conference.html",
+        "https://arxiv.org/abs/2206.02369",
+        "https://doi.org/10.52202/068431-0223"
+      ],
+      "status": "matched checked metadata",
+      "limitations": [],
+      "fresh_receipts": [
+        {
+          "file": "crossref-xu2022loop.json",
+          "sha256": "e1f00f7fedeeb00e75c9915e40bec29abfc8f8c67216ab2fb560abf2aa3eb855",
+          "method": "publisher-deposited Crossref DOI record"
+        }
+      ],
+      "fresh_metadata": {
+        "title": [
+          "Learning to Break the Loop: Analyzing and Mitigating Repetitions for Neural Text Generation"
+        ],
+        "author": [
+          {
+            "given": "Jin",
+            "family": "Xu",
+            "sequence": "first",
+            "affiliation": [],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          },
+          {
+            "given": "Xiaojiang",
+            "family": "Liu",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          },
+          {
+            "given": "Jianhao",
+            "family": "Yan",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          },
+          {
+            "given": "Deng",
+            "family": "Cai",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          },
+          {
+            "given": "Huayang",
+            "family": "Li",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          },
+          {
+            "given": "Jian",
+            "family": "Li",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          }
+        ],
+        "container-title": [
+          "Advances in Neural Information Processing Systems 35"
+        ],
+        "volume": null,
+        "issue": null,
+        "page": "3082-3095",
+        "published": {
+          "date-parts": [
+            [
+              2022
+            ]
+          ]
+        },
+        "publisher": "Neural Information Processing Systems Foundation, Inc. (NeurIPS)",
+        "DOI": "10.52202/068431-0223"
+      },
+      "fresh_result": "Current supplied title, author identities/order, venue, year, DOI, and stated volume/issue/pages match; punctuation/case/initial variants normalized. Specific name/version caveats below.",
+      "bib_start_line": 154,
+      "current_entry": "@inproceedings{xu2022loop,\n  author        = {Xu, Jin and Liu, Xiaojiang and Yan, Jianhao and Cai, Deng and Li, Huayang and Li, Jian},\n  title         = {Learning to Break the Loop: Analyzing and Mitigating Repetitions for Neural Text Generation},\n  booktitle     = {Advances in Neural Information Processing Systems},\n  volume        = {35},\n  pages         = {3082--3095},\n  year          = {2022},\n  doi           = {10.52202/068431-0223},\n  url           = {https://proceedings.neurips.cc/paper_files/paper/2022/hash/148c0aeea1c5da82f4fa86a09d4190da-Abstract-Conference.html},\n  eprint        = {2206.02369},\n  archivePrefix = {arXiv}\n}"
+    },
+    {
+      "key": "wang2025attractor",
+      "main_tex_lines": [
+        101
+      ],
+      "entry_sha256": "c268833739bc47f8fd00f4a33b556049eec5e35a07e69adb5be488a13ab627a9",
+      "prior_records": [
+        {
+          "receipt": "codex/paper-review-task27/components/theory-citation-ledger.json",
+          "note": {
+            "key": "wang2025attractor",
+            "bib_line": 190,
+            "primary_url": "https://aclanthology.org/2025.acl-long.624/",
+            "verified": "Five authors/title,ACL2025,12740–12755,DOI.",
+            "unverified_or_optional": "",
+            "claim_scope": "Attractor/chaos prior work remains appropriately acknowledged; paper-specific objects need their own evidence.",
+            "accepted_reuse": false,
+            "paper_lines": [
+              94,
+              225
+            ]
+          }
+        },
+        {
+          "receipt": "codex/paper-review/citation-audit.md",
+          "note": "|`wang2025attractor`|[arXiv2502.15208](https://arxiv.org/abs/2502.15208), first21Feb2025, v2 16May2025; Zhilin Wang, Yafu Li, Jianhao Yan, Yu Cheng, Yue Zhang.|Matches.|"
+        }
+      ],
+      "primary_urls": [
+        "https://aclanthology.org/2025.acl-long.624/",
+        "https://arxiv.org/abs/2502.15208"
+      ],
+      "status": "matched checked metadata",
+      "limitations": [],
+      "bib_start_line": 167,
+      "current_entry": "@inproceedings{wang2025attractor,\n  author        = {Wang, Zhilin and Li, Yafu and Yan, Jianhao and Cheng, Yu and Zhang, Yue},\n  title         = {Unveiling Attractor Cycles in Large Language Models: A Dynamical Systems View of Successive\n                   Paraphrasing},\n  booktitle     = {Proceedings of the 63rd Annual Meeting of the Association for Computational Linguistics (Volume 1:\n                   Long Papers)},\n  pages         = {12740--12755},\n  year          = {2025},\n  publisher     = {Association for Computational Linguistics},\n  doi           = {10.18653/v1/2025.acl-long.624},\n  eprint        = {2502.15208},\n  archivePrefix = {arXiv}\n}"
+    },
+    {
+      "key": "ko2026attractor",
+      "main_tex_lines": [
+        101
+      ],
+      "entry_sha256": "3aa97df6e16cbbbcdd8d0d5cc8e1d1d6278cd3550cdeb36c048a95ce459424f9",
+      "prior_records": [
+        {
+          "receipt": "codex/paper-review-task27/components/theory-citation-ledger.json",
+          "note": {
+            "key": "ko2026attractor",
+            "bib_line": 260,
+            "primary_url": "https://colm.eventhosts.cc/Conferences/2026/AcceptedPapers",
+            "verified": "Official COLM2026 list contains Attractor States Emerge in Multi-Turn LLM Conversations by Ting-Wen Ko and Jonas Geiping.",
+            "unverified_or_optional": "OpenReview umwOiCSh4I was not accessible; accepted-venue status confirmed, not an independently expanded full proceedings record.",
+            "claim_scope": "Multi-turn conversation attractors are prior context, not the same autonomous soft-token map.",
+            "accepted_reuse": false,
+            "paper_lines": [
+              95,
+              226
+            ]
+          }
+        },
+        {
+          "receipt": "codex/paper-review/citation-audit.md",
+          "note": "|`ko2026attractor`|[arXiv2606.30571v1](https://arxiv.org/abs/2606.30571v1),29Jun2026; Ting-Wen Ko, Jonas Geiping.|Matches.|"
+        }
+      ],
+      "primary_urls": [
+        "https://colm.eventhosts.cc/Conferences/2026/AcceptedPapers",
+        "https://arxiv.org/abs/2606.30571v1"
+      ],
+      "status": "matched checked metadata",
+      "limitations": [],
+      "bib_start_line": 181,
+      "current_entry": "@inproceedings{ko2026attractor,\n  author        = {Ko, Ting-Wen and Geiping, Jonas},\n  title         = {Attractor States Emerge in Multi-Turn {LLM} Conversations},\n  booktitle     = {Third Conference on Language Modeling},\n  year          = {2026},\n  url           = {https://openreview.net/forum?id=umwOiCSh4I},\n  eprint        = {2606.30571},\n  archivePrefix = {arXiv}\n}"
+    },
+    {
+      "key": "johnson2026temperature",
+      "main_tex_lines": [
+        102
+      ],
+      "entry_sha256": "44b8fb59ef45db9e879affd27b0bd65dc9ae2d0b8f5e88d0be8127129693fcf1",
+      "prior_records": [
+        {
+          "receipt": "codex/paper-review/citation-audit.md",
+          "note": "|`johnson2026temperature`|[arXiv2608.00939v1](https://arxiv.org/abs/2608.00939v1),2Aug2026; Neil F. Johnson, Frank Yingjie Huo, Bella Xinrui Li.|Matches.|"
+        }
+      ],
+      "primary_urls": [
+        "https://arxiv.org/abs/2608.00939v1"
+      ],
+      "status": "matched checked metadata",
+      "limitations": [],
+      "bib_start_line": 191,
+      "current_entry": "@misc{johnson2026temperature,\n  author        = {Johnson, Neil F. and Huo, Frank Yingjie and Li, Bella Xinrui},\n  title         = {Temperature-driven inversion and nonlinear dynamics in {ChatGPT}-like {AIs}},\n  year          = {2026},\n  url           = {https://arxiv.org/abs/2608.00939},\n  eprint        = {2608.00939},\n  archivePrefix = {arXiv}\n}"
+    },
+    {
+      "key": "bai2019deq",
+      "main_tex_lines": [
+        105
+      ],
+      "entry_sha256": "fbe1785f2136f6dab7a5474edb5b441fa7e5a4380128d33786ddcbaa0de6528c",
+      "prior_records": [
+        {
+          "receipt": "codex/paper-review-task27/components/theory-citation-ledger.json",
+          "note": {
+            "key": "bai2019deq",
+            "bib_line": 271,
+            "primary_url": "https://proceedings.neurips.cc/paper_files/paper/2019/hash/01386bd6d8e091c2ab4c7c7de644d37b-Abstract.html",
+            "verified": "Authors/title,NeurIPS32,2019.",
+            "unverified_or_optional": "Added pages690–701 not independently visible in retrieved primary landing text.",
+            "claim_scope": "Equilibrium/fixed-point model scope appropriate.",
+            "accepted_reuse": false,
+            "paper_lines": [
+              96,
+              233
+            ]
+          }
+        },
+        {
+          "receipt": "codex/paper-review/citation-audit.md",
+          "note": "|`bai2019deq`|[arXiv1909.01377](https://arxiv.org/abs/1909.01377), first3Sep2019, v2 28Oct2019; [NeurIPS32](https://proceedings.neurips.cc/paper_files/paper/2019/hash/01386bd6d8e091c2ab4c7c7de644d37b-Abstract.html); Shaojie Bai, J. Zico Kolter, Vladlen Koltun.|Matches. Official landing confirms volume32 but no page range/DOI was exposed; its BibTeX link failed. No unsupported pagination proposed.|"
+        }
+      ],
+      "primary_urls": [
+        "https://proceedings.neurips.cc/paper_files/paper/2019/hash/01386bd6d8e091c2ab4c7c7de644d37b-Abstract.html",
+        "https://arxiv.org/abs/1909.01377",
+        "https://proceedings.neurips.cc/paper_files/paper/2019/file/01386bd6d8e091c2ab4c7c7de644d37b-Bibtex.bib",
+        "https://www.proceedings.com/content/053/053719webtoc.pdf"
+      ],
+      "status": "matched checked metadata",
+      "limitations": [
+        "Printed ending page701 is inferred from the publisher start690 plus12-page official PDF, rather than printed explicitly in the online citation."
+      ],
+      "review_note": "Official BibTeX matches authors/title/venue32/year2019 but omits pages. Printed publisher TOC p4 starts DEQ at690, next paper702; the official paper is12 pages. Thus690–701 is consistent with the print edition (last page inferred from start+length), not a false correction to688–699 from secondary databases.",
+      "bib_start_line": 200,
+      "current_entry": "@inproceedings{bai2019deq,\n  author        = {Bai, Shaojie and Kolter, J. Zico and Koltun, Vladlen},\n  title         = {Deep Equilibrium Models},\n  booktitle     = {Advances in Neural Information Processing Systems},\n  volume        = {32},\n  pages         = {690--701},\n  year          = {2019},\n  url           = {https://proceedings.neurips.cc/paper_files/paper/2019/hash/01386bd6d8e091c2ab4c7c7de644d37b-Abstract.html},\n  eprint        = {1909.01377},\n  archivePrefix = {arXiv}\n}"
+    },
+    {
+      "key": "bai2021stabilizing",
+      "main_tex_lines": [
+        105
+      ],
+      "entry_sha256": "d0c715d103431147524428c907382ef67c5d0854abc215e2c01480706861b44e",
+      "prior_records": [
+        {
+          "receipt": "codex/paper-review-task27/components/theory-citation-ledger.json",
+          "note": {
+            "key": "bai2021stabilizing",
+            "bib_line": 284,
+            "primary_url": "https://proceedings.mlr.press/v139/bai21b.html",
+            "verified": "Accepted Task13 PMLR139,554–565 publication candidate reused.",
+            "unverified_or_optional": "",
+            "claim_scope": "Stability/regularization of equilibrium models; no new claim beyond accepted scope.",
+            "accepted_reuse": true,
+            "paper_lines": [
+              96,
+              233
+            ]
+          }
+        },
+        {
+          "receipt": "codex/paper-review/citation-audit.md",
+          "note": "|`bai2021stabilizing`|[arXiv2106.14342v1](https://arxiv.org/abs/2106.14342v1),28Jun2021; [PMLR139:554–565](https://proceedings.mlr.press/v139/bai21b.html), ICML2021; Shaojie Bai, Vladlen Koltun, Zico Kolter.|Matches; publication author/order/title/pages/year verified.|"
+        }
+      ],
+      "primary_urls": [
+        "https://proceedings.mlr.press/v139/bai21b.html",
+        "https://arxiv.org/abs/2106.14342v1"
+      ],
+      "status": "matched checked metadata",
+      "limitations": [],
+      "bib_start_line": 212,
+      "current_entry": "@inproceedings{bai2021stabilizing,\n  author    = {Bai, Shaojie and Koltun, Vladlen and Kolter, J. Zico},\n  title     = {Stabilizing Equilibrium Models by {J}acobian Regularization},\n  booktitle = {Proceedings of the 38th International Conference on Machine Learning},\n  series    = {Proceedings of Machine Learning Research},\n  volume    = {139},\n  pages     = {554--565},\n  year      = {2021},\n  publisher = {PMLR},\n  url       = {https://proceedings.mlr.press/v139/bai21b.html}\n}"
+    },
+    {
+      "key": "tomihari2025recurrent",
+      "main_tex_lines": [
+        105
+      ],
+      "entry_sha256": "103eb3356b7f309f79f427d5ef471842394f66c934eacd47263208bc40f384c0",
+      "prior_records": [
+        {
+          "receipt": "codex/paper-review-task27/components/theory-citation-ledger.json",
+          "note": {
+            "key": "tomihari2025recurrent",
+            "bib_line": 205,
+            "primary_url": "https://proceedings.neurips.cc/paper_files/paper/2025/hash/cca569b38ec3612904e625dad7a743dc-Abstract-Conference.html",
+            "verified": "Accepted Task13 candidate verified NeurIPS38,155236–155269,DOI10.52202/085713-4675.",
+            "unverified_or_optional": "Exact primary URL and publication fields reused from the accepted candidate, not newly re-fetched.",
+            "claim_scope": "Recurrent-depth stability prior work reused.",
+            "accepted_reuse": true,
+            "paper_lines": [
+              96,
+              233
+            ]
+          }
+        },
+        {
+          "receipt": "codex/paper-review/citation-audit.md",
+          "note": "|`tomihari2025recurrent`|[arXiv2505.19458](https://arxiv.org/abs/2505.19458), v4 5Nov2025; [NeurIPS record](https://proceedings.neurips.cc/paper_files/paper/2025/hash/cca569b38ec3612904e625dad7a743dc-Abstract-Conference.html), Akiyoshi Tomihari and Ryo Karakida; DOI10.52202/085713-4675,38:155236–155269(2025).|Matches; publication metadata also checked with publisher-deposited Crossref, saved separately.|"
+        }
+      ],
+      "primary_urls": [
+        "https://proceedings.neurips.cc/paper_files/paper/2025/hash/cca569b38ec3612904e625dad7a743dc-Abstract-Conference.html",
+        "https://arxiv.org/abs/2505.19458"
+      ],
+      "status": "matched checked metadata",
+      "limitations": [],
+      "bib_start_line": 224,
+      "current_entry": "@inproceedings{tomihari2025recurrent,\n  author    = {Tomihari, Akiyoshi and Karakida, Ryo},\n  title     = {Recurrent Self-Attention Dynamics: An Energy-Agnostic Perspective from {J}acobians},\n  booktitle = {Advances in Neural Information Processing Systems},\n  volume    = {38},\n  pages     = {155236--155269},\n  year      = {2025},\n  doi       = {10.52202/085713-4675},\n  url       = {https://proceedings.neurips.cc/paper_files/paper/2025/hash/cca569b38ec3612904e625dad7a743dc-Abstract-Conference.html}\n}"
+    },
+    {
+      "key": "yang2026stars",
+      "main_tex_lines": [
+        105
+      ],
+      "entry_sha256": "daeacf4b6381739283ab849acdcf0db37eede31faaeebe3e562ccf4fa3c3dddc",
+      "prior_records": [
+        {
+          "receipt": "codex/paper-review-task27/components/theory-citation-ledger.json",
+          "note": {
+            "key": "yang2026stars",
+            "bib_line": 237,
+            "primary_url": "https://proceedings.mlr.press/v306/yang26t.html",
+            "verified": "Accepted Task13 candidate verified all authors/PMLR306,144670–144682,2026.",
+            "unverified_or_optional": "Exact primary URL and publication fields reused from the accepted candidate, not newly re-fetched.",
+            "claim_scope": "Attribution carried forward from accepted source review.",
+            "accepted_reuse": true,
+            "paper_lines": [
+              96,
+              233,
+              1962
+            ]
+          }
+        },
+        {
+          "receipt": "codex/paper-review/citation-audit.md",
+          "note": "|`yang2026stars`|[arXiv2605.26733v1](https://arxiv.org/abs/2605.26733v1),26May2026; [PMLR306](https://proceedings.mlr.press/v306/yang26t.html),144670–144682, ICML2026; seven authors Xiao-Wen Yang through Yu-Feng Li.|Matches; complete publication entry available. PMLR page supplies no DOI.|"
+        }
+      ],
+      "primary_urls": [
+        "https://proceedings.mlr.press/v306/yang26t.html",
+        "https://arxiv.org/abs/2605.26733v1"
+      ],
+      "status": "matched checked metadata",
+      "limitations": [],
+      "bib_start_line": 235,
+      "current_entry": "@inproceedings{yang2026stars,\n  author    = {Yang, Xiao-Wen and Han, Ziyu and Zhang, Xi-Hua and Wei, Wen-Da and Shao, Jie-Jing and Guo, Lan-Zhe and\n               Li, Yu-Feng},\n  title     = {Stabilizing Recurrent Dynamics for Test-Time Scalable Latent Reasoning in Looped Language Models},\n  booktitle = {Proceedings of the 43rd International Conference on Machine Learning},\n  series    = {Proceedings of Machine Learning Research},\n  volume    = {306},\n  pages     = {144670--144682},\n  year      = {2026},\n  publisher = {PMLR},\n  url       = {https://proceedings.mlr.press/v306/yang26t.html}\n}"
+    },
+    {
+      "key": "luo2026prediction",
+      "main_tex_lines": [
+        105
+      ],
+      "entry_sha256": "be82c0c9fcf9f1d2a1a5d5ab6e91ea0334c00bf3717002774cf426e73344d866",
+      "prior_records": [
+        {
+          "receipt": "codex/paper-review/citation-audit.md",
+          "note": "|`luo2026prediction`|[arXiv2609.21383v1](https://arxiv.org/abs/2609.21383v1),18Sep2026; Xinyue Luo, Fei Yu.|Matches.|"
+        }
+      ],
+      "primary_urls": [
+        "https://arxiv.org/abs/2609.21383v1"
+      ],
+      "status": "matched checked metadata",
+      "limitations": [],
+      "bib_start_line": 248,
+      "current_entry": "@misc{luo2026prediction,\n  author        = {Luo, Xinyue and Yu, Fei},\n  title         = {Prediction Dynamics in Depth-Recurrent Language Models},\n  year          = {2026},\n  url           = {https://arxiv.org/abs/2609.21383},\n  eprint        = {2609.21383},\n  archivePrefix = {arXiv}\n}"
+    },
+    {
+      "key": "zeng2025ponderlm",
+      "main_tex_lines": [
+        106
+      ],
+      "entry_sha256": "0872f5457d2f89250102b111bd46cdd228f154a2411374ed1cf8f62a364dbc75",
+      "prior_records": [
+        {
+          "receipt": "codex/paper-review-task27/components/theory-citation-ledger.json",
+          "note": {
+            "key": "zeng2025ponderlm",
+            "bib_line": 95,
+            "primary_url": "https://proceedings.iclr.cc/paper_files/paper/2026/hash/94572a66c6b0710c5263f15d8ef6b463-Abstract-Conference.html",
+            "verified": "Author/title/ICLR2026 update reused from accepted Task13 bibliography-candidates.bib.",
+            "unverified_or_optional": "New pages91874–91893 not independently confirmed in this pass; venue and primary URL are reused from the exact accepted candidate.",
+            "claim_scope": "No new theoretical attribution problem identified.",
+            "accepted_reuse": true,
+            "paper_lines": [
+              98,
+              243
+            ]
+          }
+        },
+        {
+          "receipt": "codex/paper-review/citation-audit.md",
+          "note": "|`zeng2025ponderlm`|[arXiv2505.20674](https://arxiv.org/abs/2505.20674), first27May2025, v3 20Feb2026; [ICLR2026 proceedings](https://proceedings.iclr.cc/paper_files/paper/2026/hash/94572a66c6b0710c5263f15d8ef6b463-Abstract-Conference.html), nine authors beginning Boyi Zeng, Shixiang Song, Siyuan Huang.|Matches preprint; optional2026 conference replacement. No DOI/pages supplied on the inspected ICLR record.|"
+        }
+      ],
+      "primary_urls": [
+        "https://proceedings.iclr.cc/paper_files/paper/2026/hash/94572a66c6b0710c5263f15d8ef6b463-Abstract-Conference.html",
+        "https://arxiv.org/abs/2505.20674",
+        "https://proceedings.iclr.cc/paper_files/paper/2026/file/94572a66c6b0710c5263f15d8ef6b463-Bibtex-Conference.bib"
+      ],
+      "status": "matched checked metadata",
+      "limitations": [],
+      "review_note": "Official downloadable BibTeX closes prior pagination gap:91874–91893,ICLR2026. Current three named authors plus others match.",
+      "bib_start_line": 257,
+      "current_entry": "@inproceedings{zeng2025ponderlm,\n  author        = {Zeng, Boyi and Song, Shixiang and Huang, Siyuan and others},\n  title         = {{PonderLM}: Pretraining Language Models to Ponder in Continuous Space},\n  booktitle     = {The Fourteenth International Conference on Learning Representations},\n  pages         = {91874--91893},\n  year          = {2026},\n  url           = {https://proceedings.iclr.cc/paper_files/paper/2026/hash/94572a66c6b0710c5263f15d8ef6b463-Abstract-Conference.html},\n  eprint        = {2505.20674},\n  archivePrefix = {arXiv}\n}"
+    },
+    {
+      "key": "kim2026phase",
+      "main_tex_lines": [
+        109,
+        792
+      ],
+      "entry_sha256": "29251d830fbdf5d9d7ec683205e9d2c9b98830676699c1f4e1017371695631e5",
+      "prior_records": [
+        {
+          "receipt": "codex/paper-review/citation-audit.md",
+          "note": "|`kim2026phase`|[arXiv2608.26556v1](https://arxiv.org/abs/2608.26556v1),27Aug2026, Gunn Kim; DOI10.48550/arXiv.2608.26556.|Matches explicit version. Earlier Task3 full-text review supports the deliberately scoped prior-work discussion.|"
+        }
+      ],
+      "primary_urls": [
+        "https://arxiv.org/abs/2608.26556v1"
+      ],
+      "status": "matched checked metadata",
+      "limitations": [],
+      "bib_start_line": 268,
+      "current_entry": "@misc{kim2026phase,\n  author        = {Kim, Gunn},\n  title         = {Dynamical phase selection controls compute scaling in looped transformers},\n  year          = {2026},\n  url           = {https://arxiv.org/abs/2608.26556},\n  note          = {Version 1, 27 August 2026},\n  eprint        = {2608.26556},\n  archivePrefix = {arXiv},\n  primaryClass  = {cond-mat.dis-nn},\n  doi           = {10.48550/arXiv.2608.26556}\n}"
+    },
+    {
+      "key": "sompolinsky1988chaos",
+      "main_tex_lines": [
+        111
+      ],
+      "entry_sha256": "fc1a5044d33ee8b09b475a8dc8842609c0c1e09255642aaa07335bf8028c5ce9",
+      "prior_records": [
+        {
+          "receipt": "codex/paper-review-task27/components/theory-citation-ledger.json",
+          "note": {
+            "key": "sompolinsky1988chaos",
+            "bib_line": 975,
+            "primary_url": "https://journals.aps.org/prl/abstract/10.1103/PhysRevLett.61.259",
+            "verified": "Three authors/title, PRL61(3),firstpage259,1988,DOI.",
+            "unverified_or_optional": "Lastpage262 was not independently visible in retrieved landing text.",
+            "claim_scope": "Continuous-time random-network mean-field transition; not itself a trained-LLM discrete-map result.",
+            "accepted_reuse": false,
+            "paper_lines": [
+              106,
+              2331
+            ]
+          }
+        }
+      ],
+      "primary_urls": [
+        "https://journals.aps.org/prl/abstract/10.1103/PhysRevLett.61.259",
+        "https://doi.org/10.1103/physrevlett.61.259"
+      ],
+      "status": "matched checked metadata",
+      "limitations": [],
+      "fresh_receipts": [
+        {
+          "file": "crossref-sompolinsky1988chaos.json",
+          "sha256": "df9c33c1d82925ec5f5f647b11e0d70bfc6c1355c0a6612c6882e23b5ccfbe93",
+          "method": "publisher-deposited Crossref DOI record"
+        }
+      ],
+      "fresh_metadata": {
+        "title": [
+          "Chaos in Random Neural Networks"
+        ],
+        "author": [
+          {
+            "given": "H.",
+            "family": "Sompolinsky",
+            "sequence": "first",
+            "affiliation": [],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          },
+          {
+            "given": "A.",
+            "family": "Crisanti",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          },
+          {
+            "given": "H. J.",
+            "family": "Sommers",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          }
+        ],
+        "container-title": [
+          "Physical Review Letters"
+        ],
+        "volume": "61",
+        "issue": "3",
+        "page": "259-262",
+        "published": {
+          "date-parts": [
+            [
+              1988,
+              7,
+              18
+            ]
+          ]
+        },
+        "publisher": "American Physical Society (APS)",
+        "DOI": "10.1103/physrevlett.61.259"
+      },
+      "fresh_result": "Current supplied title, author identities/order, venue, year, DOI, and stated volume/issue/pages match; punctuation/case/initial variants normalized. Specific name/version caveats below.",
+      "bib_start_line": 38,
+      "current_entry": "@article{sompolinsky1988chaos,\n  author  = {Sompolinsky, H. and Crisanti, A. and Sommers, H. J.},\n  title   = {Chaos in Random Neural Networks},\n  journal = {Physical Review Letters},\n  volume  = {61},\n  number  = {3},\n  pages   = {259--262},\n  year    = {1988},\n  doi     = {10.1103/PhysRevLett.61.259}\n}"
+    },
+    {
+      "key": "doyon1994bifurcations",
+      "main_tex_lines": [
+        111
+      ],
+      "entry_sha256": "87a3472b2e97a4bb3aa1cd248696840ba246abc98697e73d24ea8c64ad82bbcc",
+      "prior_records": [
+        {
+          "receipt": "codex/paper-review-task27/components/theory-citation-ledger.json",
+          "note": {
+            "key": "doyon1994bifurcations",
+            "bib_line": 964,
+            "primary_url": "https://link.springer.com/article/10.1007/BF00709492",
+            "verified": "Authors/title, Acta Biotheoretica42,215–225,1994 and DOI.",
+            "unverified_or_optional": "Issue subdivision2–3 not separately visible in the returned primary record.",
+            "claim_scope": "The reported large random-network route is an ensemble/model result; avoid universal first-bifurcation claims for arbitrary trained networks.",
+            "accepted_reuse": false,
+            "paper_lines": [
+              106,
+              2336
+            ]
+          }
+        }
+      ],
+      "primary_urls": [
+        "https://link.springer.com/article/10.1007/BF00709492",
+        "https://doi.org/10.1007/bf00709492"
+      ],
+      "status": "matched checked metadata",
+      "limitations": [],
+      "fresh_receipts": [
+        {
+          "file": "crossref-doyon1994bifurcations.json",
+          "sha256": "0a8255bf7fdbf990f1c1c36581006b6e5aa33eb7a398eee9972eb8e7d2151c3e",
+          "method": "publisher-deposited Crossref DOI record"
+        }
+      ],
+      "fresh_metadata": {
+        "title": [
+          "On bifurcations and chaos in random neural networks"
+        ],
+        "author": [
+          {
+            "given": "B.",
+            "family": "Doyon",
+            "sequence": "first",
+            "affiliation": [],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          },
+          {
+            "given": "B.",
+            "family": "Cessac",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          },
+          {
+            "given": "M.",
+            "family": "Quoy",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          },
+          {
+            "given": "M.",
+            "family": "Samuelides",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          }
+        ],
+        "container-title": [
+          "Acta Biotheoretica"
+        ],
+        "volume": "42",
+        "issue": "2-3",
+        "page": "215-225",
+        "published": {
+          "date-parts": [
+            [
+              1994,
+              9
+            ]
+          ]
+        },
+        "publisher": "Springer Science and Business Media LLC",
+        "DOI": "10.1007/bf00709492"
+      },
+      "fresh_result": "Current supplied title, author identities/order, venue, year, DOI, and stated volume/issue/pages match; punctuation/case/initial variants normalized. Specific name/version caveats below.",
+      "bib_start_line": 49,
+      "current_entry": "@article{doyon1994bifurcations,\n  author  = {Doyon, B. and Cessac, B. and Quoy, M. and Samuelides, M.},\n  title   = {On bifurcations and chaos in random neural networks},\n  journal = {Acta Biotheoretica},\n  volume  = {42},\n  number  = {2--3},\n  pages   = {215--225},\n  year    = {1994},\n  doi     = {10.1007/BF00709492}\n}"
+    },
+    {
+      "key": "feigenbaum1978quantitative",
+      "main_tex_lines": [
+        113
+      ],
+      "entry_sha256": "45fccb6b31fd183a949aa90b8f06b2ece8bf1552863a8c4d7b5da40d7bfe72a7",
+      "prior_records": [
+        {
+          "receipt": "codex/paper-review/root-citation-audit.json",
+          "note": {
+            "key": "feigenbaum1978quantitative",
+            "source": "https://api.crossref.org/works/10.1007/BF01020332",
+            "method": "publisher-deposited Crossref metadata",
+            "authors": [
+              "Mitchell J. Feigenbaum"
+            ],
+            "title": "Quantitative universality for a class of nonlinear transformations",
+            "venue": [
+              "Journal of Statistical Physics"
+            ],
+            "volume": "19",
+            "issue": "1",
+            "pages_or_article": "25-52",
+            "year": 1978,
+            "doi": "10.1007/bf01020332",
+            "disposition": "matches stated fields",
+            "response_sha256": "93937d7db976777febc2df3e8a2de6c6e5dbc21985141e7a9aa354d5fb43b0bc"
+          }
+        }
+      ],
+      "primary_urls": [
+        "https://api.crossref.org/works/10.1007/BF01020332"
+      ],
+      "status": "matched checked metadata",
+      "limitations": [],
+      "bib_start_line": 60,
+      "current_entry": "@article{feigenbaum1978quantitative,\n  author  = {Feigenbaum, Mitchell J.},\n  title   = {Quantitative universality for a class of nonlinear transformations},\n  journal = {Journal of Statistical Physics},\n  volume  = {19},\n  number  = {1},\n  pages   = {25--52},\n  year    = {1978},\n  doi     = {10.1007/BF01020332}\n}"
+    },
+    {
+      "key": "oseledets1968multiplicative",
+      "main_tex_lines": [
+        210
+      ],
+      "entry_sha256": "d2bef13b5924ffa68715dcfe7f6603ed6a2f82c16c987b12d19f99bafbd471c6",
+      "prior_records": [
+        {
+          "receipt": "codex/paper-review-task27/components/theory-citation-ledger.json",
+          "note": {
+            "key": "oseledets1968multiplicative",
+            "bib_line": 1214,
+            "primary_url": "https://www.mathnet.ru/php/archive.phtml?jrnid=mmo&option_lang=eng&paperid=214&wshow=paper",
+            "verified": "Original author/title,1968vol19; Russian179–210 and English197–231 are different editions.",
+            "unverified_or_optional": "",
+            "claim_scope": "Theorem concerns asymptotic multiplicative ergodic limits under hypotheses; it does not turn finite QR estimates into exact dimensions.",
+            "accepted_reuse": false,
+            "paper_lines": [
+              554
+            ]
+          }
+        }
+      ],
+      "primary_urls": [
+        "https://www.mathnet.ru/php/archive.phtml?jrnid=mmo&option_lang=eng&paperid=214&wshow=paper"
+      ],
+      "status": "matched checked metadata",
+      "limitations": [],
+      "bib_start_line": 572,
+      "current_entry": "@article{oseledets1968multiplicative,\n  author  = {Oseledets, V. I.},\n  title   = {A Multiplicative Ergodic Theorem. {L}yapunov Characteristic Numbers for Dynamical Systems},\n  journal = {Transactions of the Moscow Mathematical Society},\n  volume  = {19},\n  pages   = {197--231},\n  year    = {1968},\n  note    = {{English} translation of Trudy Moskovskogo Matematicheskogo Obshchestva 19 (1968) 179--210; Zbl 0236.93034}\n}"
+    },
+    {
+      "key": "eckmann1985ergodic",
+      "main_tex_lines": [
+        210
+      ],
+      "entry_sha256": "e0ab8d1dc0a11f54f358709fb02555b0bd028d45c5e2539d34550eb5eefc2ab8",
+      "prior_records": [],
+      "primary_urls": [
+        "https://doi.org/10.1103/revmodphys.57.617"
+      ],
+      "status": "matched checked metadata",
+      "limitations": [],
+      "fresh_receipts": [
+        {
+          "file": "crossref-eckmann1985ergodic.json",
+          "sha256": "e37425676931c8fee7cb7d54dff7a2dcf14124d05f5a64e1e1facc08427209fb",
+          "method": "publisher-deposited Crossref DOI record"
+        }
+      ],
+      "fresh_metadata": {
+        "title": [
+          "Ergodic theory of chaos and strange attractors"
+        ],
+        "author": [
+          {
+            "given": "J. -P.",
+            "family": "Eckmann",
+            "sequence": "first",
+            "affiliation": [],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          },
+          {
+            "given": "D.",
+            "family": "Ruelle",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          }
+        ],
+        "container-title": [
+          "Reviews of Modern Physics"
+        ],
+        "volume": "57",
+        "issue": "3",
+        "page": "617-656",
+        "published": {
+          "date-parts": [
+            [
+              1985,
+              7,
+              1
+            ]
+          ]
+        },
+        "publisher": "American Physical Society (APS)",
+        "DOI": "10.1103/revmodphys.57.617"
+      },
+      "fresh_result": "Current supplied title, author identities/order, venue, year, DOI, and stated volume/issue/pages match; punctuation/case/initial variants normalized. Specific name/version caveats below.",
+      "bib_start_line": 582,
+      "current_entry": "@article{eckmann1985ergodic,\n  author  = {Eckmann, J.-P. and Ruelle, D.},\n  title   = {Ergodic theory of chaos and strange attractors},\n  journal = {Reviews of Modern Physics},\n  volume  = {57},\n  number  = {3},\n  pages   = {617--656},\n  year    = {1985},\n  doi     = {10.1103/RevModPhys.57.617}\n}"
+    },
+    {
+      "key": "wainwright2008graphical",
+      "main_tex_lines": [
+        232
+      ],
+      "entry_sha256": "c6a5d67b54f5ac9e97df780928fbdeb00aa97b17d81131abc384d3ff185929d4",
+      "prior_records": [
+        {
+          "receipt": "codex/presubmit-task37/citation-sources.json",
+          "note": {
+            "key": "wainwright2008graphical",
+            "urls": [
+              "https://doi.org/10.1561/2200000001",
+              "https://www.emerald.com/ftmal/article-abstract/1/1-2/1/1332382/Graphical-Models-Exponential-Families-and?redirectedFrom=fulltext"
+            ],
+            "publication_status": "Foundations and Trends in Machine Learning 1(1-2):1-305, 2008-12-18",
+            "doi": "10.1561/2200000001",
+            "fields_checked": [
+              "authors",
+              "title",
+              "year",
+              "journal",
+              "volume",
+              "issue",
+              "pages",
+              "doi"
+            ],
+            "result": "match; full body access-limited, all metadata accessible"
+          }
+        }
+      ],
+      "primary_urls": [
+        "https://doi.org/10.1561/2200000001",
+        "https://www.emerald.com/ftmal/article-abstract/1/1-2/1/1332382/Graphical-Models-Exponential-Families-and?redirectedFrom=fulltext"
+      ],
+      "status": "matched checked metadata",
+      "limitations": [],
+      "bib_start_line": 806,
+      "current_entry": "@article{wainwright2008graphical,\n  author  = {Wainwright, Martin J. and Jordan, Michael I.},\n  title   = {Graphical Models, Exponential Families, and Variational Inference},\n  journal = {Foundations and Trends in Machine Learning},\n  volume  = {1},\n  number  = {1--2},\n  pages   = {1--305},\n  year    = {2008},\n  doi     = {10.1561/2200000001}\n}"
+    },
+    {
+      "key": "gao2017softmax",
+      "main_tex_lines": [
+        232
+      ],
+      "entry_sha256": "931e1b343cd69eb2bb7d7e8c1f8e0beae3e5550081fd9cbdf9df1ccfc37c3fe0",
+      "prior_records": [
+        {
+          "receipt": "codex/presubmit-task37/citation-sources.json",
+          "note": {
+            "key": "gao2017softmax",
+            "urls": [
+              "https://arxiv.org/abs/1704.00805",
+              "https://arxiv.org/pdf/1704.00805v4"
+            ],
+            "arxiv_version": "1704.00805v4",
+            "initial_date": "2017-04-03",
+            "version_date": "2018-08-21",
+            "publication_status": "arXiv preprint; no venue shown in inspected primary record",
+            "fields_checked": [
+              "authors",
+              "title",
+              "initial preprint year",
+              "arxiv_id"
+            ],
+            "result": "match; Proposition 2 Eq27 supports cited Jacobian"
+          }
+        }
+      ],
+      "primary_urls": [
+        "https://arxiv.org/abs/1704.00805",
+        "https://arxiv.org/pdf/1704.00805v4"
+      ],
+      "status": "matched checked metadata",
+      "limitations": [],
+      "bib_start_line": 817,
+      "current_entry": "@misc{gao2017softmax,\n  author        = {Gao, Bolin and Pavel, Lacra},\n  title         = {On the Properties of the Softmax Function with Application in Game Theory and Reinforcement Learning},\n  year          = {2017},\n  eprint        = {1704.00805},\n  archivePrefix = {arXiv},\n  howpublished  = {arXiv:1704.00805}\n}"
+    },
+    {
+      "key": "ramsauer2020hopfield",
+      "main_tex_lines": [
+        233,
+        382
+      ],
+      "entry_sha256": "17a0e83ad4d0b1a80d0741be81af6e79450fe36a8b1d387262397933f682cd16",
+      "prior_records": [
+        {
+          "receipt": "codex/paper-review-task27/components/theory-citation-ledger.json",
+          "note": {
+            "key": "ramsauer2020hopfield",
+            "bib_line": 1067,
+            "primary_url": "https://arxiv.org/abs/2008.02217",
+            "verified": "Primary preprint identity and Hopfield update/energy scope; theoretical source also read in accepted Task17.",
+            "unverified_or_optional": "OpenReview tL89RnzIiCd returned challenge; its ICLR2021 venue was not freshly confirmed there.",
+            "claim_scope": "The tied identity-network update matches the modern Hopfield map; general transformer iteration does not inherit its energy without the stated structure.",
+            "accepted_reuse": true,
+            "paper_lines": [
+              322,
+              333
+            ]
+          }
+        }
+      ],
+      "primary_urls": [
+        "https://arxiv.org/abs/2008.02217",
+        "https://iclr.cc/virtual/2021/poster/2657",
+        "https://iclr.cc/Downloads/2021"
+      ],
+      "status": "matched checked metadata",
+      "limitations": [],
+      "review_note": "ICLR2021 venue gap closed by official conference index and poster; current three named authors plus others match. The arXiv PDF fetch exceeded web size limit; not represented as read in Task39.",
+      "bib_start_line": 300,
+      "current_entry": "@inproceedings{ramsauer2020hopfield,\n  author        = {Ramsauer, Hubert and Sch{\\\"a}fl, Bernhard and Lehner, Johannes and others},\n  title         = {Hopfield Networks is All You Need},\n  booktitle     = {The Ninth International Conference on Learning Representations},\n  year          = {2021},\n  url           = {https://openreview.net/forum?id=tL89RnzIiCd},\n  eprint        = {2008.02217},\n  archivePrefix = {arXiv}\n}"
+    },
+    {
+      "key": "rimsky2024steering",
+      "main_tex_lines": [
+        272,
+        273,
+        1240
+      ],
+      "entry_sha256": "750551a8d383808b2ef7c2029a2fe93439a086b70ba1de6f6e2f4280856d8995",
+      "prior_records": [
+        {
+          "receipt": "codex/paper-review-task27/components/root-citations.md",
+          "note": "| rimsky2024steering | [ACL record](https://aclanthology.org/2024.acl-long.828/): title, six authors, ACL 2024, 15504–15522 and DOI match. Contrastive residual activation steering is a relevant methodological antecedent. |"
+        }
+      ],
+      "primary_urls": [
+        "https://aclanthology.org/2024.acl-long.828/"
+      ],
+      "status": "matched checked metadata",
+      "limitations": [],
+      "bib_start_line": 373,
+      "current_entry": "@inproceedings{rimsky2024steering,\n  author    = {Rimsky, Nina and Gabrieli, Nick and Schulz, Julian and Tong, Meg and Hubinger, Evan and Turner, Alexander},\n  title     = {Steering {Llama} 2 via Contrastive Activation Addition},\n  booktitle = {Proceedings of the 62nd Annual Meeting of the Association for Computational Linguistics (Volume 1: Long\n               Papers)},\n  pages     = {15504--15522},\n  year      = {2024},\n  publisher = {Association for Computational Linguistics},\n  doi       = {10.18653/v1/2024.acl-long.828}\n}"
+    },
+    {
+      "key": "turner2023activation",
+      "main_tex_lines": [
+        272,
+        276
+      ],
+      "entry_sha256": "e1105ed8d1a37a8d887b100cdbdcc858a5ffba083728d9d4acb52e2c346d955e",
+      "prior_records": [],
+      "primary_urls": [
+        "https://arxiv.org/abs/2308.10248v5"
+      ],
+      "status": "matched checked metadata",
+      "limitations": [],
+      "review_note": "Fresh arXiv record verifies all seven authors, revised title, ID, first year2023 and explicitly noted v5 date2024-10-10.",
+      "bib_start_line": 525,
+      "current_entry": "@misc{turner2023activation,\n  author        = {Turner, Alexander Matt and Thiergart, Lisa and Leech, Gavin and Udell, David and Vazquez, Juan J.\n                   and Mini, Ulisse and MacDiarmid, Monte},\n  title         = {Steering Language Models With Activation Engineering},\n  year          = {2023},\n  url           = {https://arxiv.org/abs/2308.10248},\n  note          = {Version 5, 10 October 2024; first posted 20 August 2023},\n  eprint        = {2308.10248},\n  archivePrefix = {arXiv}\n}"
+    },
+    {
+      "key": "zhang2025steering",
+      "main_tex_lines": [
+        272
+      ],
+      "entry_sha256": "0ddbf98c0e9e5908a53c67d6ea805408d74861f8f2a36fa71503a4debbcf5c81",
+      "prior_records": [
+        {
+          "receipt": "codex/paper-review/root-citation-audit.json",
+          "note": {
+            "key": "zhang2025steering",
+            "source": "https://api.crossref.org/works/10.18653/v1/2025.acl-long.353",
+            "method": "publisher-deposited Crossref metadata",
+            "authors": [
+              "Jinghao Zhang",
+              "Yuting Liu",
+              "Wenjie Wang",
+              "Qiang Liu",
+              "Shu Wu",
+              "Liang Wang",
+              "Tat-Seng Chua"
+            ],
+            "title": "Personalized Text Generation with Contrastive Activation Steering",
+            "venue": [
+              "Proceedings of the 63rd Annual Meeting of the Association for Computational Linguistics (Volume 1: Long Papers)"
+            ],
+            "volume": null,
+            "issue": null,
+            "pages_or_article": "7128-7141",
+            "year": 2025,
+            "doi": "10.18653/v1/2025.acl-long.353",
+            "disposition": "matches stated fields",
+            "response_sha256": "676e96067c6fdc9bb1b43bf14c24246a28866f39bb978f18627fc48fb127b6a2"
+          }
+        }
+      ],
+      "primary_urls": [
+        "https://api.crossref.org/works/10.18653/v1/2025.acl-long.353"
+      ],
+      "status": "matched checked metadata",
+      "limitations": [],
+      "bib_start_line": 536,
+      "current_entry": "@inproceedings{zhang2025steering,\n  author    = {Zhang, Jinghao and Liu, Yuting and Wang, Wenjie and Liu, Qiang and Wu, Shu and Wang, Liang and\n               Chua, Tat-Seng},\n  title     = {Personalized Text Generation with Contrastive Activation Steering},\n  booktitle = {Proceedings of the 63rd Annual Meeting of the Association for Computational Linguistics (Volume 1:\n               Long Papers)},\n  pages     = {7128--7141},\n  year      = {2025},\n  publisher = {Association for Computational Linguistics},\n  doi       = {10.18653/v1/2025.acl-long.353}\n}"
+    },
+    {
+      "key": "zou2023representation",
+      "main_tex_lines": [
+        272,
+        1240
+      ],
+      "entry_sha256": "538419b7764e638bbe0c06875d7bab44e0946713ec304d5555bbc0010f1df0c9",
+      "prior_records": [
+        {
+          "receipt": "codex/paper-review/citation-audit.md",
+          "note": "|`zou2023representation`|[arXiv2310.01405v4](https://arxiv.org/abs/2310.01405v4),3Mar2025, first2Oct2023;21 authors Andy Zou through Dan Hendrycks.|Matches existing explicit first-year/version convention.|"
+        }
+      ],
+      "primary_urls": [
+        "https://arxiv.org/abs/2310.01405v4"
+      ],
+      "status": "matched checked metadata",
+      "limitations": [],
+      "bib_start_line": 488,
+      "current_entry": "@misc{zou2023representation,\n  author        = {Zou, Andy and Phan, Long and Chen, Sarah and others},\n  title         = {Representation Engineering: A Top-Down Approach to {AI} Transparency},\n  year          = {2023},\n  url           = {https://arxiv.org/abs/2310.01405},\n  note          = {Version 4, 3 March 2025; first posted 2 October 2023},\n  eprint        = {2310.01405},\n  archivePrefix = {arXiv},\n  primaryClass  = {cs.LG},\n  doi           = {10.48550/arXiv.2310.01405}\n}"
+    },
+    {
+      "key": "govaerts2000numerical",
+      "main_tex_lines": [
+        304
+      ],
+      "entry_sha256": "556e52545a49c74b8e047b30f9a08c883d45f1d4399068519e760e8fad50ddbc",
+      "prior_records": [
+        {
+          "receipt": "codex/paper-review/root-citation-audit.json",
+          "note": {
+            "key": "govaerts2000numerical",
+            "source": "https://epubs.siam.org/doi/book/10.1137/1.9780898719543",
+            "method": "SIAM publisher book/front matter",
+            "verified_facts": "Willy J. F. Govaerts; Numerical Methods for Bifurcations of Dynamical Equilibria; SIAM,2000. DOI10.1137/1.9780898719543. Author corroborated by DOI suffix .fm and .ch1; online chapter date2012 does not replace book year2000. Crossref429 retained.",
+            "disposition": "matches stated fields"
+          }
+        }
+      ],
+      "primary_urls": [
+        "https://epubs.siam.org/doi/book/10.1137/1.9780898719543"
+      ],
+      "status": "matched checked metadata",
+      "limitations": [],
+      "bib_start_line": 280,
+      "current_entry": "@book{govaerts2000numerical,\n  author    = {Govaerts, Willy J. F.},\n  title     = {Numerical Methods for Bifurcations of Dynamical Equilibria},\n  publisher = {Society for Industrial and Applied Mathematics},\n  year      = {2000},\n  doi       = {10.1137/1.9780898719543}\n}"
+    },
+    {
+      "key": "govaerts2007numerical",
+      "main_tex_lines": [
+        304,
+        1281
+      ],
+      "entry_sha256": "9ca1f7e19a9701e9d91d86aa6339e292f127db9f0cc6c3fa49837495f11fb94f",
+      "prior_records": [],
+      "primary_urls": [
+        "https://doi.org/10.1137/060653858"
+      ],
+      "status": "matched checked metadata",
+      "limitations": [
+        "Publisher deposit splits R.Khoshsiar Ghaziani into given R.Khoshsiar/family Ghaziani; current Khoshsiar Ghaziani,R. is the same displayed author identity, not a demonstrated naming error."
+      ],
+      "fresh_receipts": [
+        {
+          "file": "crossref-govaerts2007numerical.json",
+          "sha256": "b4dde99445c9c9b7fba8b6cd02b266d02ee0f1ba65e32e7b4fe972e1acb595be",
+          "method": "publisher-deposited Crossref DOI record"
+        }
+      ],
+      "fresh_metadata": {
+        "title": [
+          "Numerical Methods for Two-Parameter Local Bifurcation Analysis of Maps"
+        ],
+        "author": [
+          {
+            "given": "W.",
+            "family": "Govaerts",
+            "sequence": "first",
+            "affiliation": [],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          },
+          {
+            "given": "R. Khoshsiar",
+            "family": "Ghaziani",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          },
+          {
+            "given": "Yu. A.",
+            "family": "Kuznetsov",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          },
+          {
+            "given": "H. G. E.",
+            "family": "Meijer",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          }
+        ],
+        "container-title": [
+          "SIAM Journal on Scientific Computing"
+        ],
+        "volume": "29",
+        "issue": "6",
+        "page": "2644-2667",
+        "published": {
+          "date-parts": [
+            [
+              2007,
+              1
+            ]
+          ]
+        },
+        "publisher": "Society for Industrial & Applied Mathematics (SIAM)",
+        "DOI": "10.1137/060653858"
+      },
+      "fresh_result": "Current supplied title, author identities/order, venue, year, DOI, and stated volume/issue/pages match; punctuation/case/initial variants normalized. Specific name/version caveats below.",
+      "bib_start_line": 646,
+      "current_entry": "@article{govaerts2007numerical,\n  author  = {Govaerts, W. and Khoshsiar Ghaziani, R. and Kuznetsov, Yu. A. and Meijer, H. G. E.},\n  title   = {Numerical Methods for Two-Parameter Local Bifurcation Analysis of Maps},\n  journal = {SIAM Journal on Scientific Computing},\n  volume  = {29},\n  number  = {6},\n  pages   = {2644--2667},\n  year    = {2007},\n  doi     = {10.1137/060653858}\n}"
+    },
+    {
+      "key": "kuznetsov2019maps",
+      "main_tex_lines": [
+        304,
+        660,
+        1281
+      ],
+      "entry_sha256": "605f2130e80b9cb1b4bc38ad9bafbdf7924439fd1d2ecd30713d4de1311130bd",
+      "prior_records": [
+        {
+          "receipt": "codex/paper-review-task27/components/theory-citation-ledger.json",
+          "note": {
+            "key": "kuznetsov2019maps",
+            "bib_line": 1287,
+            "primary_url": "https://assets.cambridge.org/97811084/99675/frontmatter/9781108499675_frontmatter.pdf",
+            "verified": "Kuznetsov/Meijer,title,2019,DOI10.1017/9781108585804 from primary front matter.",
+            "unverified_or_optional": "Optional subtitle From Theory to Software and Cambridge Monographs34.",
+            "claim_scope": "Supports bifurcation tools and hypotheses; does not make every fold-curve visual turn a cusp.",
+            "accepted_reuse": false,
+            "paper_lines": [
+              258
+            ]
+          }
+        }
+      ],
+      "primary_urls": [
+        "https://assets.cambridge.org/97811084/99675/frontmatter/9781108499675_frontmatter.pdf"
+      ],
+      "status": "matched checked metadata",
+      "limitations": [],
+      "bib_start_line": 637,
+      "current_entry": "@book{kuznetsov2019maps,\n  author    = {Kuznetsov, Yuri A. and Meijer, Hil G. E.},\n  title     = {Numerical Bifurcation Analysis of Maps},\n  publisher = {Cambridge University Press},\n  address   = {Cambridge},\n  year      = {2019},\n  doi       = {10.1017/9781108585804}\n}"
+    },
+    {
+      "key": "kuznetsov2023elements",
+      "main_tex_lines": [
+        305,
+        660,
+        1266
+      ],
+      "entry_sha256": "6cd4b0c51f176fc2b260fab77807d04eb23d6d1b53c2d935e4a515f2a03d826f",
+      "prior_records": [
+        {
+          "receipt": "codex/paper-review/root-citation-audit.json",
+          "note": {
+            "key": "kuznetsov2023elements",
+            "source": "https://api.crossref.org/works/10.1007/978-3-031-22007-4",
+            "method": "publisher-deposited Crossref metadata",
+            "authors": [
+              "Yuri A. Kuznetsov"
+            ],
+            "title": "Elements of Applied Bifurcation Theory",
+            "venue": [
+              "Applied Mathematical Sciences"
+            ],
+            "volume": null,
+            "issue": null,
+            "pages_or_article": null,
+            "year": 2023,
+            "doi": "10.1007/978-3-031-22007-4",
+            "disposition": "matches stated fields",
+            "response_sha256": "dfd26525784afda3544e3d935f320751816a0e19121fb15e8423306bf63da9c4"
+          }
+        },
+        {
+          "receipt": "codex/postnight-task38/citations-review.md",
+          "note": "| `kuznetsov2023elements`, references.bib:288–298; article:1354, p6-only:1136 (Neimark–Sacker) | Yuri A. Kuznetsov, *Elements of Applied Bifurcation Theory*, fourth edition, Applied Mathematical Sciences112, Springer, Cham(2023), DOI10.1007/978-3-031-22007-4. [Springer book metadata](https://link.springer.com/book/10.1007/978-3-031-22007-4); [chapter4, pp129–173](https://link.springer.com/chapter/10.1007/978-3-031-22007-4_4). | Correct metadata and placement. Chapter4 explicitly covers generic Neimark–Sacker bifurcations of fixed points. The citation supplies theory; classification/nondegeneracy and numerical validity of the LLM crossing must still come from its own computations. |"
+        }
+      ],
+      "primary_urls": [
+        "https://api.crossref.org/works/10.1007/978-3-031-22007-4",
+        "https://link.springer.com/book/10.1007/978-3-031-22007-4",
+        "https://link.springer.com/chapter/10.1007/978-3-031-22007-4_4"
+      ],
+      "status": "matched checked metadata",
+      "limitations": [],
+      "bib_start_line": 288,
+      "current_entry": "@book{kuznetsov2023elements,\n  author    = {Kuznetsov, Yuri A.},\n  title     = {Elements of Applied Bifurcation Theory},\n  edition   = {Fourth},\n  series    = {Applied Mathematical Sciences},\n  volume    = {112},\n  publisher = {Springer},\n  address   = {Cham},\n  year      = {2023},\n  doi       = {10.1007/978-3-031-22007-4}\n}"
+    },
+    {
+      "key": "kingman1973subadditive",
+      "main_tex_lines": [
+        358
+      ],
+      "entry_sha256": "b2decab80ae192f201df53bc27764c5f1b217482a4c547c7aa7e49e5a4d6c8bf",
+      "prior_records": [],
+      "primary_urls": [
+        "https://doi.org/10.1214/aop/1176996798"
+      ],
+      "status": "matched checked metadata",
+      "limitations": [],
+      "fresh_receipts": [
+        {
+          "file": "crossref-kingman1973subadditive.json",
+          "sha256": "24c23ab861b6b551f3aa11fa2137ef4752bfb07a93b33cccf508194fa246d969",
+          "method": "publisher-deposited Crossref DOI record"
+        }
+      ],
+      "fresh_metadata": {
+        "title": [
+          "Subadditive Ergodic Theory"
+        ],
+        "author": [
+          {
+            "given": "J. F. C.",
+            "family": "Kingman",
+            "sequence": "first",
+            "affiliation": [],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          }
+        ],
+        "container-title": [
+          "The Annals of Probability"
+        ],
+        "volume": "1",
+        "issue": "6",
+        "page": "883-899",
+        "published": {
+          "date-parts": [
+            [
+              1973,
+              12,
+              1
+            ]
+          ]
+        },
+        "publisher": "Institute of Mathematical Statistics",
+        "DOI": "10.1214/aop/1176996798"
+      },
+      "fresh_result": "Current supplied title, author identities/order, venue, year, DOI, and stated volume/issue/pages match; punctuation/case/initial variants normalized. Specific name/version caveats below.",
+      "bib_start_line": 795,
+      "current_entry": "@article{kingman1973subadditive,\n  author  = {Kingman, J. F. C.},\n  title   = {Subadditive Ergodic Theory},\n  journal = {The Annals of Probability},\n  volume  = {1},\n  number  = {6},\n  pages   = {883--899},\n  year    = {1973},\n  doi     = {10.1214/aop/1176996798}\n}"
+    },
+    {
+      "key": "benettin1980lyapunovI",
+      "main_tex_lines": [
+        452
+      ],
+      "entry_sha256": "b66988c30c0b9dfc040d132a6e69dd67631df4117ae7f45e2e71c1f0c069a133",
+      "prior_records": [
+        {
+          "receipt": "codex/paper-review-task27/components/theory-citation-ledger.json",
+          "note": {
+            "key": "benettin1980lyapunovI",
+            "bib_line": 1190,
+            "primary_url": "https://link.springer.com/article/10.1007/BF02128236",
+            "verified": "Four authors/title,Meccanica15,9–20,1980,DOI.",
+            "unverified_or_optional": "",
+            "claim_scope": "Methodological reference for exponent computation, not a convergence guarantee for a finite record.",
+            "accepted_reuse": false,
+            "paper_lines": [
+              553
+            ]
+          }
+        }
+      ],
+      "primary_urls": [
+        "https://link.springer.com/article/10.1007/BF02128236"
+      ],
+      "status": "matched checked metadata",
+      "limitations": [],
+      "bib_start_line": 548,
+      "current_entry": "@article{benettin1980lyapunovI,\n  author  = {Benettin, Giancarlo and Galgani, Luigi and Giorgilli, Antonio and Strelcyn, Jean-Marie},\n  title   = {{L}yapunov Characteristic Exponents for Smooth Dynamical Systems and for {H}amiltonian Systems; a Method for\n             Computing All of Them. {P}art 1: Theory},\n  journal = {Meccanica},\n  volume  = {15},\n  number  = {1},\n  pages   = {9--20},\n  year    = {1980},\n  doi     = {10.1007/BF02128236}\n}"
+    },
+    {
+      "key": "benettin1980lyapunovII",
+      "main_tex_lines": [
+        452
+      ],
+      "entry_sha256": "86420e39548fa364aab348173080bd30f7d927ee5077a8c90d480ac36af5525b",
+      "prior_records": [
+        {
+          "receipt": "codex/paper-review-task27/components/theory-citation-ledger.json",
+          "note": {
+            "key": "benettin1980lyapunovII",
+            "bib_line": 1202,
+            "primary_url": "https://link.springer.com/article/10.1007/BF02128237",
+            "verified": "Four authors/title,Meccanica15,21–30,1980,DOI.",
+            "unverified_or_optional": "",
+            "claim_scope": "Numerical implementation reference; finite QR estimates retain horizon/ordering limitations.",
+            "accepted_reuse": false,
+            "paper_lines": [
+              553
+            ]
+          }
+        }
+      ],
+      "primary_urls": [
+        "https://link.springer.com/article/10.1007/BF02128237"
+      ],
+      "status": "matched checked metadata",
+      "limitations": [],
+      "bib_start_line": 560,
+      "current_entry": "@article{benettin1980lyapunovII,\n  author  = {Benettin, Giancarlo and Galgani, Luigi and Giorgilli, Antonio and Strelcyn, Jean-Marie},\n  title   = {{L}yapunov Characteristic Exponents for Smooth Dynamical Systems and for {H}amiltonian Systems; a Method for\n             Computing All of Them. {P}art 2: Numerical Application},\n  journal = {Meccanica},\n  volume  = {15},\n  number  = {1},\n  pages   = {21--30},\n  year    = {1980},\n  doi     = {10.1007/BF02128237}\n}"
+    },
+    {
+      "key": "milnor1985concept",
+      "main_tex_lines": [
+        457
+      ],
+      "entry_sha256": "8bd6c98eb06904c7bb54b16df86db6f7b308c4708c6f3561cdff1adcfae289ee",
+      "prior_records": [],
+      "primary_urls": [
+        "https://doi.org/10.1007/bf01212280"
+      ],
+      "status": "matched checked metadata",
+      "limitations": [],
+      "fresh_receipts": [
+        {
+          "file": "crossref-milnor1985concept.json",
+          "sha256": "1950ff7e538ede05d57bae463a3630eb3946e28bc4666d0707716048b8594eb3",
+          "method": "publisher-deposited Crossref DOI record"
+        }
+      ],
+      "fresh_metadata": {
+        "title": [
+          "On the concept of attractor"
+        ],
+        "author": [
+          {
+            "given": "John",
+            "family": "Milnor",
+            "sequence": "first",
+            "affiliation": [],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          }
+        ],
+        "container-title": [
+          "Communications in Mathematical Physics"
+        ],
+        "volume": "99",
+        "issue": "2",
+        "page": "177-195",
+        "published": {
+          "date-parts": [
+            [
+              1985,
+              6
+            ]
+          ]
+        },
+        "publisher": "Springer Science and Business Media LLC",
+        "DOI": "10.1007/bf01212280"
+      },
+      "fresh_result": "Current supplied title, author identities/order, venue, year, DOI, and stated volume/issue/pages match; punctuation/case/initial variants normalized. Specific name/version caveats below.",
+      "bib_start_line": 701,
+      "current_entry": "@article{milnor1985concept,\n  author  = {Milnor, John},\n  title   = {On the concept of attractor},\n  journal = {Communications in Mathematical Physics},\n  volume  = {99},\n  number  = {2},\n  pages   = {177--195},\n  year    = {1985},\n  doi     = {10.1007/BF01212280}\n}"
+    },
+    {
+      "key": "grebogi1983crises",
+      "main_tex_lines": [
+        458
+      ],
+      "entry_sha256": "cc0cad2c45dc1ff284cf6e07f67a87f736c023d7fa114213e2f5be1edfb82627",
+      "prior_records": [],
+      "primary_urls": [
+        "https://doi.org/10.1016/0167-2789(83)90126-4"
+      ],
+      "status": "matched checked metadata",
+      "limitations": [],
+      "fresh_receipts": [
+        {
+          "file": "crossref-grebogi1983crises.json",
+          "sha256": "aca8707d8b64b14d2e4aa62ec021653f3cca6b2fad429c5b836e1dd5ee5bd0c8",
+          "method": "publisher-deposited Crossref DOI record"
+        }
+      ],
+      "fresh_metadata": {
+        "title": [
+          "Crises, sudden changes in chaotic attractors, and transient chaos"
+        ],
+        "author": [
+          {
+            "given": "Celso",
+            "family": "Grebogi",
+            "sequence": "first",
+            "affiliation": [],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          },
+          {
+            "given": "Edward",
+            "family": "Ott",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          },
+          {
+            "given": "James A.",
+            "family": "Yorke",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          }
+        ],
+        "container-title": [
+          "Physica D: Nonlinear Phenomena"
+        ],
+        "volume": "7",
+        "issue": "1-3",
+        "page": "181-200",
+        "published": {
+          "date-parts": [
+            [
+              1983,
+              5
+            ]
+          ]
+        },
+        "publisher": "Elsevier BV",
+        "DOI": "10.1016/0167-2789(83)90126-4"
+      },
+      "fresh_result": "Current supplied title, author identities/order, venue, year, DOI, and stated volume/issue/pages match; punctuation/case/initial variants normalized. Specific name/version caveats below.",
+      "bib_start_line": 679,
+      "current_entry": "@article{grebogi1983crises,\n  author  = {Grebogi, Celso and Ott, Edward and Yorke, James A.},\n  title   = {Crises, sudden changes in chaotic attractors, and transient chaos},\n  journal = {Physica D: Nonlinear Phenomena},\n  volume  = {7},\n  number  = {1--3},\n  pages   = {181--200},\n  year    = {1983},\n  doi     = {10.1016/0167-2789(83)90126-4}\n}"
+    },
+    {
+      "key": "goodfire2025sae",
+      "main_tex_lines": [
+        504
+      ],
+      "entry_sha256": "66220a1558e5908d07e8be6bfae48a3487ff929196a30929c723a7f953e3fa87",
+      "prior_records": [
+        {
+          "receipt": "codex/paper-review-task27/components/root-citations.md",
+          "note": "| goodfire2025sae | [Official model card](https://huggingface.co/Goodfire/Llama-3.1-8B-Instruct-SAE-l19) and [commit history](https://huggingface.co/Goodfire/Llama-3.1-8B-Instruct-SAE-l19/commits/main): Llama-3.1-8B-Instruct layer-19 SAE identity and 2025 date confirmed. Initial upload was 9 January 2025; revision prefix f6775a2 is the 11 January README update. This verifies the public artifact record, not unseen historical remote weights. |"
+        }
+      ],
+      "primary_urls": [
+        "https://huggingface.co/Goodfire/Llama-3.1-8B-Instruct-SAE-l19",
+        "https://huggingface.co/Goodfire/Llama-3.1-8B-Instruct-SAE-l19/commits/main"
+      ],
+      "status": "matched checked metadata",
+      "limitations": [],
+      "bib_start_line": 469,
+      "current_entry": "@misc{goodfire2025sae,\n  author       = {{Goodfire}},\n  title        = {{Llama-3.1-8B-Instruct-SAE-l19}},\n  year         = {2025},\n  howpublished = {Hugging Face, \\url{https://huggingface.co/Goodfire/Llama-3.1-8B-Instruct-SAE-l19}},\n  note         = {Sparse autoencoder on the residual stream after layer 19; revision f6775a22}\n}"
+    },
+    {
+      "key": "he2025nondeterminism",
+      "main_tex_lines": [
+        629,
+        642
+      ],
+      "entry_sha256": "117885869fc3e47713c30cd5724cfc41d285abc450c180b3c1f6d4dec3c4f14a",
+      "prior_records": [
+        {
+          "receipt": "codex/paper-review-task27/components/root-citations.md",
+          "note": "| he2025nondeterminism | [Official article](https://thinkingmachines.ai/blog/defeating-nondeterminism-in-llm-inference/): Horace He and Thinking Machines Lab, 10 September 2025, Connectionism, DOI 10.64434/tml.20250910 match. Batch-invariant kernels address an implementation source; the citation must not imply all inference nondeterminism is unavoidable chaos. |"
+        }
+      ],
+      "primary_urls": [
+        "https://thinkingmachines.ai/blog/defeating-nondeterminism-in-llm-inference/"
+      ],
+      "status": "matched checked metadata",
+      "limitations": [],
+      "bib_start_line": 311,
+      "current_entry": "@article{he2025nondeterminism,\n  author  = {He, Horace and {Thinking Machines Lab}},\n  title   = {Defeating Nondeterminism in {LLM} Inference},\n  journal = {Thinking Machines Lab: Connectionism},\n  year    = {2025},\n  doi     = {10.64434/tml.20250910},\n  url     = {https://thinkingmachines.ai/blog/defeating-nondeterminism-in-llm-inference/}\n}"
+    },
+    {
+      "key": "yuan2025nondeterminism",
+      "main_tex_lines": [
+        629
+      ],
+      "entry_sha256": "c69d39c291dfcd8fb8ec814b4b93ca753b610fb1cef39b30309c8c4b67ef567b",
+      "prior_records": [
+        {
+          "receipt": "codex/paper-review-task27/components/root-citations.md",
+          "note": "| yuan2025nondeterminism | [Original paper](https://arxiv.org/abs/2506.09501): title, ten authors and 2025 date match. It supports greedy-inference nondeterminism across execution conditions, not by itself asymptotic chaos. |"
+        }
+      ],
+      "primary_urls": [
+        "https://arxiv.org/abs/2506.09501"
+      ],
+      "status": "matched checked metadata",
+      "limitations": [],
+      "bib_start_line": 320,
+      "current_entry": "@misc{yuan2025nondeterminism,\n  author        = {Yuan, Jiayi and Li, Hao and Ding, Xinheng and Xie, Wenya and Li, Yu-Jhe and Zhao, Wentian and Wan, Kun and\n                   Shi, Jing and Hu, Xia and Liu, Zirui},\n  title         = {Understanding and Mitigating Numerical Sources of Nondeterminism in {LLM} Inference},\n  year          = {2025},\n  url           = {https://arxiv.org/abs/2506.09501},\n  eprint        = {2506.09501},\n  archivePrefix = {arXiv}\n}"
+    },
+    {
+      "key": "goldberg1991floating",
+      "main_tex_lines": [
+        636
+      ],
+      "entry_sha256": "14567398e09ac17ba32b38f9e18eb3d1d218cd57a27575bddc36a6d4545e2649",
+      "prior_records": [],
+      "primary_urls": [
+        "https://doi.org/10.1145/103162.103163"
+      ],
+      "status": "matched checked metadata",
+      "limitations": [],
+      "fresh_receipts": [
+        {
+          "file": "crossref-goldberg1991floating.json",
+          "sha256": "8c4f086f6583809d4f2c949494c2cb010a04d3fe59c226589ce75949d8df7890",
+          "method": "publisher-deposited Crossref DOI record"
+        }
+      ],
+      "fresh_metadata": {
+        "title": [
+          "What every computer scientist should know about floating-point arithmetic"
+        ],
+        "author": [
+          {
+            "given": "David",
+            "family": "Goldberg",
+            "sequence": "first",
+            "affiliation": [
+              {
+                "name": "Xerox Palo Alto Research Center, Palo Alto, CA"
+              }
+            ],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          }
+        ],
+        "container-title": [
+          "ACM Computing Surveys"
+        ],
+        "volume": "23",
+        "issue": "1",
+        "page": "5-48",
+        "published": {
+          "date-parts": [
+            [
+              1991,
+              3
+            ]
+          ]
+        },
+        "publisher": "Association for Computing Machinery (ACM)",
+        "DOI": "10.1145/103162.103163"
+      },
+      "fresh_result": "Current supplied title, author identities/order, venue, year, DOI, and stated volume/issue/pages match; punctuation/case/initial variants normalized. Specific name/version caveats below.",
+      "bib_start_line": 743,
+      "current_entry": "@article{goldberg1991floating,\n  author  = {Goldberg, David},\n  title   = {What Every Computer Scientist Should Know About Floating-Point Arithmetic},\n  journal = {ACM Computing Surveys},\n  volume  = {23},\n  number  = {1},\n  pages   = {5--48},\n  year    = {1991},\n  doi     = {10.1145/103162.103163}\n}"
+    },
+    {
+      "key": "strogatz1989predicted",
+      "main_tex_lines": [
+        658
+      ],
+      "entry_sha256": "81fff5a17438884d32944d72ed8452f2aaa91c5930514e8b8d8dd32332c32468",
+      "prior_records": [
+        {
+          "receipt": "codex/postnight-task38/citations-review.md",
+          "note": "| `strogatz1989predicted`, references.bib:894–903; article:658, p6-only:614, report:1537 and1591 | Steven H. Strogatz and Robert M. Westervelt, *Predicted power laws for delayed switching of charge-density waves*, Physical Review B40(15),10501–10508(1989), DOI10.1103/PhysRevB.40.10501. [APS record](https://journals.aps.org/prb/abstract/10.1103/PhysRevB.40.10501); ending page also confirmed on [Strogatz's own publication list](https://www.stevenstrogatz.com/articles/category/1989). | Correct attribution and suitable saddle-node-delay background. The article analyzes three charge-density-wave models: two have inverse-square-root delay and the third inverse-first-power delay. It is background for the mechanism, not evidence that every LLM window satisfies the measured fold law. |"
+        }
+      ],
+      "primary_urls": [
+        "https://journals.aps.org/prb/abstract/10.1103/PhysRevB.40.10501",
+        "https://www.stevenstrogatz.com/articles/category/1989"
+      ],
+      "status": "matched checked metadata",
+      "limitations": [],
+      "review_note": "Task38 primary APS/author reuse: Strogatz/Westervelt,title,PRB40(15),10501–10508,1989,DOI match. Background to delay scaling, not proof of universal LLM exponents.",
+      "bib_start_line": 894,
+      "current_entry": "@article{strogatz1989predicted,\n  author  = {Strogatz, Steven H. and Westervelt, Robert M.},\n  title   = {Predicted power laws for delayed switching of charge-density waves},\n  journal = {Physical Review B},\n  volume  = {40},\n  number  = {15},\n  pages   = {10501--10508},\n  year    = {1989},\n  doi     = {10.1103/PhysRevB.40.10501}\n}"
+    },
+    {
+      "key": "strogatz2018nonlinear",
+      "main_tex_lines": [
+        658
+      ],
+      "entry_sha256": "38905beec132497040e2ae8245427caafdfc87d5ae18f9d8458721afc4064c01",
+      "prior_records": [
+        {
+          "receipt": "codex/postnight-task38/citations-review.md",
+          "note": "| `strogatz2018nonlinear`, references.bib:905–912; same bottleneck placements | Steven H. Strogatz, *Nonlinear Dynamics and Chaos*, CRC Press(2018), DOI10.1201/9780429492563. [Publisher landing record](https://www.taylorfrancis.com/books/9780429961113); [publisher-deposited Crossref metadata](https://api.crossref.org/works/10.1201/9780429492563), saved verbatim as citations-strogatz2018-crossref.json, confirms title/author/publisher and publication2018-05-04. | The current fields agree with the publisher deposit. Direct publisher-page access failed, so no chapter/page assertion is independently verified here. The deposit's edition-number value is0; do not infer an edition from that bad/placeholder field. No change needed to the entry as written. |"
+        }
+      ],
+      "primary_urls": [
+        "https://www.taylorfrancis.com/books/9780429961113",
+        "https://api.crossref.org/works/10.1201/9780429492563"
+      ],
+      "status": "matched checked metadata",
+      "limitations": [],
+      "review_note": "Task38 retained publisher deposit verifies title/author,CRC,2018,DOI. No edition number asserted; publisher direct fetch failed previously.",
+      "bib_start_line": 905,
+      "current_entry": "@book{strogatz2018nonlinear,\n  author    = {Strogatz, Steven H.},\n  title     = {Nonlinear Dynamics and Chaos},\n  publisher = {CRC Press},\n  address   = {Boca Raton},\n  year      = {2018},\n  doi       = {10.1201/9780429492563}\n}"
+    },
+    {
+      "key": "pomeau1980intermittent",
+      "main_tex_lines": [
+        766
+      ],
+      "entry_sha256": "23f4eadf693b107d5fce42c11666088bd02995b6969176136bc76d43d9276c0c",
+      "prior_records": [
+        {
+          "receipt": "codex/paper-review/root-citation-audit.json",
+          "note": {
+            "key": "pomeau1980intermittent",
+            "source": "https://api.crossref.org/works/10.1007/BF01197757",
+            "method": "publisher-deposited Crossref metadata",
+            "authors": [
+              "Yves Pomeau",
+              "Paul Manneville"
+            ],
+            "title": "Intermittent transition to turbulence in dissipative dynamical systems",
+            "venue": [
+              "Communications in Mathematical Physics"
+            ],
+            "volume": "74",
+            "issue": "2",
+            "pages_or_article": "189-197",
+            "year": 1980,
+            "doi": "10.1007/bf01197757",
+            "disposition": "matches stated fields",
+            "response_sha256": "7655dd8dbaf3329f9c09769b84ffee797e9664e4e1df708dad89220210040c90"
+          }
+        }
+      ],
+      "primary_urls": [
+        "https://api.crossref.org/works/10.1007/BF01197757"
+      ],
+      "status": "matched checked metadata",
+      "limitations": [],
+      "bib_start_line": 593,
+      "current_entry": "@article{pomeau1980intermittent,\n  author  = {Pomeau, Yves and Manneville, Paul},\n  title   = {Intermittent transition to turbulence in dissipative dynamical systems},\n  journal = {Communications in Mathematical Physics},\n  volume  = {74},\n  number  = {2},\n  pages   = {189--197},\n  year    = {1980},\n  doi     = {10.1007/BF01197757}\n}"
+    },
+    {
+      "key": "hirsch1982theory",
+      "main_tex_lines": [
+        766
+      ],
+      "entry_sha256": "3c5d43ab5ec57f1e47f466551cc3a37fa2ff761a9862ed13ab5221b3e818c1a4",
+      "prior_records": [],
+      "primary_urls": [
+        "https://doi.org/10.1103/physreva.25.519"
+      ],
+      "status": "matched checked metadata",
+      "limitations": [],
+      "fresh_receipts": [
+        {
+          "file": "crossref-hirsch1982theory.json",
+          "sha256": "3302b0564b5b41deb61e1e02a443cfcb609c79b24bcc4de0f4f78cdfb9924cb2",
+          "method": "publisher-deposited Crossref DOI record"
+        }
+      ],
+      "fresh_metadata": {
+        "title": [
+          "Theory of intermittency"
+        ],
+        "author": [
+          {
+            "given": "J. E.",
+            "family": "Hirsch",
+            "sequence": "first",
+            "affiliation": [],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          },
+          {
+            "given": "B. A.",
+            "family": "Huberman",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          },
+          {
+            "given": "D. J.",
+            "family": "Scalapino",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          }
+        ],
+        "container-title": [
+          "Physical Review A"
+        ],
+        "volume": "25",
+        "issue": "1",
+        "page": "519-532",
+        "published": {
+          "date-parts": [
+            [
+              1982,
+              1,
+              1
+            ]
+          ]
+        },
+        "publisher": "American Physical Society (APS)",
+        "DOI": "10.1103/physreva.25.519"
+      },
+      "fresh_result": "Current supplied title, author identities/order, venue, year, DOI, and stated volume/issue/pages match; punctuation/case/initial variants normalized. Specific name/version caveats below.",
+      "bib_start_line": 604,
+      "current_entry": "@article{hirsch1982theory,\n  author  = {Hirsch, J. E. and Huberman, B. A. and Scalapino, D. J.},\n  title   = {Theory of intermittency},\n  journal = {Physical Review A},\n  volume  = {25},\n  number  = {1},\n  pages   = {519--532},\n  year    = {1982},\n  doi     = {10.1103/PhysRevA.25.519}\n}"
+    },
+    {
+      "key": "feigenbaum1979universal",
+      "main_tex_lines": [
+        869
+      ],
+      "entry_sha256": "669490f29506544e53299b4938b4bd57149afed0fbb629cf6fd742d6027e5bb0",
+      "prior_records": [],
+      "primary_urls": [
+        "https://doi.org/10.1007/bf01107909"
+      ],
+      "status": "matched checked metadata",
+      "limitations": [],
+      "fresh_receipts": [
+        {
+          "file": "crossref-feigenbaum1979universal.json",
+          "sha256": "9bc0fd7055024cc3d821e6c91e882756edde6458d6f4a68a1faece84e4b00d7b",
+          "method": "publisher-deposited Crossref DOI record"
+        }
+      ],
+      "fresh_metadata": {
+        "title": [
+          "The universal metric properties of nonlinear transformations"
+        ],
+        "author": [
+          {
+            "given": "Mitchell J.",
+            "family": "Feigenbaum",
+            "sequence": "first",
+            "affiliation": [],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          }
+        ],
+        "container-title": [
+          "Journal of Statistical Physics"
+        ],
+        "volume": "21",
+        "issue": "6",
+        "page": "669-706",
+        "published": {
+          "date-parts": [
+            [
+              1979,
+              12
+            ]
+          ]
+        },
+        "publisher": "Springer Science and Business Media LLC",
+        "DOI": "10.1007/bf01107909"
+      },
+      "fresh_result": "Current supplied title, author identities/order, venue, year, DOI, and stated volume/issue/pages match; punctuation/case/initial variants normalized. Specific name/version caveats below.",
+      "bib_start_line": 626,
+      "current_entry": "@article{feigenbaum1979universal,\n  author  = {Feigenbaum, Mitchell J.},\n  title   = {The universal metric properties of nonlinear transformations},\n  journal = {Journal of Statistical Physics},\n  volume  = {21},\n  number  = {6},\n  pages   = {669--706},\n  year    = {1979},\n  doi     = {10.1007/BF01107909}\n}"
+    },
+    {
+      "key": "collet1981period",
+      "main_tex_lines": [
+        869
+      ],
+      "entry_sha256": "27a9be3e1a522d52eede875d2e7085e300a0b8f36c21be284840eea3b2e13684",
+      "prior_records": [],
+      "primary_urls": [
+        "https://doi.org/10.1007/bf01008475"
+      ],
+      "status": "matched checked metadata",
+      "limitations": [],
+      "fresh_receipts": [
+        {
+          "file": "crossref-collet1981period.json",
+          "sha256": "3f3f7541c43567037d07fd41d649c46e0c735fae17c51df82c1b964a97b016cc",
+          "method": "publisher-deposited Crossref DOI record"
+        }
+      ],
+      "fresh_metadata": {
+        "title": [
+          "Period doubling bifurcations for families of maps on ℝ\n                n"
+        ],
+        "author": [
+          {
+            "given": "P.",
+            "family": "Collet",
+            "sequence": "first",
+            "affiliation": [],
+            "role": [
+              {
+                "role": "author",
+                "vocabulary": "crossref"
+              }
+            ]
+          },
+          {
+            "given": "J. -P.",
+            "family": "Eckmann",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "role": "author",
+                "vocabulary": "crossref"
+              }
+            ]
+          },
+          {
+            "given": "H.",
+            "family": "Koch",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "role": "author",
+                "vocabulary": "crossref"
+              }
+            ]
+          }
+        ],
+        "container-title": [
+          "Journal of Statistical Physics"
+        ],
+        "volume": "25",
+        "issue": "1",
+        "page": "1-14",
+        "published": {
+          "date-parts": [
+            [
+              1981,
+              5
+            ]
+          ]
+        },
+        "publisher": "Springer Science and Business Media LLC",
+        "DOI": "10.1007/bf01008475"
+      },
+      "fresh_result": "Current supplied title, author identities/order, venue, year, DOI, and stated volume/issue/pages match; punctuation/case/initial variants normalized. Specific name/version caveats below.",
+      "bib_start_line": 615,
+      "current_entry": "@article{collet1981period,\n  author  = {Collet, P. and Eckmann, J.-P. and Koch, H.},\n  title   = {Period doubling bifurcations for families of maps on {$\\mathbb{R}^n$}},\n  journal = {Journal of Statistical Physics},\n  volume  = {25},\n  number  = {1},\n  pages   = {1--14},\n  year    = {1981},\n  doi     = {10.1007/BF01008475}\n}"
+    },
+    {
+      "key": "bier1984remerging",
+      "main_tex_lines": [
+        874
+      ],
+      "entry_sha256": "14b74e656157ce1d8562cc8440d33d14d963d092fe9e7a71e63099e64dbce3e0",
+      "prior_records": [],
+      "primary_urls": [
+        "https://doi.org/10.1016/0375-9601(84)90059-8"
+      ],
+      "status": "matched checked metadata",
+      "limitations": [],
+      "fresh_receipts": [
+        {
+          "file": "crossref-bier1984remerging.json",
+          "sha256": "dba33af37730deff7da208ce5d6e44c7f58222e3551499dfce3791155dc73315",
+          "method": "publisher-deposited Crossref DOI record"
+        }
+      ],
+      "fresh_metadata": {
+        "title": [
+          "Remerging Feigenbaum trees in dynamical systems"
+        ],
+        "author": [
+          {
+            "given": "Martin",
+            "family": "Bier",
+            "sequence": "first",
+            "affiliation": [],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          },
+          {
+            "given": "Tassos C.",
+            "family": "Bountis",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          }
+        ],
+        "container-title": [
+          "Physics Letters A"
+        ],
+        "volume": "104",
+        "issue": "5",
+        "page": "239-244",
+        "published": {
+          "date-parts": [
+            [
+              1984,
+              9
+            ]
+          ]
+        },
+        "publisher": "Elsevier BV",
+        "DOI": "10.1016/0375-9601(84)90059-8"
+      },
+      "fresh_result": "Current supplied title, author identities/order, venue, year, DOI, and stated volume/issue/pages match; punctuation/case/initial variants normalized. Specific name/version caveats below.",
+      "bib_start_line": 690,
+      "current_entry": "@article{bier1984remerging,\n  author  = {Bier, Martin and Bountis, Tassos C.},\n  title   = {Remerging {F}eigenbaum trees in dynamical systems},\n  journal = {Physics Letters A},\n  volume  = {104},\n  number  = {5},\n  pages   = {239--244},\n  year    = {1984},\n  doi     = {10.1016/0375-9601(84)90059-8}\n}"
+    },
+    {
+      "key": "grossmann1977invariant",
+      "main_tex_lines": [
+        917
+      ],
+      "entry_sha256": "0302abbdc9abc5264fdcfd5fcb500986a1bf20cdd76e57c3a49abc58825a7238",
+      "prior_records": [],
+      "primary_urls": [
+        "https://doi.org/10.1515/zna-1977-1204"
+      ],
+      "status": "matched checked metadata",
+      "limitations": [],
+      "fresh_receipts": [
+        {
+          "file": "crossref-grossmann1977invariant.json",
+          "sha256": "6af689dee0c1be30e5a122b0e7f812298f5f6a5a1af92ab9917bc4c0b5c9dac1",
+          "method": "publisher-deposited Crossref DOI record"
+        }
+      ],
+      "fresh_metadata": {
+        "title": [
+          "Invariant Distributions and Stationary Correlation Functions of One-Dimensional Discrete Processes"
+        ],
+        "author": [
+          {
+            "given": "S.",
+            "family": "Grossmann",
+            "sequence": "first",
+            "affiliation": [
+              {
+                "name": "Fachbereich Physik, Philipps-Universität, Marburg, Germany"
+              }
+            ],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          },
+          {
+            "given": "S.",
+            "family": "Thomae",
+            "sequence": "additional",
+            "affiliation": [
+              {
+                "name": "Thomae Fachbereich Physik, Philipps-Universität, Marburg, Germany"
+              }
+            ],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          }
+        ],
+        "container-title": [
+          "Zeitschrift für Naturforschung A"
+        ],
+        "volume": "32",
+        "issue": "12",
+        "page": "1353-1363",
+        "published": {
+          "date-parts": [
+            [
+              1977,
+              12,
+              1
+            ]
+          ]
+        },
+        "publisher": "Walter de Gruyter GmbH",
+        "DOI": "10.1515/zna-1977-1204"
+      },
+      "fresh_result": "Current supplied title, author identities/order, venue, year, DOI, and stated volume/issue/pages match; punctuation/case/initial variants normalized. Specific name/version caveats below.",
+      "bib_start_line": 657,
+      "current_entry": "@article{grossmann1977invariant,\n  author  = {Grossmann, S. and Thomae, S.},\n  title   = {Invariant Distributions and Stationary Correlation Functions of One-Dimensional Discrete Processes},\n  journal = {Zeitschrift f{\\\"u}r Naturforschung A},\n  volume  = {32},\n  number  = {12},\n  pages   = {1353--1363},\n  year    = {1977},\n  doi     = {10.1515/zna-1977-1204}\n}"
+    },
+    {
+      "key": "lorenz1980noisy",
+      "main_tex_lines": [
+        917
+      ],
+      "entry_sha256": "a358f5ad4e48fd162bc04a19d94d73dca5eac3221cd49f714a782b41f95ab6cc",
+      "prior_records": [],
+      "primary_urls": [
+        "https://doi.org/10.1111/j.1749-6632.1980.tb29693.x"
+      ],
+      "status": "matched checked metadata",
+      "limitations": [],
+      "fresh_receipts": [
+        {
+          "file": "crossref-lorenz1980noisy.json",
+          "sha256": "bd504dcaaa5c30991dfb424dad70c918b903f5cc7621d47e95fc2da13de67aa4",
+          "method": "publisher-deposited Crossref DOI record"
+        }
+      ],
+      "fresh_metadata": {
+        "title": [
+          "NOISY PERIODICITY AND REVERSE BIFURCATION*"
+        ],
+        "author": [
+          {
+            "given": "Edward N.",
+            "family": "Lorenz",
+            "sequence": "first",
+            "affiliation": [],
+            "role": [
+              {
+                "role": "author",
+                "vocabulary": "crossref"
+              }
+            ]
+          }
+        ],
+        "container-title": [
+          "Annals of the New York Academy of Sciences"
+        ],
+        "volume": "357",
+        "issue": "1",
+        "page": "282-291",
+        "published": {
+          "date-parts": [
+            [
+              1980,
+              12
+            ]
+          ]
+        },
+        "publisher": "Wiley",
+        "DOI": "10.1111/j.1749-6632.1980.tb29693.x"
+      },
+      "fresh_result": "Current supplied title, author identities/order, venue, year, DOI, and stated volume/issue/pages match; punctuation/case/initial variants normalized. Specific name/version caveats below.",
+      "bib_start_line": 668,
+      "current_entry": "@article{lorenz1980noisy,\n  author  = {Lorenz, Edward N.},\n  title   = {Noisy periodicity and reverse bifurcation},\n  journal = {Annals of the New York Academy of Sciences},\n  volume  = {357},\n  number  = {1},\n  pages   = {282--291},\n  year    = {1980},\n  doi     = {10.1111/j.1749-6632.1980.tb29693.x}\n}"
+    },
+    {
+      "key": "johansson2017arb",
+      "main_tex_lines": [
+        945
+      ],
+      "entry_sha256": "52ff8d118a290a107c68ca39f8ffc644a039577f80d99827f7304dc943936926",
+      "prior_records": [
+        {
+          "receipt": "codex/paper-review-task27/components/root-citations.md",
+          "note": "| johansson2017arb | [Author publication record](https://www.fredrikj.net/) and [author bibliography](https://fredrikj.net/calcium/bibliography.html): Fredrik Johansson, IEEE Transactions on Computers 66(8), 1281–1292 (2017), DOI 10.1109/TC.2017.2690633 match. Publisher/DOI fetch failed in this review; the supporting primary source is the author's record, not a successfully opened IEEE page. |"
+        }
+      ],
+      "primary_urls": [
+        "https://www.fredrikj.net/",
+        "https://fredrikj.net/calcium/bibliography.html"
+      ],
+      "status": "matched checked metadata",
+      "limitations": [],
+      "bib_start_line": 330,
+      "current_entry": "@article{johansson2017arb,\n  author  = {Johansson, Fredrik},\n  title   = {Arb: Efficient Arbitrary-Precision Midpoint-Radius Interval Arithmetic},\n  journal = {IEEE Transactions on Computers},\n  volume  = {66},\n  number  = {8},\n  pages   = {1281--1292},\n  year    = {2017},\n  doi     = {10.1109/TC.2017.2690633}\n}"
+    },
+    {
+      "key": "krawczyk1969newton",
+      "main_tex_lines": [
+        946
+      ],
+      "entry_sha256": "9b1c01a63eb52dcde5a8e41efc4d6a20006c78b6fb849e62fc41d7fcabf364fa",
+      "prior_records": [
+        {
+          "receipt": "codex/paper-review-task27/components/theory-citation-ledger.json",
+          "note": {
+            "key": "krawczyk1969newton",
+            "bib_line": 1224,
+            "primary_url": "https://link.springer.com/article/10.1007/BF02234767",
+            "verified": "Author/title,Computing4,187–201,1969,DOI.",
+            "unverified_or_optional": "Issue3 was not independently visible in retrieved text.",
+            "claim_scope": "Interval existence/uniqueness method; exact application is covered by Root’s certificate lane.",
+            "accepted_reuse": false,
+            "paper_lines": [
+              2637
+            ]
+          }
+        }
+      ],
+      "primary_urls": [
+        "https://link.springer.com/article/10.1007/BF02234767",
+        "https://doi.org/10.1007/bf02234767"
+      ],
+      "status": "matched checked metadata",
+      "limitations": [],
+      "fresh_receipts": [
+        {
+          "file": "crossref-krawczyk1969newton.json",
+          "sha256": "36bb94e991c093728f4214d2f752e687793b3d8842e7cb79ec84affc7c98f552",
+          "method": "publisher-deposited Crossref DOI record"
+        }
+      ],
+      "fresh_metadata": {
+        "title": [
+          "Newton-Algorithmen zur Bestimmung von Nullstellen mit Fehlerschranken",
+          "Newton-algorithms for evaluation of roots with error bounds"
+        ],
+        "author": [
+          {
+            "given": "R.",
+            "family": "Krawczyk",
+            "sequence": "first",
+            "affiliation": [],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          }
+        ],
+        "container-title": [
+          "Computing"
+        ],
+        "volume": "4",
+        "issue": "3",
+        "page": "187-201",
+        "published": {
+          "date-parts": [
+            [
+              1969,
+              9
+            ]
+          ]
+        },
+        "publisher": "Springer Science and Business Media LLC",
+        "DOI": "10.1007/bf02234767"
+      },
+      "fresh_result": "Current supplied title, author identities/order, venue, year, DOI, and stated volume/issue/pages match; punctuation/case/initial variants normalized. Specific name/version caveats below.",
+      "bib_start_line": 341,
+      "current_entry": "@article{krawczyk1969newton,\n  author  = {Krawczyk, R.},\n  title   = {{N}ewton-{A}lgorithmen zur {B}estimmung von {N}ullstellen mit {F}ehlerschranken},\n  journal = {Computing},\n  volume  = {4},\n  number  = {3},\n  pages   = {187--201},\n  year    = {1969},\n  doi     = {10.1007/BF02234767}\n}"
+    },
+    {
+      "key": "moore2009interval",
+      "main_tex_lines": [
+        946
+      ],
+      "entry_sha256": "ed9080691a7e574e46e9b863e40ab5d01830b15ac49447456b9cb6c07d7dc5da",
+      "prior_records": [
+        {
+          "receipt": "codex/paper-review-task27/components/theory-citation-ledger.json",
+          "note": {
+            "key": "moore2009interval",
+            "bib_line": 1235,
+            "primary_url": "https://epubs.siam.org/doi/book/10.1137/1.9780898717716",
+            "verified": "Primary SIAM book record/title/year2009/DOI.",
+            "unverified_or_optional": "No new defect found; detailed edition metadata beyond returned record not independently expanded.",
+            "claim_scope": "Interval-analysis text, not an independent validation of this implementation.",
+            "accepted_reuse": false,
+            "paper_lines": [
+              2637
+            ]
+          }
+        }
+      ],
+      "primary_urls": [
+        "https://epubs.siam.org/doi/book/10.1137/1.9780898717716"
+      ],
+      "status": "matched checked metadata",
+      "limitations": [],
+      "bib_start_line": 352,
+      "current_entry": "@book{moore2009interval,\n  author    = {Moore, Ramon E. and Kearfott, R. Baker and Cloud, Michael J.},\n  title     = {Introduction to Interval Analysis},\n  publisher = {Society for Industrial and Applied Mathematics},\n  address   = {Philadelphia, PA},\n  year      = {2009},\n  doi       = {10.1137/1.9780898717716}\n}"
+    },
+    {
+      "key": "rump2010verification",
+      "main_tex_lines": [
+        946
+      ],
+      "entry_sha256": "deff9d6e6f9b977b68af2c498c21898ec0ae23b5e90e14dc5c446ccf0ad67acf",
+      "prior_records": [
+        {
+          "receipt": "codex/paper-review-task27/components/theory-citation-ledger.json",
+          "note": {
+            "key": "rump2010verification",
+            "bib_line": 1244,
+            "primary_url": "https://www.cambridge.org/core/journals/acta-numerica/article/abs/verification-methods-rigorous-results-using-floatingpoint-arithmetic/770FE58E5293985CCAB770AF09C4F3FF",
+            "verified": "Author/title,Acta Numerica19,287–449,2010,DOI.",
+            "unverified_or_optional": "",
+            "claim_scope": "Verification with floating-point arithmetic; current citation scope appropriate.",
+            "accepted_reuse": false,
+            "paper_lines": [
+              2637
+            ]
+          }
+        }
+      ],
+      "primary_urls": [
+        "https://www.cambridge.org/core/journals/acta-numerica/article/abs/verification-methods-rigorous-results-using-floatingpoint-arithmetic/770FE58E5293985CCAB770AF09C4F3FF"
+      ],
+      "status": "matched checked metadata",
+      "limitations": [],
+      "bib_start_line": 361,
+      "current_entry": "@article{rump2010verification,\n  author  = {Rump, Siegfried M.},\n  title   = {Verification Methods: Rigorous Results Using Floating-Point Arithmetic},\n  journal = {Acta Numerica},\n  volume  = {19},\n  pages   = {287--449},\n  year    = {2010},\n  doi     = {10.1017/S096249291000005X}\n}"
+    },
+    {
+      "key": "galias2001interval",
+      "main_tex_lines": [
+        949
+      ],
+      "entry_sha256": "80917a0ab8568257fe1b61b585fdd0b7437497ca4ef17f279c0a5496c2626378",
+      "prior_records": [],
+      "primary_urls": [
+        "https://doi.org/10.1142/s0218127401003516"
+      ],
+      "status": "matched checked metadata",
+      "limitations": [],
+      "fresh_receipts": [
+        {
+          "file": "crossref-galias2001interval.json",
+          "sha256": "f4eb2c9abb0a068d4bec857133cab6b4feb35230b229dd5c773bed8fa9a62538",
+          "method": "publisher-deposited Crossref DOI record"
+        }
+      ],
+      "fresh_metadata": {
+        "title": [
+          "INTERVAL METHODS FOR RIGOROUS INVESTIGATIONS OF PERIODIC ORBITS"
+        ],
+        "author": [
+          {
+            "given": "ZBIGNIEW",
+            "family": "GALIAS",
+            "sequence": "first",
+            "affiliation": [
+              {
+                "name": "Institute for Nonlinear Science, University of California, San Diego, 9500 Gilman Dr., San Diego, CA 92093-0402, USA"
+              }
+            ],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          }
+        ],
+        "container-title": [
+          "International Journal of Bifurcation and Chaos"
+        ],
+        "volume": "11",
+        "issue": "09",
+        "page": "2427-2450",
+        "published": {
+          "date-parts": [
+            [
+              2001,
+              9
+            ]
+          ]
+        },
+        "publisher": "World Scientific Pub Co Pte Lt",
+        "DOI": "10.1142/s0218127401003516"
+      },
+      "fresh_result": "Current supplied title, author identities/order, venue, year, DOI, and stated volume/issue/pages match; punctuation/case/initial variants normalized. Specific name/version caveats below.",
+      "bib_start_line": 712,
+      "current_entry": "@article{galias2001interval,\n  author  = {Galias, Zbigniew},\n  title   = {Interval Methods for Rigorous Investigations of Periodic Orbits},\n  journal = {International Journal of Bifurcation and Chaos},\n  volume  = {11},\n  number  = {9},\n  pages   = {2427--2450},\n  year    = {2001},\n  doi     = {10.1142/S0218127401003516}\n}"
+    },
+    {
+      "key": "zgliczynski1997computer",
+      "main_tex_lines": [
+        949
+      ],
+      "entry_sha256": "d85dda462b97a759d4415847a4280fd179848cce3fc4a2484cdf70c688e46bbc",
+      "prior_records": [],
+      "primary_urls": [
+        "https://doi.org/10.1088/0951-7715/10/1/016"
+      ],
+      "status": "matched checked metadata",
+      "limitations": [],
+      "fresh_receipts": [
+        {
+          "file": "crossref-zgliczynski1997computer.json",
+          "sha256": "1ef44db53594937377a661eac5a0d3f202c555fb8d754be63a44efa0a558e5b1",
+          "method": "publisher-deposited Crossref DOI record"
+        }
+      ],
+      "fresh_metadata": {
+        "title": [
+          "Computer assisted proof of chaos in the Rössler equations and in the Hénon map"
+        ],
+        "author": [
+          {
+            "given": "Piotr",
+            "family": "Zgliczynski",
+            "sequence": "first",
+            "affiliation": [],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          }
+        ],
+        "container-title": [
+          "Nonlinearity"
+        ],
+        "volume": "10",
+        "issue": "1",
+        "page": "243-252",
+        "published": {
+          "date-parts": [
+            [
+              1997,
+              1,
+              1
+            ]
+          ]
+        },
+        "publisher": "IOP Publishing",
+        "DOI": "10.1088/0951-7715/10/1/016"
+      },
+      "fresh_result": "Current supplied title, author identities/order, venue, year, DOI, and stated volume/issue/pages match; punctuation/case/initial variants normalized. Specific name/version caveats below.",
+      "bib_start_line": 723,
+      "current_entry": "@article{zgliczynski1997computer,\n  author  = {Zgliczy{\\'n}ski, Piotr},\n  title   = {Computer assisted proof of chaos in the {R}{\\\"o}ssler equations and in the {H}{\\'e}non map},\n  journal = {Nonlinearity},\n  volume  = {10},\n  number  = {1},\n  pages   = {243--252},\n  year    = {1997},\n  doi     = {10.1088/0951-7715/10/1/016}\n}"
+    },
+    {
+      "key": "gallas1994dissecting",
+      "main_tex_lines": [
+        984,
+        1027,
+        1047,
+        1058
+      ],
+      "entry_sha256": "c5a07a2629d6b552facee01de2a5de8075e3ffe22c257d9235ddb639dc1b4fa7",
+      "prior_records": [],
+      "primary_urls": [
+        "https://doi.org/10.1016/0378-4371(94)90174-0"
+      ],
+      "status": "matched checked metadata",
+      "limitations": [],
+      "fresh_receipts": [
+        {
+          "file": "crossref-gallas1994dissecting.json",
+          "sha256": "c3522fc62f7d6d86072183937edc0717d01cd2c6e5401a0a430986230790ef67",
+          "method": "publisher-deposited Crossref DOI record"
+        }
+      ],
+      "fresh_metadata": {
+        "title": [
+          "Dissecting shrimps: results for some one-dimensional physical models"
+        ],
+        "author": [
+          {
+            "given": "Jason A.C.",
+            "family": "Gallas",
+            "sequence": "first",
+            "affiliation": [],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          }
+        ],
+        "container-title": [
+          "Physica A: Statistical Mechanics and its Applications"
+        ],
+        "volume": "202",
+        "issue": "1-2",
+        "page": "196-223",
+        "published": {
+          "date-parts": [
+            [
+              1994,
+              1
+            ]
+          ]
+        },
+        "publisher": "Elsevier BV",
+        "DOI": "10.1016/0378-4371(94)90174-0"
+      },
+      "fresh_result": "Current supplied title, author identities/order, venue, year, DOI, and stated volume/issue/pages match; punctuation/case/initial variants normalized. Specific name/version caveats below.",
+      "bib_start_line": 405,
+      "current_entry": "@article{gallas1994dissecting,\n  author  = {Gallas, Jason A. C.},\n  title   = {Dissecting shrimps: results for some one-dimensional physical models},\n  journal = {Physica A},\n  volume  = {202},\n  number  = {1--2},\n  pages   = {196--223},\n  year    = {1994},\n  doi     = {10.1016/0378-4371(94)90174-0}\n}"
+    },
+    {
+      "key": "carcasses1991crossroad",
+      "main_tex_lines": [
+        990
+      ],
+      "entry_sha256": "122ba05e1c9af2fad289cb7478ddc0d14b7652eac48d1af152341104bceeebaa",
+      "prior_records": [],
+      "primary_urls": [
+        "https://doi.org/10.1142/s0218127491000117"
+      ],
+      "status": "matched checked metadata",
+      "limitations": [],
+      "fresh_receipts": [
+        {
+          "file": "crossref-carcasses1991crossroad.json",
+          "sha256": "e60cba67a6890a82f86b9f71ddb2028d229142b55514626f4bb07ee12c77f912",
+          "method": "publisher-deposited Crossref DOI record"
+        }
+      ],
+      "fresh_metadata": {
+        "title": [
+          "\"CROSSROAD AREA–SPRING AREA\" TRANSITION (I) PARAMETER PLANE REPRESENTATION"
+        ],
+        "author": [
+          {
+            "given": "J. P.",
+            "family": "CARCASSES",
+            "sequence": "first",
+            "affiliation": [
+              {
+                "name": "GESNLA, Institut National des Sciences Appliquées, Toulouse, France"
+              }
+            ],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          },
+          {
+            "given": "C.",
+            "family": "MIRA",
+            "sequence": "additional",
+            "affiliation": [
+              {
+                "name": "GESNLA, Institut National des Sciences Appliquées, Toulouse, France"
+              }
+            ],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          },
+          {
+            "given": "M.",
+            "family": "BOSCH",
+            "sequence": "additional",
+            "affiliation": [
+              {
+                "name": "Dept. Matemàtica Aplicada i Anàlisi, Univ. Barcelona, Gran Via 585, 08007 Barcelona, Spain"
+              }
+            ],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          },
+          {
+            "given": "C.",
+            "family": "SIMÓ",
+            "sequence": "additional",
+            "affiliation": [
+              {
+                "name": "Dept. Matemàtica Aplicada i Anàlisi, Univ. Barcelona, Gran Via 585, 08007 Barcelona, Spain"
+              }
+            ],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          },
+          {
+            "given": "J. C.",
+            "family": "TATJER",
+            "sequence": "additional",
+            "affiliation": [
+              {
+                "name": "Dept. Matemàtica Aplicada i Anàlisi, Univ. Barcelona, Gran Via 585, 08007 Barcelona, Spain"
+              }
+            ],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          }
+        ],
+        "container-title": [
+          "International Journal of Bifurcation and Chaos"
+        ],
+        "volume": "01",
+        "issue": "01",
+        "page": "183-196",
+        "published": {
+          "date-parts": [
+            [
+              1991,
+              3
+            ]
+          ]
+        },
+        "publisher": "World Scientific Pub Co Pte Ltd",
+        "DOI": "10.1142/s0218127491000117"
+      },
+      "fresh_result": "Current supplied title, author identities/order, venue, year, DOI, and stated volume/issue/pages match; punctuation/case/initial variants normalized. Specific name/version caveats below.",
+      "bib_start_line": 438,
+      "current_entry": "@article{carcasses1991crossroad,\n  author  = {Carcass{\\`e}s, J. P. and Mira, C. and Bosch, M. and Sim{\\'o}, C. and Tatjer, J. C.},\n  title   = {``{C}rossroad area--spring area'' transition ({I}): parameter plane representation},\n  journal = {International Journal of Bifurcation and Chaos},\n  volume  = {1},\n  number  = {1},\n  pages   = {183--196},\n  year    = {1991},\n  doi     = {10.1142/S0218127491000117}\n}"
+    },
+    {
+      "key": "mira1996chaotic",
+      "main_tex_lines": [
+        991
+      ],
+      "entry_sha256": "ff372968dace6ffa700fa94aee4604229822e1dbb185fffdc04ec99c2ee7e96f",
+      "prior_records": [],
+      "primary_urls": [
+        "https://doi.org/10.1142/2252"
+      ],
+      "status": "matched checked metadata",
+      "limitations": [],
+      "fresh_receipts": [
+        {
+          "file": "crossref-mira1996chaotic.json",
+          "sha256": "31b44a10c8633743038084bad3f3fc79fc2a146f7af6bbf1520812ee1b88f4cb",
+          "method": "publisher-deposited Crossref DOI record"
+        }
+      ],
+      "fresh_metadata": {
+        "title": [
+          "Chaotic Dynamics in Two-Dimensional Noninvertible Maps"
+        ],
+        "author": [
+          {
+            "given": "Christian",
+            "family": "Mira",
+            "sequence": "first",
+            "affiliation": [
+              {
+                "name": "INSA ToulouseFrance"
+              }
+            ],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          },
+          {
+            "given": "Laura",
+            "family": "Gardini",
+            "sequence": "additional",
+            "affiliation": [
+              {
+                "name": "Istituto di Scienze Economiche UrbinoItaly"
+              }
+            ],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          },
+          {
+            "given": "Alexandra",
+            "family": "Barugola",
+            "sequence": "additional",
+            "affiliation": [
+              {
+                "name": "Université de Provence MarseilleFrance"
+              }
+            ],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          },
+          {
+            "given": "Jean-Claude",
+            "family": "Cathala",
+            "sequence": "additional",
+            "affiliation": [
+              {
+                "name": "Université de Provence MarseilleFrance"
+              }
+            ],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          }
+        ],
+        "container-title": [
+          "World Scientific Series on Nonlinear Science Series A"
+        ],
+        "volume": null,
+        "issue": null,
+        "page": null,
+        "published": {
+          "date-parts": [
+            [
+              1996,
+              7
+            ]
+          ]
+        },
+        "publisher": "WORLD SCIENTIFIC",
+        "DOI": "10.1142/2252"
+      },
+      "fresh_result": "Current supplied title, author identities/order, venue, year, DOI, and stated volume/issue/pages match; punctuation/case/initial variants normalized. Specific name/version caveats below.",
+      "bib_start_line": 449,
+      "current_entry": "@book{mira1996chaotic,\n  author    = {Mira, Christian and Gardini, Laura and Barugola, Alexandra and Cathala, Jean-Claude},\n  title     = {Chaotic Dynamics in Two-Dimensional Noninvertible Maps},\n  series    = {World Scientific Series on Nonlinear Science, Series A},\n  publisher = {World Scientific},\n  address   = {Singapore},\n  year      = {1996},\n  doi       = {10.1142/2252}\n}"
+    },
+    {
+      "key": "henon1976two",
+      "main_tex_lines": [
+        1026
+      ],
+      "entry_sha256": "23c018d0ee88290d44a0af3deed4e46f91b5a327b37f2e37f1f34ceb88dbcb55",
+      "prior_records": [],
+      "primary_urls": [
+        "https://doi.org/10.1007/bf01608556"
+      ],
+      "status": "matched checked metadata",
+      "limitations": [],
+      "fresh_receipts": [
+        {
+          "file": "crossref-henon1976two.json",
+          "sha256": "44ea51b6d79dc92e3d401b2a23fa847b697dc37c898f081620f076408b41acae",
+          "method": "publisher-deposited Crossref DOI record"
+        }
+      ],
+      "fresh_metadata": {
+        "title": [
+          "A two-dimensional mapping with a strange attractor"
+        ],
+        "author": [
+          {
+            "given": "M.",
+            "family": "Hénon",
+            "sequence": "first",
+            "affiliation": [],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          }
+        ],
+        "container-title": [
+          "Communications in Mathematical Physics"
+        ],
+        "volume": "50",
+        "issue": "1",
+        "page": "69-77",
+        "published": {
+          "date-parts": [
+            [
+              1976,
+              2
+            ]
+          ]
+        },
+        "publisher": "Springer Science and Business Media LLC",
+        "DOI": "10.1007/bf01608556"
+      },
+      "fresh_result": "Current supplied title, author identities/order, venue, year, DOI, and stated volume/issue/pages match; punctuation/case/initial variants normalized. Specific name/version caveats below.",
+      "bib_start_line": 427,
+      "current_entry": "@article{henon1976two,\n  author  = {H{\\'e}non, M.},\n  title   = {A two-dimensional mapping with a strange attractor},\n  journal = {Communications in Mathematical Physics},\n  volume  = {50},\n  number  = {1},\n  pages   = {69--77},\n  year    = {1976},\n  doi     = {10.1007/BF01608556}\n}"
+    },
+    {
+      "key": "facanha2013endoskeletons",
+      "main_tex_lines": [
+        1035
+      ],
+      "entry_sha256": "818447a042948ca980adc180cf89896a134e2f220edd260c869be0f65c8e44de",
+      "prior_records": [
+        {
+          "receipt": "codex/paper-review/root-citation-audit.json",
+          "note": {
+            "key": "facanha2013endoskeletons",
+            "source": "https://api.crossref.org/works/10.1016/j.physleta.2013.03.025",
+            "method": "publisher-deposited Crossref metadata",
+            "authors": [
+              "Wilson Façanha",
+              "Bart Oldeman",
+              "Leon Glass"
+            ],
+            "title": "Bifurcation structures in two-dimensional maps: The endoskeletons of shrimps",
+            "venue": [
+              "Physics Letters A"
+            ],
+            "volume": "377",
+            "issue": "18",
+            "pages_or_article": "1264-1268",
+            "year": 2013,
+            "doi": "10.1016/j.physleta.2013.03.025",
+            "disposition": "correction",
+            "response_sha256": "72c21507186a1afdf7828563431a20ac0c22d3c9fe64004d37d4f9dd7ece8cde"
+          }
+        }
+      ],
+      "primary_urls": [
+        "https://api.crossref.org/works/10.1016/j.physleta.2013.03.025"
+      ],
+      "status": "matched checked metadata",
+      "limitations": [],
+      "bib_start_line": 416,
+      "current_entry": "@article{facanha2013endoskeletons,\n  author  = {Fa{\\c{c}}anha, Wilson and Oldeman, Bart and Glass, Leon},\n  title   = {Bifurcation structures in two-dimensional maps: The endoskeletons of shrimps},\n  journal = {Physics Letters A},\n  volume  = {377},\n  number  = {18},\n  pages   = {1264--1268},\n  year    = {2013},\n  doi     = {10.1016/j.physleta.2013.03.025}\n}"
+    },
+    {
+      "key": "arnold1985singularities",
+      "main_tex_lines": [
+        1066
+      ],
+      "entry_sha256": "4cde36413dd420e2adbd1f89a3914261c8e64a4d40cbc678cdf33fb96eff20dc",
+      "prior_records": [],
+      "primary_urls": [
+        "https://doi.org/10.1007/978-1-4612-5154-5"
+      ],
+      "status": "matched checked metadata",
+      "limitations": [],
+      "fresh_receipts": [
+        {
+          "file": "crossref-arnold1985singularities.json",
+          "sha256": "63d6a4e4159cc355eed4c7ec80713ddbc61cda80e91f29b993e061b87fd4a386",
+          "method": "publisher-deposited Crossref DOI record"
+        }
+      ],
+      "fresh_metadata": {
+        "title": [
+          "Singularities of Differentiable Maps"
+        ],
+        "author": [
+          {
+            "given": "V. I.",
+            "family": "Arnold",
+            "sequence": "first",
+            "affiliation": [],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          },
+          {
+            "given": "S. M.",
+            "family": "Gusein-Zade",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          },
+          {
+            "given": "A. N.",
+            "family": "Varchenko",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          }
+        ],
+        "container-title": [],
+        "volume": null,
+        "issue": null,
+        "page": null,
+        "published": {
+          "date-parts": [
+            [
+              1985
+            ]
+          ]
+        },
+        "publisher": "Birkhäuser Boston",
+        "DOI": "10.1007/978-1-4612-5154-5"
+      },
+      "fresh_result": "Current supplied title, author identities/order, venue, year, DOI, and stated volume/issue/pages match; punctuation/case/initial variants normalized. Specific name/version caveats below.",
+      "bib_start_line": 734,
+      "current_entry": "@book{arnold1985singularities,\n  author    = {Arnold, V. I. and Gusein-Zade, S. M. and Varchenko, A. N.},\n  title     = {Singularities of Differentiable Maps},\n  publisher = {Birkh{\\\"a}user},\n  address   = {Boston},\n  year      = {1985},\n  doi       = {10.1007/978-1-4612-5154-5}\n}"
+    },
+    {
+      "key": "jones2012rossler",
+      "main_tex_lines": [
+        1129,
+        1342
+      ],
+      "entry_sha256": "222b6357ad0d8cab211c1f32012f221dc31ae836148f9245acd55032cd83277e",
+      "prior_records": [
+        {
+          "receipt": "codex/paper-review-task27/components/theory-citation-ledger.json",
+          "note": {
+            "key": "jones2012rossler",
+            "bib_line": 1296,
+            "primary_url": "https://arxiv.org/abs/1201.4343",
+            "verified": "TimothyD.Jones,title,arXiv1201.4343,2012.",
+            "unverified_or_optional": "",
+            "claim_scope": "Rössler-map spiral/hub mechanism is model-specific; do not infer universal necessary architecture from the example.",
+            "accepted_reuse": false,
+            "paper_lines": [
+              259,
+              499,
+              2093,
+              2452
+            ]
+          }
+        }
+      ],
+      "primary_urls": [
+        "https://arxiv.org/abs/1201.4343",
+        "https://arxiv.org/pdf/1201.4343"
+      ],
+      "status": "matched checked metadata",
+      "limitations": [],
+      "review_note": "Task38 original four-page preprint reuse verifies author/title/arXivID/2012 and claim scope: unimodal conjugacy is a selected-slice interpretation/assumption, not proved global reduction. Current1128–1129 explicitly says interpretation and approximate coding.",
+      "bib_start_line": 395,
+      "current_entry": "@misc{jones2012rossler,\n  author        = {Jones, Timothy D.},\n  title         = {Topological origins of a bi-parameter periodicity hub for the {R}{\\\"o}ssler attractor},\n  year          = {2012},\n  url           = {https://arxiv.org/abs/1201.4343},\n  eprint        = {1201.4343},\n  archivePrefix = {arXiv},\n  primaryClass  = {nlin.CD}\n}"
+    },
+    {
+      "key": "singer1978stable",
+      "main_tex_lines": [
+        1145
+      ],
+      "entry_sha256": "9d27b52ea659dce741dae4ca59f8eac4665b4b5e79b09bf8a9cd87a46c15fbda",
+      "prior_records": [
+        {
+          "receipt": "codex/paper-review-task27/components/theory-citation-ledger.json",
+          "note": {
+            "key": "singer1978stable",
+            "bib_line": 1366,
+            "primary_url": "https://epubs.siam.org/doi/10.1137/0135020",
+            "verified": "David Singer,title,SIAM J.Applied Mathematics35(2),260–267,1978,DOI.",
+            "unverified_or_optional": "",
+            "claim_scope": "The endpoint-basin alternative cannot be dropped; see T02. Publisher identity checked; no claim of a new formal proof audit.",
+            "accepted_reuse": false,
+            "paper_lines": [
+              508
+            ]
+          }
+        }
+      ],
+      "primary_urls": [
+        "https://epubs.siam.org/doi/10.1137/0135020",
+        "https://www.math.stonybrook.edu/alumni/2018-Dyi-Shing-Ou.pdf"
+      ],
+      "status": "matched checked metadata",
+      "limitations": [],
+      "review_note": "Task38 original SIAM metadata and Ou research thesis Proposition2.6 reuse. Current1143–1146 retains the endpoint-basin alternative and states neither global reduction nor Schwarzian sign was established. Singer full text itself was inaccessible; no fresh theorem-proof claim.",
+      "bib_start_line": 937,
+      "current_entry": "@article{singer1978stable,\n  author  = {Singer, David},\n  title   = {Stable orbits and bifurcation of maps of the interval},\n  journal = {SIAM Journal on Applied Mathematics},\n  volume  = {35},\n  number  = {2},\n  pages   = {260--267},\n  year    = {1978},\n  doi     = {10.1137/0135020}\n}"
+    },
+    {
+      "key": "metropolis1973finite",
+      "main_tex_lines": [
+        1150
+      ],
+      "entry_sha256": "e7487734085152ff5a57d41379963fb85b29eeaeae77c47ab9b9b862ef0ece72",
+      "prior_records": [],
+      "primary_urls": [
+        "https://www.sciencedirect.com/science/article/pii/0097316573900332",
+        "https://link.springer.com/chapter/10.1007/BFb0082847"
+      ],
+      "status": "matched checked metadata",
+      "limitations": [],
+      "review_note": "Task38 primary metadata reuse: Metropolis/M.L.Stein/P.R.Stein, title,JCTA15(1),25–44,1973,DOI. The current explicit MSS filtering and retained/rejected denominator remove the earlier circular validation claim.",
+      "bib_start_line": 914,
+      "current_entry": "@article{metropolis1973finite,\n  author  = {Metropolis, N. and Stein, M. L. and Stein, P. R.},\n  title   = {On finite limit sets for transformations on the unit interval},\n  journal = {Journal of Combinatorial Theory, Series A},\n  volume  = {15},\n  number  = {1},\n  pages   = {25--44},\n  year    = {1973},\n  doi     = {10.1016/0097-3165(73)90033-2}\n}"
+    },
+    {
+      "key": "milnor1988iterated",
+      "main_tex_lines": [
+        1150
+      ],
+      "entry_sha256": "7f7e61e303c92bc08870ddfc75fe88b0bbd4048bcd7c451b5258c1d53d7bc283",
+      "prior_records": [],
+      "primary_urls": [
+        "https://link.springer.com/chapter/10.1007/BFb0082847"
+      ],
+      "status": "matched checked metadata",
+      "limitations": [],
+      "review_note": "Task38 primary metadata reuse: Milnor/Thurston,title,chapter465–563,1988,Springer and DOI match. LNM1342/editor optional omissions, not errors.",
+      "bib_start_line": 925,
+      "current_entry": "@incollection{milnor1988iterated,\n  author    = {Milnor, John and Thurston, William},\n  title     = {On iterated maps of the interval},\n  booktitle = {Dynamical Systems},\n  series    = {Lecture Notes in Mathematics},\n  publisher = {Springer},\n  address   = {Berlin, Heidelberg},\n  pages     = {465--563},\n  year      = {1988},\n  doi       = {10.1007/BFb0082847}\n}"
+    },
+    {
+      "key": "stoop2010real",
+      "main_tex_lines": [
+        1200
+      ],
+      "entry_sha256": "93eb6e24ad708ef7df0ef694e034547b180a3ce2d9f8cff08015d52e066ad23d",
+      "prior_records": [
+        {
+          "receipt": "codex/paper-review-task27/components/theory-citation-ledger.json",
+          "note": {
+            "key": "stoop2010real",
+            "bib_line": 1019,
+            "primary_url": "https://journals.aps.org/prl/abstract/10.1103/PhysRevLett.105.074102",
+            "verified": "Authors/title, PRL105,074102,2010 and DOI.",
+            "unverified_or_optional": "",
+            "claim_scope": "Spiral organization of shrimp-shaped domains; map-specific evidence.",
+            "accepted_reuse": false,
+            "paper_lines": [
+              2348
+            ]
+          }
+        }
+      ],
+      "primary_urls": [
+        "https://journals.aps.org/prl/abstract/10.1103/PhysRevLett.105.074102"
+      ],
+      "status": "matched checked metadata",
+      "limitations": [],
+      "bib_start_line": 477,
+      "current_entry": "@article{stoop2010real,\n  author  = {Stoop, Ruedi and Benner, Philipp and Uwate, Yoko},\n  title   = {Real-World Existence and Origins of the Spiral Organization of Shrimp-Shaped Domains},\n  journal = {Physical Review Letters},\n  volume  = {105},\n  number  = {7},\n  pages   = {074102},\n  year    = {2010},\n  doi     = {10.1103/PhysRevLett.105.074102}\n}"
+    },
+    {
+      "key": "fujisaka1983stability",
+      "main_tex_lines": [
+        1225
+      ],
+      "entry_sha256": "95e3285d35845417ae86f8ddb37c7d610abf102bb139e3beb2fc344f500894c0",
+      "prior_records": [],
+      "primary_urls": [
+        "https://doi.org/10.1143/ptp.69.32"
+      ],
+      "status": "matched checked metadata",
+      "limitations": [
+        "Fresh DOI deposit gives H.Fujisaka/T.Yamada. It does not independently expand the supplied given names Hirokazu/Tomoji; this narrow given-name-expansion field remains unverified in Task39. No evidence of error. Use initials if requiring every letter primary-bound."
+      ],
+      "fresh_receipts": [
+        {
+          "file": "crossref-fujisaka1983stability.json",
+          "sha256": "a2241a042f49730f0180c06578cc68933a34b3eed0c00befc5ec126bb1ca7f98",
+          "method": "publisher-deposited Crossref DOI record"
+        }
+      ],
+      "fresh_metadata": {
+        "title": [
+          "Stability Theory of Synchronized Motion in Coupled-Oscillator Systems"
+        ],
+        "author": [
+          {
+            "given": "H.",
+            "family": "Fujisaka",
+            "sequence": "first",
+            "affiliation": [],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          },
+          {
+            "given": "T.",
+            "family": "Yamada",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          }
+        ],
+        "container-title": [
+          "Progress of Theoretical Physics"
+        ],
+        "volume": "69",
+        "issue": "1",
+        "page": "32-47",
+        "published": {
+          "date-parts": [
+            [
+              1983,
+              1,
+              1
+            ]
+          ]
+        },
+        "publisher": "Oxford University Press (OUP)",
+        "DOI": "10.1143/ptp.69.32"
+      },
+      "fresh_result": "Current supplied title, author identities/order, venue, year, DOI, and stated volume/issue/pages match; punctuation/case/initial variants normalized. Specific name/version caveats below.",
+      "bib_start_line": 753,
+      "current_entry": "@article{fujisaka1983stability,\n  author = {Fujisaka, Hirokazu and Yamada, Tomoji},\n  title = {Stability Theory of Synchronized Motion in Coupled-Oscillator Systems},\n  journal = {Progress of Theoretical Physics},\n  volume = {69},\n  number = {1},\n  pages = {32--47},\n  year = {1983},\n  doi = {10.1143/PTP.69.32}\n}"
+    },
+    {
+      "key": "pecora1990synchronization",
+      "main_tex_lines": [
+        1225
+      ],
+      "entry_sha256": "cf30ef6e180d80d7b62222852dc1569134e13c93dc5eab791e5069b096cb6098",
+      "prior_records": [],
+      "primary_urls": [
+        "https://doi.org/10.1103/physrevlett.64.821"
+      ],
+      "status": "matched checked metadata",
+      "limitations": [],
+      "fresh_receipts": [
+        {
+          "file": "crossref-pecora1990synchronization.json",
+          "sha256": "3e9aed64bdc683b9de0387298f46542bf6b0cc62749798c4b9a17a533da39923",
+          "method": "publisher-deposited Crossref DOI record"
+        }
+      ],
+      "fresh_metadata": {
+        "title": [
+          "Synchronization in chaotic systems"
+        ],
+        "author": [
+          {
+            "given": "Louis M.",
+            "family": "Pecora",
+            "sequence": "first",
+            "affiliation": [],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          },
+          {
+            "given": "Thomas L.",
+            "family": "Carroll",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          }
+        ],
+        "container-title": [
+          "Physical Review Letters"
+        ],
+        "volume": "64",
+        "issue": "8",
+        "page": "821-824",
+        "published": {
+          "date-parts": [
+            [
+              1990,
+              2,
+              19
+            ]
+          ]
+        },
+        "publisher": "American Physical Society (APS)",
+        "DOI": "10.1103/physrevlett.64.821"
+      },
+      "fresh_result": "Current supplied title, author identities/order, venue, year, DOI, and stated volume/issue/pages match; punctuation/case/initial variants normalized. Specific name/version caveats below.",
+      "bib_start_line": 764,
+      "current_entry": "@article{pecora1990synchronization,\n  author = {Pecora, Louis M. and Carroll, Thomas L.},\n  title = {Synchronization in chaotic systems},\n  journal = {Physical Review Letters},\n  volume = {64},\n  pages = {821--824},\n  year = {1990},\n  doi = {10.1103/PhysRevLett.64.821}\n}"
+    },
+    {
+      "key": "platt1993onoff",
+      "main_tex_lines": [
+        1228
+      ],
+      "entry_sha256": "f50fb08ed51e83d6acd8536bf154dc2ae340aa3618beadd9aa6e4209edbf4412",
+      "prior_records": [],
+      "primary_urls": [
+        "https://doi.org/10.1103/physrevlett.70.279"
+      ],
+      "status": "matched checked metadata",
+      "limitations": [],
+      "fresh_receipts": [
+        {
+          "file": "crossref-platt1993onoff.json",
+          "sha256": "34d499f062b0495ed79c3334488b41f3ac7c1c7cc020efbf3c11fc2320907ec6",
+          "method": "publisher-deposited Crossref DOI record"
+        }
+      ],
+      "fresh_metadata": {
+        "title": [
+          "On-off intermittency: A mechanism for bursting"
+        ],
+        "author": [
+          {
+            "given": "N.",
+            "family": "Platt",
+            "sequence": "first",
+            "affiliation": [],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          },
+          {
+            "given": "E. A.",
+            "family": "Spiegel",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          },
+          {
+            "given": "C.",
+            "family": "Tresser",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          }
+        ],
+        "container-title": [
+          "Physical Review Letters"
+        ],
+        "volume": "70",
+        "issue": "3",
+        "page": "279-282",
+        "published": {
+          "date-parts": [
+            [
+              1993,
+              1,
+              18
+            ]
+          ]
+        },
+        "publisher": "American Physical Society (APS)",
+        "DOI": "10.1103/physrevlett.70.279"
+      },
+      "fresh_result": "Current supplied title, author identities/order, venue, year, DOI, and stated volume/issue/pages match; punctuation/case/initial variants normalized. Specific name/version caveats below.",
+      "bib_start_line": 774,
+      "current_entry": "@article{platt1993onoff,\n  author = {Platt, N. and Spiegel, E. A. and Tresser, C.},\n  title = {On-off intermittency: A mechanism for bursting},\n  journal = {Physical Review Letters},\n  volume = {70},\n  pages = {279--282},\n  year = {1993},\n  doi = {10.1103/PhysRevLett.70.279}\n}"
+    },
+    {
+      "key": "ashwin1994bubbling",
+      "main_tex_lines": [
+        1229
+      ],
+      "entry_sha256": "79672b7076eb501195af23d9b8c22f27fdca23d39db96f75bf9f987b4d6bf073",
+      "prior_records": [],
+      "primary_urls": [
+        "https://doi.org/10.1016/0375-9601(94)90947-4"
+      ],
+      "status": "matched checked metadata",
+      "limitations": [],
+      "fresh_receipts": [
+        {
+          "file": "crossref-ashwin1994bubbling.json",
+          "sha256": "f1587c77c424970d4b3bd615c9e5ca00be0b20b601540ae530b7866062352387",
+          "method": "publisher-deposited Crossref DOI record"
+        }
+      ],
+      "fresh_metadata": {
+        "title": [
+          "Bubbling of attractors and synchronisation of chaotic oscillators"
+        ],
+        "author": [
+          {
+            "given": "Peter",
+            "family": "Ashwin",
+            "sequence": "first",
+            "affiliation": [],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          },
+          {
+            "given": "Jorge",
+            "family": "Buescu",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          },
+          {
+            "given": "Ian",
+            "family": "Stewart",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          }
+        ],
+        "container-title": [
+          "Physics Letters A"
+        ],
+        "volume": "193",
+        "issue": "2",
+        "page": "126-139",
+        "published": {
+          "date-parts": [
+            [
+              1994,
+              9
+            ]
+          ]
+        },
+        "publisher": "Elsevier BV",
+        "DOI": "10.1016/0375-9601(94)90947-4"
+      },
+      "fresh_result": "Current supplied title, author identities/order, venue, year, DOI, and stated volume/issue/pages match; punctuation/case/initial variants normalized. Specific name/version caveats below.",
+      "bib_start_line": 784,
+      "current_entry": "@article{ashwin1994bubbling,\n  author = {Ashwin, Peter and Buescu, Jorge and Stewart, Ian},\n  title = {Bubbling of attractors and synchronisation of chaotic oscillators},\n  journal = {Physics Letters A},\n  volume = {193},\n  pages = {126--139},\n  year = {1994},\n  doi = {10.1016/0375-9601(94)90947-4}\n}"
+    },
+    {
+      "key": "sussillo2013opening",
+      "main_tex_lines": [
+        1250
+      ],
+      "entry_sha256": "b4f1ec6d0380744b951830aabc8d35611e015b299e19572c4d55497b20991dd3",
+      "prior_records": [
+        {
+          "receipt": "codex/paper-review-task27/components/theory-citation-ledger.json",
+          "note": {
+            "key": "sussillo2013opening",
+            "bib_line": 1132,
+            "primary_url": "https://direct.mit.edu/neco/article-abstract/25/3/626/7854/Opening-the-Black-Box-Low-Dimensional-Dynamics-in",
+            "verified": "Sussillo/Barak,title,Neural Computation25(3),626–649,2013,DOI.",
+            "unverified_or_optional": "",
+            "claim_scope": "Reverse engineering low-dimensional dynamics in trained recurrent networks; valid prior-work context.",
+            "accepted_reuse": false,
+            "paper_lines": [
+              231,
+              2521
+            ]
+          }
+        }
+      ],
+      "primary_urls": [
+        "https://direct.mit.edu/neco/article-abstract/25/3/626/7854/Opening-the-Black-Box-Low-Dimensional-Dynamics-in"
+      ],
+      "status": "matched checked metadata",
+      "limitations": [],
+      "bib_start_line": 500,
+      "current_entry": "@article{sussillo2013opening,\n  author  = {Sussillo, David and Barak, Omri},\n  title   = {Opening the Black Box: Low-Dimensional Dynamics in High-Dimensional Recurrent Neural Networks},\n  journal = {Neural Computation},\n  volume  = {25},\n  number  = {3},\n  pages   = {626--649},\n  year    = {2013},\n  doi     = {10.1162/NECO_a_00409}\n}"
+    },
+    {
+      "key": "maheswaranathan2019reverse",
+      "main_tex_lines": [
+        1250
+      ],
+      "entry_sha256": "b0f4436e136e063d9225f667399476ade50115952f4e35f2dd94ed9061408a11",
+      "prior_records": [
+        {
+          "receipt": "codex/paper-review-task27/components/theory-citation-ledger.json",
+          "note": {
+            "key": "maheswaranathan2019reverse",
+            "bib_line": 1143,
+            "primary_url": "https://proceedings.neurips.cc/paper_files/paper/2019/hash/d921c3c762b1522c475ac8fc0811bb0f-Abstract.html",
+            "verified": "Five authors/title,NeurIPS32,2019.",
+            "unverified_or_optional": "Pages15696–15705 were not independently visible in primary landing text.",
+            "claim_scope": "Reverse-engineering recurrent-network computations; no claim that periodic continuation is its sole scope.",
+            "accepted_reuse": false,
+            "paper_lines": [
+              231,
+              2521
+            ]
+          }
+        }
+      ],
+      "primary_urls": [
+        "https://proceedings.neurips.cc/paper_files/paper/2019/hash/d921c3c762b1522c475ac8fc0811bb0f-Abstract.html",
+        "https://proceedings.neurips.cc/paper_files/paper/2019/file/d921c3c762b1522c475ac8fc0811bb0f-Bibtex.bib",
+        "https://www.proceedings.com/content/053/053719webtoc.pdf"
+      ],
+      "status": "should-fix optional pagination; core identity matches",
+      "limitations": [],
+      "review_note": "Authors/title/venue32/year2019 match. Official online BibTeX has pages empty. Publisher print TOC p48 starts this paper15617, next15627;10-page official PDF. Current15696–15705 does not match that primary edition; omit optional pages or explicitly choose print15617–15626 (end inferred). See C1.",
+      "bib_start_line": 511,
+      "current_entry": "@inproceedings{maheswaranathan2019reverse,\n  author        = {Maheswaranathan, Niru and Williams, Alex and Golub, Matthew and Ganguli, Surya and Sussillo, David},\n  title         = {Reverse engineering recurrent networks for sentiment classification reveals line attractor dynamics},\n  booktitle     = {Advances in Neural Information Processing Systems},\n  volume        = {32},\n  pages         = {15696--15705},\n  year          = {2019},\n  url           = {https://proceedings.neurips.cc/paper_files/paper/2019/hash/d921c3c762b1522c475ac8fc0811bb0f-Abstract.html},\n  eprint        = {1906.10720},\n  archivePrefix = {arXiv}\n}"
+    },
+    {
+      "key": "korbak2025monitorability",
+      "main_tex_lines": [
+        1255
+      ],
+      "entry_sha256": "df4b516c3458b2e2afb5f3f3cfb0f270a7a15060c58cf287a0bcc4a21cc07a4c",
+      "prior_records": [
+        {
+          "receipt": "codex/presubmit-task37/citation-sources.json",
+          "note": {
+            "key": "korbak2025monitorability",
+            "urls": [
+              "https://arxiv.org/abs/2507.11473",
+              "https://arxiv.org/html/2507.11473v2"
+            ],
+            "arxiv_version": "2507.11473v2",
+            "initial_date": "2025-07-15",
+            "version_date": "2025-12-07",
+            "publication_status": "arXiv position paper; no venue shown in inspected primary record",
+            "fields_checked": [
+              "three explicitly stated authors and order",
+              "title",
+              "year",
+              "arxiv_id",
+              "primary_class"
+            ],
+            "result": "metadata match; citation application in safety sentence should be narrowed to CoT monitorability"
+          }
+        }
+      ],
+      "primary_urls": [
+        "https://arxiv.org/abs/2507.11473",
+        "https://arxiv.org/html/2507.11473v2"
+      ],
+      "status": "matched checked metadata",
+      "limitations": [],
+      "bib_start_line": 863,
+      "current_entry": "@misc{korbak2025monitorability,\n  author        = {Korbak, Tomek and Balesni, Mikita and Barnes, Elizabeth and others},\n  title         = {{Chain of Thought Monitorability}: A New and Fragile Opportunity for {AI} Safety},\n  year          = {2025},\n  url           = {https://arxiv.org/abs/2507.11473},\n  eprint        = {2507.11473},\n  archivePrefix = {arXiv},\n  primaryClass  = {cs.AI}\n}"
+    },
+    {
+      "key": "clark2018arc",
+      "main_tex_lines": [
+        1268
+      ],
+      "entry_sha256": "1cfa99ecde013e3724eb37fb7480068ea8f4443726e519ac3f648824e4681a9b",
+      "prior_records": [
+        {
+          "receipt": "codex/presubmit-task37/citation-sources.json",
+          "note": {
+            "key": "clark2018arc",
+            "urls": [
+              "https://arxiv.org/abs/1803.05457"
+            ],
+            "arxiv_version": "1803.05457v1",
+            "version_date": "2018-03-14",
+            "publication_status": "arXiv preprint; no venue shown in inspected primary record",
+            "fields_checked": [
+              "all seven authors and order",
+              "title",
+              "year",
+              "arxiv_id"
+            ],
+            "result": "match"
+          }
+        },
+        {
+          "receipt": "codex/paper-review-task27/components/root-citations.md",
+          "note": "| clark2018arc | [Original paper](https://arxiv.org/abs/1803.05457): seven authors, title and 2018 year match; appropriate ARC benchmark reference. |"
+        }
+      ],
+      "primary_urls": [
+        "https://arxiv.org/abs/1803.05457"
+      ],
+      "status": "matched checked metadata",
+      "limitations": [],
+      "bib_start_line": 883,
+      "current_entry": "@misc{clark2018arc,\n  author        = {Clark, Peter and Cowhey, Isaac and Etzioni, Oren and Khot, Tushar and Sabharwal, Ashish and\n                   Schoenick, Carissa and Tafjord, Oyvind},\n  title         = {Think you have Solved Question Answering? {Try} {ARC}, the {AI2 Reasoning Challenge}},\n  year          = {2018},\n  howpublished  = {arXiv preprint arXiv:1803.05457},\n  url           = {https://arxiv.org/abs/1803.05457},\n  eprint        = {1803.05457},\n  archivePrefix = {arXiv}\n}"
+    },
+    {
+      "key": "zhu2025ouro",
+      "main_tex_lines": [
+        1271
+      ],
+      "entry_sha256": "67d5c7bd6bc4a6430814d7917df6f28f6516c7bba446cc7fd339ee2401d526bb",
+      "prior_records": [
+        {
+          "receipt": "codex/presubmit-task37/citation-sources.json",
+          "note": {
+            "key": "zhu2025ouro",
+            "urls": [
+              "https://arxiv.org/abs/2510.25741"
+            ],
+            "arxiv_version": "2510.25741v6",
+            "initial_date": "2025-10-29",
+            "version_date": "2026-10-11",
+            "publication_status": "arXiv preprint; no venue shown in inspected primary record",
+            "fields_checked": [
+              "three explicitly stated authors and order",
+              "title",
+              "initial preprint year",
+              "arxiv_id"
+            ],
+            "result": "match"
+          }
+        },
+        {
+          "receipt": "codex/paper-review/citation-audit.md",
+          "note": "|`zhu2025ouro`|[arXiv2510.25741](https://arxiv.org/abs/2510.25741), first29Oct2025, v5 1Jul2026; authors begin Rui-Jie Zhu, Zixuan Wang, Kai Hua.|Matches listed authors/title; identify the chosen version rather than interpreting the2026 revision as a2025 venue.|"
+        }
+      ],
+      "primary_urls": [
+        "https://arxiv.org/abs/2510.25741"
+      ],
+      "status": "matched checked metadata",
+      "limitations": [],
+      "bib_start_line": 873,
+      "current_entry": "@misc{zhu2025ouro,\n  author        = {Zhu, Rui-Jie and Wang, Zixuan and Hua, Kai and others},\n  title         = {Scaling Latent Reasoning via Looped Language Models},\n  year          = {2025},\n  howpublished  = {arXiv preprint arXiv:2510.25741},\n  url           = {https://arxiv.org/abs/2510.25741},\n  eprint        = {2510.25741},\n  archivePrefix = {arXiv}\n}"
+    },
+    {
+      "key": "bae2025mor",
+      "main_tex_lines": [
+        1271
+      ],
+      "entry_sha256": "aa011b17f41262a9e22123d5eec949844745a30decf6abbef77b5540dc202feb",
+      "prior_records": [
+        {
+          "receipt": "codex/presubmit-task37/citation-sources.json",
+          "note": {
+            "key": "bae2025mor",
+            "urls": [
+              "https://proceedings.nips.cc/paper_files/paper/2025/hash/8b08bbf8b420faa6eeb4020720582ec7-Abstract-Conference.html",
+              "https://www.proceedings.com/085713-3229.html",
+              "https://arxiv.org/abs/2507.10524"
+            ],
+            "arxiv_version": "2507.10524v3",
+            "version_date": "2025-10-25",
+            "publication_status": "NeurIPS 2025, Advances in Neural Information Processing Systems 38:107088-107133",
+            "doi": "10.52202/085713-3229",
+            "fields_checked": [
+              "three explicitly stated authors and order",
+              "title",
+              "year",
+              "venue",
+              "volume",
+              "pages",
+              "doi",
+              "arxiv_id"
+            ],
+            "result": "match"
+          }
+        }
+      ],
+      "primary_urls": [
+        "https://proceedings.nips.cc/paper_files/paper/2025/hash/8b08bbf8b420faa6eeb4020720582ec7-Abstract-Conference.html",
+        "https://www.proceedings.com/085713-3229.html",
+        "https://arxiv.org/abs/2507.10524"
+      ],
+      "status": "matched checked metadata",
+      "limitations": [],
+      "bib_start_line": 850,
+      "current_entry": "@inproceedings{bae2025mor,\n  author        = {Bae, Sangmin and Kim, Yujin and Bayat, Reza and others},\n  title         = {{Mixture-of-Recursions}: Learning Dynamic Recursive Depths for Adaptive Token-Level Computation},\n  booktitle     = {Advances in Neural Information Processing Systems},\n  volume        = {38},\n  pages         = {107088--107133},\n  year          = {2025},\n  doi           = {10.52202/085713-3229},\n  url           = {https://arxiv.org/abs/2507.10524},\n  eprint        = {2507.10524},\n  archivePrefix = {arXiv}\n}"
+    }
+  ]
+}
