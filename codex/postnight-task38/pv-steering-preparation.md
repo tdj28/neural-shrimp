@@ -1,0 +1,3 @@
+# Task38 bounded saved PV and steering audit
+
+2026-10-19T09:17Z. One standard-library/NumPy/tokenizers process, one thread, nice10, 2GiB address space,60CPU/90wall seconds. No model or producer-module import. Reads22small saved128x128 maps sequentially, exact prefixes and tokenizer, two original P14 archives through bounded small metadata members, and896-component steering vectors. Keeps every map gate, exact counts and unrounded ranges, input hashes and first output. Output /tmp/task38-root/pv-steering-result-001.json must be fresh. No retry/overwrite. Source compiled without execution; source read in full. This is a finite saved-data audit, not a new scientific target run. Task37 loaded source/card/plan unchanged.
