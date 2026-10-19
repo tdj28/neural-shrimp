@@ -1,7 +1,7 @@
 {
   "schema": "codex-task34-phase-recovery-card-v1",
   "prepared_utc": "2026-10-19T16:40:50.929418+00:00",
-  "status": "held_for_separate_admission",
+  "status": "reviewed_for_execution",
   "attempt": "phase-cascade-p6-002",
   "repository": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp",
   "preparation_base_commit": "a1bc67858437cadb07387412cdbfccbf12afe8cb",
@@ -119,10 +119,28 @@
     "CUDA_VISIBLE_DEVICES": ""
   },
   "environment_metadata_enforced_by_supervisor": false,
-  "capacity_window": null,
+  "capacity_window": {
+    "window_start_utc": "2026-10-19T17:15:00Z",
+    "window_end_utc": "2026-10-19T23:59:00Z",
+    "root_conservative_latest_start_utc": "2026-10-19T22:00:00Z",
+    "task": "Task34 phase-cascade-p6-002 only",
+    "other_owner_resident_gb_ceiling": 20,
+    "other_owner_thread_ceiling": 16
+  },
   "actual_fresh_capacity_admission": null,
   "actual_source_commit": null,
-  "runtime_backend_admission": null,
+  "runtime_backend_admission": {
+    "record": {
+      "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/certificate-ladder-task34/phase-cascade-p6-002-preadmission.json",
+      "bytes": 47489,
+      "sha256": "c45c5b5447c953aa8c787704b5d8c767448f8b2335acd8599d552e710bf9335f"
+    },
+    "loaded_file_count": 56,
+    "historical_backend_equality_claimed": false,
+    "model_evaluations": 0,
+    "os_threads_in_import_probe": 2,
+    "numerical_threads": 1
+  },
   "launch_authorized_by_preparation": false,
   "scientific_qualification_admitted": false,
   "certificate_passed": false,
@@ -137,5 +155,23 @@
   "expected_output_files": 14,
   "new_output": "/data2/neural-shrimp-data/codex/certificate-ladder/phase-cascade-p6-002",
   "new_supervision": "/data2/neural-shrimp-data/codex/certificate-ladder/phase-cascade-p6-002-supervision",
-  "required_postclosure_audit": "Separate explicitly reviewed adapter/allocation for actual002 original source/receipts. Existing audit_phase_p6.py remains bound to failed001, unchanged and unrun."
+  "required_postclosure_audit": "Separate explicitly reviewed adapter/allocation for actual002 original source/receipts. Existing audit_phase_p6.py remains bound to failed001, unchanged and unrun.",
+  "admission_amended_utc": "2026-10-19T17:21:23.965954+00:00",
+  "root_preadmission": {
+    "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/certificate-ladder-task34/phase-cascade-p6-002-preadmission.json",
+    "bytes": 47489,
+    "sha256": "c45c5b5447c953aa8c787704b5d8c767448f8b2335acd8599d552e710bf9335f"
+  },
+  "capacity_coordination": {
+    "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/certificate-ladder-task34/phase-cascade-p6-002-capacity-coordination.json",
+    "bytes": 2121,
+    "sha256": "4ed0587e6a727b1d9d718bd94259a2712de4f6516aee16aab2e14fc4941fb3b5"
+  },
+  "admission_amendment": {
+    "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/certificate-ladder-task34/phase-cascade-p6-002-admission-amendment.md",
+    "bytes": 5695,
+    "sha256": "3f037740941a53425d4720511d06251fffc26aacd699e3f6576439bb011783a8"
+  },
+  "actual_source_commit_authority": "To be bound by verified private checkpoint and original supervisor admission; no self-reference.",
+  "launch_requires": "Final independent packet review, fresh comm/window check, clean exact private checkpoint, actual supervisor admission and explicit offline CPU environment."
 }
