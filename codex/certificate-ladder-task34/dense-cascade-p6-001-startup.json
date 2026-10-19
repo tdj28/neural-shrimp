@@ -1,0 +1,93 @@
+{
+  "at": "2026-10-19T01:26:48.251962+00:00",
+  "source_commit": "19b63a2002b72ff5bcdaea441a141b58ed05e272",
+  "session": 42216,
+  "identities": [
+    {
+      "pid": 3589755,
+      "starttime": 231974178,
+      "pgid": 3589755,
+      "sid": 3589755,
+      "state": "S",
+      "nice": 10,
+      "threads": 1,
+      "uid_line": "Uid:\t1000\t1000\t1000\t1000",
+      "cmdline": "/data2/neural-shrimp/.venv/bin/python -B codex/certify-chaos/supervise.py --plan codex/certificate-ladder-task34/dense-cascade-p6-001-plan.json --lane dense --source 19b63a2002b72ff5bcdaea441a141b58ed05e272 ",
+      "limits": "Limit                     Soft Limit           Hard Limit           Units     \nMax cpu time              unlimited            unlimited            seconds   \nMax file size             unlimited            unlimited            bytes     \nMax data size             unlimited            unlimited            bytes     \nMax stack size            8388608              unlimited            bytes     \nMax core file size        0                    unlimited            bytes     \nMax resident set          unlimited            unlimited            bytes     \nMax processes             375398               375398               processes \nMax open files            65535                65535                files     \nMax locked memory         8388608              8388608              bytes     \nMax address space         1073741824           19327352832          bytes     \nMax file locks            unlimited            unlimited            locks     \nMax pending signals       375398               375398               signals   \nMax msgqueue size         819200               819200               bytes     \nMax nice priority         0                    0                    \nMax realtime priority     0                    0                    \nMax realtime timeout      200000               200000               us        \n"
+    },
+    {
+      "pid": 3589786,
+      "starttime": 231974189,
+      "pgid": 3589786,
+      "sid": 3589786,
+      "state": "R",
+      "nice": 10,
+      "threads": 1,
+      "uid_line": "Uid:\t1000\t1000\t1000\t1000",
+      "cmdline": "/data2/neural-shrimp/.venv/bin/python -I -B /home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/certificate-ladder-task34/dense_qualify.py --card /home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/certificate-ladder-task34/dense-cascade-p3-001-card.json --cell cascade-p6 --out /data2/neural-shrimp-data/codex/certificate-ladder/dense-cascade-p6-001 ",
+      "limits": "Limit                     Soft Limit           Hard Limit           Units     \nMax cpu time              4820                 4820                 seconds   \nMax file size             134217728            134217728            bytes     \nMax data size             unlimited            unlimited            bytes     \nMax stack size            8388608              unlimited            bytes     \nMax core file size        0                    unlimited            bytes     \nMax resident set          unlimited            unlimited            bytes     \nMax processes             375398               375398               processes \nMax open files            65535                65535                files     \nMax locked memory         8388608              8388608              bytes     \nMax address space         12884901888          12884901888          bytes     \nMax file locks            unlimited            unlimited            locks     \nMax pending signals       375398               375398               signals   \nMax msgqueue size         819200               819200               bytes     \nMax nice priority         0                    0                    \nMax realtime priority     0                    0                    \nMax realtime timeout      200000               200000               us        \n"
+    }
+  ],
+  "capacity": {
+    "available_ram_bytes": 46655647744,
+    "disk_free_bytes": 2664899432448,
+    "loadavg": [
+      4.59912109375,
+      10.12744140625,
+      12.5927734375
+    ]
+  },
+  "limits": {
+    "as_bytes": 12884901888,
+    "cpu_seconds": 4820,
+    "wall_seconds": 4920,
+    "output_bytes": 134217728
+  },
+  "threads": {
+    "OMP_NUM_THREADS": "1",
+    "OPENBLAS_NUM_THREADS": "1",
+    "MKL_NUM_THREADS": "1",
+    "NUMEXPR_NUM_THREADS": "1"
+  },
+  "worker_startup": {
+    "identity": {
+      "pid": 3589786,
+      "starttime": 231974189,
+      "pgid": 3589786,
+      "sid": 3589786,
+      "state": "R",
+      "nice": 10,
+      "threads": 1,
+      "uid_line": "Uid:\t1000\t1000\t1000\t1000",
+      "cmdline": "/data2/neural-shrimp/.venv/bin/python -B codex/certify-chaos/supervise.py --plan codex/certificate-ladder-task34/dense-cascade-p6-001-plan.json --lane dense --source 19b63a2002b72ff5bcdaea441a141b58ed05e272 ",
+      "limits": "Limit                     Soft Limit           Hard Limit           Units     \nMax cpu time              4820                 4820                 seconds   \nMax file size             134217728            134217728            bytes     \nMax data size             unlimited            unlimited            bytes     \nMax stack size            8388608              unlimited            bytes     \nMax core file size        0                    unlimited            bytes     \nMax resident set          unlimited            unlimited            bytes     \nMax processes             375398               375398               processes \nMax open files            65535                65535                files     \nMax locked memory         8388608              8388608              bytes     \nMax address space         12884901888          12884901888          bytes     \nMax file locks            unlimited            unlimited            locks     \nMax pending signals       375398               375398               signals   \nMax msgqueue size         819200               819200               bytes     \nMax nice priority         0                    0                    \nMax realtime priority     0                    0                    \nMax realtime timeout      200000               200000               us        \n"
+    },
+    "planned_argv": [
+      "/data2/neural-shrimp/.venv/bin/python",
+      "-I",
+      "-B",
+      "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/certificate-ladder-task34/dense_qualify.py",
+      "--card",
+      "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/certificate-ladder-task34/dense-cascade-p3-001-card.json",
+      "--cell",
+      "cascade-p6",
+      "--out",
+      "/data2/neural-shrimp-data/codex/certificate-ladder/dense-cascade-p6-001"
+    ],
+    "affinity": [
+      0
+    ],
+    "address_space": [
+      12884901888,
+      12884901888
+    ],
+    "cpu_seconds": [
+      4820,
+      4820
+    ],
+    "file_size": [
+      134217728,
+      134217728
+    ]
+  }
+}
