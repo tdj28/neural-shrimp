@@ -22,7 +22,8 @@ dl = [
     "torchvision>=0.29.1",
 ]
 exp020 = [
-    "python-flint",
+    # The same wheel as the frozen EXP-020 lock (requirements-exp020.lock), now resolved from PyPI.
+    "python-flint==0.9.0",
 ]
 
 [project.scripts]
@@ -34,6 +35,3 @@ where = ["src"]
 [tool.pytest.ini_options]
 testpaths = ["tests"]
 pythonpath = ["src"]
-
-[tool.uv.sources]
-python-flint = { path = "../neural-shrimp-data/dependencies/EXP-020/python-flint-0.9.0/python_flint-0.9.0-cp310-abi3-manylinux2014_x86_64.manylinux_2_17_x86_64.whl" }
