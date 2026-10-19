@@ -63,8 +63,44 @@ Three windows of the language-model map are relevant.
    - The superstable grid (zero curves of per-step factors of the leading multiplier, read only from cells with
      |mu1| > 10 |mu2|): SEE "DSS6 RESULT" BELOW.
 
-DSS6 RESULT: (to be filled in when the run returns; it states whether the zero curves cross or avoid, where, and the
-multipliers at the closest approach)
+DSS6 RESULT (period-6 body; grid llm-soft-loop/pod64/dss/p6-body, read 19 October 2026):
+- The grid is 31 x 31 cells over alpha 0.0724-0.0738 and log10 T -0.1545 to -0.1500 (steps 4.7e-5 and 1.5e-4). It
+  continues one orbit, seeded at (0.0729, -0.15204) on the side of the left flip curve. 529 cells are solved.
+- The leading multiplier never vanishes. Its smallest modulus, 0.0063, is at (0.073053, -0.15120), where the leading
+  pair is nearly imaginary, 0.0004 +/- 0.0063i (trace 8e-4), and the third multiplier is -0.0051. Three multipliers of
+  nearly equal small modulus: the same near-nilpotent signature as the period-5 head.
+- The dark line of strongest contraction (the would-be superstable curves) runs from the flip crossing R up the body
+  and bends to the upper left. All 9 cells with a complex leading pair lie on its upper part, from (0.0730, -0.1526) to
+  (0.0728, -0.1502), with arguments 43 to 135 degrees and moduli 0.006-0.038.
+- The product delta = mu1 mu2 changes sign across a single curve running from R up to about (0.0731, -0.151); delta < 0
+  in 151 of 529 cells, on the fold side. With both multipliers real, the curve is where the smaller one passes zero.
+- The trace mu1 + mu2 vanishes on a curve that runs down the upper part of the dark line and turns back toward the fold
+  side, partly closing a region of positive trace.
+- The real leading multiplier changes sign between neighboring cells 45 times. Only 7 of these are candidate zero
+  crossings (|mu1| within a factor 3 of |mu2| on both sides); 38 are exchanges of dominance between real multipliers of
+  opposite sign (|mu1| > 3 |mu2|). The fourth multiplier never exceeds 0.0062.
+
+KITE RESULT (19 October 2026), bearing on "they cross near the kite":
+- The body's two flip curves cross at R = (0.072912, -0.154104), at its lower-left end.
+- Newton's method at R, from the orbit stored on each flip curve, converges to two distinct period-6 orbits:
+  - residuals 3e-14 and 2e-13;
+  - the orbits differ by 1.7e-2, 6.4 % of the mean state norm, but have the same six-token loop;
+  - their leading multipliers are -0.9952 and -1.0005.
+- R is therefore a pseudo-crossing: two different orbits on two sheets of the family, each at its own flip. This is
+  the structure of Gallas's kite, where the superstable curves of two coexisting attractors cross at the tail T (a
+  "pseudo-intersection") and the two flip curves at R; our check of his cell finds two distinct fixed points with
+  multiplier -1 at his R.
+- At (0.0730, -0.1539), inside the body near R, the td-sheet orbit is attracting (mu1 = -0.797). Newton from the
+  ad-sheet orbit did not converge there (a failed solve, not evidence that the orbit is absent).
+- Continuations of each sheet's fold curves toward the cusp of the kite are running.
+
+Our proposed reading (please check):
+- Near the head, one orbit: its two would-be superstable curves avoid each other, with complex pairs in the gap
+  (the mechanism below).
+- Near the kite, two orbits: curves of different orbits cross freely in the parameter plane (pseudo-crossings, as at
+  Gallas's tail).
+- The human's observation, "they cross near the kite but avoid near the top", would then have one explanation for
+  each place.
 
 ## The proposed explanation (to be checked)
 
