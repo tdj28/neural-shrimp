@@ -30819,3 +30819,13 @@ the side of R toward the head, as in Gallas's cell. A failed location is reporte
   - The other two cusps form a second pair with opposite c, near the end of the lower-left leg.
   - With the upper-left leg's pair and the cusp beyond the neck, the period-6 window has six located cusps.
 - Figure: tools/plot_p6_kite.py, paper/llm/figures/fig-p6-kite.png.
+
+## 2026-10-19 06:47 UTC: run card HR11 (exploratory): a 512 x 512 map of the kite (human: "Do it, it's beautiful let's get a higher resolution")
+
+- Window: the kite figure's panel (a), alpha 0.07280-0.07310 and log10 T -0.1544 to -0.1530 (steps 5.9e-7 and 2.7e-6, 7.5
+  and 4.6 times finer than HR10).
+- Protocol: HR9/HR10 (float64, transient 300, samples 300, record 80, max period 32, chaos level 1e-3), commit a865b0b8.
+  16 pods of 32 x 512 cells, A100.
+- Reading: descriptive. The kite C-A-R-B and the lines of strongest contraction through it, with the continued curves
+  drawn over the map.
+- Output: llm-soft-loop/pod64/bands/hr11-c00..c15, stitched to llm-soft-loop/pod64/hr11.
