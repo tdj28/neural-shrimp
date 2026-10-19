@@ -361,3 +361,15 @@ skill, section 7A). Spend is recorded only in the gitignored `cost-ledger.md`
 - Consult 20 executed 19 Oct 2026 12:32-12:37 UTC (one call, as approved; brief at 4e6e2ec6, dry-004 checked first):
   completed, 65,021 tokens. Review and adjudication: docs/consults/2026-10-19-postnight-results/adjudication.md
   (artifacts in neural-shrimp-data/consults/2026-10-19-postnight-results/execute-001).
+
+## Consult 21: mathematics and references of "Why the loop can be chaotic" (19 October 2026)
+
+- **Approval (human, in session, 19 October 2026):** "Please do a pro review of the why it can be chaotic section
+  focusing on the math and references". This explicitly requests one paid consult on Sec. III of the Chaos article.
+- **Milestone:** arXiv v1 of the Chaos article (submission imminent); the section was edited today (temperature limit,
+  steering, variance shares, orbit bounds) and its mathematics and citations must be right before posting.
+- **Scope:** one `research-note-scientific` request with the brief `2026-10-19-theory-math-refs/brief.md` (the section
+  verbatim, the factorization paragraph of Sec. II, the cited bibliography entries). No retry or second pass without a
+  new recorded decision.
+- **Model:** `gpt-6-astra`, Pro mode, high effort, at most 25,000 output tokens; the per-call guard and the cost are in
+  the private cost ledger. Advice is advisory and is adjudicated locally.
