@@ -218,8 +218,7 @@ Huginn: a predicted accuracy loss & frozen & Sec.~\ref{sec:huginn} \\
 \paragraph{Contributions.} The results fall into four groups.
 \begin{enumerate}
 \item \emph{Chaos in released models, and what it does to inference} (Sections~\ref{sec:maps}
-  and~\ref{sec:consequences}; Appendix~\ref{sec:scale}). Temperature and steering move the loop between repeating text and chaos with embedded windows in all three model families, Qwen2.5, OLMo-2 and Llama-3. The regime decides whether rounding differences
-  between runs grow. Run twice with only the batch layout changed, 190 of 192 chaotic float64 loops of Qwen2.5-0.5B grow past
+  and~\ref{sec:consequences}; Appendix~\ref{sec:scale}). Temperature and steering move the loop between repeating text and chaos with embedded windows in all three model families, Qwen2.5, OLMo-2 and Llama-3. In float64, whether rounding differences between runs grow depends on the regime. Run twice with only the batch layout changed, 190 of 192 chaotic float64 loops of Qwen2.5-0.5B grow past
   a relative distance of $10^{-2}$ after a median of 102 steps, in line with the Lyapunov exponent (median ratio
   0.91), and at 173 of them the most probable readout token comes to differ; 182 of 192 periodic loops stay within
   $10^{-2}$, and at only 7 of them does the most probable token come to differ. Qwen2.5-7B and Llama-3.1-8B without steering (24 of 24 and 20 of 20 chaotic loops diverge, 0 of 24 and 1
@@ -1178,7 +1177,7 @@ size, on the horizon and on how close the run comes to a change of answer, so a 
 answer when the starting difference is large. In bfloat16 the starting difference is already about $10^{-3}$, so continuous
 feedback carries it into different answers within a short budget even where the float64 loop is not chaotic (below).
 
-\paragraph{The regime decides whether rounding differences grow.} Language-model inference is not bitwise
+\paragraph{Whether rounding differences grow depends on the regime.} Language-model inference is not bitwise
 reproducible: GPU kernels choose different reduction orders for different matrix shapes, so a request's result depends
 on its batch layout, the set of requests that the GPU processes together with it, and on the hardware
 \cite{he2025nondeterminism,yuan2025nondeterminism}. We ran the 448 labeled
@@ -1219,7 +1218,7 @@ not classified). This fails a secondary criterion, which allowed at most
 \begin{figure}[tbp]
 \centering
 \includegraphics[width=\linewidth]{fig-fixed-shape.png}
-\caption{Fixed-shape control and dose test (Qwen2.5-0.5B-Instruct, the 448 labeled cells of two float64 maps, 1500
+\caption{Fixed-shape control and dose test (Qwen2.5-0.5B-Instruct, the 448 cells of two float64 maps, 192 chaotic, 192 periodic and 64 with neither label, 1500
 lockstep steps; \repo{tools/repro_noise.py}, \repo{tools/plot_fixed_shape.py}). (a) Largest relative distance between
 paired runs per cell: with the same matrix shapes, whether the same rows run twice or the rows are permuted, it is
 exactly zero in all 448 cells (plotted at $10^{-18}$); a changed shape separates the chaotic cells. (b) With the shapes
@@ -1302,8 +1301,7 @@ the smallest attainable). In float64 no answer changed within the 32 steps. Ther
 kick to the first soft token is $0.033$ nats per step at $T=1$ (range $-0.13$ to $0.24$ over six problems and three
 kick sizes), and even a relative kick of $10^{-4}$ changes no answer. The bfloat16 discrepancies therefore do not
 require the float64 map's chaos; they are consistent with bfloat16's rounding differences accumulating through
-continuous feedback. A discrete argmax absorbs differences smaller than its margin, but not over a long feedback run
-whose answers the model holds weakly (``Soft Thinking as published'', below). (The forced greedy baseline's accuracy is zero and not
+continuous feedback. A discrete argmax absorbs differences smaller than its margin, but not over a long feedback run in a pipeline that answers poorly (``Soft Thinking as published'', below). (The forced greedy baseline's accuracy is zero and not
 informative: forced through 32 tokens, the model writes past its answer, and the cue then extracts another number.)
 The same frozen test in Qwen2.5-7B, whose soft-thinking pipeline answers 51 to 64\,\% of these problems, replicates
 the result. In bfloat16 the batch layout changed the soft-thinking answer in 53 of the 96 problems (55\,\%) at
@@ -1311,8 +1309,11 @@ $T=10^{0.2}$, the temperature at which the soft trace still matters. In 24 of th
 number (an invalid answer, which the frozen design counts as a value); in the other 29 (30\,\% of the problems) both
 gave numbers, and they differ. The pipeline answered 49 of the 96 correctly alone and 61 in the batch; at
 $T=10^{0.4}$ it answered all 96 correctly in both layouts, and no answer changed. At this precision even the forced greedy baseline
-changed in 10 of the 96, the known batch-variance effect. The excess over greedy decoding is 17.7 points
-($[9.3,25.6]$, $p=2\times10^{-4}$). In float64, at that temperature, the 7B's loop amplifies an injected perturbation
+changed in 10 of the 96, the known batch-variance effect. Averaged over the frozen design's two
+temperatures, $T=1$ and $10^{0.2}$, as for the 0.5B model, the excess over greedy decoding is 17.7 points
+($[9.3,25.6]$, $p=2\times10^{-4}$); at $T=10^{0.2}$ alone it is 44.8 points (53 against 10 of 96), and at $T=1$, where
+the soft pipeline answers none correctly and changed one answer, it is negative. The forced greedy baseline is a
+computational comparator, not a useful-answer baseline: it answers 1 of the 96 correctly. In float64, at that temperature, the 7B's loop amplifies an injected perturbation
 (median $+0.034$ nats per step), injected kicks change answers (2 of 18 kicks: six problems and three kick sizes), and
 the rounding-level difference between the layouts changed 5\,\% of the answers within the 32 steps.
 Two horizons thus matter. Within a short budget, continuous feedback in low precision makes answers depend on the
@@ -1364,13 +1365,15 @@ the same 256 problems (paired differences of flip rates, intervals clustered by 
   predicted lower, and the test cannot tell the two apart.
 \end{itemize}
 The three confirmed differences would survive a correction for the four tests by a wide margin, and the fourth is a
-clear null: discrete feedback through the same pipeline flips nearly as many answers as continuous feedback does.
+difference the test does not resolve: discrete feedback through the same pipeline flips nearly as many answers as
+continuous feedback does, although the interval does not establish that the two are equal.
 The full vocabulary gave 22.3\,\% (no prediction). Most changes are between wrong answers: through the soft pipeline
 this model answers only 22 to 30\,\% of the problems correctly, and the layout changes whether the answer is correct
 for 6.2\,\% of the problems. In float64 the same pipeline contracts. On 1312 and 1314 of the 1319 GSM8K test problems
 (full vocabulary and top-15), a perturbation of $10^{-10}$ ended below its initial size, and none changed an answer.
 These flips are therefore not chaos of the float64 map: the feedback carries bfloat16 rounding differences forward
-until they change answers that the model holds only weakly, and it does so for discrete feedback as well.
+until they change answers in a pipeline that answers only 22 to 30\,\% of the problems correctly, and it does so for
+discrete feedback as well.
 
 \paragraph{How the dependence builds up.} An exploratory study read the answers of the same pipeline after every
 doubling of the number of soft steps, from 2 to 128. It used 200 GSM8K test problems, two temperatures (0.6 and 1.2),
@@ -1400,7 +1403,8 @@ DeepSeek-R1-Distill-Llama-8B loaded wrongly: it dropped the spaces and newlines 
 far less and answered 45\,\% of a check set correctly, against 83\,\% with the correct tokenizer in bfloat16 and
 81\,\% in float64 (\repo{docs/pi/pm2x-llama-diag.json}). Both of its cells were rerun with the correct tokenizer,
 an amendment after the data. Over the five primary cells, the batch layout changed 27.1\,\% of the soft-thinking
-answers (243 of 896; 95\,\% interval $[24.7,29.5]$), confirming the prediction of more than 5\,\%. The prediction
+answers (243 of 896; 95\,\% interval $[24.7,29.5]$), confirming the prediction of more than 5\,\%; this is a weighted
+summary of these cells, which mix two tasks and two layout constructions, not a general susceptibility of the models. The prediction
 holds in every version of the pooling, including the original run (29.6\,\%) and the run without both cells of this
 model (21.9\,\%) (\repo{docs/pi/pm2fix-summary.json}, \repo{docs/pi/pm2fix-math-summary.json}).
 \begin{itemize}
@@ -1409,9 +1413,10 @@ model (21.9\,\%) (\repo{docs/pi/pm2fix-summary.json}, \repo{docs/pi/pm2fix-math-
   86 to 87\,\%, and DeepSeek-R1-Distill-Llama-8B for 28.9\,\% ($[23.4,34.4]$) at 74 to 77\,\%. The two layouts disagreed
   on correctness for 11.7, 14.5 and 18.0\,\% of the problems.
   \item Discrete sampled thinking also changed many answers. On GSM8K the rates were 10.2, 19.9 and 21.5\,\% for the
-  same three models. Only in DeepSeek-R1-Distill-Llama-8B did soft thinking change significantly more, by 7.4 points
-  ($[1.9,12.9]$, McNemar $p=0.029$), and it answered correctly 4.7 points less often
-  ($[-8.6,-0.8]$, McNemar $p=0.096$). Elsewhere no soft-minus-plain
+  same three models. Only in DeepSeek-R1-Distill-Llama-8B did soft thinking change more, by 7.4 points
+  ($[1.9,12.9]$; exact McNemar $p=0.029$, not corrected for the five cells), and it answered correctly 4.7 points less
+  often ($[-8.6,-0.8]$; McNemar $p=0.096$). The intervals resample batches, while the exact McNemar test treats
+  problems as independent pairs, so the two can disagree, as they do for this accuracy difference. Elsewhere no soft-minus-plain
   difference is significant, which does not show that the two are equal. In these pipelines the effect did not
   require continuous thinking: long sampled feedback in bfloat16 showed it too.
   \item On an A100 instead of an H100, the first model's soft rate was 11.7\,\% (difference 2.7 points,
@@ -1453,7 +1458,7 @@ and the copies of one problem are not independent
 \begin{figure}[tbp]
 \centering
 \includegraphics[width=\linewidth]{fig-repro.png}
-\caption{Only the batch layout differs. The 448 labeled cells of Qwen2.5-0.5B-Instruct (philosophy direction, layer
+\caption{Only the batch layout differs. The 448 cells (192 chaotic, 192 periodic, 64 with neither label) of Qwen2.5-0.5B-Instruct (philosophy direction, layer
 12) run twice from the same start, alone in a batch or followed by $n$ further rows with the steering vectors in
 reverse order. (a) float64: the relative
 distance between the two runs for every chaotic (orange) and periodic (blue) cell, by the cells' float64 labels, with
@@ -3791,8 +3796,7 @@ appropriate stance for both interpretability and safety evaluation. The reproduc
 Section~\ref{sec:consequences} make this concrete: in a chaotic regime the batch a request happens to share can change,
 after a predictable number of steps, what the loop writes, while in a periodic regime it almost never does (in the
 0.5B model, the text changed in 173 of 192 chaotic loops and in 7 of 192 periodic ones). In low precision, continuous feedback makes even short-budget
-answers depend on the batch, far more often than greedy decoding does; over a long run whose answers the model
-holds weakly, discrete feedback does too. These findings motivate testing whether interventions in continuous-feedback
+answers depend on the batch, far more often than greedy decoding does; over a long run in a pipeline that answers poorly, discrete feedback does too. These findings motivate testing whether interventions in continuous-feedback
 systems, including steering for safety, alter finite-horizon sensitivity or task-relevant decisions as well as
 immediate outputs; such tests would complement research on how latent-reasoning architectures affect chain-of-thought
 monitorability \cite{korbak2025monitorability}. We tested no safety property: dynamical instability is neither
@@ -3840,7 +3844,7 @@ converging). With 40 problems these differences are indicative only.
 layer 12, float64). A weak random input enters the map, $x_{n+1}=F(x_n+\epsilon|x|u_nr)$, and linear readouts of the
 state reconstruct the past inputs; the capacity is the sum of their held-out $R^2$ over 41 delays. (a) Along the
 doubling cascade at $\log_{10}T=-0.148$: capacity for two input sizes, the input-free twin exponent (gray), the flips
-(red) and the onset of chaos (dotted). (b) The 448 labeled cells of the horizon check against the map exponent, with
+(red) and the onset of chaos (dotted). (b) The 448 cells of the horizon check (192 chaotic, 192 periodic, 64 with neither label) against the map exponent, with
 bin means and bootstrap 95\,\% intervals.}
 \label{fig:reservoir}
 \end{figure}
