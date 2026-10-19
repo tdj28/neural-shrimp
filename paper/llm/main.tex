@@ -591,10 +591,11 @@ cells that did not run within the time limit, and every eighth of the crossing w
 measured steps), the orbit averages of $\log\|DF\|$ and of
 $\log(\|\Sigma_p\|/T)+\log\|J_{\tilde h}\|$ exceed zero in every cell, chaotic or periodic: their medians are 2.98 and
 2.57 per step over the chaotic and the periodic cells of the stripes map for $\log\|DF\|$, against a median exponent of
-0.30 in its chaotic cells (crossing window: 2.93, 2.62 and 0.17). Single-step norms overstate the growth of their
-product, because the direction in which one step leaves a perturbation is generally not the direction that the next
-step stretches most. Averages of $\tfrac1k\log\|DF^k\|$ over the disjoint blocks of $k$ consecutive steps that tile
-the record account for this. With exact norms each such average bounds the growth over the whole record, and it can
+0.30 in its chaotic cells (crossing window: 2.93, 2.62 and 0.17). Each norm is the stretching of one step in its
+most expanding direction, but a perturbation leaves each step pointing in some other direction, which the next step
+generally stretches less, so the product of single-step norms overstates the stretching of the product. Averages of
+$\tfrac1k\log\|DF^k\|$ over the disjoint blocks of $k$ consecutive steps that tile the record, norms of whole blocks,
+remove this overstatement inside each block. With exact norms each such average bounds the growth over the whole record, and it can
 only fall when the block length doubles; here the medians fall as $k$ grows, although in 176 of the 7936 cells an
 estimate rises between consecutive block lengths. They begin to separate the regimes only at $k=4$ and 5; at $k=5$ they are negative in 27 and
 29\,\% of the periodic cells of the two maps (medians 0.91 and 0.80 over the chaotic cells, 0.25 and 0.22 over the
