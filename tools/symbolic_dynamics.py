@@ -422,6 +422,25 @@ def bend(xy, k=40):
     return float(np.percentile(ang, 95))
 
 
+def robust_turning_points(x, y, bins=16, min_count=4, frac=0.03):
+    """Turning points of the binned-median return curve y(x), ignoring slope changes smaller than frac of y's spread
+    (small steps are merged before the direction is read). Returns (count, cx, cy)."""
+    edges = np.linspace(x.min(), x.max(), bins + 1)
+    idx = np.clip(np.digitize(x, edges) - 1, 0, bins - 1)
+    keep = [b for b in range(bins) if (idx == b).sum() >= min_count]
+    cx = np.array([0.5 * (edges[b] + edges[b + 1]) for b in keep])
+    cy = np.array([np.median(y[idx == b]) for b in keep])
+    if len(cy) < 3:
+        return 0, cx, cy
+    thr, dirs, acc = frac * np.ptp(y), [], 0.0
+    for v in np.diff(cy):
+        acc += v
+        if abs(acc) > thr:
+            dirs.append(np.sign(acc))
+            acc = 0.0
+    return sum(1 for i in range(1, len(dirs)) if dirs[i] != dirs[i - 1]), cx, cy
+
+
 def separability(s, sym, weak):
     """Best single threshold on the coordinate s separating the L visits from the R visits (the coding of a unimodal map
     has one), leaving out the weak (near-critical) visits. Returns (agreement, threshold, L_below, n_used)."""
@@ -491,6 +510,7 @@ def cmd_returnmaps(args):
                         minority = min(nL, nused - nL)
                         errors = int(round((1 - agree) * nused)) if agree is not None else None
                         bd = bend(proj[r, c, j, : len(ci), :].astype(float))
+                        e["turning_points_robust"] = robust_turning_points(s[:-1], s[1:])[0]
                         e.update(separability=agree, threshold=thr, weak_fraction=float(weak.mean()), visits=int(len(ci)),
                                  minority=minority, errors=errors, bend_deg=bd,
                                  usable=bool(weak.mean() <= args.max_weak and minority >= 5 and bd is not None
@@ -525,7 +545,11 @@ def cmd_returnmaps(args):
                    "max": max((c["errors_over_minority"] for c in dom_chaos if c.get("errors_over_minority") is not None), default=None),
                    "median": float(np.median([c["errors_over_minority"] for c in dom_chaos if c.get("errors_over_minority") is not None]))
                    if any(c.get("errors_over_minority") is not None for c in dom_chaos) else None},
-               "thickness": {"median": float(np.median(thick)) if thick else None, "max": max(thick) if thick else None}}
+               "thickness": {"median": float(np.median(thick)) if thick else None, "max": max(thick) if thick else None},
+               "exceptions_with_two_turning_points": sum(
+                   1 for c in dom_chaos if (c.get("errors_over_minority") or 0) > 0.05 and
+                   min(([p for p in c["phases"] if p.get("usable")] or c["phases"]),
+                       key=lambda p: (p.get("bend_deg") or 99)).get("turning_points_robust") == 2)}
     out = DATA / "explore" / args.out
     out.mkdir(parents=True, exist_ok=True)
     (out / "returnmaps.json").write_text(json.dumps({"args": vars(args), "summary": summary, "cells": cells}, indent=1))
@@ -549,9 +573,19 @@ def plot_returnmaps(cells, zs, args, body):
             picks.append(c)
         if len(picks) == 6:
             break
-    fig = plt.figure(figsize=(10.0, 5.6))
-    gs = fig.add_gridspec(2, 4, width_ratios=[1.35, 1, 1, 1])
-    axm = fig.add_subplot(gs[:, 0])
+    bim = []
+    for c in cells:                             # cells that fail the test and whose straightest phase has two turning points
+        if c.get("domain") and c["lyapunov"] > args.chaos_level and (c.get("errors_over_minority") or 0) > 0.05:
+            use = [p for p in c["phases"] if p.get("usable")] or c["phases"]
+            best = min(use, key=lambda p: (p.get("bend_deg") or 99))
+            if best.get("turning_points_robust") == 2:
+                bim.append((c, best["phase"]))
+    bim.sort(key=lambda cb: (cb[0]["alpha"] > 0.0728, cb[0]["log10_temperature"]))
+    show_b = bim[:4]
+    nrow = 3 if show_b else 2
+    fig = plt.figure(figsize=(10.0, 5.6 + (2.9 if show_b else 0)))
+    gs = fig.add_gridspec(nrow, 4, width_ratios=[1.35, 1, 1, 1])
+    axm = fig.add_subplot(gs[:2, 0])
     a = zs[0]["alpha"]
     t = np.concatenate([z["log10_temperature"] for z in zs])
     img = np.ones((len(t), len(a), 3))
@@ -591,6 +625,19 @@ def plot_returnmaps(cells, zs, args, body):
             ax.set_xlabel(r"$s_n$ (first principal axis of the phase)", fontsize=6.5)
         if i % 3 == 0:
             ax.set_ylabel(r"$s_{n+1}$ (six steps later)", fontsize=6.5)
+    for i, (c, jb) in enumerate(show_b):          # (h)-(k): return maps with two turning points
+        ax = fig.add_subplot(gs[2, i])
+        z = zs[c["band"]]
+        sv = z["return_projection"][c["row"], c["col"], jb, :, 0].astype(float)
+        cs = z["word_cos"][c["row"], c["col"], jb + P::P][: len(sv) - 1]
+        ax.scatter(sv[:-1], sv[1:], c=np.where(cs > 0, "tab:blue", "tab:red"), s=2, lw=0)
+        ax.set_title(f"({chr(104 + i)}) ({c['alpha']:.5f}, {c['log10_temperature']:.5f}), two turning points", fontsize=6.8)
+        ax.tick_params(labelsize=5.5)
+        ax.set_xlabel(r"$s_n$", fontsize=6.5)
+        if i == 0:
+            ax.set_ylabel(r"$s_{n+1}$", fontsize=6.5)
+        axm.text(c["alpha"], c["log10_temperature"], chr(104 + i), fontsize=6.5, ha="center", va="center", color="w",
+                 fontweight="bold")
     fig.tight_layout()
     Path(args.fig).parent.mkdir(parents=True, exist_ok=True)
     fig.savefig(args.fig, dpi=250, bbox_inches="tight")

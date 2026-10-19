@@ -31005,3 +31005,22 @@ conjugacy of the Rössler return map to unimodal maps, and orbits are traced by 
 - **Papers.** Paragraph "Symbolic dynamics" after the kite, Figs. returnmaps and words (both papers), Table p6words
   (report). References: Metropolis, Stein & Stein (1973), Milnor & Thurston (1988), Singer (1978), all checked
   against Crossref. Records: llm-soft-loop/pod64/sd/{returnmaps,words,verify-a,verify-b,verify-summary}.
+
+## 2026-10-19 08:55 UTC: the second turning point verified (human: "Can we verify? Rather than retreat?")
+
+- The Singer sentence was first weakened, because the theorem needs a negative Schwarzian, which we had not
+  measured.
+- Verified directly instead. Of the 10 chaotic six-band cells that fail the unimodal coding test, 7 have return maps
+  with more than one turning point in their straightest usable phase (bend 12-15 degrees; robust count with 16-bin
+  medians, steps under 3 % of the spread merged). The derivative signs (L/R) follow the slope of the cubic-like
+  curves.
+- Cells:
+  - two in the column at alpha 0.072694 (log10 T -0.152745, -0.152574); these may have three turning points (a small
+    edge bump);
+  - five below the kite (alpha 0.072991-0.073230, log10 T -0.154787 to -0.154447).
+- The other three: one borderline (0.072991, -0.154617; a slight upturn at the end, counted 1) and two banded
+  attractors without enough coverage.
+- Papers: "In 7 of them the return map has more than one turning point ... not unimodal"; Singer's theorem stated
+  with its hypothesis, as consistent with the kite's coexistence. Fig. returnmaps panels (h-k) show four of them.
+- Also noted: both coexisting kite orbits have positive multipliers (+0.184, +0.614), so a single unimodal reduction
+  would need an S-shaped increasing branch (non-negative Schwarzian somewhere) or an extra turning point.
