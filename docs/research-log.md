@@ -30412,3 +30412,21 @@ docs/consults/2026-10-19-external-reviews/triage.md).
   of 742 pairs within two steps), the window meets the shrimp criteria along its body. The far parts of the legs are
   not yet bounded by traced curves; the lower leg's fold is being continued in run P6S-TDfold.
 - **Article:** the second-shrimp paragraph and Fig. 20 now state the located cusp.
+
+### 2026-10-19 02:24 UTC: two windows, not one: the located cusp belongs to the lower one; run card P6S-wide
+
+- **Reading** (the human, from Fig. 20: "your scan picked up another shrimp below so we have two candidates now, but
+  you found only the cusp of one"). The follow labels between the flip hairpin and the fold curve, along the neck,
+  are period 12, chaos behind the text or unresolved; stable period 6 appears only near the junction, at
+  log10 T -0.1592.
+  - So the body's stable period-6 window, around the seed, and the smaller period-6 window at the junction below are
+    separate periodic windows of the same continued orbit. They are joined by its fold curve and by the flip
+    hairpin, inside which the orbit has doubled. They are connected only through cells whose text repeats the loop.
+  - The located cusp, (0.0748392, -0.1595956), is the tip of the lower window.
+  - Within the traced range (alpha >= 0.068), the body's own fold boundary has no tangent reversal. Its two fold
+    branches leave the bounds at alpha 0.068, 0.0036 apart in log10 T and converging: a second cusp may lie to the
+    left.
+- **Run card P6S-wide** (exploratory). Re-trace the body's fold curve from the TU branch both ways with wider bounds
+  (alpha [0.050, 0.080], log10 T [-0.20, -0.12], 200 steps), to find where its branches meet on the left. Two
+  H100-class pods, toolseq, same settings otherwise. A reversal found is located with cusp_locate in a follow-up
+  pod.
