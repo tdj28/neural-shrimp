@@ -1,0 +1,58 @@
+"""New saved native-endpoint / initial-row / metadata controls only."""
+import copy,hashlib,importlib.util,json,struct,tempfile
+from fractions import Fraction as F
+from pathlib import Path
+spec=importlib.util.spec_from_file_location('audit_thin','/tmp/audit_thin_pilot.py');m=importlib.util.module_from_spec(spec);spec.loader.exec_module(m)
+checks=[]
+def ok(name,fn):fn();checks.append(name)
+def refuses(name,fn):
+ try:fn()
+ except (ValueError,KeyError,TypeError):checks.append(name);return
+ raise AssertionError('unexpected admission '+name)
+def pack(value,radius=0):
+ def pair(v):v=F(v);assert v.denominator&(v.denominator-1)==0;return [v.numerator,-(v.denominator.bit_length()-1)]
+ return dict(mid=pair(value),rad=pair(radius))
+flags=dict(trajectory_enclosure=False,certificate_passed=False)
+expected=[F(1),F(-2)];initial=dict(step=0,centre=[pack(v)for v in expected],**flags)
+previous=m.checked_initial(initial,expected,2);checks.append('initial exact row comparison')
+def make_step(i,prev,next_values,rs):
+ return dict(step=i,input_centre=[pack(v)for v in prev],full_image=[pack(v,r)for v,r in zip(next_values,rs)],next_centre=[pack(v)for v in next_values],defects=[pack(0,2*r)for r in rs],defect_inf_upper=pack(2*max(rs)),point_seconds=1.,elapsed_seconds=float(i),**flags)
+step1=make_step(1,previous,[F(3),F(-4)],[F(1,8),F(1,16)]);next1,row1=m.checked_step(step1,previous,1,2);checks.append('valid outward-widened signed defects admitted without Arb replay equality')
+step2=make_step(2,next1,[F(5),F(-6)],[F(1,2**2000),F(1,2**2001)]);next2,row2=m.checked_step(step2,next1,2,2)
+small=row2['saved_defect_inf_upper_exact'];assert small['numerator']>0 and float(F(small['numerator'],small['denominator']))==0
+checks.append('nonzero underflow-scale defect retained as exact rational')
+for name,change in [('broken input chain',lambda d:d['input_centre'].__setitem__(0,pack(0))),('wrong selected midpoint',lambda d:d['next_centre'].__setitem__(0,pack(4))),('defect radius deleted',lambda d:d['defects'].__setitem__(0,pack(0))),('saved bound understated',lambda d:d.update(defect_inf_upper=pack(F(1,16)))),('missing coordinate',lambda d:d['full_image'].pop()),('uncertain next centre',lambda d:d['next_centre'].__setitem__(0,pack(3,F(1,8)))),('false trajectory claim',lambda d:d.update(trajectory_enclosure=True)),('negative radius',lambda d:d['full_image'][0].update(rad=[-1,-3])),('inexact native encoding',lambda d:d['full_image'][0].update(mid=[3.,0])),('wrong step count',lambda d:d.update(step=2))]:
+ r=copy.deepcopy(step1);change(r);refuses(name,lambda r=r:m.checked_step(r,previous,1,2))
+bad=copy.deepcopy(initial);bad['centre'][0]=pack(2);refuses('initial source row mismatch',lambda:m.checked_initial(bad,expected,2))
+rows=[row1,row2];report=dict(status='thin_point_defects_completed',steps=2,precision=2048,final_centre=[pack(v)for v in next2],local_image_and_defect_radii_preserved=True,midpoint_selection_is_explicit=True,trajectory_error_propagated=False,whole_tube_derivatives_evaluated=False,reachability_test_performed=False,point_seconds=[1.,1.],**flags)
+assert m.final_status(True,report,None,rows,next2,steps=2,n=2)=='complete_success';checks.append('complete successful original branch')
+failure=dict(type='ValueError',message='manufactured interval-domain refusal',completed_steps=1,point_seconds=[1.],**flags)
+assert m.final_status(False,None,failure,[row1],next1,steps=2,n=2)=='closed_partial_failure';checks.append('honest closed one-step partial branch')
+assert m.final_status(False,None,None,[],[],steps=2,n=2)=='closed_partial_failure';checks.append('outer-supervisor failure without worker record remains partial')
+refuses('partial chain cannot claim success',lambda:m.final_status(True,None,failure,[row1],next1,steps=2,n=2))
+refuses('contradictory worker completion and failure',lambda:m.final_status(False,report,dict(failure,completed_steps=2,point_seconds=[1.,1.]),rows,next2,steps=2,n=2))
+refuses('false final reachability flag',lambda:m.final_status(True,dict(report,reachability_test_performed=True),None,rows,next2,steps=2,n=2))
+# New independent integer decoder, no floating tensor conversion.
+assert [m.bf16(x)for x in (0x0000,0x8000,0x3f80,0xc000,0x0080,0x0001)]==[F(0),F(0),F(1),F(-2),F(1,2**126),F(1,2**133)]
+checks.append('exact BF16 zero/sign/normal/subnormal decoding')
+refuses('nonfinite BF16 word',lambda:m.bf16(0x7f80))
+with tempfile.TemporaryDirectory(prefix='thin-row-controls-',dir='/tmp')as tmp:
+ p=Path(tmp)/'synthetic.safetensors';payload=struct.pack('<6H',0,0,0x3f80,0xc000,0x4020,1)
+ header={'model.embed_tokens.weight':dict(dtype='BF16',shape=[3,2],data_offsets=[0,len(payload)])};h=json.dumps(header).encode();p.write_bytes(struct.pack('<Q',len(h))+h+payload)
+ sha=hashlib.sha256(p.read_bytes()).hexdigest();v,e=m.read_bf16_row(p,sha,(3,2),1);assert v==[F(1),F(-2)] and e['row_bytes']==4;checks.append('row-only safetensors byte-offset/extent decoding')
+ refuses('wrong checkpoint pin',lambda:m.read_bf16_row(p,'0'*64,(3,2),1))
+ refuses('wrong stored embedding shape',lambda:m.read_bf16_row(p,sha,(2,3),1))
+ header['model.embed_tokens.weight']['data_offsets']=[0,len(payload)+2];h=json.dumps(header).encode();p.write_bytes(struct.pack('<Q',len(h))+h+payload);sha=hashlib.sha256(p.read_bytes()).hexdigest()
+ refuses('tensor extent outside file',lambda:m.read_bf16_row(p,sha,(3,2),1))
+# Source/card are read-only; no producer outputs or receipts are accessed.
+card=json.loads(m.CARD.read_text());plan=json.loads(m.PLAN.read_text());plan['status']='reviewed_for_execution';lane=plan['lanes']['thin'];source='1'*40
+planpin=dict(path=str(m.PLAN),bytes=123,sha256='2'*64);cmd=[plan['python'],'-I','-B',lane['entry'],*lane['arguments']]
+rc=dict(source_commit=source,argv=cmd,lane='thin',returncode=0,failure=None,worker_reaped=True,worker_identity_absent=True,worker_group_session_absent=True)
+ad=dict(source_commit=source,argv=list(cmd),lane='thin',plan=planpin,limits=copy.deepcopy(lane['limits']),threads={k:'1'for k in m.THREADS},source_blobs=[dict(relative_path=str(Path(e['path']).relative_to(m.R)),bytes=e['bytes'],sha256=e['sha256'])for e in plan['source_files']])
+assert m.original_allocation(rc,ad,plan,card,source,planpin)is True;checks.append('exact full original allocation interface')
+assert m.original_allocation(dict(rc,returncode=1),ad,plan,card,source,planpin)is False;checks.append('worker nonzero receipt classified partial')
+for name,change in [('wrong producer source',lambda d:d.update(source_commit='3'*40)),('missing original closure',lambda d:d.update(worker_identity_absent=False)),('wrong original command',lambda d:d.update(argv=d['argv'][:-1]+['/tmp/foreign']))]:
+ r=copy.deepcopy(rc);change(r);refuses(name,lambda r=r:m.original_allocation(r,ad,plan,card,source,planpin))
+a=copy.deepcopy(ad);a['source_blobs']=[e for e in a['source_blobs']if e['relative_path']!='codex/coexistence-task33/thin_pseudo_orbit.py'];refuses('missing loop source authority',lambda:m.original_allocation(rc,a,plan,card,source,planpin))
+a=copy.deepcopy(ad);a['plan']['sha256']='3'*64;refuses('different original plan receipt',lambda:m.original_allocation(rc,a,plan,card,source,planpin))
+print(json.dumps(dict(status='passed',new_controls=len(checks),controls=checks,source_sha256=hashlib.sha256(Path('/tmp/audit_thin_pilot.py').read_bytes()).hexdigest(),model_calls=0,target_raw_reads=0,prior_controls_repeated=False),indent=2))

@@ -1,0 +1,69 @@
+{
+  "schema": "codex-task33-thin-audit-allocation-controls-v1",
+  "passed": true,
+  "count": 15,
+  "source_sha256": "3acb5dd4caf238d11d3cddd0921d4736854de5a1e782f70f419fd4975f1b7490",
+  "scope": "New allocation/orchestration controls only. All target filesystem calls mocked. No model or original evidence access; prior 33 controls not rerun.",
+  "controls": [
+    {
+      "name": "exact arguments admitted without filesystem access",
+      "passed": true
+    },
+    {
+      "name": "all other result allocations refused before filesystem access",
+      "passed": true
+    },
+    {
+      "name": "existing result refused without parent creation",
+      "passed": true
+    },
+    {
+      "name": "existing parent refused without parent reuse",
+      "passed": true
+    },
+    {
+      "name": "dangling result symlink refused",
+      "passed": true
+    },
+    {
+      "name": "dangling parent symlink refused",
+      "passed": true
+    },
+    {
+      "name": "absent allocation creates exactly one exclusive parent",
+      "passed": true
+    },
+    {
+      "name": "exclusive mkdir collision propagates without reuse",
+      "passed": true
+    },
+    {
+      "name": "allocation helper independently refuses wrong output",
+      "passed": true
+    },
+    {
+      "name": "successful orchestration allocates before all actual reads",
+      "passed": true
+    },
+    {
+      "name": "pure argument refusal never allocates or accesses evidence",
+      "passed": true
+    },
+    {
+      "name": "allocation refusal never accesses evidence or writes reused parent",
+      "passed": true
+    },
+    {
+      "name": "downstream refusal is preserved after fresh allocation and re-raised",
+      "passed": true
+    },
+    {
+      "name": "exclusive refusal record retains requested authority and false claims",
+      "passed": true
+    },
+    {
+      "name": "existing refusal record cannot be overwritten",
+      "passed": true
+    }
+  ]
+}
