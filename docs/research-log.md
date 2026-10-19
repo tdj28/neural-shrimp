@@ -30457,3 +30457,12 @@ docs/consults/2026-10-19-external-reviews/triage.md).
   has a complex leading pair, as the period-5 window had near its head.
 - **Try 2.** Seed (0.073200, -0.15204), inside the body, about 9e-5 in alpha from the fold curve, where the leading
   multiplier is real and near +1. Same grid and reading.
+
+### 2026-10-19 02:39 UTC: DSS6 try 2 refused; seed tested locally; try 3
+
+- **Try 2** (pod x4tuzuj05nev3a, about 3 min, no grid) was refused at (0.073200, -0.15204). The leading multiplier is
+  real but only 0.0746, against 0.0235 for the next (ratio 3.2 < 10). Even 9e-5 inside the fold, the body's two
+  leading multipliers are comparable.
+- **Local seed test** (CPU, float64) at (0.072900, -0.15204), 2.3e-5 inside the flip curve: period 6, residual
+  7.6e-14, leading multiplier -0.767 (real), next modulus 0.0022 (ratio 352). Output llm-soft-loop/p6s/orbit-seed-flipside.
+- **Try 3** uses this seed; grid and reading unchanged.
