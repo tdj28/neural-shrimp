@@ -143,9 +143,15 @@ def main():
     u = np.linalg.svd(Sc, full_matrices=False)[2][0]
     xproj = Sc @ u
     st = rho < 1
-    for k in range(len(pts) - 1):
-        axB.plot(lam[k:k + 2], xproj[k:k + 2], "-" if (st[k] and st[k + 1]) else "--",
-                 color="tab:blue" if (st[k] and st[k + 1]) else "0.45", lw=1.6 if (st[k] and st[k + 1]) else 1.0)
+    good = st[:-1] & st[1:]                      # one polyline per run, so the dashes of short segments stay visible
+    k = 0
+    while k < len(pts) - 1:
+        j = k
+        while j < len(pts) - 1 and good[j] == good[k]:
+            j += 1
+        axB.plot(lam[k:j + 1], xproj[k:j + 1], "-" if good[k] else "--", color="tab:blue" if good[k] else "0.45",
+                 lw=1.6 if good[k] else 1.0)
+        k = j
     for i in turns:
         axB.plot(lam[i], xproj[i], "o", ms=5, mfc="w", mec="k", zorder=5)
     if len(stable0) and first_fold is not None:

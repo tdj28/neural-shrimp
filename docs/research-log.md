@@ -31090,3 +31090,41 @@ conjugacy of the Rössler return map to unimodal maps, and orbits are traced by 
   - HOOKSADDLE: tools/hook_saddle_check.py on the GPU (34 bisections, 1500-step trajectories, saddle Newton,
     settling-time slope).
   - Tip refinement afterwards if the edge data warrant it.
+
+## 2026-10-19 11:20 UTC: HOOK results: the hook's lower edge is the fixed start on a saddle's stable manifold (verified at one steering strength); the upper edge follows the fold; the tip is unresolved
+
+- **HOOKSADDLE** (pod bicldaq9lj7rsv, A100 80GB, commit ec17985d from the orchestrator log, rc 0, 1149 s, terminated
+  and verified gone; an earlier pod, ihexgx78a6izpp, was terminated after its launcher was stopped by mistake).
+  - Edge at alpha = 0.07297495107632094: log10 T = -0.15352996660438276 after 34 bisections (width about 1.6e-16).
+  - Newton from the most nearly 6-periodic state of the lingering stretch: residual 2.1e-14. The result is a period-6
+    orbit with one multiplier outside the unit circle, mu_u = 1.26246 (real, positive), next modulus 7.75e-4.
+  - Its relative distances are 3.5e-3 from S and 4.7e-3 from W.
+  - The tool's settling-time step was invalid and is not used. Its 1e-6 threshold lay below the 1.6e-6 offset of
+    reference orbits computed at another temperature, so every time sat at the cap.
+- **HOOK-EXIT** (local RTX 2000 Ada, float64; tools/hook_saddle_exit.py; outputs llm-soft-loop/kite/hook-saddle-exit
+  and -v2).
+  - v1 computed distances with torch.cdist's |x|^2+|y|^2-2x.y form, which cancels: closest approaches below about
+    1e-8 read 0.
+  - v2 uses exact differences. Its exit times are identical to v1's.
+  - Design: 17 deltas from 1e-6 to 1e-14 in log10 T on each side of the edge.
+  - All 34 rows end on their side's orbit (S below, W above), so the A100 edge holds on this GPU to better than 1e-14.
+  - Exit time (last step within 1e-3 of the saddle) against ln(1/delta): slope 25.777 below (17 rows, largest
+    residual 4.0 steps) and 25.751 above (2.9 steps). Predicted: 6/ln mu_u = 25.744. At radius 3e-4: 25.555 (15 rows).
+  - Closest approach (v2): log-log slopes 0.986 and 0.995 against delta; predicted 1.
+- **HOOKEDGE** (pod uc4f73f28o7675, A100, commit ec17985d, rc 0, 3330 s, terminated).
+  - 676 outcome jumps of HR12 (every second column of the hook box) were bisected in log10 T for 22 rounds, to
+    2.6e-13.
+  - In 149 brackets the end exponents differ by less than 0.02, so the classification is ambiguous. The figure shows
+    only brackets whose ends differ by at least 0.1.
+  - Upper edge against a cubic spline through the Newton-converged fold points (leave-one-out error about 0.1 row,
+    1.1e-6 per row): the well-separated points lie 0.1 to 1.6 rows above it, more so toward the cusp.
+    Hypothesis, untested: just beyond the fold, slow passage through the vanished orbit within the 600 + 200-step
+    window still reads as the weak orbit.
+  - Tip: the lower edge leaves the fold within about one cell. Vertical brackets cannot resolve the predicted
+    tangential contact, so hook_edge_analysis.py's exponent fit (0.24) means nothing and is not reported.
+- **Status of the theory.**
+  - Lower edge: verified at one steering strength (the saddle, the exit-time law, the closest approach, and the
+    random start that removes the edge).
+  - Upper edge: the fold, up to the finite-horizon offset above.
+  - Tip: tangency predicted by the saddle-node normal form, not tested.
+- **Figure.** paper/llm/figures/fig-p6-hook-theory.png (tools/plot_hook_theory.py; report Fig. hooktheory).

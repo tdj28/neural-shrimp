@@ -2417,8 +2417,8 @@ The two flip curves cross at that end, near $(0.072912,-0.154104)$. They are fli
 Newton's method at that point (\repo{tools/kite_newton_at_R.py}), started from the orbit stored on each curve, converges
 to two distinct period-6 orbits (residuals $3\times10^{-14}$ and $2\times10^{-13}$), with the same six-token text but
 6.4\,\% of the mean state norm apart (the largest point distance after the best of the six cyclic alignments). Their
-leading multipliers, $-0.9952$ and $-1.0005$, miss $-1$ only because the point is the crossing of the two traced
-curves, whose nearest points lie 1.7 and 0.3 steps of the grid of Figure~\ref{fig:cross512} away. The crossing is a
+leading multipliers are $-0.9952$ and $-1.0005$ at this approximate crossing of the two traced curves, whose nearest
+saved points lie 1.7 and 0.3 steps of the grid of Figure~\ref{fig:cross512} away. The crossing is a
 pseudo-crossing of curves on two sheets of the orbit family, the configuration at the corner R of Gallas's kite, where
 the flip curves of two coexisting fixed points cross \cite[Fig.~7]{gallas1994dissecting}. Inside the body near it, at
 $(0.0730,-0.1539)$, the orbit of the lower flip curve is attracting (leading multiplier $-0.797$); Newton's method from
@@ -2516,6 +2516,47 @@ body (red, dashed); cyan: the two pairs of adjacent cells checked by Newton cont
 and on a tongue's edge (2). (b) The white box in (a) at the map's own cells: tongues in which the outcome alternates
 from cell to cell.}
 \label{fig:p6hook}
+\end{figure*}
+
+\paragraph{Why the lower edge lies where it does.} An edge of the fixed start's outcome that is not a bifurcation is
+where the start crosses the boundary between two basins, and the boundary between the basins of two attracting orbits
+is typically the stable manifold of a saddle orbit between them. At $\alpha=0.072975$ we bisected the wedge's lower
+edge in $\log_{10}T$ to the float64 limit, at $\log_{10}T=-0.1535299666043828$ (\repo{tools/hook_saddle_check.py}).
+Started there, the loop comes close to a third period-6 orbit and stays near it: Newton's method from the most nearly
+periodic state of that stretch converges (residual $2\times10^{-14}$) to a saddle with a single multiplier outside the
+unit circle, $\mu_u=1.2625$, real, with the next modulus $7.8\times10^{-4}$, at relative distances
+$3.5\times10^{-3}$ and $4.7\times10^{-3}$ from the two attracting orbits. A start a small distance off the saddle's
+stable manifold comes within a distance proportional to that offset of the saddle and then leaves along the
+unstable direction, its distance growing by $\mu_u$ per period, so the time it spends near the saddle grows by
+$6/\ln\mu_u=25.74$ steps for every factor $e$ by which the offset shrinks. Both predictions hold over eight decades
+(Figure~\ref{fig:hooktheory}; \repo{tools/hook_saddle_exit.py}). At 17 temperatures on each side of the edge, a
+distance $\delta$ from $10^{-6}$ to $10^{-14}$ in $\log_{10}T$ away, the last step within $10^{-3}$ of the saddle
+grows by 25.78 and 25.75 steps per factor $e$ in $\delta$ (all points within 4.0 and 2.9 steps of the fitted lines),
+the closest approach grows with $\delta$ with log-log slopes 0.986 and 0.995, and every start below the edge ends on
+the strongly contracting orbit and every start above it on the other. Together with the random start, which removes
+the edge, this identifies the lower edge as the fixed start crossing the saddle's stable manifold. Bisecting 676
+jumps of the outcome along the map's columns (to $2.6\times10^{-13}$ in $\log_{10}T$; \repo{tools/hook_edge_track.py})
+traces the hook's other edges (Figure~\ref{fig:hooktheory}a). The upper edge follows the kite's fold curve, 0.1 to
+1.6 grid rows above a spline through the continued curve's points and more so toward the cusp, perhaps because just
+beyond the fold the loop lingers at the vanished orbit for longer than the measurement window; we have not tested
+this. Where the two edges meet, the saddle-node normal form predicts a tangential contact at the point of the fold
+where the fixed start lands on the saddle-node orbit, the gap between the edges growing quadratically along the fold;
+at the map's resolution the lower edge leaves the fold within one cell, so this prediction is untested.
+
+\begin{figure*}[tbp]
+\centering
+\includegraphics[width=0.85\textwidth]{fig-p6-hook-theory.png}
+\caption{The hook's lower edge is where the fixed start crosses the stable manifold of a saddle orbit
+(Qwen2.5-0.5B-Instruct, philosophy direction at layer 12; float64). (a) The map of Figure~\ref{fig:p6hook}a near the
+hook, with the kite's continued fold curve (gold) and the edges of the fixed start's outcome bisected along the map's
+columns (cyan; brackets whose end exponents differ by at least 0.1); red star: the steering strength
+$\alpha=0.072975$ of (b)--(d). (b) Distance to the saddle orbit along the loop started a distance $\delta$ in
+$\log_{10}T$ below the edge: it arrives along the stable manifold within about 25 steps, lingers, and leaves along
+the unstable direction; dotted: the radius $10^{-3}$ of (c). (c) The last step within $10^{-3}$ of the saddle
+against $\ln(1/\delta)$, for starts below the edge (which end on the strongly contracting orbit $S$) and above it
+(which end on the other, $W$); dashed: slope $6/\ln\mu_u$ from the saddle's unstable multiplier $\mu_u$. (d) Closest
+approach to the saddle against $\delta$; dashed: proportional to $\delta$.}
+\label{fig:hooktheory}
 \end{figure*}
 
 \paragraph{Symbolic dynamics.} Jones's unimodal interpretation of selected R\"ossler return maps, in which the
@@ -3233,7 +3274,7 @@ Huginn-0125 iterates a recurrent block at fixed input tokens \cite{geiping2025re
 $0.588\pm0.771i$ (modulus $0.970$). For the relaxed loop $h\leftarrow(1-\lambda)h+\lambda F(h)$, whose multipliers
 are $1-\lambda+\lambda\mu$, this predicts that the pair crosses the unit circle at
 $\lambda_c=2(1-\operatorname{Re}\mu)/|1-\mu|^2=1.0775$, transversally and away from the strong resonances (at
-0.156 of a revolution per step): a Neimark--Sacker bifurcation. Below it the latent state
+0.156 of a revolution per step), consistent with a Neimark--Sacker bifurcation. Below it the latent state
 decays; above it the state settles on a closed curve. A fit of the squared amplitude gives $\lambda_c=1.0778$, with
 $A/\sqrt{\lambda-\lambda_c}=0.52$--$0.54$. A stable circle that grows like the square root of the distance is
 consistent with a supercritical Neimark--Sacker bifurcation; we did not compute its first Lyapunov coefficient, so its
@@ -5260,7 +5301,8 @@ finite-window indicator overlaps a detected period at 3 to 18 cells per map). Re
 8 to 10\,\%. The prompt decides where the chaos lies, not whether it occurs: the
 chaotic cells of a variant overlap those of the base prompt by 1 to 37\,\%
 (Jaccard index). For the three random starts, the chaos/non-chaos threshold labels agree with the base run at
-98.9 to 99.0\,\% of the cells; the reached orbit still depends on the start: the detected periods agree at 86.5 to 93.1\,\%. Across the 19 prompts there is
+98.9 to 99.0\,\% of the cells, while the periods detected within the run agree at only 86.5 to 93.1\,\%, so within
+this horizon the orbit reached can depend on the start. Across the 19 prompts there is
 nonetheless a common structure (Figure~\ref{fig:promptfreq}): 48.3\,\% of the cells are chaotic for at
 least one prompt but only 3.0\,\% for half of them or more, and these hot spots lie at moderate
 steering of either sign in a band of temperature, where the mean fraction of chaotic cells per row peaks at 38\,\% near $\log_{10}T=0.15$, against 0.8\,\% below
