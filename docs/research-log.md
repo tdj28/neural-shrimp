@@ -31278,3 +31278,26 @@ nearly identical under protan vision.
     solved or the continuation changes token loop (reported as such).
   - The method counts only if B shows the sign change of the main ditch.
 - **Outputs:** llm-soft-loop/p6s/ditch-top-a, llm-soft-loop/p6s/ditch-main-b.
+
+## 2026-10-19 19:50 UTC: run card DITCH2D (exploratory; four H100 pods, approved by the human): the sign of the leading multiplier around the top of the lens, in two dimensions
+
+- **Why:** the human asked for the answer within the hour and approved several H100s ("multiple h100 if you need").
+  The local lines of run DITCH (19:35) take about 2 minutes per cell on the CPU; they keep running as a cross-check.
+- **Finding while sizing this run:** the DSS6 grid (dss/p6-body, try 3) ended at its 80-minute limit (runner status
+  124) after 582 of its 961 cells, 529 of them converged; the cells not reached were never attempted, so "529 of 961
+  solved" in the papers understates the coverage of what was attempted and must say so (to be corrected).
+- **Method:** tools/doubly_superstable.py grid --multipliers-only through the dss job set (one H100 per band, float64,
+  as DSS6), period 6, philosophy vectors at layer 12, transient 900, tol 1e-12. Patch alpha 0.07300-0.07336 (21
+  columns, 1.8e-5 apart) by log10 T -0.15294 to -0.15170 (32 rows, 4e-5 apart), in four bands of 8 rows, each seeded
+  inside the lens or the positive strip above it:
+  - ditch2d-b0: log10 T -0.15294 to -0.15266, seed (0.07310, -0.15280);
+  - ditch2d-b1: -0.15262 to -0.15234, seed (0.07312, -0.15250);
+  - ditch2d-b2: -0.15230 to -0.15202, seed (0.07314, -0.15226);
+  - ditch2d-b3: -0.15198 to -0.15170, seed (0.07316, -0.15184).
+  Each band has a 30-minute grid limit; the costed plan and the approved ceiling are in the private ledger.
+- **Reading, fixed now (as DITCH):** in each column, the top ditch is a sign change if the real leading multiplier of
+  the solved cells has opposite signs on its two sides, a same-sign dip if it keeps its sign while its modulus has a
+  local minimum, and unresolved where cells are not solved, not reached before the limit, or change token loop. The
+  sign changes and complex-pair cells of all bands are drawn together over the HR10 map; whether they close into a
+  loop around the lens is read from that picture and reported as found.
+- **Outputs:** llm-soft-loop/pod64/dss/ditch2d-b0 ... ditch2d-b3.
