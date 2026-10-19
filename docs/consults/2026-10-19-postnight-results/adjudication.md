@@ -1,0 +1,23 @@
+# Consult 20: adjudication (19 October 2026)
+
+Review: /data2/neural-shrimp-data/consults/2026-10-19-postnight-results/execute-001/review.md
+- Model: gpt-6-astra, high effort; response resp_045ff194…; completed 12:37 UTC.
+- The brief was at commit 4e6e2ec6. The verdict was "not ready for reader review".
+- The reviewer saw only the brief, without the papers' system specification, bibliography, figures or appendices.
+  Items that come from that compression are marked "brief only".
+- Advice is advisory. Each item was checked against the papers and the raw records before any change.
+
+| Item | Decision | Evidence and change |
+|---|---|---|
+| B01 Jaccard population | **Accepted** | The range 1.18 % (p18) to 36.64 % (p08) is over the 18 prompts other than the base (research log, PV results); the random starts are reported separately (98.94–99.05 % label agreement). Text now: "each of the other 18 prompts". "The prompt decides where the chaos lies, not whether it occurs" scoped to the tested prompts. |
+| B02a closest approach | **Accepted** | For a passage near a linear saddle the closest approach scales as δ^(χs/(χs+χu)), with χu = ln μu = 0.233 and χs = −ln 7.75e-4 = 7.16 (slowest stable multiplier): exponent 0.97. The measured slopes are 0.986 and 0.995. Text and figure (hooktheory d) now compare with 0.97, not with 1. |
+| B02b tip coordinate | **Accepted** | u0 = ℓᵀ(x−p0)/ℓᵀr is a leading-order coordinate. The exact condition is landing on the strong-stable set of the saddle-node orbit. The trajectory is projected after ≥ 24 steps, when the fast components (≤ 1e-3 per period) have decayed. Text now: the normal form is u' = u + η + bu² over one six-step return, and the u0 zero is the tip "to leading order". Kuznetsov cited for the normal form. |
+| B02c scope of the saddle identification | **Accepted** | "Strong numerical evidence, at this steering strength". The edge tracking does not test the mechanism at other α. |
+| B03 parity and the full map | **Accepted** | At all 16 confirmed cells the full map's leading multiplier has the parity-predicted sign (verify-summary.json, parity True 16/16). Text now says so, and calls the sign rule a scalar-model prediction that holds for the full map only while that multiplier stays real and dominant. |
+| B04 map specification | **Brief only**, partly accepted | Both papers specify the fixed prefix and cache, the window of one soft token, and steering at every position including the prefix. Added: what the three random vectors are (Gaussian at the median embedding norm, a random token's embedding, a Dirichlet(0.1) mixture of 64 random tokens). |
+| S01 hook scope | **Accepted** | "On a scale below the map's cells" → "not resolved at this grid spacing". The random-start comparison is made at the nearest cell of the fixed-start map (now stated). "Every cell beyond the fold" → "every cell of the strip beyond the fold". |
+| S02 exponent offset | **Accepted, wording** | The scan creates the twin from a random direction at the end of the transient (explore_llm_soft_loop.py scan), so the averaging window does include its alignment. Text states this timing and keeps "consistent with that transient (its contribution has not been isolated)". |
+| S03 census framing | **No change** | The counts reconcile (reviewer). The papers already scope 529 solved cells, the selected patch-center cells and the tested prompts. The tip range is called extrapolations, not an interval. |
+| S04 chronology, "independent audit" | **Brief only** | The papers do not call Codex's review independent. The report's "an independent audit with separate code reproduced every count" refers to separately written code, which is accurate. |
+| R01 references | **Partly accepted** | Singer, Metropolis–Stein–Stein and Gallas are in the bibliography with Crossref-checked records. Milnor–Thurston: the reviewer's "LNM 1352" disagrees with the commonly cited volume, and the publisher metadata carries no volume, so the entry stays without one. Kuznetsov added at the hook's normal form. jones2012rossler: the abstract says the hub shape "is a consequence of conjugacy between the Rössler system and unimodal maps in the two-branch region"; text now states the scope ("in part of its parameter plane"). |
+| F01 figures | **Partly accepted** | Fig. hooktip (d) caption: the straight-line extrapolation assumes the exponent 1/2, which the points do not resolve. Fig. hooktheory (d): predicted slope 0.97 drawn. The other checks already hold: threshold-only prompt maps, checked-location qualifiers, C not shown as superstable curves. The "duplicated tip paragraph" was a brief-assembly error; the papers have it once. |

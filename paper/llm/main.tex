@@ -806,8 +806,8 @@ tables that the library would otherwise compute in float32; two exceptions, floa
 records and a float32 final normalization in the two-GPU runs of 70B-class models before 14 October, are marked where they occur (Appendix~\ref{sec:methods} and Section~\ref{sec:sizemain}). A cell of a phase map is chaotic when the
 largest finite-horizon Lyapunov exponent of a twin trajectory (offset $10^{-6}$, renormalized every step; 300
 measured steps after 300 transient ones unless stated) exceeds $10^{-3}$ and no period up to 32 (48 in later zooms) is
-found; at 448 checked cells automatic-differentiation tangents reproduce the twin exponents within $0.0041$, and the label is a finite-horizon diagnostic, not a proof. The averaging window includes the twin's alignment from
-a random direction in 896 dimensions, so the finite-window estimate of a periodic cell differs from $\ln|\mu_1|/p$
+found; at 448 checked cells automatic-differentiation tangents reproduce the twin exponents within $0.0041$, and the label is a finite-horizon diagnostic, not a proof. The twin starts from a random direction in 896 dimensions at the end of the transient, so the averaging window
+includes its alignment, so the finite-window estimate of a periodic cell differs from $\ln|\mu_1|/p$
 of its orbit, by amounts consistent with that transient (its contribution has not been isolated): at two adjacent cells inside the kite of Figure~\ref{fig:p6kite},
 the map gives $-0.2786$ and $-0.0885$ per step and the Newton-converged period-6 orbits $-0.2821$ and $-0.0813$, offsets
 of $+0.0035$ and $-0.0073$ (\repo{tools/kite_basin_check.py}). Periodic cells are classified by their period, not by
@@ -2503,9 +2503,9 @@ start switches to the other attracting orbit; at adjacent cells across that curv
 (multipliers $0.18$ and $0.60$ to $0.61$; pair 1). The striations are tongues bounded the same way: across the edge of
 one, two other attracting period-6 orbits exist at both cells (multipliers $-0.72$ and $-0.11$; pair 2), and inside
 several tongues the exponents of neighboring cells fall into two separated groups, so the fixed start's outcome
-alternates from cell to cell, on a scale below the map's cells (\repo{tools/plot_p6_hook.py},
+alternates from cell to cell, a structure not resolved at this grid spacing (\repo{tools/plot_p6_hook.py},
 \repo{tools/kite_basin_check.py}). From a random token's embedding as the start, the same box at $128\times128$ cells shows neither
-the hook nor the tongues, and only 38\,\% of its cells keep their exponent within 0.02 (run HR12-RS): these edges are set
+the hook nor the tongues, and only 38\,\% of its cells keep their exponent within 0.02 of the nearest cell of the fixed-start map (run HR12-RS): these edges are set
 by where the fixed start lies relative to the basins, as basin boundaries should be, not by bifurcations.
 
 \begin{figure*}[tbp]
@@ -2527,23 +2527,25 @@ edge in $\log_{10}T$ to the float64 limit, at $\log_{10}T=-0.1535299666043828$ (
 Started there, the loop comes close to a third period-6 orbit and stays near it: Newton's method from the most nearly
 periodic state of that stretch converges (residual $2\times10^{-14}$) to a saddle with a single multiplier outside the
 unit circle, $\mu_u=1.2625$, real, with the next modulus $7.8\times10^{-4}$, at relative distances
-$3.5\times10^{-3}$ and $4.7\times10^{-3}$ from the two attracting orbits. A start a small distance off the saddle's
-stable manifold comes within a distance proportional to that offset of the saddle and then leaves along the
-unstable direction, its distance growing by $\mu_u$ per period, so the time it spends near the saddle grows by
+$3.5\times10^{-3}$ and $4.7\times10^{-3}$ from the two attracting orbits. A start a small distance $\delta$ off the saddle's
+stable manifold comes within a distance $\propto\delta^{\chi_s/(\chi_s+\chi_u)}$ of the saddle, as for a passage near
+a linear saddle with $\chi_u=\ln\mu_u$ and $\chi_s=-\ln|\mu_s|$ from its slowest stable multiplier $\mu_s$ (an
+exponent of 0.97 here), and then leaves along the unstable direction, its distance growing by $\mu_u$ per period, so the time it spends near the saddle grows by
 $6/\ln\mu_u=25.74$ steps for every factor $e$ by which the offset shrinks. Both predictions hold over eight decades
 (Figure~\ref{fig:hooktheory}; \repo{tools/hook_saddle_exit.py}). At 17 temperatures on each side of the edge, a
 distance $\delta$ from $10^{-6}$ to $10^{-14}$ in $\log_{10}T$ away, the last step within $10^{-3}$ of the saddle
 grows by 25.78 and 25.75 steps per factor $e$ in $\delta$ (all points within 4.0 and 2.9 steps of the fitted lines),
-the closest approach grows with $\delta$ with log-log slopes 0.986 and 0.995, and every start below the edge ends on
+the closest approach grows with $\delta$ with log-log slopes 0.986 and 0.995 (predicted 0.97), and every start below the edge ends on
 the strongly contracting orbit and every start above it on the other. Together with the random start, which removes
-the edge, this identifies the lower edge as the fixed start crossing the saddle's stable manifold. Bisecting 676
+the edge, this is strong numerical evidence that, at this steering strength, the lower edge is where the fixed start
+crosses the saddle's stable manifold. Bisecting 676
 jumps of the outcome along the map's columns (to $2.6\times10^{-13}$ in $\log_{10}T$; \repo{tools/hook_edge_track.py})
 traces the hook's other edges (Figure~\ref{fig:hooktheory}a). The upper edge follows the kite's fold curve, 0.1 to
 1.6 grid rows above a spline through the continued curve's points and more so toward the cusp. The offset comes from
 the map's window (Figure~\ref{fig:hooktip}b,c; \repo{tools/hook_tip_strip.py}): half a row and one row beyond the fold,
 where the weaker orbit does not exist, the exponent over the map's window (steps 300 to 600) lies between $-0.022$ and
 $+0.012$ for $\alpha$ above 0.072965 and 0.072967, because the loop still lingers at the orbit that vanished there,
-while over steps 3000 to 3400 every cell beyond the fold gives the strongly contracting orbit's exponent ($-0.18$ to
+while over steps 3000 to 3400 every cell of the strip beyond the fold gives the strongly contracting orbit's exponent ($-0.18$ to
 $-0.71$).
 
 \begin{figure*}[tbp]
@@ -2558,22 +2560,25 @@ $\log_{10}T$ below the edge: it arrives along the stable manifold within about 2
 the unstable direction; dotted: the radius $10^{-3}$ of (c). (c) The last step within $10^{-3}$ of the saddle
 against $\ln(1/\delta)$, for starts below the edge (which end on the strongly contracting orbit $S$) and above it
 (which end on the other, $W$); dashed: slope $6/\ln\mu_u$ from the saddle's unstable multiplier $\mu_u$. (d) Closest
-approach to the saddle against $\delta$; dashed: proportional to $\delta$.}
+approach to the saddle against $\delta$; dashed: slope $\chi_s/(\chi_s+\chi_u)=0.97$ from the saddle's multipliers.}
 \label{fig:hooktheory}
 \end{figure*}
 
 \paragraph{The tip of the hook.} The two edges meet where the fixed start lands exactly on the saddle-node orbit. At
-a point of the fold, the coordinate $u$ of the merged orbit along its critical direction evolves as $u'=u+bu^2$ to
-leading order (Appendix~\ref{sec:curves}); after its fast transient the fixed start lands at
+a point of the fold, the coordinate $u$ of the merged orbit along its critical direction changes over one six-step return as
+$u'=u+\eta+bu^2$ to leading order, with $\eta$ the distance from the fold in the normal form's units and $\eta=0$ on
+the fold (Appendix~\ref{sec:curves}; \cite{kuznetsov2023elements}); after its fast transient the fixed start lands at
 $u_0=\ell^\top(x-p_0)/\ell^\top r$, with $r$ and $\ell$ the right and left eigenvectors of the multiplier $+1$ at the
 orbit point $p_0$. Where $u_0$ has the sign that the quadratic term drives toward zero, the start converges onto the
 saddle-node orbit, and just inside the coexistence region it reaches the weaker orbit; where $u_0$ has the other sign,
-the start escapes to the strongly contracting orbit. The tip is therefore the point of the fold where $u_0$ changes
-sign. At seven points of the continued fold curve, $u_0$ is negative at $\alpha=0.072980$ to $0.073002$, where the
+the start escapes to the strongly contracting orbit. To leading order the tip is therefore the point of the fold where $u_0$
+changes sign (exactly, it is where the start lands on the strong-stable set of the saddle-node orbit, which the zero of
+$u_0$ approximates near that orbit). At seven points of the continued fold curve, $u_0$ is negative at $\alpha=0.072980$ to $0.073002$, where the
 start converges slowly onto the orbit (its drift fits $u'=u+bu^2$ with $b=56$ to 68), and positive at $\alpha=0.072889$
 to $0.072963$, where it escapes (\repo{tools/hook_tip_check.py}). At eight fold points located between them by
 Newton's method at fixed $\alpha$ (residuals at most $5\times10^{-14}$; \repo{tools/hook_tip_fold_points.py}), $u_0$ is
-nearly linear in $\alpha$ and crosses zero at $\alpha=0.0729655$ (Figure~\ref{fig:hooktip}a). Inside the fold, the
+nearly linear in $\alpha$ and crosses zero at $\alpha=0.0729655$, the predicted tip to leading order
+(Figure~\ref{fig:hooktip}a). Inside the fold, the
 boundary between the two outcomes approaches this point: at offsets of 2, 1, 0.5, 0.25 and 0.125 grid rows below the
 fold, the last cell that ends on the strongly contracting orbit lies at $\alpha=0.0729627$, 0.0729632, 0.0729637,
 0.0729642 and 0.0729645 (long window, cells $10^{-7}$ apart), and extrapolations with exponents from $1/3$ to $1/2$
@@ -2595,13 +2600,15 @@ from the fold curve (negative: beyond the fold, where the weaker orbit does not 
 has exponents of $-0.18$ to $-0.71$ here, the weaker one exponents near $-0.01$; dotted: the threshold $-0.15$ between
 them. (c) The same cells over steps 3000 to 3400: beyond the fold every cell ends on the strongly contracting orbit.
 (d) The boundary between the two outcomes inside the fold (last cell on the strongly contracting side and first on the
-weaker, long window) against the square root of the offset, with a straight-line extrapolation to the fold.}
+weaker, long window) against the square root of the offset, with a straight-line extrapolation to the fold (which assumes the exponent
+$1/2$; the points do not resolve it).}
 \label{fig:hooktip}
 \end{figure*}
 
 
-\paragraph{Symbolic dynamics.} Jones's unimodal interpretation of selected R\"ossler return maps, in which the
-shape of a periodicity hub follows from a conjugacy to unimodal maps \cite{jones2012rossler}, suggests an approximate
+\paragraph{Symbolic dynamics.} Jones's unimodal interpretation of selected R\"ossler return maps, which traced the
+shape of a periodicity hub to a conjugacy between the R\"ossler system and unimodal maps in part of its parameter
+plane \cite{jones2012rossler}, suggests an approximate
 scalar coding of the six-band attractor. Where the attractor writes the body's six-token text, the loop visits six thin
 bands of the state space in turn, one per token, and returns to each band every six steps. Many sampled six-step return
 maps, plotted along a band's first principal axis, show a single turning point: the next visit traces a parabola against
@@ -2640,7 +2647,9 @@ of the scan then complete (the cell nearest the center of the label's largest pa
 words; Table~\ref{tab:p6words}), scored by a subsequent clean-phase rule (phases whose L and R visits one threshold
 separates along the band, with every $|\cos|\ge0.5$), reproduce the scan's label at 16 cells; the two C cells have
 complex leading pairs, and at the remaining 5 cells, just below the kite, no phase is clean, so their four words (RLL on both sides, RLLLRLL,
-RLLLRLR and RLLLRRR) remain unconfirmed; the other 11 words were not checked. These checks support selected labels, not the whole map. In total, 1{,}469 of the
+RLLLRLR and RLLLRRR) remain unconfirmed; the other 11 words were not checked. At the 16 confirmed cells the full map's leading multiplier
+also has the sign that the label's parity predicts; this sign rule belongs to the scalar coding and carries over to
+the full map only while that multiplier stays real and dominant. These checks support selected labels, not the whole map. In total, 1{,}469 of the
 46{,}046 eligible periodic six-band cells receive no word (3.2\,\%), the 240 rejected by the filter among them; 922 of them (63\,\%) lie within Euclidean
 distance two grid cells of the eligible domain's edge.
 
@@ -5336,12 +5345,13 @@ $-0.12$ to $0.12$, $\log_{10}T$ from $-1$ to $0.3$; $128\times128$ float64 cells
 chat template inserts when none is given); the system prompt's words in two random orders, the user message's two
 tokens reversed, and both changes together; an opposite system prompt; happy and sad versions of the system prompt and of the user message; the
 same texts without chat markup, a system prompt three times as long and a two-turn conversation; three prompts that are
-a single random vector, with no text at all; and the base prompt with the loop started from three random vectors.
+a single random vector, with no text at all (a Gaussian direction at the median embedding norm, the embedding of a
+random token, and a Dirichlet(0.1) mixture of the embeddings of 64 random tokens); and the base prompt with the loop started from three random vectors.
 Every prompt gives chaos with periodic windows: 5.9 to 14.9\,\% of the plane is
 chaotic (7.0\,\% for the base prompt), with largest exponents of 0.62 to 0.85 per step (here chaotic means a largest exponent above $10^{-3}$ alone; this
 finite-window indicator overlaps a detected period at 3 to 18 cells per map). Removing the user message doubles the chaotic share, and even a prompt that is one random vector gives
-8 to 10\,\%. The prompt decides where the chaos lies, not whether it occurs: the
-chaotic cells of a variant overlap those of the base prompt by 1 to 37\,\%
+8 to 10\,\%. In every prompt we tested, chaos and periodic windows appear, but the prompt decides where they lie: the
+chaotic cells of each of the other 18 prompts overlap those of the base prompt by 1 to 37\,\%
 (Jaccard index). For the three random starts, the chaos/non-chaos threshold labels agree with the base run at
 98.9 to 99.0\,\% of the cells, while the periods detected within the run agree at only 86.5 to 93.1\,\%, so within
 this horizon the orbit reached can depend on the start. Across the 19 prompts there is

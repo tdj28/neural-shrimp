@@ -106,8 +106,11 @@ def main():
         R = [r for r in X["rows"] if r["side"] == sd]
         d.loglog([r["delta"] for r in R], [r["closest"] for r in R], mk, ms=3.5, mfc="none")
     dd = np.logspace(-14, -6, 10)
-    k1 = np.median([r["closest"] / r["delta"] for r in X["rows"]])
-    d.loglog(dd, k1 * dd, "k--", lw=0.8, label="proportional to $\\delta$")
+    chi_u, chi_s = np.log(mu_u), -np.log(X["source"]["next_modulus"])
+    pe = chi_s / (chi_s + chi_u)               # closest approach of a passage near a linear saddle: delta^pe
+    k1 = np.median([r["closest"] / r["delta"] ** pe for r in X["rows"]])
+    d.loglog(dd, k1 * dd ** pe, "k--", lw=0.8,
+             label=rf"slope $\chi_s/(\chi_s+\chi_u)$ = {pe:.2f} (linear saddle)")
     d.set_xlabel(r"distance $\delta$ from the edge in $\log_{10}T$", fontsize=7)
     d.set_ylabel("closest approach to the saddle (relative)", fontsize=7)
     d.tick_params(labelsize=6)

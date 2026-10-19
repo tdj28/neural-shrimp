@@ -357,3 +357,7 @@ skill, section 7A). Spend is recorded only in the gitignored `cost-ledger.md`
   second pass without a new recorded decision.
 - **Model:** `gpt-6-astra`, Pro mode, high effort, at most 20,000 output tokens; the per-call guard and the cost are in
   the private cost ledger. Advice is advisory and is adjudicated locally.
+
+- Consult 20 executed 19 Oct 2026 12:32-12:37 UTC (one call, as approved; brief at 4e6e2ec6, dry-004 checked first):
+  completed, 65,021 tokens. Review and adjudication: docs/consults/2026-10-19-postnight-results/adjudication.md
+  (artifacts in neural-shrimp-data/consults/2026-10-19-postnight-results/execute-001).
