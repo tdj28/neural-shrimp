@@ -30936,3 +30936,20 @@ conjugacy of the Rössler return map to unimodal maps, and orbits are traced by 
 - Chaotic labels are checked by AD tangents (same window), 1e5-step persistence and offsets (unchanged).
 - Report: sentence added after the 448-cell tangent check (methods). An earlier draft in this session used preview
   row indices (offset by 64 rows) and was discarded before any text was written.
+
+## 2026-10-19 08:12 UTC: the straight edge inside the kite is a basin boundary of the fixed start (basin check)
+
+- tools/kite_basin_check.py (local CPU, float64, 1247 s). Cells: alpha 0.0729749511 at log10 T -0.1535315068 (below the
+  edge) and -0.1535287671 (above), adjacent rows of HR11.
+- Fixed start: below, mu1 = +0.184083 (residual 1.5e-15); above, mu1 = +0.614131 (residual 1.7e-14). The two orbits
+  are 2.16 % apart (best cyclic alignment).
+- Continuations:
+  - the below-orbit continued to the cell above converges (residual 2.8e-14) to mu1 = 0.183348, attracting, 2.15 %
+    from the fixed-start orbit there and 1.5e-5 from its source;
+  - the above-orbit continued to the cell below converges (residual 2.3e-14) to mu1 = 0.601183, attracting, 2.17 %
+    from the fixed-start orbit there and 1.5e-4 from its source.
+- Reading: both attracting period-6 orbits exist at both cells. The edge is where the fixed start switches between
+  them, not a bifurcation curve. Kite captions (both papers) now say so.
+- Mishap (no data affected): a caption-editing script truncated both main.tex files after the kite caption. Restored
+  from the last commits (only the broken edit was uncommitted), the sentence reapplied, and both papers rebuilt
+  cleanly (28 and 163 pages).
