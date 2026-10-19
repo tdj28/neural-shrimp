@@ -148,11 +148,14 @@ def max_rotation(seq):
     return best
 
 
-def cell_word(cos, P, k, min_cos):
-    """Word of a period-P*k orbit from the last P*k recorded cosines: per phase, the k signs in time order and their
-    maximal rotation. Returns (word, status, details)."""
+def cell_word(cos, P, k, min_cos, min_phases=3):
+    """Word of a period-P*k orbit from the last P*k recorded cosines. Per phase: the k signs in time order, their maximal
+    rotation, and the smallest |cos| at the visits other than the critical one. A phase is usable when that smallest
+    |cos| reaches min_cos (in the phase holding the fold's tip the band is a hairpin and the sign is ill defined). The
+    usable phases must agree; if they agree on W but not on the critical symbol, the cell lies on the window's
+    superstable curve (X = C). Returns (word, status, details)."""
     R = len(cos)
-    words, worst = [], 1.0
+    phases = []
     for j in range(P):
         idx = [R - 1 - j - P * i for i in range(k)][::-1]       # time order
         c = cos[idx]
@@ -161,19 +164,34 @@ def cell_word(cos, P, k, min_cos):
         seq = "".join("L" if x > 0 else "R" for x in c)
         b = max_rotation(seq)
         crit = (b - 1) % k                                      # the visit whose symbol is X (nearest the turning point)
-        others = np.delete(np.abs(c), crit) if k > 1 else np.array([])
-        if len(others):
-            worst = min(worst, float(others.min()))
-        words.append(seq[b:] + seq[:b])
-    if len(set(words)) > 1:
-        return words[0], "phases disagree", {"phase_words": words}
-    if worst < min_cos:
-        return words[0], "weak cosine", {"min_cos": worst}
-    return words[0], "ok", {"min_cos": worst}
+        others = np.delete(np.abs(c), crit)
+        phases.append((seq[b:] + seq[:b], float(others.min()) if len(others) else 1.0, float(abs(c[crit]))))
+    usable = [w for w, m, _ in phases if m >= min_cos]
+    det = {"usable_phases": len(usable), "phase_words": [w for w, _, _ in phases]}
+    if not usable:
+        return phases[0][0], "too few usable phases", det
+    from collections import Counter
+    wv = Counter(w[:-1] for w in usable)               # votes for the window word W
+    W, nW = wv.most_common(1)[0]
+    det["votes_for_W"] = nW
+    if nW < min_phases or (len(wv) > 1 and wv.most_common(2)[1][1] == nW):
+        return usable[0], "phases disagree", det
+    xv = Counter(w[-1] for w in usable if w[:-1] == W)  # votes for the side X among the phases that give W
+    X, nX = xv.most_common(1)[0]
+    det["votes_for_X"] = nX
+    return W + (X if nX >= 2 * nW / 3 else "C"), "ok", det   # split sides: on the window's superstable curve
+
+
+def load_dir(rel):
+    d = DATA / "explore" / rel
+    return np.load(d / "scan.npz", allow_pickle=True), json.loads((d / "scan.json").read_text())
 
 
 def cmd_words(args):
-    zs, recs = zip(*[load_band(args.bands, k) for k in range(args.n)])
+    if args.list:
+        zs, recs = zip(*[load_dir(d) for d in args.list])
+    else:
+        zs, recs = zip(*[load_band(args.bands, k) for k in range(args.n)])
     text, tally = body_text(recs) if not args.text_ids else (rotmin_key(args.text_ids), {})
     P = args.period
     mss = mss_words(args.kmax)
@@ -203,7 +221,7 @@ def cmd_words(args):
                 if q % P or k > args.kmax or ids != rotmin_key(text * k):
                     status[row0 + r, c] = 1
                     continue
-                w, st, det = cell_word(cos[r, c], P, k, args.min_cos)
+                w, st, det = cell_word(cos[r, c], P, k, args.min_cos, args.min_phases)
                 if st == "ok" and w[:-1] not in mss_set:
                     st = "not an MSS word"
                 if st != "ok":
@@ -216,7 +234,7 @@ def cmd_words(args):
                     label_of[lab] = len(labels)
                     labels.append(lab)
                 word_idx[row0 + r, c] = label_of[lab]
-                min_cos[row0 + r, c] = det.get("min_cos", np.nan)
+                min_cos[row0 + r, c] = det.get("usable_phases", np.nan)
         row0 += nr
     counts = {lab: int((word_idx == i).sum()) for i, lab in enumerate(labels)}
     windows = {}
@@ -227,7 +245,7 @@ def cmd_words(args):
                "cells": int(lam.size), "periodic": int((per > 0).sum()), "other_family_or_period": int((status == 1).sum()),
                "gate_failed": int((status == 2).sum()), "gate_reasons": reasons, "coded": int((status == 3).sum()),
                "windows_in_mss_order": dict(sorted(windows.items(), key=lambda kv: kv[1]["mss_rank"])),
-               "min_cos_of_coded_cells": float(np.nanmin(min_cos)) if np.isfinite(min_cos).any() else None}
+               "usable_phases_of_coded_cells": {str(n): int(np.sum(min_cos == n)) for n in range(1, 7)}}
     if args.compare:                            # reproducibility: the same grid and protocol as an earlier scan
         zc = [load_band(args.compare, k)[0] for k in range(args.n)]
         lamc = np.concatenate([z["lyapunov"] for z in zc])
@@ -242,7 +260,7 @@ def cmd_words(args):
     out = DATA / "explore" / args.out
     out.mkdir(parents=True, exist_ok=True)
     np.savez_compressed(out / "words.npz", alpha=a, log10_temperature=t, lyapunov=lam, period=per, status=status,
-                        word_index=word_idx, labels=np.array(labels), min_cos=min_cos)
+                        word_index=word_idx, labels=np.array(labels), usable_phases=min_cos)
     (out / "words.json").write_text(json.dumps(rec_out, indent=1))
     print(json.dumps({k: v for k, v in rec_out.items() if k not in ("args", "body_text_tally")}, indent=1))
     if args.fig:
@@ -305,8 +323,70 @@ def turning_points(x, y, bins=40, min_count=5):
     return int(np.sum(slope[1:] != slope[:-1])), cx, cy
 
 
+def arc_coordinate(xy, k=8):
+    """Arc length along a thin curve of points xy (n, 2): geodesic distance on a k-nearest-neighbor graph from one end
+    of the curve. Returns None if the graph is not connected (a banded attractor; use the principal coordinate)."""
+    from scipy.sparse import csr_matrix
+    from scipy.sparse.csgraph import connected_components, dijkstra
+    from scipy.spatial import cKDTree
+
+    n = len(xy)
+    d, j = cKDTree(xy).query(xy, k=min(k + 1, n))
+    rows = np.repeat(np.arange(n), d.shape[1] - 1)
+    g = csr_matrix((d[:, 1:].ravel(), (rows, j[:, 1:].ravel())), shape=(n, n))
+    g = g.maximum(g.T)
+    if connected_components(g, directed=False)[0] > 1:
+        return None
+    far = int(np.argmax(dijkstra(g, indices=0)))           # one end of the curve
+    return dijkstra(g, indices=far)
+
+
+def bend(xy, k=40):
+    """How far the band of points xy (n, 2) in its principal plane turns away from the first principal axis: the 95th
+    percentile, in degrees, of the angle between the axis and the band's local direction (the principal direction of
+    each point's k nearest neighbors, a scale above the band's thickness). The derivative-sign coding needs every pair
+    of tangents within 90 degrees, so a band whose local directions all lie within 45 degrees of the axis qualifies."""
+    from scipy.spatial import cKDTree
+
+    n = len(xy)
+    if n < 10:
+        return None
+    k = min(k, n)
+    _, j = cKDTree(xy).query(xy, k=k)
+    nb = xy[j] - xy[j].mean(axis=1, keepdims=True)                 # (n, k, 2), centered per neighborhood
+    cxx, cyy, cxy = (nb[..., 0] ** 2).mean(1), (nb[..., 1] ** 2).mean(1), (nb[..., 0] * nb[..., 1]).mean(1)
+    theta = 0.5 * np.arctan2(2 * cxy, cxx - cyy)                     # leading local direction, radians
+    ang = np.degrees(np.abs(theta))                                  # 0..90 from the first principal axis
+    return float(np.percentile(ang, 95))
+
+
+def separability(s, sym, weak):
+    """Best single threshold on the coordinate s separating the L visits from the R visits (the coding of a unimodal map
+    has one), leaving out the weak (near-critical) visits. Returns (agreement, threshold, L_below, n_used)."""
+    keep = ~weak
+    x, y = s[keep], sym[keep] == "L"
+    n = len(x)
+    if n < 10 or y.all() or (~y).all():
+        return (1.0 if n else None), None, None, n
+    o = np.argsort(x)
+    x, y = x[o], y[o]
+    # agreement for "L below threshold" at every cut k (first k points below): L among the first k + R among the rest
+    L_below = np.concatenate([[0], np.cumsum(y)]) + (np.sum(~y) - np.concatenate([[0], np.cumsum(~y)]))
+    R_below = n - L_below
+    kb, ka = int(np.argmax(L_below)), int(np.argmax(R_below))
+    if L_below[kb] >= R_below[ka]:
+        k, best, lb = kb, L_below[kb], True
+    else:
+        k, best, lb = ka, R_below[ka], False
+    thr = float(x[k - 1] + x[k]) / 2 if 0 < k < n else (float(x[0]) if k == 0 else float(x[-1]))
+    return float(best / n), thr, lb, n
+
+
 def cmd_returnmaps(args):
-    zs, recs = zip(*[load_band(args.bands, k) for k in range(args.n)])
+    if args.list:                                   # explicit band folders in row order (e.g. a rerun of half a band)
+        zs, recs = zip(*[load_dir(d) for d in args.list])
+    else:
+        zs, recs = zip(*[load_band(args.bands, k) for k in range(args.n)])
     P = args.period
     texts = []
     for rec in recs:
@@ -341,34 +421,48 @@ def cmd_returnmaps(args):
                              "thickness": float(np.sqrt(np.nanmean(resid ** 2)) / spread) if spread > 0 else None}
                         # derivative signs of the visits (record index j + 6i is coded by the cosine at j + 6(i+1))
                         ci = cos[r, c, j + P::P][: len(s) - 1]
-                        sym_sign = np.where(ci > 0, "L", "R")
-                        shape = None
-                        if ntp == 1:
-                            imax, imin = int(np.argmax(cy)), int(np.argmin(cy))
-                            shape = "max" if 0 < imax < len(cy) - 1 else "min" if 0 < imin < len(cy) - 1 else None
-                        if shape:
-                            cpos = float(cx[imax if shape == "max" else imin])
-                            sym_proj = np.where((s[: len(ci)] < cpos) == (shape == "max"), "L", "R")
-                            far = np.abs(s[: len(ci)] - cpos) > args.margin * spread
-                            agree = float(np.mean(sym_proj[far] == sym_sign[far])) if far.any() else None
-                            ext = int(np.argmax(s[: len(ci)])) if shape == "max" else int(np.argmin(s[: len(ci)]))
-                            kneading = "".join(sym_sign[ext: ext + args.kneading_len])
-                            e.update(turning_point=cpos, shape=shape, coding_agreement=agree,
-                                     kneading_prefix=kneading, min_abs_cos=float(np.min(np.abs(ci))))
+                        sv = s[: len(ci)]                 # the principal axis (usable phases are straight)
+                        sym = np.where(ci > 0, "L", "R")
+                        weak = np.abs(ci) < args.min_cos
+                        agree, thr, lb, nused = separability(sv, sym, weak)
+                        nL = int(np.sum((sym == "L") & ~weak))
+                        minority = min(nL, nused - nL)
+                        errors = int(round((1 - agree) * nused)) if agree is not None else None
+                        bd = bend(proj[r, c, j, : len(ci), :].astype(float))
+                        e.update(separability=agree, threshold=thr, weak_fraction=float(weak.mean()), visits=int(len(ci)),
+                                 minority=minority, errors=errors, bend_deg=bd,
+                                 usable=bool(weak.mean() <= args.max_weak and minority >= 5 and bd is not None
+                                             and bd < args.max_bend))
+                        if thr is not None:
+                            so = sv if lb else -sv                # oriented so that L lies below the turning point
+                            ext = int(np.argmax(so))              # the critical value f(c): the top of the attractor
+                            e["kneading_prefix"] = "".join(sym[ext: ext + args.kneading_len])
                         ph.append(e)
                     rec["phases"] = ph
-                    rec["unimodal_all_phases"] = all(p["turning_points"] == 1 for p in ph)
+                    use = [p for p in ph if p["usable"]]
+                    rec["usable_phases"] = len(use)
+                    rec["errors_over_minority"] = (sum(p["errors"] for p in use) / sum(p["minority"] for p in use)) if use else None
+                    rec["unimodal_all_phases"] = bool(use) and all(p["separability"] >= args.min_separability for p in use)
+                    rec["min_separability"] = min((p["separability"] for p in ph if p.get("separability") is not None), default=None)
                     maps[f"b{b}_r{r}_c{c}"] = proj[r, c, :, :, 0]
                 cells.append(rec)
     dom_chaos = [c for c in cells if c["domain"] and c["lyapunov"] > args.chaos_level]
     uni = [c for c in dom_chaos if c.get("unimodal_all_phases")]
-    agr = [p["coding_agreement"] for c in uni for p in c["phases"] if p.get("coding_agreement") is not None]
+    agr = [c["min_separability"] for c in dom_chaos if c.get("min_separability") is not None]
     thick = [p["thickness"] for c in dom_chaos for p in c["phases"] if p.get("thickness") is not None]
     summary = {"body_text_ids": list(body), "cells": len(cells), "domain_cells": sum(c["domain"] for c in cells),
                "domain_chaotic": len(dom_chaos), "unimodal_in_all_phases": len(uni),
                "turning_point_counts": {str(n): sum(1 for c in dom_chaos for p in c["phases"] if p["turning_points"] == n)
                                         for n in range(0, 5)},
-               "coding_agreement": {"min": min(agr) if agr else None, "median": float(np.median(agr)) if agr else None},
+               "min_separability_per_cell": {"min": min(agr) if agr else None, "median": float(np.median(agr)) if agr else None,
+                                             "cells_at_least_0.99": sum(1 for x in agr if x >= 0.99), "cells": len(agr)},
+               "weak_visit_fraction_median": float(np.median([p["weak_fraction"] for c in dom_chaos for p in c["phases"]]))
+               if dom_chaos else None,
+               "usable_phases_per_cell": {str(n): sum(1 for c in dom_chaos if c.get("usable_phases") == n) for n in range(0, 7)},
+               "errors_over_minority_in_usable_phases": {
+                   "max": max((c["errors_over_minority"] for c in dom_chaos if c.get("errors_over_minority") is not None), default=None),
+                   "median": float(np.median([c["errors_over_minority"] for c in dom_chaos if c.get("errors_over_minority") is not None]))
+                   if any(c.get("errors_over_minority") is not None for c in dom_chaos) else None},
                "thickness": {"median": float(np.median(thick)) if thick else None, "max": max(thick) if thick else None}}
     out = DATA / "explore" / args.out
     out.mkdir(parents=True, exist_ok=True)
@@ -413,20 +507,20 @@ def plot_returnmaps(cells, zs, args, body):
                  bbox=dict(boxstyle="circle,pad=0.15", fc="w", ec="k", lw=0.5))
     axm.set_xlabel(r"steering strength $\alpha$")
     axm.set_ylabel(r"$\log_{10}T$")
-    axm.set_title("(a) chaotic cells of the 6-band domain:\ngreen one turning point in every phase", fontsize=7.5)
+    axm.set_title("(a) chaotic cells writing the 6-token text:\ngreen: one threshold separates L from R in every phase", fontsize=7.5)
     for i, c in enumerate(picks):
         ax = fig.add_subplot(gs[i // 3, 1 + i % 3])
         z = zs[c["band"]]
-        s = z["return_projection"][c["row"], c["col"], 0, :, 0].astype(float)
-        cos = z["word_cos"][c["row"], c["col"], P::P][: len(s) - 1]
+        use = [p for p in c["phases"] if p.get("usable")] or c["phases"]
+        best = max(use, key=lambda p: (p.get("separability") or 0, -p["weak_fraction"]))
+        jb = best["phase"]
+        s = z["return_projection"][c["row"], c["col"], jb, :, 0].astype(float)
+        cos = z["word_cos"][c["row"], c["col"], jb + P::P][: len(s) - 1]
         ax.scatter(s[:-1], s[1:], c=np.where(cos > 0, "tab:blue", "tab:red"), s=2, lw=0)
-        ph0 = c["phases"][0]
-        if "turning_point" in ph0:
-            ax.axvline(ph0["turning_point"], color="k", lw=0.5, ls=":")
-        ax.set_title(f"({chr(98 + i)}) cell {i + 1}: $\\lambda$ = {c['lyapunov']:.3f}", fontsize=7.5)
+        ax.set_title(f"({chr(98 + i)}) cell {i + 1}, phase {jb}: $\\lambda$ = {c['lyapunov']:.3f}", fontsize=7.5)
         ax.tick_params(labelsize=5.5)
         if i // 3 == 1:
-            ax.set_xlabel(r"$s_n$ (phase 0, first principal axis)", fontsize=6.5)
+            ax.set_xlabel(r"$s_n$ (first principal axis of the phase)", fontsize=6.5)
         if i % 3 == 0:
             ax.set_ylabel(r"$s_{n+1}$ (six steps later)", fontsize=6.5)
     fig.tight_layout()
@@ -435,34 +529,98 @@ def plot_returnmaps(cells, zs, args, body):
     print(f"wrote {args.fig}")
 
 
+def cmd_merge(args):
+    """One band from the complete rows of a timed-out scan's checkpoint (scan-partial.npz) and a rerun of its missing
+    rows (same columns; the rerun's rows must continue the checkpoint's). Families and texts are reconciled by token
+    loop. The rerun's twins start from other random directions, so its exponents are not bit-identical to an
+    uninterrupted run's."""
+    D = DATA / "explore"
+    zp = np.load(D / args.partial / "scan-partial.npz", allow_pickle=True)
+    zr = np.load(D / args.rerun / "scan.npz", allow_pickle=True)
+    rr = json.loads((D / args.rerun / "scan.json").read_text())
+    nc = len(zp["alpha"])
+    r0 = int(zp["done"]) // nc
+    tp = zp["log10_temperature"][:r0]
+    tr = zr["log10_temperature"]
+    if not np.array_equal(zp["alpha"], zr["alpha"]):
+        raise SystemExit("columns differ")
+    step = np.diff(zp["log10_temperature"]).mean()
+    if r0 and abs(tr[0] - (tp[-1] + step)) > 1e-9 * max(1.0, abs(step)):
+        raise SystemExit("the rerun's rows do not continue the checkpoint's complete rows")
+    keys_p = {"family": [tuple(k) for k in json.loads(str(zp["family_keys"]))], "text_family": [tuple(k) for k in json.loads(str(zp["text_keys"]))]}
+    keys_r = {"family": [tuple(f["token_ids"]) for f in sorted(rr["families"], key=lambda f: f["family"])],
+              "text_family": [tuple(f["token_ids"]) for f in sorted(rr.get("texts", []), key=lambda f: f["text_family"])]}
+    out, merged = {"alpha": zp["alpha"], "log10_temperature": np.concatenate([tp, tr])}, {}
+    for kind in ("family", "text_family"):
+        keys = list(dict.fromkeys(keys_p[kind] + keys_r[kind]))
+        index = {k: i for i, k in enumerate(keys)}
+        mp = np.array([index[k] for k in keys_p[kind]] + [-1], dtype=int)
+        mr = np.array([index[k] for k in keys_r[kind]] + [-1], dtype=int)
+        a_p = zp[kind][: r0 * nc].reshape(r0, nc)
+        a_r = zr[kind]
+        out[kind] = np.concatenate([np.where(a_p >= 0, mp[np.clip(a_p, 0, len(mp) - 1)], -1),
+                                    np.where(a_r >= 0, mr[np.clip(a_r, 0, len(mr) - 1)], -1)])
+        merged[kind] = keys
+    for k in ("lyapunov", "period", "entropy", "text_period"):
+        out[k] = np.concatenate([zp[k][: r0 * nc].reshape(r0, nc), zr[k]])
+    for k in ("word_cos", "word_log_growth"):
+        if k in zp.files and k in zr.files:
+            out[k] = np.concatenate([zp[k][: r0 * nc].reshape(r0, nc, -1), zr[k]])
+    o = D / args.out
+    o.mkdir(parents=True, exist_ok=True)
+    np.savez_compressed(o / "scan.npz", **out)
+    rec = {"args": vars(args), "rows_from_checkpoint": r0, "rows_from_rerun": int(len(tr)),
+           "families": [{"family": i, "period": len(k), "token_ids": list(k), "cells": int((out["family"] == i).sum())}
+                        for i, k in enumerate(merged["family"])],
+           "texts": [{"text_family": i, "period": len(k), "token_ids": list(k), "cells": int((out["text_family"] == i).sum())}
+                     for i, k in enumerate(merged["text_family"])]}
+    (o / "scan.json").write_text(json.dumps(rec, indent=1))
+    print(json.dumps({"out": args.out, "rows_from_checkpoint": r0, "rows_from_rerun": int(len(tr)), "shape": list(out["lyapunov"].shape)}))
+
+
 def main():
     ap = argparse.ArgumentParser(description=__doc__.split("\n\n")[0])
     sub = ap.add_subparsers(dest="cmd", required=True)
     m = sub.add_parser("mss")
     m.add_argument("--kmax", type=int, default=8)
     w = sub.add_parser("words")
-    w.add_argument("--bands", required=True, help="explore-relative band prefix, e.g. llm-soft-loop/pod64/bands/sdw-c")
+    w.add_argument("--bands", default=None, help="explore-relative band prefix, e.g. llm-soft-loop/pod64/bands/sdw-c")
+    w.add_argument("--list", nargs="*", default=None, help="explore-relative band folders in row order, instead of --bands")
     w.add_argument("--n", type=int, default=16)
     w.add_argument("--period", type=int, default=6)
     w.add_argument("--kmax", type=int, default=8)
     w.add_argument("--min-cos", type=float, default=0.5)
+    w.add_argument("--min-phases", type=int, default=3, help="usable phases (|cos| >= --min-cos off the critical visit) "
+                   "that must agree on W (majority vote; a phase holding the fold's tip can flip signs)")
     w.add_argument("--text-ids", type=int, nargs="*", default=None)
     w.add_argument("--compare", default=None, help="band prefix of an earlier scan on the same grid (reproducibility)")
     w.add_argument("--out", required=True)
     w.add_argument("--fig", default=None)
     r = sub.add_parser("returnmaps")
-    r.add_argument("--bands", required=True)
+    r.add_argument("--bands", default=None)
     r.add_argument("--n", type=int, default=3)
+    r.add_argument("--list", nargs="*", default=None, help="explore-relative band folders in row order, instead of --bands")
     r.add_argument("--period", type=int, default=6)
     r.add_argument("--chaos-level", type=float, default=1e-3)
     r.add_argument("--margin", type=float, default=0.02, help="visits within this fraction of the spread of the turning "
                    "point are left out of the coding comparison")
     r.add_argument("--kneading-len", type=int, default=16)
+    r.add_argument("--min-cos", type=float, default=0.5, help="visits with |cos| below this are near-critical (left out)")
+    r.add_argument("--min-separability", type=float, default=0.99, help="unimodal: one threshold separates L from R "
+                   "visits at this fraction in every usable phase")
+    r.add_argument("--max-weak", type=float, default=0.1, help="a phase is usable when at most this fraction of its visits "
+                   "is near-critical")
+    r.add_argument("--max-bend", type=float, default=45.0, help="a phase is usable when its band turns less than this "
+                   "(degrees, 95th percentile) from its principal axis")
     r.add_argument("--text-ids", type=int, nargs="*", default=None)
     r.add_argument("--out", required=True)
     r.add_argument("--fig", default=None)
+    g = sub.add_parser("merge")
+    g.add_argument("--partial", required=True, help="explore-relative band folder with scan-partial.npz")
+    g.add_argument("--rerun", required=True, help="explore-relative band folder of the rerun of its missing rows")
+    g.add_argument("--out", required=True)
     args = ap.parse_args()
-    {"mss": cmd_mss, "words": cmd_words, "returnmaps": cmd_returnmaps}[args.cmd](args)
+    {"mss": cmd_mss, "words": cmd_words, "returnmaps": cmd_returnmaps, "merge": cmd_merge}[args.cmd](args)
 
 
 if __name__ == "__main__":
