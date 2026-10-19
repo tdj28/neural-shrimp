@@ -1,6 +1,6 @@
 {
   "schema": "task37-r-pair-saved-audit-card-draft-v1",
-  "status": "held",
+  "status": "reviewed_for_execution",
   "attempt": "r-pair-001-audit-001",
   "purpose": "Saved-value consistency replay for the original rounded-R pair only. No model evaluation, original rerun, certificate, scientific admission or automatic body-point work.",
   "original": {
@@ -102,7 +102,13 @@
         "sha256": "83a4942ad648338af12318da17267fcbe07dafd9e7b6679231951d48b8584712"
       }
     ],
-    "metadata_scope": "Plan/card bytes match the original Git commit. Their raw input contents and active attempt have not been re-read by this preparation."
+    "metadata_scope": "Plan/card bytes match the original Git commit. Their raw input contents and active attempt have not been re-read by this preparation.",
+    "closed_execution": {
+      "path": "/data2/neural-shrimp-data/scratch/audit-codex-1019/r-pair-001-supervision/receipt.json",
+      "bytes": 301960,
+      "sha256": "f4ecd1e9e090a1fecdbba35b0296efb1cd12a582e45199083b1645deaf59e907"
+    },
+    "completed_unqualified_status": true
   },
   "checker": {
     "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/presubmit-task37/audit_saved_numerics.py",
@@ -127,51 +133,23 @@
     "status": "source_reviewed_eight_mock_controls_passed",
     "scope": "Exclusive output allocation and unchanged in-process checker dispatch only; original execution authority remains external."
   },
-  "unavailable_authentication_pins": [
-    {
-      "path": "/data2/neural-shrimp-data/scratch/audit-codex-1019/r-pair-001-supervision/receipt.json",
-      "bytes": null,
-      "sha256": null,
-      "status": "unavailable_for_held_preparation",
-      "reason": "Final original receipt unavailable during this source-only preparation."
-    },
-    {
-      "path": "/data2/neural-shrimp-data/scratch/audit-codex-1019/r-pair-001-supervision/admission.json",
-      "bytes": null,
-      "sha256": null,
-      "status": "unavailable_for_held_preparation",
-      "reason": "Existing active-attempt admission deliberately not read; exact pin unavailable to this draft."
-    },
-    {
-      "path": "/data2/neural-shrimp-data/scratch/audit-codex-1019/r-pair-001-supervision/worker-startup.json",
-      "bytes": null,
-      "sha256": null,
-      "status": "unavailable_for_held_preparation",
-      "reason": "Existing active-attempt startup record deliberately not read; exact pin unavailable to this draft."
-    },
-    {
-      "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/presubmit-task37/r-pair-001-original-closure.json",
-      "bytes": null,
-      "sha256": null,
-      "status": "unavailable_for_held_preparation",
-      "reason": "Original attempt is still active by Root report. No final receipt, host closure or post-run inventory inspected."
-    },
-    {
-      "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/presubmit-task37/r-pair-001-original-input-inventory.json",
-      "bytes": null,
-      "sha256": null,
-      "status": "unavailable_for_held_preparation",
-      "reason": "Complete canonical regular-file inventory must be derived and authenticated only after original closure; no active target file inspected."
-    }
-  ],
+  "unavailable_authentication_pins": [],
   "output": {
     "directory": "/data2/neural-shrimp-data/scratch/audit-codex-1019/r-pair-001-audit-001",
     "report": "/data2/neural-shrimp-data/scratch/audit-codex-1019/r-pair-001-audit-001/result.json",
     "supervision": "/data2/neural-shrimp-data/scratch/audit-codex-1019/r-pair-001-audit-001-supervision",
     "allocation_status": "proposed_fresh_name_only; not created or probed here; Root must confirm absent at admission"
   },
-  "capacity_window": null,
-  "capacity_status": "No reservation or capacity observation made. Original target capacity grant is not automatically transferred.",
+  "capacity_window": {
+    "confirmed": true,
+    "owner": "task37-r-pair-001-audit-001",
+    "not_before_utc": "2026-10-19T11:37:47.080801+00:00",
+    "not_after_utc": "2026-10-19T15:00:00Z",
+    "coordination_reference": "Claude08:58 window in comms/claude-to-codex.md at0e1c21ff, reiterated09:44: Task37 R-pair check keeps window through15:00. Root explicitly allocates one serial saved replay after original closure, within original oneCPU/nice10/18GiB ceiling; audit is4GiB.",
+    "reserved_auxiliary_slots": 2,
+    "other_owned_numerical_slots": 0
+  },
+  "capacity_status": "Fresh serial reservation within coordinated Task37 window; supervisor must freshly admit32GiB available RAM and keep16GiB runtime floor. No original or other-owned numerical worker remains.",
   "cpu_threads": 1,
   "cpu_ids": [
     0
@@ -183,7 +161,7 @@
     "wall_seconds": 360,
     "output_bytes": 16777216
   },
-  "startup_ram_gib": 24,
+  "startup_ram_gib": 32,
   "runtime_available_ram_floor_gib": 16,
   "disk_free_floor_gib": 16,
   "environment": {
@@ -203,11 +181,11 @@
     "transfer_limit": "Old saved audit verified one 896-square eigensystem/residual/FD record without a fresh eigensolve. This checker reads two full operator journals and performs two fresh 896-square eigensolves plus assignments. No new measurement or throughput claim; conservative finite stop proposed."
   },
   "admission_requirements": [
-    "Root verifies original full source/plan/card/admission/argv/lane/input bindings and original receipt returncode==0, failure is null, worker_reaped, worker_identity_absent and worker_group_session_absent; independently establish exact original host PID/starttime/group/session closure.",
+    "Original exact source8b565228 receipt has returncode1, failure:null, full completed raw outputs and expected SystemExit1 for unqualified scientific gates. All source/card/input/output/host closure checks passed. This disclosed first saved replay accepts that exact completed exit1 only to independently reproduce the failure; no scientific threshold or original status is relaxed.",
     "Complete original canonical raw regular-file inventory must match the original receipt before and after replay; reject symlinks, duplicate canonical aliases, escaped paths, missing and extra files. Checker read_file_inventory is a subset, not original authentication.",
     "Minimal isolated launcher source and eight new mocked controls passed; exclusively creates output before unchanged checker dispatch. No direct missing-parent invocation and no real saved replay admitted.",
-    "Fill every null original/closure/inventory/wrapper pin; include original receipt/admission/startup and closure/inventory records in final preflight pins. Inventory files must use the supervisor files-list schema.",
-    "Root reviews final source and explicit run-card/log, verifies a clean private HEAD==origin/main checkpoint for the audit launch, and captures a new confirmed capacity window covering the full 360-second reservation. Set reviewed status only after all prerequisites; status amendment alone is insufficient.",
+    "Actual original receipt/admission/startup/closure/full-inventory pins are filled and included in preflight. Full input inventory uses supervisor files-list schema; Root checks canonical exact membership before and after.",
+    "Root freezes reviewed source and this explicit amendment in private HEAD==origin/main before launch; fresh supervisor admission within coordinated window required. Exactly one saved replay, no model call or retry.",
     "Inherited HF offline is required because supervisor sets numerical thread variables but does not set HF_HUB_OFFLINE. Keep HF offline as inherited launch metadata; the checker does not import Hugging Face, and no new wrapper HF assertion is required.",
     "All fresh audit results/stdout/stderr/supervision/failures must be retained; inspect actual audit exit and complete receipt plus separate host closure. No retry, extension, input replacement, floor weakening or next-stage launch."
   ],
@@ -216,5 +194,54 @@
     "Left-eigenvector condition estimates, tokenizer decoded text, embedding readouts, complete Newton/GMRES decisions, model/operator authenticity and effective internal precision are not independently replayed.",
     "Original successful process closure and saved-checker arithmetic success remain distinct from an admitted scientific result; original scientific gates must be read individually."
   ],
-  "preparation_status": "Root and independent source/interface reviews complete; eight new wrapper mock controls passed once. No active target arrays, actual saved checker or model were evaluated by this preparation. Original closure, inventory and capacity prerequisites remain deferred."
+  "preparation_status": "Original fully hash-authenticated and closed; complete but scientifically unqualified. First unchanged saved replay is ready for private checkpoint and fresh external admission.",
+  "authenticated_original_records": [
+    {
+      "path": "/data2/neural-shrimp-data/scratch/audit-codex-1019/r-pair-001-supervision/receipt.json",
+      "bytes": 301960,
+      "sha256": "f4ecd1e9e090a1fecdbba35b0296efb1cd12a582e45199083b1645deaf59e907"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/scratch/audit-codex-1019/r-pair-001-supervision/admission.json",
+      "bytes": 4367,
+      "sha256": "fb8c140a1b33852ae4b58615b646433229b42e7102279522d8937780aaa0681e"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/scratch/audit-codex-1019/r-pair-001-supervision/worker-startup.json",
+      "bytes": 2583,
+      "sha256": "969c04582ba834ff552f4b5856da3a26313f9a4eae852f0c69cdf03d0ac1dce8"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/scratch/audit-codex-1019/r-pair-001-closure-001/input-inventory.json",
+      "bytes": 297427,
+      "sha256": "2e85f40574291474a0b4743c800aa3f0b660f796423921fd7c29109f0ba77d15"
+    },
+    {
+      "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/presubmit-task37/r-pair-001-original-closure.json",
+      "bytes": 9242,
+      "sha256": "331df001c93ba774d3fa5d50d95eca460dddee87224cce8a37f5ff88ed8e156b"
+    }
+  ],
+  "amendment": {
+    "utc": "2026-10-19T11:37:47.080801+00:00",
+    "previous_held_pins": {
+      "card": {
+        "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/presubmit-task37/r-pair-001-audit-001-card.json",
+        "bytes": 12511,
+        "sha256": "f54c8127935aa19c717e161401878b68ec8e8ee3f5201b7307b9f4dc883748eb"
+      },
+      "plan": {
+        "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/presubmit-task37/r-pair-001-audit-001-plan.json",
+        "bytes": 5884,
+        "sha256": "9f009d6b8e51783584047a3894b547291bb49c7302cdd84b52575ca6df0cb4d9"
+      }
+    },
+    "reason": "Original pipeline completed but deliberate FD-gate SystemExit1; old held draft incorrectly required original exit0 for every saved replay. Accept exact closed failure record for diagnostic replay without modifying checker, model or numerical gates.",
+    "expected_scientific_exit": 1,
+    "expected_failure_gate": "four of six composed FD directions exceed final relative error1e-5 despite quadratic intervals",
+    "startup_change": "24GiB proposal strengthened to32GiB to retain original coordinated startup floor",
+    "no_target_rerun": true,
+    "no_body_launch": true,
+    "no_automatic_retry": true
+  }
 }

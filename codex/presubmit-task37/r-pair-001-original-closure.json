@@ -1,0 +1,198 @@
+{
+  "schema": "task37-r-pair-original-closure-v1",
+  "checked_at": "2026-10-19T11:36:04.396655+00:00",
+  "source_commit": "8b56522882743d6c84afd2eccb6ec09616b7e9be",
+  "session_id": 8013,
+  "session_reaped_exit_code": 1,
+  "status": "completed_but_scientifically_unqualified",
+  "worker_returncode": 1,
+  "supervisor_failure": null,
+  "external_elapsed_seconds": 7763.898525267839,
+  "external_elapsed_seconds_upper": 7763.898526,
+  "actual_host_processes": [
+    {
+      "pid": 112011,
+      "original_starttime": 234729136,
+      "absent_in_actual_host_view": true
+    },
+    {
+      "pid": 112195,
+      "original_starttime": 234729229,
+      "absent_in_actual_host_view": true
+    }
+  ],
+  "matching_groups_or_sessions": [],
+  "receipt": {
+    "path": "/data2/neural-shrimp-data/scratch/audit-codex-1019/r-pair-001-supervision/receipt.json",
+    "bytes": 301960,
+    "sha256": "f4ecd1e9e090a1fecdbba35b0296efb1cd12a582e45199083b1645deaf59e907"
+  },
+  "admission": {
+    "path": "/data2/neural-shrimp-data/scratch/audit-codex-1019/r-pair-001-supervision/admission.json",
+    "bytes": 4367,
+    "sha256": "fb8c140a1b33852ae4b58615b646433229b42e7102279522d8937780aaa0681e"
+  },
+  "worker_startup": {
+    "path": "/data2/neural-shrimp-data/scratch/audit-codex-1019/r-pair-001-supervision/worker-startup.json",
+    "bytes": 2583,
+    "sha256": "969c04582ba834ff552f4b5856da3a26313f9a4eae852f0c69cdf03d0ac1dce8"
+  },
+  "supervision_inventory": [
+    {
+      "path": "/data2/neural-shrimp-data/scratch/audit-codex-1019/r-pair-001-supervision/admission.json",
+      "bytes": 4367,
+      "sha256": "fb8c140a1b33852ae4b58615b646433229b42e7102279522d8937780aaa0681e"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/scratch/audit-codex-1019/r-pair-001-supervision/receipt.json",
+      "bytes": 301960,
+      "sha256": "f4ecd1e9e090a1fecdbba35b0296efb1cd12a582e45199083b1645deaf59e907"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/scratch/audit-codex-1019/r-pair-001-supervision/stderr.log",
+      "bytes": 201,
+      "sha256": "e6ff90d4dcb70f43b13a09e25749ffe3e45546a5524ad2b71d9bb78233182c63"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/scratch/audit-codex-1019/r-pair-001-supervision/stdout.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/scratch/audit-codex-1019/r-pair-001-supervision/worker-startup.json",
+      "bytes": 2583,
+      "sha256": "969c04582ba834ff552f4b5856da3a26313f9a4eae852f0c69cdf03d0ac1dce8"
+    }
+  ],
+  "original_plan": {
+    "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/presubmit-task37/r-pair-001-plan.json",
+    "bytes": 5873,
+    "sha256": "6dd23aa38be6c464f87649399eac59cf3b7ecc0e08e9475c9df2ee9c7df77a41"
+  },
+  "source_blobs_verified_against_original_commit": [
+    {
+      "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/presubmit-task37/p6_kite.py",
+      "bytes": 22400,
+      "sha256": "370c05f86334814848fdeb64ba323ab4d89bd50e7a549ac10e83ca3d322d9d45"
+    },
+    {
+      "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/presubmit-task37/periodic_audit.py",
+      "bytes": 20436,
+      "sha256": "667ea2d366e6f49f48793d769a8c231079bce359315d4499a84a60b316b0d245"
+    },
+    {
+      "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/crosscheck/qwen_map.py",
+      "bytes": 14540,
+      "sha256": "493a3d1d57fec227f5ba2e3f8f9cfcfdd02d22495d1d44e6449ede901310ae6e"
+    },
+    {
+      "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/certify-chaos/supervise.py",
+      "bytes": 8727,
+      "sha256": "306db32a2c8ada9beb67547bbaafc6d0d7a597b5861b0e629ca9a07801223c44"
+    },
+    {
+      "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/presubmit-task37/r-pair-001-card.json",
+      "bytes": 7848,
+      "sha256": "8222df4af6ed721cc79e54616c82b3a9376fda00a62921f3dee4d3a4cb0f3db7"
+    }
+  ],
+  "inputs_verified": [
+    {
+      "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/presubmit-task37/p6-seed-inventory.json",
+      "bytes": 3214,
+      "sha256": "a10ed66f8b9621c4373955a13daaace4244b1d54734c78f808be723e9c8da6d8"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/p6s/p6s-ad-curve-plus/states.npy",
+      "bytes": 208000,
+      "sha256": "8229611c8c9599c8e4d47e0af453d0987c2616247c6a5b720b373e4c98732b6c"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/p6s/p6s-ad-curve-plus/curve.json",
+      "bytes": 43017,
+      "sha256": "63255809256c120e1ad34e3706c673b720ed83f798b79020f7e52a930408e080"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/p6s/p6s-td-curve-minus/states.npy",
+      "bytes": 408704,
+      "sha256": "1b014138305b144bb368d847a0f9a2deeb75a82802dc6951e8363edf1525e0a1"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/p6s/p6s-td-curve-minus/curve.json",
+      "bytes": 83501,
+      "sha256": "7213e93de1de7d934e7d7ac73f9c9d48e33c4a6ac6a3d56d22a52b47a1831d71"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/models/hf/hub/models--Qwen--Qwen2.5-0.5B-Instruct/snapshots/7ae557604adf67be50417f59c2c2f167def9a775/model.safetensors",
+      "bytes": 988097824,
+      "sha256": "fdf756fa7fcbe7404d5c60e26bff1a0c8b8aa1f72ced49e7dd0210fe288fb7fe",
+      "canonical_file": {
+        "path": "/data2/neural-shrimp-data/models/hf/hub/blobs/bb/bb5ff7e71536bbce6378f6d4bb523a77f1e9455965702d18bec33f599d5851f7",
+        "bytes": 988097824,
+        "sha256": "fdf756fa7fcbe7404d5c60e26bff1a0c8b8aa1f72ced49e7dd0210fe288fb7fe"
+      },
+      "leaf_symlink_chain": [
+        {
+          "path": "/data2/neural-shrimp-data/models/hf/hub/models--Qwen--Qwen2.5-0.5B-Instruct/snapshots/7ae557604adf67be50417f59c2c2f167def9a775/model.safetensors",
+          "target": "../../blobs/fdf756fa7fcbe7404d5c60e26bff1a0c8b8aa1f72ced49e7dd0210fe288fb7fe"
+        },
+        {
+          "path": "/data2/neural-shrimp-data/models/hf/hub/models--Qwen--Qwen2.5-0.5B-Instruct/snapshots/7ae557604adf67be50417f59c2c2f167def9a775/../../blobs/fdf756fa7fcbe7404d5c60e26bff1a0c8b8aa1f72ced49e7dd0210fe288fb7fe",
+          "target": "../../blobs/bb/bb5ff7e71536bbce6378f6d4bb523a77f1e9455965702d18bec33f599d5851f7"
+        }
+      ]
+    },
+    {
+      "path": "/data2/neural-shrimp-data/models/hf/hub/models--Qwen--Qwen2.5-0.5B-Instruct/snapshots/7ae557604adf67be50417f59c2c2f167def9a775/config.json",
+      "bytes": 659,
+      "sha256": "18e18afcaccafade98daf13a54092927904649e1dd4eba8299ab717d5d94ff45",
+      "canonical_file": {
+        "path": "/data2/neural-shrimp-data/models/hf/hub/models--Qwen--Qwen2.5-0.5B-Instruct/blobs/0dbb161213629a23f0fc00ef286e6b1e366d180f",
+        "bytes": 659,
+        "sha256": "18e18afcaccafade98daf13a54092927904649e1dd4eba8299ab717d5d94ff45"
+      },
+      "leaf_symlink_chain": [
+        {
+          "path": "/data2/neural-shrimp-data/models/hf/hub/models--Qwen--Qwen2.5-0.5B-Instruct/snapshots/7ae557604adf67be50417f59c2c2f167def9a775/config.json",
+          "target": "../../blobs/0dbb161213629a23f0fc00ef286e6b1e366d180f"
+        }
+      ]
+    },
+    {
+      "path": "/data2/neural-shrimp-data/models/hf/hub/models--Qwen--Qwen2.5-0.5B-Instruct/snapshots/7ae557604adf67be50417f59c2c2f167def9a775/tokenizer.json",
+      "bytes": 7031645,
+      "sha256": "c0382117ea329cdf097041132f6d735924b697924d6f6fc3945713e96ce87539",
+      "canonical_file": {
+        "path": "/data2/neural-shrimp-data/models/hf/hub/models--Qwen--Qwen2.5-0.5B-Instruct/blobs/443909a61d429dff23010e5bddd28ff530edda00",
+        "bytes": 7031645,
+        "sha256": "c0382117ea329cdf097041132f6d735924b697924d6f6fc3945713e96ce87539"
+      },
+      "leaf_symlink_chain": [
+        {
+          "path": "/data2/neural-shrimp-data/models/hf/hub/models--Qwen--Qwen2.5-0.5B-Instruct/snapshots/7ae557604adf67be50417f59c2c2f167def9a775/tokenizer.json",
+          "target": "../../blobs/443909a61d429dff23010e5bddd28ff530edda00"
+        }
+      ]
+    },
+    {
+      "path": "/data2/neural-shrimp-data/explore/llm-phase-map/vectors-l12/vectors.npz",
+      "bytes": 14860,
+      "sha256": "b630bb7bef06bde87f8e6a7ca5e8672f83d24bc0585bf19048e9e494a4357f41"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/codex/certificate-ladder/phase-cascade-p6-001-supervision/receipt.json",
+      "bytes": 5176,
+      "sha256": "83a4942ad648338af12318da17267fcbe07dafd9e7b6679231951d48b8584712"
+    }
+  ],
+  "complete_raw_inventory": {
+    "path": "/data2/neural-shrimp-data/scratch/audit-codex-1019/r-pair-001-closure-001/input-inventory.json",
+    "bytes": 297427,
+    "sha256": "2e85f40574291474a0b4743c800aa3f0b660f796423921fd7c29109f0ba77d15"
+  },
+  "output_files_verified": 1289,
+  "output_bytes_verified": 96764991,
+  "scientific_verdict_admitted": false,
+  "certificate_passed": false,
+  "scope": "Full hashes/membership/source/input/receipt and actual host closure authenticated. No numerical replay by this operational check; saved audit remains separate."
+}
