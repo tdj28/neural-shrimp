@@ -316,11 +316,27 @@ next-token embedding back in place of $x$:
   \label{eq:map}
 \end{equation}
 where $z_\alpha(x)$ are the logits computed with $\alpha v$ added to the residual stream at layer 12 at every position,
-prefix included. The steering
-direction $v$ is contrastive: it compares last-token states of ``philosophy'' prompts with those of neutral prompts
-and is normalized to the mean residual norm. Positions are fixed and the window does not grow, so $F$ is an
+prefix included; the steering vector $v$ is described in the next paragraph. Positions are fixed and the window does not grow, so $F$ is an
 autonomous map of $\mathbb{R}^{896}$. As $T\to0$ it reduces, where the argmax is unique, to greedy decoding of the
 same fixed-prefix, one-token-window system. It is not ordinary generation with a growing context.
+
+\paragraph{How we steer.} Steering adds one fixed vector to the network's internal state while it runs; no weight is
+changed. The state it changes is the residual stream, the $d$-dimensional vector carried at each token position, to
+which every attention and MLP block adds its output. Our main direction, philosophy, is built in three steps from 16
+short texts (\repo{tools/explore_llm_phase_map.py}, \texttt{CONCEPTS} and \texttt{NEUTRAL}): eight philosophical
+sentences, such as ``What is the nature of consciousness and subjective experience?''\ and ``Is there something it is
+like to be me?'', and eight neutral ones, such as ``The meeting is scheduled for nine in the morning.''\ and ``The
+package weighs two kilograms.'' First, each text is run through the unsteered model, without the chat template, and the
+residual-stream vector after decoder layer 12 (of 24, counted from 0) is read at its last token. Second, the direction
+is the mean of these vectors over the philosophical texts minus their mean over the neutral texts. Third, it is
+rescaled to the mean residual norm at that layer over the 16 texts, $\lVert v\rVert=189$, so that $\alpha$ is the push
+as a fraction of a typical residual vector: $\alpha=0.07$ adds 7\,\% of one. The raw difference has norm 8.1, so
+$\alpha\approx0.043$ reproduces the natural contrast between the two groups of texts. During the loop, $\alpha v$ is
+added to the output of layer 12 at every position, each prompt token and the fed-back soft token, in every forward
+pass, so that the prompt's keys and values are computed with the push as well (Figure~\ref{fig:loop}). The other
+concept directions (gratitude, hostility, kindness and cooking, each with eight sentences) are built the same way at
+their own layers, and the specificity controls use norm-matched random directions, single MLP neurons and
+sparse-autoencoder features (Appendices~\ref{sec:origin} and~\ref{sec:size}).
 
 \paragraph{State space and regularity.} Attention is causal, so the keys and values of the prefix do not depend on
 $x$, and $F$ is an autonomous map of $\mathbb{R}^{896}$. For the dense models studied here it is real-analytic, because
