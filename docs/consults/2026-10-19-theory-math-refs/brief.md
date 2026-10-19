@@ -24,10 +24,8 @@ $J_{\tilde h_\alpha}$ is the Jacobian of the steered transformer; $K$ is the con
    do not (standard results stated without attribution, such as the submultiplicativity bound on Lyapunov exponents,
    Lipschitz bounds for attention or softmax, the descent property of the modern Hopfield update)? Name specific
    works only if you are confident they exist and say what they establish; mark any uncertainty.
-4. **Clarity of the mathematics** for a Chaos readership, briefly, where a statement is ambiguous.
-
-Please list findings in order of importance, quote the exact sentence or equation, say what is wrong or missing,
-and propose the corrected statement. Distinguish definite errors from judgment calls.
+List findings by importance: quote the sentence or equation, say what is wrong or missing, propose a
+correction, and separate definite errors from judgment calls.
 
 ## Sec. II paragraph defining the factorization (3)
 
