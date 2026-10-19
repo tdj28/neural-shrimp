@@ -426,8 +426,10 @@ fed-back position; those of the fixed prefix do not change); the factorization o
 The covariance form is the standard identity for the Hessian of the log-partition function of an exponential family
 \cite{wainwright2008graphical}, the Jacobian of the softmax \cite{gao2017softmax}, and it appears explicitly in the
 Jacobian of the modern Hopfield update \cite{ramsauer2020hopfield}; here it is composed with the derivative of the full
-transformer. Composed with the same network Jacobian but as a metric, the pullback of the output distribution's
-Fisher information, it also underlies token attributions and steering geometry \cite{liu2026jacobianscopes,wang2026fishback}.
+transformer. Placed between a network Jacobian and its transpose, the same covariance becomes the
+Fisher information of the next-token distribution pulled back to the network's input, a metric used to attribute
+predictions to tokens and to describe steering geometrically \cite{liu2026jacobianscopes,wang2026fishback}; in the
+feedback map it enters once, multiplied by the Jacobian.
 Each factor has a plain meaning. The network Jacobian $J_{\tilde h_\alpha}$ says how much the transformer's final
 hidden state moves when its input moves, through all of its attention and MLP blocks. The factor $\Sigma_p/T$ is the
 derivative of the fed-back expected embedding with respect to that hidden state. Its matrix $\Sigma_p$ is the variance
