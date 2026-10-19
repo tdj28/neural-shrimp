@@ -275,7 +275,8 @@ Huginn: a predicted accuracy loss & frozen & Sec.~\ref{sec:huginn} \\
   one-token chaotic band, though not in every model. The organization recurs across families, and size does not set
   the chaos: across fifteen models from 0.5B to 72B, a larger model's chaos can move to higher temperature instead of
   vanishing. Resolved through the stack, the network damps a change of the fed-back token more strongly in the larger
-  Qwen2.5 and Llama-3 models, because the change falls behind the growing residual stream; a mixture of experts with
+  Qwen2.5 and Llama-3 models, because in them the change of the fed-back token does not keep pace with the residual
+  stream as it grows through the blocks; a mixture of experts with
   3B of its 35B parameters active per token damps more than a dense 9B model of its family. Two loops writing one text lock each other into periodic orbits: 60\,\% of pairs of differently steered
   0.5B agents that are each chaotic alone are periodic together (twelve such orbits verified by Newton's method). In a
   second system, the recurrent-depth model Huginn, a spectral estimate ranks held-out questions by the size of their
@@ -1716,7 +1717,7 @@ $q$ & forecast (full / mid) & discrete (full / mid) & C, 2-cycle: measured & D, 
 $0.08$ & $22.40$ / $11.20$ & $23$ / $12$ & $23$,\ $12$,\ $23$ & $22$,\ $11$,\ $22$ \\
 $0.05$ & $44.29$ / $22.14$ & $45$ / $23$ & $45$,\ $23$,\ $45$ & $\mathbf{42}$,\ $22$,\ $\mathbf{42}$ \\
 $0.03$ & $85.29$ / $42.64$ & $86$ / $44$ & $86$,\ $43$,\ $86$ & $\mathbf{81}$,\ $43$,\ $\mathbf{82}$ \\
-$0.018$ & $154.75$ / $77.37$ & $155$ / $80$ & $155$,\ $78$,\ $155$ & $\mathbf{149}$,\ $78$,\ $\mathbf{150}$ \\
+$0.018$ & $154.74$ / $77.37$ & $155$ / $80$ & $155$,\ $78$,\ $155$ & $\mathbf{149}$,\ $78$,\ $\mathbf{150}$ \\
 \bottomrule
 \end{tabular}
 \caption{Second prospective passage test, frozen before any passage was run. Forecast: the continuous passage
@@ -1999,17 +2000,17 @@ All crossings are simple (next modulus below $1.5\times10^{-3}$). An S-shaped pa
 fold curves leaves on a nearby cut. When these boundaries are continued in the plane in float64
 (Figure~\ref{fig:hubshrimp}), each of the two fold curves reverses its parameter tangent once. There, as the fold condition requires, the oriented
 quadratic coefficient $b$ of the fold's normal form passes through zero; what makes such a point a cusp is that the
-cubic coefficient $c$ and the unfolding determinant $\det J$ are nonzero there (the cusp test, Appendix~\ref{sec:curves}) (upper fold: $-23.9$ to $+244.6$ between
+cubic coefficient $c$ and the unfolding determinant $\det K$ are nonzero there (the cusp test, Appendix~\ref{sec:curves}) (upper fold: $-23.9$ to $+244.6$ between
 adjacent points, with $a\approx2.0$; lower fold: $+31.2$ to $-58.7$, with $a\approx0.55$) while $a$ stays away from
 zero. Located along the curves, the two cusps lie at $(\alpha,\log_{10}T)=(0.067213,0.198983)$ and
 $(0.066611,0.189382)$. There $b\operatorname{sign}a$ is below $1.3\times10^{-5}$ of its bracket values,
-$c=-1.41\times10^{6}$ and $-5.61\times10^{5}$, and $\det J=58.2$ and $55.2$, all evaluated at the located points.
+$c=-1.41\times10^{6}$ and $-5.61\times10^{5}$, and $\det K=58.2$ and $55.2$, all evaluated at the located points.
 The flip curve of the period-14 bubble lies inside the body and closes around the map's period-14 cells. The cubic
 coefficient is nonzero at the points that bracket both sign changes: $c\approx-1.4\times10^{6}$ to $-2.0\times10^{6}$ (step agreement $5\,\%$; the
 smallest steps converge like the square of the step, and extrapolation leaves the sign) and $-5.8\times10^{5}$ to
 $-5.3\times10^{5}$. This supports nondegenerate cusps inside both brackets, and $c<0$ agrees with the three
 coexisting period-7 orbits, two of them stable, found between the S-shaped folds. At a fold point near the lower
-cusp (where $b=31.4$) the estimated unfolding is nonsingular too ($\det J=53.5$ in the same coordinates, singular
+cusp (where $b=31.4$) the estimated unfolding is nonsingular too ($\det K=53.5$ in the same coordinates, singular
 values $262$ and $0.20$). Its local predictions at six frozen offsets matched the orbits that Newton solves seeded at
 the predicted roots and the base state recovered: in number at all six and in stability at five. The miss, at the largest
 offset beyond the edge of the region with three orbits, marks the range of the cubic model. The hostile period-7 body
@@ -2307,8 +2308,8 @@ the sum of their pairwise products vanish converges at $(\alpha_1,\alpha_2)=(-0.
 $3.6\times10^{-3}$, as the two conditions would make exactly equal for three roots alone (they would make the roots
 the cube roots of their product). The leading modulus sets the asymptotic linear contraction, a factor of about 280
 per period, but a single return can still amplify a perturbation: at one phase the norm of the return map is about 65
-(below). This point of small leading multipliers, which we call near-nilpotent (its leading multipliers nearly
-vanish, although the return map itself does not), plays the role of the head. The nearly equal
+(below). This point of small leading multipliers, which we call near-nilpotent (the leading eigenvalues of the
+monodromy matrix nearly vanish, although the matrix itself does not), plays the role of the head. The nearly equal
 moduli do not by themselves decide whether the return map is locally of higher rank there or nearly of rank one and strongly
 nonnormal; its singular values decide it (\repo{tools/monodromy_svd.py}, checked on synthetic operators with equal
 eigenvalues and different rank). At the point the second singular value of the return map is $1.8\times10^{-4}$ of the
@@ -2400,11 +2401,11 @@ multipliers form a complex pair of modulus $0.016$. Followed from there through 
 Figure~\ref{fig:cross512}, the attractor fills 4224 cells: a body and three long legs, with period 6 in 1946 cells,
 periods 12, 24 and 48 in 945 along the edges, other periods in 35, chaos behind the repeating text in 811 and slow
 cells in 487. Four float64 branches out of the body end at a fold above and on the right and at flips on the left and
-below. Continued in the plane with every point gated (residual at most $10^{-10}$, critical multiplier real and within
+below. Continued in the plane with every point checked (residual at most $10^{-10}$, critical multiplier real and within
 $10^{-7}$ of $\pm1$ on the body and kite curves; four points of the extended leg curves reach $2.9\times10^{-7}$), the curves outline the anatomy of Gallas's cell (Figure~\ref{fig:anatomy}a): the fold curve bounds
 the body above and on the right, one flip curve bounds it on the upper left and a second along its bottom, and the
 doubled shells lie beyond both. Within the window of Figure~\ref{fig:p6shrimp}a, the edge of the followed domain lies within two grid steps of the
-curves for all 232 neighboring pairs of periods 6 and 12 and all 459 pairs of period 6 and a lost attractor (median
+curves for all 232 neighboring pairs of periods 6 and 12 and all 459 pairs of a period-6 cell and a cell where the followed attractor was lost (median
 distances 0.19 steps); over the whole followed domain the shares fall to 388 of 916 and 1{,}720 of 1{,}888 (medians 4.3
 and 0.24 steps), because the far parts of the legs leave the traced curves, so their boundary is not resolved. A
 $640\times640$ fixed-start map centered on the body (steps $4.4\times10^{-6}$ in $\alpha$ and $1.25\times10^{-5}$ in
@@ -2429,8 +2430,8 @@ branch returns along the saddle to a second fold at $0.072793$, and it continues
 $0.07301$; at that temperature the two attracting orbits coexist for $\alpha$ between 0.072907 and 0.072992. The second
 orbit, continued upward in $\log_{10}T$ from its flip at fixed $\alpha$, is attracting up to its own fold at
 $-0.153657$. The fold curves traced from the two folds turn back at the same point, the kite's cusp C, located at
-$(0.0730186,-0.1532803)$ (cubic coefficient $c=-1.33\times10^{4}$, unfolding determinant $\det J=-2624$, critical
-multiplier within $7.7\times10^{-9}$ of $+1$, next modulus $0.00095$), on the side of R toward the head. Its two
+$(0.0730186,-0.1532803)$ (cubic coefficient $c=-1.33\times10^{4}$, unfolding determinant $\det K=-2624$, critical
+multiplier within $7.7\times10^{-9}$ of $+1$, next modulus $0.00095$), on the side of R toward the body. Its two
 branches meet the two flip curves at A $=(0.072991,-0.153984)$ and B $=(0.072900,-0.153707)$, completing the kite
 C--A--R--B of Gallas's cell. Besides C,
 the fold curves have five more located cusps (Table~\ref{tab:p6cusps}): near the ends of the upper-left and lower-left
@@ -2529,21 +2530,21 @@ attractor, and its scalar product with its own direction six steps earlier has t
 offset is aligned with the band and the band turns by less than a right angle. The checks below support this
 approximation; they do not prove it. Pooling the misplaced visits and the rarer symbol's visits over the phases where
 the band is straight enough for the sign to be defined, 48 of the 58 chaotic six-band cells of a $48\times48$ map of
-the window have an error ratio below 5\,\% (the largest passing ratio is 4.7\,\%, 23 cells have none, and a single
-phase of a passing cell reaches 21.7\,\%). The other 10 cells fail the coding test: one column beside the body's left
-flip curve (3) and below the kite (7). In 7 of them the return map has more than one resolved turning point: it rises
+the window have an error ratio below 5\,\% (the largest passing ratio is 4.7\,\%, 23 cells have no misplaced visit, and a single
+phase of a passing cell reaches 21.7\,\%). The other 10 cells fail the coding test: three in one column beside the body's left
+flip curve and seven below the kite. In 7 of them the return map has more than one resolved turning point: it rises
 and falls more than once (Figure~\ref{fig:p6returnmaps}h--k). For a $C^3$ unimodal interval map with negative
 Schwarzian derivative, at most one attracting periodic orbit can have an immediate basin that avoids the interval's
 endpoints \cite{singer1978stable}; the extra turning points below the kite are consistent with a scalar explanation of
 the coexistence inside it, but they establish neither a global scalar reduction nor its Schwarzian sign.
 
 A periodic orbit of period $6k$ visits each band $k$ times. Its signs, rotated to the largest sequence in the order of
-kneading theory, give it a label W|X in the sense of Metropolis, Stein and Stein
+kneading theory, give it a label W|X in the sense of Metropolis, Stein and Stein (MSS)
 \cite{metropolis1973finite,milnor1988iterated}: W is matched to the quadratic family's superstable itinerary WC and
 names the window, and X records the orbit's inferred last branch symbol. Away from a superstable parameter this is an
-orbit label, not a measured itinerary of the critical point. After phase voting and an explicit MSS-admissibility
-filter, 44{,}577 periodic six-band cells on the $640\times640$ grid of Figure~\ref{fig:p6shrimp}a receive
-23 distinct window labels (Figure~\ref{fig:words}); the filter rejects 240 further cells whose labels are not
+orbit label, not a measured itinerary of the critical point. After a majority vote over the band phases whose coding is usable (at least three) and an explicit filter that keeps
+only MSS words, 44{,}577 periodic six-band cells on the $640\times640$ grid of Figure~\ref{fig:p6shrimp}a receive
+23 distinct window words W (Figure~\ref{fig:words}); the filter rejects 240 further cells whose labels are not
 MSS words. The body and its period doublings carry the words of the doubling cascade: the empty word (period 6), R (12),
 RLR (24) and RLRRRLR (48). Windows in the surrounding chaos carry other words, among them RL (period 18), RLRR (30), and
 RLRRR and RLLRL, two distinct windows of period 36 that only their words tell apart. Within a window, the label predicts
@@ -2552,12 +2553,13 @@ boundary where the orbit is born (a fold, or for a doubled orbit the flip curve 
 own flip. The curve where the predicted sign changes is a candidate for the window's superstable curve. The scan
 assigns C to 153 cells whose usable phases do not agree sufficiently on the last symbol; at the two selected C cells,
 Newton calculations report small, nonzero complex leading pairs. These labels mark ambiguous scalar coding, not
-located superstable curves. Float64 Newton solves with exact Jacobians at the center of the largest patch of each label
-(23 cells) (Table~\ref{tab:p6words}), scored by a subsequent clean-phase rule (phases whose L and R visits one threshold
+located superstable curves. Float64 Newton solves with exact Jacobians at one cell for each label W|X with at least three coded cells in the half
+of the scan then complete (the cell nearest the center of the label's largest patch: 23 cells, covering 12 of the 23
+words; Table~\ref{tab:p6words}), scored by a subsequent clean-phase rule (phases whose L and R visits one threshold
 separates along the band, with every $|\cos|\ge0.5$), reproduce the scan's label at 16 cells; the two C cells have
-complex leading pairs, and at the remaining 5, just below the kite, no phase is clean, so their words (RLL, RLLLRLL,
-RLLLRLR, RLLLRRR) remain unconfirmed. These checks support selected labels, not the whole map. In total, 1{,}469 of the
-46{,}046 eligible periodic six-band cells fail a coding gate (3.2\,\%); 922 of them (63\,\%) lie within Euclidean
+complex leading pairs, and at the remaining 5 cells, just below the kite, no phase is clean, so their four words (RLL on both sides, RLLLRLL,
+RLLLRLR and RLLLRRR) remain unconfirmed; the other 11 words were not checked. These checks support selected labels, not the whole map. In total, 1{,}469 of the
+46{,}046 eligible periodic six-band cells receive no word (3.2\,\%), the 240 rejected by the filter among them; 922 of them (63\,\%) lie within Euclidean
 distance two grid cells of the eligible domain's edge.
 
 \begin{figure*}[tbp]
@@ -2589,7 +2591,8 @@ that of its fixed point, at $a=0$); labels give the period of the soft-token orb
 \begin{table}[tbp]
 \centering
 \caption{Float64 checks of the symbolic words (\repo{tools/sd_verify_words.py}): Newton with exact Jacobians at the
-center of the largest patch of each window word and side of Figure~\ref{fig:words} (at least three cells). Word and
+center of the largest patch of each window word and side of Figure~\ref{fig:words} with at least three cells in the
+eight of the scan's 16 bands then complete (23 cells covering 12 of the 23 words; the other 11 were not checked). Word and
 side: the scan's label; $\mu_1$: the orbit's leading multiplier; clean: the phases whose L and R visits one threshold
 separates along the band, with every $|\cos|\ge0.5$; result: the clean phases give the scan's word (confirmed), no
 phase is clean, or the leading pair is complex (side C: the scan's phases disagree on the last symbol).}
@@ -2637,7 +2640,7 @@ $8.2\times10^{-9}$, and the next has modulus at most 0.74 (located by \repo{tool
 \label{tab:p6cusps}
 \begin{tabular}{lccc}
 \toprule
-cusp & $(\alpha,\log_{10}T)$ & $c$ & $\det J$ \\
+cusp & $(\alpha,\log_{10}T)$ & $c$ & $\det K$ \\
 \midrule
 C & $(0.0730186, -0.1532803)$ & $-1.33\times10^{4}$ & $-2.62\times10^{3}$ \\
 upper 1 & $(0.0678765, -0.1513104)$ & $+6.10\times10^{3}$ & $4.59\times10^{4}$ \\
@@ -3790,7 +3793,13 @@ effect its interval excludes; effects smaller than that remain compatible with t
 implementation of the map (and, where stated, of the solver or the normal-form computation), written separately by the
 second coding agent from the model's published architecture (\path{codex/crosscheck} in the repository), recomputed it.
 The two implementations share the stored weights, the tokenizer and the specification of the map, not code; hardware and
-library versions were not varied on purpose.
+library versions were not varied on purpose. The second implementation, a manual float64 forward pass of the stored
+checkpoint that uses neither our tools nor the Transformers library, also reproduces the chaos: with the scans' protocol
+(fixed start, 300 transient steps, twin offset $10^{-6}$), its 300-step exponents at two chaotic cells of
+Figure~\ref{fig:cross512}, $(0.065201,-0.155998)$ and $(0.075475,-0.133454)$, are $0.098$ and $0.354$, against
+$0.113$ and $0.359$ in the scan ($0.106$ and $0.332$ over 1000 steps), and at the certified period-8 orbit it gives
+$-0.564$ per step over 1000 steps ($-0.579$ over 300), the value $\ln(0.0110)/8$ that the orbit's leading multiplier
+predicts (\repo{tools/independent_chaos_check.py}).
 
 \paragraph{Phase maps.} Each cell of a phase map is one parameter pair. Unless stated otherwise, we discard 300
 transient steps and measure over the next 300. The largest Lyapunov exponent comes from a twin trajectory at
@@ -3978,7 +3987,7 @@ coefficient $b\operatorname{sign}a$ for a cusp, $|\mu_2|-1$ for a second multipl
 circle, and the projected parameter tangent for a turn of the curve. At a cusp we then evaluate $c$ and the unfolding
 matrix at the located point. Elsewhere, the multipliers and the angle between their eigenvectors type the point: a
 double multiplier whose eigenvectors coincide is a Jordan block. On maps with known answers the tool recovers a
-cusp to $10^{-6}$ (with $c=-1$ and $\det J=1$) and a fold-flip point.
+cusp to $10^{-6}$ (with $c=-1$ and $\det K=1$) and a fold-flip point.
 
 \paragraph{Normal form and passages.} Consider a fold of the two-step map $G=F^2$, with right and left eigenvectors
 $r$ and $\ell$ normalized by $\|r\|=1$ and $\ell^\top r=1$. Along the critical direction the reduced map is
@@ -4319,7 +4328,7 @@ curve points that bracket each sign change, $c$ is nonzero far beyond its step-s
 and $b$ changes sign with nonzero slope between them. This supports a nondegenerate cusp inside each bracket. Located along each fold curve (Appendix~\ref{sec:methods}),
 $b\operatorname{sign}a$ falls to below $5\times10^{-6}$ of its bracket values at $(\alpha,\log_{10}T)=(0.069106,-0.039750)$
 on the outer arc and at $(0.080097,-0.058344)$ inside the body. At these same points $c=-1.51\times10^{4}$ and
-$-2.38\times10^{5}$, and the unfolding matrix $J$ defined below is regular ($\det J=2416$ and $14.0$): two
+$-2.38\times10^{5}$, and the unfolding matrix $K$ defined below is regular ($\det K=2416$ and $14.0$): two
 numerically located cusps. (Location uses the small-step oriented coefficient $b\operatorname{sign}a$; the unfolding
 coefficients use a separate finite-difference ladder, and the selected plateau of $c$ spreads by at most 4.8\,\% over
 adjacent steps.) The
@@ -4328,10 +4337,10 @@ branches.
 
 A generic codimension-two cusp also needs the two parameters to unfold it independently. Near the cusp the reduced
 map is $u'=u+\beta_1+\beta_2u+bu^2+cu^3$, where $\beta_1$ and $\beta_2$ vanish at the cusp and depend on the
-parameters. The unfolding is regular when $J=\partial(\beta_1,\beta_2)/\partial(\log_{10}T,10\alpha)$ has rank two
-($\det J\neq0$). We first estimated $J$ at a fold point near the outer-arc cusp (where $b\operatorname{sign}a=14.7$):
-$\det J=2737$ (singular values $1630$ and $1.7$), so the estimated unfolding is nonsingular there, as it is at the
-located cusp ($\det J=2416$). With these derivatives, the local cubic model predicted the number of period-6 orbits and their
+parameters. The unfolding is regular when $K=\partial(\beta_1,\beta_2)/\partial(\log_{10}T,10\alpha)$ has rank two
+($\det K\neq0$). We first estimated $K$ at a fold point near the outer-arc cusp (where $b\operatorname{sign}a=14.7$):
+$\det K=2737$ (singular values $1630$ and $1.7$), so the estimated unfolding is nonsingular there, as it is at the
+located cusp ($\det K=2416$). With these derivatives, the local cubic model predicted the number of period-6 orbits and their
 stability at six parameter offsets, written to disk before any orbit was solved. Newton solves started from the
 predicted roots and from the base state recovered the predicted number of distinct orbits, with the predicted
 stability, at all six. The search was seeded, not exhaustive: orbits that these starts do not reach would be missed.
@@ -4372,11 +4381,11 @@ at $\log_{10}T=0.0640$ and $0.0664$. When that fold is continued in the plane, i
 points; at the first two, the quadratic coefficient $b$ changes sign while $a$ stays away from zero,
 and the cubic coefficient $c$ (defined above) is nonzero (Table~\ref{tab:cusps}). Located along the curve, these two cusps lie at
 $(\alpha,\log_{10}T)=(0.062959,0.059958)$ and $(0.065574,0.074447)$. There $b\operatorname{sign}a$ is below
-$1.1\times10^{-5}$ of its bracket values, $c=-1.02\times10^{4}$ and $+1.37\times10^{5}$, and $\det J=-42.0$ and $35.5$. Further traces of the same fold curve,
+$1.1\times10^{-5}$ of its bracket values, $c=-1.02\times10^{4}$ and $+1.37\times10^{5}$, and $\det K=-42.0$ and $35.5$. Further traces of the same fold curve,
 started from other points of the period-4 branches, retrace it to within $3\times10^{-7}$, and one of them finds two
 more reversals near $\log_{10}T\approx0.012$. All five reversals are located cusps. The other three lie at
 $(\alpha,\log_{10}T)=(0.083082,0.108633)$, $(0.074072,0.011831)$ and $(0.073220,0.012759)$. There $c$ is
-$-9.7\times10^{4}$, $-5.7\times10^{3}$ and $+1.7\times10^{3}$, and $\det J$ is $25.3$, $-188.5$ and $68.5$. The last
+$-9.7\times10^{4}$, $-5.7\times10^{3}$ and $+1.7\times10^{3}$, and $\det K$ is $25.3$, $-188.5$ and $68.5$. The last
 two cusps, close together, have opposite signs of $c$. Three period-4 orbits
 coexist between the two fold branches, and near the first cusp ($c<0$) two of them are stable
 (Figure~\ref{fig:p4}).
@@ -4425,7 +4434,7 @@ did not continue the curves that emanate from these points.
 a fold point near one cusp of the period-6 window and one of the hostile period-7 body (Section~\ref{sec:hostile}; determinants $2737$ and $53.5$), and there the local model's
 predictions at twelve frozen offsets matched the orbits recovered by Newton solves seeded at the predicted roots and
 the base state, in number at all twelve and in stability at eleven; the search was not exhaustive. At the thirteen
-located cusps themselves (including the four of the period-5 window of Appendix~\ref{sec:hostility}), $|\det J|$ lies
+located cusps themselves (including the four of the period-5 window of Appendix~\ref{sec:hostility}), $|\det K|$ lies
 between $14$ and $2416$. These are float64
 computations validated by step-size checks (rung 1), not computer-assisted proofs. At the two continuation points
 that bracket the lower cusp of the hostile body, an independent implementation of the model reproduced the
@@ -4534,8 +4543,8 @@ second. The first fold curve bounds the lower-right leg on its right, runs up th
 leaves along the upper leg. Near $\alpha_1=-0.1192$ its parameter tangent reverses twice, identically on two traces
 continued from different boundary points, and both reversals are located cusps (the test and criteria of
 Appendix~\ref{sec:curves}, applied on each trace): at $(\alpha_1,\alpha_2)=(-0.1192221,0.1040536)$, with
-$c=+2.60\times10^{4}$ and $\det J=176.6$, and at $(-0.1191670,0.1028019)$, with $c=-2.05\times10^{4}$ and
-$\det J=88.6$. The two traces agree to $2\times10^{-12}$ in these positions and to five figures in $c$ and $\det J$.
+$c=+2.60\times10^{4}$ and $\det K=176.6$, and at $(-0.1191670,0.1028019)$, with $c=-2.05\times10^{4}$ and
+$\det K=88.6$. The two traces agree to $2\times10^{-12}$ in these positions and to five figures in $c$ and $\det K$.
 Its outer arms cross at $(-0.11901,0.10346)$ (Figure~\ref{fig:period5folds}d). There they are folds of two different period-5 orbits with
 the same token loop: at the four continuation points that bracket the crossing, the orbits on the two arms differ by $3.65$ to
 $3.78\,\%$ of the state norm (root-mean-square over the five points, at the best phase alignment; both traces), 15.8
@@ -4543,8 +4552,8 @@ to 44.5 times the state change between neighboring curve points (\path{docs/fm5/
 far up the left of the plane, where the orbit has regained stability beyond its doubling bubble (critical
 multiplier within $1.2\times10^{-7}$ of $+1$ and other multipliers below $0.4$; in the rerun, $1.9\times10^{-7}$ and
 $0.61$). Within the bounds of 15 October it has two more reversals, both located
-cusps: $(-0.1238662,0.0961512)$, with $c=-9.65\times10^{3}$ and $\det J=405.9$, and $(-0.1214073,0.1028234)$, with
-$c=+4.75\times10^{4}$ and $\det J=-535.4$ (condition $1.2\times10^{4}$). The rerun finds a third reversal, at
+cusps: $(-0.1238662,0.0961512)$, with $c=-9.65\times10^{3}$ and $\det K=405.9$, and $(-0.1214073,0.1028234)$, with
+$c=+4.75\times10^{4}$ and $\det K=-535.4$ (condition $1.2\times10^{4}$). The rerun finds a third reversal, at
 $(-0.13295,0.08530)$, which the continuation flags but we have not located. This curve also crosses itself, at
 $(-0.12341,0.09904)$, between its points 6 and 64, which lie on either side of the two cusps (points 15 and 40), so
 that the two cusps share a segment and their other branches cross: a second dovetail. There too the arms are folds of

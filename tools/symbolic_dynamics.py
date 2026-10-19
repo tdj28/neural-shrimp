@@ -264,7 +264,16 @@ def cmd_words(args):
     (out / "words.json").write_text(json.dumps(rec_out, indent=1))
     print(json.dumps({k: v for k, v in rec_out.items() if k not in ("args", "body_text_tally")}, indent=1))
     if args.fig:
-        plot_words(a, t, lam, status, word_idx, labels, mss, P, args.fig, zoom=args.zoom, unconfirmed=set(args.unconfirmed))
+        checked, unconfirmed = None, set(args.unconfirmed)
+        if args.verify_summary:                    # status of every word from the float64 Newton records
+            rows = json.loads((DATA / "explore" / args.verify_summary / "verify-summary.json").read_text())["rows"]
+            words_of = {}
+            for r in rows:
+                words_of.setdefault(r["scan_label"].split("|")[0], []).append(r)
+            checked = set(words_of)
+            unconfirmed = {W for W, rs in words_of.items() if not any(r["agrees"] for r in rs)}
+        plot_words(a, t, lam, status, word_idx, labels, mss, P, args.fig, zoom=args.zoom, unconfirmed=unconfirmed,
+                   checked=checked)
 
 
 WORD_COLORS = {"": "#9ecae1", "R": "#4292c6", "RLR": "#08519c", "RLRRRLR": "#08306b", "RL": "#ff7f0e", "RLL": "#d62728",
@@ -287,7 +296,7 @@ def word_image(lam, status, word_idx, labels):
     return img
 
 
-def plot_words(a, t, lam, status, word_idx, labels, mss, P, fig_path, zoom=None, unconfirmed=()):
+def plot_words(a, t, lam, status, word_idx, labels, mss, P, fig_path, zoom=None, unconfirmed=(), checked=None):
     import matplotlib
     matplotlib.use("Agg")
     import matplotlib.pyplot as plt
@@ -352,15 +361,24 @@ def plot_words(a, t, lam, status, word_idx, labels, mss, P, fig_path, zoom=None,
                   fontsize=8)
     listed = [W for W in shown if W in WORD_COLORS and present[W] >= 3]
     others = [W for W in shown if W not in listed]
+    def note_of(W):
+        if W in unconfirmed:
+            return " (not confirmed)"
+        return " (not checked)" if checked is not None and W not in checked else ""
+
     handles = [Patch(color=WORD_COLORS[W], label=f"{W or '(empty)'}: period {P * (len(W) + 1)}, {present[W]} cells"
-                     + (" (not confirmed)" if W in unconfirmed else "")) for W in listed]
+                     + note_of(W)) for W in listed]
     if others:
         n_unc = sum(1 for W in others if W in unconfirmed)
-        note = (f"{n_unc} not confirmed, {len(others) - n_unc} not checked" if n_unc else "not checked")
+        n_new = sum(1 for W in others if checked is not None and W not in checked) if checked is not None \
+            else len(others) - n_unc
+        n_ok = len(others) - n_unc - n_new
+        note = ", ".join(x for x in (f"{n_ok} confirmed" if n_ok else "", f"{n_unc} not confirmed" if n_unc else "",
+                                     f"{n_new} not checked" if n_new else "") if x)
         handles.append(Patch(color=OTHER_COLOR, label=f"{len(others)} other MSS words, periods {min(P * (len(W) + 1) for W in others)}"
                              f" to {max(P * (len(W) + 1) for W in others)}: {sum(present[W] for W in others)} cells ({note})"))
     handles += [Patch(color=(1, 0, 1), label="phases disagree on the last symbol (C)"), Patch(color=(0.88, 0.88, 0.88), label="chaotic"),
-                Patch(color=(0.55, 0.55, 0.55), label="other periodic"), Patch(color=(0.30, 0.30, 0.30), label="no word (gate failed)")]
+                Patch(color=(0.55, 0.55, 0.55), label="other periodic"), Patch(color=(0.30, 0.30, 0.30), label="no word (fails the coding test)")]
     fig.legend(handles=handles, fontsize=5.8, loc="upper center", bbox_to_anchor=(0.5, 0.995), ncol=4, frameon=False,
                title="window word W (leading multiplier predicted from the label: pale positive, full negative)", title_fontsize=6.5)
     fig.subplots_adjust(top=0.86)
@@ -764,6 +782,8 @@ def main():
     w.add_argument("--fig", default=None)
     w.add_argument("--zoom", type=float, nargs=4, default=None, metavar=("A0", "A1", "T0", "T1"), help="box for panel (b)")
     w.add_argument("--unconfirmed", nargs="*", default=[], help="window words the float64 check could not confirm (legend note)")
+    w.add_argument("--verify-summary", default=None, help="explore-relative folder of verify-summary.json: marks every "
+                   "word confirmed, not confirmed or not checked (overrides --unconfirmed)")
     r = sub.add_parser("returnmaps")
     r.add_argument("--bands", default=None)
     r.add_argument("--n", type=int, default=3)
