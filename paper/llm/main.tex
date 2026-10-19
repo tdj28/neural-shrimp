@@ -1620,7 +1620,21 @@ $3\times10^{-12}$. Its $b$, from nested automatic differentiation, is $-25.42846
 differs from it by $2.2\times10^{-6}$ relatively, which is the finite-step bias of the difference table. The
 resulting $ab=122.927$ leaves every passage prediction of Table~\ref{tab:passages} unchanged.
 
-\paragraph{Controlled passages.} In the oriented coordinate $v=\operatorname{sign}(b)\,u$ of
+\begin{figure}[H]
+\centering
+\input{figures/tikz-passage}
+\caption{The bottleneck behind the stripes, drawn from the normal form $u'=u+a\eps+bu^2$ with the network's
+coefficients ($a=-4.834$, $b=-25.4285$), in the oriented critical coordinate $v$. (a) The step of one $G$-iterate,
+$\Delta v=|a|\eps+|b|v^2$, across the channel from $-U$ to $U$. Before the fold ($\eps=-10^{-5}$, dashed) the step
+vanishes at two fixed points of $G$: the attracting 2-cycle (filled) and its unstable partner (open). At the fold
+($\eps=0$, dotted) they merge. Beyond it ($\eps=10^{-5}$, solid) no fixed point remains, but the step stays small near
+$v=0$: the ghost. (b) The 71 iterates of a full passage at $\eps=10^{-5}$, crowded where the step is smallest; the
+network takes 71 as well (Table~\ref{tab:passages}). A free trajectory leaves at $U$, makes a burst, and is reinjected
+slightly upstream of the middle (bar), so its passage is shorter than a full one.}
+\label{fig:bottleneck}
+\end{figure}
+\paragraph{Controlled passages.} Figure~\ref{fig:bottleneck} shows the bottleneck that these passages cross.
+In the oriented coordinate $v=\operatorname{sign}(b)\,u$ of
 Appendix~\ref{sec:methods}, we start trajectories at $v=-U$ or $0$ ($U=0.1/|b|$) and count $G$-iterates until
 $v>U$. At four distances from the fold, the measured counts match the iterated normal form within
 one iterate (Table~\ref{tab:passages}, Figure~\ref{fig:passages}), and a displacement of the start of the same size, in a
@@ -1675,7 +1689,23 @@ accumulation point. For periods 16--20 the sides are exchanged, and the period-1
 sides. The fold edges of periods 16--20 follow $\alpha_N-\alpha_c=C/(N+N_0)^2$ with $C=0.0266$ and $N_0=0.15$.
 Their slope, a rise of $6.13$ per lap in $1/\sqrt{\alpha_N-\alpha_c}$, is $1.74$ times the full-passage slope
 $\sqrt{ab}/\pi=3.53$ of the normal form. That corresponds to an effective passage of $0.58$ of a full one, which the
-measured natural reinjection gives independently.
+measured natural reinjection gives independently (Table~\ref{tab:fraction}).
+\begin{table}[H]
+\centering\small
+\begin{tabular}{lp{0.2\linewidth}p{0.27\linewidth}c}
+\toprule
+measurement & value & full-passage value & $f$ \\
+\midrule
+free trajectories, four distances & mean laminar phase & passage through the whole channel & 0.60--0.67 \\
+window centers, $N=4$--7 & $d_NN^2=0.0263$--$0.0265$ & $\pi^2/(ab)=0.0803$ & 0.57 \\
+fold edges, periods 16--20 & slope $6.13$ & $\sqrt{ab}/\pi=3.53$ (ratio 1.74) & 0.58 \\
+\bottomrule
+\end{tabular}
+\caption{Three independent estimates of the passage fraction $f$, the share of a full passage that a loop or a free
+trajectory spends in the bottleneck. The fold edges' slope is the rise of $1/\sqrt{\alpha_N-\alpha_c}$ per unit of
+$N$. A half passage would give $f=1/2$ and $d_NN^2=\pi^2/(4ab)=0.0201$.}
+\label{tab:fraction}
+\end{table}
 \begin{table}[H]
 \centering\small
 \begin{tabular}{rll}
@@ -2198,7 +2228,7 @@ itineraries. A periodic text can hide chaotic dynamics. Inside a group the sampl
 strongly anisotropic cloud). Read once per repetition through the probability of the last token, the sampled return
 relation is well approximated, on the sampled range, by a smooth map with a single quadratic maximum, the shape of the logistic map: a
 polynomial of degree 8 fits it to $4\times10^{-4}$ of its range, and the fitted map's Lyapunov exponent, 0.647 per
-repetition, is within 2\,\% of the full map's 0.636 per seven steps, measured with twin trajectories in all 896
+repetition, is within 2\,\% of the full map's 0.636 per repetition (seven steps of about 0.091), measured with twin trajectories in all 896
 dimensions. On their sampled ranges, the scalar approximation fits most of the cascade's cells. Rerun with the leading-token sequences saved, 62 of the 65 cells are again
 chaotic behind a repeating text, and in every one of them several phases of the text (a median of ten) give
 single-valued return maps; in 59 cells the best-fitting phase has a single interior stationary point (a maximum in
@@ -2240,8 +2270,8 @@ position, whose most probable token is a double line break) on its own principal
 close to a curve. (c) The probability of that token, which stays between 0.235 and 0.254 and does not repeat over the
 2000 steps, at one
 repetition of the text against the next: the points fall on a single hump (black: a fitted polynomial of degree 8),
-and the fitted map's Lyapunov exponent, 0.647 per repetition, is within 2\,\% of the full map's 0.636 per seven
-steps.}
+and the fitted map's Lyapunov exponent, 0.647 per repetition, is within 2\,\% of the full map's 0.636 per repetition
+(seven steps of about 0.091).}
 \label{fig:hiddenbands}
 \end{figure}
 
