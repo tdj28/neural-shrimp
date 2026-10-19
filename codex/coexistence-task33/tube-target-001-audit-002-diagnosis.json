@@ -1,0 +1,48 @@
+{
+  "schema": "codex-task33-tube-audit002-source-diagnosis-v1",
+  "checked_at": "2026-10-19T14:23:48.983401+00:00",
+  "failure": "pinned byte length differs",
+  "failing_original_preflight_index_zero_based": 10,
+  "failing_pin": {
+    "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/tools/explore_llm_soft_loop.py",
+    "bytes": 122549,
+    "sha256": "28418408507409f52df9217c71255131a1de8cfe7d059a35761971738883e120"
+  },
+  "thin_original_commit": "e8db350006098683ab170645bf7ee7c317ca3b56",
+  "thin_original_git_blob": {
+    "bytes": 122549,
+    "sha256": "28418408507409f52df9217c71255131a1de8cfe7d059a35761971738883e120",
+    "class_source_segment_sha256": "c590a4c0bb2ee3742333d66cfa204add121b63bcb43d6446f96e8cd047f3e50b"
+  },
+  "initial_state_original_commit": "019168d9c28b92ae80f7f2766592dccbfae69e2d",
+  "initial_state_original_git_blob": {
+    "bytes": 122332,
+    "sha256": "ead3b44a82c556c1a376f3e58c389cd3fb2f7329786ef0a712a3d92e7a920843",
+    "class_source_segment_sha256": "c590a4c0bb2ee3742333d66cfa204add121b63bcb43d6446f96e8cd047f3e50b"
+  },
+  "current_source_commit": "834befae0ccb6838f686c6dff7259d96cdebc781",
+  "current_source": {
+    "bytes": 130247,
+    "sha256": "6d9440be7f11b305a2e2e7e96956e533a4cdff9ea1309d7f2b006c2d289baf4e",
+    "class_source_segment_sha256": "139fe8e3534873807375c326be13cc3f6161d28c4a9bdf2e33e0447759dc5032"
+  },
+  "class_hash_algorithm": "SHA256 of UTF-8 ast.get_source_segment(text, sole top-level ClassDef named SoftLoop); not AST-dump serialization",
+  "conclusion": "Historical producer source differs from current checkout. Original Git blobs still exactly match original authority. This mismatch does not establish raw output corruption and current class equivalence is not claimed.",
+  "independent_static_diagnosis_agrees": true,
+  "missed_by_prior_static_review_and_mocked_integration": true,
+  "proposed_recovery_scope": "Future separately reviewed allocation may authenticate only this exact literal historical producer source using bounded Git bytes at original_execution preflight and later producer read, recording historical bytes separately from current-file rechecks. No generic mismatch fallback; all raw/cache/assets/class/scientific gates unchanged.",
+  "future_required_controls": [
+    "wrong original commit/path/length/hash/class refused",
+    "ordinary raw pins cannot use historical-source exception",
+    "both preflight and later producer read joined",
+    "historical provenance excluded from current-file byte cache and retained in separate Git record"
+  ],
+  "audit003_prepared": false,
+  "audit003_launched": false,
+  "original_target_rerun": false,
+  "model_calls": 0,
+  "operator_bound_admitted": false,
+  "trajectory_enclosure": false,
+  "reachability_proved": false,
+  "certificate_passed": false
+}
