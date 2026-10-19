@@ -30392,3 +30392,23 @@ docs/consults/2026-10-19-external-reviews/triage.md).
   hugo-oct19-reviewfix). The 59 entries whose paper_text no longer occurs from earlier passes remain open.
 - **For the article (not edited here):** "0.4 to 5.75" and "at least ... four and a half decades" exceed the raw
   values above, and the shrink-factor sentence is ambiguous.
+
+### 2026-10-19 02:03 UTC: P6S-cusp result: the left shrimp's fold curve has a located cusp where the legs meet
+
+- **Try 1** (pod np8esudkcyksy4, 2.5 min) failed before any computation: the curve's start folder (the TU branch)
+  was not uploaded, so the tool raised FileNotFoundError.
+- **Try 2** (pod 8bj7p19iagv9gr, H100 NVL, commit 2236137d; rc 0; terminated 02:01 UTC; 542 s), tools/cusp_locate.py
+  cusp test on p6s-tu-curve-minus, bracket 34-35:
+  - located at (alpha, log10 T) = (0.07483919038, -0.15959559063);
+  - b sign a falls from 39.1 (bracket start) to -5.65e-5;
+  - c = -40211 (plateau spread 0.023 %);
+  - det J = 4471.9 (singular values 344.6 and 12.98, condition 26.5);
+  - critical multiplier 1 + 7.1e-10, second modulus 0.00536;
+  - all three checks pass (b small, c nonzero, unfolding regular).
+  The output was extracted by hand from the archive, soft64/20261019T015007Z/results.tgz, to
+  llm-soft-loop/pod64/p6s/locate-tu-minus-34; the launcher had not extracted it.
+- **Reading.** The period-6 fold curve has a nondegenerate cusp at the junction of the legs, in the plane of Fig. 1.
+  With the orbit, the follow, the gated fold and flip curves and the boundary gate over the body (294 of 419 and 384
+  of 742 pairs within two steps), the window meets the shrimp criteria along its body. The far parts of the legs are
+  not yet bounded by traced curves; the lower leg's fold is being continued in run P6S-TDfold.
+- **Article:** the second-shrimp paragraph and Fig. 20 now state the located cusp.
