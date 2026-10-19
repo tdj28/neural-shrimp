@@ -2235,6 +2235,30 @@ snapshot_download('$REPO', revision='$MREV', cache_dir='$NEURAL_SHRIMP_DATA/mode
       --model qwen1.5b --layer 14 --vectors llm-phase-map/vectors-1.5b-l14 --resolution 64 64 \
       --alpha -0.12 0.12 --log-temperature -1.0 0.3 --out $D/scale15/coarse-64
     ;;
+  p9s)         # run P9S: the period-9 window of the crossing window (philosophy@12, Fig. 1) as a shrimp candidate. One
+               # float64 branch of the period-9 orbit from the seed cell, then the first boundary it reaches continued
+               # both ways in parallel (kind detected). JOBARGS: NAME FREE DIRECTION SEED-ALPHA SEED-LOG10T
+               # BRANCH-MINUTES CURVE-MINUTES CURVE-STEPS
+    nm=${JOBARGS[0]}; free=${JOBARGS[1]}; dir=${JOBARGS[2]}; sa=${JOBARGS[3]}; st=${JOBARGS[4]}
+    bmin=${JOBARGS[5]}; cmin=${JOBARGS[6]}; csteps=${JOBARGS[7]}
+    case $free in
+      temperature) bnd="-0.175 -0.135" ;;
+      alpha) bnd="0.068 0.080" ;;
+      *) echo "p9s refused: FREE must be temperature or alpha, not '$free'" | tee -a $LOGS/p9s-refused.log; bnd="" ;;
+    esac
+    if [ -n "$bnd" ]; then
+      export OMP_NUM_THREADS=4 OPENBLAS_NUM_THREADS=4 MKL_NUM_THREADS=4
+      run $nm-branch "$bmin" branch --device cuda --dtype float64 --reference-dtype none --no-exact-jvp --chunk 896 \
+        --period 0 --transient 900 --steps 150 --ds 0.002 --ds-max 0.01 --beyond 0.0005 --alpha $sa \
+        --log-temperature $st --free $free --direction $dir --bounds $bnd --out $D/p9/$nm-branch
+      for cd in 1 -1; do n=$([ $cd = 1 ] && echo plus || echo minus)
+        run $nm-curve-$n "$cmin" $CURVE --steps $csteps --ds 0.002 --ds-max 0.02 --kind auto --direction $cd \
+          --log-temperature-bounds -0.175 -0.135 --alpha-bounds 0.068 0.080 --start $D/p9/$nm-branch \
+          --out $D/p9/$nm-curve-$n &
+      done
+      wait
+    fi
+    ;;
   scanband)    # one band of a large float64 map split across pods: scanband OUT MINUTES SCAN-ARGS...
     name=${JOBARGS[0]}
     minutes=${JOBARGS[1]}

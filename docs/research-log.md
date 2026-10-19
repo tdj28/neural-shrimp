@@ -30147,3 +30147,21 @@ what failed.
 
 **Gates.** Every curve point's residual, test function and critical multiplier are read from the raw files before any
 summary. A fold curve must keep a real +1 and a flip curve a real -1.
+
+### 2026-10-19 00:50 UTC: P9S/HR9 amendment, before any compute
+
+- **Nothing has run yet.** At the $3.0/h cap no H100 was free. Two pods started just as their launcher was stopped
+  for this change; both were terminated idle, before any upload (ids in the ledger).
+- **HR9 window widened** to cover the region of the human's screenshot: alpha [0.0709, 0.0763] x log10 T
+  [-0.1635, -0.1445], 512 x 512 cells.
+  - The map now runs as 16 bands of 32 rows, each on whichever is free: an H100 or an A100 80 GB.
+  - Scan settings are unchanged.
+- **P9S curves now run on four pods**, with the new job set p9s.
+  - Each pod runs one branch from the family-192 seed (log10 T up or down, alpha up or down).
+  - It then continues the boundary that branch reaches, both ways in parallel, 120 steps each (kind detected).
+  - Commands are as in the run card.
+- **Which family is the shrimp.** The family-192 orbit fills the shrimp-shaped body that the human pointed at.
+  On the 512^2 map, cells at (0.0752, -0.1550), (0.0748, -0.1535) and (0.0756, -0.1565) are all period 9, family 192.
+  Family 2's most contracting cell lies in the separate band near log10 T -0.164; HR9 maps it, but it gets no
+  curves.
+- **P9S-orbits** run locally on the CPU in float64, for both seeds.
