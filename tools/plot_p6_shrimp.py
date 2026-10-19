@@ -193,8 +193,8 @@ def main():
         axA.set_ylabel(r"$\log_{10}T$")
     axA.set_title(f"({letters[k0]}) " + ("with the continued curves" if args.clean else
                   f"Lyapunov map, {ly.shape[1]} x {ly.shape[0]} float64 cells"), fontsize=8)
-    cb = fig.colorbar(ScalarMappable(norm=hot_norm, cmap="plasma"), ax=axA, orientation="horizontal", fraction=0.05,
-                      pad=0.16)
+    cb = fig.colorbar(ScalarMappable(norm=hot_norm, cmap="plasma"), ax=[ax0, axA] if args.clean else axA,
+                      orientation="horizontal", fraction=0.05, pad=0.16 if args.clean else 0.24, aspect=40)
     cb.set_label(r"chaotic cells: largest exponent $\lambda$", fontsize=7)
     cb.ax.tick_params(labelsize=6.5)
     summary = {"scan": args.scan, "cells": int(ly.size), "chaotic": int(chaos.sum()), "curves": report,
@@ -232,7 +232,8 @@ def main():
         axB.set_xlim(fw[0], fw[1]); axB.set_ylim(fw[2], fw[3])
         axB.set_xlabel(r"steering strength $\alpha$")
         axB.set_title(f"({letters[k0 + 1]}) the attractor followed from the body", fontsize=8)
-        axB.legend(handles=handles, fontsize=5.8, loc="lower left", framealpha=0.85)
+        axB.legend(handles=handles, fontsize=5.6, loc="upper center", bbox_to_anchor=(0.5, -0.17), ncol=2,
+                   frameon=False)                 # outside the axes: nothing of the domain is covered
         summary["boundary_gate"] = boundary_gate(fa, ft, lab, fper, curves, args.period)
         summary["follow"] = {"members": int((lab == 1).sum()), "chaos_behind_text": int((lab == 2).sum()),
                              "slow": int((lab == 3).sum()), "lost": int((lab == 0).sum()),
