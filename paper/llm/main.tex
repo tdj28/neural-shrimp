@@ -336,9 +336,9 @@ is the mean of these vectors over the philosophical texts minus their mean over 
 rescaled to the mean residual norm at that layer over the 16 texts, $\lVert v\rVert=189$, so that $\alpha$ is the push
 as a fraction of a typical residual vector: $\alpha=0.07$ adds 7\,\% of one. The raw difference has norm 8.1, so
 $\alpha\approx0.043$ reproduces the natural contrast between the two groups of texts, and the values of
-Figure~\ref{fig:cross512}, 0.0625 to 0.0775, push 1.5 to 1.8 times as far. During the loop, $\alpha v$ is
-added to the output of layer 12 at every position, each prompt token and the fed-back soft token, in every forward
-pass, so that the prompt's keys and values are computed with the push as well (Figure~\ref{fig:loop}). The other
+Figure~\ref{fig:cross512}, 0.0625 to 0.0775, push 1.5 to 1.8 times as far. In every forward pass of the loop, $\alpha v$ is added to the residual stream after layer 12 at every position: at
+each token of the prompt and at the fed-back soft token. The later layers therefore also see a steered prompt, since
+the keys and values they compute for its tokens carry the push (Figure~\ref{fig:loop}). The other
 concept directions (gratitude, hostility, kindness and cooking, each with eight sentences) are built the same way at
 their own layers, and the specificity controls use norm-matched random directions, single MLP neurons and
 sparse-autoencoder features (Appendices~\ref{sec:origin} and~\ref{sec:size}).
