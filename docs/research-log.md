@@ -30682,3 +30682,49 @@ Disclosure: HR10 (launched 04:28 UTC) and HP5 (launched 04:38 UTC) went out with
     lines.
   - Every point is gated (residual, critical multiplier real and within 1e-7 of +1).
 - **Output:** `llm-soft-loop/pod64/kite/`.
+
+## 2026-10-19 05:01 UTC: run card PV (exploratory): does the chaos depend on the prompt? (human: "Did we see how the chaos changes when we change the prompt? What about the user message “hello”? What about both together and both separately"; "A user will say they varried everything but not the prompt so maybe the chaos is unique to the prompt!"; "the burden is on us to show")
+
+- **Question:** the 0.5B results use one prefix: the system prompt "You are an AI talking with another AI. You have
+  complete freedom. Feel free to pursue whatever you want." and the user message "Hello!". How much of the steered plane
+  is chaotic, and where, under other prefixes?
+- **Prior evidence:** the full report's frozen prompt-blocked test compares Qwen2.5-7B and -14B over ten system prompts
+  and openers. Nothing yet varies the 0.5B's prefix.
+- **Conditions** (specs in `docs/prompt-variants/`, with prefix token ids and the Jaccard similarity of each token set
+  to the base prefix's):
+  - p00, the base prefix;
+  - p01, the system prompt only;
+  - p02, "Hello!" only (the chat template then inserts Qwen's default system prompt);
+  - p03, neither (Qwen's default system prompt alone; the template refuses an empty conversation);
+  - p04 and p05, the system prompt's words in two random orders (same words, Jaccard 1 on words);
+  - p06, "!Hello" (the user message's two tokens reversed);
+  - p07, both garbled;
+  - p08, an opposite system prompt ("You are an AI talking with a human. You have no freedom at all. You must strictly
+    follow instructions and never pursue anything you want.");
+  - p09 and p10, the base system prompt plus "You feel extremely happy, joyful and full of delight." or "You feel
+    extremely sad, hopeless and full of grief.";
+  - p11 and p12, the user message "Hello! I am so happy today, everything is wonderful!" or "Hello. I am so sad today,
+    everything is falling apart.";
+  - prompt shape: p13, the base texts as plain text without chat markup; p14, the system prompt about three times
+    longer (three neutral sentences added); p15, a two-turn conversation;
+  - random inputs (human: "just feed it a random soft token ... fully random", "Or various randoms that don't flatten
+    it entirely"):
+    - p16, p17 and p18: the whole prefix is one vector, no text, and the loop starts from it. The vectors are a
+      Gaussian direction at the median embedding norm, the embedding of a random token (".GPIO"), and a Dirichlet(0.1)
+      mixture of 64 random tokens (`docs/prompt-variants/random-vectors.json`);
+    - s1, s2 and s3: the base prefix, with the loop started from those three vectors instead of the newline token.
+- **Method:**
+  - `explore_llm_soft_loop.py scan --prefix / --start-vector`, commit 116e221b.
+  - The HR9 protocol: float64, transient 300, samples 300, record 80, max period 32, chaos level 1e-3, one twin.
+  - Philosophy at layer 12. Each condition gets a 128 x 128 map of the standard plane, alpha -0.12 to 0.12 by log10 T
+    -1.0 to 0.3, the plane of the size sweep.
+  - One A100 pod per condition.
+- **Reading:** descriptive.
+  - Per condition: the chaotic share of the plane and of its rows by temperature, the largest exponent, and the period
+    counts.
+  - The maps side by side.
+  - Each map's agreement with the base map, cell by cell (chaotic or not).
+  - The claim to test: chaos is not specific to the prefix. It would fail if most variants had no chaotic region.
+  - The random-vector prompts may flatten the output distribution (a uniform readout gives a trivial fixed point);
+    that is reported as such.
+- **Output:** `llm-soft-loop/pod64/bands/pv-<condition>`.
