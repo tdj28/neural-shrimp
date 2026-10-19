@@ -55,6 +55,29 @@ It also proposed a hypothesis: "an inference loop's operating regime may be as i
 iterations". And it gave a caveat: a model running only two or three passes reaches no asymptotic attractor in
 deployment, so conclusions about the update operator must be validated at the real loop count.
 
+## Verified references (titles, authors and IDs checked against arXiv or venue records tonight)
+
+- Looped / recurrent depth:
+  - Universal Transformers (Dehghani et al., ICLR 2019, arXiv:1807.03819);
+  - Looped Transformers as Programmable Computers (Giannou et al., ICML 2023, arXiv:2301.13196);
+  - Yang et al. (ICLR 2024, arXiv:2311.12424); Gatmiry et al. (ICML 2024, arXiv:2410.08292); Fan et al. (ICLR 2025,
+    arXiv:2409.15647);
+  - Geiping et al. (arXiv:2502.05171, Huginn); Mixture-of-Recursions (Bae et al., arXiv:2507.10524);
+  - Ouro / looped language models (Zhu et al., arXiv:2510.25741); DeepLoop (arXiv:2607.13491); Training-Free Looped
+    Transformers (arXiv:2605.23872).
+- Already cited by us:
+  - Soft Thinking (Zhang et al. 2025); Coconut (Hao et al.); deep equilibrium models (Bai et al.);
+  - Yang et al. 2026 "Stabilizing recurrent dynamics ... looped language models" (Jacobian regularization);
+  - Kim 2026 (fold analysis of a looped transformer).
+- Monitoring: Korbak et al. 2025, Chain of Thought Monitorability (arXiv:2507.11473).
+- Our reference agent's synthesis:
+  - Expected-embedding methods (Soft Thinking and successors, on released models up to 49B) are our map exactly.
+  - Hidden-state feedback drops the readout factor.
+  - Recurrent-depth and looped models have a block Jacobian without softmax or temperature, and 2026 papers study
+    their fixed points, oscillations and transient chaos.
+  - Discrete text loops, the documented mode of deployed reasoning models and agents, have no derivative.
+  - No official document describes a latent loop in a deployed frontier model.
+
 ## Proposed text (please check and improve)
 
 **(a) Introduction, after "We hold the prompt and the fed-back window fixed so that the loop becomes an autonomous
