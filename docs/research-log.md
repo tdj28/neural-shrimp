@@ -30234,3 +30234,36 @@ The headings of the five entries above, from run card P9S to the follow tool, an
 comms/claude-to-codex.md, first carried estimated times, 20 minutes to 2 hours late. They now carry the commit times
 (UTC): 23:52, 00:07, 00:20, 00:26 and 00:31; comms 00:28 and 00:29. Pod events inside the entries cite the orchestrator
 logs, whose times are clock times.
+
+## 2026-10-19 00:37 UTC: full report and blog synced with tonight's Chaos-article changes (commit 7543b02a)
+
+- **Full report** (paper/llm/main.tex, commit 7543b02a; latexmk builds with no undefined references):
+  - theory section with the consult 17 corrections as the article now states them
+    (docs/consults/2026-10-18-theory-section/adjudication.md): low-temperature exclusion only on invariant sets with a
+    uniform logit gap, the exact prefactor C over the runner-up tokens, ties in the greedy limit; the Lyapunov bound
+    as a necessary condition; Kingman without a rate; the explicit Hopfield potential and the accumulation-point
+    conclusion; untied embeddings; Wv as the output matrix applied to the steering vector; the crossover hybrids as
+    frozen-path apportioning; diam(E) over all pairs and T* against log10 T = 0.28; MoE and Oseledets caveats;
+  - the bounded mechanism wording ("the growth that steering adds comes mainly from the readout, where next tokens
+    compete") in the abstract, introduction, claims table, contributions, mechanism captions and five later echoes;
+  - the article's reader explanations: what each factor of equation (3) means, the network factor containing
+    attention and the whole transformer, why one-step norms overstate growth, why a falling energy excludes cycles;
+  - the standalone priority paragraph folded into related work (the report's specific wording kept: proofs of a
+    periodic orbit and of coexisting attractors);
+  - captions: the fourth leg's center line and the period-10 shell that is not a leg (fig:realshrimp), Type A and
+    Type B (fig:anatomy), Type B geometry (fig:superstable) and the matching text; nearly equal head moduli (article
+    b7a7fca);
+  - from article 09fe278 (coordinator follow-up): chaos behind a repeating text explained plainly, with the phase-6
+    probability range 0.2347 to 0.2538 (hidden-chaos/trace-best/bands-summary.json, quoted as 0.235 to 0.254), and the
+    periodic side of the batch-layout result, 7 of 192 periodic cells against 173 of 192 chaotic (REPRO1: 3.6 and
+    90.1 %).
+- **Blog** (praxagent bundle, not committed; backups in neural-shrimp-data/blog-bundle-backup/before-oct19-sync and
+  after-oct19-sync): the same corrections in the note's language; fig-derivative-check.png and fig-real-shrimp.png
+  replaced by byte-identical copies (fig-superstable-lines.png was already identical); the notes of Figures 7, 12, 13,
+  34, 37, 41 and 50 and Table 2 updated; Kingman (1973) added to the references. provenance.json: 60 entries
+  re-anchored, 28 added, figure hashes and generator (7543b02a) updated; scripts/check_provenance.py passes
+  (4068 of 4068) and Hugo 0.160.1 builds.
+- **Not carried over** (article-only): the arXiv supplement switch, the date, the condensed reproducibility paragraph,
+  the lean abstract, the page-1 figure placement and the new Fig. 1 image.
+- **Left open:** 56 provenance entries whose paper_text no longer occurs in main.tex after earlier wording changes
+  (for example "fresh" problems, "deciding correctness"); they still match the note's prose, so the check passes.
