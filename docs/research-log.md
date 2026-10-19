@@ -31155,3 +31155,28 @@ conjugacy of the Rössler return map to unimodal maps, and orbits are traced by 
     are not. Just inside, the long-horizon boundary between W and S lies near the predicted tip, inside 0.0729632 to
     0.0729797.
   - A local run of the same design (3 offsets) was stopped after 13 minutes, at 1.4 s per step, in favor of the pod.
+
+## 2026-10-19 11:51 UTC: HOOKTIP results, and run card HOOKTIP2 (exploratory)
+
+- **HOOKTIP** (pod d7nzar1ix3v7w4, A100, commit db248fc8, rc 0, 374 s, terminated). 336 cells: 48 steering
+  strengths over alpha 0.072955-0.072985 at 7 offsets from the fold; llm-soft-loop/pod64/kite/hook-tip-strip.
+  - **Beyond the fold** (offsets -0.5, -1 and -2 rows, where the weaker orbit does not exist): the long window
+    (steps 3000-3400) gives S's exponents in every cell (-0.31 to -0.71). The map's window (steps 300-600) gives
+    exponents near zero (-0.011 to +0.012) for alpha from 0.072965 (-0.5 rows) or 0.072967 (-1 row) upward.
+    So the short window shows lingering at the vanished orbit as if it were the weaker orbit: the map's light region
+    reaches 1 to 2 rows past the fold. This explains the upper-edge offset (0.1 to 1.6 rows): confirmed.
+  - **Inside the fold** (offsets +0.5, +1, +2 and +4 rows): the boundary between the two outcomes is the same in both
+    windows. It lies between alpha 0.0729633 and 0.0729639 at +0.5 rows, 0.0729627 and 0.0729633 at +1 and +2 rows,
+    and 0.0729620 and 0.0729627 at +4 rows, moving toward larger alpha as the fold is approached. The hypothesis that
+    the map's tip is shifted by the short window is refuted.
+  - Extrapolating the boundary midpoints linearly in the square root of the offset gives the tip at alpha 0.0729641.
+    The resolution is 6.4e-7, so this value is uncertain.
+  - The fold-point check's u0 changes sign between alpha 0.0729632 and 0.0729797. A cubic spline puts the zero at
+    0.0729655 and pchip at 0.0729657, 1.5e-6 from the extrapolated tip: within the interpolation's uncertainty
+    over a 1.65e-5 gap, not a precise test.
+- **Run card HOOKTIP2** (one A100, commit 36950af9; job 1 of 25 min, job 2 of 10 min).
+  - Job 1, tools/hook_tip_fold_points.py: fold points located by Newton at fixed alpha (0.0729636, 0.0729640,
+    0.0729644, 0.0729648, 0.0729652, 0.0729656, 0.0729664, 0.0729680), with u0 at each. Prediction: u0 changes sign
+    near the boundary's extrapolated tip, alpha about 0.072964.
+  - Job 2, tools/hook_tip_strip.py: alpha 0.0729620-0.0729670 at spacing 1e-7, offsets 0.125, 0.25, 0.5, 1 and
+    2 rows. It gives the boundary's approach to the fold at 6 times the resolution.
