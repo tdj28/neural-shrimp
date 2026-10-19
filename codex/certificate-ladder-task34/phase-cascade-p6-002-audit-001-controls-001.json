@@ -1,0 +1,110 @@
+{
+  "schema": "codex-task34-phase002-audit-focused-controls-v1",
+  "recorded_utc": "2026-10-19T18:32:21.438819+00:00",
+  "source_commit": "dab3a3f65827e30143ea1c57a40fb497b30ded55",
+  "private_source_verified_before_execution": true,
+  "control_card": {
+    "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/certificate-ladder-task34/phase-cascade-p6-002-audit-001-controls-card.json",
+    "bytes": 4928,
+    "sha256": "b0fd860d25e69757dd1bbd14242f808a31bbb8b2d783db3ce49b784821b9e763"
+  },
+  "source_pins_before_after": [
+    {
+      "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/certificate-ladder-task34/audit_phase_p6_002.py",
+      "bytes": 31004,
+      "sha256": "8972bfa46af93f8d2cd33bceedf6e3e8cc690f479fd33682bd37e9ca84ac0d1d"
+    },
+    {
+      "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/certificate-ladder-task34/test_audit_phase_p6_002.py",
+      "bytes": 22081,
+      "sha256": "13694c70fcbfca4469b3308c492b845213651abf116f3fc45cbd4967030f8d8f"
+    },
+    {
+      "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/certificate-ladder-task34/audit_phase_p6.py",
+      "bytes": 19920,
+      "sha256": "61c8a466235eedbfcc9454d5965e8e999a46a88a79552c3ab7e799f7f2aaa92e"
+    },
+    {
+      "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/certificate-ladder-task34/audit-phase-p6-controls-attempt001.json",
+      "bytes": 9503,
+      "sha256": "79fc93877866b2cd83d57d24a4a6a05a864a06d7419fd7adb152e1080ef31de4"
+    },
+    {
+      "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/certificate-ladder-task34/phase-cascade-p6-002-audit-001-preparation.md",
+      "bytes": 6327,
+      "sha256": "af36eaad809c2cdfc4d0a6500a522d2de0c63964db27383555207eaf9ddd8ba4"
+    },
+    {
+      "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/certificate-ladder-task34/phase-cascade-p6-002-audit-001-source-review.md",
+      "bytes": 2582,
+      "sha256": "c8c812b4758a2a7133ac207678b1cc1018b12724ea88ad9f36cf4fafb3652e30"
+    },
+    {
+      "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/certificate-ladder-task34/phase-cascade-p6-002-audit-001-controls-card.json",
+      "bytes": 4928,
+      "sha256": "b0fd860d25e69757dd1bbd14242f808a31bbb8b2d783db3ce49b784821b9e763"
+    }
+  ],
+  "argv": [
+    "/usr/bin/python3",
+    "-I",
+    "-B",
+    "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/certificate-ladder-task34/test_audit_phase_p6_002.py"
+  ],
+  "launch_utc": "2026-10-19T18:32:21.235008+00:00",
+  "returncode": 0,
+  "timed_out": false,
+  "tests_run": 16,
+  "all_passed": true,
+  "internal_unittest_seconds": 0.037,
+  "parent_popen_through_reap_seconds": 0.17661265237256885,
+  "parent_popen_through_reap_upper_seconds": 0.176613,
+  "worker_pid": 893662,
+  "worker_starttime": 238130533,
+  "worker_reaped": true,
+  "worker_identity_absent": true,
+  "worker_group_session_members": [],
+  "proc_scan_permission_errors": [],
+  "startup": {
+    "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/certificate-ladder-task34/phase-cascade-p6-002-audit-001-controls-001-startup.json",
+    "bytes": 682,
+    "sha256": "5e45bd1f5627930e777c64ec83967888f8b41b46fd3b9cb954dac577b92fe447"
+  },
+  "stdout": {
+    "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/certificate-ladder-task34/phase-cascade-p6-002-audit-001-controls-001.stdout.txt",
+    "bytes": 84,
+    "sha256": "91958feecb863f61bbc2c1cecbfaa12bef9f8b13627f246470543fd726141f40"
+  },
+  "stderr": {
+    "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/certificate-ladder-task34/phase-cascade-p6-002-audit-001-controls-001.stderr.txt",
+    "bytes": 2547,
+    "sha256": "a21c256a984650a6449d9474a0e12327a27282b1b279317833c5b4a2b63c9858"
+  },
+  "startup_identity_scope": "Preexec after limits; no separate Root live postexec observation.",
+  "limits": {
+    "cpu_ids": [
+      0
+    ],
+    "nice": 10,
+    "as_bytes": 268435456,
+    "cpu_seconds": 30,
+    "wall_timeout_seconds": 40,
+    "file_size_bytes": 8388608
+  },
+  "environment": {
+    "OMP_NUM_THREADS": "1",
+    "OPENBLAS_NUM_THREADS": "1",
+    "MKL_NUM_THREADS": "1",
+    "NUMEXPR_NUM_THREADS": "1",
+    "HF_HUB_OFFLINE": "1",
+    "PYTHONDONTWRITEBYTECODE": "1",
+    "CUDA_VISIBLE_DEVICES": ""
+  },
+  "old_controls_repeated": false,
+  "target_or_original_arrays_read": false,
+  "model_or_backend_calls": false,
+  "actual_saved_audit_executed": false,
+  "scientific_authority_admitted": false,
+  "certificate_passed": false,
+  "scope": "One16-method stdlib manufactured-metadata/tiny-file fixture. Actual numerical checker is mocked in loader controls; static source equality only. Parent ordinary Git/source reads are outside fixture no-original-I/O statement. No target admission."
+}

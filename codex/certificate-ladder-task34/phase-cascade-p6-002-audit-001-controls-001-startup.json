@@ -1,0 +1,33 @@
+{
+  "pid": 893662,
+  "state": "R",
+  "pgid": 893662,
+  "sid": 893662,
+  "starttime": 238130533,
+  "nice": 10,
+  "threads": 1,
+  "uid": 1000,
+  "affinity": [
+    0
+  ],
+  "limits": {
+    "cpu_ids": [
+      0
+    ],
+    "nice": 10,
+    "as_bytes": 268435456,
+    "cpu_seconds": 30,
+    "wall_timeout_seconds": 40,
+    "file_size_bytes": 8388608
+  },
+  "environment": {
+    "OMP_NUM_THREADS": "1",
+    "OPENBLAS_NUM_THREADS": "1",
+    "MKL_NUM_THREADS": "1",
+    "NUMEXPR_NUM_THREADS": "1",
+    "HF_HUB_OFFLINE": "1",
+    "PYTHONDONTWRITEBYTECODE": "1",
+    "CUDA_VISIBLE_DEVICES": ""
+  },
+  "scope": "Preexec after limits and setsid; not a separate Root postexec/live observation."
+}
