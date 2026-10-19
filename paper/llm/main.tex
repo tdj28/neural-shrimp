@@ -1390,8 +1390,9 @@ and the copies of one problem are not independent
 \includegraphics[width=\linewidth]{fig-repro.png}
 \caption{Only the batch layout differs. The 448 labeled cells of Qwen2.5-0.5B-Instruct (philosophy direction, layer
 12) run twice from the same start, alone in a batch or followed by $n$ further rows with the steering vectors in
-reverse order. (a) float64: median and
-interquartile range of the relative distance between the two runs, by the cells' float64 labels. (b) Medians for
+reverse order. (a) float64: the relative
+distance between the two runs for every chaotic (red) and periodic (blue) cell, by the cells' float64 labels, with
+the medians and interquartile ranges of each label (dark) and the median of the 64 cells with neither label (gray). (b) Medians for
 float32 and bfloat16 batch layouts. (c) float64 chaotic cells: the step at which the distance passes $10^{-2}$ against
 $\ln(10^{-2}/d_1)/\lambda$, with $d_1$ the smallest nonzero distance in the run and $\lambda$ the map exponent; dotted, equality.}
 \label{fig:repro}

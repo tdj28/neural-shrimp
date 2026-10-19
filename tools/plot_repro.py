@@ -2,7 +2,8 @@
 
 The 448 labelled cells of docs/h2-horizon-cells.json (Qwen2.5-0.5B, philosophy at block 12) were run twice in
 lockstep from the same start, differing only in the batch layout (n rows against 2n rows) or the precision.
-(a) float64, batch layout: median and interquartile range of the relative distance between the two runs, per label.
+(a) float64, batch layout: the relative distance between the two runs for every chaotic and periodic cell (thin
+    lines), with the median and interquartile range per label.
 (b) the same for float32 and bfloat16 batch layouts (chaotic and periodic cells).
 (c) float64 chaotic cells: the step at which the distance first exceeds 1e-2 against ln(1e-2 / d_1) / lambda, with
     d_1 the first nonzero distance and lambda the map exponent of docs/h2-horizon-cells.json.
@@ -43,13 +44,20 @@ def main():
     fig, axes = plt.subplots(1, 3, figsize=(15, 4.4), dpi=170)
     ax = axes[0]
     d = z["batch64_dist"]
-    for L, col in (("chaotic", "tab:red"), ("periodic", "tab:blue"), ("other", "tab:gray")):
-        band(ax, d[:, lab == L], col, f"{L} ({int((lab == L).sum())} cells)")
+    t = np.arange(1, d.shape[0] + 1)
+    for L, col in (("periodic", "tab:blue"), ("chaotic", "tab:red")):     # every cell's run, under the summaries
+        for k in np.nonzero(lab == L)[0]:
+            ax.plot(t, np.maximum(d[:, k], 1e-17), color=col, alpha=0.07, lw=0.35, rasterized=True)
+    for L, col in (("chaotic", "darkred"), ("periodic", "navy")):
+        band(ax, d[:, lab == L], col, f"{L} ({int((lab == L).sum())} cells): median and quartiles")
+    o = lab == "other"                     # neither label: its median only (its quartiles span most of the range)
+    ax.plot(t, np.median(np.maximum(d[:, o], 1e-17), axis=1), color="tab:gray", lw=1.0,
+            label=f"other ({int(o.sum())} cells): median")
     ax.set_yscale("log")
     ax.set_ylim(1e-16, 3)
     ax.set_xlabel("step")
     ax.set_ylabel("relative distance between the two runs")
-    ax.set_title("(a) float64: the same cells in a batch of n or 2n rows", fontsize=9)
+    ax.set_title("(a) float64: the same cells in a batch of n or 2n rows (one line per cell)", fontsize=9)
     ax.legend(fontsize=7, loc="center right")
     ax = axes[1]
     for comp, ls in (("batch32", "-"), ("bf16", "--")):
