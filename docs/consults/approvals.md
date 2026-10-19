@@ -345,3 +345,15 @@ skill, section 7A). Spend is recorded only in the gitignored `cost-ledger.md`
   reference list. No retry or second pass without a new recorded decision.
 - **Model:** `gpt-6-astra`, Pro mode, high effort, at most 16,000 output tokens; the per-call guard and the cost are in
   the private cost ledger. Advice is advisory and is adjudicated locally.
+
+## Consult 20: the night's new results and how the papers state them (19 October 2026)
+
+- **Approval (human, in session, 19 October 2026):** "Please also do a pro consult once all the data collection is
+  done and results integrated into the big pdf, chaos pdf, and blog." This explicitly requests one paid consult after
+  integration.
+- **Milestone:** arXiv v1 of the Chaos article (submission 20 October 2026); the new results (kite, prompt study,
+  symbolic dynamics, zooms and basin checks, exponent offset) are in the article, the full report and the blog.
+- **Scope:** one `research-note-scientific` request with the brief `2026-10-19-postnight-results/brief.md`. No retry or
+  second pass without a new recorded decision.
+- **Model:** `gpt-6-astra`, Pro mode, high effort, at most 20,000 output tokens; the per-call guard and the cost are in
+  the private cost ledger. Advice is advisory and is adjudicated locally.
