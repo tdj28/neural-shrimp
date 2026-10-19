@@ -1,0 +1,31 @@
+{
+  "utc": "2026-10-19T09:05:45.266108+00:00",
+  "session": 8013,
+  "source": "8b56522882743d6c84afd2eccb6ec09616b7e9be",
+  "admission_sha256": "fb8c140a1b33852ae4b58615b646433229b42e7102279522d8937780aaa0681e",
+  "available_bytes_at_admission": 35638579200,
+  "postexec_records": [
+    {
+      "pid": 112011,
+      "starttime": 234729136,
+      "pgid": 112011,
+      "sid": 112011,
+      "nice": 10,
+      "threads": 1,
+      "cmdline": "/data2/neural-shrimp/.venv/bin/python -I -B codex/certify-chaos/supervise.py --plan /home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/presubmit-task37/r-pair-001-plan.json --lane r_pair --source 8b56522882743d6c84afd2eccb6ec09616b7e9be ",
+      "status": "Uid:\t1000\t1000\t1000\t1000\nVmRSS:\t   18388 kB\nCpus_allowed_list:\t0-31"
+    },
+    {
+      "pid": 112195,
+      "starttime": 234729229,
+      "pgid": 112195,
+      "sid": 112195,
+      "nice": 10,
+      "threads": 1,
+      "cmdline": "/data2/neural-shrimp/.venv/bin/python -I -B /home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/presubmit-task37/p6_kite.py --card /home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/presubmit-task37/r-pair-001-card.json --out /data2/neural-shrimp-data/scratch/audit-codex-1019/r-pair-001 --admission /data2/neural-shrimp-data/scratch/audit-codex-1019/r-pair-001-supervision/admission.json ",
+      "status": "Uid:\t1000\t1000\t1000\t1000\nVmRSS:\t 4606712 kB\nCpus_allowed_list:\t0"
+    }
+  ],
+  "receipt_present": false,
+  "stderr": "/data2/neural-shrimp/.venv/lib/python3.12/site-packages/torch/jit/_script.py:1491: FutureWarning: `torch.jit.script` is deprecated. Please switch to `torch.compile` or `torch.export`.\n  warnings.warn(\n"
+}
