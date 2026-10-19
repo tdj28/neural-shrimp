@@ -319,3 +319,17 @@ skill, section 7A). Spend is recorded only in the gitignored `cost-ledger.md`
   second pass without a new recorded decision.
 - **Model:** `gpt-6-astra`, Pro mode, high effort; the per-call authorization guard and the cost are in the private
   cost ledger. Advice is advisory and is adjudicated locally.
+
+## Consult 18: why the superstable curves of the language-model shrimps avoid crossing (19 October 2026)
+
+- **Approval (human, in session, 19 October 2026):** "for that avoidance explanation, i agree with you, i buy that.
+  but please let's do a pro consult too." This explicitly requests one paid consult. It covers the proposed
+  explanation (an avoided crossing of the zero curves of the leading real multiplier, from the coupling of two
+  critical directions through the transverse ones) and the evidence from the period-6, period-5 and hostile period-7
+  windows.
+- **Milestone:** arXiv v1 of the Chaos article, held tonight for the second shrimp. The explanation goes into the
+  article, the full report and the blog only after this check.
+- **Scope:** one `research-note-scientific` request with the brief `2026-10-19-avoided-crossing/brief.md`. No retry or
+  second pass without a new recorded decision.
+- **Model:** `gpt-6-astra`, Pro mode, high effort, at most 20,000 output tokens; the per-call authorization guard and
+  the cost are in the private cost ledger. Advice is advisory and is adjudicated locally.
