@@ -695,8 +695,11 @@ Second, a test that leaves the network unsteered. We add to the logits a bias $\
 matrix applied to the steering vector (a logit-space stand-in for the steering; $b$ is centered and scaled to unit
 standard deviation over the vocabulary), with no residual steering. At a given state this changes only the output
 probabilities, although the orbit it produces can visit different states. On its grid, 3.5\,\% of cells were chaotic
-(241 of 6837), mostly at $\log_{10}T>0.1$, against 6.2\,\% on the residual-steering grid (331 of 5353). A change of the
-output probabilities alone, with the network unsteered, therefore suffices for chaotic cells in part of the plane.
+(241 of 6837, all but one with a nonzero bias), against 6.2\,\% on the residual-steering grid (331 of 5353). A
+change of the output probabilities alone, with the network unsteered, therefore suffices for chaotic cells in part
+of the plane, mostly at $\log_{10}T\ge0.1$ (207 of the 241 cells), where the network factor itself can expand;
+below, 34 of 5676 cells of the bias grid are chaotic (0.6\,\%), against 169 of 4444 (3.8\,\%) under residual
+steering.
 
 Third, a gain split compares different orbits, so steering could act simply by moving the orbit to other states. A
 crossover at fixed states separates the two contributions along the recorded orbits. Along recorded steered orbits we
@@ -725,7 +728,9 @@ does not depend on the direction's meaning.
 
 All three point the same way: along the recorded orbits of Qwen2.5-0.5B, the growth that steering adds comes mainly
 from the readout, where next tokens compete; the readout's relative gain turns from shrinking to growing, while the
-network factor changes little. At low temperature steering creates that competition at fixed states. At higher
+network factor changes little. The readout carries what steering changes; the network is what makes chaos possible
+at all, since with tied embeddings the loop without it cannot cycle (``A Hopfield network with a transformer
+inside'' above). At low temperature steering creates that competition at fixed states. At higher
 temperature the orbit lies in states that are already competitive, consistent with steering having carried it there.
 Along the philosophy direction, in both models, its change of the network's response damps the growth. These are
 conditional comparisons on recorded trajectories: they do not single out the higher entropy as the cause or show that
