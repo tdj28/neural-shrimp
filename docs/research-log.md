@@ -30923,3 +30923,16 @@ conjugacy of the Rössler return map to unimodal maps, and orbits are traced by 
 - Would surprise us: a jagged lower edge that stays jagged at 3x finer cells; that would argue for a fractal basin
   boundary (to be read with the basin check).
 - Output: llm-soft-loop/pod64/bands/hr12-c00..c15, stitched to llm-soft-loop/pod64/hr12.
+
+## 2026-10-19 07:45 UTC: map exponents of periodic cells carry a twin-alignment offset (human: "Note that in the big paper too")
+
+- Basin check (tools/kite_basin_check.py, local CPU float64), fixed-start orbits at alpha 0.0729749511 on either side of
+  the light wedge's lower edge in HR11:
+  - row 317 (log10 T -0.1535315068): mu1 = +0.184083, ln(mu1)/6 = -0.282062; the map gives -0.278580 (offset +0.003482);
+  - row 318 (log10 T -0.1535287671): mu1 = +0.614131, ln(mu1)/6 = -0.081258; the map gives -0.088510 (offset -0.007253).
+- The 300 measured steps include the twin's alignment with the leading direction from a random start in 896
+  dimensions. That shifts a periodic cell's exponent either way by a few thousandths per step.
+- Periodic cells are classified by period, so labels are unaffected; the maps' gray scale carries the offset.
+- Chaotic labels are checked by AD tangents (same window), 1e5-step persistence and offsets (unchanged).
+- Report: sentence added after the 448-cell tangent check (methods). An earlier draft in this session used preview
+  row indices (offset by 64 rows) and was discarded before any text was written.
