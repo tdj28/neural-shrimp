@@ -1,0 +1,161 @@
+{
+  "schema": "codex-task39-root-review-receipt-v1",
+  "created_utc": "2026-10-19T10:28:09.507574+00:00",
+  "article_commit": "4ca5b5e35bc766581a5e2d326858fcd0edc312bb",
+  "review": {
+    "bytes": 16598,
+    "sha256": "c9771ad429076302a800b20fe0599bfd60b194a23fbacf710ee667063472d7db"
+  },
+  "build_source_checkpoint": "e8cf860a8d2f2771a4092e099fee9c3fdb8f3797",
+  "boundary_source_checkpoint": "24909dbf650a2d08b214748cc1d738e3d96bc340",
+  "build_root": "/data2/neural-shrimp-data/scratch/audit-codex-1019/task39-build-001",
+  "review_evidence_root": "/data2/neural-shrimp-data/scratch/audit-codex-1019/task39-review-evidence-001",
+  "pages": 28,
+  "numbered_figures": [
+    "1",
+    "2",
+    "3",
+    "4",
+    "5",
+    "6",
+    "7",
+    "8",
+    "9",
+    "10",
+    "11",
+    "12",
+    "13",
+    "14",
+    "15",
+    "16",
+    "17",
+    "18",
+    "19",
+    "20",
+    "21",
+    "22",
+    "23",
+    "24"
+  ],
+  "tables": [
+    "I",
+    "II",
+    "III",
+    "IV"
+  ],
+  "rendered_pages_inspected": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15,
+    16,
+    17,
+    18,
+    19,
+    20,
+    21,
+    22,
+    23,
+    24,
+    25,
+    26,
+    27,
+    28
+  ],
+  "visual_method": "Seven 2x2 contact sheets of page renders, plus full page22 for branch dash issue; every caption/figure/table read.",
+  "visual_findings": [
+    "Fig22b dense middle gray unstable branch looks solid; upper tail dashed; color distinction remains."
+  ],
+  "public_repository_probe": {
+    "url": "https://github.com/tdj28/neural-shrimp",
+    "utc": "2026-10-19T10:17:11.847049Z",
+    "method": "unauthenticated urllib HTTPS read",
+    "http_status": 404,
+    "reason_not_inferred": true,
+    "historical_probe_not_repeated": true
+  },
+  "upload_checks": {
+    "member_count": 30,
+    "all_regular_and_relative": true,
+    "every_figure_used": true,
+    "pattern_findings": {
+      "private_key": [],
+      "credential": [],
+      "local_paths": []
+    },
+    "limitations": "Pattern/visual inspection is not a guarantee against all possible arbitrary secrets."
+  },
+  "abstract": {
+    "path": "/data2/neural-shrimp-data/scratch/audit-codex-1019/task39-review-evidence-001/arxiv-abstract-proposed.txt",
+    "bytes": 1435,
+    "sha256": "b8c7d9d47bedfdbec97abab4208ee1721a461a05b1ef0af81353492643d20140",
+    "ascii": true,
+    "characters_including_newline": 1435,
+    "matches_article_whitespace_normalized": true
+  },
+  "form": {
+    "path": "/data2/neural-shrimp-data/scratch/audit-codex-1019/task39-review-evidence-001/arxiv-form.md",
+    "bytes": 1384,
+    "sha256": "87c12ca81873a948167bb31a44f3ddd1e454a3ed7096d0ad081c2ca8b4fe17ba"
+  },
+  "official_submission_sources": [
+    {
+      "url": "https://info.arxiv.org/help/submit_tex.html",
+      "checked": "source and bbl requirements; submitter verifies generated PDF"
+    },
+    {
+      "url": "https://info.arxiv.org/help/00README.html",
+      "checked": "pdflatex and top-level main.tex JSON fields"
+    },
+    {
+      "url": "https://info.arxiv.org/help/license/index.html",
+      "checked": "license choices; author decision; plain CC BY-NC absent"
+    },
+    {
+      "url": "https://publishing.aip.org/resources/researchers/rights-and-permissions/sharing-content-online/",
+      "checked": "minimum noncommercial preprint wording and mandate exception; no legal eligibility conclusion inferred"
+    }
+  ],
+  "integration_disposition": {
+    "raw_formula_sign_correction": "Applied; ab>0 not generic requirement. Missing full-state transverse stability retained as M1. Original subreview preserved.",
+    "citation_public_release_wording": "Applied: previously audited certificates, not claim of public release.",
+    "findings": {
+      "must_fix": 4,
+      "should_fix": 9
+    },
+    "citation_read_hash_timing": "Original integration note captured a final hash after root edited earlier-read wording; additive hash note explicitly preserves and resolves this timing limit."
+  },
+  "task37_health": {
+    "utc": "2026-10-19T10:23:58.367974Z",
+    "session": 8013,
+    "source": "8b56522882743d6c84afd2eccb6ec09616b7e9be",
+    "supervisor": [
+      112011,
+      234729136
+    ],
+    "worker": [
+      112195,
+      234729229
+    ],
+    "identities_commands_matched": true,
+    "receipt_exists": false,
+    "available_kib": 36758368,
+    "status": "running; no partial interpretation"
+  },
+  "target_model_calls": 0,
+  "new_scientific_reduction": "One disclosed small boundary close-up saved-data check; no historical science rerun",
+  "verdict": "GO WITH FIXES",
+  "paper_changed": false,
+  "public_action": false
+}
