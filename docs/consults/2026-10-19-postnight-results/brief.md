@@ -84,17 +84,7 @@ leading multiplier changes sign across 45 neighboring solved pairs; only two hav
 factor three at both ends, and this endpoint test does not tell a multiplier crossing zero from an exchange of
 dominance.
 
-Figure caption:
-\caption{The kite of the period-6 shrimp (Qwen2.5-0.5B-Instruct, philosophy direction at layer 12; float64). (a) A $512\times512$ float64 map of the lower-left end of the body, with cells 7.5 times finer in $\alpha$ and 4.6
-times finer in $\log_{10}T$ than in Figure~\ref{fig:p6shrimp}a (gray: periodic, darker where more contracting; colors: chaotic), with the body's two flip
-curves (red, dashed), the fold curve continued from the branch of (b) (black), and the corners of Gallas's kite: R,
-where the flip curves cross (two distinct orbits, one on each curve); A and B, where the fold curve meets them; C, the
-located cusp where the fold curve turns back (gold star). Green: the line $\log_{10}T=-0.15395$ of the branch, thick
-where the two attracting orbits coexist. (b) The branch: the orbit's position along the leading direction of the
-branch's states against $\alpha$, solid where the orbit is attracting and dashed where not; two folds (open circles)
-make it an S, and the two attracting sheets overlap in the shaded interval (\repo{tools/plot_p6_kite.py}). Inside the kite, the straight edge where the gray changes abruptly (near $\log_{10}T=-0.15353$) is not a
-bifurcation: on both sides of it both attracting period-6 orbits exist (leading multipliers $0.18$ and
-$0.60$ to $0.61$), and the fixed start reaches one above the edge and the other below (\repo{tools/kite_basin_check.py}).}
+(Kite figure caption omitted for length; its straight edge is now called a basin boundary "where we checked it", see sections 2 and 6.)
 
 ### 2. The hook (report only; 640 x 640 zoom; two Newton basin checks; a random-start rerun)
 \paragraph{The hook.} A $640\times640$ map of the upper end of the kite (Figure~\ref{fig:p6hook}; cells 3.1 and 2.5
@@ -193,21 +183,9 @@ cells: the position along one band (its first principal axis) against the positi
 visits where the six-step derivative is positive (L), red: negative (R). (h--k) Return maps at four red cells (letters
 in (a)) with more than one turning point.}
 
-\caption{Symbolic words of the period-6 shrimp's windows ($640\times640$ float64 cells, the grid of
-Figure~\ref{fig:p6shrimp}a). (a) Each periodic cell of the six-band region colored by the word of its window: pale
-where the label predicts a positive leading multiplier, full where it predicts a negative one, magenta where the
-phases disagree on the last symbol (C); light gray: chaos; mid gray: other periodic orbits; dark gray: no word (fails the coding test). Windows marked ``not
-confirmed'' in the legend are those of Table~\ref{tab:p6words}'s cells without a clean phase, and those marked
-``not checked'' had no float64 check. (b) The box in (a). (c) The same words at the
-superstable parameters of the quadratic family $x\mapsto a-x^2$, on its bifurcation diagram (the body's empty word is
-that of its fixed point, at $a=0$); labels give the period of the soft-token orbit, six times the word's period.}
+(caption omitted for length)
 
-\caption{Float64 checks of the symbolic words (\repo{tools/sd_verify_words.py}): Newton with exact Jacobians at the
-center of the largest patch of each window word and side of Figure~\ref{fig:words} with at least three cells in the
-eight of the scan's 16 bands then complete (23 cells covering 12 of the 23 words; the other 11 were not checked). Word and
-side: the scan's label; $\mu_1$: the orbit's leading multiplier; clean: the phases whose L and R visits one threshold
-separates along the band, with every $|\cos|\ge0.5$; result: the clean phases give the scan's word (confirmed), no
-phase is clean, or the leading pair is complex (side C: the scan's phases disagree on the last symbol).}
+(caption omitted for length)
 
 ### 5. Exponent offset (report, methods)
 The averaging window includes the twin's alignment from
@@ -217,7 +195,7 @@ the map gives $-0.2786$ and $-0.0885$ per step and the Newton-converged period-6
 of $+0.0035$ and $-0.0073$ (\repo{tools/kite_basin_check.py}). Periodic cells are classified by their period, not by
 this exponent; the gray scale of the maps carries the offset.
 
-### 6. The theory of the hook (new: report paragraph and figure; the article has a shorter paragraph, and its kite
+### 6. The theory of the hook (new: report paragraphs and figures; the article has a shorter paragraph, and its kite
 caption now calls the straight edge a basin boundary "where we checked it")
 \paragraph{Why the lower edge lies where it does.} An edge of the fixed start's outcome that is not a bifurcation is
 where the start crosses the boundary between two basins, and the boundary between the basins of two attracting orbits
@@ -238,22 +216,67 @@ the strongly contracting orbit and every start above it on the other. Together w
 the edge, this identifies the lower edge as the fixed start crossing the saddle's stable manifold. Bisecting 676
 jumps of the outcome along the map's columns (to $2.6\times10^{-13}$ in $\log_{10}T$; \repo{tools/hook_edge_track.py})
 traces the hook's other edges (Figure~\ref{fig:hooktheory}a). The upper edge follows the kite's fold curve, 0.1 to
-1.6 grid rows above a spline through the continued curve's points and more so toward the cusp, perhaps because just
-beyond the fold the loop lingers at the vanished orbit for longer than the measurement window; we have not tested
-this. Where the two edges meet, the saddle-node normal form predicts a tangential contact at the point of the fold
-where the fixed start lands on the saddle-node orbit, the gap between the edges growing quadratically along the fold;
-at the map's resolution the lower edge leaves the fold within one cell, so this prediction is untested.
+1.6 grid rows above a spline through the continued curve's points and more so toward the cusp. The offset comes from
+the map's window (Figure~\ref{fig:hooktip}b,c; \repo{tools/hook_tip_strip.py}): half a row and one row beyond the fold,
+where the weaker orbit does not exist, the exponent over the map's window (steps 300 to 600) lies between $-0.022$ and
+$+0.012$ for $\alpha$ above 0.072965 and 0.072967, because the loop still lingers at the orbit that vanished there,
+while over steps 3000 to 3400 every cell beyond the fold gives the strongly contracting orbit's exponent ($-0.18$ to
+$-0.71$).
 
-\caption{The hook's lower edge is where the fixed start crosses the stable manifold of a saddle orbit
-(Qwen2.5-0.5B-Instruct, philosophy direction at layer 12; float64). (a) The map of Figure~\ref{fig:p6hook}a near the
-hook, with the kite's continued fold curve (gold) and the edges of the fixed start's outcome bisected along the map's
-columns (cyan; brackets whose end exponents differ by at least 0.1); red star: the steering strength
-$\alpha=0.072975$ of (b)--(d). (b) Distance to the saddle orbit along the loop started a distance $\delta$ in
-$\log_{10}T$ below the edge: it arrives along the stable manifold within about 25 steps, lingers, and leaves along
-the unstable direction; dotted: the radius $10^{-3}$ of (c). (c) The last step within $10^{-3}$ of the saddle
-against $\ln(1/\delta)$, for starts below the edge (which end on the strongly contracting orbit $S$) and above it
-(which end on the other, $W$); dashed: slope $6/\ln\mu_u$ from the saddle's unstable multiplier $\mu_u$. (d) Closest
-approach to the saddle against $\delta$; dashed: proportional to $\delta$.}
+\paragraph{The tip of the hook.} The two edges meet where the fixed start lands exactly on the saddle-node orbit. At
+a point of the fold, the coordinate $u$ of the merged orbit along its critical direction evolves as $u'=u+bu^2$ to
+leading order (Appendix~\ref{sec:curves}); after its fast transient the fixed start lands at
+$u_0=\ell^\top(x-p_0)/\ell^\top r$, with $r$ and $\ell$ the right and left eigenvectors of the multiplier $+1$ at the
+orbit point $p_0$. Where $u_0$ has the sign that the quadratic term drives toward zero, the start converges onto the
+saddle-node orbit, and just inside the coexistence region it reaches the weaker orbit; where $u_0$ has the other sign,
+the start escapes to the strongly contracting orbit. The tip is therefore the point of the fold where $u_0$ changes
+sign. At seven points of the continued fold curve, $u_0$ is negative at $\alpha=0.072980$ to $0.073002$, where the
+start converges slowly onto the orbit (its drift fits $u'=u+bu^2$ with $b=56$ to 68), and positive at $\alpha=0.072889$
+to $0.072963$, where it escapes (\repo{tools/hook_tip_check.py}). At eight fold points located between them by
+Newton's method at fixed $\alpha$ (residuals at most $5\times10^{-14}$; \repo{tools/hook_tip_fold_points.py}), $u_0$ is
+nearly linear in $\alpha$ and crosses zero at $\alpha=0.0729655$ (Figure~\ref{fig:hooktip}a). Inside the fold, the
+boundary between the two outcomes approaches this point: at offsets of 2, 1, 0.5, 0.25 and 0.125 grid rows below the
+fold, the last cell that ends on the strongly contracting orbit lies at $\alpha=0.0729627$, 0.0729632, 0.0729637,
+0.0729642 and 0.0729645 (long window, cells $10^{-7}$ apart), and extrapolations with exponents from $1/3$ to $1/2$
+put the boundary's end on the fold at $\alpha=0.0729651$ to $0.0729657$, bracketing the prediction
+(Figure~\ref{fig:hooktip}d). The normal form predicts a tangential contact, the gap between the edges growing
+quadratically along the fold, which corresponds to the exponent $1/2$; these points do not resolve the exponent. In
+the map's window the boundary appears up to $7\times10^{-7}$ farther from the tip, as expected where the saddle's
+unstable multiplier approaches 1 near the fold and the start lingers longer.
+
+(Figure hooktheory caption omitted for length: (a) the tracked edges on the map, (b) distance to the saddle along trajectories, (c) exit time against ln(1/delta), (d) closest approach against delta.)
+
+\paragraph{The tip of the hook.} The two edges meet where the fixed start lands exactly on the saddle-node orbit. At
+a point of the fold, the coordinate $u$ of the merged orbit along its critical direction evolves as $u'=u+bu^2$ to
+leading order (Appendix~\ref{sec:curves}); after its fast transient the fixed start lands at
+$u_0=\ell^\top(x-p_0)/\ell^\top r$, with $r$ and $\ell$ the right and left eigenvectors of the multiplier $+1$ at the
+orbit point $p_0$. Where $u_0$ has the sign that the quadratic term drives toward zero, the start converges onto the
+saddle-node orbit, and just inside the coexistence region it reaches the weaker orbit; where $u_0$ has the other sign,
+the start escapes to the strongly contracting orbit. The tip is therefore the point of the fold where $u_0$ changes
+sign. At seven points of the continued fold curve, $u_0$ is negative at $\alpha=0.072980$ to $0.073002$, where the
+start converges slowly onto the orbit (its drift fits $u'=u+bu^2$ with $b=56$ to 68), and positive at $\alpha=0.072889$
+to $0.072963$, where it escapes (\repo{tools/hook_tip_check.py}). At eight fold points located between them by
+Newton's method at fixed $\alpha$ (residuals at most $5\times10^{-14}$; \repo{tools/hook_tip_fold_points.py}), $u_0$ is
+nearly linear in $\alpha$ and crosses zero at $\alpha=0.0729655$ (Figure~\ref{fig:hooktip}a). Inside the fold, the
+boundary between the two outcomes approaches this point: at offsets of 2, 1, 0.5, 0.25 and 0.125 grid rows below the
+fold, the last cell that ends on the strongly contracting orbit lies at $\alpha=0.0729627$, 0.0729632, 0.0729637,
+0.0729642 and 0.0729645 (long window, cells $10^{-7}$ apart), and extrapolations with exponents from $1/3$ to $1/2$
+put the boundary's end on the fold at $\alpha=0.0729651$ to $0.0729657$, bracketing the prediction
+(Figure~\ref{fig:hooktip}d). The normal form predicts a tangential contact, the gap between the edges growing
+quadratically along the fold, which corresponds to the exponent $1/2$; these points do not resolve the exponent. In
+the map's window the boundary appears up to $7\times10^{-7}$ farther from the tip, as expected where the saddle's
+unstable multiplier approaches 1 near the fold and the start lingers longer.
+
+\caption{The tip of the hook (Qwen2.5-0.5B-Instruct, philosophy direction at layer 12; float64). (a) The fixed
+start's landing coordinate $u_0$ on the saddle-node orbit at points of the kite's fold curve: negative (blue) where
+the start converges onto that orbit, positive (red) where it escapes; squares and inset: fold points located by
+Newton's method at fixed $\alpha$, where $u_0$ crosses zero at $\alpha=0.0729655$ (vertical line, the predicted tip,
+also in (b) and (c)). (b) The largest exponent over the map's window (steps 300 to 600) along rows at fixed offsets
+from the fold curve (negative: beyond the fold, where the weaker orbit does not exist); the strongly contracting orbit
+has exponents of $-0.18$ to $-0.71$ here, the weaker one exponents near $-0.01$; dotted: the threshold $-0.15$ between
+them. (c) The same cells over steps 3000 to 3400: beyond the fold every cell ends on the strongly contracting orbit.
+(d) The boundary between the two outcomes inside the fold (last cell on the strongly contracting side and first on the
+weaker, long window) against the square root of the offset, with a straight-line extrapolation to the fold.}
 
 ## Questions
 1. Symbolic dynamics (as corrected by the audit). Is the coding sound as described: (a) reading L/R from the sign of the twin's six-step scalar
@@ -279,7 +302,7 @@ approach to the saddle against $\delta$; dashed: proportional to $\delta$.}
    multiplier, exit times growing by 25.78 and 25.75 steps per e-fold against 6/ln mu_u = 25.74 over delta from 1e-6
    to 1e-14, closest approach with log-log slopes 0.986 and 0.995, every start ending on its side's orbit, and the
    random start removing the edge) identify the lower edge as the fixed start on the saddle's stable manifold, at
-   one steering strength? Is anything missing (e.g. a check that the exit direction is the unstable eigenvector, or
-   the edge's dependence on the start)? Are the upper-edge offset (0.1 to 1.6 rows above a spline through the
-   continued fold, with an untested finite-horizon explanation) and the untested tip tangency stated at the right
-   strength? Is the normal-form reasoning for the tip (tangential contact, quadratic gap) correct?
+   one steering strength? Is the tip argument sound (the sign change of the landing coordinate u0 at Newton-located
+   fold points, 0.0729655, against the inside boundary's extrapolation, 0.0729651 to 0.0729657), and are the
+   finite-window effects (the upper-edge offset, the map's boundary near the tip) stated at the right strength? Is
+   the normal-form reasoning (u' = u + b u^2, tangential contact, exponent 1/2 unresolved) correct?
