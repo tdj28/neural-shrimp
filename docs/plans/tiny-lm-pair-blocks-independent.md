@@ -1,7 +1,0 @@
-# Independent full-state adjacent-pair replay
-
-Prepared11 October2026. Authenticate the entire128-action producer and both source/inventory levels, fresh cold profile, exact prior parity/mean/response independent authorities. Allfour fixed cases remain consumed development. Use root-authored fsum reductions and exact actual state/vector/action recurrence joins. Independently reproduce full-state U/V traces, transpose/vector/squared identities, CE projections, every derived vector and both separate material/attenuation gates. ReusedP/R/parity/frozen/CE vectors must be byte-identical to independently qualified histories; no producer comparison function is imported.
-
-One CPU1/nice10,120s1GiB RSS2GiB AS8MiB raw2MiB final reserve;135+5owned outer10MiB. Full15776D synthetic fsum/vector profile before target arrays plus four times complete prior independent parity runtime; failed profile stops. Exact source/committed plan and peer review before run. Zero new native calls. Shared original native acquisitions and prior independent baseline arithmetic are explicit; no changed training, forecast or generalization claim.
-
-Admitted after Boundary independent full source/binding/resource review of99257276, five controls2.66s nice10. Root controls2.54s. Exact fixed saved target only; no new native calls.

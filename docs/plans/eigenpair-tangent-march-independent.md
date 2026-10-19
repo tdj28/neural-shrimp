@@ -1,3 +1,0 @@
-# 10 October 2026 — eight tangent-gauge eigenpair charts
-
-Extend independently passed reanchor auditf3dbc278 through the nexttwo complete4-chart units, bound exact parent/source/manifest/model. All470variables, native235D shooting plus eigenvector, primitive divisors, full known endpoint joins. Explicit expectedsettings256bits,halfwidth−7,radius−17; unchanged independent assembly/math. Exact256 and fresh384 reductions. Previous same-dimension8-chart audit97.8s/1.27GiB; retain180sworker195+5external,3GiBRSS4GiBAS,24+1MiBraw,CPU1nice10. No model calls. Clean committed source/card before immutable audits/eigenpair-tangent-march/attempt-001. Normalized+1locus only, not generic fold/complement stability/cusp/full shrimp.

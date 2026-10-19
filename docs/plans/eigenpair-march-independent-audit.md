@@ -1,5 +1,0 @@
-# Independent saved continuation audit — 10 October2026
-
-Continue the passed quadratic-pair audit(ff9f38c0) through exactly two already completed four-chart units. Same independent reducer/assembly code and256 exact/384fresh gates. Hard-pinned outer/run/source identities are in the adapter; require complete no-rebox units only, complete immediate native parent, accepted record/full chart/aggregate equality, all470-coordinate joins, same objective/gauge and all proper-divisor exclusions. No new derivative or model calls. Retain both successful and failed auditor outcomes, no numerical gate changes.
-
-Measured prior pair23.485s: four pairs projected93.94s plus conservative40s source/I/O allowance<180s. CPU1/nice10,180internal195+5external,3GiBRSS/4GiBAS,24MiBoutput. Eight fixed saved charts, no automatic scientific search. Independent trust remains shared native analytic derivatives/pathjets and Arb; no genericity/stability/shrimp theorem from existence alone. Exclusive audits/eigenpair-quadratic-march/attempt-001. Source/card committed before saved arithmetic; same eight strict-boundary/control tests.

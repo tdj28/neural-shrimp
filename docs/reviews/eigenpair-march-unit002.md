@@ -1,9 +1,0 @@
-# Continued neutral-mode locus — unit002
-
-Four more complete-state charts extend the connected normalized period-18 eigenpair locus to output rate approximately0.8216395030 and hidden rate75.51213. Together with the original pair and unit001, ten quadratic charts connect this endpoint to the certified fold. They still do not reach or identify the distant cusp, or establish attraction of the boundary locus.
-
-All four strict470D inclusion, primitive-period and complete endpoint-join gates passed without reboxing. The exact new gauge interval is `[11/32768,19/32768]`, continuing the total interval `[-1/32768,19/32768]`. Numerical midpoint complementary distances to+1 decrease from0.19112 to0.18907, with relative eigenpair residuals below1.37e-16. These are descriptive midpoint checks only.
-
-Execution692943933a061c718bfb8ccdb8d17c8a5c99feb8 used unchanged chain source520447c1 and stable mathematical kernels. Four calls consumed508ticks,77.2366seconds and1,151,964KiB worker peakRSS. The supervisor exited zero in77.6886seconds. All607files/168,283,631bytes are immutable and hash/source-verified; owned1345066/1345090/1345091 are absent. The [receipt](eigenpair-march-unit002.json) contains exact endpoint balls, contraction bounds and all input/source/manifest joins. Independent outcome review remains pending at creation.
-
-A fixed output-rate gauge cannot generically pass through a cusp: the projected rate tangent vanishes there even when the full state/eigenvector tangent remains nonzero. A future reanchor should use a full-state tangent and retain the entire prior root enclosure. The very small output-coordinate correction radius may make conservative projection of the existing endpoint box too wide; any localization or changed gauge requires an explicit source-bound containment step, not a midpoint substitution or weaker gate.

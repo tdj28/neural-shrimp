@@ -1,5 +1,0 @@
-# Wider output-section survey after a sampled near miss
-
-11 October2026. Completed output002 sampled the positive multiplier rising to .9998100565 and then receding. No sampled crossing occurred, and no interval exclusion between samples is asserted. Stop trying to solve a presumed fold/flip there. Continue the same numerical branch from its literal last470 state/mode/rates, using output steps .00025 (ten times the prior step),32 points/240 full evaluations, with unchanged bounded halvings, native primitive/simple-mode/spectrum and470-coordinate reverse guards. The actual crossing and .0001 near+1 stop remain; no guard is relaxed.
-
-All187 completed old evaluations/32 accepted points/31 reverse joins and source/inventory/ownership are retained. Fresh12-return unrelated13D/18phase profile precedes target, same4536inclusive phases240s/3GiB/8GiB AS/256MiB raw and255+5owned supervisor. No new holdout, rigorous extent, genericity, or global-window claim. A subsequent rigorous tube requires its own actual domain and exact-root joins. Card prepared pending independent source review.

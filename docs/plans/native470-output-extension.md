@@ -1,7 +1,0 @@
-# Fixed continuation past the near-positive-multiplier stop
-
-11 October2026 disclosed amendment. Output-section001 completed12 points/11 native470 reverse joins, crossing a numerical hidden-rate turn before stopping at the declared +1-distance0.01. The last positive multiplier is0.9906756281. No simultaneous event was solved.
-
-A sole attempt002 resumes the literal last full470 state/mode/rates. The mathematical equations and every primitive/simple-minus-one/spectrum/local/reverse guard are unchanged. Only the source-default-preserving near-plus stop argument changes from0.01 to0.0001. Any actual noncritical unit crossing still stops immediately. The other critical-gap.01 stop is unchanged. This distinguishes an approaching event from a near miss or later turn without guessing an augmented root beyond the observed route.
-
-Same32point/240return/4536inclusive phase cap and output step0.000025; original twelve full unrelated profile evaluations and exact cost ceilings remain240s3GiB8GiBAS256MiB/255+5s owned. Both full prior failed41 outcomes and all previous genealogy remain mandatory, and all12/11 prior output points/reverse joins are required. Initial output is exactly the previous binary64 output; all470 state/mode/rate comparisons below1e-10. Source review, actual no-array metadata preflight and committed reviewed card precede any target. No automatic subsequent retry or new interval claim.

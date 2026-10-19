@@ -1,9 +1,0 @@
-# Independent complex-left condition diagnostic review
-
-**Pass; no blocking finding.** Source reviewed: `abbd5c108ff6793f02f4ca7557e423ed55fca553`, 2026-10-08 UTC. The [receipt](complex-left-condition-review.json) records exact changed-source hashes and independent checks.
-
-For real M, a Hermitian left vector for eigenvalue lambda satisfies `M.T p = conj(lambda) p`. Matching lambda instead forces its Hermitian overlap with the right vector to vanish for a nonreal simple eigenvalue. The one-line conjugate match is therefore correct; it leaves real-eigenvalue matching and all eigenvalues/closure calculations unchanged. The nonnormal similarity control has condition `(5+1/5)/2 = 2.6`; its analytic and SciPy comparisons are meaningful. All 13 orbit/criticality tests independently pass (3.97 seconds, CPU1/nice10). Existing criticality code already uses the correct adjoint convention.
-
-Independently reconstructed the audit-basis AST inventory: 23 direct calls and four field-string occurrences match. The sole production reader copies the field into a summary; inspected acceptance and stability gates do not use it. Source hashes and both historical input hashes match. Recounted 70 affected complex-dominant rows among 154 saved certificates; all 154 report verified orbits and no top-level error. The producer appropriately retains the possibility of indirect rejection through a shared floating-point exception handler; this audit does not prove such rejection impossible in other attempts.
-
-No historical evidence was recomputed or changed. The correction invalidates those stored sensitivity diagnostics, without supporting a change to the independently computed multipliers, orbit labels, NS coefficients or current manuscript endpoints. Repeated/defective-eigenvalue interpretation remains outside the simple-eigenvalue diagnostic's scope. The producer's impact notice should accompany future use of the historical condition field.

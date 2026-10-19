@@ -1,9 +1,0 @@
-# Independent chart156 saved coverage reduction
-
-2026-10-10, after producer12c8701b. Reuse the independently passing doubled-slice true-Udoubleprime/norm arithmetic and completed eighth reviewa3066b3a. Authenticate fixed producer outere826d904.../workerb073c118... and executionc891f4d6. Seven slices in original descending order, exact interval[11/32,45/128] including the reused[359/1024,45/128]. No new data, derivative, model, eig/SVD/Cholesky/Lyapunov or trajectory.
-
-For each retained161-stage slice, independently reduce its actual235D first/second tangent solves, both actual-rate cross terms, three centered intersections, actual decode/domain/phase joins and all18 norm/complete-P-D gates. Safe public-ball widening is expected for fresh live Jprime, as in the prior review; no equality relaxation affects strict scientific inequalities. Save each passed slice before continuing; first failure stops. Exact rational no-gap coverage and same model/chart join to the independently reviewed eighth are mandatory.
-
-Inherited analytic derivative enclosures and known-root smooth branch/localization remain authenticated shared premises, not freshly replayed. This is an independent-personnel arithmetic review of all eight covered slices, not all187 charts, neutral boundaries or complete shrimp geometry. Code/card/synthetic controls frozen before reduction. CPU1nice10/60sworker80+5external/2GiB/8MiB aggregate, one exclusive /data2/neural-shrimp-data/audits/s2-period18-chart156/attempt-001. Prior single review2.84s; seven sequential small reductions fit conservatively. Preserve failure; no automatic retries.
-
-Producer schema skim confirmed the161-stage and live/public-ball joins. Its one provenance finding was fixed before execution: the original doubled acquisition is authenticated anew before its chart/model input bytes are read; ordering and failure controls enforce this.

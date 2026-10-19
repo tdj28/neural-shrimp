@@ -1,7 +1,0 @@
-# N6 period7 first native continuation
-
-The six fixed traces retain264 accepted edges plus six seed instances, all with primitive7/simple boundary and attracting-complement numerical gates. Four stop at left-mode residuals just above1e-10, while the corrector itself stops at1e-10; no multiplier collision or loss of primitivity caused these stops. The upper-fold negative direction reaches the gain5.5 domain boundary; the positive flip direction reaches its128-edge cap at(g,delta)=(11.8125853,.534376389). The finite geometry remains compatible with an extended tongue. No U-turn/cusp or distinct crossing flip arms is established.
-
-The worker completed in2.2815s with1533 family calls. The outer launcher nevertheless exits2: its final manifest projects1,242,490B of nonworker evidence, exceeding the declared1MiB allowance. All8574 inventoried files, hashes, read-only modes and both process exits were checked. This accounting failure is preserved; no scientific rerun repairs it. Future units may disclose a larger metadata allowance.
-
-A useful bounded adaptation is to finish only the four residual-stopped traces from their last accepted endpoints with tighter1e-12 augmented correction and unchanged native/left-mode gates, original domain and remaining original edge budgets. That would remove a solver stopping mismatch without changing the biological-map target or promoting the failed nodes. All geometry remains numerical and discrete-map-specific; no rigorous shrimp, chaos or utility claim.

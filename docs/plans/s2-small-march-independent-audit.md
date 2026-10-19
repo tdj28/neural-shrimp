@@ -1,5 +1,0 @@
-# Audit the156-chart qualified primitive prefix — 10 October2026
-
-From independently replayed144endpoint localization at exact33/128, audit the first smaller chart, reproduce the failed second, audit its saved fresh-domain repair, then all ten subsequent qualified charts and four retained rebox initial failures; reproduce terminal initial010root failure. Fixed source/outer/worker hashes in adapter; original map/gauge/native235D coordinates and every predecessor endpoint identical. Unchanged independent A/RB reducers at256exact and384fresh; every proper divisor and full anchor included. Failed boxes never advance the chain. Partial batch has no aggregate file and remains a failed attempt.
-
-Saved-only120s internal135+5external,CPU1nice10,1.5GiBmonitoredRSS,24MiBoutput. Earlier15chart review was comfortably within120s; this12chart prefix plus6failed reductions fits the same conservative allocation. No model/derivative calls or independent analytic jets. Exclusive audits/s2-period18-small-march/attempt-001. Freeze source/card first; existing32reducer controls. No full-branch attraction/fold identity/whole shrimp implication.

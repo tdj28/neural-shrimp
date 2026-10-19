@@ -1,7 +1,0 @@
-# Fresh weighted half-width705 connection —10 October2026
-
-The saved failed253call attempt002 is retained. Its independently source-reviewed zero-native diagnosis passed4.114s/1.17GiB: numerical absolute-defect spectral proposal.901589 while old weighted norm5.35855; positive resolvent radii are.0162–.3411 of old radii. This supports better weighting plus a smaller domain, not retroactive acceptance.
-
-One fresh attempt003 uses the same audited704 endpoint/full705 projected anchor and unchanged gauge. Arc center31/4096, halfwidth2^-7 gives[-1/4096,63/4096]. Fixed radius2^-10 and exactdyadic weights4096 times each saved positive resolvent radius produce actual radii4r. Every model/path/Jacobian proof acquisition is fresh; full705 root, anchor, primitive18/frame and positive whole t gates unchanged. Same immutable profile sources/settings/libraries are mandatory; original completed705 cost48.379s/1.70GiB/152MB also fits fixed240s/6GiB RSS/10GiBAS/768MiB,owned255+5,253ticks,CPU1nice10. No automatic subsequent unit or retries.
-
-The prior profile forecast storage42MB was below the actual152MB, so measured actual acquisition now supplies the relevant conservative storage forecast2*152MB+8MB below768MiB. Time forecast2*48.379+20<240 and RAM2*1785356KiB+128MiB<6GiB. This is a disclosed geometry/weight adaptation and full new-domain evaluation. Complement/criticality/junction connection remain separate.

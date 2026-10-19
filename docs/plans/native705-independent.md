@@ -1,7 +1,0 @@
-# Independent full705 curve arithmetic
-
-One fixed source-bound saved-only384-bit reduction of producer b03d990f attempt003. Rebuild all native equations, angle derivative and affine gauge from authenticated saved direction arrays. Rebuild cubic predictor residual using separate four-coefficient convolution and degree26 entire-series derivative sums with geometric remainder; do not call producer PathJet, model, proposal or proof functions. Retain every full coordinate, physical rate, proper divisor and frame check. Shared acquired analytic derivative arrays and Arb remain explicit trust dependencies.
-
-This first audit establishes uniform primitive positive-angle unit-pair roots on the exact proposed interval. It rechecks the original coarse anchor and reports connected=false if membership fails. A separately proved tighter anchor is required to connect the chart to the existing certified branch; no proximity or zero containment substitutes for that join. No complement/criticality or global window theorem follows from this unit alone.
-
-CPU1nice10,240s worker/260+5s outer,4GiB groupRSS/8GiBAS,64MiB outputs+1MiB log,8GiB available headroom. Previous measured full705 production48.48s/1.7GiB and saved704 localization20.12s/1.49MKiB establish suitable local capacity for this one bounded saved reduction; no native target call. All failed reductions retained. Four synthetic controls include literal PathJet serialization and rejected mismatched derivative domains. Source review and committed card before target.

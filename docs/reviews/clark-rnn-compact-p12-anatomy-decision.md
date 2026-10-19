@@ -1,7 +1,0 @@
-# N4/28172 period12: finite anatomy remains unresolved
-
-The predeclared envelope now has 811 distinct accepted boundary nodes (814 rows including shared seeds/endpoints): 348fold and463flip. The associated fold reaches the gain5.6 edge in one direction, and a tangent-rank guard near gain2.9508 in the other as primitive6 separation shrinks. The flip branches reach the gain5.6 edge or a guard after a strongly nonattracting segment. Both complete failures and original unresolved root associations remain retained.
-
-The combined saved geometry has a broad fold arm and a folded flip locus with a projected self-crossing. No internal fold cusp or common orbit at that projected crossing is established. In particular c changes from +387.75 to -77.15 where another multiplier passes near+1; that pole-like sign change is not a bracket for a cusp. At the low-g endpoint the native12 divisor6 separation is still positive but shrinking, so neither a true12 fold termination nor a6-cycle bifurcation is established. These are numerical indications of a doubled tongue or more complicated organization, not a verified classical shrimp or proof of absence.
-
-Stop further envelope expansion for this candidate for now. The independently predeclared next compact alternative in the same retained census is N4/28175component24,p14. Its refinement changes the fixed matrix, not the acceptance gates. Preserve this p12 record as an unresolved/negative anatomy result. No interval certificates are added merely to increase counts.

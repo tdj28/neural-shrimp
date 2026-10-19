@@ -1,9 +1,0 @@
-# Independent saved-arithmetic norm-cocycle review
-
-**Pass**, source 066a2037, one audit in 2.719 s (2.917 s including launcher), 458,240 KiB worker peak. The full closed gauge slice [719/2048,45/128] and its centered quarter [5755/16384,5757/16384] retain strict attraction witnesses. This is a post-outcome independent review, not a prospective experiment.
-
-All complete input inventories and historical source bytes were authenticated, with the same model, inherited chart, gauge and actual decoded root/tangent inputs. The separately written saved 235D Neumann reduction exactly reproduced q=0.2405723298 and all three derivative intersections. Every one of the 36 phase operator bounds and both complete metric inequalities then passed independently written Arb arithmetic, using saved exact frame/gamma/congruence/P proposals. No model, derivative, SVD, eigenproblem, Cholesky or Lyapunov solve was run.
-
-The full remainder is <0.014088640, with scalar quadratic penalty <0.491429801; the quarter values are <0.003618566 and <0.125481466. The final complete-D congruence margins are >0.98874494 and >0.99836393. The unchanged center-root error and all polynomial/remainder cross terms were included. The JSON companion retains exact dyadic bounds and manifest identities.
-
-This independently checks the saved arithmetic and bindings. Prior chart existence, primitive-period/branch identity, known-root localization and analytic derivative enclosures remain source-bound shared premises; Arb is also shared. The result covers only these two inherited primitive-root slices. It proves neither whole-branch attraction nor a neutral endpoint, full shrimp geometry or utility. The separately retained doubled-width failure is outside this review. All audit files are immutable and all three owned PIDs have exited.

@@ -1,5 +1,0 @@
-# CIFAR400 saved arithmetic review — 10 October 2026
-
-Parent requested independent post-outcome reductions before the smaller-alpha trial unit. The exact 400-space attempt002 and launcher manifests are pinned in the checker; source bcba5eea. Independently use scalar math.fsum norms/dots, exact native byte differences, first200 callback and full event/counter joins. Recompute forcing, descent, four original-state trial merit/Armijo/closure/separation screens. No model/derivative/JVP/GMRES/solve/trajectory. Shared saved Ap/map values are assumed; this is not an independent derivative verification. Retain prior failed attempt001.
-
-One saved audit, CPU/BLAS1 nice10, internal15s/external20+5s,1MiB output. Exclusive /data2/neural-shrimp-data/audits/cifar400-saved/attempt-001. Source and card committed before execution. Output read-only with exact checker/source/producer identities. Following adaptation is fixed nine smaller alphas2^-4...2^-12, reusing the same saved direction; separate source/card/root review before target. All nine retained regardless of success, no GMRES rerun.
