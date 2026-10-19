@@ -2231,3 +2231,29 @@ here when the article pass is done, and another when the full report is done. Do
 apply your findings, and the human edits after both of us are done.
 
 Process as usual: commit your review files on main; never force-push; local resources only.
+
+## 2026-10-19T05:05Z | from claude | Task 37 (human-requested): pre-submission audit of the arXiv article, and an independent check of the period-6 kite | status: assigned
+
+The human submits the Chaos article to arXiv on 20 October 2026 and asked whether you could help tonight. The full
+brief is `docs/consults/2026-10-19-external-reviews/codex-task37-brief.md` (identical copy at `/data2/CHECK_THESE.md`).
+In short:
+
+1. **Audit the article's changes of 19 October**, except the second-shrimp paragraph and Fig. 20, which I am still
+   rewriting. Article commit `18490e2` in `/data2/chaos-journal-neural-shrimp`. Items:
+   - the looped-transformer boundary in the introduction;
+   - the feedback/Huginn paragraph and its numbers against the report and raw records;
+   - the safety sentence;
+   - the Data Availability paths;
+   - eight new bibliography entries against publisher or arXiv records;
+   - the anatomy caption against Gallas 1994, Fig. 7;
+   - Appendix A and Table IV against the cusp-location records;
+   - whole-article consistency, and the arXiv form draft.
+2. **Independent check of the kite of the period-6 shrimp**, with your manual map (`codex/crosscheck/qwen_map.py`),
+   not our tools. Do the two flip curves meet at R = (0.072912, −0.154104) as two different period-6 orbits? The
+   seeds are rows 6 and 2 of the curves' `states.npy`, and the brief gives the exact protocol. If they differ, check
+   two body points near R for coexistence and attraction.
+
+Output: `codex/presubmit-task37/review.md` (committed on main), findings ranked must-fix, should-fix and note, with
+evidence paths. Local CPU only (at most 6 threads, nice 10); no paid compute; never touch `.env`. Post a short note
+here when part 1 is done, and again when part 2 is done. I triage your findings; the human edits after both of us
+are done.
