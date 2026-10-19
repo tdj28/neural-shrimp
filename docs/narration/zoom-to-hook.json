@@ -1,0 +1,53 @@
+{
+ "video": "../neural-shrimp-data/videos/zoom-to-hook.mp4",
+ "out": "../neural-shrimp-data/videos/zoom-to-hook-narrated.mp4",
+ "model": "gpt-4o-mini-tts",
+ "voice": "sage",
+ "instructions": "Calm, warm science-documentary narrator. Unhurried, with a sense of wonder, clear articulation, a brief pause between sentences.",
+ "gap": 0.7,
+ "tail": 1.5,
+ "pack": false,
+ "lines": [
+  {
+   "at": 2.2,
+   "text": "This is a map of chaos in a language model that is fed its own output. At every step, a blend of the words it expects next, weighted by their probabilities, becomes its next input."
+  },
+  {
+   "at": 2.5,
+   "text": "Each point is one setting of two knobs: how strongly the model's internal state is steered along a philosophy direction, and the sampling temperature."
+  },
+  {
+   "at": 2.9,
+   "text": "Color marks chaos: a positive Lyapunov exponent, the standard test, meaning that two nearly identical states drift apart exponentially fast. Gray marks a repeating cycle; the darker the gray, the more strongly the loop is pulled into it."
+  },
+  {
+   "at": 24.4,
+   "text": "Inside the chaos lie windows of order. We are heading into one where the loop repeats every six steps."
+  },
+  {
+   "at": 31.4,
+   "hold": 5.5,
+   "text": "This window is a shrimp, a shape known from simple chaotic systems, with a body, legs and a head. The physicist Jason Gallas gave it its name."
+  },
+  {
+   "at": 45.0,
+   "text": "At the lower end of the body lies a kite, where two different cycles both attract. Which one the loop settles on depends on where it starts."
+  },
+  {
+   "at": 57.5,
+   "text": "Inside the kite is the hook: a sharp edge where the loop, always started from the same state, switches from one cycle to the other."
+  },
+  {
+   "at": 64.0,
+   "text": "It is not a bifurcation: both cycles exist and attract on both sides. The edge is where the boundary between their basins of attraction crosses the starting state."
+  },
+  {
+   "at": 64.5,
+   "text": "Below it lie striations: tongues in which neighboring settings lead to different cycles, alternating from cell to cell."
+  },
+  {
+   "at": 65.0,
+   "text": "We have zoomed in about a hundred and eighty times in each direction, and every cell is a separate double-precision computation of the model."
+  }
+ ]
+}
