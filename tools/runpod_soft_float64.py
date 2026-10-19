@@ -36,7 +36,7 @@ UPLOAD_PATHS = ("tools/explore_llm_soft_loop.py", "tools/explore_llm_attractors.
                 "docs/nb-cells.json", "docs/nb-cells-cross-a.json", "docs/nb-cells-cross-b.json", "tools/bound_hierarchy.py", "docs/bh/bh-cells.json", "tools/attractor_portrait.py", "tools/unstable_manifold.py", "tools/lyap_spectrum.py", "tools/basin_slice.py", "tools/attractor_sweep.py",
                 "docs/lt-cells.json",
                 "tools/prefix_transition.py", "tools/soft_thinking_twins.py", "docs/st72-cells-p3.json",
-                "tools/lyapunov_spectrum.py", "docs/tc-spectrum-cells.json", "docs/ky-cells-philosophy.json", "docs/ky-cells-hostility.json", "tools/cusp_locate.py", "tools/repro_reset.py", "docs/rr-problems.json", "tools/window_census.py", "tools/window_closure.py", "docs/oc", "docs/cl", "docs/wp-line-cells.json", "docs/fl15-line-cells.json", "docs/fl7-line-cells.json",
+                "tools/lyapunov_spectrum.py", "docs/tc-spectrum-cells.json", "docs/ky-cells-philosophy.json", "docs/ky-cells-hostility.json", "tools/cusp_locate.py", "tools/locate_curve_candidates.py", "tools/repro_reset.py", "docs/rr-problems.json", "tools/window_census.py", "tools/window_closure.py", "docs/oc", "docs/cl", "docs/wp-line-cells.json", "docs/fl15-line-cells.json", "docs/fl7-line-cells.json",
                 "pyproject.toml")
 DATA_PATHS = ("explore/llm-phase-map/vectors-l12", "explore/llm-soft-loop/branch-p8-a0.0717-up2",
               "explore/llm-soft-loop/branch-p8-a0.0717-down", "explore/llm-soft-loop/branch-p2-t-0.115-alpha-up")

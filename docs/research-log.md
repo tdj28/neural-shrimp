@@ -30606,3 +30606,26 @@ docs/consults/2026-10-19-external-reviews/triage.md).
   multiplier. The differences at the chaotic cells, 0.015 and 0.005 at 300 steps, are within the spread of 300-step
   estimates (median 0.020 against 2000 steps in the label audit). The chaos is a property of the model's soft-token
   map, not of our harness. Article sentence added in its "Accuracy of the labels" paragraph.
+
+### 2026-10-19 03:48 UTC: P6S-wide results: the top body's own fold curve turns twice where its upper-left leg ends; run card P6S-cusp2
+
+- **P6S-wide-P** (pod heobb6425csplx) and **P6S-wide-M** (pod vc900xg5a3abq4): both rc 0 and terminated 03:47 UTC,
+  both stopped by the 80-minute job limit. curve.json and states.npy are written only at the end, so the points were
+  read from progress.jsonl (all retained).
+  - wide-P: 118 points, all accepted. Residual at most 9.9e-11, |g| at most 1.3e-10, multiplier +1 within 1.2e-7,
+    real.
+    - The upper fold branch of the body runs up-left to (0.0709, -0.1473), then down-left.
+    - It has two tangent reversals close together: at (0.067877, -0.151310), index 64, and (0.068204, -0.150333),
+      index 82. Between them lies a shared segment, the dovetail configuration of the period-5 window's upper-leg
+      junction.
+    - It then continues to (0.0669, -0.1537).
+  - wide-M: 119 accepted points of 120. Residual at most 9.8e-11, multiplier +1 within 2.9e-7. It runs down the body's
+    right edge to the lower window's located cusp (index 35), then back out along the lower-left leg to (0.0668,
+    -0.1567), with no further reversal.
+- **Reading.** The two reversals at the end of the upper-left leg are the top shrimp's own cusp candidates, on its
+  own fold curve.
+- **Run card P6S-cusp2.** Two H100-class pods, toolseq.
+  - Each re-traces wide-P with 95 steps, so that curve.json and states.npy are written.
+  - Then each runs tools/locate_curve_candidates.py (new): the cusp test of tools/cusp_locate.py on one candidate,
+    selected with --near.
+  - Each is called a located cusp only if all checks pass.
