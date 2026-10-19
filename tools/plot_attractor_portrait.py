@@ -74,6 +74,8 @@ def main():
     ap.add_argument("--out", required=True)
     ap.add_argument("--json")
     ap.add_argument("--ky", type=float, default=None, help="Kaplan-Yorke dimension of the cell, drawn for comparison")
+    ap.add_argument("--layout", choices=("grid", "row"), default="grid",
+                    help="grid: all six panels; row: (a) the projection, (b) the first zoom and (c) the band with the manifold")
     args = ap.parse_args()
     import matplotlib
     matplotlib.use("Agg")
@@ -94,8 +96,9 @@ def main():
     colors = np.full(len(toks), 9)
     for k, t in enumerate(top):
         colors[toks == t] = k
-    fig = plt.figure(figsize=(17, 10.5), dpi=170)
-    gs = fig.add_gridspec(2, 3)
+    row = args.layout == "row"
+    fig = plt.figure(figsize=(12, 3.95) if row else (17, 10.5), dpi=240 if row else 170)   # row: larger print lettering
+    gs = fig.add_gridspec(1, 3) if row else fig.add_gridspec(2, 3)
     ax = fig.add_subplot(gs[0, 0])
     ax.scatter(P[:, 0], P[:, 1], s=0.15, c=[cmap(c) for c in colors], alpha=0.6, linewidths=0, rasterized=True)
     for k, t in enumerate(top):
@@ -104,11 +107,15 @@ def main():
     lo1, hi1, c1 = zoom_box(P[:, :2], 0.08)
     ax.add_patch(plt.Rectangle(lo1, *(hi1 - lo1), fill=False, ec="k", lw=0.8))
     a = rec["args"]
-    ax.set_title(f"(a) projection of the attractor at $\\alpha={a['alpha']}$, $\\log_{{10}}T={a['log_t']}$ ({len(P):,} states)",
-                 fontsize=9)
+    if row:
+        ax.set_title(f"(a) the attractor at $\\alpha={a['alpha']}$, $\\log_{{10}}T={a['log_t']}$", fontsize=9)
+    else:
+        ax.set_title(f"(a) projection of the attractor at $\\alpha={a['alpha']}$, $\\log_{{10}}T={a['log_t']}$ ({len(P):,} states)",
+                     fontsize=9)
     ax.set_xlabel("first principal coordinate")
     ax.set_ylabel("second principal coordinate")
-    for col, (frac, label) in enumerate(((0.08, "(b) zoom"), (0.008, "(c) zoom, ten times closer"))):
+    zooms = ((0.08, "(b) zoom"),) if row else ((0.08, "(b) zoom"), (0.008, "(c) zoom, ten times closer"))
+    for col, (frac, label) in enumerate(zooms):
         axz = fig.add_subplot(gs[0, col + 1])
         lo, hi, cc = zoom_box(P[:, :2], frac, c1)
         m = np.all((P[:, :2] >= lo) & (P[:, :2] <= hi), axis=1)
@@ -117,16 +124,17 @@ def main():
         axz.set_ylim(lo[1], hi[1])
         axz.set_title(f"{label} ({int(m.sum()):,} states)", fontsize=9)
         axz.ticklabel_format(useOffset=False, style="sci", scilimits=(-3, 3))
-        if col == 0:
+        if col == 0 and not row:
             lo2, hi2, _ = zoom_box(P[:, :2], 0.008, c1)
             axz.add_patch(plt.Rectangle(lo2, *(hi2 - lo2), fill=False, ec="k", lw=0.8))
-    ax = fig.add_subplot(gs[1, 0])
+    ax = fig.add_subplot(gs[1, 0]) if not row else None
     s = C[:, :, 0]
-    ax.scatter(s[:, :-1].ravel(), s[:, 1:].ravel(), s=0.15, c="k", alpha=0.4, linewidths=0, rasterized=True)
-    ax.set_xlabel("$s_n$ (first principal coordinate)")
-    ax.set_ylabel("$s_{n+1}$")
-    ax.set_title("(d) lag-one plot of the first principal coordinate", fontsize=9)
-    ax = fig.add_subplot(gs[1, 1])
+    if not row:
+        ax.scatter(s[:, :-1].ravel(), s[:, 1:].ravel(), s=0.15, c="k", alpha=0.4, linewidths=0, rasterized=True)
+        ax.set_xlabel("$s_n$ (first principal coordinate)")
+        ax.set_ylabel("$s_{n+1}$")
+        ax.set_title("(d) lag-one plot of the first principal coordinate", fontsize=9)
+    ax = fig.add_subplot(gs[1, 1]) if not row else plt.figure().add_subplot()   # row: for the summary only, not saved
     rng = np.random.default_rng(0)
     r, Cr, slope, best = corr_dim(P[:, :8], rng)
     ax.semilogx(r, slope, "o-", ms=3, color="k", label="local slope $d\\log C/d\\log r$")
@@ -152,7 +160,7 @@ def main():
     if args.second:
         z2, rec2 = load(args.second)
         P2 = z2["coords"][z2["periods"] == 0].reshape(-1, z2["coords"].shape[-1])
-        ax = fig.add_subplot(gs[1, 2])
+        ax = fig.add_subplot(gs[0, 2] if row else gs[1, 2])
         a2 = rec2["args"]
         if args.manifold:                            # zoom onto the band that the computed manifold covers
             M = np.load(DATA / "explore" / args.manifold / "manifold.npz")["proj"]
@@ -166,8 +174,12 @@ def main():
             ax.set_xlim(lo[0] - pad, hi[0] + pad)
             ax.set_ylim(lo[1] - pad, hi[1] + pad)
             ax.legend(fontsize=7, markerscale=6, loc="lower right")
-            ax.set_title(f"(f) a band of the chaos past the cascade ($\\alpha={a2['alpha']}$) and sampled\n"
-                         "points of the unstable manifold of its period-3 saddle", fontsize=9)
+            if row:
+                ax.set_title(f"(c) a band past the cascade ($\\alpha={a2['alpha']}$)\n"
+                             "and the unstable manifold of its period-3 saddle", fontsize=9)
+            else:
+                ax.set_title(f"(f) a band of the chaos past the cascade ($\\alpha={a2['alpha']}$) and sampled\n"
+                             "points of the unstable manifold of its period-3 saddle", fontsize=9)
         else:
             ax.scatter(P2[:, 0], P2[:, 1], s=0.15, c="tab:purple", alpha=0.5, linewidths=0, rasterized=True)
             ax.set_title(f"(f) banded chaos past a cascade: $\\alpha={a2['alpha']}$", fontsize=9)
