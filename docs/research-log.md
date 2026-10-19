@@ -30309,3 +30309,32 @@ logs, whose times are clock times.
   - The body's upper-left edge follows the gated flip curve, with period 12 beyond it (boundary gate to be scored
     when the fold curves are in).
 - **Still running:** P6S-TU, TD and AU, the temperature branches and the alpha-up branch with their curves.
+
+### 2026-10-19 01:46 UTC: P6S partial results 2 (TD, TU) and run card P6S-cusp
+
+- **P6S-TD** (pod c24yi2n4v5z4kv; rc 0; terminated). Along log10 T downward at alpha 0.073097, the branch crosses:
+  - a real -1 between log10 T -0.153754 and -0.153907 (multiplier beyond -1.205, next modulus 0.0035);
+  - a real -1 back between -0.160064 and -0.160074 (beyond -1.077, next 0.0028);
+  - a real +1 (fold) at -0.160117 (beyond 1.0109, next 0.0015).
+  The first flip was continued both ways: 99 + 56 accepted points (one step each was rejected by step control and is
+  excluded). Residual at most 1.0e-10, |g| at most 9.9e-10, multiplier -1 within 9.4e-8, real.
+  - This flip curve is a hairpin. It runs along the lower side of the upper-left leg, the bottom of the body and
+    the right side of the neck, then back along the upper side of the lower leg.
+  - Two tangent reversals of this flip curve near alpha 0.0686-0.0690 lie outside the zoom; they are not typed.
+- **P6S-TU** (pod m8bhfnr351xcm7; rc 0; terminated). Along log10 T upward the orbit dies in a fold between -0.151145
+  and -0.151143 (multiplier beyond 1.1514, next modulus 0.005).
+  - The fold curve was continued both ways: 60 + 96 accepted points. Residual at most 9.6e-11, |g| at most 9.9e-10,
+    multiplier +1 within 6.6e-8, real.
+  - It bounds the body's upper right side. It has one tangent reversal, a cusp candidate, at (0.074839,
+    -0.159596), between curve points 34 and 35, where the legs meet. It then returns along the second leg.
+- **Boundary gate so far** (tools/plot_p6_shrimp.py, follow grid steps):
+  - period 6 next to period 12: 388 of 916 pairs within two steps of a flip curve;
+  - period 6 next to lost: 490 of 1888 within two steps of a fold curve.
+  The gate passes along the body. The far parts of the legs are not yet bounded by traced curves: the alpha-up
+  pod is still running, and leg-seeded curves would be needed beyond that.
+- **Run card P6S-cusp** (exploratory). Locate and check the cusp candidate with tools/cusp_locate.py, the same cusp
+  test the four period-5 cusps passed: b sign a reduced across the bracket, c != 0, det J != 0, and a simple critical
+  multiplier.
+  - Input: the TU fold curve, uploaded with --extra-data.
+  - One H100-class pod, job set toolseq, 50 minutes.
+  - It is called a located cusp only if every check passes; otherwise it stays a candidate.
