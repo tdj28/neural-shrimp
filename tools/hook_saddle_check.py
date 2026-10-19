@@ -33,6 +33,7 @@ def main():
     ap.add_argument("--bisections", type=int, default=34)
     ap.add_argument("--chunk", type=int, default=128)
     ap.add_argument("--threads", type=int, default=8)
+    ap.add_argument("--device", default="cpu")
     ap.add_argument("--out", required=True)
     args = ap.parse_args()
 
@@ -40,7 +41,7 @@ def main():
     import explore_llm_phase_map as elpm
     import explore_llm_soft_loop as esl
 
-    loop = esl.SoftLoop("qwen0.5b", 12, args.threads, "open", ela.OPENER, 1, "float64", "cpu")
+    loop = esl.SoftLoop("qwen0.5b", 12, args.threads, "open", ela.OPENER, 1, "float64", args.device)
     v = np.asarray(elpm.load_vectors("llm-phase-map/vectors-l12")["philosophy"], dtype=np.float64)
     a = args.alpha
     tic = time.perf_counter()
@@ -95,7 +96,7 @@ def main():
     k0 = int(np.argmin(np.where(far, ret6, np.inf)))                  # most nearly 6-periodic state away from S and W
     orb = orbit_at(lo)
     import torch
-    X0 = torch.as_tensor(tr[k0].reshape(1, 1, -1), dtype=loop.state_dtype)
+    X0 = torch.as_tensor(tr[k0].reshape(1, 1, -1), dtype=loop.state_dtype, device=loop.device)
     Xs, hist, vals, pts = orb.newton(X0, 6, 1e-11, 14)
     saddle = np.stack([p.reshape(-1).double().cpu().numpy() for p in pts])
     mods = np.abs(vals)
