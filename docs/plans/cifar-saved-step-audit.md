@@ -1,3 +1,0 @@
-# Independent saved CIFAR step audit
-
-Recompute the fixed retained1600MINRES direction and all five residual-merit trials using scalar math.fsum dot products, exact saved updates, original parent/action bytes, complete source/inventory/operation bindings. Confirm the first accepted alpha1/16 and unchanged failed0.5Newton forcing/1e-8orbit gates. Reuse only the earlier independent merit formulas, never producer trial/solver code. No native acquisition or decomposition.30s/448MiB RSS/1GiBAS worker,40+5s owned launcher,2MiB worker+1MiB launcher,CPU1nice10; fixed exclusive attempt001. Four direction tests plus existing merit-rejection controls and independent source review before execution. No paid or protected data.

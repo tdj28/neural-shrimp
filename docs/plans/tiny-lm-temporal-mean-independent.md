@@ -1,9 +1,0 @@
-# Independent saved temporal-mean LM replay
-
-Source prepared; no acquisition or protected data. Root independently authors all-call association, mean fsum recurrence, FD/CE/vector reductions, exact control GD and literal original direction preservation. Existing independent inventory primitives and already audited original response/snapshot evidence are shared explicitly. No producer math import or model/Torch import.
-
-All1308 original input/return pairs must be exhausted in their exact order with actual15776D state/direction arrays and authenticated content-addressed objects. Recheck full manifests, archived source, consumed training data, profile cold-cost900s amendment and owners. Four cases and12rows, unchanged1%qualification and fixed20%/tenfold descriptive criterion. Local mean-step fsum discrepancies must fit a coordinatewise64epsilon sum/multiply/subtract envelope; scalar reductions use2e−11 relative/1e−12 absolute tolerance. These floating-point agreement checks are not interval certificates.
-
-CPU1nice10,120s worker/135s supervisor+5grace,1GiB worker RSS/2GiB AS,256MiB supervisor,8MiB worker including2MiB closing reserve/10MiB outer. Measure a full15776D,16action fsum step before target arrays;200fold cost plus30s must fit120s. Exclusive attempt001 path; retain failures without overwriting. Independent source review plus unrelated recurrence/association/measurement controls and metadata-only source/inventory check precede launch. Negative mean sufficiency neither proves ordering effects nor invalidates temporal dependence. No utility or shrimp inference.
-
-Admitted after Boundary independently reviewed complete027f1168 source and reproduced all5controls1.48s, including actual metadata with arrays unopened. Root5controls1.67s. One attempt only under the stated unchanged caps and full-size forecast.

@@ -1,7 +1,0 @@
-# Qualification before a new large-network corrector
-
-10 October2026 exploratory fixed development-state unit. Qualify the actual transpose action of the98666-dimensional scalar-GD period2 residual, with512 consumed training examples and unchanged exact map. Three fixed sine/cosine vector pairs test <v,Au>=<A^Tv,u> at Cauchy-scaled error<=5e-11; all input/action arrays retained. The map replays byte-identically at both phases; original parent forcing/Armijo/primitivity is rechecked. This is operator qualification, not an orbit or correction.
-
-Before target arrays, two unrelated full-size synthetic forward/adjoint pairs measure cost and validate the noncommuting phase-order identity. Twice projected three-pair/two-gradient time plus8s must fit30s. CPU1nice10;30s worker,45+5s owned external supervisor,2GiB sampled memory,31MiB worker+1MiB supervisor. Total5forward+5adjoint=20HVP and2direct gradients, no finite-difference extra modelcalls. Existing source/library/data hashes retained; no subsetB or language assessment. All failures retained, exact manifests and owned termination mandatory.
-
-Next distinct algorithm uses actual A and A^T in a residual-merit regularized least-squares/trust-region step. Such a step is judged by predicted-versus-actual residual decrease; it is not called an inexact Newton solve unless the old forcing test passes. Orbit closure1e-8 and native primitive separation1e-7 remain unchanged. No corrective step is authorized by passing this operator gate alone; record its separately measured card first.

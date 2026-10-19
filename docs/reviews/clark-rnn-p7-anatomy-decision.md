@@ -1,7 +1,0 @@
-# Period7 anatomy decision (exploratory)
-
-The fixed four-neuron RNN supports stable primitive period7 activity, but the retained geometry does not establish a classical shrimp. The two fold branches remain open tongue-like arms. Four short flip traces from two separately localized fold–flip roots repeatedly occupy the same tiny projected envelope. We have not resolved two crossing flip arms or a cusp organizing a closed shrimp body.
-
-The saved-only overlay and full-cycle comparison are bound by `clark-rnn-p7-geometry-review.json`. Phase/odd-sign nearest sampled returns range from about 0.00039 to 0.0037; these are approximate returns at different parameter points, not exact orbit identity or curve closure. The two fold–flip candidates remain numerical, and this later continuation has not yet received an independent saved-array review.
-
-Stop extending this family for now. The p5 family already supplied an independently reviewed exact native activity-cycle certificate and a producer-passed local fold. More local certificates would not repair the missing morphology. The next useful search is a finite, disclosed new-matrix N4 panel, followed by full-state qualification and anatomy on an interior component if one exists. All original failures, finite trace stops and negative anatomy findings remain. No global absence claim, training benefit, continuous-time result or novelty claim follows.

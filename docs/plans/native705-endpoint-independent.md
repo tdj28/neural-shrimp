@@ -1,5 +1,0 @@
-# Independent same-root704 to705 connection
-
-Fixed saved-only480-bit replay of endpoint-localization/attempt001 and independent705 attempt001. Rebuild final704 endpoint residual from the last36 authenticated native direction returns, and the entire old704 Jacobian from its36 whole-domain direction returns. The prior independent704 proof supplies exact same-root existence at t=1/32768. Independently recompute weighted Neumann enclosure and three componentwise fixed-point intersections, checking the original acquired mean-value domain with exact rational endpoints. Test the resulting all705 coordinates in the unchanged separately independently proved curved uniqueness tube using the full projected gauge. No midpoint proximity or zero-containing residual is used as a connection theorem.
-
-Fixed240s worker/260+5s outer,4GiBgroupRSS/8GiBAS,64MiBraw+1MiBlog,CPU1nice10,8GiBheadroom; previous analogous saved70515.34s/1.403MKiB and endpoint producer20.59s/1.556MKiB. Zero native calls. Source review and committed card before one immutable attempt001. No new interval, complement or whole-window theorem is claimed beyond the exact joined interval.

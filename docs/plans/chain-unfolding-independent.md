@@ -1,5 +1,0 @@
-# Independent saved 1:1 unfolding reduction
-
-10 October2026. Authenticate complete immutable prior independent41D root/primitive/11D spectrum audit and exact saved unfolding execution. Reassemble all coefficient and actual-rate-rank contractions at512bits using a single primal bordered inverse, transposed for dual vectors. Unlike the producer this avoids separate adjoint inversion; same Arb and saved native MixedJet enclosures. Known sheared and parameter-shifted polynomial maps supply exact coefficient controls; three degeneracies must fail. All target signs remain strict; no midpoint choices, no new native evaluations.
-
-Pinned producer0.689s/53452KiB provides measured representative cost; saved audit allowance30s CPU1nice10,1GiB hard address space, external35s TERM+5s KILL,10MiBraw. One exact target; preserve incomplete attempts. Prior native root/Jacobian/spectrum identity and producer interval containment are checked before arithmetic. Complete proof of full boundary membership remains assigned to another independent checker.

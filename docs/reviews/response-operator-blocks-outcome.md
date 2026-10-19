@@ -1,7 +1,0 @@
-# Operator-only four-period blocks: negative matched-cost result
-
-The fixed eight-inner-CG/flexible-GCR bridge fails both accuracy endpoints. At the complete old CG300 phase-action budgets, p10 uses96,480 actions with true normal relative residual.02795475 and response-column error.26035788; p18 uses173,664 actions with residual.00490343 and error.24179009. Both stop by the action budget, after32/34 accepted outer steps. Every setup/inner/outer/terminal action is charged.
-
-The lossless second profile admitted the fixed pair; collection completed in19.6062s (20.1583s external),61,192KiB worker peak,9,247 retained events. All9,264 inventory files, byte hashes/read-only modes and owned process exits were checked. A separately written producer saved-only reduction reproduced both original normal residuals and response readouts in.8929s; independent-personnel outcome review remains pending. The prior synthetic-only storage rejection is preserved.
-
-This explains a practical gap in the earlier dense-block result: cheap approximate block inversion did not reproduce its gain under the matched callback budget. It rejects this fixed preconditioner design, not temporal methods in general. Further tuning of inner depth on these same two outcomes would be exploratory; a next method should have a concrete conditioning or reuse hypothesis and count all actions, rather than advertise the dense oracle as a larger-model speedup.

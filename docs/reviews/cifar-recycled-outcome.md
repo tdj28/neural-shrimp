@@ -1,9 +1,0 @@
-# Fixed recycled directions do not recover the missing residual component
-
-The three-direction unit completed1.597s (3.134s supervised), with exactly3fresh operator actions/6HVPs and2parent-parity maps. Rank3 and condition19.74698 passed. Saved-triplet reconstruction and orthogonality errors are below2e-15. Fresh action on the final combination matched the predicted action to2.733e-12relative, so this failure is not explained by stale operator values or an ill-conditioned three-column fit.
-
-The least-residual combination has original-direction coefficients [0.0004101494,−0.0008068831,1.0006705283]. It is almost entirely the most recent direction. Actual forcing improves only from0.5059809654 to0.5059743685, still above the unchanged0.5gate. No line-search trial or state update was performed. Closure remains4.89745478e-6; no orbit, continuation or spectrum was accepted.
-
-The fixed unpreconditioned/recycled sequence is now complete. This specific retained span adds essentially no useful residual information. More nearly identical400solves or extra historical directions are not supported by these results. A future corrector would need a substantive conditioning or trust-region change, with its own derivative/operator controls and bounded test; this negative result does not prove absence of a nearby orbit or failure of all solvers.
-
-All exact worker/launcher/source/input inventories, immutable modes and owned process exits were checked. A separately written post-outcome saved arithmetic checker passed0.389s without any new model, derivative, SVD or solve; it verifies the saved triplets, coefficients and true-residual decisions. It was written by the producer agent and shares raw derivative returns, so independent personnel review remains pending. The companion JSON binds every artifact and limitation.

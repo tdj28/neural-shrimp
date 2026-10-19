@@ -1,5 +1,0 @@
-# Saved forward705 conditioning and anatomy
-
-One fixed saved-only unit binds complete four-chart batch001, every historical source/manifest/join, and reads only finalchart004 for numerical positive-matrix Collatz/resolvent proposals. Same reviewed floating formulas as old diagnosis; successful-root gates replace old failure-only admission. No modified old helper. It also binds the entire20-point native scout and33-point physical section, same actual model and reverse19 prefix, and projects all704 native state/mode/rate coordinates plus angle onto current exactPAL gauge. Repeated shared point is retained. Projection turns are numerical proposals, never rigorous identities or monotonicity.
-
-No native calls. Fixed60s/4GiB sampledRSS/8GiBAS/16MiB, external75+5,CPU1nice10,10GiB admission. Prior705 saveddiagnosis4.113s/1.17GiB supplies measured envelope; fullfour inventories/sourcechecks and smallsurveys add boundedreadwork. Exactexclusive pal/batch001-diagnosis. Source review before fixedrun. Any widerdomain proof is freshly acquired later; this cannot retroactively extend any tube.

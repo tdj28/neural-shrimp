@@ -1,9 +1,0 @@
-# Saved eigenpair-locus diagnosis002 — 10 October 2026
-
-The repaired saved-only diagnostic completed with zero native/model calls. The first target remains unproved. Absolute-defect row sum 2.506565 contrasts with a floating spectral-radius estimate 0.0143959 and Perron-weighted row bound 0.0143959. These concern the Krawczyk defect, not dynamical multipliers.
-
-The positive resolvent proposal has maximum correction radius 2.59898618e-6 at coordinate468 (actual hidden rate), minimum 2.22471921e-18 at the fixed-output gauge coordinate469, and 198 coordinates larger than the original 2^-24. Its old-domain predicted maximum inclusion ratio is 0.942208645. Diagnosis001 rejected the exactly zero gauge solve component before the positive floor; diagnosis002 retains the raw solve and accepts nonnegative components before that unchanged floor. Neither negative values nor proof thresholds were relaxed.
-
-The next useful remedy is to bind all470 proposed radii, represent them as exact dyadics (for example base radius2^-18 and the corresponding weights), and re-enclose the full Jacobian on this changed domain at the original parameter width. The saved-domain ratio cannot certify the enlarged box. If this fails, the saved forcing/defect split can guide a higher-order predictor. Very short successful charts alone would not connect distant cusps; this is a local feasibility test. No target rerun is authorized by this note.
-
-The predictor-only bound2.346159 and whole-domain bound2.506565 are bounds on different domains; their subtraction does not isolate a correction-radius contribution. Original failure and both diagnoses remain immutable. The companion JSON binds source, complete proposal vector hash, all inventories and runtime. Execution10.446s, peak631212KiB, exit0; all owned PIDs absent and all20 raw files (929062bytes) read-only.
