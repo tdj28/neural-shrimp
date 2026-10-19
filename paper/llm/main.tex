@@ -2363,7 +2363,9 @@ $1$ plus the second multiplier and therefore positive: a closed trace-zero conto
 derived for determinants of fixed sign \cite{facanha2013endoskeletons}. In the
 hostile period-7 body the curves on which the leading real multiplier changes sign, candidate superstable curves of
 the continued orbit, form two arcs that approach each other and turn away without crossing, a Type-B-like geometry,
-where the leading multiplier becomes as small as the next (Figure~\ref{fig:superstable}; Section~\ref{sec:hostile}). The same plane holds a period-doubling cascade whose cells are nested
+where the leading multiplier becomes as small as the next (Figure~\ref{fig:superstable}; Section~\ref{sec:hostile}). The period-6 body of the paragraph after next shows the same geometry: its pseudo-superstable
+lines, where the leading multiplier changes sign without vanishing, meet below the kite and approach and turn away at
+the top. The same plane holds a period-doubling cascade whose cells are nested
 V-shaped tongues near $\alpha_1=-0.105$, $\alpha_2=0.105$. Continued in float64 on grids over these cells, its
 period-2, -4 and -8 orbits read the same way: no cell reaches superstability (the smallest leading moduli are 0.222,
 0.041 and 0.034), and complex leading pairs and trace-zero curves take the place of the superstable curves. The cells
@@ -2467,7 +2469,7 @@ is stable again after a doubling; two branches, run independently, trace that fo
 curve step.
 
 On a $31\times31$ grid of the continued orbit over the body ($\alpha$ from 0.0724 to 0.0738, $\log_{10}T$ from $-0.1545$
-to $-0.1500$; 529 of 961 cells solved), the leading multiplier is nonzero at every solved cell. Its smallest modulus on the grid,
+to $-0.1500$; the run reached 582 of the 961 cells before its time limit, and 529 of them converged), the leading multiplier is nonzero at every solved cell. Its smallest modulus on the grid,
 $0.0063$ at the cell $(0.073053,-0.15120)$ on the line of strongest contraction, belongs to a nearly imaginary
 leading pair, $0.0004\pm0.0063i$, with a third
 multiplier of modulus $0.0051$: three multipliers of nearly equal small modulus, the near-nilpotent signature of the
@@ -2478,7 +2480,26 @@ is negative at 143; at the other 240 the leading real multiplier is followed by 
 two alone define no real two-dimensional determinant, and we infer no determinant-zero curve from them. The real
 leading multiplier changes sign across 45 neighboring solved pairs; only two have leading and next moduli within a
 factor three at both ends, and this endpoint test does not tell a multiplier crossing zero from an exchange of
-dominance. For a smoothly tracked
+dominance. These sign changes mark the body's dark ditches, which take the place of Gallas's superstable curves. A leading
+multiplier is the largest in modulus, so it vanishes only if all multipliers do, and between the two cells of each pair
+the lead must pass to another multiplier or through a complex pair. Two lines of cells computed locally in float64
+(run DITCH) show both outcomes. Across the main ditch at $\log_{10}T=-0.1530$ (21 cells, steps $7\times10^{-6}$ in
+$\alpha$) the negative leading multiplier shrinks from $-0.605$ to $-0.060$, the lead passes at $\alpha=0.072976$ to a
+complex pair, $0.0069\pm0.0229i$, and the pair splits into two positive multipliers, the lead rising to $+0.71$. Across
+the dimmer ditch that closes the lighter region at its top, at $\alpha=0.07318$ (26 cells, steps $4\times10^{-5}$ in
+$\log_{10}T$), the leading multiplier stays positive: it falls from 0.122 to a minimum of 0.064 at
+$\log_{10}T=-0.15202$ and rises to 0.171, while the next stays negative and below 0.021 in modulus, a valley without a
+sign change. A patch of the continued orbit over $\alpha\in[0.07300,0.07336]$ and $\log_{10}T\in[-0.15294,-0.15170]$
+($21\times32$ cells, steps $1.8\times10^{-5}$ and $4\times10^{-5}$, four GPU bands, run DITCH2D; 595 cells solved, the
+unsolved ones at the right edge, next to the fold) has 41 sign changes and 33 complex leading pairs: the arc closes over a
+pocket of negative leading multiplier, with its peak near $(0.07326,-0.15232)$, and no sign change crosses the region
+between that peak and the main ditch. The two pseudo-superstable lines thus meet below the kite's cusp C, as Gallas's
+superstable curves meet in his kite, and at the top they approach and turn away without crossing, a Type-B-like
+geometry \cite{facanha2013endoskeletons}. On both sides of every sign change the continued orbit is the same attracting
+period-6 orbit, with the six-token text of the seed and Newton residuals below $10^{-12}$; it is also the attractor
+that the map's fixed start reaches at all patch and line cells but two at the patch's edge, and on the coarse grid at
+44 of the 45 pairs and 6 of the 9 complex cells (the others, at the upper left, reach a coexisting attractor of period
+8, 16 or 32). For a smoothly tracked
 two-dimensional invariant subspace the eigenvalues solve $\lambda^2-\tau\lambda+\delta=0$, so $\delta=0$ marks a zero
 eigenvalue of that block, not of the leading multiplier; if $\delta$ has a nondegenerate saddle with a nonzero saddle
 value, its zero set near the saddle has two hyperbolic branches that approach and turn away, and the eigenvalues are

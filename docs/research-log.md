@@ -31324,3 +31324,33 @@ nearly identical under protan vision.
 - **Left as found:** Fig. 10 period 3 against "other" stays close under deutan/protan (4.1, 4.9 in CIEDE2000); some
   token pairs of Fig. 18 merge in grayscale. Tests of the touched tools pass; test_qwen35_float64
   ::test_hybrid_cache_restore fails as before these edits (SoftLoop has no attribute `extra`).
+
+## 2026-10-19 20:55 UTC: DITCH and DITCH2D results: the period-6 body's pseudo-superstable lines approach and turn away at the top
+
+- **Runs:** DITCH (two local float64 lines, CPU, 7 threads each; both complete, all cells solved) and DITCH2D (four H100-
+  class bands; b0 v1rihh2hf4abfm, b1 t9fj7jozwzgx2s, b3 4n5h08xn68hfe6 and the relaunched b2 chzezm5vt31e2y, all H200, all
+  retrieved with verified hashes and terminated with verified absence from the inventory; the first b2 pod, an A100,
+  never became ready and was terminated by the orchestrator after its 10-minute limit). Commit of the uploads 366053ef.
+  Patch: 595 of 672 cells solved, the unsolved ones at the right edge next to the fold.
+- **Readings, as fixed in the run cards:**
+  - Control (line B, log10 T -0.1530): sign change of the leading multiplier across the main ditch, -0.605 ... -0.0596
+    (alpha 0.072969), complex leading pair 0.0069 +- 0.0229i at alpha 0.072976, then two positive multipliers, the lead
+    rising to +0.7101. The method counts.
+  - Line A (alpha 0.07318, across the dim top ditch): leading multiplier positive at all 26 cells, 0.1152 ... max
+    0.1223 ... minimum 0.0638 at log10 T -0.15202 ... 0.1706; next multiplier negative, at most 0.0203 in modulus; no
+    tie, no sign change: a same-sign dip.
+  - Patch: 41 sign changes and 33 complex leading pairs; the arc is one sign change per row, closing over a pocket of
+    negative leading multiplier with its peak near (0.07326, -0.15232); no sign change between the arc's peak and the
+    main ditch (rows -0.15230 to -0.15170 are positive from the main ditch to the fold).
+- **Identity and stability checks:** every solved cell of the patch and the lines carries the seed's six-token loop,
+  is attracting (largest |mu| 0.935) and has a Newton residual below 1e-12 (largest 9.997e-13); the HR10 map's
+  fixed start reaches period exactly 6 at all of them but two edge cells of the patch. On the DSS6 grid all 45 pairs
+  have both cells attracting; the map period is 6 at both cells for 44 pairs and at 6 of the 9 complex cells (the
+  others, at the upper left, reach a coexisting attractor of period 8, 16 or 32).
+- **DSS6 coverage:** its run stopped at the 80-minute limit after 582 of 961 cells; papers now say so.
+- **Reading:** the main ditch and the arc are pseudo-superstable lines (the leading multiplier, the largest in modulus,
+  cannot vanish unless all do, so it changes sign through a complex pair or a hand-over). They meet below the kite's
+  cusp C and approach and turn away at the top without crossing, bridged by a same-sign valley: Type-B-like, as the
+  hostile period-7 body. Article Fig. 19(b) marks the DSS6 sign changes (plot_shrimp_anatomy.py --layout pair
+  --ditches llm-soft-loop/pod64/dss/p6-body); article Sec. VII and the report's period-6 paragraph carry the numbers.
+- **Cost:** within the human's 30-dollar authorization; amounts in the private ledger.

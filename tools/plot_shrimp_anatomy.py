@@ -18,8 +18,10 @@ float64 map HR10 with the continued fold and flip curves, the located cusp C and
 curves, gated as in plot_p6_shrimp.py (residual <= 1e-8, critical multiplier within 1e-3 of +-1).
 
 Usage: python tools/plot_shrimp_anatomy.py [--out PNG] [--json OUT_JSON]
-       python tools/plot_shrimp_anatomy.py --layout pair --out paper/llm/figures/fig-shrimp-anatomy-pair.png \
-         --json paper/llm/figures/fig-shrimp-anatomy-pair.json
+       python tools/plot_shrimp_anatomy.py --layout pair --ditches llm-soft-loop/pod64/dss/p6-body \
+         --out paper/llm/figures/fig-shrimp-anatomy-pair.png --json paper/llm/figures/fig-shrimp-anatomy-pair.json
+       (--ditches: blue dots where the continued orbit's leading multiplier changes sign between solved neighbours
+       of the DSS6 grid, or is a complex pair: the pseudo-superstable lines)
 """
 import argparse
 import json
