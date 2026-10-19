@@ -1,0 +1,3 @@
+# Task38: new-results and publication audit
+
+Accepted Claude08:58 human request at09:02UTC. Review new raw results and claim use in article main/p6-only, report, and read-only blog. Root owns PV/steering/full integration; geometry agent owns HR10/HP5/cusps/kite/DSS6/zooms/basin/offset; symbolic agent owns returnmaps/words/Newton/citation and interpretation checks. No paper/blog edits, paid/GPU calls or target science replay. Exact snapshots and raw hashes to be retained. Final output review.md with ranked findings and proposed wording. Existing Task37 Rpair admitted only after the coordinated window, private exact-source checkpoint and fresh startup capacity; no outcome yet.

@@ -1,6 +1,6 @@
 {
   "schema": "codex-task37-p6-r-pair-card-v1",
-  "status": "held_for_private_checkpoint_and_coordinated_capacity",
+  "status": "reviewed_for_execution",
   "target": {
     "label": "R",
     "alpha": 0.072912,
@@ -94,7 +94,13 @@
     }
   ],
   "prior_closed_receipt": "/data2/neural-shrimp-data/codex/certificate-ladder/phase-cascade-p6-001-supervision/receipt.json",
-  "capacity_window": null,
+  "capacity_window": {
+    "confirmed": true,
+    "owner": "task37-r-pair-001",
+    "not_before_utc": "2026-10-19T09:02:00Z",
+    "not_after_utc": "2026-10-19T15:00:00Z",
+    "coordination_reference": "comms/claude-to-codex.md, 2026-10-19T08:58Z Task38, commit 0e1c21ff; fully read by root at09:02Z. Claude caps local jobs below20 GB RSS/16threads. Fresh32GiB startup/16GiB runtime gates remain."
+  },
   "operator_limits": {
     "composed_calls": 160,
     "jvp_columns": 1200,
@@ -144,11 +150,17 @@
   },
   "preparation_checks": "Source/interface review, synthetic numerical controls and focused wrapper controls are recorded in execution-preparation-review.md; no target model execution.",
   "admission_remaining": [
-    "save exact reviewed files in owned worktree",
-    "ordinary private-main checkpoint and verified fetch equality",
-    "coordinated stable memory window covering hard wall",
-    "fresh shared capacity and actual owned process census",
-    "explicit dated card/plan status amendment"
+    "verified private source checkpoint equality",
+    "fresh startup capacity at or above32GiB and actual owned-process admission"
   ],
-  "retry_policy": "No automatic retry, extension, seed replacement, floor weakening, or body-point launch."
+  "retry_policy": "No automatic retry, extension, seed replacement, floor weakening, or body-point launch.",
+  "execution_amendment": {
+    "utc": "2026-10-19T09:04:35.887772+00:00",
+    "prior_held_pins": {
+      "card_sha256": "8f1014409de23148beb9cd29c447c9514cebb9e72075067cd2ed47f83813e1d1",
+      "plan_sha256": "f4f182471bb781012a70d05a6758b7991e2b05cc4ba1e0a0a70f6891db005a55"
+    },
+    "authority_commit": "0e1c21ff",
+    "scope": "Activate first unused R pair only. Source, inputs, numerical limits and resource limits unchanged. No automatic retry/extension or body launch. Fresh capacity mandatory;09:03 hostreading belowfloor, no launch."
+  }
 }
