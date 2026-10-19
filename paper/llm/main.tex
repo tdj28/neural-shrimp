@@ -65,7 +65,7 @@ than with greedy decoding; an exploratory reset of the fed-back state at every s
 tests fixed before their data, Soft Thinking with its published settings changed 21\,\% of its answers to GSM8K
 problems not used before in this study with the batch layout alone, and reasoning models that answer 86 to 90\,\% of
 them correctly (DeepSeek-R1-Distill-Qwen-7B, QwQ-32B) changed 14.5 and 19.5\,\%, the two layouts disagreeing on
-correctness for 12 to 14\,\% of the problems. Ordinary sampled reasoning with the same random numbers changed about as
+correctness for 11.7 and 14.5\,\% of the problems. Ordinary sampled reasoning with the same random numbers changed about as
 many, so this sensitivity is not unique to continuous feedback. Two mechanisms contribute, depending on the model. In
 float64 the loops of Qwen2.5-7B and DeepSeek-R1-Distill-Qwen-7B mostly contract, so their answer changes are bfloat16
 rounding carried by long feedback to answers that sit near ties, while the loops of QwQ-32B and
@@ -2488,9 +2488,11 @@ where the flip curves cross (two distinct orbits, one on each curve); A and B, w
 located cusp where the fold curve turns back (gold star). Green: the line $\log_{10}T=-0.15395$ of the branch, thick
 where the two attracting orbits coexist. (b) The branch: the orbit's position along the leading direction of the
 branch's states against $\alpha$, solid where the orbit is attracting and dashed where not; two folds (open circles)
-make it an S, and the two attracting sheets overlap in the shaded interval (\repo{tools/plot_p6_kite.py}). Inside the kite, the straight edge where the gray changes abruptly (near $\log_{10}T=-0.15353$) is not a
-bifurcation: on both sides of it both attracting period-6 orbits exist (leading multipliers $0.18$ and
-$0.60$ to $0.61$), and the fixed start reaches one above the edge and the other below (\repo{tools/kite_basin_check.py}).}
+make it an S, and the two attracting sheets overlap in the shaded interval (\repo{tools/plot_p6_kite.py}). Inside the kite, the straight edge where the gray changes abruptly (near $\log_{10}T=-0.15353$) is a basin boundary
+of the fixed start, not a bifurcation, where we checked it: at two neighboring cells across it both attracting
+period-6 orbits exist (leading multipliers $0.18$ and $0.60$ to $0.61$), the fixed start reaches one above the edge
+and the other below (\repo{tools/kite_basin_check.py}), and at one steering strength the start on the edge lies on
+the stable manifold of a saddle orbit between them (Figure~\ref{fig:hooktheory}).}
 \label{fig:p6kite}
 \end{figure*}
 
@@ -5165,7 +5167,7 @@ for this computation). On Llama-3.3-70B's
 hostility plane, at the layer of Goodfire's 70B SAE and at equal norm, 4.3\,\% of cells are labeled chaotic along the
 concept vector, 3.5\,\% along the frozen-rule hostility feature, 1.1\,\% along a Gaussian direction and 0.2\,\% along
 a random live feature, against 28, 29, 39 and 27\,\% for the same four directions in Llama-3.1-8B (on one GPU);
-Qwen2.5-72B along hostility gives 0.8\,\%: eight cells, all at $\log_{10}T=0.26$--$0.30$. Recomputed in float64
+Qwen2.5-72B along hostility gives 0.8\,\%: eight of its 1024 cells, all at $\log_{10}T=0.26$--$0.30$. Recomputed in float64
 throughout, six of the eight are chaotic, with automatic-differentiation tangent exponents of 0.23 to 0.36 that the twins at all four
 offsets from $10^{-4}$ to $10^{-7}$ reproduce within 0.01; five have nearly uniform next-token distributions (11.0 to
 11.1 nats) and one alternates between sharp and flat behind a period-2 leading token. The same temperatures without
