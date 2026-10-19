@@ -111,7 +111,7 @@ def main():
     turns = [i for i, r in enumerate(pts) if r.get("turned_since_previous")]
     # the coexistence interval on the branch line: the left end of the first attracting sheet to the first fold
     first_fold = lam[turns[0]] if turns else None
-    stable0 = np.nonzero(rho[: turns[0]] < 1)[0] if turns else []
+    stable0 = np.nonzero(rho[: turns[0]] <= 1 + 1e-6)[0] if turns else []   # the seed sits on the flip (rho = 1)
     if len(stable0) and first_fold is not None:
         lo = float(lam[stable0[0]])
         axA.plot([lo, first_fold], [bt, bt], color="tab:green", lw=3.0, solid_capstyle="butt", zorder=5)

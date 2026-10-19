@@ -507,7 +507,13 @@ def plot_returnmaps(cells, zs, args, body):
                  bbox=dict(boxstyle="circle,pad=0.15", fc="w", ec="k", lw=0.5))
     axm.set_xlabel(r"steering strength $\alpha$")
     axm.set_ylabel(r"$\log_{10}T$")
-    axm.set_title("(a) chaotic cells writing the 6-token text:\ngreen: one threshold separates L from R in every phase", fontsize=7.5)
+    axm.set_title("(a) the cells of the 48 x 48 map", fontsize=7.5)
+    from matplotlib.patches import Patch
+    axm.legend(handles=[Patch(color=(0.2, 0.6, 0.2), label="6-band chaos, unimodal coding"),
+                        Patch(color=(0.8, 0.2, 0.2), label="6-band chaos, not unimodal"),
+                        Patch(color=(0.6, 0.6, 0.6), label="other chaos"),
+                        Patch(facecolor="w", edgecolor="k", lw=0.5, label="periodic")],
+               fontsize=6, loc="upper center", bbox_to_anchor=(0.5, -0.09), ncol=2, frameon=False)
     for i, c in enumerate(picks):
         ax = fig.add_subplot(gs[i // 3, 1 + i % 3])
         z = zs[c["band"]]

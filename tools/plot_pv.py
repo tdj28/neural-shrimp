@@ -76,7 +76,7 @@ def main():
     axb.set_yticks(ys)
     axb.set_yticklabels(labels, fontsize=5.6)
     axb.set_xlabel("chaotic share of the plane (%)")
-    axb.set_title("(a) all 22 prefixes", fontsize=8)
+    axb.set_title("(a) all 22 variants", fontsize=8)
     axb.tick_params(axis="x", labelsize=6.5)
     ext = [a[0], a[-1], t[0], t[-1]]
     vmax = max(float(np.max(np.where(m[0] > args.chaos_level, m[0], 0))) for m in maps.values())

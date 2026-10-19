@@ -2418,7 +2418,8 @@ curves, whose nearest points lie 1.7 and 0.3 steps of the grid of Figure~\ref{fi
 pseudo-crossing of curves on two sheets of the orbit family, the configuration at the corner R of Gallas's kite, where
 the flip curves of two coexisting fixed points cross \cite[Fig.~7]{gallas1994dissecting}. Inside the body near it, at
 $(0.0730,-0.1539)$, the orbit of the lower flip curve is attracting (leading multiplier $-0.797$); Newton's method from
-the other orbit did not converge there, which says nothing about whether that orbit exists. The rest of the kite
+the other orbit did not converge there: the point lies just beyond that orbit's fold, on the branch C--A of the kite
+(Figure~\ref{fig:p6kite}), where the orbit no longer exists. The rest of the kite
 follows from continuation (Figure~\ref{fig:p6kite}; run KITE). Continued in $\alpha$ at fixed $\log_{10}T=-0.15395$ from
 the first orbit's flip, the branch is S-shaped: the orbit stays attracting up to a fold at $\alpha=0.072992$, the
 branch returns along the saddle to a second fold at $0.072793$, and it continues on the second orbit, which flips near
@@ -2464,11 +2465,11 @@ Figure~\ref{fig:cross512} itself. The far parts of its legs remain unresolved.
 \caption{The period-6 shrimp, in the plane of Figure~\ref{fig:cross512} (Qwen2.5-0.5B-Instruct, philosophy direction at
 layer 12; float64). (a) A $640\times640$ map of the window, centered on the body, colored as Figure~\ref{fig:cross512}.
 (b) The same map with the continued curves of the period-6 orbit: fold curves black, flip curves red and dashed; cyan
-diamond: the crossing of the two flip curves, where two distinct period-6 orbits are found (a pseudo-crossing). (c) The attractor followed from the body, on the grid of
+diamond: the crossing of the two flip curves, where two distinct period-6 orbits are found (a pseudo-crossing); gold star: the kite's cusp C. (c) The attractor followed from the body, on the grid of
 Figure~\ref{fig:cross512} and over a wider window, colored by its period (black: chaos behind the repeating text; gray:
 slow cells), with the same curves; gold stars: the six located cusps (Table~\ref{tab:p6cusps}): the kite's cusp C, pairs near the
 ends of the upper-left and lower-left legs (the lower pair's stars overlap at this scale) and the tip of the small
-window beyond the neck. The fold curve through C is that of the kite (Fig.~\ref{fig:p6kite}).}
+window beyond the neck. The fold curve through C is that of the kite (Figure~\ref{fig:p6kite}).}
 \label{fig:p6shrimp}
 \end{figure*}
 \begin{figure*}[tbp]
@@ -2489,7 +2490,7 @@ $0.60$ to $0.61$), and the fixed start reaches one above the edge and the other 
 \begin{table}[tbp]
 \centering
 \caption{The six located cusps of the period-6 window (float64), in the plane of $\alpha$ and $\log_{10}T$ (C: the cusp
-of the kite of Figure~\ref{fig:p6kite}; upper and lower A, B: pairs near the ends of the upper-left and lower-left legs;
+of the kite of Figure~\ref{fig:p6kite}; upper and lower 1, 2: pairs near the ends of the upper-left and lower-left legs;
 neck: at the tip of the small window beyond the neck): position, cubic coefficient $c$ and unfolding determinant. At
 each cusp the oriented coefficient $b\operatorname{sign}a$ falls from values between 2.4 and 39.2 at the bracketing curve
 points to at most $9.5\times10^{-5}$ in modulus, the critical multiplier equals $+1$ to within
@@ -2501,10 +2502,10 @@ $8.2\times10^{-9}$, and the next has modulus at most 0.74 (located by \repo{tool
 cusp & $(\alpha,\log_{10}T)$ & $c$ & $\det J$ \\
 \midrule
 C & $(0.0730186, -0.1532803)$ & $-1.33\times10^{4}$ & $-2.62\times10^{3}$ \\
-upper A & $(0.0678765, -0.1513104)$ & $+6.10\times10^{3}$ & $4.59\times10^{4}$ \\
-upper B & $(0.0682059, -0.1503283)$ & $-8.01\times10^{3}$ & $2.20\times10^{5}$ \\
-lower A & $(0.0694974, -0.1602656)$ & $-2.25\times10^{3}$ & $2.09\times10^{4}$ \\
-lower B & $(0.0695513, -0.1601114)$ & $+2.01\times10^{3}$ & $2.20\times10^{4}$ \\
+upper 1 & $(0.0678765, -0.1513104)$ & $+6.10\times10^{3}$ & $4.59\times10^{4}$ \\
+upper 2 & $(0.0682059, -0.1503283)$ & $-8.01\times10^{3}$ & $2.20\times10^{5}$ \\
+lower 1 & $(0.0694974, -0.1602656)$ & $-2.25\times10^{3}$ & $2.09\times10^{4}$ \\
+lower 2 & $(0.0695513, -0.1601114)$ & $+2.01\times10^{3}$ & $2.20\times10^{4}$ \\
 neck & $(0.0748392, -0.1595956)$ & $-4.02\times10^{4}$ & $4.47\times10^{3}$ \\
 \bottomrule
 \end{tabular}
@@ -3377,7 +3378,7 @@ computations validated by step-size checks, not proofs (Appendix~\ref{sec:curves
 \paragraph{Limitations.} The detailed orbit studies cover Qwen2.5 at 0.5B and 1.5B, with three float64 orbits at 7B;
 OLMo-2 7B and Llama-3.1 8B have maps but no continued orbits. The size comparison rests on regular temperature grids and mostly one twin
 offset per label, and part of the 70B-class maps predate a precision fix and were rechecked only in samples. The maps
-use one prompt (more in the size tests), and steering uses contrastive vectors, checked against random and
+use one prompt, apart from 22 variants of the 0.5B standard plane (more in the size tests), and steering uses contrastive vectors, checked against random and
 sparse-autoencoder directions in two models. Chaos labels are finite-horizon estimates: a longer horizon check kept 86
 and 92 of 96 chaotic labels in two maps, near the accumulation of a cascade transient chaos makes labels less reliable (on one line only 135 of 235 chaotic labels held), the chaotic cells are numerically validated (twin exponents agree with automatic-differentiation tangents, across precisions and horizons) but not yet established by a computer-assisted proof, and three periodic orbits have such proofs: the period-8 orbit and a coexisting period-2 and period-3 pair. The Feigenbaum ratios are
 finite-order values. All orbit, bifurcation and chaos results concern the soft-token map, not sampled generation with
@@ -5098,8 +5099,8 @@ with it 0.013, $-0.028$ and 0.022). Titles give the chaotic share.}
 \paragraph{The prompt.} Every 0.5B result above uses one prompt, so we mapped (run PV, \repo{tools/pv_summary.py}) the standard plane ($\alpha$ from
 $-0.12$ to $0.12$, $\log_{10}T$ from $-1$ to $0.3$; $128\times128$ float64 cells, philosophy direction at layer 12) under
 22 variants (Figure~\ref{fig:prompts}): each of its two parts alone, and neither (Qwen's default system prompt, which the
-chat template inserts when none is given); the system prompt's words in two random orders and the user message's two
-tokens reversed; an opposite system prompt; happy and sad versions of the system prompt and of the user message; the
+chat template inserts when none is given); the system prompt's words in two random orders, the user message's two
+tokens reversed, and both changes together; an opposite system prompt; happy and sad versions of the system prompt and of the user message; the
 same texts without chat markup, a system prompt three times as long and a two-turn conversation; three prompts that are
 a single random vector, with no text at all; and the base prompt with the loop started from three random vectors.
 Every prompt gives chaos with periodic windows: 5.9 to 14.9\,\% of the plane is
@@ -5120,7 +5121,8 @@ near $\log_{10}T=0.03$, that of the text prompts near $0.16$.
 \caption{Every prompt gives chaos, at places that depend on the prompt (Qwen2.5-0.5B-Instruct, philosophy direction
 at layer 12, float64;
 $128\times128$ cells over $\alpha\in[-0.12,0.12]$ and $\log_{10}T\in[-1,0.3]$). (a) The chaotic share of the plane for
-each of 22 prefixes, grouped by the kind of change; dotted: the base prompt (the system prompt ``You are an AI talking
+each of the 22 variants (19 prefixes, and the base prefix with the loop started from three random vectors), grouped by
+the kind of change; dotted: the base prompt (the system prompt ``You are an AI talking
 with another AI\ldots'' and the user message ``Hello!''). (b) Eight of the maps (gray: periodic, darker where more
 contracting; colors: the largest exponent of chaotic cells). The exact texts and token identities of the prompts are in
 the project repository (\repo{docs/prompt-variants}).}
@@ -5148,7 +5150,8 @@ window and steered candidates in float64 throughout and samples of the Llama map
 but the rest of those maps were not recomputed. Neither were the four coarse lines of the frozen 72B test; after the
 fix we computed only fine lines through their entropy jumps, one of which passes through their single chaotic
 temperature.
-The maps use one prompt (Section~\ref{sec:sizemain} adds ten for Qwen2.5-7B and -14B, and four for Qwen2.5-72B, its base
+The maps use one prompt, apart from the 22 prompt variants of the 0.5B standard plane (paragraph ``The prompt''
+above; Section~\ref{sec:sizemain} adds ten for Qwen2.5-7B and -14B, and four for Qwen2.5-72B, its base
 model, and OLMo-2-7B and -32B), and steering uses contrastive vectors, checked against norm-matched random and sparse-autoencoder
 directions in two models. The soft-token loop is one inference scheme: Appendix~\ref{sec:bridge} extends it to memories of up to sixteen soft tokens and to the growing context of Soft Thinking, but sampled decoding of discrete tokens is a different system. The evidence consists of numerical
 validation, cross-checks and prospectively frozen passage tests (including failed all-row criteria), with
