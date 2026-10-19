@@ -1,0 +1,11 @@
+# Cascade-P3 certificate result
+
+The frozen neural feedback map has a locally attracting primitive three-cycle at exact binary64 alpha **.0650** and log10 temperature **-.14798**. A sufficiently small perturbation of this orbit returns toward it. This result concerns the full896-dimensional expected-embedding map; it does not establish that the fixed initial embedding reaches the orbit or that the remaining cascade cells are certified.
+
+Strict multiple-shooting inclusion/contraction and proper-divisor separation passed in the frozen three-phase product box with uniform radius2^-640. The signed monodromy tests at powers1,2,4 were inconclusive; the prospectively declared power8 passed with induced infinity norm **at most0.446646514**, rounded upward from the exact saved bound. For a period3 orbit this is a bound for the24-step derivative at the periodic root. No whole-box trapping claim follows.
+
+All42 original1024-bit derivative shards cover2688 unique phase-column assignments, with the original2048-bit point images and prefix radii preserved. The successful assembly took585.082836seconds and the separate saved-witness audit242.965809seconds (rounded up). Original receipts,25assembly source blobs,6outputs and both host closures were authenticated. The independent exact-rational audit checked all3phase rows,9scalar blocks,proper divisor1 and3211264saved power-matrix entries. It did not replay transformer evaluations or dense products; those rely on the reviewed and authenticated Python/FLINT/Arb execution.
+
+The separate `cascade-p3-certificate-release.json` joins the actual asset/prefix authority, exact map/domain, original returns, reviewed evaluator/gates, assembly and independent audit. All helper `certificate_passed:false` records remain unchanged. The ordered shooting root is unique within its stated product box. Token labels, fixed-start reachability, larger basins, parameter-interval stability, complete period-doubling cascade, global shrimp organization and ordinary generation remain outside this result.
+
+Finite power upper bounds (all rounded upward):1:36.994271565;2:19.374572754;4:5.519694740;8:0.446646514. Every failed sufficient-condition row and original preparation/upload/refinement refusal remains retained.

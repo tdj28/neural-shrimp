@@ -1,0 +1,312 @@
+{
+  "schema": "codex-task34-cascade-p3-finite-certificate-v1",
+  "status": "released",
+  "certificate_passed": true,
+  "created_utc": "2026-10-19T01:23:47.996056+00:00",
+  "cell": "cascade-p3",
+  "period": 3,
+  "map": {
+    "schema": "codex-qwen-exact-soft-map-v1",
+    "dimension": 896,
+    "vocabulary": 151936,
+    "layers": 24,
+    "pinned_assets": {
+      "model.safetensors": "fdf756fa7fcbe7404d5c60e26bff1a0c8b8aa1f72ced49e7dd0210fe288fb7fe",
+      "config.json": "18e18afcaccafade98daf13a54092927904649e1dd4eba8299ab717d5d94ff45",
+      "vectors.npz": "b630bb7bef06bde87f8e6a7ca5e8672f83d24bc0585bf19048e9e494a4357f41"
+    },
+    "prefix_ids": [
+      151644,
+      8948,
+      198,
+      2610,
+      525,
+      458,
+      15235,
+      7404,
+      448,
+      2441,
+      15235,
+      13,
+      1446,
+      614,
+      4583,
+      11290,
+      13,
+      31733,
+      1910,
+      311,
+      22729,
+      8820,
+      498,
+      1366,
+      13,
+      151645,
+      198,
+      151644,
+      872,
+      198,
+      9707,
+      0,
+      151645,
+      198,
+      151644,
+      77091,
+      198
+    ],
+    "steering_layer": 12,
+    "alpha_ratio": [
+      1170935903116329,
+      18014398509481984
+    ],
+    "log10_temperature_ratio": [
+      -333221336429143,
+      2251799813685248
+    ],
+    "temperature": "exp(log(10)*exact_dyadic_log10T)",
+    "rotary": "real base^(-2j/head_dim), real sin/cos",
+    "state": "one appended full-dimensional soft embedding after the fixed prefix",
+    "readout": "full-vocabulary expected embedding with the checkpoint embedding matrix",
+    "checkpoint_constants": "stored binary constants interpreted as exact dyadics"
+  },
+  "definition": {
+    "path": "/data2/neural-shrimp-data/codex/certificate-ladder/cascade-p3-final-domain-001.json",
+    "sha256": "1951e04a84e176260fcc4b7451ca396837a83a05344e97603490c437a7c0e43c"
+  },
+  "assembly": {
+    "source_commit": "fadb2e6d8b5ac5a5be05a68c38b03cc96f30ae3a",
+    "receipt": {
+      "path": "/data2/neural-shrimp-data/codex/certificate-ladder/assembly-cascade-p3-001-supervision/receipt.json",
+      "bytes": 6259,
+      "sha256": "1dc215c41d85c5af29b37d3f7e1db07db890f8185243e206d241bb5b0844f867"
+    },
+    "admission": {
+      "path": "/data2/neural-shrimp-data/codex/certificate-ladder/assembly-cascade-p3-001-supervision/admission.json",
+      "bytes": 8011,
+      "sha256": "4f3a85ac73772b54a52b8cd4d774281756bf653763caf5eb4f2a34a802fa46ec"
+    },
+    "source_blobs_checked": 25,
+    "outputs": [
+      {
+        "path": "/data2/neural-shrimp-data/codex/certificate-ladder/assembly-cascade-p3-001/admission.json",
+        "bytes": 604,
+        "sha256": "664666d77ea993ad165d01eddaba6455d698f8eb8660a1b4aca85bdf63a1dce3"
+      },
+      {
+        "path": "/data2/neural-shrimp-data/codex/certificate-ladder/assembly-cascade-p3-001/closure-admission.json",
+        "bytes": 53942,
+        "sha256": "90929461f4d417d1f1a695d940d267f327d4a457769314e7c216828d5f1c9a5f"
+      },
+      {
+        "path": "/data2/neural-shrimp-data/codex/certificate-ladder/assembly-cascade-p3-001/conditional-gates.json",
+        "bytes": 2000807289,
+        "sha256": "25806e80a3adca9220aeb5ed1e6a759087c88e8e0fc31a720f92894459f67c6a"
+      },
+      {
+        "path": "/data2/neural-shrimp-data/codex/certificate-ladder/assembly-cascade-p3-001/derivative-admission.json",
+        "bytes": 28887619,
+        "sha256": "dec4924cfa83a5ea847f331749c0070103c966c2123fc17152bee342b9cf0f60"
+      },
+      {
+        "path": "/data2/neural-shrimp-data/codex/certificate-ladder/assembly-cascade-p3-001/point-admission.json",
+        "bytes": 3204544,
+        "sha256": "611e41dc0bc6a84aaa724073fc709aceae089f20b264e037ec5bc54026a48d48"
+      },
+      {
+        "path": "/data2/neural-shrimp-data/codex/certificate-ladder/assembly-cascade-p3-001/summary.json",
+        "bytes": 218,
+        "sha256": "a503f6f85f8c83e74b31cc9390d150866e5c2a555f630a3d32feb7465f9e59d6"
+      }
+    ],
+    "host_original_groups_absent": true,
+    "elapsed_seconds": 585.0828350721858
+  },
+  "independent_witness": {
+    "source_commit": "6f66645c5b9999f1b99c1dc0463c1ac88bab7282",
+    "receipt": {
+      "path": "/data2/neural-shrimp-data/codex/certificate-ladder/assembly-cascade-p3-witness-001-supervision/receipt.json",
+      "bytes": 5218,
+      "sha256": "0ad6a2ae59375b8e268ffcf702ad1aba4c2192182b422e9f33ff0428d93ed157"
+    },
+    "admission": {
+      "path": "/data2/neural-shrimp-data/codex/certificate-ladder/assembly-cascade-p3-witness-001-supervision/admission.json",
+      "bytes": 4679,
+      "sha256": "5082d1007436e566a9258c3fda184a0f4a42eaa896c78132dd1d0b947c82cd00"
+    },
+    "source_blobs_checked": 7,
+    "outputs": [
+      {
+        "path": "/data2/neural-shrimp-data/codex/certificate-ladder/assembly-cascade-p3-witness-001/report.json",
+        "bytes": 8972,
+        "sha256": "1b5530c3e267e0e7889db7c44962782226a51702429f3c3a8e2016a6b559999b"
+      }
+    ],
+    "host_original_groups_absent": true,
+    "elapsed_seconds": 242.9658088996075
+  },
+  "independent_report": {
+    "path": "/data2/neural-shrimp-data/codex/certificate-ladder/assembly-cascade-p3-witness-001/report.json",
+    "bytes": 8972,
+    "sha256": "1b5530c3e267e0e7889db7c44962782226a51702429f3c3a8e2016a6b559999b"
+  },
+  "authorities": [
+    {
+      "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/certificate-ladder-task34/cascade-p3-release-review.md",
+      "bytes": 14170,
+      "sha256": "155faec05cb6066adfde7c8b9f3dd4424af724bce169d502974aef182e969552"
+    },
+    {
+      "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/certificate-ladder-task34/assembly-source-review.md",
+      "bytes": 3821,
+      "sha256": "87ff2d50c0781ed36d7a2e3aa55d4f825b2a351d1c89f93ce1ed69c3f5952c39"
+    },
+    {
+      "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/certificate-ladder-task34/witness-source-review.md",
+      "bytes": 5496,
+      "sha256": "8cf66651e45b30ae3b8c56732caab2ca64a2cd8fa3c860b1537c0ba74a42d82e"
+    },
+    {
+      "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/certificate-ladder-task34/prefix-source-review.md",
+      "bytes": 1090,
+      "sha256": "3b0e88ba6c52eb3c9bc2784c11a079c8cda8f2cccb04dc1adb5f0cab3a8d6937"
+    },
+    {
+      "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/certificate-ladder-task34/prefix-cascade-p3-001-completion.json",
+      "bytes": 920,
+      "sha256": "cce1ef62d1fd5225a90447bf079641ad5711affaedf0b019766fd000730d9c93"
+    },
+    {
+      "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/certificate-ladder-task34/refine-cascade-p3-001-completion.json",
+      "bytes": 5185,
+      "sha256": "8f1bd2baa8fa002c5b0d97ddfc3760285c4f74a1aa28ccede2ece7b567e7c785"
+    },
+    {
+      "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/certificate-ladder-task34/return-cascade-p3-operational.json",
+      "bytes": 169504,
+      "sha256": "ff7f2defc4bd25d0890733f8b0f8c331e4b8792c215273ba33a9a284d00be08f"
+    },
+    {
+      "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/certificate-ladder-task34/return-cascade-p3-endpoints.json",
+      "bytes": 83766,
+      "sha256": "6d9be05ee72b7f78d380042804cd7422f8a8945db0d586ac5f7cefb1983ffa02"
+    },
+    {
+      "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/certificate-ladder-task34/cascade-p3-assembly-001-review-binding.json",
+      "bytes": 7104,
+      "sha256": "abe9ab2ebb1eff1211d365e4a66c909027e781308af82d6f82d9eb58338b4992"
+    },
+    {
+      "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/certify-llm/prefix-asset-authority-review.md",
+      "bytes": 15386,
+      "sha256": "189a4eb6bdf85fd96acfb478778d69604bb116efb1723d0cb1cb9c1542e4e49f"
+    },
+    {
+      "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/certify-llm/final-evaluator-obligations-review.md",
+      "bytes": 24529,
+      "sha256": "92cf2b93036b92d18c09944da7e3073d2b358756a93ab43eb41a6e50fdc8961e"
+    },
+    {
+      "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/certify-llm/shooting-gates-review.md",
+      "bytes": 8777,
+      "sha256": "e60e08a8e1a8d12a42d20f3f08ff17492133d04577f06529bfe96c2fe5a67d1a"
+    },
+    {
+      "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/certify-llm/final-certificate-acceptance.md",
+      "bytes": 5557,
+      "sha256": "f2f77da1bfcea217b76723f8cab7269fa6d862986983e42619aadba0ae74c974"
+    }
+  ],
+  "domain_bindings": {
+    "domain_sha256": "6edc2311f7d472b6a07b34530e9fba6dddb4962023f54af0676e691113ad589d",
+    "enclosures_sha256": "5d6efa0dd605b1707f3719322acd1107a3cd4e4ac2ba24fe7572bc3ee5adec2c",
+    "proposals_sha256": "97f5b42ac46b18923baa0ef4a3da4cbd01dac0cb0006621102b3d1f652df6ecc"
+  },
+  "conditional_gates": {
+    "root_existence_and_local_uniqueness": true,
+    "primitive_period": true,
+    "local_attraction": true
+  },
+  "declared_powers": [
+    1,
+    2,
+    4,
+    8
+  ],
+  "witness_power": 8,
+  "attraction_upper_bounds_rounded_up": {
+    "1": "36.994271565",
+    "2": "19.374572754",
+    "4": "5.519694740",
+    "8": "0.446646514"
+  },
+  "power_results": [
+    {
+      "power": 1,
+      "passed": false,
+      "exact_upper": {
+        "mid": [
+          103913043782153011751393337498985866548963038044208668638852676940743050747929866042629553588875252443117688886217747598163574131360348342830812043718937492298247773019428733335762579482679262243306015646378961080015561368596638077576012043520419416226731175029392635643694757070504599046833550483223186614685,
+          -1018
+        ],
+        "rad": [
+          0,
+          0
+        ]
+      }
+    },
+    {
+      "power": 2,
+      "passed": false,
+      "exact_upper": {
+        "mid": [
+          108842301343287906729643978575261165894245324024196112872079150700774351590510880039755929478390998671549721489049690951698795872102701530411299650467841601834582095672930726640417003465218510046736567687737484619094240362511449399873427283893087476691136210359968812437884741923341548753501952691818677186099,
+          -1019
+        ],
+        "rad": [
+          0,
+          0
+        ]
+      }
+    },
+    {
+      "power": 4,
+      "passed": false,
+      "exact_upper": {
+        "mid": [
+          62016983377144100008905772407817040633568803838511451432682144812646074696920707631330223684596258023102767007624636240712931647634273260079733602252407351319985315927693002749860590654425263047397793842788964589336155727044307545775644271400053633375551905151694820317318861122295766401852964591358261949781,
+          -1020
+        ],
+        "rad": [
+          0,
+          0
+        ]
+      }
+    },
+    {
+      "power": 8,
+      "passed": true,
+      "exact_upper": {
+        "mid": [
+          160586674260042101922930538151429988169805403568240555853947849173895912857073156437381795988042708387794401168927220484661411247440035325788522149547230677080550042585657055170556616853528110426391270479834346231048347943198281863589031048307547434538097582736967726781824908352835560626261787233753939666959,
+          -1025
+        ],
+        "rad": [
+          0,
+          0
+        ]
+      }
+    }
+  ],
+  "primitive_divisors_checked": [
+    1
+  ],
+  "shards": 42,
+  "unique_phase_columns": 2688,
+  "statement": "The specified exact-real frozen expected-embedding feedback map at the exact binary64 parameters alpha=.0650 and log10(T)=-.14798 has a primitive period-3 orbit, unique as an ordered shooting root in its frozen three-phase product box and locally attracting.",
+  "scope": "Trusted Python/FLINT/Arb computer-assisted proof with authenticated reviewed evaluator execution and independent exact-rational scalar/primitive/all saved power-row witnesses. No independent transformer or dense-product replay. No token labels, fixed-start reachability, full-box trapping, larger basin, parameter-interval stability, complete cascade/ladder, global shrimp geometry, training or ordinary generation claim.",
+  "preserved_failures": [
+    "Receiver001 public/full Torch version schema refusal",
+    "Original H upload/SSH failure before successful H assignment",
+    "All original preparation/refinement decode refusals and inconclusive finite power rows retained unchanged"
+  ]
+}
