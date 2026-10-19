@@ -1,0 +1,49 @@
+{
+  "schema": "task33-tube-saved-assets-synthetic-controls-v1",
+  "started_at": "2026-10-19T12:41:45.553807+00:00",
+  "source_commit": "5dd089e99d59fd0588f1ec1c89f8884a152d2222",
+  "source_files": [
+    {
+      "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/coexistence-task33/tube_saved_assets.py",
+      "bytes": 11682,
+      "sha256": "1068ab9db8e8c2deed22aa198b5bfce9ab3e58ed48037a591c14bf7564b93169"
+    },
+    {
+      "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/coexistence-task33/test_tube_saved_assets.py",
+      "bytes": 14702,
+      "sha256": "f83c9bc500010739fd9d06c70397c5bc47a1b98d147621b7e63bf88ee61103ba"
+    }
+  ],
+  "command": [
+    "/data2/neural-shrimp/.venv/bin/python",
+    "-I",
+    "-B",
+    "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/coexistence-task33/test_tube_saved_assets.py",
+    "-v"
+  ],
+  "limits": {
+    "cpu_ids": [
+      0
+    ],
+    "nice": 10,
+    "as_bytes": 268435456,
+    "cpu_seconds": 30,
+    "wall_seconds": 40,
+    "file_bytes": 4194304,
+    "threads": 1
+  },
+  "pid": 459321,
+  "process_reaped": true,
+  "returncode": 0,
+  "timeout": false,
+  "elapsed_seconds": 0.08876197785139084,
+  "stdout": "",
+  "stderr": "test_01_public_dispatch_is_exact_and_does_not_accept_overrides (__main__.AssetControls.test_01_public_dispatch_is_exact_and_does_not_accept_overrides) ... ok\ntest_02_tiny_complete_pass_flags_and_no_payload_retention (__main__.AssetControls.test_02_tiny_complete_pass_flags_and_no_payload_retention) ... ok\ntest_03_multiple_stream_chunks_hash_every_byte (__main__.AssetControls.test_03_multiple_stream_chunks_hash_every_byte) ... ok\ntest_04_missing_or_extra_asset_definition (__main__.AssetControls.test_04_missing_or_extra_asset_definition) ... ok\ntest_05_pin_shape_types_hash_and_total_bound_refuse_before_io (__main__.AssetControls.test_05_pin_shape_types_hash_and_total_bound_refuse_before_io) ... ok\ntest_06_exact_link_count_topology_and_canonical_spelling (__main__.AssetControls.test_06_exact_link_count_topology_and_canonical_spelling) ... ok\ntest_07_changed_literal_link_even_with_same_resolution (__main__.AssetControls.test_07_changed_literal_link_even_with_same_resolution) ... ok\ntest_08_dangling_link_or_extra_endpoint_link (__main__.AssetControls.test_08_dangling_link_or_extra_endpoint_link) ... ok\ntest_09_link_replaced_by_regular_file (__main__.AssetControls.test_09_link_replaced_by_regular_file) ... ok\ntest_10_vector_cannot_use_even_an_equivalent_symlink (__main__.AssetControls.test_10_vector_cannot_use_even_an_equivalent_symlink) ... ok\ntest_11_ancestor_symlink_refused (__main__.AssetControls.test_11_ancestor_symlink_refused) ... ok\ntest_12_hardlink_aliases_refused_for_endpoint_and_link (__main__.AssetControls.test_12_hardlink_aliases_refused_for_endpoint_and_link) ... ok\ntest_13_nonregular_endpoint_refused_without_opening_fifo (__main__.AssetControls.test_13_nonregular_endpoint_refused_without_opening_fifo) ... ok\ntest_14_same_size_wrong_content_and_size_mismatch (__main__.AssetControls.test_14_same_size_wrong_content_and_size_mismatch) ... ok\ntest_15_growth_during_stream_refuses (__main__.AssetControls.test_15_growth_during_stream_refuses) ... ok\ntest_16_shrink_during_stream_refuses (__main__.AssetControls.test_16_shrink_during_stream_refuses) ... ok\ntest_17_leaf_replacement_after_hash_refuses (__main__.AssetControls.test_17_leaf_replacement_after_hash_refuses) ... ok\ntest_18_ancestor_replacement_with_same_leaf_refuses (__main__.AssetControls.test_18_ancestor_replacement_with_same_leaf_refuses) ... ok\ntest_19_link_replacement_after_first_hash_refuses (__main__.AssetControls.test_19_link_replacement_after_first_hash_refuses) ... ok\ntest_20_later_asset_read_cannot_hide_earlier_leaf_mutation (__main__.AssetControls.test_20_later_asset_read_cannot_hide_earlier_leaf_mutation) ... ok\n\n----------------------------------------------------------------------\nRan 20 tests in 0.019s\n\nOK\n",
+  "passed": true,
+  "new_test_methods": 20,
+  "old_controls_repeated": false,
+  "target_model_calls": 0,
+  "actual_asset_reads": 0,
+  "original_evidence_reads": 0,
+  "scope": "First tiny manufactured asset trees only; public real-asset I/O mocked; no actual full-hash timing, source/execution or mathematical admission."
+}
