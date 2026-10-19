@@ -474,8 +474,9 @@ near ties between leading tokens does the factor grow, like $1/T$ (``High and lo
 temperature multiplies a scalar coupling, and the product's critical value 2 separates the washout of a mixture from its takeover by one
 token \cite{backour2026mixture}. Steering does not appear in \eqref{eq:gain}: the vector $\alpha v$ is the same whatever the state $x$, so it has no
 derivative of its own, and it changes $DF$ only by changing the quantities from which the two factors are computed. In the readout factor $\Sigma_p/T$,
-steering decides which tokens compete in $p$ and temperature decides how sharply: $\Sigma_p$ is large where tokens
-with different embeddings share the probability and tends to zero as one token takes all of it. In the network factor $J_{\tilde h_\alpha}$, steering
+steering decides which tokens compete in $p$ and temperature decides how sharply: $\Sigma_p$ is large when the probability is
+spread over several tokens whose embeddings differ, and it tends to zero as the distribution concentrates on a single
+token. In the network factor $J_{\tilde h_\alpha}$, steering
 changes the input of every later block, and with it the attention weights, MLP activations and normalization
 scales at which that block's derivative is taken, and so changes how strongly the network stretches a change of
 the fed-back token; temperature changes
