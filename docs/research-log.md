@@ -30829,3 +30829,41 @@ the side of R toward the head, as in Gallas's cell. A failed location is reporte
 - Reading: descriptive. The kite C-A-R-B and the lines of strongest contraction through it, with the continued curves
   drawn over the map.
 - Output: llm-soft-loop/pod64/bands/hr11-c00..c15, stitched to llm-soft-loop/pod64/hr11.
+
+## 2026-10-19 07:07 UTC: run card SD (exploratory): symbolic dynamics inside the period-6 shrimp
+
+Human, 19 Oct: "What would it take to find the symbolic dynamics inside the shrimp like in the 2012 Jones paper?";
+"Let's get the symbolic dynamics." Reference: Jones (2012), arXiv:1201.4343. There, the hub's shape follows from a
+conjugacy of the Rössler return map to unimodal maps, and orbits are traced by their symbolic sequences up to period 7.
+
+- **Question.**
+  - Is the 6-step return map of the soft loop, within one phase of the 6-band attractor, unimodal around the period-6
+    shrimp?
+  - Do the periodic windows of period 6k in and around the shrimp carry the kneading (MSS) words of a unimodal map?
+  - Where do they lie in the plane?
+- **Method (code 26aaebdf).**
+  - The scan's twin offset is renormalized every step, so its direction w_k follows the tangent dynamics: w_k ~ DF w_{k-1}.
+  - Along a thin band, sign <w_k, w_{k-6}> is the sign of the 6-step derivative at the point six steps back. The
+    6-step log growth is its size.
+  - For a period-6k orbit, the k signs at one phase, rotated so that the visit with the smallest |derivative| comes
+    last, give the MSS word: L = increasing branch, R = decreasing. This needs neither a coordinate nor the location of
+    the turning point. The word must agree, up to rotation, in all six phases.
+  - The text (leading-token sequence) of the cell must be the body's 6-token text repeated (6-band domain).
+  - Return maps: each phase's recorded states are projected on that phase's own first principal axis; the 6-step
+    return within a phase is tested for one turning point.
+- **Runs.**
+  - **SD-W:** HR10's grid exactly (640 x 640 float64, alpha 0.0718-0.0746, log10 T -0.157 to -0.149, the same 16 bands),
+    protocol of HR10 with record 100, max period 48 and --word-period 6. Reproducibility gate: periods and exponents of
+    periodic cells must equal HR10's for periods up to 32.
+  - **SD-RM:** 48 x 48 cells over the same window, transient 1000, samples 3000 (500 points per phase), --return-period 6
+    --word-period 6.
+- **Would surprise us:**
+  - return maps with two or more turning points in the 6-band region;
+  - words that differ between phases;
+  - windows whose words do not appear in the unimodal order along paths through them.
+- **Gates:**
+  - word consistency across phases;
+  - the parity of R's against the sign of the 6k-step derivative;
+  - |cos| near 1 away from the critical visit;
+  - Newton verification at representative cells (float64, exact Jacobian-vector products) before any word is quoted.
+- **Output:** llm-soft-loop/pod64/bands/sdw-c00..c15 and sdrm-c00..c02.
