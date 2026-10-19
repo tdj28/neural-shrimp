@@ -1,0 +1,131 @@
+"""New mocked allocation controls only; no original evidence or target I/O."""
+import argparse
+import contextlib
+import hashlib
+import importlib.util
+import io
+import json
+from pathlib import Path
+from unittest.mock import patch
+
+SOURCE=Path('/tmp/audit_thin_pilot.py')
+spec=importlib.util.spec_from_file_location('allocation_audit_under_review',SOURCE)
+m=importlib.util.module_from_spec(spec);spec.loader.exec_module(m)
+rows=[]
+
+def args(**changes):
+    values=dict(source='a'*40,card=str(m.CARD),card_sha256=m.CARD_SHA,
+                plan=str(m.PLAN),plan_sha256='b'*64,receipt_sha256='c'*64,
+                admission_sha256='d'*64,output=str(m.RESULT))
+    values.update(changes)
+    return argparse.Namespace(**values)
+
+def refuse(fn,kind=ValueError):
+    try:fn()
+    except kind:return
+    raise AssertionError('expected refusal missing')
+
+def checked(name,fn):
+    fn();rows.append(dict(name=name,passed=True))
+
+def no_io():
+    stack=contextlib.ExitStack()
+    for name in ('exists','is_symlink','mkdir','open','read_bytes','read_text','stat'):
+        stack.enter_context(patch.object(Path,name,side_effect=AssertionError('unexpected filesystem access')))
+    return stack
+
+def pure_exact():
+    with no_io():assert m.argument_admission(args())==m.RESULT
+checked('exact arguments admitted without filesystem access',pure_exact)
+
+def pure_wrong():
+    with no_io():
+        for output in ('/tmp/result.json',str(m.AUDIT/'other.json'),str(m.RESULT/'extra')):
+            refuse(lambda:m.argument_admission(args(output=output)))
+checked('all other result allocations refused before filesystem access',pure_wrong)
+
+def allocation(existing=(),symlinks=(),mkdir_error=None):
+    with patch.object(Path,'exists',autospec=True,side_effect=lambda p:p in existing), \
+         patch.object(Path,'is_symlink',autospec=True,side_effect=lambda p:p in symlinks), \
+         patch.object(Path,'mkdir',autospec=True,side_effect=mkdir_error) as create, \
+         patch.object(Path,'open',side_effect=AssertionError('allocation must not read/write evidence')):
+        if existing or symlinks:
+            refuse(lambda:m.allocate_output(m.RESULT));create.assert_not_called()
+        elif mkdir_error:
+            refuse(lambda:m.allocate_output(m.RESULT),type(mkdir_error))
+            create.assert_called_once_with(m.AUDIT,exist_ok=False)
+        else:
+            m.allocate_output(m.RESULT)
+            create.assert_called_once_with(m.AUDIT,exist_ok=False)
+checked('existing result refused without parent creation',lambda:allocation(existing=(m.RESULT,)))
+checked('existing parent refused without parent reuse',lambda:allocation(existing=(m.AUDIT,)))
+checked('dangling result symlink refused',lambda:allocation(symlinks=(m.RESULT,)))
+checked('dangling parent symlink refused',lambda:allocation(symlinks=(m.AUDIT,)))
+checked('absent allocation creates exactly one exclusive parent',allocation)
+checked('exclusive mkdir collision propagates without reuse',lambda:allocation(mkdir_error=FileExistsError('synthetic race')))
+
+def direct_wrong():
+    with no_io():refuse(lambda:m.allocate_output(Path('/tmp/other.json')))
+checked('allocation helper independently refuses wrong output',direct_wrong)
+
+def sequencing(fail_stage=None):
+    calls=[];a=args();error=ValueError('synthetic downstream refusal')
+    def admitted(value):
+        assert value is a;calls.append('argument_admission')
+        if fail_stage=='argument_admission':raise error
+        return m.RESULT
+    def allocated(value):
+        assert value==m.RESULT;calls.append('allocate_output')
+        if fail_stage=='allocate_output':raise error
+    def run(value):
+        assert value is a;calls.append('run')
+        if fail_stage=='run':raise error
+    def record(value,exc):
+        assert value is a and exc is error;calls.append('refusal')
+    with patch.object(argparse.ArgumentParser,'parse_args',return_value=a), \
+         patch.object(m,'argument_admission',side_effect=admitted), \
+         patch.object(m,'allocate_output',side_effect=allocated), \
+         patch.object(m,'run',side_effect=run),patch.object(m,'refusal',side_effect=record),no_io():
+        if fail_stage:
+            try:m.main()
+            except ValueError as exc:assert exc is error
+            else:raise AssertionError('original refusal not propagated')
+        else:m.main()
+    expected=['argument_admission']
+    if fail_stage!='argument_admission':expected.append('allocate_output')
+    if fail_stage not in ('argument_admission','allocate_output'):expected.append('run')
+    if fail_stage=='run':expected.append('refusal')
+    assert calls==expected,calls
+checked('successful orchestration allocates before all actual reads',sequencing)
+checked('pure argument refusal never allocates or accesses evidence',lambda:sequencing('argument_admission'))
+checked('allocation refusal never accesses evidence or writes reused parent',lambda:sequencing('allocate_output'))
+checked('downstream refusal is preserved after fresh allocation and re-raised',lambda:sequencing('run'))
+
+class Capture(io.StringIO):
+    def close(self):pass
+
+def refusal_record():
+    buf=Capture();calls=[]
+    def opened(path,mode):calls.append((path,mode));return buf
+    with patch.object(Path,'open',autospec=True,side_effect=opened):
+        m.refusal(args(),ValueError('synthetic evidence error'))
+    assert calls==[(m.AUDIT/'failure.json','x')]
+    record=json.loads(buf.getvalue())
+    assert record['status']=='audit_refused' and record['error_type']=='ValueError'
+    assert record['requested_source']=='a'*40 and record['requested_card']['sha256']==m.CARD_SHA
+    assert record['requested_plan']==dict(path=str(m.PLAN),sha256='b'*64)
+    assert record['requested_receipt_sha256']=='c'*64 and record['requested_admission_sha256']=='d'*64
+    assert all(record[k]is False for k in ('trajectory_enclosure','certificate_passed','reachability_proved'))
+checked('exclusive refusal record retains requested authority and false claims',refusal_record)
+
+def refusal_collision():
+    with patch.object(Path,'open',side_effect=FileExistsError('synthetic refusal collision')) as opened:
+        refuse(lambda:m.refusal(args(),ValueError('synthetic evidence error')),FileExistsError)
+        opened.assert_called_once_with('x')
+checked('existing refusal record cannot be overwritten',refusal_collision)
+
+result=dict(schema='codex-task33-thin-audit-allocation-controls-v1',passed=True,
+            count=len(rows),source_sha256=hashlib.sha256(SOURCE.read_bytes()).hexdigest(),
+            scope='New allocation/orchestration controls only. All target filesystem calls mocked. No model or original evidence access; prior 33 controls not rerun.',
+            controls=rows)
+print(json.dumps(result,indent=2))

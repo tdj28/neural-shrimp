@@ -1,0 +1,173 @@
+{
+  "receipt": {
+    "path": "/data2/neural-shrimp-data/codex/certificate-ladder/dense-cascade-p6-001-supervision/receipt.json",
+    "bytes": 32966,
+    "sha256": "f8936136627e5704f23d60bd1f4732d10b8fc74e8fc72380e9d8e79255128ef0"
+  },
+  "admission": {
+    "path": "/data2/neural-shrimp-data/codex/certificate-ladder/dense-cascade-p6-001-supervision/admission.json",
+    "bytes": 4713,
+    "sha256": "0f975dccb720a8931ad6b3c179f21bc6f0054df7ff39dff436f43cb3e1c6c1a8"
+  },
+  "producer_plan": {
+    "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/certificate-ladder-task34/dense-cascade-p6-001-plan.json",
+    "bytes": 7176,
+    "sha256": "3217b86fe016cccab366f519bda3bcf1f5ce0b882efe5a62d728bf90d2f2bbb5"
+  },
+  "producer_card": {
+    "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/certificate-ladder-task34/dense-cascade-p3-001-card.json",
+    "bytes": 6064,
+    "sha256": "fad1beeb1eda8afaed84bcf315d27ffc1f1e446f3c2694b9690c1c702e87aa4a"
+  },
+  "source_commit": "19b63a2002b72ff5bcdaea441a141b58ed05e272",
+  "cell": "cascade-p6",
+  "period": 6,
+  "source_blobs_checked": 6,
+  "outputs_checked": 120,
+  "host_closure": true,
+  "columns_checked": 896,
+  "eigen_residuals_checked": 896,
+  "fd_rows_checked": 14,
+  "scientific_row": {
+    "cell": {
+      "name": "cascade-p6",
+      "alpha": 0.065693,
+      "log10T": -0.14798,
+      "period": 6,
+      "seed": "p3",
+      "alpha_ratio": [
+        147927485160425,
+        2251799813685248
+      ],
+      "log10T_ratio": [
+        -333221336429143,
+        2251799813685248
+      ],
+      "seed_path": "/data2/neural-shrimp-data/explore/sheets/seeds/p3.npy",
+      "states": "/data2/neural-shrimp-data/codex/certificate-ladder/settle-001/cascade-p6-states.npy",
+      "settle_report": "/data2/neural-shrimp-data/codex/certificate-ladder/settle-001/cascade-p6-report.json"
+    },
+    "period": 6,
+    "state_index": 507,
+    "columns": 896,
+    "dense_seconds": 2368.6253881556913,
+    "eigen_seconds": 0.6262882589362562,
+    "spectral_radius": 0.06743029671178127,
+    "next_modulus": 0.06743029671178127,
+    "critical_multiplier": [
+      -0.006880596197171129,
+      0.06707832966473103
+    ],
+    "critical_direct_eigen_residual_inf": 6.056003762835801e-14,
+    "maximum_eigen_residual_inf": 5.1491719551394985e-17,
+    "closure_inf": 5.030698080332741e-16,
+    "adjacent_separations": [
+      0.057164898813067466,
+      0.03530408660775904,
+      0.05547733387546587,
+      0.05772171629446642,
+      0.03597015720211765,
+      0.055633750911861256
+    ],
+    "critical_checks": [
+      {
+        "part": "real",
+        "zero_component": false,
+        "dense_vs_direct_inf": 6.41891054198318e-14,
+        "fd_ladder": [
+          {
+            "h": 0.01,
+            "absolute_inf_error": 0.0014462267733702542
+          },
+          {
+            "h": 0.003,
+            "absolute_inf_error": 0.0001063288956558604
+          },
+          {
+            "h": 0.001,
+            "absolute_inf_error": 1.1567112048349419e-05
+          },
+          {
+            "h": 0.0003,
+            "absolute_inf_error": 1.038488029429449e-06
+          },
+          {
+            "h": 0.0001,
+            "absolute_inf_error": 1.1533207959751185e-07
+          },
+          {
+            "h": 3e-05,
+            "absolute_inf_error": 1.047411700687978e-08
+          },
+          {
+            "h": 1e-05,
+            "absolute_inf_error": 1.4122685130721346e-09
+          }
+        ]
+      },
+      {
+        "part": "imag",
+        "zero_component": false,
+        "dense_vs_direct_inf": 5.78465227107916e-14,
+        "fd_ladder": [
+          {
+            "h": 0.01,
+            "absolute_inf_error": 0.013327051040719623
+          },
+          {
+            "h": 0.003,
+            "absolute_inf_error": 0.004423220008150439
+          },
+          {
+            "h": 0.001,
+            "absolute_inf_error": 0.0005239421520374047
+          },
+          {
+            "h": 0.0003,
+            "absolute_inf_error": 4.747739213050773e-05
+          },
+          {
+            "h": 0.0001,
+            "absolute_inf_error": 5.278359893190823e-06
+          },
+          {
+            "h": 3e-05,
+            "absolute_inf_error": 4.749953121056111e-07
+          },
+          {
+            "h": 1e-05,
+            "absolute_inf_error": 5.271348454418366e-08
+          }
+        ]
+      }
+    ],
+    "numerically_inside_unit_circle": true,
+    "scope": "Finite float64 numerical diagnostic; no rigorous stability/root certificate."
+  },
+  "elapsed_seconds": 2472.136233319994,
+  "certificate_passed": false,
+  "scope": "Saved composed matrix, complete eigensystem residuals, critical direct/FD comparisons and phase separation independently recomputed. AD and forward closure inherit reviewed original execution; no model rerun or interval certificate.",
+  "saved_audit_execution": {
+    "source_commit": "f13a1aad926c5018827f406a2afc530e1b482999",
+    "receipt": {
+      "path": "/data2/neural-shrimp-data/codex/certificate-ladder/dense-cascade-p6-001-audit-001-supervision/receipt.json",
+      "bytes": 5062,
+      "sha256": "2bba1dee9ece04c6bdecb395bd1246eccf139981e9d6d56130c0df670749d568"
+    },
+    "admission": {
+      "path": "/data2/neural-shrimp-data/codex/certificate-ladder/dense-cascade-p6-001-audit-001-supervision/admission.json",
+      "bytes": 3882,
+      "sha256": "5fcca8735621cbdf8bd5858649b8d8496c384b258a7bd2525ff505f0f42427cf"
+    },
+    "result": {
+      "path": "/data2/neural-shrimp-data/codex/certificate-ladder/dense-cascade-p6-001-audit-001/result.json",
+      "bytes": 4881,
+      "sha256": "899d6cf5b8b0d39b95cce4c3f989429bc250abc60f5c754d7cbf3845fc19310e"
+    },
+    "source_blobs_checked": 3,
+    "outputs_checked": 1,
+    "host_closure": true,
+    "external_elapsed_seconds": 1.0203935001045465,
+    "startup_observation": "short audit completed before separate root live check; original supervisor postexec record retained, no root live-start claim"
+  }
+}
