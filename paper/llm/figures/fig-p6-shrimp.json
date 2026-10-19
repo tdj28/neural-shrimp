@@ -1,0 +1,104 @@
+{
+ "scan": "llm-soft-loop/pod64/hr9",
+ "cells": 262144,
+ "chaotic": 154105,
+ "curves": [
+  {
+   "curve": "p6s-ad-curve-minus",
+   "kind": "flip",
+   "points": 59,
+   "drawn": 59,
+   "failed_gate": 0,
+   "stop": "parameters out of bounds"
+  },
+  {
+   "curve": "p6s-ad-curve-plus",
+   "kind": "flip",
+   "points": 29,
+   "drawn": 29,
+   "failed_gate": 0,
+   "stop": "parameters out of bounds"
+  },
+  {
+   "curve": "p6s-au-curve-minus",
+   "kind": "fold",
+   "points": 69,
+   "drawn": 69,
+   "failed_gate": 0,
+   "stop": "parameters out of bounds"
+  },
+  {
+   "curve": "p6s-au-curve-plus",
+   "kind": "fold",
+   "points": 82,
+   "drawn": 82,
+   "failed_gate": 0,
+   "stop": "parameters out of bounds"
+  },
+  {
+   "curve": "p6s-td-curve-minus",
+   "kind": "flip",
+   "points": 57,
+   "drawn": 56,
+   "failed_gate": 1,
+   "stop": "parameters out of bounds"
+  },
+  {
+   "curve": "p6s-td-curve-plus",
+   "kind": "flip",
+   "points": 100,
+   "drawn": 99,
+   "failed_gate": 1,
+   "stop": "100 points"
+  },
+  {
+   "curve": "p6s-tu-curve-minus",
+   "kind": "fold",
+   "points": 97,
+   "drawn": 96,
+   "failed_gate": 1,
+   "stop": "parameters out of bounds"
+  },
+  {
+   "curve": "p6s-tu-curve-plus",
+   "kind": "fold",
+   "points": 60,
+   "drawn": 60,
+   "failed_gate": 0,
+   "stop": "parameters out of bounds"
+  }
+ ],
+ "boundary_gate": {
+  "6|12 (flip)": {
+   "pairs": 916,
+   "within_1_step": 363,
+   "within_2_steps": 388,
+   "median_steps": 4.3315298944035625,
+   "max_steps": 74.82160510189226
+  },
+  "6|lost (fold)": {
+   "pairs": 1888,
+   "within_1_step": 486,
+   "within_2_steps": 490,
+   "median_steps": 18.2821589247432,
+   "max_steps": 143.4458653626558
+  }
+ },
+ "follow": {
+  "members": 2926,
+  "chaos_behind_text": 811,
+  "slow": 487,
+  "lost": 1202,
+  "periods": {
+   "6": 1946,
+   "12": 770,
+   "18": 22,
+   "24": 155,
+   "30": 2,
+   "36": 8,
+   "42": 2,
+   "48": 20,
+   "60": 1
+  }
+ }
+}

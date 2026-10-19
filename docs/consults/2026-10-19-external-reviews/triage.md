@@ -47,3 +47,13 @@ corrections go to the full report and the blog.
 | 28 | Fable | Six uncited bibliography entries | Removed |
 | 29 | Fable | arXiv form: use the article's abstract; categories nlin.CD primary | Abstract: yes. Categories: cs.CL primary stays (the human's endorsement is in cs.CL), with nlin.CD and cs.LG cross-lists |
 | 30 | Fable (v2) | Run the 10^5-step two-offset check on the Fig. 15 cell | Deferred to v2 |
+
+## Corrections to this triage (19 October 2026, after the report sync)
+
+The report sync checked items 23 and 25 against the raw files and found the reviewer's numbers too strong:
+- Item 23: the raw audit gives shortfalls of 0.4014 to 5.7448 iterates; 5.75 came from the table's rounded forecast
+  (154.75). The article now says "0.40 to 5.74" (commit after c7528a8).
+- Item 25: the raw margins are 3.16 and 4.47 decades, so "at least three to four and a half" overstated the upper one.
+  The article now says "at least 3.1 and 4.4 decades".
+- Item 24 was reworded so that it cannot be read backwards: "the location uncertainty of the period-384 flip ... leaves
+  the last factor undetermined".

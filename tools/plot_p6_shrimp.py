@@ -50,6 +50,50 @@ def load_curves(folder, max_residual, kind_tol):
     return out, report
 
 
+def boundary_gate(fa, ft, lab, fper, curves, period):
+    """As plot_real_shrimp.boundary_gate, in the (alpha, log10 T) plane with each axis in its own grid steps: for every
+    pair of 8-neighbouring cells with (i) period p next to period 2p, the distance from the pair's midpoint to the
+    nearest flip curve, and (ii) period p next to a cell where the attractor was lost, the distance to the nearest
+    fold curve."""
+    scale = np.array([abs(fa[1] - fa[0]), abs(ft[1] - ft[0])])
+    polys = {"fold": [], "flip": []}
+    for rec in curves:
+        if len(rec["points"]) >= 2:
+            polys[rec["kind"]].append(np.array([[q["alpha"], q["log10_temperature"]] for q in rec["points"]]) / scale)
+
+    def dist(mid, kind):
+        q = np.asarray(mid) / scale
+        best = np.inf
+        for P in polys[kind]:
+            A, B = P[:-1], P[1:]
+            d = B - A
+            t = np.clip(((q - A) * d).sum(1) / np.maximum((d ** 2).sum(1), 1e-30), 0, 1)
+            best = min(best, float(np.sqrt(((A + t[:, None] * d - q) ** 2).sum(1)).min()))
+        return best
+
+    pairs = {f"{period}|{2 * period} (flip)": [], f"{period}|lost (fold)": []}
+    n2, n1 = lab.shape
+    for i in range(n2):
+        for j in range(n1):
+            if not (lab[i, j] == 1 and fper[i, j] == period):
+                continue
+            for di, dj in ((-1, -1), (-1, 0), (-1, 1), (0, -1), (0, 1), (1, -1), (1, 0), (1, 1)):
+                ii, jj = i + di, j + dj
+                if not (0 <= ii < n2 and 0 <= jj < n1) or lab[ii, jj] < 0:
+                    continue
+                mid = ((fa[j] + fa[jj]) / 2, (ft[i] + ft[ii]) / 2)
+                if lab[ii, jj] == 1 and fper[ii, jj] == 2 * period and polys["flip"]:
+                    pairs[f"{period}|{2 * period} (flip)"].append(dist(mid, "flip"))
+                elif lab[ii, jj] == 0 and polys["fold"]:
+                    pairs[f"{period}|lost (fold)"].append(dist(mid, "fold"))
+    out = {}
+    for k, d in pairs.items():
+        d = np.array(d)
+        out[k] = {"pairs": int(len(d)), "within_1_step": int((d <= 1).sum()), "within_2_steps": int((d <= 2).sum()),
+                  "median_steps": float(np.median(d)) if len(d) else None, "max_steps": float(d.max()) if len(d) else None}
+    return out
+
+
 def draw_curves(ax, curves, lw=1.1, ms=7):
     from matplotlib import patheffects as pe
     for rec in curves:
@@ -75,6 +119,7 @@ def main():
     ap.add_argument("--max-residual", type=float, default=1e-8)
     ap.add_argument("--kind-tol", type=float, default=1e-3)
     ap.add_argument("--chaos-level", type=float, default=1e-3)
+    ap.add_argument("--period", type=int, default=6, help="period of the body (for the boundary gate)")
     ap.add_argument("--out", required=True)
     args = ap.parse_args()
 
@@ -149,6 +194,7 @@ def main():
         axB.set_xlabel(r"steering strength $\alpha$")
         axB.set_title("(b) the attractor followed from the body", fontsize=8)
         axB.legend(handles=handles, fontsize=5.8, loc="lower left", framealpha=0.85)
+        summary["boundary_gate"] = boundary_gate(fa, ft, lab, fper, curves, args.period)
         summary["follow"] = {"members": int((lab == 1).sum()), "chaos_behind_text": int((lab == 2).sum()),
                              "slow": int((lab == 3).sum()), "lost": int((lab == 0).sum()),
                              "periods": {str(p): int(((lab == 1) & (fper == p)).sum()) for p in periods}}
