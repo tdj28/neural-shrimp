@@ -30893,3 +30893,19 @@ conjugacy of the Rössler return map to unimodal maps, and orbits are traced by 
   - report: the same before "Limitations in detail".
   - Range ends are computed from raw counts (scratchpad insert_pv.py, at the true extremes).
 - Report table tab:evidence was 6.6 pt too wide (since an earlier edit tonight); now set in footnotesize.
+
+## 2026-10-19 07:37 UTC: HR11 result: the kite at 512 x 512
+
+- 16 bands (A100; commit a865b0b8), all rc 0. Stitched to llm-soft-loop/pod64/hr11 (explore_llm_soft_loop.py stitch).
+  512 x 512 finite cells, alpha 0.07280-0.07310, log10 T -0.1544 to -0.1530; steps 5.87e-7 and 2.74e-6 (7.5 and 4.6
+  times finer than HR10).
+- 19.5 % of cells chaotic. Periods 6 (123,477 cells), 12 (45,223), 24 (9,769) and 18 (3,039), all writing the body's
+  6-token text (6-band domain).
+- Fig. p6kite panel (a) is now this map (both papers).
+- New in the map, a hypothesis to test:
+  - a sharp straight-edged jump of contraction inside the kite;
+  - at alpha 0.072975 the exponent jumps from -0.279 to -0.0885 between adjacent rows (log10 T -0.1535315 and
+    -0.1535288), period 6 on both sides;
+  - no continued curve runs there, so it is probably where the fixed start switches between the two coexisting orbits.
+  Check: tools/kite_basin_check.py (local CPU, float64), running.
+- Human: "that hook at the top of the kite is jagged" -> zoom of the edge at native resolution.
