@@ -1722,8 +1722,7 @@ a small task-trained looped transformer \cite{kim2026phase}; here $N$ counts the
 
 \paragraph{A prospective test.} The same reduction, with both coefficients computed from the network's derivatives,
 predicts relaxation times and spectral gaps without fitting in a small task-trained looped transformer, where it was
-compared with measurements after the fact \cite{kim2026phase}. To test the normal form at folds that played no part in
-shaping the mechanism, an independent implementation located two new folds and computed their normal-form coefficients by nested automatic
+compared with measurements after the fact \cite{kim2026phase}. To test the normal form at folds that were not used while the bottleneck explanation was worked out, an independent implementation located two new folds and computed their normal-form coefficients by nested automatic
 differentiation. All 24 passage predictions were pushed in a frozen design before any test trajectory was run.
 Target A is the 2-cycle's fold at a new temperature: $\log_{10}T=-0.140$, $\alpha_c=0.0670549$, $a=-7.055$,
 $b=-24.927$. Target B is the fold of the period-8 orbit of Table~\ref{tab:orbits}, continued in temperature at
@@ -1756,7 +1755,7 @@ $3\times10^{-5}$ & $26/26$,\ $13/14$,\ $26/26$ & $4/4$,\ $2/2$,\ $4/4$ \\
 $1\times10^{-4}$ & $10/10$,\ $5/6$,\ $10/10$ & $2/2$,\ $1/1$,\ $2/2$ \\
 \bottomrule
 \end{tabular}
-\caption{Prospective passage test at two folds that did not shape the mechanism. Each cell lists the full-channel,
+\caption{Prospective passage test at two new folds, not used while the bottleneck explanation was worked out. Each cell lists the full-channel,
 midpoint and full-plus-transverse entrances as measured / predicted $G$-iterates. Predictions come from the iterated
 quadratic normal form, with coefficients from an independent implementation, frozen before the test runs. Bold: the
 one row outside the one-iterate criterion. The shortest period-8 rows give only weak relative accuracy.}

@@ -122,7 +122,8 @@ def main():
     un = UN[:600, pick]
     ax.semilogy(np.arange(len(un)), np.maximum(np.abs(un), 1e-6), "-", color="black", lw=0.6)
     ax.axhspan(1e-6, U, color="#fde0c5", lw=0)
-    ax.text(207, U * 0.45, r"bottleneck" + "\n" + r"$|u|<U$", fontsize=6.3, ha="center", va="top", color="#a6430a")
+    # label in the empty stretch of the band between the spike near n = 120 and the descent near n = 237
+    ax.text(180, U * 0.45, r"bottleneck" + "\n" + r"$|u|<U$", fontsize=5.8, ha="center", va="top", color="#a6430a")
     inside = np.abs(UN[:, pick]) < U
     runs, n = [], 0
     for x in inside:
