@@ -2546,6 +2546,22 @@ $+0.012$ for $\alpha$ above 0.072965 and 0.072967, because the loop still linger
 while over steps 3000 to 3400 every cell beyond the fold gives the strongly contracting orbit's exponent ($-0.18$ to
 $-0.71$).
 
+\begin{figure*}[tbp]
+\centering
+\includegraphics[width=0.85\textwidth]{fig-p6-hook-theory.png}
+\caption{The hook's lower edge is where the fixed start crosses the stable manifold of a saddle orbit
+(Qwen2.5-0.5B-Instruct, philosophy direction at layer 12; float64). (a) The map of Figure~\ref{fig:p6hook}a near the
+hook, with the kite's continued fold curve (gold) and the edges of the fixed start's outcome bisected along the map's
+columns (cyan; brackets whose end exponents differ by at least 0.1); red star: the steering strength
+$\alpha=0.072975$ of (b)--(d). (b) Distance to the saddle orbit along the loop started a distance $\delta$ in
+$\log_{10}T$ below the edge: it arrives along the stable manifold within about 25 steps, lingers, and leaves along
+the unstable direction; dotted: the radius $10^{-3}$ of (c). (c) The last step within $10^{-3}$ of the saddle
+against $\ln(1/\delta)$, for starts below the edge (which end on the strongly contracting orbit $S$) and above it
+(which end on the other, $W$); dashed: slope $6/\ln\mu_u$ from the saddle's unstable multiplier $\mu_u$. (d) Closest
+approach to the saddle against $\delta$; dashed: proportional to $\delta$.}
+\label{fig:hooktheory}
+\end{figure*}
+
 \paragraph{The tip of the hook.} The two edges meet where the fixed start lands exactly on the saddle-node orbit. At
 a point of the fold, the coordinate $u$ of the merged orbit along its critical direction evolves as $u'=u+bu^2$ to
 leading order (Appendix~\ref{sec:curves}); after its fast transient the fixed start lands at
@@ -2583,21 +2599,6 @@ weaker, long window) against the square root of the offset, with a straight-line
 \label{fig:hooktip}
 \end{figure*}
 
-\begin{figure*}[tbp]
-\centering
-\includegraphics[width=0.85\textwidth]{fig-p6-hook-theory.png}
-\caption{The hook's lower edge is where the fixed start crosses the stable manifold of a saddle orbit
-(Qwen2.5-0.5B-Instruct, philosophy direction at layer 12; float64). (a) The map of Figure~\ref{fig:p6hook}a near the
-hook, with the kite's continued fold curve (gold) and the edges of the fixed start's outcome bisected along the map's
-columns (cyan; brackets whose end exponents differ by at least 0.1); red star: the steering strength
-$\alpha=0.072975$ of (b)--(d). (b) Distance to the saddle orbit along the loop started a distance $\delta$ in
-$\log_{10}T$ below the edge: it arrives along the stable manifold within about 25 steps, lingers, and leaves along
-the unstable direction; dotted: the radius $10^{-3}$ of (c). (c) The last step within $10^{-3}$ of the saddle
-against $\ln(1/\delta)$, for starts below the edge (which end on the strongly contracting orbit $S$) and above it
-(which end on the other, $W$); dashed: slope $6/\ln\mu_u$ from the saddle's unstable multiplier $\mu_u$. (d) Closest
-approach to the saddle against $\delta$; dashed: proportional to $\delta$.}
-\label{fig:hooktheory}
-\end{figure*}
 
 \paragraph{Symbolic dynamics.} Jones's unimodal interpretation of selected R\"ossler return maps, in which the
 shape of a periodicity hub follows from a conjugacy to unimodal maps \cite{jones2012rossler}, suggests an approximate
