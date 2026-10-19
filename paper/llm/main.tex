@@ -2539,11 +2539,49 @@ the strongly contracting orbit and every start above it on the other. Together w
 the edge, this identifies the lower edge as the fixed start crossing the saddle's stable manifold. Bisecting 676
 jumps of the outcome along the map's columns (to $2.6\times10^{-13}$ in $\log_{10}T$; \repo{tools/hook_edge_track.py})
 traces the hook's other edges (Figure~\ref{fig:hooktheory}a). The upper edge follows the kite's fold curve, 0.1 to
-1.6 grid rows above a spline through the continued curve's points and more so toward the cusp, perhaps because just
-beyond the fold the loop lingers at the vanished orbit for longer than the measurement window; we have not tested
-this. Where the two edges meet, the saddle-node normal form predicts a tangential contact at the point of the fold
-where the fixed start lands on the saddle-node orbit, the gap between the edges growing quadratically along the fold;
-at the map's resolution the lower edge leaves the fold within one cell, so this prediction is untested.
+1.6 grid rows above a spline through the continued curve's points and more so toward the cusp. The offset comes from
+the map's window (Figure~\ref{fig:hooktip}b,c; \repo{tools/hook_tip_strip.py}): half a row and one row beyond the fold,
+where the weaker orbit does not exist, the exponent over the map's window (steps 300 to 600) lies between $-0.022$ and
+$+0.012$ for $\alpha$ above 0.072965 and 0.072967, because the loop still lingers at the orbit that vanished there,
+while over steps 3000 to 3400 every cell beyond the fold gives the strongly contracting orbit's exponent ($-0.18$ to
+$-0.71$).
+
+\paragraph{The tip of the hook.} The two edges meet where the fixed start lands exactly on the saddle-node orbit. At
+a point of the fold, the coordinate $u$ of the merged orbit along its critical direction evolves as $u'=u+bu^2$ to
+leading order (Appendix~\ref{sec:curves}); after its fast transient the fixed start lands at
+$u_0=\ell^\top(x-p_0)/\ell^\top r$, with $r$ and $\ell$ the right and left eigenvectors of the multiplier $+1$ at the
+orbit point $p_0$. Where $u_0$ has the sign that the quadratic term drives toward zero, the start converges onto the
+saddle-node orbit, and just inside the coexistence region it reaches the weaker orbit; where $u_0$ has the other sign,
+the start escapes to the strongly contracting orbit. The tip is therefore the point of the fold where $u_0$ changes
+sign. At seven points of the continued fold curve, $u_0$ is negative at $\alpha=0.072980$ to $0.073002$, where the
+start converges slowly onto the orbit (its drift fits $u'=u+bu^2$ with $b=56$ to 68), and positive at $\alpha=0.072889$
+to $0.072963$, where it escapes (\repo{tools/hook_tip_check.py}). At eight fold points located between them by
+Newton's method at fixed $\alpha$ (residuals at most $5\times10^{-14}$; \repo{tools/hook_tip_fold_points.py}), $u_0$ is
+nearly linear in $\alpha$ and crosses zero at $\alpha=0.0729655$ (Figure~\ref{fig:hooktip}a). Inside the fold, the
+boundary between the two outcomes approaches this point: at offsets of 2, 1, 0.5, 0.25 and 0.125 grid rows below the
+fold, the last cell that ends on the strongly contracting orbit lies at $\alpha=0.0729627$, 0.0729632, 0.0729637,
+0.0729642 and 0.0729645 (long window, cells $10^{-7}$ apart), and extrapolations with exponents from $1/3$ to $1/2$
+put the boundary's end on the fold at $\alpha=0.0729651$ to $0.0729657$, bracketing the prediction
+(Figure~\ref{fig:hooktip}d). The normal form predicts a tangential contact, the gap between the edges growing
+quadratically along the fold, which corresponds to the exponent $1/2$; these points do not resolve the exponent. In
+the map's window the boundary appears up to $7\times10^{-7}$ farther from the tip, as expected where the saddle's
+unstable multiplier approaches 1 near the fold and the start lingers longer.
+
+\begin{figure*}[tbp]
+\centering
+\includegraphics[width=\textwidth]{fig-p6-hook-tip.png}
+\caption{The tip of the hook (Qwen2.5-0.5B-Instruct, philosophy direction at layer 12; float64). (a) The fixed
+start's landing coordinate $u_0$ on the saddle-node orbit at points of the kite's fold curve: negative (blue) where
+the start converges onto that orbit, positive (red) where it escapes; squares and inset: fold points located by
+Newton's method at fixed $\alpha$, where $u_0$ crosses zero at $\alpha=0.0729655$ (vertical line, the predicted tip,
+also in (b) and (c)). (b) The largest exponent over the map's window (steps 300 to 600) along rows at fixed offsets
+from the fold curve (negative: beyond the fold, where the weaker orbit does not exist); the strongly contracting orbit
+has exponents of $-0.18$ to $-0.71$ here, the weaker one exponents near $-0.01$; dotted: the threshold $-0.15$ between
+them. (c) The same cells over steps 3000 to 3400: beyond the fold every cell ends on the strongly contracting orbit.
+(d) The boundary between the two outcomes inside the fold (last cell on the strongly contracting side and first on the
+weaker, long window) against the square root of the offset, with a straight-line extrapolation to the fold.}
+\label{fig:hooktip}
+\end{figure*}
 
 \begin{figure*}[tbp]
 \centering

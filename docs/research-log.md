@@ -31180,3 +31180,29 @@ conjugacy of the Rössler return map to unimodal maps, and orbits are traced by 
     near the boundary's extrapolated tip, alpha about 0.072964.
   - Job 2, tools/hook_tip_strip.py: alpha 0.0729620-0.0729670 at spacing 1e-7, offsets 0.125, 0.25, 0.5, 1 and
     2 rows. It gives the boundary's approach to the fold at 6 times the resolution.
+
+## 2026-10-19 12:14 UTC: HOOKTIP2 results: the tip of the hook is where the fixed start lands on the saddle-node orbit (prediction confirmed)
+
+- **Pod** 359cyi2fbh37fs (A100, commit 36950af9, rc 0, 1068 s, terminated and verified gone). Both jobs completed.
+- **Fold points inside the bracket** (tools/hook_tip_fold_points.py; llm-soft-loop/pod64/kite/hook-tip-folds).
+  - Eight folds located by Newton at fixed alpha: residuals 1.3e-14 to 4.8e-14, |g| at most 4.7e-14, +1 multiplier
+    to within 5e-12.
+  - u0 at alpha 0.0729636, 0.0729640, 0.0729644, 0.0729648, 0.0729652: +2.42e-4, +1.90e-4, +1.39e-4, +8.8e-5, +3.9e-5.
+    At 0.0729656, 0.0729664, 0.0729680: -9.0e-6, -1.02e-4, -2.77e-4.
+  - The values are nearly linear; the zero is at alpha 0.0729655, which predicts the tip.
+  - Near the zero the normal form's behavior shows. At u0 = +3.9e-5 the start has not yet escaped after 1500 steps,
+    as an escape time of order 1/(b u0) periods implies. At u0 = -9.0e-6 it converges. The drift fits give
+    b = 71.8 and 71.5 at the two farther points.
+- **Finer strip** (tools/hook_tip_strip.py; llm-soft-loop/pod64/kite/hook-tip-strip2): alpha 0.0729620-0.0729670 at
+  spacing 1e-7, offsets 0.125, 0.25, 0.5, 1 and 2 rows inside the fold.
+  - The last cell that ends on S, in the long window, lies at alpha 0.0729645, 0.0729642, 0.0729637, 0.0729632 and
+    0.0729627 respectively.
+  - Extrapolations to the fold with the exponent fixed at 1/2, 0.4 or 1/3 give 0.0729651, 0.0729654 and 0.0729657,
+    bracketing the prediction 0.0729655. A free-exponent fit is undetermined (p = 0.17 +- 0.09).
+  - The map's window places the boundary up to 7e-7 farther left at the smallest offset, where the saddle's unstable
+    multiplier approaches 1.
+- **Correction to the HOOKTIP entry above.** Over all 144 cells beyond the fold, the long-window exponents range from
+  -0.181 to -0.711 (the -0.31 quoted there was the end of a printed subset). The short window gives -0.022 to +0.012 for
+  alpha from 0.072965 (-0.5 rows) and 0.072967 (-1 row).
+- **Papers.** Report: paragraph "The tip of the hook" and Fig. hooktip (fig-p6-hook-tip.png, tools/plot_hook_tip.py).
+  Article: two sentences in "A basin edge inside the kite".
