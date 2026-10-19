@@ -30629,3 +30629,56 @@ docs/consults/2026-10-19-external-reviews/triage.md).
   - Then each runs tools/locate_curve_candidates.py (new): the cusp test of tools/cusp_locate.py on one candidate,
     selected with --near.
   - Each is called a located cusp only if all checks pass.
+
+## 2026-10-19 04:46 UTC: run cards HR10, HP5 (written after launch) and KITE (before launch)
+
+Disclosure: HR10 (launched 04:28 UTC) and HP5 (launched 04:38 UTC) went out without run cards; these cards were written at
+04:46 UTC, before any of their output was read. KITE's card is written before its launch.
+
+### HR10 (exploratory): a close-up of the period-6 shrimp (human: "Do another scan close up and centered on the shrimp please so we can see better it has really interesting features")
+
+- **Question:** what does the period-6 shrimp of Fig. 1's plane look like at about three times HR9's resolution: the head,
+  the flip crossing R at the body's lower-left end, and the start of both legs?
+- **Method:** `explore_llm_soft_loop.py scan`, the HR9 protocol (float64, transient 300, samples 300, record 80, max period
+  32, chaos level 1e-3; one twin), 640 x 640 cells over alpha 0.0718-0.0746 and log10 T -0.1570 to -0.1490 (steps
+  4.38e-6 and 1.25e-5); commit 35eabc6c (scan code identical to HR9's bde03750). 16 pods, 40 rows each, A100.
+- **Reading:** descriptive (the figure), plus the boundary gate of plot_p6_shrimp.py against the continued curves.
+- **Output:** `llm-soft-loop/pod64/bands/hr10-c00..c15`, stitched to `llm-soft-loop/pod64/hr10`.
+
+### HP5 (exploratory): a close-up of the period-5 shrimp of the two-block plane (human: "Fix anything wrong with the original shrimp we had in the paper too")
+
+- **Question:** at fine resolution and from the fixed start, what does the period-5 window of Fig. 18 look like? Fig. 18
+  shows it only through the followed domain on a 225 x 293 grid (steps 1.25e-4).
+- **Method:** `two_block_map.py` with run TB's protocol (float64, transient 500, record 300, twin 1e-6, period tolerance
+  1e-8), gratitude at block 4 and hostility at block 16, log10 T -0.1, 512 x 512 cells over alpha1 -0.1262 to -0.1138 and
+  alpha2 0.0905 to 0.1101 (steps 2.43e-5 and 3.84e-5); commit 35eabc6c. 16 pods, 32 rows each, H100 (A100 fallback).
+- **Reading:** descriptive; the window's map against its continued curves (FM5) and the followed domain (FA).
+- **Output:** `llm-soft-loop/pod64/tb/hp5-c00..c15`.
+
+### KITE (exploratory): the kite of the period-6 shrimp (human: "Where the flip curves cross", "Redo your search there more carefully", "Please figure out this shrimp")
+
+- **Question:** the body's two flip curves cross at R = (0.072912, -0.154104), at its lower-left end. Is R a
+  pseudo-crossing of two different period-6 orbits on two sheets of the family, as at the tail of Gallas's kite? If so,
+  where are the two orbits' folds, and where do they meet in a cusp?
+- **Evidence so far (descriptive, not a test):** iterating the stored orbit points nearest R at their own parameters, the
+  orbit on the td flip curve (0.7 HR9 steps from R) and the one on the ad flip curve (4.1 steps from R) differ by
+  1.7e-2 (6.3 % of the mean state norm). Two points 19 steps apart on the same td curve differ by 1.5e-3 (0.6 %). All
+  four orbits have the same token loop. A float64 Newton comparison at exactly R and at two body points nearby is
+  running locally (`tools/kite_newton_at_R.py`).
+- **Method:** job set kitecurves (commit 21ffed23).
+  - Each pod starts a float64 branch from a stored orbit point (`branch --init-state`, no transient; period detected by
+    return distance below 1e-9), with fine steps (ds 2e-4, at most 5e-4).
+  - The branch stops 2e-4 past its first fold turn.
+  - The fold curve is then traced both ways (`curve --kind fold`, ds 2e-4, at most 1e-3, 120 steps), so that a fold is
+    never replaced by a flip.
+  - KITE-UT: the td-sheet orbit (p6s-td-curve-minus row 2, at (0.0729188, -0.1540939)), log10 T increasing at fixed alpha,
+    towards the ad branch's line log10 T = -0.15204, where the ad-sheet orbit exists.
+  - KITE-LA: the ad-sheet orbit (p6s-ad-curve-plus row 6, at (0.0729070, -0.1539515)), alpha increasing at fixed log10 T,
+    towards the td branch's line alpha = 0.073097.
+- **Reading:**
+  - If a branch meets a fold, the fold curve's cusp candidates (tangent reversals) are located afterwards with
+    `cusp_locate.py --test cusp`.
+  - If neither branch meets a fold within its bounds, that is the result: no fold separates the sheets along those
+    lines.
+  - Every point is gated (residual, critical multiplier real and within 1e-7 of +1).
+- **Output:** `llm-soft-loop/pod64/kite/`.
