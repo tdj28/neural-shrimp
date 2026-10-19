@@ -1,0 +1,18 @@
+# Task33 saved-tube file boundary preparation
+
+Prepared 2026-10-19T12:00:46.981643+00:00. This is source-only work toward the future independent one-tube audit. No target/model/backend call, original output audit, old control rerun, or capacity admission is performed. The original tube packet remains held; its source/card/plan are unchanged.
+
+| File | Bytes | SHA256 |
+|---|---:|---|
+| `tube_saved_files.py` | 10055 | `8feace44ca4fe1f8226ae18e344670eab6f8dca5b52e39fb25b4860030ec5561` |
+| `test_tube_saved_files.py` | 13302 | `106c860434c978cc2177ecc1b20ce084f2719a1a78af8320ed7c3cf48fa9501b` |
+
+The module is independent standard-library code with no CLI, subprocess or producer imports. It checks exact lowercase SHA256/byte-count pins, returns the same bytes it hashed, and strictly decodes UTF-8 JSON without duplicate keys, nonfinite constants or exponent overflow. Linux no-follow directory descriptors reject every ancestor/leaf symlink; regular files with hardlink aliases are refused. File identities, lengths and timestamps are checked around each read and after rewalking the path. A complete flat successful tube allocation must contain exactly the eight expected files, with no ninth entry, directory, alias, partial output or failure artifact; complete identity/membership is rechecked after member reads. A separate in-memory source-byte comparison requires exact relative-key membership and pins, but does not authenticate Git or inspect the checkout.
+
+The limits are explicit preparation ceilings:64MiB per file,256MiB total and128 pins. They are refusal bounds, not a measured target memory claim. In particular the full checkpoint and its narrow asset symlinks are outside this module. The returned `raw_bytes` are internal values for the eventual wrapper, not a compact JSON report.
+
+All execution/source-origin/operator/trajectory/reachability/certificate admission flags remain false. Matching caller-supplied bytes and pins never proves their authority. Before/after stat checks detect ordinary concurrent replacement; they do not provide an atomic snapshot or future immutability. A later wrapper must authenticate the receipt/card/plan/source commit, original thin/audit002/prefix/map/backend/regularity/assets and actual host closure, independently check the existing scalar helper, and recheck all pins. The failed-original path still requires a separate preserved failure record; this success-only flat-inventory function refuses partial attempts. No L is read, recomputed or admitted here.
+
+Root has read the complete module and fixtures. The new22 test methods use only tiny fresh temporary synthetic files; they cover full original-byte decoding, malformed JSON/pins, literal path aliases, links/FIFOs/directories, file growth/replacement, ancestor replacement, exact full inventory, post-member mutation, bounded allocations, and exact source-byte consistency. Existing scalar26/operator27/receiver9/driver controls are not invoked.
+
+Prospective focused control admission: after a private source checkpoint, run only `test_tube_saved_files.py` once under isolated Python with bytecode disabled, one-thread environment, oneCPU,256MiB address-space and30CPU/40wall seconds. Preserve stdout, stderr, return code, exact source/test hashes and measured elapsed time in a new compact `tube-saved-files-controls-001.json`. These are manufactured file-boundary checks, no target arrays or original evidence. At this preparation checkpoint controls and syntax execution are UNRUN. Independent source review is in progress; actual control results must be appended without erasing this pre-outcome status.
