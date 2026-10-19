@@ -31032,3 +31032,20 @@ conjugacy of the Rössler return map to unimodal maps, and orbits are traced by 
 - Box H2 at 128 x 128 float64 cells, protocol of HR12, start = a random token's embedding
   (llm-soft-loop/prompt-variants/vec-r-token.npy, as in PV s2) instead of the prefix's last token. 1 pod.
 - Reading: compare with HR12 at the nearest cells: the fold curve, the wedge, the tongues.
+
+## 2026-10-19 09:13 UTC: HR12 result: the hook and the striations at 640 x 640 (report figure p6hook)
+
+- 16 bands (commit dabcbc55). Bands c02, c05, c08 and c14 timed out at 24576/25600 cells; their rows 38-39 were rerun
+  (commit 168eb807, scan code unchanged) and merged. Assembled to llm-soft-loop/pod64/hr12: 640 x 640 finite cells,
+  0.62 % chaotic, period 6 for 385,394 cells.
+- The hook's edges are smooth curves at 3.1 and 2.5 times finer cells than HR11, so the jaggedness seen in HR11 was
+  the grid.
+- Pair 1 (the wedge's lower edge): basin boundary (see the 08:1x entry).
+- Pair 2 (tools/kite_basin_check.py, alpha 0.0729225822, log10 T -0.1538291080 / -0.1538280125, a tongue's edge): the
+  fixed start reaches mu1 = -0.719371 and -0.107071. Each orbit continues to the other cell (mu1 -0.719002 and
+  -0.110448, attracting, 3.24 % from the other orbit, 6e-6 and 3e-5 from its source). Both exist at both cells:
+  another basin boundary of the fixed start.
+- Stippled tongue interiors: exponents fall into two separated groups (box 1: -0.31..-0.18 and -0.075..-0.03; box 2:
+  -0.64..-0.29 and -0.17..-0.13). The outcome alternates from cell to cell.
+- Running: tools/hook_saddle_check.py (is the wedge's lower edge the start crossing the saddle's stable manifold?
+  settling-time slope against 6/ln mu_u) and HR12-RS (the same box from a random start).

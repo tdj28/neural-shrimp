@@ -2488,6 +2488,28 @@ $0.60$ to $0.61$), and the fixed start reaches one above the edge and the other 
 \label{fig:p6kite}
 \end{figure*}
 
+\paragraph{The hook.} A $640\times640$ map of the upper end of the kite (Figure~\ref{fig:p6hook}; cells 3.1 and 2.5
+times finer than in Figure~\ref{fig:p6kite}a) resolves the hook-shaped light wedge and the striations below it. The
+wedge is bounded above by the kite's fold curve, where its orbit disappears, and below by a smooth curve where the fixed
+start switches to the other attracting orbit; at adjacent cells across that curve both orbits exist and attract
+(multipliers $0.18$ and $0.60$ to $0.61$; pair 1). The striations are tongues bounded the same way: across the edge of
+one, two other attracting period-6 orbits exist at both cells (multipliers $-0.72$ and $-0.11$; pair 2), and inside
+several tongues the exponents of neighboring cells fall into two separated groups, so the fixed start's outcome
+alternates from cell to cell, on a scale below the map's cells (\repo{tools/plot_p6_hook.py},
+\repo{tools/kite_basin_check.py}).
+
+\begin{figure*}[tbp]
+\centering
+\includegraphics[width=0.9\textwidth]{fig-p6-hook.png}
+\caption{The hook and the striations at the upper end of the kite (Qwen2.5-0.5B-Instruct, philosophy direction at layer
+12; float64). (a) A $640\times640$ map of $\alpha\in[0.07291,0.07303]$ and $\log_{10}T\in[-0.1540,-0.1533]$ (gray:
+periodic, darker where more contracting; colors: chaotic), with the kite's fold curve (black) and a flip curve of the
+body (red, dashed); cyan: the two pairs of adjacent cells checked by Newton continuation, on the wedge's lower edge (1)
+and on a tongue's edge (2). (b) The white box in (a) at the map's own cells: tongues in which the outcome alternates
+from cell to cell.}
+\label{fig:p6hook}
+\end{figure*}
+
 \paragraph{Symbolic dynamics.} The window's organization follows from a one-dimensional map, as the shape of a
 periodicity hub of the R\"ossler system follows from a conjugacy of its return map to unimodal maps
 \cite{jones2012rossler}. Where the attractor writes the body's six-token text, the loop visits six thin bands of the
