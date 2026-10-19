@@ -30909,3 +30909,17 @@ conjugacy of the Rössler return map to unimodal maps, and orbits are traced by 
   - no continued curve runs there, so it is probably where the fixed start switches between the two coexisting orbits.
   Check: tools/kite_basin_check.py (local CPU, float64), running.
 - Human: "that hook at the top of the kite is jagged" -> zoom of the edge at native resolution.
+
+## 2026-10-19 07:42 UTC: run card HR12 (exploratory): 640 x 640 zoom of the hook and the striations in the kite
+
+- Human: "Oh we need to get a higher resolution of that"; "I'm not sure it's pixel resolution alone"; "Make that box
+  a little bigger so we can cover the striations a bit below"; box H2 confirmed ("Go for it").
+- Window (box H2): alpha 0.07291-0.07303, log10 T -0.15400 to -0.15330; 640 x 640 float64 cells (steps 1.88e-7 and
+  1.10e-6, 3.1 and 2.5 times finer than HR11).
+- Protocol: HR10/HR11 (transient 300, samples 300, record 80, max period 32), commit dabcbc55; 16 pods of 40 x 640.
+- Questions:
+  - Is the lower edge of the light wedge a smooth curve, or does it have structure below HR11's cells?
+  - What are the striations below the hook?
+- Would surprise us: a jagged lower edge that stays jagged at 3x finer cells; that would argue for a fractal basin
+  boundary (to be read with the basin check).
+- Output: llm-soft-loop/pod64/bands/hr12-c00..c15, stitched to llm-soft-loop/pod64/hr12.
