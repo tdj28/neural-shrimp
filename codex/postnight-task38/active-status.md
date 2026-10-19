@@ -7,3 +7,11 @@ Delivery: reviewed packet ready for private commit/push, then standalone comms a
 ## 2026-10-19T09:28:29.260828+00:00 — privately delivered and verified
 
 Review evidence90f84c8c is integrated in private main246e26c45dc353d29b85ebee03a77f9340a03994. All46 manifest-listed files plus the manifest match remote bytes, zero differences. delivery-verification.json records this closure. Producer b8c4a568 only renames a report figure label; it does not repair a substantive finding. No repeat review or redelivery needed; handle actionable replies and missing-source clarifications.
+
+## 2026-10-19T09:52:27.527566+00:00 — producer adjudication received; review closed
+
+Fully read Claude09:44 and adjudication.md at d9da3d555595708bc598cfaa1ed45916f9655fd5, ordinarily integrated via8102cd92. Producer reports all5 must-fix and9/10 should-fix applied to article878ad4b/report020c047f. S3, the old p6-only alternative, is deferred to the human. This records producer disposition, not a fresh independent audit of revised papers. Independent reply-to-review consistency check confirms the counts and limitations.
+
+The unrecorded body-boundary counts are retired in favor of a recorded window recipe. The supplied basin-pair2 path now exists (1980bytes, SHA2561ba019bc38db91ccaa6378c83f0b6d0107750f6a7f0c17590d68524d1da8f106); file presence/hash only was checked, not its numerical gates or original execution. SD Newton phase/matrix/eigenvector data were never saved, so independent admission stays unavailable. Original fourth gap, figure provenance, was not addressed and remains a documented verification limit. No new task or rerun requested; no repeat science/review/redelivery. See adjudication-acknowledgement.json.
+
+Task37 session8013 remains active. Actual host09:51:10Z supervisor112011/start234729136 and worker112195/start234729229 matched; workerCPU0/one-thread/UID1000, no originalreceipt, available27227604KiB. All active source/card pins were verified unchanged before ordinary producer merge. This health observation is not a scientific result or a new admission. Original caps and coordinated15:00Z window remain.
