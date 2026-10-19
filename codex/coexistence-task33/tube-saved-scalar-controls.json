@@ -1,0 +1,216 @@
+{
+  "schema": "manufactured-tube-scalar-controls-v1",
+  "source": "/tmp/tube_saved_scalar.py",
+  "source_sha256": "90b0518f4bc976f84c6d56adf45c90726f617fa55e316ab3b7be7e50d9dcc096",
+  "fixture_scope": "Synthetic 896-component decoded JSON. Pins and receipt fields are manufactured, never authenticated originals.",
+  "status": "passed",
+  "controls": [
+    {
+      "name": "all896_nonuniform_signed_rows_and_first_step_join",
+      "outcome": "scalar_consistency_only",
+      "result": {
+        "schema": "codex-task33-tube-scalar-helper-v1",
+        "status": "scalar_and_coverage_consistent_only",
+        "components_checked": 896,
+        "layer_pairs_checked": 24,
+        "head_chunks_checked": [
+          149,
+          149
+        ],
+        "first_step": {
+          "delta0": {
+            "numerator": 1,
+            "denominator": 1024
+          },
+          "radius": {
+            "numerator": 1,
+            "denominator": 512
+          },
+          "defect_endpoint_max": {
+            "numerator": 1,
+            "denominator": 1024
+          },
+          "centre_canonical_sha256": "b6d671e72259b619bfbf4dabb17d0e254cadb1706a41a4185f9f639148b7edf5"
+        },
+        "L_candidate": {
+          "numerator": 21,
+          "denominator": 8
+        },
+        "original_file_authentication_performed": false,
+        "original_source_authentication_performed": false,
+        "operator_bound_admitted": false,
+        "trajectory_enclosure": false,
+        "certificate_passed": false,
+        "reachability_proved": false,
+        "conditional_operator_bound_only": true,
+        "scope": "Pure decoded-record checks only. The authority wrapper is not implemented; no actual target evidence was read. No trajectory, reachability or certificate."
+      }
+    },
+    {
+      "name": "exact_zero_defect_uses_declared_positive_fallback",
+      "outcome": "scalar_consistency_only",
+      "result": {
+        "schema": "codex-task33-tube-scalar-helper-v1",
+        "status": "scalar_and_coverage_consistent_only",
+        "components_checked": 896,
+        "layer_pairs_checked": 24,
+        "head_chunks_checked": [
+          149,
+          149
+        ],
+        "first_step": {
+          "delta0": {
+            "numerator": 0,
+            "denominator": 1
+          },
+          "radius": {
+            "numerator": 1,
+            "denominator": 32317006071311007300714876688669951960444102669715484032130345427524655138867890893197201411522913463688717960921898019494119559150490921095088152386448283120630877367300996091750197750389652106796057638384067568276792218642619756161838094338476170470581645852036305042887575891541065808607552399123930385521914333389668342420684974786564569494856176035326322058077805659331026192708460314150258592864177116725943603718461857357598351152301645904403697613233287231227125684710820209725157101726931323469678542580656697935045997268352998638215525166389437335543602135433229604645318478604952148193555853611059596230656
+          },
+          "defect_endpoint_max": {
+            "numerator": 0,
+            "denominator": 1
+          },
+          "centre_canonical_sha256": "b6d671e72259b619bfbf4dabb17d0e254cadb1706a41a4185f9f639148b7edf5"
+        },
+        "L_candidate": {
+          "numerator": 21,
+          "denominator": 8
+        },
+        "original_file_authentication_performed": false,
+        "original_source_authentication_performed": false,
+        "operator_bound_admitted": false,
+        "trajectory_enclosure": false,
+        "certificate_passed": false,
+        "reachability_proved": false,
+        "conditional_operator_bound_only": true,
+        "scope": "Pure decoded-record checks only. The authority wrapper is not implemented; no actual target evidence was read. No trajectory, reachability or certificate."
+      }
+    },
+    {
+      "name": "understated_last_saved_derivative_row",
+      "outcome": "refused_as_expected",
+      "reason": "every original signed row endpoint maximum exact"
+    },
+    {
+      "name": "understated_saved_max_L",
+      "outcome": "refused_as_expected",
+      "reason": "exact maximum L and successful status join"
+    },
+    {
+      "name": "last_full_primal_output_nonfinite_encoding",
+      "outcome": "refused_as_expected",
+      "reason": "finite native integer dyadic pair"
+    },
+    {
+      "name": "actual_receiver_native_radius_differs_but_still_contains_tube",
+      "outcome": "refused_as_expected",
+      "reason": "all original native input/actual receiver/operator fields identical"
+    },
+    {
+      "name": "last_nominal_primal_coordinate_too_narrow",
+      "outcome": "refused_as_expected",
+      "reason": "nominal closed cube containment"
+    },
+    {
+      "name": "serialized_last_direction_coordinate_too_narrow",
+      "outcome": "refused_as_expected",
+      "reason": "independent unit direction cube containment"
+    },
+    {
+      "name": "selected_radius_differs_from_exact_first_defect",
+      "outcome": "refused_as_expected",
+      "reason": "exact selected centre/radius/error rule"
+    },
+    {
+      "name": "last_local_defect_omits_saved_image_endpoint",
+      "outcome": "refused_as_expected",
+      "reason": "full signed defect must contain image minus next centre"
+    },
+    {
+      "name": "first_saved_bound_understates_signed_defects",
+      "outcome": "refused_as_expected",
+      "reason": "saved bound covers every signed defect"
+    },
+    {
+      "name": "audit_entry_incoming_scalar_differs",
+      "outcome": "refused_as_expected",
+      "reason": "audited exact first-step scalars"
+    },
+    {
+      "name": "audit_first_step_original_pin_differs",
+      "outcome": "refused_as_expected",
+      "reason": "audited first-step pin/check joins"
+    },
+    {
+      "name": "initial_checkpoint_row_value_hash_differs",
+      "outcome": "refused_as_expected",
+      "reason": "audited exact embedding row value hash"
+    },
+    {
+      "name": "partial_original_thin_report_is_not_current_success",
+      "outcome": "refused_as_expected",
+      "reason": "complete successful original thin audit required"
+    },
+    {
+      "name": "missing_last_derivative_head_chunk",
+      "outcome": "refused_as_expected",
+      "reason": "both complete ordered 149 chunk head passes"
+    },
+    {
+      "name": "wrong_last_head_endpoint",
+      "outcome": "refused_as_expected",
+      "reason": "both complete ordered 149 chunk head passes"
+    },
+    {
+      "name": "wrong_decoder_end_order",
+      "outcome": "refused_as_expected",
+      "reason": "complete ordered 24 layer coverage"
+    },
+    {
+      "name": "boolean_saved_layer_index",
+      "outcome": "refused_as_expected",
+      "reason": "complete ordered 24 layer coverage"
+    },
+    {
+      "name": "operator_file_without_final_status",
+      "outcome": "refused_as_expected",
+      "reason": "exact eight successful output records"
+    },
+    {
+      "name": "successful_internal_status_but_outer_resource_failure",
+      "outcome": "refused_as_expected",
+      "reason": "successful complete original supervision closure required"
+    },
+    {
+      "name": "outer_zero_but_failure_not_null",
+      "outcome": "refused_as_expected",
+      "reason": "successful complete original supervision closure required"
+    },
+    {
+      "name": "outer_reap_without_group_closure",
+      "outcome": "refused_as_expected",
+      "reason": "successful complete original supervision closure required"
+    },
+    {
+      "name": "status_original_admission_join_differs",
+      "outcome": "refused_as_expected",
+      "reason": "status original admission/selection join"
+    },
+    {
+      "name": "status_artifact_pin_substitution",
+      "outcome": "refused_as_expected",
+      "reason": "status full preceding artifact pin join"
+    },
+    {
+      "name": "nonconditional_certificate_flag",
+      "outcome": "refused_as_expected",
+      "reason": "conditional-only saved scope flags"
+    }
+  ],
+  "count": 26,
+  "target_evidence_reads": 0,
+  "model_calls": 0,
+  "old_controls_repeated": false,
+  "runtime_admission": false
+}
