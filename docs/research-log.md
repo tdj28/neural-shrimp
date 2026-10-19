@@ -30953,3 +30953,14 @@ conjugacy of the Rössler return map to unimodal maps, and orbits are traced by 
 - Mishap (no data affected): a caption-editing script truncated both main.tex files after the kite caption. Restored
   from the last commits (only the broken edit was uncommitted), the sentence reapplied, and both papers rebuilt
   cleanly (28 and 163 pages).
+
+## 2026-10-19 08:16 UTC: run card SD-V (exploratory gate): float64 Newton check of the symbolic words
+
+- Cells: one per window word and side (W|X with at least 3 coded cells in the 8 complete SD-W bands), at the cell
+  nearest the center of that label's largest connected patch. 23 cells, periods 6 to 48: scratchpad sd-verify-picks.json,
+  listed in the pods' job arguments.
+- tools/sd_verify_words.py (commit 5cd47ff7): Newton with exact Jacobians; the leading Floquet vector carried along
+  the orbit; signs of the 6-step derivative; words by maximal rotation in all six phases.
+- Checks per cell: phases agree; the parity of R's matches the sign of the leading multiplier; L and R visits are
+  separable along each phase's principal axis; the word is an MSS word. Compare with the scan's word at the cell.
+- 2 toolseq pods (sdv-a, sdv-b), job 50 min. Output: llm-soft-loop/pod64/sd/verify-a, verify-b.
