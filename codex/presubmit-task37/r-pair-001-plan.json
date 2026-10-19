@@ -1,5 +1,5 @@
 {
-  "status": "held_for_private_checkpoint_and_coordinated_capacity",
+  "status": "reviewed_for_execution",
   "repository": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp",
   "raw_root": "/data2/neural-shrimp-data/scratch/audit-codex-1019",
   "python": "/data2/neural-shrimp/.venv/bin/python",
@@ -31,8 +31,8 @@
     },
     {
       "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/presubmit-task37/r-pair-001-card.json",
-      "bytes": 7109,
-      "sha256": "8f1014409de23148beb9cd29c447c9514cebb9e72075067cd2ed47f83813e1d1"
+      "bytes": 7848,
+      "sha256": "8222df4af6ed721cc79e54616c82b3a9376fda00a62921f3dee4d3a4cb0f3db7"
     }
   ],
   "lanes": {
@@ -122,6 +122,6 @@
     }
   },
   "execution_environment": "HF_HUB_OFFLINE=1 and all numerical threads1; existing external supervisor imposes nice10, CPU affinity and resource/available-memory/disk caps.",
-  "capacity_status": "HELD after prior local RAM-floor stops; no admission from a momentary passing RAM reading.",
+  "capacity_status": "Coordinated by Claude08:58/read09:02 through15:00Z; fresh32GiB startup and16GiB runtime gates unchanged. Firstunused serial Rpair only; no admission from coordination alone.",
   "no_target_run": true
 }
