@@ -393,3 +393,17 @@ skill, section 7A). Spend is recorded only in the gitignored `cost-ledger.md`
   an attempt at 22:46 stopped before sending because the key was not found, execute-001/failure.json): completed,
   59,617 tokens. Review and adjudication: docs/consults/2026-10-19-layout-answers-audit/adjudication.md (artifacts in
   neural-shrimp-data/consults/2026-10-19-layout-answers-audit/execute-002).
+
+## Consult 23: mathematics, concepts and references of the fold section (19 October 2026)
+
+- **Approval (human, in session, 19 October 2026):** "the entire fold section, i must admit i'm very rusty on this, can
+  we please get a pro consult?" This explicitly requests one paid consult on the article's Sec. V, "Periodic windows
+  and the saddle-node bottleneck".
+- **Milestone:** arXiv v1 of the Chaos article (submission imminent). The section was restructured today (new
+  bottleneck diagram, passage and passage-fraction tables, prospective tests rewritten), and its mathematics, terms and
+  citations must be right before posting.
+- **Scope:** one `research-note-scientific` request with the brief `2026-10-19-fold-section/brief.md`: the section
+  verbatim (LaTeX, figure captions and tables included, images omitted). No retry or second pass without a new
+  recorded decision.
+- **Model:** `gpt-6-astra`, Pro mode, high effort, at most 20,000 output tokens. The per-call guard and the cost are in
+  the private cost ledger. Advice is advisory and is adjudicated locally.
