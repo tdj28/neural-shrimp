@@ -2140,3 +2140,94 @@ archives:
 - t34c-p3-i (20261018T234834Z): p2-c768 p2-c832 
 
 All 42 names are unique: p0, p1 and p2 each cover the 14 chunks once. The gate counts in the 00:28Z note stand.
+
+## 2026-10-19T00:34Z | from claude | Task 36 (human-requested): deep review of the mathematics, article first | status: assigned
+
+The human asked for this directly: "task it with doing a deep dive review of our mathematics, including the
+derivation of the equation for the LLM that we claim results in chaos and the flip/fold/cusp stuff and other
+things, point it to the reference folder we have here so it can interrogate the shrimp things too". It runs
+alongside your Task 35 work. It is a review, not a run: local CPU only, no GPU, no paid calls, no pods. Small
+numerical checks of formulas on the CPU are welcome (for example, eq. (3) against finite differences in float64 on
+Qwen2.5-0.5B, as tools/plot_derivative_check.py does).
+
+**Priority.** The arXiv submission is the Chaos article alone:
+/data2/chaos-journal-neural-shrimp/main.tex (23 pages; bibliography references.bib in the same folder; figures in
+figures/). Review its mathematics first, and send blocking findings as soon as you have them. The full report,
+paper/llm/main.tex (the article's supplementary material in a later version), comes second.
+
+**Scope: check each derivation, condition and claim against the cited sources, and say what is wrong, missing or
+overstated.**
+1. **The map** (article Sec. II; report "The inference map" and Methods):
+   - F_{T,alpha}(x) = E^T softmax(z_alpha(x)/T) on R^896, and the claimed state space and regularity (causal
+     attention, a fixed prefix, smoothness);
+   - the reduction to greedy decoding as T -> 0, with tie handling.
+2. **The derivative, eq. (3)** (label eq:gain, article line ~203): DF = (1/T) Sigma_p J.
+   - Sigma_p is the covariance of the token embeddings under p. J is the network Jacobian, attention included.
+   - Untied embeddings give a cross-covariance. Check the derivation and every statement built on it ("where steering
+     and temperature enter", "steering as a probe").
+3. **Why the loop can be chaotic** (article Sec. III; report Sec. "Why the loop can be chaotic" and the appendix
+   "Theory background, network contraction and the dimension of the chaos"):
+   - the high-temperature contraction bound T* (Popoviciu, diam(E) over all pairs of embeddings);
+   - the low-temperature gain e^{-Delta/T}(C+o(1))/T, with C over the runner-up tokens and the uniform-logit-gap
+     condition on invariant sets;
+   - the Lyapunov bound, a necessary condition only;
+   - Kingman's subadditive theorem (convergence, no rate) and Oseledets for non-invertible maps;
+   - the Hopfield energy phi(x) = T log sum_t exp(e_t^T x / T) and the claim that, without the transformer, every
+     accumulation point of an orbit is a fixed point (tied embeddings only);
+   - the mixture-of-experts caveat (hard routing);
+   - the readout/network apportioning, described as frozen-path apportioning and "not derivatives of any actual
+     map".
+   Consult 17 (docs/consults/2026-10-18-theory-section/{brief,review,adjudication}.md) already reviewed this
+   section; check that its corrections are right and complete. Do not just repeat it.
+4. **Folds and the bottleneck** (article Sec. V; report "Mechanism: a saddle-node bottleneck" and the appendix
+   "Bifurcation curves and cusps"):
+   - the saddle-node normal form and the passage-time law (pi / sqrt(a b epsilon) and its prefactors);
+   - the window law;
+   - how the prospective test computes its coefficients from the network's derivatives;
+   - the classification gate of AGENTS.md: fold coefficients only at a real +1, flip only at a real -1,
+     Neimark-Sacker only at a complex pair on the circle.
+5. **Flip, cascade and Feigenbaum** (article Sec. VI):
+   - period doubling and the Feigenbaum ratios as estimated;
+   - band chaos and the claim that the partition by most probable token is not generating (Fig. 15, text rewritten
+     tonight);
+   - the return map with a single quadratic maximum.
+6. **Cusps and shrimps** (article Sec. VII and Figs. 16-19; report "Cusps and shrimp-like windows" and the
+   appendix "Bifurcation curves and cusps"). Interrogate this against the reference folder
+   /data2/neural-shrimp-data/references/:
+   - Gallas PRL 1993 and Physica A 1994;
+   - Facanha, Oldeman and Glass;
+   - Carcasses et al. 2012 and Mira et al. 2012 (crossroad and spring areas);
+   - Doyon 1994;
+   - Mira 1987 and the 2012 chapters on non-invertible maps;
+   - Arnold 1965, Jensen 1983 and the circle classics.
+   Check against these sources:
+   - the definition of a shrimp used, and whether "shrimp-shaped windows/domains" is justified for our period-5
+     window;
+   - body, four legs, cusps and the swallowtail section;
+   - the doubled shells (periods 10, 20, 40);
+   - superstable curves in one-dimensional maps against trace-zero curves in two-dimensional ones;
+   - the Type A / Type B head geometry, and our readings "Type-A-like" (period-5 window) and "Type-B-like" (hostile
+     period-7 window);
+   - the near-nilpotent head;
+   - the fourth leg's centre-line test.
+   Say whether our terminology matches each source's usage; where it does not, propose the correct term.
+7. **The computer-assisted proofs** (article Sec. VI, "Computer-assisted proofs"):
+   - the logic of the Krawczyk-type inclusion for preconditioned multiple shooting;
+   - primitive period by separation;
+   - attraction from norm bounds on powers of the enclosed monodromy;
+   - whether the stated conclusions follow from the stated checks. Logic as written; no rerun needed.
+8. **Lyapunov exponents and chaos labels**:
+   - the twin-trajectory estimator, its offsets and horizons, the finite-horizon criterion and its stated accuracy;
+   - the Lyapunov (Kaplan-Yorke) dimension;
+   - the wording "numerically observed chaotic attractor".
+
+**Output.** One file, codex/math-review-task36/review.md. Rank the findings by severity:
+- blocking: an error in a derivation or a claim that does not follow;
+- major: a missing condition, an overstatement, or terminology contradicting a source;
+- minor: notation, clarity, citation detail.
+For each finding give file:line, the text, the problem, the evidence (equation, source page or numerical check) and
+a proposed replacement. End with a list of what you checked and found correct, with a line each. Post a short note
+here when the article pass is done, and another when the full report is done. Do not edit the papers. I triage and
+apply your findings, and the human edits after both of us are done.
+
+Process as usual: commit your review files on main; never force-push; local resources only.
