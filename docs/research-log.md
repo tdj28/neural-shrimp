@@ -30531,3 +30531,54 @@ docs/consults/2026-10-19-external-reviews/triage.md).
   greedy decoding as T->0" without the unique-maximizer condition (A15); Section 3 preview without the
   tied-embedding condition (R7); "can fake a positive exponent but not hide one" under a simple model (A8, weaker
   than Codex's replacement); the two-panel figure.
+
+## 2026-10-19 03:13 UTC: training-dynamics line moved to /data2/chaos-llm-training
+
+- **Decision** (the human, 18 October 2026): the training files the shrimp paper does not need move to
+  /data2/chaos-llm-training; everything else stays as is. History is not rewritten: every removed file stays
+  reachable at ebc1e865, and reverting the removal commit restores them all.
+- **Manifest** regenerated at ebc1e865 with the split plan's scripts (/data2/neural-shrimp-data/split-plan/plan.md,
+  section 8, step 0): 2026-10-19-at-ebc1e865/manifest.csv, 31,882 rows, SHA-256
+  0bfcaafa06533b7c5883ebf164ca65a4d29b7d960811858a4fef7fe4d824750a, byte-identical on a second run. No row is
+  reclassified against the plan's manifest at edbeaf69; the 167 files added since are all LLM, and no MOVE file changed
+  in between. Static checks pass: no path cited by paper/llm/main.tex and no file of the LLM paper's closure (471 files,
+  98 tests) moves, and no staying tool or test imports a moved file (tools/hardware_ledger.py and
+  tools/research_log.py only mention moved paths in text). The Chaos article binds only paper/llm/main.tex,
+  paper/llm/references.bib, paper/llm/figures/ and this log, and none of them moves.
+- **Copied** to /data2/chaos-llm-training, local commit 8b3eafad (exact bytes of ebc1e865 by git archive; mode and blob
+  id of every file checked against git ls-tree): 3,803 files, 43.10 MiB. These are the 3,679 training-only files, the
+  107 files shared with the training line (kept here as well) and 17 repository-wide files. Adapted there in 1b8592ff:
+  new README.md; AGENTS.md, Skills.md and the CI workflow name that repository. No GitHub repository was created and
+  nothing was pushed; its existing origin entry is unchanged.
+- **Removed** here in c882c37c (pushed): the 3,679 training-only files, 38.46 MiB: docs/reviews 1,065, tools/ 766,
+  docs/plans 657, tests/ 503, tools/reviews 236, src/neural_shrimp 208 of 218 modules, tests/reviews 95,
+  paper/gd-route 58, docs/ top level 57, certificates/ 22, docs/consults 9, docs/figures 1, experiments/trainability 1,
+  native/gdmap_cuda.cu. Of the 31,882 files at ebc1e865, 28,203 (1,819.12 MiB) stay: every LLM, rnn and dialogue file
+  and the 107 shared files. Shared files now evolve separately; docs/consults/approvals.md and this log have already
+  changed since ebc1e865.
+- **Checks after the removal:**
+  - The eight LLM tools used tonight import (explore_llm_soft_loop, follow_attractor, cusp_locate, doubly_superstable,
+    plot_p6_shrimp, plot_fig1_clean, runpod_soft_float64, bifurcation_curves), and bash -n tools/runpod_soft_runner.sh
+    passes. The remaining package imports and neural_shrimp.cli validates the three pilot manifests.
+  - 99 selected test files (the 98 tests of the LLM paper's closure, including test_follow_attractor_plane.py and the
+    certificate tests, plus test_cert_capacity.py), four pytest processes with --basetemp on /data2 and pipefail:
+    1,826 passed and 4 failed. The first three processes passed with the same counts as before the removal (475,
+    836 and 409); the fourth (24 files) gave 106 passed and 4 failed, and its run before the removal was not checked.
+    The four failures predate the split and involve no moved file. test_period_colors.py (three tests) builds its
+    arguments without the box option that tools/explore_llm_soft_loop.py has read since 15 October (d90be5f7), and
+    test_qwen35_float64.py::test_hybrid_cache_restore builds a SoftLoop without the extra attribute added on
+    14 October (9b2f70e7); both test files were last changed before those commits.
+  - paper/llm/main.tex, built with latexmk -cd -pdf from a clean export of c882c37c: 155 pages, with no missing file,
+    undefined reference or BibTeX warning. All 105 distinct \repo, \codelink and \path targets exist at c882c37c (six
+    as codex/<name>).
+- **Housekeeping and exceptions:**
+  - paper/gd-route/.gitignore moved with the line, so three build outputs it alone ignored (main.pdf, main.fls,
+    main.fdb_latexmk) showed up here as untracked. All eight build outputs of that paper were moved to
+    chaos-llm-training/paper/gd-route/, where they are ignored. The __pycache__ folders of the emptied directories
+    were deleted.
+  - The plan's optional step H1 (neural-shrimp history fetched into local refs of the new repository) was started and
+    then undone before its first commit (refs deleted, objects pruned). Commit hashes in the moved records refer to
+    this repository.
+  - Not done, left for a decision: README.md here still describes Program C Track A and links docs/EXP-028-protocol.md,
+    which moved. The 40 moved files that hard-code /data2/neural-shrimp were not adapted. The full-suite comparison
+    of plan section 8 was not run. No file needed restoring.
