@@ -31091,7 +31091,7 @@ conjugacy of the Rössler return map to unimodal maps, and orbits are traced by 
     settling-time slope).
   - Tip refinement afterwards if the edge data warrant it.
 
-## 2026-10-19 11:20 UTC: HOOK results: the hook's lower edge is the fixed start on a saddle's stable manifold (verified at one steering strength); the upper edge follows the fold; the tip is unresolved
+## 2026-10-19 11:10 UTC: HOOK results: the hook's lower edge is the fixed start on a saddle's stable manifold (verified at one steering strength); the upper edge follows the fold; the tip is unresolved
 
 - **HOOKSADDLE** (pod bicldaq9lj7rsv, A100 80GB, commit ec17985d from the orchestrator log, rc 0, 1149 s, terminated
   and verified gone; an earlier pod, ihexgx78a6izpp, was terminated after its launcher was stopped by mistake).
@@ -31129,7 +31129,7 @@ conjugacy of the Rössler return map to unimodal maps, and orbits are traced by 
   - Tip: tangency predicted by the saddle-node normal form, not tested.
 - **Figure.** paper/llm/figures/fig-p6-hook-theory.png (tools/plot_hook_theory.py; report Fig. hooktheory).
 
-## 2026-10-19 12:35 UTC: tip of the hook: fold-point check done; run card HOOKTIP (exploratory)
+## 2026-10-19 11:40 UTC: tip of the hook: fold-point check done; run card HOOKTIP (exploratory)
 
 - **Fold-point check** (local RTX 2000 Ada, float64; tools/hook_tip_check.py, commit b5038c4d;
   llm-soft-loop/kite/hook-tip).
