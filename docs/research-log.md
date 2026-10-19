@@ -30582,3 +30582,27 @@ docs/consults/2026-10-19-external-reviews/triage.md).
   - Not done, left for a decision: README.md here still describes Program C Track A and links docs/EXP-028-protocol.md,
     which moved. The 40 moved files that hard-code /data2/neural-shrimp were not adapted. The full-suite comparison
     of plan section 8 was not run. No file needed restoring.
+
+### 2026-10-19 03:44 UTC: independent replication of the chaos with a from-scratch implementation of the map
+
+- **Question** (the human): "is there a chance we are fooling ourselves ... the chaos we found was from our code and
+  harness and not from the LLM?" The independent float64 CPU implementation of codex/crosscheck/qwen_map.py was used.
+  It is a manual Qwen2.5-0.5B forward pass from the pinned checkpoint, imports no repository research tool and no
+  Transformers model code, and earlier reproduced the P2/P8 orbits, the fold and 18 passage counts. The exponents had
+  never been measured with it.
+- **Tool:** tools/independent_chaos_check.py (new). Scan protocol: fixed start (the stored newline embedding), 300
+  transient steps, a twin at absolute offset 1e-6 in a seeded random direction, renormalized every step, exponent =
+  mean log growth. Philosophy vector at layer 12, the implementation's pinned setting. 8 CPU threads per cell.
+- **Results** (llm-soft-loop/independent-chaos-check/{tableI-cell,strong-cell,p8-control}/result.json):
+
+| cell (alpha, log10 T) | our scan (300 steps) | independent, 300 steps | independent, 1000 steps |
+|---|---|---|---|
+| (0.065201, -0.155998), Table I's chaotic cell | 0.1125 | 0.0980 | 0.1055 |
+| (0.075475, -0.133454), strongly chaotic | 0.3588 | 0.3541 | 0.3320 |
+| (0.071674, -0.115), certified period-8 orbit | (periodic) | -0.5787 | -0.5644 |
+
+- **Reading.** The independent implementation finds positive exponents of the same size at both chaotic cells and
+  contraction at the periodic control. The control's -0.5644 matches ln(0.0110)/8 = -0.5637, from Table II's leading
+  multiplier. The differences at the chaotic cells, 0.015 and 0.005 at 300 steps, are within the spread of 300-step
+  estimates (median 0.020 against 2000 steps in the label audit). The chaos is a property of the model's soft-token
+  map, not of our harness. Article sentence added in its "Accuracy of the labels" paragraph.
