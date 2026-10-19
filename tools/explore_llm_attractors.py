@@ -51,6 +51,33 @@ MODELS ={"qwen0.5b": "Qwen/Qwen2.5-0.5B-Instruct", "qwen1.5b": "Qwen/Qwen2.5-1.5
           # controls for Qwen3.5-35B-A3B (4B: about its active size; 9B)
           "olmoe-1b-7b": "allenai/OLMoE-1B-7B-0125-Instruct",
           "qwen3.5-4b": "Qwen/Qwen3.5-4B", "qwen3.5-9b": "Qwen/Qwen3.5-9B"}
+# Hugging Face revision (commit hash) of each model, as listed in docs/model-revisions.json: each repository's
+# revision was unchanged on the host from before the study began, so every download of the study received it
+REVISIONS = {
+    "Qwen/Qwen2.5-0.5B-Instruct": "7ae557604adf67be50417f59c2c2f167def9a775",
+    "Qwen/Qwen2.5-1.5B-Instruct": "989aa7980e4cf806f80c7fef2b1adb7bc71aa306",
+    "Qwen/Qwen2.5-7B-Instruct": "a09a35458c702b33eeacc393d103063234e8bc28",
+    "allenai/OLMo-2-1124-7B-Instruct": "470b1fba1ae01581f270116362ee4aa1b97f4c84",
+    "Qwen/Qwen2-0.5B-Instruct": "c540970f9e29518b1d8f06ab8b24cba66ad77b6d",
+    "meta-llama/Llama-3.1-8B-Instruct": "0e9e39f249a16976918f6564b8830bc894c89659",
+    "Qwen/Qwen3.5-0.8B": "2fc06364715b967f1860aea9cf38778875588b17",
+    "Qwen/Qwen3.5-35B-A3B": "59d61f3ce65a6d9863b86d2e96597125219dc754",
+    "Qwen/Qwen2.5-72B-Instruct": "495f39366efef23836d0cfae4fbe635880d2be31",
+    "Qwen/Qwen2.5-72B": "efba10c8e54e91e0d9570ab5f7b51a958474d4cb",
+    "meta-llama/Llama-3.3-70B-Instruct": "6f6073b423013f6a7d4d9f39144961bfbfbc386b",
+    "meta-llama/Llama-3.1-70B-Instruct": "1605565b47bb9346c5515c34102e054115b4f98b",
+    "Qwen/Qwen2.5-3B-Instruct": "aa8e72537993ba99e69dfaafa59ed015b17504d1",
+    "Qwen/Qwen2.5-14B-Instruct": "cf98f3b3bbb457ad9e2bb7baf9a0125b6b88caa8",
+    "Qwen/Qwen2.5-32B-Instruct": "5ede1c97bbab6ce5cda5812749b4c0bdf79b18dd",
+    "allenai/OLMo-2-0425-1B-Instruct": "48d788eca847d4d7548f375ad03d3c9312f6139e",
+    "allenai/OLMo-2-1124-13B-Instruct": "3a5c85baefbb1896a54d56fe2e76c0395627ddf4",
+    "allenai/OLMo-2-0325-32B-Instruct": "b96024342a77a69aa0dda815c3454a671f477463",
+    "meta-llama/Llama-3.2-1B-Instruct": "9213176726f574b556790deb65791e0c5aa438b6",
+    "meta-llama/Llama-3.2-3B-Instruct": "0cb88a4f764b7a12671c53f0838cd831a0843b95",
+    "allenai/OLMoE-1B-7B-0125-Instruct": "b89a7c4bc24fb9e55ce2543c9458ce0ca5c4650e",
+    "Qwen/Qwen3.5-4B": "851bf6e806efd8d0a36b00ddf55e13ccb7b8cd0a",
+    "Qwen/Qwen3.5-9B": "c202236235762e1c871ad0ccb60c8ee5ba337b9a",
+}
 PROMPTS = {
     "open": "You are an AI talking with another AI. You have complete freedom. Feel free to pursue whatever you want.",
     "task": "You are an AI collaborating with another AI on one task: planning a three-day trip to Kyoto. "
@@ -144,8 +171,9 @@ class Engine:
         torch.set_num_threads(int(threads))
         self.torch = torch
         self.name = MODELS[model]
+        self.revision = REVISIONS[self.name]
         self.weights = weights
-        self.tok = AutoTokenizer.from_pretrained(self.name, cache_dir=CACHE)
+        self.tok = AutoTokenizer.from_pretrained(self.name, revision=self.revision, cache_dir=CACHE)
         if weights not in ("native", "bf16"):
             raise SystemExit(f"weights must be native or bf16, not {weights!r}")
         if (weights == "bf16" or device == "auto") and (dtype != "float64" or model.startswith("qwen3.5")):
@@ -162,8 +190,8 @@ class Engine:
                 total = [torch.cuda.get_device_properties(i).total_memory / gib for i in range(torch.cuda.device_count())]
                 budget = {i: f"{int(max(t - AUTO_RESERVE_GIB, 0.5 * t))}GiB" for i, t in enumerate(total)}
                 kwargs = {"device_map": "balanced", "max_memory": budget}
-            self.model = AutoModelForCausalLM.from_pretrained(self.name, dtype=torch.bfloat16, cache_dir=CACHE,
-                                                              **kwargs)
+            self.model = AutoModelForCausalLM.from_pretrained(self.name, dtype=torch.bfloat16, revision=self.revision,
+                                                              cache_dir=CACHE, **kwargs)
             if device not in (None, "auto"):
                 self.model = self.model.to(device)
             if weights == "bf16":
@@ -176,7 +204,8 @@ class Engine:
             # normalizations and rotary tables are patched below with the dense models
             import olmoe_float64
 
-            self.model = AutoModelForCausalLM.from_pretrained(self.name, dtype="auto", cache_dir=CACHE)
+            self.model = AutoModelForCausalLM.from_pretrained(self.name, dtype="auto", revision=self.revision,
+                                                              cache_dir=CACHE)
             if device is not None:
                 self.model = self.model.to(device)
             self.float64_patch = olmoe_float64.prepare(self.model, keep_experts_bf16=True)
@@ -188,20 +217,23 @@ class Engine:
 
             # host first, then the device (device_map would need accelerate); the 35B MoE needs about 72 GB of
             # host RAM for the bfloat16 checkpoint, so its pods ask for at least 128 GB
-            self.model = AutoModelForCausalLM.from_pretrained(self.name, dtype="auto", cache_dir=CACHE)
+            self.model = AutoModelForCausalLM.from_pretrained(self.name, dtype="auto", revision=self.revision,
+                                                              cache_dir=CACHE)
             if device is not None:
                 self.model = self.model.to(device)
             self.float64_patch = qwen35_float64.prepare(self.model, keep_experts_bf16="a3b" in model)
             repo = Path(CACHE) / ("models--" + self.name.replace("/", "--"))
-            ckpt = repo / "snapshots" / (repo / "refs" / "main").read_text().strip()      # the pinned revision
+            ckpt = repo / "snapshots" / self.revision                                      # the pinned revision
             self.float64_patch["restored_exact"] = qwen35_float64.restore_exact_tensors(self.model, ckpt)
         elif dtype == "float64" and device is not None and str(device).startswith("cuda"):
             # large models: load in the checkpoint's own dtype, move to the GPU, then cast there (bf16 -> float64 is
             # exact, so the weights equal a direct float64 load; host memory needs only the stored size)
-            self.model = AutoModelForCausalLM.from_pretrained(self.name, dtype="auto", cache_dir=CACHE)
+            self.model = AutoModelForCausalLM.from_pretrained(self.name, dtype="auto", revision=self.revision,
+                                                              cache_dir=CACHE)
             self.model = self.model.to(device).to(torch.float64)
         else:
-            self.model = AutoModelForCausalLM.from_pretrained(self.name, dtype=getattr(torch, dtype), cache_dir=CACHE)
+            self.model = AutoModelForCausalLM.from_pretrained(self.name, dtype=getattr(torch, dtype),
+                                                              revision=self.revision, cache_dir=CACHE)
         self.model.eval()
         self.model.requires_grad_(False)                # inference only; forward-mode JVPs need no parameter graph
         if dtype == "float64" and not model.startswith("qwen3.5"):

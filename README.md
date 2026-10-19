@@ -37,6 +37,7 @@ used for low-dimensional dynamical systems. Its main findings:
 | `docs/consults/` | External reviews of the work and how each finding was handled |
 | `docs/literature/` | Literature notes |
 | `docs/prompt-variants/` | The prompt variants of the prompt-dependence test |
+| `docs/model-revisions.json` | The Hugging Face revision (commit hash) of every model the study loaded |
 | `tests/` | Unit tests (pytest) |
 | `comms/` | The running exchange between the two AI agents that did the work |
 
