@@ -667,8 +667,10 @@ map's label (purple); dotted: 95\,\%.}
 \caption{Readout and network contributions to the growth under steering: the three measurements of this section
 (Qwen2.5-0.5B-Instruct unless marked 7B, float64). Orange: the readout factor $\Sigma_p/T$ of \eqref{eq:gain};
 blue: the network factor $J_{\tilde h}$. (a) Gain split along the attractors of the block-12 map: mean logarithm per step of the relative gains $g_{\mathrm{read}}$ and $g_{\mathrm{net}}$ of
-the text (gains along the tangent direction, not operator norms), for chaotic cells (solid) and nearly unsteered cells, $|\alpha|\le0.01$ (dashed), in the 18
-temperature rows with at least three cells of each kind; positive values expand perturbations, negative values
+the text (gains along the tangent direction, not operator norms), for chaotic cells (solid; chosen by their dynamics, at any steering strength) and for the
+nearly unsteered cells, $|\alpha|\le0.01$ (dashed; chosen by steering strength alone, whatever their dynamics, and
+almost all periodic: the baseline at the same temperature), in the 18 temperature rows with at least three cells of
+each kind (321 chaotic and 162 nearly unsteered cells, 6 of them in both groups); positive values expand perturbations, negative values
 contract them. In the nearly unsteered cells the readout's relative gain shrinks perturbations by 0.87 to 5.49 nats
 per step; in the chaotic cells it grows them, except in the three highest rows, while the network factor changes
 little. (b) Share of chaotic cells (both twin exponents above $10^{-3}$ and no period up to 64) per temperature row under
