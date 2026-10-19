@@ -30466,3 +30466,119 @@ docs/consults/2026-10-19-external-reviews/triage.md).
 - **Local seed test** (CPU, float64) at (0.072900, -0.15204), 2.3e-5 inside the flip curve: period 6, residual
   7.6e-14, leading multiplier -0.767 (real), next modulus 0.0022 (ratio 352). Output llm-soft-loop/p6s/orbit-seed-flipside.
 - **Try 3** uses this seed; grid and reading unchanged.
+
+### 2026-10-19 03:05 UTC: P6S-TDfold results (lower leg)
+
+- **TDfold-M** (pod 1o48sp2dtsurzm; rc 0; terminated 02:19 UTC): 39 points. Residual at most 9.0e-11, |g| at most
+  9.7e-10, multiplier +1 within 7.7e-8, real. Runs from the TD fold (0.073097, -0.160117) to (0.067974, -0.167338),
+  where it leaves the bounds.
+- **TDfold-P** (pod 8hrtsos5ukk0w7; rc 0; terminated 03:03 UTC): the job hit its 70-minute limit after 64 accepted
+  points.
+  - curve.json is written only at the end, so it was rebuilt from progress.jsonl, which carries every point with its
+    gates. The rebuilt file is marked partial.
+  - All 64 points pass: residual at most 9.9e-11, |g| at most 9.4e-10, multiplier +1 within 1.9e-8, real.
+  - Path: right along the lower leg to a cusp candidate at its right tip, (0.07682, -0.16048), index 27; back up-left
+    through (0.0746, -0.1586) and (0.0723, -0.1582); then to (0.0688, -0.1640), where the time limit stopped it.
+- **Reading.** The lower window's legs end in fold-curve turns: the located cusp at its tip and this candidate at the
+  right leg's end. The top body's cusps are being sought by P6S-wide.
+
+### 2026-10-19 03:05 UTC: Codex Task 36 (mathematics review) applied to the full report and the blog
+
+- **Report** (commit 44d5ea61, paper/llm/main.tex only; article 6fb6e7f wording as the model, adapted):
+  - A2: "candidate superstable curves" read from sign changes of the leading real multiplier, with the caveat that
+    two real multipliers can exchange dominance; "Type-B-like geometry"; fig:superstable caption as in the article;
+    the hub-zoom text and caption, the Gallas paragraph ("dark lines ... candidates"), the discussion, "superstable
+    strips" in the period-5 appendix.
+  - A9: fitted return relations "on the sampled range"; universality "occurs in suitable strongly dissipative
+    families"; "Why one dimension": finite spectra motivate scalar approximations, the cascade is separate finite
+    evidence, no global one-dimensional invariant reduction (replacing "the attractor is close to a curve").
+  - A13: uniform gap at fixed steering in both previews; the body states Delta >= Delta_0 > 0 uniformly in state and
+    small T, with ||DF|| <= L diam(E)^2 (V-1) exp(-Delta_0/T)/T. A15: unique maximizer in the "Why feed back",
+    one-picture, memory and frontier sentences. R7: tied embeddings in the Section 3 preview.
+  - A11/A12/R1 at the period-5 head: near-nilpotent defined as in the article, no "strongest contraction"; leading
+    modulus sets the asymptotic contraction (1/3.578e-3 = 280 per period) while one return has norm about 65
+    (sigma_1 = 64.6, docs/rk/rk-p5-head.jsonl); the rank-one part's eigenvalue (-2.704e-4) is 13.2 to 13.3 times
+    smaller than the leading modulus (3.578e-3, p5-nilpotent; 3.605e-3 at the rounded point), remainder norm
+    sigma_2 = 0.0114. A1: "product of the two leading multipliers", Mira inference removed. A5: fourth-leg caption
+    counts. A7 remnant ("the text does not determine the orbit") replaced. A8: noise model as an approximation in the
+    methods summary.
+  - R2 area growth; R3 simplified angle model with its three assumptions and the exact update stated, formula marked
+    approximate (crossover discrepancy up to 0.43 kept); R4 per-step error, x' = rho x + d example; R5 sign-test
+    p-value removed (17 of 17 kept descriptively); R6 disjoint dyadic B_k defined, overlapping-window averages called
+    diagnostics in text and fig:boundhierarchy caption (the panels plot overlapping averages; values from bh.json:
+    cell a-1 at -0.14638 falls from 0.1118 to 0.0113 over 17 to 29 steps; NB: medians fall with k in every map and
+    label, but 176 of 7936 cells rise between consecutive k, 0/6/21/149 at 1-2/2-3/3-4/4-5); R8 unit on a; R9 router
+    half-gap condition. Evidence-table row "Steering's growth is readout-side" (A10). latexmk: 155 pages, 0
+    undefined references; the only overfull box (22.6 pt, evidence table) predates the edit.
+- **Figure.** The committed fig-superstable-lines.png (75e7c19e, also in the article 6fb6e7f) has two panels: the
+  rerun omitted --zoom, so panel (c) and the cyan box were lost while both captions still describe them.
+  `uv run python tools/plot_superstable_lines.py --zoom p7-zoom-a p7-zoom-b p7-zoom-c` restores them with the new
+  labels (sha256 09d902ee...; zoom report 1155 cells, 221 complex, as in the text). It is in the working tree,
+  not committed (this task committed main.tex only); the article needs the same file.
+- **Blog** (praxagent bundle, not committed; backups blog-bundle-backup/before-oct19-codexfix and
+  after-oct19-codexfix with .sha256 manifests): the same corrections in plain language (abstract, why-feed-back,
+  numerics, temperature limits, norm bounds and the bound hierarchy with Figure 11, dimension, stretch-squeeze-fold,
+  passage tests, Feigenbaum, hostility short version, inside-body text and Figure 33, no-1D-center and Figure 34,
+  band chaos, atlas and Figure 40, period-5 head, verdict, one picture, greedy limit, MoE note, false chaos,
+  frontier, contribution). Outside the review, from the raw records: 153 -> 143 cells never captured (cross-512
+  table of 18 Oct), 94,500 -> 97,500 steps (94,500 was cross-512 alone), and the bound-hierarchy disagreement cell
+  was misdescribed. The three-panel figure copied in; provenance.json: 26 entries re-anchored, 3 removed (numbers
+  that no longer exist), 13 added (codexfix19-001 to -013), generator 44d5ea61; scripts/check_provenance.py passes
+  (4080 of 4080); Hugo 0.160.1 builds (render-tmp/hugo-oct19-codexfix).
+- **Not applied here:** the tikz-atlas.tex caption still says "superstable curves appear in its exponent maps"
+  (outside the allowed commit); fig-bound-hierarchy.png axis labels still read "block bound B_k" (caption fixed).
+  Article remnants for the coordinator: carry-over list "greedy cycles at zero temperature" and intro "reduces to
+  greedy decoding as T->0" without the unique-maximizer condition (A15); Section 3 preview without the
+  tied-embedding condition (R7); "can fake a positive exponent but not hide one" under a simple model (A8, weaker
+  than Codex's replacement); the two-panel figure.
+
+## 2026-10-19 03:13 UTC: training-dynamics line moved to /data2/chaos-llm-training
+
+- **Decision** (the human, 18 October 2026): the training files the shrimp paper does not need move to
+  /data2/chaos-llm-training; everything else stays as is. History is not rewritten: every removed file stays
+  reachable at ebc1e865, and reverting the removal commit restores them all.
+- **Manifest** regenerated at ebc1e865 with the split plan's scripts (/data2/neural-shrimp-data/split-plan/plan.md,
+  section 8, step 0): 2026-10-19-at-ebc1e865/manifest.csv, 31,882 rows, SHA-256
+  0bfcaafa06533b7c5883ebf164ca65a4d29b7d960811858a4fef7fe4d824750a, byte-identical on a second run. No row is
+  reclassified against the plan's manifest at edbeaf69; the 167 files added since are all LLM, and no MOVE file changed
+  in between. Static checks pass: no path cited by paper/llm/main.tex and no file of the LLM paper's closure (471 files,
+  98 tests) moves, and no staying tool or test imports a moved file (tools/hardware_ledger.py and
+  tools/research_log.py only mention moved paths in text). The Chaos article binds only paper/llm/main.tex,
+  paper/llm/references.bib, paper/llm/figures/ and this log, and none of them moves.
+- **Copied** to /data2/chaos-llm-training, local commit 8b3eafad (exact bytes of ebc1e865 by git archive; mode and blob
+  id of every file checked against git ls-tree): 3,803 files, 43.10 MiB. These are the 3,679 training-only files, the
+  107 files shared with the training line (kept here as well) and 17 repository-wide files. Adapted there in 1b8592ff:
+  new README.md; AGENTS.md, Skills.md and the CI workflow name that repository. No GitHub repository was created and
+  nothing was pushed; its existing origin entry is unchanged.
+- **Removed** here in c882c37c (pushed): the 3,679 training-only files, 38.46 MiB: docs/reviews 1,065, tools/ 766,
+  docs/plans 657, tests/ 503, tools/reviews 236, src/neural_shrimp 208 of 218 modules, tests/reviews 95,
+  paper/gd-route 58, docs/ top level 57, certificates/ 22, docs/consults 9, docs/figures 1, experiments/trainability 1,
+  native/gdmap_cuda.cu. Of the 31,882 files at ebc1e865, 28,203 (1,819.12 MiB) stay: every LLM, rnn and dialogue file
+  and the 107 shared files. Shared files now evolve separately; docs/consults/approvals.md and this log have already
+  changed since ebc1e865.
+- **Checks after the removal:**
+  - The eight LLM tools used tonight import (explore_llm_soft_loop, follow_attractor, cusp_locate, doubly_superstable,
+    plot_p6_shrimp, plot_fig1_clean, runpod_soft_float64, bifurcation_curves), and bash -n tools/runpod_soft_runner.sh
+    passes. The remaining package imports and neural_shrimp.cli validates the three pilot manifests.
+  - 99 selected test files (the 98 tests of the LLM paper's closure, including test_follow_attractor_plane.py and the
+    certificate tests, plus test_cert_capacity.py), four pytest processes with --basetemp on /data2 and pipefail:
+    1,826 passed and 4 failed. The first three processes passed with the same counts as before the removal (475,
+    836 and 409); the fourth (24 files) gave 106 passed and 4 failed, and its run before the removal was not checked.
+    The four failures predate the split and involve no moved file. test_period_colors.py (three tests) builds its
+    arguments without the box option that tools/explore_llm_soft_loop.py has read since 15 October (d90be5f7), and
+    test_qwen35_float64.py::test_hybrid_cache_restore builds a SoftLoop without the extra attribute added on
+    14 October (9b2f70e7); both test files were last changed before those commits.
+  - paper/llm/main.tex, built with latexmk -cd -pdf from a clean export of c882c37c: 155 pages, with no missing file,
+    undefined reference or BibTeX warning. All 105 distinct \repo, \codelink and \path targets exist at c882c37c (six
+    as codex/<name>).
+- **Housekeeping and exceptions:**
+  - paper/gd-route/.gitignore moved with the line, so three build outputs it alone ignored (main.pdf, main.fls,
+    main.fdb_latexmk) showed up here as untracked. All eight build outputs of that paper were moved to
+    chaos-llm-training/paper/gd-route/, where they are ignored. The __pycache__ folders of the emptied directories
+    were deleted.
+  - The plan's optional step H1 (neural-shrimp history fetched into local refs of the new repository) was started and
+    then undone before its first commit (refs deleted, objects pruned). Commit hashes in the moved records refer to
+    this repository.
+  - Not done, left for a decision: README.md here still describes Program C Track A and links docs/EXP-028-protocol.md,
+    which moved. The 40 moved files that hard-code /data2/neural-shrimp were not adapted. The full-suite comparison
+    of plan section 8 was not run. No file needed restoring.
