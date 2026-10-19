@@ -23,7 +23,8 @@ the logarithmic axis. Frames go to --frames-dir (on disk), then ffmpeg (H.264, y
 sources, gates, chosen cells and every number shown are upserted into --manifest.
 
 Usage: python tools/render_batch_divergence.py --out ../neural-shrimp-data/videos/explainer/parts/C7-02-N4-batch-divergence.mp4
-       (add --still 12 to write one PNG at that time instead of the clip)
+       (add --still 12 to write one PNG at that time instead of the clip; --seconds, --time-map and --push fit the
+       clip to measured narration, see tools/explainer_timewarp.py)
 """
 import argparse
 import datetime
@@ -40,6 +41,7 @@ from pathlib import Path
 
 import numpy as np
 import matplotlib
+from explainer_timewarp import parse_time_map, push, warp
 
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt  # noqa: E402
@@ -122,8 +124,8 @@ def prepare():
             round(s["lyapunov_prediction"]["median_ratio"], 4)) != (190, 102.0, 182, round(med_ratio, 4)):
         fail("docs/repro-summary.json disagrees with the arrays")
     art = re.sub(r"\s+", " ", ARTICLE.read_text())
-    for pat in (r"At 190 of the 192 chaotic cells", r"after a median of 102 steps", r"at 182 of the 192 periodic cells",
-                r"bitwise identical in all 448 cells", r"median ratio of \$0\.91\$", r"at 173 of them"):
+    for pat in (r"190 of 192 chaotic float64 cells", r"182 of 192 periodic cells", r"bitwise identical in all 448 cells",
+                r"median ratio 0\.91", r"for all 1500 steps"):
         if not re.search(pat, art):
             fail(f"the article no longer says: {pat}")
     # the cells shown
@@ -318,11 +320,13 @@ def frame(S, t):
 
 
 def _worker(job):
-    S, frames, outdir = job
+    S, frames, outdir, knots, seconds, zoom, center = job
     for i in frames:
-        fig = frame(S, i / FPS)
-        fig.savefig(outdir / f"{i:05d}.png", dpi=DPI, facecolor=BG)
+        fig = frame(S, warp(i / FPS, knots))
+        path = outdir / f"{i:05d}.png"
+        fig.savefig(path, dpi=DPI, facecolor=BG)
         plt.close(fig)
+        push(path, i / FPS, seconds, zoom, center)
     return len(frames)
 
 
@@ -367,8 +371,8 @@ def entry(S, out, seconds):
                               "periodic_cell": {"period": P["period"], "largest_distance_shown": sci(P["largest_distance"])},
                               "cells_in_footer": {"chaotic": 192, "periodic": 192, "other": 64}},
             "gates": g, "chosen_cells": S["chosen"],
-            "article": "Sec. IV 'Reproducibility' (190 of 192, median 102 steps, 182 of 192, median ratio 0.91, "
-                       "bitwise identical in all 448 cells)",
+            "article": "Sec. IV 'Reproducibility and answers' and Fig. repro (190 of 192, 182 of 192, median ratio 0.91, "
+                       "bitwise identical in all 448 cells); the median first step 102: arrays and docs/repro-summary.json",
             "rendered_utc": datetime.datetime.now(datetime.timezone.utc).strftime("%Y-%m-%d %H:%M:%S")}
 
 
@@ -379,24 +383,31 @@ def main():
     ap.add_argument("--manifest", type=Path, default=None, help="default: MANIFEST-data-clips.json beside --out")
     ap.add_argument("--workers", type=int, default=6)
     ap.add_argument("--still", type=float, default=None, help="write one PNG at this time (s) and stop")
+    ap.add_argument("--seconds", type=float, default=None, help="clip length (default: the schedule's own)")
+    ap.add_argument("--time-map", default=None, help="JSON knots [[t_clip, t_anim], ...] (explainer_timewarp.py)")
+    ap.add_argument("--push", type=float, default=1.0, help="push-in factor over the clip (1: none)")
+    ap.add_argument("--push-center", type=float, nargs=2, default=(0.5, 0.5))
     a = ap.parse_args()
+    seconds = a.seconds or SECONDS
+    knots = parse_time_map(a.time_map, seconds, SECONDS)
     S = prepare()
     C, P = S["chosen"]["chaotic"], S["chosen"]["periodic"]
     print(json.dumps({"gates": S["gates"], "chaotic": C, "periodic": P}, indent=1))
     if a.still is not None:
         out = a.out.with_name(a.out.stem + f"-still-{a.still:05.2f}.png")
-        fig = frame(S, a.still)
+        fig = frame(S, warp(a.still, knots))
         fig.savefig(out, dpi=DPI, facecolor=BG)
+        push(out, a.still, seconds, a.push, a.push_center)
         print(f"wrote {out}")
         return
     frames = a.frames_dir / a.out.stem
     if frames.exists():
         shutil.rmtree(frames)
     frames.mkdir(parents=True)
-    n = int(round(SECONDS * FPS))
+    n = int(round(seconds * FPS))
     chunks = [list(range(i, n, a.workers)) for i in range(a.workers)]
     with mp.get_context("fork").Pool(a.workers) as pool:
-        done = sum(pool.map(_worker, [(S, c, frames) for c in chunks]))
+        done = sum(pool.map(_worker, [(S, c, frames, knots, seconds, a.push, tuple(a.push_center)) for c in chunks]))
     if done != n:
         fail(f"rendered {done} of {n} frames")
     a.out.parent.mkdir(parents=True, exist_ok=True)
@@ -406,7 +417,9 @@ def main():
                     str(a.out)], check=True)
     dur = float(subprocess.run(["ffprobe", "-v", "error", "-show_entries", "format=duration", "-of", "csv=p=0",
                                 str(a.out)], capture_output=True, text=True, check=True).stdout)
-    upsert(a.manifest or a.out.parent / "MANIFEST-data-clips.json", entry(S, a.out, round(dur, 3)))
+    rec = entry(S, a.out, round(dur, 3))
+    rec.update(time_map=knots if a.time_map else None, push_in=a.push)
+    upsert(a.manifest or a.out.parent / "MANIFEST-data-clips.json", rec)
     shutil.rmtree(frames)
     print(f"wrote {a.out} ({dur:.2f} s, {n} frames)")
 

@@ -7,8 +7,9 @@ group by group over 20 s.
   group 2  Soft Thinking with its published settings, Qwen2.5-7B, 256 GSM8K problems (docs/pi/pm-summary.json, run PM):
            against replaying the fed-back tokens;
   group 3  reasoning models, 256 GSM8K problems each (docs/pi/pm2-summary.json, run PM2): Soft Thinking against discrete
-           sampled thinking, the matched control.
-Footnote: the exploratory reset test (docs/rr/rr2-*-heldout-analysis.json, run RR2).
+           sampled thinking.
+Footnote: the exploratory reset test of the 0.5B model (docs/rr/rr2-h05-heldout-analysis.json, run RR2); the article
+(commit d353578) prints only that one. The reasoning models' accuracy and the problem counts come from the receipts.
 
 No value is typed in: each is read from its receipt and must round to the number printed in the article, and the
 article's sentence must still contain it; otherwise nothing is rendered. Gold marks soft-token feedback, violet the
@@ -16,7 +17,8 @@ comparison arm (validated for color-vision deficiency on the #0B0B0F background;
 --frames-dir (on disk), then ffmpeg (H.264, yuv420p, CRF 16, 30 fps); sources and numbers go into --manifest.
 
 Usage: python tools/plot_explainer_answers.py --out ../neural-shrimp-data/videos/explainer/parts/C7-03-N5-answers.mp4
-       (add --still 19 to write one PNG at that time instead of the clip)
+       (add --still 19 to write one PNG at that time instead of the clip; --seconds, --time-map and --push fit the
+       clip to measured narration, see tools/explainer_timewarp.py)
 """
 import argparse
 import datetime
@@ -31,6 +33,7 @@ import sys
 from pathlib import Path
 
 import matplotlib
+from explainer_timewarp import parse_time_map, push, warp
 
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt  # noqa: E402
@@ -59,20 +62,17 @@ VALUES = {
     "qwq_plain": (PM2, ["cells", "C-gsm8k", "plain", "flip_rate"], "19.9"),
     "rr05_free": (RR05, ["bf16", "disagreement", "free"], "66"),
     "rr05_reset": (RR05, ["bf16", "disagreement", "reset"], "1.6"),
-    "rr7_free": (RR7, ["bf16", "disagreement", "free"], "64"),
-    "rr7_reset": (RR7, ["bf16", "disagreement", "reset"], "1.6"),
 }
 # sentences of the article (whitespace-normalized) that must still carry the printed numbers
-SENTENCES = [
-    r"changed the answer in 56\\,\\% of the problems for Qwen2\.5-0\.5B \(at \$T=1\$\) and in 55\\,\\% for Qwen2\.5-7B",
-    r"greedy decoding changed none of the 0\.5B model's answers and 10 of the 96 of the 7B model's",
-    r"changed the answers to 21\\,\\% of 256 GSM8K problems",
-    r"replaying the fed-back tokens cut this to 6\\,\\%",
-    r"changed 14\.5\\,\\% of the Soft Thinking answers of DeepSeek-R1-Distill-Qwen-7B and 19\.5\\,\\% of those of QwQ-32B",
-    r"discrete sampled thinking, the matched control, changed 10\.2 and 19\.9\\,\\%",
-    r"from 66 to 1\.6\\,\\% in Qwen2\.5-0\.5B and from 64 to 1\.6\\,\\% in Qwen2\.5-7B",
-    r"reasoning models that answer 86 to 90\\,\\% of GSM8K problems",
-    r"Under a design fixed in advance, we posed 96 two-digit additions",
+SENTENCES = [                                              # wording of the article's commit d353578
+    r"changed the answers to 56\\,\\% of 96 two-digit additions in Qwen2\.5-0\.5B and 55\\,\\% in Qwen2\.5-7B with the "
+    r"batch layout alone \(greedy decoding: none and 10 of 96\)",
+    r"In bfloat16 the runs part",
+    r"cut the share from 66 to 1\.6\\,\\%",
+    r"In a test frozen before its data, Soft Thinking with its published settings changed 21\\,\\% of 256 GSM8K answers "
+    r"in Qwen2\.5-7B \(6\\,\\% when the fed-back tokens were replayed\)",
+    r"In reasoning models the layout changed 14\.5 and 19\.5\\,\\% of the Soft Thinking answers, comparable to discrete "
+    r"sampled thinking \(10\.2 and 19\.9\\,\\%\)",
 ]
 
 
@@ -134,18 +134,18 @@ def prepare():
     acc_range = (round(100 * min(acc)), round(100 * max(acc)))
     if acc_range != (86, 90):
         fail(f"Soft Thinking accuracy of the reasoning models runs {acc_range}, the article says 86 to 90")
-    for rec in (RR05, RR7):
-        if cache[rec]["bf16"]["problems"] != 128:
-            fail(f"{rec}: not 128 problems")
+    if cache[RR05]["bf16"]["problems"] != 128:
+        fail(f"{RR05}: not 128 problems")
     groups = [
-        dict(t=0.6, title="A short Soft Thinking procedure · 96 two-digit additions", rows=[
+        dict(t=0.6, title="A short Soft Thinking procedure in bfloat16 · 96 two-digit additions", rows=[
             ("Qwen2.5-0.5B", "t05_soft", "t05_greedy", "greedy decoding (none of 96)"),
             ("Qwen2.5-7B", "t7_soft", "t7_greedy", "greedy decoding (10 of 96)")]),
-        dict(t=5.0, title="Soft Thinking with its published settings · 256 GSM8K problems", rows=[
+        dict(t=5.0, title="Soft Thinking with its published settings · 256 GSM8K problems · test frozen before its data",
+             rows=[
             ("Qwen2.5-7B", "pm_soft", "pm_replay", "replaying the fed-back tokens")]),
         dict(t=8.5, title=f"Reasoning models that answer {acc_range[0]} to {acc_range[1]} % correctly · "
                           "256 GSM8K problems", rows=[
-            ("DeepSeek-R1-Distill-Qwen-7B", "r1_soft", "r1_plain", "discrete sampled thinking, the matched control"),
+            ("DeepSeek-R1-Distill-Qwen-7B", "r1_soft", "r1_plain", "discrete sampled thinking"),
             ("QwQ-32B", "qwq_soft", "qwq_plain", "discrete sampled thinking")]),
     ]
     return dict(V=V, groups=groups, acc_range=acc_range,
@@ -188,8 +188,7 @@ def frame(S, t):
     ax.axis("off")
     V = S["V"]
     text(ax, 80, 100, "Answers changed by the batch layout alone", 52, WHITE, "bold")
-    text(ax, 80, 152, "Share of problems whose answer differs between two batch layouts · tests fixed in advance · "
-                      "bfloat16", 30, BODY)
+    text(ax, 80, 152, "Share of problems whose answer differs between two batch layouts", 30, BODY)
     # legend
     ax.add_patch(Rectangle((80, 196), 26, 26, color=SOFT, lw=0))
     text(ax, 120, 218, "soft-token feedback (Soft Thinking)", 28, BODY)
@@ -234,20 +233,22 @@ def frame(S, t):
             text(ax, x_lab, yb + bh - 3, label, 26, WHITE if j == 0 else BODY, "bold" if j == 0 else "normal",
                  alpha=la)
     fa = ramp(t, 3.0, 0.6)
-    text(ax, 80, 996, f"Exploratory, 128 further problems: resetting the fed-back state before every step lowered the "
-                      f"share from {V['rr05_free']['shown'][:-2]} to {V['rr05_reset']['shown']} (Qwen2.5-0.5B)", 24,
+    text(ax, 80, 996, f"Exploratory test that stops the carry-over of the rounding difference: "
+                      f"{V['rr05_free']['shown'][:-2]} → {V['rr05_reset']['shown']} of answers changed (Qwen2.5-0.5B)", 24,
          MUTED, alpha=fa)
-    text(ax, 80, 1030, f"and from {V['rr7_free']['shown'][:-2]} to {V['rr7_reset']['shown']} (Qwen2.5-7B) · "
-                       "all values: article Sec. IV", 24, MUTED, alpha=fa)
+    text(ax, 80, 1030, "bar values: article Sec. IV · reasoning-model accuracy and problem counts: saved test summaries "
+                       "(docs/pi)", 24, MUTED, alpha=fa)
     return fig
 
 
 def _worker(job):
-    S, frames, outdir = job
+    S, frames, outdir, knots, seconds, zoom, center = job
     for i in frames:
-        fig = frame(S, i / FPS)
-        fig.savefig(outdir / f"{i:05d}.png", dpi=DPI, facecolor=BG)
+        fig = frame(S, warp(i / FPS, knots))
+        path = outdir / f"{i:05d}.png"
+        fig.savefig(path, dpi=DPI, facecolor=BG)
         plt.close(fig)
+        push(path, i / FPS, seconds, zoom, center)
     return len(frames)
 
 
@@ -284,8 +285,8 @@ def entry(S, out, seconds):
             "reasoning_model_accuracy_shown": f"{S['acc_range'][0]} to {S['acc_range'][1]} % "
                                               "(Soft Thinking arms, both layouts, pm2-summary cells A-gsm8k and C-gsm8k)",
             "colors": {"soft-token feedback": SOFT, "comparison arm": COMP},
-            "article": "abstract and Sec. IV 'Answers of a task' (every bar value; the matched control 10.2 and 19.9 %; "
-                       "the exploratory reset test 66 -> 1.6 % and 64 -> 1.6 %)",
+            "article": "Sec. IV 'Reproducibility and answers' (every bar value; discrete sampled thinking 10.2 and "
+                       "19.9 %; the exploratory test 66 -> 1.6 %); accuracy 86 to 90 % and problem counts: receipts",
             "rendered_utc": datetime.datetime.now(datetime.timezone.utc).strftime("%Y-%m-%d %H:%M:%S")}
 
 
@@ -296,23 +297,30 @@ def main():
     ap.add_argument("--manifest", type=Path, default=None, help="default: MANIFEST-data-clips.json beside --out")
     ap.add_argument("--workers", type=int, default=6)
     ap.add_argument("--still", type=float, default=None, help="write one PNG at this time (s) and stop")
+    ap.add_argument("--seconds", type=float, default=None, help="clip length (default: the schedule's own)")
+    ap.add_argument("--time-map", default=None, help="JSON knots [[t_clip, t_anim], ...] (explainer_timewarp.py)")
+    ap.add_argument("--push", type=float, default=1.0, help="push-in factor over the clip (1: none)")
+    ap.add_argument("--push-center", type=float, nargs=2, default=(0.5, 0.5))
     a = ap.parse_args()
+    seconds = a.seconds or SECONDS
+    knots = parse_time_map(a.time_map, seconds, SECONDS)
     S = prepare()
     print(json.dumps({k: v["shown"] for k, v in S["V"].items()}, ensure_ascii=False))
     if a.still is not None:
         out = a.out.with_name(a.out.stem + f"-still-{a.still:05.2f}.png")
-        fig = frame(S, a.still)
+        fig = frame(S, warp(a.still, knots))
         fig.savefig(out, dpi=DPI, facecolor=BG)
+        push(out, a.still, seconds, a.push, a.push_center)
         print(f"wrote {out}")
         return
     frames = a.frames_dir / a.out.stem
     if frames.exists():
         shutil.rmtree(frames)
     frames.mkdir(parents=True)
-    n = int(round(SECONDS * FPS))
+    n = int(round(seconds * FPS))
     chunks = [list(range(i, n, a.workers)) for i in range(a.workers)]
     with mp.get_context("fork").Pool(a.workers) as pool:
-        done = sum(pool.map(_worker, [(S, c, frames) for c in chunks]))
+        done = sum(pool.map(_worker, [(S, c, frames, knots, seconds, a.push, tuple(a.push_center)) for c in chunks]))
     if done != n:
         fail(f"rendered {done} of {n} frames")
     a.out.parent.mkdir(parents=True, exist_ok=True)
@@ -322,7 +330,9 @@ def main():
                     str(a.out)], check=True)
     dur = float(subprocess.run(["ffprobe", "-v", "error", "-show_entries", "format=duration", "-of", "csv=p=0",
                                 str(a.out)], capture_output=True, text=True, check=True).stdout)
-    upsert(a.manifest or a.out.parent / "MANIFEST-data-clips.json", entry(S, a.out, round(dur, 3)))
+    rec = entry(S, a.out, round(dur, 3))
+    rec.update(time_map=knots if a.time_map else None, push_in=a.push)
+    upsert(a.manifest or a.out.parent / "MANIFEST-data-clips.json", rec)
     shutil.rmtree(frames)
     print(f"wrote {a.out} ({dur:.2f} s, {n} frames)")
 
