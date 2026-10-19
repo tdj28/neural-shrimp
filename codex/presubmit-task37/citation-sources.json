@@ -1,0 +1,110 @@
+{
+  "task": "task37-citation-claim-boundary-audit",
+  "access_date_utc": "2026-10-19",
+  "access_date_local_America_Los_Angeles": "2026-10-18",
+  "article_commit": "18490e2",
+  "article_source_hashes": {
+    "main.tex": "9c9881359e4622c88202b664f90e1c9340de626450e3f9208175417d984e7d94",
+    "references.bib": "c358c411d7d43a4c7b1441aaf614176b15bbd803cbbc2d0f60c34e322ff95067"
+  },
+  "method": "Read-only git show snapshot plus web primary-record inspection. No numerical or model run. These are source URLs and observed metadata, not retained HTTP body hashes.",
+  "records": [
+    {
+      "key": "dehghani2019universal",
+      "urls": ["https://arxiv.org/abs/1807.03819", "https://arxiv.org/pdf/1807.03819v3", "https://arxiv.org/html/1807.03819v3"],
+      "arxiv_version": "1807.03819v3",
+      "version_date": "2019-03-05",
+      "publication_status": "ICLR 2019; confirmed in primary PDF first-page publication header",
+      "fields_checked": ["authors", "title", "year", "venue", "arxiv_id"],
+      "result": "match"
+    },
+    {
+      "key": "giannou2023looped",
+      "urls": ["https://proceedings.mlr.press/v202/giannou23a.html", "https://proceedings.mlr.press/v202/giannou23a/giannou23a.pdf", "https://arxiv.org/abs/2301.13196"],
+      "arxiv_version": "2301.13196v1",
+      "version_date": "2023-01-30",
+      "publication_status": "ICML 2023, PMLR 202:11398-11442",
+      "fields_checked": ["authors", "title", "year", "venue", "volume", "pages", "arxiv_id"],
+      "result": "match; publisher uses Jy-Yong where manuscript uses Jy-yong"
+    },
+    {
+      "key": "bae2025mor",
+      "urls": ["https://proceedings.nips.cc/paper_files/paper/2025/hash/8b08bbf8b420faa6eeb4020720582ec7-Abstract-Conference.html", "https://www.proceedings.com/085713-3229.html", "https://arxiv.org/abs/2507.10524"],
+      "arxiv_version": "2507.10524v3",
+      "version_date": "2025-10-25",
+      "publication_status": "NeurIPS 2025, Advances in Neural Information Processing Systems 38:107088-107133",
+      "doi": "10.52202/085713-3229",
+      "fields_checked": ["three explicitly stated authors and order", "title", "year", "venue", "volume", "pages", "doi", "arxiv_id"],
+      "result": "match"
+    },
+    {
+      "key": "korbak2025monitorability",
+      "urls": ["https://arxiv.org/abs/2507.11473", "https://arxiv.org/html/2507.11473v2"],
+      "arxiv_version": "2507.11473v2",
+      "initial_date": "2025-07-15",
+      "version_date": "2025-12-07",
+      "publication_status": "arXiv position paper; no venue shown in inspected primary record",
+      "fields_checked": ["three explicitly stated authors and order", "title", "year", "arxiv_id", "primary_class"],
+      "result": "metadata match; citation application in safety sentence should be narrowed to CoT monitorability"
+    },
+    {
+      "key": "zhu2025ouro",
+      "urls": ["https://arxiv.org/abs/2510.25741"],
+      "arxiv_version": "2510.25741v6",
+      "initial_date": "2025-10-29",
+      "version_date": "2026-10-11",
+      "publication_status": "arXiv preprint; no venue shown in inspected primary record",
+      "fields_checked": ["three explicitly stated authors and order", "title", "initial preprint year", "arxiv_id"],
+      "result": "match"
+    },
+    {
+      "key": "clark2018arc",
+      "urls": ["https://arxiv.org/abs/1803.05457"],
+      "arxiv_version": "1803.05457v1",
+      "version_date": "2018-03-14",
+      "publication_status": "arXiv preprint; no venue shown in inspected primary record",
+      "fields_checked": ["all seven authors and order", "title", "year", "arxiv_id"],
+      "result": "match"
+    },
+    {
+      "key": "wainwright2008graphical",
+      "urls": ["https://doi.org/10.1561/2200000001", "https://www.emerald.com/ftmal/article-abstract/1/1-2/1/1332382/Graphical-Models-Exponential-Families-and?redirectedFrom=fulltext"],
+      "publication_status": "Foundations and Trends in Machine Learning 1(1-2):1-305, 2008-12-18",
+      "doi": "10.1561/2200000001",
+      "fields_checked": ["authors", "title", "year", "journal", "volume", "issue", "pages", "doi"],
+      "result": "match; full body access-limited, all metadata accessible"
+    },
+    {
+      "key": "gao2017softmax",
+      "urls": ["https://arxiv.org/abs/1704.00805", "https://arxiv.org/pdf/1704.00805v4"],
+      "arxiv_version": "1704.00805v4",
+      "initial_date": "2017-04-03",
+      "version_date": "2018-08-21",
+      "publication_status": "arXiv preprint; no venue shown in inspected primary record",
+      "fields_checked": ["authors", "title", "initial preprint year", "arxiv_id"],
+      "result": "match; Proposition 2 Eq27 supports cited Jacobian"
+    }
+  ],
+  "supporting_records": [
+    {
+      "key": "geiping2025recurrent",
+      "urls": ["https://arxiv.org/abs/2502.05171", "https://arxiv.org/html/2502.05171v2"],
+      "version_date": "2025-02-17",
+      "checked": "Section3.1 separates recurrent core from coda readout, supporting architecture boundary"
+    },
+    {
+      "key": "hoover2023energy",
+      "urls": ["https://papers.nips.cc/paper_files/paper/2023/hash/57a9b97477b67936298489e3c1417b0a-Abstract-Conference.html", "https://arxiv.org/html/2302.07253v2"],
+      "version_date": "2023-11-01",
+      "checked": "Section2 Eq6-8 continuous-time energy descent for specially engineered full block; not generic discrete transformer guarantee"
+    }
+  ],
+  "retrieval_limitations": [
+    {"url": "https://openreview.net/forum?id=HyzdRiR9Y7", "result": "browser challenge; used primary publication-header PDF"},
+    {"url": "https://www.nowpublishers.com/article/Details/MAL-001", "result": "403; current DOI redirect to Emerald succeeded"},
+    {"url": "https://www.nowpublishers.com/article/DownloadSummary/MAL-001", "result": "direct fetch failed; indexed primary publisher header available, then current DOI publisher metadata succeeded"},
+    {"url": "https://proceedings.nips.cc/paper_files/paper/2025/hash/8b08bbf8b420faa6eeb4020720582ec7-Abstract-Conference.html", "result": "HTML record succeeded; BibTeX export click failed; no required metadata field depended on it"},
+    {"url": "https://papers.nips.cc/paper_files/paper/2023/file/57a9b97477b67936298489e3c1417b0a-Paper-Conference.pdf", "result": "web PDF size limit; arXiv HTML v2 full text succeeded"}
+  ],
+  "publication_absence_limit": "Bounded successor search did not identify later primary versions of record for four preprint-only entries; absence is not proved. No withdrawal notices appeared on inspected arXiv records."
+}

@@ -1,0 +1,128 @@
+"""Small synthetic controls only: no target/model/data access."""
+import json
+from pathlib import Path
+import tempfile
+import unittest
+import numpy as np
+from periodic_audit import (AuditOperator, Limits, dense_monodromy,
+                            derivative_gate, orbit_from_step,
+                            primitive_and_alignment, solve, spectrum)
+
+ROOT = Path(__file__).resolve().parent / "tiny-attempts"
+ROOT.mkdir(exist_ok=True)
+
+
+def attempt(name):
+    return Path(tempfile.mkdtemp(prefix=name+"-", dir=ROOT)) / "attempt"
+
+
+def six_cycle(a=.35, last=.4):
+    def step(x):
+        q = x[:6]**2
+        s = q.sum()
+        if s <= 0:
+            raise ValueError("synthetic phase denominator vanished")
+        y = x.copy()
+        y[:6] = np.roll((1-a)*q/s + a*x[:6], 1)
+        y[6] = 1.5*x[6]-.5*x[6]**3
+        y[7] = .2*x[7]
+        y[8] = last*x[8]
+        return y
+    def one_jvp(x,v):
+        q = x[:6]**2
+        s = q.sum()
+        dq = 2*x[:6]*v[:6]
+        out = v.copy()
+        out[:6] = np.roll((1-a)*(dq/s-q*dq.sum()/s**2)+a*v[:6], 1)
+        out[6] = (1.5-1.5*x[6]**2)*v[6]
+        out[7] = .2*v[7]
+        out[8] = last*v[8]
+        return out
+    def composed(x):
+        for _ in range(6):
+            x = step(x)
+        return x
+    def jvp(x,v):
+        for _ in range(6):
+            v,x = one_jvp(x,v),step(x)
+        return v
+    return step,composed,jvp
+
+
+class TinyControls(unittest.TestCase):
+    def test_newton_gmres_flip_and_full_spectrum(self):
+        diagonal = np.array([-1.0001,.3,.2,.1,.05,.01,-.2,-.1,.005], dtype=np.float64)
+        center = np.linspace(1.,2.,9)
+        op = AuditOperator(lambda x:center+diagonal*(x-center), lambda x,v:diagonal*v,
+                           attempt("linear-flip"))
+        x,status=solve(op, center+np.linspace(.001,.002,9))
+        self.assertTrue(status["converged"],status)
+        self.assertLess(np.linalg.norm(x-center),1e-11)
+        matrix=dense_monodromy(op,x,chunk_size=3)
+        result=spectrum(op,x,matrix)
+        self.assertTrue(result["eigen_gate"])
+        self.assertEqual(result["stability_if_orbit_and_fd_gates_pass"],"numerically_unstable")
+        self.assertAlmostEqual(result["largest"][0]["real"],-1.0001)
+        self.assertEqual(len(result["largest"]),8)
+        self.assertTrue(derivative_gate(op,x,np.ones(9))["passed"])
+
+    def test_two_primitive_six_cycles_phase_matching_and_chord(self):
+        step,f,j=six_cycle()
+        rng=np.random.default_rng(37)
+        cycle_states=[]
+        matrix=None
+        for label,sign in [("plus",1.),("minus",-1.)]:
+            base=np.zeros(9);base[0]=1.;base[6]=sign
+            op=AuditOperator(f,j,attempt("six-cycle-"+label))
+            x,status=solve(op,base+1e-4*rng.normal(size=9))
+            self.assertTrue(status["converged"],status)
+            phases,end=orbit_from_step(step,x,6)
+            self.assertLess(np.linalg.norm(end-x)/np.linalg.norm(x),1e-11)
+            self.assertTrue(primitive_and_alignment(phases)["primitive"])
+            matrix=dense_monodromy(op,x)
+            spec=spectrum(op,x,matrix)
+            self.assertTrue(spec["eigen_gate"])
+            self.assertEqual(spec["stability_if_orbit_and_fd_gates_pass"],"numerically_attracting")
+            fd=derivative_gate(op,x,rng.normal(size=9))
+            self.assertTrue(fd["passed"],fd)
+            cycle_states.append(phases)
+        distinct=primitive_and_alignment(*cycle_states)
+        self.assertEqual(distinct["comparison_if_both_closed"],"distinct_numerically")
+        same=primitive_and_alignment(cycle_states[0],np.roll(cycle_states[0],2,axis=0))
+        self.assertEqual(same["best_shift"],2)
+        self.assertEqual(same["relative_largest_distance"],0.)
+        self.assertEqual(same["comparison_if_both_closed"],"same_within_tolerance")
+        op=AuditOperator(f,j,attempt("reused-chord"))
+        x,status=solve(op,cycle_states[-1][0]+1e-4*rng.normal(size=9),chord_monodromy=matrix)
+        self.assertTrue(status["converged"],status)
+        self.assertEqual(op.counts["jvp_columns"],0)
+        doubled=np.tile(cycle_states[0][:3],(2,1))
+        self.assertFalse(primitive_and_alignment(doubled)["primitive"])
+
+    def test_bad_jvp_refused_by_composed_fd(self):
+        step,f,j=six_cycle()
+        x=np.zeros(9);x[0]=1.;x[6]=1.
+        op=AuditOperator(f,lambda x,v:j(x,v)+1e-3*v,attempt("bad-jvp"))
+        self.assertFalse(derivative_gate(op,x,np.ones(9))["passed"])
+
+    def test_hard_jvp_budget_and_failed_attempt_preserved(self):
+        d=np.arange(1.,10.)*.05
+        center=np.ones(9)
+        op=AuditOperator(lambda x:center+d*(x-center),lambda x,v:d*v,
+                         attempt("budget-refusal"),limits=Limits(newton_jvp_columns=1))
+        x,status=solve(op,center+np.linspace(.01,.02,9))
+        self.assertFalse(status["converged"])
+        self.assertIn("budget exhausted",status["reason"])
+        self.assertTrue((op.path/"solve-result.json").exists())
+        self.assertTrue((op.path/"solution-or-last-state.npy").exists())
+        rows=[json.loads(line) for line in (op.path/"events.jsonl").read_text().splitlines()]
+        self.assertEqual(rows[-1]["event"],"solve_end")
+        self.assertEqual(op.counts["jvp_columns"],1)
+
+    def test_float32_precondition_fails_loudly(self):
+        with self.assertRaisesRegex(RuntimeError,"float64"):
+            primitive_and_alignment(np.zeros((6,9),dtype=np.float32))
+
+
+if __name__ == "__main__":
+    unittest.main(verbosity=2)

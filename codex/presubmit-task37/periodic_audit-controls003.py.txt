@@ -1,0 +1,401 @@
+"""Standalone float64 audit numerics. No model or producer imports.
+
+Callers supply the complete composed period map and its float64 JVP. An exclusive
+attempt folder preserves every operator argument/result and each failed trial.
+This is exploratory numerical verification, never an interval certificate.
+"""
+from dataclasses import asdict, dataclass
+import json
+import math
+from pathlib import Path
+import time
+import numpy as np
+from scipy.linalg import lu_factor, lu_solve
+from scipy.sparse.linalg import LinearOperator, gmres
+
+
+class Refusal(RuntimeError):
+    pass
+
+
+def vector(value):
+    a = np.asarray(value)
+    if a.dtype != np.float64 or a.ndim != 1 or not np.isfinite(a).all():
+        raise Refusal("finite one-dimensional float64 input required")
+    return a.copy()
+
+
+@dataclass(frozen=True)
+class Limits:
+    composed_calls: int = 160
+    jvp_columns: int = 1200
+    wall_seconds: float = 7200.
+    newton_updates: int = 8
+    newton_jvp_columns: int = 192
+    gmres_restart: int = 24
+    gmres_cycles: int = 2
+    line_trials: int = 8
+    residual_tolerance: float = 1e-11
+    max_seed_displacement: float = .25
+
+
+class AuditOperator:
+    def __init__(self, period_map, period_jvp, output_dir, *,
+                 batch_jvp=None, limits=Limits(), metadata=None):
+        self.path = Path(output_dir)
+        self.path.mkdir(parents=True, exist_ok=False)
+        self.f, self.j, self.bj = period_map, period_jvp, batch_jvp
+        self.limits, self.started = limits, time.monotonic()
+        self.counts = dict(composed_calls=0, jvp_columns=0, jvp_calls=0,
+                           gmres_unconverged=0, linear_solves=0)
+        self.sequence = 0
+        self.emit("start", limits=asdict(limits), metadata=metadata or {})
+
+    def emit(self, kind, **fields):
+        row = dict(event=kind, elapsed_seconds=time.monotonic()-self.started,
+                   counts=self.counts.copy(), **fields)
+        with (self.path / "events.jsonl").open("a") as out:
+            out.write(json.dumps(row, allow_nan=False) + "\n")
+
+    def __enter__(self):
+        return self
+
+    def __exit__(self, error_type, error, traceback):
+        result = dict(completed_without_uncaught_exception=error is None,
+                      error_type=error_type.__name__ if error_type else None,
+                      error=str(error) if error else None, counts=self.counts.copy())
+        (self.path / "attempt-end.json").write_text(json.dumps(result, indent=2)+"\n")
+        self.emit("attempt_end", result=result)
+        # Numerical convergence still requires solve-result.json and all gates.
+        return False
+
+    def _call(self, kind, x, direction=None):
+        x = vector(x)
+        if time.monotonic()-self.started >= self.limits.wall_seconds:
+            raise Refusal("wall-clock budget reached before operator call")
+        columns = 0 if direction is None else (1 if direction.ndim == 1 else len(direction))
+        if direction is None:
+            if self.counts["composed_calls"] >= self.limits.composed_calls:
+                raise Refusal("composed-map call budget exhausted")
+            self.counts["composed_calls"] += 1
+        else:
+            if not np.isfinite(direction).all() or direction.dtype != np.float64:
+                raise Refusal("finite float64 tangent required")
+            if direction.shape[-1] != len(x):
+                raise Refusal("tangent shape mismatch")
+            if self.counts["jvp_columns"] + columns > self.limits.jvp_columns:
+                raise Refusal("JVP-column budget exhausted")
+            self.counts["jvp_columns"] += columns
+            self.counts["jvp_calls"] += 1
+        ident = self.sequence
+        self.sequence += 1
+        stem = self.path / f"operator-{ident:06d}"
+        np.save(str(stem) + "-state.npy", x, allow_pickle=False)
+        if direction is not None:
+            np.save(str(stem) + "-direction.npy", direction, allow_pickle=False)
+        self.emit("operator_start", operation=kind, identifier=ident, columns=columns)
+        try:
+            y = self.f(x) if direction is None else (
+                self.j(x, direction) if direction.ndim == 1 else self.bj(x, direction))
+            y = np.asarray(y)
+            if y.dtype != np.float64 or y.shape != (x.shape if direction is None else direction.shape) or not np.isfinite(y).all():
+                raise Refusal("operator returned invalid dtype, shape or finite values")
+            np.save(str(stem) + "-result.npy", y, allow_pickle=False)
+            self.emit("operator_end", operation=kind, identifier=ident)
+            return y.copy()
+        except Exception as error:
+            self.emit("operator_failed", operation=kind, identifier=ident,
+                      error_type=type(error).__name__, error=str(error))
+            raise
+
+    def value(self, x):
+        return self._call("composed_map", x)
+
+    def jvp(self, x, v):
+        return self._call("composed_jvp", x, vector(v))
+
+    def columns(self, x, directions):
+        if self.bj is None:
+            return np.stack([self.jvp(x, v) for v in directions])
+        return self._call("composed_jvp_batch", x, directions)
+
+
+def solve(op, seed, *, chord_monodromy=None):
+    """Bounded inexact Newton-GMRES; optional prior-point chord first.
+
+    A supplied chord matrix is never refreshed inside this routine. If its line
+    search fails or reduction stalls, switch to current-point matrix-free GMRES.
+    No dense Jacobian fallback occurs silently. Failure returns its actual status.
+    """
+    seed = vector(seed)
+    x = seed.copy()
+    scale = float(np.linalg.norm(seed))
+    if not scale > 0:
+        raise Refusal("nonzero seed norm required for relative stopping")
+    cfg, first_jvps = op.limits, op.counts["jvp_columns"]
+    chord = None
+    if chord_monodromy is not None:
+        m = np.asarray(chord_monodromy)
+        if m.dtype != np.float64 or m.shape != (len(x), len(x)) or not np.isfinite(m).all():
+            raise Refusal("invalid prior-point chord matrix")
+        chord = lu_factor(m - np.eye(len(x)))
+    residual = None
+    reason = "newton_update_budget"
+    try:
+        for iteration in range(cfg.newton_updates + 1):
+            if residual is None:
+                residual = op.value(x) - x
+            rn = float(np.linalg.norm(residual))
+            relative = rn / float(np.linalg.norm(x))
+            np.save(op.path / f"accepted-{iteration:02d}.npy", x, allow_pickle=False)
+            op.emit("newton_state", iteration=iteration, relative_residual=relative,
+                    seed_relative_residual=rn/scale, method="chord" if chord is not None else "gmres")
+            if relative <= cfg.residual_tolerance:
+                reason = "converged"
+                break
+            if iteration == cfg.newton_updates:
+                break
+            for fallback in range(2):
+                if chord is not None:
+                    delta = lu_solve(chord, -residual)
+                    op.counts["linear_solves"] += 1
+                    method = "chord"
+                else:
+                    # Only accurate enough to improve nonlinear residual; verify
+                    # true unpreconditioned linear residual after every solve.
+                    eta = max(1e-6, min(.05, math.sqrt(relative)))
+                    history = []
+                    def multiply(v):
+                        if op.counts["jvp_columns"] - first_jvps >= cfg.newton_jvp_columns:
+                            raise Refusal("Newton JVP-column budget exhausted")
+                        return op.jvp(x, np.asarray(v, dtype=np.float64)) - v
+                    a = LinearOperator((len(x), len(x)), matvec=multiply, dtype=np.float64)
+                    delta, info = gmres(a, -residual, rtol=eta, atol=0.,
+                                        restart=min(cfg.gmres_restart, len(x)),
+                                        maxiter=cfg.gmres_cycles,
+                                        callback=lambda r: history.append(float(r)),
+                                        callback_type="pr_norm")
+                    op.counts["linear_solves"] += 1
+                    actual = float(np.linalg.norm(multiply(delta)+residual)/rn)
+                    op.emit("gmres_result", iteration=iteration, info=int(info),
+                            forcing_tolerance=eta, true_relative_residual=actual,
+                            residual_history=history)
+                    if info != 0 or actual > 1.1*eta:
+                        op.counts["gmres_unconverged"] += 1
+                        raise Refusal("GMRES failed declared residual gate")
+                    method = "gmres"
+                if not np.isfinite(delta).all():
+                    raise Refusal("nonfinite correction")
+                accepted = False
+                for trial in range(cfg.line_trials):
+                    damping = 2.**-trial
+                    candidate = x + damping*delta
+                    displacement = float(np.linalg.norm(candidate-seed)/scale)
+                    if displacement > cfg.max_seed_displacement:
+                        op.emit("line_trial", iteration=iteration, trial=trial,
+                                damping=damping, method=method, accepted=False,
+                                reason="seed_displacement_bound", displacement=displacement)
+                        continue
+                    rr = op.value(candidate)-candidate
+                    ratio = float(np.linalg.norm(rr)/rn)
+                    accepted = bool(ratio <= 1.-1e-4*damping)
+                    op.emit("line_trial", iteration=iteration, trial=trial,
+                            damping=damping, method=method, accepted=accepted,
+                            residual_ratio=ratio, displacement=displacement)
+                    if accepted:
+                        x, residual = candidate, rr
+                        if method == "chord" and ratio > .75:
+                            chord = None
+                            op.emit("chord_abandoned", reason="poor_residual_reduction")
+                        break
+                if accepted:
+                    break
+                if method == "chord":
+                    chord = None
+                    op.emit("chord_abandoned", reason="line_search_failed")
+                    continue
+                raise Refusal("line search exhausted")
+        status = dict(converged=reason == "converged", reason=reason,
+                      relative_residual=float(np.linalg.norm(residual)/np.linalg.norm(x)),
+                      updates=iteration, counts=op.counts.copy())
+    except Exception as error:
+        status = dict(converged=False, reason=type(error).__name__ + ": " + str(error),
+                      counts=op.counts.copy())
+    np.save(op.path / "solution-or-last-state.npy", x, allow_pickle=False)
+    (op.path / "solve-result.json").write_text(json.dumps(status, indent=2, allow_nan=False)+"\n")
+    op.emit("solve_end", result=status)
+    return x, status
+
+
+def dense_monodromy(op, x, *, chunk_size=16):
+    x = vector(x)
+    n = len(x)
+    if type(chunk_size) is not int or chunk_size < 1:
+        raise Refusal("positive integer chunk size required")
+    matrix = np.empty((n, n), dtype=np.float64)
+    eye = np.eye(n)
+    for start in range(0, n, chunk_size):
+        end = min(n, start+chunk_size)
+        matrix[:, start:end] = op.columns(x, eye[start:end]).T
+        np.save(op.path / f"monodromy-columns-{start:04d}-{end:04d}.npy",
+                matrix[:, start:end], allow_pickle=False)
+    np.save(op.path / "monodromy.npy", matrix, allow_pickle=False)
+    return matrix
+
+
+def spectrum(op, x, matrix, *, top=8, stability_margin=1e-7):
+    """Full dense eigensystem plus top modes tested against scalar map JVPs."""
+    m = np.asarray(matrix)
+    if m.dtype != np.float64 or m.shape != (len(x), len(x)) or not np.isfinite(m).all():
+        raise Refusal("full finite float64 monodromy required")
+    values, modes = np.linalg.eig(m)
+    if not np.isfinite(values).all() or not np.isfinite(modes).all():
+        raise Refusal("nonfinite eigensystem")
+    order = np.argsort(-np.abs(values))
+    values, modes = values[order], modes[:, order]
+    scale = max(1., float(np.linalg.norm(m, 2)))
+    dense_residuals = np.linalg.norm(m@modes-modes*values, axis=0)/scale
+    records = []
+    for index in range(min(top, len(x))):
+        v, mu = modes[:, index], values[index]
+        jv = op.jvp(x, v.real.copy())
+        if np.linalg.norm(v.imag) > 0:
+            jv = jv.astype(np.complex128) + 1j*op.jvp(x, v.imag.copy())
+        records.append(dict(real=float(mu.real), imag=float(mu.imag),
+                            modulus=float(abs(mu)), argument=float(np.angle(mu)),
+                            dense_relative_residual=float(dense_residuals[index]),
+                            scalar_jvp_relative_residual=float(np.linalg.norm(jv-mu*v)/scale)))
+    eigen_gate = bool(max(dense_residuals) <= 1e-10 and
+                      max(r["scalar_jvp_relative_residual"] for r in records) <= 1e-10)
+    rho = float(abs(values[0]))
+    # This is numerical, not validated interval arithmetic.
+    stability = ("numerically_attracting" if rho < 1-stability_margin else
+                 "numerically_unstable" if rho > 1+stability_margin else "unresolved_near_unit_circle")
+    result = dict(spectral_radius=rho, next_largest_modulus=float(abs(values[1])) if len(x)>1 else None,
+                  eigen_gate=eigen_gate, stability_if_orbit_and_fd_gates_pass=stability,
+                  stability_margin=stability_margin, largest=records,
+                  all_multipliers=[[float(v.real),float(v.imag)] for v in values],
+                  max_dense_relative_residual=float(max(dense_residuals)))
+    np.save(op.path / "eigenvectors.npy", modes, allow_pickle=False)
+    (op.path / "spectrum.json").write_text(json.dumps(result, indent=2, allow_nan=False)+"\n")
+    return result
+
+
+def derivative_gate(op, x, direction, *, relative_steps=(1e-3,5e-4,2.5e-4,1.25e-4)):
+    """Composed-map central differences, not a one-step precision check.
+
+    One h^2 interval and final relative agreement <=1e-5 are required, unless
+    all errors are already below the explicitly reported cancellation floor.
+    Failure is a setup result; refining h requires a dated amendment, not masking.
+    """
+    x, direction = vector(x), vector(direction)
+    normv = float(np.linalg.norm(direction))
+    if not normv > 0:
+        raise Refusal("nonzero FD direction required")
+    direction /= normv
+    scale = float(np.linalg.norm(x))
+    if not scale > 0:
+        raise Refusal("nonzero state norm for relative steps required")
+    ad = op.jvp(x, direction)
+    denom = max(float(np.linalg.norm(ad)), 1e-14)
+    records = []
+    for rel in relative_steps:
+        h = rel*scale
+        plus, minus = op.value(x+h*direction), op.value(x-h*direction)
+        fd = (plus-minus)/(2*h)
+        error = float(np.linalg.norm(fd-ad))
+        floor = float(32*np.finfo(float).eps*max(np.linalg.norm(plus),np.linalg.norm(minus))/h)
+        records.append(dict(relative_step=rel, h=h, absolute_error=error,
+                            relative_error=error/denom, cancellation_floor=floor))
+    ratios = [records[i]["absolute_error"] / max(records[i+1]["absolute_error"], 1e-300)
+              for i in range(len(records)-1)]
+    at_floor = all(r["absolute_error"] <= r["cancellation_floor"] for r in records)
+    quadratic = any(2.5 <= ratio <= 6.0 for ratio in ratios)
+    passed = bool(records[-1]["relative_error"] <= 1e-5 and (quadratic or at_floor))
+    result = dict(passed=passed, quadratic_interval_seen=quadratic,
+                  all_at_cancellation_floor=at_floor, error_ratios=ratios, steps=records,
+                  ad_direction_norm=float(np.linalg.norm(ad)))
+    op.emit("derivative_gate", result=result)
+    return result
+
+
+def orbit_from_step(step, x, period):
+    """Caller must separately journal and budget supplied one-step evaluations."""
+    if type(period) is not int or period < 1:
+        raise Refusal("positive integer period required")
+    states, current = [], vector(x)
+    for _ in range(period):
+        states.append(current.copy())
+        current = vector(step(current))
+    return np.stack(states), current
+
+
+def primitive_and_alignment(a, b=None, *, closure_tolerance=1e-11, distinct_tolerance=1e-7):
+    """Full-vector, minimax phase matching; no projections or token matching.
+
+    Relative denominator is the average of the two mean phase norms. Caller
+    supplies closure evidence separately; proximity without closure is not identity.
+    """
+    a = np.asarray(a)
+    if a.dtype != np.float64 or a.ndim != 2 or not np.isfinite(a).all():
+        raise Refusal("finite float64 phase-state matrix required")
+    p = len(a)
+    scale = float(np.mean(np.linalg.norm(a,axis=1)))
+    if not scale > 0:
+        raise Refusal("positive mean orbit norm required")
+    separations = {str(q): float(np.max(np.linalg.norm(a-np.roll(a,-q,axis=0),axis=1))/scale)
+                   for q in range(1,p) if p % q == 0}
+    result = dict(proper_divisor_phase_separations=separations,
+                  primitive=all(v > distinct_tolerance for v in separations.values()))
+    if b is None:
+        return result
+    b = np.asarray(b)
+    if b.dtype != np.float64 or b.shape != a.shape or not np.isfinite(b).all():
+        raise Refusal("matching finite float64 orbit shapes required")
+    scale_b = float(np.mean(np.linalg.norm(b,axis=1)))
+    denominator = .5*(scale+scale_b)
+    distances = [np.linalg.norm(a-np.roll(b,-shift,axis=0),axis=1) for shift in range(p)]
+    maxima = [float(max(v)) for v in distances]
+    shift = int(np.argmin(maxima))
+    relative = maxima[shift]/denominator
+    result.update(best_shift=shift, all_shift_max_distances=maxima,
+                  phase_distances_at_best_shift=distances[shift].tolist(),
+                  largest_distance_after_best_shift=maxima[shift],
+                  mean_state_norm_a=scale, mean_state_norm_b=scale_b,
+                  normalization_mean_state_norm=denominator,
+                  relative_largest_distance=relative,
+                  comparison_if_both_closed=("same_within_tolerance" if relative <= 10*closure_tolerance else
+                                             "distinct_numerically" if relative > distinct_tolerance else "unresolved"))
+    return result
+
+
+def token_readouts(logits_function, phases, temperature, output_dir, *, decode=None):
+    """Rank output logits at each x_j, i.e. token predicted on x_j -> x_(j+1).
+
+    Caller separately journals/counts the model logits evaluations. Temperature
+    changes probabilities but not the argmax. Raw logits are retained externally.
+    """
+    if not np.isfinite(temperature) or temperature <= 0:
+        raise Refusal("positive finite temperature required")
+    path = Path(output_dir)
+    path.mkdir(parents=True, exist_ok=False)
+    records = []
+    for phase,x in enumerate(phases):
+        np.save(path/f"phase-{phase:02d}-state.npy",vector(x),allow_pickle=False)
+        logits = vector(logits_function(vector(x)))
+        if len(logits) < 2:
+            raise Refusal("at least two vocabulary entries required")
+        np.save(path/f"phase-{phase:02d}-logits.npy",logits,allow_pickle=False)
+        ranked = np.argsort(-logits)[:2]
+        top,second = map(int,ranked)
+        weights = np.exp((logits-logits[top])/temperature)
+        row = dict(phase=phase, token_id=top, second_token_id=second,
+                   top_probability=float(1./weights.sum()),
+                   top_logit_gap=float(logits[top]-logits[second]),
+                   exactly_tied=bool(logits[top]==logits[second]),
+                   text=decode(top) if decode is not None else None,
+                   convention="output predicted from x_phase, before advancing state")
+        records.append(row)
+        (path/f"phase-{phase:02d}-readout.json").write_text(json.dumps(row,indent=2)+"\n")
+    (path/"readouts.json").write_text(json.dumps(records,indent=2)+"\n")
+    return records

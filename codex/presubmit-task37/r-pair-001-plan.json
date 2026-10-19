@@ -1,0 +1,127 @@
+{
+  "status": "held_for_private_checkpoint_and_coordinated_capacity",
+  "repository": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp",
+  "raw_root": "/data2/neural-shrimp-data/scratch/audit-codex-1019",
+  "python": "/data2/neural-shrimp/.venv/bin/python",
+  "cpu_threads": 1,
+  "cpu_ids": [
+    0
+  ],
+  "startup_ram_gib": 32,
+  "source_files": [
+    {
+      "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/presubmit-task37/p6_kite.py",
+      "bytes": 22400,
+      "sha256": "370c05f86334814848fdeb64ba323ab4d89bd50e7a549ac10e83ca3d322d9d45"
+    },
+    {
+      "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/presubmit-task37/periodic_audit.py",
+      "bytes": 20436,
+      "sha256": "667ea2d366e6f49f48793d769a8c231079bce359315d4499a84a60b316b0d245"
+    },
+    {
+      "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/crosscheck/qwen_map.py",
+      "bytes": 14540,
+      "sha256": "493a3d1d57fec227f5ba2e3f8f9cfcfdd02d22495d1d44e6449ede901310ae6e"
+    },
+    {
+      "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/certify-chaos/supervise.py",
+      "bytes": 8727,
+      "sha256": "306db32a2c8ada9beb67547bbaafc6d0d7a597b5861b0e629ca9a07801223c44"
+    },
+    {
+      "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/presubmit-task37/r-pair-001-card.json",
+      "bytes": 7109,
+      "sha256": "8f1014409de23148beb9cd29c447c9514cebb9e72075067cd2ed47f83813e1d1"
+    }
+  ],
+  "lanes": {
+    "r_pair": {
+      "entry": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/presubmit-task37/p6_kite.py",
+      "arguments": [
+        "--card",
+        "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/presubmit-task37/r-pair-001-card.json",
+        "--out",
+        "/data2/neural-shrimp-data/scratch/audit-codex-1019/r-pair-001",
+        "--admission",
+        "/data2/neural-shrimp-data/scratch/audit-codex-1019/r-pair-001-supervision/admission.json"
+      ],
+      "output": "/data2/neural-shrimp-data/scratch/audit-codex-1019/r-pair-001",
+      "supervision": "/data2/neural-shrimp-data/scratch/audit-codex-1019/r-pair-001-supervision",
+      "preflight_pins": [
+        {
+          "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/presubmit-task37/p6-seed-inventory.json",
+          "bytes": 3214,
+          "sha256": "a10ed66f8b9621c4373955a13daaace4244b1d54734c78f808be723e9c8da6d8"
+        },
+        {
+          "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/p6s/p6s-ad-curve-plus/states.npy",
+          "bytes": 208000,
+          "sha256": "8229611c8c9599c8e4d47e0af453d0987c2616247c6a5b720b373e4c98732b6c",
+          "shape": [
+            29,
+            896
+          ],
+          "dtype": "float64"
+        },
+        {
+          "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/p6s/p6s-ad-curve-plus/curve.json",
+          "sha256": "63255809256c120e1ad34e3706c673b720ed83f798b79020f7e52a930408e080",
+          "bytes": 43017
+        },
+        {
+          "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/p6s/p6s-td-curve-minus/states.npy",
+          "bytes": 408704,
+          "sha256": "1b014138305b144bb368d847a0f9a2deeb75a82802dc6951e8363edf1525e0a1",
+          "shape": [
+            57,
+            896
+          ],
+          "dtype": "float64"
+        },
+        {
+          "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/p6s/p6s-td-curve-minus/curve.json",
+          "sha256": "7213e93de1de7d934e7d7ac73f9c9d48e33c4a6ac6a3d56d22a52b47a1831d71",
+          "bytes": 83501
+        },
+        {
+          "path": "/data2/neural-shrimp-data/models/hf/hub/models--Qwen--Qwen2.5-0.5B-Instruct/snapshots/7ae557604adf67be50417f59c2c2f167def9a775/model.safetensors",
+          "bytes": 988097824,
+          "sha256": "fdf756fa7fcbe7404d5c60e26bff1a0c8b8aa1f72ced49e7dd0210fe288fb7fe"
+        },
+        {
+          "path": "/data2/neural-shrimp-data/models/hf/hub/models--Qwen--Qwen2.5-0.5B-Instruct/snapshots/7ae557604adf67be50417f59c2c2f167def9a775/config.json",
+          "bytes": 659,
+          "sha256": "18e18afcaccafade98daf13a54092927904649e1dd4eba8299ab717d5d94ff45"
+        },
+        {
+          "path": "/data2/neural-shrimp-data/models/hf/hub/models--Qwen--Qwen2.5-0.5B-Instruct/snapshots/7ae557604adf67be50417f59c2c2f167def9a775/tokenizer.json",
+          "bytes": 7031645,
+          "sha256": "c0382117ea329cdf097041132f6d735924b697924d6f6fc3945713e96ce87539"
+        },
+        {
+          "path": "/data2/neural-shrimp-data/explore/llm-phase-map/vectors-l12/vectors.npz",
+          "bytes": 14860,
+          "sha256": "b630bb7bef06bde87f8e6a7ca5e8672f83d24bc0585bf19048e9e494a4357f41"
+        },
+        {
+          "path": "/data2/neural-shrimp-data/codex/certificate-ladder/phase-cascade-p6-001-supervision/receipt.json",
+          "bytes": 5176,
+          "sha256": "83a4942ad648338af12318da17267fcbe07dafd9e7b6679231951d48b8584712"
+        }
+      ],
+      "prior_receipts": [
+        "/data2/neural-shrimp-data/codex/certificate-ladder/phase-cascade-p6-001-supervision/receipt.json"
+      ],
+      "limits": {
+        "as_bytes": 19327352832,
+        "cpu_seconds": 15000,
+        "wall_seconds": 15300,
+        "output_bytes": 536870912
+      }
+    }
+  },
+  "execution_environment": "HF_HUB_OFFLINE=1 and all numerical threads1; existing external supervisor imposes nice10, CPU affinity and resource/available-memory/disk caps.",
+  "capacity_status": "HELD after prior local RAM-floor stops; no admission from a momentary passing RAM reading.",
+  "no_target_run": true
+}

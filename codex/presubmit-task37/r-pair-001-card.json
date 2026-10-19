@@ -1,0 +1,154 @@
+{
+  "schema": "codex-task37-p6-r-pair-card-v1",
+  "status": "held_for_private_checkpoint_and_coordinated_capacity",
+  "target": {
+    "label": "R",
+    "alpha": 0.072912,
+    "log10_temperature": -0.154104,
+    "period": 6
+  },
+  "seed_inventory": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/presubmit-task37/p6-seed-inventory.json",
+  "tokenizer": "/data2/neural-shrimp-data/models/hf/hub/models--Qwen--Qwen2.5-0.5B-Instruct/snapshots/7ae557604adf67be50417f59c2c2f167def9a775/tokenizer.json",
+  "source_files": [
+    {
+      "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/presubmit-task37/p6_kite.py",
+      "bytes": 22400,
+      "sha256": "370c05f86334814848fdeb64ba323ab4d89bd50e7a549ac10e83ca3d322d9d45"
+    },
+    {
+      "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/presubmit-task37/periodic_audit.py",
+      "bytes": 20436,
+      "sha256": "667ea2d366e6f49f48793d769a8c231079bce359315d4499a84a60b316b0d245"
+    },
+    {
+      "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/crosscheck/qwen_map.py",
+      "bytes": 14540,
+      "sha256": "493a3d1d57fec227f5ba2e3f8f9cfcfdd02d22495d1d44e6449ede901310ae6e"
+    },
+    {
+      "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/certify-chaos/supervise.py",
+      "bytes": 8727,
+      "sha256": "306db32a2c8ada9beb67547bbaafc6d0d7a597b5861b0e629ca9a07801223c44"
+    }
+  ],
+  "input_files": [
+    {
+      "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/presubmit-task37/p6-seed-inventory.json",
+      "bytes": 3214,
+      "sha256": "a10ed66f8b9621c4373955a13daaace4244b1d54734c78f808be723e9c8da6d8"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/p6s/p6s-ad-curve-plus/states.npy",
+      "bytes": 208000,
+      "sha256": "8229611c8c9599c8e4d47e0af453d0987c2616247c6a5b720b373e4c98732b6c",
+      "shape": [
+        29,
+        896
+      ],
+      "dtype": "float64"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/p6s/p6s-ad-curve-plus/curve.json",
+      "sha256": "63255809256c120e1ad34e3706c673b720ed83f798b79020f7e52a930408e080",
+      "bytes": 43017
+    },
+    {
+      "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/p6s/p6s-td-curve-minus/states.npy",
+      "bytes": 408704,
+      "sha256": "1b014138305b144bb368d847a0f9a2deeb75a82802dc6951e8363edf1525e0a1",
+      "shape": [
+        57,
+        896
+      ],
+      "dtype": "float64"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/p6s/p6s-td-curve-minus/curve.json",
+      "sha256": "7213e93de1de7d934e7d7ac73f9c9d48e33c4a6ac6a3d56d22a52b47a1831d71",
+      "bytes": 83501
+    },
+    {
+      "path": "/data2/neural-shrimp-data/models/hf/hub/models--Qwen--Qwen2.5-0.5B-Instruct/snapshots/7ae557604adf67be50417f59c2c2f167def9a775/model.safetensors",
+      "bytes": 988097824,
+      "sha256": "fdf756fa7fcbe7404d5c60e26bff1a0c8b8aa1f72ced49e7dd0210fe288fb7fe"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/models/hf/hub/models--Qwen--Qwen2.5-0.5B-Instruct/snapshots/7ae557604adf67be50417f59c2c2f167def9a775/config.json",
+      "bytes": 659,
+      "sha256": "18e18afcaccafade98daf13a54092927904649e1dd4eba8299ab717d5d94ff45"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/models/hf/hub/models--Qwen--Qwen2.5-0.5B-Instruct/snapshots/7ae557604adf67be50417f59c2c2f167def9a775/tokenizer.json",
+      "bytes": 7031645,
+      "sha256": "c0382117ea329cdf097041132f6d735924b697924d6f6fc3945713e96ce87539"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/explore/llm-phase-map/vectors-l12/vectors.npz",
+      "bytes": 14860,
+      "sha256": "b630bb7bef06bde87f8e6a7ca5e8672f83d24bc0585bf19048e9e494a4357f41"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/codex/certificate-ladder/phase-cascade-p6-001-supervision/receipt.json",
+      "bytes": 5176,
+      "sha256": "83a4942ad648338af12318da17267fcbe07dafd9e7b6679231951d48b8584712"
+    }
+  ],
+  "prior_closed_receipt": "/data2/neural-shrimp-data/codex/certificate-ladder/phase-cascade-p6-001-supervision/receipt.json",
+  "capacity_window": null,
+  "operator_limits": {
+    "composed_calls": 160,
+    "jvp_columns": 1200,
+    "wall_seconds": 7200.0,
+    "newton_updates": 8,
+    "newton_jvp_columns": 192,
+    "gmres_restart": 24,
+    "gmres_cycles": 2,
+    "line_trials": 8,
+    "residual_tolerance": 1e-11,
+    "max_seed_displacement": 0.25
+  },
+  "external_limits": {
+    "as_bytes": 19327352832,
+    "cpu_seconds": 15000,
+    "wall_seconds": 15300,
+    "output_bytes": 536870912
+  },
+  "threads": 1,
+  "dense_batch_columns": 8,
+  "maximum_extra_forward_calls": {
+    "prefix": 1,
+    "phase_logits_per_seed": 6
+  },
+  "purpose": "Independent exploratory finite numerical check of two saved P6 seeds at the requested rounded R; no interval certificate or normal-form coefficient.",
+  "gates": {
+    "all_six_phase_returns_relative": 1e-11,
+    "proper_divisor_relative_separation": 1e-07,
+    "identity_relative_max_phase_distance": 1e-10,
+    "distinct_relative_max_phase_distance": 1e-07,
+    "dense_scalar_jvp_relative_error": 1e-10,
+    "all_dense_eigen_residuals_normalized": 1e-10,
+    "full_eigenvalues": 896,
+    "reported_largest": 8,
+    "fd_final_relative_error": 1e-05,
+    "random_fd_h_squared_interval_required": true,
+    "stability_numerical_margin": 1e-07
+  },
+  "conditional_followup": "Only if both R orbits qualify and are distinct: prepare separately pinned allocations for the two requested body cells using the actual closed R states; no automatic launch or extension.",
+  "cost_basis": {
+    "reference": "codex/certificate-ladder-task34/dense-cascade-p6-001-completion.json",
+    "reference_source": "19b63a2002b72ff5bcdaea441a141b58ed05e272",
+    "reference_elapsed_seconds_rounded_up": 2472.136234,
+    "transfer": "Same independent 24-layer/896-dimensional/full-vocabulary float64 CPU F^6 and eight-column batching; new orbit and Newton workload. Timing is a workload reference, not a measured new-family or scalar-JVP forecast.",
+    "two_dense_reference_seconds": 4944.272468,
+    "allocation_rationale": "One serial CPU, at most two 896-column final spectra plus bounded Newton/FD/phase work; 15000CPU/15300wall provides a finite stop with all partial outputs retained. No rate or six-thread speedup promise."
+  },
+  "preparation_checks": "Source/interface review, synthetic numerical controls and focused wrapper controls are recorded in execution-preparation-review.md; no target model execution.",
+  "admission_remaining": [
+    "save exact reviewed files in owned worktree",
+    "ordinary private-main checkpoint and verified fetch equality",
+    "coordinated stable memory window covering hard wall",
+    "fresh shared capacity and actual owned process census",
+    "explicit dated card/plan status amendment"
+  ],
+  "retry_policy": "No automatic retry, extension, seed replacement, floor weakening, or body-point launch."
+}

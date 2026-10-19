@@ -1,0 +1,109 @@
+{
+  "schema": "task37-p6-seed-inventory-v1",
+  "seeds": [
+    {
+      "name": "p6s-ad-curve-plus",
+      "index": 6,
+      "row": 6,
+      "states": {
+        "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/p6s/p6s-ad-curve-plus/states.npy",
+        "bytes": 208000,
+        "sha256": "8229611c8c9599c8e4d47e0af453d0987c2616247c6a5b720b373e4c98732b6c",
+        "shape": [
+          29,
+          896
+        ],
+        "dtype": "float64"
+      },
+      "curve": {
+        "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/p6s/p6s-ad-curve-plus/curve.json",
+        "sha256": "63255809256c120e1ad34e3706c673b720ed83f798b79020f7e52a930408e080",
+        "bytes": 43017
+      },
+      "seed_parameters": {
+        "alpha": 0.07290699285213686,
+        "log10_temperature": -0.15395151820007266
+      },
+      "alpha_hex": "0x1.2aa085df31b30p-4",
+      "log10_temperature_hex": "-0x1.3b4aeefeb5fcbp-3",
+      "state_row_sha256_native_float64": "c61f3f0d868fa22c765447ce45c0f1144a0d2b3384bb36af65288203d4cf49c1",
+      "state_norm": 0.42753828398973115,
+      "metadata_kind": "flip",
+      "metadata_period": 6,
+      "seed_claim_not_independently_verified": true
+    },
+    {
+      "name": "p6s-td-curve-minus",
+      "index": 2,
+      "row": 2,
+      "states": {
+        "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/p6s/p6s-td-curve-minus/states.npy",
+        "bytes": 408704,
+        "sha256": "1b014138305b144bb368d847a0f9a2deeb75a82802dc6951e8363edf1525e0a1",
+        "shape": [
+          57,
+          896
+        ],
+        "dtype": "float64"
+      },
+      "curve": {
+        "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/p6s/p6s-td-curve-minus/curve.json",
+        "sha256": "7213e93de1de7d934e7d7ac73f9c9d48e33c4a6ac6a3d56d22a52b47a1831d71",
+        "bytes": 83501
+      },
+      "seed_parameters": {
+        "alpha": 0.07291880394312411,
+        "log10_temperature": -0.15409386771440967
+      },
+      "alpha_hex": "0x1.2aace8632fbc0p-4",
+      "log10_temperature_hex": "-0x1.3b9590d2c7c2fp-3",
+      "state_row_sha256_native_float64": "26d65592827fa0136ee16b55d9db30e78503efa397a615a57a1daaa6df6c447d",
+      "state_norm": 0.4175007406969245,
+      "metadata_kind": "flip",
+      "metadata_period": 6,
+      "seed_claim_not_independently_verified": true
+    }
+  ],
+  "targets": [
+    {
+      "label": "R",
+      "alpha": 0.072912,
+      "log10_temperature": -0.154104,
+      "alpha_ratio": [
+        2626931648246701,
+        36028797018963968
+      ],
+      "log10_temperature_ratio": [
+        -5552181735810423,
+        36028797018963968
+      ]
+    },
+    {
+      "label": "body1",
+      "alpha": 0.073,
+      "log10_temperature": -0.1539,
+      "alpha_ratio": [
+        5260204364768739,
+        72057594037927936
+      ],
+      "log10_temperature_ratio": [
+        -5544831861218555,
+        36028797018963968
+      ]
+    },
+    {
+      "label": "body2",
+      "alpha": 0.0731,
+      "log10_temperature": -0.1537,
+      "alpha_ratio": [
+        1316852531043133,
+        18014398509481984
+      ],
+      "log10_temperature_ratio": [
+        -2768813050907381,
+        18014398509481984
+      ]
+    }
+  ],
+  "target_map_evaluations": 0
+}
