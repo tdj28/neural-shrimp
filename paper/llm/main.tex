@@ -2499,7 +2499,9 @@ start switches to the other attracting orbit; at adjacent cells across that curv
 one, two other attracting period-6 orbits exist at both cells (multipliers $-0.72$ and $-0.11$; pair 2), and inside
 several tongues the exponents of neighboring cells fall into two separated groups, so the fixed start's outcome
 alternates from cell to cell, on a scale below the map's cells (\repo{tools/plot_p6_hook.py},
-\repo{tools/kite_basin_check.py}).
+\repo{tools/kite_basin_check.py}). From a random token's embedding as the start, the same box at $128\times128$ cells shows neither
+the hook nor the tongues, and only 38\,\% of its cells keep their exponent within 0.02 (run HR12-RS): these edges are set
+by where the fixed start lies relative to the basins, as basin boundaries should be, not by bifurcations.
 
 \begin{figure*}[tbp]
 \centering

@@ -31059,3 +31059,14 @@ conjugacy of the Rössler return map to unimodal maps, and orbits are traced by 
   pairs are within two steps; over the whole followed domain, 388/916 and 1720/1888.
 - S3 (the p6-only branch is out of date) is flagged to the human.
 - Videos: never committed; both repositories now ignore video files (human).
+
+## 2026-10-19 09:46 UTC: HR12-RS result: the hook depends on the start
+
+- Box H2 at 128 x 128 from a random token's embedding (vec-r-token.npy). Compared at the nearest HR12 cells: 38.3 % of
+  cells keep their exponent within 0.02 and 39.5 % their period.
+- The hook, the light wedge and the tongues are absent; other edges and dark-blue stripes appear. The stripes have
+  exponents just above 1e-3, probably slow passages near folds; not called chaos without checks.
+- Reading: these structures are crossings of basin boundaries by the starting state (consistent with the two Newton
+  basin checks), not bifurcation curves. Report hook paragraph: one sentence added.
+- tools/hook_saddle_check.py was restarted with 1000-step trajectories; the first run was too slow while the video
+  renders shared the CPU.
