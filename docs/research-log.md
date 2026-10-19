@@ -30793,3 +30793,29 @@ KITE-LA (pod assh00n2ljsujf, H100 NVL, commit 341ba1d9, rc 0, terminated; result
 Run card KITE-C (exploratory): locate the three reversals with tools/locate_curve_candidates.py --only 14 94 112
 (cusp_locate.py --test cusp), one H100 pod, toolseq. Reading: a located cusp at index 14 would be the kite's cusp C, on
 the side of R toward the head, as in Gallas's cell. A failed location is reported as such.
+
+## 2026-10-19 06:41 UTC: KITE-UT and KITE-C results: the kite's cusp C located; Gallas's kite C-A-R-B complete
+
+- **KITE-UT** (pod bm3xrzajo080d3, A100 SXM, rc 0):
+  - the td-sheet orbit, seeded at its flip point (0.0729188, -0.1540939) and continued upward in log10 T, is attracting
+    up to its own fold at log10 T = -0.153657;
+  - its fold curve, traced both ways, turns back at (0.073018, -0.153283) (index 17), the point where the ad sheet's
+    fold curve (KITE-LA) also turns back (0.073018, -0.153285), and at the two reversals near (0.0695, -0.1602).
+- **KITE-C** (pod rvt6x51ybmnlk3, H100 NVL, commit 20221c76, rc 0; results /data2/neural-shrimp-data/runpod/soft64/20261019T061259Z, sha256 950d30332d40f30b...):
+  cusp_locate.py --test cusp on the three reversals of kite-la-curve-plus. All three are located; all checks pass.
+
+| reversal | located at (alpha, log10 T) | oriented b (start -> end) | c | det J | critical multiplier | next modulus |
+|---|---|---|---|---|---|---|
+| index 14 (the kite's cusp C) | (0.0730186, -0.1532803) | 13.8 -> 7.1e-6 | -1.33e4 | -2624 | 1 + 7.6e-9 | 0.0010 |
+| index 94 | (0.0694974, -0.1602656) | 2.57 -> 8.0e-6 | -2247 | 2.09e4 | 1 + 6.3e-11 | 0.0032 |
+| index 112 | (0.0695513, -0.1601114) | 2.46 -> 6.3e-6 | +2006 | 2.20e4 | 1 - 5.4e-11 | 0.0030 |
+
+- **Reading.**
+  - The kite of Gallas's cell is complete:
+    - C, located, where the two sheets' fold curves meet, on the side of R toward the head;
+    - A = (0.072991, -0.153984) and B = (0.072900, -0.153707), where the fold curve meets the two flip curves;
+    - R = (0.072912, -0.154104), where the flip curves of the two orbits cross;
+    - coexistence of the two attracting orbits inside, shown on the branch line (KITE-LA).
+  - The other two cusps form a second pair with opposite c, near the end of the lower-left leg.
+  - With the upper-left leg's pair and the cusp beyond the neck, the period-6 window has six located cusps.
+- Figure: tools/plot_p6_kite.py, paper/llm/figures/fig-p6-kite.png.
