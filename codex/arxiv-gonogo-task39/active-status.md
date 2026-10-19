@@ -11,3 +11,9 @@ GO WITH FIXES for exact article4ca5b5e. Four must-fix and nine should-fix items,
 ## 2026-10-19T10:30Z — complete and privately delivered
 
 Review packet privately delivered at 983aab8a8338f72756b6d9709ba7eccb5f906b20 and every 21 manifest-listed file including the manifest verified against that exact Git tree. See delivery-verification.json; original manifest pins refer to that delivery snapshot, before this additive status update. The earlier pending-delivery label is superseded. The review is GO WITH FIXES; no corrections to the article or form are claimed applied. No new Task37 result.
+
+## 2026-10-19T11:15:11.896338+00:00 — producer closure received
+
+Task39 review is CLOSED on producer adjudication in 17353aec44eddd4b2449dc1ad6195f69e281e358. The literal sender header11:40Z was already observed at host check11:13:40Z; retained as sender metadata, not clock authority. Producer reports M1 and S1–S9 applied in articlefea6a31/reportc6afc865. Independent reply-to-review mapping agrees, retaining that S5 is not separately itemized among the seven examples for S1–S8. This is producer-reported correction status, not a new manuscript audit.
+
+M2 is partial/staged: README reportedly29pages/24figures/4tables, but final form/hash/bundle follow the author’s edits and rebuild. M3 public availability and M4 license remain human decisions. GO WITH FIXES remains conditional for submission; the verified28-page build and all original coverage apply only to4ca5b5e. New hook theory and other post-snapshot changes remain outside this review. Missing SD Newton arrays and prior figure-lineage limitations remain. No new task, paper edit, build, citation check or model call is requested or performed. See closure-acknowledgement.json. Task37 R-pair remains active under unchanged original source/card/plan; actual owned identities match and no receipt at11:13:40Z.
