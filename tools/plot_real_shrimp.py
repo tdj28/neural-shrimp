@@ -144,7 +144,7 @@ def figure(fa, curves, located, out):
                cmap=ListedColormap(["0.55"]), interpolation="nearest")
     cats.colorbar(im, ax=axA, label="period of the followed attractor")
     skeleton(axA, ms=10, lw=1.0)
-    # the fourth (lower-right) leg, too thin for the grid: centre-line check (tools/leg_centerline.py, run LC)
+    # the fourth (lower-right) leg, too thin for the grid: center-line check (tools/leg_centerline.py, run LC)
     legc = []
     for f in sorted((DATA / "explore/llm-soft-loop/pod64/leg").glob("lower-right-*/leg.json")):
         legc += [r for r in json.loads(f.read_text())["cells"] if r["role"] == "centre"]
@@ -159,7 +159,7 @@ def figure(fa, curves, located, out):
         if non:
             axA.plot([r["alpha1"] for r in non], [r["alpha2"] for r in non], "x", color="red", ms=4, zorder=8)
         handles.append(Line2D([], [], marker="o", ls="", ms=3.5, mfc="#1f77b4", mec="white",
-                              label=f"fourth leg, centre line:\nperiod-5 family ({len(mem)}/{len(legc)})"))
+                              label=f"fourth leg, center line:\nperiod-5 family ({len(mem)}/{len(legc)})"))
     axA.legend(handles=handles, fontsize=6.0, loc="lower right")
     for txt, xy, xyt in [("body", (-0.1193, 0.1006), (-0.1172, 0.0985)),
                          ("leg", (-0.1166, 0.1068), (-0.1160, 0.1040)),
