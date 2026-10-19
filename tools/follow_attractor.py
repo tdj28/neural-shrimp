@@ -1,4 +1,4 @@
-"""Run FA (exploratory; human, 18 Oct 2026: show the real shrimp): the domain of one attractor family in a two-block
+"""Run FA (exploratory; human, 18 Oct 2026: show the real shrimp): the domain of one attractor family in a parameter
 plane, found by following the attractor outward from a seed cell, cell by cell.
 
 The fixed-start maps (tools/two_block_map.py) start every cell from the same text, so where two attractors coexist
@@ -6,6 +6,19 @@ they show whichever the fixed start reaches: in the legs of the period-5 window 
 plane the fixed start settles on a period-4 attractor, and the legs do not show. Here every cell starts instead from
 the final state of an already computed neighbour that is still on the followed attractor (attractor continuation by
 iteration, as in a hysteresis scan), so the attractor is kept wherever it exists and is reachable through the grid.
+
+Planes (--plane):
+- two-block (default; runs FA-100, FA-P11, LC): the columns are alpha1, the strength of --vectors1/--concept1 at
+  --block1, over --alpha1; the rows are alpha2, the strength of --vectors2/--concept2 at --block2, over --alpha2.
+  Every cell has the temperature T = 10 ** --log-temperature.
+- alpha-temperature (run P9S, 18 Oct 2026): the columns are alpha, the strength of --vectors1/--concept1 at --block1,
+  over --alpha1; the rows are log10 T over --log-temperature-range LO HI. There is no second steering block. Every
+  cell has its own temperature T = 10 ** (its row value), and its twin the same. In this plane --alpha2,
+  --log-temperature, --block2, --vectors2 and --concept2 are refused; in the two-block plane --log-temperature-range
+  is refused.
+Each axis runs from LO in steps of its spacing up to HI (np.arange(LO, HI + step / 2, step)): --step for the columns,
+--step2 for the rows (default --step; the two axes of the alpha-temperature plane have different units). --seed is a
+cell in the plane's coordinates, (alpha1, alpha2) or (alpha, log10 T), rounded to the nearest grid cell.
 
 1. Seed: the fixed start at --seed, iterated --seed-transient steps, must reach a period --seed-period orbit (full-state
    recurrence); its leading tokens over one period give the reference word.
@@ -31,10 +44,18 @@ Labels: -1 not computed, 0 not a member, 1 periodic member, 2 chaotic member wit
 3 member without a period found and without a positive exponent.
 
 Output: DATA/explore/OUT/follow.npz (grids, labels, exponents, periods, words, agreement, parents, attempts, waves),
-states.npz (final states of members, float32), summary.json, progress.jsonl.
+states.npz (final states of members, float32), summary.json, progress.jsonl. In the two-block plane they have the
+keys and values they had before the alpha-temperature plane was added: follow.npz holds the grids alpha1 and alpha2
+and the scalar log10_temperature, and no file names the plane. In the alpha-temperature plane follow.npz holds plane
+('alpha-temperature'), alpha1 (the columns) and log10_temperature (the rows, an array) and no alpha2, so a reader of
+two-block files fails instead of reading log10 T as alpha2; summary.json and the seed record of progress.jsonl carry
+"plane", and the recorded args carry the row spacing step2 that was used.
 
 Usage: python tools/follow_attractor.py --log-temperature -0.1 --seed -0.118730 0.100693 \
          --alpha1 -0.1320 -0.1040 --alpha2 0.0860 0.1225 --step 1.25e-4 --device cuda --out llm-soft-loop/pod64/fa/t-0.100
+       python tools/follow_attractor.py --plane alpha-temperature --block1 12 --vectors1 llm-phase-map/vectors-l12 \
+         --concept1 philosophy --alpha1 0.0700 0.0770 --log-temperature-range -0.1660 -0.1440 --step 2.93e-5 \
+         --step2 8.8e-5 --seed 0.074388 -0.15362 --seed-period 9 --device cuda --out llm-soft-loop/pod64/fa/p9s
 """
 import argparse
 import json
@@ -48,6 +69,9 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "tools"))
 
 NEIGHBOURS = [(-1, -1), (-1, 0), (-1, 1), (0, -1), (0, 1), (1, -1), (1, 0), (1, 1)]
+PLANES = ("two-block", "alpha-temperature")
+SECOND_BLOCK = {"block2": 16, "vectors2": "llm-phase-map/vectors-l16", "concept2": "hostility"}   # two-block defaults
+ADDED = {"plane": "two-block", "step2": None, "log_temperature_range": None}   # options added with the second plane
 
 
 def dominant_word(toks, p):
@@ -70,20 +94,33 @@ def best_match(word, ref):
     return max(int(np.sum(word == np.roll(ref, s))) for s in range(p))
 
 
-def main():
+def parse_args(argv=None):
+    """Options of both planes; refuses an option that has no meaning in the chosen plane."""
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--model", default="qwen0.5b")
+    ap.add_argument("--plane", choices=PLANES, default="two-block",
+                    help="two-block: alpha1 x alpha2 at one temperature (default); alpha-temperature: alpha of block1 "
+                    "x log10 T, with no second block")
     ap.add_argument("--block1", type=int, default=4)
     ap.add_argument("--vectors1", default="llm-phase-map/vectors-l4")
     ap.add_argument("--concept1", default="gratitude")
-    ap.add_argument("--block2", type=int, default=16)
-    ap.add_argument("--vectors2", default="llm-phase-map/vectors-l16")
-    ap.add_argument("--concept2", default="hostility")
-    ap.add_argument("--log-temperature", type=float, required=True)
-    ap.add_argument("--alpha1", type=float, nargs=2, required=True)
-    ap.add_argument("--alpha2", type=float, nargs=2, required=True)
-    ap.add_argument("--step", type=float, required=True, help="grid spacing in both alphas")
-    ap.add_argument("--seed", type=float, nargs=2, required=True, metavar=("A1", "A2"))
+    ap.add_argument("--block2", type=int, default=None, help="two-block plane only (default 16)")
+    ap.add_argument("--vectors2", default=None, help="two-block plane only (default llm-phase-map/vectors-l16)")
+    ap.add_argument("--concept2", default=None, help="two-block plane only (default hostility)")
+    ap.add_argument("--log-temperature", type=float, default=None, help="the fixed temperature of the two-block "
+                    "plane (required there; refused in the alpha-temperature plane)")
+    ap.add_argument("--alpha1", type=float, nargs=2, required=True, help="column range (the strength of block1)")
+    ap.add_argument("--alpha2", type=float, nargs=2, default=None, help="row range of the two-block plane (required "
+                    "there; refused in the alpha-temperature plane)")
+    ap.add_argument("--log-temperature-range", type=float, nargs=2, default=None, metavar=("LO", "HI"),
+                    help="row range of the alpha-temperature plane, in log10 T (required there; refused in the "
+                    "two-block plane)")
+    ap.add_argument("--step", type=float, required=True, help="grid spacing of the columns, and of the rows unless "
+                    "--step2 is given")
+    ap.add_argument("--step2", type=float, default=None, help="grid spacing of the rows (alpha2 or log10 T); default "
+                    "--step")
+    ap.add_argument("--seed", type=float, nargs=2, required=True, metavar=("X1", "X2"),
+                    help="seed cell: (alpha1, alpha2), or (alpha, log10 T) in the alpha-temperature plane")
     ap.add_argument("--seed-period", type=int, default=5)
     ap.add_argument("--seed-transient", type=int, default=900)
     ap.add_argument("--seed-state", default=None, help="NPY:ROW (DATA/explore-relative): start the seed cell from row ROW "
@@ -106,7 +143,61 @@ def main():
     ap.add_argument("--threads", type=int, default=8)
     ap.add_argument("--device", default="cpu")
     ap.add_argument("--out", required=True)
-    args = ap.parse_args()
+    args = ap.parse_args(argv)
+    if args.plane == "two-block":
+        missing = [opt for opt, val in (("--log-temperature", args.log_temperature), ("--alpha2", args.alpha2))
+                   if val is None]
+        if missing:
+            ap.error("the following arguments are required: " + ", ".join(missing))
+        if args.log_temperature_range is not None:
+            ap.error("--log-temperature-range belongs to the alpha-temperature plane; the two-block plane uses "
+                     "--log-temperature")
+        for k, default in SECOND_BLOCK.items():
+            if getattr(args, k) is None:
+                setattr(args, k, default)
+    else:
+        if args.log_temperature_range is None:
+            ap.error(f"the {args.plane} plane needs --log-temperature-range LO HI (its rows, in log10 T)")
+        given = [opt for opt, val in (("--log-temperature", args.log_temperature), ("--alpha2", args.alpha2),
+                                      ("--block2", args.block2), ("--vectors2", args.vectors2),
+                                      ("--concept2", args.concept2)) if val is not None]
+        if given:
+            ap.error(f"{', '.join(given)}: no meaning in the {args.plane} plane (one steering block; every row has "
+                     "its own temperature)")
+        if args.log_temperature_range[0] > args.log_temperature_range[1]:
+            ap.error("--log-temperature-range: LO must not exceed HI")
+    if args.step2 is not None and not args.step2 > 0:
+        ap.error("--step2 must be positive")
+    return args
+
+
+def build_grid(args):
+    """The columns (alpha1, the strength of block1) and the rows (alpha2 in the two-block plane, log10 T in the
+    alpha-temperature plane): each axis from LO in steps of its spacing, its end included up to half a step."""
+    a1 = np.arange(args.alpha1[0], args.alpha1[1] + args.step / 2, args.step)
+    lo, hi = args.alpha2 if args.plane == "two-block" else args.log_temperature_range
+    step2 = args.step if args.step2 is None else args.step2
+    a2 = np.arange(lo, hi + step2 / 2, step2)
+    return a1, a2
+
+
+def recorded_args(args):
+    """The options as summary.json records them. In the two-block plane an added option (ADDED) left at its default
+    is left out, so the record keeps the keys and values of the tool before the alpha-temperature plane. In the
+    alpha-temperature plane the row spacing actually used is recorded."""
+    rec = dict(vars(args))
+    if args.plane == "two-block":
+        for k, default in ADDED.items():
+            if rec[k] == default:
+                del rec[k]
+    elif rec["step2"] is None:
+        rec["step2"] = args.step
+    return rec
+
+
+def main(argv=None):
+    args = parse_args(argv)
+    two_block = args.plane == "two-block"
     ring = 2 * args.max_period + 1
     if args.record < max(ring, args.token_steps):
         raise SystemExit("--record must cover 2 * max_period + 1 steps and --token-steps")
@@ -126,13 +217,14 @@ def main():
 
     tic = time.perf_counter()
     loop = esl.SoftLoop(args.model, args.block1, args.threads, "open", ela.OPENER, 1, "float64", args.device)
-    loop.sm.add_steer_layer(args.block2)
+    if two_block:
+        loop.sm.add_steer_layer(args.block2)
     torch, dev = loop.torch, loop.device
     u = np.asarray(elpm.load_vectors(args.vectors1)[args.concept1], dtype=np.float64)
-    w = np.asarray(elpm.load_vectors(args.vectors2)[args.concept2], dtype=np.float64)
-    T = 10.0 ** args.log_temperature
-    a1 = np.arange(args.alpha1[0], args.alpha1[1] + args.step / 2, args.step)
-    a2 = np.arange(args.alpha2[0], args.alpha2[1] + args.step / 2, args.step)
+    if two_block:
+        w = np.asarray(elpm.load_vectors(args.vectors2)[args.concept2], dtype=np.float64)
+        T = 10.0 ** args.log_temperature
+    a1, a2 = build_grid(args)
     n2, n1 = len(a2), len(a1)
     rng = np.random.default_rng(0)
 
@@ -140,9 +232,13 @@ def main():
         """Iterate cells [(i, j)] from states X0 (n, K, d); returns final states, exponents, periods, tokens."""
         n = len(cells)
         steer = np.array([a1[j] * u for i, j in cells])
-        loop.extra = (args.block2, np.array([a2[i] * w for i, j in cells]))
+        if two_block:
+            loop.extra = (args.block2, np.array([a2[i] * w for i, j in cells]))
         loop.prepare(np.concatenate([steer, steer]))
-        temps = np.full(2 * n, T)
+        if two_block:
+            temps = np.full(2 * n, T)
+        else:                                            # every cell at its row's temperature, its twin the same
+            temps = np.tile(10.0 ** a2[[i for i, j in cells]], 2)
         with torch.no_grad():
             X = torch.cat([X0, X0])
             for _ in range(transient):
@@ -186,7 +282,8 @@ def main():
 
     # 1. seed from the fixed start
     i0, j0 = int(np.argmin(np.abs(a2 - args.seed[1]))), int(np.argmin(np.abs(a1 - args.seed[0])))
-    loop.extra = (args.block2, np.array([a2[i0] * w]))
+    if two_block:
+        loop.extra = (args.block2, np.array([a2[i0] * w]))
     X0 = loop.prepare(np.array([a1[j0] * u]))
     loop.extra = None
     if args.seed_state:                                  # a saved state on the followed family instead of the fixed start
@@ -197,7 +294,8 @@ def main():
     Xs, ls, ps, tk = run([(i0, j0)], X0, args.seed_transient, args.record)
     start = "the saved state" if args.seed_state else "the fixed start"
     if ps[0] != args.seed_period:
-        raise SystemExit(f"{start} at the seed cell ({a1[j0]}, {a2[i0]}) has period {ps[0]}, not {args.seed_period}")
+        cell = f"({a1[j0]}, {a2[i0]})" if two_block else f"(alpha {a1[j0]}, log10 T {a2[i0]})"
+        raise SystemExit(f"{start} at the seed cell {cell} has period {ps[0]}, not {args.seed_period}")
     wd, ag = dominant_word(tk[-args.token_steps:], args.seed_period)
     ref = wd[0]
     if args.reference_word:
@@ -209,9 +307,10 @@ def main():
     label[i0, j0], lam[i0, j0], period[i0, j0], words[i0, j0], agree[i0, j0] = 1, ls[0], ps[0], ref, ag[0]
     wave_of[i0, j0] = 0
     states[(i0, j0)] = Xs[0:1]
-    emit({"seed": [float(a1[j0]), float(a2[i0])], "period": int(ps[0]), "exponent": float(ls[0]),
-          "word": ref.tolist(), "text": [decode([int(t)]) for t in ref], "grid": [n2, n1],
-          "seconds": round(time.perf_counter() - tic, 1)})
+    rec = {"seed": [float(a1[j0]), float(a2[i0])], "period": int(ps[0]), "exponent": float(ls[0]),
+           "word": ref.tolist(), "text": [decode([int(t)]) for t in ref], "grid": [n2, n1],
+           "seconds": round(time.perf_counter() - tic, 1)}
+    emit(rec if two_block else {"plane": args.plane, **rec})
 
     def frontier():
         """Unvisited (or retryable) cells next to members, each with its most stable member neighbour."""
@@ -228,6 +327,14 @@ def main():
                 if best is None or lam[i, j] < lam[best]:
                     cand[(ii, jj)] = (i, j)
         return cand
+
+    def save_follow():
+        if two_block:
+            axes = {"alpha1": a1, "alpha2": a2, "log10_temperature": args.log_temperature}
+        else:                                            # the rows are log10 T; no alpha2
+            axes = {"plane": args.plane, "alpha1": a1, "log10_temperature": a2}
+        np.savez_compressed(out / "follow.npz", **axes, label=label, lyapunov=lam, period=period, words=words,
+                            agreement=agree, parent=parent, attempts=attempts, wave=wave_of, reference_word=ref)
 
     wave = 0
     while True:
@@ -267,23 +374,21 @@ def main():
         emit({"wave": wave, "cells": len(cells), "propagating": new, "total_propagating": len(states),
               "computed": int((label >= 0).sum()), "seconds": round(time.perf_counter() - tic, 1)})
         if wave % 20 == 0:
-            np.savez_compressed(out / "follow.npz", alpha1=a1, alpha2=a2, log10_temperature=args.log_temperature,
-                                label=label, lyapunov=lam, period=period, words=words, agreement=agree,
-                                parent=parent, attempts=attempts, wave=wave_of, reference_word=ref)
+            save_follow()
 
-    np.savez_compressed(out / "follow.npz", alpha1=a1, alpha2=a2, log10_temperature=args.log_temperature, label=label,
-                        lyapunov=lam, period=period, words=words, agreement=agree, parent=parent, attempts=attempts,
-                        wave=wave_of, reference_word=ref)
+    save_follow()
     keys = sorted(states)
     np.savez_compressed(out / "states.npz", index=np.array(keys, dtype=np.int32),
                         states=torch.cat([states[k] for k in keys]).float().cpu().numpy())
     per = {int(q): int(((label == 1) & (period == q)).sum()) for q in np.unique(period[label == 1])}
-    summary = {"args": vars(args), "grid": [n2, n1], "waves": wave, "computed": int((label >= 0).sum()),
+    summary = {"args": recorded_args(args), "grid": [n2, n1], "waves": wave, "computed": int((label >= 0).sum()),
                "members": int((label >= 1).sum()), "members_periodic": int((label == 1).sum()),
                "members_chaotic_repeating_text": int((label == 2).sum()),
                "members_unresolved_slow": int((label == 3).sum()), "not_members": int((label == 0).sum()),
                "member_periods": per, "reference_word": ref.tolist(),
                "reference_text": [decode([int(t)]) for t in ref], "seconds": round(time.perf_counter() - tic, 1)}
+    if not two_block:
+        summary = {"plane": args.plane, **summary}
     (out / "summary.json").write_text(json.dumps(summary, indent=1, ensure_ascii=False))
     emit({k: summary[k] for k in ("waves", "computed", "members", "not_members", "member_periods", "seconds")})
 

@@ -30165,3 +30165,27 @@ summary. A fold curve must keep a real +1 and a flip curve a real -1.
   Family 2's most contracting cell lies in the separate band near log10 T -0.164; HR9 maps it, but it gets no
   curves.
 - **P9S-orbits** run locally on the CPU in float64, for both seeds.
+
+### 2026-10-19 01:35 UTC: P9S/HR9 amendment 2. The target was the wrong window; run P6S replaces the period-9 curves
+
+- **The wrong window was studied.** The human meant the shrimp to the left of the period-9 window ("no! you are
+  pointing at the wrong shrimp i meant the one to the left!!!"), at their original coordinates (alpha 0.0735,
+  log10 T -0.155).
+  - On the 512^2 map, that window is the period-6 loop "\n\nThe question\n\nThe existence" (family 6).
+  - Its body spans alpha 0.0724-0.0739 and log10 T -0.1560 to -0.1496. Within it lie period-12 cells (247; the loop
+    written twice) and period-24 cells (59): doubled shells.
+  - Family-6 cells reach from alpha 0.0700 to 0.0770 (1657 cells in the crop): the legs.
+- **P9S stopped.** The period-9 curve pods were stopped and terminated:
+  - p9s-tu after about 20 minutes, in the branch phase;
+  - p9s-td and p9s-au within minutes of starting;
+  - p9s-ad never started.
+  No results were retrieved; the receipts are in the private ledger. The local period-9 orbit check was stopped
+  before it finished.
+- **Run P6S** (same design, job set shrimpcurves = p9s with an output folder; outputs under llm-soft-loop/pod64/p6s):
+  - four pods, one branch each from the most contracting deep-interior cell of the period-6 body, (0.073097,
+    -0.15204), whose largest exponent on the map is -0.676: log10 T up or down, alpha up or down;
+  - each pod then continues its boundary both ways in parallel, 100 steps;
+  - P6S-orbit: a local float64 Newton check at the seed;
+  - criteria as in the P9S run card.
+- **HR9 continues unchanged.** Its window, alpha [0.0709, 0.0763] x log10 T [-0.1635, -0.1445], contains both
+  windows.
