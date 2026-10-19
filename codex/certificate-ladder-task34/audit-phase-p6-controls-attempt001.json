@@ -1,0 +1,285 @@
+{
+  "schema": "codex-task34-phase-p6-audit-manufactured-delta-controls-v1",
+  "subject": {
+    "path": "/tmp/audit_phase_p6.py",
+    "sha256": "61c8a466235eedbfcc9454d5965e8e999a46a88a79552c3ab7e799f7f2aaa92e",
+    "bytes": 19920
+  },
+  "control_source": {
+    "path": "/tmp/audit_phase_p6_controls.py",
+    "sha256": "dcf3d6b673ac18ae8d1b81e7f1ad5bc921bd8bdc1d77372489b3bb7a21251c3f"
+  },
+  "source_card": {
+    "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/certificate-ladder-task34/phase-cascade-p3-001-card.json",
+    "sha256": "fad1beeb1eda8afaed84bcf315d27ffc1f1e446f3c2694b9690c1c702e87aa4a"
+  },
+  "source_plan": {
+    "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/certificate-ladder-task34/phase-cascade-p6-001-plan.json",
+    "bytes": 10307,
+    "sha256": "07713794955b1a7ca18de10ff8b0038ff4dd8eb9eb398c7967a1cebae2322177"
+  },
+  "passed": 45,
+  "failed": 0,
+  "controls": [
+    {
+      "name": "original_shared_card_named_p6_and_exact_14_files",
+      "outcome": "pass"
+    },
+    {
+      "name": "reject_p3_source",
+      "outcome": "expected_refusal",
+      "error_type": "ValueError",
+      "message": "wrong original P6 execution source"
+    },
+    {
+      "name": "reject_other_period6_command",
+      "outcome": "expected_refusal",
+      "error_type": "ValueError",
+      "message": "wrong exact original phase command/lane"
+    },
+    {
+      "name": "reject_duplicate_named_p6_cell",
+      "outcome": "expected_refusal",
+      "error_type": "ValueError",
+      "message": "missing or duplicate named cascade-P6 cell"
+    },
+    {
+      "name": "reject_period3_cell",
+      "outcome": "expected_refusal",
+      "error_type": "ValueError",
+      "message": "wrong named cascade-P6 cell/period"
+    },
+    {
+      "name": "reject_other_period6_history",
+      "outcome": "expected_refusal",
+      "error_type": "ValueError",
+      "message": "wrong original cascade-P6 history/seed authority"
+    },
+    {
+      "name": "reject_wrong_exact_cell_ratio",
+      "outcome": "expected_refusal",
+      "error_type": "ValueError",
+      "message": "wrong exact binary64 cell ratios"
+    },
+    {
+      "name": "reject_missing_phase5_matrix",
+      "outcome": "expected_refusal",
+      "error_type": "ValueError",
+      "message": "exact six-phase original output inventory required"
+    },
+    {
+      "name": "reject_missing_phase5_residual",
+      "outcome": "expected_refusal",
+      "error_type": "ValueError",
+      "message": "exact six-phase original output inventory required"
+    },
+    {
+      "name": "reject_extra_phase6_file",
+      "outcome": "expected_refusal",
+      "error_type": "ValueError",
+      "message": "exact six-phase original output inventory required"
+    },
+    {
+      "name": "reject_duplicate_output",
+      "outcome": "expected_refusal",
+      "error_type": "ValueError",
+      "message": "duplicate original file paths"
+    },
+    {
+      "name": "reject_source_inventory_omission",
+      "outcome": "expected_refusal",
+      "error_type": "ValueError",
+      "message": "original complete source inventory differs"
+    },
+    {
+      "name": "reject_consistently_omitted_required_source",
+      "outcome": "expected_refusal",
+      "error_type": "ValueError",
+      "message": "reviewed original scientific source/card differs"
+    },
+    {
+      "name": "reject_preflight_original_history_omission",
+      "outcome": "expected_refusal",
+      "error_type": "ValueError",
+      "message": "shared card inputs missing from original preflight"
+    },
+    {
+      "name": "reject_original_closure_flag_false",
+      "outcome": "expected_refusal",
+      "error_type": "ValueError",
+      "message": "original closure flags incomplete"
+    },
+    {
+      "name": "reject_original_worker_pid_missing",
+      "outcome": "expected_refusal",
+      "error_type": "ValueError",
+      "message": "original exact owned process identifiers required"
+    },
+    {
+      "name": "reject_original_nonzero_returncode",
+      "outcome": "expected_refusal",
+      "error_type": "ValueError",
+      "message": "original phase producer did not succeed"
+    },
+    {
+      "name": "reject_original_plan_pin_change",
+      "outcome": "expected_refusal",
+      "error_type": "ValueError",
+      "message": "original exact plan pin differs"
+    },
+    {
+      "name": "six_phase_report_order",
+      "outcome": "pass"
+    },
+    {
+      "name": "reject_missing_phase5_row",
+      "outcome": "expected_refusal",
+      "error_type": "ValueError",
+      "message": "all six original phase rows in order required"
+    },
+    {
+      "name": "reject_reordered_phase_rows",
+      "outcome": "expected_refusal",
+      "error_type": "ValueError",
+      "message": "all six original phase rows in order required"
+    },
+    {
+      "name": "reject_duplicate_phase5_row",
+      "outcome": "expected_refusal",
+      "error_type": "ValueError",
+      "message": "all six original phase rows in order required"
+    },
+    {
+      "name": "reject_row_foreign_cell",
+      "outcome": "expected_refusal",
+      "error_type": "ValueError",
+      "message": "saved row differs from original named cascade-P6 cell"
+    },
+    {
+      "name": "reject_row_wrong_product_order",
+      "outcome": "expected_refusal",
+      "error_type": "ValueError",
+      "message": "finite proposal scope/order differs"
+    },
+    {
+      "name": "reject_row_certificate_claim",
+      "outcome": "expected_refusal",
+      "error_type": "ValueError",
+      "message": "finite proposal scope/order differs"
+    },
+    {
+      "name": "tiny_six_phase_seven_array_adapter_with_phase5_wrap",
+      "outcome": "pass"
+    },
+    {
+      "name": "reject_last_matrix_pair_disagrees",
+      "outcome": "expected_refusal",
+      "error_type": "ValueError",
+      "message": "original per-phase matrix differs from stacked A"
+    },
+    {
+      "name": "reject_five_matrix_residual_pairs",
+      "outcome": "expected_refusal",
+      "error_type": "ValueError",
+      "message": "all six original matrix/residual pairs required"
+    },
+    {
+      "name": "reject_last_residual_field_omitted",
+      "outcome": "expected_refusal",
+      "error_type": "ValueError",
+      "message": "complete original phase residual fields required"
+    },
+    {
+      "name": "reject_last_residual_wraps_to_wrong_center",
+      "outcome": "expected_refusal",
+      "error_type": "ValueError",
+      "message": "original phase centre/image/residual relation differs"
+    },
+    {
+      "name": "reject_three_phase_stacked_A",
+      "outcome": "expected_refusal",
+      "error_type": "ValueError",
+      "message": "invalid complete binary64 A"
+    },
+    {
+      "name": "reject_wrong_original_last_six_centers",
+      "outcome": "expected_refusal",
+      "error_type": "ValueError",
+      "message": "centres differ from original last six history rows"
+    },
+    {
+      "name": "reject_nonbinary64_proposal",
+      "outcome": "expected_refusal",
+      "error_type": "ValueError",
+      "message": "invalid complete binary64 B"
+    },
+    {
+      "name": "reject_missing_seventh_array",
+      "outcome": "expected_refusal",
+      "error_type": "ValueError",
+      "message": "exactly seven original proposal arrays required"
+    },
+    {
+      "name": "reject_eighth_array",
+      "outcome": "expected_refusal",
+      "error_type": "ValueError",
+      "message": "exactly seven original proposal arrays required"
+    },
+    {
+      "name": "reject_history_not_513_rows",
+      "outcome": "expected_refusal",
+      "error_type": "ValueError",
+      "message": "invalid complete binary64 original history"
+    },
+    {
+      "name": "reject_other_period6_parameters",
+      "outcome": "expected_refusal",
+      "error_type": "ValueError",
+      "message": "proposal parameters differ from original exact named cell"
+    },
+    {
+      "name": "mocked_original_host_closed",
+      "outcome": "pass"
+    },
+    {
+      "name": "reject_mocked_original_supervisor_alive",
+      "outcome": "expected_refusal",
+      "error_type": "ValueError",
+      "message": "original host process/group closure pending"
+    },
+    {
+      "name": "reject_mocked_original_worker_group_alive",
+      "outcome": "expected_refusal",
+      "error_type": "ValueError",
+      "message": "original host process/group closure pending"
+    },
+    {
+      "name": "explicit_future_original_receipt_pins",
+      "outcome": "pass"
+    },
+    {
+      "name": "reject_other_named_period6_argument",
+      "outcome": "expected_refusal",
+      "error_type": "ValueError",
+      "message": "wrong original producer allocation"
+    },
+    {
+      "name": "reject_output_inside_original_raw",
+      "outcome": "expected_refusal",
+      "error_type": "ValueError",
+      "message": "fresh separate named P6 saved-audit output required"
+    },
+    {
+      "name": "complete_loader_adapter_mocked_files_git_host_and_numeric_interface",
+      "outcome": "pass"
+    },
+    {
+      "name": "fresh_failure_retains_source_receipt_namedcell_false_claims_and_original_sentinel",
+      "outcome": "pass"
+    }
+  ],
+  "scratch": "/tmp/phase-p6-audit-controls-9ug0cxh_",
+  "scope": "New manufactured P6 authority/interface/failure controls only. Tiny arrays dimension2; full loader numerical interface mocked. No original raw/model reads, target evaluation, Git operation, or host/process query. No prior control suite repeated.",
+  "actual_saved_phase_audit_performed": false,
+  "certificate_passed": false
+}
