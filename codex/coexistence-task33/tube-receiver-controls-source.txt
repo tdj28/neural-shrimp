@@ -1,0 +1,44 @@
+from pathlib import Path
+import sys,copy,json,hashlib
+from fractions import Fraction
+from types import SimpleNamespace
+R=Path('/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp')
+sys.path[:0]=['/tmp',str(R/'codex/coexistence-task33')]
+from flint import arb,arb_mat,ctx
+import tube_receiver as t
+ctx.prec=2048;ctx.threads=1
+class Fixture:
+ d=896;layers=24;vocab=151936;direction_count=1;token_chunk=1024;precision=2048
+ def __init__(self,mutation=None):self.progress=None;self.head_progress=None;self.mutation=mutation;self.calls=0
+ def forward(self,x,V):
+  self.calls+=1;live=[SimpleNamespace(value=z,tangent=(V[i,0],))for i,z in enumerate(x)]
+  if self.mutation=='receiver':live[0].value=arb(0)
+  if self.mutation=='directions':live[0].tangent=(arb(1),)
+  for layer in range(23 if self.mutation=='missing layer' else 24):
+   self.progress('step_start',layer,[live]);self.progress('step_end',layer+(1 if self.mutation=='layer order' else 0),[live])
+  for kind in ('head_logits','head_derivatives'):
+   for first in range(0,151936,1024):
+    if self.mutation=='missing head' and kind=='head_derivatives' and first==151552:continue
+    self.head_progress(kind,first,min(first+1024,151936))
+    if self.mutation=='duplicate head':self.head_progress(kind,first,min(first+1024,151936))
+  return list(x),V
+c=[arb(0)for _ in range(896)];saved={};b=Fixture()
+r=t.evaluate_receiver(b,c,Fraction(1,4),lambda n,v:saved.setdefault(n,copy.deepcopy(v)))
+assert b.calls==1 and set(saved)=={'tube-inputs.json','actual-receiver.json','tube-operator.json','coverage.json'}
+assert len(saved['coverage.json']['head_passes'])==298 and saved['coverage.json']['ended_layers']==list(range(24))
+assert r['L']=={'numerator':1,'denominator':1} and b.progress is b.head_progress is None
+checks=['complete actual receiver,24layers,298head chunks and callback restoration']
+for fault in ['receiver','directions','missing layer','layer order','missing head','duplicate head']:
+ b=Fixture(fault)
+ try:t.evaluate_receiver(b,c,Fraction(1,4),lambda n,v:None)
+ except ValueError:checks.append(fault)
+ else:raise AssertionError(fault)
+ assert b.progress is b.head_progress is None
+for field,value in [('token_chunk',256),('precision',1024)]:
+ b=Fixture();setattr(b,field,value)
+ try:t.evaluate_receiver(b,c,Fraction(1,4),lambda n,v:None)
+ except ValueError:checks.append(field)
+ else:raise AssertionError(field)
+ assert b.calls==0
+out={'status':'passed','new_controls':checks,'model_calls':0,'target_evaluations':0,'prior_controls_repeated':False,'source_sha256':hashlib.sha256(Path('/tmp/tube_receiver.py').read_bytes()).hexdigest()}
+Path('/tmp/tube-receiver-controls.json').write_text(json.dumps(out,indent=2)+'\n');print(json.dumps(out))
