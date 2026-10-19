@@ -1,0 +1,7 @@
+# Cascade-P6 fresh serial numerical admission
+
+19 October 2026 UTC. Root reread the complete unchanged dense_qualify.py and the existing dense/phase source review. The eight prior actual-entry controls remain accepted and are not repeated. This uses the prepared cascade-p6 plan, never band-p6, at exact binary64 alpha .065693/log10T -.14798, period6. Original closed513x896 history and both finite closure/primitive screens are authenticated; all source/input pins match. The common dense-cascade-p3 card intentionally holds all five named cells; the exact --cell cascade-p6 selector is independently admitted. No P3 state or parameter substitution occurs.
+
+Own eight-column composed-derivative measurement forecasts2160.076149seconds for896 columns before eigensolve and critical checks. Original bounds remain CPU1/12GiBAS/4820CPU/4920wall/128MiBoutput,28GiBstartup/16GiBruntime, plus one supervisor. All112 blocks, full eigensystem/residuals, real/imaginary critical JVPs and every seven-step FD ladder remain saved. Float64 numerical qualification only, no interval certificate or partial-spectrum conclusion.
+
+This is the first unused cascade-p6 dense attempt, not a retry. Require successful original cascade-P3 saved-witness closure, zero other owned numerical reservations, private checkpoint and fresh host capacity before launch. The serial plan will add that exact prior receipt and its pin. No automatic extension or retry.
