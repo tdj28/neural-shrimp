@@ -1,5 +1,5 @@
 {
-  "status": "held_for_separate_admission",
+  "status": "reviewed_for_execution",
   "repository": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp",
   "raw_root": "/data2/neural-shrimp-data/codex/coexistence",
   "python": "/data2/neural-shrimp/.venv/bin/python",
@@ -41,8 +41,8 @@
     },
     {
       "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/coexistence-task33/tube-target-001-audit-002-card.json",
-      "bytes": 7859,
-      "sha256": "5f2f304a2981ab033c198477b2d2a8a647644a2f278e2880b7f1de659981dd08"
+      "bytes": 10259,
+      "sha256": "44b42945326d49258b30f69c32106560da00ac92b702fe9d1344408dacc6c847"
     },
     {
       "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/coexistence-task33/tube-target-001-audit-001-expected.json",
@@ -128,6 +128,11 @@
       "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/coexistence-task33/tube-saved-authority-002-preparation-result.md",
       "bytes": 3308,
       "sha256": "18af11b5216fc7f8c5533268f6e6edceb8135f28f2e1c57aff3dc13e367dfd0e"
+    },
+    {
+      "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/coexistence-task33/tube-target-001-audit-002-admission-review.json",
+      "bytes": 2043,
+      "sha256": "05fbba56b06afeff581f7844d7cfe4f567f4f6221ab185106080304689f0902b"
     }
   ],
   "lanes": {
@@ -137,7 +142,7 @@
         "--card",
         "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/coexistence-task33/tube-target-001-audit-002-card.json",
         "--card-sha256",
-        "5f2f304a2981ab033c198477b2d2a8a647644a2f278e2880b7f1de659981dd08",
+        "44b42945326d49258b30f69c32106560da00ac92b702fe9d1344408dacc6c847",
         "--out",
         "/data2/neural-shrimp-data/codex/coexistence/tube-target-001-audit-002"
       ],
@@ -478,6 +483,11 @@
           "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/coexistence-task33/tube-target-001-audit-002-recovery-amendment.json",
           "bytes": 2939,
           "sha256": "07c48b26ed9dc879105de38a10f2821c4d3bc20589ab74591369d772662994c9"
+        },
+        {
+          "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/coexistence-task33/tube-target-001-audit-002-admission-review.json",
+          "bytes": 2043,
+          "sha256": "05fbba56b06afeff581f7844d7cfe4f567f4f6221ab185106080304689f0902b"
         }
       ],
       "prior_receipts": [
@@ -505,7 +515,23 @@
     "latest_supervisor_start_utc": "2026-10-19T14:45:00Z",
     "scope": "Saved verification of the explicitly coordinated Task33 measurement. External Root admission deadline; existing supervisor uses relative worker wall time excluding pre/postflight."
   },
-  "capacity_window": null,
+  "capacity_window": {
+    "confirmed": true,
+    "owner": "task33-tube-target-001-saved-audit-002",
+    "coordination": {
+      "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/coexistence-task33/tube-target-001-capacity-coordination.json",
+      "bytes": 1375,
+      "sha256": "cf6c5a8bdb3354f94e7c0902f9ed96a5432d9ab1e8604f832f17040a5534355e"
+    },
+    "not_after_utc": "2026-10-19T15:00:00Z",
+    "latest_supervisor_start_utc": "2026-10-19T14:45:00Z",
+    "scope": "Saved verification of the explicitly coordinated Task33 measurement. External Root admission deadline; existing supervisor uses relative worker wall time excluding pre/postflight.",
+    "current_admission_review": {
+      "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/coexistence-task33/tube-target-001-audit-002-admission-review.json",
+      "bytes": 2043,
+      "sha256": "05fbba56b06afeff581f7844d7cfe4f567f4f6221ab185106080304689f0902b"
+    }
+  },
   "required_supervisor_environment": {
     "HF_HUB_OFFLINE": "1"
   },
@@ -527,5 +553,30 @@
     "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/coexistence-task33/tube-saved-authority-002-preparation-result.md",
     "bytes": 3308,
     "sha256": "18af11b5216fc7f8c5533268f6e6edceb8135f28f2e1c57aff3dc13e367dfd0e"
-  }
+  },
+  "execution_amendment": {
+    "utc": "2026-10-19T14:16:03.272900+00:00",
+    "prior_held_card": {
+      "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/coexistence-task33/tube-target-001-audit-002-card.json",
+      "bytes": 7859,
+      "sha256": "5f2f304a2981ab033c198477b2d2a8a647644a2f278e2880b7f1de659981dd08"
+    },
+    "prior_held_plan": {
+      "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/coexistence-task33/tube-target-001-audit-002-plan.json",
+      "bytes": 28290,
+      "sha256": "ab23189ce7f9c001da466b1dba94297fa8811b855cf9f3c5311603aab087da68"
+    },
+    "actual_host_admission_review": {
+      "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/coexistence-task33/tube-target-001-audit-002-admission-review.json",
+      "bytes": 2043,
+      "sha256": "05fbba56b06afeff581f7844d7cfe4f567f4f6221ab185106080304689f0902b"
+    },
+    "required_supervisor_environment": {
+      "HF_HUB_OFFLINE": "1"
+    },
+    "scope": "Separately disclosed audit002 allocation; first actual use of new allocation after private preparation/controls. Original target and failed001 are not repeated or overwritten.",
+    "source_scientific_or_threshold_change": false,
+    "fresh_private_checkpoint_and_supervisor_admission_required": true
+  },
+  "separate_execution_admission_reviewed": true
 }
