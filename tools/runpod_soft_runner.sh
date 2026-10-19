@@ -2259,6 +2259,34 @@ snapshot_download('$REPO', revision='$MREV', cache_dir='$NEURAL_SHRIMP_DATA/mode
       wait
     fi
     ;;
+  kitecurves)  # run KITE: the shrimpcurves job from a stored orbit point (another sheet of the period-6 family) with
+               # finer steps, for the kite of the second shrimp. JOBARGS: NAME FREE DIRECTION SEED-ALPHA SEED-LOG10T
+               # BRANCH-MINUTES CURVE-MINUTES CURVE-STEPS SUBDIR INIT-STATE INIT-ROW BRANCH-DS BRANCH-DS-MAX CURVE-DS
+               # CURVE-DS-MAX (INIT-STATE explore-relative, uploaded with --extra-data)
+    nm=${JOBARGS[0]}; free=${JOBARGS[1]}; dir=${JOBARGS[2]}; sa=${JOBARGS[3]}; st=${JOBARGS[4]}
+    bmin=${JOBARGS[5]}; cmin=${JOBARGS[6]}; csteps=${JOBARGS[7]}; sub=${JOBARGS[8]}; init=${JOBARGS[9]}
+    irow=${JOBARGS[10]}; bds=${JOBARGS[11]}; bdsmax=${JOBARGS[12]}; cds=${JOBARGS[13]}; cdsmax=${JOBARGS[14]}
+    case $free in
+      temperature) bnd="-0.175 -0.135" ;;
+      alpha) bnd="0.068 0.080" ;;
+      *) echo "kitecurves refused: FREE must be temperature or alpha, not '$free'" | tee -a $LOGS/kite-refused.log; bnd="" ;;
+    esac
+    if [ -n "$bnd" ] && [ -z "$cdsmax" ]; then
+      echo "kitecurves refused: 15 arguments are needed" | tee -a $LOGS/kite-refused.log; bnd=""
+    fi
+    if [ -n "$bnd" ]; then
+      export OMP_NUM_THREADS=4 OPENBLAS_NUM_THREADS=4 MKL_NUM_THREADS=4
+      run $nm-branch "$bmin" branch --device cuda --dtype float64 --reference-dtype none --no-exact-jvp --chunk 896 \
+        --period 0 --init-state $init --init-row $irow --steps 150 --ds $bds --ds-max $bdsmax --beyond 0.0002 \
+        --alpha $sa --log-temperature $st --free $free --direction $dir --bounds $bnd --out $D/$sub/$nm-branch
+      for cd in 1 -1; do n=$([ $cd = 1 ] && echo plus || echo minus)
+        run $nm-curve-$n "$cmin" $CURVE --steps $csteps --ds $cds --ds-max $cdsmax --kind fold --direction $cd \
+          --log-temperature-bounds -0.175 -0.135 --alpha-bounds 0.068 0.080 --start $D/$sub/$nm-branch \
+          --out $D/$sub/$nm-curve-$n &
+      done
+      wait
+    fi
+    ;;
   scanband)    # one band of a large float64 map split across pods: scanband OUT MINUTES SCAN-ARGS...
     name=${JOBARGS[0]}
     minutes=${JOBARGS[1]}

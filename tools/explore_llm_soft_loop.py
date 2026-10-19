@@ -912,6 +912,14 @@ def branch(args):
         seed = cell_at(*args.march_from)
         X = seed.iterate(seed.start, args.transient)
         returns = seed.return_distances(X, args.max_period)
+    elif args.init_state is not None:                           # a stored orbit point (another sheet), no transient
+        if second is not None:
+            raise SystemExit("branch: --init-state is for the (alpha, log10 T) plane")
+        orb = SoftOrbit(top, args.alpha * v, 10.0 ** args.log_temperature)
+        x0 = np.load(DATA / "explore" / args.init_state)
+        x0 = x0[args.init_row] if x0.ndim == 2 else x0
+        X = top.torch.as_tensor(x0.reshape(orb.start.shape), dtype=orb.start.dtype, device=orb.start.device)
+        returns = orb.return_distances(X, args.max_period)
     else:
         orb = SoftOrbit(top, args.alpha * v, 10.0 ** args.log_temperature)
         X = orb.iterate(orb.start, args.transient)
@@ -1940,6 +1948,10 @@ def main():
     bb.add_argument("--alpha", type=float, required=True)
     bb.add_argument("--period", type=int, default=0, help="0: detect from the attractor reached")
     bb.add_argument("--transient", type=int, default=600)
+    bb.add_argument("--init-state", default=None,
+                    help="explore-relative .npy of an orbit point (n,) or rows (m, n): start Newton there instead of "
+                         "the attractor reached from the fixed start (another sheet of the family)")
+    bb.add_argument("--init-row", type=int, default=0, help="row of --init-state when it holds several points")
     bb.add_argument("--max-period", type=int, default=32)
     bb.add_argument("--detect-tol", type=float, default=1e-9)
     bb.add_argument("--alpha-scale", type=float, default=10.0)
