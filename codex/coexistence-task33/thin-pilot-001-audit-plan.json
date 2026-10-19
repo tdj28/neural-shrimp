@@ -1,0 +1,95 @@
+{
+  "status": "reviewed_for_execution",
+  "repository": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp",
+  "raw_root": "/data2/neural-shrimp-data/codex/coexistence",
+  "python": "/data2/neural-shrimp/.venv/bin/python",
+  "cpu_threads": 1,
+  "cpu_ids": [
+    0
+  ],
+  "startup_ram_gib": 20,
+  "source_files": [
+    {
+      "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/coexistence-task33/audit_thin_pilot.py",
+      "bytes": 18897,
+      "sha256": "3acb5dd4caf238d11d3cddd0921d4736854de5a1e782f70f419fd4975f1b7490"
+    },
+    {
+      "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/certify-chaos/supervise.py",
+      "bytes": 8727,
+      "sha256": "306db32a2c8ada9beb67547bbaafc6d0d7a597b5861b0e629ca9a07801223c44"
+    },
+    {
+      "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/coexistence-task33/thin-pilot-001-audit-card.json",
+      "bytes": 2404,
+      "sha256": "1a6ba4dc5d07d5e232a31e30180dd0e33822efdb88af6e8aa61db813d7fa1450"
+    },
+    {
+      "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/coexistence-task33/thin-pilot-001-audit-admission-review.md",
+      "bytes": 3102,
+      "sha256": "bb9f19a3d41cbcae89c33f8a0bd4e0642e8735c0c49b327ce1aaa790f6ca9810"
+    },
+    {
+      "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/coexistence-task33/thin-pilot-saved-audit-source-review.md",
+      "bytes": 13063,
+      "sha256": "295e6f3d9a12553b18ea73b963110eb0d84ec7a1f0e104d5b86bedc1006c819c"
+    }
+  ],
+  "lanes": {
+    "audit": {
+      "entry": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/coexistence-task33/audit_thin_pilot.py",
+      "arguments": [
+        "--source",
+        "e8db350006098683ab170645bf7ee7c317ca3b56",
+        "--card",
+        "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/coexistence-task33/thin-pilot-001-card.json",
+        "--card-sha256",
+        "33922427cb39bb72662122ae06c461acdbfc9314344e4e9f8a468d2b47164213",
+        "--plan",
+        "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/coexistence-task33/thin-pilot-001-plan.json",
+        "--plan-sha256",
+        "bf07856a9637d1f174bcd4dfe65f66d2055091d59ac8758f6001ca0c3ef4ac90",
+        "--receipt-sha256",
+        "8cc26e4a6eba2227bf6712588c7ff4fce381be855cb8b6b04b1fd6fbe13f4711",
+        "--admission-sha256",
+        "18ef3c15b21502ae758b06c37c2e93038a4953ae53f546a0bacd2ff8c27c0c17",
+        "--output",
+        "/data2/neural-shrimp-data/codex/coexistence/thin-pilot-001-audit-001/result.json"
+      ],
+      "output": "/data2/neural-shrimp-data/codex/coexistence/thin-pilot-001-audit-001",
+      "supervision": "/data2/neural-shrimp-data/codex/coexistence/thin-pilot-001-audit-001-supervision",
+      "preflight_pins": [
+        {
+          "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/coexistence-task33/thin-pilot-001-card.json",
+          "bytes": 4859,
+          "sha256": "33922427cb39bb72662122ae06c461acdbfc9314344e4e9f8a468d2b47164213"
+        },
+        {
+          "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/coexistence-task33/thin-pilot-001-plan.json",
+          "bytes": 9344,
+          "sha256": "bf07856a9637d1f174bcd4dfe65f66d2055091d59ac8758f6001ca0c3ef4ac90"
+        },
+        {
+          "path": "/data2/neural-shrimp-data/codex/coexistence/thin-pilot-001-supervision/receipt.json",
+          "bytes": 9588,
+          "sha256": "8cc26e4a6eba2227bf6712588c7ff4fce381be855cb8b6b04b1fd6fbe13f4711"
+        },
+        {
+          "path": "/data2/neural-shrimp-data/codex/coexistence/thin-pilot-001-supervision/admission.json",
+          "bytes": 6296,
+          "sha256": "18ef3c15b21502ae758b06c37c2e93038a4953ae53f546a0bacd2ff8c27c0c17"
+        }
+      ],
+      "prior_receipts": [
+        "/data2/neural-shrimp-data/codex/coexistence/thin-pilot-001-supervision/receipt.json"
+      ],
+      "limits": {
+        "as_bytes": 2147483648,
+        "cpu_seconds": 300,
+        "wall_seconds": 360,
+        "output_bytes": 16777216
+      }
+    }
+  },
+  "cost_basis": "Finite20*896*4native fields plus initial/final/scalar records; full checkpoint streamed hash and only1792-byte BF16 row decoded. Accepted3,211,264-entry Fraction witness242.965809s and P6saved audit1.020394s are scale references, not runtime guarantees. Conservative300CPU360wall2GiB16MiB bound; no model/retry/extension."
+}
