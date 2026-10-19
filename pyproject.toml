@@ -21,6 +21,14 @@ dl = [
     "torch>=2.14.1",
     "torchvision>=0.29.1",
 ]
+llm = [
+    # the language-model stack of the study, at the versions the local runs and the pods used
+    # (tools/runpod_soft_runner.sh installs the same pins and logs them per pod in versions.txt)
+    "transformers==5.19.0",
+    "tokenizers==0.23.3",
+    "safetensors==0.8.0",
+    "accelerate==1.15.0",
+]
 exp020 = [
     # The same wheel as the frozen EXP-020 lock (requirements-exp020.lock), now resolved from PyPI.
     "python-flint==0.9.0",
