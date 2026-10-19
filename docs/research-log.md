@@ -31354,3 +31354,30 @@ nearly identical under protan vision.
   hostile period-7 body. Article Fig. 19(b) marks the DSS6 sign changes (plot_shrimp_anatomy.py --layout pair
   --ditches llm-soft-loop/pod64/dss/p6-body); article Sec. VII and the report's period-6 paragraph carry the numbers.
 - **Cost:** within the human's 30-dollar authorization; amounts in the private ledger.
+
+## 2026-10-19 22:03 UTC: Figure sheets-3d redrawn at article width and added to the article (Fig. 7); no new run
+
+- **Change** (tools/sheets_extra_figures.py): 7.2 x 3.5 in at 300 dpi (was 11.5 x 5.2 at 200); panel titles "(a)" and
+  "(b)" only, with the panels explained in the caption; fewer ticks; legend names as in the article's text (loops
+  writing "\n\nThe...", loops writing " is...", chaotic); a new record, fig-sheets-3d.json, with point counts and height
+  percentiles of the drawn points per panel and class. Same data and the same random thinning (default_rng(0), at
+  most 9000 points per map and class). fig-hidden-strip.png is byte-identical.
+- **Command.** It reproduced the committed figure byte for byte before the change:
+  `uv run --no-sync python tools/sheets_extra_figures.py --analysis sheets/analysis --maps
+  llm-soft-loop/pod64/sheets/{default,p3,band6,p10,alpha,temp} --out-dir paper/llm/figures`. The alpha and temp
+  files each hold two sweeps, so these are the eight maps of run SH.
+- **Checks:**
+  - The two families overlap at 9675 of 49,152 cells (fields.npz), as the text says.
+  - Drawn heights in (a): the crescent family runs from 0.0731 to 0.2479 (5th to 95th percentile; median 0.162);
+    the ' is' family's 99th percentile is 0.0263. In (b), the hidden ' is' family's 99th percentile is 0.0275.
+  - The old caption's "about 0.2" and "Everything found" were loose: the median is 0.162, and (a) is thinned. The
+    captions now give the percentiles and the thinning.
+  - All eight maps use max period 32. Transients are 600 + 300 from the four starts and 200 + 200 in the sweeps
+    (600 in their first column or row). The report and the article's caption now say so.
+- **Article** (commit 1f18de8e4db370da315f3b86644008980cb68a98):
+  - Fig. 7 added; later figures renumbered, and first-citation order checked.
+  - The scan-label paragraph split in four.
+  - The depth-profile sentence reworded. Its values were checked against fig-damping.json: -0.3241, -0.5131, -2.5108
+    and -2.0813, factors 1.38, 1.67, 12.3 and 8.0.
+  - The prompt-variants repository pointer dropped, at the human's request.
+  - Now 28 pages and 23 figures.

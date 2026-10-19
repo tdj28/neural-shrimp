@@ -277,8 +277,8 @@ Huginn: a predicted accuracy loss & frozen & Sec.~\ref{sec:huginn} \\
   one-token chaotic band, though not in every model. The organization recurs across families, and size does not set
   the chaos: across fifteen models from 0.5B to 72B, a larger model's chaos can move to higher temperature instead of
   vanishing. Resolved through the stack, the network damps a change of the fed-back token more strongly in the larger
-  Qwen2.5 and Llama-3 models, because in them the change of the fed-back token does not keep pace with the residual
-  stream as it grows through the blocks; a mixture of experts with
+  Qwen2.5 and Llama-3 models, because their blocks write a growing residual stream that depends little on the
+  fed-back token, so a change of that token becomes an ever smaller fraction of the state; a mixture of experts with
   3B of its 35B parameters active per token damps more than a dense 9B model of its family. Two loops writing one text lock each other into periodic orbits: 60\,\% of pairs of differently steered
   0.5B agents that are each chaotic alone are periodic together (twelve such orbits verified by Newton's method). In a
   second system, the recurrent-depth model Huginn, a spectral estimate ranks held-out questions by the size of their
@@ -2948,7 +2948,8 @@ state. To see what the maps hide, we recomputed the window of Figure~\ref{fig:cr
 eight maps: one from the fixed start; three from states of the crescent's period-3 orbit, of the band's 6-cycle and of
 the period-10 stripe; and four sweeps that follow each attractor across the plane as far as they can, with every column
 (or row) of cells starting from the final states of the previous one, in both directions of $\alpha$ and of $T$
-(Figure~\ref{fig:sheets}; \repo{docs/sheets/analysis.json}). An independent audit with separate code reproduced every
+(Figure~\ref{fig:sheets}; \repo{docs/sheets/analysis.json}). The four starts discard 600 transient steps and measure
+over the next 300; the sweeps use 200 and 200 (600 transient steps in their first column or row). An independent audit with separate code reproduced every
 count below from the raw maps.
 \begin{itemize}
   \item \emph{Two overlapping sheets.} We group periodic attractors by the text their loops write, not by
@@ -3017,9 +3018,12 @@ continues under the stripes while the fixed start switches between the two branc
 \centering
 \includegraphics[width=\linewidth]{figures/fig-sheets-3d.png}
 \caption{The two families as sheets. Each point is an attractor found at one cell of Figure~\ref{fig:sheets}, at a
-height equal to its mean probability of the blank-line token: about 0.2 for the crescent's family (orange), about 0 for
-the 2-cycle and its stripes (blue); gray: chaos. (a) Everything found by the eight maps. (b) Only what the fixed-start
-map hides: periodic attractors found from another start at cells where the fixed start reaches something else.}
+height equal to its mean probability of the blank-line token, which separates the families: in (a), 90\,\% of the
+orange points lie between 0.07 and 0.25 and 99\,\% of the blue points below 0.03 (\repo{paper/llm/figures/fig-sheets-3d.json}).
+Orange: the crescent's family (loops that write ``\textbackslash n\textbackslash nThe \ldots''); blue: the 2-cycle and
+its stripes (loops that write `` is \ldots''); gray: chaos. (a) The attractors found by the eight maps, thinned at
+random to at most 9000 per map and class. (b) Only what the fixed-start map hides: periodic attractors that the seven
+other maps find where the fixed start reaches the other family, chaos or no period.}
 \label{fig:sheets3d}
 \end{figure}
 \begin{figure}[tbp]
@@ -3296,11 +3300,13 @@ median network factor falls with size in two of the three families.
 Qwen2.5-72B is the only Qwen2.5 model whose network factor stays negative at nearly uniform distributions: $-1.12$ above
 10 nats, against $+0.22$ to $+2.97$ for the 1.5B to 32B models, as its stability under entropy clamping suggests.
 
-The profiles through depth show where the difference arises. Near 1 nat, the change of the fed-back token keeps pace
-with the growing residual stream in the small models: entering the last block their relative change is $-0.32$
-(Qwen2.5-0.5B) and $-0.51$ (Llama-3.1-8B). It does not keep pace in the large ones, where it is $-2.51$
-(Qwen2.5-72B) and $-2.08$ (Llama-3.1-70B): their blocks keep writing a growing state that depends little on the
-fed-back token.
+The profiles through depth show where the difference arises (Figure~\ref{fig:damping}c). Each block adds its output
+to the residual stream, so the stream grows from block to block, and the change that the fed-back token makes in it
+grows too. Near 1 nat, the two grow at nearly the same rate in the small models: entering the last block, the log
+relative change $A_l-N_l$ is $-0.32$ (Qwen2.5-0.5B) and $-0.51$ (Llama-3.1-8B), so the change has shrunk relative to
+the state only by factors of 1.4 and 1.7. In the large ones the stream grows much faster: $A_l-N_l$ is $-2.51$
+(Qwen2.5-72B) and $-2.08$ (Llama-3.1-70B), factors of 12 and 8. Their blocks keep writing a growing state that
+depends little on the fed-back token.
 
 Sublayer knockouts hold one attention or MLP output at the soft token at its unperturbed value. They find no component
 that does the damping: at each model's knockout temperature nearest 1 nat (entropies 0.12 to 1.61 nats), removing any

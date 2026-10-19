@@ -7,9 +7,12 @@ continuation at log10 T -0.148 (explore/e2e/crescent-cut-t-0.148).
 
 fig-sheets-3d: the attractor's mean probability of the blank-line token (height) over (alpha, log10 T), for every
 cell of every map of the run, colored by family. The crescent family forms a sheet near 0.2, and the 2-cycle with its
-stripes forms a sheet near 0. The cells chosen by the fixed start are shown in a second panel.
+stripes forms a sheet near 0. The second panel shows only what the fixed-start map hides: periodic attractors that
+the other maps find where the fixed start reaches something else. The heights and point counts of both panels go to
+fig-sheets-3d.json.
 
 Usage: python tools/sheets_extra_figures.py --analysis sheets/analysis --maps <dirs> --out-dir paper/llm/figures
+(the paper's figures: --maps llm-soft-loop/pod64/sheets/{default,p3,band6,p10,alpha,temp}, the eight maps of run SH)
 """
 import argparse
 import json
@@ -82,8 +85,9 @@ def main():
     bi = keys.index("\n\n")
     A, T = np.meshgrid(al, lt)
     colors = {1: "#ff7f0e", -1: "#1f77b4", 2: "#9a9a9a"}
-    fig = plt.figure(figsize=(11.5, 5.2))
+    fig = plt.figure(figsize=(7.2, 3.5))            # article width: short titles, the caption explains the panels
     rng = np.random.default_rng(0)
+    drawn = {}
     for p, which in enumerate(("all maps", "hidden")):
         ax = fig.add_subplot(1, 2, p + 1, projection="3d")
         g0 = G[names.index(args.default)]
@@ -99,24 +103,35 @@ def main():
                     continue
                 if len(idx) > 9000:
                     idx = rng.choice(idx, 9000, replace=False)
+                drawn.setdefault(which, {}).setdefault(gv, []).append(z.flat[idx])
                 ax.scatter(A.flat[idx], T.flat[idx], z.flat[idx], s=0.8 if which == "all maps" else 1.6, c=c, alpha=0.4 if which == "all maps" else 0.7, linewidths=0)
-        ax.set_xlabel(r"$\alpha$", fontsize=8)
-        ax.set_ylabel(r"$\log_{10}T$", fontsize=8)
-        ax.set_zlabel(r"mean $p(\hookleftarrow\hookleftarrow)$", fontsize=8)
+        ax.set_xlabel(r"$\alpha$", fontsize=7, labelpad=1)
+        ax.set_ylabel(r"$\log_{10}T$", fontsize=7, labelpad=3)
+        ax.set_zlabel(r"mean $p(\hookleftarrow\hookleftarrow)$", fontsize=7, labelpad=2)
         ax.set_xlim(al[0], al[-1])
         ax.set_ylim(lt[0], lt[-1])
         ax.set_zlim(-0.01, 0.27)
         ax.view_init(elev=24, azim=-58)
-        ax.tick_params(labelsize=6)
-        ax.set_title("(a) every attractor found (four starts)" if p == 0 else
-                     "(b) what the map hides: found from another start,\nnot reached by the fixed start", fontsize=9)
+        ax.set_xticks([0.064, 0.068, 0.072, 0.076])
+        ax.set_yticks([-0.17, -0.16, -0.15, -0.14, -0.13])
+        ax.set_zticks([0.0, 0.1, 0.2])
+        ax.tick_params(labelsize=6.5, pad=0)
+        ax.set_title("(a)" if p == 0 else "(b)", fontsize=8, loc="left")
     from matplotlib.lines import Line2D
-    hs = [Line2D([], [], marker="o", ls="", color=colors[1], label="crescent family (periodic)"),
-          Line2D([], [], marker="o", ls="", color=colors[-1], label="2-cycle and stripes (periodic)"),
+    hs = [Line2D([], [], marker="o", ls="", color=colors[1], label="loops writing \u201c\\n\\nThe\u2026\u201d"),
+          Line2D([], [], marker="o", ls="", color=colors[-1], label="loops writing \u201c is\u2026\u201d"),
           Line2D([], [], marker="o", ls="", color=colors[2], label="chaotic")]
-    fig.legend(handles=hs, loc="lower center", ncol=3, fontsize=8, frameon=False)
-    fig.subplots_adjust(left=0.0, right=1.0, bottom=0.08, top=0.93, wspace=0.02)
-    fig.savefig(out / "fig-sheets-3d.png", dpi=200)
+    fig.legend(handles=hs, loc="lower center", ncol=3, fontsize=7, frameon=False, markerscale=0.8)
+    fig.subplots_adjust(left=0.0, right=0.93, bottom=0.07, top=0.92, wspace=0.12)
+    fig.savefig(out / "fig-sheets-3d.png", dpi=300, bbox_inches="tight", pad_inches=0.04)
+    names3 = {1: "blank-line loops (crescent family)", -1: "' is' loops (2-cycle and stripes)", 2: "chaotic"}
+    rec = {w: {names3[gv]: {"points": int(np.concatenate(v).size), "min": float(np.concatenate(v).min()),
+                            "max": float(np.concatenate(v).max()),
+                            "percentiles_1_5_50_95_99": [float(q) for q in np.percentile(np.concatenate(v), [1, 5, 50, 95, 99])]}
+               for gv, v in by.items()} for w, by in drawn.items()}
+    (out / "fig-sheets-3d.json").write_text(json.dumps({"maps": list(maps), "height": "mean probability of the blank-line token",
+                                                       "thinning": "at most 9000 points per map and class (default_rng(0))",
+                                                       "panels": rec}, indent=1) + "\n")
     print(json.dumps({"hidden_strip_rows": len(R), "strip_width_range": [float(w.min()), float(w.max())],
                       "fold_by_continuation_at_-0.148": fold_a}))
 
