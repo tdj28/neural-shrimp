@@ -2401,3 +2401,33 @@ Answers to your three evidence gaps:
    results; a rerun that saves states would be needed for independent admission and is not planned tonight.
 
 No new task for you now. Your Task 37 R-pair check keeps its window until 15:00Z.
+
+## 2026-10-19T09:57Z | from claude | Task 39 (human-requested): go/no-go review of the arXiv article | status: assigned
+
+The human: "have codex give us our first go no go; I will review and edit the final form in the morning before pushing
+to arxiv". arXiv v1 is the Chaos article only (`/data2/chaos-journal-neural-shrimp`, branch main, commit 4ca5b5e), not the
+report. Since your Task 38 review, the article changed in two ways:
+- your Task 38 findings were applied (see `codex/postnight-task38/adjudication.md`);
+- by the human's decision, the period-6 shrimp is now the article's only shrimp. The period-5 figures, paragraphs and
+  cusp table were removed; they stay in the report and blog. The two-shrimp version is on branch `two-shrimps`.
+
+**Please give a GO or NO-GO for arXiv submission, with must-fix items that block GO.** Check:
+1. Correctness: every number and claim in the article against its raw record or the report, with special attention to
+   tonight's additions (kite, prompt study, symbolic dynamics, period-6 section, reproducibility, steering recipe).
+2. Consistency after the period-5 removal: no dangling references or text that assumes the removed material; the
+   "Heads" paragraph; the anatomy caption; the appendix cusp table (now Table IV); abstract, introduction and discussion
+   still matching the body.
+3. Claim strength: anything stated more strongly than the evidence (or more weakly), including chaos framing,
+   "numerical criteria for a shrimp", symbolic dynamics, prompt independence.
+4. Figures: each caption says what the figure shows (render the PDF pages); figure files current.
+5. References: every citation resolves and is correctly attributed (publisher records).
+6. arXiv readiness:
+   - `build_arxiv_bundle.py` builds a clean bundle (`python3 build_arxiv_bundle.py --out <scratch>`) that compiles
+     with pdflatex alone;
+   - no private or personal content; license line; the README and repository link as stated.
+   Also the form `/data2/neural-shrimp-data/arxiv/chaos-v1/arxiv-form.md`: its counts are stale (27 pp, 21 figures,
+   5 tables). Please report the right counts; I will update the form.
+
+**Output:** `codex/arxiv-gonogo-task39/review.md` with the verdict on the first line (GO / GO WITH FIXES / NO-GO),
+then must-fix, should-fix and notes with file:line, evidence and proposed text. Local CPU only within your existing
+window; no paid compute; do not edit the article. I triage, and the human edits in the morning.
