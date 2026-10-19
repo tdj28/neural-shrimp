@@ -132,6 +132,11 @@ def main():
     ap.add_argument("--kind-tol", type=float, default=1e-3)
     ap.add_argument("--chaos-level", type=float, default=1e-3)
     ap.add_argument("--period", type=int, default=6, help="period of the body (for the boundary gate)")
+    ap.add_argument("--clean", action="store_true", help="add a first panel with the map alone, without curves")
+    ap.add_argument("--head", type=float, nargs=2, default=None, metavar=("ALPHA", "LOG10T"),
+                    help="mark the head (the body's most contracting point) with a white circle")
+    ap.add_argument("--pseudo", type=float, nargs=2, default=None, metavar=("ALPHA", "LOG10T"),
+                    help="mark a verified pseudo-crossing of flip curves (two distinct orbits) with a cyan diamond")
     ap.add_argument("--out", required=True)
     args = ap.parse_args()
 
@@ -162,16 +167,32 @@ def main():
     curves, report = load_curves(args.curves, args.max_residual, args.kind_tol)
     located = sorted((DATA / "explore" / args.curves).glob("locate-*/locate.json"))
     report_located = [{"locate": f.parent.name, "located": json.loads(f.read_text()).get("located")} for f in located]
-    panels = 2 if args.follow else 1
+    panels = (2 if args.follow else 1) + (1 if args.clean else 0)
     plt.rcParams.update({"font.size": 8})
-    fig, axes = plt.subplots(1, panels, figsize=(7.0 if panels == 2 else 3.6, 3.5), squeeze=False)
-    axA = axes[0, 0]
+    fig, axes = plt.subplots(1, panels, figsize=(3.6 * panels - 0.2 * (panels - 1), 3.5), squeeze=False)
+    k0 = 0
+    letters = "abc"
+    if args.clean:                       # the map alone: the window's own shape, with nothing drawn over it
+        ax0 = axes[0, 0]
+        ax0.imshow(img, origin="lower", aspect="auto", interpolation="nearest", extent=ext)
+        ax0.set_xlim(ext[0], ext[1]); ax0.set_ylim(ext[2], ext[3])
+        ax0.set_xlabel(r"steering strength $\alpha$"); ax0.set_ylabel(r"$\log_{10}T$")
+        ax0.set_title(f"(a) Lyapunov map, {ly.shape[1]} x {ly.shape[0]} float64 cells", fontsize=8)
+        k0 = 1
+    axA = axes[0, k0]
     axA.imshow(img, origin="lower", aspect="auto", interpolation="nearest", extent=ext)
     draw_curves(axA, curves)
     draw_located(axA, located)
+    if args.pseudo:
+        axA.plot(*args.pseudo, "D", color="cyan", mec="k", mew=0.6, ms=5.5, zorder=8)
+    if args.head:
+        axA.plot(*args.head, "o", color="w", mec="k", mew=0.8, ms=5, zorder=8)
     axA.set_xlim(ext[0], ext[1]); axA.set_ylim(ext[2], ext[3])
-    axA.set_xlabel(r"steering strength $\alpha$"); axA.set_ylabel(r"$\log_{10}T$")
-    axA.set_title("(a) Lyapunov map, 512 x 512 float64 cells", fontsize=8)
+    axA.set_xlabel(r"steering strength $\alpha$")
+    if not args.clean:
+        axA.set_ylabel(r"$\log_{10}T$")
+    axA.set_title(f"({letters[k0]}) " + ("with the continued curves" if args.clean else
+                  f"Lyapunov map, {ly.shape[1]} x {ly.shape[0]} float64 cells"), fontsize=8)
     cb = fig.colorbar(ScalarMappable(norm=hot_norm, cmap="plasma"), ax=axA, orientation="horizontal", fraction=0.05,
                       pad=0.16)
     cb.set_label(r"chaotic cells: largest exponent $\lambda$", fontsize=7)
@@ -186,7 +207,7 @@ def main():
         fa, ft, lab, fper = z["alpha1"], z["log10_temperature"], z["label"], z["period"]
         fda, fdt = (fa[1] - fa[0]) / 2, (ft[1] - ft[0]) / 2
         fext = [fa[0] - fda, fa[-1] + fda, ft[0] - fdt, ft[-1] + fdt]
-        axB = axes[0, 1]
+        axB = axes[0, k0 + 1]
         sys.path.insert(0, str(ROOT / "tools"))
         import period_colors as pc
         axB.imshow(np.where(lab == 0, 1.0, np.nan), origin="lower", extent=fext, aspect="auto",
@@ -210,7 +231,7 @@ def main():
         fw = args.follow_window or ext
         axB.set_xlim(fw[0], fw[1]); axB.set_ylim(fw[2], fw[3])
         axB.set_xlabel(r"steering strength $\alpha$")
-        axB.set_title("(b) the attractor followed from the body", fontsize=8)
+        axB.set_title(f"({letters[k0 + 1]}) the attractor followed from the body", fontsize=8)
         axB.legend(handles=handles, fontsize=5.8, loc="lower left", framealpha=0.85)
         summary["boundary_gate"] = boundary_gate(fa, ft, lab, fper, curves, args.period)
         summary["follow"] = {"members": int((lab == 1).sum()), "chaos_behind_text": int((lab == 2).sum()),
