@@ -1,6 +1,6 @@
 """Figure: the Feigenbaum tree of the crescent cascade (run FT). Three float64 line scans along log10 T = -0.156
 (Qwen2.5-0.5B-Instruct, philosophy direction at layer 12), each a bifurcation diagram (the 256 recorded attractor
-states of every cell, projected on the unit steering direction; red where the cell is chaotic) over its largest
+states of every cell, projected on the unit steering direction; orange where the cell is chaotic) over its largest
 Lyapunov exponent. The flips located by Newton's method (cascade/crescent-t-0.156*, Table tab:cascade156) are drawn
 as dashed lines, and the accumulation point estimated from the last two flips with Feigenbaum's delta as a dotted line.
 
@@ -78,9 +78,10 @@ def main():
         ax = fig.add_subplot(inner[0])
         lx = fig.add_subplot(inner[1], sharex=ax)
         xs = np.repeat(al[:, None], proj.shape[1], axis=1)
-        # solid points at full opacity: periodic branches read as lines, chaotic bands as filled red regions
+        # solid points at full opacity: periodic branches read as lines, chaotic bands as filled orange regions
+        # (Okabe-Ito orange: far from black under colour-vision deficiencies and in grey print)
         ax.plot(xs[~chaotic].ravel(), proj[~chaotic].ravel(), "o", ms=1.1, mew=0, color="black", rasterized=True)
-        ax.plot(xs[chaotic].ravel(), proj[chaotic].ravel(), "o", ms=0.8, mew=0, color="#d62728", alpha=0.8,
+        ax.plot(xs[chaotic].ravel(), proj[chaotic].ravel(), "o", ms=0.8, mew=0, color="#E69F00", alpha=0.8,
                 rasterized=True)
         lo, hi = float(al[0]), float(al[-1])
         checks = {}

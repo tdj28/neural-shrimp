@@ -45,10 +45,11 @@ def main():
     ax = axes[0]
     d = z["batch64_dist"]
     t = np.arange(1, d.shape[0] + 1)
-    for L, col in (("periodic", "tab:blue"), ("chaotic", "tab:red")):     # every cell's run, under the summaries
+    # Okabe-Ito blue (periodic) and orange (chaotic): told apart under colour-vision deficiencies and in grey print
+    for L, col in (("periodic", "#0072B2"), ("chaotic", "#E69F00")):     # every cell's run, under the summaries
         for k in np.nonzero(lab == L)[0]:
             ax.plot(t, np.maximum(d[:, k], 1e-17), color=col, alpha=0.07, lw=0.35, rasterized=True)
-    for L, col in (("chaotic", "darkred"), ("periodic", "navy")):
+    for L, col in (("chaotic", "#8C5A00"), ("periodic", "navy")):
         band(ax, d[:, lab == L], col, f"{L} ({int((lab == L).sum())} cells): median and quartiles")
     o = lab == "other"                     # neither label: its median only (its quartiles span most of the range)
     ax.plot(t, np.median(np.maximum(d[:, o], 1e-17), axis=1), color="tab:gray", lw=1.0,
@@ -62,7 +63,7 @@ def main():
     ax = axes[1]
     for comp, ls in (("batch32", "-"), ("bf16", "--")):
         d = z[f"{comp}_dist"]
-        for L, col in (("chaotic", "tab:red"), ("periodic", "tab:blue")):
+        for L, col in (("chaotic", "#E69F00"), ("periodic", "#0072B2")):
             t = np.arange(1, d.shape[0] + 1)
             ax.plot(t, np.median(np.maximum(d[:, lab == L], 1e-17), axis=1), ls, color=col,
                     label=f"{'float32' if comp == 'batch32' else 'bfloat16'}, {L}")
@@ -81,7 +82,7 @@ def main():
             obs.append(x["first_step_dist_above_1e-2"])
             pred.append(np.log(1e-2 / max(x["min_nonzero_dist"], 1e-17)) / lam[i])
     obs, pred = np.array(obs), np.array(pred)
-    ax.loglog(pred, obs, "o", ms=3, color="tab:red", alpha=0.6)
+    ax.loglog(pred, obs, "o", ms=3, color="#E69F00", alpha=0.6)
     lim = [min(pred.min(), obs.min()) * 0.8, max(pred.max(), obs.max()) * 1.2]
     ax.plot(lim, lim, "k:", lw=1)
     rho = np.corrcoef(np.log(obs), np.log(pred))[0, 1]

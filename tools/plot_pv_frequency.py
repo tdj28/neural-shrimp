@@ -60,10 +60,13 @@ def main():
     ax.set_xlabel(r"steering strength $\alpha$")
     ax.set_ylabel(r"$\log_{10}T$")
     ax.set_title(f"(a) how often each cell is chaotic ({len(used)} prompts)", fontsize=8)
-    for F, lab, col in ((allc, f"all {len(used)} prompts", "k"), (txt, f"{len(txt)} text prompts", "tab:blue"),
-                        (vec, f"{len(vec)} random-vector prompts", "tab:red")):
+    # Okabe-Ito blue and orange (told apart under colour-vision deficiencies and, by lightness, in grey print), and a
+    # dashed line for the random-vector prompts
+    for F, lab, col, ls in ((allc, f"all {len(used)} prompts", "k", "-"),
+                            (txt, f"{len(txt)} text prompts", "#0072B2", "-"),
+                            (vec, f"{len(vec)} random-vector prompts", "#E69F00", "--")):
         if len(F):
-            axp.plot(F.mean(0).mean(1), t, color=col, lw=1.4 if col == "k" else 1.0, label=lab)
+            axp.plot(F.mean(0).mean(1), t, color=col, ls=ls, lw=1.4 if col == "k" else 1.0, label=lab)
     axp.set_xlabel("mean fraction of chaotic cells in the row")
     axp.set_ylabel(r"$\log_{10}T$")
     axp.set_ylim(t[0], t[-1])

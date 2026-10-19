@@ -76,6 +76,8 @@ def main():
     ap.add_argument("--ky", type=float, default=None, help="Kaplan-Yorke dimension of the cell, drawn for comparison")
     ap.add_argument("--layout", choices=("grid", "row"), default="grid",
                     help="grid: all six panels; row: (a) the projection, (b) the first zoom and (c) the band with the manifold")
+    ap.add_argument("--cvd", action="store_true", help="Okabe-Ito colours for the eight leading tokens (told apart under "
+                    "colour-vision deficiencies) and grey, with a legend entry, for every other token (default: tab10)")
     args = ap.parse_args()
     import matplotlib
     matplotlib.use("Agg")
@@ -93,6 +95,9 @@ def main():
     uniq, counts = np.unique(toks, return_counts=True)
     top = uniq[np.argsort(-counts)][:8]
     cmap = plt.get_cmap("tab10")
+    if args.cvd:                                     # index 9: the tokens outside the leading eight
+        okabe = ["#0072B2", "#E69F00", "#009E73", "#D55E00", "#CC79A7", "#56B4E9", "#000000", "#F0E442"]
+        cmap = lambda k: okabe[k] if k < len(okabe) else "#BBBBBB"
     colors = np.full(len(toks), 9)
     for k, t in enumerate(top):
         colors[toks == t] = k
@@ -103,6 +108,8 @@ def main():
     ax.scatter(P[:, 0], P[:, 1], s=0.15, c=[cmap(c) for c in colors], alpha=0.6, linewidths=0, rasterized=True)
     for k, t in enumerate(top):
         ax.plot([], [], "o", color=cmap(k), label=repr(tok.decode([int(t)])).replace("\\n\\n", "\u23ce").replace("\\n", "\u23ce"))
+    if args.cvd and (colors == 9).any():
+        ax.plot([], [], "o", color=cmap(9), label="other tokens")
     ax.legend(fontsize=6, markerscale=1.5, loc="best", title="next token", title_fontsize=6)
     lo1, hi1, c1 = zoom_box(P[:, :2], 0.08)
     ax.add_patch(plt.Rectangle(lo1, *(hi1 - lo1), fill=False, ec="k", lw=0.8))

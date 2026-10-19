@@ -590,7 +590,9 @@ def plot_returnmaps_compact(one, two, zs, args):
         z = zs[c["band"]]
         s = z["return_projection"][c["row"], c["col"], jb, :, 0].astype(float)
         cos = z["word_cos"][c["row"], c["col"], jb + P::P][: len(s) - 1]
-        ax.scatter(s[:-1], s[1:], c=np.where(cos > 0, "tab:blue", "tab:red"), s=1.2, lw=0)
+        # L blue, R red; with --cvd Okabe-Ito blue and orange (told apart under colour-vision deficiencies and in grey)
+        L_col, R_col = ("#0072B2", "#E69F00") if getattr(args, "cvd", False) else ("tab:blue", "tab:red")
+        ax.scatter(s[:-1], s[1:], c=np.where(cos > 0, L_col, R_col), s=1.2, lw=0)
         ax.set_title(title, fontsize=7)
         ax.set_xlabel(r"$s_n$", fontsize=7)
         ax.tick_params(labelsize=5)
@@ -671,7 +673,8 @@ def plot_returnmaps(cells, zs, args, body):
         jb = best["phase"]
         s = z["return_projection"][c["row"], c["col"], jb, :, 0].astype(float)
         cos = z["word_cos"][c["row"], c["col"], jb + P::P][: len(s) - 1]
-        ax.scatter(s[:-1], s[1:], c=np.where(cos > 0, "tab:blue", "tab:red"), s=2, lw=0)
+        L_col, R_col = ("#0072B2", "#E69F00") if getattr(args, "cvd", False) else ("tab:blue", "tab:red")
+        ax.scatter(s[:-1], s[1:], c=np.where(cos > 0, L_col, R_col), s=2, lw=0)
         ax.set_title(f"({chr(98 + i)}) cell {i + 1}, phase {jb}: $\\lambda$ = {c['lyapunov']:.3f}", fontsize=7.5)
         ax.tick_params(labelsize=5.5)
         if i // 3 == 1:
@@ -825,6 +828,8 @@ def main():
     r.add_argument("--margin", type=float, default=0.02, help="visits within this fraction of the spread of the turning "
                    "point are left out of the coding comparison")
     r.add_argument("--kneading-len", type=int, default=16)
+    r.add_argument("--cvd", action="store_true", help="L and R visits in Okabe-Ito blue and orange (told apart under "
+                   "colour-vision deficiencies and in grey print) instead of tab:blue and tab:red")
     r.add_argument("--compact", action="store_true", help="the article's single-column figure: one return map with one "
                    "turning point and one with two")
     r.add_argument("--min-cos", type=float, default=0.5, help="visits with |cos| below this are near-critical (left out)")

@@ -851,7 +851,7 @@ orbit is most strongly attracting (Section~\ref{sec:organization}).
 \includegraphics[width=0.49\linewidth]{fig-stripes-period-fold.png}
 \caption{Soft-token map of Qwen2.5-0.5B-Instruct steered along the philosophy direction at layer 12, $256^2$ float64
 cells. Left: chaotic cells colored by the largest Lyapunov exponent, the other cells in gray by how strongly they
-contract (light gray: close to losing stability; color bars as in Figure~\ref{fig:teaser}). Cyan dashed curves are float64 fold curves of the 2-cycle ``is it''
+contract (light gray: close to losing stability; color bars as in Figure~\ref{fig:teaser}). Black dashed curves with a white edge are float64 fold curves of the 2-cycle ``is it''
 (lower left, the boundary on which the stripes accumulate) and of the period-8 orbit (top). Right: periods, with the
 period-8 fold curve (Appendix~\ref{sec:curves}).}
 \label{fig:stripes}
@@ -1413,7 +1413,7 @@ and the copies of one problem are not independent
 \caption{Only the batch layout differs. The 448 labeled cells of Qwen2.5-0.5B-Instruct (philosophy direction, layer
 12) run twice from the same start, alone in a batch or followed by $n$ further rows with the steering vectors in
 reverse order. (a) float64: the relative
-distance between the two runs for every chaotic (red) and periodic (blue) cell, by the cells' float64 labels, with
+distance between the two runs for every chaotic (orange) and periodic (blue) cell, by the cells' float64 labels, with
 the medians and interquartile ranges of each label (dark) and the median of the 64 cells with neither label (gray); the
 chaotic runs separate to order one; the median periodic distance stays at the rounding level, with exceptions. (b) Medians for
 float32 and bfloat16 batch layouts; in bfloat16 both kinds separate within a few steps. (c) float64 chaotic cells: the step at which the distance passes $10^{-2}$ against
@@ -1553,7 +1553,7 @@ largest multiplier of $G=F^2$ on the two orbits reaches $+1$ at the fold, follow
 $1\mp2\sqrt{ab(\alpha_c-\alpha)}$ (open circles: a complex leading pair). (c) Beyond the fold the 2-cycle is gone, but
 its ghost, the slow bottleneck that a saddle-node bifurcation leaves behind
 \cite{strogatz1989predicted,strogatz2018nonlinear}, slows the dynamics: controlled passages from the channel's entrance $v=-U$ to its exit $v=U$ ($v$ the
-oriented critical coordinate, $U=0.1/|b|$), measured on the network (dots) and iterated from the normal form
+oriented critical coordinate, $U=0.1/|b|$), measured on the network (markers, one shape per $\eps$) and iterated from the normal form
 $v'=v+|a|\eps+|b|v^2$ (lines), take 144, 71, 34 and 14 iterates, as predicted. (d) A free trajectory at
 $\eps=10^{-5}$ alternates between laminar phases in the bottleneck ($|u|<U$, shaded; 40 to 70 iterates each) and bursts
 away from it, the signature of type-I intermittency. Branch residuals, fold, normal form and passages in float64; branch
@@ -1790,7 +1790,7 @@ $-0.156$, which we followed furthest, at the $768\to1536$ flip.
 \includegraphics[width=0.86\linewidth]{fig-feigenbaum-tree.png}
 \caption{The Feigenbaum tree of the crescent cascade (Qwen2.5-0.5B-Instruct, philosophy direction at layer 12,
 $\log_{10}T=-0.156$): float64 line scans of 1600, 1360 and 1000 cells, each with 3000 transient steps and 256 recorded
-states projected on the unit steering direction (red: chaotic cells, with no period up to 48). (a) The whole cut: period 3 doubles into chaos,
+states projected on the unit steering direction (orange: chaotic cells, with no period up to 48). (a) The whole cut: period 3 doubles into chaos,
 which ends at $\alpha=0.065278$, where the attractor jumps to a strongly contracting period-2 orbit. (b, c) Zooms in
 both coordinates on the branch boxed in the panel above, showing the doublings $6\to12\to24\to48$ and
 $24\to48\to96\to192$. Dashed lines: flips located by Newton's method (Table~\ref{tab:cascade156}); dotted line: the
@@ -2178,7 +2178,7 @@ after 1000 transient steps). At every step the most probable token follows the s
 \texttt{!}, \texttt{Yes}, \texttt{\ heels}, $\hookleftarrow\hookleftarrow$, \texttt{pee},
 $\hookleftarrow\hookleftarrow$, while the largest Lyapunov exponent is 0.091 per step: the token that wins repeats,
 but the probabilities behind it, which the loop feeds back, do not. (a) All states on their first two principal
-components, colored by their position in the text: seven separated sampled clouds. (b) The widest cloud (the last
+components, colored and marked by their position in the text: seven separated sampled clouds. (b) The widest cloud (the last
 position, whose most probable token is a double line break) on its own principal components: the sampled states lie
 close to a curve. (c) The probability of that token, which stays between 0.235 and 0.254 and does not repeat over the
 2000 steps, at one
@@ -3328,7 +3328,8 @@ vector at layer 50, $128\times128$ float64 cells over $\alpha\in[0.06,0.12]$, $\
 and 300 measured steps; sixteen bands of eight temperatures computed separately with identical vectors and joined).
 Left: largest Lyapunov exponent, gray where the cell is not chaotic and in color where it is; 3410 of the 16{,}384
 cells (20.8\,\%) are chaotic (largest exponent 0.64). Right: period of the attractor reached from the fixed start
-(black: chaotic; light gray: neither a detected period up to 32 nor a positive exponent, 1.7\,\% of the cells). The
+(black: chaotic; bluish gray: periods without a color of their own; light gray: neither a detected period up
+to 32 nor a positive exponent, 1.7\,\% of the cells). The
 chaotic band's center falls from $\log_{10}T\approx0.23$ at $\alpha=0.06$ to $\approx0.19$ at $\alpha=0.12$, and periodic
 windows thread it, most often of periods 3, 5, 6 and 7 and up to 13; fixed points lie above it.}
 \label{fig:z128}

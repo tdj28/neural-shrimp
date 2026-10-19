@@ -92,7 +92,8 @@ def main():
     ax.set_title(f"largest exponent; chaotic {100 * chaotic.mean():.0f} % of {L.size} cells", fontsize=9)
     periodic = P > 0
     unresolved = ~periodic & ~chaotic
-    cats = pc.categorize(P, max_blocks=pc.blocks_that_fit(bx))    # one colour and colour-bar block per period
+    # one colour and colour-bar block per period, from the palette safe under colour-vision deficiencies
+    cats = pc.categorize(P, max_blocks=pc.blocks_that_fit(bx), kind="cvd")
     img = cats.rgba(P, fill=(1.0, 1.0, 1.0, 1.0))
     img[chaotic] = (0.0, 0.0, 0.0, 1.0)
     img[unresolved] = (0.82, 0.82, 0.82, 1.0)

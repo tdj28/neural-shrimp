@@ -95,26 +95,30 @@ def main():
     _, _, Vt = np.linalg.svd(X, full_matrices=False)
     P = X @ Vt[:2].T
     fig, (ax, bx, cx) = plt.subplots(1, 3, figsize=(15, 4.8))
-    cmap = plt.get_cmap("tab10")
+    # Okabe-Ito colours (told apart under colour-vision deficiencies), ordered so that the closest bands of the
+    # period-7 cell differ most, also in grey print; one marker per phase as well
+    colors = ["#0072B2", "#CC79A7", "#000000", "#56B4E9", "#E69F00", "#D55E00", "#009E73"]
+    markers = ["o", "s", "^", "D", "v", "P", "X"]
+    cmap = lambda k: colors[k % len(colors)]
     for k in range(q):
         m = phase == k
-        ax.scatter(P[m, 0], P[m, 1], s=2, color=cmap(k % 10), label=f"{k}: " + repr(text[k]).strip("'"),
-                   rasterized=True)
+        ax.scatter(P[m, 0], P[m, 1], s=36, marker=markers[k % len(markers)], linewidths=0, color=cmap(k),
+                   label=f"{k}: " + repr(text[k]).strip("'"), rasterized=True)
     ax.set_xlabel("principal component 1")
     ax.set_ylabel("principal component 2")
-    ax.legend(title="phase: leading token", fontsize=7, title_fontsize=8, markerscale=4, loc="best", frameon=False)
+    ax.legend(title="phase: leading token", fontsize=7, title_fontsize=8, markerscale=1, loc="best", frameon=False)
     ax.set_title(f"(a) all states, by phase of the repeating text (period {q})", fontsize=9)
     big = int(np.argmax([b["radius"] for b in B]))          # the widest band, on its own principal components
     Sb = states[phase == big]
     Xb = Sb - Sb.mean(0)
     _, sb, Vb = np.linalg.svd(Xb, full_matrices=False)
     Pb = Xb @ Vb[:2].T
-    bx.scatter(Pb[:, 0], Pb[:, 1], s=3, color=cmap(big % 10), rasterized=True)
+    bx.scatter(Pb[:, 0], Pb[:, 1], s=3, color=cmap(big), rasterized=True)
     bx.set_xlabel("band principal component 1")
     bx.set_ylabel("band principal component 2")
     bx.set_title(f"(b) inside one band: phase {big}, leading token " + repr(text[big]), fontsize=9)
     pk = pmax[phase == big]
-    cx.scatter(pk[:-1], pk[1:], s=4, color=cmap(big % 10), rasterized=True)
+    cx.scatter(pk[:-1], pk[1:], s=4, color=cmap(big), rasterized=True)
     fit = return_map_fit(pk, q)
     xs = np.linspace(pk.min(), pk.max(), 400)
     cx.plot(xs, fit["f"](xs), color="k", lw=0.8)

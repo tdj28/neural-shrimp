@@ -7,7 +7,7 @@ layer 12), the saddle-node bifurcation behind the stripes (human request: "show 
 (b) The largest multiplier of the two orbits passes through +1 at the fold; normal form 1 -+ 2 sqrt(ab (alpha_c - alpha)).
 (c) Beyond the fold the orbit is gone but its ghost remains: controlled passages through the bottleneck from the
     channel's entrance (passage-p2-t-0.115), oriented coordinate v = sign(b) u in units of U = 0.1/|b|, measured on the
-    network (dots) and iterated from the normal form v' = v + |a| eps + |b| v^2 (lines).
+    network (one marker shape per eps) and iterated from the normal form v' = v + |a| eps + |b| v^2 (lines).
 (d) Free trajectories alternate between laminar phases in the bottleneck (|u| < U, shaded) and bursts
     (passage-natural-p2-t-0.115, one trajectory at eps = 1e-5).
 
@@ -92,6 +92,7 @@ def main():
     V = np.load(D / "passage-p2-t-0.115" / "u.npy")
     U = float(pas["U"])
     colors = {3e-6: "#1b9e77", 1e-5: "#d95f02", 3e-5: "#7570b3", 1e-4: "#e7298a"}
+    markers = {3e-6: "o", 1e-5: "s", 3e-5: "^", 1e-4: "D"}       # one marker per eps: told apart without colour
     summary["passages"] = {}
     for i, row in enumerate(pas["rows"]):
         e = float(row["eps"])
@@ -103,7 +104,7 @@ def main():
         while vv[-1] <= U and len(vv) < 600:
             vv.append(vv[-1] + abs(a) * e + abs(b) * vv[-1] ** 2)
         ax.plot(np.arange(len(vv)), np.array(vv) / U, "-", color=colors[e], lw=0.9)
-        ax.plot(np.arange(n_exit + 1), v[:n_exit + 1] / U, "o", color=colors[e], ms=1.6,
+        ax.plot(np.arange(n_exit + 1), v[:n_exit + 1] / U, markers[e], color=colors[e], ms=3.0, mew=0, ls="none",
                 label=rf"$\varepsilon={e:.0e}$: {n_exit} iterates".replace("e-0", r"\times10^{-").replace("$:", "}$:"))
         summary["passages"][str(e)] = {"measured": n_exit, "normal_form": len(vv) - 1}
     ax.axhline(0, color="0.6", lw=0.5)

@@ -31301,3 +31301,26 @@ nearly identical under protan vision.
   sign changes and complex-pair cells of all bands are drawn together over the HR10 map; whether they close into a
   loop around the lens is read from that picture and reported as found.
 - **Outputs:** llm-soft-loop/pod64/dss/ditch2d-b0 ... ditch2d-b3.
+
+## 2026-10-19 20:10 UTC: colorblind fixes of the article figures (descriptive; audit in the scratchpad, decisions by the human)
+
+- **Decisions (human):** the Lyapunov-map coloring stays as it is (Figs. 1, 2a, 9 left, 10 left, 19b, 20a, 21a; also
+  the RdBu maps of Figs. 7, 8); maps with more than about eight categories keep their palettes (Figs. 2b, 9 right); no
+  labels on data; the redrawn fold curves of Fig. 2(a) thick enough not to read as map texture.
+- **Method (audit agent):** for each figure the recorded command was rerun first and reproduced the committed PNG byte
+  for byte; the change was then made in the generator (default where the generator draws only figures shared by the
+  article and the report; an opt-in flag otherwise), the figure regenerated into paper/llm/figures and copied to the
+  article; colour distances checked with simulated deutan, protan and tritan vision and grayscale (Machado et al. 2009
+  matrices, CIEDE2000).
+- **Changes:** Fig. 2(a) fold curves black, dashed, with a white halo (`render --halo-curves 3.66 8.24`, 1.6 pt line
+  at printed size); Fig. 10 right periods in `period_colors kind="cvd"`; Figs. 11(b), 12 and 22 Okabe-Ito blue/orange
+  (the random-vector curve of 11(b) dashed); Fig. 13(c) one marker shape per epsilon; Fig. 16 chaotic dots orange;
+  Fig. 17 Okabe-Ito with marker shapes; Fig. 18 Okabe-Ito tokens and gray "other tokens" with a legend entry
+  (`plot_attractor_portrait --cvd`); Fig. 22 `symbolic_dynamics returnmaps --compact --cvd` (new record
+  pod64/sd/returnmaps-compact-cvd; old record kept).
+- **Captions:** colour words updated in both papers (red -> orange where it changed; Fig. 2(a) "black dashed curves
+  with a white edge"; Fig. 10 "bluish gray: periods without a color of their own"; Fig. 13(c) markers; Fig. 17
+  "colored and marked"; Fig. 18 "gray: other tokens").
+- **Left as found:** Fig. 10 period 3 against "other" stays close under deutan/protan (4.1, 4.9 in CIEDE2000); some
+  token pairs of Fig. 18 merge in grayscale. Tests of the touched tools pass; test_qwen35_float64
+  ::test_hybrid_cache_restore fails as before these edits (SoftLoop has no attribute `extra`).

@@ -1448,6 +1448,12 @@ def render(args):
                     matplotlib.patches.Patch(color=none_colour, label="no period, not chaotic")]
     # fold: cyan, long dashes; flip: magenta, short dashes (white would read as a weakly contracting periodic cell)
     styles = {"fold": dict(color="#00e5ff", lw=1.8, ls=(0, (7, 3))), "flip": dict(color="magenta", lw=1.6, ls=(0, (2, 2)))}
+    if getattr(args, "halo_curves", None):            # heavy curves that cannot be read as a streak of the map:
+        import matplotlib.patheffects as pe            # fold black, long dashes; flip magenta, short dashes;
+        lw, halo = args.halo_curves                    # both LW points wide over a white halo HALO points wide
+        stroke = [pe.withStroke(linewidth=halo, foreground="white")]
+        styles = {"fold": dict(color="black", lw=lw, ls=(0, (7, 3)), path_effects=stroke),
+                  "flip": dict(color="magenta", lw=lw, ls=(0, (2, 2)), path_effects=stroke)}
     drawn_kinds = []
     for path in args.curves or []:                         # traced bifurcation curves over the brute-force map
         kind, pts = curve_points(DATA / "explore" / path)
@@ -1983,6 +1989,9 @@ def main():
                     help="outline this region on the map (e.g. the region of a zoom shown elsewhere)")
     rd.add_argument("--families", type=int, default=0,
                     help="colour the N most common attractor identities (token loops) instead of periods")
+    rd.add_argument("--halo-curves", type=float, nargs=2, default=None, metavar=("LW", "HALO"),
+                    help="draw the --curves black (fold, long dashes) and magenta (flip, short dashes), LW points "
+                         "wide over a white halo HALO points wide (default: the thinner cyan and magenta curves)")
     rp = sub.add_parser("replot", help="redraw a finished scan's overview figure (scan.png) from its saved files")
     rp.add_argument("--scan", required=True, help="explore-relative directory of a finished scan")
     rp.add_argument("--out", required=True, help="output image path")
