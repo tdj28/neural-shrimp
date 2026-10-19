@@ -253,19 +253,9 @@ cells. On the same type of GPU, every row that ended thinking on its own within 
 exactly in its saved switch step and answer, so the changes come from the rows the original budget cut short; the DeepSeek-R1-Distill-Qwen-7B GSM8K rerun
 ran on a different H100 variant.
 
-Is this chaos? We ran float64 copies of the same pipeline. Each copy's first soft token was displaced from the base
-row's by a relative $10^{-10}$, and all copies shared the base row's random numbers. The three models respond differently. In
-DeepSeek-R1-Distill-Qwen-7B, 216 of 256 copies ended the thinking at a distance from their base row below the
-initial displacement, and 2.3\,\% changed the answer. Its layout flips are therefore mainly bfloat16
-rounding carried to answers near ties, as in Qwen2.5-7B. In QwQ-32B and DeepSeek-R1-Distill-Llama-8B, more than half
-of the copies ended above the initial displacement (131 of 192 and 145 of 256). Fitted over the steps where the
-distance lay between ten times the displacement and $10^{-3}$, the median growth rates were 0.011 and 0.008 per step.
-The displacement alone changed 13.5 and 18.4\,\% of the answers, respectively. In those models the loop's own sensitivity contributes to the answer
-changes. It is a weak, finite-time instability over about a thousand thinking steps, and it acts on top of the rounding; it is
-not an asymptotic chaos measurement. Some copies ended thinking before their base row (14 in R1-Llama, 23 in QwQ),
-and the copies of one problem are not independent
-(\repo{docs/pi/pm2f-summary.json}, \repo{docs/pi/pm2f64b-summary.json}; 128 problems for each 7--8B model and
-96 for QwQ-32B).
+(The report's next paragraph, float64 copies of the reasoning pipelines, is omitted here: in R1-Qwen-7B the
+copies contract and 2.3 % of answers change; in QwQ-32B and R1-Llama-8B a weak finite-time instability over about a
+thousand thinking steps changes 13.5 and 18.4 % of answers on top of the rounding.)
 
 ## Questions
 
