@@ -1,0 +1,91 @@
+{
+  "at": "2026-10-19T02:12:11.487334+00:00",
+  "source_commit": "e8db350006098683ab170645bf7ee7c317ca3b56",
+  "session": 85428,
+  "identities": [
+    {
+      "pid": 3673915,
+      "starttime": 232247022,
+      "pgid": 3673915,
+      "sid": 3673915,
+      "state": "S",
+      "nice": 10,
+      "threads": 1,
+      "uid_line": "Uid:\t1000\t1000\t1000\t1000",
+      "cmdline": "/data2/neural-shrimp/.venv/bin/python -B codex/certify-chaos/supervise.py --plan codex/coexistence-task33/thin-pilot-001-plan.json --lane thin --source e8db350006098683ab170645bf7ee7c317ca3b56 ",
+      "limits": "Limit                     Soft Limit           Hard Limit           Units     \nMax cpu time              unlimited            unlimited            seconds   \nMax file size             unlimited            unlimited            bytes     \nMax data size             unlimited            unlimited            bytes     \nMax stack size            8388608              unlimited            bytes     \nMax core file size        0                    unlimited            bytes     \nMax resident set          unlimited            unlimited            bytes     \nMax processes             375398               375398               processes \nMax open files            65535                65535                files     \nMax locked memory         8388608              8388608              bytes     \nMax address space         1073741824           19327352832          bytes     \nMax file locks            unlimited            unlimited            locks     \nMax pending signals       375398               375398               signals   \nMax msgqueue size         819200               819200               bytes     \nMax nice priority         0                    0                    \nMax realtime priority     0                    0                    \nMax realtime timeout      200000               200000               us        \n"
+    },
+    {
+      "pid": 3673952,
+      "starttime": 232247040,
+      "pgid": 3673952,
+      "sid": 3673952,
+      "state": "R",
+      "nice": 10,
+      "threads": 1,
+      "uid_line": "Uid:\t1000\t1000\t1000\t1000",
+      "cmdline": "/data2/neural-shrimp/.venv/bin/python -I -B /home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/coexistence-task33/thin_pilot.py --card /home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/coexistence-task33/thin-pilot-001-card.json --out /data2/neural-shrimp-data/codex/coexistence/thin-pilot-001 ",
+      "limits": "Limit                     Soft Limit           Hard Limit           Units     \nMax cpu time              2600                 2600                 seconds   \nMax file size             134217728            134217728            bytes     \nMax data size             unlimited            unlimited            bytes     \nMax stack size            8388608              unlimited            bytes     \nMax core file size        0                    unlimited            bytes     \nMax resident set          unlimited            unlimited            bytes     \nMax processes             375398               375398               processes \nMax open files            65535                65535                files     \nMax locked memory         8388608              8388608              bytes     \nMax address space         19327352832          19327352832          bytes     \nMax file locks            unlimited            unlimited            locks     \nMax pending signals       375398               375398               signals   \nMax msgqueue size         819200               819200               bytes     \nMax nice priority         0                    0                    \nMax realtime priority     0                    0                    \nMax realtime timeout      200000               200000               us        \n"
+    }
+  ],
+  "capacity": {
+    "available_ram_bytes": 47479373824,
+    "disk_free_bytes": 2664599416832,
+    "loadavg": [
+      2.4482421875,
+      2.08935546875,
+      3.37060546875
+    ]
+  },
+  "limits": {
+    "as_bytes": 19327352832,
+    "cpu_seconds": 2600,
+    "wall_seconds": 2700,
+    "output_bytes": 134217728
+  },
+  "threads": {
+    "OMP_NUM_THREADS": "1",
+    "OPENBLAS_NUM_THREADS": "1",
+    "MKL_NUM_THREADS": "1",
+    "NUMEXPR_NUM_THREADS": "1"
+  },
+  "worker_startup": {
+    "identity": {
+      "pid": 3673952,
+      "starttime": 232247040,
+      "pgid": 3673952,
+      "sid": 3673952,
+      "state": "R",
+      "nice": 10,
+      "threads": 1,
+      "uid_line": "Uid:\t1000\t1000\t1000\t1000",
+      "cmdline": "/data2/neural-shrimp/.venv/bin/python -B codex/certify-chaos/supervise.py --plan codex/coexistence-task33/thin-pilot-001-plan.json --lane thin --source e8db350006098683ab170645bf7ee7c317ca3b56 ",
+      "limits": "Limit                     Soft Limit           Hard Limit           Units     \nMax cpu time              2600                 2600                 seconds   \nMax file size             134217728            134217728            bytes     \nMax data size             unlimited            unlimited            bytes     \nMax stack size            8388608              unlimited            bytes     \nMax core file size        0                    unlimited            bytes     \nMax resident set          unlimited            unlimited            bytes     \nMax processes             375398               375398               processes \nMax open files            65535                65535                files     \nMax locked memory         8388608              8388608              bytes     \nMax address space         19327352832          19327352832          bytes     \nMax file locks            unlimited            unlimited            locks     \nMax pending signals       375398               375398               signals   \nMax msgqueue size         819200               819200               bytes     \nMax nice priority         0                    0                    \nMax realtime priority     0                    0                    \nMax realtime timeout      200000               200000               us        \n"
+    },
+    "planned_argv": [
+      "/data2/neural-shrimp/.venv/bin/python",
+      "-I",
+      "-B",
+      "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/coexistence-task33/thin_pilot.py",
+      "--card",
+      "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/coexistence-task33/thin-pilot-001-card.json",
+      "--out",
+      "/data2/neural-shrimp-data/codex/coexistence/thin-pilot-001"
+    ],
+    "affinity": [
+      0
+    ],
+    "address_space": [
+      19327352832,
+      19327352832
+    ],
+    "cpu_seconds": [
+      2600,
+      2600
+    ],
+    "file_size": [
+      134217728,
+      134217728
+    ]
+  }
+}
