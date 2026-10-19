@@ -478,6 +478,39 @@
    "jaccard_chaotic_with_base": 0.0631
   },
   {
+   "condition": "p14",
+   "label": "long system prompt",
+   "prefix_tokens": 95,
+   "chaotic_share": 0.0734,
+   "chaotic_share_by_band": {
+    "cold (log10 T < -0.5)": 0.0022,
+    "middle (-0.5 to 0)": 0.0842,
+    "hot (log10 T >= 0)": 0.1721
+   },
+   "max_lambda": 0.6633,
+   "periodic_share": 0.9176,
+   "leading_periods": [
+    [
+     5,
+     5018
+    ],
+    [
+     2,
+     3344
+    ],
+    [
+     4,
+     1541
+    ],
+    [
+     3,
+     1539
+    ]
+   ],
+   "agreement_with_base": 0.9254,
+   "jaccard_chaotic_with_base": 0.3164
+  },
+  {
    "condition": "p15",
    "label": "two-turn conversation",
    "prefix_tokens": 63,
@@ -709,10 +742,5 @@
    "jaccard_chaotic_with_base": 0.8629
   }
  ],
- "failed": [
-  {
-   "condition": "p14",
-   "gate": "missing: /data2/neural-shrimp-data/explore/llm-soft-loop/pod64/bands/pv-p14/scan.npz"
-  }
- ]
+ "failed": []
 }

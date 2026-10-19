@@ -3296,7 +3296,7 @@ the data were collected; \emph{partly prospective}: some predictions or criteria
 the coexisting period-2 and period-3 orbits are proved; chaos labels are finite-horizon numerical results. Each \emph{code} entry links to the main tool or record in
 the project repository.}
 \label{tab:evidence}
-\small
+\footnotesize
 \zebrafalse
 \setlength{\aboverulesep}{0pt}\setlength{\belowrulesep}{0pt}\setlength{\tabcolsep}{5pt}
 \renewcommand{\arraystretch}{1.4}
@@ -5088,6 +5088,47 @@ Figure~\ref{fig:controls}): the output directions of the layer-12 neuron most sp
 with it 0.013, $-0.028$ and 0.022). Titles give the chaotic share.}
 \label{fig:neurons}
 \end{figure}
+\paragraph{The prompt.} Every 0.5B result above uses one prompt, so we mapped (run PV, \repo{tools/pv_summary.py}) the standard plane ($\alpha$ from
+$-0.12$ to $0.12$, $\log_{10}T$ from $-1$ to $0.3$; $128\times128$ float64 cells, philosophy direction at layer 12) under
+22 variants (Figure~\ref{fig:prompts}): each of its two parts alone, and neither (Qwen's default system prompt, which the
+chat template inserts when none is given); the system prompt's words in two random orders and the user message's two
+tokens reversed; an opposite system prompt; happy and sad versions of the system prompt and of the user message; the
+same texts without chat markup, a system prompt three times as long and a two-turn conversation; three prompts that are
+a single random vector, with no text at all; and the base prompt with the loop started from three random vectors.
+Every prompt gives chaos with periodic windows: 5.9 to 14.9\,\% of the plane is
+chaotic (7.0\,\% for the base prompt), with largest exponents of 0.62 to 0.85 per step. Removing the user message doubles the chaotic share, and even a prompt that is one random vector gives
+8 to 10\,\%. The prompt decides where the chaos lies, not whether it occurs: the
+chaotic cells of a variant overlap those of the base prompt by 1 to 37\,\%
+(Jaccard index). The start does not matter: from the three random starts the maps agree with the base map at
+98.9 to 99.0\,\% of the cells. Across the 19 prompts there is
+nonetheless a common structure (Figure~\ref{fig:promptfreq}): 48.3\,\% of the cells are chaotic for at
+least one prompt but only 3.0\,\% for half of them or more, and these hot spots lie at moderate
+steering of either sign in a band of temperature, where the mean fraction of chaotic cells per row peaks at 38\,\% near $\log_{10}T=0.15$, against 0.8\,\% below
+$\log_{10}T=-0.5$. The three random-vector prompts move the band to colder temperatures: their mean profile peaks
+near $\log_{10}T=0.03$, that of the text prompts near $0.16$.
+
+\begin{figure*}[tbp]
+\centering
+\includegraphics[width=\textwidth]{fig-prompt-variants.png}
+\caption{Every prompt gives chaos, at places that depend on the prompt (Qwen2.5-0.5B-Instruct, philosophy direction
+at layer 12, float64;
+$128\times128$ cells over $\alpha\in[-0.12,0.12]$ and $\log_{10}T\in[-1,0.3]$). (a) The chaotic share of the plane for
+each of 22 prefixes, grouped by the kind of change; dotted: the base prompt (the system prompt ``You are an AI talking
+with another AI\ldots'' and the user message ``Hello!''). (b) Eight of the maps (gray: periodic, darker where more
+contracting; colors: the largest exponent of chaotic cells). The exact texts and token identities of the prompts are in
+the project repository (\repo{docs/prompt-variants}).}
+\label{fig:prompts}
+\end{figure*}
+
+\begin{figure}[tbp]
+\centering
+\includegraphics[width=\columnwidth]{fig-prompt-frequency.png}
+\caption{Where the chaos is found across prompts. (a) For each cell of the plane of Figure~\ref{fig:prompts}, the
+fraction of the 19 prompt variants (the random-start runs left out) in which it is chaotic. (b) The mean
+fraction per temperature row, for all prompts, the text prompts and the three random-vector prompts.}
+\label{fig:promptfreq}
+\end{figure}
+
 \section{Limitations in detail}
 \label{sec:limits}
 The detailed orbit studies cover one model family (Qwen2.5, 0.5B and 1.5B), with coarse

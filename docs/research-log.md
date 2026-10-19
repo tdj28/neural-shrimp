@@ -30867,3 +30867,29 @@ conjugacy of the Rössler return map to unimodal maps, and orbits are traced by 
   - |cos| near 1 away from the critical visit;
   - Newton verification at representative cells (float64, exact Jacobian-vector products) before any word is quoted.
 - **Output:** llm-soft-loop/pod64/bands/sdw-c00..c15 and sdrm-c00..c02.
+
+## 2026-10-19 07:28 UTC: PV results (22 prompt variants, all gated) in both papers
+
+- p14 (long system prompt, 95 prefix tokens) ran out of GPU memory at chunk 2048. It was rerun as pv-p14b with
+  --chunk 512 (pod t3zfkme692w69k, A100 SXM, commit 1b1ef62a, rc 0). Same condition: the prefix file and grid are
+  identical, and only the batch size differs.
+- tools/pv_summary.py: all 22 maps pass the gates (grid equal to the base map's, prefix or start vector recorded, all
+  exponents finite). Summary: docs/pv/pv-summary.json.
+- From raw cell counts (128 x 128 cells; chaos = largest exponent above 1e-3):
+  - chaotic share over the 19 prompts: 5.93 % (p06, user tokens reversed) to 14.87 % (p01, system prompt only); base
+    p00 7.03 %. Removing the user message multiplies it by 2.12.
+  - The three single-vector prompts: 8.15-10.04 %.
+  - Largest exponents 0.620 (p13, no chat markup) to 0.849 (p02).
+  - Jaccard overlap of the chaotic cells with the base map: 1.18 % (p18) to 36.64 % (p08).
+  - The three random starts agree with the base map at 16211-16228 of 16384 cells (98.94-99.05 %).
+- Frequency map (tools/plot_pv_frequency.py; 19 prompts, the random-start runs left out):
+  - 48.3 % of cells are chaotic for at least one prompt, 3.0 % for half or more, none for all; the maximum cell
+    frequency is 16/19.
+  - The mean row fraction peaks at 38 % at log10 T = 0.146. Cold band (log10 T < -0.5): 0.8 %; hot band: 20 %.
+  - The text prompts' mean profile peaks at log10 T = 0.157, the vector prompts' at 0.034 (profile centroids -0.003 and
+    -0.223); in the cold band, vector prompts 3.5 % against 0.33 % for text prompts.
+- Papers:
+  - article: paragraph "The prompt" plus Figs. prompts and promptfreq;
+  - report: the same before "Limitations in detail".
+  - Range ends are computed from raw counts (scratchpad insert_pv.py, at the true extremes).
+- Report table tab:evidence was 6.6 pt too wide (since an earlier edit tonight); now set in footnotesize.
