@@ -450,14 +450,15 @@ orbits, the growth steering adds comes mainly from the readout, where next token
 \centering
 \includegraphics[width=0.5\linewidth]{fig-derivative-check.png}
 \caption{Formula \eqref{eq:gain} is exact up to rounding. At a state of the period-8 orbit of Table~\ref{tab:orbits}
-(Qwen2.5-0.5B-Instruct, philosophy direction at layer 12, $\alpha=0.071674$, $\log_{10}T=-0.115$, float64), the
-factorized derivative $T^{-1}\Sigma_p J_{\tilde h}(x)\,u$ (orange band) agrees with the network's forward-mode derivative
-$DF(x)\,u$ to a relative error of $3.8\times10^{-14}$ to $1.35\times10^{-13}$ in eight random unit directions $u$. For
-comparison, the gray lines show the error of central differences $(F(x+hu)-F(x-hu))/(2h)$ in the same directions. For
-large steps $h$ their error is truncation, which falls like $h^2$ as $h$ shrinks (dashed line, slope 2; fitted slopes
-1.98 to 2.00 for $10^{-4}\le h\le10^{-2}$); below $h\approx3\times10^{-6}$ rounding takes over and the error grows like
-$1/h$ (dotted line). At their best the finite differences reach $1.7\times10^{-9}$ to $4.8\times10^{-9}$, more than
-four orders of magnitude above the formula's error (arrow).}
+(Qwen2.5-0.5B-Instruct, philosophy direction at layer 12, $\alpha=0.071674$, $\log_{10}T=-0.115$, float64), in eight
+random unit directions $u$, each derivative is compared with the network's forward-mode derivative $DF(x)\,u$.
+(a) Central differences $(F(x+hu)-F(x-hu))/(2h)$. For large steps $h$ their error is truncation, which falls like
+$h^2$ as $h$ shrinks (dashed line, slope 2; fitted slopes 1.98 to 2.00 for $10^{-4}\le h\le10^{-2}$); below
+$h\approx3\times10^{-6}$ rounding takes over and the error grows like $1/h$ (dotted line). (b) Each direction's best
+central difference (open circles, $1.7\times10^{-9}$ to $4.8\times10^{-9}$) and the factorized derivative
+$T^{-1}\Sigma_p J_{\tilde h}(x)\,u$ of formula \eqref{eq:gain} (filled, $3.8\times10^{-14}$ to $1.35\times10^{-13}$),
+which has no step size: the formula agrees with forward mode more than four orders of magnitude more closely than
+any finite difference.}
 \label{fig:derivcheck}
 \end{figure}
 
