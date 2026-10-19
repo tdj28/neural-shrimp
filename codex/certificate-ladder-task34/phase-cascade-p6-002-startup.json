@@ -1,0 +1,160 @@
+{
+  "schema": "task34-phase002-root-startup-v1",
+  "recorded_utc": "2026-10-19T17:25:04.335425+00:00",
+  "source_commit": "9028465dfb8e7a9001b34a091cc61067b464d80e",
+  "session_id": 48701,
+  "launch_requested_utc": "2026-10-19T17:24:29.568931+00:00",
+  "launch_environment": {
+    "HF_HUB_OFFLINE": "1",
+    "CUDA_VISIBLE_DEVICES": "",
+    "OMP_NUM_THREADS": "1",
+    "OPENBLAS_NUM_THREADS": "1",
+    "MKL_NUM_THREADS": "1",
+    "NUMEXPR_NUM_THREADS": "1"
+  },
+  "admission": {
+    "path": "/data2/neural-shrimp-data/codex/certificate-ladder/phase-cascade-p6-002-supervision/admission.json",
+    "bytes": 9442,
+    "sha256": "bcd1b2f0e62b4b0843418b6b5bf39633efab4dc4341f4dece4f939047d82b2e0"
+  },
+  "worker_startup": {
+    "path": "/data2/neural-shrimp-data/codex/certificate-ladder/phase-cascade-p6-002-supervision/worker-startup.json",
+    "bytes": 2644,
+    "sha256": "e5da98b0f9a8bb440dcd3abc6c2c5f14c88fcf99ff38436153d868f434e0ea49"
+  },
+  "actual_supervisor_admission": {
+    "available_ram_bytes": 44169875456,
+    "disk_free_bytes": 2660385849344,
+    "loadavg": [
+      1.654296875,
+      1.6689453125,
+      2.90234375
+    ]
+  },
+  "root_supervisor_postexec": {
+    "pid": 787987,
+    "starttime": 237723364,
+    "pgid": 787986,
+    "sid": 787986,
+    "nice": 10,
+    "os_threads": 1,
+    "state": "S",
+    "argv": [
+      "/data2/neural-shrimp/.venv/bin/python",
+      "-I",
+      "-B",
+      "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/certify-chaos/supervise.py",
+      "--plan",
+      "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/certificate-ladder-task34/phase-cascade-p6-002-plan.json",
+      "--lane",
+      "phase",
+      "--source",
+      "9028465dfb8e7a9001b34a091cc61067b464d80e"
+    ],
+    "environment": {
+      "HF_HUB_OFFLINE": "1",
+      "CUDA_VISIBLE_DEVICES": "",
+      "OMP_NUM_THREADS": "1",
+      "OPENBLAS_NUM_THREADS": "1",
+      "MKL_NUM_THREADS": "1",
+      "NUMEXPR_NUM_THREADS": "1"
+    },
+    "status": "Name:\tpython\nUmask:\t0002\nState:\tS (sleeping)\nTgid:\t787987\nNgid:\t0\nPid:\t787987\nPPid:\t787986\nTracerPid:\t0\nUid:\t1000\t1000\t1000\t1000\nGid:\t1000\t1000\t1000\t1000\nFDSize:\t64\nGroups:\t4 24 27 30 46 122 134 135 137 140 992 997 1000 64055 \nNStgid:\t787987\nNSpid:\t787987\nNSpgid:\t787986\nNSsid:\t787986\nKthread:\t0\nVmPeak:\t   46340 kB\nVmSize:\t   45316 kB\nVmLck:\t       0 kB\nVmPin:\t       0 kB\nVmHWM:\t   19048 kB\nVmRSS:\t   18536 kB\nRssAnon:\t    7576 kB\nRssFile:\t   10960 kB\nRssShmem:\t       0 kB\nVmData:\t    9964 kB\nVmStk:\t     136 kB\nVmExe:\t   21664 kB\nVmLib:\t       0 kB\nVmPTE:\t     120 kB\nVmSwap:\t       0 kB\nHugetlbPages:\t       0 kB\nCoreDumping:\t0\nTHP_enabled:\t1\nuntag_mask:\t0xffffffffffffffff\nThreads:\t1\nSigQ:\t0/375398\nSigPnd:\t0000000000000000\nShdPnd:\t0000000000000000\nSigBlk:\t0000000000000000\nSigIgn:\t0000000001001000\nSigCgt:\t0000000000000002\nCapInh:\t0000000800000000\nCapPrm:\t0000000000000000\nCapEff:\t0000000000000000\nCapBnd:\t000001ffffffffff\nCapAmb:\t0000000000000000\nNoNewPrivs:\t0\nSeccomp:\t0\nSeccomp_filters:\t0\nSpeculation_Store_Bypass:\tthread vulnerable\nSpeculationIndirectBranch:\tconditional enabled\nCpus_allowed:\tffffffff\nCpus_allowed_list:\t0-31\nMems_allowed:\t00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000001\nMems_allowed_list:\t0\nvoluntary_ctxt_switches:\t123\nnonvoluntary_ctxt_switches:\t565\nx86_Thread_features:\t\nx86_Thread_features_locked:\t\n",
+    "limits": "Limit                     Soft Limit           Hard Limit           Units     \nMax cpu time              unlimited            unlimited            seconds   \nMax file size             unlimited            unlimited            bytes     \nMax data size             unlimited            unlimited            bytes     \nMax stack size            8388608              unlimited            bytes     \nMax core file size        0                    unlimited            bytes     \nMax resident set          unlimited            unlimited            bytes     \nMax processes             375398               375398               processes \nMax open files            65535                65535                files     \nMax locked memory         8388608              8388608              bytes     \nMax address space         1073741824           19327352832          bytes     \nMax file locks            unlimited            unlimited            locks     \nMax pending signals       375398               375398               signals   \nMax msgqueue size         819200               819200               bytes     \nMax nice priority         0                    0                    \nMax realtime priority     0                    0                    \nMax realtime timeout      200000               200000               us        \n",
+    "threads": [
+      {
+        "tid": 787987,
+        "starttime": 237723364,
+        "nice": 10,
+        "user_ticks": 236,
+        "system_ticks": 55,
+        "affinity": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19,
+          20,
+          21,
+          22,
+          23,
+          24,
+          25,
+          26,
+          27,
+          28,
+          29,
+          30,
+          31
+        ]
+      }
+    ]
+  },
+  "root_worker_postexec": {
+    "pid": 788101,
+    "starttime": 237723667,
+    "pgid": 788101,
+    "sid": 788101,
+    "nice": 10,
+    "os_threads": 1,
+    "state": "R",
+    "argv": [
+      "/data2/neural-shrimp/.venv/bin/python",
+      "-I",
+      "-B",
+      "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/certificate-ladder-task34/phase_preconditioner.py",
+      "--card",
+      "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/certificate-ladder-task34/phase-cascade-p3-001-card.json",
+      "--cell",
+      "cascade-p6",
+      "--out",
+      "/data2/neural-shrimp-data/codex/certificate-ladder/phase-cascade-p6-002"
+    ],
+    "environment": {
+      "HF_HUB_OFFLINE": "1",
+      "CUDA_VISIBLE_DEVICES": "",
+      "OMP_NUM_THREADS": "1",
+      "OPENBLAS_NUM_THREADS": "1",
+      "MKL_NUM_THREADS": "1",
+      "NUMEXPR_NUM_THREADS": "1"
+    },
+    "status": "Name:\tpython\nUmask:\t0002\nState:\tR (running)\nTgid:\t788101\nNgid:\t0\nPid:\t788101\nPPid:\t787987\nTracerPid:\t0\nUid:\t1000\t1000\t1000\t1000\nGid:\t1000\t1000\t1000\t1000\nFDSize:\t64\nGroups:\t4 24 27 30 46 122 134 135 137 140 992 997 1000 64055 \nNStgid:\t788101\nNSpid:\t788101\nNSpgid:\t788101\nNSsid:\t788101\nKthread:\t0\nVmPeak:\t 8643764 kB\nVmSize:\t 8577292 kB\nVmLck:\t       0 kB\nVmPin:\t       0 kB\nVmHWM:\t 5735888 kB\nVmRSS:\t 5669664 kB\nRssAnon:\t 5334664 kB\nRssFile:\t  335000 kB\nRssShmem:\t       0 kB\nVmData:\t 5792548 kB\nVmStk:\t     136 kB\nVmExe:\t   27308 kB\nVmLib:\t 1859028 kB\nVmPTE:\t   12224 kB\nVmSwap:\t       0 kB\nHugetlbPages:\t       0 kB\nCoreDumping:\t0\nTHP_enabled:\t1\nuntag_mask:\t0xffffffffffffffff\nThreads:\t1\nSigQ:\t0/375398\nSigPnd:\t0000000000000000\nShdPnd:\t0000000000000000\nSigBlk:\t0000000000000000\nSigIgn:\t0000000001001000\nSigCgt:\t0000000000000002\nCapInh:\t0000000800000000\nCapPrm:\t0000000000000000\nCapEff:\t0000000000000000\nCapBnd:\t000001ffffffffff\nCapAmb:\t0000000000000000\nNoNewPrivs:\t0\nSeccomp:\t0\nSeccomp_filters:\t0\nSpeculation_Store_Bypass:\tthread vulnerable\nSpeculationIndirectBranch:\tconditional enabled\nCpus_allowed:\t00000001\nCpus_allowed_list:\t0\nMems_allowed:\t00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000001\nMems_allowed_list:\t0\nvoluntary_ctxt_switches:\t566\nnonvoluntary_ctxt_switches:\t387\nx86_Thread_features:\t\nx86_Thread_features_locked:\t\n",
+    "limits": "Limit                     Soft Limit           Hard Limit           Units     \nMax cpu time              5080                 5080                 seconds   \nMax file size             134217728            134217728            bytes     \nMax data size             unlimited            unlimited            bytes     \nMax stack size            8388608              unlimited            bytes     \nMax core file size        0                    unlimited            bytes     \nMax resident set          unlimited            unlimited            bytes     \nMax processes             375398               375398               processes \nMax open files            65535                65535                files     \nMax locked memory         8388608              8388608              bytes     \nMax address space         12884901888          12884901888          bytes     \nMax file locks            unlimited            unlimited            locks     \nMax pending signals       375398               375398               signals   \nMax msgqueue size         819200               819200               bytes     \nMax nice priority         0                    0                    \nMax realtime priority     0                    0                    \nMax realtime timeout      200000               200000               us        \n",
+    "threads": [
+      {
+        "tid": 788101,
+        "starttime": 237723667,
+        "nice": 10,
+        "user_ticks": 1912,
+        "system_ticks": 1246,
+        "affinity": [
+          0
+        ]
+      }
+    ]
+  },
+  "source_blobs_authenticated": 21,
+  "actual_live_available_ram_bytes": 39280148480,
+  "numerical_threads": 1,
+  "observed_worker_os_threads": 1,
+  "receipt_present": false,
+  "limits_unchanged": true,
+  "scientific_qualification_admitted": false,
+  "certificate_passed": false,
+  "scope": "Actual live host postexec identities, commands, environment and limits verified against original records; no partial matrices or scientific spectrum read. Pinned source/card/plan remain frozen while running. No retry or extension."
+}

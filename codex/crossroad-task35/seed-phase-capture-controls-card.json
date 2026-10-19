@@ -1,0 +1,74 @@
+{
+  "schema": "codex-task35-seed-capture-mocked-controls-card-v1",
+  "prepared_utc": "2026-10-19T17:01:36.695577+00:00",
+  "status": "reviewed_for_one_new_mocked_control_run_after_private_checkpoint",
+  "helper": {
+    "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/crossroad-task35/seed_phase_capture.py",
+    "bytes": 3518,
+    "sha256": "c3cbc0705e5614138691926955ba1178dded961f86bc4008068a4d0d59354276"
+  },
+  "fixture": {
+    "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/crossroad-task35/test_seed_phase_capture.py",
+    "bytes": 10856,
+    "sha256": "16d1d9f0dfabf2926992c9297f63b5cfe02ccb54ba45f865602feb2983a517da"
+  },
+  "source_boundary": {
+    "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/crossroad-task35/seed-phase-retention-source-boundary.json",
+    "bytes": 4594,
+    "sha256": "f46885899aa670cac54464a534d58d6f48eb6f68368171a41742398519a4c4d5"
+  },
+  "preparation": {
+    "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/crossroad-task35/seed-phase-capture-preparation.md",
+    "bytes": 4055,
+    "sha256": "1f90c2ff668939cf46cedcd1366c27ac5bb0b870b69972ed0868b7f180b1b283"
+  },
+  "review": "Root and independent full source/fixture static review passed. No tests/imports occurred before this card.",
+  "test_methods": [
+    "test_01_exact_five_calls_and_immediate_callback_order",
+    "test_02_exact_legacy_distances_on_nonuniform_synthetic_states",
+    "test_03_callback_mutation_cannot_change_recurrence_or_distances",
+    "test_04_snapshots_are_independent_of_each_other_and_live_states",
+    "test_05_initial_callback_failure_makes_no_map_call",
+    "test_06_later_callback_failure_stops_and_preserves_earlier_evidence",
+    "test_07_invalid_initial_values_or_norm_never_reach_callback_or_map",
+    "test_08_invalid_initial_declared_metadata_never_reaches_map",
+    "test_09_late_invalid_state_preserves_only_valid_partial_callbacks",
+    "test_10_invalid_period_or_callback_is_refused_before_map",
+    "test_11_map_exception_propagates_without_later_calls",
+    "test_12_nonfinite_distance_refuses_after_preserving_all_finite_images"
+  ],
+  "argv": [
+    "/usr/bin/python3",
+    "-I",
+    "-B",
+    "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/crossroad-task35/test_seed_phase_capture.py"
+  ],
+  "environment": {
+    "OMP_NUM_THREADS": "1",
+    "OPENBLAS_NUM_THREADS": "1",
+    "MKL_NUM_THREADS": "1",
+    "NUMEXPR_NUM_THREADS": "1",
+    "HF_HUB_OFFLINE": "1",
+    "CUDA_VISIBLE_DEVICES": "",
+    "PYTHONDONTWRITEBYTECODE": "1"
+  },
+  "limits": {
+    "cpu_ids": [
+      0
+    ],
+    "nice": 10,
+    "as_bytes": 268435456,
+    "cpu_seconds": 30,
+    "wall_timeout_seconds": 40,
+    "file_size_bytes": 8388608
+  },
+  "result": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/crossroad-task35/seed-phase-capture-controls-001.json",
+  "startup_record": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/crossroad-task35/seed-phase-capture-controls-001-startup.json",
+  "stdout_record": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/crossroad-task35/seed-phase-capture-controls-001.stdout.txt",
+  "stderr_record": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/crossroad-task35/seed-phase-capture-controls-001.stderr.txt",
+  "old_controls_repeated": false,
+  "model_or_backend_calls_authorized": false,
+  "target_reads_authorized": false,
+  "target_execution_authorized": false,
+  "scope": "Exactly one new stdlib manufactured retention-interface fixture. Private checkpoint and fresh exclusive tiny-output paths required. No original arrays/assets/backend/model/source import beyond new helper. Not a Task34 startup/capacity check or Task35 numerical reservation."
+}
