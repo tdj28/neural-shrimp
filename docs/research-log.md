@@ -30728,3 +30728,21 @@ Disclosure: HR10 (launched 04:28 UTC) and HP5 (launched 04:38 UTC) went out with
   - The random-vector prompts may flatten the output distribution (a uniform readout gives a trivial fixed point);
     that is reported as such.
 - **Output:** `llm-soft-loop/pod64/bands/pv-<condition>`.
+
+## 2026-10-19 05:05 UTC: P6S-cusp2 result: both cusp candidates of the period-6 body's upper-left leg are located, with cubic coefficients of opposite sign
+
+Pods uw2yg2jnntlplg (A) and s8bsqho0lx4cyb (B), COMMUNITY H100 NVL, commit e3cb775c, runner rc 0, terminated. Each
+continued the leg's fold curve (p6s-tu-fold-wide2-a/-b) and ran tools/locate_curve_candidates.py --near on the tangent
+reversals, then cusp_locate.py --test cusp (3 rounds of 5). Results archives:
+runpod/soft64/20261019T034908Z (A) and 20261019T034913Z (B).
+
+| candidate | located at (alpha, log10 T) | oriented b (start -> end) | c | det J | critical multiplier | next modulus |
+|---|---|---|---|---|---|---|
+| A, index 64 | (0.06787651, -0.15131041) | -> 1.4e-5 | +6097 | 4.59e4 | 1 - 7.7e-10 | 0.739 |
+| B, index 82 | (0.06820591, -0.15032826) | 19.9 -> 9.5e-5 | -8006 | 2.20e5 | 1 + 8.2e-9 | 0.144 |
+
+All three checks pass for both (b small, c nonzero, unfolding regular); B's c plateau spread is 4.5 %. The two cusps
+share a segment of the fold curve and have cubic coefficients of opposite sign: the configuration of the period-5
+window's upper leg (Table IV), and a dovetail in the sense of Carcasses et al. With the cusp at the tip of the small
+window beyond the neck, the period-6 window now has three located cusps. Located points:
+p6s/locate-wide2-a-64/locate.json and p6s/locate-wide2-b-82/locate.json.
