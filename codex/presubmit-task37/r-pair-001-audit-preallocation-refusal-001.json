@@ -1,0 +1,14 @@
+{
+  "schema": "task37-saved-audit-preallocation-refusal-v1",
+  "recorded_at": "2026-10-19T11:40:26.711906+00:00",
+  "attempted_source": "8b2031c2c17d6c2726add4b2dacc117c7186ee72",
+  "observed_origin_main_after_refusal": "db248fc8043067b717a48b80e872a87d5a32f48b",
+  "tool_exit_code": 1,
+  "reason": "AssertionError: private checkpoint equality at supervise.py:47",
+  "stage": "Before supervision/output allocation and worker spawn",
+  "audit_output_exists": false,
+  "audit_supervision_exists": false,
+  "saved_checker_calls": 0,
+  "target_model_calls": 0,
+  "next_action": "Preserve refusal, ordinary merge of concurrent private main, new dated checkpoint and fresh admission for still-unused audit001; no bypass of equality gate and no numerical rerun."
+}
