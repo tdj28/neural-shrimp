@@ -30466,3 +30466,18 @@ docs/consults/2026-10-19-external-reviews/triage.md).
 - **Local seed test** (CPU, float64) at (0.072900, -0.15204), 2.3e-5 inside the flip curve: period 6, residual
   7.6e-14, leading multiplier -0.767 (real), next modulus 0.0022 (ratio 352). Output llm-soft-loop/p6s/orbit-seed-flipside.
 - **Try 3** uses this seed; grid and reading unchanged.
+
+### 2026-10-19 03:05 UTC: P6S-TDfold results (lower leg)
+
+- **TDfold-M** (pod 1o48sp2dtsurzm; rc 0; terminated 02:19 UTC): 39 points. Residual at most 9.0e-11, |g| at most
+  9.7e-10, multiplier +1 within 7.7e-8, real. Runs from the TD fold (0.073097, -0.160117) to (0.067974, -0.167338),
+  where it leaves the bounds.
+- **TDfold-P** (pod 8hrtsos5ukk0w7; rc 0; terminated 03:03 UTC): the job hit its 70-minute limit after 64 accepted
+  points.
+  - curve.json is written only at the end, so it was rebuilt from progress.jsonl, which carries every point with its
+    gates. The rebuilt file is marked partial.
+  - All 64 points pass: residual at most 9.9e-11, |g| at most 9.4e-10, multiplier +1 within 1.9e-8, real.
+  - Path: right along the lower leg to a cusp candidate at its right tip, (0.07682, -0.16048), index 27; back up-left
+    through (0.0746, -0.1586) and (0.0723, -0.1582); then to (0.0688, -0.1640), where the time limit stopped it.
+- **Reading.** The lower window's legs end in fold-curve turns: the located cusp at its tip and this candidate at the
+  right leg's end. The top body's cusps are being sought by P6S-wide.
