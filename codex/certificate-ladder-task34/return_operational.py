@@ -10,7 +10,7 @@ from pathlib import Path, PurePosixPath
 
 R=Path('/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp')
 DATA=Path('/data2/neural-shrimp-data');OWNED=DATA/'codex/certificate-ladder'
-RECEIVER=OWNED/'return-cascade-p3-001'
+RECEIVER=OWNED/'return-cascade-p3-002'
 SCI='42508b68a733acc4216b40d7b60215de36c5d543'
 PACKET_REL='codex/certificate-ladder-task34/cascade-p3-dispatch-001.json'
 PACKET_SHA='3167eeeec4329eeb1ed8f01ab9738a8173decaabaa021831ab1153a6dcd3c1bc'
@@ -148,7 +148,10 @@ def check_preflight(pre,names,packet):
  for k,bk in [('sys_version','python'),('numpy','numpy'),('torch','torch'),('python_flint','python_flint'),('flint','flint')]:require(val(k)==packet['expected_backend'][bk],'independent backend preflight differs')
  require(val('packet_sha256')==PACKET_SHA and val('hashes')==[],'packet/upstream preflight differs')
  require(val('data_root_real')==dict(symlinks_on_path=[],realpath=str(DATA)),'original data root differs')
- require(val('required_import_versions')==packet['required_import_versions'],'required import versions differ')
+ required=dict(packet['required_import_versions']);expected_imports=dict(required)
+ require(packet['expected_backend']['torch'].split('+',1)[0]==required['torch_distribution'],'independent Torch public version differs')
+ expected_imports['torch_distribution']=packet['expected_backend']['torch']
+ require(val('required_import_versions')==expected_imports,'required exact import versions differ')
  versions=packet['required_import_versions']
  require(val('third_party_imports')=={'flint':versions['python-flint'],'numpy':versions['numpy'],'safetensors':versions['safetensors'],'threadpoolctl':versions['threadpoolctl'],'tokenizers':versions['tokenizers'],'torch':packet['expected_backend']['torch']},'actual third-party import versions differ')
  require(val('git_head')==dict(head=SCI,origin_main_contains=True),'scientific Git preflight differs')

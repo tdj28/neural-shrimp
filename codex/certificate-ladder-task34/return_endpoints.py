@@ -32,7 +32,7 @@ def run(op_path,op_sha):
  resource.setrlimit(resource.RLIMIT_AS,(4*1024**3,)*2)
  resource.setrlimit(resource.RLIMIT_CPU,(240,)*2)
  start=time.monotonic()
- if op_path!=RAW/'return-cascade-p3-001/operational.json' or op_path.is_symlink() or digest(op_path)!=op_sha:raise ValueError('exact operational admission required')
+ if op_path!=RAW/'return-cascade-p3-002/operational.json' or op_path.is_symlink() or digest(op_path)!=op_sha:raise ValueError('exact operational admission required')
  op=json.loads(op_path.read_text()); rows=op['attempts']
  packet_path=HERE/'cascade-p3-dispatch-001.json'
  if digest(packet_path)!=PACKET_SHA:raise ValueError('independent dispatch packet differs')

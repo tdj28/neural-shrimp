@@ -1,0 +1,127 @@
+{
+  "schema": "codex-task34-return-operational-card-v1",
+  "stage": "prepared_requires_private_checkpoint_and_fresh_capacity",
+  "attempt": "return-cascade-p3-002",
+  "repository": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp",
+  "scientific_source": "42508b68a733acc4216b40d7b60215de36c5d543",
+  "packet": {
+    "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/certificate-ladder-task34/cascade-p3-dispatch-001.json",
+    "sha256": "3167eeeec4329eeb1ed8f01ab9738a8173decaabaa021831ab1153a6dcd3c1bc"
+  },
+  "sources": [
+    {
+      "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/certificate-ladder-task34/return_operational.py",
+      "sha256": "4a7a44b1a1ff2fdee05ebe5ff36895c687ac1b973589254d5ead48e11ffb4cc3"
+    },
+    {
+      "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/certificate-ladder-task34/returned_shard.py",
+      "sha256": "acd8d7d796c19276c9a94bc2df0cde67c900e74dd7ce1e04d4d6f3b0606021ac"
+    }
+  ],
+  "original_archives": [
+    {
+      "pod": "t34c-p3-a",
+      "stamp": "20261018T230927Z",
+      "sha256": "128fa5324e6b7db635b82c1cbcae79a48d4df6faed19544e8ca43aa915b63f53",
+      "outer_commit": "5b875468a3a0aa6a9cfc7b877d06dc4c531a6275"
+    },
+    {
+      "pod": "t34c-p3-b",
+      "stamp": "20261018T231244Z",
+      "sha256": "6d18bffb19da1de10bccce48efd3d98cc0419abb64c9b18415282c368ef38894",
+      "outer_commit": "5b875468a3a0aa6a9cfc7b877d06dc4c531a6275"
+    },
+    {
+      "pod": "t34c-p3-c",
+      "stamp": "20261018T231500Z",
+      "sha256": "edf78012e5c3117976d6a80671425b64a22078b1764117bea1266e494f1817c9",
+      "outer_commit": "5b875468a3a0aa6a9cfc7b877d06dc4c531a6275"
+    },
+    {
+      "pod": "t34c-p3-d",
+      "stamp": "20261018T231900Z",
+      "sha256": "80888148b02571ee760f8328ff3f14958a04cd40cd27bc25ebcb7ffd8ba7e858",
+      "outer_commit": "5b875468a3a0aa6a9cfc7b877d06dc4c531a6275"
+    },
+    {
+      "pod": "t34c-p3-e",
+      "stamp": "20261018T232110Z",
+      "sha256": "afcccaf169aaa49eef9c8b0f46071c26d862f188fc166025513911ce5443608f",
+      "outer_commit": "5b875468a3a0aa6a9cfc7b877d06dc4c531a6275"
+    },
+    {
+      "pod": "t34c-p3-f",
+      "stamp": "20261018T232322Z",
+      "sha256": "55444e2b7b7b899cddd502b50b591155fff9d724f3d0d4494155913586013bde",
+      "outer_commit": "5b875468a3a0aa6a9cfc7b877d06dc4c531a6275"
+    },
+    {
+      "pod": "t34c-p3-g",
+      "stamp": "20261018T232559Z",
+      "sha256": "ab5994ea2f551757af27639f89971e58230647faecb8d7870723f2b53ecb571b",
+      "outer_commit": "5b875468a3a0aa6a9cfc7b877d06dc4c531a6275"
+    },
+    {
+      "pod": "t34c-p3-h",
+      "stamp": "20261018T234622Z",
+      "sha256": "d10cf34c81ba464efa54d0b5931b0132fc86e999d6b29d8e6fabdbc3123047a1",
+      "outer_commit": "b23a0f20405f6a63a52523bf71e353a403414f37"
+    },
+    {
+      "pod": "t34c-p3-i",
+      "stamp": "20261018T234834Z",
+      "sha256": "ecb140b5e0259e84d218d306dfec20f9e475ab7423daef04eddcd871943d3be0",
+      "outer_commit": "b23a0f20405f6a63a52523bf71e353a403414f37"
+    }
+  ],
+  "resources": {
+    "cpu_affinity": [
+      0
+    ],
+    "threads": 1,
+    "nice": 10,
+    "address_space_bytes": 4294967296,
+    "cpu_seconds": 240,
+    "external_wall_seconds": 360,
+    "kill_after_seconds": 10,
+    "extraction_reservation_bytes": 12884901888,
+    "min_startup_available_bytes": 21474836480,
+    "max_aux_slots_including_timeout": 2
+  },
+  "expected_attempts": 42,
+  "expected_phase_columns": 2688,
+  "model_calls": 0,
+  "certificate_claim": false,
+  "retry_authorized": false,
+  "output": "/data2/neural-shrimp-data/codex/certificate-ladder/return-cascade-p3-002",
+  "measurement_basis": "Finite original file/hash/extraction audit; total native payload about2.2GB, outer plus materialized native about4.4GB. Accepted Task33 metadata audits established finite operation; conservative240CPU/360wall ceiling, no forecast guarantee.",
+  "controls": {
+    "operational_manufactured": 39,
+    "derivative_adapter_manufactured": 15,
+    "endpoint_allocation_manufactured": 5
+  },
+  "command": [
+    "timeout",
+    "--signal=TERM",
+    "--kill-after=10s",
+    "360s",
+    "taskset",
+    "-c",
+    "0",
+    "nice",
+    "-n",
+    "10",
+    "/data2/neural-shrimp/.venv/bin/python",
+    "-B",
+    "-u",
+    "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/certificate-ladder-task34/return_operational.py",
+    "--out",
+    "/data2/neural-shrimp-data/codex/certificate-ladder/return-cascade-p3-002"
+  ],
+  "amendment": "Packet public Torch distribution2.14.1 versus original actual2.14.1+cu130; exact expected_backend already pins2.14.1+cu130. Receiver schema bug; original scientific inputs/results untouched.",
+  "prior_refusal": {
+    "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/certificate-ladder-task34/return-operational-001-refusal.json",
+    "sha256": "53e08b5d62bfa29779d51b5ebc90db33e04daa33c8e9729f9aa6435453ef5e91"
+  },
+  "disclosed_receiver_repair": true
+}
