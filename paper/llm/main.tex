@@ -481,10 +481,12 @@ scales at which that block's derivative is taken, and so changes how strongly th
 the fed-back token; temperature changes
 this factor too, because it moves the orbit along which the factor is evaluated. On the two main maps both parameters
 move both factors (orbit averages along the trajectories of Figure~\ref{fig:normbounds}, power-iteration estimates).
-Grouping the cells by steering strength alone accounts for 7 and 33\,\% of the variance of the network term
-$\langle\log\|J_{\tilde h_\alpha}\|\rangle$ over the stripes map and the crossing window, and grouping them by
-temperature alone for 47 and 4\,\%; for the readout term $\langle\log(\|\Sigma_p\|/T)\rangle$ the shares are 30 and
-32\,\% (steering) and 21 and 27\,\% (temperature). Which of the two changes turns the loop chaotic is measured later in
+To measure how much each parameter matters, we asked how much of the variation of these orbit averages over a map
+steering strength explains on its own, as the share of the variance carried by the means over cells of equal
+$\alpha$, and how much temperature explains, by the means over cells of equal $T$. For the network term
+$\langle\log\|J_{\tilde h_\alpha}\|\rangle$, steering explains 7 and 33\,\% on the stripes map and the crossing
+window and temperature 47 and 4\,\%; for the readout term $\langle\log(\|\Sigma_p\|/T)\rangle$, steering explains
+30 and 32\,\% and temperature 21 and 27\,\%. Which of the two changes turns the loop chaotic is measured later in
 this section (``Steering makes tokens compete''). From here on we drop the subscripts of $DF$ and $J_{\tilde h}$ when
 $(T,\alpha)$ is fixed. Every condition that involves them, the gain condition and the threshold
 $T_*$ below among them, describes a region of the $(\alpha,T)$ plane, not a range of $T$ alone.
