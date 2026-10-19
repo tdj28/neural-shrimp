@@ -578,6 +578,33 @@ def cmd_returnmaps(args):
         plot_returnmaps(cells, zs, args, body)
 
 
+def plot_returnmaps_compact(one, two, zs, args):
+    """Single-column version: one cell whose return map has one turning point (the cleanest and most chaotic) and
+    one below the kite with two (the first of the full figure's (h)-(k))."""
+    import matplotlib
+    matplotlib.use("Agg")
+    import matplotlib.pyplot as plt
+    P = args.period
+    fig, axs = plt.subplots(1, 2, figsize=(3.4, 1.75))
+    for ax, (c, jb), title in ((axs[0], one, "(a) one turning point"), (axs[1], two, "(b) two, below the kite")):
+        z = zs[c["band"]]
+        s = z["return_projection"][c["row"], c["col"], jb, :, 0].astype(float)
+        cos = z["word_cos"][c["row"], c["col"], jb + P::P][: len(s) - 1]
+        ax.scatter(s[:-1], s[1:], c=np.where(cos > 0, "tab:blue", "tab:red"), s=1.2, lw=0)
+        ax.set_title(title, fontsize=7)
+        ax.set_xlabel(r"$s_n$", fontsize=7)
+        ax.tick_params(labelsize=5)
+        ax.ticklabel_format(style="sci", scilimits=(-2, 2), useMathText=True)
+        ax.xaxis.get_offset_text().set_fontsize(5)
+        ax.yaxis.get_offset_text().set_fontsize(5)
+    axs[0].set_ylabel(r"$s_{n+1}$ (six steps later)", fontsize=6.5)
+    fig.tight_layout(pad=0.3, w_pad=0.8)
+    Path(args.fig).parent.mkdir(parents=True, exist_ok=True)
+    fig.savefig(args.fig, dpi=300, bbox_inches="tight", pad_inches=0.02)
+    print(f"wrote {args.fig}: (a) ({one[0]['alpha']:.5f}, {one[0]['log10_temperature']:.5f}) phase {one[1]}, "
+          f"(b) ({two[0]['alpha']:.5f}, {two[0]['log10_temperature']:.5f}) phase {two[1]}")
+
+
 def plot_returnmaps(cells, zs, args, body):
     import matplotlib
     matplotlib.use("Agg")
@@ -602,6 +629,11 @@ def plot_returnmaps(cells, zs, args, body):
                 bim.append((c, best["phase"]))
     bim.sort(key=lambda cb: (cb[0]["alpha"] > 0.0728, cb[0]["log10_temperature"]))
     show_b = bim[:4]
+    if getattr(args, "compact", False):
+        c0 = picks[0]                           # its phase chosen as in the full figure
+        use = [p for p in c0["phases"] if p.get("usable")] or c0["phases"]
+        jb0 = max(use, key=lambda p: (p.get("separability") or 0, -p["weak_fraction"]))["phase"]
+        return plot_returnmaps_compact((c0, jb0), show_b[0], zs, args)
     nrow = 3 if show_b else 2
     fig = plt.figure(figsize=(10.0, 5.6 + (2.9 if show_b else 0)))
     gs = fig.add_gridspec(nrow, 4, width_ratios=[1.35, 1, 1, 1])
@@ -793,6 +825,8 @@ def main():
     r.add_argument("--margin", type=float, default=0.02, help="visits within this fraction of the spread of the turning "
                    "point are left out of the coding comparison")
     r.add_argument("--kneading-len", type=int, default=16)
+    r.add_argument("--compact", action="store_true", help="the article's single-column figure: one return map with one "
+                   "turning point and one with two")
     r.add_argument("--min-cos", type=float, default=0.5, help="visits with |cos| below this are near-critical (left out)")
     r.add_argument("--min-separability", type=float, default=0.99, help="unimodal: one threshold separates L from R "
                    "visits at this fraction in every usable phase")
