@@ -96,7 +96,7 @@ steering strength $\alpha\in[0.0625,0.0775]$ and the temperature, $\log_{10}T\in
 chaotic by the finite-horizon criterion of Appendix~\ref{sec:methods}, and the color gives their largest Lyapunov
 exponent (left color bar). In gray cells the model settles into a repeating loop of text, shaded by its largest
 exponent, which measures how strongly the loop contracts (right color bar; light gray: close to losing stability);
-4.4\,\% of the cells, also gray, have neither a detected period nor a positive exponent. Figure~\ref{fig:cross512} names the loops.}
+4.4\,\% of the cells, also gray, have neither a detected period nor an exponent above $10^{-3}$. Figure~\ref{fig:cross512} names the loops.}
 \label{fig:teaser}
 \end{figure}
 Several recent inference methods feed a language model its own continuous output. Soft Thinking replaces each sampled token by
@@ -3905,7 +3905,8 @@ chaotic labels, and at six chaotic cells the four leading exponents from QR iter
 to within $10^{-8}\max(1,\lVert x\rVert)$ of the state $q$ steps earlier ($10^{-5}$ to $10^{-4}$ in float32 maps), and
 the attractor is identified by its leading-token loop, up to rotation. We call a cell chaotic when this
 finite-horizon exponent exceeds $10^{-3}$ and no period is found; the label is a finite-horizon diagnostic, not a
-proof of chaos. We call what the trajectory from a cell's fixed start settles on the cell's attractor. The label is
+proof of chaos. The threshold matters little: raising it to $5\times10^{-3}$ lowers the chaotic share of the map of
+Figure~\ref{fig:teaser} from 30.1 to 29.8\,\%. We call what the trajectory from a cell's fixed start settles on the cell's attractor. The label is
 operational: it does not show that the set attracts initial conditions of positive measure, as Milnor's definition
 requires \cite{milnor1985concept}, and a long chaotic transient can carry a chaotic label \cite{grebogi1983crises}. A
 loop is at the edge of chaos when $|\lambda|\le0.1$. Maps draw the chaotic cells by this criterion: in color by their exponent where a map shows the exponent, in
