@@ -133,6 +133,8 @@ def main():
     ap.add_argument("--chaos-level", type=float, default=1e-3)
     ap.add_argument("--period", type=int, default=6, help="period of the body (for the boundary gate)")
     ap.add_argument("--clean", action="store_true", help="add a first panel with the map alone, without curves")
+    ap.add_argument("--extra", nargs="*", default=[], help="further explore-relative folders whose curves and located cusps "
+                    "are drawn too (e.g. llm-soft-loop/pod64/kite)")
     ap.add_argument("--head", type=float, nargs=2, default=None, metavar=("ALPHA", "LOG10T"),
                     help="mark the head (the body's most contracting point) with a white circle")
     ap.add_argument("--pseudo", type=float, nargs=2, default=None, metavar=("ALPHA", "LOG10T"),
@@ -166,6 +168,11 @@ def main():
 
     curves, report = load_curves(args.curves, args.max_residual, args.kind_tol)
     located = sorted((DATA / "explore" / args.curves).glob("locate-*/locate.json"))
+    for extra in args.extra:                     # e.g. the kite's fold curves and cusps (run KITE)
+        c2, r2 = load_curves(extra, args.max_residual, args.kind_tol)
+        curves += c2
+        report += r2
+        located += sorted((DATA / "explore" / extra).glob("locate-*/locate.json"))
     report_located = [{"locate": f.parent.name, "located": json.loads(f.read_text()).get("located")} for f in located]
     panels = (2 if args.follow else 1) + (1 if args.clean else 0)
     plt.rcParams.update({"font.size": 8})

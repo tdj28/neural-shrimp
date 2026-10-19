@@ -332,7 +332,8 @@ residual-stream vector after decoder layer 12 (of 24, counted from 0) is read at
 is the mean of these vectors over the philosophical texts minus their mean over the neutral texts. Third, it is
 rescaled to the mean residual norm at that layer over the 16 texts, $\lVert v\rVert=189$, so that $\alpha$ is the push
 as a fraction of a typical residual vector: $\alpha=0.07$ adds 7\,\% of one. The raw difference has norm 8.1, so
-$\alpha\approx0.043$ reproduces the natural contrast between the two groups of texts. During the loop, $\alpha v$ is
+$\alpha\approx0.043$ reproduces the natural contrast between the two groups of texts, and the values of
+Figure~\ref{fig:cross512}, 0.0625 to 0.0775, push 1.5 to 1.8 times as far. During the loop, $\alpha v$ is
 added to the output of layer 12 at every position, each prompt token and the fed-back soft token, in every forward
 pass, so that the prompt's keys and values are computed with the push as well (Figure~\ref{fig:loop}). The other
 concept directions (gratitude, hostility, kindness and cooking, each with eight sentences) are built the same way at
@@ -2269,7 +2270,7 @@ started from the orbit continued along the leg's fold curve (\repo{tools/leg_cen
 the body's family, with the body's text, is present at all 128 points from the body down to $\alpha_2=0.075$, the
 bound of the continuation (period 5 at 127, period 20 at one); one leg width beyond the fold none of them keeps it,
 and one leg width beyond the flip 118 of 128 carry the doubled orbit or chaos behind the same text
-(Figure~\ref{fig:realshrimp}a). Of 2173 cells computed, 1720 are on the attractor: 822 with period 5, 371 with period 10, 82 with
+(Figure~\ref{fig:realshrimp}b). Of 2173 cells computed, 1720 are on the attractor: 822 with period 5, 371 with period 10, 82 with
 period 20 and 11 with period 40, a few with periods 15, 30 and 50 inside chaotic bands, 240 chaotic behind the same
 text and 178 converging slowly. At $\log_{10}T=-0.105$ the followed domain has the same anatomy (1760 cells on the
 attractor; Figure~\ref{fig:shrimptemperature}): its period-5 body moves by $(+0.00085,+0.00236)$ in
@@ -2408,16 +2409,26 @@ Newton's method at that point (\repo{tools/kite_newton_at_R.py}), started from t
 to two distinct period-6 orbits (residuals $3\times10^{-14}$ and $2\times10^{-13}$), with the same six-token text but
 6.4\,\% of the mean state norm apart (the largest point distance after the best of the six cyclic alignments). Their
 leading multipliers, $-0.9952$ and $-1.0005$, miss $-1$ only because the point is the crossing of the two traced
-curves, whose nearest points lie 4.1 and 0.7 steps of the grid of Figure~\ref{fig:cross512} away. The crossing is a
+curves, whose nearest points lie 1.7 and 0.3 steps of the grid of Figure~\ref{fig:cross512} away. The crossing is a
 pseudo-crossing of curves on two sheets of the orbit family, the configuration at the corner R of Gallas's kite, where
 the flip curves of two coexisting fixed points cross \cite[Fig.~7]{gallas1994dissecting}. Inside the body near it, at
 $(0.0730,-0.1539)$, the orbit of the lower flip curve is attracting (leading multiplier $-0.797$); Newton's method from
-the other orbit did not converge there, which says nothing about whether that orbit exists. Continuations of each
-sheet's fold curves toward the kite's cusp were started; their results are not part of this version. The fold curve
-has three located cusps (Table~\ref{tab:p6cusps}): two along the upper-left leg that share a segment, with cubic
-coefficients of opposite sign, the configuration of the period-5 window's upper leg, and one at the tip of a small
-separate window beyond a narrow neck below the body, where the orbit is stable again after a doubling; two branches,
-run independently, trace that fold curve and its turn to within one curve step.
+the other orbit did not converge there, which says nothing about whether that orbit exists. The rest of the kite
+follows from continuation (Figure~\ref{fig:p6kite}; run KITE). Continued in $\alpha$ at fixed $\log_{10}T=-0.15395$ from
+the first orbit's flip, the branch is S-shaped: the orbit stays attracting up to a fold at $\alpha=0.072992$, the
+branch returns along the saddle to a second fold at $0.072793$, and it continues on the second orbit, which flips near
+$0.07301$; at that temperature the two attracting orbits coexist for $\alpha$ between 0.072907 and 0.072992. The second
+orbit, continued upward in $\log_{10}T$ from its flip at fixed $\alpha$, is attracting up to its own fold at
+$-0.153657$. The fold curves traced from the two folds turn back at the same point, the kite's cusp C, located at
+$(0.0730186,-0.1532803)$ (cubic coefficient $c=-1.33\times10^{4}$, unfolding determinant $\det J=-2624$, critical
+multiplier within $7.6\times10^{-9}$ of $+1$, next modulus $0.00095$), on the side of R toward the head. Its two
+branches meet the two flip curves at A $=(0.072991,-0.153984)$ and B $=(0.072900,-0.153707)$, completing the kite
+C--A--R--B of Gallas's cell. Besides C,
+the fold curves have five more located cusps (Table~\ref{tab:p6cusps}): near the ends of the upper-left and lower-left
+legs, two pairs that share a segment, each with cubic coefficients of opposite sign, the configuration of the period-5
+window's upper leg; and one at the tip of a small separate window beyond a narrow neck below the body, where the orbit
+is stable again after a doubling; two branches, run independently, trace that fold curve and its turn to within one
+curve step.
 
 On a $31\times31$ grid of the continued orbit over the body ($\alpha$ from 0.0724 to 0.0738, $\log_{10}T$ from $-0.1545$
 to $-0.1500$; 529 of 961 cells solved), the leading multiplier is nonzero at every solved cell. Its smallest modulus on the grid,
@@ -2438,9 +2449,9 @@ of the line, but it is not an established explanation (consult~18, \repo{docs/co
 at the minimum the third multiplier is comparable, and neither a saddle of $\delta$ nor a coupling of the two directions
 has been measured. Near the kite, where two orbits exist, curves that belong to different orbits can cross in the
 parameter plane without any degeneracy, as the superstable curves of Gallas's two coexisting fixed points do at his
-tail. With these qualifications the period-6 window meets the three numerical criteria along its body, with three
-located cusps: a second shrimp-shaped window of the full map, in the plane of Figure~\ref{fig:cross512} itself. Its
-coexistence region and the kite's cusp remain open.
+tail. With these qualifications the period-6 window meets the three numerical criteria along its body, with six located
+cusps and the kite of Gallas's cell: a second shrimp-shaped window of the full map, in the plane of
+Figure~\ref{fig:cross512} itself. The far parts of its legs remain unresolved.
 
 \begin{figure*}[tbp]
 \centering
@@ -2450,15 +2461,31 @@ layer 12; float64). (a) A $640\times640$ map of the window, centered on the body
 (b) The same map with the continued curves of the period-6 orbit: fold curves black, flip curves red and dashed; cyan
 diamond: the crossing of the two flip curves, where two distinct period-6 orbits are found (a pseudo-crossing). (c) The attractor followed from the body, on the grid of
 Figure~\ref{fig:cross512} and over a wider window, colored by its period (black: chaos behind the repeating text; gray:
-slow cells), with the same curves; gold stars: the three located cusps (Table~\ref{tab:p6cusps}).}
+slow cells), with the same curves; gold stars: the six located cusps (Table~\ref{tab:p6cusps}): the kite's cusp C, pairs near the
+ends of the upper-left and lower-left legs (the lower pair's stars overlap at this scale) and the tip of the small
+window beyond the neck. The fold curve through C is that of the kite (Fig.~\ref{fig:p6kite}).}
 \label{fig:p6shrimp}
+\end{figure*}
+\begin{figure*}[tbp]
+\centering
+\includegraphics[width=0.85\textwidth]{fig-p6-kite.png}
+\caption{The kite of the period-6 shrimp (Qwen2.5-0.5B-Instruct, philosophy direction at layer 12; float64). (a) The
+$640\times640$ map of Figure~\ref{fig:p6shrimp}a zoomed on the lower-left end of the body, with the body's two flip
+curves (red, dashed), the fold curve continued from the branch of (b) (black), and the corners of Gallas's kite: R,
+where the flip curves cross (two distinct orbits, one on each curve); A and B, where the fold curve meets them; C, the
+located cusp where the fold curve turns back (gold star). Green: the line $\log_{10}T=-0.15395$ of the branch, thick
+where the two attracting orbits coexist. (b) The branch: the orbit's position along the leading direction of the
+branch's states against $\alpha$, solid where the orbit is attracting and dashed where not; two folds (open circles)
+make it an S, and the two attracting sheets overlap in the shaded interval (\repo{tools/plot_p6_kite.py}).}
+\label{fig:p6kite}
 \end{figure*}
 \begin{table}[tbp]
 \centering
-\caption{The three located cusps of the period-6 window (float64), in the plane of $\alpha$ and $\log_{10}T$ (leg A and B:
-along the upper-left leg; neck: at the tip of the small window beyond the neck): position, cubic coefficient $c$ and
-unfolding determinant. At each cusp the oriented coefficient $b\operatorname{sign}a$ falls from 14.2 to 39.1 at the
-bracketing curve points to at most $9.5\times10^{-5}$ in modulus, the critical multiplier equals $+1$ to within
+\caption{The six located cusps of the period-6 window (float64), in the plane of $\alpha$ and $\log_{10}T$ (C: the cusp
+of the kite of Figure~\ref{fig:p6kite}; upper and lower A, B: pairs near the ends of the upper-left and lower-left legs;
+neck: at the tip of the small window beyond the neck): position, cubic coefficient $c$ and unfolding determinant. At
+each cusp the oriented coefficient $b\operatorname{sign}a$ falls from values between 2.4 and 39.2 at the bracketing curve
+points to at most $9.5\times10^{-5}$ in modulus, the critical multiplier equals $+1$ to within
 $8.2\times10^{-9}$, and the next has modulus at most 0.74 (located by \repo{tools/cusp_locate.py}; records
 \texttt{p6s/locate-*} in the data store, with checksums in the research log).}
 \label{tab:p6cusps}
@@ -2466,9 +2493,12 @@ $8.2\times10^{-9}$, and the next has modulus at most 0.74 (located by \repo{tool
 \toprule
 cusp & $(\alpha,\log_{10}T)$ & $c$ & $\det J$ \\
 \midrule
-leg A & $(0.0678765,\ -0.1513104)$ & $+6.10\times10^{3}$ & $4.59\times10^{4}$ \\
-leg B & $(0.0682059,\ -0.1503283)$ & $-8.01\times10^{3}$ & $2.20\times10^{5}$ \\
-neck & $(0.0748392,\ -0.1595956)$ & $-4.02\times10^{4}$ & $4.47\times10^{3}$ \\
+C & $(0.0730186, -0.1532803)$ & $-1.33\times10^{4}$ & $-2.62\times10^{3}$ \\
+upper A & $(0.0678765, -0.1513104)$ & $+6.10\times10^{3}$ & $4.59\times10^{4}$ \\
+upper B & $(0.0682059, -0.1503283)$ & $-8.01\times10^{3}$ & $2.20\times10^{5}$ \\
+lower A & $(0.0694974, -0.1602656)$ & $-2.25\times10^{3}$ & $2.09\times10^{4}$ \\
+lower B & $(0.0695513, -0.1601114)$ & $+2.01\times10^{3}$ & $2.20\times10^{4}$ \\
+neck & $(0.0748392, -0.1595956)$ & $-4.02\times10^{4}$ & $4.47\times10^{3}$ \\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -4407,7 +4437,7 @@ the flip within $1.5\times10^{-4}$ in $\alpha_1$ (Figure~\ref{fig:lowerleg}d).
 \includegraphics[width=\linewidth]{fig-lower-leg.png}
 \caption{The lower-left leg of the period-5 shrimp and its own curves (Qwen2.5-0.5B-Instruct, gratitude at block~4 and
 hostility at block~16, $\log_{10}T=-0.1$, float64; \repo{tools/plot_lower_leg.py}). (a) The followed domain (colors as
-in Figure~\ref{fig:realshrimp}a) with the fold (black) and flip (red, dashed) curves of the orbit marched into the leg
+in the followed domain of Figure~\ref{fig:realshrimp}b) with the fold (black) and flip (red, dashed) curves of the orbit marched into the leg
 (pink: the 68 cells of the march), the curves continued from the body (gray), the located cusps (gold stars) and the
 cusp flagged on the leg's fold curve (white star); the follow grid ends at $\alpha_2=0.086$ (dotted). (b) The centers of
 all period-5 cells of the leg (white dots) lie between the flip curve and the fold curve. (c) The width of the strip
