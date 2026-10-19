@@ -1,0 +1,15 @@
+{
+  "recorded_utc": "2026-10-19T10:14:08.249939+00:00",
+  "status": "prepared_before_execution",
+  "task": "Task39 go/no-go article4ca5b5e; isolated source bundle packaging check",
+  "source_commit": "4ca5b5e35bc766581a5e2d326858fcd0edc312bb",
+  "builder_sha256": "0641e45a9031cdcc1b5f21bdd210869689e68a4a42a203d51d0f7eb8c309581b",
+  "runner_sha256": "39c259a18d9c3288e286a281f70a3d2ddd7876bb8195784368372d4b40c29759",
+  "snapshot_manifest": "/data2/neural-shrimp-data/scratch/audit-codex-1019/task39-build-001/source-snapshot.json",
+  "snapshot_manifest_sha256": "6c35f767fc5abb0df0cc8d83ed40c1fd3f8720c065d9738ab1b347ca01e235a9",
+  "execution": "run_build_check.py invokes original builder from scratch clone, not producer checkout; fixed fresh allocation. Preserve any failed output; no retry.",
+  "limits": "one packaging lane onCPU1 nice10, numerical threads1,4GiB AS/300CPU perprocess,360wall external,20GiBstartup/16GiBruntime available floor,128MiB perfile. R-pair remains CPU0 under its own fixed caps. Short TeX child processes remain below12total.",
+  "expected_checks": "Original builder rebuilds canonical scratch PDF, assembles stripped TeX+required figures+bbl+00README; extracts a fresh archive and runs pdflatex three times without shell escape or BibTeX/custom TEXINPUTS. Compare text/pages; inspect logs then render PDF pages. No target numerical model calls.",
+  "source_review": "Entire original builder read: removes only fresh scratch stage/test dirs, no network; comment stripping refuses unsafe syntax; archive members constrained; all producer files read-only.",
+  "privacy_scope": "Inspect upload members/text/PDF metadata for unintended private content; author name/email are intended article metadata. No public release or repository visibility action."
+}
