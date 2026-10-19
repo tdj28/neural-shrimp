@@ -355,8 +355,10 @@ def plot_words(a, t, lam, status, word_idx, labels, mss, P, fig_path, zoom=None,
     handles = [Patch(color=WORD_COLORS[W], label=f"{W or '(empty)'}: period {P * (len(W) + 1)}, {present[W]} cells"
                      + (" (not confirmed)" if W in unconfirmed else "")) for W in listed]
     if others:
+        n_unc = sum(1 for W in others if W in unconfirmed)
+        note = (f"{n_unc} not confirmed, {len(others) - n_unc} not checked" if n_unc else "not checked")
         handles.append(Patch(color=OTHER_COLOR, label=f"{len(others)} other MSS words, periods {min(P * (len(W) + 1) for W in others)}"
-                             f" to {max(P * (len(W) + 1) for W in others)}: {sum(present[W] for W in others)} cells (not checked)"))
+                             f" to {max(P * (len(W) + 1) for W in others)}: {sum(present[W] for W in others)} cells ({note})"))
     handles += [Patch(color=(1, 0, 1), label="on a superstable curve (X = C)"), Patch(color=(0.88, 0.88, 0.88), label="chaotic"),
                 Patch(color=(0.55, 0.55, 0.55), label="other periodic"), Patch(color=(0.30, 0.30, 0.30), label="no word (gate failed)")]
     fig.legend(handles=handles, fontsize=5.8, loc="upper center", bbox_to_anchor=(0.5, 0.995), ncol=4, frameon=False,
@@ -596,7 +598,8 @@ def plot_returnmaps(cells, zs, args, body):
         elif not c["domain"]:
             img[rr, c["col"]] = (0.6, 0.6, 0.6)
         else:
-            img[rr, c["col"]] = (0.2, 0.6, 0.2) if c.get("unimodal_all_phases") else (0.8, 0.2, 0.2)
+            ok = (c.get("errors_over_minority") is not None and c["errors_over_minority"] <= args.max_errors)
+            img[rr, c["col"]] = (0.2, 0.6, 0.2) if ok else (0.8, 0.2, 0.2)   # the text's criterion
     axm.imshow(img, origin="lower", extent=[a[0], a[-1], t[0], t[-1]], aspect="auto", interpolation="nearest")
     for i, c in enumerate(picks):
         axm.text(c["alpha"], c["log10_temperature"], str(i + 1), fontsize=7, ha="center", va="center",
@@ -773,6 +776,8 @@ def main():
     r.add_argument("--min-cos", type=float, default=0.5, help="visits with |cos| below this are near-critical (left out)")
     r.add_argument("--min-separability", type=float, default=0.99, help="unimodal: one threshold separates L from R "
                    "visits at this fraction in every usable phase")
+    r.add_argument("--max-errors", type=float, default=0.05, help="coded unimodally: L/R misplacements at most this "
+                   "fraction of the minority symbol over the usable phases (the figure's green)")
     r.add_argument("--max-weak", type=float, default=0.1, help="a phase is usable when at most this fraction of its visits "
                    "is near-critical")
     r.add_argument("--max-bend", type=float, default=45.0, help="a phase is usable when its band turns less than this "
