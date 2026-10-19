@@ -784,7 +784,7 @@ temperature rows (gain split) or over held-out cells (crossover). Runs MECH and 
 \includegraphics[width=\linewidth]{fig-morph-samples.png}
 \caption{The soft-token map of Qwen2.5-0.5B-Instruct (steering at layer 12) while the steering direction rotates at
 constant norm from one Gaussian direction ($0^{\circ}$) to another ($90^{\circ}$): largest Lyapunov exponent (color bar; clipped at $\pm0.5$, red positive) at six of 103 angles, with the chaotic share. Float32 maps of $296\times512$ cells over
-$\alpha\in[-0.12,0.12]$, $\log_{10}T\in[-0.45,0.3]$; exponents from 80 measured steps at twin offset $10^{-4}$; each map
+$\alpha\in[-0.12,0.12]$, $\log_{10}T\in[-0.45,0.3]$; exponents from 80 measured steps at twin offset $10^{-4}$ and periods up to 24; each map
 continues from the final states of the previous angle after 40 steps, and every tenth starts from the fixed start
 after 300 steps. Where attractors coexist, continued and fresh starts can reach different ones, so the maps, and the
 rotation video, can jump at every tenth angle and across the 17 of 120 planned angles that did not finish within
@@ -1780,7 +1780,7 @@ $-0.156$, which we followed furthest, at the $768\to1536$ flip.
 \includegraphics[width=0.86\linewidth]{fig-feigenbaum-tree.png}
 \caption{The Feigenbaum tree of the crescent cascade (Qwen2.5-0.5B-Instruct, philosophy direction at layer 12,
 $\log_{10}T=-0.156$): float64 line scans of 1600, 1360 and 1000 cells, each with 3000 transient steps and 256 recorded
-states projected on the unit steering direction (red: chaotic cells). (a) The whole cut: period 3 doubles into chaos,
+states projected on the unit steering direction (red: chaotic cells, with no period up to 48). (a) The whole cut: period 3 doubles into chaos,
 which ends at $\alpha=0.065278$, where the attractor jumps to a strongly contracting period-2 orbit. (b, c) Zooms in
 both coordinates on the branch boxed in the panel above, showing the doublings $6\to12\to24\to48$ and
 $24\to48\to96\to192$. Dashed lines: flips located by Newton's method (Table~\ref{tab:cascade156}); dotted line: the
@@ -2478,8 +2478,8 @@ Figure~\ref{fig:cross512} itself. The far parts of its legs remain unresolved.
 layer 12; float64). (a) A $640\times640$ map of the window, centered on the body, colored as Figure~\ref{fig:cross512}.
 (b) The same map with the continued curves of the period-6 orbit: fold curves black, flip curves red and dashed; cyan
 diamond: the crossing of the two flip curves, where two distinct period-6 orbits are found (a pseudo-crossing); gold star: the kite's cusp C. (c) The attractor followed from the body, on the grid of
-Figure~\ref{fig:cross512} and over a wider window, colored by its period (black: chaos behind the repeating text; gray:
-slow cells), with the same curves; gold stars: the six located cusps (Table~\ref{tab:p6cusps}): the kite's cusp C, pairs near the
+Figure~\ref{fig:cross512} and over a wider window, colored by its period (black: chaos behind the repeating text, an exactly repeating text with no period up to 64 and an exponent of at
+least 0.005; gray: slow cells, the same with an exponent below 0.005), with the same curves; gold stars: the six located cusps (Table~\ref{tab:p6cusps}): the kite's cusp C, pairs near the
 ends of the upper-left and lower-left legs (the lower pair's stars overlap at this scale) and the tip of the small
 window beyond the neck. The fold curve through C is that of the kite (Figure~\ref{fig:p6kite}).}
 \label{fig:p6shrimp}
@@ -2665,7 +2665,7 @@ distance two grid cells of the eligible domain's edge.
 \caption{Return maps of the six-band chaos around the period-6 shrimp (Qwen2.5-0.5B-Instruct, philosophy direction at
 layer 12, float64; 1000 transient and 3000 recorded steps per cell). (a) The cells of a $48\times48$ map of the window of
 Figure~\ref{fig:p6shrimp}a: chaotic cells writing the six-token text that pass the pooled coding test (green: misplaced visits
-below 5\,\% of the rarer symbol's, pooled over the usable phases) or fail it (red), other chaotic cells (gray) and periodic cells (white). (b--g) Six-step return maps at six green
+below 5\,\% of the rarer symbol's, pooled over the usable phases) or fail it (red), other cells with an exponent above $10^{-3}$ (gray) and periodic cells (white). (b--g) Six-step return maps at six green
 cells: the position along one band (its first principal axis) against the position at the previous visit; blue:
 visits where the six-step derivative is positive (L), red: negative (R). (h--k) Return maps at four red cells (letters
 in (a)) with more than one turning point.}
