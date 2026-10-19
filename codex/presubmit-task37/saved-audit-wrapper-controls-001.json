@@ -1,0 +1,30 @@
+{
+  "schema": "task37-saved-wrapper-controls-result-v1",
+  "source_commit": "0f957ef738a9703cf182460ed0b610e7fdf76820",
+  "private_checkpoint_verified_before_execution": true,
+  "control_count": 8,
+  "target_model_calls": 0,
+  "saved_numerical_checker_calls": 0,
+  "source_files": [
+    {
+      "path": "codex/presubmit-task37/run_saved_numerics.py",
+      "sha256": "091c70ce93616586611ad6005512999f073900b9c8c7bd516b5b23f92a292cd3"
+    },
+    {
+      "path": "codex/presubmit-task37/test_run_saved_numerics.py",
+      "sha256": "a5f1a6c5bee9bc11c437b6a7dbbdcfbc7f7fe156ea207c67a045734082775e9a"
+    }
+  ],
+  "tool_result": {
+    "chunk_id": "dda2b8",
+    "wall_time_seconds": 0.107582903,
+    "exit_code": 0,
+    "original_token_count": 279,
+    "output": "test_01_fixed_paths_and_no_checker_override (__main__.WrapperControls.test_01_fixed_paths_and_no_checker_override) ... ok\ntest_02_exact_hash_before_allocation (__main__.WrapperControls.test_02_exact_hash_before_allocation) ... ok\ntest_03_missing_and_symlink_paths_refused (__main__.WrapperControls.test_03_missing_and_symlink_paths_refused) ... ok\ntest_04_output_is_created_once_without_parent_creation (__main__.WrapperControls.test_04_output_is_created_once_without_parent_creation) ... ok\ntest_05_success_exit_keeps_scientific_false_flags (__main__.WrapperControls.test_05_success_exit_keeps_scientific_false_flags) ... ok\ntest_06_failure_exit_and_report_are_unchanged (__main__.WrapperControls.test_06_failure_exit_and_report_are_unchanged) ... ok\ntest_07_uncaught_error_and_partial_report_survive (__main__.WrapperControls.test_07_uncaught_error_and_partial_report_survive) ... ok\ntest_08_unexpected_normal_return_is_not_success (__main__.WrapperControls.test_08_unexpected_normal_return_is_not_success) ... ok\n\n----------------------------------------------------------------------\nRan 8 tests in 0.012s\n\nOK\n"
+  },
+  "elapsed_seconds_rounded_up": 0.107583,
+  "output_scope": "Tool-captured combined command output, retained verbatim; unittest reports 0.012 seconds internally.",
+  "scientific_verdict_admitted": false,
+  "certificate_passed": false,
+  "recorded_at": "2026-10-19T11:03:58.791250+00:00"
+}
