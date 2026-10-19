@@ -30448,3 +30448,12 @@ docs/consults/2026-10-19-external-reviews/triage.md).
   - The crossing must be approached from all four sectors, with the sign of mu alternating around it.
   - Otherwise the result is reported as found: curves that do not cross, a single curve, or an unclean region
     that hides the crossing.
+
+### 2026-10-19 02:31 UTC: DSS6 try 1 refused at the seed; relaunched from a real-multiplier seed
+
+- **Try 1** (pod fdh3e7hw8pa7wl, about 3 min, no grid computed). The tool refused at the seed (0.073097, -0.15204):
+  "leading multiplier at the seed is 0.01008 + 0.01249i (next 0.0161): choose a seed away from the superstable
+  curves". The factor chain needs a real, dominant leading multiplier at its seed. The body's most contracting cell
+  has a complex leading pair, as the period-5 window had near its head.
+- **Try 2.** Seed (0.073200, -0.15204), inside the body, about 9e-5 in alpha from the fold curve, where the leading
+  multiplier is real and near +1. Same grid and reading.
