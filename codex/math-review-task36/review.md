@@ -1,8 +1,8 @@
 # Task36 mathematics review
 
-Status: article pass in progress; immediate findings below are ready for triage. Full-report pass follows. Reviewed article `/data2/chaos-journal-neural-shrimp/main.tex`, SHA256 `5a37af4762daab697afe41ac13b492d5d9b7ab1cd2e610056d6f64a0b559ed6a`, at 2026-10-19T00:39Z. Line numbers refer to that snapshot. Papers are not edited. This is a source/logic review, not a new numerical experiment or re-audit of closed certificates.
+Status: article pass complete at 2026-10-19T00:46Z; full-report pass in progress. The article findings are ranked below; report-only additions follow before the final checked-correct list. Reviewed article `/data2/chaos-journal-neural-shrimp/main.tex`, SHA256 `5a37af4762daab697afe41ac13b492d5d9b7ab1cd2e610056d6f64a0b559ed6a`, at 2026-10-19T00:39Z. Line numbers refer to that snapshot. Papers are not edited. This is a source/logic review, not a new numerical experiment or re-audit of closed certificates.
 
-The exact feedback-map mathematics and local computer-assisted proof statements appear substantially stronger than the geometry interpretations. The current blockers concern what the measured spectral diagnostics imply, not the existence of the previously certified periodic orbits.
+The feedback map can support distinct stable periodic behaviors, and the existing local certificates establish those behaviors at their exact parameters. The core map/derivative algebra and local proof logic checked here are sound. The geometry, symbolic-dynamics and universality summaries need the corrections below. The current blockers concern what the measured spectral diagnostics imply, not the existence of the previously certified periodic orbits.
 
 ## Blocking
 
@@ -34,6 +34,42 @@ The exact feedback-map mathematics and local computer-assisted proof statements 
 - **Problem/evidence:** Exact transverse linearization is (1−2c)DF, hence negativity requires abs(1−2c)exp(lambda1)<1. For lambda1>0 and0≤c≤1, this gives c*<c<1−c*. The displayed lower-threshold-only statement is valid on0≤c≤1/2, not the entire coupling interval.
 - **Replacement:** “For0≤c≤1/2, the transverse Lyapunov exponent is lambda1+log(1−2c), so it becomes negative above c*. More generally the condition is abs(1−2c)<exp(−lambda1).” This is a local asymptotic transverse condition, not a global synchronization guarantee.
 
+### A6. The 65 repeating-text cells do not all have text period seven
+
+- **Location/text:** article `main.tex:833–834`, “In65 of them … repeats exactly, with period7.”
+- **Problem/evidence:** Report `paper/llm/main.tex:2048–2049` says65 repeating-text cells, of which59 have a period divisible by7, most often7 or28. Accepted Task19 stress records also retain periods10 and28. This is a contradiction between manuscript summaries, not a new raw-array recount. The strongest illustrated cell's period must not be assigned to all65.
+- **Replacement:** “In65 of them the leading token repeats throughout the2000recorded steps;59 have a text period divisible by seven. The strongest example shown below has period seven.” Preserve the existing finite-horizon qualification.
+
+### A7. A finite token record does not establish a non-generating partition
+
+- **Location/text:** article `main.tex:842–843`, “the partition … is not generating”; report `paper/llm/main.tex:2057–2059` repeats it.
+- **Problem/evidence:** Generation is an infinite-itinerary property, or an almost-everywhere property relative to a specified invariant measure. Even a generating partition associates many states with one finite word. A2000-step repeating word and positive finite-time growth do not establish identical infinite itineraries for distinct orbits. The report itself says the sampled groups are not proved invariant. See Eisele1999, sections2–4, https://chaosbook.org/library/Eisele99.pdf, on finite words versus infinite symbolic codes.
+- **Replacement:** “The finite leading-token record hides the state variability and positive finite-time growth observed here. This is consistent with non-generating token coding on the putative chaotic set, but does not establish that infinite-itinerary property.” The directly supported behavioral observation remains strong without the formal generating claim.
+
+### A8. Numerical noise has no unconditional cannot-hide-chaos guarantee
+
+- **Location/text:** article `main.tex:439–443`, “can fake a positive exponent but does not hide one”; report `paper/llm/main.tex:768–772` repeats the broad summary.
+- **Problem/evidence:** The maximum formula is a simplified noise-floor model. Noise can change the orbit, its sampled distribution or its basin; rounding can erase a twin separation. The report itself records lower noisy estimates at3509–3510, lower float32 values at3517–3527, noise-induced order at3535–3537 and identical rounded rows at3540–3542. Its angular recurrence also needs stronger assumptions than independent noise alone; see the report-only derivation finding below.
+- **Replacement:** “In a simplified noise-floor model, additive numerical error can produce a spurious positive twin estimate, approximately max{lambda, log(sqrt(2)sigma/epsilon)}. Rounding can also suppress separation or change the sampled dynamics, so we compare offsets and tangent estimates rather than use this approximation as a one-sided guarantee.”
+
+### A9. Finite spectra and scalar fits do not force a scalar reduction or universality
+
+- **Location/text:** article `main.tex:840–841`, “follows a smooth map with a single quadratic maximum”; `1063–1066`, “which is why one-dimensional maps and Feigenbaum's ratios describe these orbits”; `790–792`, general strongly dissipative universality wording. Report `paper/llm/main.tex:2532–2537` strengthens this to “inevitable.”
+- **Problem/evidence:** A fitted return relation need not be an autonomous scalar factor or a coordinate on an invariant curve. Partial finite spectra and Kaplan–Yorke estimates do not establish either. Strong dissipation alone does not force a cascade, and a unimodal family need not traverse the required bifurcations. Collet–Eckmann–Koch, DOI10.1007/BF01008475, treats suitable analytic families, not arbitrary dissipative maps. The report's own two-logistic-map example at2079–2088 states the relevant limitation.
+- **Replacement:** “On the sampled range, a degree-eight scalar fit has a single quadratic maximum.” In the discussion: “The finite spectra and singular-value ratios support strong effective contraction in the sampled directions and motivate the scalar approximations. The measured cascade separately provides finite evidence consistent with Feigenbaum scaling; no global one-dimensional invariant reduction is established.” Say scaling also occurs in suitable strongly dissipative higher-dimensional families, rather than follows from dissipation alone.
+
+### A10. The discussion overstates what derivative factorization establishes
+
+- **Location/text:** article `main.tex:1050–1051`, factorization “explains where the chaos lies and how steering creates it.”
+- **Problem/evidence:** The identity decomposes growth; it is not a sufficient chaos criterion or a causal autonomous intervention result. Article330–337 explicitly says short-block inequalities do not locate chaos, and409–416 says frozen-path factor swaps do not show that a readout-only change sustains an attractor. The summary drops both restrictions, contrary also to accepted Consult17B03.
+- **Replacement:** “The factorization gives sufficient high-temperature contraction and conditional low-temperature bounds, and separates readout-side and network-side contributions to growth along recorded orbits.” No numerical result needs changing.
+
+### A11. The rank-one explanation needs its measured spectral discrepancy
+
+- **Location/text:** article `main.tex:1024–1026`, “eigenvalues small because its leading left and right singular vectors are nearly orthogonal”; report `paper/llm/main.tex:2246–2251` says “not because a second direction matters.”
+- **Problem/evidence:** For the rank-one truncation the formula lambda=sigma1(v1 dot u1) is exact, but its eigenvalue is not the full matrix's eigenvalue. The report gives lambda about−0.00027 versus actual leading moduli0.0034–0.0036, about13times larger. The discarded spectral-norm remainder is sigma2, approximately65×0.00018=0.0117 at that phase, larger than the full leading modulus. Small relative singular-value error does not guarantee a small relative eigenvalue error for a strongly nonnormal matrix. This does not refute the near-rank-one observation or the explanatory relevance of near orthogonality.
+- **Replacement:** “The leading rank-one truncation is nearly nilpotent because its singular vectors are nearly orthogonal. It illustrates how a large one-return norm can coexist with small eigenvalues, but its eigenvalue is about13times smaller than the full leading modulus; the residual terms matter for the full spectrum.” Remove the exclusion of the second direction without an actual error bound.
+
 ## Minor
 
 ### A5. Fourth-leg caption contradicts the stated period count
@@ -42,7 +78,35 @@ The exact feedback-map mathematics and local computer-assisted proof statements 
 - **Problem:** “Family” can include doubled descendants, but the caption can be read as all128points having primitive period5. The text already provides the exact exception; preserve it in the caption.
 - **Replacement:** “All128sampled points retain the followed family:127have period5 and one has period20.”
 
-## Checked and found correct so far
+### A12. Strongest contraction is not established by the stated root solve
+
+- **Location/text:** article `main.tex:1021`, “This point of strongest contraction”; report `paper/llm/main.tex:2240` repeats it.
+- **Problem/evidence:** Solving two characteristic-coefficient conditions finds their common zero, not a minimum of spectral radius or an induced norm. The same paragraph reports a norm near65. No optimization or lower-bound comparison establishing the strongest point is described.
+- **Replacement:** “This strongly asymptotically attracting candidate head” or “this point with small leading multiplier moduli.” Keep near-nilpotent as an explicitly descriptive label, not a matrix-norm bound or exact nilpotency claim.
+
+### A13. State the uniform-gap condition in the low-temperature preview
+
+- **Location/text:** article `main.tex:295–297`, “excludes chaos … wherever a margin separates”; `339–347`, “uniform logit gap.”
+- **Problem/evidence:** The intended sufficient condition is a positive gap delta0 independent of both state and sufficiently small temperature, at fixed alpha. A positive gap at each temperature can shrink as O(T) and does not imply decay of the derivative. The body may intend the stronger meaning of uniform; this is a quantifier correction, not a failed derivation. With D=diam(E), ||Sigma||<=D²(V−1)exp(−delta0/T), so ||DF||<=L D²(V−1)exp(−delta0/T)/T uniformly.
+- **Replacement:** “At fixed steering strength, sufficiently low temperature excludes positive Lyapunov exponents on invariant sets whose winning-logit gaps stay uniformly bounded away from zero as T tends to zero.” This does not establish global exclusion near ties or a unique fixed point on a nonconvex invariant set.
+
+### A14. Keep Kingman's invariant-measure and asymptotic qualifications
+
+- **Location/text:** article `main.tex:332–333`, the subadditive theorem “guarantees convergence as k grows”; report `paper/llm/main.tex:549–575`.
+- **Problem/evidence:** Kingman's theorem is an almost-everywhere asymptotic statement for invariant-measure-typical orbits (with its integrability hypotheses), not a bound on an arbitrarily selected later finite segment of the fixed start. The source distinguishes disjoint dyadic bounds from overlapping-window averages; only the former bound growth over the same complete finite record. The empirical comparison with the subsequent2000-step estimate remains valid as an empirical comparison.
+- **Replacement:** “Kingman's theorem supplies an asymptotic invariant-measure statement without a rate; the agreement here between finite windows of the recorded orbit and a later exponent estimate is empirical.” See the exact overlapping-window counterexample in the report-only findings.
+
+### A15. Keep the unique-maximum qualification in the zero-temperature summary
+
+- **Location/text:** article `main.tex:1054–1055` and `1104–1105`, greedy token cycles at zero temperature.
+- **Problem/evidence:** The body at343–345 correctly says a tie yields the average of the tied embeddings. The limit has finite image and is eventually periodic, but its cycles need not consist of single token embeddings.
+- **Replacement:** “Where each visited state has a unique maximizing token, the zero-temperature limit is greedy decoding with one-token memory and its eventual cycles are token cycles.” Elsewhere say finite-valued limit agreeing with greedy decoding away from ties.
+
+## Full-report pass
+
+Report-only findings are being finalized against snapshot SHA256 `d709c5acc8afb7557fb0c3ff1730d0b2c8bcf41bb143a237084dd6c3d1bd8816`. Article findings with report locations above apply to both.
+
+## Checked and found correct
 
 - Article859–882 distinguishes shooting-root uniqueness in the full product box from uniqueness of all F^p roots in the first box; correct scope.
 - Proper-divisor separation at shifts1,2,4 suffices for period8; prime periods2/3 need shift1. Different primitive periods imply different orbits.
@@ -51,4 +115,21 @@ The exact feedback-map mathematics and local computer-assisted proof statements 
 - Façanha2013 Fig4,p1267 supports TypeA loop and TypeB avoidance geometry, but as trace skeletons of a two-dimensional map, not automatically dominant-real signs of896dimensions.
 - The one-dimensional Gallas quartic, fold/flip multiplier values and head/tail distinction are compatible with Gallas1994pp204–205; a finite observation of doubled shells remains finite evidence, not an infinite-mosaic theorem.
 
-Further source/section findings and full checked-correct list will be added after the article pass and then the full-report pass. Scanned Carcassès/Mira primary PDFs require page inspection; filenames labelled2012 contain the original1991/1992articles, so filename date is not bibliographic authority.
+- Exact autonomous state definition: fixed prefix/positions and one fed-back slot; no growing cache. Dense-model positive-epsilon RMSNorm, SiLU and attention yield a smooth/analytic map for T>0; hard MoE routing is correctly excepted.
+- The convex hull of embeddings is invariant and absorbing after one step. Brouwer gives a fixed point; compact continuity gives invariant probability measures. Bounded log-plus derivative norm supports the forward/noninvertible Oseledets filtration, with possible minus-infinity exponents and almost-everywhere scope.
+- Softmax differentiation gives E^T(diag(p)−pp^T)J_z/T. Tied output weights give Sigma_p J_h/T; untied weights give Cov_p(e,w)J_h/T with the correct orientation. An untied cross-covariance need not be symmetric or positive semidefinite.
+- Popoviciu gives ||Sigma||<=diam(E)^2/4; the untied bound is diam(E)diam(W)/4 by Cauchy–Schwarz. On the compact convex hull, a uniform derivative bound<1 yields global contraction after the first iterate. Sampled power-iteration norms are correctly not treated as certified upper bounds on the global L.
+- The fixed-state low-temperature leading exponential covariance term is correct. At ties the limiting embedding average and finite-image eventual periodicity are correct; see A13/A15 for summary conditions.
+- The tied identity-network Hopfield energy argument is valid: convexity gives energy decrease by at least half the squared step; compactness implies steps tend to zero and accumulation points are fixed. Nontrivial cycles are excluded. Untied embeddings can cycle without the transformer; the body states that exception.
+- The directional gain identity telescopes with the printed norm-correction sign. The frozen-path intervention/body interpretation is correctly conditional on the recorded orbit; A10 addresses the broader discussion claim.
+- Fold passage prefactors agree with the oriented quadratic normal form: full-channel pi and midpoint pi/2, with arctangent differences for finite boundaries. The one-third reinjection fraction is empirical, not universal. Fold coefficients are applied to the classified +1 crossing, flips to−1; current cascade source has its final critical-reality/test-function/Ritz-residual acceptance guard.
+- For z'=−(1+beta)z+c z^3, the leading doubled-cycle amplitude sqrt(beta/c) and doubled multiplier1−4beta+O(beta²) are correct. Complement stability still needs its separate multiplier checks.
+- The article reports finite cascade location uncertainty as estimated rather than certified, and numerical chaos/basin labels as finite-horizon. No infinite cascade or asymptotic-chaos proof was inferred.
+
+## Review scope and sources
+
+This is a derivation, source and interpretation review, not a new model run or a repeat certificate audit. It reads the exact article first and the corresponding mathematical portions of the full report second, checks source formulas and accepted finite evidence where relevant, and preserves all failed or unresolved records. It does not newly certify historical model execution, asymptotic chaos, global invariant curves or an exhaustive bibliography.
+
+Primary source checks used Gallas1994pp204–205; Façanha–Oldeman–Glass2013pp1265–1267 and Fig4; the original Carcassès/Mira quartic models; Collet–Eckmann–Koch's publisher record; and Kingman/Oseledets primary mathematical statements. The local Carcassès/Mira filenames labelled2012 contain the original1991/1992articles, so filename dates are not bibliographic authority. Kingman's publisher DOI is10.1214/aop/1176996798; the invariant-measure hypotheses were also checked in Filip, Theorem3.5.2, https://arxiv.org/html/1710.10694. The noninvertible Oseledets distinction is discussed in González-Tokman–Quas, pp1–2, https://web.uvic.ca/~aquas/papers/paper41.pdf. No private manuscript text was sent to external search.
+
+Accepted Task19 evidence was reused rather than rerun: synthesis SHA256 `66feba6283cd4ac70738d17699a0bee64c7fec8386a9d8ff434da9fac129914f`, stress04 note `3e1cf27f1f0313d156421ed3f6d8117430b0f23a3c229f2ebb1c304a623e9bf2`, stress13 note `6004cce7a60a35ed66263b0ea116b3bd5e8aa94cfa4834811bbecfb9d52719de`. No manuscript, producer tools, shared research log or public artifact was edited.
