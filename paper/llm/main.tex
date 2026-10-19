@@ -1597,8 +1597,8 @@ resulting $ab=122.927$ leaves every passage prediction of Table~\ref{tab:passage
 \paragraph{Controlled passages.} In the oriented coordinate $v=\operatorname{sign}(b)\,u$ of
 Appendix~\ref{sec:methods}, we start trajectories at $v=-U$ or $0$ ($U=0.1/|b|$) and count $G$-iterates until
 $v>U$. At four distances from the fold, the measured counts match the iterated normal form within
-one iterate (Table~\ref{tab:passages}, Figure~\ref{fig:passages}), and a transverse displacement of the same norm
-changes the count by at most one.
+one iterate (Table~\ref{tab:passages}, Figure~\ref{fig:passages}), and a displacement of the start of the same size, in a
+direction that leaves $u$ unchanged, changes the count by at most one.
 \begin{table}[H]
 \centering\small
 \begin{tabular}{rccc}
@@ -1626,13 +1626,20 @@ count $N$, together with the full- and half-passage predictions.}
 \label{fig:passages}
 \end{figure}
 
-\paragraph{Natural reinjection and the window law.} Free trajectories re-enter the channel slightly upstream of
-the bottleneck's middle ($v\approx-3\times10^{-4}$ to $-7\times10^{-4}$, in the same oriented coordinate). From each measured entry point, the
-normal form predicts the natural laminar durations within 4--8\% for $\eps\le10^{-4}$, and a natural passage lasts
-about 0.6 of a full one. The stripes therefore follow the $N^{-2}$ law of a saddle-node ghost
-\cite{strogatz1989predicted,strogatz2018nonlinear} (log-log slope $-2.00$,
-below), with about a third of
-the full-passage prefactor; the two fractions agree because the prefactor scales as the square of the passage
+\paragraph{Natural reinjection and the window law.} Left to itself, a trajectory near the fold alternates between
+laminar phases, in which it crawls through the bottleneck close to where the 2-cycle was and moves almost
+periodically, and bursts, short excursions out of the channel after which it is reinjected into it
+(Figure~\ref{fig:fold}d). This alternation is type-I intermittency \cite{pomeau1980intermittent,hirsch1982theory};
+laminar is the fluid-dynamics term for the smooth stretches between turbulent bursts. Free trajectories re-enter the
+channel slightly upstream of the bottleneck's middle ($v\approx-3\times10^{-4}$ to $-7\times10^{-4}$, in the same
+oriented coordinate). From each measured entry point, the normal form predicts the natural laminar durations within
+4--8\% for $\eps\le10^{-4}$, and a natural passage lasts about 0.6 of a passage through the whole channel. A window of
+period $p$ spends $N=(p-6)/2$ iterates of $G$ in the bottleneck, one for each ``is X'' pair it writes. For a channel
+much longer than the bottleneck a full passage takes about $\pi/\sqrt{ab\,\eps}$ iterates, so a loop whose passage is
+a fraction $f$ of a full one sits at the distance $d_N=\alpha_N-\alpha_c$ from the fold for which
+$d_NN^2=f^2\pi^2/(ab)$. The stripes therefore follow the $N^{-2}$ law of a saddle-node ghost
+\cite{strogatz1989predicted,strogatz2018nonlinear} (log-log slope $-2.00$, below), with about a third of the
+full-passage prefactor $\pi^2/(ab)=0.0803$; the two fractions agree because the prefactor scales as the square of the passage
 fraction ($0.58^2\approx1/3$). The distances $d_N=\alpha_N-\alpha_c$ of stripe centers located on a float32 cut along
 $\log_{10}T=-0.115$ give $d_N N^2=0.0263$--$0.0265$ for $N=4$--$7$ (log-log slope $-2.00$), compared with $\pi^2/(4ab)=0.0201$ for a half passage. Two-step return maps of $p(\text{``it''})$ (Figure~\ref{fig:returnmaps}) show the near-tangency.
 
