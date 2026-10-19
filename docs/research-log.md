@@ -30189,3 +30189,18 @@ summary. A fold curve must keep a real +1 and a flip curve a real -1.
   - criteria as in the P9S run card.
 - **HR9 continues unchanged.** Its window, alpha [0.0709, 0.0763] x log10 T [-0.1635, -0.1445], contains both
   windows.
+
+### 2026-10-19 02:05 UTC: P6S-orbit result (local CPU, float64): the left shrimp's body orbit is a primitive, strongly attracting period-6 orbit
+
+At the seed (alpha 0.073097, log10 T -0.15204), after the transient, Newton converged on a period-6 orbit.
+- **Residual and primitivity.** Residual 1.6e-14. The smallest distance from the first point to the other five
+  points is 0.278, so the period is primitive.
+- **Text.** The orbit's most probable tokens read "The", " question", "\n\n", "The", " existence", "\n\n", the
+  loop of family 6.
+- **Multipliers.** The leading multipliers are a complex pair, 0.01008 +/- 0.01249i (modulus 0.0161); the next
+  one is real, -0.00101; spectral radius 0.016.
+- **Reading.** Deep inside the body, the orbit is very strongly contracting, as expected near the center of a
+  window. Its leading pair is complex, so here, as in the period-5 shrimp, the leading multiplier does not pass
+  through zero along a single real direction. Whether the head has Type A or Type B geometry is left to the trace
+  curves of the P6S continuation.
+- Output: llm-soft-loop/p6s/orbit-seed (orbit.json, orbit-state.npy), 260 s on 8 CPU threads.
