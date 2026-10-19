@@ -30775,3 +30775,21 @@ p6s/locate-wide2-a-64/locate.json and p6s/locate-wide2-b-82/locate.json.
     lower-left end at the flip crossing R: one straight down along the left flip curve, one to the lower left.
 - **Consult 18** (review and adjudication in docs/consults/2026-10-19-avoided-crossing/): the avoided-crossing mechanism is
   not established. The papers give a conditional geometric model, not a cause.
+
+## 2026-10-19 06:11 UTC: KITE-LA result and run card KITE-C (locate the kite's cusp)
+
+KITE-LA (pod assh00n2ljsujf, H100 NVL, commit 341ba1d9, rc 0, terminated; results runpod/soft64/20261019T050034Z):
+- The branch of the ad-sheet orbit, seeded at its flip point (0.0729070, -0.1539515) and continued in alpha at fixed
+  log10 T, is S-shaped:
+  - stable from the flip (alpha 0.072907) to a fold at alpha 0.072992 (the multiplier passes +1);
+  - back along the saddle to a second fold at alpha 0.072793;
+  - then forward on the td-sheet orbit to its flip between 0.073007 and 0.073016.
+- At this temperature the two attracting orbits therefore coexist for alpha between 0.072907 and 0.072992: the kite's
+  coexistence region, established by continuation.
+- The fold curve continued from the first fold (120 points each way, every point gated): curve-plus has tangent
+  reversals at index 14 (0.073018, -0.153285), just up and to the right of the flip crossing R, and at indices 94 and
+  112 (0.069498, -0.160264; 0.069551, -0.160112); curve-minus has none.
+
+Run card KITE-C (exploratory): locate the three reversals with tools/locate_curve_candidates.py --only 14 94 112
+(cusp_locate.py --test cusp), one H100 pod, toolseq. Reading: a located cusp at index 14 would be the kite's cusp C, on
+the side of R toward the head, as in Gallas's cell. A failed location is reported as such.
