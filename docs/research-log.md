@@ -31302,7 +31302,7 @@ nearly identical under protan vision.
   loop around the lens is read from that picture and reported as found.
 - **Outputs:** llm-soft-loop/pod64/dss/ditch2d-b0 ... ditch2d-b3.
 
-## 2026-10-19 20:10 UTC: colorblind fixes of the article figures (descriptive; audit in the scratchpad, decisions by the human)
+## 2026-10-19 20:09 UTC: colorblind fixes of the article figures (descriptive; audit in the scratchpad, decisions by the human)
 
 - **Decisions (human):** the Lyapunov-map coloring stays as it is (Figs. 1, 2a, 9 left, 10 left, 19b, 20a, 21a; also
   the RdBu maps of Figs. 7, 8); maps with more than about eight categories keep their palettes (Figs. 2b, 9 right); no

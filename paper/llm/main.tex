@@ -155,8 +155,10 @@ Jacobians come from automatic differentiation, and its periodic orbits can be co
 any smooth map. Chaos and periodic windows occur in many nonlinear feedback systems. Random-network theory, in which
 a specified ensemble of recurrent networks becomes chaotic above a critical gain, in continuous time
 \cite{sompolinsky1988chaos} and in discrete time by a quasi-periodic route \cite{doyon1994bifurcations}, and the
-period-doubling cascades and shrimp-shaped domains of low-dimensional maps \cite{feigenbaum1978quantitative,gallas1993structure}
-motivate looking for such structure here, but they do not show that a trained network realizes it. We test this
+period-doubling cascades and shrimp-shaped domains of low-dimensional maps \cite{feigenbaum1978quantitative,gallas1993structure},
+and the cascade to chaos of fixed-step gradient descent, studied as a map rather than through its gradient-flow limit, in
+exactly solvable models of deep networks, where the edge of stability is the first bifurcation of the training map
+\cite{hofmann2026map}, motivate looking for such structure here, but they do not show that a trained network realizes it. We test this
 directly. We locate chaos and periodic windows in the models' parameter space, read the texts the loop writes there,
 and check whether bifurcation theory, applied to derivatives computed from the model, predicts its behavior before
 the behavior is measured. The models realize this structure, and the predictions largely hold. We also show what the loop's derivative says about where chaos can occur and where the growth that steering adds comes from (Section~\ref{sec:theory}; Section~\ref{sec:picture} assembles the pieces into one picture), and that larger models do not simply leave it behind (Section~\ref{sec:sizemain}). Ordinary sampled generation with a growing context is a different
@@ -1836,7 +1838,8 @@ deviations from $\delta=4.6692$ are $-1.55$, $-0.17$, $-0.048$, $-0.0074$, $-0.0
 sign, from the third on each step closes the gap by a factor of 3.5 to 6.5 (the location uncertainty of the period-384
 flip, given below, leaves the last factor undetermined), and Aitken's $\Delta^2$ extrapolation of the last three
 ratios gives $4.6694$. Universality of this kind occurs in suitable strongly dissipative families of any
-dimension \cite{feigenbaum1979universal,collet1981period}. The last ratio uses the flip of the period-768 orbit (the
+dimension \cite{feigenbaum1979universal,collet1981period}, among them the training map of gradient descent in solvable models of deep
+networks \cite{hofmann2026map}. The last ratio uses the flip of the period-768 orbit (the
 $768\to1536$ flip), located with $|\mu+1|=4.1\times10^{-7}$. The penultimate flip, of the period-384 orbit,
 approaches the precision floor of its multiplier, a product of 384 step Jacobians. On an H100 the computed $\mu+1$
 scatters by $1.8\times10^{-5}$ about a straight line near the root; under that local linear fit, the largest residual
