@@ -30746,3 +30746,32 @@ share a segment of the fold curve and have cubic coefficients of opposite sign: 
 window's upper leg (Table IV), and a dovetail in the sense of Carcasses et al. With the cusp at the tip of the small
 window beyond the neck, the period-6 window now has three located cusps. Located points:
 p6s/locate-wide2-a-64/locate.json and p6s/locate-wide2-b-82/locate.json.
+
+## 2026-10-19 05:43 UTC: HR10 and HP5 results: fine fixed-start maps of both shrimps; figures redrawn
+
+- **HR10** (period-6 shrimp, Fig. 1's plane):
+  - all 16 bands returned (rc 0, terminated); stitched to `llm-soft-loop/pod64/hr10/scan.npz` (sha256 b29668a41c6d906d...), 640 x 640
+    cells, all exponents finite;
+  - 66.5 % of the cells are chaotic; 59,234 cells have a period that is a multiple of 6;
+  - Figure: `paper/llm/figures/fig-p6-shrimp.png` (plot_p6_shrimp.py --clean --head 0.073053 -0.15120 --pseudo
+    0.072912 -0.154104), with record `fig-p6-shrimp.json`;
+  - curves drawn: every point passed the gate (residual <= 1e-8, critical multiplier within 1e-3 of +-1 in the figure
+    gate; 1e-7 in the continuation gate).
+- **HP5** (period-5 shrimp, two-block plane, log10 T -0.1):
+  - all 16 bands returned; stitched by tools/stitch_tb_bands.py to `llm-soft-loop/pod64/hp5/map.npz` (sha256 f94f0a93ffdd2596...),
+    512 x 512, all finite;
+  - 60.4 % of the cells are chaotic;
+  - inside the followed domain (run FA), the fixed start reaches the window's family (period a multiple of 5) in
+    58.8 % of the cells, another periodic attractor in 24.3 % (period 4: 6501 cells; 8: 430; 16: 89; 32: 16), chaos in
+    12.2 % and neither in 4.7 %.
+  - Figure `paper/llm/figures/fig-real-shrimp.png` redrawn with plot_real_shrimp.py --closeup (panels a, b from HP5;
+    c, d unchanged); boundary gate unchanged: 276 of 292 flip pairs and 717 of 754 fold pairs within one step
+    (`docs/fa/fa-100-summary-closeup.json`).
+- **Reading (descriptive).**
+  - From the fixed start at this resolution, the period-5 window reads as a recognizable shrimp: a body bounded by the
+    curved fold, dark lines inside, three legs and an X-shaped junction. The human found the old figure "mangled"; it
+    showed only the followed domain on a 1.25e-4 grid.
+  - The period-6 close-up shows the body, the flip region along its bottom, and the two lower legs leaving its
+    lower-left end at the flip crossing R: one straight down along the left flip curve, one to the lower left.
+- **Consult 18** (review and adjudication in docs/consults/2026-10-19-avoided-crossing/): the avoided-crossing mechanism is
+  not established. The papers give a conditional geometric model, not a cause.
