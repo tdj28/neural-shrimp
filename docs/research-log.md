@@ -31206,3 +31206,17 @@ conjugacy of the Rössler return map to unimodal maps, and orbits are traced by 
   alpha from 0.072965 (-0.5 rows) and 0.072967 (-1 row).
 - **Papers.** Report: paragraph "The tip of the hook" and Fig. hooktip (fig-p6-hook-tip.png, tools/plot_hook_tip.py).
   Article: two sentences in "A basin edge inside the kite".
+
+## 2026-10-19 16:55 UTC: README reproduction check from a fresh clone (external review follow-up)
+
+**Why.** An external review of the arXiv article (the repository was briefly public) asked whether the public
+instructions reproduce a result from a clean environment, and noted unpinned model revisions and a local wheel path.
+**Changes before the check:** python-flint from PyPI (888c30e1, the same wheel), model revisions pinned in
+docs/model-revisions.json and the loader (ccd4d1c3), the language-model stack pinned as the llm extra (e04a29e3), the
+README setup corrected and the layer-12 steering vectors added under docs/steering-vectors (bbcb7576).
+**Check.** A fresh clone of bbcb7576 (local; GitHub needed credentials) followed the README literally: `uv sync --frozen
+--extra dl --extra llm`, the vectors copied into a new data folder, and the example scan (8 x 8 float64 cells, CPU)
+with HF_HUB_OFFLINE=0, which downloaded Qwen2.5-0.5B-Instruct at the pinned revision 7ae55760. The same command ran in
+the project environment (output llm-soft-loop/readme-example-check).
+**Result.** All eight arrays of the two scan.npz files are bitwise identical (exponents, periods, entropies, families):
+16 chaotic and 47 periodic cells of 64. Each run took about 15 minutes with the two sharing the CPU.
