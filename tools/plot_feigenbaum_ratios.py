@@ -122,24 +122,24 @@ def main():
     f148 = ratios(flips("crescent-t-0.14798-v2") + progress_flips("crescent-t-0.14798-p96b")
                   + (progress_flips("crescent-t-0.14798-p96d") or progress_flips("crescent-t-0.14798-p96c")))
 
-    fig, ax = plt.subplots(figsize=(5.8, 3.9), dpi=200)
+    fig, ax = plt.subplots(figsize=(4.2, 2.9), dpi=300)
     ax.axhline(DELTA, color="0.3", ls=":", lw=1)
-    ax.text(5.9, DELTA + 0.05, r"Feigenbaum $\delta=4.669$", ha="right", va="bottom", fontsize=8)
-    blue, green, red = "tab:blue", "tab:green", "tab:red"
-    ax.plot(range(1, len(f148) + 1), f148, "o-", color=blue, label=r"0.5B, $\log_{10}T=-0.148$, flips (to period %d)" % (3 * 2 ** (len(f148) + 2)))
+    ax.text(1.45, DELTA + 0.04, r"$\delta=4.669$", ha="left", va="bottom", fontsize=7)
+    blue, green, red = "#0072B2", "#D55E00", "#009E73"   # Okabe-Ito: safe under color-vision deficiency
+    ax.plot(range(1, len(f148) + 1), f148, "o-", color=blue, label=r"0.5B, $\log_{10}T=-0.148$, flips")
     xs = [n + 1.5 for n in range(1, len(s148) + 1)]
     lo, hi = zip(*(worst_case(ss, i) for i in range(1, len(ss) - 1)))
     err = [[max(v - a, 0) for v, a in zip(s148, lo)], [max(b - v, 0) for v, b in zip(s148, hi)]]
     ax.errorbar(xs, s148, yerr=err, fmt="s--", color=blue, mfc="white", capsize=3,
-                label=r"0.5B, $\log_{10}T=-0.148$, superstable points (to period %d)" % ss[-1][0])
+                label=r"0.5B, $\log_{10}T=-0.148$, superstable")
     top = 5.0
     inside = [(n, v) for n, v in enumerate(f156, start=1) if v <= top]
     ax.plot(*zip(*inside), "D-", color=green, ms=5,
-            label=r"0.5B, $\log_{10}T=-0.156$, flips (to period %d)" % (6 * 2 ** (len(f156) + 1)))
+            label=r"0.5B, $\log_{10}T=-0.156$, flips")
     for n, v in enumerate(f156, start=1):         # off-scale ratios: an arrow at the top edge, joined by a dotted line
         if v > top:
             ax.plot([n], [top - 0.06], marker="^", color=green, ms=7, clip_on=False)
-            ax.text(n + 0.08, top - 0.1, "%.1f" % v, color=green, fontsize=8, va="top")
+            ax.text(n + 0.1, top + 0.01, "%.1f" % v, color=green, fontsize=7, va="bottom", ha="left", clip_on=False)
             if n < len(f156):
                 ax.plot([n, n + 1], [top - 0.06, f156[n]], ":", color=green, lw=1.2)
     ss6 = superstable_156()
@@ -150,13 +150,14 @@ def main():
         err6 = [[0 if w else max(v - a, 0) for v, a, w in zip(s156, lo6, wide)],
                 [0 if w else max(b - v, 0) for v, b, w in zip(s156, hi6, wide)]]
         ax.errorbar([n + 1.5 for n in range(1, len(s156) + 1)], s156, yerr=err6, fmt="D--", color=green, mfc="white",
-                    ms=5, capsize=3, label=r"0.5B, $\log_{10}T=-0.156$, superstable points (to period %d)" % ss6[-1][0])
-    ax.plot(range(1, len(q15) + 1), q15, "^-", color=red, label="1.5B, flips (to period %d)" % (4 * 2 ** (len(q15) + 2)))
+                    ms=5, capsize=3, label=r"0.5B, $\log_{10}T=-0.156$, superstable")
+    ax.plot(range(1, len(q15) + 1), q15, "^-", color=red, label="1.5B, flips")
     ax.set_xlim(0.6, 6.0 if len(f156) < 6 else len(f156) + 0.4)
     ax.set_ylim(2.6, top)
-    ax.set_xlabel(r"doubling level $n$ (ratio of the $n$-th to the $(n+1)$-th band)")
-    ax.set_ylabel(r"interval ratio $\delta_n$")
-    ax.legend(loc="lower right", fontsize=6.5, frameon=True)
+    ax.set_xlabel(r"doubling level $n$", fontsize=8)
+    ax.set_ylabel(r"interval ratio $\delta_n$", fontsize=8)
+    ax.tick_params(labelsize=7)
+    ax.legend(loc="lower right", fontsize=6, frameon=False)
     fig.tight_layout()
     fig.savefig(args.out)
     print(json.dumps({"flips_-0.148": f148, "superstable_-0.148": s148, "superstable_ranges": list(zip(lo, hi)),

@@ -424,7 +424,8 @@ fed-back position; those of the fixed prefix do not change); the factorization o
 The covariance form is the standard identity for the Hessian of the log-partition function of an exponential family
 \cite{wainwright2008graphical}, the Jacobian of the softmax \cite{gao2017softmax}, and it appears explicitly in the
 Jacobian of the modern Hopfield update \cite{ramsauer2020hopfield}; here it is composed with the derivative of the full
-transformer.
+transformer. Composed with the same network Jacobian but as a metric, the pullback of the output distribution's
+Fisher information, it also underlies token attributions and steering geometry \cite{liu2026jacobianscopes,wang2026fishback}.
 Each factor has a plain meaning. The network Jacobian $J_{\tilde h_\alpha}$ says how much the transformer's final
 hidden state moves when its input moves, through all of its attention and MLP blocks. The factor $\Sigma_p/T$ is the
 derivative of the fed-back expected embedding with respect to that hidden state. Its matrix $\Sigma_p$ is the variance
@@ -463,7 +464,9 @@ any finite difference.}
 \end{figure}
 
 \paragraph{Where steering and temperature enter.} Temperature appears in \eqref{eq:gain} explicitly, as the factor
-$1/T$ and inside $p$. Steering does not appear, and this is not an omission: the vector $\alpha v$ is added to the
+$1/T$ and inside $p$. In a two-token reduction with linear transport, the same inverse
+temperature divides a scalar coupling whose value 2 separates the washout of a mixture from its takeover by one token
+\cite{backour2026mixture}. Steering does not appear, and this is not an omission: the vector $\alpha v$ is added to the
 residual stream whatever the state, so it contributes no derivative of its own with respect to $x$. It acts, as
 temperature also does, by moving the point at which the two factors are evaluated. In the readout factor $\Sigma_p/T$,
 steering decides which tokens compete in $p$ and temperature decides how sharply: $\Sigma_p$ is large where tokens
@@ -518,7 +521,9 @@ compact), $\|DF_{T,\alpha}\|\le\operatorname{diam}(E)^2L(\alpha)/(4T)$ on $K$, a
 distance, that is, it is a contraction of $K$, for $T>T_*(\alpha)=\tfrac14\operatorname{diam}(E)^2L(\alpha)$. Above
 this temperature the loop forgets where it started: its single fixed point attracts every orbit, and it tends to the
 mean embedding as $T\to\infty$; without tied embeddings, $\operatorname{diam}(E)^2$ becomes
-$\operatorname{diam}(E)\operatorname{diam}(W)$. The threshold is a curve in the $(\alpha,T)$ plane, because the largest
+$\operatorname{diam}(E)\operatorname{diam}(W)$. For affine softmax feedback systems, with a fixed matrix in place of
+the network, a sharp stability threshold is known \cite{wang2026logitfixed}. The threshold is a curve in the
+$(\alpha,T)$ plane, because the largest
 gain of the network depends on the steering. The bound is rigorous but far from sharp, because it assumes the worst
 case at every step. With the diameter of the 0.5B model's tied embeddings, $\operatorname{diam}(E)=1.2109$, computed
 over all pairs of embeddings, and the largest norms of
@@ -3819,7 +3824,8 @@ looped transformer, whose passage and spectral-gap predictions are unfitted \cit
 trained for a task, whereas ours is a released pretrained language model, and our analysis also differs in its
 objects: the fold of a primitive periodic orbit, the full-channel passage of a two-step map, and the accumulation law
 of the windows, whose prefactor is set by the global reinjection. Expected-embedding
-feedback itself is used in training \cite{zeng2025ponderlm} and, training-free, in pretrained models
+feedback itself is used in training \cite{zeng2025ponderlm}, solved for as equilibria in non-autoregressive decoding
+\cite{zheng2023deqnar}, and, training-free, in pretrained models
 \cite{zhang2025softthinking,wu2025singlethreaded}, next to continuous latent reasoning \cite{hao2024coconut}; Backour shows that the softmax readout and autoregressive feedback form a dynamical system that either amplifies
 small differences until one component of a mixture dominates or contracts different mixtures together, with
 pretrained rollouts mostly on the amplifying side \cite{backour2026mixture}; that analysis concerns the fate of
