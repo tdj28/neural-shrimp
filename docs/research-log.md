@@ -31070,3 +31070,23 @@ conjugacy of the Rössler return map to unimodal maps, and orbits are traced by 
   basin checks), not bifurcation curves. Report hook paragraph: one sentence added.
 - tools/hook_saddle_check.py was restarted with 1000-step trajectories; the first run was too slow while the video
   renders shared the CPU.
+
+## 2026-10-19 10:04 UTC: run card HOOK (exploratory): a theory of the hook's shape (human: "We have time, go for it")
+
+- **Hypothesis.**
+  - The wedge's upper-left edge is the fold curve (C-B branch) where the weakly contracting orbit W (the td sheet)
+    meets the saddle Sigma in a saddle-node and disappears.
+  - The lower edge is where the fixed start crosses the stable manifold of Sigma.
+  - Near the tip, the saddle-node normal form u -> u + nu - a u^2 puts Sigma at u = -sqrt(nu/a). The start arrives
+    with a smooth center coordinate u0(alpha, T), and the edge is u0 = -sqrt(nu/a).
+- **Predictions.**
+  - The lower edge meets the fold curve tangentially at the tip and separates from it quadratically (nu ~ s^2 along
+    the fold).
+  - On the edge, trajectories linger at Sigma, with settling time growing like (6/ln mu_u) ln(1/delta).
+  - The curl of the edge reflects folds of u0(alpha, T).
+- **Runs** (commit ec17985d; HR12 uploaded as data):
+  - HOOKEDGE: tools/hook_edge_track.py bisects every outcome jump of HR12 in alpha 0.07295-0.07301, log10 T
+    -0.15372..-0.15333 (every 2nd column) for 22 rounds.
+  - HOOKSADDLE: tools/hook_saddle_check.py on the GPU (34 bisections, 1500-step trajectories, saddle Newton,
+    settling-time slope).
+  - Tip refinement afterwards if the edge data warrant it.
