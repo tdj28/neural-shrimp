@@ -2485,7 +2485,8 @@ is negative at 143; at the other 240 the leading real multiplier is followed by 
 two alone define no real two-dimensional determinant, and we infer no determinant-zero curve from them. The real
 leading multiplier changes sign across 45 neighboring solved pairs; only two have leading and next moduli within a
 factor three at both ends, and this endpoint test does not tell a multiplier crossing zero from an exchange of
-dominance. These sign changes mark the body's dark ditches, which take the place of Gallas's superstable curves. A leading
+dominance. These sign changes mark the body's dark ditches (Figure~\ref{fig:p6ditches}), which take the place of Gallas's
+superstable curves. A leading
 multiplier is the largest in modulus, so it vanishes only if all multipliers do, and between the two cells of each pair
 the lead must pass to another multiplier or through a complex pair. Two lines of cells computed locally in float64
 (run DITCH) show both outcomes. Across the main ditch at $\log_{10}T=-0.1530$ (21 cells, steps $7\times10^{-6}$ in
@@ -2516,6 +2517,24 @@ parameter plane without any degeneracy, as the superstable curves of Gallas's tw
 tail. With these qualifications the period-6 window meets the three numerical criteria along its body, with six located
 cusps and the kite of Gallas's cell: a second shrimp-shaped window of the full map, in the plane of
 Figure~\ref{fig:cross512} itself. The far parts of its legs remain unresolved.
+
+\begin{figure*}[tb]
+\centering
+\includegraphics[width=\textwidth]{fig-shrimp-anatomy-pair.png}
+\caption{Gallas's canonical cell beside the period-6 shrimp, in the same orientation, with the shrimp's pseudo-superstable
+lines. (a) Gallas's period-1 cell of Figure~\ref{fig:anatomy}a, drawn with both axes reversed, a rotation by $180^\circ$
+that brings it to the orientation of (b) (gray: one attracting fixed point; blue: two; fold curves black, flip curves red
+and dashed, superstable curves blue and dotted; head H, cusp C, kite C--A--R--B, tail T). (b) The period-6 shrimp: the
+$640\times640$ float64 map of Figure~\ref{fig:p6shrimp}a with the continued fold and flip curves; R (cyan diamond): the
+pseudo-crossing of the two flip curves; C (gold star): the kite's cusp. Blue dots: neighboring cells of the $31\times31$
+grid of the continued period-6 orbit between which its leading multiplier changes sign, and cells where it is a complex
+pair; the orbit is attracting at all of them. The multiplier never vanishes, so these dark ditches are pseudo-superstable
+lines; they meet below C but approach and turn away at the top (text). In both panels the fold curve bounds the main cell
+(in (b), the body) above and on the right, flip curves bound it on the left and below, and two legs leave it at the lower
+left, where the kite lies.}
+\label{fig:p6ditches}
+\end{figure*}
+
 
 \begin{figure*}[tbp]
 \centering
