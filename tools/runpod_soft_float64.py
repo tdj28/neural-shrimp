@@ -68,6 +68,20 @@ def archives(commit, extra=()):
     return code, buf.getvalue()
 
 
+def own_creation(name, since):
+    """The newest 'created' record of the pod named `name` written after `since` (epoch seconds); refuses if absent."""
+    from datetime import datetime
+    mine = []
+    for line in rp.LEDGER.read_text().splitlines():
+        e = json.loads(line)
+        if e.get("event") == "created" and e.get("name") == name and \
+                datetime.fromisoformat(e["time"]).timestamp() >= since - 1:
+            mine.append(e)
+    if not mine:
+        raise SystemExit(f"a pod named {name} was requested but no creation record of it was found; check the inventory")
+    return mine[-1]
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     parser.add_argument("--gpu-type", nargs="+", default=["COMMUNITY:NVIDIA H100 NVL", "COMMUNITY:NVIDIA H100 PCIe",
@@ -129,6 +143,7 @@ def main():
                                     pubkey_file=str(KEY) + ".pub", disk_gb=args.disk_gb, min_vcpu=args.min_vcpu,
                                     min_memory_gb=args.min_memory_gb,
                                     commit=head, approval=args.approval)
+        attempt = time.time()
         try:
             rp.cmd_create(create)
         except SystemExit as error:
@@ -137,13 +152,17 @@ def main():
                 print(f"no capacity: {cloud} {gpu}", flush=True)
                 continue
             raise
-        last = [json.loads(line) for line in rp.LEDGER.read_text().splitlines()][-1]
+        # this run's own creation record: the ledger is shared by parallel launches, so its last line can belong to
+        # another run (whose pod would then be adopted here, and its own left running)
+        last = own_creation(args.name, attempt)
         pod_id, chosen = last["pod_id"], entry
         break
     if pod_id is None:
         raise SystemExit("no capacity for any listed GPU type; no pod was created")
     started = time.time()
-    rate = [json.loads(line) for line in rp.LEDGER.read_text().splitlines()][-1].get("cost_per_hr") or 0
+    rate = last.get("cost_per_hr")
+    if rate is None:
+        raise SystemExit(f"no hourly rate in the creation record of pod {pod_id}")
     result = {"pod_id": pod_id, "gpu_type": chosen, "rate": rate, "commit": head, "jobset": args.jobset,
               "started": started, "out": str(out), "upload": {k: plan[k] for k in ("code_bytes", "data_bytes",
               "code_sha256", "data_sha256", "extra_data", "jobset_args")}}
