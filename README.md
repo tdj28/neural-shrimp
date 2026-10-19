@@ -37,6 +37,7 @@ used for low-dimensional dynamical systems. Its main findings:
 | `docs/consults/` | External reviews of the work and how each finding was handled |
 | `docs/literature/` | Literature notes |
 | `docs/prompt-variants/` | The prompt variants of the prompt-dependence test |
+| `docs/steering-vectors/` | The steering directions used by most figures (Qwen2.5-0.5B-Instruct, layer 12) |
 | `docs/model-revisions.json` | The Hugging Face revision (commit hash) of every model the study loaded |
 | `tests/` | Unit tests (pytest) |
 | `comms/` | The running exchange between the two AI agents that did the work |
@@ -68,13 +69,18 @@ earlier work on small recurrent networks.
 The project uses [uv](https://docs.astral.sh/uv/) and Python 3.11 or later:
 
 ```
-uv sync
-uv run python tools/explore_llm_soft_loop.py scan --device cpu --dtype float64 --resolution 8 8 \
+uv sync --frozen --extra dl --extra llm
+mkdir -p ../neural-shrimp-data/explore/llm-phase-map
+cp -r docs/steering-vectors/vectors-l12 ../neural-shrimp-data/explore/llm-phase-map/
+HF_HUB_OFFLINE=0 uv run python tools/explore_llm_soft_loop.py scan --device cpu --dtype float64 --resolution 8 8 \
     --alpha 0.0625 0.0775 --log-temperature -0.17 -0.125 --out llm-soft-loop/example
 ```
 
 Outputs and downloaded model weights go to `../neural-shrimp-data/` unless `NEURAL_SHRIMP_DATA` points elsewhere.
-Models are fetched from Hugging Face on first use. The example above, 64 cells in float64, takes about eight minutes
+The tools work offline by default; `HF_HUB_OFFLINE=0` lets the first run download the model, at the revision pinned in
+`docs/model-revisions.json`. `docs/steering-vectors/vectors-l12` holds the philosophy and gratitude directions of
+Qwen2.5-0.5B-Instruct at layer 12 used by most figures (`tools/explore_llm_phase_map.py vectors` rebuilds them). The
+`exp020` extra adds python-flint for the interval-arithmetic certificates. The example above, 64 cells in float64, takes about eight minutes
 on a CPU. The maps in the paper were
 computed in float64 on rented GPUs.
 
