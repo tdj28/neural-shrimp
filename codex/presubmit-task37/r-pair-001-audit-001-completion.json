@@ -1,0 +1,146 @@
+{
+  "schema": "task37-r-pair-saved-audit-completion-v1",
+  "verified_at": "2026-10-19T11:44:36.736829+00:00",
+  "attempt": "r-pair-001-audit-001",
+  "status": "closed_failed_scientific_qualification_consistently_reproduced",
+  "source_commit": "ab09687ed0b53b2cafc8d0df493185631bc001ff",
+  "session_id": 76531,
+  "session_reaped_exit_code": 1,
+  "receipt": {
+    "path": "/data2/neural-shrimp-data/scratch/audit-codex-1019/r-pair-001-audit-001-supervision/receipt.json",
+    "bytes": 4965,
+    "sha256": "1c121d7df68fec756e04abf7b5777dd2c08cee901180cfcb7977fe309d9fda3d"
+  },
+  "admission": {
+    "path": "/data2/neural-shrimp-data/scratch/audit-codex-1019/r-pair-001-audit-001-supervision/admission.json",
+    "bytes": 4072,
+    "sha256": "78107c9eeb5bd18269ac3f2617a06dd0aad342f11039a8eb0a46c3a3894f99cf"
+  },
+  "worker_startup": {
+    "path": "/data2/neural-shrimp-data/scratch/audit-codex-1019/r-pair-001-audit-001-supervision/worker-startup.json",
+    "bytes": 2431,
+    "sha256": "3d9d5e033392eaf29386a94c1c148aa38dc8272d7c48fc2015743845d59702d6"
+  },
+  "plan": {
+    "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/presubmit-task37/r-pair-001-audit-001-plan.json",
+    "bytes": 10184,
+    "sha256": "f513342ae520ed489c5555fa27777ecb0a72900946503640a3f5e8137108691f"
+  },
+  "source_blobs": [
+    {
+      "relative_path": "codex/presubmit-task37/audit_saved_numerics.py",
+      "sha256": "e840f06a91501a81dd396d3e20126c020e64c8698043e78a8dd0149274b40215",
+      "bytes": 20218
+    },
+    {
+      "relative_path": "codex/certify-chaos/supervise.py",
+      "sha256": "306db32a2c8ada9beb67547bbaafc6d0d7a597b5861b0e629ca9a07801223c44",
+      "bytes": 8727
+    },
+    {
+      "relative_path": "codex/presubmit-task37/run_saved_numerics.py",
+      "sha256": "091c70ce93616586611ad6005512999f073900b9c8c7bd516b5b23f92a292cd3",
+      "bytes": 2987
+    },
+    {
+      "relative_path": "codex/presubmit-task37/r-pair-001-audit-001-card.json",
+      "sha256": "b84d678455758baf4c04db61daf66fd96364a451546d162b7242e2d4a21f562e",
+      "bytes": 14081
+    }
+  ],
+  "outputs": [
+    {
+      "path": "/data2/neural-shrimp-data/scratch/audit-codex-1019/r-pair-001-audit-001/result.json",
+      "bytes": 268629,
+      "sha256": "8c5383f6b1edcf68d1e557cda069d4219b0e77d7c97b923f627c394a3cc8da64"
+    }
+  ],
+  "supervision_files": [
+    {
+      "path": "/data2/neural-shrimp-data/scratch/audit-codex-1019/r-pair-001-audit-001-supervision/admission.json",
+      "bytes": 4072,
+      "sha256": "78107c9eeb5bd18269ac3f2617a06dd0aad342f11039a8eb0a46c3a3894f99cf"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/scratch/audit-codex-1019/r-pair-001-audit-001-supervision/receipt.json",
+      "bytes": 4965,
+      "sha256": "1c121d7df68fec756e04abf7b5777dd2c08cee901180cfcb7977fe309d9fda3d"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/scratch/audit-codex-1019/r-pair-001-audit-001-supervision/stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/scratch/audit-codex-1019/r-pair-001-audit-001-supervision/stdout.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/scratch/audit-codex-1019/r-pair-001-audit-001-supervision/worker-startup.json",
+      "bytes": 2431,
+      "sha256": "3d9d5e033392eaf29386a94c1c148aa38dc8272d7c48fc2015743845d59702d6"
+    }
+  ],
+  "external_elapsed_seconds": 2.82799116615206,
+  "external_elapsed_seconds_upper_6dp": 2.827992,
+  "runtime_failure": null,
+  "postexec_identity": {
+    "pid": 371275,
+    "starttime": 235661944,
+    "pgid": 371275,
+    "sid": 371275,
+    "state": "R",
+    "nice": 10,
+    "threads": 1,
+    "uid_line": "Uid:\t1000\t1000\t1000\t1000",
+    "cmdline": "/data2/neural-shrimp/.venv/bin/python -I -B /home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/presubmit-task37/run_saved_numerics.py --root /data2/neural-shrimp-data/scratch/audit-codex-1019/r-pair-001 --out /data2/neural-shrimp-data/scratch/audit-codex-1019/r-pair-001-audit-001 ",
+    "limits": "Limit                     Soft Limit           Hard Limit           Units     \nMax cpu time              300                  300                  seconds   \nMax file size             16777216             16777216             bytes     \nMax data size             unlimited            unlimited            bytes     \nMax stack size            8388608              unlimited            bytes     \nMax core file size        0                    unlimited            bytes     \nMax resident set          unlimited            unlimited            bytes     \nMax processes             375398               375398               processes \nMax open files            65535                65535                files     \nMax locked memory         8388608              8388608              bytes     \nMax address space         4294967296           4294967296           bytes     \nMax file locks            unlimited            unlimited            locks     \nMax pending signals       375398               375398               signals   \nMax msgqueue size         819200               819200               bytes     \nMax nice priority         0                    0                    \nMax realtime priority     0                    0                    \nMax realtime timeout      200000               200000               us        \n"
+  },
+  "actual_host_closure": {
+    "checked_at": "2026-10-19T11:44:36.736829+00:00",
+    "view": "escalated actual host /proc, read-only",
+    "identities": [
+      {
+        "pid": 371232,
+        "expected_starttime": 235661852,
+        "pid_absent": true
+      },
+      {
+        "pid": 371275,
+        "expected_starttime": 235661944,
+        "pid_absent": true
+      }
+    ],
+    "group_session_members": []
+  },
+  "root_live_start_observed": false,
+  "short_run_note": "Run completed before Root separate live check; supervisor post-exec observation and independent actual-host closure are bound.",
+  "preflight_pins_checked_count": 24,
+  "original_full_inventory": {
+    "path": "/data2/neural-shrimp-data/scratch/audit-codex-1019/r-pair-001-closure-001/input-inventory.json",
+    "bytes": 297427,
+    "sha256": "2e85f40574291474a0b4743c800aa3f0b660f796423921fd7c29109f0ba77d15"
+  },
+  "original_all_1289_hashes_rechecked_after_audit": true,
+  "original_exact_canonical_regular_file_membership_unchanged": true,
+  "audit_exact_output_membership_verified": true,
+  "replay_errors": [],
+  "saved_numerical_checks_passed": false,
+  "scientific_verdict_admitted": false,
+  "certificate_passed": false,
+  "failed_composed_fd_directions": 4,
+  "all_six_fd_quadratic_intervals": true,
+  "checker_read_file_count": 1276,
+  "not_recomputed": [
+    "left-eigenvector condition estimates",
+    "tokenizer text and embedding readout",
+    "Newton/GMRES iteration history, linear-solves and unconverged-GMRES counters",
+    "model/operator authenticity",
+    "effective internal arithmetic precision"
+  ],
+  "preallocation_refusal": "r-pair-001-audit-preallocation-refusal-001.json",
+  "no_target_model_calls_in_saved_audit": true,
+  "owned_numerical_reservations_after_closure": 0,
+  "automatic_retry_or_body_launch": false
+}
