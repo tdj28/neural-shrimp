@@ -1,0 +1,7 @@
+Traceback (most recent call last):
+  File "/tmp/task38-geometry/geometry-curves.py", line 50, in <module>
+    sc=np.array([fa6['alpha1'][1]-fa6['alpha1'][0],fa6['alpha2'][1]-fa6['alpha2'][0]])
+                                                   ~~~^^^^^^^^^^
+  File "/data2/neural-shrimp/.venv/lib/python3.12/site-packages/numpy/lib/_npyio_impl.py", line 243, in __getitem__
+    raise KeyError(f"{key} is not a file in the archive") from None
+KeyError: 'alpha2 is not a file in the archive'

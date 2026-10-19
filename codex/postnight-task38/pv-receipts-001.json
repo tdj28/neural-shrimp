@@ -1,0 +1,711 @@
+{
+  "rows": [
+    {
+      "condition": "p00",
+      "receipt_path": "/data2/neural-shrimp-data/runpod/PV-P00-orchestrator.log",
+      "receipt_sha256": "43ff69f557380d9184778c56483206e9bbf34271f46f679ff489d4b42e42206b",
+      "archive_path": "/data2/neural-shrimp-data/runpod/soft64/20261019T050103Z/results.tgz",
+      "archive_sha256": "fe0a33fdbc07c68f8afd1869429a05056e74dff32fe3cea17e94c9beca95f6ec",
+      "receipt_archive_hashes_match": true,
+      "declared_source": {
+        "commit": "1b1ef62a6f0cc140e281bce5ce419cf83ee98d2e",
+        "runner_returncode": 0,
+        "hash_verified": true,
+        "remote_sha256": "fe0a33fdbc07c68f8afd1869429a05056e74dff32fe3cea17e94c9beca95f6ec",
+        "local_sha256": "fe0a33fdbc07c68f8afd1869429a05056e74dff32fe3cea17e94c9beca95f6ec",
+        "code_sha256": "67b9b8bb54ed7e3a6a06cab87953298c0ced401f7ba1d7de7cefd263db2669e4",
+        "data_sha256": "8ddd2afe752599ffef0236be3a1120006541bbe9f419b883cc8b497383f2f2f9",
+        "jobset_args": "pv-p00 55 --resolution 128 128 --alpha -0.12 0.12 --log-temperature -1.0 0.3 --transient 300 --samples 300 --record 80 --max-period 32 --chaos-level 0.001 --prefix llm-soft-loop/prompt-variants/p00-base.json"
+      },
+      "members": [
+        {
+          "member": "explore/llm-soft-loop/pod64/bands/pv-p00/scan.npz",
+          "bytes": 261365,
+          "sha256": "7792d6623a99e0fa4e97693b17fdb040641ef7d877773461b3abc0bbb71a4940",
+          "retrieved_bytes_identical": true
+        },
+        {
+          "member": "explore/llm-soft-loop/pod64/bands/pv-p00/scan.json",
+          "bytes": 172076,
+          "sha256": "e1522678abe342034f3c5d3f060a1292bef41dd2cf0ebc15cfed1f176d8daa52",
+          "retrieved_bytes_identical": true
+        }
+      ]
+    },
+    {
+      "condition": "p01",
+      "receipt_path": "/data2/neural-shrimp-data/runpod/PV-P01-orchestrator.log",
+      "receipt_sha256": "30abe1140395911e430715e61bddccb8cc64f3a034cce20b0843a577352b7c5b",
+      "archive_path": "/data2/neural-shrimp-data/runpod/soft64/20261019T050107Z/results.tgz",
+      "archive_sha256": "e8e63fdfa66f99c92a0eeaff64e55e04a93bf68f2df53bfbef8c79a10a951235",
+      "receipt_archive_hashes_match": true,
+      "declared_source": {
+        "commit": "1b1ef62a6f0cc140e281bce5ce419cf83ee98d2e",
+        "runner_returncode": 0,
+        "hash_verified": true,
+        "remote_sha256": "e8e63fdfa66f99c92a0eeaff64e55e04a93bf68f2df53bfbef8c79a10a951235",
+        "local_sha256": "e8e63fdfa66f99c92a0eeaff64e55e04a93bf68f2df53bfbef8c79a10a951235",
+        "code_sha256": "67b9b8bb54ed7e3a6a06cab87953298c0ced401f7ba1d7de7cefd263db2669e4",
+        "data_sha256": "8ddd2afe752599ffef0236be3a1120006541bbe9f419b883cc8b497383f2f2f9",
+        "jobset_args": "pv-p01 55 --resolution 128 128 --alpha -0.12 0.12 --log-temperature -1.0 0.3 --transient 300 --samples 300 --record 80 --max-period 32 --chaos-level 0.001 --prefix llm-soft-loop/prompt-variants/p01-system-only.json"
+      },
+      "members": [
+        {
+          "member": "explore/llm-soft-loop/pod64/bands/pv-p01/scan.npz",
+          "bytes": 264628,
+          "sha256": "084c27a82d93b005404abe9004f9800de68e777663d399fbe957d99d04aab02a",
+          "retrieved_bytes_identical": true
+        },
+        {
+          "member": "explore/llm-soft-loop/pod64/bands/pv-p01/scan.json",
+          "bytes": 256936,
+          "sha256": "d5c28d5edb19da7d91e5aeeb81390f7ed2097ba5e43bc6845d43147e8e66d028",
+          "retrieved_bytes_identical": true
+        }
+      ]
+    },
+    {
+      "condition": "p02",
+      "receipt_path": "/data2/neural-shrimp-data/runpod/PV-P02-orchestrator.log",
+      "receipt_sha256": "daaef01041cd661f168dd193353c871fa08b9c294b11dfe5d657128fa521fd1c",
+      "archive_path": "/data2/neural-shrimp-data/runpod/soft64/20261019T050111Z/results.tgz",
+      "archive_sha256": "d1d3e9ef9aeb659d9b9b0adbbdd0e8e3ff5d37c5d51b05083a5c22fa87727f37",
+      "receipt_archive_hashes_match": true,
+      "declared_source": {
+        "commit": "1b1ef62a6f0cc140e281bce5ce419cf83ee98d2e",
+        "runner_returncode": 0,
+        "hash_verified": true,
+        "remote_sha256": "d1d3e9ef9aeb659d9b9b0adbbdd0e8e3ff5d37c5d51b05083a5c22fa87727f37",
+        "local_sha256": "d1d3e9ef9aeb659d9b9b0adbbdd0e8e3ff5d37c5d51b05083a5c22fa87727f37",
+        "code_sha256": "67b9b8bb54ed7e3a6a06cab87953298c0ced401f7ba1d7de7cefd263db2669e4",
+        "data_sha256": "8ddd2afe752599ffef0236be3a1120006541bbe9f419b883cc8b497383f2f2f9",
+        "jobset_args": "pv-p02 55 --resolution 128 128 --alpha -0.12 0.12 --log-temperature -1.0 0.3 --transient 300 --samples 300 --record 80 --max-period 32 --chaos-level 0.001 --prefix llm-soft-loop/prompt-variants/p02-user-only.json"
+      },
+      "members": [
+        {
+          "member": "explore/llm-soft-loop/pod64/bands/pv-p02/scan.npz",
+          "bytes": 264329,
+          "sha256": "754b7f42fd19e66a77581295eb4a84707b8c10d1c95793d660e176b68a6f4268",
+          "retrieved_bytes_identical": true
+        },
+        {
+          "member": "explore/llm-soft-loop/pod64/bands/pv-p02/scan.json",
+          "bytes": 235544,
+          "sha256": "cefc7e79e8aeb9c003b4bdb44210d4c51c183b3e9a85b5d3b21e854cf0d06317",
+          "retrieved_bytes_identical": true
+        }
+      ]
+    },
+    {
+      "condition": "p03",
+      "receipt_path": "/data2/neural-shrimp-data/runpod/PV-P03-orchestrator.log",
+      "receipt_sha256": "beead2b18aa70a21fe3232098b553b87f6f6311a44a6386c74c3ba2e52d47077",
+      "archive_path": "/data2/neural-shrimp-data/runpod/soft64/20261019T051608Z/results.tgz",
+      "archive_sha256": "7c69416616890e9cbddf03e549ac069fab8bc5a1bd4d312325916a96613c6006",
+      "receipt_archive_hashes_match": true,
+      "declared_source": {
+        "commit": "1b1ef62a6f0cc140e281bce5ce419cf83ee98d2e",
+        "runner_returncode": 0,
+        "hash_verified": true,
+        "remote_sha256": "7c69416616890e9cbddf03e549ac069fab8bc5a1bd4d312325916a96613c6006",
+        "local_sha256": "7c69416616890e9cbddf03e549ac069fab8bc5a1bd4d312325916a96613c6006",
+        "code_sha256": "67b9b8bb54ed7e3a6a06cab87953298c0ced401f7ba1d7de7cefd263db2669e4",
+        "data_sha256": "8ddd2afe752599ffef0236be3a1120006541bbe9f419b883cc8b497383f2f2f9",
+        "jobset_args": "pv-p03 55 --resolution 128 128 --alpha -0.12 0.12 --log-temperature -1.0 0.3 --transient 300 --samples 300 --record 80 --max-period 32 --chaos-level 0.001 --prefix llm-soft-loop/prompt-variants/p03-neither.json"
+      },
+      "members": [
+        {
+          "member": "explore/llm-soft-loop/pod64/bands/pv-p03/scan.npz",
+          "bytes": 265609,
+          "sha256": "c7901d60392f54d5b889aff1b433fe2f044cad97b5d87f5938241796df2ed107",
+          "retrieved_bytes_identical": true
+        },
+        {
+          "member": "explore/llm-soft-loop/pod64/bands/pv-p03/scan.json",
+          "bytes": 212421,
+          "sha256": "806f2b51a820713395d3572b26171a12f75d75079938742def40f43998971f0f",
+          "retrieved_bytes_identical": true
+        }
+      ]
+    },
+    {
+      "condition": "p04",
+      "receipt_path": "/data2/neural-shrimp-data/runpod/PV-P04-orchestrator.log",
+      "receipt_sha256": "a06b8f23a820f6c8d4eb2f782168f3af1b54acf255d02468adf7eb8e79a9dd64",
+      "archive_path": "/data2/neural-shrimp-data/runpod/soft64/20261019T050119Z/results.tgz",
+      "archive_sha256": "4fbf56ed7e124f4a1db00b0d17c32204cdf3309ed2938ae4b8ce1619bc91b4d7",
+      "receipt_archive_hashes_match": true,
+      "declared_source": {
+        "commit": "1b1ef62a6f0cc140e281bce5ce419cf83ee98d2e",
+        "runner_returncode": 0,
+        "hash_verified": true,
+        "remote_sha256": "4fbf56ed7e124f4a1db00b0d17c32204cdf3309ed2938ae4b8ce1619bc91b4d7",
+        "local_sha256": "4fbf56ed7e124f4a1db00b0d17c32204cdf3309ed2938ae4b8ce1619bc91b4d7",
+        "code_sha256": "67b9b8bb54ed7e3a6a06cab87953298c0ced401f7ba1d7de7cefd263db2669e4",
+        "data_sha256": "8ddd2afe752599ffef0236be3a1120006541bbe9f419b883cc8b497383f2f2f9",
+        "jobset_args": "pv-p04 55 --resolution 128 128 --alpha -0.12 0.12 --log-temperature -1.0 0.3 --transient 300 --samples 300 --record 80 --max-period 32 --chaos-level 0.001 --prefix llm-soft-loop/prompt-variants/p04-garbled-system-1.json"
+      },
+      "members": [
+        {
+          "member": "explore/llm-soft-loop/pod64/bands/pv-p04/scan.npz",
+          "bytes": 264713,
+          "sha256": "79dc6ef02e8ec41e708e8399d6e1800de6d791fb0aed8a0b74a8551f843ecead",
+          "retrieved_bytes_identical": true
+        },
+        {
+          "member": "explore/llm-soft-loop/pod64/bands/pv-p04/scan.json",
+          "bytes": 249218,
+          "sha256": "95b0edd6f69e7467c38345d548380979edefba3f19424f3d35120dd8f3cc024b",
+          "retrieved_bytes_identical": true
+        }
+      ]
+    },
+    {
+      "condition": "p05",
+      "receipt_path": "/data2/neural-shrimp-data/runpod/PV-P05-orchestrator.log",
+      "receipt_sha256": "6c838f13cd41b0884c4fbaa281f9dc2719ad3ff4dea72ad08fc34fc6bb4071bc",
+      "archive_path": "/data2/neural-shrimp-data/runpod/soft64/20261019T052952Z/results.tgz",
+      "archive_sha256": "86bb344b562945ea0e0c7015229f62ad3dcc9b3d0f138b7ff4b21a97b6fae0a7",
+      "receipt_archive_hashes_match": true,
+      "declared_source": {
+        "commit": "1b1ef62a6f0cc140e281bce5ce419cf83ee98d2e",
+        "runner_returncode": 0,
+        "hash_verified": true,
+        "remote_sha256": "86bb344b562945ea0e0c7015229f62ad3dcc9b3d0f138b7ff4b21a97b6fae0a7",
+        "local_sha256": "86bb344b562945ea0e0c7015229f62ad3dcc9b3d0f138b7ff4b21a97b6fae0a7",
+        "code_sha256": "67b9b8bb54ed7e3a6a06cab87953298c0ced401f7ba1d7de7cefd263db2669e4",
+        "data_sha256": "8ddd2afe752599ffef0236be3a1120006541bbe9f419b883cc8b497383f2f2f9",
+        "jobset_args": "pv-p05 55 --resolution 128 128 --alpha -0.12 0.12 --log-temperature -1.0 0.3 --transient 300 --samples 300 --record 80 --max-period 32 --chaos-level 0.001 --prefix llm-soft-loop/prompt-variants/p05-garbled-system-2.json"
+      },
+      "members": [
+        {
+          "member": "explore/llm-soft-loop/pod64/bands/pv-p05/scan.npz",
+          "bytes": 263015,
+          "sha256": "23c1511a49378f024d582684a2c713505b84cf46d83a6531cef86932827ba231",
+          "retrieved_bytes_identical": true
+        },
+        {
+          "member": "explore/llm-soft-loop/pod64/bands/pv-p05/scan.json",
+          "bytes": 221365,
+          "sha256": "2291323d4e7a5810761ecd9138e690b036c15af2099e9559d3443d3c7f96bfca",
+          "retrieved_bytes_identical": true
+        }
+      ]
+    },
+    {
+      "condition": "p06",
+      "receipt_path": "/data2/neural-shrimp-data/runpod/PV-P06-orchestrator.log",
+      "receipt_sha256": "20f4fea84965d3a9f2851ebbd579b8297e060713b66d88de7d953d32dafd50c7",
+      "archive_path": "/data2/neural-shrimp-data/runpod/soft64/20261019T053042Z/results.tgz",
+      "archive_sha256": "c17e8a398d88d2c447ee833d978c8922f65810499151fdb877f79bf6eef26168",
+      "receipt_archive_hashes_match": true,
+      "declared_source": {
+        "commit": "1b1ef62a6f0cc140e281bce5ce419cf83ee98d2e",
+        "runner_returncode": 0,
+        "hash_verified": true,
+        "remote_sha256": "c17e8a398d88d2c447ee833d978c8922f65810499151fdb877f79bf6eef26168",
+        "local_sha256": "c17e8a398d88d2c447ee833d978c8922f65810499151fdb877f79bf6eef26168",
+        "code_sha256": "67b9b8bb54ed7e3a6a06cab87953298c0ced401f7ba1d7de7cefd263db2669e4",
+        "data_sha256": "8ddd2afe752599ffef0236be3a1120006541bbe9f419b883cc8b497383f2f2f9",
+        "jobset_args": "pv-p06 55 --resolution 128 128 --alpha -0.12 0.12 --log-temperature -1.0 0.3 --transient 300 --samples 300 --record 80 --max-period 32 --chaos-level 0.001 --prefix llm-soft-loop/prompt-variants/p06-garbled-user.json"
+      },
+      "members": [
+        {
+          "member": "explore/llm-soft-loop/pod64/bands/pv-p06/scan.npz",
+          "bytes": 257540,
+          "sha256": "29cf47fc5fe0f7fc617a711c28d93344fe8930b5a6fffd971541cf67dfb0c7cf",
+          "retrieved_bytes_identical": true
+        },
+        {
+          "member": "explore/llm-soft-loop/pod64/bands/pv-p06/scan.json",
+          "bytes": 111680,
+          "sha256": "c462a1415b52b44b1e5c022066f00c1769dae6ecd2c078b133563e42aeb749bb",
+          "retrieved_bytes_identical": true
+        }
+      ]
+    },
+    {
+      "condition": "p07",
+      "receipt_path": "/data2/neural-shrimp-data/runpod/PV-P07-orchestrator.log",
+      "receipt_sha256": "38cc743276471b22e83024fca336541bfeba7cbd9358f196782d29e32010639e",
+      "archive_path": "/data2/neural-shrimp-data/runpod/soft64/20261019T053013Z/results.tgz",
+      "archive_sha256": "7ebd490f8fbaa674f82fe65d60fcd3c553686dbf6e1df2a0f728c3ea0fdbdf8b",
+      "receipt_archive_hashes_match": true,
+      "declared_source": {
+        "commit": "1b1ef62a6f0cc140e281bce5ce419cf83ee98d2e",
+        "runner_returncode": 0,
+        "hash_verified": true,
+        "remote_sha256": "7ebd490f8fbaa674f82fe65d60fcd3c553686dbf6e1df2a0f728c3ea0fdbdf8b",
+        "local_sha256": "7ebd490f8fbaa674f82fe65d60fcd3c553686dbf6e1df2a0f728c3ea0fdbdf8b",
+        "code_sha256": "67b9b8bb54ed7e3a6a06cab87953298c0ced401f7ba1d7de7cefd263db2669e4",
+        "data_sha256": "8ddd2afe752599ffef0236be3a1120006541bbe9f419b883cc8b497383f2f2f9",
+        "jobset_args": "pv-p07 55 --resolution 128 128 --alpha -0.12 0.12 --log-temperature -1.0 0.3 --transient 300 --samples 300 --record 80 --max-period 32 --chaos-level 0.001 --prefix llm-soft-loop/prompt-variants/p07-garbled-both.json"
+      },
+      "members": [
+        {
+          "member": "explore/llm-soft-loop/pod64/bands/pv-p07/scan.npz",
+          "bytes": 260215,
+          "sha256": "72622dc799fae32552282fe81b47859a6eb2dc0fa190ce6f1095ffd90e4cc44f",
+          "retrieved_bytes_identical": true
+        },
+        {
+          "member": "explore/llm-soft-loop/pod64/bands/pv-p07/scan.json",
+          "bytes": 126393,
+          "sha256": "2e1c4998d7763c32c66befbd1797b1858bc1fd9d0fa36daf62874407c40540db",
+          "retrieved_bytes_identical": true
+        }
+      ]
+    },
+    {
+      "condition": "p08",
+      "receipt_path": "/data2/neural-shrimp-data/runpod/PV-P08-orchestrator.log",
+      "receipt_sha256": "5cb692207d80046eb72cab0961b0855c875e717a98bc45699840c358d937a231",
+      "archive_path": "/data2/neural-shrimp-data/runpod/soft64/20261019T053053Z/results.tgz",
+      "archive_sha256": "6c82e5aa65fc30cea347d5fd2686d545c082cd3f7494cedb5af3c391ac72b163",
+      "receipt_archive_hashes_match": true,
+      "declared_source": {
+        "commit": "1b1ef62a6f0cc140e281bce5ce419cf83ee98d2e",
+        "runner_returncode": 0,
+        "hash_verified": true,
+        "remote_sha256": "6c82e5aa65fc30cea347d5fd2686d545c082cd3f7494cedb5af3c391ac72b163",
+        "local_sha256": "6c82e5aa65fc30cea347d5fd2686d545c082cd3f7494cedb5af3c391ac72b163",
+        "code_sha256": "67b9b8bb54ed7e3a6a06cab87953298c0ced401f7ba1d7de7cefd263db2669e4",
+        "data_sha256": "8ddd2afe752599ffef0236be3a1120006541bbe9f419b883cc8b497383f2f2f9",
+        "jobset_args": "pv-p08 55 --resolution 128 128 --alpha -0.12 0.12 --log-temperature -1.0 0.3 --transient 300 --samples 300 --record 80 --max-period 32 --chaos-level 0.001 --prefix llm-soft-loop/prompt-variants/p08-opposite-system.json"
+      },
+      "members": [
+        {
+          "member": "explore/llm-soft-loop/pod64/bands/pv-p08/scan.npz",
+          "bytes": 262402,
+          "sha256": "ec78fcd2748354ba8f98e3db68239ea25cea85515e74c2edd53b694251d339dc",
+          "retrieved_bytes_identical": true
+        },
+        {
+          "member": "explore/llm-soft-loop/pod64/bands/pv-p08/scan.json",
+          "bytes": 193086,
+          "sha256": "e52b8552a5ac1c9ba641827dd5132aedbfe0d322189fbb4de673bf534ea4b3c6",
+          "retrieved_bytes_identical": true
+        }
+      ]
+    },
+    {
+      "condition": "p09",
+      "receipt_path": "/data2/neural-shrimp-data/runpod/PV-P09-orchestrator.log",
+      "receipt_sha256": "f78df9fecd8e312c6688d9d52db7a275c0a48301aacd55086a8393d033ecacb0",
+      "archive_path": "/data2/neural-shrimp-data/runpod/soft64/20261019T053010Z/results.tgz",
+      "archive_sha256": "d4826670e30545b8b4ca29ea70344d3821c0fa53b39ccbcc7a880f54a2c25f61",
+      "receipt_archive_hashes_match": true,
+      "declared_source": {
+        "commit": "1b1ef62a6f0cc140e281bce5ce419cf83ee98d2e",
+        "runner_returncode": 0,
+        "hash_verified": true,
+        "remote_sha256": "d4826670e30545b8b4ca29ea70344d3821c0fa53b39ccbcc7a880f54a2c25f61",
+        "local_sha256": "d4826670e30545b8b4ca29ea70344d3821c0fa53b39ccbcc7a880f54a2c25f61",
+        "code_sha256": "67b9b8bb54ed7e3a6a06cab87953298c0ced401f7ba1d7de7cefd263db2669e4",
+        "data_sha256": "8ddd2afe752599ffef0236be3a1120006541bbe9f419b883cc8b497383f2f2f9",
+        "jobset_args": "pv-p09 55 --resolution 128 128 --alpha -0.12 0.12 --log-temperature -1.0 0.3 --transient 300 --samples 300 --record 80 --max-period 32 --chaos-level 0.001 --prefix llm-soft-loop/prompt-variants/p09-happy-system.json"
+      },
+      "members": [
+        {
+          "member": "explore/llm-soft-loop/pod64/bands/pv-p09/scan.npz",
+          "bytes": 259603,
+          "sha256": "02f170ff4f1cc354d868a148b17d90ce7edb77a287dceba638e2755eecb35e06",
+          "retrieved_bytes_identical": true
+        },
+        {
+          "member": "explore/llm-soft-loop/pod64/bands/pv-p09/scan.json",
+          "bytes": 157959,
+          "sha256": "20de7b76a9682262bc1a0658a886aa48d431ff033e45d4ef2d861cd5f951e070",
+          "retrieved_bytes_identical": true
+        }
+      ]
+    },
+    {
+      "condition": "p10",
+      "receipt_path": "/data2/neural-shrimp-data/runpod/PV-P10-orchestrator.log",
+      "receipt_sha256": "abde8bb89116b58e2d212ecff4c009b006edbf45123886d7640ee5cd3db5a0d0",
+      "archive_path": "/data2/neural-shrimp-data/runpod/soft64/20261019T053107Z/results.tgz",
+      "archive_sha256": "591bb7f702a87818b56c7aa04a7b1d2f6afa601cddd1ef51ecabc837f75809a9",
+      "receipt_archive_hashes_match": true,
+      "declared_source": {
+        "commit": "1b1ef62a6f0cc140e281bce5ce419cf83ee98d2e",
+        "runner_returncode": 0,
+        "hash_verified": true,
+        "remote_sha256": "591bb7f702a87818b56c7aa04a7b1d2f6afa601cddd1ef51ecabc837f75809a9",
+        "local_sha256": "591bb7f702a87818b56c7aa04a7b1d2f6afa601cddd1ef51ecabc837f75809a9",
+        "code_sha256": "67b9b8bb54ed7e3a6a06cab87953298c0ced401f7ba1d7de7cefd263db2669e4",
+        "data_sha256": "8ddd2afe752599ffef0236be3a1120006541bbe9f419b883cc8b497383f2f2f9",
+        "jobset_args": "pv-p10 55 --resolution 128 128 --alpha -0.12 0.12 --log-temperature -1.0 0.3 --transient 300 --samples 300 --record 80 --max-period 32 --chaos-level 0.001 --prefix llm-soft-loop/prompt-variants/p10-sad-system.json"
+      },
+      "members": [
+        {
+          "member": "explore/llm-soft-loop/pod64/bands/pv-p10/scan.npz",
+          "bytes": 260215,
+          "sha256": "7d911391667230f2e5277386693e6a651eb2e1047d87e7dfa9b3288cb9f5b5e9",
+          "retrieved_bytes_identical": true
+        },
+        {
+          "member": "explore/llm-soft-loop/pod64/bands/pv-p10/scan.json",
+          "bytes": 146347,
+          "sha256": "c4f6da95a779cff3b125728fb850003ea2235df869551c09a550154b124ff19e",
+          "retrieved_bytes_identical": true
+        }
+      ]
+    },
+    {
+      "condition": "p11",
+      "receipt_path": "/data2/neural-shrimp-data/runpod/PV-P11-orchestrator.log",
+      "receipt_sha256": "01d9a511c964bf71a087be6b330d968c317032369bd2a297dde6c46ec0dcf269",
+      "archive_path": "/data2/neural-shrimp-data/runpod/soft64/20261019T050456Z/results.tgz",
+      "archive_sha256": "836a210e3fb694b87259ada3f5503fa30dc6bfcc09029e70310cd94b988b3b02",
+      "receipt_archive_hashes_match": true,
+      "declared_source": {
+        "commit": "1b1ef62a6f0cc140e281bce5ce419cf83ee98d2e",
+        "runner_returncode": 0,
+        "hash_verified": true,
+        "remote_sha256": "836a210e3fb694b87259ada3f5503fa30dc6bfcc09029e70310cd94b988b3b02",
+        "local_sha256": "836a210e3fb694b87259ada3f5503fa30dc6bfcc09029e70310cd94b988b3b02",
+        "code_sha256": "67b9b8bb54ed7e3a6a06cab87953298c0ced401f7ba1d7de7cefd263db2669e4",
+        "data_sha256": "8ddd2afe752599ffef0236be3a1120006541bbe9f419b883cc8b497383f2f2f9",
+        "jobset_args": "pv-p11 55 --resolution 128 128 --alpha -0.12 0.12 --log-temperature -1.0 0.3 --transient 300 --samples 300 --record 80 --max-period 32 --chaos-level 0.001 --prefix llm-soft-loop/prompt-variants/p11-happy-user.json"
+      },
+      "members": [
+        {
+          "member": "explore/llm-soft-loop/pod64/bands/pv-p11/scan.npz",
+          "bytes": 262668,
+          "sha256": "6f7aba7e4a2066e3e399693749ce1e870659e6c65dfe14ddfb5e3bee254c09d5",
+          "retrieved_bytes_identical": true
+        },
+        {
+          "member": "explore/llm-soft-loop/pod64/bands/pv-p11/scan.json",
+          "bytes": 206422,
+          "sha256": "9dd7fbff3fab83f5b0c4a9a8c264c37dcf74afd2c3b1ce5f22409da8ea0c28bb",
+          "retrieved_bytes_identical": true
+        }
+      ]
+    },
+    {
+      "condition": "p12",
+      "receipt_path": "/data2/neural-shrimp-data/runpod/PV-P12-orchestrator.log",
+      "receipt_sha256": "5863304bde2320b261253c27ae2088a0f6e2cec15ea49bbb3afa6f6d62746074",
+      "archive_path": "/data2/neural-shrimp-data/runpod/soft64/20261019T050454Z/results.tgz",
+      "archive_sha256": "fe42052ebf7b44e695e94dfd10dcf9fa7d0b14495565b95ef29632a46239aa8b",
+      "receipt_archive_hashes_match": true,
+      "declared_source": {
+        "commit": "1b1ef62a6f0cc140e281bce5ce419cf83ee98d2e",
+        "runner_returncode": 0,
+        "hash_verified": true,
+        "remote_sha256": "fe42052ebf7b44e695e94dfd10dcf9fa7d0b14495565b95ef29632a46239aa8b",
+        "local_sha256": "fe42052ebf7b44e695e94dfd10dcf9fa7d0b14495565b95ef29632a46239aa8b",
+        "code_sha256": "67b9b8bb54ed7e3a6a06cab87953298c0ced401f7ba1d7de7cefd263db2669e4",
+        "data_sha256": "8ddd2afe752599ffef0236be3a1120006541bbe9f419b883cc8b497383f2f2f9",
+        "jobset_args": "pv-p12 55 --resolution 128 128 --alpha -0.12 0.12 --log-temperature -1.0 0.3 --transient 300 --samples 300 --record 80 --max-period 32 --chaos-level 0.001 --prefix llm-soft-loop/prompt-variants/p12-sad-user.json"
+      },
+      "members": [
+        {
+          "member": "explore/llm-soft-loop/pod64/bands/pv-p12/scan.npz",
+          "bytes": 260380,
+          "sha256": "c40aa103a2ca3c7400d726e9299575e83a4cfcd472e71fa855904fefdfe97193",
+          "retrieved_bytes_identical": true
+        },
+        {
+          "member": "explore/llm-soft-loop/pod64/bands/pv-p12/scan.json",
+          "bytes": 205624,
+          "sha256": "93e19dd9614d5b20e7a00107c55a8a69d286fcae458a3f9691b7e7ba3dc37b92",
+          "retrieved_bytes_identical": true
+        }
+      ]
+    },
+    {
+      "condition": "p13",
+      "receipt_path": "/data2/neural-shrimp-data/runpod/PV-P13-orchestrator.log",
+      "receipt_sha256": "99b191d11059149576c0e3c0608f3fe57a1072c6083b27147fdc6ecafd67d926",
+      "archive_path": "/data2/neural-shrimp-data/runpod/soft64/20261019T053053Z-1/results.tgz",
+      "archive_sha256": "16e6b35559d501c947580a37146bf66826be84ea5c6e7ebe502711fbb2b53e4b",
+      "receipt_archive_hashes_match": true,
+      "declared_source": {
+        "commit": "1b1ef62a6f0cc140e281bce5ce419cf83ee98d2e",
+        "runner_returncode": 0,
+        "hash_verified": true,
+        "remote_sha256": "16e6b35559d501c947580a37146bf66826be84ea5c6e7ebe502711fbb2b53e4b",
+        "local_sha256": "16e6b35559d501c947580a37146bf66826be84ea5c6e7ebe502711fbb2b53e4b",
+        "code_sha256": "67b9b8bb54ed7e3a6a06cab87953298c0ced401f7ba1d7de7cefd263db2669e4",
+        "data_sha256": "8ddd2afe752599ffef0236be3a1120006541bbe9f419b883cc8b497383f2f2f9",
+        "jobset_args": "pv-p13 55 --resolution 128 128 --alpha -0.12 0.12 --log-temperature -1.0 0.3 --transient 300 --samples 300 --record 80 --max-period 32 --chaos-level 0.001 --prefix llm-soft-loop/prompt-variants/p13-raw-no-template.json"
+      },
+      "members": [
+        {
+          "member": "explore/llm-soft-loop/pod64/bands/pv-p13/scan.npz",
+          "bytes": 262249,
+          "sha256": "1c1742ad24421927710e1b5a1587329ba67123a760c80465985c03cf7fb76624",
+          "retrieved_bytes_identical": true
+        },
+        {
+          "member": "explore/llm-soft-loop/pod64/bands/pv-p13/scan.json",
+          "bytes": 145166,
+          "sha256": "dc143f3b227a49e22f07526eb5bc85f4801b7e5feae7d7347b7e9435f22cdd0c",
+          "retrieved_bytes_identical": true
+        }
+      ]
+    },
+    {
+      "condition": "p14",
+      "receipt_path": "/data2/neural-shrimp-data/runpod/PV-P14B-orchestrator.log",
+      "receipt_sha256": "a2ddf922a1c5cc8c39a0b02cb704fcc0ae1cf4c4c5dc65857f2ef937659c2d98",
+      "archive_path": "/data2/neural-shrimp-data/runpod/soft64/20261019T061926Z/results.tgz",
+      "archive_sha256": "b5135cb1bb1407c02a3dd598e10967c48a3207b26c2026c8b1dff97387bb51bc",
+      "receipt_archive_hashes_match": true,
+      "declared_source": {
+        "commit": "1b1ef62a6f0cc140e281bce5ce419cf83ee98d2e",
+        "runner_returncode": 0,
+        "hash_verified": true,
+        "remote_sha256": "b5135cb1bb1407c02a3dd598e10967c48a3207b26c2026c8b1dff97387bb51bc",
+        "local_sha256": "b5135cb1bb1407c02a3dd598e10967c48a3207b26c2026c8b1dff97387bb51bc",
+        "code_sha256": "67b9b8bb54ed7e3a6a06cab87953298c0ced401f7ba1d7de7cefd263db2669e4",
+        "data_sha256": "8ddd2afe752599ffef0236be3a1120006541bbe9f419b883cc8b497383f2f2f9",
+        "jobset_args": "pv-p14b 70 --resolution 128 128 --alpha -0.12 0.12 --log-temperature -1.0 0.3 --transient 300 --samples 300 --record 80 --max-period 32 --chaos-level 0.001 --prefix llm-soft-loop/prompt-variants/p14-long-system.json --chunk 512"
+      },
+      "members": [
+        {
+          "member": "explore/llm-soft-loop/pod64/bands/pv-p14b/scan.npz",
+          "bytes": 257882,
+          "sha256": "affda3528d6d61af8555fb5e3a19897148ba6d3bbadceeceb934021c424a0d93",
+          "retrieved_bytes_identical": true
+        },
+        {
+          "member": "explore/llm-soft-loop/pod64/bands/pv-p14b/scan.json",
+          "bytes": 142207,
+          "sha256": "5b286a212d9e27c8abde947f455809a775fb427bcaec6bb13321f918681fea34",
+          "retrieved_bytes_identical": true
+        }
+      ]
+    },
+    {
+      "condition": "p15",
+      "receipt_path": "/data2/neural-shrimp-data/runpod/PV-P15-orchestrator.log",
+      "receipt_sha256": "12827296d615cc3eca19175cceb793ad5cb487ac89cba500b905cb85776fec78",
+      "archive_path": "/data2/neural-shrimp-data/runpod/soft64/20261019T050508Z/results.tgz",
+      "archive_sha256": "b0ac1948686a6242d5e65164ae9434c45e2c8b48332f5ff06bd2ea991f753260",
+      "receipt_archive_hashes_match": true,
+      "declared_source": {
+        "commit": "1b1ef62a6f0cc140e281bce5ce419cf83ee98d2e",
+        "runner_returncode": 0,
+        "hash_verified": true,
+        "remote_sha256": "b0ac1948686a6242d5e65164ae9434c45e2c8b48332f5ff06bd2ea991f753260",
+        "local_sha256": "b0ac1948686a6242d5e65164ae9434c45e2c8b48332f5ff06bd2ea991f753260",
+        "code_sha256": "67b9b8bb54ed7e3a6a06cab87953298c0ced401f7ba1d7de7cefd263db2669e4",
+        "data_sha256": "8ddd2afe752599ffef0236be3a1120006541bbe9f419b883cc8b497383f2f2f9",
+        "jobset_args": "pv-p15 55 --resolution 128 128 --alpha -0.12 0.12 --log-temperature -1.0 0.3 --transient 300 --samples 300 --record 80 --max-period 32 --chaos-level 0.001 --prefix llm-soft-loop/prompt-variants/p15-two-turn.json"
+      },
+      "members": [
+        {
+          "member": "explore/llm-soft-loop/pod64/bands/pv-p15/scan.npz",
+          "bytes": 263342,
+          "sha256": "392e62330dd4f010f4533fed4af98964f0d06dc3c44e114740be78248b0421e5",
+          "retrieved_bytes_identical": true
+        },
+        {
+          "member": "explore/llm-soft-loop/pod64/bands/pv-p15/scan.json",
+          "bytes": 203651,
+          "sha256": "528c9377b2960fc27b1d533fc64a6d87e3fcb5c69e1f08466a7f4a46401da0c2",
+          "retrieved_bytes_identical": true
+        }
+      ]
+    },
+    {
+      "condition": "p16",
+      "receipt_path": "/data2/neural-shrimp-data/runpod/PV-P16-orchestrator.log",
+      "receipt_sha256": "005b9cb2a736abd75adc7b056fe1ce754ed9fd81f7f8d04372ac1b51488dd900",
+      "archive_path": "/data2/neural-shrimp-data/runpod/soft64/20261019T052825Z/results.tgz",
+      "archive_sha256": "02ae43f7b72c6a8a381094a1ed9573dadbdeec6b9fa37b5bad64964d19407832",
+      "receipt_archive_hashes_match": true,
+      "declared_source": {
+        "commit": "1b1ef62a6f0cc140e281bce5ce419cf83ee98d2e",
+        "runner_returncode": 0,
+        "hash_verified": true,
+        "remote_sha256": "02ae43f7b72c6a8a381094a1ed9573dadbdeec6b9fa37b5bad64964d19407832",
+        "local_sha256": "02ae43f7b72c6a8a381094a1ed9573dadbdeec6b9fa37b5bad64964d19407832",
+        "code_sha256": "67b9b8bb54ed7e3a6a06cab87953298c0ced401f7ba1d7de7cefd263db2669e4",
+        "data_sha256": "8ddd2afe752599ffef0236be3a1120006541bbe9f419b883cc8b497383f2f2f9",
+        "jobset_args": "pv-p16 55 --resolution 128 128 --alpha -0.12 0.12 --log-temperature -1.0 0.3 --transient 300 --samples 300 --record 80 --max-period 32 --chaos-level 0.001 --prefix llm-soft-loop/prompt-variants/p16-prompt-r-gauss.json"
+      },
+      "members": [
+        {
+          "member": "explore/llm-soft-loop/pod64/bands/pv-p16/scan.npz",
+          "bytes": 261356,
+          "sha256": "28aa46d5f6035ac3eb85ff2f6e314b267e2408894d8e9c2a0c572a8f132bc962",
+          "retrieved_bytes_identical": true
+        },
+        {
+          "member": "explore/llm-soft-loop/pod64/bands/pv-p16/scan.json",
+          "bytes": 118578,
+          "sha256": "52be6c4f22493582f78904ff3bae7cf3371d4c0928b490afa11bbd69945b48ff",
+          "retrieved_bytes_identical": true
+        }
+      ]
+    },
+    {
+      "condition": "p17",
+      "receipt_path": "/data2/neural-shrimp-data/runpod/PV-P17-orchestrator.log",
+      "receipt_sha256": "256b5f93379548da6f8b8afdace87c0afac219e552fddc80aebecb20078bfcc7",
+      "archive_path": "/data2/neural-shrimp-data/runpod/soft64/20261019T053003Z/results.tgz",
+      "archive_sha256": "5eaefb54f4f2278722f8f55ba923b38b13ea9cc110402e86dea3827f068dd4a5",
+      "receipt_archive_hashes_match": true,
+      "declared_source": {
+        "commit": "1b1ef62a6f0cc140e281bce5ce419cf83ee98d2e",
+        "runner_returncode": 0,
+        "hash_verified": true,
+        "remote_sha256": "5eaefb54f4f2278722f8f55ba923b38b13ea9cc110402e86dea3827f068dd4a5",
+        "local_sha256": "5eaefb54f4f2278722f8f55ba923b38b13ea9cc110402e86dea3827f068dd4a5",
+        "code_sha256": "67b9b8bb54ed7e3a6a06cab87953298c0ced401f7ba1d7de7cefd263db2669e4",
+        "data_sha256": "8ddd2afe752599ffef0236be3a1120006541bbe9f419b883cc8b497383f2f2f9",
+        "jobset_args": "pv-p17 55 --resolution 128 128 --alpha -0.12 0.12 --log-temperature -1.0 0.3 --transient 300 --samples 300 --record 80 --max-period 32 --chaos-level 0.001 --prefix llm-soft-loop/prompt-variants/p17-prompt-r-token.json"
+      },
+      "members": [
+        {
+          "member": "explore/llm-soft-loop/pod64/bands/pv-p17/scan.npz",
+          "bytes": 260409,
+          "sha256": "97185fe17320a3642210796afcf4c33e8bd33b15a713119001ca3e3374d8168e",
+          "retrieved_bytes_identical": true
+        },
+        {
+          "member": "explore/llm-soft-loop/pod64/bands/pv-p17/scan.json",
+          "bytes": 71767,
+          "sha256": "cf1b8a1c0cb06a7de51b59928274f50c6e6b3d501be6078afbf609b88ac62efe",
+          "retrieved_bytes_identical": true
+        }
+      ]
+    },
+    {
+      "condition": "p18",
+      "receipt_path": "/data2/neural-shrimp-data/runpod/PV-P18-orchestrator.log",
+      "receipt_sha256": "af97587f94e4cf8b1610394c2ef4b1aa7f5eaafd93a6e13695b7fa567e4412c9",
+      "archive_path": "/data2/neural-shrimp-data/runpod/soft64/20261019T052159Z/results.tgz",
+      "archive_sha256": "ac174e881000d2b3bd550ecc773f9861bf8fa260ed008ce8be23b33a6fc96b34",
+      "receipt_archive_hashes_match": true,
+      "declared_source": {
+        "commit": "1b1ef62a6f0cc140e281bce5ce419cf83ee98d2e",
+        "runner_returncode": 0,
+        "hash_verified": true,
+        "remote_sha256": "ac174e881000d2b3bd550ecc773f9861bf8fa260ed008ce8be23b33a6fc96b34",
+        "local_sha256": "ac174e881000d2b3bd550ecc773f9861bf8fa260ed008ce8be23b33a6fc96b34",
+        "code_sha256": "67b9b8bb54ed7e3a6a06cab87953298c0ced401f7ba1d7de7cefd263db2669e4",
+        "data_sha256": "8ddd2afe752599ffef0236be3a1120006541bbe9f419b883cc8b497383f2f2f9",
+        "jobset_args": "pv-p18 55 --resolution 128 128 --alpha -0.12 0.12 --log-temperature -1.0 0.3 --transient 300 --samples 300 --record 80 --max-period 32 --chaos-level 0.001 --prefix llm-soft-loop/prompt-variants/p18-prompt-r-mix.json"
+      },
+      "members": [
+        {
+          "member": "explore/llm-soft-loop/pod64/bands/pv-p18/scan.npz",
+          "bytes": 261304,
+          "sha256": "30a2389ee3bd60ea387f334e7cfe2dd568bdf7aa340e0cb503152cc73bf50ef8",
+          "retrieved_bytes_identical": true
+        },
+        {
+          "member": "explore/llm-soft-loop/pod64/bands/pv-p18/scan.json",
+          "bytes": 117082,
+          "sha256": "6a21bf90b2a0a28becaa0c7a2400058d483bc119b0ced50456056cb91029d03f",
+          "retrieved_bytes_identical": true
+        }
+      ]
+    },
+    {
+      "condition": "s1",
+      "receipt_path": "/data2/neural-shrimp-data/runpod/PV-S1-orchestrator.log",
+      "receipt_sha256": "587f11258f1d887e6b4b843b44c40a944b65d1121f63a70e994e00bed2773da0",
+      "archive_path": "/data2/neural-shrimp-data/runpod/soft64/20261019T051506Z/results.tgz",
+      "archive_sha256": "da1862ee5d9a082a7ac8ccc28d961382ce34108d556000bb1ecd6ed40b5d3148",
+      "receipt_archive_hashes_match": true,
+      "declared_source": {
+        "commit": "1b1ef62a6f0cc140e281bce5ce419cf83ee98d2e",
+        "runner_returncode": 0,
+        "hash_verified": true,
+        "remote_sha256": "da1862ee5d9a082a7ac8ccc28d961382ce34108d556000bb1ecd6ed40b5d3148",
+        "local_sha256": "da1862ee5d9a082a7ac8ccc28d961382ce34108d556000bb1ecd6ed40b5d3148",
+        "code_sha256": "67b9b8bb54ed7e3a6a06cab87953298c0ced401f7ba1d7de7cefd263db2669e4",
+        "data_sha256": "8ddd2afe752599ffef0236be3a1120006541bbe9f419b883cc8b497383f2f2f9",
+        "jobset_args": "pv-s1 55 --resolution 128 128 --alpha -0.12 0.12 --log-temperature -1.0 0.3 --transient 300 --samples 300 --record 80 --max-period 32 --chaos-level 0.001 --start-vector llm-soft-loop/prompt-variants/vec-r-gauss.npy"
+      },
+      "members": [
+        {
+          "member": "explore/llm-soft-loop/pod64/bands/pv-s1/scan.npz",
+          "bytes": 256231,
+          "sha256": "b53e907222660b491a3883cc7b066c4d71a6bc26e67f914092a5c5f868860797",
+          "retrieved_bytes_identical": true
+        },
+        {
+          "member": "explore/llm-soft-loop/pod64/bands/pv-s1/scan.json",
+          "bytes": 179652,
+          "sha256": "f84dea0b9db41541d41ac0ed000a51be60ac58514a0a8d50b1c9d345d9bc596f",
+          "retrieved_bytes_identical": true
+        }
+      ]
+    },
+    {
+      "condition": "s2",
+      "receipt_path": "/data2/neural-shrimp-data/runpod/PV-S2-orchestrator.log",
+      "receipt_sha256": "1d804c8ebe71629f9c3531bcbcc239eb05974dd1d31a9e1d05429c6e110188af",
+      "archive_path": "/data2/neural-shrimp-data/runpod/soft64/20261019T051846Z/results.tgz",
+      "archive_sha256": "a55c3937a90036287dde035e8f3df67dc20896e567c71dc77abb3e4f9afb1c2d",
+      "receipt_archive_hashes_match": true,
+      "declared_source": {
+        "commit": "1b1ef62a6f0cc140e281bce5ce419cf83ee98d2e",
+        "runner_returncode": 0,
+        "hash_verified": true,
+        "remote_sha256": "a55c3937a90036287dde035e8f3df67dc20896e567c71dc77abb3e4f9afb1c2d",
+        "local_sha256": "a55c3937a90036287dde035e8f3df67dc20896e567c71dc77abb3e4f9afb1c2d",
+        "code_sha256": "67b9b8bb54ed7e3a6a06cab87953298c0ced401f7ba1d7de7cefd263db2669e4",
+        "data_sha256": "8ddd2afe752599ffef0236be3a1120006541bbe9f419b883cc8b497383f2f2f9",
+        "jobset_args": "pv-s2 55 --resolution 128 128 --alpha -0.12 0.12 --log-temperature -1.0 0.3 --transient 300 --samples 300 --record 80 --max-period 32 --chaos-level 0.001 --start-vector llm-soft-loop/prompt-variants/vec-r-token.npy"
+      },
+      "members": [
+        {
+          "member": "explore/llm-soft-loop/pod64/bands/pv-s2/scan.npz",
+          "bytes": 254566,
+          "sha256": "73dde904f66b20c3cc6593b8ec70e38452a79c0058428f072f12c625da292a42",
+          "retrieved_bytes_identical": true
+        },
+        {
+          "member": "explore/llm-soft-loop/pod64/bands/pv-s2/scan.json",
+          "bytes": 169481,
+          "sha256": "f3a6011925c63f5c740d7df85b5a2e26b67944972b3428bd580e8b58bfeaa573",
+          "retrieved_bytes_identical": true
+        }
+      ]
+    },
+    {
+      "condition": "s3",
+      "receipt_path": "/data2/neural-shrimp-data/runpod/PV-S3-orchestrator.log",
+      "receipt_sha256": "10ae096fa3cc66cf29a3a3c1b392dc11b110e1c30a1f22ee3534fd4e0bffc249",
+      "archive_path": "/data2/neural-shrimp-data/runpod/soft64/20261019T051128Z/results.tgz",
+      "archive_sha256": "dd17faf0477d32f9004305d8993ac9ffcef0c8e7bd00a20ffa08c70f96ccfb2c",
+      "receipt_archive_hashes_match": true,
+      "declared_source": {
+        "commit": "1b1ef62a6f0cc140e281bce5ce419cf83ee98d2e",
+        "runner_returncode": 0,
+        "hash_verified": true,
+        "remote_sha256": "dd17faf0477d32f9004305d8993ac9ffcef0c8e7bd00a20ffa08c70f96ccfb2c",
+        "local_sha256": "dd17faf0477d32f9004305d8993ac9ffcef0c8e7bd00a20ffa08c70f96ccfb2c",
+        "code_sha256": "67b9b8bb54ed7e3a6a06cab87953298c0ced401f7ba1d7de7cefd263db2669e4",
+        "data_sha256": "8ddd2afe752599ffef0236be3a1120006541bbe9f419b883cc8b497383f2f2f9",
+        "jobset_args": "pv-s3 55 --resolution 128 128 --alpha -0.12 0.12 --log-temperature -1.0 0.3 --transient 300 --samples 300 --record 80 --max-period 32 --chaos-level 0.001 --start-vector llm-soft-loop/prompt-variants/vec-r-mix.npy"
+      },
+      "members": [
+        {
+          "member": "explore/llm-soft-loop/pod64/bands/pv-s3/scan.npz",
+          "bytes": 259779,
+          "sha256": "01f7aaaedcbd1da1417e98358870a438e16008a14a1020fab00164aed4b4b268",
+          "retrieved_bytes_identical": true
+        },
+        {
+          "member": "explore/llm-soft-loop/pod64/bands/pv-s3/scan.json",
+          "bytes": 159739,
+          "sha256": "caa9b9358126eb37db71ccbffffc0eea12425606cd9236fbf53f416f246319af",
+          "retrieved_bytes_identical": true
+        }
+      ]
+    }
+  ],
+  "elapsed_seconds": 0.19487368315458298,
+  "all_match": true,
+  "scope": "Saved original archive/receipt joins only; no model or numerical replay."
+}

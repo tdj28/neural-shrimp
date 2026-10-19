@@ -1,0 +1,794 @@
+{
+  "curve_gates": [
+    {
+      "name": "p6s/p6s-ad-curve-minus",
+      "kind": "flip",
+      "points": 59,
+      "passed_strict": 59,
+      "failed_or_rejected": [],
+      "max_all_residual": 9.964156480585776e-11
+    },
+    {
+      "name": "p6s/p6s-ad-curve-plus",
+      "kind": "flip",
+      "points": 29,
+      "passed_strict": 29,
+      "failed_or_rejected": [],
+      "max_all_residual": 9.304176419743203e-11
+    },
+    {
+      "name": "p6s/p6s-au-curve-minus",
+      "kind": "fold",
+      "points": 69,
+      "passed_strict": 69,
+      "failed_or_rejected": [],
+      "max_all_residual": 8.670181047204852e-11
+    },
+    {
+      "name": "p6s/p6s-au-curve-plus",
+      "kind": "fold",
+      "points": 82,
+      "passed_strict": 82,
+      "failed_or_rejected": [],
+      "max_all_residual": 7.831378324551681e-11
+    },
+    {
+      "name": "p6s/p6s-td-curve-minus",
+      "kind": "flip",
+      "points": 57,
+      "passed_strict": 56,
+      "failed_or_rejected": [
+        {
+          "index": 31,
+          "rejected": 1,
+          "residual": 1.266218604825328e-11,
+          "critical_gap": 4.057737590379418e-09
+        }
+      ],
+      "max_all_residual": 9.881612939786268e-11
+    },
+    {
+      "name": "p6s/p6s-td-curve-plus",
+      "kind": "flip",
+      "points": 100,
+      "passed_strict": 99,
+      "failed_or_rejected": [
+        {
+          "index": 37,
+          "rejected": 1,
+          "residual": 1.0372449959986477e-11,
+          "critical_gap": 9.031270176151907e-10
+        }
+      ],
+      "max_all_residual": 9.98228860352885e-11
+    },
+    {
+      "name": "p6s/p6s-td-fold-minus",
+      "kind": "fold",
+      "points": 39,
+      "passed_strict": 39,
+      "failed_or_rejected": [],
+      "max_all_residual": 8.968086330906588e-11
+    },
+    {
+      "name": "p6s/p6s-td-fold-plus",
+      "kind": "fold",
+      "points": 64,
+      "passed_strict": 64,
+      "failed_or_rejected": [],
+      "max_all_residual": 9.882913430777501e-11
+    },
+    {
+      "name": "p6s/p6s-tu-curve-minus",
+      "kind": "fold",
+      "points": 97,
+      "passed_strict": 96,
+      "failed_or_rejected": [
+        {
+          "index": 1,
+          "rejected": 1,
+          "residual": 2.490928535079295e-11,
+          "critical_gap": 5.164295657777984e-10
+        }
+      ],
+      "max_all_residual": 9.634974992220278e-11
+    },
+    {
+      "name": "p6s/p6s-tu-curve-plus",
+      "kind": "fold",
+      "points": 60,
+      "passed_strict": 60,
+      "failed_or_rejected": [],
+      "max_all_residual": 8.477891630674176e-11
+    },
+    {
+      "name": "p6s/p6s-tu-fold-wide-minus",
+      "kind": "fold",
+      "points": 120,
+      "passed_strict": 117,
+      "failed_or_rejected": [
+        {
+          "index": 1,
+          "rejected": 1,
+          "residual": 2.494605354249059e-11,
+          "critical_gap": 5.138429681750267e-10
+        },
+        {
+          "index": 106,
+          "rejected": 0,
+          "residual": 7.539586534032348e-11,
+          "critical_gap": 2.55664474257955e-07
+        },
+        {
+          "index": 109,
+          "rejected": 0,
+          "residual": 9.786148719306086e-11,
+          "critical_gap": 2.8779428795644435e-07
+        }
+      ],
+      "max_all_residual": 9.786148719306086e-11
+    },
+    {
+      "name": "p6s/p6s-tu-fold-wide-plus",
+      "kind": "fold",
+      "points": 118,
+      "passed_strict": 116,
+      "failed_or_rejected": [
+        {
+          "index": 100,
+          "rejected": 0,
+          "residual": 4.851964349449247e-11,
+          "critical_gap": 1.0302396213912601e-07
+        },
+        {
+          "index": 104,
+          "rejected": 0,
+          "residual": 9.860740495445819e-11,
+          "critical_gap": 1.2035009988586864e-07
+        }
+      ],
+      "max_all_residual": 9.860740495445819e-11
+    },
+    {
+      "name": "p6s/p6s-tu-fold-wide2-a",
+      "kind": "fold",
+      "points": 95,
+      "passed_strict": 95,
+      "failed_or_rejected": [],
+      "max_all_residual": 9.757235733173042e-11
+    },
+    {
+      "name": "p6s/p6s-tu-fold-wide2-b",
+      "kind": "fold",
+      "points": 95,
+      "passed_strict": 95,
+      "failed_or_rejected": [],
+      "max_all_residual": 9.757235733173042e-11
+    },
+    {
+      "name": "kite/kite-la-curve-minus",
+      "kind": "fold",
+      "points": 120,
+      "passed_strict": 120,
+      "failed_or_rejected": [],
+      "max_all_residual": 9.805952882867263e-11
+    },
+    {
+      "name": "kite/kite-la-curve-plus",
+      "kind": "fold",
+      "points": 120,
+      "passed_strict": 120,
+      "failed_or_rejected": [],
+      "max_all_residual": 9.87901832094672e-11
+    },
+    {
+      "name": "kite/kite-ut-curve-minus",
+      "kind": "fold",
+      "points": 120,
+      "passed_strict": 120,
+      "failed_or_rejected": [],
+      "max_all_residual": 9.944782211775777e-11
+    },
+    {
+      "name": "kite/kite-ut-curve-plus",
+      "kind": "fold",
+      "points": 120,
+      "passed_strict": 120,
+      "failed_or_rejected": [],
+      "max_all_residual": 9.683073700792971e-11
+    },
+    {
+      "name": "fm5/curve-a1-down-auto-minus",
+      "kind": "flip",
+      "points": 48,
+      "passed_strict": 48,
+      "failed_or_rejected": [],
+      "max_all_residual": 9.309993845840656e-11
+    },
+    {
+      "name": "fm5/curve-a1-down-auto-plus",
+      "kind": "flip",
+      "points": 85,
+      "passed_strict": 84,
+      "failed_or_rejected": [
+        {
+          "index": 7,
+          "rejected": 1,
+          "residual": 9.499926320351086e-12,
+          "critical_gap": 4.942641851357621e-10
+        }
+      ],
+      "max_all_residual": 9.379329790821202e-11
+    },
+    {
+      "name": "fm5/curve-a1-up-fold-minus",
+      "kind": "fold",
+      "points": 120,
+      "passed_strict": 119,
+      "failed_or_rejected": [
+        {
+          "index": 32,
+          "rejected": 1,
+          "residual": 2.5900283963048257e-11,
+          "critical_gap": 1.6256469503872495e-09
+        }
+      ],
+      "max_all_residual": 9.898957370391777e-11
+    },
+    {
+      "name": "fm5/curve-a1-up-fold-plus",
+      "kind": "fold",
+      "points": 49,
+      "passed_strict": 49,
+      "failed_or_rejected": [],
+      "max_all_residual": 9.31526450923642e-11
+    },
+    {
+      "name": "fm5/curve-a2-down-flip-minus",
+      "kind": "flip",
+      "points": 57,
+      "passed_strict": 57,
+      "failed_or_rejected": [],
+      "max_all_residual": 9.572688334258548e-11
+    },
+    {
+      "name": "fm5/curve-a2-down-flip-plus",
+      "kind": "flip",
+      "points": 30,
+      "passed_strict": 30,
+      "failed_or_rejected": [],
+      "max_all_residual": 9.793448445328118e-11
+    },
+    {
+      "name": "fm5/curve-a2-up-fold-plus",
+      "kind": "fold",
+      "points": 120,
+      "passed_strict": 119,
+      "failed_or_rejected": [
+        {
+          "index": 25,
+          "rejected": 1,
+          "residual": 7.482037173816693e-11,
+          "critical_gap": 3.7412475339948514e-09
+        }
+      ],
+      "max_all_residual": 9.796722910240172e-11
+    },
+    {
+      "name": "fm5c/curve-a1-down-fold-minus",
+      "kind": "fold",
+      "points": 104,
+      "passed_strict": 101,
+      "failed_or_rejected": [
+        {
+          "index": 34,
+          "rejected": 1,
+          "residual": 1.9531308048073438e-11,
+          "critical_gap": 1.4186880559208248e-09
+        },
+        {
+          "index": 101,
+          "rejected": 0,
+          "residual": 9.100233202010902e-11,
+          "critical_gap": 1.0205059897128166e-07
+        },
+        {
+          "index": 102,
+          "rejected": 0,
+          "residual": 9.614130973391592e-11,
+          "critical_gap": 1.119195305321341e-07
+        }
+      ],
+      "max_all_residual": 9.779973532652285e-11
+    },
+    {
+      "name": "fm5c/curve-a1-down-fold-plus",
+      "kind": "fold",
+      "points": 51,
+      "passed_strict": 51,
+      "failed_or_rejected": [],
+      "max_all_residual": 9.822315017911487e-11
+    },
+    {
+      "name": "fm5x/curve-a1-down-auto-minus",
+      "kind": "flip",
+      "points": 181,
+      "passed_strict": 181,
+      "failed_or_rejected": [],
+      "max_all_residual": 9.960484121282877e-11
+    },
+    {
+      "name": "fm5x/curve-a1-down-auto-plus",
+      "kind": "flip",
+      "points": 245,
+      "passed_strict": 245,
+      "failed_or_rejected": [],
+      "max_all_residual": 9.95505998349456e-11
+    },
+    {
+      "name": "fm5x/curve-a1-down-fold-minus",
+      "kind": "fold",
+      "points": 240,
+      "passed_strict": 236,
+      "failed_or_rejected": [
+        {
+          "index": 170,
+          "rejected": 0,
+          "residual": 8.835578423640667e-11,
+          "critical_gap": 1.382466039423491e-07
+        },
+        {
+          "index": 175,
+          "rejected": 0,
+          "residual": 5.365745318953517e-11,
+          "critical_gap": 1.008303103233743e-07
+        },
+        {
+          "index": 183,
+          "rejected": 0,
+          "residual": 6.72933094540558e-11,
+          "critical_gap": 1.8439602245123865e-07
+        },
+        {
+          "index": 206,
+          "rejected": 1,
+          "residual": 3.888083406688473e-11,
+          "critical_gap": 1.009769579063402e-08
+        }
+      ],
+      "max_all_residual": 9.912387670605784e-11
+    },
+    {
+      "name": "fm5x/curve-a1-down-fold-plus",
+      "kind": "fold",
+      "points": 222,
+      "passed_strict": 222,
+      "failed_or_rejected": [],
+      "max_all_residual": 9.969135242467571e-11
+    },
+    {
+      "name": "fm5x/curve-a1-up-fold-minus",
+      "kind": "fold",
+      "points": 232,
+      "passed_strict": 231,
+      "failed_or_rejected": [
+        {
+          "index": 41,
+          "rejected": 1,
+          "residual": 2.7925811873150467e-11,
+          "critical_gap": 1.469862009884082e-09
+        }
+      ],
+      "max_all_residual": 9.99366286979907e-11
+    },
+    {
+      "name": "fm5x/curve-a1-up-fold-plus",
+      "kind": "fold",
+      "points": 154,
+      "passed_strict": 154,
+      "failed_or_rejected": [],
+      "max_all_residual": 9.822199628781017e-11
+    },
+    {
+      "name": "fm5x/curve-a2-down-flip-minus",
+      "kind": "flip",
+      "points": 150,
+      "passed_strict": 148,
+      "failed_or_rejected": [
+        {
+          "index": 148,
+          "rejected": 0,
+          "residual": 7.361062905648004e-12,
+          "critical_gap": 1.1030961455382737e-07
+        },
+        {
+          "index": 149,
+          "rejected": 0,
+          "residual": 6.9755549709299694e-12,
+          "critical_gap": 1.3588197567138138e-07
+        }
+      ],
+      "max_all_residual": 9.765304355495709e-11
+    },
+    {
+      "name": "fm5x/curve-a2-down-flip-plus",
+      "kind": "flip",
+      "points": 133,
+      "passed_strict": 121,
+      "failed_or_rejected": [
+        {
+          "index": 119,
+          "rejected": 0,
+          "residual": 6.61916991546914e-11,
+          "critical_gap": 1.1340596939302117e-07
+        },
+        {
+          "index": 120,
+          "rejected": 0,
+          "residual": 7.370185853520294e-11,
+          "critical_gap": 1.3049187608249468e-07
+        },
+        {
+          "index": 121,
+          "rejected": 0,
+          "residual": 7.831388784084096e-11,
+          "critical_gap": 1.4402279346903413e-07
+        },
+        {
+          "index": 122,
+          "rejected": 0,
+          "residual": 8.209344692062696e-11,
+          "critical_gap": 1.552927403336568e-07
+        },
+        {
+          "index": 123,
+          "rejected": 0,
+          "residual": 8.397737734265425e-11,
+          "critical_gap": 1.6358506438329812e-07
+        },
+        {
+          "index": 124,
+          "rejected": 0,
+          "residual": 8.340970750263767e-11,
+          "critical_gap": 1.6583048345619744e-07
+        },
+        {
+          "index": 125,
+          "rejected": 0,
+          "residual": 8.124251389330391e-11,
+          "critical_gap": 1.6564537086427578e-07
+        },
+        {
+          "index": 126,
+          "rejected": 0,
+          "residual": 7.536381646849317e-11,
+          "critical_gap": 1.557849360622754e-07
+        },
+        {
+          "index": 127,
+          "rejected": 0,
+          "residual": 6.961186001380902e-11,
+          "critical_gap": 1.4713470963823028e-07
+        },
+        {
+          "index": 128,
+          "rejected": 0,
+          "residual": 6.19219518214079e-11,
+          "critical_gap": 1.3319125802269127e-07
+        },
+        {
+          "index": 129,
+          "rejected": 0,
+          "residual": 5.411812417684214e-11,
+          "critical_gap": 1.182708085911699e-07
+        },
+        {
+          "index": 130,
+          "rejected": 0,
+          "residual": 4.620100997335555e-11,
+          "critical_gap": 1.0198463340493902e-07
+        }
+      ],
+      "max_all_residual": 9.879158844508432e-11
+    },
+    {
+      "name": "fm5l-a/curve-a1-down-minus",
+      "kind": "flip",
+      "points": 261,
+      "passed_strict": 261,
+      "failed_or_rejected": [],
+      "max_all_residual": 9.62205388607004e-11
+    },
+    {
+      "name": "fm5l-a/curve-a1-down-plus",
+      "kind": "flip",
+      "points": 281,
+      "passed_strict": 281,
+      "failed_or_rejected": [],
+      "max_all_residual": 9.996258681493174e-11
+    },
+    {
+      "name": "fm5l-a/curve-a1-up-minus",
+      "kind": "fold",
+      "points": 267,
+      "passed_strict": 267,
+      "failed_or_rejected": [],
+      "max_all_residual": 9.626631842532587e-11
+    },
+    {
+      "name": "fm5l-a/curve-a1-up-plus",
+      "kind": "fold",
+      "points": 248,
+      "passed_strict": 248,
+      "failed_or_rejected": [],
+      "max_all_residual": 9.579074693015506e-11
+    }
+  ],
+  "FA_boundary": {
+    "flip": {
+      "pairs": 292,
+      "within1": 276,
+      "within2": 290,
+      "median": 0.21406608702163993,
+      "max": 9.383581673691888
+    },
+    "fold": {
+      "pairs": 754,
+      "within1": 717,
+      "within2": 736,
+      "median": 0.2169180179241375,
+      "max": 3.976614763061801
+    },
+    "fold_or_flip": {
+      "pairs": 754,
+      "within1": 739,
+      "within2": 754,
+      "median": 0.2086060387122659,
+      "max": 1.6791491793844786
+    }
+  },
+  "HP5_in_FA_nearest_cell": {
+    "cells": 29005,
+    "counts": {
+      "family": 17083,
+      "other_periodic": 7053,
+      "chaos": 3492,
+      "neither": 1377
+    },
+    "shares": {
+      "family": 0.5889674194104465,
+      "other_periodic": 0.24316497155662817,
+      "chaos": 0.12039303568350285,
+      "neither": 0.04747457334942251
+    },
+    "period4": 6501
+  },
+  "P6_boundary": {
+    "False": {
+      "flip": {
+        "pairs": 406,
+        "within1": 167,
+        "within2": 178,
+        "median": 3.5454482697794325,
+        "max": 74.32160510189853
+      },
+      "fold": {
+        "pairs": 798,
+        "within1": 706,
+        "within2": 718,
+        "median": 0.19546347992110552,
+        "max": 11.648731269287673
+      }
+    },
+    "True": {
+      "flip": {
+        "pairs": 916,
+        "within1": 363,
+        "within2": 388,
+        "median": 4.3315298944035625,
+        "max": 74.82160510189226
+      },
+      "fold": {
+        "pairs": 1888,
+        "within1": 1678,
+        "within2": 1720,
+        "median": 0.236563166827721,
+        "max": 11.997629454614254
+      }
+    }
+  },
+  "corners": {
+    "R": [
+      [
+        0.07291177454293112,
+        -0.15410388095713187
+      ]
+    ],
+    "A": [
+      [
+        0.0729913215932688,
+        -0.1539840939705022
+      ]
+    ],
+    "B": [
+      [
+        0.07289989526056254,
+        -0.15370652555178224
+      ]
+    ]
+  },
+  "R_nearest_saved_points_Fig1_steps": {
+    "ad": 1.739897283828117,
+    "td": 0.25877365037744565
+  },
+  "pins": {
+    "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/p6s/p6s-ad-curve-minus/curve.json": {
+      "bytes": 85897,
+      "sha256": "c0559802b30be8eaebe7eea554d2888e0ff4584ee791ed051eae1896e77b98ca"
+    },
+    "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/p6s/p6s-ad-curve-plus/curve.json": {
+      "bytes": 43017,
+      "sha256": "63255809256c120e1ad34e3706c673b720ed83f798b79020f7e52a930408e080"
+    },
+    "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/p6s/p6s-au-curve-minus/curve.json": {
+      "bytes": 98972,
+      "sha256": "e0051a1e5e41efe2e86b264956277101f3864f65466d4d4e479666a9fe72ae6b"
+    },
+    "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/p6s/p6s-au-curve-plus/curve.json": {
+      "bytes": 115466,
+      "sha256": "0feb3848c066948b72c936dfebc6a19527c17375a1115be84c9d31dac85d89eb"
+    },
+    "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/p6s/p6s-td-curve-minus/curve.json": {
+      "bytes": 83501,
+      "sha256": "7213e93de1de7d934e7d7ac73f9c9d48e33c4a6ac6a3d56d22a52b47a1831d71"
+    },
+    "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/p6s/p6s-td-curve-plus/curve.json": {
+      "bytes": 143656,
+      "sha256": "31b16538aadca9422e0a39b304ad2b0a76018cc28030da5babb4696e0b06737c"
+    },
+    "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/p6s/p6s-td-fold-minus/curve.json": {
+      "bytes": 57608,
+      "sha256": "1149a944467b63d308e6525458f4dc6755b7133d9f7a0f2a8d388cfc5b691724"
+    },
+    "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/p6s/p6s-td-fold-plus/curve.json": {
+      "bytes": 32927,
+      "sha256": "470c6ceedbe4dda21e06a8149e297491b3c2c2587b5e6dbc9a3404da734a08e3"
+    },
+    "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/p6s/p6s-tu-curve-minus/curve.json": {
+      "bytes": 136480,
+      "sha256": "0b555551a1e08e45c144a48697af979bc53feee81104c3a1840393537a512006"
+    },
+    "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/p6s/p6s-tu-curve-plus/curve.json": {
+      "bytes": 87004,
+      "sha256": "c712bcd66ed47c69649fed94a2776b66c35ca61e1298c4a72aa6a72132c253ea"
+    },
+    "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/p6s/p6s-tu-fold-wide-minus/curve.json": {
+      "bytes": 61474,
+      "sha256": "19915e9619da72777badc25122809450114ee722a5f1974f38febb85bb6fb0b0"
+    },
+    "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/p6s/p6s-tu-fold-wide-plus/curve.json": {
+      "bytes": 60347,
+      "sha256": "5d0cffac461da2173345b2ce7918093eef6bc9f43a37f2d4dd26411ff432bb7f"
+    },
+    "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/p6s/p6s-tu-fold-wide2-a/curve.json": {
+      "bytes": 136873,
+      "sha256": "fca8f440b7437a5dd29d96749525b38871917797718356edaf3c437b61f27217"
+    },
+    "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/p6s/p6s-tu-fold-wide2-b/curve.json": {
+      "bytes": 136873,
+      "sha256": "ccd506b55984396a571f74beae09df3dddacf1a33c2c4875c51a2ba5f1c8f6ac"
+    },
+    "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/kite/kite-la-curve-minus/curve.json": {
+      "bytes": 170720,
+      "sha256": "7dc9ac5a92078ba8fc454a4bf0313e002ebb3b038537eb85ca85b2694331a579"
+    },
+    "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/kite/kite-la-curve-plus/curve.json": {
+      "bytes": 171676,
+      "sha256": "a74e991023755da0c5c55ec0d388b7293d9051e9686a0d149632791b65bf48a2"
+    },
+    "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/kite/kite-ut-curve-minus/curve.json": {
+      "bytes": 172376,
+      "sha256": "6d86cfb642b141f1d70750bc0e5dcdfe0cd0a5f3ed2149e6e29ed61374dc7347"
+    },
+    "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/kite/kite-ut-curve-plus/curve.json": {
+      "bytes": 170695,
+      "sha256": "1905fc3c7d5bee1fe0b3fa2e9605e1be6b0c101c990d5c502fc63f60fdb50177"
+    },
+    "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/fm5/curve-a1-down-auto-minus/curve.json": {
+      "bytes": 68531,
+      "sha256": "ec8274cdf7aa2d4701df2527f7fecb947efc7b42e1671226ac73632929e4e0e0"
+    },
+    "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/fm5/curve-a1-down-auto-plus/curve.json": {
+      "bytes": 121900,
+      "sha256": "d9e524cc9184814acb55be4652b9de16da6a25dac411456a5afc2d5d43025908"
+    },
+    "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/fm5/curve-a1-up-fold-minus/curve.json": {
+      "bytes": 171853,
+      "sha256": "688fc398898b862da3ce41cf6d690521277448f4021e0b96b8f48f251a8c8de3"
+    },
+    "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/fm5/curve-a1-up-fold-plus/curve.json": {
+      "bytes": 70602,
+      "sha256": "bea68572273810457656f7915d878656e5eceb77ac80ae685b7d362948d836ec"
+    },
+    "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/fm5/curve-a2-down-flip-minus/curve.json": {
+      "bytes": 81087,
+      "sha256": "bae64406e58d95fdff591a85dbb3ba830bfa41d671ce97cdf5a2c19050cd801f"
+    },
+    "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/fm5/curve-a2-down-flip-plus/curve.json": {
+      "bytes": 43067,
+      "sha256": "980457de5e12cd655b40f465a851c751a1f5a40b18f367f08d702d3bd1d1e6ed"
+    },
+    "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/fm5/curve-a2-up-fold-plus/curve.json": {
+      "bytes": 170881,
+      "sha256": "d5969a1d43d83b686fadf7510880668803055636b75519cbbf5d286efb180f84"
+    },
+    "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/fm5c/curve-a1-down-fold-minus/curve.json": {
+      "bytes": 148099,
+      "sha256": "694bd05a0ce7909a639faa7957c1fb678ef2e9fb707a18e3435b31e6effb0ca5"
+    },
+    "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/fm5c/curve-a1-down-fold-plus/curve.json": {
+      "bytes": 73021,
+      "sha256": "7f701404cb3f5bc187cc1b1216498c9711ce14716b5bbdbe242daf7af843a172"
+    },
+    "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/fm5x/curve-a1-down-auto-minus/curve.json": {
+      "bytes": 257622,
+      "sha256": "d8f19be3271a8839b69ad55071488261cd2ce51a3ffe362c976ef24c92c319fb"
+    },
+    "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/fm5x/curve-a1-down-auto-plus/curve.json": {
+      "bytes": 147342,
+      "sha256": "853bf7e2bedc6d2365ef7bfc1b8ab3797afead375defd59dfb7805ab9a843b5f"
+    },
+    "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/fm5x/curve-a1-down-fold-minus/curve.json": {
+      "bytes": 143963,
+      "sha256": "3da866910aa07d818232b5878d4e4c711318311403da06f9df8cd241d3680d6b"
+    },
+    "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/fm5x/curve-a1-down-fold-plus/curve.json": {
+      "bytes": 132936,
+      "sha256": "578870cc9f376ade9691b0544f3c4cf53aca8044c588dcbb0ccb37db8e2981ea"
+    },
+    "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/fm5x/curve-a1-up-fold-minus/curve.json": {
+      "bytes": 139119,
+      "sha256": "8be9d2f44cb3d50a23ec5a936c796891923ae163821b4f54a5538ff2b2eb4598"
+    },
+    "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/fm5x/curve-a1-up-fold-plus/curve.json": {
+      "bytes": 217375,
+      "sha256": "87717e5fa599946752fb17305494c2c5d9596eb6eab1092b197dcaa0357e8587"
+    },
+    "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/fm5x/curve-a2-down-flip-minus/curve.json": {
+      "bytes": 211232,
+      "sha256": "c9e25b7ec2f94505a5007c68b8ff624189521d6938044f84f569e681f5e7c53f"
+    },
+    "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/fm5x/curve-a2-down-flip-plus/curve.json": {
+      "bytes": 188836,
+      "sha256": "95184ff710af431a8e8c98f0c5034d5eca2c02897fbd358eb71d8d41d86f6782"
+    },
+    "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/fm5l-a/curve-a1-down-minus/curve.json": {
+      "bytes": 369479,
+      "sha256": "b3a497de237226e55c626ab20c084c7ec21bf05ff2a3e0b7d7c3e95e91515d7b"
+    },
+    "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/fm5l-a/curve-a1-down-plus/curve.json": {
+      "bytes": 165190,
+      "sha256": "cc821cc463281c957221eb122cf26ccab0d94a477925d7bc82e9ea3da31ef53d"
+    },
+    "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/fm5l-a/curve-a1-up-minus/curve.json": {
+      "bytes": 376691,
+      "sha256": "ce3e50fa7f1ac1399bc9bde4001877235927be09c91494f5ab470015f011980f"
+    },
+    "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/fm5l-a/curve-a1-up-plus/curve.json": {
+      "bytes": 145305,
+      "sha256": "3a6ffe9658bbea183758092d406e3c0879f7c6286f9dcfbea29b3995c9b4d27e"
+    },
+    "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/fa/t-0.100/follow.npz": {
+      "bytes": 46430,
+      "sha256": "582330d51b751c3d5e8f0378b4b0b3548bd1894b3d21bfc2ac2d12839cde5bda"
+    },
+    "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/hp5/map.npz": {
+      "bytes": 2058407,
+      "sha256": "f94f0a93ffdd25966c41647a59c3eb69a5d1eee03e691976416758e9294e5d98"
+    },
+    "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/p6s/follow/follow.npz": {
+      "bytes": 115670,
+      "sha256": "0437149a017915db4317653a6e4978b8753097b731d6364241571024245a1c03"
+    }
+  }
+}

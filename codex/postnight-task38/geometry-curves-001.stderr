@@ -1,0 +1,8 @@
+Traceback (most recent call last):
+  File "/tmp/task38-geometry/geometry-curves.py", line 39, in <module>
+    fa=nz(P/'fa/t-0.100/follow.npz');cur5={k:[np.array([[x['alpha'],x['alpha2']] for x in q['points']]) for n,q in allcurves.items() if n.startswith('fm') and q['kind']==k] for k in ['fold','flip']};pairs=edges(fa,['alpha1','alpha2'],5,True);scale=float(fa['alpha1'][1]-fa['alpha1'][0]);out['FA_boundary']={k:gate_summary(dist(p,cur5[k],scale)) for k,p in pairs.items()};out['FA_boundary']['fold_or_flip']=gate_summary(dist(pairs['fold'],cur5['fold']+cur5['flip'],scale))
+                                                                                                                                                                                                                                                                                                                                  ^^^^^^^^^^^^^^^^^^^^^
+  File "/tmp/task38-geometry/geometry-curves.py", line 14, in dist
+    t=np.clip(((p/scale-A)*d).sum(1)/np.maximum(d2,1e-30),0,1);res.append(float(np.sqrt(((A+t[:,None]*d-p/scale)**2).sum(1)).min()))
+                ~^~~~~~
+TypeError: unsupported operand type(s) for /: 'list' and 'float'
