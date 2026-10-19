@@ -1,0 +1,232 @@
+{
+ "scan": "llm-soft-loop/pod64/hr10",
+ "cells": 409600,
+ "chaotic": 272496,
+ "curves": [
+  {
+   "curve": "p6s-ad-curve-minus",
+   "kind": "flip",
+   "points": 59,
+   "drawn": 59,
+   "failed_gate": 0,
+   "stop": "parameters out of bounds"
+  },
+  {
+   "curve": "p6s-ad-curve-plus",
+   "kind": "flip",
+   "points": 29,
+   "drawn": 29,
+   "failed_gate": 0,
+   "stop": "parameters out of bounds"
+  },
+  {
+   "curve": "p6s-au-curve-minus",
+   "kind": "fold",
+   "points": 69,
+   "drawn": 69,
+   "failed_gate": 0,
+   "stop": "parameters out of bounds"
+  },
+  {
+   "curve": "p6s-au-curve-plus",
+   "kind": "fold",
+   "points": 82,
+   "drawn": 82,
+   "failed_gate": 0,
+   "stop": "parameters out of bounds"
+  },
+  {
+   "curve": "p6s-td-curve-minus",
+   "kind": "flip",
+   "points": 57,
+   "drawn": 56,
+   "failed_gate": 1,
+   "stop": "parameters out of bounds"
+  },
+  {
+   "curve": "p6s-td-curve-plus",
+   "kind": "flip",
+   "points": 100,
+   "drawn": 99,
+   "failed_gate": 1,
+   "stop": "100 points"
+  },
+  {
+   "curve": "p6s-td-fold-minus",
+   "kind": "fold",
+   "points": 39,
+   "drawn": 39,
+   "failed_gate": 0,
+   "stop": "parameters out of bounds"
+  },
+  {
+   "curve": "p6s-td-fold-plus",
+   "kind": "fold",
+   "points": 64,
+   "drawn": 64,
+   "failed_gate": 0,
+   "stop": "time limit (partial, rebuilt from progress.jsonl)"
+  },
+  {
+   "curve": "p6s-tu-curve-minus",
+   "kind": "fold",
+   "points": 97,
+   "drawn": 96,
+   "failed_gate": 1,
+   "stop": "parameters out of bounds"
+  },
+  {
+   "curve": "p6s-tu-curve-plus",
+   "kind": "fold",
+   "points": 60,
+   "drawn": 60,
+   "failed_gate": 0,
+   "stop": "parameters out of bounds"
+  },
+  {
+   "curve": "p6s-tu-fold-wide-minus",
+   "kind": "fold",
+   "points": 120,
+   "drawn": 119,
+   "failed_gate": 1,
+   "stop": "time limit (partial, rebuilt from progress.jsonl)"
+  },
+  {
+   "curve": "p6s-tu-fold-wide-plus",
+   "kind": "fold",
+   "points": 118,
+   "drawn": 118,
+   "failed_gate": 0,
+   "stop": "time limit (partial, rebuilt from progress.jsonl)"
+  },
+  {
+   "curve": "p6s-tu-fold-wide2-a",
+   "kind": "fold",
+   "points": 95,
+   "drawn": 95,
+   "failed_gate": 0,
+   "stop": "95 points"
+  },
+  {
+   "curve": "p6s-tu-fold-wide2-b",
+   "kind": "fold",
+   "points": 95,
+   "drawn": 95,
+   "failed_gate": 0,
+   "stop": "95 points"
+  },
+  {
+   "curve": "kite-la-curve-minus",
+   "kind": "fold",
+   "points": 120,
+   "drawn": 120,
+   "failed_gate": 0,
+   "stop": "120 points"
+  },
+  {
+   "curve": "kite-la-curve-plus",
+   "kind": "fold",
+   "points": 120,
+   "drawn": 120,
+   "failed_gate": 0,
+   "stop": "120 points"
+  },
+  {
+   "curve": "kite-ut-curve-minus",
+   "kind": "fold",
+   "points": 120,
+   "drawn": 120,
+   "failed_gate": 0,
+   "stop": "120 points"
+  },
+  {
+   "curve": "kite-ut-curve-plus",
+   "kind": "fold",
+   "points": 120,
+   "drawn": 120,
+   "failed_gate": 0,
+   "stop": "120 points"
+  }
+ ],
+ "located_cusps": [
+  {
+   "locate": "locate-tu-minus-34",
+   "located": true
+  },
+  {
+   "locate": "locate-wide2-a-64",
+   "located": true
+  },
+  {
+   "locate": "locate-wide2-b-82",
+   "located": true
+  },
+  {
+   "locate": "locate-la-plus-112",
+   "located": true
+  },
+  {
+   "locate": "locate-la-plus-14",
+   "located": true
+  },
+  {
+   "locate": "locate-la-plus-94",
+   "located": true
+  }
+ ],
+ "boundary_gate": {
+  "6|12 (flip)": {
+   "pairs": 916,
+   "within_1_step": 363,
+   "within_2_steps": 388,
+   "median_steps": 4.3315298944035625,
+   "max_steps": 74.82160510189226
+  },
+  "6|lost (fold)": {
+   "pairs": 1888,
+   "within_1_step": 1678,
+   "within_2_steps": 1720,
+   "median_steps": 0.236563166827721,
+   "max_steps": 11.997629454614254
+  }
+ },
+ "boundary_gate_window": [
+  0.07179780907668232,
+  0.07460219092331768,
+  -0.15700625978090765,
+  -0.14899374021909234
+ ],
+ "boundary_gate_in_window": {
+  "6|12 (flip)": {
+   "pairs": 232,
+   "within_1_step": 220,
+   "within_2_steps": 232,
+   "median_steps": 0.18810811607179098,
+   "max_steps": 1.514459594531343
+  },
+  "6|lost (fold)": {
+   "pairs": 459,
+   "within_1_step": 459,
+   "within_2_steps": 459,
+   "median_steps": 0.19079212512481658,
+   "max_steps": 0.6843470659438914
+  }
+ },
+ "follow": {
+  "members": 2926,
+  "chaos_behind_text": 811,
+  "slow": 487,
+  "lost": 1202,
+  "periods": {
+   "6": 1946,
+   "12": 770,
+   "18": 22,
+   "24": 155,
+   "30": 2,
+   "36": 8,
+   "42": 2,
+   "48": 20,
+   "60": 1
+  }
+ }
+}
