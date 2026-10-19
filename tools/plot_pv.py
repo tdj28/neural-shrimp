@@ -60,7 +60,7 @@ def main():
     plt.rcParams.update({"font.size": 7.5})
     fig = plt.figure(figsize=(7.2, 5.6))
     outer = GridSpec(1, 2, figure=fig, width_ratios=[1.0, 2.3], wspace=0.42)
-    gs = outer[0, 1].subgridspec(2, 4, hspace=0.32, wspace=0.08)
+    gs = outer[0, 1].subgridspec(2, 4, hspace=0.32, wspace=0.22)
     axb = fig.add_subplot(outer[0, 0])
     ys, labels, colors = [], [], []
     y = 0
@@ -95,6 +95,8 @@ def main():
         im = plt.cm.ScalarMappable(cmap="plasma", norm=plt.Normalize(0, vmax))
         ax.set_title(f"{SHORT[c]}\n{100 * shares[c]:.1f} % chaotic", fontsize=5.6, linespacing=1.1)
         ax.tick_params(labelsize=5)
+        ax.set_xticks([-0.1, 0.0, 0.1])
+        ax.set_xticklabels(["\u22120.1", "0", "0.1"])
         if k % 4:
             ax.set_yticklabels([])
         else:
