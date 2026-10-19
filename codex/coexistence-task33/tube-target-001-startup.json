@@ -1,0 +1,111 @@
+{
+  "schema": "codex-task33-tube-startup-v1",
+  "checked_at": "2026-10-19T13:01:36.980616+00:00",
+  "session_id": 64665,
+  "source_commit": "ed679786a0a231bd9c8d05c9e1cc0d83ca17c537",
+  "status": "RUNNING",
+  "actual_host_view": true,
+  "supervisor": {
+    "pid": 488290,
+    "starttime": 236143773,
+    "pgid": 488289,
+    "sid": 488289,
+    "state": "S",
+    "nice": 10,
+    "threads": 1,
+    "uid_line": "Uid:\t1000\t1000\t1000\t1000",
+    "cmdline": "/data2/neural-shrimp/.venv/bin/python -I -B /home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/certify-chaos/supervise.py --plan /home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/coexistence-task33/tube-target-001-plan.json --lane tube --source ed679786a0a231bd9c8d05c9e1cc0d83ca17c537 ",
+    "affinity": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20,
+      21,
+      22,
+      23,
+      24,
+      25,
+      26,
+      27,
+      28,
+      29,
+      30,
+      31
+    ],
+    "limits": "Limit                     Soft Limit           Hard Limit           Units     \nMax cpu time              unlimited            unlimited            seconds   \nMax file size             unlimited            unlimited            bytes     \nMax data size             unlimited            unlimited            bytes     \nMax stack size            8388608              unlimited            bytes     \nMax core file size        0                    unlimited            bytes     \nMax resident set          unlimited            unlimited            bytes     \nMax processes             375398               375398               processes \nMax open files            65535                65535                files     \nMax locked memory         8388608              8388608              bytes     \nMax address space         1073741824           19327352832          bytes     \nMax file locks            unlimited            unlimited            locks     \nMax pending signals       375398               375398               signals   \nMax msgqueue size         819200               819200               bytes     \nMax nice priority         0                    0                    \nMax realtime priority     0                    0                    \nMax realtime timeout      200000               200000               us        \n"
+  },
+  "worker": {
+    "pid": 488398,
+    "starttime": 236143930,
+    "pgid": 488398,
+    "sid": 488398,
+    "state": "R",
+    "nice": 10,
+    "threads": 1,
+    "uid_line": "Uid:\t1000\t1000\t1000\t1000",
+    "cmdline": "/data2/neural-shrimp/.venv/bin/python -I -B /home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/coexistence-task33/tube_target_driver_002.py --card /home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/coexistence-task33/tube-target-001-card.json --card-sha256 7cc40f8cec0fde5c3c31e26c5d110872a5ac94da823d14ea9c6e73e0d69cd058 --out /data2/neural-shrimp-data/codex/coexistence/tube-target-001 ",
+    "affinity": [
+      0
+    ],
+    "limits": "Limit                     Soft Limit           Hard Limit           Units     \nMax cpu time              3600                 3600                 seconds   \nMax file size             67108864             67108864             bytes     \nMax data size             unlimited            unlimited            bytes     \nMax stack size            8388608              unlimited            bytes     \nMax core file size        0                    unlimited            bytes     \nMax resident set          unlimited            unlimited            bytes     \nMax processes             375398               375398               processes \nMax open files            65535                65535                files     \nMax locked memory         8388608              8388608              bytes     \nMax address space         19327352832          19327352832          bytes     \nMax file locks            unlimited            unlimited            locks     \nMax pending signals       375398               375398               signals   \nMax msgqueue size         819200               819200               bytes     \nMax nice priority         0                    0                    \nMax realtime priority     0                    0                    \nMax realtime timeout      200000               200000               us        \n"
+  },
+  "admission": {
+    "path": "/data2/neural-shrimp-data/codex/coexistence/tube-target-001-supervision/admission.json",
+    "bytes": 8249,
+    "sha256": "f28d94d07bd939f8dbf366fe0fa3fc1b41e29a5b667778deabb314dc31752853"
+  },
+  "worker_startup": {
+    "path": "/data2/neural-shrimp-data/codex/coexistence/tube-target-001-supervision/worker-startup.json",
+    "bytes": 2661,
+    "sha256": "03739a1fd9402ac4259bba844e214b80e57017622ba42c9f3539988e3d60c8c3"
+  },
+  "plan": {
+    "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/coexistence-task33/tube-target-001-plan.json",
+    "bytes": 15834,
+    "sha256": "03af40b62e4a6aba51c4f9272737ee7d277c4c45ea0bea8634413066665c9fc8"
+  },
+  "card": {
+    "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/coexistence-task33/tube-target-001-card.json",
+    "bytes": 25466,
+    "sha256": "7cc40f8cec0fde5c3c31e26c5d110872a5ac94da823d14ea9c6e73e0d69cd058"
+  },
+  "admitted_capacity": {
+    "available_ram_bytes": 44642615296,
+    "disk_free_bytes": 2660539965440,
+    "loadavg": [
+      2.01220703125,
+      2.2275390625,
+      2.083984375
+    ]
+  },
+  "source_blobs_count": 19,
+  "auxiliary_slots_reserved": 2,
+  "limits": {
+    "as_bytes": 19327352832,
+    "cpu_seconds": 3600,
+    "wall_seconds": 3900,
+    "output_bytes": 67108864
+  },
+  "stderr_bytes": 0,
+  "receipt_exists": false,
+  "trajectory_enclosure": false,
+  "certificate_passed": false,
+  "operator_bound_admitted": false
+}
