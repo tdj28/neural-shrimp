@@ -1,0 +1,3230 @@
+{
+  "schema": "codex-task34-original-return-admission-v1",
+  "status": "all_42_original_returns_operationally_admitted",
+  "certificate_passed": false,
+  "scientific_endpoint_audit_pending": true,
+  "packet_sha256": "3167eeeec4329eeb1ed8f01ab9738a8173decaabaa021831ab1153a6dcd3c1bc",
+  "scientific_source": "42508b68a733acc4216b40d7b60215de36c5d543",
+  "pods": [
+    {
+      "pod": "t34c-p3-a",
+      "pod_id": "0pqzfdn2kfog3r",
+      "outer_source": "5b875468a3a0aa6a9cfc7b877d06dc4c531a6275",
+      "scientific_source": "42508b68a733acc4216b40d7b60215de36c5d543",
+      "archive": {
+        "path": "/data2/neural-shrimp-data/runpod/soft64/20261018T230927Z/results.tgz",
+        "bytes": 54939093,
+        "sha256": "128fa5324e6b7db635b82c1cbcae79a48d4df6faed19544e8ca43aa915b63f53"
+      },
+      "result": {
+        "path": "/data2/neural-shrimp-data/runpod/soft64/20261018T230927Z/result.json",
+        "bytes": 1449,
+        "sha256": "680915298e82d211507c98eb5a76227758cccf36a53220f1687661cb3e9f453b"
+      },
+      "orchestrator_log": {
+        "path": "/data2/neural-shrimp-data/runpod/T34C-P3-A-orchestrator.log",
+        "bytes": 3662,
+        "sha256": "3b8c0465b5460185e3d1203c4b0c7c9c94914e175376675ddbc5f92e6924553c"
+      },
+      "termination": {
+        "pod_id": "0pqzfdn2kfog3r",
+        "terminated": true,
+        "in_inventory": false,
+        "direct_lookup": null,
+        "line_number": 7,
+        "line_sha256": "16f082d869719720227910db2a61e0a5765610a498d8e0061aac6a88261b6522",
+        "retained_termination_record_count": 1
+      },
+      "preflight": {
+        "path": "/data2/neural-shrimp-data/codex/certificate-ladder/return-cascade-p3-002/t34c-p3-a/explore/llm-soft-loop/pod64/certpack/t34c-p3-a/preflight.json",
+        "bytes": 9574,
+        "sha256": "7bb5c43d7c321ef6765afff4e4c28dfe0c1a97ed3bc3ac34d653df98b7e81062"
+      },
+      "preflight_admission": {
+        "checks_passed": 19,
+        "admitted_workers": 5,
+        "effective_memory_bytes": 122509230080,
+        "effective_cpus": 31,
+        "scientific_source": "42508b68a733acc4216b40d7b60215de36c5d543"
+      },
+      "prepare": {
+        "path": "/data2/neural-shrimp-data/codex/certificate-ladder/return-cascade-p3-002/t34c-p3-a/explore/llm-soft-loop/pod64/certpack/t34c-p3-a/prepare.json",
+        "bytes": 4141,
+        "sha256": "266102ad28a51e573242f12a5ac1b0265ccd2b13f78cabc3d11f5896a1cab9ad"
+      },
+      "attempts": [
+        "cascade-p3-derivative-p0-c000-001",
+        "cascade-p3-derivative-p0-c064-001",
+        "cascade-p3-derivative-p0-c128-001",
+        "cascade-p3-derivative-p0-c192-001",
+        "cascade-p3-derivative-p0-c256-001"
+      ]
+    },
+    {
+      "pod": "t34c-p3-b",
+      "pod_id": "k7fnffo9ed8y3s",
+      "outer_source": "5b875468a3a0aa6a9cfc7b877d06dc4c531a6275",
+      "scientific_source": "42508b68a733acc4216b40d7b60215de36c5d543",
+      "archive": {
+        "path": "/data2/neural-shrimp-data/runpod/soft64/20261018T231244Z/results.tgz",
+        "bytes": 54935227,
+        "sha256": "6d18bffb19da1de10bccce48efd3d98cc0419abb64c9b18415282c368ef38894"
+      },
+      "result": {
+        "path": "/data2/neural-shrimp-data/runpod/soft64/20261018T231244Z/result.json",
+        "bytes": 1451,
+        "sha256": "9513ec7f79c7b27e79e8f506d3e0ae91e912645172fa37c3bfcb3c7c3f26b69a"
+      },
+      "orchestrator_log": {
+        "path": "/data2/neural-shrimp-data/runpod/T34C-P3-B-orchestrator.log",
+        "bytes": 2604,
+        "sha256": "d566ed14b3c8b22ceb8e7a5ab3e75c7ddf14d9232d559ee1c1fe39cae069db9e"
+      },
+      "termination": {
+        "pod_id": "k7fnffo9ed8y3s",
+        "terminated": true,
+        "in_inventory": false,
+        "direct_lookup": null,
+        "line_number": 4,
+        "line_sha256": "12f194a5ffb68cb4356faeab0ce04b0e1f33dc6f3ea59d3106810d8dfeea99e9",
+        "retained_termination_record_count": 1
+      },
+      "preflight": {
+        "path": "/data2/neural-shrimp-data/codex/certificate-ladder/return-cascade-p3-002/t34c-p3-b/explore/llm-soft-loop/pod64/certpack/t34c-p3-b/preflight.json",
+        "bytes": 6418,
+        "sha256": "8505bf0d9e84fd68e7366f68ba527ab673a9733666df071097b5637a31f7253e"
+      },
+      "preflight_admission": {
+        "checks_passed": 19,
+        "admitted_workers": 5,
+        "effective_memory_bytes": 122533863424,
+        "effective_cpus": 31,
+        "scientific_source": "42508b68a733acc4216b40d7b60215de36c5d543"
+      },
+      "prepare": {
+        "path": "/data2/neural-shrimp-data/codex/certificate-ladder/return-cascade-p3-002/t34c-p3-b/explore/llm-soft-loop/pod64/certpack/t34c-p3-b/prepare.json",
+        "bytes": 4141,
+        "sha256": "c12b9b1b4643c65ba828a41741016045b1ca5f813fded64cf0989599ce769e08"
+      },
+      "attempts": [
+        "cascade-p3-derivative-p0-c320-001",
+        "cascade-p3-derivative-p0-c384-001",
+        "cascade-p3-derivative-p0-c448-001",
+        "cascade-p3-derivative-p0-c512-001",
+        "cascade-p3-derivative-p0-c576-001"
+      ]
+    },
+    {
+      "pod": "t34c-p3-c",
+      "pod_id": "pca5sqyvuz7060",
+      "outer_source": "5b875468a3a0aa6a9cfc7b877d06dc4c531a6275",
+      "scientific_source": "42508b68a733acc4216b40d7b60215de36c5d543",
+      "archive": {
+        "path": "/data2/neural-shrimp-data/runpod/soft64/20261018T231500Z/results.tgz",
+        "bytes": 55102182,
+        "sha256": "edf78012e5c3117976d6a80671425b64a22078b1764117bea1266e494f1817c9"
+      },
+      "result": {
+        "path": "/data2/neural-shrimp-data/runpod/soft64/20261018T231500Z/result.json",
+        "bytes": 1443,
+        "sha256": "39096fc50607fb68e212b1cfbd8e1491035ab7b9eb03b466c127bdd6df84cd96"
+      },
+      "orchestrator_log": {
+        "path": "/data2/neural-shrimp-data/runpod/T34C-P3-C-orchestrator.log",
+        "bytes": 2641,
+        "sha256": "3af06fc23b033dcb0ec3c9ff32a1b9ed1836d8f6216317bdb0707103a3354030"
+      },
+      "termination": {
+        "pod_id": "pca5sqyvuz7060",
+        "terminated": true,
+        "in_inventory": false,
+        "direct_lookup": null,
+        "line_number": 5,
+        "line_sha256": "86aae6205127ffb5f1ee32f89cd86e49141d76651c4f46b060dbf9eadc6d126f",
+        "retained_termination_record_count": 1
+      },
+      "preflight": {
+        "path": "/data2/neural-shrimp-data/codex/certificate-ladder/return-cascade-p3-002/t34c-p3-c/explore/llm-soft-loop/pod64/certpack/t34c-p3-c/preflight.json",
+        "bytes": 9574,
+        "sha256": "41ecd540208e31924bf702d97911d7f6a431ba6227d5bb5712a66108a73d6c2e"
+      },
+      "preflight_admission": {
+        "checks_passed": 19,
+        "admitted_workers": 5,
+        "effective_memory_bytes": 248691580928,
+        "effective_cpus": 20,
+        "scientific_source": "42508b68a733acc4216b40d7b60215de36c5d543"
+      },
+      "prepare": {
+        "path": "/data2/neural-shrimp-data/codex/certificate-ladder/return-cascade-p3-002/t34c-p3-c/explore/llm-soft-loop/pod64/certpack/t34c-p3-c/prepare.json",
+        "bytes": 4141,
+        "sha256": "8d1ca3f9f99c9eeff5ed1e16850e059d0cb7f12d9392ecaf8b535822411133ea"
+      },
+      "attempts": [
+        "cascade-p3-derivative-p0-c640-001",
+        "cascade-p3-derivative-p0-c704-001",
+        "cascade-p3-derivative-p0-c768-001",
+        "cascade-p3-derivative-p0-c832-001",
+        "cascade-p3-derivative-p1-c000-001"
+      ]
+    },
+    {
+      "pod": "t34c-p3-d",
+      "pod_id": "rp9h4lkxs8ufo1",
+      "outer_source": "5b875468a3a0aa6a9cfc7b877d06dc4c531a6275",
+      "scientific_source": "42508b68a733acc4216b40d7b60215de36c5d543",
+      "archive": {
+        "path": "/data2/neural-shrimp-data/runpod/soft64/20261018T231900Z/results.tgz",
+        "bytes": 55742745,
+        "sha256": "80888148b02571ee760f8328ff3f14958a04cd40cd27bc25ebcb7ffd8ba7e858"
+      },
+      "result": {
+        "path": "/data2/neural-shrimp-data/runpod/soft64/20261018T231900Z/result.json",
+        "bytes": 1451,
+        "sha256": "53010d674f6efd6335ebefbed11ff7973d9b2c718c6140002e4554b12729d4da"
+      },
+      "orchestrator_log": {
+        "path": "/data2/neural-shrimp-data/runpod/T34C-P3-D-orchestrator.log",
+        "bytes": 2604,
+        "sha256": "56aa58ab526afd2c79ee94df51d8ed34bc8b991073fbbd50618bed9d7791292b"
+      },
+      "termination": {
+        "pod_id": "rp9h4lkxs8ufo1",
+        "terminated": true,
+        "in_inventory": false,
+        "direct_lookup": null,
+        "line_number": 4,
+        "line_sha256": "3b94ad783a137f9fe32eb27a3bca74d27d04dea3c5f665e3219cbaed3a6d4d40",
+        "retained_termination_record_count": 1
+      },
+      "preflight": {
+        "path": "/data2/neural-shrimp-data/codex/certificate-ladder/return-cascade-p3-002/t34c-p3-d/explore/llm-soft-loop/pod64/certpack/t34c-p3-d/preflight.json",
+        "bytes": 9575,
+        "sha256": "8a10356fb9ea2982b395fddbd9ced11d8801bca5d2cb31273a9e73e7cb9d5180"
+      },
+      "preflight_admission": {
+        "checks_passed": 19,
+        "admitted_workers": 5,
+        "effective_memory_bytes": 122502864896,
+        "effective_cpus": 31,
+        "scientific_source": "42508b68a733acc4216b40d7b60215de36c5d543"
+      },
+      "prepare": {
+        "path": "/data2/neural-shrimp-data/codex/certificate-ladder/return-cascade-p3-002/t34c-p3-d/explore/llm-soft-loop/pod64/certpack/t34c-p3-d/prepare.json",
+        "bytes": 4141,
+        "sha256": "7bf2ab2c1f9e477bf15e26e9359f544b09b2831aa8ce4066d2a2677b80a5e479"
+      },
+      "attempts": [
+        "cascade-p3-derivative-p1-c064-001",
+        "cascade-p3-derivative-p1-c128-001",
+        "cascade-p3-derivative-p1-c192-001",
+        "cascade-p3-derivative-p1-c256-001",
+        "cascade-p3-derivative-p1-c320-001"
+      ]
+    },
+    {
+      "pod": "t34c-p3-e",
+      "pod_id": "1v9ezzkmrj06nl",
+      "outer_source": "5b875468a3a0aa6a9cfc7b877d06dc4c531a6275",
+      "scientific_source": "42508b68a733acc4216b40d7b60215de36c5d543",
+      "archive": {
+        "path": "/data2/neural-shrimp-data/runpod/soft64/20261018T232110Z/results.tgz",
+        "bytes": 55751574,
+        "sha256": "afcccaf169aaa49eef9c8b0f46071c26d862f188fc166025513911ce5443608f"
+      },
+      "result": {
+        "path": "/data2/neural-shrimp-data/runpod/soft64/20261018T232110Z/result.json",
+        "bytes": 1442,
+        "sha256": "088e0cbbae52c8d31975357ca68f229bf11c3ecb30532733e47c4003788b3d5e"
+      },
+      "orchestrator_log": {
+        "path": "/data2/neural-shrimp-data/runpod/T34C-P3-E-orchestrator.log",
+        "bytes": 2640,
+        "sha256": "eea0d1cf44b7ac929f47c863f1807de1a8a6ab22ec88aacc60bc07f4d06758a8"
+      },
+      "termination": {
+        "pod_id": "1v9ezzkmrj06nl",
+        "terminated": true,
+        "in_inventory": false,
+        "direct_lookup": null,
+        "line_number": 5,
+        "line_sha256": "8db787a45129d0df85a7f43f40dfa2700552adf6e745ba7277a402f6001c5c2b",
+        "retained_termination_record_count": 1
+      },
+      "preflight": {
+        "path": "/data2/neural-shrimp-data/codex/certificate-ladder/return-cascade-p3-002/t34c-p3-e/explore/llm-soft-loop/pod64/certpack/t34c-p3-e/preflight.json",
+        "bytes": 9574,
+        "sha256": "449518f133a5a09da8ef7f12ba12aaf06b41299e47a9c5934179dbb3305c6cf0"
+      },
+      "preflight_admission": {
+        "checks_passed": 19,
+        "admitted_workers": 5,
+        "effective_memory_bytes": 248737296384,
+        "effective_cpus": 20,
+        "scientific_source": "42508b68a733acc4216b40d7b60215de36c5d543"
+      },
+      "prepare": {
+        "path": "/data2/neural-shrimp-data/codex/certificate-ladder/return-cascade-p3-002/t34c-p3-e/explore/llm-soft-loop/pod64/certpack/t34c-p3-e/prepare.json",
+        "bytes": 4141,
+        "sha256": "171509eb23959a222a4ce892c7fd22698b783ed63da687b94116859c4543c499"
+      },
+      "attempts": [
+        "cascade-p3-derivative-p1-c384-001",
+        "cascade-p3-derivative-p1-c448-001",
+        "cascade-p3-derivative-p1-c512-001",
+        "cascade-p3-derivative-p1-c576-001",
+        "cascade-p3-derivative-p1-c640-001"
+      ]
+    },
+    {
+      "pod": "t34c-p3-f",
+      "pod_id": "ec0t2gz8ylejyr",
+      "outer_source": "5b875468a3a0aa6a9cfc7b877d06dc4c531a6275",
+      "scientific_source": "42508b68a733acc4216b40d7b60215de36c5d543",
+      "archive": {
+        "path": "/data2/neural-shrimp-data/runpod/soft64/20261018T232322Z/results.tgz",
+        "bytes": 55611136,
+        "sha256": "55444e2b7b7b899cddd502b50b591155fff9d724f3d0d4494155913586013bde"
+      },
+      "result": {
+        "path": "/data2/neural-shrimp-data/runpod/soft64/20261018T232322Z/result.json",
+        "bytes": 1442,
+        "sha256": "5b265154d9b7a7d915b81445358a67c3ff2028dca6f1cd5060ce84de60eda786"
+      },
+      "orchestrator_log": {
+        "path": "/data2/neural-shrimp-data/runpod/T34C-P3-F-orchestrator.log",
+        "bytes": 2640,
+        "sha256": "417dff677a4e18cf08d967ce747a11cc3c25dfa6cc9d2823181d2a64f9e9f536"
+      },
+      "termination": {
+        "pod_id": "ec0t2gz8ylejyr",
+        "terminated": true,
+        "in_inventory": false,
+        "direct_lookup": null,
+        "line_number": 5,
+        "line_sha256": "5ea55afc61e94867a4861cdf6719a643f159e1a913389485a32b20f675e3eba6",
+        "retained_termination_record_count": 1
+      },
+      "preflight": {
+        "path": "/data2/neural-shrimp-data/codex/certificate-ladder/return-cascade-p3-002/t34c-p3-f/explore/llm-soft-loop/pod64/certpack/t34c-p3-f/preflight.json",
+        "bytes": 9572,
+        "sha256": "245bb19caf043c53c1d3f42fc3a7fe9f321744c57685f54c0f8bedf4b85adc8b"
+      },
+      "preflight_admission": {
+        "checks_passed": 19,
+        "admitted_workers": 5,
+        "effective_memory_bytes": 122888990720,
+        "effective_cpus": 23,
+        "scientific_source": "42508b68a733acc4216b40d7b60215de36c5d543"
+      },
+      "prepare": {
+        "path": "/data2/neural-shrimp-data/codex/certificate-ladder/return-cascade-p3-002/t34c-p3-f/explore/llm-soft-loop/pod64/certpack/t34c-p3-f/prepare.json",
+        "bytes": 4141,
+        "sha256": "c4b603b1d06764cccd289815ee2536e01a9c99190e24f8c03c5d35167c7240db"
+      },
+      "attempts": [
+        "cascade-p3-derivative-p1-c704-001",
+        "cascade-p3-derivative-p1-c768-001",
+        "cascade-p3-derivative-p1-c832-001",
+        "cascade-p3-derivative-p2-c000-001",
+        "cascade-p3-derivative-p2-c064-001"
+      ]
+    },
+    {
+      "pod": "t34c-p3-g",
+      "pod_id": "pza4iullvirj1g",
+      "outer_source": "5b875468a3a0aa6a9cfc7b877d06dc4c531a6275",
+      "scientific_source": "42508b68a733acc4216b40d7b60215de36c5d543",
+      "archive": {
+        "path": "/data2/neural-shrimp-data/runpod/soft64/20261018T232559Z/results.tgz",
+        "bytes": 55402543,
+        "sha256": "ab5994ea2f551757af27639f89971e58230647faecb8d7870723f2b53ecb571b"
+      },
+      "result": {
+        "path": "/data2/neural-shrimp-data/runpod/soft64/20261018T232559Z/result.json",
+        "bytes": 1443,
+        "sha256": "d6c19b1ee76d665a9d5c2b7177b191975927f85dab09c48ba54a1cf3133a6bfd"
+      },
+      "orchestrator_log": {
+        "path": "/data2/neural-shrimp-data/runpod/T34C-P3-G-orchestrator.log",
+        "bytes": 2641,
+        "sha256": "c90b2855da5059d23e86c8cdb999b1f51aadc54a21b06a334c0bf31dc29b2a76"
+      },
+      "termination": {
+        "pod_id": "pza4iullvirj1g",
+        "terminated": true,
+        "in_inventory": false,
+        "direct_lookup": null,
+        "line_number": 5,
+        "line_sha256": "6eca3d371e0a2de657dfc15ee4dcd511d572f890edabe6dbf2d9724e8f4b3d4d",
+        "retained_termination_record_count": 1
+      },
+      "preflight": {
+        "path": "/data2/neural-shrimp-data/codex/certificate-ladder/return-cascade-p3-002/t34c-p3-g/explore/llm-soft-loop/pod64/certpack/t34c-p3-g/preflight.json",
+        "bytes": 9574,
+        "sha256": "07481332bf42921e0bb106fa5fef72152d9e1627567eec714b4325f9b6fcc2bb"
+      },
+      "preflight_admission": {
+        "checks_passed": 19,
+        "admitted_workers": 5,
+        "effective_memory_bytes": 248693563392,
+        "effective_cpus": 20,
+        "scientific_source": "42508b68a733acc4216b40d7b60215de36c5d543"
+      },
+      "prepare": {
+        "path": "/data2/neural-shrimp-data/codex/certificate-ladder/return-cascade-p3-002/t34c-p3-g/explore/llm-soft-loop/pod64/certpack/t34c-p3-g/prepare.json",
+        "bytes": 4141,
+        "sha256": "e8027232535faebf0b1aa08f2cec4e0c32bbca9d95026e4ed6ee49df13adf43f"
+      },
+      "attempts": [
+        "cascade-p3-derivative-p2-c128-001",
+        "cascade-p3-derivative-p2-c192-001",
+        "cascade-p3-derivative-p2-c256-001",
+        "cascade-p3-derivative-p2-c320-001",
+        "cascade-p3-derivative-p2-c384-001"
+      ]
+    },
+    {
+      "pod": "t34c-p3-h",
+      "pod_id": "l9che3sfzq2n9f",
+      "outer_source": "b23a0f20405f6a63a52523bf71e353a403414f37",
+      "scientific_source": "42508b68a733acc4216b40d7b60215de36c5d543",
+      "archive": {
+        "path": "/data2/neural-shrimp-data/runpod/soft64/20261018T234622Z/results.tgz",
+        "bytes": 55396869,
+        "sha256": "d10cf34c81ba464efa54d0b5931b0132fc86e999d6b29d8e6fabdbc3123047a1"
+      },
+      "result": {
+        "path": "/data2/neural-shrimp-data/runpod/soft64/20261018T234622Z/result.json",
+        "bytes": 1439,
+        "sha256": "c30f0cc5b92eddecafb9acf1be3a70314c39e0fbeae5a4d8065a662f84323067"
+      },
+      "orchestrator_log": {
+        "path": "/data2/neural-shrimp-data/runpod/T34C-P3-H-orchestrator.log",
+        "bytes": 6669,
+        "sha256": "d501a9de1662f4ab4dd1a68e047b2ac733e02185a1cd62d7048fa315cc69ae54"
+      },
+      "termination": {
+        "pod_id": "l9che3sfzq2n9f",
+        "terminated": true,
+        "in_inventory": false,
+        "direct_lookup": null,
+        "line_number": 28,
+        "line_sha256": "276ed05f0fac28c39c3a7219091c87ba6bafff90b3e4f67d24a1f3e7adef23d6",
+        "retained_termination_record_count": 2
+      },
+      "preflight": {
+        "path": "/data2/neural-shrimp-data/codex/certificate-ladder/return-cascade-p3-002/t34c-p3-h/explore/llm-soft-loop/pod64/certpack/t34c-p3-h/preflight.json",
+        "bytes": 9574,
+        "sha256": "1d9ec16be62804438fd3b1acf23ffb7f7374e7f2f73478aac7ab402f9f157fdc"
+      },
+      "preflight_admission": {
+        "checks_passed": 19,
+        "admitted_workers": 5,
+        "effective_memory_bytes": 185438580736,
+        "effective_cpus": 13,
+        "scientific_source": "42508b68a733acc4216b40d7b60215de36c5d543"
+      },
+      "prepare": {
+        "path": "/data2/neural-shrimp-data/codex/certificate-ladder/return-cascade-p3-002/t34c-p3-h/explore/llm-soft-loop/pod64/certpack/t34c-p3-h/prepare.json",
+        "bytes": 4141,
+        "sha256": "ed701d3ee3f2518f3d81ccf81812ab152b7ef0e222ea271ffd679c3ea6d90517"
+      },
+      "attempts": [
+        "cascade-p3-derivative-p2-c448-001",
+        "cascade-p3-derivative-p2-c512-001",
+        "cascade-p3-derivative-p2-c576-001",
+        "cascade-p3-derivative-p2-c640-001",
+        "cascade-p3-derivative-p2-c704-001"
+      ]
+    },
+    {
+      "pod": "t34c-p3-i",
+      "pod_id": "826blsywftnwom",
+      "outer_source": "b23a0f20405f6a63a52523bf71e353a403414f37",
+      "scientific_source": "42508b68a733acc4216b40d7b60215de36c5d543",
+      "archive": {
+        "path": "/data2/neural-shrimp-data/runpod/soft64/20261018T234834Z/results.tgz",
+        "bytes": 22168342,
+        "sha256": "ecb140b5e0259e84d218d306dfec20f9e475ab7423daef04eddcd871943d3be0"
+      },
+      "result": {
+        "path": "/data2/neural-shrimp-data/runpod/soft64/20261018T234834Z/result.json",
+        "bytes": 1348,
+        "sha256": "fa9480d4b0f35b72810a07db70c50dc8cba94bb88ee5c43e1902490e78b2ebf1"
+      },
+      "orchestrator_log": {
+        "path": "/data2/neural-shrimp-data/runpod/T34C-P3-I-orchestrator.log",
+        "bytes": 6541,
+        "sha256": "4f93abaecaee578d353281baefc0a1180046b812bb0e3cf99bf20def1e93d29f"
+      },
+      "termination": {
+        "pod_id": "826blsywftnwom",
+        "terminated": true,
+        "in_inventory": false,
+        "direct_lookup": null,
+        "line_number": 18,
+        "line_sha256": "4ddbdb3130bddf263aa12def83166c646430032091040964862cf77c095f2079",
+        "retained_termination_record_count": 1
+      },
+      "preflight": {
+        "path": "/data2/neural-shrimp-data/codex/certificate-ladder/return-cascade-p3-002/t34c-p3-i/explore/llm-soft-loop/pod64/certpack/t34c-p3-i/preflight.json",
+        "bytes": 8011,
+        "sha256": "d8ffec0d4b2b6cf85b1e60ef093c483cecdf595e2b7a3a47e6b0fa3aefbdc59e"
+      },
+      "preflight_admission": {
+        "checks_passed": 19,
+        "admitted_workers": 2,
+        "effective_memory_bytes": 122495709184,
+        "effective_cpus": 31,
+        "scientific_source": "42508b68a733acc4216b40d7b60215de36c5d543"
+      },
+      "prepare": {
+        "path": "/data2/neural-shrimp-data/codex/certificate-ladder/return-cascade-p3-002/t34c-p3-i/explore/llm-soft-loop/pod64/certpack/t34c-p3-i/prepare.json",
+        "bytes": 4141,
+        "sha256": "6468004eb274932843192897396e60df0bfff94e92bcde2f6b63bc7fae1d5181"
+      },
+      "attempts": [
+        "cascade-p3-derivative-p2-c768-001",
+        "cascade-p3-derivative-p2-c832-001"
+      ]
+    }
+  ],
+  "attempts": [
+    {
+      "attempt": "cascade-p3-derivative-p0-c000-001",
+      "period": 3,
+      "phase_index": 0,
+      "start_column": 0,
+      "source_commit": "42508b68a733acc4216b40d7b60215de36c5d543",
+      "original_archive_receipt_sha256": "c4bb3784ea0b231f974c36888e4dfc4e697c48908441e6476133a4325072d7a8",
+      "operational": {
+        "receipt_sha256": "c4bb3784ea0b231f974c36888e4dfc4e697c48908441e6476133a4325072d7a8",
+        "source_commit": "42508b68a733acc4216b40d7b60215de36c5d543",
+        "elapsed_seconds": 1949.9148119410092,
+        "max_rss_kib": 5389736,
+        "bytes": 50820055
+      },
+      "whole_archive_sha256": "128fa5324e6b7db635b82c1cbcae79a48d4df6faed19544e8ca43aa915b63f53",
+      "archive_sha256": "2a7feb2e760fdbdb3b04a05b99615b2165620ad25737cecb1484c25e3380ce7f",
+      "pack": {
+        "path": "/data2/neural-shrimp-data/codex/certificate-ladder/return-cascade-p3-002/t34c-p3-a/explore/llm-soft-loop/pod64/certpack/t34c-p3-a/pack-cascade-p3-derivative-p0-c000-001.json",
+        "bytes": 305,
+        "sha256": "3a84d6463eafa529e7e18b18cd3cc41c648307b44d6f1939295de3b048820ba8"
+      },
+      "pack_path": "/data2/neural-shrimp-data/codex/certificate-ladder/return-cascade-p3-002/t34c-p3-a/explore/llm-soft-loop/pod64/certpack/t34c-p3-a/pack-cascade-p3-derivative-p0-c000-001.json",
+      "pack_sha256": "3a84d6463eafa529e7e18b18cd3cc41c648307b44d6f1939295de3b048820ba8",
+      "outer_closure": {
+        "path": "/data2/neural-shrimp-data/codex/certificate-ladder/return-cascade-p3-002/t34c-p3-a/explore/llm-soft-loop/pod64/certpack/t34c-p3-a/cascade-p3-derivative-p0-c000-001/run.json",
+        "bytes": 2484,
+        "sha256": "059f4b916302219b7ec1f228828139d42a0b2bc1d61367df154cf8a37120b7e1"
+      },
+      "outer_closure_path": "/data2/neural-shrimp-data/codex/certificate-ladder/return-cascade-p3-002/t34c-p3-a/explore/llm-soft-loop/pod64/certpack/t34c-p3-a/cascade-p3-derivative-p0-c000-001/run.json",
+      "outer_closure_sha256": "059f4b916302219b7ec1f228828139d42a0b2bc1d61367df154cf8a37120b7e1",
+      "closure_admission": {
+        "success": true,
+        "closure_verified": true,
+        "exit_code": 0,
+        "watchdog_stop": null,
+        "killed_by_watchdog": null,
+        "alive_after_exit": [],
+        "alive_after_cleanup": []
+      },
+      "pod_id": "0pqzfdn2kfog3r",
+      "termination_record": {
+        "pod_id": "0pqzfdn2kfog3r",
+        "terminated": true,
+        "in_inventory": false,
+        "direct_lookup": null,
+        "line_number": 7,
+        "line_sha256": "16f082d869719720227910db2a61e0a5765610a498d8e0061aac6a88261b6522",
+        "retained_termination_record_count": 1
+      },
+      "termination_record_path": "/data2/neural-shrimp-data/runpod/T34C-P3-A-orchestrator.log",
+      "termination_record_sha256": "3b8c0465b5460185e3d1203c4b0c7c9c94914e175376675ddbc5f92e6924553c",
+      "termination_record_line": 7,
+      "result": {
+        "path": "/data2/neural-shrimp-data/runpod/soft64/20261018T230927Z/result.json",
+        "bytes": 1449,
+        "sha256": "680915298e82d211507c98eb5a76227758cccf36a53220f1687661cb3e9f453b"
+      },
+      "result_path": "/data2/neural-shrimp-data/runpod/soft64/20261018T230927Z/result.json",
+      "result_sha256": "680915298e82d211507c98eb5a76227758cccf36a53220f1687661cb3e9f453b",
+      "orchestrator_log": {
+        "path": "/data2/neural-shrimp-data/runpod/T34C-P3-A-orchestrator.log",
+        "bytes": 3662,
+        "sha256": "3b8c0465b5460185e3d1203c4b0c7c9c94914e175376675ddbc5f92e6924553c"
+      }
+    },
+    {
+      "attempt": "cascade-p3-derivative-p0-c064-001",
+      "period": 3,
+      "phase_index": 0,
+      "start_column": 64,
+      "source_commit": "42508b68a733acc4216b40d7b60215de36c5d543",
+      "original_archive_receipt_sha256": "f431869483da4c6a3cf3a7c9bbc2e1e6d25abc5ad6b6d661d018046b6d0dc959",
+      "operational": {
+        "receipt_sha256": "f431869483da4c6a3cf3a7c9bbc2e1e6d25abc5ad6b6d661d018046b6d0dc959",
+        "source_commit": "42508b68a733acc4216b40d7b60215de36c5d543",
+        "elapsed_seconds": 1936.585167148005,
+        "max_rss_kib": 5393204,
+        "bytes": 50818027
+      },
+      "whole_archive_sha256": "128fa5324e6b7db635b82c1cbcae79a48d4df6faed19544e8ca43aa915b63f53",
+      "archive_sha256": "8ca10b0a810456a7e27b21efc339ccfd801a7618224280c5e53ed8a5ba70a1eb",
+      "pack": {
+        "path": "/data2/neural-shrimp-data/codex/certificate-ladder/return-cascade-p3-002/t34c-p3-a/explore/llm-soft-loop/pod64/certpack/t34c-p3-a/pack-cascade-p3-derivative-p0-c064-001.json",
+        "bytes": 305,
+        "sha256": "9629efcda0c8c3facc4db41355117f46e77cc002d68e7de00a0daff5fd0fccba"
+      },
+      "pack_path": "/data2/neural-shrimp-data/codex/certificate-ladder/return-cascade-p3-002/t34c-p3-a/explore/llm-soft-loop/pod64/certpack/t34c-p3-a/pack-cascade-p3-derivative-p0-c064-001.json",
+      "pack_sha256": "9629efcda0c8c3facc4db41355117f46e77cc002d68e7de00a0daff5fd0fccba",
+      "outer_closure": {
+        "path": "/data2/neural-shrimp-data/codex/certificate-ladder/return-cascade-p3-002/t34c-p3-a/explore/llm-soft-loop/pod64/certpack/t34c-p3-a/cascade-p3-derivative-p0-c064-001/run.json",
+        "bytes": 2483,
+        "sha256": "ff900c711a31479c3f935636e971afe4c14e55e0c191bbc8b485df0afe2721be"
+      },
+      "outer_closure_path": "/data2/neural-shrimp-data/codex/certificate-ladder/return-cascade-p3-002/t34c-p3-a/explore/llm-soft-loop/pod64/certpack/t34c-p3-a/cascade-p3-derivative-p0-c064-001/run.json",
+      "outer_closure_sha256": "ff900c711a31479c3f935636e971afe4c14e55e0c191bbc8b485df0afe2721be",
+      "closure_admission": {
+        "success": true,
+        "closure_verified": true,
+        "exit_code": 0,
+        "watchdog_stop": null,
+        "killed_by_watchdog": null,
+        "alive_after_exit": [],
+        "alive_after_cleanup": []
+      },
+      "pod_id": "0pqzfdn2kfog3r",
+      "termination_record": {
+        "pod_id": "0pqzfdn2kfog3r",
+        "terminated": true,
+        "in_inventory": false,
+        "direct_lookup": null,
+        "line_number": 7,
+        "line_sha256": "16f082d869719720227910db2a61e0a5765610a498d8e0061aac6a88261b6522",
+        "retained_termination_record_count": 1
+      },
+      "termination_record_path": "/data2/neural-shrimp-data/runpod/T34C-P3-A-orchestrator.log",
+      "termination_record_sha256": "3b8c0465b5460185e3d1203c4b0c7c9c94914e175376675ddbc5f92e6924553c",
+      "termination_record_line": 7,
+      "result": {
+        "path": "/data2/neural-shrimp-data/runpod/soft64/20261018T230927Z/result.json",
+        "bytes": 1449,
+        "sha256": "680915298e82d211507c98eb5a76227758cccf36a53220f1687661cb3e9f453b"
+      },
+      "result_path": "/data2/neural-shrimp-data/runpod/soft64/20261018T230927Z/result.json",
+      "result_sha256": "680915298e82d211507c98eb5a76227758cccf36a53220f1687661cb3e9f453b",
+      "orchestrator_log": {
+        "path": "/data2/neural-shrimp-data/runpod/T34C-P3-A-orchestrator.log",
+        "bytes": 3662,
+        "sha256": "3b8c0465b5460185e3d1203c4b0c7c9c94914e175376675ddbc5f92e6924553c"
+      }
+    },
+    {
+      "attempt": "cascade-p3-derivative-p0-c128-001",
+      "period": 3,
+      "phase_index": 0,
+      "start_column": 128,
+      "source_commit": "42508b68a733acc4216b40d7b60215de36c5d543",
+      "original_archive_receipt_sha256": "32c5dc0d255650c885745f88ab241b45218a96cb1eefb5ce1f8e9ea147be5322",
+      "operational": {
+        "receipt_sha256": "32c5dc0d255650c885745f88ab241b45218a96cb1eefb5ce1f8e9ea147be5322",
+        "source_commit": "42508b68a733acc4216b40d7b60215de36c5d543",
+        "elapsed_seconds": 1912.515549217991,
+        "max_rss_kib": 5395292,
+        "bytes": 50817198
+      },
+      "whole_archive_sha256": "128fa5324e6b7db635b82c1cbcae79a48d4df6faed19544e8ca43aa915b63f53",
+      "archive_sha256": "d19612d9feaa8bd6d51834ef1472ad8ac2339571cc0f7477cf34d91bc6d87e62",
+      "pack": {
+        "path": "/data2/neural-shrimp-data/codex/certificate-ladder/return-cascade-p3-002/t34c-p3-a/explore/llm-soft-loop/pod64/certpack/t34c-p3-a/pack-cascade-p3-derivative-p0-c128-001.json",
+        "bytes": 305,
+        "sha256": "6be9a2c3dde9acb9e682614ef6dc21544fd55acd19ee257615a46ace30ead149"
+      },
+      "pack_path": "/data2/neural-shrimp-data/codex/certificate-ladder/return-cascade-p3-002/t34c-p3-a/explore/llm-soft-loop/pod64/certpack/t34c-p3-a/pack-cascade-p3-derivative-p0-c128-001.json",
+      "pack_sha256": "6be9a2c3dde9acb9e682614ef6dc21544fd55acd19ee257615a46ace30ead149",
+      "outer_closure": {
+        "path": "/data2/neural-shrimp-data/codex/certificate-ladder/return-cascade-p3-002/t34c-p3-a/explore/llm-soft-loop/pod64/certpack/t34c-p3-a/cascade-p3-derivative-p0-c128-001/run.json",
+        "bytes": 2484,
+        "sha256": "60907c28704ad8345a3fadb555c02cc51669a7361669de183ef1c4fe5b4b6e5c"
+      },
+      "outer_closure_path": "/data2/neural-shrimp-data/codex/certificate-ladder/return-cascade-p3-002/t34c-p3-a/explore/llm-soft-loop/pod64/certpack/t34c-p3-a/cascade-p3-derivative-p0-c128-001/run.json",
+      "outer_closure_sha256": "60907c28704ad8345a3fadb555c02cc51669a7361669de183ef1c4fe5b4b6e5c",
+      "closure_admission": {
+        "success": true,
+        "closure_verified": true,
+        "exit_code": 0,
+        "watchdog_stop": null,
+        "killed_by_watchdog": null,
+        "alive_after_exit": [],
+        "alive_after_cleanup": []
+      },
+      "pod_id": "0pqzfdn2kfog3r",
+      "termination_record": {
+        "pod_id": "0pqzfdn2kfog3r",
+        "terminated": true,
+        "in_inventory": false,
+        "direct_lookup": null,
+        "line_number": 7,
+        "line_sha256": "16f082d869719720227910db2a61e0a5765610a498d8e0061aac6a88261b6522",
+        "retained_termination_record_count": 1
+      },
+      "termination_record_path": "/data2/neural-shrimp-data/runpod/T34C-P3-A-orchestrator.log",
+      "termination_record_sha256": "3b8c0465b5460185e3d1203c4b0c7c9c94914e175376675ddbc5f92e6924553c",
+      "termination_record_line": 7,
+      "result": {
+        "path": "/data2/neural-shrimp-data/runpod/soft64/20261018T230927Z/result.json",
+        "bytes": 1449,
+        "sha256": "680915298e82d211507c98eb5a76227758cccf36a53220f1687661cb3e9f453b"
+      },
+      "result_path": "/data2/neural-shrimp-data/runpod/soft64/20261018T230927Z/result.json",
+      "result_sha256": "680915298e82d211507c98eb5a76227758cccf36a53220f1687661cb3e9f453b",
+      "orchestrator_log": {
+        "path": "/data2/neural-shrimp-data/runpod/T34C-P3-A-orchestrator.log",
+        "bytes": 3662,
+        "sha256": "3b8c0465b5460185e3d1203c4b0c7c9c94914e175376675ddbc5f92e6924553c"
+      }
+    },
+    {
+      "attempt": "cascade-p3-derivative-p0-c192-001",
+      "period": 3,
+      "phase_index": 0,
+      "start_column": 192,
+      "source_commit": "42508b68a733acc4216b40d7b60215de36c5d543",
+      "original_archive_receipt_sha256": "38205f1374e2b3b342174dc5a3e71b0a4b79faf6f04cce5f4d3d4e45d61d2a55",
+      "operational": {
+        "receipt_sha256": "38205f1374e2b3b342174dc5a3e71b0a4b79faf6f04cce5f4d3d4e45d61d2a55",
+        "source_commit": "42508b68a733acc4216b40d7b60215de36c5d543",
+        "elapsed_seconds": 1971.014361759997,
+        "max_rss_kib": 5398140,
+        "bytes": 50819568
+      },
+      "whole_archive_sha256": "128fa5324e6b7db635b82c1cbcae79a48d4df6faed19544e8ca43aa915b63f53",
+      "archive_sha256": "7538ab303f32fd2f2a41f7e67b366412b345af9312a392a000df8566e59cd065",
+      "pack": {
+        "path": "/data2/neural-shrimp-data/codex/certificate-ladder/return-cascade-p3-002/t34c-p3-a/explore/llm-soft-loop/pod64/certpack/t34c-p3-a/pack-cascade-p3-derivative-p0-c192-001.json",
+        "bytes": 305,
+        "sha256": "8614741895614f201d562c497a7704f3c2a47d01ffd4c13d3b2e4e1320b8bc6f"
+      },
+      "pack_path": "/data2/neural-shrimp-data/codex/certificate-ladder/return-cascade-p3-002/t34c-p3-a/explore/llm-soft-loop/pod64/certpack/t34c-p3-a/pack-cascade-p3-derivative-p0-c192-001.json",
+      "pack_sha256": "8614741895614f201d562c497a7704f3c2a47d01ffd4c13d3b2e4e1320b8bc6f",
+      "outer_closure": {
+        "path": "/data2/neural-shrimp-data/codex/certificate-ladder/return-cascade-p3-002/t34c-p3-a/explore/llm-soft-loop/pod64/certpack/t34c-p3-a/cascade-p3-derivative-p0-c192-001/run.json",
+        "bytes": 2484,
+        "sha256": "b25322d65e32415577509017d80975ccef10ed88903b1e6936a509c311245650"
+      },
+      "outer_closure_path": "/data2/neural-shrimp-data/codex/certificate-ladder/return-cascade-p3-002/t34c-p3-a/explore/llm-soft-loop/pod64/certpack/t34c-p3-a/cascade-p3-derivative-p0-c192-001/run.json",
+      "outer_closure_sha256": "b25322d65e32415577509017d80975ccef10ed88903b1e6936a509c311245650",
+      "closure_admission": {
+        "success": true,
+        "closure_verified": true,
+        "exit_code": 0,
+        "watchdog_stop": null,
+        "killed_by_watchdog": null,
+        "alive_after_exit": [],
+        "alive_after_cleanup": []
+      },
+      "pod_id": "0pqzfdn2kfog3r",
+      "termination_record": {
+        "pod_id": "0pqzfdn2kfog3r",
+        "terminated": true,
+        "in_inventory": false,
+        "direct_lookup": null,
+        "line_number": 7,
+        "line_sha256": "16f082d869719720227910db2a61e0a5765610a498d8e0061aac6a88261b6522",
+        "retained_termination_record_count": 1
+      },
+      "termination_record_path": "/data2/neural-shrimp-data/runpod/T34C-P3-A-orchestrator.log",
+      "termination_record_sha256": "3b8c0465b5460185e3d1203c4b0c7c9c94914e175376675ddbc5f92e6924553c",
+      "termination_record_line": 7,
+      "result": {
+        "path": "/data2/neural-shrimp-data/runpod/soft64/20261018T230927Z/result.json",
+        "bytes": 1449,
+        "sha256": "680915298e82d211507c98eb5a76227758cccf36a53220f1687661cb3e9f453b"
+      },
+      "result_path": "/data2/neural-shrimp-data/runpod/soft64/20261018T230927Z/result.json",
+      "result_sha256": "680915298e82d211507c98eb5a76227758cccf36a53220f1687661cb3e9f453b",
+      "orchestrator_log": {
+        "path": "/data2/neural-shrimp-data/runpod/T34C-P3-A-orchestrator.log",
+        "bytes": 3662,
+        "sha256": "3b8c0465b5460185e3d1203c4b0c7c9c94914e175376675ddbc5f92e6924553c"
+      }
+    },
+    {
+      "attempt": "cascade-p3-derivative-p0-c256-001",
+      "period": 3,
+      "phase_index": 0,
+      "start_column": 256,
+      "source_commit": "42508b68a733acc4216b40d7b60215de36c5d543",
+      "original_archive_receipt_sha256": "7d62c79e5a7279ba929ae7c9c3a1402c45e7048d7dbdede0de2ac264f9c9b234",
+      "operational": {
+        "receipt_sha256": "7d62c79e5a7279ba929ae7c9c3a1402c45e7048d7dbdede0de2ac264f9c9b234",
+        "source_commit": "42508b68a733acc4216b40d7b60215de36c5d543",
+        "elapsed_seconds": 1953.8651289590052,
+        "max_rss_kib": 5395968,
+        "bytes": 50821050
+      },
+      "whole_archive_sha256": "128fa5324e6b7db635b82c1cbcae79a48d4df6faed19544e8ca43aa915b63f53",
+      "archive_sha256": "39e0593055fd47f0c13aa44366625dcac643165b870674b33e2bb35bf5b7dd1a",
+      "pack": {
+        "path": "/data2/neural-shrimp-data/codex/certificate-ladder/return-cascade-p3-002/t34c-p3-a/explore/llm-soft-loop/pod64/certpack/t34c-p3-a/pack-cascade-p3-derivative-p0-c256-001.json",
+        "bytes": 305,
+        "sha256": "d1cf753808e40d5786b52b14295d1369df56c168b66a63d64ffe78b87fbae54f"
+      },
+      "pack_path": "/data2/neural-shrimp-data/codex/certificate-ladder/return-cascade-p3-002/t34c-p3-a/explore/llm-soft-loop/pod64/certpack/t34c-p3-a/pack-cascade-p3-derivative-p0-c256-001.json",
+      "pack_sha256": "d1cf753808e40d5786b52b14295d1369df56c168b66a63d64ffe78b87fbae54f",
+      "outer_closure": {
+        "path": "/data2/neural-shrimp-data/codex/certificate-ladder/return-cascade-p3-002/t34c-p3-a/explore/llm-soft-loop/pod64/certpack/t34c-p3-a/cascade-p3-derivative-p0-c256-001/run.json",
+        "bytes": 2484,
+        "sha256": "40ea7855e6735790ad261c052df0be872a0b318b247fa2f94972f20c9f197ab8"
+      },
+      "outer_closure_path": "/data2/neural-shrimp-data/codex/certificate-ladder/return-cascade-p3-002/t34c-p3-a/explore/llm-soft-loop/pod64/certpack/t34c-p3-a/cascade-p3-derivative-p0-c256-001/run.json",
+      "outer_closure_sha256": "40ea7855e6735790ad261c052df0be872a0b318b247fa2f94972f20c9f197ab8",
+      "closure_admission": {
+        "success": true,
+        "closure_verified": true,
+        "exit_code": 0,
+        "watchdog_stop": null,
+        "killed_by_watchdog": null,
+        "alive_after_exit": [],
+        "alive_after_cleanup": []
+      },
+      "pod_id": "0pqzfdn2kfog3r",
+      "termination_record": {
+        "pod_id": "0pqzfdn2kfog3r",
+        "terminated": true,
+        "in_inventory": false,
+        "direct_lookup": null,
+        "line_number": 7,
+        "line_sha256": "16f082d869719720227910db2a61e0a5765610a498d8e0061aac6a88261b6522",
+        "retained_termination_record_count": 1
+      },
+      "termination_record_path": "/data2/neural-shrimp-data/runpod/T34C-P3-A-orchestrator.log",
+      "termination_record_sha256": "3b8c0465b5460185e3d1203c4b0c7c9c94914e175376675ddbc5f92e6924553c",
+      "termination_record_line": 7,
+      "result": {
+        "path": "/data2/neural-shrimp-data/runpod/soft64/20261018T230927Z/result.json",
+        "bytes": 1449,
+        "sha256": "680915298e82d211507c98eb5a76227758cccf36a53220f1687661cb3e9f453b"
+      },
+      "result_path": "/data2/neural-shrimp-data/runpod/soft64/20261018T230927Z/result.json",
+      "result_sha256": "680915298e82d211507c98eb5a76227758cccf36a53220f1687661cb3e9f453b",
+      "orchestrator_log": {
+        "path": "/data2/neural-shrimp-data/runpod/T34C-P3-A-orchestrator.log",
+        "bytes": 3662,
+        "sha256": "3b8c0465b5460185e3d1203c4b0c7c9c94914e175376675ddbc5f92e6924553c"
+      }
+    },
+    {
+      "attempt": "cascade-p3-derivative-p0-c320-001",
+      "period": 3,
+      "phase_index": 0,
+      "start_column": 320,
+      "source_commit": "42508b68a733acc4216b40d7b60215de36c5d543",
+      "original_archive_receipt_sha256": "b6865f61dc7a2839b07b4b86ad5fe0d0afa89066a4e40800c390169843051c66",
+      "operational": {
+        "receipt_sha256": "b6865f61dc7a2839b07b4b86ad5fe0d0afa89066a4e40800c390169843051c66",
+        "source_commit": "42508b68a733acc4216b40d7b60215de36c5d543",
+        "elapsed_seconds": 1946.3088045455515,
+        "max_rss_kib": 5394184,
+        "bytes": 50815454
+      },
+      "whole_archive_sha256": "6d18bffb19da1de10bccce48efd3d98cc0419abb64c9b18415282c368ef38894",
+      "archive_sha256": "8a301cef2935c52804f15da2ca6edd2220b515d50cdf1dc54141af3066d0145b",
+      "pack": {
+        "path": "/data2/neural-shrimp-data/codex/certificate-ladder/return-cascade-p3-002/t34c-p3-b/explore/llm-soft-loop/pod64/certpack/t34c-p3-b/pack-cascade-p3-derivative-p0-c320-001.json",
+        "bytes": 305,
+        "sha256": "f0627ae7253e162f1e65b63f0bdfdc11039837f95fd2b192a5a4236c3b3af981"
+      },
+      "pack_path": "/data2/neural-shrimp-data/codex/certificate-ladder/return-cascade-p3-002/t34c-p3-b/explore/llm-soft-loop/pod64/certpack/t34c-p3-b/pack-cascade-p3-derivative-p0-c320-001.json",
+      "pack_sha256": "f0627ae7253e162f1e65b63f0bdfdc11039837f95fd2b192a5a4236c3b3af981",
+      "outer_closure": {
+        "path": "/data2/neural-shrimp-data/codex/certificate-ladder/return-cascade-p3-002/t34c-p3-b/explore/llm-soft-loop/pod64/certpack/t34c-p3-b/cascade-p3-derivative-p0-c320-001/run.json",
+        "bytes": 2496,
+        "sha256": "91e9fca0eb922fd4442082f22ea320a29b170a435df7b3b60866ef464e44c18b"
+      },
+      "outer_closure_path": "/data2/neural-shrimp-data/codex/certificate-ladder/return-cascade-p3-002/t34c-p3-b/explore/llm-soft-loop/pod64/certpack/t34c-p3-b/cascade-p3-derivative-p0-c320-001/run.json",
+      "outer_closure_sha256": "91e9fca0eb922fd4442082f22ea320a29b170a435df7b3b60866ef464e44c18b",
+      "closure_admission": {
+        "success": true,
+        "closure_verified": true,
+        "exit_code": 0,
+        "watchdog_stop": null,
+        "killed_by_watchdog": null,
+        "alive_after_exit": [],
+        "alive_after_cleanup": []
+      },
+      "pod_id": "k7fnffo9ed8y3s",
+      "termination_record": {
+        "pod_id": "k7fnffo9ed8y3s",
+        "terminated": true,
+        "in_inventory": false,
+        "direct_lookup": null,
+        "line_number": 4,
+        "line_sha256": "12f194a5ffb68cb4356faeab0ce04b0e1f33dc6f3ea59d3106810d8dfeea99e9",
+        "retained_termination_record_count": 1
+      },
+      "termination_record_path": "/data2/neural-shrimp-data/runpod/T34C-P3-B-orchestrator.log",
+      "termination_record_sha256": "d566ed14b3c8b22ceb8e7a5ab3e75c7ddf14d9232d559ee1c1fe39cae069db9e",
+      "termination_record_line": 4,
+      "result": {
+        "path": "/data2/neural-shrimp-data/runpod/soft64/20261018T231244Z/result.json",
+        "bytes": 1451,
+        "sha256": "9513ec7f79c7b27e79e8f506d3e0ae91e912645172fa37c3bfcb3c7c3f26b69a"
+      },
+      "result_path": "/data2/neural-shrimp-data/runpod/soft64/20261018T231244Z/result.json",
+      "result_sha256": "9513ec7f79c7b27e79e8f506d3e0ae91e912645172fa37c3bfcb3c7c3f26b69a",
+      "orchestrator_log": {
+        "path": "/data2/neural-shrimp-data/runpod/T34C-P3-B-orchestrator.log",
+        "bytes": 2604,
+        "sha256": "d566ed14b3c8b22ceb8e7a5ab3e75c7ddf14d9232d559ee1c1fe39cae069db9e"
+      }
+    },
+    {
+      "attempt": "cascade-p3-derivative-p0-c384-001",
+      "period": 3,
+      "phase_index": 0,
+      "start_column": 384,
+      "source_commit": "42508b68a733acc4216b40d7b60215de36c5d543",
+      "original_archive_receipt_sha256": "ab570664f4c62ec69316ab82dfbce0cc6d41d2aa25edfb56b9620f6f7606a0b4",
+      "operational": {
+        "receipt_sha256": "ab570664f4c62ec69316ab82dfbce0cc6d41d2aa25edfb56b9620f6f7606a0b4",
+        "source_commit": "42508b68a733acc4216b40d7b60215de36c5d543",
+        "elapsed_seconds": 1950.6871308386326,
+        "max_rss_kib": 5398236,
+        "bytes": 50813667
+      },
+      "whole_archive_sha256": "6d18bffb19da1de10bccce48efd3d98cc0419abb64c9b18415282c368ef38894",
+      "archive_sha256": "fb8079929fc8c132b385d67bd575aa13acdd6800786c030a8099fdfd6c868c6b",
+      "pack": {
+        "path": "/data2/neural-shrimp-data/codex/certificate-ladder/return-cascade-p3-002/t34c-p3-b/explore/llm-soft-loop/pod64/certpack/t34c-p3-b/pack-cascade-p3-derivative-p0-c384-001.json",
+        "bytes": 305,
+        "sha256": "c0eb4136ca28c9ce2bc818cb4eb7d3eed9cc569e579834792f9477d10176c35a"
+      },
+      "pack_path": "/data2/neural-shrimp-data/codex/certificate-ladder/return-cascade-p3-002/t34c-p3-b/explore/llm-soft-loop/pod64/certpack/t34c-p3-b/pack-cascade-p3-derivative-p0-c384-001.json",
+      "pack_sha256": "c0eb4136ca28c9ce2bc818cb4eb7d3eed9cc569e579834792f9477d10176c35a",
+      "outer_closure": {
+        "path": "/data2/neural-shrimp-data/codex/certificate-ladder/return-cascade-p3-002/t34c-p3-b/explore/llm-soft-loop/pod64/certpack/t34c-p3-b/cascade-p3-derivative-p0-c384-001/run.json",
+        "bytes": 2496,
+        "sha256": "4548114a4700dbe15c1fb76403a141d4b0e84e333c670d37882404fbed39a93f"
+      },
+      "outer_closure_path": "/data2/neural-shrimp-data/codex/certificate-ladder/return-cascade-p3-002/t34c-p3-b/explore/llm-soft-loop/pod64/certpack/t34c-p3-b/cascade-p3-derivative-p0-c384-001/run.json",
+      "outer_closure_sha256": "4548114a4700dbe15c1fb76403a141d4b0e84e333c670d37882404fbed39a93f",
+      "closure_admission": {
+        "success": true,
+        "closure_verified": true,
+        "exit_code": 0,
+        "watchdog_stop": null,
+        "killed_by_watchdog": null,
+        "alive_after_exit": [],
+        "alive_after_cleanup": []
+      },
+      "pod_id": "k7fnffo9ed8y3s",
+      "termination_record": {
+        "pod_id": "k7fnffo9ed8y3s",
+        "terminated": true,
+        "in_inventory": false,
+        "direct_lookup": null,
+        "line_number": 4,
+        "line_sha256": "12f194a5ffb68cb4356faeab0ce04b0e1f33dc6f3ea59d3106810d8dfeea99e9",
+        "retained_termination_record_count": 1
+      },
+      "termination_record_path": "/data2/neural-shrimp-data/runpod/T34C-P3-B-orchestrator.log",
+      "termination_record_sha256": "d566ed14b3c8b22ceb8e7a5ab3e75c7ddf14d9232d559ee1c1fe39cae069db9e",
+      "termination_record_line": 4,
+      "result": {
+        "path": "/data2/neural-shrimp-data/runpod/soft64/20261018T231244Z/result.json",
+        "bytes": 1451,
+        "sha256": "9513ec7f79c7b27e79e8f506d3e0ae91e912645172fa37c3bfcb3c7c3f26b69a"
+      },
+      "result_path": "/data2/neural-shrimp-data/runpod/soft64/20261018T231244Z/result.json",
+      "result_sha256": "9513ec7f79c7b27e79e8f506d3e0ae91e912645172fa37c3bfcb3c7c3f26b69a",
+      "orchestrator_log": {
+        "path": "/data2/neural-shrimp-data/runpod/T34C-P3-B-orchestrator.log",
+        "bytes": 2604,
+        "sha256": "d566ed14b3c8b22ceb8e7a5ab3e75c7ddf14d9232d559ee1c1fe39cae069db9e"
+      }
+    },
+    {
+      "attempt": "cascade-p3-derivative-p0-c448-001",
+      "period": 3,
+      "phase_index": 0,
+      "start_column": 448,
+      "source_commit": "42508b68a733acc4216b40d7b60215de36c5d543",
+      "original_archive_receipt_sha256": "6b3cfd6749a56b0052174a2d651516cf97a36bdd81f243917de791492d64e44f",
+      "operational": {
+        "receipt_sha256": "6b3cfd6749a56b0052174a2d651516cf97a36bdd81f243917de791492d64e44f",
+        "source_commit": "42508b68a733acc4216b40d7b60215de36c5d543",
+        "elapsed_seconds": 1907.6325995251536,
+        "max_rss_kib": 5389156,
+        "bytes": 50818809
+      },
+      "whole_archive_sha256": "6d18bffb19da1de10bccce48efd3d98cc0419abb64c9b18415282c368ef38894",
+      "archive_sha256": "270caba9d84e533e86a9572bca612e6a81044ac27d675e4ffcc617c26afe7b30",
+      "pack": {
+        "path": "/data2/neural-shrimp-data/codex/certificate-ladder/return-cascade-p3-002/t34c-p3-b/explore/llm-soft-loop/pod64/certpack/t34c-p3-b/pack-cascade-p3-derivative-p0-c448-001.json",
+        "bytes": 305,
+        "sha256": "49b989c8d726447b75ad878c56461fc70a1420f11b46983752137ec3e0afd732"
+      },
+      "pack_path": "/data2/neural-shrimp-data/codex/certificate-ladder/return-cascade-p3-002/t34c-p3-b/explore/llm-soft-loop/pod64/certpack/t34c-p3-b/pack-cascade-p3-derivative-p0-c448-001.json",
+      "pack_sha256": "49b989c8d726447b75ad878c56461fc70a1420f11b46983752137ec3e0afd732",
+      "outer_closure": {
+        "path": "/data2/neural-shrimp-data/codex/certificate-ladder/return-cascade-p3-002/t34c-p3-b/explore/llm-soft-loop/pod64/certpack/t34c-p3-b/cascade-p3-derivative-p0-c448-001/run.json",
+        "bytes": 2496,
+        "sha256": "5dbb05c60dff50a1ddf297ed8ac6d3a501a9865c143ba736a89684c716d0cbdf"
+      },
+      "outer_closure_path": "/data2/neural-shrimp-data/codex/certificate-ladder/return-cascade-p3-002/t34c-p3-b/explore/llm-soft-loop/pod64/certpack/t34c-p3-b/cascade-p3-derivative-p0-c448-001/run.json",
+      "outer_closure_sha256": "5dbb05c60dff50a1ddf297ed8ac6d3a501a9865c143ba736a89684c716d0cbdf",
+      "closure_admission": {
+        "success": true,
+        "closure_verified": true,
+        "exit_code": 0,
+        "watchdog_stop": null,
+        "killed_by_watchdog": null,
+        "alive_after_exit": [],
+        "alive_after_cleanup": []
+      },
+      "pod_id": "k7fnffo9ed8y3s",
+      "termination_record": {
+        "pod_id": "k7fnffo9ed8y3s",
+        "terminated": true,
+        "in_inventory": false,
+        "direct_lookup": null,
+        "line_number": 4,
+        "line_sha256": "12f194a5ffb68cb4356faeab0ce04b0e1f33dc6f3ea59d3106810d8dfeea99e9",
+        "retained_termination_record_count": 1
+      },
+      "termination_record_path": "/data2/neural-shrimp-data/runpod/T34C-P3-B-orchestrator.log",
+      "termination_record_sha256": "d566ed14b3c8b22ceb8e7a5ab3e75c7ddf14d9232d559ee1c1fe39cae069db9e",
+      "termination_record_line": 4,
+      "result": {
+        "path": "/data2/neural-shrimp-data/runpod/soft64/20261018T231244Z/result.json",
+        "bytes": 1451,
+        "sha256": "9513ec7f79c7b27e79e8f506d3e0ae91e912645172fa37c3bfcb3c7c3f26b69a"
+      },
+      "result_path": "/data2/neural-shrimp-data/runpod/soft64/20261018T231244Z/result.json",
+      "result_sha256": "9513ec7f79c7b27e79e8f506d3e0ae91e912645172fa37c3bfcb3c7c3f26b69a",
+      "orchestrator_log": {
+        "path": "/data2/neural-shrimp-data/runpod/T34C-P3-B-orchestrator.log",
+        "bytes": 2604,
+        "sha256": "d566ed14b3c8b22ceb8e7a5ab3e75c7ddf14d9232d559ee1c1fe39cae069db9e"
+      }
+    },
+    {
+      "attempt": "cascade-p3-derivative-p0-c512-001",
+      "period": 3,
+      "phase_index": 0,
+      "start_column": 512,
+      "source_commit": "42508b68a733acc4216b40d7b60215de36c5d543",
+      "original_archive_receipt_sha256": "e3a13c3c0fe1680ff8b9d31f26266a17c04eb8083839976b7b9df47f5e9d6317",
+      "operational": {
+        "receipt_sha256": "e3a13c3c0fe1680ff8b9d31f26266a17c04eb8083839976b7b9df47f5e9d6317",
+        "source_commit": "42508b68a733acc4216b40d7b60215de36c5d543",
+        "elapsed_seconds": 1937.7319261059165,
+        "max_rss_kib": 5397252,
+        "bytes": 50814520
+      },
+      "whole_archive_sha256": "6d18bffb19da1de10bccce48efd3d98cc0419abb64c9b18415282c368ef38894",
+      "archive_sha256": "6d90676f6334116776e8b478e0533e86b4c714ec06e6b916c7a34e0301dcb517",
+      "pack": {
+        "path": "/data2/neural-shrimp-data/codex/certificate-ladder/return-cascade-p3-002/t34c-p3-b/explore/llm-soft-loop/pod64/certpack/t34c-p3-b/pack-cascade-p3-derivative-p0-c512-001.json",
+        "bytes": 305,
+        "sha256": "618ee7db5f1a5aed046a2cdc258e1391249d905940513ed8254d0c4c88f0756b"
+      },
+      "pack_path": "/data2/neural-shrimp-data/codex/certificate-ladder/return-cascade-p3-002/t34c-p3-b/explore/llm-soft-loop/pod64/certpack/t34c-p3-b/pack-cascade-p3-derivative-p0-c512-001.json",
+      "pack_sha256": "618ee7db5f1a5aed046a2cdc258e1391249d905940513ed8254d0c4c88f0756b",
+      "outer_closure": {
+        "path": "/data2/neural-shrimp-data/codex/certificate-ladder/return-cascade-p3-002/t34c-p3-b/explore/llm-soft-loop/pod64/certpack/t34c-p3-b/cascade-p3-derivative-p0-c512-001/run.json",
+        "bytes": 2496,
+        "sha256": "f90591cedc8ed3bae3e30314003f75ae9d020a7039ef91051896e521f4a56066"
+      },
+      "outer_closure_path": "/data2/neural-shrimp-data/codex/certificate-ladder/return-cascade-p3-002/t34c-p3-b/explore/llm-soft-loop/pod64/certpack/t34c-p3-b/cascade-p3-derivative-p0-c512-001/run.json",
+      "outer_closure_sha256": "f90591cedc8ed3bae3e30314003f75ae9d020a7039ef91051896e521f4a56066",
+      "closure_admission": {
+        "success": true,
+        "closure_verified": true,
+        "exit_code": 0,
+        "watchdog_stop": null,
+        "killed_by_watchdog": null,
+        "alive_after_exit": [],
+        "alive_after_cleanup": []
+      },
+      "pod_id": "k7fnffo9ed8y3s",
+      "termination_record": {
+        "pod_id": "k7fnffo9ed8y3s",
+        "terminated": true,
+        "in_inventory": false,
+        "direct_lookup": null,
+        "line_number": 4,
+        "line_sha256": "12f194a5ffb68cb4356faeab0ce04b0e1f33dc6f3ea59d3106810d8dfeea99e9",
+        "retained_termination_record_count": 1
+      },
+      "termination_record_path": "/data2/neural-shrimp-data/runpod/T34C-P3-B-orchestrator.log",
+      "termination_record_sha256": "d566ed14b3c8b22ceb8e7a5ab3e75c7ddf14d9232d559ee1c1fe39cae069db9e",
+      "termination_record_line": 4,
+      "result": {
+        "path": "/data2/neural-shrimp-data/runpod/soft64/20261018T231244Z/result.json",
+        "bytes": 1451,
+        "sha256": "9513ec7f79c7b27e79e8f506d3e0ae91e912645172fa37c3bfcb3c7c3f26b69a"
+      },
+      "result_path": "/data2/neural-shrimp-data/runpod/soft64/20261018T231244Z/result.json",
+      "result_sha256": "9513ec7f79c7b27e79e8f506d3e0ae91e912645172fa37c3bfcb3c7c3f26b69a",
+      "orchestrator_log": {
+        "path": "/data2/neural-shrimp-data/runpod/T34C-P3-B-orchestrator.log",
+        "bytes": 2604,
+        "sha256": "d566ed14b3c8b22ceb8e7a5ab3e75c7ddf14d9232d559ee1c1fe39cae069db9e"
+      }
+    },
+    {
+      "attempt": "cascade-p3-derivative-p0-c576-001",
+      "period": 3,
+      "phase_index": 0,
+      "start_column": 576,
+      "source_commit": "42508b68a733acc4216b40d7b60215de36c5d543",
+      "original_archive_receipt_sha256": "54da78e2d1467f450e966f7deebe715d760b8dd312290ced90b5465ad43bcaa4",
+      "operational": {
+        "receipt_sha256": "54da78e2d1467f450e966f7deebe715d760b8dd312290ced90b5465ad43bcaa4",
+        "source_commit": "42508b68a733acc4216b40d7b60215de36c5d543",
+        "elapsed_seconds": 1905.508807444945,
+        "max_rss_kib": 5394304,
+        "bytes": 50819132
+      },
+      "whole_archive_sha256": "6d18bffb19da1de10bccce48efd3d98cc0419abb64c9b18415282c368ef38894",
+      "archive_sha256": "5c42014c90e414127e345d32a82daa50d3dbe3bbd8de7528fb86223c05da7ffe",
+      "pack": {
+        "path": "/data2/neural-shrimp-data/codex/certificate-ladder/return-cascade-p3-002/t34c-p3-b/explore/llm-soft-loop/pod64/certpack/t34c-p3-b/pack-cascade-p3-derivative-p0-c576-001.json",
+        "bytes": 305,
+        "sha256": "b381b8c504809b05a0db4bacf31ccfa24b1f7147ee689b33da47cf091560ed29"
+      },
+      "pack_path": "/data2/neural-shrimp-data/codex/certificate-ladder/return-cascade-p3-002/t34c-p3-b/explore/llm-soft-loop/pod64/certpack/t34c-p3-b/pack-cascade-p3-derivative-p0-c576-001.json",
+      "pack_sha256": "b381b8c504809b05a0db4bacf31ccfa24b1f7147ee689b33da47cf091560ed29",
+      "outer_closure": {
+        "path": "/data2/neural-shrimp-data/codex/certificate-ladder/return-cascade-p3-002/t34c-p3-b/explore/llm-soft-loop/pod64/certpack/t34c-p3-b/cascade-p3-derivative-p0-c576-001/run.json",
+        "bytes": 2496,
+        "sha256": "84566959b6dfb3e03ec94cd4937e6ab2afbd82e493fcdfce41f77debc02bf6b8"
+      },
+      "outer_closure_path": "/data2/neural-shrimp-data/codex/certificate-ladder/return-cascade-p3-002/t34c-p3-b/explore/llm-soft-loop/pod64/certpack/t34c-p3-b/cascade-p3-derivative-p0-c576-001/run.json",
+      "outer_closure_sha256": "84566959b6dfb3e03ec94cd4937e6ab2afbd82e493fcdfce41f77debc02bf6b8",
+      "closure_admission": {
+        "success": true,
+        "closure_verified": true,
+        "exit_code": 0,
+        "watchdog_stop": null,
+        "killed_by_watchdog": null,
+        "alive_after_exit": [],
+        "alive_after_cleanup": []
+      },
+      "pod_id": "k7fnffo9ed8y3s",
+      "termination_record": {
+        "pod_id": "k7fnffo9ed8y3s",
+        "terminated": true,
+        "in_inventory": false,
+        "direct_lookup": null,
+        "line_number": 4,
+        "line_sha256": "12f194a5ffb68cb4356faeab0ce04b0e1f33dc6f3ea59d3106810d8dfeea99e9",
+        "retained_termination_record_count": 1
+      },
+      "termination_record_path": "/data2/neural-shrimp-data/runpod/T34C-P3-B-orchestrator.log",
+      "termination_record_sha256": "d566ed14b3c8b22ceb8e7a5ab3e75c7ddf14d9232d559ee1c1fe39cae069db9e",
+      "termination_record_line": 4,
+      "result": {
+        "path": "/data2/neural-shrimp-data/runpod/soft64/20261018T231244Z/result.json",
+        "bytes": 1451,
+        "sha256": "9513ec7f79c7b27e79e8f506d3e0ae91e912645172fa37c3bfcb3c7c3f26b69a"
+      },
+      "result_path": "/data2/neural-shrimp-data/runpod/soft64/20261018T231244Z/result.json",
+      "result_sha256": "9513ec7f79c7b27e79e8f506d3e0ae91e912645172fa37c3bfcb3c7c3f26b69a",
+      "orchestrator_log": {
+        "path": "/data2/neural-shrimp-data/runpod/T34C-P3-B-orchestrator.log",
+        "bytes": 2604,
+        "sha256": "d566ed14b3c8b22ceb8e7a5ab3e75c7ddf14d9232d559ee1c1fe39cae069db9e"
+      }
+    },
+    {
+      "attempt": "cascade-p3-derivative-p0-c640-001",
+      "period": 3,
+      "phase_index": 0,
+      "start_column": 640,
+      "source_commit": "42508b68a733acc4216b40d7b60215de36c5d543",
+      "original_archive_receipt_sha256": "52e13cf836ab34af3edfba2ac4d7c82564b737bd09d79655896babbbeeb9fdc9",
+      "operational": {
+        "receipt_sha256": "52e13cf836ab34af3edfba2ac4d7c82564b737bd09d79655896babbbeeb9fdc9",
+        "source_commit": "42508b68a733acc4216b40d7b60215de36c5d543",
+        "elapsed_seconds": 1878.1153541151434,
+        "max_rss_kib": 5392060,
+        "bytes": 50813624
+      },
+      "whole_archive_sha256": "edf78012e5c3117976d6a80671425b64a22078b1764117bea1266e494f1817c9",
+      "archive_sha256": "c81aa3c74ca7d6319b00d07fee0411cc3b7e722396057e6c3c018fe74b61ae30",
+      "pack": {
+        "path": "/data2/neural-shrimp-data/codex/certificate-ladder/return-cascade-p3-002/t34c-p3-c/explore/llm-soft-loop/pod64/certpack/t34c-p3-c/pack-cascade-p3-derivative-p0-c640-001.json",
+        "bytes": 305,
+        "sha256": "d8e7833861a9ddac1b3b1722fa1cc15adf829b141fe5990abfc407e8c38d3024"
+      },
+      "pack_path": "/data2/neural-shrimp-data/codex/certificate-ladder/return-cascade-p3-002/t34c-p3-c/explore/llm-soft-loop/pod64/certpack/t34c-p3-c/pack-cascade-p3-derivative-p0-c640-001.json",
+      "pack_sha256": "d8e7833861a9ddac1b3b1722fa1cc15adf829b141fe5990abfc407e8c38d3024",
+      "outer_closure": {
+        "path": "/data2/neural-shrimp-data/codex/certificate-ladder/return-cascade-p3-002/t34c-p3-c/explore/llm-soft-loop/pod64/certpack/t34c-p3-c/cascade-p3-derivative-p0-c640-001/run.json",
+        "bytes": 2487,
+        "sha256": "ea49e5f61bd9718a1a2fbabef5ce2a938c542e72380f28cbdcaee441096b2a89"
+      },
+      "outer_closure_path": "/data2/neural-shrimp-data/codex/certificate-ladder/return-cascade-p3-002/t34c-p3-c/explore/llm-soft-loop/pod64/certpack/t34c-p3-c/cascade-p3-derivative-p0-c640-001/run.json",
+      "outer_closure_sha256": "ea49e5f61bd9718a1a2fbabef5ce2a938c542e72380f28cbdcaee441096b2a89",
+      "closure_admission": {
+        "success": true,
+        "closure_verified": true,
+        "exit_code": 0,
+        "watchdog_stop": null,
+        "killed_by_watchdog": null,
+        "alive_after_exit": [],
+        "alive_after_cleanup": []
+      },
+      "pod_id": "pca5sqyvuz7060",
+      "termination_record": {
+        "pod_id": "pca5sqyvuz7060",
+        "terminated": true,
+        "in_inventory": false,
+        "direct_lookup": null,
+        "line_number": 5,
+        "line_sha256": "86aae6205127ffb5f1ee32f89cd86e49141d76651c4f46b060dbf9eadc6d126f",
+        "retained_termination_record_count": 1
+      },
+      "termination_record_path": "/data2/neural-shrimp-data/runpod/T34C-P3-C-orchestrator.log",
+      "termination_record_sha256": "3af06fc23b033dcb0ec3c9ff32a1b9ed1836d8f6216317bdb0707103a3354030",
+      "termination_record_line": 5,
+      "result": {
+        "path": "/data2/neural-shrimp-data/runpod/soft64/20261018T231500Z/result.json",
+        "bytes": 1443,
+        "sha256": "39096fc50607fb68e212b1cfbd8e1491035ab7b9eb03b466c127bdd6df84cd96"
+      },
+      "result_path": "/data2/neural-shrimp-data/runpod/soft64/20261018T231500Z/result.json",
+      "result_sha256": "39096fc50607fb68e212b1cfbd8e1491035ab7b9eb03b466c127bdd6df84cd96",
+      "orchestrator_log": {
+        "path": "/data2/neural-shrimp-data/runpod/T34C-P3-C-orchestrator.log",
+        "bytes": 2641,
+        "sha256": "3af06fc23b033dcb0ec3c9ff32a1b9ed1836d8f6216317bdb0707103a3354030"
+      }
+    },
+    {
+      "attempt": "cascade-p3-derivative-p0-c704-001",
+      "period": 3,
+      "phase_index": 0,
+      "start_column": 704,
+      "source_commit": "42508b68a733acc4216b40d7b60215de36c5d543",
+      "original_archive_receipt_sha256": "2adaf0db19f70be3e5530717016d49069f50a85e6d7acb62de23b913dd332c85",
+      "operational": {
+        "receipt_sha256": "2adaf0db19f70be3e5530717016d49069f50a85e6d7acb62de23b913dd332c85",
+        "source_commit": "42508b68a733acc4216b40d7b60215de36c5d543",
+        "elapsed_seconds": 1866.7277083843946,
+        "max_rss_kib": 5395152,
+        "bytes": 50818191
+      },
+      "whole_archive_sha256": "edf78012e5c3117976d6a80671425b64a22078b1764117bea1266e494f1817c9",
+      "archive_sha256": "a5aa4c46df1b22bd46483c8ca5c15c344c846d9d5928362d4342bf3005e50cee",
+      "pack": {
+        "path": "/data2/neural-shrimp-data/codex/certificate-ladder/return-cascade-p3-002/t34c-p3-c/explore/llm-soft-loop/pod64/certpack/t34c-p3-c/pack-cascade-p3-derivative-p0-c704-001.json",
+        "bytes": 305,
+        "sha256": "9eff9b8274a2ff83042a3ffc7e2da6cf1587df22d6611962f44a26d9b41d0305"
+      },
+      "pack_path": "/data2/neural-shrimp-data/codex/certificate-ladder/return-cascade-p3-002/t34c-p3-c/explore/llm-soft-loop/pod64/certpack/t34c-p3-c/pack-cascade-p3-derivative-p0-c704-001.json",
+      "pack_sha256": "9eff9b8274a2ff83042a3ffc7e2da6cf1587df22d6611962f44a26d9b41d0305",
+      "outer_closure": {
+        "path": "/data2/neural-shrimp-data/codex/certificate-ladder/return-cascade-p3-002/t34c-p3-c/explore/llm-soft-loop/pod64/certpack/t34c-p3-c/cascade-p3-derivative-p0-c704-001/run.json",
+        "bytes": 2496,
+        "sha256": "070cf9c738b5c54894740b56a39584c5981c3c26aa6adee9cdf6ec48a1e28fad"
+      },
+      "outer_closure_path": "/data2/neural-shrimp-data/codex/certificate-ladder/return-cascade-p3-002/t34c-p3-c/explore/llm-soft-loop/pod64/certpack/t34c-p3-c/cascade-p3-derivative-p0-c704-001/run.json",
+      "outer_closure_sha256": "070cf9c738b5c54894740b56a39584c5981c3c26aa6adee9cdf6ec48a1e28fad",
+      "closure_admission": {
+        "success": true,
+        "closure_verified": true,
+        "exit_code": 0,
+        "watchdog_stop": null,
+        "killed_by_watchdog": null,
+        "alive_after_exit": [],
+        "alive_after_cleanup": []
+      },
+      "pod_id": "pca5sqyvuz7060",
+      "termination_record": {
+        "pod_id": "pca5sqyvuz7060",
+        "terminated": true,
+        "in_inventory": false,
+        "direct_lookup": null,
+        "line_number": 5,
+        "line_sha256": "86aae6205127ffb5f1ee32f89cd86e49141d76651c4f46b060dbf9eadc6d126f",
+        "retained_termination_record_count": 1
+      },
+      "termination_record_path": "/data2/neural-shrimp-data/runpod/T34C-P3-C-orchestrator.log",
+      "termination_record_sha256": "3af06fc23b033dcb0ec3c9ff32a1b9ed1836d8f6216317bdb0707103a3354030",
+      "termination_record_line": 5,
+      "result": {
+        "path": "/data2/neural-shrimp-data/runpod/soft64/20261018T231500Z/result.json",
+        "bytes": 1443,
+        "sha256": "39096fc50607fb68e212b1cfbd8e1491035ab7b9eb03b466c127bdd6df84cd96"
+      },
+      "result_path": "/data2/neural-shrimp-data/runpod/soft64/20261018T231500Z/result.json",
+      "result_sha256": "39096fc50607fb68e212b1cfbd8e1491035ab7b9eb03b466c127bdd6df84cd96",
+      "orchestrator_log": {
+        "path": "/data2/neural-shrimp-data/runpod/T34C-P3-C-orchestrator.log",
+        "bytes": 2641,
+        "sha256": "3af06fc23b033dcb0ec3c9ff32a1b9ed1836d8f6216317bdb0707103a3354030"
+      }
+    },
+    {
+      "attempt": "cascade-p3-derivative-p0-c768-001",
+      "period": 3,
+      "phase_index": 0,
+      "start_column": 768,
+      "source_commit": "42508b68a733acc4216b40d7b60215de36c5d543",
+      "original_archive_receipt_sha256": "d0c9a2b8fbb0e66a1b34cd07c2d359d6e3ce6efbb74ef6495d2956ea6c3001d1",
+      "operational": {
+        "receipt_sha256": "d0c9a2b8fbb0e66a1b34cd07c2d359d6e3ce6efbb74ef6495d2956ea6c3001d1",
+        "source_commit": "42508b68a733acc4216b40d7b60215de36c5d543",
+        "elapsed_seconds": 1857.159919327125,
+        "max_rss_kib": 5399512,
+        "bytes": 50821270
+      },
+      "whole_archive_sha256": "edf78012e5c3117976d6a80671425b64a22078b1764117bea1266e494f1817c9",
+      "archive_sha256": "dd09fb7505d364fc1f41bc832eda923999bb73c5442700569e03a8aa01d57d74",
+      "pack": {
+        "path": "/data2/neural-shrimp-data/codex/certificate-ladder/return-cascade-p3-002/t34c-p3-c/explore/llm-soft-loop/pod64/certpack/t34c-p3-c/pack-cascade-p3-derivative-p0-c768-001.json",
+        "bytes": 305,
+        "sha256": "3272f081f8cf1a463525fd4fb02ba435ebeaafe02d755eb81903511b7c8e8675"
+      },
+      "pack_path": "/data2/neural-shrimp-data/codex/certificate-ladder/return-cascade-p3-002/t34c-p3-c/explore/llm-soft-loop/pod64/certpack/t34c-p3-c/pack-cascade-p3-derivative-p0-c768-001.json",
+      "pack_sha256": "3272f081f8cf1a463525fd4fb02ba435ebeaafe02d755eb81903511b7c8e8675",
+      "outer_closure": {
+        "path": "/data2/neural-shrimp-data/codex/certificate-ladder/return-cascade-p3-002/t34c-p3-c/explore/llm-soft-loop/pod64/certpack/t34c-p3-c/cascade-p3-derivative-p0-c768-001/run.json",
+        "bytes": 2496,
+        "sha256": "a033ed100db0674e524bbb631a707643a7dd1582a3563544be75c48a384d76c8"
+      },
+      "outer_closure_path": "/data2/neural-shrimp-data/codex/certificate-ladder/return-cascade-p3-002/t34c-p3-c/explore/llm-soft-loop/pod64/certpack/t34c-p3-c/cascade-p3-derivative-p0-c768-001/run.json",
+      "outer_closure_sha256": "a033ed100db0674e524bbb631a707643a7dd1582a3563544be75c48a384d76c8",
+      "closure_admission": {
+        "success": true,
+        "closure_verified": true,
+        "exit_code": 0,
+        "watchdog_stop": null,
+        "killed_by_watchdog": null,
+        "alive_after_exit": [],
+        "alive_after_cleanup": []
+      },
+      "pod_id": "pca5sqyvuz7060",
+      "termination_record": {
+        "pod_id": "pca5sqyvuz7060",
+        "terminated": true,
+        "in_inventory": false,
+        "direct_lookup": null,
+        "line_number": 5,
+        "line_sha256": "86aae6205127ffb5f1ee32f89cd86e49141d76651c4f46b060dbf9eadc6d126f",
+        "retained_termination_record_count": 1
+      },
+      "termination_record_path": "/data2/neural-shrimp-data/runpod/T34C-P3-C-orchestrator.log",
+      "termination_record_sha256": "3af06fc23b033dcb0ec3c9ff32a1b9ed1836d8f6216317bdb0707103a3354030",
+      "termination_record_line": 5,
+      "result": {
+        "path": "/data2/neural-shrimp-data/runpod/soft64/20261018T231500Z/result.json",
+        "bytes": 1443,
+        "sha256": "39096fc50607fb68e212b1cfbd8e1491035ab7b9eb03b466c127bdd6df84cd96"
+      },
+      "result_path": "/data2/neural-shrimp-data/runpod/soft64/20261018T231500Z/result.json",
+      "result_sha256": "39096fc50607fb68e212b1cfbd8e1491035ab7b9eb03b466c127bdd6df84cd96",
+      "orchestrator_log": {
+        "path": "/data2/neural-shrimp-data/runpod/T34C-P3-C-orchestrator.log",
+        "bytes": 2641,
+        "sha256": "3af06fc23b033dcb0ec3c9ff32a1b9ed1836d8f6216317bdb0707103a3354030"
+      }
+    },
+    {
+      "attempt": "cascade-p3-derivative-p0-c832-001",
+      "period": 3,
+      "phase_index": 0,
+      "start_column": 832,
+      "source_commit": "42508b68a733acc4216b40d7b60215de36c5d543",
+      "original_archive_receipt_sha256": "5edc3a186c888fd5fc9fee71ae09456f2732203cfe638576d9af21895fd0016e",
+      "operational": {
+        "receipt_sha256": "5edc3a186c888fd5fc9fee71ae09456f2732203cfe638576d9af21895fd0016e",
+        "source_commit": "42508b68a733acc4216b40d7b60215de36c5d543",
+        "elapsed_seconds": 1856.2735527083278,
+        "max_rss_kib": 5394100,
+        "bytes": 50820196
+      },
+      "whole_archive_sha256": "edf78012e5c3117976d6a80671425b64a22078b1764117bea1266e494f1817c9",
+      "archive_sha256": "b0b305ca9ad7d09daebd66016dba906c76b5d5315ddeb39d5a8c2f447bac2966",
+      "pack": {
+        "path": "/data2/neural-shrimp-data/codex/certificate-ladder/return-cascade-p3-002/t34c-p3-c/explore/llm-soft-loop/pod64/certpack/t34c-p3-c/pack-cascade-p3-derivative-p0-c832-001.json",
+        "bytes": 305,
+        "sha256": "c72e84e2daf21ba1234bfd1466c8833c473508efc58ab5d429192a087b100510"
+      },
+      "pack_path": "/data2/neural-shrimp-data/codex/certificate-ladder/return-cascade-p3-002/t34c-p3-c/explore/llm-soft-loop/pod64/certpack/t34c-p3-c/pack-cascade-p3-derivative-p0-c832-001.json",
+      "pack_sha256": "c72e84e2daf21ba1234bfd1466c8833c473508efc58ab5d429192a087b100510",
+      "outer_closure": {
+        "path": "/data2/neural-shrimp-data/codex/certificate-ladder/return-cascade-p3-002/t34c-p3-c/explore/llm-soft-loop/pod64/certpack/t34c-p3-c/cascade-p3-derivative-p0-c832-001/run.json",
+        "bytes": 2496,
+        "sha256": "460237650ba658f2a3e923c36ce1e6b366b4bb92467285ce4d728271bbdf07c6"
+      },
+      "outer_closure_path": "/data2/neural-shrimp-data/codex/certificate-ladder/return-cascade-p3-002/t34c-p3-c/explore/llm-soft-loop/pod64/certpack/t34c-p3-c/cascade-p3-derivative-p0-c832-001/run.json",
+      "outer_closure_sha256": "460237650ba658f2a3e923c36ce1e6b366b4bb92467285ce4d728271bbdf07c6",
+      "closure_admission": {
+        "success": true,
+        "closure_verified": true,
+        "exit_code": 0,
+        "watchdog_stop": null,
+        "killed_by_watchdog": null,
+        "alive_after_exit": [],
+        "alive_after_cleanup": []
+      },
+      "pod_id": "pca5sqyvuz7060",
+      "termination_record": {
+        "pod_id": "pca5sqyvuz7060",
+        "terminated": true,
+        "in_inventory": false,
+        "direct_lookup": null,
+        "line_number": 5,
+        "line_sha256": "86aae6205127ffb5f1ee32f89cd86e49141d76651c4f46b060dbf9eadc6d126f",
+        "retained_termination_record_count": 1
+      },
+      "termination_record_path": "/data2/neural-shrimp-data/runpod/T34C-P3-C-orchestrator.log",
+      "termination_record_sha256": "3af06fc23b033dcb0ec3c9ff32a1b9ed1836d8f6216317bdb0707103a3354030",
+      "termination_record_line": 5,
+      "result": {
+        "path": "/data2/neural-shrimp-data/runpod/soft64/20261018T231500Z/result.json",
+        "bytes": 1443,
+        "sha256": "39096fc50607fb68e212b1cfbd8e1491035ab7b9eb03b466c127bdd6df84cd96"
+      },
+      "result_path": "/data2/neural-shrimp-data/runpod/soft64/20261018T231500Z/result.json",
+      "result_sha256": "39096fc50607fb68e212b1cfbd8e1491035ab7b9eb03b466c127bdd6df84cd96",
+      "orchestrator_log": {
+        "path": "/data2/neural-shrimp-data/runpod/T34C-P3-C-orchestrator.log",
+        "bytes": 2641,
+        "sha256": "3af06fc23b033dcb0ec3c9ff32a1b9ed1836d8f6216317bdb0707103a3354030"
+      }
+    },
+    {
+      "attempt": "cascade-p3-derivative-p1-c000-001",
+      "period": 3,
+      "phase_index": 1,
+      "start_column": 0,
+      "source_commit": "42508b68a733acc4216b40d7b60215de36c5d543",
+      "original_archive_receipt_sha256": "c9d3081ff7045ac4f516230a84c1b308e97718ef5ad327004f8d0284eb5f70cc",
+      "operational": {
+        "receipt_sha256": "c9d3081ff7045ac4f516230a84c1b308e97718ef5ad327004f8d0284eb5f70cc",
+        "source_commit": "42508b68a733acc4216b40d7b60215de36c5d543",
+        "elapsed_seconds": 1874.6506361216307,
+        "max_rss_kib": 5396072,
+        "bytes": 51196338
+      },
+      "whole_archive_sha256": "edf78012e5c3117976d6a80671425b64a22078b1764117bea1266e494f1817c9",
+      "archive_sha256": "a710a40f72985b655ca83222c6d83bd77c559ab34d342a85dfb9fb70df943ff9",
+      "pack": {
+        "path": "/data2/neural-shrimp-data/codex/certificate-ladder/return-cascade-p3-002/t34c-p3-c/explore/llm-soft-loop/pod64/certpack/t34c-p3-c/pack-cascade-p3-derivative-p1-c000-001.json",
+        "bytes": 305,
+        "sha256": "ae501f2a326a50f5991b758dde311ef9ca49af5095e3ba6a908a512965e4f491"
+      },
+      "pack_path": "/data2/neural-shrimp-data/codex/certificate-ladder/return-cascade-p3-002/t34c-p3-c/explore/llm-soft-loop/pod64/certpack/t34c-p3-c/pack-cascade-p3-derivative-p1-c000-001.json",
+      "pack_sha256": "ae501f2a326a50f5991b758dde311ef9ca49af5095e3ba6a908a512965e4f491",
+      "outer_closure": {
+        "path": "/data2/neural-shrimp-data/codex/certificate-ladder/return-cascade-p3-002/t34c-p3-c/explore/llm-soft-loop/pod64/certpack/t34c-p3-c/cascade-p3-derivative-p1-c000-001/run.json",
+        "bytes": 2496,
+        "sha256": "2356893a24ccc60e30d5d6a9c31dc3dcc437135f73ed295e2204d47ff8982ade"
+      },
+      "outer_closure_path": "/data2/neural-shrimp-data/codex/certificate-ladder/return-cascade-p3-002/t34c-p3-c/explore/llm-soft-loop/pod64/certpack/t34c-p3-c/cascade-p3-derivative-p1-c000-001/run.json",
+      "outer_closure_sha256": "2356893a24ccc60e30d5d6a9c31dc3dcc437135f73ed295e2204d47ff8982ade",
+      "closure_admission": {
+        "success": true,
+        "closure_verified": true,
+        "exit_code": 0,
+        "watchdog_stop": null,
+        "killed_by_watchdog": null,
+        "alive_after_exit": [],
+        "alive_after_cleanup": []
+      },
+      "pod_id": "pca5sqyvuz7060",
+      "termination_record": {
+        "pod_id": "pca5sqyvuz7060",
+        "terminated": true,
+        "in_inventory": false,
+        "direct_lookup": null,
+        "line_number": 5,
+        "line_sha256": "86aae6205127ffb5f1ee32f89cd86e49141d76651c4f46b060dbf9eadc6d126f",
+        "retained_termination_record_count": 1
+      },
+      "termination_record_path": "/data2/neural-shrimp-data/runpod/T34C-P3-C-orchestrator.log",
+      "termination_record_sha256": "3af06fc23b033dcb0ec3c9ff32a1b9ed1836d8f6216317bdb0707103a3354030",
+      "termination_record_line": 5,
+      "result": {
+        "path": "/data2/neural-shrimp-data/runpod/soft64/20261018T231500Z/result.json",
+        "bytes": 1443,
+        "sha256": "39096fc50607fb68e212b1cfbd8e1491035ab7b9eb03b466c127bdd6df84cd96"
+      },
+      "result_path": "/data2/neural-shrimp-data/runpod/soft64/20261018T231500Z/result.json",
+      "result_sha256": "39096fc50607fb68e212b1cfbd8e1491035ab7b9eb03b466c127bdd6df84cd96",
+      "orchestrator_log": {
+        "path": "/data2/neural-shrimp-data/runpod/T34C-P3-C-orchestrator.log",
+        "bytes": 2641,
+        "sha256": "3af06fc23b033dcb0ec3c9ff32a1b9ed1836d8f6216317bdb0707103a3354030"
+      }
+    },
+    {
+      "attempt": "cascade-p3-derivative-p1-c064-001",
+      "period": 3,
+      "phase_index": 1,
+      "start_column": 64,
+      "source_commit": "42508b68a733acc4216b40d7b60215de36c5d543",
+      "original_archive_receipt_sha256": "b73e8c4d700e226a4963ca1399f70d04b063032f0e7c4ca92e75fd10cb0c9f2b",
+      "operational": {
+        "receipt_sha256": "b73e8c4d700e226a4963ca1399f70d04b063032f0e7c4ca92e75fd10cb0c9f2b",
+        "source_commit": "42508b68a733acc4216b40d7b60215de36c5d543",
+        "elapsed_seconds": 1942.5135074760765,
+        "max_rss_kib": 5391476,
+        "bytes": 51198282
+      },
+      "whole_archive_sha256": "80888148b02571ee760f8328ff3f14958a04cd40cd27bc25ebcb7ffd8ba7e858",
+      "archive_sha256": "9fb6afdcdb20c940445401f439d1a1fad89b402526f9ed1f3a1d46de9819e2e8",
+      "pack": {
+        "path": "/data2/neural-shrimp-data/codex/certificate-ladder/return-cascade-p3-002/t34c-p3-d/explore/llm-soft-loop/pod64/certpack/t34c-p3-d/pack-cascade-p3-derivative-p1-c064-001.json",
+        "bytes": 305,
+        "sha256": "a1b84c5fb046a08f29e5bfd0d336317a6bff0663946fdbfea748710e76d7820a"
+      },
+      "pack_path": "/data2/neural-shrimp-data/codex/certificate-ladder/return-cascade-p3-002/t34c-p3-d/explore/llm-soft-loop/pod64/certpack/t34c-p3-d/pack-cascade-p3-derivative-p1-c064-001.json",
+      "pack_sha256": "a1b84c5fb046a08f29e5bfd0d336317a6bff0663946fdbfea748710e76d7820a",
+      "outer_closure": {
+        "path": "/data2/neural-shrimp-data/codex/certificate-ladder/return-cascade-p3-002/t34c-p3-d/explore/llm-soft-loop/pod64/certpack/t34c-p3-d/cascade-p3-derivative-p1-c064-001/run.json",
+        "bytes": 2496,
+        "sha256": "f3a295c8e77041f43999dd5e2758681f528534037c28b05d3561c665c5533dd5"
+      },
+      "outer_closure_path": "/data2/neural-shrimp-data/codex/certificate-ladder/return-cascade-p3-002/t34c-p3-d/explore/llm-soft-loop/pod64/certpack/t34c-p3-d/cascade-p3-derivative-p1-c064-001/run.json",
+      "outer_closure_sha256": "f3a295c8e77041f43999dd5e2758681f528534037c28b05d3561c665c5533dd5",
+      "closure_admission": {
+        "success": true,
+        "closure_verified": true,
+        "exit_code": 0,
+        "watchdog_stop": null,
+        "killed_by_watchdog": null,
+        "alive_after_exit": [],
+        "alive_after_cleanup": []
+      },
+      "pod_id": "rp9h4lkxs8ufo1",
+      "termination_record": {
+        "pod_id": "rp9h4lkxs8ufo1",
+        "terminated": true,
+        "in_inventory": false,
+        "direct_lookup": null,
+        "line_number": 4,
+        "line_sha256": "3b94ad783a137f9fe32eb27a3bca74d27d04dea3c5f665e3219cbaed3a6d4d40",
+        "retained_termination_record_count": 1
+      },
+      "termination_record_path": "/data2/neural-shrimp-data/runpod/T34C-P3-D-orchestrator.log",
+      "termination_record_sha256": "56aa58ab526afd2c79ee94df51d8ed34bc8b991073fbbd50618bed9d7791292b",
+      "termination_record_line": 4,
+      "result": {
+        "path": "/data2/neural-shrimp-data/runpod/soft64/20261018T231900Z/result.json",
+        "bytes": 1451,
+        "sha256": "53010d674f6efd6335ebefbed11ff7973d9b2c718c6140002e4554b12729d4da"
+      },
+      "result_path": "/data2/neural-shrimp-data/runpod/soft64/20261018T231900Z/result.json",
+      "result_sha256": "53010d674f6efd6335ebefbed11ff7973d9b2c718c6140002e4554b12729d4da",
+      "orchestrator_log": {
+        "path": "/data2/neural-shrimp-data/runpod/T34C-P3-D-orchestrator.log",
+        "bytes": 2604,
+        "sha256": "56aa58ab526afd2c79ee94df51d8ed34bc8b991073fbbd50618bed9d7791292b"
+      }
+    },
+    {
+      "attempt": "cascade-p3-derivative-p1-c128-001",
+      "period": 3,
+      "phase_index": 1,
+      "start_column": 128,
+      "source_commit": "42508b68a733acc4216b40d7b60215de36c5d543",
+      "original_archive_receipt_sha256": "2f1c639b9d23b87b41643c89977c4bb4fb346de2b801c1026af8654303e93e2b",
+      "operational": {
+        "receipt_sha256": "2f1c639b9d23b87b41643c89977c4bb4fb346de2b801c1026af8654303e93e2b",
+        "source_commit": "42508b68a733acc4216b40d7b60215de36c5d543",
+        "elapsed_seconds": 1956.8285221848637,
+        "max_rss_kib": 5394288,
+        "bytes": 51201345
+      },
+      "whole_archive_sha256": "80888148b02571ee760f8328ff3f14958a04cd40cd27bc25ebcb7ffd8ba7e858",
+      "archive_sha256": "7c7ab14e8fbd8c59f41dc3a07c95144aecbaec8a9aace4e34d5a7ab918744f94",
+      "pack": {
+        "path": "/data2/neural-shrimp-data/codex/certificate-ladder/return-cascade-p3-002/t34c-p3-d/explore/llm-soft-loop/pod64/certpack/t34c-p3-d/pack-cascade-p3-derivative-p1-c128-001.json",
+        "bytes": 305,
+        "sha256": "cf5474fa5caa855bece289aefee9bead20116a42d18b6ffb00a1e476012fd74c"
+      },
+      "pack_path": "/data2/neural-shrimp-data/codex/certificate-ladder/return-cascade-p3-002/t34c-p3-d/explore/llm-soft-loop/pod64/certpack/t34c-p3-d/pack-cascade-p3-derivative-p1-c128-001.json",
+      "pack_sha256": "cf5474fa5caa855bece289aefee9bead20116a42d18b6ffb00a1e476012fd74c",
+      "outer_closure": {
+        "path": "/data2/neural-shrimp-data/codex/certificate-ladder/return-cascade-p3-002/t34c-p3-d/explore/llm-soft-loop/pod64/certpack/t34c-p3-d/cascade-p3-derivative-p1-c128-001/run.json",
+        "bytes": 2496,
+        "sha256": "94e3b502049eed498ebbcab5d9945d0d88089b58323b0a018c7d1a721f12b39b"
+      },
+      "outer_closure_path": "/data2/neural-shrimp-data/codex/certificate-ladder/return-cascade-p3-002/t34c-p3-d/explore/llm-soft-loop/pod64/certpack/t34c-p3-d/cascade-p3-derivative-p1-c128-001/run.json",
+      "outer_closure_sha256": "94e3b502049eed498ebbcab5d9945d0d88089b58323b0a018c7d1a721f12b39b",
+      "closure_admission": {
+        "success": true,
+        "closure_verified": true,
+        "exit_code": 0,
+        "watchdog_stop": null,
+        "killed_by_watchdog": null,
+        "alive_after_exit": [],
+        "alive_after_cleanup": []
+      },
+      "pod_id": "rp9h4lkxs8ufo1",
+      "termination_record": {
+        "pod_id": "rp9h4lkxs8ufo1",
+        "terminated": true,
+        "in_inventory": false,
+        "direct_lookup": null,
+        "line_number": 4,
+        "line_sha256": "3b94ad783a137f9fe32eb27a3bca74d27d04dea3c5f665e3219cbaed3a6d4d40",
+        "retained_termination_record_count": 1
+      },
+      "termination_record_path": "/data2/neural-shrimp-data/runpod/T34C-P3-D-orchestrator.log",
+      "termination_record_sha256": "56aa58ab526afd2c79ee94df51d8ed34bc8b991073fbbd50618bed9d7791292b",
+      "termination_record_line": 4,
+      "result": {
+        "path": "/data2/neural-shrimp-data/runpod/soft64/20261018T231900Z/result.json",
+        "bytes": 1451,
+        "sha256": "53010d674f6efd6335ebefbed11ff7973d9b2c718c6140002e4554b12729d4da"
+      },
+      "result_path": "/data2/neural-shrimp-data/runpod/soft64/20261018T231900Z/result.json",
+      "result_sha256": "53010d674f6efd6335ebefbed11ff7973d9b2c718c6140002e4554b12729d4da",
+      "orchestrator_log": {
+        "path": "/data2/neural-shrimp-data/runpod/T34C-P3-D-orchestrator.log",
+        "bytes": 2604,
+        "sha256": "56aa58ab526afd2c79ee94df51d8ed34bc8b991073fbbd50618bed9d7791292b"
+      }
+    },
+    {
+      "attempt": "cascade-p3-derivative-p1-c192-001",
+      "period": 3,
+      "phase_index": 1,
+      "start_column": 192,
+      "source_commit": "42508b68a733acc4216b40d7b60215de36c5d543",
+      "original_archive_receipt_sha256": "5cb587826aa0d441fefbea46c1ff87bff3cd0f59d9c79894a7b242d68f723770",
+      "operational": {
+        "receipt_sha256": "5cb587826aa0d441fefbea46c1ff87bff3cd0f59d9c79894a7b242d68f723770",
+        "source_commit": "42508b68a733acc4216b40d7b60215de36c5d543",
+        "elapsed_seconds": 1944.3342587426305,
+        "max_rss_kib": 5395240,
+        "bytes": 51195038
+      },
+      "whole_archive_sha256": "80888148b02571ee760f8328ff3f14958a04cd40cd27bc25ebcb7ffd8ba7e858",
+      "archive_sha256": "03175b303985f05b2c715dff1df65436ddb303b925794ad86aca82db29f4acb5",
+      "pack": {
+        "path": "/data2/neural-shrimp-data/codex/certificate-ladder/return-cascade-p3-002/t34c-p3-d/explore/llm-soft-loop/pod64/certpack/t34c-p3-d/pack-cascade-p3-derivative-p1-c192-001.json",
+        "bytes": 305,
+        "sha256": "13b8b697ec092dd5880249afe49c440e70922858ed3cd679057e5ee93f7d9b9e"
+      },
+      "pack_path": "/data2/neural-shrimp-data/codex/certificate-ladder/return-cascade-p3-002/t34c-p3-d/explore/llm-soft-loop/pod64/certpack/t34c-p3-d/pack-cascade-p3-derivative-p1-c192-001.json",
+      "pack_sha256": "13b8b697ec092dd5880249afe49c440e70922858ed3cd679057e5ee93f7d9b9e",
+      "outer_closure": {
+        "path": "/data2/neural-shrimp-data/codex/certificate-ladder/return-cascade-p3-002/t34c-p3-d/explore/llm-soft-loop/pod64/certpack/t34c-p3-d/cascade-p3-derivative-p1-c192-001/run.json",
+        "bytes": 2496,
+        "sha256": "0e0df873e23b68a847e7cf642ebc895b7742614698099827325104229f752d13"
+      },
+      "outer_closure_path": "/data2/neural-shrimp-data/codex/certificate-ladder/return-cascade-p3-002/t34c-p3-d/explore/llm-soft-loop/pod64/certpack/t34c-p3-d/cascade-p3-derivative-p1-c192-001/run.json",
+      "outer_closure_sha256": "0e0df873e23b68a847e7cf642ebc895b7742614698099827325104229f752d13",
+      "closure_admission": {
+        "success": true,
+        "closure_verified": true,
+        "exit_code": 0,
+        "watchdog_stop": null,
+        "killed_by_watchdog": null,
+        "alive_after_exit": [],
+        "alive_after_cleanup": []
+      },
+      "pod_id": "rp9h4lkxs8ufo1",
+      "termination_record": {
+        "pod_id": "rp9h4lkxs8ufo1",
+        "terminated": true,
+        "in_inventory": false,
+        "direct_lookup": null,
+        "line_number": 4,
+        "line_sha256": "3b94ad783a137f9fe32eb27a3bca74d27d04dea3c5f665e3219cbaed3a6d4d40",
+        "retained_termination_record_count": 1
+      },
+      "termination_record_path": "/data2/neural-shrimp-data/runpod/T34C-P3-D-orchestrator.log",
+      "termination_record_sha256": "56aa58ab526afd2c79ee94df51d8ed34bc8b991073fbbd50618bed9d7791292b",
+      "termination_record_line": 4,
+      "result": {
+        "path": "/data2/neural-shrimp-data/runpod/soft64/20261018T231900Z/result.json",
+        "bytes": 1451,
+        "sha256": "53010d674f6efd6335ebefbed11ff7973d9b2c718c6140002e4554b12729d4da"
+      },
+      "result_path": "/data2/neural-shrimp-data/runpod/soft64/20261018T231900Z/result.json",
+      "result_sha256": "53010d674f6efd6335ebefbed11ff7973d9b2c718c6140002e4554b12729d4da",
+      "orchestrator_log": {
+        "path": "/data2/neural-shrimp-data/runpod/T34C-P3-D-orchestrator.log",
+        "bytes": 2604,
+        "sha256": "56aa58ab526afd2c79ee94df51d8ed34bc8b991073fbbd50618bed9d7791292b"
+      }
+    },
+    {
+      "attempt": "cascade-p3-derivative-p1-c256-001",
+      "period": 3,
+      "phase_index": 1,
+      "start_column": 256,
+      "source_commit": "42508b68a733acc4216b40d7b60215de36c5d543",
+      "original_archive_receipt_sha256": "fe45b3f5f0a16be8ca2c2fc68ccd44582be41890991d58c401474512eaba58f2",
+      "operational": {
+        "receipt_sha256": "fe45b3f5f0a16be8ca2c2fc68ccd44582be41890991d58c401474512eaba58f2",
+        "source_commit": "42508b68a733acc4216b40d7b60215de36c5d543",
+        "elapsed_seconds": 1949.1003934144974,
+        "max_rss_kib": 5395448,
+        "bytes": 51199508
+      },
+      "whole_archive_sha256": "80888148b02571ee760f8328ff3f14958a04cd40cd27bc25ebcb7ffd8ba7e858",
+      "archive_sha256": "287a8b13863e31e21ac2db1412d276eeb1201c7bcb35bde7a857802bbadad89b",
+      "pack": {
+        "path": "/data2/neural-shrimp-data/codex/certificate-ladder/return-cascade-p3-002/t34c-p3-d/explore/llm-soft-loop/pod64/certpack/t34c-p3-d/pack-cascade-p3-derivative-p1-c256-001.json",
+        "bytes": 305,
+        "sha256": "e54d9d915399fc6da0811b4ae3e998fd87f74c9f278245a2b67fe8724635e5eb"
+      },
+      "pack_path": "/data2/neural-shrimp-data/codex/certificate-ladder/return-cascade-p3-002/t34c-p3-d/explore/llm-soft-loop/pod64/certpack/t34c-p3-d/pack-cascade-p3-derivative-p1-c256-001.json",
+      "pack_sha256": "e54d9d915399fc6da0811b4ae3e998fd87f74c9f278245a2b67fe8724635e5eb",
+      "outer_closure": {
+        "path": "/data2/neural-shrimp-data/codex/certificate-ladder/return-cascade-p3-002/t34c-p3-d/explore/llm-soft-loop/pod64/certpack/t34c-p3-d/cascade-p3-derivative-p1-c256-001/run.json",
+        "bytes": 2496,
+        "sha256": "b0e8b78263a00eef8d69c09398a2d44aabda49e739654c46c92304637b9f8870"
+      },
+      "outer_closure_path": "/data2/neural-shrimp-data/codex/certificate-ladder/return-cascade-p3-002/t34c-p3-d/explore/llm-soft-loop/pod64/certpack/t34c-p3-d/cascade-p3-derivative-p1-c256-001/run.json",
+      "outer_closure_sha256": "b0e8b78263a00eef8d69c09398a2d44aabda49e739654c46c92304637b9f8870",
+      "closure_admission": {
+        "success": true,
+        "closure_verified": true,
+        "exit_code": 0,
+        "watchdog_stop": null,
+        "killed_by_watchdog": null,
+        "alive_after_exit": [],
+        "alive_after_cleanup": []
+      },
+      "pod_id": "rp9h4lkxs8ufo1",
+      "termination_record": {
+        "pod_id": "rp9h4lkxs8ufo1",
+        "terminated": true,
+        "in_inventory": false,
+        "direct_lookup": null,
+        "line_number": 4,
+        "line_sha256": "3b94ad783a137f9fe32eb27a3bca74d27d04dea3c5f665e3219cbaed3a6d4d40",
+        "retained_termination_record_count": 1
+      },
+      "termination_record_path": "/data2/neural-shrimp-data/runpod/T34C-P3-D-orchestrator.log",
+      "termination_record_sha256": "56aa58ab526afd2c79ee94df51d8ed34bc8b991073fbbd50618bed9d7791292b",
+      "termination_record_line": 4,
+      "result": {
+        "path": "/data2/neural-shrimp-data/runpod/soft64/20261018T231900Z/result.json",
+        "bytes": 1451,
+        "sha256": "53010d674f6efd6335ebefbed11ff7973d9b2c718c6140002e4554b12729d4da"
+      },
+      "result_path": "/data2/neural-shrimp-data/runpod/soft64/20261018T231900Z/result.json",
+      "result_sha256": "53010d674f6efd6335ebefbed11ff7973d9b2c718c6140002e4554b12729d4da",
+      "orchestrator_log": {
+        "path": "/data2/neural-shrimp-data/runpod/T34C-P3-D-orchestrator.log",
+        "bytes": 2604,
+        "sha256": "56aa58ab526afd2c79ee94df51d8ed34bc8b991073fbbd50618bed9d7791292b"
+      }
+    },
+    {
+      "attempt": "cascade-p3-derivative-p1-c320-001",
+      "period": 3,
+      "phase_index": 1,
+      "start_column": 320,
+      "source_commit": "42508b68a733acc4216b40d7b60215de36c5d543",
+      "original_archive_receipt_sha256": "7759be04a4f031ad90c0445d16402714dee3cabd412636904aea731b82b1c0f5",
+      "operational": {
+        "receipt_sha256": "7759be04a4f031ad90c0445d16402714dee3cabd412636904aea731b82b1c0f5",
+        "source_commit": "42508b68a733acc4216b40d7b60215de36c5d543",
+        "elapsed_seconds": 1950.276711480692,
+        "max_rss_kib": 5391844,
+        "bytes": 51201937
+      },
+      "whole_archive_sha256": "80888148b02571ee760f8328ff3f14958a04cd40cd27bc25ebcb7ffd8ba7e858",
+      "archive_sha256": "2d2dcdc7ac3cb98c37ed2d37bb891f118a0ae7da22d9b267c8320f35c3322288",
+      "pack": {
+        "path": "/data2/neural-shrimp-data/codex/certificate-ladder/return-cascade-p3-002/t34c-p3-d/explore/llm-soft-loop/pod64/certpack/t34c-p3-d/pack-cascade-p3-derivative-p1-c320-001.json",
+        "bytes": 305,
+        "sha256": "e349abbda07a7ae8d279d6c6a67801570e16d6f108d487c6b8c6a578436962b5"
+      },
+      "pack_path": "/data2/neural-shrimp-data/codex/certificate-ladder/return-cascade-p3-002/t34c-p3-d/explore/llm-soft-loop/pod64/certpack/t34c-p3-d/pack-cascade-p3-derivative-p1-c320-001.json",
+      "pack_sha256": "e349abbda07a7ae8d279d6c6a67801570e16d6f108d487c6b8c6a578436962b5",
+      "outer_closure": {
+        "path": "/data2/neural-shrimp-data/codex/certificate-ladder/return-cascade-p3-002/t34c-p3-d/explore/llm-soft-loop/pod64/certpack/t34c-p3-d/cascade-p3-derivative-p1-c320-001/run.json",
+        "bytes": 2496,
+        "sha256": "203555329bcfffae30877e2341b9696aa1152ed3bfbc61ebc55377d495fc1216"
+      },
+      "outer_closure_path": "/data2/neural-shrimp-data/codex/certificate-ladder/return-cascade-p3-002/t34c-p3-d/explore/llm-soft-loop/pod64/certpack/t34c-p3-d/cascade-p3-derivative-p1-c320-001/run.json",
+      "outer_closure_sha256": "203555329bcfffae30877e2341b9696aa1152ed3bfbc61ebc55377d495fc1216",
+      "closure_admission": {
+        "success": true,
+        "closure_verified": true,
+        "exit_code": 0,
+        "watchdog_stop": null,
+        "killed_by_watchdog": null,
+        "alive_after_exit": [],
+        "alive_after_cleanup": []
+      },
+      "pod_id": "rp9h4lkxs8ufo1",
+      "termination_record": {
+        "pod_id": "rp9h4lkxs8ufo1",
+        "terminated": true,
+        "in_inventory": false,
+        "direct_lookup": null,
+        "line_number": 4,
+        "line_sha256": "3b94ad783a137f9fe32eb27a3bca74d27d04dea3c5f665e3219cbaed3a6d4d40",
+        "retained_termination_record_count": 1
+      },
+      "termination_record_path": "/data2/neural-shrimp-data/runpod/T34C-P3-D-orchestrator.log",
+      "termination_record_sha256": "56aa58ab526afd2c79ee94df51d8ed34bc8b991073fbbd50618bed9d7791292b",
+      "termination_record_line": 4,
+      "result": {
+        "path": "/data2/neural-shrimp-data/runpod/soft64/20261018T231900Z/result.json",
+        "bytes": 1451,
+        "sha256": "53010d674f6efd6335ebefbed11ff7973d9b2c718c6140002e4554b12729d4da"
+      },
+      "result_path": "/data2/neural-shrimp-data/runpod/soft64/20261018T231900Z/result.json",
+      "result_sha256": "53010d674f6efd6335ebefbed11ff7973d9b2c718c6140002e4554b12729d4da",
+      "orchestrator_log": {
+        "path": "/data2/neural-shrimp-data/runpod/T34C-P3-D-orchestrator.log",
+        "bytes": 2604,
+        "sha256": "56aa58ab526afd2c79ee94df51d8ed34bc8b991073fbbd50618bed9d7791292b"
+      }
+    },
+    {
+      "attempt": "cascade-p3-derivative-p1-c384-001",
+      "period": 3,
+      "phase_index": 1,
+      "start_column": 384,
+      "source_commit": "42508b68a733acc4216b40d7b60215de36c5d543",
+      "original_archive_receipt_sha256": "548dc67b8cfa464b54a3dd18a43eb08144e3f7975178dabe616adad2580db78e",
+      "operational": {
+        "receipt_sha256": "548dc67b8cfa464b54a3dd18a43eb08144e3f7975178dabe616adad2580db78e",
+        "source_commit": "42508b68a733acc4216b40d7b60215de36c5d543",
+        "elapsed_seconds": 1865.1970242392272,
+        "max_rss_kib": 5397428,
+        "bytes": 51199323
+      },
+      "whole_archive_sha256": "afcccaf169aaa49eef9c8b0f46071c26d862f188fc166025513911ce5443608f",
+      "archive_sha256": "b49f7b225be71b8a8e9e58dd1e4bc8b7d77de73e25e9e646386e059a5870c550",
+      "pack": {
+        "path": "/data2/neural-shrimp-data/codex/certificate-ladder/return-cascade-p3-002/t34c-p3-e/explore/llm-soft-loop/pod64/certpack/t34c-p3-e/pack-cascade-p3-derivative-p1-c384-001.json",
+        "bytes": 305,
+        "sha256": "1528867e462ac9081ee38384e00e6cf83fe7643d5065d65034b1363835cef241"
+      },
+      "pack_path": "/data2/neural-shrimp-data/codex/certificate-ladder/return-cascade-p3-002/t34c-p3-e/explore/llm-soft-loop/pod64/certpack/t34c-p3-e/pack-cascade-p3-derivative-p1-c384-001.json",
+      "pack_sha256": "1528867e462ac9081ee38384e00e6cf83fe7643d5065d65034b1363835cef241",
+      "outer_closure": {
+        "path": "/data2/neural-shrimp-data/codex/certificate-ladder/return-cascade-p3-002/t34c-p3-e/explore/llm-soft-loop/pod64/certpack/t34c-p3-e/cascade-p3-derivative-p1-c384-001/run.json",
+        "bytes": 2487,
+        "sha256": "744c965cc7ea972c5d8fb03eb9c7d0290443f0de12d10229833d0a3485659c5a"
+      },
+      "outer_closure_path": "/data2/neural-shrimp-data/codex/certificate-ladder/return-cascade-p3-002/t34c-p3-e/explore/llm-soft-loop/pod64/certpack/t34c-p3-e/cascade-p3-derivative-p1-c384-001/run.json",
+      "outer_closure_sha256": "744c965cc7ea972c5d8fb03eb9c7d0290443f0de12d10229833d0a3485659c5a",
+      "closure_admission": {
+        "success": true,
+        "closure_verified": true,
+        "exit_code": 0,
+        "watchdog_stop": null,
+        "killed_by_watchdog": null,
+        "alive_after_exit": [],
+        "alive_after_cleanup": []
+      },
+      "pod_id": "1v9ezzkmrj06nl",
+      "termination_record": {
+        "pod_id": "1v9ezzkmrj06nl",
+        "terminated": true,
+        "in_inventory": false,
+        "direct_lookup": null,
+        "line_number": 5,
+        "line_sha256": "8db787a45129d0df85a7f43f40dfa2700552adf6e745ba7277a402f6001c5c2b",
+        "retained_termination_record_count": 1
+      },
+      "termination_record_path": "/data2/neural-shrimp-data/runpod/T34C-P3-E-orchestrator.log",
+      "termination_record_sha256": "eea0d1cf44b7ac929f47c863f1807de1a8a6ab22ec88aacc60bc07f4d06758a8",
+      "termination_record_line": 5,
+      "result": {
+        "path": "/data2/neural-shrimp-data/runpod/soft64/20261018T232110Z/result.json",
+        "bytes": 1442,
+        "sha256": "088e0cbbae52c8d31975357ca68f229bf11c3ecb30532733e47c4003788b3d5e"
+      },
+      "result_path": "/data2/neural-shrimp-data/runpod/soft64/20261018T232110Z/result.json",
+      "result_sha256": "088e0cbbae52c8d31975357ca68f229bf11c3ecb30532733e47c4003788b3d5e",
+      "orchestrator_log": {
+        "path": "/data2/neural-shrimp-data/runpod/T34C-P3-E-orchestrator.log",
+        "bytes": 2640,
+        "sha256": "eea0d1cf44b7ac929f47c863f1807de1a8a6ab22ec88aacc60bc07f4d06758a8"
+      }
+    },
+    {
+      "attempt": "cascade-p3-derivative-p1-c448-001",
+      "period": 3,
+      "phase_index": 1,
+      "start_column": 448,
+      "source_commit": "42508b68a733acc4216b40d7b60215de36c5d543",
+      "original_archive_receipt_sha256": "373a929040fe8dc393de8745ac56994d0c4d4614c5b688040545ad9b37682430",
+      "operational": {
+        "receipt_sha256": "373a929040fe8dc393de8745ac56994d0c4d4614c5b688040545ad9b37682430",
+        "source_commit": "42508b68a733acc4216b40d7b60215de36c5d543",
+        "elapsed_seconds": 1888.7860949710011,
+        "max_rss_kib": 5397204,
+        "bytes": 51193716
+      },
+      "whole_archive_sha256": "afcccaf169aaa49eef9c8b0f46071c26d862f188fc166025513911ce5443608f",
+      "archive_sha256": "1b4a158e807b6d0b48318b8460fa47e14044634ac73649a1ea85ac88ec09f095",
+      "pack": {
+        "path": "/data2/neural-shrimp-data/codex/certificate-ladder/return-cascade-p3-002/t34c-p3-e/explore/llm-soft-loop/pod64/certpack/t34c-p3-e/pack-cascade-p3-derivative-p1-c448-001.json",
+        "bytes": 305,
+        "sha256": "918dda55abddb68c25529585c8b3c4f927e4a5e7ec7d07fa600987c84fe5218f"
+      },
+      "pack_path": "/data2/neural-shrimp-data/codex/certificate-ladder/return-cascade-p3-002/t34c-p3-e/explore/llm-soft-loop/pod64/certpack/t34c-p3-e/pack-cascade-p3-derivative-p1-c448-001.json",
+      "pack_sha256": "918dda55abddb68c25529585c8b3c4f927e4a5e7ec7d07fa600987c84fe5218f",
+      "outer_closure": {
+        "path": "/data2/neural-shrimp-data/codex/certificate-ladder/return-cascade-p3-002/t34c-p3-e/explore/llm-soft-loop/pod64/certpack/t34c-p3-e/cascade-p3-derivative-p1-c448-001/run.json",
+        "bytes": 2496,
+        "sha256": "45a8f7a91a15400419697fb2794d71f9712bf477e1f9bc900ab9acead79e40d9"
+      },
+      "outer_closure_path": "/data2/neural-shrimp-data/codex/certificate-ladder/return-cascade-p3-002/t34c-p3-e/explore/llm-soft-loop/pod64/certpack/t34c-p3-e/cascade-p3-derivative-p1-c448-001/run.json",
+      "outer_closure_sha256": "45a8f7a91a15400419697fb2794d71f9712bf477e1f9bc900ab9acead79e40d9",
+      "closure_admission": {
+        "success": true,
+        "closure_verified": true,
+        "exit_code": 0,
+        "watchdog_stop": null,
+        "killed_by_watchdog": null,
+        "alive_after_exit": [],
+        "alive_after_cleanup": []
+      },
+      "pod_id": "1v9ezzkmrj06nl",
+      "termination_record": {
+        "pod_id": "1v9ezzkmrj06nl",
+        "terminated": true,
+        "in_inventory": false,
+        "direct_lookup": null,
+        "line_number": 5,
+        "line_sha256": "8db787a45129d0df85a7f43f40dfa2700552adf6e745ba7277a402f6001c5c2b",
+        "retained_termination_record_count": 1
+      },
+      "termination_record_path": "/data2/neural-shrimp-data/runpod/T34C-P3-E-orchestrator.log",
+      "termination_record_sha256": "eea0d1cf44b7ac929f47c863f1807de1a8a6ab22ec88aacc60bc07f4d06758a8",
+      "termination_record_line": 5,
+      "result": {
+        "path": "/data2/neural-shrimp-data/runpod/soft64/20261018T232110Z/result.json",
+        "bytes": 1442,
+        "sha256": "088e0cbbae52c8d31975357ca68f229bf11c3ecb30532733e47c4003788b3d5e"
+      },
+      "result_path": "/data2/neural-shrimp-data/runpod/soft64/20261018T232110Z/result.json",
+      "result_sha256": "088e0cbbae52c8d31975357ca68f229bf11c3ecb30532733e47c4003788b3d5e",
+      "orchestrator_log": {
+        "path": "/data2/neural-shrimp-data/runpod/T34C-P3-E-orchestrator.log",
+        "bytes": 2640,
+        "sha256": "eea0d1cf44b7ac929f47c863f1807de1a8a6ab22ec88aacc60bc07f4d06758a8"
+      }
+    },
+    {
+      "attempt": "cascade-p3-derivative-p1-c512-001",
+      "period": 3,
+      "phase_index": 1,
+      "start_column": 512,
+      "source_commit": "42508b68a733acc4216b40d7b60215de36c5d543",
+      "original_archive_receipt_sha256": "5e3c4d89545f2247562b4f1db21faa9753c1db775a89e65652941576bf572560",
+      "operational": {
+        "receipt_sha256": "5e3c4d89545f2247562b4f1db21faa9753c1db775a89e65652941576bf572560",
+        "source_commit": "42508b68a733acc4216b40d7b60215de36c5d543",
+        "elapsed_seconds": 1879.1820719055831,
+        "max_rss_kib": 5394224,
+        "bytes": 51194425
+      },
+      "whole_archive_sha256": "afcccaf169aaa49eef9c8b0f46071c26d862f188fc166025513911ce5443608f",
+      "archive_sha256": "8151b67893a62c5e184b2f2a74fb14033ead5e891d035dfe1e5b695dbad965e3",
+      "pack": {
+        "path": "/data2/neural-shrimp-data/codex/certificate-ladder/return-cascade-p3-002/t34c-p3-e/explore/llm-soft-loop/pod64/certpack/t34c-p3-e/pack-cascade-p3-derivative-p1-c512-001.json",
+        "bytes": 305,
+        "sha256": "e7a14f6364eec257c6b49066511303d08a10511131b190c13053a92c9dfd131f"
+      },
+      "pack_path": "/data2/neural-shrimp-data/codex/certificate-ladder/return-cascade-p3-002/t34c-p3-e/explore/llm-soft-loop/pod64/certpack/t34c-p3-e/pack-cascade-p3-derivative-p1-c512-001.json",
+      "pack_sha256": "e7a14f6364eec257c6b49066511303d08a10511131b190c13053a92c9dfd131f",
+      "outer_closure": {
+        "path": "/data2/neural-shrimp-data/codex/certificate-ladder/return-cascade-p3-002/t34c-p3-e/explore/llm-soft-loop/pod64/certpack/t34c-p3-e/cascade-p3-derivative-p1-c512-001/run.json",
+        "bytes": 2495,
+        "sha256": "97bb060ddf627fdf195aef06d9f2d39c37e271e9ddc4fddd04d413d7cf27f865"
+      },
+      "outer_closure_path": "/data2/neural-shrimp-data/codex/certificate-ladder/return-cascade-p3-002/t34c-p3-e/explore/llm-soft-loop/pod64/certpack/t34c-p3-e/cascade-p3-derivative-p1-c512-001/run.json",
+      "outer_closure_sha256": "97bb060ddf627fdf195aef06d9f2d39c37e271e9ddc4fddd04d413d7cf27f865",
+      "closure_admission": {
+        "success": true,
+        "closure_verified": true,
+        "exit_code": 0,
+        "watchdog_stop": null,
+        "killed_by_watchdog": null,
+        "alive_after_exit": [],
+        "alive_after_cleanup": []
+      },
+      "pod_id": "1v9ezzkmrj06nl",
+      "termination_record": {
+        "pod_id": "1v9ezzkmrj06nl",
+        "terminated": true,
+        "in_inventory": false,
+        "direct_lookup": null,
+        "line_number": 5,
+        "line_sha256": "8db787a45129d0df85a7f43f40dfa2700552adf6e745ba7277a402f6001c5c2b",
+        "retained_termination_record_count": 1
+      },
+      "termination_record_path": "/data2/neural-shrimp-data/runpod/T34C-P3-E-orchestrator.log",
+      "termination_record_sha256": "eea0d1cf44b7ac929f47c863f1807de1a8a6ab22ec88aacc60bc07f4d06758a8",
+      "termination_record_line": 5,
+      "result": {
+        "path": "/data2/neural-shrimp-data/runpod/soft64/20261018T232110Z/result.json",
+        "bytes": 1442,
+        "sha256": "088e0cbbae52c8d31975357ca68f229bf11c3ecb30532733e47c4003788b3d5e"
+      },
+      "result_path": "/data2/neural-shrimp-data/runpod/soft64/20261018T232110Z/result.json",
+      "result_sha256": "088e0cbbae52c8d31975357ca68f229bf11c3ecb30532733e47c4003788b3d5e",
+      "orchestrator_log": {
+        "path": "/data2/neural-shrimp-data/runpod/T34C-P3-E-orchestrator.log",
+        "bytes": 2640,
+        "sha256": "eea0d1cf44b7ac929f47c863f1807de1a8a6ab22ec88aacc60bc07f4d06758a8"
+      }
+    },
+    {
+      "attempt": "cascade-p3-derivative-p1-c576-001",
+      "period": 3,
+      "phase_index": 1,
+      "start_column": 576,
+      "source_commit": "42508b68a733acc4216b40d7b60215de36c5d543",
+      "original_archive_receipt_sha256": "b99460267684768da068469c16d4dd98806bb984f1b55996362a478878cf4f9b",
+      "operational": {
+        "receipt_sha256": "b99460267684768da068469c16d4dd98806bb984f1b55996362a478878cf4f9b",
+        "source_commit": "42508b68a733acc4216b40d7b60215de36c5d543",
+        "elapsed_seconds": 1875.308975988999,
+        "max_rss_kib": 5396744,
+        "bytes": 51197068
+      },
+      "whole_archive_sha256": "afcccaf169aaa49eef9c8b0f46071c26d862f188fc166025513911ce5443608f",
+      "archive_sha256": "a956262957d018a3780ab242a4e45cb2ef3291605354cc40dc30658caf3c5403",
+      "pack": {
+        "path": "/data2/neural-shrimp-data/codex/certificate-ladder/return-cascade-p3-002/t34c-p3-e/explore/llm-soft-loop/pod64/certpack/t34c-p3-e/pack-cascade-p3-derivative-p1-c576-001.json",
+        "bytes": 305,
+        "sha256": "68624e6fb29901d25ef35d1679d9ab78eaaa6d4f194aaaa023fa02a5f9c5c887"
+      },
+      "pack_path": "/data2/neural-shrimp-data/codex/certificate-ladder/return-cascade-p3-002/t34c-p3-e/explore/llm-soft-loop/pod64/certpack/t34c-p3-e/pack-cascade-p3-derivative-p1-c576-001.json",
+      "pack_sha256": "68624e6fb29901d25ef35d1679d9ab78eaaa6d4f194aaaa023fa02a5f9c5c887",
+      "outer_closure": {
+        "path": "/data2/neural-shrimp-data/codex/certificate-ladder/return-cascade-p3-002/t34c-p3-e/explore/llm-soft-loop/pod64/certpack/t34c-p3-e/cascade-p3-derivative-p1-c576-001/run.json",
+        "bytes": 2496,
+        "sha256": "a722d739ade134a31b22c24d1420639cbe85ab24739d3b3af91f8c1f5296ec5c"
+      },
+      "outer_closure_path": "/data2/neural-shrimp-data/codex/certificate-ladder/return-cascade-p3-002/t34c-p3-e/explore/llm-soft-loop/pod64/certpack/t34c-p3-e/cascade-p3-derivative-p1-c576-001/run.json",
+      "outer_closure_sha256": "a722d739ade134a31b22c24d1420639cbe85ab24739d3b3af91f8c1f5296ec5c",
+      "closure_admission": {
+        "success": true,
+        "closure_verified": true,
+        "exit_code": 0,
+        "watchdog_stop": null,
+        "killed_by_watchdog": null,
+        "alive_after_exit": [],
+        "alive_after_cleanup": []
+      },
+      "pod_id": "1v9ezzkmrj06nl",
+      "termination_record": {
+        "pod_id": "1v9ezzkmrj06nl",
+        "terminated": true,
+        "in_inventory": false,
+        "direct_lookup": null,
+        "line_number": 5,
+        "line_sha256": "8db787a45129d0df85a7f43f40dfa2700552adf6e745ba7277a402f6001c5c2b",
+        "retained_termination_record_count": 1
+      },
+      "termination_record_path": "/data2/neural-shrimp-data/runpod/T34C-P3-E-orchestrator.log",
+      "termination_record_sha256": "eea0d1cf44b7ac929f47c863f1807de1a8a6ab22ec88aacc60bc07f4d06758a8",
+      "termination_record_line": 5,
+      "result": {
+        "path": "/data2/neural-shrimp-data/runpod/soft64/20261018T232110Z/result.json",
+        "bytes": 1442,
+        "sha256": "088e0cbbae52c8d31975357ca68f229bf11c3ecb30532733e47c4003788b3d5e"
+      },
+      "result_path": "/data2/neural-shrimp-data/runpod/soft64/20261018T232110Z/result.json",
+      "result_sha256": "088e0cbbae52c8d31975357ca68f229bf11c3ecb30532733e47c4003788b3d5e",
+      "orchestrator_log": {
+        "path": "/data2/neural-shrimp-data/runpod/T34C-P3-E-orchestrator.log",
+        "bytes": 2640,
+        "sha256": "eea0d1cf44b7ac929f47c863f1807de1a8a6ab22ec88aacc60bc07f4d06758a8"
+      }
+    },
+    {
+      "attempt": "cascade-p3-derivative-p1-c640-001",
+      "period": 3,
+      "phase_index": 1,
+      "start_column": 640,
+      "source_commit": "42508b68a733acc4216b40d7b60215de36c5d543",
+      "original_archive_receipt_sha256": "396760d0a1e3f6e5d6f5219fc9e535519be8866788f101cf795d19658b7bc78e",
+      "operational": {
+        "receipt_sha256": "396760d0a1e3f6e5d6f5219fc9e535519be8866788f101cf795d19658b7bc78e",
+        "source_commit": "42508b68a733acc4216b40d7b60215de36c5d543",
+        "elapsed_seconds": 1863.639537423849,
+        "max_rss_kib": 5395120,
+        "bytes": 51191676
+      },
+      "whole_archive_sha256": "afcccaf169aaa49eef9c8b0f46071c26d862f188fc166025513911ce5443608f",
+      "archive_sha256": "8cb443e6ddd110f302f6dd540437104b68e851deaff3c8360080b17e8a0129e9",
+      "pack": {
+        "path": "/data2/neural-shrimp-data/codex/certificate-ladder/return-cascade-p3-002/t34c-p3-e/explore/llm-soft-loop/pod64/certpack/t34c-p3-e/pack-cascade-p3-derivative-p1-c640-001.json",
+        "bytes": 305,
+        "sha256": "86653cf9eb2db95c11615af90477d911c9921884e8a9afc961490a19c99da594"
+      },
+      "pack_path": "/data2/neural-shrimp-data/codex/certificate-ladder/return-cascade-p3-002/t34c-p3-e/explore/llm-soft-loop/pod64/certpack/t34c-p3-e/pack-cascade-p3-derivative-p1-c640-001.json",
+      "pack_sha256": "86653cf9eb2db95c11615af90477d911c9921884e8a9afc961490a19c99da594",
+      "outer_closure": {
+        "path": "/data2/neural-shrimp-data/codex/certificate-ladder/return-cascade-p3-002/t34c-p3-e/explore/llm-soft-loop/pod64/certpack/t34c-p3-e/cascade-p3-derivative-p1-c640-001/run.json",
+        "bytes": 2496,
+        "sha256": "b5eebecc34755f15c1be791393fb3b59a863d306cf0c293b1774cf99224aac52"
+      },
+      "outer_closure_path": "/data2/neural-shrimp-data/codex/certificate-ladder/return-cascade-p3-002/t34c-p3-e/explore/llm-soft-loop/pod64/certpack/t34c-p3-e/cascade-p3-derivative-p1-c640-001/run.json",
+      "outer_closure_sha256": "b5eebecc34755f15c1be791393fb3b59a863d306cf0c293b1774cf99224aac52",
+      "closure_admission": {
+        "success": true,
+        "closure_verified": true,
+        "exit_code": 0,
+        "watchdog_stop": null,
+        "killed_by_watchdog": null,
+        "alive_after_exit": [],
+        "alive_after_cleanup": []
+      },
+      "pod_id": "1v9ezzkmrj06nl",
+      "termination_record": {
+        "pod_id": "1v9ezzkmrj06nl",
+        "terminated": true,
+        "in_inventory": false,
+        "direct_lookup": null,
+        "line_number": 5,
+        "line_sha256": "8db787a45129d0df85a7f43f40dfa2700552adf6e745ba7277a402f6001c5c2b",
+        "retained_termination_record_count": 1
+      },
+      "termination_record_path": "/data2/neural-shrimp-data/runpod/T34C-P3-E-orchestrator.log",
+      "termination_record_sha256": "eea0d1cf44b7ac929f47c863f1807de1a8a6ab22ec88aacc60bc07f4d06758a8",
+      "termination_record_line": 5,
+      "result": {
+        "path": "/data2/neural-shrimp-data/runpod/soft64/20261018T232110Z/result.json",
+        "bytes": 1442,
+        "sha256": "088e0cbbae52c8d31975357ca68f229bf11c3ecb30532733e47c4003788b3d5e"
+      },
+      "result_path": "/data2/neural-shrimp-data/runpod/soft64/20261018T232110Z/result.json",
+      "result_sha256": "088e0cbbae52c8d31975357ca68f229bf11c3ecb30532733e47c4003788b3d5e",
+      "orchestrator_log": {
+        "path": "/data2/neural-shrimp-data/runpod/T34C-P3-E-orchestrator.log",
+        "bytes": 2640,
+        "sha256": "eea0d1cf44b7ac929f47c863f1807de1a8a6ab22ec88aacc60bc07f4d06758a8"
+      }
+    },
+    {
+      "attempt": "cascade-p3-derivative-p1-c704-001",
+      "period": 3,
+      "phase_index": 1,
+      "start_column": 704,
+      "source_commit": "42508b68a733acc4216b40d7b60215de36c5d543",
+      "original_archive_receipt_sha256": "0a6359c4f12f6fc8f506580d3f494c9449f353c01b88d79de70301a961ba7507",
+      "operational": {
+        "receipt_sha256": "0a6359c4f12f6fc8f506580d3f494c9449f353c01b88d79de70301a961ba7507",
+        "source_commit": "42508b68a733acc4216b40d7b60215de36c5d543",
+        "elapsed_seconds": 1761.2234430033714,
+        "max_rss_kib": 5396172,
+        "bytes": 51197828
+      },
+      "whole_archive_sha256": "55444e2b7b7b899cddd502b50b591155fff9d724f3d0d4494155913586013bde",
+      "archive_sha256": "193a39179ef56f79866d6216dbbdee392e20ab85f2ea42045c449cc467a291b1",
+      "pack": {
+        "path": "/data2/neural-shrimp-data/codex/certificate-ladder/return-cascade-p3-002/t34c-p3-f/explore/llm-soft-loop/pod64/certpack/t34c-p3-f/pack-cascade-p3-derivative-p1-c704-001.json",
+        "bytes": 305,
+        "sha256": "f53c8f1936973325c4862eac2e1d90bbf921cce4d13c6fbb46def47dd3d96d90"
+      },
+      "pack_path": "/data2/neural-shrimp-data/codex/certificate-ladder/return-cascade-p3-002/t34c-p3-f/explore/llm-soft-loop/pod64/certpack/t34c-p3-f/pack-cascade-p3-derivative-p1-c704-001.json",
+      "pack_sha256": "f53c8f1936973325c4862eac2e1d90bbf921cce4d13c6fbb46def47dd3d96d90",
+      "outer_closure": {
+        "path": "/data2/neural-shrimp-data/codex/certificate-ladder/return-cascade-p3-002/t34c-p3-f/explore/llm-soft-loop/pod64/certpack/t34c-p3-f/cascade-p3-derivative-p1-c704-001/run.json",
+        "bytes": 2487,
+        "sha256": "a8d82df740d7f04a4e84cc9de4af3c305f5bb9c8b7fbb9c458b9b7192f95cad9"
+      },
+      "outer_closure_path": "/data2/neural-shrimp-data/codex/certificate-ladder/return-cascade-p3-002/t34c-p3-f/explore/llm-soft-loop/pod64/certpack/t34c-p3-f/cascade-p3-derivative-p1-c704-001/run.json",
+      "outer_closure_sha256": "a8d82df740d7f04a4e84cc9de4af3c305f5bb9c8b7fbb9c458b9b7192f95cad9",
+      "closure_admission": {
+        "success": true,
+        "closure_verified": true,
+        "exit_code": 0,
+        "watchdog_stop": null,
+        "killed_by_watchdog": null,
+        "alive_after_exit": [],
+        "alive_after_cleanup": []
+      },
+      "pod_id": "ec0t2gz8ylejyr",
+      "termination_record": {
+        "pod_id": "ec0t2gz8ylejyr",
+        "terminated": true,
+        "in_inventory": false,
+        "direct_lookup": null,
+        "line_number": 5,
+        "line_sha256": "5ea55afc61e94867a4861cdf6719a643f159e1a913389485a32b20f675e3eba6",
+        "retained_termination_record_count": 1
+      },
+      "termination_record_path": "/data2/neural-shrimp-data/runpod/T34C-P3-F-orchestrator.log",
+      "termination_record_sha256": "417dff677a4e18cf08d967ce747a11cc3c25dfa6cc9d2823181d2a64f9e9f536",
+      "termination_record_line": 5,
+      "result": {
+        "path": "/data2/neural-shrimp-data/runpod/soft64/20261018T232322Z/result.json",
+        "bytes": 1442,
+        "sha256": "5b265154d9b7a7d915b81445358a67c3ff2028dca6f1cd5060ce84de60eda786"
+      },
+      "result_path": "/data2/neural-shrimp-data/runpod/soft64/20261018T232322Z/result.json",
+      "result_sha256": "5b265154d9b7a7d915b81445358a67c3ff2028dca6f1cd5060ce84de60eda786",
+      "orchestrator_log": {
+        "path": "/data2/neural-shrimp-data/runpod/T34C-P3-F-orchestrator.log",
+        "bytes": 2640,
+        "sha256": "417dff677a4e18cf08d967ce747a11cc3c25dfa6cc9d2823181d2a64f9e9f536"
+      }
+    },
+    {
+      "attempt": "cascade-p3-derivative-p1-c768-001",
+      "period": 3,
+      "phase_index": 1,
+      "start_column": 768,
+      "source_commit": "42508b68a733acc4216b40d7b60215de36c5d543",
+      "original_archive_receipt_sha256": "3bf36703a9468d7d22e28244a746d602dda9fe8ac1ce00a5c240dee77265114e",
+      "operational": {
+        "receipt_sha256": "3bf36703a9468d7d22e28244a746d602dda9fe8ac1ce00a5c240dee77265114e",
+        "source_commit": "42508b68a733acc4216b40d7b60215de36c5d543",
+        "elapsed_seconds": 1767.3150119949132,
+        "max_rss_kib": 5394092,
+        "bytes": 51204345
+      },
+      "whole_archive_sha256": "55444e2b7b7b899cddd502b50b591155fff9d724f3d0d4494155913586013bde",
+      "archive_sha256": "b11cb819c220a48c042f099c6e4f67e4a1405a222311e074942e9968a5591740",
+      "pack": {
+        "path": "/data2/neural-shrimp-data/codex/certificate-ladder/return-cascade-p3-002/t34c-p3-f/explore/llm-soft-loop/pod64/certpack/t34c-p3-f/pack-cascade-p3-derivative-p1-c768-001.json",
+        "bytes": 305,
+        "sha256": "7fb33b7aaf485e50798c29527b247d3d53d5de69178c45d80f37ab8e63c32b36"
+      },
+      "pack_path": "/data2/neural-shrimp-data/codex/certificate-ladder/return-cascade-p3-002/t34c-p3-f/explore/llm-soft-loop/pod64/certpack/t34c-p3-f/pack-cascade-p3-derivative-p1-c768-001.json",
+      "pack_sha256": "7fb33b7aaf485e50798c29527b247d3d53d5de69178c45d80f37ab8e63c32b36",
+      "outer_closure": {
+        "path": "/data2/neural-shrimp-data/codex/certificate-ladder/return-cascade-p3-002/t34c-p3-f/explore/llm-soft-loop/pod64/certpack/t34c-p3-f/cascade-p3-derivative-p1-c768-001/run.json",
+        "bytes": 2496,
+        "sha256": "606d6a5a8314ec485086ae1ab86b753323c5be4ce1dbe5f5b461cdcdd1b3994e"
+      },
+      "outer_closure_path": "/data2/neural-shrimp-data/codex/certificate-ladder/return-cascade-p3-002/t34c-p3-f/explore/llm-soft-loop/pod64/certpack/t34c-p3-f/cascade-p3-derivative-p1-c768-001/run.json",
+      "outer_closure_sha256": "606d6a5a8314ec485086ae1ab86b753323c5be4ce1dbe5f5b461cdcdd1b3994e",
+      "closure_admission": {
+        "success": true,
+        "closure_verified": true,
+        "exit_code": 0,
+        "watchdog_stop": null,
+        "killed_by_watchdog": null,
+        "alive_after_exit": [],
+        "alive_after_cleanup": []
+      },
+      "pod_id": "ec0t2gz8ylejyr",
+      "termination_record": {
+        "pod_id": "ec0t2gz8ylejyr",
+        "terminated": true,
+        "in_inventory": false,
+        "direct_lookup": null,
+        "line_number": 5,
+        "line_sha256": "5ea55afc61e94867a4861cdf6719a643f159e1a913389485a32b20f675e3eba6",
+        "retained_termination_record_count": 1
+      },
+      "termination_record_path": "/data2/neural-shrimp-data/runpod/T34C-P3-F-orchestrator.log",
+      "termination_record_sha256": "417dff677a4e18cf08d967ce747a11cc3c25dfa6cc9d2823181d2a64f9e9f536",
+      "termination_record_line": 5,
+      "result": {
+        "path": "/data2/neural-shrimp-data/runpod/soft64/20261018T232322Z/result.json",
+        "bytes": 1442,
+        "sha256": "5b265154d9b7a7d915b81445358a67c3ff2028dca6f1cd5060ce84de60eda786"
+      },
+      "result_path": "/data2/neural-shrimp-data/runpod/soft64/20261018T232322Z/result.json",
+      "result_sha256": "5b265154d9b7a7d915b81445358a67c3ff2028dca6f1cd5060ce84de60eda786",
+      "orchestrator_log": {
+        "path": "/data2/neural-shrimp-data/runpod/T34C-P3-F-orchestrator.log",
+        "bytes": 2640,
+        "sha256": "417dff677a4e18cf08d967ce747a11cc3c25dfa6cc9d2823181d2a64f9e9f536"
+      }
+    },
+    {
+      "attempt": "cascade-p3-derivative-p1-c832-001",
+      "period": 3,
+      "phase_index": 1,
+      "start_column": 832,
+      "source_commit": "42508b68a733acc4216b40d7b60215de36c5d543",
+      "original_archive_receipt_sha256": "99baa35a1d3cffcc3e0ccd727128b1d3b747181e550d9161575b9cc2b38a31df",
+      "operational": {
+        "receipt_sha256": "99baa35a1d3cffcc3e0ccd727128b1d3b747181e550d9161575b9cc2b38a31df",
+        "source_commit": "42508b68a733acc4216b40d7b60215de36c5d543",
+        "elapsed_seconds": 1764.4942423216999,
+        "max_rss_kib": 5396372,
+        "bytes": 51196772
+      },
+      "whole_archive_sha256": "55444e2b7b7b899cddd502b50b591155fff9d724f3d0d4494155913586013bde",
+      "archive_sha256": "69076f991737ce6ccc11b585f1e1a44e3b7d6e66964f680162172d7131770be1",
+      "pack": {
+        "path": "/data2/neural-shrimp-data/codex/certificate-ladder/return-cascade-p3-002/t34c-p3-f/explore/llm-soft-loop/pod64/certpack/t34c-p3-f/pack-cascade-p3-derivative-p1-c832-001.json",
+        "bytes": 305,
+        "sha256": "7beb0c690e43025ebb094d8427d6857c077feb8b86dbf0185721ba437aa5fdab"
+      },
+      "pack_path": "/data2/neural-shrimp-data/codex/certificate-ladder/return-cascade-p3-002/t34c-p3-f/explore/llm-soft-loop/pod64/certpack/t34c-p3-f/pack-cascade-p3-derivative-p1-c832-001.json",
+      "pack_sha256": "7beb0c690e43025ebb094d8427d6857c077feb8b86dbf0185721ba437aa5fdab",
+      "outer_closure": {
+        "path": "/data2/neural-shrimp-data/codex/certificate-ladder/return-cascade-p3-002/t34c-p3-f/explore/llm-soft-loop/pod64/certpack/t34c-p3-f/cascade-p3-derivative-p1-c832-001/run.json",
+        "bytes": 2496,
+        "sha256": "621494d60d39333dbe178759595ecf81569b0dd764f7c28eb47caff6c4a3f479"
+      },
+      "outer_closure_path": "/data2/neural-shrimp-data/codex/certificate-ladder/return-cascade-p3-002/t34c-p3-f/explore/llm-soft-loop/pod64/certpack/t34c-p3-f/cascade-p3-derivative-p1-c832-001/run.json",
+      "outer_closure_sha256": "621494d60d39333dbe178759595ecf81569b0dd764f7c28eb47caff6c4a3f479",
+      "closure_admission": {
+        "success": true,
+        "closure_verified": true,
+        "exit_code": 0,
+        "watchdog_stop": null,
+        "killed_by_watchdog": null,
+        "alive_after_exit": [],
+        "alive_after_cleanup": []
+      },
+      "pod_id": "ec0t2gz8ylejyr",
+      "termination_record": {
+        "pod_id": "ec0t2gz8ylejyr",
+        "terminated": true,
+        "in_inventory": false,
+        "direct_lookup": null,
+        "line_number": 5,
+        "line_sha256": "5ea55afc61e94867a4861cdf6719a643f159e1a913389485a32b20f675e3eba6",
+        "retained_termination_record_count": 1
+      },
+      "termination_record_path": "/data2/neural-shrimp-data/runpod/T34C-P3-F-orchestrator.log",
+      "termination_record_sha256": "417dff677a4e18cf08d967ce747a11cc3c25dfa6cc9d2823181d2a64f9e9f536",
+      "termination_record_line": 5,
+      "result": {
+        "path": "/data2/neural-shrimp-data/runpod/soft64/20261018T232322Z/result.json",
+        "bytes": 1442,
+        "sha256": "5b265154d9b7a7d915b81445358a67c3ff2028dca6f1cd5060ce84de60eda786"
+      },
+      "result_path": "/data2/neural-shrimp-data/runpod/soft64/20261018T232322Z/result.json",
+      "result_sha256": "5b265154d9b7a7d915b81445358a67c3ff2028dca6f1cd5060ce84de60eda786",
+      "orchestrator_log": {
+        "path": "/data2/neural-shrimp-data/runpod/T34C-P3-F-orchestrator.log",
+        "bytes": 2640,
+        "sha256": "417dff677a4e18cf08d967ce747a11cc3c25dfa6cc9d2823181d2a64f9e9f536"
+      }
+    },
+    {
+      "attempt": "cascade-p3-derivative-p2-c000-001",
+      "period": 3,
+      "phase_index": 2,
+      "start_column": 0,
+      "source_commit": "42508b68a733acc4216b40d7b60215de36c5d543",
+      "original_archive_receipt_sha256": "85d4e6a643515b7936a4edcbb62e87b7121733f91f202bce6229ee58f7fef260",
+      "operational": {
+        "receipt_sha256": "85d4e6a643515b7936a4edcbb62e87b7121733f91f202bce6229ee58f7fef260",
+        "source_commit": "42508b68a733acc4216b40d7b60215de36c5d543",
+        "elapsed_seconds": 1755.58542775549,
+        "max_rss_kib": 5395420,
+        "bytes": 51015690
+      },
+      "whole_archive_sha256": "55444e2b7b7b899cddd502b50b591155fff9d724f3d0d4494155913586013bde",
+      "archive_sha256": "b7db377e021931c17e135d64f4ee553f3bb07046b6dcf97df7ba0c9e1296da20",
+      "pack": {
+        "path": "/data2/neural-shrimp-data/codex/certificate-ladder/return-cascade-p3-002/t34c-p3-f/explore/llm-soft-loop/pod64/certpack/t34c-p3-f/pack-cascade-p3-derivative-p2-c000-001.json",
+        "bytes": 305,
+        "sha256": "8f2e494b7ed6fe095dea809ee07b1b392fefa3a4e7910d0fdd88c90c2615a955"
+      },
+      "pack_path": "/data2/neural-shrimp-data/codex/certificate-ladder/return-cascade-p3-002/t34c-p3-f/explore/llm-soft-loop/pod64/certpack/t34c-p3-f/pack-cascade-p3-derivative-p2-c000-001.json",
+      "pack_sha256": "8f2e494b7ed6fe095dea809ee07b1b392fefa3a4e7910d0fdd88c90c2615a955",
+      "outer_closure": {
+        "path": "/data2/neural-shrimp-data/codex/certificate-ladder/return-cascade-p3-002/t34c-p3-f/explore/llm-soft-loop/pod64/certpack/t34c-p3-f/cascade-p3-derivative-p2-c000-001/run.json",
+        "bytes": 2496,
+        "sha256": "fbfd5a0b1406bfa84452b7061ee20e7b9165c44be507f20f5d05a7f38876c4c7"
+      },
+      "outer_closure_path": "/data2/neural-shrimp-data/codex/certificate-ladder/return-cascade-p3-002/t34c-p3-f/explore/llm-soft-loop/pod64/certpack/t34c-p3-f/cascade-p3-derivative-p2-c000-001/run.json",
+      "outer_closure_sha256": "fbfd5a0b1406bfa84452b7061ee20e7b9165c44be507f20f5d05a7f38876c4c7",
+      "closure_admission": {
+        "success": true,
+        "closure_verified": true,
+        "exit_code": 0,
+        "watchdog_stop": null,
+        "killed_by_watchdog": null,
+        "alive_after_exit": [],
+        "alive_after_cleanup": []
+      },
+      "pod_id": "ec0t2gz8ylejyr",
+      "termination_record": {
+        "pod_id": "ec0t2gz8ylejyr",
+        "terminated": true,
+        "in_inventory": false,
+        "direct_lookup": null,
+        "line_number": 5,
+        "line_sha256": "5ea55afc61e94867a4861cdf6719a643f159e1a913389485a32b20f675e3eba6",
+        "retained_termination_record_count": 1
+      },
+      "termination_record_path": "/data2/neural-shrimp-data/runpod/T34C-P3-F-orchestrator.log",
+      "termination_record_sha256": "417dff677a4e18cf08d967ce747a11cc3c25dfa6cc9d2823181d2a64f9e9f536",
+      "termination_record_line": 5,
+      "result": {
+        "path": "/data2/neural-shrimp-data/runpod/soft64/20261018T232322Z/result.json",
+        "bytes": 1442,
+        "sha256": "5b265154d9b7a7d915b81445358a67c3ff2028dca6f1cd5060ce84de60eda786"
+      },
+      "result_path": "/data2/neural-shrimp-data/runpod/soft64/20261018T232322Z/result.json",
+      "result_sha256": "5b265154d9b7a7d915b81445358a67c3ff2028dca6f1cd5060ce84de60eda786",
+      "orchestrator_log": {
+        "path": "/data2/neural-shrimp-data/runpod/T34C-P3-F-orchestrator.log",
+        "bytes": 2640,
+        "sha256": "417dff677a4e18cf08d967ce747a11cc3c25dfa6cc9d2823181d2a64f9e9f536"
+      }
+    },
+    {
+      "attempt": "cascade-p3-derivative-p2-c064-001",
+      "period": 3,
+      "phase_index": 2,
+      "start_column": 64,
+      "source_commit": "42508b68a733acc4216b40d7b60215de36c5d543",
+      "original_archive_receipt_sha256": "133d0c1ccf3ef61bcf80bae33f269fcbbbf94aa3496381c4650e4289aa997823",
+      "operational": {
+        "receipt_sha256": "133d0c1ccf3ef61bcf80bae33f269fcbbbf94aa3496381c4650e4289aa997823",
+        "source_commit": "42508b68a733acc4216b40d7b60215de36c5d543",
+        "elapsed_seconds": 1760.906297357753,
+        "max_rss_kib": 5394648,
+        "bytes": 51009944
+      },
+      "whole_archive_sha256": "55444e2b7b7b899cddd502b50b591155fff9d724f3d0d4494155913586013bde",
+      "archive_sha256": "874dd115c16ef1391c9acafa05fbfd5c21edfefcbb4ad92d0b1ab309d26cbd32",
+      "pack": {
+        "path": "/data2/neural-shrimp-data/codex/certificate-ladder/return-cascade-p3-002/t34c-p3-f/explore/llm-soft-loop/pod64/certpack/t34c-p3-f/pack-cascade-p3-derivative-p2-c064-001.json",
+        "bytes": 305,
+        "sha256": "8e0b6a93c557a75138dcc4d38fedee9226c100223f9b034f0ca7db57aecde6a3"
+      },
+      "pack_path": "/data2/neural-shrimp-data/codex/certificate-ladder/return-cascade-p3-002/t34c-p3-f/explore/llm-soft-loop/pod64/certpack/t34c-p3-f/pack-cascade-p3-derivative-p2-c064-001.json",
+      "pack_sha256": "8e0b6a93c557a75138dcc4d38fedee9226c100223f9b034f0ca7db57aecde6a3",
+      "outer_closure": {
+        "path": "/data2/neural-shrimp-data/codex/certificate-ladder/return-cascade-p3-002/t34c-p3-f/explore/llm-soft-loop/pod64/certpack/t34c-p3-f/cascade-p3-derivative-p2-c064-001/run.json",
+        "bytes": 2496,
+        "sha256": "10e6c3a2d72a21c6975088826044d0b4eb2bf47f766768968118399d813179bf"
+      },
+      "outer_closure_path": "/data2/neural-shrimp-data/codex/certificate-ladder/return-cascade-p3-002/t34c-p3-f/explore/llm-soft-loop/pod64/certpack/t34c-p3-f/cascade-p3-derivative-p2-c064-001/run.json",
+      "outer_closure_sha256": "10e6c3a2d72a21c6975088826044d0b4eb2bf47f766768968118399d813179bf",
+      "closure_admission": {
+        "success": true,
+        "closure_verified": true,
+        "exit_code": 0,
+        "watchdog_stop": null,
+        "killed_by_watchdog": null,
+        "alive_after_exit": [],
+        "alive_after_cleanup": []
+      },
+      "pod_id": "ec0t2gz8ylejyr",
+      "termination_record": {
+        "pod_id": "ec0t2gz8ylejyr",
+        "terminated": true,
+        "in_inventory": false,
+        "direct_lookup": null,
+        "line_number": 5,
+        "line_sha256": "5ea55afc61e94867a4861cdf6719a643f159e1a913389485a32b20f675e3eba6",
+        "retained_termination_record_count": 1
+      },
+      "termination_record_path": "/data2/neural-shrimp-data/runpod/T34C-P3-F-orchestrator.log",
+      "termination_record_sha256": "417dff677a4e18cf08d967ce747a11cc3c25dfa6cc9d2823181d2a64f9e9f536",
+      "termination_record_line": 5,
+      "result": {
+        "path": "/data2/neural-shrimp-data/runpod/soft64/20261018T232322Z/result.json",
+        "bytes": 1442,
+        "sha256": "5b265154d9b7a7d915b81445358a67c3ff2028dca6f1cd5060ce84de60eda786"
+      },
+      "result_path": "/data2/neural-shrimp-data/runpod/soft64/20261018T232322Z/result.json",
+      "result_sha256": "5b265154d9b7a7d915b81445358a67c3ff2028dca6f1cd5060ce84de60eda786",
+      "orchestrator_log": {
+        "path": "/data2/neural-shrimp-data/runpod/T34C-P3-F-orchestrator.log",
+        "bytes": 2640,
+        "sha256": "417dff677a4e18cf08d967ce747a11cc3c25dfa6cc9d2823181d2a64f9e9f536"
+      }
+    },
+    {
+      "attempt": "cascade-p3-derivative-p2-c128-001",
+      "period": 3,
+      "phase_index": 2,
+      "start_column": 128,
+      "source_commit": "42508b68a733acc4216b40d7b60215de36c5d543",
+      "original_archive_receipt_sha256": "958b9a801a47d739dff4ac2511c95e8fcfc4cdb5482530155e1b99cfbe4a1484",
+      "operational": {
+        "receipt_sha256": "958b9a801a47d739dff4ac2511c95e8fcfc4cdb5482530155e1b99cfbe4a1484",
+        "source_commit": "42508b68a733acc4216b40d7b60215de36c5d543",
+        "elapsed_seconds": 1861.563080681488,
+        "max_rss_kib": 5394032,
+        "bytes": 51019622
+      },
+      "whole_archive_sha256": "ab5994ea2f551757af27639f89971e58230647faecb8d7870723f2b53ecb571b",
+      "archive_sha256": "6ccab1cd214129d6dde3c6572db23a89177810301e77473062cb5f8d4f4a5231",
+      "pack": {
+        "path": "/data2/neural-shrimp-data/codex/certificate-ladder/return-cascade-p3-002/t34c-p3-g/explore/llm-soft-loop/pod64/certpack/t34c-p3-g/pack-cascade-p3-derivative-p2-c128-001.json",
+        "bytes": 305,
+        "sha256": "4dba5c756b8e0e39c6bbf928283324ffdcd84542cb9541cdf52844be8d4e45a2"
+      },
+      "pack_path": "/data2/neural-shrimp-data/codex/certificate-ladder/return-cascade-p3-002/t34c-p3-g/explore/llm-soft-loop/pod64/certpack/t34c-p3-g/pack-cascade-p3-derivative-p2-c128-001.json",
+      "pack_sha256": "4dba5c756b8e0e39c6bbf928283324ffdcd84542cb9541cdf52844be8d4e45a2",
+      "outer_closure": {
+        "path": "/data2/neural-shrimp-data/codex/certificate-ladder/return-cascade-p3-002/t34c-p3-g/explore/llm-soft-loop/pod64/certpack/t34c-p3-g/cascade-p3-derivative-p2-c128-001/run.json",
+        "bytes": 2487,
+        "sha256": "9d8f3a6ac69b217d126ea1001cf59f5d36aaa3d2e3b8c22b458f87f7b54aa563"
+      },
+      "outer_closure_path": "/data2/neural-shrimp-data/codex/certificate-ladder/return-cascade-p3-002/t34c-p3-g/explore/llm-soft-loop/pod64/certpack/t34c-p3-g/cascade-p3-derivative-p2-c128-001/run.json",
+      "outer_closure_sha256": "9d8f3a6ac69b217d126ea1001cf59f5d36aaa3d2e3b8c22b458f87f7b54aa563",
+      "closure_admission": {
+        "success": true,
+        "closure_verified": true,
+        "exit_code": 0,
+        "watchdog_stop": null,
+        "killed_by_watchdog": null,
+        "alive_after_exit": [],
+        "alive_after_cleanup": []
+      },
+      "pod_id": "pza4iullvirj1g",
+      "termination_record": {
+        "pod_id": "pza4iullvirj1g",
+        "terminated": true,
+        "in_inventory": false,
+        "direct_lookup": null,
+        "line_number": 5,
+        "line_sha256": "6eca3d371e0a2de657dfc15ee4dcd511d572f890edabe6dbf2d9724e8f4b3d4d",
+        "retained_termination_record_count": 1
+      },
+      "termination_record_path": "/data2/neural-shrimp-data/runpod/T34C-P3-G-orchestrator.log",
+      "termination_record_sha256": "c90b2855da5059d23e86c8cdb999b1f51aadc54a21b06a334c0bf31dc29b2a76",
+      "termination_record_line": 5,
+      "result": {
+        "path": "/data2/neural-shrimp-data/runpod/soft64/20261018T232559Z/result.json",
+        "bytes": 1443,
+        "sha256": "d6c19b1ee76d665a9d5c2b7177b191975927f85dab09c48ba54a1cf3133a6bfd"
+      },
+      "result_path": "/data2/neural-shrimp-data/runpod/soft64/20261018T232559Z/result.json",
+      "result_sha256": "d6c19b1ee76d665a9d5c2b7177b191975927f85dab09c48ba54a1cf3133a6bfd",
+      "orchestrator_log": {
+        "path": "/data2/neural-shrimp-data/runpod/T34C-P3-G-orchestrator.log",
+        "bytes": 2641,
+        "sha256": "c90b2855da5059d23e86c8cdb999b1f51aadc54a21b06a334c0bf31dc29b2a76"
+      }
+    },
+    {
+      "attempt": "cascade-p3-derivative-p2-c192-001",
+      "period": 3,
+      "phase_index": 2,
+      "start_column": 192,
+      "source_commit": "42508b68a733acc4216b40d7b60215de36c5d543",
+      "original_archive_receipt_sha256": "96d2b3c2c19e3500404f847b903aa3f172875577b42ab2957757fc58bef9d5ac",
+      "operational": {
+        "receipt_sha256": "96d2b3c2c19e3500404f847b903aa3f172875577b42ab2957757fc58bef9d5ac",
+        "source_commit": "42508b68a733acc4216b40d7b60215de36c5d543",
+        "elapsed_seconds": 1864.000559290871,
+        "max_rss_kib": 5396752,
+        "bytes": 51023622
+      },
+      "whole_archive_sha256": "ab5994ea2f551757af27639f89971e58230647faecb8d7870723f2b53ecb571b",
+      "archive_sha256": "db347ae1297d94dae5451eef8d6b252f27319c5c6e023ced5c2140849e385408",
+      "pack": {
+        "path": "/data2/neural-shrimp-data/codex/certificate-ladder/return-cascade-p3-002/t34c-p3-g/explore/llm-soft-loop/pod64/certpack/t34c-p3-g/pack-cascade-p3-derivative-p2-c192-001.json",
+        "bytes": 305,
+        "sha256": "3103e02d3b3d4c6957f1c7874301225b2bffe141955eee5ee52ea811e794f736"
+      },
+      "pack_path": "/data2/neural-shrimp-data/codex/certificate-ladder/return-cascade-p3-002/t34c-p3-g/explore/llm-soft-loop/pod64/certpack/t34c-p3-g/pack-cascade-p3-derivative-p2-c192-001.json",
+      "pack_sha256": "3103e02d3b3d4c6957f1c7874301225b2bffe141955eee5ee52ea811e794f736",
+      "outer_closure": {
+        "path": "/data2/neural-shrimp-data/codex/certificate-ladder/return-cascade-p3-002/t34c-p3-g/explore/llm-soft-loop/pod64/certpack/t34c-p3-g/cascade-p3-derivative-p2-c192-001/run.json",
+        "bytes": 2496,
+        "sha256": "6a2767e8e23cce2fa3e04cb7a626dffa029ed106f51cedc4859c3bcf4f78d153"
+      },
+      "outer_closure_path": "/data2/neural-shrimp-data/codex/certificate-ladder/return-cascade-p3-002/t34c-p3-g/explore/llm-soft-loop/pod64/certpack/t34c-p3-g/cascade-p3-derivative-p2-c192-001/run.json",
+      "outer_closure_sha256": "6a2767e8e23cce2fa3e04cb7a626dffa029ed106f51cedc4859c3bcf4f78d153",
+      "closure_admission": {
+        "success": true,
+        "closure_verified": true,
+        "exit_code": 0,
+        "watchdog_stop": null,
+        "killed_by_watchdog": null,
+        "alive_after_exit": [],
+        "alive_after_cleanup": []
+      },
+      "pod_id": "pza4iullvirj1g",
+      "termination_record": {
+        "pod_id": "pza4iullvirj1g",
+        "terminated": true,
+        "in_inventory": false,
+        "direct_lookup": null,
+        "line_number": 5,
+        "line_sha256": "6eca3d371e0a2de657dfc15ee4dcd511d572f890edabe6dbf2d9724e8f4b3d4d",
+        "retained_termination_record_count": 1
+      },
+      "termination_record_path": "/data2/neural-shrimp-data/runpod/T34C-P3-G-orchestrator.log",
+      "termination_record_sha256": "c90b2855da5059d23e86c8cdb999b1f51aadc54a21b06a334c0bf31dc29b2a76",
+      "termination_record_line": 5,
+      "result": {
+        "path": "/data2/neural-shrimp-data/runpod/soft64/20261018T232559Z/result.json",
+        "bytes": 1443,
+        "sha256": "d6c19b1ee76d665a9d5c2b7177b191975927f85dab09c48ba54a1cf3133a6bfd"
+      },
+      "result_path": "/data2/neural-shrimp-data/runpod/soft64/20261018T232559Z/result.json",
+      "result_sha256": "d6c19b1ee76d665a9d5c2b7177b191975927f85dab09c48ba54a1cf3133a6bfd",
+      "orchestrator_log": {
+        "path": "/data2/neural-shrimp-data/runpod/T34C-P3-G-orchestrator.log",
+        "bytes": 2641,
+        "sha256": "c90b2855da5059d23e86c8cdb999b1f51aadc54a21b06a334c0bf31dc29b2a76"
+      }
+    },
+    {
+      "attempt": "cascade-p3-derivative-p2-c256-001",
+      "period": 3,
+      "phase_index": 2,
+      "start_column": 256,
+      "source_commit": "42508b68a733acc4216b40d7b60215de36c5d543",
+      "original_archive_receipt_sha256": "0cb1ac857c58c90debb1dd8b03c2780a6f4e73e034e08b4baed421db0a5bd9a2",
+      "operational": {
+        "receipt_sha256": "0cb1ac857c58c90debb1dd8b03c2780a6f4e73e034e08b4baed421db0a5bd9a2",
+        "source_commit": "42508b68a733acc4216b40d7b60215de36c5d543",
+        "elapsed_seconds": 1870.3510446324944,
+        "max_rss_kib": 5397076,
+        "bytes": 51017196
+      },
+      "whole_archive_sha256": "ab5994ea2f551757af27639f89971e58230647faecb8d7870723f2b53ecb571b",
+      "archive_sha256": "20a9508b13479cb6115b40b99de3ab6b4709c8ba688b6dfe9c81171a9a18f8f6",
+      "pack": {
+        "path": "/data2/neural-shrimp-data/codex/certificate-ladder/return-cascade-p3-002/t34c-p3-g/explore/llm-soft-loop/pod64/certpack/t34c-p3-g/pack-cascade-p3-derivative-p2-c256-001.json",
+        "bytes": 305,
+        "sha256": "fa9f87a92ce2b8adbf8371043d9ae68d65621b62c9995b308642b56176053898"
+      },
+      "pack_path": "/data2/neural-shrimp-data/codex/certificate-ladder/return-cascade-p3-002/t34c-p3-g/explore/llm-soft-loop/pod64/certpack/t34c-p3-g/pack-cascade-p3-derivative-p2-c256-001.json",
+      "pack_sha256": "fa9f87a92ce2b8adbf8371043d9ae68d65621b62c9995b308642b56176053898",
+      "outer_closure": {
+        "path": "/data2/neural-shrimp-data/codex/certificate-ladder/return-cascade-p3-002/t34c-p3-g/explore/llm-soft-loop/pod64/certpack/t34c-p3-g/cascade-p3-derivative-p2-c256-001/run.json",
+        "bytes": 2496,
+        "sha256": "32a9fb6a35c633f8adcf809700992e08acade0daeb315cc670b012d84bf4b26c"
+      },
+      "outer_closure_path": "/data2/neural-shrimp-data/codex/certificate-ladder/return-cascade-p3-002/t34c-p3-g/explore/llm-soft-loop/pod64/certpack/t34c-p3-g/cascade-p3-derivative-p2-c256-001/run.json",
+      "outer_closure_sha256": "32a9fb6a35c633f8adcf809700992e08acade0daeb315cc670b012d84bf4b26c",
+      "closure_admission": {
+        "success": true,
+        "closure_verified": true,
+        "exit_code": 0,
+        "watchdog_stop": null,
+        "killed_by_watchdog": null,
+        "alive_after_exit": [],
+        "alive_after_cleanup": []
+      },
+      "pod_id": "pza4iullvirj1g",
+      "termination_record": {
+        "pod_id": "pza4iullvirj1g",
+        "terminated": true,
+        "in_inventory": false,
+        "direct_lookup": null,
+        "line_number": 5,
+        "line_sha256": "6eca3d371e0a2de657dfc15ee4dcd511d572f890edabe6dbf2d9724e8f4b3d4d",
+        "retained_termination_record_count": 1
+      },
+      "termination_record_path": "/data2/neural-shrimp-data/runpod/T34C-P3-G-orchestrator.log",
+      "termination_record_sha256": "c90b2855da5059d23e86c8cdb999b1f51aadc54a21b06a334c0bf31dc29b2a76",
+      "termination_record_line": 5,
+      "result": {
+        "path": "/data2/neural-shrimp-data/runpod/soft64/20261018T232559Z/result.json",
+        "bytes": 1443,
+        "sha256": "d6c19b1ee76d665a9d5c2b7177b191975927f85dab09c48ba54a1cf3133a6bfd"
+      },
+      "result_path": "/data2/neural-shrimp-data/runpod/soft64/20261018T232559Z/result.json",
+      "result_sha256": "d6c19b1ee76d665a9d5c2b7177b191975927f85dab09c48ba54a1cf3133a6bfd",
+      "orchestrator_log": {
+        "path": "/data2/neural-shrimp-data/runpod/T34C-P3-G-orchestrator.log",
+        "bytes": 2641,
+        "sha256": "c90b2855da5059d23e86c8cdb999b1f51aadc54a21b06a334c0bf31dc29b2a76"
+      }
+    },
+    {
+      "attempt": "cascade-p3-derivative-p2-c320-001",
+      "period": 3,
+      "phase_index": 2,
+      "start_column": 320,
+      "source_commit": "42508b68a733acc4216b40d7b60215de36c5d543",
+      "original_archive_receipt_sha256": "1a0467dc4fe94240d9f9f12a8d72394b88898cd0e6f3374be0845b6c97d848ed",
+      "operational": {
+        "receipt_sha256": "1a0467dc4fe94240d9f9f12a8d72394b88898cd0e6f3374be0845b6c97d848ed",
+        "source_commit": "42508b68a733acc4216b40d7b60215de36c5d543",
+        "elapsed_seconds": 1847.9452092722058,
+        "max_rss_kib": 5394728,
+        "bytes": 51010083
+      },
+      "whole_archive_sha256": "ab5994ea2f551757af27639f89971e58230647faecb8d7870723f2b53ecb571b",
+      "archive_sha256": "b79407f56c57ad633997d1c7719af92369fb6ffd92d12138105473e1a3160221",
+      "pack": {
+        "path": "/data2/neural-shrimp-data/codex/certificate-ladder/return-cascade-p3-002/t34c-p3-g/explore/llm-soft-loop/pod64/certpack/t34c-p3-g/pack-cascade-p3-derivative-p2-c320-001.json",
+        "bytes": 305,
+        "sha256": "d6e1b4dfa8e80ba041e96fe23b6ac1f6b7ce5d320efe1a91a9a278fdfa5b2a14"
+      },
+      "pack_path": "/data2/neural-shrimp-data/codex/certificate-ladder/return-cascade-p3-002/t34c-p3-g/explore/llm-soft-loop/pod64/certpack/t34c-p3-g/pack-cascade-p3-derivative-p2-c320-001.json",
+      "pack_sha256": "d6e1b4dfa8e80ba041e96fe23b6ac1f6b7ce5d320efe1a91a9a278fdfa5b2a14",
+      "outer_closure": {
+        "path": "/data2/neural-shrimp-data/codex/certificate-ladder/return-cascade-p3-002/t34c-p3-g/explore/llm-soft-loop/pod64/certpack/t34c-p3-g/cascade-p3-derivative-p2-c320-001/run.json",
+        "bytes": 2496,
+        "sha256": "844b5e5c3338028495c2cd5bca194a30cdb7f47d68e68fb321cd3398301e4a86"
+      },
+      "outer_closure_path": "/data2/neural-shrimp-data/codex/certificate-ladder/return-cascade-p3-002/t34c-p3-g/explore/llm-soft-loop/pod64/certpack/t34c-p3-g/cascade-p3-derivative-p2-c320-001/run.json",
+      "outer_closure_sha256": "844b5e5c3338028495c2cd5bca194a30cdb7f47d68e68fb321cd3398301e4a86",
+      "closure_admission": {
+        "success": true,
+        "closure_verified": true,
+        "exit_code": 0,
+        "watchdog_stop": null,
+        "killed_by_watchdog": null,
+        "alive_after_exit": [],
+        "alive_after_cleanup": []
+      },
+      "pod_id": "pza4iullvirj1g",
+      "termination_record": {
+        "pod_id": "pza4iullvirj1g",
+        "terminated": true,
+        "in_inventory": false,
+        "direct_lookup": null,
+        "line_number": 5,
+        "line_sha256": "6eca3d371e0a2de657dfc15ee4dcd511d572f890edabe6dbf2d9724e8f4b3d4d",
+        "retained_termination_record_count": 1
+      },
+      "termination_record_path": "/data2/neural-shrimp-data/runpod/T34C-P3-G-orchestrator.log",
+      "termination_record_sha256": "c90b2855da5059d23e86c8cdb999b1f51aadc54a21b06a334c0bf31dc29b2a76",
+      "termination_record_line": 5,
+      "result": {
+        "path": "/data2/neural-shrimp-data/runpod/soft64/20261018T232559Z/result.json",
+        "bytes": 1443,
+        "sha256": "d6c19b1ee76d665a9d5c2b7177b191975927f85dab09c48ba54a1cf3133a6bfd"
+      },
+      "result_path": "/data2/neural-shrimp-data/runpod/soft64/20261018T232559Z/result.json",
+      "result_sha256": "d6c19b1ee76d665a9d5c2b7177b191975927f85dab09c48ba54a1cf3133a6bfd",
+      "orchestrator_log": {
+        "path": "/data2/neural-shrimp-data/runpod/T34C-P3-G-orchestrator.log",
+        "bytes": 2641,
+        "sha256": "c90b2855da5059d23e86c8cdb999b1f51aadc54a21b06a334c0bf31dc29b2a76"
+      }
+    },
+    {
+      "attempt": "cascade-p3-derivative-p2-c384-001",
+      "period": 3,
+      "phase_index": 2,
+      "start_column": 384,
+      "source_commit": "42508b68a733acc4216b40d7b60215de36c5d543",
+      "original_archive_receipt_sha256": "d95e50e873f2c8fa8caab18febe9b7efa48d20b9b67ac8b5e313b272bef2650b",
+      "operational": {
+        "receipt_sha256": "d95e50e873f2c8fa8caab18febe9b7efa48d20b9b67ac8b5e313b272bef2650b",
+        "source_commit": "42508b68a733acc4216b40d7b60215de36c5d543",
+        "elapsed_seconds": 1858.8369287885725,
+        "max_rss_kib": 5394444,
+        "bytes": 51003581
+      },
+      "whole_archive_sha256": "ab5994ea2f551757af27639f89971e58230647faecb8d7870723f2b53ecb571b",
+      "archive_sha256": "532f761353c587db9c27af88a90a6fb86b8606ea57bfa82865782ca2e24f4efd",
+      "pack": {
+        "path": "/data2/neural-shrimp-data/codex/certificate-ladder/return-cascade-p3-002/t34c-p3-g/explore/llm-soft-loop/pod64/certpack/t34c-p3-g/pack-cascade-p3-derivative-p2-c384-001.json",
+        "bytes": 305,
+        "sha256": "49ecd5d42d2020493f15acda449455698fbae5393238eccbde9adc7c64f9b176"
+      },
+      "pack_path": "/data2/neural-shrimp-data/codex/certificate-ladder/return-cascade-p3-002/t34c-p3-g/explore/llm-soft-loop/pod64/certpack/t34c-p3-g/pack-cascade-p3-derivative-p2-c384-001.json",
+      "pack_sha256": "49ecd5d42d2020493f15acda449455698fbae5393238eccbde9adc7c64f9b176",
+      "outer_closure": {
+        "path": "/data2/neural-shrimp-data/codex/certificate-ladder/return-cascade-p3-002/t34c-p3-g/explore/llm-soft-loop/pod64/certpack/t34c-p3-g/cascade-p3-derivative-p2-c384-001/run.json",
+        "bytes": 2496,
+        "sha256": "b1513b514df35905ea477e17af758c5ee102c0e799e38fa84024c2a2105705e4"
+      },
+      "outer_closure_path": "/data2/neural-shrimp-data/codex/certificate-ladder/return-cascade-p3-002/t34c-p3-g/explore/llm-soft-loop/pod64/certpack/t34c-p3-g/cascade-p3-derivative-p2-c384-001/run.json",
+      "outer_closure_sha256": "b1513b514df35905ea477e17af758c5ee102c0e799e38fa84024c2a2105705e4",
+      "closure_admission": {
+        "success": true,
+        "closure_verified": true,
+        "exit_code": 0,
+        "watchdog_stop": null,
+        "killed_by_watchdog": null,
+        "alive_after_exit": [],
+        "alive_after_cleanup": []
+      },
+      "pod_id": "pza4iullvirj1g",
+      "termination_record": {
+        "pod_id": "pza4iullvirj1g",
+        "terminated": true,
+        "in_inventory": false,
+        "direct_lookup": null,
+        "line_number": 5,
+        "line_sha256": "6eca3d371e0a2de657dfc15ee4dcd511d572f890edabe6dbf2d9724e8f4b3d4d",
+        "retained_termination_record_count": 1
+      },
+      "termination_record_path": "/data2/neural-shrimp-data/runpod/T34C-P3-G-orchestrator.log",
+      "termination_record_sha256": "c90b2855da5059d23e86c8cdb999b1f51aadc54a21b06a334c0bf31dc29b2a76",
+      "termination_record_line": 5,
+      "result": {
+        "path": "/data2/neural-shrimp-data/runpod/soft64/20261018T232559Z/result.json",
+        "bytes": 1443,
+        "sha256": "d6c19b1ee76d665a9d5c2b7177b191975927f85dab09c48ba54a1cf3133a6bfd"
+      },
+      "result_path": "/data2/neural-shrimp-data/runpod/soft64/20261018T232559Z/result.json",
+      "result_sha256": "d6c19b1ee76d665a9d5c2b7177b191975927f85dab09c48ba54a1cf3133a6bfd",
+      "orchestrator_log": {
+        "path": "/data2/neural-shrimp-data/runpod/T34C-P3-G-orchestrator.log",
+        "bytes": 2641,
+        "sha256": "c90b2855da5059d23e86c8cdb999b1f51aadc54a21b06a334c0bf31dc29b2a76"
+      }
+    },
+    {
+      "attempt": "cascade-p3-derivative-p2-c448-001",
+      "period": 3,
+      "phase_index": 2,
+      "start_column": 448,
+      "source_commit": "42508b68a733acc4216b40d7b60215de36c5d543",
+      "original_archive_receipt_sha256": "caba068f4928a2cef710de28d86779d35940fbae19ab13f77659ca5ca2b315f1",
+      "operational": {
+        "receipt_sha256": "caba068f4928a2cef710de28d86779d35940fbae19ab13f77659ca5ca2b315f1",
+        "source_commit": "42508b68a733acc4216b40d7b60215de36c5d543",
+        "elapsed_seconds": 2017.25858298596,
+        "max_rss_kib": 5396656,
+        "bytes": 51016030
+      },
+      "whole_archive_sha256": "d10cf34c81ba464efa54d0b5931b0132fc86e999d6b29d8e6fabdbc3123047a1",
+      "archive_sha256": "ed8f21775ad51f9090aa6c9877a18028194ddb32778cc62635291d873449cf83",
+      "pack": {
+        "path": "/data2/neural-shrimp-data/codex/certificate-ladder/return-cascade-p3-002/t34c-p3-h/explore/llm-soft-loop/pod64/certpack/t34c-p3-h/pack-cascade-p3-derivative-p2-c448-001.json",
+        "bytes": 305,
+        "sha256": "142aa37c2901c3e61ba5b8459269c11804aa0253ec9440c2de356b8b93f77996"
+      },
+      "pack_path": "/data2/neural-shrimp-data/codex/certificate-ladder/return-cascade-p3-002/t34c-p3-h/explore/llm-soft-loop/pod64/certpack/t34c-p3-h/pack-cascade-p3-derivative-p2-c448-001.json",
+      "pack_sha256": "142aa37c2901c3e61ba5b8459269c11804aa0253ec9440c2de356b8b93f77996",
+      "outer_closure": {
+        "path": "/data2/neural-shrimp-data/codex/certificate-ladder/return-cascade-p3-002/t34c-p3-h/explore/llm-soft-loop/pod64/certpack/t34c-p3-h/cascade-p3-derivative-p2-c448-001/run.json",
+        "bytes": 2481,
+        "sha256": "800940510ebf243a6d4101f6c9d26c0d6b6e2a62856427b608ec3144792baf59"
+      },
+      "outer_closure_path": "/data2/neural-shrimp-data/codex/certificate-ladder/return-cascade-p3-002/t34c-p3-h/explore/llm-soft-loop/pod64/certpack/t34c-p3-h/cascade-p3-derivative-p2-c448-001/run.json",
+      "outer_closure_sha256": "800940510ebf243a6d4101f6c9d26c0d6b6e2a62856427b608ec3144792baf59",
+      "closure_admission": {
+        "success": true,
+        "closure_verified": true,
+        "exit_code": 0,
+        "watchdog_stop": null,
+        "killed_by_watchdog": null,
+        "alive_after_exit": [],
+        "alive_after_cleanup": []
+      },
+      "pod_id": "l9che3sfzq2n9f",
+      "termination_record": {
+        "pod_id": "l9che3sfzq2n9f",
+        "terminated": true,
+        "in_inventory": false,
+        "direct_lookup": null,
+        "line_number": 28,
+        "line_sha256": "276ed05f0fac28c39c3a7219091c87ba6bafff90b3e4f67d24a1f3e7adef23d6",
+        "retained_termination_record_count": 2
+      },
+      "termination_record_path": "/data2/neural-shrimp-data/runpod/T34C-P3-H-orchestrator.log",
+      "termination_record_sha256": "d501a9de1662f4ab4dd1a68e047b2ac733e02185a1cd62d7048fa315cc69ae54",
+      "termination_record_line": 28,
+      "result": {
+        "path": "/data2/neural-shrimp-data/runpod/soft64/20261018T234622Z/result.json",
+        "bytes": 1439,
+        "sha256": "c30f0cc5b92eddecafb9acf1be3a70314c39e0fbeae5a4d8065a662f84323067"
+      },
+      "result_path": "/data2/neural-shrimp-data/runpod/soft64/20261018T234622Z/result.json",
+      "result_sha256": "c30f0cc5b92eddecafb9acf1be3a70314c39e0fbeae5a4d8065a662f84323067",
+      "orchestrator_log": {
+        "path": "/data2/neural-shrimp-data/runpod/T34C-P3-H-orchestrator.log",
+        "bytes": 6669,
+        "sha256": "d501a9de1662f4ab4dd1a68e047b2ac733e02185a1cd62d7048fa315cc69ae54"
+      }
+    },
+    {
+      "attempt": "cascade-p3-derivative-p2-c512-001",
+      "period": 3,
+      "phase_index": 2,
+      "start_column": 512,
+      "source_commit": "42508b68a733acc4216b40d7b60215de36c5d543",
+      "original_archive_receipt_sha256": "114f3e01817b5604b09f1bbb2c460dd03c965c1419759718441cc73575a6d2f9",
+      "operational": {
+        "receipt_sha256": "114f3e01817b5604b09f1bbb2c460dd03c965c1419759718441cc73575a6d2f9",
+        "source_commit": "42508b68a733acc4216b40d7b60215de36c5d543",
+        "elapsed_seconds": 2005.2424201718532,
+        "max_rss_kib": 5401052,
+        "bytes": 51006329
+      },
+      "whole_archive_sha256": "d10cf34c81ba464efa54d0b5931b0132fc86e999d6b29d8e6fabdbc3123047a1",
+      "archive_sha256": "4d5de7cc08db50e8f9feeb98c5861274c2763485010d9bf6f28dbc25182a05d5",
+      "pack": {
+        "path": "/data2/neural-shrimp-data/codex/certificate-ladder/return-cascade-p3-002/t34c-p3-h/explore/llm-soft-loop/pod64/certpack/t34c-p3-h/pack-cascade-p3-derivative-p2-c512-001.json",
+        "bytes": 305,
+        "sha256": "0388e7e4daeb2a4f2de6957ac97b409e4acc161256386cf04f5763d4f73557e5"
+      },
+      "pack_path": "/data2/neural-shrimp-data/codex/certificate-ladder/return-cascade-p3-002/t34c-p3-h/explore/llm-soft-loop/pod64/certpack/t34c-p3-h/pack-cascade-p3-derivative-p2-c512-001.json",
+      "pack_sha256": "0388e7e4daeb2a4f2de6957ac97b409e4acc161256386cf04f5763d4f73557e5",
+      "outer_closure": {
+        "path": "/data2/neural-shrimp-data/codex/certificate-ladder/return-cascade-p3-002/t34c-p3-h/explore/llm-soft-loop/pod64/certpack/t34c-p3-h/cascade-p3-derivative-p2-c512-001/run.json",
+        "bytes": 2490,
+        "sha256": "71563e9abe21c17a914821055dd64b589762f7da2042e61778cee442ba59018c"
+      },
+      "outer_closure_path": "/data2/neural-shrimp-data/codex/certificate-ladder/return-cascade-p3-002/t34c-p3-h/explore/llm-soft-loop/pod64/certpack/t34c-p3-h/cascade-p3-derivative-p2-c512-001/run.json",
+      "outer_closure_sha256": "71563e9abe21c17a914821055dd64b589762f7da2042e61778cee442ba59018c",
+      "closure_admission": {
+        "success": true,
+        "closure_verified": true,
+        "exit_code": 0,
+        "watchdog_stop": null,
+        "killed_by_watchdog": null,
+        "alive_after_exit": [],
+        "alive_after_cleanup": []
+      },
+      "pod_id": "l9che3sfzq2n9f",
+      "termination_record": {
+        "pod_id": "l9che3sfzq2n9f",
+        "terminated": true,
+        "in_inventory": false,
+        "direct_lookup": null,
+        "line_number": 28,
+        "line_sha256": "276ed05f0fac28c39c3a7219091c87ba6bafff90b3e4f67d24a1f3e7adef23d6",
+        "retained_termination_record_count": 2
+      },
+      "termination_record_path": "/data2/neural-shrimp-data/runpod/T34C-P3-H-orchestrator.log",
+      "termination_record_sha256": "d501a9de1662f4ab4dd1a68e047b2ac733e02185a1cd62d7048fa315cc69ae54",
+      "termination_record_line": 28,
+      "result": {
+        "path": "/data2/neural-shrimp-data/runpod/soft64/20261018T234622Z/result.json",
+        "bytes": 1439,
+        "sha256": "c30f0cc5b92eddecafb9acf1be3a70314c39e0fbeae5a4d8065a662f84323067"
+      },
+      "result_path": "/data2/neural-shrimp-data/runpod/soft64/20261018T234622Z/result.json",
+      "result_sha256": "c30f0cc5b92eddecafb9acf1be3a70314c39e0fbeae5a4d8065a662f84323067",
+      "orchestrator_log": {
+        "path": "/data2/neural-shrimp-data/runpod/T34C-P3-H-orchestrator.log",
+        "bytes": 6669,
+        "sha256": "d501a9de1662f4ab4dd1a68e047b2ac733e02185a1cd62d7048fa315cc69ae54"
+      }
+    },
+    {
+      "attempt": "cascade-p3-derivative-p2-c576-001",
+      "period": 3,
+      "phase_index": 2,
+      "start_column": 576,
+      "source_commit": "42508b68a733acc4216b40d7b60215de36c5d543",
+      "original_archive_receipt_sha256": "de893b93e9db9f94bf6d62e2a2ddc3ff37583b2a81405b25edf1cd665bc32e55",
+      "operational": {
+        "receipt_sha256": "de893b93e9db9f94bf6d62e2a2ddc3ff37583b2a81405b25edf1cd665bc32e55",
+        "source_commit": "42508b68a733acc4216b40d7b60215de36c5d543",
+        "elapsed_seconds": 2015.1378442039713,
+        "max_rss_kib": 5398316,
+        "bytes": 51021067
+      },
+      "whole_archive_sha256": "d10cf34c81ba464efa54d0b5931b0132fc86e999d6b29d8e6fabdbc3123047a1",
+      "archive_sha256": "c3ffd2b6e5befd4bee94e41b905f97df28ac17981863217bdc9b353d00ad7fe2",
+      "pack": {
+        "path": "/data2/neural-shrimp-data/codex/certificate-ladder/return-cascade-p3-002/t34c-p3-h/explore/llm-soft-loop/pod64/certpack/t34c-p3-h/pack-cascade-p3-derivative-p2-c576-001.json",
+        "bytes": 305,
+        "sha256": "a05d2aabc2e4789c9b607a269b33070afe1bd3cc1691bbb498a3edaaabf20a33"
+      },
+      "pack_path": "/data2/neural-shrimp-data/codex/certificate-ladder/return-cascade-p3-002/t34c-p3-h/explore/llm-soft-loop/pod64/certpack/t34c-p3-h/pack-cascade-p3-derivative-p2-c576-001.json",
+      "pack_sha256": "a05d2aabc2e4789c9b607a269b33070afe1bd3cc1691bbb498a3edaaabf20a33",
+      "outer_closure": {
+        "path": "/data2/neural-shrimp-data/codex/certificate-ladder/return-cascade-p3-002/t34c-p3-h/explore/llm-soft-loop/pod64/certpack/t34c-p3-h/cascade-p3-derivative-p2-c576-001/run.json",
+        "bytes": 2490,
+        "sha256": "7fbcb52170aabeb7ef90cf7f81e9cc38752ededcb928524e26b5e0a7021eca9a"
+      },
+      "outer_closure_path": "/data2/neural-shrimp-data/codex/certificate-ladder/return-cascade-p3-002/t34c-p3-h/explore/llm-soft-loop/pod64/certpack/t34c-p3-h/cascade-p3-derivative-p2-c576-001/run.json",
+      "outer_closure_sha256": "7fbcb52170aabeb7ef90cf7f81e9cc38752ededcb928524e26b5e0a7021eca9a",
+      "closure_admission": {
+        "success": true,
+        "closure_verified": true,
+        "exit_code": 0,
+        "watchdog_stop": null,
+        "killed_by_watchdog": null,
+        "alive_after_exit": [],
+        "alive_after_cleanup": []
+      },
+      "pod_id": "l9che3sfzq2n9f",
+      "termination_record": {
+        "pod_id": "l9che3sfzq2n9f",
+        "terminated": true,
+        "in_inventory": false,
+        "direct_lookup": null,
+        "line_number": 28,
+        "line_sha256": "276ed05f0fac28c39c3a7219091c87ba6bafff90b3e4f67d24a1f3e7adef23d6",
+        "retained_termination_record_count": 2
+      },
+      "termination_record_path": "/data2/neural-shrimp-data/runpod/T34C-P3-H-orchestrator.log",
+      "termination_record_sha256": "d501a9de1662f4ab4dd1a68e047b2ac733e02185a1cd62d7048fa315cc69ae54",
+      "termination_record_line": 28,
+      "result": {
+        "path": "/data2/neural-shrimp-data/runpod/soft64/20261018T234622Z/result.json",
+        "bytes": 1439,
+        "sha256": "c30f0cc5b92eddecafb9acf1be3a70314c39e0fbeae5a4d8065a662f84323067"
+      },
+      "result_path": "/data2/neural-shrimp-data/runpod/soft64/20261018T234622Z/result.json",
+      "result_sha256": "c30f0cc5b92eddecafb9acf1be3a70314c39e0fbeae5a4d8065a662f84323067",
+      "orchestrator_log": {
+        "path": "/data2/neural-shrimp-data/runpod/T34C-P3-H-orchestrator.log",
+        "bytes": 6669,
+        "sha256": "d501a9de1662f4ab4dd1a68e047b2ac733e02185a1cd62d7048fa315cc69ae54"
+      }
+    },
+    {
+      "attempt": "cascade-p3-derivative-p2-c640-001",
+      "period": 3,
+      "phase_index": 2,
+      "start_column": 640,
+      "source_commit": "42508b68a733acc4216b40d7b60215de36c5d543",
+      "original_archive_receipt_sha256": "5c9f9d8dae803ac1050125566cb0772236434b3f6a882f7bc5e7f81503fbbdc9",
+      "operational": {
+        "receipt_sha256": "5c9f9d8dae803ac1050125566cb0772236434b3f6a882f7bc5e7f81503fbbdc9",
+        "source_commit": "42508b68a733acc4216b40d7b60215de36c5d543",
+        "elapsed_seconds": 2006.6722438121215,
+        "max_rss_kib": 5397472,
+        "bytes": 51007695
+      },
+      "whole_archive_sha256": "d10cf34c81ba464efa54d0b5931b0132fc86e999d6b29d8e6fabdbc3123047a1",
+      "archive_sha256": "431c7f8b3d27d1a00fa5c025aa85dcb8a3b4e998d7311e0b0367dba913d02e16",
+      "pack": {
+        "path": "/data2/neural-shrimp-data/codex/certificate-ladder/return-cascade-p3-002/t34c-p3-h/explore/llm-soft-loop/pod64/certpack/t34c-p3-h/pack-cascade-p3-derivative-p2-c640-001.json",
+        "bytes": 305,
+        "sha256": "dad4aaba06336ed040cef7f61f27a4e8555ed53eb5c89d35faf183902f78d941"
+      },
+      "pack_path": "/data2/neural-shrimp-data/codex/certificate-ladder/return-cascade-p3-002/t34c-p3-h/explore/llm-soft-loop/pod64/certpack/t34c-p3-h/pack-cascade-p3-derivative-p2-c640-001.json",
+      "pack_sha256": "dad4aaba06336ed040cef7f61f27a4e8555ed53eb5c89d35faf183902f78d941",
+      "outer_closure": {
+        "path": "/data2/neural-shrimp-data/codex/certificate-ladder/return-cascade-p3-002/t34c-p3-h/explore/llm-soft-loop/pod64/certpack/t34c-p3-h/cascade-p3-derivative-p2-c640-001/run.json",
+        "bytes": 2490,
+        "sha256": "6705652d0a84f63cdea45e3e6983565f69e6359a97d12ec94afbe0397303016f"
+      },
+      "outer_closure_path": "/data2/neural-shrimp-data/codex/certificate-ladder/return-cascade-p3-002/t34c-p3-h/explore/llm-soft-loop/pod64/certpack/t34c-p3-h/cascade-p3-derivative-p2-c640-001/run.json",
+      "outer_closure_sha256": "6705652d0a84f63cdea45e3e6983565f69e6359a97d12ec94afbe0397303016f",
+      "closure_admission": {
+        "success": true,
+        "closure_verified": true,
+        "exit_code": 0,
+        "watchdog_stop": null,
+        "killed_by_watchdog": null,
+        "alive_after_exit": [],
+        "alive_after_cleanup": []
+      },
+      "pod_id": "l9che3sfzq2n9f",
+      "termination_record": {
+        "pod_id": "l9che3sfzq2n9f",
+        "terminated": true,
+        "in_inventory": false,
+        "direct_lookup": null,
+        "line_number": 28,
+        "line_sha256": "276ed05f0fac28c39c3a7219091c87ba6bafff90b3e4f67d24a1f3e7adef23d6",
+        "retained_termination_record_count": 2
+      },
+      "termination_record_path": "/data2/neural-shrimp-data/runpod/T34C-P3-H-orchestrator.log",
+      "termination_record_sha256": "d501a9de1662f4ab4dd1a68e047b2ac733e02185a1cd62d7048fa315cc69ae54",
+      "termination_record_line": 28,
+      "result": {
+        "path": "/data2/neural-shrimp-data/runpod/soft64/20261018T234622Z/result.json",
+        "bytes": 1439,
+        "sha256": "c30f0cc5b92eddecafb9acf1be3a70314c39e0fbeae5a4d8065a662f84323067"
+      },
+      "result_path": "/data2/neural-shrimp-data/runpod/soft64/20261018T234622Z/result.json",
+      "result_sha256": "c30f0cc5b92eddecafb9acf1be3a70314c39e0fbeae5a4d8065a662f84323067",
+      "orchestrator_log": {
+        "path": "/data2/neural-shrimp-data/runpod/T34C-P3-H-orchestrator.log",
+        "bytes": 6669,
+        "sha256": "d501a9de1662f4ab4dd1a68e047b2ac733e02185a1cd62d7048fa315cc69ae54"
+      }
+    },
+    {
+      "attempt": "cascade-p3-derivative-p2-c704-001",
+      "period": 3,
+      "phase_index": 2,
+      "start_column": 704,
+      "source_commit": "42508b68a733acc4216b40d7b60215de36c5d543",
+      "original_archive_receipt_sha256": "aee780d2e297e60b22c48950f8e25796eb8d14627aa5dfc083f8aed10d1c5cc4",
+      "operational": {
+        "receipt_sha256": "aee780d2e297e60b22c48950f8e25796eb8d14627aa5dfc083f8aed10d1c5cc4",
+        "source_commit": "42508b68a733acc4216b40d7b60215de36c5d543",
+        "elapsed_seconds": 2013.6366170498077,
+        "max_rss_kib": 5398488,
+        "bytes": 51014290
+      },
+      "whole_archive_sha256": "d10cf34c81ba464efa54d0b5931b0132fc86e999d6b29d8e6fabdbc3123047a1",
+      "archive_sha256": "befac04bb5b981b931989e171d326b5a1f9cc86e08c1c473e6a4342e37cc7815",
+      "pack": {
+        "path": "/data2/neural-shrimp-data/codex/certificate-ladder/return-cascade-p3-002/t34c-p3-h/explore/llm-soft-loop/pod64/certpack/t34c-p3-h/pack-cascade-p3-derivative-p2-c704-001.json",
+        "bytes": 305,
+        "sha256": "7d102ae89bfe8a1c61574ef50b5cbf465bb8371b5e0c47c3afc38e6084911971"
+      },
+      "pack_path": "/data2/neural-shrimp-data/codex/certificate-ladder/return-cascade-p3-002/t34c-p3-h/explore/llm-soft-loop/pod64/certpack/t34c-p3-h/pack-cascade-p3-derivative-p2-c704-001.json",
+      "pack_sha256": "7d102ae89bfe8a1c61574ef50b5cbf465bb8371b5e0c47c3afc38e6084911971",
+      "outer_closure": {
+        "path": "/data2/neural-shrimp-data/codex/certificate-ladder/return-cascade-p3-002/t34c-p3-h/explore/llm-soft-loop/pod64/certpack/t34c-p3-h/cascade-p3-derivative-p2-c704-001/run.json",
+        "bytes": 2488,
+        "sha256": "676ffb6e77980a8431e5be1a7c4a0ab6be9d4d9097563bdb8c08bb62b2dfe1ac"
+      },
+      "outer_closure_path": "/data2/neural-shrimp-data/codex/certificate-ladder/return-cascade-p3-002/t34c-p3-h/explore/llm-soft-loop/pod64/certpack/t34c-p3-h/cascade-p3-derivative-p2-c704-001/run.json",
+      "outer_closure_sha256": "676ffb6e77980a8431e5be1a7c4a0ab6be9d4d9097563bdb8c08bb62b2dfe1ac",
+      "closure_admission": {
+        "success": true,
+        "closure_verified": true,
+        "exit_code": 0,
+        "watchdog_stop": null,
+        "killed_by_watchdog": null,
+        "alive_after_exit": [],
+        "alive_after_cleanup": []
+      },
+      "pod_id": "l9che3sfzq2n9f",
+      "termination_record": {
+        "pod_id": "l9che3sfzq2n9f",
+        "terminated": true,
+        "in_inventory": false,
+        "direct_lookup": null,
+        "line_number": 28,
+        "line_sha256": "276ed05f0fac28c39c3a7219091c87ba6bafff90b3e4f67d24a1f3e7adef23d6",
+        "retained_termination_record_count": 2
+      },
+      "termination_record_path": "/data2/neural-shrimp-data/runpod/T34C-P3-H-orchestrator.log",
+      "termination_record_sha256": "d501a9de1662f4ab4dd1a68e047b2ac733e02185a1cd62d7048fa315cc69ae54",
+      "termination_record_line": 28,
+      "result": {
+        "path": "/data2/neural-shrimp-data/runpod/soft64/20261018T234622Z/result.json",
+        "bytes": 1439,
+        "sha256": "c30f0cc5b92eddecafb9acf1be3a70314c39e0fbeae5a4d8065a662f84323067"
+      },
+      "result_path": "/data2/neural-shrimp-data/runpod/soft64/20261018T234622Z/result.json",
+      "result_sha256": "c30f0cc5b92eddecafb9acf1be3a70314c39e0fbeae5a4d8065a662f84323067",
+      "orchestrator_log": {
+        "path": "/data2/neural-shrimp-data/runpod/T34C-P3-H-orchestrator.log",
+        "bytes": 6669,
+        "sha256": "d501a9de1662f4ab4dd1a68e047b2ac733e02185a1cd62d7048fa315cc69ae54"
+      }
+    },
+    {
+      "attempt": "cascade-p3-derivative-p2-c768-001",
+      "period": 3,
+      "phase_index": 2,
+      "start_column": 768,
+      "source_commit": "42508b68a733acc4216b40d7b60215de36c5d543",
+      "original_archive_receipt_sha256": "e6677aa8b9f7dbb4dd14ffd230d88bad50eb61dc06ee26a7493b005589e88705",
+      "operational": {
+        "receipt_sha256": "e6677aa8b9f7dbb4dd14ffd230d88bad50eb61dc06ee26a7493b005589e88705",
+        "source_commit": "42508b68a733acc4216b40d7b60215de36c5d543",
+        "elapsed_seconds": 2100.252815110609,
+        "max_rss_kib": 5396252,
+        "bytes": 51017364
+      },
+      "whole_archive_sha256": "ecb140b5e0259e84d218d306dfec20f9e475ab7423daef04eddcd871943d3be0",
+      "archive_sha256": "a7eb155aeadc4f40a1f5ff39aaee9be1570925c980c0bf36994400c7a3a9282b",
+      "pack": {
+        "path": "/data2/neural-shrimp-data/codex/certificate-ladder/return-cascade-p3-002/t34c-p3-i/explore/llm-soft-loop/pod64/certpack/t34c-p3-i/pack-cascade-p3-derivative-p2-c768-001.json",
+        "bytes": 305,
+        "sha256": "dc522f90a1e58652bcbea16a89d729b8fe03d8b18e3fced7e4c62e315efcb45a"
+      },
+      "pack_path": "/data2/neural-shrimp-data/codex/certificate-ladder/return-cascade-p3-002/t34c-p3-i/explore/llm-soft-loop/pod64/certpack/t34c-p3-i/pack-cascade-p3-derivative-p2-c768-001.json",
+      "pack_sha256": "dc522f90a1e58652bcbea16a89d729b8fe03d8b18e3fced7e4c62e315efcb45a",
+      "outer_closure": {
+        "path": "/data2/neural-shrimp-data/codex/certificate-ladder/return-cascade-p3-002/t34c-p3-i/explore/llm-soft-loop/pod64/certpack/t34c-p3-i/cascade-p3-derivative-p2-c768-001/run.json",
+        "bytes": 2832,
+        "sha256": "cda22b3b1030dc6b997dc324a2b9515e04ff44438278f78ac0eedd28e210c97a"
+      },
+      "outer_closure_path": "/data2/neural-shrimp-data/codex/certificate-ladder/return-cascade-p3-002/t34c-p3-i/explore/llm-soft-loop/pod64/certpack/t34c-p3-i/cascade-p3-derivative-p2-c768-001/run.json",
+      "outer_closure_sha256": "cda22b3b1030dc6b997dc324a2b9515e04ff44438278f78ac0eedd28e210c97a",
+      "closure_admission": {
+        "success": true,
+        "closure_verified": true,
+        "exit_code": 0,
+        "watchdog_stop": null,
+        "killed_by_watchdog": null,
+        "alive_after_exit": [],
+        "alive_after_cleanup": []
+      },
+      "pod_id": "826blsywftnwom",
+      "termination_record": {
+        "pod_id": "826blsywftnwom",
+        "terminated": true,
+        "in_inventory": false,
+        "direct_lookup": null,
+        "line_number": 18,
+        "line_sha256": "4ddbdb3130bddf263aa12def83166c646430032091040964862cf77c095f2079",
+        "retained_termination_record_count": 1
+      },
+      "termination_record_path": "/data2/neural-shrimp-data/runpod/T34C-P3-I-orchestrator.log",
+      "termination_record_sha256": "4f93abaecaee578d353281baefc0a1180046b812bb0e3cf99bf20def1e93d29f",
+      "termination_record_line": 18,
+      "result": {
+        "path": "/data2/neural-shrimp-data/runpod/soft64/20261018T234834Z/result.json",
+        "bytes": 1348,
+        "sha256": "fa9480d4b0f35b72810a07db70c50dc8cba94bb88ee5c43e1902490e78b2ebf1"
+      },
+      "result_path": "/data2/neural-shrimp-data/runpod/soft64/20261018T234834Z/result.json",
+      "result_sha256": "fa9480d4b0f35b72810a07db70c50dc8cba94bb88ee5c43e1902490e78b2ebf1",
+      "orchestrator_log": {
+        "path": "/data2/neural-shrimp-data/runpod/T34C-P3-I-orchestrator.log",
+        "bytes": 6541,
+        "sha256": "4f93abaecaee578d353281baefc0a1180046b812bb0e3cf99bf20def1e93d29f"
+      }
+    },
+    {
+      "attempt": "cascade-p3-derivative-p2-c832-001",
+      "period": 3,
+      "phase_index": 2,
+      "start_column": 832,
+      "source_commit": "42508b68a733acc4216b40d7b60215de36c5d543",
+      "original_archive_receipt_sha256": "321679873fe9726cbc91e1eaf20227cc036bfb0d2f24b278f3c60531c741ab6d",
+      "operational": {
+        "receipt_sha256": "321679873fe9726cbc91e1eaf20227cc036bfb0d2f24b278f3c60531c741ab6d",
+        "source_commit": "42508b68a733acc4216b40d7b60215de36c5d543",
+        "elapsed_seconds": 2089.09752076678,
+        "max_rss_kib": 5396204,
+        "bytes": 51015273
+      },
+      "whole_archive_sha256": "ecb140b5e0259e84d218d306dfec20f9e475ab7423daef04eddcd871943d3be0",
+      "archive_sha256": "43ca15836c0d1e2cc1d914c30d971f1f3d64b49753200ac86079a23a83d4537b",
+      "pack": {
+        "path": "/data2/neural-shrimp-data/codex/certificate-ladder/return-cascade-p3-002/t34c-p3-i/explore/llm-soft-loop/pod64/certpack/t34c-p3-i/pack-cascade-p3-derivative-p2-c832-001.json",
+        "bytes": 305,
+        "sha256": "7815c4871e35b83509e20bda2a2dfc59e7b8fd43a2eb8c0f25fcceb15040189c"
+      },
+      "pack_path": "/data2/neural-shrimp-data/codex/certificate-ladder/return-cascade-p3-002/t34c-p3-i/explore/llm-soft-loop/pod64/certpack/t34c-p3-i/pack-cascade-p3-derivative-p2-c832-001.json",
+      "pack_sha256": "7815c4871e35b83509e20bda2a2dfc59e7b8fd43a2eb8c0f25fcceb15040189c",
+      "outer_closure": {
+        "path": "/data2/neural-shrimp-data/codex/certificate-ladder/return-cascade-p3-002/t34c-p3-i/explore/llm-soft-loop/pod64/certpack/t34c-p3-i/cascade-p3-derivative-p2-c832-001/run.json",
+        "bytes": 2496,
+        "sha256": "1bd0756bb138b2a503ba47aab9e1c0cd1ab8e2d6241971c4d3848397ad690672"
+      },
+      "outer_closure_path": "/data2/neural-shrimp-data/codex/certificate-ladder/return-cascade-p3-002/t34c-p3-i/explore/llm-soft-loop/pod64/certpack/t34c-p3-i/cascade-p3-derivative-p2-c832-001/run.json",
+      "outer_closure_sha256": "1bd0756bb138b2a503ba47aab9e1c0cd1ab8e2d6241971c4d3848397ad690672",
+      "closure_admission": {
+        "success": true,
+        "closure_verified": true,
+        "exit_code": 0,
+        "watchdog_stop": null,
+        "killed_by_watchdog": null,
+        "alive_after_exit": [],
+        "alive_after_cleanup": []
+      },
+      "pod_id": "826blsywftnwom",
+      "termination_record": {
+        "pod_id": "826blsywftnwom",
+        "terminated": true,
+        "in_inventory": false,
+        "direct_lookup": null,
+        "line_number": 18,
+        "line_sha256": "4ddbdb3130bddf263aa12def83166c646430032091040964862cf77c095f2079",
+        "retained_termination_record_count": 1
+      },
+      "termination_record_path": "/data2/neural-shrimp-data/runpod/T34C-P3-I-orchestrator.log",
+      "termination_record_sha256": "4f93abaecaee578d353281baefc0a1180046b812bb0e3cf99bf20def1e93d29f",
+      "termination_record_line": 18,
+      "result": {
+        "path": "/data2/neural-shrimp-data/runpod/soft64/20261018T234834Z/result.json",
+        "bytes": 1348,
+        "sha256": "fa9480d4b0f35b72810a07db70c50dc8cba94bb88ee5c43e1902490e78b2ebf1"
+      },
+      "result_path": "/data2/neural-shrimp-data/runpod/soft64/20261018T234834Z/result.json",
+      "result_sha256": "fa9480d4b0f35b72810a07db70c50dc8cba94bb88ee5c43e1902490e78b2ebf1",
+      "orchestrator_log": {
+        "path": "/data2/neural-shrimp-data/runpod/T34C-P3-I-orchestrator.log",
+        "bytes": 6541,
+        "sha256": "4f93abaecaee578d353281baefc0a1180046b812bb0e3cf99bf20def1e93d29f"
+      }
+    }
+  ],
+  "extracted_bytes": 4319396524,
+  "stage": "completed",
+  "seconds": 31.156213547103107,
+  "unique_phase_column_assignments": 2688,
+  "complete_signed_endpoint_coverage": false
+}

@@ -1,0 +1,100 @@
+{
+  "schema": "codex-task34-return-endpoint-card-v1",
+  "stage": "prepared_requires_private_checkpoint_and_fresh_capacity",
+  "attempt": "return-cascade-p3-endpoints-001",
+  "repository": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp",
+  "sources": [
+    {
+      "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/certificate-ladder-task34/return_endpoints.py",
+      "sha256": "df24151e01d5d78ae6abb41c9e1d96f969e164819de9be31564cdd4ad1f7cdd6",
+      "bytes": 5865
+    },
+    {
+      "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/certificate-ladder-task34/derivative_bridge.py",
+      "sha256": "9305b6de66bef56717bd72cf83e48cb706d65084b0105f260098adfcd3e203d1",
+      "bytes": 26608
+    },
+    {
+      "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/certificate-ladder-task34/derivative_shard.py",
+      "sha256": "577a68f03e47c884ef8b47cb993e4799cde09e673d656bae17d04e1c141ff98a",
+      "bytes": 21989
+    },
+    {
+      "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/certificate-ladder-task34/prefix_import.py",
+      "sha256": "80338ac588fc2e90a4d241a2d1fcf01f98f6f262e7a21c0deab4c9b45a9d0250",
+      "bytes": 4166
+    },
+    {
+      "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/certify-llm/derivative_coverage.py",
+      "sha256": "eb01dc001193b5e3982bcb41a582ac7c61cfe4e8fcd2a1ddf249126623fe63cf",
+      "bytes": 11031
+    },
+    {
+      "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/certify-llm/phase_domain.py",
+      "sha256": "a3856de84393068788c4cf4dc42fa6015da45b7912b56db995cc6b12922f8d8d",
+      "bytes": 12083
+    },
+    {
+      "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/certify-llm/cache_io.py",
+      "sha256": "f4e25b2134bef8a71c27d3156baf01be9d25c593d7b780f90a66b9c1141abdef",
+      "bytes": 6547
+    }
+  ],
+  "operational": {
+    "path": "/data2/neural-shrimp-data/codex/certificate-ladder/return-cascade-p3-002/operational.json",
+    "sha256": "ff7f2defc4bd25d0890733f8b0f8c331e4b8792c215273ba33a9a284d00be08f",
+    "bytes": 169504
+  },
+  "packet": {
+    "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/certificate-ladder-task34/cascade-p3-dispatch-001.json",
+    "sha256": "3167eeeec4329eeb1ed8f01ab9738a8173decaabaa021831ab1153a6dcd3c1bc",
+    "bytes": 27715
+  },
+  "resources": {
+    "cpu_affinity": [
+      0
+    ],
+    "threads": 1,
+    "nice": 10,
+    "address_space_bytes": 4294967296,
+    "cpu_seconds": 240,
+    "external_wall_seconds": 300,
+    "kill_after_seconds": 10,
+    "min_startup_available_bytes": 21474836480,
+    "max_aux_slots_including_timeout": 2
+  },
+  "measurement_basis": {
+    "prior14shards_seconds": 41.874332,
+    "prior23shards_seconds": 66.613649,
+    "prior9shards_seconds": 27.594457,
+    "prior10shards_seconds": 30.385853,
+    "forecast42shards_seconds": 129,
+    "forecast_only": true
+  },
+  "expected_attempts": 42,
+  "expected_phase_columns": 2688,
+  "model_calls": 0,
+  "certificate_claim": false,
+  "retry_authorized": false,
+  "output": "/data2/neural-shrimp-data/codex/certificate-ladder/return-cascade-p3-endpoints-001",
+  "command": [
+    "timeout",
+    "--signal=TERM",
+    "--kill-after=10s",
+    "300s",
+    "taskset",
+    "-c",
+    "0",
+    "nice",
+    "-n",
+    "10",
+    "/data2/neural-shrimp/.venv/bin/python",
+    "-B",
+    "-u",
+    "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/certificate-ladder-task34/return_endpoints.py",
+    "--operational",
+    "/data2/neural-shrimp-data/codex/certificate-ladder/return-cascade-p3-002/operational.json",
+    "--operational-sha256",
+    "ff7f2defc4bd25d0890733f8b0f8c331e4b8792c215273ba33a9a284d00be08f"
+  ]
+}
