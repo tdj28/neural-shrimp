@@ -1142,6 +1142,16 @@ def scan(args):
         if init.shape[0] != B or init.shape[2] != d:
             raise SystemExit(f"init states {init.shape} do not match {B} cells of dimension {d}")
     final_states = np.zeros((B, loop.K, d), dtype=np.float32) if args.save_states else None
+    text_period = np.zeros(B, dtype=int)          # period of the leading-token sequence over the record (0: none)
+    text_family = np.full(B, -1, dtype=int)       # its rotation-invariant token loop, for chaotic cells too
+    texts = {}
+    WP, RP = args.word_period, args.return_period
+    word_cos = np.full((B, args.record), np.nan, dtype=np.float32) if WP else None
+    word_lg = np.full((B, args.record), np.nan, dtype=np.float32) if WP else None
+    if RP and args.record % RP:
+        raise SystemExit("--return-period must divide --record")
+    ret_proj = np.full((B, RP, args.record // RP, 2), np.nan, dtype=np.float32) if RP else None
+    ret_expl = np.full((B, RP, 3), np.nan) if RP else None
     tic = time.perf_counter()
     chunk = args.chunk or B
     for start in range(0, B, chunk):
@@ -1170,6 +1180,7 @@ def scan(args):
         XY = torch.cat([XY[:n], XY[:n] + delta])
         log_growth = np.zeros(n)
         history, tokens = [], []
+        wbuf, gbuf = [None] * max(WP, 1), np.zeros((max(WP, 1), n))     # last WP offset directions and log growths
         for k in range(args.samples):
             XY, p = loop.step(XY, temps2)
             X, Y = XY[:n], XY[n:]
@@ -1179,7 +1190,15 @@ def scan(args):
             # a twin that collapses onto the trajectory (super-stable cycles, exact zero in float32) contributes a
             # floor of log(1e-30) per step; the floor also keeps the renormalization factor finite in float32
             dist = np.maximum(dist, args.eps * 1e-30)
-            log_growth += np.log(dist / args.eps)
+            lg = np.log(dist / args.eps)
+            log_growth += lg
+            if WP:                                # w_k ~ DF w_{k-1}: <w_k, w_{k-P}> has the sign of the P-step derivative
+                w = diff * torch.as_tensor(1.0 / dist, dtype=loop.state_dtype, device=loop.device)[:, None, None]
+                j, r = k % WP, k - (args.samples - args.record)
+                if r >= 0 and wbuf[j] is not None:  # both refer to the point P steps before step k
+                    word_cos[idx, r] = (w * wbuf[j]).flatten(1).sum(1).double().cpu().numpy()
+                    word_lg[idx, r] = gbuf.sum(0) - gbuf[j] + lg
+                wbuf[j], gbuf[j] = w, lg
             Y = X + diff * torch.as_tensor(args.eps / dist, dtype=loop.state_dtype, device=loop.device)[:, None, None]
             XY = torch.cat([X, Y])
             if k >= args.samples - args.record:
@@ -1199,7 +1218,25 @@ def scan(args):
             close = np.linalg.norm(hist[-1 - q] - hist[-1], axis=1) < args.tol * scale
             per = np.where(close, q, per)
         period[idx] = per
+        if RP:                                    # return maps: each phase's states on its own principal axes
+            for c in range(n):
+                for ph in range(RP):
+                    S = hist[ph::RP, c, :]
+                    Sc = S - S.mean(0)
+                    _, sv, vt = np.linalg.svd(Sc, full_matrices=False)
+                    ret_proj[idx[c], ph] = (Sc @ vt[:2].T).astype(np.float32)
+                    ret_expl[idx[c], ph] = (sv[:3] ** 2) / np.sum(sv ** 2)
         toks = np.array(tokens)                               # (record, n): leading token per step
+        tp = np.zeros(n, dtype=int)
+        for q in range(min(args.max_period, len(toks) - 1), 0, -1):
+            tp = np.where(np.all(toks[q:] == toks[:-q], axis=0), q, tp)
+        text_period[idx] = tp
+        for c in range(n):
+            q = int(tp[c])
+            if q > 0:
+                loop_ = tuple(int(t) for t in toks[-q:, c])
+                key = min(loop_[i:] + loop_[:i] for i in range(q))
+                text_family[idx[c]] = texts.setdefault(key, len(texts))
         for c in range(n):
             q = int(per[c])
             if q > 0:
@@ -1210,28 +1247,42 @@ def scan(args):
         entropy[idx] = -(last_p * np.log(np.maximum(last_p, 1e-300))).sum(1)
         if final_states is not None:
             final_states[idx] = X.float().cpu().numpy()
-        del p, XY, X, Y
+        del p, XY, X, Y, wbuf
         print(json.dumps({"done": idx[-1] + 1, "of": B, "seconds": round(time.perf_counter() - tic, 1)}), flush=True)
         part = DATA / "explore" / args.out                    # checkpoint: a timed-out scan still yields its rows
         part.mkdir(parents=True, exist_ok=True)
         extra = {} if proj is None else {"projection": proj, "projection_directions": dirs}
+        if WP:
+            extra.update(word_cos=word_cos, word_log_growth=word_lg)
+        if RP:
+            extra.update(return_projection=ret_proj, return_explained=ret_expl)
         np.savez_compressed(part / "scan-partial.npz", done=idx[-1] + 1, log10_temperature=log_t, alpha=alphas,
                             lyapunov=lyap, period=period, entropy=entropy, family=family,
-                            family_keys=np.array(json.dumps([list(k) for k in families])), **extra)
+                            family_keys=np.array(json.dumps([list(k) for k in families])), text_period=text_period,
+                            text_family=text_family, text_keys=np.array(json.dumps([list(k) for k in texts])),
+                            **extra)
     seconds = round(time.perf_counter() - tic, 1)
     shape = tuple(args.resolution)
     out = DATA / "explore" / args.out
     out.mkdir(parents=True, exist_ok=True)
     extra = {} if proj is None else {"projection": proj.reshape(*shape, args.record, 2),
                                      "projection_directions": dirs}
+    if WP:
+        extra.update(word_cos=word_cos.reshape(*shape, args.record), word_log_growth=word_lg.reshape(*shape, args.record))
+    if RP:
+        extra.update(return_projection=ret_proj.reshape(*shape, *ret_proj.shape[1:]),
+                     return_explained=ret_expl.reshape(*shape, RP, 3))
     np.savez_compressed(out / "scan.npz", log10_temperature=log_t, alpha=alphas, lyapunov=lyap.reshape(shape),
                         period=period.reshape(shape), entropy=entropy.reshape(shape), family=family.reshape(shape),
-                        **extra)
+                        text_period=text_period.reshape(shape), text_family=text_family.reshape(shape), **extra)
     tok = loop.sm.tok
     fam_list = [{"family": i, "period": len(key), "cells": int((family == i).sum()),
-                 "tokens": [tok.decode([t]) for t in key]} for key, i in families.items()]
+                 "tokens": [tok.decode([t]) for t in key], "token_ids": list(key)} for key, i in families.items()]
     fam_list.sort(key=lambda f: -f["cells"])
-    summary = {"args": vars(args), "seconds": seconds, "cells": B, "families": fam_list,
+    text_list = [{"text_family": i, "period": len(key), "cells": int((text_family == i).sum()),
+                  "tokens": [tok.decode([t]) for t in key], "token_ids": list(key)} for key, i in texts.items()]
+    text_list.sort(key=lambda f: -f["cells"])
+    summary = {"args": vars(args), "seconds": seconds, "cells": B, "families": fam_list, "texts": text_list,
                "lyapunov_positive": int((lyap > args.chaos_level).sum()),
                "period_counts": {int(q): int((period == q).sum()) for q in np.unique(period)},
                "lyapunov_range": [float(lyap.min()), float(lyap.max())],
@@ -1850,6 +1901,12 @@ def main():
     sc.add_argument("--projections", action="store_true",
                     help="save the recorded states projected on the unit steering vector and a fixed random direction "
                          "(bifurcation diagrams)")
+    sc.add_argument("--word-period", type=int, default=0, help="P > 0: at every recorded step, save the cosine between "
+                    "the twin's offset direction and its direction P steps earlier (its sign is the sign of the P-step "
+                    "derivative along the attractor) and the P-step log growth (symbolic words, run SD)")
+    sc.add_argument("--return-period", type=int, default=0, help="P > 0: save each cell's recorded states, phase by "
+                    "phase (every P-th step), projected on that phase's first two principal axes (return maps, run SD); "
+                    "use a --chunk that keeps record x chunk x dimension float64 values in memory")
     sc.add_argument("--out", required=True)
     ob = sub.add_parser("orbit")
     ob.add_argument("--model", choices=sorted(ela.MODELS), default="qwen0.5b")
