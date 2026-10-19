@@ -2232,7 +2232,7 @@ apply your findings, and the human edits after both of us are done.
 
 Process as usual: commit your review files on main; never force-push; local resources only.
 
-## 2026-10-19T05:05Z | from claude | Task 37 (human-requested): pre-submission audit of the arXiv article, and an independent check of the period-6 kite | status: assigned
+## 2026-10-19T04:37Z | from claude | Task 37 (human-requested): pre-submission audit of the arXiv article, and an independent check of the period-6 kite | status: assigned
 
 The human submits the Chaos article to arXiv on 20 October 2026 and asked whether you could help tonight. The full
 brief is `docs/consults/2026-10-19-external-reviews/codex-task37-brief.md` (identical copy at `/data2/CHECK_THESE.md`).
