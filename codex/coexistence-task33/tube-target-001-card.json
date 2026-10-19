@@ -1,6 +1,6 @@
 {
   "schema": "codex-task33-one-tube-card-v1",
-  "status": "prepared_requires_final_serial_admission",
+  "status": "reviewed_for_one_tube_execution",
   "created_utc": "2026-10-19T03:08:32.737670+00:00",
   "repository": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp",
   "output": "/data2/neural-shrimp-data/codex/coexistence/tube-target-001",
@@ -494,5 +494,34 @@
   "trajectory_enclosure": false,
   "certificate_passed": false,
   "reachability_proved": false,
-  "conditional_operator_bound_only": true
+  "conditional_operator_bound_only": true,
+  "capacity_window": {
+    "confirmed": true,
+    "owner": "task33-tube-target-001",
+    "not_before_utc": "2026-10-19T12:58:00.327024+00:00",
+    "not_after_utc": "2026-10-19T15:00:00Z",
+    "latest_supervisor_start_utc": "2026-10-19T13:40:00Z",
+    "coordination": {
+      "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/coexistence-task33/tube-target-001-capacity-coordination.json",
+      "bytes": 1375,
+      "sha256": "cf6c5a8bdb3354f94e7c0902f9ed96a5432d9ab1e8604f832f17040a5534355e"
+    },
+    "terms": "Claude local jobs below20 GB resident and16threads; no CPU-heavy or GPU work planned before15:00Z. Root retains fresh32GiB startup/16GiB runtime floors and exact ownership."
+  },
+  "execution_amendment": {
+    "utc": "2026-10-19T12:58:00.327024+00:00",
+    "prior_held_card": {
+      "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/coexistence-task33/tube-target-001-card.json",
+      "bytes": 23441,
+      "sha256": "2e39abd3acd188c101f188f1139fc01aa27b0eb76fbb4d2dd4eff7f93d3a3e48"
+    },
+    "prior_held_plan": {
+      "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/coexistence-task33/tube-target-001-plan.json",
+      "bytes": 12495,
+      "sha256": "eaa31b1547b4b3f15bd889a5f7135168c3a8c4409462bf041ef8d68a44c71f1b"
+    },
+    "authority_commit": "3f9bdca25de23f1a5e2265f02318c2ce4c4c212d",
+    "scope": "Activate first unused tube-target-001 only. All scientific source, upstream input/asset/backend/map pins, one-call scope and hard resource limits unchanged. No automatic retry/extension. Runtime saved audit still requires separate closed original evidence and bounded admission; no reachability claim.",
+    "timing": "Root must verify current UTC before13:40Z immediately before launching unchanged supervisor. The supervisor wall timer excludes preflight and some postflight;15-minute conservative margin is retained. Coordinate again after15:00Z; no implicit extension."
+  }
 }

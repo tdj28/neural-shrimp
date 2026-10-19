@@ -1,0 +1,53 @@
+{
+  "schema": "codex-task33-tube-authority-controls-v1",
+  "source_commit": "fe67382ff85f0b92a14992bf57e8af31eb390923",
+  "private_checkpoint_verified_before_execution": true,
+  "source_sha256": {
+    "tube_saved_authority.py": "a8fbfd0bd4da26b12ebf7aa3569a6fc4ae0991959c30b6ce74d253523043d127",
+    "test_tube_saved_authority.py": "83b75648981a34e3addf817e0389d06038d79efaa1f6647ce8717eda59ac7d61"
+  },
+  "argv": [
+    "/data2/neural-shrimp/.venv/bin/python",
+    "-I",
+    "-B",
+    "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/coexistence-task33/test_tube_saved_authority.py"
+  ],
+  "started_utc": "2026-10-19T13:38:25.669349+00:00",
+  "ended_utc": "2026-10-19T13:38:25.807550+00:00",
+  "limits": {
+    "as_bytes": 268435456,
+    "cpu_seconds": 30,
+    "wall_seconds": 40,
+    "file_bytes": 8388608,
+    "cpu_ids": [
+      0
+    ],
+    "nice": 10,
+    "threads": 1
+  },
+  "child_identity": {
+    "pid": 521407,
+    "starttime": 236366977,
+    "pgid": 521407,
+    "sid": 521407,
+    "nice": 10,
+    "cpu_ids": [
+      0
+    ]
+  },
+  "child_reaped": true,
+  "returncode": 1,
+  "timeout": false,
+  "external_elapsed_seconds": 0.13800294930115342,
+  "external_elapsed_seconds_upper": "0.138003",
+  "stdout": "",
+  "stderr": "...........F.................\n======================================================================\nFAIL: test_12_upstream_source_command_and_input_joins_refuse (__main__.AuthorityControls.test_12_upstream_source_command_and_input_joins_refuse) (mode='preflight')\n----------------------------------------------------------------------\nTraceback (most recent call last):\n  File \"/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/coexistence-task33/test_tube_saved_authority.py\", line 264, in test_12_upstream_source_command_and_input_joins_refuse\n    with self.subTest(mode=mode),self.assertRaises(ValueError):M.original_execution(io,authority)\n                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError: ValueError not raised\n\n----------------------------------------------------------------------\nRan 29 tests in 0.060s\n\nFAILED (failures=1)\n",
+  "new_control_methods": 29,
+  "actual_model_backend_or_original_evidence_reads": false,
+  "old_controls_repeated": false,
+  "scientific_verdict_admitted": false,
+  "operator_bound_admitted": false,
+  "trajectory_enclosure": false,
+  "certificate_passed": false,
+  "passed": false
+}

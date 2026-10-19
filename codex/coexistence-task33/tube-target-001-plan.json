@@ -1,5 +1,5 @@
 {
-  "status": "prepared_requires_coordinated_capacity_and_final_serial_admission",
+  "status": "reviewed_for_execution",
   "repository": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp",
   "raw_root": "/data2/neural-shrimp-data/codex/coexistence",
   "python": "/data2/neural-shrimp/.venv/bin/python",
@@ -71,8 +71,8 @@
     },
     {
       "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/coexistence-task33/tube-target-001-card.json",
-      "bytes": 23441,
-      "sha256": "2e39abd3acd188c101f188f1139fc01aa27b0eb76fbb4d2dd4eff7f93d3a3e48"
+      "bytes": 25466,
+      "sha256": "7cc40f8cec0fde5c3c31e26c5d110872a5ac94da823d14ea9c6e73e0d69cd058"
     },
     {
       "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/coexistence-task33/tube-target-001-preparation.md",
@@ -93,6 +93,16 @@
       "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/coexistence-task33/tube-target-001-packet-review.md",
       "bytes": 7144,
       "sha256": "9da69ec2cd38663d2096084b7c990658b7fdf345feba6ccb8014146b0da57a6a"
+    },
+    {
+      "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/coexistence-task33/tube-target-001-capacity-coordination.json",
+      "bytes": 1375,
+      "sha256": "cf6c5a8bdb3354f94e7c0902f9ed96a5432d9ab1e8604f832f17040a5534355e"
+    },
+    {
+      "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/coexistence-task33/tube-target-001-execution-review.json",
+      "bytes": 5313,
+      "sha256": "b153f0f4290eff38c3bf3c6ac8ac555b3f0859d24e676772bc1457e3dfc15d78"
     }
   ],
   "lanes": {
@@ -102,7 +112,7 @@
         "--card",
         "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/coexistence-task33/tube-target-001-card.json",
         "--card-sha256",
-        "2e39abd3acd188c101f188f1139fc01aa27b0eb76fbb4d2dd4eff7f93d3a3e48",
+        "7cc40f8cec0fde5c3c31e26c5d110872a5ac94da823d14ea9c6e73e0d69cd058",
         "--out",
         "/data2/neural-shrimp-data/codex/coexistence/tube-target-001"
       ],
@@ -229,15 +239,62 @@
           "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/certificate-ladder-task34/phase-cascade-p6-001-completion.json",
           "bytes": 5915,
           "sha256": "a83c999c1e692b323f259acdff9d7758cf2c86a69487feb81f6c214d078df1cb"
+        },
+        {
+          "path": "/data2/neural-shrimp-data/scratch/audit-codex-1019/r-pair-001-supervision/receipt.json",
+          "bytes": 301960,
+          "sha256": "f4ecd1e9e090a1fecdbba35b0296efb1cd12a582e45199083b1645deaf59e907"
+        },
+        {
+          "path": "/data2/neural-shrimp-data/scratch/audit-codex-1019/r-pair-001-audit-001-supervision/receipt.json",
+          "bytes": 4965,
+          "sha256": "1c121d7df68fec756e04abf7b5777dd2c08cee901180cfcb7977fe309d9fda3d"
+        },
+        {
+          "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/presubmit-task37/r-pair-001-original-closure.json",
+          "bytes": 9242,
+          "sha256": "331df001c93ba774d3fa5d50d95eca460dddee87224cce8a37f5ff88ed8e156b"
+        },
+        {
+          "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/presubmit-task37/r-pair-001-audit-001-completion.json",
+          "bytes": 7368,
+          "sha256": "d792c1bf0bacc284d6ee9be6cd52d81f38f6f4100233d6bc0b3adf4e830f001e"
         }
       ],
       "prior_receipts": [
         "/data2/neural-shrimp-data/codex/coexistence/thin-pilot-001-supervision/receipt.json",
         "/data2/neural-shrimp-data/codex/coexistence/thin-pilot-001-audit-002-supervision/receipt.json",
         "/data2/neural-shrimp-data/codex/coexistence/prefix-001-supervision/receipt.json",
-        "/data2/neural-shrimp-data/codex/certificate-ladder/phase-cascade-p6-001-supervision/receipt.json"
+        "/data2/neural-shrimp-data/codex/certificate-ladder/phase-cascade-p6-001-supervision/receipt.json",
+        "/data2/neural-shrimp-data/scratch/audit-codex-1019/r-pair-001-supervision/receipt.json",
+        "/data2/neural-shrimp-data/scratch/audit-codex-1019/r-pair-001-audit-001-supervision/receipt.json"
       ]
     }
   },
-  "cost_basis": "Exactly one whole positive-radius direction-cube measurement;1024-bit64-column calibration1866.785209s and local2048point pilot2308.238879s/20 are workload references only, never divided/used for20tube forecast. Hard3600CPU3900wall18GiB64MiB cap, measured result or honestfailure, no retry/extension. Original P6phase failed closure authenticated; serial allocation held for coordinated stable/protected capacity plus final exact source/card/backend admission. No automatic retry and no floor weakening."
+  "cost_basis": "Exactly one whole positive-radius direction-cube measurement;1024-bit64-column calibration1866.785209s and local2048point pilot2308.238879s/20 are workload references only, never divided/used for20tube forecast. Hard3600CPU3900wall18GiB64MiB cap, measured result or honestfailure, no retry/extension. Original P6phase failed closure authenticated; serial allocation held for coordinated stable/protected capacity plus final exact source/card/backend admission. No automatic retry and no floor weakening. Dated2026-10-19 execution amendment: Claude explicit12:44Z reply confirms this Task33 allocation through15:00Z. Root latest supervisor start13:40Z including cleanup margin; exact private checkpoint and fresh serial admission remain mandatory.",
+  "capacity_window": {
+    "confirmed": true,
+    "owner": "task33-tube-target-001",
+    "not_before_utc": "2026-10-19T12:58:00.327024+00:00",
+    "not_after_utc": "2026-10-19T15:00:00Z",
+    "latest_supervisor_start_utc": "2026-10-19T13:40:00Z",
+    "coordination": {
+      "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/coexistence-task33/tube-target-001-capacity-coordination.json",
+      "bytes": 1375,
+      "sha256": "cf6c5a8bdb3354f94e7c0902f9ed96a5432d9ab1e8604f832f17040a5534355e"
+    },
+    "terms": "Claude local jobs below20 GB resident and16threads; no CPU-heavy or GPU work planned before15:00Z. Root retains fresh32GiB startup/16GiB runtime floors and exact ownership."
+  },
+  "execution_amendment": {
+    "utc": "2026-10-19T12:58:00.327024+00:00",
+    "prior_held_plan": {
+      "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/coexistence-task33/tube-target-001-plan.json",
+      "bytes": 12495,
+      "sha256": "eaa31b1547b4b3f15bd889a5f7135168c3a8c4409462bf041ef8d68a44c71f1b"
+    },
+    "authority_commit": "3f9bdca25de23f1a5e2265f02318c2ce4c4c212d",
+    "latest_supervisor_start_utc": "2026-10-19T13:40:00Z",
+    "window_end_utc": "2026-10-19T15:00:00Z",
+    "no_limit_or_science_change": true
+  }
 }

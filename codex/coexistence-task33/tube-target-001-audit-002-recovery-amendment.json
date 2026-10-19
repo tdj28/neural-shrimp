@@ -1,0 +1,53 @@
+{
+  "schema": "codex-task33-tube-saved-audit-recovery-v1",
+  "created_utc": "2026-10-19T13:57:31.975877+00:00",
+  "status": "source_only_held_no_audit_launch",
+  "original_audit_source_commit": "6c1f7667eb700d4f28987ad76a2aa5b1de0d99c1",
+  "original_audit_card": {
+    "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/coexistence-task33/tube-target-001-audit-001-card.json",
+    "bytes": 6454,
+    "sha256": "c18b7ae984b92e69c0572bf77789252cd14ef3903ba3fc3227eb90f5eb6d74a2"
+  },
+  "original_audit_plan": {
+    "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/coexistence-task33/tube-target-001-audit-001-plan.json",
+    "bytes": 24700,
+    "sha256": "77538d02e7660e602eacda0fd16a296fe57562c38c17243cf5aa8ad7a38d14b1"
+  },
+  "original_audit_receipt": {
+    "path": "/data2/neural-shrimp-data/codex/coexistence/tube-target-001-audit-001-supervision/receipt.json",
+    "bytes": 5373,
+    "sha256": "3339df241586c035eb4afa2989c9ac76a2a38458ecdaeab975c972cb6cc9e5fb"
+  },
+  "original_audit_failure": {
+    "path": "/data2/neural-shrimp-data/codex/coexistence/tube-target-001-audit-001/failure.json",
+    "bytes": 2120,
+    "sha256": "4f9268cbd8d6f1f285c8d8ace4780a9d06094a88f57f326e6bceeeb3a91af2e7"
+  },
+  "original_audit_completion": {
+    "path": "/home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/coexistence-task33/tube-target-001-audit-001-completion.json",
+    "bytes": 25020,
+    "sha256": "84a5f18a6e49a2a74a96d2f03fcc60935c9d4c99f5155645c9a4ae5b83607cf9"
+  },
+  "original_worker_returncode": 1,
+  "root_verified_original_audit_closed": true,
+  "diagnosis": "Four thread variables forced and recorded as1; new wrapper also requires HF_HUB_OFFLINE=1, which unchanged supervisor only inherits and does not record. Exact original inherited value unknown.",
+  "source_delta": "Exactly four allocation assignments OUT,CARD,PLAN,SELF; unchanged original expected record, helpers, upstream joins, scalar code and all offline/thread/science gates.",
+  "historical_error_wording": "The unchanged original exact-arguments error mentions audit001 even in002; literal002 checks are authoritative.",
+  "required_supervisor_environment": {
+    "HF_HUB_OFFLINE": "1"
+  },
+  "environment_metadata_effect": "None in frozen supervisor. Root must explicitly supply this variable when separately admitted; metadata is a launcher obligation, not runtime observation.",
+  "no_automatic_retry": true,
+  "original_source_or_evidence_modified": false,
+  "new_audit_source_commit": null,
+  "new_actual_capacity_admission": null,
+  "new_audit_launched": false,
+  "new_model_or_backend_calls": 0,
+  "new_target_calls": 0,
+  "scientific_verdict_admitted": false,
+  "operator_bound_admitted": false,
+  "conditional_operator_bound_admitted": false,
+  "trajectory_enclosure": false,
+  "reachability_proved": false,
+  "certificate_passed": false
+}
