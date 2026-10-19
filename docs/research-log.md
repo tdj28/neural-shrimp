@@ -31024,3 +31024,11 @@ conjugacy of the Rössler return map to unimodal maps, and orbits are traced by 
   with its hypothesis, as consistent with the kite's coexistence. Fig. returnmaps panels (h-k) show four of them.
 - Also noted: both coexisting kite orbits have positive multipliers (+0.184, +0.614), so a single unimodal reduction
   would need an S-shaped increasing branch (non-negative Schwarzian somewhere) or an extra turning point.
+
+## 2026-10-19 09:01 UTC: run card HR12-RS (exploratory): does the hook move with the start? (human: "Do it")
+
+- Question: are the light wedge's lower edge (the hook) and the striated tongues crossings of a basin boundary by the
+  fixed start (they move with the start), while the fold edge stays?
+- Box H2 at 128 x 128 float64 cells, protocol of HR12, start = a random token's embedding
+  (llm-soft-loop/prompt-variants/vec-r-token.npy, as in PV s2) instead of the prefix's last token. 1 pod.
+- Reading: compare with HR12 at the nearest cells: the fold curve, the wedge, the tongues.
