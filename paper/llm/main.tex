@@ -3328,8 +3328,9 @@ moves instead.
   \item In the 0.5B model, the first MLP does (2.40).
   \item In Qwen2.5-72B and in both 70B Llama models, no sublayer contributes more than 0.46.
 \end{itemize}
-The larger models' damping is therefore not added by a component. The early amplification that lets the change keep
-pace with the residual stream is weaker or absent. These are descriptive comparisons of trained checkpoints within
+The larger models' damping is therefore not added by a component. Rather, the early amplification, by the first
+attention layer or MLP, that makes the change grow about as fast as the residual stream in the smaller models is
+weaker or absent. These are descriptive comparisons of trained checkpoints within
 three families, and the OLMo-2 exception shows that training can break the trend.
 \begin{figure}[tbp]
 \centering
@@ -3391,8 +3392,9 @@ gain of its loop where its own next-token distribution is spread, no single forw
 to find it in a larger model one has to run the loop there, across prompts. For frontier models this means two
 things: their unsteered chaos may be rare, if, like the largest models here, their distributions spread over a narrow
 range of temperature; and steering still drives both 70B-class models that we steered, Llama-3.3-70B and Qwen2.5-72B, into chaos (Appendix~\ref{sec:size}).
-Resolved through the stack, the damping grows with size in Qwen2.5 and Llama-3 because the change of the fed-back
-token stops keeping pace with the residual stream (Figure~\ref{fig:damping}). If larger models of these families
+Resolved through the stack, the damping grows with size in Qwen2.5 and Llama-3 because in the larger models the
+change that the fed-back token makes in the residual stream grows much more slowly than the stream itself
+(Figure~\ref{fig:damping}). If larger models of these families
 continue the trend, their unsteered loops need stronger token competition to become chaotic, which steering can still
 supply; this is an extrapolation from checkpoints up to 72B, and OLMo-2 does not follow it.
 Figure~\ref{fig:z128} shows it at 70B parameters: in a $128\times128$ float64 scan of Llama-3.3-70B-Instruct steered
