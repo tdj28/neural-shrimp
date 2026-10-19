@@ -47,13 +47,31 @@ class SoftLoop:
         self.dtype = self.model.dtype
         self.state_dtype = torch.float64 if dtype == "float64" else torch.float32
         self.E = self.model.get_input_embeddings().weight.detach().to(self.state_dtype)      # (V, d)
-        messages = [{"role": "system", "content": ela.PROMPTS[prompt]}, {"role": "user", "content": opener}]
+        spec = None
+        if str(prompt).startswith("file:"):         # an exact prefix (run PV: prompt variants); opener unused:
+            spec = json.loads((DATA / "explore" / str(prompt)[5:]).read_text())   # chat messages, or raw "text"
+            messages = spec.get("messages")
+        else:
+            messages = [{"role": "system", "content": ela.PROMPTS[prompt]}, {"role": "user", "content": opener}]
         # reasoning models (Qwen3.5) open a <think> block by default; without thinking the prefix ends at the start
         # of the reply, as for every other model
         extra = {"enable_thinking": False} if str(model).startswith("qwen3.5") else {}
-        text = self.sm.tok.apply_chat_template(messages, add_generation_prompt=True, tokenize=False, **extra)
-        self.prefix_ids = torch.tensor([self.sm.tok(text, add_special_tokens=False)["input_ids"]], device=self.device)
-        self.L0 = self.prefix_ids.shape[1]
+        self.prefix_embeds = None
+        if spec is not None and "embeds" in spec:    # a prefix of raw vectors (run PV: random soft tokens), no text
+            pe = np.load(DATA / "explore" / spec["embeds"]).reshape(-1, self.E.shape[1])
+            self.prefix_embeds = torch.as_tensor(pe, dtype=self.dtype, device=self.device)[None]
+            text = f"<{len(pe)} vectors from {spec['embeds']}>"
+            self.prefix_ids = None
+            self.L0 = len(pe)
+        else:
+            if spec is not None and "text" in spec:  # a raw prefix without the chat template
+                text = spec["text"]
+            else:
+                text = self.sm.tok.apply_chat_template(messages, add_generation_prompt=True, tokenize=False, **extra)
+            self.prefix_ids = torch.tensor([self.sm.tok(text, add_special_tokens=False)["input_ids"]],
+                                           device=self.device)
+            self.L0 = self.prefix_ids.shape[1]
+        self.prefix_text = text
         self.K = int(window)
         self.cache = None
         self.steer_rows = None
@@ -91,8 +109,12 @@ class SoftLoop:
                     self.sm.steer_extra = {self.extra[0]: self.extra_rows[s0:s0 + n]}
                 with torch.no_grad():
                     # logits_to_keep=1: the prefix logits are not needed (all of them cost B x L0 x vocab floats)
-                    self.model(input_ids=self.prefix_ids.repeat(n, 1), past_key_values=cache, use_cache=True,
-                               logits_to_keep=1)
+                    if self.prefix_embeds is not None:
+                        self.model(inputs_embeds=self.prefix_embeds.repeat(n, 1, 1), past_key_values=cache,
+                                   use_cache=True, logits_to_keep=1)
+                    else:
+                        self.model(input_ids=self.prefix_ids.repeat(n, 1), past_key_values=cache, use_cache=True,
+                                   logits_to_keep=1)
                 parts.append(cache)
         finally:
             self.sm.steer = None
@@ -113,7 +135,10 @@ class SoftLoop:
             if not self._saved:
                 raise SystemExit("hybrid model without linear-attention cache layers")
         with torch.no_grad():
-            start = self.model.get_input_embeddings()(self.prefix_ids[:, -1:])[0, 0].to(self.state_dtype)
+            if self.prefix_embeds is not None:    # the last prefix vector starts the loop, as the last token does
+                start = self.prefix_embeds[0, -1].to(self.state_dtype)
+            else:
+                start = self.model.get_input_embeddings()(self.prefix_ids[:, -1:])[0, 0].to(self.state_dtype)
         return start.repeat(B, self.K, 1).clone()                              # initial window (B, K, d)
 
     def logits(self, X):
@@ -1081,7 +1106,8 @@ def curve(args):
 
 
 def scan(args):
-    loop = SoftLoop(args.model, args.layer, args.threads, args.prompt, args.opener, args.window, args.dtype,
+    prompt = f"file:{args.prefix}" if args.prefix else args.prompt
+    loop = SoftLoop(args.model, args.layer, args.threads, prompt, args.opener, args.window, args.dtype,
                     args.device, args.weights)
     torch = loop.torch
     v = elpm.load_vectors(args.vectors)[args.concept] if args.vectors else None      # --vectors "": unsteered
@@ -1106,6 +1132,11 @@ def scan(args):
         dirs = np.stack([first / np.linalg.norm(first), r / np.linalg.norm(r)])
         proj = np.full((B, args.record, 2), np.nan)
     init = None
+    start_vec = None
+    if args.start_vector:                         # every cell starts from one stored vector (run PV: random starts)
+        start_vec = np.load(DATA / "explore" / args.start_vector).reshape(-1)
+        if len(start_vec) != d or args.init_states:
+            raise SystemExit("--start-vector needs a vector of the model's dimension and no --init-states")
     if args.init_states:                          # warm start: each cell from a previous scan's final state, same grid
         init = np.load(DATA / "explore" / args.init_states / "states.npz")["states"]
         if init.shape[0] != B or init.shape[2] != d:
@@ -1124,6 +1155,8 @@ def scan(args):
             if X0.shape[1] != XY.shape[1]:
                 raise SystemExit("init states have another window length")
             XY = torch.cat([X0, X0.clone()])
+        if start_vec is not None:
+            XY = torch.as_tensor(start_vec, dtype=loop.state_dtype, device=loop.device).repeat(2 * n, loop.K, 1)
         progress = DATA / "explore" / args.out / "progress.jsonl"       # timing for long runs (big models)
         progress.parent.mkdir(parents=True, exist_ok=True)
         for k in range(args.transient):
@@ -1201,7 +1234,8 @@ def scan(args):
     summary = {"args": vars(args), "seconds": seconds, "cells": B, "families": fam_list,
                "lyapunov_positive": int((lyap > args.chaos_level).sum()),
                "period_counts": {int(q): int((period == q).sum()) for q in np.unique(period)},
-               "lyapunov_range": [float(lyap.min()), float(lyap.max())]}
+               "lyapunov_range": [float(lyap.min()), float(lyap.max())],
+               "prefix_text": loop.prefix_text, "prefix_tokens": int(loop.L0)}
     (out / "scan.json").write_text(json.dumps(summary, indent=1))
     if final_states is not None:                  # float32 copy of each cell's final window, for warm starts
         np.savez(out / "states.npz", states=final_states)
@@ -1793,6 +1827,10 @@ def main():
     sc.add_argument("--chunk", type=int, default=0, help="cells per batch (0: all at once)")
     sc.add_argument("--prompt", choices=sorted(ela.PROMPTS), default="open")
     sc.add_argument("--opener", default=ela.OPENER)
+    sc.add_argument("--prefix", default=None, help="explore-relative JSON: the exact prefix, as chat 'messages', raw "
+                    "'text', or 'embeds' (an explore-relative .npy of vectors), in place of --prompt and --opener (run PV)")
+    sc.add_argument("--start-vector", default=None, help="explore-relative .npy (d,): every cell starts its loop there "
+                    "instead of at the prefix's last token (run PV)")
     sc.add_argument("--window", type=int, default=1)
     sc.add_argument("--vectors", default="llm-phase-map/vectors-l12", help='explore-relative vector set; "" for none')
     sc.add_argument("--concept", default="philosophy", help="a vector name in --vectors (e.g. hostility-vs-kindness)")

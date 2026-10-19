@@ -1,0 +1,23 @@
+{
+ "r-gauss": {
+  "file": "llm-soft-loop/prompt-variants/vec-r-gauss.npy",
+  "sha256": "fbe08eb5620b3f7105db085439170dfe44ea49dd457e9924a2be69068b22c588",
+  "norm": 0.450694505512722,
+  "description": "Gaussian N(0, I) direction (seed 101) scaled to the median embedding norm",
+  "cosine_with_fixed_start": -0.006000418796220279
+ },
+ "r-token": {
+  "file": "llm-soft-loop/prompt-variants/vec-r-token.npy",
+  "sha256": "fd5fde250db2aa47f295729a7ead4347c2a6c359a4d6a76da6591cda98d7b2b7",
+  "norm": 0.533582746432442,
+  "description": "the embedding of token 67189 ('.GPIO'), drawn uniformly (seed 102)",
+  "cosine_with_fixed_start": -0.2909013130634926
+ },
+ "r-mix": {
+  "file": "llm-soft-loop/prompt-variants/vec-r-mix.npy",
+  "sha256": "353224fa8f7f7a03137e52a4bb1a57fc58e68124c11e8ef49d90d4b517cc26c0",
+  "norm": 0.25698998259407974,
+  "description": "a Dirichlet(0.1) mixture of 64 random token embeddings (seed 103); largest weight 0.222 on 'liness'",
+  "cosine_with_fixed_start": -0.4944968686211488
+ }
+}
