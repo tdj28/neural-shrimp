@@ -2515,7 +2515,7 @@ periodicity hub of the R\"ossler system follows from a conjugacy of its return m
 \cite{jones2012rossler}. Where the attractor writes the body's six-token text, the loop visits six thin bands of the
 state space in turn, one per token, and returns to each band every six steps. Within a band, the six-step return map is,
 in most of the region, one-dimensional with a single turning point: plotted against its predecessor along the band, the next visit traces a
-parabola (Figure~\ref{fig:returnmaps}). We code each visit by the side of the turning point it lies on, L on the
+parabola (Figure~\ref{fig:p6returnmaps}). We code each visit by the side of the turning point it lies on, L on the
 increasing branch and R on the decreasing one. The side is the sign of the six-step derivative along the band, which
 the twin trajectory of the Lyapunov exponent provides (\repo{tools/symbolic_dynamics.py}): the twin's offset direction is carried along the attractor, and
 its scalar product with its own direction six steps earlier has the sign of that derivative wherever the band turns
@@ -2525,7 +2525,7 @@ with at most 4.7\,\% of the rarer symbol on the wrong side (none in 23
 cells), in every phase where the band is straight enough for the sign to be defined. The other 10
 cells lie in one column beside the body's left flip curve (3) and below the kite
 (7). In 7 of them the return map has more
-than one turning point: it rises and falls more than once (Figure~\ref{fig:returnmaps}h--k), so the six-step map
+than one turning point: it rises and falls more than once (Figure~\ref{fig:p6returnmaps}h--k), so the six-step map
 there is not unimodal. A unimodal map with negative Schwarzian derivative has at most one attracting periodic orbit
 \cite{singer1978stable}; the extra turning points just below the kite fit the two attracting orbits that coexist inside
 it.
@@ -2559,7 +2559,7 @@ does not (red), other chaotic cells (gray) and periodic cells (white). (b--g) Si
 cells: the position along one band (its first principal axis) against the position at the previous visit; blue:
 visits where the six-step derivative is positive (L), red: negative (R). (h--k) Return maps at four red cells (letters
 in (a)) with more than one turning point.}
-\label{fig:returnmaps}
+\label{fig:p6returnmaps}
 \end{figure*}
 
 \begin{figure*}[tbp]
