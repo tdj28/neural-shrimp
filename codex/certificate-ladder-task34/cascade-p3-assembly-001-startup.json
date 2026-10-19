@@ -1,0 +1,54 @@
+{
+  "at": "2026-10-19T01:06:33.920420+00:00",
+  "session": 82434,
+  "source": "fadb2e6d8b5ac5a5be05a68c38b03cc96f30ae3a",
+  "status": "running_postexec_host_identity_verified",
+  "host_processes": [
+    {
+      "pid": 3540430,
+      "starttime": 231854272,
+      "pgid": 3540430,
+      "sid": 3540430,
+      "state": "S",
+      "nice": 10,
+      "threads": 1,
+      "uid_line": "Uid:\t1000\t1000\t1000\t1000",
+      "cmdline": "/data2/neural-shrimp/.venv/bin/python -B codex/certify-chaos/supervise.py --plan codex/certificate-ladder-task34/cascade-p3-assembly-001-plan.json --lane assembly --source fadb2e6d8b5ac5a5be05a68c38b03cc96f30ae3a ",
+      "limits": "Limit                     Soft Limit           Hard Limit           Units     \nMax cpu time              unlimited            unlimited            seconds   \nMax file size             unlimited            unlimited            bytes     \nMax data size             unlimited            unlimited            bytes     \nMax stack size            8388608              unlimited            bytes     \nMax core file size        0                    unlimited            bytes     \nMax resident set          unlimited            unlimited            bytes     \nMax processes             375398               375398               processes \nMax open files            65535                65535                files     \nMax locked memory         8388608              8388608              bytes     \nMax address space         1073741824           19327352832          bytes     \nMax file locks            unlimited            unlimited            locks     \nMax pending signals       375398               375398               signals   \nMax msgqueue size         819200               819200               bytes     \nMax nice priority         0                    0                    \nMax realtime priority     0                    0                    \nMax realtime timeout      200000               200000               us        \n"
+    },
+    {
+      "pid": 3540479,
+      "starttime": 231854289,
+      "pgid": 3540479,
+      "sid": 3540479,
+      "state": "R",
+      "nice": 10,
+      "threads": 1,
+      "uid_line": "Uid:\t1000\t1000\t1000\t1000",
+      "cmdline": "/data2/neural-shrimp/.venv/bin/python -I -B /home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/certificate-ladder-task34/assembly_core.py --card /home/d7082791602/.codex/worktrees/llm-hostile-fold-crosscheck/neural-shrimp/codex/certificate-ladder-task34/cascade-p3-assembly-001-card.json --out /data2/neural-shrimp-data/codex/certificate-ladder/assembly-cascade-p3-001 ",
+      "limits": "Limit                     Soft Limit           Hard Limit           Units     \nMax cpu time              3500                 3500                 seconds   \nMax file size             4294967296           4294967296           bytes     \nMax data size             unlimited            unlimited            bytes     \nMax stack size            8388608              unlimited            bytes     \nMax core file size        0                    unlimited            bytes     \nMax resident set          unlimited            unlimited            bytes     \nMax processes             375398               375398               processes \nMax open files            65535                65535                files     \nMax locked memory         8388608              8388608              bytes     \nMax address space         19327352832          19327352832          bytes     \nMax file locks            unlimited            unlimited            locks     \nMax pending signals       375398               375398               signals   \nMax msgqueue size         819200               819200               bytes     \nMax nice priority         0                    0                    \nMax realtime priority     0                    0                    \nMax realtime timeout      200000               200000               us        \n"
+    }
+  ],
+  "capacity": {
+    "available_ram_bytes": 42975948800,
+    "disk_free_bytes": 2667317559296,
+    "loadavg": [
+      10.658203125,
+      10.79296875,
+      13.43408203125
+    ]
+  },
+  "limits": {
+    "as_bytes": 19327352832,
+    "cpu_seconds": 3500,
+    "wall_seconds": 3600,
+    "output_bytes": 4294967296
+  },
+  "declared_powers": [
+    1,
+    2,
+    4,
+    8
+  ],
+  "certificate_passed": false
+}

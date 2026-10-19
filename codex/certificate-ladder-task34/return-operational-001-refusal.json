@@ -1,0 +1,30 @@
+{
+  "status": "closed_receiver_preflight_refusal",
+  "source": "0620347f376c679fe543c4f84cc2f9eabbb1a376",
+  "session": 91069,
+  "reaped_exit_code": 1,
+  "admitted_attempts": 0,
+  "extracted_outer_archive_count": 1,
+  "native_attempts_materialized": 0,
+  "refusal": "required import versions differ",
+  "reason": "Packet public Torch distribution2.14.1 versus original actual2.14.1+cu130; exact expected_backend already pins2.14.1+cu130. Receiver schema bug; original scientific inputs/results untouched.",
+  "artifacts": [
+    {
+      "path": "/data2/neural-shrimp-data/codex/certificate-ladder/return-cascade-p3-001/progress.json",
+      "sha256": "086069fb903803ac95c73bf9e6fd0e797d893cad0404ce1347532a0c5255c025"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/codex/certificate-ladder/return-cascade-p3-001/failure.json",
+      "sha256": "1dfcf3c6eb94b0741bdd904a82c8f15ae58952c6174d84563795526b761bbda3"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/codex/certificate-ladder/return-cascade-p3-001-supervision/admission.json",
+      "sha256": "36ec6e039a8963df5fb3d2d4949af93f612e2deadf2fed1ccccc4fe55bf3d82a"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/codex/certificate-ladder/return-cascade-p3-001-supervision/stderr.log",
+      "sha256": "4f7c2a26281e7ccb1993ad084c485ecafadbfbfe942cab6ff1bca304d4622eab"
+    }
+  ],
+  "next": "Separate reviewed receiver002, same4GiB/240CPU/360wall; no scientific rerun/repack."
+}
