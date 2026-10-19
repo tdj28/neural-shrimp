@@ -1,7 +1,7 @@
 {
- "scan": "llm-soft-loop/pod64/hr9",
- "cells": 262144,
- "chaotic": 154105,
+ "scan": "llm-soft-loop/pod64/hr10",
+ "cells": 409600,
+ "chaotic": 272496,
  "curves": [
   {
    "curve": "p6s-ad-curve-minus",
@@ -98,11 +98,35 @@
    "drawn": 118,
    "failed_gate": 0,
    "stop": "time limit (partial, rebuilt from progress.jsonl)"
+  },
+  {
+   "curve": "p6s-tu-fold-wide2-a",
+   "kind": "fold",
+   "points": 95,
+   "drawn": 95,
+   "failed_gate": 0,
+   "stop": "95 points"
+  },
+  {
+   "curve": "p6s-tu-fold-wide2-b",
+   "kind": "fold",
+   "points": 95,
+   "drawn": 95,
+   "failed_gate": 0,
+   "stop": "95 points"
   }
  ],
  "located_cusps": [
   {
    "locate": "locate-tu-minus-34",
+   "located": true
+  },
+  {
+   "locate": "locate-wide2-a-64",
+   "located": true
+  },
+  {
+   "locate": "locate-wide2-b-82",
    "located": true
   }
  ],

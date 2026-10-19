@@ -85,7 +85,7 @@ def pf_neighbours():
     return [(-1, -1), (-1, 0), (-1, 1), (0, -1), (0, 1), (1, -1), (1, 0), (1, 1)]
 
 
-def figure(fa, curves, located, out):
+def figure(fa, curves, located, out, closeup=None):
     import matplotlib
     matplotlib.use("Agg")
     import matplotlib.pyplot as plt
@@ -132,61 +132,103 @@ def figure(fa, curves, located, out):
     lims = (a1[jj.min()] - pad, a1[jj.max()] + pad, a2[ii.min()] - pad, a2[ii.max()] + pad)
     other = np.where(lab == 0, 1.0, np.nan)
 
-    # (a) the followed domain by period
-    P = np.where(lab == 1, per.astype(float), np.nan)
-    cats = pc.categorize([P])
-    axA.imshow(other, origin="lower", extent=ext, aspect="auto", cmap=ListedColormap(["0.88"]), interpolation="nearest")
-    im = axA.imshow(cats.index(P), origin="lower", extent=ext, aspect="auto", cmap=cats.cmap, norm=cats.norm,
-                    interpolation="nearest")
-    axA.imshow(np.where(lab == 2, 1.0, np.nan), origin="lower", extent=ext, aspect="auto", cmap=ListedColormap(["k"]),
-               interpolation="nearest")
-    axA.imshow(np.where(lab == 3, 1.0, np.nan), origin="lower", extent=ext, aspect="auto",
-               cmap=ListedColormap(["0.55"]), interpolation="nearest")
-    cats.colorbar(im, ax=axA, label="period of the followed attractor")
-    skeleton(axA, ms=10, lw=1.0)
-    # the fourth (lower-right) leg, too thin for the grid: center-line check (tools/leg_centerline.py, run LC)
-    legc = []
-    for f in sorted((DATA / "explore/llm-soft-loop/pod64/leg").glob("lower-right-*/leg.json")):
-        legc += [r for r in json.loads(f.read_text())["cells"] if r["role"] == "centre"]
-    mem = [r for r in legc if r["label"] in (1, 2, 3)]
-    handles = [Patch(color="k", label="chaos behind the text"),
-               Patch(color="0.55", label="no period, exponent < 0.005"),
-               Patch(color="0.88", label="attractor lost")]
-    if legc:
-        axA.plot([r["alpha1"] for r in mem], [r["alpha2"] for r in mem], "o", ms=2.4, mfc="#1f77b4", mec="white",
-                 mew=0.3, zorder=8)
-        non = [r for r in legc if r["label"] not in (1, 2, 3)]
-        if non:
-            axA.plot([r["alpha1"] for r in non], [r["alpha2"] for r in non], "x", color="red", ms=4, zorder=8)
-        handles.append(Line2D([], [], marker="o", ls="", ms=3.5, mfc="#1f77b4", mec="white",
-                              label=f"fourth leg, center line:\nperiod-5 family ({len(mem)}/{len(legc)})"))
-    axA.legend(handles=handles, fontsize=6.0, loc="lower right")
-    for txt, xy, xyt in [("body", (-0.1193, 0.1006), (-0.1172, 0.0985)),
-                         ("leg", (-0.1166, 0.1068), (-0.1160, 0.1040)),
-                         ("leg", (-0.1243, 0.0940), (-0.1222, 0.0930)),
-                         ("leg", (-0.1237, 0.1062), (-0.1222, 0.1072)),
-                         ("leg", (-0.11868, 0.0966), (-0.1168, 0.0972)),
-                         ("period-10 shell", (-0.1210, 0.1020), (-0.1222, 0.1048))]:
-        axA.annotate(txt, xy, xytext=xyt, fontsize=8, ha="center",
-                     arrowprops=dict(arrowstyle="-", color="k", lw=0.6), zorder=9)
-    axA.set_title("(a) the shrimp: domain of the period-5 attractor, followed cell by cell", fontsize=9)
+    if closeup is not None:
+        # (a) and (b) from the fine fixed-start map (run HP5): the window's family in gray by contraction, other
+        # periodic attractors pale, chaos by exponent; (b) adds the skeleton and the edge of the followed domain
+        from matplotlib.colors import LinearSegmentedColormap
+        c1, c2, clam, cper = closeup["alpha1"], closeup["alpha2"], closeup["lyapunov"], closeup["period"]
+        s1, s2 = float(c1[1] - c1[0]), float(c2[1] - c2[0])
+        cext = [c1[0] - s1 / 2, c1[-1] + s1 / 2, c2[0] - s2 / 2, c2[-1] + s2 / 2]
+        chaos = clam > 1e-3
+        fam = (cper > 0) & (cper % 5 == 0) & ~chaos
+        oth = (cper > 0) & (cper % 5 != 0) & ~chaos
+        pale = LinearSegmentedColormap.from_list("pale", ["#9db7c9", "#e6eef4"])
+        vmax = max(0.3, float(np.max(clam[chaos]))) if chaos.any() else 0.3
+        for ax in (axA, axE):
+            ax.imshow(np.where(oth, np.clip(clam, -1.2, 0), np.nan), origin="lower", extent=cext, aspect="auto",
+                      cmap=pale, vmin=-1.2, vmax=0, interpolation="nearest")
+            ax.imshow(np.where(fam, np.clip(clam, -1.2, 0), np.nan), origin="lower", extent=cext, aspect="auto",
+                      cmap="gray", vmin=-1.2, vmax=0, interpolation="nearest")
+            imc = ax.imshow(np.where(chaos, clam, np.nan), origin="lower", extent=cext, aspect="auto", cmap="plasma",
+                            vmin=0, vmax=vmax, interpolation="nearest")
+        fig.colorbar(imc, ax=axE, fraction=0.046, label="chaotic cells: largest exponent")
+        skeleton(axE, ms=10, lw=0.9)
+        axE.contour(a1, a2, (lab >= 1).astype(float), levels=[0.5], colors="cyan", linewidths=0.8, zorder=5)
+        legc = []                        # the fourth (lower-right) leg's center line (run LC), as in the legacy panel
+        for f in sorted((DATA / "explore/llm-soft-loop/pod64/leg").glob("lower-right-*/leg.json")):
+            legc += [r for r in json.loads(f.read_text())["cells"] if r["role"] == "centre"]
+        mem = [r for r in legc if r["label"] in (1, 2, 3)]
+        if legc:
+            axE.plot([r["alpha1"] for r in mem], [r["alpha2"] for r in mem], "o", ms=2.0, mfc="#1f77b4", mec="white",
+                     mew=0.3, zorder=8, label=f"fourth leg, center line: period-5 family ({len(mem)}/{len(legc)})")
+            non = [r for r in legc if r["label"] not in (1, 2, 3)]
+            if non:
+                axE.plot([r["alpha1"] for r in non], [r["alpha2"] for r in non], "x", color="red", ms=4, zorder=8)
+            axE.legend(fontsize=6.5, loc="lower right")
+        axA.legend(handles=[Patch(color="0.35", label="period 5, 10, 20, 40 (gray: contraction)"),
+                            Patch(color="#c2d4e1", label="other periodic attractors")], fontsize=6.5, loc="lower right")
+        axA.set_title(f"(a) the shrimp from the fixed start, {clam.shape[1]} x {clam.shape[0]} float64 cells",
+                      fontsize=9)
+        axE.set_title("(b) with the verified skeleton; cyan: edge of the followed domain", fontsize=9)
+        for ax in (axA, axE):
+            ax.set_xlim(cext[0], cext[1])
+            ax.set_ylim(cext[2], cext[3])
+    else:
+        # (a) the followed domain by period
+        P = np.where(lab == 1, per.astype(float), np.nan)
+        cats = pc.categorize([P])
+        axA.imshow(other, origin="lower", extent=ext, aspect="auto", cmap=ListedColormap(["0.88"]), interpolation="nearest")
+        im = axA.imshow(cats.index(P), origin="lower", extent=ext, aspect="auto", cmap=cats.cmap, norm=cats.norm,
+                        interpolation="nearest")
+        axA.imshow(np.where(lab == 2, 1.0, np.nan), origin="lower", extent=ext, aspect="auto", cmap=ListedColormap(["k"]),
+                   interpolation="nearest")
+        axA.imshow(np.where(lab == 3, 1.0, np.nan), origin="lower", extent=ext, aspect="auto",
+                   cmap=ListedColormap(["0.55"]), interpolation="nearest")
+        cats.colorbar(im, ax=axA, label="period of the followed attractor")
+        skeleton(axA, ms=10, lw=1.0)
+        # the fourth (lower-right) leg, too thin for the grid: center-line check (tools/leg_centerline.py, run LC)
+        legc = []
+        for f in sorted((DATA / "explore/llm-soft-loop/pod64/leg").glob("lower-right-*/leg.json")):
+            legc += [r for r in json.loads(f.read_text())["cells"] if r["role"] == "centre"]
+        mem = [r for r in legc if r["label"] in (1, 2, 3)]
+        handles = [Patch(color="k", label="chaos behind the text"),
+                   Patch(color="0.55", label="no period, exponent < 0.005"),
+                   Patch(color="0.88", label="attractor lost")]
+        if legc:
+            axA.plot([r["alpha1"] for r in mem], [r["alpha2"] for r in mem], "o", ms=2.4, mfc="#1f77b4", mec="white",
+                     mew=0.3, zorder=8)
+            non = [r for r in legc if r["label"] not in (1, 2, 3)]
+            if non:
+                axA.plot([r["alpha1"] for r in non], [r["alpha2"] for r in non], "x", color="red", ms=4, zorder=8)
+            handles.append(Line2D([], [], marker="o", ls="", ms=3.5, mfc="#1f77b4", mec="white",
+                                  label=f"fourth leg, center line:\nperiod-5 family ({len(mem)}/{len(legc)})"))
+        axA.legend(handles=handles, fontsize=6.0, loc="lower right")
+        for txt, xy, xyt in [("body", (-0.1193, 0.1006), (-0.1172, 0.0985)),
+                             ("leg", (-0.1166, 0.1068), (-0.1160, 0.1040)),
+                             ("leg", (-0.1243, 0.0940), (-0.1222, 0.0930)),
+                             ("leg", (-0.1237, 0.1062), (-0.1222, 0.1072)),
+                             ("leg", (-0.11868, 0.0966), (-0.1168, 0.0972)),
+                             ("period-10 shell", (-0.1210, 0.1020), (-0.1222, 0.1048))]:
+            axA.annotate(txt, xy, xytext=xyt, fontsize=8, ha="center",
+                         arrowprops=dict(arrowstyle="-", color="k", lw=0.6), zorder=9)
+        axA.set_title("(a) the shrimp: domain of the period-5 attractor, followed cell by cell", fontsize=9)
 
-    # (b) the same domain by exponent: the dark spines
-    im2 = axE.imshow(np.where(lab == 1, lam, np.nan), origin="lower", extent=ext, aspect="auto", cmap="magma",
-                     vmin=-1.2, vmax=0.0, interpolation="nearest")
-    axE.imshow(np.where(lab == 2, 1.0, np.nan), origin="lower", extent=ext, aspect="auto",
-               cmap=ListedColormap(["#8fc1e3"]), interpolation="nearest")         # chaos: light blue, not dark
-    axE.imshow(np.where(lab == 3, 1.0, np.nan), origin="lower", extent=ext, aspect="auto",
-               cmap=ListedColormap(["0.55"]), interpolation="nearest")
-    axE.imshow(other, origin="lower", extent=ext, aspect="auto", cmap=ListedColormap(["0.88"]), interpolation="nearest")
-    fig.colorbar(im2, ax=axE, fraction=0.046, label="Lyapunov exponent (periodic attractor)")
-    skeleton(axE, ms=10, lw=0.8)
-    axE.legend(handles=[Patch(color="#8fc1e3", label="chaos behind the five-token text")], fontsize=6.5,
-               loc="lower right")
-    axE.set_title("(b) the same domain by exponent (dark: strongly contracting); white circle: the head", fontsize=9)
-    for ax in (axA, axE):
-        ax.set_xlim(lims[0], lims[1])
-        ax.set_ylim(lims[2], lims[3])
+        # (b) the same domain by exponent: the dark spines
+        im2 = axE.imshow(np.where(lab == 1, lam, np.nan), origin="lower", extent=ext, aspect="auto", cmap="magma",
+                         vmin=-1.2, vmax=0.0, interpolation="nearest")
+        axE.imshow(np.where(lab == 2, 1.0, np.nan), origin="lower", extent=ext, aspect="auto",
+                   cmap=ListedColormap(["#8fc1e3"]), interpolation="nearest")         # chaos: light blue, not dark
+        axE.imshow(np.where(lab == 3, 1.0, np.nan), origin="lower", extent=ext, aspect="auto",
+                   cmap=ListedColormap(["0.55"]), interpolation="nearest")
+        axE.imshow(other, origin="lower", extent=ext, aspect="auto", cmap=ListedColormap(["0.88"]), interpolation="nearest")
+        fig.colorbar(im2, ax=axE, fraction=0.046, label="Lyapunov exponent (periodic attractor)")
+        skeleton(axE, ms=10, lw=0.8)
+        axE.legend(handles=[Patch(color="#8fc1e3", label="chaos behind the five-token text")], fontsize=6.5,
+                   loc="lower right")
+        axE.set_title("(b) the same domain by exponent (dark: strongly contracting); white circle: the head", fontsize=9)
+        for ax in (axA, axE):
+            ax.set_xlim(lims[0], lims[1])
+            ax.set_ylim(lims[2], lims[3])
 
     # (c) the body over the continued orbit's trace
     z = np.load(DATA / "explore" / DSS / "grid.npz", allow_pickle=True)
@@ -231,6 +273,8 @@ def figure(fa, curves, located, out):
 def main():
     ap = argparse.ArgumentParser(description=__doc__.split("\n\n")[0])
     ap.add_argument("--fa", default="llm-soft-loop/pod64/fa/t-0.100")
+    ap.add_argument("--closeup", default=None, help="explore-relative folder with the stitched fine map (map.npz, run "
+                    "HP5): panels (a) and (b) are drawn from it instead of from the followed domain")
     ap.add_argument("--json")
     ap.add_argument("--out")
     args = ap.parse_args()
@@ -254,7 +298,8 @@ def main():
         Path(args.json).parent.mkdir(parents=True, exist_ok=True)
         Path(args.json).write_text(text + "\n")
     if args.out:
-        figure(fa, curves, located, args.out)
+        figure(fa, curves, located, args.out,
+               closeup=np.load(DATA / "explore" / args.closeup / "map.npz") if args.closeup else None)
 
 
 if __name__ == "__main__":
