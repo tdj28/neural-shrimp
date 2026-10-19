@@ -1398,9 +1398,11 @@ and the copies of one problem are not independent
 12) run twice from the same start, alone in a batch or followed by $n$ further rows with the steering vectors in
 reverse order. (a) float64: the relative
 distance between the two runs for every chaotic (red) and periodic (blue) cell, by the cells' float64 labels, with
-the medians and interquartile ranges of each label (dark) and the median of the 64 cells with neither label (gray). (b) Medians for
-float32 and bfloat16 batch layouts. (c) float64 chaotic cells: the step at which the distance passes $10^{-2}$ against
-$\ln(10^{-2}/d_1)/\lambda$, with $d_1$ the smallest nonzero distance in the run and $\lambda$ the map exponent; dotted, equality.}
+the medians and interquartile ranges of each label (dark) and the median of the 64 cells with neither label (gray); the
+chaotic runs separate to order one; the median periodic distance stays at the rounding level, with exceptions. (b) Medians for
+float32 and bfloat16 batch layouts; in bfloat16 both kinds separate within a few steps. (c) float64 chaotic cells: the step at which the distance passes $10^{-2}$ against
+$\ln(10^{-2}/d_1)/\lambda$, with $d_1$ the smallest nonzero distance in the run and $\lambda$ the map exponent (a
+retrospective comparison); dotted, equality.}
 \label{fig:repro}
 \end{figure}
 
@@ -3806,7 +3808,9 @@ proof of chaos. We call what the trajectory from a cell's fixed start settles on
 operational: it does not show that the set attracts initial conditions of positive measure, as Milnor's definition
 requires \cite{milnor1985concept}, and a long chaotic transient can carry a chaotic label \cite{grebogi1983crises}. A
 loop is at the edge of chaos when $|\lambda|\le0.1$. Maps draw the chaotic cells by this criterion: in color by their exponent where a map shows the exponent, in
-black where it shows periods or attractor text. Panels whose legend reads `Lyapunov $>$ 0.005' follow an older
+black where it shows periods or attractor text. Two figures color every cell whose exponent exceeds $10^{-3}$, also
+where a period is detected, as their captions state: the prompt maps (Figure~\ref{fig:prompts}) and the followed
+domain of the period-5 window (Figure~\ref{fig:realshrimp}). Panels whose legend reads `Lyapunov $>$ 0.005' follow an older
 convention that marks every cell whose exponent exceeds $0.005$, whether or not a period was found; on the five maps
 we redrew with the criterion, the two differ in at most $0.56\,\%$ of a map's cells. A $256^2$ map takes about 100 minutes on one H100 GPU in float64. Every cell starts from the same
 state, so where attractors coexist, a map shows the one whose basin contains that state. Labels are text, not

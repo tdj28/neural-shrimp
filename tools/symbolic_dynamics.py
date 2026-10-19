@@ -634,7 +634,7 @@ def plot_returnmaps(cells, zs, args, body):
         sv = z["return_projection"][c["row"], c["col"], jb, :, 0].astype(float)
         cs = z["word_cos"][c["row"], c["col"], jb + P::P][: len(sv) - 1]
         ax.scatter(sv[:-1], sv[1:], c=np.where(cs > 0, "tab:blue", "tab:red"), s=2, lw=0)
-        ax.set_title(f"({chr(104 + i)}) ({c['alpha']:.5f}, {c['log10_temperature']:.5f}), more than one turning point", fontsize=6.8)
+        ax.set_title(f"({chr(104 + i)}) ({c['alpha']:.5f}, {c['log10_temperature']:.5f})\nmore than one turning point", fontsize=6.8)
         ax.tick_params(labelsize=5.5)
         ax.set_xlabel(r"$s_n$", fontsize=6.5)
         if i == 0:
