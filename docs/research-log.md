@@ -31703,3 +31703,19 @@ nearly identical under protan vision.
     steering vectors (sha256 b630bb7b..., the pinned asset), the README and SHA256SUMS.
   - A paste-ready description is in neural-shrimp-data/zenodo/zenodo-description.txt.
   - A secret scan of the evidence is running; the first scan timed out unfinished and was redone.
+
+## 2026-10-20 03:08 UTC: Codex Task 40 assigned (human request): audit of the data since Task 39, then go/no-go for arXiv v1
+
+- Brief: /data2/CHECK_THESE.md (the Task 37 brief is archived as /data2/CHECK_THESE-2026-10-19.md).
+- Reference states: article bb42a82, repository c567545c, raw data. Output: codex/arxiv-gonogo2-task40/review.md.
+- Part A, the data since Task 39:
+  - answer-test audit and reset-test correction;
+  - DITCH, DITCH2D and DITCHFINE (GPU against the local bands);
+  - DELTA2D, recomputed independently;
+  - A and B as pseudo-crossings, and the cusp unfolding numbers;
+  - the synchronization table;
+  - the hook tip and the kite edge;
+  - the Zenodo package.
+- Part B: go/no-go on the article (changed sections, calibration after the two external reviews and consult 24,
+  figures, citations).
+- The article stays frozen during the review, apart from a possible DITCHFINE local-versus-GPU fix.
