@@ -31852,3 +31852,25 @@ nearly identical under protan vision.
   repository.
 - Codex Task 41 is assigned (brief in /data2/CHECK_THESE.md): the article's changes since Task 40b, a fresh-clone run
   of the README, and a public-release audit. Blog round 14 is running and will not be committed.
+
+## 2026-10-20 19:50 UTC: blog round 15: wording aligned with the submitted article (not committed)
+
+- Codex Task 41 is complete and adjudicated (`codex/release-audit-task41/`, commits 1f0f6206 and ed9c49ee).
+- A read-through of the draft post against the submitted article (b15a593) and the full report (`arxiv-v1`) found
+  eleven places where the post said more than the papers, or less precisely. No number was wrong. Fixed in the post:
+  - the opening's proof sentence: exactly one orbit passes through a chain of eight tiny boxes, and it is locally
+    attracting (the article's unique multiple-shooting root);
+  - a chaotic loop's state, not its text, never settles into a cycle;
+  - the dark lines of the stripe map are candidates for superstable curves;
+  - the passage integral's role in the two forecast stages (secondary, then primary);
+  - the status sentence: the full report is supplementary material to the article;
+  - the budget qualifier on the reasoning models' answer changes, in two more places;
+  - gray cells also include cells that neither test decides;
+  - the size-damping summaries carry the article's qualifier (not monotonically, and not in OLMo-2);
+  - the batch-separation timing is a retrospective comparison, and the 173-cell token count covers the last 500 steps;
+  - other small differences generically grow at the same rate (not "any difference ... in the same way");
+  - the basin sentence no longer promises work in progress.
+- provenance.json has 4,792 entries (one added, two re-anchored to the new wording). check_provenance.py and the site
+  build and checks pass on a scratch copy. index.md sha256 9b46ae0f..., provenance.json 3ca2be09...; backup in
+  neural-shrimp-data/blog-bundle-backup/before-round15. The post is not committed; it is published after the arXiv
+  announcement.
