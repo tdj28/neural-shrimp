@@ -31424,3 +31424,27 @@ nearly identical under protan vision.
     introduction and contributions updated.
 - **Explainer.** tools/plot_explainer_answers.py reads the -int receipts (47 -> 0.8). Its sentence checks still cite
   older article wording, so the explainer must be re-synced before release.
+
+## 2026-10-20 00:13 UTC: Fold section and cascade made readable; consult 23 applied; period-6 legs corrected (no new run)
+
+- **Article additions.**
+  - Fig. 15, a TikZ bottleneck diagram (figures/tikz-passage.tex) generated from the normal form with the network's
+    coefficients. The iterated map gives 71 iterates for a full passage at eps = 1e-5, and 144/74, 71/37, 34/18 and
+    14/7 at the four distances, the predictions of Table III.
+  - Tables III (passages), IV (three related comparisons of the passage fraction) and VI (cascade flips: orbit, next
+    modulus, ratio, deviation, from the report's tab:cascade156).
+  - Prospective tests and the cascade rewritten in short paragraphs, every number kept (checked by script).
+- **Consult 23** (fold section) executed and adjudicated: docs/consults/2026-10-19-fold-section/adjudication.md.
+- **Period-6 legs.** "A body and three long legs" came from the P6S-follow summary (this log, 01:20 UTC), which
+  counted the band along the lower fold curves as a leg. That band leads through a neck into a smaller, distorted
+  window at the lower right of Fig. 22(b). The follow's member cells (follow.npz) cover the body, the two legs that
+  leave it at the lower left, and that band. Article and report now say so, consistent with Fig. 21's caption (two
+  legs at the lower left). The fourth leg confirmed later by a centerline test belongs to the period-5 shrimp, which
+  only the report describes.
+- **Captions.**
+  - "(text)" removed everywhere.
+  - Fig. 21 states the classic one-dimensional skeleton of (a), with head H and tail T. The period-6 shrimp follows
+    the Type B pattern of Facanha, Oldeman and Glass (kite crossing kept; no loop at the head), and is called
+    Type-B-like because its lines are sign changes of the leading multiplier, not trace-zero curves.
+  - Fig. 14(d): label moved clear of the trajectory.
+- **Article now** 30 pages, 24 figures, 6 tables (commit ab667e8).
