@@ -1,0 +1,74 @@
+{
+  "schema": "task41-public-screen-attempt001-receipt-v1",
+  "status": "failed_candidate_cap_preserved",
+  "source": {
+    "path": "codex/release-audit-task41/public_blob_audit.py",
+    "bytes": 19225,
+    "sha256": "9571650c353eb45ae7ff911467a933952e40a9785bc5adaf2d15a0ff11565da0",
+    "public_checkpoint": "ecce37a39545a2d61f6b6e9250b836506c153c46"
+  },
+  "raw_output": {
+    "path": "/data2/neural-shrimp-data/scratch/audit-codex-1020b/public-findings-attempt001.json",
+    "bytes": 42441077,
+    "sha256": "efd16de96f9e3ea59f9262b52c9f46d5ea430c0efd45a2ccbcd6674bd60a235e",
+    "relocation": "Original output moved without changing its bytes; size and SHA256 checked after relocation. It is not a compact Git artifact."
+  },
+  "targets": {
+    "arxiv_v1": "1314528118ac1300c2cffd34fb60cfbfc67d2c82",
+    "frozen_head": "21272a7830d74fade1f6592af2a7b8189370ffad",
+    "cleanup": "e359312e339c8f2fda59f280e6d7f92d88c0552d"
+  },
+  "execution": {
+    "session": 44652,
+    "exit_code": 1,
+    "script_elapsed_seconds": 188.14687109412625,
+    "outer_timeout_seconds": 600,
+    "cpu_seconds": 300,
+    "address_space_bytes": 2147483648,
+    "nice": 10,
+    "numerical_thread_environment": 1,
+    "offline_environment": true,
+    "owned_timeout_pid": 2391980,
+    "owned_uv_pid": 2391981,
+    "owned_python_pid": 2392041,
+    "owned_pgid": 2391980,
+    "parent_wait_observed": true,
+    "host_post_reap_pid_and_group_absence_observed": true,
+    "shared_supervisor_session_closure_claimed": false,
+    "inspection_limit": "An initial sandbox process view did not show the host processes; that result was not treated as closure. Host execution subsequently observed the live owned identities and their post-reap absence."
+  },
+  "failure": {
+    "reported_category": "ValueError",
+    "reported_stage": "blob_screen",
+    "diagnosis": "The frozen source raises at its candidate-row cap. The saved result contains exactly 100000 rows. This source/output join supports candidate-cap exhaustion; no exception payload was serialized.",
+    "timeout_reported": false,
+    "original_source_rerun": false
+  },
+  "coverage": {
+    "complete": false,
+    "candidate_rows": 100000,
+    "category_counts": {
+      "dollar_numeric_candidate_may_be_math": 96976,
+      "monetary_context_candidate": 1651,
+      "personal_context_candidate": 1084,
+      "credential_bearer_literal_candidate": 189,
+      "contact_email_candidate": 77,
+      "license_provenance_marker": 17,
+      "off_limits_project_mention": 6
+    },
+    "skipped_rows": 20878,
+    "skipped_categories": {
+      "binary_inventory_only": 20761,
+      "over_per_blob_bound": 117
+    },
+    "cleanup_comparison_completed": false,
+    "commit_message_screen_completed": false,
+    "final_aggregate_counts_completed": false,
+    "history_limit": "The scan reached history after the target-tree pass, then stopped. The frozen script did not persist a complete scanned-blob inventory before failure, so exact historical coverage and an absence claim cannot be reconstructed from its final aggregate counts.",
+    "env_payloads_read": 0,
+    "content_snippets_emitted": false,
+    "credential_validity_tested": false,
+    "classification": "Heuristic candidates, not confirmed disclosures. Most retained rows are mathematical dollar notation."
+  },
+  "next_step": "A distinct source and allocation require Root review and checkpoint. Preserve this failed result; prioritize complete eligible frozen target trees and cleanup versions, aggregate mathematical candidates, and add numeric currency-key detection."
+}
