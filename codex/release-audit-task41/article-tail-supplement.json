@@ -1,0 +1,59 @@
+{
+  "article_commit": "b15a593676fa5ff3614b6bc1922fee514c08109b",
+  "original_evidence_preserved": "article-raw-evidence.json",
+  "original_record": {
+    "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/repro/h2cells/repro.json",
+    "bytes": 535407,
+    "sha256": "ea92d75f137159a0b1ce814a593cbeaa0593f1fb27353398538fe41e13f2590d"
+  },
+  "args": {
+    "model": "qwen0.5b",
+    "layer": 12,
+    "vectors": "llm-phase-map/vectors-l12",
+    "concept": "philosophy",
+    "cells_file": "docs/h2-horizon-cells.json",
+    "steps": 1500,
+    "tail": 500,
+    "compare": [
+      "batch64",
+      "batch32",
+      "precision",
+      "bf16"
+    ],
+    "threads": 8,
+    "device": "cuda",
+    "out": "llm-soft-loop/pod64/repro/h2cells"
+  },
+  "convention": "Count a cell if its original batch64 tail_disagreement_fraction is positive; source tools/repro_noise.py:113-126 defines this on the last args.tail steps.",
+  "groups": [
+    {
+      "label": "chaotic",
+      "total": 192,
+      "tail_mismatch_count": 173,
+      "full_horizon_mismatch_count": 176
+    },
+    {
+      "label": "periodic",
+      "total": 192,
+      "tail_mismatch_count": 7,
+      "full_horizon_mismatch_count": 9
+    },
+    {
+      "label": "other",
+      "total": 64,
+      "tail_mismatch_count": 10,
+      "full_horizon_mismatch_count": 12
+    }
+  ],
+  "limits": [
+    "Compact metadata count; saved token-agreement arrays were not reduced again.",
+    "Current interpretation source is pinned at the research arxiv-v1 tree; original producer commit is not authenticated by this record.",
+    "No rerun of the numerical audit, trajectories, model or old controls."
+  ],
+  "interpretation_source": {
+    "revision": "1314528118ac1300c2cffd34fb60cfbfc67d2c82",
+    "path": "tools/repro_noise.py",
+    "sha256": "9983d40ab98ec1fb976c5204c2863856ce848717b46e4ce05ca012025da51f9b",
+    "lines": "113-126"
+  }
+}

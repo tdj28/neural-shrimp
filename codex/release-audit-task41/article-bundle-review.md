@@ -59,8 +59,7 @@ unreadable table layout was found on the changed pages. Specific checks:
   bars; Table VI and the period-384 discussion are legible.
 - Figure 23 retains the numerical-evidence qualification.
 - Figure 25's rectangle refers to Figure 24(a), which is the correct
-  numbered figure in this submitted article. The brief's separate mention
-  of Figure 6 is not the reference printed in the submitted caption.
+  numbered figure in this submitted article.
 - Figure 26(b)'s title says “several turning points”; the surrounding
   discussion says “more than one.” This avoids the earlier single-turn
   description. Numerical interpretation is checked separately.
