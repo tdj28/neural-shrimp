@@ -45,7 +45,8 @@ computer-assisted proofs are those of the period-8 orbit of Table~\ref{tab:orbit
 period-2 and period-3 orbits at one parameter cell (rung 3, Appendix~\ref{sec:evidence}).
 
 \begin{abstract}
-Fed back through its own soft next-token distribution, as in Soft Thinking, a pretrained language model defines a
+Fed back through its own soft next-token distribution over the full vocabulary, a smooth full-distribution variant
+of Soft Thinking, a pretrained language model defines a
 discrete-time map with continuous states, whose dynamics can be mapped, predicted from derivatives at selected
 transitions and in places proved, and whose consequences for inference depend on the feedback architecture and the
 numerical regime. In Qwen2.5, OLMo-2 and Llama-3 models of 0.5B to 72B parameters, temperature and
@@ -81,7 +82,8 @@ answers beyond what the model's uncertainty about its first answer token predict
 tested designs we detect no edge-of-chaos advantage. The loop shows quantitative signatures of low-dimensional maps:
 late finite-order doubling ratios approach Feigenbaum's constant numerically (4.6688 against 4.6692, at the float64
 floor of the computation), periodic windows accumulate on folds with distances close to a $1/N^2$ law, passage times
-predicted in advance from fold normal forms came within one iterate of the return map in 42 of 48 cases at four new folds, over two frozen stages (the six
+predicted in advance from fold normal forms came within one iterate of the return map in 42 of 48 cases at four new folds, over two frozen stages (24 and 18 of
+24) (the six
 misses, at a period-6 fold, 3 to 5\,\% short), and interval arithmetic proves an attracting period-8 orbit and, at one parameter cell, two coexisting
 attracting orbits of periods 2 and 3. In the recurrent-depth model Huginn, a frozen test confirmed a predicted accuracy loss. The loop is not ordinary sampled
 generation.
@@ -476,9 +478,9 @@ any finite difference.}
 \paragraph{Where steering and temperature enter.} Temperature appears in \eqref{eq:gain} twice: explicitly, as the factor $1/T$, and inside $p$. As
 $T\to0$ the two pull in opposite directions and $p$ wins: where one token leads, $p$ concentrates on it, $\Sigma_p$
 vanishes faster than $1/T$ grows, and the readout factor tends to zero, so the loop approaches greedy decoding; only
-near ties between leading tokens does the factor grow, like $1/T$ (``High and low temperature'' below). In a two-token reduction with linear transport, the same inverse
-temperature multiplies a scalar coupling, and the product's critical value 2 separates the washout of a mixture from its takeover by one
-token \cite{backour2026mixture}. Steering does not appear in \eqref{eq:gain}: the vector $\alpha v$ is the same whatever the state $x$, so it has no
+near ties between leading tokens does the factor grow, like $1/T$ (``High and low temperature'' below). In Backour's unbiased two-token reduction with linear logit transport and a positive constant coupling, the inverse
+temperature rescales the coupling, and crossing the critical value 2 destabilizes the balanced mixture, so that one token
+takes over \cite{backour2026mixture}. Steering does not appear in \eqref{eq:gain}: the vector $\alpha v$ is the same whatever the state $x$, so it has no
 derivative of its own, and it changes $DF$ only by changing the quantities from which the two factors are computed. In the readout factor $\Sigma_p/T$,
 steering decides which tokens compete in $p$ and temperature decides how sharply: $\Sigma_p$ is large when the probability is
 spread over several tokens whose embeddings differ, and it tends to zero as the distribution concentrates on a single
@@ -513,7 +515,8 @@ Each step lowers this energy by at least half the squared length of the step. Al
 zero, so every point of the cycle is fixed. $F$ maps every state into the convex hull of the embeddings, where $V$ is
 bounded below, so the steps of every orbit must shrink to zero: every accumulation point of an orbit is a fixed point,
 and the strict descent of the energy rules out cycles of period above one and chaotic motion (an unstable fixed point can still have positive tangent
-exponents; and where fixed points are not isolated, an orbit need not converge to a single one). In models with tied
+exponents; and the descent estimate alone does not establish convergence to a single fixed point when fixed points are not
+isolated). In models with tied
 embeddings, such as Qwen2.5-0.5B, every cycle and every chaotic cell
 therefore depends on the network factor $J_{\tilde h}$ breaking this energy structure. With untied embeddings the
 network-free map $x\mapsto E^{\top}\operatorname{softmax}(Wx/T)$ has the derivative
@@ -1624,8 +1627,7 @@ $n(v_{\rm in})=[\arctan(|b|U/\kappa)-\arctan(|b|v_{\rm in}/\kappa)]/\kappa$ with
 passage approaches $\pi/\kappa$ only when $U\gg\sqrt{|a|\eps/|b|}$. The stable branch gives an independent estimate: extrapolating its multipliers
 through $(1-\mu)^2/(4(\alpha_c-\alpha))\to ab$ yields $123.1$ with a quadratic fit ($120.6$ with a linear one). An
 independent implementation of the forward map and solver recovers $\alpha_c$ to $6\times10^{-15}$ and $a$ to
-$3\times10^{-12}$. Its $b$, from nested automatic differentiation, is $-25.42846$; our finite-difference value
-differs from it by $2.2\times10^{-6}$ relatively, which is the finite-step bias of the difference table. The
+$3\times10^{-12}$. Its $b$, from nested automatic differentiation, is $-25.42846$; our finite-difference value differs from it by about $2.2\times10^{-6}$ relatively, which is the finite-step bias of the difference table. The
 resulting $ab=122.927$ leaves every passage prediction of Table~\ref{tab:passages} unchanged.
 
 \begin{figure}[H]
@@ -1681,8 +1683,11 @@ periodically, and bursts, short excursions out of the channel after which it is 
 $\eps^{-1/2}$ toward the fold \cite{hirsch1982theory};
 laminar is the fluid-dynamics term for the smooth stretches between turbulent bursts. Free trajectories re-enter the
 channel slightly upstream of the bottleneck's middle ($v\approx-3\times10^{-4}$ to $-7\times10^{-4}$, in the same
-oriented coordinate). From each measured entry point, the normal form predicts the natural laminar durations within
-4--8\% for $\eps\le10^{-4}$, and a natural passage lasts about 0.6 of the normal form's passage through the same channel from end to end. A window of
+oriented coordinate). From each measured entry point the normal form predicts the natural laminar durations: for complete phases, which stay
+within $|u|<3U$ and within 0.05 of the channel in the other directions, the median signed forecast error at the four
+offsets up to $\eps=10^{-4}$ lies between $-7.7\%$ and $-4.1\%$ (signed errors $-4.88$, $-4.08$, $-7.41$ and
+$-7.69\%$), although single phases differ by up to 71\%; on average a natural passage lasts 0.60 to 0.67 of the normal
+form's passage through the same channel from end to end. A window of
 period $p$ spends $N=(p-6)/2$ iterates of $G$ in the bottleneck, one for each ``is X'' pair it writes. We read each pair as one $G$-iterate in the bottleneck, as the texts suggest (the laps were not identified
 geometrically). For a channel much longer than the bottleneck a full passage takes about $\pi/\sqrt{ab\,\eps}$ iterates
 \cite{hirsch1982theory,strogatz1989predicted}, so a loop whose passage is
@@ -1747,7 +1752,9 @@ at period 30. So the law extrapolates, but one fixed reinjection point does not 
 points move with $\eps$ ($-3\times10^{-4}$ to $-7\times10^{-4}$).
 The exponent of the law is near 2, its prefactor empirical. Over the fold edges of periods 16 to 32 ($N=5$ to 13),
 $\ln(\alpha_N-\alpha_c)$ against $\ln N$ has slope $-2.00$, while a free fit of $C/(N+N_0)^{\gamma}$ with the offset
-$N_0$ also fitted is not well determined. The edges are located to within $2\times10^{-4}$ of their distances, so the misfits of 1 to 3\,\% of any such law are consistent with corrections to its asymptotic form rather than
+$N_0$ also fitted is not well determined. The estimated localization scales of the edges are about $2\times10^{-5}$ to $2\times10^{-4}$ of their distances
+(extrapolated locations for periods 16 to 20, and a uniform-within-cell error model for the grid boundaries of periods
+22 to 32), so the misfits of 1 to 3\,\% of any such law are consistent with corrections to its asymptotic form rather than
 noise: $\gamma$ runs from 2.13 to 2.45 as the smallest $N$ included rises from 5 to 8, while the fixed exponent 2 with an offset fits within 3\,\% (within 1\,\% from $N=8$), so the data do not pin the exponent to exactly 2. At these distances, however, the bottleneck is not narrow compared with
 the counting window: at the fold edges of periods 16 to 32 its scale $\sqrt{|a|\eps/|b|}$ is 1.35 to 3.51 times $U$, and a full passage lasts only 9 to
 23 iterates of $G$. The windows therefore lie outside the asymptotic regime in which the normal form fixes the
@@ -2597,15 +2604,16 @@ pocket of negative leading multiplier, with its peak near $(0.07326,-0.15232)$, 
 between that peak and the main ditch. The two pseudo-superstable lines thus meet below the kite's cusp C, as Gallas's
 superstable curves meet in his kite, and at the top they approach and turn away without crossing, a Type-B-like
 geometry \cite{facanha2013endoskeletons}. On both sides of every sign change the continued orbit is the same attracting
-period-6 orbit, with the six-token text of the seed and Newton residuals below $10^{-12}$; it is also the attractor
-that the map's fixed start reaches at all patch and line cells but two at the patch's edge, and on the coarse grid at
-44 of the 45 pairs and 6 of the 9 complex cells (the others, at the upper left, reach a coexisting attractor of period
-8, 16 or 32). What keeps the two lines apart was measured in run DELTA2D on four rented GPUs (\repo{tools/delta2d_analysis.py},
+period-6 orbit, with the six-token text of the seed and Newton residuals below $10^{-12}$; fixed-start scans at the nearest parameters find period six at all patch and line cells but two at the patch's edge,
+which are unresolved, and on the coarse grid at 44 of the 45 pairs and 6 of the 9 complex cells (the others, at the
+upper left, reach a coexisting attractor of period 8, 16 or 32). These are nearby parameters, not same-parameter
+full-state comparisons, so whether the fixed start reaches this very orbit was not checked at every continued point. What keeps the two lines apart was measured in run DELTA2D on four rented GPUs (\repo{tools/delta2d_analysis.py},
 \repo{docs/delta2d/analysis.json}; Figure~\ref{fig:delta2d}). A $27\times37$ grid over the top of the body (steps
 $10^{-5}$ in $\alpha$ and $2.5\times10^{-5}$ in $\log_{10}T$) gave 852 continued orbits, with the seed's six-token text,
 Newton residuals at most $1.0\times10^{-12}$ and the three leading Ritz vectors stored at every cell; the 147 unsolved
-cells lie in the corner beyond the fold. The two leading directions were followed outward from the best-separated cell,
-by the largest overlap of the two-dimensional spans (the mean squared cosine of their principal angles). On them the
+cells lie in the corner beyond the fold. A two-dimensional block of the monodromy, initialized from the leading Ritz directions at the best-separated cell, was
+tracked outward by subspace overlap, the largest mean squared cosine of the principal angles among the spans of two of
+the three stored Ritz directions (so the tracked pair is not always the two locally largest). On them the
 monodromy acts as a $2\times2$ block with trace $\tau$ and determinant $\delta$, and the eigenvalue of larger modulus,
 or the real part of a complex pair, has the sign of $\tau$. The sign of $\tau$ matches that of the leading multiplier in
 849 of the 852 cells (the other three are cells where the followed pair has mixed with a third direction); every one of
@@ -2942,9 +2950,8 @@ RLRRRLR & R & 48 & $(0.0731102, -0.1541080)$ & $+0.226$ & 5 & confirmed \\
 \centering
 \caption{The six located cusps of the period-6 window (float64), in the plane of $\alpha$ and $\log_{10}T$ (C: the cusp
 of the kite of Figure~\ref{fig:p6kite}; upper and lower 1, 2: pairs near the ends of the upper-left and lower-left legs;
-neck: at the tip of the small window beyond the neck): position, cubic coefficient $c$ and unfolding determinant. At
-each cusp the oriented coefficient $b\operatorname{sign}a$ falls from values between 2.4 and 39.2 at the bracketing curve
-points to at most $9.5\times10^{-5}$ in modulus, the critical multiplier equals $+1$ to within
+neck: at the tip of the small window beyond the neck): position, cubic coefficient $c$ and unfolding determinant. At each cusp the oriented coefficient $b\operatorname{sign}a$, of magnitude between 0.17 and 39.11 at the twelve
+bracketing curve points, falls to at most $9.5\times10^{-5}$ in modulus, the critical multiplier equals $+1$ to within
 $8.2\times10^{-9}$, and the next has modulus at most 0.74 (located by \repo{tools/cusp_locate.py}; records
 \texttt{p6s/locate-*} in the data store, with checksums in the research log).}
 \label{tab:p6cusps}
@@ -3241,8 +3248,8 @@ Qwen2.5-7B is chaotic at 21 and 20 of 24 temperatures, against 8 with one. In So
 every soft token stays visible, an early perturbation of $10^{-10}$ grows exponentially in the same model inside its
 one-token chaotic band. This does not hold in every model: in Qwen2.5-0.5B the growth moves to sharper distributions,
 outside its narrow one-token chaotic band, and Qwen2.5-72B stays nearly insensitive (Section~\ref{sec:sizemain}). Sampling is different. When the expected embedding is replaced by the mean of $m$ sampled
-token embeddings, the laminar phases of the bottleneck, 120 steps long in the exact map at the closest offset, last
-about 10.6 steps with $m=64$ and 7.7 with $m=8$, and with single samples essentially none remain. The deterministic
+token embeddings, the laminar phases of the bottleneck, 120 steps long in the exact map at the closest offset, last on average 10.5 steps with $m=64$ and 7.8 with $m=8$ (10.3 to 10.7 and 7.6 to 7.8 over the three offsets), and
+with single samples such phases become rare, one to three per offset. The deterministic
 intermittency belongs to the expected-embedding map; sampling noise turns the bottleneck into a noise-limited trap
 whose strength grows with $m$.
 
@@ -3720,9 +3727,9 @@ c^*=\tfrac12\bigl(1-e^{-\lambda_1}\bigr),
 \end{equation}
 where the mixing's contraction per step, $1-2c^*=e^{-\lambda_1}$, exactly cancels the loop's average stretching per
 step, $e^{\lambda_1}$. For couplings between $c^*$ and $1/2$ (and, by the symmetry $c\to1-c$, up to $1-c^*$) typical transverse
-perturbations decay along the synchronized orbit: the transverse-stability condition for identical chaotic systems
-coupled in this way \cite{fujisaka1983stability}; see \cite{pecora1990synchronization} for synchronization of chaotic
-systems more broadly. This local, typical-orbit condition need not imply synchronization from every start: other
+perturbations decay along the synchronized orbit: the transverse-stability condition for our symmetric output coupling, derived above; it follows the
+Lyapunov-stability framework of Fujisaka and Yamada \cite{fujisaka1983stability}, and \cite{pecora1990synchronization}
+treats synchronization of chaotic systems more broadly. This local, typical-orbit condition need not imply synchronization from every start: other
 invariant sets inside the attractor may be transversely unstable at the same coupling, and it says nothing about which
 attractor a pair reaches. Near
 $c^*$ the theory predicts on-off intermittency: long synchronized stretches broken by bursts, with stretch lengths
@@ -3760,7 +3767,7 @@ batch give outputs that differ by up to $9\times10^{-16}$ relative, a plausible 
 not isolated. Synchronized copies write the same text (the most probable token at each step), and their texts sample
 the single loop's attractor. Below $c^*$, many pairs
 instead locked onto periodic orbits of the joint state (periods 6 to 12, verified to close within $2.2\times10^{-13}$),
-on which the two copies write different or staggered texts. In the first cell, starts far from the attractor often synchronized onto a second attractor of the single loop, an
+on which the two copies write different or staggered texts. In the first cell, some starts far from the attractor synchronized onto a second attractor of the single loop, an
 attracting 2-cycle ``it is'', and two far-start pairs at $c=0.14$ and 0.20, above that cell's $c^*$, settled on
 periodic orbits of the joint state without synchronizing.
 
@@ -3770,8 +3777,7 @@ periodic orbits of the joint state without synchronizing.
 synchronize and the smallest from which all larger tested couplings did, $(c_{\rm lo},c_{\rm hi}]$
 (\repo{docs/sync/sync-summary.json}). Near starts: copy~B at relative distance $10^{-3}$ from copy~A; far starts:
 copy~B 500 steps further along the attractor. Criterion: the relative difference stays below $10^{-8}$ or $10^{-6}$
-throughout the last 500 steps. $^{*}$A smaller tested coupling also synchronized. $^{\dagger}$Most pairs synchronized
-onto a coexisting period-2 orbit of the single loop.}
+throughout the last 500 steps. $^{*}$A smaller tested coupling also synchronized. $^{\dagger}$Synchronized pairs here include pairs locked onto a coexisting period-2 orbit of the single loop.}
 \label{tab:sync}
 \begin{tabular}{lccc}
 \toprule
@@ -3890,7 +3896,8 @@ object & requires & we show & status \tabularnewline
 \raggedright \textbf{fold} & \raggedright one multiplier at $+1$; nonzero coefficients $a$ and $b$ & \raggedright both at the period-2 fold, where a stable and an unstable orbit meet; passage times forecast at four more folds & \raggedright shown \tabularnewline
 \raggedright \textbf{flip} & \raggedright one multiplier at $-1$; nonzero crossing speed and cubic coefficient & \raggedright multiplier at $-1$ and the doubled orbit at every level of the cascade; cubic coefficient only at two other flips & \raggedright partly shown \tabularnewline
 \raggedright \textbf{cusp} & \raggedright $+1$ with $b=0$, $c\neq0$ and a regular unfolding & \raggedright all three at the kite's cusp C and at five more cusps & \raggedright shown \tabularnewline
-\raggedright \textbf{pseudo-superstable line} & \raggedright the leading multiplier changes sign without vanishing & \raggedright the ditches are the zero curves of the trace of the leading two-dimensional block; a saddle of the trace keeps two of them apart & \raggedright shown \tabularnewline
+\raggedright \textbf{pseudo-superstable line} & \raggedright the leading multiplier changes sign without vanishing & \raggedright on the sampled patch the ditches follow the zero curves of the trace of a tracked two-dimensional block, and a saddle
+of the trace keeps two of them apart & \raggedright shown numerically on the patch \tabularnewline
 \raggedright \textbf{fold--flip point} & \raggedright one orbit with $+1$ and $-1$ at once & \raggedright none at A or B & \raggedright none found \tabularnewline
 \raggedright \textbf{pseudo-crossing} & \raggedright curves of two different orbits cross & \raggedright two distinct orbits at R; different spectra at A and B & \raggedright shown \tabularnewline
 \raggedright \textbf{Feigenbaum ratio} & \raggedright ratios approach the constant of a universality class & \raggedright ratios reach 4.6688, against $\delta=4.6692$ & \raggedright consistent \tabularnewline

@@ -31741,3 +31741,19 @@ nearly identical under protan vision.
 - Personal data: 4503 small text files contain absolute paths under /home/d7082791602/.codex/worktrees/ (Codex's
   working copies), which show the system username and folder names only. They are left unchanged, because the
   receipts are hash-bound.
+
+## 2026-10-20 03:58 UTC: Codex Task 40 applied (GO WITH FIXES); third external review triaged; bibliography resolver pass
+
+- Task 40 (codex/arxiv-gonogo2-task40/review.md): 9 must-fix, 7 should-fix and 1 note, all accepted. Adjudication in
+  codex/arxiv-gonogo2-task40/adjudication.md. The article fixes are in e300c8e; the report is mirrored.
+- Codex independently reproduced the DELTA2D trace saddle and the zero-set counts, and confirmed the DITCHFINE local
+  versus GPU agreement (6.554e-12).
+- Third external review (human-supplied, advisory). The human set aside its point about the arxiv-v1 tag, which comes
+  at submission.
+  - Applied: reference 17 venue (verified against ICML 2026's pages); the 42/48 result by stage; breadth versus depth.
+  - Already in place or ongoing: the proof's trust boundary (paragraph); the Zenodo archive of the certificate evidence
+    (DOI reserved); the finite-horizon definition of chaos (abstract and introduction).
+  - Suggested to the human, not done: a DOI-backed archive of the core data behind the headline tables; a release
+    verification receipt (test run against the tagged commit); restoring hosted CI.
+- Bibliography resolver pass (tools/bib_resolve.py, docs/bib/resolver-2026-10-20.*): all 84 cited entries resolve,
+  with no metadata mismatch beyond accents and subtitles. The four entries without identifiers need a manual check.
