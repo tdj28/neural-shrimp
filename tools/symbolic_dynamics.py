@@ -580,13 +580,13 @@ def cmd_returnmaps(args):
 
 def plot_returnmaps_compact(one, two, zs, args):
     """Single-column version: one cell whose return map has one turning point (the cleanest and most chaotic) and
-    one below the kite with two (the first of the full figure's (h)-(k))."""
+    one with more than one (the first of the full figure's (h)-(k), a cell beside the body's left flip curve)."""
     import matplotlib
     matplotlib.use("Agg")
     import matplotlib.pyplot as plt
     P = args.period
     fig, axs = plt.subplots(1, 2, figsize=(3.4, 1.75))
-    for ax, (c, jb), title in ((axs[0], one, "(a) one turning point"), (axs[1], two, "(b) two, below the kite")):
+    for ax, (c, jb), title in ((axs[0], one, "(a) one turning point"), (axs[1], two, "(b) several turning points")):
         z = zs[c["band"]]
         s = z["return_projection"][c["row"], c["col"], jb, :, 0].astype(float)
         cos = z["word_cos"][c["row"], c["col"], jb + P::P][: len(s) - 1]

@@ -674,7 +674,7 @@ map's label (purple); dotted: 95\,\%.}
 \includegraphics[width=\linewidth]{fig-mechanism-summary.png}
 \caption{Readout and network contributions to the growth under steering: the three measurements of this section
 (Qwen2.5-0.5B-Instruct unless marked 7B, float64). Orange: the readout factor $\Sigma_p/T$ of \eqref{eq:gain};
-blue: the network factor $J_{\tilde h}$. (a) Gain split along the attractors of the block-12 map: mean logarithm per step of the relative gains of the text (gains along the tangent direction, not
+blue: the network factor $J_{\tilde h}$. (a) Gain split along the attractors of the block-12 map: mean logarithm per step of the relative gains defined in the text (gains along the tangent direction, not
 operator norms), the network gain $g_{\mathrm{net}}$ (top, blue squares) and the readout gain $g_{\mathrm{read}}$
 (bottom, orange circles), for chaotic cells (solid lines, filled markers; chosen by their dynamics, at any steering
 strength) and for the nearly unsteered cells, $|\alpha|\le0.01$ (dashed lines; chosen by steering strength alone, whatever their dynamics, and
@@ -1879,12 +1879,13 @@ and $[4.019,4.101]$. $s_6$ is less precise still, and $s_3$ was not bracketed.
 \caption{Finite-order interval ratios of the doubling sequences: the crescent of Qwen2.5-0.5B-Instruct (philosophy
 direction, layer 12), from flips and from superstable points (which reach period 768), and the route of Qwen2.5-1.5B
 (philosophy direction, layer 14; Figure~\ref{fig:qwen15route}), from flips. A superstable ratio spans half-bands, so
-it is plotted half a level after the flip ratio of its first band. Bars: worst-case ranges from the brackets of
+it is plotted half a level after the flip ratio of its first band; level $n$ carries the ratio of the $n$th to the $(n+1)$th band,
+$\delta_{n+1}$ in the notation of the text and Table~\ref{tab:cascade}. Bars: worst-case ranges from the brackets of
 $s_{12}$ and $s_{24}$. At $\log_{10}T=-0.148$, and in the 1.5B model, the ratios rise toward Feigenbaum's $\delta$ from below; the
 last superstable ratio at $-0.148$ is within 0.21\,\% of it, and the last 1.5B ratio ($4.665$) within 0.1\,\%. At $\log_{10}T=-0.156$ the first ratio, $14.9$, lies off the scale
 (arrow), and the later ratios approach $\delta$ from below, the last ($4.6688$) within $0.008\,\%$ of it, and within $0.015\,\%$ over the location uncertainty of the period-384 flip. Its first two
 superstable ratios carry no bars: the brackets of $s_{12}$ and $s_{24}$ allow $[3.40,29.3]$ and $[1.01,4.65]$. Each
-sequence ends at the deepest level computed: the flips at $-0.148$ at period 384, the superstable points at period 768, the 1.5B route at period 256, and the cut at
+sequence ends at the deepest level computed: the flips at $-0.148$ at period 384, the superstable points at period 768 at $-0.148$ and at period 384 at $-0.156$, the 1.5B route at period 256, and the cut at
 $-0.156$, which we followed furthest, at the $768\to1536$ flip.
 }
 \label{fig:feigenbaum}
@@ -2719,7 +2720,7 @@ coordinate: one point of each orbit, a vector of 896 numbers, centered over the 
 in which these points vary most, their first principal component. Inside the kite, the straight edge where the gray changes abruptly (near $\log_{10}T=-0.15353$) is a basin boundary
 of the fixed start, not a bifurcation, where we checked it: at two neighboring cells across it both attracting
 period-6 orbits exist (leading multipliers $0.18$ and $0.60$ to $0.61$), the fixed start reaches one above the edge
-and the other below (\repo{tools/kite_basin_check.py}), and at one steering strength the start on the edge lies on
+and the other below (\repo{tools/kite_basin_check.py}), and at one steering strength, by strong numerical evidence, the start on the edge lies on
 the stable manifold of a saddle orbit between them (Figure~\ref{fig:hooktheory}).}
 \label{fig:p6kite}
 \end{figure*}

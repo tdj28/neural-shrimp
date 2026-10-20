@@ -31792,3 +31792,45 @@ nearly identical under protan vision.
 - The agent found the report's "Bridge to sampled decoding" appendix still carrying the pre-F17 numbers. It is
   corrected in 91e04a71 (10.3-10.7 and 7.6-7.8 steps; single-sample phases rare, one to three per offset). The channel
   fractions 57, 38 and 11 % are unaudited and kept.
+
+## 2026-10-20 16:13 UTC: final pre-submission review of the article; Zenodo dropped from the papers; explainer sources out of the repository
+
+- The author's edits (article 434c1fb) were checked against the receipts: 38 of 852 cells have tracking overlap below
+  0.9 and the sign of the trace matches the leading multiplier in 849 of 852 (docs/delta2d/analysis.json). Two small
+  fixes followed (de3b5f6): the Fig. 25 rectangle is refined relative to the orange patch of Fig. 24(a), and the last
+  sentence says the dynamics are not confined to one family of models. The commit message of de3b5f6 calls that
+  figure "Fig. 6(a)"; it is Fig. 24(a).
+- Zenodo (human): the record will not be ready in time, so neither paper cites it. Data Availability now says the
+  interval-arithmetic certificates are in the repository (verification code, exact inputs, release records and
+  evidence hashes); the repository will link the full evidence later (article 87751fc, report 33c8c19a; blog edited,
+  not committed).
+- Final proofreading: three independent readers covered the whole article. Each finding was checked against the
+  source and data before it was applied (article b15a593):
+  - abstract split at the factorization, with "In one model studied in detail" (author);
+  - the 7936 cells described as a sample of the two maps;
+  - the kite sentence repaired (C lies on the side of R toward the body; the fold curve's two branches meet the flip
+    curves);
+  - Fig. 26(b): its cell lies beside the body's left flip curve, not below the kite, and the panel shows more than one
+    turning point (two robust, three at the finer binning);
+  - spectra no longer "only" at the three coupling cells, since Sec. VI also gives the attractor's;
+  - Fig. 23 caption hedged as strong numerical evidence;
+  - the cascade text names the period-384 flip, as Table VI does;
+  - the Fig. 17 caption gives the level offset (level n carries delta_(n+1)), the -0.156 superstable series ending at
+    period 384, and the bars that are left out;
+  - window positions follow a scaling law that the normal form motivates;
+  - the crawl cites Figs. 14(c) and 15(b);
+  - a comma, "gains defined in the text", and the journal-version \smref comment.
+  - The message of b15a593 calls the Feigenbaum figure "Fig. 18"; it is Fig. 17.
+- Two findings were rejected:
+  - "60 float32 steps": the median exponent 0.30 is the tangent exponent over the same 60 float32 steps
+    (tools/plot_norm_bounds.py).
+  - A fourth family: the dense Qwen3.5 4B and 9B models are a separate check, not among the fifteen swept models.
+- Fig. 26 was redrawn with the recorded command (record llm-soft-loop/pod64/sd/returnmaps-compact-cvd-titlefix). Only
+  the title strip changed (rows 6 to 33 of 507).
+- Explainer (human: no explainer-video material in this repository): 26 tracked files are untracked and ignored
+  (950f9902). A verified copy is in ../neural-shrimp-data/explainer-source (MANIFEST.sha256). The files remain in the
+  history before 950f9902.
+  - The morph renderer, morph vectors, their test and docs/morph-video-receipt.json stay: they make the article's
+    rotation figure.
+- Article state: 34 pages, 27 figures, 8 tables; no overfull boxes or undefined references; no float moved. The
+  abstract is 1,556 ASCII characters.
