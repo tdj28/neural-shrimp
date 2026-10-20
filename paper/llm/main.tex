@@ -3663,10 +3663,11 @@ soft token and a fraction $c$ of the other's,
 \begin{equation}
 x_A'=(1-c)F(x_A)+cF(x_B),\qquad x_B'=(1-c)F(x_B)+cF(x_A).
 \end{equation}
-The state where both copies agree, $x_A=x_B$, is then invariant, and on it each copy runs the single loop. The
-difference $u=x_A-x_B$ evolves exactly as $u'=(1-2c)\,[F(x_A)-F(x_B)]$, which near synchrony linearizes to
-$u'=(1-2c)\,DF\,u$, so a small difference grows at the rate $\lambda_\perp=\lambda_1+\ln|1-2c|$, where $\lambda_1$ is
-the leading Lyapunov exponent of the single loop. Along the synchronized orbit, typical transverse perturbations
+The state where both copies agree, $x_A=x_B$, is then invariant, and on it each copy runs the single loop. The difference $u=x_A-x_B$, which points across the synchronized state (transverse to it), evolves exactly as
+$u'=(1-2c)\,[F(x_A)-F(x_B)]$, which near synchrony linearizes to $u'=(1-2c)\,DF\,u$. At each step the loop's
+derivative stretches the difference, on average by the factor $e^{\lambda_1}$, where $\lambda_1$ is the leading
+Lyapunov exponent of the single loop, and the mixing multiplies it by $1-2c$. A small difference therefore grows on
+average at the rate $\lambda_\perp=\lambda_1+\ln|1-2c|$ per step, the transverse Lyapunov exponent. Along the synchronized orbit, typical transverse perturbations
 therefore decay when $\lambda_\perp<0$, which for $0\le c\le1/2$ means $c>c^*=(1-e^{-\lambda_1})/2$
 \cite{fujisaka1983stability,pecora1990synchronization}. This local condition need not imply synchronization from
 every start. Near
@@ -3702,6 +3703,15 @@ Synchronized copies write the same text, and their texts sample the single loop'
 instead locked onto periodic orbits of the joint state (periods 6 to 12, verified to close within $2.2\times10^{-13}$),
 on which the two copies write different or staggered texts. In the first cell, starts far from the attractor often
 synchronized onto a second attractor of the single loop, an attracting 2-cycle ``it is''.
+
+The number that measures the loop's chaos, its largest Lyapunov exponent, thus also predicts how two coupled copies
+behave: the difference between them grows at the predicted rate at every coupling, and in two of the three cells the
+copies lock together close to the predicted threshold. The more chaotic each copy is alone, the more strongly the two
+must mix their outputs before they write the same text: the predicted threshold rises from 0.046 in the weakest chaos to
+0.177 in the strongest, and the observed thresholds rank the same way. The prediction concerns a typical orbit and does
+not guarantee synchrony from every start: near the threshold the copies alternate between long synchronized stretches
+and bursts, and in one cell rounding alone broke synchrony above the threshold. Weak coupling, instead of synchrony,
+often produced order, a periodic exchange on which the copies write different texts.
 
 The coupled-agents check of Appendix~\ref{sec:behaviour} differs in one essential way: there the contexts grow, so the
 two agents are not two copies of a fixed map, and at $c=0.25$ they barely synchronized although $c=0.25$ exceeds $c^*$

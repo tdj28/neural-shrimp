@@ -31520,3 +31520,44 @@ nearly identical under protan vision.
   stripes". docs/e2e/lyap-cells.json records them as the crescent's chaotic core, the stripe sea and the stripes just
   past the 2-cycle fold, so none lies in the band. Both documents now say one cell lies in the crescent's chaotic core
   and two among the chaotic stripes.
+
+## 2026-10-20 01:15 UTC: DITCHFINE GPU results (exploratory): ten times finer, the dim top ditch still has no sign change; the valley floor runs diagonally toward the main ditch
+
+- **Runs.** Two A100 pods at commit 21d28c18 (job set dss, --multipliers-only), 00:50 to 01:11 UTC, each terminated by
+  its orchestrator and absent from the inventory. Raw data: pod64/dss/ditchfine-g0 (8 x 15 cells), ditchfine-g1
+  (7 x 15). grid.npz SHA-256: g0 2f2870571621ab2a3a0058cfbc1eb969626f5a036cc210a06b49042302137106,
+  g1 606e8ff8ce7fc69493e4fa8c30363d91fb539c0ec8e9311b0c953df791e95f42.
+- **Grid.** alpha 0.0731674 to 0.0731926 (15 columns, 1.8e-6 apart) by log10 T -0.152048 to -0.151992 (15 rows, 4e-6
+  apart): ten times finer than DITCH2D, centered on line A's lowest point.
+- **Gates (every cell read).**
+  - 225 of 225 cells solved; Newton residuals at most 8.4e-13.
+  - All cells have the seed's token sequence; transport cosines are at least 0.9908.
+  - No cell has a complex leading multiplier.
+  - The clean flag (|mu_1| > 10 |mu_2|) is false everywhere, as on line A: the leading multiplier is small here.
+    It is at least 3.07 times the next modulus in every cell.
+- **Result.**
+  - The leading multiplier is real and positive in all 225 cells, 0.05658 to 0.07467; the next modulus is at most 0.02257.
+  - At alpha 0.0731800 (column 7) the minimum over log T is 0.06381 at -0.152028. Line A has 0.06384 at -0.15202, so
+    the two agree where they meet.
+  - In every row the minimum is in the leftmost column, and the patch minimum, 0.05658, lies at its upper-left corner
+    (alpha 0.0731674, log10 T -0.151992). The slope is +712 per unit alpha along the top row.
+- **Context from DITCH2D** (the 21 x 32 patch at 1.8e-5 by 4e-5, sign map read cell by cell):
+  - The main ditch is the line of complex leading pairs on the left, rising from (0.07300, -0.1526) to (0.07311, -0.1519).
+    Above that it is a direct real sign change at alpha 0.07313 to 0.07314.
+  - The arc is the dome of a negative pocket at the lower right, with its peak near (0.07325 to 0.07329, -0.15234).
+  - The dim ditch is a channel of small positive values (below 0.07) joining the arc's upper-left flank to the main
+    ditch's top. Its floor, as local minima along log T, is 0.0675, 0.0638, 0.0515 and 0.0327 at alpha 0.07320,
+    0.07318, 0.07316 and 0.07314: it falls toward the main ditch.
+  - Line A's minimum is therefore where line A crosses the channel, not the lowest point of the channel. Whether the
+    channel's floor has a maximum (a pass) between the two zero lines is for DELTA2D, whose grid covers it.
+- The three local CPU bands of DITCHFINE are still running as an independent check of these numbers.
+
+## 2026-10-20 01:15 UTC: DELTA2D amendment 1 (before any DELTA2D data)
+
+- Context: DITCH2D's sign map (previous entry) shows the dim ditch as a channel joining the two zero lines.
+- tools/delta2d_analysis.py will report every critical point of delta, and of the real leading multiplier mu_1, whose
+  5 x 5 quadratic fit has its stationary point within 0.75 cells of the window's center. This replaces the single
+  smallest-gradient cell, which could pick a flat region away from the channel.
+- Each critical point is reported with its value, the signs of its Hessian eigenvalues and the fit residual.
+- The readings of the run card are unchanged. A saddle of mu_1 at a positive value in the channel would be the
+  scalar form of "approach and turn away": a minimum across the channel and a maximum along it.

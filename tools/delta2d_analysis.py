@@ -10,10 +10,10 @@ angles) with the parent's tracked span is taken. Overlaps below 0.9 mark cells w
 direction.
 
 Reported: tau and delta of the tracked block on the grid; the sign changes of delta between neighbouring cells, and of
-the real leading multiplier (the measured ditches); the critical point of delta between them, from a least-squares
-quadratic fit over a 5 x 5 neighbourhood of the cell of smallest gradient, with the signs of the Hessian's eigenvalues
-(a saddle has one of each) and the value of delta there; and a coupling measure, the off-diagonal product of the block
-in a basis transported from the start cell against the squared half-difference of its diagonal entries.
+the real leading multiplier (the measured ditches); and every critical point of delta (tracked cells with overlap at
+least 0.9) and of the real leading multiplier mu_1: cells whose least-squares quadratic fit over the 5 x 5 window
+centered on them has its stationary point within 0.75 cells of the center, with the value there, the signs of the
+Hessian's eigenvalues (a saddle has one of each) and the fit residual (DELTA2D amendment 1).
 
 Usage: python tools/delta2d_analysis.py --bands llm-soft-loop/pod64/dss/delta2d-d0 ... --json docs/delta2d/analysis.json
 """
@@ -75,6 +75,40 @@ def overlap(Q1, Q2):
     return float(np.mean(s ** 2))
 
 
+def critical_points(field, valid, al, lt, reach=0.75):
+    """Cells whose 5 x 5 quadratic fit (cell units) has its stationary point within `reach` cells of the center."""
+    nt, na = field.shape
+    ii, jj = np.meshgrid(np.arange(-2, 3), np.arange(-2, 3), indexing="ij")
+    A = np.stack([np.ones(25), ii.ravel(), jj.ravel(), ii.ravel() ** 2, ii.ravel() * jj.ravel(), jj.ravel() ** 2], axis=1)
+    out = []
+    for i in range(2, nt - 2):
+        for j in range(2, na - 2):
+            blk, ok = field[i - 2:i + 3, j - 2:j + 3], valid[i - 2:i + 3, j - 2:j + 3]
+            if not (np.all(ok) and np.all(np.isfinite(blk))):
+                continue
+            coef = np.linalg.lstsq(A, blk.ravel(), rcond=None)[0]
+            H = np.array([[2 * coef[3], coef[4]], [coef[4], 2 * coef[5]]])
+            if abs(np.linalg.det(H)) == 0:
+                continue
+            x0 = np.linalg.solve(H, -coef[1:3])
+            if np.max(np.abs(x0)) > reach:
+                continue
+            ev = np.linalg.eigvalsh(H)
+            out.append({"cell": [int(i), int(j)], "alpha": float(al[j] + x0[1] * (al[1] - al[0])),
+                        "log10T": float(lt[i] + x0[0] * (lt[1] - lt[0])),
+                        "value": float(coef[0] + coef[1:3] @ x0 + 0.5 * x0 @ H @ x0),
+                        "hessian_eigenvalues_per_cell2": ev.tolist(),
+                        "type": "saddle" if ev[0] < 0 < ev[1] else ("minimum" if ev[0] > 0 else "maximum"),
+                        "residual_rms": float(np.sqrt(np.mean((A @ coef - blk.ravel()) ** 2))),
+                        "field_scale": float(np.ptp(blk)), "offset": float(np.max(np.abs(x0)))})
+    kept = []                                    # one entry per critical point: the window centered closest to it
+    for c in sorted(out, key=lambda c: c["offset"]):
+        if all(abs(c["alpha"] - k["alpha"]) > abs(al[1] - al[0]) or abs(c["log10T"] - k["log10T"]) > abs(lt[1] - lt[0])
+               for k in kept):
+            kept.append(c)
+    return kept
+
+
 def main():
     ap = argparse.ArgumentParser(description=__doc__.split("\n\n")[0])
     ap.add_argument("--bands", nargs="+", required=True)
@@ -121,39 +155,19 @@ def main():
     match = {"delta_zero_pairs": len(dz), "leading_sign_change_pairs": len(mz),
              "delta_pairs_within_one_cell_of_a_leading_change": int(sum(near(p, mz) for p in dz)),
              "leading_changes_within_one_cell_of_a_delta_pair": int(sum(near(p, dz) for p in mz))}
-    # critical point of delta: smallest discrete gradient among interior cells with a 5 x 5 tracked neighbourhood
-    gi, gj = np.gradient(delta)
-    gmag = np.hypot(gi, gj)
-    best, crit = np.inf, None
-    for i in range(2, nt - 2):
-        for j in range(2, na - 2):
-            blk = delta[i - 2:i + 3, j - 2:j + 3]
-            if np.all(np.isfinite(blk)) and np.all(ov[i - 2:i + 3, j - 2:j + 3] >= 0.9) and gmag[i, j] < best:
-                best, crit = gmag[i, j], (i, j)
-    fit = None
-    if crit is not None:
-        i, j = crit
-        ii, jj = np.meshgrid(np.arange(-2, 3), np.arange(-2, 3), indexing="ij")
-        A = np.stack([np.ones(25), ii.ravel(), jj.ravel(), ii.ravel() ** 2, ii.ravel() * jj.ravel(), jj.ravel() ** 2], axis=1)
-        coef = np.linalg.lstsq(A, delta[i - 2:i + 3, j - 2:j + 3].ravel(), rcond=None)[0]
-        H = np.array([[2 * coef[3], coef[4]], [coef[4], 2 * coef[5]]])
-        x0 = np.linalg.solve(H, -coef[1:3]) if abs(np.linalg.det(H)) > 0 else np.array([np.nan, np.nan])
-        val = coef[0] + coef[1] * x0[0] + coef[2] * x0[1] + 0.5 * x0 @ H @ x0
-        ev = np.linalg.eigvalsh(H)
-        fit = {"cell": [int(i), int(j)], "alpha": float(al[j]), "log10T": float(lt[i]),
-               "stationary_offset_cells": x0.tolist(), "delta_at_stationary_point": float(val),
-               "hessian_eigenvalues_per_cell2": ev.tolist(), "saddle": bool(ev[0] < 0 < ev[1]),
-               "residual_rms": float(np.sqrt(np.mean((A @ coef - delta[i - 2:i + 3, j - 2:j + 3].ravel()) ** 2)))}
+    real_mu = np.where(real_lead, mu, np.nan)
+    crit = {"delta": critical_points(delta, ov >= 0.9, al, lt), "mu1": critical_points(real_mu, real_lead, al, lt)}
     # coupling in a basis transported from the start along the tracking tree
     rec = {"grid": [int(nt), int(na)], "solved": int(good.sum()), "tracked": int(np.isfinite(delta).sum()),
            "start_cell": [int(start[0]), int(start[1])], "start_alpha": float(al[start[1]]), "start_log10T": float(lt[start[0]]),
            "mixing_cells_overlap_below_0.9": int(np.nansum(ov < 0.9)), "min_overlap": float(np.nanmin(ov)),
            "tau_range": [float(np.nanmin(tau)), float(np.nanmax(tau))], "delta_range": [float(np.nanmin(delta)), float(np.nanmax(delta))],
-           "zero_sets": match, "critical_point": fit,
+           "zero_sets": match, "critical_points": crit,
            "complex_cells": int(np.sum(np.isfinite(delta) & (np.nan_to_num(tau) ** 2 < 4 * np.nan_to_num(delta))))}
     Path(args.json).parent.mkdir(parents=True, exist_ok=True)
     Path(args.json).write_text(json.dumps(rec, indent=1) + "\n")
-    np.savez_compressed(Path(args.json).with_suffix(".npz"), alpha=al, log10_temperature=lt, tau=tau, delta=delta, overlap=ov)
+    np.savez_compressed(Path(args.json).with_suffix(".npz"), alpha=al, log10_temperature=lt, tau=tau, delta=delta, overlap=ov,
+                        mu=mu, mu_imag=np.nan_to_num(mi), ok=ok)
     print(json.dumps(rec, indent=1))
 
 
