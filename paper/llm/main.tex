@@ -5157,9 +5157,9 @@ and 21 (stars).}
 How much of the fold mechanism of Section~\ref{sec:mechanism} survives sampling? To find out, we replace the expected
 embedding by the mean of $m$ sampled token
 embeddings (Figure~\ref{fig:bridge}). With the exact map, laminar phases near the fold of the 2-cycle ``is it'' last 120 and 63 steps at
-$\eps=10^{-5}$ and $3\times10^{-5}$. With $m=64$ they last about 10.6 steps, independently of $\eps$ (57\% of steps in
-the channel), and with $m=8$ about 7.7 steps (38\%). With single samples ($m=1$, sampled decoding of the same
-truncated system), essentially no laminar phases remain (11\% of steps in the channel). The deterministic
+$\eps=10^{-5}$ and $3\times10^{-5}$. With $m=64$ they last on average 10.3 to 10.7 steps over the three offsets, nearly independently of $\eps$ (57\% of
+steps in the channel), and with $m=8$ 7.6 to 7.8 steps (38\%). With single samples ($m=1$, sampled decoding of the same
+truncated system), laminar phases become rare, one to three per offset (11\% of steps in the channel). The deterministic
 intermittency mechanism therefore belongs to the expected-embedding map. Sampling noise turns the bottleneck into a
 noise-limited trap whose strength grows with $m$.
 
