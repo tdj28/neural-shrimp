@@ -2503,11 +2503,13 @@ direction at layer 12 against the temperature, holds a second shrimp-shaped wind
 runs P6S, HR9, HR10, DSS6 and KITE). At a strongly contracting cell of the map, $(\alpha,\log_{10}T)=(0.073097,-0.15204)$,
 Newton's method in float64 converges to a primitive period-6 orbit (residual $1.6\times10^{-14}$) whose leading
 multipliers form a complex pair of modulus $0.016$. Followed from there through neighboring cells on the grid of
-Figure~\ref{fig:cross512}, the attractor fills 4224 cells: a body and three long legs, with period 6 in 1946 cells,
-periods 12, 24 and 48 in 945 along the edges, other periods in 35, chaos behind the repeating text in 811 (an exactly repeating text, no period up to
+Figure~\ref{fig:cross512}, the attractor fills 4224 cells. They cover the shrimp's body and the two legs that leave it
+at the lower left and run along the stripes, and they continue along the lower fold curves, through a narrow neck,
+into a smaller and distorted window at the lower right of Figure~\ref{fig:p6shrimp}(c). Of these cells, period 6 holds
+1946, periods 12, 24 and 48 hold 945 along the edges, other periods 35, chaos behind the repeating text in 811 (an exactly repeating text, no period up to
 64 and an exponent of at least 0.005) and slow cells in 487 (the same with an exponent below 0.005; with the maps'
-threshold of $10^{-3}$ the split would be 842 and 456). Four float64 branches out of the body end at a fold above and on the right and at flips on the left and
-below. Continued in the plane with every point checked (residual at most $10^{-10}$, critical multiplier real and within
+threshold of $10^{-3}$ the split would be 842 and 456). Continued from the body in four directions, up and down in $\alpha$ and in $T$, the period-6 orbit
+ends at a fold above and on the right and at flips on the left and below. Continued in the plane with every point checked (residual at most $10^{-10}$, critical multiplier real and within
 $10^{-7}$ of $\pm1$ on the body and kite curves; four points of the extended leg curves reach $2.9\times10^{-7}$), the curves outline the anatomy of Gallas's cell (Figure~\ref{fig:anatomy}a): the fold curve bounds
 the body above and on the right, one flip curve bounds it on the upper left and a second along its bottom, and the
 doubled shells lie beyond both. Within the window of Figure~\ref{fig:p6shrimp}a, the edge of the followed domain lies within two grid steps of the
@@ -2516,7 +2518,7 @@ distances 0.19 steps); over the whole followed domain the shares fall to 388 of 
 and 0.24 steps), because the far parts of the legs leave the traced curves, so their boundary is not resolved. A
 $640\times640$ fixed-start map centered on the body (steps $4.4\times10^{-6}$ in $\alpha$ and $1.25\times10^{-5}$ in
 $\log_{10}T$, about seven times finer than Figure~\ref{fig:cross512}; 66.5\,\% of its cells chaotic) shows the body
-with its dark lines of strongest contraction, the flip region along its bottom and the two lower legs leaving its
+with its dark lines of strongest contraction, the flip region along its bottom and the two legs leaving its
 lower-left end, one straight down along the left flip curve and one to the lower left (Figure~\ref{fig:p6shrimp}a).
 
 The two flip curves cross at that end, near $(0.072912,-0.154104)$. They are flip curves of two different orbits:
