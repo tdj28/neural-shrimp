@@ -31468,3 +31468,12 @@ nearly identical under protan vision.
   three.
 - **Output.** ../neural-shrimp-data/explore/llm-soft-loop/p6s/ditch-fine-b{0,1,2}; about 2.5 h (about 115 s per cell
   per 7-thread job, as line A).
+
+## 2026-10-20 00:33 UTC: DITCHFINE amendment: the same patch also on two rented GPUs (human approved), for speed
+
+- The human approved the paid run offered for speed. The same 15 x 15 patch runs on two pods through the dss job set,
+  as DITCH2D: band g0 has log10 T -0.152048 to -0.152020 (8 rows, seed (0.07318, -0.152034)); band g1 has -0.152016 to
+  -0.151992 (7 rows, seed (0.07318, -0.152004)); alpha 0.0731674 to 0.0731926 (15 columns); float64.
+- The local CPU bands keep running as an independent check: the same cells on another device.
+- Readings as in the run card. Ceiling in the private ledger.
+- Outputs: ../neural-shrimp-data/explore/llm-soft-loop/pod64/dss/ditchfine-g{0,1}.
