@@ -156,13 +156,27 @@ def main():
              "delta_pairs_within_one_cell_of_a_leading_change": int(sum(near(p, mz) for p in dz)),
              "leading_changes_within_one_cell_of_a_delta_pair": int(sum(near(p, dz) for p in mz))}
     real_mu = np.where(real_lead, mu, np.nan)
-    crit = {"delta": critical_points(delta, ov >= 0.9, al, lt), "mu1": critical_points(real_mu, real_lead, al, lt)}
+    crit = {"delta": critical_points(delta, ov >= 0.9, al, lt), "mu1": critical_points(real_mu, real_lead, al, lt),
+            "tau": critical_points(tau, np.isfinite(tau) & (np.nan_to_num(ov) >= 0.9), al, lt)}     # amendment 2 (post hoc)
+    # amendment 2 (post hoc): the zero set of tau against the measured lines; sign(tau) = sign(Re mu_1) for a 2 x 2 block
+    tz = []
+    for i in range(nt):
+        for j in range(na):
+            for k, l in ((i, j + 1), (i + 1, j)):
+                if k < nt and l < na and np.isfinite(tau[i, j]) and np.isfinite(tau[k, l]) and np.sign(tau[i, j]) != np.sign(tau[k, l]):
+                    tz.append(((i + k) / 2, (j + l) / 2))
+    cpx = [(float(i), float(j)) for i, j in np.argwhere(good & (np.nan_to_num(mi) != 0))]
+    both = good & np.isfinite(tau)
+    trace_zero = {"tau_zero_pairs": len(tz), "tau_pairs_within_one_cell_of_a_measured_line": int(sum(near(p_, mz + cpx) for p_ in tz)),
+                  "leading_changes_within_one_cell_of_a_tau_pair": int(sum(near(p_, tz) for p_ in mz)),
+                  "complex_cells": len(cpx), "complex_cells_within_one_cell_of_a_tau_pair": int(sum(near(p_, tz) for p_ in cpx)),
+                  "cells_sign_tau_equals_sign_mu1": int(np.sum(np.sign(tau[both]) == np.sign(mu[both]))), "cells_compared": int(both.sum())}
     # coupling in a basis transported from the start along the tracking tree
     rec = {"grid": [int(nt), int(na)], "solved": int(good.sum()), "tracked": int(np.isfinite(delta).sum()),
            "start_cell": [int(start[0]), int(start[1])], "start_alpha": float(al[start[1]]), "start_log10T": float(lt[start[0]]),
            "mixing_cells_overlap_below_0.9": int(np.nansum(ov < 0.9)), "min_overlap": float(np.nanmin(ov)),
            "tau_range": [float(np.nanmin(tau)), float(np.nanmax(tau))], "delta_range": [float(np.nanmin(delta)), float(np.nanmax(delta))],
-           "zero_sets": match, "critical_points": crit,
+           "zero_sets": match, "trace_zero_sets": trace_zero, "critical_points": crit,
            "complex_cells": int(np.sum(np.isfinite(delta) & (np.nan_to_num(tau) ** 2 < 4 * np.nan_to_num(delta))))}
     Path(args.json).parent.mkdir(parents=True, exist_ok=True)
     Path(args.json).write_text(json.dumps(rec, indent=1) + "\n")

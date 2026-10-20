@@ -31594,3 +31594,61 @@ nearly identical under protan vision.
   pseudo-superstable wording; the mixture-of-experts scope.
 - **Not done.** Crossing speeds and cubic flip coefficients for the cascade; eigenpair residuals for the longest
   monodromy products. Both are stated as limits instead.
+
+## 2026-10-20 01:39 UTC: DELTA2D amendment 2 (post hoc, after the data; disclosed)
+
+- **The fixed readings on delta came out negative.** No critical point of delta passes the window test, and the zero
+  set of delta does not follow the measured sign-change lines: 11 of its 32 sign-change pairs lie within one cell of a
+  measured line, and 9 of the 42 measured pairs within one cell of a delta change.
+- **Inspection near the channel.** The tracked pair there is (mu_1 ~ +0.067, mu_2 ~ -0.02), with overlap 1.00.
+  delta = mu_1 mu_2 is dominated by mu_2, which runs from -0.010 to -0.034 across seven columns, so delta is a smooth
+  slope with no saddle.
+- **Identity.** For a real 2 x 2 block, the eigenvalue of larger modulus, or the real part of a complex pair, has the
+  sign of the trace tau. Where the tracked block holds the leading multiplier, the measured sign changes of the
+  leading multiplier are therefore exactly the zero set of tau, the trace-zero construction of Facanha, Oldeman and
+  Glass for two-dimensional maps.
+- **Added after seeing the data, and labelled as such.**
+  - The zero set of tau against the measured lines, as a check that the tracked block holds the leading multiplier.
+  - The critical points of tau, with the same window test as delta and mu_1.
+- The pre-specified readings stand: the delta model is not supported, and the mu_1 saddle (amendment 1, before the
+  data) is the pre-specified positive result.
+
+## 2026-10-20 01:46 UTC: DELTA2D results (exploratory): the ditches are the trace-zero curves of the leading block, and a saddle of the trace keeps them apart; the pre-specified delta saddle is absent
+
+- **Runs.** Four rented GPUs at commit d5baedb0 (--store-ritz), 00:54 to 01:38 UTC, each terminated by its
+  orchestrator and absent from the inventory. grid.npz SHA-256:
+  - d0 1b7ccc1ee85e7cc37bc185edf4e377efcefce622ecf4b269a70d19ede955e9ec
+  - d1 9bb09e44c02f95f4b31f156e4e07baae8d86c5c0f308a56c23fa03fdb8687c55
+  - d2 8769729bc91e5d244452323443f92f0148459135367c8f8d57f5bd1b8c693109
+  - d3 dac10ee7597b6fbb3f6f4abb6814d6c8fa27c2c2ffd28ac1052ee12af966efe9
+- **Gates (every band read).**
+  - 852 of 999 cells solved: d0 270/270, d1 232/243, d2 196/243, d3 154/243. The unsolved cells lie in the corner
+    beyond the fold.
+  - Every solved cell has the seed's tokens; Newton residuals are at most 1.0e-12; Ritz vectors are finite in every
+    solved cell.
+- **Analysis** (tools/delta2d_analysis.py, checked on a synthetic saddle; docs/delta2d/analysis.json and .npz):
+  - Tracking reached all 852 cells. 38 cells have overlap below 0.9 (minimum 0.50); there |mu_3|/|mu_2| reaches 1, and
+    14 of them have complex leading pairs.
+  - **Pre-specified reading (run card): not supported.** No critical point of delta passes the window test. Zero sets:
+    11 of delta's 32 sign-change pairs lie within one cell of a measured real sign change, and 9 of the 42 measured
+    pairs within one cell of a delta change. Near the channel, delta = mu_1 mu_2 follows mu_2 (-0.010 to -0.034 across
+    seven columns).
+  - **Amendment 1 (fixed before the data): supported.** mu_1 has one saddle, at (0.073195, -0.152138), value
+    +0.06736. Hessian eigenvalues are -5.58e-4 and 2.78e-3 per squared cell; the fit residual is 1.8e-4 against a
+    window range of 0.015.
+  - **Amendment 2 (post hoc, disclosed).**
+    - sign(tau) = sign(Re mu_1) in 849 of 852 cells; the three exceptions have overlap 0.52 to 0.53.
+    - All 42 measured real sign changes lie within one cell of a tau sign change. 60 of the 64 tau sign changes lie
+      within one cell of a measured sign change or complex cell. 26 of the 42 complex cells lie within one cell of a
+      tau sign change: the complex band is wider than one cell.
+    - tau has one saddle, at (0.073188, -0.152083), value +0.04488. Hessian eigenvalues are -8.01e-4 and 3.53e-3; the
+      fit residual is 3.9e-4 against a window range of 0.022.
+- **Reading.**
+  - The pseudo-superstable lines are the trace-zero curves of the leading two-dimensional block, the Facanha,
+    Oldeman and Glass skeleton construction.
+  - The main ditch and the arc are two branches of the zero set of tau near a saddle with a positive value, so they
+    approach and turn away without crossing.
+  - The conditional delta model of consult 18 is replaced by this measured mechanism.
+  - The DITCHFINE patch lies just above the saddles, on the flank toward the main ditch; its corner minimum follows.
+- **Figure.** paper/llm/figures/fig-delta2d.png (tools/plot_delta2d.py): (a) tau with its zero curves, the measured sign
+  changes and the saddle; (b) delta. It is in the article as Fig. 25 and in the report.

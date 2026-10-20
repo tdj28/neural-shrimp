@@ -2598,14 +2598,44 @@ geometry \cite{facanha2013endoskeletons}. On both sides of every sign change the
 period-6 orbit, with the six-token text of the seed and Newton residuals below $10^{-12}$; it is also the attractor
 that the map's fixed start reaches at all patch and line cells but two at the patch's edge, and on the coarse grid at
 44 of the 45 pairs and 6 of the 9 complex cells (the others, at the upper left, reach a coexisting attractor of period
-8, 16 or 32). For a smoothly tracked
-two-dimensional invariant subspace the eigenvalues solve $\lambda^2-\tau\lambda+\delta=0$, so $\delta=0$ marks a zero
-eigenvalue of that block, not of the leading multiplier; if $\delta$ has a nondegenerate saddle with a nonzero saddle
-value, its zero set near the saddle has two hyperbolic branches that approach and turn away, and the eigenvalues are
-complex where $\tau^2<4\delta$. This conditional geometric model is consistent with the complex pairs on the upper part
-of the line, but it is not an established explanation (consult~18, \repo{docs/consults/2026-10-19-avoided-crossing}):
-at the minimum the third multiplier is comparable, and neither a saddle of $\delta$ nor a coupling of the two directions
-has been measured. Near the kite, where two orbits exist, curves that belong to different orbits can cross in the
+8, 16 or 32). What keeps the two lines apart was measured in run DELTA2D on four rented GPUs (\repo{tools/delta2d_analysis.py},
+\repo{docs/delta2d/analysis.json}; Figure~\ref{fig:delta2d}). A $27\times37$ grid over the top of the body (steps
+$10^{-5}$ in $\alpha$ and $2.5\times10^{-5}$ in $\log_{10}T$) gave 852 continued orbits, with the seed's six-token text,
+Newton residuals at most $1.0\times10^{-12}$ and the three leading Ritz vectors stored at every cell; the 147 unsolved
+cells lie in the corner beyond the fold. The two leading directions were followed outward from the best-separated cell,
+by the largest overlap of the two-dimensional spans (the mean squared cosine of their principal angles). On them the
+monodromy acts as a $2\times2$ block with trace $\tau$ and determinant $\delta$, and the eigenvalue of larger modulus,
+or the real part of a complex pair, has the sign of $\tau$. The sign of $\tau$ matches that of the leading multiplier in
+849 of the 852 cells (the other three are cells where the followed pair has mixed with a third direction); every one of
+the 42 measured sign changes of a real leading multiplier lies within one cell of a sign change of $\tau$; and 60 of the
+64 sign changes of $\tau$ lie within one cell of a measured sign change or a complex leading pair. The ditches are thus
+the trace-zero curves of the leading block, the construction that Fa\c{c}anha, Oldeman and Glass use as the skeleton of
+shrimps in two-dimensional maps \cite{facanha2013endoskeletons}. Between the main ditch and the arc, $\tau$ has a saddle
+at $(0.073188,-0.152083)$ with the value 0.045 (Hessian eigenvalues $-8.0\times10^{-4}$ and $3.5\times10^{-3}$ per
+squared cell, from a quadratic fit over $5\times5$ cells with residual $3.9\times10^{-4}$). Near a nondegenerate saddle
+with a nonzero value the zero set splits into two separate branches, which is why the two lines approach and turn away
+instead of crossing. The leading multiplier has a saddle nearby, 0.067 at $(0.073195,-0.152138)$ (Hessian eigenvalues
+$-5.6\times10^{-4}$ and $2.8\times10^{-3}$), a reading fixed before the grid's data arrived. The finer patch lies just
+above it, on the flank toward the main ditch, which is why the patch's lowest value sits at its corner. The run card
+asked instead for a saddle of $\delta$, and that test fails: no critical point of $\delta$ passes the window test,
+$\delta$ follows the steady drift of the second multiplier (from $-0.010$ to $-0.034$ across seven columns at the
+saddle), and its zero set misses the arc (11 of its 32 sign changes lie within one cell of a measured sign change). The
+trace was examined after the data arrived, as a disclosed amendment. In 38 cells the second and third multipliers are
+comparable and the followed pair mixes with a third direction (overlap below 0.9).
+
+\begin{figure}[tbp]
+\centering
+\includegraphics[width=\linewidth]{figures/fig-delta2d.png}
+\caption{What keeps the two pseudo-superstable lines apart at the top of the period-6 body (run DELTA2D,
+\repo{tools/plot_delta2d.py}). The two leading directions of the monodromy were followed from cell to cell over 852
+continued orbits (float64; steps $10^{-5}$ in $\alpha$ and $2.5\times10^{-5}$ in $\log_{10}T$; gray: no orbit, beyond
+the fold). (a) The trace $\tau$ of the monodromy on these directions (colors clipped at $\pm0.2$), its zero curves
+(black), the measured sign changes of the real leading multiplier (white dots) and the cells with a complex leading
+pair (gray squares), and the saddle of $\tau$ (gold cross, $\tau=0.045$) with the level curve through it (dashed).
+(b) The determinant $\delta$, with its zero curve and the same measurements; small crosses mark cells where the followed
+pair mixes with a third direction. The rectangle is the patch ten times finer around the lowest point of line A.}
+\label{fig:delta2d}
+\end{figure} Near the kite, where two orbits exist, curves that belong to different orbits can cross in the
 parameter plane without any degeneracy, as the superstable curves of Gallas's two coexisting fixed points do at his
 tail. With these qualifications the period-6 window meets the three numerical criteria along its body, with the kite of
 Gallas's cell and its cusp C located (five more cusps close the ends of the legs and the small window beyond the neck):
@@ -3814,6 +3844,7 @@ object & requires & we show & status \tabularnewline
 \raggedright fold & \raggedright one multiplier at $+1$; nonzero coefficients $a$ and $b$ & \raggedright both at the period-2 fold, where a stable and an unstable orbit meet; passage times forecast at four more folds & \raggedright shown \tabularnewline
 \raggedright flip & \raggedright one multiplier at $-1$; nonzero crossing speed and cubic coefficient & \raggedright multiplier at $-1$ and the doubled orbit at every level of the cascade; cubic coefficient only at two other flips & \raggedright partly shown \tabularnewline
 \raggedright cusp & \raggedright $+1$ with $b=0$, $c\neq0$ and a regular unfolding & \raggedright all three at the kite's cusp C and at five more cusps & \raggedright shown \tabularnewline
+\raggedright pseudo-superstable line & \raggedright the leading multiplier changes sign without vanishing & \raggedright the ditches are the zero curves of the trace of the leading two-dimensional block; a saddle of the trace keeps two of them apart & \raggedright shown \tabularnewline
 \raggedright fold--flip point & \raggedright one orbit with $+1$ and $-1$ at once & \raggedright none at A or B & \raggedright none found \tabularnewline
 \raggedright pseudo-crossing & \raggedright curves of two different orbits cross & \raggedright two distinct orbits at R; different spectra at A and B & \raggedright shown \tabularnewline
 \raggedright Feigenbaum ratio & \raggedright ratios approach the constant of a universality class & \raggedright ratios reach 4.6688, against $\delta=4.6692$ & \raggedright consistent \tabularnewline
