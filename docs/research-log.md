@@ -31652,3 +31652,15 @@ nearly identical under protan vision.
   - The DITCHFINE patch lies just above the saddles, on the flank toward the main ditch; its corner minimum follows.
 - **Figure.** paper/llm/figures/fig-delta2d.png (tools/plot_delta2d.py): (a) tau with its zero curves, the measured sign
   changes and the saddle; (b) delta. It is in the article as Fig. 25 and in the report.
+
+## 2026-10-20 02:11 UTC: consult 24 (synchronization section) executed and applied; correction to the SYNC results entry
+
+- One approved call; verdict "ready after specified fixes". Adjudication in
+  docs/consults/2026-10-20-sync-section/adjudication.md. All findings were accepted, and the article and report were
+  revised.
+- New protocol-bound threshold table, every bracket recomputed from docs/sync/sync-summary.json:
+  - near-start 1e-6 brackets: cell 2 (0.19, 0.20], cell 3 (0.13, 0.14];
+  - cell 1 far starts: (0.20, 0.22], non-monotone, with period-2 synchronization.
+- **Correction.** The SYNC results entry of 17 Oct (08:10 UTC) says the typical-orbit transverse exponent at
+  c = 0.105-0.115 in cell 2 (lambda_1 0.196) is "-0.02 to -0.05". From lambda_1 + ln|1-2c| it is -0.040, -0.052 and
+  -0.065. Neither paper quoted the wrong range.
