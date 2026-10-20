@@ -101,8 +101,9 @@ exponent, which measures how strongly the loop contracts (right color bar; light
 4.4\,\% of the cells, also gray, have neither a detected period nor an exponent above $10^{-3}$. Figure~\ref{fig:cross512} names the loops.}
 \label{fig:teaser}
 \end{figure}
-Several recent inference methods feed a language model its own continuous output. Soft Thinking replaces each sampled token by
-the expected embedding under the next-token distribution \cite{zhang2025softthinking}, latent-reasoning methods feed
+Several recent inference methods feed a language model its own continuous output. Soft Thinking replaces each sampled token by the expected embedding under the next-token distribution
+\cite{zhang2025softthinking} (its published implementation first keeps only the most probable tokens and renormalizes;
+the map studied here uses the full distribution, which keeps it smooth), latent-reasoning methods feed
 hidden states back \cite{hao2024coconut}, and recurrent-depth models iterate a block toward a fixed point
 \cite{geiping2025recurrent}. Each turns inference into an iterated map, and an iterated map can be chaotic. We show
 that the expected-embedding loop of released language models is chaotic, in the finite-horizon sense defined below,
@@ -349,9 +350,9 @@ sparse-autoencoder features (Appendices~\ref{sec:origin} and~\ref{sec:size}).
 \paragraph{State space and regularity.} Attention is causal, so the keys and values of the prefix do not depend on
 $x$, and $F$ is an autonomous map of $\mathbb{R}^{896}$. For the dense models studied here it is real-analytic, because
 RMS normalization (with its positive regularizing constant), the SiLU activation, attention, rotary embeddings at fixed
-positions and the softmax readout are analytic; the top-$k$ routing of a mixture of experts makes the map only
-piecewise smooth. The continuity and differentiability arguments below apply to the dense models; hard-routed
-mixtures of experts need separate checks at routing boundaries. Every soft token is a convex combination of embeddings, so $F$ maps $\mathbb{R}^{896}$ into the
+positions and the softmax readout are analytic; with top-$k$ routing, a mixture of experts is smooth only within each region of fixed routing, and its map can be
+discontinuous where the routing changes. The continuity and differentiability arguments below apply to the dense
+models. Every soft token is a convex combination of embeddings, so $F$ maps $\mathbb{R}^{896}$ into the
 compact convex polytope $K=\operatorname{conv}\{e_t\}$, and $F(K)\subset K$. Every orbit therefore enters $K$ after one
 step, $F$ has a fixed point in $K$ by Brouwer's theorem, and, being continuous on a compact set, it has invariant
 probability measures there. Because $\log^+\lVert DF\rVert$ is bounded on $K$, Oseledets' multiplicative ergodic
@@ -511,8 +512,9 @@ V(F(x))\le V(x)-\tfrac12\|F(x)-x\|^2 .
 Each step lowers this energy by at least half the squared length of the step. Along a cycle these decreases sum to
 zero, so every point of the cycle is fixed. $F$ maps every state into the convex hull of the embeddings, where $V$ is
 bounded below, so the steps of every orbit must shrink to zero: every accumulation point of an orbit is a fixed point,
-and the strict descent of the energy rules out cycles of period above one and chaotic motion (an unstable fixed point can still have
-positive tangent exponents). In models with tied embeddings, such as Qwen2.5-0.5B, every cycle and every chaotic cell
+and the strict descent of the energy rules out cycles of period above one and chaotic motion (an unstable fixed point can still have positive tangent
+exponents; and where fixed points are not isolated, an orbit need not converge to a single one). In models with tied
+embeddings, such as Qwen2.5-0.5B, every cycle and every chaotic cell
 therefore depends on the network factor $J_{\tilde h}$ breaking this energy structure. With untied embeddings the
 network-free map $x\mapsto E^{\top}\operatorname{softmax}(Wx/T)$ has the derivative
 $\operatorname{Cov}_{t\sim p}(e_t,w_t)/T$, which need not be symmetric or positive semidefinite, so the energy argument

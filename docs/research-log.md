@@ -31664,3 +31664,24 @@ nearly identical under protan vision.
 - **Correction.** The SYNC results entry of 17 Oct (08:10 UTC) says the typical-orbit transverse exponent at
   c = 0.105-0.115 in cell 2 (lambda_1 0.196) is "-0.02 to -0.05". From lambda_1 + ln|1-2c| it is -0.040, -0.052 and
   -0.065. Neither paper quoted the wrong range.
+
+## 2026-10-20 02:16 UTC: external mathematical review of the article (human-supplied, advisory) and its application
+
+- **Source.** The human supplied an 18-page review written from a mathematician's perspective. It is not stored in the
+  repository. The human rejected its suggestion to change the title.
+- **Verdict.** "revise before arXiv, not reject". No mathematical error was found: Eq. (1), the derivative
+  factorization, the contraction bound (the 1/4 constant checked), the low-temperature argument, the energy argument,
+  the fold analysis and the synchronization formula all hold.
+- **Applied** to the article (39a57dc) and to the report:
+  - Full-distribution map versus the filtered published Soft Thinking, in the abstract and introduction.
+  - Mixture-of-experts smoothness wording.
+  - Priority claim dated (searches of 12 and 15 October 2026).
+  - Energy argument narrowed: no claim of convergence to one fixed point when fixed points are not isolated.
+  - The period-8 proof stated as Theorem 1 with exact inputs, followed by the release record's identifiers
+    (certificates/llm-p8-certificate-final-001.json, SHA-256 539ead0d...; checkpoint fdf756fa...), what the
+    independent checker recombined in exact rational arithmetic, and what the proof trusts.
+- **Already in place** from tonight's bifurcation review: flip genericity, Feigenbaum class, shrimp wording, Table
+  VIII. The abstract already says "positive finite-time Lyapunov exponents", and the introduction says "finite-horizon
+  criterion".
+- **Not done; suggested to the human.** An immutable archive with a DOI (for example Zenodo) for the full certificate
+  bundle and a minimal independent verifier. This is an external publication and needs the human's decision.
