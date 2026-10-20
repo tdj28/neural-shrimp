@@ -1,0 +1,7456 @@
+{
+  "prior_attempt": "ditches-001",
+  "prior_outcome": "exact axes differed",
+  "limits": [
+    "Near-identical parameter cells are not identical binary64 inputs.",
+    "HR10 nearest-cell periods do not establish full orbit identity.",
+    "No model, trajectory, Newton or original controls rerun."
+  ],
+  "pod64/dss/p6-body": {
+    "cells": 961,
+    "solved": 529,
+    "complex": 9,
+    "leading_real_range": [
+      -5.630558998492847,
+      0.7988458103217728
+    ],
+    "leading_modulus_min": 0.006319057939216359,
+    "minimum_index": [
+      22,
+      14
+    ],
+    "minimum_alpha": 0.07305333333333335,
+    "minimum_log10T": -0.1512,
+    "next_max": 0.057468687538145005,
+    "newton_max": 9.572879009167718e-13,
+    "same_tokens_false_solved": 0,
+    "real_sign_change_edges": 45,
+    "max_leading_modulus": 5.630558998492847
+  },
+  "p6s/ditch-top-a": {
+    "cells": 26,
+    "solved": 26,
+    "complex": 0,
+    "leading_real_range": [
+      0.06383893289865969,
+      0.1705724471372588
+    ],
+    "leading_modulus_min": 0.06383893289865969,
+    "minimum_index": [
+      17,
+      0
+    ],
+    "minimum_alpha": 0.07318,
+    "minimum_log10T": -0.15202,
+    "next_max": 0.02031258120402277,
+    "newton_max": 2.5517645054167057e-13,
+    "same_tokens_false_solved": 0,
+    "real_sign_change_edges": 0,
+    "max_leading_modulus": 0.1705724471372588
+  },
+  "p6s/ditch-main-b": {
+    "cells": 21,
+    "solved": 21,
+    "complex": 1,
+    "leading_real_range": [
+      -0.6050958204145324,
+      0.7101417840588771
+    ],
+    "leading_modulus_min": 0.023972065640587254,
+    "minimum_index": [
+      0,
+      8
+    ],
+    "minimum_alpha": 0.072976,
+    "minimum_log10T": -0.153,
+    "next_max": 0.023972065640587254,
+    "newton_max": 3.2466563478015e-13,
+    "same_tokens_false_solved": 0,
+    "real_sign_change_edges": 0,
+    "max_leading_modulus": 0.7101417840588771
+  },
+  "ditch2d": {
+    "cells": 672,
+    "solved": 595,
+    "complex": 33,
+    "leading_real_range": [
+      -0.3966052729081751,
+      0.934887597179662
+    ],
+    "leading_modulus_min": 0.009232944082695857,
+    "minimum_index": [
+      26,
+      6
+    ],
+    "minimum_alpha": 0.07310799999999999,
+    "minimum_log10T": -0.1519,
+    "next_max": 0.0638186433607627,
+    "newton_max": 9.996854267046756e-13,
+    "same_tokens_false_solved": 0,
+    "real_sign_change_edges": 41,
+    "max_leading_modulus": 0.934887597179662
+  },
+  "fine_metadata": [
+    {
+      "args": {
+        "command": "grid",
+        "period": 6,
+        "seed": [
+          0.07318,
+          -0.15204
+        ],
+        "alpha": [
+          0.0731674,
+          0.0731926
+        ],
+        "log_temperature": [
+          -0.152048,
+          -0.152032
+        ],
+        "block2": null,
+        "vectors2": null,
+        "concept2": null,
+        "alpha2": null,
+        "fixed_log_temperature": null,
+        "resolution": [
+          5,
+          15
+        ],
+        "model": "qwen0.5b",
+        "layer": 12,
+        "threads": 7,
+        "device": "cpu",
+        "prompt": "open",
+        "opener": null,
+        "window": 1,
+        "vectors": "llm-phase-map/vectors-l12",
+        "concept": "philosophy",
+        "transient": 900,
+        "k": 6,
+        "tol": 1e-12,
+        "chunk": 512,
+        "multipliers_only": true,
+        "march_from": null,
+        "march_steps": 24,
+        "march_path": null,
+        "march_sub": 2,
+        "seed_min_ratio": 10.0,
+        "attempts": 3,
+        "out": "llm-soft-loop/p6s/ditch-fine-b0"
+      },
+      "seed_tokens": [
+        785,
+        3405,
+        271,
+        785,
+        13885,
+        271
+      ],
+      "seed_text": [
+        "The",
+        " question",
+        "\n\n",
+        "The",
+        " existence",
+        "\n\n"
+      ],
+      "cells": 75,
+      "solved": 75,
+      "clean": 0,
+      "same_tokens": 75,
+      "seconds": 10606.3
+    },
+    {
+      "args": {
+        "command": "grid",
+        "period": 6,
+        "seed": [
+          0.07318,
+          -0.15202
+        ],
+        "alpha": [
+          0.0731674,
+          0.0731926
+        ],
+        "log_temperature": [
+          -0.152028,
+          -0.152012
+        ],
+        "block2": null,
+        "vectors2": null,
+        "concept2": null,
+        "alpha2": null,
+        "fixed_log_temperature": null,
+        "resolution": [
+          5,
+          15
+        ],
+        "model": "qwen0.5b",
+        "layer": 12,
+        "threads": 7,
+        "device": "cpu",
+        "prompt": "open",
+        "opener": null,
+        "window": 1,
+        "vectors": "llm-phase-map/vectors-l12",
+        "concept": "philosophy",
+        "transient": 900,
+        "k": 6,
+        "tol": 1e-12,
+        "chunk": 512,
+        "multipliers_only": true,
+        "march_from": null,
+        "march_steps": 24,
+        "march_path": null,
+        "march_sub": 2,
+        "seed_min_ratio": 10.0,
+        "attempts": 3,
+        "out": "llm-soft-loop/p6s/ditch-fine-b1"
+      },
+      "seed_tokens": [
+        785,
+        3405,
+        271,
+        785,
+        13885,
+        271
+      ],
+      "seed_text": [
+        "The",
+        " question",
+        "\n\n",
+        "The",
+        " existence",
+        "\n\n"
+      ],
+      "cells": 75,
+      "solved": 75,
+      "clean": 0,
+      "same_tokens": 75,
+      "seconds": 10582.7
+    },
+    {
+      "args": {
+        "command": "grid",
+        "period": 6,
+        "seed": [
+          0.07318,
+          -0.152
+        ],
+        "alpha": [
+          0.0731674,
+          0.0731926
+        ],
+        "log_temperature": [
+          -0.152008,
+          -0.151992
+        ],
+        "block2": null,
+        "vectors2": null,
+        "concept2": null,
+        "alpha2": null,
+        "fixed_log_temperature": null,
+        "resolution": [
+          5,
+          15
+        ],
+        "model": "qwen0.5b",
+        "layer": 12,
+        "threads": 7,
+        "device": "cpu",
+        "prompt": "open",
+        "opener": null,
+        "window": 1,
+        "vectors": "llm-phase-map/vectors-l12",
+        "concept": "philosophy",
+        "transient": 900,
+        "k": 6,
+        "tol": 1e-12,
+        "chunk": 512,
+        "multipliers_only": true,
+        "march_from": null,
+        "march_steps": 24,
+        "march_path": null,
+        "march_sub": 2,
+        "seed_min_ratio": 10.0,
+        "attempts": 3,
+        "out": "llm-soft-loop/p6s/ditch-fine-b2"
+      },
+      "seed_tokens": [
+        785,
+        13885,
+        271,
+        785,
+        3405,
+        271
+      ],
+      "seed_text": [
+        "The",
+        " existence",
+        "\n\n",
+        "The",
+        " question",
+        "\n\n"
+      ],
+      "cells": 75,
+      "solved": 75,
+      "clean": 0,
+      "same_tokens": 75,
+      "seconds": 10535.1
+    },
+    {
+      "args": {
+        "command": "grid",
+        "period": 6,
+        "seed": [
+          0.07318,
+          -0.152034
+        ],
+        "alpha": [
+          0.0731674,
+          0.0731926
+        ],
+        "log_temperature": [
+          -0.152048,
+          -0.15202
+        ],
+        "block2": null,
+        "vectors2": null,
+        "concept2": null,
+        "alpha2": null,
+        "fixed_log_temperature": null,
+        "resolution": [
+          8,
+          15
+        ],
+        "model": "qwen0.5b",
+        "layer": 12,
+        "threads": 8,
+        "device": "cuda",
+        "prompt": "open",
+        "opener": null,
+        "window": 1,
+        "vectors": "llm-phase-map/vectors-l12",
+        "concept": "philosophy",
+        "transient": 900,
+        "k": 6,
+        "tol": 1e-12,
+        "chunk": 512,
+        "multipliers_only": true,
+        "march_from": null,
+        "march_steps": 24,
+        "march_path": null,
+        "march_sub": 2,
+        "seed_min_ratio": 10.0,
+        "attempts": 3,
+        "out": "llm-soft-loop/pod64/dss/ditchfine-g0"
+      },
+      "seed_tokens": [
+        785,
+        3405,
+        271,
+        785,
+        13885,
+        271
+      ],
+      "seed_text": [
+        "The",
+        " question",
+        "\n\n",
+        "The",
+        " existence",
+        "\n\n"
+      ],
+      "cells": 120,
+      "solved": 120,
+      "clean": 0,
+      "same_tokens": 120,
+      "seconds": 1181.8
+    },
+    {
+      "args": {
+        "command": "grid",
+        "period": 6,
+        "seed": [
+          0.07318,
+          -0.152004
+        ],
+        "alpha": [
+          0.0731674,
+          0.0731926
+        ],
+        "log_temperature": [
+          -0.152016,
+          -0.151992
+        ],
+        "block2": null,
+        "vectors2": null,
+        "concept2": null,
+        "alpha2": null,
+        "fixed_log_temperature": null,
+        "resolution": [
+          7,
+          15
+        ],
+        "model": "qwen0.5b",
+        "layer": 12,
+        "threads": 8,
+        "device": "cuda",
+        "prompt": "open",
+        "opener": null,
+        "window": 1,
+        "vectors": "llm-phase-map/vectors-l12",
+        "concept": "philosophy",
+        "transient": 900,
+        "k": 6,
+        "tol": 1e-12,
+        "chunk": 512,
+        "multipliers_only": true,
+        "march_from": null,
+        "march_steps": 24,
+        "march_path": null,
+        "march_sub": 2,
+        "seed_min_ratio": 10.0,
+        "attempts": 3,
+        "out": "llm-soft-loop/pod64/dss/ditchfine-g1"
+      },
+      "seed_tokens": [
+        785,
+        13885,
+        271,
+        785,
+        3405,
+        271
+      ],
+      "seed_text": [
+        "The",
+        " existence",
+        "\n\n",
+        "The",
+        " question",
+        "\n\n"
+      ],
+      "cells": 105,
+      "solved": 105,
+      "clean": 0,
+      "same_tokens": 105,
+      "seconds": 1016.3
+    }
+  ],
+  "fine_cpu": {
+    "cells": 225,
+    "solved": 225,
+    "complex": 0,
+    "leading_real_range": [
+      0.05657524175344515,
+      0.07466856505923584
+    ],
+    "leading_modulus_min": 0.05657524175344515,
+    "minimum_index": [
+      14,
+      0
+    ],
+    "minimum_alpha": 0.0731674,
+    "minimum_log10T": -0.151992,
+    "next_max": 0.022566160821484327,
+    "newton_max": 1.0995865167741012e-13,
+    "same_tokens_false_solved": 0,
+    "real_sign_change_edges": 0,
+    "column_alpha": 0.07318,
+    "column_min": 0.06380835308215252,
+    "column_min_log10T": -0.152028,
+    "row_minimum_columns": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ]
+  },
+  "fine_gpu": {
+    "cells": 225,
+    "solved": 225,
+    "complex": 0,
+    "leading_real_range": [
+      0.05657524175350294,
+      0.07466856505840594
+    ],
+    "leading_modulus_min": 0.05657524175350294,
+    "minimum_index": [
+      14,
+      0
+    ],
+    "minimum_alpha": 0.0731674,
+    "minimum_log10T": -0.151992,
+    "next_max": 0.022566160821486644,
+    "newton_max": 8.371650216477033e-13,
+    "same_tokens_false_solved": 0,
+    "real_sign_change_edges": 0,
+    "column_alpha": 0.07318,
+    "column_min": 0.06380835308231905,
+    "column_min_log10T": -0.152028,
+    "row_minimum_columns": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ]
+  },
+  "axis_comparison": {
+    "alpha": {
+      "cpu_hex": [
+        "0x1.2bb1946222340p-4",
+        "0x1.2bb3779131154p-4",
+        "0x1.2bb55ac03ff69p-4",
+        "0x1.2bb73def4ed7dp-4",
+        "0x1.2bb9211e5db91p-4",
+        "0x1.2bbb044d6c9a5p-4",
+        "0x1.2bbce77c7b7bap-4",
+        "0x1.2bbecaab8a5cep-4",
+        "0x1.2bc0adda993e2p-4",
+        "0x1.2bc29109a81f7p-4",
+        "0x1.2bc47438b700bp-4",
+        "0x1.2bc65767c5e1fp-4",
+        "0x1.2bc83a96d4c33p-4",
+        "0x1.2bca1dc5e3a48p-4",
+        "0x1.2bcc00f4f285cp-4"
+      ],
+      "gpu_hex": [
+        "0x1.2bb1946222340p-4",
+        "0x1.2bb3779131154p-4",
+        "0x1.2bb55ac03ff69p-4",
+        "0x1.2bb73def4ed7dp-4",
+        "0x1.2bb9211e5db91p-4",
+        "0x1.2bbb044d6c9a5p-4",
+        "0x1.2bbce77c7b7bap-4",
+        "0x1.2bbecaab8a5cep-4",
+        "0x1.2bc0adda993e2p-4",
+        "0x1.2bc29109a81f7p-4",
+        "0x1.2bc47438b700bp-4",
+        "0x1.2bc65767c5e1fp-4",
+        "0x1.2bc83a96d4c33p-4",
+        "0x1.2bca1dc5e3a48p-4",
+        "0x1.2bcc00f4f285cp-4"
+      ],
+      "exact_equal": true,
+      "max_absolute_difference": 0.0,
+      "max_ulp_difference": 0.0,
+      "differing_indices": [],
+      "within_one_ulp": true
+    },
+    "log10_temperature": {
+      "cpu_hex": [
+        "-0x1.3764f11b60ae9p-3",
+        "-0x1.3762d83c6c97dp-3",
+        "-0x1.3760bf5d78812p-3",
+        "-0x1.375ea67e846a6p-3",
+        "-0x1.375c8d9f9053ap-3",
+        "-0x1.375a74c09c3cep-3",
+        "-0x1.37585be1a8262p-3",
+        "-0x1.37564302b40f6p-3",
+        "-0x1.37542a23bff8bp-3",
+        "-0x1.37521144cbe1fp-3",
+        "-0x1.374ff865d7cb3p-3",
+        "-0x1.374ddf86e3b47p-3",
+        "-0x1.374bc6a7ef9dbp-3",
+        "-0x1.3749adc8fb86fp-3",
+        "-0x1.374794ea07703p-3"
+      ],
+      "gpu_hex": [
+        "-0x1.3764f11b60ae9p-3",
+        "-0x1.3762d83c6c97dp-3",
+        "-0x1.3760bf5d78811p-3",
+        "-0x1.375ea67e846a5p-3",
+        "-0x1.375c8d9f9053ap-3",
+        "-0x1.375a74c09c3cep-3",
+        "-0x1.37585be1a8262p-3",
+        "-0x1.37564302b40f6p-3",
+        "-0x1.37542a23bff8bp-3",
+        "-0x1.37521144cbe1fp-3",
+        "-0x1.374ff865d7cb3p-3",
+        "-0x1.374ddf86e3b47p-3",
+        "-0x1.374bc6a7ef9dbp-3",
+        "-0x1.3749adc8fb86fp-3",
+        "-0x1.374794ea07703p-3"
+      ],
+      "exact_equal": false,
+      "max_absolute_difference": 2.7755575615628914e-17,
+      "max_ulp_difference": 1.0,
+      "differing_indices": [
+        2,
+        3
+      ],
+      "within_one_ulp": true
+    }
+  },
+  "one_ulp_correspondence": true,
+  "fine_comparison": {
+    "common_solved": 225,
+    "mismatched_ok": 0,
+    "max_leading_complex_abs_diff": 6.5533828363939506e-12,
+    "median_leading_complex_abs_diff": 2.562117185078705e-13,
+    "max_relative_leading_diff": 1.0264784735306801e-10,
+    "max_next_abs_diff": 3.7638295258268784e-13,
+    "same_tokens_mismatches": 0
+  },
+  "fixed_start_nearest_cell_comparison": {
+    "pod64/dss/p6-body": {
+      "solved": 529,
+      "nearest_cell_max_distance_steps": 0.5000000000011084,
+      "nearest_period_not_six": [
+        {
+          "continued_index": [
+            0,
+            6
+          ],
+          "continued_parameters": [
+            0.07268000000000001,
+            -0.1545
+          ],
+          "nearest_scan_index": [
+            200,
+            201
+          ],
+          "nearest_scan_parameters": [
+            0.07268075117370892,
+            -0.1544960876369327
+          ],
+          "scan_period": 12,
+          "distance_in_scan_steps": 0.31250000000013856
+        },
+        {
+          "continued_index": [
+            0,
+            7
+          ],
+          "continued_parameters": [
+            0.07272666666666668,
+            -0.1545
+          ],
+          "nearest_scan_index": [
+            200,
+            211
+          ],
+          "nearest_scan_parameters": [
+            0.0727245696400626,
+            -0.1544960876369327
+          ],
+          "scan_period": 0,
+          "distance_in_scan_steps": 0.4785714285719715
+        },
+        {
+          "continued_index": [
+            0,
+            8
+          ],
+          "continued_parameters": [
+            0.07277333333333334,
+            -0.1545
+          ],
+          "nearest_scan_index": [
+            200,
+            222
+          ],
+          "nearest_scan_parameters": [
+            0.07277276995305164,
+            -0.1544960876369327
+          ],
+          "scan_period": 0,
+          "distance_in_scan_steps": 0.31250000000013856
+        },
+        {
+          "continued_index": [
+            0,
+            9
+          ],
+          "continued_parameters": [
+            0.07282000000000001,
+            -0.1545
+          ],
+          "nearest_scan_index": [
+            200,
+            233
+          ],
+          "nearest_scan_parameters": [
+            0.07282097026604069,
+            -0.1544960876369327
+          ],
+          "scan_period": 18,
+          "distance_in_scan_steps": 0.31250000000013856
+        },
+        {
+          "continued_index": [
+            0,
+            10
+          ],
+          "continued_parameters": [
+            0.07286666666666668,
+            -0.1545
+          ],
+          "nearest_scan_index": [
+            200,
+            243
+          ],
+          "nearest_scan_parameters": [
+            0.07286478873239437,
+            -0.1544960876369327
+          ],
+          "scan_period": 0,
+          "distance_in_scan_steps": 0.4285714285732383
+        },
+        {
+          "continued_index": [
+            0,
+            11
+          ],
+          "continued_parameters": [
+            0.07291333333333334,
+            -0.1545
+          ],
+          "nearest_scan_index": [
+            200,
+            254
+          ],
+          "nearest_scan_parameters": [
+            0.07291298904538342,
+            -0.1544960876369327
+          ],
+          "scan_period": 0,
+          "distance_in_scan_steps": 0.31250000000013856
+        },
+        {
+          "continued_index": [
+            0,
+            12
+          ],
+          "continued_parameters": [
+            0.07296000000000001,
+            -0.1545
+          ],
+          "nearest_scan_index": [
+            200,
+            265
+          ],
+          "nearest_scan_parameters": [
+            0.07296118935837245,
+            -0.1544960876369327
+          ],
+          "scan_period": 0,
+          "distance_in_scan_steps": 0.31250000000013856
+        },
+        {
+          "continued_index": [
+            0,
+            13
+          ],
+          "continued_parameters": [
+            0.07300666666666668,
+            -0.1545
+          ],
+          "nearest_scan_index": [
+            200,
+            275
+          ],
+          "nearest_scan_parameters": [
+            0.07300500782472613,
+            -0.1544960876369327
+          ],
+          "scan_period": 0,
+          "distance_in_scan_steps": 0.3785714285745052
+        },
+        {
+          "continued_index": [
+            0,
+            14
+          ],
+          "continued_parameters": [
+            0.07305333333333335,
+            -0.1545
+          ],
+          "nearest_scan_index": [
+            200,
+            286
+          ],
+          "nearest_scan_parameters": [
+            0.07305320813771518,
+            -0.1544960876369327
+          ],
+          "scan_period": 0,
+          "distance_in_scan_steps": 0.31250000000013856
+        },
+        {
+          "continued_index": [
+            0,
+            15
+          ],
+          "continued_parameters": [
+            0.0731,
+            -0.1545
+          ],
+          "nearest_scan_index": [
+            200,
+            297
+          ],
+          "nearest_scan_parameters": [
+            0.07310140845070423,
+            -0.1544960876369327
+          ],
+          "scan_period": 0,
+          "distance_in_scan_steps": 0.32142857142992876
+        },
+        {
+          "continued_index": [
+            0,
+            16
+          ],
+          "continued_parameters": [
+            0.07314666666666667,
+            -0.1545
+          ],
+          "nearest_scan_index": [
+            200,
+            307
+          ],
+          "nearest_scan_parameters": [
+            0.07314522691705791,
+            -0.1544960876369327
+          ],
+          "scan_period": 0,
+          "distance_in_scan_steps": 0.32857142856943783
+        },
+        {
+          "continued_index": [
+            1,
+            7
+          ],
+          "continued_parameters": [
+            0.07272666666666668,
+            -0.15435
+          ],
+          "nearest_scan_index": [
+            212,
+            211
+          ],
+          "nearest_scan_parameters": [
+            0.0727245696400626,
+            -0.15434585289514866
+          ],
+          "scan_period": 0,
+          "distance_in_scan_steps": 0.4785714285719715
+        },
+        {
+          "continued_index": [
+            1,
+            8
+          ],
+          "continued_parameters": [
+            0.07277333333333334,
+            -0.15435
+          ],
+          "nearest_scan_index": [
+            212,
+            222
+          ],
+          "nearest_scan_parameters": [
+            0.07277276995305164,
+            -0.15434585289514866
+          ],
+          "scan_period": 12,
+          "distance_in_scan_steps": 0.3312500000002356
+        },
+        {
+          "continued_index": [
+            1,
+            9
+          ],
+          "continued_parameters": [
+            0.07282000000000001,
+            -0.15435
+          ],
+          "nearest_scan_index": [
+            212,
+            233
+          ],
+          "nearest_scan_parameters": [
+            0.07282097026604069,
+            -0.15434585289514866
+          ],
+          "scan_period": 12,
+          "distance_in_scan_steps": 0.3312500000002356
+        },
+        {
+          "continued_index": [
+            1,
+            10
+          ],
+          "continued_parameters": [
+            0.07286666666666668,
+            -0.15435
+          ],
+          "nearest_scan_index": [
+            212,
+            243
+          ],
+          "nearest_scan_parameters": [
+            0.07286478873239437,
+            -0.15434585289514866
+          ],
+          "scan_period": 0,
+          "distance_in_scan_steps": 0.4285714285732383
+        },
+        {
+          "continued_index": [
+            1,
+            11
+          ],
+          "continued_parameters": [
+            0.07291333333333334,
+            -0.15435
+          ],
+          "nearest_scan_index": [
+            212,
+            254
+          ],
+          "nearest_scan_parameters": [
+            0.07291298904538342,
+            -0.15434585289514866
+          ],
+          "scan_period": 12,
+          "distance_in_scan_steps": 0.3312500000002356
+        },
+        {
+          "continued_index": [
+            1,
+            12
+          ],
+          "continued_parameters": [
+            0.07296000000000001,
+            -0.15435
+          ],
+          "nearest_scan_index": [
+            212,
+            265
+          ],
+          "nearest_scan_parameters": [
+            0.07296118935837245,
+            -0.15434585289514866
+          ],
+          "scan_period": 0,
+          "distance_in_scan_steps": 0.3312500000002356
+        },
+        {
+          "continued_index": [
+            1,
+            13
+          ],
+          "continued_parameters": [
+            0.07300666666666668,
+            -0.15435
+          ],
+          "nearest_scan_index": [
+            212,
+            275
+          ],
+          "nearest_scan_parameters": [
+            0.07300500782472613,
+            -0.15434585289514866
+          ],
+          "scan_period": 18,
+          "distance_in_scan_steps": 0.3785714285745052
+        },
+        {
+          "continued_index": [
+            1,
+            14
+          ],
+          "continued_parameters": [
+            0.07305333333333335,
+            -0.15435
+          ],
+          "nearest_scan_index": [
+            212,
+            286
+          ],
+          "nearest_scan_parameters": [
+            0.07305320813771518,
+            -0.15434585289514866
+          ],
+          "scan_period": 0,
+          "distance_in_scan_steps": 0.3312500000002356
+        },
+        {
+          "continued_index": [
+            1,
+            15
+          ],
+          "continued_parameters": [
+            0.0731,
+            -0.15435
+          ],
+          "nearest_scan_index": [
+            212,
+            297
+          ],
+          "nearest_scan_parameters": [
+            0.07310140845070423,
+            -0.15434585289514866
+          ],
+          "scan_period": 0,
+          "distance_in_scan_steps": 0.3312500000002356
+        },
+        {
+          "continued_index": [
+            1,
+            16
+          ],
+          "continued_parameters": [
+            0.07314666666666667,
+            -0.15435
+          ],
+          "nearest_scan_index": [
+            212,
+            307
+          ],
+          "nearest_scan_parameters": [
+            0.07314522691705791,
+            -0.15434585289514866
+          ],
+          "scan_period": 0,
+          "distance_in_scan_steps": 0.3312500000002356
+        },
+        {
+          "continued_index": [
+            1,
+            17
+          ],
+          "continued_parameters": [
+            0.07319333333333333,
+            -0.15435
+          ],
+          "nearest_scan_index": [
+            212,
+            318
+          ],
+          "nearest_scan_parameters": [
+            0.07319342723004695,
+            -0.15434585289514866
+          ],
+          "scan_period": 0,
+          "distance_in_scan_steps": 0.3312500000002356
+        },
+        {
+          "continued_index": [
+            2,
+            4
+          ],
+          "continued_parameters": [
+            0.07258666666666667,
+            -0.1542
+          ],
+          "nearest_scan_index": [
+            224,
+            180
+          ],
+          "nearest_scan_parameters": [
+            0.0725887323943662,
+            -0.15419561815336463
+          ],
+          "scan_period": 0,
+          "distance_in_scan_steps": 0.4714285714261282
+        },
+        {
+          "continued_index": [
+            2,
+            5
+          ],
+          "continued_parameters": [
+            0.07263333333333334,
+            -0.1542
+          ],
+          "nearest_scan_index": [
+            224,
+            190
+          ],
+          "nearest_scan_parameters": [
+            0.07263255086071987,
+            -0.15419561815336463
+          ],
+          "scan_period": 0,
+          "distance_in_scan_steps": 0.35000000000033255
+        },
+        {
+          "continued_index": [
+            2,
+            10
+          ],
+          "continued_parameters": [
+            0.07286666666666668,
+            -0.1542
+          ],
+          "nearest_scan_index": [
+            224,
+            243
+          ],
+          "nearest_scan_parameters": [
+            0.07286478873239437,
+            -0.15419561815336463
+          ],
+          "scan_period": 12,
+          "distance_in_scan_steps": 0.4285714285732383
+        },
+        {
+          "continued_index": [
+            2,
+            11
+          ],
+          "continued_parameters": [
+            0.07291333333333334,
+            -0.1542
+          ],
+          "nearest_scan_index": [
+            224,
+            254
+          ],
+          "nearest_scan_parameters": [
+            0.07291298904538342,
+            -0.15419561815336463
+          ],
+          "scan_period": 12,
+          "distance_in_scan_steps": 0.35000000000033255
+        },
+        {
+          "continued_index": [
+            2,
+            12
+          ],
+          "continued_parameters": [
+            0.07296000000000001,
+            -0.1542
+          ],
+          "nearest_scan_index": [
+            224,
+            265
+          ],
+          "nearest_scan_parameters": [
+            0.07296118935837245,
+            -0.15419561815336463
+          ],
+          "scan_period": 0,
+          "distance_in_scan_steps": 0.35000000000033255
+        },
+        {
+          "continued_index": [
+            2,
+            13
+          ],
+          "continued_parameters": [
+            0.07300666666666668,
+            -0.1542
+          ],
+          "nearest_scan_index": [
+            224,
+            275
+          ],
+          "nearest_scan_parameters": [
+            0.07300500782472613,
+            -0.15419561815336463
+          ],
+          "scan_period": 0,
+          "distance_in_scan_steps": 0.3785714285745052
+        },
+        {
+          "continued_index": [
+            2,
+            14
+          ],
+          "continued_parameters": [
+            0.07305333333333335,
+            -0.1542
+          ],
+          "nearest_scan_index": [
+            224,
+            286
+          ],
+          "nearest_scan_parameters": [
+            0.07305320813771518,
+            -0.15419561815336463
+          ],
+          "scan_period": 0,
+          "distance_in_scan_steps": 0.35000000000033255
+        },
+        {
+          "continued_index": [
+            2,
+            15
+          ],
+          "continued_parameters": [
+            0.0731,
+            -0.1542
+          ],
+          "nearest_scan_index": [
+            224,
+            297
+          ],
+          "nearest_scan_parameters": [
+            0.07310140845070423,
+            -0.15419561815336463
+          ],
+          "scan_period": 0,
+          "distance_in_scan_steps": 0.35000000000033255
+        },
+        {
+          "continued_index": [
+            2,
+            16
+          ],
+          "continued_parameters": [
+            0.07314666666666667,
+            -0.1542
+          ],
+          "nearest_scan_index": [
+            224,
+            307
+          ],
+          "nearest_scan_parameters": [
+            0.07314522691705791,
+            -0.15419561815336463
+          ],
+          "scan_period": 0,
+          "distance_in_scan_steps": 0.35000000000033255
+        },
+        {
+          "continued_index": [
+            2,
+            17
+          ],
+          "continued_parameters": [
+            0.07319333333333333,
+            -0.1542
+          ],
+          "nearest_scan_index": [
+            224,
+            318
+          ],
+          "nearest_scan_parameters": [
+            0.07319342723004695,
+            -0.15419561815336463
+          ],
+          "scan_period": 24,
+          "distance_in_scan_steps": 0.35000000000033255
+        },
+        {
+          "continued_index": [
+            2,
+            18
+          ],
+          "continued_parameters": [
+            0.07324,
+            -0.1542
+          ],
+          "nearest_scan_index": [
+            224,
+            329
+          ],
+          "nearest_scan_parameters": [
+            0.073241627543036,
+            -0.15419561815336463
+          ],
+          "scan_period": 12,
+          "distance_in_scan_steps": 0.3714285714286619
+        },
+        {
+          "continued_index": [
+            3,
+            3
+          ],
+          "continued_parameters": [
+            0.07254000000000001,
+            -0.15405
+          ],
+          "nearest_scan_index": [
+            236,
+            169
+          ],
+          "nearest_scan_parameters": [
+            0.07254053208137716,
+            -0.15404538341158058
+          ],
+          "scan_period": 0,
+          "distance_in_scan_steps": 0.3687500000004295
+        },
+        {
+          "continued_index": [
+            3,
+            4
+          ],
+          "continued_parameters": [
+            0.07258666666666667,
+            -0.15405
+          ],
+          "nearest_scan_index": [
+            236,
+            180
+          ],
+          "nearest_scan_parameters": [
+            0.0725887323943662,
+            -0.15404538341158058
+          ],
+          "scan_period": 0,
+          "distance_in_scan_steps": 0.4714285714261282
+        },
+        {
+          "continued_index": [
+            3,
+            5
+          ],
+          "continued_parameters": [
+            0.07263333333333334,
+            -0.15405
+          ],
+          "nearest_scan_index": [
+            236,
+            190
+          ],
+          "nearest_scan_parameters": [
+            0.07263255086071987,
+            -0.15404538341158058
+          ],
+          "scan_period": 0,
+          "distance_in_scan_steps": 0.3687500000004295
+        },
+        {
+          "continued_index": [
+            3,
+            6
+          ],
+          "continued_parameters": [
+            0.07268000000000001,
+            -0.15405
+          ],
+          "nearest_scan_index": [
+            236,
+            201
+          ],
+          "nearest_scan_parameters": [
+            0.07268075117370892,
+            -0.15404538341158058
+          ],
+          "scan_period": 0,
+          "distance_in_scan_steps": 0.3687500000004295
+        },
+        {
+          "continued_index": [
+            3,
+            7
+          ],
+          "continued_parameters": [
+            0.07272666666666668,
+            -0.15405
+          ],
+          "nearest_scan_index": [
+            236,
+            211
+          ],
+          "nearest_scan_parameters": [
+            0.0727245696400626,
+            -0.15404538341158058
+          ],
+          "scan_period": 0,
+          "distance_in_scan_steps": 0.4785714285719715
+        },
+        {
+          "continued_index": [
+            3,
+            10
+          ],
+          "continued_parameters": [
+            0.07286666666666668,
+            -0.15405
+          ],
+          "nearest_scan_index": [
+            236,
+            243
+          ],
+          "nearest_scan_parameters": [
+            0.07286478873239437,
+            -0.15404538341158058
+          ],
+          "scan_period": 0,
+          "distance_in_scan_steps": 0.4285714285732383
+        },
+        {
+          "continued_index": [
+            3,
+            11
+          ],
+          "continued_parameters": [
+            0.07291333333333334,
+            -0.15405
+          ],
+          "nearest_scan_index": [
+            236,
+            254
+          ],
+          "nearest_scan_parameters": [
+            0.07291298904538342,
+            -0.15404538341158058
+          ],
+          "scan_period": 0,
+          "distance_in_scan_steps": 0.3687500000004295
+        },
+        {
+          "continued_index": [
+            3,
+            13
+          ],
+          "continued_parameters": [
+            0.07300666666666668,
+            -0.15405
+          ],
+          "nearest_scan_index": [
+            236,
+            275
+          ],
+          "nearest_scan_parameters": [
+            0.07300500782472613,
+            -0.15404538341158058
+          ],
+          "scan_period": 12,
+          "distance_in_scan_steps": 0.3785714285745052
+        },
+        {
+          "continued_index": [
+            3,
+            14
+          ],
+          "continued_parameters": [
+            0.07305333333333335,
+            -0.15405
+          ],
+          "nearest_scan_index": [
+            236,
+            286
+          ],
+          "nearest_scan_parameters": [
+            0.07305320813771518,
+            -0.15404538341158058
+          ],
+          "scan_period": 12,
+          "distance_in_scan_steps": 0.3687500000004295
+        },
+        {
+          "continued_index": [
+            3,
+            15
+          ],
+          "continued_parameters": [
+            0.0731,
+            -0.15405
+          ],
+          "nearest_scan_index": [
+            236,
+            297
+          ],
+          "nearest_scan_parameters": [
+            0.07310140845070423,
+            -0.15404538341158058
+          ],
+          "scan_period": 0,
+          "distance_in_scan_steps": 0.3687500000004295
+        },
+        {
+          "continued_index": [
+            3,
+            16
+          ],
+          "continued_parameters": [
+            0.07314666666666667,
+            -0.15405
+          ],
+          "nearest_scan_index": [
+            236,
+            307
+          ],
+          "nearest_scan_parameters": [
+            0.07314522691705791,
+            -0.15404538341158058
+          ],
+          "scan_period": 24,
+          "distance_in_scan_steps": 0.3687500000004295
+        },
+        {
+          "continued_index": [
+            3,
+            17
+          ],
+          "continued_parameters": [
+            0.07319333333333333,
+            -0.15405
+          ],
+          "nearest_scan_index": [
+            236,
+            318
+          ],
+          "nearest_scan_parameters": [
+            0.07319342723004695,
+            -0.15404538341158058
+          ],
+          "scan_period": 24,
+          "distance_in_scan_steps": 0.3687500000004295
+        },
+        {
+          "continued_index": [
+            3,
+            18
+          ],
+          "continued_parameters": [
+            0.07324,
+            -0.15405
+          ],
+          "nearest_scan_index": [
+            236,
+            329
+          ],
+          "nearest_scan_parameters": [
+            0.073241627543036,
+            -0.15404538341158058
+          ],
+          "scan_period": 12,
+          "distance_in_scan_steps": 0.3714285714286619
+        },
+        {
+          "continued_index": [
+            3,
+            19
+          ],
+          "continued_parameters": [
+            0.07328666666666667,
+            -0.15405
+          ],
+          "nearest_scan_index": [
+            236,
+            339
+          ],
+          "nearest_scan_parameters": [
+            0.07328544600938967,
+            -0.15404538341158058
+          ],
+          "scan_period": 12,
+          "distance_in_scan_steps": 0.3687500000004295
+        },
+        {
+          "continued_index": [
+            4,
+            2
+          ],
+          "continued_parameters": [
+            0.07249333333333334,
+            -0.1539
+          ],
+          "nearest_scan_index": [
+            248,
+            158
+          ],
+          "nearest_scan_parameters": [
+            0.07249233176838811,
+            -0.15389514866979656
+          ],
+          "scan_period": 15,
+          "distance_in_scan_steps": 0.38750000000052653
+        },
+        {
+          "continued_index": [
+            4,
+            3
+          ],
+          "continued_parameters": [
+            0.07254000000000001,
+            -0.1539
+          ],
+          "nearest_scan_index": [
+            248,
+            169
+          ],
+          "nearest_scan_parameters": [
+            0.07254053208137716,
+            -0.15389514866979656
+          ],
+          "scan_period": 0,
+          "distance_in_scan_steps": 0.38750000000052653
+        },
+        {
+          "continued_index": [
+            4,
+            4
+          ],
+          "continued_parameters": [
+            0.07258666666666667,
+            -0.1539
+          ],
+          "nearest_scan_index": [
+            248,
+            180
+          ],
+          "nearest_scan_parameters": [
+            0.0725887323943662,
+            -0.15389514866979656
+          ],
+          "scan_period": 0,
+          "distance_in_scan_steps": 0.4714285714261282
+        },
+        {
+          "continued_index": [
+            4,
+            5
+          ],
+          "continued_parameters": [
+            0.07263333333333334,
+            -0.1539
+          ],
+          "nearest_scan_index": [
+            248,
+            190
+          ],
+          "nearest_scan_parameters": [
+            0.07263255086071987,
+            -0.15389514866979656
+          ],
+          "scan_period": 0,
+          "distance_in_scan_steps": 0.38750000000052653
+        },
+        {
+          "continued_index": [
+            4,
+            6
+          ],
+          "continued_parameters": [
+            0.07268000000000001,
+            -0.1539
+          ],
+          "nearest_scan_index": [
+            248,
+            201
+          ],
+          "nearest_scan_parameters": [
+            0.07268075117370892,
+            -0.15389514866979656
+          ],
+          "scan_period": 0,
+          "distance_in_scan_steps": 0.38750000000052653
+        },
+        {
+          "continued_index": [
+            4,
+            7
+          ],
+          "continued_parameters": [
+            0.07272666666666668,
+            -0.1539
+          ],
+          "nearest_scan_index": [
+            248,
+            211
+          ],
+          "nearest_scan_parameters": [
+            0.0727245696400626,
+            -0.15389514866979656
+          ],
+          "scan_period": 0,
+          "distance_in_scan_steps": 0.4785714285719715
+        },
+        {
+          "continued_index": [
+            4,
+            8
+          ],
+          "continued_parameters": [
+            0.07277333333333334,
+            -0.1539
+          ],
+          "nearest_scan_index": [
+            248,
+            222
+          ],
+          "nearest_scan_parameters": [
+            0.07277276995305164,
+            -0.15389514866979656
+          ],
+          "scan_period": 0,
+          "distance_in_scan_steps": 0.38750000000052653
+        },
+        {
+          "continued_index": [
+            4,
+            9
+          ],
+          "continued_parameters": [
+            0.07282000000000001,
+            -0.1539
+          ],
+          "nearest_scan_index": [
+            248,
+            233
+          ],
+          "nearest_scan_parameters": [
+            0.07282097026604069,
+            -0.15389514866979656
+          ],
+          "scan_period": 0,
+          "distance_in_scan_steps": 0.38750000000052653
+        },
+        {
+          "continued_index": [
+            4,
+            10
+          ],
+          "continued_parameters": [
+            0.07286666666666668,
+            -0.1539
+          ],
+          "nearest_scan_index": [
+            248,
+            243
+          ],
+          "nearest_scan_parameters": [
+            0.07286478873239437,
+            -0.15389514866979656
+          ],
+          "scan_period": 24,
+          "distance_in_scan_steps": 0.4285714285732383
+        },
+        {
+          "continued_index": [
+            4,
+            14
+          ],
+          "continued_parameters": [
+            0.07305333333333335,
+            -0.1539
+          ],
+          "nearest_scan_index": [
+            248,
+            286
+          ],
+          "nearest_scan_parameters": [
+            0.07305320813771518,
+            -0.15389514866979656
+          ],
+          "scan_period": 0,
+          "distance_in_scan_steps": 0.38750000000052653
+        },
+        {
+          "continued_index": [
+            4,
+            15
+          ],
+          "continued_parameters": [
+            0.0731,
+            -0.1539
+          ],
+          "nearest_scan_index": [
+            248,
+            297
+          ],
+          "nearest_scan_parameters": [
+            0.07310140845070423,
+            -0.15389514866979656
+          ],
+          "scan_period": 12,
+          "distance_in_scan_steps": 0.38750000000052653
+        },
+        {
+          "continued_index": [
+            4,
+            16
+          ],
+          "continued_parameters": [
+            0.07314666666666667,
+            -0.1539
+          ],
+          "nearest_scan_index": [
+            248,
+            307
+          ],
+          "nearest_scan_parameters": [
+            0.07314522691705791,
+            -0.15389514866979656
+          ],
+          "scan_period": 12,
+          "distance_in_scan_steps": 0.38750000000052653
+        },
+        {
+          "continued_index": [
+            4,
+            17
+          ],
+          "continued_parameters": [
+            0.07319333333333333,
+            -0.1539
+          ],
+          "nearest_scan_index": [
+            248,
+            318
+          ],
+          "nearest_scan_parameters": [
+            0.07319342723004695,
+            -0.15389514866979656
+          ],
+          "scan_period": 12,
+          "distance_in_scan_steps": 0.38750000000052653
+        },
+        {
+          "continued_index": [
+            4,
+            18
+          ],
+          "continued_parameters": [
+            0.07324,
+            -0.1539
+          ],
+          "nearest_scan_index": [
+            248,
+            329
+          ],
+          "nearest_scan_parameters": [
+            0.073241627543036,
+            -0.15389514866979656
+          ],
+          "scan_period": 12,
+          "distance_in_scan_steps": 0.38750000000052653
+        },
+        {
+          "continued_index": [
+            4,
+            19
+          ],
+          "continued_parameters": [
+            0.07328666666666667,
+            -0.1539
+          ],
+          "nearest_scan_index": [
+            248,
+            339
+          ],
+          "nearest_scan_parameters": [
+            0.07328544600938967,
+            -0.15389514866979656
+          ],
+          "scan_period": 12,
+          "distance_in_scan_steps": 0.38750000000052653
+        },
+        {
+          "continued_index": [
+            4,
+            20
+          ],
+          "continued_parameters": [
+            0.07333333333333333,
+            -0.1539
+          ],
+          "nearest_scan_index": [
+            248,
+            350
+          ],
+          "nearest_scan_parameters": [
+            0.07333364632237872,
+            -0.15389514866979656
+          ],
+          "scan_period": 12,
+          "distance_in_scan_steps": 0.38750000000052653
+        },
+        {
+          "continued_index": [
+            5,
+            1
+          ],
+          "continued_parameters": [
+            0.07244666666666667,
+            -0.15375
+          ],
+          "nearest_scan_index": [
+            260,
+            148
+          ],
+          "nearest_scan_parameters": [
+            0.07244851330203443,
+            -0.1537449139280125
+          ],
+          "scan_period": 0,
+          "distance_in_scan_steps": 0.4214285714273951
+        },
+        {
+          "continued_index": [
+            5,
+            2
+          ],
+          "continued_parameters": [
+            0.07249333333333334,
+            -0.15375
+          ],
+          "nearest_scan_index": [
+            260,
+            158
+          ],
+          "nearest_scan_parameters": [
+            0.07249233176838811,
+            -0.1537449139280125
+          ],
+          "scan_period": 0,
+          "distance_in_scan_steps": 0.4062500000006235
+        },
+        {
+          "continued_index": [
+            5,
+            3
+          ],
+          "continued_parameters": [
+            0.07254000000000001,
+            -0.15375
+          ],
+          "nearest_scan_index": [
+            260,
+            169
+          ],
+          "nearest_scan_parameters": [
+            0.07254053208137716,
+            -0.1537449139280125
+          ],
+          "scan_period": 0,
+          "distance_in_scan_steps": 0.4062500000006235
+        },
+        {
+          "continued_index": [
+            5,
+            4
+          ],
+          "continued_parameters": [
+            0.07258666666666667,
+            -0.15375
+          ],
+          "nearest_scan_index": [
+            260,
+            180
+          ],
+          "nearest_scan_parameters": [
+            0.0725887323943662,
+            -0.1537449139280125
+          ],
+          "scan_period": 0,
+          "distance_in_scan_steps": 0.4714285714261282
+        },
+        {
+          "continued_index": [
+            5,
+            5
+          ],
+          "continued_parameters": [
+            0.07263333333333334,
+            -0.15375
+          ],
+          "nearest_scan_index": [
+            260,
+            190
+          ],
+          "nearest_scan_parameters": [
+            0.07263255086071987,
+            -0.1537449139280125
+          ],
+          "scan_period": 0,
+          "distance_in_scan_steps": 0.4062500000006235
+        },
+        {
+          "continued_index": [
+            5,
+            6
+          ],
+          "continued_parameters": [
+            0.07268000000000001,
+            -0.15375
+          ],
+          "nearest_scan_index": [
+            260,
+            201
+          ],
+          "nearest_scan_parameters": [
+            0.07268075117370892,
+            -0.1537449139280125
+          ],
+          "scan_period": 0,
+          "distance_in_scan_steps": 0.4062500000006235
+        },
+        {
+          "continued_index": [
+            5,
+            7
+          ],
+          "continued_parameters": [
+            0.07272666666666668,
+            -0.15375
+          ],
+          "nearest_scan_index": [
+            260,
+            211
+          ],
+          "nearest_scan_parameters": [
+            0.0727245696400626,
+            -0.1537449139280125
+          ],
+          "scan_period": 0,
+          "distance_in_scan_steps": 0.4785714285719715
+        },
+        {
+          "continued_index": [
+            5,
+            8
+          ],
+          "continued_parameters": [
+            0.07277333333333334,
+            -0.15375
+          ],
+          "nearest_scan_index": [
+            260,
+            222
+          ],
+          "nearest_scan_parameters": [
+            0.07277276995305164,
+            -0.1537449139280125
+          ],
+          "scan_period": 0,
+          "distance_in_scan_steps": 0.4062500000006235
+        },
+        {
+          "continued_index": [
+            5,
+            9
+          ],
+          "continued_parameters": [
+            0.07282000000000001,
+            -0.15375
+          ],
+          "nearest_scan_index": [
+            260,
+            233
+          ],
+          "nearest_scan_parameters": [
+            0.07282097026604069,
+            -0.1537449139280125
+          ],
+          "scan_period": 18,
+          "distance_in_scan_steps": 0.4062500000006235
+        },
+        {
+          "continued_index": [
+            5,
+            10
+          ],
+          "continued_parameters": [
+            0.07286666666666668,
+            -0.15375
+          ],
+          "nearest_scan_index": [
+            260,
+            243
+          ],
+          "nearest_scan_parameters": [
+            0.07286478873239437,
+            -0.1537449139280125
+          ],
+          "scan_period": 0,
+          "distance_in_scan_steps": 0.4285714285732383
+        },
+        {
+          "continued_index": [
+            5,
+            16
+          ],
+          "continued_parameters": [
+            0.07314666666666667,
+            -0.15375
+          ],
+          "nearest_scan_index": [
+            260,
+            307
+          ],
+          "nearest_scan_parameters": [
+            0.07314522691705791,
+            -0.1537449139280125
+          ],
+          "scan_period": 0,
+          "distance_in_scan_steps": 0.4062500000006235
+        },
+        {
+          "continued_index": [
+            5,
+            17
+          ],
+          "continued_parameters": [
+            0.07319333333333333,
+            -0.15375
+          ],
+          "nearest_scan_index": [
+            260,
+            318
+          ],
+          "nearest_scan_parameters": [
+            0.07319342723004695,
+            -0.1537449139280125
+          ],
+          "scan_period": 12,
+          "distance_in_scan_steps": 0.4062500000006235
+        },
+        {
+          "continued_index": [
+            5,
+            18
+          ],
+          "continued_parameters": [
+            0.07324,
+            -0.15375
+          ],
+          "nearest_scan_index": [
+            260,
+            329
+          ],
+          "nearest_scan_parameters": [
+            0.073241627543036,
+            -0.1537449139280125
+          ],
+          "scan_period": 12,
+          "distance_in_scan_steps": 0.4062500000006235
+        },
+        {
+          "continued_index": [
+            5,
+            19
+          ],
+          "continued_parameters": [
+            0.07328666666666667,
+            -0.15375
+          ],
+          "nearest_scan_index": [
+            260,
+            339
+          ],
+          "nearest_scan_parameters": [
+            0.07328544600938967,
+            -0.1537449139280125
+          ],
+          "scan_period": 12,
+          "distance_in_scan_steps": 0.4062500000006235
+        },
+        {
+          "continued_index": [
+            5,
+            20
+          ],
+          "continued_parameters": [
+            0.07333333333333333,
+            -0.15375
+          ],
+          "nearest_scan_index": [
+            260,
+            350
+          ],
+          "nearest_scan_parameters": [
+            0.07333364632237872,
+            -0.1537449139280125
+          ],
+          "scan_period": 12,
+          "distance_in_scan_steps": 0.4062500000006235
+        },
+        {
+          "continued_index": [
+            5,
+            21
+          ],
+          "continued_parameters": [
+            0.07338,
+            -0.15375
+          ],
+          "nearest_scan_index": [
+            260,
+            361
+          ],
+          "nearest_scan_parameters": [
+            0.07338184663536776,
+            -0.1537449139280125
+          ],
+          "scan_period": 12,
+          "distance_in_scan_steps": 0.4214285714273951
+        },
+        {
+          "continued_index": [
+            6,
+            0
+          ],
+          "continued_parameters": [
+            0.0724,
+            -0.1536
+          ],
+          "nearest_scan_index": [
+            272,
+            137
+          ],
+          "nearest_scan_parameters": [
+            0.07240031298904538,
+            -0.1535946791862285
+          ],
+          "scan_period": 0,
+          "distance_in_scan_steps": 0.4249999999985035
+        },
+        {
+          "continued_index": [
+            6,
+            1
+          ],
+          "continued_parameters": [
+            0.07244666666666667,
+            -0.1536
+          ],
+          "nearest_scan_index": [
+            272,
+            148
+          ],
+          "nearest_scan_parameters": [
+            0.07244851330203443,
+            -0.1535946791862285
+          ],
+          "scan_period": 0,
+          "distance_in_scan_steps": 0.4249999999985035
+        },
+        {
+          "continued_index": [
+            6,
+            2
+          ],
+          "continued_parameters": [
+            0.07249333333333334,
+            -0.1536
+          ],
+          "nearest_scan_index": [
+            272,
+            158
+          ],
+          "nearest_scan_parameters": [
+            0.07249233176838811,
+            -0.1535946791862285
+          ],
+          "scan_period": 0,
+          "distance_in_scan_steps": 0.4249999999985035
+        },
+        {
+          "continued_index": [
+            6,
+            3
+          ],
+          "continued_parameters": [
+            0.07254000000000001,
+            -0.1536
+          ],
+          "nearest_scan_index": [
+            272,
+            169
+          ],
+          "nearest_scan_parameters": [
+            0.07254053208137716,
+            -0.1535946791862285
+          ],
+          "scan_period": 0,
+          "distance_in_scan_steps": 0.4249999999985035
+        },
+        {
+          "continued_index": [
+            6,
+            4
+          ],
+          "continued_parameters": [
+            0.07258666666666667,
+            -0.1536
+          ],
+          "nearest_scan_index": [
+            272,
+            180
+          ],
+          "nearest_scan_parameters": [
+            0.0725887323943662,
+            -0.1535946791862285
+          ],
+          "scan_period": 0,
+          "distance_in_scan_steps": 0.4714285714261282
+        },
+        {
+          "continued_index": [
+            6,
+            5
+          ],
+          "continued_parameters": [
+            0.07263333333333334,
+            -0.1536
+          ],
+          "nearest_scan_index": [
+            272,
+            190
+          ],
+          "nearest_scan_parameters": [
+            0.07263255086071987,
+            -0.1535946791862285
+          ],
+          "scan_period": 0,
+          "distance_in_scan_steps": 0.4249999999985035
+        },
+        {
+          "continued_index": [
+            6,
+            6
+          ],
+          "continued_parameters": [
+            0.07268000000000001,
+            -0.1536
+          ],
+          "nearest_scan_index": [
+            272,
+            201
+          ],
+          "nearest_scan_parameters": [
+            0.07268075117370892,
+            -0.1535946791862285
+          ],
+          "scan_period": 0,
+          "distance_in_scan_steps": 0.4249999999985035
+        },
+        {
+          "continued_index": [
+            6,
+            7
+          ],
+          "continued_parameters": [
+            0.07272666666666668,
+            -0.1536
+          ],
+          "nearest_scan_index": [
+            272,
+            211
+          ],
+          "nearest_scan_parameters": [
+            0.0727245696400626,
+            -0.1535946791862285
+          ],
+          "scan_period": 0,
+          "distance_in_scan_steps": 0.4785714285719715
+        },
+        {
+          "continued_index": [
+            6,
+            8
+          ],
+          "continued_parameters": [
+            0.07277333333333334,
+            -0.1536
+          ],
+          "nearest_scan_index": [
+            272,
+            222
+          ],
+          "nearest_scan_parameters": [
+            0.07277276995305164,
+            -0.1535946791862285
+          ],
+          "scan_period": 0,
+          "distance_in_scan_steps": 0.4249999999985035
+        },
+        {
+          "continued_index": [
+            6,
+            9
+          ],
+          "continued_parameters": [
+            0.07282000000000001,
+            -0.1536
+          ],
+          "nearest_scan_index": [
+            272,
+            233
+          ],
+          "nearest_scan_parameters": [
+            0.07282097026604069,
+            -0.1535946791862285
+          ],
+          "scan_period": 0,
+          "distance_in_scan_steps": 0.4249999999985035
+        },
+        {
+          "continued_index": [
+            6,
+            10
+          ],
+          "continued_parameters": [
+            0.07286666666666668,
+            -0.1536
+          ],
+          "nearest_scan_index": [
+            272,
+            243
+          ],
+          "nearest_scan_parameters": [
+            0.07286478873239437,
+            -0.1535946791862285
+          ],
+          "scan_period": 12,
+          "distance_in_scan_steps": 0.4285714285732383
+        },
+        {
+          "continued_index": [
+            6,
+            17
+          ],
+          "continued_parameters": [
+            0.07319333333333333,
+            -0.1536
+          ],
+          "nearest_scan_index": [
+            272,
+            318
+          ],
+          "nearest_scan_parameters": [
+            0.07319342723004695,
+            -0.1535946791862285
+          ],
+          "scan_period": 12,
+          "distance_in_scan_steps": 0.4249999999985035
+        },
+        {
+          "continued_index": [
+            6,
+            18
+          ],
+          "continued_parameters": [
+            0.07324,
+            -0.1536
+          ],
+          "nearest_scan_index": [
+            272,
+            329
+          ],
+          "nearest_scan_parameters": [
+            0.073241627543036,
+            -0.1535946791862285
+          ],
+          "scan_period": 0,
+          "distance_in_scan_steps": 0.4249999999985035
+        },
+        {
+          "continued_index": [
+            6,
+            19
+          ],
+          "continued_parameters": [
+            0.07328666666666667,
+            -0.1536
+          ],
+          "nearest_scan_index": [
+            272,
+            339
+          ],
+          "nearest_scan_parameters": [
+            0.07328544600938967,
+            -0.1535946791862285
+          ],
+          "scan_period": 12,
+          "distance_in_scan_steps": 0.4249999999985035
+        },
+        {
+          "continued_index": [
+            6,
+            20
+          ],
+          "continued_parameters": [
+            0.07333333333333333,
+            -0.1536
+          ],
+          "nearest_scan_index": [
+            272,
+            350
+          ],
+          "nearest_scan_parameters": [
+            0.07333364632237872,
+            -0.1535946791862285
+          ],
+          "scan_period": 12,
+          "distance_in_scan_steps": 0.4249999999985035
+        },
+        {
+          "continued_index": [
+            6,
+            21
+          ],
+          "continued_parameters": [
+            0.07338,
+            -0.1536
+          ],
+          "nearest_scan_index": [
+            272,
+            361
+          ],
+          "nearest_scan_parameters": [
+            0.07338184663536776,
+            -0.1535946791862285
+          ],
+          "scan_period": 12,
+          "distance_in_scan_steps": 0.4249999999985035
+        },
+        {
+          "continued_index": [
+            6,
+            22
+          ],
+          "continued_parameters": [
+            0.07342666666666667,
+            -0.1536
+          ],
+          "nearest_scan_index": [
+            272,
+            371
+          ],
+          "nearest_scan_parameters": [
+            0.07342566510172144,
+            -0.1535946791862285
+          ],
+          "scan_period": 0,
+          "distance_in_scan_steps": 0.4249999999985035
+        },
+        {
+          "continued_index": [
+            7,
+            0
+          ],
+          "continued_parameters": [
+            0.0724,
+            -0.15345
+          ],
+          "nearest_scan_index": [
+            284,
+            137
+          ],
+          "nearest_scan_parameters": [
+            0.07240031298904538,
+            -0.15344444444444444
+          ],
+          "scan_period": 0,
+          "distance_in_scan_steps": 0.4437500000008175
+        },
+        {
+          "continued_index": [
+            7,
+            1
+          ],
+          "continued_parameters": [
+            0.07244666666666667,
+            -0.15345
+          ],
+          "nearest_scan_index": [
+            284,
+            148
+          ],
+          "nearest_scan_parameters": [
+            0.07244851330203443,
+            -0.15344444444444444
+          ],
+          "scan_period": 0,
+          "distance_in_scan_steps": 0.4437500000008175
+        },
+        {
+          "continued_index": [
+            7,
+            2
+          ],
+          "continued_parameters": [
+            0.07249333333333334,
+            -0.15345
+          ],
+          "nearest_scan_index": [
+            284,
+            158
+          ],
+          "nearest_scan_parameters": [
+            0.07249233176838811,
+            -0.15344444444444444
+          ],
+          "scan_period": 0,
+          "distance_in_scan_steps": 0.4437500000008175
+        },
+        {
+          "continued_index": [
+            7,
+            3
+          ],
+          "continued_parameters": [
+            0.07254000000000001,
+            -0.15345
+          ],
+          "nearest_scan_index": [
+            284,
+            169
+          ],
+          "nearest_scan_parameters": [
+            0.07254053208137716,
+            -0.15344444444444444
+          ],
+          "scan_period": 0,
+          "distance_in_scan_steps": 0.4437500000008175
+        },
+        {
+          "continued_index": [
+            7,
+            4
+          ],
+          "continued_parameters": [
+            0.07258666666666667,
+            -0.15345
+          ],
+          "nearest_scan_index": [
+            284,
+            180
+          ],
+          "nearest_scan_parameters": [
+            0.0725887323943662,
+            -0.15344444444444444
+          ],
+          "scan_period": 0,
+          "distance_in_scan_steps": 0.4714285714261282
+        },
+        {
+          "continued_index": [
+            7,
+            5
+          ],
+          "continued_parameters": [
+            0.07263333333333334,
+            -0.15345
+          ],
+          "nearest_scan_index": [
+            284,
+            190
+          ],
+          "nearest_scan_parameters": [
+            0.07263255086071987,
+            -0.15344444444444444
+          ],
+          "scan_period": 0,
+          "distance_in_scan_steps": 0.4437500000008175
+        },
+        {
+          "continued_index": [
+            7,
+            6
+          ],
+          "continued_parameters": [
+            0.07268000000000001,
+            -0.15345
+          ],
+          "nearest_scan_index": [
+            284,
+            201
+          ],
+          "nearest_scan_parameters": [
+            0.07268075117370892,
+            -0.15344444444444444
+          ],
+          "scan_period": 0,
+          "distance_in_scan_steps": 0.4437500000008175
+        },
+        {
+          "continued_index": [
+            7,
+            7
+          ],
+          "continued_parameters": [
+            0.07272666666666668,
+            -0.15345
+          ],
+          "nearest_scan_index": [
+            284,
+            211
+          ],
+          "nearest_scan_parameters": [
+            0.0727245696400626,
+            -0.15344444444444444
+          ],
+          "scan_period": 0,
+          "distance_in_scan_steps": 0.4785714285719715
+        },
+        {
+          "continued_index": [
+            7,
+            8
+          ],
+          "continued_parameters": [
+            0.07277333333333334,
+            -0.15345
+          ],
+          "nearest_scan_index": [
+            284,
+            222
+          ],
+          "nearest_scan_parameters": [
+            0.07277276995305164,
+            -0.15344444444444444
+          ],
+          "scan_period": 0,
+          "distance_in_scan_steps": 0.4437500000008175
+        },
+        {
+          "continued_index": [
+            7,
+            9
+          ],
+          "continued_parameters": [
+            0.07282000000000001,
+            -0.15345
+          ],
+          "nearest_scan_index": [
+            284,
+            233
+          ],
+          "nearest_scan_parameters": [
+            0.07282097026604069,
+            -0.15344444444444444
+          ],
+          "scan_period": 0,
+          "distance_in_scan_steps": 0.4437500000008175
+        },
+        {
+          "continued_index": [
+            7,
+            10
+          ],
+          "continued_parameters": [
+            0.07286666666666668,
+            -0.15345
+          ],
+          "nearest_scan_index": [
+            284,
+            243
+          ],
+          "nearest_scan_parameters": [
+            0.07286478873239437,
+            -0.15344444444444444
+          ],
+          "scan_period": 12,
+          "distance_in_scan_steps": 0.4437500000008175
+        },
+        {
+          "continued_index": [
+            7,
+            20
+          ],
+          "continued_parameters": [
+            0.07333333333333333,
+            -0.15345
+          ],
+          "nearest_scan_index": [
+            284,
+            350
+          ],
+          "nearest_scan_parameters": [
+            0.07333364632237872,
+            -0.15344444444444444
+          ],
+          "scan_period": 0,
+          "distance_in_scan_steps": 0.4437500000008175
+        },
+        {
+          "continued_index": [
+            7,
+            21
+          ],
+          "continued_parameters": [
+            0.07338,
+            -0.15345
+          ],
+          "nearest_scan_index": [
+            284,
+            361
+          ],
+          "nearest_scan_parameters": [
+            0.07338184663536776,
+            -0.15344444444444444
+          ],
+          "scan_period": 0,
+          "distance_in_scan_steps": 0.4437500000008175
+        },
+        {
+          "continued_index": [
+            8,
+            0
+          ],
+          "continued_parameters": [
+            0.0724,
+            -0.1533
+          ],
+          "nearest_scan_index": [
+            296,
+            137
+          ],
+          "nearest_scan_parameters": [
+            0.07240031298904538,
+            -0.15329420970266042
+          ],
+          "scan_period": 0,
+          "distance_in_scan_steps": 0.4624999999986975
+        },
+        {
+          "continued_index": [
+            8,
+            1
+          ],
+          "continued_parameters": [
+            0.07244666666666667,
+            -0.1533
+          ],
+          "nearest_scan_index": [
+            296,
+            148
+          ],
+          "nearest_scan_parameters": [
+            0.07244851330203443,
+            -0.15329420970266042
+          ],
+          "scan_period": 0,
+          "distance_in_scan_steps": 0.4624999999986975
+        },
+        {
+          "continued_index": [
+            8,
+            2
+          ],
+          "continued_parameters": [
+            0.07249333333333334,
+            -0.1533
+          ],
+          "nearest_scan_index": [
+            296,
+            158
+          ],
+          "nearest_scan_parameters": [
+            0.07249233176838811,
+            -0.15329420970266042
+          ],
+          "scan_period": 0,
+          "distance_in_scan_steps": 0.4624999999986975
+        },
+        {
+          "continued_index": [
+            8,
+            3
+          ],
+          "continued_parameters": [
+            0.07254000000000001,
+            -0.1533
+          ],
+          "nearest_scan_index": [
+            296,
+            169
+          ],
+          "nearest_scan_parameters": [
+            0.07254053208137716,
+            -0.15329420970266042
+          ],
+          "scan_period": 0,
+          "distance_in_scan_steps": 0.4624999999986975
+        },
+        {
+          "continued_index": [
+            8,
+            4
+          ],
+          "continued_parameters": [
+            0.07258666666666667,
+            -0.1533
+          ],
+          "nearest_scan_index": [
+            296,
+            180
+          ],
+          "nearest_scan_parameters": [
+            0.0725887323943662,
+            -0.15329420970266042
+          ],
+          "scan_period": 0,
+          "distance_in_scan_steps": 0.4714285714261282
+        },
+        {
+          "continued_index": [
+            8,
+            5
+          ],
+          "continued_parameters": [
+            0.07263333333333334,
+            -0.1533
+          ],
+          "nearest_scan_index": [
+            296,
+            190
+          ],
+          "nearest_scan_parameters": [
+            0.07263255086071987,
+            -0.15329420970266042
+          ],
+          "scan_period": 0,
+          "distance_in_scan_steps": 0.4624999999986975
+        },
+        {
+          "continued_index": [
+            8,
+            6
+          ],
+          "continued_parameters": [
+            0.07268000000000001,
+            -0.1533
+          ],
+          "nearest_scan_index": [
+            296,
+            201
+          ],
+          "nearest_scan_parameters": [
+            0.07268075117370892,
+            -0.15329420970266042
+          ],
+          "scan_period": 0,
+          "distance_in_scan_steps": 0.4624999999986975
+        },
+        {
+          "continued_index": [
+            8,
+            7
+          ],
+          "continued_parameters": [
+            0.07272666666666668,
+            -0.1533
+          ],
+          "nearest_scan_index": [
+            296,
+            211
+          ],
+          "nearest_scan_parameters": [
+            0.0727245696400626,
+            -0.15329420970266042
+          ],
+          "scan_period": 0,
+          "distance_in_scan_steps": 0.4785714285719715
+        },
+        {
+          "continued_index": [
+            8,
+            8
+          ],
+          "continued_parameters": [
+            0.07277333333333334,
+            -0.1533
+          ],
+          "nearest_scan_index": [
+            296,
+            222
+          ],
+          "nearest_scan_parameters": [
+            0.07277276995305164,
+            -0.15329420970266042
+          ],
+          "scan_period": 0,
+          "distance_in_scan_steps": 0.4624999999986975
+        },
+        {
+          "continued_index": [
+            8,
+            9
+          ],
+          "continued_parameters": [
+            0.07282000000000001,
+            -0.1533
+          ],
+          "nearest_scan_index": [
+            296,
+            233
+          ],
+          "nearest_scan_parameters": [
+            0.07282097026604069,
+            -0.15329420970266042
+          ],
+          "scan_period": 0,
+          "distance_in_scan_steps": 0.4624999999986975
+        },
+        {
+          "continued_index": [
+            8,
+            10
+          ],
+          "continued_parameters": [
+            0.07286666666666668,
+            -0.1533
+          ],
+          "nearest_scan_index": [
+            296,
+            243
+          ],
+          "nearest_scan_parameters": [
+            0.07286478873239437,
+            -0.15329420970266042
+          ],
+          "scan_period": 12,
+          "distance_in_scan_steps": 0.4624999999986975
+        },
+        {
+          "continued_index": [
+            9,
+            0
+          ],
+          "continued_parameters": [
+            0.0724,
+            -0.15315
+          ],
+          "nearest_scan_index": [
+            308,
+            137
+          ],
+          "nearest_scan_parameters": [
+            0.07240031298904538,
+            -0.15314397496087637
+          ],
+          "scan_period": 0,
+          "distance_in_scan_steps": 0.4812500000010115
+        },
+        {
+          "continued_index": [
+            9,
+            1
+          ],
+          "continued_parameters": [
+            0.07244666666666667,
+            -0.15315
+          ],
+          "nearest_scan_index": [
+            308,
+            148
+          ],
+          "nearest_scan_parameters": [
+            0.07244851330203443,
+            -0.15314397496087637
+          ],
+          "scan_period": 0,
+          "distance_in_scan_steps": 0.4812500000010115
+        },
+        {
+          "continued_index": [
+            9,
+            2
+          ],
+          "continued_parameters": [
+            0.07249333333333334,
+            -0.15315
+          ],
+          "nearest_scan_index": [
+            308,
+            158
+          ],
+          "nearest_scan_parameters": [
+            0.07249233176838811,
+            -0.15314397496087637
+          ],
+          "scan_period": 30,
+          "distance_in_scan_steps": 0.4812500000010115
+        },
+        {
+          "continued_index": [
+            9,
+            3
+          ],
+          "continued_parameters": [
+            0.07254000000000001,
+            -0.15315
+          ],
+          "nearest_scan_index": [
+            308,
+            169
+          ],
+          "nearest_scan_parameters": [
+            0.07254053208137716,
+            -0.15314397496087637
+          ],
+          "scan_period": 0,
+          "distance_in_scan_steps": 0.4812500000010115
+        },
+        {
+          "continued_index": [
+            9,
+            4
+          ],
+          "continued_parameters": [
+            0.07258666666666667,
+            -0.15315
+          ],
+          "nearest_scan_index": [
+            308,
+            180
+          ],
+          "nearest_scan_parameters": [
+            0.0725887323943662,
+            -0.15314397496087637
+          ],
+          "scan_period": 0,
+          "distance_in_scan_steps": 0.4812500000010115
+        },
+        {
+          "continued_index": [
+            9,
+            5
+          ],
+          "continued_parameters": [
+            0.07263333333333334,
+            -0.15315
+          ],
+          "nearest_scan_index": [
+            308,
+            190
+          ],
+          "nearest_scan_parameters": [
+            0.07263255086071987,
+            -0.15314397496087637
+          ],
+          "scan_period": 0,
+          "distance_in_scan_steps": 0.4812500000010115
+        },
+        {
+          "continued_index": [
+            9,
+            6
+          ],
+          "continued_parameters": [
+            0.07268000000000001,
+            -0.15315
+          ],
+          "nearest_scan_index": [
+            308,
+            201
+          ],
+          "nearest_scan_parameters": [
+            0.07268075117370892,
+            -0.15314397496087637
+          ],
+          "scan_period": 0,
+          "distance_in_scan_steps": 0.4812500000010115
+        },
+        {
+          "continued_index": [
+            9,
+            7
+          ],
+          "continued_parameters": [
+            0.07272666666666668,
+            -0.15315
+          ],
+          "nearest_scan_index": [
+            308,
+            211
+          ],
+          "nearest_scan_parameters": [
+            0.0727245696400626,
+            -0.15314397496087637
+          ],
+          "scan_period": 0,
+          "distance_in_scan_steps": 0.4812500000010115
+        },
+        {
+          "continued_index": [
+            9,
+            8
+          ],
+          "continued_parameters": [
+            0.07277333333333334,
+            -0.15315
+          ],
+          "nearest_scan_index": [
+            308,
+            222
+          ],
+          "nearest_scan_parameters": [
+            0.07277276995305164,
+            -0.15314397496087637
+          ],
+          "scan_period": 0,
+          "distance_in_scan_steps": 0.4812500000010115
+        },
+        {
+          "continued_index": [
+            9,
+            9
+          ],
+          "continued_parameters": [
+            0.07282000000000001,
+            -0.15315
+          ],
+          "nearest_scan_index": [
+            308,
+            233
+          ],
+          "nearest_scan_parameters": [
+            0.07282097026604069,
+            -0.15314397496087637
+          ],
+          "scan_period": 0,
+          "distance_in_scan_steps": 0.4812500000010115
+        },
+        {
+          "continued_index": [
+            9,
+            10
+          ],
+          "continued_parameters": [
+            0.07286666666666668,
+            -0.15315
+          ],
+          "nearest_scan_index": [
+            308,
+            243
+          ],
+          "nearest_scan_parameters": [
+            0.07286478873239437,
+            -0.15314397496087637
+          ],
+          "scan_period": 12,
+          "distance_in_scan_steps": 0.4812500000010115
+        },
+        {
+          "continued_index": [
+            10,
+            0
+          ],
+          "continued_parameters": [
+            0.0724,
+            -0.153
+          ],
+          "nearest_scan_index": [
+            319,
+            137
+          ],
+          "nearest_scan_parameters": [
+            0.07240031298904538,
+            -0.15300625978090768
+          ],
+          "scan_period": 0,
+          "distance_in_scan_steps": 0.5000000000011084
+        },
+        {
+          "continued_index": [
+            10,
+            1
+          ],
+          "continued_parameters": [
+            0.07244666666666667,
+            -0.153
+          ],
+          "nearest_scan_index": [
+            319,
+            148
+          ],
+          "nearest_scan_parameters": [
+            0.07244851330203443,
+            -0.15300625978090768
+          ],
+          "scan_period": 0,
+          "distance_in_scan_steps": 0.5000000000011084
+        },
+        {
+          "continued_index": [
+            10,
+            2
+          ],
+          "continued_parameters": [
+            0.07249333333333334,
+            -0.153
+          ],
+          "nearest_scan_index": [
+            319,
+            158
+          ],
+          "nearest_scan_parameters": [
+            0.07249233176838811,
+            -0.15300625978090768
+          ],
+          "scan_period": 0,
+          "distance_in_scan_steps": 0.5000000000011084
+        },
+        {
+          "continued_index": [
+            10,
+            3
+          ],
+          "continued_parameters": [
+            0.07254000000000001,
+            -0.153
+          ],
+          "nearest_scan_index": [
+            319,
+            169
+          ],
+          "nearest_scan_parameters": [
+            0.07254053208137716,
+            -0.15300625978090768
+          ],
+          "scan_period": 0,
+          "distance_in_scan_steps": 0.5000000000011084
+        },
+        {
+          "continued_index": [
+            10,
+            4
+          ],
+          "continued_parameters": [
+            0.07258666666666667,
+            -0.153
+          ],
+          "nearest_scan_index": [
+            319,
+            180
+          ],
+          "nearest_scan_parameters": [
+            0.0725887323943662,
+            -0.15300625978090768
+          ],
+          "scan_period": 0,
+          "distance_in_scan_steps": 0.5000000000011084
+        },
+        {
+          "continued_index": [
+            10,
+            5
+          ],
+          "continued_parameters": [
+            0.07263333333333334,
+            -0.153
+          ],
+          "nearest_scan_index": [
+            319,
+            190
+          ],
+          "nearest_scan_parameters": [
+            0.07263255086071987,
+            -0.15300625978090768
+          ],
+          "scan_period": 0,
+          "distance_in_scan_steps": 0.5000000000011084
+        },
+        {
+          "continued_index": [
+            10,
+            6
+          ],
+          "continued_parameters": [
+            0.07268000000000001,
+            -0.153
+          ],
+          "nearest_scan_index": [
+            319,
+            201
+          ],
+          "nearest_scan_parameters": [
+            0.07268075117370892,
+            -0.15300625978090768
+          ],
+          "scan_period": 0,
+          "distance_in_scan_steps": 0.5000000000011084
+        },
+        {
+          "continued_index": [
+            10,
+            7
+          ],
+          "continued_parameters": [
+            0.07272666666666668,
+            -0.153
+          ],
+          "nearest_scan_index": [
+            319,
+            211
+          ],
+          "nearest_scan_parameters": [
+            0.0727245696400626,
+            -0.15300625978090768
+          ],
+          "scan_period": 0,
+          "distance_in_scan_steps": 0.5000000000011084
+        },
+        {
+          "continued_index": [
+            10,
+            8
+          ],
+          "continued_parameters": [
+            0.07277333333333334,
+            -0.153
+          ],
+          "nearest_scan_index": [
+            319,
+            222
+          ],
+          "nearest_scan_parameters": [
+            0.07277276995305164,
+            -0.15300625978090768
+          ],
+          "scan_period": 0,
+          "distance_in_scan_steps": 0.5000000000011084
+        },
+        {
+          "continued_index": [
+            10,
+            9
+          ],
+          "continued_parameters": [
+            0.07282000000000001,
+            -0.153
+          ],
+          "nearest_scan_index": [
+            319,
+            233
+          ],
+          "nearest_scan_parameters": [
+            0.07282097026604069,
+            -0.15300625978090768
+          ],
+          "scan_period": 24,
+          "distance_in_scan_steps": 0.5000000000011084
+        },
+        {
+          "continued_index": [
+            10,
+            10
+          ],
+          "continued_parameters": [
+            0.07286666666666668,
+            -0.153
+          ],
+          "nearest_scan_index": [
+            319,
+            243
+          ],
+          "nearest_scan_parameters": [
+            0.07286478873239437,
+            -0.15300625978090768
+          ],
+          "scan_period": 12,
+          "distance_in_scan_steps": 0.5000000000011084
+        },
+        {
+          "continued_index": [
+            11,
+            0
+          ],
+          "continued_parameters": [
+            0.0724,
+            -0.15284999999999999
+          ],
+          "nearest_scan_index": [
+            331,
+            137
+          ],
+          "nearest_scan_parameters": [
+            0.07240031298904538,
+            -0.15285602503912363
+          ],
+          "scan_period": 0,
+          "distance_in_scan_steps": 0.4812500000010115
+        },
+        {
+          "continued_index": [
+            11,
+            1
+          ],
+          "continued_parameters": [
+            0.07244666666666667,
+            -0.15284999999999999
+          ],
+          "nearest_scan_index": [
+            331,
+            148
+          ],
+          "nearest_scan_parameters": [
+            0.07244851330203443,
+            -0.15285602503912363
+          ],
+          "scan_period": 0,
+          "distance_in_scan_steps": 0.4812500000010115
+        },
+        {
+          "continued_index": [
+            11,
+            2
+          ],
+          "continued_parameters": [
+            0.07249333333333334,
+            -0.15284999999999999
+          ],
+          "nearest_scan_index": [
+            331,
+            158
+          ],
+          "nearest_scan_parameters": [
+            0.07249233176838811,
+            -0.15285602503912363
+          ],
+          "scan_period": 0,
+          "distance_in_scan_steps": 0.4812500000010115
+        },
+        {
+          "continued_index": [
+            11,
+            3
+          ],
+          "continued_parameters": [
+            0.07254000000000001,
+            -0.15284999999999999
+          ],
+          "nearest_scan_index": [
+            331,
+            169
+          ],
+          "nearest_scan_parameters": [
+            0.07254053208137716,
+            -0.15285602503912363
+          ],
+          "scan_period": 0,
+          "distance_in_scan_steps": 0.4812500000010115
+        },
+        {
+          "continued_index": [
+            11,
+            4
+          ],
+          "continued_parameters": [
+            0.07258666666666667,
+            -0.15284999999999999
+          ],
+          "nearest_scan_index": [
+            331,
+            180
+          ],
+          "nearest_scan_parameters": [
+            0.0725887323943662,
+            -0.15285602503912363
+          ],
+          "scan_period": 0,
+          "distance_in_scan_steps": 0.4812500000010115
+        },
+        {
+          "continued_index": [
+            11,
+            5
+          ],
+          "continued_parameters": [
+            0.07263333333333334,
+            -0.15284999999999999
+          ],
+          "nearest_scan_index": [
+            331,
+            190
+          ],
+          "nearest_scan_parameters": [
+            0.07263255086071987,
+            -0.15285602503912363
+          ],
+          "scan_period": 0,
+          "distance_in_scan_steps": 0.4812500000010115
+        },
+        {
+          "continued_index": [
+            11,
+            6
+          ],
+          "continued_parameters": [
+            0.07268000000000001,
+            -0.15284999999999999
+          ],
+          "nearest_scan_index": [
+            331,
+            201
+          ],
+          "nearest_scan_parameters": [
+            0.07268075117370892,
+            -0.15285602503912363
+          ],
+          "scan_period": 0,
+          "distance_in_scan_steps": 0.4812500000010115
+        },
+        {
+          "continued_index": [
+            11,
+            7
+          ],
+          "continued_parameters": [
+            0.07272666666666668,
+            -0.15284999999999999
+          ],
+          "nearest_scan_index": [
+            331,
+            211
+          ],
+          "nearest_scan_parameters": [
+            0.0727245696400626,
+            -0.15285602503912363
+          ],
+          "scan_period": 18,
+          "distance_in_scan_steps": 0.4812500000010115
+        },
+        {
+          "continued_index": [
+            11,
+            8
+          ],
+          "continued_parameters": [
+            0.07277333333333334,
+            -0.15284999999999999
+          ],
+          "nearest_scan_index": [
+            331,
+            222
+          ],
+          "nearest_scan_parameters": [
+            0.07277276995305164,
+            -0.15285602503912363
+          ],
+          "scan_period": 0,
+          "distance_in_scan_steps": 0.4812500000010115
+        },
+        {
+          "continued_index": [
+            11,
+            9
+          ],
+          "continued_parameters": [
+            0.07282000000000001,
+            -0.15284999999999999
+          ],
+          "nearest_scan_index": [
+            331,
+            233
+          ],
+          "nearest_scan_parameters": [
+            0.07282097026604069,
+            -0.15285602503912363
+          ],
+          "scan_period": 0,
+          "distance_in_scan_steps": 0.4812500000010115
+        },
+        {
+          "continued_index": [
+            11,
+            10
+          ],
+          "continued_parameters": [
+            0.07286666666666668,
+            -0.15284999999999999
+          ],
+          "nearest_scan_index": [
+            331,
+            243
+          ],
+          "nearest_scan_parameters": [
+            0.07286478873239437,
+            -0.15285602503912363
+          ],
+          "scan_period": 12,
+          "distance_in_scan_steps": 0.4812500000010115
+        },
+        {
+          "continued_index": [
+            12,
+            0
+          ],
+          "continued_parameters": [
+            0.0724,
+            -0.1527
+          ],
+          "nearest_scan_index": [
+            343,
+            137
+          ],
+          "nearest_scan_parameters": [
+            0.07240031298904538,
+            -0.15270579029733958
+          ],
+          "scan_period": 0,
+          "distance_in_scan_steps": 0.4624999999986975
+        },
+        {
+          "continued_index": [
+            12,
+            1
+          ],
+          "continued_parameters": [
+            0.07244666666666667,
+            -0.1527
+          ],
+          "nearest_scan_index": [
+            343,
+            148
+          ],
+          "nearest_scan_parameters": [
+            0.07244851330203443,
+            -0.15270579029733958
+          ],
+          "scan_period": 0,
+          "distance_in_scan_steps": 0.4624999999986975
+        },
+        {
+          "continued_index": [
+            12,
+            2
+          ],
+          "continued_parameters": [
+            0.07249333333333334,
+            -0.1527
+          ],
+          "nearest_scan_index": [
+            343,
+            158
+          ],
+          "nearest_scan_parameters": [
+            0.07249233176838811,
+            -0.15270579029733958
+          ],
+          "scan_period": 0,
+          "distance_in_scan_steps": 0.4624999999986975
+        },
+        {
+          "continued_index": [
+            12,
+            3
+          ],
+          "continued_parameters": [
+            0.07254000000000001,
+            -0.1527
+          ],
+          "nearest_scan_index": [
+            343,
+            169
+          ],
+          "nearest_scan_parameters": [
+            0.07254053208137716,
+            -0.15270579029733958
+          ],
+          "scan_period": 0,
+          "distance_in_scan_steps": 0.4624999999986975
+        },
+        {
+          "continued_index": [
+            12,
+            4
+          ],
+          "continued_parameters": [
+            0.07258666666666667,
+            -0.1527
+          ],
+          "nearest_scan_index": [
+            343,
+            180
+          ],
+          "nearest_scan_parameters": [
+            0.0725887323943662,
+            -0.15270579029733958
+          ],
+          "scan_period": 0,
+          "distance_in_scan_steps": 0.4714285714261282
+        },
+        {
+          "continued_index": [
+            12,
+            5
+          ],
+          "continued_parameters": [
+            0.07263333333333334,
+            -0.1527
+          ],
+          "nearest_scan_index": [
+            343,
+            190
+          ],
+          "nearest_scan_parameters": [
+            0.07263255086071987,
+            -0.15270579029733958
+          ],
+          "scan_period": 0,
+          "distance_in_scan_steps": 0.4624999999986975
+        },
+        {
+          "continued_index": [
+            12,
+            6
+          ],
+          "continued_parameters": [
+            0.07268000000000001,
+            -0.1527
+          ],
+          "nearest_scan_index": [
+            343,
+            201
+          ],
+          "nearest_scan_parameters": [
+            0.07268075117370892,
+            -0.15270579029733958
+          ],
+          "scan_period": 0,
+          "distance_in_scan_steps": 0.4624999999986975
+        },
+        {
+          "continued_index": [
+            12,
+            7
+          ],
+          "continued_parameters": [
+            0.07272666666666668,
+            -0.1527
+          ],
+          "nearest_scan_index": [
+            343,
+            211
+          ],
+          "nearest_scan_parameters": [
+            0.0727245696400626,
+            -0.15270579029733958
+          ],
+          "scan_period": 0,
+          "distance_in_scan_steps": 0.4785714285719715
+        },
+        {
+          "continued_index": [
+            12,
+            8
+          ],
+          "continued_parameters": [
+            0.07277333333333334,
+            -0.1527
+          ],
+          "nearest_scan_index": [
+            343,
+            222
+          ],
+          "nearest_scan_parameters": [
+            0.07277276995305164,
+            -0.15270579029733958
+          ],
+          "scan_period": 0,
+          "distance_in_scan_steps": 0.4624999999986975
+        },
+        {
+          "continued_index": [
+            12,
+            9
+          ],
+          "continued_parameters": [
+            0.07282000000000001,
+            -0.1527
+          ],
+          "nearest_scan_index": [
+            343,
+            233
+          ],
+          "nearest_scan_parameters": [
+            0.07282097026604069,
+            -0.15270579029733958
+          ],
+          "scan_period": 24,
+          "distance_in_scan_steps": 0.4624999999986975
+        },
+        {
+          "continued_index": [
+            12,
+            10
+          ],
+          "continued_parameters": [
+            0.07286666666666668,
+            -0.1527
+          ],
+          "nearest_scan_index": [
+            343,
+            243
+          ],
+          "nearest_scan_parameters": [
+            0.07286478873239437,
+            -0.15270579029733958
+          ],
+          "scan_period": 12,
+          "distance_in_scan_steps": 0.4624999999986975
+        },
+        {
+          "continued_index": [
+            13,
+            0
+          ],
+          "continued_parameters": [
+            0.0724,
+            -0.15255
+          ],
+          "nearest_scan_index": [
+            355,
+            137
+          ],
+          "nearest_scan_parameters": [
+            0.07240031298904538,
+            -0.15255555555555556
+          ],
+          "scan_period": 0,
+          "distance_in_scan_steps": 0.4437500000008175
+        },
+        {
+          "continued_index": [
+            13,
+            1
+          ],
+          "continued_parameters": [
+            0.07244666666666667,
+            -0.15255
+          ],
+          "nearest_scan_index": [
+            355,
+            148
+          ],
+          "nearest_scan_parameters": [
+            0.07244851330203443,
+            -0.15255555555555556
+          ],
+          "scan_period": 0,
+          "distance_in_scan_steps": 0.4437500000008175
+        },
+        {
+          "continued_index": [
+            13,
+            2
+          ],
+          "continued_parameters": [
+            0.07249333333333334,
+            -0.15255
+          ],
+          "nearest_scan_index": [
+            355,
+            158
+          ],
+          "nearest_scan_parameters": [
+            0.07249233176838811,
+            -0.15255555555555556
+          ],
+          "scan_period": 0,
+          "distance_in_scan_steps": 0.4437500000008175
+        },
+        {
+          "continued_index": [
+            13,
+            3
+          ],
+          "continued_parameters": [
+            0.07254000000000001,
+            -0.15255
+          ],
+          "nearest_scan_index": [
+            355,
+            169
+          ],
+          "nearest_scan_parameters": [
+            0.07254053208137716,
+            -0.15255555555555556
+          ],
+          "scan_period": 0,
+          "distance_in_scan_steps": 0.4437500000008175
+        },
+        {
+          "continued_index": [
+            13,
+            4
+          ],
+          "continued_parameters": [
+            0.07258666666666667,
+            -0.15255
+          ],
+          "nearest_scan_index": [
+            355,
+            180
+          ],
+          "nearest_scan_parameters": [
+            0.0725887323943662,
+            -0.15255555555555556
+          ],
+          "scan_period": 0,
+          "distance_in_scan_steps": 0.4714285714261282
+        },
+        {
+          "continued_index": [
+            13,
+            5
+          ],
+          "continued_parameters": [
+            0.07263333333333334,
+            -0.15255
+          ],
+          "nearest_scan_index": [
+            355,
+            190
+          ],
+          "nearest_scan_parameters": [
+            0.07263255086071987,
+            -0.15255555555555556
+          ],
+          "scan_period": 0,
+          "distance_in_scan_steps": 0.4437500000008175
+        },
+        {
+          "continued_index": [
+            13,
+            6
+          ],
+          "continued_parameters": [
+            0.07268000000000001,
+            -0.15255
+          ],
+          "nearest_scan_index": [
+            355,
+            201
+          ],
+          "nearest_scan_parameters": [
+            0.07268075117370892,
+            -0.15255555555555556
+          ],
+          "scan_period": 0,
+          "distance_in_scan_steps": 0.4437500000008175
+        },
+        {
+          "continued_index": [
+            13,
+            7
+          ],
+          "continued_parameters": [
+            0.07272666666666668,
+            -0.15255
+          ],
+          "nearest_scan_index": [
+            355,
+            211
+          ],
+          "nearest_scan_parameters": [
+            0.0727245696400626,
+            -0.15255555555555556
+          ],
+          "scan_period": 0,
+          "distance_in_scan_steps": 0.4785714285719715
+        },
+        {
+          "continued_index": [
+            13,
+            8
+          ],
+          "continued_parameters": [
+            0.07277333333333334,
+            -0.15255
+          ],
+          "nearest_scan_index": [
+            355,
+            222
+          ],
+          "nearest_scan_parameters": [
+            0.07277276995305164,
+            -0.15255555555555556
+          ],
+          "scan_period": 0,
+          "distance_in_scan_steps": 0.4437500000008175
+        },
+        {
+          "continued_index": [
+            13,
+            9
+          ],
+          "continued_parameters": [
+            0.07282000000000001,
+            -0.15255
+          ],
+          "nearest_scan_index": [
+            355,
+            233
+          ],
+          "nearest_scan_parameters": [
+            0.07282097026604069,
+            -0.15255555555555556
+          ],
+          "scan_period": 12,
+          "distance_in_scan_steps": 0.4437500000008175
+        },
+        {
+          "continued_index": [
+            13,
+            10
+          ],
+          "continued_parameters": [
+            0.07286666666666668,
+            -0.15255
+          ],
+          "nearest_scan_index": [
+            355,
+            243
+          ],
+          "nearest_scan_parameters": [
+            0.07286478873239437,
+            -0.15255555555555556
+          ],
+          "scan_period": 12,
+          "distance_in_scan_steps": 0.4437500000008175
+        },
+        {
+          "continued_index": [
+            14,
+            0
+          ],
+          "continued_parameters": [
+            0.0724,
+            -0.1524
+          ],
+          "nearest_scan_index": [
+            367,
+            137
+          ],
+          "nearest_scan_parameters": [
+            0.07240031298904538,
+            -0.1524053208137715
+          ],
+          "scan_period": 12,
+          "distance_in_scan_steps": 0.4249999999985035
+        },
+        {
+          "continued_index": [
+            14,
+            1
+          ],
+          "continued_parameters": [
+            0.07244666666666667,
+            -0.1524
+          ],
+          "nearest_scan_index": [
+            367,
+            148
+          ],
+          "nearest_scan_parameters": [
+            0.07244851330203443,
+            -0.1524053208137715
+          ],
+          "scan_period": 0,
+          "distance_in_scan_steps": 0.4249999999985035
+        },
+        {
+          "continued_index": [
+            14,
+            2
+          ],
+          "continued_parameters": [
+            0.07249333333333334,
+            -0.1524
+          ],
+          "nearest_scan_index": [
+            367,
+            158
+          ],
+          "nearest_scan_parameters": [
+            0.07249233176838811,
+            -0.1524053208137715
+          ],
+          "scan_period": 0,
+          "distance_in_scan_steps": 0.4249999999985035
+        },
+        {
+          "continued_index": [
+            14,
+            3
+          ],
+          "continued_parameters": [
+            0.07254000000000001,
+            -0.1524
+          ],
+          "nearest_scan_index": [
+            367,
+            169
+          ],
+          "nearest_scan_parameters": [
+            0.07254053208137716,
+            -0.1524053208137715
+          ],
+          "scan_period": 0,
+          "distance_in_scan_steps": 0.4249999999985035
+        },
+        {
+          "continued_index": [
+            14,
+            4
+          ],
+          "continued_parameters": [
+            0.07258666666666667,
+            -0.1524
+          ],
+          "nearest_scan_index": [
+            367,
+            180
+          ],
+          "nearest_scan_parameters": [
+            0.0725887323943662,
+            -0.1524053208137715
+          ],
+          "scan_period": 12,
+          "distance_in_scan_steps": 0.4714285714261282
+        },
+        {
+          "continued_index": [
+            14,
+            5
+          ],
+          "continued_parameters": [
+            0.07263333333333334,
+            -0.1524
+          ],
+          "nearest_scan_index": [
+            367,
+            190
+          ],
+          "nearest_scan_parameters": [
+            0.07263255086071987,
+            -0.1524053208137715
+          ],
+          "scan_period": 0,
+          "distance_in_scan_steps": 0.4249999999985035
+        },
+        {
+          "continued_index": [
+            14,
+            6
+          ],
+          "continued_parameters": [
+            0.07268000000000001,
+            -0.1524
+          ],
+          "nearest_scan_index": [
+            367,
+            201
+          ],
+          "nearest_scan_parameters": [
+            0.07268075117370892,
+            -0.1524053208137715
+          ],
+          "scan_period": 0,
+          "distance_in_scan_steps": 0.4249999999985035
+        },
+        {
+          "continued_index": [
+            14,
+            7
+          ],
+          "continued_parameters": [
+            0.07272666666666668,
+            -0.1524
+          ],
+          "nearest_scan_index": [
+            367,
+            211
+          ],
+          "nearest_scan_parameters": [
+            0.0727245696400626,
+            -0.1524053208137715
+          ],
+          "scan_period": 0,
+          "distance_in_scan_steps": 0.4785714285719715
+        },
+        {
+          "continued_index": [
+            14,
+            8
+          ],
+          "continued_parameters": [
+            0.07277333333333334,
+            -0.1524
+          ],
+          "nearest_scan_index": [
+            367,
+            222
+          ],
+          "nearest_scan_parameters": [
+            0.07277276995305164,
+            -0.1524053208137715
+          ],
+          "scan_period": 0,
+          "distance_in_scan_steps": 0.4249999999985035
+        },
+        {
+          "continued_index": [
+            14,
+            9
+          ],
+          "continued_parameters": [
+            0.07282000000000001,
+            -0.1524
+          ],
+          "nearest_scan_index": [
+            367,
+            233
+          ],
+          "nearest_scan_parameters": [
+            0.07282097026604069,
+            -0.1524053208137715
+          ],
+          "scan_period": 12,
+          "distance_in_scan_steps": 0.4249999999985035
+        },
+        {
+          "continued_index": [
+            14,
+            10
+          ],
+          "continued_parameters": [
+            0.07286666666666668,
+            -0.1524
+          ],
+          "nearest_scan_index": [
+            367,
+            243
+          ],
+          "nearest_scan_parameters": [
+            0.07286478873239437,
+            -0.1524053208137715
+          ],
+          "scan_period": 0,
+          "distance_in_scan_steps": 0.4285714285732383
+        },
+        {
+          "continued_index": [
+            15,
+            0
+          ],
+          "continued_parameters": [
+            0.0724,
+            -0.15225
+          ],
+          "nearest_scan_index": [
+            379,
+            137
+          ],
+          "nearest_scan_parameters": [
+            0.07240031298904538,
+            -0.15225508607198748
+          ],
+          "scan_period": 12,
+          "distance_in_scan_steps": 0.4062500000006235
+        },
+        {
+          "continued_index": [
+            15,
+            1
+          ],
+          "continued_parameters": [
+            0.07244666666666667,
+            -0.15225
+          ],
+          "nearest_scan_index": [
+            379,
+            148
+          ],
+          "nearest_scan_parameters": [
+            0.07244851330203443,
+            -0.15225508607198748
+          ],
+          "scan_period": 0,
+          "distance_in_scan_steps": 0.4214285714273951
+        },
+        {
+          "continued_index": [
+            15,
+            2
+          ],
+          "continued_parameters": [
+            0.07249333333333334,
+            -0.15225
+          ],
+          "nearest_scan_index": [
+            379,
+            158
+          ],
+          "nearest_scan_parameters": [
+            0.07249233176838811,
+            -0.15225508607198748
+          ],
+          "scan_period": 0,
+          "distance_in_scan_steps": 0.4062500000006235
+        },
+        {
+          "continued_index": [
+            15,
+            3
+          ],
+          "continued_parameters": [
+            0.07254000000000001,
+            -0.15225
+          ],
+          "nearest_scan_index": [
+            379,
+            169
+          ],
+          "nearest_scan_parameters": [
+            0.07254053208137716,
+            -0.15225508607198748
+          ],
+          "scan_period": 0,
+          "distance_in_scan_steps": 0.4062500000006235
+        },
+        {
+          "continued_index": [
+            15,
+            4
+          ],
+          "continued_parameters": [
+            0.07258666666666667,
+            -0.15225
+          ],
+          "nearest_scan_index": [
+            379,
+            180
+          ],
+          "nearest_scan_parameters": [
+            0.0725887323943662,
+            -0.15225508607198748
+          ],
+          "scan_period": 0,
+          "distance_in_scan_steps": 0.4714285714261282
+        },
+        {
+          "continued_index": [
+            15,
+            5
+          ],
+          "continued_parameters": [
+            0.07263333333333334,
+            -0.15225
+          ],
+          "nearest_scan_index": [
+            379,
+            190
+          ],
+          "nearest_scan_parameters": [
+            0.07263255086071987,
+            -0.15225508607198748
+          ],
+          "scan_period": 12,
+          "distance_in_scan_steps": 0.4062500000006235
+        },
+        {
+          "continued_index": [
+            15,
+            6
+          ],
+          "continued_parameters": [
+            0.07268000000000001,
+            -0.15225
+          ],
+          "nearest_scan_index": [
+            379,
+            201
+          ],
+          "nearest_scan_parameters": [
+            0.07268075117370892,
+            -0.15225508607198748
+          ],
+          "scan_period": 0,
+          "distance_in_scan_steps": 0.4062500000006235
+        },
+        {
+          "continued_index": [
+            15,
+            7
+          ],
+          "continued_parameters": [
+            0.07272666666666668,
+            -0.15225
+          ],
+          "nearest_scan_index": [
+            379,
+            211
+          ],
+          "nearest_scan_parameters": [
+            0.0727245696400626,
+            -0.15225508607198748
+          ],
+          "scan_period": 24,
+          "distance_in_scan_steps": 0.4785714285719715
+        },
+        {
+          "continued_index": [
+            15,
+            8
+          ],
+          "continued_parameters": [
+            0.07277333333333334,
+            -0.15225
+          ],
+          "nearest_scan_index": [
+            379,
+            222
+          ],
+          "nearest_scan_parameters": [
+            0.07277276995305164,
+            -0.15225508607198748
+          ],
+          "scan_period": 24,
+          "distance_in_scan_steps": 0.4062500000006235
+        },
+        {
+          "continued_index": [
+            15,
+            9
+          ],
+          "continued_parameters": [
+            0.07282000000000001,
+            -0.15225
+          ],
+          "nearest_scan_index": [
+            379,
+            233
+          ],
+          "nearest_scan_parameters": [
+            0.07282097026604069,
+            -0.15225508607198748
+          ],
+          "scan_period": 12,
+          "distance_in_scan_steps": 0.4062500000006235
+        },
+        {
+          "continued_index": [
+            15,
+            10
+          ],
+          "continued_parameters": [
+            0.07286666666666668,
+            -0.15225
+          ],
+          "nearest_scan_index": [
+            379,
+            243
+          ],
+          "nearest_scan_parameters": [
+            0.07286478873239437,
+            -0.15225508607198748
+          ],
+          "scan_period": 0,
+          "distance_in_scan_steps": 0.4285714285732383
+        },
+        {
+          "continued_index": [
+            16,
+            0
+          ],
+          "continued_parameters": [
+            0.0724,
+            -0.15209999999999999
+          ],
+          "nearest_scan_index": [
+            391,
+            137
+          ],
+          "nearest_scan_parameters": [
+            0.07240031298904538,
+            -0.15210485133020343
+          ],
+          "scan_period": 12,
+          "distance_in_scan_steps": 0.38750000000052653
+        },
+        {
+          "continued_index": [
+            16,
+            1
+          ],
+          "continued_parameters": [
+            0.07244666666666667,
+            -0.15209999999999999
+          ],
+          "nearest_scan_index": [
+            391,
+            148
+          ],
+          "nearest_scan_parameters": [
+            0.07244851330203443,
+            -0.15210485133020343
+          ],
+          "scan_period": 0,
+          "distance_in_scan_steps": 0.4214285714273951
+        },
+        {
+          "continued_index": [
+            16,
+            2
+          ],
+          "continued_parameters": [
+            0.07249333333333334,
+            -0.15209999999999999
+          ],
+          "nearest_scan_index": [
+            391,
+            158
+          ],
+          "nearest_scan_parameters": [
+            0.07249233176838811,
+            -0.15210485133020343
+          ],
+          "scan_period": 0,
+          "distance_in_scan_steps": 0.38750000000052653
+        },
+        {
+          "continued_index": [
+            16,
+            3
+          ],
+          "continued_parameters": [
+            0.07254000000000001,
+            -0.15209999999999999
+          ],
+          "nearest_scan_index": [
+            391,
+            169
+          ],
+          "nearest_scan_parameters": [
+            0.07254053208137716,
+            -0.15210485133020343
+          ],
+          "scan_period": 0,
+          "distance_in_scan_steps": 0.38750000000052653
+        },
+        {
+          "continued_index": [
+            16,
+            4
+          ],
+          "continued_parameters": [
+            0.07258666666666667,
+            -0.15209999999999999
+          ],
+          "nearest_scan_index": [
+            391,
+            180
+          ],
+          "nearest_scan_parameters": [
+            0.0725887323943662,
+            -0.15210485133020343
+          ],
+          "scan_period": 0,
+          "distance_in_scan_steps": 0.4714285714261282
+        },
+        {
+          "continued_index": [
+            16,
+            5
+          ],
+          "continued_parameters": [
+            0.07263333333333334,
+            -0.15209999999999999
+          ],
+          "nearest_scan_index": [
+            391,
+            190
+          ],
+          "nearest_scan_parameters": [
+            0.07263255086071987,
+            -0.15210485133020343
+          ],
+          "scan_period": 0,
+          "distance_in_scan_steps": 0.38750000000052653
+        },
+        {
+          "continued_index": [
+            16,
+            6
+          ],
+          "continued_parameters": [
+            0.07268000000000001,
+            -0.15209999999999999
+          ],
+          "nearest_scan_index": [
+            391,
+            201
+          ],
+          "nearest_scan_parameters": [
+            0.07268075117370892,
+            -0.15210485133020343
+          ],
+          "scan_period": 12,
+          "distance_in_scan_steps": 0.38750000000052653
+        },
+        {
+          "continued_index": [
+            16,
+            7
+          ],
+          "continued_parameters": [
+            0.07272666666666668,
+            -0.15209999999999999
+          ],
+          "nearest_scan_index": [
+            391,
+            211
+          ],
+          "nearest_scan_parameters": [
+            0.0727245696400626,
+            -0.15210485133020343
+          ],
+          "scan_period": 24,
+          "distance_in_scan_steps": 0.4785714285719715
+        },
+        {
+          "continued_index": [
+            16,
+            8
+          ],
+          "continued_parameters": [
+            0.07277333333333334,
+            -0.15209999999999999
+          ],
+          "nearest_scan_index": [
+            391,
+            222
+          ],
+          "nearest_scan_parameters": [
+            0.07277276995305164,
+            -0.15210485133020343
+          ],
+          "scan_period": 0,
+          "distance_in_scan_steps": 0.38750000000052653
+        },
+        {
+          "continued_index": [
+            16,
+            9
+          ],
+          "continued_parameters": [
+            0.07282000000000001,
+            -0.15209999999999999
+          ],
+          "nearest_scan_index": [
+            391,
+            233
+          ],
+          "nearest_scan_parameters": [
+            0.07282097026604069,
+            -0.15210485133020343
+          ],
+          "scan_period": 12,
+          "distance_in_scan_steps": 0.38750000000052653
+        },
+        {
+          "continued_index": [
+            16,
+            10
+          ],
+          "continued_parameters": [
+            0.07286666666666668,
+            -0.15209999999999999
+          ],
+          "nearest_scan_index": [
+            391,
+            243
+          ],
+          "nearest_scan_parameters": [
+            0.07286478873239437,
+            -0.15210485133020343
+          ],
+          "scan_period": 0,
+          "distance_in_scan_steps": 0.4285714285732383
+        },
+        {
+          "continued_index": [
+            17,
+            0
+          ],
+          "continued_parameters": [
+            0.0724,
+            -0.15195
+          ],
+          "nearest_scan_index": [
+            403,
+            137
+          ],
+          "nearest_scan_parameters": [
+            0.07240031298904538,
+            -0.1519546165884194
+          ],
+          "scan_period": 12,
+          "distance_in_scan_steps": 0.3687500000004295
+        },
+        {
+          "continued_index": [
+            17,
+            1
+          ],
+          "continued_parameters": [
+            0.07244666666666667,
+            -0.15195
+          ],
+          "nearest_scan_index": [
+            403,
+            148
+          ],
+          "nearest_scan_parameters": [
+            0.07244851330203443,
+            -0.1519546165884194
+          ],
+          "scan_period": 0,
+          "distance_in_scan_steps": 0.4214285714273951
+        },
+        {
+          "continued_index": [
+            17,
+            2
+          ],
+          "continued_parameters": [
+            0.07249333333333334,
+            -0.15195
+          ],
+          "nearest_scan_index": [
+            403,
+            158
+          ],
+          "nearest_scan_parameters": [
+            0.07249233176838811,
+            -0.1519546165884194
+          ],
+          "scan_period": 0,
+          "distance_in_scan_steps": 0.3687500000004295
+        },
+        {
+          "continued_index": [
+            17,
+            3
+          ],
+          "continued_parameters": [
+            0.07254000000000001,
+            -0.15195
+          ],
+          "nearest_scan_index": [
+            403,
+            169
+          ],
+          "nearest_scan_parameters": [
+            0.07254053208137716,
+            -0.1519546165884194
+          ],
+          "scan_period": 13,
+          "distance_in_scan_steps": 0.3687500000004295
+        },
+        {
+          "continued_index": [
+            17,
+            4
+          ],
+          "continued_parameters": [
+            0.07258666666666667,
+            -0.15195
+          ],
+          "nearest_scan_index": [
+            403,
+            180
+          ],
+          "nearest_scan_parameters": [
+            0.0725887323943662,
+            -0.1519546165884194
+          ],
+          "scan_period": 0,
+          "distance_in_scan_steps": 0.4714285714261282
+        },
+        {
+          "continued_index": [
+            17,
+            5
+          ],
+          "continued_parameters": [
+            0.07263333333333334,
+            -0.15195
+          ],
+          "nearest_scan_index": [
+            403,
+            190
+          ],
+          "nearest_scan_parameters": [
+            0.07263255086071987,
+            -0.1519546165884194
+          ],
+          "scan_period": 0,
+          "distance_in_scan_steps": 0.3687500000004295
+        },
+        {
+          "continued_index": [
+            17,
+            6
+          ],
+          "continued_parameters": [
+            0.07268000000000001,
+            -0.15195
+          ],
+          "nearest_scan_index": [
+            403,
+            201
+          ],
+          "nearest_scan_parameters": [
+            0.07268075117370892,
+            -0.1519546165884194
+          ],
+          "scan_period": 12,
+          "distance_in_scan_steps": 0.3687500000004295
+        },
+        {
+          "continued_index": [
+            17,
+            7
+          ],
+          "continued_parameters": [
+            0.07272666666666668,
+            -0.15195
+          ],
+          "nearest_scan_index": [
+            403,
+            211
+          ],
+          "nearest_scan_parameters": [
+            0.0727245696400626,
+            -0.1519546165884194
+          ],
+          "scan_period": 12,
+          "distance_in_scan_steps": 0.4785714285719715
+        },
+        {
+          "continued_index": [
+            17,
+            8
+          ],
+          "continued_parameters": [
+            0.07277333333333334,
+            -0.15195
+          ],
+          "nearest_scan_index": [
+            403,
+            222
+          ],
+          "nearest_scan_parameters": [
+            0.07277276995305164,
+            -0.1519546165884194
+          ],
+          "scan_period": 12,
+          "distance_in_scan_steps": 0.3687500000004295
+        },
+        {
+          "continued_index": [
+            17,
+            9
+          ],
+          "continued_parameters": [
+            0.07282000000000001,
+            -0.15195
+          ],
+          "nearest_scan_index": [
+            403,
+            233
+          ],
+          "nearest_scan_parameters": [
+            0.07282097026604069,
+            -0.1519546165884194
+          ],
+          "scan_period": 12,
+          "distance_in_scan_steps": 0.3687500000004295
+        },
+        {
+          "continued_index": [
+            17,
+            10
+          ],
+          "continued_parameters": [
+            0.07286666666666668,
+            -0.15195
+          ],
+          "nearest_scan_index": [
+            403,
+            243
+          ],
+          "nearest_scan_parameters": [
+            0.07286478873239437,
+            -0.1519546165884194
+          ],
+          "scan_period": 0,
+          "distance_in_scan_steps": 0.4285714285732383
+        },
+        {
+          "continued_index": [
+            18,
+            0
+          ],
+          "continued_parameters": [
+            0.0724,
+            -0.1518
+          ],
+          "nearest_scan_index": [
+            415,
+            137
+          ],
+          "nearest_scan_parameters": [
+            0.07240031298904538,
+            -0.15180438184663536
+          ],
+          "scan_period": 12,
+          "distance_in_scan_steps": 0.35000000000033255
+        },
+        {
+          "continued_index": [
+            18,
+            1
+          ],
+          "continued_parameters": [
+            0.07244666666666667,
+            -0.1518
+          ],
+          "nearest_scan_index": [
+            415,
+            148
+          ],
+          "nearest_scan_parameters": [
+            0.07244851330203443,
+            -0.15180438184663536
+          ],
+          "scan_period": 0,
+          "distance_in_scan_steps": 0.4214285714273951
+        },
+        {
+          "continued_index": [
+            18,
+            2
+          ],
+          "continued_parameters": [
+            0.07249333333333334,
+            -0.1518
+          ],
+          "nearest_scan_index": [
+            415,
+            158
+          ],
+          "nearest_scan_parameters": [
+            0.07249233176838811,
+            -0.15180438184663536
+          ],
+          "scan_period": 0,
+          "distance_in_scan_steps": 0.35000000000033255
+        },
+        {
+          "continued_index": [
+            18,
+            3
+          ],
+          "continued_parameters": [
+            0.07254000000000001,
+            -0.1518
+          ],
+          "nearest_scan_index": [
+            415,
+            169
+          ],
+          "nearest_scan_parameters": [
+            0.07254053208137716,
+            -0.15180438184663536
+          ],
+          "scan_period": 13,
+          "distance_in_scan_steps": 0.35000000000033255
+        },
+        {
+          "continued_index": [
+            18,
+            4
+          ],
+          "continued_parameters": [
+            0.07258666666666667,
+            -0.1518
+          ],
+          "nearest_scan_index": [
+            415,
+            180
+          ],
+          "nearest_scan_parameters": [
+            0.0725887323943662,
+            -0.15180438184663536
+          ],
+          "scan_period": 0,
+          "distance_in_scan_steps": 0.4714285714261282
+        },
+        {
+          "continued_index": [
+            18,
+            5
+          ],
+          "continued_parameters": [
+            0.07263333333333334,
+            -0.1518
+          ],
+          "nearest_scan_index": [
+            415,
+            190
+          ],
+          "nearest_scan_parameters": [
+            0.07263255086071987,
+            -0.15180438184663536
+          ],
+          "scan_period": 0,
+          "distance_in_scan_steps": 0.35000000000033255
+        },
+        {
+          "continued_index": [
+            18,
+            6
+          ],
+          "continued_parameters": [
+            0.07268000000000001,
+            -0.1518
+          ],
+          "nearest_scan_index": [
+            415,
+            201
+          ],
+          "nearest_scan_parameters": [
+            0.07268075117370892,
+            -0.15180438184663536
+          ],
+          "scan_period": 0,
+          "distance_in_scan_steps": 0.35000000000033255
+        },
+        {
+          "continued_index": [
+            18,
+            7
+          ],
+          "continued_parameters": [
+            0.07272666666666668,
+            -0.1518
+          ],
+          "nearest_scan_index": [
+            415,
+            211
+          ],
+          "nearest_scan_parameters": [
+            0.0727245696400626,
+            -0.15180438184663536
+          ],
+          "scan_period": 12,
+          "distance_in_scan_steps": 0.4785714285719715
+        },
+        {
+          "continued_index": [
+            18,
+            8
+          ],
+          "continued_parameters": [
+            0.07277333333333334,
+            -0.1518
+          ],
+          "nearest_scan_index": [
+            415,
+            222
+          ],
+          "nearest_scan_parameters": [
+            0.07277276995305164,
+            -0.15180438184663536
+          ],
+          "scan_period": 12,
+          "distance_in_scan_steps": 0.35000000000033255
+        },
+        {
+          "continued_index": [
+            18,
+            9
+          ],
+          "continued_parameters": [
+            0.07282000000000001,
+            -0.1518
+          ],
+          "nearest_scan_index": [
+            415,
+            233
+          ],
+          "nearest_scan_parameters": [
+            0.07282097026604069,
+            -0.15180438184663536
+          ],
+          "scan_period": 12,
+          "distance_in_scan_steps": 0.35000000000033255
+        },
+        {
+          "continued_index": [
+            18,
+            10
+          ],
+          "continued_parameters": [
+            0.07286666666666668,
+            -0.1518
+          ],
+          "nearest_scan_index": [
+            415,
+            243
+          ],
+          "nearest_scan_parameters": [
+            0.07286478873239437,
+            -0.15180438184663536
+          ],
+          "scan_period": 0,
+          "distance_in_scan_steps": 0.4285714285732383
+        },
+        {
+          "continued_index": [
+            19,
+            0
+          ],
+          "continued_parameters": [
+            0.0724,
+            -0.15165
+          ],
+          "nearest_scan_index": [
+            427,
+            137
+          ],
+          "nearest_scan_parameters": [
+            0.07240031298904538,
+            -0.15165414710485134
+          ],
+          "scan_period": 0,
+          "distance_in_scan_steps": 0.3312500000002356
+        },
+        {
+          "continued_index": [
+            19,
+            1
+          ],
+          "continued_parameters": [
+            0.07244666666666667,
+            -0.15165
+          ],
+          "nearest_scan_index": [
+            427,
+            148
+          ],
+          "nearest_scan_parameters": [
+            0.07244851330203443,
+            -0.15165414710485134
+          ],
+          "scan_period": 0,
+          "distance_in_scan_steps": 0.4214285714273951
+        },
+        {
+          "continued_index": [
+            19,
+            2
+          ],
+          "continued_parameters": [
+            0.07249333333333334,
+            -0.15165
+          ],
+          "nearest_scan_index": [
+            427,
+            158
+          ],
+          "nearest_scan_parameters": [
+            0.07249233176838811,
+            -0.15165414710485134
+          ],
+          "scan_period": 0,
+          "distance_in_scan_steps": 0.3312500000002356
+        },
+        {
+          "continued_index": [
+            19,
+            3
+          ],
+          "continued_parameters": [
+            0.07254000000000001,
+            -0.15165
+          ],
+          "nearest_scan_index": [
+            427,
+            169
+          ],
+          "nearest_scan_parameters": [
+            0.07254053208137716,
+            -0.15165414710485134
+          ],
+          "scan_period": 0,
+          "distance_in_scan_steps": 0.3312500000002356
+        },
+        {
+          "continued_index": [
+            19,
+            4
+          ],
+          "continued_parameters": [
+            0.07258666666666667,
+            -0.15165
+          ],
+          "nearest_scan_index": [
+            427,
+            180
+          ],
+          "nearest_scan_parameters": [
+            0.0725887323943662,
+            -0.15165414710485134
+          ],
+          "scan_period": 0,
+          "distance_in_scan_steps": 0.4714285714261282
+        },
+        {
+          "continued_index": [
+            19,
+            5
+          ],
+          "continued_parameters": [
+            0.07263333333333334,
+            -0.15165
+          ],
+          "nearest_scan_index": [
+            427,
+            190
+          ],
+          "nearest_scan_parameters": [
+            0.07263255086071987,
+            -0.15165414710485134
+          ],
+          "scan_period": 0,
+          "distance_in_scan_steps": 0.3312500000002356
+        },
+        {
+          "continued_index": [
+            19,
+            6
+          ],
+          "continued_parameters": [
+            0.07268000000000001,
+            -0.15165
+          ],
+          "nearest_scan_index": [
+            427,
+            201
+          ],
+          "nearest_scan_parameters": [
+            0.07268075117370892,
+            -0.15165414710485134
+          ],
+          "scan_period": 0,
+          "distance_in_scan_steps": 0.3312500000002356
+        },
+        {
+          "continued_index": [
+            19,
+            7
+          ],
+          "continued_parameters": [
+            0.07272666666666668,
+            -0.15165
+          ],
+          "nearest_scan_index": [
+            427,
+            211
+          ],
+          "nearest_scan_parameters": [
+            0.0727245696400626,
+            -0.15165414710485134
+          ],
+          "scan_period": 12,
+          "distance_in_scan_steps": 0.4785714285719715
+        },
+        {
+          "continued_index": [
+            19,
+            8
+          ],
+          "continued_parameters": [
+            0.07277333333333334,
+            -0.15165
+          ],
+          "nearest_scan_index": [
+            427,
+            222
+          ],
+          "nearest_scan_parameters": [
+            0.07277276995305164,
+            -0.15165414710485134
+          ],
+          "scan_period": 12,
+          "distance_in_scan_steps": 0.3312500000002356
+        },
+        {
+          "continued_index": [
+            19,
+            9
+          ],
+          "continued_parameters": [
+            0.07282000000000001,
+            -0.15165
+          ],
+          "nearest_scan_index": [
+            427,
+            233
+          ],
+          "nearest_scan_parameters": [
+            0.07282097026604069,
+            -0.15165414710485134
+          ],
+          "scan_period": 12,
+          "distance_in_scan_steps": 0.3312500000002356
+        },
+        {
+          "continued_index": [
+            19,
+            10
+          ],
+          "continued_parameters": [
+            0.07286666666666668,
+            -0.15165
+          ],
+          "nearest_scan_index": [
+            427,
+            243
+          ],
+          "nearest_scan_parameters": [
+            0.07286478873239437,
+            -0.15165414710485134
+          ],
+          "scan_period": 0,
+          "distance_in_scan_steps": 0.4285714285732383
+        },
+        {
+          "continued_index": [
+            20,
+            0
+          ],
+          "continued_parameters": [
+            0.0724,
+            -0.1515
+          ],
+          "nearest_scan_index": [
+            439,
+            137
+          ],
+          "nearest_scan_parameters": [
+            0.07240031298904538,
+            -0.1515039123630673
+          ],
+          "scan_period": 0,
+          "distance_in_scan_steps": 0.31250000000013856
+        },
+        {
+          "continued_index": [
+            20,
+            1
+          ],
+          "continued_parameters": [
+            0.07244666666666667,
+            -0.1515
+          ],
+          "nearest_scan_index": [
+            439,
+            148
+          ],
+          "nearest_scan_parameters": [
+            0.07244851330203443,
+            -0.1515039123630673
+          ],
+          "scan_period": 0,
+          "distance_in_scan_steps": 0.4214285714273951
+        },
+        {
+          "continued_index": [
+            20,
+            2
+          ],
+          "continued_parameters": [
+            0.07249333333333334,
+            -0.1515
+          ],
+          "nearest_scan_index": [
+            439,
+            158
+          ],
+          "nearest_scan_parameters": [
+            0.07249233176838811,
+            -0.1515039123630673
+          ],
+          "scan_period": 0,
+          "distance_in_scan_steps": 0.31250000000013856
+        },
+        {
+          "continued_index": [
+            20,
+            3
+          ],
+          "continued_parameters": [
+            0.07254000000000001,
+            -0.1515
+          ],
+          "nearest_scan_index": [
+            439,
+            169
+          ],
+          "nearest_scan_parameters": [
+            0.07254053208137716,
+            -0.1515039123630673
+          ],
+          "scan_period": 0,
+          "distance_in_scan_steps": 0.31250000000013856
+        },
+        {
+          "continued_index": [
+            20,
+            4
+          ],
+          "continued_parameters": [
+            0.07258666666666667,
+            -0.1515
+          ],
+          "nearest_scan_index": [
+            439,
+            180
+          ],
+          "nearest_scan_parameters": [
+            0.0725887323943662,
+            -0.1515039123630673
+          ],
+          "scan_period": 21,
+          "distance_in_scan_steps": 0.4714285714261282
+        },
+        {
+          "continued_index": [
+            20,
+            5
+          ],
+          "continued_parameters": [
+            0.07263333333333334,
+            -0.1515
+          ],
+          "nearest_scan_index": [
+            439,
+            190
+          ],
+          "nearest_scan_parameters": [
+            0.07263255086071987,
+            -0.1515039123630673
+          ],
+          "scan_period": 0,
+          "distance_in_scan_steps": 0.31250000000013856
+        },
+        {
+          "continued_index": [
+            20,
+            6
+          ],
+          "continued_parameters": [
+            0.07268000000000001,
+            -0.1515
+          ],
+          "nearest_scan_index": [
+            439,
+            201
+          ],
+          "nearest_scan_parameters": [
+            0.07268075117370892,
+            -0.1515039123630673
+          ],
+          "scan_period": 0,
+          "distance_in_scan_steps": 0.31250000000013856
+        },
+        {
+          "continued_index": [
+            20,
+            7
+          ],
+          "continued_parameters": [
+            0.07272666666666668,
+            -0.1515
+          ],
+          "nearest_scan_index": [
+            439,
+            211
+          ],
+          "nearest_scan_parameters": [
+            0.0727245696400626,
+            -0.1515039123630673
+          ],
+          "scan_period": 0,
+          "distance_in_scan_steps": 0.4785714285719715
+        },
+        {
+          "continued_index": [
+            20,
+            8
+          ],
+          "continued_parameters": [
+            0.07277333333333334,
+            -0.1515
+          ],
+          "nearest_scan_index": [
+            439,
+            222
+          ],
+          "nearest_scan_parameters": [
+            0.07277276995305164,
+            -0.1515039123630673
+          ],
+          "scan_period": 12,
+          "distance_in_scan_steps": 0.31250000000013856
+        },
+        {
+          "continued_index": [
+            20,
+            9
+          ],
+          "continued_parameters": [
+            0.07282000000000001,
+            -0.1515
+          ],
+          "nearest_scan_index": [
+            439,
+            233
+          ],
+          "nearest_scan_parameters": [
+            0.07282097026604069,
+            -0.1515039123630673
+          ],
+          "scan_period": 12,
+          "distance_in_scan_steps": 0.31250000000013856
+        },
+        {
+          "continued_index": [
+            20,
+            10
+          ],
+          "continued_parameters": [
+            0.07286666666666668,
+            -0.1515
+          ],
+          "nearest_scan_index": [
+            439,
+            243
+          ],
+          "nearest_scan_parameters": [
+            0.07286478873239437,
+            -0.1515039123630673
+          ],
+          "scan_period": 0,
+          "distance_in_scan_steps": 0.4285714285732383
+        },
+        {
+          "continued_index": [
+            21,
+            0
+          ],
+          "continued_parameters": [
+            0.0724,
+            -0.15134999999999998
+          ],
+          "nearest_scan_index": [
+            451,
+            137
+          ],
+          "nearest_scan_parameters": [
+            0.07240031298904538,
+            -0.15135367762128327
+          ],
+          "scan_period": 0,
+          "distance_in_scan_steps": 0.29375000000225854
+        },
+        {
+          "continued_index": [
+            21,
+            1
+          ],
+          "continued_parameters": [
+            0.07244666666666667,
+            -0.15134999999999998
+          ],
+          "nearest_scan_index": [
+            451,
+            148
+          ],
+          "nearest_scan_parameters": [
+            0.07244851330203443,
+            -0.15135367762128327
+          ],
+          "scan_period": 0,
+          "distance_in_scan_steps": 0.4214285714273951
+        },
+        {
+          "continued_index": [
+            21,
+            2
+          ],
+          "continued_parameters": [
+            0.07249333333333334,
+            -0.15134999999999998
+          ],
+          "nearest_scan_index": [
+            451,
+            158
+          ],
+          "nearest_scan_parameters": [
+            0.07249233176838811,
+            -0.15135367762128327
+          ],
+          "scan_period": 0,
+          "distance_in_scan_steps": 0.29375000000225854
+        },
+        {
+          "continued_index": [
+            21,
+            3
+          ],
+          "continued_parameters": [
+            0.07254000000000001,
+            -0.15134999999999998
+          ],
+          "nearest_scan_index": [
+            451,
+            169
+          ],
+          "nearest_scan_parameters": [
+            0.07254053208137716,
+            -0.15135367762128327
+          ],
+          "scan_period": 0,
+          "distance_in_scan_steps": 0.29375000000225854
+        },
+        {
+          "continued_index": [
+            21,
+            4
+          ],
+          "continued_parameters": [
+            0.07258666666666667,
+            -0.15134999999999998
+          ],
+          "nearest_scan_index": [
+            451,
+            180
+          ],
+          "nearest_scan_parameters": [
+            0.0725887323943662,
+            -0.15135367762128327
+          ],
+          "scan_period": 21,
+          "distance_in_scan_steps": 0.4714285714261282
+        },
+        {
+          "continued_index": [
+            21,
+            5
+          ],
+          "continued_parameters": [
+            0.07263333333333334,
+            -0.15134999999999998
+          ],
+          "nearest_scan_index": [
+            451,
+            190
+          ],
+          "nearest_scan_parameters": [
+            0.07263255086071987,
+            -0.15135367762128327
+          ],
+          "scan_period": 0,
+          "distance_in_scan_steps": 0.29375000000225854
+        },
+        {
+          "continued_index": [
+            21,
+            6
+          ],
+          "continued_parameters": [
+            0.07268000000000001,
+            -0.15134999999999998
+          ],
+          "nearest_scan_index": [
+            451,
+            201
+          ],
+          "nearest_scan_parameters": [
+            0.07268075117370892,
+            -0.15135367762128327
+          ],
+          "scan_period": 0,
+          "distance_in_scan_steps": 0.29375000000225854
+        },
+        {
+          "continued_index": [
+            21,
+            7
+          ],
+          "continued_parameters": [
+            0.07272666666666668,
+            -0.15134999999999998
+          ],
+          "nearest_scan_index": [
+            451,
+            211
+          ],
+          "nearest_scan_parameters": [
+            0.0727245696400626,
+            -0.15135367762128327
+          ],
+          "scan_period": 24,
+          "distance_in_scan_steps": 0.4785714285719715
+        },
+        {
+          "continued_index": [
+            21,
+            8
+          ],
+          "continued_parameters": [
+            0.07277333333333334,
+            -0.15134999999999998
+          ],
+          "nearest_scan_index": [
+            451,
+            222
+          ],
+          "nearest_scan_parameters": [
+            0.07277276995305164,
+            -0.15135367762128327
+          ],
+          "scan_period": 12,
+          "distance_in_scan_steps": 0.29375000000225854
+        },
+        {
+          "continued_index": [
+            21,
+            9
+          ],
+          "continued_parameters": [
+            0.07282000000000001,
+            -0.15134999999999998
+          ],
+          "nearest_scan_index": [
+            451,
+            233
+          ],
+          "nearest_scan_parameters": [
+            0.07282097026604069,
+            -0.15135367762128327
+          ],
+          "scan_period": 12,
+          "distance_in_scan_steps": 0.29375000000225854
+        },
+        {
+          "continued_index": [
+            21,
+            10
+          ],
+          "continued_parameters": [
+            0.07286666666666668,
+            -0.15134999999999998
+          ],
+          "nearest_scan_index": [
+            451,
+            243
+          ],
+          "nearest_scan_parameters": [
+            0.07286478873239437,
+            -0.15135367762128327
+          ],
+          "scan_period": 32,
+          "distance_in_scan_steps": 0.4285714285732383
+        },
+        {
+          "continued_index": [
+            22,
+            0
+          ],
+          "continued_parameters": [
+            0.0724,
+            -0.1512
+          ],
+          "nearest_scan_index": [
+            463,
+            137
+          ],
+          "nearest_scan_parameters": [
+            0.07240031298904538,
+            -0.15120344287949922
+          ],
+          "scan_period": 0,
+          "distance_in_scan_steps": 0.27499999999994457
+        },
+        {
+          "continued_index": [
+            22,
+            1
+          ],
+          "continued_parameters": [
+            0.07244666666666667,
+            -0.1512
+          ],
+          "nearest_scan_index": [
+            463,
+            148
+          ],
+          "nearest_scan_parameters": [
+            0.07244851330203443,
+            -0.15120344287949922
+          ],
+          "scan_period": 0,
+          "distance_in_scan_steps": 0.4214285714273951
+        },
+        {
+          "continued_index": [
+            22,
+            2
+          ],
+          "continued_parameters": [
+            0.07249333333333334,
+            -0.1512
+          ],
+          "nearest_scan_index": [
+            463,
+            158
+          ],
+          "nearest_scan_parameters": [
+            0.07249233176838811,
+            -0.15120344287949922
+          ],
+          "scan_period": 0,
+          "distance_in_scan_steps": 0.27499999999994457
+        },
+        {
+          "continued_index": [
+            22,
+            3
+          ],
+          "continued_parameters": [
+            0.07254000000000001,
+            -0.1512
+          ],
+          "nearest_scan_index": [
+            463,
+            169
+          ],
+          "nearest_scan_parameters": [
+            0.07254053208137716,
+            -0.15120344287949922
+          ],
+          "scan_period": 0,
+          "distance_in_scan_steps": 0.27499999999994457
+        },
+        {
+          "continued_index": [
+            22,
+            4
+          ],
+          "continued_parameters": [
+            0.07258666666666667,
+            -0.1512
+          ],
+          "nearest_scan_index": [
+            463,
+            180
+          ],
+          "nearest_scan_parameters": [
+            0.0725887323943662,
+            -0.15120344287949922
+          ],
+          "scan_period": 21,
+          "distance_in_scan_steps": 0.4714285714261282
+        },
+        {
+          "continued_index": [
+            22,
+            5
+          ],
+          "continued_parameters": [
+            0.07263333333333334,
+            -0.1512
+          ],
+          "nearest_scan_index": [
+            463,
+            190
+          ],
+          "nearest_scan_parameters": [
+            0.07263255086071987,
+            -0.15120344287949922
+          ],
+          "scan_period": 0,
+          "distance_in_scan_steps": 0.27499999999994457
+        },
+        {
+          "continued_index": [
+            22,
+            6
+          ],
+          "continued_parameters": [
+            0.07268000000000001,
+            -0.1512
+          ],
+          "nearest_scan_index": [
+            463,
+            201
+          ],
+          "nearest_scan_parameters": [
+            0.07268075117370892,
+            -0.15120344287949922
+          ],
+          "scan_period": 0,
+          "distance_in_scan_steps": 0.27499999999994457
+        },
+        {
+          "continued_index": [
+            22,
+            7
+          ],
+          "continued_parameters": [
+            0.07272666666666668,
+            -0.1512
+          ],
+          "nearest_scan_index": [
+            463,
+            211
+          ],
+          "nearest_scan_parameters": [
+            0.0727245696400626,
+            -0.15120344287949922
+          ],
+          "scan_period": 24,
+          "distance_in_scan_steps": 0.4785714285719715
+        },
+        {
+          "continued_index": [
+            22,
+            8
+          ],
+          "continued_parameters": [
+            0.07277333333333334,
+            -0.1512
+          ],
+          "nearest_scan_index": [
+            463,
+            222
+          ],
+          "nearest_scan_parameters": [
+            0.07277276995305164,
+            -0.15120344287949922
+          ],
+          "scan_period": 12,
+          "distance_in_scan_steps": 0.27499999999994457
+        },
+        {
+          "continued_index": [
+            22,
+            9
+          ],
+          "continued_parameters": [
+            0.07282000000000001,
+            -0.1512
+          ],
+          "nearest_scan_index": [
+            463,
+            233
+          ],
+          "nearest_scan_parameters": [
+            0.07282097026604069,
+            -0.15120344287949922
+          ],
+          "scan_period": 0,
+          "distance_in_scan_steps": 0.27499999999994457
+        },
+        {
+          "continued_index": [
+            23,
+            0
+          ],
+          "continued_parameters": [
+            0.0724,
+            -0.15105
+          ],
+          "nearest_scan_index": [
+            475,
+            137
+          ],
+          "nearest_scan_parameters": [
+            0.07240031298904538,
+            -0.1510532081377152
+          ],
+          "scan_period": 0,
+          "distance_in_scan_steps": 0.25625000000206455
+        },
+        {
+          "continued_index": [
+            23,
+            1
+          ],
+          "continued_parameters": [
+            0.07244666666666667,
+            -0.15105
+          ],
+          "nearest_scan_index": [
+            475,
+            148
+          ],
+          "nearest_scan_parameters": [
+            0.07244851330203443,
+            -0.1510532081377152
+          ],
+          "scan_period": 0,
+          "distance_in_scan_steps": 0.4214285714273951
+        },
+        {
+          "continued_index": [
+            23,
+            2
+          ],
+          "continued_parameters": [
+            0.07249333333333334,
+            -0.15105
+          ],
+          "nearest_scan_index": [
+            475,
+            158
+          ],
+          "nearest_scan_parameters": [
+            0.07249233176838811,
+            -0.1510532081377152
+          ],
+          "scan_period": 0,
+          "distance_in_scan_steps": 0.25625000000206455
+        },
+        {
+          "continued_index": [
+            23,
+            3
+          ],
+          "continued_parameters": [
+            0.07254000000000001,
+            -0.15105
+          ],
+          "nearest_scan_index": [
+            475,
+            169
+          ],
+          "nearest_scan_parameters": [
+            0.07254053208137716,
+            -0.1510532081377152
+          ],
+          "scan_period": 0,
+          "distance_in_scan_steps": 0.25625000000206455
+        },
+        {
+          "continued_index": [
+            23,
+            4
+          ],
+          "continued_parameters": [
+            0.07258666666666667,
+            -0.15105
+          ],
+          "nearest_scan_index": [
+            475,
+            180
+          ],
+          "nearest_scan_parameters": [
+            0.0725887323943662,
+            -0.1510532081377152
+          ],
+          "scan_period": 0,
+          "distance_in_scan_steps": 0.4714285714261282
+        },
+        {
+          "continued_index": [
+            23,
+            5
+          ],
+          "continued_parameters": [
+            0.07263333333333334,
+            -0.15105
+          ],
+          "nearest_scan_index": [
+            475,
+            190
+          ],
+          "nearest_scan_parameters": [
+            0.07263255086071987,
+            -0.1510532081377152
+          ],
+          "scan_period": 0,
+          "distance_in_scan_steps": 0.25625000000206455
+        },
+        {
+          "continued_index": [
+            23,
+            6
+          ],
+          "continued_parameters": [
+            0.07268000000000001,
+            -0.15105
+          ],
+          "nearest_scan_index": [
+            475,
+            201
+          ],
+          "nearest_scan_parameters": [
+            0.07268075117370892,
+            -0.1510532081377152
+          ],
+          "scan_period": 0,
+          "distance_in_scan_steps": 0.25625000000206455
+        },
+        {
+          "continued_index": [
+            23,
+            7
+          ],
+          "continued_parameters": [
+            0.07272666666666668,
+            -0.15105
+          ],
+          "nearest_scan_index": [
+            475,
+            211
+          ],
+          "nearest_scan_parameters": [
+            0.0727245696400626,
+            -0.1510532081377152
+          ],
+          "scan_period": 0,
+          "distance_in_scan_steps": 0.4785714285719715
+        },
+        {
+          "continued_index": [
+            23,
+            8
+          ],
+          "continued_parameters": [
+            0.07277333333333334,
+            -0.15105
+          ],
+          "nearest_scan_index": [
+            475,
+            222
+          ],
+          "nearest_scan_parameters": [
+            0.07277276995305164,
+            -0.1510532081377152
+          ],
+          "scan_period": 12,
+          "distance_in_scan_steps": 0.25625000000206455
+        },
+        {
+          "continued_index": [
+            23,
+            9
+          ],
+          "continued_parameters": [
+            0.07282000000000001,
+            -0.15105
+          ],
+          "nearest_scan_index": [
+            475,
+            233
+          ],
+          "nearest_scan_parameters": [
+            0.07282097026604069,
+            -0.1510532081377152
+          ],
+          "scan_period": 0,
+          "distance_in_scan_steps": 0.25625000000206455
+        },
+        {
+          "continued_index": [
+            24,
+            0
+          ],
+          "continued_parameters": [
+            0.0724,
+            -0.1509
+          ],
+          "nearest_scan_index": [
+            487,
+            137
+          ],
+          "nearest_scan_parameters": [
+            0.07240031298904538,
+            -0.15090297339593114
+          ],
+          "scan_period": 0,
+          "distance_in_scan_steps": 0.23749999999975058
+        },
+        {
+          "continued_index": [
+            24,
+            1
+          ],
+          "continued_parameters": [
+            0.07244666666666667,
+            -0.1509
+          ],
+          "nearest_scan_index": [
+            487,
+            148
+          ],
+          "nearest_scan_parameters": [
+            0.07244851330203443,
+            -0.15090297339593114
+          ],
+          "scan_period": 0,
+          "distance_in_scan_steps": 0.4214285714273951
+        },
+        {
+          "continued_index": [
+            24,
+            2
+          ],
+          "continued_parameters": [
+            0.07249333333333334,
+            -0.1509
+          ],
+          "nearest_scan_index": [
+            487,
+            158
+          ],
+          "nearest_scan_parameters": [
+            0.07249233176838811,
+            -0.15090297339593114
+          ],
+          "scan_period": 13,
+          "distance_in_scan_steps": 0.23749999999975058
+        },
+        {
+          "continued_index": [
+            24,
+            3
+          ],
+          "continued_parameters": [
+            0.07254000000000001,
+            -0.1509
+          ],
+          "nearest_scan_index": [
+            487,
+            169
+          ],
+          "nearest_scan_parameters": [
+            0.07254053208137716,
+            -0.15090297339593114
+          ],
+          "scan_period": 0,
+          "distance_in_scan_steps": 0.23749999999975058
+        },
+        {
+          "continued_index": [
+            24,
+            4
+          ],
+          "continued_parameters": [
+            0.07258666666666667,
+            -0.1509
+          ],
+          "nearest_scan_index": [
+            487,
+            180
+          ],
+          "nearest_scan_parameters": [
+            0.0725887323943662,
+            -0.15090297339593114
+          ],
+          "scan_period": 0,
+          "distance_in_scan_steps": 0.4714285714261282
+        },
+        {
+          "continued_index": [
+            24,
+            5
+          ],
+          "continued_parameters": [
+            0.07263333333333334,
+            -0.1509
+          ],
+          "nearest_scan_index": [
+            487,
+            190
+          ],
+          "nearest_scan_parameters": [
+            0.07263255086071987,
+            -0.15090297339593114
+          ],
+          "scan_period": 0,
+          "distance_in_scan_steps": 0.23749999999975058
+        },
+        {
+          "continued_index": [
+            24,
+            6
+          ],
+          "continued_parameters": [
+            0.07268000000000001,
+            -0.1509
+          ],
+          "nearest_scan_index": [
+            487,
+            201
+          ],
+          "nearest_scan_parameters": [
+            0.07268075117370892,
+            -0.15090297339593114
+          ],
+          "scan_period": 0,
+          "distance_in_scan_steps": 0.23749999999975058
+        },
+        {
+          "continued_index": [
+            24,
+            7
+          ],
+          "continued_parameters": [
+            0.07272666666666668,
+            -0.1509
+          ],
+          "nearest_scan_index": [
+            487,
+            211
+          ],
+          "nearest_scan_parameters": [
+            0.0727245696400626,
+            -0.15090297339593114
+          ],
+          "scan_period": 12,
+          "distance_in_scan_steps": 0.4785714285719715
+        },
+        {
+          "continued_index": [
+            24,
+            8
+          ],
+          "continued_parameters": [
+            0.07277333333333334,
+            -0.1509
+          ],
+          "nearest_scan_index": [
+            487,
+            222
+          ],
+          "nearest_scan_parameters": [
+            0.07277276995305164,
+            -0.15090297339593114
+          ],
+          "scan_period": 12,
+          "distance_in_scan_steps": 0.23749999999975058
+        },
+        {
+          "continued_index": [
+            24,
+            9
+          ],
+          "continued_parameters": [
+            0.07282000000000001,
+            -0.1509
+          ],
+          "nearest_scan_index": [
+            487,
+            233
+          ],
+          "nearest_scan_parameters": [
+            0.07282097026604069,
+            -0.15090297339593114
+          ],
+          "scan_period": 16,
+          "distance_in_scan_steps": 0.23749999999975058
+        },
+        {
+          "continued_index": [
+            24,
+            10
+          ],
+          "continued_parameters": [
+            0.07286666666666668,
+            -0.1509
+          ],
+          "nearest_scan_index": [
+            487,
+            243
+          ],
+          "nearest_scan_parameters": [
+            0.07286478873239437,
+            -0.15090297339593114
+          ],
+          "scan_period": 16,
+          "distance_in_scan_steps": 0.4285714285732383
+        },
+        {
+          "continued_index": [
+            24,
+            11
+          ],
+          "continued_parameters": [
+            0.07291333333333334,
+            -0.1509
+          ],
+          "nearest_scan_index": [
+            487,
+            254
+          ],
+          "nearest_scan_parameters": [
+            0.07291298904538342,
+            -0.15090297339593114
+          ],
+          "scan_period": 8,
+          "distance_in_scan_steps": 0.23749999999975058
+        },
+        {
+          "continued_index": [
+            25,
+            0
+          ],
+          "continued_parameters": [
+            0.0724,
+            -0.15075
+          ],
+          "nearest_scan_index": [
+            499,
+            137
+          ],
+          "nearest_scan_parameters": [
+            0.07240031298904538,
+            -0.15075273865414712
+          ],
+          "scan_period": 0,
+          "distance_in_scan_steps": 0.2187500000018706
+        },
+        {
+          "continued_index": [
+            25,
+            1
+          ],
+          "continued_parameters": [
+            0.07244666666666667,
+            -0.15075
+          ],
+          "nearest_scan_index": [
+            499,
+            148
+          ],
+          "nearest_scan_parameters": [
+            0.07244851330203443,
+            -0.15075273865414712
+          ],
+          "scan_period": 0,
+          "distance_in_scan_steps": 0.4214285714273951
+        },
+        {
+          "continued_index": [
+            25,
+            2
+          ],
+          "continued_parameters": [
+            0.07249333333333334,
+            -0.15075
+          ],
+          "nearest_scan_index": [
+            499,
+            158
+          ],
+          "nearest_scan_parameters": [
+            0.07249233176838811,
+            -0.15075273865414712
+          ],
+          "scan_period": 13,
+          "distance_in_scan_steps": 0.2285714285719715
+        },
+        {
+          "continued_index": [
+            25,
+            3
+          ],
+          "continued_parameters": [
+            0.07254000000000001,
+            -0.15075
+          ],
+          "nearest_scan_index": [
+            499,
+            169
+          ],
+          "nearest_scan_parameters": [
+            0.07254053208137716,
+            -0.15075273865414712
+          ],
+          "scan_period": 21,
+          "distance_in_scan_steps": 0.2187500000018706
+        },
+        {
+          "continued_index": [
+            25,
+            4
+          ],
+          "continued_parameters": [
+            0.07258666666666667,
+            -0.15075
+          ],
+          "nearest_scan_index": [
+            499,
+            180
+          ],
+          "nearest_scan_parameters": [
+            0.0725887323943662,
+            -0.15075273865414712
+          ],
+          "scan_period": 0,
+          "distance_in_scan_steps": 0.4714285714261282
+        },
+        {
+          "continued_index": [
+            25,
+            5
+          ],
+          "continued_parameters": [
+            0.07263333333333334,
+            -0.15075
+          ],
+          "nearest_scan_index": [
+            499,
+            190
+          ],
+          "nearest_scan_parameters": [
+            0.07263255086071987,
+            -0.15075273865414712
+          ],
+          "scan_period": 0,
+          "distance_in_scan_steps": 0.2187500000018706
+        },
+        {
+          "continued_index": [
+            25,
+            6
+          ],
+          "continued_parameters": [
+            0.07268000000000001,
+            -0.15075
+          ],
+          "nearest_scan_index": [
+            499,
+            201
+          ],
+          "nearest_scan_parameters": [
+            0.07268075117370892,
+            -0.15075273865414712
+          ],
+          "scan_period": 0,
+          "distance_in_scan_steps": 0.2187500000018706
+        },
+        {
+          "continued_index": [
+            25,
+            7
+          ],
+          "continued_parameters": [
+            0.07272666666666668,
+            -0.15075
+          ],
+          "nearest_scan_index": [
+            499,
+            211
+          ],
+          "nearest_scan_parameters": [
+            0.0727245696400626,
+            -0.15075273865414712
+          ],
+          "scan_period": 12,
+          "distance_in_scan_steps": 0.4785714285719715
+        },
+        {
+          "continued_index": [
+            25,
+            8
+          ],
+          "continued_parameters": [
+            0.07277333333333334,
+            -0.15075
+          ],
+          "nearest_scan_index": [
+            499,
+            222
+          ],
+          "nearest_scan_parameters": [
+            0.07277276995305164,
+            -0.15075273865414712
+          ],
+          "scan_period": 0,
+          "distance_in_scan_steps": 0.2187500000018706
+        },
+        {
+          "continued_index": [
+            25,
+            9
+          ],
+          "continued_parameters": [
+            0.07282000000000001,
+            -0.15075
+          ],
+          "nearest_scan_index": [
+            499,
+            233
+          ],
+          "nearest_scan_parameters": [
+            0.07282097026604069,
+            -0.15075273865414712
+          ],
+          "scan_period": 16,
+          "distance_in_scan_steps": 0.22142857142612823
+        },
+        {
+          "continued_index": [
+            25,
+            11
+          ],
+          "continued_parameters": [
+            0.07291333333333334,
+            -0.15075
+          ],
+          "nearest_scan_index": [
+            499,
+            254
+          ],
+          "nearest_scan_parameters": [
+            0.07291298904538342,
+            -0.15075273865414712
+          ],
+          "scan_period": 8,
+          "distance_in_scan_steps": 0.2187500000018706
+        },
+        {
+          "continued_index": [
+            26,
+            0
+          ],
+          "continued_parameters": [
+            0.0724,
+            -0.15059999999999998
+          ],
+          "nearest_scan_index": [
+            511,
+            137
+          ],
+          "nearest_scan_parameters": [
+            0.07240031298904538,
+            -0.15060250391236307
+          ],
+          "scan_period": 0,
+          "distance_in_scan_steps": 0.2000000000017736
+        },
+        {
+          "continued_index": [
+            26,
+            1
+          ],
+          "continued_parameters": [
+            0.07244666666666667,
+            -0.15059999999999998
+          ],
+          "nearest_scan_index": [
+            511,
+            148
+          ],
+          "nearest_scan_parameters": [
+            0.07244851330203443,
+            -0.15060250391236307
+          ],
+          "scan_period": 0,
+          "distance_in_scan_steps": 0.4214285714273951
+        },
+        {
+          "continued_index": [
+            26,
+            2
+          ],
+          "continued_parameters": [
+            0.07249333333333334,
+            -0.15059999999999998
+          ],
+          "nearest_scan_index": [
+            511,
+            158
+          ],
+          "nearest_scan_parameters": [
+            0.07249233176838811,
+            -0.15060250391236307
+          ],
+          "scan_period": 13,
+          "distance_in_scan_steps": 0.2285714285719715
+        },
+        {
+          "continued_index": [
+            26,
+            3
+          ],
+          "continued_parameters": [
+            0.07254000000000001,
+            -0.15059999999999998
+          ],
+          "nearest_scan_index": [
+            511,
+            169
+          ],
+          "nearest_scan_parameters": [
+            0.07254053208137716,
+            -0.15060250391236307
+          ],
+          "scan_period": 0,
+          "distance_in_scan_steps": 0.2000000000017736
+        },
+        {
+          "continued_index": [
+            26,
+            4
+          ],
+          "continued_parameters": [
+            0.07258666666666667,
+            -0.15059999999999998
+          ],
+          "nearest_scan_index": [
+            511,
+            180
+          ],
+          "nearest_scan_parameters": [
+            0.0725887323943662,
+            -0.15060250391236307
+          ],
+          "scan_period": 0,
+          "distance_in_scan_steps": 0.4714285714261282
+        },
+        {
+          "continued_index": [
+            26,
+            5
+          ],
+          "continued_parameters": [
+            0.07263333333333334,
+            -0.15059999999999998
+          ],
+          "nearest_scan_index": [
+            511,
+            190
+          ],
+          "nearest_scan_parameters": [
+            0.07263255086071987,
+            -0.15060250391236307
+          ],
+          "scan_period": 0,
+          "distance_in_scan_steps": 0.2000000000017736
+        },
+        {
+          "continued_index": [
+            26,
+            6
+          ],
+          "continued_parameters": [
+            0.07268000000000001,
+            -0.15059999999999998
+          ],
+          "nearest_scan_index": [
+            511,
+            201
+          ],
+          "nearest_scan_parameters": [
+            0.07268075117370892,
+            -0.15060250391236307
+          ],
+          "scan_period": 0,
+          "distance_in_scan_steps": 0.2000000000017736
+        },
+        {
+          "continued_index": [
+            26,
+            7
+          ],
+          "continued_parameters": [
+            0.07272666666666668,
+            -0.15059999999999998
+          ],
+          "nearest_scan_index": [
+            511,
+            211
+          ],
+          "nearest_scan_parameters": [
+            0.0727245696400626,
+            -0.15060250391236307
+          ],
+          "scan_period": 12,
+          "distance_in_scan_steps": 0.4785714285719715
+        },
+        {
+          "continued_index": [
+            26,
+            8
+          ],
+          "continued_parameters": [
+            0.07277333333333334,
+            -0.15059999999999998
+          ],
+          "nearest_scan_index": [
+            511,
+            222
+          ],
+          "nearest_scan_parameters": [
+            0.07277276995305164,
+            -0.15060250391236307
+          ],
+          "scan_period": 0,
+          "distance_in_scan_steps": 0.2000000000017736
+        },
+        {
+          "continued_index": [
+            26,
+            10
+          ],
+          "continued_parameters": [
+            0.07286666666666668,
+            -0.15059999999999998
+          ],
+          "nearest_scan_index": [
+            511,
+            243
+          ],
+          "nearest_scan_parameters": [
+            0.07286478873239437,
+            -0.15060250391236307
+          ],
+          "scan_period": 16,
+          "distance_in_scan_steps": 0.4285714285732383
+        },
+        {
+          "continued_index": [
+            26,
+            11
+          ],
+          "continued_parameters": [
+            0.07291333333333334,
+            -0.15059999999999998
+          ],
+          "nearest_scan_index": [
+            511,
+            254
+          ],
+          "nearest_scan_parameters": [
+            0.07291298904538342,
+            -0.15060250391236307
+          ],
+          "scan_period": 8,
+          "distance_in_scan_steps": 0.2000000000017736
+        },
+        {
+          "continued_index": [
+            27,
+            1
+          ],
+          "continued_parameters": [
+            0.07244666666666667,
+            -0.15045
+          ],
+          "nearest_scan_index": [
+            523,
+            148
+          ],
+          "nearest_scan_parameters": [
+            0.07244851330203443,
+            -0.15045226917057902
+          ],
+          "scan_period": 0,
+          "distance_in_scan_steps": 0.4214285714273951
+        },
+        {
+          "continued_index": [
+            27,
+            2
+          ],
+          "continued_parameters": [
+            0.07249333333333334,
+            -0.15045
+          ],
+          "nearest_scan_index": [
+            523,
+            158
+          ],
+          "nearest_scan_parameters": [
+            0.07249233176838811,
+            -0.15045226917057902
+          ],
+          "scan_period": 0,
+          "distance_in_scan_steps": 0.2285714285719715
+        },
+        {
+          "continued_index": [
+            27,
+            3
+          ],
+          "continued_parameters": [
+            0.07254000000000001,
+            -0.15045
+          ],
+          "nearest_scan_index": [
+            523,
+            169
+          ],
+          "nearest_scan_parameters": [
+            0.07254053208137716,
+            -0.15045226917057902
+          ],
+          "scan_period": 0,
+          "distance_in_scan_steps": 0.18124999999945962
+        },
+        {
+          "continued_index": [
+            27,
+            4
+          ],
+          "continued_parameters": [
+            0.07258666666666667,
+            -0.15045
+          ],
+          "nearest_scan_index": [
+            523,
+            180
+          ],
+          "nearest_scan_parameters": [
+            0.0725887323943662,
+            -0.15045226917057902
+          ],
+          "scan_period": 0,
+          "distance_in_scan_steps": 0.4714285714261282
+        },
+        {
+          "continued_index": [
+            27,
+            5
+          ],
+          "continued_parameters": [
+            0.07263333333333334,
+            -0.15045
+          ],
+          "nearest_scan_index": [
+            523,
+            190
+          ],
+          "nearest_scan_parameters": [
+            0.07263255086071987,
+            -0.15045226917057902
+          ],
+          "scan_period": 0,
+          "distance_in_scan_steps": 0.18124999999945962
+        },
+        {
+          "continued_index": [
+            27,
+            6
+          ],
+          "continued_parameters": [
+            0.07268000000000001,
+            -0.15045
+          ],
+          "nearest_scan_index": [
+            523,
+            201
+          ],
+          "nearest_scan_parameters": [
+            0.07268075117370892,
+            -0.15045226917057902
+          ],
+          "scan_period": 12,
+          "distance_in_scan_steps": 0.18124999999945962
+        },
+        {
+          "continued_index": [
+            27,
+            7
+          ],
+          "continued_parameters": [
+            0.07272666666666668,
+            -0.15045
+          ],
+          "nearest_scan_index": [
+            523,
+            211
+          ],
+          "nearest_scan_parameters": [
+            0.0727245696400626,
+            -0.15045226917057902
+          ],
+          "scan_period": 0,
+          "distance_in_scan_steps": 0.4785714285719715
+        },
+        {
+          "continued_index": [
+            27,
+            10
+          ],
+          "continued_parameters": [
+            0.07286666666666668,
+            -0.15045
+          ],
+          "nearest_scan_index": [
+            523,
+            243
+          ],
+          "nearest_scan_parameters": [
+            0.07286478873239437,
+            -0.15045226917057902
+          ],
+          "scan_period": 16,
+          "distance_in_scan_steps": 0.4285714285732383
+        },
+        {
+          "continued_index": [
+            28,
+            2
+          ],
+          "continued_parameters": [
+            0.07249333333333334,
+            -0.1503
+          ],
+          "nearest_scan_index": [
+            535,
+            158
+          ],
+          "nearest_scan_parameters": [
+            0.07249233176838811,
+            -0.15030203442879497
+          ],
+          "scan_period": 0,
+          "distance_in_scan_steps": 0.2285714285719715
+        },
+        {
+          "continued_index": [
+            28,
+            3
+          ],
+          "continued_parameters": [
+            0.07254000000000001,
+            -0.1503
+          ],
+          "nearest_scan_index": [
+            535,
+            169
+          ],
+          "nearest_scan_parameters": [
+            0.07254053208137716,
+            -0.15030203442879497
+          ],
+          "scan_period": 0,
+          "distance_in_scan_steps": 0.16249999999936263
+        },
+        {
+          "continued_index": [
+            28,
+            4
+          ],
+          "continued_parameters": [
+            0.07258666666666667,
+            -0.1503
+          ],
+          "nearest_scan_index": [
+            535,
+            180
+          ],
+          "nearest_scan_parameters": [
+            0.0725887323943662,
+            -0.15030203442879497
+          ],
+          "scan_period": 0,
+          "distance_in_scan_steps": 0.4714285714261282
+        },
+        {
+          "continued_index": [
+            28,
+            5
+          ],
+          "continued_parameters": [
+            0.07263333333333334,
+            -0.1503
+          ],
+          "nearest_scan_index": [
+            535,
+            190
+          ],
+          "nearest_scan_parameters": [
+            0.07263255086071987,
+            -0.15030203442879497
+          ],
+          "scan_period": 12,
+          "distance_in_scan_steps": 0.17857142857323835
+        },
+        {
+          "continued_index": [
+            28,
+            6
+          ],
+          "continued_parameters": [
+            0.07268000000000001,
+            -0.1503
+          ],
+          "nearest_scan_index": [
+            535,
+            201
+          ],
+          "nearest_scan_parameters": [
+            0.07268075117370892,
+            -0.15030203442879497
+          ],
+          "scan_period": 12,
+          "distance_in_scan_steps": 0.17142857142739507
+        },
+        {
+          "continued_index": [
+            28,
+            9
+          ],
+          "continued_parameters": [
+            0.07282000000000001,
+            -0.1503
+          ],
+          "nearest_scan_index": [
+            535,
+            233
+          ],
+          "nearest_scan_parameters": [
+            0.07282097026604069,
+            -0.15030203442879497
+          ],
+          "scan_period": 32,
+          "distance_in_scan_steps": 0.22142857142612823
+        },
+        {
+          "continued_index": [
+            29,
+            3
+          ],
+          "continued_parameters": [
+            0.07254000000000001,
+            -0.15015
+          ],
+          "nearest_scan_index": [
+            547,
+            169
+          ],
+          "nearest_scan_parameters": [
+            0.07254053208137716,
+            -0.15015179968701095
+          ],
+          "scan_period": 0,
+          "distance_in_scan_steps": 0.14374999999926563
+        },
+        {
+          "continued_index": [
+            29,
+            4
+          ],
+          "continued_parameters": [
+            0.07258666666666667,
+            -0.15015
+          ],
+          "nearest_scan_index": [
+            547,
+            180
+          ],
+          "nearest_scan_parameters": [
+            0.0725887323943662,
+            -0.15015179968701095
+          ],
+          "scan_period": 0,
+          "distance_in_scan_steps": 0.4714285714261282
+        },
+        {
+          "continued_index": [
+            29,
+            5
+          ],
+          "continued_parameters": [
+            0.07263333333333334,
+            -0.15015
+          ],
+          "nearest_scan_index": [
+            547,
+            190
+          ],
+          "nearest_scan_parameters": [
+            0.07263255086071987,
+            -0.15015179968701095
+          ],
+          "scan_period": 12,
+          "distance_in_scan_steps": 0.17857142857323835
+        },
+        {
+          "continued_index": [
+            30,
+            4
+          ],
+          "continued_parameters": [
+            0.07258666666666667,
+            -0.15
+          ],
+          "nearest_scan_index": [
+            559,
+            180
+          ],
+          "nearest_scan_parameters": [
+            0.0725887323943662,
+            -0.1500015649452269
+          ],
+          "scan_period": 0,
+          "distance_in_scan_steps": 0.4714285714261282
+        }
+      ]
+    },
+    "p6s/ditch-top-a": {
+      "solved": 26,
+      "nearest_cell_max_distance_steps": 0.4624999999986975,
+      "nearest_period_not_six": []
+    },
+    "p6s/ditch-main-b": {
+      "solved": 21,
+      "nearest_cell_max_distance_steps": 0.5000000000011084,
+      "nearest_period_not_six": []
+    },
+    "ditch2d": {
+      "solved": 595,
+      "nearest_cell_max_distance_steps": 0.49571428571502774,
+      "nearest_period_not_six": [
+        {
+          "continued_index": [
+            23,
+            16
+          ],
+          "continued_parameters": [
+            0.07328799999999999,
+            -0.15202
+          ],
+          "nearest_scan_index": [
+            398,
+            340
+          ],
+          "nearest_scan_parameters": [
+            0.07328982785602504,
+            -0.15201721439749608
+          ],
+          "scan_period": 0,
+          "distance_in_scan_steps": 0.4171428571455899
+        },
+        {
+          "continued_index": [
+            30,
+            13
+          ],
+          "continued_parameters": [
+            0.073234,
+            -0.15174
+          ],
+          "nearest_scan_index": [
+            420,
+            327
+          ],
+          "nearest_scan_parameters": [
+            0.07323286384976525,
+            -0.15174178403755867
+          ],
+          "scan_period": 0,
+          "distance_in_scan_steps": 0.2592857142851623
+        }
+      ]
+    }
+  },
+  "inputs": {
+    "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/dss/p6-body/grid.npz": {
+      "bytes": 118069,
+      "sha256": "02309f8d394efb09da6dc3db55a39710758252ebc57c0a3f81c5be36336cd0c5"
+    },
+    "/data2/neural-shrimp-data/explore/llm-soft-loop/p6s/ditch-top-a/grid.npz": {
+      "bytes": 9731,
+      "sha256": "ed1335de42c730c6d4e20050b47e85942602dfec0c80f812a03c0e2f70755f03"
+    },
+    "/data2/neural-shrimp-data/explore/llm-soft-loop/p6s/ditch-main-b/grid.npz": {
+      "bytes": 8708,
+      "sha256": "36051ee01b29ef1ef5afec96a965e0c3969617de2539c50d1889b87946588465"
+    },
+    "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/dss/ditch2d-b0/grid.npz": {
+      "bytes": 39901,
+      "sha256": "82cfe0133101284383ecba7578caec22f29146e9bc63cff275c8dd6fe7f03886"
+    },
+    "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/dss/ditch2d-b1/grid.npz": {
+      "bytes": 39646,
+      "sha256": "a5ed33bd172a9f522d056c238b7a46306a055ae1fac0a13ac84c7edaa80e2a20"
+    },
+    "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/dss/ditch2d-b2/grid.npz": {
+      "bytes": 35423,
+      "sha256": "63261f6f8ae5839fc01231c44016d21135629b60a45280198916be752548483b"
+    },
+    "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/dss/ditch2d-b3/grid.npz": {
+      "bytes": 29640,
+      "sha256": "b97dbeda2906895d6ef0442b5c243f859b04c8121661cc3c704fddd1128cbc44"
+    },
+    "/data2/neural-shrimp-data/explore/llm-soft-loop/p6s/ditch-fine-b0/grid.json": {
+      "bytes": 1029,
+      "sha256": "20eb304f229966b811ca8dc071cae5a762858ed5f9ea8dc1c0af0622f5c107ef"
+    },
+    "/data2/neural-shrimp-data/explore/llm-soft-loop/p6s/ditch-fine-b1/grid.json": {
+      "bytes": 1029,
+      "sha256": "0d98eec76f4a6e3929817c2538bec1f9f848d3914fef75117ca8b4796ce6d332"
+    },
+    "/data2/neural-shrimp-data/explore/llm-soft-loop/p6s/ditch-fine-b2/grid.json": {
+      "bytes": 1027,
+      "sha256": "ba54bd1f74cfe8997a347eeb88ca95b2309239a56b5250d63641f2560438c72e"
+    },
+    "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/dss/ditchfine-g0/grid.json": {
+      "bytes": 1037,
+      "sha256": "2030433ce4330ee700793801b908ff79734862d1c83d1f6f5cb494394ca27bb3"
+    },
+    "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/dss/ditchfine-g1/grid.json": {
+      "bytes": 1038,
+      "sha256": "28a2a0553f3ba991d7090708ef43c3d3a7a32321202bb6e369cf80a0a0190d53"
+    },
+    "/data2/neural-shrimp-data/explore/llm-soft-loop/p6s/ditch-fine-b0/grid.npz": {
+      "bytes": 19661,
+      "sha256": "dcc764c8f74ad7752582cddb7f6db75e48b109a1083bfef6ac02b3650ffaa580"
+    },
+    "/data2/neural-shrimp-data/explore/llm-soft-loop/p6s/ditch-fine-b1/grid.npz": {
+      "bytes": 19688,
+      "sha256": "71cf70164561ac762c2ef3052641ef36173ef81e7beab9bc1ef1709df45c4bce"
+    },
+    "/data2/neural-shrimp-data/explore/llm-soft-loop/p6s/ditch-fine-b2/grid.npz": {
+      "bytes": 19710,
+      "sha256": "baa0f8519749b79d56207e32be1a54e80f675c7639e5d0316abe320db00945f2"
+    },
+    "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/dss/ditchfine-g0/grid.npz": {
+      "bytes": 28819,
+      "sha256": "2f2870571621ab2a3a0058cfbc1eb969626f5a036cc210a06b49042302137106"
+    },
+    "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/dss/ditchfine-g1/grid.npz": {
+      "bytes": 25823,
+      "sha256": "606e8ff8ce7fc69493e4fa8c30363d91fb539c0ec8e9311b0c953df791e95f42"
+    },
+    "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/hr10/scan.npz": {
+      "bytes": 6253326,
+      "sha256": "b29668a41c6d906dee03c3268b62929f91e89b0f1119d15d588d8223c6da93a0"
+    }
+  },
+  "seconds": 0.047216818667948246
+}

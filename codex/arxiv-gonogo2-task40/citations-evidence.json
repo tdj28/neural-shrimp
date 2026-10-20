@@ -120,18 +120,69 @@
   ],
   "other_existing_bibliography_edits": [
     "zhang2025softthinking: duplicate arXiv/eprint removal",
-    "yuan2025nondeterminism: NeurIPS metadata replacement; not freshly reverified in added-key lane",
-    "Gallas World Scientific book volume20",
+    "yuan2025nondeterminism: NeurIPS metadata replacement; final bounded delta check below",
+    "mira1996chaotic: World Scientific series volume20; not a Gallas book",
     "Arnold singularities fuller VolI title/series82",
     "Maheswaranathan page-field placement",
     "Pecora/Platt/Ashwin issue fields, with partial coverage documented above",
     "Gao/Ouro/ARC howpublished formatting",
     "Strogatz full title and second edition"
   ],
+  "existing_metadata_delta_checks": [
+    {
+      "key": "yuan2025nondeterminism",
+      "bib_lines": [318,329],
+      "primary_url": "https://proceedings.neurips.cc/paper_files/paper/2025/hash/f80094a824ba5912d4a2de169c404a40-Abstract-Conference.html",
+      "primary_pdf": "https://proceedings.neurips.cc/paper_files/paper/2025/file/f80094a824ba5912d4a2de169c404a40-Paper-Conference.pdf",
+      "verified": {
+        "authors": ["Jiayi Yuan","Hao Li","Xinheng Ding","Wenya Xie","Yu-Jhe Li","Wentian Zhao","Kun Wan","Jing Shi","Xia Hu","Zirui Liu"],
+        "title": "Understanding and Mitigating Numerical Sources of Nondeterminism in LLM Inference",
+        "venue": "Advances in Neural Information Processing Systems",
+        "volume": "38",
+        "year": 2025,
+        "doi": "10.52202/085713-5653"
+      },
+      "unverified_primary_field": "pages188045-188077",
+      "limitation": "Official BibTeX click and DOI/Crossref fetches failed; no secondary-only page verification claimed."
+    },
+    {
+      "key": "arnold1985singularities",
+      "bib_lines": [736,744],
+      "primary_url": "https://link.springer.com/book/10.1007/978-1-4612-5154-5",
+      "verified_changed_fields": {
+        "title": "Singularities of Differentiable Maps, Volume I: The Classification of Critical Points Caustics and Wave Fronts",
+        "series": "Monographs in Mathematics",
+        "volume": "82"
+      },
+      "also_verified": "Three authors, Birkhauser Boston, copyright1985, DOI10.1007/978-1-4612-5154-5. The2012eBook publication date is distinct from the1985book.",
+      "status": "Changed metadata matches."
+    },
+    {
+      "key": "strogatz2018nonlinear",
+      "bib_lines": [912,920],
+      "primary_catalogue_url": "https://www.routledge.com/rsc/downloads/STE_Catalogue.pdf",
+      "primary_landing_url": "https://www.taylorfrancis.com/books/mono/10.1201/9780429492563/nonlinear-dynamics-chaos-steven-strogatz",
+      "verified_changed_fields": {
+        "title": "Nonlinear Dynamics and Chaos: With Applications to Physics, Biology, Chemistry, and Engineering",
+        "edition": "Second"
+      },
+      "coverage": "Primary publisher indexed catalogue text associates2ndedition with eISBN9780429492563 and CRCPress; direct PDF/landing fetches403.",
+      "limitation": "Catalogue lists March2015; unchanged2018reissue/date not freshly resolved. No third-edition2024 record substituted."
+    },
+    {
+      "key": "mira1996chaotic",
+      "bib_lines": [450,459],
+      "primary_url": "https://www.worldscientific.com/worldscibooks/10.1142/2252",
+      "changed_field": "volume20",
+      "status": "Unverified from primary record in this run",
+      "limitation": "WorldScientific403 and DOI/Crossref unavailable. This entry is Mira,Gardini,Barugola,Cathala, not a Gallas book."
+    }
+  ],
   "inspection_failures": [
     {"operation":"Two git-show hash pipelines invoked in research cwd for article files","result":"Missing-path errors and empty-stream hashes","disposition":"Discarded; rerun with explicit article git-C and pipefail; exact successful hashes recorded above"},
     {"operation":"Read-only rg on /data2/neural-shrimp/log.md","result":"No such file","disposition":"Canonical path is docs/research-log.md; no evidence changed"},
-    {"operation":"Initial DOI/direct publisher opens","result":"Some open failures","disposition":"Direct publisher recovered Fujisaka, Pecora and Platt; Ashwin remains primary indexed metadata/abstract only"}
+    {"operation":"Initial DOI/direct publisher opens","result":"Some open failures","disposition":"Direct publisher recovered Fujisaka, Pecora and Platt; Ashwin remains primary indexed metadata/abstract only"},
+    {"operation":"Final bounded changed-metadata fetches","result":"WorldScientific/TaylorFrancis/Crossref/NeurIPS BibTeX fetch failures","disposition":"Exact partial coverage and unresolved fields retained above; no secondary records promoted to primary evidence"}
   ],
   "claims_not_made": [
     "No new numerical, model, proof or control execution",

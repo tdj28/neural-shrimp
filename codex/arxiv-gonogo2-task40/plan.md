@@ -74,3 +74,18 @@ currently all proposed reductions still use one-thread CPU workers.
   grid, as well as controlled/natural passage arrays. Its two natural-phase
   definitions are kept separate. Closed Task5/5B raw audits are reused by
   exact hashes, not rerun. Bound: 4 GiB / 90 CPU / 120 wall seconds.
+
+2026-10-20 03:41 UTC final article-coverage amendment:
+
+- discussion_delta_audit.py checks the three saved 600-step E2E spectra
+  and four small sampled-bridge probability archives (about 3.75 MB total).
+  It independently computes the Kaplan--Yorke arithmetic and the original
+  token-mask/run-length statistic, retaining endpoint censoring and rare
+  single-sample runs. No model or previously completed control is rerun.
+  One reviewed execution after private checkpoint, one CPU, 4 GiB address
+  space, 90 CPU seconds and 120 parent-wall seconds, offline/empty CUDA.
+  The older Task21b spectrum population is distinct and is not substituted
+  for this evidence.
+- review.md is the combined article report; its explicit pending
+  discussion/Zenodo entries will be updated as those checks finish.
+  Zenodo remains unlaunched until the article verdict is delivered.

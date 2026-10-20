@@ -1,0 +1,43 @@
+{
+  "utc": "2026-10-20T03:30:51.215443+00:00",
+  "source_commit": "52eb95f1add11586ccc5ccd53244f12827bc4098",
+  "script_sha256": "63527011fcd65a63ac13d31bbb89c65a0ad7e17e8099f5421c905a2d2ef23ea7",
+  "argv": [
+    "uv",
+    "run",
+    "--no-sync",
+    "python",
+    "codex/arxiv-gonogo2-task40/fold_saved_audit.py"
+  ],
+  "limits": {
+    "cpu_seconds": 90,
+    "parent_wall_seconds": 120,
+    "address_space_GiB": 4,
+    "file_bytes": 268435456,
+    "nice_increment": 10,
+    "numerical_threads": 1
+  },
+  "environment": {
+    "HF_HUB_OFFLINE": "1",
+    "CUDA_VISIBLE_DEVICES": "",
+    "OMP_NUM_THREADS": "1",
+    "OPENBLAS_NUM_THREADS": "1",
+    "MKL_NUM_THREADS": "1",
+    "NUMEXPR_NUM_THREADS": "1"
+  },
+  "timeout": false,
+  "pid": 1624756,
+  "exit_code": 0,
+  "parent_launch_through_reap_seconds": 0.1657307674176991,
+  "child_reaped": true,
+  "logs": {
+    "stdout.log": {
+      "sha256": "f3d682d0933c63bdf89ebc8ac8cc912a991a8c1676e71569796aa190bcb7db5d",
+      "bytes": 128
+    },
+    "stderr.log": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    }
+  }
+}

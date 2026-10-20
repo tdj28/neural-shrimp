@@ -8,6 +8,18 @@ article's `main.tex`.
 
 ## Confirmed corrections to make before submission
 
+**New highest-priority correction, fold section lines 926–928:** “within
+4–8%” is a statement about the **median** relative error at each offset, not
+every natural passage. Under the original definition (`|u|<3U` and transverse
+distance `<0.05`, complete phases only), median signed errors range from
+-4.08% to -7.69%; the largest individual absolute error reaches70.59%.
+Suggested replacement: “For complete phases defined by `|u|<3U` and transverse
+distance `<0.05`, median relative errors at the four offsets were4.1–7.7%;
+individual errors reached71%.” State the denominator as the forecast.
+Figure15d uses `|u|<U` alone and must be distinguished from these statistics.
+TableIV's mean fractions0.60–0.67 remain valid under the original definition.
+This does not affect the separately verified42/48 prospective passage result.
+
 1. **Abstract, lines 43–44: distinguish the operator from published Soft
    Thinking.** Delete “as in Soft Thinking” after “over the full vocabulary”.
    The published method filters and renormalizes its distribution. The
@@ -69,5 +81,37 @@ declared mesh/window/filter test. This is saved-data numerical verification,
 not a new model or derivative evaluation. Evidence:
 `delta-evidence.json`, `delta-001.receipt.json`.
 
-The complete verdict still awaits the remaining fold/cascade cross-checks,
-CPU/GPU fine-grid comparison if complete, and bundle/build/visual review.
+## Further checks completed at 03:31 UTC
+
+- **Cascade, lines 1102–1103:** the phrase “after the first, shrink by factors
+  of 3.5 to 6.5 per flip” includes a factor of 9.0653. Say instead:
+  “After the first ratio, the deviations have one sign. The reductions from
+  n=4 onward are approximately 3.52, 6.54, 3.93 and 5.26; the last is not
+  resolved by the stated location uncertainty.” The nine flips, seven
+  ratios, 0.008% comparison and disclosed sensitivity ranges otherwise
+  reproduce. `cascade-evidence.json` retains the failed intermediate attempt
+  and the original action-based Ritz residuals.
+- **Ditch paragraph, lines 1408–1412:** replace the blanket claim that the
+  continued orbit is also the fixed-start attractor throughout the patch.
+  The nearest HR10 cells are period six at 593/595 solved patch points and
+  at all 26+21 line points; the remaining two patch neighbors are unresolved.
+  These are nearby parameter cells, not independent same-parameter
+  full-state orbit-identity checks. A safe statement is that the continued
+  orbit retains its six-token text and is attracting across the sampled
+  patch/lines, while nearby fixed-start scans predominantly find period six.
+- **Synchronization, lines 1615–1620:** the selected saved full-state return
+  checks verify some far-start period-two synchronization, but do not
+  authenticate the denominator for “most”. Change “most” to “some” unless a
+  full-state classification of the complete claimed subset is supplied.
+
+The CPU and GPU fine patches both solve all 225 cells and agree at every
+quoted precision. Maximum leading-multiplier difference is
+`6.5533828363939506e-12`; maximum next-modulus difference is
+`3.7638295258268784e-13`. Alpha coordinates are identical; two temperature
+rows differ by one ULP (`2.7755575615628914e-17`). This is agreement on the
+same intended lattice, not a bit-identical-input device benchmark. The
+initial exact-axis check failed and is preserved; the separately disclosed
+follow-up records both exact axes and the comparison.
+
+The complete verdict still awaits the final fold-passage and
+bundle/build/visual review. Zenodo content remains last.

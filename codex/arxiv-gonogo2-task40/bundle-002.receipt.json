@@ -1,0 +1,43 @@
+{
+  "utc": "2026-10-20T03:30:48.321705+00:00",
+  "source_commit": "52eb95f1add11586ccc5ccd53244f12827bc4098",
+  "script_sha256": "a85b9a0a0442ad788f556b714cf1a8dc959cc8dd93d53268d6fcdbd119a6fdbf",
+  "argv": [
+    "uv",
+    "run",
+    "--no-sync",
+    "python",
+    "codex/arxiv-gonogo2-task40/bundle_pdf_audit.py"
+  ],
+  "limits": {
+    "cpu_seconds": 300,
+    "parent_wall_seconds": 650,
+    "address_space_GiB": 4,
+    "file_bytes": 268435456,
+    "nice_increment": 10,
+    "numerical_threads": 1
+  },
+  "environment": {
+    "HF_HUB_OFFLINE": "1",
+    "CUDA_VISIBLE_DEVICES": "",
+    "OMP_NUM_THREADS": "1",
+    "OPENBLAS_NUM_THREADS": "1",
+    "MKL_NUM_THREADS": "1",
+    "NUMEXPR_NUM_THREADS": "1"
+  },
+  "timeout": false,
+  "pid": 1624530,
+  "exit_code": 0,
+  "parent_launch_through_reap_seconds": 61.443587634246796,
+  "child_reaped": true,
+  "logs": {
+    "stdout.log": {
+      "sha256": "d52ffa8371b7ab99302a20e1818008fefb0da738be582e32cc2710d845e59691",
+      "bytes": 157
+    },
+    "stderr.log": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    }
+  }
+}

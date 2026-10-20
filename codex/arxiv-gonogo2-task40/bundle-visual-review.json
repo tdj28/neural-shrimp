@@ -1,0 +1,33 @@
+{
+  "schema": "task40-manual-bundle-visual-review-v1",
+  "article_commit": "bb42a82189da91c37f50804c077832df9e2237ae",
+  "evidence_sha256": "1111572071e8f855ae02dd704a225fa89bb551d616cc28f689d23b28f1c4de39",
+  "receipt_sha256": "fd4a377dcdd6daf8731c9faab7e3807082f383f8ce2764c992e24bfd2aaa0ecd",
+  "render_directory": "/data2/neural-shrimp-data/scratch/audit-codex-1020/bundle-001/bundle-pages",
+  "render_dpi": 90,
+  "pages_visually_inspected": [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34],
+  "figure1_display_page": 1,
+  "visible_clipping_or_overlap_observed": false,
+  "caption_panel_mismatch_observed": false,
+  "scientific_values_recomputed_in_visual_review": false,
+  "body_mention_and_display_pages": [[1,2,1],[2,2,3],[3,4,4],[4,5,5],[5,5,6],[6,8,8],[7,9,10],[8,11,11],[9,11,11],[10,11,12],[11,11,12],[12,13,13],[13,13,14],[14,16,15],[15,16,17],[16,17,17],[17,19,19],[18,19,20],[19,20,21],[20,22,21],[21,22,23],[22,22,24],[23,24,25],[24,25,26],[25,26,27],[26,27,28],[27,29,28]],
+  "table_display_pages": {"I":15,"II":16,"III":16,"IV":17,"V":18,"VI":19,"VII":29,"VIII":31},
+  "findings": [
+    {"id":"B1","severity":"should-fix","main_tex_lines":[1382,1383],"pdf_page":24,"issue":"Literal stray Near in Near four of these five come in two pairs","replacement":"Four of these five come in two pairs"},
+    {"id":"B2","severity":"should-fix","main_tex_lines":[1344,1348],"figure":22,"first_body_page":22,"display_page":24,"issue":"Two-page delay; intervening full-width Fig21 provides a plausible layout reason but should be improved or intentionally retained"}
+  ],
+  "metadata_normalization_check": {
+    "tool_chunk_id": "abe99e",
+    "type": "Bounded read-only Perl comparison of the three saved PDFs, no rebuild",
+    "algorithm": "Replace exactly2 matches of /(?:CreationDate|ModDate) \\(D:[^)]*\\) with /DATE (normalized), and exactly1 match of /ID\\s*\\[<[^>]*>\\s*<[^>]*>\\] with /ID [normalized]; compare complete resulting byte strings",
+    "all_three_equal": true,
+    "normalized_sha256": "86ebc266a440b442fc0396028cb3e3aca516eccc858d11513830740983716118",
+    "input_pdf_sha256": {
+      "frozen": "b564dd5da877c8190c665287c6f7060407a159498b77b7bfefddbd23fef54a05",
+      "canonical": "79c3f56ac93b3553ccf8361eb70ce479762964bb100f2c255282fd0452dc648d",
+      "bundle": "5289a54e3fce2568b4719a70e99296a159b906b6e5d0cdd40cea8fd46315cd1c"
+    }
+  },
+  "publication_authorized": false,
+  "applies_to_later_author_edits": false
+}

@@ -1,0 +1,43 @@
+{
+  "utc": "2026-10-20T03:30:51.215433+00:00",
+  "source_commit": "52eb95f1add11586ccc5ccd53244f12827bc4098",
+  "script_sha256": "44fddc404467a3bf8fcf83a1730e6697e18db70cf63fc150a7326f257fcf4b2f",
+  "argv": [
+    "uv",
+    "run",
+    "--no-sync",
+    "python",
+    "codex/arxiv-gonogo2-task40/ditches_followup.py"
+  ],
+  "limits": {
+    "cpu_seconds": 90,
+    "parent_wall_seconds": 120,
+    "address_space_GiB": 4,
+    "file_bytes": 268435456,
+    "nice_increment": 10,
+    "numerical_threads": 1
+  },
+  "environment": {
+    "HF_HUB_OFFLINE": "1",
+    "CUDA_VISIBLE_DEVICES": "",
+    "OMP_NUM_THREADS": "1",
+    "OPENBLAS_NUM_THREADS": "1",
+    "MKL_NUM_THREADS": "1",
+    "NUMEXPR_NUM_THREADS": "1"
+  },
+  "timeout": false,
+  "pid": 1624757,
+  "exit_code": 0,
+  "parent_launch_through_reap_seconds": 0.16539147682487965,
+  "child_reaped": true,
+  "logs": {
+    "stdout.log": {
+      "sha256": "c42215d0a997ad6fe415235bcc379cddb8e45557026b98fc31009aa0080edf88",
+      "bytes": 370
+    },
+    "stderr.log": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    }
+  }
+}
