@@ -4066,8 +4066,8 @@ distributions by only 0.003 nats changes the attractor class or period of one st
 (Appendix~\ref{sec:behaviour}). Closed models permit none of these computations, which
 need the input embeddings, full next-token distributions and derivatives; for them the method and the questions transfer, not the numbers.
 
-\paragraph{Conclusion.} A language model that reads its own soft output is a smooth dynamical system, and it behaves as
-one. Temperature and steering carry it from repeating text through period-doubling cascades into chaos with a positive
+\paragraph{Conclusion.} A language model that reads its own soft output is a smooth discrete-time dynamical system, a smooth map iterated
+step by step, and it behaves as one. Temperature and steering carry it from repeating text through period-doubling cascades into chaos with a positive
 Lyapunov exponent. Its periodic windows open and close in folds and flips whose normal forms, computed from the
 network's own derivatives, forecast how long trajectories linger near a vanished orbit; its cascades approach
 Feigenbaum's constant; and its parameter plane holds shrimp-shaped windows organized as in the low-dimensional maps
