@@ -31757,3 +31757,17 @@ nearly identical under protan vision.
     verification receipt (test run against the tagged commit); restoring hosted CI.
 - Bibliography resolver pass (tools/bib_resolve.py, docs/bib/resolver-2026-10-20.*): all 84 cited entries resolve,
   with no metadata mismatch beyond accents and subtitles. The four entries without identifiers need a manual check.
+
+## 2026-10-20 04:02 UTC: Zenodo package revised after Codex's addendum; Task 40b assigned
+
+- Codex's package addendum (codex/arxiv-gonogo2-task40/package-review.md): checksums and direct release closure pass;
+  two must-fix and three should-fix documentation and dependency items.
+- Applied in the staging folder:
+  - README.md rewritten: the historical checkers are not relocatable and no portable replay procedure is provided
+    yet; both checker routes are named; the path mapping is explained; the token-label and inner-basin release records
+    are given with their scopes; the attraction-power wording is fixed; the tokenizer (sha256 c0382117...) and the
+    model revision 7ae55760... are listed as external dependencies; the local paths are noted.
+  - codex/certify-chaos/supervise.py added (sha256 306db32a..., the pinned hash).
+  - SHA256SUMS.txt regenerated with 35 entries; the large-archive sums are carried over from the list Codex verified.
+- Task 40b (appended to /data2/CHECK_THESE.md): Codex checks the revised article e300c8e, its bundle, and the three
+  changed Zenodo files.
