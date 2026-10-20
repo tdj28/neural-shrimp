@@ -13,8 +13,9 @@ retains the matching authors/title/year and eprint identifier, and identifies
 the record as an arXiv preprint. Its newly supplied
 `primaryClass = {cs.CL}` is not the primary category in the record.
 Change it to `{cs.LG}` or omit the category. This is a minor bibliographic
-correction, not a scientific result failure. Check its visible rendering
-after the revised bundle build.
+correction, not a scientific result failure. The revised bundle build
+visibly includes `[cs.CL]` in reference 17; the field is not merely unused
+source metadata.
 
 The primary record was used directly. No inference about workshop or
 conference acceptance is needed to verify the preprint citation.
