@@ -1,0 +1,145 @@
+{
+  "schema": "task40-citation-calibration-evidence-v1",
+  "scope": "Six added citation keys and available accepted external-review points; no numerical replication or old full-bibliography re-audit.",
+  "article_commit": "bb42a82189da91c37f50804c077832df9e2237ae",
+  "article_baseline_commit": "4ca5b5e35bc766581a5e2d326858fcd0edc312bb",
+  "research_commit": "c567545ca93f90324dae75be2c333c8ac452dab5",
+  "article_files": {
+    "main.tex": {"bytes": 164521, "sha256": "b0ecb1d8b74d19bb0b1a6b87c402846679f12b50346d135f9a0beecf45d562f1"},
+    "references.bib": {"bytes": 36000, "sha256": "d71ac43d72519f400d1dafa19db0b3de12d1358bbaa0d50c806902eb0b2b838e"}
+  },
+  "review_sources": {
+    "frozen_research_log_sha256": "c15b26cb1e7b6cd2381bbbcaa6aaf7e4eb95ac349d456b2830423c2ebb6ee07e",
+    "bifurcation_review": {"available": "accepted-point summary only", "log_header": "2026-10-20 01:37 UTC", "original_27_page_review_read": false},
+    "mathematical_review": {"available": "accepted-point summary only", "log_header": "2026-10-20 02:16 UTC", "original_18_page_review_read": false},
+    "consult24": {
+      "directory": "docs/consults/2026-10-20-sync-section/",
+      "log_header": "2026-10-20 02:11 UTC",
+      "full_review_read": true,
+      "review_sha256": "47285017225d51e1b997445359f9ac4c7329a6087e4f4308b8155b352b07018f",
+      "adjudication_sha256": "ef4b1bc40309af7180a0b39cf123b0e944e700624745c9bd786219873bd9e753"
+    }
+  },
+  "added_keys": ["backour2026mixture", "liu2026jacobianscopes", "wang2026fishback", "wang2026logitfixed", "zheng2023deqnar", "hofmann2026map"],
+  "added_bibliography_keys_equal_added_used_citation_keys": true,
+  "citations": [
+    {
+      "key": "backour2026mixture",
+      "bib_lines": [958, 961],
+      "authors": ["Ali Backour"],
+      "title": "The Dynamics of Continuous Mixture Collapse in Language Models",
+      "year": 2026, "arxiv": "2609.02049", "category": "cs.LG",
+      "version_checked": "v1", "version_date": "2026-09-02",
+      "doi": "10.48550/arXiv.2609.02049", "venue": "arXiv preprint", "volume": null, "pages": null,
+      "urls": ["https://arxiv.org/abs/2609.02049", "https://arxiv.org/html/2609.02049v1", "https://doi.org/10.48550/arXiv.2609.02049"],
+      "metadata_matches": true,
+      "claim_locations": [[109,112],[291,293]],
+      "primary_passage": "Sections 3.1-3.2, equations 6-9, Theorems 1-2, Remark 1; Section 4.1 temperature rescaling.",
+      "claim_status": "General mixture attribution supported; threshold-2 sentence omits unbiased positive coupling and constant/uniform-bound assumptions (F3)."
+    },
+    {
+      "key": "liu2026jacobianscopes",
+      "bib_lines": [963,968],
+      "authors": ["Toni J. B. Liu", "Baran Zadeoğlu", "Nicolas Boullé", "Raphaël Sarfati", "Gurbir Arora", "Christopher J. Earls"],
+      "title": "Jacobian Scopes: token-level causal attributions in LLMs",
+      "year": 2026, "arxiv": "2601.16407", "category": "cs.CL",
+      "version_checked": "v4", "version_date": "2026-06-15",
+      "doi": "10.48550/arXiv.2601.16407", "venue": "arXiv preprint", "volume": null, "pages": null,
+      "urls": ["https://arxiv.org/abs/2601.16407", "https://arxiv.org/html/2601.16407v4", "https://doi.org/10.48550/arXiv.2601.16407"],
+      "metadata_matches": true, "claim_locations": [[245,249]],
+      "primary_passage": "Section 4.2 equation 5 and Appendix A.9 equation 15.",
+      "claim_status": "Covariance Fisher form and token-level pullback attribution supported; no empirical replication."
+    },
+    {
+      "key": "wang2026fishback",
+      "bib_lines": [970,974],
+      "authors": ["Sihan Wang", "Jiayi Zhao", "Qingyan Cao", "Hongbo Yao", "Lin Shu"],
+      "title": "FishBack: Pullback Fisher Geometry for Optimal Activation Steering in Transformers",
+      "year": 2026, "arxiv": "2605.17231", "category": "cs.LG",
+      "version_checked": "v2", "version_date": "2026-08-18",
+      "doi": "10.48550/arXiv.2605.17231", "venue": "arXiv preprint", "volume": null, "pages": null,
+      "urls": ["https://arxiv.org/abs/2605.17231", "https://arxiv.org/html/2605.17231v2", "https://doi.org/10.48550/arXiv.2605.17231"],
+      "metadata_matches": true, "claim_locations": [[245,249]],
+      "primary_passage": "Section 3 covariance; Section 4.1 Theorem 1 equation 5 pullback.",
+      "claim_status": "Covariance/pullback geometry for activation steering supported; no efficacy replication."
+    },
+    {
+      "key": "wang2026logitfixed",
+      "bib_lines": [976,979],
+      "authors": ["Tongxi Wang"],
+      "title": "Sharp Spectral Thresholds for Logit Fixed Points",
+      "year": 2026, "arxiv": "2605.15651", "category": "cs.LG",
+      "version_checked": "v1", "version_date": "2026-05-15",
+      "doi": "10.48550/arXiv.2605.15651", "venue": "arXiv preprint", "volume": null, "pages": null,
+      "urls": ["https://arxiv.org/abs/2605.15651", "https://arxiv.org/html/2605.15651v1", "https://doi.org/10.48550/arXiv.2605.15651"],
+      "metadata_matches": true, "claim_locations": [[368,369]],
+      "primary_passage": "Section 3.1 Theorem 2: contraction for beta times tangent spectral norm divided by 2 below 1.",
+      "claim_status": "Correctly limited in article to affine softmax feedback; not a transformer convergence theorem."
+    },
+    {
+      "key": "zheng2023deqnar",
+      "bib_lines": [981,986],
+      "authors": ["Zaixiang Zheng", "Yi Zhou", "Hao Zhou"],
+      "title": "Deep Equilibrium Non-Autoregressive Sequence Learning",
+      "year": 2023, "month": "July",
+      "doi": "10.18653/v1/2023.findings-acl.747",
+      "venue": "Findings of the Association for Computational Linguistics: ACL 2023",
+      "volume": null, "pages": "11763-11781",
+      "urls": ["https://aclanthology.org/2023.findings-acl.747/", "https://aclanthology.org/2023.findings-acl.747.pdf"],
+      "metadata_matches": true, "claim_locations": [[108,109]],
+      "primary_passage": "Section 3.2 expected-embedding feedback and equilibrium/root finding.",
+      "claim_status": "Supported; PDF extraction contained duplicated text, checked relevant publisher PDF passage and first-page metadata."
+    },
+    {
+      "key": "hofmann2026map",
+      "bib_lines": [988,992],
+      "authors": ["Thomas Hofmann"],
+      "title": "The Map Behind the Flow: Finite-Step Gradient Descent as a Dynamical System",
+      "year": 2026, "arxiv": "2607.04993", "category": "cs.LG",
+      "version_checked": "v1", "version_date": "2026-07-06",
+      "doi": "10.48550/arXiv.2607.04993", "venue": "arXiv preprint", "volume": null, "pages": null,
+      "urls": ["https://arxiv.org/abs/2607.04993", "https://arxiv.org/html/2607.04993v1", "https://doi.org/10.48550/arXiv.2607.04993"],
+      "metadata_matches": true, "claim_locations": [[121,123],[1110,1111]],
+      "primary_passage": "Introduction, Section 2.8 and appendix: balanced scalar deep-linear training/quartic loss/cubic map and period-doubling ratios.",
+      "claim_status": "Supported within training dynamics; article distinguishes released fixed-weight inference."
+    }
+  ],
+  "findings": [
+    {"id":"F1","severity":"must-fix","lines":[43,44],"issue":"Full-vocabulary operator still equated with filtered Soft Thinking in abstract.","primary_urls":["https://proceedings.neurips.cc/paper_files/paper/2025/file/f7396d1c54d51416958d63e285377103-Paper-Conference.pdf"],"primary_location":"PDF page 5"},
+    {"id":"F2","severity":"must-fix","lines":[167,168],"issue":"Introduction generalizes typical-orbit transverse threshold to observed synchronization.","evidence":"Consult24 B01; article Table VII and lines1553-1559,1623-1631; no new numerical computation"},
+    {"id":"F3","severity":"should-fix","lines":[291,293],"issue":"Backour threshold-2 assumptions omitted.","primary_urls":["https://arxiv.org/html/2609.02049v1"],"primary_location":"Sections3.1-3.2, Theorems1-2 and Remark1"},
+    {"id":"F4","severity":"should-fix","lines":[1104,1108],"issue":"Unresolved log/raw discrepancy concerning which longest-product eigenpair residual checks exist.","evidence":"Frozen01:37log says not done; Root identified saved P384 action ritz_residual and source action-residual computation. Longest-period check pending Root.","not_claimed":"No blanket claim that eigenpair residuals were not computed; do not insert that sentence from the log alone."},
+    {"id":"F5","severity":"should-fix","lines":[1554,1556],"issue":"Exact Fujisaka output-coupling source attribution remains unverified; broad framework is supported.","primary_urls":["https://academic.oup.com/ptp/article/69/1/32/1835380"],"not_claimed":"That the citation is mathematically false"},
+    {"id":"F6","severity":"must-fix","lines":[1770,1778],"issue":"Open repository and archived Zenodo claims do not match established authorized submission state.","evidence":"Human Task40 brief says DOI reserved/unpublished; repository policy private. Public access failures are not an independently observed404.","condition":"Make wording truthful or independently verify separately authorized public release before submission; no publication authorized by this review."}
+  ],
+  "historical_calibration_sources": [
+    {"key":"fujisaka1983stability","doi":"10.1143/PTP.69.32","title":"Stability Theory of Synchronized Motion in Coupled-Oscillator Systems","authors":["Hirokazu Fujisaka","Tomoji Yamada"],"venue":"Progress of Theoretical Physics","volume":"69","issue":"1","pages":"32-47","year":1983,"url":"https://academic.oup.com/ptp/article/69/1/32/1835380","coverage":"Primary metadata and abstract; exact discrete output-coupling passage not verified."},
+    {"key":"pecora1990synchronization","doi":"10.1103/PhysRevLett.64.821","url":"https://journals.aps.org/prl/abstract/10.1103/PhysRevLett.64.821","coverage":"Primary metadata/abstract and export; general synchronization history, not identical coupling formula."},
+    {"key":"platt1993onoff","doi":"10.1103/PhysRevLett.70.279","url":"https://journals.aps.org/prl/abstract/10.1103/PhysRevLett.70.279","coverage":"Primary metadata/abstract and export; on-off framework, not an independent diagnosis of article trajectories."},
+    {"key":"ashwin1994bubbling","doi":"10.1016/0375-9601(94)90947-4","url":"https://www.sciencedirect.com/science/article/pii/0375960194909474","coverage":"Direct open failed; primary publisher indexed title/venue/volume193/issue2/pages126-139/year1994/DOI and abstract returned. Author list and full text not freshly verified."}
+  ],
+  "other_existing_bibliography_edits": [
+    "zhang2025softthinking: duplicate arXiv/eprint removal",
+    "yuan2025nondeterminism: NeurIPS metadata replacement; not freshly reverified in added-key lane",
+    "Gallas World Scientific book volume20",
+    "Arnold singularities fuller VolI title/series82",
+    "Maheswaranathan page-field placement",
+    "Pecora/Platt/Ashwin issue fields, with partial coverage documented above",
+    "Gao/Ouro/ARC howpublished formatting",
+    "Strogatz full title and second edition"
+  ],
+  "inspection_failures": [
+    {"operation":"Two git-show hash pipelines invoked in research cwd for article files","result":"Missing-path errors and empty-stream hashes","disposition":"Discarded; rerun with explicit article git-C and pipefail; exact successful hashes recorded above"},
+    {"operation":"Read-only rg on /data2/neural-shrimp/log.md","result":"No such file","disposition":"Canonical path is docs/research-log.md; no evidence changed"},
+    {"operation":"Initial DOI/direct publisher opens","result":"Some open failures","disposition":"Direct publisher recovered Fujisaka, Pecora and Platt; Ashwin remains primary indexed metadata/abstract only"}
+  ],
+  "claims_not_made": [
+    "No new numerical, model, proof or control execution",
+    "No independent replication of cited preprints",
+    "No exhaustive priority verification",
+    "No fresh verification of every old bibliography entry",
+    "No access to full original first/third human reviews",
+    "No Zenodo publication, arXiv submission, or scientific release admission",
+    "No private manuscript sent to an external service"
+  ]
+}

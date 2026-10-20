@@ -1,0 +1,143 @@
+{
+  "section": "delta",
+  "result": {
+    "shape": [
+      37,
+      27
+    ],
+    "solved": 852,
+    "tracked": 852,
+    "seed": [
+      1,
+      26
+    ],
+    "overlap_below_09": 38,
+    "overlap_min": 0.5011576615432117,
+    "sign_agreement": 849,
+    "disagreement_cells": [
+      [
+        32,
+        5
+      ],
+      [
+        33,
+        5
+      ],
+      [
+        34,
+        5
+      ]
+    ],
+    "selected_pairs": {
+      "(0, 1)": 723,
+      "(0, 2)": 63,
+      "(1, 2)": 66
+    },
+    "real_zero_edges": 42,
+    "trace_zero_edges": 64,
+    "delta_zero_edges": 32,
+    "complex_leading_cells": 42,
+    "real_near_trace": 42,
+    "trace_near_measured": 60,
+    "real_near_delta": 9,
+    "delta_near_real": 11,
+    "trace_range": [
+      -0.09726780871033971,
+      0.8777937084854639
+    ],
+    "delta_range": [
+      -0.007360136898476715,
+      0.0008034811674642545
+    ],
+    "trace_stationary": {
+      "candidates": 2,
+      "deduplicated": [
+        {
+          "cell": [
+            17,
+            13
+          ],
+          "alpha": 0.07318804087584509,
+          "log10T": -0.15208331868800173,
+          "value": 0.044884483163678275,
+          "H_cell_eigenvalues": [
+            -0.0008014283771285446,
+            0.003530097047080921
+          ],
+          "saddle": true,
+          "rms": 0.00038961907559026404,
+          "offset_linf": 0.33274752007036057
+        }
+      ]
+    },
+    "delta_stationary": {
+      "candidates": 0,
+      "deduplicated": []
+    },
+    "leading_real_stationary": {
+      "candidates": 4,
+      "deduplicated": [
+        {
+          "cell": [
+            14,
+            14
+          ],
+          "alpha": 0.07319482971306128,
+          "log10T": -0.1521384898381376,
+          "value": 0.06736198957428159,
+          "H_cell_eigenvalues": [
+            -0.0005579426105681094,
+            0.0027775981671405514
+          ],
+          "saddle": true,
+          "rms": 0.0001774250034221143,
+          "offset_linf": 0.5170286938726922
+        }
+      ]
+    },
+    "newton_max": 9.97632128858313e-13,
+    "same_tokens_false_solved": 0,
+    "limits": [
+      "Finite mesh, selected rank-two Ritz planes, local quadratic least squares, not certified critical points.",
+      "No model, original Newton, or composed derivative replay.",
+      "Original grid stores no Ritz residuals; saved Ritz values/vectors are audited, not independently generated.",
+      "Absence of a fitted stationary point is only for disclosed fit/filter/mesh."
+    ]
+  },
+  "input_manifest": {
+    "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/dss/delta2d-d0/grid.npz": {
+      "bytes": 61166,
+      "sha256": "1b7ccc1ee85e7cc37bc185edf4e377efcefce622ecf4b269a70d19ede955e9ec"
+    },
+    "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/dss/delta2d-d0/ritz.npz": {
+      "bytes": 6593981,
+      "sha256": "cbfe0593567e8f87ecc4be4411c687bbd33bdbfd0d060cbe3fe11326a859c59b"
+    },
+    "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/dss/delta2d-d1/grid.npz": {
+      "bytes": 53711,
+      "sha256": "9bb09e44c02f95f4b31f156e4e07baae8d86c5c0f308a56c23fa03fdb8687c55"
+    },
+    "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/dss/delta2d-d1/ritz.npz": {
+      "bytes": 5656327,
+      "sha256": "061c0168e2e7e7602ab6ffdd2decf845f324c59f32d82d6d277b7ad58120f3c0"
+    },
+    "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/dss/delta2d-d2/grid.npz": {
+      "bytes": 46521,
+      "sha256": "8769729bc91e5d244452323443f92f0148459135367c8f8d57f5bd1b8c693109"
+    },
+    "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/dss/delta2d-d2/ritz.npz": {
+      "bytes": 4743269,
+      "sha256": "7fa6fb0f0e7cc0baaac396ee1283b93cb2c82fa4597ec13496847604527c6860"
+    },
+    "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/dss/delta2d-d3/grid.npz": {
+      "bytes": 37276,
+      "sha256": "dac10ee7597b6fbb3f6f4abb6814d6c8fa27c2c2ffd28ac1052ee12af966efe9"
+    },
+    "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/dss/delta2d-d3/ritz.npz": {
+      "bytes": 3630336,
+      "sha256": "8a2acf07e77d6ddf6de3c60736c564b4ee92d21ac68b21931a10300219b29df6"
+    }
+  },
+  "numpy": "2.5.3",
+  "elapsed_seconds": 4.633431548252702
+}

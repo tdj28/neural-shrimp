@@ -1,0 +1,45 @@
+{
+  "utc": "2026-10-20T03:18:38.911229+00:00",
+  "source_commit": "21e628bf28cfb77be54359198de523d4e683b240",
+  "script_sha256": "b9759962ca42f8b35078ad6fc23351f03507b91b427b5d9c2f45ab779cdeaf00",
+  "argv": [
+    "uv",
+    "run",
+    "--no-sync",
+    "python",
+    "codex/arxiv-gonogo2-task40/delta_ditch_audit.py",
+    "--section",
+    "delta"
+  ],
+  "limits": {
+    "cpu_seconds": 600,
+    "parent_wall_seconds": 900,
+    "address_space_GiB": 4,
+    "file_bytes": 268435456,
+    "nice_increment": 10,
+    "numerical_threads": 1
+  },
+  "environment": {
+    "HF_HUB_OFFLINE": "1",
+    "CUDA_VISIBLE_DEVICES": "",
+    "OMP_NUM_THREADS": "1",
+    "OPENBLAS_NUM_THREADS": "1",
+    "MKL_NUM_THREADS": "1",
+    "NUMEXPR_NUM_THREADS": "1"
+  },
+  "timeout": false,
+  "pid": 1605552,
+  "exit_code": 0,
+  "parent_launch_through_reap_seconds": 4.992047008126974,
+  "child_reaped": true,
+  "logs": {
+    "stdout.log": {
+      "sha256": "1c2994ddc49f57232e9a65715d8bc50d61a9fd7dfc7e9c1826d6b69a5fe3d22c",
+      "bytes": 112
+    },
+    "stderr.log": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    }
+  }
+}

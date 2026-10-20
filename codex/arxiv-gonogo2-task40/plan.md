@@ -45,3 +45,11 @@ new interval certificates. State finite-grid and source-authority limits.
 Every skipped or partial check is explicitly unverified. Final report follows
 the requested three-line summary and F-numbered findings, then a complete
 coverage ledger. The verdict is a review, not authorization to publish.
+
+Human priority amendment during Task40: deliver the arXiv scientific,
+wording, citation, figure and build findings first; audit the Zenodo package
+last. Package-audit code may be prepared but is not launched before those
+article checks are delivered. Public-availability wording remains in the
+article review. The old watcher stays deleted. The local GPU is permitted
+only after checking nvidia-smi and without displacing another process;
+currently all proposed reductions still use one-thread CPU workers.

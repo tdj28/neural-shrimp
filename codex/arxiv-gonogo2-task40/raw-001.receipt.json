@@ -1,0 +1,43 @@
+{
+  "utc": "2026-10-20T03:19:38.031081+00:00",
+  "source_commit": "21e628bf28cfb77be54359198de523d4e683b240",
+  "script_sha256": "42540f529415c739da6623aef77547a6923efcb77b2f03e4b83cd53d262068c6",
+  "argv": [
+    "uv",
+    "run",
+    "--no-sync",
+    "python",
+    "codex/arxiv-gonogo2-task40/raw_evidence_audit.py"
+  ],
+  "limits": {
+    "cpu_seconds": 90,
+    "parent_wall_seconds": 120,
+    "address_space_GiB": 4,
+    "file_bytes": 268435456,
+    "nice_increment": 10,
+    "numerical_threads": 1
+  },
+  "environment": {
+    "HF_HUB_OFFLINE": "1",
+    "CUDA_VISIBLE_DEVICES": "",
+    "OMP_NUM_THREADS": "1",
+    "OPENBLAS_NUM_THREADS": "1",
+    "MKL_NUM_THREADS": "1",
+    "NUMEXPR_NUM_THREADS": "1"
+  },
+  "timeout": false,
+  "pid": 1606434,
+  "exit_code": 0,
+  "parent_launch_through_reap_seconds": 1.631202329415828,
+  "child_reaped": true,
+  "logs": {
+    "stdout.log": {
+      "sha256": "0104fe8823d9dc24b271855d81dafbe04bc8ec42d52db3633e457486ef4ce6d3",
+      "bytes": 258
+    },
+    "stderr.log": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    }
+  }
+}
