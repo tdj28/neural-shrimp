@@ -45,9 +45,8 @@ computer-assisted proofs are those of the period-8 orbit of Table~\ref{tab:orbit
 period-2 and period-3 orbits at one parameter cell (rung 3, Appendix~\ref{sec:evidence}).
 
 \begin{abstract}
-When a pretrained language model is fed back the expected embedding of its own next-token distribution, it becomes
-a discrete-time dynamical system with continuous states. We map its dynamics, predict them from the model's own
-derivatives at selected transitions, and in places prove them; their consequences for inference depend on the feedback
+Feeding a pretrained language model the expected embedding of its own next-token distribution turns it into a
+discrete-time dynamical system with continuous states, whose consequences for inference depend on the feedback
 architecture and the numerical regime. In Qwen2.5, OLMo-2 and Llama-3 models of 0.5B to 72B parameters, temperature and
 steering move the loop between periodic dynamics, which write repeating text, and regimes with positive finite-time
 Lyapunov exponents that automatic-differentiation tangents reproduce. We call these regimes chaotic as a numerical
