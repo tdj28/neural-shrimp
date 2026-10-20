@@ -3717,10 +3717,12 @@ c^*=\tfrac12\bigl(1-e^{-\lambda_1}\bigr),
 \label{eq:cstar}
 \end{equation}
 where the mixing's contraction per step, $1-2c^*=e^{-\lambda_1}$, exactly cancels the loop's average stretching per
-step, $e^{\lambda_1}$. For couplings between $c^*$ and $1/2$ typical transverse perturbations decay along the
-synchronized orbit: the classical stability condition for identical chaotic maps coupled through their outputs
-\cite{fujisaka1983stability,pecora1990synchronization}. This local condition need not imply synchronization from
-every start. Near
+step, $e^{\lambda_1}$. For couplings between $c^*$ and $1/2$ (and, by the symmetry $c\to1-c$, up to $1-c^*$) typical transverse
+perturbations decay along the synchronized orbit: the transverse-stability condition for identical chaotic systems
+coupled in this way \cite{fujisaka1983stability}; see \cite{pecora1990synchronization} for synchronization of chaotic
+systems more broadly. This local, typical-orbit condition need not imply synchronization from every start: other
+invariant sets inside the attractor may be transversely unstable at the same coupling, and it says nothing about which
+attractor a pair reaches. Near
 $c^*$ the theory predicts on-off intermittency: long synchronized stretches broken by bursts, with stretch lengths
 distributed as a power law of exponent $-3/2$ \cite{platt1993onoff,heagy1994characterization}. Above $c^*$, bursts can still occur, which is called attractor bubbling \cite{ashwin1994bubbling}: $c^*$ describes a
 typical orbit, but a chaotic attractor also contains unstable periodic orbits, and along some of them the loop
@@ -3734,35 +3736,67 @@ with the same chat prefix, steering direction and cell. They run as two rows of 
 program mixes the two new soft tokens as above before feeding them back. Copy~A started on the attractor after a
 1000-step transient and copy~B at a relative distance $10^{-3}$ from it in a random direction. Pairs ran 3000 steps at
 couplings from 0 to 0.30 in steps of 0.01 and 10,000 steps at eight couplings near each threshold, and a pair counted as
-synchronized when $|x_A-x_B|/|x_A|$ stayed below $10^{-8}$ over its last 500 steps. For the transverse exponent,
-copy~B started at relative distance $10^{-7}$ from copy~A and was reset to that distance after every step for 2000
-steps. The difference's growth rate, measured directly on the
-coupled map at seven couplings from 0 to 0.30 in each cell, follows $\lambda_1+\ln|1-2c|$ from $+0.44$ to $-0.82$, within 0.051 at
-every point. In the first cell the copies synchronized between $c=0.045$ and 0.05, consistent with $c^*$. In the second they
-synchronized between 0.18 and 0.19 when ``synchronized'' means a difference below $10^{-6}$, consistent with $c^*$;
-on the stricter criterion of $10^{-8}$ they had not synchronized by 0.19. Just below
-it, at $c=0.16$ to 0.17, the difference burst 12 to 14 times in 10,000 steps, and the synchronized stretches had a
+synchronized when $|x_A-x_B|/|x_A|$ stayed below $10^{-8}$ over its last 500 steps. For the transverse exponent, copy~B started at relative distance $10^{-7}$ from copy~A and was reset to that distance
+after every step for 2000 steps. Far starts put copy~B 500 steps further along the attractor (2000 steps, couplings in
+steps of 0.02). Other prefixes, models and directions, larger ensembles of starts, asymmetric or delayed coupling and
+changes of precision were not tested. The difference's growth rate, measured directly on the coupled map at seven
+couplings from 0 to 0.30 in each cell, approximately follows $\lambda_1+\ln|1-2c|$ from $+0.44$ to $-0.82$: the
+largest discrepancy is 0.051 per step, up to four times the twins' own standard errors, which do not include the
+uncertainty of $\lambda_1$. Whether pairs locked together depended on the protocol (Table~\ref{tab:sync}). In the first
+cell the copies synchronized between $c=0.045$ and 0.05 in 10,000-step runs, consistent with $c^*$. In the second they
+synchronized between 0.18 and 0.19 when ``synchronized'' means a difference below $10^{-6}$, consistent with $c^*$; on
+the stricter criterion of $10^{-8}$ they had not synchronized by 0.19. Just below its predicted threshold, at $c=0.16$
+to 0.17, the difference rose from below $10^{-8}$ to above $10^{-3}$ 12 to 14 times in 10,000 steps, and the synchronized stretches had a
 length distribution whose rough log-binned slopes lay between about $-1.8$ and $-1.5$, close to $-3/2$; these
 descriptive fits, from the few runs with enough stretches, do not establish a power law.
-In the third cell the copies synchronized robustly only at $c$ between about 0.12 and 0.16, depending on the start
-and the run length, well above $c^*$. At $c=0.105$ to 0.115,
-where the difference should shrink on average, it still burst from the rounding level ($10^{-14}$) to order one, 5
-to 10 times in 10,000 steps, as attractor bubbling predicts. We did not compute the exponents of the periodic orbits
-that would cause it. No noise or mismatch was added; rounding-level differences between the two rows of a batch
-(below $10^{-15}$) are a plausible seed of the bursts.
-Synchronized copies write the same text, and their texts sample the single loop's attractor. Below $c^*$, many pairs
+In the third cell the copies synchronized only well above $c^*$, between 0.15 and 0.16 in 3000-step runs and between
+0.12 and 0.15 in 10,000-step runs on the $10^{-8}$ criterion (Table~\ref{tab:sync}). At $c=0.105$ to 0.115, where the
+difference should shrink on average (predicted transverse exponents $-0.040$ to $-0.065$), it still burst from the
+rounding level ($10^{-14}$) to above $10^{-3}$, 5 to 10 times in 10,000 steps, consistent with attractor bubbling; the
+candidate transversely unstable orbits were not computed. No noise or mismatch was added. Two identical inputs in one
+batch give outputs that differ by up to $9\times10^{-16}$ relative, a plausible seed of the bursts whose causal role was
+not isolated. Synchronized copies write the same text (the most probable token at each step), and their texts sample
+the single loop's attractor. Below $c^*$, many pairs
 instead locked onto periodic orbits of the joint state (periods 6 to 12, verified to close within $2.2\times10^{-13}$),
-on which the two copies write different or staggered texts. In the first cell, starts far from the attractor often
-synchronized onto a second attractor of the single loop, an attracting 2-cycle ``it is''.
+on which the two copies write different or staggered texts. In the first cell, starts far from the attractor often synchronized onto a second attractor of the single loop, an
+attracting 2-cycle ``it is'', and two far-start pairs at $c=0.14$ and 0.20, above that cell's $c^*$, settled on
+periodic orbits of the joint state without synchronizing.
 
-The number that measures the loop's chaos, its largest Lyapunov exponent, thus also predicts how two coupled copies
-behave: the difference between them grows at the predicted rate at every coupling, and in two of the three cells the
-copies lock together close to the predicted threshold. The more chaotic each copy is alone, the more strongly the two
-must mix their outputs before they write the same text: the predicted threshold rises from 0.046 in the weakest chaos to
-0.177 in the strongest, and the observed thresholds rank the same way. The prediction concerns a typical orbit and does
-not guarantee synchrony from every start: near the threshold the copies alternate between long synchronized stretches
-and bursts, and in one cell rounding alone broke synchrony above the threshold. Weak coupling, instead of synchrony,
-often produced order, a periodic exchange on which the copies write different texts.
+\begin{table}[tbp]
+\centering\small
+\caption{Synchronization thresholds of the coupled copies for each protocol: the largest tested coupling that did not
+synchronize and the smallest from which all larger tested couplings did, $(c_{\rm lo},c_{\rm hi}]$
+(\repo{docs/sync/sync-summary.json}). Near starts: copy~B at relative distance $10^{-3}$ from copy~A; far starts:
+copy~B 500 steps further along the attractor. Criterion: the relative difference stays below $10^{-8}$ or $10^{-6}$
+throughout the last 500 steps. $^{*}$A smaller tested coupling also synchronized. $^{\dagger}$Most pairs synchronized
+onto a coexisting period-2 orbit of the single loop.}
+\label{tab:sync}
+\begin{tabular}{lccc}
+\toprule
+start, steps, criterion & cell 1 & cell 2 & cell 3 \\
+\midrule
+$\lambda_1$ (per step) & 0.098 & 0.437 & 0.196 \\
+predicted $c^*$ & 0.046 & 0.177 & 0.089 \\
+near, 3000, $10^{-8}$ & $(0.04,0.05]$ & $(0.22,0.23]^{*}$ & $(0.15,0.16]^{*}$ \\
+near, 3000, $10^{-6}$ & $(0.04,0.05]$ & $(0.19,0.20]$ & $(0.13,0.14]$ \\
+near, 10,000, $10^{-8}$ & $(0.045,0.05]$ & none up to 0.19 & $(0.12,0.15]$ \\
+near, 10,000, $10^{-6}$ & $(0.045,0.05]$ & $(0.18,0.19]$ & $(0.12,0.15]^{*}$ \\
+far, 2000, $10^{-8}$ & $(0.20,0.22]^{*\dagger}$ & $(0.18,0.20]$ & $(0.14,0.16]$ \\
+far, 2000, $10^{-6}$ & $(0.20,0.22]^{*\dagger}$ & $(0.18,0.20]$ & $(0.10,0.12]$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The number that measures the loop's chaos, its largest Lyapunov exponent, thus also sets how fast the difference
+between two coupled copies grows: the measured growth rate approximately followed the prediction at every coupling,
+within 0.051 per step. The predicted threshold for a stable synchronized state rises with the chaos, from 0.046 in the
+weakest to 0.177 in the strongest, and in the common near-start protocol the observed thresholds rank the same way: the
+more chaotic each copy is alone, the more of the other's output it must take in. The threshold concerns a typical
+orbit, however, and synchrony in practice depends on the observation time, the tolerance, the start and the attractor
+reached. Near the threshold the copies alternated between long synchronized stretches and bursts; in one cell bursts
+from the rounding level continued above the threshold; and from some starts the pair locked onto a coexisting periodic
+orbit. Weak coupling, instead of synchrony, often produced order, a periodic exchange on which the copies write
+different texts.
 
 The coupled-agents check of Appendix~\ref{sec:behaviour} differs in one essential way: there the contexts grow, so the
 two agents are not two copies of a fixed map, and at $c=0.25$ they barely synchronized although $c=0.25$ exceeds $c^*$
@@ -4020,7 +4054,7 @@ one. Temperature and steering carry it from repeating text through period-doubli
 Lyapunov exponent. Its periodic windows open and close in folds and flips whose normal forms, computed from the
 network's own derivatives, forecast how long trajectories linger near a vanished orbit; its cascades approach
 Feigenbaum's constant; and its parameter plane holds shrimp-shaped windows organized as in the low-dimensional maps
-where such windows were first found. Two coupled copies drift apart at the rate the loop's Lyapunov exponent predicts.
+where such windows were first found. Two coupled copies drift apart at approximately the rate the loop's Lyapunov exponent predicts.
 None of this rests on a simplified model of the network: the orbits, multipliers and normal forms are those of the full
 transformer in float64, and three of its periodic orbits are proved to exist with interval arithmetic. The
 factorization of the loop's derivative into temperature, the covariance of the next-token distribution and the
