@@ -31448,3 +31448,23 @@ nearly identical under protan vision.
     Type-B-like because its lines are sign changes of the leading multiplier, not trace-zero curves.
   - Fig. 14(d): label moved clear of the trajectory.
 - **Article now** 30 pages, 24 figures, 6 tables (commit ab667e8).
+
+## 2026-10-20 00:25 UTC: run card DITCHFINE (exploratory, local CPU): at ten times the patch's resolution, does the leading multiplier keep its sign at the lowest point of the dim top ditch?
+
+- **Question.** The human asked whether the dim top ditch of the period-6 body could hide a sign change below the
+  patch's resolution (patch steps 1.8e-5 in alpha, 4e-5 in log10 T). At line A's minimum, (0.07318, -0.15202), the
+  leading multiplier is 0.0638 and the next modulus at most 0.0203.
+- **Method.** tools/doubly_superstable.py grid --multipliers-only, as DITCH line A (period 6, philosophy vectors at
+  layer 12, transient 900, k 6, tol 1e-12, float64, CPU, 7 threads per job), commit 1acb8dd3. A 15 x 15 patch centered on
+  the minimum: alpha 0.0731674 to 0.0731926 (step 1.8e-6), log10 T -0.152048 to -0.151992 (step 4e-6). It runs in three
+  bands of five rows, in parallel, each seeded at its center (alpha 0.07318).
+- **Readings fixed now.**
+  - The ditches connect at this resolution if any two neighboring solved cells have real leading multipliers of
+    opposite signs, or any solved cell has a complex leading pair.
+  - It is a same-sign valley at ten times the patch's resolution if every leading multiplier is real and positive,
+    varies smoothly, and the next modulus stays well below it.
+  - Unsolved cells are reported as such.
+- **Would surprise us.** Any sign change or complex pair: at the minimum the two multipliers differ by a factor of
+  three.
+- **Output.** ../neural-shrimp-data/explore/llm-soft-loop/p6s/ditch-fine-b{0,1,2}; about 2.5 h (about 115 s per cell
+  per 7-thread job, as line A).
