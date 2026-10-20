@@ -61,8 +61,8 @@ unreadable table layout was found on the changed pages. Specific checks:
 - Figure 25's rectangle refers to Figure 24(a), which is the correct
   numbered figure in this submitted article.
 - Figure 26(b)'s title says “several turning points”; the surrounding
-  discussion says “more than one.” This avoids the earlier single-turn
-  description. Numerical interpretation is checked separately.
+  discussion says “more than one.” This avoids the earlier exact two-turn
+  count. Numerical interpretation is checked separately.
 - The concluding factorization scope, long-context observations and
   finite-sample Kaplan–Yorke qualifications are readable.
 - Table VIII is on page 32 in the submitted PDF, followed by the complete
