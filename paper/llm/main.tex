@@ -3965,8 +3965,9 @@ shortens the laminar phases of the bottleneck, by an amount that depends on how 
 72B parameters and the soft-token loop, but they suggest three things about models whose outputs feed back into their inputs, as in
 self-dialogue, agent loops and pipelines of model calls. First, where the loop is chaotic, a perturbation of
 $10^{-6}$ grows to order one, while the loop stays in that regime, within roughly 15 to 50 steps at the largest exponents we measured (those of the
-unsteered 7B and 8B models, 0.30 to 0.88 per step), and more slowly at smaller ones. Even a complete account of single forward passes then predicts a long trajectory
-only if the state is known far more precisely than any interpretation supplies. Stepwise summaries can be
+unsteered 7B and 8B models, 0.30 to 0.88 per step), and more slowly at smaller ones. Even a complete mechanistic account of what a single forward pass does would then not predict a long trajectory:
+that would require knowing the state to far more digits than any interpretability description, which summarizes the
+state by a few features, can supply. Stepwise summaries can be
 inconclusive: every step of the period-8 orbit expands some direction while the cycle contracts, so the ordered
 product of the step Jacobians, not a summary of each step, captures the loop's stability
 (Section~\ref{sec:theory}). What can remain predictable are the invariant sets, their
