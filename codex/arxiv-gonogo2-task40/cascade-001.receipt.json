@@ -1,0 +1,43 @@
+{
+  "utc": "2026-10-20T03:27:44.013167+00:00",
+  "source_commit": "a0ddde1bd77bf969f939ad9c624e3b9979d8773a",
+  "script_sha256": "774050fd665b50d1e25fbcf47164cf187fa54ac0b1d06d020bfe49c20d68ce94",
+  "argv": [
+    "uv",
+    "run",
+    "--no-sync",
+    "python",
+    "codex/arxiv-gonogo2-task40/cascade_audit.py"
+  ],
+  "limits": {
+    "cpu_seconds": 90,
+    "parent_wall_seconds": 120,
+    "address_space_GiB": 4,
+    "file_bytes": 268435456,
+    "nice_increment": 10,
+    "numerical_threads": 1
+  },
+  "environment": {
+    "HF_HUB_OFFLINE": "1",
+    "CUDA_VISIBLE_DEVICES": "",
+    "OMP_NUM_THREADS": "1",
+    "OPENBLAS_NUM_THREADS": "1",
+    "MKL_NUM_THREADS": "1",
+    "NUMEXPR_NUM_THREADS": "1"
+  },
+  "timeout": false,
+  "pid": 1620818,
+  "exit_code": 0,
+  "parent_launch_through_reap_seconds": 0.16559561993926764,
+  "child_reaped": true,
+  "logs": {
+    "stdout.log": {
+      "sha256": "54fc81815d7bb29992e0aa0b8274979fd8ec259ea25e3f4234f8a2356a3c33d2",
+      "bytes": 191
+    },
+    "stderr.log": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    }
+  }
+}

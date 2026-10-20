@@ -1,7 +1,7 @@
 # Task40: citation and external-review calibration lane
 
 GO WITH FIXES, for this lane only.
-Six findings: three must-fix and three should-fix.
+Six findings: three must-fix, two should-fix and one note.
 A3 CPU/GPU agreement is outside this lane; no numerical evidence was rerun here.
 
 This review binds article `bb42a82189da91c37f50804c077832df9e2237ae`, compared with `4ca5b5e35bc766581a5e2d326858fcd0edc312bb`, and research `c567545ca93f90324dae75be2c333c8ac452dab5`. Exact article `main.tex` is 164,521 bytes, SHA256 `b0ecb1d8b74d19bb0b1a6b87c402846679f12b50346d135f9a0beecf45d562f1`; `references.bib` is 36,000 bytes, SHA256 `d71ac43d72519f400d1dafa19db0b3de12d1358bbaa0d50c806902eb0b2b838e`. Locations below refer to that snapshot, not later edits.
@@ -38,15 +38,15 @@ Evidence: Backour's [primary v1](https://arxiv.org/html/2609.02049v1), Sections 
 
 Correct wording: “In Backour's unbiased two-token reduction with linear logit transport and positive constant coupling, inverse temperature rescales the coupling; crossing the value 2 destabilizes the balanced mixture.” If extending this to variable coupling, also state the source's uniform-bound assumptions.
 
-### F4. Reconcile the logged eigenpair-residual limitation with saved diagnostics [should-fix]
+### F4. The accepted-review log's residual limitation is stale [note]
 
 Where: `main.tex`, cascade precision paragraph, lines 1104–1108, and flip qualifications, lines 1123–1126.
 
 Claim: “The precision of the multipliers limits how far this can be pushed.”
 
-Evidence: The frozen research-log entry at 01:37 says eigenpair residuals of the longest monodromy products were not done and were to be stated as a limit, together with crossing speeds and cubic coefficients. The latter are explicit at 1123–1126. However, Root has identified an action-based `ritz_residual` in the saved P384 flip record (`crescent-t-0.156-d/cascade.json`) and a source computation using the monodromy action. The log may mean a separate dense-product residual, or may itself be inaccurate. Root is checking the longest-period records. The log alone cannot justify adding an absolute “not computed” sentence.
+Evidence: The frozen research-log entry at 01:37 says eigenpair residuals of the longest monodromy products were not done and were to be stated as a limit, together with crossing speeds and cubic coefficients. The latter are explicit at 1123–1126. Root's raw/source lane subsequently verified saved action-based Ritz residuals: P384 `1.2512860171115708e-15` and P768 `4.443441535129896e-15`, with the source computing a monodromy-action eigenpair residual. These values are attributed to Root's check, not recomputed by this lane. The log's blanket “not done” statement is stale and must not be propagated into the manuscript.
 
-Correct wording / action: Reconcile exactly which residual was computed for each reported late product and which independent checks remain absent. Then disclose that precise limitation if material. Do not add the earlier proposed blanket “eigenpair residuals were not computed” wording. This item remains unresolved in this lane pending Root's raw/source check; it is not evidence that a multiplier is wrong.
+Correct wording / action: No manuscript insertion saying “eigenpair residuals were not computed” is warranted. Preserve the stale-log discrepancy in the audit and keep action residuals distinct from any additional dense-product or independent-operator check. This closes the initially suspected disclosure omission.
 
 ### F5. Exact coupling-formula attribution remains unverified [should-fix]
 
@@ -83,7 +83,7 @@ The five arXiv entries have no journal volume/pages on the accessed primary reco
 
 ## External-review coverage and remaining limits
 
-**Bifurcation review, logged 01:37:** quadratic-universality assumptions/higher-order caveat are present at 1065–1068; unestablished renormalization hypotheses at 1111–1114; simple -1 crossings/doubled orbit and the subcritical contrast at 1062–1064; uncomputed crossing speed/cubic coefficient at 1123–1126; late-product rounding at Table VI and 1112–1114; the distinction between a zero exponent and crossing classification at 1115–1116; fold genericity at 861–864; cusp coordinate convention at 1374–1382; A/B pseudo-crossings at 1376–1379; shrimp organization versus a local normal form at 1288–1292 and unresolved legs at 1447–1450. Table VIII is present at 1661–1688 and numerical/certified scope at 1693–1695. F4 is an unresolved log/raw discrepancy, not an established missing calculation. Numerical values, the trace/ditch row's categorical wording, and cusp/fold/cascade calculations are assigned to Root's raw-evidence lane.
+**Bifurcation review, logged 01:37:** quadratic-universality assumptions/higher-order caveat are present at 1065–1068; unestablished renormalization hypotheses at 1111–1114; simple -1 crossings/doubled orbit and the subcritical contrast at 1062–1064; uncomputed crossing speed/cubic coefficient at 1123–1126; late-product rounding at Table VI and 1112–1114; the distinction between a zero exponent and crossing classification at 1115–1116; fold genericity at 861–864; cusp coordinate convention at 1374–1382; A/B pseudo-crossings at 1376–1379; shrimp organization versus a local normal form at 1288–1292 and unresolved legs at 1447–1450. Table VIII is present at 1661–1688 and numerical/certified scope at 1693–1695. F4 records a stale log statement, closed by Root's raw/source check, not a missing calculation. Numerical values, the trace/ditch row's categorical wording, and cusp/fold/cascade calculations are assigned to Root's raw-evidence lane.
 
 **Mathematical review, logged 02:16:** the introduction distinguishes filtered feedback (84–85), but F1 remains in the abstract. Mixture-of-experts routing restrictions are stated at 214–216. Literature-search dates are explicit at 104–106; no new exhaustive priority search was performed. The energy argument has strict-descent and accumulation-point qualifications at 446–448; Root was separately notified that “an orbit need not converge” is stronger than “this descent estimate alone does not establish convergence.” The P8 passage at 1187–1206 specifies exact stored weights, model dimensions, prefix, binary64 parameters, real temperature, radius, release hashes and trust boundary; those are textual checks, not a new proof audit. Finite-time chaos qualification occurs in the abstract, introduction and discussion. Actual Zenodo publication remains Root's independent release check.
 

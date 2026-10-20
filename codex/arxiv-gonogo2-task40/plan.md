@@ -53,3 +53,24 @@ article checks are delivered. Public-availability wording remains in the
 article review. The old watcher stays deleted. The local GPU is permitted
 only after checking nvidia-smi and without displacing another process;
 currently all proposed reductions still use one-thread CPU workers.
+
+2026-10-20 03:29 UTC disclosed amendments:
+
+- The outer `uv` launcher for bundle-001 refused at snap/AppArmor setup,
+  before Python or any build. Preserve that refusal. A distinct bundle-002
+  invocation will use authorized host execution of the SAME checkpointed
+  uv/script, with 4 GiB / 300 CPU / 650 parent-wall seconds. The script's
+  previously unused scratch directory retains the label bundle-001.
+- ditches-001 exited 1 after detecting nonidentical CPU/GPU parameter axes;
+  its empty result, stderr and receipt remain unchanged. The new
+  ditches_followup.py records exact hexadecimal axes and ULP differences,
+  permits corresponding-cell comparison only within one ULP, and labels it
+  as a near-identical-parameter comparison, not a bit-identical-input device
+  benchmark. It also saves the interrupted ditch reductions and compares
+  the blanket fixed-start statement to nearest HR10 scan cells, explicitly
+  retaining the nearest-cell/orbit-identity limitation. This is a distinct
+  reviewed follow-up, 4 GiB / 90 CPU / 120 wall seconds, not a blind retry.
+- fold_saved_audit.py additionally reduces the original located-window
+  grid, as well as controlled/natural passage arrays. Its two natural-phase
+  definitions are kept separate. Closed Task5/5B raw audits are reused by
+  exact hashes, not rerun. Bound: 4 GiB / 90 CPU / 120 wall seconds.

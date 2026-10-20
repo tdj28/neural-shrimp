@@ -1,0 +1,1146 @@
+{
+  "selected_flips": [
+    {
+      "source": "crescent-t-0.156-b",
+      "period": 3,
+      "lambda": 0.06447665673849548,
+      "critical_multiplier": [
+        -0.9999999999990802,
+        0.0,
+        0.9999999999990802,
+        0.5
+      ],
+      "next_modulus": 0.1172823972305903,
+      "multipliers": [
+        [
+          -0.9999999999990802,
+          0.0
+        ],
+        [
+          0.1172823972305903,
+          0.0
+        ],
+        [
+          0.0013857972718092507,
+          0.002878336020174994
+        ],
+        [
+          0.0013857972718092507,
+          -0.002878336020174994
+        ],
+        [
+          -0.0016914796247697397,
+          0.0
+        ],
+        [
+          0.00019508653114088867,
+          0.0
+        ]
+      ],
+      "ritz_residual": 3.0042031698772907e-15,
+      "ritz_leading_moduli": [
+        [
+          1.0000000000501088,
+          0.11728239722547561,
+          0.003194566064543055
+        ],
+        [
+          0.9999999999989839,
+          0.1172823972305834,
+          0.0031945660618660273
+        ],
+        [
+          0.9999999999990802,
+          0.1172823972305903,
+          0.0031945660618604814
+        ]
+      ],
+      "newton_residuals": [
+        8.008502267512684e-09,
+        5.5557069191032394e-11,
+        1.0931133850841252e-14
+      ],
+      "seconds": 1.8,
+      "original_tolerance": 1e-12,
+      "args": {
+        "command": "cascade",
+        "model": "qwen0.5b",
+        "layer": 12,
+        "threads": 8,
+        "device": "cuda",
+        "prompt": "open",
+        "opener": null,
+        "window": 1,
+        "vectors": "llm-phase-map/vectors-l12",
+        "concept": "philosophy",
+        "log_temperature": -0.156,
+        "alpha": 0.0642,
+        "free": "alpha",
+        "period": 3,
+        "next": 0.0647,
+        "flips": 8,
+        "transient": 900,
+        "k": 6,
+        "ratio_guess": 15.0,
+        "switch_fraction": 0.5,
+        "max_substeps": 16,
+        "steps_per_period": 24,
+        "tol": 1e-12,
+        "chunk": 512,
+        "out": "llm-soft-loop/pod64/cascade/crescent-t-0.156-b"
+      },
+      "critical_error": 9.198197759019422e-13,
+      "recomputed_next_modulus": 0.1172823972305903,
+      "next_matches": true,
+      "newton_iterations": 2,
+      "final_newton_residual": 1.0931133850841252e-14,
+      "real_flip_candidate": true
+    },
+    {
+      "source": "crescent-t-0.156-b",
+      "period": 6,
+      "lambda": 0.06504935553077586,
+      "critical_multiplier": [
+        -1.0000000000337248,
+        0.0,
+        1.0000000000337248,
+        0.5
+      ],
+      "next_modulus": 0.04543686094657787,
+      "multipliers": [
+        [
+          -1.0000000000337248,
+          0.0
+        ],
+        [
+          -0.04543686094657787,
+          0.0
+        ],
+        [
+          -0.0002259063995619166,
+          0.0
+        ],
+        [
+          -2.6768966628171283e-05,
+          0.0
+        ],
+        [
+          7.562692267966672e-06,
+          0.0
+        ],
+        [
+          1.9455008612187796e-07,
+          0.0
+        ]
+      ],
+      "ritz_residual": 1.259167025793932e-15,
+      "ritz_leading_moduli": [
+        [
+          1.0000000000317482,
+          0.045436860946602084,
+          0.00022590639955644994
+        ],
+        [
+          1.0000000000337714,
+          0.045436860946649,
+          0.00022590639953097008
+        ],
+        [
+          1.0000000000337248,
+          0.04543686094657787,
+          0.0002259063995619166
+        ]
+      ],
+      "newton_residuals": [
+        1.0167081877005907e-12,
+        3.9836658570867417e-14
+      ],
+      "seconds": 2.9,
+      "original_tolerance": 1e-12,
+      "args": {
+        "command": "cascade",
+        "model": "qwen0.5b",
+        "layer": 12,
+        "threads": 8,
+        "device": "cuda",
+        "prompt": "open",
+        "opener": null,
+        "window": 1,
+        "vectors": "llm-phase-map/vectors-l12",
+        "concept": "philosophy",
+        "log_temperature": -0.156,
+        "alpha": 0.0642,
+        "free": "alpha",
+        "period": 3,
+        "next": 0.0647,
+        "flips": 8,
+        "transient": 900,
+        "k": 6,
+        "ratio_guess": 15.0,
+        "switch_fraction": 0.5,
+        "max_substeps": 16,
+        "steps_per_period": 24,
+        "tol": 1e-12,
+        "chunk": 512,
+        "out": "llm-soft-loop/pod64/cascade/crescent-t-0.156-b"
+      },
+      "critical_error": 3.372480072982853e-11,
+      "recomputed_next_modulus": 0.04543686094657787,
+      "next_matches": true,
+      "newton_iterations": 1,
+      "final_newton_residual": 3.9836658570867417e-14,
+      "real_flip_candidate": true
+    },
+    {
+      "source": "crescent-t-0.156-c",
+      "period": 12,
+      "lambda": 0.0650877194157999,
+      "critical_multiplier": [
+        -1.0000000000024314,
+        0.0,
+        1.0000000000024314,
+        0.5
+      ],
+      "next_modulus": 6.992800522019003e-05,
+      "multipliers": [
+        [
+          -1.0000000000024314,
+          0.0
+        ],
+        [
+          6.992800522019003e-05,
+          0.0
+        ],
+        [
+          -1.132567332425458e-06,
+          0.0
+        ],
+        [
+          1.0723807745344946e-09,
+          0.0
+        ],
+        [
+          3.4152491431086834e-11,
+          0.0
+        ],
+        [
+          -7.350597797103205e-14,
+          0.0
+        ]
+      ],
+      "ritz_residual": 1.1698878092424097e-15,
+      "ritz_leading_moduli": [
+        [
+          0.999999999996377,
+          6.992800528211978e-05,
+          1.1325673971274117e-06
+        ],
+        [
+          1.0000000000021447,
+          6.992800521456077e-05,
+          1.132567386414857e-06
+        ],
+        [
+          1.0000000000024314,
+          6.992800522019003e-05,
+          1.132567332425458e-06
+        ]
+      ],
+      "newton_residuals": [
+        1.1639714697152218e-09,
+        4.39949613124117e-12,
+        4.626252193840752e-15
+      ],
+      "seconds": 33.7,
+      "original_tolerance": 1e-12,
+      "args": {
+        "command": "cascade",
+        "model": "qwen0.5b",
+        "layer": 12,
+        "threads": 8,
+        "device": "cuda",
+        "prompt": "open",
+        "opener": null,
+        "window": 1,
+        "vectors": "llm-phase-map/vectors-l12",
+        "concept": "philosophy",
+        "log_temperature": -0.156,
+        "alpha": 0.06507,
+        "free": "alpha",
+        "period": 12,
+        "next": 0.0650907,
+        "flips": 5,
+        "transient": 900,
+        "k": 6,
+        "ratio_guess": 4.669,
+        "switch_fraction": 0.5,
+        "max_substeps": 16,
+        "steps_per_period": 96,
+        "tol": 1e-12,
+        "chunk": 512,
+        "out": "llm-soft-loop/pod64/cascade/crescent-t-0.156-c"
+      },
+      "critical_error": 2.431388423929093e-12,
+      "recomputed_next_modulus": 6.992800522019003e-05,
+      "next_matches": true,
+      "newton_iterations": 2,
+      "final_newton_residual": 4.626252193840752e-15,
+      "real_flip_candidate": true
+    },
+    {
+      "source": "crescent-t-0.156-c",
+      "period": 24,
+      "lambda": 0.06509999933181365,
+      "critical_multiplier": [
+        -1.0000000001243456,
+        0.0,
+        1.0000000001243456,
+        0.5
+      ],
+      "next_modulus": 4.2694466285980446e-07,
+      "multipliers": [
+        [
+          -1.0000000001243456,
+          0.0
+        ],
+        [
+          4.2694466285980446e-07,
+          0.0
+        ],
+        [
+          1.825917378232285e-13,
+          0.0
+        ],
+        [
+          1.2451834533299085e-14,
+          0.0
+        ],
+        [
+          -2.7474727104532e-15,
+          0.0
+        ],
+        [
+          4.63834272199183e-16,
+          0.0
+        ]
+      ],
+      "ritz_residual": 1.8493527588656423e-15,
+      "ritz_leading_moduli": [
+        [
+          1.0000000001256928,
+          4.2694462663164495e-07,
+          6.260086082547592e-14
+        ],
+        [
+          1.0000000001241132,
+          4.269446500603539e-07,
+          4.156455720710818e-14
+        ],
+        [
+          1.0000000001243456,
+          4.2694466285980446e-07,
+          1.825917378232285e-13
+        ]
+      ],
+      "newton_residuals": [
+        2.7266579486873262e-12,
+        7.466071547338655e-14
+      ],
+      "seconds": 53.9,
+      "original_tolerance": 1e-12,
+      "args": {
+        "command": "cascade",
+        "model": "qwen0.5b",
+        "layer": 12,
+        "threads": 8,
+        "device": "cuda",
+        "prompt": "open",
+        "opener": null,
+        "window": 1,
+        "vectors": "llm-phase-map/vectors-l12",
+        "concept": "philosophy",
+        "log_temperature": -0.156,
+        "alpha": 0.06507,
+        "free": "alpha",
+        "period": 12,
+        "next": 0.0650907,
+        "flips": 5,
+        "transient": 900,
+        "k": 6,
+        "ratio_guess": 4.669,
+        "switch_fraction": 0.5,
+        "max_substeps": 16,
+        "steps_per_period": 96,
+        "tol": 1e-12,
+        "chunk": 512,
+        "out": "llm-soft-loop/pod64/cascade/crescent-t-0.156-c"
+      },
+      "critical_error": 1.243456448918323e-10,
+      "recomputed_next_modulus": 4.2694466285980446e-07,
+      "next_matches": true,
+      "newton_iterations": 1,
+      "final_newton_residual": 7.466071547338655e-14,
+      "real_flip_candidate": true
+    },
+    {
+      "source": "crescent-t-0.156-c",
+      "period": 48,
+      "lambda": 0.06510272895244879,
+      "critical_multiplier": [
+        -0.9999999996515401,
+        0.0,
+        0.9999999996515401,
+        0.5
+      ],
+      "next_modulus": 1.811046167699918e-13,
+      "multipliers": [
+        [
+          -0.9999999996515401,
+          0.0
+        ],
+        [
+          -1.811046167699918e-13,
+          0.0
+        ],
+        [
+          1.620633532341451e-13,
+          0.0
+        ],
+        [
+          -5.815619594796857e-15,
+          0.0
+        ],
+        [
+          8.194933012356165e-16,
+          4.4506954152676244e-17
+        ],
+        [
+          8.194933012356165e-16,
+          -4.4506954152676244e-17
+        ]
+      ],
+      "ritz_residual": 8.302142210242285e-16,
+      "ritz_leading_moduli": [
+        [
+          0.9999999995694921,
+          1.2384101259111213e-13,
+          3.793199891345115e-14
+        ],
+        [
+          0.9999999996530111,
+          1.7293235833959974e-13,
+          1.187641916265579e-13
+        ],
+        [
+          0.9999999996515401,
+          1.811046167699918e-13,
+          1.620633532341451e-13
+        ]
+      ],
+      "newton_residuals": [
+        3.425673327528844e-08,
+        1.1310450114816295e-10,
+        4.823092839145679e-13
+      ],
+      "seconds": 134.8,
+      "original_tolerance": 1e-12,
+      "args": {
+        "command": "cascade",
+        "model": "qwen0.5b",
+        "layer": 12,
+        "threads": 8,
+        "device": "cuda",
+        "prompt": "open",
+        "opener": null,
+        "window": 1,
+        "vectors": "llm-phase-map/vectors-l12",
+        "concept": "philosophy",
+        "log_temperature": -0.156,
+        "alpha": 0.06507,
+        "free": "alpha",
+        "period": 12,
+        "next": 0.0650907,
+        "flips": 5,
+        "transient": 900,
+        "k": 6,
+        "ratio_guess": 4.669,
+        "switch_fraction": 0.5,
+        "max_substeps": 16,
+        "steps_per_period": 96,
+        "tol": 1e-12,
+        "chunk": 512,
+        "out": "llm-soft-loop/pod64/cascade/crescent-t-0.156-c"
+      },
+      "critical_error": 3.4845992757936983e-10,
+      "recomputed_next_modulus": 1.811046167699918e-13,
+      "next_matches": true,
+      "newton_iterations": 2,
+      "final_newton_residual": 4.823092839145679e-13,
+      "real_flip_candidate": true
+    },
+    {
+      "source": "crescent-t-0.156-c",
+      "period": 96,
+      "lambda": 0.06510331968162615,
+      "critical_multiplier": [
+        -1.0000000048426234,
+        0.0,
+        1.0000000048426234,
+        0.5
+      ],
+      "next_modulus": 2.921655925869964e-14,
+      "multipliers": [
+        [
+          -1.0000000048426234,
+          0.0
+        ],
+        [
+          -2.921655925869964e-14,
+          0.0
+        ],
+        [
+          -9.73156493908704e-15,
+          0.0
+        ],
+        [
+          5.170918399914526e-15,
+          0.0
+        ],
+        [
+          2.249387753857691e-15,
+          0.0
+        ],
+        [
+          -7.602531033882777e-17,
+          0.0
+        ]
+      ],
+      "ritz_residual": 8.521260964022849e-16,
+      "ritz_leading_moduli": [
+        [
+          1.0000000048563829,
+          2.6401278043676654e-14,
+          1.7928044052754812e-14
+        ],
+        [
+          1.0000000048471955,
+          3.383147757866307e-14,
+          1.3885507742341083e-14
+        ],
+        [
+          1.0000000048426234,
+          2.921655925869964e-14,
+          9.73156493908704e-15
+        ]
+      ],
+      "newton_residuals": [
+        8.353113925687855e-12
+      ],
+      "seconds": 160.1,
+      "original_tolerance": 1e-12,
+      "args": {
+        "command": "cascade",
+        "model": "qwen0.5b",
+        "layer": 12,
+        "threads": 8,
+        "device": "cuda",
+        "prompt": "open",
+        "opener": null,
+        "window": 1,
+        "vectors": "llm-phase-map/vectors-l12",
+        "concept": "philosophy",
+        "log_temperature": -0.156,
+        "alpha": 0.06507,
+        "free": "alpha",
+        "period": 12,
+        "next": 0.0650907,
+        "flips": 5,
+        "transient": 900,
+        "k": 6,
+        "ratio_guess": 4.669,
+        "switch_fraction": 0.5,
+        "max_substeps": 16,
+        "steps_per_period": 96,
+        "tol": 1e-12,
+        "chunk": 512,
+        "out": "llm-soft-loop/pod64/cascade/crescent-t-0.156-c"
+      },
+      "critical_error": 4.842623413381375e-09,
+      "recomputed_next_modulus": 2.921655925869964e-14,
+      "next_matches": true,
+      "newton_iterations": 0,
+      "final_newton_residual": 8.353113925687855e-12,
+      "real_flip_candidate": true
+    },
+    {
+      "source": "crescent-t-0.156-c",
+      "period": 192,
+      "lambda": 0.06510344639876553,
+      "critical_multiplier": [
+        -0.9999999572603022,
+        0.0,
+        0.9999999572603022,
+        0.5
+      ],
+      "next_modulus": 1.5038122994238518e-14,
+      "multipliers": [
+        [
+          -0.9999999572603022,
+          0.0
+        ],
+        [
+          -1.5038122994238518e-14,
+          0.0
+        ],
+        [
+          -1.8709485604767588e-15,
+          8.814144738393361e-15
+        ],
+        [
+          -1.8709485604767588e-15,
+          -8.814144738393361e-15
+        ],
+        [
+          -1.5198053895493908e-15,
+          0.0
+        ],
+        [
+          8.116015955206436e-17,
+          0.0
+        ]
+      ],
+      "ritz_residual": 1.930531140512429e-15,
+      "ritz_leading_moduli": [
+        [
+          0.9999999572320559,
+          1.0294950534730882e-13,
+          8.883268416450398e-15
+        ],
+        [
+          0.9999999572579218,
+          4.3033098767256155e-14,
+          1.24903433736169e-14
+        ],
+        [
+          0.9999999572603022,
+          1.5038122994238518e-14,
+          9.01052695380783e-15
+        ]
+      ],
+      "newton_residuals": [
+        2.6245516579274343e-11,
+        2.670698709792305e-13
+      ],
+      "seconds": 444.0,
+      "original_tolerance": 1e-12,
+      "args": {
+        "command": "cascade",
+        "model": "qwen0.5b",
+        "layer": 12,
+        "threads": 8,
+        "device": "cuda",
+        "prompt": "open",
+        "opener": null,
+        "window": 1,
+        "vectors": "llm-phase-map/vectors-l12",
+        "concept": "philosophy",
+        "log_temperature": -0.156,
+        "alpha": 0.06507,
+        "free": "alpha",
+        "period": 12,
+        "next": 0.0650907,
+        "flips": 5,
+        "transient": 900,
+        "k": 6,
+        "ratio_guess": 4.669,
+        "switch_fraction": 0.5,
+        "max_substeps": 16,
+        "steps_per_period": 96,
+        "tol": 1e-12,
+        "chunk": 512,
+        "out": "llm-soft-loop/pod64/cascade/crescent-t-0.156-c"
+      },
+      "critical_error": 4.2739697780902475e-08,
+      "recomputed_next_modulus": 1.5038122994238518e-14,
+      "next_matches": true,
+      "newton_iterations": 1,
+      "final_newton_residual": 2.670698709792305e-13,
+      "real_flip_candidate": true
+    },
+    {
+      "source": "crescent-t-0.156-d",
+      "period": 384,
+      "lambda": 0.06510347354866666,
+      "critical_multiplier": [
+        -1.0000000036652739,
+        0.0,
+        1.0000000036652739,
+        0.5
+      ],
+      "next_modulus": 3.245993353674821e-13,
+      "multipliers": [
+        [
+          -1.0000000036652739,
+          0.0
+        ],
+        [
+          -3.245993353674821e-13,
+          0.0
+        ],
+        [
+          -2.2232727239912583e-14,
+          0.0
+        ],
+        [
+          7.952082322565143e-15,
+          0.0
+        ],
+        [
+          -7.76301657519716e-15,
+          0.0
+        ],
+        [
+          -3.3854878910371776e-16,
+          0.0
+        ]
+      ],
+      "ritz_residual": 1.2512860171115708e-15,
+      "ritz_leading_moduli": [
+        [
+          1.0000000036624246,
+          3.6320654766978193e-13,
+          4.3297908896649907e-14
+        ],
+        [
+          1.0000000036492005,
+          1.2037503492090048e-13,
+          3.863075581253863e-14
+        ],
+        [
+          1.0000000036652739,
+          3.245993353674821e-13,
+          2.2232727239912583e-14
+        ]
+      ],
+      "newton_residuals": [
+        2.861273870913938e-11
+      ],
+      "seconds": 634.2,
+      "original_tolerance": 1e-12,
+      "args": {
+        "command": "cascade",
+        "model": "qwen0.5b",
+        "layer": 12,
+        "threads": 8,
+        "device": "cuda",
+        "prompt": "open",
+        "opener": null,
+        "window": 1,
+        "vectors": "llm-phase-map/vectors-l12",
+        "concept": "philosophy",
+        "log_temperature": -0.156,
+        "alpha": 0.06510345998979339,
+        "free": "alpha",
+        "period": 384,
+        "next": 0.06510347503852491,
+        "flips": 1,
+        "transient": 30000,
+        "k": 6,
+        "ratio_guess": 4.661793820964229,
+        "switch_fraction": 0.5,
+        "max_substeps": 16,
+        "steps_per_period": 96,
+        "tol": 1e-12,
+        "chunk": 512,
+        "out": "llm-soft-loop/pod64/cascade/crescent-t-0.156-d"
+      },
+      "critical_error": 3.6652738621967274e-09,
+      "recomputed_next_modulus": 3.245993353674821e-13,
+      "next_matches": true,
+      "newton_iterations": 0,
+      "final_newton_residual": 2.861273870913938e-11,
+      "real_flip_candidate": true
+    },
+    {
+      "source": "crescent-t-0.156-f",
+      "period": 768,
+      "lambda": 0.06510347936379086,
+      "critical_multiplier": [
+        -0.9999995928069132,
+        0.0,
+        0.9999995928069132,
+        0.5
+      ],
+      "next_modulus": 2.8836163098458496e-14,
+      "multipliers": [
+        [
+          -0.9999995928069132,
+          0.0
+        ],
+        [
+          2.8836163098458496e-14,
+          0.0
+        ],
+        [
+          -2.0184165442312775e-15,
+          3.696784313852339e-15
+        ],
+        [
+          -2.0184165442312775e-15,
+          -3.696784313852339e-15
+        ],
+        [
+          2.117857932632923e-15,
+          0.0
+        ],
+        [
+          3.2047257319701106e-17,
+          0.0
+        ]
+      ],
+      "ritz_residual": 4.443441535129896e-15,
+      "ritz_leading_moduli": [
+        [
+          0.9999995939372791,
+          4.5576698161322706e-14,
+          1.1279046504223992e-14
+        ],
+        [
+          0.9999995928553389,
+          8.430433896293482e-14,
+          1.8487152928434652e-14
+        ],
+        [
+          0.9999995928069132,
+          2.8836163098458496e-14,
+          4.211914007808237e-15
+        ]
+      ],
+      "newton_residuals": [
+        4.4620002222536577e-10,
+        8.919160074882895e-12
+      ],
+      "seconds": 409.4,
+      "original_tolerance": 1e-12,
+      "args": {
+        "command": "cascade",
+        "model": "qwen0.5b",
+        "layer": 12,
+        "threads": 8,
+        "device": "cuda",
+        "prompt": "open",
+        "opener": null,
+        "window": 1,
+        "vectors": "llm-phase-map/vectors-l12",
+        "concept": "philosophy",
+        "log_temperature": -0.156,
+        "alpha": 0.0651034764570688,
+        "free": "alpha",
+        "period": 768,
+        "next": 0.0651034796771438,
+        "flips": 1,
+        "transient": 80000,
+        "k": 6,
+        "g_accept": 0.0003,
+        "lam_rel_tol": 2e-12,
+        "ratio_guess": 4.66733,
+        "switch_fraction": 0.5,
+        "max_substeps": 16,
+        "steps_per_period": 96,
+        "tol": 1e-12,
+        "chunk": 512,
+        "out": "llm-soft-loop/pod64/cascade/crescent-t-0.156-f"
+      },
+      "critical_error": 4.071930868043694e-07,
+      "recomputed_next_modulus": 2.8836163098458496e-14,
+      "next_matches": true,
+      "newton_iterations": 1,
+      "final_newton_residual": 8.919160074882895e-12,
+      "real_flip_candidate": true
+    }
+  ],
+  "ratios": [
+    14.928070812471404,
+    3.1241162383413608,
+    4.498762888768369,
+    4.620764877916609,
+    4.661793820964229,
+    4.667314947436724,
+    4.66884286414822
+  ],
+  "deviations": [
+    10.258869203368413,
+    -1.5450853707616297,
+    -0.17043872033462115,
+    -0.048436731186381365,
+    -0.0074077881387610844,
+    -0.0018866616662664981,
+    -0.00035874495477017376
+  ],
+  "shrink_factors": [
+    9.065342474574875,
+    3.518790722660126,
+    6.538622633244229,
+    3.9263998793277577,
+    5.259061183104772
+  ],
+  "last_ratio_percent_error": 0.007683218348738061,
+  "aitken": 4.669427488953075,
+  "location_sensitivity": [
+    {
+      "offset": -3.3e-13,
+      "last_two_ratios": [
+        4.667371678113403,
+        4.668521183741883
+      ],
+      "aitken": 4.668819570891984
+    },
+    {
+      "offset": 3.3e-13,
+      "last_two_ratios": [
+        4.667258218139121,
+        4.669164581066428
+      ],
+      "aitken": 4.670185993272642
+    }
+  ],
+  "refused_p384_linear_fit": {
+    "n": 12,
+    "zero": 0.06510347354857382,
+    "slope": -79564700.88371149,
+    "g_max_abs_residual": 2.5756730089814385e-05,
+    "max_residual_as_parameter": 3.2372056708237196e-13,
+    "failed_attempt_kept": true
+  },
+  "other_cuts": {
+    "minus014798": [
+      2.84382430556239,
+      2.8593398362105336,
+      3.7811673896067917,
+      4.364872593308558,
+      4.596090446605756,
+      4.652876990910341
+    ],
+    "q15": [
+      3.60456214744485,
+      4.281581139016772,
+      4.578411329538574,
+      4.648159043427669,
+      4.664759946074821
+    ]
+  },
+  "tree": {
+    "a": {
+      "cells": 1600,
+      "transient": 3000,
+      "record": 256,
+      "max_period": 48,
+      "chaotic_cells": 156,
+      "chaotic_alpha_max": 0.0652777986241401,
+      "doubling_checks": [
+        {
+          "period": 3,
+          "flip": 0.06447665673849548,
+          "scan": 0.06446829268292684,
+          "difference": -8.364055568643725e-06
+        },
+        {
+          "period": 6,
+          "flip": 0.06504935553077586,
+          "scan": 0.06504865540963102,
+          "difference": -7.001211448365297e-07
+        },
+        {
+          "period": 12,
+          "flip": 0.0650877194157999,
+          "scan": 0.06508868042526579,
+          "difference": 9.610094658940582e-07
+        },
+        {
+          "period": 24,
+          "flip": 0.06509999933181365,
+          "scan": null,
+          "difference": null
+        },
+        {
+          "period": 48,
+          "flip": 0.06510272895244879,
+          "scan": 0.06510268918073797,
+          "difference": -3.977171081359643e-08
+        }
+      ],
+      "saved_keys": [
+        "log10_temperature",
+        "alpha",
+        "lyapunov",
+        "period",
+        "entropy",
+        "family",
+        "projection",
+        "projection_directions"
+      ]
+    },
+    "b": {
+      "cells": 1360,
+      "transient": 3000,
+      "record": 256,
+      "max_period": 48,
+      "chaotic_cells": 76,
+      "chaotic_alpha_max": 0.065108,
+      "doubling_checks": [
+        {
+          "period": 6,
+          "flip": 0.06504935553077586,
+          "scan": 0.06504825607064017,
+          "difference": -1.0994601356839606e-06
+        },
+        {
+          "period": 12,
+          "flip": 0.0650877194157999,
+          "scan": 0.06508688447387785,
+          "difference": -8.349419220454735e-07
+        },
+        {
+          "period": 24,
+          "flip": 0.06509999933181365,
+          "scan": 0.06509979396615158,
+          "difference": -2.0536566207318696e-07
+        },
+        {
+          "period": 48,
+          "flip": 0.06510272895244879,
+          "scan": 0.06510264606328182,
+          "difference": -8.288916696075344e-08
+        }
+      ],
+      "saved_keys": [
+        "log10_temperature",
+        "alpha",
+        "lyapunov",
+        "period",
+        "entropy",
+        "family",
+        "projection",
+        "projection_directions"
+      ]
+    },
+    "c": {
+      "cells": 1000,
+      "transient": 3000,
+      "record": 256,
+      "max_period": 48,
+      "chaotic_cells": 29,
+      "chaotic_alpha_max": 0.065104,
+      "doubling_checks": [
+        {
+          "period": 24,
+          "flip": 0.06509999933181365,
+          "scan": 0.06509975575575576,
+          "difference": -2.4357605789282477e-07
+        },
+        {
+          "period": 48,
+          "flip": 0.06510272895244879,
+          "scan": 0.06510265365365366,
+          "difference": -7.529879512968574e-08
+        }
+      ],
+      "saved_keys": [
+        "log10_temperature",
+        "alpha",
+        "lyapunov",
+        "period",
+        "entropy",
+        "family",
+        "projection",
+        "projection_directions"
+      ]
+    }
+  },
+  "inputs": {
+    "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/cascade/crescent-t-0.156-b/cascade.json": {
+      "bytes": 21654,
+      "sha256": "c78210d27488afeab0de60bdac11c14668d7bc85b3eff7fb614338b2571e24d3"
+    },
+    "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/cascade/crescent-t-0.156-c/cascade.json": {
+      "bytes": 46833,
+      "sha256": "4587e1d63b5d34e3d993a3a339305f7cbff6dc77c6efbdbe0d24ac0c84bdee03"
+    },
+    "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/cascade/crescent-t-0.156-d/cascade.json": {
+      "bytes": 12763,
+      "sha256": "10567b0b56873f7cb3c39e9401580cb4e570362f6543f915278bff0585bdd45c"
+    },
+    "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/cascade/crescent-t-0.156-f/cascade.json": {
+      "bytes": 16884,
+      "sha256": "edf0b37d7e7b70d16b240ef12c97ece56e1b85a744212d72f2f6138923c7a321"
+    },
+    "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/cascade/crescent-t-0.156-e/progress.jsonl": {
+      "bytes": 2893,
+      "sha256": "b7e84177f4a12dba2a78bdc7c37219f3c8cfa79853ba49f2d21a187941a2a0a8"
+    },
+    "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/cascade/crescent-t-0.14798-v2/cascade.json": {
+      "bytes": 42681,
+      "sha256": "b837737518c5d21a879a76441969cf6833ec522e8c7e5e64d4500fc194d64f0e"
+    },
+    "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/cascade/q15-a0.100-p4/cascade.json": {
+      "bytes": 18833,
+      "sha256": "f34ae48b56fc86ebb9715b474556419e87f9b5440ec1a5deabe8b13a860769f0"
+    },
+    "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/cascade/crescent-t-0.14798-p96b/progress.jsonl": {
+      "bytes": 85,
+      "sha256": "30cfa8674f1bedc2ca396f7f39636ad01d29d8a8f2839730e618571df25c80ee"
+    },
+    "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/cascade/crescent-t-0.14798-p96d/progress.jsonl": {
+      "bytes": 6362,
+      "sha256": "f4c96d19c52d7c6fbe7441c8ffa993ed2a424d0cc6a9e9bd052619896ce6d7ce"
+    },
+    "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/edges/q15-a0.100-p16/edges.json": {
+      "bytes": 1932,
+      "sha256": "21835010d1a556563b3007d095838ce0c1231d93ed99fdb5541be678492382df"
+    },
+    "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/edges/q15-a0.100-p32/edges.json": {
+      "bytes": 1939,
+      "sha256": "09c41b7d27d3870c1422290ba845f8df523fdca7c8752291470e0d277ccbddf8"
+    },
+    "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/cascade/q15-a0.100-p64/progress.jsonl": {
+      "bytes": 2327,
+      "sha256": "9677b0209800867091d214e7ef27d071a47e2532a8b766d4c48e3d98f54b0de3"
+    },
+    "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/cascade/q15-a0.100-p128/progress.jsonl": {
+      "bytes": 6064,
+      "sha256": "4063e78e34f60abf1188bddd457ecedd246b56a8a072303c658bad963dfc7784"
+    },
+    "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/scan64/ft-a/scan.json": {
+      "bytes": 7610,
+      "sha256": "db720c0f2b46dc8f42382b14c59d09c72ee3cabe832416e15aa8e8b88304fe98"
+    },
+    "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/scan64/ft-a/scan.npz": {
+      "bytes": 2611398,
+      "sha256": "1b3339f78353752c58e5ab308b84a4d3c7f4ae9fd86270444d5820ea1f7e2c47"
+    },
+    "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/scan64/ft-b/scan.json": {
+      "bytes": 3158,
+      "sha256": "7e726011d074631004a960e40e542479659aa340fdcfc1fb92fe78fadb87c799"
+    },
+    "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/scan64/ft-b/scan.npz": {
+      "bytes": 2743013,
+      "sha256": "40d4d8501790f952ee480658241f11dd53d74dbd04da3ff0b8efb51e56387e1a"
+    },
+    "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/scan64/ft-c/scan.json": {
+      "bytes": 2740,
+      "sha256": "89373826c858fd7e14f3c672cc61592ed4922c5670266b496086d67a37fea37a"
+    },
+    "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/scan64/ft-c/scan.npz": {
+      "bytes": 2677588,
+      "sha256": "19d853cf877aaceb11f8408d3d5e43b47583993eaf8d701d49bfe1b8e63ed911"
+    }
+  },
+  "seconds": 0.02147762570530176,
+  "limits": [
+    "Saved spectra/Newton histories independently reduced, not regenerated.",
+    "Recorded Ritz residual is for the computed chain action, not a bound on exact-real model/product error.",
+    "Sub-rounding next multipliers are not independently resolved eigenvalues.",
+    "Finite-time scan classifications are not asymptotic chaos proofs.",
+    "No dense product, original orbit, or old controls rerun."
+  ]
+}

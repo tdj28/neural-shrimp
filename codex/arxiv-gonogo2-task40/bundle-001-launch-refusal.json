@@ -1,0 +1,22 @@
+{
+  "schema": "task40-launch-refusal-v1",
+  "checkpoint_authorization": "41604b46 verified on private remote main by Root; Root reported current HEAD a0ddde1bd77bf969f939ad9c624e3b9979d8773a",
+  "command": "HF_HUB_OFFLINE=1 uv run --no-sync python codex/arxiv-gonogo2-task40/bounded_run.py --name bundle-001 --cpu 300 --wall 650 --gib 4 -- uv run --no-sync python codex/arxiv-gonogo2-task40/bundle_pdf_audit.py",
+  "cwd": "/data2/neural-shrimp",
+  "exec_chunk_id": "dfc1d8",
+  "exit_code": 1,
+  "reported_wall_time_seconds": 0.0,
+  "output": "snap-confine has elevated permissions and is not confined but should be. Refusing to continue to avoid permission escalation attacks\nPlease make sure that the snapd.apparmor service is enabled and started.\n",
+  "stage": "Outer uv launcher; Python audit runner and build never started",
+  "followup_existence_check_chunk_id": "980abf",
+  "confirmed_absent": [
+    "codex/arxiv-gonogo2-task40/bundle-001.receipt.json",
+    "codex/arxiv-gonogo2-task40/bundle-001.stdout.log",
+    "codex/arxiv-gonogo2-task40/bundle-001.stderr.log",
+    "codex/arxiv-gonogo2-task40/bundle-evidence.json",
+    "/data2/neural-shrimp-data/scratch/audit-codex-1020/bundle-001"
+  ],
+  "automatic_retry": false,
+  "compile_executed": false,
+  "scientific_execution": false
+}
