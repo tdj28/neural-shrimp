@@ -1,0 +1,156 @@
+{
+  "schema": "task41-seven-large-text-gaps-v1",
+  "complete": true,
+  "source_sha256": "d239d9ba185cb50f5482bd9ec599c65236d329bf8c33ff23fc77916052fd3f67",
+  "scope": "Only seven exact oversized JSON/JSONL Git blobs from the pinned prior receipt.",
+  "trees": {
+    "arxiv_v1": "1314528118ac1300c2cffd34fb60cfbfc67d2c82",
+    "head": "21272a7830d74fade1f6592af2a7b8189370ffad"
+  },
+  "inputs": [
+    {
+      "path": "evidence/EXP-004/attempt-001/selected.json",
+      "blob": "fffd3664e38ae8557f26a610329f1ac963e12a7c",
+      "bytes": 16572495,
+      "sha256": "0a92e4ce1446cee45038e19037131cfe653b28bce4666afb8dd1dbe51332d86f",
+      "trees": [
+        "arxiv_v1",
+        "head"
+      ],
+      "at_frozen_head": true,
+      "complete": true,
+      "line_count": 708161,
+      "category_line_counts": {},
+      "auxiliary_line_counts": {}
+    },
+    {
+      "path": "evidence/EXP-006/attempt-001/records.jsonl",
+      "blob": "0d40130c270b990acc7626746b1f79ff4f2efa5b",
+      "bytes": 23484808,
+      "sha256": "cd8da8c7ae7aa75c01b43718af05db9fe7130213183228d620d08dfed348d432",
+      "trees": [
+        "arxiv_v1",
+        "head"
+      ],
+      "at_frozen_head": true,
+      "complete": true,
+      "line_count": 4320,
+      "category_line_counts": {},
+      "auxiliary_line_counts": {}
+    },
+    {
+      "path": "evidence/EXP-007/attempt-001/records.jsonl",
+      "blob": "116f03ac03496710e7330973156ed5ba0f710e83",
+      "bytes": 24143057,
+      "sha256": "f5dab7d60c48f7563261d4fdb24b9ef48d4a29a7b1de141a8a5d296d6ab31a9f",
+      "trees": [
+        "arxiv_v1",
+        "head"
+      ],
+      "at_frozen_head": true,
+      "complete": true,
+      "line_count": 2784,
+      "category_line_counts": {},
+      "auxiliary_line_counts": {}
+    },
+    {
+      "path": "evidence/EXP-008/attempt-001/development-features.json",
+      "blob": "3d7bf8cbae97e51c04fcba5e407543e35196d559",
+      "bytes": 10206330,
+      "sha256": "0cbae2eb978dccd38bcd5d103fd27b7162003594429e2b359e1f0a5a5cedf9a9",
+      "trees": [
+        "arxiv_v1",
+        "head"
+      ],
+      "at_frozen_head": true,
+      "complete": true,
+      "line_count": 360578,
+      "category_line_counts": {},
+      "auxiliary_line_counts": {}
+    },
+    {
+      "path": "evidence/EXP-008/attempt-001/development-targets.jsonl",
+      "blob": "aa5cd6da44dbdf8a9ffb22f9725d750c5e642170",
+      "bytes": 15237444,
+      "sha256": "b3ba4bf44b57cae66097b17f1b29893ecd7c5ab0617ac7f72b7b8caaa756025c",
+      "trees": [
+        "arxiv_v1",
+        "head"
+      ],
+      "at_frozen_head": true,
+      "complete": true,
+      "line_count": 3504,
+      "category_line_counts": {},
+      "auxiliary_line_counts": {}
+    },
+    {
+      "path": "evidence/EXP-008/attempt-001/test-features.json",
+      "blob": "30aab2f426ada53d7c48962b1e9ec437181697a9",
+      "bytes": 9824036,
+      "sha256": "92aef13c946c89412d1add8c09461b4facfcd8c4e3f848b939c899635e3b4c7e",
+      "trees": [
+        "arxiv_v1",
+        "head"
+      ],
+      "at_frozen_head": true,
+      "complete": true,
+      "line_count": 347906,
+      "category_line_counts": {},
+      "auxiliary_line_counts": {}
+    },
+    {
+      "path": "evidence/EXP-008/attempt-001/test-targets.jsonl",
+      "blob": "6485f1fd1160e87d7a19bc83aa88a0d7b06b961c",
+      "bytes": 15140600,
+      "sha256": "589d04c2baee9d2dae60c75dce9202d5e44efe7bfff5a9088b9f64360ccf12a4",
+      "trees": [
+        "arxiv_v1",
+        "head"
+      ],
+      "at_frozen_head": true,
+      "complete": true,
+      "line_count": 3504,
+      "category_line_counts": {},
+      "auxiliary_line_counts": {}
+    }
+  ],
+  "candidates": [],
+  "failures": [],
+  "limits": {
+    "blob_bytes": 33554432,
+    "aggregate_bytes": 134217728,
+    "candidate_rows": 20000,
+    "cpu_seconds": 120,
+    "wall_seconds": 170,
+    "external_wall_seconds": 180,
+    "address_space_bytes": 2147483648
+  },
+  "content_snippets_emitted": false,
+  "matched_values_emitted": false,
+  "env_payloads_read": 0,
+  "model_calls": 0,
+  "credential_validity_tested": false,
+  "absence_or_license_clearance_claimed": false,
+  "limitations": [
+    "Heuristic text categories only; a candidate is not a confirmed disclosure.",
+    "No new general tree/history or prohibited-object alias scan; exact targets come from the prior pinned receipt.",
+    "The prior receipt reported zero prohibited blob identities.",
+    "PDFs, other binary files, image text, and third-party ownership are outside this pass.",
+    "UTF-8 text is classified, not a semantic JSON interpretation or scientific recomputation."
+  ],
+  "metadata_sources": [
+    {
+      "path": "/data2/neural-shrimp/codex/release-audit-task41/public-findings.json",
+      "bytes": 138425,
+      "sha256": "277813a8b2911a825ca50a1febd654370f3fb9b57d497d032a2cf32be7ebdabd"
+    },
+    {
+      "path": "/data2/neural-shrimp/codex/release-audit-task41/public_blob_followup.py",
+      "bytes": 20635,
+      "sha256": "7ebd63c331f1f76a888a1b627b8228dc2fb6c998756b34c2cc75f3f810de1819"
+    }
+  ],
+  "payload_bytes_read": 114608770,
+  "category_line_counts": {},
+  "elapsed_seconds": 38.47085871081799
+}
