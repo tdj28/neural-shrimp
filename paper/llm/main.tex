@@ -577,8 +577,8 @@ at the top of the range, toward the slope $-\ln10\approx-2.30$ expected once $p$
 
 \paragraph{Stability belongs to the loop, not to the step.} The gain condition is necessary, not sufficient. Along
 the period-8 orbit of Table~\ref{tab:orbits}, the largest singular value of $DF$ lies between 1.2 and 21 at every
-step, so every step expands some direction, and no step is close to rank one: the second singular value is at least
-0.15 of the first, and the second eigenvalue of $\Sigma_p$ is at least 0.23 of the first (minimum 0.236). Yet the Jacobian of the whole
+step, so every step expands some direction, and no step squeezes the state onto a single direction (none is close to rank one): the second singular value is
+at least 0.15 of the first, and the second eigenvalue of $\Sigma_p$ is at least 0.23 of the first (minimum 0.236). Yet the Jacobian of the whole
 cycle, the product of the eight step Jacobians, has norm between 0.059 and 0.644, depending on the phase at which the
 cycle is started, against $1.1\times10^{7}$ for the product of the step norms. Its eigenvalues, which do not depend
 on that phase, reproduce the multipliers of Table~\ref{tab:orbits} ($0.01104$ and $-2.96\times10^{-7}$; the table
@@ -3133,7 +3133,7 @@ window, so the width is a lower bound.}
 \label{fig:hiddenstrip}
 \end{figure}
 
-\paragraph{Why one dimension.} A single step of the map is not close to rank one. Along these orbits, the second
+\paragraph{Why one dimension.} A single step of the map does not squeeze the state onto a single direction: it is not close to rank one. Along these orbits, the second
 eigenvalue of the readout covariance $\Sigma_p$ is 0.23 to 0.87 of the first, and the second singular value of the
 step derivative is 0.11 to 0.90 of the first. Composed over a cycle, however, the map is nearly one-dimensional. The
 ratio of the two leading singular values is 0.081 for the 2-cycle, 0.092 for the period-3 loop and 0.26 for the
