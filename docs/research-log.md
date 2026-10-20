@@ -31834,3 +31834,21 @@ nearly identical under protan vision.
     rotation figure.
 - Article state: 34 pages, 27 figures, 8 tables; no overfull boxes or undefined references; no float moved. The
   abstract is 1,556 ASCII characters.
+
+## 2026-10-20 16:43 UTC: public release of the repository; arxiv-v1 tags; release sweep and cleanup
+
+- The article was submitted to arXiv on 20 October from article commit b15a593 (bundle
+  arxiv-source-b15a593.tar.gz: 33 files, 34 pages, same pages and text as the canonical PDF).
+- The human made github.com/tdj28/neural-shrimp public. Anonymous access was verified: the repository page,
+  tree/arxiv-v1 and blob/arxiv-v1/paper/llm/main.pdf each return HTTP 200.
+- Tags: arxiv-v1 here is 13145281, the report and records at the submission; arxiv-v1 in the article repository is
+  b15a593. All 102 code links of the report resolve at the tag.
+- The release sweep was re-run over all refs and the full history. No credential appears in any blob, commit message
+  or tag. The environment file, the private cost ledger and the resume plan were never committed. Every gitleaks hit
+  is a citation key, an identifier or a hash.
+- Release cleanup (e359312e): dollar amounts are redacted at HEAD in prose documents, keeping line numbers. Two
+  sentences on compute resources are reworded. Hash-pinned records, JSON receipts, codex/ and evidence/ are unchanged.
+  All of these, and earlier versions, remain in the history. The README and the policy files now describe a public
+  repository.
+- Codex Task 41 is assigned (brief in /data2/CHECK_THESE.md): the article's changes since Task 40b, a fresh-clone run
+  of the README, and a public-release audit. Blog round 14 is running and will not be committed.
