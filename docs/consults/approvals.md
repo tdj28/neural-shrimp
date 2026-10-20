@@ -410,3 +410,16 @@ skill, section 7A). Spend is recorded only in the gitignored `cost-ledger.md`
 - Consult 23 executed 19 Oct 2026 23:48-23:54 UTC (one call, as approved; brief at 0f691d69, dry-001 checked first):
   completed, 71,688 tokens. Review and adjudication: docs/consults/2026-10-19-fold-section/adjudication.md (artifacts
   in neural-shrimp-data/consults/2026-10-19-fold-section/execute-001).
+
+## Consult 24: the synchronization section of the article (20 October 2026)
+
+- **Approval (human, in session, 20 October 2026):** "can you please do a pro review of the synchornization section".
+  This explicitly requests one paid consult on the article's Sec. VIII, "Synchronization of two coupled loops".
+- **Milestone:** arXiv v1 of the Chaos article (submission imminent). The section was written and restructured tonight
+  (own section, critical coupling and attractor bubbling defined, takeaway), and its theory, claims and citations must
+  be right before posting.
+- **Scope:** one `research-note-scientific` request with the brief `2026-10-20-sync-section/brief.md`: the section
+  verbatim (LaTeX and figure caption, image omitted) and compact facts from the run records. No raw data. No retry or
+  second pass without a new recorded decision.
+- **Model:** `gpt-6-astra`, Pro mode, high effort, at most 20,000 output tokens. The per-call guard and the cost are in
+  the private cost ledger. Advice is advisory and is adjudicated locally.
