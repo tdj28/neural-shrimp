@@ -31780,3 +31780,15 @@ nearly identical under protan vision.
   - reference 17 primaryClass cs.LG (arXiv API: primary cs.LG, cross-list cs.CL);
   - Fig. 25 caption: a two-dimensional block initialized from the leading Ritz directions and tracked by subspace
     overlap; panel (a) shows "the trace of the tracked block".
+
+## 2026-10-20 05:51 UTC: blog round 13 synced to the report at cda9ca04 (not committed); report appendix corrected
+
+- Round 13 (background agent) brought into the post the Task 40 and 40b corrections, the third review's changes, the
+  Zenodo DOI as a link (marked reserved until published), and reference 17 as an arXiv preprint (cs.LG).
+- provenance.json: 4724 entries, pinned to cda9ca04. Hugo 0.160.1 (drafts, warnings as errors), check_site,
+  check_provenance (4724 of 4724 numbers) and the KaTeX parse check pass.
+- index.md sha256 14aaee78..., provenance.json 7988adec...; backups in blog-bundle-backup/before-round13 and
+  after-round13.
+- The agent found the report's "Bridge to sampled decoding" appendix still carrying the pre-F17 numbers. It is
+  corrected in 91e04a71 (10.3-10.7 and 7.6-7.8 steps; single-sample phases rare, one to three per offset). The channel
+  fractions 57, 38 and 11 % are unaudited and kept.
