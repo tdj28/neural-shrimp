@@ -89,3 +89,30 @@ currently all proposed reductions still use one-thread CPU workers.
 - review.md is the combined article report; its explicit pending
   discussion/Zenodo entries will be updated as those checks finish.
   Zenodo remains unlaunched until the article verdict is delivered.
+
+2026-10-20 03:46 UTC deferred Zenodo admission:
+
+- Article report and nine must-fix corrections were delivered after private
+  commit ecc660eac7dd45eb9416bb278553592554b5278a, before package auditing.
+- One package-001 stream pass now proposed: all declared outer SHA-256
+  sums, each regular archive member, the two externally pinned frozen
+  release records (15 and 19 path/hash references), five named inherited
+  P8 reviews, and filename-only secret/personal-data pattern candidates.
+  No extraction, execution of archived code, model loading or publication.
+  Partial transitive-reference discovery is separate from the direct
+  closure gate; oversized JSON, parse/schema omissions and historical
+  external/mismatched references remain explicit.
+- Static review led to stricter no-follow input opens, canonical archive
+  names/roots, exact release identities/counts and a nonzero failure code
+  for integrity/direct-closure failure. A second review caught and corrected
+  the modern GitHub-token prefilter. These are pre-execution source fixes;
+  no package scan has failed or been retried.
+- CPU-only, one thread/nice10, 2 GiB address space, 1200 CPU seconds,
+  1800 parent wall seconds, 256 MiB per output, exclusive result/manifest
+  names; no automatic retry. Current available RAM about 40 GiB and load
+  2.20/2.74/8.26. Restricted nvidia-smi failed; actual-host read-only query
+  succeeded, showing RTX2000Ada 2 MiB/0% and no compute processes. GPU is
+  not used by this audit.
+- README semantic review and interpretation of flagged filenames are
+  separate. Matching hashes cannot establish mathematical truth, public
+  accessibility, or absence of every possible sensitive datum.
