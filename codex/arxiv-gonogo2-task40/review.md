@@ -1,5 +1,5 @@
-GO WITH FIXES — article bb42a82; make the eight must-fix corrections before submission.
-16 findings: 8 must-fix, 7 should-fix, 1 note; explicitly partial checks are listed below.
+GO WITH FIXES — article bb42a82; make the nine must-fix corrections before submission.
+17 findings: 9 must-fix, 7 should-fix, 1 note; explicitly partial checks are listed below.
 A3: all 225 CPU/GPU cells agree at the paper's precision; maximum leading-multiplier difference 6.554×10^-12, with two temperature rows differing by one ULP.
 
 # Task40 independent article and evidence review
@@ -32,7 +32,7 @@ PDF, a new proof of chaos, or verification of every original model execution.
 ### F1. Natural-passage errors need their statistic and channel definition [must-fix]
 
 Where: Sec. V, “Passages and the window law,” lines 927–929; Table IV,
-lines 948–960; compare Fig. 15, lines 817–818.
+lines 948–960; compare Fig. 14(d), lines 817–818.
 
 Claim: “From each measured entry point the normal form predicts the length
 of the laminar phase that follows within 4–8% for eps <= 10^-4.”
@@ -53,7 +53,7 @@ transverse distance below 0.05, the median signed forecast errors at the
 four offsets up to 10^-4 range from −7.7% to −4.1%; individual errors reach
 71%. Their mean lengths are approximately 0.60–0.67 of the full passage
 through this channel.” State the forecast denominator and exclude censored
-phases explicitly. Table IV must identify the same definition. Fig. 15's
+phases explicitly. Table IV must identify the same definition. Fig. 14(d)'s
 separate definition can remain. The independently checked prospective
 42/48 result is unaffected.
 
@@ -358,6 +358,33 @@ Ritz omission as a current manuscript defect. Do not call the CPU/GPU
 comparison bit-identical-input verification. No new numerical certificate,
 global chaos proof or all-start attractor claim follows from this audit.
 
+### F17. Single-sample passages become rare rather than vanish [must-fix]
+
+Where: Discussion, “Beyond the one-token loop,” lines 1720–1723.
+
+Claim: phases shrink “from 120 steps to 7.7 and 10.6 steps” and “vanish
+for single samples.”
+
+Evidence: `discussion_delta_audit.py` independently reduces all four
+saved `bridge-*/walk.npz` archives under the original probability-mask
+and run-length-at-least-six rule. At the three offsets, single sampling
+retains **1, 1 and 3 phases**, with lengths 7, 8, and 6/6/6 steps.
+The 64-sample means are 10.5193, 10.3237 and 10.7224; the eight-sample
+means are 7.8145, 7.7101 and 7.5968. The deterministic 120-step baseline
+belongs to the smallest offset; the second offset gives 63 steps and
+the third gives no retained phase. These are original float32,
+probability-defined observations, not the geometric normal-form channel
+in F1. Evidence: `discussion-delta-evidence.json`.
+
+Correct value / wording: “At the smallest tested offset, the mean
+probability-defined laminar phase shrinks from 120 steps with deterministic
+feedback to 7.8 and 10.5 steps with eight and 64 samples. Across the three
+offsets the sampled means are approximately 7.6–7.8 and 10.3–10.7 steps.
+With single samples such phases become rare: only one to three are
+recorded per offset.” Avoid an exact disappearance claim. The original
+statistic includes left-censored runs and excludes right-censored ones;
+retain that convention or explicitly disclose a revised one.
+
 ## Completed, partial and deferred checks
 
 | Requested check | Status and evidence |
@@ -374,7 +401,7 @@ global chaos proof or all-start attractor claim follows from this audit.
 | B1 Sec. V | Completed fresh fold/passage/window reductions plus exact reuse of closed independent audits. All 12 Table III observed/predicted pairs, all 48 Table V measurements and Table IV reductions match under the stated definitions. Failed prospective criteria retained. Free-exponent nonlinear fits 2.13–2.45 and 1–3% fit misfits were not independently refitted and remain partial. |
 | B1 Sec. VI | Completed nine flip records, seven ratios, quoted sensitivities and alternate-cut comparisons, FT scan dimensions/horizons and rejected linear-fit attempt. No independent monodromy/JVP evaluation. F5 applies; finite-order consistency is not universality proof. |
 | B1 Sec. VII–VIII | Covered by A2–A8 above, including per-row gates and evidence limits. Old previously audited anatomy/model computations were not repeated. |
-| B1 Discussion, Table VIII, Conclusion | Claims calibration completed, with F10–F13 and unchanged Task39 evidence reused. Remaining small changed-discussion spectrum/sampled-bridge receipt checks are being finalized separately; no blanket “every number independently recomputed” claim is made. |
+| B1 Discussion, Table VIII, Conclusion | Claims calibration completed, with F10–F13/F17 and unchanged Task39 evidence reused. Three saved 600-step, four-direction spectra give exactly one positive exponent each and KY dimensions 1.13311/1.42779/1.20843; the negative range is −2.00307 to −0.821936, within the article's outward enclosure. All four sampled-bridge archives freshly reduced. No blanket “every number independently recomputed” claim is made. |
 | B1 Data Availability | Completed wording/state check; F8 applies. Package contents deferred; no publication action. |
 | B2 three external reviews | Complete check of the two available accepted-point summaries and full consult 24 plus adjudication. Original 27-/18-page review documents were not present, so full original-review coverage cannot be claimed. See `citations-review.md` accepted-point ledger. Chaos/flip/Feigenbaum caveats largely applied; abstract/sync summary and descent wording need fixes. |
 | B3 figures/tables/references | All 34 pages visually inspected; 27 figures/eight tables, no missing/duplicate labels or final unresolved references. Fig. 1 on page 1. F15 records layout exceptions. Visual checking does not independently regenerate every unchanged figure's underlying experiment. |
@@ -388,15 +415,17 @@ Component reports contain exact input inventories, hashes, conventions and
 limits: [raw-review.md](raw-review.md),
 [fold-review.md](fold-review.md),
 [numerical-review.md](numerical-review.md),
+[discussion-delta-review.md](discussion-delta-review.md),
 [citations-review.md](citations-review.md),
 [bundle-review.md](bundle-review.md).
-Scripts, original outputs and named parent receipts are in this same
-Task40 directory. Large PDF/build scratch remains under
+Scripts, audit outputs and named parent receipts are in this same
+Task40 directory. Original raw evidence remains at the paths in their
+input manifests. Large PDF/build scratch remains under
 `/data2/neural-shrimp-data/scratch/audit-codex-1020/`.
 
 Executable audit sources were privately checkpointed before execution.
 Completed bounded workers (`raw-001`, `delta-001`, `cascade-001`,
-`ditches-002`, `fold-001`, `bundle-002`) exited 0 without timeout and were
+`ditches-002`, `fold-001`, `bundle-002`, `discussion-001`) exited 0 without timeout and were
 reaped by their parents. The unsuccessful `ditches-001` and pre-Python
 bundle launch refusal remain intact. CPU-only saved-data work used one
 numerical thread per worker; the original GPU runs were merely read.

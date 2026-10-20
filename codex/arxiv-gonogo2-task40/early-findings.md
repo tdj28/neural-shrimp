@@ -16,7 +16,7 @@ distance `<0.05`, complete phases only), median signed errors range from
 Suggested replacement: “For complete phases defined by `|u|<3U` and transverse
 distance `<0.05`, median relative errors at the four offsets were4.1–7.7%;
 individual errors reached71%.” State the denominator as the forecast.
-Figure15d uses `|u|<U` alone and must be distinguished from these statistics.
+Figure14d uses `|u|<U` alone and must be distinguished from these statistics.
 TableIV's mean fractions0.60–0.67 remain valid under the original definition.
 This does not affect the separately verified42/48 prospective passage result.
 
