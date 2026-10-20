@@ -31561,3 +31561,36 @@ nearly identical under protan vision.
 - Each critical point is reported with its value, the signs of its Hessian eigenvalues and the fit residual.
 - The readings of the run card are unchanged. A saddle of mu_1 at a positive value in the channel would be the
   scalar form of "approach and turn away": a minimum across the channel and a maximum along it.
+
+## 2026-10-20 01:37 UTC: external bifurcation-theory review of the article (human-supplied, advisory) and its application
+
+- **Source.** The human supplied a 27-page review of the article, written from the perspective of a bifurcation
+  theorist. It is not stored in the repository.
+- **Verdict.** "no fundamental misunderstanding of bifurcation theory"; "arXiv-suitable after targeted revisions".
+- **Applied** to the article (a393019) and to the report:
+  - **Feigenbaum.** The ratio is stated for its universality class: quadratic critical point, suitable strongly
+    dissipative maps of any dimension. It differs for a critical point of higher order. The old wording, "whatever
+    the details of the map", is gone.
+  - **Flip.** Defined by a simple -1 multiplier with the observed stable doubled orbit, and the subcritical case is
+    noted. For the cascade, crossing speed and cubic coefficient were not computed, which is now stated.
+  - **Late transverse multipliers.** Below 4e-13, at the rounding level. They support an effectively one-dimensional,
+    strongly dissipative regime, not the renormalization hypotheses. The cascade table caption now says that moduli
+    below about 1e-12 are rounding-level.
+  - **Lyapunov exponent at flips.** It is zero where a multiplier has modulus one, so it does not classify a flip.
+  - **Fold.** No symmetry and no persistent branch, so a simple +1 with a and b nonzero is a fold.
+  - **Cusp unfolding.** K = d(beta_0, beta_1)/d(log10 T, 10 alpha), with alpha_scale 10 from the curve runs. At C,
+    det K = -2624 with singular values 672 and 3.9 (kite/locate-la-plus-14). Over all six located cusps, |det K| runs
+    from 2624 to 2.195e5 and the smallest singular value from 1.016 to 12.98: locate-la-plus-94, -112,
+    p6s/locate-wide2-a-64, -b-82 and p6s/locate-tu-minus-34.
+  - **A and B are pseudo-crossings.** At the continued fold points nearest A and B, the orbit's other multipliers have
+    modulus at most 0.002135 (A: kite-la-curve-plus idx 0 and minus idx 1; B: plus idx 23), none near -1. At the flip
+    points nearest them, the others have modulus at most 0.004168 (A: p6s-td-curve-minus idx 1; B: p6s-ad-curve-plus
+    idx 5), none near +1. One orbit cannot have both spectra, so the curves belong to different period-6 orbits, as at R.
+  - **Shrimp wording.** "consistent with Gallas's organization"; the name describes an organization of continued
+    curves, not a local normal form. The report's summary also now leads with C instead of "six located cusps".
+  - **New Table VII.** Each bifurcation, crossing and boundary: what it requires, what we show, status. It was first
+    written with numbers in every cell; the human found it hard to read, so it now uses short phrases.
+- **Already in place**, as the review notes: Neimark-Sacker "consistent with"; basin-boundary evidence;
+  pseudo-superstable wording; the mixture-of-experts scope.
+- **Not done.** Crossing speeds and cubic flip coefficients for the cascade; eigenpair residuals for the longest
+  monodromy products. Both are stated as limits instead.

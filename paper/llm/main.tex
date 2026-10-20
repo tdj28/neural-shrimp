@@ -1615,9 +1615,9 @@ multiplier $1$ to $3\times10^{-13}$, next modulus $0.037$; Figure~\ref{fig:fold}
 both vanish. In the critical coordinate $u$ of the second iterate $G=F^2$, the fold's normal form is
 $u'=u+a\eps+bu^2$ with $\eps=\alpha-\alpha_c$; here $a=-4.834$ per unit $\alpha$ and $b=-25.4285$, so $ab=122.93$. Here $q$ is the critical eigenvector of $DG$ with $|q|=1$, $\ell$ the left one with $\ell^\top q=1$,
 $a=\ell^\top\partial G/\partial\alpha$ and $b=\tfrac12\ell^\top D^2G[q,q]$ \cite{kuznetsov2019maps}. The normal form is
-the quadratic truncation of $G$ on its center manifold: it neglects terms of order $u^3$, $\eps u$ and $\eps^2$, and it
-applies because the multiplier $+1$ is simple, $a$ and $b$ do not vanish, and the other multipliers lie inside the unit
-circle \cite{kuznetsov2023elements}. Integrated as a flow, it gives the passage from $v_{\rm in}$ to $U$ in closed form,
+the quadratic truncation of $G$ on its center manifold: it neglects terms of order $u^3$, $\eps u$ and $\eps^2$, and it applies because the multiplier $+1$ is simple, $a$ and $b$ do not vanish, and the other multipliers lie inside
+the unit circle \cite{kuznetsov2023elements}. No symmetry of the map forces a pitchfork and no persistent branch forces a
+transcritical exchange, so these conditions make the point a fold. Integrated as a flow, it gives the passage from $v_{\rm in}$ to $U$ in closed form,
 $n(v_{\rm in})=[\arctan(|b|U/\kappa)-\arctan(|b|v_{\rm in}/\kappa)]/\kappa$ with $\kappa=\sqrt{ab\,\eps}$; a full
 passage approaches $\pi/\kappa$ only when $U\gg\sqrt{|a|\eps/|b|}$. The stable branch gives an independent estimate: extrapolating its multipliers
 through $(1-\mu)^2/(4(\alpha_c-\alpha))\to ab$ yields $123.1$ with a quadratic fit ($120.6$ with a linear one). An
@@ -1930,8 +1930,9 @@ universality requires. The next ratios are $3.124$, $4.4988$, $4.6208$, $4.6618$
 deviations from $\delta=4.6692$ are $-1.55$, $-0.17$, $-0.048$, $-0.0074$, $-0.0019$ and $-0.00036$; they keep one
 sign, from the third on each step closes the gap by a factor of 3.5 to 6.5 (the location uncertainty of the period-384
 flip, given below, leaves the last factor undetermined), and Aitken's $\Delta^2$ extrapolation of the last three
-ratios gives $4.6694$. Universality of this kind occurs in suitable strongly dissipative families of any
-dimension \cite{feigenbaum1979universal,collet1981period}, among them the training map of gradient descent in solvable models of deep
+ratios gives $4.6694$. Universality of this kind holds within a class: for maps with a quadratic critical point, including suitable strongly
+dissipative families of any dimension \cite{feigenbaum1979universal,collet1981period}; the constant belongs to the class,
+not to period doubling as such, and differs for a critical point of higher order. Such cascades also occur in the training map of gradient descent in solvable models of deep
 networks \cite{hofmann2026map}. The last ratio uses the flip of the period-768 orbit (the
 $768\to1536$ flip), located with $|\mu+1|=4.1\times10^{-7}$. The penultimate flip, of the period-384 orbit,
 approaches the precision floor of its multiplier, a product of 384 step Jacobians. On an H100 the computed $\mu+1$
@@ -2009,7 +2010,9 @@ $n$ & orbit & flip parameter $\alpha_n$ & next modulus & ratio $\delta_n$ \\
 an H100 and flips 3--8 on a workstation GPU (NVIDIA RTX 2000 Ada); the two computations of flip 3 agree to
 $4\times10^{-16}$, and an H100 computation of flip 8 from its evaluations at the multiplier's precision floor lies
 $9\times10^{-14}$ away. Flip 9 was computed on an H100. Every critical multiplier is real; for flips 1--8 it differs from $-1$ by at most
-$5\times10^{-8}$, and for flip 9 by $4.1\times10^{-7}$.}
+$5\times10^{-8}$, and for flip 9 by $4.1\times10^{-7}$. Next moduli below about $10^{-12}$ lie at the rounding level of products of
+hundreds of $896\times896$ Jacobians: they show that the noncritical directions are negligible, not their decimal
+values.}
 \label{tab:cascade156}
 \end{table}
 Not every doubling leads to chaos. In the high-temperature region (Figure~\ref{fig:p4}, Appendix~\ref{sec:curves}), along
@@ -2047,7 +2050,8 @@ float64 directional derivatives (notation of Appendix~\ref{sec:methods}), $c=\el
 $\sqrt{\beta/c}\,(1+O(\beta))$ along $r$ and multiplier $1-4\beta+O(\beta^2)$. At the smallest offset the amplitude ratios are $1.005$ and $1.003$, and the multipliers agree
 within $1.5\times10^{-4}$ and $5\times10^{-5}$; the larger discrepancies at larger offsets are consistent with
 higher-order corrections (Table~\ref{tab:flipnf}). These finite comparisons support the leading-order prediction; they
-do not establish the order of the remainder. Figure~\ref{fig:feigtree} shows the cascade itself as a bifurcation diagram: in three nested zooms each fork sits at a flip located independently by Newton's method, and the largest exponent touches zero at every flip and turns positive beyond the accumulation point. The route to chaos of Qwen2.5-1.5B (Figure~\ref{fig:qwen15route}) behaves the same way: its last ratio, $4.665$, is within $0.1\,\%$ of $\delta$ (Figure~\ref{fig:feigenbaum}).
+do not establish the order of the remainder. Figure~\ref{fig:feigtree} shows the cascade itself as a bifurcation diagram: in three nested zooms each fork sits at a flip located independently by Newton's method, and the largest exponent touches zero at every flip, as it must where a multiplier reaches modulus one, and turns
+positive beyond the accumulation point. The route to chaos of Qwen2.5-1.5B (Figure~\ref{fig:qwen15route}) behaves the same way: its last ratio, $4.665$, is within $0.1\,\%$ of $\delta$ (Figure~\ref{fig:feigenbaum}).
 
 
 \section{Steering toward hostility}
@@ -2548,8 +2552,10 @@ orbit, continued upward in $\log_{10}T$ from its flip at fixed $\alpha$, is attr
 $-0.153657$. The fold curves traced from the two folds turn back at the same point, the kite's cusp C, located at
 $(0.0730186,-0.1532803)$ (cubic coefficient $c=-1.33\times10^{4}$, unfolding determinant $\det K=-2624$, critical
 multiplier within $7.7\times10^{-9}$ of $+1$, next modulus $0.00095$), on the side of R toward the body. Its two
-branches meet the two flip curves at A $=(0.072991,-0.153984)$ and B $=(0.072900,-0.153707)$, completing the kite
-C--A--R--B of Gallas's cell. Besides C,
+branches meet the two flip curves at A $=(0.072991,-0.153984)$ and B $=(0.072900,-0.153707)$, completing the kite C--A--R--B of Gallas's cell. A and B are pseudo-crossings too: at the continued fold points
+nearest them the orbit's other multipliers are at most 0.0022 in modulus, none near $-1$, and at the flip points nearest
+them the others are at most 0.0042, none near $+1$. A fold--flip point would need one orbit with both multipliers; here,
+as at R, the curves belong to different period-6 orbits. Besides C,
 the fold curves have five more located cusps (Table~\ref{tab:p6cusps}): four in two pairs near the ends of the upper-left and lower-left legs, the two cusps of each pair joined by a short
 segment of the fold curve and with cubic coefficients of opposite sign, the configuration of the period-5
 window's upper leg; and one at the tip of a small separate window beyond a narrow neck below the body, where the orbit
@@ -2578,8 +2584,11 @@ $\alpha$) the negative leading multiplier shrinks from $-0.605$ to $-0.060$, the
 complex pair, $0.0069\pm0.0229i$, and the pair splits into two positive multipliers, the lead rising to $+0.71$. Across
 the dimmer ditch that closes the lighter region at its top, at $\alpha=0.07318$ (26 cells, steps $4\times10^{-5}$ in
 $\log_{10}T$), the leading multiplier stays positive: it falls from 0.122 to a minimum of 0.064 at
-$\log_{10}T=-0.15202$ and rises to 0.171, while the next stays negative and below 0.021 in modulus, a valley without a
-sign change. A patch of the continued orbit over $\alpha\in[0.07300,0.07336]$ and $\log_{10}T\in[-0.15294,-0.15170]$
+$\log_{10}T=-0.15202$ and rises to 0.171, while the next stays negative and below 0.021 in modulus, a valley without a sign change. Ten times finer, on 225
+cells around that minimum (steps $1.8\times10^{-6}$ in $\alpha$ and $4\times10^{-6}$ in $\log_{10}T$, run DITCHFINE on
+two rented GPUs), the leading multiplier is again real and positive everywhere (0.056 to 0.075), with the same minimum
+at $\alpha=0.07318$ (0.0638). It falls toward smaller $\alpha$, where the valley runs toward the main ditch, so line
+A's minimum is where that line crosses the valley, not the valley's lowest point. A patch of the continued orbit over $\alpha\in[0.07300,0.07336]$ and $\log_{10}T\in[-0.15294,-0.15170]$
 ($21\times32$ cells, steps $1.8\times10^{-5}$ and $4\times10^{-5}$, four GPU bands, run DITCH2D; 595 cells solved, the
 unsolved ones at the right edge, next to the fold) has 41 sign changes and 33 complex leading pairs: the arc closes over a
 pocket of negative leading multiplier, with its peak near $(0.07326,-0.15232)$, and no sign change crosses the region
@@ -2598,8 +2607,10 @@ of the line, but it is not an established explanation (consult~18, \repo{docs/co
 at the minimum the third multiplier is comparable, and neither a saddle of $\delta$ nor a coupling of the two directions
 has been measured. Near the kite, where two orbits exist, curves that belong to different orbits can cross in the
 parameter plane without any degeneracy, as the superstable curves of Gallas's two coexisting fixed points do at his
-tail. With these qualifications the period-6 window meets the three numerical criteria along its body, with six located
-cusps and the kite of Gallas's cell: a second shrimp-shaped window of the full map, in the plane of
+tail. With these qualifications the period-6 window meets the three numerical criteria along its body, with the kite of
+Gallas's cell and its cusp C located (five more cusps close the ends of the legs and the small window beyond the neck):
+a second shrimp-shaped window of the full map, consistent with Gallas's organization (in 896 dimensions the name
+describes that organization of continued curves, not a local normal form), in the plane of
 Figure~\ref{fig:cross512} itself. The far parts of its legs remain unresolved.
 
 \begin{figure*}[tb]
@@ -3790,7 +3801,30 @@ norm-matched random directions are as chaotic as the concept directions, and in 
 feature, contrastive and random directions all are, with direction-dependent prevalence. What the direction selects is
 the text of the attractors (Appendix~\ref{sec:origin}).
 
-\paragraph{What is and is not claimed.} The objects studied here are invariant sets and bifurcations of an exactly
+\begin{table}[tbp]
+\centering\small
+\caption{Each bifurcation, crossing and boundary named in this paper: what it requires and what we show.
+Multipliers are those of the period-$p$ map $G=F^p$; $a$, $b$ and $c$ are coefficients of the center-manifold normal
+forms. The numbers are given in the text.}
+\label{tab:signatures}
+\begin{tabular}{@{}p{0.15\linewidth}p{0.29\linewidth}p{0.38\linewidth}p{0.12\linewidth}@{}}
+\toprule
+object & requires & we show & status \tabularnewline
+\midrule
+\raggedright fold & \raggedright one multiplier at $+1$; nonzero coefficients $a$ and $b$ & \raggedright both at the period-2 fold, where a stable and an unstable orbit meet; passage times forecast at four more folds & \raggedright shown \tabularnewline
+\raggedright flip & \raggedright one multiplier at $-1$; nonzero crossing speed and cubic coefficient & \raggedright multiplier at $-1$ and the doubled orbit at every level of the cascade; cubic coefficient only at two other flips & \raggedright partly shown \tabularnewline
+\raggedright cusp & \raggedright $+1$ with $b=0$, $c\neq0$ and a regular unfolding & \raggedright all three at the kite's cusp C and at five more cusps & \raggedright shown \tabularnewline
+\raggedright fold--flip point & \raggedright one orbit with $+1$ and $-1$ at once & \raggedright none at A or B & \raggedright none found \tabularnewline
+\raggedright pseudo-crossing & \raggedright curves of two different orbits cross & \raggedright two distinct orbits at R; different spectra at A and B & \raggedright shown \tabularnewline
+\raggedright Feigenbaum ratio & \raggedright ratios approach the constant of a universality class & \raggedright ratios reach 4.6688, against $\delta=4.6692$ & \raggedright consistent \tabularnewline
+\raggedright basin boundary & \raggedright edge moves with the start; a saddle on it & \raggedright kite edge absent for random starts; a saddle found on it & \raggedright strong evidence \tabularnewline
+\raggedright Neimark--Sacker & \raggedright complex pair crosses the unit circle, plus genericity conditions & \raggedright crossing predicted where an invariant circle appears & \raggedright consistent \tabularnewline
+\bottomrule
+\end{tabular}
+\end{table}
+
+\paragraph{What is and is not claimed.} Table~\ref{tab:signatures} lists, for each bifurcation, crossing and
+boundary named here, what it requires and what we show. The objects studied here are invariant sets and bifurcations of an exactly
 defined smooth map built from a frozen model's own computation. The answer-level reproducibility tests use two Qwen2.5
 models (0.5B and 7B), one task family and a soft-thinking pipeline without the top-$k$ filtering of the published
 method, and their bfloat16 effect does not require the float64 map's chaos: in float64 no answer changed in the 0.5B
@@ -4309,8 +4343,9 @@ by forward iteration inside the next band. On the logistic map embedded in six d
 the first four flip parameters to $10^{-9}$. This classifies the crossing, not the bifurcation: the cascade flips of
 Section~\ref{sec:cascade} and the flip curves of Section~\ref{sec:organization} are located where a real multiplier
 crosses $-1$ and confirmed by the doubled orbits beyond them. Flip coefficients were computed only at the two flips of
-the high-temperature bubble (Table~\ref{tab:flipnf}), so the other flips are not classified as super- or
-subcritical.
+the high-temperature bubble (Table~\ref{tab:flipnf}), so the other flips are not classified as super- or subcritical. Nor were their crossing speeds computed: a generic
+flip also needs a nonzero crossing speed of the multiplier and a nonzero cubic coefficient, so the cascade's flips are
+identified by a simple real multiplier at $-1$ and the doubled orbit beyond each.
 
 \FloatBarrier
 \section{Theory background, network contraction and the dimension of the chaos}
