@@ -81,7 +81,7 @@ answers beyond what the model's uncertainty about its first answer token predict
 tested designs we detect no edge-of-chaos advantage. The loop shows quantitative signatures of low-dimensional maps:
 late finite-order doubling ratios approach Feigenbaum's constant numerically (4.6688 against 4.6692, at the float64
 floor of the computation), periodic windows accumulate on folds with distances close to a $1/N^2$ law, passage times
-predicted in advance from fold normal forms came within one iterate of the return map in 42 of 48 cases at four new folds (the six
+predicted in advance from fold normal forms came within one iterate of the return map in 42 of 48 cases at four new folds, over two frozen stages (the six
 misses, at a period-6 fold, 3 to 5\,\% short), and interval arithmetic proves an attracting period-8 orbit and, at one parameter cell, two coexisting
 attracting orbits of periods 2 and 3. In the recurrent-depth model Huginn, a frozen test confirmed a predicted accuracy loss. The loop is not ordinary sampled
 generation.
@@ -1533,10 +1533,10 @@ chaos: deep periodic, edge and deep chaotic prompts are answered alike, with the
 \label{sec:adding}
 Between a period-2 region and the chaos lies a fan of stripes of periods $6, 8, 10, \dots$ Their orbits, numerically
 validated in float64, can be read as text (Table~\ref{tab:orbits}). Each is ``. This'' followed by $k$ pairs ``is
-X'', with period $2k+2$, so each stripe adds one pair. The period-2 region itself is the 2-cycle ``is it''. At the
-stripe centers the orbits are effectively one-dimensional: the leading multiplier, $0.0025$ to $0.086$, exceeds the
+X'', with period $2k+2$, so each stripe adds one pair. The period-2 region itself is the 2-cycle ``is it''. At the stripe centers the orbits' linear relaxation is dominated by one direction: the leading multiplier, $0.0025$ to $0.086$, exceeds the
 next by more than three orders of magnitude (the next falls from $3\times10^{-6}$ at period 6 to $2\times10^{-14}$ at
-period 20; Table~\ref{tab:orbits}), so one direction governs the dynamics near them. This is a property of these
+period 20; Table~\ref{tab:orbits}), so near these orbits a small deviation soon lies along a single direction (the
+smallest values are at the limit of float64 accuracy). This is a property of these
 orbits, not of the map as a whole. The two leading multipliers of the 2-cycle, $-0.271$ and $-0.058$, differ by a
 factor of only about 5 (the second modulus is about $0.037$ near its fold),
 the next modulus at the period-3 flip of Section~\ref{sec:cascade} is $0.088$, and one period-6 orbit in
@@ -1613,7 +1613,13 @@ multipliers in float32. \repo{tools/plot_fold.py}.}
 \paragraph{The fold.} At $\log_{10}T=-0.115$ the 2-cycle ``is it'' dies in a fold at $\alpha_c=0.06279827$ (float64
 multiplier $1$ to $3\times10^{-13}$, next modulus $0.037$; Figure~\ref{fig:fold}): it meets an unstable 2-cycle, and
 both vanish. In the critical coordinate $u$ of the second iterate $G=F^2$, the fold's normal form is
-$u'=u+a\eps+bu^2$ with $\eps=\alpha-\alpha_c$; here $a=-4.834$ per unit $\alpha$ and $b=-25.4285$, so $ab=122.93$. The stable branch gives an independent estimate: extrapolating its multipliers
+$u'=u+a\eps+bu^2$ with $\eps=\alpha-\alpha_c$; here $a=-4.834$ per unit $\alpha$ and $b=-25.4285$, so $ab=122.93$. Here $q$ is the critical eigenvector of $DG$ with $|q|=1$, $\ell$ the left one with $\ell^\top q=1$,
+$a=\ell^\top\partial G/\partial\alpha$ and $b=\tfrac12\ell^\top D^2G[q,q]$ \cite{kuznetsov2019maps}. The normal form is
+the quadratic truncation of $G$ on its center manifold: it neglects terms of order $u^3$, $\eps u$ and $\eps^2$, and it
+applies because the multiplier $+1$ is simple, $a$ and $b$ do not vanish, and the other multipliers lie inside the unit
+circle \cite{kuznetsov2023elements}. Integrated as a flow, it gives the passage from $v_{\rm in}$ to $U$ in closed form,
+$n(v_{\rm in})=[\arctan(|b|U/\kappa)-\arctan(|b|v_{\rm in}/\kappa)]/\kappa$ with $\kappa=\sqrt{ab\,\eps}$; a full
+passage approaches $\pi/\kappa$ only when $U\gg\sqrt{|a|\eps/|b|}$. The stable branch gives an independent estimate: extrapolating its multipliers
 through $(1-\mu)^2/(4(\alpha_c-\alpha))\to ab$ yields $123.1$ with a quadratic fit ($120.6$ with a linear one). An
 independent implementation of the forward map and solver recovers $\alpha_c$ to $6\times10^{-15}$ and $a$ to
 $3\times10^{-12}$. Its $b$, from nested automatic differentiation, is $-25.42846$; our finite-difference value
@@ -1637,8 +1643,8 @@ slightly upstream of the middle (bar), so its passage is shorter than a full one
 In the oriented coordinate $v=\operatorname{sign}(b)\,u$ of
 Appendix~\ref{sec:methods}, we start trajectories at $v=-U$ or $0$ ($U=0.1/|b|$) and count $G$-iterates until
 $v>U$. At four distances from the fold, the measured counts match the iterated normal form within
-one iterate (Table~\ref{tab:passages}, Figure~\ref{fig:passages}), and a displacement of the start of the same size, in a
-direction that leaves $u$ unchanged, changes the count by at most one.
+one iterate (Table~\ref{tab:passages}, Figure~\ref{fig:passages}), and a displacement of the start of the same size along one random direction that leaves $u$ unchanged changes the count by
+at most one (other directions and sizes were not tested).
 \begin{table}[H]
 \centering\small
 \begin{tabular}{rccc}
@@ -1669,13 +1675,15 @@ count $N$, together with the full- and half-passage predictions.}
 \paragraph{Natural reinjection and the window law.} Left to itself, a trajectory near the fold alternates between
 laminar phases, in which it crawls through the bottleneck close to where the 2-cycle was and moves almost
 periodically, and bursts, short excursions out of the channel after which it is reinjected into it
-(Figure~\ref{fig:fold}d). This alternation is type-I intermittency \cite{pomeau1980intermittent,hirsch1982theory};
+(Figure~\ref{fig:fold}d). This alternation is type-I intermittency \cite{pomeau1980intermittent}, whose laminar phases lengthen as
+$\eps^{-1/2}$ toward the fold \cite{hirsch1982theory};
 laminar is the fluid-dynamics term for the smooth stretches between turbulent bursts. Free trajectories re-enter the
 channel slightly upstream of the bottleneck's middle ($v\approx-3\times10^{-4}$ to $-7\times10^{-4}$, in the same
 oriented coordinate). From each measured entry point, the normal form predicts the natural laminar durations within
-4--8\% for $\eps\le10^{-4}$, and a natural passage lasts about 0.6 of a passage through the whole channel. A window of
-period $p$ spends $N=(p-6)/2$ iterates of $G$ in the bottleneck, one for each ``is X'' pair it writes. For a channel
-much longer than the bottleneck a full passage takes about $\pi/\sqrt{ab\,\eps}$ iterates, so a loop whose passage is
+4--8\% for $\eps\le10^{-4}$, and a natural passage lasts about 0.6 of the normal form's passage through the same channel from end to end. A window of
+period $p$ spends $N=(p-6)/2$ iterates of $G$ in the bottleneck, one for each ``is X'' pair it writes. We read each pair as one $G$-iterate in the bottleneck, as the texts suggest (the laps were not identified
+geometrically). For a channel much longer than the bottleneck a full passage takes about $\pi/\sqrt{ab\,\eps}$ iterates
+\cite{hirsch1982theory,strogatz1989predicted}, so a loop whose passage is
 a fraction $f$ of a full one sits at the distance $d_N=\alpha_N-\alpha_c$ from the fold for which
 $d_NN^2=f^2\pi^2/(ab)$. The stripes therefore follow the $N^{-2}$ law of a saddle-node ghost
 \cite{strogatz1989predicted,strogatz2018nonlinear} (log-log slope $-2.00$, below), with about a third of the
@@ -1701,7 +1709,9 @@ window centers, $N=4$--7 & $d_NN^2=0.0263$--$0.0265$ & $\pi^2/(ab)=0.0803$ & 0.5
 fold edges, periods 16--20 & slope $6.13$ & $\sqrt{ab}/\pi=3.53$ (ratio 1.74) & 0.58 \\
 \bottomrule
 \end{tabular}
-\caption{Three independent estimates of the passage fraction $f$, the share of a full passage that a loop or a free
+\caption{Three related comparisons of the passage fraction $f$ (the free passages against the normal form's passage
+through the same finite channel, the window values as effective prefactors relative to the long-channel passage; all
+three share the fold and its coefficients, so they are not independent): the share of a full passage that a loop or a free
 trajectory spends in the bottleneck. The fold edges' slope is the rise of $1/\sqrt{\alpha_N-\alpha_c}$ per unit of
 $N$. A half passage would give $f=1/2$ and $d_NN^2=\pi^2/(4ab)=0.0201$.}
 \label{tab:fraction}
@@ -1730,14 +1740,14 @@ extrapolated to 1 through $(1-\mu)^2$, which is linear near a fold; last converg
 We tested whether the measured reinjection predicts windows beyond the fitted range. A model with one fixed entry
 point (the median measured one) and one lap offset fitted to the fold edges of periods 16--20 places the fold edges
 of periods 22--30 3 to 9\,\% closer to the fold than the constant-prefactor law. Both predictions were frozen
-before a float64 line of 3200 cells (spacing $10^{-7}$) located the windows. The measured edges follow the law
-within 3\,\% through period 30 (within 1\,\% at periods 22, 24 and 28) and fall outside the model's range except
+before a float64 line of 3200 cells (spacing $10^{-7}$) located the windows. The measured edges follow the law within 3\,\% in distance from the fold through period 30 (within 1\,\% at periods 22, 24 and 28) and fall outside the model's range except
 at period 30. So the law extrapolates, but one fixed reinjection point does not predict it. The measured entry
 points move with $\eps$ ($-3\times10^{-4}$ to $-7\times10^{-4}$).
 The exponent of the law is near 2, its prefactor empirical. Over the fold edges of periods 16 to 32 ($N=5$ to 13),
 $\ln(\alpha_N-\alpha_c)$ against $\ln N$ has slope $-2.00$, while a free fit of $C/(N+N_0)^{\gamma}$ with the offset
-$N_0$ also fitted is not well determined. The edges are located to within $2\times10^{-4}$ of their distances, so the misfits of 1 to 3\,\% of any such law are corrections to its asymptotic form, not noise: $\gamma$ runs from 2.13 to 2.45 as the smallest $N$ included rises from 5 to 8, while the fixed exponent 2 with an offset fits within 3\,\% (within 1\,\% from $N=8$), so the data do not pin the exponent to exactly 2. At these distances, however, the bottleneck is not narrow compared with
-the counting window: its scale $\sqrt{|a|\eps/|b|}$ is 1.35 to 3.51 times $U$, and a full passage lasts only 9 to
+$N_0$ also fitted is not well determined. The edges are located to within $2\times10^{-4}$ of their distances, so the misfits of 1 to 3\,\% of any such law are consistent with corrections to its asymptotic form rather than
+noise: $\gamma$ runs from 2.13 to 2.45 as the smallest $N$ included rises from 5 to 8, while the fixed exponent 2 with an offset fits within 3\,\% (within 1\,\% from $N=8$), so the data do not pin the exponent to exactly 2. At these distances, however, the bottleneck is not narrow compared with
+the counting window: at the fold edges of periods 16 to 32 its scale $\sqrt{|a|\eps/|b|}$ is 1.35 to 3.51 times $U$, and a full passage lasts only 9 to
 23 iterates of $G$. The windows therefore lie outside the asymptotic regime in which the normal form fixes the
 prefactor \cite{pomeau1980intermittent,hirsch1982theory}, and the factor of about one third is a measured value, not a
 prediction. The same inversion of the bottleneck time gives the $N^{-2}$ tail of relaxation times over inputs found in
@@ -1751,8 +1761,7 @@ a small task-trained looped transformer \cite{kim2026phase}; here $N$ counts the
 \end{figure}
 
 \paragraph{A prospective test.} The same reduction, with both coefficients computed from the network's derivatives,
-predicts relaxation times and spectral gaps without fitting in a small task-trained looped transformer, where it was
-compared with measurements after the fact \cite{kim2026phase}. To test the normal form at folds that were not used while the bottleneck explanation was worked out, an independent implementation located two new folds and computed their normal-form coefficients by nested automatic
+predicts relaxation times and spectral gaps without fitting in a small task-trained looped transformer \cite{kim2026phase}. To test the normal form at folds that were not used while the bottleneck explanation was worked out, an independent implementation located two new folds and computed their normal-form coefficients by nested automatic
 differentiation. All 24 passage predictions were pushed in a frozen design before any test trajectory was run.
 Target A is the 2-cycle's fold at a new temperature: $\log_{10}T=-0.140$, $\alpha_c=0.0670549$, $a=-7.055$,
 $b=-24.927$. Target B is the fold of the period-8 orbit of Table~\ref{tab:orbits}, continued in temperature at
@@ -1769,8 +1778,8 @@ iterates. The design also froze a secondary comparison, the continuous passage i
 $\int du/(a\eps+bu^2)$ of the same normal form, whose closed form is the arctangent usually quoted for saddle-node
 bottlenecks. It came within one iterate of all 24 measurements (errors from $-0.41$ to $+0.92$) and gives 58.56 for
 the failing row. At that entrance the two forms already differed by 2.4 iterates before any measurement: iterating the
-quadratic map from the entrance $u_{\mathrm{in}}$ to the exit $U$ adds about $\tfrac12\ln[f(U)/f(u_{\mathrm{in}})]$
-steps to the integral, $f(u)=a\eps+bu^2$, most at small $\eps$ and at the midpoint entrance. Which of the two forms
+quadratic map from the entrance $u_{\mathrm{in}}$ to the exit $U$ adds, to leading order for slowly varying steps, about $\tfrac12\ln[h(U)/h(u_{\mathrm{in}})]$ steps to the integral,
+$h(u)=a\eps+bu^2$, most at small $\eps$ and at the midpoint entrance. Which of the two forms
 the full map follows is not settled by this test, and it does not let us promote the secondary comparison after the
 fact.
 \begin{table}[H]
@@ -1805,8 +1814,8 @@ passages from the channel's entrance came in short, by 0.40 to 5.74 iterates and
 primary criterion failed, 18 of 24 rows (the discrete count passed 16 of 24). From the fold point to the exit the
 period-6 passages follow the normal form; it is the first half of the channel that is crossed faster. Terms beyond the
 quadratic normal form on that side, or the curvature of the center manifold at the entrance, are candidate causes
-that this test does not resolve. Over both frozen tests, the continuous integral came within one iterate of 42 of 48
-passages; all six misses are entrance passages at the period-6 fold, short by 3.1 to 5.2\,\%. The sign hypothesis
+that this test does not resolve. Summed over both frozen tests, in which it was first the secondary and then the primary predictor, the continuous
+integral came within one iterate of 42 of 48 passages; all six misses are entrance passages at the period-6 fold, short by 3.1 to 5.2\,\%. The sign hypothesis
 frozen with the design, that midpoint and kicked passages do not exceed the discrete count, held in all 16 rows
 (\repo{codex/confirm-fold-2}).
 \begin{table}[H]
@@ -1837,7 +1846,7 @@ doubled loops repeat the same leading tokens twice and four times, with alternat
 along this cut in float64 (Appendix~\ref{sec:methods}), in the steering coordinate $\alpha$, gives
 Table~\ref{tab:cascade}. The first two ratios, $\delta_2=2.844$ and $\delta_3=2.859$ (indexed as in
 Table~\ref{tab:cascade}), are far from Feigenbaum's $4.6692$, even though from the second flip on the orbits are
-effectively one-dimensional (next modulus $0.0023$, $2\times10^{-6}$, $2\times10^{-12}$). The next ratio,
+dominated in their linear relaxation by one direction (next modulus $0.0023$, $2\times10^{-6}$, $2\times10^{-12}$). The next ratio,
 $\delta_4=3.781$, is markedly larger. The first four flip parameters agree between completed float64 computations on a
 CPU and an H100 to $4\times10^{-15}$.
 
