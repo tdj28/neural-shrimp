@@ -31730,3 +31730,14 @@ nearly identical under protan vision.
   - next modulus: at most 3.76e-13.
 - Same range, 0.05658 to 0.07467, all positive, with the minimum 0.05658 at the same corner.
 - The article and report numbers stand; no fix needed. Codex Task 40 (A3) may compare independently.
+
+## 2026-10-20 03:24 UTC: Zenodo evidence secret scan clean
+
+- Byte-level scan (LC_ALL=C, parallel grep) of every file in neural-shrimp-data/codex/llm-p8-certificate and
+  .../coexistence, the full content of the staged tar parts, 02:49 to 03:24 UTC.
+- No match for RunPod, OpenAI, Hugging Face, GitHub or AWS key patterns, private-key headers, or the API-key and
+  token variable names. No unreadable file.
+- The first attempt (timeout 900 s) was cut off before finishing and proved nothing; it was redone.
+- Personal data: 4503 small text files contain absolute paths under /home/d7082791602/.codex/worktrees/ (Codex's
+  working copies), which show the system username and folder names only. They are left unchanged, because the
+  receipts are hash-bound.
