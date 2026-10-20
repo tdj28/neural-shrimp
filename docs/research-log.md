@@ -31719,3 +31719,14 @@ nearly identical under protan vision.
 - Part B: go/no-go on the article (changed sections, calibration after the two external reviews and consult 24,
   figures, citations).
 - The article stays frozen during the review, apart from a possible DITCHFINE local-versus-GPU fix.
+
+## 2026-10-20 03:23 UTC: DITCHFINE local CPU bands agree with the GPU bands (independent check)
+
+- Local bands explore/llm-soft-loop/p6s/ditch-fine-b0 to b2 (CPU, float64, started 00:25 UTC), the same 15 x 15 patch
+  as the GPU bands pod64/dss/ditchfine-g0 and -g1.
+- Gates: 225 of 225 cells solved; all have the seed's tokens; Newton residuals at most 1.1e-13; no complex leading pair.
+- Cell by cell over the 225 common cells:
+  - leading multiplier: |local - GPU| at most 6.55e-12 (median 2.56e-13; relative at most 1.03e-10);
+  - next modulus: at most 3.76e-13.
+- Same range, 0.05658 to 0.07467, all positive, with the minimum 0.05658 at the same corner.
+- The article and report numbers stand; no fix needed. Codex Task 40 (A3) may compare independently.
