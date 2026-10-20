@@ -25,7 +25,7 @@
 \newcommand{\codelink}[1]{\href{\repourl/blob/\reporef/#1}{code}}
 \usepackage{microtype}
 \hypersetup{pdftitle={Chaos and bifurcations in continuous language-model feedback},
-  pdfsubject={Private working draft, 18 October 2026}}
+  pdfsubject={Supplementary material to the article of the same title}}
 \graphicspath{{figures/}}
 % Placeholders: red = planned, not started; orange = running or partly done. Remove all before submission.
 \newcommand{\planned}[1]{\textcolor{red}{\textbf{[Planned:} #1\textbf{]}}}
@@ -33,17 +33,11 @@
 \newcommand{\eps}{\varepsilon}
 
 \title{Chaos and bifurcations in continuous\\ language-model feedback}
-\author{Timothy D. Jones\\ Praxagent}
-\date{Private working draft, 18 October 2026}
+\author{Timothy D. Jones}
+\date{Supplementary material to the article of the same title}
 
 \begin{document}
 \maketitle
-\noindent\textbf{Status of this draft.} Unless marked otherwise, results on the soft-token map are numerically
-validated in float64 (rung 1 or 2 of the evidence ladder in Appendix~\ref{sec:evidence}). Float32 maps are labeled
-as such. Huginn's spectra are float32 and its accuracy runs bfloat16. \planned{Red} marks planned work and \inprogress{orange} running work. The only
-computer-assisted proofs are those of the period-8 orbit of Table~\ref{tab:orbits} and of the coexisting attracting
-period-2 and period-3 orbits at one parameter cell (rung 3, Appendix~\ref{sec:evidence}).
-
 \begin{abstract}
 Feeding a pretrained language model the expected embedding of its own next-token distribution turns it into a
 discrete-time dynamical system with continuous states, whose consequences for inference depend on the feedback
@@ -4103,11 +4097,6 @@ for encouraging the publication of this work.
 \section*{Funding}
 This work received no external funding; the author paid for all computation.
 
-% Competing interests: TO BE CONFIRMED BY THE AUTHOR before submission (external review, 18 Oct 2026). Draft:
-% \section*{Competing interests}
-% The author is affiliated with Praxagent and declares no financial or commercial interest in continuous-reasoning
-% methods, inference reproducibility, activation steering or related products.
-
 \section*{Ethics and responsible use}
 This study involved no human participants, private conversations or personal data. The access-control requests and
 their users in Appendix~\ref{sec:behaviour} are synthetic, and the benchmark problems are public; institutional review
@@ -5942,6 +5931,5 @@ receipts: \path{evidence/llm-dynamics-data-receipts.json} (to 12 October), the p
 and the verified snapshot manifests in \path{docs/backups/}; independent cross-check and audit receipts are under
 \path{codex/} (\path{crosscheck}, \path{confirm-fold}, \path{hostile-fold-crosscheck},
 \path{huginn-design-review}, \path{huginn-independent-replay}, \path{paper-review}).\par}
-\planned{public code and data release at submission.}
 
 \end{document}
