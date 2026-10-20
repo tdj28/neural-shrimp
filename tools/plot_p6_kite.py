@@ -52,7 +52,7 @@ def crossings(A, B):
 
 def main():
     ap = argparse.ArgumentParser(description=__doc__.split("\n\n")[0])
-    ap.add_argument("--scan", default="llm-soft-loop/pod64/hr10")
+    ap.add_argument("--scan", default="llm-soft-loop/pod64/hr11")     # the 512 x 512 kite map of the paper's figure
     ap.add_argument("--window", type=float, nargs=4, default=[0.07280, 0.07310, -0.15440, -0.15300],
                     metavar=("A0", "A1", "T0", "T1"))
     ap.add_argument("--out", required=True)
@@ -157,7 +157,7 @@ def main():
     if len(stable0) and first_fold is not None:
         axB.axvspan(lo, first_fold, color="tab:green", alpha=0.15, lw=0)
     axB.set_xlabel(r"steering strength $\alpha$ (at $\log_{10}T=%.7f$)" % bt)
-    axB.set_ylabel("orbit point along the branch's leading direction")
+    axB.set_ylabel("orbit state: first principal coordinate")   # a display coordinate (caption)
     axB.ticklabel_format(useOffset=False)
     axB.tick_params(labelsize=6.5)
     axB.set_title("(b) the branch: an S between two folds (open circles)", fontsize=8)

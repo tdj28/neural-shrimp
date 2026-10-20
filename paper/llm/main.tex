@@ -2512,9 +2512,8 @@ direction at layer 12 against the temperature, holds a second shrimp-shaped wind
 runs P6S, HR9, HR10, DSS6 and KITE). At a strongly contracting cell of the map, $(\alpha,\log_{10}T)=(0.073097,-0.15204)$,
 Newton's method in float64 converges to a primitive period-6 orbit (residual $1.6\times10^{-14}$) whose leading
 multipliers form a complex pair of modulus $0.016$. Followed from there through neighboring cells on the grid of
-Figure~\ref{fig:cross512}, the attractor fills 4224 cells. They cover the shrimp's body and the two legs that leave it
-at the lower left and run along the stripes, and they continue along the lower fold curves, through a narrow neck,
-into a smaller and distorted window at the lower right of Figure~\ref{fig:p6shrimp}(c). Of these cells, period 6 holds
+Figure~\ref{fig:cross512}, the attractor fills 4224 cells. They cover the shrimp's body and its legs, and below the body they continue through a narrow neck into a smaller,
+distorted window at the lower right of Figure~\ref{fig:p6shrimp}(c). Of these cells, period 6 holds
 1946, periods 12, 24 and 48 hold 945 along the edges, other periods 35, chaos behind the repeating text in 811 (an exactly repeating text, no period up to
 64 and an exponent of at least 0.005) and slow cells in 487 (the same with an exponent below 0.005; with the maps'
 threshold of $10^{-3}$ the split would be 842 and 456). Continued from the body in four directions, up and down in $\alpha$ and in $T$, the period-6 orbit
@@ -2527,7 +2526,7 @@ distances 0.19 steps); over the whole followed domain the shares fall to 388 of 
 and 0.24 steps), because the far parts of the legs leave the traced curves, so their boundary is not resolved. A
 $640\times640$ fixed-start map centered on the body (steps $4.4\times10^{-6}$ in $\alpha$ and $1.25\times10^{-5}$ in
 $\log_{10}T$, about seven times finer than Figure~\ref{fig:cross512}; 66.5\,\% of its cells chaotic) shows the body
-with its dark lines of strongest contraction, the flip region along its bottom and the two legs leaving its
+with its dark lines of strongest contraction, the flip region along its bottom and two of its legs leaving its
 lower-left end, one straight down along the left flip curve and one to the lower left (Figure~\ref{fig:p6shrimp}a).
 
 The two flip curves cross at that end, near $(0.072912,-0.154104)$. They are flip curves of two different orbits:
@@ -2551,8 +2550,8 @@ $(0.0730186,-0.1532803)$ (cubic coefficient $c=-1.33\times10^{4}$, unfolding det
 multiplier within $7.7\times10^{-9}$ of $+1$, next modulus $0.00095$), on the side of R toward the body. Its two
 branches meet the two flip curves at A $=(0.072991,-0.153984)$ and B $=(0.072900,-0.153707)$, completing the kite
 C--A--R--B of Gallas's cell. Besides C,
-the fold curves have five more located cusps (Table~\ref{tab:p6cusps}): near the ends of the upper-left and lower-left
-legs, two pairs that share a segment, each with cubic coefficients of opposite sign, the configuration of the period-5
+the fold curves have five more located cusps (Table~\ref{tab:p6cusps}): four in two pairs near the ends of the upper-left and lower-left legs, the two cusps of each pair joined by a short
+segment of the fold curve and with cubic coefficients of opposite sign, the configuration of the period-5
 window's upper leg; and one at the tip of a small separate window beyond a narrow neck below the body, where the orbit
 is stable again after a doubling; two branches, run independently, trace that fold curve and its turn to within one
 curve step.
@@ -2571,8 +2570,9 @@ leading multiplier changes sign across 45 neighboring solved pairs; only two hav
 factor three at both ends, and this endpoint test does not tell a multiplier crossing zero from an exchange of
 dominance. These sign changes mark the body's dark ditches (Figures~\ref{fig:p6ditches} and~\ref{fig:p6signs}), which take the place of Gallas's
 superstable curves. A leading
-multiplier is the largest in modulus, so it vanishes only if all multipliers do, and between the two cells of each pair
-the lead must pass to another multiplier or through a complex pair. Two lines of cells computed locally in float64
+multiplier is the largest in modulus, so it vanishes only if all multipliers do, and between the two cells of each pair it changes sign in one of two ways: it meets the next multiplier, the two leave
+the real axis as a complex pair and return to it with the opposite sign, or a multiplier of the opposite sign grows
+past it in modulus and becomes the leading one, a hand-over. Two lines of cells computed locally in float64
 (run DITCH) show both outcomes. Across the main ditch at $\log_{10}T=-0.1530$ (21 cells, steps $7\times10^{-6}$ in
 $\alpha$) the negative leading multiplier shrinks from $-0.605$ to $-0.060$, the lead passes at $\alpha=0.072976$ to a
 complex pair, $0.0069\pm0.0229i$, and the pair splits into two positive multipliers, the lead rising to $+0.71$. Across
@@ -2615,8 +2615,7 @@ becomes a complex pair, and the orbit is attracting throughout (the measurements
 Figure~\ref{fig:p6signs}). The multiplier never vanishes, so these dark ditches are pseudo-superstable lines; they meet below C, where the superstable curves of (a) cross at the tail T, but approach and turn away at the
 top, where (a) has its head H, a Type-B-like unfolding of the one-dimensional skeleton
 \cite{facanha2013endoskeletons}. In both panels the fold curve bounds the main cell
-(in (b), the body) above and on the right, flip curves bound it on the left and below, and two legs leave it at the lower
-left, where the kite lies.}
+(in (b), the body) above and on the right, flip curves bound it on the left and below, and at the lower left two of its legs cross in the kite.}
 \label{fig:p6ditches}
 \end{figure*}
 
@@ -2659,9 +2658,12 @@ times finer in $\log_{10}T$ than in Figure~\ref{fig:p6shrimp}a (gray: periodic, 
 curves (red, dashed), the fold curve continued from the branch of (b) (black), and the corners of Gallas's kite: R,
 where the flip curves cross (two distinct orbits, one on each curve); A and B, where the fold curve meets them; C, the
 located cusp where the fold curve turns back (gold star). Green: the line $\log_{10}T=-0.15395$ of the branch, thick
-where the two attracting orbits coexist. (b) The branch: the orbit's position along the leading direction of the
-branch's states against $\alpha$, solid where the orbit is attracting and dashed where not; two folds (open circles)
-make it an S, and the two attracting sheets overlap in the shaded interval (\repo{tools/plot_p6_kite.py}). Inside the kite, the straight edge where the gray changes abruptly (near $\log_{10}T=-0.15353$) is a basin boundary
+where the two attracting orbits coexist. (b) The branch, computed by numerical continuation of the period-6 orbit in $\alpha$ along the green line of (a):
+every point is an orbit converged by Newton's method, solid where its multipliers show it attracting and dashed where
+not, and the two open circles are folds, where a multiplier reaches $+1$; they make the branch an S, and the two
+attracting sheets overlap in the shaded interval (\repo{tools/plot_p6_kite.py}). The vertical axis is a display
+coordinate: one point of each orbit, a vector of 896 numbers, centered over the branch and projected on the direction
+in which these points vary most, their first principal component. Inside the kite, the straight edge where the gray changes abruptly (near $\log_{10}T=-0.15353$) is a basin boundary
 of the fixed start, not a bifurcation, where we checked it: at two neighboring cells across it both attracting
 period-6 orbits exist (leading multipliers $0.18$ and $0.60$ to $0.61$), the fixed start reaches one above the edge
 and the other below (\repo{tools/kite_basin_check.py}), and at one steering strength the start on the edge lies on
