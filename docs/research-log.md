@@ -31771,3 +31771,12 @@ nearly identical under protan vision.
   - SHA256SUMS.txt regenerated with 35 entries; the large-archive sums are carried over from the list Codex verified.
 - Task 40b (appended to /data2/CHECK_THESE.md): Codex checks the revised article e300c8e, its bundle, and the three
   changed Zenodo files.
+
+## 2026-10-20 04:30 UTC: Codex Task 40b: GO for article e300c8e; its two minor suggestions applied
+
+- Codex's verdict: the required corrections are implemented, the revised bundle matches the canonical article, all 34
+  pages were inspected, and no scientific or build blocker remains. The Zenodo follow-up is complete.
+- Suggestions applied in both documents:
+  - reference 17 primaryClass cs.LG (arXiv API: primary cs.LG, cross-list cs.CL);
+  - Fig. 25 caption: a two-dimensional block initialized from the leading Ritz directions and tracked by subspace
+    overlap; panel (a) shows "the trace of the tracked block".
