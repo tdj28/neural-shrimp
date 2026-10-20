@@ -1,4 +1,4 @@
-"""Orchestrate RunPod Phase 0 end to end (approved: at most $5; see docs/consults/approvals.md).
+"""Orchestrate RunPod Phase 0 end to end (approved: at most [amount redacted]; see docs/consults/approvals.md).
 
 create pod (named neural-shrimp-...) -> wait for SSH -> upload `git archive` of
 a pushed commit and the sm_89 reference -> run tools/runpod_phase0_runner.sh

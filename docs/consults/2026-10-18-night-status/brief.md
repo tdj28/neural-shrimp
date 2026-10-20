@@ -132,6 +132,6 @@ and was replaced before any cross-test data; both results reported.
    *sharper* computable bound worth trying (e.g. a weighted/adapted norm along orbits, cone fields, Lyapunov-function
    style estimates, or the k-step ladder to larger k with converged power iterations), and is test A's
    lower-estimate-of-L framing correct?
-5. Given limited money (rented GPUs/CPUs) and roughly a day, what should the next 12 hours of
+5. Given limited compute (rented GPUs/CPUs) and roughly a day, what should the next 12 hours of
    compute go to, among: the 1-D head search; the period-11 skeleton; tracing the period-5 shrimp's tail; the
    certificate ladder support; anything we are missing? What should we NOT claim?

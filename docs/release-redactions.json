@@ -1,0 +1,486 @@
+{
+ "schema": "release-redactions/1",
+ "created_utc": "2026-10-20T17:38Z",
+ "reason": "Dollar amounts, and four sentences about spending and compute resources, were removed from the public HEAD under the project rule that committed files carry no dollar amounts. In JSON records the values of keys ending in usd are set to null; in text, nonzero amounts read '[amount redacted]'. Zero amounts are kept. Nothing else was changed in these lines.",
+ "originals": "Every original is unchanged in the history; the tag arxiv-v1 (1314528118ac1300c2cffd34fb60cfbfc67d2c82) holds each one: git show arxiv-v1:<path>. Records that pin a file's SHA-256 refer to that original.",
+ "redaction_commits": [
+  "e359312e339c8f2fda59f280e6d7f92d88c0552d",
+  "the commit that adds this file"
+ ],
+ "audit": "codex/release-audit-task41/ (findings C1 and C4)",
+ "files": [
+  {
+   "path": "codex/night-results-review-task21/task21a/source-initial/comms/claude-to-codex.md",
+   "original_blob": "b7c15a74a77788b9ecc24759b36a55cbe3862e39",
+   "original_sha256": "8a99741f428eb17711440d782605dfbba73b231e3b581dd3d7466b6deff915f5",
+   "redacted_lines": [
+    329,
+    366,
+    370,
+    386,
+    406
+   ]
+  },
+  {
+   "path": "codex/night-results-review-task21/task21i/transcript-supplement-001/claude-to-codex.md",
+   "original_blob": "ac2f4a4e3e6a3618b3763d4ebceccb056b95a37c",
+   "original_sha256": "f1229d8a83f2db90d6e29394f5a131ff61d5a9648973c4275e1acca786e35748",
+   "redacted_lines": [
+    329,
+    366,
+    370,
+    386,
+    406
+   ]
+  },
+  {
+   "path": "comms/claude-to-codex.md",
+   "original_blob": "9312df7135c0d647d9b9e549b6fac79debaebde6",
+   "original_sha256": "7c11f3d806bd2d9836dbeaebdc1c2a2466d04bd729f8af24b09ee0910b0a342f",
+   "redacted_lines": [
+    329,
+    366,
+    370,
+    386,
+    406,
+    2052
+   ]
+  },
+  {
+   "path": "docs/EXP-013-local-review.json",
+   "original_blob": "df90b6628e3cdc93c13c23fe4a483af2d147fcce",
+   "original_sha256": "7d0876fd11ed9aeb4a10fccc9fb4c6b832b40e4f47f2d18da5cd2b5d33d8b556",
+   "redacted_lines": [
+    85
+   ]
+  },
+  {
+   "path": "docs/EXP-013-protocol.md",
+   "original_blob": "a4cc894cf3da212c1259a74874ceedd0adf68c93",
+   "original_sha256": "5c748766766a76d36d50c7677f355b439a2e73df99842a422b95424a205ad05f",
+   "redacted_lines": [
+    51
+   ]
+  },
+  {
+   "path": "docs/EXP-014-protocol.md",
+   "original_blob": "4957a3990836cde1bdd6e3fbc28cc2a008403cf2",
+   "original_sha256": "21314553aa20da12fea9a8c6bd74dce403f80d2662477222449047b100451c22",
+   "redacted_lines": [
+    217
+   ]
+  },
+  {
+   "path": "docs/EXP-016-local-review.json",
+   "original_blob": "066d60a5edf37e5cf73fbd1ecc9c78ab2869507c",
+   "original_sha256": "dff72c7ab00ce02dee2a17757da1da47f16bc00f9e21cea9e801cf204a5a9f51",
+   "redacted_lines": [
+    54
+   ]
+  },
+  {
+   "path": "docs/EXP-016-results.md",
+   "original_blob": "a49d1a86b90095159dcfd2d4378eff7775a68f1b",
+   "original_sha256": "ecd2f72846ee8d2b9cf9952770db3b93f9cabfcc1caff3de78bc16aa2c6ae21d",
+   "redacted_lines": [
+    130,
+    131
+   ]
+  },
+  {
+   "path": "docs/consults/2026-09-17-authorization-correction.md",
+   "original_blob": "8a145d386ef15bb53cf1b5d042a88648ec78d378",
+   "original_sha256": "d595fe7c0ca69f50aae9405bee0eccecfaeabbaf5017c82604bffb1dc755c3bd",
+   "redacted_lines": [
+    4,
+    13,
+    20,
+    21
+   ]
+  },
+  {
+   "path": "docs/consults/2026-09-17-pro-adjudication.md",
+   "original_blob": "55e052fe652ec0aa5f45bfb59e73d4fb40e6e366",
+   "original_sha256": "ce72d07076cb52502b4f4e9867320227be73859cfb0c5f47eebc5225585d2cd3",
+   "redacted_lines": [
+    4,
+    26,
+    30,
+    31
+   ]
+  },
+  {
+   "path": "docs/consults/2026-09-17-pro-receipt.json",
+   "original_blob": "65b9db95f600e8a0f6bd7367ef566e751248adbc",
+   "original_sha256": "133d41f4e66845a2f9a3800453250d0d4a8cfc414e6e8f566132e28955393b62",
+   "redacted_lines": [
+    61,
+    63,
+    64,
+    68,
+    86,
+    87,
+    88,
+    97,
+    136
+   ]
+  },
+  {
+   "path": "docs/consults/2026-09-17-receipt.json",
+   "original_blob": "f7d9c67af8d573e533904d63ef5308eceecf5356",
+   "original_sha256": "a6f2d91ef977e872cad1c5539c0b5dd8cfee2667e6324d3af16560d84860875f",
+   "redacted_lines": [
+    10,
+    45
+   ]
+  },
+  {
+   "path": "docs/consults/2026-09-17-status.md",
+   "original_blob": "5a3ae995225fc41dce9813f796106caf956573cd",
+   "original_sha256": "183d3b695ed36749a09c7f33abb14049ec32b43ca4848cf92a7817fe8998c19e",
+   "redacted_lines": [
+    5,
+    11,
+    39,
+    40,
+    45,
+    68
+   ]
+  },
+  {
+   "path": "docs/consults/2026-09-17-strategy-brief-v2.md",
+   "original_blob": "7a8ca8e2435c34254eebcf8e149941d6782bbd46",
+   "original_sha256": "88664d7517bab92667e89e52acf999e534f364d589bf8a946dc4d84f683cffc7",
+   "redacted_lines": [
+    165
+   ]
+  },
+  {
+   "path": "docs/consults/2026-09-17-strategy-brief.md",
+   "original_blob": "2c128167975642417f08ddec9361dd8b8fe62a0a",
+   "original_sha256": "cceca16829ef19879024dc30471f0e06192ab338ae2fb7db6e85a2419f7733f3",
+   "redacted_lines": [
+    4
+   ]
+  },
+  {
+   "path": "docs/consults/2026-09-22-authorization.md",
+   "original_blob": "51f2095ad3a5253ea455922778ea17ff4fe1950b",
+   "original_sha256": "07ac2b998a5ee3dce1309e560e3a26d8414969e5f3447e1a7db315f4acfe5bcd",
+   "redacted_lines": [
+    5,
+    7
+   ]
+  },
+  {
+   "path": "docs/consults/2026-09-22-pro-adjudication.md",
+   "original_blob": "95ea0adbd7d01ff7872f8993188b0822d803bc4b",
+   "original_sha256": "8bd574d2581b1bf6e55492c5a9c2deb482b9c5f764eb37db7496231c63ec7448",
+   "redacted_lines": [
+    16,
+    17,
+    18
+   ]
+  },
+  {
+   "path": "docs/consults/2026-09-22-pro-receipt.json",
+   "original_blob": "0f77dbf5827f4d27a207adea59d7d73835035146",
+   "original_sha256": "b9900d0b13e1054913de441935e8bce430088c642d624a07d0302b54d47c7c30",
+   "redacted_lines": [
+    33,
+    46,
+    49,
+    52,
+    64
+   ]
+  },
+  {
+   "path": "docs/consults/2026-09-22-receipt.json",
+   "original_blob": "62c5995a204e7ba6ccfe267d8c5e67c8755dbd06",
+   "original_sha256": "e63a12ab9d7b453123e1ee9c4cf070a9261d08aaf5953b9fbf46607f00a13a7a",
+   "redacted_lines": [
+    14,
+    15,
+    20,
+    21,
+    23
+   ]
+  },
+  {
+   "path": "docs/consults/2026-09-22-retry-authorization.md",
+   "original_blob": "17c7bda10b2e64110aad4f9af3f2721aa8972ae7",
+   "original_sha256": "e534ac9ab339e55b973c1abc0d2a60c05d4441377413f4aac796e46cc86f7d69",
+   "redacted_lines": [
+    5,
+    7
+   ]
+  },
+  {
+   "path": "docs/consults/2026-09-22-status.md",
+   "original_blob": "53005596b65c620a976158ca84c3712ee16fe954",
+   "original_sha256": "23224dd46669e035d1b731991316af45735e0b8ece9535e3010ec22bdbf4429a",
+   "redacted_lines": [
+    14,
+    16
+   ]
+  },
+  {
+   "path": "docs/consults/2026-10-13-llm-paper-synthesis/adjudication.md",
+   "original_blob": "d4f0b32535d06057270ea89b374815244a78dd2c",
+   "original_sha256": "ac9e98a47a5b251848a5ed56b1655b9616626ba7d47c75ff6e49c0439f68de33",
+   "redacted_lines": [
+    4,
+    46
+   ]
+  },
+  {
+   "path": "docs/consults/2026-10-13-llm-paper-synthesis/brief.md",
+   "original_blob": "b5635bbdbd7e2a7a73ad2dd711da4b8e0edf0077",
+   "original_sha256": "16d69bbedd7930e838ef23f1a5908905b336f33c38404aa2a97a7ca28fe6b9b5",
+   "redacted_lines": [
+    122
+   ]
+  },
+  {
+   "path": "docs/consults/2026-10-14-llm-paper-synthesis-v2/adjudication.md",
+   "original_blob": "65417f074022453254b67165bc30abf54decfe3d",
+   "original_sha256": "3fc76899f5f3ae0fe9ca9fe7a0774d1fc3ea76e9a91e4b76d1a65ca35de5ee79",
+   "redacted_lines": [
+    14,
+    15
+   ]
+  },
+  {
+   "path": "docs/consults/2026-10-14-llm-paper-synthesis-v2/brief.md",
+   "original_blob": "9ba58bf982898067a8e49c6bb88574c2c6bb987f",
+   "original_sha256": "e92f80bdc35b2bd8bbd8aecdbc6300b7580a6c2ea98fceeecbfbce18715eaa23",
+   "redacted_lines": [
+    96
+   ]
+  },
+  {
+   "path": "docs/consults/2026-10-14-llm-paper-synthesis-v2/review.md",
+   "original_blob": "38d04a108b4bc2cda322e1b9ab8b473e35ff2efd",
+   "original_sha256": "c5c0fbae70462df88eaf22ec21105d578c37fcbf3474b3df1acef936b456d01a",
+   "redacted_lines": [
+    3,
+    79,
+    101,
+    119,
+    165,
+    167
+   ]
+  },
+  {
+   "path": "docs/consults/2026-10-14-qwen72b-diagnosis/review.md",
+   "original_blob": "d745e883881132b819103f7f44996a1575dc25fa",
+   "original_sha256": "7ad307e1f9fa388c1062146c93cc127cc00d55f56ef3e13f1466788c339e9b98",
+   "redacted_lines": [
+    133
+   ]
+  },
+  {
+   "path": "docs/consults/2026-10-15-restructure-final-check/brief.md",
+   "original_blob": "7945d05d9a6fb347abc5316b3a2e498e8cf090f6",
+   "original_sha256": "aa3aeb8e45be8e62fdb3528255f1cb8bb12b2e89537954b0a76f95355e5cf789",
+   "redacted_lines": [
+    8
+   ]
+  },
+  {
+   "path": "docs/consults/2026-10-15-restructure-final-check/review.md",
+   "original_blob": "84991253a2def97d656e918f8868315884e77d33",
+   "original_sha256": "b389249ef5dced1ace87282efdf266289dd2a4422376ff09db26cfca41f7db16",
+   "redacted_lines": [
+    54,
+    239
+   ]
+  },
+  {
+   "path": "docs/consults/2026-10-16-practical-ideas/brief.md",
+   "original_blob": "a8b6214cfa92f02ab79b9c5c7736716b357031fd",
+   "original_sha256": "eeab94202e1564cb98963ac340620386a87c4c3c9bf3e60f09a3777a56800778",
+   "redacted_lines": [
+    42
+   ]
+  },
+  {
+   "path": "docs/consults/2026-10-16-practical-ideas/review.md",
+   "original_blob": "8e187587ad6261a31f0d560803bdc210685caff2",
+   "original_sha256": "a22b0a4b057e6619b560570f69461eb081fdc275d3b88102f2aab059adee09f0",
+   "redacted_lines": [
+    199
+   ]
+  },
+  {
+   "path": "docs/consults/2026-10-16-practical-utility/brief.md",
+   "original_blob": "1828668660d51fa6c5c3f62152426a27387c6245",
+   "original_sha256": "f3b40fa56527c0a28a3959322f5e33b6ad8c8bd239d35abc2a1d7cc00b89699c",
+   "redacted_lines": [
+    7,
+    8
+   ]
+  },
+  {
+   "path": "docs/consults/2026-10-16-practical-utility/review.md",
+   "original_blob": "b4155af71eef66ba8af0d58906b4a9854d1a03b0",
+   "original_sha256": "d7572e33fc914340442a7dff58372f38039e8a63493ffcd645053fb6b046761d",
+   "redacted_lines": [
+    39,
+    66,
+    192
+   ]
+  },
+  {
+   "path": "docs/consults/2026-10-18-chaos-certification/review.md",
+   "original_blob": "dceae4d07c5c41fb9b629483fda0b5761e39ab4c",
+   "original_sha256": "75ae03c26b191f98b5fec278d811cad714fcb591b9e7b48ed812b79051d06952",
+   "redacted_lines": [
+    180
+   ]
+  },
+  {
+   "path": "docs/consults/2026-10-18-crossing-sheets/review.md",
+   "original_blob": "efeb5c2057107a006440c496be558d2ab6f315a8",
+   "original_sha256": "3b4d43f5e88cebef9438aa432012c859eb8ff4a27ef6043577cecac28a66e7fd",
+   "redacted_lines": [
+    168
+   ]
+  },
+  {
+   "path": "docs/consults/2026-10-18-night-status/brief.md",
+   "original_blob": "9653bfa8539f51fd9930f4eb8c7474301d71c615",
+   "original_sha256": "c125c346a714d654a55016c4cfd7ecd68cd6a846be8b2f72c2fe8ea6e79feb85",
+   "redacted_lines": [
+    135
+   ]
+  },
+  {
+   "path": "docs/consults/2026-10-18-night-status/review.md",
+   "original_blob": "555357bc50cdbee886d403f27c57815cf1c87ac9",
+   "original_sha256": "ef2bd7487284133642edf08e5e7b47252c750c10f95deb227bee5080cd9b07cc",
+   "redacted_lines": [
+    39,
+    166
+   ]
+  },
+  {
+   "path": "docs/consults/2026-10-18-theory-section/brief.md",
+   "original_blob": "2dc17250d9c4849de6dcd4e74e60339d81ad828a",
+   "original_sha256": "815368769b9bd98bc71bb5f7082e78e7bf2fd36543558be7856a696e51096e15",
+   "redacted_lines": [
+    128
+   ]
+  },
+  {
+   "path": "docs/consults/2026-10-19-loop-relevance/review.md",
+   "original_blob": "906521576d9ff280eb5f50f75ca114c480845482",
+   "original_sha256": "341b39abb910ea9742838b37f4e44813db395c6e407bb1c6375b9285c5820fea",
+   "redacted_lines": [
+    110
+   ]
+  },
+  {
+   "path": "docs/consults/2026-10-20-sync-section/brief.md",
+   "original_blob": "cda3877b1419ba7f551411561ae14d9cc58f4108",
+   "original_sha256": "cf78417349444833919fc5f3a0f9cf15234d8e41b452cbc9b099dde6eb0fa267",
+   "redacted_lines": [
+    99
+   ]
+  },
+  {
+   "path": "docs/consults/approvals.md",
+   "original_blob": "fbf2df9b2d413c5ff15a88b9609385a6d2517117",
+   "original_sha256": "88dd116862c7bef3e1327b3e96359f991efceb933ec76529a8a845929c4b82dd",
+   "redacted_lines": [
+    221,
+    222,
+    233,
+    240,
+    245,
+    246,
+    261,
+    277,
+    293,
+    304
+   ]
+  },
+  {
+   "path": "docs/next-steps.md",
+   "original_blob": "bff23207d56ee7c5232bf7b01a00e2e6573630f8",
+   "original_sha256": "55341d9dbaa42e1123366e25a530201765d726a05cdd9f28288d7df625f0888a",
+   "redacted_lines": [
+    101,
+    225
+   ]
+  },
+  {
+   "path": "docs/pi-matrix2-confirmatory.md",
+   "original_blob": "0302ddb88874705fca9f6598e6562ddd0471d73c",
+   "original_sha256": "0dfc214d16ba83c5e2e12ff4b8781ec87034fc1e906b883988682463de0f029b",
+   "redacted_lines": [
+    83
+   ]
+  },
+  {
+   "path": "docs/project-assessment-2026-09-17.md",
+   "original_blob": "c17feba6c63bea485f970d6771cb79604d9c0321",
+   "original_sha256": "53f398e49a817330302bbf05293f7e76525afc9fd74f7a3dcc204dc5303673b7",
+   "redacted_lines": [
+    70
+   ]
+  },
+  {
+   "path": "docs/qwen2-cusp-unfolding-pilot.md",
+   "original_blob": "1b277ea22e9489efbcfc91d962851eecd58cb0f4",
+   "original_sha256": "50280c25c38059f5f43844f81d32acf1c2deee82f5d50d503a1a7fae02272ad7",
+   "redacted_lines": [
+    5,
+    54
+   ]
+  },
+  {
+   "path": "docs/research-log.md",
+   "original_blob": "44bcec2f90b4072c3e4fb6ffa50e16c2aa155fc1",
+   "original_sha256": "95f007432c8bdee518f04c4f04141de716357c06fa86dadfabd96876610f8e38",
+   "redacted_lines": [
+    1629,
+    1640,
+    1647,
+    1659,
+    22752,
+    25971,
+    26170,
+    26363,
+    26557,
+    29329,
+    30111,
+    30153
+   ]
+  },
+  {
+   "path": "docs/research-strategy-2026-09-17.md",
+   "original_blob": "f577cbf81a6be571c5ee6a5145c122809ce39264",
+   "original_sha256": "d7dc9bc79f48bdb02cb224c88d453e6ee1c94d9148c6f7d0c8adb97bd6b1b838",
+   "redacted_lines": [
+    10
+   ]
+  },
+  {
+   "path": "docs/selfref-dynamics-design.md",
+   "original_blob": "7d756aecede98089470c1c4bf9f077349e1d60d7",
+   "original_sha256": "cbe8195e3179de884e8ed3af259caac9fda28428ab4091ad6f135e15aa28d4ab",
+   "redacted_lines": [
+    84
+   ]
+  },
+  {
+   "path": "tools/runpod_phase0.py",
+   "original_blob": "17ab548768da24c2e846e70b5e8fc06edf61a791",
+   "original_sha256": "455331a81bc6bb093920c4b46602ed1f6d83477ad9458832bb36246837391825",
+   "redacted_lines": [
+    1
+   ]
+  }
+ ]
+}

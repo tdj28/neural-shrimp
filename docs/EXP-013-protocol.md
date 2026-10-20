@@ -48,7 +48,7 @@ bindings are checked again after the producer. Runtime requires NumPy
 hashes, numerical thread environment, invocation and resource observations.
 
 This is a local review gate. The user-authorized Pro consultation was not
-executed because the required enforceable USD 10 cap could not be established;
+executed because the required enforceable [amount redacted] cap could not be established;
 its incremental spend is **USD 0**. The prepared brief and compact not-run
 receipt are source-bound. The separate local strategy analysis is not a Pro
 verdict. No paid compute, paid review or public release is part of this run.

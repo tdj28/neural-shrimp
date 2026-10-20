@@ -1,7 +1,7 @@
 # Consultation brief: what would neural shrimp dynamics let a network do?
 
 Prepared 17 September 2026 for one explicitly authorized GPT-6 Astra Pro
-consultation, with a strict total incremental charge ceiling of USD 10.
+consultation, with a strict total incremental charge ceiling of [amount redacted].
 **Prepared only: no consultation has been sent.** This is a compact strategic
 brief, not a claim that a reviewer inspected the linked code or raw evidence.
 

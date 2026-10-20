@@ -2,7 +2,7 @@
 
 13 October 2026, about 21:25 UTC. This design was committed before the run S10b maps were retrieved; the only
 thing seen from them was the run log's period counts. It is an exploratory pilot, approved by the human as a bounded
-first step (about $15-25), following consult 6
+first step (about [amount redacted]), following consult 6
 (docs/consults/2026-10-13-llm-paper-synthesis/adjudication.md). It is not a frozen confirmatory test: the full
 prospective test would be frozen after the pilot.
 
@@ -51,7 +51,7 @@ are generic codimension-two points (rank-two unfolding, nonzero cubic coefficien
 
 ## Budget and branches
 
-- Pilot ceiling about $25 of RunPod time.
+- Pilot ceiling about [amount redacted] of RunPod time.
 - If candidate 1 has no fold within the bounds, or its fold curve has no cusp, report a bounded-search outcome and
   decide with the human whether to try candidates 2-3 or freeze the full test.
 - A failed control (e.g. U1 shows det J near zero, or predictions fail at the smallest offsets) is reported as such

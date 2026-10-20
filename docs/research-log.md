@@ -18853,7 +18853,7 @@ _commit `031e7d5ba757`_
 - **Setup:** explore_momentum_maps arc --beta 0 on the fixed ray (log10 output = log10 hidden - 1.828), s_max 3.0, 12000 continuation steps; width 3 at ridge 0, 1e-5, 1e-4, 3e-4, 1e-3 (same-settings control), 3e-3; width 12 at ridge 3e-3, 1e-2, 3e-2 (1e-3 is width-ladder arc2-w12: real +1 first). Same initialization and data throughout (S2 teacher, noiseless, realizable at width 3). Six parallel single-thread jobs, nice 10
 - **Output:** `../neural-shrimp-data/explore/momentum/ridge-ladder`
 - **Would surprise us:** First-crossing type independent of ridge at both widths
-- **Command:** `bash -c printf "%s\n" "3 0" "3 1e-5" "3 1e-4" "3 3e-4" "3 1e-3" "3 3e-3" "12 3e-3" "12 1e-2" "12 3e-2" | xargs -P 6 -L 1 bash -c 'env OPENBLAS_NUM_THREADS=1 .venv/bin/python tools/explore_momentum_maps.py arc --beta 0 --width $0 --ridge [amount redacted] --s-max 3.0 --steps 12000 --out momentum/ridge-ladder/arc-w$0-r$1 > ../neural-shrimp-data/explore/momentum/ridge-ladder-w$0-r$1.log 2>&1'`
+- **Command:** `bash -c printf "%s\n" "3 0" "3 1e-5" "3 1e-4" "3 3e-4" "3 1e-3" "3 3e-3" "12 3e-3" "12 1e-2" "12 3e-2" | xargs -P 6 -L 1 bash -c 'env OPENBLAS_NUM_THREADS=1 .venv/bin/python tools/explore_momentum_maps.py arc --beta 0 --width $0 --ridge $1 --s-max 3.0 --steps 12000 --out momentum/ridge-ladder/arc-w$0-r$1 > ../neural-shrimp-data/explore/momentum/ridge-ladder-w$0-r$1.log 2>&1'`
 
 _commit `73972589fa06` (dirty worktree)_
 
@@ -18865,7 +18865,7 @@ _commit `73972589fa06` (dirty worktree)_
 - **Setup:** explore_momentum_maps crossing-anatomy on each ridge-ladder arc (saved nodes; minimum recomputed with the arc's descent and trust-region refinement)
 - **Output:** `../neural-shrimp-data/explore/momentum/ridge-ladder/anatomy-*`
 - **Would surprise us:** Real crossings carried by live units with no turning point and no dead units
-- **Command:** `bash -c for spec in "3 1e-5" "3 1e-4" "3 3e-4" "3 1e-3" "3 3e-3" "12 3e-3" "12 1e-2" "12 3e-2"; do set -- $spec; env OPENBLAS_NUM_THREADS=1 .venv/bin/python tools/explore_momentum_maps.py crossing-anatomy --width [amount redacted] --ridge [amount redacted] --arc momentum/ridge-ladder/arc-w$1-r$2 --out momentum/ridge-ladder/anatomy-w$1-r$2 & done; wait`
+- **Command:** `bash -c for spec in "3 1e-5" "3 1e-4" "3 3e-4" "3 1e-3" "3 3e-3" "12 3e-3" "12 1e-2" "12 3e-2"; do set -- $spec; env OPENBLAS_NUM_THREADS=1 .venv/bin/python tools/explore_momentum_maps.py crossing-anatomy --width $1 --ridge $2 --arc momentum/ridge-ladder/arc-w$1-r$2 --out momentum/ridge-ladder/anatomy-w$1-r$2 & done; wait`
 
 _commit `9aef4d0e4d36` (dirty worktree)_
 
@@ -19035,7 +19035,7 @@ _commit `0f7811847ea2` (dirty worktree)_
 - **Setup:** explore_inference_memory floquet --context 24 --eta 0, period 1, transient 4000 periods then Newton on the period map (analytic Jacobian): band cells (log10 theta, log10 alpha) = (-0.3807, -3.1471), (-0.2521, -2.5042), (-0.0101, -4.395) and a synchronized control (-0.4034, -2.0126)
 - **Output:** `../neural-shrimp-data/explore/inference-memory/floquet-bands-eta0`
 - **Would surprise us:** Band cells with no periodic orbit nearby, or with complex multipliers on the circle
-- **Command:** `bash -c for pt in "-0.3807 -3.1471" "-0.2521 -2.5042" "-0.0101 -4.395" "-0.4034 -2.0126"; do set -- $pt; env OPENBLAS_NUM_THREADS=1 .venv/bin/python tools/explore_inference_memory.py floquet --context 24 --eta 0 --log-theta [amount redacted] --log-alpha [amount redacted] --transient 4000 --out inference-memory/floquet-bands-eta0/t$1-a$2; done`
+- **Command:** `bash -c for pt in "-0.3807 -3.1471" "-0.2521 -2.5042" "-0.0101 -4.395" "-0.4034 -2.0126"; do set -- $pt; env OPENBLAS_NUM_THREADS=1 .venv/bin/python tools/explore_inference_memory.py floquet --context 24 --eta 0 --log-theta $1 --log-alpha $2 --transient 4000 --out inference-memory/floquet-bands-eta0/t$1-a$2; done`
 
 _commit `f998f386b4ec`_
 
@@ -19899,7 +19899,7 @@ _commit `834699826a4f` (dirty worktree)_
 - **Setup:** explore_llm_soft_loop orbit on cuda float32, K = 1, philosophy steering at layer 12, 600 transient steps, period detected at tol 1e-5, dense Newton with forward-mode AD Jacobians to relative residual 1e-6 (float32), multipliers from the product of Jacobians; cells (log10 T, alpha): P8 (-0.1205, 0.0717), P10 (-0.1089, 0.0673), P6 (-0.1205, 0.0786), P3 (0.1168, 0.0780)
 - **Output:** `../neural-shrimp-data/explore/llm-soft-loop/orbit-zr-{p8,p10,p6,p3}`
 - **Would surprise us:** A detected period that Newton cannot converge, or a converged orbit with a multiplier outside the unit circle (the scan's period an artifact of slow escape)
-- **Command:** `bash -c set -o pipefail; for c in "p8 -0.1205 0.0717" "p10 -0.1089 0.0673" "p6 -0.1205 0.0786" "p3 0.1168 0.0780"; do set -- $c; .venv/bin/python tools/explore_llm_soft_loop.py orbit --device cuda --dtype float32 --detect-tol 1e-5 --tol 1e-6 --log-temperature [amount redacted] --alpha [amount redacted] --out llm-soft-loop/orbit-zr-[amount redacted] 2>&1 | grep -v -i -e warn -e Loading -e crop -e jit | tail -2 | cut -c1-3000; done`
+- **Command:** `bash -c set -o pipefail; for c in "p8 -0.1205 0.0717" "p10 -0.1089 0.0673" "p6 -0.1205 0.0786" "p3 0.1168 0.0780"; do set -- $c; .venv/bin/python tools/explore_llm_soft_loop.py orbit --device cuda --dtype float32 --detect-tol 1e-5 --tol 1e-6 --log-temperature $2 --alpha $3 --out llm-soft-loop/orbit-zr-$1 2>&1 | grep -v -i -e warn -e Loading -e crop -e jit | tail -2 | cut -c1-3000; done`
 
 _commit `7dce19682033` (dirty worktree)_
 
@@ -19923,7 +19923,7 @@ _commit `2973748cb566` (dirty worktree)_
 - **Setup:** explore_llm_soft_loop precision with both maps on cuda (float32, and float64 with patched RMSNorm), cells P8 (-0.1205, 0.0717), P10 (-0.1089, 0.0673), P6 (-0.1205, 0.0786), P3 (0.1168, 0.0780): 600 float64 transient steps, return distances q = 1..32, 32 steps of one-step and trajectory errors; then orbit on cuda float64 at P8 and P10 (detect tol 1e-8, Newton tol 1e-11, dense AD Jacobians)
 - **Output:** `../neural-shrimp-data/explore/llm-soft-loop/{precision-zr,orbit64-zr-p8,orbit64-zr-p10}`
 - **Would surprise us:** A float32 one-step error below 1e-6 (then the stalls are not rounding), or a float64 period at P8 other than 8
-- **Command:** `bash -c set -o pipefail; .venv/bin/python tools/explore_llm_soft_loop.py precision --device cuda --device64 cuda --cells -0.1205 0.0717 --cells -0.1089 0.0673 --cells -0.1205 0.0786 --cells 0.1168 0.0780 --out llm-soft-loop/precision-zr 2>&1 | grep -v -i -e warn -e Loading -e crop | tail -4 | cut -c1-2500; for c in "p8 -0.1205 0.0717" "p10 -0.1089 0.0673"; do set -- $c; .venv/bin/python tools/explore_llm_soft_loop.py orbit --device cuda --dtype float64 --detect-tol 1e-8 --tol 1e-11 --log-temperature [amount redacted] --alpha [amount redacted] --out llm-soft-loop/orbit64-zr-[amount redacted] 2>&1 | grep -v -i -e warn -e Loading -e crop -e jit | tail -1 | cut -c1-3000; done`
+- **Command:** `bash -c set -o pipefail; .venv/bin/python tools/explore_llm_soft_loop.py precision --device cuda --device64 cuda --cells -0.1205 0.0717 --cells -0.1089 0.0673 --cells -0.1205 0.0786 --cells 0.1168 0.0780 --out llm-soft-loop/precision-zr 2>&1 | grep -v -i -e warn -e Loading -e crop | tail -4 | cut -c1-2500; for c in "p8 -0.1205 0.0717" "p10 -0.1089 0.0673"; do set -- $c; .venv/bin/python tools/explore_llm_soft_loop.py orbit --device cuda --dtype float64 --detect-tol 1e-8 --tol 1e-11 --log-temperature $2 --alpha $3 --out llm-soft-loop/orbit64-zr-$1 2>&1 | grep -v -i -e warn -e Loading -e crop -e jit | tail -1 | cut -c1-3000; done`
 
 _commit `ba021a694ba9` (dirty worktree)_
 
@@ -19977,7 +19977,7 @@ _commit `e92bd39b4c35`_
 - **Setup:** explore_llm_soft_loop orbit on cuda float64 (norms patched), 600 transient steps, period detected at 1e-9, dense AD Newton to 1e-11: P12 cells (log10 T, alpha) (-0.10895, 0.064105) and (-0.12632, 0.067263), P2 cell (-0.17263, 0.061579)
 - **Output:** `../neural-shrimp-data/explore/llm-soft-loop/orbit64-zr-{p12a,p12b,p2}`
 - **Would surprise us:** A P12 orbit whose readout is not '. This' plus five 'is X' pairs, or a P2 orbit other than ' is' / ' a'
-- **Command:** `bash -c for c in "p12a -0.10895 0.064105" "p12b -0.12632 0.067263" "p2 -0.17263 0.061579"; do set -- $c; OMP_NUM_THREADS=8 OPENBLAS_NUM_THREADS=8 MKL_NUM_THREADS=8 .venv/bin/python tools/explore_llm_soft_loop.py orbit --device cuda --dtype float64 --detect-tol 1e-9 --tol 1e-11 --log-temperature [amount redacted] --alpha [amount redacted] --out llm-soft-loop/orbit64-zr-[amount redacted] 2>&1 | grep -v -i -e warn -e Loading -e crop -e jit | tail -1 | cut -c1-600; done`
+- **Command:** `bash -c for c in "p12a -0.10895 0.064105" "p12b -0.12632 0.067263" "p2 -0.17263 0.061579"; do set -- $c; OMP_NUM_THREADS=8 OPENBLAS_NUM_THREADS=8 MKL_NUM_THREADS=8 .venv/bin/python tools/explore_llm_soft_loop.py orbit --device cuda --dtype float64 --detect-tol 1e-9 --tol 1e-11 --log-temperature $2 --alpha $3 --out llm-soft-loop/orbit64-zr-$1 2>&1 | grep -v -i -e warn -e Loading -e crop -e jit | tail -1 | cut -c1-600; done`
 
 _commit `31ab5230e37d` (dirty worktree)_
 
@@ -20214,7 +20214,7 @@ _commit `81b95c5aac95`_
 - **Setup:** explore_llm_soft_loop orbit on CPU float64 (norms and rotary tables patched), 4 threads, cells (log10 T 0.04, alpha 0.065) and (0.03, 0.062); 600 transient steps, period detection 1e-6, Newton with dense forward-mode Jacobians to 1e-11; all multipliers
 - **Output:** `../neural-shrimp-data/explore/llm-soft-loop/orbit64-p4-{a,b}`
 - **Would surprise us:** A leading multiplier pair that is complex (rotation in the window), or no period 4 in float64 at the body centre
-- **Command:** `bash -c set -o pipefail; for c in "0.04 0.065 a" "0.03 0.062 b"; do set -- $c; OMP_NUM_THREADS=4 MKL_NUM_THREADS=4 .venv/bin/python tools/explore_llm_soft_loop.py orbit --threads 4 --dtype float64 --log-temperature [amount redacted] --alpha [amount redacted] --out llm-soft-loop/orbit64-p4-[amount redacted] 2>&1 | grep -v -i -e warn -e Loading -e crop | tail -1 | cut -c1-1500; done`
+- **Command:** `bash -c set -o pipefail; for c in "0.04 0.065 a" "0.03 0.062 b"; do set -- $c; OMP_NUM_THREADS=4 MKL_NUM_THREADS=4 .venv/bin/python tools/explore_llm_soft_loop.py orbit --threads 4 --dtype float64 --log-temperature $1 --alpha $2 --out llm-soft-loop/orbit64-p4-$3 2>&1 | grep -v -i -e warn -e Loading -e crop | tail -1 | cut -c1-1500; done`
 
 _commit `81b95c5aac95` (dirty worktree)_
 

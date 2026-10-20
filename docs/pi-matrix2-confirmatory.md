@@ -80,5 +80,5 @@ with intervals, without a prediction.
 
 ## Cost
 
-About $30 expected and a hard ceiling of $45 over the four pods, with each pod's limit set by the orchestrator guard.
+About [amount redacted] expected and a hard ceiling of [amount redacted] over the four pods, with each pod's limit set by the orchestrator guard.
 Amounts and approvals are in the private ledger. Human approval: "Full plan now", 16 October 2026.

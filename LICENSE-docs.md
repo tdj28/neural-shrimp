@@ -7,5 +7,7 @@ the JSON/CSV records produced by the tools) are licensed under the Creative Comm
 License (CC BY 4.0), https://creativecommons.org/licenses/by/4.0/, the license of the arXiv preprint.
 
 Third-party materials keep their own licenses: the model weights (Qwen2.5, OLMo-2, Llama-3 and the other models
-studied, under their publishers' licenses) are not redistributed here. The cited datasets are used under their
-own terms.
+studied, under their publishers' licenses) are not redistributed here. The benchmark items in
+`docs/pi-gsm8k-test.json` (GSM8K, MIT) and `docs/bz-tasks.json` (NQ-open, CC BY-SA 3.0; MBPP, CC BY 4.0) keep their
+original licenses; see `THIRD_PARTY_NOTICES.md`. Other cited datasets are used under their own terms and are not
+redistributed here.

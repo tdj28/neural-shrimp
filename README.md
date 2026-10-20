@@ -107,7 +107,8 @@ Failed attempts are kept, not deleted.
 ## License
 
 The code is under the MIT License ([`LICENSE`](LICENSE)). The manuscripts, figures, documentation and research records
-are under CC BY 4.0 ([`LICENSE-docs.md`](LICENSE-docs.md)).
+are under CC BY 4.0 ([`LICENSE-docs.md`](LICENSE-docs.md)). Benchmark items copied from GSM8K, NQ-open and MBPP keep
+their own licenses ([`THIRD_PARTY_NOTICES.md`](THIRD_PARTY_NOTICES.md)).
 
 ## Citation
 

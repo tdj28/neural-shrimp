@@ -1,7 +1,7 @@
 # Completed Astra Pro strategy consultation and local adjudication
 
 17 September 2026. **One GPT-6 Astra Pro consultation completed, at a conservative
-receipt-derived cost of USD 0.78126**, within the user's USD 10 authorization.
+receipt-derived cost of [amount redacted]**, within the user's [amount redacted] authorization.
 The exact reviewed brief was privately committed at
 `814b9689e7d141eff16855b53a4f3438b7d1e6cf` before submission. No retry or second
 generating request was made. The saved bundle passes the canonical offline
@@ -23,12 +23,12 @@ the decision before execution. The original not-run receipt and unsent brief
 remain historical evidence.
 
 The successful request used `gpt-6-astra`, Pro mode, medium effort, no tools and
-`store=false`. The exact-input reserve was USD 1.95735 under a USD 3 client
+`store=false`. The exact-input reserve was [amount redacted] under a [amount redacted] client
 guard. Actual usage was 22,081 input and 11,209 output tokens, including 3,334
 reasoning tokens already counted in output. Output exceeded the requested
 6,000-token setting, so that setting must not be described as a hard limit on
-aggregate Pro work. At the recorded standard rates of USD 10 input and USD 50
-output per million tokens, the cost is USD 0.78126. This is the known cumulative
+aggregate Pro work. At the recorded standard rates of [amount redacted] input and [amount redacted]
+output per million tokens, the cost is [amount redacted]. This is the known cumulative
 receipt-derived project review spend; unrelated account charges were not
 reconciled. See the [official pricing source](https://developers.openai.com/api/docs/pricing)
 and the [compact receipt](2026-09-17-pro-receipt.json).

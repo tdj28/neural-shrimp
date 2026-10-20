@@ -214,7 +214,7 @@ strict. Same-implementation replay and an independent evidence/scientific
 review are separate requirements. Source or artifact drift invalidates
 qualification without deleting the failed attempt.
 
-The Pro consultation was not run because its USD10 hard ceiling could not
+The Pro consultation was not run because its [amount redacted] hard ceiling could not
 be guaranteed; incremental spend is USD0. This study follows local review,
 not purported Pro advice. Keep the repository private, push coherent code
 checkpoints, and preserve all earlier failed evidence and merge gates.

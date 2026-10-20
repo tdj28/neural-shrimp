@@ -17,7 +17,7 @@ brief is refreshed to include completed EXP013–015 evidence.
 Use the unchanged canonical helper, exact GPT-6 Astra Pro mode, medium effort,
 6000 requested output tokens, no tools, no API storage, one generating request
 and no automatic retry. Apply 10x input and 4x output cost reserves, explicit
-current standard rates, a 6000 input-token bound and a USD3 client preflight
+current standard rates, a 6000 input-token bound and a [amount redacted] client preflight
 threshold, leaving substantial headroom under the user's [amount redacted] budget. Abort
 before generation if exact counted input or reserved cost exceeds either guard.
 Record actual usage and conservative receipt-derived cost; never label a client

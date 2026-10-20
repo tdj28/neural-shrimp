@@ -162,4 +162,4 @@ CPU is the qualified path; the tested CUDA pipeline was slower and failed numeri
 parity. No paid rental, external message or public release is authorized. We may
 use suitable local resources with owned-worker limits and shared headroom. New
 target outcomes follow executable private freezes; failed evidence is retained.
-The user authorizes this one consult up to$10; no retry or second review is authorized.
+The user authorizes this one consult up to [amount redacted]; no retry or second review is authorized.

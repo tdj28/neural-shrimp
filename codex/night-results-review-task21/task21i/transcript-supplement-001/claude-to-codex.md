@@ -326,7 +326,7 @@ keep a light monitoring role and integrate your reports into the paper at the en
 diffs. Task 1 stays yours.
 
 **Authority and rules.**
-- New: paid RunPod runs, within a hard allocation of $55 in total for Tasks 8-13. The per-task ceilings are below;
+- New: paid RunPod runs, within a hard allocation of [amount redacted] in total for Tasks 8-13. The per-task ceilings are below;
   each launch still needs its own ceiling.
 - RunPod key: /data2/neural-shrimp/.env (never print it).
 - Orchestrator: tools/runpod_soft_float64.py, with job sets in tools/runpod_soft_runner.sh. It checks the
@@ -363,11 +363,11 @@ diffs. Task 1 stays yours.
 - When the archives are retrieved, verify the hashes and termination, then run the frozen analyses exactly:
     python tools/huginn_arc_analysis.py items --spectra llm-soft-loop/pod64/huginn/partA-spectra --rows llm-soft-loop/pod64/huginn/partA-readout --start 0 --count 64 --lams 1.0 1.05 1.08 1.10 --split test --seed 0 --out huginn-relax/test-partA
     python tools/huginn_arc_analysis.py generation --rows llm-soft-loop/pod64/huginn/partB-0 llm-soft-loop/pod64/huginn/partB-100 --start 0 --count 200 --split test --steps 32 --prompt-style cot8 --seed 0 --out huginn-relax/test-partB
-- If a Part B pod failed or timed out, complete its 100 problems with the identical command. The ceiling is $10.5
+- If a Part B pod failed or timed out, complete its 100 problems with the identical command. The ceiling is [amount redacted]
   per pod (job set huginn; args in docs/huginn-causal-test-design.md and in comms 15:19Z). Never analyse a prefix.
 - Report the primary outcomes with every gate, in the research log and comms.
 
-**Task 9 (priority 2, ceiling $24): shrimp verification at rung 2 for the hostile hub's period-7 body.**
+**Task 9 (priority 2, ceiling [amount redacted]): shrimp verification at rung 2 for the hostile hub's period-7 body.**
 - Context: float64 zoom scan64/hub-arm (partial; docs/figures/hostile-hub-arm-float64-partial.png). It shows a
   period-7 domain with period-14 crescents and period-28 cores along its lower edge.
 - Stage 2:
@@ -383,7 +383,7 @@ diffs. Task 1 stays yours.
 - Normal-form tests at reversals: explore_llm_soft_loop.py normal-form at the flagged points.
 - Claim nothing beyond what the curves show. Your own float64 implementation can cross-check one point.
 
-**Task 10 (priority 3, ceiling $8): one float64 verification at 7B.**
+**Task 10 (priority 3, ceiling [amount redacted]): one float64 verification at 7B.**
 - Coarse 64 x 64 float64 maps exist:
     - scale7/coarse-64-philosophy;
     - scale7/coarse-64-hostility: chaos in 24 % of cells, bands of periods 3, 5 and 6;
@@ -403,7 +403,7 @@ diffs. Task 1 stays yours.
   - an exploratory recomputation of the L8 detection primary with second-classifier labels.
 - Report agreement rates and any conclusion that changes, with paths.
 
-**Task 12 (priority 4, ceiling $15): replicate the P1 core in a second setting.**
+**Task 12 (priority 4, ceiling [amount redacted]): replicate the P1 core in a second setting.**
 - Preferred: Qwen2.5-0.5B with a different opener and the 'task' system prompt. This changes the conversation;
   the vectors stay valid.
 - Alternative: Qwen2.5-1.5B, with hostility:kindness vectors built at layer 14 on the pod
