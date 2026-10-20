@@ -61,15 +61,15 @@ periodic loops also separated). In arithmetic tests designed before the runs, ch
 layout, which alters the floating-point execution while the intended computation stays the same, changed the answers
 of bfloat16 soft-thinking inference on 56\,\% of 96 problems in a 0.5B model and 55\,\% in a 7B model, far more often
 than with greedy decoding, at temperatures where the pipeline answers poorly (none changed where it answers well); an
-exploratory reset of the fed-back state at every step removed most of these changes. In
+exploratory replacement of the cache and logits by those of a reference run before every soft step removed most of these changes. In
 tests fixed before their data, Soft Thinking with its published settings changed 21\,\% of its answers to GSM8K
 problems not used before in this study with the batch layout alone, and reasoning models that answer 86 to 90\,\% of
 them correctly (DeepSeek-R1-Distill-Qwen-7B, QwQ-32B) changed 14.5 and 19.5\,\%, the two layouts disagreeing on
 correctness for 11.7 and 14.5\,\% of the problems. Ordinary sampled reasoning with the same random numbers changed about as
 many, so this sensitivity is not unique to continuous feedback. Nearly all of these changes came from long runs that
 reached the thinking or answer budget in at least one layout. Two mechanisms contribute, depending on the model. In
-float64 the loops of Qwen2.5-7B and DeepSeek-R1-Distill-Qwen-7B mostly contract, so their answer changes are bfloat16
-rounding carried by long feedback to answers that sit near ties, while the loops of QwQ-32B and
+float64, injected perturbations in the Qwen2.5-7B and DeepSeek-R1-Distill-Qwen-7B pipelines mostly shrink over the observed runs,
+consistent with bfloat16 rounding being carried through long feedback, while the loops of QwQ-32B and
 DeepSeek-R1-Distill-Llama-8B grow slowly in more than half of the copies, and a relative displacement of $10^{-10}$
 alone changes about 14 and 18\,\% of their answers, respectively. Exactly repeating text can hide a state with a
 positive finite-time exponent: the text records only the most probable token, which can repeat while the fed-back
@@ -82,9 +82,10 @@ late finite-order doubling ratios approach Feigenbaum's constant numerically (4.
 floor of the computation), periodic windows accumulate on folds with distances close to a $1/N^2$ law, passage times
 predicted in advance from fold normal forms came within one iterate of the return map in 42 of 48 cases at four new folds, over two frozen stages (24 and 18 of
 24) (the six
-misses, at a period-6 fold, 3 to 5\,\% short), and interval arithmetic proves an attracting period-8 orbit and, at one parameter cell, two coexisting
+misses, at a period-6 fold, 3.1 to 5.2\,\% short), and interval arithmetic proves an attracting period-8 orbit and, at one parameter cell, two coexisting
 attracting orbits of periods 2 and 3. In the recurrent-depth model Huginn, a frozen test confirmed a predicted accuracy loss. The loop is not ordinary sampled
-generation.
+generation. These results show that bifurcation theory can make quantitative predictions about continuous language-model
+feedback, with rigorous guarantees for selected periodic orbits of the full transformer.
 \end{abstract}
 
 \section{Introduction}
@@ -122,9 +123,10 @@ the numerical regime.
 
 Three consequences follow for the use of such loops. The first concerns reproducibility: in a chaotic loop, differences far
 below anything a user controls, such as the batch layout or the numerical precision, can change the output: a chaotic
-loop amplifies them, and long low-precision feedback can carry them to answers that sit near ties even where the
-float64 loop contracts. In an
-exploratory test resetting the fed-back state before every soft step removed nearly all such changes (Section~\ref{sec:consequences}).
+loop amplifies them, and long low-precision feedback can carry them into answers even where injected float64
+perturbations shrink over the observed run. In an
+exploratory test replacing the target's cache and logits by those of a batch-1 reference run before every soft step
+removed nearly all such changes (Section~\ref{sec:consequences}).
 Ordinary numerical nondeterminism can thus become irreproducibility of the output, because the feedback amplifies or
 carries it. The second concerns steering:
 practitioners choose steering strengths, and here the strength is a bifurcation parameter, so near a boundary a small
@@ -226,7 +228,7 @@ Huginn: a predicted accuracy loss & frozen & Sec.~\ref{sec:huginn} \\
   of 20 periodic ones) and Llama-3.3-70B with steering (24 of 24, none of 24) behave alike. In bfloat16 nearly every
   loop diverges, and in a frozen test on 96 additions the batch layout changed the answer of a soft-thinking pipeline
   in 56\,\% of problems in Qwen2.5-0.5B and 55\,\% in Qwen2.5-7B, against never and 10\,\% for a forced greedy
-  baseline. An exploratory causal test shows that the loop carries this: resetting the fed-back state before every soft step
+  baseline. An exploratory causal test shows that the loop carries this: replacing the target's cache and logits by those of a batch-1 reference run before every soft step
   removes nearly all of it (on an H100, 47 against 0.8\,\% of answers changed in Qwen2.5-0.5B, and 41\,\% against
   none in Qwen2.5-7B), and accuracy changes by at most 5 points. These changes occur where the pipeline answers poorly
   (23 of 96 problems correct in the 0.5B model at $T=1$); at $T=10^{0.4}$, where both models answer 90 to 96 of the 96
@@ -260,8 +262,8 @@ Huginn: a predicted accuracy loss & frozen & Sec.~\ref{sec:huginn} \\
   to~\ref{sec:organization}). The windows carry concrete texts: a period-adding family gains one ``is X'' pair per
   period step. A fold's normal form, computed from derivatives, predicts without fitting how long trajectories linger
   near the vanished orbit: in two frozen tests at four new folds, 42 of 48 forecasts fell within one iterate, and
-  both all-row criteria failed (the second because passages from the entrance of a period-6 fold's channel came in 3
-  to 5\,\% short), and windows accumulate on the fold with distances close to a $1/N^2$ law
+  both all-row criteria failed (the second because passages from the entrance of a period-6 fold's channel came in 3.1
+  to 5.2\,\% short), and windows accumulate on the fold with distances close to a $1/N^2$ law
   (log-log slope $-2.00$; fitted with an offset, the free exponent ranges from 2.13 to 2.45 with the fit range). On the eleven fold curves we continued,
   13 of the 17 tangent reversals are located cusps (the four found on 18 October are not located), and near them local unfoldings, frozen before solving, matched the
   orbits that Newton solves recovered at twelve parameter offsets in number and at eleven in stability. A doubling
@@ -1372,9 +1374,9 @@ difference the test does not resolve: discrete feedback through the same pipelin
 continuous feedback does, although the interval does not establish that the two are equal.
 The full vocabulary gave 22.3\,\% (no prediction). Most changes are between wrong answers: through the soft pipeline
 this model answers only 22 to 30\,\% of the problems correctly, and the layout changes whether the answer is correct
-for 6.2\,\% of the problems. In float64 the same pipeline contracts. On 1312 and 1314 of the 1319 GSM8K test problems
+for 6.2\,\% of the problems. In float64, injected perturbations mostly shrink over the same pipeline's observed runs. On 1312 and 1314 of the 1319 GSM8K test problems
 (full vocabulary and top-15), a perturbation of $10^{-10}$ ended below its initial size, and none changed an answer.
-These flips are therefore not chaos of the float64 map: the feedback carries bfloat16 rounding differences forward
+These flips therefore do not require the float64 map's chaos: the feedback carries bfloat16 rounding differences forward
 until they change answers in a pipeline that answers only 22 to 30\,\% of the problems correctly, and it does so for
 discrete feedback as well.
 
@@ -1386,7 +1388,7 @@ whose layouts disagree, the median first disagreement comes after 8 steps. Float
 started $10^{-10}$ apart, separate the two sources of disagreement.
 \begin{itemize}
   \item Unsteered or weakly steered ($|\alpha|\le0.02$), the copies change the answer text of at most 1.5\,\% of the problems. The loop
-  contracts, so the bfloat16 disagreements are rounding carried forward by the feedback.
+  shows little answer sensitivity to these float64 perturbations; the bfloat16 disagreements are consistent with rounding carried forward by the feedback.
   \item At $\alpha=0.05$ they change the answer text of 13.5\,\% of the problems at $T=0.6$ and 27.5\,\% at $T=1.2$, and
   the extracted number of 4.5 and 9.0\,\%. The loop itself is
   then sensitive, but accuracy has fallen to between 0.5 and 2.5\,\% in either layout.
@@ -1448,8 +1450,8 @@ ran on a different H100 variant.
 Is this chaos? We ran float64 copies of the same pipeline. Each copy's first soft token was displaced from the base
 row's by a relative $10^{-10}$, and all copies shared the base row's random numbers. The three models respond differently. In
 DeepSeek-R1-Distill-Qwen-7B, 216 of 256 copies ended the thinking at a distance from their base row below the
-initial displacement, and 2.3\,\% changed the answer. Its layout flips are therefore mainly bfloat16
-rounding carried to answers near ties, as in Qwen2.5-7B. In QwQ-32B and DeepSeek-R1-Distill-Llama-8B, more than half
+initial displacement, and 2.3\,\% changed the answer. These observations are consistent with its layout flips arising mainly from bfloat16
+rounding carried through feedback, as in Qwen2.5-7B; they do not establish global contraction. In QwQ-32B and DeepSeek-R1-Distill-Llama-8B, more than half
 of the copies ended above the initial displacement (131 of 192 and 145 of 256). Fitted over the steps where the
 distance lay between ten times the displacement and $10^{-3}$, the median growth rates were 0.011 and 0.008 per step.
 The displacement alone changed 13.5 and 18.4\,\% of the answers, respectively. In those models the loop's own sensitivity contributes to the answer
@@ -2605,43 +2607,45 @@ geometry \cite{facanha2013endoskeletons}. On both sides of every sign change the
 period-6 orbit, with the six-token text of the seed and Newton residuals below $10^{-12}$; fixed-start scans at the nearest parameters find period six at all patch and line cells but two at the patch's edge,
 which are unresolved, and on the coarse grid at 44 of the 45 pairs and 6 of the 9 complex cells (the others, at the
 upper left, reach a coexisting attractor of period 8, 16 or 32). These are nearby parameters, not same-parameter
-full-state comparisons, so whether the fixed start reaches this very orbit was not checked at every continued point. What keeps the two lines apart was measured in run DELTA2D on four rented GPUs (\repo{tools/delta2d_analysis.py},
+full-state comparisons, so whether the fixed start reaches this very orbit was not checked at every continued point. We examined this separation in run DELTA2D on four rented GPUs (\repo{tools/delta2d_analysis.py},
 \repo{docs/delta2d/analysis.json}; Figure~\ref{fig:delta2d}). A $27\times37$ grid over the top of the body (steps
 $10^{-5}$ in $\alpha$ and $2.5\times10^{-5}$ in $\log_{10}T$) gave 852 continued orbits, with the seed's six-token text,
 Newton residuals at most $1.0\times10^{-12}$ and the three leading Ritz vectors stored at every cell; the 147 unsolved
-cells lie in the corner beyond the fold. A two-dimensional block of the monodromy, initialized from the leading Ritz directions at the best-separated cell, was
+cells have no converged orbit on the followed branch and lie in the corner beyond the located fold. A two-dimensional block of the monodromy, initialized from the leading Ritz directions at the best-separated cell, was
 tracked outward by subspace overlap, the largest mean squared cosine of the principal angles among the spans of two of
-the three stored Ritz directions (so the tracked pair is not always the two locally largest). On them the
-monodromy acts as a $2\times2$ block with trace $\tau$ and determinant $\delta$, and the eigenvalue of larger modulus,
+the three stored Ritz directions (so the tracked pair is not always the two locally largest). The tracked
+$2\times2$ block has trace $\tau$ and determinant $\delta$; within this block, the eigenvalue of larger modulus,
 or the real part of a complex pair, has the sign of $\tau$. The sign of $\tau$ matches that of the leading multiplier in
-849 of the 852 cells (the other three are cells where the followed pair has mixed with a third direction); every one of
+849 of the 852 cells (the other three have low tracking overlap, indicating possible mixing with a third direction); every one of
 the 42 measured sign changes of a real leading multiplier lies within one cell of a sign change of $\tau$; and 60 of the
-64 sign changes of $\tau$ lie within one cell of a measured sign change or a complex leading pair. The ditches are thus
-the trace-zero curves of the leading block, the construction that Fa\c{c}anha, Oldeman and Glass use as the skeleton of
-shrimps in two-dimensional maps \cite{facanha2013endoskeletons}. Between the main ditch and the arc, $\tau$ has a saddle
+64 sign changes of $\tau$ lie within one cell of a measured sign change or a complex leading pair. This resembles
+the trace-zero skeleton that Fa\c{c}anha, Oldeman and Glass use for
+shrimps in two-dimensional maps \cite{facanha2013endoskeletons}. Between the main ditch and the arc, a local quadratic fit to $\tau$ gives a saddle
 at $(0.073188,-0.152083)$ with the value 0.045 (Hessian eigenvalues $-8.0\times10^{-4}$ and $3.5\times10^{-3}$ per
-squared cell, from a quadratic fit over $5\times5$ cells with residual $3.9\times10^{-4}$). Near a nondegenerate saddle
-with a nonzero value the zero set splits into two separate branches, which is why the two lines approach and turn away
-instead of crossing. The leading multiplier has a saddle nearby, 0.067 at $(0.073195,-0.152138)$ (Hessian eigenvalues
+squared cell, from a fit over $5\times5$ cells with residual $3.9\times10^{-4}$).
+The fitted saddle and the measured zero curves support a local trace-based explanation of why the two lines approach and turn away
+without crossing. The leading multiplier has a fitted saddle nearby, 0.067 at $(0.073195,-0.152138)$ (Hessian eigenvalues
 $-5.6\times10^{-4}$ and $2.8\times10^{-3}$), a reading fixed before the grid's data arrived. The finer patch lies just
 above it, on the flank toward the main ditch, which is why the patch's lowest value sits at its corner. The run card
-asked instead for a saddle of $\delta$, and that test fails: no critical point of $\delta$ passes the window test,
+asked instead for a saddle of $\delta$, and that test fails: none was found on the sampled patch under the specified fitting and filtering procedure,
 $\delta$ follows the steady drift of the second multiplier (from $-0.010$ to $-0.034$ across seven columns at the
 saddle), and its zero set misses the arc (11 of its 32 sign changes lie within one cell of a measured sign change). The
-trace was examined after the data arrived, as a disclosed amendment. In 38 cells the second and third multipliers are
-comparable and the followed pair mixes with a third direction (overlap below 0.9).
+trace was examined after the data arrived, as a disclosed amendment. In 38 of the 852 cells the tracking overlap falls
+below 0.9, indicating possible mixing with a third direction. This local evidence does not establish an exact
+two-dimensional reduction of the full map.
 
 \begin{figure}[tbp]
 \centering
 \includegraphics[width=\linewidth]{figures/fig-delta2d.png}
-\caption{What keeps the two pseudo-superstable lines apart at the top of the period-6 body (run DELTA2D,
+\caption{Trace geometry associated with the separation of the two pseudo-superstable lines at the top of the period-6 body (run DELTA2D,
 \repo{tools/plot_delta2d.py}). A two-dimensional block of the monodromy, initialized from its leading Ritz directions, was tracked from cell to
-cell by subspace overlap over 852 continued orbits (float64; steps $10^{-5}$ in $\alpha$ and $2.5\times10^{-5}$ in $\log_{10}T$; gray: no orbit, beyond
-the fold). (a) The trace $\tau$ of the tracked block (colors clipped at $\pm0.2$), its zero curves
+cell by subspace overlap over 852 continued orbits (float64; steps $10^{-5}$ in $\alpha$ and $2.5\times10^{-5}$ in $\log_{10}T$; gray: no converged orbit on
+the followed branch). (a) The trace $\tau$ of the tracked block (colors clipped at $\pm0.2$), its zero curves
 (black), the measured sign changes of the real leading multiplier (white dots) and the cells with a complex leading
-pair (gray squares), and the saddle of $\tau$ (gold cross, $\tau=0.045$) with the level curve through it (dashed).
-(b) The determinant $\delta$, with its zero curve and the same measurements; small crosses mark cells where the followed
-pair mixes with a third direction. The rectangle is the patch ten times finer around the lowest point of line A.}
+pair (gray squares), and the numerically fitted saddle of $\tau$ (gold cross, $\tau=0.045$) with the level curve through it (dashed).
+(b) The determinant $\delta$, with its zero curve and the same measurements; small crosses mark cells where the tracking
+overlap falls below 0.9, indicating possible mixing with a third direction. The rectangle marks the patch around the minimum
+on line A, refined by a factor of ten in each parameter relative to the ditch scan in Figure~\ref{fig:p6signs}(a).}
 \label{fig:delta2d}
 \end{figure} Near the kite, where two orbits exist, curves that belong to different orbits can cross in the
 parameter plane without any degeneracy, as the superstable curves of Gallas's two coexisting fixed points do at his
@@ -3181,29 +3185,30 @@ window, so the width is a lower bound.}
 \label{fig:hiddenstrip}
 \end{figure}
 
-\paragraph{Why one dimension.} A single step of the map does not squeeze the state onto a single direction: it is not close to rank one. Along these orbits, the second
+\paragraph{Evidence for low-dimensional dynamics.} A single step of the map does not squeeze the state onto a single direction: it is not close to rank one. Along these orbits, the second
 eigenvalue of the readout covariance $\Sigma_p$ is 0.23 to 0.87 of the first, and the second singular value of the
-step derivative is 0.11 to 0.90 of the first. Composed over a cycle, however, the map is nearly one-dimensional. The
+step derivative is 0.11 to 0.90 of the first. Composed over a cycle, however, the leading singular value becomes more dominant. The
 ratio of the two leading singular values is 0.081 for the 2-cycle, 0.092 for the period-3 loop and 0.26 for the
 period-6 band; it falls to $3\times10^{-4}$ over twelve steps of the chaotic crescent and to $4\times10^{-9}$ in the
-chaotic stripes. Each step stretches some direction, but different steps stretch different ones, and only the
-direction along which the competition between two continuations repeats keeps growing over a cycle. The Lyapunov spectra say the same. The map has one exponent for each of its 896 directions, ordered from largest to smallest, and the maps give only
+chaotic stripes. These ratios show a stronger separation of the leading singular directions over the composed map than over a
+single step. The finite-time Lyapunov spectra provide complementary evidence. The map has one exponent for each of its 896 directions, ordered from largest to smallest, and the maps give only
 the largest of each cell, from the drift of a nearby twin. To find the next few, we followed four small perturbations
 at once with the network's exact derivative, re-orthogonalizing them at every step so that they do not all turn
 toward the fastest-growing direction (\repo{tools/lyapunov_spectrum.py}), and averaged their logarithmic growth
 rates. We did this only at three representative chaotic cells, one in the crescent's chaotic core
 and two among the chaotic stripes. Over 600 steps their largest exponents are $0.109$, $0.424$ and $0.239$ per step,
-and the next three are strongly negative, between $-0.82$ and $-2.01$. The attractors are therefore barely more than
-one-dimensional: their Kaplan--Yorke dimensions, one plus the largest exponent divided by the magnitude of
-the next, are 1.13, 1.43 and 1.21. (Over 3000 steps the largest exponents are
+and the next three are strongly negative, between $-0.82$ and $-2.01$. The finite-time Kaplan--Yorke dimension estimates,
+one plus the largest exponent divided by the magnitude of
+the next, are 1.13, 1.43 and 1.21. These estimates suggest low-dimensional dynamics at the three sampled cells,
+with one expanding direction. (Over 3000 steps the largest exponents are
 $0.098\pm0.010$, $0.437\pm0.016$ and $0.196\pm0.014$; Section~\ref{sec:dialogue}.) These
 finite spectra and the singular-value ratios support strong effective contraction in the sampled directions and
 motivate scalar approximations: on the sampled range, the crescent's attractor gives a scalar return relation with a
 single extremum (Figure~\ref{fig:e2e}e). The measured cascade separately provides finite evidence consistent with
 Feigenbaum scaling (Section~\ref{sec:cascade}); no global one-dimensional invariant reduction is established. A scalar model built from the two
 competing tokens, $q'=\sigma(h(q)/T)$, reproduces the crescent's hump (Figure~\ref{fig:e2e}e) and, at $\log_{10}T=-0.156$, places its first flip
-between $\alpha=0.0646$ and 0.0648, against 0.0644767 in the full map. It does not reproduce the cascade, so the competition sets the shape, while the
-rest of the network sets where the cascade ends.
+between $\alpha=0.0646$ and 0.0648, against 0.0644767 in the full map. The agreement is qualitative:
+it does not reproduce the cascade.
 
 \begin{figure}[tbp]
 \centering
@@ -3232,9 +3237,9 @@ $q'=\sigma(h(q)/T)$ (dashed).}
 \paragraph{The picture.} At zero temperature, away from ties, the loop writes greedy loops. As the temperature rises, the soft token
 starts to mix the two continuations a token has, and the mixtures form new periodic orbits that greedy decoding does not have.
 The two we continued each live between a flip, where the competition is too sharp, and a fold, where it is too weak. Their folds leave
-ghosts that line up the windows, and their flips start cascades into chaos. One competition stretches while the rest
-of the network contracts. This supports describing these structures by one-dimensional maps, as Feigenbaum's ratios
-suggest, although no global one-dimensional reduction is established. Steering
+ghosts that line up the windows, and their flips start cascades into chaos. At the three sampled chaotic cells, the
+finite-time spectra suggest one expanding direction. This supports exploring one-dimensional descriptions of these orbits, as Feigenbaum's ratios
+also suggest, although no global one-dimensional reduction is established. Steering
 moves which continuations compete, and so where all of this happens.
 
 \section{Beyond the one-token loop}
@@ -3892,6 +3897,7 @@ the text of the attractors (Appendix~\ref{sec:origin}).
 Multipliers are those of the period-$p$ map $G=F^p$; $a$, $b$ and $c$ are coefficients of the center-manifold normal
 forms. The numbers are given in the text.}
 \label{tab:signatures}
+\setlength{\tabcolsep}{4pt}
 \begin{tabular}{@{}p{0.15\linewidth}p{0.29\linewidth}p{0.38\linewidth}p{0.12\linewidth}@{}}
 \toprule
 object & requires & we show & status \tabularnewline
@@ -3899,8 +3905,7 @@ object & requires & we show & status \tabularnewline
 \raggedright \textbf{fold} & \raggedright one multiplier at $+1$; nonzero coefficients $a$ and $b$ & \raggedright both at the period-2 fold, where a stable and an unstable orbit meet; passage times forecast at four more folds & \raggedright shown \tabularnewline
 \raggedright \textbf{flip} & \raggedright one multiplier at $-1$; nonzero crossing speed and cubic coefficient & \raggedright multiplier at $-1$ and the doubled orbit at every level of the cascade; cubic coefficient only at two other flips & \raggedright partly shown \tabularnewline
 \raggedright \textbf{cusp} & \raggedright $+1$ with $b=0$, $c\neq0$ and a regular unfolding & \raggedright the three conditions hold at the kite's cusp C and at five more located cusps & \raggedright shown \tabularnewline
-\raggedright \textbf{pseudo-superstable line} & \raggedright the leading multiplier changes sign without vanishing & \raggedright on the sampled patch the ditches follow the zero curves of the trace of a tracked two-dimensional block, and a saddle
-of the trace keeps two of them apart & \raggedright shown numerically on the patch \tabularnewline
+\raggedright \textbf{pseudo-superstable line} & \raggedright the leading multiplier changes sign without vanishing & \raggedright the tracked two-dimensional block's trace-zero curves and fitted saddle support a local explanation of the ditches' separation on the sampled patch & \raggedright supported numerically on the patch \tabularnewline
 \raggedright \textbf{fold--flip point} & \raggedright one orbit with $+1$ and $-1$ at once & \raggedright none at A or B & \raggedright none found \tabularnewline
 \raggedright \textbf{pseudo-crossing} & \raggedright curves of two different orbits cross & \raggedright two distinct orbits at R; different spectra at A and B & \raggedright shown \tabularnewline
 \raggedright \textbf{Feigenbaum ratio} & \raggedright ratios approach the constant of a universality class & \raggedright ratios reach 4.6688, against $\delta=4.6692$ & \raggedright consistent \tabularnewline
@@ -3914,10 +3919,14 @@ period-6 saddle and leaves at the predicted time & \raggedright strong evidence 
 
 \paragraph{What is and is not claimed.} Table~\ref{tab:signatures} lists, for each bifurcation, crossing and
 boundary named here, what it requires and what we show. The objects studied here are invariant sets and bifurcations of an exactly
-defined smooth map built from a frozen model's own computation. The answer-level reproducibility tests use two Qwen2.5
-models (0.5B and 7B), one task family and a soft-thinking pipeline without the top-$k$ filtering of the published
+defined smooth map built from a frozen model's own computation. The initial arithmetic reproducibility tests use two Qwen2.5
+models (0.5B and 7B) and a soft-thinking pipeline without the top-$k$ filtering of the published
 method, and their bfloat16 effect does not require the float64 map's chaos: in float64 no answer changed in the 0.5B
-model, and 5\,\% changed in the 7B model, whose loop expands at the temperature tested (Section~\ref{sec:consequences}). The mechanism of
+model, and 5\,\% changed in the 7B model, whose loop expands at the temperature tested.
+The later GSM8K tests include one at the published Soft Thinking settings and separate tests of three reasoning models; ordinary sampled
+reasoning also changes answers with the batch layout. Nearly all of the reasoning models' changed GSM8K answers come
+from problems that reach a thinking or answer budget in at least one layout. These measurements do not establish
+the rate for reasoning that completes (Section~\ref{sec:consequences}). The mechanism of
 Section~\ref{sec:theory} is measured along three directions in a 0.5B model and one in a 7B model, and at high
 temperature the network factor can carry the instability. The loop's regime does not mark the accuracy of ordinary
 sampled answers beyond the model's first-token uncertainty, and when slight steering moved a prompt's loop into chaos no change of that accuracy was detected ($+0.36$ points,
@@ -4015,6 +4024,7 @@ between stability and reasoning accuracy, especially at the short horizons of de
 be reached. Agentic loops that sample discrete tokens and tool outputs have no derivative at all; only the
 zero-temperature limit and the sensitivity measurements of this paper bear on them.
 
+\begingroup\widowpenalty=10000
 \paragraph{Is the chaos useful?} The chaos we map is not a source of new content. The chaotic cells of
 Table~\ref{tab:transcripts} recombine the phrases of the neighboring loops in an order that did not settle over the recorded horizon: the
 trajectory wanders among the ghosts of nearby periodic orbits, which gives variety in sequence but not in substance.
@@ -4038,6 +4048,7 @@ recurrence is comfortably stable and falls as it approaches its edge: it was $0.
 $1.05$, where the token recurrence is nearly as stable as natively (median decay rate $0.921$ against $0.912$), and
 fell to $0.375$ at $1.15$, where the recurrence is near critical ($0.981$, with about half of the tokens no longer
 converging). With 40 problems these differences are indicative only.
+\par\endgroup
 \begin{figure}[tbp]
 \centering
 \includegraphics[width=\linewidth]{fig-reservoir.png}
@@ -4071,12 +4082,11 @@ network's own derivatives, forecast how long trajectories linger near a vanished
 Feigenbaum's constant; and its parameter plane holds shrimp-shaped windows organized as in the low-dimensional maps
 where such windows were first found. Two coupled copies drift apart at approximately the rate the loop's Lyapunov exponent predicts.
 None of this rests on a simplified model of the network: the orbits, multipliers and normal forms are those of the full
-transformer in float64, and three of its periodic orbits are proved to exist with interval arithmetic. The
-factorization of the loop's derivative into temperature, the covariance of the next-token distribution and the
-network's Jacobian holds for every smooth model with a softmax readout and a fixed prompt, and chaos with embedded
-windows appears in all three model families we scanned. The organization is therefore not a quirk of one network,
-although the attractors' texts and every number we report belong to particular weights. For models whose outputs feed
-back into their inputs, Lyapunov exponents, continuation and normal forms are a working method, not an analogy.
+transformer in float64, and three of its periodic orbits are proved to exist with interval arithmetic. For the expected-embedding
+feedback studied here with a fixed prompt, the derivative factorization applies to smooth networks with a linear output
+head followed by softmax: its factors are inverse temperature, an embedding covariance for tied embeddings or a
+cross-covariance for untied embeddings, and the network's Jacobian. Chaos with embedded periodic windows appears in all
+three model families we scanned, showing that these feedback dynamics occur across distinct language-model architectures.
 
 \section*{Code and data availability}
 The code, the designs of the tests fixed in advance with their audits, the run cards, the failed attempts and
@@ -4086,6 +4096,10 @@ holds the verification code, the exact map and input specifications, the release
 evidence. The complete native evidence of both computer-assisted proofs (center definitions, interval enclosures, derivative
 shards, audits and the failed attempts), with the verification code, release records and checksums, is archived at
 Zenodo, \href{https://doi.org/10.5281/zenodo.23488416}{doi:10.5281/zenodo.23488416}. Bulky raw trajectories and model states are kept outside the repository, which holds their checksums.
+
+\section*{Acknowledgments}
+The author thanks Jennifer Hoffman and Emin Arakelian for stimulating discussions about large language models and
+for encouraging the publication of this work.
 
 \section*{Funding}
 This work received no external funding; the author paid for all computation.
