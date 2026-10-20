@@ -31477,3 +31477,28 @@ nearly identical under protan vision.
 - The local CPU bands keep running as an independent check: the same cells on another device.
 - Readings as in the run card. Ceiling in the private ledger.
 - Outputs: ../neural-shrimp-data/explore/llm-soft-loop/pod64/dss/ditchfine-g{0,1}.
+
+## 2026-10-20 00:50 UTC: run card DELTA2D (exploratory; four rented GPUs, approved by the human): is the top of the period-6 body a saddle of the leading block's determinant?
+
+- **Question.** The article's conditional model: for a smoothly tracked two-dimensional invariant subspace with trace
+  tau and determinant delta, a nondegenerate saddle of delta with a nonzero value gives two hyperbolic branches of
+  {delta = 0} that approach and turn away, with complex eigenvalues where tau^2 < 4 delta. Neither the saddle nor a
+  coupling of the two directions has been measured.
+- **Method.** tools/doubly_superstable.py grid --multipliers-only --store-ritz (new option: the three leading Ritz
+  vectors and multipliers per solved cell, ritz.npz), float64, as DITCH2D. Grid: alpha 0.07306 to 0.07332 (27 columns,
+  1e-5 apart) by log10 T -0.15250 to -0.15160 (37 rows, 2.5e-5 apart). It covers the main ditch's upper end, the
+  minimum of the dim ditch and the arc's peak, in four bands seeded at alpha 0.07318.
+- **Analysis.**
+  - Start from the cell where the two leading multipliers are best separated from the third.
+  - Track the two-dimensional invariant subspace of the leading pair to neighboring cells, breadth first, by the
+    largest principal-angle overlap of the Ritz-vector spans.
+  - Compute tau and delta of the tracked block, and its entries in a basis transported from the start.
+- **Readings fixed now.**
+  - The model is supported if delta has a critical point between the arc and the main ditch with a Hessian of
+    indefinite sign, the value there is nonzero, and the branches of {delta = 0} follow the measured sign-change lines
+    within one cell.
+  - It fails if delta has no such saddle, or its zero set crosses (then the lines connect).
+  - Where the tracked pair mixes with the third direction (overlap below 0.9), the block is unresolved there.
+  - Coupling: the off-diagonal product of the block in the transported basis, compared with the half-difference of its
+    diagonal entries where the two eigenvalues come closest.
+- **Output.** ../neural-shrimp-data/explore/llm-soft-loop/pod64/dss/delta2d-d{0,1,2,3}.

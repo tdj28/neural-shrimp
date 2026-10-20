@@ -268,6 +268,7 @@ def grid(args):
     SM = np.full((nt, na, p), np.nan)               # stretchings s_i
     TCOS = np.full((nt, na), np.nan)                # smallest |cos| to the parent's oriented directions
     M2 = np.full((nt, na, 3, 2), np.nan)            # three leading multipliers (real, imag) by modulus
+    RV = None                                       # --store-ritz: the three leading Ritz vectors per solved cell
     states = {}
     front = Frontier((nt, na), (i0, j0), args.attempts)
     states[None] = (X, Q, orient_seed)
@@ -289,6 +290,10 @@ def grid(args):
             vals, vecs, res, rh, Qn = lfb.ritz(cell, Xn, p, Qn)
             mu, vlead, clean = leading(vals, vecs)
             M2[i, j, :len(vals[:3])] = np.array([[z.real, z.imag] for z in vals[:3]])
+            if args.store_ritz:
+                if RV is None:
+                    RV = np.full((nt, na, vecs.shape[0], 3), np.nan, dtype=complex)
+                RV[i, j, :, :min(3, vecs.shape[1])] = vecs[:, :3]
             if args.multipliers_only:
                 vlead = np.real(vecs[:, 0])
             c, dirs, toks = factors(cell, Xn, p, vlead, refs)
@@ -317,6 +322,8 @@ def grid(args):
                                 min_reference_cosine=COS, factors_transported=CT, stretchings=SM, transport_cosine=TCOS,
                                 multipliers=M2, row_axis=np.array("alpha2" if args.block2 is not None else "log10_temperature"),
                                 seed=np.array(args.seed), seed_tokens=np.array(seed_toks))
+            if args.store_ritz and RV is not None:
+                np.savez_compressed(out / "ritz.npz", vectors=RV, multipliers=M2, alpha=als, log10_temperature=lts)
         # free states that no queued or retried cell can still need
         live = front.parents_still_useful()
         for key in [k for k in states if k is not None and k not in live]:
@@ -358,6 +365,9 @@ def main():
     g.add_argument("--k", type=int, default=6)
     g.add_argument("--tol", type=float, default=1e-12)
     g.add_argument("--chunk", type=int, default=512)
+    g.add_argument("--store-ritz", action="store_true",
+                   help="also store the three leading Ritz vectors (and multipliers) of every solved cell in ritz.npz, "
+                        "for tracking a two- or three-dimensional invariant subspace across the grid")
     g.add_argument("--multipliers-only", action="store_true",
                    help="two-dimensional regime: accept a complex or unclean leading multiplier at the seed and record "
                         "the three leading multipliers per cell (factors are still written but are not meaningful)")
