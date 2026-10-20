@@ -3547,8 +3547,10 @@ windows thread it, most often of periods 3, 5, 6 and 7 and up to 13; fixed point
 \label{sec:huginn}
 Huginn-0125 iterates a recurrent block at fixed input tokens \cite{geiping2025recurrent}. For a GSM8K-style
 \cite{cobbe2021gsm8k} prompt, the native loop converges to a fixed point whose leading Jacobian pair is
-$0.588\pm0.771i$ (modulus $0.970$). For the relaxed loop $h\leftarrow(1-\lambda)h+\lambda F(h)$, whose multipliers
-are $1-\lambda+\lambda\mu$, this predicts that the pair crosses the unit circle at
+$0.588\pm0.771i$ (modulus $0.970$). To probe its stability we relax the iteration to $h\leftarrow(1-\lambda)h+\lambda F(h)$: $\lambda=1$ is the model's own
+loop, $\lambda<1$ takes shorter steps and $\lambda>1$ overshoots, and at the fixed point the relaxed loop has
+multipliers $1-\lambda+\lambda\mu$, so $\lambda$ acts as a bifurcation parameter we can set. For this prompt this
+predicts that the pair crosses the unit circle at
 $\lambda_c=2(1-\operatorname{Re}\mu)/|1-\mu|^2=1.0775$, transversally and away from the strong resonances (at
 0.156 of a revolution per step), consistent with a Neimark--Sacker bifurcation. Below it the latent state
 decays; above it the state settles on a closed curve. A fit of the squared amplitude gives $\lambda_c=1.0778$, with
@@ -4011,8 +4013,21 @@ along our float64 orbits, but in low precision routing can), and deployed
 inference samples tokens, in low precision, over long contexts; an 8-bit weight quantization that changes next-token
 distributions by only 0.003 nats changes the attractor class or period of one start in seven
 (Appendix~\ref{sec:behaviour}). Closed models permit none of these computations, which
-need the input embeddings, full next-token distributions and derivatives; for them the method and the questions
-transfer, not the numbers.
+need the input embeddings, full next-token distributions and derivatives; for them the method and the questions transfer, not the numbers.
+
+\paragraph{Conclusion.} A language model that reads its own soft output is a smooth dynamical system, and it behaves as
+one. Temperature and steering carry it from repeating text through period-doubling cascades into chaos with a positive
+Lyapunov exponent. Its periodic windows open and close in folds and flips whose normal forms, computed from the
+network's own derivatives, forecast how long trajectories linger near a vanished orbit; its cascades approach
+Feigenbaum's constant; and its parameter plane holds shrimp-shaped windows organized as in the low-dimensional maps
+where such windows were first found. Two coupled copies drift apart at the rate the loop's Lyapunov exponent predicts.
+None of this rests on a simplified model of the network: the orbits, multipliers and normal forms are those of the full
+transformer in float64, and three of its periodic orbits are proved to exist with interval arithmetic. The
+factorization of the loop's derivative into temperature, the covariance of the next-token distribution and the
+network's Jacobian holds for every smooth softmax-readout model read through a fixed prefix, and chaos with embedded
+windows appears in all three model families we scanned. The organization is therefore not a quirk of one network,
+although the attractors' texts and every number we report belong to particular weights. For models whose outputs feed
+back into their inputs, Lyapunov exponents, continuation and normal forms are a working method, not an analogy.
 
 \section*{Code and data availability}
 The code, the designs of the tests fixed in advance with their audits, the run cards, the failed attempts and
