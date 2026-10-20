@@ -1,0 +1,43 @@
+{
+  "utc": "2026-10-20T03:47:37.531511+00:00",
+  "source_commit": "fe0b376db4d4ab11a21ba6c1fedda99916d6b049",
+  "script_sha256": "2ca798998528c597f767bcd58219f76852cd45cce5f98fe6d32fdb831c5ed07a",
+  "argv": [
+    "uv",
+    "run",
+    "--no-sync",
+    "python",
+    "codex/arxiv-gonogo2-task40/package_audit.py"
+  ],
+  "limits": {
+    "cpu_seconds": 1200,
+    "parent_wall_seconds": 1800,
+    "address_space_GiB": 2,
+    "file_bytes": 268435456,
+    "nice_increment": 10,
+    "numerical_threads": 1
+  },
+  "environment": {
+    "HF_HUB_OFFLINE": "1",
+    "CUDA_VISIBLE_DEVICES": "",
+    "OMP_NUM_THREADS": "1",
+    "OPENBLAS_NUM_THREADS": "1",
+    "MKL_NUM_THREADS": "1",
+    "NUMEXPR_NUM_THREADS": "1"
+  },
+  "timeout": false,
+  "pid": 1646210,
+  "exit_code": 0,
+  "parent_launch_through_reap_seconds": 273.34316611336544,
+  "child_reaped": true,
+  "logs": {
+    "stdout.log": {
+      "sha256": "98aac76f57a0247c2af048f44cee3d39a284da105104ab10012c65f70e111831",
+      "bytes": 3992
+    },
+    "stderr.log": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    }
+  }
+}

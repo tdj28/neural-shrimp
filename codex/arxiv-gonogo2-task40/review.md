@@ -1,8 +1,12 @@
 GO WITH FIXES — article bb42a82; make the nine must-fix corrections before submission.
-17 findings: 9 must-fix, 7 should-fix, 1 note; explicitly partial checks are listed below.
+17 article findings: 9 must-fix, 7 should-fix, 1 note; separate Zenodo addendum: 5 findings, 2 must-fix before deposit.
 A3: all 225 CPU/GPU cells agree at the paper's precision; maximum leading-multiplier difference 6.554×10^-12, with two temperature rows differing by one ULP.
 
 # Task40 independent article and evidence review
+
+Submission checklist: **F1–F8 and F17** are the nine must-fix items.
+F9–F15 are recommended clarifications/editorial improvements; F16 records
+audit limits.
 
 Article reviewed: `bb42a82189da91c37f50804c077832df9e2237ae`, against Task39's
 `4ca5b5e35bc766581a5e2d326858fcd0edc312bb`. Research reference:
@@ -13,9 +17,13 @@ is 164,521 bytes, SHA256
 `b0ecb1d8b74d19bb0b1a6b87c402846679f12b50346d135f9a0beecf45d562f1`.
 
 The human directed that the arXiv review be delivered before the Zenodo
-package audit. This first release therefore gives the article verdict now;
-package contents remain pending in the coverage ledger. Present-tense public
-availability must nevertheless be truthful in the submitted article.
+package audit. The article verdict was delivered and privately pushed at
+`ecc660ea` before that audit. The later
+[Zenodo addendum](package-review.md) now records its results separately:
+all 34 outer checksums and 39 direct release/review references, covering
+37 unique packaged files, pass;
+documentation, a missing shared dependency and privacy-review items remain.
+Present-tense public availability must be truthful in the submitted article.
 No article, producer source, existing evidence, repository visibility or
 publication state was changed by this audit.
 
@@ -195,7 +203,7 @@ certificate evidence “is archived at Zenodo.”
 Evidence: The Task40 brief calls DOI 10.5281/zenodo.23488416 reserved and
 unpublished. Applicable repository policy keeps the repository private.
 Public URL fetch failures here do not establish a 404; the problem is
-that the claimed public state has not been established. The deferred
+that the claimed public state has not been established. The completed
 package-content audit cannot itself establish publication.
 
 Correct value / wording: Before submission, describe the actual authorized
@@ -397,12 +405,12 @@ retain that convention or explicitly disclose a revised one.
 | A6 cusp unfolding | Completed six records, twelve bracket endpoints, determinant/singular-value/scaled-coordinate reductions and final tolerances. K coordinates are (log10 T, 10 alpha). Final Newton history is absent from compact locator outputs and remains unverified. F2 applies. |
 | A7 synchronization | Completed all 18 brackets, five stars, three exponents/c*, 21 transverse comparisons, burst counts and saved selected joint-return diagnostics. Full-state primitive-period reconstruction and the “most” denominator remain partial; dirty producer source not authenticated. |
 | A8 hook tip / kite edge | Completed saved saddle, local coexistence, all 34 distance columns, exit/closest-distance fits and hook-tip interpolation/extrapolations. Exit slope convention uses last exit from relative radius 10^-3. Random-start 128×128 absence of the edge remains a finite-grid visual claim, not freshly re-reduced. |
-| A9 Zenodo | **Deferred until after this article report is delivered, as the human requested.** No package-content pass is implied. A later addendum will record checksum/closure/text screening results. |
+| A9 Zenodo | **Completed after the article report was delivered, as requested.** All 34 file checksums, 73,945 member hashes, 39 direct release/review checks and 738 code/Git joins pass. Separate `package-review.md` records two deposit must-fix items and three recommendations, including the absent historical supervisor, nonportable replay instructions and 4,666 local-path candidate files. Recursive closure and exhaustive privacy clearance remain partial. |
 | B1 Sec. V | Completed fresh fold/passage/window reductions plus exact reuse of closed independent audits. All 12 Table III observed/predicted pairs, all 48 Table V measurements and Table IV reductions match under the stated definitions. Failed prospective criteria retained. Free-exponent nonlinear fits 2.13–2.45 and 1–3% fit misfits were not independently refitted and remain partial. |
 | B1 Sec. VI | Completed nine flip records, seven ratios, quoted sensitivities and alternate-cut comparisons, FT scan dimensions/horizons and rejected linear-fit attempt. No independent monodromy/JVP evaluation. F5 applies; finite-order consistency is not universality proof. |
 | B1 Sec. VII–VIII | Covered by A2–A8 above, including per-row gates and evidence limits. Old previously audited anatomy/model computations were not repeated. |
 | B1 Discussion, Table VIII, Conclusion | Claims calibration completed, with F10–F13/F17 and unchanged Task39 evidence reused. Three saved 600-step, four-direction spectra give exactly one positive exponent each and KY dimensions 1.13311/1.42779/1.20843; the negative range is −2.00307 to −0.821936, within the article's outward enclosure. All four sampled-bridge archives freshly reduced. No blanket “every number independently recomputed” claim is made. |
-| B1 Data Availability | Completed wording/state check; F8 applies. Package contents deferred; no publication action. |
+| B1 Data Availability | Completed wording/state check; F8 applies. Later package audit completed within the addendum's scope; it does not establish public availability. No publication action. |
 | B2 three external reviews | Complete check of the two available accepted-point summaries and full consult 24 plus adjudication. Original 27-/18-page review documents were not present, so full original-review coverage cannot be claimed. See `citations-review.md` accepted-point ledger. Chaos/flip/Feigenbaum caveats largely applied; abstract/sync summary and descent wording need fixes. |
 | B3 figures/tables/references | All 34 pages visually inspected; 27 figures/eight tables, no missing/duplicate labels or final unresolved references. Fig. 1 on page 1. F15 records layout exceptions. Visual checking does not independently regenerate every unchanged figure's underlying experiment. |
 | B3 arXiv bundle | PASS for the frozen bundle: all 33 members match the frozen source/graphics or declared comment normalization; regenerated bibliography matches. Canonical and bundle builds give exactly matching text and all 34 page renders. Complete PDF bytes match after only two date-field and one trailer-ID substitutions. New author edits require a fresh final bundle/build check. |
@@ -417,7 +425,8 @@ limits: [raw-review.md](raw-review.md),
 [numerical-review.md](numerical-review.md),
 [discussion-delta-review.md](discussion-delta-review.md),
 [citations-review.md](citations-review.md),
-[bundle-review.md](bundle-review.md).
+[bundle-review.md](bundle-review.md),
+[package-review.md](package-review.md).
 Scripts, audit outputs and named parent receipts are in this same
 Task40 directory. Original raw evidence remains at the paths in their
 input manifests. Large PDF/build scratch remains under
@@ -425,7 +434,7 @@ input manifests. Large PDF/build scratch remains under
 
 Executable audit sources were privately checkpointed before execution.
 Completed bounded workers (`raw-001`, `delta-001`, `cascade-001`,
-`ditches-002`, `fold-001`, `bundle-002`, `discussion-001`) exited 0 without timeout and were
+`ditches-002`, `fold-001`, `bundle-002`, `discussion-001`, `package-001`) exited 0 without timeout and were
 reaped by their parents. The unsuccessful `ditches-001` and pre-Python
 bundle launch refusal remain intact. CPU-only saved-data work used one
 numerical thread per worker; the original GPU runs were merely read.
