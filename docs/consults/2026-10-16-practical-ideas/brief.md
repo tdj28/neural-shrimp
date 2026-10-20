@@ -39,7 +39,7 @@ establish them.
 
 ## Resources
 
-A local 16 GiB GPU (a 7B model in bfloat16 at about 190 tokens/s in batches), about $150 of H100 time for float64
+A local 16 GiB GPU (a 7B model in bfloat16 at about 190 tokens/s in batches), about [amount redacted] of H100 time for float64
 measurements, and a few days. Models up to 7B locally, up to 70B on rented GPUs.
 
 ## What we would like from you

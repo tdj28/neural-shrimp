@@ -165,7 +165,7 @@ These are experimental readouts, not substitutes for the experiment.
 5. Reuse converged states from the six-GPU jobs; do not repeat their broad maps.
 6. Spend derivative calculations only on decisive anchors and switch brackets.
 
-The full matrix has 306 trajectory arms before refinement. Approximately 0.3–1 million map evaluations is a planning range, not a guarantee. At 20–200 ms/evaluation, that spans roughly 2–56 GPU-hours. **Cap incremental work at 18 GPU-hours** and reduce to nine-point held-out transects plus targeted refinement if throughput is slow. At an assumed rental rate of $1–3/GPU-hour, that cap is $18–54, excluding the existing jobs. No API calls are needed.
+The full matrix has 306 trajectory arms before refinement. Approximately 0.3–1 million map evaluations is a planning range, not a guarantee. At 20–200 ms/evaluation, that spans roughly 2–56 GPU-hours. **Cap incremental work at 18 GPU-hours** and reduce to nine-point held-out transects plus targeted refinement if throughput is slow. At an assumed rental rate of [amount redacted]–3/GPU-hour, that cap is [amount redacted]–54, excluding the existing jobs. No API calls are needed.
 
 **Decision branches:** two clean overlaps justify a basin-selection account for those crossings and launch edge tracking. One clean overlap establishes heterogeneous mechanisms. Neither clean overlap redirects effort toward branch bifurcations or chaotic survival. Failed controls trigger a narrower rerun, not a mechanistic conclusion.
 

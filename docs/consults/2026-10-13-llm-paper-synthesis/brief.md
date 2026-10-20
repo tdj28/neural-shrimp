@@ -119,7 +119,7 @@ Q2. Literature. Is there any published work up to October 2026 that preempts or 
   - detect-and-regenerate control during generation?
   Give exact citations only; we check every one at the primary record.
 
-Q3. The single most valuable addition before posting, given about $100 of rented GPU time plus local CPU. The
+Q3. The single most valuable addition before posting, given about [amount redacted] of rented GPU time plus local CPU. The
 options we see:
   - complete the interval proof (running);
   - human labels for a few hundred replies;

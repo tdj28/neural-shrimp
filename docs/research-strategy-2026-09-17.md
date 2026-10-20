@@ -7,7 +7,7 @@ it is not a statement of current consultation status or the next executable run.
 
 17 September 2026. **Local adversarial analysis, not a Pro review.** The
 requested GPT-6 Astra Pro consultation was prepared but not sent: no enforceable
-USD 10 cap or available authenticated, included subscription route could be
+[amount redacted] cap or available authenticated, included subscription route could be
 established. Incremental consultation spend is **USD 0**; see the
 [not-run record](consults/2026-09-17-status.md) and
 [hash-bound receipt](consults/2026-09-17-receipt.json).

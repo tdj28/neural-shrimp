@@ -98,7 +98,7 @@ exact task resource ownership, artifact retrieval with hash verification,
 and verified termination. This amendment authorizes the fallback choice;
 it supplies neither a dollar ceiling nor a specific paid launch approval.
 Prepare the concrete costed packet before requesting any missing approval.
-Paid review calls and public release remain separately controlled by
+Paid review calls remain separately controlled by
 AGENTS.md and the canonical research-integrity playbook.
 
 ## Record spend only in the private cost ledger

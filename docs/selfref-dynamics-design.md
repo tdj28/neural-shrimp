@@ -81,7 +81,7 @@ mapped rather than a failure to discard.
 - Feature profiling about 1 GPU-hour.
 - Generation and judging about 3 GPU-hours.
 - Maps about 8 x 1.2 GPU-hours.
-- Total about $45 on H100 NVL or A100.
+- Total about [amount redacted] on H100 NVL or A100.
 
 ## Readouts and what would change our view
 

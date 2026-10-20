@@ -196,7 +196,7 @@ The most useful mechanism intervention is **early versus late injection on paire
 
 **Estimates:** approximately \(2\text{–}6\times10^5\) forward-equivalent feedback steps, or 6–24 local GPU-hours. The supplied 190-token/s batching rate is not an appropriate assumption for differentiated rollouts; benchmark the pilot.
 
-Use no API calls. Reserve rental spending for a handful of precision-sensitive cases on the small model, not a 70B expansion. Assuming $3–6/hour, 4–10 H100 hours would cost approximately $12–60; verify pricing and float64 operator support first.
+Use no API calls. Reserve rental spending for a handful of precision-sensitive cases on the small model, not a 70B expansion. Assuming [amount redacted]–6/hour, 4–10 H100 hours would cost approximately [amount redacted]–60; verify pricing and float64 operator support first.
 
 - **Targeted advantage, greater early leverage:** expand radius–horizon mapping.
 - **Targeted advantage equally strong late:** study readout susceptibility; do not attribute it to chaos.

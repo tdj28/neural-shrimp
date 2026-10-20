@@ -5,7 +5,7 @@ cross-lists to nlin.CD and cs.LG). The author wants the results rock solid and o
 researchers in interpretability, alignment and inference. Today the paper was restructured, and one more
 continuation run (FM5, below) finished. A second AI agent (Codex) has reviewed every line of the paper against saved
 data, and its scope corrections are applied. The author edits after this consult.
-Resources: about $230 of GPU credit (H100 at about $2.6-3.2 per hour), and a few days. A 0.5B model is fast, a 7B
+Resources: about [amount redacted] of GPU credit (H100 at about [amount redacted]-3.2 per hour), and a few days. A 0.5B model is fast, a 7B
 model is feasible, and a 70B model is slow.
 
 ## System

@@ -96,7 +96,7 @@ writes identical text. Whether this synchronized state attracts depends on a sma
 copies, which points across the synchronized state, or transverse to it. The difference obeys
 $u'=(1-2c)\,[F(x_A)-F(x_B)]$, which for small $u$ becomes $u'=(1-2c)\,DF\,u$. At each step the loop's derivative $DF$
 stretches the difference, on average by the factor $e^{\lambda_1}$, where $\lambda_1$ is the largest Lyapunov exponent
-of a single loop, and the mixing multiplies it by $1-2c$. The difference therefore grows on average at the rate
+of a single loop, and the mixing multiplies it by [amount redacted]-2c$. The difference therefore grows on average at the rate
 $\lambda_\perp=\lambda_1+\ln|1-2c|$ per step, the transverse Lyapunov exponent. Without coupling, $\lambda_\perp=\lambda_1>0$ and the copies drift apart. As $c$ rises from 0 toward $1/2$, the
 factor $1-2c$ falls from 1 toward 0, and $\lambda_\perp$ falls with it. It crosses zero at the critical coupling
 \begin{equation}

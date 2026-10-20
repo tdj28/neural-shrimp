@@ -36,7 +36,7 @@ These are dimensionless relative operator-norm approximation errors in the speci
 
 **Interpretation and decisions.** Increasing \(d_1\) with small \(d_3\) supports a locally higher-rank tangent return. Persistently small \(d_1\) supports the nonnormal alternative. Large \(d_3\) requires a larger core. Unresolved singular values are an invalid measurement, not evidence for either mechanism. None of these outcomes alone proves an invariant manifold.
 
-**Resources.** Start with four local parameter points. Matrix-free derivatives avoid storing every step Jacobian. Estimated main-run cost: roughly 6–24 GPU-hours, subject to benchmarking; a rented suitable GPU at an assumed \$0.50–\$2/hour would cost approximately \$3–\$48 before overhead. Expand only after repeatability and rank-resolution controls pass.
+**Resources.** Start with four local parameter points. Matrix-free derivatives avoid storing every step Jacobian. Estimated main-run cost: roughly 6–24 GPU-hours, subject to benchmarking; a rented suitable GPU at an assumed [amount redacted]/hour would cost approximately [amount redacted] before overhead. Expand only after repeatability and rank-resolution controls pass.
 
 ## 2. Measure existence boundaries separately from basin-selection boundaries
 
@@ -163,7 +163,7 @@ Do not continue “trace zero” or an ambiguously selected leading eigenvalue a
 
 Load and benchmark locally first; no local hardware specification was supplied. Float64 weights alone are approximately 4 GB; working memory may be roughly 8–24 GB depending on differentiation strategy. Use matrix-free products before attempting complete monodromy matrices.
 
-Budget approximately \(5\times10^4\)–\(10^5\) step-level derivative actions, plus orbit refinement. At an assumed 0.05–0.5 seconds/action, derivative work alone spans roughly 0.7–14 hours; slower hardware can exceed the first-day budget. Benchmark rather than promise completion. Cap initial rental spending at \$75. No API calls or model judges are needed.
+Budget approximately \(5\times10^4\)–\(10^5\) step-level derivative actions, plus orbit refinement. At an assumed 0.05–0.5 seconds/action, derivative work alone spans roughly 0.7–14 hours; slower hardware can exceed the first-day budget. Benchmark rather than promise completion. Cap initial rental spending at [amount redacted]. No API calls or model judges are needed.
 
 **Decision branches:** rank loss supports a higher-rank local return model; retained rank-one structure supports a nonnormal scalar-like interpretation; a large fourth singular direction triggers a larger core; unresolved derivatives trigger a focused precision experiment, not a wider search.
 

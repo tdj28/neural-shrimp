@@ -4,8 +4,8 @@
 plus a condensed Chaos article). The author is worried that the work describes rich internal structure ("like
 crystallography") without a headline practical implication for how models behave or perform under realistic
 inference. Resources for the next days: a local RTX 2000 Ada (16 GiB) now fully available, which runs
-Qwen2.5-7B-Instruct in bfloat16 at 12-13 decoding steps/s for batches 1-16 (193 tokens/s at batch 16), and about $150
-of H100 credit for float64 work (a 7B float64 measurement over all 1319 GSM8K test problems costs a few dollars).
+Qwen2.5-7B-Instruct in bfloat16 at 12-13 decoding steps/s for batches 1-16 (193 tokens/s at batch 16), and about [amount redacted]
+of H100 credit for float64 work (a 7B float64 measurement over all 1319 GSM8K test problems is inexpensive).
 
 ## The system and what is established
 

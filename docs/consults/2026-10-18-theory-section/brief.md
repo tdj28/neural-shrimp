@@ -125,7 +125,7 @@ $1/T$ grows. Away from ties between the two leading tokens, the gain $\lVert\Sig
 $Ce^{-\Delta/T}/T$, where $\Delta$ is the gap between the two largest logits and $C$ is set by the squared embedding
 distances between the leading token and its nearest competitors. As $T\to0$, $F$ tends to the piecewise-constant
 greedy map, which feeds back the embedding of the most probable token: a map onto a finite set of embeddings, every
-orbit of which eventually repeats. This limit is pointwise, not uniform: near a tie the gain is of order $1/T$, so at
+orbit of which eventually repeats. This limit is pointwise, not uniform: near a tie the gain is of order [amount redacted]/T$, so at
 small positive temperature chaos is excluded only on invariant sets that keep a uniform logit gap.
 
 Chaos therefore lives in between, at temperatures where the next-token distribution is spread enough to make

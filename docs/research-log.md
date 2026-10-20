@@ -1626,7 +1626,7 @@ _commit `8de07b8cee9c`_
 ## 2026-10-07 23:47 UTC: run (exploratory)
 
 - **Question:** RunPod Phase 0: does the float64 mirror engine built for sm_90 reproduce the RTX 2000 Ada outputs bit for bit on an H100, and what are the measured throughputs for pricing Phase 1?
-- **Setup:** One community H100 PCIe pod (neural-shrimp-phase0, $1.99/h listed), image runpod/pytorch:2.4.0-py3.11-cuda12.4.1-devel-ubuntu22.04, exact commit f7e832cf via git archive, sm_89 reference (reference-sm89); runner: build sm_90 (nvcc 12.4, mirror flags), crossgpu_parity compare, CUDA tests, torch float64 benchmark; limits 15 min to SSH, 60 min run; approval docs/consults/approvals.md (Phase 0, at most $5)
+- **Setup:** One community H100 PCIe pod (neural-shrimp-phase0, [amount redacted]/h listed), image runpod/pytorch:2.4.0-py3.11-cuda12.4.1-devel-ubuntu22.04, exact commit f7e832cf via git archive, sm_89 reference (reference-sm89); runner: build sm_90 (nvcc 12.4, mirror flags), crossgpu_parity compare, CUDA tests, torch float64 benchmark; limits 15 min to SSH, 60 min run; approval docs/consults/approvals.md (Phase 0, at most [amount redacted])
 - **Output:** `../neural-shrimp-data/runpod/phase0`
 - **Would surprise us:** Any array not bitwise equal on the H100 (would mean architecture-dependent arithmetic in the mirror build)
 - **Command:** `.venv/bin/python tools/runpod_phase0.py --gpu-type NVIDIA H100 PCIe --commit HEAD`
@@ -1637,14 +1637,14 @@ _commit `f7e832cf8596` (dirty worktree)_
 
 ## 2026-10-07 23:48 UTC: RunPod Phase 0 attempt 1: no H100 PCIe capacity; no pod created
 
-podFindAndDeployOnDemand for NVIDIA H100 PCIe (community) returned 'no longer any instances available'; the ledger records only the pre-create inventory (4 pods of other projects), no pod was created and nothing was billed. Falling back to H100 SXM (community, $2.69/h listed) within the Phase 0 cap.
+podFindAndDeployOnDemand for NVIDIA H100 PCIe (community) returned 'no longer any instances available'; the ledger records only the pre-create inventory (4 pods of other projects), no pod was created and nothing was billed. Falling back to H100 SXM (community, [amount redacted]/h listed) within the Phase 0 cap.
 
 _commit `f7e832cf8596` (dirty worktree)_
 
 ## 2026-10-07 23:48 UTC: run (exploratory)
 
 - **Question:** RunPod Phase 0 (attempt 2, H100 SXM): bitwise parity of the sm_90 build with the RTX 2000 Ada reference, and measured throughputs
-- **Setup:** One community H100 SXM pod (NVIDIA H100 80GB HBM3, neural-shrimp-phase0, $2.69/h listed), same image, commit, reference, runner and limits as attempt 1; approval: Phase 0 at most $5
+- **Setup:** One community H100 SXM pod (NVIDIA H100 80GB HBM3, neural-shrimp-phase0, [amount redacted]/h listed), same image, commit, reference, runner and limits as attempt 1; approval: Phase 0 at most [amount redacted]
 - **Output:** `../neural-shrimp-data/runpod/phase0`
 - **Would surprise us:** Any array not bitwise equal on the H100
 - **Command:** `.venv/bin/python tools/runpod_phase0.py --gpu-type NVIDIA H100 80GB HBM3 --commit HEAD`
@@ -1656,7 +1656,7 @@ _commit `0f425f366f0f`_
 ## 2026-10-07 23:49 UTC: run (exploratory)
 
 - **Question:** RunPod Phase 0 (attempt 3, ordered H100 fallbacks): bitwise parity of the sm_90 build with the RTX 2000 Ada reference, and measured throughputs
-- **Setup:** Fallbacks at creation only: COMMUNITY H100 PCIe, COMMUNITY H100 SXM, COMMUNITY H100 NVL, SECURE H100 PCIe; host minimums 4 vCPU / 16 GB; rate guard $3.50/h; same image, commit, reference, runner and limits (15 min to SSH, 60 min run); approval: Phase 0 at most $5
+- **Setup:** Fallbacks at creation only: COMMUNITY H100 PCIe, COMMUNITY H100 SXM, COMMUNITY H100 NVL, SECURE H100 PCIe; host minimums 4 vCPU / 16 GB; rate guard [amount redacted]/h; same image, commit, reference, runner and limits (15 min to SSH, 60 min run); approval: Phase 0 at most [amount redacted]
 - **Output:** `../neural-shrimp-data/runpod/phase0`
 - **Would surprise us:** Any array not bitwise equal on the H100
 - **Command:** `.venv/bin/python tools/runpod_phase0.py --gpu-type COMMUNITY:NVIDIA H100 PCIe COMMUNITY:NVIDIA H100 80GB HBM3 COMMUNITY:NVIDIA H100 NVL SECURE:NVIDIA H100 PCIe --commit HEAD`
@@ -18853,7 +18853,7 @@ _commit `031e7d5ba757`_
 - **Setup:** explore_momentum_maps arc --beta 0 on the fixed ray (log10 output = log10 hidden - 1.828), s_max 3.0, 12000 continuation steps; width 3 at ridge 0, 1e-5, 1e-4, 3e-4, 1e-3 (same-settings control), 3e-3; width 12 at ridge 3e-3, 1e-2, 3e-2 (1e-3 is width-ladder arc2-w12: real +1 first). Same initialization and data throughout (S2 teacher, noiseless, realizable at width 3). Six parallel single-thread jobs, nice 10
 - **Output:** `../neural-shrimp-data/explore/momentum/ridge-ladder`
 - **Would surprise us:** First-crossing type independent of ridge at both widths
-- **Command:** `bash -c printf "%s\n" "3 0" "3 1e-5" "3 1e-4" "3 3e-4" "3 1e-3" "3 3e-3" "12 3e-3" "12 1e-2" "12 3e-2" | xargs -P 6 -L 1 bash -c 'env OPENBLAS_NUM_THREADS=1 .venv/bin/python tools/explore_momentum_maps.py arc --beta 0 --width $0 --ridge $1 --s-max 3.0 --steps 12000 --out momentum/ridge-ladder/arc-w$0-r$1 > ../neural-shrimp-data/explore/momentum/ridge-ladder-w$0-r$1.log 2>&1'`
+- **Command:** `bash -c printf "%s\n" "3 0" "3 1e-5" "3 1e-4" "3 3e-4" "3 1e-3" "3 3e-3" "12 3e-3" "12 1e-2" "12 3e-2" | xargs -P 6 -L 1 bash -c 'env OPENBLAS_NUM_THREADS=1 .venv/bin/python tools/explore_momentum_maps.py arc --beta 0 --width $0 --ridge [amount redacted] --s-max 3.0 --steps 12000 --out momentum/ridge-ladder/arc-w$0-r$1 > ../neural-shrimp-data/explore/momentum/ridge-ladder-w$0-r$1.log 2>&1'`
 
 _commit `73972589fa06` (dirty worktree)_
 
@@ -18865,7 +18865,7 @@ _commit `73972589fa06` (dirty worktree)_
 - **Setup:** explore_momentum_maps crossing-anatomy on each ridge-ladder arc (saved nodes; minimum recomputed with the arc's descent and trust-region refinement)
 - **Output:** `../neural-shrimp-data/explore/momentum/ridge-ladder/anatomy-*`
 - **Would surprise us:** Real crossings carried by live units with no turning point and no dead units
-- **Command:** `bash -c for spec in "3 1e-5" "3 1e-4" "3 3e-4" "3 1e-3" "3 3e-3" "12 3e-3" "12 1e-2" "12 3e-2"; do set -- $spec; env OPENBLAS_NUM_THREADS=1 .venv/bin/python tools/explore_momentum_maps.py crossing-anatomy --width $1 --ridge $2 --arc momentum/ridge-ladder/arc-w$1-r$2 --out momentum/ridge-ladder/anatomy-w$1-r$2 & done; wait`
+- **Command:** `bash -c for spec in "3 1e-5" "3 1e-4" "3 3e-4" "3 1e-3" "3 3e-3" "12 3e-3" "12 1e-2" "12 3e-2"; do set -- $spec; env OPENBLAS_NUM_THREADS=1 .venv/bin/python tools/explore_momentum_maps.py crossing-anatomy --width [amount redacted] --ridge [amount redacted] --arc momentum/ridge-ladder/arc-w$1-r$2 --out momentum/ridge-ladder/anatomy-w$1-r$2 & done; wait`
 
 _commit `9aef4d0e4d36` (dirty worktree)_
 
@@ -19035,7 +19035,7 @@ _commit `0f7811847ea2` (dirty worktree)_
 - **Setup:** explore_inference_memory floquet --context 24 --eta 0, period 1, transient 4000 periods then Newton on the period map (analytic Jacobian): band cells (log10 theta, log10 alpha) = (-0.3807, -3.1471), (-0.2521, -2.5042), (-0.0101, -4.395) and a synchronized control (-0.4034, -2.0126)
 - **Output:** `../neural-shrimp-data/explore/inference-memory/floquet-bands-eta0`
 - **Would surprise us:** Band cells with no periodic orbit nearby, or with complex multipliers on the circle
-- **Command:** `bash -c for pt in "-0.3807 -3.1471" "-0.2521 -2.5042" "-0.0101 -4.395" "-0.4034 -2.0126"; do set -- $pt; env OPENBLAS_NUM_THREADS=1 .venv/bin/python tools/explore_inference_memory.py floquet --context 24 --eta 0 --log-theta $1 --log-alpha $2 --transient 4000 --out inference-memory/floquet-bands-eta0/t$1-a$2; done`
+- **Command:** `bash -c for pt in "-0.3807 -3.1471" "-0.2521 -2.5042" "-0.0101 -4.395" "-0.4034 -2.0126"; do set -- $pt; env OPENBLAS_NUM_THREADS=1 .venv/bin/python tools/explore_inference_memory.py floquet --context 24 --eta 0 --log-theta [amount redacted] --log-alpha [amount redacted] --transient 4000 --out inference-memory/floquet-bands-eta0/t$1-a$2; done`
 
 _commit `f998f386b4ec`_
 
@@ -19899,7 +19899,7 @@ _commit `834699826a4f` (dirty worktree)_
 - **Setup:** explore_llm_soft_loop orbit on cuda float32, K = 1, philosophy steering at layer 12, 600 transient steps, period detected at tol 1e-5, dense Newton with forward-mode AD Jacobians to relative residual 1e-6 (float32), multipliers from the product of Jacobians; cells (log10 T, alpha): P8 (-0.1205, 0.0717), P10 (-0.1089, 0.0673), P6 (-0.1205, 0.0786), P3 (0.1168, 0.0780)
 - **Output:** `../neural-shrimp-data/explore/llm-soft-loop/orbit-zr-{p8,p10,p6,p3}`
 - **Would surprise us:** A detected period that Newton cannot converge, or a converged orbit with a multiplier outside the unit circle (the scan's period an artifact of slow escape)
-- **Command:** `bash -c set -o pipefail; for c in "p8 -0.1205 0.0717" "p10 -0.1089 0.0673" "p6 -0.1205 0.0786" "p3 0.1168 0.0780"; do set -- $c; .venv/bin/python tools/explore_llm_soft_loop.py orbit --device cuda --dtype float32 --detect-tol 1e-5 --tol 1e-6 --log-temperature $2 --alpha $3 --out llm-soft-loop/orbit-zr-$1 2>&1 | grep -v -i -e warn -e Loading -e crop -e jit | tail -2 | cut -c1-3000; done`
+- **Command:** `bash -c set -o pipefail; for c in "p8 -0.1205 0.0717" "p10 -0.1089 0.0673" "p6 -0.1205 0.0786" "p3 0.1168 0.0780"; do set -- $c; .venv/bin/python tools/explore_llm_soft_loop.py orbit --device cuda --dtype float32 --detect-tol 1e-5 --tol 1e-6 --log-temperature [amount redacted] --alpha [amount redacted] --out llm-soft-loop/orbit-zr-[amount redacted] 2>&1 | grep -v -i -e warn -e Loading -e crop -e jit | tail -2 | cut -c1-3000; done`
 
 _commit `7dce19682033` (dirty worktree)_
 
@@ -19923,7 +19923,7 @@ _commit `2973748cb566` (dirty worktree)_
 - **Setup:** explore_llm_soft_loop precision with both maps on cuda (float32, and float64 with patched RMSNorm), cells P8 (-0.1205, 0.0717), P10 (-0.1089, 0.0673), P6 (-0.1205, 0.0786), P3 (0.1168, 0.0780): 600 float64 transient steps, return distances q = 1..32, 32 steps of one-step and trajectory errors; then orbit on cuda float64 at P8 and P10 (detect tol 1e-8, Newton tol 1e-11, dense AD Jacobians)
 - **Output:** `../neural-shrimp-data/explore/llm-soft-loop/{precision-zr,orbit64-zr-p8,orbit64-zr-p10}`
 - **Would surprise us:** A float32 one-step error below 1e-6 (then the stalls are not rounding), or a float64 period at P8 other than 8
-- **Command:** `bash -c set -o pipefail; .venv/bin/python tools/explore_llm_soft_loop.py precision --device cuda --device64 cuda --cells -0.1205 0.0717 --cells -0.1089 0.0673 --cells -0.1205 0.0786 --cells 0.1168 0.0780 --out llm-soft-loop/precision-zr 2>&1 | grep -v -i -e warn -e Loading -e crop | tail -4 | cut -c1-2500; for c in "p8 -0.1205 0.0717" "p10 -0.1089 0.0673"; do set -- $c; .venv/bin/python tools/explore_llm_soft_loop.py orbit --device cuda --dtype float64 --detect-tol 1e-8 --tol 1e-11 --log-temperature $2 --alpha $3 --out llm-soft-loop/orbit64-zr-$1 2>&1 | grep -v -i -e warn -e Loading -e crop -e jit | tail -1 | cut -c1-3000; done`
+- **Command:** `bash -c set -o pipefail; .venv/bin/python tools/explore_llm_soft_loop.py precision --device cuda --device64 cuda --cells -0.1205 0.0717 --cells -0.1089 0.0673 --cells -0.1205 0.0786 --cells 0.1168 0.0780 --out llm-soft-loop/precision-zr 2>&1 | grep -v -i -e warn -e Loading -e crop | tail -4 | cut -c1-2500; for c in "p8 -0.1205 0.0717" "p10 -0.1089 0.0673"; do set -- $c; .venv/bin/python tools/explore_llm_soft_loop.py orbit --device cuda --dtype float64 --detect-tol 1e-8 --tol 1e-11 --log-temperature [amount redacted] --alpha [amount redacted] --out llm-soft-loop/orbit64-zr-[amount redacted] 2>&1 | grep -v -i -e warn -e Loading -e crop -e jit | tail -1 | cut -c1-3000; done`
 
 _commit `ba021a694ba9` (dirty worktree)_
 
@@ -19977,7 +19977,7 @@ _commit `e92bd39b4c35`_
 - **Setup:** explore_llm_soft_loop orbit on cuda float64 (norms patched), 600 transient steps, period detected at 1e-9, dense AD Newton to 1e-11: P12 cells (log10 T, alpha) (-0.10895, 0.064105) and (-0.12632, 0.067263), P2 cell (-0.17263, 0.061579)
 - **Output:** `../neural-shrimp-data/explore/llm-soft-loop/orbit64-zr-{p12a,p12b,p2}`
 - **Would surprise us:** A P12 orbit whose readout is not '. This' plus five 'is X' pairs, or a P2 orbit other than ' is' / ' a'
-- **Command:** `bash -c for c in "p12a -0.10895 0.064105" "p12b -0.12632 0.067263" "p2 -0.17263 0.061579"; do set -- $c; OMP_NUM_THREADS=8 OPENBLAS_NUM_THREADS=8 MKL_NUM_THREADS=8 .venv/bin/python tools/explore_llm_soft_loop.py orbit --device cuda --dtype float64 --detect-tol 1e-9 --tol 1e-11 --log-temperature $2 --alpha $3 --out llm-soft-loop/orbit64-zr-$1 2>&1 | grep -v -i -e warn -e Loading -e crop -e jit | tail -1 | cut -c1-600; done`
+- **Command:** `bash -c for c in "p12a -0.10895 0.064105" "p12b -0.12632 0.067263" "p2 -0.17263 0.061579"; do set -- $c; OMP_NUM_THREADS=8 OPENBLAS_NUM_THREADS=8 MKL_NUM_THREADS=8 .venv/bin/python tools/explore_llm_soft_loop.py orbit --device cuda --dtype float64 --detect-tol 1e-9 --tol 1e-11 --log-temperature [amount redacted] --alpha [amount redacted] --out llm-soft-loop/orbit64-zr-[amount redacted] 2>&1 | grep -v -i -e warn -e Loading -e crop -e jit | tail -1 | cut -c1-600; done`
 
 _commit `31ab5230e37d` (dirty worktree)_
 
@@ -20214,7 +20214,7 @@ _commit `81b95c5aac95`_
 - **Setup:** explore_llm_soft_loop orbit on CPU float64 (norms and rotary tables patched), 4 threads, cells (log10 T 0.04, alpha 0.065) and (0.03, 0.062); 600 transient steps, period detection 1e-6, Newton with dense forward-mode Jacobians to 1e-11; all multipliers
 - **Output:** `../neural-shrimp-data/explore/llm-soft-loop/orbit64-p4-{a,b}`
 - **Would surprise us:** A leading multiplier pair that is complex (rotation in the window), or no period 4 in float64 at the body centre
-- **Command:** `bash -c set -o pipefail; for c in "0.04 0.065 a" "0.03 0.062 b"; do set -- $c; OMP_NUM_THREADS=4 MKL_NUM_THREADS=4 .venv/bin/python tools/explore_llm_soft_loop.py orbit --threads 4 --dtype float64 --log-temperature $1 --alpha $2 --out llm-soft-loop/orbit64-p4-$3 2>&1 | grep -v -i -e warn -e Loading -e crop | tail -1 | cut -c1-1500; done`
+- **Command:** `bash -c set -o pipefail; for c in "0.04 0.065 a" "0.03 0.062 b"; do set -- $c; OMP_NUM_THREADS=4 MKL_NUM_THREADS=4 .venv/bin/python tools/explore_llm_soft_loop.py orbit --threads 4 --dtype float64 --log-temperature [amount redacted] --alpha [amount redacted] --out llm-soft-loop/orbit64-p4-[amount redacted] 2>&1 | grep -v -i -e warn -e Loading -e crop | tail -1 | cut -c1-1500; done`
 
 _commit `81b95c5aac95` (dirty worktree)_
 
@@ -22749,7 +22749,7 @@ _commit `7931d49f02c2`_
 
 ## 2026-10-14 01:57 UTC: V1 revised: secure RTX 4090, 120 computed frames (every other direction)
 
-The community-4090 attempt of V1 failed on reliability, not code: blocks 09 and 17 had 'CUDA unknown error' at setup; 00, 06, 13 never became SSH-ready within 15 min; block 05 rendered frame 40 normally (8192 of 151552 cells after 952 s) until the SSH link to the host timed out after 22 min, and the orchestrator, which streams the job over that link, retrieved and terminated the working pod. Community hosts also ran at 0.28 ms per cell-step against the pilot's 0.14 on a SECURE 4090. Revised plan (budget ~$110 free): SECURE RTX 4090 ($0.89/h), 512 alpha x 296 log10 T cells over the same region, every other direction of the 240-frame great circle (120 computed frames, 0.75 degrees apart), 12 pods x 10 frames, warm-start chains (first frame transient 300, later frames transient 40, samples 80, record 60, max period 24); rendered at 24 fps with each computed frame crossfaded to the next (10 s), the caption says so. Expected ~8.5 h and ~$91. Frames done before any dropped link are kept (each frame is its own scan folder); a broken chain is resumed from its next frame.
+The community-4090 attempt of V1 failed on reliability, not code: blocks 09 and 17 had 'CUDA unknown error' at setup; 00, 06, 13 never became SSH-ready within 15 min; block 05 rendered frame 40 normally (8192 of 151552 cells after 952 s) until the SSH link to the host timed out after 22 min, and the orchestrator, which streams the job over that link, retrieved and terminated the working pod. Community hosts also ran at 0.28 ms per cell-step against the pilot's 0.14 on a SECURE 4090. Revised plan (budget ~[amount redacted] free): SECURE RTX 4090 ([amount redacted]/h), 512 alpha x 296 log10 T cells over the same region, every other direction of the 240-frame great circle (120 computed frames, 0.75 degrees apart), 12 pods x 10 frames, warm-start chains (first frame transient 300, later frames transient 40, samples 80, record 60, max period 24); rendered at 24 fps with each computed frame crossfaded to the next (10 s), the caption says so. Expected ~8.5 h and ~[amount redacted]. Frames done before any dropped link are kept (each frame is its own scan folder); a broken chain is resumed from its next frame.
 
 _commit `b5a5d5ac0760`_
 
@@ -25968,7 +25968,7 @@ Labels:
 
 This is a first look. Folds, cusps and legs need the curve continuation of FM5 and come only if the grids show a candidate. A cell can hold several attractors, so a crossing seen on the classifier map alone is not evidence.
 
-**Cost.** Expected about 1, 1.8, 2 and 0.75 hours on H100 NVL class at about $3.2/h. Hard ceilings, in the private ledger, are set from the run limits at a $3.50/h maximum rate.
+**Cost.** Expected about 1, 1.8, 2 and 0.75 hours on H100 NVL class at about [amount redacted]/h. Hard ceilings, in the private ledger, are set from the run limits at a [amount redacted]/h maximum rate.
 
 ## 2026-10-15 18:17 UTC: OC and CL2 results: the census supports the swallowtail pocket (9 of 13 frozen counts exact, two attracting orbits at every pocket point, none beyond the crossing); the closure test failed numerically
 
@@ -26167,7 +26167,7 @@ The human saved pp. 358-373 of Mira (1987) as screenshots in /data2/neural-shrim
 
 **Expectation, stated before the data.** All three neuron directions produce chaos, with shares in the range of C1's directions (roughly 5-15 %). A neuron direction without chaos would contradict the claim that the regime is set by next-token competition rather than by the direction.
 
-**Cost.** About 50 min per map at H100 rates. The ceilings, in the private ledger, follow from the run limits at $4.00/h.
+**Cost.** About 50 min per map at H100 rates. The ceilings, in the private ledger, follow from the run limits at [amount redacted]/h.
 
 ## 2026-10-15 20:04 UTC: Z70 figure: one numeric colour scale; the long periods above the ridge are artifacts of the pre-fix noise floor
 
@@ -26360,7 +26360,7 @@ The methods text had documented the 0.005 convention for period and attractor pa
 - A small closed contour around one cell near (-0.1063, 0.1077) is at cell resolution and is not interpreted.
 - In P4 the corresponding meeting point lay below the grid (extrapolated near (-0.103, 0.097)). In P8 it lies inside, unresolved.
 
-**Follow-up worth doing** (not launched). Fine local grids at the two meeting points, P8 near (-0.1056, 0.1052) and P4 near (-0.103, 0.097), would decide head against neck for the cascade cells, about $10-20 in all.
+**Follow-up worth doing** (not launched). Fine local grids at the two meeting points, P8 near (-0.1056, 0.1052) and P4 near (-0.103, 0.097), would decide head against neck for the cascade cells, about [amount redacted]-20 in all.
 
 ## 2026-10-15 21:47 UTC: The cascade cells in the paper (P2, P4, P8), with the heuristic tested
 
@@ -26554,7 +26554,7 @@ This is critical slowing down. Near a flip the multiplier is close to -1, and 30
 
 **Verdict, by the frozen rule:** unresolved (unsolved cells at the meeting point). A one-cell CPU check at the band's centre (-0.1054, 0.1055) is running, to see whether Newton converges there from the fixed start and what its multipliers are.
 
-**Cost:** about $3.6.
+**Cost:** about [amount redacted].
 
 ## 2026-10-15 23:21 UTC: PT2 setup results; pre-outcome amendment for target D (no passage has run)
 
@@ -29326,7 +29326,7 @@ Own ManualQwen CPUfloat64, exact alpha.06468/log10T-.148, pinned p2+_6/p3+_6 pro
 Original001 failed before columns on missing threadpoolctl, exit1/no timeout; whole returned archive/inventory authenticated and retained in calibration-001-failure.json. Fresh002 attempt/plan/packet adds explicit six-module import/version preflight; scientific evaluator/domain/prefix/1024bit/columns remain unchanged. Same oneCPU/nice10/18GiB/3600s limits and Claude-owned ceiling/orchestrator; no further automatic retry. Source packet codex/certificate-ladder-task34/calibration-002.json; original cost basis1521.453s/5420344KiB unchanged. No certificate claim.
 ## 2026-10-18 06:32 UTC: P5Z amendment 3: tip zooms with a marched seed; the human's priority is a verifiable shrimp
 
-**Context.** The human wrote: "if you need to spend more to find that damn shrimp than do so. we must find a verifiable shrimp" (RunPod balance about 200). The test for a shrimp centre in this map, which is not strictly one-dimensional, is the two-dimensional-map criterion the paper already uses for the period-5 window: zero curves of the trace of the leading multiplier pair, tr = Re(mu1 + mu2).
+**Context.** The human approved further runs to find a verifiable shrimp. The test for a shrimp centre in this map, which is not strictly one-dimensional, is the two-dimensional-map criterion the paper already uses for the period-5 window: zero curves of the trace of the leading multiplier pair, tr = Re(mu1 + mu2).
 - At -0.100 the trace-zero curve is closed, a type-A head.
 - A centre is where two trace-zero curves cross in an X, the analog of a doubly superstable point.
 - **P5D -0.105 grid:** one 2 x 2 block at (row 18, col 11), with alpha1 -0.12125 to -0.12100 and alpha2 0.10341 to 0.10377, where the trace's sign alternates across the diagonal. That is an X candidate, at the band's tip where steps 0 and 1 are both small.
@@ -30108,7 +30108,7 @@ chaotic.
 - The anatomy caption now says where Type A appears.
 - The article and the full report are updated.
 
-Cost about $0.7 (three pods, about 5 minutes each).
+Cost about [amount redacted] (three pods, about 5 minutes each).
 
 ## 2026-10-18 23:52 UTC: run card P9S (exploratory): is the period-9 window of Fig. 1 a second shrimp? With HR9, a 3x finer map of its region
 
@@ -30150,7 +30150,7 @@ summary. A fold curve must keep a real +1 and a flip curve a real -1.
 
 ### 2026-10-19 00:07 UTC: P9S/HR9 amendment, before any compute
 
-- **Nothing has run yet.** At the $3.0/h cap no H100 was free. Two pods started just as their launcher was stopped
+- **Nothing has run yet.** At the [amount redacted]/h cap no H100 was free. Two pods started just as their launcher was stopped
   for this change; both were terminated idle, before any upload (ids in the ledger).
 - **HR9 window widened** to cover the region of the human's screenshot: alpha [0.0709, 0.0763] x log10 T
   [-0.1635, -0.1445], 512 x 512 cells.

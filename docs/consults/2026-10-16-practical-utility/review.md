@@ -36,7 +36,7 @@ Across these directions, use executable numerical answers or deterministic strin
 
 **Interpretation and decision.** Persistent top-15 flips support a relevant reliability problem; full-only flips sharply narrow the implication. Increased flips without increased perturbation growth implicate answer boundaries or support switching rather than stronger dynamical amplification. Failed controls invalidate the attribution, not the project.
 
-**Resources.** RTX first; approximately 2–8 GPU-hours for the full matrix and controls, conditional on actual context-length throughput. A 48-problem development pilot is cheapest. Reserve approximately $10–25 for matched float64 checks, using the running job where it covers the required conditions.
+**Resources.** RTX first; approximately 2–8 GPU-hours for the full matrix and controls, conditional on actual context-length throughput. A 48-problem development pilot is cheapest. Reserve approximately [amount redacted]–25 for matched float64 checks, using the running job where it covers the required conditions.
 
 ## 2. Stabilization that preserves useful computation
 
@@ -63,7 +63,7 @@ Select at most two interventions before evaluating 256 fresh problems at the uns
 
 **Branches.** Reduced flips with maintained accuracy supports engineering utility. Reduced flips plus accuracy loss is a trade-off, not success. No effect despite an operational controller rejects that controller. Failure of the proxy to track directly measured growth rejects the proxy’s control rationale.
 
-**Resources.** Approximately 4–12 local GPU-hours, plus $10–30 for selected precision controls. Do not first scale the proxy controller across all GSM8K: its monotonicity assumption needs this feasibility test.
+**Resources.** Approximately 4–12 local GPU-hours, plus [amount redacted]–30 for selected precision controls. Do not first scale the proxy controller across all GSM8K: its monotonicity assumption needs this feasibility test.
 
 ## 3. Ordinary decoding: numerical sensitivity beyond low margin
 
@@ -189,7 +189,7 @@ Keep the top-64 covariance statistic explicitly labeled a **conditional proxy**;
 5. Execute the 256-problem matrix.
 6. Run replay and matched float64 diagnostics without selecting cases based on observed flips.
 
-**Estimated workload:** approximately 0.3–0.7 million model-token evaluations, depending on answer lengths and diagnostics. At the disclosed throughput, raw inference is modest; allow **2–8 local GPU-hours** for context-length slowdown and instrumentation. These are estimates, not guarantees. Use a 16-case float64 timing check before spending more than $25; retain most of the $150 for the intervention that the results justify.
+**Estimated workload:** approximately 0.3–0.7 million model-token evaluations, depending on answer lengths and diagnostics. At the disclosed throughput, raw inference is modest; allow **2–8 local GPU-hours** for context-length slowdown and instrumentation. These are estimates, not guarantees. Use a 16-case float64 timing check before spending more than [amount redacted]; retain most of the [amount redacted] for the intervention that the results justify.
 
 # First 48 hours
 

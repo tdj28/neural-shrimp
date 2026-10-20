@@ -93,7 +93,7 @@ interpretability/alignment paragraph. What is overstated, and what would a refer
 Q2. Scale. The human wants a definite answer in the main paper on how this chaos depends on model size (including
 whether trillion-parameter models should be expected to show it). Given the results in item 5 and the frozen test,
 what claim can the paper make, what is the most likely dynamical explanation, and which additional measurement (within
-about $100 of rented GPU time) would make the scale statement decisive? Are the frozen predictions the right test?
+about [amount redacted] of rented GPU time) would make the scale statement decisive? Are the frozen predictions the right test?
 
 Q3. Title and framing for cs.LG with nlin.CD: which title matches the evidence best?
 

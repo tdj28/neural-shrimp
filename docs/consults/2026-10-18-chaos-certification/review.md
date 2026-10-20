@@ -177,7 +177,7 @@ Retain Arb and add narrow, transformer-specific primitives. Porting an entire Ta
 
 **Estimates:** 50–300 CPU-hours for the pilot, with a hard staged budget; benchmark the first 100 float64 steps before scheduling discovery. Store selected states and diagnostics rather than complete activations. No API expenditure is needed.
 
-For production, the supplied 2,000–40,000 CPU-hour scenarios remain plausible scenarios, not forecasts. They correspond to ideal 32-core times of about 2.6–52 days before memory and efficiency losses. At an assumed rental rate of \$0.03–\$0.15/core-hour, they imply \$60–\$6,000, excluding ancillary charges. Do not rent until complete-return timing resolves the dominant uncertainty. A production-quality engine could take **4–12 researcher-weeks**, potentially longer if transverse bounds require redesign.
+For production, the supplied 2,000–40,000 CPU-hour scenarios remain plausible scenarios, not forecasts. They correspond to ideal 32-core times of about 2.6–52 days before memory and efficiency losses. At an assumed rental rate of [amount redacted]/core-hour, they imply [amount redacted] excluding ancillary charges. Do not rent until complete-return timing resolves the dominant uncertainty. A production-quality engine could take **4–12 researcher-weeks**, potentially longer if transverse bounds require redesign.
 
 The certificate concerns the real-number map of the stored constants. Its trusted base includes exact constant decoding, Arb and elementary-function enclosures, layer implementations, chart bounds, and the covering theorem. Positive entropy would not establish typical-orbit chaos, a physical measure, semantic significance, or every period for \(F\). Graph cycles and periods of \(F^k\) must be translated carefully.
 

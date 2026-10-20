@@ -130,7 +130,7 @@ For a convincingly repeating orbit, the best additional mechanism probe is its *
 
 ### Resources and branches
 
-Benchmark 100 batched steps before committing. Assuming roughly 0.5–2 seconds per batched forward step, JVP overhead and two execution paths suggest **1.5–3 two-GPU pod-hours**, including diagnostics; this is an estimate, not a guarantee. At an illustrative pod rate of \$8–20/hour, that is \$12–60. If throughput is worse, retain the two jump cases and stable control rather than shortening everything below interpretability.
+Benchmark 100 batched steps before committing. Assuming roughly 0.5–2 seconds per batched forward step, JVP overhead and two execution paths suggest **1.5–3 two-GPU pod-hours**, including diagnostics; this is an estimate, not a guarantee. At an illustrative pod rate of [amount redacted]/hour, that is [amount redacted]. If throughput is worse, retain the two jump cases and stable control rather than shortening everything below interpretability.
 
 - **Execution defect found:** repair it and rerun the frozen cases first. Then spend remaining time on Direction 2—not a full map.
 - **Validated positive tangent exponent, negative large-offset exponent:** report resolved infinitesimal instability with finite-size contraction. Require longer recurrent, nonperiodic trajectories and basin checks before calling it attracting chaos.

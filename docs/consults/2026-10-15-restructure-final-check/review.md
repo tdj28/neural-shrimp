@@ -51,7 +51,7 @@ in percentage points per held-out problem. Use paired problem-level uncertainty.
 
 **Interpretations.** A positive result establishes accumulated-state mediation, not chaos. A null with substantial free-run disagreement favors immediate numerical sensitivity. A mixed result across precisions suggests an interaction between quantization and feedback. Failure of state-copy or same-layout checks invalidates the causal comparison, not the broader research question.
 
-**Resources—estimates.** Approximately 6–20 H100 hours for the 0.5B matrix and perturbation subset, or $16–64 at the quoted rates, conditional on measured step throughput. The cheapest useful pilot is eight problems with bf16 free/reset arms. No API spending is necessary.
+**Resources—estimates.** Approximately 6–20 H100 hours for the 0.5B matrix and perturbation subset, or [amount redacted]–64 at the quoted rates, conditional on measured step throughput. The cheapest useful pilot is eight problems with bf16 free/reset arms. No API spending is necessary.
 
 ## 2. Test whether the shrimp-like window admits a useful two-coordinate model
 
@@ -236,4 +236,4 @@ If reset does not help, vary only prefill or terminal-decoder precision to local
 
 Test transverse recovery and a second window if reduced closure succeeds. If it fails, compare a trajectory-trained chart before rejecting dimensional reduction. If numerical stabilization improves reproducibility, measure whether it preserves exact arithmetic accuracy on fresh tasks.
 
-Cap the entire program at approximately **65 H100 hours**, costing $169–208 at the stated rates and leaving reserve credit. The deliverable is substantive either way: a causal account of answer instability, a falsifiable reduced dynamics model, or a sharply localized failure of one of those explanations—not another undirected scale-up.
+Cap the entire program at approximately **65 H100 hours**, costing [amount redacted]–208 at the stated rates and leaving reserve credit. The deliverable is substantive either way: a causal account of answer instability, a falsifiable reduced dynamics model, or a sharply localized failure of one of those explanations—not another undirected scale-up.

@@ -127,8 +127,8 @@ qualification in the earlier EXP-012 preview benchmark. No EXP-016 GPU benchmark
 or paid compute was used.
 
 The [Astra Pro consultation](consults/2026-09-17-pro-adjudication.md) that
-motivated this task completed for a conservative receipt-derived **$0.78126**,
-within the authorized $10 limit. No additional generating call was made.
+motivated this task completed for a conservative receipt-derived **[amount redacted]**,
+within the authorized [amount redacted] limit. No additional generating call was made.
 
 Replay from the frozen source environment:
 

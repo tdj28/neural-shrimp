@@ -21,7 +21,7 @@ used for low-dimensional dynamical systems. Its main findings:
 ## The paper
 
 - **arXiv version:** a focused article with the central results (link to be added when the preprint is announced).
-- **Full report:** [`paper/llm/main.pdf`](paper/llm/main.pdf), about 160 pages, with source in `paper/llm/`. It has every
+- **Full report:** [`paper/llm/main.pdf`](paper/llm/main.pdf), 182 pages, with source in `paper/llm/`. It has every
   result, the methods, the test designs fixed before their data, the controls, and the failed or inconclusive attempts.
 - The tag `arxiv-v1` marks the state of this repository at the arXiv submission.
 
@@ -88,7 +88,8 @@ computed in float64 on rented GPUs.
 
 Raw trajectories, model states and the native evidence of the certificates (center definitions and interval
 enclosures) total about 270 GB and are kept outside the repository. The research log and the receipts in
-the repository record their SHA-256 checksums. They are available from the author on request.
+the repository record their SHA-256 checksums. The complete evidence of the two computer-assisted proofs will be
+published at Zenodo; the link will be added here.
 
 ## How the work was done
 

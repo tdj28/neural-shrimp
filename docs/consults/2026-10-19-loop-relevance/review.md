@@ -107,7 +107,7 @@ A prediction requires the relevant fixed point, state definition, and update rul
 
 **Interpretation and decisions.** Agreement transfers a predictive method, not a general claim about deployed frontier systems. Long-horizon agreement without ordinary-horizon effects limits operational relevance. No accessible fixed points rejects this particular fixed-point analysis for those inputs, not dynamical analysis generally: switch to finite-horizon products. Failure to reproduce native inference invalidates the extraction.
 
-**Resources.** Estimated 8–48 GPU-hours after feasibility screening; checkpoint size may dominate. Use a prospective rental ceiling of roughly $150–$250, assuming suitable GPUs cost $1–$4/hour. If access, memory, or licensing fails, do not substitute an inaccessible-model speculation: test another Huginn task distribution and label it task transfer, not architecture transfer.
+**Resources.** Estimated 8–48 GPU-hours after feasibility screening; checkpoint size may dominate. Use a prospective rental ceiling of roughly [amount redacted]–[amount redacted] assuming suitable GPUs cost [amount redacted]–[amount redacted]/hour. If access, memory, or licensing fails, do not substitute an inaccessible-model speculation: test another Huginn task distribution and label it task transfer, not architecture transfer.
 
 # Recommended next experiment
 

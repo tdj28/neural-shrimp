@@ -67,7 +67,7 @@ more demanding: generic oscillator memory is established prior art, and
 shrimp geometry must earn additional predictive or task value.
 
 The authorized Astra Pro consultation is now complete at a conservative
-receipt-derived cost of **$0.78126**. The earlier refusal added an unsupported
+receipt-derived cost of **[amount redacted]**. The earlier refusal added an unsupported
 requirement for an absolute billing guarantee; the user's correction led to
 the established, budgeted single-call route. Both saved-bundle and separate
 receipt validation pass. The [adjudication](consults/2026-09-17-pro-adjudication.md)

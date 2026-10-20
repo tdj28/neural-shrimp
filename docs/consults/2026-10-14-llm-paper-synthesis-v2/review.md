@@ -1,6 +1,6 @@
 # Research opportunity and what the evidence leaves open
 
-**The strongest opportunity is to distinguish genuine size-associated contraction from a shrinking or displaced instability window. I recommend a prompt-blocked, entropy-targeted comparison of Qwen2.5-7B and 14B—not another uniform temperature sweep.** This can produce meaningful new knowledge within roughly $100, conditional on a short throughput benchmark. It cannot establish a law for trillion-parameter models.
+**The strongest opportunity is to distinguish genuine size-associated contraction from a shrinking or displaced instability window. I recommend a prompt-blocked, entropy-targeted comparison of Qwen2.5-7B and 14B—not another uniform temperature sweep.** This can produce meaningful new knowledge within roughly [amount redacted] conditional on a short throughput benchmark. It cannot establish a law for trillion-parameter models.
 
 The disclosed results already rule out two simple stories: chaos is neither specific to concept steering nor confined to small models. They also suggest three distinguishable explanations for the apparent size trend:
 
@@ -76,7 +76,7 @@ Then perturb states in directions orthogonal to the gradient of the scalar obser
 
 **Decisions and meanings.** Expand if scalar prediction survives longer horizons and perturbations. If delays consistently improve error by a preregistered practical margin—say 20%—abandon scalar sufficiency and pursue a delay-coordinate model. A null perturbation effect supports attraction toward low-dimensional dynamics, not smooth conjugacy. Exponent agreement alone remains insufficient.
 
-**Resources.** Start with the smallest reproducing model: roughly 50,000–200,000 local trajectory steps, plus inexpensive regressions. A two-cell feasibility test should precede any rental; estimated rental contingency $0–20.
+**Resources.** Start with the smallest reproducing model: roughly 50,000–200,000 local trajectory steps, plus inexpensive regressions. A two-cell feasibility test should precede any rental; estimated rental contingency [amount redacted].
 
 ## 3. Does directional alignment cause the period-8 loop’s stability?
 
@@ -98,7 +98,7 @@ Begin with one orbit and 16 independently sampled rotation interventions. Those 
 
 **Decisions and meanings.** Frequent destabilization while preserving step singular values causally implicates alignment. A null result rejects the chosen rotation ensemble as an effective probe, not all alignment mechanisms; next use targeted rotations aligning identified expanding directions. Mixed outcomes motivate a geometry-dependent account. Neither result establishes that nonnormality is necessary for chaos.
 
-**Resources.** Existing small-model implementation first; estimated thousands to tens of thousands of JVPs for the pilot, approximately $0–15 if rental is needed. Full dense Jacobians are unnecessary.
+**Resources.** Existing small-model implementation first; estimated thousands to tens of thousands of JVPs for the pilot, approximately [amount redacted] if rental is needed. Full dense Jacobians are unnecessary.
 
 ## 4. Does added feedback memory improve behavior, rather than merely suppress repetition?
 
@@ -116,7 +116,7 @@ Task instances are independent units. Use paired sampling seeds if decoding is s
 
 **Decisions and meanings.** Expand only if recurrence falls without exceeding a preregistered accuracy-loss margin, such as two percentage points. Lower repetition with lower accuracy rejects “stabilization improves behavior.” No benefit at task-capable baseline accuracy supports a boundary between the soft-loop phenomenon and this task setting. If baseline accuracy is near chance, revise task difficulty on development data and restart the held-out test.
 
-**Resources.** About 100,000–300,000 generated tokens, locally on a small model; estimated rental $0–20. No human or model judge is required. These outcomes measure rule compliance, not hostility or semantic alignment.
+**Resources.** About 100,000–300,000 generated tokens, locally on a small model; estimated rental [amount redacted]. No human or model judge is required. These outcomes measure rule compliance, not hostility or semantic alignment.
 
 # Recommended next experiment
 
@@ -162,9 +162,9 @@ A numerically invalid candidate makes that prefix’s complete search comparison
 
 No local hardware specification was supplied. Use the already working 0.5B path locally for controls, and the existing layerwise float64 implementation for larger checkpoints only after memory and throughput checks.
 
-The full design is approximately **125,000 JVP-bearing updates plus 20,000 ordinary forwards**. Estimated rental cost is **$50–100** if effective throughput is roughly 1.5–3 complete state updates/second and accelerator pricing is $2–3.50/hour. These are assumptions, not guarantees. Batch independent trajectories where it improves throughput.
+The full design is approximately **125,000 JVP-bearing updates plus 20,000 ordinary forwards**. Estimated rental cost is **[amount redacted]–100** if effective throughput is roughly 1.5–3 complete state updates/second and accelerator pricing is [amount redacted]–3.50/hour. These are assumptions, not guarantees. Batch independent trajectories where it improves throughput.
 
-The cheapest useful two-prefix development pilot is approximately 8,000 JVP-bearing updates, with a **$10–15 cap**. If measured costs exceed the remaining budget, do not shorten horizons silently: retain the pilot as feasibility evidence and narrow the planned comparison before opening held-out prefixes.
+The cheapest useful two-prefix development pilot is approximately 8,000 JVP-bearing updates, with a **[amount redacted]–15 cap**. If measured costs exceed the remaining budget, do not shorten horizons silently: retain the pilot as feasibility evidence and narrow the planned comparison before opening held-out prefixes.
 
 ### Decision branches
 

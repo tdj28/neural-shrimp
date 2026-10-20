@@ -1,7 +1,7 @@
 # Correction of the consultation stop decision
 
 17 September 2026. The user authorized one GPT-6 Astra Pro strategy consultation
-up to USD 10 and then explicitly challenged the refusal: “YOU can run the pro,
+up to [amount redacted] and then explicitly challenged the refusal: “YOU can run the pro,
 other agents have. Why could't you?” The earlier not-run record is historical
 and remains unchanged. No earlier paid request was sent; known project review
 spend before this request is USD 0.
@@ -10,7 +10,7 @@ The root agent had converted an ordinary spending budget into a requirement
 for an absolute provider-enforced per-request billing guarantee. That extra
 requirement blocked an available workflow. Successful local Astra Pro receipts
 confirm the canonical route. The user's corrective instruction supersedes that
-root-imposed interpretation; it does not raise the USD 10 budget or authorize a
+root-imposed interpretation; it does not raise the [amount redacted] budget or authorize a
 second generating request. The research strategy scope is unchanged and the
 brief is refreshed to include completed EXP013–015 evidence.
 
@@ -18,7 +18,7 @@ Use the unchanged canonical helper, exact GPT-6 Astra Pro mode, medium effort,
 6000 requested output tokens, no tools, no API storage, one generating request
 and no automatic retry. Apply 10x input and 4x output cost reserves, explicit
 current standard rates, a 6000 input-token bound and a USD3 client preflight
-threshold, leaving substantial headroom under the user's USD 10 budget. Abort
+threshold, leaving substantial headroom under the user's [amount redacted] budget. Abort
 before generation if exact counted input or reserved cost exceeds either guard.
 Record actual usage and conservative receipt-derived cost; never label a client
 estimate a provider guarantee. An incomplete response is preserved, with no

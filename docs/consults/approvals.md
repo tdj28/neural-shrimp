@@ -218,8 +218,8 @@ skill, section 7A). Spend is recorded only in the gitignored `cost-ledger.md`
 ## Consult 11 (approved): headline practical implication and the experiment program that would establish it
 
 - **Approval (human, in session, 16 October 2026, about 04:00 UTC):** "Regarding my concerns about a headliner
-  practical utility of this finding can you do a gpt pro consult? $15 budget". This explicitly requests one paid
-  consult, within a $15 budget.
+  practical utility of this finding can you do a gpt pro consult? [amount redacted] budget". This explicitly requests one paid
+  consult, within a [amount redacted] budget.
 - **Milestone:** a mature design for a major new research question and campaign (section 7A): program PI, five
   experiments on the practical implications of the loop's dynamics, with a float64 component on rented GPUs. The
   decisions it can improve:
@@ -230,20 +230,20 @@ skill, section 7A). Spend is recorded only in the gitignored `cost-ledger.md`
 - **Scope:** one `research-strategy` request with a compact brief, `2026-10-16-practical-utility/brief.md`. No retry
   or second pass without a new recorded decision.
 - **Model:** `gpt-6-astra`, Responses Pro mode, xhigh effort, at most 40,000 output tokens. The canonical client's
-  reserves apply, and so does its $5 per-call authorization ceiling, which lies inside the human's $15 budget. Advice
+  reserves apply, and so does its [amount redacted] per-call authorization ceiling, which lies inside the human's [amount redacted] budget. Advice
   is advisory and is adjudicated locally in `adjudication.md`.
 
 ## Consult 12 (approved): new ideas for practical consequences (idea generation, not review)
 
 - **Approval (human, in session, 16 October 2026, about 04:20 UTC):** "No I wanted you to solicit gpt pro for
   additional ideas not just review yours", then "Keep this one and do another just asking for ideas". This is an
-  explicit request for a second paid consult, within the $15 budget given for consult 11.
+  explicit request for a second paid consult, within the [amount redacted] budget given for consult 11.
 - **Milestone:** the same major campaign as consult 11 (program PI). The decision it can improve: which practical
   consequences to test, drawn from a wider set of ideas than our own.
 - **Scope:** one `research-strategy` request with a compact idea-generation brief,
   `2026-10-16-practical-ideas/brief.md`. No retry or second pass without a new recorded decision.
-- **Model:** `gpt-6-astra`, Responses Pro mode, xhigh effort, at most 40,000 output tokens, $5 per-call guard.
-  Consults 11 and 12 together stay within the $15 budget. Ideas are advisory: they are adjudicated locally and any
+- **Model:** `gpt-6-astra`, Responses Pro mode, xhigh effort, at most 40,000 output tokens, [amount redacted] per-call guard.
+  Consults 11 and 12 together stay within the [amount redacted] budget. Ideas are advisory: they are adjudicated locally and any
   test is designed and run under the usual protocol.
 
 ## Consult 13 (approved): why the two families of windows cross in both orders
@@ -258,7 +258,7 @@ skill, section 7A). Spend is recorded only in the gitignored `cost-ledger.md`
   - what not to claim.
 - **Scope:** one `research-strategy` request with a compact brief, `2026-10-18-crossing-sheets/brief.md`. No retry or
   second pass without a new recorded decision.
-- **Model:** `gpt-6-astra`, Responses Pro mode, xhigh effort, at most 40,000 output tokens, with the client's $5
+- **Model:** `gpt-6-astra`, Responses Pro mode, xhigh effort, at most 40,000 output tokens, with the client's [amount redacted]
   per-call authorization guard. Advice is advisory and is adjudicated locally.
 - **Usage:** 29,153 input and 24,279 output tokens (the amount is in the private cost ledger). Adjudication:
   `2026-10-18-crossing-sheets/adjudication.md`.
@@ -274,7 +274,7 @@ skill, section 7A). Spend is recorded only in the gitignored `cost-ledger.md`
   - the estimate of effort and compute, and what not to claim.
 - **Scope:** one `research-strategy` request with a compact brief, `2026-10-18-chaos-certification/brief.md`. No retry
   or second pass without a new recorded decision.
-- **Model:** `gpt-6-astra`, Responses Pro mode, xhigh effort, at most 40,000 output tokens, with the client's $5
+- **Model:** `gpt-6-astra`, Responses Pro mode, xhigh effort, at most 40,000 output tokens, with the client's [amount redacted]
   per-call authorization guard. Advice is advisory and is adjudicated locally.
 - **Usage:** 32,490 input and 30,600 output tokens (the amount is in the private cost ledger). Adjudication:
   `2026-10-18-chaos-certification/adjudication.md`.
@@ -290,7 +290,7 @@ skill, section 7A). Spend is recorded only in the gitignored `cost-ledger.md`
   bounds; the allocation of the remaining compute.
 - **Scope:** one `research-strategy` request with a compact brief, `2026-10-18-night-status/brief.md`. No retry or
   second pass without a new recorded decision.
-- **Model:** `gpt-6-astra`, Responses Pro mode, xhigh effort, at most 40,000 output tokens, with the client's $5
+- **Model:** `gpt-6-astra`, Responses Pro mode, xhigh effort, at most 40,000 output tokens, with the client's [amount redacted]
   per-call authorization guard. Advice is advisory and is adjudicated locally.
 
 ## 2026-10-18 (about 20:40 UTC): consult 16, attractor naming
@@ -301,7 +301,7 @@ skill, section 7A). Spend is recorded only in the gitignored `cost-ledger.md`
   unstable-manifold skeleton, basins) and public videos; the terminology must be right before release.
 - **Scope:** one `research-strategy` request with the brief `2026-10-18-attractor-naming/brief.md`. No retry or second
   pass without a new recorded decision.
-- **Model:** `gpt-6-astra`, Pro mode, high effort, at most 16,000 output tokens, with a $3 per-call authorization guard.
+- **Model:** `gpt-6-astra`, Pro mode, high effort, at most 16,000 output tokens, with a [amount redacted] per-call authorization guard.
   Advice is advisory and is adjudicated locally.
 
 | Request | Mode | Usage | Cost |

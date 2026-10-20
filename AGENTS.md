@@ -1,8 +1,9 @@
 # Research and repository policy
 
-The human requested this separate project on 2026-09-08. Keep the GitHub
-repository private. Creating and pushing this private repository is authorized;
-public release, external messages, and paid review calls are not.
+The human requested this separate project on 2026-09-08 and made the GitHub
+repository public on 2026-10-20. Everything committed is public: commit no
+secrets, no dollar amounts and no personal remarks about the author. External
+messages and paid review calls still need the human's approval.
 
 Read the canonical research playbooks in `../agent-skill-documents/` when
 available: `EXPERIMENT_INTEGRITY_SKILLS.md`, `GPU_COMPUTE_SKILLS.md`,

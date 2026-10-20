@@ -11,8 +11,8 @@ Advisory only; every point checked against our evidence.
    test below is done.
 2. Prompt-blocked size comparison (its recommendation 1). Accepted in a cheaper, frozen form: Qwen2.5-7B against -14B
    (and, if affordable, -72B), eight held-out prefixes plus two development prefixes, temperature grids that reach the
-   entropy transition, two twin offsets, long horizons, paired per prefix. Our batched pipeline costs about $10-20, not
-   its $50-100 estimate (it assumed per-trajectory throughput). Frozen in docs/prefix-scale-test.md before any run.
+   entropy transition, two twin offsets, long horizons, paired per prefix. Our batched pipeline costs about [amount redacted]-20, not
+   its [amount redacted]-100 estimate (it assumed per-trajectory throughput). Frozen in docs/prefix-scale-test.md before any run.
 3. Scalar sufficiency of the return map (its recommendation 2, first part): held-out prediction by the scalar map
    against two- and three-delay predictors on the saved H3 sequences; local, run now. The transverse-perturbation part
    needs new trajectories and is deferred.

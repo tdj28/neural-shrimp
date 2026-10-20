@@ -98,7 +98,7 @@ privately pushed freeze. Preserve the original protocol, source and failures.
 ## Earlier decision, 17 September: test two-write memory under interference
 
 The [authorized Astra Pro consultation](consults/2026-09-17-pro-adjudication.md)
-completed for USD 0.78126. Its main recommendation is accepted with local
+completed for [amount redacted]. Its main recommendation is accepted with local
 modifications in the [two-write design](two-write-memory-design.md). Implement
 the full controlled task, including all zero-write/reset histories, matched
 linear and one-mode controls, numerical qualification, and a fixed observer
@@ -222,7 +222,7 @@ See [the audit](EXP-013-results-audit.md) and
    Boundary organization and matched controls remain separate work.
 4. Keep source, plans and compact receipts privately pushed; retain bulky raw
    evidence externally. No paid Pro call has run because the requested hard
-   $10 maximum could not be enforced. Local independent review is documented.
+   [amount redacted] maximum could not be enforced. Local independent review is documented.
 
 
 ## Earlier decision, 15 September local / 16 September UTC: continue on CPU and finish EXP-013

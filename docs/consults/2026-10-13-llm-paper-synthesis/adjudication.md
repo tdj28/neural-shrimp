@@ -1,7 +1,7 @@
 # Adjudication: LLM paper synthesis consult (consult 6, 13 October 2026)
 
 We sent one `research-strategy` request (gpt-6-astra, Pro mode, xhigh) with `brief.md` at commit 41127426. It cost
-$2.13 (conservative) for 73,329 tokens. Raw request, response and manifest:
+[amount redacted] (conservative) for 73,329 tokens. Raw request, response and manifest:
 `../neural-shrimp-data/consults/2026-10-13-llm-paper-synthesis/execute-001/`. The advice is advisory only; every
 point below was checked or decided locally.
 
@@ -43,7 +43,7 @@ point below was checked or decided locally.
 - **Two papers rather than one (Q4).** Put to the human, who decided on 13 October (~21:20 UTC): **one paper**. The
   single draft keeps both parts, with the narrower wording above.
 - **Next experiment (Q3): prospective cusp unfolding in a second checkpoint (Qwen2-0.5B).** The human chose a bounded
-  pilot first (about $15-25) on 13 October (~21:20 UTC): analytic controls; a replay of one known Qwen2.5 cusp with
+  pilot first (about [amount redacted]-25) on 13 October (~21:20 UTC): analytic controls; a replay of one known Qwen2.5 cusp with
   the rank-two check; a frozen candidate rule on the Qwen2 maps; a first continuation. The full test is to be
   decided after the pilot. The running S10 maps are
   discovery evidence only. Any candidate-selection rule will be frozen before further search, and analytic
