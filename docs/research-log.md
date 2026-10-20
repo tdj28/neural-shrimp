@@ -31685,3 +31685,21 @@ nearly identical under protan vision.
   criterion".
 - **Not done; suggested to the human.** An immutable archive with a DOI (for example Zenodo) for the full certificate
   bundle and a minimal independent verifier. This is an external publication and needs the human's decision.
+
+## 2026-10-20 02:52 UTC: blog rounds 12 and 12b synced to the report at fcf2d462 (not committed); Zenodo record staged
+
+- **Blog.** The draft post now matches the report at fcf2d462, through two background-agent rounds; the human commits
+  /data2/praxagent.
+  - Hugo 0.160.1, check_site and check_provenance pass (4711 of 4711 numbers); the manifest is pinned to fcf2d462.
+  - New figures: fig-p6-ditches, fig-delta2d and the clean anatomy pair. The relabelled kite figure replaces the old one.
+  - Ten stale figure references, left by an earlier renumbering, were corrected.
+  - index.md sha256 8233fb76..., provenance.json 4d008d51...; backups in neural-shrimp-data/blog-bundle-backup/.
+  - Disclosure: in round 12 the agent ran one recursive search of /data2 for Python files, which also passed over the
+    off-limits lexical-study folders. It reports no matches there and no content seen. Round 12b stayed inside the
+    allowed directories.
+- **Zenodo** (human decision 20 Oct; the human uploads): the complete evidence of both computer-assisted proofs,
+  staged in neural-shrimp-data/zenodo/neural-shrimp-proofs-v1/.
+  - 35 files: 8 + 7 tar parts with listings, the code and release records from repository commit fcf2d462, the
+    steering vectors (sha256 b630bb7b..., the pinned asset), the README and SHA256SUMS.
+  - A paste-ready description is in neural-shrimp-data/zenodo/zenodo-description.txt.
+  - A secret scan of the evidence is running; the first scan timed out unfinished and was redone.
