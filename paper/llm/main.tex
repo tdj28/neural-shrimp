@@ -4075,7 +4075,7 @@ where such windows were first found. Two coupled copies drift apart at approxima
 None of this rests on a simplified model of the network: the orbits, multipliers and normal forms are those of the full
 transformer in float64, and three of its periodic orbits are proved to exist with interval arithmetic. The
 factorization of the loop's derivative into temperature, the covariance of the next-token distribution and the
-network's Jacobian holds for every smooth softmax-readout model read through a fixed prefix, and chaos with embedded
+network's Jacobian holds for every smooth model with a softmax readout and a fixed prompt, and chaos with embedded
 windows appears in all three model families we scanned. The organization is therefore not a quirk of one network,
 although the attractors' texts and every number we report belong to particular weights. For models whose outputs feed
 back into their inputs, Lyapunov exponents, continuation and normal forms are a working method, not an analogy.
