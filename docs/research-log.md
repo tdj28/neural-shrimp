@@ -31874,3 +31874,19 @@ nearly identical under protan vision.
   build and checks pass on a scratch copy. index.md sha256 9b46ae0f..., provenance.json 3ca2be09...; backup in
   neural-shrimp-data/blog-bundle-backup/before-round15. The post is not committed; it is published after the arXiv
   announcement.
+
+## 2026-10-20 20:37 UTC: blog rounds 16 to 18: report naming, lead image, the article's shrimp first (not committed)
+
+- Round 16. The post now calls the full report "the report" (137 places) and the arXiv paper "the article". The lead
+  caption's last sentence is cut. A proof of chaos is described as not established, no longer as out of reach of
+  the method, and the "open challenge" panel no longer gives a compute or cost estimate (the papers make none).
+- Round 17. The lead image is the report's 640 x 640 float64 map of the period-6 shrimp (run HR10, colored as
+  Figure 1), rendered without axes by a bundle generator recorded in provenance.json. The text and the caption of the
+  period-5 shrimp say that it appears torn in the fixed-start map, across a coexisting period-4 loop.
+- Round 18. The shrimp sections are reordered: the article's period-6 shrimp first, the period-5 shrimp second.
+  19 figures and 3 tables are renumbered; every reference to a moved figure was checked against its image file.
+  The summary points follow the article's framing of the period-6 shrimp. The key result's batch-timing sentence
+  now says that the timing comparison is retrospective.
+- provenance.json has 4793 entries; check_provenance.py, the in-memory Hugo build and the site checks on a scratch copy
+  pass. index.md sha256 bb45cc60..., provenance.json 8cd7d3d1...; backups in neural-shrimp-data/blog-bundle-backup/
+  before-round17 and before-round18. The post is not committed; it is published after the arXiv announcement.
