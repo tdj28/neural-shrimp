@@ -48,3 +48,23 @@ the sensitive value. No off-limits project tree is opened or searched.
 Reports are public. They contain no credentials, monetary amounts, or
 private personal remarks. A passed check is scoped to the evidence examined;
 unavailable data and incomplete checks remain explicit.
+
+## Small test subset (20 October 2026 amendment)
+
+After the example scan closes, install the locked `dev` extra in the fresh
+clone if pytest is absent, keeping the already used `dl` and `llm` extras.
+This is a disclosed test-tool setup step, not part of the README example.
+Run the one model-revision test, the three toy softmax-gain tests, and these
+four existing soft-loop tests at the released tag:
+
+- `test_cached_step_matches_full_recompute`
+- `test_low_temperature_feeds_back_the_greedy_token`
+- `test_float64_model_keeps_float64_norms`
+- `test_float64_model_builds_float64_rotary_tables`
+
+Use the freshly downloaded model cache, offline mode, CPU, nice 10, no
+more than six numerical threads, a fresh `--basetemp` under the audit
+scratch directory and `-p no:cacheprovider`. The fixture requests four
+PyTorch threads. Cap this invocation at 300 wall seconds, 1,200 CPU seconds
+and 16 GiB address space. Do not run the dense-Jacobian, subspace-eigensolver
+or full-suite tests. Preserve skips and failures without retrying them.
