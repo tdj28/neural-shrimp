@@ -31502,3 +31502,21 @@ nearly identical under protan vision.
   - Coupling: the off-diagonal product of the block in the transported basis, compared with the half-difference of its
     diagonal entries where the two eigenvalues come closest.
 - **Output.** ../neural-shrimp-data/explore/llm-soft-loop/pod64/dss/delta2d-d{0,1,2,3}.
+
+## 2026-10-20 01:10 UTC: SYNC write-up widened (human request); spectrum-cell locations corrected
+
+- Article: the coupled-copies paragraph now states the setup from the raw records:
+  - the same prefix, model, steering direction and cell as every map;
+  - two rows of one batch, the new soft tokens mixed before feedback;
+  - B started at relative offset 1e-3 in a random direction after a 1000-step transient;
+  - 3000 steps at c from 0 to 0.30 in steps of 0.01, and 10000 steps at eight couplings near each threshold;
+  - synchronized means below 1e-8 over the last 500 steps;
+  - transverse twin at 1e-7, renormalized every step, over 2000 steps;
+  - largest deviation from lambda_1 + ln|1-2c| 0.0506 (quoted as within 0.051).
+- New article figure fig-sync-compact (tools/plot_sync.py --refine sweep-refine --compact), panels (a) and (b) of the
+  report's fig-sync. The report's four-panel figure reproduces byte for byte from the same tool. The report gained the
+  same run details.
+- Correction: an edit of 20 Oct placed the three spectrum cells "in the crescent's chaos, in the band and among the
+  stripes". docs/e2e/lyap-cells.json records them as the crescent's chaotic core, the stripe sea and the stripes just
+  past the 2-cycle fold, so none lies in the band. Both documents now say one cell lies in the crescent's chaotic core
+  and two among the chaotic stripes.
