@@ -1,0 +1,31 @@
+{
+  "id": "BSC3-memory",
+  "status": "exploratory continuation following BSC1/BSC2, not confirmatory",
+  "model_revision": "7ae557604adf67be50417f59c2c2f167def9a775",
+  "period": 18,
+  "start": [
+    0.07309363265341377,
+    -0.1544023817786725
+  ],
+  "coordinate_scales": [
+    2.5e-06,
+    7.5e-06
+  ],
+  "anchor_directory": "explore/llm-soft-loop/pod64/bsz1-geometry/crossing-01/point-054",
+  "anchor_hashes": {
+    "point.json": "eeeacb282487465100c8ed0ca96abfe933370fbdf6c61e280e4309e46ca4c617",
+    "points.npy": "73dd2ecbae4e9c8f5aa009a03f6e90dbbacc6a9b8857e28063aac57fd3402f7d",
+    "phase-0.npz": "83b9df88370546037d1a3ada3e7280a44e43959f91fb16612bce8cf90c16e9dd",
+    "phase-6.npz": "d89652be8c0a0b20e8da78e57e6410ffa2f317ab8bab3c68e72921a60546a71f",
+    "phase-12.npz": "8c68b1987fbdf396a0b3e26e50e33b41f28974d64f48542ad4497fc0512eef7a"
+  },
+  "maximum_evaluations": 800,
+  "maximum_abs_beta": 0.005,
+  "maximum_scaled_coordinate": 1000,
+  "intervention": "F_beta(x)=(1-beta)F(x)+beta*x. beta=0 exactly original. Positive beta retains old feedback; negative beta is mathematical extrapolation. Same fixed prefix, layer12 philosophy steering and temperature; K=1. Model readout remains p(x), while next state is mixed.",
+  "gates": "Full float64 with RMSNorm and rotary verification. Relative closure below1e-12, all lower returns above1e-8, same cyclic six-token text, attraction. Native float64 matrix-free block with six columns, both leading relative residuals below1e-6 and independent reapplication, pair at least100 times third Ritz value. Baseline compared against saved dense896D monodromy at composed JVP error below1e-7 and pair trace agreement below1e-5 of radius. Three cyclic phases at baseline/pilot and accepted continuation endpoints. Primary phase6 for stencil points; endpoints require phase comparison. Ritz separation is not an exhaustive dense-spectrum certificate beyond baseline.",
+  "pilot": "Original alpha,T at beta=0,+1e-7,-1e-7. Time full three-phase point and measure small-parameter response; these fixed-location points are not a saddle continuation. Local GPU first, eight threads,75percent VRAM,1200seconds, external timeout preserves partial files.",
+  "continuation": "Continue stationary trace, not a fixed alpha/T slice. Recenter9point Hessian stencils .1,.03; explicit corrector convergence, saddle-sign and trust-region gates. Record finite-difference sensitivity. Adapt parameter steps after pilot with a dated amendment. If height sign brackets zero, correct a saddle at every root iteration; distinguish trace reconnection from exact superstability.",
+  "mechanism": "Measure basis-invariant leading-pair trace response to explicit identity feedback path versus orbit-mediated response. A zero saddle height only establishes a local trace-contour reconnection; it is not proof of native mode coupling or zero multipliers.",
+  "resources": "Local owned server only in this plan; no new paid launch. Exact process bounded, all failed attempts retained, raw data outside Git."
+}
