@@ -61,6 +61,16 @@ regenerate after new runs.
   step-window extension. See the probe receipt for exact source commits,
   hashes and both preserved attempts.
 
+- **BSZ1 fine image and BSP3 period survey:** all five task-owned hosts were secure NVIDIA A100-SXM4-80GB (81920MiB), driver595.91.07, torch2.14.1+cu126, CUDA12.6, transformers5.19.0, numpy2.5.3, scipy1.18.1. Each archive was retrieved and hash-verified, and each exact pod was verified terminated. The common archived version-record SHA-256 is `38c3aa4168f0cfb83c3d0537933ea040cc4d600308198e00951213a00fbd528f`; per-archive hardware hashes and paths are in the two scan receipts.
+
+| Job | Exact pod | Execution source |
+|---|---|---|
+| bsz1-c00 | `jjxh5evklyq4g7` | `fd2832c3ed89fccd6ca525bc8ed84319fddb541e` |
+| bsz1-c01 | `csdh3rdzw0rnns` | `fd2832c3ed89fccd6ca525bc8ed84319fddb541e` |
+| bsz1-c02 | `ihz1dfg3hha41f` | `f1f0466e468d03f3561b747acaae80cd0e1da9e9` |
+| bsz1-c03 | `zpdw0hnx2koygq` | `f1f0466e468d03f3561b747acaae80cd0e1da9e9` |
+| bsz1-periods | `ygvg7zs096c81t` | `10d3af019954f47aa65b7373acc902a240a57115` |
+
 ## Frozen experiments
 
 - **EXP-028** (trainability maps) and **EXP-029** (Track B controls): CPU, float64,
