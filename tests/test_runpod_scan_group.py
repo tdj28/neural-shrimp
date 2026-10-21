@@ -83,6 +83,15 @@ def test_bounded_orbit_job_is_allowed():
                              "--out llm-soft-loop/pod64/probes")
 
 
+def test_geometry_worker_has_its_own_bounded_allowance():
+    args = "geometry 195 baby_shrimp_geometry.py --input llm-soft-loop/pod64/seeds --out llm-soft-loop/pod64/geometry"
+    group.validate_orbit_job(args)
+    with pytest.raises(ValueError, match="lifetime"):
+        group.validate_orbit_job(args.replace("195", "196"))
+    with pytest.raises(ValueError, match="lifetime"):
+        group.validate_orbit_job(args.replace("baby_shrimp_geometry.py", "baby_shrimp_orbits.py"))
+
+
 @pytest.mark.parametrize("command", [
     "probe 70 arbitrary.py --input llm-soft-loop/pod64/seeds --out llm-soft-loop/pod64/probes",
     "probe 0 baby_shrimp_orbits.py --input llm-soft-loop/pod64/seeds --out llm-soft-loop/pod64/probes",

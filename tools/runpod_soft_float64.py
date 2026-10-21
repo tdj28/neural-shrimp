@@ -40,7 +40,7 @@ UPLOAD_PATHS = ("tools/explore_llm_soft_loop.py", "tools/explore_llm_attractors.
                 "tools/symbolic_dynamics.py", "tools/sd_verify_words.py", "tools/kite_basin_check.py",
                 "tools/hook_edge_track.py", "tools/hook_saddle_check.py",
                 "tools/hook_tip_strip.py", "tools/hook_tip_check.py", "tools/hook_tip_fold_points.py",
-                "tools/baby_shrimp_orbits.py",
+                "tools/baby_shrimp_orbits.py", "tools/baby_shrimp_geometry.py", "docs/baby-shrimp-zoom/geometry-plan.json",
                 "pyproject.toml")
 DATA_PATHS = ("explore/llm-phase-map/vectors-l12", "explore/llm-soft-loop/branch-p8-a0.0717-up2",
               "explore/llm-soft-loop/branch-p8-a0.0717-down", "explore/llm-soft-loop/branch-p2-t-0.115-alpha-up")
