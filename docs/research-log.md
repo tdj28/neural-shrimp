@@ -32220,3 +32220,9 @@ _commit `62685a4f3d4d` (dirty worktree)_
 - **Would surprise us:** The small hooked region disappears at approximately eight times finer cell spacing; alternatively, new thin branches reach the padded boundaries and require a disclosed extension.
 
 _commit `62685a4f3d4d` (dirty worktree)_
+
+## 2026-10-21 14:20 UTC: BSZ1 capacity amendment before the remaining two bands
+
+The initial secure A100 SXM group created two task-owned pods for bands c00 and c01. Bands c02 and c03 returned explicit capacity-unavailable/no-pod-created outcomes; their logs are preserved in runpod/baby-shrimp-zoom/bsz1-20261021. Before either remaining numerical band starts, permit on-demand A100 SXM 80GB community hosts, then A100 PCIe 80GB secure or community hosts, at the existing per-GPU rate limit. No retry of a created pod or numerical run is authorized. This capacity fallback keeps four total created pods and the original total ceiling; the separate remaining-two-band controller receives only its reserved share (see private ledger). Original two pods retain their independent watchdog and are not adopted by the new controller. Scan bounds, grid, precision, model, steps and diagnostics are unchanged. Current outcomes seen: provisioning only, no scan results. Hardware and actual throughput will be checked on each received host; an unavailable or materially slower host cannot silently extend the hard cap.
+
+_commit `fd2832c3ed89` (dirty worktree)_
