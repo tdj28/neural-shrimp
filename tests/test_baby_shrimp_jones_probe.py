@@ -20,3 +20,14 @@ def test_critical_brackets_require_actual_sign_change_and_finite_support():
     assert not probe.brackets(u,np.ones(201))
     with pytest.raises(ValueError,match="finite"):
         probe.brackets(u,np.full(201,np.nan))
+
+
+def test_precision_extension_checks_quadratic_regime_and_accuracy():
+    def evaluate(u,tangent=True):
+        return u**4,4*u**3 if tangent else None,(u**4)[:,None]
+    rec,raw=probe.precision_test(evaluate,[.01,.003,.001,.0003,.0001])
+    assert rec["derivative_qualified"]
+    assert np.allclose(raw["orders"],2,atol=.01)
+    def wrong(u,tangent=True):
+        return u**4,4*u**3+.01 if tangent else None,(u**4)[:,None]
+    assert not probe.precision_test(wrong,[.01,.003,.001,.0003,.0001])[0]["derivative_qualified"]

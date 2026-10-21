@@ -44,6 +44,27 @@ def brackets(u, derivative):
             if .02<u[i]<u[i+1]<.98 and derivative[i]*derivative[i+1]<0]
 
 
+def precision_test(evaluate,steps):
+    import numpy as np
+    chosen=np.array([.2,.5,.8]);primal,ad,Yad=evaluate(chosen)
+    direct,_,Ydirect=evaluate(chosen,False)
+    discrepancy=float(np.max(np.linalg.norm(Yad-Ydirect,axis=1)/np.maximum(np.linalg.norm(Ydirect,axis=1),1)))
+    differences=[];errors=[]
+    for h in steps:
+        plus,_,_=evaluate(chosen+h,False);minus,_,_=evaluate(chosen-h,False)
+        fd=(plus-minus)/(2*h);differences.append(fd)
+        errors.append(abs(fd-ad)/np.maximum(abs(ad),1e-12))
+    errors=np.array(errors)
+    orders=np.log(np.maximum(errors[:-1],1e-300)/np.maximum(errors[1:],1e-300))/np.log(np.array(steps[:-1])/np.array(steps[1:]))[:,None]
+    passed=bool(discrepancy<1e-11 and np.all(errors.min(axis=0)<1e-5)
+                and np.all(np.any((orders[:-1]>1.5)&(orders[:-1]<2.5)&(orders[1:]>1.5)&(orders[1:]<2.5),axis=0)))
+    rec={"derivative_qualified":passed,"plain_vs_ad_primal_error":discrepancy,
+         "finite_differences":[{"h":h,"relative_errors":e.tolist()} for h,e in zip(steps,errors)],"orders":orders.tolist()}
+    raw={"coordinates":chosen,"ad":ad,"primal":primal,"plain":direct,"ad_states":Yad,"plain_states":Ydirect,
+         "steps":np.array(steps),"finite_differences":np.array(differences),"relative_errors":errors,"orders":orders}
+    return rec,raw
+
+
 def worker(args):
     import numpy as np
     import torch
@@ -77,6 +98,14 @@ def worker(args):
         raise ValueError("effective float64 check failed")
     vector=soft.elpm.load_vectors("llm-phase-map/vectors-l12")["philosophy"]
     started=time.monotonic();results=[]
+    previous=None
+    if args.precision_prior:
+        previous=json.loads((args.precision_prior/"results.json").read_text())
+        if not previous["complete"]:raise ValueError("complete prior diagnostic required")
+        old_protocol=json.loads((args.precision_prior/"protocol.json").read_text())
+        if old_protocol["reconstruction_sha256"]!=sha(args.reconstruction/"jones.json"):
+            raise ValueError("precision extension inputs differ")
+        results=json.loads(json.dumps(previous["cells"]))
     save(args.out/"protocol.json",{"source_commit":args.source_commit,"reconstruction_sha256":sha(args.reconstruction/"jones.json"),
          "model_revision":loop.sm.engine.revision,"norm_sensitivity":sensitivity,"rotary_float64":True,
          "grid_points":201,"batch_limit":32,"critical_bisections":24,"returns":7,"cells":cells,
@@ -88,6 +117,8 @@ def worker(args):
         print(json.dumps(row),flush=True)
 
     for cell in cells:
+        old=None if previous is None else next(r for r in previous["cells"] if r["name"]==cell["name"])
+        if old is not None and old["derivative_qualified"]:continue
         name=cell["name"];dest=args.out/name;dest.mkdir()
         row=next(r for r in report["rows"] if r["name"]==cell["source"] and r["phase"]==cell["phase"])
         if not row["lift_passed"]:
@@ -113,6 +144,16 @@ def worker(args):
                 outputs.append(X[:,0,:].cpu().numpy())
             Y=np.concatenate(outputs)
             return (Y-origin)@axis/span, np.concatenate(derivatives) if tangent else None, Y
+
+        if old is not None:
+            diagnostic,raw=precision_test(evaluate,[1e-2,3e-3,1e-3,3e-4,1e-4,3e-5])
+            np.savez_compressed(dest/"precision.npz",**raw)
+            result={**old,**diagnostic,"precision_extension":{"source_commit":args.source_commit,
+                    "prior_results_sha256":sha(args.precision_prior/"results.json"),
+                    "original_precision":{k:old[k] for k in diagnostic}}}
+            results[next(i for i,r in enumerate(results) if r["name"]==name)]=result
+            save(dest/"summary.json",result);emit("precision_extension_complete",name=name,passed=diagnostic["derivative_qualified"])
+            continue
 
         tick=time.monotonic();u=np.linspace(0,1,201)
         g,dg,Y=evaluate(u)
@@ -172,7 +213,9 @@ def worker(args):
         save(dest/"summary.json",result);results.append(result);save(args.out/"results.json",{"complete":False,"cells":results})
         emit("cell_complete",name=name,derivative_qualified=derivative_ok)
         del orb
-    save(args.out/"results.json",{"complete":True,"source_commit":args.source_commit,"cells":results,"seconds":time.monotonic()-started})
+    save(args.out/"results.json",{"complete":True,"source_commit":args.source_commit,"cells":results,"seconds":time.monotonic()-started,
+        "raw_probe":str(args.precision_prior) if previous is not None else str(args.out),
+        "prior_results_sha256":sha(args.precision_prior/"results.json") if previous is not None else None})
 
 
 def main():
@@ -180,6 +223,7 @@ def main():
     ap.add_argument("--reconstruction",type=Path,required=True);ap.add_argument("--trajectory",type=Path,required=True)
     ap.add_argument("--out",type=Path,required=True);ap.add_argument("--source-commit",required=True)
     ap.add_argument("--timeout",type=int,default=2700);ap.add_argument("--worker",action="store_true")
+    ap.add_argument("--precision-prior",type=Path)
     args=ap.parse_args()
     if not 0<args.timeout<=2700:ap.error("maximum local runtime2700seconds")
     if args.worker:worker(args);return
@@ -203,6 +247,7 @@ def main():
             status["resources"]=guard.resource_snapshot();save(args.out/"status.json",status)
             command=[sys.executable,str(Path(__file__).resolve()),"--worker","--reconstruction",str(args.reconstruction),
                      "--trajectory",str(args.trajectory),"--out",str(args.out),"--source-commit",commit,"--timeout",str(args.timeout)]
+            if args.precision_prior:command.extend(["--precision-prior",str(args.precision_prior)])
             guard.run_bounded(command,args.out/"worker.log",args.timeout,event,monitor_memory=True)
         status["status"]="complete"
     except BaseException as error:
