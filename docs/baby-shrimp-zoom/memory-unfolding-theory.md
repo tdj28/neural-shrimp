@@ -1,7 +1,8 @@
 # What a memory intervention can establish about an avoided trace crossing
 
-**Status, 21 October 2026:** repository theory draft; numerical continuation
-and mechanism results are pending audit. The counterexample below is an exact
+**Status, 21 October 2026:** repository theory draft; fixed-location memory
+derivatives have passed audit, while saddle continuation remains in progress.
+The counterexample below is an exact
 construction, not a fitted or measured model of the neural network.
 
 A stable periodic network can retain strong damping while its parameter-space
@@ -185,6 +186,25 @@ measured. A controlled intervention on that pathway must then continue the
 same primitive orbit and its moving saddle. Calling the measured height
 itself a coupling coefficient would only rename the observation.
 
-**Experiment results:** pending audited continuation and derivative
-qualification. No crossing, noncrossing interval, or causal pathway result
-is asserted here.
+## Qualified derivative result; continuation pending
+
+At the original child orbit's alpha and temperature, the added memory path
+contributes approximately -0.032696 to the pair-trace derivative, orbit
+motion contributes -0.106638, and their sum is -0.139334. These contributions
+refer to this specified intervention, not to shares of native mode coupling.
+The total derivative was evaluated at one cyclic phase. Three-phase
+finite-offset orbit controls agree with it; the primary phase's finest
+central slope differs by less than 0.008%, with approximately quadratic
+convergence across decreasing offsets. Independent composed-Hessian checks
+also pass. Exact values, scope and hashes are in the
+[sensitivity receipt](memory-sensitivity-receipt.json).
+
+These fixed-location derivatives are not automatically the moving saddle's
+height derivative: the original saved center is only an approximate saddle.
+The continued-saddle test remains in progress. No zero-height crossing,
+noncrossing interval, or native causal pathway result is asserted here.
+
+The exact polynomial example has a visually inspected three-panel figure;
+its source, external PNG/PDF and review are bound by the
+[figure receipt](memory-theory-figure-receipt.json). It illustrates the
+counterexample only and contains no neural scan data.
