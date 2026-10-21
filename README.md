@@ -88,8 +88,10 @@ computed in float64 on rented GPUs.
 
 Raw trajectories, model states and the native evidence of the certificates (center definitions and interval
 enclosures) total about 270 GB and are kept outside the repository. The research log and the receipts in
-the repository record their SHA-256 checksums. The complete evidence of the two computer-assisted proofs will be
-published at Zenodo; the link will be added here.
+the repository record their SHA-256 checksums. The complete evidence of the two computer-assisted proofs (the
+period-8 orbit, and the coexisting period-2 and period-3 orbits), with its verification code, release records and
+checksums, is published at Zenodo: [doi:10.5281/zenodo.23488416](https://doi.org/10.5281/zenodo.23488416)
+(about 27 GB; its README explains how to check it).
 
 ## How the work was done
 
