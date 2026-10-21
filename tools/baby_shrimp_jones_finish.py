@@ -164,7 +164,6 @@ def main():
     explained=singular[:3]**2/np.sum(singular**2)
     ax.set(xlabel=f"PC1 ({100*explained[0]:.2f}% variance)",ylabel=f"PC2 ({100*explained[1]:.3f}%)",zlabel="PC3")
     ax.xaxis.labelpad=10;ax.yaxis.labelpad=10;ax.zaxis.labelpad=12
-    ax.text2D(.02,.10,f"PC3 explains {100*explained[2]:.3f}% of observed variance",transform=ax.transAxes,fontsize=9)
     from matplotlib.ticker import MaxNLocator
     for axis in (ax.xaxis,ax.yaxis,ax.zaxis):axis.set_major_locator(MaxNLocator(4))
     ax.view_init(elev=24,azim=-55);ax.legend(loc="upper left",fontsize=9)
