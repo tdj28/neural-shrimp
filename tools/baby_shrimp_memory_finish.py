@@ -73,6 +73,10 @@ def bind_protocol(protocol, root=ROOT, data=DATA):
     required = set(BASE_SOURCES)
     if protocol["args"]["mode"] == "continue":
         required.add("tools/trace_saddle_continuation.py")
+    if "resume" in protocol:
+        required.update(("tools/baby_shrimp_memory_resume.py", "tools/baby_shrimp_memory_finish.py",
+                         "tools/baby_shrimp_orbits.py", "tools/baby_shrimp_geometry.py",
+                         "tools/doubly_superstable.py"))
     require(required <= set(protocol["source_sha256"]), "incomplete execution source manifest")
     for path, expected in protocol["source_sha256"].items():
         require(hashlib.sha256(git_bytes(commit, path, root)).hexdigest() == expected,
@@ -555,6 +559,17 @@ def audit_run(run, out, *, root=ROOT, data=DATA, worker=None):
         from baby_shrimp_transect_finish import verify_worker
         wr, folder, lifecycle, _ = verify_worker(Path(worker))
         require(folder.resolve() == run and wr["commit"] == protocol["commit"], "worker folder or source differs")
+    resume = None
+    if "resume" in protocol:
+        from baby_shrimp_memory_resume import verify_resume, verify_replay
+        bundle = verify_resume(protocol["resume"], protocol["plan"], root=root, data=data,
+                               seen=(str(run),))
+        replay_path = run / "resume-replay.json"
+        replay = verify_replay(run, protocol["resume"], bundle, raw) if replay_path.exists() else {
+            "passed": False, "endpoints": [], "status": "fresh endpoint replay not saved"}
+        require(replay["passed"] or (not centers and not result.get("complete")),
+                "continued target requires complete fresh endpoint replay")
+        resume = {"provenance": bundle["provenance"], "fresh_replay": replay}
     complete = bool(result.get("complete") and not unqualified and not (run / "failure.json").exists())
     plots = plot_centers(centers, out)
     manifest = [{"path": str(p.relative_to(run)), "sha256": digest(p), "bytes": p.stat().st_size}
@@ -567,7 +582,7 @@ def audit_run(run, out, *, root=ROOT, data=DATA, worker=None):
                "qualified_points": summaries, "unqualified_or_incomplete_points": unqualified,
                "accepted_centers": centers, "stencil_iterations_recomputed": iterations,
                "height_change_diagnostics": assess_height_changes(centers),
-               "worker": lifecycle, "manifest": manifest, "figures": plots,
+               "worker": lifecycle, "resume": resume, "manifest": manifest, "figures": plots,
                "figure_visual_review": "pending" if plots else "not applicable",
                "limits": ["Saved-data replay, not a fresh model evaluation or interval certificate.",
                           "Ritz separation is conditional on the computed subspace; it is not a full-spectrum certificate.",

@@ -182,8 +182,14 @@ def main():
     parser.add_argument('--stencils',type=float,nargs='+',default=[.1,.03])
     parser.add_argument('--correction-tolerance',type=float,default=.003)
     parser.add_argument('--source-commit',help='exact source when executing a Git archive without .git')
+    parser.add_argument('--resume-receipt',type=Path,help='local audited continuation receipt used only for predictor/warm history')
+    parser.add_argument('--resume-sha256',help='exact SHA256 of --resume-receipt')
     args=parser.parse_args()
     if not 0<args.seconds<=14400: parser.error('runtime must be bounded within four hours')
+    if bool(args.resume_receipt) != bool(args.resume_sha256):
+        parser.error('--resume-receipt and --resume-sha256 must be supplied together')
+    if args.resume_receipt and (args.mode!='continue' or args.anchor_saddle):
+        parser.error('resume requires continue mode without --anchor-saddle')
     out=args.out if args.out.is_absolute() else DATA/'explore'/args.out
     out.mkdir(parents=True,exist_ok=False)
     plan_path=ROOT/args.plan; plan=json.loads(plan_path.read_text())
@@ -197,17 +203,43 @@ def main():
     sources=['tools/baby_shrimp_saddle_memory.py','tools/baby_shrimp_memory.py','tools/explore_llm_soft_loop.py',
              'tools/explore_llm_attractors.py','tools/explore_llm_phase_map.py','tools/llm_feigenbaum.py',
              'tools/trace_saddle_continuation.py','tools/trace_pair_sensitivity.py']
-    save(out/'protocol.json',{'commit':commit,'plan':plan,'plan_sha256':sha(plan_path),
+    if args.resume_receipt:
+        sources.extend(['tools/baby_shrimp_memory_resume.py','tools/baby_shrimp_memory_finish.py',
+                        'tools/baby_shrimp_orbits.py','tools/baby_shrimp_geometry.py','tools/doubly_superstable.py'])
+    protocol={'commit':commit,'plan':plan,'plan_sha256':sha(plan_path),
          'source_sha256':{p:sha(ROOT/p) for p in sources},'args':{k:str(v) if isinstance(v,Path) else v for k,v in vars(args).items()},
-         'started_utc':datetime.now(timezone.utc).isoformat()})
+         'started_utc':datetime.now(timezone.utc).isoformat()}
+    save(out/'protocol.json',protocol)
     try:
+        resume=None
+        if args.resume_receipt:
+            from baby_shrimp_memory_resume import load_resume, seed_evaluator, predictor as resumed_predictor
+            from baby_shrimp_memory_resume import replay_template, audit_replay_endpoint, seed_replayed_evaluator
+            from baby_shrimp_memory_resume import check_resume_settings
+            resume=load_resume(args.resume_receipt,args.resume_sha256,plan,seen=(str(out.resolve()),))
+            check_resume_settings(args.stencils,args.correction_tolerance,resume['previous_args'])
+            protocol['resume']=resume['provenance']
+            save(out/'protocol.json',protocol)
         ev=Evaluator(args,plan,out,emit); baseline=ev.baseline()
+        if resume is not None:
+            seed_evaluator(ev,resume)
+            emit('resume_predictor_history',provenance=resume['provenance'])
+            replay=replay_template(resume)
+            save(out/'resume-replay.json',replay)
+            for index,endpoint in enumerate(resume['history']):
+                point=ev(endpoint['center'],endpoint['parameter'],cyclic=True)
+                replay['endpoints'].append(audit_replay_endpoint(out,resume,index,point['index']))
+                save(out/'resume-replay.json',replay)
+            replay['passed']=True
+            save(out/'resume-replay.json',replay)
+            seed_replayed_evaluator(ev,out,resume,replay)
         if args.mode=='pilot':
             rows=[ev(np.zeros(2),beta,cyclic=True) for beta in args.betas]
             result={'complete':True,'baseline':baseline,'rows':rows,'scope':'Timing and fixed-parameter derivative pilot; not saddle continuation.'}
         else:
             from trace_saddle_continuation import TraceSaddleContinuation
             accepted=[]
+            predictor_history=[] if resume is None else list(resume['history'])
             def event(row):
                 if row['stage']=='saddle_complete':
                     point=ev(row['center'],row['parameter'],cyclic=True)
@@ -223,14 +255,19 @@ def main():
                     'converged':True,'hessian':h['hessian'],'hessian_eigenvalues':h['hessian_eigenvalues'],
                     'scope':'Previously audited BSC1 saddle estimate; original stencil sensitivity retained.',
                     'receipt_sha256':sha(ROOT/'docs/baby-shrimp-zoom/crossing-receipt.json')})
+                predictor_history.append(accepted[-1])
             for beta in args.betas:
                 if args.anchor_saddle and beta==0: continue
-                predictor=np.zeros(2) if not accepted else np.array(accepted[-1]['center'])
-                if len(accepted)>1:
-                    a,b=accepted[-2:]
-                    predictor+=(beta-b['parameter'])/(b['parameter']-a['parameter'])*(np.array(b['center'])-np.array(a['center']))
+                if resume is not None:
+                    predictor=resumed_predictor(predictor_history,beta)
+                else:
+                    predictor=np.zeros(2) if not predictor_history else np.array(predictor_history[-1]['center'])
+                    if len(predictor_history)>1:
+                        a,b=predictor_history[-2:]
+                        predictor+=(beta-b['parameter'])/(b['parameter']-a['parameter'])*(np.array(b['center'])-np.array(a['center']))
                 emit('predictor',beta=beta,coordinate=predictor.tolist())
                 accepted.append(engine.correct(beta,predictor))
+                predictor_history.append(accepted[-1])
                 save(out/'continuation.json',{'complete':False,'points':accepted})
             result={'complete':True,'points':accepted,'evaluations':ev.attempts,
                 'scope':'Moving stationary trace in a memory-perturbed network; no native coupling or exact superstability claim.'}

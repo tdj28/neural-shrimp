@@ -44,8 +44,11 @@ class TraceSaddleContinuation:
     receives each JSON-friendly event before the next operation. ``events`` is
     also retained on this object if a callback or numerical gate raises.
 
-    Convergence means the Newton correction at the *returned center* is below
-    ``correction_tolerance`` at every declared stencil scale. It is a numerical
+    Convergence means the Newton correction is below ``correction_tolerance``
+    sequentially at every declared stencil scale. A finer scale may move the
+    center after a coarser scale passes; only the final scale is guaranteed at
+    the returned center. Saved centers permit a separate cross-scale audit.
+    It is a numerical
     criterion, not an interval certificate of a stationary point.
     """
 
