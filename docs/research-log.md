@@ -32196,3 +32196,12 @@ shrimp-specific behavioral effect.
   hash, and binds raw artifact paths, hashes and byte sizes. It explicitly
   records the original runner's missing runtime metadata. No model run was
   repeated for this audit; the prepared continuation was not launched.
+
+## 2026-10-21 13:58 UTC: run (exploratory)
+
+- **Question:** BSZ timing pilot: how long would a 512 by 512 float64 fixed-start zoom below the HR10 period-6 body take on the local CPU and GPU?
+- **Setup:** Timing-only exploratory pilot, using tools/benchmark_soft_scan.py and the unchanged HR10 SoftLoop map. User-confirmed small hooked island, with guard band alpha 0.07284..0.07324 and log10 T -0.15530..-0.15395; this is a new region below the HR11/HR12 kite zoom. Reference HR10 scan SHA-256 b29668a41c6d906dee03c3268b62929f91e89b0f1119d15d588d8223c6da93a0. The original uploaded crop was registered to the original 1280-pixel HR10 rendering: scale approximately 0.435 source pixels per attachment pixel, offset (458.43,509.84); registration RGB RMS 0.01449 on 0..1 scale. No generated annotation is used for parameter coordinates. Local timing: Qwen0.5b, block12 philosophy, open/Hello!, window1, native float64 with existing normalization/rotary patches; batches64,256,512 cells plus one twin each; prefix preparation, two warmup steps, six transient steps and six twin-renormalized recording steps timed separately. Short histories are for throughput only and provide no period or chaos labels. Compare measured timings with the 16 completed HR10 A100 bands (600 steps, tolerance1e-8, chunk2048). One model worker at a time; eight CPU threads, shared GPU lock, at least12GiB RAM reserve, 85percent GPU allocator ceiling, 900-second limit per device. Preserve failures and partial timing records. Commit pilot code before execution; do not launch paid compute under this card. A full zoom needs a separate run card, a measured plan and, for paid compute, explicit authorization of its ceiling.
+- **Output:** `/data2/neural-shrimp-data/audits/baby-shrimp-zoom/20261021-timing-01`
+- **Would surprise us:** The local float64 GPU outperforms the matched A100 workload after accounting for batch size, or the CPU proves faster than the local GPU.
+
+_commit `64d2347524f1` (dirty worktree)_
