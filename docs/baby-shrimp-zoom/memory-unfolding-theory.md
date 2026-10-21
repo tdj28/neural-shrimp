@@ -1,15 +1,20 @@
 # What a memory intervention can establish about an avoided trace crossing
 
-**Status, 21 October 2026:** repository theory draft; fixed-location memory
-derivatives have passed audit, while saddle continuation remains in progress.
+**Status, 21 October 2026:** fixed-location derivatives and the completed local
+saddle continuation have passed saved-data audits. The continuation provides
+numerical evidence for a trace-contour reconnection under added memory, with
+an explicit residual-qualified crossing estimate and the limitations below.
 The counterexample below is an exact
 construction, not a fitted or measured model of the neural network.
 
-A stable periodic network can retain strong damping while its parameter-space
-curves change their connections. A crossing of the curves studied here means
-that two return multipliers balance along intersecting parameter curves. It
-does not by itself mean that a multiplier vanishes or that perturbations are
-erased exactly.
+In the pinned Qwen feedback loop, the sampled saddle centers retain a
+primitive period-18 state orbit and the same repeating six-token readout
+while added memory changes the trace geometry. The cycle remains strongly
+damped at these sampled centers as its parameter-space curves change their
+connections. A crossing of the curves studied here means that two return
+multipliers balance along intersecting parameter curves. It does not by
+itself mean that a multiplier vanishes or that perturbations are erased
+exactly.
 
 This note applies the existing Morse lemma with parameters, stated in
 [Appendix B, Proposition 16 of Plantinga's thesis](https://cs.nyu.edu/~exact/pap/mesh/vegter/plantingaThesis.pdf).
@@ -119,8 +124,8 @@ local minimum at the trace crossing. Trace-contour reconnection alone does
 not establish reconnection of the strongest-contraction curves. Saved
 determinant stencils can assess this distinction numerically; applying the
 exact statement to a computed candidate also requires reporting its finite
-trace and stationarity residuals. No determinant-gradient result is asserted
-here.
+trace and stationarity residuals. The completed continuation below includes
+this saved-stencil diagnostic.
 
 Thus a verified trace crossing is compatible with two nonzero contracting
 multipliers. A zero of \(\Delta\) would establish a zero within this pair;
@@ -243,7 +248,7 @@ measured. A controlled intervention on that pathway must then continue the
 same primitive orbit and its moving saddle. Calling the measured height
 itself a coupling coefficient would only rename the observation.
 
-## Qualified derivative and initial continuation results
+## Qualified derivative and continuation results
 
 At the original child orbit's alpha and temperature, the added memory path
 contributes approximately -0.032696 to the pair-trace derivative, orbit
@@ -272,9 +277,80 @@ attempt, source/array/archive checks, exact resource termination and
 visually inspected continuation figure are bound by the
 [continuation receipt](memory-continuation-receipt.json). Its archived source
 omitted the final return-state array, so closure replay retains the explicit
-recorded-summary limitation. A fresh local continuation will replay the last
-two accepted endpoints before taking smaller steps. No zero-height crossing,
-noncrossing interval, or native causal pathway result is asserted here.
+recorded-summary limitation.
+
+The completed local extension replayed both prior endpoints, then accepted
+seven new saddle centers using 273 qualified point evaluations. Every local
+point passed the saved-data gates, including independent closure replay from
+the newly saved return-state arrays; the largest relative closure residual
+was 4.3386485564e-13. The quadratic-corrected saddle heights are
+\(+3.9471972323\times10^{-5}\) at \(\beta=0.006\) and
+\(-4.9987419184\times10^{-5}\) at \(\beta=0.007\). Their empirical
+height-sensitivity scales are respectively \(2.8699527363\times10^{-12}\)
+and \(2.5973422469\times10^{-12}\). These are observed numerical
+sensitivities, not rigorous error bounds; the sign change is nevertheless
+well resolved by the saved checks.
+
+The root search then met its declared \(|h|\le10^{-8}\) stopping rule at
+\(\beta\approx0.00644853\), with
+\(\alpha=0.07331776448598727\),
+\(\log_{10}T=-0.15804614858293237\), and a remaining positive trace
+\(1.6365300102\times10^{-10}\). The candidate's empirical height
+sensitivity is \(8.7720409293\times10^{-12}\); its height remains positive
+across the recorded estimates. It is therefore a numerical crossing estimate,
+not an exact zero. The solver's retained sign bracket is
+\([0.0064484162589609016,\,0.007]\), not a narrow certified parameter
+interval. In the declared scaled coordinates about the original saved anchor
+\(u=(p-p_0)/(2.5\times10^{-6},7.5\times10^{-6})\), the final finite-difference
+trace-gradient norm is \(8.2218453695\times10^{-11}\), and the Hessian
+eigenvalues are \(-0.04261232777\) and \(+0.01330814211\). Thus the
+computed saddle remains nondegenerate and indefinite. Coarse and fine final
+stencils have different centers: their comparison includes quadratic center
+transport, and direct Richardson extrapolation is not applied. Their
+transported trace-gradient discrepancy has norm \(2.6044333702\times10^{-7}\):
+the much smaller final solver residual alone is not a derivative-accuracy
+estimate.
+
+The corrected-height secant from \(\beta=0.006\) to \(0.007\) is
+\(-0.08945939151\). The last two positive root iterates give a secant of
+\(-0.08920083185\), with an empirical endpoint-sensitivity scale of
+\(0.00010016156\) after division by their parameter separation. These
+negative finite secants support a transverse unfolding numerically; they do
+not certify the derivative at an exact root. Under the smooth-family and
+Morse assumptions above, the resolved sign change means that the local
+trace-zero arms exchange their connections. It rules out mere translation
+or parameter relabeling of the original trace field.
+
+Full-orbit alignment provides additional evidence that the same period-18
+family was followed despite the moving controls. Across all 18 accepted
+historical and local centers, all 17 neighboring comparisons prefer the
+same cyclic phase and retain the same token cycle. The largest relative
+full-orbit change is 0.005599786683418215; the smallest mismatch for a second-best
+cyclic alignment is 0.10712282855144359. This uses the full 18-by-896 state arrays,
+not token equality alone. It supports continuation of the same family but
+does not prove uninterrupted branch identity between sampled points.
+
+At the candidate, \(\Delta=-6.7591540467\times10^{-9}\), with pair
+multipliers approximately \(+8.2214156331\times10^{-5}\) and
+\(-8.2213992679\times10^{-5}\). Both remain nonzero and strongly
+contracting. The saved determinant stencils give
+\(\nabla_u\Delta=(-4.5480903166\times10^{-10},\,
+8.7524285017\times10^{-10})\); the coarse-to-fine gradient discrepancy
+after center transport has norm \(2.6276693849\times10^{-16}\). If this
+nonzero gradient persists at the exact trace-saddle crossing, the conditional
+linear pair-radius tilt is approximately
+\((2.7660046920\times10^{-6},-5.3229502092\times10^{-6})\).
+The finite trace and stationarity residuals prevent treating this as a formal
+nonzero-gradient certificate at an exact root. It gives concrete numerical
+reason to distinguish trace-contour reconnection from reconnection of exact
+strongest-contraction ridges or the bright curves in a finite-time image.
+
+The [local continuation receipt](memory-local-extension-receipt.json) binds
+the completed audit and the combined full-orbit and determinant diagnostics.
+The spectral isolation checks remain conditional on the computed Ritz
+subspace, and no interval proof is claimed. This result demonstrates a
+controllable change of trace geometry under added memory; it establishes
+neither exact superstability nor a native internal coupling mechanism.
 
 The exact polynomial example has a visually inspected three-panel figure;
 its source, external PNG/PDF and review are bound by the

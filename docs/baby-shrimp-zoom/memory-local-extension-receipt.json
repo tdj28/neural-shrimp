@@ -1,0 +1,456 @@
+{
+  "id": "BSC3-memory-local-extension-receipt",
+  "status": "all saved-data gates passed",
+  "complete": true,
+  "external_storage_root": "/data2/neural-shrimp-data",
+  "execution_source_commit": "cf2726b3a61bce0e933ba71b93ae992d529977f0",
+  "plan_path": "docs/baby-shrimp-zoom/saddle-memory-local-plan.json",
+  "plan_sha256": "80318b3c415c2db571a15392acf8a3178c16cfc978bfdd185b62e71dedf8fa44",
+  "analysis_commit": "7a885cc641f5ce13115a3dd0ec755b3704dd5d61",
+  "analysis_source_sha256": "d4ed634d1a8bcbc371bb449a5bf7e32633a23acd287234e81e8128cdc4702cd6",
+  "audit": {
+    "path": "audits/baby-shrimp-zoom/20261021-memory-local-extension-audit-01/receipt.json",
+    "sha256": "141b333d2a70fdac4037a3268768f16be57f75c338a46c84d8eb886bdf236b5b",
+    "bytes": 438337
+  },
+  "raw_directory": "explore/llm-soft-loop/bsc3-memory/20261021-local-extension-01",
+  "runtime": {
+    "norm_sensitivity": 3.552713678800501e-15,
+    "rotary_float64": true,
+    "device": "NVIDIA RTX 2000 Ada Generation",
+    "torch": "2.14.1+cu130",
+    "cuda": "13.0",
+    "threads": 8,
+    "python": "3.12.14 (main, Aug 25 2026, 14:00:49) [Clang 22.1.3 ]",
+    "python_executable": "/data2/neural-shrimp/.venv/bin/python"
+  },
+  "lifecycle": {
+    "first_progress_utc": "2026-10-21T21:23:03.573337+00:00",
+    "last_progress_utc": "2026-10-21T23:50:57.900772+00:00",
+    "elapsed_between_progress_records_seconds": 8874.327435,
+    "owned_pids": [
+      4110973,
+      4110974
+    ],
+    "owned_pids_absent_at_independent_audit": true,
+    "terminal_result_complete": true,
+    "new_rented_resources": false
+  },
+  "scientific_metadata": {
+    "id": "BSC3-memory",
+    "model_revision": "7ae557604adf67be50417f59c2c2f167def9a775",
+    "period": 18,
+    "start": [
+      0.07309363265341377,
+      -0.1544023817786725
+    ],
+    "coordinate_scales": [
+      2.5e-06,
+      7.5e-06
+    ],
+    "anchor_directory": "explore/llm-soft-loop/pod64/bsz1-geometry/crossing-01/point-054",
+    "anchor_hashes": {
+      "point.json": "eeeacb282487465100c8ed0ca96abfe933370fbdf6c61e280e4309e46ca4c617",
+      "points.npy": "73dd2ecbae4e9c8f5aa009a03f6e90dbbacc6a9b8857e28063aac57fd3402f7d",
+      "phase-0.npz": "83b9df88370546037d1a3ada3e7280a44e43959f91fb16612bce8cf90c16e9dd",
+      "phase-6.npz": "d89652be8c0a0b20e8da78e57e6410ffa2f317ab8bab3c68e72921a60546a71f",
+      "phase-12.npz": "8c68b1987fbdf396a0b3e26e50e33b41f28974d64f48542ad4497fc0512eef7a"
+    },
+    "intervention": "F_beta(x)=(1-beta)F(x)+beta*x. beta=0 exactly original. Positive beta retains old feedback; negative beta is mathematical extrapolation. Same fixed prefix, layer12 philosophy steering and temperature; K=1. Model readout remains p(x), while next state is mixed."
+  },
+  "counts": {
+    "qualified_points": 273,
+    "unqualified_or_incomplete_points": 0,
+    "accepted_saddles": 7,
+    "stencil_iterations_recomputed": 30,
+    "raw_files": 1128
+  },
+  "validation": {
+    "independent_saved_data_replay": "Source and plan checked against exact Git commits; every raw manifest entry checked; all point, baseline, resume, stencil, accepted-center and root fields independently recomputed with one NumPy/BLAS thread. No fresh model evaluations.",
+    "all_point_closures_recomputed_from_saved_endpoints": true,
+    "maximum_full_state_closure": 4.338648556383521e-13,
+    "minimum_lower_lag_return": 0.014948247236124838,
+    "maximum_spectral_relative_residual": 1.4444287580884529e-08,
+    "maximum_cyclic_pair_absolute_discrepancy": 3.549146247077209e-13,
+    "maximum_accepted_correction_norm": 1.9071119194165904e-05,
+    "maximum_empirical_height_sensitivity": 8.772040929266902e-12
+  },
+  "parent_attempt": {
+    "audit": {
+      "path": "audits/baby-shrimp-zoom/20261021-memory-continuation-audit-01/receipt.json",
+      "sha256": "2e13027a8466797f329512df657541449caa412a64fc3db860463f38afa6f5cc",
+      "bytes": 495387
+    },
+    "complete": false,
+    "qualified_points": 351,
+    "accepted_saddles": 11,
+    "rejected_corrector_steps": [
+      {
+        "parameter": 0.005,
+        "center": [
+          70.86222991728175,
+          -372.0130647666355
+        ],
+        "stencil_step": 0.01,
+        "point_index": 346,
+        "correction": [
+          0.12081325818910903,
+          -2.1885566581409144
+        ],
+        "correction_norm": 2.1918887036633943,
+        "event_index": 729,
+        "iteration": 0,
+        "trust_radius": 2.0,
+        "reason": "proposed correction exceeds trust radius",
+        "accepted": false
+      }
+    ],
+    "fresh_resume_replay_passed": true,
+    "fresh_resume_parameters": [
+      0.001,
+      0.003
+    ],
+    "limitation": "The parent lacks saved return-state arrays; its closure was checked against recorded summaries. The local replay and all local extension points include independently audited saved final states. The parent failed beta=0.005 trust step remains immutable; it was not retroactively accepted."
+  },
+  "accepted_centers": [
+    {
+      "parameter": 0.004,
+      "center": [
+        56.48159228495356,
+        -298.3544567649988
+      ],
+      "tau": 0.00020217772948465177,
+      "delta": -1.6293268006776153e-08,
+      "radius": 0.00026391462001663403,
+      "hessian_eigenvalues": [
+        -0.04933918708129257,
+        0.014208757852279659
+      ],
+      "correction_norm": 1.7926488169233153e-05,
+      "point_index": 34,
+      "cyclic_point_index": 47,
+      "empirical_height_sensitivity_scale": 3.1879765645859136e-12
+    },
+    {
+      "parameter": 0.005,
+      "center": [
+        70.16865552277504,
+        -374.4898167876581
+      ],
+      "tau": 0.00012355687102661562,
+      "delta": -1.310622725970061e-08,
+      "radius": 0.00019186610731233175,
+      "hessian_eigenvalues": [
+        -0.04647763830827517,
+        0.013826367308660725
+      ],
+      "correction_norm": 1.9071119194165904e-05,
+      "point_index": 79,
+      "cyclic_point_index": 92,
+      "empirical_height_sensitivity_scale": 3.1730011645046857e-12
+    },
+    {
+      "parameter": 0.006,
+      "center": [
+        83.66408781630544,
+        -451.2254458405915
+      ],
+      "tau": 3.9471974427497555e-05,
+      "delta": -9.03501807939849e-09,
+      "radius": 0.00011681599170012515,
+      "hessian_eigenvalues": [
+        -0.04377529041742482,
+        0.013464362774872621
+      ],
+      "correction_norm": 1.8411305572678557e-05,
+      "point_index": 124,
+      "cyclic_point_index": 137,
+      "empirical_height_sensitivity_scale": 2.8699527363492252e-12
+    },
+    {
+      "parameter": 0.007,
+      "center": [
+        96.9595596131848,
+        -528.5492226107006
+      ],
+      "tau": -4.998741726639206e-05,
+      "delta": -3.459418055148973e-09,
+      "radius": 8.890069985307555e-05,
+      "hessian_eigenvalues": [
+        -0.04122316238527642,
+        0.013120792250643281
+      ],
+      "correction_norm": 1.7767801695217554e-05,
+      "point_index": 169,
+      "cyclic_point_index": 182,
+      "empirical_height_sensitivity_scale": 2.597342246865158e-12
+    },
+    {
+      "parameter": 0.006441227842936402,
+      "center": [
+        89.55554112281732,
+        -485.271110516056
+      ],
+      "tau": 6.514520363203806e-07,
+      "delta": -6.79895211453485e-09,
+      "radius": 8.278212790670589e-05,
+      "hessian_eigenvalues": [
+        -0.04263122710176192,
+        0.013310617530185562
+      ],
+      "correction_norm": 1.8070280738983636e-05,
+      "point_index": 205,
+      "cyclic_point_index": 218,
+      "empirical_height_sensitivity_scale": 2.7254759874070875e-12
+    },
+    {
+      "parameter": 0.0064484162589609016,
+      "center": [
+        89.65119776563614,
+        -485.8267191349515
+      ],
+      "tau": 1.0402964581755032e-08,
+      "delta": -6.7597904154013e-09,
+      "radius": 8.222314625511055e-05,
+      "hessian_eigenvalues": [
+        -0.042612826693529705,
+        0.013308144130283585
+      ],
+      "correction_norm": 1.8025251765559848e-05,
+      "point_index": 232,
+      "cyclic_point_index": 245,
+      "empirical_height_sensitivity_scale": 2.7232129864862245e-12
+    },
+    {
+      "parameter": 0.006448531026086656,
+      "center": [
+        89.6527330293985,
+        -485.8355739013149
+      ],
+      "tau": 1.6365300102214302e-10,
+      "delta": -6.759154046692957e-09,
+      "radius": 8.221415633084914e-05,
+      "hessian_eigenvalues": [
+        -0.04261232777441068,
+        0.013308142110978301
+      ],
+      "correction_norm": 3.54207875370207e-09,
+      "point_index": 267,
+      "cyclic_point_index": 272,
+      "empirical_height_sensitivity_scale": 8.772040929266902e-12
+    }
+  ],
+  "height_root": {
+    "complete": true,
+    "status": "numerical residual-qualified candidate; exact zero not certified",
+    "parameter": 0.006448531026086656,
+    "memory_percent": 0.6448531026086656,
+    "alpha": 0.07331776448598727,
+    "log10_temperature": -0.15804614858293237,
+    "tau": 1.6365300102214302e-10,
+    "delta": -6.759154046692957e-09,
+    "radius": 8.221415633084914e-05,
+    "height_tolerance": 1e-08,
+    "initial_sign_bracket": [
+      {
+        "parameter": 0.006,
+        "center": [
+          83.66408781630544,
+          -451.2254458405915
+        ],
+        "tau": 3.9471974427497555e-05,
+        "converged": true,
+        "source": {
+          "kind": "fresh target",
+          "artifact": "saddle-002.json",
+          "cyclic_point_index": 137
+        }
+      },
+      {
+        "parameter": 0.007,
+        "center": [
+          96.9595596131848,
+          -528.5492226107006
+        ],
+        "tau": -4.998741726639206e-05,
+        "converged": true,
+        "source": {
+          "kind": "fresh target",
+          "artifact": "saddle-003.json",
+          "cyclic_point_index": 182
+        }
+      }
+    ],
+    "final_retained_parameter_bracket": [
+      0.0064484162589609016,
+      0.007
+    ],
+    "final_retained_bracket_width": 0.0005515837410390986,
+    "root_corrector_iterations": 3,
+    "gradient_norm": 8.221845369526344e-11,
+    "correction_norm": 3.54207875370207e-09,
+    "hessian_eigenvalues": [
+      -0.04261232777441068,
+      0.013308142110978301
+    ],
+    "height_sensitivity": {
+      "status": "numerical sensitivity reported; sign not certified",
+      "nominal_quadratic_corrected_height": 1.6365300101608535e-10,
+      "height_estimate_range": [
+        1.6365300101608535e-10,
+        1.7212295258246628e-10
+      ],
+      "height_sign_consistent_across_estimates": true,
+      "cyclic_trace_spread": 1.1198417952489048e-13,
+      "empirical_height_sensitivity_scale": 8.772040929266902e-12,
+      "height_to_sensitivity_ratio": 18.65620581751688,
+      "scale_comparisons": [
+        {
+          "coarse_step": 0.01,
+          "fine_step": 0.003,
+          "centers_identical": false,
+          "center_displacement": [
+            1.4624880520841543e-05,
+            3.4434974736541335e-05
+          ],
+          "center_displacement_norm": 3.741195818658962e-05,
+          "raw_height_difference": -8.469951560323256e-12,
+          "quadratic_corrected_height_difference": -6.741584094755223e-12,
+          "coarse_quadratic_trace_at_fine_center": 1.7242504195140992e-10,
+          "trace_transport_residual": -8.772040929266902e-12,
+          "gradient_transport_residual": [
+            -2.2080939573607675e-07,
+            -1.381084448978036e-07
+          ],
+          "hessian_difference_norm": 3.1954776078474966e-07,
+          "scope": "Quadratic transport between saved centers; omitted higher orders are not bounded.",
+          "richardson": {
+            "applied": false,
+            "reason": "Stencil centers differ; direct Richardson extrapolation is invalid."
+          }
+        }
+      ],
+      "scope": "Maximum observed quadratic correction scale, scale/transport discrepancy and cyclic trace spread; not an uncertainty bound. Unmeasured higher derivatives and operator errors may remain."
+    },
+    "saddle_artifact": {
+      "path": "explore/llm-soft-loop/bsc3-memory/20261021-local-extension-01/saddle-006.json",
+      "sha256": "90ac15a18a590516e89fa0fcbf87356b83d9d47241b2b84d719fc06747402e84",
+      "bytes": 13134
+    },
+    "point_index": 267,
+    "cyclic_point_index": 272,
+    "scope": "The broad beta=0.006/0.007 sign bracket and the residual-qualified candidate are separate evidence. The final positive residual meets the height tolerance; neither its displayed digits nor the final retained bracket imply a tight parameter error bar. Nonzero opposite-sign multipliers cancel in trace; exact superstability is not established.",
+    "leading_pair_phase_0": [
+      [
+        8.221415633084914e-05,
+        0.0
+      ],
+      [
+        -8.221399267898011e-05,
+        0.0
+      ]
+    ]
+  },
+  "combined_orbit_continuity": {
+    "audit": {
+      "path": "audits/baby-shrimp-zoom/20261021-memory-orbit-alignment-combined-01/receipt.json",
+      "sha256": "d0b2176f2d708a19e68a33f9442b062a851b36638c33131af55eb9dabbe01bfa",
+      "bytes": 52322
+    },
+    "accepted_cycles": 18,
+    "neighbor_comparisons": 17,
+    "summary": {
+      "all_best_alignments_preserve_phase": true,
+      "all_aligned_token_cycles_match": true,
+      "maximum_neighbor_relative_orbit_change": 0.005599786683418215,
+      "minimum_second_alignment_relative_change": 0.10712282855144359
+    },
+    "independently_recomputed": true,
+    "scope": "All eighteen cyclic alignments of every pair of neighboring full P18 orbits were checked. Numerical continuity support only; neither branch nor basin identity is certified."
+  },
+  "combined_determinant_gradient": {
+    "audit": {
+      "path": "audits/baby-shrimp-zoom/20261021-memory-determinant-combined-01/receipt.json",
+      "sha256": "7c039f2100279e039c2a807e2d68ada2fefbeb9bdd795599a24cb6874355cb55",
+      "bytes": 149498
+    },
+    "accepted_centers": 18,
+    "independently_recomputed": true,
+    "root_fine_step": 0.003,
+    "root_determinant_gradient_scaled": [
+      -4.5480903165666257e-10,
+      8.752428501714243e-10
+    ],
+    "root_determinant_gradient_physical": [
+      -0.00018192361266266503,
+      0.00011669904668952325
+    ],
+    "root_determinant_gradient_norm_scaled": 9.863575933973792e-10,
+    "root_gradient_transport_residual_norm": 2.627669384948051e-16,
+    "root_cyclic_determinant_spread": 8.864162569888688e-18,
+    "conditional_zero_trace_stationary_tilt": {
+      "scaled_coordinate_gradient": [
+        2.7660046920020985e-06,
+        -5.322950209227633e-06
+      ],
+      "physical_coordinate_gradient": [
+        1.1064018768008392,
+        -0.7097266945636844
+      ],
+      "scaled_gradient_norm": 5.998714936225435e-06,
+      "scope": "Conditional linear tilt at an exact tau=0, grad(tau)=0 point. At a finite-residual candidate this is a determinant contribution, not automatically the gradient of its actual pair radius."
+    },
+    "scope": "Saved finite differences are consistent across scales after center transport. This is not a nonzero-gradient certificate. At the finite-residual candidate the conditional zero-trace, stationary determinant contribution is not automatically the gradient of the actual pair radius; strongest-contraction ridge reconnection remains unestablished."
+  },
+  "figures": {
+    "combined_receipt": {
+      "path": "audits/baby-shrimp-zoom/20261021-memory-combined-figure-01/receipt.json",
+      "sha256": "5f506705f97be09f01ec9ad1e6876a7de4305724296948a90ec224bbb75f57a2",
+      "bytes": 2740
+    },
+    "accepted_samples": 18,
+    "artifacts": [
+      {
+        "path": "audits/baby-shrimp-zoom/20261021-memory-combined-figure-01/memory-continuation-combined.pdf",
+        "sha256": "ae7a033868543e6adb01f65666ec3949f40085472383693e3d80343f3ace2fb6",
+        "bytes": 32171
+      },
+      {
+        "path": "audits/baby-shrimp-zoom/20261021-memory-combined-figure-01/memory-continuation-combined.png",
+        "sha256": "c1479ff2c899f960d4b31d4c95a9e2b3b17646fb9f892e2d428eebd9299ccbd7",
+        "bytes": 193463
+      }
+    ],
+    "local_audit_artifacts": [
+      {
+        "path": "audits/baby-shrimp-zoom/20261021-memory-local-extension-audit-01/memory-saddle-continuation.png",
+        "sha256": "1f2034cb4691ba9d6f7e0356850b552d9eff4a8f0904474d561e2dfc8bd7503c",
+        "bytes": 152542
+      },
+      {
+        "path": "audits/baby-shrimp-zoom/20261021-memory-local-extension-audit-01/memory-saddle-continuation.pdf",
+        "sha256": "126a0af7d5a1e6466237e050ed2c5ff7d34ad4e5c4f7f9484b8f186a9ffc8c57",
+        "bytes": 29815
+      }
+    ],
+    "original_receipt_visual_status": "pending",
+    "final_visual_review": {
+      "status": "passed",
+      "receipt": {
+        "path": "audits/baby-shrimp-zoom/20261021-memory-combined-figure-01/visual-review.json",
+        "sha256": "024b3f24f6a8a64f5f88e88af6dd1d605f08359079ec97a3d41916c29de9145b",
+        "bytes": 1965
+      },
+      "reviewer": "root assistant visual inspection",
+      "scope": "Visual QA of PNGs; PDF hash bound to the same plotting run. Original immutable receipt retains its pending field; this separate review supersedes that review status only."
+    }
+  },
+  "limits": [
+    "Exploratory intervention in the Qwen soft-token map; this does not identify the native modal-coupling mechanism.",
+    "The moving trace saddle was corrected at each beta; this is not a fixed-coordinate slice.",
+    "Saved-data and finite-difference audits provide numerical evidence, not interval inclusion or an exact root certificate.",
+    "Ritz-pair separation remains conditional on the computed subspace, not a full-spectrum certificate.",
+    "Empirical height sensitivity and scale/cyclic agreement are not rigorous uncertainty bounds. Different stencil centers preclude direct Richardson extrapolation.",
+    "Equal-magnitude multiplier contours and a trace-saddle sign change do not by themselves establish strongest-contraction ridges or exact superstability."
+  ]
+}
