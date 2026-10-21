@@ -13,6 +13,8 @@ import json
 import math
 import os
 from pathlib import Path
+import re
+import shlex
 import subprocess
 import sys
 import time
@@ -48,10 +50,14 @@ def validate(c):
     for name, cmd in zip(names, c["commands"]):
         if len(cmd) < 2 or cmd[1] != "tools/runpod_soft_float64.py":
             raise ValueError("only the existing scan orchestrator is allowed")
-        for key, expected in (("--name", name), ("--commit", c["source_commit"]), ("--approval", c["approval"]),
-                              ("--jobset", "scanband")):
+        for key, expected in (("--name", name), ("--commit", c["source_commit"]), ("--approval", c["approval"])):
             if key not in cmd or cmd[cmd.index(key) + 1] != expected:
                 raise ValueError(f"command mismatch: {key}")
+        jobset = cmd[cmd.index("--jobset") + 1]
+        if jobset == "toolseq":
+            validate_orbit_job(cmd[cmd.index("--jobset-args") + 1])
+        elif jobset != "scanband":
+            raise ValueError("only scanband or the bounded orbit probe is allowed")
         if float(cmd[cmd.index("--max-rate") + 1]) > c["max_rate"]:
             raise ValueError("command rate exceeds group rate")
         if "--gpu-count" in cmd and cmd[cmd.index("--gpu-count") + 1] != "1":
@@ -59,6 +65,22 @@ def validate(c):
         if float(cmd[cmd.index("--max-cost") + 1]) > c["ceiling"] / len(names):
             raise ValueError("worker ceiling exceeds its share")
     return worst
+
+
+def validate_orbit_job(arguments):
+    job = shlex.split(arguments)
+    if len(job) < 7 or job[2] != "baby_shrimp_orbits.py" or "::" in job:
+        raise ValueError("one bounded baby-shrimp orbit worker required")
+    minutes = float(job[1])
+    if not math.isfinite(minutes) or not 0 < minutes <= 90:
+        raise ValueError("invalid orbit worker lifetime")
+    for key in ("--input", "--out"):
+        if key not in job:
+            raise ValueError(f"orbit worker missing {key}")
+        value = job[job.index(key)+1]
+        prefix = "llm-soft-loop/pod64/" if key == "--out" else "llm-soft-loop/"
+        if not value.startswith(prefix) or ".." in Path(value).parts:
+            raise ValueError("orbit input must remain in the data tree and output in the retrieved tree")
 
 
 def owned(c, entries):
@@ -136,8 +158,13 @@ def progress(out, name):
     if not logs:
         return None, False
     lines = logs[-1].read_text(errors="replace").splitlines()
-    finished = any("end scanband-" in line and " status " in line for line in lines)
-    values = [line[line.index('{"chunk_start"'):] for line in lines if '{"chunk_start"' in line]
+    finished = any(re.fullmatch(r"[0-9a-f]{64}\s+/root/results\.tgz", line.strip()) for line in lines)
+    values = []
+    for line in lines:
+        for marker in ('{"chunk_start"', '{"cell_index"'):
+            if marker in line:
+                values.append(line[line.index(marker):])
+                break
     return values[-1] if values else None, finished
 
 

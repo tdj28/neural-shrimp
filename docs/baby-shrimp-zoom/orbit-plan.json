@@ -1,0 +1,44 @@
+{
+  "id": "BSP2",
+  "design": "exploratory numerical orbit checks, selected from the complete BSP1 trajectories",
+  "selection": "Every BSP1 cell with a full-state recurrence candidate in 1..192; retain all noncandidates and failures under their actual labels.",
+  "initial_state": "Last saved full float64 state from each BSP1 trajectory, bound by file hashes; singleton Newton changes batch layout and this is disclosed.",
+  "model": "qwen0.5b",
+  "model_revision": "7ae557604adf67be50417f59c2c2f167def9a775",
+  "layer": 12,
+  "vectors": "llm-phase-map/vectors-l12",
+  "concept": "philosophy",
+  "dtype": "float64",
+  "chunk": 512,
+  "max_newton": 3,
+  "newton_tolerance": 1e-11,
+  "primitive_separation_tolerance": 1e-8,
+  "gates": [
+    "Converged full-state closure below 1e-11 and every smaller positive lag separated by more than 1e-8.",
+    "All-step float64 dense monodromy, full spectrum, and numerical attraction only when spectral radius is below 1 minus 1e-8.",
+    "Dense product versus direct composed float64 JVP relative discrepancy below 1e-7.",
+    "Composed-map central differences with at least two consecutive observed orders in 1.5..2.5 and a relative error below 1e-5.",
+    "Eight-step Arnoldi refinement: leading spectral-radius relative difference below 1e-5 and relative residual below 1e-6.",
+    "Failed convergence, primitive-period or precision checks remain failed; no branch or crossing type inferred from shape."
+  ],
+  "reference_timing": {
+    "description": "Two completed A100 SD verification jobs, 23 cells through period48, including dense Jacobians twice per converged cell:625 and628 seconds including setup/retrieval.",
+    "receipts": ["runpod/soft64/20261019T081958Z/result.json", "runpod/soft64/20261019T082001Z/result.json"],
+    "failed_setup_attempts_preserved": ["runpod/soft64/20261019T081628Z", "runpod/soft64/20261019T081631Z"]
+  },
+  "resources": {
+    "pods": 1,
+    "gpu_count": 1,
+    "preferred_gpu": "A100 80GB",
+    "fallback_gpu": "H100 80GB or94GB",
+    "threads": 8,
+    "worker_timeout_minutes": 75,
+    "setup_and_run_timeout_minutes": 90,
+    "maximum_lifetime_minutes": 120,
+    "retrieval_reserve_minutes": 20,
+    "no_progress_minutes": 15,
+    "cost": "see private ledger; inside the expanded total approval for scan and follow-up probes"
+  },
+  "output": "explore/llm-soft-loop/pod64/bsz1-probes/orbits-01",
+  "scope": "Representative full-state orbits and comparison with the mother shrimp. Geometry/boundary verification and publication remain separate."
+}

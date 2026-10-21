@@ -72,4 +72,31 @@ def test_numerical_progress_ignores_repeated_wall_clock_chatter(tmp_path):
     assert group.progress(tmp_path, "neural-shrimp-test") == (value, False)
     with f.open("a") as h:
         h.write("end scanband-test status 0\n")
+    assert group.progress(tmp_path, "neural-shrimp-test") == (value, False)
+    with f.open("a") as h:
+        h.write("f" * 64 + "  /root/results.tgz\n")
     assert group.progress(tmp_path, "neural-shrimp-test") == (value, True)
+
+
+def test_bounded_orbit_job_is_allowed():
+    group.validate_orbit_job("probe 70 baby_shrimp_orbits.py --input llm-soft-loop/pod64/seeds "
+                             "--out llm-soft-loop/pod64/probes")
+
+
+@pytest.mark.parametrize("command", [
+    "probe 70 arbitrary.py --input llm-soft-loop/pod64/seeds --out llm-soft-loop/pod64/probes",
+    "probe 0 baby_shrimp_orbits.py --input llm-soft-loop/pod64/seeds --out llm-soft-loop/pod64/probes",
+    "probe 70 baby_shrimp_orbits.py --input llm-soft-loop/pod64/seeds --out elsewhere/probes",
+    "probe 70 baby_shrimp_orbits.py --input llm-soft-loop/pod64/seeds --out llm-soft-loop/pod64/../probes",
+])
+def test_orbit_job_rejects_unbounded_or_unretrieved_work(command):
+    with pytest.raises(ValueError):
+        group.validate_orbit_job(command)
+
+
+def test_orbit_numerical_progress_is_monitored(tmp_path):
+    p = tmp_path / "workers/neural-shrimp-test/attempt"
+    p.mkdir(parents=True)
+    value = '{"cell_index": 0, "stage": "jacobian", "phase": 2}'
+    (p / "runner-stdout.txt").write_text("progress probe " + value + "\n")
+    assert group.progress(tmp_path, "neural-shrimp-test") == (value, False)
