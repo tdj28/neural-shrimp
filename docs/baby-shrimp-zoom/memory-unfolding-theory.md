@@ -196,7 +196,7 @@ measured. A controlled intervention on that pathway must then continue the
 same primitive orbit and its moving saddle. Calling the measured height
 itself a coupling coefficient would only rename the observation.
 
-## Qualified derivative result; continuation pending
+## Qualified derivative and initial continuation results
 
 At the original child orbit's alpha and temperature, the added memory path
 contributes approximately -0.032696 to the pair-trace derivative, orbit
@@ -211,7 +211,22 @@ also pass. Exact values, scope and hashes are in the
 
 These fixed-location derivatives are not automatically the moving saddle's
 height derivative: the original saved center is only an approximate saddle.
-The continued-saddle test remains in progress. No zero-height crossing,
+The first accurate continuation accepted eleven saddles through beta=0.003.
+Their height falls from 0.0004647042445 at beta=0 to 0.0002753879880,
+a 40.7% decrease, while the primitive-period and cyclic readout gates remain
+unchanged. The largest observed empirical height sensitivity among these
+centers is below 1.554e-11; this is not a rigorous error bound. The resolved
+height change is inconsistent with a mere parameter relabeling of the same
+trace field. It does not identify a native coupling pathway.
+
+The next predictor at beta=0.005 exceeded the unchanged corrector trust
+radius, so no saddle at that parameter was accepted. The preserved partial
+attempt, source/array/archive checks, exact resource termination and
+visually inspected continuation figure are bound by the
+[continuation receipt](memory-continuation-receipt.json). Its archived source
+omitted the final return-state array, so closure replay retains the explicit
+recorded-summary limitation. A fresh local continuation will replay the last
+two accepted endpoints before taking smaller steps. No zero-height crossing,
 noncrossing interval, or native causal pathway result is asserted here.
 
 The exact polynomial example has a visually inspected three-panel figure;

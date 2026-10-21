@@ -1,0 +1,273 @@
+{
+  "id": "BSC3-memory-continuation-receipt",
+  "execution_source_commit": "b07d013e0d8444f4a65b75cea65208a5cd132cb2",
+  "plan_sha256": "a3667b1cdc832fafc42e60d8a57bd09df5871f2cbd9283be353be432f167fefe",
+  "analysis_commit": "c660704c95bfdc886ebf4a1e6352e790eb5ac68a",
+  "analysis_source_sha256": "d4ed634d1a8bcbc371bb449a5bf7e32633a23acd287234e81e8128cdc4702cd6",
+  "status": "partial attempt; qualified subset audited",
+  "complete": false,
+  "runtime": {
+    "norm_sensitivity": 3.552713678800501e-15,
+    "rotary_float64": true,
+    "device": "NVIDIA A100-SXM4-80GB",
+    "torch": "2.14.1+cu126",
+    "cuda": "12.6",
+    "threads": 8,
+    "python": "Python 3.11.10"
+  },
+  "worker": {
+    "pod_id": "yithz39a5ry5o9",
+    "source_commit": "b07d013e0d8444f4a65b75cea65208a5cd132cb2",
+    "archive": {
+      "path": "runpod/baby-shrimp-zoom/bsc3-memory-20261021/workers/neural-shrimp-bsc3-memory/20261021T200613Z/results.tgz",
+      "sha256": "cdfcfc3b138a564dfac233cf25fa076020382a2a95f823121c9305dd0512cb8d",
+      "bytes": 105532800
+    },
+    "termination_verified": true,
+    "runner_returncode": 0,
+    "hardware": "name, driver_version, memory.total [MiB]\nNVIDIA A100-SXM4-80GB, 595.91.07, 81920 MiB",
+    "hardware_sha256": "92c960df5cd7ed3d270b4fd9524c4cf6f69dc2c06a44e06ff08c11bf5d5aa479",
+    "versions_sha256": "38c3aa4168f0cfb83c3d0537933ea040cc4d600308198e00951213a00fbd528f"
+  },
+  "stencil_iterations_recomputed": 39,
+  "rejected_corrector_steps": [
+    {
+      "parameter": 0.005,
+      "center": [
+        70.86222991728175,
+        -372.0130647666355
+      ],
+      "stencil_step": 0.01,
+      "point_index": 346,
+      "correction": [
+        0.12081325818910903,
+        -2.1885566581409144
+      ],
+      "correction_norm": 2.1918887036633943,
+      "event_index": 729,
+      "iteration": 0,
+      "trust_radius": 2.0,
+      "reason": "proposed correction exceeds trust radius",
+      "accepted": false
+    }
+  ],
+  "limits": [
+    "Saved-data replay, not a fresh model evaluation or interval certificate.",
+    "Ritz separation is conditional on the computed subspace; it is not a full-spectrum certificate.",
+    "Without return-state.npy, closure is checked against two recorded summaries; lower-lag distances are independently recomputed.",
+    "A trace-height sign change is distinct from exact superstability and does not identify native modal coupling."
+  ],
+  "audit": {
+    "path": "audits/baby-shrimp-zoom/20261021-memory-continuation-audit-01/receipt.json",
+    "sha256": "2e13027a8466797f329512df657541449caa412a64fc3db860463f38afa6f5cc",
+    "bytes": 495387
+  },
+  "qualified_point_count": 351,
+  "accepted_center_count": 11,
+  "raw_file_count": 1095,
+  "accepted_centers": [
+    {
+      "parameter": 0.0,
+      "center": [
+        8.099605562231404e-05,
+        0.0001829289812486123
+      ],
+      "tau": 0.0004647042445238672,
+      "delta": -2.99330000045357e-08,
+      "hessian_eigenvalues": [
+        -0.06255974206741804,
+        0.015975590190668125
+      ],
+      "correction_norm": 2.2814473397171336e-05,
+      "nominal_quadratic_corrected_height": 0.000464704240821477,
+      "empirical_height_sensitivity_scale": 5.346960958725201e-12,
+      "scope": "Empirical numerical sensitivity, not an error bound or sign certificate."
+    },
+    {
+      "parameter": 1e-07,
+      "center": [
+        0.001538322521729006,
+        -0.007141857073199942
+      ],
+      "tau": 0.00046469862199810085,
+      "delta": -2.993254548321333e-08,
+      "hessian_eigenvalues": [
+        -0.0625590865975611,
+        0.015975605351794174
+      ],
+      "correction_norm": 1.339632248542512e-05,
+      "nominal_quadratic_corrected_height": 0.00046469862500157744,
+      "empirical_height_sensitivity_scale": 4.623167048326267e-12,
+      "scope": "Empirical numerical sensitivity, not an error bound or sign certificate."
+    },
+    {
+      "parameter": -1e-07,
+      "center": [
+        -0.0013532380115965181,
+        0.007536823371331961
+      ],
+      "tau": 0.0004647098552078224,
+      "delta": -2.993347080774897e-08,
+      "hessian_eigenvalues": [
+        -0.06255969782913723,
+        0.015975710028912397
+      ],
+      "correction_norm": 2.140677113847079e-09,
+      "nominal_quadratic_corrected_height": 0.0004647098552078224,
+      "empirical_height_sensitivity_scale": 1.553488202877054e-11,
+      "scope": "Empirical numerical sensitivity, not an error bound or sign certificate."
+    },
+    {
+      "parameter": 1e-06,
+      "center": [
+        0.014515825399721795,
+        -0.07314784393639888
+      ],
+      "tau": 0.00046464809102100737,
+      "delta": -2.99282379822239e-08,
+      "hessian_eigenvalues": [
+        -0.06255604691923165,
+        0.015975100175195277
+      ],
+      "correction_norm": 2.2817619928965098e-05,
+      "nominal_quadratic_corrected_height": 0.0004646480873173661,
+      "empirical_height_sensitivity_scale": 5.3478938995158275e-12,
+      "scope": "Empirical numerical sensitivity, not an error bound or sign certificate."
+    },
+    {
+      "parameter": -1e-06,
+      "center": [
+        -0.01435398341206619,
+        0.07351306180509348
+      ],
+      "tau": 0.00046476039377089706,
+      "delta": -2.9937763027491805e-08,
+      "hessian_eigenvalues": [
+        -0.06256342936791034,
+        0.015976084700474364
+      ],
+      "correction_norm": 2.281971776565507e-05,
+      "nominal_quadratic_corrected_height": 0.00046476039006628324,
+      "empirical_height_sensitivity_scale": 5.349012158027052e-12,
+      "scope": "Empirical numerical sensitivity, not an error bound or sign certificate."
+    },
+    {
+      "parameter": 1e-05,
+      "center": [
+        0.14442282698373715,
+        -0.733153300393387
+      ],
+      "tau": 0.0004641425171849406,
+      "delta": -2.988542454710339e-08,
+      "hessian_eigenvalues": [
+        -0.06252286427588243,
+        0.015970653456961893
+      ],
+      "correction_norm": 2.28111701120309e-05,
+      "nominal_quadratic_corrected_height": 0.00046414251348403254,
+      "empirical_height_sensitivity_scale": 5.342922114692244e-12,
+      "scope": "Empirical numerical sensitivity, not an error bound or sign certificate."
+    },
+    {
+      "parameter": 3e-05,
+      "center": [
+        0.4330632290451574,
+        -2.20001591478889
+      ],
+      "tau": 0.00046301778015373114,
+      "delta": -2.979057172618703e-08,
+      "hessian_eigenvalues": [
+        -0.06244915214725999,
+        0.01596079291018465
+      ],
+      "correction_norm": 2.2791852740782188e-05,
+      "nominal_quadratic_corrected_height": 0.000463017776461709,
+      "empirical_height_sensitivity_scale": 5.33090081133743e-12,
+      "scope": "Empirical numerical sensitivity, not an error bound or sign certificate."
+    },
+    {
+      "parameter": 0.0001,
+      "center": [
+        1.4428497354370597,
+        -7.336031430025223
+      ],
+      "tau": 0.00045906769477040425,
+      "delta": -2.9461701322629585e-08,
+      "hessian_eigenvalues": [
+        -0.06219181393801678,
+        0.015926358764860864
+      ],
+      "correction_norm": 2.233594023727362e-05,
+      "nominal_quadratic_corrected_height": 0.00045906769133272004,
+      "empirical_height_sensitivity_scale": 5.189761323495256e-12,
+      "scope": "Empirical numerical sensitivity, not an error bound or sign certificate."
+    },
+    {
+      "parameter": 0.0003,
+      "center": [
+        4.324022755415565,
+        -22.0274714875355
+      ],
+      "tau": 0.00044766495204499955,
+      "delta": -2.8548328785371057e-08,
+      "hessian_eigenvalues": [
+        -0.061462047193198116,
+        0.015828721082985373
+      ],
+      "correction_norm": 2.2582068865958256e-05,
+      "nominal_quadratic_corrected_height": 0.0004476649484414293,
+      "empirical_height_sensitivity_scale": 5.1819390928154185e-12,
+      "scope": "Empirical numerical sensitivity, not an error bound or sign certificate."
+    },
+    {
+      "parameter": 0.001,
+      "center": [
+        14.361277150518978,
+        -73.64688412603284
+      ],
+      "tau": 0.00040635369921269537,
+      "delta": -2.5639202001222117e-08,
+      "hessian_eigenvalues": [
+        -0.05897053459874747,
+        0.015495471361009606
+      ],
+      "correction_norm": 1.2548210388050842e-05,
+      "nominal_quadratic_corrected_height": 0.00040635369807218353,
+      "empirical_height_sensitivity_scale": 1.6943390891932366e-12,
+      "scope": "Empirical numerical sensitivity, not an error bound or sign certificate."
+    },
+    {
+      "parameter": 0.003,
+      "center": [
+        42.61175353390037,
+        -222.82997444633418
+      ],
+      "tau": 0.0002753879880341136,
+      "delta": -1.914825090828864e-08,
+      "hessian_eigenvalues": [
+        -0.05236918800104401,
+        0.014613332635829214
+      ],
+      "correction_norm": 2.0478277592584078e-05,
+      "nominal_quadratic_corrected_height": 0.00027538798523932815,
+      "empirical_height_sensitivity_scale": 3.885777531821295e-12,
+      "scope": "Empirical numerical sensitivity, not an error bound or sign certificate."
+    }
+  ],
+  "figures": [
+    {
+      "path": "audits/baby-shrimp-zoom/20261021-memory-continuation-audit-01/memory-saddle-continuation.png",
+      "sha256": "a6f72fb4ab51b1104af49b7cf42d3e33f35ceb93bf7f9d190744f4f592ab48c4",
+      "bytes": 141625
+    },
+    {
+      "path": "audits/baby-shrimp-zoom/20261021-memory-continuation-audit-01/memory-saddle-continuation.pdf",
+      "sha256": "1d2cf89250234890d3ede7cb9d130e8ec4e734288f4960ae7235cd99196b8725",
+      "bytes": 28277
+    }
+  ],
+  "visual_review": {
+    "passed": true,
+    "notes": "Inspected both panels: accepted points only, parameter/height direction and zero line correct, readable labels, path uses scaled coordinates and colorbar beta. No .005 rejected center plotted. Lines only join samples."
+  }
+}
