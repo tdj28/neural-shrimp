@@ -347,6 +347,7 @@ def accepted_centers(run, protocol, raw, result, root=ROOT):
 def plot_centers(centers, out):
     if not centers:
         return []
+    centers = sorted(centers, key=lambda row: row["parameter"])
     import matplotlib
     matplotlib.use("Agg")
     import matplotlib.pyplot as plt
