@@ -1,0 +1,155 @@
+{
+  "kind": "exploratory throughput estimate; not a new scan result",
+  "source_commit": "62685a4f3d4d4a9b292756aa710f94b31b38b1d7",
+  "source_reference_disclosure": "The raw invocation used HEAD; it resolved to the full commit above throughout both worker launches. Source hashes independently match that commit. Raw status preserved. The helper now resolves symbolic refs prospectively.",
+  "data_root": "/data2/neural-shrimp-data",
+  "attempt": "audits/baby-shrimp-zoom/20261021-timing-01",
+  "cells_in_proposed_scan": 262144,
+  "local": {
+    "cuda": {
+      "threads": 8,
+      "rows": [
+        {
+          "cells_per_batch": 64,
+          "prepare_seconds": 18.815737158060074,
+          "transient_step_mean_seconds": 0.9018428078076491,
+          "recording_step_mean_seconds": 0.9036799241633465,
+          "estimated_512_scan_hours": 637.6932201237149,
+          "estimated_512_scan_days": 26.57055083848812,
+          "peak_cuda_allocated_bytes": 4935139328
+        },
+        {
+          "cells_per_batch": 256,
+          "prepare_seconds": 74.21722123492509,
+          "transient_step_mean_seconds": 3.700635166062663,
+          "recording_step_mean_seconds": 3.7220898625285677,
+          "estimated_512_scan_hours": 654.5165453688304,
+          "estimated_512_scan_days": 27.271522723701263,
+          "peak_cuda_allocated_bytes": 7708336128
+        },
+        {
+          "cells_per_batch": 512,
+          "prepare_seconds": 149.10696471808478,
+          "transient_step_mean_seconds": 7.258239146477233,
+          "recording_step_mean_seconds": 7.262405150259535,
+          "estimated_512_scan_hours": 640.7538138651186,
+          "estimated_512_scan_days": 26.698075577713272,
+          "peak_cuda_allocated_bytes": 11400523776
+        }
+      ],
+      "precision_checks": {
+        "norm_sensitive_to_1e_12": 3.552713678800501e-15,
+        "float64_rotary_frequencies": true
+      }
+    },
+    "cpu": {
+      "threads": 8,
+      "rows": [
+        {
+          "cells_per_batch": 64,
+          "prepare_seconds": 22.857125351205468,
+          "transient_step_mean_seconds": 1.1809806363501896,
+          "recording_step_mean_seconds": 1.1562285235462089,
+          "estimated_512_scan_hours": 823.77372253312,
+          "estimated_512_scan_days": 34.32390510554667,
+          "peak_cuda_allocated_bytes": null
+        },
+        {
+          "cells_per_batch": 256,
+          "prepare_seconds": 89.99293892504647,
+          "transient_step_mean_seconds": 4.279285212513059,
+          "recording_step_mean_seconds": 4.181602735227595,
+          "estimated_512_scan_hours": 747.5937630569936,
+          "estimated_512_scan_days": 31.149740127374734,
+          "peak_cuda_allocated_bytes": null
+        },
+        {
+          "cells_per_batch": 512,
+          "prepare_seconds": 182.86411938583478,
+          "transient_step_mean_seconds": 8.096143674183017,
+          "recording_step_mean_seconds": 8.74008459985877,
+          "estimated_512_scan_hours": 744.3530811162127,
+          "estimated_512_scan_days": 31.01471171317553,
+          "peak_cuda_allocated_bytes": null
+        }
+      ],
+      "precision_checks": {
+        "norm_sensitive_to_1e_12": 3.552713678800501e-15,
+        "float64_rotary_frequencies": true
+      }
+    }
+  },
+  "artifacts": [
+    {
+      "path": "audits/baby-shrimp-zoom/20261021-timing-01/status.json",
+      "bytes": 1345,
+      "sha256": "5bc7978c4df4091a210ce2e7573d413d24956061bb6981ef7cfff74304aa1850"
+    },
+    {
+      "path": "audits/baby-shrimp-zoom/20261021-timing-01/events.jsonl",
+      "bytes": 1230,
+      "sha256": "9ef25a1bbd1b4250b613b0f14c56a8165bf1b2c78867ed912ff3c526633e366e"
+    },
+    {
+      "path": "audits/baby-shrimp-zoom/20261021-timing-01/cuda.json",
+      "bytes": 2568,
+      "sha256": "6d6e54807983c3ca355455afbbc791f46357c9eb0310a5a2fbf0fb939d2dcaf8"
+    },
+    {
+      "path": "audits/baby-shrimp-zoom/20261021-timing-01/cpu.json",
+      "bytes": 2539,
+      "sha256": "e242ccb7d7f97159b7e97643765d09eeba38e5e80840b88bc8de7f7b647c8e63"
+    },
+    {
+      "path": "audits/baby-shrimp-zoom/20261021-timing-01/cuda.log",
+      "bytes": 1819,
+      "sha256": "b27dea8371c0e21e9d846d58c0d81573eb9319631e0cab8675ed35eed9e23069"
+    },
+    {
+      "path": "audits/baby-shrimp-zoom/20261021-timing-01/cpu.log",
+      "bytes": 1950,
+      "sha256": "5d19f23e3ea5e6f6d3ebfdf3f8c327063154628b06a221fcdc65cc6aea95e402"
+    },
+    {
+      "path": "audits/baby-shrimp-zoom/20261021-timing-01/cpu-host-snapshot.json",
+      "bytes": 671,
+      "sha256": "ea1c989f3906d72ed44159dfbb5be2baf5138043d0b33d0e06b79ca6f26e4c76"
+    },
+    {
+      "path": "audits/baby-shrimp-zoom/20261021-timing-01/baby-shrimp-registration-20261021.json",
+      "bytes": 389,
+      "sha256": "3e12e161ccf6c38014a56a2ab25b9149dc57fbd1fadb8ccb4743b5d4c28e0d12"
+    },
+    {
+      "path": "audits/baby-shrimp-zoom/20261021-timing-01/baby-shrimp-existing-region.png",
+      "bytes": 90887,
+      "sha256": "ccaab23e0af1308aaac7f475cdae8060e7a3b9ee8815f1bdd799e6b452869245"
+    },
+    {
+      "path": "audits/baby-shrimp-zoom/20261021-timing-01/baby-shrimp-hr10-timing-audit.json",
+      "bytes": 5619,
+      "sha256": "9cb191f35b9613fdff057903ab4708327c7d74c1d066dc7f1351166607c9ff1a"
+    }
+  ],
+  "remote_reference": {
+    "gpu": "NVIDIA A100-SXM4-80GB",
+    "source_commit": "35eabc6c17ac944564985a7a01ad7f6bc92bf0ce",
+    "gated_completed_bands": 16,
+    "cells_per_band": 25600,
+    "chunk": 2048,
+    "protocol": "300 transient + 300 samples, float64, fixed start, one twin",
+    "estimated_512_scan_gpu_hours": {
+      "min": 9.912035555555557,
+      "mean": 10.047342222222223,
+      "max": 10.272426666666668
+    },
+    "cost": "see private ledger"
+  },
+  "limitations": [
+    "Local timings use six early steps per phase after two warmup steps, not complete 600-step trajectories; these are estimates, not measured full-scan durations.",
+    "The sample-phase timing records every measured step; a full scan records 80 of 300 samples. Final period detection, compression and disk writes are not timed locally.",
+    "CPU results apply to eight threads on the shared machine at measurement time; no optimal-thread-count search was performed.",
+    "Remote estimates extrapolate 16 completed A100 bands from a different parameter box of the same fixed-shape calculation. Current performance and availability may vary.",
+    "No period, stability or new shrimp diagnosis follows from this timing pilot."
+  ]
+}

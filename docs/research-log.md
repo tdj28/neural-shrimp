@@ -32205,3 +32205,18 @@ shrimp-specific behavioral effect.
 - **Would surprise us:** The local float64 GPU outperforms the matched A100 workload after accounting for batch size, or the CPU proves faster than the local GPU.
 
 _commit `64d2347524f1` (dirty worktree)_
+
+## 2026-10-21 14:17 UTC: BSZ timing result and tighter zoom plan
+
+TLDR: This pilot measures computation time only and establishes no new behavior, periodic orbit or shrimp classification. Six local batch/device configurations completed with finite states and float64 normalization/rotary checks. For 512x512 cells and the HR10 300+300-step horizon, GPU batch extrapolations are 26.57..27.27 days; CPU at eight threads gives approximately 31..35 days. These are short-step timing estimates, not completed scan durations. All sixteen historical HR10 A100 bands were read and gated (409600 finite cells); their mean predicts 10.05 A100 GPU-hours, or about 2.51 compute hours across four A100s, before setup/retrieval. The local attempt and hash-bound receipt are under audits/baby-shrimp-zoom/20261021-timing-01 and docs/baby-shrimp-zoom/timing-receipt.json. Raw invocation used HEAD; all six source hashes match execution commit 62685a4f3d4d4a9b292756aa710f94b31b38b1d7. That symbolic reference is retained and disclosed; future helper runs resolve it to a full commit automatically. After seeing the wide preview, the human requested a closer view, then authorized the quoted RunPod plan. Before any full scan, tighten the scan box to alpha0.07290..0.07318, log10T -0.15495..-0.15420, with display box alpha0.07295..0.07316, log10T -0.15485..-0.15425. The fixed 512x512 count preserves the cost estimate and improves spacing approximately eightfold. Cost and hard ceiling: see private ledger.
+
+_commit `62685a4f3d4d` (dirty worktree)_
+
+## 2026-10-21 14:17 UTC: run (exploratory)
+
+- **Question:** BSZ1: resolve the user-selected small hooked island below the HR10 period-6 body at finer spatial resolution.
+- **Setup:** Exploratory descriptive fixed-start map, prospectively specified in docs/baby-shrimp-zoom/plan.json. User explicitly authorized four A100s after the measured cost proposal; cost and hard ceiling are in the private ledger. 512x512 over alpha0.07290..0.07318 and log10T -0.15495..-0.15420, four exact 128x512 bands. Match HR10: Qwen0.5b pinned model, block12 philosophy, open/Hello!, window1, float64, transient300, samples300, record80, max_period32, tol1e-8, eps1e-6, chaos_level1e-3, chunk2048, eight CPU threads per pod. Independent local watchdog before creation: preexisting resource exclusion, exact new provider IDs matched to names/commit/approval, 240-minute per-pod lifetime including a20-minute retrieval reserve, 15-minute numerical no-progress limit after startup, no automatic retries. Retrieve/hash-check all output and verify termination. Audit every band and the stitched global axes before plotting; keep every failure or partial attempt. Primitive-orbit/stability/boundary verification is outside this descriptive scan, so shape alone will not be labeled verified. Operational helper checks: 31 tests passed, exit0. Commit and push source/run card before launch.
+- **Output:** `/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/bsz1`
+- **Would surprise us:** The small hooked region disappears at approximately eight times finer cell spacing; alternatively, new thin branches reach the padded boundaries and require a disclosed extension.
+
+_commit `62685a4f3d4d` (dirty worktree)_

@@ -134,6 +134,9 @@ def main():
     if args.worker:
         worker(args)
         return
+    args.source_commit = subprocess.check_output(
+        ["git", "rev-parse", "--verify", f"{args.source_commit}^{{commit}}"],
+        cwd=ROOT, text=True).strip()
     import batch_fate_finish as guard
     args.out.mkdir(parents=True, exist_ok=False)
     hashes = {}

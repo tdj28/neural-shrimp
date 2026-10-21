@@ -1,0 +1,134 @@
+{
+  "id": "BSZ1",
+  "status": "authorized 2026-10-21; preparing execution",
+  "question": "Resolve the small hooked island below the HR10 period-6 body, retaining a guard band.",
+  "design": "exploratory fixed-start descriptive scan; no verified-orbit or shrimp classification from the map alone",
+  "reference_scan": {
+    "path": "explore/llm-soft-loop/pod64/hr10/scan.npz",
+    "sha256": "b29668a41c6d906dee03c3268b62929f91e89b0f1119d15d588d8223c6da93a0"
+  },
+  "alpha": [
+    0.0729,
+    0.07318
+  ],
+  "log10_temperature": [
+    -0.15495,
+    -0.1542
+  ],
+  "resolution": [
+    512,
+    512
+  ],
+  "model": "qwen0.5b",
+  "layer": 12,
+  "vectors": "llm-phase-map/vectors-l12",
+  "concept": "philosophy",
+  "prompt": "open",
+  "opener": "Hello!",
+  "window": 1,
+  "dtype": "float64",
+  "weights": "native",
+  "transient": 300,
+  "samples": 300,
+  "record": 80,
+  "max_period": 32,
+  "tol": 1e-08,
+  "eps": 1e-06,
+  "chaos_level": 0.001,
+  "cloud_option": {
+    "gpu": "NVIDIA A100-SXM4-80GB",
+    "pod_count": 4,
+    "gpus_per_pod": 1,
+    "chunk": 2048,
+    "threads": 8,
+    "maximum_lifetime_minutes_per_pod": 240,
+    "compute_timeout_minutes": 195,
+    "ready_timeout_minutes": 10,
+    "retrieval_reserve_minutes": 20,
+    "no_progress_minutes": 15,
+    "automatic_retries": false,
+    "cost": "see private ledger; not authorized",
+    "lifecycle": "Inventory before creation; act only on returned task-owned IDs; preserve partial evidence; retrieve and verify hashes; verify every pod terminated.",
+    "bands": [
+      {
+        "name": "bsz1-c00",
+        "rows": [
+          0,
+          128
+        ],
+        "resolution": [
+          128,
+          512
+        ],
+        "log10_temperature": [
+          -0.15495,
+          -0.15476360078277887
+        ]
+      },
+      {
+        "name": "bsz1-c01",
+        "rows": [
+          128,
+          256
+        ],
+        "resolution": [
+          128,
+          512
+        ],
+        "log10_temperature": [
+          -0.15476213307240705,
+          -0.15457573385518592
+        ]
+      },
+      {
+        "name": "bsz1-c02",
+        "rows": [
+          256,
+          384
+        ],
+        "resolution": [
+          128,
+          512
+        ],
+        "log10_temperature": [
+          -0.1545742661448141,
+          -0.15438786692759296
+        ]
+      },
+      {
+        "name": "bsz1-c03",
+        "rows": [
+          384,
+          512
+        ],
+        "resolution": [
+          128,
+          512
+        ],
+        "log10_temperature": [
+          -0.15438639921722114,
+          -0.1542
+        ]
+      }
+    ]
+  },
+  "output": "explore/llm-soft-loop/pod64/bsz1",
+  "validation": [
+    "Gate every band: settings, complete shapes, finite exponents and entropies, valid period labels and exit status.",
+    "Stitch against the exact global grid; verify no missing or duplicate rows and all raw hashes.",
+    "Render nearest-cell Lyapunov and period maps; inspect the target and all four edges before calling the crop complete.",
+    "If target branches hit an edge, disclose that limit and prepare a bounded extension rather than silently cropping or automatically adding paid work."
+  ],
+  "display_window": {
+    "alpha": [
+      0.07295,
+      0.07316
+    ],
+    "log10_temperature": [
+      -0.15485,
+      -0.15425
+    ]
+  },
+  "amendment": "Before any full scan: user requested a closer view. Concentrate the proposed 512x512 grid around that framing, with extra margin beyond it. Timing pilot used the earlier, wider box; fixed-shape map operations and cell count are unchanged.",
+  "authorization": "Human: Perfect I authorize runpod spend go for it; following the four-A100 proposal and total hard ceiling in conversation. Cost: see private ledger."
+}
