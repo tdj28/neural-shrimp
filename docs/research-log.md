@@ -32157,3 +32157,42 @@ nearly identical under protan vision.
   57 checks, exit 0; compilation and whitespace checks passed. N100 remains
   unlaunched. This is an exploratory, disclosed analysis correction, with no
   change to BF's scientific settings and no new experimental arm.
+
+
+## 2026-10-21 12:01 UTC: BF audited result and correction to the 07:56 entry
+
+**TLDR.** In this one-cell, one-device, 5000-step exploratory run, batch layout
+changed which starts triggered a full-state recurrence detector and when.
+The evidence does not settle whether every start eventually reaches the same
+attractor or whether layout changes only capture timing. It establishes no
+shrimp-specific behavioral effect.
+
+- All 192 main trajectory rows and every expected chunk pass the structural
+  gates. Both planned 500-step controls pass exact settings/start checks and
+  bitwise agreement of recorded states and detector outputs. Detection counts
+  remain 5/64, 5/64 and 4/64 for batches of 32, batch 64 and singletons.
+  Detections span steps 1087 through 4741; none occurs before step 1000.
+- **Arithmetic correction:** the union is 12 distinct starts, not 13, and
+  52 starts are undetected in every layout, not 51. There are 14 detections
+  counted across layouts and two duplicated starts; none is detected in all
+  three layouts. The receipt records the exact start IDs and intersections.
+- **Bound correction:** all 233 saved same-phase return comparisons were
+  recomputed. Their maximum relative distance is 2.5270409304693053e-10; a valid rounded
+  upper bound is **2.6e-10**, replacing the earlier downward-rounded 2.5e-10.
+  States were saved every 100 steps, and comparisons use whole multiples of
+  the candidate period. Singleton trajectories stop at detection and provide
+  no later persistence records. Intervening steps are not checked here.
+- **Scope correction:** the earlier timing-only/no-start-specific-fate
+  language is too strong. Sparse late detections are consistent with
+  transient capture; a 5000-step horizon cannot distinguish eventual fate
+  from timing for every start. These are recurrence candidates with sampled
+  persistence, without independent primitive-period, Newton or stability
+  verification. No row-specific chaos diagnosis is inferred for the
+  undetected trajectories.
+- The original entry and receipts remain intact. The new
+  [audit receipt](batch-fate/bf1-audit-receipt.json), SHA-256
+  `8494f79480f2fbbd86e9b3d4b5ed372ae34b06b78f14def81b2a06b9d9127d13`, was generated from committed
+  analysis source `85ab6bac8e9112c8cf2abb4eaba7aca6f306fdcf`, with a clean tool
+  hash, and binds raw artifact paths, hashes and byte sizes. It explicitly
+  records the original runner's missing runtime metadata. No model run was
+  repeated for this audit; the prepared continuation was not launched.
