@@ -219,10 +219,34 @@ def render(plan, combined, dest):
                            fill=False, edgecolor="#00d9e8", lw=1.4, ls="--"))
     fig.supxlabel("Dashed box: closer view · structure may continue beyond the scanned boundary", fontsize=10)
     fig.savefig(dest / "baby-shrimp-padded.png", dpi=180); plt.close(fig)
+
+    probes_path=ROOT/"docs/baby-shrimp-zoom/probe-receipt.json"
+    probes=json.loads(probes_path.read_text())
+    verified={r["name"]:r["period"] for r in probes["orbit_rows"] if r["verified_primitive_orbit"]}
+    fig,axes=plt.subplots(1,2,figsize=(13.4,7.4),layout="constrained")
+    parent_bounds=[float(old["alpha"][0]),float(old["alpha"][-1]),
+                   float(old["log10_temperature"][0]),float(old["log10_temperature"][-1])]
+    panel(axes[0],old,"Mother and the selected region",parent_bounds)
+    panel(axes[1],new,"Small island: probe locations",window)
+    axes[0].add_patch(Rectangle((plan["alpha"][0],plan["log10_temperature"][0]),
+                               np.ptp(plan["alpha"]),np.ptp(plan["log10_temperature"]),
+                               fill=False,edgecolor="#00d9e8",lw=1.8))
+    for row in probes["trajectory_rows"]:
+        ax=axes[1] if row["name"].startswith("baby-") else axes[0]
+        a,t=row["alpha"],row["log10_temperature"]
+        ax.scatter(a,t,s=65,facecolors="none",edgecolors="#00d9e8",lw=1.3)
+        label=str(verified[row["name"]]) if row["name"] in verified else {
+            "baby-chaos-left":"L","baby-chaos-right":"R","baby-chaos-below":"B","mother-chaos":"M"}[row["name"]]
+        ax.annotate(label,(a,t),xytext=(6,6),textcoords="offset points",fontsize=10,color="black",
+                    bbox={"facecolor":"white","edgecolor":"none","alpha":.85,"pad":1})
+    fig.suptitle("Where the comparisons were measured",fontsize=24,fontweight="bold")
+    fig.supxlabel("Numbers: verified primitive periods at separate probe points. Letters: neighboring expanding trajectories.\n"
+                  "Left background: original HR10 scan. Right: new BSZ1 scan. The cyan rectangle marks the padded region.",fontsize=10)
+    fig.savefig(dest/"baby-mother-locations.png",dpi=180);fig.savefig(dest/"baby-mother-locations.pdf");plt.close(fig)
     return {"shared_positive_vmax": vmax, "shared_gray_contraction_cap": cap,
             "scale_reference": "union of original HR10 and complete BSZ1 cells",
             "gray_definition": "all cells outside exponent > 0.001 AND period == 0; not all gray cells are verified periodic",
-            "display_window": window, "interpolation": "nearest"}
+            "display_window": window, "interpolation": "nearest", "probe_receipt_sha256":digest(probes_path)}
 
 
 def main():
