@@ -55,7 +55,7 @@ def primitive_gate(returns, period, tol=1e-8):
             "all_returns": returns, "primitive_separation_tolerance": tol}
 
 
-def precision_checks(orb, X, M, points, dest, progress):
+def precision_checks(orb, X, M, points, dest, progress, relative_steps=None):
     import bifurcation_curves as bc
 
     torch = orb.torch
@@ -73,7 +73,9 @@ def precision_checks(orb, X, M, points, dest, progress):
     dense = M @ v
     composition_error = float(np.linalg.norm(exact-dense) / max(np.linalg.norm(exact), np.linalg.norm(dense), 1e-300))
     # Check central differences on the composed map, not merely a single step.
-    steps = [1e-3, 3e-4, 1e-4, 3e-5, 1e-5, 3e-6, 1e-6]
+    steps = relative_steps if relative_steps is not None else [1e-3, 3e-4, 1e-4, 3e-5, 1e-5, 3e-6, 1e-6]
+    if len(steps) < 3 or not all(0 < s <= 1e-2 for s in steps) or not all(a > b for a,b in zip(steps, steps[1:])):
+        raise ValueError("finite-difference steps must be positive, bounded and strictly decreasing")
     scale = max(float(X.norm()), 1.0)
     direction = torch.as_tensor(v.reshape((1,)+orb.shape), dtype=X.dtype, device=X.device)
     differences, errors = [], []
