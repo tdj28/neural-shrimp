@@ -103,6 +103,7 @@ class Evaluator:
         if not pg['closed'] or not pg['no_lower_period']: raise ValueError('primitive orbit gate failed')
         orbit=np.stack([lfb._flat(p) for p in pts[:-1]])
         np.save(dest/'points.npy',orbit)
+        np.save(dest/'return-state.npy',lfb._flat(pts[-1]))
         tokens=[int(orb.probabilities(p).argmax()) for p in pts[:-1]]
         if canonical(tokens)!=canonical([271,785,3405,271,785,13885]*3):
             raise ValueError('text family changed')
