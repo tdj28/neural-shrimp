@@ -59,7 +59,9 @@ def itinerary(model, roots, index, steps=7, ambiguity=.002):
     return {"critical_index": index, "values": values, "word": " ".join(word), "reason": reason}
 
 
-def reconstruct(samples):
+def reconstruct(samples, degree=7):
+    if degree not in (7, 11):
+        raise ValueError("declared reconstruction degree required")
     # The coordinate is fixed using all input states; response fits are checked
     # in both directions between consecutive halves of the time record.
     mean = samples.mean(0)
@@ -76,19 +78,19 @@ def reconstruct(samples):
     x, y = u[:-1], u[1:]
     mid = len(x)//2
     halves = [np.arange(mid), np.arange(mid, len(x))]
-    models = {d: fit(x, y, d) for d in (5, 7, 9)}
+    models = {d: fit(x, y, d) for d in (degree-2, degree, degree+2)}
     cv = []
     for train, test in (halves, halves[::-1]):
-        m = fit(x[train], y[train], 7)
+        m = fit(x[train], y[train], degree)
         err = m(x[test])-y[test]
         cv.append({"rms": float(np.sqrt(np.mean(err**2))), "max": float(abs(err).max())})
     roots = {d: critical(m) for d, m in models.items()}
-    r = roots[7]
+    r = roots[degree]
     agreement = bool(1 <= len(r) <= 2 and all(len(v) == len(r) and np.max(abs(v-r)) < .01 for v in roots.values()))
     density = [[int(np.sum((x > v-.1) & (x < v))), int(np.sum((x > v) & (x < v+.1)))] for v in r]
     scalar = all(e["rms"] < .001 and e["max"] < .01 for e in cv)
     stable = bool(scalar and agreement and all(min(n) >= 5 for n in density))
-    V = chebvander(2*u-1, 7)
+    V = chebvander(2*u-1, degree)
     w = weights(u)
     coefficients = np.linalg.lstsq(V*w[:, None], (samples-origin)*w[:, None], rcond=None)[0]
     lift_cv = []
@@ -98,18 +100,18 @@ def reconstruct(samples):
         error = np.linalg.norm(V[test] @ coef+origin-samples[test], axis=1)/span
         lift_cv.append({"rms": float(np.sqrt(np.mean(error**2))), "max": float(error.max())})
     lift_ok = all(e["rms"] < .01 and e["max"] < .05 for e in lift_cv)
-    full_error = np.linalg.norm(chebvander(2*models[7](x)-1, 7) @ coefficients+origin-samples[1:], axis=1)/span
-    result = {"visits": len(samples), "coordinate_span": span,
+    full_error = np.linalg.norm(chebvander(2*models[degree](x)-1, degree) @ coefficients+origin-samples[1:], axis=1)/span
+    result = {"degree": degree, "visits": len(samples), "coordinate_span": span,
               "pc1_explained": float(singular[0]**2/np.sum(singular**2)),
               "scalar_cross_validation": cv, "scalar_passed": bool(scalar),
               "critical_points_by_degree": {str(d): v.tolist() for d,v in roots.items()},
               "critical_density_left_right": density, "critical_points_qualified": stable,
               "lift_cross_validation": lift_cv, "lift_passed": bool(lift_ok),
               "scalar_plus_lift_next_state_relative_rms": float(np.sqrt(np.mean(full_error**2))),
-              "critical_iterates": [itinerary(models[7], r, k) for k in range(len(r))] if stable else [],
+              "critical_iterates": [itinerary(models[degree], r, k) for k in range(len(r))] if stable else [],
               "fit_scope": "Shared coordinate from all visits; consecutive-half response/lift validation in both directions. Errors normalized by the observed state-coordinate span."}
     arrays = {"origin": origin, "axis": axis, "span": np.array(span), "lift_coefficients": coefficients,
-              "scalar_coefficients": models[7].coef, "coordinate": u, "critical_points": r}
+              "scalar_coefficients": models[degree].coef, "coordinate": u, "critical_points": r}
     return result, arrays
 
 
@@ -117,6 +119,7 @@ def main():
     ap = argparse.ArgumentParser(description=__doc__)
     ap.add_argument("--run", type=Path, required=True)
     ap.add_argument("--out", type=Path, required=True)
+    ap.add_argument("--degree", type=int, choices=(7,11), default=7)
     args = ap.parse_args()
     args.out.mkdir(parents=True, exist_ok=False)
     info = json.loads((args.run/"trajectories.json").read_text())
@@ -134,7 +137,7 @@ def main():
         if cell["period_candidate"] or min(cell["lyapunov_halves"]) <= 0:
             raise ValueError("resolved nonperiodic expanding source required")
         for phase in range(6):
-            result, data = reconstruct(states[phase::6, index, :])
+            result, data = reconstruct(states[phase::6, index, :], args.degree)
             result.update(name=name, phase=phase, alpha=cell["alpha"], log10_temperature=cell["log10_temperature"])
             records.append(result)
             for key, value in data.items():
@@ -158,11 +161,11 @@ def main():
         for k,root in enumerate(roots):
             color = ("#c65a1e", "#007d87")[k % 2]
             ax.scatter([root],[model(root)],s=70,color=color,zorder=4)
-            ax.annotate("CD"[k] if k<2 else f"K{k}",(root,model(root)),xytext=(8,-18),textcoords="offset points",color=color,fontweight="bold")
+            ax.annotate("CD"[k] if k<2 else f"K{k}",(root,model(root)),xytext=(8,12 if model.deriv(2)(root)>0 else -18),textcoords="offset points",color=color,fontweight="bold")
         ax.plot([0,1],[0,1],color="#cbd5e1",lw=.7)
         errors = max(r["rms"] for r in row["scalar_cross_validation"])
         ax.set(title=title+f" · phase {phase+1}",xlabel="Position now",ylabel="Position six steps later",xlim=(-.03,1.03),ylim=(-.03,1.03))
-        ax.text(.04,.96,f"Held-out RMS: {errors:.2g} of span\nCritical-point check: {'passes' if row['critical_points_qualified'] else 'unresolved'}",transform=ax.transAxes,va="top",fontsize=9)
+        ax.text(.43,.96,f"Held-out RMS: {errors:.2g} of span\nCritical-point check: {'passes' if row['critical_points_qualified'] else 'unresolved'}",transform=ax.transAxes,va="top",fontsize=8,bbox={"facecolor":"white","edgecolor":"none","alpha":.85})
         ax.set_aspect("equal")
     fig.suptitle("Testing Jones's return-map construction",fontsize=22,fontweight="bold")
     fig.supxlabel("C and D name left/right turning points locally; these are projected return curves.\nFit degrees 5, 7 and 9 and both time halves are checked. No hub or exact superstable crossing is inferred from these fits.",fontsize=9)
