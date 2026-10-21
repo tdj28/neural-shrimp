@@ -32121,3 +32121,39 @@ nearly identical under protan vision.
 - **Records.** docs/manifests/runpod-runs.json stays as regenerated on 16 Oct, as the report states; later runs,
   these six included, are recorded with their receipts here. Costs are in the private ledger, within the approved
   ceiling.
+
+
+## 2026-10-21 11:55 UTC: BF analysis correction and independent admission checks
+
+- A local analysis audit found that `batch_fate_summary.py` grouped recurrence
+  candidates using only one near point and could report a receipt without
+  both planned determinism controls or strict settings/start/completeness
+  checks. The corrected summary requires all expected chunks and rows,
+  matching aggregate and chunk arrays, consistent termination, complete
+  phase-aligned candidate states, and both 500-step controls with exact
+  settings and actual start arrays.
+- Timing disclosure: partial chunk structure, start identities and detector
+  fields were inspected while BF was active. Before this correction was
+  committed, BF completed and its result, repeat controls and a separate
+  persistence check were recorded in commit 9d1488d0. Its final summary counts
+  are now visible. Existing raw artifacts will be checked without repeating
+  the model runs; the prior receipt and result entry remain preserved.
+- The summary distinguishes first full-state recurrence detections from
+  verified primitive periodic orbits. Its own structural checks do not perform
+  Newton refinement, stability analysis or sustained recurrence tests. The
+  separately recorded persistence check must be read on its own evidence.
+  Uncaptured rows remain unresolved at this horizon. The new receipt exposes
+  the original runner's missing execution commit, runtime versions and
+  precision-qualification fields, rather than substituting the analysis
+  environment for historical metadata.
+- `tools/batch_fate_finish.py` was prepared as a bounded continuation while
+  BF was active. It can wait for an exactly identified process or require
+  completed main artifacts, then run the original controls in an exclusive
+  output directory. It binds source hashes to a supplied commit, locks the
+  GPU, enforces resource headroom and child time limits, retains failures,
+  and performs no publication. It was not launched; existing completed
+  controls make another model run unnecessary.
+- Validation: BF summary/continuation tests plus the N100 helper tests passed
+  57 checks, exit 0; compilation and whitespace checks passed. N100 remains
+  unlaunched. This is an exploratory, disclosed analysis correction, with no
+  change to BF's scientific settings and no new experimental arm.
