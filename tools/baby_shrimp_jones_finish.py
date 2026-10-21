@@ -162,7 +162,11 @@ def main():
         ax.plot(*V.T,"o-",ms=4,color=color,alpha=.8,label=c["label"]+" trajectory")
         ax.text(*V[0],c["label"][0],color=color)
     explained=singular[:3]**2/np.sum(singular**2)
-    ax.set(xlabel=f"PC1 ({100*explained[0]:.2f}% variance)",ylabel=f"PC2 ({100*explained[1]:.3f}%)",zlabel=f"PC3 ({100*explained[2]:.3f}%)")
+    ax.set(xlabel=f"PC1 ({100*explained[0]:.2f}% variance)",ylabel=f"PC2 ({100*explained[1]:.3f}%)",zlabel="PC3")
+    ax.xaxis.labelpad=10;ax.yaxis.labelpad=10;ax.zaxis.labelpad=12
+    ax.text2D(.02,.10,f"PC3 explains {100*explained[2]:.3f}% of observed variance",transform=ax.transAxes,fontsize=9)
+    from matplotlib.ticker import MaxNLocator
+    for axis in (ax.xaxis,ax.yaxis,ax.zaxis):axis.set_major_locator(MaxNLocator(4))
     ax.view_init(elev=24,azim=-55);ax.legend(loc="upper left",fontsize=9)
     fig.suptitle("Following the critical candidates in state space",fontsize=21,fontweight="bold")
     fig.supxlabel("Every marker is an actual full-network state six steps later; the axes project 896 state coordinates.\nC/D begin on the lower-neighbor fitted curve at the baby-core parameters. Independent axis scales expose small transverse motion.",fontsize=9)
