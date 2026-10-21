@@ -1,0 +1,30 @@
+{
+  "id": "ARP1",
+  "status": "exploratory pilot",
+  "model": "qwen0.5b",
+  "layer": 12,
+  "vectors": "llm-phase-map/vectors-l12",
+  "concept": "philosophy",
+  "threads": 4,
+  "transient": 400,
+  "feature_steps": 128,
+  "reference_steps": 512,
+  "windows": [16, 32, 64, 128],
+  "offsets": [0.000001, 0.00000001],
+  "max_period": 64,
+  "period_tolerance": 0.000000001,
+  "baseline_tolerance": 0.00000001,
+  "wall_seconds": 3600,
+  "rows": [
+    {"id": "cal-p8", "split": "calibration", "alpha": 0.071674, "log10_T": -0.115, "prior": "period-8 control"},
+    {"id": "cal-strong", "split": "calibration", "alpha": 0.075475, "log10_T": -0.133454, "prior": "positive exponent in independent implementation"},
+    {"id": "test-fixed", "split": "test", "alpha": 0.0, "log10_T": 0.3, "prior": "unsteered fixed-point control"},
+    {"id": "test-p2", "split": "test", "alpha": 0.058, "log10_T": -0.115, "prior": "ordinary period-2 branch"},
+    {"id": "test-p6", "split": "test", "alpha": 0.077872, "log10_T": -0.115, "prior": "period-6 control"},
+    {"id": "test-p20", "split": "test", "alpha": 0.063335, "log10_T": -0.115, "prior": "longer-period control"},
+    {"id": "test-table", "split": "test", "alpha": 0.065201, "log10_T": -0.155998, "prior": "positive exponent in independent implementation"},
+    {"id": "test-stripe-a", "split": "test", "alpha": 0.07294, "log10_T": -0.115, "prior": "positive exponent at two offsets"},
+    {"id": "test-stripe-b", "split": "test", "alpha": 0.06906, "log10_T": -0.115, "prior": "positive exponent at two offsets"},
+    {"id": "test-multistable", "split": "test", "alpha": 0.07248, "log10_T": -0.148, "prior": "irregular trajectories and period-4 coexist; label not assumed"}
+  ]
+}
