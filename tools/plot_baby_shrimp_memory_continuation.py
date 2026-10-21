@@ -103,7 +103,7 @@ def render(points, roots, out):
     plt.rcParams.update({"font.family": "DejaVu Sans", "font.size": 11, "axes.spines.top": False, "axes.spines.right": False})
     fig, axes = plt.subplots(1, 2, figsize=(12.4, 5.6))
     fig.subplots_adjust(left=.09, right=.96, top=.79, bottom=.23, wspace=.32)
-    fig.suptitle("Following the child's contraction saddle", x=.09, ha="left", fontsize=23, fontweight="bold", y=.95)
+    fig.suptitle("Following the child's trace saddle", x=.09, ha="left", fontsize=23, fontweight="bold", y=.95)
     axes[0].axhline(0, color="#666666", lw=1, linestyle="--", label="Zero trace")
     axes[0].plot(beta, tau, "o-", color="#175d8d", lw=1.4, ms=5, label="Accepted centers")
     axes[0].set(xlabel="Feedback memory (%)", ylabel="Leading-pair trace at corrected saddle", title="Measured saddle height")
