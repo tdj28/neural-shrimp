@@ -7,8 +7,12 @@ drawn as discrete visits; they are never fit as continuous return curves.
 import argparse
 import hashlib
 import json
+import os
 from pathlib import Path
+import subprocess
 
+for thread_variable in ("OMP_NUM_THREADS", "MKL_NUM_THREADS", "OPENBLAS_NUM_THREADS"):
+    os.environ[thread_variable] = "8"
 import numpy as np
 
 import symbolic_dynamics as sd
@@ -78,6 +82,16 @@ def main():
         if raw.get("complete") is not True:
             raise ValueError("orbit verification is not complete")
         verified={c["name"]:c for c in raw["cells"]}
+        expected={c["name"]:c for c in info["cells"]}
+        if set(verified) != set(expected):
+            raise ValueError("orbit and trajectory cells differ")
+        for name,cell in expected.items():
+            if any(verified[name][key] != cell[key] for key in
+                   ("alpha", "log10_temperature", "period_candidate")):
+                raise ValueError(f"orbit parameters differ for {name}")
+        provenance=raw["protocol"]["seed_provenance"]
+        if provenance["trajectory_metadata_sha256"] != hashlib.sha256((args.run/"trajectories.json").read_bytes()).hexdigest():
+            raise ValueError("orbit seeds came from different trajectories")
     import matplotlib
     matplotlib.use("Agg")
     import matplotlib.pyplot as plt
@@ -114,18 +128,17 @@ def main():
     def panel(ax,name,lag,title):
         row=by_name[name];phase=row["selected_phase"]
         x,y,colors=maps[name,lag,phase]
-        spread=max(float(np.ptp(x)),float(np.ptp(y)),1e-15)
-        center=float((x.mean()+y.mean())/2)
+        low=min(float(x.min()),float(y.min()))
+        high=max(float(x.max()),float(y.max()))
+        spread=max(high-low,1e-15)
+        center=(low+high)/2
         u,v=(x-center)/spread,(y-center)/spread
         periodic=row["period_candidate"]>0
         ax.scatter(u,v,c=colors,s=22 if periodic else 6,alpha=.65 if periodic else .55,linewidths=0)
         ax.plot([-.65,.65],[-.65,.65],color="#c5c9d0",lw=.6,zorder=-1)
         ax.set(xlim=(-.65,.65),ylim=(-.65,.65),xlabel="Position at this visit",ylabel="Position at next visit",title=title)
-        if spread<=1e-14:
-            ax.text(.04,.92,"One recurring position",transform=ax.transAxes,color="#526079",fontsize=9)
-        else:
-            detail=(f"Period {row['period_candidate']}" + (" · verified" if row["verified_primitive_orbit"] else " · recurrence candidate")) if periodic else f"Phase {phase+1} · {lag}-step return"
-            ax.text(.04,.92,detail,transform=ax.transAxes,color="#526079",fontsize=8)
+        detail=(f"Period {row['period_candidate']}" + (" · verified" if row["verified_primitive_orbit"] else " · recurrence candidate")) if periodic else f"Phase {phase+1} · {lag}-step return"
+        ax.text(.04,.92,detail,transform=ax.transAxes,color="#526079",fontsize=8)
         ax.set_aspect("equal",adjustable="box")
 
     fig,axes=plt.subplots(2,3,figsize=(13.5,8.8),layout="constrained")
@@ -143,6 +156,40 @@ def main():
     fig.savefig(args.out/"baby-mother-returnmaps.png",dpi=170);fig.savefig(args.out/"baby-mother-returnmaps.pdf")
     plt.close(fig)
 
+    fig,axes=plt.subplots(2,3,figsize=(13.5,8.8),layout="constrained")
+    ladder=[("mother-core","Mother: period 6"),
+            ("mother-double","Mother: period 12"),
+            ("mother-double-twice","Mother: period 24"),
+            ("baby-core","Small island: period 18"),
+            ("baby-double-left","Small island: period 36"),
+            ("baby-unresolved","Small island: period 72")]
+    for ax,(name,title) in zip(axes.ravel(),ladder):
+        panel(ax,name,6,title)
+        visits=by_name[name]["period_candidate"]//6
+        ax.text(.04,.05,f"{visits} visit{'s' if visits!=1 else ''} per band before repeating",
+                transform=ax.transAxes,color="#526079",fontsize=9)
+    fig.suptitle("Longer cycles behind the same text",fontsize=25,fontweight="bold")
+    fig.supxlabel("A dot links positions six model steps apart. The visible text repeats every six steps at every location.\n"
+                  "The mother's sampled states repeat after 6, 12 or 24 steps; the small island's after 18, 36 or 72.\n"
+                  "Distinct parameter locations; these samples alone do not trace a bifurcation sequence. Panel coordinates scaled separately.",fontsize=9)
+    fig.savefig(args.out/"periodic-returnmaps.png",dpi=170);fig.savefig(args.out/"periodic-returnmaps.pdf");plt.close(fig)
+
+    fig,axes=plt.subplots(2,2,figsize=(10,9),layout="constrained")
+    neighbors=[("mother-chaos","Near the mother"),
+               ("baby-chaos-left","Left of the small island"),
+               ("baby-chaos-right","Right of the small island"),
+               ("baby-chaos-below","Below the small island")]
+    for ax,(name,title) in zip(axes.ravel(),neighbors):
+        panel(ax,name,6,title)
+        row=by_name[name]
+        ax.text(.04,.05,"Paper's coding test: " + ("passes" if row["mother_coding_gate_passed"] else "fails"),
+                transform=ax.transAxes,color="#526079",fontsize=9)
+    fig.suptitle("The surrounding return curves",fontsize=24,fontweight="bold")
+    fig.supxlabel("Six-step returns along a phase's first principal axis; same phase-selection rule at all four fixed locations.\n"
+                  "Blue = positive direction sign; orange = negative; gray = weak. Coding test pools all usable phases.\n"
+                  "All four have positive finite-time exponents over 3000 recorded steps; long-term fate is unresolved.",fontsize=9)
+    fig.savefig(args.out/"neighbor-returnmaps.png",dpi=170);fig.savefig(args.out/"neighbor-returnmaps.pdf");plt.close(fig)
+
     fig,axes=plt.subplots(3,4,figsize=(13.5,11),layout="constrained")
     for ax,cell in zip(axes.ravel(),info["cells"]):
         panel(ax,cell["name"],6,cell["name"].replace("-"," "))
@@ -152,7 +199,12 @@ def main():
 
     np.savez_compressed(args.out/"returnmap-projections.npz",**{
         f"{name}_lag{lag}_phase{phase}":np.array([x,y]) for (name,lag,phase),(x,y,_) in maps.items()})
-    receipt={"source_trajectory_commit":status["source_commit"],"trajectory_metadata_sha256":hashlib.sha256((args.run/"trajectories.json").read_bytes()).hexdigest(),
+    root=Path(__file__).resolve().parents[1]
+    receipt={"analysis_commit":subprocess.check_output(["git","rev-parse","HEAD"],cwd=root,text=True).strip(),
+             "analysis_source_sha256":hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),
+             "symbolic_diagnostics_source_sha256":hashlib.sha256(Path(sd.__file__).read_bytes()).hexdigest(),
+             "orbit_metadata_sha256":hashlib.sha256(args.orbits.read_bytes()).hexdigest() if args.orbits else None,
+             "source_trajectory_commit":status["source_commit"],"trajectory_metadata_sha256":hashlib.sha256((args.run/"trajectories.json").read_bytes()).hexdigest(),
              "states_sha256":hashlib.sha256((args.run/"states.npy").read_bytes()).hexdigest(),"cells":results,
              "diagnostics":"Paper SD definitions: six-step cosine threshold0.5, weak fraction<=0.1, bend<45deg, minority>=5; pooled error/minority<0.05.",
              "scope":"Representative points. No exhaustive periodic-orbit inventory or shrimp boundary classification."}
