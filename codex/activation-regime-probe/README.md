@@ -103,8 +103,9 @@ therefore need not add information beyond recurrence. Longer periodic cycles,
 quasiperiodicity, slow transients and low-dimensional chaos are important
 confounds; a detector must be allowed to abstain.
 
-Commands and actual outcomes are recorded in `research-log.md`; an outcome
-report and compact receipt will be added only after every row is checked.
+Commands and actual outcomes are recorded in `research-log.md`. See
+[results](RESULTS.md) and the hash-bound [receipt](receipt.json) for the
+completed pilot and all comparisons.
 
 [Amendment 01](amendment-01.md), recorded before any target scores were seen,
 adds a stronger two-cycle recurrence comparator alongside the original

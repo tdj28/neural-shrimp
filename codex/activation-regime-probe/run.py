@@ -68,7 +68,8 @@ def main():
         torch = loop.torch
         meta["torch"] = torch.__version__
         meta["numpy"] = np.__version__
-        meta["model_revision"] = getattr(loop.model.config, "_commit_hash", None)
+        meta["model_revision"] = loop.sm.engine.revision
+        meta["model_name"] = loop.sm.engine.name
         meta["model_dtype"] = str(loop.model.dtype)
         meta["norms"] = [{"type": type(m).__name__, "forward": m.forward.__name__}
                          for m in loop.model.modules() if type(m).__name__.endswith("RMSNorm")]

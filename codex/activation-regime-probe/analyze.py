@@ -128,15 +128,21 @@ def render(result, out):
     plt.rcParams.update({"font.size": 10, "axes.spines.top": False, "axes.spines.right": False})
     fig, ax = plt.subplots(1, 2, figsize=(14, 6), gridspec_kw={"width_ratios": [1.1, 1]})
     colors = {"periodic": "#287e8e", "finite-time chaotic": "#c46c2c", "unresolved": "#777777"}
+    endpoints = []
     for row in result["rows"]:
         label = row["reference"]["label"]
         ws = [int(w) for w in row["features"]]
         vals = [row["features"][str(w)]["standardized_pr"] for w in ws]
         ax[0].plot(ws, vals, "o--" if row["split"] == "calibration" else "o-", color=colors[label], alpha=.8)
-        ax[0].annotate(row["id"].replace("test-", ""), (128, vals[-1]), xytext=(5, 0),
-                       textcoords="offset points", fontsize=8, color=colors[label])
+        endpoints.append((vals[-1], row["id"].replace("test-", ""), colors[label]))
+    previous = -1.
+    for value, name, color in sorted(endpoints):
+        position = max(value, previous + .28)
+        ax[0].annotate(name, (128, value), xytext=(134, position), fontsize=8, color=color,
+                       va="center", arrowprops={"arrowstyle": "-", "color": color, "lw": .6})
+        previous = position
     ax[0].set(xlabel="Activation observations", ylabel="Effective dimensionality (median over layers)",
-              title="Do periodic trajectories use fewer activation patterns?", xlim=(12, 185))
+              title="Do periodic trajectories use fewer activation patterns?", xlim=(12, 185), ylim=(-.2, 9.2))
     ax[0].set_xticks([16, 32, 64, 128])
     ax[0].text(.02, .98, "Teal: periodic • Orange: positive finite-time exponent\nDashed: calibration settings", transform=ax[0].transAxes,
                va="top", fontsize=9, bbox={"facecolor": "white", "edgecolor": "none", "alpha": .85})

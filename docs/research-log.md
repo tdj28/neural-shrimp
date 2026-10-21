@@ -32584,3 +32584,33 @@ _commit `c9094d9a89fa` (dirty worktree)_
 _commit `b9b96dc910de` (dirty worktree)_
 
 - run started 2026-10-21 23:30 UTC (/data2/neural-shrimp-data/audits/activation-regime-probe/collection-001) finished 23:37 UTC with exit status 0
+
+## 2026-10-21 23:39 UTC: run (exploratory)
+
+- **Question:** ARP1: how well do the fixed activation metrics classify held-out settings compared with both recurrence baselines?
+- **Setup:** Analysis only of hash-bound collection-001; source 78baf332, all metrics and windows retained, two calibration settings only; no new model calls.
+- **Output:** `/data2/neural-shrimp-data/audits/activation-regime-probe/analysis-001`
+- **Would surprise us:** Visual roughness or effective dimension fails to generalize beyond the two calibration settings.
+- **Command:** `.venv/bin/python codex/activation-regime-probe/analyze.py --source /data2/neural-shrimp-data/audits/activation-regime-probe/collection-001 --out /data2/neural-shrimp-data/audits/activation-regime-probe/analysis-001`
+
+_commit `78baf332e516` (dirty worktree)_
+
+- run started 2026-10-21 23:39 UTC (/data2/neural-shrimp-data/audits/activation-regime-probe/analysis-001) finished 23:39 UTC with exit status 0
+
+## 2026-10-21 23:39 UTC: run (exploratory)
+
+- **Question:** ARP1: do independent calculations reproduce every reference label, score samples and classifier count?
+- **Setup:** Saved-data audit only: verify manifests, every row recurrence and exponent gates, SVD against Gram-matrix dimensionality, explicit grid edges, all thresholds and decisions.
+- **Output:** `/data2/neural-shrimp-data/audits/activation-regime-probe/audit-001.json`
+- **Would surprise us:** A discrepancy in any row or pooled count.
+- **Command:** `.venv/bin/python codex/activation-regime-probe/audit.py --analysis /data2/neural-shrimp-data/audits/activation-regime-probe/analysis-001 --out /data2/neural-shrimp-data/audits/activation-regime-probe/audit-001.json`
+
+_commit `78baf332e516` (dirty worktree)_
+
+- run started 2026-10-21 23:39 UTC (/data2/neural-shrimp-data/audits/activation-regime-probe/audit-001.json) finished 23:39 UTC with exit status 0
+
+## 2026-10-21 23:44 UTC: ARP1 activation-regime pilot completed and locally audited
+
+Scoped experiment codex/activation-regime-probe: ten selected Qwen2.5-0.5B settings, two calibration and eight held out. All ten reference rows passed the explicit numerical gates. At 128 observations, dimensionality classified 7/8 test settings and roughness 6/8; recurrence closed-set comparisons reached 8/8 by 64 observations. Non-recurrence remains unresolved without independent growth diagnostics. All metrics and windows are retained; no improvement over recurrence or shrimp-specific effect is claimed. Six synthetic tests and the local numerical cross-check passed. Raw arrays, original and revised figures are preserved outside Git under audits/activation-regime-probe. See the scoped RESULTS.md and receipt.json; no rented compute used.
+
+_commit `78baf332e516` (dirty worktree)_

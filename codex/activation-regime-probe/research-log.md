@@ -39,3 +39,33 @@ Raw output: `/data2/neural-shrimp-data/audits/activation-regime-probe/collection
 No target arrays or reference labels had been inspected when amendment 01
 was committed as `e8cc018a`. Its additional two-cycle comparator is now
 implemented; original scores and reference gates are unchanged.
+
+## 2026-10-21: analysis and local audit complete
+
+Scoring source `78baf332e51654552557cfa22c686626b20d42de`.
+`analysis-001` retained all ten rows. The two calibration references resolved
+as P8 and finite-time chaotic; the eight test references resolved as P1, P2,
+P6, P20 and four finite-time chaotic trajectories. No row was unresolved.
+At 128 observations both dimensionality classifiers scored 7/8, roughness
+scored 6/8, and both recurrence closed-set comparators scored 8/8. Recurrence
+already reached 8/8 at 64 observations. Non-recurrence remains operationally
+unresolved until an independent growth check; it is not a chaos certificate.
+
+The chaotic table cell had lower effective dimensionality than P6 and P20.
+The fixed-point control looked rough in the learned layout. These are retained
+counterexamples to a universal order-versus-chaos rule. See `RESULTS.md` for
+all budgets, errors and limits; no incremental gain over recurrence was shown.
+
+The local audit in `audit-001.json` passed every reference row, all twenty
+comparison counts, both recurrence baselines and the independent SVD/edge
+checks. Six synthetic tests passed. Figures were inspected. `figures-002`
+separates two overlapping labels and moves the key clear of the curves;
+`analysis-001` and its original figure remain immutable. No scores changed.
+
+Metadata correction after acquisition: the model configuration's optional
+`_commit_hash` was absent, so raw `run.json` reports null in that field. The
+actual loader explicitly pins revision
+`7ae557604adf67be50417f59c2c2f167def9a775`; the pin is recovered from the
+hash-bound acquisition source and recorded in the compact receipt. The
+runner now records the loader's revision directly. No model or numerical
+computation changed and the original metadata is preserved.
