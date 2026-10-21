@@ -31982,3 +31982,32 @@ nearly identical under protan vision.
 - **Would surprise us:** a mismatch with the partial cells on the same GPU model and software (the states or the
   direction mapping would then not be what they seem), or a new frame that differs sharply from both its neighbors
   away from the two seams.
+
+
+## 2026-10-21 05:39 UTC: N100 preparation (exploratory proposal; no run)
+
+- Question: how do 100 identical soft-token loops behave under simultaneous,
+  distance-weighted output mixing? The proposed starts, measurements, controls,
+  precision gates and limitations are in [N100-plan.md](N100-plan.md).
+- Status: no N100 model or graph sweep has run. The requested start go-ahead
+  remains pending. The model runner and measured local throughput are not yet
+  available. This entry is preparation, not a run card or a result.
+- Design clarification before outcomes: use symmetric distance affinities
+  and the undirected union of nearest-neighbor edges, then row normalization.
+  Compute the normalized Laplacian spectrum via its symmetric similarity
+  transform. A directed nearest-neighbor graph cannot silently use the same
+  real-eigenvalue interval. Preserve disconnected and unresolved-gap cases.
+- The stability condition describes infinitesimal perturbations of a specified
+  synchronized orbit; it does not predict capture from arbitrary starts or
+  cluster formation. Enforce the interval's intersection with coupling in
+  [0,1]. Text agreement and full-state agreement are separate measurements.
+- Tools: `tools/network_coupling.py` prepares and validates affinities,
+  conditional transverse spectra and direct pair distances. Its persistent
+  pair summary flags connected chains that fail the all-pair diameter gate.
+  No language model is loaded by these helpers.
+- Validation: `tests/test_network_coupling.py` and
+  `tests/test_sync_coupled_loops.py`: 27 passed, exit 0. Analytic controls cover
+  the two-copy threshold, dense mean mixing, disconnected modes, irregular
+  weighted degrees, a numerical coupled-map Jacobian, tiny state differences,
+  graph underflow and nontransitive close-pair chains. These are software
+  checks, not empirical N100 outcomes. No paid review requested or run.
