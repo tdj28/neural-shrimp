@@ -161,20 +161,24 @@ def high_precision(z, dps):
             for x in xs:
                 m = mp.matrix([[-2*x, b], [1, 0]])*m
             return [xs[(i+1)%p]-a+xs[i]**2-b*xs[(i-1)%p] for i in range(p)]+[m[0,0]+m[1,1]]
-        v = mp.findroot(residual, tuple(zz[:-1]), tol=mp.mpf(10)**(-(dps-15)), maxsteps=30)
+        v = list(mp.findroot(residual, tuple(zz[:-1]), tol=mp.mpf(10)**(-(dps-15)), maxsteps=30))
         residual_max = max(abs(q) for q in residual(*v))
         m = mp.eye(2)
         for x in list(v)[:-1]:
             m = mp.matrix([[-2*x, b], [1, 0]])*m
         D = mp.det(m)
-        return dict(dps=dps, states=[mp.nstr(q, dps) for q in list(v)[:-1]],
+        serialized = [mp.mpf(mp.nstr(q, dps)) for q in v]
+        serialized_residual = max(abs(q) for q in residual(*serialized))
+        return dict(dps=dps, states=[mp.nstr(q, dps) for q in v[:-1]],
                     a=mp.nstr(v[-1], dps), b=mp.nstr(b, dps),
                     residual_max=mp.nstr(residual_max, 12),
                     determinant=mp.nstr(D, dps),
                     determinant_identity_error=mp.nstr(abs(D-(-b)**p), 12),
+                    serialized_residual_max=mp.nstr(serialized_residual, 12),
                     radius_at_trace_zero=mp.nstr(mp.sqrt(abs(D)), dps),
                     change_from_float64=float(max(abs(v[i]-zz[i]) for i in range(p+1))),
-                    passed=bool(residual_max < mp.mpf('1e-40') and abs(D-(-b)**p) < mp.mpf('1e-40')))
+                    passed=bool(residual_max < mp.mpf('1e-40') and serialized_residual < mp.mpf('1e-40')
+                                and abs(D-(-b)**p) < mp.mpf('1e-40')))
 
 
 def plot(curves, out):
