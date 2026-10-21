@@ -10,6 +10,7 @@ import json
 import os
 from pathlib import Path
 import subprocess
+import sys
 import time
 for key in ("OMP_NUM_THREADS","MKL_NUM_THREADS","OPENBLAS_NUM_THREADS"):
     os.environ[key]="8"
@@ -58,7 +59,7 @@ class Evaluator:
         save(out/'runtime.json',{'norm_sensitivity':sensitivity,'rotary_float64':True,
              'device':torch.cuda.get_device_name() if args.device=='cuda' else 'cpu',
              'torch':torch.__version__,'cuda':torch.version.cuda,'threads':torch.get_num_threads(),
-             'python':subprocess.check_output(['python','--version'],text=True).strip()})
+             'python':sys.version,'python_executable':sys.executable})
 
     def cell(self, physical, beta):
         base=self.soft.SoftOrbit(self.loop,float(physical[0])*self.vector,10.0**float(physical[1]),chunk=4,jacobian_method='ad')
