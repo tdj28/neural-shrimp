@@ -55,7 +55,7 @@ def validate(c):
                 raise ValueError(f"command mismatch: {key}")
         jobset = cmd[cmd.index("--jobset") + 1]
         if jobset == "toolseq":
-            validate_orbit_job(cmd[cmd.index("--jobset-args") + 1])
+            validate_orbit_job(cmd[cmd.index("--jobset-args") + 1], source_commit=c["source_commit"])
         elif jobset != "scanband":
             raise ValueError("only scanband or the bounded orbit probe is allowed")
         if float(cmd[cmd.index("--max-rate") + 1]) > c["max_rate"]:
@@ -67,17 +67,36 @@ def validate(c):
     return worst
 
 
-def validate_orbit_job(arguments):
+def validate_orbit_job(arguments, source_commit=None):
     job = shlex.split(arguments)
-    allowed = {"baby_shrimp_orbits.py": 90, "baby_shrimp_geometry.py": 195, "baby_shrimp_crossing.py": 75, "baby_shrimp_transect.py": 45}
+    allowed = {"baby_shrimp_orbits.py": 90, "baby_shrimp_geometry.py": 195, "baby_shrimp_crossing.py": 75,
+               "baby_shrimp_transect.py": 45, "baby_shrimp_saddle_memory.py": 120}
     if len(job) < 7 or job[2] not in allowed or "::" in job:
         raise ValueError("one bounded baby-shrimp orbit worker required")
     minutes = float(job[1])
     if not math.isfinite(minutes) or not 0 < minutes <= allowed[job[2]]:
         raise ValueError("invalid orbit worker lifetime")
-    for key in ("--input", "--out"):
+    # BSC3's immutable anchor is bound by its plan, rather than an --input
+    # argument. Its archive has no .git, so the explicit source must match
+    # the controller's uploaded commit. Other workers retain their old gates.
+    saddle = job[2] == "baby_shrimp_saddle_memory.py"
+    if saddle:
+        for key in ("--plan", "--source-commit", "--mode"):
+            if job.count(key) != 1 or job.index(key) + 1 >= len(job):
+                raise ValueError(f"saddle worker requires one {key}")
+        plan = job[job.index("--plan") + 1]
+        if not plan.startswith("docs/baby-shrimp-zoom/") or ".." in Path(plan).parts:
+            raise ValueError("saddle plan must remain in the declared repository plan directory")
+        commit = job[job.index("--source-commit") + 1]
+        if not re.fullmatch(r"[0-9a-f]{40}", commit) or source_commit is not None and commit != source_commit:
+            raise ValueError("saddle source commit differs from the uploaded source")
+        if job[job.index("--mode") + 1] not in ("pilot", "continue"):
+            raise ValueError("unknown saddle worker mode")
+    for key in (("--out",) if saddle else ("--input", "--out")):
         if key not in job:
             raise ValueError(f"orbit worker missing {key}")
+        if saddle and (job.count(key) != 1 or job.index(key) + 1 >= len(job)):
+            raise ValueError(f"saddle worker requires one {key}")
         value = job[job.index(key)+1]
         prefix = "llm-soft-loop/pod64/" if key == "--out" else "llm-soft-loop/"
         if not value.startswith(prefix) or ".." in Path(value).parts:

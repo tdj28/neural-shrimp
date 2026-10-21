@@ -19,7 +19,7 @@
     "phase-6.npz": "d89652be8c0a0b20e8da78e57e6410ffa2f317ab8bab3c68e72921a60546a71f",
     "phase-12.npz": "8c68b1987fbdf396a0b3e26e50e33b41f28974d64f48542ad4497fc0512eef7a"
   },
-  "maximum_evaluations": 800,
+  "maximum_evaluations": 450,
   "maximum_abs_beta": 0.005,
   "maximum_scaled_coordinate": 1000,
   "intervention": "F_beta(x)=(1-beta)F(x)+beta*x. beta=0 exactly original. Positive beta retains old feedback; negative beta is mathematical extrapolation. Same fixed prefix, layer12 philosophy steering and temperature; K=1. Model readout remains p(x), while next state is mixed.",
@@ -27,5 +27,6 @@
   "pilot": "Original alpha,T at beta=0,+1e-7,-1e-7. Time full three-phase point and measure small-parameter response; these fixed-location points are not a saddle continuation. Local GPU first, eight threads,75percent VRAM,1200seconds, external timeout preserves partial files.",
   "continuation": "Continue stationary trace, not a fixed alpha/T slice. Recenter9point Hessian stencils .1,.03; explicit corrector convergence, saddle-sign and trust-region gates. Record finite-difference sensitivity. Adapt parameter steps after pilot with a dated amendment. If height sign brackets zero, correct a saddle at every root iteration; distinguish trace reconnection from exact superstability.",
   "mechanism": "Measure basis-invariant leading-pair trace response to explicit identity feedback path versus orbit-mediated response. A zero saddle height only establishes a local trace-contour reconnection; it is not proof of native mode coupling or zero multipliers.",
-  "resources": "Local owned server only in this plan; no new paid launch. Exact process bounded, all failed attempts retained, raw data outside Git."
+  "resources": "LocalGPU pilot85.06-86.54seconds per three-phase point; localCPU baseline219.55seconds. One secure A100SXM80GB may execute the explicitly requested continuation under the existing total human ceiling. Nativefloat64 matrix-free throughput on this device is not assumed from old dense timings: time baseline and ordinarypoints. At most450 evaluations AND110minute numerical deadline,120minute shell,135minute setup/run,10minute ready,10minute upload,180minute hardlife including20minute retrieval. Exact ownedresource watchdog, preservepartial evidence, retrieve/hash and verifytermination. No additional instance or automatic relaunch. Cost: see private ledger.",
+  "continuation_amendment": "After the baseline pilots, use .01,.003 stencils and correction tolerance3e-5 for the accurate height campaign, including a newly corrected beta0 saddle. Original .1,.03 local continuation is retained as a motion pilot, not used for a tiny height derivative. Target signed small beta values0,+1e-7,-1e-7,+1e-6,-1e-6 before positive continuation1e-5,3e-5,1e-4,3e-4,.001,.003,.005. Fixed lifetime bounds govern incomplete coverage; do not substitute the last point for a missing crossing. All accepted new saddles receive cyclic checks."
 }

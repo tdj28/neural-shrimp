@@ -179,13 +179,17 @@ def main():
     parser.add_argument('--anchor-saddle',action='store_true',help='reuse the audited BSC1 beta0 saddle after operator replay')
     parser.add_argument('--stencils',type=float,nargs='+',default=[.1,.03])
     parser.add_argument('--correction-tolerance',type=float,default=.003)
+    parser.add_argument('--source-commit',help='exact source when executing a Git archive without .git')
     args=parser.parse_args()
     if not 0<args.seconds<=14400: parser.error('runtime must be bounded within four hours')
-    out=args.out; out.mkdir(parents=True,exist_ok=False)
+    out=args.out if args.out.is_absolute() else DATA/'explore'/args.out
+    out.mkdir(parents=True,exist_ok=False)
     plan_path=ROOT/args.plan; plan=json.loads(plan_path.read_text())
-    commit=subprocess.check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True).strip()
+    commit=args.source_commit or subprocess.check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True).strip()
+    if len(commit)!=40 or any(c not in '0123456789abcdef' for c in commit):
+        raise ValueError('exact source commit required')
     def emit(stage,**kw):
-        row={'time':datetime.now(timezone.utc).isoformat(),'stage':stage,**kw}
+        row={'cell_index':kw.get('index',-1),'time':datetime.now(timezone.utc).isoformat(),'stage':stage,**kw}
         with (out/'progress.jsonl').open('a') as f: f.write(json.dumps(row,allow_nan=False)+'\n')
         print(json.dumps(row,allow_nan=False),flush=True)
     sources=['tools/baby_shrimp_saddle_memory.py','tools/baby_shrimp_memory.py','tools/explore_llm_soft_loop.py',
