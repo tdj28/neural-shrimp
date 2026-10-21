@@ -93,7 +93,7 @@ def main():
     parser.add_argument("--image", default="runpod/pytorch:2.4.0-py3.11-cuda12.4.1-devel-ubuntu22.04")
     parser.add_argument("--name", default="neural-shrimp-soft64")
     parser.add_argument("--commit", required=True, help="pushed commit to upload")
-    parser.add_argument("--jobset", default="skeleton", choices=("smoke", "tbmulti", "rc", "hedge", "dialogue", "repro70", "reprollama", "tp", "xo", "reprotask", "repro", "mech", "dss", "spectrum", "flipnf", "bz", "bp", "tb", "retmap", "skeleton", "maps", "p4a", "highT", "scanband", "p9s", "shrimpcurves", "kitecurves", "p4curves", "scale15", "p6z3a", "p6z3curves", "p1ladder", "cascade", "edges", "superstable", "p1control", "scan32", "p1detect", "huginn", "hverify", "hnormal", "hnormal2", "p1commit", "scan64", "scale7", "huginnA", "hcurves", "hverify7", "p1x", "cusps", "scalex", "huginnS", "hcascade", "cubic", "pairmap", "llama8b", "unfold", "pilot1", "pilot2", "llamamap", "llamactrl", "anymap", "qwen35moe", "selfref", "morph", "hidden", "horizon", "bigsweep", "bigctrl", "bigmap", "gainsplit", "bighidden", "scaleset", "prefixscale", "startstate", "upperset", "prefix72", "prefixcoarse", "q72fix", "prefix72base", "window", "softthink", "softthink72", "tangentcheck", "codim2", "hiddencells", "foldlaw15", "foldlaw7", "fm5", "fm5c", "fm5d", "rr", "shrimp", "pif64", "damping", "moe", "pm", "pm2", "pm2f64", "pm2diag", "preason", "pm2f64x", "sheets", "transects", "p5temp", "p5dss", "ltrans", "certcal", "shrimpc", "fm5t", "nbounds", "fa", "nt", "fm5x", "fmg", "rk", "certpack", "fm5l", "bh", "eslseq", "toolseq"))
+    parser.add_argument("--jobset", default="skeleton", choices=("smoke", "tbmulti", "rc", "hedge", "dialogue", "repro70", "reprollama", "tp", "xo", "reprotask", "repro", "mech", "dss", "spectrum", "flipnf", "bz", "bp", "tb", "retmap", "skeleton", "maps", "p4a", "highT", "scanband", "p9s", "shrimpcurves", "kitecurves", "p4curves", "scale15", "p6z3a", "p6z3curves", "p1ladder", "cascade", "edges", "superstable", "p1control", "scan32", "p1detect", "huginn", "hverify", "hnormal", "hnormal2", "p1commit", "scan64", "scale7", "huginnA", "hcurves", "hverify7", "p1x", "cusps", "scalex", "huginnS", "hcascade", "cubic", "pairmap", "llama8b", "unfold", "pilot1", "pilot2", "llamamap", "llamactrl", "anymap", "qwen35moe", "selfref", "morph", "morphfill", "hidden", "horizon", "bigsweep", "bigctrl", "bigmap", "gainsplit", "bighidden", "scaleset", "prefixscale", "startstate", "upperset", "prefix72", "prefixcoarse", "q72fix", "prefix72base", "window", "softthink", "softthink72", "tangentcheck", "codim2", "hiddencells", "foldlaw15", "foldlaw7", "fm5", "fm5c", "fm5d", "rr", "shrimp", "pif64", "damping", "moe", "pm", "pm2", "pm2f64", "pm2diag", "preason", "pm2f64x", "sheets", "transects", "p5temp", "p5dss", "ltrans", "certcal", "shrimpc", "fm5t", "nbounds", "fa", "nt", "fm5x", "fmg", "rk", "certpack", "fm5l", "bh", "eslseq", "toolseq"))
     parser.add_argument("--jobset-args", default="", help="arguments passed to the runner after the job set name")
     parser.add_argument("--ready-minutes", type=float, default=15)
     parser.add_argument("--disk-gb", type=int, default=60, help="container disk (large checkpoints need more)")
@@ -104,6 +104,8 @@ def main():
     parser.add_argument("--out", default=str(rp.DATA / "runpod" / "soft64"))
     parser.add_argument("--approval", required=True)
     parser.add_argument("--dry-run", action="store_true", help="build the uploads and report their sizes only")
+    parser.add_argument("--upload-timeout", type=float, default=600,
+                        help="seconds allowed for uploading the start data (large warm-start states need more)")
     parser.add_argument("--extra-data", nargs="*", default=[],
                         help="further DATA-relative paths to upload (e.g. branches that curves start from)")
     args = parser.parse_args()
@@ -114,7 +116,9 @@ def main():
     if not pushed:
         raise SystemExit(f"commit {head} is not on any remote branch; push it first")
     code, data = archives(head, args.extra_data)
-    worst = args.max_rate * (args.ready_minutes + args.run_minutes + 10) / 60
+    # the 10 minutes cover the default upload allowance and the retrieval; a longer upload allowance is added
+    worst = args.max_rate * (args.ready_minutes + args.run_minutes + 10
+                             + max(0.0, args.upload_timeout - 600) / 60) / 60
     plan = {"commit": head, "jobset": args.jobset, "code_bytes": len(code), "data_bytes": len(data),
             "code_sha256": hashlib.sha256(code).hexdigest(), "data_sha256": hashlib.sha256(data).hexdigest(),
             "extra_data": list(args.extra_data), "jobset_args": args.jobset_args,
@@ -175,7 +179,7 @@ def main():
         subprocess.run(base + ["mkdir -p /root/neural-shrimp && tar -x -C /root/neural-shrimp"], input=code,
                        check=True, timeout=600)
         subprocess.run(base + ["mkdir -p /root/neural-shrimp-data && tar -x -C /root/neural-shrimp-data"], input=data,
-                       check=True, timeout=600)
+                       check=True, timeout=args.upload_timeout)
         rp.record({"event": "uploaded", "pod_id": pod_id, "archive_bytes": len(code), "data_bytes": len(data)})
         with open(out / "runner-stdout.txt", "w") as log:              # streamed: readable while the run goes
             remote = f"bash /root/neural-shrimp/tools/runpod_soft_runner.sh {args.jobset} {args.jobset_args}".strip()

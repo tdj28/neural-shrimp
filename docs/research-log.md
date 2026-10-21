@@ -31937,3 +31937,48 @@ nearly identical under protan vision.
     in f64-strong.
   - *Would surprise us:* identical late capture steps in different layouts after their trajectories have separated,
     or batched runs that are not bitwise reproducible.
+
+## 2026-10-21 04:30 UTC: run card V3 (exploratory): the 17 missing directions of the rotation morph, continued from their chains' saved final states
+
+- **Question.** The rotation morph of run V1b (14 Oct; the data of the article's rotation figure) has 103 of its 120
+  directions. The 17 missing ones (frames 16, 18, 78, 80, 96, 98, 192-198, 212-220, 236 and 238) are the ends of six
+  warm chains whose pods reached their run limit. The video bridges each gap with one long crossfade, which reads as
+  a smooth interpolation, most visibly at about 72-75 and 80-83 degrees of the rotation. The V2 fill of 15 Oct never
+  ran (no community RTX 4090 capacity; its only pod, V2d, never became reachable). The human approved this fill on
+  RunPod on 21 Oct.
+- **Design.**
+  - The six chains' last finished frames (014, 076, 094, 190, 210, 234) still hold their final states (states.npz,
+    float32, 151,552 x 1 x 896): those pods were packed when the limit stopped them, before the runner's cleanup.
+    Each chain is continued from them exactly as its pod would have continued: frame k from frame k-2's final states,
+    with the 40-step warm transient and the scan of job set morph (float32, tolerance and twin offset 1e-4,
+    296 x 512 cells over alpha -0.12..0.12 and log10 T -0.45..0.3, 80 samples, 60 recorded, maximum period 24,
+    chunk 2048, direction morph-k of vectors-morph-r1-r3-240, vectors.npz sha256 d448b2e5...).
+  - Chains: 014 -> 016, 018; 076 -> 078, 080; 094 -> 096, 098; 190 -> 192, ..., 198; 210 -> 212, ..., 220;
+    234 -> 236, 238. Frames 80 and 220 were planned as cold starts of the next pods; those first frames ran past the
+    150-minute frame limit, so frames 82 and 222 started cold. Here 80 and 220 continue the previous chains, as the V2
+    plan had it, so the seams sit between 80 and 82 and between 220 and 222.
+  - New job set morphfill (tools/runpod_soft_runner.sh): the scan call of job set morph, started from an uploaded
+    states folder; a frame that ends without final states stops its chain (no cold restart). The scan code computes
+    the same arrays as at V1b's commit b28aefa6: the changes since then add outputs (text periods) and options that
+    are off here. The package pins are unchanged (torch 2.14.1+cu126, transformers 5.19.0, numpy 2.5.3).
+  - Start states: np.savez_compressed copies of the six files in
+    ../neural-shrimp-data/explore/llm-soft-loop/morph-fill-init, equal to the originals bit for bit as arrays
+    (hashes in init-states.json there).
+  - Hardware: one pod per chain, RTX 4090 (secure cloud first, community as fallback), the GPU model of V1b.
+    Frame limit 150 minutes as in V1b; run limits 240 minutes for 2 frames, 480 for 4, 600 for 5. Costs and ceilings
+    are in the private ledger.
+- **Checks fixed now.**
+  - Reproduction. Six of the frames (016, 078, 096, 192, 212, 236) have partial results from the V1b pods, computed
+    from the same states: 139,264, 32,768, 40,960, 8,192, 106,496 and 88,064 of the 151,552 cells. On the same GPU
+    model and software the new frames should reproduce those cells bit for bit (exponents, periods, entropies).
+    Otherwise the periods should agree at periodic cells and the exponents in distribution; any difference is
+    reported as found.
+  - Completeness. Each new frame has all 151,552 cells and finite exponents, and its scan.json arguments equal those
+    of the V1b frames except init_states and out.
+  - Raw evidence is not overwritten. The old partial files stay; the new files go into the empty frame folders, or
+    beside an old partial file (scan.npz, scan.json, scan.png), with a note in morph/EXTRACTION-NOTES.txt.
+- **Output:** `../neural-shrimp-data/explore/llm-soft-loop/pod64/morph/frame-NNN`; receipt docs/morph-fill-receipt.json
+  with the new frames' hashes.
+- **Would surprise us:** a mismatch with the partial cells on the same GPU model and software (the states or the
+  direction mapping would then not be what they seem), or a new frame that differs sharply from both its neighbors
+  away from the two seams.

@@ -1918,6 +1918,26 @@ snapshot_download('$REPO', revision='$MREV', cache_dir='$NEURAL_SHRIMP_DATA/mode
     done
     rm -f "$OUT"/$D/morph/frame-*/states.npz
     ;;
+  morphfill)   # morph video gap fill (run V3): JOBARGS INIT FIRST LAST STEP MINUTES_PER_FRAME WARM_TRANSIENT SCAN-ARGS...;
+               # continues one warm chain of job set morph whose pod reached its run limit: frame FIRST from the
+               # uploaded final states INIT (explore-relative folder with states.npz, the chain's last finished frame),
+               # each later frame from the previous frame's final states, all with WARM_TRANSIENT steps and the scan of
+               # job set morph; a frame that ends without final states stops the chain (no cold restart)
+    init=${JOBARGS[0]}; first=${JOBARGS[1]}; last=${JOBARGS[2]}; fstep=${JOBARGS[3]}; fmin=${JOBARGS[4]}
+    warm=${JOBARGS[5]}
+    [ -f "$OUT/$init/states.npz" ] || { log "no start states $init/states.npz"; exit 5; }
+    src=$init
+    for k in $(seq $first $fstep $last); do
+      kk=$(printf %03d $k)
+      run morph-$kk "$fmin" scan --device cuda --dtype float32 --chunk 2048 --tol 1e-4 --eps 1e-4 \
+        --model qwen0.5b --layer 12 --vectors llm-soft-loop/controls/vectors-morph-r1-r3-240 --concept morph-$kk \
+        --transient $warm --init-states $src --save-states "${JOBARGS[@]:6}" --out $D/morph/frame-$kk
+      [ "$src" != "$init" ] && rm -f "$OUT/$src/states.npz"
+      if [ ! -f "$OUT/$D/morph/frame-$kk/states.npz" ]; then log "frame $kk left no final states: chain stopped"; break; fi
+      src=$D/morph/frame-$kk
+    done
+    rm -f "$OUT"/$D/morph/frame-*/states.npz
+    ;;
   scan32)      # one float32 scan with free arguments: scan32 OUT-NAME MINUTES SCAN-ARGS... (coarse maps)
     name=${JOBARGS[0]}
     minutes=${JOBARGS[1]}
