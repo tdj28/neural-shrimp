@@ -32560,3 +32560,15 @@ The262144cells contain6554period30 recurrence candidates,6period24 candidates an
 2026-10-21 22:45 UTC: BSC3 contraction-geometry interpretation check. Add an independent frozen-data utility for determinant and trace gradients at the accepted saddle stencils, using the existing strong receipt/source/manifest bindings. Retain scaled and physical gradients, finite trace and stationarity residuals, quadratic centering sensitivity, transport between different centers, and matched-center Richardson diagnostics. A conditional zero-trace stationary tilt is not automatically the gradient at a finite-residual candidate. No active driver, execution gate or raw evidence changed. Nineteen combined diagnostic/alignment tests passed.
 
 The theory note now distinguishes multiplier-balance contours from strongest-contraction ridges quantitatively. At a regular trace-zero point, a determinant-gradient contribution can tilt the pair-radius cusp. Strict inequality gives a sufficient directional minimum condition, its strict reverse excludes that minimum, and equality requires higher orders. At an exact trace-saddle crossing, nonzero determinant gradient excludes a local pair-radius minimum. The pending root will receive this saved-stencil diagnostic separately; no new empirical determinant claim is made in this preparation entry.
+
+## 2026-10-21 23:28 UTC: run (exploratory)
+
+- **Question:** ARP1: can short activation recordings diagnose a local dynamical regime beyond recurrence?
+- **Setup:** Benchmark and float64 precision qualification only; committed plan c9094d9a; local CPU, four threads, fixed batch 30; no target scores.
+- **Output:** `/data2/neural-shrimp-data/audits/activation-regime-probe/benchmark-001`
+- **Would surprise us:** Central differences fail quadratic convergence or fixed-batch cost exceeds the local allowance.
+- **Command:** `.venv/bin/python codex/activation-regime-probe/run.py benchmark --out /data2/neural-shrimp-data/audits/activation-regime-probe/benchmark-001`
+
+_commit `c9094d9a89fa` (dirty worktree)_
+
+- run started 2026-10-21 23:28 UTC (/data2/neural-shrimp-data/audits/activation-regime-probe/benchmark-001) finished 23:28 UTC with exit status 0
