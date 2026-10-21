@@ -1,0 +1,114 @@
+{
+  "model": "qwen0.5b",
+  "layer": 12,
+  "vectors": "llm-phase-map/vectors-l12",
+  "concept": "philosophy",
+  "prompt": "open",
+  "opener": "Hello!",
+  "window": 1,
+  "dtype": "float64",
+  "weights": "native",
+  "transient": 300,
+  "samples": 300,
+  "record": 80,
+  "max_period": 32,
+  "tol": 1e-08,
+  "eps": 1e-06,
+  "chaos_level": 0.001,
+  "id": "BSZ2",
+  "status": "exploratory junction rescan; human confirmed displayed orange box",
+  "question": "Resolve the apparent crossing or avoiding junction inside the completed BSZ1 window.",
+  "design": "Same fixed opener, horizons and finite-time twin estimator as BSZ1, on the user-confirmed much smaller parameter box.",
+  "reference_scan": {
+    "path": "explore/llm-soft-loop/pod64/bsz1/scan.npz",
+    "sha256": "2afe2dafb3ce73e0dc350144e4b66f31f6749924b55e5746aab6bf3ce6ac6033",
+    "bytes": 3921319
+  },
+  "alpha": [
+    0.07309213265341377,
+    0.07309513265341377
+  ],
+  "log10_temperature": [
+    -0.15440688177867248,
+    -0.1543978817786725
+  ],
+  "resolution": [
+    128,
+    128
+  ],
+  "threads": 8,
+  "chunk": 2048,
+  "display_window": {
+    "alpha": [
+      0.07309213265341377,
+      0.07309513265341377
+    ],
+    "log10_temperature": [
+      -0.15440688177867248,
+      -0.1543978817786725
+    ]
+  },
+  "output": "explore/llm-soft-loop/pod64/bands/bsz2-junction-01",
+  "anchor_plan": "docs/baby-shrimp-zoom/crossing-curve-plan.json",
+  "anchor_plan_sha256": "a9f687e099a0e605221c5ec0b73719d3c9f72f840064698b88e28d5089e7888c",
+  "spacing": [
+    2.362204724411811e-08,
+    7.086614173213579e-08
+  ],
+  "timing": {
+    "reference_receipt": "docs/baby-shrimp-zoom/zoom-receipt.json",
+    "observed_65536_cell_seconds": [
+      9079.1,
+      9214.7,
+      9215.9,
+      8901.5
+    ],
+    "projected_16384_cell_seconds": [
+      2269.775,
+      2303.675,
+      2303.975,
+      2225.375
+    ],
+    "basis": "Identical model, precision, chunk2048 and300+300 horizon. Conservative expected elapsed about40minutes plus setup/retrieval."
+  },
+  "cloud_option": {
+    "gpu": "NVIDIA A100-SXM4-80GB",
+    "pod_count": 1,
+    "gpus_per_pod": 1,
+    "chunk": 2048,
+    "threads": 8,
+    "maximum_lifetime_minutes_per_pod": 105,
+    "compute_timeout_minutes": 65,
+    "ready_timeout_minutes": 10,
+    "setup_run_minutes": 80,
+    "retrieval_reserve_minutes": 20,
+    "no_progress_minutes": 15,
+    "automatic_retries": false,
+    "cost": "see private ledger",
+    "lifecycle": "Exact task ownership, independent watchdog, immutable hash-verified retrieval and verified termination.",
+    "bands": [
+      {
+        "name": "bsz2-junction-01",
+        "rows": [
+          0,
+          128
+        ],
+        "resolution": [
+          128,
+          128
+        ],
+        "log10_temperature": [
+          -0.15440688177867248,
+          -0.1543978817786725
+        ]
+      }
+    ]
+  },
+  "validation": [
+    "Recheck every grid cell, axes, settings, progress, checkpoint and numerical exit before rendering.",
+    "Bind exact source, plan, archive and lifecycle; use nearest-cell rendering with no smoothing.",
+    "Compare with the old BSZ1 pixels in identical physical axes and colors; show fresh exponents separately at a locally disclosed contrast.",
+    "Only separately verified BSC2 trace-zero roots can support a branch-geometry statement; finite-time dark pixels are not multiplier zeros."
+  ],
+  "authorization": "Human confirmed the displayed orange target and instructed do it. Existing task ceiling covers this additional run; cost: see private ledger."
+}
