@@ -31890,3 +31890,15 @@ nearly identical under protan vision.
 - provenance.json has 4793 entries; check_provenance.py, the in-memory Hugo build and the site checks on a scratch copy
   pass. index.md sha256 bb45cc60..., provenance.json 8cd7d3d1...; backups in neural-shrimp-data/blog-bundle-backup/
   before-round17 and before-round18. The post is not committed; it is published after the arXiv announcement.
+
+## 2026-10-21 00:36 UTC: Zenodo record published; links added to the README, the full report and the blog post
+
+- The complete native evidence of both computer-assisted proofs is published at Zenodo,
+  doi:10.5281/zenodo.23488416 (record 23488416; Dataset, CC BY 4.0, code MIT). Checked against the staged package
+  neural-shrimp-data/zenodo/neural-shrimp-proofs-v1: all 39 record files present, all 39 MD5 checksums equal to the
+  local files', the three split archives reassemble to the SHA-256 in SHA256SUMS.txt, and every SHA256SUMS.txt entry
+  verifies locally.
+- README Data section and the full report's Code and data availability now link the record (57d61a3e; report
+  rebuilt, 182 pages). The tag arxiv-v1 (13145281) is unchanged.
+- Blog post (round 19, not committed): the status paragraph, the artifact ledger, the proof-evidence paragraph and
+  Appendix B link the record; check_provenance.py and the site checks pass. index.md sha256 b1d9f965...
