@@ -30,5 +30,23 @@
   "change": "numeric colour bar added (largest Lyapunov exponent per step, clipped at +-0.5); maps unchanged",
   "command": "python tools/render_morph.py llm-soft-loop/pod64/morph llm-soft-loop/controls/vectors-morph-r1-r3-240 OUT --step 2 --samples-only",
   "check": "the same command before the colour bar reproduced samples_figure_sha256 byte for byte"
+ },
+ "complete_video_2026_10_21": {
+  "video": "../neural-shrimp-data/explore/llm-soft-loop/morph-video-v3/morph.mp4",
+  "sha256": "5c9b2404f7f51e1d47596790468268a90438a643a844317ab2549aa587a863bc",
+  "bytes": 25787510,
+  "frames_used": 120,
+  "missing_frames": [],
+  "duration_seconds": 20.17,
+  "size": [
+   1920,
+   1080
+  ],
+  "fps": 24,
+  "samples_figure": "../neural-shrimp-data/explore/llm-soft-loop/morph-video-v3/morph-samples.png",
+  "samples_figure_sha256": "8f968d1540bcf7051c0c6712f3f138386ca257a2d7e55e600e5908a276bdd811",
+  "command": "python tools/render_morph.py llm-soft-loop/pod64/morph llm-soft-loop/controls/vectors-morph-r1-r3-240 ../neural-shrimp-data/explore/llm-soft-loop/morph-video-v3 --step 2",
+  "source_frames": "the 103 V1b frames and the 17 frames of run V3 (docs/morph-fill-receipt.json)",
+  "note": "the 14 Oct video above and its sample figure are unchanged; the article's rotation figure is not redrawn"
  }
 }

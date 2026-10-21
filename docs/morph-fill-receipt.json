@@ -1,0 +1,1524 @@
+{
+ "tool": "tools/morph_fill.py",
+ "tool_sha256": "c0e9f1e4dbe314bba028a7ed985edf586054141814f9c2294db29eb472298f0c",
+ "tool_bytes": 19997,
+ "analysis_commit": "9d1488d0cd2c8a25df9379a0190a86a038d38af8",
+ "analysis_worktree_dirty": true,
+ "created_utc": "2026-10-21T08:46:45Z",
+ "expected_frames": [
+  16,
+  18,
+  78,
+  80,
+  96,
+  98,
+  192,
+  194,
+  196,
+  198,
+  212,
+  214,
+  216,
+  218,
+  220,
+  236,
+  238
+ ],
+ "runs": [
+  {
+   "run": "20261021T043705Z",
+   "source": "../neural-shrimp-data/runpod/soft64/20261021T043705Z",
+   "checks_pass": true,
+   "pod_id": "ymgj027zt378fp",
+   "gpu_type": "SECURE:NVIDIA GeForce RTX 4090",
+   "commit": "00884f9b95dc414b5f6276407093470fc91f249e",
+   "jobset": "morphfill",
+   "runner_returncode": 0,
+   "hash_verified": true,
+   "remote_sha256": "a570b3e747d9303da435a512643a7ff0c2a8a8733434e5491edf3bd3da886cd0",
+   "wall_seconds": 14947,
+   "jobset_args": "llm-soft-loop/morph-fill-init/frame-210 212 220 2 150 40 --samples 80 --record 60 --max-period 24 --resolution 296 512 --alpha -0.12 0.12 --log-temperature -0.45 0.3",
+   "data_sha256": "4a213eb5c2051a7d124710ce88916608512afdb6f5fc3d4557f0b22b10d428cf",
+   "result_json_sha256": "40fb40b56678e23dbc34c2b2a037991a2deae5286f362f50427bffa165038a85",
+   "result_json_bytes": 1232,
+   "results_sha256": "a570b3e747d9303da435a512643a7ff0c2a8a8733434e5491edf3bd3da886cd0",
+   "results_bytes": 28199168,
+   "extract_clash": true,
+   "results_sha256_recomputed": "a570b3e747d9303da435a512643a7ff0c2a8a8733434e5491edf3bd3da886cd0",
+   "reference_sha256": {
+    "scan.json": "5817eddb229f8531c53b0dca959852394259122bb437fabba18d3f5cd8e3672a",
+    "scan.npz": "82706e6cb7817af3b0a6f03487e36ab1df626ac214331f931c02c7c4f27135de"
+   },
+   "reference_bytes": {
+    "scan.json": 754306,
+    "scan.npz": 2386082
+   }
+  },
+  {
+   "run": "20261021T044233Z",
+   "source": "../neural-shrimp-data/runpod/soft64/20261021T044233Z",
+   "checks_pass": true,
+   "pod_id": "y200p1c9a6iy7i",
+   "gpu_type": "SECURE:NVIDIA GeForce RTX 4090",
+   "commit": "00884f9b95dc414b5f6276407093470fc91f249e",
+   "jobset": "morphfill",
+   "runner_returncode": 0,
+   "hash_verified": true,
+   "remote_sha256": "95025c60b2c43d78de33a3f563615063d6d6acdfcc1503fd2538b2f6d8d29fd5",
+   "wall_seconds": 11787,
+   "jobset_args": "llm-soft-loop/morph-fill-init/frame-190 192 198 2 150 40 --samples 80 --record 60 --max-period 24 --resolution 296 512 --alpha -0.12 0.12 --log-temperature -0.45 0.3",
+   "data_sha256": "a7e77c5322be26a80e41803dcaa2f1165f1afa9782d309cd2176be9b9d496879",
+   "result_json_sha256": "0cd4875e831d70eb8e3b2a2eb9d9e236c10e6b4657c4e4681de6c764b851b15b",
+   "result_json_bytes": 1166,
+   "results_sha256": "95025c60b2c43d78de33a3f563615063d6d6acdfcc1503fd2538b2f6d8d29fd5",
+   "results_bytes": 22471783,
+   "extract_clash": true,
+   "results_sha256_recomputed": "95025c60b2c43d78de33a3f563615063d6d6acdfcc1503fd2538b2f6d8d29fd5",
+   "reference_sha256": {
+    "scan.json": "04e1854096aa11e69c7d861f505f03c09a922d0745f495a62557ffb10e990f9f",
+    "scan.npz": "591f2e97dfd80db4aedd5a6e8e26532d23e269c7138d93c00d95bce056c93236"
+   },
+   "reference_bytes": {
+    "scan.json": 741934,
+    "scan.npz": 2382573
+   }
+  },
+  {
+   "run": "20261021T044533Z",
+   "source": "../neural-shrimp-data/runpod/soft64/20261021T044533Z",
+   "checks_pass": true,
+   "pod_id": "sfyvmjqdh7oogt",
+   "gpu_type": "SECURE:NVIDIA GeForce RTX 4090",
+   "commit": "00884f9b95dc414b5f6276407093470fc91f249e",
+   "jobset": "morphfill",
+   "runner_returncode": 0,
+   "hash_verified": true,
+   "remote_sha256": "fa18242dced014f58e212024184ed4c14e60c40aab42974be9139c6a9deb9c9c",
+   "wall_seconds": 6699,
+   "jobset_args": "llm-soft-loop/morph-fill-init/frame-014 16 18 2 150 40 --samples 80 --record 60 --max-period 24 --resolution 296 512 --alpha -0.12 0.12 --log-temperature -0.45 0.3",
+   "data_sha256": "661e022d037bf6d631df317403ac1d9cd5712ca9966f5fa7a2ed2fcb80820ec3",
+   "result_json_sha256": "416d32b85e472daf57f2aa0a140bff130daaff489a0464f926806279be6c086b",
+   "result_json_bytes": 1163,
+   "results_sha256": "fa18242dced014f58e212024184ed4c14e60c40aab42974be9139c6a9deb9c9c",
+   "results_bytes": 11143212,
+   "extract_clash": true,
+   "results_sha256_recomputed": "fa18242dced014f58e212024184ed4c14e60c40aab42974be9139c6a9deb9c9c",
+   "reference_sha256": {
+    "scan.json": "9c1c4158712fc3c427bec1192e5b03bdd4c943e3e70cea6b6187bb2656fe26a5",
+    "scan.npz": "228928c94831e0e971a61acf45f58e444ead80ef197a719286a9b4cc9f6e6789"
+   },
+   "reference_bytes": {
+    "scan.json": 605700,
+    "scan.npz": 2384784
+   }
+  },
+  {
+   "run": "20261021T044834Z",
+   "source": "../neural-shrimp-data/runpod/soft64/20261021T044834Z",
+   "checks_pass": true,
+   "pod_id": "fvxolkylp6xtsx",
+   "gpu_type": "SECURE:NVIDIA GeForce RTX 4090",
+   "commit": "00884f9b95dc414b5f6276407093470fc91f249e",
+   "jobset": "morphfill",
+   "runner_returncode": 0,
+   "hash_verified": true,
+   "remote_sha256": "ad9eb47faa79a020d693e0390c5b6f49a072eaa784e87f5c8ffe5633260fa470",
+   "wall_seconds": 5977,
+   "jobset_args": "llm-soft-loop/morph-fill-init/frame-076 78 80 2 150 40 --samples 80 --record 60 --max-period 24 --resolution 296 512 --alpha -0.12 0.12 --log-temperature -0.45 0.3",
+   "data_sha256": "5c99cfc9db937688351b98a4e839ad9501d208229fbd5fee29e89c7c7e52dfdd",
+   "result_json_sha256": "963452ff161bed5fa1fb599b513eb37ee733bdd9e4e3586790d24de3b2f33c5f",
+   "result_json_bytes": 1229,
+   "results_sha256": "ad9eb47faa79a020d693e0390c5b6f49a072eaa784e87f5c8ffe5633260fa470",
+   "results_bytes": 11112061,
+   "extract_clash": true,
+   "results_sha256_recomputed": "ad9eb47faa79a020d693e0390c5b6f49a072eaa784e87f5c8ffe5633260fa470",
+   "reference_sha256": {
+    "scan.json": "793fdd8d73af99eae8f1786e819954f7626956ab3ba40248b92fd0ae3e3f0bd9",
+    "scan.npz": "9a59adfad2848ecb1a3e6fa81b52d1e32f73c4da93a0d1072f38864804250251"
+   },
+   "reference_bytes": {
+    "scan.json": 688963,
+    "scan.npz": 2377999
+   }
+  },
+  {
+   "run": "20261021T045134Z",
+   "source": "../neural-shrimp-data/runpod/soft64/20261021T045134Z",
+   "checks_pass": true,
+   "pod_id": "6jasryo3tp3zch",
+   "gpu_type": "SECURE:NVIDIA GeForce RTX 4090",
+   "commit": "00884f9b95dc414b5f6276407093470fc91f249e",
+   "jobset": "morphfill",
+   "runner_returncode": 0,
+   "hash_verified": true,
+   "remote_sha256": "564bfa283dc631b9587318ae43a9222f9eba339939e1f4190b84eae8899e0d24",
+   "wall_seconds": 6165,
+   "jobset_args": "llm-soft-loop/morph-fill-init/frame-094 96 98 2 150 40 --samples 80 --record 60 --max-period 24 --resolution 296 512 --alpha -0.12 0.12 --log-temperature -0.45 0.3",
+   "data_sha256": "398b0c178f0bb73f92f66baaf83c61a4107a4f289c8d3ba48ea46c6e1a70ff06",
+   "result_json_sha256": "815f8b098b3aeec93302e7775bae7bcfcb57511174102ca168e8ec76ab1604c7",
+   "result_json_bytes": 1162,
+   "results_sha256": "564bfa283dc631b9587318ae43a9222f9eba339939e1f4190b84eae8899e0d24",
+   "results_bytes": 11105909,
+   "extract_clash": true,
+   "results_sha256_recomputed": "564bfa283dc631b9587318ae43a9222f9eba339939e1f4190b84eae8899e0d24",
+   "reference_sha256": {
+    "scan.json": "ad58e5e0fffd3cc784fd9bc5a4bdad85c4832796a273245405d75d5b6b5205b6",
+    "scan.npz": "7a08401d7126aa6566f358b4e5d2ef24f1dc8ac97c3315f01353e7b6294be34d"
+   },
+   "reference_bytes": {
+    "scan.json": 639417,
+    "scan.npz": 2377735
+   }
+  },
+  {
+   "run": "20261021T045434Z",
+   "source": "../neural-shrimp-data/runpod/soft64/20261021T045434Z",
+   "checks_pass": true,
+   "pod_id": "g37wi4d5w3amvb",
+   "gpu_type": "SECURE:NVIDIA GeForce RTX 4090",
+   "commit": "00884f9b95dc414b5f6276407093470fc91f249e",
+   "jobset": "morphfill",
+   "runner_returncode": 0,
+   "hash_verified": true,
+   "remote_sha256": "ad48b1699c710444863f1407125bcce1f80fc3c591659df9e8d35e1a9fbd3ebf",
+   "wall_seconds": 5705,
+   "jobset_args": "llm-soft-loop/morph-fill-init/frame-234 236 238 2 150 40 --samples 80 --record 60 --max-period 24 --resolution 296 512 --alpha -0.12 0.12 --log-temperature -0.45 0.3",
+   "data_sha256": "d0d4cdf17fd9f0747245f1f5cbf8402b938b082253247994fa25aeb0643c9d54",
+   "result_json_sha256": "9c90a848983c86cd68ceddeee13b566dc1b4d32755b5f793003369f16ccddfab",
+   "result_json_bytes": 1165,
+   "results_sha256": "ad48b1699c710444863f1407125bcce1f80fc3c591659df9e8d35e1a9fbd3ebf",
+   "results_bytes": 11223380,
+   "extract_clash": true,
+   "results_sha256_recomputed": "ad48b1699c710444863f1407125bcce1f80fc3c591659df9e8d35e1a9fbd3ebf",
+   "reference_sha256": {
+    "scan.json": "87a97a404e9f7d5c83263b88ac6a554b82fe71728320b11a1caedda0158b1900",
+    "scan.npz": "7811873775bda46ee49546a1a37c7fa4a71f7aaa62ac0c93c26d28b9a7bb556b"
+   },
+   "reference_bytes": {
+    "scan.json": 704365,
+    "scan.npz": 2384912
+   }
+  }
+ ],
+ "frames": [
+  {
+   "frame": 16,
+   "source": "../neural-shrimp-data/runpod/soft64/20261021T044533Z/extracted/explore/llm-soft-loop/pod64/morph/frame-016",
+   "cells": 151552,
+   "shape": [
+    296,
+    512
+   ],
+   "finite": true,
+   "period_range": [
+    0,
+    24
+   ],
+   "seconds": 2954.0,
+   "chaotic_cells": 22280,
+   "lyapunov_positive": 23115,
+   "concept": "morph-016",
+   "init_states": "llm-soft-loop/morph-fill-init/frame-014",
+   "argument_differences": {},
+   "added_options": {
+    "weights": "native",
+    "prefix": null,
+    "start_vector": null,
+    "word_period": 0,
+    "return_period": 0
+   },
+   "shapes": {
+    "lyapunov": [
+     296,
+     512
+    ],
+    "period": [
+     296,
+     512
+    ],
+    "entropy": [
+     296,
+     512
+    ],
+    "family": [
+     296,
+     512
+    ]
+   },
+   "entropy_finite": true,
+   "grid_equal": true,
+   "period_valid": true,
+   "family_valid": true,
+   "checks_pass": true,
+   "reproduction": {
+    "partial": "../neural-shrimp-data/explore/llm-soft-loop/pod64/morph/frame-016/scan-partial.npz",
+    "partial_sha256": "4110bfef7d16f804c28506558197d760389db569c703666e541040f7f80738ca",
+    "cells_compared": 139264,
+    "grid_equal": true,
+    "bitwise_lyapunov": false,
+    "bitwise_period": true,
+    "bitwise_entropy": false,
+    "token_loops_equal": true,
+    "cells_lyapunov_differ": 219,
+    "cells_period_differ": 0,
+    "periodic_cells": 117492,
+    "periodic_cells_same_period": 117492,
+    "chaotic_cells_partial": 19924,
+    "chaotic_cells_new": 19924,
+    "chaotic_label_agree": 139264,
+    "max_abs_lyapunov_difference": 8.881784197001252e-16,
+    "median_abs_lyapunov_difference": 0.0,
+    "acceptance_rule": "equal grid and bitwise periods, or at least 90% of old periodic cells retain their period",
+    "periodic_agreement_threshold": 0.9,
+    "reproduced": true
+   },
+   "run": "20261021T044533Z",
+   "source_sha256": {
+    "scan-partial.npz": "1d5781893d92d2ed794fc9edef304963480e3f2e5b293856ac8f508f59bef73d",
+    "scan.npz": "9b0daee4f77d458f29307f1dcea28838fda0de2f22ea29ae43898f7142003324",
+    "scan.json": "54fb1f79a0434efc063dd5e222dbc49458677f71bb4aedf3f52dfbbbbbcc928d",
+    "scan.png": "b9ba93fbdd8150d41782a9535b18c3df5e815f24a6297695e311ba4163695864"
+   },
+   "source_bytes": {
+    "scan-partial.npz": 2505049,
+    "scan.npz": 2454571,
+    "scan.json": 1739527,
+    "scan.png": 471033
+   },
+   "installed": {
+    "scan.npz": "9b0daee4f77d458f29307f1dcea28838fda0de2f22ea29ae43898f7142003324",
+    "scan.json": "54fb1f79a0434efc063dd5e222dbc49458677f71bb4aedf3f52dfbbbbbcc928d",
+    "scan.png": "b9ba93fbdd8150d41782a9535b18c3df5e815f24a6297695e311ba4163695864"
+   }
+  },
+  {
+   "frame": 18,
+   "source": "../neural-shrimp-data/runpod/soft64/20261021T044533Z/extracted/explore/llm-soft-loop/pod64/morph/frame-018",
+   "cells": 151552,
+   "shape": [
+    296,
+    512
+   ],
+   "finite": true,
+   "period_range": [
+    0,
+    24
+   ],
+   "seconds": 2990.8,
+   "chaotic_cells": 21871,
+   "lyapunov_positive": 22635,
+   "concept": "morph-018",
+   "init_states": "llm-soft-loop/pod64/morph/frame-016",
+   "argument_differences": {},
+   "added_options": {
+    "weights": "native",
+    "prefix": null,
+    "start_vector": null,
+    "word_period": 0,
+    "return_period": 0
+   },
+   "shapes": {
+    "lyapunov": [
+     296,
+     512
+    ],
+    "period": [
+     296,
+     512
+    ],
+    "entropy": [
+     296,
+     512
+    ],
+    "family": [
+     296,
+     512
+    ]
+   },
+   "entropy_finite": true,
+   "grid_equal": true,
+   "period_valid": true,
+   "family_valid": true,
+   "checks_pass": true,
+   "run": "20261021T044533Z",
+   "source_sha256": {
+    "scan-partial.npz": "fc060fa39ab0a4e755372840c4062cdbd6d3a401099d61dae6ec2c9e8e3b7e17",
+    "scan.npz": "1e5de1076a0b83d66f02ea44511d80d5e5b9ed3d33b008d21ff3008ce18b540d",
+    "scan.json": "9b440d197595fb9371c65256a958d6922171925133b82ae3371f556b2e9cbc21",
+    "scan.png": "ecff518ea6d80f0a5201b441725f08ee46f34f3be76618808626998bf2c14e1b"
+   },
+   "source_bytes": {
+    "scan-partial.npz": 2493338,
+    "scan.npz": 2448971,
+    "scan.json": 1539439,
+    "scan.png": 468605
+   },
+   "installed": {
+    "scan.npz": "1e5de1076a0b83d66f02ea44511d80d5e5b9ed3d33b008d21ff3008ce18b540d",
+    "scan.json": "9b440d197595fb9371c65256a958d6922171925133b82ae3371f556b2e9cbc21",
+    "scan.png": "ecff518ea6d80f0a5201b441725f08ee46f34f3be76618808626998bf2c14e1b",
+    "scan-partial.npz": "fc060fa39ab0a4e755372840c4062cdbd6d3a401099d61dae6ec2c9e8e3b7e17"
+   }
+  },
+  {
+   "frame": 78,
+   "source": "../neural-shrimp-data/runpod/soft64/20261021T044834Z/extracted/explore/llm-soft-loop/pod64/morph/frame-078",
+   "cells": 151552,
+   "shape": [
+    296,
+    512
+   ],
+   "finite": true,
+   "period_range": [
+    0,
+    24
+   ],
+   "seconds": 2690.5,
+   "chaotic_cells": 24142,
+   "lyapunov_positive": 24863,
+   "concept": "morph-078",
+   "init_states": "llm-soft-loop/morph-fill-init/frame-076",
+   "argument_differences": {},
+   "added_options": {
+    "weights": "native",
+    "prefix": null,
+    "start_vector": null,
+    "word_period": 0,
+    "return_period": 0
+   },
+   "shapes": {
+    "lyapunov": [
+     296,
+     512
+    ],
+    "period": [
+     296,
+     512
+    ],
+    "entropy": [
+     296,
+     512
+    ],
+    "family": [
+     296,
+     512
+    ]
+   },
+   "entropy_finite": true,
+   "grid_equal": true,
+   "period_valid": true,
+   "family_valid": true,
+   "checks_pass": true,
+   "reproduction": {
+    "partial": "../neural-shrimp-data/explore/llm-soft-loop/pod64/morph/frame-078/scan-partial.npz",
+    "partial_sha256": "280a202cee587cb8f2f89b570c8c5c25e50407fd9f23f753cf49fc6a9d5d8f97",
+    "cells_compared": 32768,
+    "grid_equal": true,
+    "bitwise_lyapunov": true,
+    "bitwise_period": true,
+    "bitwise_entropy": true,
+    "token_loops_equal": true,
+    "cells_lyapunov_differ": 0,
+    "cells_period_differ": 0,
+    "periodic_cells": 31660,
+    "periodic_cells_same_period": 31660,
+    "chaotic_cells_partial": 589,
+    "chaotic_cells_new": 589,
+    "chaotic_label_agree": 32768,
+    "max_abs_lyapunov_difference": 0.0,
+    "median_abs_lyapunov_difference": 0.0,
+    "acceptance_rule": "equal grid and bitwise periods, or at least 90% of old periodic cells retain their period",
+    "periodic_agreement_threshold": 0.9,
+    "reproduced": true
+   },
+   "run": "20261021T044834Z",
+   "source_sha256": {
+    "scan-partial.npz": "15a3762fc5d1e0746c10fca420d7b3347daadba5d26b02790d6b7d9bbe3ce680",
+    "scan.npz": "6fe10097af71609571dc58752f6a6cfb196610414ada3d9e442864bcb43fb0d2",
+    "scan.json": "373806613e17f68ce53999c057e638ddeb00ff418c4976f0b556f72a7ada414e",
+    "scan.png": "a30fc6f7b036849adc18b755b67f35ce1575204c8fbb841b3cca7e28edbb3c4c"
+   },
+   "source_bytes": {
+    "scan-partial.npz": 2498389,
+    "scan.npz": 2442235,
+    "scan.json": 1895811,
+    "scan.png": 445228
+   },
+   "installed": {
+    "scan.npz": "6fe10097af71609571dc58752f6a6cfb196610414ada3d9e442864bcb43fb0d2",
+    "scan.json": "373806613e17f68ce53999c057e638ddeb00ff418c4976f0b556f72a7ada414e",
+    "scan.png": "a30fc6f7b036849adc18b755b67f35ce1575204c8fbb841b3cca7e28edbb3c4c"
+   }
+  },
+  {
+   "frame": 80,
+   "source": "../neural-shrimp-data/runpod/soft64/20261021T044834Z/extracted/explore/llm-soft-loop/pod64/morph/frame-080",
+   "cells": 151552,
+   "shape": [
+    296,
+    512
+   ],
+   "finite": true,
+   "period_range": [
+    0,
+    24
+   ],
+   "seconds": 2661.3,
+   "chaotic_cells": 24013,
+   "lyapunov_positive": 24719,
+   "concept": "morph-080",
+   "init_states": "llm-soft-loop/pod64/morph/frame-078",
+   "argument_differences": {},
+   "added_options": {
+    "weights": "native",
+    "prefix": null,
+    "start_vector": null,
+    "word_period": 0,
+    "return_period": 0
+   },
+   "shapes": {
+    "lyapunov": [
+     296,
+     512
+    ],
+    "period": [
+     296,
+     512
+    ],
+    "entropy": [
+     296,
+     512
+    ],
+    "family": [
+     296,
+     512
+    ]
+   },
+   "entropy_finite": true,
+   "grid_equal": true,
+   "period_valid": true,
+   "family_valid": true,
+   "checks_pass": true,
+   "reproduction": {
+    "partial": "../neural-shrimp-data/explore/llm-soft-loop/pod64/morph/frame-080/scan-partial.npz",
+    "compared": false,
+    "reason": "partial file of the 13-14 Oct V1 attempt (other settings)"
+   },
+   "run": "20261021T044834Z",
+   "source_sha256": {
+    "scan-partial.npz": "fe7bed13e913e3eb7de998523aee7e8353b6c29e244963cf99e43fd57e85c78d",
+    "scan.npz": "6b08dd2fac48c9b795adc02df3bdb03f242aba5d24d6678c94afbfee2d1e816f",
+    "scan.json": "4c169414308fae1ce4fc72e9f2979af4a81373ba15728abd6ae26ef9be42e3c9",
+    "scan.png": "c92d5ccc4802862b983b4e768a31733943ff4fe34c7c546c40ba570cf00fc1a6"
+   },
+   "source_bytes": {
+    "scan-partial.npz": 2495926,
+    "scan.npz": 2442113,
+    "scan.json": 1851521,
+    "scan.png": 443850
+   },
+   "installed": {
+    "scan.npz": "6b08dd2fac48c9b795adc02df3bdb03f242aba5d24d6678c94afbfee2d1e816f",
+    "scan.json": "4c169414308fae1ce4fc72e9f2979af4a81373ba15728abd6ae26ef9be42e3c9",
+    "scan.png": "c92d5ccc4802862b983b4e768a31733943ff4fe34c7c546c40ba570cf00fc1a6"
+   }
+  },
+  {
+   "frame": 96,
+   "source": "../neural-shrimp-data/runpod/soft64/20261021T045134Z/extracted/explore/llm-soft-loop/pod64/morph/frame-096",
+   "cells": 151552,
+   "shape": [
+    296,
+    512
+   ],
+   "finite": true,
+   "period_range": [
+    0,
+    24
+   ],
+   "seconds": 2685.2,
+   "chaotic_cells": 25086,
+   "lyapunov_positive": 25767,
+   "concept": "morph-096",
+   "init_states": "llm-soft-loop/morph-fill-init/frame-094",
+   "argument_differences": {},
+   "added_options": {
+    "weights": "native",
+    "prefix": null,
+    "start_vector": null,
+    "word_period": 0,
+    "return_period": 0
+   },
+   "shapes": {
+    "lyapunov": [
+     296,
+     512
+    ],
+    "period": [
+     296,
+     512
+    ],
+    "entropy": [
+     296,
+     512
+    ],
+    "family": [
+     296,
+     512
+    ]
+   },
+   "entropy_finite": true,
+   "grid_equal": true,
+   "period_valid": true,
+   "family_valid": true,
+   "checks_pass": true,
+   "reproduction": {
+    "partial": "../neural-shrimp-data/explore/llm-soft-loop/pod64/morph/frame-096/scan-partial.npz",
+    "partial_sha256": "ed2bb507bd6ea2b97e03fb8764deba35ad16770ea4b7d9227828b0e03c92e25f",
+    "cells_compared": 40960,
+    "grid_equal": true,
+    "bitwise_lyapunov": true,
+    "bitwise_period": true,
+    "bitwise_entropy": true,
+    "token_loops_equal": true,
+    "cells_lyapunov_differ": 0,
+    "cells_period_differ": 0,
+    "periodic_cells": 37940,
+    "periodic_cells_same_period": 37940,
+    "chaotic_cells_partial": 2418,
+    "chaotic_cells_new": 2418,
+    "chaotic_label_agree": 40960,
+    "max_abs_lyapunov_difference": 0.0,
+    "median_abs_lyapunov_difference": 0.0,
+    "acceptance_rule": "equal grid and bitwise periods, or at least 90% of old periodic cells retain their period",
+    "periodic_agreement_threshold": 0.9,
+    "reproduced": true
+   },
+   "run": "20261021T045134Z",
+   "source_sha256": {
+    "scan-partial.npz": "450eb18095b5bb4855e9b479f73892cc319c31d59994285967a9d5eac227f2e4",
+    "scan.npz": "665dfa1cbac048a528681811b9367f2d360eb3d718c238bbc3a8c43eec465848",
+    "scan.json": "7bd09e2b045082d3f8aff57e9d494f136fb02eb7e8cc0406b7de3444a1c39d4a",
+    "scan.png": "eef53511640216ca51e420f238d914bf4d3b9cabf7fafc3a34d7e9a5027043f4"
+   },
+   "source_bytes": {
+    "scan-partial.npz": 2494776,
+    "scan.npz": 2441751,
+    "scan.json": 1895003,
+    "scan.png": 454933
+   },
+   "installed": {
+    "scan.npz": "665dfa1cbac048a528681811b9367f2d360eb3d718c238bbc3a8c43eec465848",
+    "scan.json": "7bd09e2b045082d3f8aff57e9d494f136fb02eb7e8cc0406b7de3444a1c39d4a",
+    "scan.png": "eef53511640216ca51e420f238d914bf4d3b9cabf7fafc3a34d7e9a5027043f4"
+   }
+  },
+  {
+   "frame": 98,
+   "source": "../neural-shrimp-data/runpod/soft64/20261021T045134Z/extracted/explore/llm-soft-loop/pod64/morph/frame-098",
+   "cells": 151552,
+   "shape": [
+    296,
+    512
+   ],
+   "finite": true,
+   "period_range": [
+    0,
+    24
+   ],
+   "seconds": 2707.1,
+   "chaotic_cells": 25684,
+   "lyapunov_positive": 26383,
+   "concept": "morph-098",
+   "init_states": "llm-soft-loop/pod64/morph/frame-096",
+   "argument_differences": {},
+   "added_options": {
+    "weights": "native",
+    "prefix": null,
+    "start_vector": null,
+    "word_period": 0,
+    "return_period": 0
+   },
+   "shapes": {
+    "lyapunov": [
+     296,
+     512
+    ],
+    "period": [
+     296,
+     512
+    ],
+    "entropy": [
+     296,
+     512
+    ],
+    "family": [
+     296,
+     512
+    ]
+   },
+   "entropy_finite": true,
+   "grid_equal": true,
+   "period_valid": true,
+   "family_valid": true,
+   "checks_pass": true,
+   "run": "20261021T045134Z",
+   "source_sha256": {
+    "scan-partial.npz": "2ce175c16fca2f110cfa8b40ce1b521f2e92bb9b80cdfc74761607a72433866f",
+    "scan.npz": "e289dacbbada52846e84772d173ea169cbe5e9d72a2ca36822a9cd2961d27c89",
+    "scan.json": "0fa64846f48530205d73a596c93522446111dbe6d7b480f3cbb4a4be778842de",
+    "scan.png": "94bd57628f4d8f55d3bd7cda5b362bfdc7745110adac316062a74d4e1534c119"
+   },
+   "source_bytes": {
+    "scan-partial.npz": 2489464,
+    "scan.npz": 2440411,
+    "scan.json": 1783188,
+    "scan.png": 459053
+   },
+   "installed": {
+    "scan.npz": "e289dacbbada52846e84772d173ea169cbe5e9d72a2ca36822a9cd2961d27c89",
+    "scan.json": "0fa64846f48530205d73a596c93522446111dbe6d7b480f3cbb4a4be778842de",
+    "scan.png": "94bd57628f4d8f55d3bd7cda5b362bfdc7745110adac316062a74d4e1534c119",
+    "scan-partial.npz": "2ce175c16fca2f110cfa8b40ce1b521f2e92bb9b80cdfc74761607a72433866f"
+   }
+  },
+  {
+   "frame": 192,
+   "source": "../neural-shrimp-data/runpod/soft64/20261021T044233Z/extracted/explore/llm-soft-loop/pod64/morph/frame-192",
+   "cells": 151552,
+   "shape": [
+    296,
+    512
+   ],
+   "finite": true,
+   "period_range": [
+    0,
+    24
+   ],
+   "seconds": 2767.2,
+   "chaotic_cells": 28139,
+   "lyapunov_positive": 29132,
+   "concept": "morph-192",
+   "init_states": "llm-soft-loop/morph-fill-init/frame-190",
+   "argument_differences": {},
+   "added_options": {
+    "weights": "native",
+    "prefix": null,
+    "start_vector": null,
+    "word_period": 0,
+    "return_period": 0
+   },
+   "shapes": {
+    "lyapunov": [
+     296,
+     512
+    ],
+    "period": [
+     296,
+     512
+    ],
+    "entropy": [
+     296,
+     512
+    ],
+    "family": [
+     296,
+     512
+    ]
+   },
+   "entropy_finite": true,
+   "grid_equal": true,
+   "period_valid": true,
+   "family_valid": true,
+   "checks_pass": true,
+   "reproduction": {
+    "partial": "../neural-shrimp-data/explore/llm-soft-loop/pod64/morph/frame-192/scan-partial.npz",
+    "partial_sha256": "acf93f3697db3f43e9ea36199d99c3944c29cd87c39f64ebb4385e57e26cd21b",
+    "cells_compared": 8192,
+    "grid_equal": true,
+    "bitwise_lyapunov": true,
+    "bitwise_period": true,
+    "bitwise_entropy": true,
+    "token_loops_equal": true,
+    "cells_lyapunov_differ": 0,
+    "cells_period_differ": 0,
+    "periodic_cells": 7926,
+    "periodic_cells_same_period": 7926,
+    "chaotic_cells_partial": 165,
+    "chaotic_cells_new": 165,
+    "chaotic_label_agree": 8192,
+    "max_abs_lyapunov_difference": 0.0,
+    "median_abs_lyapunov_difference": 0.0,
+    "acceptance_rule": "equal grid and bitwise periods, or at least 90% of old periodic cells retain their period",
+    "periodic_agreement_threshold": 0.9,
+    "reproduced": true
+   },
+   "run": "20261021T044233Z",
+   "source_sha256": {
+    "scan-partial.npz": "f2c634cdb75777ca53ae3e2a512944e325fb557c855a38408945f5a0097c1aec",
+    "scan.npz": "7a8c10809b184952f198ab75e33635e135db6e22608dee12498012682dee5261",
+    "scan.json": "e7d9b3be28a5339d9b82c58516f074c8cf6d0bf03a1e3bea94937b58841a8715",
+    "scan.png": "0dffaa53d15d24375a1c8efbb1292a8d0096d8803be6d57dc777365127aa4765"
+   },
+   "source_bytes": {
+    "scan-partial.npz": 2506376,
+    "scan.npz": 2451122,
+    "scan.json": 2107283,
+    "scan.png": 467432
+   },
+   "installed": {
+    "scan.npz": "7a8c10809b184952f198ab75e33635e135db6e22608dee12498012682dee5261",
+    "scan.json": "e7d9b3be28a5339d9b82c58516f074c8cf6d0bf03a1e3bea94937b58841a8715",
+    "scan.png": "0dffaa53d15d24375a1c8efbb1292a8d0096d8803be6d57dc777365127aa4765"
+   }
+  },
+  {
+   "frame": 194,
+   "source": "../neural-shrimp-data/runpod/soft64/20261021T044233Z/extracted/explore/llm-soft-loop/pod64/morph/frame-194",
+   "cells": 151552,
+   "shape": [
+    296,
+    512
+   ],
+   "finite": true,
+   "period_range": [
+    0,
+    24
+   ],
+   "seconds": 2761.7,
+   "chaotic_cells": 27976,
+   "lyapunov_positive": 28909,
+   "concept": "morph-194",
+   "init_states": "llm-soft-loop/pod64/morph/frame-192",
+   "argument_differences": {},
+   "added_options": {
+    "weights": "native",
+    "prefix": null,
+    "start_vector": null,
+    "word_period": 0,
+    "return_period": 0
+   },
+   "shapes": {
+    "lyapunov": [
+     296,
+     512
+    ],
+    "period": [
+     296,
+     512
+    ],
+    "entropy": [
+     296,
+     512
+    ],
+    "family": [
+     296,
+     512
+    ]
+   },
+   "entropy_finite": true,
+   "grid_equal": true,
+   "period_valid": true,
+   "family_valid": true,
+   "checks_pass": true,
+   "run": "20261021T044233Z",
+   "source_sha256": {
+    "scan-partial.npz": "196d2f83064951924cdd11597b98ac399c4868e2e7e6e9b0e775e071698ec9fa",
+    "scan.npz": "f9fc5dcd8676357975ea20fde3fdd31e68fa4d318ef4e9ff40d67d0084b592d0",
+    "scan.json": "ec142c7429222e9ba219395a2144e15348084d6fed28703a7c109c116316bc1e",
+    "scan.png": "6c73d397f3b81023abfcbec04a7d461d04a1e42504ef979f41d7616bafec4013"
+   },
+   "source_bytes": {
+    "scan-partial.npz": 2508215,
+    "scan.npz": 2450931,
+    "scan.json": 2144548,
+    "scan.png": 472446
+   },
+   "installed": {
+    "scan.npz": "f9fc5dcd8676357975ea20fde3fdd31e68fa4d318ef4e9ff40d67d0084b592d0",
+    "scan.json": "ec142c7429222e9ba219395a2144e15348084d6fed28703a7c109c116316bc1e",
+    "scan.png": "6c73d397f3b81023abfcbec04a7d461d04a1e42504ef979f41d7616bafec4013",
+    "scan-partial.npz": "196d2f83064951924cdd11597b98ac399c4868e2e7e6e9b0e775e071698ec9fa"
+   }
+  },
+  {
+   "frame": 196,
+   "source": "../neural-shrimp-data/runpod/soft64/20261021T044233Z/extracted/explore/llm-soft-loop/pod64/morph/frame-196",
+   "cells": 151552,
+   "shape": [
+    296,
+    512
+   ],
+   "finite": true,
+   "period_range": [
+    0,
+    24
+   ],
+   "seconds": 2687.9,
+   "chaotic_cells": 27818,
+   "lyapunov_positive": 28771,
+   "concept": "morph-196",
+   "init_states": "llm-soft-loop/pod64/morph/frame-194",
+   "argument_differences": {},
+   "added_options": {
+    "weights": "native",
+    "prefix": null,
+    "start_vector": null,
+    "word_period": 0,
+    "return_period": 0
+   },
+   "shapes": {
+    "lyapunov": [
+     296,
+     512
+    ],
+    "period": [
+     296,
+     512
+    ],
+    "entropy": [
+     296,
+     512
+    ],
+    "family": [
+     296,
+     512
+    ]
+   },
+   "entropy_finite": true,
+   "grid_equal": true,
+   "period_valid": true,
+   "family_valid": true,
+   "checks_pass": true,
+   "run": "20261021T044233Z",
+   "source_sha256": {
+    "scan-partial.npz": "968d623423ae5f95d32824c7780fcea2cc94d52832c315fbe60c9e4cd609efeb",
+    "scan.npz": "86a7209f2d7a65ce018d96d330dca5689bce1d2287bf9bf945c851785773b1b9",
+    "scan.json": "f7cc6db1817dadb4fb5f9b40d2cfd4d1b3de8cf00a169b33cf5f63a7295194f3",
+    "scan.png": "c0839f0f18d674ee85dcd868100185b67b1f3e7f2ce1b6327dddf480cb451516"
+   },
+   "source_bytes": {
+    "scan-partial.npz": 2509960,
+    "scan.npz": 2452767,
+    "scan.json": 2170424,
+    "scan.png": 472403
+   },
+   "installed": {
+    "scan.npz": "86a7209f2d7a65ce018d96d330dca5689bce1d2287bf9bf945c851785773b1b9",
+    "scan.json": "f7cc6db1817dadb4fb5f9b40d2cfd4d1b3de8cf00a169b33cf5f63a7295194f3",
+    "scan.png": "c0839f0f18d674ee85dcd868100185b67b1f3e7f2ce1b6327dddf480cb451516",
+    "scan-partial.npz": "968d623423ae5f95d32824c7780fcea2cc94d52832c315fbe60c9e4cd609efeb"
+   }
+  },
+  {
+   "frame": 198,
+   "source": "../neural-shrimp-data/runpod/soft64/20261021T044233Z/extracted/explore/llm-soft-loop/pod64/morph/frame-198",
+   "cells": 151552,
+   "shape": [
+    296,
+    512
+   ],
+   "finite": true,
+   "period_range": [
+    0,
+    24
+   ],
+   "seconds": 2682.3,
+   "chaotic_cells": 27630,
+   "lyapunov_positive": 28548,
+   "concept": "morph-198",
+   "init_states": "llm-soft-loop/pod64/morph/frame-196",
+   "argument_differences": {},
+   "added_options": {
+    "weights": "native",
+    "prefix": null,
+    "start_vector": null,
+    "word_period": 0,
+    "return_period": 0
+   },
+   "shapes": {
+    "lyapunov": [
+     296,
+     512
+    ],
+    "period": [
+     296,
+     512
+    ],
+    "entropy": [
+     296,
+     512
+    ],
+    "family": [
+     296,
+     512
+    ]
+   },
+   "entropy_finite": true,
+   "grid_equal": true,
+   "period_valid": true,
+   "family_valid": true,
+   "checks_pass": true,
+   "run": "20261021T044233Z",
+   "source_sha256": {
+    "scan-partial.npz": "8822fcc76102f20ff13f403b9a42f6c8caccffd2c6b7e4c517ecca4c2464c374",
+    "scan.npz": "870d9797774ac9c737c288b4c2c04b447d0411e5109064f99fe6e97b3f2d99e1",
+    "scan.json": "16d62f6be2d4fb077c45174e1ea664ad322091db3d6b061bad09af21096bad91",
+    "scan.png": "cf54daea1e3eea26b6618e4ea56392e0244aebb8474d27c0fa67cccba8f605c2"
+   },
+   "source_bytes": {
+    "scan-partial.npz": 2511007,
+    "scan.npz": 2453285,
+    "scan.json": 2190150,
+    "scan.png": 474590
+   },
+   "installed": {
+    "scan.npz": "870d9797774ac9c737c288b4c2c04b447d0411e5109064f99fe6e97b3f2d99e1",
+    "scan.json": "16d62f6be2d4fb077c45174e1ea664ad322091db3d6b061bad09af21096bad91",
+    "scan.png": "cf54daea1e3eea26b6618e4ea56392e0244aebb8474d27c0fa67cccba8f605c2",
+    "scan-partial.npz": "8822fcc76102f20ff13f403b9a42f6c8caccffd2c6b7e4c517ecca4c2464c374"
+   }
+  },
+  {
+   "frame": 212,
+   "source": "../neural-shrimp-data/runpod/soft64/20261021T043705Z/extracted/explore/llm-soft-loop/pod64/morph/frame-212",
+   "cells": 151552,
+   "shape": [
+    296,
+    512
+   ],
+   "finite": true,
+   "period_range": [
+    0,
+    24
+   ],
+   "seconds": 2947.5,
+   "chaotic_cells": 28858,
+   "lyapunov_positive": 29774,
+   "concept": "morph-212",
+   "init_states": "llm-soft-loop/morph-fill-init/frame-210",
+   "argument_differences": {},
+   "added_options": {
+    "weights": "native",
+    "prefix": null,
+    "start_vector": null,
+    "word_period": 0,
+    "return_period": 0
+   },
+   "shapes": {
+    "lyapunov": [
+     296,
+     512
+    ],
+    "period": [
+     296,
+     512
+    ],
+    "entropy": [
+     296,
+     512
+    ],
+    "family": [
+     296,
+     512
+    ]
+   },
+   "entropy_finite": true,
+   "grid_equal": true,
+   "period_valid": true,
+   "family_valid": true,
+   "checks_pass": true,
+   "reproduction": {
+    "partial": "../neural-shrimp-data/explore/llm-soft-loop/pod64/morph/frame-212/scan-partial.npz",
+    "partial_sha256": "3951f45240dc5211ed66708621004a5e0abea61df9585c94a46d3c2ca62b5a2b",
+    "cells_compared": 106496,
+    "grid_equal": true,
+    "bitwise_lyapunov": true,
+    "bitwise_period": true,
+    "bitwise_entropy": true,
+    "token_loops_equal": true,
+    "cells_lyapunov_differ": 0,
+    "cells_period_differ": 0,
+    "periodic_cells": 90353,
+    "periodic_cells_same_period": 90353,
+    "chaotic_cells_partial": 14008,
+    "chaotic_cells_new": 14008,
+    "chaotic_label_agree": 106496,
+    "max_abs_lyapunov_difference": 0.0,
+    "median_abs_lyapunov_difference": 0.0,
+    "acceptance_rule": "equal grid and bitwise periods, or at least 90% of old periodic cells retain their period",
+    "periodic_agreement_threshold": 0.9,
+    "reproduced": true
+   },
+   "run": "20261021T043705Z",
+   "source_sha256": {
+    "scan-partial.npz": "3864b594b66b05b20eb00e6e26e866f74b63ff7b54e717171ab3ce79b7c49e08",
+    "scan.npz": "f9fe57a843176108c92ceb9749cce572d53fc592edf26cc745a270572fccf42d",
+    "scan.json": "4e417e784208236ad239b73578e88166f51299f2955b8dca435df4ca3fcc5860",
+    "scan.png": "bf2e131a2b0a36bc3fbaa581a6d8ac4a783e909dd48154c2f43477cfae661d9f"
+   },
+   "source_bytes": {
+    "scan-partial.npz": 2512203,
+    "scan.npz": 2453565,
+    "scan.json": 2192233,
+    "scan.png": 477715
+   },
+   "installed": {
+    "scan.npz": "f9fe57a843176108c92ceb9749cce572d53fc592edf26cc745a270572fccf42d",
+    "scan.json": "4e417e784208236ad239b73578e88166f51299f2955b8dca435df4ca3fcc5860",
+    "scan.png": "bf2e131a2b0a36bc3fbaa581a6d8ac4a783e909dd48154c2f43477cfae661d9f"
+   }
+  },
+  {
+   "frame": 214,
+   "source": "../neural-shrimp-data/runpod/soft64/20261021T043705Z/extracted/explore/llm-soft-loop/pod64/morph/frame-214",
+   "cells": 151552,
+   "shape": [
+    296,
+    512
+   ],
+   "finite": true,
+   "period_range": [
+    0,
+    24
+   ],
+   "seconds": 2805.4,
+   "chaotic_cells": 28968,
+   "lyapunov_positive": 29911,
+   "concept": "morph-214",
+   "init_states": "llm-soft-loop/pod64/morph/frame-212",
+   "argument_differences": {},
+   "added_options": {
+    "weights": "native",
+    "prefix": null,
+    "start_vector": null,
+    "word_period": 0,
+    "return_period": 0
+   },
+   "shapes": {
+    "lyapunov": [
+     296,
+     512
+    ],
+    "period": [
+     296,
+     512
+    ],
+    "entropy": [
+     296,
+     512
+    ],
+    "family": [
+     296,
+     512
+    ]
+   },
+   "entropy_finite": true,
+   "grid_equal": true,
+   "period_valid": true,
+   "family_valid": true,
+   "checks_pass": true,
+   "run": "20261021T043705Z",
+   "source_sha256": {
+    "scan-partial.npz": "96775e26a0ca3cec4706ba7736caaf94b797786e9b16ba785dd826ae3a94ee3d",
+    "scan.npz": "b7bc8ee19df434ca3b0fce8bc709e1da9285a6b9bec7c1fceee866ca4b574238",
+    "scan.json": "80431bad5effb46a9f2e3ac18e78c5a3419683311119170643885583acfd90b9",
+    "scan.png": "07ed98b9f63f9ae52d894fd67467127009fd4454a08866daf1914519311b8f07"
+   },
+   "source_bytes": {
+    "scan-partial.npz": 2510854,
+    "scan.npz": 2453194,
+    "scan.json": 2166864,
+    "scan.png": 477869
+   },
+   "installed": {
+    "scan.npz": "b7bc8ee19df434ca3b0fce8bc709e1da9285a6b9bec7c1fceee866ca4b574238",
+    "scan.json": "80431bad5effb46a9f2e3ac18e78c5a3419683311119170643885583acfd90b9",
+    "scan.png": "07ed98b9f63f9ae52d894fd67467127009fd4454a08866daf1914519311b8f07",
+    "scan-partial.npz": "96775e26a0ca3cec4706ba7736caaf94b797786e9b16ba785dd826ae3a94ee3d"
+   }
+  },
+  {
+   "frame": 216,
+   "source": "../neural-shrimp-data/runpod/soft64/20261021T043705Z/extracted/explore/llm-soft-loop/pod64/morph/frame-216",
+   "cells": 151552,
+   "shape": [
+    296,
+    512
+   ],
+   "finite": true,
+   "period_range": [
+    0,
+    24
+   ],
+   "seconds": 2809.7,
+   "chaotic_cells": 29390,
+   "lyapunov_positive": 30343,
+   "concept": "morph-216",
+   "init_states": "llm-soft-loop/pod64/morph/frame-214",
+   "argument_differences": {},
+   "added_options": {
+    "weights": "native",
+    "prefix": null,
+    "start_vector": null,
+    "word_period": 0,
+    "return_period": 0
+   },
+   "shapes": {
+    "lyapunov": [
+     296,
+     512
+    ],
+    "period": [
+     296,
+     512
+    ],
+    "entropy": [
+     296,
+     512
+    ],
+    "family": [
+     296,
+     512
+    ]
+   },
+   "entropy_finite": true,
+   "grid_equal": true,
+   "period_valid": true,
+   "family_valid": true,
+   "checks_pass": true,
+   "run": "20261021T043705Z",
+   "source_sha256": {
+    "scan-partial.npz": "128d12d10dc43442297296f50961c37ff839d918cdfc4246928c08b8861cc9ab",
+    "scan.npz": "db60355918ed46e419ed075513072d3c34f62eff852accf8ab65863f0386af6e",
+    "scan.json": "0c824a4fd49b82407f2be9df5c7cae12e35c75f85f5d08d5226bba40ae81307b",
+    "scan.png": "95e1168944c170532a2bfd0f3b26e4161791aa56696e0c7a5b0ab9f4c18d5e87"
+   },
+   "source_bytes": {
+    "scan-partial.npz": 2512085,
+    "scan.npz": 2453382,
+    "scan.json": 2179160,
+    "scan.png": 481205
+   },
+   "installed": {
+    "scan.npz": "db60355918ed46e419ed075513072d3c34f62eff852accf8ab65863f0386af6e",
+    "scan.json": "0c824a4fd49b82407f2be9df5c7cae12e35c75f85f5d08d5226bba40ae81307b",
+    "scan.png": "95e1168944c170532a2bfd0f3b26e4161791aa56696e0c7a5b0ab9f4c18d5e87",
+    "scan-partial.npz": "128d12d10dc43442297296f50961c37ff839d918cdfc4246928c08b8861cc9ab"
+   }
+  },
+  {
+   "frame": 218,
+   "source": "../neural-shrimp-data/runpod/soft64/20261021T043705Z/extracted/explore/llm-soft-loop/pod64/morph/frame-218",
+   "cells": 151552,
+   "shape": [
+    296,
+    512
+   ],
+   "finite": true,
+   "period_range": [
+    0,
+    24
+   ],
+   "seconds": 2932.7,
+   "chaotic_cells": 30780,
+   "lyapunov_positive": 31744,
+   "concept": "morph-218",
+   "init_states": "llm-soft-loop/pod64/morph/frame-216",
+   "argument_differences": {},
+   "added_options": {
+    "weights": "native",
+    "prefix": null,
+    "start_vector": null,
+    "word_period": 0,
+    "return_period": 0
+   },
+   "shapes": {
+    "lyapunov": [
+     296,
+     512
+    ],
+    "period": [
+     296,
+     512
+    ],
+    "entropy": [
+     296,
+     512
+    ],
+    "family": [
+     296,
+     512
+    ]
+   },
+   "entropy_finite": true,
+   "grid_equal": true,
+   "period_valid": true,
+   "family_valid": true,
+   "checks_pass": true,
+   "run": "20261021T043705Z",
+   "source_sha256": {
+    "scan-partial.npz": "87c29fbf1545af06ec7044fa57470adb8fd2862b93fca5b2a5d582843e7223d9",
+    "scan.npz": "bc5977192865bed5bfcf299d857b970e636b87110f1d97102286462e66de44b5",
+    "scan.json": "1e6fcd74d5560c0b9ff2d889692176ed89f4f540f8db7cd8e0bf2cde7b826f48",
+    "scan.png": "957ca13b808963a1eed6a7b132089cdd4056b4afded8bb709832637ed69d8d3b"
+   },
+   "source_bytes": {
+    "scan-partial.npz": 2511614,
+    "scan.npz": 2453641,
+    "scan.json": 2158661,
+    "scan.png": 485746
+   },
+   "installed": {
+    "scan.npz": "bc5977192865bed5bfcf299d857b970e636b87110f1d97102286462e66de44b5",
+    "scan.json": "1e6fcd74d5560c0b9ff2d889692176ed89f4f540f8db7cd8e0bf2cde7b826f48",
+    "scan.png": "957ca13b808963a1eed6a7b132089cdd4056b4afded8bb709832637ed69d8d3b",
+    "scan-partial.npz": "87c29fbf1545af06ec7044fa57470adb8fd2862b93fca5b2a5d582843e7223d9"
+   }
+  },
+  {
+   "frame": 220,
+   "source": "../neural-shrimp-data/runpod/soft64/20261021T043705Z/extracted/explore/llm-soft-loop/pod64/morph/frame-220",
+   "cells": 151552,
+   "shape": [
+    296,
+    512
+   ],
+   "finite": true,
+   "period_range": [
+    0,
+    24
+   ],
+   "seconds": 2841.3,
+   "chaotic_cells": 32203,
+   "lyapunov_positive": 33203,
+   "concept": "morph-220",
+   "init_states": "llm-soft-loop/pod64/morph/frame-218",
+   "argument_differences": {},
+   "added_options": {
+    "weights": "native",
+    "prefix": null,
+    "start_vector": null,
+    "word_period": 0,
+    "return_period": 0
+   },
+   "shapes": {
+    "lyapunov": [
+     296,
+     512
+    ],
+    "period": [
+     296,
+     512
+    ],
+    "entropy": [
+     296,
+     512
+    ],
+    "family": [
+     296,
+     512
+    ]
+   },
+   "entropy_finite": true,
+   "grid_equal": true,
+   "period_valid": true,
+   "family_valid": true,
+   "checks_pass": true,
+   "reproduction": {
+    "partial": "../neural-shrimp-data/explore/llm-soft-loop/pod64/morph/frame-220/scan-partial.npz",
+    "compared": false,
+    "reason": "partial file of the 13-14 Oct V1 attempt (other settings)"
+   },
+   "run": "20261021T043705Z",
+   "source_sha256": {
+    "scan-partial.npz": "331cb56cb26ccfc50cdd41d5e2a351393c2542029e2b4cc227d50da5c08adcd7",
+    "scan.npz": "cec416b5cb77047935879abcf269ffd531917c2f4ce36a1410ef9f80757273c9",
+    "scan.json": "36375c05f3d2586e47c8510cafb0ae9180cd8d92bd26695e1c5127341eebf188",
+    "scan.png": "7b7dd10c926d3e9029a54eade6b69ebf64132009e827b21d2e0be34d712295c1"
+   },
+   "source_bytes": {
+    "scan-partial.npz": 2515080,
+    "scan.npz": 2454632,
+    "scan.json": 2224242,
+    "scan.png": 490057
+   },
+   "installed": {
+    "scan.npz": "cec416b5cb77047935879abcf269ffd531917c2f4ce36a1410ef9f80757273c9",
+    "scan.json": "36375c05f3d2586e47c8510cafb0ae9180cd8d92bd26695e1c5127341eebf188",
+    "scan.png": "7b7dd10c926d3e9029a54eade6b69ebf64132009e827b21d2e0be34d712295c1"
+   }
+  },
+  {
+   "frame": 236,
+   "source": "../neural-shrimp-data/runpod/soft64/20261021T045434Z/extracted/explore/llm-soft-loop/pod64/morph/frame-236",
+   "cells": 151552,
+   "shape": [
+    296,
+    512
+   ],
+   "finite": true,
+   "period_range": [
+    0,
+    24
+   ],
+   "seconds": 2622.6,
+   "chaotic_cells": 34447,
+   "lyapunov_positive": 35492,
+   "concept": "morph-236",
+   "init_states": "llm-soft-loop/morph-fill-init/frame-234",
+   "argument_differences": {},
+   "added_options": {
+    "weights": "native",
+    "prefix": null,
+    "start_vector": null,
+    "word_period": 0,
+    "return_period": 0
+   },
+   "shapes": {
+    "lyapunov": [
+     296,
+     512
+    ],
+    "period": [
+     296,
+     512
+    ],
+    "entropy": [
+     296,
+     512
+    ],
+    "family": [
+     296,
+     512
+    ]
+   },
+   "entropy_finite": true,
+   "grid_equal": true,
+   "period_valid": true,
+   "family_valid": true,
+   "checks_pass": true,
+   "reproduction": {
+    "partial": "../neural-shrimp-data/explore/llm-soft-loop/pod64/morph/frame-236/scan-partial.npz",
+    "partial_sha256": "0e4fda58405dc045a0d88a15a6c86829cabc0d13ebbb245d8d2682f0f6e6a276",
+    "cells_compared": 88064,
+    "grid_equal": true,
+    "bitwise_lyapunov": true,
+    "bitwise_period": true,
+    "bitwise_entropy": true,
+    "token_loops_equal": true,
+    "cells_lyapunov_differ": 0,
+    "cells_period_differ": 0,
+    "periodic_cells": 74993,
+    "periodic_cells_same_period": 74993,
+    "chaotic_cells_partial": 12247,
+    "chaotic_cells_new": 12247,
+    "chaotic_label_agree": 88064,
+    "max_abs_lyapunov_difference": 0.0,
+    "median_abs_lyapunov_difference": 0.0,
+    "acceptance_rule": "equal grid and bitwise periods, or at least 90% of old periodic cells retain their period",
+    "periodic_agreement_threshold": 0.9,
+    "reproduced": true
+   },
+   "run": "20261021T045434Z",
+   "source_sha256": {
+    "scan-partial.npz": "fe77d09ac6d26d4347b91a9e7bc72516e58585c94a9fc712473d8deb5114c530",
+    "scan.npz": "564df0babb6f10f7ca2f9e76e0803d1b365e925f2210767d08d1247d102b53e7",
+    "scan.json": "f73c1e2912a8ccb086218151762e48c89f7abf6c11a54521c0fe0b7d31652301",
+    "scan.png": "20f8847b0391a0c871dbcc5c64aba99678563dbd2ae9312913d9b4e5947989c8"
+   },
+   "source_bytes": {
+    "scan-partial.npz": 2502930,
+    "scan.npz": 2450036,
+    "scan.json": 1997759,
+    "scan.png": 485426
+   },
+   "installed": {
+    "scan.npz": "564df0babb6f10f7ca2f9e76e0803d1b365e925f2210767d08d1247d102b53e7",
+    "scan.json": "f73c1e2912a8ccb086218151762e48c89f7abf6c11a54521c0fe0b7d31652301",
+    "scan.png": "20f8847b0391a0c871dbcc5c64aba99678563dbd2ae9312913d9b4e5947989c8"
+   }
+  },
+  {
+   "frame": 238,
+   "source": "../neural-shrimp-data/runpod/soft64/20261021T045434Z/extracted/explore/llm-soft-loop/pod64/morph/frame-238",
+   "cells": 151552,
+   "shape": [
+    296,
+    512
+   ],
+   "finite": true,
+   "period_range": [
+    0,
+    24
+   ],
+   "seconds": 2623.3,
+   "chaotic_cells": 33947,
+   "lyapunov_positive": 35001,
+   "concept": "morph-238",
+   "init_states": "llm-soft-loop/pod64/morph/frame-236",
+   "argument_differences": {},
+   "added_options": {
+    "weights": "native",
+    "prefix": null,
+    "start_vector": null,
+    "word_period": 0,
+    "return_period": 0
+   },
+   "shapes": {
+    "lyapunov": [
+     296,
+     512
+    ],
+    "period": [
+     296,
+     512
+    ],
+    "entropy": [
+     296,
+     512
+    ],
+    "family": [
+     296,
+     512
+    ]
+   },
+   "entropy_finite": true,
+   "grid_equal": true,
+   "period_valid": true,
+   "family_valid": true,
+   "checks_pass": true,
+   "run": "20261021T045434Z",
+   "source_sha256": {
+    "scan-partial.npz": "f53e4d3332cd02d778d21859f7d48effb47a3df537d163161eb2673b362627c6",
+    "scan.npz": "75942b3d0fe60b6a85f58e65ef82b49e479c5108f089080afd88503a76114ee9",
+    "scan.json": "dd502feb38f9f9db23d9c8a0aa5c405f4140ca337829e07eaa0538eb85932325",
+    "scan.png": "75ac2897461e6bdf0a791e4fb2d3cea5de2dc8a3b54a3450baaaeb4e4b45aee3"
+   },
+   "source_bytes": {
+    "scan-partial.npz": 2498293,
+    "scan.npz": 2448055,
+    "scan.json": 1925702,
+    "scan.png": 487547
+   },
+   "installed": {
+    "scan.npz": "75942b3d0fe60b6a85f58e65ef82b49e479c5108f089080afd88503a76114ee9",
+    "scan.json": "dd502feb38f9f9db23d9c8a0aa5c405f4140ca337829e07eaa0538eb85932325",
+    "scan.png": "75ac2897461e6bdf0a791e4fb2d3cea5de2dc8a3b54a3450baaaeb4e4b45aee3",
+    "scan-partial.npz": "f53e4d3332cd02d778d21859f7d48effb47a3df537d163161eb2673b362627c6"
+   }
+  }
+ ],
+ "errors": [],
+ "coverage": {
+  "missing": [],
+  "unexpected": [],
+  "duplicates": []
+ },
+ "summary": {
+  "frames": 17,
+  "checks_pass": 17,
+  "installed": 17,
+  "all_checks_pass": true
+ }
+}

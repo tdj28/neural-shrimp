@@ -32081,3 +32081,43 @@ nearly identical under protan vision.
   Whether every start is eventually captured is not shown.
 - **Receipts.** docs/batch-fate/bf1-receipt.json (tools/batch_fate_summary.py as committed in 6b992dca) and
   docs/batch-fate/bf1-persistence.json (tools/batch_fate_persist.py).
+
+## 2026-10-21 08:55 UTC: V3 result (rotation morph): the 17 missing directions computed; the morph now has all 120
+
+- **Runs.** Six SECURE RTX 4090 pods, job set morphfill at commit 00884f9b, one warm chain each, created 04:37-04:55
+  UTC (pods ymgj027zt378fp 212-220, y200p1c9a6iy7i 192-198, sfyvmjqdh7oogt 16-18, fvxolkylp6xtsx 78-80,
+  6jasryo3tp3zch 96-98, g37wi4d5w3amvb 236-238). Same software as V1b (torch 2.14.1+cu126, transformers 5.19.0,
+  numpy 2.5.3, scipy 1.18.1). All six runners exited 0, every archive hash-verified, every pod terminated and
+  verified; the account had no pods at 08:46 UTC. Pod wall times 5,705-14,947 s; frames 2,623-2,991 s each (the V1b
+  warm frames took 2,497-4,970 s). A detached watchdog, set to terminate any V3 pod whose orchestrator died or that
+  outlived its deadline, took no action.
+- **Checks** (tools/morph_fill.py as tightened in 2452d315: all 17 frames at once, archive and extracted-file hashes
+  bound before any numerical read; read-only receipt in ../neural-shrimp-data/explore/llm-soft-loop/morph-fill-init/
+  v3-check-readonly.json, installation receipt docs/morph-fill-receipt.json). All 17 frames pass:
+  - every frame has all 151,552 cells, finite exponents and periods 0-24, and the V1b scan arguments apart from the
+    start states, the output folder and the direction;
+  - reproduction of the cells that the V1b pods had finished from the same states (415,744 cells in six frames).
+    Frames 078, 096, 192, 212 and 236 reproduce them bit for bit: exponents, periods, entropies and token loops.
+    Frame 016 has the same periods and token loops in all 139,264 cells. Its exponents are identical except in
+    219 cells and its entropies except in 201, by at most 8.9e-16 and 1.8e-15. Those differences are in the last
+    bits of the float64 post-processing; the trajectories are the same. Frames 080 and 220 have only partial files
+    of the 13-14 Oct V1 attempt, with other settings, and were not compared.
+  - Disclosure: frame 212 was copied from its pod at 05:33 UTC and compared with its partial cells (bit for bit)
+    before the other frames finished. No criterion changed.
+- **Installed** in pod64/morph/frame-NNN without overwriting: scan.npz, scan.json and scan.png, plus scan-partial.npz
+  where the folder was empty. In the eight folders that held one, the old partial file remains beside the new files,
+  noted in morph/EXTRACTION-NOTES.txt.
+- **Continuity** (tools/morph_continuity.py, docs/morph-continuity.json). The 91 warm pairs of neighboring V1b frames
+  change the period label of 8.0-14.8 % of cells; the 17 pairs that include a filled frame change 8.5-13.5 %. The 11
+  cold restarts change 16.4-20.9 %, including the two new seams, 80 to 82 and 220 to 222 (17.0 % each). No filled
+  frame stands out from its neighbors. The chaotic share runs smoothly through both former gaps: 18.4 % at 71.5
+  degrees, 18.6, 18.5, 18.4 and 18.2 % for the filled 192-198, then 17.6 % at the cold frame 200; and 18.6 % at
+  frame 210, then 19.0, 19.1, 19.4, 20.3 and 21.2 % for 212-220.
+- **Video.** The complete 120-direction video (tools/render_morph.py --step 2, 20.17 s at 24 fps) is
+  ../neural-shrimp-data/explore/llm-soft-loop/morph-video-v3/morph.mp4 (sha256 5c9b2404...), added to
+  docs/morph-video-receipt.json. The 14 Oct video and the article's rotation figure are unchanged. A first render with
+  a relative output path landed in the working tree (untracked); it was deleted and rendered again into the data
+  folder.
+- **Records.** docs/manifests/runpod-runs.json stays as regenerated on 16 Oct, as the report states; later runs,
+  these six included, are recorded with their receipts here. Costs are in the private ledger, within the approved
+  ceiling.
