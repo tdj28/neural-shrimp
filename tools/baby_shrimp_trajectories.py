@@ -70,7 +70,7 @@ def worker(args):
     write(args.out / "protocol.json", protocol)
 
     def progress(phase, step):
-        row = {"phase": phase, "step": step, "seconds": round(time.monotonic()-started, 2)}
+        row = {"cell_index": step, "phase": phase, "step": step, "seconds": round(time.monotonic()-started, 2)}
         write(args.out / "progress.json", row)
         print(json.dumps(row), flush=True)
 
