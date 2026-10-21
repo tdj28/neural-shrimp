@@ -1,0 +1,52 @@
+{
+  "id": "BSG2",
+  "purpose": "Explore whether the period-18 body's strongest-contraction curves cross or avoid, retaining branch and spectral evidence.",
+  "model_revision": "7ae557604adf67be50417f59c2c2f167def9a775",
+  "period": 18,
+  "alpha": [
+    0.073045,
+    0.07312
+  ],
+  "log10_temperature": [
+    -0.154475,
+    -0.154325
+  ],
+  "resolution": [
+    21,
+    31
+  ],
+  "bands": [
+    {
+      "rows": [
+        0,
+        11
+      ]
+    },
+    {
+      "rows": [
+        11,
+        21
+      ]
+    }
+  ],
+  "seed": [
+    0.07309264475743349,
+    -0.15440845070422535
+  ],
+  "seed_sha256": "2f33d00a446f586c362693d53e1ff55fc8cebecaba84ad5447d912dda6c07eee",
+  "attempts": 2,
+  "max_newton": 10,
+  "newton_tolerance": 1e-11,
+  "numerical_seconds": 10800,
+  "primitive_separation": 1e-08,
+  "dense_vs_composed_jvp_relative_tolerance": 1e-07,
+  "watched_eigen_relative_residual_tolerance": 1e-06,
+  "watched_directions": "At least the leading two; additionally every stored multiplier within a factor100 of the lead and all needed conjugate companions. Tiny remaining directions are stored but ineligible for tracking. The BSP2 seed's third modulus is2.745e-12.",
+  "seed_precision": "Same full composed finite-difference and Arnoldi gates as BSP2; fail before grid if qualification fails.",
+  "method": "Breadth-first warm-start continuation. Closed primitive period-18 orbits with the same cyclic text may supply neighboring Newton seeds even when their spectral qualification fails. Only rows passing every original spectral gate are eligible for geometry claims. Preserve every failed row and all BSG1 evidence. All original numerical tolerances and per-pod limits remain unchanged.",
+  "analysis": "Gate every attempted row. Track real two-dimensional invariant subspaces, respecting conjugate pairs, by overlap; mask overlap below 0.9 and report branch discontinuities. Compare trace-zero curves, determinant-zero curves, complex pairs and dominant real sign changes. Fit local trace saddles only on complete qualified 5x5 neighborhoods. A zero/sign-change image alone is not proof of intersection or nilpotence; no admissible saddle is an explicit negative setup result. Refine any ambiguous meeting separately under a disclosed amendment.",
+  "scope": "One continued period-18 branch on this patch. No exhaustive boundary or multistability classification. Source selection used the original HR10 image and completed BSP1/BSP2 probes before the fine BSZ1 scan returned.",
+  "resources": "Initially one separately owned A100 SXM 80GB pod for the upper band, with eight CPU threads; assess lower-band coverage separately before any additional execution. Measured BSP2 period-18 qualification times 24.093 and 24.427 seconds; plan conservatively at 30 seconds per cell, with bounded partial retrieval if continuation is slower. Per pod 195-minute shell limit, 215-minute setup/run limit and 240-minute lifetime with a 20-minute retrieval reserve. No retry after pod creation. Cost and combined ceiling: see private ledger.",
+  "propagation_gate": "primitive_orbit",
+  "amendment": "Adapted after the BSG1 upper-band starting cell had a qualified primitive orbit but second-direction composed-JVP relative error 3.470385142660064e-7 against the unchanged 1e-7 gate. This isolated spectral failure exhausted the original frontier. Upper band only is repeated initially; lower-band coverage is assessed separately. Queue exhaustion with no qualified spectral cell now fails explicitly."
+}

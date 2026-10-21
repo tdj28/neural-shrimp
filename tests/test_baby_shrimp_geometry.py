@@ -58,3 +58,25 @@ def test_watched_spectrum_keeps_conjugate_companions_and_excludes_rounding_tail(
     assert geometry.qualified_spectral_count(np.array([.006, -5e-6, 3e-12])) == 2
     assert geometry.qualified_spectral_count(np.array([.1, 1e-6+2e-6j, 1e-6-2e-6j, 1e-14])) == 3
     assert geometry.qualified_spectral_count(np.array([.01, -.008, .003, 1e-12])) == 3
+
+
+def test_orbit_propagation_does_not_qualify_failed_spectrum():
+    row = {"row": 11, "column": 19, "passed": False,
+           "orbit_passed": True, "same_cyclic_text": True}
+    assert not geometry.propagation_passed(row, {})
+    assert geometry.propagation_passed(row, {"propagation_gate": "primitive_orbit"})
+    status = geometry.completion_status([row], 0, 310)
+    assert status["orbit_solved"] == 1
+    assert status["solved"] == 0
+    assert not status["complete"]
+    assert status["reason"] == "no qualified spectral cell"
+    row["same_cyclic_text"] = False
+    assert not geometry.propagation_passed(row, {"propagation_gate": "primitive_orbit"})
+
+
+def test_empty_or_incomplete_continuation_is_not_complete():
+    assert not geometry.completion_status([], 0, 310)["complete"]
+    row = {"row": 0, "column": 0, "passed": True, "orbit_passed": True}
+    assert not geometry.completion_status([row], 1, 310)["complete"]
+    status = geometry.completion_status([row, dict(row)], 0, 310)
+    assert status["complete"] and status["solved"] == 1

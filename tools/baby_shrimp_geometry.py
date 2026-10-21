@@ -47,7 +47,31 @@ def validate_plan(plan, band):
             raise ValueError("finite increasing axes required")
     if plan["attempts"] != 2 or plan["max_newton"] != 10 or plan["newton_tolerance"] != 1e-11:
         raise ValueError("continuation gates or bounds changed")
+    if plan.get("propagation_gate", "full") not in ("full", "primitive_orbit"):
+        raise ValueError("unknown continuation propagation gate")
     return bounds
+
+
+def propagation_passed(record, plan):
+    """An orbit can supply a Newton seed without qualifying its spectrum.
+
+    BSG2 discloses this separation. Spectrally failed rows remain failed and
+    cannot be used in geometry claims merely because they seed a neighbor.
+    """
+    if plan.get("propagation_gate", "full") == "primitive_orbit":
+        return bool(record.get("orbit_passed") and record.get("same_cyclic_text"))
+    return bool(record["passed"])
+
+
+def completion_status(rows, queue_remaining, planned_cells):
+    orbital = {(r["row"], r["column"]) for r in rows if r.get("orbit_passed")}
+    qualified = {(r["row"], r["column"]) for r in rows if r["passed"]}
+    complete = not queue_remaining and bool(qualified)
+    reason = ("no qualified spectral cell" if not qualified else
+              "frontier exhausted" if not queue_remaining else "bounded numerical time expired")
+    return {"complete": complete, "reason": reason, "attempts": len(rows),
+            "orbit_solved": len(orbital), "solved": len(qualified),
+            "planned_cells": planned_cells, "remaining_frontier": queue_remaining}
 
 
 def composed_check(orb, points, matrix, vectors):
@@ -235,25 +259,29 @@ def main():
                 raise ValueError("continued text loop changed")
             record["passed"] = True
             record["attracting"] = bool(abs(values[0]) < 1 - 1e-8)
-            warm[i, j] = (Xn, Qn)
         except Exception as error:
             record["error"] = f"{type(error).__name__}: {error}"
+        record["orbit_passed"] = bool(record.get("primitive", {}).get("closed")
+                                       and record.get("primitive", {}).get("no_lower_period"))
+        record["propagation_passed"] = propagation_passed(record, plan)
+        if record["propagation_passed"]:
+            warm[i, j] = (Xn, Qn)
         record["seconds"] = time.monotonic() - tick
         save(dest / "cell.json", record)
         rows.append(record)
-        frontier.done((i, j), record["passed"])
+        frontier.done((i, j), record["propagation_passed"])
         live = frontier.parents_still_useful()
         for key in list(warm):
             if key is not None and key not in live:
                 del warm[key]
-        save(out / "grid.json", {"complete": not frontier.queue, "rows": rows, "solved": len(frontier.solved),
-                                 "planned_cells": len(temperature)*len(alpha), "remaining_frontier": len(frontier.queue)})
+        result = completion_status(rows, len(frontier.queue), len(temperature)*len(alpha))
+        save(out / "grid.json", {**result, "rows": rows})
         emit("cell_complete", **record)
-    complete = not frontier.queue
-    save(out / "status.json", {"complete": complete, "reason": "frontier exhausted" if complete else "bounded numerical time expired",
-                               "attempts": len(rows), "solved": len(frontier.solved), "planned_cells": len(temperature)*len(alpha),
-                               "elapsed_seconds": time.monotonic() - start})
-    if not complete:
+    result = completion_status(rows, len(frontier.queue), len(temperature)*len(alpha))
+    save(out / "status.json", {**result, "elapsed_seconds": time.monotonic() - start})
+    if not result["solved"]:
+        raise ValueError("no qualified spectral cell; retained failed setup")
+    if not result["complete"]:
         raise TimeoutError("partial continuation retained at its numerical time limit")
 
 
