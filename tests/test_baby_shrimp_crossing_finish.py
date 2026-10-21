@@ -5,6 +5,46 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "tools"))
 from baby_shrimp_crossing_finish import sensitivity
 
 
+def synthetic_slices():
+    import numpy as np
+    from baby_shrimp_crossing import trace_zero_slices
+    plan = {"slice_offsets": [-.2, 0, .2], "slice_basis": [[1, 0], [0, 1]], "start": [.5, -.2],
+            "coordinate_scales": [.01, .02], "root_bracket": .3, "root_coordinate_tolerance": 1e-8,
+            "root_trace_tolerance": 1e-6, "root_max_iterations": 12}
+    points, cache = {}, {}
+    def evaluate(u):
+        xy = np.asarray(plan["start"])+np.asarray(plan["coordinate_scales"])*u
+        key = tuple(xy)
+        if key not in cache:
+            i = len(points)
+            points[i] = {"index": i, "alpha": float(xy[0]), "log10_temperature": float(xy[1]),
+                         "tau": float(u[0]**2-.01-.2*u[1]**2), "qualified": True}
+            cache[key] = i
+        return points[cache[key]]
+    return plan, trace_zero_slices(evaluate, plan), points
+
+
+def test_direct_roots_require_actual_brackets_and_separated_coordinates():
+    from baby_shrimp_crossing_finish import audit_slice_roots
+    plan, roots, points = synthetic_slices()
+    gaps = audit_slice_roots(plan, roots, points)
+    assert gaps[1]["normalized_along_separation"] == pytest.approx(.2, abs=1e-7)
+    assert gaps[1]["alpha_difference"] == pytest.approx(.002, abs=1e-9)
+    roots[0]["bracket_values"][0] += .01
+    with pytest.raises(ValueError, match="sign-changing bracket"):
+        audit_slice_roots(plan, roots, points)
+
+
+def test_missing_root_or_missing_measured_coordinate_fails():
+    from baby_shrimp_crossing_finish import audit_slice_roots
+    plan, roots, points = synthetic_slices()
+    with pytest.raises(ValueError, match="missing or reordered"):
+        audit_slice_roots(plan, roots[:-1], points)
+    del points[roots[0]["point"]["index"]]
+    with pytest.raises(ValueError, match="unique measured point"):
+        audit_slice_roots(plan, roots, points)
+
+
 def test_orbit_returns_use_state_norm_even_below_one():
     import numpy as np
     from baby_shrimp_crossing_finish import primitive

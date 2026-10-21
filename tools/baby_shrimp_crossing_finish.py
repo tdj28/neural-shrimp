@@ -110,6 +110,106 @@ def sensitivity(endpoint, history):
             "scope": "Decreasing-stencil and cyclic-phase sensitivity, not a rigorous error bound or confidence interval."}
 
 
+def audit_slice_roots(plan, roots, points):
+    """Bind every reported root and its bracket to actual qualified evaluations."""
+    expected = [(offset, side) for offset in plan["slice_offsets"] for side in ("negative", "positive")]
+    audit.require([(r["transverse"], r["side"]) for r in roots] == expected, "missing or reordered slice roots")
+    origin, scales, basis = (np.asarray(plan[k]) for k in ("start", "coordinate_scales", "slice_basis"))
+    audit.require(np.allclose(basis.T @ basis, np.eye(2), rtol=0, atol=1e-12), "invalid slice basis")
+    def measured(along, transverse):
+        target = origin + scales * (basis @ [along, transverse])
+        matches = [p for p in points.values()
+                   if np.allclose(target, [p["alpha"], p["log10_temperature"]], rtol=0, atol=1e-15)]
+        audit.require(len(matches) == 1, "slice coordinate has no unique measured point")
+        return matches[0]
+    for root in roots:
+        bounds = [-plan["root_bracket"], 0.] if root["side"] == "negative" else [0., plan["root_bracket"]]
+        audit.require(bounds == root["bracket"] and bounds[0] < root["along"] < bounds[1], "root outside declared bracket")
+        ends = [measured(x, root["transverse"])["tau"] for x in bounds]
+        audit.require(ends == root["bracket_values"] and ends[0]*ends[1] < 0, "root lacks measured sign-changing bracket")
+        point = measured(root["along"], root["transverse"])
+        audit.require(root["point"] == point and point["qualified"]
+                      and abs(point["tau"]) < plan["root_trace_tolerance"]
+                      and 0 < root["iterations"] <= plan["root_max_iterations"], "root record or convergence differs")
+    gaps = []
+    for left, right in zip(roots[::2], roots[1::2]):
+        physical = np.array([right["point"]["alpha"]-left["point"]["alpha"],
+                             right["point"]["log10_temperature"]-left["point"]["log10_temperature"]])
+        separation = right["along"]-left["along"]
+        audit.require(separation > 2*plan["root_coordinate_tolerance"], "sampled root separation unresolved")
+        gaps.append({"transverse": left["transverse"], "normalized_along_separation": separation,
+                     "alpha_difference": float(physical[0]), "log10_temperature_difference": float(physical[1]),
+                     "point_indices": [left["point"]["index"], right["point"]["index"]]})
+    return gaps
+
+
+def finish_slices(args, plan, protocol, final, points, rows, worker, manifest, folder, result, matrices):
+    audit.require(json.loads((folder / "root-history.json").read_text()) == final["roots"], "root history differs")
+    anchor_blob = subprocess.check_output(["git", "show", result["commit"] + ":" + plan["saddle_receipt"]], cwd=audit.ROOT)
+    audit.require(hashlib.sha256(anchor_blob).hexdigest() == plan["saddle_receipt_sha256"], "saddle anchor hash differs")
+    anchor = json.loads(anchor_blob)["summary"]
+    audit.require(anchor["qualification"]["numerically_resolved_nonzero_saddle"]
+                  and plan["start"] == [anchor["endpoint"]["alpha"], anchor["endpoint"]["log10_temperature"]],
+                  "slice origin differs from audited saddle")
+    gaps = audit_slice_roots(plan, final["roots"], points)
+    for root in final["roots"]:
+        point = root["point"]
+        values = np.linalg.eigvals(matrices[point["index"]])
+        values = values[np.argsort(-abs(values))][:2]
+        phase = next(p for p in point["phases"] if p["phase"] == point["selected_phase"])
+        stored = np.asarray(phase["multipliers"])[:2]
+        pair = stored[:, 0]+1j*stored[:, 1]
+        audit.require(pair_discrepancy(values, pair) < 1e-7*max(abs(pair)), "independent root eigenspectrum differs")
+    for row in points.values():
+        phase = next(p for p in row["phases"] if p["phase"] == row["selected_phase"])
+        pair = np.asarray(phase["multipliers"])[:2]
+        audit.require(np.max(abs(pair[:, 1])) < 1e-12 and row["delta"] < 0 and row["spectral_radius"] < 1,
+                      "same attracting real opposite-sign pair not established")
+    determinant = np.array([r["delta"] for r in rows])
+    root_radii = [r["point"]["spectral_radius"] for r in final["roots"]]
+    summary = {"points": len(rows), "qualified_cyclic_phases": sum(p["passed"] for r in rows for p in r["audited_phases"]),
+               "roots": final["roots"], "gaps": gaps, "anchor_saddle_receipt_sha256": plan["saddle_receipt_sha256"],
+               "all_sampled_determinants_negative": bool((determinant < 0).all()),
+               "determinant_range": [float(determinant.min()), float(determinant.max())],
+               "root_spectral_radius_range": [min(root_radii), max(root_radii)],
+               "scope": "Two distinct actual trace-zero roots on each of three slices. Trace zero balances nonzero opposite-sign multipliers. Sampled branch separation supports local avoidance; connections are illustrative, not a global continuation or interval certificate."}
+    import matplotlib
+    matplotlib.use("Agg")
+    import matplotlib.pyplot as plt
+    fig, ax = plt.subplots(figsize=(8.5, 8.2))
+    fig.subplots_adjust(left=.15, right=.95, bottom=.22, top=.84)
+    origin = np.asarray(plan["start"])
+    for side, color, label in [("negative", "#007e8a", "Branch A: measured roots"),
+                               ("positive", "#da6b00", "Branch B: measured roots")]:
+        selected = [r for r in final["roots"] if r["side"] == side]
+        xy = (np.array([[r["point"]["alpha"], r["point"]["log10_temperature"]] for r in selected])-origin)*1e6
+        ax.plot(xy[:, 0], xy[:, 1], "o--", color=color, ms=8, lw=1.4, label=label)
+    for gap in gaps:
+        xy = (np.array([[points[k]["alpha"], points[k]["log10_temperature"]] for k in gap["point_indices"]])-origin)*1e6
+        ax.plot(xy[:, 0], xy[:, 1], color="#aab0b8", lw=.8, zorder=0)
+    ax.plot(0, 0, "+", ms=12, mew=2, color="#293443", label="Separately audited saddle")
+    ax.set(xlim=(-1.5, 1.5), ylim=(-4.5, 4.5), xlabel="Steering offset from saddle (×10⁻⁶)",
+           ylabel="log₁₀ temperature offset from saddle (×10⁻⁶)")
+    ax.legend(loc="upper left", fontsize=9, frameon=False)
+    fig.suptitle("The directly measured trace-zero roots", fontsize=21, fontweight="bold", y=.95)
+    central = next(g for g in gaps if g["transverse"] == 0)
+    fig.text(.15, .10, "Six dots are actual full-network roots; dashed lines only connect them.\n"
+             f"Central slice separation: Δα = {central['alpha_difference']:.6g}; Δlog₁₀T = {central['log10_temperature_difference']:.6g}.\n"
+             "Both leading multipliers remain nonzero. These are balance curves, not exact superstable curves.", fontsize=9)
+    for suffix in ("png", "pdf"):
+        fig.savefig(args.out / f"baby-direct-branches.{suffix}", dpi=180)
+    plt.close(fig)
+    (args.out / "rows.json").write_text(json.dumps(rows, indent=2, allow_nan=False)+"\n")
+    (args.out / "manifest.json").write_text(json.dumps(manifest, indent=2)+"\n")
+    receipt = {"id": "BSC2-direct-branch-audit", "generated_utc": datetime.now(timezone.utc).isoformat(),
+               "analysis_commit": subprocess.check_output(["git", "rev-parse", "HEAD"], cwd=audit.ROOT, text=True).strip(),
+               "source_sha256": audit.digest(__file__), "worker": worker, "plan_sha256": protocol["plan_sha256"],
+               "summary": summary, "files": [audit.artifact(p) for p in args.out.iterdir() if p.is_file()],
+               "limits": summary["scope"], "cost": "see private ledger"}
+    (args.out / "receipt.json").write_text(json.dumps(receipt, indent=2, allow_nan=False)+"\n")
+    print(json.dumps({"points": len(rows), "gaps": gaps, "root_radius_range": summary["root_spectral_radius_range"]}))
+
+
 def main():
     ap = argparse.ArgumentParser(description=__doc__)
     ap.add_argument("--worker", type=Path, required=True)
@@ -164,6 +264,9 @@ def main():
     final = json.loads((folder / "result.json").read_text())
     audit.require(final["complete"] and final["evaluations"] == len(points),
                   "crossing attempt incomplete")
+    if plan.get("mode") == "trace_zero_slices":
+        finish_slices(args, plan, protocol, final, points, rows, worker, manifest, folder, result, matrices)
+        return
     history = json.loads((folder / "saddle-history.json").read_text())
     audit.require(history == final["history"], "saddle history differs")
     u = np.zeros(2)

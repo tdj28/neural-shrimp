@@ -30,3 +30,22 @@ def test_missing_cell_cannot_bridge_tracked_geometry():
     fields,report=finish.track({(0,0):arr,(0,2):arr},(3,3),np.arange(3),np.arange(3),[0,0])
     assert report["tracked"]==1
     assert np.isnan(fields["tau"][0,2])
+def test_operator_interruption_is_partial_and_requires_exact_checkpoint(tmp_path):
+    import json, hashlib
+    from baby_shrimp_geometry_finish import completion_evidence
+    grid = {"attempts": 2, "solved": 1, "orbit_solved": 2, "planned_cells": 10,
+            "remaining_frontier": 3, "rows": [{}, {}]}
+    path = tmp_path / "grid.json"
+    path.write_text(json.dumps(grid))
+    result = {"pod_id": "owned", "commit": "abc"}
+    note = {"pod_id": "owned", "source_commit": "abc", "signal": "SIGTERM", "saved_grid_attempts": 2,
+            "grid_sha256_before_signal": hashlib.sha256(path.read_bytes()).hexdigest()}
+    marker = tmp_path / "operator-stop.json"
+    marker.write_text(json.dumps(note))
+    status, kept = completion_evidence(tmp_path, grid, result)
+    assert not status["complete"] and status["solved"] == 1 and kept == note
+    note["pod_id"] = "foreign"
+    marker.write_text(json.dumps(note))
+    import pytest
+    with pytest.raises(ValueError, match="identity"):
+        completion_evidence(tmp_path, grid, result)

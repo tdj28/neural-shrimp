@@ -22,6 +22,22 @@ import baby_shrimp_finish as audit
 from baby_shrimp_geometry import canonical, qualified_spectral_count
 from baby_shrimp_probe_audit import precision_gate
 from delta2d_analysis import critical_points
+from baby_shrimp_transect_finish import verify_tar_files
+
+
+def completion_evidence(folder, grid, result):
+    """Explicit operator interruption preserves partial coverage, never completion."""
+    status_path = folder / "status.json"
+    if status_path.exists():
+        return json.loads(status_path.read_text()), None
+    note = json.loads((folder / "operator-stop.json").read_text())
+    audit.require(note["pod_id"] == result["pod_id"] and note["source_commit"] == result["commit"]
+                  and note["signal"] == "SIGTERM" and note["saved_grid_attempts"] == len(grid["rows"])
+                  and note["grid_sha256_before_signal"] == audit.digest(folder / "grid.json"),
+                  "interruption identity or last checkpoint differs")
+    status = {k: grid[k] for k in ("attempts", "solved", "orbit_solved", "planned_cells", "remaining_frontier")}
+    status.update(complete=False, reason="operator stopped the broad continuation; partial output preserved")
+    return status, note
 
 
 def gate_row(row, folder):
@@ -167,18 +183,13 @@ def main():
         blob=subprocess.check_output(["git","show",result["commit"]+":"+plan_path],cwd=audit.ROOT)
         audit.require(hashlib.sha256(blob).hexdigest()==protocol["plan_sha256"] and json.loads(blob)==plan,"plan/source binding mismatch")
         audit.require(precision_gate({"derivative_precision":protocol["seed_precision"]}),"seed precision failed")
-        with tarfile.open(archive) as tar:
-            for path in sorted(folder.rglob("*")):
-                if path.is_file():
-                    raw=tar.extractfile(str(path.relative_to(audit.DATA))).read()
-                    audit.require(hashlib.sha256(raw).hexdigest()==audit.digest(path),"raw file differs from archive")
-                    manifest.append(audit.artifact(path))
-            versions=tar.extractfile("explore/llm-soft-loop/pod64/logs/versions.txt").read()
-            hardware=tar.extractfile("explore/llm-soft-loop/pod64/logs/hardware.txt").read()
+        expected={str(path.relative_to(audit.DATA)):path for path in sorted(folder.rglob("*")) if path.is_file()}
+        hardware,versions=verify_tar_files(archive,expected)
+        manifest.extend(audit.artifact(path) for path in expected.values())
         pid=result["pod_id"]
         audit.require(any(e.get("event")=="terminated_verified" and e.get("pod_id")==pid for e in ledger),"termination record absent")
         audit.require(pid not in inventory and rp.pod_status(pid) is None,"pod still present")
-        grid=json.loads((folder/"grid.json").read_text());status=json.loads((folder/"status.json").read_text())
+        grid=json.loads((folder/"grid.json").read_text());status,interruption=completion_evidence(folder,grid,result)
         audit.require(status["attempts"]==len(grid["rows"])==len(list((folder/"cells").glob("*/cell.json"))),"attempt coverage mismatch")
         rows=[]
         for row in grid["rows"]:
@@ -195,8 +206,11 @@ def main():
                 cells[cell]=arrays
         passed=sum(r["passed"] for r in rows)
         audit.require(passed==status["solved"],"qualified-cell count mismatch")
+        incomplete=[p.name for p in sorted((folder/"cells").iterdir()) if p.is_dir() and not (p/"cell.json").exists()]
+        audit.require(not incomplete or interruption is not None,"unexplained incomplete cell")
         receipts.append({"pod_id":pid,"source_commit":result["commit"],"plan_sha256":protocol["plan_sha256"],
                          "archive":audit.artifact(archive),"raw_status":status,"qualified_cells":passed,
+                         "operator_interruption":interruption,"incomplete_cell_directories":incomplete,
                          "scientific_status":"failed setup: no qualified spectral cells" if not passed else "partial spatial coverage" if passed<status["planned_cells"] else "full qualified coverage",
                          "termination_verified":True,"versions_sha256":hashlib.sha256(versions).hexdigest(),
                          "hardware_sha256":hashlib.sha256(hardware).hexdigest(),"hardware":hardware.decode().strip()})
