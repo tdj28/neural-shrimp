@@ -69,7 +69,7 @@ def worker(args):
         print(json.dumps(record),flush=True)
 
     precision=checks.precision_checks(orb,X,M,points[:-1],args.out,progress,
-                                      relative_steps=[1e-6,3e-7,1e-7,3e-8])
+                                      relative_steps=[3e-5,1e-5,3e-6,1e-6,3e-7,1e-7,3e-8])
     extension={"source_commit":args.source_commit,"original_orbits_sha256":sha(args.orbit_run/"orbits.json"),
                "stored_monodromy_sha256":sha(src/"monodromy.npy"),"stored_state_sha256":sha(src/"orbit-state.npy"),
                "device":torch.cuda.get_device_name(),"torch":torch.__version__,"cuda":torch.version.cuda,

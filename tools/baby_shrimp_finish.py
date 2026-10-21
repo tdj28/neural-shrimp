@@ -16,6 +16,8 @@ import subprocess
 import sys
 import tarfile
 
+for key in ("OMP_NUM_THREADS", "MKL_NUM_THREADS", "OPENBLAS_NUM_THREADS"):
+    os.environ[key] = "8"
 import numpy as np
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -76,7 +78,7 @@ def gate_arrays(arrays, info, plan, band):
     for key in ("model", "layer", "vectors", "concept", "prompt", "opener", "window", "dtype",
                 "weights", "transient", "samples", "record", "max_period", "tol", "eps", "chaos_level"):
         require(args[key] == plan[key], f"{band['name']}: setting changed: {key}")
-    for key, value in (("command", "scan"), ("device", "cuda"), ("threads", 8), ("chunk", 2048),
+    for key, value in (("command", "scan"), ("device", "cuda"), ("threads", plan.get("threads", 8)), ("chunk", plan.get("chunk", 2048)),
                        ("resolution", list(expected_shape)), ("alpha", plan["alpha"]),
                        ("log_temperature", band["log10_temperature"]),
                        ("out", f"llm-soft-loop/pod64/bands/{band['name']}")):
@@ -129,12 +131,13 @@ def gate_band(plan, band, worker):
                 require(np.array_equal(partial[key].reshape(arrays[key].shape), arrays[key]),
                         f"{band['name']}: final/checkpoint mismatch: {key}")
     progress = [json.loads(line) for line in (folder / "progress.jsonl").read_text().splitlines()]
-    expected_progress = [(start, phase, step) for start in range(0, info["cells"], 2048)
-                         for phase in ("transient", "samples") for step in (100, 200, 300)]
+    chunk=plan.get("chunk",2048)
+    expected_progress = [(start, phase, step) for start in range(0, info["cells"], chunk)
+                         for phase in ("transient", "samples") for step in range(100,plan[phase]+1,100)]
     require([(r["chunk_start"], r["phase"], r["step"]) for r in progress] == expected_progress,
             f"{band['name']}: missing, duplicate or reordered progress")
     done = [json.loads(line) for line in numerical.splitlines() if line.startswith('{"done"')]
-    require([r["done"] for r in done] == list(range(2048, info["cells"] + 1, 2048)),
+    require([r["done"] for r in done] == [min(start+chunk,info["cells"]) for start in range(0,info["cells"],chunk)],
             f"{band['name']}: not every chunk completed")
     source = {name: hashlib.sha256(subprocess.check_output(["git", "show", result["commit"] + ":" + name],
                                                           cwd=ROOT)).hexdigest() for name in SCIENCE_FILES}

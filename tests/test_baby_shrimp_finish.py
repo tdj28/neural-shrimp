@@ -42,6 +42,18 @@ def test_all_cells_and_metadata_pass():
     assert finish.gate_arrays(a, i, p, b)["cells"] == 2048
 
 
+def test_longer_period_survey_checks_its_own_settings():
+    p,b,a,i=sample()
+    p.update(chunk=1024,transient=1000,samples=768,record=384,max_period=192)
+    i["args"].update({k:p[k] for k in ("chunk","transient","samples","record","max_period")})
+    a["period"][0,0]=72
+    i["period_counts"]={"0":2047,"72":1}
+    assert finish.gate_arrays(a,i,p,b)["passed"]
+    i["args"]["samples"]=300
+    with pytest.raises(ValueError,match="samples"):
+        finish.gate_arrays(a,i,p,b)
+
+
 @pytest.mark.parametrize("defect", ["nonfinite", "missing_row", "wrong_axis", "period_33", "wrong_summary",
                                    "short_horizon", "float32", "wrong_batch", "alternative_start", "unknown_family"])
 def test_invalid_band_is_rejected(defect):
