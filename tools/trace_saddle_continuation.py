@@ -219,15 +219,22 @@ class TraceSaddleContinuation:
         return {"complete": True, "points": accepted, "evaluations": len(self.evaluations)}
 
     def solve_height_zero(self, left, right, *, height_tolerance=1e-8,
-                          parameter_tolerance=1e-8, max_iterations=30):
+                          parameter_tolerance=1e-8, max_iterations=30, interior_fraction=0.1,
+                          progress_safeguard=False):
         """Safeguarded secant/bisection of the height of corrected saddles.
 
         Success requires the height residual gate. The parameter tolerance stops
         an unresolved search; it never substitutes for that gate. The surviving
         bracket and its width are retained and are not a rigorous enclosure.
+        ``interior_fraction`` controls the secant safeguard, not any numerical
+        gate; its historical default remains 0.1.
+        Optional residual progress allows a strictly interior near-endpoint
+        secant only after the previous saddle halved the best endpoint residual.
         """
         if (not math.isfinite(height_tolerance) or height_tolerance <= 0
                 or not math.isfinite(parameter_tolerance) or parameter_tolerance <= 0
+                or not math.isfinite(interior_fraction) or not 0 < interior_fraction < .5
+                or not isinstance(progress_safeguard, bool)
                 or not 1 <= max_iterations <= self.max_continuation_points):
             raise ValueError("positive root tolerances and bounded iteration count required")
         for endpoint in (left, right):
@@ -239,30 +246,40 @@ class TraceSaddleContinuation:
             self._fail("no strict sign-changing saddle-height bracket",
                        parameters=[lo["parameter"], hi["parameter"]], heights=[lo["tau"], hi["tau"]])
         history = []
+        previous_progress = False
         for iteration in range(int(max_iterations)):
             width = hi["parameter"] - lo["parameter"]
             if width <= parameter_tolerance:
                 self._fail("height bracket reached parameter tolerance without height convergence",
                            bracket=[lo, hi], history=history)
             candidate = (lo["parameter"] * hi["tau"] - hi["parameter"] * lo["tau"]) / (hi["tau"] - lo["tau"])
-            if not lo["parameter"] + 0.1 * width <= candidate <= hi["parameter"] - 0.1 * width:
+            progress_eligible = bool(progress_safeguard and previous_progress
+                                     and lo["parameter"] < candidate < hi["parameter"])
+            if not progress_eligible and not lo["parameter"] + interior_fraction * width <= candidate <= hi["parameter"] - interior_fraction * width:
                 candidate = (lo["parameter"] + hi["parameter"]) / 2
+            if not lo["parameter"] < candidate < hi["parameter"]:
+                self._fail("no strictly interior floating-point root candidate", bracket=[lo, hi], history=history)
+            best_endpoint_residual = min(abs(lo["tau"]), abs(hi["tau"]))
             weight = (candidate - lo["parameter"]) / width
             predictor = (1 - weight) * np.array(lo["center"]) + weight * np.array(hi["center"])
             saddle = self.correct(candidate, predictor)
             row = {"iteration": iteration, "parameter": candidate, "tau": saddle["tau"],
                    "bracket": [lo["parameter"], hi["parameter"]],
-                   "bracket_heights": [lo["tau"], hi["tau"]], "center": saddle["center"]}
+                   "bracket_heights": [lo["tau"], hi["tau"]], "center": saddle["center"],
+                   "progress_secant_eligible": progress_eligible}
             history.append(row)
             self._emit("height_root_iteration", **row)
             if abs(saddle["tau"]) <= height_tolerance:
                 result = {"complete": True, "saddle": saddle, "history": history,
                           "height_tolerance": height_tolerance,
                           "parameter_tolerance": parameter_tolerance,
+                          "interior_fraction": interior_fraction,
+                          "progress_safeguard": progress_safeguard,
                           "bracket": [lo["parameter"], hi["parameter"]],
                           "bracket_width": width, "evaluations": len(self.evaluations)}
                 self._emit("height_root_complete", **result)
                 return result
+            previous_progress = abs(saddle["tau"]) <= .5 * best_endpoint_residual
             if lo["tau"] * saddle["tau"] < 0:
                 hi = saddle
             else:

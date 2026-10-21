@@ -73,6 +73,8 @@ def bind_protocol(protocol, root=ROOT, data=DATA):
     required = set(BASE_SOURCES)
     if protocol["args"]["mode"] == "continue":
         required.add("tools/trace_saddle_continuation.py")
+    if protocol["args"].get("height_root"):
+        required.update(("tools/baby_shrimp_memory_height_root.py", "tools/baby_shrimp_memory_finish.py"))
     if "resume" in protocol:
         required.update(("tools/baby_shrimp_memory_resume.py", "tools/baby_shrimp_memory_finish.py",
                          "tools/baby_shrimp_orbits.py", "tools/baby_shrimp_geometry.py",
@@ -400,13 +402,13 @@ def audit_stencil(row, mapping, tolerance):
                        ("correction_norm", np.linalg.norm(correction)), ("hessian_condition", condition)):
         close(row[key], value, "recomputed stencil differs: " + key, atol=1e-12)
     require(row["converged"] == (np.linalg.norm(correction) <= tolerance), "stencil convergence label differs")
-    require(np.linalg.norm(correction) <= 2, "stencil exceeded trust radius")
     diagnostics = stationary_height_diagnostics(f[1, 1], gradient, hessian)
     residuals = [f[iy, ix] - (f[1, 1] + gradient @ (h * np.array([dx, dy]))
                  + .5 * (h * np.array([dx, dy])) @ hessian @ (h * np.array([dx, dy])))
                  for iy, dy in enumerate((-1, 0, 1)) for ix, dx in enumerate((-1, 0, 1))]
     return {"parameter": beta, "center": center.tolist(), "tau": float(f[1, 1]),
             **diagnostics, "hessian_eigenvalues": values.tolist(), "stencil_step": h,
+            "trust_radius_passed": bool(np.linalg.norm(correction) <= 2),
             "quadratic_stencil_max_abs_residual": float(max(abs(np.asarray(residuals)))),
             "converged": row["converged"], "point_index": mapping[int(indices[1, 1])]["index"]}
 
@@ -414,6 +416,8 @@ def audit_stencil(row, mapping, tolerance):
 def audit_saddle(row, mapping, raw, stencils, tolerance):
     require(row.get("converged") and row["history"], "accepted saddle lacks convergence history")
     checked = [audit_stencil(h, mapping, tolerance) for h in row["history"]]
+    require(all(point["trust_radius_passed"] for point in checked),
+            "accepted saddle contains a rejected trust-radius step")
     last_by_scale = {}
     for point in checked:
         last_by_scale[point["stencil_step"]] = point
@@ -479,6 +483,23 @@ def accepted_centers(run, protocol, raw, result, root=ROOT):
     return accepted, len([e for e in events if e["stage"] == "saddle_iteration"])
 
 
+def rejected_corrector_steps(run, protocol, raw):
+    """Retain valid stencils whose proposed move was rejected, not accepted."""
+    events, mapping = continuation_events(run, raw)
+    tolerance = protocol["args"].get("correction_tolerance", .003)
+    rejected = []
+    for index, event in enumerate(events):
+        if event["stage"] != "saddle_iteration":
+            continue
+        checked = audit_stencil(event, mapping, tolerance)
+        if not checked["trust_radius_passed"]:
+            rejected.append({key: checked[key] for key in (
+                "parameter", "center", "stencil_step", "point_index", "correction", "correction_norm")})
+            rejected[-1].update(event_index=index, iteration=event["iteration"], trust_radius=2.,
+                                reason="proposed correction exceeds trust radius", accepted=False)
+    return rejected
+
+
 def plot_centers(centers, out):
     if not centers:
         return []
@@ -541,7 +562,7 @@ def audit_run(run, out, *, root=ROOT, data=DATA, worker=None):
     baseline = audit_baseline(run, raw, anchor)
     result_path = run / "result.json"
     result = read(result_path) if result_path.exists() else read(run / "continuation.json") if (run / "continuation.json").exists() else {}
-    centers, iterations = [], 0
+    centers, iterations, rejected = [], 0, []
     if protocol["args"]["mode"] == "pilot":
         if result.get("complete"):
             require([p["beta"] for p in result["rows"]] == protocol["args"]["betas"], "pilot parameter rows differ")
@@ -549,6 +570,7 @@ def audit_run(run, out, *, root=ROOT, data=DATA, worker=None):
                 require(row == raw[row["index"]] and len(row["phases"]) == 3, "pilot row lacks qualified cyclic evidence")
     else:
         centers, iterations = accepted_centers(run, protocol, raw, result, root)
+        rejected = rejected_corrector_steps(run, protocol, raw)
         if result.get("complete"):
             expected = protocol["args"]["betas"]
             if protocol["args"].get("anchor_saddle"):
@@ -560,6 +582,7 @@ def audit_run(run, out, *, root=ROOT, data=DATA, worker=None):
         wr, folder, lifecycle, _ = verify_worker(Path(worker))
         require(folder.resolve() == run and wr["commit"] == protocol["commit"], "worker folder or source differs")
     resume = None
+    bundle, replay = None, None
     if "resume" in protocol:
         from baby_shrimp_memory_resume import verify_resume, verify_replay
         bundle = verify_resume(protocol["resume"], protocol["plan"], root=root, data=data,
@@ -570,7 +593,16 @@ def audit_run(run, out, *, root=ROOT, data=DATA, worker=None):
         require(replay["passed"] or (not centers and not result.get("complete")),
                 "continued target requires complete fresh endpoint replay")
         resume = {"provenance": bundle["provenance"], "fresh_replay": replay}
-    complete = bool(result.get("complete") and not unqualified and not (run / "failure.json").exists())
+    height_root = None
+    if protocol["args"].get("height_root"):
+        from baby_shrimp_memory_height_root import verify_height_root
+        height_root = verify_height_root(run, protocol, result, centers, raw,
+                                         resume_bundle=bundle, replay=replay)
+        require(not result.get("complete") or height_root["complete"],
+                "completed root search lacks a verified height root")
+    else:
+        require("height_root" not in result, "unexpected root result without requested root search")
+    complete = bool(result.get("complete") and not unqualified and not rejected and not (run / "failure.json").exists())
     plots = plot_centers(centers, out)
     manifest = [{"path": str(p.relative_to(run)), "sha256": digest(p), "bytes": p.stat().st_size}
                 for p in sorted(run.rglob("*")) if p.is_file()]
@@ -581,8 +613,10 @@ def audit_run(run, out, *, root=ROOT, data=DATA, worker=None):
                "raw_directory": str(run), "runtime": runtime, "baseline": baseline,
                "qualified_points": summaries, "unqualified_or_incomplete_points": unqualified,
                "accepted_centers": centers, "stencil_iterations_recomputed": iterations,
+               "rejected_corrector_steps": rejected,
                "height_change_diagnostics": assess_height_changes(centers),
-               "worker": lifecycle, "resume": resume, "manifest": manifest, "figures": plots,
+               "worker": lifecycle, "resume": resume, "height_root": height_root,
+               "manifest": manifest, "figures": plots,
                "figure_visual_review": "pending" if plots else "not applicable",
                "limits": ["Saved-data replay, not a fresh model evaluation or interval certificate.",
                           "Ritz separation is conditional on the computed subspace; it is not a full-spectrum certificate.",

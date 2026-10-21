@@ -10,7 +10,7 @@ import pytest
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "tools"))
 import baby_shrimp_memory_finish as finish
-from trace_saddle_continuation import TraceSaddleContinuation
+from trace_saddle_continuation import ContinuationError, TraceSaddleContinuation
 
 
 def write_json(path, row):
@@ -136,6 +136,92 @@ def test_stencil_cannot_use_a_wrong_parameter_point():
     wrong[index]["beta"] += .01
     with pytest.raises(ValueError, match="wrong parameter"):
         finish.audit_saddle(saddle, wrong, points, [.1, .03], 1e-10)
+
+
+def corrector_attempt_with_rejected_move(failed_beta=.3):
+    """One valid saddle, followed by a valid stencil proposing an unsafe move."""
+    points, events, artifacts = {}, [], []
+    def evaluate(center, beta):
+        x, y = center - [.4*beta, -.2*beta]
+        row = dict(index=len(points), coordinate=center.tolist(), beta=beta, qualified=True,
+                   tau=float(beta-.3-2*x*x+.5*x*y+3*y*y), delta=-1e-8, radius=.5,
+                   phases=[dict(phase=0)])
+        points[row["index"]] = row
+        return row
+    def record(row):
+        if row["stage"] == "saddle_complete":
+            cyclic = copy.deepcopy(evaluate(np.asarray(row["center"]), row["parameter"]))
+            cyclic["phases"] = [dict(phase=shift, tau=cyclic["tau"]) for shift in (0, 6, 12)]
+            points[cyclic["index"]] = cyclic
+            row["cyclic_endpoint"] = cyclic
+            artifacts.append(row)
+        events.append(row)
+    engine = TraceSaddleContinuation(evaluate, correction_tolerance=1e-10, record=record)
+    accepted = engine.correct(.2, [0., 0.])
+    with pytest.raises(ContinuationError, match="trust radius"):
+        engine.correct(failed_beta, [-3., 0.])
+    mapping = {event["index"]: points[event["callback"]["index"]]
+               for event in events if event["stage"] == "evaluation_complete"}
+    rejected = [event for event in events if event["stage"] == "saddle_iteration"][-1]
+    return accepted, artifacts[0], rejected, points, mapping, events
+
+
+def test_rejected_trust_radius_stencil_is_evidence_but_never_an_accepted_saddle():
+    accepted, artifact, rejected, points, mapping, _ = corrector_attempt_with_rejected_move(failed_beta=.2)
+    checked = finish.audit_stencil(rejected, mapping, 1e-10)
+    assert not checked["trust_radius_passed"] and not checked["converged"]
+    assert checked["correction_norm"] > 3
+    valid = finish.audit_saddle(artifact, mapping, points, [.1, .03], 1e-10)
+    assert valid["trust_radius_passed"] and valid["tau"] == accepted["tau"]
+    # Even a later, fully converged two-scale ending cannot legitimize a
+    # rejected step earlier in the claimed accepted history.
+    forged = copy.deepcopy(artifact)
+    forged["history"].insert(0, rejected)
+    with pytest.raises(ValueError, match="accepted saddle contains a rejected trust-radius step"):
+        finish.audit_saddle(forged, mapping, points, [.1, .03], 1e-10)
+    altered = copy.deepcopy(rejected)
+    altered["correction_norm"] = 1.9
+    with pytest.raises(ValueError, match="recomputed stencil differs: correction_norm"):
+        finish.audit_stencil(altered, mapping, 1e-10)
+
+
+@pytest.mark.parametrize("claimed_complete", [False, True])
+def test_partial_audit_retains_rejected_corrector_without_accepting_it(tmp_path, monkeypatch, claimed_complete):
+    accepted, artifact, rejected, points, _, events = corrector_attempt_with_rejected_move()
+    run, out = tmp_path / "run", tmp_path / "audit"
+    run.mkdir()
+    out.mkdir()
+    for index, point in points.items():
+        directory = run / f"point-{index:04d}"
+        directory.mkdir()
+        write_json(directory / "point.json", point)
+    write_json(run / "saddle-000.json", artifact)
+    (run / "progress.jsonl").write_text("\n".join(json.dumps(dict(stage="continuation", event=e)) for e in events)+"\n")
+    protocol = dict(commit="a"*40, plan={}, plan_sha256="b"*64,
+                    args=dict(mode="continue", stencils=[.1, .03], correction_tolerance=1e-10,
+                              betas=[.2] if claimed_complete else [.2, .3]))
+    write_json(run / "protocol.json", protocol)
+    write_json(run / "runtime.json", dict(norm_sensitivity=1e-12, rotary_float64=True, threads=8))
+    write_json(run / "result.json", dict(complete=claimed_complete, points=[accepted]))
+    # Orbit/operator audits are separately tested above. This fixture isolates
+    # the real callback/stencil replay and receipt semantics; no failure.json
+    # is supplied, so a rejected move alone must veto a complete label.
+    monkeypatch.setattr(finish, "bind_protocol", lambda protocol, root, data: tmp_path)
+    monkeypatch.setattr(finish, "audit_point", lambda directory, plan: (
+        finish.read(directory / "point.json"), {"index": finish.read(directory / "point.json")["index"], "qualified": True}))
+    monkeypatch.setattr(finish, "audit_baseline", lambda run, raw, anchor: {"passed": True})
+    monkeypatch.setattr(finish, "plot_centers", lambda centers, out: [])
+    receipt = finish.audit_run(run, out)
+    assert not receipt["complete"] and not receipt["unqualified_or_incomplete_points"]
+    assert [row["parameter"] for row in receipt["accepted_centers"]] == [.2]
+    assert len(receipt["rejected_corrector_steps"]) == 1
+    row = receipt["rejected_corrector_steps"][0]
+    assert row["parameter"] == .3 and row["center"] == [-3., 0.]
+    assert row["correction_norm"] == pytest.approx(rejected["correction_norm"])
+    assert row["correction_norm"] > row["trust_radius"] == 2.
+    assert row["accepted"] is False and "trust radius" in row["reason"]
+    assert "progress.jsonl" in {entry["path"] for entry in receipt["manifest"]}
+    assert isinstance(finish.accepted_centers(run, protocol, points, dict(points=[accepted])), tuple)
 
 
 def test_execution_sources_and_plan_are_bound_to_git_bytes(tmp_path, monkeypatch):

@@ -184,12 +184,26 @@ def main():
     parser.add_argument('--source-commit',help='exact source when executing a Git archive without .git')
     parser.add_argument('--resume-receipt',type=Path,help='local audited continuation receipt used only for predictor/warm history')
     parser.add_argument('--resume-sha256',help='exact SHA256 of --resume-receipt')
+    parser.add_argument('--height-root',action='store_true',help='after fresh targets, refine a strict saddle-height bracket numerically')
+    parser.add_argument('--height-tolerance',type=float,default=1e-8)
+    parser.add_argument('--height-parameter-tolerance',type=float,default=1e-10)
+    parser.add_argument('--height-root-iterations',type=int,default=10)
+    parser.add_argument('--height-root-interior-fraction',type=float,default=.1,
+                        help='secant safeguard; .1 preserves historical behavior, .001 is an explicit local option')
+    parser.add_argument('--height-root-progress-safeguard',action='store_true',
+                        help='allow a strictly interior near-endpoint secant after a halving of the best height residual')
     args=parser.parse_args()
     if not 0<args.seconds<=14400: parser.error('runtime must be bounded within four hours')
     if bool(args.resume_receipt) != bool(args.resume_sha256):
         parser.error('--resume-receipt and --resume-sha256 must be supplied together')
     if args.resume_receipt and (args.mode!='continue' or args.anchor_saddle):
         parser.error('resume requires continue mode without --anchor-saddle')
+    if args.height_root:
+        if args.mode!='continue' or args.anchor_saddle:
+            parser.error('height-root requires continue mode without --anchor-saddle')
+        from baby_shrimp_memory_height_root import template, candidates, select_bracket
+        template(args.height_tolerance,args.height_parameter_tolerance,args.height_root_iterations,
+                 args.height_root_interior_fraction,args.height_root_progress_safeguard)
     out=args.out if args.out.is_absolute() else DATA/'explore'/args.out
     out.mkdir(parents=True,exist_ok=False)
     plan_path=ROOT/args.plan; plan=json.loads(plan_path.read_text())
@@ -206,6 +220,8 @@ def main():
     if args.resume_receipt:
         sources.extend(['tools/baby_shrimp_memory_resume.py','tools/baby_shrimp_memory_finish.py',
                         'tools/baby_shrimp_orbits.py','tools/baby_shrimp_geometry.py','tools/doubly_superstable.py'])
+    if args.height_root:
+        sources.extend(['tools/baby_shrimp_memory_height_root.py','tools/baby_shrimp_memory_finish.py'])
     protocol={'commit':commit,'plan':plan,'plan_sha256':sha(plan_path),
          'source_sha256':{p:sha(ROOT/p) for p in sources},'args':{k:str(v) if isinstance(v,Path) else v for k,v in vars(args).items()},
          'started_utc':datetime.now(timezone.utc).isoformat()}
@@ -239,12 +255,25 @@ def main():
         else:
             from trace_saddle_continuation import TraceSaddleContinuation
             accepted=[]
+            saddle_number=0
+            root_state=None
             predictor_history=[] if resume is None else list(resume['history'])
             def event(row):
+                nonlocal saddle_number
                 if row['stage']=='saddle_complete':
                     point=ev(row['center'],row['parameter'],cyclic=True)
                     row['cyclic_endpoint']=point
-                    save(out/f"saddle-{len(accepted):03d}.json",row)
+                    name=f"saddle-{saddle_number:03d}.json"
+                    if (out/name).exists():
+                        raise ValueError('refusing to overwrite a saved saddle callback')
+                    save(out/name,row)
+                    saddle_number+=1
+                    if root_state is not None:
+                        root_state['saddle_artifacts'].append(name)
+                        save(out/'height-root.json',root_state)
+                elif row['stage']=='height_root_iteration' and root_state is not None:
+                    root_state['iterations'].append({**row,'artifact':root_state['saddle_artifacts'][-1]})
+                    save(out/'height-root.json',root_state)
                 emit('continuation',event=row)
             engine=TraceSaddleContinuation(ev,stencils=args.stencils,correction_tolerance=args.correction_tolerance,max_iterations=6,
                 max_evaluations=plan['maximum_evaluations'],trust_radius=2.,record=event)
@@ -271,6 +300,27 @@ def main():
                 save(out/'continuation.json',{'complete':False,'points':accepted})
             result={'complete':True,'points':accepted,'evaluations':ev.attempts,
                 'scope':'Moving stationary trace in a memory-perturbed network; no native coupling or exact superstability claim.'}
+            if args.height_root:
+                root_state=template(args.height_tolerance,args.height_parameter_tolerance,args.height_root_iterations,
+                                    args.height_root_interior_fraction,args.height_root_progress_safeguard)
+                save(out/'height-root.json',root_state)
+                try:
+                    root_state['candidates']=candidates(out,accepted,provenance=protocol.get('resume'),
+                                                       replay=replay if resume is not None else None)
+                    save(out/'height-root.json',root_state)
+                    root_state['initial_bracket']=select_bracket(root_state['candidates'])
+                    save(out/'height-root.json',root_state)
+                    numerical=engine.solve_height_zero(*root_state['initial_bracket'],
+                        height_tolerance=args.height_tolerance,parameter_tolerance=args.height_parameter_tolerance,
+                        max_iterations=args.height_root_iterations,interior_fraction=args.height_root_interior_fraction,
+                        progress_safeguard=args.height_root_progress_safeguard)
+                    root_state.update(complete=True,result=numerical)
+                    save(out/'height-root.json',root_state)
+                    result.update(height_root=root_state,evaluations=ev.attempts)
+                except BaseException as error:
+                    root_state['failure']={'type':type(error).__name__,'error':str(error)}
+                    save(out/'height-root.json',root_state)
+                    raise
         save(out/'result.json',result)
     except BaseException as error:
         save(out/'failure.json',{'type':type(error).__name__,'error':str(error),'time':datetime.now(timezone.utc).isoformat()})
