@@ -32011,3 +32011,31 @@ nearly identical under protan vision.
   weighted degrees, a numerical coupled-map Jacobian, tiny state differences,
   graph underflow and nontransitive close-pair chains. These are software
   checks, not empirical N100 outcomes. No paid review requested or run.
+
+
+## 2026-10-21 06:02 UTC: V3 verification correction before admitting results
+
+- A local audit found that `morph_fill.py` could return success after missing
+  or failed frame rows, install a passing subset before later copy failures,
+  and record a recomputed archive hash without requiring it to match the
+  recorded remote hash. These were validator defects, not evidence about
+  the computed dynamics.
+- The validator now requires all 17 expected frames exactly once, a successful
+  runner, authenticated archive and extracted-file hashes before numerical
+  reads, full array/grid gates, and preflight of every source and destination
+  before copying. The historical reproduction threshold is unchanged and
+  stated explicitly in each comparison.
+- Read-only and installation checks use distinct receipt paths; existing
+  receipts and raw evidence are never overwritten. Analysis source identity,
+  file hashes and byte counts are recorded. Predictable late install failures
+  are rejected before any frame is copied; unexpected I/O failures retain
+  their failed receipt and any partial copy evidence.
+- Validation: `tests/test_morph_fill.py` and
+  `tests/test_gpu_preview_lifecycle.py`: 46 passed, exit 0, plus focused
+  Ruff and whitespace checks.
+- Timing disclosure: the six first-frame completion statuses were observed
+  operationally before this correction; their raw numerical arrays were not
+  read. No V3 target outputs were installed or used to change scientific
+  criteria. Live orchestrators and watchdog remain unchanged. V3 remains
+  exploratory and incomplete until retrieval, all-row validation and verified
+  termination.
