@@ -32039,3 +32039,45 @@ nearly identical under protan vision.
   criteria. Live orchestrators and watchdog remain unchanged. V3 remains
   exploratory and incomplete until retrieval, all-row validation and verified
   termination.
+
+## 2026-10-21 07:56 UTC: BF result: the batch layout reshuffles which starts leave the chaotic set and when; no start-specific fate
+
+- **Run.** bf1 as in the run card (tool cf8fc386, card 5c11023d): 64 starts, 5000 steps, layouts of 32, 64 and 1,
+  float64 on the local GPU, 16,146 s. Raw data: ../neural-shrimp-data/explore/llm-soft-loop/batch-fate/bf1
+  (fate.npz SHA-256 9dfd2e93527df157..., start states 4ef7a03b028bbf58...).
+- **Controls.** The 64-row batch rerun for 500 steps, and the first two starts alone rerun for 500 steps, reproduce the
+  main run's recorded states bitwise. The layouts' trajectories have separated by a median relative distance of 0.007
+  to 0.010 at step 100 and about 1, the attractor's scale, at step 200.
+- **Detections.** A detection is a recurrence candidate: |x_t - x_{t-q}| / |x_t| < 1e-9 for some period q <= 64. It is
+  not Newton-verified.
+  - Batches of 32: 5 detections. Four have period 4 and write " - I indeed?" in its phases; one has period 8 and
+    writes " you are you are ...", an orbit the portrait census did not list.
+  - One batch of 64: 5 detections, all period 4.
+  - Starts alone: 4 detections, all period 4.
+  - No layout had a detection before step 1000. Detection steps run from 1087 to 4741.
+  - In the batched layouts every candidate stayed on its cycle to the horizon. Records taken a whole number of periods
+    apart agree to 2.5e-10 or better, most to about 1e-13. A start alone stops at its detection.
+- **Start by start.** 13 distinct starts were detected in at least one layout. Two were detected in two layouts, each
+  on the same period-4 orbit at different steps: start 20 at step 1308 (batches of 32) and at 2254 (batch of 64);
+  start 31 at 4266 (batches of 32) and at 4595 (alone). None was detected in all three layouts, and 51 were detected in
+  none. The rows never detected end far from any recurrence: median relative recurrence distance 0.03; 6 to 10 per
+  layout below 1e-3, none below 1e-6.
+- **Reading against the card.**
+  - The data show the timing-only pattern: detections come late and throughout the horizon in every layout, at
+    similar counts (5, 5 and 4 of 64), and the layouts disagree on which starts they are.
+  - The fate pattern, with early captures shared by all layouts, is absent. The "neither" outcome did not occur, and
+    nothing surprising occurred: no identical late detection steps, and the batches are bitwise reproducible.
+  - The layout does not select a start-specific attractor. Once the rounding differences reach the attractor's scale,
+    by about step 200, each layout's trajectory is a different sample, and which samples leave the chaotic set within
+    5000 steps differs. The originating case (a start alone captured, the same start in a batch not) is one instance
+    of this.
+- **For the article.** Its portrait statement, that trajectories approach the chaotic set and stay near it over the
+  recorded horizon, holds at its scope.
+  - Over 5000 steps, 4 or 5 of 64 trajectories per layout leave the set for the period-4 orbit (once for a period-8
+    orbit). At this cell the chaotic set may therefore be a long-lived transient, a chaotic saddle, rather than an
+    attractor.
+  - A second version should say so. Too few escapes were seen to estimate an escape rate.
+- **Limits.** One cell, one device, 64 starts and a 5000-step horizon. Detections are recurrence candidates only.
+  Whether every start is eventually captured is not shown.
+- **Receipts.** docs/batch-fate/bf1-receipt.json (tools/batch_fate_summary.py as committed in 6b992dca) and
+  docs/batch-fate/bf1-persistence.json (tools/batch_fate_persist.py).
