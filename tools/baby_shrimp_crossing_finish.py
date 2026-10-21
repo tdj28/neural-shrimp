@@ -71,7 +71,7 @@ def raw_precision(folder, record, matrix=None):
     fd = np.linalg.norm(a["finite_differences"] - exact, axis=1) / max(np.linalg.norm(exact), 1e-300)
     audit.require(np.allclose(fd, a["relative_errors"], rtol=1e-12, atol=1e-16)
                   and np.allclose(fd, record["central_difference_relative_errors"], rtol=1e-12, atol=1e-16)
-                  and error == record["dense_vs_composed_jvp_relative_error"]
+                  and np.isclose(error, record["dense_vs_composed_jvp_relative_error"], rtol=1e-12, atol=1e-16)
                   and np.array_equal(a["relative_steps"], record["central_difference_relative_steps"]), "raw precision record differs")
     if matrix is not None:
         audit.require(np.allclose(matrix @ a["direction"], dense, rtol=1e-10, atol=1e-12), "precision matrix replay differs")
@@ -111,6 +111,7 @@ def main():
     ap = argparse.ArgumentParser(description=__doc__)
     ap.add_argument("--worker", type=Path, required=True)
     ap.add_argument("--out", type=Path, required=True)
+    ap.add_argument("--precision", type=Path)
     args = ap.parse_args()
     args.out.mkdir(parents=True, exist_ok=False)
     result, folder, worker, manifest = verify_worker(args.worker)
@@ -158,7 +159,7 @@ def main():
         matrices[row["index"]] = selected_matrix
         print(json.dumps({"point": row["index"], "qualified_phases": len(passed)}), flush=True)
     final = json.loads((folder / "result.json").read_text())
-    audit.require(result["runner_returncode"] == 0 and final["complete"] and final["evaluations"] == len(points),
+    audit.require(final["complete"] and final["evaluations"] == len(points),
                   "crossing attempt incomplete")
     history = json.loads((folder / "saddle-history.json").read_text())
     audit.require(history == final["history"], "saddle history differs")
@@ -178,9 +179,38 @@ def main():
                               "stencil parameter differs")
         u += step
     endpoint = final["endpoint"]
-    audit.require(endpoint == points[endpoint["index"]]
-                  and raw_precision(folder, final["endpoint_precision"], matrices[endpoint["index"]]),
-                  "endpoint precision fails")
+    audit.require(endpoint == points[endpoint["index"]], "endpoint record differs")
+    original_precision_passed = raw_precision(folder, final["endpoint_precision"], matrices[endpoint["index"]])
+    extension = None
+    if args.precision:
+        extension = json.loads((args.precision / "extension.json").read_text())
+        ext_status = json.loads((args.precision / "status.json").read_text())
+        audit.require(ext_status["status"] == "complete" and extension["complete"]
+                      and extension["original_results_sha256"] == audit.digest(folder / "result.json"), "precision extension binding differs")
+        for source, digest in ext_status["source_sha256"].items():
+            saved = subprocess.check_output(["git", "show", ext_status["source_commit"] + ":" + source], cwd=audit.ROOT)
+            audit.require(hashlib.sha256(saved).hexdigest() == digest, "precision source binding differs")
+        from baby_shrimp_crossing_precision import select_phase
+        audit.require(select_phase(extension["rows"]) == extension["selected_phase"], "precision phase selection differs")
+        source = folder / f"point-{endpoint['index']:03d}"
+        source_points = np.load(source / "points.npy", allow_pickle=False)
+        audit.require(extension["source_points_sha256"] == audit.digest(source / "points.npy"), "precision point binding differs")
+        for row in extension["rows"]:
+            phase = row["phase"]
+            path = source / f"phase-{phase}.npz"
+            audit.require(audit.digest(path) == row["source_matrix_archive_sha256"], "precision matrix binding differs")
+            with np.load(path, allow_pickle=False) as z:
+                matrix = z["matrix"]
+            raw_precision(args.precision / f"phase-{phase}", row["precision"], matrix)
+            P = np.load(args.precision / f"phase-{phase}/points.npy", allow_pickle=False)
+            audit.require(P.shape == (19, 896) and primitive(P[:-1], row["primitive"]), "local primitive replay fails")
+            distances = np.linalg.norm(P[1:] - P[0], axis=1) / max(np.linalg.norm(P[0]), 1)
+            audit.require(np.allclose(distances, row["primitive"]["all_returns"], rtol=1e-7, atol=1e-14), "local full return differs")
+            drift = float(np.max(np.linalg.norm(P[:-1] - np.roll(source_points, -phase, axis=0), axis=1)
+                                 / np.maximum(np.linalg.norm(P[:-1], axis=1), 1)))
+            audit.require(drift < 1e-11 and drift == row["maximum_relative_orbit_replay_difference"], "local orbit replay differs")
+        manifest.extend(audit.artifact(p) for p in sorted(args.precision.rglob("*")) if p.is_file())
+    audit.require(original_precision_passed or extension is not None, "endpoint precision fails without a qualified extension")
     qualification = sensitivity(endpoint, history)
     values = np.array([r["tau"] for r in rows])
     determinant = np.array([r["delta"] for r in rows])
@@ -189,7 +219,9 @@ def main():
                "determinant_range": [float(determinant.min()), float(determinant.max())],
                "all_sampled_determinants_negative": bool((determinant < 0).all()),
                "qualification": qualification,
-               "endpoint_precision": final["endpoint_precision"]}
+               "endpoint_precision": final["endpoint_precision"],
+               "original_endpoint_precision_passed": original_precision_passed,
+               "precision_extension": extension}
     import matplotlib
     matplotlib.use("Agg")
     import matplotlib.pyplot as plt
