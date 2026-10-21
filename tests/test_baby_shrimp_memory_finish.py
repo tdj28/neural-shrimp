@@ -104,7 +104,7 @@ def saddle_evidence():
     mapping = {e["index"]: points[e["callback"]["index"]]
                for e in events if e["stage"] == "evaluation_complete"}
     cyclic = copy.deepcopy(mapping[saddle["point_index"]])
-    cyclic.update(index=1000, phases=[{"phase": shift} for shift in (0, 6, 12)])
+    cyclic.update(index=1000, phases=[{"phase": shift, "tau": cyclic["tau"]} for shift in (0, 6, 12)])
     points[1000] = cyclic
     saddle["cyclic_endpoint"] = cyclic
     return saddle, mapping, points
@@ -116,6 +116,9 @@ def test_recomputes_nine_point_saddle_and_cyclic_center_link():
     assert summary["kind"] == "continued saddle"
     np.testing.assert_allclose(summary["hessian"], [[-4, .5], [.5, 6]], atol=1e-10)
     assert summary["tau"] == pytest.approx(-.1)
+    assert summary["height_sensitivity"]["height_sign_consistent_across_estimates"]
+    assert len(summary["stencil_diagnostics"]) == 2
+    assert "not an uncertainty bound" in summary["height_sensitivity"]["scope"]
     altered = copy.deepcopy(saddle)
     altered["history"][-1]["hessian"][0][0] += 1e-3
     with pytest.raises(ValueError, match="stencil differs: hessian"):
@@ -196,3 +199,80 @@ def test_incomplete_point_remains_manifested_and_prevents_complete_label(tmp_pat
     assert len(partial["qualified_points"]) == 1
     assert partial["unqualified_or_incomplete_points"][0]["index"] == 1
     assert "point-0001/point.json" in {row["path"] for row in partial["manifest"]}
+
+
+def diagnostic_stencil(center, step, tau, gradient, hessian, parameter=0.):
+    return dict(center=list(center), stencil_step=step, tau=tau, parameter=parameter,
+                **finish.stationary_height_diagnostics(tau, gradient, hessian))
+
+
+def test_saddle_signed_height_correction_cannot_hide_curvature_cancellation():
+    row = finish.stationary_height_diagnostics(1e-12, [2e-3, 2e-3], [[-2, 0], [0, 2]])
+    assert row["quadratic_height_shift"] == pytest.approx(0, abs=1e-20)
+    assert row["absolute_curvature_height_scale"] == pytest.approx(2e-6)
+    sensitivity = finish.height_sensitivity([
+        dict(row, tau=1e-12, center=[0., 0.], parameter=0., stencil_step=.01)], 0.)
+    assert sensitivity["height_sign_consistent_across_estimates"]
+    assert sensitivity["height_to_sensitivity_ratio"] == pytest.approx(5e-7)
+    assert "sign not certified" in sensitivity["status"]
+
+
+def test_different_centers_are_quadratically_transported_not_richardson_extrapolated():
+    hessian = np.array([[-2., .4], [.4, 3.]])
+    height = .017
+    def row(center, step):
+        center = np.array(center)
+        return diagnostic_stencil(center, step, height + .5 * center @ hessian @ center,
+                                  hessian @ center, hessian)
+    coarse, fine = row([.1, .2], .1), row([.003, -.001], .03)
+    comparison = finish.compare_stencil_scales(coarse, fine)
+    assert comparison["raw_height_difference"] != pytest.approx(0)
+    assert comparison["trace_transport_residual"] == pytest.approx(0, abs=1e-16)
+    np.testing.assert_allclose(comparison["gradient_transport_residual"], 0., atol=1e-16)
+    assert comparison["quadratic_corrected_height_difference"] == pytest.approx(0, abs=1e-16)
+    assert not comparison["richardson"]["applied"]
+    assert "centers differ" in comparison["richardson"]["reason"]
+
+
+def test_matched_center_richardson_removes_cubic_gradient_bias_but_is_not_a_bound():
+    # tau=.02-x²+y²+.7x³: at the origin, centered differences have g_x=.7h².
+    coarse = diagnostic_stencil([0., 0.], .1, .02, [.7 * .1**2, 0.], [[-2, 0], [0, 2]])
+    fine = diagnostic_stencil([0., 0.], .03, .02, [.7 * .03**2, 0.], [[-2, 0], [0, 2]])
+    comparison = finish.compare_stencil_scales(coarse, fine)
+    richardson = comparison["richardson"]
+    assert richardson["applied"] and richardson["saddle_hessian_retained"]
+    np.testing.assert_allclose(richardson["gradient"], [0., 0.], atol=1e-16)
+    assert richardson["quadratic_corrected_height"] == pytest.approx(.02)
+    assert "two scales do not establish" in richardson["scope"]
+
+
+def test_height_changes_use_corrected_heights_and_retain_unavailable_legacy_sensitivity():
+    centers = []
+    # The saddle translates but has constant height; residual locations differ.
+    for beta, offset in [(0., [.1, .2]), (1e-7, [.05, -.03])]:
+        H, e = np.diag([-2., 3.]), np.asarray(offset)
+        tau = .02 + .5 * e @ H @ e
+        stencil = diagnostic_stencil(e, .01, tau, H @ e, H, beta)
+        centers.append(dict(parameter=beta, center=(e + beta * np.array([1e4, 2e4])).tolist(),
+                            tau=tau, kind="continued saddle", gradient=stencil["gradient"], correction=stencil["correction"],
+                            height_sensitivity=finish.height_sensitivity([stencil], 0.)))
+    centers.append(dict(parameter=-1e-7, center=[0., 0.], tau=.02, kind="old saddle estimate"))
+    result = finish.assess_height_changes(centers)
+    assert not result["centers"][0]["sensitivity_available"]
+    assert len(result["adjacent_changes"]) == 1
+    change = result["adjacent_changes"][0]
+    assert change["quadratic_height_change"] == pytest.approx(0., abs=5e-17)
+    assert change["secant_sensitivity_scale"] > 0
+    np.testing.assert_allclose(change["quadratic_center_secant_velocity"], [1e4, 2e4], rtol=1e-12)
+    assert len(change["residual_gradient_dot_center_secant_velocity"]) == 2
+    assert "No root, derivative sign, noncrossing interval" in result["scope"]
+
+
+def test_small_newton_step_does_not_promote_an_unresolved_height_sign():
+    # A location correction below 3e-5 can still overwhelm a 1e-12 height.
+    e, H = np.array([1e-5, 0.]), np.diag([-2., 3.])
+    stencil = diagnostic_stencil(e, .003, 1e-12 + .5 * e @ H @ e, H @ e, H)
+    assert stencil["correction_norm"] < 3e-5
+    sensitivity = finish.height_sensitivity([stencil], 0.)
+    assert not sensitivity["height_sign_consistent_across_estimates"]
+    assert sensitivity["height_to_sensitivity_ratio"] < 1

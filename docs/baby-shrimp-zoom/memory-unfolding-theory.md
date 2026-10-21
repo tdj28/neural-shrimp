@@ -61,6 +61,14 @@ determinant \(\det(H)h'(s_c)\) at that point. If \(h'=0\), higher-order
 analysis is needed; an even-order touch of zero need not reconnect the arms
 across the parameter value.
 
+The crossing imposes three scalar conditions: zero trace and zero trace
+gradient in the two original controls. When those conditions are independent,
+two controls generically do not suffice; a third control can produce an
+isolated crossing. An exact factorization or symmetry can make the conditions
+dependent. This explains why avoidance is generic without identifying a
+particular native network pathway, and does not guarantee that the chosen
+memory intervention reaches a crossing within its tested range.
+
 If \(\Delta<0\), the multipliers on a trace-zero curve are
 
 \[
@@ -102,7 +110,7 @@ At fixed original controls,
 
 where \(m\) is the period. This gives \((I-M)\eta_0=b\), with \(b\)
 obtained by propagating the forcing from zero initial tangent. The total
-one-step Jacobian derivative is
+one-step Jacobian derivative, evaluated at \(\beta=0\), is
 
 \[
 \dot J_i=(I-J_i)+D^2F(x_i)[\eta_i,\,\cdot\,].
@@ -119,7 +127,9 @@ If memory merely relabels the original controls, so that
 the distinguished saddle height stays constant. A resolved change in
 \(h\) rules out that explanation for the trace field. Constant \(h\)
 with a moving center does not establish equivalence of the full maps. The
-pair determinant at the moving saddle supplies another invariant to check.
+pair determinant at the moving saddle supplies another quantity to check:
+relabeling the full map or the joint spectral field preserves it, whereas
+relabeling only the trace field need not.
 
 ## An exact counterexample: nonzero coupling can preserve a crossing
 

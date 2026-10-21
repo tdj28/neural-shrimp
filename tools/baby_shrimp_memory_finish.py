@@ -247,6 +247,130 @@ def continuation_events(run, raw):
     return events, mapping
 
 
+def stationary_height_diagnostics(tau, gradient, hessian):
+    """Local quadratic sensitivity estimates, never numerical error bounds."""
+    gradient, hessian = np.asarray(gradient, float), np.asarray(hessian, float)
+    values, basis = np.linalg.eigh(hessian)
+    require(np.isfinite(values).all() and values[0] < 0 < values[1],
+            "height diagnostic requires a nonsingular saddle Hessian")
+    correction = -np.linalg.solve(hessian, gradient)
+    signed_shift = float(.5 * gradient @ correction)
+    # At a saddle, positive and negative curvature terms can cancel. Keep
+    # their absolute sum as well as the signed quadratic correction.
+    absolute_scale = float(.5 * np.sum(abs(values) * (basis.T @ correction)**2))
+    return {"gradient": gradient.tolist(), "gradient_norm": float(np.linalg.norm(gradient)),
+            "hessian": hessian.tolist(), "correction": correction.tolist(),
+            "correction_norm": float(np.linalg.norm(correction)),
+            "quadratic_height_shift": signed_shift,
+            "quadratic_corrected_height": float(tau + signed_shift),
+            "absolute_curvature_height_scale": absolute_scale}
+
+
+def compare_stencil_scales(coarse, fine):
+    """Compare local models at a common center; extrapolate only if it is saved."""
+    require(coarse["parameter"] == fine["parameter"]
+            and coarse["stencil_step"] > fine["stencil_step"], "incompatible stencil scales")
+    displacement = np.asarray(fine["center"]) - np.asarray(coarse["center"])
+    gradient, hessian = np.asarray(coarse["gradient"]), np.asarray(coarse["hessian"])
+    transported_trace = float(coarse["tau"] + gradient @ displacement
+                              + .5 * displacement @ hessian @ displacement)
+    transported_gradient = gradient + hessian @ displacement
+    same_center = np.array_equal(np.asarray(coarse["center"]), np.asarray(fine["center"]))
+    comparison = {"coarse_step": coarse["stencil_step"], "fine_step": fine["stencil_step"],
+                  "centers_identical": same_center, "center_displacement": displacement.tolist(),
+                  "center_displacement_norm": float(np.linalg.norm(displacement)),
+                  "raw_height_difference": float(fine["tau"] - coarse["tau"]),
+                  "quadratic_corrected_height_difference": float(
+                      fine["quadratic_corrected_height"] - coarse["quadratic_corrected_height"]),
+                  "coarse_quadratic_trace_at_fine_center": transported_trace,
+                  "trace_transport_residual": float(fine["tau"] - transported_trace),
+                  "gradient_transport_residual": (np.asarray(fine["gradient"]) - transported_gradient).tolist(),
+                  "hessian_difference_norm": float(np.linalg.norm(np.asarray(fine["hessian"]) - hessian, 2)),
+                  "scope": "Quadratic transport between saved centers; omitted higher orders are not bounded."}
+    if not same_center:
+        comparison["richardson"] = {"applied": False, "reason": "Stencil centers differ; direct Richardson extrapolation is invalid."}
+        return comparison
+    big, small = coarse["stencil_step"]**2, fine["stencil_step"]**2
+    extrapolated_gradient = (big * np.asarray(fine["gradient"]) - small * gradient) / (big - small)
+    extrapolated_hessian = (big * np.asarray(fine["hessian"]) - small * hessian) / (big - small)
+    eigenvalues = np.linalg.eigvalsh(extrapolated_hessian)
+    extrapolation = {"applied": True, "gradient": extrapolated_gradient.tolist(),
+                     "hessian": extrapolated_hessian.tolist(), "hessian_eigenvalues": eigenvalues.tolist(),
+                     "scope": "Assumes leading O(step^2) truncation; two scales do not establish convergence order or an error bound."}
+    if eigenvalues[0] < 0 < eigenvalues[1] and np.linalg.cond(extrapolated_hessian) < 1e8:
+        extrapolation.update(stationary_height_diagnostics(fine["tau"], extrapolated_gradient, extrapolated_hessian))
+        extrapolation["saddle_hessian_retained"] = True
+    else:
+        extrapolation["saddle_hessian_retained"] = False
+    comparison["richardson"] = extrapolation
+    return comparison
+
+
+def height_sensitivity(scales, phase_trace_spread):
+    """Summarize empirical consistency without promoting any height sign."""
+    comparisons = [compare_stencil_scales(a, b) for a, b in zip(scales, scales[1:])]
+    heights = [p[key] for p in scales for key in ("tau", "quadratic_corrected_height")]
+    terms = [float(phase_trace_spread)] + [p["absolute_curvature_height_scale"] for p in scales]
+    for row, fine in zip(comparisons, scales[1:]):
+        terms.extend([abs(row["quadratic_corrected_height_difference"]), abs(row["trace_transport_residual"])])
+        richardson = row["richardson"]
+        if richardson.get("saddle_hessian_retained"):
+            heights.append(richardson["quadratic_corrected_height"])
+            terms.extend([richardson["absolute_curvature_height_scale"],
+                          abs(richardson["quadratic_corrected_height"] - fine["quadratic_corrected_height"])])
+    sensitivity = float(max(terms))
+    nominal = scales[-1]["quadratic_corrected_height"]
+    signs = np.sign(heights)
+    return {"status": "numerical sensitivity reported; sign not certified",
+            "nominal_quadratic_corrected_height": nominal,
+            "height_estimate_range": [float(min(heights)), float(max(heights))],
+            "height_sign_consistent_across_estimates": bool(np.all(signs == signs[0]) and signs[0] != 0),
+            "cyclic_trace_spread": float(phase_trace_spread),
+            "empirical_height_sensitivity_scale": sensitivity,
+            "height_to_sensitivity_ratio": float(abs(nominal) / sensitivity) if sensitivity > 0 else None,
+            "scale_comparisons": comparisons,
+            "scope": "Maximum observed quadratic correction scale, scale/transport discrepancy and cyclic trace spread; not an uncertainty bound. Unmeasured higher derivatives and operator errors may remain."}
+
+
+def assess_height_changes(centers):
+    """Compact point and secant diagnostics; never infer a root or interval."""
+    rows = []
+    for center in sorted(centers, key=lambda row: row["parameter"]):
+        sensitivity = center.get("height_sensitivity")
+        row = {"parameter": center["parameter"], "center": center["center"], "tau": center["tau"],
+               "kind": center["kind"], "sensitivity_available": sensitivity is not None}
+        if sensitivity is not None:
+            for key in ("nominal_quadratic_corrected_height", "empirical_height_sensitivity_scale",
+                        "height_sign_consistent_across_estimates", "height_to_sensitivity_ratio"):
+                row[key] = sensitivity[key]
+            if "gradient" in center and "correction" in center:
+                row["gradient"] = center["gradient"]
+                row["quadratic_stationary_center"] = (np.asarray(center["center"]) + center["correction"]).tolist()
+        rows.append(row)
+    changes = []
+    for left, right in zip(rows, rows[1:]):
+        step = right["parameter"] - left["parameter"]
+        if step == 0 or not all(p["sensitivity_available"] for p in (left, right)):
+            continue
+        change = right["nominal_quadratic_corrected_height"] - left["nominal_quadratic_corrected_height"]
+        scale = sum(p["empirical_height_sensitivity_scale"] for p in (left, right))
+        velocity = (np.asarray(right["center"]) - left["center"]) / step
+        comparison = {"parameters": [left["parameter"], right["parameter"]],
+                        "quadratic_height_change": float(change), "secant_height_slope": float(change / step),
+                        "sum_endpoint_sensitivity_scales": float(scale),
+                        "secant_sensitivity_scale": float(scale / abs(step)),
+                        "change_to_sensitivity_ratio": float(abs(change) / scale) if scale > 0 else None,
+                        "center_secant_velocity": velocity.tolist()}
+        if all("gradient" in p for p in (left, right)):
+            comparison["residual_gradient_dot_center_secant_velocity"] = [float(np.asarray(p["gradient"]) @ velocity)
+                                                                         for p in (left, right)]
+            comparison["quadratic_center_secant_velocity"] = ((np.asarray(right["quadratic_stationary_center"])
+                                                               - left["quadratic_stationary_center"]) / step).tolist()
+        changes.append(comparison)
+    return {"centers": rows, "adjacent_changes": changes,
+            "scope": "Pointwise numerical sensitivities and finite secants only. A fixed-location AD slope equals the moving-saddle height derivative only at a stationary center; residual gradient times center velocity and changes of evaluation location require separate checks. No root, derivative sign, noncrossing interval or rigorous enclosure is certified."}
+
+
 def audit_stencil(row, mapping, tolerance):
     h, center, beta = float(row["stencil_step"]), np.asarray(row["center"]), row["parameter"]
     require(h > 0 and np.isfinite(h), "invalid stencil scale")
@@ -273,9 +397,13 @@ def audit_stencil(row, mapping, tolerance):
         close(row[key], value, "recomputed stencil differs: " + key, atol=1e-12)
     require(row["converged"] == (np.linalg.norm(correction) <= tolerance), "stencil convergence label differs")
     require(np.linalg.norm(correction) <= 2, "stencil exceeded trust radius")
+    diagnostics = stationary_height_diagnostics(f[1, 1], gradient, hessian)
+    residuals = [f[iy, ix] - (f[1, 1] + gradient @ (h * np.array([dx, dy]))
+                 + .5 * (h * np.array([dx, dy])) @ hessian @ (h * np.array([dx, dy])))
+                 for iy, dy in enumerate((-1, 0, 1)) for ix, dx in enumerate((-1, 0, 1))]
     return {"parameter": beta, "center": center.tolist(), "tau": float(f[1, 1]),
-            "hessian": hessian.tolist(), "hessian_eigenvalues": values.tolist(),
-            "correction_norm": float(np.linalg.norm(correction)), "stencil_step": h,
+            **diagnostics, "hessian_eigenvalues": values.tolist(), "stencil_step": h,
+            "quadratic_stencil_max_abs_residual": float(max(abs(np.asarray(residuals)))),
             "converged": row["converged"], "point_index": mapping[int(indices[1, 1])]["index"]}
 
 
@@ -298,9 +426,12 @@ def audit_saddle(row, mapping, raw, stencils, tolerance):
             "accepted saddle lacks a bound cyclic endpoint")
     require(cyclic["coordinate"] == row["center"] and cyclic["beta"] == row["parameter"], "cyclic endpoint moved")
     require(abs(cyclic["tau"] - row["tau"]) < 1e-5 * cyclic["radius"], "cyclic endpoint trace disagrees")
+    phase_spread = np.ptp([p["tau"] for p in cyclic["phases"]])
+    sensitivity = height_sensitivity(list(last_by_scale.values()), phase_spread)
     return {**final, "kind": "continued saddle", "cyclic_point_index": cyclic["index"],
             "delta": cyclic["delta"], "radius": cyclic["radius"],
-            "stencil_heights": [{"step": p["stencil_step"], "tau": p["tau"]} for p in last_by_scale.values()]}
+            "stencil_heights": [{"step": p["stencil_step"], "tau": p["tau"]} for p in last_by_scale.values()],
+            "stencil_diagnostics": list(last_by_scale.values()), "height_sensitivity": sensitivity}
 
 
 def accepted_centers(run, protocol, raw, result, root=ROOT):
@@ -435,6 +566,7 @@ def audit_run(run, out, *, root=ROOT, data=DATA, worker=None):
                "raw_directory": str(run), "runtime": runtime, "baseline": baseline,
                "qualified_points": summaries, "unqualified_or_incomplete_points": unqualified,
                "accepted_centers": centers, "stencil_iterations_recomputed": iterations,
+               "height_change_diagnostics": assess_height_changes(centers),
                "worker": lifecycle, "manifest": manifest, "figures": plots,
                "figure_visual_review": "pending" if plots else "not applicable",
                "limits": ["Saved-data replay, not a fresh model evaluation or interval certificate.",
