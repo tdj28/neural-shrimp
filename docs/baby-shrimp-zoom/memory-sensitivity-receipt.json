@@ -1,0 +1,153 @@
+{
+  "id": "BSC3-memory-sensitivity",
+  "status": "completed fixed-location derivative controls; saddle continuation pending",
+  "data_root": "../neural-shrimp-data",
+  "audit_receipt": {
+    "path": "audits/baby-shrimp-zoom/20261021-memory-sensitivity-audit-01/receipt.json",
+    "sha256": "5968f09a7d1cdced65af642c64d45748b32bce1bff9609a875e2f0c97eac0673",
+    "bytes": 28104
+  },
+  "analysis_commit": "578cd7aaa8c3ccbad9b749cf0f98edfc8a06b0db",
+  "analysis_source_sha256": {
+    "tools/baby_shrimp_memory_sensitivity_finish.py": "ecf4d34da264caf55cbfe5561c26c52d1afa37d04a8e99e95260d759379ec2e7",
+    "tools/baby_shrimp_memory_finish.py": "508f8f187575d708643cd8ea6d9256c20b234ceb6522bb875913289455069c56"
+  },
+  "execution_sources": {
+    "explicit": {
+      "source_commit": "c1d87def52b1dad6da4bdad83baeb1a86d547d40",
+      "plan_sha256": "ed23e12dc24b0bdebc423de82fa45e73b0bc8f466ad7aa69d96198f3d590ae01"
+    },
+    "total": {
+      "source_commit": "fcfe42169150680928cf6cbeddec115726ac06c0",
+      "plan_sha256": "a3667b1cdc832fafc42e60d8a57bd09df5871f2cbd9283be353be432f167fefe"
+    }
+  },
+  "raw_attempts": [
+    "explore/llm-soft-loop/bsc3-memory/20261021-explicit-path-01",
+    "explore/llm-soft-loop/bsc3-memory/20261021-total-path-01",
+    "explore/llm-soft-loop/bsc3-memory/20261021-local-pilot-01",
+    "explore/llm-soft-loop/bsc3-memory/20261021-small-step-pilot-01"
+  ],
+  "model_revision": "7ae557604adf67be50417f59c2c2f167def9a775",
+  "period": 18,
+  "fixed_alpha": 0.07309363265341377,
+  "fixed_log10_temperature": -0.1544023817786725,
+  "trace_derivatives": {
+    "explicit": -0.03269597700788436,
+    "orbit_mediated": -0.10663754082549382,
+    "total": -0.13933351783331682
+  },
+  "explicit_cyclic_spread": 2.7206639718890813e-12,
+  "finite_difference_audit": {
+    "rows": [
+      {
+        "relative_step": 0.001,
+        "trace_derivatives": {
+          "explicit": -0.03269597700788436,
+          "orbit_mediated": -0.10667419570704828,
+          "total": -0.13937017271497165
+        },
+        "maximum_column_relative_error": 2.2291886399418316e-05,
+        "trace_relative_error": 0.0002630729649608028
+      },
+      {
+        "relative_step": 0.0003,
+        "trace_derivatives": {
+          "explicit": -0.03269597700788436,
+          "orbit_mediated": -0.1066408348766208,
+          "total": -0.1393368118846281
+        },
+        "maximum_column_relative_error": 2.006278946146711e-06,
+        "trace_relative_error": 2.3641485282932558e-05
+      },
+      {
+        "relative_step": 0.0001,
+        "trace_derivatives": {
+          "explicit": -0.03269597700788436,
+          "orbit_mediated": -0.1066379023927424,
+          "total": -0.13933387940064446
+        },
+        "maximum_column_relative_error": 2.229069261529354e-07,
+        "trace_relative_error": 2.5949773841649006e-06
+      }
+    ],
+    "column_error_orders": [
+      1.9999962036017631,
+      2.000052907290076
+    ],
+    "trace_error_orders": [
+      2.001231588091199,
+      2.0111055020586215
+    ],
+    "best_joint_trace_and_column_relative_error": 2.5949773841649006e-06,
+    "passed": true
+  },
+  "direct_orbit_response": {
+    "rows": [
+      {
+        "beta_step": 1e-07,
+        "central_slope": -0.12739175747112935,
+        "central_curvature": -119843664.02696203,
+        "phase_slopes": {
+          "0": -0.12739175747112935,
+          "6": -0.12739190389940902,
+          "12": -0.12739175210758122
+        },
+        "relative_error_against_ad": 0.08570630059361072,
+        "phase_relative_errors_against_ad": {
+          "0": 0.08570630059361072,
+          "6": 0.08570524967433482,
+          "12": 0.08570633908792433
+        }
+      },
+      {
+        "beta_step": 1e-08,
+        "central_slope": -0.1392147082888203,
+        "central_curvature": -119843607.75573084,
+        "phase_slopes": {
+          "0": -0.1392147082888203,
+          "6": -0.1392218097263139,
+          "12": -0.13921461394154724
+        },
+        "relative_error_against_ad": 0.0008526989510066003,
+        "phase_relative_errors_against_ad": {
+          "0": 0.0008526989510066003,
+          "6": 0.0008017317637566407,
+          "12": 0.0008533760836486008
+        }
+      },
+      {
+        "beta_step": 3e-09,
+        "central_slope": -0.13932251662211678,
+        "central_curvature": -119842324.79364069,
+        "phase_slopes": {
+          "0": -0.13932251662211678,
+          "6": -0.13934844726863568,
+          "12": -0.13932316004189604
+        },
+        "relative_error_against_ad": 7.895595669378557e-05,
+        "phase_relative_errors_against_ad": {
+          "0": 7.895595669378557e-05,
+          "6": 0.00010714891542981835,
+          "12": 7.433811750285062e-05
+        }
+      }
+    ],
+    "error_orders": [
+      2.0022170210102104,
+      1.9763871411382103
+    ],
+    "finest_relative_error_tolerance": 0.001,
+    "passed": true,
+    "scope": "Direct symmetric finite-offset slopes at fixed alpha/temperature; no moving-saddle-height claim."
+  },
+  "scope_limits": [
+    "Offline replay of saved evidence, not a fresh model evaluation or interval certificate.",
+    "The original runtime python field came from a PATH python --version probe, not the executing interpreter; it is preserved as metadata and does not identify the executor.",
+    "The total response is checked at one cyclic phase and fixed original alpha/temperature.",
+    "A moving saddle-height derivative additionally needs stationarity and saddle-motion evidence.",
+    "Neither injected-memory sensitivity identifies native modal coupling nor establishes exact superstability.",
+    "Individual Jacobian/Hessian actions are not retained, so their propagation cannot be reconstructed from these saved arrays alone."
+  ],
+  "local_interpreter_amendment": "Raw python field is a PATH probe (3.11.5), not the executor. Commands used .venv/bin/python; post-run verification on this host identifies that interpreter as3.12.14. Raw records retained unchanged."
+}

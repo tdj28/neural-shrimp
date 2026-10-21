@@ -79,6 +79,7 @@ regenerate after new runs.
 | bsz1-periods | `ygvg7zs096c81t` | `10d3af019954f47aa65b7373acc902a240a57115` |
 
 - **BSZ2 junction image:** exact pod `45dpzubxqr1z26`, secure NVIDIA A100-SXM4-80GB (81920 MiB), driver 595.91.07, torch 2.14.1+cu126, CUDA 12.6, transformers 5.19.0, numpy 2.5.3, scipy 1.18.1. Execution source `7ee72bb291fed959e720e83451ea9e34d0788e57`; version-record SHA-256 `38c3aa4168f0cfb83c3d0537933ea040cc4d600308198e00951213a00fbd528f`. All 16,384 pixels retrieved/hash-verified and exact pod termination verified. See `docs/baby-shrimp-zoom/junction-image-receipt.json`. Cost: see private ledger.
+- **BSC3 local memory controls:** NVIDIA RTX2000 Ada Generation, driver580.178.04, torch2.14.1+cu130/CUDA13.0 for fixed-location pilots, explicit-path response and the preserved partial motion pilot; Intel i9-14900K CPU for the baseline timing and total-derivative pilot. Eight threads per model job, GPU memory fraction0.75, nativefloat64 RMSNorm/rotary checks. Exact source, plan and raw-file hashes are bound in `docs/baby-shrimp-zoom/memory-sensitivity-receipt.json` and its external audits. The total derivative is one phase, with three-phase explicit and finite-offset controls. The raw Python version field queried PATH rather than the executor; recorded commands used `.venv/bin/python`, verified after these runs as3.12.14. Preserve that metadata defect and its correction; it does not change the numerical arrays. All these local model jobs have exited.
 
 ## Frozen experiments
 
