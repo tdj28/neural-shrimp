@@ -1,0 +1,126 @@
+{
+  "id": "BSP1",
+  "design": "exploratory, representative-point comparison; not an exhaustive census",
+  "selection": "Before BSZ1 completes: original SD-W grid, body/arch, higher-period sides, unresolved contraction and three adjacent expanding locations; three mother orbits and one prior return-map control. Source labels are candidates, not new verification.",
+  "cells": [
+    {
+      "name": "baby-core",
+      "role": "baby periodic candidate",
+      "alpha": 0.07309264475743349,
+      "log10_temperature": -0.15440845070422535,
+      "source_period_candidate": 18,
+      "source_lyapunov": -0.2739094181094173
+    },
+    {
+      "name": "baby-arch",
+      "role": "baby periodic candidate",
+      "alpha": 0.07301377151799687,
+      "log10_temperature": -0.15434585289514866,
+      "source_period_candidate": 18,
+      "source_lyapunov": -0.0368056364158821
+    },
+    {
+      "name": "baby-double-left",
+      "role": "baby higher-period candidate",
+      "alpha": 0.07307073552425665,
+      "log10_temperature": -0.15440845070422535,
+      "source_period_candidate": 36,
+      "source_lyapunov": -0.11255141079380526
+    },
+    {
+      "name": "baby-double-right",
+      "role": "baby higher-period candidate",
+      "alpha": 0.07311017214397496,
+      "log10_temperature": -0.15448356807511737,
+      "source_period_candidate": 36,
+      "source_lyapunov": -0.11173003530921731
+    },
+    {
+      "name": "baby-unresolved",
+      "role": "baby unresolved at original horizon",
+      "alpha": 0.07306197183098592,
+      "log10_temperature": -0.15438341158059468,
+      "source_period_candidate": 0,
+      "source_lyapunov": -0.031658900223623214
+    },
+    {
+      "name": "baby-chaos-left",
+      "role": "adjacent finite-time expanding candidate",
+      "alpha": 0.07305320813771518,
+      "log10_temperature": -0.15442097026604068,
+      "source_period_candidate": 0,
+      "source_lyapunov": 0.0658388761114819
+    },
+    {
+      "name": "baby-chaos-right",
+      "role": "adjacent finite-time expanding candidate",
+      "alpha": 0.0731320813771518,
+      "log10_temperature": -0.15444600938967135,
+      "source_period_candidate": 0,
+      "source_lyapunov": 0.07610854589301136
+    },
+    {
+      "name": "baby-chaos-below",
+      "role": "adjacent finite-time expanding candidate",
+      "alpha": 0.07307949921752739,
+      "log10_temperature": -0.1545586854460094,
+      "source_period_candidate": 0,
+      "source_lyapunov": 0.09556008464700722
+    },
+    {
+      "name": "mother-core",
+      "role": "mother comparison from SD verification",
+      "alpha": 0.0732284820031299,
+      "log10_temperature": -0.1533943661971831,
+      "source_period_candidate": 6
+    },
+    {
+      "name": "mother-double",
+      "role": "mother comparison from SD verification",
+      "alpha": 0.07330297339593114,
+      "log10_temperature": -0.15382003129890454,
+      "source_period_candidate": 12
+    },
+    {
+      "name": "mother-double-twice",
+      "role": "mother comparison from SD verification",
+      "alpha": 0.07277715179968701,
+      "log10_temperature": -0.1524053208137715,
+      "source_period_candidate": 24
+    },
+    {
+      "name": "mother-chaos",
+      "role": "mother return-map comparison, passing SD coding test",
+      "alpha": 0.0727531914893617,
+      "log10_temperature": -0.15274468085106382,
+      "source_period_candidate": 0,
+      "source_lyapunov": 0.058831702103969104
+    }
+  ],
+  "sources": [
+    {
+      "path": "explore/llm-soft-loop/pod64/sd/words/words.npz",
+      "sha256": "a4a47c170734930b5fccf76c9dff2a9efc29202b9e591254aefe0ad265a85157"
+    },
+    {
+      "path": "explore/llm-soft-loop/pod64/sd/returnmaps/returnmaps.json",
+      "sha256": "9adb48ceb017cf892ad11c733cf809e1447553e0827c487f2580e358d644a0b5"
+    },
+    {
+      "path": "explore/llm-soft-loop/pod64/sd/verify-a/verify.json",
+      "sha256": "0acb45f366101bb7a8677fd61b6be18a6a498559163c963d061415a2e61b9aad"
+    }
+  ],
+  "trajectory": {
+    "transient": 1000,
+    "record": 3000,
+    "max_period": 192,
+    "tolerance": 1e-09,
+    "dtype": "float64",
+    "eps": 1e-06,
+    "phase_period": 6,
+    "threads": 8,
+    "timeout_seconds": 2700
+  },
+  "followup": "Newton and primitive-period gates, float64 monodromy and return maps; choose any further cells from the finer scan in a disclosed amendment."
+}
