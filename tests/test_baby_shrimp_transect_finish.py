@@ -32,3 +32,21 @@ def test_missing_domain_and_empty_order_are_explicit():
 def test_stream_hash_covers_all_content():
     data = b"evidence" * 2000000
     assert finish.stream_digest(io.BytesIO(data)) == hashlib.sha256(data).hexdigest()
+
+
+def test_streaming_archive_check_rejects_mismatch_and_missing_member(tmp_path):
+    import tarfile
+    import pytest
+    raw = tmp_path / "raw";raw.write_bytes(b"states")
+    archive = tmp_path / "raw.tgz"
+    with tarfile.open(archive, "w:gz") as tar:
+        for name, content in (("raw", b"states"),
+                              ("explore/llm-soft-loop/pod64/logs/hardware.txt", b"GPU"),
+                              ("explore/llm-soft-loop/pod64/logs/versions.txt", b"versions")):
+            info = tarfile.TarInfo(name);info.size = len(content);tar.addfile(info, io.BytesIO(content))
+    assert finish.verify_tar_files(archive, {"raw": raw}) == (b"GPU", b"versions")
+    with pytest.raises(ValueError, match="missing"):
+        finish.verify_tar_files(archive, {"absent": raw})
+    raw.write_bytes(b"changed")
+    with pytest.raises(ValueError, match="differs"):
+        finish.verify_tar_files(archive, {"raw": raw})

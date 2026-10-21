@@ -30,6 +30,25 @@ def stream_digest(handle):
     return h.hexdigest()
 
 
+def verify_tar_files(archive, expected):
+    """Verify each requested member in one forward decompression pass."""
+    seen, extras = set(), {}
+    names = ("explore/llm-soft-loop/pod64/logs/hardware.txt", "explore/llm-soft-loop/pod64/logs/versions.txt")
+    with tarfile.open(archive, "r|gz") as tar:
+        for member in tar:
+            if member.name in expected:
+                audit.require(member.isfile() and member.name not in seen, "nonregular or duplicate raw archive member")
+                audit.require(stream_digest(tar.extractfile(member)) == audit.digest(expected[member.name]),
+                              "local raw file differs from retrieved archive")
+                seen.add(member.name)
+            elif member.name in names:
+                audit.require(member.isfile() and member.name not in extras, "invalid hardware archive member")
+                extras[member.name] = tar.extractfile(member).read()
+    audit.require(seen == set(expected), "raw file missing from archive")
+    audit.require(set(extras) == set(names), "hardware or versions missing from archive")
+    return extras[names[0]], extras[names[1]]
+
+
 def verify_worker(worker):
     """Bind retrieved files to the archive and verify exact resource shutdown."""
     import runpod_pod as rp
@@ -39,16 +58,9 @@ def verify_worker(worker):
                   == result["remote_sha256"], "archive hash mismatch")
     argv = shlex.split(result["upload"]["jobset_args"])
     folder = audit.DATA / "explore" / argv[argv.index("--out") + 1]
-    files = []
-    with tarfile.open(archive) as tar:
-        for path in sorted(folder.rglob("*")):
-            if path.is_file():
-                handle = tar.extractfile(str(path.relative_to(audit.DATA)))
-                audit.require(handle is not None and stream_digest(handle) == audit.digest(path),
-                              "local raw file differs from retrieved archive")
-                files.append(audit.artifact(path))
-        hardware = tar.extractfile("explore/llm-soft-loop/pod64/logs/hardware.txt").read()
-        versions = tar.extractfile("explore/llm-soft-loop/pod64/logs/versions.txt").read()
+    expected = {str(p.relative_to(audit.DATA)): p for p in sorted(folder.rglob("*")) if p.is_file()}
+    hardware, versions = verify_tar_files(archive, expected)
+    files = [audit.artifact(p) for p in expected.values()]
     ledger = [json.loads(s) for s in rp.LEDGER.read_text().splitlines()]
     pid = result["pod_id"]
     audit.require(any(e.get("event") == "terminated_verified" and e.get("pod_id") == pid

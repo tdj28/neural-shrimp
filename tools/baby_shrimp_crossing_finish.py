@@ -24,7 +24,10 @@ def primitive(points, record):
     returns = np.asarray(record["all_returns"])
     audit.require(points.shape == (18, 896) and returns.shape == (18,)
                   and np.isfinite(points).all() and np.isfinite(returns).all(), "incomplete primitive record")
-    distances = np.linalg.norm(points[1:] - points[0], axis=1) / max(np.linalg.norm(points[0]), 1)
+    state_norm = float(np.linalg.norm(points[0]))
+    audit.require(state_norm > 0, "nonzero orbit state required for relative returns")
+    # SoftOrbit.return_distances divides by |X|, unlike the trajectory helper.
+    distances = np.linalg.norm(points[1:] - points[0], axis=1) / state_norm
     audit.require(np.allclose(distances, returns[:-1], rtol=1e-7, atol=1e-14), "lower-return distances differ")
     passed = bool(returns[-1] < 1e-11 and (returns[:-1] > 1e-8).all())
     audit.require(passed == bool(record["closed"] and record["no_lower_period"]), "primitive label differs")
@@ -204,7 +207,7 @@ def main():
             raw_precision(args.precision / f"phase-{phase}", row["precision"], matrix)
             P = np.load(args.precision / f"phase-{phase}/points.npy", allow_pickle=False)
             audit.require(P.shape == (19, 896) and primitive(P[:-1], row["primitive"]), "local primitive replay fails")
-            distances = np.linalg.norm(P[1:] - P[0], axis=1) / max(np.linalg.norm(P[0]), 1)
+            distances = np.linalg.norm(P[1:] - P[0], axis=1) / np.linalg.norm(P[0])
             audit.require(np.allclose(distances, row["primitive"]["all_returns"], rtol=1e-7, atol=1e-14), "local full return differs")
             drift = float(np.max(np.linalg.norm(P[:-1] - np.roll(source_points, -phase, axis=0), axis=1)
                                  / np.maximum(np.linalg.norm(P[:-1], axis=1), 1)))
