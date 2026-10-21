@@ -32233,6 +32233,10 @@ The remaining-two-band capacity attempt tried community A100 SXM80 and secure/co
 
 _commit `b484f96d95bc` (dirty worktree)_
 
-## 2026-10-21 14:40 UTC: BSZ1 third capacity amendment after expanded authorization
+## 2026-10-21 14:37 UTC: BSZ1 third capacity amendment after expanded authorization
 
 The community H100 PCIe requests also returned no capacity, with zero pods created; their logs and empty ownership receipt remain in runpod/baby-shrimp-zoom/bsz1-h100-20261021. The two original A100 scans are progressing at approximately the historical rate. Before the remaining bands started, the human expanded the approved total ceiling (private ledger). A sequential two-band option was prepared but never launched; use two parallel hosts for c02 and c03 under the expanded authorization. Permit community H100 NVL, then H100 SXM or H200 SXM as capacity fallbacks. A40GB A100 is unsuitable without a batch change: the current task-owned A100 reports41763MiB used. Each new pod retains the original240-minute lifetime including a20-minute retrieval reserve,195-minute scan timeout and215-minute setup-plus-run allowance. Planning uses measured A100 time, with no assumed H100/H200 speedup; check received hardware and first-chunk throughput. Keep chunk2048, separate band invocations and every scientific setting unchanged. The two new hosts' worst-case rate/lifetime bounds plus the original two A100 bounds fit the revised approved total. No numerical replay or other experiment is added. The existing independent watchdog is unchanged; the unused sequence-helper edits were removed. Commit and push before launch.
+
+## 2026-10-21 14:39 UTC: BSZ1 secure-host capacity fallback
+
+The community H100 NVL, H100 SXM and H200 requests all returned explicit no-capacity outcomes, with no pods created. Preserve this attempt at runpod/baby-shrimp-zoom/bsz1-hopper-20261021. Before c02/c03 start, include secure H100 PCIe, NVL and SXM hosts, following a fresh check of the already permitted A100 80GB options. Their worst-case rate bound, with the unchanged240-minute lifetime, still fits the expanded total ceiling together with the original two A100s (private ledger). Grid, batch, precision and scientific horizon remain unchanged. The preceding heading's minute was corrected to the actual preparation time; no numerical outcomes were seen for either unlaunched band.
