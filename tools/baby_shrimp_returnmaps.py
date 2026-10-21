@@ -39,7 +39,8 @@ def phase_map(states, cosines, phase, lag=6):
     colors = np.full(len(x), "#26334d", dtype="<U7")
     if relative_spread >= 1e-10:
         record["robust_turning_points"] = int(sd.robust_turning_points(x,y)[0])
-        record["bend_degrees"] = sd.bend(xy)
+        # Match the paper: assess the source visits that have a recorded return.
+        record["bend_degrees"] = sd.bend(xy[:-1])
     if lag == 6 and relative_spread >= 1e-10:
         cos = cosines[phase+6::6][:len(x)]
         weak = (np.abs(cos)<.5) | ~np.isfinite(cos)
@@ -171,6 +172,7 @@ def main():
     fig.suptitle("Longer cycles behind the same text",fontsize=25,fontweight="bold")
     fig.supxlabel("A dot links positions six model steps apart. The visible text repeats every six steps at every location.\n"
                   "The mother's sampled states repeat after 6, 12 or 24 steps; the small island's after 18, 36 or 72.\n"
+                  "Blue = positive direction sign; orange = negative; gray = weak; a collapsed point is dark.\n"
                   "Distinct parameter locations; these samples alone do not trace a bifurcation sequence. Panel coordinates scaled separately.",fontsize=9)
     fig.savefig(args.out/"periodic-returnmaps.png",dpi=170);fig.savefig(args.out/"periodic-returnmaps.pdf");plt.close(fig)
 
@@ -194,7 +196,8 @@ def main():
     for ax,cell in zip(axes.ravel(),info["cells"]):
         panel(ax,cell["name"],6,cell["name"].replace("-"," "))
     fig.suptitle("All twelve probe locations",fontsize=22,fontweight="bold")
-    fig.supxlabel("Six-step returns · same selection and diagnostic rules for every location · scaled phase coordinates",fontsize=10)
+    fig.supxlabel("Six-step returns · same selection and diagnostic rules for every location · scaled phase coordinates\n"
+                  "Blue = positive direction sign; orange = negative; gray = weak; a collapsed point is dark.",fontsize=10)
     fig.savefig(args.out/"all-probe-returnmaps.png",dpi=160);plt.close(fig)
 
     np.savez_compressed(args.out/"returnmap-projections.npz",**{
