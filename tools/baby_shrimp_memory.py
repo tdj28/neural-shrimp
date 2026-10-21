@@ -53,14 +53,18 @@ def qualified_ritz(apply, q, *, max_passes=6, tolerance=1e-6):
     required separately by the experiment driver.
     """
     q = np.linalg.qr(np.asarray(q, float))[0]
-    if q.shape[1] < 4:
+    if not np.isfinite(q).all() or q.shape[1] < 4:
         raise ValueError("at least four subspace directions required")
     history = []
     for iteration in range(max_passes):
         w = apply(q)
+        if w.shape!=q.shape or not np.isfinite(w).all():
+            raise ValueError('nonfinite or mismatched matrix-free operator action')
         vals, small = np.linalg.eig(q.T@w)
         order = np.argsort(-abs(vals))
         vals, small = vals[order], small[:, order]
+        if not np.isfinite(vals).all() or min(abs(vals[:2]))==0:
+            raise ValueError('nonfinite or zero leading pair; requires separate classification')
         v = q@small
         residual = np.linalg.norm(w@small-v*vals, axis=0)/np.maximum(abs(vals)*np.linalg.norm(v, axis=0), 1e-300)
         history.append({"iteration":iteration, "multipliers":[[float(z.real),float(z.imag)] for z in vals],

@@ -119,6 +119,8 @@ class Evaluator:
             np.savez_compressed(dest/f'phase-{shift}.npz',**{k:result[k] for k in ['values','vectors','direct','relative_residuals','q','w']})
             record['phases'].append(local)
             save(dest/'point.json',record)
+            if local['delta']>=0:
+                raise ValueError('opposite-sign pair regime changed; retain and classify separately')
             if shift==0: next_q=result['q']
         phase=record['phases'][0]
         if len(record['phases'])==3:
@@ -174,6 +176,9 @@ def main():
     parser.add_argument('--seconds',type=int,default=1200)
     parser.add_argument('--mode',choices=['pilot','continue'],default='pilot')
     parser.add_argument('--betas',type=float,nargs='+',default=[0,1e-7,-1e-7])
+    parser.add_argument('--anchor-saddle',action='store_true',help='reuse the audited BSC1 beta0 saddle after operator replay')
+    parser.add_argument('--stencils',type=float,nargs='+',default=[.1,.03])
+    parser.add_argument('--correction-tolerance',type=float,default=.003)
     args=parser.parse_args()
     if not 0<args.seconds<=14400: parser.error('runtime must be bounded within four hours')
     out=args.out; out.mkdir(parents=True,exist_ok=False)
@@ -184,7 +189,8 @@ def main():
         with (out/'progress.jsonl').open('a') as f: f.write(json.dumps(row,allow_nan=False)+'\n')
         print(json.dumps(row,allow_nan=False),flush=True)
     sources=['tools/baby_shrimp_saddle_memory.py','tools/baby_shrimp_memory.py','tools/explore_llm_soft_loop.py',
-             'tools/explore_llm_attractors.py','tools/explore_llm_phase_map.py','tools/llm_feigenbaum.py']
+             'tools/explore_llm_attractors.py','tools/explore_llm_phase_map.py','tools/llm_feigenbaum.py',
+             'tools/trace_saddle_continuation.py','tools/trace_pair_sensitivity.py']
     save(out/'protocol.json',{'commit':commit,'plan':plan,'plan_sha256':sha(plan_path),
          'source_sha256':{p:sha(ROOT/p) for p in sources},'args':{k:str(v) if isinstance(v,Path) else v for k,v in vars(args).items()},
          'started_utc':datetime.now(timezone.utc).isoformat()})
@@ -195,9 +201,33 @@ def main():
             result={'complete':True,'baseline':baseline,'rows':rows,'scope':'Timing and fixed-parameter derivative pilot; not saddle continuation.'}
         else:
             from trace_saddle_continuation import TraceSaddleContinuation
-            engine=TraceSaddleContinuation(ev,stencils=(.1,.03),correction_tolerance=.003,max_iterations=6,
-                max_evaluations=plan['maximum_evaluations'],trust_radius=2.,record=lambda row:emit('continuation',event=row))
-            result=engine.continue_values(args.betas,np.zeros(2))
+            accepted=[]
+            def event(row):
+                if row['stage']=='saddle_complete':
+                    point=ev(row['center'],row['parameter'],cyclic=True)
+                    row['cyclic_endpoint']=point
+                    save(out/f"saddle-{len(accepted):03d}.json",row)
+                emit('continuation',event=row)
+            engine=TraceSaddleContinuation(ev,stencils=args.stencils,correction_tolerance=args.correction_tolerance,max_iterations=6,
+                max_evaluations=plan['maximum_evaluations'],trust_radius=2.,record=event)
+            if args.anchor_saddle:
+                receipt=json.loads((ROOT/'docs/baby-shrimp-zoom/crossing-receipt.json').read_text())
+                h=receipt['summary']['qualification']['converged_scales'][-1]
+                accepted.append({'parameter':0.,'center':[0.,0.],'tau':baseline['point']['tau'],
+                    'converged':True,'hessian':h['hessian'],'hessian_eigenvalues':h['hessian_eigenvalues'],
+                    'scope':'Previously audited BSC1 saddle estimate; original stencil sensitivity retained.',
+                    'receipt_sha256':sha(ROOT/'docs/baby-shrimp-zoom/crossing-receipt.json')})
+            for beta in args.betas:
+                if args.anchor_saddle and beta==0: continue
+                predictor=np.zeros(2) if not accepted else np.array(accepted[-1]['center'])
+                if len(accepted)>1:
+                    a,b=accepted[-2:]
+                    predictor+=(beta-b['parameter'])/(b['parameter']-a['parameter'])*(np.array(b['center'])-np.array(a['center']))
+                emit('predictor',beta=beta,coordinate=predictor.tolist())
+                accepted.append(engine.correct(beta,predictor))
+                save(out/'continuation.json',{'complete':False,'points':accepted})
+            result={'complete':True,'points':accepted,'evaluations':ev.attempts,
+                'scope':'Moving stationary trace in a memory-perturbed network; no native coupling or exact superstability claim.'}
         save(out/'result.json',result)
     except BaseException as error:
         save(out/'failure.json',{'type':type(error).__name__,'error':str(error),'time':datetime.now(timezone.utc).isoformat()})
