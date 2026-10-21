@@ -1,0 +1,46 @@
+{
+  "status": "exploratory literature reproduction",
+  "question": "Does the period-five Type A skeleton in Facanha, Oldeman and Glass (2013) reproduce by continued full-state periodic orbits, and does Gallas (1994) actually claim a crossing for the same system?",
+  "sources": [
+    {
+      "file": "/data2/neural-shrimp-data/references/gallas_dissecting_shrimps_PhysA1994.pdf",
+      "sha256": "7a7cf3043672eca5bd1d0028044cb333f5307836b779aacb4806f27eb34174cb"
+    },
+    {
+      "file": "/data2/neural-shrimp-data/references/gallas_param_space_henon_shrimp_PRL1993.pdf",
+      "sha256": "7de35087930bff6df9ea692be776487bbd4e2e145102d410ba08d7bb32e9c246"
+    },
+    {
+      "file": "/data2/neural-shrimp-data/references/facanha-oldeman-glass-shrimp.pdf",
+      "sha256": "64d1a1eff46ca7957a58d8adc171193771c6d112c5b18d58d64bb81d29b537ac"
+    }
+  ],
+  "map": "x_next = a - x^2 + b*y; y_next = x",
+  "period": 5,
+  "seed_a": [
+    1.46,
+    1.48,
+    1.5,
+    1.52,
+    1.54
+  ],
+  "seed_b": [
+    0.14,
+    0.15,
+    0.16,
+    0.165,
+    0.17,
+    0.18,
+    0.2
+  ],
+  "seed_transient": 2500,
+  "method": "multiple shooting + trace zero + pseudo-arclength; analytic derivatives; rowwise full closure, primitive period, cyclic trace, determinant identity and attraction gates",
+  "precision": [
+    60,
+    90
+  ],
+  "runtime": "local CPU; one BLAS/OpenMP thread; no GPU; max 15 minutes; no paid launch",
+  "output": "../neural-shrimp-data/audits/shrimp-literature/20261021-henon-type-a-01",
+  "surprise": "A failed reproduction, a same-orbit trace-zero crossing, or a mismatch with Figure 3(c). A projected crossing involving different orbits must not be called a degeneracy.",
+  "limitations": "Finite continued portions and point arithmetic; no interval theorem. Network comparison remains local and uses a selected spectral pair, not the full trace of its 896-dimensional map."
+}
