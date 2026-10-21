@@ -89,6 +89,39 @@ coupling coefficient. In the network, \(\Delta\) also varies with the
 controls; consequently a trace-zero curve is not automatically a ridge of
 maximum contraction or the exact minimum of a finite-time image.
 
+More precisely, at a regular trace-zero point take a unit direction \(n\),
+with \(a=\partial_n\tau\ne0\), \(b=\partial_n\Delta\), and
+\(r=\sqrt{-\Delta}\). Along that direction,
+
+\[
+\rho_{\rm pair}(t)=r-\frac{b}{2r}t+\frac{|a|}{2}|t|+O(t^2).
+\]
+
+The strict inequality \(|b|<r|a|\) is sufficient for a strict transverse
+cusp minimum. If \(|b|>r|a|\), the point is not a minimum along that
+direction. Equality is inconclusive: higher-order terms can still produce a
+strict minimum. For the normal \(n=\nabla\tau/\|\nabla\tau\|\), the
+strict sufficient condition is
+\(|\partial_n\Delta|<\sqrt{-\Delta}\,\|\nabla\tau\|\).
+The direction and all derivatives must use the same declared coordinate
+scales; this is a local pair-radius condition, not a finite-time-image test.
+
+At a trace-saddle crossing, \(\tau=0\) and \(\nabla\tau=0\), so
+the absolute-trace contribution starts quadratically. Instead,
+
+\[
+\rho_{\rm pair}(q)=\sqrt{-\Delta_0}
+-\frac{\nabla\Delta_0\cdot q}{2\sqrt{-\Delta_0}}+O(\|q\|^2).
+\]
+
+A nonzero determinant gradient therefore gives a linear tilt and excludes a
+local minimum at the trace crossing. Trace-contour reconnection alone does
+not establish reconnection of the strongest-contraction curves. Saved
+determinant stencils can assess this distinction numerically; applying the
+exact statement to a computed candidate also requires reporting its finite
+trace and stationarity residuals. No determinant-gradient result is asserted
+here.
+
 Thus a verified trace crossing is compatible with two nonzero contracting
 multipliers. A zero of \(\Delta\) would establish a zero within this pair;
 even that would not establish that all multipliers of the full return map
