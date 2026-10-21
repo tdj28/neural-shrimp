@@ -31902,3 +31902,38 @@ nearly identical under protan vision.
   rebuilt, 182 pages). The tag arxiv-v1 (13145281) is unchanged.
 - Blog post (round 19, not committed): the status paragraph, the artifact ledger, the proof-evidence paragraph and
   Appendix B link the record; check_provenance.py and the site checks pass. index.md sha256 b1d9f965...
+
+## 2026-10-21 03:18 UTC: run card BF (exploratory): does the batch layout change which attractor a start reaches?
+
+- **Question.** At the attractor-portrait cell of the article (Qwen2.5-0.5B-Instruct, philosophy direction at layer
+  12, alpha = 0.07248, log10 T = -0.148; 498 of 512 starts approached the chaotic set and 14 a coexisting period-4
+  orbit in run f64-strong), does the batch layout, which changes float64 rounding but not the map, change which
+  attractor a start reaches, or only when it is captured?
+- **Origin.** In an exploratory float64 CPU continuation outside the repository, the portrait's first aperiodic start,
+  continued alone (batch 1), fell into a period-4 cycle about 80 steps later; continued as one row of a 32-row batch
+  it stayed aperiodic for 400 steps. One case, not a test.
+- **Design.**
+  - Tool: tools/batch_fate.py (commit cf8fc386). Starts: the portrait recipe, the fixed start displaced by 0.05 |x|
+    along 64 unit directions drawn once with numpy (default_rng(100)); not the portrait's own CUDA-drawn directions.
+    The same 64 start states (SHA-256 recorded) are used in every layout.
+  - Layouts: batches of 32 (two batches), one batch of 64, and each start alone (64 runs of batch 1), in that order.
+  - Float64 on one device, the local RTX 2000 Ada (CUDA), with keep_float64_norms through SteeredModel; no device
+    split. Measured step times: 38 ms (batch 1), 235 ms (32), 465 ms (64); at most about 4.7 h in all.
+  - Horizon 5000 steps from the start (no separate transient). Capture: the first step t at which
+    |x_t - x_{t-q}| / |x_t| < 1e-9 for some q <= 64 (checked every step; q is the period). A batch runs to the horizon
+    unless every row is captured; a start alone stops at capture. States are recorded every 100 steps.
+  - Controls: the 64-row batch rerun for 500 steps and the first two starts alone rerun for 500 steps; their recorded
+    states must equal the main run's bitwise (otherwise layout differences cannot be told from nondeterminism).
+  - Output: ../neural-shrimp-data/explore/llm-soft-loop/batch-fate/bf1 (fate.npz, fate.json, chunks), a compact
+    receipt in docs/batch-fate/.
+- **Readings fixed in advance.** Rounding differences between layouts grow to the attractor's scale within a few
+  hundred steps in chaos (the article's batch test: median 102 steps to 1e-2), so a start captured in one layout and
+  not in another within a finite horizon can be a matter of timing alone. Hence:
+  - *Timing only (transient chaos):* captures keep occurring throughout the horizon in every layout, at similar rates;
+    starts captured late (after about 300 steps) mostly disagree between layouts, early ones agree.
+  - *Fate (coexisting attractors with a basin boundary):* captures concentrate early and are shared by all layouts;
+    almost none occur late, and the layouts' late trajectories stay on the chaotic set.
+  - *Neither:* no capture in any layout within 5000 steps. That would be surprising, given 14 of 512 within 1000 steps
+    in f64-strong.
+  - *Would surprise us:* identical late capture steps in different layouts after their trajectories have separated,
+    or batched runs that are not bitwise reproducible.
