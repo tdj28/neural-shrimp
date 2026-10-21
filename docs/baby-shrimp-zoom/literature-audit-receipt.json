@@ -1,0 +1,157 @@
+{
+  "status": "exploratory reproduction and source audit completed",
+  "created_utc": "2026-10-21T19:25:02.003103+00:00",
+  "sources": [
+    {
+      "file": "/data2/neural-shrimp-data/references/gallas_dissecting_shrimps_PhysA1994.pdf",
+      "sha256": "7a7cf3043672eca5bd1d0028044cb333f5307836b779aacb4806f27eb34174cb"
+    },
+    {
+      "file": "/data2/neural-shrimp-data/references/gallas_param_space_henon_shrimp_PRL1993.pdf",
+      "sha256": "7de35087930bff6df9ea692be776487bbd4e2e145102d410ba08d7bb32e9c246"
+    },
+    {
+      "file": "/data2/neural-shrimp-data/references/facanha-oldeman-glass-shrimp.pdf",
+      "sha256": "64d1a1eff46ca7957a58d8adc171193771c6d112c5b18d58d64bb81d29b537ac"
+    }
+  ],
+  "source_locations": {
+    "Gallas1994": "Eq. (5.3), Fig. 7 and journal pp. 216-217",
+    "Facanha2013": "Eq. (3), Fig. 3(c), Fig. 4 and journal pp. 1265-1267"
+  },
+  "metadata_check": "Published PDF title/pages and existing Crossref resolver docs/bib/resolver-2026-10-20.json; APS 1993 publisher record rechecked. Elsevier live pages returned 403; locally held publisher PDFs used for content.",
+  "algebraic_check": {
+    "rotated_Gallas_map": "f(x)=(a-x^2)^2-b",
+    "multiplier": "f_prime(x)=-4*x*(a-x^2)",
+    "fixed_critical_loci": [
+      "x=0 implies b=a^2",
+      "x^2=a and x=f(x)=-b imply a=b^2"
+    ],
+    "real_intersections": [
+      {
+        "a": 0,
+        "b": 0,
+        "states": [
+          0
+        ],
+        "meaning": "same fixed point; critical factors coalesce; true transverse crossing of parameter loci"
+      },
+      {
+        "a": 1,
+        "b": 1,
+        "states": [
+          0,
+          -1
+        ],
+        "meaning": "two different superstable fixed points; projected pseudo-intersection"
+      }
+    ],
+    "head_transversality": "At (0,0), gradients of b-a^2 and a-b^2 are (0,1) and (1,0), with determinant -1."
+  },
+  "numerical_reproductions": [
+    {
+      "path": "/data2/neural-shrimp-data/audits/shrimp-literature/20261021-henon-type-a-02/receipt.json",
+      "sha256": "2c796ec6d578e55ef0edc4c7154ace637a7a2a7a11ea70a1bfe0810b0ebbaf23",
+      "receipt": {
+        "status": "exploratory",
+        "source_commit": "9173ab931c77b21a112031b89ce0122a294f041a",
+        "source_sha256": "c3ed227b7e6e2df04235d3122df7c44c1baab09ba4a0121aedc51453f916156e",
+        "finished_utc": "2026-10-21T19:22:51.415494+00:00",
+        "seconds": 1.1553457980044186,
+        "map": "x_next=a-x*x+b*y; y_next=x",
+        "period": 5,
+        "threads": {
+          "OMP_NUM_THREADS": "1",
+          "MKL_NUM_THREADS": "1",
+          "OPENBLAS_NUM_THREADS": "1"
+        },
+        "source_reference": "10.1016/j.physleta.2013.03.025; Fig.3(c), Fig.4, pp.1266-1267",
+        "seed_attempts": 35,
+        "accepted_seeds": 2,
+        "curves": 4,
+        "points": 295,
+        "all_rows_pass": true,
+        "max_closure": 2.0539125955565396e-15,
+        "max_cyclic_trace": 6.503131366741854e-14,
+        "max_det_relative_error": 3.375877198881831e-13,
+        "precision_pass": true,
+        "files": {
+          "curves.json": {
+            "sha256": "b5cd607b7ff69eac0dabf9033291de7135932a6724d7cb113c565daf108d9548",
+            "bytes": 373100
+          },
+          "henon-period5-skeleton.png": {
+            "sha256": "fd00397465a95c5fbe5a3d2d333e4c6cd44ed8089e6fb74e7eeb120cd3053422",
+            "bytes": 97548
+          },
+          "seed-attempts.json": {
+            "sha256": "b5482f01b66b483fa02814894e1139b3df39fe151fc95604d27acf5ad2d7580a",
+            "bytes": 39515
+          },
+          "precision.json": {
+            "sha256": "6a613a6ef3b4971fa6a3522c9217d65c620b51e1493bde6fd942652e71b4a3cf",
+            "bytes": 3972
+          }
+        },
+        "limits": "Finite curve portions; visual review and orbit-sheet crossing audit required. No interval certification."
+      }
+    },
+    {
+      "path": "/data2/neural-shrimp-data/audits/shrimp-literature/20261021-henon-geometry-01/receipt.json",
+      "sha256": "ceb8504e4c9c63eb54866276a9aaa7d02a15bcb9f7559d491ece591c4125f273",
+      "receipt": {
+        "status": "exploratory post-reproduction audit",
+        "source_commit": "9173ab931c77b21a112031b89ce0122a294f041a",
+        "source_sha256": {
+          "audit_henon_skeleton.py": "c3ed227b7e6e2df04235d3122df7c44c1baab09ba4a0121aedc51453f916156e",
+          "audit_henon_skeleton_geometry.py": "667a8265dfc017c3a53f18060c9a0d2b41f088ed8c6939d97e84ee5df49541fa"
+        },
+        "input_receipt": "/data2/neural-shrimp-data/audits/shrimp-literature/20261021-henon-type-a-02/receipt.json",
+        "input_receipt_sha256": "2c796ec6d578e55ef0edc4c7154ace637a7a2a7a11ea70a1bfe0810b0ebbaf23",
+        "finished_utc": "2026-10-21T19:22:53.348138+00:00",
+        "rows_replayed": 295,
+        "all_replay_pass": true,
+        "max_replayed_closure": 2.0471501066083613e-15,
+        "projected_crossings": 1,
+        "distinct_orbit_distance": "0.32852328131150573601375664605451804214436554415120192304373195205475415856284537380869238",
+        "projected_crossing_a": "1.53071664587506010745473096379551142137787336564040750997354574422611592134763111601758588",
+        "projected_crossing_b": "0.153805610238477158494425126498973491919743031812169283865304664276228896633803509678285876",
+        "loop_tip_a": 1.471139460154611,
+        "loop_tip_b": 0.16753834398858616,
+        "gap_on_tip_horizontal_cut": "0.02416946062924409913758176986558923388473983730775058562770930362427518403057375048229624",
+        "all_geometry_gates_pass": true,
+        "files": {
+          "row-replay.json": {
+            "sha256": "628acfc8829f7242eadd39356fc325c70c01fa3a01ee21602c3693959d4b51d8",
+            "bytes": 84915
+          },
+          "geometry.json": {
+            "sha256": "66a775a49bf4ebe4929140e713be31106f9590995e36722991e1f641baba455b",
+            "bytes": 7089
+          },
+          "projected-crossings.json": {
+            "sha256": "dbaf72b50e5e52cfd7a2df853e51fad9721244575fcc89aa893ddf316363ae34",
+            "bytes": 3329
+          },
+          "historical-shrimp-audit.png": {
+            "sha256": "d2aafd936ae8304f5ef8d9429848c07315388bfe8f4e648d1b3f840934c9720c",
+            "bytes": 184434
+          }
+        },
+        "conclusion": "The reproduced period-5 H\u00e9non curves agree with Type A: a projected loop and a separate outer arm. Its projected crossing involves distinct cycles. This supplies no evidence of historical misclassification; the canonical Gallas scalar crossing is algebraically exact."
+      }
+    }
+  ],
+  "additional_checks": {
+    "projected_crossing_both_orbits_at_60_and_90_digits": "All four saved refined states pass the primitive-period, full orbit, cyclic trace, determinant and attraction gates when reconstructed independently.",
+    "crossing_coordinate_60_90_agreement": "within 1e-14 in each parameter when converted to float64",
+    "projected_crossing_radius": 0.009277488888560186,
+    "visual_review": "Inspected both reproduced figures at full size: axes, labels, intersections and cut orientation agree with raw data and the paper. Curves are piecewise-linear connections of qualified points; no smoothing."
+  },
+  "preserved_failure": {
+    "path": "/data2/neural-shrimp-data/audits/shrimp-literature/20261021-henon-type-a-01",
+    "issue": "High-precision a field incorrectly serialized as zero from a negative mpmath-matrix index; corrected repeat retains identical float64 curve hashes. Original precision metadata must not be reused."
+  },
+  "conclusion": "No evidence of misclassification in the checked examples. The exact scalar crossing and the later two-dimensional Type A unfolding concern different systems. The Type A loop reproduces; its projected self-intersection involves two coexisting stable period-five cycles.",
+  "network_scope": "BSC2 supports local avoidance between sampled period-18 selected-pair trace-zero branches. This is not yet a global Type A/Type B classification, exact superstability or a validated two-dimensional reduction of the 896-dimensional map."
+}
