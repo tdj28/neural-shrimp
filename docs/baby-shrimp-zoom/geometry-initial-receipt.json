@@ -1,0 +1,101 @@
+{
+  "id": "BSG-geometry-audit",
+  "generated_utc": "2026-10-21T17:37:57.862354+00:00",
+  "analysis_commit": "63a4bb8a2278684414cea7d7ba1e02531e4cd9d1",
+  "analysis_source_sha256": "08f01c07b7e0618ad8eb3c405f1bcaa7213eb03bb3221cb41c5acbc51ef7aa35",
+  "workers": [
+    {
+      "pod_id": "j1t6tbnvfidq7a",
+      "source_commit": "64746c164b51dff0c5c237f7e306b4d7e8907ecc",
+      "plan_sha256": "72350901dcd9c18b7b441a38f0011acc8294adbc86a9262ebdf606a2646622b6",
+      "archive": {
+        "path": "runpod/baby-shrimp-zoom/bsg1-20261021/workers/neural-shrimp-bsg1-g0/20261021T171137Z/results.tgz",
+        "sha256": "b38d48a6218925dab0741adfb88346c9f2767395108ac2dc15ec1336361e4dd8",
+        "bytes": 15321680
+      },
+      "raw_status": {
+        "complete": true,
+        "reason": "frontier exhausted",
+        "attempts": 36,
+        "solved": 18,
+        "planned_cells": 341,
+        "elapsed_seconds": 862.8383282639843
+      },
+      "qualified_cells": 18,
+      "scientific_status": "partial spatial coverage",
+      "termination_verified": true,
+      "versions_sha256": "38c3aa4168f0cfb83c3d0537933ea040cc4d600308198e00951213a00fbd528f",
+      "hardware_sha256": "92c960df5cd7ed3d270b4fd9524c4cf6f69dc2c06a44e06ff08c11bf5d5aa479",
+      "hardware": "name, driver_version, memory.total [MiB]\nNVIDIA A100-SXM4-80GB, 595.91.07, 81920 MiB"
+    },
+    {
+      "pod_id": "x14jpt9fu2cg3h",
+      "source_commit": "64746c164b51dff0c5c237f7e306b4d7e8907ecc",
+      "plan_sha256": "72350901dcd9c18b7b441a38f0011acc8294adbc86a9262ebdf606a2646622b6",
+      "archive": {
+        "path": "runpod/baby-shrimp-zoom/bsg1-20261021/workers/neural-shrimp-bsg1-g1/20261021T171140Z/results.tgz",
+        "sha256": "87c1b543a8b5c89f8774c305f207fe1fc913445ba62628dc3e9551437e93ee2b",
+        "bytes": 6503370
+      },
+      "raw_status": {
+        "complete": true,
+        "reason": "frontier exhausted",
+        "attempts": 1,
+        "solved": 0,
+        "planned_cells": 310,
+        "elapsed_seconds": 62.86094777600374
+      },
+      "qualified_cells": 0,
+      "scientific_status": "failed setup: no qualified spectral cells",
+      "termination_verified": true,
+      "versions_sha256": "38c3aa4168f0cfb83c3d0537933ea040cc4d600308198e00951213a00fbd528f",
+      "hardware_sha256": "92c960df5cd7ed3d270b4fd9524c4cf6f69dc2c06a44e06ff08c11bf5d5aa479",
+      "hardware": "name, driver_version, memory.total [MiB]\nNVIDIA A100-SXM4-80GB, 595.91.07, 81920 MiB"
+    }
+  ],
+  "analysis": {
+    "status": "tracked seed-connected qualified cells",
+    "start_cell": [
+      9,
+      19
+    ],
+    "tracked": 18,
+    "qualified_but_untracked": 0,
+    "rejected_edges": [],
+    "minimum_overlap": 0.999467632443111,
+    "stationary_fits": {
+      "tau": [],
+      "delta": []
+    },
+    "stationary_status": "no admissible complete 5x5 stationary fit"
+  },
+  "files": [
+    {
+      "path": "audits/baby-shrimp-zoom/20261021-geometry-audit-01/fields.npz",
+      "sha256": "30bc78b9b779a6d6afcab9834d6c8d5267656760b87b615815d8fd8d63075f1b",
+      "bytes": 2968
+    },
+    {
+      "path": "audits/baby-shrimp-zoom/20261021-geometry-audit-01/manifest.json",
+      "sha256": "b65cd1dc1c4b4ce9ca9fa4322a63a121b9cece8c07cf909254f4460ea7474ee6",
+      "bytes": 25027
+    },
+    {
+      "path": "audits/baby-shrimp-zoom/20261021-geometry-audit-01/baby-geometry.png",
+      "sha256": "39601ec3420d7ca7e05ad828f0d109d5402a13edcc6d52b4336dff055280dfe4",
+      "bytes": 205123
+    },
+    {
+      "path": "audits/baby-shrimp-zoom/20261021-geometry-audit-01/baby-geometry.pdf",
+      "sha256": "a98ef7819ca8d6fe8ac572ea8732dba2877e3e02775cfb198a517923bde17567",
+      "bytes": 37196
+    },
+    {
+      "path": "audits/baby-shrimp-zoom/20261021-geometry-audit-01/rows.json",
+      "sha256": "1db60bbc4c5506b6e752600a0259a3d37dc7e78d4ec9635bfb41362f84919719",
+      "bytes": 5564
+    }
+  ],
+  "limits": "Numerical, partial-coverage analysis. Saved eigen-residuals are checked against their recorded gates, not independently recomputed without a saved dense matrix. Full-state closure uses the recorded final return. A five-fit-RMS comparison is a sensitivity diagnostic, not a statistical confidence bound. No exact nilpotent orbit or complete boundary organization is certified.",
+  "cost": "see private ledger"
+}

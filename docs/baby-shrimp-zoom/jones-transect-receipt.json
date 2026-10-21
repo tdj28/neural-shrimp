@@ -1,0 +1,97 @@
+{
+  "id": "BSJ1-transect-audit",
+  "generated_utc": "2026-10-21T18:12:30.784113+00:00",
+  "analysis_commit": "b6167d975d806894a7f339e7df8031cf2ca32ca1",
+  "source_sha256": "301e63ee9674d8c78b1385b41ee91926190aa8290bad56e544398542635b2e25",
+  "worker": {
+    "pod_id": "rjnpqldu1yqy9x",
+    "source_commit": "6fd75f5e36af6ae05c477e60a6cd78845420f1ba",
+    "archive": {
+      "path": "runpod/baby-shrimp-zoom/bsj1-20261021/workers/neural-shrimp-bsj1/20261021T175605Z/results.tgz",
+      "sha256": "d2f9a037318901956867aa2b91bc121d4e776cc561824fe88cd6df5975f58494",
+      "bytes": 1343457821
+    },
+    "termination_verified": true,
+    "runner_returncode": 0,
+    "hardware": "name, driver_version, memory.total [MiB]\nNVIDIA A100-SXM4-80GB, 595.91.07, 81920 MiB",
+    "hardware_sha256": "92c960df5cd7ed3d270b4fd9524c4cf6f69dc2c06a44e06ff08c11bf5d5aa479",
+    "versions_sha256": "38c3aa4168f0cfb83c3d0537933ea040cc4d600308198e00951213a00fbd528f"
+  },
+  "plan_sha256": "0823771d0299e9a6aacd1ca850697857eb32c5681c80662629384dfd4add3a69",
+  "reference": {
+    "path": "audits/baby-shrimp-zoom/20261021-trajectories-01/states.npy",
+    "sha256": "fe32e2c967e6521d18d6fa6d2c8a8f61058574c118f0067b71d53dee763a1e4c",
+    "bytes": 258048128
+  },
+  "summary": {
+    "cells": 65,
+    "recurrence_counts": {
+      "0": 33,
+      "42": 2,
+      "72": 1,
+      "36": 4,
+      "18": 24,
+      "60": 1
+    },
+    "same_text_cells": 65,
+    "expanding_nonperiodic_both_halves": 31,
+    "mother_coding_gate_passed": 13,
+    "consistent_direction_word_cells": 5,
+    "mss_match_cells": 4,
+    "windows": [
+      {
+        "word": "RL",
+        "return_period": 3,
+        "rank": 7,
+        "first_index": 42,
+        "last_index": 44,
+        "first_alpha": 0.07310734375,
+        "last_alpha": 0.0731103125
+      },
+      {
+        "word": "RLRRRR",
+        "return_period": 7,
+        "rank": 4,
+        "first_index": 58,
+        "last_index": 58,
+        "first_alpha": 0.07313109375,
+        "last_alpha": 0.07313109375
+      }
+    ],
+    "sampled_rank_order": {
+      "status": "sampled ranks only",
+      "increasing": false,
+      "decreasing": true
+    },
+    "phase_alignment_passed": 65
+  },
+  "files": [
+    {
+      "path": "audits/baby-shrimp-zoom/20261021-jones-transect-audit-01/projection.npz",
+      "sha256": "c67f53b6152c4b7e38101f0609fc409e75a2d36e07fcf0d9d0e7aa8a5213a699",
+      "bytes": 197605
+    },
+    {
+      "path": "audits/baby-shrimp-zoom/20261021-jones-transect-audit-01/jones-transect.pdf",
+      "sha256": "c12e83716ad491d532d19efbeda52f90c52a42f7748e6b254439df07eadc2264",
+      "bytes": 238289
+    },
+    {
+      "path": "audits/baby-shrimp-zoom/20261021-jones-transect-audit-01/manifest.json",
+      "sha256": "04dc231129f71199e2a0675ac43116dcb4912284b44300b180f8d81a08161d65",
+      "bytes": 1349
+    },
+    {
+      "path": "audits/baby-shrimp-zoom/20261021-jones-transect-audit-01/rows.json",
+      "sha256": "0fc78e2f217797768ddc170751cab96cbfd9a0b3af438b743cff195132063362",
+      "bytes": 663401
+    },
+    {
+      "path": "audits/baby-shrimp-zoom/20261021-jones-transect-audit-01/jones-transect.png",
+      "sha256": "51977ee92f53e52e9576716e19dcdbf877f434f7fbf1cbaf714cb190a9779da7",
+      "bytes": 323999
+    }
+  ],
+  "limits": "Finite exploratory cut with recurrence candidates. Direction-sign words do not verify critical-point itineraries, exact superstability, global conjugacy, a complete window inventory or a homoclinic periodicity hub. Phase selection for the common projection uses proximity to the already fixed lower-neighbor phase; ambiguous alignments are masked. C in a final word denotes split phase votes only.",
+  "cost": "see private ledger"
+}

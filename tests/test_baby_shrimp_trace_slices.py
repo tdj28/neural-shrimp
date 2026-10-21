@@ -26,3 +26,18 @@ def test_missing_bracket_and_invalid_coordinates_fail():
     p = plan();p["slice_basis"] = [[1, 1], [0, 1]]
     with pytest.raises(ValueError, match="orthonormal"):
         trace_zero_slices(lambda u: {"tau": 1}, p)
+
+
+def test_concrete_plan_binds_audited_saddle():
+    import json, hashlib
+    root = Path(__file__).resolve().parents[1]
+    p = json.loads((root / "docs/baby-shrimp-zoom/crossing-curve-plan.json").read_text())
+    path = root / p["saddle_receipt"]
+    assert hashlib.sha256(path.read_bytes()).hexdigest() == p["saddle_receipt_sha256"]
+    r = json.loads(path.read_text())["summary"]
+    assert r["qualification"]["numerically_resolved_nonzero_saddle"]
+    assert p["start"] == [r["endpoint"]["alpha"], r["endpoint"]["log10_temperature"]]
+    basis = np.array(p["slice_basis"])
+    H = np.array(r["qualification"]["converged_scales"][-1]["hessian"])
+    diagonal = basis.T @ H @ basis
+    assert abs(diagonal[0, 1]) < 1e-12 and diagonal[0, 0] < 0 < diagonal[1, 1]

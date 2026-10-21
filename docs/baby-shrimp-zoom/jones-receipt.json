@@ -1,0 +1,945 @@
+{
+  "id": "Jones-full-state-diagnostic",
+  "generated_utc": "2026-10-21T18:17:26.969173+00:00",
+  "analysis_commit": "30147a4488a5785f2fa8b281a7837fa03b4a43ce",
+  "source_sha256": "3f2988a214c7f736f686ed87dd6d239b09ecc7689942f8ea3f2f26bb05572d66",
+  "all_six_final_derivative_gates_passed": true,
+  "raw_results": {
+    "path": "audits/baby-shrimp-zoom/20261021-jones-probe-01/results.json",
+    "sha256": "7fb0924c856f5a801c7d7f383db330f0a1e0c39abd9a3a66bfe2e02a047d9aa8",
+    "bytes": 18741
+  },
+  "precision_results": {
+    "path": "audits/baby-shrimp-zoom/20261021-jones-precision-01/results.json",
+    "sha256": "0733965f0428da3c99fe3a35bcd94697c2229bccbe6a96d21fd8198e93aba05e",
+    "bytes": 21221
+  },
+  "core_audit_sha256": "43cf07c05e736eabb249b0a88a1a7566b0a8c5a04f3457175b3309cc6c52d8c4",
+  "rows": [
+    {
+      "name": "mother-chaos",
+      "source": "mother-chaos",
+      "phase": 3,
+      "alpha": 0.0727531914893617,
+      "log10_temperature": -0.15274468085106382,
+      "derivative_qualified": true,
+      "plain_vs_ad_primal_error": 0.0,
+      "finite_differences": [
+        {
+          "h": 0.01,
+          "relative_errors": [
+            0.0005707718505311096,
+            0.0010724531136739259,
+            9.041405108040539e-05
+          ]
+        },
+        {
+          "h": 0.003,
+          "relative_errors": [
+            5.138202687690333e-05,
+            9.650559975000049e-05,
+            8.253388394266044e-06
+          ]
+        },
+        {
+          "h": 0.001,
+          "relative_errors": [
+            5.709136262855506e-06,
+            1.072286864426164e-05,
+            9.169965613809687e-07
+          ]
+        },
+        {
+          "h": 0.0003,
+          "relative_errors": [
+            5.133467612131109e-07,
+            9.643227224200621e-07,
+            8.093093012396026e-08
+          ]
+        },
+        {
+          "h": 0.0001,
+          "relative_errors": [
+            5.83397320124529e-08,
+            9.887522750978611e-08,
+            1.9094223585562046e-08
+          ]
+        },
+        {
+          "h": 3e-05,
+          "relative_errors": [
+            2.4215864230578083e-09,
+            1.0829259534521649e-07,
+            7.193471065879406e-08
+          ]
+        }
+      ],
+      "orders": [
+        [
+          1.9997969391513755,
+          2.000130641806202,
+          1.9882308375581301
+        ],
+        [
+          1.999996466037131,
+          1.9999979433738388,
+          2.0000462490153885
+        ],
+        [
+          2.000768996190864,
+          2.0006332158866393,
+          2.0162479063351775
+        ],
+        [
+          1.9794682948244398,
+          2.0731310848278306,
+          1.3145767911447337
+        ],
+        [
+          2.6428009730281037,
+          -0.07556487370521887,
+          -1.1016636316202602
+        ]
+      ],
+      "curve_outside_source_domain": 2,
+      "lift_invariance_rms_over_span": 0.004061914321924979,
+      "lift_invariance_max_over_span": 0.008710668903696317,
+      "critical_points": [
+        {
+          "label": "C-minimum",
+          "coordinate": 0.42995309725403785,
+          "projected_image": -1.3007164126058824e-05,
+          "projected_derivative": 2.097423767039836e-10,
+          "bracket_width": 2.98023217215615e-10,
+          "full_state_returns_six_steps": [
+            0.005506263976831358,
+            0.00730403801174234,
+            0.00166318912515607,
+            0.004810214438343534,
+            0.003330624010688457,
+            0.0040981566537334905,
+            0.00029024188254149323
+          ],
+          "coordinates": [
+            0.42995309725403863,
+            -1.3007164126059155e-05,
+            1.0000773079794896,
+            0.30072049202661305,
+            0.05415920881465422,
+            0.6904552924099548,
+            0.10982232662968759,
+            0.4526348812252659
+          ],
+          "exact_six_token_loop": true,
+          "projected_branch_word": [
+            "turn",
+            "outside",
+            "outside",
+            "0",
+            "0",
+            "1",
+            "0",
+            "1"
+          ],
+          "full_state_p18_closure_passed": false
+        }
+      ],
+      "precision_extension": {
+        "source_commit": "707effd905017d0f9debf1a3d4d38227b4dabc89",
+        "prior_results_sha256": "7fb0924c856f5a801c7d7f383db330f0a1e0c39abd9a3a66bfe2e02a047d9aa8",
+        "original_precision": {
+          "derivative_qualified": false,
+          "plain_vs_ad_primal_error": 0.0,
+          "finite_differences": [
+            {
+              "h": 0.001,
+              "relative_errors": [
+                5.709136262855506e-06,
+                1.072286864426164e-05,
+                9.169965613809687e-07
+              ]
+            },
+            {
+              "h": 0.0003,
+              "relative_errors": [
+                5.133467612131109e-07,
+                9.643227224200621e-07,
+                8.093093012396026e-08
+              ]
+            },
+            {
+              "h": 0.0001,
+              "relative_errors": [
+                5.83397320124529e-08,
+                9.887522750978611e-08,
+                1.9094223585562046e-08
+              ]
+            },
+            {
+              "h": 3e-05,
+              "relative_errors": [
+                2.4215864230578083e-09,
+                1.0829259534521649e-07,
+                7.193471065879406e-08
+              ]
+            }
+          ],
+          "orders": [
+            [
+              2.000768996190864,
+              2.0006332158866393,
+              2.0162479063351775
+            ],
+            [
+              1.9794682948244398,
+              2.0731310848278306,
+              1.3145767911447337
+            ],
+            [
+              2.6428009730281037,
+              -0.07556487370521887,
+              -1.1016636316202602
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "name": "baby-chaos-left",
+      "source": "baby-chaos-left",
+      "phase": 0,
+      "alpha": 0.07305320813771518,
+      "log10_temperature": -0.15442097026604068,
+      "derivative_qualified": true,
+      "plain_vs_ad_primal_error": 0.0,
+      "finite_differences": [
+        {
+          "h": 0.001,
+          "relative_errors": [
+            4.887696589155245e-06,
+            1.4052585762662917e-05,
+            1.519763660174264e-06
+          ]
+        },
+        {
+          "h": 0.0003,
+          "relative_errors": [
+            4.400574354011556e-07,
+            1.2662396439678825e-06,
+            1.360974991518032e-07
+          ]
+        },
+        {
+          "h": 0.0001,
+          "relative_errors": [
+            5.1483262202010253e-08,
+            1.8562972094421536e-07,
+            1.6472329503274405e-08
+          ]
+        },
+        {
+          "h": 3e-05,
+          "relative_errors": [
+            1.0450447865437335e-08,
+            1.4905458966368067e-07,
+            1.4392432483334878e-08
+          ]
+        }
+      ],
+      "orders": [
+        [
+          1.9996889998538667,
+          1.9990109512472933,
+          2.0041470803524266
+        ],
+        [
+          1.9530534352019482,
+          1.7477074987231467,
+          1.9221426729199793
+        ],
+        [
+          1.3244584162525106,
+          0.18226435739445954,
+          0.11211169091653439
+        ]
+      ],
+      "curve_outside_source_domain": 1,
+      "lift_invariance_rms_over_span": 0.00035857884646110853,
+      "lift_invariance_max_over_span": 0.001017354805210793,
+      "critical_points": [
+        {
+          "label": "C-minimum",
+          "coordinate": 0.5253262414038181,
+          "projected_image": 0.0017736357955614953,
+          "projected_derivative": 8.873883017151522e-10,
+          "bracket_width": 2.9802316170446375e-10,
+          "full_state_returns_six_steps": [
+            0.00891831777806216,
+            0.008069359457159305,
+            0.002790160326190095,
+            0.00718576108554177,
+            0.004472976485179586,
+            0.004774226874356206,
+            0.00255197327784113
+          ],
+          "coordinates": [
+            0.5253262414038186,
+            0.0017736357955614962,
+            0.9983176800114111,
+            0.6893993979725598,
+            0.10307200477560662,
+            0.7882070462249403,
+            0.24450287989364822,
+            0.37513957849066376
+          ],
+          "exact_six_token_loop": true,
+          "projected_branch_word": [
+            "turn",
+            "0",
+            "1",
+            "1",
+            "0",
+            "1",
+            "0",
+            "0"
+          ],
+          "full_state_p18_closure_passed": false
+        }
+      ]
+    },
+    {
+      "name": "baby-chaos-right",
+      "source": "baby-chaos-right",
+      "phase": 0,
+      "alpha": 0.0731320813771518,
+      "log10_temperature": -0.15444600938967135,
+      "derivative_qualified": true,
+      "plain_vs_ad_primal_error": 0.0,
+      "finite_differences": [
+        {
+          "h": 0.001,
+          "relative_errors": [
+            9.19839583506665e-06,
+            1.8341558189766415e-06,
+            3.4704151508055846e-06
+          ]
+        },
+        {
+          "h": 0.0003,
+          "relative_errors": [
+            8.276487606107642e-07,
+            1.618677400373627e-07,
+            3.167447340242365e-07
+          ]
+        },
+        {
+          "h": 0.0001,
+          "relative_errors": [
+            9.576609059322685e-08,
+            2.0194061598983195e-08,
+            3.508860491172773e-08
+          ]
+        },
+        {
+          "h": 3e-05,
+          "relative_errors": [
+            4.2092422842105566e-09,
+            1.8829675901262047e-08,
+            1.5484245836130035e-08
+          ]
+        }
+      ],
+      "orders": [
+        [
+          2.000207572132945,
+          2.016291414142509,
+          1.9883616167605993
+        ],
+        [
+          1.9630949176132653,
+          1.8945637353494587,
+          2.0027263351796947
+        ],
+        [
+          2.5952629487874797,
+          0.058103015279697356,
+          0.6794616282528559
+        ]
+      ],
+      "curve_outside_source_domain": 5,
+      "lift_invariance_rms_over_span": 0.0010801408066329035,
+      "lift_invariance_max_over_span": 0.0047942251469111,
+      "critical_points": [
+        {
+          "label": "D-maximum",
+          "coordinate": 0.06441410496830943,
+          "projected_image": 1.0000780573510963,
+          "projected_derivative": 2.7514448713767445e-10,
+          "bracket_width": 2.980232310934028e-10,
+          "full_state_returns_six_steps": [
+            0.01557837759149437,
+            0.00623606702128968,
+            0.0016775152686642819,
+            0.013277984335348526,
+            0.00202922210660234,
+            0.012415294632644345,
+            0.000836338161769834
+          ],
+          "coordinates": [
+            0.06441410496830953,
+            1.0000780573510963,
+            0.43781275017790566,
+            0.16444561978071806,
+            0.8618480870228052,
+            0.18548777183816434,
+            0.8099233188061807,
+            0.11425449786456472
+          ],
+          "exact_six_token_loop": true,
+          "projected_branch_word": [
+            "turn",
+            "outside",
+            "1",
+            "1",
+            "2",
+            "1",
+            "2",
+            "1"
+          ],
+          "full_state_p18_closure_passed": false
+        },
+        {
+          "label": "C-minimum",
+          "coordinate": 0.6329540051519872,
+          "projected_image": -0.0005315156428665336,
+          "projected_derivative": 8.424386909300336e-10,
+          "bracket_width": 2.9802316170446375e-10,
+          "full_state_returns_six_steps": [
+            0.01056597227891126,
+            0.004626297814825309,
+            0.0063733655386227625,
+            8.488891147219616e-05,
+            0.010556265650937412,
+            0.004655441659801565,
+            0.006319213374594511
+          ],
+          "coordinates": [
+            0.6329540051519875,
+            -0.0005315156428665334,
+            0.9100978763598329,
+            0.2502563786213924,
+            0.6278582279062208,
+            4.724330441278859e-05,
+            0.9118356126678883,
+            0.253503802585531
+          ],
+          "exact_six_token_loop": true,
+          "projected_branch_word": [
+            "turn",
+            "outside",
+            "2",
+            "1",
+            "1",
+            "0",
+            "2",
+            "1"
+          ],
+          "full_state_p18_closure_passed": false
+        }
+      ]
+    },
+    {
+      "name": "baby-chaos-below",
+      "source": "baby-chaos-below",
+      "phase": 0,
+      "alpha": 0.07307949921752739,
+      "log10_temperature": -0.1545586854460094,
+      "derivative_qualified": true,
+      "plain_vs_ad_primal_error": 0.0,
+      "finite_differences": [
+        {
+          "h": 0.001,
+          "relative_errors": [
+            1.0416145091250742e-05,
+            5.485738765686116e-06,
+            1.0027364687672436e-06
+          ]
+        },
+        {
+          "h": 0.0003,
+          "relative_errors": [
+            9.373349815812581e-07,
+            4.876187355780411e-07,
+            9.286793203742976e-08
+          ]
+        },
+        {
+          "h": 0.0001,
+          "relative_errors": [
+            1.0513951062127818e-07,
+            6.900132873181548e-08,
+            1.5451480403126972e-08
+          ]
+        },
+        {
+          "h": 3e-05,
+          "relative_errors": [
+            1.8792891405245222e-08,
+            5.543328431581013e-08,
+            1.89894122592171e-08
+          ]
+        }
+      ],
+      "orders": [
+        [
+          2.000104622501394,
+          2.010322178679503,
+          1.976215412531911
+        ],
+        [
+          1.9913782181702455,
+          1.7798891198622617,
+          1.6324900049181925
+        ],
+        [
+          1.4301066046182926,
+          0.18185256954177598,
+          -0.17124702141402404
+        ]
+      ],
+      "curve_outside_source_domain": 1,
+      "lift_invariance_rms_over_span": 0.001298862325323421,
+      "lift_invariance_max_over_span": 0.005917211229300033,
+      "critical_points": [
+        {
+          "label": "D-maximum",
+          "coordinate": 0.07011354580521584,
+          "projected_image": 1.0000553570405022,
+          "projected_derivative": 4.72372944358161e-09,
+          "bracket_width": 2.98023217215615e-10,
+          "full_state_returns_six_steps": [
+            0.017488547792621954,
+            0.010471195600186913,
+            0.0011167842566294343,
+            0.01578904059064473,
+            0.006220446517769733,
+            0.002024895414674761,
+            0.014021546115023547
+          ],
+          "coordinates": [
+            0.0701135458052175,
+            1.0000553570405024,
+            0.6262463365727599,
+            0.011391383981650488,
+            0.909762771625306,
+            0.39958076096461737,
+            0.17691851609928422,
+            0.8156544444164409
+          ],
+          "exact_six_token_loop": true,
+          "projected_branch_word": [
+            "turn",
+            "outside",
+            "2",
+            "0",
+            "2",
+            "1",
+            "1",
+            "2"
+          ],
+          "full_state_p18_closure_passed": false
+        },
+        {
+          "label": "C-minimum",
+          "coordinate": 0.5857707746326923,
+          "projected_image": 0.0012740774486387713,
+          "projected_derivative": 1.187166603662131e-10,
+          "bracket_width": 2.980232727267662e-10,
+          "full_state_returns_six_steps": [
+            0.011017757308852093,
+            0.005398691090127555,
+            0.005107330045574497,
+            0.0037336993816681784,
+            0.007253623073999348,
+            0.0030057426953959414,
+            0.008928236377951943
+          ],
+          "coordinates": [
+            0.5857707746326934,
+            0.001274077448638771,
+            0.8721375434935799,
+            0.3142064747488926,
+            0.3872169474478699,
+            0.20028390753089434,
+            0.7453442120670111,
+            0.1116055643281665
+          ],
+          "exact_six_token_loop": true,
+          "projected_branch_word": [
+            "turn",
+            "0",
+            "2",
+            "1",
+            "1",
+            "1",
+            "2",
+            "1"
+          ],
+          "full_state_p18_closure_passed": false
+        }
+      ]
+    },
+    {
+      "name": "baby-core-from-baby-chaos-below",
+      "source": "baby-chaos-below",
+      "phase": 0,
+      "alpha": 0.07309264475743349,
+      "log10_temperature": -0.15440845070422535,
+      "derivative_qualified": true,
+      "plain_vs_ad_primal_error": 0.0,
+      "finite_differences": [
+        {
+          "h": 0.001,
+          "relative_errors": [
+            1.1464276690318446e-05,
+            5.093576867582629e-06,
+            1.1281347631796255e-06
+          ]
+        },
+        {
+          "h": 0.0003,
+          "relative_errors": [
+            1.0314630644126525e-06,
+            4.616327432294196e-07,
+            9.894460265491783e-08
+          ]
+        },
+        {
+          "h": 0.0001,
+          "relative_errors": [
+            1.1523924436091431e-07,
+            5.40852608142355e-08,
+            1.4340947892657358e-08
+          ]
+        },
+        {
+          "h": 3e-05,
+          "relative_errors": [
+            6.771784505419833e-09,
+            2.3422998319320724e-08,
+            7.83289655181116e-10
+          ]
+        }
+      ],
+      "orders": [
+        [
+          2.0002591187463703,
+          1.9942028023510787,
+          2.0214416494343683
+        ],
+        [
+          1.994992404259642,
+          1.951742178407925,
+          1.7580735351401502
+        ],
+        [
+          2.3540778500686503,
+          0.6950683009690889,
+          2.4148150566620137
+        ]
+      ],
+      "curve_outside_source_domain": 0,
+      "lift_invariance_rms_over_span": 0.00840401441309175,
+      "lift_invariance_max_over_span": 0.011298283336615438,
+      "critical_points": [
+        {
+          "label": "D-maximum",
+          "coordinate": 0.08030036464333537,
+          "projected_image": 0.9682366082017502,
+          "projected_derivative": -4.543425752923933e-09,
+          "bracket_width": 2.98023217215615e-10,
+          "full_state_returns_six_steps": [
+            0.016698046752516214,
+            0.009582157154607935,
+            0.0002513484364915891,
+            0.016738412106701905,
+            0.009672790448039972,
+            0.0002518991489065563,
+            0.016738469199278582
+          ],
+          "coordinates": [
+            0.08030036464333723,
+            0.9682366082017504,
+            0.5888742317607111,
+            0.09016363559010054,
+            0.9703801193759419,
+            0.5937135840056934,
+            0.0901997780364353,
+            0.9703831307590756
+          ],
+          "exact_six_token_loop": true,
+          "projected_branch_word": [
+            "turn",
+            "2",
+            "2",
+            "1",
+            "2",
+            "2",
+            "1",
+            "2"
+          ],
+          "full_state_p18_closure_passed": false
+        },
+        {
+          "label": "C-minimum",
+          "coordinate": 0.5859818653762341,
+          "projected_image": 0.05348731714939036,
+          "projected_derivative": -8.744363221598816e-10,
+          "bracket_width": 2.980232727267662e-10,
+          "full_state_returns_six_steps": [
+            0.01002942765472383,
+            0.00663085667414207,
+            0.0013331402709208416,
+            0.00883686305741964,
+            0.007038979120979418,
+            0.00036368284851513456,
+            0.009294291442050922
+          ],
+          "coordinates": [
+            0.5859818653762354,
+            0.05348731714939036,
+            0.9372927719414174,
+            0.5155880803251452,
+            0.11655708814464767,
+            0.9585522197168661,
+            0.5684946615315019,
+            0.09235198737462123
+          ],
+          "exact_six_token_loop": true,
+          "projected_branch_word": [
+            "turn",
+            "0",
+            "2",
+            "1",
+            "1",
+            "2",
+            "1",
+            "1"
+          ],
+          "full_state_p18_closure_passed": false
+        }
+      ],
+      "verified_core_projection": {
+        "phase": 1,
+        "coordinates": [
+          0.5937230239325346,
+          0.09020005168692094,
+          0.9703831477740386
+        ],
+        "phase_alignment_distances": [
+          0.27328793771396553,
+          0.00015215128548218008,
+          0.4627158370572843,
+          0.2765207873969035,
+          0.054785807303110785,
+          0.44485803787630124
+        ]
+      }
+    },
+    {
+      "name": "baby-core-from-baby-chaos-right",
+      "source": "baby-chaos-right",
+      "phase": 0,
+      "alpha": 0.07309264475743349,
+      "log10_temperature": -0.15440845070422535,
+      "derivative_qualified": true,
+      "plain_vs_ad_primal_error": 0.0,
+      "finite_differences": [
+        {
+          "h": 0.001,
+          "relative_errors": [
+            9.789747652788352e-06,
+            1.5201920037412595e-06,
+            3.610123913729198e-06
+          ]
+        },
+        {
+          "h": 0.0003,
+          "relative_errors": [
+            8.811705842636989e-07,
+            1.3219454291819185e-07,
+            3.260122117765127e-07
+          ]
+        },
+        {
+          "h": 0.0001,
+          "relative_errors": [
+            1.0259233690108852e-07,
+            8.838491218283673e-09,
+            2.164560863814676e-08
+          ]
+        },
+        {
+          "h": 3e-05,
+          "relative_errors": [
+            4.382398338333447e-09,
+            1.656996034305064e-09,
+            2.622935120884252e-08
+          ]
+        }
+      ],
+      "orders": [
+        [
+          1.999912055824862,
+          2.0285485417591236,
+          1.9971900753310887
+        ],
+        [
+          1.9574585267484481,
+          2.4623413465020776,
+          2.468689153096213
+        ],
+        [
+          2.6189687085839113,
+          1.3904880859926867,
+          -0.15953554646294518
+        ]
+      ],
+      "curve_outside_source_domain": 23,
+      "lift_invariance_rms_over_span": 0.0109313221218035,
+      "lift_invariance_max_over_span": 0.013247048855001615,
+      "critical_points": [
+        {
+          "label": "D-maximum",
+          "coordinate": 0.07238450720906259,
+          "projected_image": 1.0554880068871366,
+          "projected_derivative": -2.92731942772414e-09,
+          "bracket_width": 2.980232310934028e-10,
+          "full_state_returns_six_steps": [
+            0.01637019188595956,
+            0.009347389069381684,
+            0.0002769279117355824,
+            0.016336852159734527,
+            0.009269401364377403,
+            0.00027977896685978056,
+            0.016336643004408284
+          ],
+          "coordinates": [
+            0.07238450720906264,
+            1.0554880068871362,
+            0.6328960828474383,
+            0.05963483253211806,
+            1.0534911371354552,
+            0.628193705170231,
+            0.05940831603885388,
+            1.0534786527521665
+          ],
+          "exact_six_token_loop": true,
+          "projected_branch_word": [
+            "turn",
+            "outside",
+            "1",
+            "0",
+            "outside",
+            "1",
+            "0",
+            "outside"
+          ],
+          "full_state_p18_closure_passed": false
+        },
+        {
+          "label": "C-minimum",
+          "coordinate": 0.6343051980435849,
+          "projected_image": 0.09230867790807151,
+          "projected_derivative": -2.390642433583905e-10,
+          "bracket_width": 2.9802316170446375e-10,
+          "full_state_returns_six_steps": [
+            0.009032403552495625,
+            0.006740796015619497,
+            0.0007069505106057337,
+            0.009517309982451405,
+            0.007013374347154604,
+            0.00019820503898473177,
+            0.009582498478000405
+          ],
+          "coordinates": [
+            0.6343051980435851,
+            0.0923086779080715,
+            1.037195604545097,
+            0.5932285961251337,
+            0.06330716732033873,
+            1.0534091377172223,
+            0.6282668972167379,
+            0.059410293883869716
+          ],
+          "exact_six_token_loop": true,
+          "projected_branch_word": [
+            "turn",
+            "1",
+            "outside",
+            "1",
+            "0",
+            "outside",
+            "1",
+            "0"
+          ],
+          "full_state_p18_closure_passed": false
+        }
+      ],
+      "verified_core_projection": {
+        "phase": 1,
+        "coordinates": [
+          0.6281486246375126,
+          0.05940700242648174,
+          1.0534785713145165
+        ],
+        "phase_alignment_distances": [
+          0.27334059794734994,
+          0.0004226842440078333,
+          0.46297239381099836,
+          0.27657967674589673,
+          0.05605177297158694,
+          0.44511637428121825
+        ]
+      }
+    }
+  ],
+  "files": [
+    {
+      "path": "audits/baby-shrimp-zoom/20261021-jones-audit-03/jones-native-returnmaps.pdf",
+      "sha256": "fb09109e1b262dcb63ba3b09ba51509cdb9d5533474617893bd36ff001049c6d",
+      "bytes": 32345
+    },
+    {
+      "path": "audits/baby-shrimp-zoom/20261021-jones-audit-03/jones-state-space.pdf",
+      "sha256": "668817e366fc6cf4aabf61b734f08fd63c73df45bbe34b35ee712320cb3c7e68",
+      "bytes": 149187
+    },
+    {
+      "path": "audits/baby-shrimp-zoom/20261021-jones-audit-03/jones-state-space.png",
+      "sha256": "8da6c9a0923b44fd9b87eb1c77b7bf1792db9dccc8ec74466aef33679d1596f8",
+      "bytes": 280045
+    },
+    {
+      "path": "audits/baby-shrimp-zoom/20261021-jones-audit-03/manifest.json",
+      "sha256": "aec4da956961c9eb5bf6f5764cbc9d3b8d6c0a49a2043f8485ee0d66d48f78b9",
+      "bytes": 8022
+    },
+    {
+      "path": "audits/baby-shrimp-zoom/20261021-jones-audit-03/jones-native-returnmaps.png",
+      "sha256": "69a1696c38e75acc78b96828b0f3273dcfbaa85a6284e412eb7f78c2715010dc",
+      "bytes": 252636
+    },
+    {
+      "path": "audits/baby-shrimp-zoom/20261021-jones-audit-03/jones-core-three-cycle.png",
+      "sha256": "dd355b51b60c1cb2a365774eeb68c68ee46cd09c6a8bbb7c90869464d083b051",
+      "bytes": 162369
+    },
+    {
+      "path": "audits/baby-shrimp-zoom/20261021-jones-audit-03/jones-core-three-cycle.pdf",
+      "sha256": "6bd4b71fd3e8f743f32e4e16b7874d275012e8cc225cb525ecee7cbc45cc2c73",
+      "bytes": 29955
+    }
+  ],
+  "limits": "Exploratory numerical diagnostics on fitted state curves, not invariant-manifold or conjugacy proofs. Original five baby precision rows are checked from saved error records; the supplemental mother check additionally retains raw finite differences. Projected branch words are not verified critical-point kneading sequences. No fixed-point homoclinic contact or periodicity hub is established."
+}

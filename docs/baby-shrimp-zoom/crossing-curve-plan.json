@@ -1,0 +1,50 @@
+{
+  "id": "BSC2",
+  "status": "exploratory direct root check after the audited BSC1 saddle and cyclic precision replay",
+  "model_revision": "7ae557604adf67be50417f59c2c2f167def9a775",
+  "seed_sha256": "2f33d00a446f586c362693d53e1ff55fc8cebecaba84ad5447d912dda6c07eee",
+  "period": 18,
+  "start": [
+    0.07309363265341377,
+    -0.1544023817786725
+  ],
+  "coordinate_scales": [
+    2.5e-06,
+    7.5e-06
+  ],
+  "alpha_bounds": [
+    0.073045,
+    0.07312
+  ],
+  "temperature_bounds": [
+    -0.154475,
+    -0.154325
+  ],
+  "maximum_evaluations": 80,
+  "numerical_seconds": 2700,
+  "method": "At each of three fixed offsets along the positive-Hessian direction, bracket both trace-zero roots along the negative-Hessian direction, retaining every full-state primitive and three-phase spectral gate from BSC1. Brent root finding, explicit missing-bracket failure, maximum12 iterations per root, normalized location tolerance1e-5 and absolute trace tolerance1e-6. Requalify the original seed. This is the same period18 family; the BSC1 endpoint composed finite differences are separately qualified at cyclic phase6. No threshold is relaxed.",
+  "interpretation": "Measure the separation of actual trace-zero roots on three local slices. These roots are opposite-sign multiplier balance, not zero multipliers; retain determinant and spectral radius. Lines between sampled roots are illustrative. No exact global crossing or full boundary certificate follows.",
+  "resources": "One owned secure A100 SXM80GB, eight threads. BSC1 measured55 dense three-phase points in1649seconds including seed and endpoint checks, about30seconds per point. At most80 points,45-minute internal,60-minute shell,80-minute setup/run,105-minute hard lifetime including20-minute retrieval reserve. Independent ownership watchdog, immutable retrieval and verified shutdown. Local consumer GPU is unsuitable for this dense float64 workload. Cost: see private ledger.",
+  "mode": "trace_zero_slices",
+  "slice_basis": [
+    [
+      0.8431793068598893,
+      0.5376324548269726
+    ],
+    [
+      -0.5376324548269726,
+      0.8431793068598893
+    ]
+  ],
+  "slice_offsets": [
+    -0.2,
+    0,
+    0.2
+  ],
+  "root_bracket": 0.3,
+  "root_coordinate_tolerance": 1e-05,
+  "root_trace_tolerance": 1e-06,
+  "root_max_iterations": 12,
+  "saddle_receipt": "docs/baby-shrimp-zoom/crossing-receipt.json",
+  "saddle_receipt_sha256": "557a53931f8824d4f92dfb91135ed8eff747ba3b0cab91c5efe72b295947ebab"
+}
