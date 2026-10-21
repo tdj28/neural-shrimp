@@ -91,6 +91,19 @@ def main():
                 close(rough, score["roughness"], "neighbor roughness")
         row_checks.append({"id": row["id"], "reference": row["reference"]["label"], "period": p,
                            "passed": True, "svd_checks": 4, "roughness_checks": 4})
+        for key, scores in row["features"].items():
+            short = np.asarray(states[:int(key), i])
+            for name, cycles in [("recurrence", 3), ("recurrence_two_cycles", 2)]:
+                valid = []
+                for lag in range(1, min(64, len(short) // cycles) + 1):
+                    errors = [np.linalg.norm(short[t + lag] - short[t]) / max(np.linalg.norm(short[t]), 1e-15)
+                              for t in range(len(short) - lag)]
+                    if max(errors) <= 1e-8:
+                        valid.append(lag)
+                got = valid[0] if valid else 0
+                assert got == scores[name]["period"]
+                expected = "periodic" if got else "finite-time chaotic"
+                assert scores["prediction_" + name + "_closed_set"] == expected
     tests = [r for r in result["rows"] if r["split"] == "test" and r["reference"]["label"] != "unresolved"]
     cal_p = [r for r in result["rows"] if r["split"] == "calibration" and r["reference"]["label"] == "periodic"]
     cal_c = [r for r in result["rows"] if r["split"] == "calibration" and r["reference"]["label"] == "finite-time chaotic"]

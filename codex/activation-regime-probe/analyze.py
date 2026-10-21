@@ -3,6 +3,7 @@ import argparse
 import hashlib
 import json
 from pathlib import Path
+import subprocess
 import time
 
 import numpy as np
@@ -70,6 +71,7 @@ def analyze(source, out):
                       for name in ["raw_pr", "standardized_pr", "roughness"]}
             scores["layers"] = layer_scores
             scores["recurrence"] = recurrence(states[:window, i], plan["max_period"], plan["baseline_tolerance"])
+            scores["recurrence_two_cycles"] = recurrence(states[:window, i], plan["max_period"], plan["baseline_tolerance"], min_cycles=2)
             row["features"][str(window)] = scores
         print(json.dumps({"scored": row["id"], "reference": row["reference"]["label"],
                           "seconds": round(time.monotonic() - tic, 2)}), flush=True)
@@ -86,7 +88,10 @@ def analyze(source, out):
             detected = row["features"][key]["recurrence"]["period"]
             row["features"][key]["recurrence_output"] = "periodic candidate" if detected else "unresolved"
             row["features"][key]["prediction_recurrence_closed_set"] = "periodic" if detected else "finite-time chaotic"
-        for metric in ["raw_pr", "standardized_pr", "roughness", "recurrence_closed_set"]:
+            detected2 = row["features"][key]["recurrence_two_cycles"]["period"]
+            row["features"][key]["recurrence_two_cycles_output"] = "periodic candidate" if detected2 else "unresolved"
+            row["features"][key]["prediction_recurrence_two_cycles_closed_set"] = "periodic" if detected2 else "finite-time chaotic"
+        for metric in ["raw_pr", "standardized_pr", "roughness", "recurrence_closed_set", "recurrence_two_cycles_closed_set"]:
             resolved = [r for r in rows if r["split"] == "test" and r["reference"]["label"] != "unresolved"]
             correct = [r["features"][key][f"prediction_{metric}"] == r["reference"]["label"] for r in resolved]
             per_class = {}
@@ -102,6 +107,8 @@ def analyze(source, out):
                                 "unresolved_test_rows": [r["id"] for r in rows if r["split"] == "test" and r["reference"]["label"] == "unresolved"]})
     result = {"status": "exploratory", "source": str(source), "input_manifest_sha256": sha(source / "manifest.json"),
               "acquisition_source_commit": run["source_commit"], "analysis_source_sha256": sha(__file__),
+              "analysis_source_commit": subprocess.check_output(["git", "rev-parse", "HEAD"], cwd=ROOT, text=True).strip(),
+              "amendment_sha256": sha(HERE / "amendment-01.md"),
               "metrics_source_sha256": sha(HERE / "metrics.py"), "rows": rows, "rules": rules, "evaluations": evaluations,
               "note": "Binary predictions are candidate labels; no recurrence is not by itself evidence of chaos.",
               "seconds": time.monotonic() - tic}
@@ -134,17 +141,17 @@ def render(result, out):
     ax[0].text(.02, .98, "Teal: periodic • Orange: positive finite-time exponent\nDashed: calibration settings", transform=ax[0].transAxes,
                va="top", fontsize=9, bbox={"facecolor": "white", "edgecolor": "none", "alpha": .85})
     tests = [r for r in result["rows"] if r["split"] == "test"]
-    metrics = ["raw_pr", "standardized_pr", "roughness", "recurrence_closed_set"]
+    metrics = ["raw_pr", "standardized_pr", "roughness", "recurrence_closed_set", "recurrence_two_cycles_closed_set"]
     arr = np.array([[0 if r["reference"]["label"] == "unresolved" else
                     1 if r["features"]["128"][f"prediction_{m}"] == r["reference"]["label"] else -1
                     for m in metrics] for r in tests])
     ax[1].imshow(arr, cmap=ListedColormap(["#d67568", "#d9dde2", "#80c0ad"]), vmin=-1, vmax=1, aspect="auto")
     for i in range(len(tests)):
-        for j in range(4):
+        for j in range(5):
             ax[1].text(j, i, "?" if arr[i, j] == 0 else "Yes" if arr[i, j] == 1 else "No", ha="center", va="center")
     ax[1].set_yticks(range(len(tests)), [r["id"].replace("test-", "") + " (" +
                       {"periodic": "P", "finite-time chaotic": "C", "unresolved": "?"}[r["reference"]["label"]] + ")" for r in tests])
-    ax[1].set_xticks(range(4), ["Raw\ndimension", "Standardized\ndimension", "Visual\nroughness", "Recurrence\nbaseline"])
+    ax[1].set_xticks(range(5), ["Raw\ndimension", "Scaled\ndimension", "Visual\nroughness", "Return\n3 cycles", "Return\n2 cycles"])
     ax[1].set_title("Correct at 128 observations? Held-out settings")
     fig.suptitle("Activation-based regime diagnosis • Exploratory pilot", fontsize=17, weight="bold")
     fig.text(.5, .015, "P = numerical periodicity; C = positive finite-time exponent. Selected settings, one start each.\n"

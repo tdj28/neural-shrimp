@@ -52,3 +52,12 @@ def test_missing_calibration_fails():
     assert predict(.5, threshold(0, 1)) == "periodic"
     assert predict(.8, threshold(0, 1)) == "finite-time chaotic"
     assert predict(.2, threshold(1, 0)) == "finite-time chaotic"
+
+
+def test_short_window_recurrence_comparators():
+    cycle = np.random.default_rng(7).normal(size=(8, 12))
+    x = np.tile(cycle, (2, 1))
+    assert recurrence(x)["period"] == 0
+    assert recurrence(x, min_cycles=2)["period"] == 8
+    drift = x + np.arange(16)[:, None] * 1e-3
+    assert recurrence(drift, min_cycles=2)["period"] == 0

@@ -105,3 +105,7 @@ confounds; a detector must be allowed to abstain.
 
 Commands and actual outcomes are recorded in `research-log.md`; an outcome
 report and compact receipt will be added only after every row is checked.
+
+[Amendment 01](amendment-01.md), recorded before any target scores were seen,
+adds a stronger two-cycle recurrence comparator alongside the original
+three-cycle comparator. Acquisition and activation endpoints are unchanged.

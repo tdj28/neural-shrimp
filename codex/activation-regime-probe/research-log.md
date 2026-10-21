@@ -29,3 +29,13 @@ Raw benchmark receipt:
 Proceed with the original ten settings and unchanged plan. The analysis
 implementation records every layer and window, learns only from the two
 calibration settings, and retains unresolved reference rows explicitly.
+
+## 2026-10-21: collection-001 complete; analysis preparation
+
+Source `b9b96dc910de14b9e21a4be1cc5aeb66856330d9`. The acquisition completed
+all 1040 model steps and its source-binding checks, taking 381.419 seconds
+including loading, repeated precision qualification, benchmark and hashing.
+Raw output: `/data2/neural-shrimp-data/audits/activation-regime-probe/collection-001`.
+No target arrays or reference labels had been inspected when amendment 01
+was committed as `e8cc018a`. Its additional two-cycle comparator is now
+implemented; original scores and reference gates are unchanged.

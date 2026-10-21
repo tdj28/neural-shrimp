@@ -32572,3 +32572,15 @@ The theory note now distinguishes multiplier-balance contours from strongest-con
 _commit `c9094d9a89fa` (dirty worktree)_
 
 - run started 2026-10-21 23:28 UTC (/data2/neural-shrimp-data/audits/activation-regime-probe/benchmark-001) finished 23:28 UTC with exit status 0
+
+## 2026-10-21 23:30 UTC: run (exploratory)
+
+- **Question:** ARP1: do activation organization scores generalize to held-out local dynamical regimes beyond recurrence?
+- **Setup:** Ten fixed parameter settings, two calibration and eight test; 400 settling, 128 feature and 512 reference steps; float64 CPU, four threads, fixed batch 30; benchmark predicts about 288 seconds; exploratory.
+- **Output:** `/data2/neural-shrimp-data/audits/activation-regime-probe/collection-001`
+- **Would surprise us:** Activation organization reverses across regimes, or fails where plain recurrence succeeds.
+- **Command:** `.venv/bin/python codex/activation-regime-probe/run.py collect --out /data2/neural-shrimp-data/audits/activation-regime-probe/collection-001`
+
+_commit `b9b96dc910de` (dirty worktree)_
+
+- run started 2026-10-21 23:30 UTC (/data2/neural-shrimp-data/audits/activation-regime-probe/collection-001) finished 23:37 UTC with exit status 0

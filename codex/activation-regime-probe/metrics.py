@@ -9,16 +9,18 @@ def finite_matrix(x):
     return x
 
 
-def recurrence(x, max_period=64, tolerance=1e-9):
+def recurrence(x, max_period=64, tolerance=1e-9, min_cycles=3):
     x = finite_matrix(x)
-    limit = min(max_period, len(x) // 3)
+    if min_cycles not in (2, 3):
+        raise ValueError("Supported recurrence budgets are two or three cycles")
+    limit = min(max_period, len(x) // min_cycles)
     errors = []
     for p in range(1, limit + 1):
         scale = np.maximum(np.linalg.norm(x[:-p], axis=1), 1e-15)
         errors.append(float(np.max(np.linalg.norm(x[p:] - x[:-p], axis=1) / scale)))
     period = next((p for p, e in enumerate(errors, 1) if e <= tolerance), 0)
     return {"period": period, "minimum_error": min(errors), "errors": errors,
-            "best_lag": int(np.argmin(errors)) + 1, "tolerance": tolerance}
+            "best_lag": int(np.argmin(errors)) + 1, "tolerance": tolerance, "min_cycles": min_cycles}
 
 
 def dimensions(x):
