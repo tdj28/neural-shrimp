@@ -1,0 +1,18 @@
+{
+  "id": "BSC1",
+  "status": "exploratory, adapted after the image and partial BSG spectra",
+  "model_revision": "7ae557604adf67be50417f59c2c2f167def9a775",
+  "seed_sha256": "2f33d00a446f586c362693d53e1ff55fc8cebecaba84ad5447d912dda6c07eee",
+  "period": 18,
+  "start": [0.073095, -0.154400],
+  "coordinate_scales": [0.0000025, 0.0000075],
+  "alpha_bounds": [0.073045, 0.073120],
+  "temperature_bounds": [-0.154475, -0.154325],
+  "stencil_steps": [0.25, 0.10, 0.03],
+  "iterations_per_step": 4,
+  "maximum_evaluations": 90,
+  "numerical_seconds": 3600,
+  "method": "Nine-point finite-difference Newton search for a stationary trace, with three decreasing parameter stencils and explicit convergence, trust-region and Hessian gates. Qualify every evaluated primitive orbit. Retain native float64 monodromies at phases 0,6,12. At least one phase must pass the unchanged 1e-7 composed-JVP and 1e-6 eigen-residual gates; the leading pair across all phases must agree within 1e-5 of its largest modulus. Verify composed finite differences at the final endpoint. No default point on any failure.",
+  "interpretation": "Inspect trace, determinant, Hessian signs, stencil sensitivity and numerical uncertainty. A nonzero trace saddle supports locally separated trace-zero arcs; a near-zero value alone does not certify an exact crossing. Negative nonzero determinant implies two opposite-sign nonzero multipliers and excludes double-zero superstability for the tracked pair at that point.",
+  "resources": "One owned secure A100 SXM80GB, eight threads. Measured dense period-18 cells take about23 seconds; allow30 seconds plus cyclic-phase checks, with60-minute internal limit and bounded partial retrieval. Shell75 minutes, setup/run95 minutes, hard120-minute lifetime including20-minute retrieval reserve. Exact ownership watchdog and verified shutdown. Cost: see private ledger."
+}

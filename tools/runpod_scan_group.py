@@ -69,7 +69,7 @@ def validate(c):
 
 def validate_orbit_job(arguments):
     job = shlex.split(arguments)
-    allowed = {"baby_shrimp_orbits.py": 90, "baby_shrimp_geometry.py": 195}
+    allowed = {"baby_shrimp_orbits.py": 90, "baby_shrimp_geometry.py": 195, "baby_shrimp_crossing.py": 75}
     if len(job) < 7 or job[2] not in allowed or "::" in job:
         raise ValueError("one bounded baby-shrimp orbit worker required")
     minutes = float(job[1])
