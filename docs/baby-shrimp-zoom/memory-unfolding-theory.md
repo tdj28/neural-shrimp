@@ -75,6 +75,20 @@ If \(\Delta<0\), the multipliers on a trace-zero curve are
 \mu_\pm=\pm\sqrt{-\Delta}\ne0.
 \]
 
+More generally, in this opposite-sign regime the pair's spectral radius is
+
+\[
+\rho_{\rm pair}=\frac{\sqrt{\tau^2-4\Delta}+|\tau|}{2}.
+\]
+
+At fixed negative \(\Delta\), this is smallest at \(\tau=0\): the two
+oppositely signed modes have equal absolute multiplier values. They both
+contract there if additionally \(-1<\Delta<0\). This gives a
+spectral meaning to the traced curves without assigning a basis-dependent
+coupling coefficient. In the network, \(\Delta\) also varies with the
+controls; consequently a trace-zero curve is not automatically a ridge of
+maximum contraction or the exact minimum of a finite-time image.
+
 Thus a verified trace crossing is compatible with two nonzero contracting
 multipliers. A zero of \(\Delta\) would establish a zero within this pair;
 even that would not establish that all multipliers of the full return map

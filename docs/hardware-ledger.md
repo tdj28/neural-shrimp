@@ -83,6 +83,8 @@ regenerate after new runs.
 
 - **BSC3 accurate memory continuation:** exact pod `yithz39a5ry5o9`, NVIDIA A100-SXM4-80GB (81920 MiB), driver595.91.07, torch2.14.1+cu126/CUDA12.6, transformers5.19.0, numpy2.5.3, scipy1.18.1; source `b07d013e0d8444f4a65b75cea65208a5cd132cb2`. Version-record SHA-256 `38c3aa4168f0cfb83c3d0537933ea040cc4d600308198e00951213a00fbd528f`. All351 qualified points and11 accepted saddles were retrieved/hash-verified; the first beta.005 corrector failed its unchanged trust radius and remains failed evidence. Lifetime4053seconds; exact termination independently verified. See `docs/baby-shrimp-zoom/memory-continuation-receipt.json`. The older execution omitted final return-state arrays; the closure audit explicitly retains its recorded-summary limitation. Cost: see private ledger.
 
+- **GBZ1 grandchild scan:** exact pods `bmv461t8wd58vm`, `gkvyuyb19ki5dp`, `5dzqr5skwyv6if`, `khsggooptn7r3k`; all secure NVIDIA A100-SXM4-80GB (81920 MiB), driver595.91.07, torch2.14.1+cu126/CUDA12.6, transformers5.19.0, numpy2.5.3, scipy1.18.1; source `e0c73d86b299a5c418d7d4e1fa2713fd9031001f`. Common version-record SHA-256 `38c3aa4168f0cfb83c3d0537933ea040cc4d600308198e00951213a00fbd528f`. All four archives retrieved/hash-verified, bands exactly assembled into262144cells, and all four exact terminations independently verified. See `docs/baby-shrimp-zoom/grandchild-scan-receipt.json`. This native-float64 finite-horizon image has no per-band derivative qualification. Cost: see private ledger.
+
 ## Frozen experiments
 
 - **EXP-028** (trainability maps) and **EXP-029** (Track B controls): CPU, float64,
