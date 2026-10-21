@@ -32272,3 +32272,26 @@ The preliminary return-map render is retained. Its mean-centered axis limits cli
 The first local extension completed but remains a failed qualification: its minimum relative finite-difference error is1.6374e-7, and local closure, dense/composed JVP and Arnoldi checks pass, but the four-offset window gives only one quadratic interval before cancellation/rounding affects the observed orders (2.0127,2.6996,-0.0769). The narrower step window did not reproduce the two consecutive quadratic intervals required by the unchanged gate. Preserve audits/baby-shrimp-zoom/20261021-precision-extension-01. Before a second local attempt, add the coarser offsets3e-5,1e-5,3e-6 to the same sequence. These cover the quadratic regime seen on the A100 and the smaller steps cover the accuracy target. Keep every numerical tolerance, resource limit, seed, state, monodromy and derivative direction unchanged; repeat all checks in a fresh directory20261021-precision-extension-02. No paid run. This is a disclosed setup correction, not a changed acceptance criterion.
 
 BSP3's first complete1024-cell block and subsequent blocks advance in about410seconds each, consistent with approximately110minutes total computation and its155-minute limit. Prepare tools/baby_shrimp_period_survey_finish.py to gate every raw cell, setting, checkpoint, completed chunk, archive hash and verified termination before displaying its candidate-period map. The shared band auditor now reads chunk/horizon from the explicit plan; the original BSZ1 defaults are unchanged. Sixteen adversarial audit tests pass, including a longer-period setting-mismatch case. No BSP3 numerical outcome has been read for this analysis-code change.
+
+## 2026-10-21 16:08 UTC: BSP1/BSP2 audited orbit and return-map comparison
+
+**TLDR.** In this one Qwen0.5b soft-token loop, the selected small island has stable hidden-state cycles of18,36 and72 steps, compared with6,12 and24 at the mother control points. All twelve probes produce the same cyclic six-token text: the visible repetition hides different internal dynamics. Neighboring expanding trajectories also keep that text. These results establish selected numerical orbits and finite-time sensitivity, not a behavioral advantage of the geometry or a complete shrimp-boundary classification.
+
+The complete raw audit, tools/baby_shrimp_probe_audit.py at beafc759fa89f643f225fd3151b6f2aae3b38786, recomputes every BSP1 recurrence and exponent, checks all twelve text loops and exact orbit seeds, verifies every extracted BSP2 artifact against the transferred archive, reads all orbit rows and re-evaluates their derivative gates, binds the return-map plots to the same inputs, and checks the exact pod absent. Receipt: [probe-receipt.json](baby-shrimp-zoom/probe-receipt.json). All eight selected periodic samples pass full-state primitive-period and attraction checks. Their recomputed closure errors are at most4.1e-13; the smallest return at any lower positive lag is0.00061095, above the1e-8 separation gate. These are numerical checks, not interval certificates.
+
+| Sample | Primitive period | Spectral radius per cycle | log(radius)/period |
+|---|---:|---:|---:|
+| small-island core |18|0.006186|-0.28253|
+| small-island arch |18|0.458221|-0.04336|
+| small-island left side |36|0.012379|-0.12199|
+| small-island right side |36|0.014453|-0.11769|
+| previously unresolved point |72|0.063526|-0.03828|
+| mother core |6|0.685768|-0.06287|
+| mother doubled sample |12|0.078139|-0.21244|
+| mother twice-doubled sample |24|0.525960|-0.02677|
+
+The period72 second local precision attempt passes without changing any tolerance: four consecutive observed orders2.0347,2.0039,2.0007,2.0127 precede the rounding floor; minimum central-difference relative error1.6374e-7, A100 dense versus local composed-JVP discrepancy1.200e-10, leading spectral-radius discrepancy2.121e-10. The original A100 failure and first local failure remain preserved. The new combined orbit record explicitly links both original and supplemental computations; original raw files are unchanged.
+
+The four neighboring trajectories have positive exponents in both halves of the3000-step record and no recurrence through192. Their complete exponents are0.06499(left),0.07654(right),0.08589(below) and0.06043(mother). The six-step return maps use the paper's same cosine, straightness, minority-count and pooled-error criteria. Pooled error/minority is0.005706 on the left and0 for the mother (pass),0.293924 on the right and0.305328 below (fail). The chosen lower-neighbor phase has two resolved turning points. This is a sampled projection and coding diagnosis; neither a global scalar reduction nor the long-term fate of these trajectories is established.
+
+Figures under audits/baby-shrimp-zoom/20261021-returnmaps-02 include matched periodic panels, four neighboring return curves, a six-versus18-step comparison, and all twelve probes. All four PNGs were visually checked after the axis-range correction; PNG/PDF outputs and projections are hash-bound in the receipt. The four fine BSZ1 bands and the complementary BSP3 survey are still running, with independent bounds. No image-scan result is included in this completed probe analysis.

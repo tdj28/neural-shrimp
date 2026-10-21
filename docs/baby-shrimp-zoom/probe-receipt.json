@@ -1,0 +1,867 @@
+{
+  "id": "BSP1-BSP2",
+  "generated_utc": "2026-10-21T16:06:47.984854+00:00",
+  "status": "all trajectory, orbit, linkage and lifecycle gates passed",
+  "analysis_commit": "beafc759fa89f643f225fd3151b6f2aae3b38786",
+  "analysis_source_sha256": "a6cf6391ca5941e3027183c2a533791d182ff17da999521ba6468940ebd4ce1e",
+  "trajectory_commit": "f0a3ab9f13ac8110478bb8837fcab3ffb0995585",
+  "orbit_commit": "10d3af019954f47aa65b7373acc902a240a57115",
+  "extension_commit": "8751509b86a62cfd487e42b75be6352092a259f1",
+  "pod_id": "fvbi2an7yleoo2",
+  "termination_verified": true,
+  "hardware": "name, driver_version, memory.total [MiB]\nNVIDIA A100-SXM4-80GB, 595.91.07, 81920 MiB",
+  "versions": "versions 2.14.1+cu126 12.6 5.19.0 2.5.3 1.18.1 NVIDIA A100-SXM4-80GB",
+  "hardware_sha256": "92c960df5cd7ed3d270b4fd9524c4cf6f69dc2c06a44e06ff08c11bf5d5aa479",
+  "versions_sha256": "38c3aa4168f0cfb83c3d0537933ea040cc4d600308198e00951213a00fbd528f",
+  "archive": {
+    "path": "runpod/baby-shrimp-zoom/bsp2-20261021/workers/neural-shrimp-bsz1-orbits/20261021T151136Z/results.tgz",
+    "sha256": "c155ef379df99f9602fa48bb2f0a4d8dcdc50fad71aa11e53aaff9517ce46045",
+    "bytes": 51488717
+  },
+  "files": [
+    {
+      "path": "audits/baby-shrimp-zoom/20261021-trajectories-01/diagnostics-partial.npz",
+      "sha256": "af23caedb962220e61c06ca422f86a5dad159e173cd2f5246ad16c6b775a36db",
+      "bytes": 472897
+    },
+    {
+      "path": "audits/baby-shrimp-zoom/20261021-trajectories-01/diagnostics.npz",
+      "sha256": "6680a2eebbb2bc4e2ac47129c688598bcf6cb7263c30d7f0d6227e0720a6ea53",
+      "bytes": 472706
+    },
+    {
+      "path": "audits/baby-shrimp-zoom/20261021-trajectories-01/events.jsonl",
+      "sha256": "9cc5803c602981019e81aed0f6bdc635e3862d210febe489d5b525246c8cc02d",
+      "bytes": 725
+    },
+    {
+      "path": "audits/baby-shrimp-zoom/20261021-trajectories-01/progress.json",
+      "sha256": "b35ea292b9553d80925a0e71ad8b11d272aaa51131956b22be0e51a0a8ed99f5",
+      "bytes": 61
+    },
+    {
+      "path": "audits/baby-shrimp-zoom/20261021-trajectories-01/protocol.json",
+      "sha256": "0220e8816305a21e392e86b70a571edffaf7ed5b9373a5e6307298505130a69c",
+      "bytes": 3492
+    },
+    {
+      "path": "audits/baby-shrimp-zoom/20261021-trajectories-01/states.npy",
+      "sha256": "fe32e2c967e6521d18d6fa6d2c8a8f61058574c118f0067b71d53dee763a1e4c",
+      "bytes": 258048128
+    },
+    {
+      "path": "audits/baby-shrimp-zoom/20261021-trajectories-01/status.json",
+      "sha256": "52c706e735c0b3dbed52b7c24ee3f6a55010009b8198056a495fb89c04cb75e6",
+      "bytes": 1462
+    },
+    {
+      "path": "audits/baby-shrimp-zoom/20261021-trajectories-01/trajectories.json",
+      "sha256": "430eb54d6344fdea45464c0e7ddcaa631ea457f0781c4932e319641c2bca9320",
+      "bytes": 79451
+    },
+    {
+      "path": "audits/baby-shrimp-zoom/20261021-trajectories-01/worker.log",
+      "sha256": "dc4cf21f741b30fbc31d0ca2b20309f29e8b8f891cde4140c270d51ee9adf7c2",
+      "bytes": 3738
+    },
+    {
+      "path": "explore/llm-soft-loop/pod64/bsz1-probes/orbits-01/baby-arch/derivative-check.npz",
+      "sha256": "a245a6359ece50b805e7fcb38ee058df51cbedd7126c186e64963f96e7a6a66d",
+      "bytes": 68756
+    },
+    {
+      "path": "explore/llm-soft-loop/pod64/bsz1-probes/orbits-01/baby-arch/initial-state.npy",
+      "sha256": "dedc5b83a2f13b050faefcc6b7391bcd9eaa48ed17b5ce966981daa4d7dfa09b",
+      "bytes": 7296
+    },
+    {
+      "path": "explore/llm-soft-loop/pod64/bsz1-probes/orbits-01/baby-arch/monodromy.npy",
+      "sha256": "ffd6d7cb619ec6af9814c6b68319c3baa996ef81bebf9b238674425e9939145c",
+      "bytes": 6422656
+    },
+    {
+      "path": "explore/llm-soft-loop/pod64/bsz1-probes/orbits-01/baby-arch/multipliers.npy",
+      "sha256": "dfe7fa40291230e23d5e24ac6dd948582260e68150ec1465f8fa56b1c4d67ff1",
+      "bytes": 14464
+    },
+    {
+      "path": "explore/llm-soft-loop/pod64/bsz1-probes/orbits-01/baby-arch/orbit-points.npy",
+      "sha256": "88201f4d9712313c4b0f896ad2cf1b4994dadb047674edfeb99b53b97888784a",
+      "bytes": 129152
+    },
+    {
+      "path": "explore/llm-soft-loop/pod64/bsz1-probes/orbits-01/baby-arch/orbit-state.npy",
+      "sha256": "4e5a9827f169229dc874329a29bb810830cb44794ca35057e300543627bb3b2c",
+      "bytes": 7296
+    },
+    {
+      "path": "explore/llm-soft-loop/pod64/bsz1-probes/orbits-01/baby-arch/orbit.json",
+      "sha256": "f2fe68aa0153803621926e513ba03ed863e8c66e5edccd87c140265c4b4b39b4",
+      "bytes": 9778
+    },
+    {
+      "path": "explore/llm-soft-loop/pod64/bsz1-probes/orbits-01/baby-core/derivative-check.npz",
+      "sha256": "8eb16551dbf853e56cc5f0aab582adc313aa037d723dcf918363415aa1f7c111",
+      "bytes": 69359
+    },
+    {
+      "path": "explore/llm-soft-loop/pod64/bsz1-probes/orbits-01/baby-core/initial-state.npy",
+      "sha256": "c8415eae2d451b12fd53af2d3365b5e70ad51596583349fcea3419eab0bb95d3",
+      "bytes": 7296
+    },
+    {
+      "path": "explore/llm-soft-loop/pod64/bsz1-probes/orbits-01/baby-core/monodromy.npy",
+      "sha256": "ab3edd49f3e848f6d620e3e38757074a1a314ae6ef5e058c579a1f4eb22f935a",
+      "bytes": 6422656
+    },
+    {
+      "path": "explore/llm-soft-loop/pod64/bsz1-probes/orbits-01/baby-core/multipliers.npy",
+      "sha256": "e502c09966fc7ec731ebf7e41f518640499403bb7033ae1bb1b7b48ff776bd95",
+      "bytes": 14464
+    },
+    {
+      "path": "explore/llm-soft-loop/pod64/bsz1-probes/orbits-01/baby-core/orbit-points.npy",
+      "sha256": "fc30e3c1d4d27ca85ae35e42416e4e0612e69fdae50a1eaf57e7fc6debb91dd6",
+      "bytes": 129152
+    },
+    {
+      "path": "explore/llm-soft-loop/pod64/bsz1-probes/orbits-01/baby-core/orbit-state.npy",
+      "sha256": "39805b99980daf9ce07f1922334bea44c9b22408a44149c04c1758db72507200",
+      "bytes": 7296
+    },
+    {
+      "path": "explore/llm-soft-loop/pod64/bsz1-probes/orbits-01/baby-core/orbit.json",
+      "sha256": "d6f63baad5667da0d0fd1332c0063b121248fc0eb6602ac73c3ed057828416e7",
+      "bytes": 9754
+    },
+    {
+      "path": "explore/llm-soft-loop/pod64/bsz1-probes/orbits-01/baby-double-left/derivative-check.npz",
+      "sha256": "e690060b40172f10bf3d6b177b1c08e06144119be4eb32cda9ee0d1d7b829a25",
+      "bytes": 70071
+    },
+    {
+      "path": "explore/llm-soft-loop/pod64/bsz1-probes/orbits-01/baby-double-left/initial-state.npy",
+      "sha256": "f9b61fad017debd4d7f82eb4fca7eb07b4b8c524dc56489f6f254116e32c9684",
+      "bytes": 7296
+    },
+    {
+      "path": "explore/llm-soft-loop/pod64/bsz1-probes/orbits-01/baby-double-left/monodromy.npy",
+      "sha256": "ba6addc6e69e0c34e95c49fddb57acfca7584bf0bdf55c42893ce21e1b0a64d8",
+      "bytes": 6422656
+    },
+    {
+      "path": "explore/llm-soft-loop/pod64/bsz1-probes/orbits-01/baby-double-left/multipliers.npy",
+      "sha256": "516a4316fc5b9de4f70776eea56553f658f7ad53723a0ee35bcfded9f1a55a7c",
+      "bytes": 14464
+    },
+    {
+      "path": "explore/llm-soft-loop/pod64/bsz1-probes/orbits-01/baby-double-left/orbit-points.npy",
+      "sha256": "9b95d5dd9025a5db46801f24dafb9cd53fef705e0c3d33ba661db215ff094365",
+      "bytes": 258176
+    },
+    {
+      "path": "explore/llm-soft-loop/pod64/bsz1-probes/orbits-01/baby-double-left/orbit-state.npy",
+      "sha256": "bd01a0c4ac7925af21ca10718d2e1e3e36d60320ad2bc7ba22d2257f309ba9b4",
+      "bytes": 7296
+    },
+    {
+      "path": "explore/llm-soft-loop/pod64/bsz1-probes/orbits-01/baby-double-left/orbit.json",
+      "sha256": "7a7f9afdcc61e052d4fce2c3e9732f361e646625e34fe8650e1dde8c1774fdba",
+      "bytes": 12025
+    },
+    {
+      "path": "explore/llm-soft-loop/pod64/bsz1-probes/orbits-01/baby-double-right/derivative-check.npz",
+      "sha256": "bfafcb5ea01dbb274cb437abe5c5ffaf2a7ab5ddd93f957b0a67d0929378bde3",
+      "bytes": 69679
+    },
+    {
+      "path": "explore/llm-soft-loop/pod64/bsz1-probes/orbits-01/baby-double-right/initial-state.npy",
+      "sha256": "43cace7f7c7611320ed6467d53586b4994a66c19d99ff5322a872b6850161d56",
+      "bytes": 7296
+    },
+    {
+      "path": "explore/llm-soft-loop/pod64/bsz1-probes/orbits-01/baby-double-right/monodromy.npy",
+      "sha256": "fb86727e031079ad61376c9c64de81ac7572bfa7c319d1e7c07c95280625b7a9",
+      "bytes": 6422656
+    },
+    {
+      "path": "explore/llm-soft-loop/pod64/bsz1-probes/orbits-01/baby-double-right/multipliers.npy",
+      "sha256": "a11921bd9c80201eb57c90b49c002cd97fff183e007966e5c7f7b6afdaff741c",
+      "bytes": 14464
+    },
+    {
+      "path": "explore/llm-soft-loop/pod64/bsz1-probes/orbits-01/baby-double-right/orbit-points.npy",
+      "sha256": "106ef0919b8df9cef095e660b7b6d4366086ceebd0c02a3fb81ab9329fe7741a",
+      "bytes": 258176
+    },
+    {
+      "path": "explore/llm-soft-loop/pod64/bsz1-probes/orbits-01/baby-double-right/orbit-state.npy",
+      "sha256": "fc00c4d14357c8ee701aa5d0fa949e0850cc4fce661df91660a46376ab16ee87",
+      "bytes": 7296
+    },
+    {
+      "path": "explore/llm-soft-loop/pod64/bsz1-probes/orbits-01/baby-double-right/orbit.json",
+      "sha256": "be86f8a9be6cca1e5ced3a8ac31d28642407b5f8cca455e9ece3a93b98b998fc",
+      "bytes": 12027
+    },
+    {
+      "path": "explore/llm-soft-loop/pod64/bsz1-probes/orbits-01/baby-unresolved/derivative-check.npz",
+      "sha256": "7bf908fd65ef12b2879403f2a4e5e7e37749ac835b1e0927e3a76e57883f3f18",
+      "bytes": 70085
+    },
+    {
+      "path": "explore/llm-soft-loop/pod64/bsz1-probes/orbits-01/baby-unresolved/initial-state.npy",
+      "sha256": "ba750f42a6e3d02ec97c71c264b1f6af8ded6ee06bcc8bc483795aa3310e382d",
+      "bytes": 7296
+    },
+    {
+      "path": "explore/llm-soft-loop/pod64/bsz1-probes/orbits-01/baby-unresolved/monodromy.npy",
+      "sha256": "af061ca5131b76c4fbf60352022ac013b4243fa3f000ffa16920eb513d209fbe",
+      "bytes": 6422656
+    },
+    {
+      "path": "explore/llm-soft-loop/pod64/bsz1-probes/orbits-01/baby-unresolved/multipliers.npy",
+      "sha256": "49b5855d69075090dada76cc09dc507a7df5590033b771d0de26d47203903082",
+      "bytes": 14464
+    },
+    {
+      "path": "explore/llm-soft-loop/pod64/bsz1-probes/orbits-01/baby-unresolved/orbit-points.npy",
+      "sha256": "ba3eb11e60db3e0caa8a1efdaf5d76e853b59e934dd8b92f4a83c4435b83354e",
+      "bytes": 516224
+    },
+    {
+      "path": "explore/llm-soft-loop/pod64/bsz1-probes/orbits-01/baby-unresolved/orbit-state.npy",
+      "sha256": "86554254120cc30342ea729e96faa80e478f7f85f1298bcc1472de63f630a70d",
+      "bytes": 7296
+    },
+    {
+      "path": "explore/llm-soft-loop/pod64/bsz1-probes/orbits-01/baby-unresolved/orbit.json",
+      "sha256": "7d83ca5f7464d40a725a6871ca3b9b08e140dd78779b490faa0e32b261ea4f3d",
+      "bytes": 16372
+    },
+    {
+      "path": "explore/llm-soft-loop/pod64/bsz1-probes/orbits-01/mother-core/derivative-check.npz",
+      "sha256": "bbfea13a1dcd999e02ffe48a0e95aba46f62659a016eafc16b57f5212d75e4d1",
+      "bytes": 69229
+    },
+    {
+      "path": "explore/llm-soft-loop/pod64/bsz1-probes/orbits-01/mother-core/initial-state.npy",
+      "sha256": "15f8a0cdad899aec57a7785ffa1e418b4926a829322bdca329bfb8a2c74ff782",
+      "bytes": 7296
+    },
+    {
+      "path": "explore/llm-soft-loop/pod64/bsz1-probes/orbits-01/mother-core/monodromy.npy",
+      "sha256": "68b5845c3636ad7876f8ed31eaa49fee051cafbe95851e9ad8a85584d6d1c1ce",
+      "bytes": 6422656
+    },
+    {
+      "path": "explore/llm-soft-loop/pod64/bsz1-probes/orbits-01/mother-core/multipliers.npy",
+      "sha256": "1e7aa20f2acd74aef22d1db8ff6c8ce173fbcbf0731751a06e2b3645c0822792",
+      "bytes": 14464
+    },
+    {
+      "path": "explore/llm-soft-loop/pod64/bsz1-probes/orbits-01/mother-core/orbit-points.npy",
+      "sha256": "7a6bfb3eaf5da8518f8e31297806e012144cf0ab97a1a99f0d0b632350382551",
+      "bytes": 43136
+    },
+    {
+      "path": "explore/llm-soft-loop/pod64/bsz1-probes/orbits-01/mother-core/orbit-state.npy",
+      "sha256": "390b3658c908e250ddc67f81844cb4fac7a687a64978a361ead5d75876136e71",
+      "bytes": 7296
+    },
+    {
+      "path": "explore/llm-soft-loop/pod64/bsz1-probes/orbits-01/mother-core/orbit.json",
+      "sha256": "d2ceed4464b2141f9b6c01cb81884fbf76e4a33cc3777bd1a803cf4a62c7bdde",
+      "bytes": 8408
+    },
+    {
+      "path": "explore/llm-soft-loop/pod64/bsz1-probes/orbits-01/mother-double/derivative-check.npz",
+      "sha256": "f9de2fe382aa9e1cbdd16434fbe6c5c34b2c85f9c9250502400f7274f8da9f4c",
+      "bytes": 68775
+    },
+    {
+      "path": "explore/llm-soft-loop/pod64/bsz1-probes/orbits-01/mother-double/initial-state.npy",
+      "sha256": "1f326e399d2a6e762bb429491fef27adc6bfeb3f4f37dc226d3752f2dafeeecc",
+      "bytes": 7296
+    },
+    {
+      "path": "explore/llm-soft-loop/pod64/bsz1-probes/orbits-01/mother-double/monodromy.npy",
+      "sha256": "a69e902e07d780eea48df92089898b74d7b99ef15291b07b814a8e4fcce44a96",
+      "bytes": 6422656
+    },
+    {
+      "path": "explore/llm-soft-loop/pod64/bsz1-probes/orbits-01/mother-double/multipliers.npy",
+      "sha256": "ed4d3a18683d95499dba755376e064ffc5368d29009a75775e52b3ef2ca1bdf0",
+      "bytes": 14464
+    },
+    {
+      "path": "explore/llm-soft-loop/pod64/bsz1-probes/orbits-01/mother-double/orbit-points.npy",
+      "sha256": "8f0b69e26c05b4d53253cfe235142f5ef3128e13474e1a908ee3a90e5f610f1f",
+      "bytes": 86144
+    },
+    {
+      "path": "explore/llm-soft-loop/pod64/bsz1-probes/orbits-01/mother-double/orbit-state.npy",
+      "sha256": "6ad6a1713c9aededeb2b6c8305e5a7f0a1f7878841c3283e4afc1b8d6402ae38",
+      "bytes": 7296
+    },
+    {
+      "path": "explore/llm-soft-loop/pod64/bsz1-probes/orbits-01/mother-double/orbit.json",
+      "sha256": "98622e0569cb6ce974902b553d506ad076fd59dec8901923c125fee108d6778a",
+      "bytes": 9092
+    },
+    {
+      "path": "explore/llm-soft-loop/pod64/bsz1-probes/orbits-01/mother-double-twice/derivative-check.npz",
+      "sha256": "9a8e604fc65afe592aaa08438277ca02504b875149fe5fd4fd04b54648fc3766",
+      "bytes": 69288
+    },
+    {
+      "path": "explore/llm-soft-loop/pod64/bsz1-probes/orbits-01/mother-double-twice/initial-state.npy",
+      "sha256": "8e59a6caf4dafcd1b848367fe09c807bf5d7c6781a13abf54f80c7aeb642f888",
+      "bytes": 7296
+    },
+    {
+      "path": "explore/llm-soft-loop/pod64/bsz1-probes/orbits-01/mother-double-twice/monodromy.npy",
+      "sha256": "a11c1d5f5eb3ac56df456a881623b631cf151f1734e671f1bf29d9d442149c7a",
+      "bytes": 6422656
+    },
+    {
+      "path": "explore/llm-soft-loop/pod64/bsz1-probes/orbits-01/mother-double-twice/multipliers.npy",
+      "sha256": "ea16747309798419e3b45fcd87d4875390fb34d5614fca1bb26916b1df5971aa",
+      "bytes": 14464
+    },
+    {
+      "path": "explore/llm-soft-loop/pod64/bsz1-probes/orbits-01/mother-double-twice/orbit-points.npy",
+      "sha256": "a62dc46f8f586752415a03f38d62656855242c59bb2683581ce10c257e7b1050",
+      "bytes": 172160
+    },
+    {
+      "path": "explore/llm-soft-loop/pod64/bsz1-probes/orbits-01/mother-double-twice/orbit-state.npy",
+      "sha256": "aeb9fc84e7ac2eb38d0f5749e2977c28270a6d0446d30f56b84f60099c6f749e",
+      "bytes": 7296
+    },
+    {
+      "path": "explore/llm-soft-loop/pod64/bsz1-probes/orbits-01/mother-double-twice/orbit.json",
+      "sha256": "f5672ba5674de753a954db2dcb2beead661b00cf5f05ba03c625d4b7e0ed974b",
+      "bytes": 10555
+    },
+    {
+      "path": "explore/llm-soft-loop/pod64/bsz1-probes/orbits-01/orbits.json",
+      "sha256": "b93ba7f5ddb4998b18d88c9cca844fb0435f198650da018e41fa44a05381f9a0",
+      "bytes": 130334
+    },
+    {
+      "path": "explore/llm-soft-loop/pod64/bsz1-probes/orbits-01/progress.jsonl",
+      "sha256": "0ce755abe83489aaa680ec4ac716d49c9f6803564c2a0b98b84e65b1bd5fcbdf",
+      "bytes": 38099
+    },
+    {
+      "path": "explore/llm-soft-loop/pod64/bsz1-probes/orbits-01/protocol.json",
+      "sha256": "4573590f0f5290ce55695714b32cb40baa778102aa72ad87875035f919f27442",
+      "bytes": 974
+    },
+    {
+      "path": "audits/baby-shrimp-zoom/20261021-precision-extension-02/derivative-check.npz",
+      "sha256": "919e43560c5e216bb32fae5b6041e5ed96d19bb80979dbdb625e26dd2adec295",
+      "bytes": 69540
+    },
+    {
+      "path": "audits/baby-shrimp-zoom/20261021-precision-extension-02/events.jsonl",
+      "sha256": "e3d299e9c004f3e40c2c9f8a3b641d3f988b5a70f862b27c5d8e62fe0bfa9021",
+      "bytes": 752
+    },
+    {
+      "path": "audits/baby-shrimp-zoom/20261021-precision-extension-02/extension.json",
+      "sha256": "6ee673e0b28ffe2be71ee26c6399c40e93b35e92b9ae956f3ee824386677db9b",
+      "bytes": 3724
+    },
+    {
+      "path": "audits/baby-shrimp-zoom/20261021-precision-extension-02/orbits.json",
+      "sha256": "23698aa39b8f3ea9c83a3b3117cdda1407c28324a597e0213c547198af78152c",
+      "bytes": 136283
+    },
+    {
+      "path": "audits/baby-shrimp-zoom/20261021-precision-extension-02/progress.jsonl",
+      "sha256": "19158332cd065728db71e8926af785b08c73051c5b90bceb3fed35a7fe4eafd3",
+      "bytes": 678
+    },
+    {
+      "path": "audits/baby-shrimp-zoom/20261021-precision-extension-02/status.json",
+      "sha256": "c4b2609bb0d912235b67c9b8e6f6bf07fda717a84135499c53fc09027d90f1c9",
+      "bytes": 1590
+    },
+    {
+      "path": "audits/baby-shrimp-zoom/20261021-precision-extension-02/worker.log",
+      "sha256": "a89cf95fa14e4640fc4dae712bee922bb0e28ef22900533d1d9be94ca6124383",
+      "bytes": 1259
+    },
+    {
+      "path": "audits/baby-shrimp-zoom/20261021-returnmaps-02/all-probe-returnmaps.png",
+      "sha256": "812f0c102af0c68fd9c6e2560414e429a52974d5695a6feb204d3cf722de87f3",
+      "bytes": 244708
+    },
+    {
+      "path": "audits/baby-shrimp-zoom/20261021-returnmaps-02/baby-mother-returnmaps.pdf",
+      "sha256": "708fc578b032102284bf03341d4e6a1a478e18f7e1effdc3b4cabc12eb2895df",
+      "bytes": 50293
+    },
+    {
+      "path": "audits/baby-shrimp-zoom/20261021-returnmaps-02/baby-mother-returnmaps.png",
+      "sha256": "8efd272473d7ae327dba995e9b5fc5c7a98f56181391cfb1de1a13b667a3e7d8",
+      "bytes": 297836
+    },
+    {
+      "path": "audits/baby-shrimp-zoom/20261021-returnmaps-02/neighbor-returnmaps.pdf",
+      "sha256": "332e3558d40fe5f9440179a22d215d7d4defd8d7e013b2fe0906bcd16842eb6a",
+      "bytes": 54595
+    },
+    {
+      "path": "audits/baby-shrimp-zoom/20261021-returnmaps-02/neighbor-returnmaps.png",
+      "sha256": "1e49b3d41dd055ffe3c80dc901e6695bd0571b7ef6b6ebf04062321232ba0e3e",
+      "bytes": 277208
+    },
+    {
+      "path": "audits/baby-shrimp-zoom/20261021-returnmaps-02/periodic-returnmaps.pdf",
+      "sha256": "4defdf7714b3aaa12710cc22a331d3d07b78c129d976f81ddef67cda1fca178a",
+      "bytes": 43102
+    },
+    {
+      "path": "audits/baby-shrimp-zoom/20261021-returnmaps-02/periodic-returnmaps.png",
+      "sha256": "a829f2e4149b3acab46b2a38aad85a7ff5b285c109ca35df8b914c050a9d117f",
+      "bytes": 286226
+    },
+    {
+      "path": "audits/baby-shrimp-zoom/20261021-returnmaps-02/returnmap-projections.npz",
+      "sha256": "de7a71447be2b60b9d92c78be10994e2eab21cfd2c9e9dd36b538a1d7076e396",
+      "bytes": 203132
+    },
+    {
+      "path": "audits/baby-shrimp-zoom/20261021-returnmaps-02/returnmaps.json",
+      "sha256": "db75ba051607bc91b172112e5d4e7588e1ab6dc882c1b99f16bded3c28cefc2c",
+      "bytes": 125877
+    }
+  ],
+  "trajectory_rows": [
+    {
+      "name": "baby-core",
+      "alpha": 0.07309264475743349,
+      "log10_temperature": -0.15440845070422535,
+      "period_candidate": 18,
+      "lyapunov": -0.28223115123024006,
+      "lyapunov_halves": [
+        -0.2822689139936579,
+        -0.2821933884668223
+      ],
+      "text_period": 6
+    },
+    {
+      "name": "baby-arch",
+      "alpha": 0.07301377151799687,
+      "log10_temperature": -0.15434585289514866,
+      "period_candidate": 18,
+      "lyapunov": -0.04329282940663608,
+      "lyapunov_halves": [
+        -0.043959081418007466,
+        -0.04262657739526468
+      ],
+      "text_period": 6
+    },
+    {
+      "name": "baby-double-left",
+      "alpha": 0.07307073552425665,
+      "log10_temperature": -0.15440845070422535,
+      "period_candidate": 36,
+      "lyapunov": -0.12002112638900352,
+      "lyapunov_halves": [
+        -0.12300628954188456,
+        -0.1170359632361225
+      ],
+      "text_period": 6
+    },
+    {
+      "name": "baby-double-right",
+      "alpha": 0.07311017214397496,
+      "log10_temperature": -0.15448356807511737,
+      "period_candidate": 36,
+      "lyapunov": -0.1180445457134634,
+      "lyapunov_halves": [
+        -0.1204017436733232,
+        -0.1156873477536036
+      ],
+      "text_period": 6
+    },
+    {
+      "name": "baby-unresolved",
+      "alpha": 0.07306197183098592,
+      "log10_temperature": -0.15438341158059468,
+      "period_candidate": 72,
+      "lyapunov": -0.03864419011425232,
+      "lyapunov_halves": [
+        -0.04156820029371413,
+        -0.03572017993479052
+      ],
+      "text_period": 6
+    },
+    {
+      "name": "baby-chaos-left",
+      "alpha": 0.07305320813771518,
+      "log10_temperature": -0.15442097026604068,
+      "period_candidate": 0,
+      "lyapunov": 0.06499260777946392,
+      "lyapunov_halves": [
+        0.0623130344786988,
+        0.06767218108022903
+      ],
+      "text_period": 6
+    },
+    {
+      "name": "baby-chaos-right",
+      "alpha": 0.0731320813771518,
+      "log10_temperature": -0.15444600938967135,
+      "period_candidate": 0,
+      "lyapunov": 0.07653637413555273,
+      "lyapunov_halves": [
+        0.08322651041330494,
+        0.06984623785780052
+      ],
+      "text_period": 6
+    },
+    {
+      "name": "baby-chaos-below",
+      "alpha": 0.07307949921752739,
+      "log10_temperature": -0.1545586854460094,
+      "period_candidate": 0,
+      "lyapunov": 0.08589190112715267,
+      "lyapunov_halves": [
+        0.09234038124306812,
+        0.07944342101123719
+      ],
+      "text_period": 6
+    },
+    {
+      "name": "mother-core",
+      "alpha": 0.0732284820031299,
+      "log10_temperature": -0.1533943661971831,
+      "period_candidate": 6,
+      "lyapunov": -0.06230937439803457,
+      "lyapunov_halves": [
+        -0.061749418660167386,
+        -0.06286933013590176
+      ],
+      "text_period": 6
+    },
+    {
+      "name": "mother-double",
+      "alpha": 0.07330297339593114,
+      "log10_temperature": -0.15382003129890454,
+      "period_candidate": 12,
+      "lyapunov": -0.21234849919983242,
+      "lyapunov_halves": [
+        -0.2123145591849055,
+        -0.21238243921475933
+      ],
+      "text_period": 6
+    },
+    {
+      "name": "mother-double-twice",
+      "alpha": 0.07277715179968701,
+      "log10_temperature": -0.1524053208137715,
+      "period_candidate": 24,
+      "lyapunov": -0.02795465841796869,
+      "lyapunov_halves": [
+        -0.02902524198066608,
+        -0.02688407485527131
+      ],
+      "text_period": 6
+    },
+    {
+      "name": "mother-chaos",
+      "alpha": 0.0727531914893617,
+      "log10_temperature": -0.15274468085106382,
+      "period_candidate": 0,
+      "lyapunov": 0.06042742556083616,
+      "lyapunov_halves": [
+        0.055849716987877274,
+        0.06500513413379502
+      ],
+      "text_period": 6
+    }
+  ],
+  "orbit_rows": [
+    {
+      "name": "baby-core",
+      "period": 18,
+      "alpha": 0.07309264475743349,
+      "log10_temperature": -0.15440845070422535,
+      "closure": 1.3606202190216744e-13,
+      "minimum_lower_return": 0.010666690210550462,
+      "spectral_radius": 0.006185850911048947,
+      "leading_multiplier": [
+        0.006185850911048947,
+        0.0,
+        0.006185850911048947
+      ],
+      "asymptotic_log_contraction_per_step": -0.2825272614464653,
+      "original_precision_passed": true,
+      "final_precision_passed": true,
+      "verified_primitive_orbit": true,
+      "attracting": true
+    },
+    {
+      "name": "baby-arch",
+      "period": 18,
+      "alpha": 0.07301377151799687,
+      "log10_temperature": -0.15434585289514866,
+      "closure": 1.612039050185165e-13,
+      "minimum_lower_return": 0.009500360265047641,
+      "spectral_radius": 0.4582208714684545,
+      "leading_multiplier": [
+        -0.4582208714684545,
+        0.0,
+        0.4582208714684545
+      ],
+      "asymptotic_log_contraction_per_step": -0.04335577549997787,
+      "original_precision_passed": true,
+      "final_precision_passed": true,
+      "verified_primitive_orbit": true,
+      "attracting": true
+    },
+    {
+      "name": "baby-double-left",
+      "period": 36,
+      "alpha": 0.07307073552425665,
+      "log10_temperature": -0.15440845070422535,
+      "closure": 4.072440899302684e-13,
+      "minimum_lower_return": 0.0025880299723189167,
+      "spectral_radius": 0.012379210587935017,
+      "leading_multiplier": [
+        0.012379210587935017,
+        0.0,
+        0.012379210587935017
+      ],
+      "asymptotic_log_contraction_per_step": -0.12199268830191737,
+      "original_precision_passed": true,
+      "final_precision_passed": true,
+      "verified_primitive_orbit": true,
+      "attracting": true
+    },
+    {
+      "name": "baby-double-right",
+      "period": 36,
+      "alpha": 0.07311017214397496,
+      "log10_temperature": -0.15448356807511737,
+      "closure": 1.641447066647035e-13,
+      "minimum_lower_return": 0.0006109507972707881,
+      "spectral_radius": 0.014452842579088458,
+      "leading_multiplier": [
+        -0.014452842579088458,
+        0.0,
+        0.014452842579088458
+      ],
+      "asymptotic_log_contraction_per_step": -0.11769067126372725,
+      "original_precision_passed": true,
+      "final_precision_passed": true,
+      "verified_primitive_orbit": true,
+      "attracting": true
+    },
+    {
+      "name": "baby-unresolved",
+      "period": 72,
+      "alpha": 0.07306197183098592,
+      "log10_temperature": -0.15438341158059468,
+      "closure": 1.3500614629977628e-13,
+      "minimum_lower_return": 0.0007458500104573055,
+      "spectral_radius": 0.06352600779165005,
+      "leading_multiplier": [
+        0.06352600779165005,
+        0.0,
+        0.06352600779165005
+      ],
+      "asymptotic_log_contraction_per_step": -0.03828202618629117,
+      "original_precision_passed": false,
+      "final_precision_passed": true,
+      "verified_primitive_orbit": true,
+      "attracting": true
+    },
+    {
+      "name": "mother-core",
+      "period": 6,
+      "alpha": 0.0732284820031299,
+      "log10_temperature": -0.1533943661971831,
+      "closure": 5.546505001532651e-14,
+      "minimum_lower_return": 0.11669425200162865,
+      "spectral_radius": 0.6857679574271058,
+      "leading_multiplier": [
+        -0.6857679574271058,
+        0.0,
+        0.6857679574271058
+      ],
+      "asymptotic_log_contraction_per_step": -0.06286932715943995,
+      "original_precision_passed": true,
+      "final_precision_passed": true,
+      "verified_primitive_orbit": true,
+      "attracting": true
+    },
+    {
+      "name": "mother-double",
+      "period": 12,
+      "alpha": 0.07330297339593114,
+      "log10_temperature": -0.15382003129890454,
+      "closure": 1.1066954694177155e-14,
+      "minimum_lower_return": 0.011309156235965023,
+      "spectral_radius": 0.07813867121217566,
+      "leading_multiplier": [
+        0.07813867121217566,
+        0.0,
+        0.07813867121217566
+      ],
+      "asymptotic_log_contraction_per_step": -0.21243918289324604,
+      "original_precision_passed": true,
+      "final_precision_passed": true,
+      "verified_primitive_orbit": true,
+      "attracting": true
+    },
+    {
+      "name": "mother-double-twice",
+      "period": 24,
+      "alpha": 0.07277715179968701,
+      "log10_temperature": -0.1524053208137715,
+      "closure": 8.135880504730326e-14,
+      "minimum_lower_return": 0.00142572284810184,
+      "spectral_radius": 0.5259601611238769,
+      "leading_multiplier": [
+        -0.5259601611238769,
+        0.0,
+        0.5259601611238769
+      ],
+      "asymptotic_log_contraction_per_step": -0.026772075350875512,
+      "original_precision_passed": true,
+      "final_precision_passed": true,
+      "verified_primitive_orbit": true,
+      "attracting": true
+    }
+  ],
+  "preserved_failed_extension": [
+    {
+      "path": "audits/baby-shrimp-zoom/20261021-precision-extension-01/extension.json",
+      "sha256": "87db48660f0bca1841a63da7f4a9cc067e10599e0db955958bdc9a28c85273fb",
+      "bytes": 3526
+    },
+    {
+      "path": "audits/baby-shrimp-zoom/20261021-precision-extension-01/status.json",
+      "sha256": "38abe6f74ae4e29f8d32d1c01150afeba7f0d2406583c32ab9daa7ee23d39691",
+      "bytes": 1589
+    },
+    {
+      "path": "audits/baby-shrimp-zoom/20261021-precision-extension-01/derivative-check.npz",
+      "sha256": "e698cbc91c215d8ccd1ec83e1521c76bb72c579c59ca52e5dd06b3227fcaf96f",
+      "bytes": 48883
+    },
+    {
+      "path": "audits/baby-shrimp-zoom/20261021-precision-extension-01/orbits.json",
+      "sha256": "2f9fd8592418dbec422b0525fe4af1392fef6bf3a360379cd5cb95e2cd7ac239",
+      "bytes": 135765
+    }
+  ],
+  "canonical_token_loop": [
+    271,
+    785,
+    3405,
+    271,
+    785,
+    13885
+  ],
+  "all_twelve_share_text_loop": true,
+  "return_map_rows": [
+    {
+      "name": "baby-core",
+      "selected_phase": 0,
+      "usable_phases": 0,
+      "pooled_errors_over_minority": null,
+      "mother_coding_gate_passed": false
+    },
+    {
+      "name": "baby-arch",
+      "selected_phase": 0,
+      "usable_phases": 3,
+      "pooled_errors_over_minority": 0.002,
+      "mother_coding_gate_passed": false
+    },
+    {
+      "name": "baby-double-left",
+      "selected_phase": 0,
+      "usable_phases": 1,
+      "pooled_errors_over_minority": 0.0,
+      "mother_coding_gate_passed": false
+    },
+    {
+      "name": "baby-double-right",
+      "selected_phase": 0,
+      "usable_phases": 1,
+      "pooled_errors_over_minority": 0.3333333333333333,
+      "mother_coding_gate_passed": false
+    },
+    {
+      "name": "baby-unresolved",
+      "selected_phase": 0,
+      "usable_phases": 2,
+      "pooled_errors_over_minority": 0.0,
+      "mother_coding_gate_passed": false
+    },
+    {
+      "name": "baby-chaos-left",
+      "selected_phase": 0,
+      "usable_phases": 3,
+      "pooled_errors_over_minority": 0.005706134094151213,
+      "mother_coding_gate_passed": true
+    },
+    {
+      "name": "baby-chaos-right",
+      "selected_phase": 0,
+      "usable_phases": 3,
+      "pooled_errors_over_minority": 0.2939244663382594,
+      "mother_coding_gate_passed": false
+    },
+    {
+      "name": "baby-chaos-below",
+      "selected_phase": 0,
+      "usable_phases": 2,
+      "pooled_errors_over_minority": 0.305327868852459,
+      "mother_coding_gate_passed": false
+    },
+    {
+      "name": "mother-core",
+      "selected_phase": 0,
+      "usable_phases": 0,
+      "pooled_errors_over_minority": null,
+      "mother_coding_gate_passed": false
+    },
+    {
+      "name": "mother-double",
+      "selected_phase": 1,
+      "usable_phases": 0,
+      "pooled_errors_over_minority": null,
+      "mother_coding_gate_passed": false
+    },
+    {
+      "name": "mother-double-twice",
+      "selected_phase": 0,
+      "usable_phases": 3,
+      "pooled_errors_over_minority": 0.0,
+      "mother_coding_gate_passed": false
+    },
+    {
+      "name": "mother-chaos",
+      "selected_phase": 3,
+      "usable_phases": 2,
+      "pooled_errors_over_minority": 0.0,
+      "mother_coding_gate_passed": true
+    }
+  ],
+  "limits": [
+    "Numerical checks, not interval certificates or full boundary organization.",
+    "Selected examples, not an exhaustive periodic-orbit inventory.",
+    "Neighbor expansion is measured for3000steps; long-term attraction or eventual capture is unresolved.",
+    "The period72 precision gate failed in two preserved attempts before the disclosed extension."
+  ],
+  "cost": "see private ledger"
+}

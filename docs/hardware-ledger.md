@@ -42,6 +42,25 @@ regenerate after new runs.
     `run.json` under `explore/llm-soft-loop/rr/`.
   Later rented runs are covered by the manifest; regenerate it after each run.
 
+## Incremental receipts, 21 October 2026
+
+- **BSP1 baby/mother trajectories:** local NVIDIA RTX2000Ada Generation,
+  driver580.178.04, eight CPU threads, native float64; exact package versions,
+  resource snapshot, source commit and hashes are bound by
+  `docs/baby-shrimp-zoom/probe-receipt.json` and its external `status.json`.
+- **BSP2 orbit verification:** task-owned pod`fvbi2an7yleoo2`, secure
+  NVIDIA A100-SXM4-80GB (81920MiB), driver595.91.07; torch2.14.1+cu126,
+  CUDA12.6, transformers5.19.0, numpy2.5.3, scipy1.18.1. Execution source
+  `10d3af019954f47aa65b7373acc902a240a57115`; archived library-version record
+  SHA-256`38c3aa4168f0cfb83c3d0537933ea040cc4d600308198e00951213a00fbd528f`.
+  Archive retrieved and hash-verified; exact pod termination verified.
+- **BSP2 local precision extensions:** same local RTX2000Ada and driver,
+  eight threads, native float64; attempts01 and02 preserve separate status,
+  package/resource metadata and derivative arrays. Attempt01 failed the
+  declared convergence-order gate; attempt02 passed after the disclosed
+  step-window extension. See the probe receipt for exact source commits,
+  hashes and both preserved attempts.
+
 ## Frozen experiments
 
 - **EXP-028** (trainability maps) and **EXP-029** (Track B controls): CPU, float64,
