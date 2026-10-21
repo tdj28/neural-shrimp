@@ -1,0 +1,161 @@
+{
+  "id": "BSG-geometry-audit",
+  "generated_utc": "2026-10-21T18:54:39.380046+00:00",
+  "analysis_commit": "e0c73d86b299a5c418d7d4e1fa2713fd9031001f",
+  "analysis_source_sha256": "d6a2bc77b3d5a82b554218630d0f6a1c1bd38a6c34ba27b8b536e71f6bc35c22",
+  "workers": [
+    {
+      "pod_id": "r3qpwuk29dddn4",
+      "source_commit": "62bcc189fcc6e027cef8d3e8d80bddd4f4086bb4",
+      "plan_sha256": "23df7a8de0c98ee6ac928973a721f956d5d9cf3f243ccacf9c42e4497cb13661",
+      "archive": {
+        "path": "runpod/baby-shrimp-zoom/bsg2-20261021/workers/neural-shrimp-bsg2-g1/20261021T172835Z/results.tgz",
+        "sha256": "2abdd6b611fbc6145be76e66b4e45b0f88f41add19bf5034f14b97c31ea65dc9",
+        "bytes": 43358965
+      },
+      "raw_status": {
+        "attempts": 172,
+        "solved": 6,
+        "orbit_solved": 147,
+        "planned_cells": 310,
+        "remaining_frontier": 9,
+        "complete": false,
+        "reason": "operator stopped the broad continuation; partial output preserved"
+      },
+      "qualified_cells": 6,
+      "operator_interruption": {
+        "pod_id": "r3qpwuk29dddn4",
+        "source_commit": "62bcc189fcc6e027cef8d3e8d80bddd4f4086bb4",
+        "operator_source_commit": "7ee72bb291fed959e720e83451ea9e34d0788e57",
+        "argv": [
+          "/root/venv/bin/python",
+          "tools/baby_shrimp_geometry.py",
+          "--input",
+          "llm-soft-loop/bsz1-probe-input",
+          "--band",
+          "1",
+          "--plan",
+          "docs/baby-shrimp-zoom/geometry-amended-plan.json",
+          "--out",
+          "llm-soft-loop/pod64/bsz1-geometry/g1-02"
+        ],
+        "out": "/root/neural-shrimp-data/explore/llm-soft-loop/pod64/bsz1-geometry/g1-02",
+        "reason": "Adaptive stop of broad low-yield geometry grid after targeted BSC1 audit; preserve every attempt and focus on BSC2 direct roots and the confirmed BSZ2 junction zoom.",
+        "time": "2026-10-21T18:44:57.457676+00:00",
+        "pid": 935,
+        "start_ticks": "13007999",
+        "signal": "SIGTERM",
+        "grid_sha256_before_signal": "cc07faf2d5c7aabd5e2d86b9b786a684bb5c08a2b4f6349b86c343319c1177c6",
+        "saved_grid_attempts": 172,
+        "scope": "Deliberate partial run. Completed and interrupted cells retained. Controller remains responsible for retrieval and verified pod termination."
+      },
+      "incomplete_cell_directories": [
+        "r19-c09-a01"
+      ],
+      "scientific_status": "partial spatial coverage",
+      "termination_verified": true,
+      "versions_sha256": "38c3aa4168f0cfb83c3d0537933ea040cc4d600308198e00951213a00fbd528f",
+      "hardware_sha256": "92c960df5cd7ed3d270b4fd9524c4cf6f69dc2c06a44e06ff08c11bf5d5aa479",
+      "hardware": "name, driver_version, memory.total [MiB]\nNVIDIA A100-SXM4-80GB, 595.91.07, 81920 MiB"
+    },
+    {
+      "pod_id": "2bksb7f12aqjw5",
+      "source_commit": "91b8aebc79e6d16f2412f0678c7efb430b178006",
+      "plan_sha256": "23df7a8de0c98ee6ac928973a721f956d5d9cf3f243ccacf9c42e4497cb13661",
+      "archive": {
+        "path": "runpod/baby-shrimp-zoom/bsg2-lower-20261021/workers/neural-shrimp-bsg2-g0/20261021T173233Z/results.tgz",
+        "sha256": "bf41253ddd0f9e5f65a2deaaa76583ef85992bfa2ed588e8f16de95131c77bac",
+        "bytes": 45230732
+      },
+      "raw_status": {
+        "attempts": 160,
+        "solved": 22,
+        "orbit_solved": 155,
+        "planned_cells": 341,
+        "remaining_frontier": 19,
+        "complete": false,
+        "reason": "operator stopped the broad continuation; partial output preserved"
+      },
+      "qualified_cells": 22,
+      "operator_interruption": {
+        "pod_id": "2bksb7f12aqjw5",
+        "source_commit": "91b8aebc79e6d16f2412f0678c7efb430b178006",
+        "operator_source_commit": "7ee72bb291fed959e720e83451ea9e34d0788e57",
+        "argv": [
+          "/root/venv/bin/python",
+          "tools/baby_shrimp_geometry.py",
+          "--input",
+          "llm-soft-loop/bsz1-probe-input",
+          "--band",
+          "0",
+          "--plan",
+          "docs/baby-shrimp-zoom/geometry-amended-plan.json",
+          "--out",
+          "llm-soft-loop/pod64/bsz1-geometry/g0-02"
+        ],
+        "out": "/root/neural-shrimp-data/explore/llm-soft-loop/pod64/bsz1-geometry/g0-02",
+        "reason": "Adaptive stop of broad low-yield geometry grid after targeted BSC1 audit; preserve every attempt and focus on BSC2 direct roots and the confirmed BSZ2 junction zoom.",
+        "time": "2026-10-21T18:44:59.156894+00:00",
+        "pid": 571,
+        "start_ticks": "11743056",
+        "signal": "SIGTERM",
+        "grid_sha256_before_signal": "484a685a3f225fe0cca7f39fd2eeef235d6529a0b9132d47742fa463c0ed0593",
+        "saved_grid_attempts": 160,
+        "scope": "Deliberate partial run. Completed and interrupted cells retained. Controller remains responsible for retrieval and verified pod termination."
+      },
+      "incomplete_cell_directories": [
+        "r03-c25-a01"
+      ],
+      "scientific_status": "partial spatial coverage",
+      "termination_verified": true,
+      "versions_sha256": "38c3aa4168f0cfb83c3d0537933ea040cc4d600308198e00951213a00fbd528f",
+      "hardware_sha256": "92c960df5cd7ed3d270b4fd9524c4cf6f69dc2c06a44e06ff08c11bf5d5aa479",
+      "hardware": "name, driver_version, memory.total [MiB]\nNVIDIA A100-SXM4-80GB, 595.91.07, 81920 MiB"
+    }
+  ],
+  "analysis": {
+    "status": "tracked seed-connected qualified cells",
+    "start_cell": [
+      9,
+      19
+    ],
+    "tracked": 16,
+    "qualified_but_untracked": 12,
+    "rejected_edges": [],
+    "minimum_overlap": 0.999467632443111,
+    "stationary_fits": {
+      "tau": [],
+      "delta": []
+    },
+    "stationary_status": "no admissible complete 5x5 stationary fit"
+  },
+  "files": [
+    {
+      "path": "audits/baby-shrimp-zoom/20261021-geometry-audit-02/fields.npz",
+      "sha256": "b01afe35ad1598e7a9414e077cefeff22bcf271610d8bfd296bf703f607e6b49",
+      "bytes": 2896
+    },
+    {
+      "path": "audits/baby-shrimp-zoom/20261021-geometry-audit-02/manifest.json",
+      "sha256": "c8857b746dbdc49b7e5f17b3ef4377c348f255c173796fd083f509b88e1bf5ab",
+      "bytes": 197545
+    },
+    {
+      "path": "audits/baby-shrimp-zoom/20261021-geometry-audit-02/baby-geometry.png",
+      "sha256": "453bdd543a810047ffee9d56500729ba78b759cfb12221e087c46b326b1e681d",
+      "bytes": 205725
+    },
+    {
+      "path": "audits/baby-shrimp-zoom/20261021-geometry-audit-02/baby-geometry.pdf",
+      "sha256": "3cd1d3a216abfe4360de7b48bd2b17c3c2647fd8e8b4f6e2f556779e4012f975",
+      "bytes": 37464
+    },
+    {
+      "path": "audits/baby-shrimp-zoom/20261021-geometry-audit-02/rows.json",
+      "sha256": "10e884761f42983ccfba074a892c55053d76d7aa7137e7144f257295e17aaab3",
+      "bytes": 56406
+    }
+  ],
+  "limits": "Numerical, partial-coverage analysis. Saved eigen-residuals are checked against their recorded gates, not independently recomputed without a saved dense matrix. Full-state closure uses the recorded final return. A five-fit-RMS comparison is a sensitivity diagnostic, not a statistical confidence bound. No exact nilpotent orbit or complete boundary organization is certified.",
+  "cost": "see private ledger"
+}
