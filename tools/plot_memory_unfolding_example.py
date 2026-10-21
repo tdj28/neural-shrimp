@@ -32,8 +32,8 @@ def main():
                 (1., "A true trace crossing", "Zero saddle height"),
                 (1.5, "Reconnected curves", "Negative saddle height")]
     plt.rcParams.update({"font.family": "DejaVu Sans", "font.size": 11})
-    fig, axes = plt.subplots(1, 3, figsize=(12.4, 5.3), sharex=True, sharey=True)
-    fig.subplots_adjust(left=.065, right=.985, bottom=.24, top=.72, wspace=.14)
+    fig, axes = plt.subplots(1, 3, figsize=(12.4, 6.1), sharex=True, sharey=True)
+    fig.subplots_adjust(left=.065, right=.985, bottom=.30, top=.76, wspace=.14)
     fig.suptitle("A crossing can return while coupling remains", x=.065,
                  ha="left", y=.96, fontsize=21, fontweight="bold", color="#152b3a")
     fig.text(.065, .87, "Exact constructed example  •  Two feedback paths change their balance",
