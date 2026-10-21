@@ -41,6 +41,7 @@ UPLOAD_PATHS = ("tools/explore_llm_soft_loop.py", "tools/explore_llm_attractors.
                 "tools/hook_edge_track.py", "tools/hook_saddle_check.py",
                 "tools/hook_tip_strip.py", "tools/hook_tip_check.py", "tools/hook_tip_fold_points.py",
                 "tools/baby_shrimp_orbits.py", "tools/baby_shrimp_geometry.py", "docs/baby-shrimp-zoom/geometry-plan.json", "docs/baby-shrimp-zoom/geometry-amended-plan.json", "tools/baby_shrimp_crossing.py", "docs/baby-shrimp-zoom/crossing-plan.json", "tools/baby_shrimp_transect.py", "tools/baby_shrimp_trajectories.py", "docs/baby-shrimp-zoom/jones-transect-plan.json",
+                "docs/baby-shrimp-zoom/crossing-curve-plan.json", "docs/baby-shrimp-zoom/crossing-receipt.json",
                 "pyproject.toml")
 DATA_PATHS = ("explore/llm-phase-map/vectors-l12", "explore/llm-soft-loop/branch-p8-a0.0717-up2",
               "explore/llm-soft-loop/branch-p8-a0.0717-down", "explore/llm-soft-loop/branch-p2-t-0.115-alpha-up")

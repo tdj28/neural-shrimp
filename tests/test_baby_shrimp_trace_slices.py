@@ -41,3 +41,6 @@ def test_concrete_plan_binds_audited_saddle():
     H = np.array(r["qualification"]["converged_scales"][-1]["hessian"])
     diagonal = basis.T @ H @ basis
     assert abs(diagonal[0, 1]) < 1e-12 and diagonal[0, 0] < 0 < diagonal[1, 1]
+    from runpod_soft_float64 import UPLOAD_PATHS
+    assert "docs/baby-shrimp-zoom/crossing-curve-plan.json" in UPLOAD_PATHS
+    assert p["saddle_receipt"] in UPLOAD_PATHS

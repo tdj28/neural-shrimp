@@ -67,6 +67,15 @@ def main():
     ap.add_argument("--input",required=True);ap.add_argument("--out",required=True)
     ap.add_argument("--plan",default="docs/baby-shrimp-zoom/crossing-plan.json")
     args=ap.parse_args();plan_path=ROOT/args.plan;plan=json.loads(plan_path.read_text())
+    if plan.get("mode")=="trace_zero_slices":
+        anchor=ROOT/plan["saddle_receipt"]
+        if hashlib.sha256(anchor.read_bytes()).hexdigest()!=plan["saddle_receipt_sha256"]:
+            raise ValueError("audited saddle receipt differs")
+        summary=json.loads(anchor.read_text())["summary"]
+        if not summary["qualification"]["numerically_resolved_nonzero_saddle"]:
+            raise ValueError("no resolved saddle anchor")
+        if plan["start"]!=[summary["endpoint"]["alpha"],summary["endpoint"]["log10_temperature"]]:
+            raise ValueError("trace slices are not anchored to the audited endpoint")
     out=DATA/"explore"/args.out;out.mkdir(parents=True,exist_ok=True)
     if (out/"protocol.json").exists():raise ValueError("preserve existing crossing attempt")
     started=time.monotonic();deadline=started+plan["numerical_seconds"]
