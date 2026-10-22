@@ -324,7 +324,7 @@ def pair_outcome(a, b, tv, rows, rtoks, rsk, sk, N):
     slope = np.nan
     if good.sum() >= 8:
         slope = float(np.polyfit(t[good], np.log(tv[:upto][good]), 1)[0])
-    res = {"first_diff": fd, "tv_slope": slope, "tv0": float(tv[0]), "tv_max_agree": float(tv[:upto].max())}
+    res = {"first_diff": fd, "tv_slope": slope, "tv0": float(tv[0]), "tv_max_agree": float(tv[:upto].max()) if upto else float("nan")}
     if fd < 0:
         res["outcome"] = "no_split"
         return res
@@ -404,14 +404,15 @@ def analyze(args):
     # matched pairs: bootstrap of chaotic minus periodic means
     rng = np.random.default_rng(0)
     for sampler in meta["samplers"]:
+      for nudge in sorted({r["nudge"] for r in summary if r["group"] == "matched"}):
         for key in ("split_rate", "median_tv_slope", "median_first_diff"):
-            ch = [r[key] for r in summary if r["group"] == "matched" and r["sampler"] == sampler
-                  and r["soft_lyapunov"] > 0 and r[key] is not None]
-            pe = [r[key] for r in summary if r["group"] == "matched" and r["sampler"] == sampler
-                  and r["soft_lyapunov"] < 0 and r[key] is not None]
+            sel = [r for r in summary if r["group"] == "matched" and r["sampler"] == sampler and r["nudge"] == nudge
+                   and r[key] is not None]
+            ch = [r[key] for r in sel if r["soft_lyapunov"] > 0]
+            pe = [r[key] for r in sel if r["soft_lyapunov"] < 0]
             if ch and pe:
                 boots = [np.mean(rng.choice(ch, len(ch))) - np.mean(rng.choice(pe, len(pe))) for _ in range(4000)]
-                rec.setdefault("matched", {})[f"{sampler}:{key}"] = {
+                rec.setdefault("matched", {})[f"{sampler}:{nudge:g}:{key}"] = {
                     "chaotic_minus_periodic": float(np.mean(ch) - np.mean(pe)),
                     "ci95": [float(np.percentile(boots, 2.5)), float(np.percentile(boots, 97.5))],
                     "chaotic": ch, "periodic": pe}
@@ -426,10 +427,11 @@ def plot_line(summary, path):
     matplotlib.use("Agg")
     import matplotlib.pyplot as plt
     line = [r for r in summary if r["group"] == "line" and r["nudge"] > 0]
-    combos = sorted({(r["prompt"], r["sampler"]) for r in line})
-    fig, axes = plt.subplots(4, len(combos), figsize=(4.2 * len(combos), 11), sharex=True, squeeze=False)
-    for j, (pr, sa) in enumerate(combos):
-        rs = sorted([r for r in line if r["prompt"] == pr and r["sampler"] == sa], key=lambda r: r["position"])
+    combos = sorted({(r["prompt"], r["sampler"], r["nudge"]) for r in line})
+    fig, axes = plt.subplots(4, len(combos), figsize=(3.2 * len(combos), 11), sharex=True, squeeze=False)
+    for j, (pr, sa, nu) in enumerate(combos):
+        rs = sorted([r for r in line if r["prompt"] == pr and r["sampler"] == sa and r["nudge"] == nu],
+                    key=lambda r: r["position"])
         x = [r["position"] for r in rs]
         lam = [r["soft_lyapunov"] for r in rs]
         series = [("split rate (pairs)", [r["split_rate"] for r in rs]),
@@ -445,7 +447,7 @@ def plot_line(summary, path):
             tw.axhline(0, color="tab:red", lw=0.5)
             tw.tick_params(labelsize=7, colors="tab:red")
             if i == 0:
-                ax.set_title(f"{pr}, {sa}", fontsize=9)
+                ax.set_title(f"{pr}, {sa}, nudge {nu:g}", fontsize=9)
         axes[-1, j].set_xlabel("position on the line (inside the shrimp -> chaos)")
     fig.suptitle("Real inference along the line across the shrimp edge (red: soft-map exponent)", fontsize=10)
     fig.tight_layout()

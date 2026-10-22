@@ -32805,3 +32805,45 @@ Exploratory pilot, not a confirmatory test. Code: `tools/real_inference_twins.py
   run limit 45 minutes, per-attempt worst case and the total within the approved ceiling; at most two attempts.
   Outputs llm-soft-loop/pod64/ri1, copied to ../neural-shrimp-data/explore/llm-real-inference/ri1 with hashes.
   Analysis: `real_inference_twins.py analyze` (per-row gates: completion, hashes, finite values, float64 patch).
+
+## 2026-10-22 05:17 UTC: RI1 result (exploratory): real inference shows no jump at the shrimp edge and no matched-pair difference
+
+**TLDR.** In ordinary token-by-token generation of Qwen2.5-0.5B-Instruct (float64, growing context, steering on),
+a tiny perturbation neither grows nor shrinks measurably in either regime, and real inference behaves the same
+inside the period-6 shrimp, in the chaos beside it, along a prompt variant where the soft map is periodic
+everywhere, and at entropy-matched chaotic and periodic settings across the article's plane. In this pilot, the soft
+map's regimes do not carry over to real inference. Exploratory, one model, one line, four pairs, 300 tokens.
+
+- **Run.** Pod m8lcehgtyrxlbi (community A100 80GB PCIe), commit 1facce42, job set toolseq; created 04:49:51,
+  runner exit 0, results hash-verified (results.tgz SHA-256 f7d33f38...), terminated and verified (inventory: no
+  pods). 154 of 154 tasks complete (77 settings x 2 samplers, 32 seed pairs each), 1079 s of compute; float64 patches
+  verified. Raw outputs: ../neural-shrimp-data/explore/llm-real-inference/ri1 (run.json SHA-256 1ec04bd7...). Soft
+  labels of the line: new CPU scans ri1-softline-open (scan.npz SHA-256 10e3d9f7...) and ri1-softline-p08
+  (3169aed8...). For the article's prompt the line has 7 period-6 settings (exponents -0.10 to -0.35) and 8 chaotic
+  ones (+0.14 to +0.22); for prompt p08 all 15 settings are period-6 (about -0.75), a line without an edge.
+- **Gates.** Every row passes (complete, hashes, finite). The zero-nudge control pairs stayed identical with total
+  variation exactly 0 in both samplers. No re-nudge was invalid (every zero-nudge re-nudge reproduced its parent
+  for 100 tokens).
+- **Nudge 1e-8.** No pair split in 300 tokens at any setting (0 of 32 everywhere). The copies' next-token distance
+  starts near 7e-10 to 9e-10 and its median growth rate stays between -0.0016 and +0.0013 per step at every setting,
+  against soft exponents of -0.35 to +0.22 per step: no sign change at the edge (prediction c fails).
+- **Nudge 1e-3 (plain sampler).** About half to three quarters of pairs split (article prompt: mean 0.64 inside, 0.63
+  in the chaos; p08: 0.53 to 0.78 with no edge at all). Split pairs almost never re-merge (3 of 960) and are
+  'split, both copies hold' in every resolved case but one: fresh 1e-8 re-nudges of either copy reproduce it for 100
+  tokens. The Qwen default sampler (top-k 20, top-p 0.8, repetition penalty) splits 0 to 3 of 32 pairs anywhere.
+  No jump at the edge (prediction a fails).
+- **Matched pairs** (soft entropies equal within 0.01 %): chaotic minus periodic, plain sampler, nudge 1e-3: split
+  rate 0.00 [-0.09, 0.10], median first difference -38 tokens [-101, 30], growth rate +0.0007 [-0.0006, 0.0022];
+  nudge 1e-8: no splits, growth rate -0.0001 [-0.0008, 0.0005]. Qwen sampler, nudge 1e-3: split rate +0.03
+  [0.02, 0.05] (1 to 2 of 32 pairs). No meaningful difference (prediction b fails).
+- **Reading.** In real inference a perturbation of the context is not fed back through a continuous variable: the
+  copies feed back identical tokens until one differs, so the small difference neither compounds nor decays (growth
+  rates near zero), and a split happens when the perturbation tips one sampling decision, with a probability set by
+  the perturbation size and the distributions, not by the soft map's regime. After a split each copy is locally
+  stable. The soft map's chaos and shrimps are properties of the continuous feedback loop (Soft Thinking), not of
+  ordinary sampled generation at these settings. Figure: [docs/ri/ri1-line.png](ri/ri1-line.png); receipt
+  [docs/ri/ri1-receipt.json](ri/ri1-receipt.json) (SHA-256 14b51247...).
+- **Limits.** One small model, one line, four matched pairs, 300 tokens, perturbations only of the first prompt
+  embedding (an attention-sink position), common random numbers in vocabulary order. The analysis code's matched
+  comparison and plot were corrected after the first analysis pass to separate the two nudge sizes (they had been
+  pooled); no data or setting changed. Cost within the approved ceiling (private ledger).
