@@ -318,3 +318,95 @@ def test_explicit_partial_loader_still_requires_finished_audit(tmp_path, monkeyp
     write_json(path, receipt)
     with pytest.raises(ValueError, match="finished independent"):
         plotter.load_receipt(path, plotter.digest(path), allow_partial=True)
+
+
+def test_center_zoom_selects_smallest_planned_distance_and_keeps_no_bracket_sections():
+    receipt, plan = fixture_receipt()
+    data = plotter.validate_plot_data(receipt, plan)
+    zoom = plotter.center_zoom_data(data)
+    assert zoom["distance"] == min(plan["contraction_minima"]["longitudinal_steps"])
+    assert len(zoom["rows"]) == 4
+    assert [r["measurement"]["section"]["search"]["status"] for r in zoom["rows"]] == ["converged", "converged", "no_bracket", "no_bracket"]
+    assert [len(r["measurement"]["section"]["search"]["minima"]) for r in zoom["rows"]] == [2, 1, 0, 0]
+    assert all(r["measurement"]["section"]["longitudinal"] == zoom["distance"] for r in zoom["rows"])
+    for row in zoom["rows"]:
+        coords = np.array([p["coordinate"] for p in row["measurement"]["observed"].values()])
+        assert np.max(abs(coords-zoom["center"])) < zoom["extent"]
+
+
+def test_center_zoom_contains_all_actual_samples_and_only_measured_bracket_lines(monkeypatch):
+    receipt, plan = fixture_receipt(); data = plotter.validate_plot_data(receipt, plan)
+    import matplotlib.axes
+    import matplotlib.pyplot as plt
+    def no_contour(*args, **kwargs):
+        raise AssertionError("The companion zoom must not invent a contour")
+    monkeypatch.setattr(matplotlib.axes.Axes, "contour", no_contour)
+    monkeypatch.setattr(matplotlib.axes.Axes, "contourf", no_contour)
+    fig = plotter.make_center_zoom(receipt, data, synthetic=True)
+    frame, measured = fig.axes
+    zoom = plotter.center_zoom_data(data)
+    assert frame.get_aspect() == measured.get_aspect() == 1.
+    assert frame.get_xlim() == measured.get_xlim() == frame.get_ylim() == measured.get_ylim()
+    assert len(frame.lines) == 8
+    minimum_count = sum(len(r["measurement"]["section"]["search"]["minima"]) for r in zoom["rows"])
+    assert len(measured.lines) == minimum_count  # Never a line joining separate minima.
+    artists = {a.get_gid(): a for a in measured.collections}
+    lines = {a.get_gid(): a for a in measured.lines}
+    for row in zoom["rows"]:
+        section = row["measurement"]["section"]; arm = row["arm_id"]
+        expected = (np.array([p["coordinate"] for p in row["measurement"]["admitted"].values()])-zoom["center"])*1e4
+        assert np.allclose(artists["zoom-admitted-"+arm].get_offsets(), expected, rtol=0, atol=1e-12)
+        for j, minimum in enumerate(section["search"]["minima"]):
+            expected = (np.asarray(section["origin"])+np.asarray(minimum["refined_bracket"])[:, None]*np.asarray(section["normal"])-zoom["center"])*1e4
+            assert np.allclose(lines[f"zoom-refined-bracket-{arm}-{j}"].get_xydata(), expected, rtol=0, atol=1e-12)
+    assert sum("no bracket" in t.get_text() for t in fig.texts) == 2
+    assert "Steering displacement" in measured.get_xlabel()
+    assert "Log-temperature displacement" in measured.get_ylabel()
+    plt.close(fig)
+
+
+@pytest.mark.parametrize("no_center", [False, True])
+def test_center_zoom_does_not_replace_unattempted_inner_sections_with_outer_measurements(no_center):
+    receipt, plan = fixture_receipt(partial=True, no_center=no_center)
+    data = plotter.validate_plot_data(receipt, plan, allow_partial=True)
+    zoom = plotter.center_zoom_data(data)
+    assert all(r["measurement"] is None for r in zoom["rows"])
+    import matplotlib.pyplot as plt
+    fig = plotter.make_center_zoom(receipt, data, synthetic=True)
+    assert not fig.axes[1].lines
+    assert len(fig.axes[1].collections) == (0 if no_center else 1)  # Reference center only.
+    assert sum("No measured section" in t.get_text() for t in fig.texts) == 4
+    plt.close(fig)
+
+
+def test_center_zoom_keeps_unadmitted_observations_and_failed_callback_locations():
+    receipt, plan = fixture_receipt(); data = plotter.validate_plot_data(receipt, plan)
+    selected = next(r for r in data["sections"] if r["section"]["longitudinal"] == min(plan["contraction_minima"]["longitudinal_steps"]))
+    # Rendering fixture: an interrupted callback retains an observed state but
+    # does not turn it into an admitted objective or a fabricated minimum.
+    s, observation = next(iter(selected["observed"].items()))
+    selected["observed"] = {s: observation}; selected["admitted"] = {}
+    selected["section"]["search"] = {"status": "interrupted before search returned", "minima": []}
+    selected["section"]["callback_attempts"] = [{"s": s, "status": "started"}]
+    receipt["complete"] = False
+    import matplotlib.pyplot as plt
+    fig = plotter.make_center_zoom(receipt, data, synthetic=True)
+    artists = {a.get_gid(): a for a in fig.axes[1].collections}
+    arm = selected["section"]["arm_id"]
+    expected = (np.asarray(observation["coordinate"])-np.asarray(data["center"]["coordinate"]))*1e4
+    assert np.allclose(artists["zoom-unadmitted-"+arm].get_offsets()[0], expected)
+    assert np.allclose(artists["zoom-incomplete-"+arm].get_offsets()[0], expected)
+    assert not any(str(gid).startswith("zoom-minimum-"+arm) for gid in artists)
+    plt.close(fig)
+
+
+def test_center_zoom_exports_static_png_and_pdf_with_synthetic_labels(tmp_path):
+    receipt, plan = fixture_receipt(); data = plotter.validate_plot_data(receipt, plan)
+    import matplotlib.pyplot as plt
+    fig = plotter.make_center_zoom(receipt, data, synthetic=True)
+    assert "SYNTHETIC QA" in fig._suptitle.get_text()
+    for extension in ("png", "pdf"):
+        path = tmp_path/f"center-zoom.{extension}"
+        fig.savefig(path, dpi=110)
+        assert path.stat().st_size > 5000
+    plt.close(fig)

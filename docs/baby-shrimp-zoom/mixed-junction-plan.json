@@ -26,9 +26,13 @@
   "maximum_scaled_coordinate": 1000,
   "intervention": "F_beta(x)=(1-beta)F(x)+beta*x. beta=0 exactly original. Positive beta retains old feedback; negative beta is mathematical extrapolation. Same fixed prefix, layer12 philosophy steering and temperature; K=1. Model readout remains p(x), while next state is mixed.",
   "id": "BSC6-mixed-junction-probe",
-  "status": "PREPARATION ONLY: predecessor terminal audit binding pending",
+  "status": "READY: completed BSC5 evidence reviewed; exploratory local execution only",
   "maximum_evaluations": 120,
-  "bsc5_audit": null,
+  "bsc5_audit": {
+    "path": "audits/baby-shrimp-zoom/20261022-contraction-minima-audit-01/receipt.json",
+    "sha256": "874f0fdceeeefe3957c5b8ac8d9a8ca87ec53a2f8d35e978c367281f0ac112c5",
+    "bytes": 707751
+  },
   "mixed_junction": {
     "allow_scientifically_partial_bsc5": false,
     "target": {
@@ -123,5 +127,6 @@
     }
   ],
   "planning_warning": "The corrected sensitivity packet preserves an earlier insufficient inverse-rotation calculation. Under a hypothetical maximum Jacobian perturbation and simultaneously saturated residual caps, the upper endpoint can fail the unchanged 5e-8 total-error cap. That possible failure is retained, not prevented by loosening the cap. Actual endpoint admissions determine the outcome.",
-  "prelaunch_geometry_review": "Independent conditional-model checks find small nonzero derivatives along the geometric normals of the one-sided Hessian-feature loci even where the two Hessian features vanish. These diagnostics are not resolved neural measurements. The actual smooth-side feature gradients differ from the trace-value-projected off-crease extension used for the joint corrector. This pilot remains a conditional Hessian-feature test, not an intrinsic-valley or active-side gluing certificate; neither connection is inferred by plotting the three corrected targets."
+  "prelaunch_geometry_review": "Independent conditional-model checks find small nonzero derivatives along the geometric normals of the one-sided Hessian-feature loci even where the two Hessian features vanish. These diagnostics are not resolved neural measurements. The actual smooth-side feature gradients differ from the trace-value-projected off-crease extension used for the joint corrector. This pilot remains a conditional Hessian-feature test, not an intrinsic-valley or active-side gluing certificate; neither connection is inferred by plotting the three corrected targets.",
+  "prelaunch_predecessor_review": "Completed BSC5 has 223 qualified points, 12 complete finite section searches, 10 with qualified minima and 2 with no strict bracket. All eight outer/middle sections have a measured minimum at their sampled zero offset. At longitudinal distance 0.0002, directed arms line0-positive and line1-positive are monotone on the sampled mesh (no_bracket); line0-negative and line1-negative minima are displaced by -0.000247339220468474 and +0.00006167777390647344 respectively. No_bracket does not exclude an unsampled minimum. These outcomes support separating the trace frame from finite-section contraction minima. BSC6 target, offsets, gates, budget and interpretation are unchanged from the preparation checkpoint; no predecessor incompleteness is waived."
 }

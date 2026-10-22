@@ -349,6 +349,126 @@ def load_receipt(path, expected, *, allow_partial=False):
     return receipt, validate_plot_data(receipt, plan, allow_partial=allow_partial)
 
 
+def center_zoom_data(data):
+    """Select the smallest planned distance, retaining every arm and sample.
+
+    The frame is the already audited trace-Hessian frame. No new contour,
+    interpolation or minimum search is used to choose this display window.
+    """
+    cfg = data["plan"]["contraction_minima"]
+    distance = min(cfg["longitudinal_steps"])
+    center = None if data["center"] is None else np.asarray(data["center"]["coordinate"])
+    arms = data["arms"]
+    ids = [a["arm_id"] for a in arms] or [f"unadmitted-{i}" for i in range(4)]
+    selected = {r["section"]["arm_id"]: r for r in data["sections"] if r["section"]["longitudinal"] == distance}
+    require(len(ids) == 4 and set(selected) <= set(ids), "innermost frame must contain four declared arms")
+    rows = [{"arm_id": arm_id, "arm": arms[i] if arms else None, "measurement": selected.get(arm_id)}
+            for i, arm_id in enumerate(ids)]
+    # Include all planned supports, observed samples and failed callback
+    # locations. The center zoom never crops evidence to emphasize minima.
+    extent = distance+max(abs(s) for s in cfg["section_mesh"])
+    if center is not None:
+        for row in rows:
+            measured = row["measurement"]
+            if measured is None:
+                continue
+            section = measured["section"]
+            coordinates = [p["coordinate"] for p in measured["observed"].values()]
+            coordinates += [(np.asarray(section["origin"])+p["s"]*np.asarray(section["normal"])).tolist()
+                            for p in section["callback_attempts"]]
+            for minimum in section["search"]["minima"]:
+                coordinates += [(np.asarray(section["origin"])+s*np.asarray(section["normal"])).tolist()
+                                for s in minimum["refined_bracket"]]
+            if coordinates:
+                extent = max(extent, float(np.max(abs(np.asarray(coordinates)-center))))
+    return {"distance": distance, "center": center, "rows": rows, "extent": 1.12*extent}
+
+
+def make_center_zoom(receipt, data, *, synthetic=False):
+    """Separate conditional frame from the four innermost measured sections."""
+    import matplotlib
+    matplotlib.use("Agg")
+    import matplotlib.pyplot as plt
+    from matplotlib.lines import Line2D
+    from matplotlib.ticker import MaxNLocator
+    zoom = center_zoom_data(data)
+    cfg = data["plan"]["contraction_minima"]
+    fig, axes = plt.subplots(1, 2, figsize=(12.5, 8.5))
+    left, right = axes
+    left.set_title("A  Conditional trace-Hessian frame\nOnly the four innermost planned sections", loc="left")
+    right.set_title("B  Measured innermost sections\nAll samples; independent minima are not joined", loc="left")
+    center, distance = zoom["center"], zoom["distance"]
+    for i, row in enumerate(zoom["rows"]):
+        arm, measured, color = row["arm"], row["measurement"], COLORS[i]
+        if center is not None:
+            origin = distance*np.asarray(arm["tangent"])
+            support = origin+np.array(cfg["section_mesh"])[[0, -1], None]*np.asarray(arm["normal"])
+            line, = left.plot(*np.array([[0., 0.], origin*1e4]).T, color=color, ls="--", lw=1.1, alpha=.75)
+            line.set_gid("zoom-frame-ray-"+row["arm_id"])
+            line, = left.plot(*(support*1e4).T, color=color, lw=1.5)
+            line.set_gid("zoom-frame-support-"+row["arm_id"])
+            left.annotate(str(i+1), origin*1e4, xytext=(6, 6), textcoords="offset points", color=color, weight="bold", fontsize=10)
+        if measured is None:
+            label = "not attempted" if center is not None else "center not admitted"
+            detail = "No measured section"
+        else:
+            section = measured["section"]
+            admitted = list(measured["admitted"].values())
+            other = [p for s, p in measured["observed"].items() if s not in measured["admitted"]]
+            for samples, marker, sample_color, size, suffix in ((admitted, "o", color, 23, "admitted"),
+                                                                (other, "x", "#b23c3c", 45, "unadmitted")):
+                if samples:
+                    q = (np.asarray([p["coordinate"] for p in samples])-center)*1e4
+                    artist = right.scatter(*q.T, s=size, marker=marker, color=sample_color, alpha=.75, zorder=3)
+                    artist.set_gid(f"zoom-{suffix}-"+row["arm_id"])
+            failed = [p for p in section["callback_attempts"] if p["status"] != "complete"]
+            if failed:
+                q = np.asarray([np.asarray(section["origin"])+p["s"]*np.asarray(section["normal"])-center for p in failed])*1e4
+                artist = right.scatter(*q.T, s=65, marker="+", color="#b23c3c", zorder=4)
+                artist.set_gid("zoom-incomplete-"+row["arm_id"])
+            for j, minimum in enumerate(section["search"]["minima"]):
+                q = (np.asarray(minimum["coordinate"])-center)*1e4
+                ends = (np.asarray(section["origin"])+np.array(minimum["refined_bracket"])[:, None]*np.asarray(section["normal"])-center)*1e4
+                line, = right.plot(*ends.T, color="black", lw=2.5, zorder=5)
+                line.set_gid(f"zoom-refined-bracket-{row['arm_id']}-{j}")
+                artist = right.scatter(*q, marker="*", s=125, facecolor=color, edgecolor="black", linewidth=.6, zorder=6)
+                artist.set_gid(f"zoom-minimum-{row['arm_id']}-{j}")
+            label = section["search"]["status"].replace("_", " ")
+            detail = f"{len(measured['observed'])} samples; {len(section['search']['minima'])} qualified minima"
+            if failed:
+                detail += f"\n{len(failed)} unfinished callbacks"
+        fig.text(.065+i*.235, .205, f"Arm {i+1}: {label}\n{detail}", color=color, fontsize=9, va="top")
+    for ax in axes:
+        ax.grid(alpha=.13); ax.spines[["top", "right"]].set_visible(False)
+        ax.xaxis.set_major_locator(MaxNLocator(5)); ax.yaxis.set_major_locator(MaxNLocator(5))
+        bound = zoom["extent"]*1e4
+        ax.set(xlim=(-bound, bound), ylim=(-bound, bound),
+               xlabel="Steering displacement (scaled units ×10⁻⁴)",
+               ylabel="Log-temperature displacement (scaled units ×10⁻⁴)")
+        ax.set_aspect("equal", adjustable="box")
+        if center is not None:
+            ax.scatter([0], [0], marker="+", color=".2", s=65, zorder=7).set_gid("zoom-reference-center")
+        else:
+            ax.text(.5, .5, "Center not admitted\nNo measured section geometry", ha="center", va="center", transform=ax.transAxes, color=".45")
+            ax.set(xticks=[], yticks=[])
+    heading = "Section-minima pilot — center zoom"+(" — SYNTHETIC QA" if synthetic else "")
+    status = "Audited innermost sections" if receipt["complete"] else "PARTIAL / UNRESOLVED — missing sections remain untested"
+    fig.suptitle(heading, x=.065, ha="left", fontsize=17)
+    fig.text(.065, .915, f"{status}. Planned longitudinal distance = {distance:g}.\n"
+             "Equal axes in the declared scaled Euclidean metric; the display includes the full section supports.", fontsize=9, color=".35")
+    fig.legend(handles=[Line2D([], [], color=".4", ls="--", label="Conditional frame ray"),
+                        Line2D([], [], color=".4", ls="-", label="Planned section support"),
+                        Line2D([], [], color=".4", ls="none", marker="o", ms=4, label="Admitted sample"),
+                        Line2D([], [], color="black", ls="-", marker="*", ms=9, label="Minimum + refined bracket")],
+               loc="lower center", bbox_to_anchor=(.5, .245), ncol=4, frameon=False, fontsize=8.5)
+    sx, sy = data["plan"]["coordinate_scales"]
+    fig.text(.065, .055, f"Scaled coordinates: (steering − center) / {sx:g} and (log₁₀ temperature − center) / {sy:g}; both panels show ×10⁻⁴ units.\n"
+             "Black bars are measured final bracket widths, not confidence intervals. Red × / + retain unadmitted samples / unfinished callbacks.\n"
+             "No bracket means no strict minimum bracket on the sampled support. These sections do not establish connected valleys or an exact crossing.", fontsize=8.7)
+    fig.subplots_adjust(left=.075, right=.985, top=.82, bottom=.335, wspace=.30)
+    return fig
+
+
 def render(receipt, data, out, *, synthetic=False):
     """Produce overview and full profile atlas, with no lines joining minima."""
     import matplotlib
@@ -437,6 +557,7 @@ def render(receipt, data, out, *, synthetic=False):
              "Finite supported sections do not establish intrinsic ridges, between-section connections, or exact superstability.", fontsize=9)
     fig.subplots_adjust(left=.075, right=.98, top=.79, bottom=.19, wspace=.28)
     save(fig, "section-minima-geometry")
+    save(make_center_zoom(receipt, data, synthetic=synthetic), "section-minima-center-zoom")
 
     distances = cfg["longitudinal_steps"]
     fig, axes = plt.subplots(len(distances), 4, figsize=(15, 3.25*len(distances)+2.4), squeeze=False)
