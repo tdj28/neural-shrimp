@@ -1,0 +1,45 @@
+{
+  "figure_id": "fig-memory-section-minima",
+  "title": "Contraction minima shift away from the trace frame near the center",
+  "alt_text": "At the innermost fixed-memory sections, two sampled profiles have no strict minimum bracket and two have qualified minima shifted from their trace-frame origins. Left shows the conditional frame and section supports; right shows every measured sample and the two independent minima, with no lines joining minima.",
+  "execution_source_commit": "c01179d869f6e376551559967e1e13e28fd498e5",
+  "generator": {
+    "path": "tools/plot_baby_shrimp_contraction_minima.py",
+    "commit": "06e170bf0c85bf4c35b65f5528289fa592da8b91",
+    "sha256": "7786c92d152803524d1c5c18e7eda8ab7aaaf83e4fa0644947363fdac1ea9e71"
+  },
+  "external_audit": {
+    "path": "audits/baby-shrimp-zoom/20261022-contraction-minima-audit-01/receipt.json",
+    "bytes": 707751,
+    "sha256": "874f0fdceeeefe3957c5b8ac8d9a8ca87ec53a2f8d35e978c367281f0ac112c5"
+  },
+  "figure_receipt": {
+    "path": "audits/baby-shrimp-zoom/20261022-contraction-minima-figures-02/receipt.json",
+    "bytes": 1772,
+    "sha256": "9b188e6f3788a8c5c32293bd4d8924b6ba1956afcf41543104b4113931370654"
+  },
+  "visual_review": {
+    "path": "audits/baby-shrimp-zoom/20261022-contraction-minima-figures-02/visual-review.json",
+    "bytes": 1686,
+    "sha256": "005273ddeb21a66c066a8151a9295b85e0d1c0d7db4d4c9501137887c664f53c"
+  },
+  "external_figure": {
+    "path": "audits/baby-shrimp-zoom/20261022-contraction-minima-figures-02/section-minima-center-zoom.pdf",
+    "bytes": 31131,
+    "sha256": "6663216171c6f749ccebc120416e49215e14e4a45aa08e05ce77f6214b137a29"
+  },
+  "output": {
+    "path": "paper/llm/figures/fig-memory-section-minima.pdf",
+    "bytes": 31131,
+    "sha256": "6663216171c6f749ccebc120416e49215e14e4a45aa08e05ce77f6214b137a29"
+  },
+  "selection": "All four directed sections at the smallest planned longitudinal distance 0.0002, retaining every sample and failed/partial status. No outcome-based section selection.",
+  "metric": "Scaled Euclidean coordinates: steering scale2.5e-6 and log10-temperature scale7.5e-6.",
+  "uncertainty": "Black bars show final refinement brackets; these are not confidence intervals or certified exact-extremum enclosures.",
+  "limits": [
+    "Finite sections at one refined memory setting; not continuous valley continuation.",
+    "No bracket excludes only strict brackets on the sampled mesh, not unsampled minima.",
+    "Trace-frame rays are conditional quadratic predictors, not measured contraction curves.",
+    "No exact trace zero, superstability or intrinsic valley connection is established."
+  ]
+}
