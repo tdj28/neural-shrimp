@@ -307,7 +307,7 @@ def render_mobile(receipt, points, out):
                  "remains conditional on the computed subspace.\n"
                  "These finite samples establish neither exact\n"
                  "superstability nor contraction-ridge connectivity.", fontsize=10.5)
-        fig.subplots_adjust(left=.20, right=.96, top=.90, bottom=.20, hspace=.82)
+        fig.subplots_adjust(left=.24, right=.96, top=.90, bottom=.20, hspace=.82)
         fig.savefig(out/"connection-probe-mobile.png", dpi=190)
         plt.close(fig)
 
