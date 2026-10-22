@@ -1,0 +1,87 @@
+{
+  "model": "qwen0.5b",
+  "layer": 12,
+  "vectors": "llm-phase-map/vectors-l12",
+  "concept": "philosophy",
+  "prompt": "open",
+  "opener": "Hello!",
+  "window": 1,
+  "dtype": "float64",
+  "weights": "native",
+  "transient": 300,
+  "samples": 300,
+  "record": 80,
+  "max_period": 32,
+  "tol": 1e-08,
+  "eps": 1e-06,
+  "chaos_level": 0.001,
+  "threads": 8,
+  "id": "BSMZ1",
+  "status": "exploratory matched close-up requested by human; no confirmatory claim",
+  "model_revision": "7ae557604adf67be50417f59c2c2f167def9a775",
+  "beta": 0.006448531026086656,
+  "center": [
+    0.07331776448598727,
+    -0.15804614858293237
+  ],
+  "alpha": [
+    0.07331626448598727,
+    0.07331926448598727
+  ],
+  "log10_temperature": [
+    -0.15805064858293236,
+    -0.15804164858293238
+  ],
+  "resolution": [
+    128,
+    128
+  ],
+  "maximum_chunk": 2048,
+  "benchmark_steps": 12,
+  "root_state": {
+    "path": "explore/llm-soft-loop/bsc3-memory/20261021-local-extension-01/point-0272/points.npy",
+    "sha256": "b72d69f426114c639c1084636845b828bc0606b131343ffd69adcb593830fc06",
+    "bytes": 129152
+  },
+  "root_receipt": {
+    "path": "docs/baby-shrimp-zoom/memory-local-extension-receipt.json",
+    "sha256": "49e349b712ca713e555b354a1cad4b28fbdfce26c3d48e865f380fb359b85923"
+  },
+  "reference_scan": {
+    "path": "explore/llm-soft-loop/pod64/bands/bsz2-junction-01/scan.npz",
+    "sha256": "50a9c64ea2577d8437bbee2de58be7572dd599d789c9c063d2b709f09a29b4a5"
+  },
+  "design": "Same 128-square physical spans (3e-6 alpha,9e-6 log10T), fixed opener, 300+300 horizon, eps1e-6, native float64, and nearest-cell presentation as BSZ2. Root panel is translated to the continued saddle at nonzero beta. The image measures finite-time contraction; the trace-contour root remains separately audited.",
+  "local_option": {
+    "device": "NVIDIA RTX 2000 Ada Generation",
+    "threads": 8,
+    "memory_fraction": 0.75,
+    "benchmark_chunk": 128,
+    "benchmark_external_seconds": 900,
+    "criterion": "Compare measured step-only scaling with existing same-kernel A100 measurement; local full grid may be unsuitable for time-to-result."
+  },
+  "cloud_option": {
+    "gpu": "NVIDIA A100-SXM4-80GB",
+    "pod_count": 1,
+    "chunk": 2048,
+    "compute_timeout_minutes": 75,
+    "maximum_lifetime_minutes": 120,
+    "retrieval_reserve_minutes": 20,
+    "automatic_retries": false,
+    "ownership": "exact task named resource plus independent watchdog; retrieve, hash and verify termination",
+    "cost": "see private ledger"
+  },
+  "validation": [
+    "Source/plan/root-state SHA bindings; effective float64 and pinned model.",
+    "Batched memory scan agrees with the independently implemented MemoryOrbit at the audited root; saved period18 center closes within1e-10.",
+    "Every grid cell and axis, checkpoint and complete result checked before display.",
+    "Show actual measured field even if its brightest ridges do not connect; no forced crossing or fitted replacement image.",
+    "Same shared gray scale and physical spans in both panels; disclose translated centers and old/new source/device provenance.",
+    "Primitive-orbit and exact-root evidence are separate from finite-horizon image labels."
+  ],
+  "steering_vectors": {
+    "path": "explore/llm-phase-map/vectors-l12/vectors.npz",
+    "sha256": "b630bb7bef06bde87f8e6a7ca5e8672f83d24bc0585bf19048e9e494a4357f41",
+    "bytes": 14860
+  }
+}

@@ -1105,10 +1105,10 @@ def curve(args):
                       "cusp_candidates": cusps, "seconds": rec["seconds"]}))
 
 
-def scan(args):
+def scan(args, *, loop_factory=SoftLoop):
     prompt = f"file:{args.prefix}" if args.prefix else args.prompt
-    loop = SoftLoop(args.model, args.layer, args.threads, prompt, args.opener, args.window, args.dtype,
-                    args.device, args.weights)
+    loop = loop_factory(args.model, args.layer, args.threads, prompt, args.opener, args.window, args.dtype,
+                        args.device, args.weights)
     torch = loop.torch
     v = elpm.load_vectors(args.vectors)[args.concept] if args.vectors else None      # --vectors "": unsteered
     if v is not None and len(v) != loop.E.shape[1]:
