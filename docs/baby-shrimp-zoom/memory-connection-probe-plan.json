@@ -1,0 +1,76 @@
+{
+  "id": "BSC4-direct-connection",
+  "status": "exploratory direct before/after spectral contour probe; no exact crossing claim",
+  "model_revision": "7ae557604adf67be50417f59c2c2f167def9a775",
+  "period": 18,
+  "start": [
+    0.07309363265341377,
+    -0.1544023817786725
+  ],
+  "coordinate_scales": [
+    2.5e-06,
+    7.5e-06
+  ],
+  "anchor_directory": "explore/llm-soft-loop/pod64/bsz1-geometry/crossing-01/point-054",
+  "anchor_hashes": {
+    "point.json": "eeeacb282487465100c8ed0ca96abfe933370fbdf6c61e280e4309e46ca4c617",
+    "points.npy": "73dd2ecbae4e9c8f5aa009a03f6e90dbbacc6a9b8857e28063aac57fd3402f7d",
+    "phase-0.npz": "83b9df88370546037d1a3ada3e7280a44e43959f91fb16612bce8cf90c16e9dd",
+    "phase-6.npz": "d89652be8c0a0b20e8da78e57e6410ffa2f317ab8bab3c68e72921a60546a71f",
+    "phase-12.npz": "8c68b1987fbdf396a0b3e26e50e33b41f28974d64f48542ad4497fc0512eef7a"
+  },
+  "maximum_evaluations": 120,
+  "maximum_abs_beta": 0.007,
+  "maximum_scaled_coordinate": 1000,
+  "intervention": "F_beta(x)=(1-beta)F(x)+beta*x. beta=0 exactly original. Positive beta retains old feedback; negative beta is mathematical extrapolation. Same fixed prefix, layer12 philosophy steering and temperature; K=1. Model readout remains p(x), while next state is mixed.",
+  "gates": "Full float64 with RMSNorm and rotary verification. Relative closure below1e-12, all lower returns above1e-8, same cyclic six-token text, attraction. Native float64 matrix-free block with six columns, both leading relative residuals below1e-6 and independent reapplication, pair at least100 times third Ritz value. Baseline compared against saved dense896D monodromy at composed JVP error below1e-7 and pair trace agreement below1e-5 of radius. Three cyclic phases at baseline/pilot and accepted continuation endpoints. Primary phase6 for stencil points; endpoints require phase comparison. Ritz separation is not an exhaustive dense-spectrum certificate beyond baseline.",
+  "pilot": "First replay the original dense baseline and all three hash-bound seed cycles (beta.006,.007,and the residual-qualified root candidate). Each fresh replay must match full states and all three cyclic leading pairs. Then evaluate nine axis points per beta using the saved Hessian frames; those directions predict which axis changes sign, but plotted contours must come from actual evaluations. Before the axes, directly measure the previous root candidate and four signed offsets along minus its saved determinant gradient. Independently recompute that direction from the manifest-bound root stencil and cross-check the bound determinant audit. Record symmetric radius slopes without assuming a trend.",
+  "continuation": "No new beta root search. At the saved beta.007 saddle center, evaluate both nine-point stencil scales at exactly the same coordinates. Require a nondegenerate saddle and correction norm at most3e-5 at both scales; do not recenter silently. Trace both strict trace-zero brackets first at the central transverse slice, then offsets-.08,+.08 in the measured Hessian frame. Solve along positive curvature because the beta.007 center has negative trace.",
+  "mechanism": "For each measured trace root retain primary-phase search, a fresh three-phase endpoint check, determinant and spectral radius. Evaluate symmetric offsets along the unit predicted quadratic trace normal in scaled coordinates and compare actual pair radii. These two offsets do not establish a local minimum, exact ridge connection or a fixed-opener basin property. Equal-magnitude nonzero multipliers are not exact superstability.",
+  "resources": "Local RTX 2000 Ada on zeta only. Eight model threads,75percent GPU memory fraction; maximum120 model-point evaluations and5400seconds total external watchdog. The driver subtracts elapsed preflight time and a90second completion reserve before passing its internal budget to Evaluator; no new point starts after that budget. Previous measured primary point median30.335seconds and three-phase point median85.110seconds. Check availability and leave other jobs untouched. No automatic retries. Preserve every partial point and any incomplete later stage.",
+  "continuation_amendment": "2026-10-22: following the image challenge, prioritize a directly evaluated higher-beta before/after case using the already audited beta.006/.007 branch. Do not describe the previous positive residual1.6365300102214302e-10 as exactzero. Tight two-sided beta root refinement and formal interval certification remain separate future stages. A budget-limited partial result is retained without inventing absent contour roots.",
+  "prior_audit": {
+    "path": "audits/baby-shrimp-zoom/20261021-memory-local-extension-audit-01/receipt.json",
+    "sha256": "141b333d2a70fdac4037a3268768f16be57f75c338a46c84d8eb886bdf236b5b",
+    "bytes": 438337
+  },
+  "connection_probe": {
+    "before_beta": 0.006,
+    "after_beta": 0.007,
+    "axis_offsets": [
+      -0.1,
+      -0.05,
+      0.05,
+      0.1
+    ],
+    "stencil_steps": [
+      0.003,
+      0.001
+    ],
+    "maximum_correction_norm": 3e-05,
+    "slice_offsets": [
+      0.0,
+      -0.08,
+      0.08
+    ],
+    "root_bracket": 0.3,
+    "root_coordinate_tolerance": 1e-07,
+    "root_trace_tolerance": 1e-10,
+    "root_max_iterations": 20,
+    "normal_offsets": [
+      -0.003,
+      0.003
+    ],
+    "candidate_tilt_offsets": [
+      -0.0003,
+      -0.0001,
+      0.0001,
+      0.0003
+    ]
+  },
+  "determinant_audit": {
+    "path": "audits/baby-shrimp-zoom/20261021-memory-determinant-combined-01/receipt.json",
+    "sha256": "7c039f2100279e039c2a807e2d68ada2fefbeb9bdd795599a24cb6874355cb55",
+    "bytes": 149498
+  }
+}
