@@ -38,7 +38,7 @@ UPLOAD_PATHS = ("tools/explore_llm_soft_loop.py", "tools/explore_llm_attractors.
                 "tools/prefix_transition.py", "tools/soft_thinking_twins.py", "docs/st72-cells-p3.json",
                 "tools/lyapunov_spectrum.py", "docs/tc-spectrum-cells.json", "docs/ky-cells-philosophy.json", "docs/ky-cells-hostility.json", "tools/cusp_locate.py", "tools/locate_curve_candidates.py", "tools/repro_reset.py", "docs/rr-problems.json", "tools/window_census.py", "tools/window_closure.py", "docs/oc", "docs/cl", "docs/wp-line-cells.json", "docs/fl15-line-cells.json", "docs/fl7-line-cells.json",
                 "tools/symbolic_dynamics.py", "tools/sd_verify_words.py", "tools/kite_basin_check.py",
-                "tools/hook_edge_track.py", "tools/hook_saddle_check.py",
+                "tools/hook_edge_track.py", "tools/hook_saddle_check.py", "tools/real_inference_twins.py", "docs/ri/ri1-cells.json",
                 "tools/hook_tip_strip.py", "tools/hook_tip_check.py", "tools/hook_tip_fold_points.py",
                 "tools/baby_shrimp_orbits.py", "tools/baby_shrimp_geometry.py", "docs/baby-shrimp-zoom/geometry-plan.json", "docs/baby-shrimp-zoom/geometry-amended-plan.json", "tools/baby_shrimp_crossing.py", "docs/baby-shrimp-zoom/crossing-plan.json", "tools/baby_shrimp_transect.py", "tools/baby_shrimp_trajectories.py", "docs/baby-shrimp-zoom/jones-transect-plan.json",
                 "docs/baby-shrimp-zoom/crossing-curve-plan.json", "docs/baby-shrimp-zoom/crossing-receipt.json",
