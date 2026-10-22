@@ -32928,3 +32928,9 @@ Praxagent reference. No scientific results or figure content changed.
 - **Would surprise us:** Native-map mismatch, collapsed perturbations, or inability to fit the recurrent block.
 
 _commit `4157bea08ff7` (dirty worktree)_
+
+## 2026-10-22 23:58 UTC: HCP1 completed: local Huginn internal-loop engineering pilot
+
+Source 0d8ee9014b86f8af793ad20a3d51edcc1c6298ac; completed in 61.77 seconds, exit zero. Native recurrent update matched exactly at the tested initial state; deterministic repeat exact. Short 12-token prompt, float32, TF32 disabled; 16-cell twin batch measured 0.0141607 seconds per cell-step and peak allocator memory 6715245056 bytes. All four 256-step diagnostic rows were finite and contracting; this is not a chaos classification. All saved file hashes verified. Worker PID 674594 absent and independent GPU query shows 2 MiB used and no compute processes. Receipt docs/huginn-chaos-pilot-receipt.json. A 32x32 map with a shared 512-step transient and 1024 steps at two offsets projects 10.32 local-speed compute-hours before overhead; remote throughput unmeasured. No rental launched. Future production map, float64/JVP checks, long prompts and orbit verification remain unqualified.
+
+_commit `0d8ee9014b86` (dirty worktree)_

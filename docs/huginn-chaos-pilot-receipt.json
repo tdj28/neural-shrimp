@@ -1,0 +1,117 @@
+{
+  "kind": "exploratory engineering qualification, not chaos evidence",
+  "source": "0d8ee9014b86f8af793ad20a3d51edcc1c6298ac",
+  "raw_root": "/data2/neural-shrimp-data/explore/huginn/hcp1-local-20261022-01",
+  "manifest_sha256": "1ee240412af6113b5f79d695470f22f7ff6b30d22bb248704e7f5edb748f214a",
+  "hashes_verified": true,
+  "elapsed_seconds": 61.76403400069103,
+  "runtime": {
+    "kind": "runtime",
+    "elapsed": 2.163376154843718,
+    "torch": "2.14.1+cu130",
+    "cuda": "13.0",
+    "gpu": "NVIDIA RTX 2000 Ada Generation",
+    "revision": "bb6621b65e90b6a4b9b29ef88dc83866d450470c"
+  },
+  "native_gate": {
+    "kind": "native_gate",
+    "elapsed": 10.755420257803053,
+    "relative_error": 0.0,
+    "repeat_max_error": 0.0
+  },
+  "timings": [
+    {
+      "cells": 1,
+      "state_rows": 2,
+      "steps": 16,
+      "seconds": 0.5500667979940772,
+      "seconds_per_cell_step": 0.034379174874629825,
+      "peak_bytes": 6572920320
+    },
+    {
+      "cells": 4,
+      "state_rows": 8,
+      "steps": 16,
+      "seconds": 1.195026757195592,
+      "seconds_per_cell_step": 0.018672293081181124,
+      "peak_bytes": 6601757184
+    },
+    {
+      "cells": 16,
+      "state_rows": 32,
+      "steps": 16,
+      "seconds": 3.6251302040182054,
+      "seconds_per_cell_step": 0.014160664859446115,
+      "peak_bytes": 6715245056
+    }
+  ],
+  "diagnostics": [
+    {
+      "lam": 1.0,
+      "eps": 0.001,
+      "steps": 256,
+      "seconds": 8.901499562896788,
+      "mean_log_growth": -0.20683791850807026,
+      "half_means": [
+        -0.2145899933027798,
+        -0.1990858437133607
+      ],
+      "last_residual": 2.271926177854766e-06
+    },
+    {
+      "lam": 1.0,
+      "eps": 0.0003,
+      "steps": 256,
+      "seconds": 8.920388482045382,
+      "mean_log_growth": -0.2021855142765278,
+      "half_means": [
+        -0.20661959740848893,
+        -0.19775143114456667
+      ],
+      "last_residual": 2.271926177854766e-06
+    },
+    {
+      "lam": 1.1,
+      "eps": 0.001,
+      "steps": 256,
+      "seconds": 8.93856907915324,
+      "mean_log_growth": -0.052400615838011075,
+      "half_means": [
+        -0.058240927061710315,
+        -0.04656030461431184
+      ],
+      "last_residual": 4.829295448871562e-06
+    },
+    {
+      "lam": 1.1,
+      "eps": 0.0003,
+      "steps": 256,
+      "seconds": 8.949436886236072,
+      "mean_log_growth": -0.055556570210383974,
+      "half_means": [
+        -0.06530531800714365,
+        -0.0458078224136243
+      ],
+      "last_residual": 4.829295448871562e-06
+    }
+  ],
+  "release": {
+    "worker_pid": 674594,
+    "worker_absent": true,
+    "gpu_memory_MiB": 2,
+    "compute_processes": []
+  },
+  "projection": {
+    "scope": "one 12-token prompt, 32x32 cells, shared 512-step transient then 1024 measured steps at each of two offsets; conservative twin workload charged during transient too",
+    "local_seconds_per_cell_step": 0.014160664859446115,
+    "local_compute_hours": 10.31148146920734,
+    "remote_speedup_assumed": null
+  },
+  "limits": [
+    "No production map completion or periodic-orbit verification",
+    "No long-prompt throughput qualification",
+    "No float64 or JVP qualification",
+    "Native equivalence checked at one state",
+    "No actual rented-node benchmark; pricing plan must gate on measured remote throughput"
+  ]
+}
